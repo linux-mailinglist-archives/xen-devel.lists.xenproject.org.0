@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45517C92926
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 17:24:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175021.1499943 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0822C929C2
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 17:47:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175035.1499954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP1GC-0002oY-JG; Fri, 28 Nov 2025 16:23:52 +0000
+	id 1vP1cM-00066t-Fx; Fri, 28 Nov 2025 16:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175021.1499943; Fri, 28 Nov 2025 16:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 1175035.1499954; Fri, 28 Nov 2025 16:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP1GC-0002ly-Fi; Fri, 28 Nov 2025 16:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 1175021;
- Fri, 28 Nov 2025 16:23:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hHoX=6E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vP1GA-0002ls-LI
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 16:23:50 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d8f0d06-cc76-11f0-980a-7dc792cee155;
- Fri, 28 Nov 2025 17:23:47 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-b7370698a8eso106500566b.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 08:23:47 -0800 (PST)
-Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5a2176csm472366466b.57.2025.11.28.08.23.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 08:23:45 -0800 (PST)
+	id 1vP1cM-00064S-Bm; Fri, 28 Nov 2025 16:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 1175035;
+ Fri, 28 Nov 2025 16:46:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dGCQ=6E=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
+ id 1vP1cK-00064M-3e
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 16:46:44 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d06ea8ff-cc79-11f0-9d18-b5c5bf9af7f9;
+ Fri, 28 Nov 2025 17:46:41 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 13E3F6016F;
+ Fri, 28 Nov 2025 16:46:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68719C4CEF1;
+ Fri, 28 Nov 2025 16:46:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,168 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d8f0d06-cc76-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764347026; x=1764951826; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2IpQHvzTox4G32Rgow85savMrnDc4tUH/QwMFtXEFsc=;
-        b=fD3yHB6kSo3LVdmDx/fGTdGjTQRtUOpjpV/fLRjg5vAFAGPnIzWtXi+V05kzc+2Ucm
-         qX/4h9Wprf4BpflcIoG2NlYp8En1WgiXjMg9O3ad3TJi3w1kn7j8VfV+YJMpFUDIOJP0
-         jwjZOVhJ/4syGK2A/d+iGBHYAlETK8kdkkCba4IXjLsYscDOJDjBuR1sCLSmsdQ9kiQ/
-         0/jQy0Fa3k/RFDrq8zBZqTHjp/PkmkTfhy2gD0pfEmiYrrVHZnXOPHFmzQR0xDyfxcZM
-         o1P1YZxBA3zbhHobBnxTeXz0zw2onK22pyKDjmCC1vM60HFfC4c36xee4khy8ADPSNe7
-         Fkcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764347026; x=1764951826;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2IpQHvzTox4G32Rgow85savMrnDc4tUH/QwMFtXEFsc=;
-        b=OmN2XX+TLmoI924vCA0Jalyb1YH7gaezYER5Am1j7/v/ZAz3jPvbmNh7pe9El8i2Rb
-         7rENLeme7D2qb2E6GuEb9OYnhY3RZkK1Ef7K4RvOcVfYFcFf8P6s00fjpv8xwttxiUw0
-         lavTTMNkJG7RBIYzWDcMPussiuF9PjEMBzPVVk0jtyH7xWJ5kliGTjMfyIP+6tG14moY
-         66Cs398UXH2xM+aMXngPEdSZQZWPUBmXhgPNDeAra48YKMd4pEFHI/m6xxqUa3kBuUo+
-         mDlSwOfDwz7x7vi+pB/25Enp4ow7Wv4ceOEkM3jYJ8BZdimsIN5bMU8FR2XD6Qbssaq0
-         i6EQ==
-X-Gm-Message-State: AOJu0YwMUPVLiAyLwSF+ZFAtPdyM/oq2oKlW8GQmr32NpKZiyCU9U9Rg
-	DjUthsVVl4qANQABrEQiN7qtMVjccI1BSbWL8XN5U3zuCy+x/9Jd8/cKFfR5zGyu
-X-Gm-Gg: ASbGncu0wPMTd9/aTp0KSXAXGFdan+mAdMlUB7S/fvzddQSty8/10wgnT91+8kDv/U1
-	Rmx76dd5pO678PlO49ZI2ey13x3zYAdyNwSpc9on3QFgc8/g6gIkREcMiExS6LPvNap2Df/j4JG
-	tnuvMOGpZf53Q1mpkI23VJmIokeowSE85W7k05jIT5T60nJaMYJ3D3DFarGudxRqJ6dXFdlHFoF
-	tJRCck7jc71heIVkALRcK4wOZQQ5SGy8ou0WPnOZMThaFo9bBsEDZltbSN9v9uvzz8lJt+mS2TR
-	uHbdceOMJNDM6mu+BYRNfbv4mh0akhFlb6h3xGWicxoUSW9feLjyRvu7coNGiSXzxPLVh4nooR5
-	y9XsuEWay639RBMg+sD74X7oEm7OwyaI2G+PuBnhlg+XOxq0EtC+hVfEEMPoQ8yoFYP+pw299Y7
-	CobOg8cuUht3bgoAdQmt5IdR1fDv2zCrQ1Wbn0d4Zl+XZ/eH84Nlpq5mE=
-X-Google-Smtp-Source: AGHT+IHJSkXwLZL8Xjb13PyuGDJV9IHv05ZhH6nQMhhVHreZDznpFpE44ZxKNeE6PZ6TEDuqT5J8/A==
-X-Received: by 2002:a17:907:1c04:b0:b71:8448:a8dd with SMTP id a640c23a62f3a-b7671703d89mr3219472566b.31.1764347026007;
-        Fri, 28 Nov 2025 08:23:46 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Timothy Pearson <tpearson@raptorengineering.com>
-Subject: [PATCH v2] xen: move vcpu_kick() declaration to common header
-Date: Fri, 28 Nov 2025 17:23:35 +0100
-Message-ID: <b009997b5f3e7489fadb5f62f1623fc4d13bf271.1764344988.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.52.0
+X-Inumbo-ID: d06ea8ff-cc79-11f0-9d18-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1764348399;
+	bh=2/LDXJbhzfaY8TgSwz0wTHwET8ytYKSX0vuKmjOg9q8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gPTyQiqSWeJ3qKgwhHuE5OPm2JY5XfYMHBl1vU3fZitjs7TtFqOXG3NzAuDjD6JNW
+	 IFbSUWsKQ0fmzhLxmPezWj4XweDRXlKLO/6wj5x6PGVU6GfETcgUXjUCWTOS0jxTcw
+	 HrvAv/MQ4sVAHQA9n3NwhVs6TjQW+ftvxO/Zj2cidFS/fQMoqa2opCqEUyq9v+LMQF
+	 XLIyGc5/Rfig+zszKHU8nQqXljrzlaGN3IPiGjIm7svpG7zmQeKX2kAQ/6WxkNR76s
+	 xk50wEPHeuten1KOHxMbuYOzD/oV+DNMSogIHtvNp7AynWGz55u2t8KMobEg0LpQbj
+	 EgI5QnJFNq6lA==
+Date: Fri, 28 Nov 2025 09:46:37 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: qemu-devel@nongnu.org, Peter.Turner@cloud.com, ngoc-tu.dinh@vates.tech,
+	Klaus Jensen <its@irrelevant.dk>,
+	Jesper Devantier <foss@defmacro.it>, xen-devel@lists.xenproject.org
+Subject: Re: Default NVMe MDTS value causes Widnows Server 2025 hangs and
+ BSODs (during install at least)
+Message-ID: <aSnR7elEI_aJ1fFM@kbusch-mbp>
+References: <aSl5X4dJHACpJHPU@Mac.lan>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aSl5X4dJHACpJHPU@Mac.lan>
 
-The vcpu_kick() declaration is duplicated across multiple
-architecture-specific event.h headers (ARM, x86, PPC).
+On Fri, Nov 28, 2025 at 11:28:47AM +0100, Roger Pau Monné wrote:
+> Hello,
+> 
+> As part of XenServer Windows Server 2025 testing using Xen plus QEMU
+> we discovered an issue during install that would lead to either the
+> Windows installer getting stuck without making progress (albeit the
+> screen was still showing the spinning circle correctly) or a BSOD that
+> doesn't seem to have a unique number, the most common one was 0x50
+> (PAGE_FAULT_IN_NONPAGED_AREA).
+> 
+> After a fair amount of debugging and following incorrect leads we have
+> narrowed down what triggers the issue to QEMU emulated NVMe reporting
+> a MDTS value of 7 by default (so max request size of 512KiB).
+> Switching to higher MDTS values seemed to solve the issue.
+> 
+> The commit that made that change:
+> 
+> e137d20e7dff hw/block/nvme: add check for mdts
+> 
+> Didn't contain much justification for the change from unlimited to
+> 512KiB max request size.
+> 
+> Windows is like a black box to me, but I believe there's some error in
+> the Windows logic that splits requests, and hence when MDTS is set to
+> a sufficiently low value, and Windows has to split NVMe requests, it
+> causes Windows to hit an internal bug.  This will be raised with
+> Microsoft to get the issue debugged and possibly fixed on their side.
+> 
+> From limited experimentation setting mdts to 10 (so 4MiB max request
+> size) or 9 (2MiB) workarounds the issue.
+> 
+> Would it be acceptable for QEMU NVMe to consider increasing the
+> default MDTS value to something higher than 7 to workaround the issue?
+> I've tested both 9 and 10 and they prevent the issue, I would avoid 8
+> as it's too close to the current one that causes issues.  I don't have
+> many references of other emulated NVMe implementations, I just know
+> about Bhyve emulated NVMe, which sets MDTS to 9.
+> 
+> If bumping MDTS to a higher value is acceptable please let me know and
+> I will prepare a patch.
 
-Remove the redundant declarations and move vcpu_kick() into
-the common xen/include/xen/sched.h header.
+The mdts value is a prameter you can set at the command line. The 512k
+default is really pretty reasonable, but you can set it up to 2MB
+(mdts=9) if you want before hitting a different software limit that
+won't let you go any higher. So rather than patch the device, I'd
+recommend you just modify your startup command line parameters instead.
 
-Drop the definition of vcpu_kick() from ppc/include/asm/event.h,
-as it is already provided in ppc/stubs.c.
-
-Add inclusion of xen/sched.h in the files where vcpu_kick() is
-used.
-
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-CI tests:
- https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2185404470
----
-Changes in v2:
- - Move vcpu_kick() declaration to xen/sched.h instead of xen/event.h
- - Revert changes connected to switching asm/event.h to xen/event.h as vcpu_kick() 
-   is now living in xen/sched.h.
- - Add inclusion of xen/sched.h because of moved vcpu_kick() declaration to
-   xen/sched.h.
- - Update the commit message.
----
- xen/arch/arm/include/asm/event.h | 1 -
- xen/arch/ppc/include/asm/event.h | 1 -
- xen/arch/x86/cpu/mcheck/vmce.c   | 1 +
- xen/arch/x86/include/asm/event.h | 1 -
- xen/arch/x86/pv/traps.c          | 1 +
- xen/include/xen/sched.h          | 1 +
- 6 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/event.h b/xen/arch/arm/include/asm/event.h
-index 509157b2b3..e036ab7fb8 100644
---- a/xen/arch/arm/include/asm/event.h
-+++ b/xen/arch/arm/include/asm/event.h
-@@ -3,7 +3,6 @@
- 
- #include <asm/domain.h>
- 
--void vcpu_kick(struct vcpu *v);
- void vcpu_mark_events_pending(struct vcpu *v);
- void vcpu_update_evtchn_irq(struct vcpu *v);
- void vcpu_block_unless_event_pending(struct vcpu *v);
-diff --git a/xen/arch/ppc/include/asm/event.h b/xen/arch/ppc/include/asm/event.h
-index 0f475c4b89..565eee1439 100644
---- a/xen/arch/ppc/include/asm/event.h
-+++ b/xen/arch/ppc/include/asm/event.h
-@@ -5,7 +5,6 @@
- #include <xen/lib.h>
- 
- /* TODO: implement */
--static inline void vcpu_kick(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_mark_events_pending(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_update_evtchn_irq(struct vcpu *v) { BUG_ON("unimplemented"); }
- static inline void vcpu_block_unless_event_pending(struct vcpu *v) { BUG_ON("unimplemented"); }
-diff --git a/xen/arch/x86/cpu/mcheck/vmce.c b/xen/arch/x86/cpu/mcheck/vmce.c
-index 1a7e92506a..5e89c61238 100644
---- a/xen/arch/x86/cpu/mcheck/vmce.c
-+++ b/xen/arch/x86/cpu/mcheck/vmce.c
-@@ -12,6 +12,7 @@
- #include <xen/event.h>
- #include <xen/kernel.h>
- #include <xen/delay.h>
-+#include <xen/sched.h>
- #include <xen/smp.h>
- #include <xen/mm.h>
- #include <asm/hvm/save.h>
-diff --git a/xen/arch/x86/include/asm/event.h b/xen/arch/x86/include/asm/event.h
-index 434f65007e..d13ce28167 100644
---- a/xen/arch/x86/include/asm/event.h
-+++ b/xen/arch/x86/include/asm/event.h
-@@ -11,7 +11,6 @@
- 
- #include <xen/shared.h>
- 
--void vcpu_kick(struct vcpu *v);
- void vcpu_mark_events_pending(struct vcpu *v);
- 
- static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index c3c0976c44..21340eb0e9 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -10,6 +10,7 @@
- #include <xen/event.h>
- #include <xen/hypercall.h>
- #include <xen/lib.h>
-+#include <xen/sched.h>
- #include <xen/softirq.h>
- 
- #include <asm/debugreg.h>
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 52090b4f70..1f77e0869b 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -877,6 +877,7 @@ void vcpu_wake(struct vcpu *v);
- long vcpu_yield(void);
- void vcpu_sleep_nosync(struct vcpu *v);
- void vcpu_sleep_sync(struct vcpu *v);
-+void vcpu_kick(struct vcpu *v);
- 
- /*
-  * Force synchronisation of given VCPU's state. If it is currently descheduled,
--- 
-2.52.0
-
+Not sure if it's still the case, but there was a time when Windows
+Storport's maximum IO size had been limited to 128k, and that's exactly
+what many nvme devices reported for MDTS, so Windows is certainly
+supposed to work correctly with such values.
 
