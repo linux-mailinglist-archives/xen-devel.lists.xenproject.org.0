@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41342C92567
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 15:31:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1174904.1499845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C659C9266A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 16:06:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1174927.1499863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOzVc-0006aA-I6; Fri, 28 Nov 2025 14:31:40 +0000
+	id 1vP02R-0003P1-83; Fri, 28 Nov 2025 15:05:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1174904.1499845; Fri, 28 Nov 2025 14:31:40 +0000
+Received: by outflank-mailman (output) from mailman id 1174927.1499863; Fri, 28 Nov 2025 15:05:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vOzVc-0006XF-Eu; Fri, 28 Nov 2025 14:31:40 +0000
-Received: by outflank-mailman (input) for mailman id 1174904;
- Fri, 28 Nov 2025 14:31:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vP02R-0003NZ-5S; Fri, 28 Nov 2025 15:05:35 +0000
+Received: by outflank-mailman (input) for mailman id 1174927;
+ Fri, 28 Nov 2025 15:05:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vOzVb-0006V0-3Y
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 14:31:39 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f20bc4ce-cc66-11f0-980a-7dc792cee155;
- Fri, 28 Nov 2025 15:31:37 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-42b32900c8bso1282868f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 06:31:36 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca1a3e4sm10456538f8f.25.2025.11.28.06.31.35
+ (envelope-from <SRS0=FSNm=6E=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vP02P-0003L0-LP
+ for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 15:05:33 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab6df14c-cc6b-11f0-9d18-b5c5bf9af7f9;
+ Fri, 28 Nov 2025 16:05:26 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-640b0639dabso3474457a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 07:05:25 -0800 (PST)
+Received: from ?IPV6:2003:e5:871a:de00:dd24:7204:f00a:bf44?
+ (p200300e5871ade00dd247204f00abf44.dip0.t-ipconnect.de.
+ [2003:e5:871a:de00:dd24:7204:f00a:bf44])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64751035c24sm4520620a12.22.2025.11.28.07.05.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Nov 2025 06:31:36 -0800 (PST)
+ Fri, 28 Nov 2025 07:05:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +47,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f20bc4ce-cc66-11f0-980a-7dc792cee155
+X-Inumbo-ID: ab6df14c-cc6b-11f0-9d18-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764340296; x=1764945096; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mg0zxhwwpizeyW++7UeAZoLx8VEqCY4z92DFr+0rrWE=;
-        b=QVyFQrSkc4SWTx4s4SX3b+NeFNMmL63NckIfnw7XcL83SGOiSc2yjt5bmwkQ9xIN8n
-         6VRM0OPIWH9nZWPcg1HyqfbAUzyocBfrnFkdNUH1oPQv9ENiB9fn7Okodge9FcXx6i2l
-         kjxQD8miXOw4VDbf5rhoVnjT3Qar6HVwAUs+JNJsGRi8V+mRnVxFxbUGnhPXiuKdyio+
-         Ll7H5GI1MrzJgmQYy7/sB8lHOUlOs1Er9phz+oU08LxHZ9HwkIJYU3Kki/a6jNPkt89c
-         nvGNgkL68OjV8Ka5iz45aqOULFrce+dlyNq8QcskxdAZHA202GiUcVWEmnKo5AAF/H8A
-         YgCA==
+        d=suse.com; s=google; t=1764342325; x=1764947125; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=or8bH4z/O8dNofoRT/BdQGiClqQlWZSi6LpV9Mbd3vU=;
+        b=aZmutXc0XZRy2i3LDkFTWRt5QjycS6Z31lStcaeNzU3G9oT4JENI2qGX/w3PtI687n
+         6+KFuglCCRtk8pC+vbE/uTAupQaMAtBDA2ltxpYcNYrYjqhOA8JaFDr/RDzyJgpIfw7c
+         DI4TpXTEHUAHRhPXqw6t0oggpXxqXtCiYlYWfnQh8qi+tsjAFhM/R5JgVANyHt/GtKxR
+         8OZpK2BZqmKRQNmV5DjG9lBEkfPZQcOeGr3j7/FKanUhFiP/AQOupWOvyheXUS0qY5lg
+         Pre5PycgThiHjgv02/2KNN0eEwBpbMIKSE7+7m2YTzpyUvR/AnzJkYe2Y44CjcmjCrld
+         Unhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764340296; x=1764945096;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mg0zxhwwpizeyW++7UeAZoLx8VEqCY4z92DFr+0rrWE=;
-        b=n4rnkXq/UBHc4IFb0K5l61kGo1VbwSq8TI8aDAaRWPtoumz5sWXhlEH/0mztd2gMS4
-         lxxxvmtSv/lOa+drkoXVTfJuF648yJyadxNzOvyKsfxyXpAtWv7l7xoc8X2F+lyW368v
-         rEfaH4k1JUZ78kiV09J8qgaJ5jYWZjioEO7Vu6f2/o6mbNxjiXY4sEFedinKx4yrDsJk
-         5vlt5rCSOpH7C1W4NBd3GRGvjqnN2vyJuBe6qshtBe9dHG/wKbBfz3KkRMllX6y0Yb9N
-         NojMb1cX430wdV0h78GfMrji1GPy1cZKxF34Fd1R4Xqdf8391KZEH6X6zHNGiKInr8yI
-         nZbA==
-X-Forwarded-Encrypted: i=1; AJvYcCX6lrg8o2rwx8tQRYULll/iSK2A7Ygaw5jFMHZA5NN3sqovLQF1KwoLIcJJD/4clDTzEGzVb6E+oTc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJVpfD7IjkCw/r+6TN3UGCeRPFa73CchLDQsp0vUYROHTCGT8w
-	BW9BMBNCuLC6+CMBVJ6r+00uu/jdDBagLSQxvLyupGwoT6yKfll1yLVkhjBrF1J/dg==
-X-Gm-Gg: ASbGncuWa4TseVGeUWvyXIjOKW4k+orSr7KEy96K6thurdedp4ZAqRvJs/7xWrtLT1Q
-	H2dmmRexNvhbW7g220/PvGdmooadnu8hDofKNdUpYRYE5bNUoIvmLUObRD6Cma0/zyRBN8QbdiL
-	YbbmKMoiQnEnP2DpzZeubTjNItkVl1T68QNCX3918ovwn/u6TqAVHYdhba0B5uEge9FEdZ0XK1Z
-	t7gO8fPkbDCivjISBO1V7x7zo0q/nzr/R1Zp/dzFzU/qOASlZZz7CbZoJAG/gYsxWUkeoUyuJDh
-	K96N+sUqzZ2/6xbTOilX9Q6LIu4ehlCGIkhea9dlwqcRszJSEmsswhImC1hWy0xXlOkBoZf3hOh
-	XCrsWFQG1h+/ijA5p7qUQ5xf9bk8Mo03RrR3GkNuRbiJVzJ3uqIwDBD6pDV/wwGv6KzjlPtfAm+
-	2BfaI7zHdkm+OWRY5n3uqeg+8zvU5zcgP86PNn0mjEKRZCnts8V/YRNq8r2UblWbRN+Mq5Zv/N/
-	D/xQMo8552+9g==
-X-Google-Smtp-Source: AGHT+IGE3EO5syUI5YKO9YGMeJSlLp08w5pOqn9G3olav+s2jKm9tDMknenkN9s0XJOorNPT/nIJ9A==
-X-Received: by 2002:a5d:5f96:0:b0:42b:30d4:e3f0 with SMTP id ffacd0b85a97d-42cc1cf0fa3mr31753369f8f.22.1764340296336;
-        Fri, 28 Nov 2025 06:31:36 -0800 (PST)
-Message-ID: <96c71c8b-21de-42d9-afc9-280e651a29dc@suse.com>
-Date: Fri, 28 Nov 2025 15:31:35 +0100
+        d=1e100.net; s=20230601; t=1764342325; x=1764947125;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=or8bH4z/O8dNofoRT/BdQGiClqQlWZSi6LpV9Mbd3vU=;
+        b=WVnHAsYBv8Z86GM2BoU6U54UodAyDE8cNEn44FOUUGh55ZJ+HvYY/S1fPMm1fmaJOq
+         qPtmm4aWQiUCourC060M4m485oNYt+9dlgfuKBWGDIB5zF032wyoauKhOw4lUNW4JbBf
+         HyOc5tZVVBFY5cALlVOExht1v8mX8UFLxvkABaT088zL5CWnUgvC8caoSL7U6y4TrYDb
+         q51tuUf1xBjjeF823lFtrplWEETmvWhEniR3pzdELN79pPg237+TYOmTgcBmap118uRY
+         pfbieRlm0ghlkWzBr25cF2ARQDopQybuAas/b7/rhUnHD0rhtPmGF7f6i9epYRBxmkN7
+         oRPw==
+X-Forwarded-Encrypted: i=1; AJvYcCXRMqVLW9uTmi6r+C7e2L9e4YESdLecPi84AKzWzKDSO0tvCQ1xjpTPwm6XlvJiNeDuvWzy3ke/Xjw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzb15H0hvQFFhCT0juGaVVneg/0sDfSPnMOAoo4b/IgvtNmn8U9
+	fIJJqTLIAOVpNOaPpMkJJpbNRwCtjAosrEeor1Q7lefkp2pjqOYYTTBjKSppzwwYDks=
+X-Gm-Gg: ASbGncvwLmzAxf0dPR9/ynSLkNx0v947oWR0HNcpeC79G/M2fok1fE3FRyGE3/K+dph
+	813uRkRYbkP4P1jwIg2olICIA8ZLevKak3uA2MKypVFpL07yyUKmAqqA63uTtLLRsSSpVFui4e+
+	FmUHKycSdks/3+/XXaudH8a8ypaiGnkz0LFvlaHvpWmwmyM3Ufk0fADc2YWq64CpWuP+v9jRyYm
+	nxFyxJH0OpNhuZ3ZUVEagsNhW6Br/VjkwnxQ2vuDn0K4RHRr3t+RwaRPJ1hwyyU3N9eW3Wiwnz/
+	obq+N/RqUSrNufjSMWSf5AtxUxeiw76ZUEwiD/MzK3aTIzYCWTsmkr4JfytdpJOhMuk9fh5N1H4
+	4xxg9zJuNKbmRXw6sFVuGTJh97Kr7YN3cE7TizpF7aV8KL+sc8eJl1u4rCBvR2cWPS6jl2Vp/4N
+	0JAIpkwgmuSe9pCfoAsQEUae92lru0iEJsuyxG5DTinx/8kjujFT6Mo8t2QzhmR6VdgMynOPKrx
+	GnaThhtlJqWO+vsX/Y44zutIWK1RmF+jWNdWCg=
+X-Google-Smtp-Source: AGHT+IHpHy/0PbaMNl12i7vPGrJCmWCpFLD8taURs6IJEvezk3HrdIl+22juqNkJBfG7DGOMBFAZaQ==
+X-Received: by 2002:a05:6402:4405:b0:640:bce5:77a9 with SMTP id 4fb4d7f45d1cf-6455469cf36mr26068018a12.32.1764342325062;
+        Fri, 28 Nov 2025 07:05:25 -0800 (PST)
+Message-ID: <72af5838-ed6b-4549-a366-32aa0d5b3d34@suse.com>
+Date: Fri, 28 Nov 2025 16:05:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [MINI-OS PATCH] x86: have .note.Xen segment contents before other
  .note.* ones
-To: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
 References: <20251128133807.9206-1-jgross@suse.com>
+ <96c71c8b-21de-42d9-afc9-280e651a29dc@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <96c71c8b-21de-42d9-afc9-280e651a29dc@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------rwVqTJBxFDIT15mm0Ph1vodr"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------rwVqTJBxFDIT15mm0Ph1vodr
+Content-Type: multipart/mixed; boundary="------------TCALS8Ozs0s4dKhTvE2RqyCZ";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Message-ID: <72af5838-ed6b-4549-a366-32aa0d5b3d34@suse.com>
+Subject: Re: [MINI-OS PATCH] x86: have .note.Xen segment contents before other
+ .note.* ones
+References: <20251128133807.9206-1-jgross@suse.com>
+ <96c71c8b-21de-42d9-afc9-280e651a29dc@suse.com>
+In-Reply-To: <96c71c8b-21de-42d9-afc9-280e651a29dc@suse.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
  7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
@@ -106,65 +150,147 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
  nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
  3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251128133807.9206-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
-On 28.11.2025 14:38, Juergen Gross wrote:
-> Today the linker script of Mini-OS specifies to merge all .note*
-> sections into a single section .note:
-> 
->  .note : {
->           *(.note)
->           *(.note.*)
->   }
-> 
-> It seems as if ld will use the attributes of the first .note* segment
-> found during the linking process for the final .note segment.
-> 
-> Somewhere between binutils 2.43 and 2.45 something changed resulting in
-> .note.GNU-stack being the first .note* segment found. Unfortunately
-> this segment has unusual attributes: it has PROGBITS instead of NOTE as
-> type, resulting in the Xen ELF parsing to no longer look into it for
-> finding the Xen ELF-notes. This in turn will result in failure while
-> trying to parse the binary, which will let domain creation fail.
-> 
-> In order to avoid this issue, enhance the linker script to merge
-> .note.Xen before other .note.* segments, resulting in the final .note
-> segment to still have the NOTE type.
-> 
-> Fixes: 6d1cc81d049f ("x86: switch to use elfnote")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+--------------TCALS8Ozs0s4dKhTvE2RqyCZ
+Content-Type: multipart/mixed; boundary="------------FO0yOVvCOAExGitp5zca0yIJ"
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+--------------FO0yOVvCOAExGitp5zca0yIJ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I wonder though ...
+T24gMjguMTEuMjUgMTU6MzEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyOC4xMS4yMDI1
+IDE0OjM4LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gVG9kYXkgdGhlIGxpbmtlciBzY3Jp
+cHQgb2YgTWluaS1PUyBzcGVjaWZpZXMgdG8gbWVyZ2UgYWxsIC5ub3RlKg0KPj4gc2VjdGlv
+bnMgaW50byBhIHNpbmdsZSBzZWN0aW9uIC5ub3RlOg0KPj4NCj4+ICAgLm5vdGUgOiB7DQo+
+PiAgICAgICAgICAgICooLm5vdGUpDQo+PiAgICAgICAgICAgICooLm5vdGUuKikNCj4+ICAg
+IH0NCj4+DQo+PiBJdCBzZWVtcyBhcyBpZiBsZCB3aWxsIHVzZSB0aGUgYXR0cmlidXRlcyBv
+ZiB0aGUgZmlyc3QgLm5vdGUqIHNlZ21lbnQNCj4+IGZvdW5kIGR1cmluZyB0aGUgbGlua2lu
+ZyBwcm9jZXNzIGZvciB0aGUgZmluYWwgLm5vdGUgc2VnbWVudC4NCj4+DQo+PiBTb21ld2hl
+cmUgYmV0d2VlbiBiaW51dGlscyAyLjQzIGFuZCAyLjQ1IHNvbWV0aGluZyBjaGFuZ2VkIHJl
+c3VsdGluZyBpbg0KPj4gLm5vdGUuR05VLXN0YWNrIGJlaW5nIHRoZSBmaXJzdCAubm90ZSog
+c2VnbWVudCBmb3VuZC4gVW5mb3J0dW5hdGVseQ0KPj4gdGhpcyBzZWdtZW50IGhhcyB1bnVz
+dWFsIGF0dHJpYnV0ZXM6IGl0IGhhcyBQUk9HQklUUyBpbnN0ZWFkIG9mIE5PVEUgYXMNCj4+
+IHR5cGUsIHJlc3VsdGluZyBpbiB0aGUgWGVuIEVMRiBwYXJzaW5nIHRvIG5vIGxvbmdlciBs
+b29rIGludG8gaXQgZm9yDQo+PiBmaW5kaW5nIHRoZSBYZW4gRUxGLW5vdGVzLiBUaGlzIGlu
+IHR1cm4gd2lsbCByZXN1bHQgaW4gZmFpbHVyZSB3aGlsZQ0KPj4gdHJ5aW5nIHRvIHBhcnNl
+IHRoZSBiaW5hcnksIHdoaWNoIHdpbGwgbGV0IGRvbWFpbiBjcmVhdGlvbiBmYWlsLg0KPj4N
+Cj4+IEluIG9yZGVyIHRvIGF2b2lkIHRoaXMgaXNzdWUsIGVuaGFuY2UgdGhlIGxpbmtlciBz
+Y3JpcHQgdG8gbWVyZ2UNCj4+IC5ub3RlLlhlbiBiZWZvcmUgb3RoZXIgLm5vdGUuKiBzZWdt
+ZW50cywgcmVzdWx0aW5nIGluIHRoZSBmaW5hbCAubm90ZQ0KPj4gc2VnbWVudCB0byBzdGls
+bCBoYXZlIHRoZSBOT1RFIHR5cGUuDQo+Pg0KPj4gRml4ZXM6IDZkMWNjODFkMDQ5ZiAoIng4
+Njogc3dpdGNoIHRvIHVzZSBlbGZub3RlIikNCj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4g
+R3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4gDQo+IFJldmlld2VkLWJ5OiBKYW4gQmV1bGlj
+aCA8amJldWxpY2hAc3VzZS5jb20+DQo+IA0KPiBJIHdvbmRlciB0aG91Z2ggLi4uDQo+IA0K
+Pj4gLS0tIGEvYXJjaC94ODYvbWluaW9zLXg4Ni5sZHMuUw0KPj4gKysrIGIvYXJjaC94ODYv
+bWluaW9zLXg4Ni5sZHMuUw0KPj4gQEAgLTMzLDYgKzMzLDcgQEAgU0VDVElPTlMNCj4+ICAg
+DQo+PiAgICAgICAgICAgLm5vdGUgOiB7DQo+PiAgICAgICAgICAgICAgICAgICAqKC5ub3Rl
+KQ0KPj4gKyAgICAgICAgICAgICAgICAqKC5ub3RlLlhlbikNCj4+ICAgICAgICAgICAgICAg
+ICAgICooLm5vdGUuKikNCj4+ICAgICAgICAgICB9DQo+IA0KPiAuLi4gd2hhdCB1c2UgLm5v
+dGUgaGVyZSBpcy4gQ2FuJ3QgaXQgYmUgZHJvcHBlZCBpbiBleGNoYW5nZT8NCg0KRHJvcHBp
+bmcgaXQgc2VlbXMgbm90IHRvIGhhdmUgYW55IG5lZ2F0aXZlIGltcGFjdC4NCg0KSW4gdGhl
+b3J5IHRoaXMgc2hvdWxkIG5vdCBiZSBpbiB0aGF0IHBhdGNoLCB0aG91Z2gsIGFzIGl0cyBw
+cmVzZW5jZSB3YXMNCnF1ZXN0aW9uYWJsZSBldmVuIHdpdGhvdXQgbXkgcGF0Y2guDQoNCg0K
+SnVlcmdlbg0K
+--------------FO0yOVvCOAExGitp5zca0yIJ
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> --- a/arch/x86/minios-x86.lds.S
-> +++ b/arch/x86/minios-x86.lds.S
-> @@ -33,6 +33,7 @@ SECTIONS
->  
->          .note : {
->                  *(.note)
-> +                *(.note.Xen)
->                  *(.note.*)
->          }
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-... what use .note here is. Can't it be dropped in exchange?
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Jan
+--------------FO0yOVvCOAExGitp5zca0yIJ--
+
+--------------TCALS8Ozs0s4dKhTvE2RqyCZ--
+
+--------------rwVqTJBxFDIT15mm0Ph1vodr
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmkpujMFAwAAAAAACgkQsN6d1ii/Ey/G
+Gwf/UtWvI+oYU1MQch6HO2Sc1mxaHok7Iok4Djpx3+J0Vg7Co0V6iY5dzsQpijpkDq6IWXeBhfEL
+y90Few2gGeyjmaEc3e7tFW2+5m7lk05rF6JYJTEts8v4VkfT0vae/SNuHodz7BNB95BV3o+SsAXD
+IJyci92mMc/wEAPAmF1y84/6DsmQ8H3zsgn3+v4rhMISzqJNtki+xtnEimtfuHTF1CUw8ZDp/Trd
+J3d89ocqOhURDmn4NDQ9XncQhJ3H3VfB52Nm+ICt3jHPM6Ijev7vbPcTDy/PXEJ1SKC1Eey8/one
+Or2qTHR9/ttCPPTq+C+OW6lKxKPpbraE18K3gkLkDg==
+=iEnZ
+-----END PGP SIGNATURE-----
+
+--------------rwVqTJBxFDIT15mm0Ph1vodr--
 
