@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBD7CC93194
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Nov 2025 21:20:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175123.1500047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C709AC93EAB
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Nov 2025 14:45:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175230.1500079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP4wb-0003xD-HB; Fri, 28 Nov 2025 20:19:53 +0000
+	id 1vPLFb-0003ob-64; Sat, 29 Nov 2025 13:44:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175123.1500047; Fri, 28 Nov 2025 20:19:53 +0000
+Received: by outflank-mailman (output) from mailman id 1175230.1500079; Sat, 29 Nov 2025 13:44:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vP4wb-0003qL-7H; Fri, 28 Nov 2025 20:19:53 +0000
-Received: by outflank-mailman (input) for mailman id 1175123;
- Fri, 28 Nov 2025 20:19:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vPLFb-0003m2-1N; Sat, 29 Nov 2025 13:44:35 +0000
+Received: by outflank-mailman (input) for mailman id 1175230;
+ Sat, 29 Nov 2025 13:44:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vP4wZ-0003fj-5o
- for xen-devel@lists.xenproject.org; Fri, 28 Nov 2025 20:19:51 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95c00832-cc97-11f0-980a-7dc792cee155;
- Fri, 28 Nov 2025 21:19:47 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47796a837c7so14791295e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Nov 2025 12:19:47 -0800 (PST)
-Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
- [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479052ec685sm98201245e9.6.2025.11.28.12.19.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Nov 2025 12:19:45 -0800 (PST)
+ <SRS0=66PA=6F=yandex-team.ru=vsementsov@srs-se1.protection.inumbo.net>)
+ id 1vPLFY-0003lw-In
+ for xen-devel@lists.xenproject.org; Sat, 29 Nov 2025 13:44:33 +0000
+Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net
+ [178.154.239.200]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 879beefc-cd29-11f0-9d18-b5c5bf9af7f9;
+ Sat, 29 Nov 2025 14:44:30 +0100 (CET)
+Received: from mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net
+ (mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net
+ [IPv6:2a02:6b8:c42:65a0:0:640:e1de:0])
+ by forwardcorp1d.mail.yandex.net (Yandex) with ESMTPS id 7BD36807C8;
+ Sat, 29 Nov 2025 16:44:28 +0300 (MSK)
+Received: from vsementsov-lin.. (unknown [2a02:6bf:8080:891::1:b])
+ by mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (smtpcorp/Yandex) with
+ ESMTPSA id Iigm2k0FK8c0-ulXpjbz3; Sat, 29 Nov 2025 16:44:27 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +44,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95c00832-cc97-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1764361187; x=1764965987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qQpt1luuOqoD50sau1mPzz7mAyMLD1xHkGk2por5HTg=;
-        b=jhTiH1EzNrfUrQn5D497CjviK6+EFf1B0h2gK56icAaMKZ5dF2v/YBiodyZR6rTvIj
-         jTpIdPVlNPng9vAsJ70e5RBmp8bvN5QZPsAkM8kNMWcRHRPta5ZBOAzk44mynEUkeuAM
-         +2jbdAZb+gH3CpWUTwZ7LeCbrgWYBpBGd7C7E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764361187; x=1764965987;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qQpt1luuOqoD50sau1mPzz7mAyMLD1xHkGk2por5HTg=;
-        b=ROiInP0gmyXC0gyA8KqThxi0yH44mZ/ecSF9+It1kfo8QDNKWYglSxdzTj9fqTLXpX
-         5yWmJ7V7o3WZQMe6eUN03qnO+XHiGOs5cDSYhlZYW+GjyoGN3obnIC2tIAPkqobAsDxt
-         VDKhdFnXddDSCrcfz1FHPqPff5qdFECVgfTdX8I/Y4ZQlgMI1zJCg5u6W1X3u9fHZy2X
-         l9akpZ3c1gt6rlfhgxWP2Mhj00cjgl5B8Q+Ud0jwD8sC7tU84o33gzFFPo1u4nXUTRco
-         E2QdZOXlpkHiBIn10JHLEygPkhx57i5D8yRxMBXG7Ggn6dDS5t8Sa/qAburNCOCuu7vy
-         ArrQ==
-X-Gm-Message-State: AOJu0YyesldtMjwoHDsJZvRUIipQMZycECjxUltTe7kE1YoVGwBKvQIZ
-	cOMeV30U00lMnta+BdSmqghBDdqpNLJLQ490XB4IVVQhBE7kQTueO/WLT/O+sZRCgiFjR+uAx/z
-	yyBTS
-X-Gm-Gg: ASbGncvNXmu+/0MoGhIaJnPzFLSoEc2vIbImM+hjDvG8JllYVNOday11uZ9uNCfo4FV
-	wucLaRglGxSMJhtlCLxNom0SwCJnG0+lmC0QH3CHaeACivD9AT8olFCUrFyRAIV97dRIAzTzMdQ
-	2c6Jf93RD9jq1gL8ThJ2pQa6zLmRvhRiqAUpwIy/JwPEP+718dy3GoXHJDRnwQL5YphpKldJKiR
-	mPG6stwQFg7CB/45aR1Su/XQRGl29c6vLQU0rP+c5nWVJonmpTYTUDSulecuhWgCJiHI98iSN3B
-	+e4GQresBF6UcxHdphiTpgIMUVzJVQniI1XY9p7UUPI14IJBrNBYRo1wuuTBha4Erv2hoZqeRAG
-	iY9bO3NYWWTat6vOj4Y5+9sJA5mrnyJnuHceDXslRO/jjbpDoi8TpDxxWs1gbRzS3qE5G5XgINz
-	G5fTkfJPlIfYApkF1vK4CbP8t6yBkX67FiyeEvXMtSmEaUc7hGr4LkNcsXoHu3Bw==
-X-Google-Smtp-Source: AGHT+IEWlAhmwKzRi3DsVPEVcLwvXUa3WdI8oU+KMgVAlRBQhJkwsNFHt6SbxbXLvLvxaPiEZhDQFQ==
-X-Received: by 2002:a05:600c:3146:b0:477:df7:b020 with SMTP id 5b1f17b1804b1-477c01b2211mr302738935e9.18.1764361186642;
-        Fri, 28 Nov 2025 12:19:46 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/3] x86/svm: Drop svmdebug.h
-Date: Fri, 28 Nov 2025 20:19:37 +0000
-Message-Id: <20251128201937.1294742-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
-References: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 879beefc-cd29-11f0-9d18-b5c5bf9af7f9
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1764423867;
+	bh=LUCSxr52Pv2huLa0fLn9hz38EO3fAzK11cfvmV1Zx1o=;
+	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+	b=fnN1kUpbAUIbmVpr8z4hs3eb95QPfQMSIrmtOiUfZcBCqWBA53ree1f+qm7BDIGff
+	 GMBZkItq/iHyjYMaL7UtmTwwYoW8yuJUp3W2DRqd8uy9x/L4gaQqJ6+Zf7xVuAm7rA
+	 gBJeWp/iea8yhHtgJbTB0ze8yFT+wdli48WJX+qo=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+To: marcandre.lureau@redhat.com
+Cc: pbonzini@redhat.com,
+	qemu-devel@nongnu.org,
+	vsementsov@yandex-team.ru,
+	d-tatianin@yandex-team.ru,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
+Subject: [PATCH 6/8] chardev: introduce .chr_get_pty_name() handler
+Date: Sat, 29 Nov 2025 16:43:46 +0300
+Message-ID: <20251129134350.487839-7-vsementsov@yandex-team.ru>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20251129134350.487839-1-vsementsov@yandex-team.ru>
+References: <20251129134350.487839-1-vsementsov@yandex-team.ru>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-svmdebug.h now only contains the declaration for svm_sync_vmcb(), despite the
-function being implemented in svm.c.  Move the declaration into svm.h
+Currently we do two wrong things:
 
-No functional change.
+1. Abuse s->filename to get pty_name from it
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+2. Violate layering with help of CHARDEV_IS_PTY()
+
+Let's get rid of both, and introduce correct way to get pty name in
+generic code, if available.
+
+Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/hvm/svm/svm.c                  |  1 -
- xen/arch/x86/hvm/svm/svm.h                  | 17 +++++++++++++++++
- xen/arch/x86/hvm/svm/vmcb.c                 |  2 +-
- xen/arch/x86/include/asm/hvm/svm/svmdebug.h | 16 ----------------
- xen/arch/x86/include/asm/hvm/svm/vmcb.h     | 15 ---------------
- 5 files changed, 18 insertions(+), 33 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/hvm/svm/svmdebug.h
+ chardev/char-pty.c     |  7 +++++++
+ chardev/char.c         | 19 +++++++++++++------
+ hw/char/xen_console.c  |  7 ++++---
+ include/chardev/char.h |  7 +++++--
+ 4 files changed, 29 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 14b3a427e642..15d45cbb57c5 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -27,7 +27,6 @@
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/svmdebug.h>
- #include <asm/hvm/svm/vmcb.h>
- #include <asm/i387.h>
- #include <asm/idt.h>
-diff --git a/xen/arch/x86/hvm/svm/svm.h b/xen/arch/x86/hvm/svm/svm.h
-index f5b0312d2dcf..cfa411ad5ae1 100644
---- a/xen/arch/x86/hvm/svm/svm.h
-+++ b/xen/arch/x86/hvm/svm/svm.h
-@@ -78,6 +78,23 @@ unsigned int svm_get_task_switch_insn_len(void);
- #define _NPT_PFEC_in_gpt       33
- #define NPT_PFEC_in_gpt        (1UL<<_NPT_PFEC_in_gpt)
+diff --git a/chardev/char-pty.c b/chardev/char-pty.c
+index a582aa7bc7..047aade09e 100644
+--- a/chardev/char-pty.c
++++ b/chardev/char-pty.c
+@@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts, ChardevBackend *backend, Error **errp)
+     pty->path = g_strdup(path);
+ }
  
-+/*
-+ * VMRUN doesn't switch fs/gs/tr/ldtr and SHADOWGS/SYSCALL/SYSENTER state.
-+ * Therefore, guest state is in the hardware registers when servicing a
-+ * VMExit.
-+ *
-+ * Immediately after a VMExit, the vmcb is stale, and needs to be brought
-+ * into sync by VMSAVE.  If state in the vmcb is modified, a VMLOAD is
-+ * needed before the following VMRUN.
-+ */
-+enum vmcb_sync_state {
-+    vmcb_in_sync,
-+    vmcb_needs_vmsave,    /* VMCB out of sync (VMSAVE needed)? */
-+    vmcb_needs_vmload,    /* VMCB dirty (VMLOAD needed)? */
-+};
++static char *pty_chr_get_pty_name(Chardev *chr)
++{
++    PtyChardev *s = PTY_CHARDEV(chr);
++    return g_strdup(s->pty_name);
++}
 +
-+void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state);
+ static void char_pty_class_init(ObjectClass *oc, const void *data)
+ {
+     ChardevClass *cc = CHARDEV_CLASS(oc);
+@@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, const void *data)
+     cc->chr_write = pty_chr_write;
+     cc->chr_update_read_handler = pty_chr_update_read_handler;
+     cc->chr_add_watch = pty_chr_add_watch;
++    cc->chr_get_pty_name = pty_chr_get_pty_name;
+ }
+ 
+ static const TypeInfo char_pty_type_info = {
+diff --git a/chardev/char.c b/chardev/char.c
+index 44bfed3627..0dc792b88f 100644
+--- a/chardev/char.c
++++ b/chardev/char.c
+@@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id, ChardevBackend *backend,
+     }
+ 
+     ret = g_new0(ChardevReturn, 1);
+-    if (CHARDEV_IS_PTY(chr)) {
+-        ret->pty = g_strdup(chr->filename + 4);
+-    }
++    ret->pty = qemu_chr_get_pty_name(chr);
+ 
+     return ret;
+ 
+@@ -1101,6 +1099,17 @@ err:
+     return NULL;
+ }
+ 
++char *qemu_chr_get_pty_name(Chardev *chr)
++{
++    ChardevClass *cc = CHARDEV_GET_CLASS(chr);
 +
- #endif /* __X86_HVM_SVM_SVM_PRIV_H__ */
++    if (cc->chr_get_pty_name) {
++        return cc->chr_get_pty_name(chr);
++    }
++
++    return NULL;
++}
++
+ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
+                                   Error **errp)
+ {
+@@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
+     object_unref(OBJECT(chr_new));
  
- /*
-diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-index b1a79d515143..7bde6e98ce03 100644
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -16,12 +16,12 @@
+     ret = g_new0(ChardevReturn, 1);
+-    if (CHARDEV_IS_PTY(chr_new)) {
+-        ret->pty = g_strdup(chr_new->filename + 4);
+-    }
++    ret->pty = qemu_chr_get_pty_name(chr_new);
  
- #include <asm/guest-msr.h>
- #include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/svmdebug.h>
- #include <asm/hvm/svm/vmcb.h>
- #include <asm/msr-index.h>
- #include <asm/p2m.h>
- #include <asm/spec_ctrl.h>
+     return ret;
+ }
+diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+index a639fb0b11..7502de46e4 100644
+--- a/hw/char/xen_console.c
++++ b/hw/char/xen_console.c
+@@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
+     XenConsole *con = XEN_CONSOLE_DEVICE(xendev);
+     Chardev *cs = qemu_chr_fe_get_driver(&con->chr);
+     unsigned int u;
++    g_autofree char *pty_name = NULL;
  
-+#include "svm.h"
- #include "vmcb.h"
+     if (!cs) {
+         error_setg(errp, "no backing character device");
+@@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
  
- struct vmcb_struct *alloc_vmcb(void)
-diff --git a/xen/arch/x86/include/asm/hvm/svm/svmdebug.h b/xen/arch/x86/include/asm/hvm/svm/svmdebug.h
-deleted file mode 100644
-index ede13bd34048..000000000000
---- a/xen/arch/x86/include/asm/hvm/svm/svmdebug.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * svmdebug.h: SVM related debug defintions
-- * Copyright (c) 2011, AMD Corporation.
-- *
-- */
--
--#ifndef __ASM_X86_HVM_SVM_SVMDEBUG_H__
--#define __ASM_X86_HVM_SVM_SVMDEBUG_H__
--
--#include <xen/types.h>
--#include <asm/hvm/svm/vmcb.h>
--
--void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state);
--
--#endif /* __ASM_X86_HVM_SVM_SVMDEBUG_H__ */
-diff --git a/xen/arch/x86/include/asm/hvm/svm/vmcb.h b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-index 717215ff969b..41bcc9f0d862 100644
---- a/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-@@ -21,21 +21,6 @@ struct svm_domain {
-     } osvw;
+     trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)));
+ 
+-    if (CHARDEV_IS_PTY(cs)) {
+-        /* Strip the leading 'pty:' */
+-        xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4);
++    pty_name = qemu_chr_get_pty_name(cs);
++    if (pty_name) {
++        xen_device_frontend_printf(xendev, "tty", "%s", pty_name);
+     }
+ 
+     /* No normal PV driver initialization for the primary console under Xen */
+diff --git a/include/chardev/char.h b/include/chardev/char.h
+index 23a227dca9..d36e50b99e 100644
+--- a/include/chardev/char.h
++++ b/include/chardev/char.h
+@@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)
+ 
+ #define CHARDEV_IS_RINGBUF(chr) \
+     object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)
+-#define CHARDEV_IS_PTY(chr) \
+-    object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)
+ 
+ struct ChardevClass {
+     ObjectClass parent_class;
+@@ -306,6 +304,9 @@ struct ChardevClass {
+ 
+     /* handle various events */
+     void (*chr_be_event)(Chardev *s, QEMUChrEvent event);
++
++    /* return PTY name if available */
++    char *(*chr_get_pty_name)(Chardev *s);
  };
  
--/*
-- * VMRUN doesn't switch fs/gs/tr/ldtr and SHADOWGS/SYSCALL/SYSENTER state.
-- * Therefore, guest state is in the hardware registers when servicing a
-- * VMExit.
-- *
-- * Immediately after a VMExit, the vmcb is stale, and needs to be brought
-- * into sync by VMSAVE.  If state in the vmcb is modified, a VMLOAD is
-- * needed before the following VMRUN.
-- */
--enum vmcb_sync_state {
--    vmcb_in_sync,
--    vmcb_needs_vmsave,    /* VMCB out of sync (VMSAVE needed)? */
--    vmcb_needs_vmload     /* VMCB dirty (VMLOAD needed)? */
--};
--
- struct svm_vcpu {
-     struct vmcb_struct *vmcb;
-     u64    vmcb_pa;
+ Chardev *qemu_chardev_new(const char *id, const char *typename,
+@@ -320,4 +321,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint ms,
+ void suspend_mux_open(void);
+ void resume_mux_open(void);
+ 
++char *qemu_chr_get_pty_name(Chardev *chr);
++
+ #endif
 -- 
-2.39.5
+2.48.1
 
 
