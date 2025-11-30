@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C709AC93EAB
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Nov 2025 14:45:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175230.1500079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF0BC94A6C
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Nov 2025 03:04:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175244.1500089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPLFb-0003ob-64; Sat, 29 Nov 2025 13:44:35 +0000
+	id 1vPWmo-0005bC-Eq; Sun, 30 Nov 2025 02:03:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175230.1500079; Sat, 29 Nov 2025 13:44:35 +0000
+Received: by outflank-mailman (output) from mailman id 1175244.1500089; Sun, 30 Nov 2025 02:03:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPLFb-0003m2-1N; Sat, 29 Nov 2025 13:44:35 +0000
-Received: by outflank-mailman (input) for mailman id 1175230;
- Sat, 29 Nov 2025 13:44:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vPWmo-0005Y8-95; Sun, 30 Nov 2025 02:03:38 +0000
+Received: by outflank-mailman (input) for mailman id 1175244;
+ Sun, 30 Nov 2025 02:03:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=66PA=6F=yandex-team.ru=vsementsov@srs-se1.protection.inumbo.net>)
- id 1vPLFY-0003lw-In
- for xen-devel@lists.xenproject.org; Sat, 29 Nov 2025 13:44:33 +0000
-Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net
- [178.154.239.200]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 879beefc-cd29-11f0-9d18-b5c5bf9af7f9;
- Sat, 29 Nov 2025 14:44:30 +0100 (CET)
-Received: from mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net
- (mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net
- [IPv6:2a02:6b8:c42:65a0:0:640:e1de:0])
- by forwardcorp1d.mail.yandex.net (Yandex) with ESMTPS id 7BD36807C8;
- Sat, 29 Nov 2025 16:44:28 +0300 (MSK)
-Received: from vsementsov-lin.. (unknown [2a02:6bf:8080:891::1:b])
- by mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net (smtpcorp/Yandex) with
- ESMTPSA id Iigm2k0FK8c0-ulXpjbz3; Sat, 29 Nov 2025 16:44:27 +0300
+ <SRS0=B770=6G=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vPWml-0005Y1-Ty
+ for xen-devel@lists.xenproject.org; Sun, 30 Nov 2025 02:03:36 +0000
+Received: from fhigh-b4-smtp.messagingengine.com
+ (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c228189b-cd90-11f0-980a-7dc792cee155;
+ Sun, 30 Nov 2025 03:03:27 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id DD4477A00D4;
+ Sat, 29 Nov 2025 21:03:25 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Sat, 29 Nov 2025 21:03:26 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 29 Nov 2025 21:03:24 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,178 +44,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 879beefc-cd29-11f0-9d18-b5c5bf9af7f9
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1764423867;
-	bh=LUCSxr52Pv2huLa0fLn9hz38EO3fAzK11cfvmV1Zx1o=;
-	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=fnN1kUpbAUIbmVpr8z4hs3eb95QPfQMSIrmtOiUfZcBCqWBA53ree1f+qm7BDIGff
-	 GMBZkItq/iHyjYMaL7UtmTwwYoW8yuJUp3W2DRqd8uy9x/L4gaQqJ6+Zf7xVuAm7rA
-	 gBJeWp/iea8yhHtgJbTB0ze8yFT+wdli48WJX+qo=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-56.klg.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-To: marcandre.lureau@redhat.com
-Cc: pbonzini@redhat.com,
-	qemu-devel@nongnu.org,
-	vsementsov@yandex-team.ru,
-	d-tatianin@yandex-team.ru,
+X-Inumbo-ID: c228189b-cd90-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1764468205;
+	 x=1764554605; bh=VfFTcoiKRLgWpaPbyHNH6HnuHDajzHNJEK5r9l7Aux4=; b=
+	ocHB1Sb1xQzi3PacVg5qWvyBvSG1E+Yul7CRNX3LKbgg/YT3GMF+5CDIWKvZf8DA
+	TzEOxALQ31ffcfhy4ggI3vefUDrvSEynLovJy625q5VqgvwtkOHg6bVBsK4vtHlC
+	lpID0/liwo2fU9XY/9DuG0pXRXshTZak6TrKZ41JO/YKUjiF8m+RXLYYitd7BnR5
+	TbAeAP+IRqHjaoStIJy1wj6+ryrM+ndIfIzHgRhEC8MFUu8BrAAGjJBPHgzo9/1m
+	zj3qKoBxjgjrQbkvVwNRXgcNRGOB2l/+z/5IbR6P+cSK6ydAyf73hDCpnthap+Tg
+	kkZgV+KYkpC1A26AwAA68Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1764468205; x=1764554605; bh=VfFTcoiKRLgWpaPbyHNH6HnuHDajzHNJEK5
+	r9l7Aux4=; b=bg8HRzhZFYyrx4b2oZTw2dvUjeFpJNAeG0CD9T9UXQmt6m+EsWG
+	QX5hcSelmqj6ZiPlo9SvIbm/+ALJRx9CRHSD8BlsIpCFbm1lA0N/RWticEVoDQqW
+	TazOxD5/yrB7CITvE3SFD1Amph4B3LfjFcHpFMeB9aH9hGnAUs79lcKxCArtoO/H
+	MmdYJsG6N7RBJ7LjWYXCZ/cseArR079DJZUbaewwB/t8Byrlw+fi1PDwhNzzvAOW
+	zVQqzfDTkDLTpNEI23TFosyyCugCD24HEUWCAKMC7JJoBYNHxQSWnDrg35XGFs/T
+	hDoLloTUmNh3F7bGDJsLGvoR/Ctj5ZF+6gA==
+X-ME-Sender: <xms:7aUraWFTKsGH7ah-x_monkKVznCuwYjSSvlRoIcjDKQ6f6097HSnEQ>
+    <xme:7aUraYAUCtC7JR7LJUt-FvWbFT9HlcwShQ3mmP6SH6tnENcqQPA_EjHDC9a5lHa7_
+    HFhIT-9o1ry_5YmpUCWFgcAc9DS_tEa62Od3GTCmRJePWxDxw>
+X-ME-Received: <xmr:7aUraeWOatD6RZ-f9BZksKdiIKkkX5R_t9LMmy5dDjpFTFNUfZeUTM25qXwATDvFoMbi9B2z0lfNzMx-L7Q4UyLbiJyAVUjwHtU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvheefjeefucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueekteet
+    gefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomhgrih
+    hnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmpdhnsggprhgtphhtthhopeejpdhmohguvgepshhmthhpohhuthdprhgtphht
+    thhopehjrghsohhnrdgrnhgurhihuhhksegrmhgurdgtohhmpdhrtghpthhtohepjhhgrh
+    hoshhssehsuhhsvgdrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghr
+    nhgvlhdrohhrghdprhgtphhtthhopeholhgvkhhsrghnughrpghthihshhgthhgvnhhkoh
+    esvghprghmrdgtohhmpdhrtghpthhtohephigrnhhnrdhsihhonhhnvggruhesvhgrthgv
+    shdrthgvtghhpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprh
+    hojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdr
+    khgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:7aUraUr1KR1_OTBsMhrrSWw8svfyngjK5pah-PRYhMdso5fEzPUlpQ>
+    <xmx:7aUraSRIUN3up5XSO6IHqLmyxACdyEpPzedzYzqdgr_cDFoGdmWQ1g>
+    <xmx:7aUraW0KmKNivwL7Krzhfj1lFNqia75hvr9GjT-tq7RpohxWTgW-Uw>
+    <xmx:7aUraWAcI_f1b_muMBIQrE-Od9MkG5pDWGz9imBsgUguoSJO_xG34A>
+    <xmx:7aUraXWPZkQl2TeovoZ6wb4hEawz_v0_MLRomHGDiOtj7hArkvDPcKDB>
+Feedback-ID: i1568416f:Fastmail
+Date: Sun, 30 Nov 2025 03:03:22 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH 6/8] chardev: introduce .chr_get_pty_name() handler
-Date: Sat, 29 Nov 2025 16:43:46 +0300
-Message-ID: <20251129134350.487839-7-vsementsov@yandex-team.ru>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20251129134350.487839-1-vsementsov@yandex-team.ru>
-References: <20251129134350.487839-1-vsementsov@yandex-team.ru>
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Yann Sionneau <yann.sionneau@vates.tech>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
+Message-ID: <aSul6qAYTSOSFJR3@mail-itl>
+References: <20251119224731.61497-1-jason.andryuk@amd.com>
+ <20251119224731.61497-2-jason.andryuk@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="GHry3QnaPKrirc8h"
+Content-Disposition: inline
+In-Reply-To: <20251119224731.61497-2-jason.andryuk@amd.com>
 
-Currently we do two wrong things:
 
-1. Abuse s->filename to get pty_name from it
+--GHry3QnaPKrirc8h
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Nov 2025 03:03:22 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Yann Sionneau <yann.sionneau@vates.tech>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
 
-2. Violate layering with help of CHARDEV_IS_PTY()
+On Wed, Nov 19, 2025 at 05:47:29PM -0500, Jason Andryuk wrote:
+> The goal is to fix s2idle and S3 for Xen PV devices. =20
 
-Let's get rid of both, and introduce correct way to get pty name in
-generic code, if available.
+Can you give a little more context of this? We do have working S3 in
+qubes with no need for such change. We trigger it via the toolstack (libxl_=
+domain_suspend_only()).
+Are you talking about guest-initiated suspend here?
 
-Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
----
- chardev/char-pty.c     |  7 +++++++
- chardev/char.c         | 19 +++++++++++++------
- hw/char/xen_console.c  |  7 ++++---
- include/chardev/char.h |  7 +++++--
- 4 files changed, 29 insertions(+), 11 deletions(-)
+We also have kinda working (host) s2idle. You may want to take a look at th=
+is
+work (some/most of it was posted upstream, but not all got
+committed/reviewed):
+https://github.com/QubesOS/qubes-issues/issues/6411#issuecomment-1538089344
+https://github.com/QubesOS/qubes-linux-kernel/pull/910 (some patches
+changed since that PR, see the current main too).
 
-diff --git a/chardev/char-pty.c b/chardev/char-pty.c
-index a582aa7bc7..047aade09e 100644
---- a/chardev/char-pty.c
-+++ b/chardev/char-pty.c
-@@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts, ChardevBackend *backend, Error **errp)
-     pty->path = g_strdup(path);
- }
- 
-+static char *pty_chr_get_pty_name(Chardev *chr)
-+{
-+    PtyChardev *s = PTY_CHARDEV(chr);
-+    return g_strdup(s->pty_name);
-+}
-+
- static void char_pty_class_init(ObjectClass *oc, const void *data)
- {
-     ChardevClass *cc = CHARDEV_CLASS(oc);
-@@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, const void *data)
-     cc->chr_write = pty_chr_write;
-     cc->chr_update_read_handler = pty_chr_update_read_handler;
-     cc->chr_add_watch = pty_chr_add_watch;
-+    cc->chr_get_pty_name = pty_chr_get_pty_name;
- }
- 
- static const TypeInfo char_pty_type_info = {
-diff --git a/chardev/char.c b/chardev/char.c
-index 44bfed3627..0dc792b88f 100644
---- a/chardev/char.c
-+++ b/chardev/char.c
-@@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id, ChardevBackend *backend,
-     }
- 
-     ret = g_new0(ChardevReturn, 1);
--    if (CHARDEV_IS_PTY(chr)) {
--        ret->pty = g_strdup(chr->filename + 4);
--    }
-+    ret->pty = qemu_chr_get_pty_name(chr);
- 
-     return ret;
- 
-@@ -1101,6 +1099,17 @@ err:
-     return NULL;
- }
- 
-+char *qemu_chr_get_pty_name(Chardev *chr)
-+{
-+    ChardevClass *cc = CHARDEV_GET_CLASS(chr);
-+
-+    if (cc->chr_get_pty_name) {
-+        return cc->chr_get_pty_name(chr);
-+    }
-+
-+    return NULL;
-+}
-+
- ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
-                                   Error **errp)
- {
-@@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
-     object_unref(OBJECT(chr_new));
- 
-     ret = g_new0(ChardevReturn, 1);
--    if (CHARDEV_IS_PTY(chr_new)) {
--        ret->pty = g_strdup(chr_new->filename + 4);
--    }
-+    ret->pty = qemu_chr_get_pty_name(chr_new);
- 
-     return ret;
- }
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index a639fb0b11..7502de46e4 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
-     XenConsole *con = XEN_CONSOLE_DEVICE(xendev);
-     Chardev *cs = qemu_chr_fe_get_driver(&con->chr);
-     unsigned int u;
-+    g_autofree char *pty_name = NULL;
- 
-     if (!cs) {
-         error_setg(errp, "no backing character device");
-@@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
- 
-     trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)));
- 
--    if (CHARDEV_IS_PTY(cs)) {
--        /* Strip the leading 'pty:' */
--        xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4);
-+    pty_name = qemu_chr_get_pty_name(cs);
-+    if (pty_name) {
-+        xen_device_frontend_printf(xendev, "tty", "%s", pty_name);
-     }
- 
-     /* No normal PV driver initialization for the primary console under Xen */
-diff --git a/include/chardev/char.h b/include/chardev/char.h
-index 23a227dca9..d36e50b99e 100644
---- a/include/chardev/char.h
-+++ b/include/chardev/char.h
-@@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)
- 
- #define CHARDEV_IS_RINGBUF(chr) \
-     object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)
--#define CHARDEV_IS_PTY(chr) \
--    object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)
- 
- struct ChardevClass {
-     ObjectClass parent_class;
-@@ -306,6 +304,9 @@ struct ChardevClass {
- 
-     /* handle various events */
-     void (*chr_be_event)(Chardev *s, QEMUChrEvent event);
-+
-+    /* return PTY name if available */
-+    char *(*chr_get_pty_name)(Chardev *s);
- };
- 
- Chardev *qemu_chardev_new(const char *id, const char *typename,
-@@ -320,4 +321,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint ms,
- void suspend_mux_open(void);
- void resume_mux_open(void);
- 
-+char *qemu_chr_get_pty_name(Chardev *chr);
-+
- #endif
--- 
-2.48.1
+> A domain resuming
+> from s3 or s2idle disconnects its PV devices during resume.  The
+> backends are not expecting this and do not reconnect.
+>=20
+> b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for suspend/
+> resume/chkpt") changed xen_suspend()/do_suspend() from
+> PMSG_SUSPEND/PMSG_RESUME to PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE, but the
+> suspend/resume callbacks remained.
+>=20
+> .freeze/restore are used with hiberation where Linux restarts in a new
+> place in the future.  .suspend/resume are useful for runtime power
+> management for the duration of a boot.
+>=20
+> The current behavior of the callbacks works for an xl save/restore or
+> live migration where the domain is restored/migrated to a new location
+> and connecting to a not-already-connected backend.
+>=20
+> Change xenbus_pm_ops to use .freeze/thaw/restore and drop the
+> .suspend/resume hook.  This matches the use in drivers/xen/manage.c for
+> save/restore and live migration.  With .suspend/resume empty, PV devices
+> are left connected during s2idle and s3, so PV devices are not changed
+> and work after resume.
 
+Is that intended? While it might work for suspend by a chance(*), I'm
+pretty sure not disconnecting + re-reconnecting PV devices across
+save/restore/live migration will break them.
+
+(*) and even that I'm not sure - with driver domains, depending on
+suspend order this feels like might result in a deadlock...
+
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+>  drivers/xen/xenbus/xenbus_probe_frontend.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/xen/xenbus/xenbus_probe_frontend.c b/drivers/xen/xen=
+bus/xenbus_probe_frontend.c
+> index 6d1819269cbe..199917b6f77c 100644
+> --- a/drivers/xen/xenbus/xenbus_probe_frontend.c
+> +++ b/drivers/xen/xenbus/xenbus_probe_frontend.c
+> @@ -148,11 +148,9 @@ static void xenbus_frontend_dev_shutdown(struct devi=
+ce *_dev)
+>  }
+> =20
+>  static const struct dev_pm_ops xenbus_pm_ops =3D {
+> -	.suspend	=3D xenbus_dev_suspend,
+> -	.resume		=3D xenbus_frontend_dev_resume,
+>  	.freeze		=3D xenbus_dev_suspend,
+>  	.thaw		=3D xenbus_dev_cancel,
+> -	.restore	=3D xenbus_dev_resume,
+> +	.restore	=3D xenbus_frontend_dev_resume,
+>  };
+> =20
+>  static struct xen_bus_type xenbus_frontend =3D {
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--GHry3QnaPKrirc8h
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkrpeoACgkQ24/THMrX
+1yz/Ogf9Ek/ScDnxgj95/cV4QGqaDGahXHzdfQAL6aWzCCOi4Gt8cgtgEjVGdi1A
+ZN5db9IQ1ORWcVPndp+G4rynCxA4n/ccz1S3fbWILhMKaVOpZvTyVqfJETYgKRAk
+TlBtCKLUBEMQ/T5Imv2v4OhIJW052FNCFLzQBLElBMUrLYjLb0jqhfEKkQygqRdW
+PX2anpJ/0iGcAvXzh72KKIjQpTfLvOjE2vEcAIJ25WFAZTJxmwEnWvpx2M8f8kSs
+udLkNZp8WNU5LVMzykRqNT5HSg+3KAEbpbn8xCTUnPv/qWaR2E+zKUg6Zcx27ZoJ
+/eOql8bba73bg97GmG7LH34Skvm21g==
+=nE9I
+-----END PGP SIGNATURE-----
+
+--GHry3QnaPKrirc8h--
 
