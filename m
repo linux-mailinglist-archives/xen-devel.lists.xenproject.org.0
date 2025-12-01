@@ -2,49 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C6FC98287
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 17:03:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175849.1500452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBD0C9828D
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 17:03:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175851.1500460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ6MQ-0002TQ-JW; Mon, 01 Dec 2025 16:02:46 +0000
+	id 1vQ6MQ-0002aN-Tz; Mon, 01 Dec 2025 16:02:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175849.1500452; Mon, 01 Dec 2025 16:02:46 +0000
+Received: by outflank-mailman (output) from mailman id 1175851.1500460; Mon, 01 Dec 2025 16:02:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ6MQ-0002Rz-GR; Mon, 01 Dec 2025 16:02:46 +0000
-Received: by outflank-mailman (input) for mailman id 1175849;
- Mon, 01 Dec 2025 16:02:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vQ6MQ-0002U5-PB; Mon, 01 Dec 2025 16:02:46 +0000
+Received: by outflank-mailman (input) for mailman id 1175851;
+ Mon, 01 Dec 2025 16:02:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WSEW=6H=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vQ6MO-0002Ri-IF
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 16:02:44 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 298baf14-cecf-11f0-980a-7dc792cee155;
- Mon, 01 Dec 2025 17:02:40 +0100 (CET)
-Received: from CH2PR12CA0028.namprd12.prod.outlook.com (2603:10b6:610:57::38)
- by DM6PR12MB4468.namprd12.prod.outlook.com (2603:10b6:5:2ac::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
- 2025 16:02:36 +0000
-Received: from DS3PEPF000099DD.namprd04.prod.outlook.com
- (2603:10b6:610:57:cafe::70) by CH2PR12CA0028.outlook.office365.com
- (2603:10b6:610:57::38) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Mon,
- 1 Dec 2025 16:01:46 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099DD.mail.protection.outlook.com (10.167.17.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 16:02:35 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 1 Dec
- 2025 10:02:34 -0600
+ <SRS0=R1GK=6H=bounce.vates.tech=bounce-md_30504962.692dbc21.v1-48f594ec5e2d46d98c7318464bdca1c2@srs-se1.protection.inumbo.net>)
+ id 1vQ6MP-0002Ro-BC
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 16:02:45 +0000
+Received: from mail132-18.atl131.mandrillapp.com
+ (mail132-18.atl131.mandrillapp.com [198.2.132.18])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b2bbcf0-cecf-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 17:02:43 +0100 (CET)
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-18.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dKpZn0pK2zCf9RN7
+ for <xen-devel@lists.xenproject.org>; Mon,  1 Dec 2025 16:02:41 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 48f594ec5e2d46d98c7318464bdca1c2; Mon, 01 Dec 2025 16:02:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,144 +43,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 298baf14-cecf-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BTPlRgXmZ6sGzvtnxMZGAk+9W9kIH0+457IMTsd3z0+8U+xUUS8OKi2/epJ3B/qPw/Ywu4T7qu2SRzyl2P77dWb/gwl+BSYEF0jLDA+cgRJPRBSd+xBWD/10z7hizvPSvk/e4AEFBbAaye9J4M9QYl6RqfpN3gXT9hKM7atDulnmJvAOqvNdsQjebgI43O5L5xTBttgWBfG+N2YwKVMNWPESaisOIMoLAi5KXjTd38EKsuyLLAZfEW6bp1yUH9hnlEqk7lTIcxO9F6lmvJPPNDQ9jOM1+pFsIdfm3oX1we+XXQeqNCnkk7LgUBeniuDQ1Czi/tjlM0RJzPXYrRwrKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5wnM6YZ9GXbG4PWy1OEPQoo1KbQ/Pc/X5oKx+uTb8Ew=;
- b=FwGNm2XE3hn6Ln68qmQ2jI9T9XqYWMyQOG13U6SwlzGoA1FYBAe8UNTagXI+ntIBhGhE84xNMJTvBVDZ3sEp6ZnuA6NYntmW8ZTNDAEUupyZLQg2OEd1HjuTycrtt6RL+frtyAZBr3dGlY493/OCPDc7Im5xLrG9cFr3YwVcQtnrJxYR1q8BlNprz3CLYH49sgv9ilFMVDKRNPNcCEx9IdS1LI+VCyjSpNC79sCbgnLechpU4rEvHS77xMQLEJvSOaV0AVGzrqr5OetvSYVGigIaW3i8xyTv8CXSTV35rc/Gmpg3AVnhgDplOk/tUlrR/tUc4k5RxLJnp2ZppdXBiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5wnM6YZ9GXbG4PWy1OEPQoo1KbQ/Pc/X5oKx+uTb8Ew=;
- b=v9Ciudpl1ZqVIbOVWS8COkkEGxTqwHLr0mYUMx4zcqKfdDU2xQXAghTMY0ZW1BC+MA9uJ+T0bzesrbIKMH53uPAafPPnpft4RCPoEi+cLOC3bhczPhM3FTBp8u8NUFKWQSNbGRf9omtzBxR9IYeCqXuKazmudaOR5wdlOarBUUY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: 2b2bbcf0-cecf-11f0-9d19-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1764604961; x=1764874961;
+	bh=wTQxpQQfgPrjbY7oIt614N2tDGiZ1nm5F0FQrhDGsts=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=n8WTVJa68gvA6/8QCRkaRQK9xKMaRihyoVp6ho8bOt5/3cRn4c5P6I1rCDJdzbi2p
+	 ElJo0P79RBM/qojvB8ZSyfJxKCXkpBJJG1amfH0djmVI7M/WjFpiB1Orcv40GI31fF
+	 YB6NRX/wRxtBsmk+mn2frRq1U0dFoZ/mM7UDWZbvWvZluoNK7NU4FmAQ1j84dbuLvQ
+	 ALSh2pqpTY/QxxKWP0qBxHfIcjyUnwRemZ9KAwIWg90NYG0cQJe9Ix/Ix7CQNZcBPi
+	 Ch88hcsuDepuXK5NkoPErWLYAoNyvmyPf4iBO3RH8h6Rye0JTTIVp/xiBTA3WXgoau
+	 wQ7RdmBkCGOlA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1764604961; x=1764865461; i=julian.vetter@vates.tech;
+	bh=wTQxpQQfgPrjbY7oIt614N2tDGiZ1nm5F0FQrhDGsts=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ewShey7UfWIxn/iLdwDXFhOOnVWqx/gHiiQsbzcWoWeJt4fr68RS/f3juDF9C3hO+
+	 DmvQBxhhFLQPxlt/8fNezP8y90ieKr5Z7sQ7p9/guSS8HGzZYHRhq6G42doxoXJUSs
+	 0bP3JOWCxoOSNPBpCmJuQNmLimQBDgJ6McjqMqYDfoOuVUX32wdKAlkZzmG15wmfDl
+	 Uo+H3bI3VAql1mGK2jqEulki7sSzIZijZIsC8LzMjzUIltBPExr9vmKaRnCK04feow
+	 V/NhHb0+gU8fvpeSgWJe2j+UNp7pvu7MlopQQ8ICr5F7m9KeTTA7fV79sN0wBQfeDN
+	 GrxOPMXKNHwNQ==
+From: "Julian Vetter" <julian.vetter@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20x86/efi:=20Remove=20NX=20check=20from=20efi-boot.h?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1764604951909
+Message-Id: <c556d983-29da-467c-9787-a7d08b0b8f3c@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, "Teddy Astie" <teddy.astie@vates.tech>
+References: <20251127143136.1598354-1-julian.vetter@vates.tech> <3653404b-0428-4dae-912f-18c4f8e74853@citrix.com> <83850159-6b76-4127-a689-e83a84c71e4f@vates.tech> <ac7c40e6-70d9-4141-bcb3-407e531d17ee@citrix.com>
+In-Reply-To: <ac7c40e6-70d9-4141-bcb3-407e531d17ee@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.48f594ec5e2d46d98c7318464bdca1c2?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251201:md
+Date: Mon, 01 Dec 2025 16:02:41 +0000
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 1 Dec 2025 17:02:33 +0100
-Message-ID: <DEN090BAVOTH.2S8BW9I0HVMP8@amd.com>
-CC: Jan Beulich <JBeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH] x86/hvm: Unilaterally inject #UD for unknown VMExits
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.20.1
-References: <20251128174735.1238055-1-andrew.cooper3@citrix.com>
- <DEMYRBFJE6YM.1I0BH2BFD5H72@amd.com>
-In-Reply-To: <DEMYRBFJE6YM.1I0BH2BFD5H72@amd.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|DM6PR12MB4468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2651ed49-f411-43e8-962b-08de30f30b4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bFd5N210K3VucDA3bDVNU3ZMNGxRZE01RVFYbUVSYmJIRW1leStjWkNlWUtw?=
- =?utf-8?B?R0RLV05GbkNja3QzbCtudWM5dEM1dStzQVNRaDZQbEp3cXdVSGZHZkV5cDVO?=
- =?utf-8?B?OEpzM3Q4RVZzWjV2NG10cVM5MC94eVJnRk1WZGJRYURyRFcrUzlYSjVHOEtw?=
- =?utf-8?B?dEdldzN3QURyNkxqdklqVGxjaU03L2hDalVYSXdyeGthQytyd1hsYitvcUxC?=
- =?utf-8?B?djU5TmZnd3B1ai80Z0owTUtiUmtPZ01UTko3b0VJcnBBWklhR3l2OExRbVlV?=
- =?utf-8?B?ZVowVVFqanNnRzMrS2M1VXFIUWswMml1NDVCWkRKODRtVmE2MWxrL1kwM0FT?=
- =?utf-8?B?Ymp2Y0JnQXRXMmc3MUVib1NLQ05OT3BaejMwNXh1YzlDSGZnK0h6UFV5UmFz?=
- =?utf-8?B?UFdYcThjeGxSc1NmMllXRzNsbW5qRWVjaEh4a2N1dmI2emw0aXVlMWh5aGx5?=
- =?utf-8?B?UjhCVkE0WVVRWlM3dE1RSVBxYXNSUlhvSXArSEszOUFTdG5vRG1qUGc0R3dh?=
- =?utf-8?B?OUk3cXpDUFQrV3ZZMHVkelFuSUZVT0w2OU1WT3VxREpGRHBNUW04bEN3d25D?=
- =?utf-8?B?dEdoSWNzUkI2bjFYbmNONWJ0a3RhUWFCMVR2MWZxMnVuMDVCeVVlQ2pHRUF0?=
- =?utf-8?B?WUxWajkrMkFHWWpOVldNRUx0UkxrS0VIMUFJVS9OdERicUR3cG9mMlJNNFUv?=
- =?utf-8?B?bGF6TmhiQjNnMWFyd0ZZeHc3RWR5K0RXTUNMdFNBVVZ0amR2R2NwcUNEZ1Fa?=
- =?utf-8?B?V2JJb0xYYm5KUHlXUXFBeXo2UkVzYWF1SEgzYzhtMHVHWFpoYW5xUklEQk5T?=
- =?utf-8?B?OXNKOVpwcXdWQklBYXZ4Q20vbFYveHk4ZzdqaDlwTnA0TkFteHdsQW9QR09G?=
- =?utf-8?B?eGhnTXVpdnk0Zmp1aWQ2am01dloramRCRzF4dnBTMWFrS2ljSUtZQkNkbnRC?=
- =?utf-8?B?b1c4MzdkZHJObEMwaFFmUVRpdnlydk1LVlhvTEhzS0ZIdzdmcElJZk1DYlZv?=
- =?utf-8?B?VjNqOGorc29UMGFoV1BWVU9jRDFmZmlQZkNjeng1ZDBxbk9BUVFRNTFvZFRG?=
- =?utf-8?B?MEFPNEFvcjcraXZlZitmdW9yNkJYR0NqanVTVXhKSkwxK0V4Y3JIQkwvTmd5?=
- =?utf-8?B?eW1vRG5HMUlwTlRzZ2Q4TFF0TVVTQStPQ3JYKzFteHF2YjYyU1pFRU5kUmcr?=
- =?utf-8?B?R3c3S2Y1Y1VPQWM2aStLRjNyR0Y5Qnl6TGdLZUhyVm5SVEM3WndjSkx0ZHNT?=
- =?utf-8?B?M0pySFBZWkM3aXZxVWowUlNtZkxLVk8xUG4zbGpsd3NYR1J4K2dFcGM5aTVk?=
- =?utf-8?B?NTZMSDB6TVU1dkM0VWRVOWpxS0V5WUkyKzcxZ1B5YUFDVnk0L2N1M1ZpZ2cx?=
- =?utf-8?B?ZS81VFhydnA1bHgxM2IzVUQzMkJHR1oybzFMc3UzbXZvSnRLdW1UdW5xV0ht?=
- =?utf-8?B?YVBwQXZXWFJDMWlXYzdpdjZ5QjhWVWM5NDJaem5SWHhkSmMweDlKVlJ3bHBj?=
- =?utf-8?B?UUwycDVxYWxBUWlNaEFCY3AwMDVPdGljTmxUVG82UlBrV1NmRHZxNGowY1dq?=
- =?utf-8?B?elc4WnBocXlkZ01zdXF1SWtST0RJd1VMNERtVlJlcTcwNVhIWjFJbEhrd1hr?=
- =?utf-8?B?NTFsOXB5WUxHUmNMakhwOFN5eHZJdWRibU52SW5mNzdjUGlUeG8yd0ZRYmg0?=
- =?utf-8?B?V1RRcGJKcU1CRHlkOU9HaUFxeWlZeUdjWFlaQWdQMkI5R1JXbytXUDRIRUow?=
- =?utf-8?B?bWx5WjhLTjNydGc1KzVtV0NJS2NoNVJRYlNUR3pLWWthQkhUWU5OT3ZzVHZi?=
- =?utf-8?B?ckxYdll2VERVTENaTTNVUWYvY0p4b2hSU2NublhzdkpnZ0kvK2xjc2UxZmVw?=
- =?utf-8?B?a3VWY3N1OUFxbTVwR0UzNmUzZ1A5QkJINGYyall1c2NEaVBWMm81ai92Rk1I?=
- =?utf-8?B?QWplallRWThvTTZIaWJLdHRXOWdBZ2Jma0RObXNITjJxZmhmTHRUNjE0MGpO?=
- =?utf-8?B?UkJKZGR1b09FeGZBTlRFbXJVa2gya1pESTlFVzl5Q1lpakFyZUxXUWFFKzcx?=
- =?utf-8?B?dHEvSDVMTlJkcGZlbFMwdVhMNjFnTmtDeDV1TFZKcmlLYUEwNFB1bGUyYzNy?=
- =?utf-8?Q?g6lo=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 16:02:35.7346
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2651ed49-f411-43e8-962b-08de30f30b4a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DD.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4468
 
-On Mon Dec 1, 2025 at 3:52 PM CET, Alejandro Vallejo wrote:
-> On Fri Nov 28, 2025 at 6:47 PM CET, Andrew Cooper wrote:
->> While we do this for unknown user mode exits, crashing for supervisor mo=
-de
->> exits is unhelpful.  Intel in particular expect the unknown case to be #=
-UD
->> because they do introduce new instructions with new VMEXIT_* codes witho=
-ut
->> other enablement controls.  e.g. MSRLIST, USER_MSR, MSR_IMM, but AMD hav=
-e
->> RDPRU and SKINIT as examples too.
->
-> I don't know how often Intel adds intercepts (or whatever the VMX equival=
-ent is)
-> without default-off knobs, but there's a potentially dangerous assumption=
- here
-> about all intercepts being synchronous with the executed instruction. Som=
-e might
-> depend on other events (i.e: NMIs, IRQs, IPIs, etc) and injecting #UD in =
-those
-> cases would be very insecure for the guest. It might encourage the kernel=
- to
-> interpret the current instruction that the kernel can't know wasn't meant=
- to
-> ever trigger #UD. This would be an integrity-compromising mistake to make=
-.
->
-> IOW, I think this is a dangerous default to have and Xen should just cras=
-h the
-> domain irrespective of CPL. At least on SVM. If a guest executes SKINIT a=
-nd it
-> doesn't exist=20
+On 11/28/25 7:25 PM, Andrew Cooper wrote:
+> On 28/11/2025 1:19 pm, Julian Vetter wrote:
+>> On 11/27/25 16:20, Andrew Cooper wrote:
+>>> On 27/11/2025 2:31 pm, Julian Vetter wrote:
+>>>> Currently Intel CPUs in EFI mode with the "Execute Disable Bit" disabl=
+ed
+>>>> and the 'CONFIG_REQUIRE_NX=3Dy' fail to boot, because this check is
+>>>> performed before trampoline_setup is called, which determines if NX is
+>>>> supported or if it's hidden by 'MSR_IA32_MISC_ENABLE[34] =3D 1' (if so=
+,
+>>>> re-enables NX).
+>>>>
+>>>> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
+>>> Lovely...=C2=A0 This isn't the only bug; there's another one from the V=
+ates
+>>> forums about AMD CPUs which I haven't gotten around to fixing yet.
+>>>
+>> Thank you. I will have a look. I haven't seen this thread.
+> 
+> https://xcp-ng.org/forum/post/80714
+> 
+> But the tl;dr is that AMD have introduced a firmware option to disable
+> NX.=C2=A0 Unlike Intel, there's no positive way to know you've reactivate=
+d it.
+> 
 
-... and it doesn't exist, it's fine for a guest to crash. The domain crashi=
-ng is
-a Xen bug, but the bug triggering is a guest bug. And that's ok.
+Yes, I found the thread. Thank you. I have now tested on 3 different AMD 
+machines as well:
+* Laptop with an Ryzen 9 5900HX -> XN not exposed via BIOS
+* Beelink with AMD Ryzen 7 6800H-> XN exposed via BIOS -> XEN fails to 
+boot if disabled
+* Workstation with AMD Ryzen 5 7600 -> XN exposed via BIOS -> XEN fails 
+to boot if disabled
 
-Sorry, those linnes got lost.
+again, I booted all machines via efi -> grub -> multiboot2 and I end up 
+in the same "This build of Xen requires NX support", as on the Intel 
+machines. But, as you explained the code path is the same, and the check 
+even later than on Intel machines. So, no surprise.
 
-Cheers,
-Alejandro
+> A conversation with AMD has revealed that there's no capability to
+> prevent setting EFER.NXE, and that NX is always available in practice.
+> I'm pretty sure the firmware is just clearing NX in the CPUID Override MS=
+R.
+> 
+> However, to reactivate this safely, we need to do a wrmsr_safe(), which
+> means we need to delay setting NXE until exception handling is available
+> which is rather later on boot.=C2=A0 There's also a tangle with the
+> order-of-initialisation of the CPUID Override MSRs which I found
+> recently while doing something else.
+> 
+> The other observation is that, even on a STRICT_NX build of Xen, we can
+> boot into __start_xen() because we can't insert NX into the pagetables
+> that early.=C2=A0 In fact it's quite late that we lock down permissions; =
+see
+> the calls to modify_xen_mappings() in __start_xen().
+> 
+> Given that we need to be this late for AMD, we can also move the Intel
+> logic later (effectively reverts part of the original work; sorry
+> Alejandro) which means we can also use safe accessors, and we don't need
+> to worry about the divergent early paths.
+> 
+>>
+>>> Do you have any more information about which system looks like this?
+>>>
+>> I'm not sure if I understand your question correctly, but I was just
+>> booting an Intel based machine newer than ~2012. I have tested this on 4
+>> different machines, on which 3 hit this code path. One was a HPE
+>> ProLiant m510 Server with a XEON CPU
+> 
+> Broadwell.
+> 
+>> , second was a Mini PC with Celeron CPU,
+> 
+> Sorry, not enough information here to figure out the microarchitecture.
+
+Alder Lake Celeron.
+
+> 
+>> and third was an old Intel NUC DCCP847DYE also with a Celeron CPU.
+> 
+> Sandy Bridge.
+> 
+>> The only system where I couldn't reproduce the issue was an old
+>> workstation with a Gigabyte mainboard. It has the flag in the Bios to
+>> set MSR_IA32_MISC_ENABLE, but I'm not sure if it was actually booting
+>> via UEFI.
+> 
+> Same, not enough information here.
+
+Ivy Bridge (Intel Core i5-3470)
+
+> 
+> But, it's clear that Intel's XD-disable is still honoured in EFI mode on
+> a wide range of systems, and that we need a fix for UEFI.
+> 
+>>   I will verify this on monday. I booted all the 3 other systems
+>> via UEFI -> Grub -> multiboot2. My grub entry looks like this:
+>>
+>> multiboot2 /boot/xen.gz dom0_mem=3D2656M,max:2656M watchdog ucode=3Dscan
+>> dom0_max_vcpus=3D1-8 crashkernel=3D256M,below=3D4G console=3Dvga vga=3Dm=
+ode-0x0311
+>> module2 boot/vmlinuz console=3Dhvc0 console=3Dtty0 init=3D/bin/sh
+>> module2 boot/initrd-dom0
+>>
+>>> trampoline_setup isn't executed on all EFI boots.=C2=A0 I had a differe=
+nt fix
+>>> in mind, but it's a little more complicated.
+>> Aha. yes, I didn't thought about other code paths.
+> 
+> https://xenbits.xen.org/docs/latest/hypervisor-guide/x86/how-xen-boots.ht=
+ml
+> 
+> Here's something I put together to cover some of these details.=C2=A0 But=
+,
+> most of the detail is in the source only.
+> 
+> ~Andrew
+
+
+
+--
+Julian Vetter | Vates Hypervisor & Kernel Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
