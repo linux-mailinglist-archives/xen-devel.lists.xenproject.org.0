@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0463CC961A3
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 09:24:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175563.1500189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83CACC96369
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 09:40:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175574.1500198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPzBc-0003Bd-Pt; Mon, 01 Dec 2025 08:23:08 +0000
+	id 1vPzS8-0005uT-4M; Mon, 01 Dec 2025 08:40:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175563.1500189; Mon, 01 Dec 2025 08:23:08 +0000
+Received: by outflank-mailman (output) from mailman id 1175574.1500198; Mon, 01 Dec 2025 08:40:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPzBc-00039r-MF; Mon, 01 Dec 2025 08:23:08 +0000
-Received: by outflank-mailman (input) for mailman id 1175563;
- Mon, 01 Dec 2025 08:23:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vPzS8-0005s5-1m; Mon, 01 Dec 2025 08:40:12 +0000
+Received: by outflank-mailman (input) for mailman id 1175574;
+ Mon, 01 Dec 2025 08:40:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vPzBb-00039l-Jr
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 08:23:07 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f574ee17-ce8e-11f0-980a-7dc792cee155;
- Mon, 01 Dec 2025 09:23:04 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-42e2ce8681eso1031310f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 00:23:04 -0800 (PST)
+ id 1vPzS6-0005rz-8z
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 08:40:10 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 574ea253-ce91-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 09:40:08 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-42e2ba54a6fso414876f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 00:40:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5c30c4sm25329429f8f.9.2025.12.01.00.23.03
+ ffacd0b85a97d-42e1ca1a4bbsm24176321f8f.21.2025.12.01.00.40.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 00:23:03 -0800 (PST)
+ Mon, 01 Dec 2025 00:40:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f574ee17-ce8e-11f0-980a-7dc792cee155
+X-Inumbo-ID: 574ea253-ce91-11f0-9d19-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764577384; x=1765182184; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764578407; x=1765183207; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tVPM5a/fUWecAKcZ+uBvajHH3ZHtuTKVH+T2J+RzBuk=;
-        b=P7G74Mb4izes13KlQL/urw1fD7bFGyasaLQrgD6RqxHfGGdeQH3QutpmTCs1ltsWTg
-         1FFWwt9rvqBWVctzEKeZjrWBEXd5hrNs/pBP/X5PRIahCbALyAg0tXZz1iItroNyYSBJ
-         VzuUZsVXrBq23nVrcnLpmNVRI6vqJwCw5PoIQWPrjgU+LgpgQSQL4feym8omJ7tblfJd
-         IWKz2Ra7NVWAnEfLJIJQVbdSDn1Gm3N58EzeZQzLUM0oRcH2V5tHbnTEU4ZjnTqQxUR1
-         Lm7SMErMwMWYk20yNQpXskiY8v+W7toMEQRCg41nIo57r0uUoGCZCEvKvUeJzJXfGbBf
-         jriA==
+        bh=QCuVcawJcegDzU/oe5lo3A0KNiYJZ5XjXC5r/TZeQ5E=;
+        b=Eu+eOajXokHmeG78LhkH5q2CqwMryR1w0xotJMXEP1jkpBSnkz5uIloPBAqRljCi7b
+         6t8HVUffl4E+FpV3+puPXzkjFQYVdhOjLxpnSGFXvbkiiNXNYTiwHJJrMJ/nmdn0mdm8
+         xsCrspHElzQL+d8OAIVJCdvJZdUI9ihs4KSf36u9Zw9fwojetpBrqdDmPmAhJuee+88N
+         CRKwxtWzeWM6kXDkxP/LAFSAnjSgxVeoFSgd4XnyZ/Dj/X/B5B1W69OIk8m6kRvg5lgi
+         9kTa73tsVw8ALhC8ThsjcZitloVKbsmVOdRMpPUhwNhmFNX9uQa8aaOMNAr0uRqXINEq
+         BBqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764577384; x=1765182184;
+        d=1e100.net; s=20230601; t=1764578407; x=1765183207;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tVPM5a/fUWecAKcZ+uBvajHH3ZHtuTKVH+T2J+RzBuk=;
-        b=BvgPP1ltrrpfmjLq6WTELL2/uixIr7f8c8o8cmbk4ofNV0Uv542kGgehlxGrGxLugJ
-         anN6zQ/y2rZXmOWhOlZyIbuMvbAwVDxIGRZDMBReLKwmLsZiJnEEK75rr4lOK7gJTOTp
-         DkNfeS29Zk7AxClJ3V3rPs09noXW95avqo3dbvKejyh5DZ7TySfXuOEBt5hudFuziMM6
-         Y4ZeKLsx8Es7g3YK5UXT6fkGUC36RpGQrwGd5btYX4C9bfF7FGu0F7QvnJ5aCgyOo+H4
-         ec9g+RHBdW+2pD7IQdDy1rTaIHM4bRkz3NyeIW/ScKMXR9c7aFeeqOfvir2UNTCj3fuw
-         vIyA==
-X-Forwarded-Encrypted: i=1; AJvYcCWCjEIpiVajIrH2DiTHSEFu/LVUTdNZdH1+DEjH+Iff7gWglGZJfDoYseu75WVE/5tYrzh7gw1V0Os=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwK6pMkWRb5T92hcv2JdWjP5VyjtQG3YArpHDYo0q7joQWFJzea
-	DmDZ3VET9vAHVQPS+AURXk6dvZ2blhyDFERZqQUS7mVihdn/E7R+JVQGq+ApiSGKXQ==
-X-Gm-Gg: ASbGncvwQpfKHngL0pGnABXeMXs2jH1L990pdXLDvQag2irsenthOR5XZSGcJ71osM7
-	s6bMOosgZg0ZqrpRVYBHwUojHz7DoyqB1hJ9zq6OfB8aBLTlU42LCPDKSJtRBMhtkJ1FkUWexyw
-	TNHrycrSskZ3PnsU8ngQx0pp4Pz6FUxVM3n62NAOaJyoUyOYji0cOTFGN5dJ2FpP+IuXoeoYEUZ
-	g4DrXsRZkm6Ji1dskQVTKQA4E3pgs1/sYYW2HVrtgLMDn/y+On6YmbFZa414zsYSQi7i9DDo8vZ
-	PVR42pYvMvey8KNZ0MdFu11MsRiOi3gX1VKFqtcU98tZG8UiMbZlrpeDfLWGgWrXL75WiLADpdC
-	gvK6HhdDD4sOCKRJVAClSK1D0SYEjK4fsZm6a/sPYSuX7RuPL5qNfjLfCmCKyTVCDqdOPOQaoLZ
-	iIjpJCNTOCfGnfdm03m0MOJKTss4PTaTeDTc0bjaR/rFfqykjc/dSHB176GIPRuWfMgujkUcmaK
-	0g=
-X-Google-Smtp-Source: AGHT+IGkjAAAEqjQZr2+oOKCnszf3Wbk+6Z/rQCujmBVAH54SKmmfJjiuzrUbeeU+Os0a/uY8pA7cQ==
-X-Received: by 2002:a05:6000:40cb:b0:42b:2fc8:18c with SMTP id ffacd0b85a97d-42cc1d15526mr40813787f8f.32.1764577384288;
-        Mon, 01 Dec 2025 00:23:04 -0800 (PST)
-Message-ID: <a37b1779-6516-4e9a-8736-003c8e61aeb9@suse.com>
-Date: Mon, 1 Dec 2025 09:23:05 +0100
+        bh=QCuVcawJcegDzU/oe5lo3A0KNiYJZ5XjXC5r/TZeQ5E=;
+        b=EQ4s6KTL5e5Jh8CJfU0d5qgIIA1P7jpODZmNpgjBJrP/zwlD8J2jFUAIL601eTtXvu
+         wDg4Z/6J7xO5kVvmpV7+m6b4q9g6muj6cnRLtG+5QS1ajbSh6/tu0qDd45Me72CQvfZ/
+         QzY+wZkZi7PAeVd59yxw0RYmOEPV0gNcaIKoicfWTEBtHor9CwTNSVFZ8gcB6d0klyoq
+         Q702JfZW95GmnFw6LqaGCKmr6wzy8OE7/zuo8dqJh3NVrihYXe6TXLKgESz1htg96wpx
+         /CLfbmNP51mBe/daV94LJB0POXtgbO5BhXwkZP5VIog6oxYL5Pzo/ET90LQuOLQyMoAX
+         UyGA==
+X-Forwarded-Encrypted: i=1; AJvYcCU7++FwISZnH2dZWm9sXwJx6F2stnGMAQSDM99RfXj5SBFzCE4G+KKOvmSZhtlBlPWgw0EJtZWos2Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhuuOyDk2WL2q814N5P2bymjC9h1mxlOM5MGj1QQNXXARJVMp/
+	RaiIKbRI/gBUMD6GyHFbOuCVsADxJwDp0A7wGFWCOzz1/vuiCeftBu/TDzdZaHS9mw==
+X-Gm-Gg: ASbGncvQQVU+PE9AAIUQppBnm2MgOQb7XuLFyymqNcohjOyMKOWeC3WPNepANuFTYYj
+	IYjvhNLGr63GcHV3wq2b+usNXNqdRK6VFnytupdF43gG6Wn5Q/Srjf5ty/fHLYNfb/ObCrtdZi8
+	fBKZOXpLmRKA0qGCIE5ufGMY+wpiPcvNHwsavR0iw/Vd9yfMIPSqT8Wvl12sxZxKGZ5d08tBDfF
+	vbMOefrJIxRqa9qkcVhMdKOJmlG72dgIg0nJCNQLPYPKe0qk4hXGlUnvwO1XP+IYLR6tVwQK48T
+	m9UqvNIIvj/ErRyKh+0BaM3TjaxMGZN0MuYabLVnhXpjcgFzEbZYbVyQrVxHSCbDw45ow9Bu4UV
+	VB73m9rb1fdcEKuwpXDccnKdhMMxTwOJQjYH54HHq8MqhkRYnb3FDY3j60I8rgRdOKyjAgxgG2K
+	kQzyOuCpmYis/FwdAZtjEr53xIX39ur+1Qg20uQndo7/OQpEWQJAWes/dn3Ne6jtABypHNBYDOZ
+	rA=
+X-Google-Smtp-Source: AGHT+IFr1ASkrPWsHWfA0uXawemXCvxvbdQzsCi+vXMnS1BtLRReLoMzSG7eMT8NBo+dh5NzeuV8LA==
+X-Received: by 2002:a05:6000:228a:b0:42b:3e20:f1b3 with SMTP id ffacd0b85a97d-42cc1cd9b45mr41144022f8f.9.1764578407430;
+        Mon, 01 Dec 2025 00:40:07 -0800 (PST)
+Message-ID: <0173e0bd-130a-4966-b0f1-882f8dd78aa1@suse.com>
+Date: Mon, 1 Dec 2025 09:40:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/24] xen: consolidate cpuid library
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "grygorii_strashko@epam.com" <grygorii_strashko@epam.com>,
+Subject: Re: [PATCH v2] xen: move vcpu_kick() declaration to common header
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
- <20251121105801.1251262-3-Penny.Zheng@amd.com>
- <6781dbd7-ddce-49c1-a359-0910e91bda43@suse.com>
- <DM4PR12MB84515C97AE3F68E676FED174E1DBA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <b009997b5f3e7489fadb5f62f1623fc4d13bf271.1764344988.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,71 +126,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84515C97AE3F68E676FED174E1DBA@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <b009997b5f3e7489fadb5f62f1623fc4d13bf271.1764344988.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.12.2025 07:57, Penny, Zheng wrote:
-> [Public]
+On 28.11.2025 17:23, Oleksii Kurochko wrote:
+> The vcpu_kick() declaration is duplicated across multiple
+> architecture-specific event.h headers (ARM, x86, PPC).
 > 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, November 25, 2025 2:39 PM
->> To: Penny, Zheng <penny.zheng@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; grygorii_strashko@epam.com; Roger
->> Pau Monné <roger.pau@citrix.com>; Anthony PERARD
->> <anthony.perard@vates.tech>; Juergen Gross <jgross@suse.com>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v4 02/24] xen: consolidate cpuid library
->>
->> On 21.11.2025 11:57, Penny Zheng wrote:
->>> There are some cpuid library functions only referenced in
->>> XEN_DOMCTL_get{,set}_cpu_policy-case, and shall be wrapped with
->>> CONFIG_MGMT_HYPERCALLS later, otherwise they will become unreachable
->>> when MGMT_HYPERCALLS=n, and hence violate Misra 2.1
->>> - x86_cpu_policy_clear_out_of_range_leaves
->>>   - zero_leaves
->>> - x86_cpuid_copy_to_buffer
->>>   - copy_leaf_to_buffer
->>> - x86_cpuid_copy_from_buffer
->>> We seperate these functions by moving other functions to a new file
->>> named cpuid-generic.c, and modify related Makefile-s to retain same behavior.
->>>
->>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->>> ---
->>> v3 -> v4:
->>> - new commit
->>> ---
->>>  tools/fuzz/cpu-policy/Makefile               |   2 +-
->>>  tools/fuzz/x86_instruction_emulator/Makefile |  10 +-
->>>  tools/libs/guest/Makefile.common             |   2 +-
->>>  tools/tests/cpu-policy/Makefile              |   2 +-
->>>  tools/tests/x86_emulator/Makefile            |   2 +-
->>>  xen/lib/x86/Makefile                         |   1 +
->>>  xen/lib/x86/cpuid-generic.c                  | 273 +++++++++++++++++++
->>>  xen/lib/x86/cpuid.c                          | 260 ------------------
->>>  8 files changed, 283 insertions(+), 269 deletions(-)  create mode
->>> 100644 xen/lib/x86/cpuid-generic.c
->>
->> Andrew - what's your take on such a split? Personally I'm not overly happy to see
->> related functions be scattered across two files. The separation also feels pretty
->> random, posing the risk that later some of the code may need to move back.
->>
+> Remove the redundant declarations and move vcpu_kick() into
+> the common xen/include/xen/sched.h header.
 > 
-> Right now, I could not think a better way to guard x86_cpuid_copy_from{,to}_buffer with MGMT_HYPERCALLS without split, any better suggestion? Or maybe I could add up some explanations on the file cpuid_generic.c head note to explain the diffs between itself and cpuid.c, something like:
-> ```
-> The difference between cpuid.c and cpuid_generic.c is that the former contains library functions that has only been referenced in management hypercalls, such as sysctl, domctl, etc. See comment for MGMT_HYPERCALLS.
-> ```
+> Drop the definition of vcpu_kick() from ppc/include/asm/event.h,
+> as it is already provided in ppc/stubs.c.
+> 
+> Add inclusion of xen/sched.h in the files where vcpu_kick() is
+> used.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-If one of the files is to have only MGMT_HYPERCALLS related stuff (and if, prior
-to that, using #ifdef-ary in the existing file was proven unwieldy), then imo
-the more "natural" split would be to have a separate cpuid-mgmt.c file, where
-then from its name alone it already becomes halfway clear what it to live there.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+albeit preferably with at least ...
 
-Another option might be to properly library-fy the copy-in and copy-out functions,
-one per source file, and then referenced by lib-y (or lib-$(CONFIG_...)) from the
-Makefile.
+> --- a/xen/arch/x86/cpu/mcheck/vmce.c
+> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
+> @@ -12,6 +12,7 @@
+>  #include <xen/event.h>
+>  #include <xen/kernel.h>
+>  #include <xen/delay.h>
+> +#include <xen/sched.h>
+>  #include <xen/smp.h>
+>  #include <xen/mm.h>
+>  #include <asm/hvm/save.h>
+
+... this change omitted. This file includes the private "mce.h", which in turn
+includes xen/sched.h.
+
+> --- a/xen/arch/x86/pv/traps.c
+> +++ b/xen/arch/x86/pv/traps.c
+> @@ -10,6 +10,7 @@
+>  #include <xen/event.h>
+>  #include <xen/hypercall.h>
+>  #include <xen/lib.h>
+> +#include <xen/sched.h>
+>  #include <xen/softirq.h>
+
+Somewhat similarly here, xen/event.h includes xen/sched.h. That's less obviously
+guaranteed, though, so making the include explicit here is likely okay.
 
 Jan
 
