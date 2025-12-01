@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C940C96B2B
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 11:45:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175700.1500323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD65C97042
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 12:35:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175711.1500332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ1Ok-0000Ub-A4; Mon, 01 Dec 2025 10:44:50 +0000
+	id 1vQ2AY-00078C-RT; Mon, 01 Dec 2025 11:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175700.1500323; Mon, 01 Dec 2025 10:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 1175711.1500332; Mon, 01 Dec 2025 11:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ1Ok-0000Rj-7M; Mon, 01 Dec 2025 10:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 1175700;
- Mon, 01 Dec 2025 10:44:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vQ1Oj-0000Rd-NL
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 10:44:49 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1e58dc1-cea2-11f0-9d19-b5c5bf9af7f9;
- Mon, 01 Dec 2025 11:44:48 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-42e2e47be25so735578f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 02:44:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca1a38bsm25930319f8f.24.2025.12.01.02.44.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 02:44:47 -0800 (PST)
+	id 1vQ2AY-00076B-Ot; Mon, 01 Dec 2025 11:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 1175711;
+ Mon, 01 Dec 2025 11:34:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RN/T=6H=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1vQ2AX-000765-AX
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 11:34:13 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a6005852-cea9-11f0-980a-7dc792cee155;
+ Mon, 01 Dec 2025 12:34:08 +0100 (CET)
+Received: from DB7PR03MB3577.eurprd03.prod.outlook.com (2603:10a6:5:3::28) by
+ VI2PR03MB10596.eurprd03.prod.outlook.com (2603:10a6:800:26d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
+ 2025 11:34:04 +0000
+Received: from DB7PR03MB3577.eurprd03.prod.outlook.com
+ ([fe80::49f8:7615:b631:1a66]) by DB7PR03MB3577.eurprd03.prod.outlook.com
+ ([fe80::49f8:7615:b631:1a66%5]) with mapi id 15.20.9366.012; Mon, 1 Dec 2025
+ 11:34:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +47,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1e58dc1-cea2-11f0-9d19-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764585888; x=1765190688; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KW1ez9P9UYF74AAJFz6n/3tdo0OGkcdr8NW3Jeb7wWo=;
-        b=DqGUXyUGlUgLPRu6NjIPwotGT+jQOuCH4pq2xeDR6gE4yT2np78PHzTtmQNENMydLd
-         y1tArT+0uA7clwxaU6TDKQ1dXddt/mVto/O7oOD24vCkQqqTlrnOeG9F4q+YgIfWKLkE
-         cAh2qVPyoItMPd/xgwoJZp5TphX46sVlX/uO7YUeLFS6IX9J89adA6QgcE4tIERg84nk
-         jOmmy55VmGkoi88gVuUdK2PnPCt3oyvb5KBPSNLLjxXwGHfzPdV7HdizHLVdxyx7UqOi
-         gGjjPKWxOfDmvA3B4dVHKshRO6q7roGZ8aI3xI1K2C1myhoYFGEwEmq3NCLztSFx/Frp
-         66PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764585888; x=1765190688;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KW1ez9P9UYF74AAJFz6n/3tdo0OGkcdr8NW3Jeb7wWo=;
-        b=sayiKzJjgehrh9r2H6nUgPwmiuYXsybN8kFPBD85wluM60wcAXj5bVUNc5QvnoVwHQ
-         AnmKXEN10uNWyluAtl45pEGtBq0XR4az3IeyqUyMITohknkw6QxMq8UjY9AfwTYhZMmx
-         2Txcw0A8lomd9ACGZ/NnFqCM5a+fdk0togJANZzdAaSp/Fln1rg7Agwhg0mFIPjmzHrf
-         I5W0YesnMI/gNG9warIEMtk8xz8WObZUCY6VQ7cb9g1BTtnp5BdWUSUHX/JkDC6OqC6m
-         EdVaHcAE3Hzyy10Dy677Hfllwpjd2VbdXJ7a9ElGl8o+zgG9EROEewLu3sJk0pVuOyRi
-         vFPg==
-X-Forwarded-Encrypted: i=1; AJvYcCUCCOS2NqE+JJ1IfOqeM96jUI6DYWb9+04XiB514q3Ml5QR8ACwKYH6mHozqCVqbtZtRud5bsQFv5g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwsZSC8zUqEMGmfH3kBnSLkUqnDKrgGDqCobmyw/GWPa/ySN/rl
-	+jCKKKItiP+Fynl5IVDc3V6+dyFHgXNFKGj6wAtm9bxQmyOWZ7LOiCNOLwkv0m6Bww==
-X-Gm-Gg: ASbGnctygFA69Ja7Uh5cD3tMX3lh2l+p9IUcvJLnILqe/xNXlxhGanzbIl6w0bR545r
-	PmXDslrtULV7iwLgoUiAm4iRzbhoeUNWKv9hLeX+U+rYD82YZusdvs3csCIevicTVFdSLdjkPi8
-	8ZdWIG8zBN/NMy5e62vQjQg//OR1VkYakejpJDdWy1J0Nl/tzRVhr0VZ9weyyizPTEJov+boPQM
-	YXeo59pG+xHBDtGS44PgJ4vJ9ED/tISzjaHh5Wl42tqhLAn6s3CqDaPC5c6h+MKWqVSFVXrfVrm
-	NprhlBikO8x065OjXOC8D1A8y0bj0jv7n1kR8K49qcsyFzDNW+7h3bPthKjvsKhzHVW/3s97jh6
-	NVXz28NDIdu8Tnxlyw+idaIGOvb/cBXwbXoqhPMsdgGS/MGrLo/j4A1AGLNrCFBCxl+ghP6eLy8
-	IC/pXZ0CS2j7gsSSp4LIx1BM6ESWX7vFsLValMLvJKNuRgz5uIZ8x9mvGzx9aNBfI8695KuHUZW
-	l0=
-X-Google-Smtp-Source: AGHT+IEIF/FaVxkT9ImPuJTxN3AAVqh6D6bVUbL4mgGamR32XOaSBxFialUqSLdLPFEQL1FhZNU0RQ==
-X-Received: by 2002:a05:6000:430d:b0:42b:36f4:cd24 with SMTP id ffacd0b85a97d-42e0f204b52mr27872695f8f.24.1764585887448;
-        Mon, 01 Dec 2025 02:44:47 -0800 (PST)
-Message-ID: <3678d8ef-8e7d-4667-ac3c-083add25c426@suse.com>
-Date: Mon, 1 Dec 2025 11:44:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: move vcpu_kick() declaration to common header
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <b009997b5f3e7489fadb5f62f1623fc4d13bf271.1764344988.git.oleksii.kurochko@gmail.com>
- <0173e0bd-130a-4966-b0f1-882f8dd78aa1@suse.com>
- <74fdbc0e-7919-4a89-8cd4-cc6cf3ffc402@gmail.com>
+X-Inumbo-ID: a6005852-cea9-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tth1eWm0dDDYzRC0HAe4x6hs2Xt6o2QmbhTQOr/86zeZuQaZ7AIrR47j8nVDBp4qCV30D6dIQ4ZeEE87W1zerX3f4RkA8KPiEBD4TyKH9EInKoYKy1upucdZOekA1tuS+M2RdljmBUwJWc/KmcPKhsv3wbHKOcmV9b3frNXatAkEotSdjjX7Y5lPWxz3OlvHMbapY5YmyR+KWutKeuFTvrq/sGdsFStu5JrVlr1JVMILZMkVcArIEdkcRmlfGduvs9sAacyvfoh+zQvzboDu2L4EVr9q4J6pumYwJkw8k6bk1+SPqBaOVWCy2Ej4pI6gNLUqNqi7dTZI1T7Cy/Ec1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kY+sMmVl54NGo+Pk5wX1Z0fiWE7PBAn7tS4jA5GOxVs=;
+ b=Ewwq7VOBKzVpEP3/SfC14ZR40ZiWcAscht2T0AZL+cx/l8v2nkSY3usAIvxG6ATwLLelHfKRQC/iNDyPwjEwE0HGPWaHm/5LhM026tiHJk2hJQQ9EeiPcJmcURezMk9bVnO6XTaf+byvT8YddbV8b7FnGJDxUP/5/8pWxdMBKEQSCLxKNWLz9S4RhrKwQ88hjXuqkVNn1+UP4b8EPI3QUE6Ro4V1v1KHGtdWvL2ihtvsMKObEHXnsAUIezqNnN0XgFlcOULnb57tg9t7ZP2DM/mYyD3YsJ+5NWDP9M0dn6mdlLQUaYnB7aRMiInEevY147cHCWquZ1X/pfKPquAn9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kY+sMmVl54NGo+Pk5wX1Z0fiWE7PBAn7tS4jA5GOxVs=;
+ b=Trh1AWjgh5j5xugfaMLr+t9lSBDALBFeyVEqV53KM3JeIh6DyQfQFbPeycP2L6p6Y3Zri4gSjoLHF+nEXw0BzhC7nKIzoSwLvL2b/ksXGMSqPjFbc2pqPPxrvFbv81DWYeT/NaeRWsOVaXc3QNwAEgavVPFCGvMkJXP2MKHmuKm8zkuVeJUTLqj5dUwHPvKoDh0aIp8vpqBVHNjsFAavVA9FrVjvS9Twf6xgqIP2U49YstvJDAZWJhH7nXWFlTBPyI/q4nKN5zEGQjeZKl4evLuHHX4arkdvljSZlkRRlpTHsW0rX0ipDIPaMiqYzRLhwOcezODf10miMVoYBWgmfQ==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Ayan Kumar Halder <ayankuma@amd.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: [ImageBuilder][PATCH] uboot-script-gen: Add support for "passthrough"
+ property
+Thread-Topic: [ImageBuilder][PATCH] uboot-script-gen: Add support for
+ "passthrough" property
+Thread-Index: AQHcYrZlLhWjOcFOMESo6Ja5HoKvcA==
+Date: Mon, 1 Dec 2025 11:34:04 +0000
+Message-ID: <20251201113403.2898396-1-oleksandr_tyshchenko@epam.com>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <74fdbc0e-7919-4a89-8cd4-cc6cf3ffc402@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB7PR03MB3577:EE_|VI2PR03MB10596:EE_
+x-ms-office365-filtering-correlation-id: 27394682-fa47-4661-b882-08de30cd8812
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|366016|1800799024|376014|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?oLeDgkEepHhd8GMlzcUI3RPyvS+CG+Sgm51/Sap/x1fsFA1onXS51zIX9d?=
+ =?iso-8859-1?Q?eBGdfmxre6VwriS5CAIC6mSjP2Yfj4zX3d17H/Ovm22UCK394iEdUZgbhP?=
+ =?iso-8859-1?Q?gsFtPttCS1Rp99NqCMmpYYnz41iKXWRMMn8Zv5dQcXt+4QN0C1PFY+yd2w?=
+ =?iso-8859-1?Q?PQ4nbAuZONVbKAU3ns9sSLmGtGsCIJx/VwQpzM2KOuj1P+2tfeZjH1ji15?=
+ =?iso-8859-1?Q?NsJJQFTP2QqjYZr7zduAAGpKSB4X2agsWnmnGzQUWZlhX2VWXXZAUIUAzl?=
+ =?iso-8859-1?Q?QGgbkg4OksbT8YWr6dNi4U0IpU5o5hzhA9YFVGfZ65W17PN09sMtaO48VR?=
+ =?iso-8859-1?Q?ieNvUQQoTtNOMbU++dTTWuLykl8Mvlxpc+DwLNRbG42N3L6OihhO5EjmDi?=
+ =?iso-8859-1?Q?p6RMdIMxcBQGGMFlQCckp12y9tmMFiaftlLOtZStu7fdnDesujaFFckGmT?=
+ =?iso-8859-1?Q?serP3Q1GlD5Itb1Nf3hmK3T4goYj6fUnwTgMFgadhjsT/bz2GFpONR1Yrn?=
+ =?iso-8859-1?Q?z20rRSYWJSmModYoE9ihatA3+4PGZZ4UkTJRbG4o9ul0HrpgkM1F2L+LLG?=
+ =?iso-8859-1?Q?uwfx3SYwrpHYoxwPinmRCl1gNemS1iFxJ+h476kqVXH86692vqtpQ/8/Tj?=
+ =?iso-8859-1?Q?zAcA/uWU1JTmtNoKG+ZTcl+wDvKLRgPFIr9qP5OFiQqu88Zv1bAf/5BEec?=
+ =?iso-8859-1?Q?kYHPet5kvXijSAFprXBy1f8ET0Rydja4750NVihyKyfm6HuQkTLFwHUeq7?=
+ =?iso-8859-1?Q?huLFkxEWH/pyfMWbmXJ+eCmQTJ4g59Tf8c8zRHLFXmoG6A8V0aW8GqsVNa?=
+ =?iso-8859-1?Q?zjW+nw0eIuTFFgIV2lJEZUXeruCqn19CFXa/7IhttoUW9OA4PtcEbMvyLA?=
+ =?iso-8859-1?Q?V91vbpy105dkxjUjmGlOAMroDwPpWF1Q5Socy+yt3ZUMbIzmI//UMuw3We?=
+ =?iso-8859-1?Q?nWAocUB0HC82CgQl3S19gJXgezaujZBg/93hI1mahupl22yJciOeu/HeUF?=
+ =?iso-8859-1?Q?dOmdSQwhF//PRj46zNwhNEcaKqyJNrsL1hD+FmgLC2KLzUR1lOIJjL1K1D?=
+ =?iso-8859-1?Q?x1IGG8EiaE0kwVsTOnLw/wfGr2RLatcGVpZsfHc1zgypE+x3OpU7CGlOkD?=
+ =?iso-8859-1?Q?jc4AJzgFFuQSw75vPO5EGM3XuiDNUtlHDohxhgrjfZ32J89A6mCxS65OSp?=
+ =?iso-8859-1?Q?aQjlLF8KF9XA6/31WxrlzJZuBjFwXs/oIlk8JO2i1vbL3AC12Cm8jo/PHz?=
+ =?iso-8859-1?Q?qsHAfMybHOc6piqeGfc11YUDenP4xhjC0O9YQ0YmxuW7snOUfAexAnDTMo?=
+ =?iso-8859-1?Q?VVtHRJs5mVl7iGyZhY23l6wzYX4duxKDC1mZFsUFNOOwwjqbZpqLMXHksR?=
+ =?iso-8859-1?Q?uwy2mWb2Ewp7smLmcaVgme/v6vH1cHxLYyIi+OGPUBhn20MObCpSw0PVtJ?=
+ =?iso-8859-1?Q?4y5gx5JzwmerVuhWDnKcKZ7YT5JxWSBEKhLfx2uMjrUaKZcC3TB+TDc8mT?=
+ =?iso-8859-1?Q?k6lbgH5YPRvqbXrp5uH1VgySVGCccs4YjR7XwDOQJx/eOoU+bmDltavl0h?=
+ =?iso-8859-1?Q?iPyXlyo2YGTzSZqG3bWPM8/S29MR?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR03MB3577.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(1800799024)(376014)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?qShyKq2GF2B2JAcTCwYJLXkGPfXJbiQDw6mpQpZdIClwNlCluC2F7Q38x3?=
+ =?iso-8859-1?Q?DQZ/miJc4HwLRgKjVjZgycj3hIWbKx50Q9WSm7afFeoXPC2J2acQ+tBpKz?=
+ =?iso-8859-1?Q?PHM93a3ieh9pX8sF5dtZPqmxSy9VTatdbhPCk2bzXXckRqlt58AamSYcAp?=
+ =?iso-8859-1?Q?H6EGQdkD38/DeAq/yroZ1lBdX/1PPtx6++LHpAUAMiMJHCIbMUN2s+Ew2h?=
+ =?iso-8859-1?Q?o9JOvhwF6rxcLL8qmLAF1F+IyH5JIJKN6qBtXCdVsERNUzpcBSx5RJKwwf?=
+ =?iso-8859-1?Q?bSwvulhxwSea4k43xSeHHy2zEMznBXFZIJoMga9W/IB+ZydZmJVmPXn2ZH?=
+ =?iso-8859-1?Q?b0TG7S8/b2FdfdqWPE6MaSiSK9F2cCOO7qsIt+ABV/g6lINrJ1q7cVR5yW?=
+ =?iso-8859-1?Q?yEtfYw7W7k/tcw7WkrmXaBziWnD8IDeNGXjNrq6U4cix4fro1+4eY0+IQf?=
+ =?iso-8859-1?Q?cOZls9bp3lsU0cGc+9xPSY75B6C/Yu0Y2x2eCGodAsv4Zva5X4bhrYBU6a?=
+ =?iso-8859-1?Q?uaz7TkE4G2J6a4EBnIIdv0T7z8g0lWXrRInMpLpoWU4jBy8rZvT0F5ic+7?=
+ =?iso-8859-1?Q?7GoAqRa0LUYKjS5cUibebNGP3vsUa87uMTNpWgG+V7cDjictcK344k0uMV?=
+ =?iso-8859-1?Q?Iy9A5jAUFOjwTdPsXpQO0lN84IGyKjtHaDmVHeIdZHc6acBvMzn4AbdsoM?=
+ =?iso-8859-1?Q?Ct1aOgj1M4KYffTLtCabzhW8JsV1wsppwMfT7axpWkqk8vMi+UzNk28zm7?=
+ =?iso-8859-1?Q?JeHCYwf6jQlbw4ydYe+Th4Db3eMpAhn3GV6EwRbNnUAd5yPGcyU86DtNRI?=
+ =?iso-8859-1?Q?H4cTe4dbCGK2jPo0a6Kl2P8f18jSl+ij/ltwE6pDxSaVRazHpozIo65NLG?=
+ =?iso-8859-1?Q?ZUPpnRVjYauP08SqWDoFseXJhuKgAq34VhI50oDulk+F+2fGf9oOZye/SK?=
+ =?iso-8859-1?Q?MksocttSOWGhaok6YJZF+pWBAGkmDgKl0XAh4q6EjaanHaQWRJUsEA456k?=
+ =?iso-8859-1?Q?yfmSYWWcrCCBLpjPgfYPkj0IA4EzRu4vkD9+e+Fd0Y8NVa3LGxLxcCc1GP?=
+ =?iso-8859-1?Q?gbjBejxlgszFPlB1l2q2kDXfdgRLStLfCeet2OKLUBeAnrX1RRbPZt61Nm?=
+ =?iso-8859-1?Q?end9fgni6/lp0t7MgEod8CgAhjDrQoo+Jz5CuyCzJkYNPiFvR/tL4IK/4y?=
+ =?iso-8859-1?Q?fmHwAjZwVn4+N2W8rrgvwcICSOq1yYUjgkcBLc1lNwODhofQZDXztGoXAo?=
+ =?iso-8859-1?Q?znCUs1oVMnrJr4vlBV9xtLDtUbED1k+pbsz777JDtaNunuvz3q6gyPSR2n?=
+ =?iso-8859-1?Q?cmAVKMfZqmZ61hTbzYKvJwyMQkH2bITOOqxGY8WfQi/NXfc8zSvaoEZDfV?=
+ =?iso-8859-1?Q?KN7VWO+GrupQk+woXG561ZY7lWcQamff7TUtY6ivxn7KwtJFyS0NNwyBWo?=
+ =?iso-8859-1?Q?o7pFt1DUP+g79yxjartrcx+5Ykcq1FCM1n0GQFm2jPxzibQSghK/Pc/ulb?=
+ =?iso-8859-1?Q?c3hSwjIHU6NC0/T4exKk4V+jcex5XxaxjeKCCywMZST3LH1OJDBOtBfHuJ?=
+ =?iso-8859-1?Q?Tj8TRzXlNhSqUmSSyGYcYB4Q77uiV/mEjuHmL5GNoT3wAzFjfRMsy6XoGj?=
+ =?iso-8859-1?Q?J7zlwpEYWZTeXsQf42xWOHe/3mjBUxy6Ag/I9NB+aRxfLiH739VnwldnkU?=
+ =?iso-8859-1?Q?6LyaMsaZeGcbmAG+deM=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR03MB3577.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27394682-fa47-4661-b882-08de30cd8812
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2025 11:34:04.2132
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Eojb2lKqpnOJ3h8bo2PdkWbQLrLUUcLthJ7tE1lmtg912Oe/cMw0OGgsEntRose/qeuzmYe2kw4NnHEikZE4RkIGFxFkDSeDlp/w+H0QtL8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR03MB10596
 
-On 01.12.2025 10:24, Oleksii Kurochko wrote:
-> 
-> On 12/1/25 9:40 AM, Jan Beulich wrote:
->> On 28.11.2025 17:23, Oleksii Kurochko wrote:
->>> The vcpu_kick() declaration is duplicated across multiple
->>> architecture-specific event.h headers (ARM, x86, PPC).
->>>
->>> Remove the redundant declarations and move vcpu_kick() into
->>> the common xen/include/xen/sched.h header.
->>>
->>> Drop the definition of vcpu_kick() from ppc/include/asm/event.h,
->>> as it is already provided in ppc/stubs.c.
->>>
->>> Add inclusion of xen/sched.h in the files where vcpu_kick() is
->>> used.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Thanks.
-> 
-> 
->> albeit preferably with at least ...
->>
->>> --- a/xen/arch/x86/cpu/mcheck/vmce.c
->>> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
->>> @@ -12,6 +12,7 @@
->>>   #include <xen/event.h>
->>>   #include <xen/kernel.h>
->>>   #include <xen/delay.h>
->>> +#include <xen/sched.h>
->>>   #include <xen/smp.h>
->>>   #include <xen/mm.h>
->>>   #include <asm/hvm/save.h>
->> ... this change omitted. This file includes the private "mce.h", which in turn
->> includes xen/sched.h.
->>
->>> --- a/xen/arch/x86/pv/traps.c
->>> +++ b/xen/arch/x86/pv/traps.c
->>> @@ -10,6 +10,7 @@
->>>   #include <xen/event.h>
->>>   #include <xen/hypercall.h>
->>>   #include <xen/lib.h>
->>> +#include <xen/sched.h>
->>>   #include <xen/softirq.h>
->> Somewhat similarly here, xen/event.h includes xen/sched.h. That's less obviously
->> guaranteed, though, so making the include explicit here is likely okay.
-> 
-> I am generally okay with not adding what is probably an unnecessary new header
-> inclusion, but it is unclear to me why we should avoid including a header just
-> because it is already included by another one. In other words, if one day someone
-> removes "xen/sched.h" from "mce.h", is it acceptable for this to result in a
-> compilation error? How do we decide when such an error is acceptable and when
-> it is not?
+This property is used to grant a non-hardware domain
+permission to use the IOMMU, which is a prerequisite
+for device passthrough.
 
-This is precisely why I made the distinction between global vs private headers.
-Relying on private headers to have certain #include-s is imo always okay. For
-global headers that's less clear, ...
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+ README.md                | 6 ++++++
+ scripts/uboot-script-gen | 5 +++++
+ 2 files changed, 11 insertions(+)
 
-> Should the default behavior be that if header X is already included indirectly
-> through other headers, there is no need to include header X directly?
-
-... and hence I wouldn't want to give too much of a rule of thumb. One may say
-that if a (global) header, to fulfill its purpose, absolutely has to include
-some other header, then one can rely on this when using that header. But in
-most cases the situation is somewhat blurred, so it's case-by-case decision.
-
-What commonly happens is that #include-s are added to keep the build working
-in all configurations. But #include-s typically wouldn't be added "just because".
-
-Jan
+diff --git a/README.md b/README.md
+index 0063747..983cbbc 100644
+--- a/README.md
++++ b/README.md
+@@ -338,6 +338,12 @@ Where:
+       assigned to a regular DomU.
+     - An explicit non-zero ID cannot be assigned to the hardware domain it=
+self.
+=20
++- DOMU_PASSTHROUGH_PROP[number] is optional string used to permit a non-ha=
+rdware
++  domain to use the IOMMU, which is a prerequisite for device passthrough.
++  If set to "enabled", the passthrough =3D "enabled"; property is added to
++  the domain's device tree node. This option has no effect if the IOMMU is=
+ not
++  active.
++
+ - LINUX is optional but specifies the Linux kernel for when Xen is NOT
+   used.  To enable this set any LINUX\_\* variables and do NOT set the
+   XEN variable.
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index 78a731d..d18ac55 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -509,6 +509,11 @@ function xen_device_tree_editing()
+             dt_set "/chosen/domU$i" "domid" "int" "${DOMU_DOMID[$i]}"
+         fi
+=20
++        if test "${DOMU_PASSTHROUGH_PROP[$i]}" =3D "enabled"
++        then
++            dt_set "/chosen/domU$i" "passthrough" "str" "enabled"
++        fi
++
+         if test -n "${DOMU_SHARED_MEM[i]}"
+         then
+             add_device_tree_static_shared_mem "/chosen/domU${i}" "${DOMU_S=
+HARED_MEM[i]}"
+--=20
+2.34.1
 
