@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4071CC982BA
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 17:05:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175871.1500473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B03C98330
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 17:13:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175888.1500483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ6Oy-0003e2-Cr; Mon, 01 Dec 2025 16:05:24 +0000
+	id 1vQ6WK-0005Wd-3q; Mon, 01 Dec 2025 16:13:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175871.1500473; Mon, 01 Dec 2025 16:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 1175888.1500483; Mon, 01 Dec 2025 16:13:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ6Oy-0003c8-9p; Mon, 01 Dec 2025 16:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 1175871;
- Mon, 01 Dec 2025 16:05:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RhWH=6H=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vQ6Ox-0003bz-1G
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 16:05:23 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 879f8d4f-cecf-11f0-980a-7dc792cee155;
- Mon, 01 Dec 2025 17:05:17 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4775895d69cso18812835e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 08:05:17 -0800 (PST)
-Received: from localhost.localdomain (host-92-29-237-183.as13285.net.
- [92.29.237.183]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4790adc8bbbsm323560585e9.3.2025.12.01.08.05.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Dec 2025 08:05:14 -0800 (PST)
+	id 1vQ6WK-0005VB-01; Mon, 01 Dec 2025 16:13:00 +0000
+Received: by outflank-mailman (input) for mailman id 1175888;
+ Mon, 01 Dec 2025 16:12:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vQ6WI-0005UI-Bk
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 16:12:58 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99722be1-ced0-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 17:12:57 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-477a1c28778so50418375e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 08:12:57 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4791116c0acsm249945665e9.7.2025.12.01.08.12.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Dec 2025 08:12:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 879f8d4f-cecf-11f0-980a-7dc792cee155
+X-Inumbo-ID: 99722be1-ced0-11f0-9d19-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1764605117; x=1765209917; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k7/QrVGalRKP3ng4dR+2IOAKCooDRaCU8dsfYQQva5g=;
-        b=uAgqmCw2VE2V3vL0huJyOT5FiiGw9HklMMJfzONXjMayH5EoFjEVjqpZVFf5dox0fR
-         4r/hOzB8HDqq6oc7L2WWUU499WF775HM9cXWOqLLKI/jg9Y3Pr/VDoaYM1atDUV1MxlQ
-         wXUycvjmPiY8oUZl8IPgS29j4sePqdikQomY8=
+        d=suse.com; s=google; t=1764605577; x=1765210377; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0+QyCyMhm+d4P3mDrjW3JiBgI+OLgmknpMMXTQ6TJcs=;
+        b=a3kiHeqA9U5RJpseLLQViUIrzfn8tWsAYU83NOtmUrRkPOSp8JcEYR3OEjCKe32m6U
+         hhICbhWdliI0cFu+meOw8n2vlYNqt6fm203pOWqak9biD0LOaZX1kUk2lZJv2M8sHlvB
+         zY8KOBs1l2vNUVa6uzesKwzpP7FJlKYB57kRCCOO9+zl5LKk/1RPE5EsshhKNj7JDyNf
+         MsueXLDo1N0uB2dnossfdoxXXlWmF6rwbaIjk0DMqie9KYHfBoaHlD+LudoxRcZfg+Vb
+         J0irEmXgY2+GcCQT/Ck4bL7T3LpV2cYR8juuqMytrrw40wuofufYYDyvyP6zJZ8m/rq4
+         CR7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764605117; x=1765209917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=k7/QrVGalRKP3ng4dR+2IOAKCooDRaCU8dsfYQQva5g=;
-        b=PkEEuNMaEKUYRTU3trOatfHjvb0HEQSv0wmojD8IDn5hAY8pWHN0K7/mbb6UMrVg17
-         NLS887QvOlF3DsHHeQBmsSv0OyZJyEH6MfVwyiGGf6vSjCABGrMHkIWWdrZCk0JWJpEP
-         Cc+E65N4Pa5BFAXk7OAVzx03PuFjifp/HE0q9mN4dPRPc/dOmpxmlWAjzIlVdPv1dNLp
-         Q5F2numea6fdTt/gVhakGQDlFXDh5MzNzZhh4a+E28tYZYwI7GKW6g0Bxlu2ZXsfQV5L
-         iUJ6fcjyvskq0IMrYfugaHu48rrURp6cWNvh5rlz9huJ3tbBShtw6iWRzvLjYaSJSBM+
-         2DKA==
-X-Gm-Message-State: AOJu0YwYK6vDQUixat9qO0gFC2lKNI5wf5gfzAmIo0ffHNw3Pq8hcM36
-	9pmRn1+TeR0az0WXfHsPhVqMNIkLAsMcsndrZXfl7YXKdGMV2wKNkalfehc6ahN+KCL9k4oxq3+
-	+M1Tp
-X-Gm-Gg: ASbGncv5FRHwtqV0Li2vZuMVfBzJuUMQhDY9v13NI+K69KKIOMZUPsFG/YEhBU8eGCr
-	qErQOLDcGmIg/Hbn94G/OkwlUGti9yXk06UDcsIg2QjnrM6/Je+gRpl6MnUAdrw/YjR1ROuoWYZ
-	9ITH0E8T92cIdkFtqG+BYre/W/WV5CBahStM9YKkiqC19D0+vvL9YvZ3d0qQ/VuJv+EaTa+CGUs
-	8Vt//PDj35XcKldB25Hf1BSkGm7Q3+NUKPGe6FxhPfFDCoCTadm7JWTVMaBP1jF7xAW2J57VpTd
-	+oc2gDS1/zPySLkgmQutheU4UgkC4/b8jlYXZtd8x6crJeM7dQX2ghQA8VWlzV9A4+Ohsdg0Jt4
-	Wk/HFbyOpqq8rOjXJr20tomfuiGRQOR7SopZ28eLrPHwqnxbSfhd0ZdMVRmG5jtFRWYOcQ+WK5T
-	p94vmYL2vWRrztJ6pYV4mByMRtLehgADtw3eE9Hyk9A8eltozCai7BI7d7fKL2WzwukcviBamM
-X-Google-Smtp-Source: AGHT+IGOSvypeyB8zoUiSnPg+gKR09o6Fn5+2AB4I/q3YXSu/pWf+TKcXJPMDDBMAK3I6vn+oJYgfw==
-X-Received: by 2002:a05:600c:4fce:b0:477:73e9:dc17 with SMTP id 5b1f17b1804b1-47904b2bff2mr246826515e9.35.1764605115577;
-        Mon, 01 Dec 2025 08:05:15 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v1.9 1/3] x86/amd: Use setup_force_cpu_cap() for BTC_NO
-Date: Mon,  1 Dec 2025 16:05:12 +0000
-Message-Id: <20251201160512.1311688-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251126132220.881028-2-andrew.cooper3@citrix.com>
-References: <20251126132220.881028-2-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1764605577; x=1765210377;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0+QyCyMhm+d4P3mDrjW3JiBgI+OLgmknpMMXTQ6TJcs=;
+        b=cObLNnK/yI6b7ujLA152emmjZxaPbZ5Av/d+Aw1MMLHuzu0ywWo+5hZJa4x8P8ZzSt
+         qTWMmZ3MzbX2FUJbkCDibMMj4jTzIPQPe+NmfsK2QRcHXtk3xG/+4jSuiYf+kWviMsBk
+         JVdeM+q2dKMKK3tevv5J2rSK9KHmGN8MWUXFHFTJ8FMpqSm+M/v1gDF477u62Z2H1FXT
+         yN+e/THwx4Fm2U/+yqumHApMGYUwl1P0KGT+dP2miI9T33D1IUjD4+fDthQUZ0OWVtzv
+         4tHEEt6gHIOI9bG8hTVQ1KMJf4+jC1QL5fI8oQyCmnuq3B85HHCjb1o9LHuPCg9iFthS
+         moqg==
+X-Forwarded-Encrypted: i=1; AJvYcCViHshfQ/wXX8ZWPUkCzlUzEkyiTOuVgAo4mWNB2JFm/Z4bX4T4XOZXR9FDpUP50wJoqDhLKsAGR0M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/gVKn/cwE2yy4DFIVlouHjpV+YQhQKBfej1jaaIJvtIdc1KBd
+	l9lm3kj1HVUbemF+dsqddF9ix3Tk+Ech5TaWmQFR3EhOGJojqTkwBojNELPnEFnltA==
+X-Gm-Gg: ASbGncvTXYHhLxFH6CbRY6ACbDZPTYvm3BDqRNk351aE3ZG2YxvqCXJQatQR96r7mh+
+	JfsoFXp/lJCWDzhI32k9X7yKT2AJm7aiWHWxSbfVrQcPXJKRaO5a/RtXINojnWo6dBFkpKS1DOV
+	t2XEI8iZopc8N0kaYy+cFh33u24wg/jfr+gHW5JRBaSmREyLbRsuxXv0PE4xUGgfoSGmvTGRvPO
+	sySxHazHx7eucWcC/KBFDSknVcVeQ346P63OuHZ+aHnSIMxYyDotxdW3ZG9p4HDAjvSlMwotAa8
+	O4aCvVf2OFgp8JdCyWAuV9dbmnNOjRuQveGxhLJLVBDD38JF7Oc3JuwNu0dJHSeXslQB4yTHwfr
+	IjvxpRjGcC1a94hSQRi+sl8BTneZmhFR1rSwLoXFL8uk5zLgUxrs+DnanTjU/6Ua3GRjnE6erJX
+	NOFgYN9zLrtlvX024YyNlmRDYxpTy0VSMe3i0SMA2J2A4SwFmKbGTJWVIWg4QsU3TmOp4ECmn7U
+	elyQgubJ8XF3Q==
+X-Google-Smtp-Source: AGHT+IERL6XEyYunP9oNeqB05lJoQW1Rj2pCjwGStO/akjAVJkSdzcppMG9FHM05OQ7uPCIve24irA==
+X-Received: by 2002:a05:600c:c8c:b0:477:9fcf:3fe3 with SMTP id 5b1f17b1804b1-47904a6bd48mr251206395e9.0.1764605576642;
+        Mon, 01 Dec 2025 08:12:56 -0800 (PST)
+Message-ID: <a34abdf7-574d-41eb-b22c-9aa4ba2f3997@suse.com>
+Date: Mon, 1 Dec 2025 17:12:58 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1.9 1/3] x86/amd: Use setup_force_cpu_cap() for BTC_NO
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251126132220.881028-2-andrew.cooper3@citrix.com>
+ <20251201160512.1311688-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20251201160512.1311688-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-A XenServer feature in the process of being upstreamed is to be able to
-re-caculate the guest CPU Policies at runtime, e.g. after a microcode load
-and/or livepatch to expose new functionality.  Right now, upstream Xen only
-rescans the Raw CPU Policy on microcode load.
+On 01.12.2025 17:05, Andrew Cooper wrote:
+> A XenServer feature in the process of being upstreamed is to be able to
+> re-caculate the guest CPU Policies at runtime, e.g. after a microcode load
+> and/or livepatch to expose new functionality.  Right now, upstream Xen only
+> rescans the Raw CPU Policy on microcode load.
+> 
+> One complication with recalculating the guest policies is that BTC_NO is
+> handled differently to other $FOO_NO bits, by using __set_bit() rather than
+> setup_force_cpu_cap().
+> 
+> For consistency, switch it to using setup_force_cpu_cap().  This doesn't
+> matter for upstream Xen right now, but it will ease upstream the feature.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-One complication with recalculating the guest policies is that BTC_NO is
-handled differently to other $FOO_NO bits, by using __set_bit() rather than
-setup_force_cpu_cap().
-
-For consistency, switch it to using setup_force_cpu_cap().  This doesn't
-matter for upstream Xen right now, but it will ease upstream the feature.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Rewrite the commit message.
----
- xen/arch/x86/cpu/amd.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 805a8189e6cd..b3e12b084c56 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -1115,8 +1115,9 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
- 		 * Branch Type Confusion, but predate the allocation of the
- 		 * BTC_NO bit.  Fill it back in if we're not virtualised.
- 		 */
--		if (!cpu_has_hypervisor && !cpu_has(c, X86_FEATURE_BTC_NO))
--			__set_bit(X86_FEATURE_BTC_NO, c->x86_capability);
-+		if (c == &boot_cpu_data && !cpu_has_hypervisor &&
-+		    !cpu_has(c, X86_FEATURE_BTC_NO))
-+			setup_force_cpu_cap(X86_FEATURE_BTC_NO);
- 		break;
- 	}
- 
--- 
-2.39.5
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
