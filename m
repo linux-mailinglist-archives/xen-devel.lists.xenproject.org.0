@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E54D2C97D75
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 15:24:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175747.1500362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E52C97E35
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 15:44:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175759.1500373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ4pD-0002mu-Vd; Mon, 01 Dec 2025 14:24:23 +0000
+	id 1vQ582-0005iS-Gf; Mon, 01 Dec 2025 14:43:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175747.1500362; Mon, 01 Dec 2025 14:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 1175759.1500373; Mon, 01 Dec 2025 14:43:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ4pD-0002l8-T3; Mon, 01 Dec 2025 14:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 1175747;
- Mon, 01 Dec 2025 14:24:22 +0000
+	id 1vQ582-0005fu-DG; Mon, 01 Dec 2025 14:43:50 +0000
+Received: by outflank-mailman (input) for mailman id 1175759;
+ Mon, 01 Dec 2025 14:43:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vQ4pC-0002l2-MO
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 14:24:22 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ckhn=6H=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vQ580-0005fY-PE
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 14:43:48 +0000
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [2607:f8b0:4864:20::c2f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6da800eb-cec1-11f0-9d19-b5c5bf9af7f9;
- Mon, 01 Dec 2025 15:24:21 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-47789cd2083so23916305e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 06:24:21 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4790b0cc186sm299916015e9.13.2025.12.01.06.24.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 06:24:20 -0800 (PST)
+ id 24538357-cec4-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 15:43:47 +0100 (CET)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-65962c714eeso36805eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 06:43:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +40,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6da800eb-cec1-11f0-9d19-b5c5bf9af7f9
+X-Inumbo-ID: 24538357-cec4-11f0-9d19-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764599061; x=1765203861; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BoNc0EfE6oIDMoAeDnIpEEeaSUgG+5MJKYEPo03xtjc=;
-        b=KklLoMnrc+6mZ6ODt3VXCo+N6ygm3lZBKJADJr2tH97p1UwYRuIj7DEyDtcgtMIQOZ
-         x66ACYLEQilCQi5gdAk0g+2zfxuIx2/NbeiASPkNt8TZ7C40Awo6uKsY98+4KKNk6ceS
-         pcaf9ZTwq53e21VDMNLimwsN325orUO+mE4pzKhxFjl232XYS+ZlXpsdu/wFbpTaOm/L
-         0DlNYG1JsB054Bjr9aFJIMjqZ1jyXofUJG9gb9L+9s4Vk/leo7P9niDR8wXhoT9xYGa9
-         dQ+ZDHfhmSO8tHCYfrh9EY/sV+SKcBSha6ze5bEhCEmAtKHPquW9pDHjdsFNoCVKN2O1
-         9P5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764599061; x=1765203861;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1764600226; x=1765205026; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BoNc0EfE6oIDMoAeDnIpEEeaSUgG+5MJKYEPo03xtjc=;
-        b=mmUHDmsCOw94b9Cnt801+HlCtWChQh+R1ZP2/RyG2NO1auoUqd/Ozl9PMEYW35isES
-         NqRewAnhdgQMzZ7cix+imC78betQTp9pyUjwg0KWHMqG9ZigGl/825VaMY1VmzNXO+E6
-         18fqin1SPrsp79/iLl93z50SxaWv4KSJ+BPdsxZC0l/OU4aRBTO3QYd9CfchJT34qIl6
-         OemgJ+ee//STVPs3d/SKuOrgC60FTyT8RPwxONE73iyWaVLCY3G99l4FMBS0TeqFWzSM
-         KjEnxRvhhfBqzkPVXy/IshwsSshdAC087+r3Egxk6/io8buhc63DCRm7WAY4hcKg1opU
-         CEkQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXdZFUNgEqt/zpBXpoIkUQRXOgF6J1xd2tj1MAcjbSSmI0uXXzybvLv6+9iOU3+gCL9q2Q3l1iF+yU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFsMQBMLL6ohwys7BYldyCo90j1we1MahuCYiIf0/pl1aM9+wz
-	rjNKcZi/IbkyExnL0BxdgNLh/DmgQwafSXmQFIQfuZ/eDHhiTcjbx3BqviZHQkbKbg==
-X-Gm-Gg: ASbGncsjD0YEjzKA8vDA68hBpCo+woi3ivbbrEq3rTg0O5Lp3ASPbBbRln2IrgDOXY+
-	MeJY6sKsV/YKkjxeXV0DqEPA8bn9jOAuMBXPAcAcz/KyYo7bQObFrnEMMVjVKuy9MHlhd88LEwo
-	3kY0oYZ2ovl6jjDXEoyqlYXvtNcl6+Liyfh/Y6uNRxnzyU3GEJhOK1rz2BG3y1dbvwB0QiGhY/W
-	gwSZMzzCO1/JjOSl7y5o39j+HMDN9hQtsd6mXiFsccLDfO+ruqwS2iwr7Yrh9++sa5W9LESb99K
-	BPz3dcDRMxeYCmPKo8iHZxL8lJ0ik4gXAIp2pRwxC4i8A3ZYbByHhKD6wc8GMDjosuhrYED1bes
-	3RJNwWH4Iss3IbdpZNO8HKVqNkK06IEwQVHkacErJSkDLeJHk7d2RvgLT7Mx/yhHDe9XoaMN/lT
-	CgU0hLjGwVAykltbLypBG7JGmXP+8ThF16A5u42biYlWH7Iajnpl72S1YBy/ePBlzWIsC3LJm8h
-	qQ=
-X-Google-Smtp-Source: AGHT+IEWPFOrhbQSpnYMgepsF0cx0F17DxyoneBP/C2+0fAPq1Swe3sOx16GNa2sTAMAUNXJo3+Euw==
-X-Received: by 2002:a05:600c:1c9a:b0:477:1bb6:17e5 with SMTP id 5b1f17b1804b1-477c115dabdmr460533875e9.30.1764599060702;
-        Mon, 01 Dec 2025 06:24:20 -0800 (PST)
-Message-ID: <8556154c-86d8-4208-8c47-3a2507c80dd1@suse.com>
-Date: Mon, 1 Dec 2025 15:24:22 +0100
+        bh=BZbr8UvSDfzy4nkhgyFpOtzWOvl8QD48or1B2VBuZiE=;
+        b=xVvtqoiyzJJyvVpl3mNDJ4a3P4eDDcXKYFFo5SMb9jeprtF9IZjmNFUq6xlO1TensC
+         urUcmXb+flEbF/tICnVW9p7TYHVxZbQRgPhcgAqUEgCXB/aPZJH8bPIvBIuFsqSpQeAf
+         4pQT94rzXcOagWJ+s9dPHuuwpU/IuOZtElhz71GSqkB2iQH1abBAHyN4GCNOq78HlL8L
+         hPqnbbunN4GVee17IpMk1mxeI76YeYMW9EK7U3YavW6ouSrDH/lNJzuMh/OOZb7UHcUP
+         Sm1C57qmZXweKS+/JAc55pTmvXW4RYCwGTHJ4JXx4XYEHh1K0P8V1R1zHcjVeVZXyTNZ
+         wLzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764600226; x=1765205026;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BZbr8UvSDfzy4nkhgyFpOtzWOvl8QD48or1B2VBuZiE=;
+        b=vLGUoqNn8mQAmIbLxSlyOyT1qkpa3d8AXYV+WN4xOoyCSq9+/NvS7UWt6PoJ++DMlv
+         YZS47R7mbOlg0ypzjrYVrSVhfeX60+O/qZyZaH5gvnky6Q6erau5TE3TaXzdphL2BTAt
+         87hNWb4Umq8aqaD8oyQYAIekZnXEbpRnWrZiKF3BABMIztHM0Zq4PeZ6jtelv1hJ+JFa
+         laHXmCA3b8TzpEkCawNtV1HkvDCT4+ALW8JN+JsqmmbNhxPPSpI+9Ewdm7BSoteLsnMx
+         KriptlK1XWOhT/nT8sj+RNqLzCHaPaTVZjwmykwtJQ1bODFPDeWkG7XlXjbIY82yJwu0
+         odAg==
+X-Gm-Message-State: AOJu0YzbMxSrEkPPxPz/rN+oMEXAIwMLlx1Ug5vrpXLzK4dpqZk8dfnY
+	cShYC4TT9xGCOBdUQ42gzFVuGm/tBh+DikHxPr0ePqCOT88Of7GxT44HyqhniQ6emzdQXkHyLcO
+	8X2J71NHHlo5SEC95wOkYaldcko39x7h+WTHzrd82sfFeUJlhI+R4zVoAAQ==
+X-Gm-Gg: ASbGncuVWY0z10DAAPm7rA6W3kTSHm5lyW/UNoUWoDkiEe+Zf+eVbPc+5bfosCeadsv
+	0YAuvxAm+0JEKTQVjLTZiow6lqARWmb8kfCsRNvqUqya7UeQExRhHfihzN/mKLsaIPyDjEOD06I
+	caS6Gs8wYuAvYtDlb0NhgoAhqfEVBo5CGy6x3Vch1+b1v8KAMJ79zAAvbNea7S86c3U2xPIIlwY
+	XRnrsSymWBNyCPFmF/VtVYwXfbIaT2FUoRnHOIoFin85rnrzfoDf/6a0LE03DndR/uDxqfJmXd8
+	ApvCjROitSSzH867uuMUVznLcBQ0y7EeVg6j
+X-Google-Smtp-Source: AGHT+IHfs1H7G1sRdfTTHIOIwCp8bdvrJ0mOQ9jWX0hRRqzDzXizpq2SFC+jhdTWHrftnS7HwMo/wYugsJQUB2uNcG4=
+X-Received: by 2002:a05:6820:5107:b0:657:182a:a5e2 with SMTP id
+ 006d021491bc7-657858c6ee0mr12080066eaf.4.1764600226003; Mon, 01 Dec 2025
+ 06:43:46 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/lib: Introduce SHA-1
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
- Sergii Dmytruk <sergii.dmytruk@3mdeb.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251128184757.1243678-1-andrew.cooper3@citrix.com>
- <20251128184757.1243678-3-andrew.cooper3@citrix.com>
- <bb4ca936-da10-46f2-bf9c-055e19990d82@suse.com>
- <040dbfeb-fe2f-4b5f-9495-799a22876d4a@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <040dbfeb-fe2f-4b5f-9495-799a22876d4a@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1764254975.git.bertrand.marquis@arm.com> <2264daf90cbb25b9a60ebe8edbebb8988d95966b.1764254975.git.bertrand.marquis@arm.com>
+In-Reply-To: <2264daf90cbb25b9a60ebe8edbebb8988d95966b.1764254975.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 1 Dec 2025 15:43:34 +0100
+X-Gm-Features: AWmQ_bk3NsETxMlafFSuq_v7-OmTt4Bzp4yVeBDec8wo6RfMhXgKnLkanqJTafc
+Message-ID: <CAHUa44E=JChox1T8K_kRBQ2nt1QutsDAaMGf3bzD=VO12LFiPg@mail.gmail.com>
+Subject: Re: [PATCH 01/10] xen/arm: ffa: add FF-A v1.2 function IDs
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 01.12.2025 15:19, Andrew Cooper wrote:
-> On 01/12/2025 8:46 am, Jan Beulich wrote:
->> On 28.11.2025 19:47, Andrew Cooper wrote:
->>> --- a/xen/lib/Makefile
->>> +++ b/xen/lib/Makefile
->>> @@ -17,6 +17,7 @@ lib-y += memset.o
->>>  lib-y += muldiv64.o
->>>  lib-y += parse-size.o
->>>  lib-y += rbtree.o
->>> +lib-$(CONFIG_X86) += sha1.o
->>>  lib-$(CONFIG_X86) += sha2-256.o
->>>  lib-y += sort.o
->>>  lib-y += strcasecmp.o
->> Why exactly are we confining the two SHA<n> to x86? They're both plain C
->> implementations, so ought to be fine to build everywhere. Being in $(lib-y)
->> they also wouldn't make it into the final binary until a reference would
->> appear.
-> 
-> For the SHA2 patch, an objection was made to compiling it on the other
-> architectures.  Personally I think they ought to be plain lib-y.
+Hi Bertrand,
 
-Everyone (not knowing where the objection came from) - can we please re-
-consider this, ideally ...
+On Thu, Nov 27, 2025 at 4:52=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Bring the FF-A headers up to the v1.2 baseline and fix the function-numbe=
+r
+> range used for ABI discovery:
+>
+> - update FFA_FNUM_MAX_VALUE so the FF-A function-number window covers the
+>   full v1.2 range, and derive the ABI bitmap bounds from
+>   FFA_FNUM_MIN_VALUE/FFA_FNUM_MAX_VALUE instead of hard-coding
+>   FFA_ERROR/FFA_MSG_SEND2
+> - define the new v1.2 function IDs; CONSOLE_LOG and
+>   PARTITION_INFO_GET_REGS are added for ABI discovery even though they ar=
+e
+>   not implemented yet
+> - extend the firmware ABI table to probe RUN and
+>   MSG_SEND_DIRECT_REQ2/RESP2
+> - while there, fix an off-by-one in ffa_fw_supports_fid(): the computed b=
+it
+>   index must be strictly smaller than FFA_ABI_BITMAP_SIZE, so use >=3D in=
+ the
+>   bounds check
+>
+> Keep FFA_MY_VERSION at 1.1 for now; we only advertise v1.2 once the
+> implementation is fully compliant.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/include/asm/tee/ffa.h |  2 +-
+>  xen/arch/arm/tee/ffa.c             |  4 ++++
+>  xen/arch/arm/tee/ffa_private.h     | 18 +++++++++++-------
+>  3 files changed, 16 insertions(+), 8 deletions(-)
+>
+> diff --git a/xen/arch/arm/include/asm/tee/ffa.h b/xen/arch/arm/include/as=
+m/tee/ffa.h
+> index 24cd4d99c8f9..c587f76e63ca 100644
+> --- a/xen/arch/arm/include/asm/tee/ffa.h
+> +++ b/xen/arch/arm/include/asm/tee/ffa.h
+> @@ -16,7 +16,7 @@
+>  #include <asm/types.h>
+>
+>  #define FFA_FNUM_MIN_VALUE              _AC(0x60,U)
+> -#define FFA_FNUM_MAX_VALUE              _AC(0x86,U)
+> +#define FFA_FNUM_MAX_VALUE              _AC(0x8F,U)
 
-> I could always have patch 1 fix up to lib-y and have patch 2 match...
+This is MAX+1, if I'm not mistaken.
 
-... allowing this to be done?
+>
+>  static inline bool is_ffa_fid(uint32_t fid)
+>  {
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 1d0239cf6950..2b4e24750d52 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -11,6 +11,8 @@
+>   *               https://developer.arm.com/documentation/den0077/a
+>   * FF-A-1.1-REL0: FF-A specification version 1.1 available at
+>   *                https://developer.arm.com/documentation/den0077/e
+> + * FF-A-1.2-REL0: FF-A specification version 1.2 available at
+> + *                https://developer.arm.com/documentation/den0077/j
+>   * TEEC-1.0C: TEE Client API Specification version 1.0c available at
+>   *            https://globalplatform.org/specs-library/tee-client-api-sp=
+ecification/
+>   *
+> @@ -102,6 +104,8 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] =
+=3D {
+>      FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+>      FW_ABI(FFA_MSG_SEND_DIRECT_REQ_64),
+>      FW_ABI(FFA_MSG_SEND2),
+> +    FW_ABI(FFA_MSG_SEND_DIRECT_REQ2),
+> +    FW_ABI(FFA_RUN),
+>  };
+>
+>  /*
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 6dbdb200d840..d7e6b6f5ef45 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -15,6 +15,7 @@
+>  #include <xen/spinlock.h>
+>  #include <xen/time.h>
+>  #include <xen/types.h>
+> +#include <asm/tee/ffa.h>
+>
+>  /* Error codes */
+>  #define FFA_RET_OK                      0
+> @@ -42,6 +43,7 @@
+>
+>  #define FFA_VERSION_1_0         MAKE_FFA_VERSION(1, 0)
+>  #define FFA_VERSION_1_1         MAKE_FFA_VERSION(1, 1)
+> +#define FFA_VERSION_1_2         MAKE_FFA_VERSION(1, 2)
+>  /* The minimal FF-A version of the SPMC that can be supported */
+>  #define FFA_MIN_SPMC_VERSION    FFA_VERSION_1_1
+>
+> @@ -270,6 +272,10 @@
+>  #define FFA_RX_ACQUIRE                  0x84000084U
+>  #define FFA_SPM_ID_GET                  0x84000085U
+>  #define FFA_MSG_SEND2                   0x84000086U
+> +#define FFA_CONSOLE_LOG                 0x8400008AU
 
-Jan
+This is the 32-bit version of the interface. There's also a 64-bit version.
+
+> +#define FFA_PARTITION_INFO_GET_REGS     0x8400008BU
+> +#define FFA_MSG_SEND_DIRECT_REQ2        0xC400008DU
+> +#define FFA_MSG_SEND_DIRECT_RESP2       0xC400008EU
+>
+>  /**
+>   * Encoding of features supported or not by the fw in a bitmap:
+> @@ -280,11 +286,9 @@
+>  #define FFA_ABI_ID(id)        ((id) & ARM_SMCCC_FUNC_MASK)
+>  #define FFA_ABI_CONV(id)      (((id) >> ARM_SMCCC_CONV_SHIFT) & BIT(0,U)=
+)
+>
+> -#define FFA_ABI_MIN           FFA_ABI_ID(FFA_ERROR)
+> -#define FFA_ABI_MAX           FFA_ABI_ID(FFA_MSG_SEND2)
+> -
+> -#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_ABI_MAX - FFA_ABI_MIN + 1))
+> -#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
+> +#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_FNUM_MAX_VALUE - FFA_FNUM_MIN_VA=
+LUE \
+> +                               + 1))
+
+Depending on whether FFA_FNUM_MAX_VALUE is MAX+1 or just MAX, we could
+drop the +1.
+
+Cheers,
+Jens
+
+> +#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_FNUM_MIN_VALUE) << =
+1 | \
+>                                 FFA_ABI_CONV(id))
+>
+>  /* Constituent memory region descriptor */
+> @@ -549,9 +553,9 @@ static inline int32_t ffa_hyp_rx_release(void)
+>
+>  static inline bool ffa_fw_supports_fid(uint32_t fid)
+>  {
+> -    BUILD_BUG_ON(FFA_ABI_MIN > FFA_ABI_MAX);
+> +    BUILD_BUG_ON(FFA_FNUM_MIN_VALUE > FFA_FNUM_MAX_VALUE);
+>
+> -    if ( FFA_ABI_BITNUM(fid) > FFA_ABI_BITMAP_SIZE)
+> +    if ( FFA_ABI_BITNUM(fid) >=3D FFA_ABI_BITMAP_SIZE)
+>          return false;
+>      return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
+>  }
+> --
+> 2.51.2
+>
 
