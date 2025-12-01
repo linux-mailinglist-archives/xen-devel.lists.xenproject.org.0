@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 759EAC96A22
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 11:25:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175652.1500292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822B1C96A27
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 11:25:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175651.1500279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ14z-0004iV-C3; Mon, 01 Dec 2025 10:24:25 +0000
+	id 1vQ14y-0004L9-5b; Mon, 01 Dec 2025 10:24:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175652.1500292; Mon, 01 Dec 2025 10:24:25 +0000
+Received: by outflank-mailman (output) from mailman id 1175651.1500279; Mon, 01 Dec 2025 10:24:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQ14z-0004ge-8d; Mon, 01 Dec 2025 10:24:25 +0000
-Received: by outflank-mailman (input) for mailman id 1175652;
- Mon, 01 Dec 2025 10:24:23 +0000
+	id 1vQ14y-0004IE-1d; Mon, 01 Dec 2025 10:24:24 +0000
+Received: by outflank-mailman (input) for mailman id 1175651;
+ Mon, 01 Dec 2025 10:24:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tSLg=6H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vQ14x-00041l-Mz
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 10:24:23 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1vQ14w-00041l-UJ
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 10:24:22 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6704ee7-ce9f-11f0-9d19-b5c5bf9af7f9;
- Mon, 01 Dec 2025 11:24:21 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-640d0ec9651so7209124a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 02:24:21 -0800 (PST)
+ id e7155d20-ce9f-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 11:24:22 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-644fcafdce9so6322263a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 02:24:22 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-647510508e1sm12104724a12.27.2025.12.01.02.24.19
+ 4fb4d7f45d1cf-647510508e1sm12104724a12.27.2025.12.01.02.24.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Dec 2025 02:24:19 -0800 (PST)
+ Mon, 01 Dec 2025 02:24:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6704ee7-ce9f-11f0-9d19-b5c5bf9af7f9
+X-Inumbo-ID: e7155d20-ce9f-11f0-9d19-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764584660; x=1765189460; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1764584661; x=1765189461; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lf+N5X3ZZ5bsc0bBTkOsHsGSk6FHfGVMZrI5qCr7EEo=;
-        b=Nz1lIuNWZ23GQzNT7uPS2A4nWBLgSYss4y63rNkQNbIZfJaP/TugtdiEDZw7FAR2wI
-         kL6MS9F4SixHugsD+k09TDJeljwIBnzDUxVL+dfsEPVAdmMcDqMhH7wjIgCdzQg4ILir
-         VuT3at7qQJEWm1R0wxzjB/uGeca/+gzsYmFbH0D69vwImwpo02g5BNbqT0d3bbHVp1em
-         1BPTOUprAxYyboY7fIyKdvFyjp55YoX2LScgAkednHqkSYTQLeVEvMA3cgumSEHIU2Yg
-         T8xBrDoMlFxwmtxOJtGL+3kzCTRI9getG03dNavNCJzoatTwvvFa/jrYXhdvalt2Tit6
-         V2sQ==
+        bh=5/5qXPCww7DpyOeKc5W7T3oZxeoVMBH7UuUZDrfemqE=;
+        b=Z+HYFSTYsE29amSMV37ZLmgpDfuAcll5PfoSEa13APGB3tmj6magZISfgc95kfA7/1
+         NYulz22kA36sxYWxVUvGQ+joKDN/lOInMbAOX7SOmeoz5RLjBme9Tl709vLny2LgPtmj
+         Co0D07gNk+kN1LOG8VSyQp939QUnAxbKNrl7CCQ93XwcOnQktK6GoDtlmX0RDcBXKze9
+         EnDDu+MbiuedHwjcEhp0DrVZkQoN2hX4RHKE/ZKlvRc4AlVQaD60XjwbJObLrXPOzbCM
+         dfGxBZiR/rivysntjGBj/9swbcxk3FqCiDCpeVHgGE9wfcwFVYEOMMchWlJ4cz4B3p8l
+         xWSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764584660; x=1765189460;
+        d=1e100.net; s=20230601; t=1764584661; x=1765189461;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lf+N5X3ZZ5bsc0bBTkOsHsGSk6FHfGVMZrI5qCr7EEo=;
-        b=jIvMyYZmdin1jz1rBSO/iWK+zMxxTBMgQdsU0e03WJ4Je0XwMhtUKsVdPIS/M61CNP
-         TrMsC9nWQ7j/qc/vKzCsZyflxaMjorkmardVSthNMFLMD/fIXZxcUrsxNyDuFL/50FZL
-         mMkYjK+NbhABxYQ/alvD4bScNBCUoiHHPj4mWROuEOPKcNeBbW+xoqmRwpkfQ9JErRU9
-         d/mHEEAayJBcfwV6VegrmLpPTwkAv52rZqLvkbCVXWHN1rV7krtbbbGXfX/Smi1mhskd
-         XyUbs+o2hx+faPnD0wCzlx5cPT519w4hcQ9qbd37GmMsmWvK7mazo1PePqvgQzpCSW2S
-         mMfA==
-X-Gm-Message-State: AOJu0YxOkp5JPr29spwSbCRECsgTjgVyx9wA/H2Eo7JpncWyq0a8EuFc
-	utD6Ag8hQkcFxlJR3lpTAtXhyNooiBRq6KQIzv/VzIBjItj4jOqHsra67jaidIpc
-X-Gm-Gg: ASbGnctz1xabEtIGqo5m8/kNhRT2CeQnCINUrxAjJkZwA0xo9kde1+rRuzDdSfO3jbM
-	n65pOGP1sNaNeYzfoIGsnuvNPzmOgE/sW/GaaA2E81nl47rRrKHeJJvmzKU2XRAcGHPJgfBYQ79
-	5ec/gZjA72bSlhtzwb2WWqW1mwzUrvPBaS/MRyEnZulwRKqUgZg8asec69dnEuet1s2VFdxL5z+
-	BkZwkM+9lSBPuLqn7fS+CrXmLX9ORWm0am6YllmOSAcXvyV1dQvt4SIQ2QhwTklLRLRXPU6AAaV
-	JsnKLuJYm8kfrPN62Tk98bnRImAGrpul1F/cZR8qToIKGs34KrZbIby2/WcbYpmXbLAbrUDNoHd
-	Y6Xf9XR7uKQlHWEN/jAYdJ+pthmN+5s28wyUAd6yltQMo1hJmwqPy8miqHhvgEadJSq5wIU9wh6
-	v8rVAg/U84yweCTpJq8KAc+SPF8MRiHr9zUPjx+9TJCbvcYrP0MXPxoKX6ICiH3xSTkA==
-X-Google-Smtp-Source: AGHT+IESPE5BRtDHOM0mPf44z/DvKR1KHQLIzguXTRd2Az3sSheaMmSW8ev4MCk0ZNllhessoEZqYw==
-X-Received: by 2002:a05:6402:42c7:b0:640:e791:df67 with SMTP id 4fb4d7f45d1cf-64555b9bebbmr36232781a12.10.1764584660077;
-        Mon, 01 Dec 2025 02:24:20 -0800 (PST)
+        bh=5/5qXPCww7DpyOeKc5W7T3oZxeoVMBH7UuUZDrfemqE=;
+        b=uqq6qCNmbVLMDgXQIEs/HmAoLBgj9GCrZ55/wzX97s0kB2smsLsIicuhrnJgtGFtsk
+         6zWuoO7X9hRwUFpM07DqBnjQzzF3qdbYkKD6K9ne8ywGrHO+6mceCmQyPC3yUKkz062c
+         vj5DjXSpwhqEFmVHEHbsZiSZSra9nVRPKfnc+LD6xPquL4RPpA397+Uem3BtaLiVrzEs
+         O1Y5xeyT/E6g0IKAIRG4YeLWrjEcg+vZiP/CSsXIz9nkOVRYaq8A1cSTRpCzDm5lwFk3
+         YYZJd5dfYWNjZRnozyJzjW+yyljD7ZhbOrILRmNOJGl39SqEhMVEhoFaM3oizBISfhLp
+         AFmg==
+X-Gm-Message-State: AOJu0YxtUU+6F4wPacoqYftBUA87/ze2au2pSsyX5AXiE/NzL0wzj91i
+	pOjXdbnwx2YeiCzjtVEwz46ILsjMQYYWb23j3E9LW0v+PWy+1FsVRdVCSQXTen3v
+X-Gm-Gg: ASbGncszJqmG334mY/scY1gDf3rOSXt2tzZwJEagJN+ZXf1jPFWQcw5Ka1ysBLumKd7
+	e7qUpO+GqQiBQDUmHKLi+ArlN1C/OThgar4Ffe9mvGxxRI1hg3jCYPnN94FcLoT0HmQDfF71i+8
+	edcIMjwNIAnA/u9vRdMWMHoi8En8i5/f4Rs/Ys90TLfFzz+ChQob/k6iHF9bHWowLeeTAHJwSHE
+	2bJ9fLM2qVlMRm7I9n/GS2aXIa2sXFd4MpGSBwyMjpSjv0iveqUoNFzY3ADQ4xXB7Av0LzyUYu7
+	4i0lEY3M9+7ZJi/mmCZUUqc53qZz0j7r0XaY31C+dgaptbilTPiAoew8H5/6M8Bs3KDkkLtxEiU
+	AsVWjY5FXLqKNqTnAVM1dpfyq5NuWKITGmeFgHocnJeVSLPYBskKrKlvUPmyrIFtO/W+8nJwXYj
+	pgLsrRK7rQQzV9lNZknLNx7ROSXty8Cqgsmj26PnkacnxUtbzqmG0GVdk=
+X-Google-Smtp-Source: AGHT+IEHAkAjsx+AcYiFj6bbDfNxh05DgLlgcigwBuGP4ZsrHTsIk7PkL/MRnY4TibUboiviSfvm3Q==
+X-Received: by 2002:a05:6402:1d50:b0:640:ebe3:dd55 with SMTP id 4fb4d7f45d1cf-645eb23f84emr21307302a12.6.1764584661090;
+        Mon, 01 Dec 2025 02:24:21 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,71 +95,91 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 2/3] xen/riscv: add RISC-V legacy SBI extension support for guests
-Date: Mon,  1 Dec 2025 11:24:09 +0100
-Message-ID: <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 3/3] xen/riscv: add RISC-V virtual SBI base extension support for guests
+Date: Mon,  1 Dec 2025 11:24:10 +0100
+Message-ID: <d17dcac47752681eed6703360389dd542433ab3e.1764582112.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1764582112.git.oleksii.kurochko@gmail.com>
 References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This commit adds support for legacy SBI extensions (version 0.1) in Xen
-for guest domains.
+Add support of virtual SBI base extension calls for RISC-V guests, delegating
+hardware-specific queries to the underlying SBI and handling version and
+firmware ID queries directly.
 
 The changes include:
-1. Define all legacy SBI extension IDs (0x0 to 0x8) for better clarity and
-   completeness.
-2. Implement handling of legacy SBI extensions, starting with support for
-   SBI_EXT_0_1_CONSOLE_{PUT,GET}CHAR.
-
-The implementation uses the existing virtual SBI framework to handle legacy
-SBI ecalls, ensuring compatibility with older SBI specifications in
-RISC-V guests.
+1. Define new SBI base extension function IDs (SBI_EXT_BASE_GET_MVENDORID,
+   SBI_EXT_BASE_GET_MARCHID, SBI_EXT_BASE_GET_MIMPID).
+2. Make sbi_spec_version, sbi_fw_id, and sbi_fw_version global variables for
+   use in virtual SBI handling, removing redundant local declarations in
+   sbi_init.
+3. Implement handling of SBI base extension functions, including version,
+   firmware ID, and machine-specific queries.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/sbi.h            | 11 ++++--
- xen/arch/riscv/vsbi/Makefile                |  1 +
- xen/arch/riscv/vsbi/vsbi-legacy-extension.c | 37 +++++++++++++++++++++
- 3 files changed, 47 insertions(+), 2 deletions(-)
- create mode 100644 xen/arch/riscv/vsbi/vsbi-legacy-extension.c
+ xen/arch/riscv/include/asm/sbi.h          |  3 ++
+ xen/arch/riscv/sbi.c                      |  8 ++--
+ xen/arch/riscv/vsbi/Makefile              |  1 +
+ xen/arch/riscv/vsbi/vsbi-base-extension.c | 52 +++++++++++++++++++++++
+ 4 files changed, 61 insertions(+), 3 deletions(-)
+ create mode 100644 xen/arch/riscv/vsbi/vsbi-base-extension.c
 
 diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
-index ade24a572d..e7d5d707b1 100644
+index e7d5d707b1..98ba872ef3 100644
 --- a/xen/arch/riscv/include/asm/sbi.h
 +++ b/xen/arch/riscv/include/asm/sbi.h
-@@ -14,8 +14,15 @@
+@@ -32,6 +32,9 @@
+ #define SBI_EXT_BASE_GET_IMP_ID         0x1
+ #define SBI_EXT_BASE_GET_IMP_VERSION    0x2
+ #define SBI_EXT_BASE_PROBE_EXT          0x3
++#define SBI_EXT_BASE_GET_MVENDORID      0x4
++#define SBI_EXT_BASE_GET_MARCHID        0x5
++#define SBI_EXT_BASE_GET_MIMPID         0x6
  
- #include <xen/cpumask.h>
+ /* SBI function IDs for RFENCE extension */
+ #define SBI_EXT_RFENCE_REMOTE_FENCE_I           0x0
+diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
+index 425dce44c6..97cbf84c21 100644
+--- a/xen/arch/riscv/sbi.c
++++ b/xen/arch/riscv/sbi.c
+@@ -23,7 +23,9 @@
+ #include <asm/processor.h>
+ #include <asm/sbi.h>
  
--#define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
--#define SBI_EXT_0_1_SHUTDOWN			0x8
-+#define SBI_EXT_0_1_SET_TIMER           0x0
-+#define SBI_EXT_0_1_CONSOLE_PUTCHAR     0x1
-+#define SBI_EXT_0_1_CONSOLE_GETCHAR     0x2
-+#define SBI_EXT_0_1_CLEAR_IPI           0x3
-+#define SBI_EXT_0_1_SEND_IPI            0x4
-+#define SBI_EXT_0_1_REMOTE_FENCE_I      0x5
-+#define SBI_EXT_0_1_REMOTE_SFENCE_VMA   0x6
-+#define SBI_EXT_0_1_REMOTE_SFENCE_VMA_ASID  0x7
-+#define SBI_EXT_0_1_SHUTDOWN            0x8
+-static unsigned long __ro_after_init sbi_spec_version = SBI_SPEC_VERSION_DEFAULT;
++unsigned long __ro_after_init sbi_spec_version = SBI_SPEC_VERSION_DEFAULT;
++long __ro_after_init sbi_fw_id;
++long __ro_after_init sbi_fw_version;
  
- #define SBI_EXT_BASE                    0x10
- #define SBI_EXT_RFENCE                  0x52464E43
+ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
+                         unsigned long arg0, unsigned long arg1,
+@@ -313,8 +315,8 @@ int __init sbi_init(void)
+ 
+     if ( !sbi_spec_is_0_1() )
+     {
+-        long sbi_fw_id = sbi_get_firmware_id();
+-        long sbi_fw_version = sbi_get_firmware_version();
++        sbi_fw_id = sbi_get_firmware_id();
++        sbi_fw_version = sbi_get_firmware_version();
+ 
+         BUG_ON((sbi_fw_id < 0) || (sbi_fw_version < 0));
+ 
 diff --git a/xen/arch/riscv/vsbi/Makefile b/xen/arch/riscv/vsbi/Makefile
-index 574c8ff78d..4da625db9a 100644
+index 4da625db9a..07ae27b99e 100644
 --- a/xen/arch/riscv/vsbi/Makefile
 +++ b/xen/arch/riscv/vsbi/Makefile
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  obj-y += vsbi.o
-+obj-y += vsbi-legacy-extension.o
-diff --git a/xen/arch/riscv/vsbi/vsbi-legacy-extension.c b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
++obj-y += vsbi-base-extension.o
+ obj-y += vsbi-legacy-extension.o
+diff --git a/xen/arch/riscv/vsbi/vsbi-base-extension.c b/xen/arch/riscv/vsbi/vsbi-base-extension.c
 new file mode 100644
-index 0000000000..39d65931b1
+index 0000000000..88f4567cb1
 --- /dev/null
-+++ b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
-@@ -0,0 +1,37 @@
++++ b/xen/arch/riscv/vsbi/vsbi-base-extension.c
+@@ -0,0 +1,52 @@
 +
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +
@@ -167,35 +187,50 @@ index 0000000000..39d65931b1
 +#include <xen/sched.h>
 +
 +#include <asm/processor.h>
++#include <asm/sbi.h>
 +#include <asm/vsbi.h>
 +
-+static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
-+                                     unsigned long fid,
-+                                     struct cpu_user_regs *regs)
++extern unsigned long __ro_after_init sbi_spec_version;
++extern long __ro_after_init sbi_fw_id;
++extern long __ro_after_init sbi_fw_version;
++
++static int vsbi_base_ecall_handler(struct vcpu *vcpu, unsigned long eid,
++                                   unsigned long fid,
++                                   struct cpu_user_regs *regs)
 +{
 +    int ret = 0;
++    struct sbiret sbi_ret;
 +
-+    switch ( eid )
-+    {
-+    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
-+        printk("%c", (char)regs->a0);
++    switch ( fid ) {
++    case SBI_EXT_BASE_GET_SPEC_VERSION:
++        regs->a1 = sbi_spec_version;
 +        break;
-+
-+    case SBI_EXT_0_1_CONSOLE_GETCHAR:
-+        regs->a0 = SBI_ERR_NOT_SUPPORTED;
++    case SBI_EXT_BASE_GET_IMP_ID:
++        regs->a1 = sbi_fw_id;
 +        break;
-+
++    case SBI_EXT_BASE_GET_IMP_VERSION:
++        regs->a1 = sbi_fw_version;
++        break;
++    case SBI_EXT_BASE_GET_MVENDORID:
++    case SBI_EXT_BASE_GET_MARCHID:
++    case SBI_EXT_BASE_GET_MIMPID:
++        sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
++        ret = sbi_ret.error;
++        regs->a1 = sbi_ret.value;
++        break;
++    case SBI_EXT_BASE_PROBE_EXT:
++        regs->a1 = vsbi_find_extension(regs->a0) ? 1 : 0;
++        break;
 +    default:
 +        panic("%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
 +              __func__, fid, eid);
-+		break;
++        break;
 +    }
 +
 +    return ret;
 +}
 +
-+VSBI_EXT_START(legacy, SBI_EXT_0_1_SET_TIMER, SBI_EXT_0_1_SHUTDOWN,
-+               vsbi_legacy_ecall_handler)
++VSBI_EXT_START(base, SBI_EXT_BASE, SBI_EXT_BASE, vsbi_base_ecall_handler)
 +VSBI_EXT_END
 -- 
 2.52.0
