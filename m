@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413F0C963A8
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 09:44:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175585.1500209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14260C963BB
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 09:46:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1175595.1500219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPzVz-0006aj-KF; Mon, 01 Dec 2025 08:44:11 +0000
+	id 1vPzXz-00078k-0M; Mon, 01 Dec 2025 08:46:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175585.1500209; Mon, 01 Dec 2025 08:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 1175595.1500219; Mon, 01 Dec 2025 08:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vPzVz-0006Yn-Hf; Mon, 01 Dec 2025 08:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 1175585;
- Mon, 01 Dec 2025 08:44:10 +0000
+	id 1vPzXy-00076r-Su; Mon, 01 Dec 2025 08:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 1175595;
+ Mon, 01 Dec 2025 08:46:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vPzVy-0006Yh-2F
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 08:44:10 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1vPzXx-00076l-K5
+ for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 08:46:13 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6fc6465-ce91-11f0-9d19-b5c5bf9af7f9;
- Mon, 01 Dec 2025 09:44:09 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-42e2e08b27eso480095f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 00:44:09 -0800 (PST)
+ id 30217518-ce92-11f0-9d19-b5c5bf9af7f9;
+ Mon, 01 Dec 2025 09:46:11 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-477b91680f8so33770715e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Dec 2025 00:46:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1ca1a38bsm25372242f8f.24.2025.12.01.00.44.07
+ 5b1f17b1804b1-4791163e3dasm228776155e9.11.2025.12.01.00.46.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 00:44:08 -0800 (PST)
+ Mon, 01 Dec 2025 00:46:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6fc6465-ce91-11f0-9d19-b5c5bf9af7f9
+X-Inumbo-ID: 30217518-ce92-11f0-9d19-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764578648; x=1765183448; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764578771; x=1765183571; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b775cYLZSy3NITk66Jvd/6m4NnP3BHfiydigwGNd4YA=;
-        b=D2C48Kg9VOoLtYIzFBiEGn5c2yK6vLgbVveSdh3KcxqDdWaW7HKmxRxxQlQlIaAADo
-         tVR0xVdM3ZWTVlLav1k33HXPmDcqIpxaaWQ/bk9+XXjJ9lVcrv/9wxP9SCZlL7upQc4J
-         fVxKfdUll/CXcIjrxdHMlvNTmD1kZ+pxWp0+6PqVz/jRoSLcvZWtc3CWVU3vLK/5/6lF
-         +wKdFcZVzDiaG9fumK+vXAKnlIhbwQfa9tags7WRADDh2wKBy7rVDkPnIPOFpYQPysKi
-         rmgkYKej7Yk22j4FZHh+a9urpxF/BejHTuOu/QrgRLVoXHR+QM8Zrfmga459yB/ONrdj
-         LV1Q==
+        bh=ym9Pa61uD2HCgrEVuAXTcCAPEqptH/G26aB7H4L0n90=;
+        b=RG8HhuOEucVKVEH4hZZu9eDefRpe5GayF8JN2t9PbQS7J0C62U+Gm3293yII/k+a1U
+         IXa2c/gjKWtZTIBnVuCnjsv8+buwZZCDLpaDxfirJctFuA+5mRXmDOsKfkjs0K9rFVYR
+         K7sP0UNIVIvmiw94aTscEcuRl79nL4Nh2JePplmROoJUpFRJu34nsLyqNUhXq+/YBqO9
+         bby2shUZgRh5XwJvBJa9HAxE/137n7rSNsKDBW93cgdWcE7Vkv5U1H9/zwWakA25kquc
+         rAPMDNuJavIIZof+M2U0yw/8BY73qb6inCO2rRPSwqsk3+cKiSpLH4Cqg468hkBI4rx4
+         +P+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764578648; x=1765183448;
+        d=1e100.net; s=20230601; t=1764578771; x=1765183571;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b775cYLZSy3NITk66Jvd/6m4NnP3BHfiydigwGNd4YA=;
-        b=Cu48ztSEIleespFZkz83XPmJ5bg4XACfZrF1yLfA2cW50LM9MC6MrkxDoil497sB9R
-         Wj6HHq3R8I8tRD+OFOIxNTo21pWJ64L9Txywpo+eUReQrF4uAewDQuanwFTfQiqI70YC
-         tOkiGHMmpSrvc6d/XI6fTxKGb9daRyUXtlEu/DUvU7235O+tzpwX8Nkm6K2Cvm7YJ3Jj
-         T194pl1RBT32xAOklOspXXFudYbFXKt+PS6IyhSJuAcGtMXTYYmPz1yB+R/zf2LEu3d6
-         HmeO+RD7JB7xmdbIVSvGRxvlGOvNdeWqC6OD9wWPAHA21XcosIEjGwX83oiiCxVSaUuP
-         zooQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU8B1t+oVOI9PX472GQg8HrwsO+LyIvbFVYTGgTqc0P3CWJmNY8ojPVp7smaDS25nIiZaz0+JpF3aE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzTUE3Vbh+d2ysJ/P5cOZcHJ4D2DTH535zvVfUVisjrYbqQWANJ
-	9fY39TkYuV2MtSJr8RVnK9DZJ+40ShJgR3+lYI29a37ymf1CqLu7rFOVD2zvUtdw7A==
-X-Gm-Gg: ASbGnctbSohYR3bRHjzkrhAYJG851FyWlhjWD6XeLIbR7qAq12HAlqbk2/VDD/dxSQF
-	Lact+pNjyRGo4Jv3je37qEf2FX3pm7YzcEaw4TzfYSlwVAvNC6OojZToPaUQzzJUaM0LKZi3rtM
-	ppTPrUyYiBfM8vLKXTnxBUntWOg4+qlY3fAj4DeZTbj/nsW1Muw+yb/hXdrFQc/q7nk+M7nYLnZ
-	bZeUK4g++Xhv2Q2nfPcqcZJ+5rnZHLxVGxZIMThuM1Rk6lLUyoK+QzdrJo4jTyjUC0E1eyaB0y2
-	jkqtLpqaQr4ZrUTLAVmREM24xM9qkRbSXcOUwKysnhDwSe/G32sSljD8zN70YQGT5JzqzJZyf/4
-	Rlq4A1QkJhBe0juOVME/fZltOunG4zXn9iYrY8C8B3Jhqs+0rpEI4bprWVzwRMHbqlUANhjB7my
-	xOJzJ6hAVE/ajla4hORKcceR/L2JjeOc8DNurykXVH6WWoC6gNaJaUeU0w1RchhjGzfV9W/GZyh
-	uo=
-X-Google-Smtp-Source: AGHT+IGP0wfFU+pzC9XiRW0PTpPkd6JpxhflSAbnl7bqXjEQtPIdpPBl3Iw8qItp2yUbo2ARML/EKg==
-X-Received: by 2002:a05:6000:26cc:b0:429:cce9:9b76 with SMTP id ffacd0b85a97d-42cc1d14161mr35896367f8f.50.1764578648515;
-        Mon, 01 Dec 2025 00:44:08 -0800 (PST)
-Message-ID: <6d85a12e-f689-4336-ac40-ac872f21d6df@suse.com>
-Date: Mon, 1 Dec 2025 09:44:10 +0100
+        bh=ym9Pa61uD2HCgrEVuAXTcCAPEqptH/G26aB7H4L0n90=;
+        b=uShDI2DgdMPabd6wNQnbZ3tK/z8lJMGDPW7deNWojaintm7kEdj7J9xoom4hnDm+Ba
+         5i1ftsVbrT9mvmChq2DKuQTZYqIXe40kBQzY5xg+grbZIe+Z4S2QZJKBEJVxNBAdxtux
+         b8kfKQcADrunKDO5rvINnIPzQzI/HnLGoNxbUUHaSMhu5uZEcgyAC7RbqzY85U9xkV9p
+         PoAKYUxQGy9SFl19PedqnYUbpNMMKzvGxfu3X5IhLk+8XHj2eJBsX0b4IcUjDKka/9iV
+         RrOLusyjcrg+VJcJ0FgsJU6AUdSSQaH72S+9T2Ow2BHxZcyfo9mAazsKE0LiwuGZaJgW
+         vCeA==
+X-Forwarded-Encrypted: i=1; AJvYcCXzeTpUN9cl6DJjiJmnqcm92tUl370mNoN4uyO7/viVk+ykO1b3RXBJJ6qDnCeWLQEviSOOrS6qQmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKJGHkzEuUGG2xPEZmjAedgvY1IYJqf6boCH6jnhvWVgOsq2d0
+	J2i3MqF4QJVxQ6JVSbRU1vJ4bkH06ptGnBCuqr7DGqsTpdqIYlko6rWZjKd8Pkv8QA==
+X-Gm-Gg: ASbGncueh2TMKG+QDUone2WSvSvpRgu9kmv8G6IYfEwn1NNfpmIXL0Hg8A9XgRfF6KO
+	4kh6Je/a/upLj2xiMj5jErOZfKmNj9gXe3K/sOZbWXSH9DQxVoQRAuqvnAR9MwB4mjVQJridxDi
+	YE9Il9YJJG1i1nWOhQUKYGZ+yzn4pRg7Kf+QdoBCNebjUCHlpkIBhtxPKJij4TwZpWU+b0jINyX
+	fFleJOPTNVytktpOmA+jsZItHKzqRGVfjOlswI1bf5Q0JS2ysH6N/TV699Rr1/ex9pTgdUK0qSE
+	g5C3zfQ9c8nhOt1Ni4bAyd4IM0pCjW4sq/dxwgu1cwSB70Qyp02y4lD4w120Q+Bm5gfAyfACNYy
+	eLcqb28X3/bPFeGdpNy2Fl5z68kBDwv9bRHCVIb6ib43hU4brE7T+lUl8fHotpi9OQQHru0ur7p
+	Ke3sdVvf1VsUe0kcAJz/X234ArEoRSpfcvogGvUm49nWTM1we0puM7y/tFYJbnXfKo6FOkP6fEd
+	sI=
+X-Google-Smtp-Source: AGHT+IERkxTGhESXDtXeJdixKysHkxGDfItGmPqbAX/tzpRupC+qkBT3CNxU5azPu/YTWr6fZ1UhYQ==
+X-Received: by 2002:a05:600c:c490:b0:46e:4b79:551 with SMTP id 5b1f17b1804b1-477c11325c2mr394797695e9.31.1764578771175;
+        Mon, 01 Dec 2025 00:46:11 -0800 (PST)
+Message-ID: <bb4ca936-da10-46f2-bf9c-055e19990d82@suse.com>
+Date: Mon, 1 Dec 2025 09:46:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] xen/lib: SHA2 cleanup, and SHA1 support
+Subject: Re: [PATCH 2/2] xen/lib: Introduce SHA-1
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Krystian Hebel <krystian.hebel@3mdeb.com>,
+Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
  Sergii Dmytruk <sergii.dmytruk@3mdeb.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251128184757.1243678-1-andrew.cooper3@citrix.com>
+ <20251128184757.1243678-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,33 +122,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251128184757.1243678-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20251128184757.1243678-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.11.2025 19:47, Andrew Cooper wrote:
-> Pulled out of the Trenchboot series.
-> 
-> Andrew Cooper (1):
->   xen/lib: Misc SHA2 cleanup
-> 
-> Krystian Hebel (1):
->   xen/lib: Introduce SHA-1
-> 
->  xen/arch/x86/cpu/microcode/amd.c |   2 +-
->  xen/include/xen/sha1.h           |  14 ++
->  xen/include/xen/sha2.h           |   4 +-
->  xen/lib/Makefile                 |   1 +
->  xen/lib/sha1.c                   | 215 +++++++++++++++++++++++++++++++
->  xen/lib/sha2-256.c               |   8 +-
->  6 files changed, 237 insertions(+), 7 deletions(-)
->  create mode 100644 xen/include/xen/sha1.h
->  create mode 100644 xen/lib/sha1.c
+> --- a/xen/lib/Makefile
+> +++ b/xen/lib/Makefile
+> @@ -17,6 +17,7 @@ lib-y += memset.o
+>  lib-y += muldiv64.o
+>  lib-y += parse-size.o
+>  lib-y += rbtree.o
+> +lib-$(CONFIG_X86) += sha1.o
+>  lib-$(CONFIG_X86) += sha2-256.o
+>  lib-y += sort.o
+>  lib-y += strcasecmp.o
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-I'll raise one question on patch 2, but that's not to make the ack above
-conditional in any way.
+Why exactly are we confining the two SHA<n> to x86? They're both plain C
+implementations, so ought to be fine to build everywhere. Being in $(lib-y)
+they also wouldn't make it into the final binary until a reference would
+appear.
 
 Jan
 
