@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A115AC9B3DD
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 11:58:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176096.1500660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A22C9B534
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 12:34:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176129.1500669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQO4u-0000Ty-W9; Tue, 02 Dec 2025 10:57:52 +0000
+	id 1vQOdg-0006dH-J6; Tue, 02 Dec 2025 11:33:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176096.1500660; Tue, 02 Dec 2025 10:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 1176129.1500669; Tue, 02 Dec 2025 11:33:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQO4u-0000Qi-Sb; Tue, 02 Dec 2025 10:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 1176096;
- Tue, 02 Dec 2025 10:57:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2qtr=6I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vQO4t-0007Nh-8p
- for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 10:57:51 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd5f9520-cf6d-11f0-980a-7dc792cee155;
- Tue, 02 Dec 2025 11:57:48 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-42e2e50c233so1155315f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Dec 2025 02:57:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5c30c4sm32584562f8f.9.2025.12.02.02.57.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Dec 2025 02:57:47 -0800 (PST)
+	id 1vQOdg-0006aA-GG; Tue, 02 Dec 2025 11:33:48 +0000
+Received: by outflank-mailman (input) for mailman id 1176129;
+ Tue, 02 Dec 2025 11:33:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JGiA=6I=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vQOdg-0006a4-0I
+ for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 11:33:48 +0000
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [2607:f8b0:4864:20::c33])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c01dc723-cf72-11f0-9d1a-b5c5bf9af7f9;
+ Tue, 02 Dec 2025 12:33:41 +0100 (CET)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-6596897c2b5so242217eaf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Dec 2025 03:33:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,602 +40,342 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd5f9520-cf6d-11f0-980a-7dc792cee155
+X-Inumbo-ID: c01dc723-cf72-11f0-9d1a-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764673068; x=1765277868; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iGQmzOTHQVxZhOuDPWqR9a8TFoVmUjibvWGR4WexcdI=;
-        b=arGte0ma9vRd1zRSoSYTKprpLbIYSxSEGTG+ils6AG70HIO5/4j4CYCY4YCA9C5y8k
-         FCg+qF/v3aXXD09kn0E6BsWTEiGO9+Nbm7hJbbN3/xldHQoP8kZJZEJqbgOtfP1knevk
-         FstemwO0mjoUCkt9q5f+x73/K04ya9IXdhozYh0xKrMpqBI7JutdaPavDbGl/212PCAC
-         TNOILDyIQtmX6sg8z/e7233Tao84/RVQoq7CeA6yv6ot7oS+ufzNEAN0etTkJTu9PDwC
-         xRbVxir+MubaHfDRBUskOJhHY9aRxoEU+obyfqha/LJvkKDfys+ftH6Dm6hVkAqCVsYQ
-         GA8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764673068; x=1765277868;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1764675220; x=1765280020; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iGQmzOTHQVxZhOuDPWqR9a8TFoVmUjibvWGR4WexcdI=;
-        b=liI6msq/qru9rfynqgFbkRQ6iR+ykSz848/sqZQ5XxgUfVmdkxNNCOmRlUQAKGdhtj
-         3DdY74nBFi6SHxml+Vze9fknq75H/fWCJBSSt41NUzJ524v+quWJ5L5ioAhbfGW3wUtg
-         QXJxL2Q9G5LiK49gghtykcuSZxjemzfL0XYSBqd25TUgDziSW2xmJWjWRaY4ULbWQFSN
-         J7mqWGzLdV7b6rq9TXgvPoEEcqiGvNhCGWbPsp7rdsp55yAW8zEZQUfHHugYKhpipapk
-         m81yx9tXalOTllTqpPSZzrk23oLK4FAG5VyL+iVthD6LU7ogEb2eDC17uqSdJU639iBn
-         CmoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUSd/geJVfXiFGnGQ7mxwK6KpOm00BB0X9PCWj0A350wAQOq6jet9td8iiuAtOo+bAacjEJPR9nBUU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxsrlL2FcVV6SRbxZb/e1QEm3PNNLFzN4xLjHgv6A8a/b4gsrKV
-	pua8JpZao2B36ZEhGkxKSGW4N/63f+uJjGNnnG7A6oxiDbBDSlzSc/a7ZJZOWqzj8a7fCDdNReM
-	1JU8=
-X-Gm-Gg: ASbGncu0zt/2xYSutfLXsZkOdwt1tBEBqj55qOMBu6grD2mY+Y7uoFQJGu49laJ4QzH
-	7olVlHsKHEa2E1+GZonV51DUotXDqLf44e7YE5svt9ivQIh1a25Lfi2iHrjtg6EsOmL3DvojMzS
-	MznO89JhRUGEqSU5EmVhCCXqQ8p2VrblPvALlMXwzVHOAcnpVj9wWruuAK/JllAc/O/RnL1To8K
-	8MQBtFLVnTPXubJ1IS8/h7tOG7rWGhHuDRWdClo/BpAOxGN4K+4EOtkeC1lb2IE1Fe5fhHQHcvp
-	RfGzTwwe7rcRRAVsXVmPJdM5UmuI8l3xMhNo1tDv2EY9Uxmup6oZwa3ZerKe42VjicWTPIPwid0
-	KwHSWi+W9oueixThjtB9R0dRYaWfqrEIJ8z6sqEnXaVWS5M5t46gZCOto1belt3QPKm5qd0sY4y
-	MXA3FmPI5npPuMcwpvmtwc3Zs1ybUxf1zRZDG5Y9vYz74HOm8gHNE8eSRvAfTMSe1RK6cgJIwdz
-	2FLVNX8ITaBtQ==
-X-Google-Smtp-Source: AGHT+IG1K8guqAjyaA98CnxCpU0/Z0anMnauHlLpbS1wwhh0oPTOELEr6GehL8K+lYWtKkpTntZ0tQ==
-X-Received: by 2002:a05:6000:4012:b0:428:5673:11e0 with SMTP id ffacd0b85a97d-42cc1d1999dmr46852933f8f.40.1764673067878;
-        Tue, 02 Dec 2025 02:57:47 -0800 (PST)
-Message-ID: <90ac9206-10ce-4c46-83e3-82ac8ef0d152@suse.com>
-Date: Tue, 2 Dec 2025 11:57:45 +0100
+        bh=JyXl5Uwe+7LLw2uOAk13W9T08ZfHu18vispL0Z1eZVo=;
+        b=vl3z/XtOemBGFB5VONRt2kenBpRZWnnHa8C1+ds12131Y6j3xb+2nEGIQZDuD5eKHO
+         +YDsqGr/pLp0uWZahOBd1ECbT0GiicnDK/3xl7tkDLaMwIqqH+SKZ8SMqSeLcqzwD9n2
+         M/YUcHsp2IhmPGQxnh0fPliOAETntrtsoLlw+xtCrEp7NIkmFtyfAgbnXhOdxVrfbsgz
+         rv2vi7X6Br1ozGPt8H8yIUPQRFUokGh7n3dJKdmRs8hOlnaaUzS0xTM1O1bttGj7KJ/g
+         L0cResaK2pjBF4FQGWYLbmG55s/ZCwZ33PAJb3bz+UdwAw17v73k2dgg9M4qZ/UdWn9S
+         14qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764675220; x=1765280020;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JyXl5Uwe+7LLw2uOAk13W9T08ZfHu18vispL0Z1eZVo=;
+        b=UL5WRvNveImHxjKKPdQG/HAVl6FMNwIRDVr4hCw6wsFmcA6Zbbf13amJ201X+C9Y3e
+         IuRM+wSv8DFaNmxp1f1lxvdWs+gu9aZvxLXY6o5bK8/9SEthIT35NO9cCm1ZvTGoR8qi
+         6+Bx2FKzA/emQ4thVb2j6+t8YpuIMD3r3ePmg5mQAAoB7hLLw78eVzwv+SjDNGaI00yr
+         DZBPPd2nd9uq7wIwKyNj0ljxhCY667kMV4MkzcAMlK2rS4k3TPkeZMksaXbs4/2nQUo5
+         O8XhJs9rzwQjd3w6jFPfINsPYBC2WYeYOZkEDdhQTOMx2uLbAkuZaECKoS73Qp2CMQkf
+         uWhg==
+X-Gm-Message-State: AOJu0YzE3GfGs+ddd731gZzK0584wLD9aX91eEouGF6UrJld7/lpLi5R
+	7owDBViO1TrNH1mdMs/igC6nL92zQUZWDwjgWbNIExB0yyTl/uSb74pyerD9Bns9CsrwMvKAtdP
+	A1pjwCxnS6J9UvhK7nGgk5Mi/jOqh9+kxD9VxjtAToA==
+X-Gm-Gg: ASbGnctfLI4+pr7V4CPyxolpaHjkToq/oQ1DumdccXjtM2eGz/rmyqrMTCzy2ewWFiS
+	zZXocuHVTq5a7VS0XS0hNd427zFG9wDKE8ETj7xTipo7ewuvD1brHes6XNpUB+Zf+dcA1Hh6hlf
+	bHpEaVzS2Y6BwMCn8zBIOJHAUL/fCH/lYfRHhisk7Bw6qfVVDKlBy4Ro6B3Lmkf6ygtiOoiMlhJ
+	Tra4r+8U+/daipCWT/xjMBdutqHA7DuP6kMGZZ5IgAXcITSQf4N7TcIMQ3pFc9KF6B9XBUEdTX7
+	+vCRya9qHKrRE3kOxESR+2ieZXk7THftGTAK
+X-Google-Smtp-Source: AGHT+IFW7i3dfES0Xb4sukVQLMDZA65THvwhMrFNq7hJDqg19UOOp4+LiSCiWKWhx0UCMqRq2oMSAqjnVDNIOY3XCGQ=
+X-Received: by 2002:a05:6820:88f:b0:657:5629:2cef with SMTP id
+ 006d021491bc7-6595dd842fcmr2725762eaf.4.1764675219790; Tue, 02 Dec 2025
+ 03:33:39 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Ping: [XEN][PATCH v4] xen: make VMTRACE support optional
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251119193120.1011448-1-grygorii_strashko@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251119193120.1011448-1-grygorii_strashko@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1764254975.git.bertrand.marquis@arm.com> <5e66b2991340f010befcaa3a57d0f35ad18d4149.1764254975.git.bertrand.marquis@arm.com>
+In-Reply-To: <5e66b2991340f010befcaa3a57d0f35ad18d4149.1764254975.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 2 Dec 2025 12:33:28 +0100
+X-Gm-Features: AWmQ_bl58x99MENRUJ2heu2BeXbVrnBiAu6RnkIU6NIv_UXXYQcqVHXNR9zQ_aE
+Message-ID: <CAHUa44E1SnhBR8=ibG+r6QPN9hehcRVPa93zKpYd756OHza+=A@mail.gmail.com>
+Subject: Re: [PATCH 02/10] xen/arm: ffa: per-VM FFA_VERSION negotiation state
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 19.11.2025 20:31, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> The VMTRACE feature is depends on Platform/Arch HW and code support and now
-> can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
-> This makes VMTRACE support optional by introducing HVM Kconfig option:
-> - CONFIG_VMTRACE to enable/disable the feature.
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+Hi Bertrand,
+
+
+On Thu, Nov 27, 2025 at 4:52=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Track FF-A version negotiation per VM and enforce that no FF-A ABI
+> (other than FFA_VERSION) is processed before a guest has selected a
+> version.
+>
+> Each ffa_ctx gains a dedicated guest_vers_lock, a negotiated version
+> (guest_vers) and a guest_vers_negotiated flag. guest_vers records the
+> version requested by the guest so the mediator can provide data
+> structures compatible with older minor versions. The value returned to
+> the guest by FFA_VERSION is always FFA_MY_VERSION, the implementation
+> version, as required by FF-A.
+>
+> FFA_VERSION may be issued multiple times. Negotiation becomes final
+> only when a non-FFA_VERSION ABI is invoked, in accordance with the
+> FF-A requirement that the version cannot change once any other ABI has
+> been used. Before this point, non-FFA_VERSION ABIs are rejected if no
+> valid version has been provided.
+>
+> Once negotiation completes, the context is added to the global FF-A
+> VM list (when VM-to-VM is enabled) and the version may not be modified
+> for the lifetime of the VM. All VM-to-VM paths and teardown logic are
+> updated to use the guest_vers_negotiated flag.
+>
+> This prevents partially initialised contexts from using the mediator
+> and complies with the FF-A 1.2 FFA_VERSION semantics.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
-> changes in v4:
-> - format changes
-> 
-> changes in v3:
-> - drop vmtrace stubs for HVM=n case from hvm.h (VMTRACE depnds on HVM)
-> - hvm_vmtrace_reset() fix return err code
-> - add comment about using func declaration without definition
-> 
-> changes in v2:
->  - fix comments from Jan Beulich
->  - move CONFIG_VMTRACE in HVM
->  - drop HAS_VMTRACE
-> 
-> v3:
->  https://patchwork.kernel.org/project/xen-devel/patch/20251114142207.279834-1-grygorii_strashko@epam.com/
-> v2:
->  https://patchwork.kernel.org/project/xen-devel/patch/20251112202442.3879997-1-grygorii_strashko@epam.com/ 
-> v1:
->  https://patchwork.kernel.org/project/xen-devel/patch/20251031212005.1338212-1-grygorii_strashko@epam.com/
-> 
->  xen/arch/x86/domctl.c                   |  4 +++
->  xen/arch/x86/hvm/Kconfig                | 12 +++++++++
->  xen/arch/x86/hvm/vmx/vmcs.c             |  2 ++
->  xen/arch/x86/hvm/vmx/vmx.c              | 11 ++++++++
->  xen/arch/x86/include/asm/guest-msr.h    |  2 ++
->  xen/arch/x86/include/asm/hvm/hvm.h      | 36 ++++++++++---------------
->  xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 ++
->  xen/arch/x86/mm/mem_sharing.c           |  2 ++
->  xen/arch/x86/vm_event.c                 |  8 +++---
->  xen/common/domain.c                     | 10 +++++++
->  xen/common/memory.c                     |  6 +++++
->  xen/common/vm_event.c                   |  3 ++-
->  xen/include/xen/domain.h                |  4 +++
->  xen/include/xen/sched.h                 |  4 +++
->  14 files changed, 80 insertions(+), 26 deletions(-)
-
-Tamas - any chance of an ack here?
-
-Grygorii - chasing missing acks is generally the submitter's responsibility.
-
-Jan
-
-> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-> index 6153e3c07e2d..d9521808dcba 100644
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -154,6 +154,7 @@ void arch_get_domain_info(const struct domain *d,
->  static int do_vmtrace_op(struct domain *d, struct xen_domctl_vmtrace_op *op,
->                           XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->  {
-> +#ifdef CONFIG_VMTRACE
->      struct vcpu *v;
->      int rc;
->  
-> @@ -198,6 +199,9 @@ static int do_vmtrace_op(struct domain *d, struct xen_domctl_vmtrace_op *op,
->      vcpu_unpause(v);
->  
->      return rc;
-> +#else
-> +    return -EOPNOTSUPP;
-> +#endif
+>  xen/arch/arm/tee/ffa.c         | 115 +++++++++++++++++++++++++--------
+>  xen/arch/arm/tee/ffa_msg.c     |   2 +-
+>  xen/arch/arm/tee/ffa_private.h |  21 ++++--
+>  3 files changed, 104 insertions(+), 34 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 2b4e24750d52..3309ca875ec4 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -158,40 +158,89 @@ static bool ffa_abi_supported(uint32_t id)
+>      return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
 >  }
->  
->  #define MAX_IOPORTS 0x10000
-> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-> index c1a131d1851a..f75dec5ea40a 100644
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -35,6 +35,18 @@ config INTEL_VMX
->  	  If your system includes a processor with Intel VT-x support, say Y.
->  	  If in doubt, say Y.
->  
-> +config VMTRACE
-> +	bool "HW VM tracing support"
-> +	depends on INTEL_VMX
-> +	default y
-> +	help
-> +	  Enables HW VM tracing support which allows to configure HW processor
-> +	  features (vmtrace_op) to enable capturing information about software
-> +	  execution using dedicated hardware facilities with minimal interference
-> +	  to the software being traced. The trace data can be retrieved using buffer
-> +	  shared between Xen and domain
-> +	  (see XENMEM_acquire_resource(XENMEM_resource_vmtrace_buf)).
+>
+> -static void handle_version(struct cpu_user_regs *regs)
+> +static bool ffa_negotiate_version(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> -    uint32_t vers =3D get_user_reg(regs, 1);
+> -    uint32_t old_vers;
+> +    uint32_t fid =3D get_user_reg(regs, 0);
+> +    uint32_t in_vers =3D get_user_reg(regs, 1);
+> +    uint32_t out_vers =3D FFA_MY_VERSION;
+>
+> -    /*
+> -     * Guest will use the version it requested if it is our major and mi=
+nor
+> -     * lower or equals to ours. If the minor is greater, our version wil=
+l be
+> -     * used.
+> -     * In any case return our version to the caller.
+> -     */
+> -    if ( FFA_VERSION_MAJOR(vers) =3D=3D FFA_MY_VERSION_MAJOR )
+> -    {
+> -        spin_lock(&ctx->lock);
+> -        old_vers =3D ctx->guest_vers;
+> +    spin_lock(&ctx->guest_vers_lock);
+>
+> -        if ( FFA_VERSION_MINOR(vers) > FFA_MY_VERSION_MINOR )
+> -            ctx->guest_vers =3D FFA_MY_VERSION;
+> -        else
+> -            ctx->guest_vers =3D vers;
+> -        spin_unlock(&ctx->lock);
+> +    /* Handle FFA_VERSION races from different vCPUs. */
+> +    if ( ctx->guest_vers_negotiated )
+> +        goto out_continue;
+>
+> -        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !old_vers )
+> +    if ( fid !=3D FFA_VERSION )
+> +    {
+> +        if ( !ctx->guest_vers )
+>          {
+> -            /* One more VM with FF-A support available */
+> -            inc_ffa_vm_count();
+> -            write_lock(&ffa_ctx_list_rwlock);
+> -            list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
+> -            write_unlock(&ffa_ctx_list_rwlock);
+> +            out_vers =3D 0;
+> +            goto out_handled;
+>          }
 > +
->  config HVM_FEP
->  	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
->  	default DEBUG
-> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> index d610988bf91b..c2e7f9aed39f 100644
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -306,6 +306,7 @@ static int vmx_init_vmcs_config(bool bsp)
->  
->      rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
->  
-> +#ifdef CONFIG_VMTRACE
->      /* Check whether IPT is supported in VMX operation. */
->      if ( bsp )
->          vmtrace_available = cpu_has_proc_trace &&
-> @@ -317,6 +318,7 @@ static int vmx_init_vmcs_config(bool bsp)
->                 smp_processor_id());
->          return -EINVAL;
->      }
-> +#endif
->  
->      if ( caps.cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS )
->      {
-> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> index d042e7fb927f..c98ec110d144 100644
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -622,6 +622,7 @@ static void cf_check domain_creation_finished(struct domain *d)
->  
->  static void vmx_init_ipt(struct vcpu *v)
->  {
-> +#ifdef CONFIG_VMTRACE
->      unsigned int size = v->domain->vmtrace_size;
->  
->      if ( !size )
-> @@ -632,6 +633,7 @@ static void vmx_init_ipt(struct vcpu *v)
->      ASSERT(size >= PAGE_SIZE && (size & (size - 1)) == 0);
->  
->      v->arch.msrs->rtit.output_limit = size - 1;
-> +#endif
->  }
->  
->  static int cf_check vmx_vcpu_initialise(struct vcpu *v)
-> @@ -724,11 +726,13 @@ static void vmx_save_guest_msrs(struct vcpu *v)
->       */
->      v->arch.hvm.vmx.shadow_gs = read_gs_shadow();
->  
-> +#ifdef CONFIG_VMTRACE
->      if ( v->arch.hvm.vmx.ipt_active )
->      {
->          rdmsrl(MSR_RTIT_OUTPUT_MASK, msrs->rtit.output_mask);
->          rdmsrl(MSR_RTIT_STATUS, msrs->rtit.status);
->      }
-> +#endif
->  
->      if ( cp->feat.pks )
->          msrs->pkrs = rdpkrs_and_cache();
-> @@ -747,12 +751,14 @@ static void vmx_restore_guest_msrs(struct vcpu *v)
->      if ( cpu_has_msr_tsc_aux )
->          wrmsr_tsc_aux(msrs->tsc_aux);
->  
-> +#ifdef CONFIG_VMTRACE
->      if ( v->arch.hvm.vmx.ipt_active )
->      {
->          wrmsrl(MSR_RTIT_OUTPUT_BASE, page_to_maddr(v->vmtrace.pg));
->          wrmsrl(MSR_RTIT_OUTPUT_MASK, msrs->rtit.output_mask);
->          wrmsrl(MSR_RTIT_STATUS, msrs->rtit.status);
->      }
-> +#endif
->  
->      if ( cp->feat.pks )
->          wrpkrs(msrs->pkrs);
-> @@ -2626,6 +2632,7 @@ static bool cf_check vmx_get_pending_event(
->      return true;
->  }
->  
-> +#ifdef CONFIG_VMTRACE
->  /*
->   * We only let vmtrace agents see and modify a subset of bits in MSR_RTIT_CTL.
->   * These all pertain to data-emitted into the trace buffer(s).  Must not
-> @@ -2768,6 +2775,7 @@ static int cf_check vmtrace_reset(struct vcpu *v)
->      v->arch.msrs->rtit.status = 0;
->      return 0;
->  }
-> +#endif
->  
->  static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
->  {
-> @@ -2940,11 +2948,14 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
->      .altp2m_vcpu_emulate_ve = vmx_vcpu_emulate_ve,
->      .altp2m_vcpu_emulate_vmfunc = vmx_vcpu_emulate_vmfunc,
->  #endif
+> +        /*
+> +         * A successful FFA_VERSION call does not freeze negotiation. Gu=
+ests
+> +         * are allowed to issue multiple FFA_VERSION attempts (e.g. prob=
+ing
+> +         * several minor versions). Negotiation becomes final only when =
+a
+> +         * non-VERSION ABI is invoked, as required by the FF-A specifica=
+tion.
+> +         */
+> +        if ( !ctx->guest_vers_negotiated )
+
+ctx->guest_vers_negotiated is always false here, due to the check above.
+
+> +        {
+> +            ctx->guest_vers_negotiated =3D true;
+
+I'm on thin ice here, but I think that barriers or some other
+primitives are needed to close the gap if ffa_handle_call() is called
+concurrently during these conditions:
+ctx->guest_vers_negotiated =3D=3D false
+CPU0 called with FFA_VERSION 1.1 -> sets ctx->guest_vers =3D 1.1
+CPU1 called with a valid FF-A ID !=3D FFA_VERSION -> sets
+ctx->guest_vers_negotiated =3D true
+CPU2 called with a valid FF-A ID !=3D FFA_VERSION -> guarantee is
+missing that CPU2 will observe the updated ctx->guest_vers if it
+observes the updated ctx->guest_vers_negotiated
+
+Cheers,
+Jens
+
 > +
-> +#ifdef CONFIG_VMTRACE
->      .vmtrace_control = vmtrace_control,
->      .vmtrace_output_position = vmtrace_output_position,
->      .vmtrace_set_option = vmtrace_set_option,
->      .vmtrace_get_option = vmtrace_get_option,
->      .vmtrace_reset = vmtrace_reset,
-> +#endif
->  
->      .get_reg = vmx_get_reg,
->      .set_reg = vmx_set_reg,
-> diff --git a/xen/arch/x86/include/asm/guest-msr.h b/xen/arch/x86/include/asm/guest-msr.h
-> index 5f0cb0a93995..702f47fe1e16 100644
-> --- a/xen/arch/x86/include/asm/guest-msr.h
-> +++ b/xen/arch/x86/include/asm/guest-msr.h
-> @@ -50,6 +50,7 @@ struct vcpu_msrs
->          };
->      } misc_features_enables;
->  
-> +#ifdef CONFIG_VMTRACE
->      /*
->       * 0x00000560 ... 57x - MSR_RTIT_*
->       *
-> @@ -81,6 +82,7 @@ struct vcpu_msrs
->              };
->          };
->      } rtit;
-> +#endif
->  
->      /*
->       * 0x000006e1 - MSR_PKRS - Protection Key Supervisor.
-> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-> index 7412256a2dab..93da4dd2dc4b 100644
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -234,12 +234,14 @@ struct hvm_function_table {
->      int (*altp2m_vcpu_emulate_vmfunc)(const struct cpu_user_regs *regs);
->  #endif
->  
-> +#ifdef CONFIG_VMTRACE
->      /* vmtrace */
->      int (*vmtrace_control)(struct vcpu *v, bool enable, bool reset);
->      int (*vmtrace_output_position)(struct vcpu *v, uint64_t *pos);
->      int (*vmtrace_set_option)(struct vcpu *v, uint64_t key, uint64_t value);
->      int (*vmtrace_get_option)(struct vcpu *v, uint64_t key, uint64_t *value);
->      int (*vmtrace_reset)(struct vcpu *v);
-> +#endif
->  
->      uint64_t (*get_reg)(struct vcpu *v, unsigned int reg);
->      void (*set_reg)(struct vcpu *v, unsigned int reg, uint64_t val);
-> @@ -738,6 +740,7 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
->  bool altp2m_vcpu_emulate_ve(struct vcpu *v);
->  #endif /* CONFIG_ALTP2M */
->  
-> +#ifdef CONFIG_VMTRACE
->  static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
->  {
->      if ( hvm_funcs.vmtrace_control )
-> @@ -772,13 +775,24 @@ static inline int hvm_vmtrace_get_option(
->  
->      return -EOPNOTSUPP;
->  }
-> +#else
-> +/*
-> + * Function declaration(s) here are used without definition(s) to make compiler
-> + * happy when VMTRACE=n, compiler DCE will eliminate unused code.
-> + */
-> +int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos);
-> +#endif
->  
->  static inline int hvm_vmtrace_reset(struct vcpu *v)
->  {
-> +#ifdef CONFIG_VMTRACE
->      if ( hvm_funcs.vmtrace_reset )
->          return alternative_call(hvm_funcs.vmtrace_reset, v);
->  
->      return -EOPNOTSUPP;
-> +#else
-> +    return -EOPNOTSUPP;
-> +#endif
->  }
->  
->  /*
-> @@ -934,28 +948,6 @@ static inline bool hvm_has_set_descriptor_access_exiting(void)
->      return false;
->  }
->  
-> -static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
-> -{
-> -    return -EOPNOTSUPP;
-> -}
-> -
-> -static inline int hvm_vmtrace_output_position(struct vcpu *v, uint64_t *pos)
-> -{
-> -    return -EOPNOTSUPP;
-> -}
-> -
-> -static inline int hvm_vmtrace_set_option(
-> -    struct vcpu *v, uint64_t key, uint64_t value)
-> -{
-> -    return -EOPNOTSUPP;
-> -}
-> -
-> -static inline int hvm_vmtrace_get_option(
-> -    struct vcpu *v, uint64_t key, uint64_t *value)
-> -{
-> -    return -EOPNOTSUPP;
-> -}
-> -
->  static inline uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
->  {
->      ASSERT_UNREACHABLE();
-> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> index 8ff7c8045fc6..879ec10cefd0 100644
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> @@ -154,8 +154,10 @@ struct vmx_vcpu {
->      /* Do we need to tolerate a spurious EPT_MISCONFIG VM exit? */
->      bool                 ept_spurious_misconfig;
->  
-> +#ifdef CONFIG_VMTRACE
->      /* Processor Trace configured and enabled for the vcpu. */
->      bool                 ipt_active;
-> +#endif
->  
->      /* Is the guest in real mode? */
->      uint8_t              vmx_realmode;
-> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-> index 4787b2796479..074f1b2562b3 100644
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1888,7 +1888,9 @@ static int fork(struct domain *cd, struct domain *d)
->          domain_pause(d);
->          cd->max_pages = d->max_pages;
->          *cd->arch.cpu_policy = *d->arch.cpu_policy;
-> +#ifdef CONFIG_VMTRACE
->          cd->vmtrace_size = d->vmtrace_size;
-> +#endif
->          cd->parent = d;
+> +            if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> +            {
+> +                /* One more VM with FF-A support available */
+> +                inc_ffa_vm_count();
+> +                write_lock(&ffa_ctx_list_rwlock);
+> +                list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
+> +                write_unlock(&ffa_ctx_list_rwlock);
+> +            }
+> +        }
+> +
+> +        goto out_continue;
+> +    }
+> +
+> +    /*
+> +     * guest_vers stores the version selected by the guest (lower minor =
+may
+> +     * require reduced data structures). However, the value returned to =
+the
+> +     * guest via FFA_VERSION is always FFA_MY_VERSION, the implementatio=
+n
+> +     * version, as required by FF-A. The two values intentionally differ=
+.
+> +     */
+> +
+> +    /*
+> +     * Return our highest implementation version on request different th=
+an our
+> +     * major and mark negotiated version as our implementation version.
+> +     */
+> +    if ( FFA_VERSION_MAJOR(in_vers) !=3D FFA_MY_VERSION_MAJOR )
+> +    {
+> +        ctx->guest_vers =3D FFA_MY_VERSION;
+> +        goto out_handled;
 >      }
->  
-> diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
-> index fc349270b9c5..112d2ef66dc7 100644
-> --- a/xen/arch/x86/vm_event.c
-> +++ b/xen/arch/x86/vm_event.c
-> @@ -253,7 +253,9 @@ void vm_event_fill_regs(vm_event_request_t *req)
->      req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
->      req->data.regs.x86.dr6 = ctxt.dr6;
->  
-> -    if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
-> +    if ( IS_ENABLED(CONFIG_VMTRACE) &&
-> +         hvm_vmtrace_output_position(curr,
-> +                                     &req->data.regs.x86.vmtrace_pos) != 1 )
->          req->data.regs.x86.vmtrace_pos = ~0;
->  #endif
+> -    ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+> +
+> +    /*
+> +     * Use our minor version if a greater minor was requested or the req=
+uested
+> +     * minor if it is lower than ours was requested.
+> +     */
+> +    if ( FFA_VERSION_MINOR(in_vers) > FFA_MY_VERSION_MINOR )
+> +        ctx->guest_vers =3D FFA_MY_VERSION;
+> +    else
+> +        ctx->guest_vers =3D in_vers;
+> +
+> +out_handled:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +    if ( out_vers )
+> +        ffa_set_regs(regs, out_vers, 0, 0, 0, 0, 0, 0, 0);
+> +    else
+> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> +    return true;
+> +
+> +out_continue:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +
+> +    return false;
 >  }
-> @@ -303,12 +305,12 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp)
->  #endif
->  }
->  
-> +#ifdef CONFIG_VMTRACE
->  void vm_event_reset_vmtrace(struct vcpu *v)
->  {
-> -#ifdef CONFIG_HVM
->      hvm_vmtrace_reset(v);
-> -#endif
->  }
-> +#endif
->  
->  /*
->   * Local variables:
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index e13e01c1d272..ce4f55339fb4 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -136,7 +136,9 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
->  
->  vcpu_info_t dummy_vcpu_info;
->  
-> +#ifdef CONFIG_VMTRACE
->  bool __read_mostly vmtrace_available;
-> +#endif
->  
->  bool __read_mostly vpmu_is_available;
->  
-> @@ -318,6 +320,7 @@ static void vcpu_info_reset(struct vcpu *v)
->  
->  static void vmtrace_free_buffer(struct vcpu *v)
->  {
-> +#ifdef CONFIG_VMTRACE
->      const struct domain *d = v->domain;
->      struct page_info *pg = v->vmtrace.pg;
->      unsigned int i;
-> @@ -332,10 +335,12 @@ static void vmtrace_free_buffer(struct vcpu *v)
->          put_page_alloc_ref(&pg[i]);
->          put_page_and_type(&pg[i]);
->      }
-> +#endif
->  }
->  
->  static int vmtrace_alloc_buffer(struct vcpu *v)
->  {
-> +#ifdef CONFIG_VMTRACE
->      struct domain *d = v->domain;
->      struct page_info *pg;
->      unsigned int i;
-> @@ -377,6 +382,9 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
->      }
->  
->      return -ENODATA;
-> +#else
-> +    return 0;
-> +#endif
->  }
->  
->  /*
-> @@ -825,7 +833,9 @@ struct domain *domain_create(domid_t domid,
->          ASSERT(!config->altp2m.nr);
->  #endif
->  
-> +#ifdef CONFIG_VMTRACE
->          d->vmtrace_size = config->vmtrace_size;
-> +#endif
->      }
->  
->      /* Sort out our idea of is_control_domain(). */
-> diff --git a/xen/common/memory.c b/xen/common/memory.c
-> index 3688e6dd5032..66dc7f7a0a41 100644
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1155,8 +1155,10 @@ static unsigned int resource_max_frames(const struct domain *d,
->      case XENMEM_resource_ioreq_server:
->          return ioreq_server_max_frames(d);
->  
-> +#ifdef CONFIG_VMTRACE
->      case XENMEM_resource_vmtrace_buf:
->          return d->vmtrace_size >> PAGE_SHIFT;
-> +#endif
->  
->      default:
+>
+>  static void handle_features(struct cpu_user_regs *regs)
+> @@ -274,10 +323,17 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
+egs)
+>      if ( !ctx )
+>          return false;
+>
+> +    /* A version must be negotiated first */
+> +    if ( !ctx->guest_vers_negotiated )
+> +    {
+> +        if ( ffa_negotiate_version(regs) )
+> +            return true;
+> +    }
+> +
+>      switch ( fid )
+>      {
+>      case FFA_VERSION:
+> -        handle_version(regs);
+> +        ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+>          return true;
+>      case FFA_ID_GET:
+>          ffa_set_regs_success(regs, ffa_get_vm_id(d), 0);
+> @@ -371,6 +427,11 @@ static int ffa_domain_init(struct domain *d)
+>      d->arch.tee =3D ctx;
+>      ctx->teardown_d =3D d;
+>      INIT_LIST_HEAD(&ctx->shm_list);
+> +    spin_lock_init(&ctx->lock);
+> +    spin_lock_init(&ctx->guest_vers_lock);
+> +    ctx->guest_vers =3D 0;
+> +    ctx->guest_vers_negotiated =3D false;
+> +    INIT_LIST_HEAD(&ctx->ctx_list);
+>
+>      ctx->ffa_id =3D ffa_get_vm_id(d);
+>      ctx->num_vcpus =3D d->max_vcpus;
+> @@ -452,7 +513,7 @@ static int ffa_domain_teardown(struct domain *d)
+>      if ( !ctx )
 >          return 0;
-> @@ -1198,6 +1200,7 @@ static int acquire_ioreq_server(struct domain *d,
->  #endif
->  }
->  
-> +#ifdef CONFIG_VMTRACE
->  static int acquire_vmtrace_buf(
->      struct domain *d, unsigned int id, unsigned int frame,
->      unsigned int nr_frames, xen_pfn_t mfn_list[])
-> @@ -1220,6 +1223,7 @@ static int acquire_vmtrace_buf(
->  
->      return nr_frames;
->  }
-> +#endif
->  
->  /*
->   * Returns -errno on error, or positive in the range [1, nr_frames] on
-> @@ -1238,8 +1242,10 @@ static int _acquire_resource(
->      case XENMEM_resource_ioreq_server:
->          return acquire_ioreq_server(d, id, frame, nr_frames, mfn_list);
->  
-> +#ifdef CONFIG_VMTRACE
->      case XENMEM_resource_vmtrace_buf:
->          return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
-> +#endif
->  
->      default:
->          ASSERT_UNREACHABLE();
-> diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-> index b2787c010890..cf0258223f50 100644
-> --- a/xen/common/vm_event.c
-> +++ b/xen/common/vm_event.c
-> @@ -441,7 +441,8 @@ static int vm_event_resume(struct domain *d, struct vm_event_domain *ved)
->              if ( rsp.flags & VM_EVENT_FLAG_GET_NEXT_INTERRUPT )
->                  vm_event_monitor_next_interrupt(v);
->  
-> -            if ( rsp.flags & VM_EVENT_FLAG_RESET_VMTRACE )
-> +            if ( IS_ENABLED(CONFIG_VMTRACE) &&
-> +                 (rsp.flags & VM_EVENT_FLAG_RESET_VMTRACE) )
->                  vm_event_reset_vmtrace(v);
->  
->              if ( rsp.flags & VM_EVENT_FLAG_VCPU_PAUSED )
-> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-> index 8aab05ae93c8..aa86a9f46022 100644
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -191,7 +191,11 @@ void vnuma_destroy(struct vnuma_info *vnuma);
->  static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
->  #endif
->  
-> +#ifdef CONFIG_VMTRACE
->  extern bool vmtrace_available;
-> +#else
-> +#define vmtrace_available false
-> +#endif
->  
->  extern bool vpmu_is_available;
->  
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 02bdc256ce37..dcd8647e0d36 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -300,9 +300,11 @@ struct vcpu
->      /* vPCI per-vCPU area, used to store data for long running operations. */
->      struct vpci_vcpu vpci;
->  
-> +#ifdef CONFIG_VMTRACE
->      struct {
->          struct page_info *pg; /* One contiguous allocation of d->vmtrace_size */
->      } vmtrace;
-> +#endif
->  
->      struct arch_vcpu arch;
->  
-> @@ -623,7 +625,9 @@ struct domain
->      unsigned int nr_altp2m;    /* Number of altp2m tables. */
->  #endif
->  
-> +#ifdef CONFIG_VMTRACE
->      unsigned int vmtrace_size; /* Buffer size in bytes, or 0 to disable. */
-> +#endif
->  
->  #ifdef CONFIG_ARGO
->      /* Argo interdomain communication support */
-
+>
+> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers )
+> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers_negotiated )
+>      {
+>          dec_ffa_vm_count();
+>          write_lock(&ffa_ctx_list_rwlock);
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index c20c5bec0f76..dec429cbf160 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -113,7 +113,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
+t void *src_buf,
+>      }
+>
+>      dst_ctx =3D dst_d->arch.tee;
+> -    if ( !dst_ctx->guest_vers )
+> +    if ( !dst_ctx->guest_vers_negotiated )
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>          goto out_unlock;
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index d7e6b6f5ef45..88b85c7c453a 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -354,12 +354,6 @@ struct ffa_ctx {
+>       * Global data accessed with lock locked.
+>       */
+>      spinlock_t lock;
+> -    /*
+> -     * FF-A version negotiated by the guest, only modifications to
+> -     * this field are done with the lock held as this is expected to
+> -     * be done once at init by a guest.
+> -     */
+> -    uint32_t guest_vers;
+>      /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
+>      unsigned int page_count;
+>      /* Number of allocated shared memory object */
+> @@ -367,6 +361,21 @@ struct ffa_ctx {
+>      /* Used shared memory objects, struct ffa_shm_mem */
+>      struct list_head shm_list;
+>
+> +    /*
+> +     * FF-A version handling
+> +     * guest_vers and guest_vers_negotiated are only written with
+> +     * guest_vers_lock held. Reads do not take the lock, but ordering is
+> +     * guaranteed because the writer updates guest_vers first and then
+> +     * guest_vers_negotiated while holding the lock, ensuring any reader
+> +     * that observes guest_vers_negotiated =3D=3D true also sees the fin=
+al
+> +     * guest_vers value.
+> +     * The ffa_ctx is added to the ctx_list only when a version
+> +     * has been negotiated and locked.
+> +     */
+> +    spinlock_t guest_vers_lock;
+> +    uint32_t guest_vers;
+> +    bool guest_vers_negotiated;
+> +
+>      /*
+>       * Rx buffer, accessed with rx_lock locked.
+>       * rx_is_free is used to serialize access.
+> --
+> 2.51.2
+>
 
