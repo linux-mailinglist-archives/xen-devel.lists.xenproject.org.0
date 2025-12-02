@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85144C995DF
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Dec 2025 23:18:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1175982.1500569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC06C9AB38
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 09:35:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176014.1500580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQCCQ-0000Rw-32; Mon, 01 Dec 2025 22:16:50 +0000
+	id 1vQLpm-0005Vf-QA; Tue, 02 Dec 2025 08:34:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1175982.1500569; Mon, 01 Dec 2025 22:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 1176014.1500580; Tue, 02 Dec 2025 08:34:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQCCP-0000Q0-W8; Mon, 01 Dec 2025 22:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 1175982;
- Mon, 01 Dec 2025 22:16:48 +0000
+	id 1vQLpm-0005T3-M1; Tue, 02 Dec 2025 08:34:06 +0000
+Received: by outflank-mailman (input) for mailman id 1176014;
+ Tue, 02 Dec 2025 08:34:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hgWx=6H=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vQCCO-0000Pu-3M
- for xen-devel@lists.xenproject.org; Mon, 01 Dec 2025 22:16:48 +0000
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2qtr=6I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vQLpk-0005Sx-Us
+ for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 08:34:05 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68553641-cf03-11f0-980a-7dc792cee155;
- Mon, 01 Dec 2025 23:16:39 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 9C02F140015F;
- Mon,  1 Dec 2025 17:16:38 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Mon, 01 Dec 2025 17:16:38 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 1 Dec 2025 17:16:36 -0500 (EST)
+ id a52c8a9a-cf59-11f0-980a-7dc792cee155;
+ Tue, 02 Dec 2025 09:33:58 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42b3c5defb2so3593031f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Dec 2025 00:33:58 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1c5c3c8csm36827831f8f.2.2025.12.02.00.33.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Dec 2025 00:33:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,263 +45,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68553641-cf03-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1764627398;
-	 x=1764713798; bh=J3qMW1OCZIlVxI0UekDVekbDTFyGGqilI0Pi5RQhmhY=; b=
-	Gh83FDlI7RX03Dj3y6HaCsupq9S9+q0x4mT4ZEEqmcZYTf7KvPUlHCzLmo/Sohci
-	QmpnE9KitImOm2lW30CkiYux3WwJwfQve/d8z6I1mcVA4FcATihWtIXqyWELb6EQ
-	a19bZfvRfDBevecrb5609YHgeJrwprK3y31dC4juYq6O/7Y/WRFCxaQ4JYn4hRA2
-	jaFjkDXI92zmiy0Wj/eWbtzBm2xSNeGF8BM0RIhPnNUWQKNeF6V6McIhGQcxV+OG
-	DImGxLbBFlW2aQ51oEsyod8tK8kEuKJBJRKRv9BY+5RikrtLT1Wi4+71E/Q2tGbO
-	ETfDTCGU2CiUV14puCnqeQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1764627398; x=1764713798; bh=J3qMW1OCZIlVxI0UekDVekbDTFyGGqilI0P
-	i5RQhmhY=; b=S3/GN4eafYOvnAB6vfwiP3zK7pYn28um3ZE93lJ+K7KRg0p08ki
-	EIaIa7nFMFPhltQEumE8V7+McSHQRWhLMYjGzkh36AvvIA1XENf/quciGtLz4n0+
-	Tvdc+c1sC7LUpOxGwi+0+K0SGhKAvL6nO5c2w13XdeZTky19l/l5yAK8DaVdg3aB
-	aIP9RLB0Uu+yw/8ycssxzo8tsad2VQ89WECglqww5KTksQwvN7q4gmaPA9YoYfFF
-	MMGZArjUbmmw2tSq8B5F5Q2YQaNjcZKxIJrfGS2SF41b65r5WuOFvzNaWXaveHyU
-	16U3QGhy8suJxlWTJ73TsFuRjyYCUPVRpMg==
-X-ME-Sender: <xms:xhMuaSJBoI0EtGG2AYWs7ANvdL8O5KwIP7X97D33LxAjSIThHKzLQQ>
-    <xme:xhMuaa21x12pBLWKEx2g0619PqECa7Ce7oa1n8N8yhEB-Gzdxh_FEYjV6AnBRkjFo
-    wKWMAzgo2DHoisKOzUPZqbzcYVlma2axYESvrzwxYvKIKw>
-X-ME-Received: <xmr:xhMuaQ6dciQDrHIacg3uccVAt2qGiXXIQeZwaDO1oK0yblmpljgo_b5x8o0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvheekkeelucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepffeiffej
-    hfevvdegtedtgfelueeliedvvdeftdeuueeutdfffefhfedvhfejhfeunecuffhomhgrih
-    hnpehgihhthhhusgdrtghomhdpthhhvghmrdhsrghvvgenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeejpdhmohguvgepshhm
-    thhpohhuthdprhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegrmhgurdgtohhmpd
-    hrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprhgtphhtthhopehsshhtrggs
-    vghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeholhgvkhhsrghnughrpg
-    hthihshhgthhgvnhhkohesvghprghmrdgtohhmpdhrtghpthhtohephigrnhhnrdhsihho
-    nhhnvggruhesvhgrthgvshdrthgvtghhpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
-    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgv
-    rhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:xhMuab_SHL2L6CaoJAXIx0Nc7fRMolgYB4IoEPt9RdmtOGfAfo8oYQ>
-    <xmx:xhMuafWwi8h-ygoLxMJYLaYOrLecMXmywqCgqfzqxraHidZejS6VRg>
-    <xmx:xhMuaWpxuwrj5QE2XluWdVAyR3LAI2c-BK1wf_GJM6EEmrsFXKhCEw>
-    <xmx:xhMuaRlE-QZ3gS0f7h5kEz9ETSajTBwEY7z9YxrKEMYVPA-kJzNOzA>
-    <xmx:xhMuaXEUAR_jpfzXo2inJfGBhYeLbaZERlEOtNpKLnCohknKknFN3RAu>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 1 Dec 2025 23:16:35 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Yann Sionneau <yann.sionneau@vates.tech>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
-Message-ID: <aS4Tw7hUJDw6Jt_9@mail-itl>
-References: <20251119224731.61497-1-jason.andryuk@amd.com>
- <20251119224731.61497-2-jason.andryuk@amd.com>
- <aSul6qAYTSOSFJR3@mail-itl>
- <fb1e5c6f-cb0e-49d0-9e96-8e778573f49c@amd.com>
+X-Inumbo-ID: a52c8a9a-cf59-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1764664437; x=1765269237; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=s/EhB9hLYvc7dZEaIAnd0w+tYNG4LjT+wNDZjil2WpQ=;
+        b=IH4mc5BasNnhyKPE+1txLhOEGNlTdxn0hIRhYbCUvy7u1Yl4XRDvBpnbo1mw9VpMOe
+         svbTqmR5t1sdbK/LDUE8ZLRg6plXpKyveA8PwU+sqDwGJgKwXiShhfrV+4BkQ0nMpG53
+         8ek/IfJwacwQvwNwB4XQCjfo8EORE4NmuJ+0uu3mYu3TshNX61mRjnBP6qtQXl62CUzg
+         xVZxP0neS7kRn9F13X3SeGwJ11NsvTZ4veW3CaK9FsAhswIQl3wa8pZ6QcZhPIlxnP9H
+         9gryY+srgz0y+o0SYCRMowNJGoRTHQvHV+H6tXIDfotV/IlFdCMF1we/PWG0kXBymRvQ
+         TxHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764664437; x=1765269237;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s/EhB9hLYvc7dZEaIAnd0w+tYNG4LjT+wNDZjil2WpQ=;
+        b=Q78MRI7ohH2h/8FPRFLXss8LLW2B+V2KtLNRs+JFq+aue3jBhYvNttYCn0dkROguBG
+         4/1LVT50mrcpn++TWjaF1ZeG7SPZQixNkq8MMuup8dH/+0/DNe6/T/MUOwdVTpu8WE6V
+         2PTGsJfQHzogxBFtrHq4P/ygozIIXnqzvgUbNAuGtAuDLjHbrxq9LFpQwnylb/V+0RIP
+         +gNxuUXwirNMSJoC8N3nl1a0jeHafR2UQJLtnPG8fLBILxou5oOzoPgEgy6DJPQP7a2E
+         jTbuTUm/1m19CFBRj2u/Kpw+M0Q9qOiTWkVgiWLJ7kQPPWrh/DsuRDIjRPRwCb0dgcNq
+         Tm/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVRyV/CNBQ1VKWu6CaCHzubUr1pxwPvPOnkjtGQG8vIzzxWJvspXTyEjDWk7ZHDAsNd/Sc4lpK5RVw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzTAoWpkXlPRNRmXt410qNqAh2N2hG9lTsF9+3zC/G8O6BHtCJH
+	Li/Mu1ZaiOzNOMbt6o4ChiDiAroMhV4mcEoCrx1Za5cNYR77o3f1BZ34aLKiji431A==
+X-Gm-Gg: ASbGnctnE6hSMvZv8xB44yzLNn1SAXOugXBI2vX5d2oyZNOXExp3l03UY7TfLsRqPJa
+	KVRyHvLX7ibUAhONJ7HiEzfOGO90tOYK/FTQX9PVfNqaqBPsGCCOQUumakbbu39qMhznvj5JGjs
+	5K5xNB90njg63sYHOTRCkRlIfhyS3YnW+gdBiO08oP9cHRBL4aQ3sNu1gyxVnJSnaWkr6NnlUso
+	IdJ1+HlnWzLWM72YsUepJHv+VGaigrqwujLPSMPtrYeeUp2FNJzQyNvK8DOF6cZKoarzeUDzVpy
+	ZIhsccNYjCitDB/UmxCgwnLmZRdAlHZH2XERpIXGg3UyvBeed6YUS9o4BnBJ3r/xbh/IshJtYJs
+	tQLgs6dIit2KKBSzweARaEeijeBA8f9mOkRTyxNdMTeNwawBcMZ2hhhKLboU0OpMr6u7e0M06xE
+	m1eTymzXST6IUrWOvYo6Cg2ne4uhfMVBzKuey2F+V3CKqWPWSlpI11qMVgrL7F1ex1StypoDmsZ
+	L4=
+X-Google-Smtp-Source: AGHT+IG+IbdfVINptInq4poY6ujn4uJ5IuM9Fcx1ZQ5CGxMPr8T48fh+AYOMUkBi5PAmJKvZaGlTWQ==
+X-Received: by 2002:a05:6000:2410:b0:42b:396e:2817 with SMTP id ffacd0b85a97d-42cc1d199cdmr42516628f8f.40.1764664437523;
+        Tue, 02 Dec 2025 00:33:57 -0800 (PST)
+Message-ID: <76873588-cb85-447a-a59f-392b05327cdb@suse.com>
+Date: Tue, 2 Dec 2025 09:33:56 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7URB8WNuJVC0wZb9"
-Content-Disposition: inline
-In-Reply-To: <fb1e5c6f-cb0e-49d0-9e96-8e778573f49c@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/hvm: Unilaterally inject #UD for unknown VMExits
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251128174735.1238055-1-andrew.cooper3@citrix.com>
+ <796dccdb-0cc4-4904-b776-d651ebb012c2@suse.com>
+ <331118cc-9c2d-49dc-aa5c-b6cd0d4e6021@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <331118cc-9c2d-49dc-aa5c-b6cd0d4e6021@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 01.12.2025 17:36, Andrew Cooper wrote:
+> On 01/12/2025 9:02 am, Jan Beulich wrote:
+>> On 28.11.2025 18:47, Andrew Cooper wrote:
+>>> While we do this for unknown user mode exits, crashing for supervisor mode
+>>> exits is unhelpful.  Intel in particular expect the unknown case to be #UD
+>>> because they do introduce new instructions with new VMEXIT_* codes without
+>>> other enablement controls.  e.g. MSRLIST, USER_MSR, MSR_IMM, but AMD have
+>>> RDPRU and SKINIT as examples too.
+>> USER-MSR has MSR_USER_MSR_CTL, so doesn't fully fit here? (It's still not us
+>> to directly control exposure of the insns, but an OS would need to use the
+>> MSR to do so, and hence we need to properly handle writes to that MSR for
+>> the respective exits to become possible.)
+> 
+> Oh yes, and the #GP from failing the MSR_USER_MSR_CTL check take
+> priority over the intercept.
+> 
+>> MSRLIST has a dedicated exec control, so whether the exits can occur is
+>> under our control.
+> 
+> Ah ok.
+> 
+> 
+>> RDPRU and SKINIT have dedicated intercepts, without use of which the
+>> respective exit can't occur aiui.
+> 
+> Correct, but note how we intercept them unconditionally?
+> 
+> MONITOR, MWAIT and SKINIT are for Xen's safety, because otherwise the
+> instructions would execute normally in guest context.
+> 
+> RDPRU is to block access to the perf counters, because a guest has no
+> legitimate use for them.
+> 
+> There are no enablement controls for these instructions.  They're always
+> guest-available (on capable hardware) if not intercepted.
 
---7URB8WNuJVC0wZb9
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 1 Dec 2025 23:16:35 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Yann Sionneau <yann.sionneau@vates.tech>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] xenbus: Use .freeze/.thaw to handle xenbus devices
+For our purposes, the intercept is the enable (i.e. we disable their use
+by injecting #UD if the intercept triggers). IOW I think those are
+slightly different in any event, in not really being "unknown". I don't
+mind their mentioning, but I think the distinction wants to at least be
+expressed somehow.
 
-On Mon, Dec 01, 2025 at 01:20:40PM -0500, Jason Andryuk wrote:
-> On 2025-11-29 21:03, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Wed, Nov 19, 2025 at 05:47:29PM -0500, Jason Andryuk wrote:
-> > > The goal is to fix s2idle and S3 for Xen PV devices.
-> >=20
-> > Can you give a little more context of this? We do have working S3 in
-> > qubes with no need for such change. We trigger it via the toolstack (li=
-bxl_domain_suspend_only()).
-> > Are you talking about guest-initiated suspend here?
->=20
-> This is intended to help domU s2idle/S3 and resume.  I guess that is what
-> you mean by guest-initiated?  The domU can use 'echo mem > /sys/power/sta=
-te'
-> to enter s2idle/S3.  We also have the domU react to the ACPI sleep button
-> from `xl trigger $dom sleep`.
+>>> @@ -3083,8 +3067,13 @@ void asmlinkage svm_vmexit_handler(void)
+>>>          gprintk(XENLOG_ERR, "Unexpected vmexit: reason %#"PRIx64", "
+>>>                  "exitinfo1 %#"PRIx64", exitinfo2 %#"PRIx64"\n",
+>>>                  exit_reason, vmcb->exitinfo1, vmcb->exitinfo2);
+>>> -    crash_or_fault:
+>>> -        svm_crash_or_fault(v);
+>>> +        fallthrough;
+>>> +    case VMEXIT_MONITOR:
+>>> +    case VMEXIT_MWAIT:
+>>> +    case VMEXIT_SKINIT:
+>>> +    case VMEXIT_RDPRU:
+>>> +    inject_ud:
+>>> +        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
+>>>          break;
+>>>      }
+>>>  
+>> Should this be brought more in line with respective VMX code (kept) below,
+>> in never bypassing the gprintk() by any of the case labels? Basically
+>> meaning that the case labels you move could simply be dropped for the time
+>> being (or else, like the INVCPID one visible in context below, would want
+>> re-inserting a few lines earlier).
+> 
+> As said, they're all reachable by guests on capable hardware.
+> 
+> I could add a /* Not implemented for guests */ if that would make it
+> clearer?
 
-Ok, so this is indeed a different path than we use in Qubes OS.
+Yes, ideally with "yet" also added - recall I've been sitting on an RDPRU
+emulator patch, awaiting you to fulfill your promise of sorting the CPUID
+side of things there.
 
-> AIUI, libxl_domain_suspend_only() triggers xenstore writes which Linux
-> drivers/xen/manage.c:do_suspend() acts on.  `xl save/suspend/migrate` all
-> use this path.
->=20
-> The terminology gets confusing.  Xen uses "suspend" for
-> save/suspend/migrate, but the Linux power management codes uses
-> freeze/thaw/restore.  AIUI, Linux's PMSG_SUSPEND/.suspend is for runtime
-> power management.
+> But, we don't want the printk().  We know the labels are reachable, and
+> #UD is the right action.
 
-Indeed it gets confusing...
+Hmm, yes, with what you have said further up I think I agree. Yet then my
+question goes the other way around: Do we want the log message for the
+(at least) two known exits in VMX, which are grouped with the default:
+label? IOW I'm still puzzled by the asymmetry between SVM and VMX in this
+regard.
 
-> When you call libxl_domain_suspend_only()/libxl_domain_resume(), you pass
-> suspend_cancel=3D=3D1.
->  *  1. (fast=3D1) Resume the guest without resetting the domain
->        environment.
->  *     The guests's call to SCHEDOP_shutdown(SHUTDOWN_suspend) will
->        return 1.
->=20
-> That ends up in Linux do_suspend() as si.cancelled =3D 1, which calls
-> PMSG_THAW -> .thaw -> xenbus_dev_cancel() which is a no-op.  So it does n=
-ot
-> change the PV devices.
->=20
-> We needed guest user space to perform actions before entering s2idle.
-> libxl_domain_suspend_only() triggers the Linux kernel path which does not
-> notify user space.  The ACPI power buttons let user space perform actions
-> (lock and blank the screen) before entering the idle state.
-
-I see. In our case, we have our own userspace hook that gets called
-before (if relevant - in most cases it isn't).
-
-> > We also have kinda working (host) s2idle. You may want to take a look a=
-t this
-> > work (some/most of it was posted upstream, but not all got
-> > committed/reviewed):
-> > https://github.com/QubesOS/qubes-issues/issues/6411#issuecomment-153808=
-9344
-> > https://github.com/QubesOS/qubes-linux-kernel/pull/910 (some patches
-> > changed since that PR, see the current main too).
->=20
-> This would not affect host s2idle - it changes PV frontend devices.
->=20
-> Do you libxl_domain_suspend_only() all domUs and then put dom0 into s0ix?
-
-Yes, exactly.
-
-> > > A domain resuming
-> > > from s3 or s2idle disconnects its PV devices during resume.  The
-> > > backends are not expecting this and do not reconnect.
-> > >=20
-> > > b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for suspend/
-> > > resume/chkpt") changed xen_suspend()/do_suspend() from
-> > > PMSG_SUSPEND/PMSG_RESUME to PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE, but t=
-he
-> > > suspend/resume callbacks remained.
-> > >=20
-> > > .freeze/restore are used with hiberation where Linux restarts in a new
-> > > place in the future.  .suspend/resume are useful for runtime power
-> > > management for the duration of a boot.
-> > >=20
-> > > The current behavior of the callbacks works for an xl save/restore or
-> > > live migration where the domain is restored/migrated to a new location
-> > > and connecting to a not-already-connected backend.
-> > >=20
-> > > Change xenbus_pm_ops to use .freeze/thaw/restore and drop the
-> > > .suspend/resume hook.  This matches the use in drivers/xen/manage.c f=
-or
-> > > save/restore and live migration.  With .suspend/resume empty, PV devi=
-ces
-> > > are left connected during s2idle and s3, so PV devices are not changed
-> > > and work after resume.
-> >=20
-> > Is that intended? While it might work for suspend by a chance(*), I'm
-> > pretty sure not disconnecting + re-reconnecting PV devices across
-> > save/restore/live migration will break them.
->=20
-> save/restore/live migration keep using .freeze/thaw/restore, which
-> disconnects and reconnects today.  Nothing changes there as
-> xen_suspend()/do_suspend() call the power management code with
-> PMSG_FREEZE/PMSG_THAW/PMSG_RESTORE.
->=20
-> This patches makes .suspend/resume no-ops for PMSG_SUSPEND/PMSG_RESUME. W=
-hen
-> a domU goes into s2idle/S3, the backend state remains connected. With this
-> patch, when the domU wakes up, the frontends do nothing and remain
-> connected.
-
-This explanation makes sense.
-
-> > (*) and even that I'm not sure - with driver domains, depending on
-> > suspend order this feels like might result in a deadlock...
->=20
-> I'm not sure.  I don't think this patch changes anything with respect to
-> them.
->=20
-> Thanks for testing.
->=20
-> Maybe the commit messages should change to highlight this is for domU PV
-> devices?  struct xen_bus_type xenbus_backend does not define dev_pm_ops.
-
-Good idea.
-
-> Regards,
-> Jason
->=20
-> > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> > > ---
-> > >   drivers/xen/xenbus/xenbus_probe_frontend.c | 4 +---
-> > >   1 file changed, 1 insertion(+), 3 deletions(-)
-> > >=20
-> > > diff --git a/drivers/xen/xenbus/xenbus_probe_frontend.c b/drivers/xen=
-/xenbus/xenbus_probe_frontend.c
-> > > index 6d1819269cbe..199917b6f77c 100644
-> > > --- a/drivers/xen/xenbus/xenbus_probe_frontend.c
-> > > +++ b/drivers/xen/xenbus/xenbus_probe_frontend.c
-> > > @@ -148,11 +148,9 @@ static void xenbus_frontend_dev_shutdown(struct =
-device *_dev)
-> > >   }
-> > >   static const struct dev_pm_ops xenbus_pm_ops =3D {
-> > > -	.suspend	=3D xenbus_dev_suspend,
-> > > -	.resume		=3D xenbus_frontend_dev_resume,
-> > >   	.freeze		=3D xenbus_dev_suspend,
-> > >   	.thaw		=3D xenbus_dev_cancel,
-> > > -	.restore	=3D xenbus_dev_resume,
-> > > +	.restore	=3D xenbus_frontend_dev_resume,
-> > >   };
-> > >   static struct xen_bus_type xenbus_frontend =3D {
-> > > --=20
-> > > 2.34.1
-> > >=20
-> > >=20
-> >=20
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---7URB8WNuJVC0wZb9
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkuE8MACgkQ24/THMrX
-1yyP5AgAkhl+NBtcgDULHljQUhGByww8Twt2ETkimFzpUKzLC2CcIvuEGf4vqjUm
-gK+pc+lmtnIsTua+PJb86Ko5hOb1VLHtcx0zPLfHtF/zwngMIvZyOuCah+86ZjgF
-3vEUkV6n56X10uMMY0J8VgPKERzF7mNelu06anIS0KphMHkp6IPeBVQ+KcSQZKFM
-RjPmmiFVMFcVRybubrWmDquy+VbXxrarEVS/h6BZjyafrC35rlwSrLXhUhNjaBOF
-sZ8MlEkXphgOG5Si4WZ2PrqNXPkGcBadfzjW19gWKah5HeNujr96iu+flQB5ndC1
-6Dph+gWq07LKdJkcUCEpi4luOlsgSA==
-=aTHl
------END PGP SIGNATURE-----
-
---7URB8WNuJVC0wZb9--
+Jan
 
