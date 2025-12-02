@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584D6C9CC60
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 20:33:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176336.1500837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97461C9CD90
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 20:56:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176353.1500855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQW7K-0005Xa-63; Tue, 02 Dec 2025 19:32:54 +0000
+	id 1vQWU6-0000BS-4r; Tue, 02 Dec 2025 19:56:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176336.1500837; Tue, 02 Dec 2025 19:32:54 +0000
+Received: by outflank-mailman (output) from mailman id 1176353.1500855; Tue, 02 Dec 2025 19:56:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQW7K-0005UZ-3C; Tue, 02 Dec 2025 19:32:54 +0000
-Received: by outflank-mailman (input) for mailman id 1176336;
- Tue, 02 Dec 2025 19:32:52 +0000
+	id 1vQWU6-00009J-1U; Tue, 02 Dec 2025 19:56:26 +0000
+Received: by outflank-mailman (input) for mailman id 1176353;
+ Tue, 02 Dec 2025 19:56:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3ffo=6I=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
- id 1vQW7I-0005UT-Fj
- for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 19:32:52 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
+ <SRS0=O/vY=6I=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vQWU4-00009D-Pq
+ for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 19:56:24 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0cbe434-cfb5-11f0-9d1a-b5c5bf9af7f9;
- Tue, 02 Dec 2025 20:32:51 +0100 (CET)
-Received: from DB7PR03MB3577.eurprd03.prod.outlook.com (2603:10a6:5:3::28) by
- DB9PR03MB9831.eurprd03.prod.outlook.com (2603:10a6:10:461::15) with
- Microsoft
+ id f8e8bcf5-cfb8-11f0-9d1a-b5c5bf9af7f9;
+ Tue, 02 Dec 2025 20:56:22 +0100 (CET)
+Received: from BYAPR07CA0062.namprd07.prod.outlook.com (2603:10b6:a03:60::39)
+ by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Tue, 2 Dec
+ 2025 19:56:16 +0000
+Received: from SJ1PEPF0000231E.namprd03.prod.outlook.com
+ (2603:10b6:a03:60:cafe::88) by BYAPR07CA0062.outlook.office365.com
+ (2603:10b6:a03:60::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Tue,
+ 2 Dec 2025 19:56:16 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231E.mail.protection.outlook.com (10.167.242.230) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.17; Tue, 2 Dec 2025 19:32:48 +0000
-Received: from DB7PR03MB3577.eurprd03.prod.outlook.com
- ([fe80::49f8:7615:b631:1a66]) by DB7PR03MB3577.eurprd03.prod.outlook.com
- ([fe80::49f8:7615:b631:1a66%5]) with mapi id 15.20.9366.012; Tue, 2 Dec 2025
- 19:32:48 +0000
+ 15.20.9388.8 via Frontend Transport; Tue, 2 Dec 2025 19:56:16 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 2 Dec
+ 2025 13:56:15 -0600
+Received: from [172.31.77.70] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 2 Dec 2025 11:56:13 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,192 +59,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0cbe434-cfb5-11f0-9d1a-b5c5bf9af7f9
+X-Inumbo-ID: f8e8bcf5-cfb8-11f0-9d1a-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Srsxj6SpLMwOOqEat/E3e+FKx7rZdH3v8ZY1R7Tnxm61y0X9y4B+7a7lrml5fxFD5N2uPJtBm93CuB4gaB8ySA/FkWj5jx7l2ICS74UaZOQOH79ZxiaIJpq5rZySMC82MqCcgGLvH1sJqSzj4m2DnIUZmzFqDllQYKZ5t8m5FYp4qsDTuDvi8XfgNouz39cQ12pjfJAAaOYQc66Eh8Xen62YBRAFo6pgxwGV4FLo3wE1D3ul+ljrjq5GFkNjcqyXJfgiehBxMqggPv7htksaYcTeM0FE9IKAoNoq2WQm3FO2DtQsItpkrnZ7a81UdqmF9UML0EZU6qo9nseOT0uGnQ==
+ b=ASVR8zZqD8Wl5e6IZCquatBxJ/JJlh37UWilQL7P0ttpgfzUge+QMBjPr6enFHz9CdBYZ7IIJ6O91k+1vWVtdLTm97J3lFRmq14wUEA2L4aHiWp388otgN941GpeCQAei2JT5xqKzZfQXsYHwtR7Ls75K6QEUVeg7ihknyT3Ky5UQgsl9kSUcgfkv4/GHjxVtym52OT0IWHd1nOO5YnHnbbUx/bm8aTHweKhqP4PHM0uv9nJTAVkcprbDRBFm+HLGXSdB2Sj7gU4W8+XkGSPsyFzFLGSQslmScrv6NAsyDQGC+agxJueJcJ7Wo7H8+8CozclFbnwCnWwO8/tLHV1Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2nYNDrNMNzvaEhhLE8PiKcUqoUCJJHNNM4EcfEtokNQ=;
- b=ODEoHNNFzribr3ln7hk6DBS500zaZslDa2tsH17uq4dx6dVWS/pTBQyoe+4b+mOBNBqR0D6SIcRLyyELe2ePkJGspMttPqI3i2p03xh2K9OWQaeu0WBYzsYr80bo2yQvXPI6e5rNNfXrUVatT0FxV9AIOuQ0ZLUInN5RN8dAPrnoSLg91xVkzNYMHkEffuO056jC6edlx6A4Rr/HYnE/dH+5bZhYAhiC9cwTnjYfjM3NWBijkCLVfCl2vqWlPDgZi+73lcvrItcgwcFiNDOYbt+NfHoR9/7ZOIIz6Y+gmhKiFzr31f8qOY5WC4BY+OEdjk2HKwawsAfZXXiM6SHrKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=T/jLf+4/m/GtFIA0NHSxkTyYmsW3Re9H5WpdqOIhZbw=;
+ b=hrM96WCv99lKNZVqjYi3gRkRfWK2kPzw8WJ/XG/hg93cQrNByrEy2Jr83q/3EgmPZtPlOatG9tdErApkSWRt6v1pwfv0Hs1RGKzAg9V0alIl0jcMvqIXLJVDxdhLJ1yPxGnPtpdQVqF2/wV+yuwk7gSkR0RmBeOMOhyGwIaMrh9Axlpyf1xZwBfIFm+7Bg8hFez0pWJ4r8b0d/pU3WeoeUkRdr9agoWP9cr8z+7zgp/dBdDdhYlBdMgdXv9T+cocS2sW9gTA1xOXfKG6gS39d1zbJz10yJJ+kMkcpW5u8EAqoXOdsvVRju9z9mHo/XXKUAqAUsr6wIXuz25LdkU2uQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2nYNDrNMNzvaEhhLE8PiKcUqoUCJJHNNM4EcfEtokNQ=;
- b=LZo8c1FGQXvvYRw15wnmjYfgkOf4m7NTIb1gY2zoPpLN4p6CfQdq1+23mFp1wD4ytEJMlUtAzrq9MCGBQfEmE4nNpSf3JOU01z6aMvxfZcXeBcaC730xPGjF8pXlDQoD6xUMiCKjwY2Ez7R05nB0+26AZIhW/5vB/jwP7jd+YoGfpMjbBPkNFm68eISQ7ge3pyso6K5v9qi9CcKaxdz+nluQQ1Ck2F62gUVJGnKCUo7QyPQPgh0kkg5pK+teeg+v/a4gbCBEKGq3BzAH/6p/FKoLFY7iWf1xev+PZxhSponAM6o1VjiZiLv9pbXz0SgEEW+JFStn4sTLSeIRx8HRiw==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>
-Subject: [PATCH] xen/dom0less: Increase guest DTB size for high-vCPU guests
-Thread-Topic: [PATCH] xen/dom0less: Increase guest DTB size for high-vCPU
- guests
-Thread-Index: AQHcY8JwgLGK5hUeEUKxVWNaY5XmsA==
-Date: Tue, 2 Dec 2025 19:32:47 +0000
-Message-ID: <20251202193246.3357821-1-oleksandr_tyshchenko@epam.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB7PR03MB3577:EE_|DB9PR03MB9831:EE_
-x-ms-office365-filtering-correlation-id: 579cd643-e80a-44de-83bd-08de31d9932b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|42112799006|366016|376014|1800799024|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?6OiLrxn08INF5itUBtbY3slElllv5M23Sd0v6Y+bC2GAW6GPrDdwOiAk9y?=
- =?iso-8859-1?Q?gViwKg2E8OrEqTX0w+bXve84cUZNBFo51++J2qcYAeNdkM/1eiyge4hT5L?=
- =?iso-8859-1?Q?DXzhGTcLe468CgvIkfYaLGXTL22nDkDZzsKTmd1/PaHnQYAjy2QATxh70+?=
- =?iso-8859-1?Q?xvIsyYJpM6mS+68AnSS/93MRCQaWtvgZYHvtKTvdNTCh7715rIsOGzkcS5?=
- =?iso-8859-1?Q?+e6A8zw8QYAtoVlnlkw3tE5IVtjcKM4F5SPfC0pTmly7bozr0B9H1TgpfE?=
- =?iso-8859-1?Q?HIhvP86Uv963EWNPbXQguo68NOj4nx9+vLzfbLOTZl9uBf9wuXsr5M8ay2?=
- =?iso-8859-1?Q?tNRbZa4Bcbd/+3mSIJoP8qaU1gSN6Xuw87ryHd43mv+B0nfVP5gMd1pLwh?=
- =?iso-8859-1?Q?Fl1h2GAuzgLLsmTnE06XWmCFhYispPjL9IrpCOewo78t8MO5eVGPlXCwaP?=
- =?iso-8859-1?Q?osEcyaqvXWpHCJMhs3NULe01lQGlDknTkobgdQU5aNy22HzBLXlbpGOoze?=
- =?iso-8859-1?Q?MXt8hjjKtzFeeWROlFWro+wis7BrwQ2x4Sb1RWQm13bGw61pF/AOcvIMuY?=
- =?iso-8859-1?Q?h2AFWC1b8dPRM1ev0Ojy2i06tMpvJjtz7N+65OeArj3DFfI5le2ZlUmg4F?=
- =?iso-8859-1?Q?gkuVcBLS56581ps9Uy/hNrIPlIPLe6tii8iTOLasXaPtigcc4wnh+JFPjB?=
- =?iso-8859-1?Q?XJuJOgWhzdeT0HdBJQ31cUOlIdGjqcJYbKRqMKsZVqQBig2Ka81mTVt+m5?=
- =?iso-8859-1?Q?UtKUVpTls6M4WVI6rD/GwmpmsA9ZLLsZ/rYj3GfLAa1rCjBVS3q81nOgyp?=
- =?iso-8859-1?Q?bj/3t7BzcNW6iMUFhOKbD1BMRluWOHVyhb32rd0YqlzFWF5y+oeUlznCN3?=
- =?iso-8859-1?Q?I6kl0uVcnRb7vBupGF8SxoP9Ti6kYume5LEHz0eaZ4tAcpxZu3fzoGY0h7?=
- =?iso-8859-1?Q?omavp1KGtTkeR2nmLNczx5Alzw6RV5TfG2TbkL7ZiOe3xw5CKS3g8DHoF9?=
- =?iso-8859-1?Q?77dGfWFwfOU6SkkrPjIFyBmc+zPY3/GnbNCqS6+Bf+DIF01tVYMYGBDY2S?=
- =?iso-8859-1?Q?fqRBEUPHU/nKUIwE2Xocy/6QoSWAd/PoycH48dm5Qwb5jEtumk7NefpGEL?=
- =?iso-8859-1?Q?U2CK47QxzT7BoSvPlwY+v2Rfc99XFBCUI60jgoK76AChEqvgQ12gyvgc7L?=
- =?iso-8859-1?Q?fJEefKeK03HrNzcy0FbUuolGZVN9ZPat5KcHp6ilMEniRO5YG4BJZP7RjJ?=
- =?iso-8859-1?Q?YsZkt6Bl3lnlbodN8PDGeIY/olnPxEwaoi+DGxJpCrOyfyJ+V/F1+dxhPd?=
- =?iso-8859-1?Q?y6ZRDDmgTzKK5fgLHDxV5XlLQXbVsdcKu7ExwxyK1ApK0gGidSlObsVcad?=
- =?iso-8859-1?Q?UMNQvHGL+JlTnTP9UTDZLG/O2fvKoa9h10/7Ue9HToyeNK/lnfl9Fxnwry?=
- =?iso-8859-1?Q?Sxu8SFEEOO3lltrWVZ0iu7nA1Cwwdfp3n1jktZCccskpdzewj6h2aHoFPn?=
- =?iso-8859-1?Q?ccJNWk+PGV+45LJuOF3LkBt3xpIoA1XY5ppvklFn3f2M3A1aSVbClDCHMd?=
- =?iso-8859-1?Q?tO0i49QZLmIHGCIt2iHDjMMSj6xn?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR03MB3577.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?O4+yyX26JfIp0SLYVFHle8rfIsGtQq8TaFr5fVY6rUerNoOoLuC8MRwi4L?=
- =?iso-8859-1?Q?d46O5m6TLJerNeqBuL1tuRulm00iJSZX+QvZg7twkv/N8lunwYTph34H23?=
- =?iso-8859-1?Q?AZtAOcxDJdQFOqNblgR/lCf1PKiYmR9C2pnaqFsV8VaBghnCQV5hB2gU4A?=
- =?iso-8859-1?Q?Qgn8C5lHp9z2LzbaAgZpv/RgBIaWPVVpih5BBuQV6OXnftchKm+lCy17Vt?=
- =?iso-8859-1?Q?bcQqn5KlRBF71e+pb/zI80tUh5u6kaweDCEbAH1zy6yMQYyOGY9zmMKJaz?=
- =?iso-8859-1?Q?BhAF8oYPfgEGoSv9QqTWOIkCMkCUUoMzxwd3yyUVf6mUH6WT/IWVlOjcx1?=
- =?iso-8859-1?Q?r0cG0tDv7RUPRV8KCiqQzJ7rwsNSbF8fpSMJ/puJ/yYB3/FWxVfy4xt4iL?=
- =?iso-8859-1?Q?6PDUoXK2njV4g+Vhi5dSE5Nm+DB+rMq31qR18MYNsGvzQZWjpusjMkBUt6?=
- =?iso-8859-1?Q?QLUMJiEkBkZ9ZrBpsYgC+FHlYF+gzIoKCituH639FZBuP+p/p0w5jFVfSH?=
- =?iso-8859-1?Q?mBmVQB0c+mWk2JcdyTxKGO0PooXqVC/bPS8FHbE40VQw17BQCfuBSJeSPD?=
- =?iso-8859-1?Q?77hph/qYCYPfMTcm98tjpO6R/sf/fQLJy4NRVBNZfJ2o1rT/h3lHx0HEc5?=
- =?iso-8859-1?Q?waQC9o7f9rPtmX0yaJrB2/XBKEo067TrQrVIu+pD7vAx6+oYANyarKL9S/?=
- =?iso-8859-1?Q?TmkQh+32KDLsZSPnXhqsem9bAru39HHg9GLIQImeyVA3WY06epfOQ6tUKv?=
- =?iso-8859-1?Q?hnskNIWOaDz0XOQPGXUFK2Po7TEz/KY6+renHhQcxTi2/9OFePkrO5hHRK?=
- =?iso-8859-1?Q?z072YGaTuiLzfInT60B6tJ47kAFyxVFjHYqDQ9iUlIOxvD8dBvauxZE9Eg?=
- =?iso-8859-1?Q?hMeB0xpcvqQiIszaXbO8hZe3HatmgeBqbTcbfLqF0mE+i9M6klyQ7MLbtB?=
- =?iso-8859-1?Q?BBxntzb7s7bUNKq57TqrN0UEXyDCLfxR5Exp/ZA2PdbJjQSMBMA+W/LX6b?=
- =?iso-8859-1?Q?R9DJ4SXltEA52yuplhRtjybGyxPWJ+L3/Sn5d7iznfPRVAlZt6g9ekeixj?=
- =?iso-8859-1?Q?+ecoDxTssCjjjGebsxcefYSQYqrTkTydh2N28s8ttqv+P4PA4JSVHf6sdl?=
- =?iso-8859-1?Q?6DESNqFzEs01DhyTVReuvlqr5R3G1N2vWmYgQNye9qEuK3Ou0fM9cMCQ1A?=
- =?iso-8859-1?Q?i2Ji5vrTeDjQHs3Ooz4xjAJbuvJWqmvYRnEBk20NWWieTNLMiQU+Of76jt?=
- =?iso-8859-1?Q?8QipOvFaCAkdS1xMKB0esFBVXmUpWXIZpy5IRo7nCl4s0hlb7AHH6VBEfY?=
- =?iso-8859-1?Q?2SpxX70gByM2HH728PhoVOHvTopQ+PwDv0k5ww/3O5SYT/vLPDie7jlXZV?=
- =?iso-8859-1?Q?GifyiXEgRVhCEWwkMUQuE0LJ3d1/fx4+jVnmXpZSSz2yRkPyK4oC2tbCEi?=
- =?iso-8859-1?Q?Sn7ELTMF9Jtvx8K2HW8ucJCIXBiHmAo/j7eDu5tk5hKhQtLWZPPEuF3FdG?=
- =?iso-8859-1?Q?nH9epjuu398q+IVF0rMfGChML3dqhQHiOfJ8feUR6EmtUTe5pSd+Dx5rD9?=
- =?iso-8859-1?Q?eX38b2r6uTMRC/oNY/B54pn4yfl9Ebebo8cZAK6oGhaVM6lj9W12uZmtkZ?=
- =?iso-8859-1?Q?/mKXbg5r5NjZ98SZ2eQIWC+hGVWWRxdADntWfeeavCcxldXpxU4jM/mU24?=
- =?iso-8859-1?Q?ZanhF683D+R+jTWH2ko=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=T/jLf+4/m/GtFIA0NHSxkTyYmsW3Re9H5WpdqOIhZbw=;
+ b=CcPEWpXPtrA/e6BhXSnXsk/1rBz12KKskpR5Rl728O2zkazSZy6dgy4F2qgTFdbfcVgP3PI3s+fZWQpYTehnD2hcwVBroaEROJXCCNXR3UhqCjOZVJDI3BWVYHsxABU9nlhF/uB7hyIisAYuNLsTIoKGy8Bx/j16nSo6avPMHlw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <d1c1df48-a498-4ce5-8340-33755720101e@amd.com>
+Date: Tue, 2 Dec 2025 14:56:12 -0500
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR03MB3577.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 579cd643-e80a-44de-83bd-08de31d9932b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Dec 2025 19:32:47.9622
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH v2 4/4] x86: pvh: allow to disable 32-bit interface
+ support
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+References: <20251119192916.1009549-1-grygorii_strashko@epam.com>
+ <20251119192916.1009549-5-grygorii_strashko@epam.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20251119192916.1009549-5-grygorii_strashko@epam.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231E:EE_|MN0PR12MB5907:EE_
+X-MS-Office365-Filtering-Correlation-Id: 894ae473-ab44-476f-9b64-08de31dcda83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Mm5Bd2V1WXJoTUtXK1J5VVYvcXBLOG9kbTBCd01RczRIeWJXUlI2bnhNcERY?=
+ =?utf-8?B?SHpiR3JGSjFlbUpDN3lGNkR6NFFBUXBDTm0veDY5bVRPZStFRll2czdWdThj?=
+ =?utf-8?B?THdraUs3RzhrczAvSnZTbU1xME9QV2Z0S1pkNnRoTkJxUm56VGVaUUtQU3Zx?=
+ =?utf-8?B?S1ZBN3FvQXAxaUptdGJHZXZKdml6SzJDNmJUcGp1N3cwbTZGMWZoQzBXdHdM?=
+ =?utf-8?B?ZUptNWxUdGxxWXdZUEVIVGthREJqbVZmN0puRmVhOGxMcUpzTXR6YXU0WTJM?=
+ =?utf-8?B?aGlCM25KdlZWS1FrSnVCNURRMWgxdVc4VXFCUzRLMnc2TWRkT1JGQjJleWly?=
+ =?utf-8?B?QURsbnZRUHlJZWZUcEZYRkc3NUhxdi9IUFgxbEdxMUJyd2llb0dZOUxuanNR?=
+ =?utf-8?B?VG9SbTBnbnZoa3NPQTdKQXZDVmN3VStwYXgzVzdqSXRZSDRSTTZ4NGcrWVo1?=
+ =?utf-8?B?NmFWME9RNG4vRXpIZzQ3Z1BPRjF1eHFFcXgzc292citySjkreXM2VnNxN0RF?=
+ =?utf-8?B?clpXemVva296Umk2aittTE9zcGNVeWFXWjN2KzRSenZyNnZuaWRNcVUrTGln?=
+ =?utf-8?B?TjFYQXVUa3dKUlMrZVY1NXArQTN5SjNjRUc0b1VIaTJJNGRUQ1Y4bTNXaWtU?=
+ =?utf-8?B?R09KSVBnV1NRalM1Y29samlvRVIxL1VkcjJrQlZwOHFCZU9EemZyTjY5Z0h5?=
+ =?utf-8?B?SVh1Q1JNdjVnSnBTYmJnNDcwM21XQk5jcVBOT3dSdUpwRGRwdHgremhWM1la?=
+ =?utf-8?B?bkNDR1FmOUdublM0YU5heFBtejVwZmsvNXNTelhYNGw4Y2orcm5ibkM0bUdY?=
+ =?utf-8?B?RTBLM1FmOWZSRHhNSjBhakJpdFZGQnFHVU5LRS9nUWsvNGxaWFhvTGxTR1g3?=
+ =?utf-8?B?QU40U01xRWR4ZmlyTEVua3VCUUZLYmFLYmdoWGV1OXhRbXVGWUYyVjdXVUkv?=
+ =?utf-8?B?d0k0RFhCdklIb0UrU01ndUVRS2ZPazh5eHRsek1TR291T25ZWUxGT2trS3ZM?=
+ =?utf-8?B?aG9EWXpTdFFTTWpoNHVKeW44a1RnQVFzVHg2SXI3di9yQ2pwbVJSMHRGSjZC?=
+ =?utf-8?B?YW9BM09kQVJuZnJ0MzZPbUgxMFN1LzF4d2Q1WmdnV00xSDVmUDE2M3lYZHZB?=
+ =?utf-8?B?R2NTZi9iajlRNWtLQUVUMnFMQStHeEk1S0Q1SERUWkRBK0dHcUY3TVUxWFhO?=
+ =?utf-8?B?bFVTbnAvV0dRL1pkM1BmRTFJcjAvZlZpWEorZ2RraEM3Q3Y3TVZjSVlrY2s5?=
+ =?utf-8?B?NGwyTHhSaldnNk1reDdvWnlZSmZPM2w2V2RNeHJ2S3E1RzczaW1YdXJxVVc5?=
+ =?utf-8?B?UTBzUGNUWWVSSXgvQzB5RkdrdjlzVVZiRkhPK3ljOWlCN2lHM3RLcXhCK29y?=
+ =?utf-8?B?MEViK3dnQklaVitLaEhIRlRucXp1QzgydG1GNHpkWmFleEJuNEppR0hCL2hB?=
+ =?utf-8?B?WVcvTlJqQzVFbU9HSkJmdGk5RGVFWlJpRkhsdXNnZ1E4eGN1TTl3MnhWeCtx?=
+ =?utf-8?B?Rkt0N1FnTjN1OWEzUGp3b1NFSE8vbkptemhjUE83RUNHY0ZuVy9DLzZzOWRx?=
+ =?utf-8?B?dWFYdVovUklqMG40Qk5yUFhJK2RTcmcyaGN1MC9qUndUTmYzRENyYk5BUjFh?=
+ =?utf-8?B?SWNLc1ZBc3NQa0xwTWNsN1FsdEFJeXNnT21ablpSQ2Y1Ym1yOHRkOTFZMmh3?=
+ =?utf-8?B?U3RwUXB1ZlpON1diR0NPenRZNlc4Tkp0ODdVRklES1FqbzBVWFpCamFiS0Ex?=
+ =?utf-8?B?YW9zenpBVGhwTTl5NWx6dmVSWGhsdlVrakMxS2M5eTBkYm1tVnJvbnRLUWpa?=
+ =?utf-8?B?UmFPdENzUWx0NDltY2pyZ0xFYUZ0UHZkV3UzRnZmZ3lwbU5kSEd6aXhmZEZZ?=
+ =?utf-8?B?YWFlZEdVYjIyaHcrbmV3ZnV3ckEwZDZZN1ZsSGV6VDNOWkQrUlRoYmVnUFRp?=
+ =?utf-8?B?bTVocWV3UngvRE9VdlhDNmhISjRFRW1hdFVsZUhQaWl4TmhQZUdKai9WUEZ6?=
+ =?utf-8?B?MlhKZG5OK2p5dm4wYjR1aHdDTlRuTGx1YUhwcUJVSzU2RmRwemdMdnpqWEc5?=
+ =?utf-8?B?NVI0UXduK3dBVWRNeVJmeTl4UkFVZXFsand3cDZxRzBUQjJQanI0eGxueUph?=
+ =?utf-8?Q?X5Ns=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 19:56:16.1055
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: owTIyGfZJzBsGGK9L+4yW34bzqtJIl0vfb920beb859OYOxNueu3AJm7tpiX8G92xu02kDMPa6r1VDt+tjJzdZf6yScf/6bYuhWiVdE8lwM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB9831
+X-MS-Exchange-CrossTenant-Network-Message-Id: 894ae473-ab44-476f-9b64-08de31dcda83
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
 
-Creating a guest with a high vCPU count (e.g., >32) fails because
-the guest's device tree buffer (DOMU_DTB_SIZE) overflows during creation.
-The FDT nodes for each vCPU quickly exhaust the 4KiB buffer,
-causing a guest creation failure.
+On 2025-11-19 14:30, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> For x86 Xen safety certification only PVH Gusts are selected to be allowed
 
-Increase the buffer size to 16KiB to support guests up to
-the MAX_VIRT_CPUS limit (128).
+s/Gusts/Guests/
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-Noticed when testing the boundary conditions for dom0less guest
-creation on Arm64.
+> which are started by using direct Direct Kernel Boot only. There is also an
 
-Domain configuration:
-fdt mknod /chosen domU0
-fdt set /chosen/domU0 compatible "xen,domain"
-fdt set /chosen/domU0 \#address-cells <0x2>
-fdt set /chosen/domU0 \#size-cells <0x2>
-fdt set /chosen/domU0 memory <0x0 0x10000 >
-fdt set /chosen/domU0 cpus <33>
-fdt set /chosen/domU0 vpl011
-fdt mknod /chosen/domU0 module@40400000
-fdt set /chosen/domU0/module@40400000 compatible  "multiboot,kernel" "multi=
-boot,module"
-fdt set /chosen/domU0/module@40400000 reg <0x0 0x40400000 0x0 0x16000 >
-fdt set /chosen/domU0/module@40400000 bootargs "console=3DttyAMA0"
+s/direct Direct/direct/
 
-Failure log:
-(XEN) Xen dom0less mode detected
-(XEN) *** LOADING DOMU cpus=3D33 memory=3D0x10000KB ***
-(XEN) Loading d1 kernel from boot module @ 0000000040400000
-(XEN) Allocating mappings totalling 64MB for d1:
-(XEN) d1 BANK[0] 0x00000040000000-0x00000044000000 (64MB)
-(XEN) Device tree generation failed (-22).
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) Could not set up domain domU0 (rc =3D -22)
-(XEN) ****************************************
----
----
- xen/common/device-tree/dom0less-build.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+> assumption that x86 Guest's (OS) early boot code (which is running not in
+> 64-bit mode) does not access Xen interfaces (hypercalls, shared_info, ..).
+> 
+> In this case the Xen HVM 32-bit COMPAT interface become unused and leaves
+> gaps in terms of coverage.
+> 
+> Hence now all prerequisite changes are in place, introduce a
+> CONFIG_HVM_COMPAT option through which HVM(PVH) 32-bit interface support on
+> 64-bit Xen can be disabled.
+> 
+> By default, CONFIG_HVM_COMPAT is ("y") enabled and accessible only in
+> EXPERT mode.
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> changes in v2:
+> - fix format and move above HVM_FEP
+> 
+>   xen/arch/x86/hvm/Kconfig | 19 ++++++++++++++++++-
+>   1 file changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+> index c323d767e77c..88090f5b3965 100644
+> --- a/xen/arch/x86/hvm/Kconfig
+> +++ b/xen/arch/x86/hvm/Kconfig
+> @@ -2,7 +2,6 @@ menuconfig HVM
+>   	bool "HVM support"
+>   	depends on !PV_SHIM_EXCLUSIVE
+>   	default !PV_SHIM
+> -	select COMPAT
+>   	select IOREQ_SERVER
+>   	select MEM_ACCESS_ALWAYS_ON
+>   	help
+> @@ -35,6 +34,24 @@ config INTEL_VMX
+>   	  If your system includes a processor with Intel VT-x support, say Y.
+>   	  If in doubt, say Y.
+>   
+> +config HVM_COMPAT
+> +	bool "HVM 32-bit hypercalls interface support" if EXPERT
 
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tr=
-ee/dom0less-build.c
-index 3f5b987ed8..d7d0a47b97 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -461,10 +461,12 @@ static int __init domain_handle_dtb_boot_module(struc=
-t domain *d,
-=20
- /*
-  * The max size for DT is 2MB. However, the generated DT is small (not inc=
-luding
-- * domU passthrough DT nodes whose size we account separately), 4KB are en=
-ough
-- * for now, but we might have to increase it in the future.
-+ * domU passthrough DT nodes whose size we account separately). The size i=
-s
-+ * primarily driven by the number of vCPU nodes. The previous 4KiB buffer =
-was
-+ * insufficient for guests with high vCPU counts, so it has been increased
-+ * to support up to the MAX_VIRT_CPUS limit (128).
-  */
--#define DOMU_DTB_SIZE 4096
-+#define DOMU_DTB_SIZE (4096 * 4)
- static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *k=
-info)
- {
-     int addrcells, sizecells;
---=20
-2.34.1
+Maybe "HVM 32-bit compat hypercall support" to get "compat" in the 
+user-visible text?
+
+> +	select COMPAT
+> +	default y
+> +	help
+> +	  The HVM 32-bit interface must be enabled for HVM domains to be able to
+> +	  make hypercalls in 32bit mode. Non-PVH domains unconditionally need this
+> +	  option so that hvmloader may issue hypercalls in 32bit mode.
+> +
+> +	  The HVM 32-bit interface can be disabled if:
+> +	  - Only PVH domains are used
+> +	  - Guests (OS) are started by using direct Direct Kernel Boot
+> +	  - Guests (OS) are 64-bit and Guest early boot code, which is running not
+> +	    in 64-bit mode, does not access Xen interfaces
+> +	    (hypercalls, shared_info, ..)
+> +
+> +	  If unsure, say Y.
+> +
+
+Maybe something like:
+"""
+Support HVM hypercalls from 32-bit code.  Hypercalls from 64-bit code 
+are always supported.
+
+Disabling 32-bit compat hypercalls reduces the hypervisor binary size. 
+HVM guests require the 32-bit hvmloader, so they cannot run with this 
+disabled.  i.e. Xen will only run 64-bit PVH guests with this disabled.
+
+If unsure, say Y.
+"""
+
+While what you wrote is correct, I tried to rephrase to highlight the 
+the implications.
+
+Regards,
+Jason
+
+>   config HVM_FEP
+>   	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
+>   	default DEBUG
+
 
