@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A22C9B534
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 12:34:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176129.1500669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B70F9C9B570
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Dec 2025 12:45:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176143.1500679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQOdg-0006dH-J6; Tue, 02 Dec 2025 11:33:48 +0000
+	id 1vQOnu-0008Ts-KK; Tue, 02 Dec 2025 11:44:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176129.1500669; Tue, 02 Dec 2025 11:33:48 +0000
+Received: by outflank-mailman (output) from mailman id 1176143.1500679; Tue, 02 Dec 2025 11:44:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQOdg-0006aA-GG; Tue, 02 Dec 2025 11:33:48 +0000
-Received: by outflank-mailman (input) for mailman id 1176129;
- Tue, 02 Dec 2025 11:33:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vQOnu-0008Ra-HI; Tue, 02 Dec 2025 11:44:22 +0000
+Received: by outflank-mailman (input) for mailman id 1176143;
+ Tue, 02 Dec 2025 11:44:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JGiA=6I=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vQOdg-0006a4-0I
- for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 11:33:48 +0000
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [2607:f8b0:4864:20::c33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c01dc723-cf72-11f0-9d1a-b5c5bf9af7f9;
- Tue, 02 Dec 2025 12:33:41 +0100 (CET)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-6596897c2b5so242217eaf.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Dec 2025 03:33:41 -0800 (PST)
+ <SRS0=WL05=6I=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vQOnt-0008RQ-0K
+ for xen-devel@lists.xenproject.org; Tue, 02 Dec 2025 11:44:21 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3a1b95a5-cf74-11f0-980a-7dc792cee155;
+ Tue, 02 Dec 2025 12:44:15 +0100 (CET)
+Received: from AM6PR03MB4600.eurprd03.prod.outlook.com (2603:10a6:20b:6::31)
+ by AS2PR03MB9003.eurprd03.prod.outlook.com (2603:10a6:20b:5e6::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Tue, 2 Dec
+ 2025 11:44:11 +0000
+Received: from AM6PR03MB4600.eurprd03.prod.outlook.com
+ ([fe80::ec82:849c:dc0b:f6d4]) by AM6PR03MB4600.eurprd03.prod.outlook.com
+ ([fe80::ec82:849c:dc0b:f6d4%4]) with mapi id 15.20.9366.012; Tue, 2 Dec 2025
+ 11:44:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,342 +47,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c01dc723-cf72-11f0-9d1a-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1764675220; x=1765280020; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JyXl5Uwe+7LLw2uOAk13W9T08ZfHu18vispL0Z1eZVo=;
-        b=vl3z/XtOemBGFB5VONRt2kenBpRZWnnHa8C1+ds12131Y6j3xb+2nEGIQZDuD5eKHO
-         +YDsqGr/pLp0uWZahOBd1ECbT0GiicnDK/3xl7tkDLaMwIqqH+SKZ8SMqSeLcqzwD9n2
-         M/YUcHsp2IhmPGQxnh0fPliOAETntrtsoLlw+xtCrEp7NIkmFtyfAgbnXhOdxVrfbsgz
-         rv2vi7X6Br1ozGPt8H8yIUPQRFUokGh7n3dJKdmRs8hOlnaaUzS0xTM1O1bttGj7KJ/g
-         L0cResaK2pjBF4FQGWYLbmG55s/ZCwZ33PAJb3bz+UdwAw17v73k2dgg9M4qZ/UdWn9S
-         14qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764675220; x=1765280020;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JyXl5Uwe+7LLw2uOAk13W9T08ZfHu18vispL0Z1eZVo=;
-        b=UL5WRvNveImHxjKKPdQG/HAVl6FMNwIRDVr4hCw6wsFmcA6Zbbf13amJ201X+C9Y3e
-         IuRM+wSv8DFaNmxp1f1lxvdWs+gu9aZvxLXY6o5bK8/9SEthIT35NO9cCm1ZvTGoR8qi
-         6+Bx2FKzA/emQ4thVb2j6+t8YpuIMD3r3ePmg5mQAAoB7hLLw78eVzwv+SjDNGaI00yr
-         DZBPPd2nd9uq7wIwKyNj0ljxhCY667kMV4MkzcAMlK2rS4k3TPkeZMksaXbs4/2nQUo5
-         O8XhJs9rzwQjd3w6jFPfINsPYBC2WYeYOZkEDdhQTOMx2uLbAkuZaECKoS73Qp2CMQkf
-         uWhg==
-X-Gm-Message-State: AOJu0YzE3GfGs+ddd731gZzK0584wLD9aX91eEouGF6UrJld7/lpLi5R
-	7owDBViO1TrNH1mdMs/igC6nL92zQUZWDwjgWbNIExB0yyTl/uSb74pyerD9Bns9CsrwMvKAtdP
-	A1pjwCxnS6J9UvhK7nGgk5Mi/jOqh9+kxD9VxjtAToA==
-X-Gm-Gg: ASbGnctfLI4+pr7V4CPyxolpaHjkToq/oQ1DumdccXjtM2eGz/rmyqrMTCzy2ewWFiS
-	zZXocuHVTq5a7VS0XS0hNd427zFG9wDKE8ETj7xTipo7ewuvD1brHes6XNpUB+Zf+dcA1Hh6hlf
-	bHpEaVzS2Y6BwMCn8zBIOJHAUL/fCH/lYfRHhisk7Bw6qfVVDKlBy4Ro6B3Lmkf6ygtiOoiMlhJ
-	Tra4r+8U+/daipCWT/xjMBdutqHA7DuP6kMGZZ5IgAXcITSQf4N7TcIMQ3pFc9KF6B9XBUEdTX7
-	+vCRya9qHKrRE3kOxESR+2ieZXk7THftGTAK
-X-Google-Smtp-Source: AGHT+IFW7i3dfES0Xb4sukVQLMDZA65THvwhMrFNq7hJDqg19UOOp4+LiSCiWKWhx0UCMqRq2oMSAqjnVDNIOY3XCGQ=
-X-Received: by 2002:a05:6820:88f:b0:657:5629:2cef with SMTP id
- 006d021491bc7-6595dd842fcmr2725762eaf.4.1764675219790; Tue, 02 Dec 2025
- 03:33:39 -0800 (PST)
+X-Inumbo-ID: 3a1b95a5-cf74-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mvbFMZbYOd2GB6FVZaFaHeVvalUzpkrNLsZmQaBEF1tjXlaA6wUTMX3GzbzJd4exDJI9UYQb7EzwUD2LhS3s7mziEuVYnF/fWCI0cuKykwuHJJw8xgfDicL1m6t9xrmgUX+wsDa+vAiNq5Eyf7dU7seprHPKcYoDd2NvBSu/zEYNUbASCS9nnf7skGmP2ouY7Or2w+MZZb7cW5r+F9VtF1O9N98QXYQ5n+jEZNlRzu98GY6dpibEaoz5zLicBlUHeETQKZK4hgcgctAsrPTMChGaB1otN4Hd9s910V35Xakr+j8rNqCGvy6dqxehlL2s0paKoisE9V89viBrC0Gq4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v8Dm0QJ0gR2lbXLFTrqzLa2MbAI0+LzNdHczf/PDrrg=;
+ b=osXe7+z65bOy67rqa6x9WjoCZewB7R6WRy0ltH7vwrWRtHA2v1LuhFFuoeqmcwoLME9cE0gn3XgFD3Qxd0nU+716L3mEiySmaQSI2v56YDmWzc5ahvEfm2uvHOILDbbm77QHei82ZUXJRaUJnZxhnj08QPKpVJIiOe1kqzV3eJ31sGni/H6U59mevHrxqeGY2hBaNnOkVR46WfVjf/v/urPZqP9TfeNljQetsmURYAIc5Kemppn+hj8GnzjoKjz3S/9Y9FUG82q7cnXIMntRT6opFyPK9+b1b6tkYu/QTkR3/5NnngvUAob47ASbGsbfEEw9ZXf1IhfuaewytT18hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v8Dm0QJ0gR2lbXLFTrqzLa2MbAI0+LzNdHczf/PDrrg=;
+ b=buRAUGMzvJao9L3mKUMTGAUHNopFw8pvYU/LAkSu54daUT21fnwYulOWqQ4wJrgl+AI32fVQqUd1QCZUch18yllN/600x7+xzUI0d7CTHrPtiaVvb0o3tXhXrudrVe+7rS00PqfdgnZbN4mN/Pe63iq0sOvnD9q5pkZU+0E5ekymyxWmJ5a72xr2Pn6usBaqSTBTMJxDvcmNJ6WQ0chDVRe82t8+IjET0xw2VInkT3dPbC+TVRFMk+55S7/E0NI3DEwXofJ120SO+awJukB3/q7LHBpj5KTDY8HWzlgHq31DoAD4IGfz0hbm8LCjsalGBbXk2hyV8Py9d1sHQi7aKg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <11b01aca-5a3e-4bfc-b939-46461d143c4d@epam.com>
+Date: Tue, 2 Dec 2025 13:44:09 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: Ping: [XEN][PATCH v4] xen: make VMTRACE support optional
+To: Jan Beulich <jbeulich@suse.com>, Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251119193120.1011448-1-grygorii_strashko@epam.com>
+ <90ac9206-10ce-4c46-83e3-82ac8ef0d152@suse.com>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <90ac9206-10ce-4c46-83e3-82ac8ef0d152@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ClientProxiedBy: WA1P291CA0012.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:19::9) To AM6PR03MB4600.eurprd03.prod.outlook.com
+ (2603:10a6:20b:6::31)
 MIME-Version: 1.0
-References: <cover.1764254975.git.bertrand.marquis@arm.com> <5e66b2991340f010befcaa3a57d0f35ad18d4149.1764254975.git.bertrand.marquis@arm.com>
-In-Reply-To: <5e66b2991340f010befcaa3a57d0f35ad18d4149.1764254975.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 2 Dec 2025 12:33:28 +0100
-X-Gm-Features: AWmQ_bl58x99MENRUJ2heu2BeXbVrnBiAu6RnkIU6NIv_UXXYQcqVHXNR9zQ_aE
-Message-ID: <CAHUa44E1SnhBR8=ibG+r6QPN9hehcRVPa93zKpYd756OHza+=A@mail.gmail.com>
-Subject: Re: [PATCH 02/10] xen/arm: ffa: per-VM FFA_VERSION negotiation state
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR03MB4600:EE_|AS2PR03MB9003:EE_
+X-MS-Office365-Filtering-Correlation-Id: 722c0880-c0cc-4a84-ac01-08de31981c2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dXZMZ1M4NUxLclZUUCtWcFJSWE5TVGw1RXdHd1pXa0ZocGFjVmxsN3NvYllJ?=
+ =?utf-8?B?WFpURThWR200VjErN1lNNEdlNGx0dHZaUDhzbXVkb201R3QwZkJFTUtOT0Rv?=
+ =?utf-8?B?c3pDK3gxVklrYmdOVWMrZ3Q0NWJYMy85RE1vQk1hQWtWUXlUZ0tGWjBqSEla?=
+ =?utf-8?B?dENmWDhDTkVpNmo2d2RyY1huZzY4VWMrMGhUMzZpT09sQzJxUFFvR2c3bWJ1?=
+ =?utf-8?B?dlZsZ0grUk44c1hyNVZ4eVZ6REpUMVJKTHRONWowQVh6TlNnMUV3MHdmY1I5?=
+ =?utf-8?B?STBSaUVRMXo2TjVBYzVhTjFJMmxqV3Z5c3NsTjdvb05JQ0RKT25ORWk3UWNK?=
+ =?utf-8?B?OVRacGR0UE4yK0tnYlkyVG5SaGp3eGtJYnRQdzBrdFFER29vMFIxZ3V1TUVn?=
+ =?utf-8?B?bmJtdkpDWFRxWENKYkpQdjJ2dHNtUUZKRXMrYlFEdDBSZlcwLzIrd0M3NlVr?=
+ =?utf-8?B?VjNvNWFRMjlMRVhodGI0c2dyQTJLaDV5aGRTZHMxeFBGUzV6ZDV0Q3lrVnJ6?=
+ =?utf-8?B?aHBQTEpWUkt5OTJDWUd2aGM0MzJudUwxK0Q3Vk1INUtGMUo2b3drQkxmNWp4?=
+ =?utf-8?B?YjVjdWxFbktXcjJRZ3RLL2FvRFViT1ZqQ0s3dHRRdmRPK3V4djFEQU5icG4x?=
+ =?utf-8?B?OFhxU2xGV3VRUk4vLzh2U2Zsem94dGFGWnYrYlNiWDVZbSt3ejk5RHd4ZlpR?=
+ =?utf-8?B?UU5GSnJvcDhhckVta0xNYUJhS0dvNG9OenMzVU1oQzJCZlFVaDUrSFVnWFBi?=
+ =?utf-8?B?NklkTlZqNnk2WUdHelR6REZseXZxaWdXbDdoUmN0NUpNak5IZVd6UU1Hby92?=
+ =?utf-8?B?MjZOdGY2VWV4eFhtb0hiRGxNd2hXYk5BTkV4OU5qcXZJZVZQSEtHWTMwMlhm?=
+ =?utf-8?B?VXBwK045R21HbElFeWc5M1l4SXp2YlFxVUc1VXpFNlZodzg2U2p0ZjJ1aXVG?=
+ =?utf-8?B?S2pRbWFYdlZRcEltQkZaR3lzSCs2emUvZEhMak9vWVBISVdQNWY2SzdMU3Mz?=
+ =?utf-8?B?VXBvbytkdzVaYWFuVEpuYkVudHpLS1gvM3puQyt6ZkptUEZBSXBnWnhudlNy?=
+ =?utf-8?B?NG5sN0hkakNyRGY4K3RVTmZYbklhRXB4aktxZXpOeHB4cVU5TFlydUtyaW9n?=
+ =?utf-8?B?cGlVcWp4RHBxN2tKUXpLR2dMNDhuTVRkRWxiNTV5TWorT3VRdVg2RUw4NDU5?=
+ =?utf-8?B?NEpOdm9NRFRGNi9ZT2ZMNzNrZWVaSGRJS2lwNFNXNG85N1pvVTZxWTQ0UnFk?=
+ =?utf-8?B?b1Nub2dzcWJBYTlPVmZrTTBNNTg5Qm9zL2t1akRzVXdPQXYwL1J4Z3hJcXhU?=
+ =?utf-8?B?b09naS9FZmJOWDRpWW1SR0xBdjF5d3N2U1RzTXplL1RWcy81Vk1EZ2VkZ3pn?=
+ =?utf-8?B?SzdTVWVyMnZpWlBwZTJ5NENoWGt5UG9TM3RpZnBtb0ZLMU5icHdycHptWjd2?=
+ =?utf-8?B?aTJ4bHVMVjBrSzRUdVVEeGpDR1VDWmhDNVgrbVh3a0tXLzVLVklVM0RGL0x2?=
+ =?utf-8?B?VUhSYmFjdytUcWtnMnNqTWM3eGFJWVVzdnJ2MEhTdXladjMrNGJYY2E0RXk3?=
+ =?utf-8?B?MEtWaWRXMEoxaGhDcmRFb1Y4Wmg3ZkRKZURIYm9oUnoyZ3FINGVyN3hSZVhP?=
+ =?utf-8?B?OHIwTmIxbkhTOXU0SW1WaERwWTZyd2JCdDhhVTlYUURmUS9xenF3cFl3b2pm?=
+ =?utf-8?B?K1dGZm9uQ3oxNW9ia1VXU1p6YlRPTlNyY1IvbklUMjhCMDlHWmoyeVhSVnB0?=
+ =?utf-8?B?S3RjRlhyUHlUTnZmdWRpT2g5NFpiN3lvRnE1UWRpTDZTSFE4MWdyYitJd2M4?=
+ =?utf-8?B?SmtPTjExWFVjR0RaZjVveVpjMUNnb1VmMXVCS2FSL0Zpcjcrdm5leHJDb1RY?=
+ =?utf-8?B?Z1paT1VKZ3g4eG9lTUpxOEF5UFRGVDQvQ2FqVzNHbTBjbmNLbXBFeVFqbWlL?=
+ =?utf-8?B?L2FiL1lDdUNsd285ZmZBZjJvK2J6cnRCaFpWS1FqVjFCaW8vMDN5RFhCa3hT?=
+ =?utf-8?B?ek5LQ3ZIZUl3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR03MB4600.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFJrUWxiRm5EZWFTOTJGZk9ERUpFSzNhdU5CUGdzdFZUMVJJMVhEYWQ2YmNQ?=
+ =?utf-8?B?eWM2WGJ4M0V6OTBiTFhrSHZWeThCbEVaaHlyWkhUUXRaTVJMdjlBOVVJSktm?=
+ =?utf-8?B?THM5aEpzK051QzIvWFkrTnl5cUhVRTRYMStKV05PbXhDZlo4YTY1RzFXZkZB?=
+ =?utf-8?B?ZlBzaHZ4Mm5mOTlCQVNBN2VKZm9KbElsTHdiUE5vcmU3bzFsQjhNUEd2bVhY?=
+ =?utf-8?B?cktSdCtDb2hQV0tsVFErNTFDT2k1YkVCZDJjVy9OWnd5TGdnbFRXSE9MQlh2?=
+ =?utf-8?B?QlJ1ZVZNM2RMSWlpM0xiWWJwam1wQjE2K3VTZ3VRVkxiT3JtL0RWbUZDdDIr?=
+ =?utf-8?B?R2xiaUZGSHNEMXFjZTN6WWV0enFaSS81QzBQWFB4bUFCMkFEU1J3NURqa1c0?=
+ =?utf-8?B?TklpR1ljZFFxOXg0dzR3anFEZWVOOHNmRHl6UUgxQUpiQklPRXdCaUJscDlD?=
+ =?utf-8?B?TU84eWdsVzBoVWZteklaL25QbmtkZ0tRWlZ1dzhCTUFWeWlRNUlmQWZRVVUx?=
+ =?utf-8?B?WGV1dXlQVEwzbnp1NmVyV2VUeUNTbXFpNjhNWDlpNUkrc2Flck1tc0RINXRw?=
+ =?utf-8?B?MjN5Z2ZJelVPeGsxbjl4ZjRQajEwUStvdFh0RklrbVlna2V2ZTFDNml3WnFk?=
+ =?utf-8?B?c01LcXN6SVBXU1JGTnJSMXZ5MlBuQXdGRjdTaDQ0M3lJS0MwSkh5RFNIbG03?=
+ =?utf-8?B?NnNYSjJySXFkUmRibWJIR0tMMi9oS0p1SDErMUtleWZEZ2h5Sm14ZE9lLzZP?=
+ =?utf-8?B?cVk2d3ZvaDJIeXF5NkNWWEUyZzlzQk81VFo0ZmdwUXc3aGR6cVpRQTRCVFFo?=
+ =?utf-8?B?WjhlRlpDM1VhYml6bytXZGUyWWhxMTY5a2psNisvV2JhcUQxSFNrcjBRdTFj?=
+ =?utf-8?B?WDVxSlEzOFUvbWJSTzdTVjNWQnovZGJvUnBRcFQrOFNCQmVQZTFaelhVdFVt?=
+ =?utf-8?B?OGI4M3gxRlFvQ1dLbk9nYndUbFVDVGFYeGVIVndZbWVoQXVoMVVFS2gxaTc2?=
+ =?utf-8?B?Q3VBaXdYOTJ1c3ExMEYzREtaVnlkSUMvR3kwT25WL2ZSZ00xNDJOckJ5ajZ4?=
+ =?utf-8?B?WTVFb0dIalgvU05weXhSUWJoMURvNGl0Y3ZraFF4SGxEQlpjb1MvUnFrM2po?=
+ =?utf-8?B?QmZ6TzhqOVNxcWIyUjUyWUFRTG56WTB2eTZ0L3ZPNGZQSFlDNnJGeHNFUTF6?=
+ =?utf-8?B?alVsV2VtQzFXVWcyZkNFU3gzTVA2L0V2R1dMaFkrVmlMY1JDTjc3SHZ2NUxa?=
+ =?utf-8?B?L0V6QnQxY1g2d2tvejRLUVlNQ0tDNkdTS05kSDFwMXZwakpvRWdmalJUdEpN?=
+ =?utf-8?B?eHhJL01Jc09kVmNRRE9VRDRXcVJaaEh1Ym5XMzh4MFB1dmJjbVdpR002T3BN?=
+ =?utf-8?B?ZVMraUpVOG5lRWE5SXJkeC9jNkJJbTV6aDNyWVh0NzhwZVF4SlcwYXRlV210?=
+ =?utf-8?B?SlVkazVCWm5tMTVFRnhXSXhJeDdOa0NQdjJqMGptRVNoUzFybWlubW5KWk4z?=
+ =?utf-8?B?TnlkYmIvbVo2S0NiQ3VSb1JlcUtuaXJpTGhtS0t5YkZlZldhaVVRUFlLQm52?=
+ =?utf-8?B?L0U2d04vaSt4Q0QvUTJwUGg2RVRXeTBnci9RL0ZONis3UWpQK09YT2xUdkxv?=
+ =?utf-8?B?SGkvQmtjcGNvK1d0SjdoRVpFZHNtbHpHeWtpY0RQWStPMzdBLzd5bEFCNVZW?=
+ =?utf-8?B?a05wSy9sSk1vSjNMeHYrbytPUlUwbmhGSW9ZcnVZeldjMk9Ydk1sTEhDQkJF?=
+ =?utf-8?B?ekJlTEVLek9OSVZwS1N6dGliZmdVTm5YVC8wWlVBWFRMWHNJTXk2OTdlODNa?=
+ =?utf-8?B?SklpNHRaZ2QwN1FuL2E2UmpBR0Rsb2ZSa1I4Rkl2Rlo5RFE5RWtBNUpzQnFK?=
+ =?utf-8?B?VUg0ZHlPQUlqTWY4K082UHhqVDJQTHVzQ1NUdEZ6dkRnNkdsNExVcmFUQjg4?=
+ =?utf-8?B?V3JMSU96ZnpXc3BVUHlLRGk3Y2pSY1FIZWJOTExVMkNSbFI3c0VRWGtUb2x3?=
+ =?utf-8?B?R2JmRXBmMGRVZlFiMWZkMjErZllmNVdmaURlNWd0RnNsVGVsU1BGVDR6aEVo?=
+ =?utf-8?B?UjZXR2VLdmZIcG5rc0RoTlQvdVdnREF0TkhtQWl2ZjdoUENwbUZnUVVTQUxQ?=
+ =?utf-8?B?UXU3T1pubUhBbCtnRWZEWE1KazNUeit3aEc2aWNFYkNlZVY0cWwrMW1ZNW83?=
+ =?utf-8?B?d2c9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 722c0880-c0cc-4a84-ac01-08de31981c2f
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB4600.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 11:44:11.2282
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wAf4u4LBxTrIbEx2xGDjamqzmtzIy/EJ3yrNkP99v8Yg3sFrePbwIMpP2F9OBmTYK2EGaWxLzI1axmZiDebHcjKaoU4qydv3cksObmyHdDg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9003
 
-Hi Bertrand,
 
 
-On Thu, Nov 27, 2025 at 4:52=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
+On 02.12.25 12:57, Jan Beulich wrote:
+> On 19.11.2025 20:31, Grygorii Strashko wrote:
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>
+>> The VMTRACE feature is depends on Platform/Arch HW and code support and now
+>> can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
+>> This makes VMTRACE support optional by introducing HVM Kconfig option:
+>> - CONFIG_VMTRACE to enable/disable the feature.
+>>
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> ---
+>> changes in v4:
+>> - format changes
+>>
+>> changes in v3:
+>> - drop vmtrace stubs for HVM=n case from hvm.h (VMTRACE depnds on HVM)
+>> - hvm_vmtrace_reset() fix return err code
+>> - add comment about using func declaration without definition
+>>
+>> changes in v2:
+>>   - fix comments from Jan Beulich
+>>   - move CONFIG_VMTRACE in HVM
+>>   - drop HAS_VMTRACE
+>>
+>> v3:
+>>   https://patchwork.kernel.org/project/xen-devel/patch/20251114142207.279834-1-grygorii_strashko@epam.com/
+>> v2:
+>>   https://patchwork.kernel.org/project/xen-devel/patch/20251112202442.3879997-1-grygorii_strashko@epam.com/
+>> v1:
+>>   https://patchwork.kernel.org/project/xen-devel/patch/20251031212005.1338212-1-grygorii_strashko@epam.com/
+>>
+>>   xen/arch/x86/domctl.c                   |  4 +++
+>>   xen/arch/x86/hvm/Kconfig                | 12 +++++++++
+>>   xen/arch/x86/hvm/vmx/vmcs.c             |  2 ++
+>>   xen/arch/x86/hvm/vmx/vmx.c              | 11 ++++++++
+>>   xen/arch/x86/include/asm/guest-msr.h    |  2 ++
+>>   xen/arch/x86/include/asm/hvm/hvm.h      | 36 ++++++++++---------------
+>>   xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 ++
+>>   xen/arch/x86/mm/mem_sharing.c           |  2 ++
+>>   xen/arch/x86/vm_event.c                 |  8 +++---
+>>   xen/common/domain.c                     | 10 +++++++
+>>   xen/common/memory.c                     |  6 +++++
+>>   xen/common/vm_event.c                   |  3 ++-
+>>   xen/include/xen/domain.h                |  4 +++
+>>   xen/include/xen/sched.h                 |  4 +++
+>>   14 files changed, 80 insertions(+), 26 deletions(-)
+> 
+> Tamas - any chance of an ack here?
+> 
+> Grygorii - chasing missing acks is generally the submitter's responsibility.
 >
-> Track FF-A version negotiation per VM and enforce that no FF-A ABI
-> (other than FFA_VERSION) is processed before a guest has selected a
-> version.
->
-> Each ffa_ctx gains a dedicated guest_vers_lock, a negotiated version
-> (guest_vers) and a guest_vers_negotiated flag. guest_vers records the
-> version requested by the guest so the mediator can provide data
-> structures compatible with older minor versions. The value returned to
-> the guest by FFA_VERSION is always FFA_MY_VERSION, the implementation
-> version, as required by FF-A.
->
-> FFA_VERSION may be issued multiple times. Negotiation becomes final
-> only when a non-FFA_VERSION ABI is invoked, in accordance with the
-> FF-A requirement that the version cannot change once any other ABI has
-> been used. Before this point, non-FFA_VERSION ABIs are rejected if no
-> valid version has been provided.
->
-> Once negotiation completes, the context is added to the global FF-A
-> VM list (when VM-to-VM is enabled) and the version may not be modified
-> for the lifetime of the VM. All VM-to-VM paths and teardown logic are
-> updated to use the guest_vers_negotiated flag.
->
-> This prevents partially initialised contexts from using the mediator
-> and complies with the FF-A 1.2 FFA_VERSION semantics.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa.c         | 115 +++++++++++++++++++++++++--------
->  xen/arch/arm/tee/ffa_msg.c     |   2 +-
->  xen/arch/arm/tee/ffa_private.h |  21 ++++--
->  3 files changed, 104 insertions(+), 34 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 2b4e24750d52..3309ca875ec4 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -158,40 +158,89 @@ static bool ffa_abi_supported(uint32_t id)
->      return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
->  }
->
-> -static void handle_version(struct cpu_user_regs *regs)
-> +static bool ffa_negotiate_version(struct cpu_user_regs *regs)
->  {
->      struct domain *d =3D current->domain;
->      struct ffa_ctx *ctx =3D d->arch.tee;
-> -    uint32_t vers =3D get_user_reg(regs, 1);
-> -    uint32_t old_vers;
-> +    uint32_t fid =3D get_user_reg(regs, 0);
-> +    uint32_t in_vers =3D get_user_reg(regs, 1);
-> +    uint32_t out_vers =3D FFA_MY_VERSION;
->
-> -    /*
-> -     * Guest will use the version it requested if it is our major and mi=
-nor
-> -     * lower or equals to ours. If the minor is greater, our version wil=
-l be
-> -     * used.
-> -     * In any case return our version to the caller.
-> -     */
-> -    if ( FFA_VERSION_MAJOR(vers) =3D=3D FFA_MY_VERSION_MAJOR )
-> -    {
-> -        spin_lock(&ctx->lock);
-> -        old_vers =3D ctx->guest_vers;
-> +    spin_lock(&ctx->guest_vers_lock);
->
-> -        if ( FFA_VERSION_MINOR(vers) > FFA_MY_VERSION_MINOR )
-> -            ctx->guest_vers =3D FFA_MY_VERSION;
-> -        else
-> -            ctx->guest_vers =3D vers;
-> -        spin_unlock(&ctx->lock);
-> +    /* Handle FFA_VERSION races from different vCPUs. */
-> +    if ( ctx->guest_vers_negotiated )
-> +        goto out_continue;
->
-> -        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !old_vers )
-> +    if ( fid !=3D FFA_VERSION )
-> +    {
-> +        if ( !ctx->guest_vers )
->          {
-> -            /* One more VM with FF-A support available */
-> -            inc_ffa_vm_count();
-> -            write_lock(&ffa_ctx_list_rwlock);
-> -            list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
-> -            write_unlock(&ffa_ctx_list_rwlock);
-> +            out_vers =3D 0;
-> +            goto out_handled;
->          }
-> +
-> +        /*
-> +         * A successful FFA_VERSION call does not freeze negotiation. Gu=
-ests
-> +         * are allowed to issue multiple FFA_VERSION attempts (e.g. prob=
-ing
-> +         * several minor versions). Negotiation becomes final only when =
-a
-> +         * non-VERSION ABI is invoked, as required by the FF-A specifica=
-tion.
-> +         */
-> +        if ( !ctx->guest_vers_negotiated )
 
-ctx->guest_vers_negotiated is always false here, due to the check above.
+Sorry, I switched to different task and forgot to ask :(
+  
+> Jan
+> 
+> 
 
-> +        {
-> +            ctx->guest_vers_negotiated =3D true;
+-- 
+Best regards,
+-grygorii
 
-I'm on thin ice here, but I think that barriers or some other
-primitives are needed to close the gap if ffa_handle_call() is called
-concurrently during these conditions:
-ctx->guest_vers_negotiated =3D=3D false
-CPU0 called with FFA_VERSION 1.1 -> sets ctx->guest_vers =3D 1.1
-CPU1 called with a valid FF-A ID !=3D FFA_VERSION -> sets
-ctx->guest_vers_negotiated =3D true
-CPU2 called with a valid FF-A ID !=3D FFA_VERSION -> guarantee is
-missing that CPU2 will observe the updated ctx->guest_vers if it
-observes the updated ctx->guest_vers_negotiated
-
-Cheers,
-Jens
-
-> +
-> +            if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +            {
-> +                /* One more VM with FF-A support available */
-> +                inc_ffa_vm_count();
-> +                write_lock(&ffa_ctx_list_rwlock);
-> +                list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
-> +                write_unlock(&ffa_ctx_list_rwlock);
-> +            }
-> +        }
-> +
-> +        goto out_continue;
-> +    }
-> +
-> +    /*
-> +     * guest_vers stores the version selected by the guest (lower minor =
-may
-> +     * require reduced data structures). However, the value returned to =
-the
-> +     * guest via FFA_VERSION is always FFA_MY_VERSION, the implementatio=
-n
-> +     * version, as required by FF-A. The two values intentionally differ=
-.
-> +     */
-> +
-> +    /*
-> +     * Return our highest implementation version on request different th=
-an our
-> +     * major and mark negotiated version as our implementation version.
-> +     */
-> +    if ( FFA_VERSION_MAJOR(in_vers) !=3D FFA_MY_VERSION_MAJOR )
-> +    {
-> +        ctx->guest_vers =3D FFA_MY_VERSION;
-> +        goto out_handled;
->      }
-> -    ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
-> +
-> +    /*
-> +     * Use our minor version if a greater minor was requested or the req=
-uested
-> +     * minor if it is lower than ours was requested.
-> +     */
-> +    if ( FFA_VERSION_MINOR(in_vers) > FFA_MY_VERSION_MINOR )
-> +        ctx->guest_vers =3D FFA_MY_VERSION;
-> +    else
-> +        ctx->guest_vers =3D in_vers;
-> +
-> +out_handled:
-> +    spin_unlock(&ctx->guest_vers_lock);
-> +    if ( out_vers )
-> +        ffa_set_regs(regs, out_vers, 0, 0, 0, 0, 0, 0, 0);
-> +    else
-> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +    return true;
-> +
-> +out_continue:
-> +    spin_unlock(&ctx->guest_vers_lock);
-> +
-> +    return false;
->  }
->
->  static void handle_features(struct cpu_user_regs *regs)
-> @@ -274,10 +323,17 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
-egs)
->      if ( !ctx )
->          return false;
->
-> +    /* A version must be negotiated first */
-> +    if ( !ctx->guest_vers_negotiated )
-> +    {
-> +        if ( ffa_negotiate_version(regs) )
-> +            return true;
-> +    }
-> +
->      switch ( fid )
->      {
->      case FFA_VERSION:
-> -        handle_version(regs);
-> +        ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
->          return true;
->      case FFA_ID_GET:
->          ffa_set_regs_success(regs, ffa_get_vm_id(d), 0);
-> @@ -371,6 +427,11 @@ static int ffa_domain_init(struct domain *d)
->      d->arch.tee =3D ctx;
->      ctx->teardown_d =3D d;
->      INIT_LIST_HEAD(&ctx->shm_list);
-> +    spin_lock_init(&ctx->lock);
-> +    spin_lock_init(&ctx->guest_vers_lock);
-> +    ctx->guest_vers =3D 0;
-> +    ctx->guest_vers_negotiated =3D false;
-> +    INIT_LIST_HEAD(&ctx->ctx_list);
->
->      ctx->ffa_id =3D ffa_get_vm_id(d);
->      ctx->num_vcpus =3D d->max_vcpus;
-> @@ -452,7 +513,7 @@ static int ffa_domain_teardown(struct domain *d)
->      if ( !ctx )
->          return 0;
->
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers )
-> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers_negotiated )
->      {
->          dec_ffa_vm_count();
->          write_lock(&ffa_ctx_list_rwlock);
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index c20c5bec0f76..dec429cbf160 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -113,7 +113,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
-t void *src_buf,
->      }
->
->      dst_ctx =3D dst_d->arch.tee;
-> -    if ( !dst_ctx->guest_vers )
-> +    if ( !dst_ctx->guest_vers_negotiated )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
->          goto out_unlock;
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index d7e6b6f5ef45..88b85c7c453a 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -354,12 +354,6 @@ struct ffa_ctx {
->       * Global data accessed with lock locked.
->       */
->      spinlock_t lock;
-> -    /*
-> -     * FF-A version negotiated by the guest, only modifications to
-> -     * this field are done with the lock held as this is expected to
-> -     * be done once at init by a guest.
-> -     */
-> -    uint32_t guest_vers;
->      /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
->      unsigned int page_count;
->      /* Number of allocated shared memory object */
-> @@ -367,6 +361,21 @@ struct ffa_ctx {
->      /* Used shared memory objects, struct ffa_shm_mem */
->      struct list_head shm_list;
->
-> +    /*
-> +     * FF-A version handling
-> +     * guest_vers and guest_vers_negotiated are only written with
-> +     * guest_vers_lock held. Reads do not take the lock, but ordering is
-> +     * guaranteed because the writer updates guest_vers first and then
-> +     * guest_vers_negotiated while holding the lock, ensuring any reader
-> +     * that observes guest_vers_negotiated =3D=3D true also sees the fin=
-al
-> +     * guest_vers value.
-> +     * The ffa_ctx is added to the ctx_list only when a version
-> +     * has been negotiated and locked.
-> +     */
-> +    spinlock_t guest_vers_lock;
-> +    uint32_t guest_vers;
-> +    bool guest_vers_negotiated;
-> +
->      /*
->       * Rx buffer, accessed with rx_lock locked.
->       * rx_is_free is used to serialize access.
-> --
-> 2.51.2
->
 
