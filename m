@@ -2,66 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA240C9FDEF
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 17:17:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176922.1501371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C058ACA0030
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 17:38:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176942.1501381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQpX9-0005nk-MB; Wed, 03 Dec 2025 16:16:51 +0000
+	id 1vQprU-0000Tw-DW; Wed, 03 Dec 2025 16:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176922.1501371; Wed, 03 Dec 2025 16:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 1176942.1501381; Wed, 03 Dec 2025 16:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQpX9-0005lO-J4; Wed, 03 Dec 2025 16:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 1176922;
- Wed, 03 Dec 2025 16:10:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vQprU-0000Rn-AR; Wed, 03 Dec 2025 16:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 1176942;
+ Wed, 03 Dec 2025 16:37:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ik/O=6J=linux.ibm.com=venkat88@srs-se1.protection.inumbo.net>)
- id 1vQpQu-0005ZS-A0
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 16:10:24 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90961ea8-d062-11f0-980a-7dc792cee155;
- Wed, 03 Dec 2025 17:10:21 +0100 (CET)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5B3CO5ib017680;
- Wed, 3 Dec 2025 16:09:15 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4aqrh73qnt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Dec 2025 16:09:15 +0000 (GMT)
-Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5B3G6PaS010932;
- Wed, 3 Dec 2025 16:09:14 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4aqrh73qnm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Dec 2025 16:09:14 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5B3E9LMX021504;
- Wed, 3 Dec 2025 16:09:13 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4at8c6c5et-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Dec 2025 16:09:13 +0000
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com
- [10.241.53.105])
- by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5B3G9B5859572634
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 3 Dec 2025 16:09:11 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7232D5805E;
- Wed,  3 Dec 2025 16:09:11 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2DA365805D;
- Wed,  3 Dec 2025 16:09:00 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.61.245.178])
- by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTPS;
- Wed,  3 Dec 2025 16:08:59 +0000 (GMT)
+ <SRS0=H1HU=6J=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vQprS-0000Rc-FO
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 16:37:50 +0000
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65fac94e-d066-11f0-9d1a-b5c5bf9af7f9;
+ Wed, 03 Dec 2025 17:37:48 +0100 (CET)
+Received: from SJ0PR05CA0087.namprd05.prod.outlook.com (2603:10b6:a03:332::32)
+ by CH3PR12MB8187.namprd12.prod.outlook.com (2603:10b6:610:125::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Wed, 3 Dec
+ 2025 16:37:41 +0000
+Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::29) by SJ0PR05CA0087.outlook.office365.com
+ (2603:10b6:a03:332::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.9 via Frontend Transport; Wed, 3
+ Dec 2025 16:37:11 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9388.8 via Frontend Transport; Wed, 3 Dec 2025 16:37:40 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 3 Dec
+ 2025 10:37:38 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,390 +56,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90961ea8-d062-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=jXScAL
-	ikZ30hQ2GZgvAK3QYxrVSr7/W2SKCyOSYy+M8=; b=OzAaPrJ9niAlz8YUabjc2c
-	D2rDIzen8I5c7OyZYxx2URHyV2XunQ2MUcgBaoNzneCJqJaoH45EyqRiZgfDjB+/
-	veCs0WNuB+IbYJeej2GoS0RN8J1IpA0hi2OgqVMfSotjONRPs+k2RuSnMpFy8HHN
-	uiAleHpdwlEsdAtRS2pAUCQ172+p/m8QMwvQAm9OmQg8jrxQBSxTCS49GJQDM/hd
-	YaiXShCl1Wyn3/gTBPTCgGV783dZ+t3yx4e2oTF2YM1ZjRt408LJ08mvqP4uL2wh
-	+BFiORtd4IG/QtGj3cFZ2h8ZbcqM1iCSyZ+Ofzu8c0xTKmsr/4136UJDD7xjesdw
-	==
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH v5 00/12] Nesting support for lazy MMU mode
-From: Venkat <venkat88@linux.ibm.com>
-In-Reply-To: <20251124132228.622678-1-kevin.brodsky@arm.com>
-Date: Wed, 3 Dec 2025 21:38:46 +0530
-Cc: linux-mm@kvack.org, LKML <linux-kernel@vger.kernel.org>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Larsson <andreas@gaisler.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        David Hildenbrand <david@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        David Woodhouse <dwmw2@infradead.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
-        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Ryan Roberts <ryan.roberts@arm.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
-        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
-        linux-arm-kernel@lists.infradead.org,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        x86@kernel.org
+X-Inumbo-ID: 65fac94e-d066-11f0-9d1a-b5c5bf9af7f9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mmttSTy9SQIFjGIu3kgZomxdaaZ5B3TRwZ9zBgbxLGWH72ihqT0Ip9v0QDXKKZxFWFTMwPK2VTV24uMv+W6nabzhZXhtpAaH17ncmlOPN/WH9sGDw//mxSDL5at120ftWekDiijufG3Wyd2VGPSy85uzQBJJb8E8Jv+O53P61wiwarlkYBTYrU8bLNgQ/vsNif1X3ZS724bI+qh/Q2LII9SVLnmBwW7ufWcxpiaQeCXZE32mlEx2eeq/BK7DnM4geCq1KK5w9uDYMgE6wGa99WaE6uEP0rclDR+Fuv1k4j7axbN7BgPxMwjDFsqG9BBVEysbhlwNWFTcbUyzqQgWnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dMZBcldQUrL03VFy1A47Q+fGCKyzBVL9OV8G9PDcI28=;
+ b=B94bApXAmihSEa/Lac7AVobkWTx69Gz2rfQvFt8+f3zTsMmxoSmdu3NqXnWT0NMO7qwgndts905U87xlGPThrHj8464IRLWUn35Y0/dlrVkW6DsvuceOANtKDIL20dBkbUAeJaqoEscVJW4RSx/knsOUPbCqlg2XPyNAau1VqKjzz3g0hqpUtVtONDaJrDWDEetNqwpEz/KxdOqd/uyQFqa4iSGZ2u6kaL6eGCwIhHH0ghFu/H6pxh5EsaE5AjKGpCuLFw/pmmBnx9anowDIORAQaacGvYBTseAAVrrxEcqMFa2U16Jbm1ffiyIPwyoQKpfJcslXJwAlWmhmWcuKwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dMZBcldQUrL03VFy1A47Q+fGCKyzBVL9OV8G9PDcI28=;
+ b=NtWpIi+2pg1Hgi+3BIhMqeUQdju2VaB4+r+wFjihlUZmBTlCULDsLAdmbPSPtciRYVeSuDOOxjl38hyozzSDzNWBGWLjlKKzYnPaZX/1VX9HS2Iy+lzNxA6h7H7kjaeNJd+RF5nk/ZjLdGn28ck7RFJZTzyxAIFyj/PR6lBbQPQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <94889730-1AEF-458F-B623-04092C0D6819@linux.ibm.com>
-References: <20251124132228.622678-1-kevin.brodsky@arm.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=dK+rWeZb c=1 sm=1 tr=0 ts=693060ab cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=20KFwNOVAAAA:8 a=NEAV23lmAAAA:8
- a=VnNF1IyMAAAA:8 a=ebG-ZW-8AAAA:8 a=Z4Rwk6OoAAAA:8 a=yPCof4ZbAAAA:8
- a=1UX6Do5GAAAA:8 a=QyXUC8HyAAAA:8 a=J1Y8HTJGAAAA:8 a=JfrnYn6hAAAA:8
- a=oGMlB6cnAAAA:8 a=1XWaLZrsAAAA:8 a=iox4zFpeAAAA:8 a=pGLkceISAAAA:8
- a=voM4FWlXAAAA:8 a=cWRNjhkoAAAA:8 a=FiMq9w3UmxbX_X-K2aIA:9 a=QEXdDO2ut3YA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22 a=Bj2TwAA_C77lQ_X2_dkp:22 a=HkZW87K1Qel5hWWM3VKY:22
- a=Et2XPkok5AAZYJIKzHr1:22 a=y1Q9-5lHfBjTkpIzbSAN:22 a=1CNFftbPRP8L7MoqJWF3:22
- a=NdAtdrkLVvyUPsUoGJp4:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=IC2XNlieTeVoXbcui8wp:22
- a=sVa6W5Aao32NNC1mekxh:22
-X-Proofpoint-GUID: 793QMPZ1KY-blGu-SBEcqhhoUxKTBTPT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI5MDAyMCBTYWx0ZWRfX0Y2RJ6pY6f9G
- m7cnnUyc3HVayFdbJ8Y4k6LXm7VoMHSKC06j1sstdK8iRNOp43h8/5lXlJzRyMFMOkegM/YL0t7
- uHv9SIDvRWXY/EKqqrIimWlBZRLSRAgOBF4gk2Xot87tbYXsiVnaukxT1saJqjqQ0r0bPe10fQw
- ebRokn+rP5Dr6S57DFJViOyBvzPSu7nMhQXml2iQlGg8l7boxqiMcoTdjYFnse6EYftUPjxeWZe
- MGmnOFTxzjWPZDmm/bKQ+e3L/l/GwpDCojvQuL7j2d5Yz5YuziA0XIkWiBZW3RPXY32AZclnmqt
- wPoca86vF4yKC81xjojgszJzuCIvZcNgdX7sNhM04AVP6ms5j1l2VO43joUDFPf3weZ3oFA5u7V
- hBuOHcByMOvgTlotD8Cjz6ve04L0kw==
-X-Proofpoint-ORIG-GUID: -W-wtyUpyFvwADIN6iXaZYxBgTf_cVPF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-03_02,2025-11-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- bulkscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510240000
- definitions=main-2511290020
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 3 Dec 2025 17:37:36 +0100
+Message-ID: <DEOQ8Y07PC6V.1VOZ92WKKGDQN@amd.com>
+Subject: Re: [PATCH] xen/treewide: Use __ASSEMBLER__ instead of __ASSEMBLY__
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
+	<michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Timothy Pearson
+	<tpearson@raptorengineering.com>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+X-Mailer: aerc 0.20.1
+References: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|CH3PR12MB8187:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e46e86b-c62e-4a90-06e7-08de328a46c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|7416014|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZkVMWThHeWVQTnBHSThOTW9uUGVMMldmbmdleHNJWTdsZWJGV3A4VkUvckt4?=
+ =?utf-8?B?RmpYUWl0VEZaZXZSOTVINENCZzZ4UjlCdHA0cTlIYXFEMjNUMEorSVl0NEg4?=
+ =?utf-8?B?RlMvTVQxc2lwRTc4N3FxbXpTOElWVlorczQ0RVBzc3JPajMxeENuMXFvNmFB?=
+ =?utf-8?B?OGV0cEtkZVJKZytZZ1NxRUlyY0ROamN2ZkYvT09ya1pteDRMMnRJQmVhTDgx?=
+ =?utf-8?B?dUVBQktVSmxCTTk1bTg4TXBWVzRMK1owcEQ5YUd0NHU3UFB1V1lPMVJCcm10?=
+ =?utf-8?B?ajRWTGVsUEdobThUSHVKd3pkamVFT3grQU5PaTY4UUtpcGJxbUg2TUJuRjZR?=
+ =?utf-8?B?Yi9ZSTE1UGlidjEyTFE3Vm13QWdYeUIyWTI4aXE1dVlEZ25MWFR0Ky9KemJO?=
+ =?utf-8?B?WVRsZGJXanZjL2hGS1JacFBBZjdjSkNPZkIzeUlRT1V1bDZMRFFvMHpBM3lK?=
+ =?utf-8?B?QVpRWVNUaE4wV0YyU0Rjb3JIZm9qSnNNMEM4TEhjWFRHeStiQU5aNWZYdVFP?=
+ =?utf-8?B?ZXFRRVBSNWdITHViOEV2VHYyM1JOazZodHNOd29lZFJkWHJJREFPd2M5dlVw?=
+ =?utf-8?B?ZlFtZW1XVVlENE4vUFpvNnFCME1rTmw1MkhtTWZXbHUrcVlDTkg2V3NJK2JC?=
+ =?utf-8?B?cHN0RjlFSmdjeWsvekY4djJIM0lZOXBZcklRWDRyYjBqZjQrN3dnekgrdGM5?=
+ =?utf-8?B?SmhxYjRhRmpPc3B5b2xQYzBjeXRiUDFGY0N1a1kyQitTRnBWU1pWWXFLOGpi?=
+ =?utf-8?B?Ukk0MDBwL3hzZW11THFVb2tZbkhSWHd3N0owUXpFeGNyOEhtK3FIUzl1REZr?=
+ =?utf-8?B?M3QwUVVtN0NueS80T0FtejRCVG5nUjZMdW1aQnp1MjkvV3hCNHNQd094TkJQ?=
+ =?utf-8?B?QUt6d21CK1RPdEs1N25zZUh2TjI4NXhhUlNta0tldVB0b0dMTCtDNFRtb2xt?=
+ =?utf-8?B?VDV6NlJGNWdPMEpJb05HSlp6M0lRU0gxSEt2K0lOV0dKNFArY2tnU3p6MzZX?=
+ =?utf-8?B?WFhaWXZNMnR4UktobWl1SGJVU24rN1A3RExBelZ4dmhrQkxtblRqMmt2TldS?=
+ =?utf-8?B?QVNCMm1zRThjR3NERURhMEx4WGZ6aUxCMXNOY3JlekxvWWxabUg0eTRQbVJG?=
+ =?utf-8?B?bEVaUVFreGlmSXF6aG1ZRldKWGVyVWFnS01BaU1LOFN4TXhmeGpPUjhDQkhB?=
+ =?utf-8?B?MVJUbzl2MGxlcjFhaEloK3BTMzRYQkcydWZjcnFmN3FUUjh4a3MvQ2VrdzJx?=
+ =?utf-8?B?eE9IbjdGL2VnOWtmSkx2K2k2T1lGNE05b0IzUWprTFhnR05WMFJ0bVhWUWJl?=
+ =?utf-8?B?U0ZOR0J5cU9GcmNxS3VPazJQUTRCN3NvWUF2R0xYbFlQZXZyOUJObVcwbE9S?=
+ =?utf-8?B?ZjBDcGNzN0RVV3QwdXNqY0I2bXVVSURpM2xoUzVEUlFaL2czdXFpTnBQWDRP?=
+ =?utf-8?B?dS9sVjNCVDlYUzhxL0lTTUhxN0x4R0lDNnh1OUdnTERRWmRScGxIcENDZzVx?=
+ =?utf-8?B?eS8vaXQvbzVicjFRVUFPUWpHVkI4ckhucjdaYnNYZ0FXUCs4N3BNTXNSZ2Ro?=
+ =?utf-8?B?WGFad0NXMEQyNU4rc2dSOWlyVGhZQ290ZnFzOFlnendaZXZSQUtkSmNWdzVx?=
+ =?utf-8?B?YmtkeXpnSE92UHZNaGFaRHVYVWg2Qmd0emI4QWNkNVp1ZXJHMWljV05mUUda?=
+ =?utf-8?B?RmlRbE9lZ3oyaURINWhKbXNuTW96SDhpbHN4ME9wd2tDMU5wNXRKamgrZCtW?=
+ =?utf-8?B?S2N5ekJzSkVJY24ycktqRkRoQlpSRTkzVWZHemo2SDZ4cmNvUHA1b202Q2pF?=
+ =?utf-8?B?Zm1uMnJTeTNMb0Z4ZXpyOVhyVHUycWFTK2xvdXFOb1EzSHFUQy9WUndIaytY?=
+ =?utf-8?B?Z2ZWa3JSRUdzdllqdVMvS0lTYXBMaUJtWXVUMzVXbWFxS2FlV0t1SGYrWXIx?=
+ =?utf-8?B?cUNyYkFmZHZVNWpvK09oY2FMaVg5c0lJMkVFSnZ2cWFWc1JYTWVEbmQyallH?=
+ =?utf-8?B?eUZPQ0d3WmN0SmNmNXdMV2pwdTBIcG9DT3k0NGxVZWFDZkc2RkFERThQbGRB?=
+ =?utf-8?B?YkFLaTE2aWZrUHVrelliNGpIZFlGa1dubVJxOXJrZVBPZVRtcEdxY0JqL0Ju?=
+ =?utf-8?Q?OK94=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 16:37:40.6232
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e46e86b-c62e-4a90-06e7-08de328a46c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002314.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8187
 
+Hi,
 
+On Wed Dec 3, 2025 at 2:32 PM CET, Andrew Cooper wrote:
+> __ASSEMBLER__ is how GCC and Clang spell this, removing the need to set i=
+t up
+> manually in AFLAGS.
 
-> On 24 Nov 2025, at 6:52=E2=80=AFPM, Kevin Brodsky =
-<kevin.brodsky@arm.com> wrote:
->=20
-> When the lazy MMU mode was introduced eons ago, it wasn't made clear
-> whether such a sequence was legal:
->=20
-> arch_enter_lazy_mmu_mode()
-> ...
-> arch_enter_lazy_mmu_mode()
-> ...
-> arch_leave_lazy_mmu_mode()
-> ...
-> arch_leave_lazy_mmu_mode()
->=20
-> It seems fair to say that nested calls to
-> arch_{enter,leave}_lazy_mmu_mode() were not expected, and most
-> architectures never explicitly supported it.
->=20
-> Nesting does in fact occur in certain configurations, and avoiding it
-> has proved difficult. This series therefore enables lazy_mmu sections =
-to
-> nest, on all architectures.
->=20
-> Nesting is handled using a counter in task_struct (patch 8), like =
-other
-> stateless APIs such as pagefault_{disable,enable}(). This is fully
-> handled in a new generic layer in <linux/pgtable.h>; the arch_* API
-> remains unchanged. A new pair of calls, =
-lazy_mmu_mode_{pause,resume}(),
-> is also introduced to allow functions that are called with the lazy =
-MMU
-> mode enabled to temporarily pause it, regardless of nesting.
->=20
-> An arch now opts in to using the lazy MMU mode by selecting
-> CONFIG_ARCH_LAZY_MMU; this is more appropriate now that we have a
-> generic API, especially with state conditionally added to task_struct.
->=20
-> ---
->=20
-> Background: Ryan Roberts' series from March [1] attempted to prevent
-> nesting from ever occurring, and mostly succeeded. Unfortunately, a
-> corner case (DEBUG_PAGEALLOC) may still cause nesting to occur on =
-arm64.
-> Ryan proposed [2] to address that corner case at the generic level but
-> this approach received pushback; [3] then attempted to solve the issue
-> on arm64 only, but it was deemed too fragile.
->=20
-> It feels generally difficult to guarantee that lazy_mmu sections don't
-> nest, because callers of various standard mm functions do not know if
-> the function uses lazy_mmu itself.
->=20
-> The overall approach in v3/v4 is very close to what David Hildenbrand
-> proposed on v2 [4].
->=20
-> Unlike in v1/v2, no special provision is made for architectures to
-> save/restore extra state when entering/leaving the mode. Based on the
-> discussions so far, this does not seem to be required - an arch can
-> store any relevant state in thread_struct during arch_enter() and
-> restore it in arch_leave(). Nesting is not a concern as these =
-functions
-> are only called at the top level, not in nested sections.
->=20
-> The introduction of a generic layer, and tracking of the lazy MMU =
-state
-> in task_struct, also allows to streamline the arch callbacks - this
-> series removes 67 lines from arch/.
->=20
-> Patch overview:
->=20
-> * Patch 1: cleanup - avoids having to deal with the powerpc
->  context-switching code
->=20
-> * Patch 2-4: prepare arch_flush_lazy_mmu_mode() to be called from the
->  generic layer (patch 8)
->=20
-> * Patch 5-6: new API + CONFIG_ARCH_LAZY_MMU
->=20
-> * Patch 7: ensure correctness in interrupt context
->=20
-> * Patch 8: nesting support
->=20
-> * Patch 9-12: replace arch-specific tracking of lazy MMU mode with
->  generic API
->=20
-> This series has been tested by running the mm kselftests on arm64 with
-> DEBUG_VM, DEBUG_PAGEALLOC, KFENCE and KASAN. It was also build-tested =
-on
-> other architectures (with and without XEN_PV on x86).
->=20
-> - Kevin
->=20
-> [1] =
-https://lore.kernel.org/all/20250303141542.3371656-1-ryan.roberts@arm.com/=
+Documented in GCC since GCC 3.4.6 and inherited by the very first public
+versions of LLVM. I might just be marginally older than this macro.
 
-> [2] =
-https://lore.kernel.org/all/20250530140446.2387131-1-ryan.roberts@arm.com/=
+I've checked the replacements and they all appear to be consistent.
 
-> [3] =
-https://lore.kernel.org/all/20250606135654.178300-1-ryan.roberts@arm.com/
-> [4] =
-https://lore.kernel.org/all/ef343405-c394-4763-a79f-21381f217b6c@redhat.co=
-m/
-> ---
-> Changelog
->=20
-> v4..v5:
->=20
-> - Rebased on mm-unstable
-> - Patch 3: added missing radix_enabled() check in arch_flush()
->  [Ritesh Harjani]
-> - Patch 6: declare arch_flush_lazy_mmu_mode() as static inline on x86
->  [Ryan Roberts]
-> - Patch 7 (formerly 12): moved before patch 8 to ensure correctness in
->  interrupt context [Ryan]. The diffs in in_lazy_mmu_mode() and
->  queue_pte_barriers() are moved to patch 8 and 9 resp.
-> - Patch 8:
->  * Removed all restrictions regarding lazy_mmu_mode_{pause,resume}().
->    They may now be called even when lazy MMU isn't enabled, and
->    any call to lazy_mmu_mode_* may be made while paused (such calls
->    will be ignored). [David, Ryan]
->  * lazy_mmu_state.{nesting_level,active} are replaced with
->    {enable_count,pause_count} to track arbitrary nesting of both
->    enable/disable and pause/resume [Ryan]
->  * Added __task_lazy_mmu_mode_active() for use in patch 12 [David]
->  * Added documentation for all the functions [Ryan]
-> - Patch 9: keep existing test + set TIF_LAZY_MMU_PENDING instead of
->  atomic RMW [David, Ryan]
-> - Patch 12: use __task_lazy_mmu_mode_active() instead of accessing
->  lazy_mmu_state directly [David]
-> - Collected R-b/A-b tags
->=20
-> v4: =
-https://lore.kernel.org/all/20251029100909.3381140-1-kevin.brodsky@arm.com=
-/
->=20
-> v3..v4:
->=20
-> - Patch 2: restored ordering of preempt_{disable,enable}() [Dave =
-Hansen]
-> - Patch 5 onwards: s/ARCH_LAZY_MMU/ARCH_HAS_LAZY_MMU_MODE/ [Mike =
-Rapoport]
-> - Patch 7: renamed lazy_mmu_state members, removed VM_BUG_ON(),
->  reordered writes to lazy_mmu_state members [David Hildenbrand]
-> - Dropped patch 13 as it doesn't seem justified [David H]
-> - Various improvements to commit messages [David H]
->=20
-> v3: =
-https://lore.kernel.org/all/20251015082727.2395128-1-kevin.brodsky@arm.com=
-/
->=20
-> v2..v3:
->=20
-> - Full rewrite; dropped all Acked-by/Reviewed-by.
-> - Rebased on v6.18-rc1.
->=20
-> v2: =
-https://lore.kernel.org/all/20250908073931.4159362-1-kevin.brodsky@arm.com=
-/
->=20
-> v1..v2:
-> - Rebased on mm-unstable.
-> - Patch 2: handled new calls to enter()/leave(), clarified how the =
-"flush"
->  pattern (leave() followed by enter()) is handled.
-> - Patch 5,6: removed unnecessary local variable [Alexander Gordeev's
->  suggestion].
-> - Added Mike Rapoport's Acked-by.
->=20
-> v1: =
-https://lore.kernel.org/all/20250904125736.3918646-1-kevin.brodsky@arm.com=
-/
-> ---
-> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-> Cc: Andreas Larsson <andreas@gaisler.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: David Woodhouse <dwmw2@infradead.org>
-> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Jann Horn <jannh@google.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Nicholas Piggin <npiggin@gmail.com>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linuxppc-dev@lists.ozlabs.org
-> Cc: sparclinux@vger.kernel.org
-> Cc: xen-devel@lists.xenproject.org
-> Cc: x86@kernel.org
-> ---
-> Alexander Gordeev (1):
->  powerpc/64s: Do not re-activate batched TLB flush
->=20
-> Kevin Brodsky (11):
->  x86/xen: simplify flush_lazy_mmu()
->  powerpc/mm: implement arch_flush_lazy_mmu_mode()
->  sparc/mm: implement arch_flush_lazy_mmu_mode()
->  mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
->  mm: introduce generic lazy_mmu helpers
->  mm: bail out of lazy_mmu_mode_* in interrupt context
->  mm: enable lazy_mmu sections to nest
->  arm64: mm: replace TIF_LAZY_MMU with in_lazy_mmu_mode()
->  powerpc/mm: replace batch->active with in_lazy_mmu_mode()
->  sparc/mm: replace batch->active with in_lazy_mmu_mode()
->  x86/xen: use lazy_mmu_state when context-switching
->=20
-> arch/arm64/Kconfig                            |   1 +
-> arch/arm64/include/asm/pgtable.h              |  41 +----
-> arch/arm64/include/asm/thread_info.h          |   3 +-
-> arch/arm64/mm/mmu.c                           |   4 +-
-> arch/arm64/mm/pageattr.c                      |   4 +-
-> .../include/asm/book3s/64/tlbflush-hash.h     |  20 ++-
-> arch/powerpc/include/asm/thread_info.h        |   2 -
-> arch/powerpc/kernel/process.c                 |  25 ---
-> arch/powerpc/mm/book3s64/hash_tlb.c           |  10 +-
-> arch/powerpc/mm/book3s64/subpage_prot.c       |   4 +-
-> arch/powerpc/platforms/Kconfig.cputype        |   1 +
-> arch/sparc/Kconfig                            |   1 +
-> arch/sparc/include/asm/tlbflush_64.h          |   5 +-
-> arch/sparc/mm/tlb.c                           |  14 +-
-> arch/x86/Kconfig                              |   1 +
-> arch/x86/boot/compressed/misc.h               |   1 +
-> arch/x86/boot/startup/sme.c                   |   1 +
-> arch/x86/include/asm/paravirt.h               |   1 -
-> arch/x86/include/asm/pgtable.h                |   1 +
-> arch/x86/include/asm/thread_info.h            |   4 +-
-> arch/x86/xen/enlighten_pv.c                   |   3 +-
-> arch/x86/xen/mmu_pv.c                         |   6 +-
-> fs/proc/task_mmu.c                            |   4 +-
-> include/linux/mm_types_task.h                 |   5 +
-> include/linux/pgtable.h                       | 147 +++++++++++++++++-
-> include/linux/sched.h                         |  45 ++++++
-> mm/Kconfig                                    |   3 +
-> mm/kasan/shadow.c                             |   8 +-
-> mm/madvise.c                                  |  18 +--
-> mm/memory.c                                   |  16 +-
-> mm/migrate_device.c                           |   8 +-
-> mm/mprotect.c                                 |   4 +-
-> mm/mremap.c                                   |   4 +-
-> mm/userfaultfd.c                              |   4 +-
-> mm/vmalloc.c                                  |  12 +-
-> mm/vmscan.c                                   |  12 +-
-> 36 files changed, 282 insertions(+), 161 deletions(-)
+  Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-Tested this patch series by applying on top of mm-unstable, on both HASH =
-and RADIX MMU, and all tests are passed on both MMU=E2=80=99s.
-
-Ran: cache_shape, copyloops, mm from linux source, selftests/powerpc/ =
-and ran memory-hotplug from selftests/. Also ran below tests from =
-avocado misc-test repo.
-
-Link to repo: =
-https://github.com/avocado-framework-tests/avocado-misc-tests
-
-avocado-misc-tests/memory/stutter.py
-avocado-misc-tests/memory/eatmemory.py
-avocado-misc-tests/memory/hugepage_sanity.py
-avocado-misc-tests/memory/fork_mem.py
-avocado-misc-tests/memory/memory_api.py
-avocado-misc-tests/memory/mprotect.py
-avocado-misc-tests/memory/vatest.py =
-avocado-misc-tests/memory/vatest.py.data/vatest.yaml
-avocado-misc-tests/memory/transparent_hugepages.py
-avocado-misc-tests/memory/transparent_hugepages_swapping.py
-avocado-misc-tests/memory/transparent_hugepages_defrag.py
-avocado-misc-tests/memory/ksm_poison.py
-
-If its good enough, please add below tag for PowerPC changes.
-
-Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-
-Regards,
-Venkat.
->=20
->=20
-> base-commit: 1f1edd95f9231ba58a1e535b10200cb1eeaf1f67
-> --=20
-> 2.51.2
->=20
-
+Cheers,
+Alejandro
 
