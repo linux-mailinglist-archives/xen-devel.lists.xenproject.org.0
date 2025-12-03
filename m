@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8F2CC9EB8B
+	by mail.lfdr.de (Postfix) with ESMTPS id ACDF7C9EB8A
 	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 11:33:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176638.1501085 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1176639.1501094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQk9v-0003bV-37; Wed, 03 Dec 2025 10:32:31 +0000
+	id 1vQkAB-0003sD-CO; Wed, 03 Dec 2025 10:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176638.1501085; Wed, 03 Dec 2025 10:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 1176639.1501094; Wed, 03 Dec 2025 10:32:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQk9u-0003YS-WB; Wed, 03 Dec 2025 10:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 1176638;
- Wed, 03 Dec 2025 10:32:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vQk9t-0003YK-S5
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 10:32:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vQk9q-004n8m-0O;
- Wed, 03 Dec 2025 10:32:26 +0000
-Received: from [15.248.3.91] (helo=[10.24.66.55])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vQk9p-009JQh-10;
- Wed, 03 Dec 2025 10:32:25 +0000
+	id 1vQkAB-0003qp-9W; Wed, 03 Dec 2025 10:32:47 +0000
+Received: by outflank-mailman (input) for mailman id 1176639;
+ Wed, 03 Dec 2025 10:32:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qm2A=6J=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vQkA9-0003pO-ID
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 10:32:45 +0000
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [2607:f8b0:4864:20::c2e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65e09030-d033-11f0-9d1a-b5c5bf9af7f9;
+ Wed, 03 Dec 2025 11:32:42 +0100 (CET)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-6597046fc87so334737eaf.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Dec 2025 02:32:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,262 +40,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=trY5er7axf4nOSIFkCEsTXU/opY8dtHV/iEq2PIEpV4=; b=ZEICtCDFME5zXb6pEHYhpWecTh
-	fuR1efpte/BPoGqp/fc46VT57kY54/p2gtQzbuyJYp8ZIn5QQN1pbbpOZ/q6FVm1/4B4HzuG+7uCX
-	vsAfyAePMDszL27zGoAbEHeUtubZzeBGzcz002y9t8TSAR7M54lHdaurTPaqMw+S2kdo=;
-Message-ID: <2d07bef7-a7a1-4458-9da6-43bf2956d7d8@xen.org>
-Date: Wed, 3 Dec 2025 10:32:22 +0000
+X-Inumbo-ID: 65e09030-d033-11f0-9d1a-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1764757961; x=1765362761; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lZlZC9Cq6WLvNRYs88B2wOuAje4OZjKj+koZj74J1Cw=;
+        b=eoWTp4+BauhsOOMBX1/zqJ5G0UDEhp5k3TFcG1xbALCCKttsHs0yAaipeTegZZM+Lc
+         m++Kb2NKQ75NV7BQwjWOdJwxKZ6nzfDc0nb3f/O4xDr/f7PNWzLEdsAvpMqKpy/QLkbm
+         VwzzA1lZzCY7kkM0RTfbH/ME7AJOkXhbfj3q5r9OGuIHQ+iuRoC65RW8uoDsILf3lc0j
+         B6SQuHYZ07XwoeLtoC58DfEnq4apJl2Z3BiiXz8ipGbiadPVeSsn4vmt9WEwfvFxEMJp
+         uoOTWpHr9r0KB3xeV1ROii8XcWtCFDwGIsok2mJa3MEthN7Q3dcPne4X8/VByK/W7PKg
+         4d1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764757961; x=1765362761;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lZlZC9Cq6WLvNRYs88B2wOuAje4OZjKj+koZj74J1Cw=;
+        b=C8FZrdxBL0UE32KOg2HU8Gu0GAlsfYFJ/xjcFbdduTAGkTrMJ47kda4Mhac+aeR4cO
+         CFnXRkfn/QTXqFNJvILqkDTSYol4/IHunoF+hfLpTXExin+RskY/MniuEK1aTWjJ5Ten
+         pOw/X9hsEA4bg3QwJhr/4qxtvRenFifYRwLKGOyq6cpRfkAzz2/d+C8FNgJgQwnRSJnh
+         NHFTjIEJJEk6t2aTEc08THLHWYeMafQbAUsnaJqJnaU4QCFZu0KM8KoLVY2aqOEgjOKT
+         eYYcBmOehyeVS6ZGLjaUBT96qZNQqtCZCjk2sCSFaj8zfEhmp49P1e/Ifgc8YZAYrOAl
+         WVzQ==
+X-Gm-Message-State: AOJu0Yy23ix2GzCWK21Bg8/9G+wBXSmW+ocl3cyJQuHJiRuF7dBKA8kG
+	sSBAfAw6YrpGPt306LichFQNcD+r4mgXUANAlKp2JLg/gosf8SEGQEThIe5ziRQbV80VUcAxe1S
+	dlGZoZmUiNhP+fzL4tijRKEzq/FysKlHxYf0GbKF6V12yxDCgvhdpErqw/w==
+X-Gm-Gg: ASbGncueRjF3J0QWWU1eMpVCYALwJTgu3SqaEUMvHcL57G1WkDGIzgOw4OoBGnvl5I2
+	dQ/aSRuT9VfZr+lerwiC+UZZ265FkSSDae/VMtwtQWsDGu/V3HiqM9nk85BHTD2j/yiPHof1kQh
+	NW0GfEnxibKmFP95sfwxcic/W0/IEBPjEetWZVs++1M33SKzQ0uG+lQSXWgz7tbFuNMXrWBd4HW
+	eDClZIQeLGH9X+DMThMwZKA3gYsUmL0LdYjsDayHaxUQNnFNTcfDdgDd+LU/4sZG3rJv12kgcpc
+	0BBgQ2eNZrnvKYvmEbqD4IFkN7sGnLJb8I+u
+X-Google-Smtp-Source: AGHT+IGa9rfUtgwfdKE/1E0wYHC/UTFHGn4ElfXlgBVB92MEzO1ZuU6vEkYB+Yt1G/f5qSZvdv8Ej23nszqZC4bHuwg=
+X-Received: by 2002:a05:6820:4c0b:b0:657:64ce:b40f with SMTP id
+ 006d021491bc7-65972739a69mr771558eaf.4.1764757961293; Wed, 03 Dec 2025
+ 02:32:41 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/20] Add SMMUv3 Stage 1 Support for XEN guests
-To: Milan Djokic <milan_djokic@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Julien Grall <julien.grall.oss@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Nick Rosbrook
- <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1754580687.git.milan_djokic@epam.com>
- <CAJ=z9a1eM6M+Gagond9TiFtF7c7EEQKOKHANcvDWDhW_3JzqOA@mail.gmail.com>
- <12ba4388-ee23-4e17-910f-9702271865ad@epam.com>
- <b1f79b84-d0c4-4807-87a7-1cf94e58ecee@xen.org>
- <a5943713-85fa-48ad-86fe-5698604ed8c9@epam.com> <87v7m93bo0.fsf@epam.com>
- <6c80a929-8139-4461-b11c-e6ac67c3d2e4@epam.com> <875xe6ytyk.fsf@epam.com>
- <65727710-0a88-4fff-bb5b-9cf34106833c@epam.com>
- <5df30dbf-17a2-446f-83f9-0e4468622917@epam.com>
- <485a8166-5079-4c0e-a6bf-f6aee8af991d@xen.org>
- <c776c308-cda6-412f-b03c-a4b691b69d33@epam.com>
-Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c776c308-cda6-412f-b03c-a4b691b69d33@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1764254975.git.bertrand.marquis@arm.com>
+ <72d6592157a9ec15d4b5de19751186e0ca1680ba.1764254975.git.bertrand.marquis@arm.com>
+ <CAHUa44Gq4L95i3wTMEVRoFNFt2PzPCKGAuF4KT3YL9mfmT2FRA@mail.gmail.com>
+ <33EF4249-1F82-4DF5-BCCE-0BCBB0F3D157@arm.com> <CAHUa44FQ8bCo5cuVR-JW9om+jEqUA8uZAPAmic9GkwnG-OeE7A@mail.gmail.com>
+ <4E39091E-8EFB-4C80-8A1C-FB37B07B8AA3@arm.com>
+In-Reply-To: <4E39091E-8EFB-4C80-8A1C-FB37B07B8AA3@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 3 Dec 2025 11:32:27 +0100
+X-Gm-Features: AWmQ_bnTF_l2QTx_zpGRibuBTF3WwBGDNyRa_01EoawPy3vHvouUa_jKS4n_4t8
+Message-ID: <CAHUa44H_nD2ep+q1b2sZy-hJXAtbSmoHCNtaR0ASs1=JoRY2jg@mail.gmail.com>
+Subject: Re: [PATCH 04/10] xen/arm: ffa: rework SPMC RX/TX buffer management
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On 02/12/2025 22:08, Milan Djokic wrote:
-> Hi Julien,
-> 
-> On 11/27/25 11:22, Julien Grall wrote:
->>> We have changed vIOMMU design from 1-N to N-N mapping between vIOMMU and
->>> pIOMMU. Considering single vIOMMU model limitation pointed out by
->>> Volodymyr (SID overlaps), vIOMMU-per-pIOMMU model turned out to be the
->>> only proper solution.
->>
->> I am not sure to fully understand. My assumption with the single vIOMMU
->> is you have a virtual SID that would be mapped to a (pIOMMU, physical
->> SID). 
-> 
-> In the original single vIOMMU implementation, vSID was also equal to 
-> pSID, we didn't have SW mapping layer between them. Once SID overlap 
-> issue was discovered with this model, I have switched to vIOMMU-per- 
-> pIOMMU model. Alternative was to introduce a SW mapping layer and stick 
-> with a single vIOMMU model. Imo, vSID->pSID mapping layer would 
-> overcomplicate the design, especially for PCI RC streamIDs handling.
-> On the other hand, if even a multi-vIOMMU model introduces problems that 
-> I am not aware of yet, adding a complex mapping layer would be the only 
-> viable solution.
-> 
->  > Does this means in your solution you will end up with multiple
->  > vPCI as well and then map pBDF == vBDF? (this because the SID have to be
->  > fixed at boot)
->  >
-> 
-> The important thing which I haven't mentioned here is that our focus is 
-> on non-PCI devices for this feature atm. If I'm not mistaken, arm PCI 
-> passthrough is still work in progress, so our plan was to implement full 
-> vIOMMU PCI support in the future, once PCI passthrough support is 
-> complete for arm. Of course, we need to make sure that vIOMMU design 
-> provides a suitable infrastructure for PCI.
-> To answer your question, yes we will have multiple vPCI nodes with this 
-> model, establishing 1-1 vSID-pSID mapping (same iommu-map range between 
-> pPCI-vPCI).
-> For pBDF to vBDF 1-1 mapping, I'm not sure if this is necessary. My 
-> understanding is that vBDF->pBDF mapping does not affect vSID->pSID 
-> mapping. Am I wrong here?
+On Wed, Dec 3, 2025 at 10:36=E2=80=AFAM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 3 Dec 2025, at 09:50, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
+> >
+> > Hi Bertrand,
+> >
+> > On Tue, Dec 2, 2025 at 5:50=E2=80=AFPM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 2 Dec 2025, at 15:08, Jens Wiklander <jens.wiklander@linaro.org> w=
+rote:
+> >>>
+> >>> Hi Bertrand,
+> >>>
+> >>> On Thu, Nov 27, 2025 at 4:52=E2=80=AFPM Bertrand Marquis
+> >>> <bertrand.marquis@arm.com> wrote:
+> >>>>
+> >>>> Rework how Xen accesses the RX/TX buffers shared with the SPMC so th=
+at
+> >>>> ownership and locking are handled centrally.
+> >>>>
+> >>>> Move the SPMC RX/TX buffer bases into ffa_rxtx.c as ffa_spmc_rx/ffa_=
+spmc_tx,
+> >>>> protect them with dedicated ffa_spmc_{rx,tx}_lock spinlocks and expo=
+se
+> >>>> ffa_rxtx_spmc_{rx,tx}_{acquire,release}() helpers instead of the glo=
+bal
+> >>>> ffa_rx/ffa_tx pointers and ffa_{rx,tx}_buffer_lock.
+> >>>>
+> >>>> The RX helpers now always issue FFA_RX_RELEASE when we are done
+> >>>> consuming data from the SPMC, so partition-info enumeration and shar=
+ed
+> >>>> memory paths release the RX buffer on all exit paths. The RX/TX mapp=
+ing
+> >>>> code is updated to use the descriptor offsets (rx_region_offs and
+> >>>> tx_region_offs) rather than hard-coded structure layout, and to use =
+the
+> >>>> TX acquire/release helpers instead of touching the TX buffer directl=
+y.
+> >>>>
+> >>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >>>> ---
+> >>>> xen/arch/arm/tee/ffa.c          |  22 +-----
+> >>>> xen/arch/arm/tee/ffa_partinfo.c |  40 +++++-----
+> >>>> xen/arch/arm/tee/ffa_private.h  |  18 ++---
+> >>>> xen/arch/arm/tee/ffa_rxtx.c     | 132 +++++++++++++++++++++++++-----=
+--
+> >>>> xen/arch/arm/tee/ffa_shm.c      |  26 ++++---
+> >
+> > [snip]
+> >
+> >>>>
+> >>>> -void ffa_rxtx_destroy(void)
+> >>>> +void *ffa_rxtx_spmc_rx_acquire(void)
+> >>>> +{
+> >>>> +    ASSERT(!spin_is_locked(&ffa_spmc_rx_lock));
+> >>>
+> >>> Is it invalid for two CPUs to concurrently try to acquire the RX buff=
+er?
+> >>
+> >> No the RX buffer or the TX buffer with the SPMC should only be used by
+> >> one CPU at a time as there cannot be any concurrent operations using i=
+t.
+> >
+> > What if two guests call FFA_PARTITION_INFO_GET concurrently? Both can
+> > succeed in acquiring their RX buffer so they can call
+> > ffa_get_sp_partinfo() concurrently, and the assert might be triggered.
+> > We have a similar problem with FFA_RXTX_MAP_64 and
+> > ffa_rxtx_spmc_tx_acquire(). Contention on the spinlocks for the rx and
+> > tx buffers should be valid. If we can't allow a guest to block here,
+> > we should return an error and let the guest retry.
+>
+> i am not sure i am following anymore.
+> The assert is just there to ensure that the lock is not already taken.
 
- From my understanding, the mapping between a vBDF and vSID is setup at 
-domain creation (as this is described in ACPI/Device-Tree). As PCI 
-devices can be hotplug, if you want to enforce vSID == pSID, then you 
-indirectly need to enforce vBDF == pBDF.
+But it could already be taken by another CPU.
 
-[...]
+> The function is then taking the lock and not releasing it until release
+> is called which is ensuring that only one vcpu at a time is using the
+> rx buffer. Did i miss something here ?
 
->>> - **Runtime Configuration**: Introduces a `viommu` boot parameter for
->>> dynamic enablement.
->>>
->>> Separate vIOMMU device is exposed to guest for every physical IOMMU in
->>> the system.
->>> vIOMMU feature is designed in a way to provide a generic vIOMMU
->>> framework and a backend implementation
->>> for target IOMMU as separate components.
->>> Backend implementation contains specific IOMMU structure and commands
->>> handling (only SMMUv3 currently supported).
->>> This structure allows potential reuse of stage-1 feature for other IOMMU
->>> types.
->>>
->>> Security Considerations
->>> =======================
->>>
->>> **viommu security benefits:**
->>>
->>> - Stage-1 translation ensures guest devices cannot perform unauthorized
->>> DMA (device I/O address mapping managed by guest).
->>> - Emulated IOMMU removes guest direct dependency on IOMMU hardware,
->>> while maintaining domains isolation.
->>
->> Sorry, I don't follow this argument. Are you saying that it would be
->> possible to emulate a SMMUv3 vIOMMU on top of the IPMMU?
->>
-> 
-> No, this would not work. Emulated IOMMU has to match with the pIOMMU type.
-> The argument only points out that we are emulating IOMMU, so the guest 
-> does not need direct HW interface for IOMMU functions.
+Only one CPU at a time should use the spmc rx buffer, but others might
+try and should be blocked in spin_lock() rather than ASSERT.
 
-Sorry, but I am still missing how this is a security benefits.
+>
+> for rxtx map we do call tx_acquire so we lock the buffer.
+>
+> Now we might have a race condition between in rxtx_map and unmap
+> where i should take the rx_lock and the tx_lock of the guest to prevent
+> concurrent usage of the vm rxtx buffer. I will fix that one.
 
-[...]
+Yes, you're right, good catch.
 
+>
+> Please tell me for the spmc rxtx buffers as i am not sure i am following
+> what you mean there :-)
 
->>>
->>> 2. Observation:
->>> ---------------
->>> Guests can now invalidate Stage-1 caches; invalidation needs forwarding
->>> to SMMUv3 hardware to maintain coherence.
->>>
->>> **Risk:**
->>> Failing to propagate cache invalidation could allow stale mappings,
->>> enabling access to old mappings and possibly
->>> data leakage or misrouting.
->>
->> You are referring to data leakage/misrouting between two devices own by
->> the same guest, right? Xen would still be in charge of flush when the
->> stage-2 is updated.
->>
-> 
-> Yes, this risk could affect only guests, not xen.
+Each guest has its own rxtx buffer, so the spinlock here is just in
+case the guest didn't synchronize its CPUs before calling. But the
+SPMC rxtx buffers are for Xen, so a guest can't be sure that no other
+guest is holding the spinlock.
 
-But it would affect a single guest right? IOW, it is not possible for 
-guest A to leak data to guest B even if we don't properly invalidate 
-stage-1. Correct?
+Two guests can independently call FFA_RXTX_MAP_64 and then call
+ffa_rxtx_spmc_tx_acquire() more or less at the same time.
 
-> 
->>>
->>> **Mitigation:** *(Handled by design)*
->>> This feature ensures that guest-initiated invalidations are correctly
->>> forwarded to the hardware,
->>> preserving IOMMU coherency.
->>
->> How is this a mitigation? You have to properly handle commands. If you
->> don't properly handle them, then yes it will break.
->>
-> 
-> Not really a mitigation, will remove it. Guest is responsible for the 
-> regular initiation of invalidation requests to mitigate this risk.
-> 
->>>
->>> 4. Observation:
->>> ---------------
->>> The code includes transformations to handle nested translation versus
->>> standard modes and uses guest-configured
->>> command queues (e.g., `CMD_CFGI_STE`) and event notifications.
->>>
->>> **Risk:**
->>> Malicious or malformed queue commands from guests could bypass
->>> validation, manipulate SMMUv3 state,
->>> or cause system instability.
->>>
->>> **Mitigation:** *(Handled by design)*
->>> Built-in validation of command queue entries and sanitization mechanisms
->>> ensure only permitted configurations
->>> are applied.
->>
->> This is true as long as we didn't make an mistake in the 
->> configurations ;).
->>
-> 
-> Yes, but I don’t see anything we can do to prevent configuration mistakes.
-
-There is nothing really preventing it. Same for ...
-> 
->>
->>> This is supported via additions in `vsmmuv3` and `cmdqueue`
->>> handling code.
->>>
->>> 5. Observation:
->>> ---------------
->>> Device Tree modifications enable device assignment and configuration
->>> through guest DT fragments (e.g., `iommus`)
->>> are added via `libxl`.
->>>
->>> **Risk:**
->>> Erroneous or malicious Device Tree injection could result in device
->>> misbinding or guest access to unauthorized
->>> hardware.
->>
->> The DT fragment are not security support and will never be at least
->> until you have can a libfdt that is able to detect malformed Device-Tree
->> (I haven't checked if this has changed recently).
->>
-> 
-> But this should still be considered a risk? Similar to the previous 
-> observation, system integrator should ensure that DT fragments are correct.
-
-... this one. I agree they are risks, but they don't provide much input 
-in the design of the vIOMMU.
-
-I am a lot more concerned for the scheduling part because the resources 
-are shared.
-
->> My understanding is there is only a single physical event queue. Xen
->> would be responsible to handle the events in the queue and forward to
->> the respective guests. If so, it is not clear what you mean by "disable
->> event queue".
->>
-> 
-> I was referring to emulated IOMMU event queue. The idea is to make it 
-> optional for guests. When disabled, events won't be propagated to the 
-> guest.
-
-But Xen will still receive the events, correct? If so, how does it make 
-it better?
-
-> 
->>>
->>> Performance Impact
->>> ==================
->>>
->>> With iommu stage-1 and nested translation inclusion, performance
->>> overhead is introduced comparing to existing,
->>> stage-2 only usage in Xen. Once mappings are established, translations
->>> should not introduce significant overhead.
->>> Emulated paths may introduce moderate overhead, primarily affecting
->>> device initialization and event handling.
->>> Performance impact highly depends on target CPU capabilities.
->>> Testing is performed on QEMU virt and Renesas R-Car (QEMU emulated)
->>> platforms.
->>
->> I am afraid QEMU is not a reliable platform to do performance testing.
->> Don't you have a real HW with vIOMMU support?
->>
-> 
-> Yes, I will provide performance measurement for Renesas HW also.
-
-FWIW, I don't need to know the performance right now. I am mostly 
-pointing out that if you want to provide performance number, then they 
-should really come from real HW rather than QEMU.
+I you remove the "ASSERT(!spin_is_locked(...));" from
+ffa_rxtx_spmc_tx_acquire() and ffa_rxtx_spmc_rx_acquire() it should be
+OK.
 
 Cheers,
-
--- 
-Julien Grall
-
+Jens
 
