@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A53C9E738
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 10:23:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176507.1500975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4724CC9E735
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 10:23:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176512.1500985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQj4f-0005cx-Dm; Wed, 03 Dec 2025 09:23:01 +0000
+	id 1vQj59-00062G-M0; Wed, 03 Dec 2025 09:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176507.1500975; Wed, 03 Dec 2025 09:23:01 +0000
+Received: by outflank-mailman (output) from mailman id 1176512.1500985; Wed, 03 Dec 2025 09:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQj4f-0005aH-B0; Wed, 03 Dec 2025 09:23:01 +0000
-Received: by outflank-mailman (input) for mailman id 1176507;
- Wed, 03 Dec 2025 09:22:59 +0000
+	id 1vQj59-0005z3-IW; Wed, 03 Dec 2025 09:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 1176512;
+ Wed, 03 Dec 2025 09:23:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kX12=6J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vQj4d-0005a0-B5
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 09:22:59 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qm2A=6J=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vQj57-0005a0-VU
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 09:23:30 +0000
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [2607:f8b0:4864:20::c33])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6eddde5-d029-11f0-9d1a-b5c5bf9af7f9;
- Wed, 03 Dec 2025 10:22:56 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-42e2e6aa22fso1796163f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Dec 2025 01:22:56 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5c3c8csm45852278f8f.2.2025.12.03.01.22.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Dec 2025 01:22:55 -0800 (PST)
+ id ba148ce8-d029-11f0-9d1a-b5c5bf9af7f9;
+ Wed, 03 Dec 2025 10:23:29 +0100 (CET)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-6592f588c45so3350839eaf.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Dec 2025 01:23:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6eddde5-d029-11f0-9d1a-b5c5bf9af7f9
+X-Inumbo-ID: ba148ce8-d029-11f0-9d1a-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764753776; x=1765358576; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SYGvs6y/iFswRC7dH+RpYLA5wBXDkTx4wOBA/LCpgG0=;
-        b=UrXS9haSzxG9tMg3Ueu+q6fMTBOwFmjgjm4PTi5R3JA+LXXZcw+QG7ia2GcIFHwuae
-         r8rGDt/vpmtNViattGXM7QsmPiRBGlzrWBfCBDHsDRu9twE0P8eB4t+4cyxBIkTHCH3B
-         0jOYbNoGUplerveiluH6Eh37FG/c8f/qYVPJWiE8gh5PO+u+ypZFZSZwUozHeOuel1n1
-         fvLfreBfcYIvv9iLjKW61Gsb0bQQB9pc+btA9CbexafI/CrqYxMF2VEbst6WC3DyJGpu
-         dLWY1kSCNYLAuIjFJbWM/xc2U+E8tRyvJSM6Gdhb0fK2O6TFwzG3wbDkMd5ABOxUTa86
-         fM7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764753776; x=1765358576;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1764753808; x=1765358608; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SYGvs6y/iFswRC7dH+RpYLA5wBXDkTx4wOBA/LCpgG0=;
-        b=v5NX3XBsTNs4pRZE1b4q7AMzDfiwX/2GwSjGhgNnUIYw3PHufhdU3fBuFEp80eCHaJ
-         1OaK4MaHelT+LGNBwXxTUyElZk47jU4QY0M5zbyRW4PtMipj24MjFbnU1R0q3r7ZcG2V
-         F1pL+eCOxqlAjISJQHXqByjHzu6+pPKYNdQGhO8Egf7lnJL0/6HmmeQB04RlVztKDqgc
-         iuFtqvh1EeVPTFnBGkuWTIvgkdF1dsbIhvJQrhsUELxLhEZp2mdLtlNmHnwW1uMe/Nf8
-         h+FqEZKgd2a/kq0/nl2+XqE12iXenFx41OJ8ASXCty73QwNSFhTzT2BWNmMeuwAdkq8A
-         bYhA==
-X-Forwarded-Encrypted: i=1; AJvYcCWMTBS+bDd/lj3ZVHHJjy4pjQtHQ6ksR3aRkvCf8Ke+CM15CG4lMAru5ZByjTWb45griXRg3A7827s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7OPL/w9mL0VqqjvSFK0IC2S8oVCUBxzKsEpcIRCwcYmndw1NX
-	uC0Dro3y0gUFgbwCSCt/1H/xRuDD8xEZmJKf4GqcJhBKLTJX9cOQG1IpdQchx0EGIg==
-X-Gm-Gg: ASbGncsZUD7wFfVeAJFOgVszBBCIR5/WMae7fagmiaPlgb3sbECqeQYlZRbdmLRS/8k
-	Nw14rj0xAuvvYvoATrjonRaWtc47HTP92dlQZOxneE/Lo7l4N+XM0vDluZGaDXfpo7a1wdeltxv
-	bst2G/UzDdK9sARPpoEVmh6xY+75+PYbek5+pYY5/dFGs2NzebNO5+4PRBwOK1LiPk3TTVwPxYP
-	4CjqjVuJs/lnseRq0CfJvaJs2ma6/lOZdXq6qAZXuHBt9roIQL8sTlg411gFzGQLD77c4i6w0E3
-	rbeFuNogzVwlTxfS1U3kyeCZq4Aw7DIW6mW9DVaTKc46IiUo5c1SWMPqsPkqifJXt2ADRmtYrbJ
-	5h23ntde0nrdXf1EFJDYQqy5ZzT1Z8Y86QkcTPvKjSYEhx0RDwbYdvgCAhlN3nT9gCcjYER87HD
-	kAMZ0rgdqTPyiXuGNt7Na8JpjpD3X6lJwdTatu3FOXY+nqUM7NEg3u/FJjBDY2aUidEos7KWwWA
-	ncWofWtuW1+AQ==
-X-Google-Smtp-Source: AGHT+IHaJCdVq8xN8O5N3JTmJS2/SIjqFwvaWxVmv/saLcIrlTKItHwNT4wPqkkKGG7YhygYRJrXmg==
-X-Received: by 2002:a05:6000:25c4:b0:425:7e45:a4df with SMTP id ffacd0b85a97d-42f731699edmr1427919f8f.11.1764753775820;
-        Wed, 03 Dec 2025 01:22:55 -0800 (PST)
-Message-ID: <ff49a553-3d5d-447f-ac45-faab7afa8aca@suse.com>
-Date: Wed, 3 Dec 2025 10:22:54 +0100
+        bh=hM1KPilD0PjS8mRiOAXCHXCKoEMz3kAJW5UXctIczDM=;
+        b=T2iKfRbL4m6/PwJP7t75B9v+vRSMUvj2/4M/cwreJDiNz9Bf8L0IqWyYrm8ftdbBmC
+         JwHWTL71WDYCNqVY5i4jRnnjBMlg3Ey9gtjQ0Bkida1H5LXrdmillTOO4GWobFXCO0hF
+         JHJxJm9KTIG3yH1OIwqMlxmlbV1p2oF8ZTiGnTlwKvPhMg5Bbtye50R6uLFQ44NUP6aA
+         3fSH4rwvufV6aphfInFS5vr5bowest4gwR/ptdEfC1JXtjPSHr3sTWuJgxf1qMD2AYr5
+         mIRWlh4eyJM/gOJUZ7ZMGnJ9VNbuHVmYpOyKmy4EyrROtBwEL5Cv5A5PozoHGNTAS9A7
+         5w0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764753808; x=1765358608;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=hM1KPilD0PjS8mRiOAXCHXCKoEMz3kAJW5UXctIczDM=;
+        b=kHCvBstqTdVE4C7hIZ27Rw6qeB4bChwt/iGEfvSKs1ZE/uv33AzRcgsUnoo2UVo88e
+         klmWB/8tRvXcHFpptEPA7etLXErjFRMJL4HM06rUmj1qjoLNGgXRDT6alas0y1KtE4MA
+         8vf0NX6wWAjvrVwXOVRmBBfgLv02OGer41IRbje1DTYCvIjEBW8vupJT2kv8OrJPkVaf
+         atQpw3/uSUWhqvzB5qlEYLUNnhnDlgzt8C8ybNBkAZpGPCPCeR4ka2mZ9geHUjDWTWNY
+         FYm3kCw1etWIkWEPihbuR1OG5XlnU1jSsNpHBGJFSA+pLM1p8e+tbkPDk7a8TIfsxfRV
+         MPJA==
+X-Gm-Message-State: AOJu0YzUv3H+HU7jRQOkRI0iWUaa9ALbcvsJBgW3CjxvsILcQtXLuAuN
+	pssLvyvDjpjUCPxhhs7yOgdbZRALg89Wb9g52aKAd8D37kjBLEC0sJj9b9Nmox95TilXmxeJcTV
+	2ZMmujaVFWvGYEDp7ol/ZiaH8X2EMiqxK3crvYxRMNA==
+X-Gm-Gg: ASbGncvlfAqt4YVP5wqdJzbDVV5eLX5aJ1Nj2Wh/DcH2TKsr8Z05QK84GylMyaB2A7X
+	xn1Byr/AyJw7P/XZPVIe1YP6E9IkoaTHiwPmF01AuRYrp8AkIaxKiEQtIvp3UldcomtvdIWgcBF
+	ZezuthYnf5boalZ0DGKxId5kUcsMHL+mffgZBxRSuMlkaeahUdEKoflaQQ9Yb05HTbYPN6w6oFa
+	PbPOdgWy/xbmrIVb0yuTzBDcabmblbcU5SHMe56cFN/eE0b8MnFQ53/uKDl5PVXbqE330xhiHjQ
+	d530oqNJpQSywiDABcbJCfHOtg==
+X-Google-Smtp-Source: AGHT+IFebkAhfN3gbjIoeXSF9advN03o0hGBKVTyQ6GF2CdCzOCj18wtSdREQONhiBVG5Xe1xEynpA6V1R4tZXDipd0=
+X-Received: by 2002:a05:6820:f016:b0:654:f6f1:dd07 with SMTP id
+ 006d021491bc7-65972738751mr850659eaf.4.1764753807754; Wed, 03 Dec 2025
+ 01:23:27 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Feature names for Granite Rapids
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251202153935.1476414-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251202153935.1476414-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1764254975.git.bertrand.marquis@arm.com> <6e31745ff6473189d79a53cec2c29fdd41a22251.1764254975.git.bertrand.marquis@arm.com>
+In-Reply-To: <6e31745ff6473189d79a53cec2c29fdd41a22251.1764254975.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 3 Dec 2025 10:23:15 +0100
+X-Gm-Features: AWmQ_bm4CrbdzFdpUcAAilnOlJ2pCY562imeE8IMfBBX4JOYWX63T92lojg8b5U
+Message-ID: <CAHUa44HeiozpurYLfjHU6qv=GsquRLKQrjZY+cemzbmVAS+kaQ@mail.gmail.com>
+Subject: Re: [PATCH 05/10] xen/arm: ffa: use signed 32-bit status codes
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02.12.2025 16:39, Andrew Cooper wrote:
-> Slightly surprisingly, AVX10 is the only unnamed feature right now.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi Bertrand,
+
+On Thu, Nov 27, 2025 at 4:52=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> The FF-A spec defines return status values as signed 32-bit integers.
+> Align the Xen mediator with this requirement by:
+>
+> - switching the FF-A helpers (ffa_handle_mem_reclaim(), partition info
+>   init, notification ops, dispatcher glue, etc.) to int32_t return types
+>   so callers cannot silently truncate negative values
+> - masking SMCCC responses/exits in ffa_get_version(),
+>   ffa_get_ret_code() and ffa_set_regs_error() to 32 bits before storing
+>   them in guest registers
+> - updating notifier, shared-memory reclaim, partition-info and
+>   dispatcher call sites to use the new prototypes so the entire FF-A
+>   path propagates spec-compliant 32-bit signed error codes
+>
+> While there, tidy up the FF-A notification helpers by using GENMASK(15, 0=
+)
+> for endpoint extraction and fix the secure-endpoint check in
+> ffa_handle_notification_set() to apply the mask to the endpoint ID before
+> calling FFA_ID_IS_SECURE(), instead of testing the wrong halfword of
+> src_dst.
+>
+> Fixes: 911b305e7bdab ("xen/arm: ffa: Enable VM to VM without firmware")
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Hunk borrowed from the AVX10 series.
+>  xen/arch/arm/tee/ffa.c          | 12 +++++++-----
+>  xen/arch/arm/tee/ffa_notif.c    | 14 +++++++-------
+>  xen/arch/arm/tee/ffa_partinfo.c |  4 ++--
+>  xen/arch/arm/tee/ffa_private.h  | 21 +++++++++++----------
+>  xen/arch/arm/tee/ffa_shm.c      |  4 ++--
+>  5 files changed, 29 insertions(+), 26 deletions(-)
 
-Please can you also "borrow" the gen-cpuid.py hunk from there then? With that
-Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit I'm sure you understand that I'd much rather see the full patch go in.
+Looks good.
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-Jan
+Cheers,
+Jens
 
