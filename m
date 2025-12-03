@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB967C9EA57
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 11:09:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176610.1501065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA3DC9EA69
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 11:11:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176618.1501074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQjni-00071H-47; Wed, 03 Dec 2025 10:09:34 +0000
+	id 1vQjpa-0008Vb-Dm; Wed, 03 Dec 2025 10:11:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176610.1501065; Wed, 03 Dec 2025 10:09:34 +0000
+Received: by outflank-mailman (output) from mailman id 1176618.1501074; Wed, 03 Dec 2025 10:11:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQjni-0006yi-0z; Wed, 03 Dec 2025 10:09:34 +0000
-Received: by outflank-mailman (input) for mailman id 1176610;
- Wed, 03 Dec 2025 10:09:31 +0000
+	id 1vQjpa-0008U0-B7; Wed, 03 Dec 2025 10:11:30 +0000
+Received: by outflank-mailman (input) for mailman id 1176618;
+ Wed, 03 Dec 2025 10:11:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kX12=6J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vQjnf-0006ya-RJ
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 10:09:31 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1vQjpZ-0008Sc-8t
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 10:11:29 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27c8e1e8-d030-11f0-980a-7dc792cee155;
- Wed, 03 Dec 2025 11:09:29 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4779a4fc95aso5056665e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Dec 2025 02:09:29 -0800 (PST)
+ id 6c0208a3-d030-11f0-980a-7dc792cee155;
+ Wed, 03 Dec 2025 11:11:23 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47790b080e4so35460865e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Dec 2025 02:11:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4792a7970dbsm37830705e9.3.2025.12.03.02.09.28
+ ffacd0b85a97d-42e1ca1a2easm39573250f8f.23.2025.12.03.02.11.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Dec 2025 02:09:28 -0800 (PST)
+ Wed, 03 Dec 2025 02:11:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27c8e1e8-d030-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6c0208a3-d030-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764756569; x=1765361369; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764756683; x=1765361483; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6J2dEnsrsETbG54XCAomp9SR0qwFKyS7lrh1SrqgGEs=;
-        b=DzapJ5cbs7+Ea1JAwdjqFiYiwU64hYp7LE5RBCofLTcM2gS+Oso0r7PYrNWyzVfxhp
-         KbokitNSZVhP4YgRymAhMpxuGq6zA4HEizNVhJVhXNI/hgVldynwTG8oV+i9KnQQbGiz
-         ijkPufZPBbkKPJ2LHdj9iC8TX27DDM6Mk/KZwf2zBfk9Ln4uwC+PE53MzIUWQiixYJKu
-         6w7RVBbuyo91bD4gBbbqc00kHwM5GlcOZkGK1U4anMDtG08nVM+thBI9lF2V5oZ3w3Nt
-         qRgdBHfUtRIWCzCaYOzvxRf3lraSxsugHC8AAs2wt6MbcYIszHfVJoZoN1qzX6diuUqL
-         6CnQ==
+        bh=oNrxV2QThHFro8YEMtPvvoomOVw3KIbRKSrdS7jyeEU=;
+        b=JgEr/5D0UlANWy4c5eKaIDZtouU9UCvnNV23uVeq1WAZHedLc98yRk/3GCATKtcClo
+         Inr7q4zDbYMVB322kdCmN1Cu1hrTWXkAmhY1yTjNzBn5M5KyUZZocfrvOomOrNyFtZBY
+         0r5O7YIDYytt8Um5sBQQKgkumxEmIkd1tISNsFY0KJde3mM0q/BKLeeQ1o9P8gnZyhV+
+         xOnCzNfU6Av34/HI/xdVUR+RPmJeguGNt53+bVJPdta19QfBJqo9zctBbkcSdzc5ZtQ2
+         PrkYSoQGjrL5MvqeAz4Dj8jsC+mchl7iDYjzVVhCwLLwMH3v2j7A79ktqQvLwf2/m2tT
+         BeXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764756569; x=1765361369;
+        d=1e100.net; s=20230601; t=1764756683; x=1765361483;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6J2dEnsrsETbG54XCAomp9SR0qwFKyS7lrh1SrqgGEs=;
-        b=f3D9ZijwsfJkW62DyCvjeE2mPJjcBEcuwkOgBf5JlBD4SNIWt/TSuzZLQmWtVNxLtn
-         8BoVXqCzspIn9Jx42CdSGARNf+7qgjKGuYk7Pn1S/GAxrDMiT/KeF9Zf9TUwzAgPqY2k
-         J5dtQPCnuq+rwjcBvQfdAErBPP7TcIRmZ99u0pRt/se5rsrK5k+Mg5q8FyxQUna5qr3t
-         1bJYLyOvyHaAiI7HJ5CJJ76iAm636ThZmO/LWXStquDqiRBbnCIYlseQHLpiM2e9tZNc
-         kSygn8vToXRD31bvNn1d5WAgd3pJd1OZITqpbYDJhWUD8zMoEc0PCv4UG49Xy+B/dCm+
-         FzFw==
-X-Forwarded-Encrypted: i=1; AJvYcCV39zV1JkCl6GbTwXOxPGlgSUQ+Y4yC9VWL2yUtIcLNTfxXdzAB0Fd/67W41SgoRm7IzxKpca44yFQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRDf6zDxPtkxVsFeQm1odn4m4ibsvRmgpoyRyiUxNUCFgCHFlz
-	sJWi8eju6rXYkhq2tbIEdNS2XjnbRQfasVQzOnVjQ3NrGiBqxaT80Sn2pTbJUzDbVw==
-X-Gm-Gg: ASbGncv3t/CSmnP7f6IDVvtilz5hsyzxBpXzH/GjSReoW7lveNpwZVwURoYUnU7M3VO
-	F6fNSLMqPUBnDHpJt4uZB/WOKp6z9DXyZmT25VkOlem/2xVM3D9P8CRwt/ydR+NrUOJrUoeGQnj
-	rHl1ATpBh19GySjCvPYu9R4Gzur7Zf3L5973bIzsjQ321dgglYlXPWZUQ/LWdC6G2Mfu8tdaQ2G
-	FfhUo8sJV0a12wSPJYY6h7eJ6+TtoxA18/hncIPQSaQC7CmtJB7cd6FxMVIMYEGjQ1tDg3IUZDv
-	IgrhK0NO37ES+Uo7LT4zSCC5RI/UcA9fCKpPjGxo49VRTjkQ9tFX65wnni1NYdsUUHR7JnCX10R
-	w4lhj2/2O7RtnJP1ikd3AbRWVSpdAHORi3/ActAv43iW3XMaAXybvxC36T62tqk0Nyx2k8SjwUQ
-	DEqEo9taZC4AjTlzP7Q4dud63jcmdF04kJxA2Zl+LQnHpKJoQLH6Gx+vwqVuLp4tph3m29iBX5u
-	s/IWQHhL/qHig==
-X-Google-Smtp-Source: AGHT+IFOh6XpTUMYgSzsZkfjIOOouTl9yGoYw1hHHWwQ2bdW2ruHKW0mYEidDFmVZ/Ixyoe+gCdg5Q==
-X-Received: by 2002:a05:600c:3145:b0:477:9e0c:f59 with SMTP id 5b1f17b1804b1-4792aee03eamr18127005e9.2.1764756568863;
-        Wed, 03 Dec 2025 02:09:28 -0800 (PST)
-Message-ID: <b844a0bc-ee86-42fe-bcf1-f8a33a594c4c@suse.com>
-Date: Wed, 3 Dec 2025 11:09:26 +0100
+        bh=oNrxV2QThHFro8YEMtPvvoomOVw3KIbRKSrdS7jyeEU=;
+        b=MzHuVWqhufuRheVbagEW119z/046BoYFx29aG++eIAimffJ79RnQYLzLqX2I0ROzBl
+         Vj29pxwp63cbN9B2PJwgK8qYHx7dZhuxpMBWuQgKna3SCh3u5tsrsxBgzCCWO4Wev0Qt
+         t9xFKbjkVd1aSfepyj0mpqCkkoLwuoU4rc8f/UJre/LNcfAqDws29fOnOWAkxB20JbZg
+         dwT+lXANgbAtM2GAQxs1LvCLz8Fhv7hE1bSplkUue+yJpUBSGtwTauhvMcCb/bHGhVEr
+         chQd8ofhkTNIeaMxoIFAi95MTSuClonldJC/hPVrgc/eEL2CO3243wb8dvzxcKqzci+s
+         yzEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWsaiufwDLTcZOnk0a5IcjHe/oPmxY5sywdkWwB3PBaNZ5Kfyh1bv9h7ddadHFusR+FALu2kqgA8Nk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFENVmBxHGhLZflixVhhAIHbn5LsPQI8zuxFx7NIenPq72SkZL
+	sc4hPqAcWs86opU820bcnXeWn5wjW8rXjDsyrbGY+W6+L9gyzMARH7Sp2Fp2EZt9UQ==
+X-Gm-Gg: ASbGncuGj1yBGqaXJQjGSqMnWhpa5av9ZlqKmzIZr3kO22uT2uP2nMdeo4To8V9M1Y9
+	oBnGP67shSyd6q5UJyYU279fBL9DjZ5375WvUORiDHOkBz2KQquiCC2ozhn63SyltJQeMaFB8tt
+	sQ1J54sR6brDpiNQ5Z9qGYmUWf8C9YII+GTYf6npJ9QdC2nCL1JtNK3AMVDb59ZANEroeKcFc+y
+	cgsbzI0r9soYbm+Zx2SIn2YKFpF7CS0aud6dyJHwGpZ4hjrK6A+M3vr2s1b04Lm137w3hcXoftC
+	XTqegBk5CAQfLWREhXboPufFyVp1r/n1QZxvB4FOl711gvwPIeRqLwJL0EiS+KUVm4yFYbVQTkT
+	n35/YpL7rGDkU/pzyYZB7pgXdO8WYDUaohML/ToZVBWv6q6CSz0K/FGl92yCB9APFxdUQ1XAplr
+	uRMuZfjKIxgVr32l4zcF3O+uqXUiqo+clfx1BOLK4U1Sw5M9hDc4jQa6vcyevL88UxqbuMAfYoq
+	UY=
+X-Google-Smtp-Source: AGHT+IFUHjSNTvJMGijgzA8DXjfvw5UgkYREerNpoqGAspxs6iw86zeY0AtSSZvQmv4Ug7USX793Mw==
+X-Received: by 2002:a05:600c:450a:b0:477:b0b8:4dd0 with SMTP id 5b1f17b1804b1-4792af1b10fmr15908325e9.17.1764756683273;
+        Wed, 03 Dec 2025 02:11:23 -0800 (PST)
+Message-ID: <63ed70d8-ab4c-4b9e-8884-954f8f8194e4@suse.com>
+Date: Wed, 3 Dec 2025 11:11:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 4/4] CHANGELOG: Document guest suspend/resume to RAM
- support on Arm
+Subject: Re: [PATCH v15 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
+ guests
 To: Mykola Kvach <xakep.amatop@gmail.com>
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1764755558.git.xakep.amatop@gmail.com>
- <ba51b0ca5457566e1dbef2b6d6ff984dbc318895.1764755558.git.xakep.amatop@gmail.com>
+ <f05ece00c276187d764c7539142f29ee3c48987c.1764755558.git.xakep.amatop@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,29 +128,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ba51b0ca5457566e1dbef2b6d6ff984dbc318895.1764755558.git.xakep.amatop@gmail.com>
+In-Reply-To: <f05ece00c276187d764c7539142f29ee3c48987c.1764755558.git.xakep.amatop@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03.12.2025 10:57, Mykola Kvach wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -26,6 +26,7 @@
+>  #include <xen/hypercall.h>
+>  #include <xen/delay.h>
+>  #include <xen/shutdown.h>
+> +#include <xen/suspend.h>
+>  #include <xen/percpu.h>
+>  #include <xen/multicall.h>
+>  #include <xen/rcupdate.h>
+> @@ -1363,6 +1364,9 @@ void domain_resume(struct domain *d)
 >  
->  ### Added
+>      spin_lock(&d->shutdown_lock);
 >  
-> + - On Arm:
+> +    if ( arch_domain_resume(d) )
+> +        goto fail;
 
-Nit: If you look elsewhere in the file, you'll notice that there's no blank line
-between the section heading and the first bullet point.
+In case I didn't ask before: You're after a boolean result here, yet ...
+
+> --- /dev/null
+> +++ b/xen/include/xen/suspend.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef XEN_SUSPEND_H
+> +#define XEN_SUSPEND_H
+> +
+> +#if __has_include(<asm/suspend.h>)
+> +#include <asm/suspend.h>
+> +#else
+> +static inline int arch_domain_resume(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +#endif
+
+... int is being returned. Why?
 
 Jan
-
-> +   - Support for guest suspend and resume to/from RAM via vPSCI.
-> +     Applies only to non-hardware domain guests.
-> +
->  ### Removed
->  
->  ## [4.21.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.21.0) - 2025-11-19
-
 
