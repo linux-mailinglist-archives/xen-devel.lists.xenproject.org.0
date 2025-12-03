@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD01DCA1332
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 19:58:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177080.1501501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD53CA188B
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 21:16:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177107.1501511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQs3a-0007KD-Es; Wed, 03 Dec 2025 18:58:30 +0000
+	id 1vQtFn-0000Pq-Oe; Wed, 03 Dec 2025 20:15:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177080.1501501; Wed, 03 Dec 2025 18:58:30 +0000
+Received: by outflank-mailman (output) from mailman id 1177107.1501511; Wed, 03 Dec 2025 20:15:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQs3a-0007IB-B9; Wed, 03 Dec 2025 18:58:30 +0000
-Received: by outflank-mailman (input) for mailman id 1177080;
- Wed, 03 Dec 2025 18:58:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vQtFn-0000OP-Li; Wed, 03 Dec 2025 20:15:11 +0000
+Received: by outflank-mailman (input) for mailman id 1177107;
+ Wed, 03 Dec 2025 20:15:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WC6h=6J=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
- id 1vQs3Z-0007Hi-Ek
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 18:58:29 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09f0caf9-d07a-11f0-980a-7dc792cee155;
- Wed, 03 Dec 2025 19:58:22 +0100 (CET)
-Received: from DB7PR03MB3577.eurprd03.prod.outlook.com (2603:10a6:5:3::28) by
- GV2PR03MB9353.eurprd03.prod.outlook.com (2603:10a6:150:d3::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.17; Wed, 3 Dec 2025 18:58:19 +0000
-Received: from DB7PR03MB3577.eurprd03.prod.outlook.com
- ([fe80::49f8:7615:b631:1a66]) by DB7PR03MB3577.eurprd03.prod.outlook.com
- ([fe80::49f8:7615:b631:1a66%5]) with mapi id 15.20.9388.003; Wed, 3 Dec 2025
- 18:58:19 +0000
+ <SRS0=7Ymo=6J=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1vQtFm-0000OJ-RA
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 20:15:10 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c39d6434-d084-11f0-9d1a-b5c5bf9af7f9;
+ Wed, 03 Dec 2025 21:15:08 +0100 (CET)
+Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
+ by PAWPR03MB9689.eurprd03.prod.outlook.com (2603:10a6:102:2e9::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Wed, 3 Dec
+ 2025 20:15:06 +0000
+Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
+ ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
+ ([fe80::5a:31d6:fee4:ccae%4]) with mapi id 15.20.9366.012; Wed, 3 Dec 2025
+ 20:15:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,189 +47,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09f0caf9-d07a-11f0-980a-7dc792cee155
+X-Inumbo-ID: c39d6434-d084-11f0-9d1a-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zOf1K2tpUg7qRQ/AqcePv24loHKDknrIZjAn5E/ulgbQhAul9WikdA3UPUMKo5BMGDCnWNMgS08ZxFFRRBUGSY2yDeu/3fpC05DzyPUnZmFTysU2R+lrMzeTFzv8Zkf8M4jUH3grhmA5vqIcX0/HLVts4QJl6Q2N0nDEjou6WpJ/78WaXo4hAl2JsVapGUgNpR+PJ9PPWgWbZQnoVdbVp8T10KC7Ny2NWMx+cDSgFNH4zRCAgpvMe3MGf9DDb0WclvhD+QDA2ZWlrwh0DH66YruLSsTUcAFAytLM0SWHfFVpSNpufbjra5S+Cg7jfreWpjEq6FHpFMOvn61qT1JqtQ==
+ b=AmKDLmfGANVk+Fu9re2VY6n7uA7uL7RzfvrnQjCSIgJB1sXpqdlHgSpqjDya7O0OmvrDmzRN1JcG76Y8IzyT0pOU3D1z2vDnijRF4A5L2dtxUz1OdEqRRqyW6E/JQliOF5TQcT4cK578cZznkT5dOFZLjcN1KqV+brwAuvewEKTSUdMMg7UVbw5QzzPljT33+BUFPUXcY3USfu9aCqEUxeD2Cp1+UWmjhHvq0AgKfkUOUoujfOvVxEFa9Bh4yI02jQqLfRQEo2TnWfjL9yrOTjJoX0BTnQiYew3Ef3rej48tTqDdzoT2wzkiwER7OdkfR5W5PMYg0bbz25KWo2Jvtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x+AKNCSVBWI3D7Q1DukJIYv1PltJZB/5iZ39snSEJi0=;
- b=yCCtdfC3KTvid+3J6v0U3v+ZAAEP18Jh9x8u0605u7T39NAoL62ZmspJvWEym0oGcaeXqlYPvuMpMjeU6XELQAIWQZny83RVNpuVLtnBsa4DvFBBPDicz6LsKfQ3/9N4DZ19DOZE6suXgaklU+hICO/B6ME7KN3pwOh0sWazOtqNBIy35f6a5n4ZrliPkhGKT/82r7KYZ9rTD8jc68eTBIaI7snCO3MljizghmeCvT2CC+zBr4Tf/8c4j4qDTo040+TET4XlggQrrpdwKhfEj/2ThVaUMfUUlXHFYBpdQEk1bQgFfi420Yyk3RUOR73NnrMdLNDga5iS8a83qw+RMw==
+ bh=NOFmLvdYGGyIfQP9eMobra+CovqHFu5AZXo6eqWj3uA=;
+ b=fOaAR3kCCRqVlfScEJXmCYfPY3DPEpcRKmOIi9ptddKNvwS3z6M1FHZEt3V8bdIOjpst3p2/sQScagQTgCeYhkiqu9ahnMCE9YTYgP93chodszZNqh7PM0R1ec0tS3RkudBdHjK6w8BzQrEvZJNZ133zpaylvU1sVVCWGYp8fDG2rh5ZWaWF4VVz/ZsVWkYJKjSV/9F7WRCU1L55tvmvb7zwUXI+LJ1uusldGriCZEgJfad1ZIqg3N1iYLBQljrSjwTCaqw6aL18M1IUkEP9NEAYxsD/1VzV9L7t2YnqA5fXSq/mqa02oKA4f50lE890AObWCFa2724OziECNYDpDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x+AKNCSVBWI3D7Q1DukJIYv1PltJZB/5iZ39snSEJi0=;
- b=JuO77R1ocVC1lyNz4F75dk5wYzdDIHgydplqWvdztQEoaLiTYLsYkOv82Ixd0VpbrN51O6ifvLZpR6DOymeWeOiZQZ/qt7yvsNUzGObTvacQSKfkPCPsAqhB28+b52h5sFWepr8l2r7nBu5Z78HiUUISKi7XARMmnGSGFHF4xXpJk7jCaV/TZ9ZmpyxIpsmgCTnf9A4EkmNS8lz+DTGXLNDYHeSDdJpKoUbqyV2OLDM6wJNwR/JyCmIvRaRrGmxtZYgzTSKtcy/KlJdbObjtvg0PcMDDGL8rJeOnjKg4KWhu4PN60e+LPy51IMHwSMsbTbcPPCbTG5AwhMUstyUsEQ==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>
-Subject: [PATCH V2] xen/dom0less: Calculate guest DTB size based on
- MAX_VIRT_CPUS
-Thread-Topic: [PATCH V2] xen/dom0less: Calculate guest DTB size based on
- MAX_VIRT_CPUS
-Thread-Index: AQHcZIbKZWHMCLfhnk2g+3dibmJCCQ==
-Date: Wed, 3 Dec 2025 18:58:19 +0000
-Message-ID: <20251203185817.3722903-1-oleksandr_tyshchenko@epam.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
+ bh=NOFmLvdYGGyIfQP9eMobra+CovqHFu5AZXo6eqWj3uA=;
+ b=km0ET96jdleCfrK6Ih4Q/+y+B+O6mxdp0yG5vkzhFoxeGYIfoMqhHrROeCc8kM329BprUrwktdtLlkKF7ioouCYvVNpEAna5iExALfEZxGk+PNWHUbmJ4uitnh4kmFU3MOovhv0AHceBSyk3eicilc5E+wdRAjuPT/orreqZBfIHByvJDoP18tzawZMwf41d+odCTJTQUSvwPNzM5RIz3CBw0Ix2pFSCAf4t39tfBbtNsYFa/vFZ/nyjkAe8Rzcms4KjpGnlrEo8somMjtKdWbY4EHpnFjrfac3JRxVF47n9QCboYZ/tpr+ch8M8gPSu3FMyQsltViVSka39WpEKnQ==
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB7PR03MB3577:EE_|GV2PR03MB9353:EE_
-x-ms-office365-filtering-correlation-id: 03e731b1-eb34-48b1-3850-08de329dec9f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|42112799006|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?AEiUNSmw5NOrfH5uT3D2xLEXpj3odIfJ7tSHDxR8Y1Jn2QDYLxZ5DIZEkZ?=
- =?iso-8859-1?Q?WT/d3DkCFqwGo93P+wcumhbS780HNTzDk7EjvW9ZX6Hsurh6dOIiTc44Fq?=
- =?iso-8859-1?Q?CewMvTeLZ9kQkpbzA3O78daID6EG5zujOOzVd/B2xP7Ndj65TMuRA2Gtbg?=
- =?iso-8859-1?Q?onkxMzhJ2t7wi/Ompw1Gmi+MfxkgAZC+fzwwsC38Px4y5TieK8Qr9NKfus?=
- =?iso-8859-1?Q?Iztxprwy83jnykM/O2cFUh3+Dwkkfr3EblJUzEx0UEOXhAu6XUmnNiC5c4?=
- =?iso-8859-1?Q?malQa95BQgiP2pIHiJMZaC7XjJGDCwwU3CYA+Zi6czLqubaIgX895dsZd5?=
- =?iso-8859-1?Q?zTEUYyayeQOqCQSBRhtHNxcVFlAO7tQ5r9e6qO0JRNFPIsbRxf+eGlQXDE?=
- =?iso-8859-1?Q?7dDBdvrDqnOZlaMjuNq5nR3gKM46o4BM9b3oYnHpIcB/GMyHHLGSLrWapi?=
- =?iso-8859-1?Q?sFsOJJdarFxjun6uPzAcR/by/e0XmJHwgSBkG/rGvCh9uSvPTl5X/VzHR7?=
- =?iso-8859-1?Q?PQwsRiZQkvRNO6Jyy5ZtFCmijr29NVvUzs9kgirsKkubBkfG3LsJVjBM2D?=
- =?iso-8859-1?Q?mGfa6p3YgtE4zv59Og0RQvFhM8QEQhSJV7B8Wk2gs8avhsnkhuftiKxa8w?=
- =?iso-8859-1?Q?tk71Q4J1GMCCubN6+ey2Ciq9cGqI7an7xdIs/EgShwboUtL2oFmeOtutIi?=
- =?iso-8859-1?Q?Pm7q8t2ZQBB+PkFK9aW+1hyzEFztSiPUm82hEnRRCrpXjhlhaAnaJ9EztI?=
- =?iso-8859-1?Q?rnfFC4FQKa8Su9yFU7S0xrzw/GyCnzE623UZNrdWh3hKo1oQ3tKUj0gTa7?=
- =?iso-8859-1?Q?/dwOOqXaQ1KzK0ZyepUnssxL3LmUL4SBYVynouym91C9LC9+vDpRvjy9Xo?=
- =?iso-8859-1?Q?v5w+9D8qbKrCJ5nIbVTh5JCA2syl4jGrqf6xVo1n7rcowbqM4BliulObuF?=
- =?iso-8859-1?Q?yomwRTEU19buuMgS6FuOPVZjl6+9/TnO5L+UgdsQhr0l0xdHY8gOTmEN8O?=
- =?iso-8859-1?Q?uBfy+KplAhh/wnHyAcb6ivbpcXgER+bmOj+hsLLzyXXfD0uybxIKuIJlZV?=
- =?iso-8859-1?Q?MHFMvQWntMHk8LmslZ/3plHqdJYT7ujL/ZOCTnW/H0SSeC13MuGC5U7B0F?=
- =?iso-8859-1?Q?VNNDgfts4d7ueHse/ltSM819tlpDsSe5UsBmLP6xcobGKitg5pesC5mBhX?=
- =?iso-8859-1?Q?6S1cvRsoMc9IEXzLrhnFfHUcqNKH1BBf74eqOMFC3c7gJlg7YNA9pnBtZA?=
- =?iso-8859-1?Q?WLgt7EpoZbhE+MRYb/v9nbZbAmCT6dm5B4jpdGnyYhMnYgyYnLJj3jl8D3?=
- =?iso-8859-1?Q?VjhHziVpSYGremIue5zJXKX9+P9RpqO5Vmx27QkoouSYQ1mluB49z4cbTK?=
- =?iso-8859-1?Q?UcgPFHJA29puF1MSc/2r4xFOJJePrM5hb3i2jhXRqhrnWegJkw++Zkon/u?=
- =?iso-8859-1?Q?V27rSI2x4rNQQQ/5qMi814eQRMIF2xpAeRm0MD+VBxhKuhFzGzf6lHdvcM?=
- =?iso-8859-1?Q?SVSB21692G9c/XtseSHYcB/s4c89i3Vti0BU8siY9odw=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR03MB3577.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(42112799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?RKy3mmS/chYFQ6TkcbIaO4OQlyaw31PKMUQrF6/DvB0jxO2LXcWCGL2piY?=
- =?iso-8859-1?Q?L9GVThjxfv9I9vhbSqOtCen9YRV/gtzLDFboXcGFGo87RectQCUxRJGeIY?=
- =?iso-8859-1?Q?isT6xFoqkkyYfIIS0KS9xPJpC6Tw714IdODHipOFWxad+R63NsV+8zAUuz?=
- =?iso-8859-1?Q?oUWdhYx6uSITGp5PSlkB36U4U8z0TrQdIOkIFeTZpLu5sBEyjxXTMD9m56?=
- =?iso-8859-1?Q?KQjdITkUsOjp/MZPonRgdlenkN4WimrjTeOxebyTyLE4rGqRas57jw8O2v?=
- =?iso-8859-1?Q?qZwH0c1IA/q3ehapFcKtOM97pFG0wn/6vlmNpWD5nxAAplI6J0OLHktQtq?=
- =?iso-8859-1?Q?B1FOKI7SP48CYoACFKDMijcaBxgMAmYwC/09Gl4m4KGoOE6kAkS1EPXoO2?=
- =?iso-8859-1?Q?wa25Jr8ND9iEhVmw5Ovch7tcKR2+Bpt/0L4V404W0s90fXv02SD+0hbDQT?=
- =?iso-8859-1?Q?nXf/IaCBK2r05zTBsgnJ0Qzio2WI8IZtYT9jpJuXNzilKSIL64yKj3m8tF?=
- =?iso-8859-1?Q?vCLBIfD/kU3BtEg5jp0MRlGYeVSUATtT20Njp0zKJ77Xyz29STxoXA8YGR?=
- =?iso-8859-1?Q?efm5MuaztkCs3JhztgqY0f0OOmjIR8PlwnRbRvPWxiZC+C1Y23K2TzHchl?=
- =?iso-8859-1?Q?8IImzrFikAycex/vBabq+hrEl5ihBuamhI74VsGdK0V/gRQl7XmE4syIrN?=
- =?iso-8859-1?Q?rV0u9fLAvKd1qUBNc6iskyuLK4vOfsIeixypA6supAy79ZyG+08C5L/bi1?=
- =?iso-8859-1?Q?MEEJ9pIBZDLl7FTMRb5VLi36QUwPmqT26o0360+zSzSyVWuZRQSCUSAQTv?=
- =?iso-8859-1?Q?B8zOb2zDARsZzLlZ2FJJUrf+E7F5fAATL/ewhZeK5Un6uiJMod4KAjZYLG?=
- =?iso-8859-1?Q?4Rtmo+wuXrxK1m7ZaJN7EtHjXOFpMUf9+fgExz723iFaxEMvvpUT8wRNP4?=
- =?iso-8859-1?Q?SImG5P5SQ6t8t6Dv12NFoEXa4Q8lpOEk1QaXdke1bzT4eBncuSD/odW/IH?=
- =?iso-8859-1?Q?nHLTZ4XhCPOcT1rWz9+HRl6fh4cmqjrDzZ6zVUmYF9g8DvZ9TnG0f2nMio?=
- =?iso-8859-1?Q?/ME11muwaB6gUS5Y8yo/4+tm6s3I+RQn5NXo5uw6dhP4Feu0b8dcGtehFP?=
- =?iso-8859-1?Q?gWkN/10Tq6aD3cWAi2DTougKir7N9+CXfBPVu9Vwq51KFhxbYGahnSWXdF?=
- =?iso-8859-1?Q?q2Uig+gflCNv2NLgmG0FUaWnjzo40Q6pEuVMUk84o7kxKhwrjy1ur+MFIH?=
- =?iso-8859-1?Q?B5yWtKwTRk8KEpCshSMQPlujq1QTBzSXkUoBAk6EQmlsoQ+3N/xl/zJOEf?=
- =?iso-8859-1?Q?fKdUdv8bm4AZCD9q7aoWSQRPxes0VuiybUeFlKASiw40opqOPEwtYwXXoV?=
- =?iso-8859-1?Q?/Ir6Wmb6RsD8GJvueHiTVw7s41RNFkPquvspvMLtKTixF8Wg99zsDz1t4d?=
- =?iso-8859-1?Q?eQdCiXjLRC5ovDATQ9EZldJhoc79mVvXqxZMaV5YHZWDQO17gJYWu0uyy0?=
- =?iso-8859-1?Q?EG3SpT8cwh4sY6KA0Ph/uwkRVhXwb1sSBnz8FSPJTFE0S5eS0jbZSHTG7g?=
- =?iso-8859-1?Q?zLXorBpAvKs9/knOsrFU1UHH5qgjY3+BFtO1yJjxzcMp2+EWEUsxW2OdAw?=
- =?iso-8859-1?Q?dJwd4VAevyRgYS7DMvDLll5kpLAIMqieiH0QTQ1pzg9ZPSplA1trrLRbxt?=
- =?iso-8859-1?Q?6yjIiOT4pZki1bPbpFU=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <bbc41ec8-8ee6-4562-9b33-cf17da0812b7@epam.com>
+Date: Wed, 3 Dec 2025 22:15:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2] xen/dom0less: Calculate guest DTB size based on
+ MAX_VIRT_CPUS
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20251203185817.3722903-1-oleksandr_tyshchenko@epam.com>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <20251203185817.3722903-1-oleksandr_tyshchenko@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ClientProxiedBy: WA0P291CA0002.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::29) To AM0PR03MB4594.eurprd03.prod.outlook.com
+ (2603:10a6:208:c8::27)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR03MB4594:EE_|PAWPR03MB9689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 414c7bbc-d66a-4505-28bc-08de32a8a681
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?M0kzNjhocGYydlZ5aVc3aXZPSDBRRUErV1VaeUZkVzEzY01Qa0dnZml1bFVT?=
+ =?utf-8?B?Z1JwK0JreGFhczkvMlEvS1NlZkNjL3kvZEVzS0RJeUJzZTg0OUdBL2htRTJX?=
+ =?utf-8?B?UVZXcnhCV1UyTXhyeDB6aUtyRXk2YjFqVE1SK2tKM3Z0OUJ0MjJZMlpmYkFx?=
+ =?utf-8?B?Q3gzcFhOV2FPRWJlUkFsTHQ3aEtSV1pTRGFEN2FRNVBrcmhoL0dpcThvWkdv?=
+ =?utf-8?B?MEdaVUVhbENjMHZrdUhSVDhEVXpCQXIzUnNGNHBieGVJQ1VBdEwxZ1NSNDRW?=
+ =?utf-8?B?MkVXVkl5N1MwR3RTTXhYKzMrS2dIYTRBWmQ0T1hudlljTWtyYlBqanRONFY4?=
+ =?utf-8?B?KytoY3ZrUmRCbTdEb0Z4TUFlblhCWWdoTGNocUQ5TXBYbXpxNGVRZUNoVE5U?=
+ =?utf-8?B?YzhlUDBzcWs3M1NYMEkrM0dCekVwd2cweTRMSEtRd1A4dlBoNExOUVM2VnVP?=
+ =?utf-8?B?QnI3YndoUTFNRDgxbktvK3V1T0pxTEJoUXRsbzl5dkxOYzg0Z0tGTmU0N0o1?=
+ =?utf-8?B?UFN2elhWd0hxYUJId2tMM1hGOVo4dTV0bktvTkhhcDl6aEdzampncFhwaTl2?=
+ =?utf-8?B?bnA3UGdtNmRnVHUwcHc3cER6UnBORERKUFQ2YU80WTNScU1IUU5jVFFnRTBP?=
+ =?utf-8?B?djY1c3lnS0ZyU0tTRU02Y1JTVkZEdXhMTDM5cVVrSXI5Tk1tWFlIMEFlb0Jv?=
+ =?utf-8?B?aC8xemRTQnJJdzNJUVVFVFRwTVZGT2VKaE55d1FxM3Y2NkRmN1AxQWNobzM1?=
+ =?utf-8?B?NVJTSDJRTDlPL1ZNZmpRTXZVZ0prMXNDMmxvQzc4OGx0dnlkYklnRWw3Z2I1?=
+ =?utf-8?B?bTdFNzFBSElmekpIVlNyYkJ6RGpUS29OZStsWGJLS2FLNmdnSUFlcDZNcTc1?=
+ =?utf-8?B?aHE4STF0Rk5UZThpUVNMdURNV3UzOVNqVXRTS1p1Ymk5WUFCbHJMa1hyTXlq?=
+ =?utf-8?B?a0s0aGw5TzA1clJncjNlNWxiTmVsUE5HbThURUt0UE93SThhVHkxOWRJYkpI?=
+ =?utf-8?B?ZEVLMG9PQVR1eWVDRzcwb01tYjk0TGhEK3lLVEVoOUNmTG5sTmxBZDUwVllK?=
+ =?utf-8?B?TEhQNjZEVXFubHl3ZlpKVTlpM1RGYTZXVGVNRkZqUzZybXN5WnpuOFQwMWZQ?=
+ =?utf-8?B?L2F4WHJncERyVW56TWVyT3hxY3JIZlNxVFZhNHJiQklsVExEQ3J5VWNsUk5B?=
+ =?utf-8?B?RmNHc3pWWWNrbnN1Zzg0WldUNlVFdWtSWVQrNTRRNE84UFkyRGhGRmVnRUhV?=
+ =?utf-8?B?aTJ5S1k0N1dMYUxMd1d0dWdQYkZ1djlSN0pXZmxrRFJsMHoreTgvRjNPakda?=
+ =?utf-8?B?aEVwYlBrT1poeXNnemg1RVlnc1ZtNDBKa3ROdDJYRzRoaE5uQmFPazZya3Rk?=
+ =?utf-8?B?SU1mLzBJdExaSjhIVGlQM3kyV2lobGVjeGtHZG5YKy9lNFNzZEhValNIV1JR?=
+ =?utf-8?B?Tkc5Y3JtSVIxcTBhb1l4Rkx5NmlNVzI0Z2t2V3pKNndUb1NHaXpEVE91V3Ns?=
+ =?utf-8?B?Z3ZjdUNHbG84eXp0V2xCSCsxMGh4bVpxaW95UXZ6UXlOa0QzZTJLNGVPR3pZ?=
+ =?utf-8?B?QytYci9lb2JKck82MDdsU3RLeDlndFpQckw0TUEzOGFTT2YrV1ZRZ0M4NWh0?=
+ =?utf-8?B?cXlrbmxCa0VwcjN4WXFlMXNydzUydTBCaEJXL3BKUUpQSlFOckp5TXEzQTZN?=
+ =?utf-8?B?ZVpUZjEyUU9mam4xeTN1TWp6MGhIWUM3MlRBNEp5NUZOR0F1b0VEdTNHVy9T?=
+ =?utf-8?B?M2JVeDkyRENZYWFnVmI4b1RQQlpKQi9SL01JSUlTNTJxM2tDWlNMeVU3WEVQ?=
+ =?utf-8?B?Z04yV3F6Vnc0aXVHNGZUdUVHZ3Q2VE9FTGp1V3ZLRkVORUN4NG1tVWQyVGZV?=
+ =?utf-8?B?MlJ3TVBZVk1vVUhvSjFWMXlWWkxQUHVFaVdEMU0weGVuMVE9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TmNuYW1QNEV5WXlOSGtzcE5ydnFPT2M1TWNNMTFZa0Q3RzdFRlcyRURzeWZi?=
+ =?utf-8?B?TENWWDVadlZpc2F2SDVQSm9ZaW1ib3RhK0k4aGo4RmFXTVdCRkdYMW5jRjJD?=
+ =?utf-8?B?K201eklZSllvbDB4MkFhMTg1VUMrcHViK0t2cjBXYkxMTWFRLzdtU1QyWktz?=
+ =?utf-8?B?MEkyWmRDSFMxQXVFa1ZrR3JRdUF2RjFrdHhaQWRaWFFmaUl0UUNmZFhJMkY4?=
+ =?utf-8?B?Yy80V0djUjR6OFhGKzFZa2U1RXRhNlV5aHJseEd2aFBZb1Rsbkw5UFlJSGpT?=
+ =?utf-8?B?Q0Q4OC9CYzl0Q3lyU0ZLaE1WUklDcnNlaWExVU5zUzZRK3U0d0VSQUdZbWZz?=
+ =?utf-8?B?QkZha3Ntb21WWStiUWVuaVVpYkZIZjhmMnJ2aHlKdk9lUnR6QUlxaGRGREt0?=
+ =?utf-8?B?ZTR5Zys4dEVpLy9ySlFkM01aOFVTVzAwY0s2R0Yva0Mvb1JJdVl1VkNyam9x?=
+ =?utf-8?B?VElWMStCS29OcDNGM3V5ZmhxZ3p5U1lGUnUzdXdLSDZIdzMvVzFyL0VydjFR?=
+ =?utf-8?B?K3RqNEFibHVsZVZCTXliaHFzY1VXNXg0VFFSRVdHK0FkY1gzbll3UnFSZDFu?=
+ =?utf-8?B?dFJUYjh2MGViWjY5NzJ2a09YaTJ0Z0NYRnJrWUdHL2VER3IzOHVmMEoyQldZ?=
+ =?utf-8?B?YityanhNVEdsemFmNGM4MFVhTEpWZXRCODIzTzRwUTBFKzVtRXZvc0FyTjhn?=
+ =?utf-8?B?OXpESFFFYlJMQmtvWUZPbUt4RkhINVdwZmd3SVFQU09vQU9lYldkRlVZRDBO?=
+ =?utf-8?B?eUlsNG4zMHpid3JCNkVtcU02YjdkNmp0cU5JNHR2QmNaU3JaMXVFTHBlTFo3?=
+ =?utf-8?B?N04zNTN4UWx4c0g1RjAxZkpBM1Y2RkZZQmJoakRNb0FyS3F5R3VibmE0dGF4?=
+ =?utf-8?B?MGtGMGU1UXpEOThESXoxZUxrVktKOGsyZlFOZzhaS2h6a2dwaVEyakVVbTk0?=
+ =?utf-8?B?YytvQXI5UklLMStNVlpHTEdEL0w0MEFhZnBoeDBmU3JWZGFiN2NlN084d294?=
+ =?utf-8?B?VEMwRXp5QndwYU1ZYnFMcWFnVmUwKzZ4Q09sRjhUb2hwTEpIc0N6M054ZTU1?=
+ =?utf-8?B?VGo4OG10OXdFcUtZdWdHT0FSY0cvU0poTDk0cTFsV2RKeFVlRlhIYjVzeGxB?=
+ =?utf-8?B?bWRvNW1pY2F0STJqYlBCV1hIcXpDYkJaZFdmMmVPOTBjZ05nd09ZdXdIaFBO?=
+ =?utf-8?B?Y25rQ09iL01DR1prMWVqR2J5YVI5L3BQVVFnSGJtQjFRRk5QWlJMZHlmRko0?=
+ =?utf-8?B?ZmNsTTh0azUzaWpxZGF0V3htNjVycTJqQXBJVjRKN2s0VmRKZlFSZ0lrSzBU?=
+ =?utf-8?B?UHB1Q2h2TDY0ZU5EK2dBSmV4aVdsRlBobXQ4TXZmdjdmVTR0TEp1Q3VUTmlx?=
+ =?utf-8?B?cWloaXFwcWdEQ1k0WU0rV2JGcjFycy9mUGtjTzZzTmdxajg4aC9ZR1dPTSs2?=
+ =?utf-8?B?UXFRcnBzRVVoc2xPVjNrT2NCWFYzaGhZOVJ6WE5rSUlSUXhUbGhFeWIybnNS?=
+ =?utf-8?B?eFZyVWNUaTlPS2VhUUxBalgyaFAvQjdyc25laktFUHJnMzBGUXI1bWFockpq?=
+ =?utf-8?B?SWpLamorRXdiRUtrSXk3Z25VblhKWEtqTzdFZXJFanY5SmhyVm5sOG5UYlFs?=
+ =?utf-8?B?L3d6blF2YU9zUWtPNloxM2VsZU9TZCtNSU8wSDFNZEk0TXpRcWlWOHdud2Qx?=
+ =?utf-8?B?YWJhOTB2NmpzTmxhTUluWWxNcjdKSWd2Z0tvdnNZUzE3U25COTgyZmYySHRs?=
+ =?utf-8?B?MGtnU0JlNEFYQkFYZTYxTTA1VEZlZHJBOGYxanlmb0ZOaXQ0YU5TbzdybHA4?=
+ =?utf-8?B?UVhRaHNRMExTVnhueG85aFg0cmhnWjl6QUlDdW1uL3BNaVFnc2N1ZkxjbXA2?=
+ =?utf-8?B?U1JLTk1DSkpYekI5SitCc1Y2UWlzQ0twU1lyTUlHNEREYnJPRUhOY2FQbHdB?=
+ =?utf-8?B?VDlYUFMrWFpTVTlWd1VsdjBZLzZIdXdWdmc5ZFdzRStnV1NXM1Rtb0toNEQz?=
+ =?utf-8?B?UStrMytvUDI4eVNTTFpTeWRJMGNES1ZLeTBUbmNzU0dsYzdqTlpyN3VYeTh5?=
+ =?utf-8?B?Nno0b1pGTGtTZEMxWmhqSTl5dHpOVGhCWTM3NFYyNjFKY2FCbmNMUFV5elk5?=
+ =?utf-8?B?ZDFEZXRuQm9ad01jY2pPZmxmUEpjZ00xTmdKU1JuQkN1UThPZ1kyVXpMTmN4?=
+ =?utf-8?B?eVE9PQ==?=
 X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 414c7bbc-d66a-4505-28bc-08de32a8a681
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR03MB3577.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03e731b1-eb34-48b1-3850-08de329dec9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2025 18:58:19.4228
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 20:15:06.3896
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Awu9Yx+G2dkipPlp6EzNz1wQkaJMyKB46/zYEqiUZemNmUc+ScECLOVkRt9iOX0bX6DJgzYz7Mb6aQ87hw6ItXA34lD1MRPE2fwUece+c88=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB9353
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wwonww3ib2VCEbct/8vrIy+isGQzJnm6FHfA5TBRLPfkVlYH0Vpp6S3pgNi3/8U4ElEyrJ+JBsnkVoxfIIM9YdEvrSpTvycNwz+iPBjZgMk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9689
 
-Creating a dom0less guest with a high vCPU count (e.g., >32) fails
-because the fixed 4KiB device tree buffer (DOMU_DTB_SIZE) overflows
-during creation.
 
-The FDT nodes for each vCPU are the primary consumer of space,
-and the previous fixed-size buffer was insufficient.
 
-This patch replaces the fixed size with a formula that calculates
-the required buffer size based on a fixed baseline plus a scalable
-portion for each potential vCPU up to the MAX_VIRT_CPUS limit.
+On 03.12.25 20:58, Oleksandr Tyshchenko wrote:
+> Creating a dom0less guest with a high vCPU count (e.g., >32) fails
+> because the fixed 4KiB device tree buffer (DOMU_DTB_SIZE) overflows
+> during creation.
+> 
+> The FDT nodes for each vCPU are the primary consumer of space,
+> and the previous fixed-size buffer was insufficient.
+> 
+> This patch replaces the fixed size with a formula that calculates
+> the required buffer size based on a fixed baseline plus a scalable
+> portion for each potential vCPU up to the MAX_VIRT_CPUS limit.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> V1: https://patchew.org/Xen/20251202193246.3357821-1-oleksandr._5Ftyshchenko@epam.com/
+> 
+>    V2:
+>     - update commit subj/desc
+>     - use a formula that accounts MAX_VIRT_CPUS
+>     - add BUILD_BUG_ON
+> ---
+> ---
+>   xen/common/device-tree/dom0less-build.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index 3f5b987ed8..38a5830813 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -461,15 +461,25 @@ static int __init domain_handle_dtb_boot_module(struct domain *d,
+>   
+>   /*
+>    * The max size for DT is 2MB. However, the generated DT is small (not including
+> - * domU passthrough DT nodes whose size we account separately), 4KB are enough
+> - * for now, but we might have to increase it in the future.
+> + * domU passthrough DT nodes whose size we account separately). The size is
+> + * calculated from a fixed baseline plus a scalable portion for each potential
+> + * vCPU node up to the system limit (MAX_VIRT_CPUS), as the vCPU nodes are
+> + * the primary consumer of space.
+> + *
+> + * The baseline of 2KiB is a safe buffer for all non-vCPU FDT content.
+> + * Empirical testing with the maximum number of other device tree nodes shows
+> + * a final compacted base size of ~1.5KiB. The 128 bytes per vCPU is derived
+> + * from a worst-case analysis of the FDT construction-time size for a single
+> + * vCPU node.
+>    */
+> -#define DOMU_DTB_SIZE 4096
+> +#define DOMU_DTB_SIZE (2048 + (MAX_VIRT_CPUS * 128))
+>   static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>   {
+>       int addrcells, sizecells;
+>       int ret, fdt_size = DOMU_DTB_SIZE;
+>   
+> +    BUILD_BUG_ON(DOMU_DTB_SIZE > SZ_2M);
+> +
+>       kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+>   
+>   #ifdef CONFIG_GRANT_TABLE
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-V1: https://patchew.org/Xen/20251202193246.3357821-1-oleksandr._5Ftyshchenk=
-o@epam.com/
+Reviewed-by: Grygorii Strashko <grygorii_strashko@epam.com>
 
-  V2:
-   - update commit subj/desc
-   - use a formula that accounts MAX_VIRT_CPUS
-   - add BUILD_BUG_ON
----
----
- xen/common/device-tree/dom0less-build.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+-- 
+Best regards,
+-grygorii
 
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tr=
-ee/dom0less-build.c
-index 3f5b987ed8..38a5830813 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -461,15 +461,25 @@ static int __init domain_handle_dtb_boot_module(struc=
-t domain *d,
-=20
- /*
-  * The max size for DT is 2MB. However, the generated DT is small (not inc=
-luding
-- * domU passthrough DT nodes whose size we account separately), 4KB are en=
-ough
-- * for now, but we might have to increase it in the future.
-+ * domU passthrough DT nodes whose size we account separately). The size i=
-s
-+ * calculated from a fixed baseline plus a scalable portion for each poten=
-tial
-+ * vCPU node up to the system limit (MAX_VIRT_CPUS), as the vCPU nodes are
-+ * the primary consumer of space.
-+ *
-+ * The baseline of 2KiB is a safe buffer for all non-vCPU FDT content.
-+ * Empirical testing with the maximum number of other device tree nodes sh=
-ows
-+ * a final compacted base size of ~1.5KiB. The 128 bytes per vCPU is deriv=
-ed
-+ * from a worst-case analysis of the FDT construction-time size for a sing=
-le
-+ * vCPU node.
-  */
--#define DOMU_DTB_SIZE 4096
-+#define DOMU_DTB_SIZE (2048 + (MAX_VIRT_CPUS * 128))
- static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *k=
-info)
- {
-     int addrcells, sizecells;
-     int ret, fdt_size =3D DOMU_DTB_SIZE;
-=20
-+    BUILD_BUG_ON(DOMU_DTB_SIZE > SZ_2M);
-+
-     kinfo->phandle_intc =3D GUEST_PHANDLE_GIC;
-=20
- #ifdef CONFIG_GRANT_TABLE
---=20
-2.34.1
 
