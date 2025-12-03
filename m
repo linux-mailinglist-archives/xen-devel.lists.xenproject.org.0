@@ -2,33 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854BAC9F3F1
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 15:12:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176849.1501305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485CAC9F46E
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 15:24:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176870.1501331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQnac-0004rZ-Ne; Wed, 03 Dec 2025 14:12:18 +0000
+	id 1vQnli-0006zh-1A; Wed, 03 Dec 2025 14:23:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176849.1501305; Wed, 03 Dec 2025 14:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 1176870.1501331; Wed, 03 Dec 2025 14:23:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQnac-0004pu-Kv; Wed, 03 Dec 2025 14:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 1176849;
- Wed, 03 Dec 2025 14:12:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vQnlh-0006wk-U1; Wed, 03 Dec 2025 14:23:45 +0000
+Received: by outflank-mailman (input) for mailman id 1176870;
+ Wed, 03 Dec 2025 14:23:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4PLl=6J=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vQnaa-0004pn-Nm
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 14:12:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10c854da-d052-11f0-980a-7dc792cee155;
- Wed, 03 Dec 2025 15:12:13 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 57E014EEBE47;
- Wed,  3 Dec 2025 15:12:12 +0100 (CET)
+ <SRS0=PcFb=6J=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1vQnlf-0006we-UE
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 14:23:44 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab5b2d42-d053-11f0-9d1a-b5c5bf9af7f9;
+ Wed, 03 Dec 2025 15:23:42 +0100 (CET)
+Received: from AS8PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:20b:311::10)
+ by PAVPR08MB9083.eurprd08.prod.outlook.com (2603:10a6:102:325::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Wed, 3 Dec
+ 2025 14:23:37 +0000
+Received: from AMS0EPF00000196.eurprd05.prod.outlook.com
+ (2603:10a6:20b:311:cafe::3) by AS8PR05CA0005.outlook.office365.com
+ (2603:10a6:20b:311::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Wed,
+ 3 Dec 2025 14:23:33 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF00000196.mail.protection.outlook.com (10.167.16.217) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.8
+ via Frontend Transport; Wed, 3 Dec 2025 14:23:36 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
+ by PAXPR08MB7468.eurprd08.prod.outlook.com (2603:10a6:102:2b6::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Wed, 3 Dec
+ 2025 14:22:32 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::b27c:9593:1074:949d]) by PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::b27c:9593:1074:949d%4]) with mapi id 15.20.9388.003; Wed, 3 Dec 2025
+ 14:22:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,249 +61,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10c854da-d052-11f0-980a-7dc792cee155
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1764771132;
-	b=XxT/wl/yG7bewKr0OOgk6FCb9MSvQaCXcsK9Gcd4apkqlJ5EXfj8qqDRnk2QF9poZTaZ
-	 IAjoFfmZ7/GnVx0m/y61SOPHE+ic+pa5sjAzdQ0a5QJM7R+LBmnDs92U3Ll+SFm1FJeCD
-	 Cv9l0B1bC6EwszJIacgxlORoVz9NHieDw//ZsCqilCIIWssRjAudyR+oRghp0HQtQsVrz
-	 0vtnVr7UKAZ2sESh5HD2g1O46/j1rQQ59huA1Lltxc/MV6J6R1mfDG0MDPI877+DeOeX4
-	 cvt5HpD5flyhvbyDe7h5iTO/ZOMRlh/qgtc+FV0hn1zWPfcYC16vyIdoLqutsArYXMo2O
-	 Y621AqpAQCDd+Me+vWxveIxMur7XVf+F5oif4AmRs+en62i5YOR2p6/+2dGHdNbtAq/Wy
-	 IGIR4VllO4SKEHfZNgkzwNuMF4m+/DIDFmi+poC/+BcEVxDOLFZ34LPY6xdOKg435DQGK
-	 +u8B6KsF+Zm5f4qrxa+xXCUqQrREKd4BKkQmzUMVSY4D40eoh4Trtn7OTDYPaV6/fpY0d
-	 Gn030M64vn/pQzbcznN+bgBYVKc0Qb2CNZJ6Qyc+GVtu6lKo/SkQsIfNW0lKHoxMAhCWk
-	 yztqTRkIpw/zPr1JiLFdzyJbpB4ppB9qE+Ipals23syY6CuWsA5xLpNhwRH0g9A=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1764771132;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CsBBI8N+nh90r+GNkxKjJtlc4bAy0OVNevZauo3uL4g=;
-	b=0jXuCG/jJ0yvtUlQdzzlw/SwKxa/chgkeJDVRjPVorljAGsrfxhlRD4rntrF1l8qoWM0
-	 ciu3XShqECZPr7AhYHTppDjrqXn0WJNRdDa+Pu4qfVBEvQvKQTBqS3u23Tp4rQHpjGr2X
-	 rj5lSCenD84jb6xW7vYMv+Mk6++jd3Ppoz3ONx5cQTLlpxUacVVXBjY8/HyWzs0AIyjH+
-	 y5B1vHU/O9aXn6BdD3tu9uYQPZT1CmKvpCVHq12pOdCZywnRwFcSWIIW7zckw/FVbIuRW
-	 zqeydyR4NV3m6/x6kBU80Yz4hG87MIVYrmii2J9039Nfkdb7c3CVPDuT/FWCaxAq2ZXa9
-	 +i2SLZ+TAi+T84tbWjmGUOd7dWCnLd5QQ5wfqvtjvXpGdDyNFw7NILU/LywpJlz4hmMM7
-	 TIOmNMDJ31LgkEgsidAsxFAiFb6KUn7euny5KfG+7KnNpJS0HtrzTTTI7+KNGk8fRPwSk
-	 DCJbcx6QUYQnXgcq2AQ3cEHxDpeLccpIaBebHWhj5eUxX1Hytsb1dcfQ5AlAdATQDsUNJ
-	 jgYjH6DPxxpN493zotNNcW7pqU0RsAeuahyeitM3WfBasoqMKA0gtzHEuPIj5iBPVOeC4
-	 yk1B4no3RldbxxBBo+5TH2A9cvyUlYUPleQyqyBljU20XcNoh1HU+aEe0KSVDWE=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1764771132; bh=HTz3RO1SNx7+9wTF3fI9hRmX8TFSMz6k9E+UouvAduE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ZSDFDaPXgSCGpGY0Ecn00ILJcWgUxxmLYv+3cuUy4zSsL+RF7CS1YBAQYvQX4zvVm
-	 eLDMffH9fBvEZalUAXbI6rPxG1PZMHB9UKUcA9QZLiqdmJUvHdNlsTveAFkJFdDMiy
-	 jzu4XimewY09worKNGg60u2rCmfFifwrvE2/gVuKJvUOtZ2wmQqiovneuyyz+9Cqjb
-	 yhJkanCH3Hez9nz6wQKzhI6ri4aWeCJFATyZAzAeQ6J5bY8ouVZmHDBd2UmryPbSet
-	 lpk7eEPysp1CcUIaSnaOEkH3A1dlm5ygEsOPZ+V9qXT/ndnp8x0Mj7xTcpgVU+r7Cz
-	 dW+KPEDNh9vMQ==
+X-Inumbo-ID: ab5b2d42-d053-11f0-9d1a-b5c5bf9af7f9
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=ppwpAlkaf7geG4ca2ay2yIk/J7CDMrNJrX/z1cXKdODckP7WTd4FZ5E6txEX1v9B7EvaDa6DwTLfMz7h+ity9ny2JDqzTZzx+TDMLtzv5QN0EJD4yeWLh+n7J92u1LXDTyohXAtXu81frvQRldD25j8JIEb/PTksWo4KaAmiKHgSV3VurmrMUmMW616zA4473vUjN7Fa1Xv8KDj7B1WqF5q61iaPqAnxHR6EhnLm5zveE5cJHy8MkBHrgWaRARaeUM/i6EZvIVAZODl/XL1+nVB4Ee1znscIWMb/NNl9dxx+Ae7R6G6BPsX+gk9RJ48kbtVnw311CeiNfcUiEkeTeQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qAY2NJoKF6dhvdCIt7QIOTlfzvtsswO8KDntMLjoqbk=;
+ b=HdfM9a+bx6FkdwYlElDaPcFdMEaXe4ClGbKF2s0slavKS23PqhFif0Bz7blQMdMgEEcIGr0kWZTSRt4qb/DL7dvxiRujxaa62F3vTlmM+e8oQRDdMvN69a5TzR7P17CmrGvFHkLjkym5euNIptpl4eRUo8fWyctZPvDqfjJDz53cXy0lPfKnFJTxmH+89I0XUTmdqOgZyQZtCy5F4/f+xJh1mJKP0dAilICMPWX759QEnB8HjvzbqPXGM1y7Ofc3BjEV78o5SoAupMTtIgh582tiC3zYvsJ9uPSrlTNavIKOQiSOPbtZql2a8zQ2twJyeNjNFqHEKnZfvFIj3vOEZw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linaro.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qAY2NJoKF6dhvdCIt7QIOTlfzvtsswO8KDntMLjoqbk=;
+ b=ptjCh3AHmEAFf5DtSHA+7Ylo87T4SGTMlIxyRURwe8SZeEqOsAgxERNQZn8a8yhvwg2cZlwrDCzz+39HKubvLaqNtcpnAfu/f1hMOCvdYKkf6Sd117NaVeu20PBzFRnM0ytuWgpchjjjKaSItBT5/VaB1IoYQvWH5HhQvjM8xms=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MyUDAhHKhvYnABkmFt1v4TMrt030E/JppYflnZSbB7VKE+pFggCnGTTuJUJyvXO6z5I04xAbwULMH62uEOn/inmR5mu+erPGVOX+1Q3jxr0B4r3ci80jVX0k9jLQ3WPDIjkNripUKhPPWWA97t2yZSCbH3Rzcze8YoaWE4LoMompAC2vliP2hAhToEn41+0fdtLlKkk6ILaPyu9r5Uvk5+Oi8Zvx/NabpZrXgGY52gC8IJCk4pSkpVHxSuErE8KQp4sB2BNC/T/aq7Ds0VS8JvUAiMV8q7uResebUjpyZcbiwnvjKGzKNlOVOCntWOCQNvh6dpphfQD9p2V4RWCdYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qAY2NJoKF6dhvdCIt7QIOTlfzvtsswO8KDntMLjoqbk=;
+ b=y6iZbLEJVNIx3ppYKSo/gAymtI0n5D0cRjTcuEZVzlIR6CHgnfkyCj+lfzK0ru1SOGDyCxrAfb+snE/jr8m2s/3OVlSdw3Vi/NH3hSpEeS5QoqfkVZEikkx4jFdJ6O/0Y0p0V3KlKBrhkZyp2oIXXUYG439B2gaO07UF1IMtDMysjzBOMadywPCtatHG9TBf/KgrsAYXa767nIFAOcFCceOaYGSM0/Jj9jLCDurcnr28tLu8ZbeomRBCOBkLaWd9z+XrWGolLom75ifTsdHFP22IkflmXSlC6szsNDtzpzHWFrI/dSyi8t+QKKeSXDbbLpxxNp3Gk/fDs+4bsQPdlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qAY2NJoKF6dhvdCIt7QIOTlfzvtsswO8KDntMLjoqbk=;
+ b=ptjCh3AHmEAFf5DtSHA+7Ylo87T4SGTMlIxyRURwe8SZeEqOsAgxERNQZn8a8yhvwg2cZlwrDCzz+39HKubvLaqNtcpnAfu/f1hMOCvdYKkf6Sd117NaVeu20PBzFRnM0ytuWgpchjjjKaSItBT5/VaB1IoYQvWH5HhQvjM8xms=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel
+	<michal.orzel@amd.com>
+Subject: Re: [PATCH 07/10] xen/arm: ffa: refactor direct requests via RUN
+ helper
+Thread-Topic: [PATCH 07/10] xen/arm: ffa: refactor direct requests via RUN
+ helper
+Thread-Index: AQHcX7X0sGAu99JlG0eRwdEB2YckarUP+a4AgAAHX4A=
+Date: Wed, 3 Dec 2025 14:22:31 +0000
+Message-ID: <F68AA498-C239-486A-8C29-4AACC55B8B5E@arm.com>
+References: <cover.1764254975.git.bertrand.marquis@arm.com>
+ <b13dfa489f41d5b72a25f40d6e45d38ad1b93051.1764254975.git.bertrand.marquis@arm.com>
+ <CAHUa44EJdyBV0Uy9yY8xo7YuJPLfUM6v0RtfpRiEqUu=o1ig6g@mail.gmail.com>
+In-Reply-To:
+ <CAHUa44EJdyBV0Uy9yY8xo7YuJPLfUM6v0RtfpRiEqUu=o1ig6g@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3864.200.81.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	PR3PR08MB5593:EE_|PAXPR08MB7468:EE_|AMS0EPF00000196:EE_|PAVPR08MB9083:EE_
+X-MS-Office365-Filtering-Correlation-Id: 333a830e-a9ea-4c27-cbbe-08de32778c1e
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?utf-8?B?MDdtNkh2RWsvVldWcmtsb0sxVzZnb0hialpOWnpiR3FxR3JjRG9rSXRnbVFR?=
+ =?utf-8?B?aVI3U09iQjExeGVsTkxTdytlVUsrZUR4Y2hYQjhZWkk1NDdUdURNUHNEWjAx?=
+ =?utf-8?B?cjdtWVRmVEc0N0RDRVNQQWdnZXBxNnJIQ1I4OEs0eEtDRG1lQWxpeVcwZnNa?=
+ =?utf-8?B?Rkl1ZUZyL1hFQ2J0QXpyRGJUQXp3UlZodWxid2xvNlUzTTNkb3hNWTZSckdX?=
+ =?utf-8?B?SEZmczc2UzJJV1lvMEgxcjZqcSt6eVZNOGhVOXVKb3dpczBJNTVlWDN2elNC?=
+ =?utf-8?B?LzBRVUhST21XZ1RQN0pYRENZWGVaaktUMTFZYWs3Y0JQRmd4RkwyT2FSamJB?=
+ =?utf-8?B?dDBrV2Vxcm1MRnJ4RENXVVpVb1VIWm5YZUs3bW9hRjQ5aWIvT0NZL0RxMUtL?=
+ =?utf-8?B?enY3Q1d3VnJBMEpoVGFYeHZTOXF1Ylo4T25ubmx6czZwZVR6N1RIU1YrZ0d6?=
+ =?utf-8?B?NkJ3Sk1LcFJrTEhOa2dQU29QVWJDSzJqUitnbURZbnVYV1RlV3gyTUZnSnBu?=
+ =?utf-8?B?VGlPNXFNTk5qNWJnZkVaM25mODkyM055cU5oL2Z4ZkkwY3lTOE1HZGRYK2x4?=
+ =?utf-8?B?a0hTK3YxckVIRUVrV3RuOHlVNVdCdzY1eDAxZHdVN3BlczhGdDlPN1RlWUlF?=
+ =?utf-8?B?eVRMdFJPT2VpWElIL25ueExRWWRVQ1NiWXc0MVp0VmRJdEROako1R0tabmU5?=
+ =?utf-8?B?dEtBVFZvL3lucjJNbFZJYllGTWlHZVZjeGFHTUFZZ3B0eXBMTnk5aG5HclQv?=
+ =?utf-8?B?c2IwLytUcUdhNldjZUVXdmYxQ2JJcHVyemRTOWJ6a2s0aWdvNWNYSWd5THAz?=
+ =?utf-8?B?MnpwR0xuaDhwK2cvREJPaHpVd01PWnFHL1hjc3hNVTczV3UrdW9RWTkyVGdI?=
+ =?utf-8?B?cWVDcFhpaUNUZnRpYWc0RURUMDFCQmNvNVhXUlBLSEZaaFJCNUsrZXpPa1kz?=
+ =?utf-8?B?elFpVExJTXY2b2xmcm1DMHJHSGovU0Iyd0sxWithUE14cjBhalhnU1RIVTZL?=
+ =?utf-8?B?Q203SlRJNWN4L1RpdTlRaCsrVndhUmVrMnBaclpYN3p1WHF0VmROeENxaVg4?=
+ =?utf-8?B?VDl2ZHZQeEtJVGZIaWhKM3pLMHlmcC85a1FaRHNRRThTdjBxdm1MOC9IYys3?=
+ =?utf-8?B?dmV1R0RvTUJ4akk3cTBnV0JRSU9YNTFGY1dNc3R0RW90bmM4K1Q0NUlVZ0Ix?=
+ =?utf-8?B?RVY1M0F2QmpyMjlyK2tITmo1clhPZkFqNWZrQ1JuYmlLbmhTY2NiQVFMTkpZ?=
+ =?utf-8?B?R1Fhb3BoS1M5Q1c4UjZRdG9OK0VFQnd2a3B3RS8vSmVkaktXOVNRTS90NXJ5?=
+ =?utf-8?B?di9waVF5ejI3MVNFU2ZnaUR3bVc4UWdQRzZrWHpFRDdoUkl2Z1BCU0ZOZzM5?=
+ =?utf-8?B?TVQ1U2tHU1lCTWhFd0cyT0JaWlc0RnB2UzQzcUY5REFYU2hRdXdBNGp1OE8y?=
+ =?utf-8?B?OTgrNXZCRjBORFZxdWJ0eTRyN3QvbkpCSVBPbFg0YUhiNjdWZWVqczdKbnJQ?=
+ =?utf-8?B?V3VlbDUrOWJuK3A1MW1KbG93OG9WcllJRkRrSjBYK1dhRHZsSWdtUTBPZ3ZV?=
+ =?utf-8?B?UEc4eUl2eE1rWjF4T2VCMlNzYUJvWlhMQWQrOXZsTndFNkdyMlJuai9aRHJC?=
+ =?utf-8?B?TGg1Vkh0Y0ROVFdWemowdlZvdnJKVHBaOG1TSFVkNXhRcXprY2cvcnpRZk9W?=
+ =?utf-8?B?VlBObHp0WFBPZWswdS9CYSttd0dsMjFSUm52RGZZcnEzU3V6Q3c2dzhyVDhs?=
+ =?utf-8?B?Mk5zSnJZVDV3Y3B6Sm5ZZW0rbjV1enFiOXpvcklGQjBubThPeGVWbGxlQ29m?=
+ =?utf-8?B?ZWNya2xaaFFOU2MxV21aMjk3KzdFN0FQQ1l3eW1VbTlPek1oekNGVi96UDUx?=
+ =?utf-8?B?UCt6K1FMV3h1VHhDOEdzYUF2MHFvZkNFY2o0NDhGTnhOTVJNYmhhUE9nZ1Jy?=
+ =?utf-8?B?QlRpcmpPb3ZqWmdLYnFrUWJrN0RJRUxncWthNDUvUGRBNDhwSDhzQUp2U29R?=
+ =?utf-8?B?TWFjKzBUKzNXK3JZeVdabUFib2ZtbXhZZEdaMTFDWkdJQ3Ezb0lyTFpKUGpk?=
+ =?utf-8?Q?GgL3mZ?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FACCC811902C6A4CBE0D2ADF0B7A25C8@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Date: Wed, 03 Dec 2025 15:12:12 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [XEN][PATCH] common/libfdt: optimize usage
-In-Reply-To: <b71fad57-ca46-40f4-a210-5f95b441f01d@citrix.com>
-References: <20251114180130.346755-1-grygorii_strashko@epam.com>
- <b71fad57-ca46-40f4-a210-5f95b441f01d@citrix.com>
-Message-ID: <1a46ef266f8b00869e8a44cdd6117183@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7468
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF00000196.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	16ff5b3d-2a59-4fb5-e6f9-08de32776588
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|35042699022|36860700013|1800799024|376014|14060799003|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RGhPN3phWk5za0wvOU1xeWxjcHZhcFkvSUZnazdKUVA1RUFUcDNMMGUrTUxz?=
+ =?utf-8?B?Ylo3Q0R5UGYvbERkUEc3N0xoNW9jU0dpSDZJcGJFdEJveWEvOU5DRXNxY21a?=
+ =?utf-8?B?Sk00UVJVdUQ3QTVFeWFZUlNuK1ZIUURTdEJ0NFcrbnE5YVdPRlZ2cmZZYUxP?=
+ =?utf-8?B?SEpaR1RDcmxneVFYc3d1NFFYWk5XOU91a0pXdS9IcWNyQVNJbVNNaTkxZm9o?=
+ =?utf-8?B?RGQyOUc2dzdDOHgrUHMrb0kvTlNjanM3Y1oweVppR3Y2WE1YakN6c2g4VWJ4?=
+ =?utf-8?B?czVDOElpZUpNQThqU0ZBOWtUOHFJYUhZcUNJckVXVkRSaFJDNGZTT2c3VkFv?=
+ =?utf-8?B?bVdGYzQxTUNuQjJ2Y1lncUw5aWFtVnVvVmR1SmZhUFllbzJGZUw5WUlDUlpU?=
+ =?utf-8?B?dHJjYzJxNlB5dVU3c21ldG01bGlOd09NdWExcWZLUmZYZ0lOcG5pdnk2Vnho?=
+ =?utf-8?B?TXdCQzNZamxOZjV2T3ZMRndMRlRUaEV3MkkwT3p3MytKdXFnUWxLb1VVWWtP?=
+ =?utf-8?B?OUVxMmFsWU9ieTA3VzRxNlB5cmg1ZGdEZE5OV3Bidll6SUd0S3lGMVFJbWRL?=
+ =?utf-8?B?dUNrNDJUdG0xYXM3MzZlMjdHcG9OVkdCVDFnTXFlNEdBMHpsR01KVzE4Nkli?=
+ =?utf-8?B?YldmWnlEWHhSZjBhWjRBUGRjRW5tVUhTY0t6SmM0elV4TUVac05tbk11bW9w?=
+ =?utf-8?B?a2cyenl5b2g4bXRyRmFiUVk1Y3lNVDVTbGFTMEZMUThNL21pdGdMZzJVMXdr?=
+ =?utf-8?B?cUErcEdLQXZsZkpqRi9SMGRTNEdvekZzOUIyc2NsR0prRktnT3JMbmlnTEoy?=
+ =?utf-8?B?dkd1R3J6RnFtZ1V2LytUYUcycDEzMVl1UFFSK2xmZ040MTZCTVRiOXlFWHp5?=
+ =?utf-8?B?cWU2MTQxQWdrRGlxSEF6NWNLZDZ1SHZ4YTl4YmlrWWg5UmllWGJEaUlWd29y?=
+ =?utf-8?B?TGZmNzhYc3U4NFJPTGI0RkYybUcwV04xZzQ0SWhUd1d4QWN0OTlsR3pzQnFw?=
+ =?utf-8?B?QzFwRXFva2t5K1dhM0RJZ3FES29qZUZ6R2dodDFHSFNHK2N1M3l3TG45dG8z?=
+ =?utf-8?B?cWlQdEJyUVBCdjB4czlGYTJTem1XNDdSS1VXRXdyUEdYTkpGV2svMVNvVTV5?=
+ =?utf-8?B?T0Y1STVaMm5rT0ZyMXdGUTJBVFRPVldnY1Q4QjQ4QUlVNFp0ZHB0d1V3bTZN?=
+ =?utf-8?B?MU1RdFRidkwvUXI3QzNGT1JLbUNXOHBBaExDdnRQQXUxNTNyTUV4c0VXR29s?=
+ =?utf-8?B?eEdtQUR1NFJic2Z4S2Z5d3U3MUhwN2xKdStTd3lFVmU3cnpsVjQvcm14THJC?=
+ =?utf-8?B?OURrWHNTZkhJdm0vSlJQMHpQNnF6elJSZ2g4M3VERHB0Z3l3UmNUOWk1SEZ0?=
+ =?utf-8?B?dlhnOG9qaE5ZMGp6OERXemVmeWVzdjVXdDhJaXNUNjJnMkUyM09hUW15R05a?=
+ =?utf-8?B?MUxLNEtudWR5REJuMGNlVDQ2Rml6UExiZUt4U25id25JR3Y1TGFqTk5yMEpq?=
+ =?utf-8?B?aVp6V1g3cnNJRE1yMjZqR3BLTTN4Qjc1cGVjY1NhZXg4WmMxdkg2ODJDVHZY?=
+ =?utf-8?B?bzlPejR0WjUwWkhaWnFiYlh4LzJkcHZoTHhOSERLeHFycDhqUlpzR3NyYlpN?=
+ =?utf-8?B?cmF4Vm5KcVJVUFlURzJBZTZEOHFFYUsxTTRNcUlnck50RHNkVWZDdituazFW?=
+ =?utf-8?B?WmpoTHl1dXVQaVEzVi9QYTVpMEZKVjVHeEEydDNSS0ptUWxnRnBPZkVneXg5?=
+ =?utf-8?B?UGVWV0VVRy95MndwTjhZRUFva3F2Wm92VHNRTWZGSCtaWDgvMXZxcVl4cDgy?=
+ =?utf-8?B?Q2VZOXhsY2pQQUpDTlB0MnUrLytBajhhaWxHTFp0a3R3M1NaWkkxYk5wekk2?=
+ =?utf-8?B?OUk1WXM0ZzFHbGI1UG9kMUJPYzQzb0xFWHc4N0M0WWZ0MFV4bzRaWDdzSXJJ?=
+ =?utf-8?B?emNWSUJuWFVzaG9qeTQ4VkhSeVhOOWVqRytwYWxLM2lrN2V3RXVjNnlEZGFo?=
+ =?utf-8?B?d04vUTVFczFONk9uRmJSdEdObldHOG05VU9nYmd2NFlrZHNoSDFpVE5CVXBM?=
+ =?utf-8?B?NDhEa2VPV3ROdFpRYlBlb1c0TkJidFc2aDdCTVk4N1hNS0RaZ2dpTXZLaFkr?=
+ =?utf-8?Q?Ug64=3D?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(35042699022)(36860700013)(1800799024)(376014)(14060799003)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 14:23:36.5596
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 333a830e-a9ea-4c27-cbbe-08de32778c1e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF00000196.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9083
 
-On 2025-12-03 14:12, Andrew Cooper wrote:
-> On 14/11/2025 6:01 pm, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->> 
->> Now all libfdt features are built-it unconditionally, but...
->> 
->> X86: The libfdt is used on x86 only to parse Hyperlaunch/dom0less Xen
->> nodes, so full libfdt is not needed in this case and minimal, RO
->> configuration can be used.
->> 
->> ARM - situation is more complicated:
->> 1) ARM reads Host DT (fdt.c RO)
->> 2) ARM reads passthrough DT (RO)
->> 3) ARM generates dom0/hwdom DT from Host DT (there is a mix of WIP and 
->> SW APIs)
->> 4) ARM generates domU DT (there is a mix of WIP and SW APIs)
->> 4) With EFI enabled - ARM needs RW API and fdt_empty_tree
->> 5) With CONFIG_OVERLAY_DTB - ARM needs RW and fdt_overlay API
->> 
->> Hence, add possibility for optimizing libfdt usage by introducing 
->> separate
->> Kconfig options for each libfdt feature and select them where needed.
->> 
->> Following libfdt modules are not used after this change:
->>  Makefile.libfdt
->>  fdt_addresses.c
->>  fdt_strerror.c
->>  fdt_check.c
->> 
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->> ---
->> Not sure about using DOMAIN_BUILD_HELPERS for selecting
->> LIBFDT features, as DOMAIN_BUILD_HELPERS doesn't exactly
->> says that domain's DT will be generated when selected.
->> 
->>  xen/arch/arm/Kconfig       |  4 ++++
->>  xen/common/Kconfig         |  4 ++++
->>  xen/common/libfdt/Kconfig  | 14 ++++++++++++++
->>  xen/common/libfdt/Makefile | 12 +++++++++---
->>  4 files changed, 31 insertions(+), 3 deletions(-)
->>  create mode 100644 xen/common/libfdt/Kconfig
->> 
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index cf6af68299f6..f10cd3d7effc 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -111,6 +111,8 @@ config ARM_EFI
->>  	bool "UEFI boot service support"
->>  	depends on ARM_64 && !MPU
->>  	default y
->> +	select LIBFDT_RW
->> +	select LIBFDT_EMPTY_TREE
->>  	help
->>  	  This option provides support for boot services through
->>  	  UEFI firmware. A UEFI stub is provided to allow Xen to
->> @@ -149,6 +151,8 @@ config HAS_ITS
->>  config OVERLAY_DTB
->>  	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
->>  	depends on SYSCTL
->> +	select LIBFDT_RW
->> +	select LIBFDT_OVERLAY
->>  	help
->>  	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
->> 
->> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
->> index 401d5046f6f5..256aff269c3b 100644
->> --- a/xen/common/Kconfig
->> +++ b/xen/common/Kconfig
->> @@ -28,6 +28,8 @@ config DOM0LESS_BOOT
->> 
->>  config DOMAIN_BUILD_HELPERS
->>  	bool
->> +	select LIBFDT_WIP
->> +	select LIBFDT_SW
->> 
->>  config GRANT_TABLE
->>  	bool "Grant table support" if EXPERT
->> @@ -680,4 +682,6 @@ config PM_STATS
->>  	  Enable collection of performance management statistics to aid in
->>  	  analyzing and tuning power/performance characteristics of the 
->> system
->> 
->> +source "common/libfdt/Kconfig"
->> +
->>  endmenu
->> diff --git a/xen/common/libfdt/Kconfig b/xen/common/libfdt/Kconfig
->> new file mode 100644
->> index 000000000000..3abd904b2969
->> --- /dev/null
->> +++ b/xen/common/libfdt/Kconfig
->> @@ -0,0 +1,14 @@
->> +config LIBFDT_WIP
->> +	bool
->> +
->> +config LIBFDT_SW
->> +    bool
->> +
->> +config LIBFDT_RW
->> +    bool
->> +
->> +config LIBFDT_EMPTY_TREE
->> +    bool
->> +
->> +config LIBFDT_OVERLAY
->> +    bool
->> diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
->> index 6ce679f98f47..c832d1849a5c 100644
->> --- a/xen/common/libfdt/Makefile
->> +++ b/xen/common/libfdt/Makefile
->> @@ -1,7 +1,13 @@
->> -include $(src)/Makefile.libfdt
->> 
->>  SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
->> 
->> +obj-libfdt-y := fdt.o fdt_ro.o
->> +obj-libfdt-$(CONFIG_LIBFDT_WIP) += fdt_wip.o
->> +obj-libfdt-$(CONFIG_LIBFDT_SW) += fdt_sw.o
->> +obj-libfdt-$(CONFIG_LIBFDT_RW) += fdt_rw.o
->> +obj-libfdt-$(CONFIG_LIBFDT_EMPTY_TREE) += fdt_empty_tree.o
->> +obj-libfdt-$(CONFIG_LIBFDT_OVERLAY) += fdt_overlay.o
->> +
->>  # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed 
->> during runtime.
->>  ifneq ($(CONFIG_OVERLAY_DTB),y)
->>  OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section 
->> .$(s)=.init.$(s))
->> @@ -15,7 +21,7 @@ CFLAGS-y += -I$(srctree)/include/xen/libfdt/
->>  $(obj)/libfdt.o: $(obj)/libfdt-temp.o FORCE
->>  	$(call if_changed,objcopy)
->> 
->> -$(obj)/libfdt-temp.o: $(addprefix $(obj)/,$(LIBFDT_OBJS)) FORCE
->> +$(obj)/libfdt-temp.o: $(addprefix $(obj)/,$(obj-libfdt-y)) FORCE
->>  	$(call if_changed,ld)
->> 
->> -targets += libfdt-temp.o $(LIBFDT_OBJS)
->> +targets += libfdt-temp.o $(obj-libfdt-y)
-> 
-> Pulling together several aspects.
-> 
-> Now that we have xen/lib, library stuff should be in it, including this
-> libfdt.  I suggest moving it to xen/lib/fdt.
-> 
-> The build system problems are created by using non-standard rules to
-> bodge the init-ness.  For livepatches, we have `init_or_livepatch` as
-> friends to do conditional init-ness.  I'd suggest a similar approach 
-> here.
-> 
-> You might want a prompt-less CONFIG_LIBFDT_NONINIT which can be 
-> selected
-> by CONFIG_DTB_OVERLAY, because that's going to be better than trying to
-> make an implication directly about DTB_OVERLAY.
-> 
-> 
-> As to other issues hinted at:
-> 
-> * Init coverage.  The only reason we don't have init coverage is 
-> because
-> of the overly-restrictive SPECIAL_DATA_SECTIONS check, and while it
-> serves a purpose, it does a lot of harm too.  It should be disabled by
-> things like CONFIG_COVERAGE so that we can retrieve coverage of boot
-> time paths, and because data placement is not interesting for these
-> types of builds.
-> 
-> * -f{function,data}-sections and --gc-sections.  This gets dead
-> code/data elimination with better granularity than the translation 
-> unit,
-> and removes the need for interior ifdefary to achieve the same 
-> savings. 
-> We already have -f*-sections for livepatching, so this is really just
-> using --gc-sections and will probably net a good win in one fell swoop.
-> 
-> ~Andrew
-
-I didn't check, but moving libfdt code might entail doing some 
-replacements in ECLAIR deviations to keep guidelines clean, since there 
-are a few assumptions about paths there and in 
-"docs/misra/exclude-list.json", which is used also by ECLAIR.
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+SGkgSmVucywNCg0KPiBPbiAzIERlYyAyMDI1LCBhdCAxNDo1NSwgSmVucyBXaWtsYW5kZXIgPGpl
+bnMud2lrbGFuZGVyQGxpbmFyby5vcmc+IHdyb3RlOg0KPiANCj4gSGkgQmVydHJhbmQsDQo+IA0K
+PiBPbiBUaHUsIE5vdiAyNywgMjAyNSBhdCA0OjUz4oCvUE0gQmVydHJhbmQgTWFycXVpcw0KPiA8
+YmVydHJhbmQubWFycXVpc0Bhcm0uY29tPiB3cm90ZToNCj4+IA0KPj4gU2hhcmUgdGhlIFNNQ0ND
+IHBsdW1iaW5nIHVzZWQgYnkgU0VORF9ESVJFQ1QgYW5kIFJVTiB2aWEgYSBjb21tb24NCj4+IGZm
+YV9maW5pc2hfZGlyZWN0X3JlcV9ydW4oKSBoZWxwZXIgc28gY2Fub25pY2FsIHN1Y2Nlc3MgYW5k
+IGVycm9yIGNhc2VzDQo+PiBhcmUgaGFuZGxlZCBpbiBvbmUgcGxhY2UuDQo+PiANCj4+IFRoZSBk
+aXNwYXRjaGVyIG5vdyByb3V0ZXMgRkZBX1JVTiB0aHJvdWdoIGZmYV9oYW5kbGVfcnVuKCksIGFu
+ZCBkaXJlY3QNCj4+IHJlcXVlc3RzIGJhaWwgb3V0IGVhcmx5IGlmIGEgZ3Vlc3QgdGFyZ2V0cyBp
+dHNlbGYgb3IgYSBub24tc2VjdXJlDQo+PiBlbmRwb2ludC4gVGhpcyBzaW1wbGlmaWVzIHRoZSBk
+aXJlY3QgcGF0aCBhbmQgcHJlcGFyZXMgdGhlIG1lZGlhdG9yIGZvcg0KPj4gdGhlIHdpZGVyIHYx
+LjIgcmVnaXN0ZXIgQUJJLg0KPiANCj4gRnJvbSB0aGUgYWJvdmUsIGl0IHNvdW5kcyBsaWtlIEZG
+QV9SVU4gd2FzIGFscmVhZHkgc3VwcG9ydGVkLCBidXQgSQ0KPiBkb24ndCBzZWUgaG93Lg0KDQpZ
+ZXMgSXQgc2VlbXMgaSBmb3Jnb3QgdG8gcmV3b3JrIHRoZSBjb21taXQgbWVzc2FnZSB3aGVuIGkg
+cmV3b3JrDQp0aGUgc3BsaXQgaW4gbXkgc2VyaWUuDQoNCkkgd2lsbCB1cGRhdGUgdGhlIGNvbW1p
+dCBtZXNzYWdlIGluIG5leHQgdmVyc2lvbi4NCg0KPiANCj4+IA0KPj4gU2lnbmVkLW9mZi1ieTog
+QmVydHJhbmQgTWFycXVpcyA8YmVydHJhbmQubWFycXVpc0Bhcm0uY29tPg0KPj4gLS0tDQo+PiB4
+ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jICAgICAgICAgfCAgIDMgKw0KPj4geGVuL2FyY2gvYXJtL3Rl
+ZS9mZmFfbXNnLmMgICAgIHwgMTExICsrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQ0K
+Pj4geGVuL2FyY2gvYXJtL3RlZS9mZmFfcHJpdmF0ZS5oIHwgICAxICsNCj4+IDMgZmlsZXMgY2hh
+bmdlZCwgODQgaW5zZXJ0aW9ucygrKSwgMzEgZGVsZXRpb25zKC0pDQo+PiANCj4+IGRpZmYgLS1n
+aXQgYS94ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jIGIveGVuL2FyY2gvYXJtL3RlZS9mZmEuYw0KPj4g
+aW5kZXggNzM5MmJiNmMzZGI5Li45MmNiNmFkN2VjOTcgMTAwNjQ0DQo+PiAtLS0gYS94ZW4vYXJj
+aC9hcm0vdGVlL2ZmYS5jDQo+PiArKysgYi94ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jDQo+IA0KPiBG
+RkFfUlVOIHNob3VsZCBiZSByZW1vdmVkIGZyb20gdGhlIGxpc3Qgb2YgdW5zdXBwb3J0ZWQgRkYt
+QSBpbnRlcmZhY2VzDQo+IGNsb3NlIHRvIHRoZSB0b3Agb2YgdGhpcyBmaWxlLg0KDQpJbiBmYWN0
+IGkgZG8gdGhhdCBpbiB0aGUgbGFzdCBwYXRjaCBvZiB0aGUgc2VyaWUgd2l0aCBhZGRpbmcgc3Vw
+cG9ydCBmb3IgRkZBX1JVTg0KaW4gZmZhX2ZlYXR1cmVzIGJ1dCB0aGlzIGRvZXMgbm90IHJlYWxs
+eSBtYWtlIHNlbnNlIGFzIHRoaXMgaXMgbm90IGJvdW5kZWQgdG8gMS4yLg0KDQpJIHdpbGwgbW92
+ZSB0aG9zZSBmcm9tIHBhdGNoIDEwIGludG8gdGhpcyBvbmUgaW5zdGVhZCBpbiBuZXh0IHZlcnNp
+b24uDQoNCj4gDQo+IFRoZSByZXN0IGxvb2tzIGdvb2QuDQo+IA0KDQpUaGFua3MNCkNoZWVycw0K
+QmVydHJhbmQNCg0KDQo=
 
