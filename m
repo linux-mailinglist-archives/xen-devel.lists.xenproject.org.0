@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59836CA19D1
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 22:02:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177125.1501520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77832CA1A1C
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 22:10:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177136.1501531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQtzT-0006ij-2B; Wed, 03 Dec 2025 21:02:23 +0000
+	id 1vQu7U-0008MV-R2; Wed, 03 Dec 2025 21:10:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177125.1501520; Wed, 03 Dec 2025 21:02:23 +0000
+Received: by outflank-mailman (output) from mailman id 1177136.1501531; Wed, 03 Dec 2025 21:10:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQtzS-0006gg-VN; Wed, 03 Dec 2025 21:02:22 +0000
-Received: by outflank-mailman (input) for mailman id 1177125;
- Wed, 03 Dec 2025 21:02:21 +0000
+	id 1vQu7U-0008KG-OP; Wed, 03 Dec 2025 21:10:40 +0000
+Received: by outflank-mailman (input) for mailman id 1177136;
+ Wed, 03 Dec 2025 21:10:39 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vQtzR-0006gY-I3
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 21:02:21 +0000
+ (envelope-from <julien@xen.org>) id 1vQu7T-0008KA-Mf
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 21:10:39 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vQtzP-0050eK-1V;
- Wed, 03 Dec 2025 21:02:19 +0000
+ (envelope-from <julien@xen.org>) id 1vQu7T-0050oW-0W;
+ Wed, 03 Dec 2025 21:10:39 +0000
 Received: from [2a02:8012:3a1:0:a90a:e0da:b0b5:e466]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vQtzO-00BJ8I-2U;
- Wed, 03 Dec 2025 21:02:19 +0000
+ (envelope-from <julien@xen.org>) id 1vQu7S-00Bvm9-1f;
+ Wed, 03 Dec 2025 21:10:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,102 +42,102 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=gL/rt9eEmumR6Q2tJV1h556Vey9yXOCfpAxhha+N5Rc=; b=4byBcTb2PN/fYSEPX3PqLBQisP
-	HMwgGiR/z9+VPKDHEcE3lSZ92CNBSF4t9okl7/rST4troWJR7LOd11nVz2/3NoxLjNF/WdyfmJzRN
-	Z71dRnSQyuEebwgf5MRqONLMu8FWJuuYuXD0/l1lnyweqQcoW2VBcQXmo8kZyZSLic3k=;
-Message-ID: <9ddb8824-2d88-444e-819a-e46be4b406d1@xen.org>
-Date: Wed, 3 Dec 2025 21:02:16 +0000
+	bh=T2qSEDOYO4OtxDEa2Qs9O+9WMHizUhUsD/iN7ViM070=; b=OvOL5krpEnge2CffM9YYHJMIrX
+	bFwt3wiUS6gdrJHkYrnfGaB3lA0GD5uOBsRdh1PQAFCTxxo2Kq1O5hVx5gQ+cyZFUz07yRbDILmOd
+	GeI6MHZDDiIdAoOW5id1zBYKISV5Azgd9r1OM37r2KDhHc3obBva3yvsMeVZXr2ueJcc=;
+Message-ID: <6e83d3bc-c49c-49f4-9dbd-e994e53a62a7@xen.org>
+Date: Wed, 3 Dec 2025 21:10:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: Drop ThumbEE support
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Hans van Kranenburg <hans@knorrie.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH V2] xen/dom0less: Calculate guest DTB size based on
+ MAX_VIRT_CPUS
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <JBeulich@suse.com>,
- Maximilian Engelhardt <maxi@daemonizer.de>
-References: <20251203171608.1714964-1-andrew.cooper3@citrix.com>
- <f081cd84-a626-4b02-8c8b-6c0c0b723b84@xen.org>
- <875a6a6c-f81f-449e-bd57-7e720d07e8a2@citrix.com>
+ Michal Orzel <michal.orzel@amd.com>
+References: <20251203185817.3722903-1-oleksandr_tyshchenko@epam.com>
 Content-Language: en-US
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <875a6a6c-f81f-449e-bd57-7e720d07e8a2@citrix.com>
+In-Reply-To: <20251203185817.3722903-1-oleksandr_tyshchenko@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+Hi,
 
-On 03/12/2025 18:49, Andrew Cooper wrote:
-> On 03/12/2025 6:23 pm, Julien Grall wrote:
->> Hi Andrew,
->>
->> On 03/12/2025 17:16, Andrew Cooper wrote:
->>> to keep it working, but there was apparently no use of ThumbEE
->>> outside of demo
->>> code, so simply drop it.
->>
->> I am in favor of dropping support for ThumbEE for guest. But I am not
->> sure I understand this comment.
+On 03/12/2025 18:58, Oleksandr Tyshchenko wrote:
+> Creating a dom0less guest with a high vCPU count (e.g., >32) fails
+> because the fixed 4KiB device tree buffer (DOMU_DTB_SIZE) overflows
+> during creation.
 > 
-> There's no production use of ThumbEE known to ARM.
-
-Interesting. The Arm Arm is less assertive and in fact confusing, the 
-latest spec released in 2018 (ARM DDI 0406C.d) has the following:
-
-"
- From the publication of issue C.a of this manual, ARM deprecates any 
-use of the ThumbEE instruction set.
-
-[...]
-
-ThumbEE is both the name of the instruction set and the name of the 
-extension that provides support for that
-instruction set. The ThumbEE Extension is:
-• Required in implementations of the ARMv7-A profile.
-"
-
-I have also checked the TRM of the Cortex-A15 (one of the Armv7 CPU we 
-used to have in the CI before gitlab) and it supports ThumbEE. So I 
-think we need to additional diff you sent in this patch.
-
+> The FDT nodes for each vCPU are the primary consumer of space,
+> and the previous fixed-size buffer was insufficient.
 > 
->> Are you saying there are no processors supporting ThumbEE where Xen
->> would run? Asking because below, you are removing code to context
->> switch the ThumbEE registers. But I don't see any code that would
->> ensure the registers are trapping (i.e. HSTR.TEE is set). So wouldn't
->> this result to a cross-VM leak on those processors?
->>
->> If we really don't want to support CPU where ThumbEE is available,
->> then we should check that "cpu_has_thumbee" is 0.
+> This patch replaces the fixed size with a formula that calculates
+> the required buffer size based on a fixed baseline plus a scalable
+> portion for each potential vCPU up to the MAX_VIRT_CPUS limit.
 > 
-> The registers exist in ARM v7 only.  They do not exist in ARM v8.
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> V1: https://patchew.org/Xen/20251202193246.3357821-1-oleksandr._5Ftyshchenko@epam.com/
 > 
-> I suppose yes this change would result in a cross-VM leak on hardware
-> supporting ThumbEE.
+>    V2:
+>     - update commit subj/desc
+>     - use a formula that accounts MAX_VIRT_CPUS
+>     - add BUILD_BUG_ON
+> ---
+> ---
+>   xen/common/device-tree/dom0less-build.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
 > 
-> Can HSTR.TTEE be set unilaterally, or does it need gating on
-> cpu_has_thumbee?
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index 3f5b987ed8..38a5830813 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -461,15 +461,25 @@ static int __init domain_handle_dtb_boot_module(struct domain *d,
+>   
+>   /*
+>    * The max size for DT is 2MB. However, the generated DT is small (not including
+> - * domU passthrough DT nodes whose size we account separately), 4KB are enough
+> - * for now, but we might have to increase it in the future.
+> + * domU passthrough DT nodes whose size we account separately). The size is
+> + * calculated from a fixed baseline plus a scalable portion for each potential
+> + * vCPU node up to the system limit (MAX_VIRT_CPUS), as the vCPU nodes are
+> + * the primary consumer of space.
+> + *
+> + * The baseline of 2KiB is a safe buffer for all non-vCPU FDT content.
 
- From my understanding of the Armv7 specification, the bit doesn't need 
-to be gated. The Armv8 specification suggest it is RES0 so in theory it 
-could be used in the future. So the diff you sent is correct.
+What if the use decides to pass a DTB fragment? How do we know this will 
+fit in the 2KiB?
 
-> 
-> Is setting HSTR.TTEE sufficient to cause an undefined instruction
-> exception to be thrown back at a guest which goes poking?  (I guess this
-> is really "will the default do the right thing")
+> + * Empirical testing with the maximum number of other device tree nodes shows
+> + * a final compacted base size of ~1.5KiB. The 128 bytes per vCPU is derived
+> + * from a worst-case analysis of the FDT construction-time size for a single
+> + * vCPU node.
 
-I believe so. The default behavior in Xen is to inject an undefined 
-exception if it can't handle a trap.
+For in-code documentation, this is ok to just provide some numbers. But 
+this needs a bit more details in the commit message with the exact tests 
+you did. This would be helpful if we ever need to change the size (for 
+instance we could have extra emulated devices or we need another 
+property per CPU).
 
-> 
-> I'll freely admit that I'm out of my depth here, but the build failure
-> does need fixing.
+>    */
+> -#define DOMU_DTB_SIZE 4096
+> +#define DOMU_DTB_SIZE (2048 + (MAX_VIRT_CPUS * 128))
 
-I agree. Do we need to include the fix in 4.19 (I think Jan asked to cut 
-it tomorrow)? Thanks for sending the patch!
+On Arm32, MAX_VIRT_CPUS is 8. This means the new DOMU_DTB_SIZE is going 
+to be smaller than 4096. Why is it ok?
+
+>   static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>   {
+>       int addrcells, sizecells;
+>       int ret, fdt_size = DOMU_DTB_SIZE;
+>   
+> +    BUILD_BUG_ON(DOMU_DTB_SIZE > SZ_2M);
+> +
+>       kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+>   
+>   #ifdef CONFIG_GRANT_TABLE
 
 Cheers,
 
