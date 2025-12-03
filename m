@@ -2,40 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 483B8C9FCF8
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 17:07:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1176912.1501361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA240C9FDEF
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Dec 2025 17:17:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1176922.1501371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQpNj-00047K-P4; Wed, 03 Dec 2025 16:07:07 +0000
+	id 1vQpX9-0005nk-MB; Wed, 03 Dec 2025 16:16:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1176912.1501361; Wed, 03 Dec 2025 16:07:07 +0000
+Received: by outflank-mailman (output) from mailman id 1176922.1501371; Wed, 03 Dec 2025 16:16:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vQpNj-00044c-Lg; Wed, 03 Dec 2025 16:07:07 +0000
-Received: by outflank-mailman (input) for mailman id 1176912;
- Wed, 03 Dec 2025 16:07:06 +0000
+	id 1vQpX9-0005lO-J4; Wed, 03 Dec 2025 16:16:51 +0000
+Received: by outflank-mailman (input) for mailman id 1176922;
+ Wed, 03 Dec 2025 16:10:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oy6P=6J=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1vQpNi-00044W-Fm
- for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 16:07:06 +0000
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c111::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1aeeafe6-d062-11f0-980a-7dc792cee155;
- Wed, 03 Dec 2025 17:07:03 +0100 (CET)
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
- by BLAPR03MB5604.namprd03.prod.outlook.com (2603:10b6:208:29a::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Wed, 3 Dec
- 2025 16:06:58 +0000
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::c0cd:bcd1:5235:66f0]) by BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::c0cd:bcd1:5235:66f0%7]) with mapi id 15.20.9366.012; Wed, 3 Dec 2025
- 16:06:58 +0000
+ <SRS0=ik/O=6J=linux.ibm.com=venkat88@srs-se1.protection.inumbo.net>)
+ id 1vQpQu-0005ZS-A0
+ for xen-devel@lists.xenproject.org; Wed, 03 Dec 2025 16:10:24 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 90961ea8-d062-11f0-980a-7dc792cee155;
+ Wed, 03 Dec 2025 17:10:21 +0100 (CET)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5B3CO5ib017680;
+ Wed, 3 Dec 2025 16:09:15 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4aqrh73qnt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Dec 2025 16:09:15 +0000 (GMT)
+Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5B3G6PaS010932;
+ Wed, 3 Dec 2025 16:09:14 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4aqrh73qnm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Dec 2025 16:09:14 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5B3E9LMX021504;
+ Wed, 3 Dec 2025 16:09:13 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4at8c6c5et-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Dec 2025 16:09:13 +0000
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com
+ [10.241.53.105])
+ by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5B3G9B5859572634
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 3 Dec 2025 16:09:11 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7232D5805E;
+ Wed,  3 Dec 2025 16:09:11 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2DA365805D;
+ Wed,  3 Dec 2025 16:09:00 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.61.245.178])
+ by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+ Wed,  3 Dec 2025 16:08:59 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +73,390 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aeeafe6-d062-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vo7bGGq71+Lpw5gyBCe78cOUb0WVmC5ffMN9MZwp0YYYl7TE1I9grROW/oI8OIOy49zAlp8vSUdfwrqwZjk0/PD4fvlzh5ivmYjqOZtzfrpH2mcYejlyLtVmvA8DiygGpvKMJ5PMsy8holqGGmEKObPH9zZcmOOe6occ+bURsHmT5uVzCtjdmANLIcSPIrdpV1Mx3agrHYBHaWozXtk1Gfp7Ix3xnb3aMRuVXqFl8HVjNoIzEBI4V+uLdoqsElWcbYe3aP+6X0M0N3lKhYSBkAVKwx6nplO4iRJH3SYBPafjrFXJjrnZ4o6R8iL2unVZonWD6qvuV275q5FLoGYKUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=REWVNpdysv7KaSa1XUg6pNxY7LrRMxapyE56yZ5LTjY=;
- b=fC4lp4SJ63LG63w2rSL5+n/zHA9YFrlqKCy6k8A6SAZhhPwnx236f7Qx5wZ0YoZVRdq4VF4GjzZEeyjdj+pyo+xrOXI0jZE4hQD+kD55x3eKjWyma9L200Hdn6EdzzteOFcO2rD7bzzZqYVk6szG3Ji3YEzo4t0Kf6YktdSdvbVbIOHfC+fDeSo5byNmOi4E29pM4PQ92MVDQ27O3U0useZWS6yMHAZQkDSOX87H3Z/jR+qyuMMVKO84VfV1N1nnWgZdKu2aXkshCGFk+EDSUGXgm3pbFBBaiYJIQDTnwfPoI4KmGYjxrLPQDIfA16F4nYncRhuh/eAiHrNIlCi3bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=REWVNpdysv7KaSa1XUg6pNxY7LrRMxapyE56yZ5LTjY=;
- b=tiFLwO6kEHe1eSWZ8QL2FmtHD/rZWM3DbetfgeDIfZTALu4iZKlUyP2PQi0Gwvvy/k/QFePtqptD8xjLGsNliEsZrPORU1B4NZEspiZ9NiiNE77clp02Oqrp83qMCKTWzbGPUG6XryqxE/taexBb0s7G2aIJz+3UGOtwnRmD1Aw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Kevin Lampis <kevin.lampis@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH] x86: Limit the non-architectural constant TSC model checks
-Date: Wed,  3 Dec 2025 16:06:18 +0000
-Message-ID: <20251203160618.91883-1-kevin.lampis@citrix.com>
-X-Mailer: git-send-email 2.51.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0460.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1aa::15) To BY1PR03MB7996.namprd03.prod.outlook.com
- (2603:10b6:a03:5b2::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|BLAPR03MB5604:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd79498c-2a9c-4b23-d971-08de3285fc70
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Y+xJ0b7DoCdU/AFDuav8NOo1jFWNfwDL0Jo9jiddCuGDzwAa6Dt6k679Mzk8?=
- =?us-ascii?Q?/M1cZAaUkAm9fqOQDhkdwOAHHZHwYkd2evdMJn6mQ4yYKoFebgoUXp+4IFwW?=
- =?us-ascii?Q?03v5TKLAU5DDLL9LJKS+P8aLO1Y9lP3VrkP1dTMgAiFrVe+VNqW3Ta6Yu+z1?=
- =?us-ascii?Q?hw93tkvOySxcWoiWWxiqdQfiEhc+BTZoG1B6kfBicZCLHo6fjUMGGrmrDnYX?=
- =?us-ascii?Q?0Yof2lzdJfVxgV+6P3qZ4RpiAIl5DSVz8uTtRGwLJfYnXD4G/y/j6aS0C8tn?=
- =?us-ascii?Q?jdIHA7YmBw028BUkcQku4/JX7vE/ZyAkveRzYZQYRm7FleXe9Nepyb/fj7+Y?=
- =?us-ascii?Q?zGZgNPdBVwEYgApPHJ7bzxnr3e19wqeHvUKVix6ILMZQR9lZYyDbhJc1qHF+?=
- =?us-ascii?Q?0CQ9KfeDMrX32UGOJpDWJ/TwqgFLSbpJZZS1Cln3Z6zCaKYlTfBH8AdfjiUP?=
- =?us-ascii?Q?znhYZ3xF/G9SUJstmH7fySvwqYKFF67qlMCt1FJj2QmEbHWKbUmG4U87kQHW?=
- =?us-ascii?Q?tZ2R3HDQAePyW16FeOt/wasTtcS/KpC9Y1xjNoGLwqG7uPKyl/l8I/OzZxHz?=
- =?us-ascii?Q?4bxOvzFGeqQZqSekFAJyMH17OfG2oXGxe0iyuKi+6aDWxbjIp+cBium1vS6U?=
- =?us-ascii?Q?hmywV8p52tDJJ/2xuwWWC9q7c3l541XqvBJIh6/tX0UInFTXnsjgIsIfx1QI?=
- =?us-ascii?Q?zGvHBzK4aV3niByKTw+rFYCMEDDU9zHnV3TiF6j8tlIAVEf3mTM0VcZdizK0?=
- =?us-ascii?Q?z7rnjRz4QX+pqqwmA6uAg2rReaf7KLt1ruQUAOWItGD5N1CVaXDY6ojESEpT?=
- =?us-ascii?Q?Arw5foIyBwl2qj+hG31npB4uVxUDzULxUTUTCIJ9gc2vAbJRItUyMAJbSFq+?=
- =?us-ascii?Q?rhSCad99DAPVRH87DYwZNlN5kMr+BRgRN7QeD/b2NhvAWb9r1XuIkOT5Ka2N?=
- =?us-ascii?Q?U21iNDPDSsPaylXht3d8YmMp8HOeyuhJR335FuzMfeIGCUMcHrZIGeuKiqE9?=
- =?us-ascii?Q?uaNRhJZeQPHAklirQKxARcZvT6MsE7On+wvU8mKPVgr9QhozN85o+ox4xLYp?=
- =?us-ascii?Q?57cZzqhA2TVSYZrtSzJwdTp7THFdqq/KsbDxC2mk6rkjZrgdKJtPJJlUiu0M?=
- =?us-ascii?Q?aoxCg6HXV+MpmgJa5vZTe7LsadBvu3Hjuxsr+0ANNZ9XGyLTmHoF0UezgOX7?=
- =?us-ascii?Q?BPJvn6hUHTtc+pd2Lf27ptqk7iKtGaxhel3g/Qkwn1tRqliHGaso3B/8hhlK?=
- =?us-ascii?Q?DSI6GpQEar7g71b+ncAIp2P1nTs1fd6ulLwMlElaoXFToy8LSovs4xSF+FmY?=
- =?us-ascii?Q?bUMEg/syioENb48+lN4ds9mk2dNBFPezeRFoCUWT1vQg2LX3RDq9oVCJxKy3?=
- =?us-ascii?Q?jaCUgczRnjrHfuZOFdVe4aRwR7TUyb2miylewQ1eTxHG/7cBqt0YYkFFjHvX?=
- =?us-ascii?Q?VFEhzmkXnzmlkE1Js4BCKYtgqCEA91OH?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3MdXFPYYQiM1UOmj634wXHHt3TsI5geazdKg+GGNZCUTfJZrdh4SEfUtpQ0Z?=
- =?us-ascii?Q?XnQDojfZtKXkLsUT7Uy6VBg2zy6iAj3UPg6KxlD40I3mVoRXkXhiwkNFsKY0?=
- =?us-ascii?Q?VCmNyxaJP2FVPDtim9H5Fp4QPB/f5i/xICogflyeoA4AT7A2fPg3TvcLm9Gf?=
- =?us-ascii?Q?yRwjadhtPjHxnyt/LXO0pLQAUn52++Nri5xHRYfMOY/xx/rUhHTyAlb0FjjW?=
- =?us-ascii?Q?9yUUbanobF/vS9bVad55gDcBbdewCnyqGE+UR2UaPlXoeXhPGXK8UU5Xy4bS?=
- =?us-ascii?Q?PV3yVAJZEYnarKFC+rgglNb4+5yXVmtFBvyQgJCZqXDOj0FHnzwxBe+8zJ9+?=
- =?us-ascii?Q?G2KfwSe5itlYgCc879uNNSwpAm5QAxr0gUHA+uil6RpReLLY7tQr1v68C8nm?=
- =?us-ascii?Q?bF5DF1cZid7uxeIqJ/L+NPOXBZAyzm5D9nIWzN34ym7+S21XnXP2JBFaIcfG?=
- =?us-ascii?Q?smy1MzENAvpNERhnZ0nCoHxWgDrLX/eFJtEplPrJCvc+T+hTl17EjaVPl1sl?=
- =?us-ascii?Q?LVbXrOOAKKRx8OA6eCmMlGVRAdQgbHQ0IRAyQ5un69yBlz2gHLcxl2qGKSxB?=
- =?us-ascii?Q?IeVWzjiVVS6hB6h1B7efZWslP0SnvLFqXyqSWghbyXrdNUmaqDCt6Z6RqNUb?=
- =?us-ascii?Q?HjWE03JWxChTO8JAM+8KKzWXk+MNMHM+SKq0rZpv3CVY7rsIatuclMMYo0VU?=
- =?us-ascii?Q?fAZIPaSuMX+AQ4EgmtIQhU35IAQbrgjko5i7ZHOhyLHCgtbZ++mUqh5MfStg?=
- =?us-ascii?Q?m02p4lofUD4FdLWRvTF4LZskqKP+gpUcTQeaJ5H2wyq0orhZoMf2Aul7VkEQ?=
- =?us-ascii?Q?qMu2X9Z6RHcILZhhSZkos35mjrUs6Yh87VWMZo3cZ2C9hTeABBhfmkVFl8Fl?=
- =?us-ascii?Q?LGYlRpFxIXrK3Knvr0x5Q8uXBiUdUUXNWmKr/XC3e6mSmCr6O3+p+Ah0zFOr?=
- =?us-ascii?Q?H2JuK0/F2xScCcmgsJMgmwoWtr07AoWl+B7GqnEzPYcNyvk3NPNtmbzev5T7?=
- =?us-ascii?Q?5BAlI2BM7wfCeiyWm6HHHx/8QPTqjSDj3r1UUeVHRAEtAHm9qFj83l5k+SjS?=
- =?us-ascii?Q?DNXKPO8cqSS6Zs3vRU9T7LLg8l9G3ORm3y7xQaCsgbKp9ecoHeMIAQBlAXxE?=
- =?us-ascii?Q?pFQcZilU3PmxY12O/l9k382JM2DbDekvApgsk0Gghz75T0SIFiuJ/WkCRNEC?=
- =?us-ascii?Q?W6RcCR30lQyhnsiBGmucV/PcXx3J3tOzSJKLEgbgArKaGmSZ+CtrDZv7SBHR?=
- =?us-ascii?Q?pa1cuZhrsMw36kOagGKA4ZR2CH0NEtT91QTX1p90pz0Uj/azc7QI1VpeBUSb?=
- =?us-ascii?Q?PWZoAvPOWZ1DjQI2r/qDpEtdH04asfK37InJEtPiANUG7inUyVV6dhj/dq+i?=
- =?us-ascii?Q?V6IwZTiVX6AR4ywnRhFLOZbdZ3YgYs59eOw735JZpfPKgoB5m18cZiSkVBml?=
- =?us-ascii?Q?gOVi8SzOEsip5vBXDkEWia0nPDv6N8QQnu/0EYFJEgka1b4VYci2Idu5CCDT?=
- =?us-ascii?Q?fk7d0EBY8+eeKn6nqLlMUgNPh56sEFHnRm4A5bLeYDWMfozwjPJQ1vcBrRXQ?=
- =?us-ascii?Q?c1gtEKTNKYwfd+E6RF21ujCMumFJsxZ4UC797WA6rvgU6IwKyUFcBMgYPpCk?=
- =?us-ascii?Q?Ag=3D=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd79498c-2a9c-4b23-d971-08de3285fc70
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 16:06:58.1328
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: INmB+HEQd9SftCHTINFg6NOx+uE94mfJevsrfS5O3IgmMDvCqIqoir7lnvq3LjXEwMEJzyKsqPUxaVZ82I+cbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5604
+X-Inumbo-ID: 90961ea8-d062-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=jXScAL
+	ikZ30hQ2GZgvAK3QYxrVSr7/W2SKCyOSYy+M8=; b=OzAaPrJ9niAlz8YUabjc2c
+	D2rDIzen8I5c7OyZYxx2URHyV2XunQ2MUcgBaoNzneCJqJaoH45EyqRiZgfDjB+/
+	veCs0WNuB+IbYJeej2GoS0RN8J1IpA0hi2OgqVMfSotjONRPs+k2RuSnMpFy8HHN
+	uiAleHpdwlEsdAtRS2pAUCQ172+p/m8QMwvQAm9OmQg8jrxQBSxTCS49GJQDM/hd
+	YaiXShCl1Wyn3/gTBPTCgGV783dZ+t3yx4e2oTF2YM1ZjRt408LJ08mvqP4uL2wh
+	+BFiORtd4IG/QtGj3cFZ2h8ZbcqM1iCSyZ+Ofzu8c0xTKmsr/4136UJDD7xjesdw
+	==
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH v5 00/12] Nesting support for lazy MMU mode
+From: Venkat <venkat88@linux.ibm.com>
+In-Reply-To: <20251124132228.622678-1-kevin.brodsky@arm.com>
+Date: Wed, 3 Dec 2025 21:38:46 +0530
+Cc: linux-mm@kvack.org, LKML <linux-kernel@vger.kernel.org>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Larsson <andreas@gaisler.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        David Woodhouse <dwmw2@infradead.org>,
+        "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+        Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Ryan Roberts <ryan.roberts@arm.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Vlastimil Babka <vbabka@suse.cz>,
+        Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>,
+        linux-arm-kernel@lists.infradead.org,
+        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        x86@kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <94889730-1AEF-458F-B623-04092C0D6819@linux.ibm.com>
+References: <20251124132228.622678-1-kevin.brodsky@arm.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=dK+rWeZb c=1 sm=1 tr=0 ts=693060ab cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=20KFwNOVAAAA:8 a=NEAV23lmAAAA:8
+ a=VnNF1IyMAAAA:8 a=ebG-ZW-8AAAA:8 a=Z4Rwk6OoAAAA:8 a=yPCof4ZbAAAA:8
+ a=1UX6Do5GAAAA:8 a=QyXUC8HyAAAA:8 a=J1Y8HTJGAAAA:8 a=JfrnYn6hAAAA:8
+ a=oGMlB6cnAAAA:8 a=1XWaLZrsAAAA:8 a=iox4zFpeAAAA:8 a=pGLkceISAAAA:8
+ a=voM4FWlXAAAA:8 a=cWRNjhkoAAAA:8 a=FiMq9w3UmxbX_X-K2aIA:9 a=QEXdDO2ut3YA:10
+ a=a-qgeE7W1pNrGK8U0ZQC:22 a=Bj2TwAA_C77lQ_X2_dkp:22 a=HkZW87K1Qel5hWWM3VKY:22
+ a=Et2XPkok5AAZYJIKzHr1:22 a=y1Q9-5lHfBjTkpIzbSAN:22 a=1CNFftbPRP8L7MoqJWF3:22
+ a=NdAtdrkLVvyUPsUoGJp4:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=IC2XNlieTeVoXbcui8wp:22
+ a=sVa6W5Aao32NNC1mekxh:22
+X-Proofpoint-GUID: 793QMPZ1KY-blGu-SBEcqhhoUxKTBTPT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI5MDAyMCBTYWx0ZWRfX0Y2RJ6pY6f9G
+ m7cnnUyc3HVayFdbJ8Y4k6LXm7VoMHSKC06j1sstdK8iRNOp43h8/5lXlJzRyMFMOkegM/YL0t7
+ uHv9SIDvRWXY/EKqqrIimWlBZRLSRAgOBF4gk2Xot87tbYXsiVnaukxT1saJqjqQ0r0bPe10fQw
+ ebRokn+rP5Dr6S57DFJViOyBvzPSu7nMhQXml2iQlGg8l7boxqiMcoTdjYFnse6EYftUPjxeWZe
+ MGmnOFTxzjWPZDmm/bKQ+e3L/l/GwpDCojvQuL7j2d5Yz5YuziA0XIkWiBZW3RPXY32AZclnmqt
+ wPoca86vF4yKC81xjojgszJzuCIvZcNgdX7sNhM04AVP6ms5j1l2VO43joUDFPf3weZ3oFA5u7V
+ hBuOHcByMOvgTlotD8Cjz6ve04L0kw==
+X-Proofpoint-ORIG-GUID: -W-wtyUpyFvwADIN6iXaZYxBgTf_cVPF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-03_02,2025-11-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
+ bulkscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510240000
+ definitions=main-2511290020
 
-There are some older Intel CPUs which have CONSTANT_TSC behavior but
-don't advertise it through CPUID. This change replaces the previous
-open-ended check with a definitive range to make it clear that this only
-applies to a specific set of CPUs and that later CPUs like Family 18+
-won't need to be included.
 
-Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
----
- xen/arch/x86/cpu/intel.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 2bb9956a79..1c37179bc5 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -673,15 +673,15 @@ static void cf_check init_intel(struct cpuinfo_x86 *c)
- 	/* Work around errata */
- 	Intel_errata_workarounds(c);
- 
--	if ( ( c->family == 15 && c->model >= 0x03 ) ||
--	     ( c->family == 6 && c->model >= 0x0e ) )
--		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
--
-+	/* Use a model specific check for some older CPUs that have
-+	 * constant TSC but may not report it via CPUID. */
- 	if (cpu_has(c, X86_FEATURE_ITSC)) {
- 		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
- 		__set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
- 		__set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
--	}
-+	} else if ( ( c->vfm >= INTEL_P4_PRESCOTT && c->vfm <= INTEL_P4_CEDARMILL ) ||
-+	            ( c->vfm >= INTEL_CORE_YONAH && c->vfm <= INTEL_IVYBRIDGE ) )
-+		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
- 
- 	if ( opt_arat &&
- 	     ( c->cpuid_level >= 0x00000006 ) &&
--- 
-2.51.1
+> On 24 Nov 2025, at 6:52=E2=80=AFPM, Kevin Brodsky =
+<kevin.brodsky@arm.com> wrote:
+>=20
+> When the lazy MMU mode was introduced eons ago, it wasn't made clear
+> whether such a sequence was legal:
+>=20
+> arch_enter_lazy_mmu_mode()
+> ...
+> arch_enter_lazy_mmu_mode()
+> ...
+> arch_leave_lazy_mmu_mode()
+> ...
+> arch_leave_lazy_mmu_mode()
+>=20
+> It seems fair to say that nested calls to
+> arch_{enter,leave}_lazy_mmu_mode() were not expected, and most
+> architectures never explicitly supported it.
+>=20
+> Nesting does in fact occur in certain configurations, and avoiding it
+> has proved difficult. This series therefore enables lazy_mmu sections =
+to
+> nest, on all architectures.
+>=20
+> Nesting is handled using a counter in task_struct (patch 8), like =
+other
+> stateless APIs such as pagefault_{disable,enable}(). This is fully
+> handled in a new generic layer in <linux/pgtable.h>; the arch_* API
+> remains unchanged. A new pair of calls, =
+lazy_mmu_mode_{pause,resume}(),
+> is also introduced to allow functions that are called with the lazy =
+MMU
+> mode enabled to temporarily pause it, regardless of nesting.
+>=20
+> An arch now opts in to using the lazy MMU mode by selecting
+> CONFIG_ARCH_LAZY_MMU; this is more appropriate now that we have a
+> generic API, especially with state conditionally added to task_struct.
+>=20
+> ---
+>=20
+> Background: Ryan Roberts' series from March [1] attempted to prevent
+> nesting from ever occurring, and mostly succeeded. Unfortunately, a
+> corner case (DEBUG_PAGEALLOC) may still cause nesting to occur on =
+arm64.
+> Ryan proposed [2] to address that corner case at the generic level but
+> this approach received pushback; [3] then attempted to solve the issue
+> on arm64 only, but it was deemed too fragile.
+>=20
+> It feels generally difficult to guarantee that lazy_mmu sections don't
+> nest, because callers of various standard mm functions do not know if
+> the function uses lazy_mmu itself.
+>=20
+> The overall approach in v3/v4 is very close to what David Hildenbrand
+> proposed on v2 [4].
+>=20
+> Unlike in v1/v2, no special provision is made for architectures to
+> save/restore extra state when entering/leaving the mode. Based on the
+> discussions so far, this does not seem to be required - an arch can
+> store any relevant state in thread_struct during arch_enter() and
+> restore it in arch_leave(). Nesting is not a concern as these =
+functions
+> are only called at the top level, not in nested sections.
+>=20
+> The introduction of a generic layer, and tracking of the lazy MMU =
+state
+> in task_struct, also allows to streamline the arch callbacks - this
+> series removes 67 lines from arch/.
+>=20
+> Patch overview:
+>=20
+> * Patch 1: cleanup - avoids having to deal with the powerpc
+>  context-switching code
+>=20
+> * Patch 2-4: prepare arch_flush_lazy_mmu_mode() to be called from the
+>  generic layer (patch 8)
+>=20
+> * Patch 5-6: new API + CONFIG_ARCH_LAZY_MMU
+>=20
+> * Patch 7: ensure correctness in interrupt context
+>=20
+> * Patch 8: nesting support
+>=20
+> * Patch 9-12: replace arch-specific tracking of lazy MMU mode with
+>  generic API
+>=20
+> This series has been tested by running the mm kselftests on arm64 with
+> DEBUG_VM, DEBUG_PAGEALLOC, KFENCE and KASAN. It was also build-tested =
+on
+> other architectures (with and without XEN_PV on x86).
+>=20
+> - Kevin
+>=20
+> [1] =
+https://lore.kernel.org/all/20250303141542.3371656-1-ryan.roberts@arm.com/=
+
+> [2] =
+https://lore.kernel.org/all/20250530140446.2387131-1-ryan.roberts@arm.com/=
+
+> [3] =
+https://lore.kernel.org/all/20250606135654.178300-1-ryan.roberts@arm.com/
+> [4] =
+https://lore.kernel.org/all/ef343405-c394-4763-a79f-21381f217b6c@redhat.co=
+m/
+> ---
+> Changelog
+>=20
+> v4..v5:
+>=20
+> - Rebased on mm-unstable
+> - Patch 3: added missing radix_enabled() check in arch_flush()
+>  [Ritesh Harjani]
+> - Patch 6: declare arch_flush_lazy_mmu_mode() as static inline on x86
+>  [Ryan Roberts]
+> - Patch 7 (formerly 12): moved before patch 8 to ensure correctness in
+>  interrupt context [Ryan]. The diffs in in_lazy_mmu_mode() and
+>  queue_pte_barriers() are moved to patch 8 and 9 resp.
+> - Patch 8:
+>  * Removed all restrictions regarding lazy_mmu_mode_{pause,resume}().
+>    They may now be called even when lazy MMU isn't enabled, and
+>    any call to lazy_mmu_mode_* may be made while paused (such calls
+>    will be ignored). [David, Ryan]
+>  * lazy_mmu_state.{nesting_level,active} are replaced with
+>    {enable_count,pause_count} to track arbitrary nesting of both
+>    enable/disable and pause/resume [Ryan]
+>  * Added __task_lazy_mmu_mode_active() for use in patch 12 [David]
+>  * Added documentation for all the functions [Ryan]
+> - Patch 9: keep existing test + set TIF_LAZY_MMU_PENDING instead of
+>  atomic RMW [David, Ryan]
+> - Patch 12: use __task_lazy_mmu_mode_active() instead of accessing
+>  lazy_mmu_state directly [David]
+> - Collected R-b/A-b tags
+>=20
+> v4: =
+https://lore.kernel.org/all/20251029100909.3381140-1-kevin.brodsky@arm.com=
+/
+>=20
+> v3..v4:
+>=20
+> - Patch 2: restored ordering of preempt_{disable,enable}() [Dave =
+Hansen]
+> - Patch 5 onwards: s/ARCH_LAZY_MMU/ARCH_HAS_LAZY_MMU_MODE/ [Mike =
+Rapoport]
+> - Patch 7: renamed lazy_mmu_state members, removed VM_BUG_ON(),
+>  reordered writes to lazy_mmu_state members [David Hildenbrand]
+> - Dropped patch 13 as it doesn't seem justified [David H]
+> - Various improvements to commit messages [David H]
+>=20
+> v3: =
+https://lore.kernel.org/all/20251015082727.2395128-1-kevin.brodsky@arm.com=
+/
+>=20
+> v2..v3:
+>=20
+> - Full rewrite; dropped all Acked-by/Reviewed-by.
+> - Rebased on v6.18-rc1.
+>=20
+> v2: =
+https://lore.kernel.org/all/20250908073931.4159362-1-kevin.brodsky@arm.com=
+/
+>=20
+> v1..v2:
+> - Rebased on mm-unstable.
+> - Patch 2: handled new calls to enter()/leave(), clarified how the =
+"flush"
+>  pattern (leave() followed by enter()) is handled.
+> - Patch 5,6: removed unnecessary local variable [Alexander Gordeev's
+>  suggestion].
+> - Added Mike Rapoport's Acked-by.
+>=20
+> v1: =
+https://lore.kernel.org/all/20250904125736.3918646-1-kevin.brodsky@arm.com=
+/
+> ---
+> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> Cc: Andreas Larsson <andreas@gaisler.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: David Woodhouse <dwmw2@infradead.org>
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Jann Horn <jannh@google.com>
+> Cc: Juergen Gross <jgross@suse.com>
+> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+> Cc: Michael Ellerman <mpe@ellerman.id.au>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Nicholas Piggin <npiggin@gmail.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yeoreum Yun <yeoreum.yun@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linuxppc-dev@lists.ozlabs.org
+> Cc: sparclinux@vger.kernel.org
+> Cc: xen-devel@lists.xenproject.org
+> Cc: x86@kernel.org
+> ---
+> Alexander Gordeev (1):
+>  powerpc/64s: Do not re-activate batched TLB flush
+>=20
+> Kevin Brodsky (11):
+>  x86/xen: simplify flush_lazy_mmu()
+>  powerpc/mm: implement arch_flush_lazy_mmu_mode()
+>  sparc/mm: implement arch_flush_lazy_mmu_mode()
+>  mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
+>  mm: introduce generic lazy_mmu helpers
+>  mm: bail out of lazy_mmu_mode_* in interrupt context
+>  mm: enable lazy_mmu sections to nest
+>  arm64: mm: replace TIF_LAZY_MMU with in_lazy_mmu_mode()
+>  powerpc/mm: replace batch->active with in_lazy_mmu_mode()
+>  sparc/mm: replace batch->active with in_lazy_mmu_mode()
+>  x86/xen: use lazy_mmu_state when context-switching
+>=20
+> arch/arm64/Kconfig                            |   1 +
+> arch/arm64/include/asm/pgtable.h              |  41 +----
+> arch/arm64/include/asm/thread_info.h          |   3 +-
+> arch/arm64/mm/mmu.c                           |   4 +-
+> arch/arm64/mm/pageattr.c                      |   4 +-
+> .../include/asm/book3s/64/tlbflush-hash.h     |  20 ++-
+> arch/powerpc/include/asm/thread_info.h        |   2 -
+> arch/powerpc/kernel/process.c                 |  25 ---
+> arch/powerpc/mm/book3s64/hash_tlb.c           |  10 +-
+> arch/powerpc/mm/book3s64/subpage_prot.c       |   4 +-
+> arch/powerpc/platforms/Kconfig.cputype        |   1 +
+> arch/sparc/Kconfig                            |   1 +
+> arch/sparc/include/asm/tlbflush_64.h          |   5 +-
+> arch/sparc/mm/tlb.c                           |  14 +-
+> arch/x86/Kconfig                              |   1 +
+> arch/x86/boot/compressed/misc.h               |   1 +
+> arch/x86/boot/startup/sme.c                   |   1 +
+> arch/x86/include/asm/paravirt.h               |   1 -
+> arch/x86/include/asm/pgtable.h                |   1 +
+> arch/x86/include/asm/thread_info.h            |   4 +-
+> arch/x86/xen/enlighten_pv.c                   |   3 +-
+> arch/x86/xen/mmu_pv.c                         |   6 +-
+> fs/proc/task_mmu.c                            |   4 +-
+> include/linux/mm_types_task.h                 |   5 +
+> include/linux/pgtable.h                       | 147 +++++++++++++++++-
+> include/linux/sched.h                         |  45 ++++++
+> mm/Kconfig                                    |   3 +
+> mm/kasan/shadow.c                             |   8 +-
+> mm/madvise.c                                  |  18 +--
+> mm/memory.c                                   |  16 +-
+> mm/migrate_device.c                           |   8 +-
+> mm/mprotect.c                                 |   4 +-
+> mm/mremap.c                                   |   4 +-
+> mm/userfaultfd.c                              |   4 +-
+> mm/vmalloc.c                                  |  12 +-
+> mm/vmscan.c                                   |  12 +-
+> 36 files changed, 282 insertions(+), 161 deletions(-)
+
+Tested this patch series by applying on top of mm-unstable, on both HASH =
+and RADIX MMU, and all tests are passed on both MMU=E2=80=99s.
+
+Ran: cache_shape, copyloops, mm from linux source, selftests/powerpc/ =
+and ran memory-hotplug from selftests/. Also ran below tests from =
+avocado misc-test repo.
+
+Link to repo: =
+https://github.com/avocado-framework-tests/avocado-misc-tests
+
+avocado-misc-tests/memory/stutter.py
+avocado-misc-tests/memory/eatmemory.py
+avocado-misc-tests/memory/hugepage_sanity.py
+avocado-misc-tests/memory/fork_mem.py
+avocado-misc-tests/memory/memory_api.py
+avocado-misc-tests/memory/mprotect.py
+avocado-misc-tests/memory/vatest.py =
+avocado-misc-tests/memory/vatest.py.data/vatest.yaml
+avocado-misc-tests/memory/transparent_hugepages.py
+avocado-misc-tests/memory/transparent_hugepages_swapping.py
+avocado-misc-tests/memory/transparent_hugepages_defrag.py
+avocado-misc-tests/memory/ksm_poison.py
+
+If its good enough, please add below tag for PowerPC changes.
+
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+Regards,
+Venkat.
+>=20
+>=20
+> base-commit: 1f1edd95f9231ba58a1e535b10200cb1eeaf1f67
+> --=20
+> 2.51.2
+>=20
 
 
