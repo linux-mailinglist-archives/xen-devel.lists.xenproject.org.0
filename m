@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E7ACA300A
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 10:32:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177444.1501720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4013BCA3082
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 10:38:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177455.1501730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vR5gr-00038v-68; Thu, 04 Dec 2025 09:31:57 +0000
+	id 1vR5mt-0003ko-P2; Thu, 04 Dec 2025 09:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177444.1501720; Thu, 04 Dec 2025 09:31:57 +0000
+Received: by outflank-mailman (output) from mailman id 1177455.1501730; Thu, 04 Dec 2025 09:38:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vR5gr-00036U-3J; Thu, 04 Dec 2025 09:31:57 +0000
-Received: by outflank-mailman (input) for mailman id 1177444;
- Thu, 04 Dec 2025 09:31:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jX19=6K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vR5gq-000359-37
- for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 09:31:56 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1234a07b-d0f4-11f0-9d1a-b5c5bf9af7f9;
- Thu, 04 Dec 2025 10:31:54 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so5790585e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Dec 2025 01:31:54 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479310b8e70sm20908175e9.5.2025.12.04.01.31.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 01:31:53 -0800 (PST)
+	id 1vR5mt-0003jE-MI; Thu, 04 Dec 2025 09:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 1177455;
+ Thu, 04 Dec 2025 09:38:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SyTI=6K=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vR5ms-0003j8-2u
+ for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 09:38:10 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id efedf93d-d0f4-11f0-980a-7dc792cee155;
+ Thu, 04 Dec 2025 10:38:07 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-42e2e2eccd2so531529f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Dec 2025 01:38:06 -0800 (PST)
+Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
+ [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42f7d352a52sm2222690f8f.38.2025.12.04.01.38.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Dec 2025 01:38:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1234a07b-d0f4-11f0-9d1a-b5c5bf9af7f9
+X-Inumbo-ID: efedf93d-d0f4-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764840714; x=1765445514; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=up1sLWmb1tJsYJEmq1cqZ3IzyimJLi4b3TqXUWc5gU8=;
-        b=DC6a3Ah8PdN7YvrJI3guU8vdm+gTCCebz4GSenIak2KlOUXAu2ZbKB6REo8REiSCjW
-         6FNx+QurU/jkiewFioVZanNDIPnakL9rJZEIZMj6E3VJGDbs7i3cQiUCpyARQ9uX+gdV
-         JThdy6tZY4QlbhMl+CCbn7ic3f8LJdeFF9+uvxFAeavFTFoxX+v+bTmZmEPZcBOslo6g
-         a9LxFzq987fITBRufCmQpGG5Dlf0L7P6GjaNlcTaG2LqS7hwvWjq8eBTJdg9WXtdMuBx
-         0F7p3hrhKMqAG3EFOcRFUTFh850qAzYVbtcu0mXpWvd98xl8IdkG7psWsoJ83I3Qu8tU
-         ciFA==
+        d=citrix.com; s=google; t=1764841085; x=1765445885; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2W2GSKBzu5ItheZNWHIKOToGLaI2QT0J35dhvTXXxhI=;
+        b=Vv/kIpGrxPukHGH2DOewiicJzElZZ0p/9L/17QUEE/butpcd+2ns2aJidlqv48meMm
+         mfAwvDnB84j8YOIRbcNjvcoG1hOmfEwXIN9UuataNIhoYpV28RW1hu/YomlwWeHcqY3u
+         +LE2iO3X1tWiI1ZNGhOMnTxNCKr1nAPbtqwqQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764840714; x=1765445514;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1764841085; x=1765445885;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=up1sLWmb1tJsYJEmq1cqZ3IzyimJLi4b3TqXUWc5gU8=;
-        b=m9fm+EfBS/ysAUglQOYkSYnLN2OQv4bJ6w1UmQTPrgLp9Dn86Tg4F8gRJXOAxSfzPe
-         X4+juInidp09ETSm0ETW+2nOPGcSQyfvKvrtqqDPXTEk4OWmnrSrz02+PeGCqWFudF67
-         9ztLBmT3qpoZJJYatyHsgYiS21hzsyUZKJfFydQf0GLKf3whJZoNRW281A9pHAQBeWhT
-         ZO0Z9BXEudBBwxbfndhAI/c9D7fxygNca6lLMhaYw8rDBYHV8VZpVZ3H9TePsmc63xzp
-         2F0A0reZiZebo+QMORk+TiTC0zGnOVIYQV5N57upWWSPyyUcOq2hpR1onGGsphajU0TZ
-         bnJg==
-X-Forwarded-Encrypted: i=1; AJvYcCVudJeXshTIY4ugR3ZzNe16j9fLLleH6LjQSS1zDjhA5lBrFA/NWJHyLRl/xi1lxPiHuftjYLoHsgM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFoSvPSHEbkJdeT5qdjQwLRWMz2DM2o9utuNQS4LbdMg3dAqec
-	tzLCxQ9J7ZNCJuliMUaQ5Cmsh0uNwApQLIcZVsWC8/YLSR2+Kiflg4tHicu0NBXz1A==
-X-Gm-Gg: ASbGncvjyNUgg/rka6cZDd1CnboWiTkVif0Bc06IQsxbPZ2BKbj9ZQ/JJyS5RYSHk3A
-	8Xa9d3iygk5l5dGfEXqLovw97FMhMFvqxtRzqbnYZ0uSv8BivC7F15pOraqkGLu/BvJoMKVp2Gv
-	xwZaPwdQ9vsC1IUm2OCtcnU4r7pfcF3yKXlp/BptVhJ1Bxz6qwD3uOzsewOdGet49qXqj2TNpqu
-	kAfFQW2uXqV6PFABBbhi1Js+Vh6ruZAcXuXXTLBcnjom9yMcUy8ksGEFaOyhfZi52l88CaFln3S
-	53A4g7DSI3AGdhgMgSKTXo0a4OinztfMvThKBvMQ8FqLTGC7NNavl0eRW3vXeKkfuWYKsSxdN2S
-	hsRLspPYZDCGkYadKinERtXDr/qxUPoi6g/75h++yYQYR9qRcCdNY2JTMMlNi7yDDgBbRFxIeaK
-	nrWQksp174dg+wbCqFI3P3iDqE9Isw6QbjiwCMtJm+K4dUI4P5anahJnXdGvbKBb7AS6GTssdv4
-	m/NfZaobPjS3A==
-X-Google-Smtp-Source: AGHT+IGMEJ+DkqONC/SsjB+n9852gKmHwppncMIjTU+mL43JOZDv3YRKFT8Y1I7a3NHzoeK6q4OKAw==
-X-Received: by 2002:a05:600c:4706:b0:477:8ba7:fe17 with SMTP id 5b1f17b1804b1-4792f244c3bmr23145455e9.7.1764840713990;
-        Thu, 04 Dec 2025 01:31:53 -0800 (PST)
-Message-ID: <835cd913-d280-4c99-af0d-80fcaf23db76@suse.com>
-Date: Thu, 4 Dec 2025 10:31:52 +0100
+        bh=2W2GSKBzu5ItheZNWHIKOToGLaI2QT0J35dhvTXXxhI=;
+        b=AiZE9G8saG9VciU/17oULO/2jQze15yhRYG1z2UgCARYjFsTe82OhGsWbeQJfGQeTF
+         93IGM/YRRDo0LLukM/q8o9rBs+D0wppogOYo49HQyXYSZKD+uSXV8KG0UUZ/9extW/AO
+         ws9oqlQk7SRGB592aKNx67hRlMtOF7++ntKE/7o00jTNG9JkjNQfGYviM54YkyuMvx5b
+         +dUrzaKCPqhLlnLQfI5enBr1W+AyJjDnlhAMyNanje5fguN+vtTAAj7+Hk8NQN5jF9cb
+         ER+fcV8tbWYhpnNi6WfyeuipYG2nymGLgtZxFYTAwwcmRtz3RfDl3cURyk725RqSiFWY
+         EWzg==
+X-Gm-Message-State: AOJu0YyGtn95LYo7NHZQ7kRbMN9VlRzlUzUADyb0N6VYYZ5ft4AVqdnx
+	OGdATpLNAU6IolrxgzvjQ8nwoQxX32l5JNLjmydgri3t+v2mxfKjEMH/Qr0xE2PFKXIgHtsWpEq
+	7R+O8
+X-Gm-Gg: ASbGncv+0m8gzwmstMDBH/rj03bSaYumJeeIRUgRdwZbVOHvCjKQPUGoBW5HMoVe01j
+	hEpHhTSTDJPvhEsg1HW2wvTn4nvDoCi1hVTvKzetMoqSDXbh7OMgGcjKGP6mFVLMogEQ1t0sZjG
+	ONi5NvzeTztdYSFuvnNvQmpAEBjowlKzvGx/8l+lh71lgtGb+AIDmM01NT28YyqrAApiIFo8UrZ
+	V8iax61K7WIUBgBHzTuIA8LIVrqnXXvIAGvUU4Y4WrwjDVZhilx7lwsUP2OhsnRQfb+KdlrPhR8
+	4In/nbutfUuDzjuZW7Aijcw6/z3h7oQJFKVBuNC9KMASUpURkGPsUrQvaMNA2QltRPzhDmSMJrv
+	3vRBV3Tw2YnuYp5pBUvFQjgSjLuwJh8jhOYOu5PTNgwmcGj8f2AaE4xZ/TL+KMfwllxGuIz7qqM
+	GPm+/bUHbvfzhgWJXQf00nO9U6tv3naiW+gMrqjdAQ6j7Weuy1kssHLaojP5cIVA==
+X-Google-Smtp-Source: AGHT+IGcuaX9aD3thK7GGoXvmVbhWYzUjT7LqAOvLJqh6ZJxXQQrjIL0OwOjsQzaJhB83QmjvAjjVQ==
+X-Received: by 2002:a05:6000:420a:b0:42b:3680:3567 with SMTP id ffacd0b85a97d-42f73172b34mr5580069f8f.18.1764841085501;
+        Thu, 04 Dec 2025 01:38:05 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Hans van Kranenburg <hans@knorrie.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Maximilian Engelhardt <maxi@daemonizer.de>
+Subject: [PATCH v2] ARM: Drop ThumbEE support
+Date: Thu,  4 Dec 2025 09:38:02 +0000
+Message-Id: <20251204093802.1717792-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: Drop ThumbEE support
-To: Julien Grall <julien@xen.org>
-Cc: Hans van Kranenburg <hans@knorrie.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Maximilian Engelhardt <maxi@daemonizer.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251203171608.1714964-1-andrew.cooper3@citrix.com>
- <f081cd84-a626-4b02-8c8b-6c0c0b723b84@xen.org>
- <875a6a6c-f81f-449e-bd57-7e720d07e8a2@citrix.com>
- <9ddb8824-2d88-444e-819a-e46be4b406d1@xen.org>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9ddb8824-2d88-444e-819a-e46be4b406d1@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.12.2025 22:02, Julien Grall wrote:
-> I agree. Do we need to include the fix in 4.19 (I think Jan asked to cut 
-> it tomorrow)? Thanks for sending the patch!
+It was reported that Xen no longer builds on Debian unstable/sid.
 
-Too late for 4.19.4 now, but 4.19.5 can still get it once ready.
+  Assembler messages:
+  {standard input}:474: Error: unknown or missing system register name at operand 1 -- `msr TEECR32_EL1,x0'
+  {standard input}:480: Error: unknown or missing system register name at operand 1 -- `msr TEEHBR32_EL1,x0'
+  {standard input}:488: Error: unknown or missing system register name at operand 2 -- `mrs x0,TEECR32_EL1'
+  {standard input}:494: Error: unknown or missing system register name at operand 2 -- `mrs x0,TEEHBR32_EL1'
+  make[5]: *** [Rules.mk:249: arch/arm/domain.o] Error 1
 
-Jan
+This turns out to be an intentional change in binutils.  ThumbEE was dropped
+ahead of ARM v8 (i.e. AArch64).
+
+Xen supports ARM v7+virt extensions so in principle we could #ifdef
+CONFIG_ARM_32 to keep it working.  However, there was apparently no use of
+ThumbEE outside of demo code, so simply drop it.
+
+On ThumbEE capable hardware, unconditionally trap ThumbEE instructions, and
+drop the context switching logic for TEE{CR,HBR}32.
+
+Reported-by: Hans van Kranenburg <hans@knorrie.org>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Hans van Kranenburg <hans@knorrie.org>
+CC: Maximilian Engelhardt <maxi@daemonizer.de>
+
+v2:
+ * Trap ThumbEE
+ * s/Trixie/Sid/ in the commit message
+
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2195763116
+
+Bintuils link:
+https://sourceware.org/git/?p=binutils-gdb.git;a=commitdiff;h=8c0024ca8f6c01fc45f081f5ef11c9a6a1c24eb0
+---
+ xen/arch/arm/domain.c                | 12 ------------
+ xen/arch/arm/include/asm/domain.h    |  1 -
+ xen/arch/arm/include/asm/processor.h |  1 +
+ xen/arch/arm/traps.c                 |  4 ++--
+ 4 files changed, 3 insertions(+), 15 deletions(-)
+
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index ab7844433597..3e32a15cac7a 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -111,12 +111,6 @@ static void ctxt_switch_from(struct vcpu *p)
+     p->arch.cntkctl = READ_SYSREG(CNTKCTL_EL1);
+     virt_timer_save(p);
+ 
+-    if ( is_32bit_domain(p->domain) && cpu_has_thumbee )
+-    {
+-        p->arch.teecr = READ_SYSREG(TEECR32_EL1);
+-        p->arch.teehbr = READ_SYSREG(TEEHBR32_EL1);
+-    }
+-
+ #ifdef CONFIG_ARM_32
+     p->arch.joscr = READ_CP32(JOSCR);
+     p->arch.jmcr = READ_CP32(JMCR);
+@@ -244,12 +238,6 @@ static void ctxt_switch_to(struct vcpu *n)
+     WRITE_SYSREG(n->arch.tpidrro_el0, TPIDRRO_EL0);
+     WRITE_SYSREG(n->arch.tpidr_el1, TPIDR_EL1);
+ 
+-    if ( is_32bit_domain(n->domain) && cpu_has_thumbee )
+-    {
+-        WRITE_SYSREG(n->arch.teecr, TEECR32_EL1);
+-        WRITE_SYSREG(n->arch.teehbr, TEEHBR32_EL1);
+-    }
+-
+ #ifdef CONFIG_ARM_32
+     WRITE_CP32(n->arch.joscr, JOSCR);
+     WRITE_CP32(n->arch.jmcr, JMCR);
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+index af3e168374b4..758ad807e461 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -211,7 +211,6 @@ struct arch_vcpu
+     register_t hcr_el2;
+     register_t mdcr_el2;
+ 
+-    uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
+ #ifdef CONFIG_ARM_32
+     /*
+      * ARMv8 only supports a trivial implementation on Jazelle when in AArch32
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index 92c8bc1a3125..ec23fd098b63 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -411,6 +411,7 @@
+ 
+ /* HSTR Hyp. System Trap Register */
+ #define HSTR_T(x)       ((_AC(1,U)<<(x)))       /* Trap Cp15 c<x> */
++#define HSTR_TTEE       (_AC(1,U)<<16)          /* Trap ThumbEE */
+ 
+ /* HDCR Hyp. Debug Configuration Register */
+ #define HDCR_TDRA       (_AC(1,U)<<11)          /* Trap Debug ROM access */
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 2bc3e1df0416..040c0f2e0db1 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -158,8 +158,8 @@ void init_traps(void)
+     WRITE_SYSREG(HDCR_TDRA|HDCR_TDOSA|HDCR_TDA|HDCR_TPM|HDCR_TPMCR,
+                  MDCR_EL2);
+ 
+-    /* Trap CP15 c15 used for implementation defined registers */
+-    WRITE_SYSREG(HSTR_T(15), HSTR_EL2);
++    /* Trap CP15 c15 used for implementation defined registers, and ThumbEE. */
++    WRITE_SYSREG(HSTR_T(15) | (cpu_has_thumbee ? HSTR_TTEE : 0), HSTR_EL2);
+ 
+     WRITE_SYSREG(get_default_cptr_flags(), CPTR_EL2);
+ 
+
+base-commit: 62bd4c2a8ee809c181d47098583270dc9db9300e
+-- 
+2.39.5
+
 
