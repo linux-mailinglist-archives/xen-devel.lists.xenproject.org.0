@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4577DCA48C8
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 17:38:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177995.1501992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24D0CA48B5
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 17:38:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177993.1501970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRCLT-0000Mz-LR; Thu, 04 Dec 2025 16:38:19 +0000
+	id 1vRCLS-0008Ld-2S; Thu, 04 Dec 2025 16:38:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177995.1501992; Thu, 04 Dec 2025 16:38:19 +0000
+Received: by outflank-mailman (output) from mailman id 1177993.1501970; Thu, 04 Dec 2025 16:38:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRCLT-0000KB-GA; Thu, 04 Dec 2025 16:38:19 +0000
-Received: by outflank-mailman (input) for mailman id 1177995;
- Thu, 04 Dec 2025 16:38:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vRCLR-0008JZ-VS; Thu, 04 Dec 2025 16:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 1177993;
+ Thu, 04 Dec 2025 16:38:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ymfd=6K=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vRCLS-0008JO-4x
- for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 16:38:18 +0000
+ id 1vRCLQ-0008JN-85
+ for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 16:38:16 +0000
 Received: from fout-a7-smtp.messagingengine.com
  (fout-a7-smtp.messagingengine.com [103.168.172.150])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f082f5a-d12f-11f0-980a-7dc792cee155;
- Thu, 04 Dec 2025 17:38:11 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 6E85BEC0596;
- Thu,  4 Dec 2025 11:38:10 -0500 (EST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a055efb2-d12f-11f0-9d1a-b5c5bf9af7f9;
+ Thu, 04 Dec 2025 17:38:14 +0100 (CET)
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+ by mailfout.phl.internal (Postfix) with ESMTP id 06A6AEC05A9;
+ Thu,  4 Dec 2025 11:38:13 -0500 (EST)
 Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Thu, 04 Dec 2025 11:38:10 -0500
+ by phl-compute-07.internal (MEProxy); Thu, 04 Dec 2025 11:38:13 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Dec 2025 11:38:09 -0500 (EST)
+ 4 Dec 2025 11:38:11 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,54 +44,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f082f5a-d12f-11f0-980a-7dc792cee155
+X-Inumbo-ID: a055efb2-d12f-11f0-9d1a-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
-	 t=1764866290; x=1764952690; bh=vNp5Slv4FBi3vNewmWgzl8z3qukP2vu+
-	6zfhsBz2ftg=; b=L14fOoqHt3Oy/uqzqnSXaUpFB7OWAeaREYGuCsqoq4hslEqP
-	+Bcak1ba1orzzMuGFZtS6ZtRzh9s0kWuJfUjAL671QxnQGtE0x8aNk2pHHNBBy2b
-	l+w1Ay8a6fv6LwY8rUbVeWh+RDxihIgiL/scWL4dBbPrm543vmlJp9cnciY8JRC9
-	LxVpJESAD+sqNGYtBCQZ6EamwDm316VS5s0nyrT49EZw0edQdh1iSE3dk3IFXqM0
-	FWLOztq85TKGqGSlb1tzUpw5gHFBYXWMfzydLPsawejNmYGc5a+2AJowYIknJt1i
-	YFKpH6UYPegJQCuHUXpdqUYzm02OAm50BooqxA==
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1764866293; x=1764952693; bh=3br/kbpoG4
+	8NZlT+9b0/J8VIYGJaNyaNEShdOIiOHwE=; b=phlQITGyBDJExVO7A2tqUIxjRz
+	xwdPxP1IEZfB/c2U9igbkK6TefOC6YM6LLvCS8Nmzv7bTZ1JlwimxcaXk4SuTz3A
+	dQ0Dd+uc5jtcsKfPPaO66Ft8kIQnqUySeZ2I/vVGeIFZxogHGtl/RYoW9AjHYe8d
+	lYPuoYNbbzTE7O1ESC6T29TIMSwv5dg/8FUe9wg7CzIAOGnmCG5ByvgWQcWzo2za
+	w+9T4vHZyndHMJkNieMkSeNcd0Kk2+SXkrVDk+uT9ToWAss5fm/oI8mxrZjmXp7S
+	ZayAtoG6QbuC5XRtb7X1EVJK7OtXN4MUHmQUoyf20t2XAsKr7knFijF1ATSA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1764866290; x=1764952690; bh=vNp5Slv4FBi3vNewmWgzl8z3qukP
-	2vu+6zfhsBz2ftg=; b=nq7mL9Yd3xCWH54dPglIJGCeONNmtja1Vxs9Fgpw7zSu
-	cx+bhZgG4KkXBtzMb80lyrDB2HOMYSN6mVQEklZC59MkTBhezmvgALdejGXRwiSg
-	eyOH/nXw3sCYxuKd9CsQaeNpW7qKmdYeS9eZnAClq/ciK5PJvb4kyX7dFv4kstrR
-	DKw4vxmrxcu6+nvU7VuPCPAyPxlxxWcGlMmLttpq3SJqWTaSZtl9NViNuE2J2wLY
-	Icm8NSqxOMw/f9QlRV5HMFHYLnalNeWNMR5PV6h880xbBOzVZzsVPpxHe40l4V/x
-	04jkHD3XXOWMLZOZQua/ZpvIarrmVrlgiipp6QIVWw==
-X-ME-Sender: <xms:8rgxaWw1nGflznmY58IC2BP4I3tIR7ZI7uyaZJLiqZDXv2UUudHREg>
-    <xme:8rgxaZKtPniz_XWYo8I1HQF2HYPh6elHki5VNI4CuqdE0vJhJA0Xi7P9TxWpnkRhd
-    pghaheQf1OHY9gDOy0aw2KhmGB9ZKF1zVpGkZQKWMA3sTgCAg>
-X-ME-Received: <xmr:8rgxaQqmS8TibddZ1KFC1-U-PQDVtGYZmHeP35nX-3R30OFVXJJuoWFwM3cZ2UiyT2_LNyDptBbGqdXfrtMfKh9VLGtIhwtDkkraxAXRQJM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeitdejucetufdoteggodetrfdotf
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1764866293; x=
+	1764952693; bh=3br/kbpoG48NZlT+9b0/J8VIYGJaNyaNEShdOIiOHwE=; b=G
+	BRIEJvKSQYY14dA9CRSvn/Bfh8vuIShBWtUEsgg8LiPYgtrhgZnkboaxg0wDwOHB
+	zlOJLGjTBYgFOQR7ALElrHrKCTBxvv3xq2gKZhI5PIpV7pnNbsUt8Fwh6REaQjOM
+	L5J25UKWSw7xN0kJxBCaDm++ItJia5q6QaA7eASBK3xSDCwlYU1wwUBYyuAspNGD
+	ev8hpJ6DtFCGRxIRlZYcpNaKHDvVBx5EJpARICuLNoA4MrB6akrGYtLliXsJceKt
+	kAZqeDeE3PypGYnM7jT2mP8Bjnht1CNjyIrOQX1rfFQZa2DMLiMm0TCqSiGzuAgc
+	c35DZnhTNS7raG6kS/6kA==
+X-ME-Sender: <xms:9LgxaSQchLHaizYFFjPTJiLCqEQCBfnHixGMqoxMIDoISQOPeLfVnw>
+    <xme:9Lgxaeo55Yq-2rjztYrgLLd025e5BMfxSXDbuhjzC9ToKLxoGfLNqMhIiFOa0f3ZY
+    MF-O56apsKZkoFkIU04rIwSt0m6CHzriXlGtUaj2DCkJBC_0A>
+X-ME-Received: <xmr:9LgxaYJ3bAgeiv-YQaObGZ7NGkw6XuQu_SfSlQ9i8StD8P-PkS_IyqP2PXbwQZF3jQ-vFPnKVlrFcQT3k4IxIyN2jcSGLVi0s0z8Kngmkns>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeitdekucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
     lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    ephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucforghr
-    tgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejueefhfelieek
-    geeftdfgieeugefhudetjeethfefveehffejhfeigefgjeekleenucffohhmrghinhepgh
-    hithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
-    lhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homhdpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohep
-    gigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpth
-    htoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthho
-    pehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehrohhgvg
-    hrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:8rgxaYLYO85JAoDpCOEq5yaQJp9A_AlP41CjDjLg3QI1cmPIr-q5Gg>
-    <xmx:8rgxaVS47RxuJCpS1FqRunzZdfZHfUJrojjZ8qw2EiKdb75nAPYcxA>
-    <xmx:8rgxaXtNP65V9T_PKTkmOzh0RYdfUsw9_SYQaWKE7weIhWMQ2LHnkA>
-    <xmx:8rgxaWbHLX5I2-YrOZ3K9E-L1itPdzowFykXf-ozaKO9cNp-PceIaQ>
-    <xmx:8rgxaTYxq0vXgU2QKWqyhW5KNn9qy9XoPQdmcIe2nMltNpU5CNPSX8GH>
+    ephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgueduhefg
+    vdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdig
+    vghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfe
+    estghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhn
+    vghlrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpd
+    hrtghpthhtohepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdr
+    tghomh
+X-ME-Proxy: <xmx:9LgxaZrYBndtOCWUhDV5S_tsnEdayxKa98xN4eTUi7mMjzZJb4m-ng>
+    <xmx:9LgxaYxSkkO8FruHKnufLr5s4a58vlj7RabyKmeqGBq8FUTpTFZFIA>
+    <xmx:9LgxaVNHg8CXn4i_vDc8R00zYn_HfKzM7qtpGXQjZWPxEatGPY2-kg>
+    <xmx:9LgxaV44t_rsdtWy3q2C6PvJJ8zMinPNNwb_luKW_oh1qqd3SuiUQg>
+    <xmx:9bgxaQK7AAD_tr1Ciihe9PTKRd8qRGZGCh2blMoV_wXpPJasi7gNlLFK>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -99,57 +100,44 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 00/12] Changes for several CI improvements
-Date: Thu,  4 Dec 2025 17:37:21 +0100
-Message-ID: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 02/12] Switch Linux builds to use Alpine 3.22 container
+Date: Thu,  4 Dec 2025 17:37:23 +0100
+Message-ID: <b1d58190ac7e2b65f80542685191944b83338960.1764866136.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
+References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-- Alpine update
-- Debian trixie
-- Linux stubdom
-- test arbitrary linux branch
+Slowly phase out 3.18 one.
 
-Technically, the last patch isn't strictly required, but it eases debugging.
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+ .gitlab-ci.yml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Green pipeline: https://gitlab.com/xen-project/people/marmarek/test-artifacts/-/pipelines/2196630637
-
-Marek Marczykowski-Górecki (12):
-  Add Alpine 3.22 containers
-  Switch Linux builds to use Alpine 3.22 container
-  Add debian rootfs artifact
-  Add linux-6.12.60-x86_64
-  Enable CONFIG_USB_RTL8152 in kernel for hw12 runner
-  Include git in the ARM64 build container too
-  Support building arbitrary Linux branch/tag/commit
-  Save Linux config to artifacts too
-  Add linux-stubdom dependencies
-  Prepare grub for booting x86_64 HVM domU from a disk
-  Prepare grub for booting x86_64 HVM domU from a cdrom
-  Setup ssh access to test systems
-
- .gitlab-ci.yml                             | 53 ++++++++++++-
- containerize                               |  4 +-
- images/alpine/3.18-arm64-build.dockerfile  |  1 +-
- images/alpine/3.22-arm64-base.dockerfile   |  6 +-
- images/alpine/3.22-arm64-build.dockerfile  | 31 ++++++++-
- images/alpine/3.22-x86_64-base.dockerfile  |  6 +-
- images/alpine/3.22-x86_64-build.dockerfile | 43 ++++++++++-
- images/debian/13-x86_64-base.dockerfile    |  4 +-
- scripts/alpine-rootfs.sh                   | 22 +++++-
- scripts/build-linux.sh                     | 21 +++--
- scripts/debian-rootfs.sh                   | 95 +++++++++++++++++++++++-
- 11 files changed, 279 insertions(+), 7 deletions(-)
- create mode 100644 images/alpine/3.22-arm64-base.dockerfile
- create mode 100644 images/alpine/3.22-arm64-build.dockerfile
- create mode 100644 images/alpine/3.22-x86_64-base.dockerfile
- create mode 100644 images/alpine/3.22-x86_64-build.dockerfile
- create mode 100644 images/debian/13-x86_64-base.dockerfile
- create mode 100755 scripts/debian-rootfs.sh
-
-base-commit: 76894a5929bc604fb5bdb4aff2f94a6a9df68cdb
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 17d25ce..36622c7 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -21,14 +21,14 @@ stages:
+   tags:
+     - arm64
+   variables:
+-    CONTAINER: alpine:3.18-arm64-build
++    CONTAINER: alpine:3.22-arm64-build
+ 
+ .x86_64-artifacts:
+   extends: .artifacts
+   tags:
+     - x86_64
+   variables:
+-    CONTAINER: alpine:3.18-x86_64-build
++    CONTAINER: alpine:3.22-x86_64-build
+ 
+ #
+ # ARM64 artifacts
 -- 
 git-series 0.9.1
 
