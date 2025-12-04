@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127E1CA48AF
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 17:38:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177996.1502001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB84ACA48C4
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 17:38:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177997.1502007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRCLU-0000Zy-Qg; Thu, 04 Dec 2025 16:38:20 +0000
+	id 1vRCLV-0000fN-5P; Thu, 04 Dec 2025 16:38:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177996.1502001; Thu, 04 Dec 2025 16:38:20 +0000
+Received: by outflank-mailman (output) from mailman id 1177997.1502007; Thu, 04 Dec 2025 16:38:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRCLU-0000YC-Nh; Thu, 04 Dec 2025 16:38:20 +0000
-Received: by outflank-mailman (input) for mailman id 1177996;
+	id 1vRCLV-0000aR-01; Thu, 04 Dec 2025 16:38:21 +0000
+Received: by outflank-mailman (input) for mailman id 1177997;
  Thu, 04 Dec 2025 16:38:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ymfd=6K=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vRCLT-0008JO-3W
+ id 1vRCLT-0008JN-FA
  for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 16:38:19 +0000
 Received: from fout-a7-smtp.messagingengine.com
  (fout-a7-smtp.messagingengine.com [103.168.172.150])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2881e1a-d12f-11f0-980a-7dc792cee155;
- Thu, 04 Dec 2025 17:38:17 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id B04D9EC0596;
- Thu,  4 Dec 2025 11:38:16 -0500 (EST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a358add0-d12f-11f0-9d1a-b5c5bf9af7f9;
+ Thu, 04 Dec 2025 17:38:18 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.phl.internal (Postfix) with ESMTP id 1DFD5EC0578;
+ Thu,  4 Dec 2025 11:38:18 -0500 (EST)
 Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 04 Dec 2025 11:38:16 -0500
+ by phl-compute-04.internal (MEProxy); Thu, 04 Dec 2025 11:38:18 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Dec 2025 11:38:15 -0500 (EST)
+ 4 Dec 2025 11:38:16 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,55 +44,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2881e1a-d12f-11f0-980a-7dc792cee155
+X-Inumbo-ID: a358add0-d12f-11f0-9d1a-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1764866296; x=1764952696; bh=rd3USSJTOQ
-	GgPaA3MkEgLhgVn41dCK5xgFAB+vXgTXw=; b=Peq+bqWHCMq9aG2AqoOL+6F5C2
-	TLQ46F/Fs6n0BbvGyBeC4myPHQ7SaYTPvzUtZ/y/yv/Pq9Y2WCf07hC+g+5+s4P0
-	SBzXhjIGOJXh7v23R0s+JuSOe8yYrsFD7dSDIsV/ygdsihGUCCeuPFmCDs4nv8+K
-	3T36bJjWFjXK8sj+BYqlZ3mcKEvKMjr63k5esjKEV5N1oq/8ez/22RSgJMN3WXoh
-	3WpYLBWhQ0nkgsJ/+JVRUBr9gBC7YiA5gVLoKINHUDQTP42lneFidE2o56x9zXhq
-	k1nGIqicoq5vug7xkG1MCPuGyoGTRQOtMg0DYiEY2Yt+w/PdiT0loYMRaiXg==
+	:subject:to:to; s=fm1; t=1764866298; x=1764952698; bh=QG8dKhrWvv
+	GTlwDVn3FIfWbEGXxs8coS0YgMvQyIRtw=; b=QnqebouNQsF+eBQ9qmTSvfflfV
+	f19pac/1P6/PMQD4qdCwgRQ3Xf1K7SVEN2dSjEvyJ8aX/VkCG4zUYgzc0zCWpm9c
+	5Es12d2OwZhu2ySYC6j5YEbBkL7iBJKrZainSUE9laqwifbJS5af5eqMPP0u3XGZ
+	qYZY8UXJNV/PpPXzBqn/aCKHgD0A9FgawkooI8EaLgcueq7FlMaXWXnmkcwZbS2Z
+	o+3YdOq8NYqfrP4imhcPgGxcHaSXbvOzyMydf0BPmlJlyfe+OEXKGevOV5ZPnyDi
+	BX6SM+GkKYZATx3jTSmBl3CQXLl//zzoxtrCa+FdjD8EEBKj/HAGK0lP5HVA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1764866296; x=
-	1764952696; bh=rd3USSJTOQGgPaA3MkEgLhgVn41dCK5xgFAB+vXgTXw=; b=p
-	Dbvirod2TR1EamXiyegaUDs/ngXrpL9N7gcQpsiXaoUdU9QcaXshzj4sBXJURGpt
-	+EIJtOjUas7neXuKywQCmqpRoxUSTmq7TtlncH8prN0lxa4xY/xVb1O+S3zt12/J
-	9dJ+wtjVeUuAtmvcCLBi05Nf3VP8gRG+JUG9ewpGYT0YvXETD89RCsGDZrtZSfIW
-	occr+2rDZP0XagwKhlM+ygww8kRmxQlCEyu5JTM/fHuSnZ4FbknmLIh2ONp4XZVI
-	I1KvrjhuMPwFb5no198WMavQhSdIMng3wNdYXjfO4+G7uNLqZKL7xVNMRt+twn7/
-	rWJN4fT9EWPUfGgkT/KiA==
-X-ME-Sender: <xms:-Lgxadsg447WqXleSLdf1K9M2UspYnC7tWIOK8QEjuTmlIjoKL_7WQ>
-    <xme:-LgxadWlSjVOjsEeG0cETxaBY076Db-KdltEPe2V6fQUZkWOwJShg724Ey4cnSOTz
-    bei29vH3pMBHzDtWfrkGbo07LtLzOKcuAZCoSR8K9vMPeNhWM0>
-X-ME-Received: <xmr:-LgxaZGMNPtB5irG84hBp25L1MEm-071Tpc1DRnkwGTVUnKbdBdoJchSTH3J1GS1PICU7BK3iAJ88zQrSOsQKac4vfR1dtibGm-W5RzpYfo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeitdekucetufdoteggodetrfdotf
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1764866298; x=
+	1764952698; bh=QG8dKhrWvvGTlwDVn3FIfWbEGXxs8coS0YgMvQyIRtw=; b=c
+	d572b9UrXG3DM9tUE4/WE1PAbPeYMV848wOLTpY8cQS4qLuSRgSvw/veCtq6wo3Q
+	sPGmnMD4MRCQYaUkf2H8XXvMC4XiXqwkrayFDX4ti5sTzJX6Cxq52TG+I5M9Cl39
+	uo+qlK99cwnld7wEBGVJyzoQNfBGCDbvIqyIiuBof+Q9aRJDMF2U0wccnq8effNF
+	nSskJV5bAudLg4MOVxwJlnz6y6suiYvMSw+WOrqY9IFdcG8T8NnUYM2PxaH30sFe
+	69yyHAkjbETSz18NkqBAj9BX2slyVGRFYd9rSevnl3Ctxm9iqapaWWqZx0L0n0QH
+	A7+C/qmYsjqKnBkfJO6GQ==
+X-ME-Sender: <xms:-bgxaa3QBgjAclbLXOCG5MdzN_Bhng2OYnpmoLjbV2mDrNLeDTmGcw>
+    <xme:-bgxaT8uCwu6jIrydFYTFKuufTl5qyiZ12Lk3FuMHiGRO6wc8kiLOZydgaziSnWRc
+    hHdtYeKiyA4JW4lUFZjCoeXqs9e6mUrCrmV6JFTAYO5k6RU>
+X-ME-Received: <xmr:-bgxabPddaZUuDHdI_IVF3Vr4H4UGJEI3mKCyS1cdF_SlOIuPOUi5JggkkeOECYp87bYxZcDkpRWFzR5rhas5Ta8rtItMAn8gX9dPIQMtLg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeitdejucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
     lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
     ephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucfo
     rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeffiedtgeev
-    ffetledvgefhhfevgffhfeekleehueejjeegvddvgfffjeeutddvleenucffohhmrghinh
-    epkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomhdpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthht
-    ohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtg
-    hpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphht
-    thhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehroh
-    hgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:-Lgxaf1J9wRtfN4xfooq0S8GC-eh1DVMJODDXY31CHsNb328VKyhYQ>
-    <xmx:-LgxabOLFRoE-gBAm-7-HYdiZXewH4wPewmbLxojrSDK9QK7vNloaA>
-    <xmx:-Lgxae6mr32e6uzVmdSiPLBv0ZvpwH07w-35LAzydF7RZqADKxZ-hA>
-    <xmx:-LgxaV0vZfFl0BJGRd37g4mm38OTGLMJJTKiKd9bjphxdoYLDAS1Yw>
-    <xmx:-LgxaXEqOoCKJ71-vq6qze310K3U9s0fOOsow2b_XS3aN0iztMRbfTfo>
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgueduhefg
+    vdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdig
+    vghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfe
+    estghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhn
+    vghlrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpd
+    hrtghpthhtohepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdr
+    tghomh
+X-ME-Proxy: <xmx:-bgxaXdhA-boaLs8UNK7Phpl_0fQHt4mENsy8ZVK8BH-QcatylKMBg>
+    <xmx:-rgxaaUmyzn8H4VVkNTLLtshnSTCCRvorUOpph3s63VRwISmqIkVqw>
+    <xmx:-rgxafgLUNqmg_5uS3iwtROTkQ4OyRQflV510iSGvqOTI0zL5k41cA>
+    <xmx:-rgxaZ8wr02PAvJX-yU0Yd16qcEeuPH7PdbL6rGrUDjeNO0P3r5UCg>
+    <xmx:-rgxaWuexigqmxRMWI2AXdYOT5xeSiP8lMoYKjZL_BNghd0GoTh21hdY>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -100,9 +100,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 05/12] Enable CONFIG_USB_RTL8152 in kernel for hw12 runner
-Date: Thu,  4 Dec 2025 17:37:26 +0100
-Message-ID: <9489737256953defce752f60d5d9bc413e75a35a.1764866136.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 06/12] Include git in the ARM64 build container too
+Date: Thu,  4 Dec 2025 17:37:27 +0100
+Message-ID: <c404521c3598d4872a0a02155833f7f64cebcdab.1764866136.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
 References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
@@ -110,27 +110,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It uses this USB network interface.
+It will be used for fetching some Linux versions.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
-This was posted before at https://lore.kernel.org/xen-devel/20250411203336.585215-1-marmarek@invisiblethingslab.com/
----
- scripts/build-linux.sh | 1 +
+ images/alpine/3.18-arm64-build.dockerfile | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
-index 441b872..cf0e744 100755
---- a/scripts/build-linux.sh
-+++ b/scripts/build-linux.sh
-@@ -32,6 +32,7 @@ case $UNAME in
-             | grep 'XEN' \
-             | grep '=m' \
-             | sed 's/=m/=y/g' >> .config
-+        ./scripts/config --enable USB_RTL8152
-         ;;
+diff --git a/images/alpine/3.18-arm64-build.dockerfile b/images/alpine/3.18-arm64-build.dockerfile
+index 25a8dbd..38464c9 100644
+--- a/images/alpine/3.18-arm64-build.dockerfile
++++ b/images/alpine/3.18-arm64-build.dockerfile
+@@ -14,6 +14,7 @@ RUN <<EOF
+       DEPS=(# Base environment
+             build-base
+             curl
++            git
  
-     aarch64)
+             # Linux build deps
+             bison
 -- 
 git-series 0.9.1
 
