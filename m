@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E09CA44AF
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 16:39:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177896.1501909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A622CA44EB
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 16:43:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177931.1501930 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRBPA-0005NZ-Dl; Thu, 04 Dec 2025 15:38:04 +0000
+	id 1vRBTq-0007fv-80; Thu, 04 Dec 2025 15:42:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177896.1501909; Thu, 04 Dec 2025 15:38:04 +0000
+Received: by outflank-mailman (output) from mailman id 1177931.1501930; Thu, 04 Dec 2025 15:42:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRBPA-0005L8-AE; Thu, 04 Dec 2025 15:38:04 +0000
-Received: by outflank-mailman (input) for mailman id 1177896;
- Thu, 04 Dec 2025 15:38:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jX19=6K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vRBP8-0005Kd-Gb
- for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 15:38:02 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 375ca3b7-d127-11f0-9d1a-b5c5bf9af7f9;
- Thu, 04 Dec 2025 16:38:01 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4777771ed1aso8992265e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Dec 2025 07:38:01 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4793091c740sm36413385e9.3.2025.12.04.07.38.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 07:38:00 -0800 (PST)
+	id 1vRBTq-0007eW-4x; Thu, 04 Dec 2025 15:42:54 +0000
+Received: by outflank-mailman (input) for mailman id 1177931;
+ Thu, 04 Dec 2025 15:42:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=myi3=6K=yandex-team.ru=vsementsov@srs-se1.protection.inumbo.net>)
+ id 1vRBTo-0007cq-BW
+ for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 15:42:53 +0000
+Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net
+ [178.154.239.136]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e31c4450-d127-11f0-980a-7dc792cee155;
+ Thu, 04 Dec 2025 16:42:49 +0100 (CET)
+Received: from mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net
+ (mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net
+ [IPv6:2a02:6b8:c24:fa2:0:640:41ee:0])
+ by forwardcorp1b.mail.yandex.net (Yandex) with ESMTPS id A88EC808EF;
+ Thu, 04 Dec 2025 18:42:47 +0300 (MSK)
+Received: from vsementsov-lin.. (unknown [2a02:6bf:8080:83c::1:2e])
+ by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp/Yandex) with
+ ESMTPSA id agnhnW0F9Gk0-wEtPrrgZ; Thu, 04 Dec 2025 18:42:47 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +44,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 375ca3b7-d127-11f0-9d1a-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764862681; x=1765467481; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7ksWhcaJPwl/TvVHUuTh6bAAkegjIrAhx+pmJ3q3FCQ=;
-        b=A0YqoONs0pPV9biLWuFY0sq4vOTxb2NGM7VfAt8Fllz3nsRy5flSR4PmkejKco6X2L
-         DpgGcSTYmlTb7VGyV7noiOfdr7I4RL4o4dNCJuV4KvndeVPQ5NiV/EUxGV7sBrvTKvw/
-         1QnfACzTd9mrr9aHue80J4YM/raSledpBEo3RdMxGY4K/bw+05gPtcEzon7mgCpt8Dl1
-         fa6eiCrLbbe8KBugz6UJjLUlRv8QKdZlLIVPNj0PRY/PBpbV02z4cZsDFI2mwi9mWlvU
-         TIorJbzn5o05HBIU0GJE+T21LgImGIhzhk6bpEvNZWMkVtLdDv46+o0AlmxJ0yrO1tdz
-         i3Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764862681; x=1765467481;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7ksWhcaJPwl/TvVHUuTh6bAAkegjIrAhx+pmJ3q3FCQ=;
-        b=kw9+N7dzePeoF2wXF8ZJIIHQWBRUp0f3RyyBr7dvv7SgEUSiSow6/6GxqUpiiNF85o
-         JV0LQ3PUOOBYecwGg3H+eRHytJASFTMtN0yT47ITeDmy9OsHBifYNRVfUeUvQPYzu+Ms
-         bB67q7ukIB+1PBdmOG9qFk9z+XHvn72JR9auvQA+RD+JfUtbaybBZJey8iMKLKYUa+2g
-         Mi7/TAZO8CxBUzfPQzFrmNT4n9bFdgd8S/1uYDbaIOFML6t+AP25Q360WSV4yd9RKy2Z
-         kwAV0+WyTYPA60sPhpO+xnmmexNxMf9NlNh9rwG7Ffy6ZGjVEjJ313aQREKZ9QjLUqEv
-         Objw==
-X-Gm-Message-State: AOJu0YwyZ+qAjjFOGpwBeSUh+lUT0+irkQtNwrnQXzjs8OKp8wdlCB1/
-	Yh5IB11Zd8M57pvr3nbdVOENPQjxyQuSdYGJvo9/ie4LTAYJLYd/HQENAWj01pryxw==
-X-Gm-Gg: ASbGncuPT8VasBFpQSIxM0ifgObfT3NnjBn+3ljprAzwBVZ3B0J5bS2KwWGpRUbHR6V
-	g6FuuqdxVrtO4E8S1u0B7clM1Oamwq+9Aja1V50eO95FvMSM2UdfKchSXRU0o8sIUWPn2h8ECea
-	toY5huN+jLyNDvBO89IOQOvuaRORsDaJpzCl4cRonhMJwZTll+Svl9rdNvD5hjesPnF1fAnFMg8
-	zyEs6Xkj8I6rt/mu6vI4/ZRIs+cHdvuUjn+9IaJ0DpyPhLrBaR2dZiRc+pjYPKNknyzeDwQdqmi
-	xGpxkbObrURZZFxfa+Aw6z2YDG7Bfiy5r10s/r0F1lEeB8deZl0vl1zB64nQN8zkfToiYJBssCx
-	EEOKzDx78I+BAfJ9rZEBCW5ZA1t+MMGdh0dXzxUEzrB9aijKGmzZ4jIqF2MaO4O0YCgzahuicjK
-	jiGcFwCHXpIxtjHDah97bLrzcnxn2XbMCWxDM9M64IloKGeFfx6LCbVHGKHCD7wFOk2CTuPkktV
-	fE=
-X-Google-Smtp-Source: AGHT+IGLEbmtCAeAIL9z+i9sV25ZxF9ixMG/HPD8RI8KCwrOXrPt/DCoDoxUJfSmznC2yJz5wOn8Uw==
-X-Received: by 2002:a05:600c:630e:b0:477:a02d:397a with SMTP id 5b1f17b1804b1-4792aee6dd4mr66265945e9.2.1764862680570;
-        Thu, 04 Dec 2025 07:38:00 -0800 (PST)
-Message-ID: <85b426ae-ad85-4bf3-b2b8-39e1c1ccdd5e@suse.com>
-Date: Thu, 4 Dec 2025 16:37:58 +0100
+X-Inumbo-ID: e31c4450-d127-11f0-980a-7dc792cee155
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1764862967;
+	bh=LUCSxr52Pv2huLa0fLn9hz38EO3fAzK11cfvmV1Zx1o=;
+	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+	b=AFkc0JgxxZckYW90nKZz08Sle+cta5AXcoXHfOAWQhV0HZ68K+ZNdc9KSGkLWH7gT
+	 37HMMYa/7cE8fi4SH1aWfd8sKrdL5g6xHCmlCFcEkVSjh8wBnbDfvONAmC3jn/kNZq
+	 zQYugDtgd79rWKG7U35DS/fCYJ3RnwV8AaB7wGig=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
+From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+To: marcandre.lureau@redhat.com
+Cc: pbonzini@redhat.com,
+	qemu-devel@nongnu.org,
+	vsementsov@yandex-team.ru,
+	d-tatianin@yandex-team.ru,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
+Subject: [PATCH v2 08/10] chardev: introduce .chr_get_pty_name() handler
+Date: Thu,  4 Dec 2025 18:42:32 +0300
+Message-ID: <20251204154235.149575-9-vsementsov@yandex-team.ru>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20251204154235.149575-1-vsementsov@yandex-team.ru>
+References: <20251204154235.149575-1-vsementsov@yandex-team.ru>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: Xen 4.19.4 released
-To: xen-announce@lists.xenproject.org
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-All,
+Currently we do two wrong things:
 
-we're pleased to announce the release of another bug fixing Xen version.
+1. Abuse s->filename to get pty_name from it
 
-Xen 4.19.4 is available from its git repository
-http://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=refs/heads/stable-4.19
-(tag RELEASE-4.19.4) or from the XenProject download page
-https://xenproject.org/resources/downloads/ (after entering 4.19 in the search
-box there).
+2. Violate layering with help of CHARDEV_IS_PTY()
 
-We recommend all users of the 4.19 stable series to update to this latest
-point release.
+Let's get rid of both, and introduce correct way to get pty name in
+generic code, if available.
 
-Regards, Jan
+Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+---
+ chardev/char-pty.c     |  7 +++++++
+ chardev/char.c         | 19 +++++++++++++------
+ hw/char/xen_console.c  |  7 ++++---
+ include/chardev/char.h |  7 +++++--
+ 4 files changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/chardev/char-pty.c b/chardev/char-pty.c
+index a582aa7bc7..047aade09e 100644
+--- a/chardev/char-pty.c
++++ b/chardev/char-pty.c
+@@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts, ChardevBackend *backend, Error **errp)
+     pty->path = g_strdup(path);
+ }
+ 
++static char *pty_chr_get_pty_name(Chardev *chr)
++{
++    PtyChardev *s = PTY_CHARDEV(chr);
++    return g_strdup(s->pty_name);
++}
++
+ static void char_pty_class_init(ObjectClass *oc, const void *data)
+ {
+     ChardevClass *cc = CHARDEV_CLASS(oc);
+@@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, const void *data)
+     cc->chr_write = pty_chr_write;
+     cc->chr_update_read_handler = pty_chr_update_read_handler;
+     cc->chr_add_watch = pty_chr_add_watch;
++    cc->chr_get_pty_name = pty_chr_get_pty_name;
+ }
+ 
+ static const TypeInfo char_pty_type_info = {
+diff --git a/chardev/char.c b/chardev/char.c
+index 44bfed3627..0dc792b88f 100644
+--- a/chardev/char.c
++++ b/chardev/char.c
+@@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id, ChardevBackend *backend,
+     }
+ 
+     ret = g_new0(ChardevReturn, 1);
+-    if (CHARDEV_IS_PTY(chr)) {
+-        ret->pty = g_strdup(chr->filename + 4);
+-    }
++    ret->pty = qemu_chr_get_pty_name(chr);
+ 
+     return ret;
+ 
+@@ -1101,6 +1099,17 @@ err:
+     return NULL;
+ }
+ 
++char *qemu_chr_get_pty_name(Chardev *chr)
++{
++    ChardevClass *cc = CHARDEV_GET_CLASS(chr);
++
++    if (cc->chr_get_pty_name) {
++        return cc->chr_get_pty_name(chr);
++    }
++
++    return NULL;
++}
++
+ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
+                                   Error **errp)
+ {
+@@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
+     object_unref(OBJECT(chr_new));
+ 
+     ret = g_new0(ChardevReturn, 1);
+-    if (CHARDEV_IS_PTY(chr_new)) {
+-        ret->pty = g_strdup(chr_new->filename + 4);
+-    }
++    ret->pty = qemu_chr_get_pty_name(chr_new);
+ 
+     return ret;
+ }
+diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+index a639fb0b11..7502de46e4 100644
+--- a/hw/char/xen_console.c
++++ b/hw/char/xen_console.c
+@@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
+     XenConsole *con = XEN_CONSOLE_DEVICE(xendev);
+     Chardev *cs = qemu_chr_fe_get_driver(&con->chr);
+     unsigned int u;
++    g_autofree char *pty_name = NULL;
+ 
+     if (!cs) {
+         error_setg(errp, "no backing character device");
+@@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
+ 
+     trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)));
+ 
+-    if (CHARDEV_IS_PTY(cs)) {
+-        /* Strip the leading 'pty:' */
+-        xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4);
++    pty_name = qemu_chr_get_pty_name(cs);
++    if (pty_name) {
++        xen_device_frontend_printf(xendev, "tty", "%s", pty_name);
+     }
+ 
+     /* No normal PV driver initialization for the primary console under Xen */
+diff --git a/include/chardev/char.h b/include/chardev/char.h
+index 23a227dca9..d36e50b99e 100644
+--- a/include/chardev/char.h
++++ b/include/chardev/char.h
+@@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)
+ 
+ #define CHARDEV_IS_RINGBUF(chr) \
+     object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)
+-#define CHARDEV_IS_PTY(chr) \
+-    object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)
+ 
+ struct ChardevClass {
+     ObjectClass parent_class;
+@@ -306,6 +304,9 @@ struct ChardevClass {
+ 
+     /* handle various events */
+     void (*chr_be_event)(Chardev *s, QEMUChrEvent event);
++
++    /* return PTY name if available */
++    char *(*chr_get_pty_name)(Chardev *s);
+ };
+ 
+ Chardev *qemu_chardev_new(const char *id, const char *typename,
+@@ -320,4 +321,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint ms,
+ void suspend_mux_open(void);
+ void resume_mux_open(void);
+ 
++char *qemu_chr_get_pty_name(Chardev *chr);
++
+ #endif
+-- 
+2.48.1
+
 
