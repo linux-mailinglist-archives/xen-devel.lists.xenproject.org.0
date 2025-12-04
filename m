@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DA4CA376E
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 12:40:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1177566.1501819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 398FCCA37D4
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 12:53:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1177581.1501829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vR7gG-0005qE-O8; Thu, 04 Dec 2025 11:39:28 +0000
+	id 1vR7tB-0000CD-SH; Thu, 04 Dec 2025 11:52:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1177566.1501819; Thu, 04 Dec 2025 11:39:28 +0000
+Received: by outflank-mailman (output) from mailman id 1177581.1501829; Thu, 04 Dec 2025 11:52:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vR7gG-0005ol-KO; Thu, 04 Dec 2025 11:39:28 +0000
-Received: by outflank-mailman (input) for mailman id 1177566;
- Thu, 04 Dec 2025 11:39:26 +0000
+	id 1vR7tB-00008u-Or; Thu, 04 Dec 2025 11:52:49 +0000
+Received: by outflank-mailman (input) for mailman id 1177581;
+ Thu, 04 Dec 2025 11:52:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8NnK=6K=kernel.org=david@srs-se1.protection.inumbo.net>)
- id 1vR7gE-0005od-IT
- for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 11:39:26 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1vR7tB-00008o-4Q
+ for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 11:52:49 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e19b5688-d105-11f0-9d1a-b5c5bf9af7f9;
- Thu, 04 Dec 2025 12:39:24 +0100 (CET)
+ id c0087bba-d107-11f0-9d1a-b5c5bf9af7f9;
+ Thu, 04 Dec 2025 12:52:47 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0DC21601E2;
- Thu,  4 Dec 2025 11:39:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D03C3C4CEFB;
- Thu,  4 Dec 2025 11:39:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BE65D404ED;
+ Thu,  4 Dec 2025 11:52:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68460C4CEFB;
+ Thu,  4 Dec 2025 11:52:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,23 +41,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e19b5688-d105-11f0-9d1a-b5c5bf9af7f9
+X-Inumbo-ID: c0087bba-d107-11f0-9d1a-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764848362;
-	bh=oGOR/Gy9sovZXJOpLcgTuOfyjEMxsxmxhHmHgTDnlvg=;
+	s=k20201202; t=1764849165;
+	bh=u1Zp6G/Tnzzf/H5X3ENLn84JA+wr9i7r3UFkx+PY1cA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PE+WiSnZpBNNRcaVS0QWTpayXH+dWoN5nt+357dXYUJWSjuOlaAsOBoe3SqzwB59R
-	 0BhfuC55fmyIKS+5sWgvrif65X9dIQNyx1j8zScdnb4JsSuXTbZHZKOdhJztBH13oI
-	 Z2xVQUclq5bzMcDG9oXYqty7pxfA/Wou/aR2Tjfhg2wQpAVF58f5Wxsu7+lh42EsgU
-	 tzePMKUtQaqGs3/m7uKwUZJa+NFZNeb3W7vSvEYI4cegv0lxJrfu/RurxuRx1OGmTe
-	 IzJrQ0kiAZGVJ74Dcu7D6yrF3jlh37vFw4mnVpHVXtFq7j5uuCInmCGOIVhoeMwI7Z
-	 muM8WetLK5bJw==
-Message-ID: <b341e7fa-4382-48b5-896a-1a0d347b66ca@kernel.org>
-Date: Thu, 4 Dec 2025 12:39:10 +0100
+	b=ISfT7eeAMaUkykWFftAF34p60f1XrKRSCDcOgF5EQ7sjgQQQ6kR+ZfcxZf3nREGvz
+	 3ImEd584csKzW2sprI2y59/eBKWA2YlWw7s0K9vR4XEpOPMmlPP8wvttqFfXSE4zN6
+	 oekU1nlMo+H/Bg6n4zYp/bTOGvrxv/gOpiDiNlxCA9Y4OE+4DDcmSt+S8/kIsT/ev5
+	 Uux8ESGp7F4HLNoZUmXHGJYu5mcFtULBpaUzDu9+oyUtKeFcenBNNa96Vy0OfGm27t
+	 Z0EcKxK9WF0aNa8nPuC5BwJT+8bBhjdQ74Oz3kptWtnS35Y+COG+101Ok84TWX356P
+	 FasrAKF5f+8MA==
+Message-ID: <93d04ef8-0364-4013-8839-ba599d930cb2@kernel.org>
+Date: Thu, 4 Dec 2025 12:52:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/12] arm64: mm: replace TIF_LAZY_MMU with
- in_lazy_mmu_mode()
+Subject: Re: [PATCH v5 08/12] mm: enable lazy_mmu sections to nest
 To: Anshuman Khandual <anshuman.khandual@arm.com>,
  Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
@@ -85,58 +84,158 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251124132228.622678-1-kevin.brodsky@arm.com>
- <20251124132228.622678-10-kevin.brodsky@arm.com>
- <89ecddb7-83ee-427b-823b-984204939ecf@arm.com>
+ <20251124132228.622678-9-kevin.brodsky@arm.com>
+ <2dfd54d7-fe2a-4921-85ff-a581392a777a@arm.com>
 From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
-In-Reply-To: <89ecddb7-83ee-427b-823b-984204939ecf@arm.com>
+In-Reply-To: <2dfd54d7-fe2a-4921-85ff-a581392a777a@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/4/25 07:52, Anshuman Khandual wrote:
-> On 24/11/25 6:52 PM, Kevin Brodsky wrote:
->> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
->> mode. As a result we no longer need a TIF flag for that purpose -
->> let's use the new in_lazy_mmu_mode() helper instead.
->>
->> The explicit check for in_interrupt() is no longer necessary either
->> as in_lazy_mmu_mode() always returns false in interrupt context.
->>
->> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
->> ---
->>   arch/arm64/include/asm/pgtable.h     | 19 +++----------------
->>   arch/arm64/include/asm/thread_info.h |  3 +--
->>   2 files changed, 4 insertions(+), 18 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
->> index a7d99dee3dc4..dd7ed653a20d 100644
->> --- a/arch/arm64/include/asm/pgtable.h
->> +++ b/arch/arm64/include/asm/pgtable.h
->> @@ -62,28 +62,16 @@ static inline void emit_pte_barriers(void)
->>   
->>   static inline void queue_pte_barriers(void)
->>   {
->> -	unsigned long flags;
->> -
->> -	if (in_interrupt()) {
->> -		emit_pte_barriers();
->> -		return;
->> -	}
->> -
->> -	flags = read_thread_flags();
->> -
->> -	if (flags & BIT(TIF_LAZY_MMU)) {
->> +	if (in_lazy_mmu_mode()) {
->>   		/* Avoid the atomic op if already set. */
->> -		if (!(flags & BIT(TIF_LAZY_MMU_PENDING)))
->> +		if (!test_thread_flag(TIF_LAZY_MMU_PENDING))
-> 
-> A small nit - will it be better not to use test_thread_flag() here and just
-> keep checking flags like earlier to avoid non-related changes. Although not
-> a problem TBH.
+Some comments from my side:
 
-I'd assume the existing code wanted to avoid fetching the flags two 
-times? So switching to test_thread_flag() should be fine now.
+
+>>   static inline void arch_enter_lazy_mmu_mode(void)
+>>   {
+>> -	/*
+>> -	 * lazy_mmu_mode is not supposed to permit nesting. But in practice this
+>> -	 * does happen with CONFIG_DEBUG_PAGEALLOC, where a page allocation
+>> -	 * inside a lazy_mmu_mode section (such as zap_pte_range()) will change
+>> -	 * permissions on the linear map with apply_to_page_range(), which
+>> -	 * re-enters lazy_mmu_mode. So we tolerate nesting in our
+>> -	 * implementation. The first call to arch_leave_lazy_mmu_mode() will
+>> -	 * flush and clear the flag such that the remainder of the work in the
+>> -	 * outer nest behaves as if outside of lazy mmu mode. This is safe and
+>> -	 * keeps tracking simple.
+>> -	 */
+>> -
+>>   	set_thread_flag(TIF_LAZY_MMU);>  }
+> 
+> Should not platform specific changes be deferred to subsequent patches until
+> nesting is completely enabled in generic first ? Although no problem as such
+> but would be bit cleaner.
+
+This could indeed be done in a separate patch. But I also don't see a 
+problem with updating the doc in this patch.
+
+> 
+>>   
+>> diff --git a/include/linux/mm_types_task.h b/include/linux/mm_types_task.h
+>> index a82aa80c0ba4..11bf319d78ec 100644
+>> --- a/include/linux/mm_types_task.h
+>> +++ b/include/linux/mm_types_task.h
+>> @@ -88,4 +88,9 @@ struct tlbflush_unmap_batch {
+>>   #endif
+>>   };
+>>   
+>> +struct lazy_mmu_state {
+>> +	u8 enable_count;
+>> +	u8 pause_count;
+>> +};
+>> +
+> 
+> Should not this be wrapped with CONFIG_ARCH_HAS_LAZY_MMU_MODE as the task_struct
+> element 'lazy_mmu_state' is only available with the feature.
+
+No strong opinion; the compiler will ignore it either way. And less 
+ifdef is good, right? :)
+
+... and there is nothing magical in there that would result in other 
+dependencies.
+
+> Besides, is a depth
+> of 256 really expected here ? 4 bits for each element would not be sufficient for
+> a depth of 16 ?
+
+
+We could indeed use something like
+
+struct lazy_mmu_state {
+	u8 enable_count : 4;
+	u8 pause_count : 4;
+};
+
+but then, the individual operations on enable_count/pause_count need 
+more instructions.
+
+Further, as discussed, this 1 additional byte barely matters given the 
+existing size of the task struct.
+
+No strong opinion.
+
+> 
+>>    */
+>>   #ifdef CONFIG_ARCH_HAS_LAZY_MMU_MODE
+>> +/**
+>> + * lazy_mmu_mode_enable() - Enable the lazy MMU mode.
+>> + *
+>> + * Enters a new lazy MMU mode section; if the mode was not already enabled,
+>> + * enables it and calls arch_enter_lazy_mmu_mode().
+>> + *
+>> + * Must be paired with a call to lazy_mmu_mode_disable().
+>> + *
+>> + * Has no effect if called:
+>> + * - While paused - see lazy_mmu_mode_pause()
+>> + * - In interrupt context
+>> + */
+>>   static inline void lazy_mmu_mode_enable(void)
+>>   {
+>> -	if (in_interrupt())
+>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>> +	if (in_interrupt() || state->pause_count > 0)
+>>   		return;
+>>   
+>> -	arch_enter_lazy_mmu_mode();
+>> +	VM_WARN_ON_ONCE(state->enable_count == U8_MAX);
+>> +
+>> +	if (state->enable_count++ == 0)
+>> +		arch_enter_lazy_mmu_mode();
+> 
+> When lazy_mmu_mode_enable() gets called for the first time with state->enable_count as 0,
+> then arch_enter_lazy_mmu_mode() will not get called ? Bit confused.
+
+
+state->enable_count++ returns the old value (0). Are you thinking of
+++state->enable_count?
+
+But maybe I misudnerstood your concern.
+
+[...]
+
+>> +/**
+>> + * lazy_mmu_mode_pause() - Resume the lazy MMU mode.
+>> + *
+>> + * Resumes the lazy MMU mode; if it was active at the point where the matching
+>> + * call to lazy_mmu_mode_pause() was made, re-enables it and calls
+>> + * arch_enter_lazy_mmu_mode().
+>> + *
+>> + * Must match a call to lazy_mmu_mode_pause().
+>> + *
+>> + * Has no effect if called:
+>> + * - While paused (inside another pause()/resume() pair)
+>> + * - In interrupt context
+>> + */
+>>   static inline void lazy_mmu_mode_resume(void)
+>>   {
+>> +	struct lazy_mmu_state *state = &current->lazy_mmu_state;
+>> +
+>>   	if (in_interrupt())
+>>   		return;
+>>   
+>> -	arch_enter_lazy_mmu_mode();
+>> +	VM_WARN_ON_ONCE(state->pause_count == 0);
+>> +
+>> +	if (--state->pause_count == 0 && state->enable_count > 0)
+>> +		arch_enter_lazy_mmu_mode();
+>>   }
+> 
+> Should not state->pause/enable_count tests and increment/decrement be handled
+> inside include/linux/sched via helpers like in_lazy_mmu_mode() ? This is will
+> ensure cleaner abstraction with respect to task_struct.
+
+I don't think this is required given that this code here implements
+CONFIG_ARCH_HAS_LAZY_MMU_MODE support.
 
 -- 
 Cheers
