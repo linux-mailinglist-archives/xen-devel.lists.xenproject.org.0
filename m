@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACB4ACA4F68
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 19:40:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1178197.1502131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C45DDCA4FCB
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Dec 2025 19:48:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1178218.1502141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vREFB-0008Sn-B9; Thu, 04 Dec 2025 18:39:57 +0000
+	id 1vREMn-0001kx-5X; Thu, 04 Dec 2025 18:47:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1178197.1502131; Thu, 04 Dec 2025 18:39:57 +0000
+Received: by outflank-mailman (output) from mailman id 1178218.1502141; Thu, 04 Dec 2025 18:47:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vREFB-0008QE-7N; Thu, 04 Dec 2025 18:39:57 +0000
-Received: by outflank-mailman (input) for mailman id 1178197;
- Thu, 04 Dec 2025 18:39:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vREMn-0001ih-2R; Thu, 04 Dec 2025 18:47:49 +0000
+Received: by outflank-mailman (input) for mailman id 1178218;
+ Thu, 04 Dec 2025 18:47:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GYI0=6K=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vREF9-0008Q8-2B
- for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 18:39:55 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f1565e9-d140-11f0-980a-7dc792cee155;
- Thu, 04 Dec 2025 19:39:52 +0100 (CET)
+ id 1vREMl-0001ib-MR
+ for xen-devel@lists.xenproject.org; Thu, 04 Dec 2025 18:47:47 +0000
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazlp170130006.outbound.protection.outlook.com
+ [2a01:111:f403:c201::6])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b96bfa54-d141-11f0-9d1a-b5c5bf9af7f9;
+ Thu, 04 Dec 2025 19:47:46 +0100 (CET)
 Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
  by AS2PR03MB8794.eurprd03.prod.outlook.com (2603:10a6:20b:551::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Thu, 4 Dec
- 2025 18:39:49 +0000
+ 2025 18:47:44 +0000
 Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
  ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
  ([fe80::5a:31d6:fee4:ccae%4]) with mapi id 15.20.9366.012; Thu, 4 Dec 2025
- 18:39:49 +0000
+ 18:47:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,191 +47,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f1565e9-d140-11f0-980a-7dc792cee155
+X-Inumbo-ID: b96bfa54-d141-11f0-9d1a-b5c5bf9af7f9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AGSauk4CSgRHgzlo7LaFt/QfIGPRohQ5e3seguG/ACfTQjoLfiEEXxldQKliiqQB/MmyTmB0aMIaGHWCTE9hfqkIgNz8SJz82kamGgZ7WYKgHEum1Mnjwk0SllHUQ5qYEmGIOsW24SqAbMg9KTdKf4KyNxMsQbHDQXVyHZFlNvxydBjYexGJivl0HOYEGAOg92EBGNAvZcRpfIIlIq5PX0sLJR/cbQurW0c3iTt/U0WGifs9AXfRysazd1gZnPOO4tmfr08YZFunssbHXE2bAaXTPjzSbnornyPXkXM5v6ePT4NmU2eCpckiEu5Wv94I8JOCAZwiFwZusOICQ12fkA==
+ b=lKPLNGMgsxNDzQZt084Q0XxY1RdRtQrozD2RaAsYn8bvY20U6BGYl1SnPaQmnd/XHc/viDceQza7nhzf4fO53byxJd7Bqk+Fze7Taw3O566+dxznY6ub7PmwRUTl74kJ9vMxf+38YyZWaJ/0IDBq1uG5BZFcHNce18d0u4p4ICDr3t5iOv+ml31NeOrLzINX6QQIfPin8w9lqtyj9oiAAPrRcQ1OPqB1I0JfZjXBzJPYYg5V6YmLAhqhF8qQ5zqbOcjoECS8uhxobk5Fr+wOgoc7aB0WVSFQ08LR2Db68guYHWdx+ftH1pM3hFwShlQbd3rN3Tn+4SCJ+vKzvi6KAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RDMfcvz8fLnte1WsCYChgp9m2SH7DImUd7y12a5Nx1I=;
- b=q4LCGCUirxEY6HOc+2umSk6560WC0FkdwoxFltmpaoibEsKrIrX9PvvgyAgG1zr2EXQXl6C7DdA6QYmawPIhWwAU9/CHwH4XiUSodGZeVkmow4oZwSsjZolEUNhtIkOASi1ZAuTlu5497/x+kTUP/khTV+Qo54wVOd1iscbmOfUrOTC3191pG4tCsD06w1xusdyv40vtrEnwxMYAYNw8hmkFNOtKyfhnzcy0gDio5BX9t4L6sHT6XiRvKSDMRnH4xNTOhRDBfLCXcmNHCveLKzvWgb0lqM6jnbo7Bu3mHZBWOGGJYRHRgmyb3eIiGY+j6XFjEEh6WS93vQ5GlJPSIw==
+ bh=SCIMsY63nvESKdY6wv1L3mIbm910UVVFoS4YF/TvM9g=;
+ b=Khe7AunL6Fh7MwgkTopUtg8J9WwwdURC9dVvoHrKvvdVX+VU9ekBTSSCYamRNTYvib79bh0gTHF55OggdchTMfwHeS2hB5CXi6HD9xkFlCJLPQeH68pOxZNI1I+yT2qBapSEZtJHwzE6hpBAf3tcBF4un13Yeje0zijeOJAXLiFbxqD1Ga24tnRbXeRothjGTJyhpSybWy3Ns0p4rAWXMJwRfg2xHsrtXaQLEICJvBu0ba7H75uihcpT9bFM9t1wKseVq+eDAyLVsQyEZgVbLJGQf+/tOzBYCxD25hCj+JiD6MFWIM9xfNZ5aUoemAUjmE9Sa+YR8sxNPORfznND3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RDMfcvz8fLnte1WsCYChgp9m2SH7DImUd7y12a5Nx1I=;
- b=n21s7yjYayCSaIGWR9toWRbvQuV7a2NCcgix9nxIg4LYyJBuLuPAXI80VGE7piiYR5Emh50RNIoFgSLkFGz+Rv5bixTUHfvMDMKK6g6e3jJ0kUT6ISto8HjwAL85ZboTIkLjyqPPd0G89WXZ1GXCN4UV1FYWq8lSuo+Amgz6nRvamZy6EOOJ9lUMREu/7HlVLDSowJl+Su4jeQj1bL1MdAZOKoSftYjkgqKGYFw6fJwYEoKx/b3SuV8nXLrqV80Rm26P0P5aASA+SItP+IxZxLnAb/Kqpaz5PQJgIkqjOULngOLW9Vc2rtdrjUDLucusqHRD2OUtGtkyFEC7+dQ4+w==
+ bh=SCIMsY63nvESKdY6wv1L3mIbm910UVVFoS4YF/TvM9g=;
+ b=KXIbYGXrZyyjS87lIhRIIsHh/G2iVaJKeuFjWhNvmUAF+EmWQ9HHMlZidWPDL9ZhJ0VoZUx2qeJ9qNyz/Fcq6BLSc9zezRSi99GeHtIwIzrEZyBwN3dkcLsZ4r+dGuRu8RxMSCk6DQEFK+u5jOVlpL/NrNtHsfedPva75YIV/Mn0Ra7s+8QWNl8cGBQDZR8a0TXQgKcr2Hd/7lsgyYm4AucJ7DBrjPQVbyn6+GROxOryYO6l7uAFXcc5rBje+ChpAKMg8zQgPWkE8r5aVWsJol1Bydysdt/xMEId/DXECBky/P8QwEUJqhEmT+TKHmxnw/I2c6wWulVE0rF+Gd8K2w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <878080cf-933f-4e33-b059-ca6088fc3110@epam.com>
-Date: Thu, 4 Dec 2025 20:39:48 +0200
+Message-ID: <389a5a3f-59c4-4292-847b-6c73fb9cd345@epam.com>
+Date: Thu, 4 Dec 2025 20:47:42 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN][PATCH v2 3/4] x86: hvm: factor out COMPAT code under ifdefs
-To: Jason Andryuk <jason.andryuk@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Juergen Gross <jgross@suse.com>
 Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+ Jason Andryuk <jason.andryuk@amd.com>
 References: <20251119192916.1009549-1-grygorii_strashko@epam.com>
  <20251119192916.1009549-4-grygorii_strashko@epam.com>
- <88f06355-b49d-4ac1-a7e2-5665d4901618@amd.com>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <88f06355-b49d-4ac1-a7e2-5665d4901618@amd.com>
+In-Reply-To: <20251119192916.1009549-4-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA1P291CA0001.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::12) To AM0PR03MB4594.eurprd03.prod.outlook.com
+X-ClientProxiedBy: WA1P291CA0018.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:19::25) To AM0PR03MB4594.eurprd03.prod.outlook.com
  (2603:10a6:208:c8::27)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM0PR03MB4594:EE_|AS2PR03MB8794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b076912-37c3-4f3d-3ceb-08de33648174
+X-MS-Office365-Filtering-Correlation-Id: 79102882-d839-4cf7-889d-08de33659c42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Skh5ZlEyTGgxTlJOZDYwMjZPN2IvbWRHS3FibVZpTlBkSC8vRXR5ZHBxTG9p?=
- =?utf-8?B?a05wNUUwOUdrMkNTZVhnT3h1TG95ekluVndGc1V4ekYyOS9wSDhjclNXcEZ2?=
- =?utf-8?B?K0EyWnY3bmlpOWkreGNsTlY0Z25oeXJoaytlTWhYU09tM3hLMDErbnp6Q1RC?=
- =?utf-8?B?UVVqR3gzbEdpQ24vS1REQ25pbVZQK1JWUjR6ZmxFL0luTGtSZzRhMDJBdE50?=
- =?utf-8?B?MytkS0tidW52aU9RQVNnY1FwcGZ2WWxwOHRqR0xXV2JjR1V3MWs2WDBLWUgy?=
- =?utf-8?B?ZFRXR09vUjh6THByaDN4dTFZVjV5Ykx4bWRPZnAxRDJyTlBqR0dXV2ZwbE9E?=
- =?utf-8?B?TFdjOFJFY2s3Sm55VHlwaTBHQU9ld1JYd1dOK2FLSk1KQ05QSHhUSG4xajNO?=
- =?utf-8?B?ZndTOXFyQ1dWbTJPVjZXemxXRWV6bHZSaVhhWHVBMUs2dmFHVElYM0RISDRh?=
- =?utf-8?B?NTE4MzNYTnZUdEZMN1c4SjFpbVJ0N0JhTkdkUXc5VVMxbkJwd1ZoQkFPT05n?=
- =?utf-8?B?YnJuclhTRk15WjJGL2VPa3MybXFnR1F5MW15TUNORURQUnpaQXJMQVVjbWgw?=
- =?utf-8?B?cFJVVG1hL0JXeFlzc3pnTmpqMzdUKzNHdjRJTCtCK2VQeGh6Mjk3TTd0U2pU?=
- =?utf-8?B?REtOYUtZQlpsOEhlRFpKUHNEZlhCMkpYckVJaitRV1Q1RFZQSDR0WDlMZVBj?=
- =?utf-8?B?UEpWYmszeTZJeTExbVVLLzhReWhHM3VxUXUyb2hRd1ljb3BxWHhZOU1LNGZI?=
- =?utf-8?B?cEt6djludVBhTjdhWm9OSFIwTnVIRGlpNmFSckQzY3poT0c5SjJZRDlObzR5?=
- =?utf-8?B?U3FjdE5TTGk1WktyTTBMbzErb0dkWm9lZ1RPMG1hYy9ZcFc3aVA3dVFzRkxk?=
- =?utf-8?B?MVozTjdPbFVDckliNHdmMVVlekk4Qjh6aHlPQUhIbWs0ZldXRk9rK2VydWdk?=
- =?utf-8?B?QWUzUUh6T1dSODZaS1BpaWRJZEkrWHgxRlo2UUlaaW5HdmlSNzlCc2VXcENk?=
- =?utf-8?B?TjkyNFczcENNQ3ZhTG90NTd5YTRKY2tpTzZrcFNhbXdWVFNSM2dxOS9nOWpM?=
- =?utf-8?B?MC9NbFR0RFc2ZXpITmZ3SUZpUVpjL21ocjVpdUI1VG9UOHVFQ2FIcFZkTy9W?=
- =?utf-8?B?RjRnRlJjMjhUcUg3cjNnQXd1cXJ4ZlVBcW80emdUR3k0elhtcVFMQ1Uyd1l2?=
- =?utf-8?B?VUxWcGNQN0VRWEhMcVJ1ZktsaXEyT055TVR4WGM4S3hDaDdqUS9qcW14L1d5?=
- =?utf-8?B?ODlJblc2UnhqUnBuMGxIM3NPWnJmL0VaNWZ1cDhadkV6S0hkdXNmQkhYN003?=
- =?utf-8?B?K1FpU1FrcittVVB1VzZhVGpBMTFMM3F2NGZWb096TUd2cE8raExnZldzcHFr?=
- =?utf-8?B?SFE0M3I2TlU1R1prZER5M1U3RHRQNG10VXpkRU5CMWgrSm16Y1lXRzdLaGVB?=
- =?utf-8?B?UEdGSGF4MTd4YWQ0KzdFZGx5VFdudU9Ja3l2Q3VUa2I1YmROVHo1ODh4WGhl?=
- =?utf-8?B?c0poRC8xbnh3VFVCYWxTVzVtbHdTUE11R3hKN2l6dWxKNG1uV1VrU2pXdW1j?=
- =?utf-8?B?ZG44SEpTbThWUkpXcWN1dTQ5MlJEaHFCcVA2bjhWNW5SVnlIQkNUT29MdHpG?=
- =?utf-8?B?QnV6SGJnZmw4K21UR0NRQ1dTRU5SK25KQ0tKV01ieDljaFlkRG1Pc0ZIUDlo?=
- =?utf-8?B?bjFZOHZyQ24vdFJsREFNaGg5aEFSN2lERUdhd3VydlF1NXBYc0NqS01nc1Jk?=
- =?utf-8?B?R3YrYXBFb25GSnFjVGVFU01NRWk4SjZWVTF2dG4vaWVkSkxlWEpMMU5qMHlO?=
- =?utf-8?B?REpVYkVkaDdScWtlM1Ztc1ZGQVBkWHl5OFkxTlJDTEdTc1RJc3hsU1NBcnQ3?=
- =?utf-8?B?Z01XWGp1OFdHU3lESEhTU0F4NTFKejdia1BQaW83YzVFc0g4M1FKTHl6dW1o?=
- =?utf-8?Q?SlN2j4cpmSEdrTZRTHizBtIQfIfG5Skq?=
+	=?utf-8?B?UTBaWGRRemVHbm10NWEwcnkrNG1scTdHODZGbWtqTmlzRHhxZ1ZBT2FzVWdD?=
+ =?utf-8?B?YnhyeHlXSHBJc0NQZ1cxZUNqRGZrWjE3NHluOHJMRXFzR01FMEZ0VjkzeG1T?=
+ =?utf-8?B?ZmZPczIzYks3YkFDT3hlZmtjY0p5eHlxOEtDcFVJNnFadjNvQ09EMVNYMmc1?=
+ =?utf-8?B?YnFKNlA1OTNkN0RmSm4zdzMwSTNiaE43dElHVmJGNDFsRFNucVpKMXB0RHFQ?=
+ =?utf-8?B?ZG1vU3Z5dzByY3ZFWXNPV1lEZEhuaWZJZzVGYzVXUHkyempQdmJFZEkwdVVv?=
+ =?utf-8?B?TDhubUhoMWJReUI5WWpDSGw4dVk1dVFncHdXaGU0UEhBWGZJQjBSbGRjWEpn?=
+ =?utf-8?B?VUo3b0tkMWE3bmNJRXZIUndkTXR4bjJTR05MSHVxSFNRYjRqMm12Rmh2dnk5?=
+ =?utf-8?B?TFBIMzhzN1NGbXhpdjdQUVEzZnlLZW4rY0hLMSswbE9Iek1xNVBmdWt1ZG1O?=
+ =?utf-8?B?b3RManpQL2Vqc1NVekZzRU1mR05ERndXRk5pcDd4a0dFQ29tVFA5enFsa0xG?=
+ =?utf-8?B?RGVaOFJ6cXdTakE3K2taT2ZOcTJTWTIzTFpNa3FXc1FTTlBORTNCV1k5dXp2?=
+ =?utf-8?B?WkRnZUxua1JYS3B1M3RWZzJCaW1OT21WcjRlVU9panh4YjNIaVJLNXFweVRt?=
+ =?utf-8?B?QUFaYmZwaGRPVmx4aW52c1lMN215U3VBN0E2b3JZMEc2V2M2cWRTMXdta2hC?=
+ =?utf-8?B?L1pnZDhLWVdQWHBrZFFBNnRNaEZISGZidEo4dmt4NUxkaXJ5U1NTMUVEWm5u?=
+ =?utf-8?B?aVRJYzFWWWlzOFdvY3J2dVN1b21MZGl3VjI0Q0h4QW9TMGlKWFNYbjF1S0px?=
+ =?utf-8?B?UUtGU0MrcWdBL0VmcHZnS2pFK2tmanNJN0k1TzlQbWRQWVJOdXZNN0JNL3F3?=
+ =?utf-8?B?MFBncGJVOGlKSTVzSHhMbXFUOXlaQWhZamh0Njg0dVFZNk5yekl1TWczQlIr?=
+ =?utf-8?B?L2FseEVUOFYxd2JValRYODRkM2FiM2RVM2MwUTRTZkFpdDRlUFJ5bWM2Tldh?=
+ =?utf-8?B?dWtmR09SNHhkSUNxNGZUNWFhTUFXRDFCcnFueVBvc1dVbk9yZWdQYzA0a3hk?=
+ =?utf-8?B?Zkl5Tjh5QWpxN0F2NUFCRDhmLzhtZkVhaXJNbjhWaVlxUUc2Rm9tV1ZXQ2FG?=
+ =?utf-8?B?V2lST29RUEV1L2R5OFMxZE9sRjAwRmlvbk0zQURpMTAzZjc4SVpHOE9qT0Jx?=
+ =?utf-8?B?RXlDclIvbFl6ZTlyeFlDZTU1L3ZsbDFIeHRFSTVaU1h1dE1sV20yYnpoWTdP?=
+ =?utf-8?B?QWQ0QmhOOGJOdnJjOVNUYnJtRVI3Y0s4MEthR2FlN1YydkhhRDlTWGdpUVRj?=
+ =?utf-8?B?THd4TkNHM1RibDRKNnlFaXVyck5MbkhoNUhidWJZV2FqdThJS3hnbndvSzBy?=
+ =?utf-8?B?M0V2TG93alYrYnhPT1dBQkQzWjRnZFhrb1U5QzdyWThqb2VuTlVDMHZNb0NJ?=
+ =?utf-8?B?T3JOYWRWQXUxY1IweTBmcGY4Z2xrQWFHVG41Vm1CcEV1NVpPMWMraGxqdjRs?=
+ =?utf-8?B?MHpDanlGL1VtRHFQU25ybXpEWW0raEFNYW5MalFyeVhiajVxeXRrSThiazd5?=
+ =?utf-8?B?V243d3pQaU43bHBmY0RuU1FKd1NaNEU5RUVzaEtqeW43TWZCWkMzT2I4NlNH?=
+ =?utf-8?B?aExjMkxqWFJ0RnlxNzd3N3hOeTNWNnRkMkQrZWo3dG90RitveEpzakFYRGFh?=
+ =?utf-8?B?Ykl4ajFxdXlnSTJsUjlMRGN4MEFBWllxZXBDVGxFQjNJcFVNZS92R2xmSEFU?=
+ =?utf-8?B?NC9ZdFFrS1R3clg3djMvWlBJeXFyVGpGMDBGSG5Pci8zSjBwczRmSTZ3REZD?=
+ =?utf-8?B?dldQOTVBTVA5NHZkM08rMEFpYStOM0lFMy8xNFdNUEI1U3RmNUJkTnZlcEkw?=
+ =?utf-8?B?OXlTcW9JNERHUmNtZDM3MlRCTURqdGpROHF6dlg5ZU8wRGRVREkrTjZNNjlE?=
+ =?utf-8?Q?zRFbgEtUjvofOKstRjvy+2Jv1BtGlWXV?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(7053199007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QjhsdGpJZitnSDVMTTZuelV6dGtUOVdPRFM1NVE4UU53aWNhOS9aWnVYNnB6?=
- =?utf-8?B?NmxYK0s1c1JGSVg3OUtUczE1cUJsck1uaXJub0wyeHFxSjBWNGVScEovaHc2?=
- =?utf-8?B?dnMrZ3k3bE5kcGpxMENyY3dZbEFDVDJtcjR3blFZWk9kcEhzVkd3UENsVkp4?=
- =?utf-8?B?dmpWMG1sWldCWDNsWWtDdTV0dHdWZ09PTitwYlJOa09DSllObDkrcnhaNzBa?=
- =?utf-8?B?Zmc4L2pYRFJCWGhGSFdFc2xzU2tvYkNncVM0UXZKczBLQ0ZUYVhheHZZQ2xx?=
- =?utf-8?B?VDdlSE1QTU8vaGdiZTROU0h3ZlNpYzRKQmhYTXIrMVlRVGhHVmlLMWp4dEdC?=
- =?utf-8?B?bzRBQmFFWGQ3L2FyS3p6SUoxRnhMQi80QU5sZENFMmdmSmp6QlUvOURIZ3JH?=
- =?utf-8?B?dFpQdlNzYzlIeWdHM25uZkVka1k3RjNZTmdSNGVoeUlrVU84ckpyMXlvenBs?=
- =?utf-8?B?Z0Q3MTdRTEg4MmFqUnBaTU51enZGYi9Ka0prZG5KOEpiVXNWRElhbzZoWDFR?=
- =?utf-8?B?UlBkczNlRURiVEs5MDM5U016Q3g2bmpPWjB1MDlsYVd4NXdMWk9JbWNtN1M0?=
- =?utf-8?B?R0N1Um5idkZ5REovNHdUMm9UWEFYMFhUdldyeVRIZDNraThTbUVRaVEzZHcz?=
- =?utf-8?B?Wk1HUzdCeHBHVXIwQXhrT3hEYTdXaEYycXlOdjI5eWV2SmhyUHNUTFU0Mng2?=
- =?utf-8?B?U2lJTXA1elNkREZrOVdvL0wxTC9RNTRXVTdIWWJKYWtidUdVNk9Rdnh2VE9l?=
- =?utf-8?B?WVZHcUdHcUJRRzdGUmpNaWdiYktIVTkyTUlmRmFoR2x5RTd2ZnFDRlNaMWJ3?=
- =?utf-8?B?d3plOFVQZjkvdVQrVG1lSzN5OG5lWVBhQmZiQjJCVVN1elhNMHdYdm5MT3BP?=
- =?utf-8?B?UDNibUdEd3N3WGg2Um5yaXo1a08xUDFOZ0JGd1FILy8wTDRyK01jMU9NMUxL?=
- =?utf-8?B?UjJwSzJaYTdRaFJjSS9jcjBPUVAxWFVud0FwUDBIMnJXUFp2NjAzZE5uc0xI?=
- =?utf-8?B?RFprNmlwcklyNDlXdXVRREFEaFU2ejY4U0dETVoreCtsU1kwaFJ3MHBwVDJn?=
- =?utf-8?B?eDhod01EQm55NnF6SXdTTkRBRU9CeTlZL0kveEUyZG1TQjJDZXB6RlVaVTBK?=
- =?utf-8?B?b001NVVPUmhvSTh3bWcyRHMrMVNRc2dZd1BZdnh1VTk4NEdMeE9YZ2EyalpX?=
- =?utf-8?B?akVuQTAzUWgwUjNsTmdZSFkwZGRjNXp0QUcvejdCdHJkaGI4ZkZXejVGd2ls?=
- =?utf-8?B?Z3BTeEpaNGIyZ091MkFMcHhxVUdrU3doa0g0SDluRnpabXQ4R0t1RkpwQWlD?=
- =?utf-8?B?RGdUQTQ5ejUvUXJxVGdYTHkyT1V4OGZwc05UT0tZZ0hqWklhVDRBOWFwRHRn?=
- =?utf-8?B?a05nVDlHdG8rRVVLQmhjYUpNdjl2SXNXNmNzV0VoZE5kd3ptVTBINW9hRkJt?=
- =?utf-8?B?NTh0MDM5RE9iRGJqSVovenh4bFRRTzdUNCtGcVJtb0d5Wk1ZNktMakdkaWRj?=
- =?utf-8?B?WVdhR0VDN1Y1SEhKRU8yazc1REg4V0p5aStXNThZeVExMklKNENwRVZ3WENS?=
- =?utf-8?B?Z3NOMTVueENuUzV0bDR2NTM5b0c0QWhyK0NiMkkvQmtJamE1cnBHbS8yYW9E?=
- =?utf-8?B?MGVjZktGTWRjWDd4N0xwemNraHlBSXV5clJzWXJoVCtWY0VyNkduWW1ncmI4?=
- =?utf-8?B?SzRGMjNXQmhoZEpkRWZ3Y1YzcWpDU2tEc2IycDdtdGF4UVpsZlhTZjFxaEZT?=
- =?utf-8?B?V2FDU1ViQ0Z5aGhGTHlEM05yc3ZLb1dsOGFLblBhZ2hxRHIxSFRiZ0J6TDN3?=
- =?utf-8?B?dVJydmdzNTFFekZnaFhldTZOa3BVWnAva1p5UHp1bWZGL0MraDZFM3BCR3pz?=
- =?utf-8?B?RDB6WjAzVlovOUM2ZWNGdGhXRmxUQ2pJOEdlTjF0eWFucmV0YlkxYy9wQmdF?=
- =?utf-8?B?dk05cnZialg1amlKYVRKckJjMWZrSmIza1Bsdll1cUk0cDhxWVhxVEFENlhs?=
- =?utf-8?B?NDYyeW5zeTJQZ1pkQ054V1Y0TEc5am1oTHJPRlV2L1hsV1ZxM2p3MTlTMW1t?=
- =?utf-8?B?TVlNdDFqUnB5R0VGOGpuTWNyN2hQdkllTFNlNUs5SDVldlZEZUMvWnowU0du?=
- =?utf-8?B?K1g2bnp6eENZWis3MHZkUHRGL2t6RlVmUTlzemllajNDYmxVdUcwOGczSjV4?=
- =?utf-8?B?MVE9PQ==?=
+	=?utf-8?B?Z0pWN0Z1N3dET1BlYldkMXV5N0h2ZG5OMVMvR2FFb0pxZU9EREo5VHNxQ3ZV?=
+ =?utf-8?B?M0NJNk9FaEZxTHlHVGcwLzVPQlY3dTZBQUN6cUtUVHNPQnhGdG8wcXp5SlNJ?=
+ =?utf-8?B?OUdoTklpWi9FK0tVNElmRnVMUGFSbFRweE81WE1CMnBTcnB3WUdBNUdlSkFt?=
+ =?utf-8?B?MkYrNVM2ZVUxYTlaS25IcjZzQ1hacXZLQ3VBWVFiQ1ZYVlR6WmdXRHYrU1M1?=
+ =?utf-8?B?elVWNmpnTjhiS0hMRmpERXB3WFRYZEhLTHBCL0JISTBmcTRyUEd0dDdSa3I1?=
+ =?utf-8?B?bmVqV1pwa0NreHh5ZHM2K3JnYlc4RkRCNWJHZUdJeVI4M3k3QncxUytlUDNH?=
+ =?utf-8?B?d1hWcnJObHA3QjVUNGtRYUlpNFliRi9JMlM0WDB3S3pkSCt0alFLcmV6V1lD?=
+ =?utf-8?B?azRBa1pmZDZ4eXlSc1NIS3VBODYwTXhLcCtFTVJyakRvTXNwc2tKWmd4YUl2?=
+ =?utf-8?B?UmdoeW5aU1cwT1kvaDJlMmdibDhrNENyejNIaytqU2VSa2xlVmMrMFE0a0x1?=
+ =?utf-8?B?aTIxTUw5R3NiMnAzeWtZcDFZQTdFOU9Yd0tUVmJDeUEyQU9xN0duK3hYMFo1?=
+ =?utf-8?B?QmRCc2p2dy9FOU9QNFN4cS8vaGlhZHZaYStWV0JqYThrRXpUU3lNSTdFbjRZ?=
+ =?utf-8?B?NFV2bkRvNDgrSnZMZlY3YWgrYzJyZ1N1RzlvNDRXd2tGcCtucmRwVTl0U3E5?=
+ =?utf-8?B?L21vQVd0UTlFT2Q2ZW5DT0pXVTNWam9VdTRyc1FwcERkcWJmaTd4L3BZTit1?=
+ =?utf-8?B?b2RtODV2Tk9BNzlqQzRmNkw2aHJ3eU5VNVY2Q2FHY2tWVHViUG5rNDdTZFBU?=
+ =?utf-8?B?aXkyRUNJVmIzMHBSUC90ZC9qU2pDYVRCWStVb20xQitiK2pJTE5KbklaRzlJ?=
+ =?utf-8?B?aC9QZ0VEbERPRHgwUzRsdFdXSWhPYjBTU0FRU282Zk1jYnFOWVdQNi95dU5h?=
+ =?utf-8?B?cW91RWhNNzRxRWxOd1dUcjk5K2wySFpGRHlBdk56UFdkQVhTQUo4cWF2KzFS?=
+ =?utf-8?B?blp3UzNpQ054ZVdsNDJKdStYbW9CUTU1TjVxN0loSDY1UjZuTmt1WExRK01v?=
+ =?utf-8?B?eHhMUEN4MGZGamtQN2dxSDRUSkxHUHZmTTAxaHFSL2NKMGtiME9Jd2htSGtt?=
+ =?utf-8?B?ckp5WUdtR29MOGpjUVFEamZ3cE5yU0dZMUxaYjdyU25ka0c3VXRqK2tIbDkz?=
+ =?utf-8?B?aE9uUFZBZHQ2cmJyZ3RYcFpNSXJYU1dSRHJ1UnZJeUtkNDZBQ1k4Y3N2cERx?=
+ =?utf-8?B?YnduRmpDaW5nL2JBUmlSNjFMTzZWVWY5MG8zUGxzSko0bFFsbzh5cVB6bEQ4?=
+ =?utf-8?B?UjRpSGlvU0phUUsvOVcxbzlBV0tkOEcrY0tjbTdPWk4xUk9sTkFKMDVpMVlV?=
+ =?utf-8?B?Mk16dHFGa0h5Zkltd0tGclMxQVkvQjNHSGc1Q1JHcC9BWk8rV3BBQ3R5bEdH?=
+ =?utf-8?B?TzBKTUFsYzl3Q2kwSXVMa2NCU3pPZnFMRDNLdTVORDk2aWZGRDZVNzA2a09E?=
+ =?utf-8?B?aTUxN2dyYU5yeGx5S1NsT2V2Y0xzVjM0TU04THlYSjlnamVxb21sbmE1cW9H?=
+ =?utf-8?B?MFJXMkw2bXNqTDVOeW5EdjVHLy91VGFWRlZzYVcwdS9LVE5GMmdaTkR3NVM2?=
+ =?utf-8?B?ckRiSkJBK0kxTWJqRTVORG9oTHVCbWRaWllLa29oMDZkYm1rb1lnYWtQUWVv?=
+ =?utf-8?B?Wm1Ua1JZWWM1YnQ0SkNtMDJrSXE2RHhuL3pnNWVRUVl4bXB5NER0NXlzeGRx?=
+ =?utf-8?B?Y055Q1JGWGZ1N1AvUjI0WFh1SzN3T0VBUGdMOFJWbGloM1NJYjkwVGVVczBC?=
+ =?utf-8?B?QmVZYzJOVzJFS2Q1RFFtT242VjdGb0dzcWJ3cVdIMWJBMlVCcElDNTRmNnZu?=
+ =?utf-8?B?Y2dtYmIvM0ljTy84Q1N3WlBEbzdnSW1meVRnbXhmZ3JPVmx5dXhxSUtrZm0z?=
+ =?utf-8?B?WjFka1R4OUFjMksxd2xXTDNBRnl0YmVrci9PZjc2dzgzM3RGa1pEUXBzMUFk?=
+ =?utf-8?B?V2dLR0dXZEYrUjAyd1NJaTZwQ0RZclR4NnBOTWxuZ0pMM21KdVp5Qk1hbjl0?=
+ =?utf-8?B?bWVVVkxFdjNQNHBzanM1NDk4NmFVZU14Qy8yMTJ2N1RDZWljbnhVTFg1cnRu?=
+ =?utf-8?B?V3pOeUFZckpkZ3JaTUtEWk9IU0ZxdHVjeVdxTkpVeUJib3lnUXBkcml2bnNz?=
+ =?utf-8?B?T1E9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b076912-37c3-4f3d-3ceb-08de33648174
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79102882-d839-4cf7-889d-08de33659c42
 X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 18:39:49.6242
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 18:47:44.0758
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qTzzQuyUL7RLdSDukPX8zrfFFnQQVWIi8zaM0CR8JTA2RdTDUmukQF5vO2aECioc3OgBagqanX0y4XiF8BOoBUw8XjyQ14LvXqr/WVg1axs=
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hy3NBebsnXH8JdX1Sk5a2aFOljVRcW/JcNpMW4aQ7qWym817iXY1RaTPUYf1j/c28v4OisHPZWzTRaUaZuB0Vp0I37UOq0xRqW4hhqa0aW4=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB8794
 
+Hi Jürgen,
 
+Would it be possible for you to take a look at hypercall-defs.c changes?
 
-On 02.12.25 21:26, Jason Andryuk wrote:
-> On 2025-11-19 14:30, Grygorii Strashko wrote:
->> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>
->> Factor out COMPAT HVM code under ifdefs in preparation for making HVM
->> COMPAT code optional.
->>
->> - hypercall-defs.c updated to always provide compat declaration for:
->> physdev_op, grant_table_op, grant_table_op. This reduces number of COMPAT
->> ifdefs in HVM code and lets compiler DCE do the job.
->>
->> - Only 64-bit shinfo is supported with COMPAT=n, so struct
->> arch_domain->has_32bit_shinfo field is moved under COMPAT ifdef and
->> has_32bit_shinfo() is updated to account for COMPAT=n.
->>
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+On 19.11.25 21:30, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
->> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
->> index 5df8c7825333..0005f4450931 100644
->> --- a/xen/arch/x86/include/asm/domain.h
->> +++ b/xen/arch/x86/include/asm/domain.h
->> @@ -12,8 +12,11 @@
->>   #include <public/vcpu.h>
->>   #include <public/hvm/hvm_info_table.h>
->> -#define has_32bit_shinfo(d)    ((d)->arch.has_32bit_shinfo)
->> -
->> +#ifdef CONFIG_COMPAT
->> +#define has_32bit_shinfo(d) ((d)->arch.has_32bit_shinfo)
->> +#else
->> +#define has_32bit_shinfo(d) ((void)(d), false)
+> Factor out COMPAT HVM code under ifdefs in preparation for making HVM
+> COMPAT code optional.
 > 
-> (void)(d) is to avoid an any potential unreferenced 'd' messages?
-
-It's a generic request to have macro arguments evaluated consistently.
-
+> - hypercall-defs.c updated to always provide compat declaration for:
+> physdev_op, grant_table_op, grant_table_op. This reduces number of COMPAT
+> ifdefs in HVM code and lets compiler DCE do the job.
 > 
-> Just using false builds for me, but your way is a little more robust.
+> - Only 64-bit shinfo is supported with COMPAT=n, so struct
+> arch_domain->has_32bit_shinfo field is moved under COMPAT ifdef and
+> has_32bit_shinfo() is updated to account for COMPAT=n.
 > 
->> +#endif
->>   /*
->>    * Set to true if either the global vector-type callback or per-vCPU
->>    * LAPIC vectors are used. Assume all vCPUs will use
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> changes in v2:
+> - update hypercall-defs.c to always provide compat declaration for:
+>    physdev_op, grant_table_op, grant_table_op
+> - move struct arch_domain->has_32bit_shinfo is moved under COMPAT ifdef
+> - return hvm_hypercall()
+> - use ASSERT_UNREACHABLE() in hvm_do_multicall_call()
+> - constify has_32bit_shinfo() for COMPAT=n
 > 
-> Regards,
-> Jason
+>   xen/arch/x86/hvm/hvm.c            | 16 ++++++++++++++++
+>   xen/arch/x86/hvm/hypercall.c      | 13 +++++++++++++
+>   xen/arch/x86/include/asm/domain.h |  9 +++++++--
+>   xen/include/hypercall-defs.c      |  9 +++++++--
+>   4 files changed, 43 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 0fd3f95b6e0e..19524cb7a914 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -69,7 +69,9 @@
+>   #include <public/version.h>
+>   #include <public/vm_event.h>
+>   
+> +#ifdef CONFIG_COMPAT
+>   #include <compat/hvm/hvm_op.h>
+> +#endif
+>   
+>   bool __read_mostly hvm_enabled;
+>   
+> @@ -1255,6 +1257,7 @@ static int cf_check hvm_save_cpu_xsave_states(
+>       return 0;
+>   }
+>   
+> +#ifdef CONFIG_COMPAT
+>   /*
+>    * Structure layout conformity checks, documenting correctness of the cast in
+>    * the invocation of validate_xstate() below.
+> @@ -1267,6 +1270,7 @@ CHECK_FIELD_(struct, xsave_hdr, xcomp_bv);
+>   CHECK_FIELD_(struct, xsave_hdr, reserved);
+>   #undef compat_xsave_hdr
+>   #undef xen_xsave_hdr
+> +#endif /* CONFIG_COMPAT */
+>   
+>   static int cf_check hvm_load_cpu_xsave_states(
+>       struct domain *d, hvm_domain_context_t *h)
+> @@ -3991,8 +3995,14 @@ static void hvm_latch_shinfo_size(struct domain *d)
+>        */
+>       if ( current->domain == d )
+>       {
+> +#ifdef CONFIG_COMPAT
+> +        /*
+> +         * Only 64-bit shinfo is supported when COMPAT 32-bit hypercalls
+> +         * interface is disabled
+> +         */
+>           d->arch.has_32bit_shinfo =
+>               hvm_guest_x86_mode(current) != X86_MODE_64BIT;
+> +#endif
+>   
+>           /*
+>            * Make sure that the timebase in the shared info structure is correct.
+> @@ -4965,6 +4975,7 @@ static int do_altp2m_op(
+>   #endif /* CONFIG_ALTP2M */
+>   }
+>   
+> +#ifdef CONFIG_COMPAT
+>   DEFINE_XEN_GUEST_HANDLE(compat_hvm_altp2m_op_t);
+>   
+>   /*
+> @@ -4992,10 +5003,12 @@ DEFINE_XEN_GUEST_HANDLE(compat_hvm_altp2m_op_t);
+>   
+>   CHECK_hvm_altp2m_op;
+>   CHECK_hvm_altp2m_set_mem_access_multi;
+> +#endif /* CONFIG_COMPAT */
+>   
+>   static int compat_altp2m_op(
+>       XEN_GUEST_HANDLE_PARAM(void) arg)
+>   {
+> +#ifdef CONFIG_COMPAT
+>       int rc = 0;
+>       struct compat_hvm_altp2m_op a;
+>       union
+> @@ -5063,6 +5076,9 @@ static int compat_altp2m_op(
+>       }
+>   
+>       return rc;
+> +#else
+> +    return -EOPNOTSUPP;
+> +#endif /* CONFIG_COMPAT */
+>   }
+>   
+>   static int hvmop_get_mem_type(
+> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
+> index 52cae1d15312..1ee0193b69af 100644
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -170,6 +170,7 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+>           HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%x, %x, %x, %x, %x)", eax,
+>                       regs->ebx, regs->ecx, regs->edx, regs->esi, regs->edi);
+>   
+> +#ifdef CONFIG_COMPAT
+>           curr->hcall_compat = true;
+>           call_handlers_hvm32(eax, regs->eax, regs->ebx, regs->ecx, regs->edx,
+>                               regs->esi, regs->edi);
+> @@ -177,6 +178,9 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+>   
+>           if ( !curr->hcall_preempted && regs->eax != -ENOSYS )
+>               clobber_regs(regs, eax, hvm, 32);
+> +#else
+> +        regs->eax = -ENOSYS;
+> +#endif
+>       }
+>   
+>       hvmemul_cache_restore(curr, token);
+> @@ -207,10 +211,19 @@ enum mc_disposition hvm_do_multicall_call(struct mc_state *state)
+>       }
+>       else
+>       {
+> +#ifdef CONFIG_COMPAT
+>           struct compat_multicall_entry *call = &state->compat_call;
+>   
+>           call_handlers_hvm32(call->op, call->result, call->args[0], call->args[1],
+>                               call->args[2], call->args[3], call->args[4]);
+> +#else
+> +        /*
+> +         * code should never reach here in case !CONFIG_COMPAT as any
+> +         * 32-bit hypercall should bail out earlier from hvm_hypercall()
+> +         * with -EOPNOTSUPP
+> +         */
+> +        ASSERT_UNREACHABLE();
+> +#endif
+>       }
+>   
+>       return !hvm_get_cpl(curr) ? mc_continue : mc_preempt;
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index 5df8c7825333..0005f4450931 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -12,8 +12,11 @@
+>   #include <public/vcpu.h>
+>   #include <public/hvm/hvm_info_table.h>
+>   
+> -#define has_32bit_shinfo(d)    ((d)->arch.has_32bit_shinfo)
+> -
+> +#ifdef CONFIG_COMPAT
+> +#define has_32bit_shinfo(d) ((d)->arch.has_32bit_shinfo)
+> +#else
+> +#define has_32bit_shinfo(d) ((void)(d), false)
+> +#endif
+>   /*
+>    * Set to true if either the global vector-type callback or per-vCPU
+>    * LAPIC vectors are used. Assume all vCPUs will use
+> @@ -365,8 +368,10 @@ struct arch_domain
+>       /* NB. protected by d->event_lock and by irq_desc[irq].lock */
+>       struct radix_tree_root irq_pirq;
+>   
+> +#ifdef CONFIG_COMPAT
+>       /* Is shared-info page in 32-bit format? */
+>       bool has_32bit_shinfo;
+> +#endif
+>   
+>       /* Is PHYSDEVOP_eoi to automatically unmask the event channel? */
+>       bool auto_unmask;
+> diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+> index cef08eeec1b8..08c01153ac56 100644
+> --- a/xen/include/hypercall-defs.c
+> +++ b/xen/include/hypercall-defs.c
+> @@ -80,6 +80,8 @@ rettype: compat int
+>   #define PREFIX_compat
+>   #endif
+>   
+> +#define PREFIX_compat_always compat
+> +
+>   #ifdef CONFIG_ARM
+>   #define PREFIX_dep dep
+>   #define PREFIX_do_arm do_arm
+> @@ -104,10 +106,10 @@ defhandle: trap_info_compat_t
+>   defhandle: physdev_op_compat_t
+>   #endif
+>   
+> -prefix: do PREFIX_hvm PREFIX_compat PREFIX_do_arm
+> +prefix: do PREFIX_hvm PREFIX_compat_always PREFIX_do_arm
+>   physdev_op(int cmd, void *arg)
+>   
+> -prefix: do PREFIX_hvm PREFIX_compat
+> +prefix: do PREFIX_hvm PREFIX_compat_always
+>   #if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
+>   grant_table_op(unsigned int cmd, void *uop, unsigned int count)
+>   #endif
+> @@ -156,6 +158,9 @@ platform_op(compat_platform_op_t *u_xenpf_op)
+>   #ifdef CONFIG_KEXEC
+>   kexec_op(unsigned int op, void *uarg)
+>   #endif
+> +#else /* CONFIG_COMPAT */
+> +prefix: PREFIX_compat_always
+> +memory_op(unsigned int cmd, void *arg)
+>   #endif /* CONFIG_COMPAT */
+>   
+>   #if defined(CONFIG_PV) || defined(CONFIG_ARM)
 
 -- 
 Best regards,
