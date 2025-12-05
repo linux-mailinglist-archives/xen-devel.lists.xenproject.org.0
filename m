@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00870CA67CF
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 08:39:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1178495.1502277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3539CA6856
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 08:48:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1178505.1502287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRQPN-0003X2-5p; Fri, 05 Dec 2025 07:39:17 +0000
+	id 1vRQYJ-0005Gc-17; Fri, 05 Dec 2025 07:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1178495.1502277; Fri, 05 Dec 2025 07:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 1178505.1502287; Fri, 05 Dec 2025 07:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRQPN-0003Uu-35; Fri, 05 Dec 2025 07:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 1178495;
- Fri, 05 Dec 2025 07:39:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vRQYI-0005Dv-UF; Fri, 05 Dec 2025 07:48:30 +0000
+Received: by outflank-mailman (input) for mailman id 1178505;
+ Fri, 05 Dec 2025 07:48:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7OvG=6L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vRQPL-0003Uo-Pz
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 07:39:15 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f57bf3b-d1ad-11f0-9d1b-b5c5bf9af7f9;
- Fri, 05 Dec 2025 08:39:14 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so17583275e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Dec 2025 23:39:14 -0800 (PST)
+ id 1vRQYH-0005Dp-P3
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 07:48:29 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7f8742a-d1ae-11f0-980a-7dc792cee155;
+ Fri, 05 Dec 2025 08:48:26 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47789cd2083so11346015e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Dec 2025 23:48:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4793092ba4fsm71518595e9.4.2025.12.04.23.39.13
+ 5b1f17b1804b1-4793092ba4fsm71926195e9.4.2025.12.04.23.48.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 23:39:13 -0800 (PST)
+ Thu, 04 Dec 2025 23:48:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f57bf3b-d1ad-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: c7f8742a-d1ae-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764920354; x=1765525154; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764920905; x=1765525705; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sWlmOGqUhu/GMWR46r3v6KrEuCIoV85Kwm4HmboGMbY=;
-        b=UY0tkGf3dMWG4vV6Qzpy0Km71d0Fxn3blqClP5NTD9X4/ctDRxMZZ7QF/G+T15y9OF
-         P9T9GWP404AQD1IRg75K0FED38e34PLA7JJGAOpOVGpoMqxvvGCQlD3RneYKFLRpbtnV
-         uNzS+3Fq00Hzymin633tKRk1NzPmEQO7WxEis/ewKSX9cpl3JhN272H7bxhLsoR/tYI4
-         6c6/R7VLkS9CiOricKkP0ME2aN9eNqvcKkW1Dnvof34dauXuT1JobZkLLYnXqvwYynHt
-         If4Rybr2Lr3ZISAFOm5xnObHyuOnpsQkNUpDXEHnu/aNAp2ScrEo9FBB5Q55fwVId/lr
-         QFcw==
+        bh=7rdVt5JwVmldy3kt+MVUYmdY9scOHHe/WODn3QAmmHk=;
+        b=VVDT/VcuTMxwfGWHFpj/7ZKztQKkbxwqRQFy0HFbFMnWMbVA+SnSbzYKeTzUUHD12u
+         6NSC7H9nWSCCMecBwu1e1jvikmGdUoJVeuzBsHEQpRXcVbnKrwnjILNZW2utmg0KHqoS
+         PYSUiNKWeJu9G6aEOwaLkewxzfWX5vx0A/ETYBb+8gdgftuHIHcGAWb5KtUMQifWwftl
+         zCah29c30+mV2aoUcpVU0LNJ0b3iTQeZir5gQra/ARQsKUlRctRjcW4ZjrpBW1lVHEea
+         NRI9pAFW0XKh6fddPot3ylUsxk6ed360cLBw0k6wEJYKVI6MdHkUBcPFkk0MsB+uy9Tk
+         zI4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764920354; x=1765525154;
+        d=1e100.net; s=20230601; t=1764920905; x=1765525705;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sWlmOGqUhu/GMWR46r3v6KrEuCIoV85Kwm4HmboGMbY=;
-        b=lclb7UwRftxRAOVBTMjr/tM0Gi2otoATJ6sfBnR4OGy6FErlYgn3jrloUTEq4oZbcc
-         38NbOQa6VfFeVIRXq4tvNAyVesCGrFVFva/aNU4KxKt7i35AAazDzAxXmFvl6yAW60Sn
-         v3PpwllegztywrmGgIJernkOFB6ZyhpNHUGaELP6l53RcwfW1Pfr+JpUILkMBEJ5xBbS
-         YwO35Bd+VytcGCaERmoBl4y2b0pWiiMOwEwm1D44ExMj3Lj7xx2geLVfbTkdGJ0sVUpR
-         exV4S0gb/ikjaVWRpPE70T6clMcjES4gV+ed1bdAP82bOSBXZFfbsrXqD+PdFk58pUHD
-         F0KA==
-X-Forwarded-Encrypted: i=1; AJvYcCUmOvMUJu0avU2WlpQi3wc4ragNLoUoE9NtyNcWiDTeeG/+5UobgbuZmkvVEcVer0NZ4gCnvsHjYfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwO6HxMa6iLrGwsJgKZS5XaMvu4jvn0m9UeQ0IBpsJFw0T99L+r
-	0goXelXuPUjr2CG3nmjD56qVTeRXsS4TtoAqR5lgWAvplMz5V2JMFUURQmuI+pBZZw==
-X-Gm-Gg: ASbGnctpJ8Aq4cJ/9KK+XYaZvOE7MgSswjdKZ4bGO9X7LSfrXxE/fXE3m4WH1DY+LYn
-	zxG3iEf5Egq6n2p8me7MWbhLVkh60mifwh3RI8SWcqcGuHVzQomXNJYdZA45FkcAZbYFHufJ+Yk
-	4NtSRiZdlSwSH3FhfhO7fRZcD9pyzTYfOi1MtYNWxH2DQqeZfd1zfZc2ddjFVdgGHSxBDc+dcl5
-	7Y2zQi1WQ1P9NBCluAMWlimxdPbWJvt0PI6HMHNmF0QnRA/I2QtJdQVzSbd5oOcdrp0YGTd6ckn
-	6Y7OuAOynXQj1hIBnMpS8VXpLX6ZcLd/J1f4xydMrHZxrAGtI08Lslh/0h8K7PlFKjM40oKXua2
-	OV9b+iA7Lh+Qb6uKzUjrUdZj31W3UlbKTm/IxwPRrhxIuBK3Xl1Hq8hJ8go4+uBFnHOJIB/nCam
-	2WXcYtFmEUJbOgs1CBAGovVONAKqLZFRxb/KgSHTd9/B6XejWJM4Vq+TIpGWH4+2aCCcywejGUq
-	Lo=
-X-Google-Smtp-Source: AGHT+IEJCWFDYO2jP3IdQ2g4AzpVfERkV33Rd37kyAbl/2Xq/5g2rH0IovLv0yNdYDSFJxtXvmJQZQ==
-X-Received: by 2002:a05:600c:450d:b0:477:76bf:e1fb with SMTP id 5b1f17b1804b1-4792f28b9a0mr67155945e9.16.1764920353844;
-        Thu, 04 Dec 2025 23:39:13 -0800 (PST)
-Message-ID: <6e189be1-a7c6-44bc-91a8-84dec7ed47e4@suse.com>
-Date: Fri, 5 Dec 2025 08:39:12 +0100
+        bh=7rdVt5JwVmldy3kt+MVUYmdY9scOHHe/WODn3QAmmHk=;
+        b=oNpI6QD3X7iOSNdaNX4KeIAdngHjuawLi8GA6VMBnXMx9IqjmdL13txcaDFe3tXB0l
+         J4ne35Tkg+NrqpRbVxsOxUlkWKkphJ3KqEdLr4E3fHMngvjJv091K1F0DfoNlHVG229Q
+         yoryugQupcBacbPiXCVn0BhHYiIr+6a6EMptVEidYAY6VuMzYFdsy/g6uB64tttQhBUn
+         NigSaczCoON3D3/HHU7ifOO7i2KxHbCkNO31cHe3u5d0DJ5x5w1VPhk61HVGTOHM6Tpu
+         g+tnJPN2b3FbT4KXjZpDWJSLVFbgeMngWKKdvVCloytnF66h03K5BQOOKcA/LlEU2Vok
+         3rVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV5lorHb200/2FBWjshHYuCiIqrBlnml7tuqt/mWJganhKxqBPWr0AK2362BZZFZEqzFJrf8vR0E/0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpS+buFKLa23XHOY7mGsuHCqXZe/XOPsGrioac9bv9hWfxPCGn
+	WGZakOKRkOTx2bNfMukwmGBHWhN49zwQmEm8nleq2k+Qv2+hVt7rmPcC+Ac1vc+eZw==
+X-Gm-Gg: ASbGncvqTVtoU6Tw5twyKXogSVdiwMPLeGSAta1CUUWA5CS3oE9cD+DBWaVniHifnn5
+	3Q06/Qjef6Oxm3fGqgiTHyy+lolvmN+SDOEAnzdZX6uWDtqjx8zliaqiZyDhy5L2NLeats7hX7f
+	1SG+AFW9UtiW0OcD4lGeIFwwDWR9tYOsq00g/MgPgEk2ORbxtS56BDdoYaF3OvuBq1VgY0Yc4RM
+	gAam73cbjFAZQ62rZ8GkbkDcgR5Pd6hmJuPTu/UX8uo9T/tCQlfcfN7ji8hJRa6jwmWLH45iElY
+	rDw1GVvdhUm+JpeG+MKJusNMj67R60GDbJj/hKMm6HrU7IzRK0mUaZcxNaGo2cd4mXpPHfcQ3tz
+	HqO4TMZpinH0A0p1Ev2RHzO8srDfZ08sPY72hhAI9bLW/Vh1VktIxJ79rzKiL9vkwdaIf2oFMyj
+	2NIok1g1AbheLBq1W7fcFYicCb4/e8KeBIDMiW4MYdXYIAmow2fBgKPPQ8gOm1O5FZCrvr7aE8g
+	9s=
+X-Google-Smtp-Source: AGHT+IEFImYhT7yG5RIOln7xiZs3YEQSU9XttqB/4QMST7UScS3Y+PnoKTT+Hgy9o/uWdBYOwgitJg==
+X-Received: by 2002:a05:600c:198d:b0:46e:4a13:e6c6 with SMTP id 5b1f17b1804b1-4792af1b339mr107300595e9.19.1764920905367;
+        Thu, 04 Dec 2025 23:48:25 -0800 (PST)
+Message-ID: <c21ddcb3-ba38-4dbb-9860-731eb43c38f3@suse.com>
+Date: Fri, 5 Dec 2025 08:48:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] console/consoleio: account for xen serial input
- focus during write
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH] xen/treewide: Use __ASSEMBLER__ instead of __ASSEMBLY__
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251204233211.980862-1-grygorii_strashko@epam.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,52 +126,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251204233211.980862-1-grygorii_strashko@epam.com>
+In-Reply-To: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 00:32, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 03.12.2025 14:32, Andrew Cooper wrote:
+> __ASSEMBLER__ is how GCC and Clang spell this, removing the need to set it up
+> manually in AFLAGS.
 > 
-> When 2 or more domains are created and:
-> - one is hwdom with "hvc0" (console_io) console
-> - other DomUs with vpl011 or "hvc0" (console_io) console
-> console output from hwdom may mix with output from other domains.
-> 
-> Example:
-> [    2.288816] Key type id_legacy registered
-> [    2.291894] n(XEN) DOM1: [    1.016950] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
-> fs4filelayout_init: NFSv4 File Layout Driver Registering...
-> (XEN) DOM1: [    1.018846] audit: initializing netlink subsys (disabled)
-> 
-> This happens because for hwdom the console output is produced by domain and
-> handled by Xen as stream of chars, which can be interrupted when hwdom is
-> scheduled out and so, cause console output mix.
-> The Xen consoleio code trying to mimic serial HW behavior for hwdom
-> unconditionally by sending available data to serial HW on arrival.
-> Xen consoleio code does not account for Xen console input focus, comparing
-> to emulated serial hw, like vpl011, which does the same for domain with
-> active Xen console input focus only.
-> 
-> Switching console input focus to Xen improves situation, but not enough.
-> 
-> This patch changes consoleio code to account for domain with active Xen
-> console input focus - console output will be sent directly to serial HW
-> only if domain has active Xen console input focus. For other domains -
-> console output will be buffered and sync on per-line basis.
-> 
-> Example output:
-> (d2) [    4.263417] Key type id_legacy registered
-> (XEN) DOM1: [    4.658080] Advanced Linux Sound Architecture Driver Initialized.
-> (d2) [    4.277824] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> ---
-> This causes random multi-domain tests failures due to inter-domain console
-> mixing which breaks console parsing checks.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-This remark reads as if "here's a patch, but it breaks things". Instead of
-merely "This", did you maybe mean "The original behavior" or some such?
+While I fear this might end up biting us significantly on certain backports,
+still:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
