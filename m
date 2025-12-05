@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0165BCA7095
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 10:59:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1178588.1502337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33529CA710D
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 11:05:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1178598.1502348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRSaf-0007G2-Co; Fri, 05 Dec 2025 09:59:05 +0000
+	id 1vRSgA-0000Yh-0u; Fri, 05 Dec 2025 10:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1178588.1502337; Fri, 05 Dec 2025 09:59:05 +0000
+Received: by outflank-mailman (output) from mailman id 1178598.1502348; Fri, 05 Dec 2025 10:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRSaf-0007Dw-9f; Fri, 05 Dec 2025 09:59:05 +0000
-Received: by outflank-mailman (input) for mailman id 1178588;
- Fri, 05 Dec 2025 09:59:03 +0000
+	id 1vRSg9-0000Va-Tr; Fri, 05 Dec 2025 10:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 1178598;
+ Fri, 05 Dec 2025 10:04:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7OvG=6L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vRSad-0007Dq-GV
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 09:59:03 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1vRSg8-0000VU-D6
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 10:04:44 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06aa2667-d1c1-11f0-9d1b-b5c5bf9af7f9;
- Fri, 05 Dec 2025 10:59:02 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-42e2e77f519so1399061f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 01:59:02 -0800 (PST)
+ id d1d87144-d1c1-11f0-9d1b-b5c5bf9af7f9;
+ Fri, 05 Dec 2025 11:04:43 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-42e29739ff1so831518f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 02:04:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbe8fdcsm8007451f8f.6.2025.12.05.01.59.00
+ ffacd0b85a97d-42f7cbe8a7bsm7860382f8f.4.2025.12.05.02.04.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Dec 2025 01:59:01 -0800 (PST)
+ Fri, 05 Dec 2025 02:04:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06aa2667-d1c1-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: d1d87144-d1c1-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1764928741; x=1765533541; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1764929082; x=1765533882; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fSwK9fCUE0C96+EBr8cE2uq9R2lO759fF4j2IVlT98I=;
-        b=BWaeo8KiTtHa9+6r8jceV6hDY2M1XZI2SmQ5sO2qgtdzUIvHqlQStyfSsihUn6lXnI
-         yM5hzLVrEBwY4Is+N/aO9JLa0uQfca9wQWkA1aK7QtQaQ71xGP8ayttUjOv6mHBio30d
-         d8yYikMhiO6ymhf8ijBzEl6WBG2ac+FcpRlR7s0kbP3TmRfKaaz0XOMdX00a2CxQL5Y2
-         MEe/O17UbuPYC32Ry2qajQYfBBO7bTW9v1b5HfyPR4ETHGy/fhjC3TRrE1+EJv0fg3de
-         Ewj14YWMFePemUdkvbMu/MBotHlgouakEqDYYH8HW5fDy5linOBQzwdX70fIVb+MW2X+
-         bqVQ==
+        bh=iBQnP8xcieGIPUKoxaA09ieaCWnBABipBnTgPxfgydI=;
+        b=T4X7npmdCTKZBdR9tAzxPg7en6KeLRpy85/OlB2xRJh66j0lgg1YXLoUWmj6nta8MG
+         4LkdIT+k/wVuQxpV7YIVhqGEdFTX3Qoz7nN8AIH7SxqvF/tz6KClIXf2RhDj6wQBbx9s
+         nY7wwUPW8KDY4jTL2Z2qVAs1aKh9i642/zZzPXgHxJMiG+r/MQC+fvfbG7lT1icdtcHX
+         dFZs/P2kpMYoixCyRRZifYhs4+ivn6knbskOuT3sj/ehcnxOt30IULRpUEWlhpdss1ko
+         5Rnark3whmasF5A6cB9Xg1rzzENTJnBr5dVBsca8UFom7VHQQOnImoL8LBfIWpzjv77F
+         FXWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764928741; x=1765533541;
+        d=1e100.net; s=20230601; t=1764929082; x=1765533882;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fSwK9fCUE0C96+EBr8cE2uq9R2lO759fF4j2IVlT98I=;
-        b=A073ThN/jUTobNP4uT1QNo8QsJFLc6jPxRyWARW8gBvvy6ml18JV4f13qMsJ8UdGEL
-         I813pKMY0ffcdYajQl3fJJuJAiTSO2yRKN5hDDfJa5wuhQ5swc+3I3Gl7mNcwQaXhroT
-         yvo2d8VobNDOU6eCxml8pjH3b27gc62pwfP9NeUHHaAV7xNWRmCUGj1U5ofgnnKKBsDV
-         062CqnFriJ6PNJ8JCbUkKdwmfushJcvNrYonpLF7lJZhMnCjw8bVkJs9MmTlJRf5fjQW
-         gprTrCpxWF40ExOew/jKkSl52y+Y/kCzxXe3ofxghoOTCduqbuRBDRZOK97B7bDJsgOg
-         Yw3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXsd1CDn1lMTYkpyHw54XJtakJEhQq3Mwxn8l0E1Q4dlhyDmMDEZgra/ev1zNVdZ2QbYwtkyAIK1Ac=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjoEhK3U5yCuWki2u10Dy7MaHhurqTx6ZkMNRlWv8+oFH/FbJf
-	Llf0+3A7/AZQ80J/H0GDYNCRdO7MoxCJACKyUSGBxpv3+PxyCuzoXsLtSBEIobQosA==
-X-Gm-Gg: ASbGncveNvSvVqIQD16NC+A3T8TjZRq5z9ZCYnlT4fNR38yF5yEBUyY8z0hTH8/du28
-	M+KFJxyzkEZaotvxVWYKX6SsNYdh24MLIXL3NqH9idP/gNzXDILiGwihdIUAfU57ClnKzhkSQr5
-	lY5Y5cc2ywtoPDi0O7geioB4/z/8k32H3G0lRibZPYXNQP0xdsnqBdc9ubJZfBb/LCaaDrtCZ0F
-	bSG53u9RNaWc6z2mA7dezunOOeVzQzzBNW4lYyPQtCpSSfG5jfZt0mFYUq9sNwF3yddY0hKRSfi
-	97PlSUyUEv50WQgmtWXd75tXNhO8hxZYYJzzH/vpVPA5zvkkL9BHhlaisct0m7Tp+E312x2bkL5
-	CdymYV9VNhEzxeZA/EnpYIshCwiQUlGSqMgqVpS7P3m8P2dkkK+zUWsIJoR1Ym2VgyL9Hy2sg7K
-	OdNMg9BsFGnGhECcvT46Z8MS8nUoNBJnlFTt5vTDHMgqh3b7avQxujTAcwKQl/g33tLjjz3Jpim
-	qSd/ttH6qZ0Ig==
-X-Google-Smtp-Source: AGHT+IFchfcOzbIbyrjaHWggo7M+gSnOYWQUUFdQju3w0UjEl7zS1/8iodAsVFIF4jYKizIPy6jnaQ==
-X-Received: by 2002:a5d:5f84:0:b0:3e7:45c7:828e with SMTP id ffacd0b85a97d-42f798482c0mr6723782f8f.33.1764928741423;
-        Fri, 05 Dec 2025 01:59:01 -0800 (PST)
-Message-ID: <54cad03d-5530-4d6a-b3c3-956906daac1c@suse.com>
-Date: Fri, 5 Dec 2025 10:59:00 +0100
+        bh=iBQnP8xcieGIPUKoxaA09ieaCWnBABipBnTgPxfgydI=;
+        b=gilPMP6UuoEvK7ePz5HlaudXi5+X0fTpO5UgO1dUBh6tkc49nF6FehT/Ix55Qffwnu
+         AE9yXp9nnLJcGaVlzdQ9z8FFXXtBF8Ck3etaDEuPlu/GiFcllhn3kgk7Jmy1M5goRdp5
+         fGVCKocyNnivfygYuqjuYFcfIkjLcjU0CefUBx3enj9DzavzjlP4l2Dd/p1rTCAXyus7
+         bG/GZh0pyZEsfoVm6b8u+yvYAjejRCbVn0GwC0UQAI/lem0Umo687MP3XKG2OngeGIso
+         roi1nUXrz9oHSzd2qwNBUy165vFzVDvTQevOiOejNB4ieWuTRcXPszW34BaihHeZAS85
+         EWJg==
+X-Forwarded-Encrypted: i=1; AJvYcCUoBiO3rEAOegqZIuMU2rVh14bErLnTXQCm2BLN3cGhqzLc2iQpgFzhh6h/DCjIIYSZiqEcvBJqNLM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXI2n6FyJVePu23gWkNJlW3DLva10cmFOslkwlzg3RO7IhgMSH
+	OPiCfyX+JRCQ97pIkD0YAgqVuuaKQVxl1kftIQThUI1wR9RWkXtJ4khYmnur1HOhQg==
+X-Gm-Gg: ASbGncuuvFi853rMPLIAFGkeuMpsXcvHycvW5xmCk3xFbjPQ18XHDinKQnhIBFkfnyn
+	kke+TLHMOpClvOu6RserPrGZzeCtFDuckZDRZfo6sJ9rc6V7LefEgTMJ2R8yaams227oo41LskN
+	+FpTMRofYU5dAI8ykgD+OKVAP1Znhq5WTemnkJ9A83G24qJN1xRYGFuJo9SNvg0jJp8xiRTlHIB
+	Lr1Nkzc1QDF8dddP23Aub/ReRt4XOF6jZZ/I7TvnbToQJYEcXlwG2lxZHWzXuMO1Pf10i+aHVbw
+	NlWPx6VOI5B8M6A3e8Mqfp/sXxdQJap+V1io0oLji3frrkpHf7Nu0fdmVhL2ulj0CgxnkLYo9Au
+	cFP4dsmEMpEFS22bSUXeXLDy7X2AjVOe2iyTn5AplHHAwbg4efDieOqmTej3zs17DCFoGFkEAy6
+	fiTVxtiBxRrnD8YeuPyKG7TKDwlaf0DzQmIKppTVRN3jyZiHPlhX2bYv8G3nKuQ6tnBYEbHwGFN
+	p4=
+X-Google-Smtp-Source: AGHT+IEynt2Q+8Q4NPCAEhNauQSBxVPjAMuxsa1WL3rR851PPwmPjYsnBZnIFFPr44zlDgm/pDnUbg==
+X-Received: by 2002:a05:6000:4009:b0:428:3d14:7378 with SMTP id ffacd0b85a97d-42f7887dd3bmr8029877f8f.24.1764929082349;
+        Fri, 05 Dec 2025 02:04:42 -0800 (PST)
+Message-ID: <6922a720-cf38-4904-91d7-5bf2ee6abdee@suse.com>
+Date: Fri, 5 Dec 2025 11:04:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] Changes for several CI improvements
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
- <16830f7a-1bc9-472a-adfc-1d959b6fa58e@suse.com> <aTKrCwCNwtT9ysIz@mail-itl>
+Subject: Re: [PATCH] x86/hvm: be more strict with XENMAPSPACE_gmfn source
+ types
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20251205093151.56207-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,47 +119,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aTKrCwCNwtT9ysIz@mail-itl>
+In-Reply-To: <20251205093151.56207-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 10:51, Marek Marczykowski-Górecki wrote:
-> On Fri, Dec 05, 2025 at 08:34:10AM +0100, Jan Beulich wrote:
->> On 04.12.2025 17:37, Marek Marczykowski-Górecki wrote:
->>> - Alpine update
->>> - Debian trixie
->>> - Linux stubdom
->>> - test arbitrary linux branch
->>>
->>> Technically, the last patch isn't strictly required, but it eases debugging.
->>>
->>> Green pipeline: https://gitlab.com/xen-project/people/marmarek/test-artifacts/-/pipelines/2196630637
->>>
->>> Marek Marczykowski-Górecki (12):
->>>   Add Alpine 3.22 containers
->>>   Switch Linux builds to use Alpine 3.22 container
->>>   Add debian rootfs artifact
->>>   Add linux-6.12.60-x86_64
->>>   Enable CONFIG_USB_RTL8152 in kernel for hw12 runner
->>>   Include git in the ARM64 build container too
->>>   Support building arbitrary Linux branch/tag/commit
->>>   Save Linux config to artifacts too
->>>   Add linux-stubdom dependencies
->>>   Prepare grub for booting x86_64 HVM domU from a disk
->>>   Prepare grub for booting x86_64 HVM domU from a cdrom
->>>   Setup ssh access to test systems
->>
->> Like for the other series, where one patch is missing, I'd like to mention
->> that here patches 01 and 03 didn't make it.
-> 
-> Yes...
-> I don't know what to do about it... xen-devel list reject emails with
-> dockerfile changes as "spam". People CCed directly got it. Should I
-> include more people in dockerfile patches, just in case?
+On 05.12.2025 10:31, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -2007,11 +2007,15 @@ int xenmem_add_to_physmap_one(
+>      {
+>          gmfn = idx;
+>          mfn = get_gfn_unshare(d, gmfn, &p2mt);
+> -        /* If the page is still shared, exit early */
+> -        if ( p2m_is_shared(p2mt) )
+> +        /*
+> +         * The entry at the destination gfn will be created as type p2m_ram_rw.
+> +         * Only allow moving source gfns with p2m_ram_rw type to avoid
+> +         * unexpected p2m type changes as a result of the operation.
+> +         */
+> +        if ( p2mt != p2m_ram_rw )
 
-Personally I'd say no, but maybe others differ. Imo this needs solving some
-other way, as legitimate content really shouldn't be blocked from hitting the
-list.
+As asked before - what about p2m_log_dirty? Imo that needs permitting here
+as well. Making it become p2m_ram_rw is "natural", as long as the (new) GFN
+is suitably marked dirty (which p2m_add_page() looks to be doing).
+
+>          {
+>              put_gfn(d, gmfn);
+> -            return -ENOMEM;
+> +            return -EACCES;
+
+Since we tried to unshare, imo ENOMEM should continue to be returned for
+p2m_is_shared().
+
+With both changes:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
