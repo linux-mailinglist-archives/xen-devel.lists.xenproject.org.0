@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE5B3CA915C
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 20:35:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179395.1502907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3B3CA9303
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 21:00:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179414.1502916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRbZU-0006qX-Df; Fri, 05 Dec 2025 19:34:28 +0000
+	id 1vRbyZ-0002OX-Cy; Fri, 05 Dec 2025 20:00:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179395.1502907; Fri, 05 Dec 2025 19:34:28 +0000
+Received: by outflank-mailman (output) from mailman id 1179414.1502916; Fri, 05 Dec 2025 20:00:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRbZU-0006o3-AU; Fri, 05 Dec 2025 19:34:28 +0000
-Received: by outflank-mailman (input) for mailman id 1179395;
- Fri, 05 Dec 2025 19:34:26 +0000
+	id 1vRbyZ-0002Mb-AN; Fri, 05 Dec 2025 20:00:23 +0000
+Received: by outflank-mailman (input) for mailman id 1179414;
+ Fri, 05 Dec 2025 20:00:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XFGw=6L=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vRbZS-0006nx-4n
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 19:34:26 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
+ <SRS0=K96r=6L=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vRbyX-0002MV-Bl
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 20:00:21 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 624a967e-d211-11f0-980a-7dc792cee155;
- Fri, 05 Dec 2025 20:34:15 +0100 (CET)
-Received: from AM6PR03MB4600.eurprd03.prod.outlook.com (2603:10a6:20b:6::31)
- by PAWPR03MB9129.eurprd03.prod.outlook.com (2603:10a6:102:33d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Fri, 5 Dec
- 2025 19:34:13 +0000
-Received: from AM6PR03MB4600.eurprd03.prod.outlook.com
- ([fe80::ec82:849c:dc0b:f6d4]) by AM6PR03MB4600.eurprd03.prod.outlook.com
- ([fe80::ec82:849c:dc0b:f6d4%4]) with mapi id 15.20.9388.003; Fri, 5 Dec 2025
- 19:34:12 +0000
+ id 03ba8575-d215-11f0-980a-7dc792cee155;
+ Fri, 05 Dec 2025 21:00:16 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA1PR03MB6671.namprd03.prod.outlook.com (2603:10b6:806:1c2::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Fri, 5 Dec
+ 2025 20:00:07 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.009; Fri, 5 Dec 2025
+ 20:00:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,296 +47,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 624a967e-d211-11f0-980a-7dc792cee155
+X-Inumbo-ID: 03ba8575-d215-11f0-980a-7dc792cee155
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xOtkQyO4NRJNzbuCk66/h5jI7/1x8lGGbsizGV1NG0aFAiJBC4bbDo1eiqPyegFLTi61TmjE/E1pJSJHSKZl8lFnsyGgOS1W+yioLBjyHMwMsTHy2G4q9rVfsHlq34aXlZANcVeL4IcDkjNruFdmOVhinCC3eQYpmzhlPElfPmB7DAMBbvKpW8icDPDAiBhpuRt2TCVljdpypuu4Wx1zS4iwffrm7CspVw6YtLPcxlme+bq/fqO2s3dNzXTwcbmpQ82gsQg/+9ICmFHEDKuNv7n5cG6wxdBIdZq+bsIY5JyuFbIaWzfFwiPLoEhBz/URG/XaC0XpLQce7JpDCdY3Ng==
+ b=OckyM6NU7ulgo+FzRNjT3odf7Qx2nMwadqcLGIj6PJ6YvVS5YgtnPAVinN2eL7wrg632LZPdJuTe1PVMUZyysx2m2Szz68RiGVrEPxNjdZLtZgoFcRpNGPajyxnPjCWP4E2jJ7zlKff1johxIupJYDIzu3IIZBcgpN3euzwJzwucloXpoXQC8ka/CN5texmNf4F05UpmFg80hK/emTL/lffLYfbJV3db/h/9NWelMQadLLHbF+Q/fhS+GCyEgAGa8VNOlUr6b1Hn9/o/raMc5PEeQn/49NBC4XnL4HFXtQ4g6dwjFZnF2V8NPKWHH106njZkCI/fb+B77NsPen1WMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zdQgXa4klk+QWtP66Tp5e3WuEgtjSXvGsni9dLvLTn4=;
- b=hKuNk3q7ANL3XjdOeeQEUjOoCAV3Dtm/ueWEZ9qDcgSETuPwMOmQzh0Nk2Db9YSXqSYAb0xyM9h24phuMZwx260AA4CWfdCnPuYWOFDRRBydYbfQJyANpKFWdTxgMlu2ATUJ/n2fqsQ1h7A8HWGdeaMnIdrP3vwrLu0FS8mSDOduWu6jXtvIlSbFVbIhNlZQQ7j7fhWdJRIBzfYDe62qqH1MrkQdzsT7pByJLemZGokpvgJYQziy3vvZExtuIzPzbi6LLCUSEZbrZwlYADUtQbN0Qbvvs5TKxl5VJSBp+lmSWRsVIGkx7BF0uKNT/2f85OhmL0nJVhPMKyT+Ea65ew==
+ bh=IUYuEN88FCYSZ/MvD+Y54anxQGLQlHo4zz9YoEwoXXQ=;
+ b=JmbAqqyePg0Kp7om4qsLKiAY3hEjw7p2IcM676Z17/ITrRbT2VDmFbyQVdLg58KhzWdWIBbdZ9hatwry6CpiXct9ML3ZROsrj5vwjZJbWtBRqUojhw/0bYfJZUGias812bggCnbVU8pHXp8tDwdEF8pW7c+QHlVTMtd7WOs6MacPUbLE2hoY370lw3lm4H9g1R8NeScqfCL048xlka8wEm36frjL+bESi0AsJvDB1cJAv3oYKbDYqGcQWyFv1e/EIEYAAC3iVr2LCoy41IgZDRz+kNqFF8yH/mjByudpKiaVU1lGkqAgJPL+4YYy/iB6epRPuw5PjPpxZMs50sO2sQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zdQgXa4klk+QWtP66Tp5e3WuEgtjSXvGsni9dLvLTn4=;
- b=EhHjFiuIrR4bOfXT82nGKtsvxOJlPy3HcXWe7scNjwqTmG2y1YRhbIBiBBpvjUWHDb6qyLiF69cjGJpRM/K2fpWx3smpQfOoWUcTknpHru+LDlKcM1EfFNMohv6KKvz0GD7tryHi6W29qltojaruFuJOnKNhW/uM7moWquD5aFMh6iIwwW/BZ1SV01+WqNBaEdFqhLw+CkTfe0laFAuIoRsMG5XWWRwaF0tm2/xXiouNYzBo4Mm7/Bqh23VR9DyrOObMAjoBRKXbK7+ySdK+OWG3Vj1qsjp1Bnf6lBZP/Xgowaf6vaHFL2JL2+lYxkj5Z6IKvt84r87xTeJvrq0a8g==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Jason Andryuk <jason.andryuk@amd.com>, Victor
- Lira <victorm.lira@amd.com>
-Subject: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
-Thread-Topic: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
-Thread-Index: AQHcZh4iEvp6gRy5ukqEPh3CRoOuVg==
-Date: Fri, 5 Dec 2025 19:34:12 +0000
-Message-ID: <20251205193411.1368659-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR03MB4600:EE_|PAWPR03MB9129:EE_
-x-ms-office365-filtering-correlation-id: 230ae922-35c1-4708-2e33-08de34354505
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?0lmASX1FubfLo/eWex9qlD/SHPyJOhH6ykHJ9K/0y4TcsNy9U1SuXopiXx?=
- =?iso-8859-1?Q?dwY9QPO/yB0+hNdgW0l+qo3sOyuieQzZ6ISFmbhjRaD9O3hHz3zMqZh7tx?=
- =?iso-8859-1?Q?L+TR9TU3giKyycmGL7R+mkm3AKYyLDnCndceO8ss4F1+T8u40cXOJF6BFl?=
- =?iso-8859-1?Q?UV4ik26ne0hmbIL2iYmA83bMgSDxDB69uGVEcNScyVsy/vQpNFCPNjFRld?=
- =?iso-8859-1?Q?lb+700ipEKzhGQGDH4EClaBjX6tlrMPnkxSIjyZqZVXN1s9v0gpo99X91d?=
- =?iso-8859-1?Q?VtbX+8jEknIlEZEoE0xDoB7Co2QG6L4o8NWBSN2xUD/twIq6BbIJFaz/VF?=
- =?iso-8859-1?Q?WwT9ECwi3zyEwgNJrNFFLzf2xWjtYpE8cVMbW9C4ZkP3GbeTSxAWNmOr7h?=
- =?iso-8859-1?Q?w5OkpfCWUfwLIBT7nUYC7KVQ/w9u7hCwNBo/HwQ1exzsgJhEB3RfM3tPqN?=
- =?iso-8859-1?Q?Z95TYk6z3EBSpROPux+rq8yRfQmV3OuupAu8hhdWoFwTTzyrthlOK5R/Yg?=
- =?iso-8859-1?Q?BZFl+24mr21c6YKJWCPvxFKdhnexu9HDcuhe9aJMxpW85OAWAKWWo4Dgwn?=
- =?iso-8859-1?Q?1LTckW6844KbcWpyqyEgU0MVhjG+DmFiK6Tur/XCMK/BvIw3t3rwxM7VGm?=
- =?iso-8859-1?Q?St9WBo3jAOLszxSzbe5nspD4pnPSMEZaEBo+kRad/lZ8Pz1SzwtPftLgZQ?=
- =?iso-8859-1?Q?KRFwx3MHSgLjzu1EkFOMVtxmova8vjygRVBEHbp+G1+BtQSfYYFsCIcL7g?=
- =?iso-8859-1?Q?cxLnAKTR8ZylDq+vCDGB05t+3rDDTzU6/u9k+2d12jfxFapex2WNyv4Eqi?=
- =?iso-8859-1?Q?LhlYM+JN/RC7vS7h8vKcTthg28L2/bo+YyuM9mRb/QxEbqDEbPSC55Sdlo?=
- =?iso-8859-1?Q?77Wf5fXxIaZHNBd0GFvI9nXk5D4RfWmrYaD1UTYw8QnoOB4WbxqGH0po7/?=
- =?iso-8859-1?Q?C9UIoy0VjzaqVrVaE1o4Tg+xI1ivc10NCeOzrN8jby1oao9zr6seLVMtfY?=
- =?iso-8859-1?Q?+BPZttHAeBLRX98UFMvG5SKQ6Bqhy0kIzm4N1Tb7DmTyi1xq0UbltGi8ML?=
- =?iso-8859-1?Q?GlWa7E+Xv8PsuIsigHM/mRaKNZIcvLp8OVI+eeJtPq6iiyXAqyQdUnvwUI?=
- =?iso-8859-1?Q?eqSqxJaRpuAN7xtbgYOk94/v/7GQuiGeHzWrI5T49+U7E9xSd8EFhpCF4D?=
- =?iso-8859-1?Q?dba5WjFZ+plo3ySEOVtpOIFWt23uJAuyakNfWbT9e1POEe7k3T+2xu06CN?=
- =?iso-8859-1?Q?2zR93zoaNSVJz6F7EIAnqBy+9QazRoSduJ7h4h0BTR/Lns7acFZd9x7BtI?=
- =?iso-8859-1?Q?UDTRhDYAJiKIe3djtyRJ2o+uxbflxxFG2QZ9GHYjufcx46lzp4GxuS4Bbr?=
- =?iso-8859-1?Q?cX7DaBUSeHXOTam0G3/JhSW6Exvg1ptcgErmHy2+OkiGetvEA8NnHMBjRu?=
- =?iso-8859-1?Q?w1B9Cu/qkHYLgmAV353bBa6RfQIDi9Nvk+lRZ6n+GbvaqBYbJJeRnXvlgR?=
- =?iso-8859-1?Q?DODqJ1HpY0bKW6wHxmfePpYb8tGf6KEnxp8V5RmS61lcf1ooJAQN3k8JyQ?=
- =?iso-8859-1?Q?NjEXFzTcBE3Vgcx8suLKus8I0Pfd?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR03MB4600.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?nBBewJFZhmyNIgpiXlTVxh4imLbg1Uloe6pM6p+B2faCzc1fuaP9COJ+xF?=
- =?iso-8859-1?Q?E92kjEUfbK0DPZcXcdYN3TR7/bJy2GYwV+LKIo19yk9CvzDUIDQQTevlpz?=
- =?iso-8859-1?Q?xf/69KEHXmop2Kj9xXjM+DBaJFTZ/x5Bb8giZJ6HIxFrfzDiJoNDEBgwuu?=
- =?iso-8859-1?Q?GuLL3jhE5ibHx/ymwoZG163poF2k3G+hFE0C/En1mztsf/PxGS63TgOiiW?=
- =?iso-8859-1?Q?yScCH0Sc5B1KJsOEA9p6mkwxDLKbYzww3xPhztss6bk0OGttp1WECQjFbc?=
- =?iso-8859-1?Q?qX6V/sk/IMZC3BDWMRmKiYCC9TR8sUBchcEkwqJoQUUdF0Uu2hImuuMmYu?=
- =?iso-8859-1?Q?wUIkEQDbiVFytqdS2Pw36k+9duQowhI8XQRk5WHUK/2khdX9Oixa3bca3s?=
- =?iso-8859-1?Q?LEHeG8NtdBwIB7TsWzdAxxFCZvw5mzhNaslf+9OfgHs/mMkdhmfUPkyzP+?=
- =?iso-8859-1?Q?52tKlH+StttW7ZnS3G+0kHoPxSTwQIvhVgAHY3ImSTDwXRkIPTkSdSYnsb?=
- =?iso-8859-1?Q?xUXSXLB3lJMqpWGDfiBH6UwZJVIvkMAZCPS4XN4U6cQ3bKoHlhDfHF0TUJ?=
- =?iso-8859-1?Q?E7wLNrxn5QCgD3StONIlMi3A9TPIgLDORgq+KaVCuBpUsdSWZSt18BKgez?=
- =?iso-8859-1?Q?CcA8G1x4Bo+pKI6mSGlA7J0i0QgCuMD/Gca1+YWTbES134ryicJvTNbiWF?=
- =?iso-8859-1?Q?qp9aPPoik9pUAjh+GIM0zj4AA4Ly8QlH6vJcfDPWR/8qgsU0Mz+CnK8Sno?=
- =?iso-8859-1?Q?8WWjkck0QTSIfo+gxrHxPgOQkev2w9BcVMORyWVtMxrs5tb+Gxb3hoK7WS?=
- =?iso-8859-1?Q?1IC7IBwBr6HvVpKW4Bh98SM6nY4ZI0Jn5St3+sxmcnm78BSznRzzT3b8rd?=
- =?iso-8859-1?Q?lRY00DghASUZnTfFZNtWxp5pNGUL4fZx7EFn8HdYLKLv7/DTBrRwHSYGcj?=
- =?iso-8859-1?Q?BtSVjIQjhdFZnnwT/fhUHoLTKWUgZeHqiXoo1jZu/LawMXkUmn2dET08FX?=
- =?iso-8859-1?Q?Lh1GHYcj8z8X2FG28W5br0Qsy18VFg20ZWV+YFbp0kfZK2Gpf5zxOMETxy?=
- =?iso-8859-1?Q?mVIWMPrkOhA5aPBSUr8qY2Km3gZJ17+2yS0ZSoc33VRNaqtheCPbhx6fgO?=
- =?iso-8859-1?Q?M9IAbCa9qKExkxwL1vEulIad+ygDoH7MXK3LkoVxd9+6sIJE+J+oFaD0y2?=
- =?iso-8859-1?Q?6uiEwPzJLXpDvEJTnnWoWAr7Za5kBoKpmCDbLSlgfZkC6SwoOOpWrgt2hf?=
- =?iso-8859-1?Q?btr7SGB5G7srRMjsCK52JQ3BSgzjj+meSMol/15No54r+HlSq6w1wU1RMR?=
- =?iso-8859-1?Q?EDhI6EOLR6mzrlIvDD5nw/3f0uFaD54hxp3zXMoGqEoJ4+yHokfQBKy5bj?=
- =?iso-8859-1?Q?Ox/rdgf/gtlNckIbyH3LoDgZ+qdM/n6zkO9j0us5GXAxHcSpuyIHt0SVO3?=
- =?iso-8859-1?Q?+L9wa9wlOCXv15YblR3ro5AUpslbNwocZOYIOM9Wg+1MK+1vnRZOYpfoiw?=
- =?iso-8859-1?Q?xhn4X+FzBcG19ObYs5hbWrhgQ1kEp45DTr/cyOwxv0EuZINhnGt/dzMqgr?=
- =?iso-8859-1?Q?OCIVPODAubOiob0GPqR1ZHj7f4zS7KeCAVO51ktE+dOP8D39yc9B62z3gp?=
- =?iso-8859-1?Q?QhqDI1OPo0Md1pqi/IIcFn4B0g+oECFnEzgpAN4lf6HfDJ3nCYXKbHXw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=IUYuEN88FCYSZ/MvD+Y54anxQGLQlHo4zz9YoEwoXXQ=;
+ b=j70TRVFRY0gKyzOF4iI5G1pOm1ox53olhfZAZp2m2s+cAIV7ljwS5Vv/LnusIcSySvC6GbQKZ1uFnOks8gKtJdlS3GqYGNjFHYYkkM7mXTI4487250HWz2PDrxjT0RqGV1KjJ8P0UhJ3zPuHiVXpo06518g6IbrKZSpMARoQoWU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <d9a632d1-8587-45bb-bc13-8dab8d346cb2@citrix.com>
+Date: Fri, 5 Dec 2025 20:00:03 +0000
+User-Agent: Mozilla Thunderbird
+Cc: andrew.cooper3@citrix.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>
+Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20251205193411.1368659-1-grygorii_strashko@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P123CA0027.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600::15)
+ To CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA1PR03MB6671:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5aa73a6-b698-419f-33d0-08de3438e35e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UldRVDhKTEZLbFFyVWQ3UTNlM0l0NVU1cU9GN0hodUY3S0djWlJpam9JbXVp?=
+ =?utf-8?B?eXBkbmhNUlpZaGNWb2VjMFZGeVdUSm9qSFBUdjNweWV0VS9Ua1lGWXRYOVJE?=
+ =?utf-8?B?UlN5UlRZbWJaRkxkb1lLaUxndXp2QWJBY3hsdU5kK2l6ZFdhc3NDSExTMm4v?=
+ =?utf-8?B?ZEtSb0U2Zk44cUZiYmxEQXg2N0NCUkRxVzdtaXhhWXZaTy9wLzZFSDFneFdQ?=
+ =?utf-8?B?b1ZmQy9GS3ZZTkhERE1ReHlYaUtNUnkveHV4ZjNoQ0kzVHJOQU12ZElBRVdT?=
+ =?utf-8?B?eDk4RDhMVCtzblh2eWdnV2RhMzJQY1pxWG9iOTRxZjkxQ3F2dVI4bUx6N01T?=
+ =?utf-8?B?RkdYV3A3RlFkbFVuUFJ4ckxIcm4za2Z1aTk1d253UTlBNDlxY0lpTG9jQm1O?=
+ =?utf-8?B?TXBOQkcyQlhLVENtZWFFR2R2dngybTJOZ2RQQUJLYnU3U3g2T2RkcnAxS0xW?=
+ =?utf-8?B?WWRBSG9BcHdicWs2Tjh0OUJ5NytPZWc0R05MWU1OK3dLbjNsbUx1TXFBNzlS?=
+ =?utf-8?B?bWFZWDRpbWJYRUtaaG9Sa3l1Ry9VQW5NTFpvNktRUjMrOFBOUEdhREdwaFFR?=
+ =?utf-8?B?NjQzVk9USStlNGJCc1cwZHlRZUEvdit0UDdkK1JFSFQxOXhKcTNRa1lORE1s?=
+ =?utf-8?B?Tm9ySnlKSXJwUU9SR1JQOHZMaEFSOEk4c3BrOVRsd2FkV2JWbXZzb1VRZXlP?=
+ =?utf-8?B?TDE5VlRtckNYKzk3RGNKSHR5Ynl1VVpWRWpUaGlWeWZKNFo1eEEzYXJVMWlY?=
+ =?utf-8?B?cGFvaDk1TC9vUXhjb3phVnJEMTdEcC9nNmQxaWlQQ2ZhT3lxZ3RTKzdvekpq?=
+ =?utf-8?B?b2pFR3NRbUlqRk5la1NjZ1pRd0cwam1jMDJJMi9jOWc1UUpsNSsyTmtUejY0?=
+ =?utf-8?B?NG01a1NTVFNvOENSdnJERyt0MU9UdCtoWk1LSTRwOTc0Y2ZhV29FZ1dJaE1y?=
+ =?utf-8?B?M2ROVDB6UWFBbmt6eDNJREFQRG50WEs1bm42WDNoZkFSTUVrdThqK3ZYbjJY?=
+ =?utf-8?B?ZWhTQnJXVTFkUjBPUHRoSnd4bTNKUUN6Mi94K01rK3lCdlFlYk9KbUR0VGhh?=
+ =?utf-8?B?bkorL3lrNlhxZmJCdHk2RGR4RkR1OVF3Qko3dWtYczVadzFkb1BkTVlUWXlO?=
+ =?utf-8?B?cHhjbWhMM3ZuUWxTSmdFWlE2S3AzZG4ycHoxZmVXZ1RVS1A4R2cxWlNhVnUx?=
+ =?utf-8?B?ZDhBei9lYkR5VFUzTktMbFYrQjZ0WmUzUVprLytlUG0yNVZQV3RXa2tqMUdp?=
+ =?utf-8?B?VjZIY0VPeVowbTBpUmliMllDZ2xHWlVHZWdhbGJBbjB3SWN5WEpMSllyQWdj?=
+ =?utf-8?B?ZFM4L2thWW9KTkR6WDFiem5FQU4zZysxZ0dMeVdVb3NmNFNsUWlTQUlpTkRS?=
+ =?utf-8?B?RkVEUHNNYW03Q0JPNzZYS1Z0U1dGeEZHVE1qZW14VEJaWHNGdUI2S3gwWTlT?=
+ =?utf-8?B?NllkNzAyVU5rTWR1TGdHTmxJMmtNQmxrdTU5U1JyMG1UWjNNYU84a0ZxQmZU?=
+ =?utf-8?B?RytqNE42SEt5dS9yY05SMmtpemRoS0FpSUtMbGcrUm0vVkQrb2JsaGNQUFBw?=
+ =?utf-8?B?UHF0VG43cmFscVp1TlBKZ0pYeDRHK0dTSEhIeUxvazlZZnZOSy82YUhmdmQx?=
+ =?utf-8?B?K1J4QmdQcTBXWmRmTWFHZ0RTdGRiM29lOU9TRVVuWWlWbnhvSEEzMmN1TWhT?=
+ =?utf-8?B?T1lSWTRROW15UkJzYVA0Um5HRkhqOU43TGtiYWZSLzM3elY4bWdJeXJoN0Nr?=
+ =?utf-8?B?QldwSnJYLzJVR1hBaWJsOHBLVEJmajd5d2N3SXhNZ0xXYzcxaVZ6ZnhxOGkz?=
+ =?utf-8?B?ZDdBS1lHbCtRN1FHckx0T2Jxdy94S3VXUlMyZWx4UG1IZHp5MSttN2hEb1dp?=
+ =?utf-8?B?VTg2Vy9lV0NaRjBVcW13d3dVTWFEU2c2ZkFpOVRCdmhGb0ljUFpvam9wWXQz?=
+ =?utf-8?Q?8GuwH/fffOsDU1pclVyUv2g3k5mOaYf6?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SWI1TFZXVGFWOFdFOFZRc2F2dFVEZ2h1eGdOQU8vNlhiMFFGWnR1WGVlRlE3?=
+ =?utf-8?B?enlBakgrc3FEK1ZGTUJaSEdtVTlFMzlUM1B0NTQ1ZllySlRHQjNVQldDcjds?=
+ =?utf-8?B?V212TnJQT3VnSGw1bUNiVVV3MFJtajFVYzRsT1Y3bWJ3bm5HSm9xSDVSSXNG?=
+ =?utf-8?B?eTUxNlhjRlRpckJLTmJPMzNIWDVJeW5xTnFYcmdoYUdmTXpUY0VQK042OEtJ?=
+ =?utf-8?B?OXhNTlF0Tk45YkdLRXJxRXBkVy9lN1llU1J6SUl0NXVRemFzSDlSOVZGclhV?=
+ =?utf-8?B?TjJrWmMzcTFZTG93RVJwWDZISkErU3h2ZHpxU3RZQTV5UDEyWUxyTU1OU3BY?=
+ =?utf-8?B?WGdnaHBwOURYRWJ6QjBrb1RjMS9TemxkbXZMVHRKaXdPRDJOYlVyNmtzNUhE?=
+ =?utf-8?B?UWk5ajNkcXVmbkxjQTV0VzdiSXNKb3lXbExWcnJlaTRrMTBTTEo0Vm50OW50?=
+ =?utf-8?B?aUhrRVcrNmpEYWl1bWd2dFRiYzhVbi9Fa0ovaDYrMDBZNDJOem82Ly9MZ0Q1?=
+ =?utf-8?B?eWVYU29VS29FRVM2V1ErV1BWZFV3SE56S015TGF4c0NPTmdUcnZRL3c2MnNp?=
+ =?utf-8?B?UnBrajI5S000ZFVHMmVhZFBlUk9sRGZGZU56WGloU0l3SS9OQ2pKbnNlOElX?=
+ =?utf-8?B?cXNiU3pKSEtjcWs0Q3ZLbTVHdE56REcwRmpuOEJrQ3N1cW5SaDduK1dOdXJF?=
+ =?utf-8?B?aHpyR3RrdjNSeGNESnNNblB6YjBtNFBtN1MvK0VYL2t1alFSMUhOdzlGK1dD?=
+ =?utf-8?B?dTdGd3BnNVc5LzJzTC84N0dJRWFGVW1Uc1lVbm5tZ0hscDk0bkZDWHVGaCtU?=
+ =?utf-8?B?MmZLYVJlY01BVlZSUURZd0ZxNkVjUHV1ekJqMXJIS1hJUkN4akJSaG82WGtN?=
+ =?utf-8?B?QnhuWUh3YThaQUYycmNzek8wZCtyUFAzQnZCeDlFdjg3emh1eE1oSWtaR1dV?=
+ =?utf-8?B?SGN4WjJCU2k2NnpncHVMekp6YWdkYksyaktjYWV4cnZCWWExT0JYaDhZeDFV?=
+ =?utf-8?B?THZFRGRiTnZUN2krcEtwMXh3T2FzaUJYTTc2dCtsd2pLMmhZRm5IaSsraVpV?=
+ =?utf-8?B?endTOFEvaG1HZHJwc0ovaXU2S3VJdVRtMEhNaDJkWlEwNThacW1oRloyajYv?=
+ =?utf-8?B?M1dva3VzZWlKaE1WdG5seFpsb0R2aU5Kemp1V0V5T2dsQkltN25oRkd1d25o?=
+ =?utf-8?B?VkJRM0N5SkROL1BldlYxM2d0V2RSMjl0M09FY1BiVXFUNytXZVJINkFUODVW?=
+ =?utf-8?B?YVl0VUlJZTAwbGxqb09LazUreE5DWFFHOFl1MzZqUklKS01SVnZxcUkwQ3F3?=
+ =?utf-8?B?emU0cWFheFFqYmdaR1Awc3lNZHYwS2trNm1aTjJMdWhMKzdyUmpDdVdlalhH?=
+ =?utf-8?B?VVVBZmJHUXFtb1ZPUittSDJYUGN4SHNiTi9PVVpKZVhxdk1JVkFWb21WTU1a?=
+ =?utf-8?B?eTBqcDRzUnJ3eEt3MWZBOHhtajhNZEd6Y1d3OGJNdXBBWHl5Y0pnNTlZNmhY?=
+ =?utf-8?B?cjZXSTBGTzJrNWlxTTRmMmZDNExlSVFKTlFic3pQdFJqTVk0ekRicEgyYUVo?=
+ =?utf-8?B?bER0SUtrK3gyL01yUnVpa3hBWWNVU2JpNVd5Qi96dUNXVzF4dWxwQndWUEMz?=
+ =?utf-8?B?YzlaMUx5YVNyajM3R3JQVHE5Ti9Yd2hBcW8rSUk3SDNYRFFoMW8zZW5KZ0g2?=
+ =?utf-8?B?cXNub3E3RWhSTW0rd3FKeWdYN0svdjljU1g4NXJqOFdFY011ZFUvY3VBdXJP?=
+ =?utf-8?B?SmpsVUE4QnJaQW5sZXBKbCtuRTZqOUZRcE1jNWcwQXpmOWovZy9Pdlh4bUhm?=
+ =?utf-8?B?eEpHeU56dVJLVThhblFicTZOOG1LaVptZEJKN1VxZXZjQ0hoWWNsU3g2dzZG?=
+ =?utf-8?B?ZjNmVlBmdHZrREJ0TDdVQ1oxME9JeHJHcFNJRStueG9XZ2pYVFJvQzA3YXFX?=
+ =?utf-8?B?b2FZbDZLNHpuTHUrQkVscnQvRytFWXdPY0p0Mmg1aEtCTXNBMDJ5QzFtU1Bl?=
+ =?utf-8?B?ZlhRWGtVVFRyaE45TmFIUURrckNYdXJRcTFxRk85TmwvSE05d1hFdjdublVC?=
+ =?utf-8?B?bCt4cytvdUdFOW90MHl4VFVmSkhGbVpqbDdxNkYwb1cwSkxWd1g2OXJwMzFu?=
+ =?utf-8?B?QWpaVzVHT2JRaXk0UENNWitLT25qL2x2ck5TQnhvdkRTTlcvMWZKMzB1Tnc1?=
+ =?utf-8?B?d2c9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5aa73a6-b698-419f-33d0-08de3438e35e
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB4600.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 230ae922-35c1-4708-2e33-08de34354505
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2025 19:34:12.8535
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 20:00:07.2136
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 20wm1K1OADc2+XdE+QbN2TqW6EhBypShZ40xa4uxGr5vlTwpl9Ugrdzsbj3smp+yf+w5Q7XchJRE0NBuZoRKiIXkUVUAI4W7r0DSDeGMB6k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9129
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7NBlG5hqKmk9E/lJNpD4DwHmZxNnNAj6/7qnk3/7c692l1mn767L52RjqsPGFyYalxQR/2rBpEuxKLzoGSV776WbFUKrk97/gcGB2UyjFMY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6671
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 05/12/2025 7:34 pm, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>
+> Extend coverage support on .init and lib code.
+> Add two hidden Kconfig options:
+> - RELAX_INIT_CHECK "Relax strict check for .init sections only in %.init.o
+> files"
+> - DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the end of
+> Xen boot."
+>
+> Both selected selected when COVERAGE=y, as getting coverage report for
+> ".init" code is required:
+> - to bypass strict check for .init sections only in %.init.o files;
+> - the .init code stay in memory after Xen boot.
+>
+> RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other debug
+> features in the future.
+>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> changes in v2:
+>  - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two different things,
+>    both potentially reusable
+>  - enable coverage for libfdt/libelf always
+>  - enable colverage for .init always
 
-Extend coverage support on .init and lib code.
-Add two hidden Kconfig options:
-- RELAX_INIT_CHECK "Relax strict check for .init sections only in %.init.o
-files"
-- DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the end of
-Xen boot."
+This is a lot nicer (i.e. more simple).
 
-Both selected selected when COVERAGE=3Dy, as getting coverage report for
-".init" code is required:
-- to bypass strict check for .init sections only in %.init.o files;
-- the .init code stay in memory after Xen boot.
+But, I still don't know why we need to avoid freeing init memory to make
+this work.  What explodes if we dont?
 
-RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other debug
-features in the future.
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index 24f447b95734..c884a4199dc2 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -145,10 +145,10 @@ endif
+>  $(call cc-option-add,cov-cflags-$(CONFIG_COVERAGE),CC,-fprofile-update=atomic)
+>  
+>  # Reset cov-cflags-y in cases where an objects has another one as prerequisite
+> -$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
+> +$(nocov-y) $(extra-y): \
+>      cov-cflags-y :=
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-changes in v2:
- - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two differen=
-t things,
-   both potentially reusable
- - enable coverage for libfdt/libelf always
- - enable colverage for .init always
-=20
-v1: https://patchwork.kernel.org/project/xen-devel/patch/20251203222436.660=
-044-1-grygorii_strashko@epam.com/
+This could become a single line now.
 
- xen/Kconfig.debug          | 12 ++++++++++++
- xen/Rules.mk               | 10 ++++++++--
- xen/arch/arm/setup.c       |  2 ++
- xen/arch/x86/setup.c       |  4 ++++
- xen/common/libelf/Makefile |  1 -
- xen/common/libfdt/Makefile |  1 -
- 6 files changed, 26 insertions(+), 4 deletions(-)
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 22e929aac778..2a0b322445cd 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -69,10 +69,12 @@ static __used void noreturn init_done(void)
+>  {
+>      int rc;
+>  
+> +#ifndef CONFIG_DO_NOT_FREE_INIT_MEMORY
+>      /* Must be done past setting system_state. */
+>      unregister_init_virtual_region();
+>  
+>      free_init_memory();
+> +#endif
+>  
+>      /*
+>       * We have finished booting. Mark the section .data.ro_after_init
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 7bbba76a92f8..280085c206a7 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -815,6 +815,7 @@ static void noreturn init_done(void)
+>      for ( unsigned int i = 0; i < bi->nr_domains; i++ )
+>          domain_unpause_by_systemcontroller(bi->domains[i].d);
+>  
+> +#ifndef CONFIG_DO_NOT_FREE_INIT_MEMORY
+>      /* MUST be done prior to removing .init data. */
+>      unregister_init_virtual_region();
+>  
+> @@ -837,6 +838,9 @@ static void noreturn init_done(void)
+>      destroy_xen_mappings(start, end);
+>      init_xenheap_pages(__pa(start), __pa(end));
+>      printk("Freed %lukB init memory\n", (end - start) >> 10);
+> +#else
+> +    (void) end, (void) start, (void)va;
+> +#endif
 
-diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index d900d926c555..8fc201d12c2c 100644
---- a/xen/Kconfig.debug
-+++ b/xen/Kconfig.debug
-@@ -39,11 +39,23 @@ config COVERAGE
- 	bool "Code coverage support"
- 	depends on SYSCTL && !LIVEPATCH
- 	select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if !ENFORCE_UNIQUE_SYMBOLS
-+	select RELAX_INIT_CHECK
-+	select DO_NOT_FREE_INIT_MEMORY
- 	help
- 	  Enable code coverage support.
-=20
- 	  If unsure, say N here.
-=20
-+config RELAX_INIT_CHECK
-+    bool
-+    help
-+      Relax strict check for .init sections only in %.init.o files.
-+
-+config DO_NOT_FREE_INIT_MEMORY
-+    bool
-+    help
-+      Prevent freeing of .init sections at the end of Xen boot.
-+
- config CONDITION_COVERAGE
- 	bool "Condition coverage support"
- 	depends on COVERAGE && CC_HAS_MCDC
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 24f447b95734..c884a4199dc2 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -145,10 +145,10 @@ endif
- $(call cc-option-add,cov-cflags-$(CONFIG_COVERAGE),CC,-fprofile-update=3Da=
-tomic)
-=20
- # Reset cov-cflags-y in cases where an objects has another one as prerequi=
-site
--$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
-+$(nocov-y) $(extra-y): \
-     cov-cflags-y :=3D
-=20
--$(non-init-objects): _c_flags +=3D $(cov-cflags-y)
-+$(obj-y) $(obj-bin-y) $(extra-y) $(lib-y): _c_flags +=3D $(cov-cflags-y)
-=20
- ifeq ($(CONFIG_UBSAN),y)
- # Any -fno-sanitize=3D options need to come after any -fsanitize=3D option=
-s
-@@ -259,6 +259,7 @@ $(obj)/%.o: $(src)/%.S FORCE
-=20
-=20
- quiet_cmd_obj_init_o =3D INIT_O  $@
-+ifneq ($(CONFIG_RELAX_INIT_CHECK),y)
- define cmd_obj_init_o
-     $(OBJDUMP) -h $< | while read idx name sz rest; do \
-         case "$$name" in \
-@@ -271,6 +272,11 @@ define cmd_obj_init_o
-     done || exit $$?; \
-     $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=
-=3D.init.$(s)) $< $@
- endef
-+else
-+define cmd_obj_init_o
-+    $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=
-=3D.init.$(s)) $< $@
-+endef
-+endif
-=20
- $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): $(obj)/%.init.o: $(ob=
-j)/%.o FORCE
- 	$(call if_changed,obj_init_o)
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 22e929aac778..2a0b322445cd 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -69,10 +69,12 @@ static __used void noreturn init_done(void)
- {
-     int rc;
-=20
-+#ifndef CONFIG_DO_NOT_FREE_INIT_MEMORY
-     /* Must be done past setting system_state. */
-     unregister_init_virtual_region();
-=20
-     free_init_memory();
-+#endif
-=20
-     /*
-      * We have finished booting. Mark the section .data.ro_after_init
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 7bbba76a92f8..280085c206a7 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -815,6 +815,7 @@ static void noreturn init_done(void)
-     for ( unsigned int i =3D 0; i < bi->nr_domains; i++ )
-         domain_unpause_by_systemcontroller(bi->domains[i].d);
-=20
-+#ifndef CONFIG_DO_NOT_FREE_INIT_MEMORY
-     /* MUST be done prior to removing .init data. */
-     unregister_init_virtual_region();
-=20
-@@ -837,6 +838,9 @@ static void noreturn init_done(void)
-     destroy_xen_mappings(start, end);
-     init_xenheap_pages(__pa(start), __pa(end));
-     printk("Freed %lukB init memory\n", (end - start) >> 10);
-+#else
-+    (void) end, (void) start, (void)va;
-+#endif
-=20
-     /* Mark .rodata/ro_after_init as RO.  Maybe reform the superpage. */
-     modify_xen_mappings((unsigned long)&__2M_rodata_start,
-diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
-index 917d12b006f7..60b3ae40728f 100644
---- a/xen/common/libelf/Makefile
-+++ b/xen/common/libelf/Makefile
-@@ -1,5 +1,4 @@
- obj-bin-y :=3D libelf.o
--nocov-y +=3D libelf.o
- libelf-objs :=3D libelf-tools.o libelf-loader.o libelf-dominfo.o
-=20
- SECTIONS :=3D text data $(SPECIAL_DATA_SECTIONS)
-diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
-index 6ce679f98f47..ae0f69c01373 100644
---- a/xen/common/libfdt/Makefile
-+++ b/xen/common/libfdt/Makefile
-@@ -5,7 +5,6 @@ SECTIONS :=3D text data $(SPECIAL_DATA_SECTIONS)
- # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed during run=
-time.
- ifneq ($(CONFIG_OVERLAY_DTB),y)
- OBJCOPYFLAGS :=3D $(foreach s,$(SECTIONS),--rename-section .$(s)=3D.init.$=
-(s))
--nocov-y +=3D libfdt.o
- endif
-=20
- obj-y +=3D libfdt.o
---=20
-2.34.1
+For both of these, the preferred way would be to use if (
+IS_ENABLED(CONFIG_DO_NOT_FREE_INIT_MEMORY) ), which removes the need for
+the else clause in x86.
+
+Also, you make free_init_memory() un-called on ARM with this change. 
+Depending on how the freeing-init question lands, you either want some
+extra ifdefary, or the --gc-sections option that we discussed before.
+
+~Andrew
 
