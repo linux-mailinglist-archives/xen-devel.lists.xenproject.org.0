@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D830CA731E
+	by mail.lfdr.de (Postfix) with ESMTPS id B776DCA7324
 	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 11:37:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1178623.1502366 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1178632.1502377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRTBV-0005LV-DM; Fri, 05 Dec 2025 10:37:09 +0000
+	id 1vRTC2-0005q8-Qw; Fri, 05 Dec 2025 10:37:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1178623.1502366; Fri, 05 Dec 2025 10:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 1178632.1502377; Fri, 05 Dec 2025 10:37:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRTBV-0005K2-AI; Fri, 05 Dec 2025 10:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 1178623;
- Fri, 05 Dec 2025 10:37:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vRTC2-0005n0-Nf; Fri, 05 Dec 2025 10:37:42 +0000
+Received: by outflank-mailman (input) for mailman id 1178632;
+ Fri, 05 Dec 2025 10:37:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d4nT=6L=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vRTBT-0005Ju-Py
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 10:37:07 +0000
+ id 1vRTC1-0005j7-8r
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 10:37:41 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 54a61748-d1c6-11f0-980a-7dc792cee155;
- Fri, 05 Dec 2025 11:37:00 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6c23669e-d1c6-11f0-9d1b-b5c5bf9af7f9;
+ Fri, 05 Dec 2025 11:37:40 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 732C4339;
- Fri,  5 Dec 2025 02:36:52 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EDBC8339;
+ Fri,  5 Dec 2025 02:37:31 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.45.211])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BCE863F86F;
- Fri,  5 Dec 2025 02:36:58 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3EB5A3F86F;
+ Fri,  5 Dec 2025 02:37:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54a61748-d1c6-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6c23669e-d1c6-11f0-9d1b-b5c5bf9af7f9
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -50,83 +50,148 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v1 00/12] xen/arm: ffa: FF-A v1.2 support
-Date: Fri,  5 Dec 2025 11:36:33 +0100
-Message-ID: <cover.1764930353.git.bertrand.marquis@arm.com>
+Subject: [PATCH v1 01/12] xen/arm: ffa: add FF-A v1.2 function IDs
+Date: Fri,  5 Dec 2025 11:36:34 +0100
+Message-ID: <6832face6780228ac2704da70d5ddbd7f00dd385.1764930353.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.51.2
+In-Reply-To: <cover.1764930353.git.bertrand.marquis@arm.com>
+References: <cover.1764930353.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series updates Xen’s FF-A mediator on Arm to implement the FF-A
-v1.2 interface while keeping existing v1.0/v1.1 guests working.
+Bring the FF-A headers up to the v1.2 baseline and fix the function-number
+range used for ABI discovery:
 
-Patches 1–7 rework the low-level plumbing:
+- update FFA_FNUM_MAX_VALUE so the FF-A function-number window covers the
+  full v1.2 range, and derive the ABI bitmap bounds from
+  FFA_FNUM_MIN_VALUE/FFA_FNUM_MAX_VALUE instead of hard-coding
+  FFA_ERROR/FFA_MSG_SEND2
+- define the new v1.2 function IDs; CONSOLE_LOG_32/64 and
+  PARTITION_INFO_GET_REGS are added for ABI discovery even though they are
+  not implemented yet
+- extend the firmware ABI table to probe RUN and
+  MSG_SEND_DIRECT_REQ2/RESP2
+- while there, fix an off-by-one in ffa_fw_supports_fid(): the computed bit
+  index must be strictly smaller than FFA_ABI_BITMAP_SIZE, so use >= in the
+  bounds check
+- Also fix comment as call IDs reserved for FF-A are from 0x60 to 0xEF
 
-  1) add the FF-A v1.2 function IDs and probe the new ABIs
-  2) track per-VM FFA_VERSION state and enforce negotiation
-  3) Fix is_64bit initialisation
-  4) harden RX/TX mapping and validation
-  5) rework SPMC RX/TX buffer management so access is serialized and
-     RX buffers are always released back to the SPMC
-  6) rework VM RX/TX buffer to have generic acquire/release function
-     equivalent to SPMC access functions
-  7) switch the mediator to spec-compliant signed 32-bit status codes
+Keep FFA_MY_VERSION at 1.1 for now; we only advertise v1.2 once the
+implementation is fully compliant.
 
-Patches 8–11 update the data structures and direct-call paths:
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+Changes in v1:
+- Add CONSOLE_LOG_64 and rename CONSOLE_LOG to CONSOLE_LOG_32
+- Set MAX value to 0x8E which is the highest abi value available in 1.2
+- Mention in ffa_private.h comment that SMCCC is actually reserving 0x60
+  to 0xEF included for FF-A (and fix previous FF which was wrong).
+---
+ xen/arch/arm/include/asm/tee/ffa.h |  3 ++-
+ xen/arch/arm/tee/ffa.c             |  4 ++++
+ xen/arch/arm/tee/ffa_private.h     | 21 +++++++++++++--------
+ 3 files changed, 19 insertions(+), 9 deletions(-)
 
-  8) add ffa_uuid helpers and rework partition-info handling
-  9) add FFA_RUN support
-  10) add the v1.1/v1.2 SEND2 header layout
-  11) add MSG_SEND_DIRECT_REQ2/RESP2 support and marshal the extended
-     register set for v1.2 guests
-
-Patch 12 tightens the dispatcher and advertises FF-A v1.2:
-
-  - reject SMCCC64 calls from AArch32 guests
-  - expose RX/TX capacity fields
-  - bump Xen's FF-A version to 1.2 once the implementation is complete
-
-v1.0/v1.1 guests continue to use the v1.1 ABI without behaviour changes,
-while v1.2 guests can negotiate the wider ABI and use RUN, SEND2, and
-DIRECT_REQ2/RESP2 with the extended register set.
-
-This serie was validated through gitlab-ci here:
-https://gitlab.com/xen-project/people/bmarquis/xen-ffa-research/-/tree/ffa-v1.2/v1
-Build pipeline for the serie:
-https://gitlab.com/xen-project/people/bmarquis/xen-ffa-research/-/pipelines/2197856905
-
-Changes since v0:
-- Rework version negotiation to prevent concurrency issues
-- Introduce patch 3 to fix an init bug
-- Introduce patch 5 to make VM RX/TX buffer acquire/release working in
-  the same way as SPMC RX/TX buffers
-- minor fixes described in each patch changelog
-
-Bertrand Marquis (12):
-  xen/arm: ffa: add FF-A v1.2 function IDs
-  xen/arm: ffa: per-VM FFA_VERSION negotiation state
-  xen/arm: ffa: Fix is_64bit init
-  xen/arm: ffa: harden RX/TX mapping
-  xen/arm: ffa: rework SPMC RX/TX buffer management
-  xen/arm: ffa: rework VM RX/TX buffer management
-  xen/arm: ffa: use signed 32-bit status codes
-  xen/arm: ffa: add UUID helpers for partition info
-  xen/arm: ffa: Add FFA_RUN support
-  xen/arm: ffa: add v1.2 SEND2 header layout
-  xen/arm: ffa: add MSG_SEND_DIRECT_REQ2 support
-  xen/arm: ffa: advertise FF-A v1.2
-
- xen/arch/arm/include/asm/tee/ffa.h |   3 +-
- xen/arch/arm/tee/ffa.c             | 202 ++++++++++++++++------
- xen/arch/arm/tee/ffa_msg.c         | 232 +++++++++++++++++++------
- xen/arch/arm/tee/ffa_notif.c       |  14 +-
- xen/arch/arm/tee/ffa_partinfo.c    | 263 +++++++++++++++++------------
- xen/arch/arm/tee/ffa_private.h     | 153 +++++++++++------
- xen/arch/arm/tee/ffa_rxtx.c        | 241 +++++++++++++++++++++-----
- xen/arch/arm/tee/ffa_shm.c         |  52 +++---
- 8 files changed, 830 insertions(+), 330 deletions(-)
-
+diff --git a/xen/arch/arm/include/asm/tee/ffa.h b/xen/arch/arm/include/asm/tee/ffa.h
+index 24cd4d99c8f9..7acb541d1ff0 100644
+--- a/xen/arch/arm/include/asm/tee/ffa.h
++++ b/xen/arch/arm/include/asm/tee/ffa.h
+@@ -15,8 +15,9 @@
+ #include <asm/smccc.h>
+ #include <asm/types.h>
+ 
++/* FF-A Function ID range (AArch32 function number field) as of FF-A v1.2 */
+ #define FFA_FNUM_MIN_VALUE              _AC(0x60,U)
+-#define FFA_FNUM_MAX_VALUE              _AC(0x86,U)
++#define FFA_FNUM_MAX_VALUE              _AC(0x8E,U)
+ 
+ static inline bool is_ffa_fid(uint32_t fid)
+ {
+diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+index 1d0239cf6950..2b4e24750d52 100644
+--- a/xen/arch/arm/tee/ffa.c
++++ b/xen/arch/arm/tee/ffa.c
+@@ -11,6 +11,8 @@
+  *               https://developer.arm.com/documentation/den0077/a
+  * FF-A-1.1-REL0: FF-A specification version 1.1 available at
+  *                https://developer.arm.com/documentation/den0077/e
++ * FF-A-1.2-REL0: FF-A specification version 1.2 available at
++ *                https://developer.arm.com/documentation/den0077/j
+  * TEEC-1.0C: TEE Client API Specification version 1.0c available at
+  *            https://globalplatform.org/specs-library/tee-client-api-specification/
+  *
+@@ -102,6 +104,8 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] = {
+     FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+     FW_ABI(FFA_MSG_SEND_DIRECT_REQ_64),
+     FW_ABI(FFA_MSG_SEND2),
++    FW_ABI(FFA_MSG_SEND_DIRECT_REQ2),
++    FW_ABI(FFA_RUN),
+ };
+ 
+ /*
+diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+index 6dbdb200d840..8d01da0009d3 100644
+--- a/xen/arch/arm/tee/ffa_private.h
++++ b/xen/arch/arm/tee/ffa_private.h
+@@ -15,6 +15,7 @@
+ #include <xen/spinlock.h>
+ #include <xen/time.h>
+ #include <xen/types.h>
++#include <asm/tee/ffa.h>
+ 
+ /* Error codes */
+ #define FFA_RET_OK                      0
+@@ -42,6 +43,7 @@
+ 
+ #define FFA_VERSION_1_0         MAKE_FFA_VERSION(1, 0)
+ #define FFA_VERSION_1_1         MAKE_FFA_VERSION(1, 1)
++#define FFA_VERSION_1_2         MAKE_FFA_VERSION(1, 2)
+ /* The minimal FF-A version of the SPMC that can be supported */
+ #define FFA_MIN_SPMC_VERSION    FFA_VERSION_1_1
+ 
+@@ -270,21 +272,24 @@
+ #define FFA_RX_ACQUIRE                  0x84000084U
+ #define FFA_SPM_ID_GET                  0x84000085U
+ #define FFA_MSG_SEND2                   0x84000086U
++#define FFA_CONSOLE_LOG_32              0x8400008AU
++#define FFA_CONSOLE_LOG_64              0xC400008AU
++#define FFA_PARTITION_INFO_GET_REGS     0x8400008BU
++#define FFA_MSG_SEND_DIRECT_REQ2        0xC400008DU
++#define FFA_MSG_SEND_DIRECT_RESP2       0xC400008EU
+ 
+ /**
+  * Encoding of features supported or not by the fw in a bitmap:
+- * - Function IDs are going from 0x60 to 0xFF
++ * - Function IDs are going from 0x60 to 0xEF in SMCCC standard
+  * - A function can be supported in 32 and/or 64bit
+  * The bitmap has one bit for each function in 32 and 64 bit.
+  */
+ #define FFA_ABI_ID(id)        ((id) & ARM_SMCCC_FUNC_MASK)
+ #define FFA_ABI_CONV(id)      (((id) >> ARM_SMCCC_CONV_SHIFT) & BIT(0,U))
+ 
+-#define FFA_ABI_MIN           FFA_ABI_ID(FFA_ERROR)
+-#define FFA_ABI_MAX           FFA_ABI_ID(FFA_MSG_SEND2)
+-
+-#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_ABI_MAX - FFA_ABI_MIN + 1))
+-#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
++#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_FNUM_MAX_VALUE - FFA_FNUM_MIN_VALUE \
++                               + 1))
++#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_FNUM_MIN_VALUE) << 1 | \
+                                FFA_ABI_CONV(id))
+ 
+ /* Constituent memory region descriptor */
+@@ -549,9 +554,9 @@ static inline int32_t ffa_hyp_rx_release(void)
+ 
+ static inline bool ffa_fw_supports_fid(uint32_t fid)
+ {
+-    BUILD_BUG_ON(FFA_ABI_MIN > FFA_ABI_MAX);
++    BUILD_BUG_ON(FFA_FNUM_MIN_VALUE > FFA_FNUM_MAX_VALUE);
+ 
+-    if ( FFA_ABI_BITNUM(fid) > FFA_ABI_BITMAP_SIZE)
++    if ( FFA_ABI_BITNUM(fid) >= FFA_ABI_BITMAP_SIZE)
+         return false;
+     return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
+ }
 -- 
 2.51.2
 
