@@ -2,56 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2504CA994A
-	for <lists+xen-devel@lfdr.de>; Sat, 06 Dec 2025 00:08:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179573.1503031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC4ACA9A67
+	for <lists+xen-devel@lfdr.de>; Sat, 06 Dec 2025 00:33:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179598.1503040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRetz-0004Cb-7c; Fri, 05 Dec 2025 23:07:51 +0000
+	id 1vRfIM-0008FI-4d; Fri, 05 Dec 2025 23:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179573.1503031; Fri, 05 Dec 2025 23:07:51 +0000
+Received: by outflank-mailman (output) from mailman id 1179598.1503040; Fri, 05 Dec 2025 23:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRetz-0004B5-50; Fri, 05 Dec 2025 23:07:51 +0000
-Received: by outflank-mailman (input) for mailman id 1179573;
- Fri, 05 Dec 2025 23:07:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fOju=6L=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vRety-0004Az-Fa
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 23:07:50 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazlp17011000f.outbound.protection.outlook.com
- [2a01:111:f403:c100::f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36e75bf2-d22f-11f0-9d1b-b5c5bf9af7f9;
- Sat, 06 Dec 2025 00:07:48 +0100 (CET)
-Received: from PH7P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::19)
- by IA1PR12MB7637.namprd12.prod.outlook.com (2603:10b6:208:427::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Fri, 5 Dec
- 2025 23:07:43 +0000
-Received: from CY4PEPF0000E9D0.namprd03.prod.outlook.com
- (2603:10b6:510:32b:cafe::9d) by PH7P220CA0048.outlook.office365.com
- (2603:10b6:510:32b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.12 via Frontend Transport; Fri,
- 5 Dec 2025 23:07:40 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9D0.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Fri, 5 Dec 2025 23:07:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 5 Dec
- 2025 17:07:42 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 5 Dec
- 2025 17:07:42 -0600
-Received: from [172.25.33.6] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 5 Dec 2025 15:07:40 -0800
+	id 1vRfIM-0008Dr-1b; Fri, 05 Dec 2025 23:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 1179598;
+ Fri, 05 Dec 2025 23:33:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1vRfIK-0008Dk-PB
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 23:33:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vRfIK-008Sel-0C;
+ Fri, 05 Dec 2025 23:33:00 +0000
+Received: from [2a02:8012:3a1:0:854f:f005:1bb3:e60a]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vRfIJ-000Lcp-1C;
+ Fri, 05 Dec 2025 23:32:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,213 +39,435 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e75bf2-d22f-11f0-9d1b-b5c5bf9af7f9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o1kNtrE9Ry1MufJMCOieMbjTgqAQ7cmTQdOgOvXcvW7R47YQCZF5jVfg9akX+iv5yxFsze1PZtVXzkAP982JSktl5z7CmBT789BiLEEazdyJyomvlitx5k39rzqKrnUaMeriu/2kQhBlAHkAdI4+SNGOZrAhKhvj8u6BLRYB1RzKlqiiNzxCOvySZUaXM+26GtcMppKNHAxlFtckuCIYia//GB7+o0VbdqRyHSehsEQVBX8na+FwCbw/VXjRzoY5kMfjg5OlvQV+upXkYgx5Wkq5MA/KxBXcSpnGAwVrJ4ay+/Wx4g0rBLwH+sPUJDZ1FOgWjzNOeU+2Su9TB3pSFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y6ebwCXfNCS8VnV0ChFq0YkAFKWUMyn5VuP4hjbvdS0=;
- b=auiE+CNSzDc6tgHjqZy2+fOKrSVZvLRsaw1NHAxSCsmUugTPOkTSzzGgu3TQ+H3CqWHnOPs+1cmUrFNhZlfpkEciy/dmn+Mi5NPHsaZnSa07O2qgheTfetys7hB7ZHK4Fy1Y7+IZwGBxXYp79KlKH1Qx7KN3e6CKeR9ZqxrcgWAqbyfXKVAB93oFI4Fuf1H9i5G89QELIVBvE4wDhSyMGhrZ+sW/dm7Vi32w6gOIKflmukmLkxxAGeKjKE6DhDeXgzTe6upAS1U88YrOOj7OznK1X2adSM19CgQUpfP+VzUyA6LcaghjupYjwhVMufiuJkQPHS56rVz6Vllscjwj3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y6ebwCXfNCS8VnV0ChFq0YkAFKWUMyn5VuP4hjbvdS0=;
- b=jmf5XKzCX5LZ+PhxWK5lcg7UIh5Sn9bZcleGwPyeSJ5VOHQWHr5/+5TvRZOGxP/7F79bfJYPsaACb53i5a9bgGgWa49EuxzYsSgrQZyWedyCGvFFg0xCZa9ZqOPK0N/+zrLn5ZdZGDXgV/BHujpdtAT0AtPSja2A5Iqw7cMNouE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <4202e2be-1428-4a3e-b0e5-2a65fa7383fb@amd.com>
-Date: Fri, 5 Dec 2025 18:07:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=MhBWJ6axQuAjxK8+i48n1aoxKfH3LZm7+vNo05onsS8=; b=cnfB/1hjEWsZP0f9KGnuvWnJvH
+	MF0llqCYyN9KUR3rwWqR8Pdee4m3rBKVtuiGThwBNCEYVapj1yjCfbuEc5XgpURJlaZZfRI3H/STB
+	MjItCcud1oYuNk3Qq6DHnXw/Kd3bMQQrh/HrXGkixZYKfYZed1+SKfHmgfwNfozj/JhM=;
+Message-ID: <a726e56e-b864-4ec1-81f4-da552fe71470@xen.org>
+Date: Fri, 5 Dec 2025 23:32:57 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Michal
- Orzel" <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-References: <20251205222813.277164-1-jason.andryuk@amd.com>
- <8dce8443-5a97-42c4-b867-27b83415b3d1@citrix.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <8dce8443-5a97-42c4-b867-27b83415b3d1@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D0:EE_|IA1PR12MB7637:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4359e4b8-5a34-4902-8660-08de3453187c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UHR2NzlBTlBOc2tpVUtObU1OeWJOMHpENnR1RWpLN1JNdFFjcHlUVTI3Y29O?=
- =?utf-8?B?NHhzY2wzR1hmNVo2TWtVVGdMdkVoWVF3YVpWY2x1N0VudHJWbWdUdWxIVC9y?=
- =?utf-8?B?NFhBZDhrYThDNytvMDgxUHpsQU9MKy9JeGFVeGtueGRSS3AxTVY0ZEdqV2Ra?=
- =?utf-8?B?THZmWDJEcjhwZG5xb3lBaTM5US8xdXRtMndoaXk1RjFQc1lrWXZ5YWJ4Y3Bo?=
- =?utf-8?B?K3lNTlB1UjQxYWpkU1NwOE9kRTVVbzVPV01HdVVQZTJkV1BqZTBwTzd1QmZH?=
- =?utf-8?B?clRGMXhZUjNlVXBDalllaUExWVJjSkdUc3BsV1ZBQzUzdTB4cHFLWWNzWUNj?=
- =?utf-8?B?REpHNTViUXZOdE56S0JxQmhWZndNSk5VQjlBNVl0UXFSNENTVU13UExxalB0?=
- =?utf-8?B?ZlZLSXNCUlVFQTdQcXY2T0xsa1pBYnQ5RER6aUJBZHlVTFlIYUJYRTh1cVQy?=
- =?utf-8?B?a0VwTVZOL0w4VUJwV29hVVZkUG5zMW9JNklhNkVPVkxERlVQcWtRcXZqaTFr?=
- =?utf-8?B?MnAvMHhyaXlRbktUNFZNbHB3ZlJFb3laSEU4d3RIRWNRYlIzTE14S09zMGZz?=
- =?utf-8?B?Y0hvS0ZBWHNkQ3dWY3VFaHVCTWF2NmVGZmNrZ21sZnJnQkdGZDE1dncvdVB0?=
- =?utf-8?B?WlhiZXUzZXBFRVBWbzJsdmVRTGtjbVR0NVlxNEg3KzhlTE5lWk9PL3R5cXV0?=
- =?utf-8?B?bjhnV0hFY1N0cmVXeGRUZHJEenk5SUJkeWs0QjFNVmNkUFYwTXlvQUhvUTR4?=
- =?utf-8?B?V3VId3k2eEswenJYY2Z1eGw4dGcraFpZUW1sL0cyUXByeEp1SnhFdktyUFQr?=
- =?utf-8?B?Mys1RUR3elo3ckljeFQzTmUzOVhZS0d1ZG1TeTR2U3ZOcGZqRlBic0RWRll1?=
- =?utf-8?B?OHFnUG5YMmM0cU9rWWtTTkZRb3lPVTNVY2VIOUI1R0JDRlFzWlIvQWl6U1NO?=
- =?utf-8?B?QjJXc3E0RU84VXJhVWpNQXpmcjIrWnJuaGpyNmdIQk1HQng2YnVPeGZVL3c5?=
- =?utf-8?B?bmVxdnhBajd5T0NWcW9wZUNPVVUzV1JTM2xWT1Z4elRvSTBxZ3Nsd1oxVFJE?=
- =?utf-8?B?SnkrWXZ2ZlR0RUZETHRJT2MvQ2VqZVlEWG0rT213bUp5TGtIMTlwMVhBU1ps?=
- =?utf-8?B?Z0gvNXhEb0l1ZDRUaElKdzlpZkRndmVlTUlPYnlNRUZmMzk1bkYwV3l2Szgv?=
- =?utf-8?B?S3p1R29JV3ZPanBQaWllK2dDRVJsL3BjVjhDb0JBVHZwV2I4UTlTQ0dFZVVL?=
- =?utf-8?B?ZGQxeGhPWWI2ODhlTXpsSzdzUmJRbjI2Q2lsT1huajlaMmdES05sT21IY1hM?=
- =?utf-8?B?S1ZhSXpMaUdBelA0c1NOWUtYVXpYNmRtUDlLRDRPQmVpSHJubGdoYXVEVHdr?=
- =?utf-8?B?QmVNZllmYXlvN0xmRkZ6d3ZqNWJIRkJjRXBZL0lQQTVpeUhlb0QvYno4Z0hH?=
- =?utf-8?B?aHEzdjFYZm0rTTN5eHJXV0FIZUV2OXhBbVlmTUU0Rm83RFBXRnVDWm1GZUNl?=
- =?utf-8?B?alhpWlY4by9WMENWV0VDa1VxTTIrU1JjeWlNTTZ3Z2JibzVnUk1qZVlKbFNV?=
- =?utf-8?B?K21nN3lBaVc5U25ST1Nza0Q2dU9DZlpCSDB4bm9UT09aRGhRRCtUT2NpRE9i?=
- =?utf-8?B?MmhmaU8ranZUWXJrZHB2TVFWejgxRDgyMmtGQWtkRzJxWTNhWThHVFpuWkhZ?=
- =?utf-8?B?NHVYMkhGT2FlcTZFa0U4cXh6TWc1OFpxVGZmUnliTkFOcTVsWFlzZ2EzcEpG?=
- =?utf-8?B?M0pEaEZpZnlWK2dNbERtMytKVXJWK3dhOWFlNGFVMTRNdjJXeVFxNmczaHBX?=
- =?utf-8?B?cEp1cnBUTXNlM25hTVBGNkE5cXpkM2NuM3BFdytxT0xYME5EMitWb1VSZmQr?=
- =?utf-8?B?a2gwTEpHckt0V0c4MUtiemd5V08vd1dWR1EyR09FTzRib3dtcWRwbE0rTHBy?=
- =?utf-8?B?OVdXR3E2c3JGYitMSjFKVEMyVXJrVWxtQ3E2ZjZYSkYyNW5MRlpkMUZ1aDha?=
- =?utf-8?B?R1pEVkJ0ZWJwZGRTeWtkWks2cFVtTks0T1liQkdhWURzL1h1M0VBUk5ITEJD?=
- =?utf-8?B?U0FFL3ViSFJmcmxhN2J0TFR3VDNtWEhJRitJdHJXZ2dkM3huNiszTFBxOUVP?=
- =?utf-8?Q?mc7E=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 23:07:43.0071
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4359e4b8-5a34-4902-8660-08de3453187c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7637
+Subject: Re: [XEN PATCH v2 1/3] xen/arm/p2m: perform IPA-based TLBI when IPA
+ is known
+Content-Language: en-GB
+To: Haseeb Ashraf <haseebashraf091@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Haseeb Ashraf <haseeb.ashraf@siemens.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>
+References: <ce2e7c32f06ba8a48a2074fa8cadd9c122b6490f.1764863575.git.haseebashraf091@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ce2e7c32f06ba8a48a2074fa8cadd9c122b6490f.1764863575.git.haseebashraf091@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2025-12-05 17:40, Andrew Cooper wrote:
-> On 05/12/2025 10:28 pm, Jason Andryuk wrote:
->> When linking to create xen-syms, add --gc-sections to garbage collect
->> unused stuff.  Relies on CONFIG_CC_SPLIT_SECTIONS
->>
->> We need to add KEEP() to the linker script in assorted places to retain
->> appropriate data - especially the arrays created therein.
->>
->> Something is off though.  In a test where memory_add() is unreachable,
->> it is still included.  I'm not sure, but I am wondering if it's the
->> alternatives somehow keeping a reference to it.
+Hi Haseef,
+
+Let me start with some process. In general, we expect multi-patch series 
+to have a cover letter.
+
+On 04/12/2025 15:57, Haseeb Ashraf wrote:
+> From: Haseeb Ashraf <haseeb.ashraf@siemens.com>
 > 
-> Yes, .altinstructions contains relocations against the origin patch
-> site, which will cause it to appear to be referenced. The same will be
-> happening with a bunch of other sections.
+> This commit addresses a major issue for running Xen on KVM i.e.
+> costly emulation of VMALLS12E1IS which becomes worse when this TLBI
+> is invoked too many times. There are mainly two places where this is
+> problematic:
+> (a) When vCPUs switch on a pCPU or pCPUs
+> (b) When domu mapped pages onto dom0, are to be unmapped, then each
+>      page being removed by XENMEM_remove_from_physmap has its TLBs
+>      invalidated by VMALLS12E1IS.
 > 
-> Hmm.  We are surely not the first people to encounter this.
-
-I didn't find any magic in Linux, but I didn't look too hard.
-
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> ---
->> With --print-gc-sections on defconfig:
->> ld: removing unused section '.text.__bitmap_full' in file 'prelink.o'
->> ld: removing unused section '.text.__bitmap_xor' in file 'prelink.o'
->> ld: removing unused section '.text.__bitmap_set' in file 'prelink.o'
->> ld: removing unused section '.text.__bitmap_clear' in file 'prelink.o'
->> ld: removing unused section '.text.bitmap_find_free_region' in file 'prelink.o'
->> ld: removing unused section '.text.bitmap_release_region' in file 'prelink.o'
->> ld: removing unused section '.text.domain_has_ioreq_server' in file 'prelink.o'
->> ld: removing unused section '.text.compat_kexec_op' in file 'prelink.o'
->> ld: removing unused section '.text.in_atomic' in file 'prelink.o'
->> ld: removing unused section '.text.radix_tree_next_hole' in file 'prelink.o'
->> ld: removing unused section '.text.radix_tree_prev_hole' in file 'prelink.o'
->> ld: removing unused section '.text.radix_tree_gang_lookup_slot' in file 'prelink.o'
->> ld: removing unused section '.text._nrspin_trylock' in file 'prelink.o'
->> ld: removing unused section '.text.xen_compile_host' in file 'prelink.o'
->> ld: removing unused section '.text.vscnprintf' in file 'prelink.o'
->> ld: removing unused section '.text.wake_up_one' in file 'prelink.o'
->> ld: removing unused section '.text.xmem_pool_get_used_size' in file 'prelink.o'
->> ld: removing unused section '.text.xmem_pool_get_total_size' in file 'prelink.o'
->> ld: removing unused section '.text.xmem_pool_maxalloc' in file 'prelink.o'
->> ld: removing unused section '.text.xlat_start_info' in file 'prelink.o'
->> ld: removing unused section '.text.elf_sym_by_name' in file 'prelink.o'
->> ld: removing unused section '.text.elf_sym_by_index' in file 'prelink.o'
->> ld: removing unused section '.text.elf_get_ptr' in file 'prelink.o'
->> ld: removing unused section '.text.elf_lookup_addr' in file 'prelink.o'
->> ld: removing unused section '.text.serial_vuart_info' in file 'prelink.o'
->> ld: removing unused section '.text.pci_find_next_cap' in file 'prelink.o'
->> ld: removing unused section '.text.free_hvm_irq_dpci' in file 'prelink.o'
->> ld: removing unused section '.text.mce_barrier_init' in file 'prelink.o'
->> ld: removing unused section '.text.mce_barrier_dec' in file 'prelink.o'
->> ld: removing unused section '.text.mce_barrier' in file 'prelink.o'
->> ld: removing unused section '.text.apei_read_mce' in file 'prelink.o'
->> ld: removing unused section '.text.apei_check_mce' in file 'prelink.o'
->> ld: removing unused section '.text.apei_clear_mce' in file 'prelink.o'
->> ld: removing unused section '.text.efi_halt_system' in file 'prelink.o'
->> ld: removing unused section '.text.get_vvmcs_virtual_safe' in file 'prelink.o'
->> ld: removing unused section '.text.get_vvmcs_real_safe' in file 'prelink.o'
->> ld: removing unused section '.text.set_vvmcs_real' in file 'prelink.o'
->> ld: removing unused section '.text.set_vvmcs_virtual_safe' in file 'prelink.o'
->> ld: removing unused section '.text.set_vvmcs_real_safe' in file 'prelink.o'
->> ld: removing unused section '.text.domain_set_alloc_bitsize' in file 'prelink.o'
->> ld: removing unused section '.text.watchdog_enabled' in file 'prelink.o'
->> ld: removing unused section '.text.unset_nmi_callback' in file 'prelink.o'
->> ld: removing unused section '.text.sha2_256_init' in file 'prelink.o'
->> ld: removing unused section '.text.xxh64_copy_state' in file 'prelink.o'
->> ld: removing unused section '.text.xxh64' in file 'prelink.o'
->> ld: removing unused section '.discard' in file 'prelink.o'
->> ld: removing unused section '.rodata.xen_compile_host.str1.1' in file 'prelink.o'
->> ld: removing unused section '.rodata.elf_lookup_addr.str1.1' in file 'prelink.o'
->> ld: removing unused section '.rodata.apei_read_mce.str1.8' in file 'prelink.o'
->> ld: removing unused section '.rodata.efi_halt_system.str1.8' in file 'prelink.o'
->> ld: removing unused section '.rodata.play_dead.str1.1' in file 'prelink.o'
->> ld: removing unused section '.data.rel.ro.local.fetch_type_names' in file 'prelink.o'
+> The first one is addressed by relaxing VMALLS12E1 -> VMALLE1 as the
+> stage-2 is common between all the vCPUs of a VM. Since each CPU has
+> its own private TLBs, so flush between vCPU of the same domains is
+> still required to avoid translations from vCPUx to "leak" to the
+> vCPUy which can be achieved by using VMALLE1.
 > 
-> This is for your safety stripped-down build, I'm guessing?
+> The second one is addressed by using IPA-based TLBI (IPAS2E1) in
+> combination with VMALLE1 whenever the IPA range is known instead of
+> using VMALLS12E1. There is an upper cap placed on number of IPA-based
+> TLBI. This factor for execution time of VMALLS12E1 vs IPAS2E1 is
+> found to be 70K on Graviton4.
 
-This is actually Xen staging.
+Is this running Xen on baremetal or in nested virt?
 
-> It's certainly a good start.
+> So, ~65K * 4KB = 256M is set as the
+
+Given that 4KB implies 4096 bytes. Did you intend to say 64K?
+
+> threshold.
 > 
->> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
->> index 527872a6db..e3ad58f688 100644
->> --- a/xen/arch/x86/xen.lds.S
->> +++ b/xen/arch/x86/xen.lds.S
->> @@ -98,7 +98,7 @@ SECTIONS
->>   #endif
->>          *(.text.__x86_indirect_thunk_*)
->>   
->> -       *(.fixup)
->> +       KEEP(*(.fixup))
+> For arm32, TLBIALL instruction can invalidate both stage-1 and
+> stage-2 entries, so using IPA-based TLBI would be redundant as
+> TLBIALL is required in any case to invalidate corresponding cached
+> entries from stage-1.
 > 
-> Why do we need to KEEP() this?  The references here are the other way
-> around to most examples.
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Haseeb Ashraf <haseeb.ashraf@siemens.com>
+> 
+> Changes in v2:
+> - Split up the commit in 3 commits. First commit implements the
+>    basline implementation without any addition of new CPU
+>    capabilities. Implemented new CPU caps in separate features to
+>    emphasize how each of it optimizes the TLB invalidation.
 
-I thought I saw it dropped when trying to get this working, but it does 
-seem to work by removing the KEEP().
+This kind of changelog would belong to the cover letter. And each patch 
+would contain specific changelog. For instance...
 
-Thanks for taking a look.
+[...]
 
-This implicitly relies on LIVEPATCH to select CC_SPLIT_SECTIONS.  To be 
-standalone, X86 can just select CC_SPLIT_SECTIONS unless we want to make 
-it optional.
+> - Evaluated and added a threshold to select between IPA-based TLB
+>    invalidation vs fallback to full stage TLB invalidation above
+>    the threshold.
+> - Introduced ARM_HAS_NTLBPA CPU capability which leverages
+>    FEAT_nTLBPA for arm32 as well as arm64.
+> - Introduced ARM_HAS_TLB_IPA CPU capability for IPA-based TLBI
+>    for arm32.
 
-Regards,
-Jason
+... none of these are related to this patch and it is quite confusing.
+
+> ---
+>   xen/arch/arm/include/asm/arm32/flushtlb.h | 69 ++++++++++++++++
+>   xen/arch/arm/include/asm/arm64/flushtlb.h | 99 +++++++++++++++++++++++
+>   xen/arch/arm/include/asm/mmu/p2m.h        |  2 +
+>   xen/arch/arm/mmu/p2m.c                    | 94 ++++++++++++++-------
+>   4 files changed, 237 insertions(+), 27 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm32/flushtlb.h b/xen/arch/arm/include/asm/arm32/flushtlb.h
+> index 61c25a3189..70a8b1dad6 100644
+> --- a/xen/arch/arm/include/asm/arm32/flushtlb.h
+> +++ b/xen/arch/arm/include/asm/arm32/flushtlb.h
+> @@ -45,6 +45,46 @@ TLB_HELPER(flush_xen_tlb_local, TLBIALLH, nsh)
+>   
+>   #undef TLB_HELPER
+>   
+> +/*
+> + * Flush TLB of local processor. Use when flush for only stage-1 is
+> + * intended.
+> + */
+> +static inline void flush_guest_tlb_s1_local(void)
+> +{
+> +    /*
+> +     * Same instruction can invalidate both stage-1 and stage-2 TLBs
+> +     * depending upon the execution context.
+> +     *
+> +     * See ARMv8 (DDI 0487A.e): G4-4126 Table G4-24.
+
+This version of the specification is 10 years old. Any reason to use 
+something that old?
+
+> +     *
+> +     * The following macros should be used where intention is to
+> +     * clear only stage-1 TLBs. This would be helpful in future in
+> +     * identifying which stage-1 TLB flushes can be skipped such as
+> +     * in present of FEAT_nTLBPA.
+> +     */
+
+I am sorry but I don't get this comment. There is no macro involved 
+(flush_guest_tlb_local() is an inline function). Is this meant to be a 
+big comment outside of the function?
+
+> +    return flush_guest_tlb_local();
+> +}
+> +
+> +/*
+> + * Flush TLB of inner-shareable processor domain. Use when flush for
+> + * only stage-1 is intended.
+> + */
+> +static inline void flush_guest_tlb_s1(void)
+> +{
+> +    /*
+> +     * Same instruction can invalidate both stage-1 and stage-2 TLBs
+> +     * depending upon the execution context.
+> +     *
+> +     * See ARMv8 (DDI 0487A.e): G4-4126 Table G4-24.
+> +     *
+> +     * The following macros should be used where intention is to
+> +     * clear only stage-1 TLBs. This would be helpful in future in
+> +     * identifying which stage-1 TLB flushes can be skipped such as
+> +     * in present of FEAT_nTLBPA.
+> +     */
+> +    return flush_guest_tlb();
+> +}
+> +
+>   /* Flush TLB of local processor for address va. */
+>   static inline void __flush_xen_tlb_one_local(vaddr_t va)
+>   {
+> @@ -57,6 +97,35 @@ static inline void __flush_xen_tlb_one(vaddr_t va)
+>       asm volatile(STORE_CP32(0, TLBIMVAHIS) : : "r" (va) : "memory");
+>   }
+>   
+> +/*
+> + * Flush a range of IPA's mappings from the TLB of the local processor.
+> + */
+> +static inline void flush_guest_tlb_range_ipa_local(paddr_t ipa,
+> +                                                   unsigned long size)
+
+I can't seem to find any use of flush_guest_tlb_range_ipa_local() in 
+this series. Can we avoid introducing it? (I also have the suspicion 
+this would violate the MISRA rules about dead code).
+
+> +{
+> +    /*
+> +     * Following can invalidate both stage-1 and stage-2 TLBs depending upon
+> +     * the execution mode.
+> +     * see ARMv8 (DDI 0487A.e): G4-4126 Table G4-24
+> +     */
+> +    flush_guest_tlb_local();
+> +}
+> +
+> +/*
+> + * Flush a range of IPA's mappings from the TLB of all processors in the
+> + * inner-shareable domain.
+> + */
+> +static inline void flush_guest_tlb_range_ipa(paddr_t ipa,
+> +                                             unsigned long size)
+> +{
+> +    /*
+> +     * Following can invalidate both stage-1 and stage-2 TLBs depending upon
+> +     * the execution mode.
+> +     * see ARMv8 (DDI 0487A.e): G4-4126 Table G4-24
+> +     */
+> +    flush_guest_tlb();
+> +}
+> +
+>   #endif /* __ASM_ARM_ARM32_FLUSHTLB_H__ */
+>   /*
+>    * Local variables:
+> diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
+> index 3b99c11b50..fff76375a3 100644
+> --- a/xen/arch/arm/include/asm/arm64/flushtlb.h
+> +++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
+> @@ -1,6 +1,8 @@
+>   #ifndef __ASM_ARM_ARM64_FLUSHTLB_H__
+>   #define __ASM_ARM_ARM64_FLUSHTLB_H__
+>   
+> +#include <xen/sizes.h> /* For SZ_* macros. */
+> +
+>   /*
+>    * Every invalidation operation use the following patterns:
+>    *
+> @@ -45,6 +47,27 @@ static inline void name(void)                    \
+>           : : : "memory");                         \
+>   }
+>   
+> +/*
+> + * FLush TLB by IPA. This will likely be used in a loop, so the caller
+> + * is responsible to use the appropriate memory barriers before/after
+> + * the sequence.
+> + *
+> + * See above about the ARM64_WORKAROUND_REPEAT_TLBI sequence.
+> + */
+> +#define TLB_HELPER_IPA(name, tlbop)              \
+> +static inline void name(paddr_t ipa)             \
+> +{                                                \
+> +    asm volatile(                                \
+> +        "tlbi "  # tlbop  ", %0;"                \
+> +        ALTERNATIVE(                             \
+> +            "nop; nop;",                         \
+> +            "dsb  ish;"                          \
+> +            "tlbi "  # tlbop  ", %0;",           \
+> +            ARM64_WORKAROUND_REPEAT_TLBI,        \
+> +            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+
+Sorry I didn't get a chance to answer to your reply on my comment here. 
+If you read the errata for Cortex-A76:
+
+"
+Note: For code sequences which have multiple TLB invalidate instructions 
+followed by a single DSB, only
+the last TLB invalidate and DSB need to be repeated a second time.
+"
+
+So I still think this approach is still too expensive. To give some 
+context, above you said we would send up to 64K TLB IPA operation before 
+deciding to switch to a single flush all. In the context of this errata, 
+we would end up to send 64K extra TLBs when only one is necessary.
+
+> +        : : "r" (ipa >> PAGE_SHIFT) : "memory"); \
+> +}
+> +
+>   /*
+>    * FLush TLB by VA. This will likely be used in a loop, so the caller
+>    * is responsible to use the appropriate memory barriers before/after
+> @@ -72,6 +95,18 @@ TLB_HELPER(flush_guest_tlb_local, vmalls12e1, nsh)
+>   /* Flush innershareable TLBs, current VMID only */
+>   TLB_HELPER(flush_guest_tlb, vmalls12e1is, ish)
+>   
+> +/* Flush local TLBs, current VMID, stage-1 only */
+> +TLB_HELPER(flush_guest_tlb_s1_local, vmalle1, nsh)
+> +
+> +/* Flush innershareable TLBs, current VMID, stage-1 only */
+> +TLB_HELPER(flush_guest_tlb_s1, vmalle1is, ish)
+> +
+> +/* Flush local TLBs, current VMID, stage-2 for ipa address */
+> +TLB_HELPER_IPA(__flush_guest_tlb_one_s2_local, ipas2e1)
+> +
+> +/* Flush innershareable TLBs, current VMID, stage-2 for ipa address */
+> +TLB_HELPER_IPA(__flush_guest_tlb_one_s2, ipas2e1is)
+> +
+>   /* Flush local TLBs, all VMIDs, non-hypervisor mode */
+>   TLB_HELPER(flush_all_guests_tlb_local, alle1, nsh)
+>   
+> @@ -88,8 +123,72 @@ TLB_HELPER_VA(__flush_xen_tlb_one_local, vae2)
+>   TLB_HELPER_VA(__flush_xen_tlb_one, vae2is)
+>   
+>   #undef TLB_HELPER
+> +#undef TLB_HELPER_IPA
+>   #undef TLB_HELPER_VA
+>   
+> +/*
+> + * Flush a range of IPA's mappings from the TLB of the local processor.
+> + */
+> +static inline void flush_guest_tlb_range_ipa_local(paddr_t ipa,
+> +                                                   unsigned long size)
+> +{
+> +    paddr_t end;
+> +
+> +    /*
+> +     * If IPA range is too big (empirically found to be 256M), then fallback to
+> +     * full TLB flush
+> +     */
+
+Bertrand, Michal, Stefano, Luca, can you check this limit would be ok 
+for your setup?
+
+> +    if ( size > SZ_256M )
+> +        return flush_guest_tlb_local();
+> +
+> +    end = ipa + size;
+> +
+> +    /*
+> +     * See ARM ARM DDI 0487A.e D4.7.2 (Invalidation of TLB entries from stage 2
+> +     * translations) for details.
+> +     */
+> +    dsb(nshst); /* Ensure prior page-tables updates have completed */
+> +    while ( ipa < end )
+> +    {
+> +        __flush_guest_tlb_one_s2_local(ipa);
+> +        ipa += PAGE_SIZE;
+> +    }
+> +    /* Final dsb() and isb() are done in following invocation */
+> +    flush_guest_tlb_s1_local();
+> +}
+> +
+> +/*
+> + * Flush a range of IPA's mappings from the TLB of all processors in the
+> + * inner-shareable domain.
+> + */
+> +static inline void flush_guest_tlb_range_ipa(paddr_t ipa,
+> +                                             unsigned long size)
+> +{
+> +    paddr_t end;
+> +
+> +    /*
+> +     * If IPA range is too big (empirically found to be 256M), then fallback to
+> +     * full TLB flush
+> +     */
+> +    if ( size > SZ_256M )
+> +        return flush_guest_tlb();
+> +
+> +    end = ipa + size;
+> +
+> +    /*
+> +     * See ARM ARM DDI 0487A.e D4.7.2 (Invalidation of TLB entries from stage 2
+> +     * translations) for details.
+> +     */
+> +    dsb(ishst); /* Ensure prior page-tables updates have completed */
+> +    while ( ipa < end )
+> +    {
+> +        __flush_guest_tlb_one_s2(ipa);
+> +        ipa += PAGE_SIZE;
+> +    }
+> +    /* Final dsb() and isb() are done in following invocation */
+> +    flush_guest_tlb_s1();
+> +}
+> +
+>   #endif /* __ASM_ARM_ARM64_FLUSHTLB_H__ */
+>   /*
+>    * Local variables:
+> diff --git a/xen/arch/arm/include/asm/mmu/p2m.h b/xen/arch/arm/include/asm/mmu/p2m.h
+> index 58496c0b09..8a16722b82 100644
+> --- a/xen/arch/arm/include/asm/mmu/p2m.h
+> +++ b/xen/arch/arm/include/asm/mmu/p2m.h
+> @@ -10,6 +10,8 @@ extern unsigned int p2m_root_level;
+>   
+>   struct p2m_domain;
+>   void p2m_force_tlb_flush_sync(struct p2m_domain *p2m);
+> +void p2m_force_tlb_flush_range_sync(struct p2m_domain *p2m, uint64_t start_ipa,
+> +                                    uint64_t page_count);
+>   void p2m_tlb_flush_sync(struct p2m_domain *p2m);
+>   
+>   void p2m_clear_root_pages(struct p2m_domain *p2m);
+> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+> index 51abf3504f..e72b06b732 100644
+> --- a/xen/arch/arm/mmu/p2m.c
+> +++ b/xen/arch/arm/mmu/p2m.c
+> @@ -235,33 +235,26 @@ void p2m_restore_state(struct vcpu *n)
+>        * when running multiple vCPU of the same domain on a single pCPU.
+>        */
+>       if ( *last_vcpu_ran != INVALID_VCPU_ID && *last_vcpu_ran != n->vcpu_id )
+> -        flush_guest_tlb_local();
+> +        flush_guest_tlb_s1_local();
+>   
+>       *last_vcpu_ran = n->vcpu_id;
+>   }
+>   
+>   /*
+> - * Force a synchronous P2M TLB flush.
+> + * Loads VTTBR from given P2M.
+>    *
+> - * Must be called with the p2m lock held.
+
+Don't we still want to call p2m_load_vttbr() with the lock taken? If 
+so.. this should be kept as well as ...
+
+> + * This returns switched out VTTBR.
+ >    */> -void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+> +static uint64_t p2m_load_vttbr(struct p2m_domain *p2m, unsigned long *flags)
+>   {
+> -    unsigned long flags = 0;
+>       uint64_t ovttbr;
+>   
+> -    ASSERT(p2m_is_write_locked(p2m));
+
+... this assert.
+
+> -
+> -    /*
+> -     * ARM only provides an instruction to flush TLBs for the current
+> -     * VMID. So switch to the VTTBR of a given P2M if different.
+> -     */
+>       ovttbr = READ_SYSREG64(VTTBR_EL2);
+>       if ( ovttbr != p2m->vttbr )
+>       {
+>           uint64_t vttbr;
+>   
+> -        local_irq_save(flags);
+> +        local_irq_save(*flags);
+>   
+>           /*
+>            * ARM64_WORKAROUND_AT_SPECULATE: We need to stop AT to allocate
+> @@ -276,12 +269,18 @@ void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+>   
+>           WRITE_SYSREG64(vttbr, VTTBR_EL2);
+>   
+> -        /* Ensure VTTBR_EL2 is synchronized before flushing the TLBs */
+> +        /* Ensure VTTBR_EL2 is in place before continuing. */
+
+I think the existing code is better. "in place" is vague and could only. 
+mean the value should be loaded in VTTBR_EL2.
+
+The rest of the patch looks good to me.
+
+Cheers,
+
+-- 
+Julien Grall
+
 
