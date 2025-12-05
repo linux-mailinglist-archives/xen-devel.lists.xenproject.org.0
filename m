@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8711CA8300
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 16:29:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179222.1502816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77CD5CA851A
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 17:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179250.1502828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRXk7-0005yb-QK; Fri, 05 Dec 2025 15:29:11 +0000
+	id 1vRYN5-0003bv-NS; Fri, 05 Dec 2025 16:09:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179222.1502816; Fri, 05 Dec 2025 15:29:11 +0000
+Received: by outflank-mailman (output) from mailman id 1179250.1502828; Fri, 05 Dec 2025 16:09:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRXk7-0005w0-Ni; Fri, 05 Dec 2025 15:29:11 +0000
-Received: by outflank-mailman (input) for mailman id 1179222;
- Fri, 05 Dec 2025 15:29:10 +0000
+	id 1vRYN5-0003Yo-KN; Fri, 05 Dec 2025 16:09:27 +0000
+Received: by outflank-mailman (input) for mailman id 1179250;
+ Fri, 05 Dec 2025 16:09:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=niBk=6L=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vRXk6-0005vu-2V
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 15:29:10 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ <SRS0=mBPq=6L=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vRYN4-0003Yi-1P
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 16:09:26 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 247c9927-d1ef-11f0-9d1b-b5c5bf9af7f9;
- Fri, 05 Dec 2025 16:29:09 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-42e2e671521so1472463f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 07:29:09 -0800 (PST)
-Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
- [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbe8fe8sm9342914f8f.2.2025.12.05.07.29.06
+ id c471271c-d1f4-11f0-9d1b-b5c5bf9af7f9;
+ Fri, 05 Dec 2025 17:09:24 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b72bf7e703fso374252466b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 08:09:24 -0800 (PST)
+Received: from EPUAKYIW02F7.. (pool185-5-252-83.as6723.net. [185.5.252.83])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b79f44597e6sm402147866b.12.2025.12.05.08.09.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Dec 2025 07:29:07 -0800 (PST)
+ Fri, 05 Dec 2025 08:09:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 247c9927-d1ef-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: c471271c-d1f4-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1764948548; x=1765553348; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1764950964; x=1765555764; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=m5poUjleRs6edLNo2yJ5LkEsXL+q9XYEcbgn9x0APa4=;
-        b=HGn4gYrMB2L696G96GnoENeykE6UTirGbBULFxbqhODUmGXUnLU/9LIH0cMaEZM/j+
-         F3lJvEdrkBpsUarlH0krJuHxzb5kkrViZXshXDRjJtxQsCeQYhgQB49SD/Egke//1UTQ
-         5TX02q5oAptsbVahxNuGKKPrY07zr4yJFj848=
+        bh=n5y5EpV8247Sc4CQoDyJ/08kMzJSZMGppYTZMleuDQA=;
+        b=fzxk3Y7JFx5hwNkQIBnBIBTLAn3ECCELiqD4kOgZ/znTwLPPFic3xgJigAd+FZespM
+         hrLiUiyUxHpFxR6xIqAK5cu5igXxSE26yN+ZR+2gBwpKuSPQQ5XVRMoE1h2XIrERdS3S
+         qy6cYqC9VooQcdYrhrBgFHkR3pPo5yz+xqNsOtrQTl4KH+fwSd7hUXCtb/wJGSA3pvQ5
+         SAvUc6l1w4V8ihquYXHqb1Aogw2QNnA0YWl5iR5u10WNsnUvXvFlKsUi/vWJbc2D339R
+         1QT8BK7PxQMCQhC0DdwlHMWbbPdZtbhISznWSgel8qoPQlh8EvptGp3S9LNnjtI5IBNr
+         zejQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764948548; x=1765553348;
+        d=1e100.net; s=20230601; t=1764950964; x=1765555764;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m5poUjleRs6edLNo2yJ5LkEsXL+q9XYEcbgn9x0APa4=;
-        b=O4KhQxiV6dWtPfo637H/QrqT0AWj13Ffzj6zFWoi9jXVv0Lf0Agy0LqEw24ZyccpOp
-         8ZB+dCUzeqxQR2QxTLFMzT4S/YDn2uN23lSpgMSJ2vKmz0ll0izRU+IPnT/QaStTVao7
-         Vjr468wra7cLsI0ERZrQfR9CFxxO6V+DjUQhTESSjeV13HxCGAsgAKkTzSzFuvOPgZvf
-         6uGlcxYPjMtQlZv9ag3kvoHA5F1IQtltTc3yo4h1YCf7EkkyuJqxEPfI9y0zrYOPLHC5
-         3FMAy8toYEEwNHXNfKWR/zcbJuBJUnmW/IVn8XAu3nv9eHa3x2UfIwLtaeWtD9mFze2O
-         FUzQ==
-X-Gm-Message-State: AOJu0YwKupeOarViQS9wndVOM6y68wThEMAmo3h+JPJSVPt2Q+8Fk0/C
-	pf2CATalIaEC0gygfWWalgsMgxTZovi9274ZgqjZfzrisM7WzV75hTi6eG1Cn59D7DxPQ/mCUKR
-	OIpbF
-X-Gm-Gg: ASbGncsPaIO+hJVvP9XVOIlDv/ouh+BpgsfagLXNSrlZfBDv1ocRDcHRLhwWrj2ix8I
-	9VIi0fatR3JZ0cxyuIznqNe4Q3wPk9MQ9JTGhjK6z1xVTKhR/jeybXi/kPBNBFG9B7Vi+mE66Ye
-	TxEtgfciVe/Rmv+jcrt2fQKwTFmsNIs8+D6jPsJCIbmvgJbtHczuoeVS+pOhGNj2MMxHUSqR1sQ
-	ga/PNLU6FHcYzLhZeMH/dGK4SBP/5hbqOhnUwOHZ9S6cj16YGemufyH2/ZazKPcSgs5LeaYMS3+
-	gKJlnKujOXe7pACI9umB5hatdasrUH9YBm0+2tG9+ua0JsTjNNmvq9pDsP7lQkHexZsKO8uHOXB
-	BaSSxWV6PIULnq/M0+h9sK3PUo65cWerplGLzXzonXlZZ/unvK5PhOPUxDSQe61BIxKgGT284+5
-	9Fz5BmYHNOtix9cMg2A43ARnOj3r+GvDHqOHX1mVoXGlrs9UCI8u+gwIunPLB4Nw==
-X-Google-Smtp-Source: AGHT+IGYFNqWp4fbqvpwcHZhcQDgXuY9CfBm1OcejdEUr5UNIL0G6rMdJEJ5fHqBS33TMnS88OFcZQ==
-X-Received: by 2002:a05:6000:2912:b0:429:ccd7:9d94 with SMTP id ffacd0b85a97d-42f79862526mr7481872f8f.51.1764948547820;
-        Fri, 05 Dec 2025 07:29:07 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/kexec: Replace CALL+UD2 pattern with JMP
-Date: Fri,  5 Dec 2025 15:29:05 +0000
-Message-Id: <20251205152905.1925700-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        bh=n5y5EpV8247Sc4CQoDyJ/08kMzJSZMGppYTZMleuDQA=;
+        b=fniQpKjxqfqJP0l02yu+r438LV/EO7MU8lKv1OuZk0Y592nQN5zPQUNe5VTSghSDEF
+         wbGAFr3uJGL/+phdaaJKRWzC4MuJ5JZZ5t8sRrPcaRsAPS16ROvM1pbIjMizn6qPkYj5
+         Ubagux2Hfy3a+eMjVmGYABWOr6fhsgYqGx7eZd55QLjY2VkvrDbjQOAGlORQBEWdtyYM
+         GrMi+tuzjBCikG52KM52Zu+yKQK/jfOP7LIfF4u6O4zk78geQHErwZyblrOd0hXwT+IG
+         CK0XuUMKsdqjgvzWhLFJaDO+TMRYJaPa1xrDLa4WSIts98EisdsXEEuI73R6CV4kLltS
+         oNcw==
+X-Gm-Message-State: AOJu0YyFyGydIFGSJOnpYDK26r+UluNLXxJ6+A8HArfd3hBS78SzomzL
+	BdZCDOD4sbf5SHhB+qpghFvm+bWQ4fDbcmhCPyachpd8o/aw6eA0slYNn7pUJA==
+X-Gm-Gg: ASbGncv0ocRaaCgTF0O3zy/gPmybzwOmz/JsxlsgYEh63fp8cM5g3WpSRWOzdmLLNr8
+	F9e6/F++bnPX8m1loqWhBs/Z1DNkwgnb4hZ1vlD/ogNXrvo3oTQLc5G9Crls62ZlU/N6gazZQG+
+	dZHH7tOb4OaefIgaqBWAIaAUBEbQFQC3ZFwkAhrn5RRi9Civ69Pjd/WUJOeCz6pK7YMYw8AFb2G
+	c7G5mGHy0Iw8dGwvcIocaznD0OOp16s1VjKINAhL8Mwe6RQjkYC692eHaIPxS+ejP3wsrmF9tKb
+	VIejSgrI2ycLyNLKlo56VhzcdFweX3tO/yXhgVT30JHvtZvqyIdmgBy3JFb1zUHBaE/s0vZkUvQ
+	U7oi4w9C2RkE07bx70DtoQSF3W3jyJ+EB6o2AfjFkjy97WtUy2QngcP4yBGVJXByYYLzBQkhUD7
+	+TDEsFLeGsc6BCZFVC4Ha+60jLxVY55FqH4Xlq1oS2hcA=
+X-Google-Smtp-Source: AGHT+IG7h4TlXXkxHQq/K+IrmRaNM5DGJroFC9Uij/MqQfR3j4Z4wQulyJEBouo8wzbUw/GmiFfmbg==
+X-Received: by 2002:a17:906:eec4:b0:b72:eaba:aac2 with SMTP id a640c23a62f3a-b79dbea99aamr1132963066b.26.1764950963598;
+        Fri, 05 Dec 2025 08:09:23 -0800 (PST)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2] systemd: fall back to default system-sleep dir without systemd-devel
+Date: Fri,  5 Dec 2025 18:07:15 +0200
+Message-ID: <aa1ed166473c7eeb442ebf3961c4e7513fd0ff82.1764950250.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Linux jumps to the target image rather than calling it.  Switch to using JMP,
-and drop the trailing UD2s.
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-Linux does have a mode, named CONFIG_KEXEC_JUMP, where the target image can be
-returned from, but that involves extra metadata and setting up a stack within
-the target image which Xen doesn't support at the moment.
+Keep the pkg-config lookup for SYSTEMD_SLEEP_DIR, but fall back to
+"$(prefix)/lib/systemd/system-sleep/" if the variable remains unset.
+This avoids reintroducing a build-time dependency on systemd-devel while
+still honoring the path provided by pkg-config when present.
 
-No functional change.
-
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: e54a6cd6a1f3 ("systemd: Add hooks to stop/start xen-watchdog on suspend/resume")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Build in which the regression was detected:
+https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/10959608099
 ---
- xen/arch/x86/x86_64/kexec_reloc.S | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ m4/systemd.m4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index 50ba454abd48..b52d31a654e0 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -75,10 +75,8 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
-         jnz     .L_call_32_bit
+diff --git a/m4/systemd.m4 b/m4/systemd.m4
+index c47a25ef93..5fb5a7089e 100644
+--- a/m4/systemd.m4
++++ b/m4/systemd.m4
+@@ -81,7 +81,7 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
+ 	], [])
  
--.L_call_64_bit:
--        /* Call the image entry point.  This should never return. */
--        callq   *%rbp
--        ud2
-+        /* Jump to the image entry point */
-+        jmp     *%rbp
+ 	AS_IF([test "x$SYSTEMD_SLEEP_DIR" = x], [
+-	    AC_MSG_ERROR([SYSTEMD_SLEEP_DIR is unset])
++	    SYSTEMD_SLEEP_DIR="\$(prefix)/lib/systemd/system-sleep/"
+ 	], [])
+ ])
  
- .L_call_32_bit:
-         /* Setup IDT. */
-@@ -170,9 +168,8 @@ FUNC_LOCAL(compatibility_mode)
-         xorl    %eax, %eax
-         movl    %eax, %cr4
- 
--        /* Call the image entry point.  This should never return. */
--        call    *%ebp
--        ud2
-+        /* Jump to the image entry point. */
-+        jmp     *%ebp
- END(compatibility_mode)
- 
-         /* Separate code and data into into different cache lines */
-
-base-commit: 351d41e8aecc3f7566a0baa7b4066d06dedd7113
 -- 
-2.39.5
+2.43.0
 
 
