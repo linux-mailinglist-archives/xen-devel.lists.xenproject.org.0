@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F9DACA7DBA
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 14:58:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179128.1502746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC2DECA807C
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 15:55:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179144.1502756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRWJQ-0008Fb-5S; Fri, 05 Dec 2025 13:57:32 +0000
+	id 1vRXCt-0007RV-3I; Fri, 05 Dec 2025 14:54:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179128.1502746; Fri, 05 Dec 2025 13:57:32 +0000
+Received: by outflank-mailman (output) from mailman id 1179144.1502756; Fri, 05 Dec 2025 14:54:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRWJQ-0008Di-2f; Fri, 05 Dec 2025 13:57:32 +0000
-Received: by outflank-mailman (input) for mailman id 1179128;
- Fri, 05 Dec 2025 13:57:31 +0000
+	id 1vRXCt-0007Ot-0h; Fri, 05 Dec 2025 14:54:51 +0000
+Received: by outflank-mailman (input) for mailman id 1179144;
+ Fri, 05 Dec 2025 14:54:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZEed=6L=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vRWJP-0008Da-5p
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 13:57:31 +0000
-Received: from fout-b4-smtp.messagingengine.com
- (fout-b4-smtp.messagingengine.com [202.12.124.147])
+ <SRS0=mBPq=6L=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vRXCr-0007On-BR
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 14:54:49 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 532cabdf-d1e2-11f0-980a-7dc792cee155;
- Fri, 05 Dec 2025 14:57:24 +0100 (CET)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.stl.internal (Postfix) with ESMTP id 3E2DB1D00192;
- Fri,  5 Dec 2025 08:57:23 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Fri, 05 Dec 2025 08:57:23 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Dec 2025 08:57:22 -0500 (EST)
+ id 577248cb-d1ea-11f0-980a-7dc792cee155;
+ Fri, 05 Dec 2025 15:54:47 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-37cef3ccb82so16592901fa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 06:54:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,156 +40,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 532cabdf-d1e2-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1764943043;
-	 x=1765029443; bh=QX/gPZm+x1mcyArJqj0mE5WToJQ/FY7tVZSoiGMcEAc=; b=
-	bdOWTmFoV3YYswtCp/B5stofi9im0WquEkkns0ym17HHtD3s+cXCE5KnSVpXHXrs
-	4ccKfbbjmSyEVUc5Ypqb+eLr5bXkm8MzrNLtRjsCoWAj90O8hYMVeXa+DwxKF91a
-	tp5sfqWoOSe68Y2FPnrwxdsvmVLY7i6QGx6TPgTDaSs0Cx6VrCme/4IdrBRphUGk
-	0UXPHMKIWBJ6loUg4M6TEY9W3W50NfxpTR+I7Rcjf+KhDySDy03HgD5KQtHrIqup
-	/bqbjo5UvMCTk7JSSgjYZc4dUAGrcrUUUXO4gbHxzAj3St0SSFN46IgsQEAAB68P
-	IiowoPbSKY9LZpJfh9Xy4Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1764943043; x=1765029443; bh=QX/gPZm+x1mcyArJqj0mE5WToJQ/FY7tVZS
-	oiGMcEAc=; b=GS6lUveM1htf1mnLWak6ID4Uh7oyH2T65UpqiCkphI9iszci/et
-	7NHjsh8OHfcqaseth5sLgTLfkKnBKA+ZpHvJMF8pgPALgJ+Me17Etum4jti8WVE2
-	jjGmtPkoO54y5oZD7MePf6GK9kkR6urPU5U0dhuU25JIJDA7TO1vggLrJBezFQfj
-	1QkSnJm6o5L4gkQbs4qrA4fx1XMWJRi+ZudkhjRrKvGsx7W6rY/g3A25WorcivO2
-	YcF+uoUvcjJNXIGAPtqQExI01psSTRSs2to9pkps8qecSm0QqRAYGWAObUQCACEy
-	9cKxPDQ2c8fgK+uHB8dwMWWNvjxZgWFQwCg==
-X-ME-Sender: <xms:wuQyaf3SXYLFCTZ_vpXlIwB4BUn40cNN29wirS5YPpZhlGqbc9Z_Pg>
-    <xme:wuQyaVHk7BdF8EJiGKKbuwwbJHGUseXMifOcBA0pFF4TtqSmQnR-MfzeJk1hdhKxC
-    _0LoSEvOqgOCQOIp0Vx71QEGyMYtSIIRXC7CfRD2v7yLZea9g>
-X-ME-Received: <xmr:wuQyaU4KlCvpI-8YPxbPBqjhTS1-55RyELW5MfTye2OESQk9aX2yoIb4s-M_Xl3kdJse8FYE2rbRYfQBestdKRt9luBdmD4Fa2A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdekheehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
-    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
-    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkedvgfdtkeff
-    ueehheekgfeuudegvdejueehteejgeefffehkeejhfejveeugffhnecuffhomhgrihhnpe
-    hgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
-    ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
-    gtohhmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmthhpohhuthdprhgtphhtthho
-    peigrghkvghprdgrmhgrthhophesghhmrghilhdrtghomhdprhgtphhtthhopeigvghnqd
-    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehm
-    hihkohhlrggpkhhvrggthhesvghprghmrdgtohhmpdhrtghpthhtoheprghnthhhohhnhi
-    drphgvrhgrrhgusehvrghtvghsrdhtvggthh
-X-ME-Proxy: <xmx:wuQyaTuFUowVwzquDnH5s8F22m0B6WvNHVcg0xMK9-uavw92yjttJQ>
-    <xmx:wuQyad7xeozjNesL44PaYXPSaDYKXZivbvV5GlELnaHUPY7PScyFuw>
-    <xmx:wuQyaWW95BDCdPpqfex9LejM-8Q7z4mQ73_l-fDwIFWCkexZsQX4Rw>
-    <xmx:wuQyaX91lGq_t9je51Ojjs6ewNRX2NS-ZLUTY5leH4JDCIwdvaXrEw>
-    <xmx:w-QyaY5rLX_r0MIUoUsFO0U2dXm9RU4K_5DLQumKNNzPheAnd39Ddlql>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 5 Dec 2025 14:57:20 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH] systemd: default system-sleep dir without pkg-config
-Message-ID: <aTLkwMpxchYSMnyT@mail-itl>
-References: <f03c8a2fe81527841966ed6c8ed603d1d90ee5c4.1764940296.git.mykola_kvach@epam.com>
+X-Inumbo-ID: 577248cb-d1ea-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1764946486; x=1765551286; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Oj4yj7tzriBUrwcVuJwE3ZbW75nE9yFe4/d5bikw/ZA=;
+        b=TW/VL3MvBopPsj4s8U/3y+Cz4miFs5PMqTfY/u2XdfMt5hMP1IDuA/54YwwMYh2ZXw
+         P3ZblYh/DzEOwpaIEF8jiM5kYc+/zDN2/5rAB2EDYH575H2BPeWrBcIAma8qX+03nAI3
+         8pTMcI5cXBJ7a8Ssz+O1u6EvfxAwXnNvB59RvuycGg1wiTDfF/6ihoo0EKIs4biLTRt2
+         C594zS3QXOa+cVmkC3+2mHmGPsdhWptkeo63NVzBP6a8tXV6LRdLZlbNErVvCDAIb7Dy
+         Bp1Bnta5xYr/elEpctCJHCgdm+7zO4wMlLu6IL/qVR1G/5N4U25AtfplhHZrBHM9BycK
+         em3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764946486; x=1765551286;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Oj4yj7tzriBUrwcVuJwE3ZbW75nE9yFe4/d5bikw/ZA=;
+        b=ruOp5bFAPOXhJmGzuRCYJ5m5MehdVwYe0TH2D6JHeoVjRkvBdkU8Pw6N5gUms5uSFB
+         TKRtUzsxWb6USX2kRoGqksjaYT82oYb7v64s5+6wpuqIiEPhPIxww8RxmEtNKycpdAs/
+         06OELBJBhbrCiHmfekI4ZgQ9KU98aLhSzMqlS+k9iDDCKhaAbh8H44A42ciXz/X5Px9M
+         CmTcELn863kp/KYeIPkSyR2lkgTlgBwC84MbCfdLKq2QVZqryEj+55yR+vy9qjw/xKDO
+         xen+sr5cMyqXhsQJTBufLi7Rl8HUdrO20hsxEyFPTXa+OulP+PXi73ykbg17B8Vn3jgP
+         0bdA==
+X-Gm-Message-State: AOJu0YwnuQ8eUOKLHmCHaQ7vEQcAssYXnoS5PurrVIxkegmzrMFg0gh0
+	ED7Zq96r8qWwhbFZnDd0HGrIAB6Ajf/EOfvC3wVCtPwkNwT6P1rFaNWH/jS8AJFKfoTBH7tsHPy
+	sfaDPASLxPVZM6OCDF5aoss9EQdltThSfPAsqmas=
+X-Gm-Gg: ASbGncveU76oAi7fsHCMmObn7GeidbdZRQjMybfdI8kVvshGXwMWge4E18TPGd80YZd
+	N581ATyLQ8EXzY6haTWCHvYvT5mtU9oIxehhfFY6DwyozzrMAxTHdN9k7RX6496oNr0i2iZbJZh
+	HYpErAe5FhrrIJeFdCSskRG/q99m5jVYTrGzgeIYlHevzo1TaTYYIdqtXlYZoam7SN8N0KTyQn6
+	Ao+wasDFwYGJvOt1y+CzzCYkjtJjosWfuMmwnS/c1LBKBdbV6zPsDdaMJCGzAODTOQmuA==
+X-Google-Smtp-Source: AGHT+IGYpWu2YnCUjq9mZPvUGM3BJqta79D4A+EtxPKC2EtnHsX5amvlYYueo5FT28n7eLro74HLf/fRwznd/TCH29k=
+X-Received: by 2002:a05:651c:31cc:b0:37a:2bcc:279e with SMTP id
+ 38308e7fff4ca-37e6390d9e0mr33909161fa.23.1764946485997; Fri, 05 Dec 2025
+ 06:54:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="DCwzspm2pCAnNB/v"
-Content-Disposition: inline
-In-Reply-To: <f03c8a2fe81527841966ed6c8ed603d1d90ee5c4.1764940296.git.mykola_kvach@epam.com>
-
-
---DCwzspm2pCAnNB/v
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 5 Dec 2025 14:57:20 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
+References: <f03c8a2fe81527841966ed6c8ed603d1d90ee5c4.1764940296.git.mykola_kvach@epam.com>
+ <aTLkwMpxchYSMnyT@mail-itl>
+In-Reply-To: <aTLkwMpxchYSMnyT@mail-itl>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Fri, 5 Dec 2025 16:54:34 +0200
+X-Gm-Features: AWmQ_bkHSzdiMUlqQlwEnJS7sM9Q03vRQqLU45e1Tofy0b3srgREUhqzN99iwjI
+Message-ID: <CAGeoDV8FnNxoqr18W82DhE=fLWJSQr68xr_vPew_z=hyt2BbeA@mail.gmail.com>
 Subject: Re: [PATCH] systemd: default system-sleep dir without pkg-config
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Dec 05, 2025 at 03:13:32PM +0200, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
->=20
-> Using PKG_CHECK_VAR() to obtain SYSTEMD_SLEEP_DIR reintroduced a build-ti=
-me
-> dependency on systemd-devel. This breaks --enable-systemd builds that only
-> need the initscripts.
->=20
-> Use the same defaulting scheme as other systemd paths: if SYSTEMD_SLEEP_D=
-IR
-> isn't provided, set it to "$(prefix)/lib/systemd/system-sleep/".
->=20
-> Fixes: e54a6cd6a1f3 ("systemd: Add hooks to stop/start xen-watchdog on su=
-spend/resume")
-> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
-> Build in which the regression was detected:
-> https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/10959608099
+Hi,
 
-Requires re-running autoconf, otherwise still fails:
+On Fri, Dec 5, 2025 at 3:57=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> On Fri, Dec 05, 2025 at 03:13:32PM +0200, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > Using PKG_CHECK_VAR() to obtain SYSTEMD_SLEEP_DIR reintroduced a build-=
+time
+> > dependency on systemd-devel. This breaks --enable-systemd builds that o=
+nly
+> > need the initscripts.
+> >
+> > Use the same defaulting scheme as other systemd paths: if SYSTEMD_SLEEP=
+_DIR
+> > isn't provided, set it to "$(prefix)/lib/systemd/system-sleep/".
+> >
+> > Fixes: e54a6cd6a1f3 ("systemd: Add hooks to stop/start xen-watchdog on =
+suspend/resume")
+> > Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Build in which the regression was detected:
+> > https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/10959608099
+>
+> Requires re-running autoconf, otherwise still fails:
 
-https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/12336879267
+Thanks for the note. I had assumed the Autoconf-generated files were refres=
+hed
+during release or at merge time, since this updates generated artifacts. If=
+ the
+expectation is that contributors regenerate and include them with the patch=
+,
+I will add the updated Autoconf outputs in the next revision of this series=
+.
 
-With autoconf:
-https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2198372475
+>
+> https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/12336879267
+>
+> With autoconf:
+> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2198372475
+>
+> It's better now, so:
+> Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+.com>
 
-It's better now, so:
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
+Thanks, for the review and for testing both with and without Autoconf
+regeneration.
 
-But unconditional --enable-systemd uncovered other issues (not related
-to the configure change).
+>
+> But unconditional --enable-systemd uncovered other issues (not related
+> to the configure change).
+>
+>
+> > ---
+> >  m4/systemd.m4 | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/m4/systemd.m4 b/m4/systemd.m4
+> > index c47a25ef93..ee684d3391 100644
+> > --- a/m4/systemd.m4
+> > +++ b/m4/systemd.m4
+> > @@ -77,7 +77,7 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
+> >       ], [])
+> >
+> >       AS_IF([test "x$SYSTEMD_SLEEP_DIR" =3D x], [
+> > -         PKG_CHECK_VAR([SYSTEMD_SLEEP_DIR], [systemd], [systemdsleepdi=
+r])
+> > +         SYSTEMD_SLEEP_DIR=3D"\$(prefix)/lib/systemd/system-sleep/"
+> >       ], [])
+> >
+> >       AS_IF([test "x$SYSTEMD_SLEEP_DIR" =3D x], [
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Best Regards,
+> Marek Marczykowski-G=C3=B3recki
+> Invisible Things Lab
 
-
-> ---
->  m4/systemd.m4 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/m4/systemd.m4 b/m4/systemd.m4
-> index c47a25ef93..ee684d3391 100644
-> --- a/m4/systemd.m4
-> +++ b/m4/systemd.m4
-> @@ -77,7 +77,7 @@ AC_DEFUN([AX_CHECK_SYSTEMD_LIBS], [
->  	], [])
-> =20
->  	AS_IF([test "x$SYSTEMD_SLEEP_DIR" =3D x], [
-> -	    PKG_CHECK_VAR([SYSTEMD_SLEEP_DIR], [systemd], [systemdsleepdir])
-> +	    SYSTEMD_SLEEP_DIR=3D"\$(prefix)/lib/systemd/system-sleep/"
->  	], [])
-> =20
->  	AS_IF([test "x$SYSTEMD_SLEEP_DIR" =3D x], [
-> --=20
-> 2.43.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---DCwzspm2pCAnNB/v
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmky5MAACgkQ24/THMrX
-1yyGzwf/aYXyZrZRqFquh701nuF0r74G734PeOFwZx3KgjcmZM3LPQwnP6JQjzoe
-gF4Q0SrGZxQreROJ6iLJc+V5+upCHVenr9TEwgftfKuzQzcU1V9jbyh5xvZz2lXn
-JZltDzmHiHJczpOzlele6rzujs5mmI7Nqe8SNfBFKOgxtYP98//hb8MCnMiBi9mt
-EOOdNpEwYyBLqhTCg+q43q5YFZ1TYAZqYAlGyeoLFAErwz2Q5DVm58BG3WJQaYso
-4yVv6j//gqvYuU1nLo0vmucbHl0E5FJZFu7sWeXeHkOEpIoihKskku/zF4XkRvTf
-hrEHVa2msqq5z/6Qs+8idBGoyCVK7w==
-=Zr3v
------END PGP SIGNATURE-----
-
---DCwzspm2pCAnNB/v--
+Best regards,
+Mykola
 
