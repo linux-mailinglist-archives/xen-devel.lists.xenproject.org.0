@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD79CA815E
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 16:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179175.1502786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4223BCA82D9
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 16:24:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179198.1502797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRXOV-0001p6-Kq; Fri, 05 Dec 2025 15:06:51 +0000
+	id 1vRXfg-0004q4-0g; Fri, 05 Dec 2025 15:24:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179175.1502786; Fri, 05 Dec 2025 15:06:51 +0000
+Received: by outflank-mailman (output) from mailman id 1179198.1502797; Fri, 05 Dec 2025 15:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRXOV-0001nS-I3; Fri, 05 Dec 2025 15:06:51 +0000
-Received: by outflank-mailman (input) for mailman id 1179175;
- Fri, 05 Dec 2025 15:06:49 +0000
+	id 1vRXff-0004ny-Sw; Fri, 05 Dec 2025 15:24:35 +0000
+Received: by outflank-mailman (input) for mailman id 1179198;
+ Fri, 05 Dec 2025 15:24:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K96r=6L=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vRXOT-0001mR-Et
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 15:06:49 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
+ <SRS0=o2Fi=6L=redhat.com=mlureau@srs-se1.protection.inumbo.net>)
+ id 1vRXfe-0004ns-MF
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 15:24:34 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0483e7d8-d1ec-11f0-980a-7dc792cee155;
- Fri, 05 Dec 2025 16:06:47 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DS0PR03MB7677.namprd03.prod.outlook.com (2603:10b6:8:1f8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Fri, 5 Dec
- 2025 15:06:44 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.009; Fri, 5 Dec 2025
- 15:06:44 +0000
+ id 7e1aaff9-d1ee-11f0-980a-7dc792cee155;
+ Fri, 05 Dec 2025 16:24:30 +0100 (CET)
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-448-6nWtLqdBNQG02kb9Oay5dg-1; Fri, 05 Dec 2025 10:24:26 -0500
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-343daf0f488so2516407a91.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 07:24:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,157 +44,419 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0483e7d8-d1ec-11f0-980a-7dc792cee155
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VN07CB3C3lBHZ3A1klJm3L44SM4KZngYr7q56exX8ok5zYQoDTDl8tZWBd22BQXlhJGAr44QNEzhWLaY/DkZHvp8ARQEyiIJO09HMeWbMtf42dVa17cw8UUn4nonm8BCaJOY30MokHbbO2xiaalPw7MSr+8zCvQkbiO4Fwa9atIfK0EBtwMeNR79A7pf3t16y4AOTEII1cUkgfAyPIJMIeVJdvPhldWKge56qEWS/gBuT7+iXC+wuiQ9Zh9fajKu/EkbP7gU/u3YHUbMk7KSYjwv5fXCfiJvKHjU1odp4qP1czZmFbXxh42zjzo4U3hed3RNzCdEMeSCajcIwIM4kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YAB2aPIjatkG6/LqpOkMLplp4a/GArTk1EgUwIgx5qE=;
- b=mJP00HMCWZxgFYMdwOVj5MNeI3Oei+vkt6kTTwaLiqauZ2p68EYYipkPpLJX1arnUeOwBzhnmmqCOdbChsMW1R7HBReCfxb2JsKeVaEgA5+euOdIQ/dFZXjqMeufiRPfibwmwzQVEiOkjSsA608mGBTUSJOruiiA/ZHJdn1FsbmKAyX1dThx68ELh2EKkxmVqIgf62mCLnGzYz0PFRg7SvClpIGdxq/9OHFkS1TJdkZVtk9jf5ygEeS2ixX1gEfsbxVr94iA54TL+U9zJtkoiimMHDrHwy33QYRka10sjOJFg8BJ806OGXlzbGmJQhS+us9ST0CerSxmzF8A6tFUJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YAB2aPIjatkG6/LqpOkMLplp4a/GArTk1EgUwIgx5qE=;
- b=RJyiKGr+EPA1GADs4bWut47kY5gaa2msFVUXdGin40wGjOzumZUte7oVnbl2EWYlcHeVs4GPmt041sYCOX5lbsu2EtLoJ3rQZcxt/8SkJERCTOApRYxsT8IbP4ykAnSaEJOZuCSGEIfwnpR8ffpmRB2SVEqlDLiPpmXOu3zIWVk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <6f189d1f-a6e6-48a2-875c-2df317b59b4d@citrix.com>
-Date: Fri, 5 Dec 2025 15:06:40 +0000
-User-Agent: Mozilla Thunderbird
-Cc: andrew.cooper3@citrix.com, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen/treewide: Use __ASSEMBLER__ instead of __ASSEMBLY__
-To: Jan Beulich <jbeulich@suse.com>
-References: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
- <c21ddcb3-ba38-4dbb-9860-731eb43c38f3@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <c21ddcb3-ba38-4dbb-9860-731eb43c38f3@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0454.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:e::34) To IA1PR03MB8288.namprd03.prod.outlook.com
- (2603:10b6:208:59e::6)
+X-Inumbo-ID: 7e1aaff9-d1ee-11f0-980a-7dc792cee155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1764948269;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wGQ3gSFXtAe+arpdzWG/ZFCjDKYAro2OI+h8YKyav2g=;
+	b=RjAdkMD0D38Q8ah3MZC7ICHR0o84nF0NXnJywnoEboD5RLAxlJATNN8mZBp5a4kI/2aPYo
+	lUYl189aIbeZsvpn6M7wrYqu+SfT9szGoBwg1ZydDlTR7gvKwc124CNGertowtROXHguF9
+	jzFaDKzR9zrXktDZTWT2MmwTrA7KURs=
+X-MC-Unique: 6nWtLqdBNQG02kb9Oay5dg-1
+X-Mimecast-MFC-AGG-ID: 6nWtLqdBNQG02kb9Oay5dg_1764948266
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764948265; x=1765553065;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wGQ3gSFXtAe+arpdzWG/ZFCjDKYAro2OI+h8YKyav2g=;
+        b=JkPRR/YNdaQ8QUo1FGIg/+W9syzxB4wZv4X5YJF2N1XmkFfT9kTeCJeIU96wv7XQOW
+         7X+y6JadT7hXen3S3Y011Xt1AkBtzJsej7t7JjEZyS9hGNvR7TR20FqCw6kveqYFw2nd
+         ocQurZxtcDNvNpgqfEgCBZW90ag3rS+PeouY2/+7A7dIr0I6TQAznfZZxQfCkvbA3PTl
+         Llp3rgFZeMCN3bGhnbI0p/53UgKierZtFZPBOCVKgLvrqdmG4Xz8Ef25IL0U5MV10zSF
+         +8w1X0Db1+EA/jRzbvoxl5VjPGaKMiaoA4KBi7oy1aumno4GWBhR5SbVYlAoHzlTNwQ7
+         Cvnw==
+X-Forwarded-Encrypted: i=1; AJvYcCXExbkkXTbeNGZ4nCfiwE0nz+CL/tGfuGUsW+b5H81ATuGnwmmgYOmCQfB6CgmL3gI7vgN86Vdl360=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw97rpk/EdUESBiej68ZRq9POZ/rskD+6dq7EEpJs/tg1hBVob1
+	1Q34k+WICscW8EC+SLq2g5Vw8H8avBmxM4R3sUTV/B+kIIEpIEi5PO8VtXOGaUzHBm64RE79jKM
+	CYXR9kVRHdmp0zzPuNUNiugl0s+8SXw9KD9eGqHBFcwoE7nwXyX7702iw3i0dQb8u4NFrLRJLer
+	rykA0g2tgyLIA7sWoIxA90msNTJuKnbywr6N500xAPJwEuGGCFvEE2y4gx
+X-Gm-Gg: ASbGncu48Mjt+99cxCmxeu0WbjDFvGugBz8H8gsumLT6Gt1iBWxmF51KZNzpXnpbW5U
+	fKrUPHJkKf9j7EOEZ56Zoc0++V7zOwYMSiHSQ+GUytKK2ltorY46h45UILPNUoxBkGN+jue1BG3
+	9XrZGQk+RY0KxijxhMN8aTbY1pZT/J5r5ZhOqKcMPfVb+DH6uDCDSOH7PLkmQFOFodNV1SVlktW
+	+lTywHmLfW60D2S3+xMbztaaA==
+X-Received: by 2002:a17:90b:17ca:b0:341:124f:474f with SMTP id 98e67ed59e1d1-34947f2b8a9mr6126523a91.32.1764948265414;
+        Fri, 05 Dec 2025 07:24:25 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGRpg9e4hXez788TlRNE+96c2PecEZD4WmvaZztPCsU5od5++DBjY2+FjMhNqnJS1fhvh2lWcCIglVAtlI6HSE=
+X-Received: by 2002:a17:90b:17ca:b0:341:124f:474f with SMTP id
+ 98e67ed59e1d1-34947f2b8a9mr6126494a91.32.1764948264985; Fri, 05 Dec 2025
+ 07:24:24 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS0PR03MB7677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18e1a399-7461-4a46-e77f-08de340fe716
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MjJaRXhTbzhlVjJPWWk4RnYrSUluakl2WUZPRkgySzlsYm56eUhpMC9sUkFL?=
- =?utf-8?B?ckxuRXdjR0g4anI0SzQwNWsrNDRjU2dqaVBvS3JzYUI0ZkpsMkZ3MU9qVzZE?=
- =?utf-8?B?NENnbHZoYUtRMUhIMExUS29LYXhzOGxKZElZTndsQkdaVmFzUE5YVndJeG83?=
- =?utf-8?B?UEl6L1cvY1dBTENBY1QxZlF6ckl5THcvbUFpVHBhVDl6TjZmTkRzNTl2YjZ0?=
- =?utf-8?B?VzhjUjBYeXZWb2xYQ2VCT013U3hadHFnd0cvVjhnN2E1MzlXMHFlOElvWnpV?=
- =?utf-8?B?YmplQUpDdWJFcW81YVZ0Z2Jqb2UxcWpiM1lxUlVQanVqL0hpZVFvSkorbitG?=
- =?utf-8?B?RWZBKzdad08zNUZvYitFN0lnVVlycVdNeU5XYURhNjViakRjYzgyNmxMSmdJ?=
- =?utf-8?B?cWMwZnRteWpKS0ROVTkwK0lZN3cxWElXaCt0WTM1YnBMeTRnS0F4K0ZUSFlx?=
- =?utf-8?B?S3dFY0xRVFhTamFiWFM0b2t2cGVHb0lZenZSZHZkU2c0NCs5bDN3RDVoTXZj?=
- =?utf-8?B?STUxZ3BMN241clVEVTY1TmpnSGhib3MveTNEdzNtRXZIaUtQV0Z0cHVodlJF?=
- =?utf-8?B?R1lZa0ZyL3plbkF1QjVPUU40WUdZWEd0UVdNYWNWRXdxYU1oTmV5eklNenhs?=
- =?utf-8?B?NWpKU093NVdBR1hUc3lnRUNRMnJ3WGg2cWFQeWFTdm9LZndJMWw0S2Q2N1JD?=
- =?utf-8?B?NDlTcm43Y0V4aXYrRlltUWxXT1E4NDVoaWMyUWZyUmtzTDhMZXpTRmRSdWNU?=
- =?utf-8?B?TnVHTjZmVlZ2Y25XUDgyR1FRODZLSnFQTjAyMUx2QlRQbGQrTm5DdysyYjBF?=
- =?utf-8?B?RTZZc3oyb0p6T2QrUUFvcFNrZ094NGhFUm9wc3U5MklrNmdhbFRFM2YyRmJK?=
- =?utf-8?B?bWtLckhlbG5OMzF5S0VCMWJjZGpGQ0JsdndCZmZuT0tGaXpBVlgzdHU1RzVr?=
- =?utf-8?B?RGwyZklUam9EeGIzT0FqdU5mc3pDam5XbXV2Rm5MR0pDbGlocnpBcGkxM3p4?=
- =?utf-8?B?OWpvRlV4bDZ2eCt6T2tkbnNxR3ZQbUw2L3h6REpaSXdiTitkNTJTb3JQVTky?=
- =?utf-8?B?cjlmUkhCRlRyRkZNSlI4NlZUY3ZYMnZJN09XOEN5SjZlUkVQT29PZnlLYVVD?=
- =?utf-8?B?TXhiZ0Njd25WdXZBd1VNbHJiSWxFYUgvVllmYzgrd1hjWE1WYUIxRnNEaGVv?=
- =?utf-8?B?WEovcjhkTUdrbGhqK2pBYUx2bno2UHM5ZEkrUmgxOEVMZ2lOclhLWnk4Slp0?=
- =?utf-8?B?M1Z0aTBGeUE1N01kSkFIV211KzdHVytaMU56OHkweVVRaTBYUDZUbTFySFQ5?=
- =?utf-8?B?OHlMMXhDSWl1ZGNPWXNpbCtrZEJnSEVJL1VxMEE3K1lMQndkeW5WRVpuN3ly?=
- =?utf-8?B?QWNpUlZHbU44aHhWYVJRNnFaVFYrRnlRQmdybE52UWJnUlRVVDlzMnNibi9G?=
- =?utf-8?B?enIwVGJEbE9BRWx6K2NnR3VUVkFMVEtQKzc0anV2QmIzSVdIdzhaMG5Kbndt?=
- =?utf-8?B?YXY2OG53VGpiYzJNNUNEemJNRDlzS3lHMlZQbm5LN3VaMndpQ29ueTJhZHI3?=
- =?utf-8?B?dHVpaktjeWZvbm1FSUNsbFFSLy93eTlkdDFibGFsT0lQSkVaQlJybUxGNTZw?=
- =?utf-8?B?U2Y3NHptTWhRSGx6TEluK3o1amovRTNyY2JjRGQ0THVYYU9RTXI1L2Y0S3pW?=
- =?utf-8?B?WlphRXRUK01mYnJlckNzd0pLQmRyd21McmxCUVlMWEIveElkQlRjQyt1Z1Zo?=
- =?utf-8?B?UytxM3RkYlJxTTF4R2VUa1NmKzdrYmtnOHNMV2oyL1g3RVdSbG5kUTNUWXBY?=
- =?utf-8?B?YUFuWTZmcjlhL09oNk4yc2JDdHhQcnAwdklOUkpjQTVNWGEyU0dRWVM1ZW5m?=
- =?utf-8?B?emt0YThDbnB2RzhFc29qYzZSTXFCWUZmOEdSSTFBN1RUS1Z5cXlFQ3l4bitR?=
- =?utf-8?Q?GhrgRkUizgRqlHH9GAoapkpwmIx2cwR1?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eGlyTHRFZ3FXK2dJMGtKa21QQU0yR0l5ODBGa0ltT01vNEVLWmc0S1pjVWw5?=
- =?utf-8?B?KytxcWV1QUpmOUtsVm9RUzY1bTdPTDFTQmtoNnRkTmdIczBDd1RtMkU1elQy?=
- =?utf-8?B?eUxzbkwyb1J0YnlFd2l3NmhMNjZyRmE4MDlCcjlSdlVnbXRhRnQzVnFrV0pD?=
- =?utf-8?B?WUV2WkJrUEFNa3VpTEFETnpSTXhFdHZGUTFlU2VRZG04NzVyVnI3clJrSWRz?=
- =?utf-8?B?c2t1V3dQYVdHcytiY3l5bzRIODludm5WTE1Mblh5bll4dmk3djFLd3NmZkZW?=
- =?utf-8?B?R2gxWldVTGJ0cmVIc1ZldXlPV0VEM3FhdW9weFdSSFR2Zlc1VUh5WkNxMWd3?=
- =?utf-8?B?YkR0bms4ckFpTG9jNmVVOXIzLzlDanFFbVpXSXZxdWR4OEkxSDljTzFkUjJw?=
- =?utf-8?B?QWpaUmY3UTRZQUpINngzdGxXUHBOYjA4U1pHUUFOZUJRZ2FWTVo0WHJSTlNa?=
- =?utf-8?B?MFBZOS9VZk11OVRRL3VPS0hCU3Y1V09hMXB5aGZ4TG5sSW94OEtZSmttaWVK?=
- =?utf-8?B?WjhmQVhxU0VNYzAzQlpnamozVHgyRzB5bCsyTEVKMGhqZC9TanIzdEQwYkxP?=
- =?utf-8?B?TmFRcVlxMHp4clRXZ3pjWFRCT1VncUp2M2gvUXFXbGYvNEdXR1c0bzFOZEVD?=
- =?utf-8?B?ZkdPZWVIMHdodmd6U3dXcXQ3RGc1WHJTUHI3M2JuRjJlMmJvR28vTzNTeXBk?=
- =?utf-8?B?am05SExLdElEUFlhS2ZTSHI1dENQUGFod0J0am50SGY2b0FIbXI1N2JqSENV?=
- =?utf-8?B?VUhCb3luVVgyQ2I0VUxxVmFCblNJbTdDUHlvRUV3VnU3dXNBNDJTUEVtbm1i?=
- =?utf-8?B?M1RJZ01FNVBJQm9WczJvcFFkV3VlQXgvNlBOOFIvZ3VSS2dlNWZWVXd0OHBI?=
- =?utf-8?B?eFVtZ2VvNmhKajBuU0dsay83NlFpTEdaUXNxUjlyZ1VTcHRRTDQ1RlA5YlBr?=
- =?utf-8?B?NHBBd0o3bG9ERmNET2VCcm00Z29kTUkzZ3BxcjgxcHdIUGRvSW5nSjlpMDZD?=
- =?utf-8?B?SkhaaXVXMjNmV1k1YVlxUlVLZ3pRdVlaaFl5QTdSaVU1Y1NXbzlkK3AvQXNq?=
- =?utf-8?B?NDlpdU5RQ1N3Mlg1Q0d1elF6R0p2Q1Yvc0xqK2Rxd0wxS0JEWE9OSi9rN1RH?=
- =?utf-8?B?WjJuNzJIcXFyNUsvc1pQV2hkK2R3eDdWbEtvQnBWellpUnR0SVhjUmo3RWZW?=
- =?utf-8?B?ZUdpU1liSjh0NkZ0STJ0K0w0WXJSZmp5VklXMFNaMzF3Q0RaNjAvRFhlRkV2?=
- =?utf-8?B?cERJT005VERkOVFqZExtaXFXc29iVjN6dk5wTW5uL0NFeGVyVitTbnZFMFdJ?=
- =?utf-8?B?dGhJKzZCSXZTYW1nQ1pHMm0yblNrNWVtbTJweEJyOUVTdVVJK3ExM2htMlN5?=
- =?utf-8?B?QlIxMkNHejVFTkJxd2JRYzVvK1hLWElUcWNUdnVPWC8wRHk3cVJodFRacE9Q?=
- =?utf-8?B?OGpiMEtLZGt6MG43QkpGT1l2T3Mzd1UyZ3lveVFIS0VONmxFUm52VHNibmR5?=
- =?utf-8?B?NzlxQ29CYWkySmlXNDRpK1ZqZ3EwQ1FyMUh2YzduWFJ3MEsxcEJ1MGZCYVpG?=
- =?utf-8?B?bzBuS0o3a3RteVkxL1FrYVl2ejRyV2FyaXorR0ExZkJLL3FTTE5hQ2FXTkdQ?=
- =?utf-8?B?czhnWkZPNlcyRnhQVy9oZmxrUXNVdzdPK3RRcTB4QWllNnhLUm5wOGFaOXBT?=
- =?utf-8?B?aGhBMW93SlpDM0h6UFlvUm5vZ3VrZGdrMkR2MmRQQmdFdGU2WlhXTzdKM0Fv?=
- =?utf-8?B?clpyUHdTZ3J2anljVnZHeVhpOXphdTBmc016Z2JWQnFVVTlLOGNnVUtFSW5D?=
- =?utf-8?B?amJJQy80dVNKRVFGZld4OGlzV25mbjRoMUdQMGhJbkZVczVnd1JiMy9JK0NM?=
- =?utf-8?B?OGR4TTNPenFXOThXQVA4Qm1EYzJGbmRyL1R1aEFXczVTTzA1NTJkVkh5Ry9B?=
- =?utf-8?B?aW84cFhjYWcwMG1waWthMDBnTEhjVDBoNHk1UFdwRnR6eVh4VDJjMnZuRWYz?=
- =?utf-8?B?WE1UQytsb3MwWFhhc3c5Umk3QzQzUFBpTjIvZitIcUNPZ2FBa2kwNkRCZ2ZC?=
- =?utf-8?B?NEZaY3JvREsvOFhoK2tsdEVxYllwaVYydHpJQllOZTg5SlhQdDBhNUl0d25s?=
- =?utf-8?B?cnFLRXJPcDJ5cW9TTGNDbXNkTUtZMGNyWlk0b2g3TU9uZjlzVzhRVFN4bCtw?=
- =?utf-8?B?SFE9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18e1a399-7461-4a46-e77f-08de340fe716
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR03MB8288.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 15:06:44.3657
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cr0qiwmRgqxBI5lMz+DZG8Rgd6GN7k+wbdye2lGPLfvEEtIxQy4+c1rElrlURTHgUT3LNWOIR558Jji84wxBxxMD/3NNLzaIZqx9lG5ZY54=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB7677
+References: <20251204154235.149575-1-vsementsov@yandex-team.ru> <20251204154235.149575-9-vsementsov@yandex-team.ru>
+In-Reply-To: <20251204154235.149575-9-vsementsov@yandex-team.ru>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>
+Date: Fri, 5 Dec 2025 19:24:13 +0400
+X-Gm-Features: AWmQ_bnQfU7U8hjEbnC-2KmRzhX5UT8eWgvGZ0S0lfZmcWYtA3w-z4ubcFRlUIw
+Message-ID: <CAMxuvawnLfV480yuELn2hvGcq8g3gwo2o_v5VNjdYG0Vpxd1_Q@mail.gmail.com>
+Subject: Re: [PATCH v2 08/10] chardev: introduce .chr_get_pty_name() handler
+To: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+Cc: pbonzini@redhat.com, qemu-devel@nongnu.org, d-tatianin@yandex-team.ru, 
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD <anthony@xenproject.org>, 
+	Paul Durrant <paul@xen.org>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: qMYLvdYIXUco1t_b7LuT_Suo__6VWrlB0y48JZYE-x8_1764948266
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/alternative; boundary="00000000000061bcef0645360a46"
 
-On 05/12/2025 7:48 am, Jan Beulich wrote:
-> On 03.12.2025 14:32, Andrew Cooper wrote:
->> __ASSEMBLER__ is how GCC and Clang spell this, removing the need to set it up
->> manually in AFLAGS.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> While I fear this might end up biting us significantly on certain backports,
-> still:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+--00000000000061bcef0645360a46
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks.  What problem do you see with backporting?
+Hi
 
-#ifdef __ASSEMBLER__ will work perfectly well in older trees which also
-still have __ASSEMBLY__
+On Thu, Dec 4, 2025 at 7:42=E2=80=AFPM Vladimir Sementsov-Ogievskiy <
+vsementsov@yandex-team.ru> wrote:
 
-~Andrew
+> Currently we do two wrong things:
+>
+> 1. Abuse s->filename to get pty_name from it
+>
+> 2. Violate layering with help of CHARDEV_IS_PTY()
+>
+> Let's get rid of both, and introduce correct way to get pty name in
+> generic code, if available.
+>
+> Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+>
+
+Reviewed-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+
+
+> ---
+>  chardev/char-pty.c     |  7 +++++++
+>  chardev/char.c         | 19 +++++++++++++------
+>  hw/char/xen_console.c  |  7 ++++---
+>  include/chardev/char.h |  7 +++++--
+>  4 files changed, 29 insertions(+), 11 deletions(-)
+>
+> diff --git a/chardev/char-pty.c b/chardev/char-pty.c
+> index a582aa7bc7..047aade09e 100644
+> --- a/chardev/char-pty.c
+> +++ b/chardev/char-pty.c
+> @@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts,
+> ChardevBackend *backend, Error **errp)
+>      pty->path =3D g_strdup(path);
+>  }
+>
+> +static char *pty_chr_get_pty_name(Chardev *chr)
+> +{
+> +    PtyChardev *s =3D PTY_CHARDEV(chr);
+> +    return g_strdup(s->pty_name);
+> +}
+> +
+>  static void char_pty_class_init(ObjectClass *oc, const void *data)
+>  {
+>      ChardevClass *cc =3D CHARDEV_CLASS(oc);
+> @@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, cons=
+t
+> void *data)
+>      cc->chr_write =3D pty_chr_write;
+>      cc->chr_update_read_handler =3D pty_chr_update_read_handler;
+>      cc->chr_add_watch =3D pty_chr_add_watch;
+> +    cc->chr_get_pty_name =3D pty_chr_get_pty_name;
+>  }
+>
+>  static const TypeInfo char_pty_type_info =3D {
+> diff --git a/chardev/char.c b/chardev/char.c
+> index 44bfed3627..0dc792b88f 100644
+> --- a/chardev/char.c
+> +++ b/chardev/char.c
+> @@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id,
+> ChardevBackend *backend,
+>      }
+>
+>      ret =3D g_new0(ChardevReturn, 1);
+> -    if (CHARDEV_IS_PTY(chr)) {
+> -        ret->pty =3D g_strdup(chr->filename + 4);
+> -    }
+> +    ret->pty =3D qemu_chr_get_pty_name(chr);
+>
+>      return ret;
+>
+> @@ -1101,6 +1099,17 @@ err:
+>      return NULL;
+>  }
+>
+> +char *qemu_chr_get_pty_name(Chardev *chr)
+> +{
+> +    ChardevClass *cc =3D CHARDEV_GET_CLASS(chr);
+> +
+> +    if (cc->chr_get_pty_name) {
+> +        return cc->chr_get_pty_name(chr);
+> +    }
+> +
+> +    return NULL;
+> +}
+> +
+>  ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backen=
+d,
+>                                    Error **errp)
+>  {
+> @@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id,
+> ChardevBackend *backend,
+>      object_unref(OBJECT(chr_new));
+>
+>      ret =3D g_new0(ChardevReturn, 1);
+> -    if (CHARDEV_IS_PTY(chr_new)) {
+> -        ret->pty =3D g_strdup(chr_new->filename + 4);
+> -    }
+> +    ret->pty =3D qemu_chr_get_pty_name(chr_new);
+>
+>      return ret;
+>  }
+> diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
+> index a639fb0b11..7502de46e4 100644
+> --- a/hw/char/xen_console.c
+> +++ b/hw/char/xen_console.c
+> @@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev,
+> Error **errp)
+>      XenConsole *con =3D XEN_CONSOLE_DEVICE(xendev);
+>      Chardev *cs =3D qemu_chr_fe_get_driver(&con->chr);
+>      unsigned int u;
+> +    g_autofree char *pty_name =3D NULL;
+>
+>      if (!cs) {
+>          error_setg(errp, "no backing character device");
+> @@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev,
+> Error **errp)
+>
+>      trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)))=
+;
+>
+> -    if (CHARDEV_IS_PTY(cs)) {
+> -        /* Strip the leading 'pty:' */
+> -        xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4=
+);
+> +    pty_name =3D qemu_chr_get_pty_name(cs);
+> +    if (pty_name) {
+> +        xen_device_frontend_printf(xendev, "tty", "%s", pty_name);
+>      }
+>
+>      /* No normal PV driver initialization for the primary console under
+> Xen */
+> diff --git a/include/chardev/char.h b/include/chardev/char.h
+> index 23a227dca9..d36e50b99e 100644
+> --- a/include/chardev/char.h
+> +++ b/include/chardev/char.h
+> @@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)
+>
+>  #define CHARDEV_IS_RINGBUF(chr) \
+>      object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)
+> -#define CHARDEV_IS_PTY(chr) \
+> -    object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)
+>
+>  struct ChardevClass {
+>      ObjectClass parent_class;
+> @@ -306,6 +304,9 @@ struct ChardevClass {
+>
+>      /* handle various events */
+>      void (*chr_be_event)(Chardev *s, QEMUChrEvent event);
+> +
+> +    /* return PTY name if available */
+> +    char *(*chr_get_pty_name)(Chardev *s);
+>  };
+>
+>  Chardev *qemu_chardev_new(const char *id, const char *typename,
+> @@ -320,4 +321,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint
+> ms,
+>  void suspend_mux_open(void);
+>  void resume_mux_open(void);
+>
+> +char *qemu_chr_get_pty_name(Chardev *chr);
+> +
+>  #endif
+> --
+> 2.48.1
+>
+>
+
+--00000000000061bcef0645360a46
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi</div><br><div class=3D"gmail_quote gma=
+il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 4, 20=
+25 at 7:42=E2=80=AFPM Vladimir Sementsov-Ogievskiy &lt;<a href=3D"mailto:vs=
+ementsov@yandex-team.ru">vsementsov@yandex-team.ru</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">Currently we do two wrong=
+ things:<br>
+<br>
+1. Abuse s-&gt;filename to get pty_name from it<br>
+<br>
+2. Violate layering with help of CHARDEV_IS_PTY()<br>
+<br>
+Let&#39;s get rid of both, and introduce correct way to get pty name in<br>
+generic code, if available.<br>
+<br>
+Signed-off-by: Vladimir Sementsov-Ogievskiy &lt;<a href=3D"mailto:vsementso=
+v@yandex-team.ru" target=3D"_blank">vsementsov@yandex-team.ru</a>&gt;<br></=
+blockquote><div><br></div><div>Reviewed-by: Marc-Andr=C3=A9 Lureau &lt;<a h=
+ref=3D"mailto:marcandre.lureau@redhat.com">marcandre.lureau@redhat.com</a>&=
+gt;</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>
+---<br>
+=C2=A0chardev/char-pty.c=C2=A0 =C2=A0 =C2=A0|=C2=A0 7 +++++++<br>
+=C2=A0chardev/char.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 19 +++++++++++++---=
+---<br>
+=C2=A0hw/char/xen_console.c=C2=A0 |=C2=A0 7 ++++---<br>
+=C2=A0include/chardev/char.h |=C2=A0 7 +++++--<br>
+=C2=A04 files changed, 29 insertions(+), 11 deletions(-)<br>
+<br>
+diff --git a/chardev/char-pty.c b/chardev/char-pty.c<br>
+index a582aa7bc7..047aade09e 100644<br>
+--- a/chardev/char-pty.c<br>
++++ b/chardev/char-pty.c<br>
+@@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts, ChardevBacke=
+nd *backend, Error **errp)<br>
+=C2=A0 =C2=A0 =C2=A0pty-&gt;path =3D g_strdup(path);<br>
+=C2=A0}<br>
+<br>
++static char *pty_chr_get_pty_name(Chardev *chr)<br>
++{<br>
++=C2=A0 =C2=A0 PtyChardev *s =3D PTY_CHARDEV(chr);<br>
++=C2=A0 =C2=A0 return g_strdup(s-&gt;pty_name);<br>
++}<br>
++<br>
+=C2=A0static void char_pty_class_init(ObjectClass *oc, const void *data)<br=
+>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0ChardevClass *cc =3D CHARDEV_CLASS(oc);<br>
+@@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, const =
+void *data)<br>
+=C2=A0 =C2=A0 =C2=A0cc-&gt;chr_write =3D pty_chr_write;<br>
+=C2=A0 =C2=A0 =C2=A0cc-&gt;chr_update_read_handler =3D pty_chr_update_read_=
+handler;<br>
+=C2=A0 =C2=A0 =C2=A0cc-&gt;chr_add_watch =3D pty_chr_add_watch;<br>
++=C2=A0 =C2=A0 cc-&gt;chr_get_pty_name =3D pty_chr_get_pty_name;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static const TypeInfo char_pty_type_info =3D {<br>
+diff --git a/chardev/char.c b/chardev/char.c<br>
+index 44bfed3627..0dc792b88f 100644<br>
+--- a/chardev/char.c<br>
++++ b/chardev/char.c<br>
+@@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id, Charde=
+vBackend *backend,<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0ret =3D g_new0(ChardevReturn, 1);<br>
+-=C2=A0 =C2=A0 if (CHARDEV_IS_PTY(chr)) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret-&gt;pty =3D g_strdup(chr-&gt;filename + 4)=
+;<br>
+-=C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 ret-&gt;pty =3D qemu_chr_get_pty_name(chr);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0return ret;<br>
+<br>
+@@ -1101,6 +1099,17 @@ err:<br>
+=C2=A0 =C2=A0 =C2=A0return NULL;<br>
+=C2=A0}<br>
+<br>
++char *qemu_chr_get_pty_name(Chardev *chr)<br>
++{<br>
++=C2=A0 =C2=A0 ChardevClass *cc =3D CHARDEV_GET_CLASS(chr);<br>
++<br>
++=C2=A0 =C2=A0 if (cc-&gt;chr_get_pty_name) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return cc-&gt;chr_get_pty_name(chr);<br>
++=C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 return NULL;<br>
++}<br>
++<br>
+=C2=A0ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *bac=
+kend,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Error **errp)<br>
+=C2=A0{<br>
+@@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id, Cha=
+rdevBackend *backend,<br>
+=C2=A0 =C2=A0 =C2=A0object_unref(OBJECT(chr_new));<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0ret =3D g_new0(ChardevReturn, 1);<br>
+-=C2=A0 =C2=A0 if (CHARDEV_IS_PTY(chr_new)) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ret-&gt;pty =3D g_strdup(chr_new-&gt;filename =
++ 4);<br>
+-=C2=A0 =C2=A0 }<br>
++=C2=A0 =C2=A0 ret-&gt;pty =3D qemu_chr_get_pty_name(chr_new);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0return ret;<br>
+=C2=A0}<br>
+diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c<br>
+index a639fb0b11..7502de46e4 100644<br>
+--- a/hw/char/xen_console.c<br>
++++ b/hw/char/xen_console.c<br>
+@@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev, Erro=
+r **errp)<br>
+=C2=A0 =C2=A0 =C2=A0XenConsole *con =3D XEN_CONSOLE_DEVICE(xendev);<br>
+=C2=A0 =C2=A0 =C2=A0Chardev *cs =3D qemu_chr_fe_get_driver(&amp;con-&gt;chr=
+);<br>
+=C2=A0 =C2=A0 =C2=A0unsigned int u;<br>
++=C2=A0 =C2=A0 g_autofree char *pty_name =3D NULL;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0if (!cs) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0error_setg(errp, &quot;no backing charact=
+er device&quot;);<br>
+@@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev, Erro=
+r **errp)<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0trace_xen_console_realize(con-&gt;dev, object_get_typen=
+ame(OBJECT(cs)));<br>
+<br>
+-=C2=A0 =C2=A0 if (CHARDEV_IS_PTY(cs)) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Strip the leading &#39;pty:&#39; */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 xen_device_frontend_printf(xendev, &quot;tty&q=
+uot;, &quot;%s&quot;, cs-&gt;filename + 4);<br>
++=C2=A0 =C2=A0 pty_name =3D qemu_chr_get_pty_name(cs);<br>
++=C2=A0 =C2=A0 if (pty_name) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 xen_device_frontend_printf(xendev, &quot;tty&q=
+uot;, &quot;%s&quot;, pty_name);<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0/* No normal PV driver initialization for the primary c=
+onsole under Xen */<br>
+diff --git a/include/chardev/char.h b/include/chardev/char.h<br>
+index 23a227dca9..d36e50b99e 100644<br>
+--- a/include/chardev/char.h<br>
++++ b/include/chardev/char.h<br>
+@@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)<br>
+<br>
+=C2=A0#define CHARDEV_IS_RINGBUF(chr) \<br>
+=C2=A0 =C2=A0 =C2=A0object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)<=
+br>
+-#define CHARDEV_IS_PTY(chr) \<br>
+-=C2=A0 =C2=A0 object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)<br>
+<br>
+=C2=A0struct ChardevClass {<br>
+=C2=A0 =C2=A0 =C2=A0ObjectClass parent_class;<br>
+@@ -306,6 +304,9 @@ struct ChardevClass {<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0/* handle various events */<br>
+=C2=A0 =C2=A0 =C2=A0void (*chr_be_event)(Chardev *s, QEMUChrEvent event);<b=
+r>
++<br>
++=C2=A0 =C2=A0 /* return PTY name if available */<br>
++=C2=A0 =C2=A0 char *(*chr_get_pty_name)(Chardev *s);<br>
+=C2=A0};<br>
+<br>
+=C2=A0Chardev *qemu_chardev_new(const char *id, const char *typename,<br>
+@@ -320,4 +321,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint ms=
+,<br>
+=C2=A0void suspend_mux_open(void);<br>
+=C2=A0void resume_mux_open(void);<br>
+<br>
++char *qemu_chr_get_pty_name(Chardev *chr);<br>
++<br>
+=C2=A0#endif<br>
+-- <br>
+2.48.1<br>
+<br>
+</blockquote></div></div>
+
+--00000000000061bcef0645360a46--
+
 
