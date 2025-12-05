@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E33CA79B9
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 13:47:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1178958.1502627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A51CCA79BD
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Dec 2025 13:47:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1178957.1502617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRVDg-0000v8-Ne; Fri, 05 Dec 2025 12:47:32 +0000
+	id 1vRVDY-0000gV-Gl; Fri, 05 Dec 2025 12:47:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1178958.1502627; Fri, 05 Dec 2025 12:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 1178957.1502617; Fri, 05 Dec 2025 12:47:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRVDg-0000tH-KH; Fri, 05 Dec 2025 12:47:32 +0000
-Received: by outflank-mailman (input) for mailman id 1178958;
- Fri, 05 Dec 2025 12:47:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uphM=6L=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vRVDe-0000sR-Cr
- for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 12:47:30 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 8bd5c7c0-d1d8-11f0-980a-7dc792cee155;
- Fri, 05 Dec 2025 13:47:24 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD460339;
- Fri,  5 Dec 2025 04:47:15 -0800 (PST)
-Received: from [10.44.160.68] (e126510-lin.lund.arm.com [10.44.160.68])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A5F6D3F86F;
- Fri,  5 Dec 2025 04:47:15 -0800 (PST)
+	id 1vRVDY-0000dn-DY; Fri, 05 Dec 2025 12:47:24 +0000
+Received: by outflank-mailman (input) for mailman id 1178957;
+ Fri, 05 Dec 2025 12:47:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7OvG=6L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vRVDW-0000dh-Ci
+ for xen-devel@lists.xenproject.org; Fri, 05 Dec 2025 12:47:22 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a002826-d1d8-11f0-9d1b-b5c5bf9af7f9;
+ Fri, 05 Dec 2025 13:47:20 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-429ce7e79f8so1364981f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Dec 2025 04:47:20 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42f7d331aeasm8468537f8f.37.2025.12.05.04.47.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Dec 2025 04:47:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,135 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bd5c7c0-d1d8-11f0-980a-7dc792cee155
-Message-ID: <573881f1-60f7-4eb3-a484-1df4858aa1b4@arm.com>
-Date: Fri, 5 Dec 2025 13:47:12 +0100
+X-Inumbo-ID: 8a002826-d1d8-11f0-9d1b-b5c5bf9af7f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1764938840; x=1765543640; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hdJ4TLbnb/qqWqVEKQ6FdlJ3YFJ+xSGg9eF5zyF6zmE=;
+        b=VjNpg72XdqaIExzD8EDI0kE1v0P2NoNgb1i2FXmnwd9pxIdwtKI5nVLQI3zNu3G9Xc
+         MhFIVL1Ij6bzsxo6qhEkfrLsXDsyUC5E/vMYQhjwYk2WAp2Xnc277GFJ2SiJvM5zhKHd
+         4EWk7VzVuF52DTT/uc+ozYkY9yj5x5vetNZw6j3bOebj04XE92aYRH5zpJklhLSZmOrz
+         j3DrRWGqCYnzGYaIzNaBMTm/ATu6RQcjeec5fgxKMOTnftGN/WyDuV5Xo22D6mjv3ZpA
+         rpVkx0K+w7gPBUIYpcH17z4AlE1aIGdYiDkvxxYi2sJ3ptt06gTZgdkVI+bagS5TKOK5
+         0KWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764938840; x=1765543640;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hdJ4TLbnb/qqWqVEKQ6FdlJ3YFJ+xSGg9eF5zyF6zmE=;
+        b=TVcu4BRo+1AL5U9tUyZdxPcwrX1+WhlElWIBMrM0sc3ZQDkZKv2BZOywxs1EaEEXF2
+         MPHdKZPpApctGPr8/qd30XX29sc7uW80vArqpCjr/v03pVSVeDX5bsDTxToUy8W8UCgi
+         A9rpx40DCctSH875jnp6qH9qoiIbOHvTBwsFSUeBCB55Dmg/rDhTODJ2JXp13Bdu5tk4
+         hcVZY5mSH7e6g33gfADvI+LmCRMBwTZ+H/R/nW/xbcticdIE7/GF4Yo8AkFl1O2pA79U
+         Ein9KBoCAP84ju83jcZ1oCrxVIwj5+RL0PUfFUoue1z1EgUge7lyh2o86gI//UAvTkOR
+         Fmpg==
+X-Forwarded-Encrypted: i=1; AJvYcCW5ZEMkwlF3ZtBAG5dXtomBbS3Zq6jmTR/LpcRsq27fzbOgkbKQdly5qNb7UK8irQI/PstUSl6IVX8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxCMOnyQKhdHhKgukVsXjciimbqXMxKcwrnXmSm6GdWY44h18NY
+	5luWbnjSlxnEh7AtvLckMtam3B6lvrExw4wp+wPKwwwsvzmGYjl6CVb9nhKugZQUFQ==
+X-Gm-Gg: ASbGncuU8fH6ALYU5wF80/ir7pdjzIX/QzTQOLznM5MM7u9XmIodIHVcrmXGkC+WmdG
+	lqk8Wa2qlzKMXarNxL8KMyT0gUI9JYuYcVA5vtlkr5w47nevsiVTzMLPRMhg8jMpOgT30rO2GvD
+	tN0qPe50b6ZzBxJsZjOyaETD47w52kNYIxW0aKjEFfpOHfN+CAIrrIH806BGGe5keyTpHK4wKbI
+	vFfjvzawiaYUoMP624ssIcSaFoxpfnfIu6RgfSRWC8uYVBFsMqfQMXKvFuOz/faBEP/wnzt4wZq
+	3rJHceqmPgV/feErMQQgT7sXrL0TDsjEuCusqXjn0atJWoEFsm7gSIL1vZiSRibbAPNpKZRYivr
+	igkvo2w98N4sCs9/cdJRXilO7dEHGPxsOuztVnMUV/Bjp8BvhEIksxdzoythmwANEwTx1BErf4R
+	1/2fGxAKEBJu6/+sJmxPBh6Yajvo81pHfyAlNnd823tk2c34uQ/ePCeO2khP1xSpRIegxVHarJ7
+	U8=
+X-Google-Smtp-Source: AGHT+IE9N1tpme/tHnO1Lian/+cwIebfBjf6pqzaDOljLBViaKM3z4rj6YEtTXFtIumLEavUxGuw+w==
+X-Received: by 2002:a05:6000:310f:b0:42b:32f5:ad18 with SMTP id ffacd0b85a97d-42f7951496amr6857186f8f.9.1764938840103;
+        Fri, 05 Dec 2025 04:47:20 -0800 (PST)
+Message-ID: <0c481383-1ac8-4a31-8685-def51cdc9005@suse.com>
+Date: Fri, 5 Dec 2025 13:47:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/12] mm: introduce generic lazy_mmu helpers
-To: Anshuman Khandual <anshuman.khandual@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251124132228.622678-1-kevin.brodsky@arm.com>
- <20251124132228.622678-7-kevin.brodsky@arm.com>
- <e43c147f-bff8-462a-88dc-4345500f4ed7@arm.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <e43c147f-bff8-462a-88dc-4345500f4ed7@arm.com>
+Subject: Re: [PATCH v9 10/10] x86emul: support AVX512-BMM
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <926a2315-a2b7-4aad-87e6-d686c9da9e3a@suse.com>
+ <732d56d9-d200-410e-8b52-48c5e25bcf5c@suse.com>
+ <50ff35c6-5da2-4c6f-94b2-025440ee618f@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <50ff35c6-5da2-4c6f-94b2-025440ee618f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/12/2025 05:17, Anshuman Khandual wrote:
-> On 24/11/25 6:52 PM, Kevin Brodsky wrote:
->> The implementation of the lazy MMU mode is currently entirely
->> arch-specific; core code directly calls arch helpers:
->> arch_{enter,leave}_lazy_mmu_mode().
+On 05.12.2025 13:33, Andrew Cooper wrote:
+> On 24/11/2025 3:02 pm, Jan Beulich wrote:
+>> EVEX.W meaning is unusual for VBMAC{,X}OR16x16x16, but that needs taking
+>> care of only in the test harness.
 >>
->> We are about to introduce support for nested lazy MMU sections.
->> As things stand we'd have to duplicate that logic in every arch
->> implementing lazy_mmu - adding to a fair amount of logic
->> already duplicated across lazy_mmu implementations.
+>> Like already proposed in "x86emul: support AVX10.1", use just
+>> vcpu_must_have(), not host_and_vcpu_must_have().
 >>
->> This patch therefore introduces a new generic layer that calls the
->> existing arch_* helpers. Two pair of calls are introduced:
->>
->> * lazy_mmu_mode_enable() ... lazy_mmu_mode_disable()
->>     This is the standard case where the mode is enabled for a given
->>     block of code by surrounding it with enable() and disable()
->>     calls.
->>
->> * lazy_mmu_mode_pause() ... lazy_mmu_mode_resume()
->>     This is for situations where the mode is temporarily disabled
->>     by first calling pause() and then resume() (e.g. to prevent any
->>     batching from occurring in a critical section).
->>
->> The documentation in <linux/pgtable.h> will be updated in a
->> subsequent patch.
->>> No functional change should be introduced at this stage.
->> The implementation of enable()/resume() and disable()/pause() is
->> currently identical, but nesting support will change that.
->>
->> Most of the call sites have been updated using the following
->> Coccinelle script:
->>
->> @@
->> @@
->> {
->> ...
->> - arch_enter_lazy_mmu_mode();
->> + lazy_mmu_mode_enable();
->> ...
->> - arch_leave_lazy_mmu_mode();
->> + lazy_mmu_mode_disable();
->> ...
->> }
->>
->> @@
->> @@
->> {
->> ...
->> - arch_leave_lazy_mmu_mode();
->> + lazy_mmu_mode_pause();
->> ...
->> - arch_enter_lazy_mmu_mode();
->> + lazy_mmu_mode_resume();
->> ...
->> }
-> At this point arch_enter/leave_lazy_mmu_mode() helpers are still
-> present on a given platform but now being called from new generic
-> helpers lazy_mmu_mode_enable/disable(). Well except x86, there is
-> direct call sites for those old helpers.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> The Disp8Shift settings are guesswork; the binutils submission bogusly(?)
+>> suggests no scaling at all.
 
-Indeed, see notes below regarding x86. The direct calls to arch_flush()
-are specific to x86 and there shouldn't be a need for a generic abstraction.
+I realize I should have dropped this remark: It was applicable only to
+early versions of that change.
 
-- Kevin
+>> No idea how to test this without having access to capable hardware. AMD,
+>> to my knowledge, offers no equivalent to Intel's SDE.
+> 
+> I'm not aware of anything equivalent for AMD.
+> 
+> IIRC, the binutils thread says Zen6 for these instructions?  I'm still
+> trying to get access myself.  No ETA yet.
 
-> arch/arm64/include/asm/pgtable.h:static inline void arch_enter_lazy_mmu_mode(void)
-> arch/arm64/include/asm/pgtable.h:static inline void arch_leave_lazy_mmu_mode(void)
->
-> arch/arm64/mm/mmu.c:    lazy_mmu_mode_enable();
-> arch/arm64/mm/pageattr.c:       lazy_mmu_mode_enable();
->
-> arch/arm64/mm/mmu.c:    lazy_mmu_mode_disable();
-> arch/arm64/mm/pageattr.c:       lazy_mmu_mode_disable();
->
->> A couple of notes regarding x86:
->>
->> * Xen is currently the only case where explicit handling is required
->>   for lazy MMU when context-switching. This is purely an
->>   implementation detail and using the generic lazy_mmu_mode_*
->>   functions would cause trouble when nesting support is introduced,
->>   because the generic functions must be called from the current task.
->>   For that reason we still use arch_leave() and arch_enter() there.
->>
->> * x86 calls arch_flush_lazy_mmu_mode() unconditionally in a few
->>   places, but only defines it if PARAVIRT_XXL is selected, and we
->>   are removing the fallback in <linux/pgtable.h>. Add a new fallback
->>   definition to <asm/pgtable.h> to keep things building.
->>
->> [...]
+Yes, that's what they add for Zen6. I committed that patch just earlier
+today.
+
+> Very tentatively Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks. I'll put this into the patch as-is; it's unclear to me though
+whether I could legitimately commit the patch with this. (It really
+doesn't depend on earlier patches in the series, after all.)
+
+> Given that .W is wonky for these instructions, I wouldn't quite so
+> easily rule out other wonkyness.
+
+It's AMD's way of giving .W dual purpose; really triple now.
+
+> Would the test harness pick that up?  Not AFAICT.
+
+Not without adding something to it, which I think makes sense only when
+one can test it. (Which is where Intel's SDE helps quite a bit.)
+
+Jan
 
