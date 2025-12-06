@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F774CA9F2A
-	for <lists+xen-devel@lfdr.de>; Sat, 06 Dec 2025 03:49:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1179693.1503205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADBCFCA9F3F
+	for <lists+xen-devel@lfdr.de>; Sat, 06 Dec 2025 03:53:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1179740.1503216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRiMe-000864-BF; Sat, 06 Dec 2025 02:49:40 +0000
+	id 1vRiQW-0002Jm-Qq; Sat, 06 Dec 2025 02:53:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1179693.1503205; Sat, 06 Dec 2025 02:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 1179740.1503216; Sat, 06 Dec 2025 02:53:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vRiMe-000840-7R; Sat, 06 Dec 2025 02:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 1179693;
- Sat, 06 Dec 2025 02:49:38 +0000
+	id 1vRiQW-0002HP-MY; Sat, 06 Dec 2025 02:53:40 +0000
+Received: by outflank-mailman (input) for mailman id 1179740;
+ Sat, 06 Dec 2025 02:53:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JSAj=6M=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vRiMc-0007Zh-Ee
- for xen-devel@lists.xenproject.org; Sat, 06 Dec 2025 02:49:38 +0000
-Received: from fout-b4-smtp.messagingengine.com
- (fout-b4-smtp.messagingengine.com [202.12.124.147])
+ id 1vRiQV-0002HG-1t
+ for xen-devel@lists.xenproject.org; Sat, 06 Dec 2025 02:53:39 +0000
+Received: from fout-b5-smtp.messagingengine.com
+ (fout-b5-smtp.messagingengine.com [202.12.124.148])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33d127e2-d24e-11f0-9d1b-b5c5bf9af7f9;
- Sat, 06 Dec 2025 03:49:37 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.stl.internal (Postfix) with ESMTP id 57F0E1D0019A;
- Fri,  5 Dec 2025 21:49:36 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Fri, 05 Dec 2025 21:49:36 -0500
+ id c2bb12de-d24e-11f0-9d1b-b5c5bf9af7f9;
+ Sat, 06 Dec 2025 03:53:37 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 322451D00168;
+ Fri,  5 Dec 2025 21:53:36 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Fri, 05 Dec 2025 21:53:36 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Dec 2025 21:49:35 -0500 (EST)
+ 5 Dec 2025 21:53:35 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,178 +44,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33d127e2-d24e-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: c2bb12de-d24e-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1764989376; x=1765075776; bh=prW7XMiOMK
-	ifMEePOcA3es+i0QHEsIa+PvP5prM8XC0=; b=UZ5i8v0/a1EbjX+UR/fP2Sd+it
-	k1JqrNyO7va/F+uN9xDuEiGntALyeYLzfBVx+UKVbBO1GjqxFtGJ93BvqOUFn5/7
-	gJEsv2cDrG5KGztAZSnoQzMfV9g1JVWv9oRSLgCSELqIzr7XiOe57rk46qVyrVoY
-	h1JQ9f2eLhonBOLSiamePZGLXjxzDfT8Xi25FyNey4ZdB2NVeZr0dRBoXTQOkpwU
-	jKqe6iD9+RRFqjTrNIml5/zp+r5BCUKZiHdHYih/EB1uiCsLoPeTTwsIqO6zeXnn
-	qKiGKB/y9pRziD/baCM61gzejBcSJLcJtFlccMlcXFaN4UCWi71BmMHobGYQ==
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1764989616;
+	 x=1765076016; bh=RMi7y1zcbHW7OqXqPJMGTQn2lAIlhaylknS1oFmO/Qs=; b=
+	AHdWJDjmUAZufkiH166OWa5rysyDaiCLzHdstxkDQeLdnAKPrd9RK4T3y5gNXfS1
+	V3xqRhorPC1SysiPm4JInurPnrHqwKV0tkH5bNphJILda+gVIpfnEeGxyO0nkMqx
+	JJsxvnWLpdoXFC1ErxScWtxkfRqPIaFSxhwJbtCqbt3alOv/FpbiiymmqdjDl1MF
+	v+v8gCbsHLtEDI4nJ5pQfnTkmhJ6UXhAh3Gyn95KAWOsb0M45JrFUuwTHWmopI2t
+	DscBMpP0hgdn9NSBJIfc9knA11R0yqXOh/gYcM4W/5JlUh0EUFjnrSJBas86tRfX
+	LTWnfCnIJz9AxH+qd8yRjg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1764989376; x=
-	1765075776; bh=prW7XMiOMKifMEePOcA3es+i0QHEsIa+PvP5prM8XC0=; b=G
-	9z1pc3skBYmsSTamg/Sfoi1TnVPCngqeRSYkvsWAs1Y1brlhR2VFSr4ug2t0yyBf
-	Ya6pbQ0U4Qey33I50Zs58N9MWBXJ4tGAaUOkQgNUmuVSN1XPcvTmCRziFmsIWrN2
-	yWICA33lSGM9mXrZQ8zCltifANJL1SVk6RnOIfvVUpBrz+TI3JZ/+4VyfPECCvsR
-	oYkL5ULW+xjILXmIaToSMv+anbz48ctsRiBbJLIQiWVGZhMoHaU6aKYj1amMPo6d
-	2bOjLXf3XVcv0b2ZkhebmjPiBWNZ4HPDiS0GjMAwq2qSsDilli24Z7IO2kHwTwHe
-	Mc3g63xV8MDs5kd2kb82w==
-X-ME-Sender: <xms:wJkzactuUSRQqwbS68p-bBWwpoA0zGz_HH_WKW5ybmZNGwkhLFioJw>
-    <xme:wJkzaQV1h-gNs9SApC_EnhE9EYuVu1MQE-I1E-7ElTiby5NbbTfrHdnMp2jRYrrlx
-    NTu7aN8hrrYtbQh6dWUjmqwEQB2i6RcEHH-MvgezNW_jQ6v0Q>
-X-ME-Received: <xmr:wJkzaQHkfY7fODtRVt1nTo-qIowRrIhu3VNr1voEm44hozg40VV3sqvkaeUiRYkBGDf02zrhVfD9HORJRH9EtwXY5fkPgUpdN_UdgHc9N5A>
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1764989616; x=1765076016; bh=RMi7y1zcbHW7OqXqPJMGTQn2lAIlhaylknS
+	1oFmO/Qs=; b=MO/kK4r0a1TqKlv5f3oBEo8a4QQRtMBQAMsFVKgYrJuhc7HqKfX
+	2s0rXM9PvrF+jW8APDnBJxVMkt8BwrYBA6gqwffA6eZKUlVYvPws0uc3eEjaUPFs
+	Yv8KtZDDTPrZYqwJ5e1LE2QVujBpQ2EliGa1YGAA4DbqMQc2mRySnnETqrnJS2Hf
+	/ll0KOih3CDkaOLiap5uJB7bU1vzqJ+FMBILbIuRgjt5XoP6fOLY48bGUQs+Tc8G
+	sGrVv8V7W+q02VSZ5jLeUiQ50t+gbbTfI+tdoi0aJsdX9Gaow68TYyIpKfiy3hag
+	h7KRg1yq5l+0fuRgwOCjZT5Js9tAWN5eKrw==
+X-ME-Sender: <xms:r5ozaTXKP4rhxfNTZQSH3MAuUwF2V9xpOfiQZdRWVcG-MbgdCwdXRw>
+    <xme:r5ozaRlWRGSduQPObYeNb4VewJOoYxzzvRSiZlF9HRArBef_djGBulcGsP-OI9Qcr
+    xEkXZglxHJbvRNQd1VYOaeObM81JN1uAd8ns4d2tjkXac1QWAs>
+X-ME-Received: <xmr:r5ozadAUyFcKA1q2Dv5BDWTsF8seA8Dpw8VfCNfoPzS2CU0VfHhYFArWjKsv05Bz9VS-1peqCl_tebfNFuSIz7kmOqYomZpt8d8>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdelkeduucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
     lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    ephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgueduhefg
-    vdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlhhushhtvg
-    hrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmoh
-    guvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdig
-    vghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfe
-    estghithhrihigrdgtohhmpdhrtghpthhtohepmhgrrhhmrghrvghksehinhhvihhsihgs
-    lhgvthhhihhnghhslhgrsgdrtghomhdprhgtphhtthhopegtrghrughovgestggrrhguoh
-    gvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:wJkzaa0kAFsVd8H7GxddUrbRLe_nCausvfkfJqCYmY8ro8zA9pB5Sg>
-    <xmx:wJkzaaPIlOpFBPHfsS-OGCdovH3TAUHd1Zs1Unb8PMjjYSbQK2pBkg>
-    <xmx:wJkzaR453OEsj9jIRsEbE7YJj0apGXh4JWDe7U2ofMEfOkFAG-Bf_w>
-    <xmx:wJkzac2N9gcI8cYznPI1Z18Y7tXOR14dyC4rYzNDLkl6_r165vuv6Q>
-    <xmx:wJkzadkT9IODVGz7iSdC5bxBgu0HCwZEb6-WECs6yaJjzBDoZqWhvSLy>
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepveeujeetgeel
+    leetudeuvefhtefgffejvedtvdfgieevheetheelgeeuledvjeevnecuffhomhgrihhnpe
+    hgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
+    ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
+    gtohhmpdhnsggprhgtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthho
+    peigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtph
+    htthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhm
+X-ME-Proxy: <xmx:r5ozaZcFftoG8mKqF96QsH-SQhUeOj5NQnNCUOMhSbiJLl_NrqYLVQ>
+    <xmx:r5ozaQKJqEO8wVkMOhI1RFkOobANJrkEsRbrlfuVpqbQRR8zhjSTuQ>
+    <xmx:r5ozaUcNSuEfqn_G3WaTrmrMdle801yhVkqO_iI-d95uc4gu3i5R7A>
+    <xmx:r5ozaf0jfh-KU4tFe513-86NksLVGUdX9rvioMqpG5hiqNqmnrsm_A>
+    <xmx:sJozaR3bMT1BTSvTh4mZ6t1MiDFmEVKnWwSYc74CV01E-ytUh7dHIjrD>
 Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Date: Sat, 6 Dec 2025 03:53:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 6/6] CI: Run driver domains test on Debian too
-Date: Sat,  6 Dec 2025 03:48:08 +0100
-Message-ID: <7fdf483cb41ba04ec3949fba31991ffec2c5b712.1764989098.git-series.marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v4 0/6] Add driver domains test
+Message-ID: <aTOarS1mY55VlTUI@mail-itl>
 References: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="LWZIQnqaqaVQr4T6"
+Content-Disposition: inline
+In-Reply-To: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com>
 
-The recent failure affected only glibc-based systems, so do the test on
-Debian too.
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
-Changes in v3:
-- update to trixie
-Changes in v2:
-- use systemd in Debian
----
- automation/build/debian/13-x86_64.dockerfile    |  1 +-
- automation/gitlab-ci/test.yaml                  | 19 ++++++++++++++++++-
- automation/scripts/qemu-driverdomains-x86_64.sh | 18 +++++++++++++++--
- 3 files changed, 36 insertions(+), 2 deletions(-)
+--LWZIQnqaqaVQr4T6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 6 Dec 2025 03:53:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v4 0/6] Add driver domains test
 
-diff --git a/automation/build/debian/13-x86_64.dockerfile b/automation/build/debian/13-x86_64.dockerfile
-index 6382bafbd5bd..3f84ba4a8823 100644
---- a/automation/build/debian/13-x86_64.dockerfile
-+++ b/automation/build/debian/13-x86_64.dockerfile
-@@ -60,6 +60,7 @@ RUN <<EOF
-         fakeroot
-         ovmf
-         qemu-system-x86
-+        systemctl
- 
-         # for build-each-commit-gcc
-         ccache
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index abc5339a74ab..ffb2880f5af3 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -30,6 +30,17 @@
-     job: microcode-x86
-     ref: master
- 
-+.debian-x86-64-test-needs: &debian-x86-64-test-needs
-+  - project: xen-project/hardware/test-artifacts
-+    job: linux-6.6.56-x86_64
-+    ref: master
-+  - project: xen-project/hardware/test-artifacts
-+    job: debian-13-x86_64-rootfs
-+    ref: master
-+  - project: xen-project/hardware/test-artifacts
-+    job: microcode-x86
-+    ref: master
-+
- .qemu-arm64:
-   extends: .test-jobs-common
-   variables:
-@@ -664,6 +675,14 @@ qemu-alpine-driverdomains-x86_64-gcc:
-     - *x86-64-test-needs
-     - alpine-3.22-gcc
- 
-+qemu-debian-13-driverdomains-x86_64-gcc:
-+  extends: .qemu-x86-64
-+  script:
-+    - ./automation/scripts/qemu-driverdomains-x86_64.sh 2>&1 | tee ${LOGFILE}
-+  needs:
-+    - *debian-x86-64-test-needs
-+    - debian-13-x86_64-gcc-debug
-+
- qemu-smoke-x86-64-gcc:
-   extends: .qemu-smoke-x86-64
-   script:
-diff --git a/automation/scripts/qemu-driverdomains-x86_64.sh b/automation/scripts/qemu-driverdomains-x86_64.sh
-index c0241da54168..6a69282470ca 100755
---- a/automation/scripts/qemu-driverdomains-x86_64.sh
-+++ b/automation/scripts/qemu-driverdomains-x86_64.sh
-@@ -23,7 +23,11 @@ if grep -q test=backend /proc/cmdline; then
-     brctl addbr xenbr0
-     ip link set xenbr0 up
-     ip addr add 192.168.0.1/24 dev xenbr0
--    bash /etc/init.d/xendriverdomain start
-+    if [ -d /run/systemd ]; then
-+        systemctl start xendriverdomain
-+    else
-+        bash /etc/init.d/xendriverdomain start
-+    fi
-     # log backend-related logs to the console
-     tail -F /var/log/xen/xldevd.log /var/log/xen/xen-hotplug.log >>/dev/console 2>/dev/null &
- else
-@@ -85,7 +89,11 @@ cat > etc/local.d/xen.start << EOF
- 
- set -x
- 
--bash /etc/init.d/xencommons start
-+if [ -d /run/systemd ]; then
-+    systemctl start xen-init-dom0.service
-+else
-+    bash /etc/init.d/xencommons start
-+fi
- 
- xl list
- 
-@@ -102,6 +110,12 @@ cp ../bzImage ./root/
- mkdir -p etc/default
- echo 'XENCONSOLED_TRACE=all' >> etc/default/xencommons
- mkdir -p var/log/xen/console
-+if [ -e etc/systemd/system.conf ]; then
-+    systemctl --root=. enable \
-+        xenstored.service \
-+        xenconsoled.service \
-+        xen-init-dom0.service
-+fi
- fakeroot -i ../fakeroot-save mkfs.ext4 -d . ../dom0-rootfs.img 2048M
- cd ..
- rm -rf rootfs
--- 
-git-series 0.9.1
+On Sat, Dec 06, 2025 at 03:48:02AM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> This is intended to detect issues like recent xl devd crash in domU.
+>=20
+> Pipeline (on top of Andrew's sd-notify.h fixup):
+> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2199305972
+>=20
+> I did checked that indeed it fails with the fix reverted - that's why the
+> Debian patch - Alpine version did not detected that regression.
+>=20
+> Requires Alpine 3.22 and Debian in test-artifacts repo - patch series sent
+> separately.
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>=20
+> Marek Marczykowski-G=C3=B3recki (6):
+>   automation: switch to alpine:3.22
+>   CI: extract qubes test container
+>   CI: cleanup alpine containers
+
+As "expected", patches 1-3 didn't made it into ML...=20
+The pipeline linked above has them.
+
+>   CI: Add driver domains tests
+>   CI: Add configure --enable-systemd for full build
+>   CI: Run driver domains test on Debian too
+>=20
+>  automation/build/alpine/3.18-arm64v8.dockerfile       |  51 +----
+>  automation/build/alpine/3.18.dockerfile               |  52 +----
+>  automation/build/alpine/3.22-arm64v8-qubes.dockerfile |  18 +-
+>  automation/build/alpine/3.22-arm64v8.dockerfile       |  46 +++-
+>  automation/build/alpine/3.22.dockerfile               |  59 ++++-
+>  automation/build/debian/13-x86_64.dockerfile          |   3 +-
+>  automation/gitlab-ci/build.yaml                       |  44 +--
+>  automation/gitlab-ci/test.yaml                        | 125 +++++----
+>  automation/scripts/build                              |   1 +-
+>  automation/scripts/containerize                       |   4 +-
+>  automation/scripts/qemu-driverdomains-x86_64.sh       | 152 +++++++++++-
+>  11 files changed, 379 insertions(+), 176 deletions(-)
+>  delete mode 100644 automation/build/alpine/3.18-arm64v8.dockerfile
+>  delete mode 100644 automation/build/alpine/3.18.dockerfile
+>  create mode 100644 automation/build/alpine/3.22-arm64v8-qubes.dockerfile
+>  create mode 100644 automation/build/alpine/3.22-arm64v8.dockerfile
+>  create mode 100644 automation/build/alpine/3.22.dockerfile
+>  create mode 100755 automation/scripts/qemu-driverdomains-x86_64.sh
+>=20
+> base-commit: 28d1d1c3f5aa6563ecf07136ba064be0261565c1
+> --=20
+> git-series 0.9.1
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--LWZIQnqaqaVQr4T6
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmkzmq0ACgkQ24/THMrX
+1yyWoAf8DGX8exOXATGIp0Ang7Nj3KqI5rGlUhS1b7QLNDXaENddJyRjBXp6TO6X
+zb84vXE2kuo3A2bVUsQkPEnQUssXSTTDNzCsfnb6x4q+MQetj63GBcbjsa5hQdgN
+sFlPNRbsEe77BPFK0viJ4RGhxb3pD6rvTx7e6Kdi17e8xOJ2YtxF4Dp+k6Wap2ga
+e68jclLdspttVE2YHGcXjQpDvvLRKLx8zMIc30VoktJBBbFAy54h8LuLtoG42SYa
+ZauyxpRa7yViuby73qgoUQzOng5HfoxxhbrGqvVIlQhN53e0pLlybpvC5YIebcEF
+XAGdHASAU1gI8A1AJbxFx2/4vVpk2Q==
+=X+3u
+-----END PGP SIGNATURE-----
+
+--LWZIQnqaqaVQr4T6--
 
