@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CCDECAC7E1
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 09:25:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180137.1503375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A194CAC838
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 09:35:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180147.1503385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSWZ4-00056B-1x; Mon, 08 Dec 2025 08:25:50 +0000
+	id 1vSWiA-00075P-SV; Mon, 08 Dec 2025 08:35:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180137.1503375; Mon, 08 Dec 2025 08:25:50 +0000
+Received: by outflank-mailman (output) from mailman id 1180147.1503385; Mon, 08 Dec 2025 08:35:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSWZ3-00054k-V3; Mon, 08 Dec 2025 08:25:49 +0000
-Received: by outflank-mailman (input) for mailman id 1180137;
- Mon, 08 Dec 2025 08:25:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vSWiA-00072o-PS; Mon, 08 Dec 2025 08:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 1180147;
+ Mon, 08 Dec 2025 08:35:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSWZ3-00053h-AM
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 08:25:49 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fd5de5a-d40f-11f0-9d1b-b5c5bf9af7f9;
- Mon, 08 Dec 2025 09:25:48 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42b47f662a0so2571901f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 00:25:48 -0800 (PST)
+ id 1vSWiA-00072c-2B
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 08:35:14 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cff62d71-d410-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 09:35:12 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47775fb6cb4so34523975e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 00:35:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbe8fdcsm24588603f8f.6.2025.12.08.00.25.46
+ ffacd0b85a97d-42f7cbfee71sm24438972f8f.15.2025.12.08.00.35.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 00:25:47 -0800 (PST)
+ Mon, 08 Dec 2025 00:35:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fd5de5a-d40f-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: cff62d71-d410-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765182348; x=1765787148; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765182912; x=1765787712; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2liWEgwaFy40M3UoN6VqRV3SWRFz6UKB88Oxkv2TA0w=;
-        b=PGhSuQA17SwpV7JMdiB7n7CKDIH00DgEqeGCadit24AZYTmwwUOs3IT+KMeKym06c4
-         DCTfKl+ll+C3g09HZdx+7PfUxDdAZILBTWBeL3f1tmOHQLysPt3tlKtgkV1PVrQR6Vxa
-         CS5xihbMJ8o0EZzNmaWNCHbss5MbfQ5IjnOiKpaEmiH4l58WeXZ6C8n2u1V1URVq9gyV
-         v0tqwHUK5GnH9toBpAZXNrnBSAaH+NlVbP90xbhA8Zfe1ogDqPi0kIChKgkAe4Eu1xEo
-         DTuqt3gIARaYaEZIKHe9dsUMvKOMsj/Gd1DAqYiwkQV3F5BgRaUF+KxkDGTjKroYKTMU
-         zyxQ==
+        bh=3HpQPNbqszi3NMfjMYiRKpGVgHT9Cl9IqmomIJKoc9E=;
+        b=QNqkQOtlbTsax+/bROpiJyBpNBj4Z/QCqJkTtLzSMpp9ZADU0fe0wkm+9S8plHAHNB
+         Ju5N4rlEL6nOMbEx2RLDWm40BJiLOj+lcPlwk2Psc+QpH0jKqckKokpj0/+dcUvEajE/
+         O1NCeJ2WtJ4Bpo0LBqJA7hOvh67Fnk/5QYJ/pqo/D+T+3imDskxnX2ohdAB3aiD8p4eE
+         IIHV7vLUSP7YRU0T4aBccFDMtsxccDOcN0Zm2MPRJnf9IpdqNA7SjYUfLfrKyIsm53Td
+         rEtEdmFUOghrhxbDAB9hASxfkPKPOqnUEyHcDQTsff0yzw0ilDnkyPfjFC7/Z70ezVT0
+         NW1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765182348; x=1765787148;
+        d=1e100.net; s=20230601; t=1765182912; x=1765787712;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2liWEgwaFy40M3UoN6VqRV3SWRFz6UKB88Oxkv2TA0w=;
-        b=Jj62wGgy4StvlKt3EyoIb4lEWKSy5/sGSWVEtbN31EZH2gIdq0J+giz48Mv4ZLVBLT
-         nN9W6sDqKoDNE0LBDmI12Ot/rtgGk3RwRWkGsbWcOysB/NU6ej1v5fL/VlOaEO9kxftt
-         FU26QrG3uEbu/UeNvXVrCcyXPhidnJPR2hLJz/7+Y5NLxXZG8wB94d5Qu0XnaCX1kt9p
-         QYjBg/8CbH0jLb0/aBxZFaSQX2K9YNxYw3u3Y98ExnzVJv+SLbXGAz+DpzW0IxUSz/Yq
-         ZXPbm+8U37vD4zNm94KDfBr6BeYkuh+O9Htu5gdx7UHwR8pbpD+UIVHC/lXix4DiavKX
-         v28Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVSAgjRQNv/eWoZ0QBbjyzXxEgzbrAEqWmgqaMTyaqkUlzn7Pt8rJpFOP95G9iC/ZQd2ZVb0rkSZoY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzg7Hb7ImAdyq+DG/nlzj2FJnlN1vJJLU2s53ZARf2TZbSt2UFZ
-	LXgnCC2TSiG7L2YTUq1BkzpBK1s5RyDDyTUCstE3xnYG5j4iCGI7bUHERJwlud6lPw==
-X-Gm-Gg: ASbGncukVUGAhk3TMWCiKQ+cyQnWzejlmMCeAhW2igXrlBi19THfSM48CLhNVM6R3/v
-	l1lKCekeQC3aKOeS7jMorrbbrv4TUyOFJYZhvunlum+joggR0jKqDAaID5pPK1K06NbUxIlfg2I
-	ohzadrCNo2G9n6ORD/3lWxYXN754YGGonGADkIy77ldvV10SrBh1Kh51phivcqyKWRM/1UfKOol
-	jOdjfU9kjh/+B0iW2/dg17hLH/hmAacRxtfpbCJUJDqjXBVpli7N95ZOMDufAjj+ntTy6wr0wwX
-	KpQGFqLG9B/0Dv+Qxp9PaYV3g9ceKnRAz3OssGLDpHAqpypN/fWJWLQzoCIzOmFjbZWJeVouQ/v
-	xt2U1UAV0omSp1F8wT8DvjZg4rC2GnZLRcc/sZzkifckAApzLTqZbo9e/KDiFtfwJBNjZVueyBA
-	hlBmV425oEUzpZynJecrwnEGfo2D2TzqGyzrZj7njK7TOZq+RpEGaVaHwp4D5u6c95bhNy9DllN
-	vo=
-X-Google-Smtp-Source: AGHT+IFHgQwWbNupnQHA0eskobloI6jLVuTEA9TQCzvQBkn1DYmEYMuUVPbcVIU8ZBl3nAhntDEUuw==
-X-Received: by 2002:a05:6000:2404:b0:425:86da:325f with SMTP id ffacd0b85a97d-42f89ef1876mr7219678f8f.27.1765182347784;
-        Mon, 08 Dec 2025 00:25:47 -0800 (PST)
-Message-ID: <4fb15575-cbfc-4842-b48b-4113fe658137@suse.com>
-Date: Mon, 8 Dec 2025 09:25:48 +0100
+        bh=3HpQPNbqszi3NMfjMYiRKpGVgHT9Cl9IqmomIJKoc9E=;
+        b=LmsC8KT4T8n2gvpVgdbQ2nRhKRUcq73bI9/b8gaFjzhKocLJC0VSl108DPdoMolUHe
+         eOY6H+rNH/a+kiB+RUe1+CEWkkCZxb92knWgGJ0C3FAn5smmBMfpLNMkTsauZ+QL6qBu
+         KIzwX82PVSI8etTwMudsG3sX282t9b0P8si06i13KvrjwuYDeRTQ4TvOOviLAkKqG9SM
+         +TBaH8GWtHV9kP+9N2QtDQGTy/OaRIAL+VLl+BPs35OnhvktprZl90NI48BU8VGHcDHC
+         7IkF+ysG++Rr6W/Kmg91WlQ40jkoYsQaxX8sgimf6fyE5UT116IKbR1GtUPaIMsH1haB
+         0BFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXl9Sfz5Mh+8npEAXW5dD88AE4w4B2V4+ZqMoYELljyM7Hlirs5djAuhyjUs+gkYrhCdAsjLHD7kcc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxEohiwmyuHz2DzcnmZULtI7PICNc/PPKnNeWR1CIgDhotbbRP
+	ZxCKOHsftoLH5zRVvXadlUTcQaGlE3alkxrMeQtHIbmGr8DP3WLHngxXRi+Cr+FSeQ==
+X-Gm-Gg: ASbGncsbnqjznzRKkZL3vtGuhXi47AYoN1rnxjr9IKCvqRj37Xqcxv4W6yLWRpOyBeO
+	huNkb80VooDzLghxTMCDDuzJ7AhqiAUO4PeoLGyfuArCp8ZKRW/aeVW2gMpckGccWvo+CbKc81y
+	XH3f5KgFM37XBzQ/7nXAYUkHvNQ+fJzGRw6APZfRQ9oUFmz+NaHPOxlNFKRX/Kycsw8rD7q5GfR
+	oymnzuGomKZ1NNOyPKBkBA2S812BlO9dtvSZ/WB9bT9vFTd1glvvC8FpKl+xuzXZh+vzToG1+yw
+	iLJOBqxLNqU3ouwGKcykmqSnGDl/7JlT4EYTnYieY2He2QTT44/a7NlcjYVDymslfU+dStS3eiB
+	2SlMQX//prelAZfWH1/oy+4JDlSeRkdfT1qkSPiE/1dWkUJLajyM1Ujuubjfklc7NzPps1nDEq7
+	t8tf9LGq+p5kqx6IpzHQ0j5dVv+LZfvWFxiyrixZz6CD5F9M+xTxGMRWpSi8rv+Z0Ii1q8wfj+9
+	6w=
+X-Google-Smtp-Source: AGHT+IF1KnzP5hv59bEGBfcW2SLBgBDAUTPAzrmLeJLVMz/Jv2S+h8RWMKliSLm83qLgLffduzk5zg==
+X-Received: by 2002:a05:6000:608:b0:42b:4219:269 with SMTP id ffacd0b85a97d-42f89f48476mr8045946f8f.41.1765182911711;
+        Mon, 08 Dec 2025 00:35:11 -0800 (PST)
+Message-ID: <bd53bc18-f2b5-4857-b06c-2674c799ff0f@suse.com>
+Date: Mon, 8 Dec 2025 09:35:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/2] xen: Strip xen.efi by default
-To: Frediano Ziglio <frediano.ziglio@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Frediano Ziglio <freddy77@gmail.com>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <20251205160942.46694-1-frediano.ziglio@citrix.com>
- <20251205160942.46694-3-frediano.ziglio@citrix.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,54 +126,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251205160942.46694-3-frediano.ziglio@citrix.com>
+In-Reply-To: <20251205193411.1368659-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 17:09, Frediano Ziglio wrote:
-> From: Frediano Ziglio <frediano.ziglio@cloud.com>
-> 
-> For xen.gz file we strip all symbols and have an additional
-> xen-syms.efi file version with all symbols.
-> Make xen.efi more coherent stripping all symbols too.
-> xen-syms.efi can be used for debugging.
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - avoid leaving target if some command fails.
-> 
-> Changes since v2:
-> - do not convert type but retain PE format;
-> - use xen-syms.efi for new file name, more consistent with ELF.
-> 
-> Changes since v3:
-> - update documentation;
-> - do not remove xen.efi.elf;
-> - check endbr instruction before generating final target.
-> 
-> Changes since v4:
-> - simplify condition check;
-> - avoid reuse of $@.tmp file.
-> 
-> Changes since v5:
-> - avoid creation of temporary file.
-> 
-> Changes since v6:
-> - install xen-syms.efi;
-> - always strip xen.efi;
-> - restore EFI_LDFLAGS check during rule execution;
-> - update CHANGELOG.md;
-> - added xen-syms.efi to .gitignore.
-> 
-> Changes since v7:
-> - move and improve CHANGELOG.md changes.
-> 
-> Changes since v8:
-> - rebase on master;
-> - clean xen-syms.efi file.
+On 05.12.2025 20:34, Grygorii Strashko wrote:
+> --- a/xen/Kconfig.debug
+> +++ b/xen/Kconfig.debug
+> @@ -39,11 +39,23 @@ config COVERAGE
+>  	bool "Code coverage support"
+>  	depends on SYSCTL && !LIVEPATCH
+>  	select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if !ENFORCE_UNIQUE_SYMBOLS
+> +	select RELAX_INIT_CHECK
+> +	select DO_NOT_FREE_INIT_MEMORY
+>  	help
+>  	  Enable code coverage support.
+>  
+>  	  If unsure, say N here.
+>  
+> +config RELAX_INIT_CHECK
+> +    bool
+> +    help
+> +      Relax strict check for .init sections only in %.init.o files.
+> +
+> +config DO_NOT_FREE_INIT_MEMORY
+> +    bool
+> +    help
+> +      Prevent freeing of .init sections at the end of Xen boot.
+> +
+>  config CONDITION_COVERAGE
+>  	bool "Condition coverage support"
+>  	depends on COVERAGE && CC_HAS_MCDC
 
-I.e. not addressing my prior, more fundamental comments.
+Please obey to the somewhat special indentation rules for Kconfig files.
+
+> @@ -259,6 +259,7 @@ $(obj)/%.o: $(src)/%.S FORCE
+>  
+>  
+>  quiet_cmd_obj_init_o = INIT_O  $@
+> +ifneq ($(CONFIG_RELAX_INIT_CHECK),y)
+>  define cmd_obj_init_o
+>      $(OBJDUMP) -h $< | while read idx name sz rest; do \
+>          case "$$name" in \
+> @@ -271,6 +272,11 @@ define cmd_obj_init_o
+>      done || exit $$?; \
+>      $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+>  endef
+> +else
+> +define cmd_obj_init_o
+> +    $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+> +endef
+> +endif
+
+If the objcopy indeed needs suppressing altogether (as Andrew suggests), the
+unwanted redundancy here would go away anyway. Otherwise my (recurring)
+request to avoid such duplication.
+
+> --- a/xen/common/libfdt/Makefile
+> +++ b/xen/common/libfdt/Makefile
+> @@ -5,7 +5,6 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+>  # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed during runtime.
+>  ifneq ($(CONFIG_OVERLAY_DTB),y)
+>  OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
+> -nocov-y += libfdt.o
+>  endif
+>  
+>  obj-y += libfdt.o
+
+Is this sufficient? Don't you first need to replace the custom objcopy use?
 
 Jan
 
