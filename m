@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFCF3CACA06
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:17:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180268.1503485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24172CACA42
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:24:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180286.1503495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXMg-00019h-Ur; Mon, 08 Dec 2025 09:17:06 +0000
+	id 1vSXSv-00035A-Oj; Mon, 08 Dec 2025 09:23:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180268.1503485; Mon, 08 Dec 2025 09:17:06 +0000
+Received: by outflank-mailman (output) from mailman id 1180286.1503495; Mon, 08 Dec 2025 09:23:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXMg-00018B-Ry; Mon, 08 Dec 2025 09:17:06 +0000
-Received: by outflank-mailman (input) for mailman id 1180268;
- Mon, 08 Dec 2025 09:17:05 +0000
+	id 1vSXSv-00032q-Ld; Mon, 08 Dec 2025 09:23:33 +0000
+Received: by outflank-mailman (input) for mailman id 1180286;
+ Mon, 08 Dec 2025 09:23:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSXMf-000185-GP
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:17:05 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HI0z=6O=siemens.com=haseeb.ashraf@srs-se1.protection.inumbo.net>)
+ id 1vSXSs-00032j-Sf
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:23:31 +0000
+Received: from TYPPR03CU001.outbound.protection.outlook.com
+ (mail-japaneastazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c405::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8a96d93-d416-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 10:17:03 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-42e2e167067so1813532f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:17:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfeb38sm24160106f8f.12.2025.12.08.01.17.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 01:17:02 -0800 (PST)
+ id 8a199ef5-d417-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 10:23:23 +0100 (CET)
+Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
+ (2603:1096:820:87::11) by SEZPR06MB6059.apcprd06.prod.outlook.com
+ (2603:1096:101:e1::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Mon, 8 Dec
+ 2025 09:23:16 +0000
+Received: from KL1PR0601MB4588.apcprd06.prod.outlook.com
+ ([fe80::3f19:282d:5fe2:f523]) by KL1PR0601MB4588.apcprd06.prod.outlook.com
+ ([fe80::3f19:282d:5fe2:f523%3]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
+ 09:23:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +47,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8a96d93-d416-11f0-980a-7dc792cee155
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765185423; x=1765790223; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TFPOJzpt+3xOHs+Vf1YpOTXAtessmORrgUmgZl54Mss=;
-        b=fm+x9h6EOWJ5Hr5x3pb8WHGj75uhRG8eG8gnwXGiS9wO/JhK0RKS31SuYuR+MlHxTi
-         a0wAYaYJXVYA2pcgeZVyyKykO/erUrCLJcyFalJG7MQs44umT27evqH81QkI19ryDQYe
-         mqEyM+dT9IZ+RYwruNprPQ+k5iePCH2wp0YoWsKXZT3eIuQyTeRCpK69d+X0uOT43VjS
-         Xn9Qej8l5bauFyi4mimWH84BXuRyPRjgMXoux8V1vv2vQSoenLLq2dS2qs9PxyYBdMex
-         DUD5/yuJUbXZMLNP/8KSjv18/Gp9cZ2rB1HQWVsq2aXtpWLuyN2PDhKdZDvabevSg1vF
-         HShw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765185423; x=1765790223;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TFPOJzpt+3xOHs+Vf1YpOTXAtessmORrgUmgZl54Mss=;
-        b=L82V6si/bkwIU1sieANv2YNBAHBc5LHDajpClxPqkL0w1bR7zx0ydnmuUqeUkwejeb
-         RPKt1rT4k24CoRO14UM5+vo09mmuApd1sSA5oCi7/TEhfwZw5ftX3AzQni+/pizT0VAf
-         dnfhpgwDZzsG1iq4YAd6qPrSCE4eFYmPXhghAT7HaXS5k2O5GLp+n/MOQuMLQN4jvfZq
-         +zdS/j0Uqu3HGrPZ2Dmy4cXCi2TXhJeFQVRky/4uLtNaAW8LVFj88t9b6UMEkO+4QLYm
-         ihFf7lLSUsdGGmA3G+eRho+/1xBajQdkY03esuNadDBQUPKLjYIlKRdpNRLAjTyPuaFm
-         cKDg==
-X-Forwarded-Encrypted: i=1; AJvYcCWYmOivgwZGqmo9z8gWuzZSCnTzjHHqOJL0lqtgZQghbBn7ywbPz6dnr1PEhep4RlXvJKG9/vdzy1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFnKelo3M+jn1OHEQBeR5Bj1gtwG4cJxWN3uJSJEZ9TS0pGToT
-	gOH+pdG+73YYuGjM9HLOVzmV+UfePcV9u9KYthDRbsJlygZl9qCPUkWF7Kt3mzPYNw==
-X-Gm-Gg: ASbGncuaJ+bxHx1EzAex3S/lGInLfJRVVe5B/gfgLBqaWlhgz8hoR9nGieOTqbjYb79
-	jM3oQ2wXdHtdrwh3UbUQYPjzNQuKTP+DOc2zwb2/E7CAaAwEsvm0mLgupk1B09H16/noW1wa5T9
-	KRhqYnvD0lcxOt+25hnZiL0iH8MUaDRcFLRcRoG6bxqOjmVc2WpbA51kub6o5cHVnM2/jAsrAMa
-	b7jWGQp540v3IfWdBwXQ2MyE0gPFtm5NliQ+OKJrVFFacaPZC9mCJkOn59SJgOf7SC4kXdjEl0u
-	/3qzkOhT/5IGXaD/iS4Fch0uMMLyGhU7JyyBWEJs9NrShVGnYwVdNgl9YyEIJRwevbRH8T0xIzs
-	FLQHne6yy4USj4bCm3qm4E4ZF+RUUv5bObnBGA8oTLUCb/58y0/TrvKVv/lIy51Nz9d+t3VkfbU
-	R+4Q41gdGBorc65FsSBiQmxwzxhw1wltUYJCr/p4PyNh8ASlq8SKIVO+Lq9WTpFKiTnYKA0p+2V
-	qU=
-X-Google-Smtp-Source: AGHT+IG1C0kb/+DTvo4veVGF4wISU74hwEOB85t41tCQqiqMFq4nd5P2XJZfCyBflsYvVjba1tvuhw==
-X-Received: by 2002:a05:6000:2003:b0:42b:3e60:189d with SMTP id ffacd0b85a97d-42f89f0e212mr6973458f8f.24.1765185422670;
-        Mon, 08 Dec 2025 01:17:02 -0800 (PST)
-Message-ID: <55f40e49-027b-4162-94f0-54573fb1abc0@suse.com>
-Date: Mon, 8 Dec 2025 10:17:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/amd: Fold another DE_CFG edit into
- amd_init_de_cfg()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251202105710.1472927-1-andrew.cooper3@citrix.com>
- <20251202105710.1472927-2-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 8a199ef5-d417-11f0-980a-7dc792cee155
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YAdP8wbeOfuDoeQwZFwPRMZP0/QGt79vEP357o2M0U+44jeYngBMTXzzE6QymhKEq+fGut92wGUp9//aUYWUGEp9nmGVa2l9Jw5kXeii6NRRlaJmqm1fecFVg8rPUmvCVRY1u5vn7OEptEjsoeZ46GWAbSp4yfQxeWdzxU5ZiZVD4peqddkP2mugL2hSNO7BXU7TXs7SoyHyli8IQXefM5snW97ifnKgWBIAhJSWyAw7k/6KFpxKftqS3wqscJ/QonRGTg+zZnw3OSmdqE5WCAaN1/Jj65oUELj0jpg8fdrTc49dM+BtAtZoS1vVy/16S2M3zriGW+l/EBD2IMQoXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HadczEWJpfFoe19TlJGE2Uym7zOSW2JrIy1GBp2VcUE=;
+ b=UhXVCmq0aCVjDuQ7HZd9oeq3Y+fRf/4Z7zZ9hCm4TvVMnGmgj5Ht8212l4Bc42Akz1YYOJBWEnUWu54/sF8IyIWrIbkKxp9DXPuLU415GssA42h7P/yEuBAV0jVtGRjsiNWSmoycvHAcGiUe5BqH/3869zahEFPNcvMx2mYnqCm1OclOhLDqVaKCroUz88KcsZuc4cajzzfD2x3Q41eQ7zT+/tMhgMzuZtgQKuj5DRmPmwzwWGApeGTYp50yLqaYXeBt3+kgGio0P2d/ocNDbCYFD0tWSE1JfEn27NjZWrr7jivWbBhRZ9D9c81keQUYgIG+dTfNJ5on+LHZgjB5AA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HadczEWJpfFoe19TlJGE2Uym7zOSW2JrIy1GBp2VcUE=;
+ b=ughd7idMQq+sowIsdRHAMu8+Cg92atJl1EDytXS1kZKuJI0ZyYThM++q6owqQvzbb2lLAXF5Vo76rysYm6KuzcByc3B74FeVNUB5EIf3X7hvsJ9M9j4A8fSWEWyzdoDbnMYQ6h18vnSQnd2pN205Wy0JCIPGIQ7QZBVaPwA6rjBCt2y0z4c5Jlq1XK4GkRGL+7xNF0S3C5eW1Af+YlxyykR6a8i4s9HIY9kwbGtWe+iEx0S1yT0OeUNVNjdOtP/oFF9o3447AXHhyrgQyxnwwi52FjVFKKcNe3fojNExoTuqS06UUNjdx21vQVPNZ+3fOo9/BQSP6VjBl+eu1rRMrw==
+From: "haseeb.ashraf@siemens.com" <haseeb.ashraf@siemens.com>
+To: Julien Grall <julien@xen.org>, Haseeb Ashraf <haseebashraf091@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Luca Fancellu <Luca.Fancellu@arm.com>
+Subject: Re: [XEN PATCH v2 1/3] xen/arm/p2m: perform IPA-based TLBI when IPA
+ is known
+Thread-Topic: [XEN PATCH v2 1/3] xen/arm/p2m: perform IPA-based TLBI when IPA
+ is known
+Thread-Index: AQHcZTbEL+J8Hf9qH060epeFxunK57UTtIuAgAPHJUM=
+Date: Mon, 8 Dec 2025 09:23:16 +0000
+Message-ID:
+ <KL1PR0601MB4588F25641F3FB9AA5C355B3E6A2A@KL1PR0601MB4588.apcprd06.prod.outlook.com>
+References:
+ <ce2e7c32f06ba8a48a2074fa8cadd9c122b6490f.1764863575.git.haseebashraf091@gmail.com>
+ <a726e56e-b864-4ec1-81f4-da552fe71470@xen.org>
+In-Reply-To: <a726e56e-b864-4ec1-81f4-da552fe71470@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251202105710.1472927-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Enabled=True;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SiteId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SetDate=2025-12-08T09:23:16.055Z;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Name=C1
+ -
+ Restricted;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_ContentBits=1;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Method=Standard;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR0601MB4588:EE_|SEZPR06MB6059:EE_
+x-ms-office365-filtering-correlation-id: 613a075c-1297-4567-854d-08de363b6b7a
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|39142699007|31052699007|376014|1800799024|38070700021|8096899003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?UqcQa59d7/nfeiQUXmx/nuHN406IC7UQ61WkWRImLB/wU37I7cJ8E/yAv5?=
+ =?iso-8859-1?Q?JlS/2XjFWNeaaPIQl//sHcihw3Z7QPoKXn98OAFqpV7TwJFaHwOrPr9S/x?=
+ =?iso-8859-1?Q?HONuRWzX90CAS3oXg/c0XeqYzRBLdtmnl0/qe/pg6vPmS7+UJ8iUp8I6HF?=
+ =?iso-8859-1?Q?WA9QiXiMNQeC0RFK3PhxO5aFkgN9b0umr7ZlOYwXFWjbKHQrvv/6umqAGU?=
+ =?iso-8859-1?Q?xuNQWc5N5/GIp7cfdZB8FR1419g40liXsSqRzNW6OK6RUwqd5aZoT6PYCr?=
+ =?iso-8859-1?Q?57TWu96byyV/MywT3sF9qPY63Cl8nfoXOD7wV0ZB/NVWeuFtoLjuTfS3yN?=
+ =?iso-8859-1?Q?UIReQ4mYZ4AWfOpNAPgjx8FxgnK71o5ffWzUKCw1I5qzVLALpV7Z9z/Qa4?=
+ =?iso-8859-1?Q?GbjvJ4RqqjVHyMlBBvDraSLqxF3qIEFanH2PhQ55NqlLAb4pAprp7SY7JE?=
+ =?iso-8859-1?Q?p/9CyLl/KL12qQ512W0z2gh/d9Y7XAwfbvPOEqxneAoQi4JEq4Te0dNqEh?=
+ =?iso-8859-1?Q?Vm899momaWO7RnSDvxL1kTg7Hv52Wfip0gp5PjEtMCfTwliq8zuidi5dz/?=
+ =?iso-8859-1?Q?v+EBXxzexbyIV0GcGKpDs7LJc4ni+f5pxhpFM08fKYdVZ6SmijqKLohvYI?=
+ =?iso-8859-1?Q?uNgNuPReNyPnO2+EaDY3SDXSYRcpfVB3RpTxINibkSKeHrIy4LdjQSuK+W?=
+ =?iso-8859-1?Q?JBqmcG/AAd3UK+w9xmKiGGdgZpW+b5eMcw1BRlyPgSf/tVYvk2P+Cd0xyj?=
+ =?iso-8859-1?Q?x591U7+RZ3ozmT/RDiuA24JnkDnqSbPoDah5QekJ30Qc8DuIbEGG8TNRo5?=
+ =?iso-8859-1?Q?M3LGWom53U+gbFMoQbcosDcj9NiRlba9Fk06QuLKVI34mP2/o7kvTTeHZU?=
+ =?iso-8859-1?Q?7KNTrul7PwgwFef6hj4T5QcC2HLo/VRTj/hnF+gHYKzRkoUYPq033mYN48?=
+ =?iso-8859-1?Q?3GEFYBaiZL7bff8cALY4ruzOu0lvyjDwEv8D2GiDX+jnD4E5azSPTNa0iO?=
+ =?iso-8859-1?Q?gzIlsMH/XDNoeSVAOTwKZ/Ae91vrpnZY/T22T1Vf1dHjyZ5pD5qQwexBfY?=
+ =?iso-8859-1?Q?X9RObCl9DavHroV6hT9KzxiLpeZC7lU/W5BZLYb7Hl7Xqgr4MMQcjhQ5pN?=
+ =?iso-8859-1?Q?k1UVhcLAh9AiZbKZXdnhCNhz5VYOwoZ9lMFrf72b09bVvIfRIKYA0bJA2s?=
+ =?iso-8859-1?Q?LgduegWqzAhNzCkpRwI47rEOGpq76k16cY5ek0auEQX7/NmdkzAaRPwmhn?=
+ =?iso-8859-1?Q?KJWP+VuE9zdRjqN+sf1cV031+3g/4d71bS8qUid9BSWRE0MRuJ6WvSzNiv?=
+ =?iso-8859-1?Q?uuMERUhDSW30rdepcs7gQ8lUg9hld0HoY1YWONiTWGI2dYu6Sv/WIF/cDz?=
+ =?iso-8859-1?Q?5xzUAUvGy4jwz3HDIgVXa8u34J+Rtm/13HQs/LtckKqa599PupKYmTZQMW?=
+ =?iso-8859-1?Q?QCX6sxP0o1eRs2lH/EguLAWIGJwgGymYMtZuza3rOpjPHvzx/F1WloTwkW?=
+ =?iso-8859-1?Q?A25yfkfyMxB+1DSXA2ZNdM8iggLGOlb8jpcx1uNz+tkZUsofIjvcUTNbDk?=
+ =?iso-8859-1?Q?RQCZwd2IRbocfo9P2Ta8ih6TJ8n9?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4588.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(39142699007)(31052699007)(376014)(1800799024)(38070700021)(8096899003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?tqYWG8VUoAt4XRAjNeDvjh6G6ggFA6SGpsPhm2kdtr/zvW6iZ5jSTcFmX0?=
+ =?iso-8859-1?Q?u6Bh9KG5HOiRgIGYcxd4SsQtptjN/npRYBMkLTonYB1YwIb9fCBq9O2QL6?=
+ =?iso-8859-1?Q?URQuoXvH/6HuGJON6tk85fadNZoDASIKiiJtbAVQC91thnAqoIl0ZXJDVu?=
+ =?iso-8859-1?Q?yAZOA5Zd1d41ijWeBYyb55Y397HAbrT2YZ693n32Q6MPhbTNmyFk0bC0wp?=
+ =?iso-8859-1?Q?HAEfrzr0i6kqfSgQcOp0L2XqjO0Url85a6vbGd79ZQAVqT+RltjLBEIi12?=
+ =?iso-8859-1?Q?O234rSLZjOO6NXqv8fPwbemC61tpl6r8W6RRzYz8mPaQrTok7XAO9ow1kE?=
+ =?iso-8859-1?Q?gV/Jj0g6ipDERBgr1OUYFTDZw9i9SoTWV+gKP0EZwVLWKGGIYrPAs0zYgH?=
+ =?iso-8859-1?Q?+1hJEbhVIoxFbMQhYM91kiKmtK8vUrlWiZ/tn/QEczjunh3HuIpXAOQXAI?=
+ =?iso-8859-1?Q?l1XyvDdqePlTOfw6bI+GisqgENkf3u4tffAabNlu6D4ycBGehlujfLU3Ka?=
+ =?iso-8859-1?Q?iI6iJQoBpcsqtm/PFKzRrFd8oB2J/5yXUs8VDzkvvZO5+bgRqdW1i0Jl7a?=
+ =?iso-8859-1?Q?wMX+H1Fd/U7qrooVasir93Onn+3GJ7VDUeZYyl6wFOdhUc5/UvBjpCKqgI?=
+ =?iso-8859-1?Q?iukmDUSgVuWWOynJEJjJjXyhJ7HXP94Deq/nWfqHjSPHnuzg/K5p3WY/p6?=
+ =?iso-8859-1?Q?v8blIlBQ6Fkq2Ir57WNoSMKKh+vhsSBAD0D+iODcch4un3sycfI1wFMqEj?=
+ =?iso-8859-1?Q?kz4rzipMXTDYyRoL6pHu4LvWRtnhf9hg7JFugMPVi4FiDPJhgqv7fkaDl8?=
+ =?iso-8859-1?Q?injp6oWTMuznGckJnhzeqCn5GqGI2Xze9P2CCX0WI+FehATvnU6vBEwScJ?=
+ =?iso-8859-1?Q?BmavxteP9IF98mmqVj16Sm/PviIozDe//dnm2OLMoyM/euXS1K8OzJV7O7?=
+ =?iso-8859-1?Q?Vo6s4dIJQ9mxtgS6+H33hO9Nb0nwtWTCkH/b9uee+uK2DceFfiBadBj52l?=
+ =?iso-8859-1?Q?Nf+GYBCM96s2FIh/hEwmqg1agTtNIC1+AE8c7ZknnrqOWlgzCk9stoVt8M?=
+ =?iso-8859-1?Q?jUoZSICP1+LdmIYp0b1ELX1YRLQf3thdmROrRW1Ka+t2C7zXRW1akxM2gO?=
+ =?iso-8859-1?Q?sNyDQ0Elzdlc7svyVJB+iKjxgPkt8LhIfn48KBWNoSM9d7i/VPALVcJlzZ?=
+ =?iso-8859-1?Q?yEHXpKylU+i4c53FAbgm6BbXWJpfQwjXkzPdFDbtbk06WyeyJgtqZS1OZ+?=
+ =?iso-8859-1?Q?buMlYipBXBUoztR6joeoLPrOESs9G5dGFhZAWwRkegZOBV6xoXd0LNnkuk?=
+ =?iso-8859-1?Q?IBcTxfBbyawT2JTFCCcfKsIlo3AIfR+pK7vGAlr4LIuoueiNDPexlERCvn?=
+ =?iso-8859-1?Q?yNZQgk2Ag5wNYizRK3QuIrUCCJdRLdav2T2gzug0/GWLIE732OREX3knbN?=
+ =?iso-8859-1?Q?u0Tjk1HkFqSLBfDsO1ULOtc1YbXpVfC0IcV0Ll2qAXKS0cIRijibrX10mB?=
+ =?iso-8859-1?Q?d2jDFfo89am8oLWqGv/aOzGgtYhd+9+C0K/5VmLQ01oRLs0LV9PMfgTmZW?=
+ =?iso-8859-1?Q?n92ur6NBjDuoune2V4Igi106q2f93+3Y+fCpWhj9aDCrFc7CqMkIpqu6EP?=
+ =?iso-8859-1?Q?wxlAOG7t083d7JfhwzBQVjEKMdJWaW6a83?=
+Content-Type: multipart/alternative;
+	boundary="_000_KL1PR0601MB4588F25641F3FB9AA5C355B3E6A2AKL1PR0601MB4588_"
+MIME-Version: 1.0
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4588.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 613a075c-1297-4567-854d-08de363b6b7a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2025 09:23:16.6877
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AVwpbUEEODQLllaHAL+rS3Dcr7byO+Ny/bM/SWIz5OiHOIZeCSEwfvf2YhDhqjablV2R8n1Otifw30/9RNxOlgWeIqUhkMfpYcM/U/mJftE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6059
 
-On 02.12.2025 11:57, Andrew Cooper wrote:
-> Fam12h processors aren't SMT-capable so there are no race condition worries
-> with this path.  Nevertheless, group it together with the other DE_CFG
-> modifications.
+--_000_KL1PR0601MB4588F25641F3FB9AA5C355B3E6A2AKL1PR0601MB4588_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-With this, ...
+Hi Julien,
 
-> Fixes: d0c75dc4c028 ("x86/amd: Fix race editing DE_CFG")
+> Let me start with some process. In general, we expect multi-patch series
+> to have a cover letter.
 
-... isn't this more like Amends:? Aiui this wouldn't need backporting.
+Sorry, my bad. I'll keep in mind while submitting v3.
 
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -920,6 +920,13 @@ void amd_init_de_cfg(const struct cpuinfo_x86 *c)
->      if ( zenbleed_use_chickenbit() )
->          new |= (1 << 9);
->  
-> +    /*
-> +     * Erratum #665, doc 44739.  Integer divide instructions may cause
-> +     * unpredictable behaviour.
-> +     */
-> +    if ( c->family == 0x12 )
-> +        new |= 1U << 31;
-> +
->      /* Avoid reading DE_CFG if we don't intend to change anything. */
->      if ( !new )
->          return;
-> @@ -1201,15 +1208,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
->  					    smp_processor_id());
->  			wrmsrl(MSR_AMD64_LS_CFG, value | (1 << 15));
->  		}
-> -	} else if (c->x86 == 0x12) {
-> -		rdmsrl(MSR_AMD64_DE_CFG, value);
-> -		if (!(value & (1U << 31))) {
-> -			if (c == &boot_cpu_data || opt_cpu_info)
-> -				printk_once(XENLOG_WARNING
-> -					    "CPU%u: Applying workaround for erratum 665\n",
-> -					    smp_processor_id());
-> -			wrmsrl(MSR_AMD64_DE_CFG, value | (1U << 31));
-> -		}
->  	}
+> > The second one is addressed by using IPA-based TLBI (IPAS2E1) in
+> > combination with VMALLE1 whenever the IPA range is known instead of
+> > using VMALLS12E1. There is an upper cap placed on number of IPA-based
+> > TLBI. This factor for execution time of VMALLS12E1 vs IPAS2E1 is
+> > found to be 70K on Graviton4.
+>
+> Is this running Xen on baremetal or in nested virt?
 
-Are you deliberately getting rid of the log message?
+Yes, this is with Xen running in nested virtualization. I'll add this infor=
+mation in the commit message.
 
-And I assume it is deliberate that the adjustment no longer is done when we're
-running virtualized ourselves?
+> > +    /*
+> > +     * If IPA range is too big (empirically found to be 256M), then fa=
+llback to
+> > +     * full TLB flush
+> > +     */
+>
+> Bertrand, Michal, Stefano, Luca, can you check this limit would be ok
+> for your setup?
 
-Both imo want making explicit in the description.
+Yes, please, if anyone of you can evaluate it in baremetal setup, then it w=
+ould be great. Also, I have currently used the same limit in Arm32 which ne=
+eds to be evaluated and it is not possible in my current nested virtualizat=
+ion setup.
 
-Jan
+I'll update my patches as per the feedback comments and send out v3 soon.
+
+Regards,
+Haseeb
+
+--_000_KL1PR0601MB4588F25641F3FB9AA5C355B3E6A2AKL1PR0601MB4588_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Hi Julien,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&gt; Let me start with some process. In general, we expect multi-patch seri=
+es<br>
+&gt; to have a cover letter.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Sorry, my bad. I'll keep in mind while submitting v3.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&gt; &gt; The second one is addressed by using IPA-based TLBI (IPAS2E1) in<=
+br>
+&gt; &gt; combination with VMALLE1 whenever the IPA range is known instead =
+of<br>
+&gt; &gt; using VMALLS12E1. There is an upper cap placed on number of IPA-b=
+ased<br>
+&gt; &gt; TLBI. This factor for execution time of VMALLS12E1 vs IPAS2E1 is<=
+br>
+&gt; &gt; found to be 70K on Graviton4.<br>
+&gt;&nbsp;<br>
+&gt; Is this running Xen on baremetal or in nested virt?</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Yes, this is with Xen running in nested virtualization. I'll add this infor=
+mation in the commit message.&nbsp;</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+&gt; &gt; +&nbsp;&nbsp;&nbsp; /*<br>
+&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp; * If IPA range is too big (empirically =
+found to be 256M), then fallback to<br>
+&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp; * full TLB flush<br>
+&gt; &gt; +&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;<br>
+&gt; Bertrand, Michal, Stefano, Luca, can you check this limit would be ok<=
+br>
+&gt; for your setup?</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Yes, please, if anyone of you can evaluate it in baremetal setup, then it w=
+ould be great. Also, I have currently used the same limit in Arm32 which ne=
+eds to be evaluated and it is not possible in my current nested virtualizat=
+ion setup.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+I'll update my patches as per the feedback comments and send out v3 soon.</=
+div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Regards,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Haseeb</div>
+</body>
+</html>
+
+--_000_KL1PR0601MB4588F25641F3FB9AA5C355B3E6A2AKL1PR0601MB4588_--
 
