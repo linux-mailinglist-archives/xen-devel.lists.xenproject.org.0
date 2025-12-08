@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0372FCAD307
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 13:44:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180461.1503634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C96CCAD334
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 13:53:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180473.1503644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSabG-0004pu-7m; Mon, 08 Dec 2025 12:44:22 +0000
+	id 1vSajV-0006Xa-03; Mon, 08 Dec 2025 12:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180461.1503634; Mon, 08 Dec 2025 12:44:22 +0000
+Received: by outflank-mailman (output) from mailman id 1180473.1503644; Mon, 08 Dec 2025 12:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSabG-0004nA-4u; Mon, 08 Dec 2025 12:44:22 +0000
-Received: by outflank-mailman (input) for mailman id 1180461;
- Mon, 08 Dec 2025 12:44:20 +0000
+	id 1vSajU-0006Ul-Tl; Mon, 08 Dec 2025 12:52:52 +0000
+Received: by outflank-mailman (input) for mailman id 1180473;
+ Mon, 08 Dec 2025 12:52:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSabE-0004n4-O1
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 12:44:20 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1vSajU-0006Uf-0H
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 12:52:52 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c343710-d433-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 13:44:18 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4775ae5684fso22378665e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 04:44:18 -0800 (PST)
+ id cd57b157-d434-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 13:52:49 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47118259fd8so35741095e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 04:52:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479311ece7asm237911495e9.12.2025.12.08.04.44.16
+ ffacd0b85a97d-42f7ca4f219sm24132051f8f.0.2025.12.08.04.52.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 04:44:16 -0800 (PST)
+ Mon, 08 Dec 2025 04:52:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c343710-d433-11f0-980a-7dc792cee155
+X-Inumbo-ID: cd57b157-d434-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765197857; x=1765802657; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765198369; x=1765803169; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7wUHFrBu0Pftp6NamaEvwDoEZatGA9mmCuoZN2UQEH4=;
-        b=eKJEH0JSOds/GycPi7Zfi1gxWypHZ8mnOz4DuojTdet2O764yuDvz4ydOqq0jtrR9y
-         OiKOF40du5vRkdfn0//zRTEkSTnEacjiqvYgNdll9LKr77ly4l6QzN+cq2BfOPN2aT+M
-         6M37flxAXL0HDYFlTTAsXc3F36ucuzrrczDz/0YB1yrGh1mMhIhczHf23mqTjFGhXiNg
-         cfbnxFFaRnTkYzCyvad2I5cLvk7XcyLIDL9HN8ow6nHKfAhqH30DIYBSFprglbe4OUA9
-         9FHk16Thp7AeIdyHFASaHffIGaOvgP/LM4ppougr+f6Uv0xM46jvlpG1adhcSTzhR/ns
-         AqvA==
+        bh=oSfNQs/aaSi3hksy2OevppyStjwcZ9spCScFVOT4tUQ=;
+        b=RRTNABqIu3iaqsQp5QT/0PLAyp7Fw4fjmU+3Q0O1er0tgvrtzNmN/PnTmce0cWUCy8
+         457sgG5WMAs0gNHd+gvc8EMCoNMpmI1ODc8D/mwB1UeSyNIDvD/cAI0Z6T19XJ2I+fJ5
+         0e/JwGMg7uRLp6nrt62Bs9O5BZ7ZjyvtE5j699qRZfivii76cxz9zMOLkcH88okDBSwI
+         s4l+sSpd0jyFRcUFatiwYjCjMKaiNg/UDTWj45ZgOaorpbyjhzJvB3BGMYElRHo+Bn6Y
+         LM/a0Cms3KZxE9T6XqOenXx43xs5tMgN4ToAzOdW9K1DQboXFDCMkuQzTJ/vbONzriyF
+         msMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765197857; x=1765802657;
+        d=1e100.net; s=20230601; t=1765198369; x=1765803169;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7wUHFrBu0Pftp6NamaEvwDoEZatGA9mmCuoZN2UQEH4=;
-        b=TRnX8tfCrfoPbkekEUe/wUzFjhIHSrgMDOoxzygfES0zNx8fjlXggNli8NnCIcSdsP
-         al7a9qVRXtRWrToCc4JoqiW5MRSgSvlFUCkAPrl/aUNJHjD9R54hNFm0wfu0CN5r8E5r
-         4hM3FqaxB+cGb8Vm54gnmfVyso1s8wnAxti+lt0tbz54SojbmP88lHi8OWG583sWOB3j
-         LB/TEtC/tQ0Gyn2LiWzgFD/LwO2t+ZA8IZ54kPwUIF6sloL1atXpb2jpPE5Bq9Zi7zFz
-         LLdeiILGfNx5JabqStxcwTO3HYyE8jiASkf66NmdmV8ZsMqeC3dE464MQvpMR7ReF/3S
-         B2bw==
-X-Forwarded-Encrypted: i=1; AJvYcCVo5+vaT75rfMmIEoXJINqWx1QKyc8pW96zVjioSTbUVkfwEc0OhknlwVUQEEQtUbGasxNXzoy06gA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzWBYWjmjL6flaraQRsIb4i2QNWJhOvCCthU9O/PcyR13vMaANq
-	iixq7w8Qbk0JKDMXp2xl2grwW0p5v5FP5fr3OzyG4IrZZP383kVVMfMGb+r08fkD6Q==
-X-Gm-Gg: ASbGnctFufAr1uzvQfal5sHG6vgJyyPUy5HmALGB4ZZztueFwpId7zds4l3DU8+XgOY
-	Z2rppJvU9sWq42zJGRJusHT5d0jXZl1KuIIYeIOocxsN4pCp3gMEJkJB0n6roG7sg0XXkNUtgh4
-	Ret0OcRyMpvuNMV/hATsLYFJDmDUrphGOtplfABPS9HsoozmXAL3+OidxBoTHjbGdvHwNFkabu+
-	XndG6sU0w3nxeC4lu+rw1zr/KK9lEcMXK76FowZiBQQkrQ18XGTv3Oln3ocKyD2t8G1htNp/lmu
-	69AIm18FE1u/YiP89iMV/KzOY0Fyqdm78svjNORvU3PiA3bzlh+jKizw9zuS62GnoM4Z+YWNbvv
-	oNCYqF8qp5X6QombBIKTNFIPnUxnI+X4P02XPwmBbgYgVAe9quoYTMlTQXymIE2ewdA6+Cjv9cX
-	LtIYcEoeomjjTJw7zmf68p08+3AslwBVEjTkamXX9ek44D2DKcNmzFu7sOHEkDtyrZJ+2x+6l2B
-	8mAv5QLg5NX6Q==
-X-Google-Smtp-Source: AGHT+IGPlV07i8Kfqbg0zJSt94gTHEGX0dyQQN4q01jW+F/bK0g5JU+YB77pXyXFYEhO0d+6b7VDYQ==
-X-Received: by 2002:a05:600c:3115:b0:477:63db:c718 with SMTP id 5b1f17b1804b1-47939e2797cmr89596135e9.16.1765197857281;
-        Mon, 08 Dec 2025 04:44:17 -0800 (PST)
-Message-ID: <c9ee4fc8-44c6-43e8-88eb-9041c51aed16@suse.com>
-Date: Mon, 8 Dec 2025 13:44:17 +0100
+        bh=oSfNQs/aaSi3hksy2OevppyStjwcZ9spCScFVOT4tUQ=;
+        b=IcXq5AvtogDrTPmcNJNKm1Hb5PzEU0I9NOwSAEg8/CciKkZ8cOFv+oou6tAHqYjl9E
+         //75xsLLj7bhdxJf5/MyOyiQR18mcxIeP9pwhjrY637+7VwenImk99xAFfOsJcnzHOV1
+         vomuzz6zQT6MRFS1hwbBCokpapAxSaV6uS7o7dOLobP9JTMmtaVHPSUooXIPJfLmPcEF
+         bS92LNfddUCqP5mpaurEPDW5W+WwcCT6GL9n21LYig5PBz7dktfDbA8HybvlJxNwNZTp
+         UySbt0Pw5Eqk7xZLze77MXAAO1fiatCF1KZoPuDj65Qfrhi2WwRI7hYV4+Wv9Gu7He5W
+         8VXA==
+X-Forwarded-Encrypted: i=1; AJvYcCUT4uZq8WQMYiMGF7vNtyRr526OwXOelb8MIHblN6MBAx1h5Sryo6kZhCdLruutnXgl4eK3w2F096E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwdzzTIL4PCrgqF9ITkBqhuKVRaByPu3s0viwbU1S9BWWTS3pp5
+	SzlzpfX94scNpY3AXuGwFXrkDGQ1DHjJSkvC0khFA/kWi0+qtEk4+0O5HnJKJqJwPw==
+X-Gm-Gg: ASbGncummDfPCSMqibDT0WRJYGVjzuG2T6XSimiMBugANLmj2ixEzj8uy/BFyNCi6hq
+	+ab0+4WqIj37gD1H+us2VqMHb15+7zR/fw2o4c+coBxJxWturBHlEtcN4u/omj+cCKCoCBADyT3
+	wQ53wLiJ/fqUUu7zR9ezbsCIJmBaZlHErwdXQuEO96Yn4qaFr9GTXCHs53aboWTkI+Dnr82AEQB
+	+hSkuFskBUwg2ocjnLWTa6jk5KiTO5HJm4x+h1nTEHf5tsGqSdU0qQdxGtmBmSnutzpRnlTBcvG
+	NJVGoQcX8O6X8NWmmNJ8zyRnv7KI68hr3D9ry4J0w+L7UxIh9ECFbgg9eCGa6sS8OYpsqfCnYY5
+	GvcvQDQKmwI/fEU7Vh+sS1B4pokQW9YmupP8FDZBQ2PdxXw9lF5dlWx6y7mb6vU1KTteXNGtRsI
+	ZxNSh4s4ZIVngCVm0MF1RXAj/U1+syw2H/gskX2+Y0jNWNnx/nr18t5MpkCdgYl9oldVe56XPQL
+	P0=
+X-Google-Smtp-Source: AGHT+IFVlJp+L80mm2IFLL+d9DUEpMcZKNfIpuBYDDLe0E5w+g28TEwCC05Ty+TpBFNOYkBnGacCEA==
+X-Received: by 2002:a05:600c:5489:b0:477:7925:f7fb with SMTP id 5b1f17b1804b1-47939dfcc18mr90740845e9.10.1765198369244;
+        Mon, 08 Dec 2025 04:52:49 -0800 (PST)
+Message-ID: <796783b3-0727-4375-bec1-0e6a18a2a582@suse.com>
+Date: Mon, 8 Dec 2025 13:52:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] xen/x86: move d->arch.physaddr_bitsize field
- handling to pv32
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251128152218.3886583-1-grygorii_strashko@epam.com>
- <20251128152218.3886583-4-grygorii_strashko@epam.com>
+Subject: Re: [PATCH v1 1/2] tests: fixup domid test harness dependencies
+To: dmukhin@xen.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20251204123712.721443-1-dmukhin@ford.com>
+ <20251204123712.721443-2-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,60 +121,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251128152218.3886583-4-grygorii_strashko@epam.com>
+In-Reply-To: <20251204123712.721443-2-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.11.2025 16:22, Grygorii Strashko wrote:
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -619,9 +619,12 @@ void __iomem *ioremap_wc(paddr_t pa, size_t len);
+On 04.12.2025 13:37, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> There can be multiple test harnesses per one test target. Fix that by
+> iterating over all prerequisites in emit-harness-nested-rule().
+
+This reads as if previously there was no iterating, and you add some.
+What you do it further parameterize the existing macro. That anomaly
+actually looks to reflect itself ...
+
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  tools/tests/domid/Makefile | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/tests/domid/Makefile b/tools/tests/domid/Makefile
+> index 753129029ed9..1a2129d20655 100644
+> --- a/tools/tests/domid/Makefile
+> +++ b/tools/tests/domid/Makefile
+> @@ -14,16 +14,18 @@ $(shell sed -n \
+>      's/^[ \t]*# *include[ \t]*[<"]\([^">]*\)[">].*/\1/p' $(1) 2>/dev/null)
+>  endef
 >  
->  extern int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm);
+> -# NB: $1 cannot be a list
+> +# $1 target
+> +# $2 list of test harnesses
+
+... in this comment. According to ...
+
+>  define emit-harness-nested-rule
+> -$(1): $(CURDIR)/harness.h
+> -	mkdir -p $$(@D);
+> -	ln -sf $$< $$@;
+> +$(1): $(2)
+
+... the use of the parameter, this is the list of dependencies.
+
+And then, how does this make any difference at all when ...
+
+> +	mkdir -p $$(@D); \
+> +	for i in $$<; do ln -sf $$$$i $$@; done
 >  
-> -void domain_set_alloc_bitsize(struct domain *d);
-> -unsigned int domain_clamp_alloc_bitsize(struct domain *d, unsigned int bits);
-> -#define domain_clamp_alloc_bitsize(d, bits) domain_clamp_alloc_bitsize(d, bits)
-> +#ifdef CONFIG_PV32
-> +#define domain_clamp_alloc_bitsize(d, bits)                                    \
-> +    (((d) && (d)->arch.pv.physaddr_bitsize)                                    \
-> +         ? min_t(uint32_t, (d)->arch.pv.physaddr_bitsize, (bits))              \
-> +         : (bits))
-
-I'm not quite sure if converting to a macro was a good idea. But now that it's
-done this way, so be it. Just that a couple of issues may want / need sorting:
-- d is now evaluated up to 3 times,
-- indentation is wrong,
-- the use of uint32_t is against ./CODING_STYLE (I dislike the use of min_t()
-  anyway, but what do you do when a macro was asked for; of course we could
-  [easily] arrange for BITS_PER_LONG to be of type "unsigned int"),
-- the use of "bits" in min_t() doesn't really need parentheses.
-
-> --- a/xen/arch/x86/pv/domain.c
-> +++ b/xen/arch/x86/pv/domain.c
-> @@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
->              goto undo_and_fail;
->      }
+>  endef
 >  
-> -    domain_set_alloc_bitsize(d);
-> +    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
+>  define emit-harness-rules
+> -$(foreach x,$(2),$(call emit-harness-nested-rule,$(CURDIR)/generated/$(x)))
+> +$(foreach x,$(2),$(call \
+> +    emit-harness-nested-rule,$(CURDIR)/generated/$(x),$(CURDIR)/harness.h))
 
-You mention the change in condition in the revlog (but not in the description),
-and I'm having trouble to follow why ...
+... you still hardcode the exact same file here?
 
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -1119,26 +1119,6 @@ unmap:
->      return ret;
->  }
->  
-> -void domain_set_alloc_bitsize(struct domain *d)
-> -{
-> -    if ( !is_pv_32bit_domain(d) ||
-> -         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
-> -         d->arch.physaddr_bitsize > 0 )
+As an aside, imo this would better be wrapped as
 
-... this 3rd part is going away.
+$(foreach x,$(2),$(call emit-harness-nested-rule, \
+                        $(CURDIR)/generated/$(x),$(CURDIR)/harness.h))
+
+or even
+
+$(foreach x,$(2),$(call emit-harness-nested-rule, \
+                        $(CURDIR)/generated/$(x), \
+                        $(CURDIR)/harness.h))
 
 Jan
 
