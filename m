@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF5BCAC9A2
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:10:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180255.1503474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFCF3CACA06
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:17:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180268.1503485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXG7-00008E-8m; Mon, 08 Dec 2025 09:10:19 +0000
+	id 1vSXMg-00019h-Ur; Mon, 08 Dec 2025 09:17:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180255.1503474; Mon, 08 Dec 2025 09:10:19 +0000
+Received: by outflank-mailman (output) from mailman id 1180268.1503485; Mon, 08 Dec 2025 09:17:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXG7-00005a-60; Mon, 08 Dec 2025 09:10:19 +0000
-Received: by outflank-mailman (input) for mailman id 1180255;
- Mon, 08 Dec 2025 09:10:17 +0000
+	id 1vSXMg-00018B-Ry; Mon, 08 Dec 2025 09:17:06 +0000
+Received: by outflank-mailman (input) for mailman id 1180268;
+ Mon, 08 Dec 2025 09:17:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSXG5-0008Vc-OU
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:10:17 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1vSXMf-000185-GP
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:17:05 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b588ab73-d415-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 10:10:15 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-429ce7e79f8so2664032f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:10:15 -0800 (PST)
+ id a8a96d93-d416-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 10:17:03 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-42e2e167067so1813532f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:17:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d331e29sm24834189f8f.32.2025.12.08.01.10.13
+ ffacd0b85a97d-42f7cbfeb38sm24160106f8f.12.2025.12.08.01.17.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 01:10:14 -0800 (PST)
+ Mon, 08 Dec 2025 01:17:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b588ab73-d415-11f0-980a-7dc792cee155
+X-Inumbo-ID: a8a96d93-d416-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765185015; x=1765789815; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765185423; x=1765790223; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LTdNAJgKr2UFkzmJvH1/thYKNgic9UAy3c4K8AA3GOE=;
-        b=dIhTcw5WfmNkCJi8qhlTO6lMQk2AhhrPT7rf60yIs+Dm1t15VIfffEWlJvilEC6+ND
-         6yTGjwBK2y48W7pS9n+ScFlr77TyJSF8E9Fycxg1plnoR3qZ9yql2mQXzTijTRyRCYvA
-         JRhr0uKFDDUoPBGsfnBor5aF2Pe49KMlNQ76ptAMK8VMITneqz+/8C057g2H4ulVJ8nW
-         FY9eHO8s7IkOwAk6kdUSqXE0IprnfE+bwe5Ipn9JRq9TZsCiLbhPRY+j1rdOlsL5y3w6
-         1cfeAe/edZLmUmcPq9XPO0CWmPLc2zV+IAyVBMiT+1XWSsZwSc9/jv2h8jNuluqc7kx9
-         JsnQ==
+        bh=TFPOJzpt+3xOHs+Vf1YpOTXAtessmORrgUmgZl54Mss=;
+        b=fm+x9h6EOWJ5Hr5x3pb8WHGj75uhRG8eG8gnwXGiS9wO/JhK0RKS31SuYuR+MlHxTi
+         a0wAYaYJXVYA2pcgeZVyyKykO/erUrCLJcyFalJG7MQs44umT27evqH81QkI19ryDQYe
+         mqEyM+dT9IZ+RYwruNprPQ+k5iePCH2wp0YoWsKXZT3eIuQyTeRCpK69d+X0uOT43VjS
+         Xn9Qej8l5bauFyi4mimWH84BXuRyPRjgMXoux8V1vv2vQSoenLLq2dS2qs9PxyYBdMex
+         DUD5/yuJUbXZMLNP/8KSjv18/Gp9cZ2rB1HQWVsq2aXtpWLuyN2PDhKdZDvabevSg1vF
+         HShw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765185015; x=1765789815;
+        d=1e100.net; s=20230601; t=1765185423; x=1765790223;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LTdNAJgKr2UFkzmJvH1/thYKNgic9UAy3c4K8AA3GOE=;
-        b=JD3xeB8ThqSlKPseLffDK5pqRskNt0qRxjM+oouZToeETiUenMfojgSnGGFK1H5svn
-         NE3Ci2ziet+gYOo3VfqCeBwt+btT2IUhM9tYts/uLWzauZv7bqaQVe3eX68wkHlMzrSe
-         tbHlJ7wFPsSwDOjMe/3/GS1gd8drGTspGedaVO5R3ceyeUzSOAGhoRDfcV66vdAe3QKs
-         fSSyMLWT06gD894U1awmp6KyNlKfQAG3hJq+GR0te3C0jiQHFCtlB47qYXG3sAUsukPM
-         P7Ri1/PrxNBdnel//CTcpM/nOA677xuzKw8wwCKKOWmsR9qJh2i/KjW8LuBAObl3rhTN
-         F24g==
-X-Forwarded-Encrypted: i=1; AJvYcCWGfwPruG5TFeD4n1aU+YFLaiXEPPp2f1NL2n0qhrXM9lzF/lv7V7UY3kDfVsMu7Nb02tW8iC8CGiQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxRr7nx6Jsn7rTHChXvC92KAz3mNmZuqLRyvasnufI/7Loktakv
-	3Y94D7To11PnMRZmwNb8pfBFChcLA4Q07VWiPQbwtShmt3M6vEmaCDTRgNSuL8uXpA==
-X-Gm-Gg: ASbGncsmlaM+vnUIpbLkRCi69I0Xv94BurK8RXYhNn8ZJIFfO60sGNyqsglpFxeHw5F
-	PxyG4p9GgyKZNRbDDmHRLsQg3UpJdBtdmLinauSGRWAGS5VNb8ZOwyMMYYQ7db3vDl8GlDafYJA
-	t74J5IjlIAY6YVbvU/dnbaIFIWtt8Wr0RTxdgfP6PXOMBxCixlfXuc+c0FVACRvh/fUAtRxHK5+
-	PRdLm+CBgV5ul4CIL8vxYXGP5JeBXlyvdYnZqEfRYhux2ApS4PGmSLZs4UJBxpgbVCqAjFBcBph
-	/CjrH27iU/nnu/9frz8hr8DgAKztxUdhKOQoMpAgELL4A/lPZfFlCnFG67YwQbWjcuSSYlIeQF4
-	LaIdzpjpoeOwithhqfa/QLcLUfr9CVOYyOOaCT2Q8ZLel2YJ0PWdvCfOZAGGjrI2Fy4MWGPfHpo
-	sxHxJFGFUT5AzlRANMJhitojRIaz2AtuhhjdFRypgmcfE3aELvJE+cfPzLy2kVHijPsVHXcyNRG
-	Gc=
-X-Google-Smtp-Source: AGHT+IEUwq3/+SDYCt8CFVGOCyoMwJod7uNKGIU/PnMwv6Iay4Vm9NylEpWbrI2asJw4JbkcyJ652w==
-X-Received: by 2002:a05:6000:144a:b0:42b:38b1:e32e with SMTP id ffacd0b85a97d-42f89f50d87mr7359937f8f.46.1765185014935;
-        Mon, 08 Dec 2025 01:10:14 -0800 (PST)
-Message-ID: <3caf4cc4-1c01-40f2-865a-5be98d609866@suse.com>
-Date: Mon, 8 Dec 2025 10:10:15 +0100
+        bh=TFPOJzpt+3xOHs+Vf1YpOTXAtessmORrgUmgZl54Mss=;
+        b=L82V6si/bkwIU1sieANv2YNBAHBc5LHDajpClxPqkL0w1bR7zx0ydnmuUqeUkwejeb
+         RPKt1rT4k24CoRO14UM5+vo09mmuApd1sSA5oCi7/TEhfwZw5ftX3AzQni+/pizT0VAf
+         dnfhpgwDZzsG1iq4YAd6qPrSCE4eFYmPXhghAT7HaXS5k2O5GLp+n/MOQuMLQN4jvfZq
+         +zdS/j0Uqu3HGrPZ2Dmy4cXCi2TXhJeFQVRky/4uLtNaAW8LVFj88t9b6UMEkO+4QLYm
+         ihFf7lLSUsdGGmA3G+eRho+/1xBajQdkY03esuNadDBQUPKLjYIlKRdpNRLAjTyPuaFm
+         cKDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWYmOivgwZGqmo9z8gWuzZSCnTzjHHqOJL0lqtgZQghbBn7ywbPz6dnr1PEhep4RlXvJKG9/vdzy1s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFnKelo3M+jn1OHEQBeR5Bj1gtwG4cJxWN3uJSJEZ9TS0pGToT
+	gOH+pdG+73YYuGjM9HLOVzmV+UfePcV9u9KYthDRbsJlygZl9qCPUkWF7Kt3mzPYNw==
+X-Gm-Gg: ASbGncuaJ+bxHx1EzAex3S/lGInLfJRVVe5B/gfgLBqaWlhgz8hoR9nGieOTqbjYb79
+	jM3oQ2wXdHtdrwh3UbUQYPjzNQuKTP+DOc2zwb2/E7CAaAwEsvm0mLgupk1B09H16/noW1wa5T9
+	KRhqYnvD0lcxOt+25hnZiL0iH8MUaDRcFLRcRoG6bxqOjmVc2WpbA51kub6o5cHVnM2/jAsrAMa
+	b7jWGQp540v3IfWdBwXQ2MyE0gPFtm5NliQ+OKJrVFFacaPZC9mCJkOn59SJgOf7SC4kXdjEl0u
+	/3qzkOhT/5IGXaD/iS4Fch0uMMLyGhU7JyyBWEJs9NrShVGnYwVdNgl9YyEIJRwevbRH8T0xIzs
+	FLQHne6yy4USj4bCm3qm4E4ZF+RUUv5bObnBGA8oTLUCb/58y0/TrvKVv/lIy51Nz9d+t3VkfbU
+	R+4Q41gdGBorc65FsSBiQmxwzxhw1wltUYJCr/p4PyNh8ASlq8SKIVO+Lq9WTpFKiTnYKA0p+2V
+	qU=
+X-Google-Smtp-Source: AGHT+IG1C0kb/+DTvo4veVGF4wISU74hwEOB85t41tCQqiqMFq4nd5P2XJZfCyBflsYvVjba1tvuhw==
+X-Received: by 2002:a05:6000:2003:b0:42b:3e60:189d with SMTP id ffacd0b85a97d-42f89f0e212mr6973458f8f.24.1765185422670;
+        Mon, 08 Dec 2025 01:17:02 -0800 (PST)
+Message-ID: <55f40e49-027b-4162-94f0-54573fb1abc0@suse.com>
+Date: Mon, 8 Dec 2025 10:17:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/svm: Drop svmdebug.h
+Subject: Re: [PATCH 1/3] x86/amd: Fold another DE_CFG edit into
+ amd_init_de_cfg()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
- <20251128201937.1294742-4-andrew.cooper3@citrix.com>
+References: <20251202105710.1472927-1-andrew.cooper3@citrix.com>
+ <20251202105710.1472927-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,20 +121,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251128201937.1294742-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20251202105710.1472927-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.11.2025 21:19, Andrew Cooper wrote:
-> svmdebug.h now only contains the declaration for svm_sync_vmcb(), despite the
-> function being implemented in svm.c.  Move the declaration into svm.h
+On 02.12.2025 11:57, Andrew Cooper wrote:
+> Fam12h processors aren't SMT-capable so there are no race condition worries
+> with this path.  Nevertheless, group it together with the other DE_CFG
+> modifications.
 
-Maybe again add "private" or "local", seeing that we have two svm.h?
+With this, ...
 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Fixes: d0c75dc4c028 ("x86/amd: Fix race editing DE_CFG")
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+... isn't this more like Amends:? Aiui this wouldn't need backporting.
 
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -920,6 +920,13 @@ void amd_init_de_cfg(const struct cpuinfo_x86 *c)
+>      if ( zenbleed_use_chickenbit() )
+>          new |= (1 << 9);
+>  
+> +    /*
+> +     * Erratum #665, doc 44739.  Integer divide instructions may cause
+> +     * unpredictable behaviour.
+> +     */
+> +    if ( c->family == 0x12 )
+> +        new |= 1U << 31;
+> +
+>      /* Avoid reading DE_CFG if we don't intend to change anything. */
+>      if ( !new )
+>          return;
+> @@ -1201,15 +1208,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+>  					    smp_processor_id());
+>  			wrmsrl(MSR_AMD64_LS_CFG, value | (1 << 15));
+>  		}
+> -	} else if (c->x86 == 0x12) {
+> -		rdmsrl(MSR_AMD64_DE_CFG, value);
+> -		if (!(value & (1U << 31))) {
+> -			if (c == &boot_cpu_data || opt_cpu_info)
+> -				printk_once(XENLOG_WARNING
+> -					    "CPU%u: Applying workaround for erratum 665\n",
+> -					    smp_processor_id());
+> -			wrmsrl(MSR_AMD64_DE_CFG, value | (1U << 31));
+> -		}
+>  	}
+
+Are you deliberately getting rid of the log message?
+
+And I assume it is deliberate that the adjustment no longer is done when we're
+running virtualized ourselves?
+
+Both imo want making explicit in the description.
+
+Jan
 
