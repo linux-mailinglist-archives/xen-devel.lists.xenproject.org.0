@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C2BACACE99
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 11:48:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180364.1503555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A59CACF09
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 12:01:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180375.1503564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSYmh-00035f-H9; Mon, 08 Dec 2025 10:48:03 +0000
+	id 1vSYzb-0005nU-JK; Mon, 08 Dec 2025 11:01:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180364.1503555; Mon, 08 Dec 2025 10:48:03 +0000
+Received: by outflank-mailman (output) from mailman id 1180375.1503564; Mon, 08 Dec 2025 11:01:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSYmh-00033M-EF; Mon, 08 Dec 2025 10:48:03 +0000
-Received: by outflank-mailman (input) for mailman id 1180364;
- Mon, 08 Dec 2025 10:48:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSYmg-00033G-3M
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 10:48:02 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d6c337e-d423-11f0-9d1b-b5c5bf9af7f9;
- Mon, 08 Dec 2025 11:48:00 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4775e891b5eso21081365e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 02:48:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479311ed466sm231377715e9.13.2025.12.08.02.47.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 02:47:59 -0800 (PST)
+	id 1vSYzb-0005lX-Gf; Mon, 08 Dec 2025 11:01:23 +0000
+Received: by outflank-mailman (input) for mailman id 1180375;
+ Mon, 08 Dec 2025 11:01:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xtdp=6O=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
+ id 1vSYza-0005lL-Gu
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 11:01:22 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 3564c82a-d425-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 12:01:13 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A23CE1691;
+ Mon,  8 Dec 2025 03:01:04 -0800 (PST)
+Received: from [10.57.8.179] (unknown [10.57.8.179])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D66BC3F762;
+ Mon,  8 Dec 2025 03:01:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +42,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d6c337e-d423-11f0-9d1b-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765190880; x=1765795680; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zS8/YRHbnpFNSbETJAVu5IY7UtYdPcfV1xAQYKoim54=;
-        b=O6iNC1tYe349IxGHBd+FOtsYPmTmEHWw18u6YoE/dNll3g4xfOCYhbYN8bstXv4IbU
-         yPNiR54A4qapGJ6qnkMCPPgQ7yKfcRBzHK38QIF8fZByO3z6/CoHoLK4SjAuQTKSf/po
-         I2Fz2sBDMgcbYAgcRdvgBPyQaV0m3R9NJMPs4CBo32p4XjalF8fdouknn9k3iB+2SHmM
-         b4uG/aGWSXfCJIRukfwNVqPiGxwNIptDyv0tpEEjnBIQcEXPLiM8IS07f/UQ6Fq8ZHQJ
-         oY8ggh0PeXaA1koTzyFW46y15j4djxLx5KMcCaxGtwS/ZATe5bHsHuDyXQGLJG9MiSA5
-         DV5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765190880; x=1765795680;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zS8/YRHbnpFNSbETJAVu5IY7UtYdPcfV1xAQYKoim54=;
-        b=Q8j67WxAfICTW5lZjaShMocbkDvKDOPPN+0r+u2dCdWaQ8N+CUl+SgMApm7v2LAEi5
-         ADiB8C+L+oCCMrecDrtCIx1+9yr0jn2hc6wBPex7Iyv79pAhr10GvdCdN7uq7i0Nn9CL
-         9lUBg5IllNqHYwWWL4z13Thz8Wq1smEBxDF5bIniKInGkuqSS/OdCsOL/mHlhP6IJN9N
-         bkyFErX2nt/VxS1Lgzvpuqlxrh3nQZ6/Xpth2+rdhGG5SgFkgC19M1jWPF33v5PxF3Vc
-         DEt02HAJI7qjHv7rhcs0eNGm012as7Z5qITWSbuRdm7mj/gxe0t8v8bT/h2gwsCMeMCA
-         IU7A==
-X-Gm-Message-State: AOJu0YwUVbodIFNy4847O9fI75yKuYj58xscqn2+elTS/2d3UOozDIfi
-	rEBgGgfboHWWgjOsfVUQzikcOsnWfQak4uAAr2Jqm5iiOwkG3lXJHaSnOa/zUbNI+g==
-X-Gm-Gg: ASbGncsFeBOzJ07WP/oJJVtpQTtvxfjPePixUYgPPrKYf1InENV69Z3ogr2XXOJ8j1B
-	VAzfY5MxpfOe9z5N1O5Y+561c4PZm+sHc/4s5kKMy/2ANCRvTrFtTmrjKgVc/LqOQn4aW1EmCYx
-	fg15uNsqfnj8FXXnzjF4A1sD5uIwJNasvibnyB734C5auwUcvq4pMfKDFh2KBjuQuvnc1vPc/Wr
-	/PxiImJ4FqQcHtM/I4HA+ILSYeIAs9BIUjXS6sDTK0Xk46rmiMC0CuQf4Cw1flS8UblxNpdAeo5
-	3zVQNmUOZfTSXe+iIp8B+Li6ECjK01s+1NuSPL0AV3YTdIAon0wrzzc27txKzsD08xznzcXc74G
-	mDWWT8nQaCDs+dxZpHNxC+1Fm3lx+WNwRUWK55Kg7QggnFt75r+p0aVz1pju92QmCaDMcdQZruy
-	o9WeOi0iyjGILWE1oqw8Q3F2R6pa8yDqhF+VPU9y5184KcmHOg87kSYntGLLROycTUh+s0xKodt
-	FxxOMsa7bwNNw==
-X-Google-Smtp-Source: AGHT+IEHmqMm/7HyPW8ibwhUnCKiWkBVqlxjz1fG2qGrnrVqTYXS5ZW4OJLs5+8o48XHxygWpGshqg==
-X-Received: by 2002:a05:600c:45c9:b0:477:952d:fc00 with SMTP id 5b1f17b1804b1-47939dfa78dmr72741135e9.12.1765190880005;
-        Mon, 08 Dec 2025 02:48:00 -0800 (PST)
-Message-ID: <b03a8039-e4b3-42ff-9781-031bf68ccb72@suse.com>
-Date: Mon, 8 Dec 2025 11:48:00 +0100
+X-Inumbo-ID: 3564c82a-d425-11f0-980a-7dc792cee155
+Message-ID: <9cdaa019-f21a-41e3-bf25-0a0e36c499f2@arm.com>
+Date: Mon, 8 Dec 2025 11:01:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] x86/mm: update log-dirty bitmap when manipulating
- P2M
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>, Anthony PERARD <anthony.perard@vates.tech>
-References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
- <d47d01dd-0289-370d-7b5e-bd80f9e0a911@suse.com> <aTLjwbcm4fjwNJfb@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aTLjwbcm4fjwNJfb@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/6] arm/mpu: Implement vmap functions for MPU
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Luca.Fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20251128095859.11264-1-harry.ramsey@arm.com>
+ <20251128095859.11264-3-harry.ramsey@arm.com>
+ <3c0a4987-81ef-4cf1-a1ad-bd8872a0dd67@amd.com>
+From: Harry Ramsey <harry.ramsey@arm.com>
+In-Reply-To: <3c0a4987-81ef-4cf1-a1ad-bd8872a0dd67@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 14:53, Roger Pau Monné wrote:
-> On Tue, Apr 26, 2022 at 12:26:10PM +0200, Jan Beulich wrote:
->> --- a/xen/arch/x86/mm/p2m.c
->> +++ b/xen/arch/x86/mm/p2m.c
->> @@ -549,7 +549,10 @@ p2m_remove_entry(struct p2m_domain *p2m,
->>          {
->>              p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
->>              if ( !p2m_is_special(t) && !p2m_is_shared(t) )
->> +            {
->>                  set_gpfn_from_mfn(mfn_x(mfn) + i, INVALID_M2P_ENTRY);
->> +                paging_mark_pfn_clean(p2m->domain, _pfn(gfn_x(gfn) + i));
->> +            }
->>          }
->>      }
->>  
->> @@ -737,8 +740,11 @@ p2m_add_page(struct domain *d, gfn_t gfn
->>          if ( !p2m_is_grant(t) )
->>          {
->>              for ( i = 0; i < (1UL << page_order); i++ )
->> +            {
->>                  set_gpfn_from_mfn(mfn_x(mfn_add(mfn, i)),
->>                                    gfn_x(gfn_add(gfn, i)));
->> +                paging_mark_pfn_dirty(d, _pfn(gfn_x(gfn) + i));
-> 
-> Have you considered placing the respective
-> paging_mark_pfn_{clean,dirty}() calls in p2m_entry_modify()?
 
-I didn't, but since you ask - I also don't think that's layering-wise
-an appropriate place for them to live. Whether a page has to be
-considered dirty needs determining elsewhere. No matter that ...
+On 08/12/2025 09:53, Orzel, Michal wrote:
+>
+> On 28/11/2025 10:58, Harry Ramsey wrote:
+>> From: Luca Fancellu <luca.fancellu@arm.com>
+>>
+>> HAS_VMAP is not enabled on MPU systems, but the vmap functions are used
+> Just as a reminder, we don't intend to support VMAP on MPU? Asking because it
+> would otherwise be a duplicate effort to implement only these two helpers.
+>
+>> in places across common code. In order to keep the existing code and
+>> maintain correct functionality, implement the `vmap_contig` and `vunmap`
+>> functions for MPU systems.
+>>
+>> Introduce a helper function `destroy_entire_xen_mapping` to aid with
+>> unmapping an entire region when only the start address is known.
+>>
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+>> ---
+>>   xen/arch/arm/include/asm/mpu/mm.h | 11 +++++
+>>   xen/arch/arm/mpu/mm.c             | 67 +++++++++++++++++++++++++------
+>>   xen/arch/arm/mpu/vmap.c           | 14 +++++--
+>>   3 files changed, 77 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+>> index e1ded6521d..83ee0e59ca 100644
+>> --- a/xen/arch/arm/include/asm/mpu/mm.h
+>> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+>> @@ -111,6 +111,17 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags);
+>>   int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
+>>                              paddr_t limit, uint8_t *index);
+>>   
+>> +
+>> +/*
+>> + * Destroys and frees (if reference count is 0) an entire xen mapping on MPU
+>> + * systems where only the start address is known.
+>> + *
+>> + * @param s     Start address of memory region to be destroyed.
+>> + *
+>> + * @return:     0 on success, negative on error.
+>> + */
+>> +int destroy_entire_xen_mapping(paddr_t s);
+> NIT: I read it as all the mappings which is a bit misleading :)
+> Maybe something like: destroy_mapping_containing or alike?
+>
+>> +
+>>   #endif /* __ARM_MPU_MM_H__ */
+>>   
+>>   /*
+>> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+>> index 687dec3bc6..29d8e7ff11 100644
+>> --- a/xen/arch/arm/mpu/mm.c
+>> +++ b/xen/arch/arm/mpu/mm.c
+>> @@ -290,6 +290,35 @@ static void disable_mpu_region_from_index(uint8_t index)
+>>           write_protection_region(&xen_mpumap[index], index);
+>>   }
+>>   
+>> +/*
+>> + * Free a xen_mpumap entry given the index. A mpu region is actually disabled
+>> + * when the refcount is 0 and the region type is MPUMAP_REGION_FOUND.
+>> + *
+>> + * @param idx                   Index of the mpumap entry.
+>> + * @param region_found_type     Either MPUMAP_REGION_FOUND or MPUMAP_REGION_INCLUSIVE.
+> Both of these are unsigned, so why the parameter is int?
+>
+>> + * @return                      0 on success, otherwise negative on error.
+>> + */
+>> +static int xen_mpumap_free_entry(uint8_t idx, int region_found_type)
+>> +{
+>> +    ASSERT(spin_is_locked(&xen_mpumap_lock));
+>> +    ASSERT(idx != INVALID_REGION_IDX);
+>> +
+>> +    if ( xen_mpumap[idx].refcount == 0 )
+>> +    {
+>> +        if ( MPUMAP_REGION_FOUND == region_found_type )
+>> +            disable_mpu_region_from_index(idx);
+>> +        else
+>> +        {
+>> +            printk(XENLOG_ERR "Cannot remove a partial region\n");
+>> +            return -EINVAL;
+>> +        }
+>> +    }
+>> +    else
+>> +        xen_mpumap[idx].refcount -= 1;
+> You could avoid nesting if/else by doing:
+>      if ( xen_mpumap[idx].refcount )
+>      {
+>          xen_mpumap[idx].refcount -= 1;
+>          return 0;
+>      }
+>
+>      if ( MPUMAP_REGION_FOUND == region_found_type )
+>          disable_mpu_region_from_index(idx);
+>      else
+>      {
+>          printk(XENLOG_ERR "Cannot remove a partial region\n");
+>          return -EINVAL;
+>      }
+>
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   /*
+>>    * Update the entry in the MPU memory region mapping table (xen_mpumap) for the
+>>    * given memory range and flags, creating one if none exists.
+>> @@ -357,18 +386,7 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>>               return -EINVAL;
+>>           }
+>>   
+>> -        if ( xen_mpumap[idx].refcount == 0 )
+>> -        {
+>> -            if ( MPUMAP_REGION_FOUND == rc )
+>> -                disable_mpu_region_from_index(idx);
+>> -            else
+>> -            {
+>> -                printk("Cannot remove a partial region\n");
+>> -                return -EINVAL;
+>> -            }
+>> -        }
+>> -        else
+>> -            xen_mpumap[idx].refcount -= 1;
+>> +        return xen_mpumap_free_entry(idx, rc);
+>>       }
+>>   
+>>       return 0;
+>> @@ -418,6 +436,31 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+>>       return xen_mpumap_update(s, e, 0);
+>>   }
+>>   
+>> +int destroy_entire_xen_mapping(paddr_t s)
+>> +{
+>> +    int rc;
+>> +    uint8_t idx;
+>> +
+>> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+>> +
+>> +    spin_lock(&xen_mpumap_lock);
+>> +
+>> +    rc = mpumap_contains_region(xen_mpumap, max_mpu_regions, s, s + PAGE_SIZE,
+>> +                                &idx);
+> So here you are searching for a region that includes at least s + PAGE_SIZE.
+>
+>> +    if ( rc == MPUMAP_REGION_NOTFOUND )
+>> +    {
+>> +        printk(XENLOG_ERR "Cannot remove entry that does not exist");
+>> +        rc = -EINVAL;
+> Here you assing rc but ...
+>
+>> +    }
+>> +
+>> +    /* As we are unmapping entire region use MPUMAP_REGION_FOUND instead */
+>> +    rc = xen_mpumap_free_entry(idx, MPUMAP_REGION_FOUND);
+> here you would redefine it.
 
-> There's a lot of repetition here with regard to handling the side
-> effects of p2m changes that are forced into the callers, that could
-> likely be contained inside of p2m_entry_modify() at first sight.
 
-... this way there is some redundancy.
+Sorry, this is a mistake and we should just return early as the mapping 
+doesn't exist and therefore will have no references to be decremented.
 
-Furthermore p2m_entry_modify() also isn't really suitable: We don't
-know the GFN there.
+>> +
+>> +    spin_unlock(&xen_mpumap_lock);
+>> +
+>> +    return rc;
+>> +}
+>> +
+>>   int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
+>>                        unsigned int flags)
+>>   {
+>> diff --git a/xen/arch/arm/mpu/vmap.c b/xen/arch/arm/mpu/vmap.c
+>> index f977b79cd4..d3037ae98a 100644
+>> --- a/xen/arch/arm/mpu/vmap.c
+>> +++ b/xen/arch/arm/mpu/vmap.c
+>> @@ -1,19 +1,27 @@
+>>   /* SPDX-License-Identifier: GPL-2.0-only */
+>>   
+>>   #include <xen/bug.h>
+>> +#include <xen/mm.h>
+>>   #include <xen/mm-frame.h>
+>>   #include <xen/types.h>
+>>   #include <xen/vmap.h>
+>>   
+>>   void *vmap_contig(mfn_t mfn, unsigned int nr)
+>>   {
+>> -    BUG_ON("unimplemented");
+>> -    return NULL;
+>> +    paddr_t base = mfn_to_maddr(mfn);
+>> +
+>> +    if ( map_pages_to_xen(base, mfn, nr, PAGE_HYPERVISOR ) )
+>> +        return NULL;
+>> +
+>> +    return maddr_to_virt(base);
+>>   }
+>>   
+>>   void vunmap(const void *va)
+>>   {
+>> -    BUG_ON("unimplemented");
+>> +    paddr_t base = virt_to_maddr(va);
+>> +
+>> +    if ( destroy_entire_xen_mapping(base) )
+>> +        panic("Failed to vunmap region\n");
+> Looking at common vunmap() we ignore the return code from
+> destroy_xen_mappings(). Is it ok to diverge?
+>
+> ~Michal
+>
+>>   }
+>>   
+>>   /*
 
->> --- a/xen/arch/x86/include/asm/paging.h
->> +++ b/xen/arch/x86/include/asm/paging.h
->> @@ -165,8 +165,9 @@ void paging_log_dirty_init(struct domain
->>  
->>  /* mark a page as dirty */
->>  void paging_mark_dirty(struct domain *d, mfn_t gmfn);
->> -/* mark a page as dirty with taking guest pfn as parameter */
->> +/* mark a page as dirty/clean with taking guest pfn as parameter */
-> 
-> I think it would be clearer to use gfn here rather than "guest pfn",
-> and the function parameter should be "gfn_t gfn".
 
-For HVM I'd agree, but please see the one use for PV guests. As per
-xen/mm.h gfn == mfn for them, i.e. we particularly mean PFN there.
+I will address the code style comments in the next version of these patches.
 
-Jan
+Thanks,
+
+Harry Ramsey
+
 
