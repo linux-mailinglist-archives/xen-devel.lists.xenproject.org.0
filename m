@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83936CAD86E
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 16:05:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180818.1503935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A344BCAD8A6
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 16:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180830.1503944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vScnU-0006SA-Sb; Mon, 08 Dec 2025 15:05:08 +0000
+	id 1vScxP-0008Nz-Nb; Mon, 08 Dec 2025 15:15:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180818.1503935; Mon, 08 Dec 2025 15:05:08 +0000
+Received: by outflank-mailman (output) from mailman id 1180830.1503944; Mon, 08 Dec 2025 15:15:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vScnU-0006PO-Pc; Mon, 08 Dec 2025 15:05:08 +0000
-Received: by outflank-mailman (input) for mailman id 1180818;
- Mon, 08 Dec 2025 15:05:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vScxP-0008Lo-Kr; Mon, 08 Dec 2025 15:15:23 +0000
+Received: by outflank-mailman (input) for mailman id 1180830;
+ Mon, 08 Dec 2025 15:15:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vScnT-0006PI-QP
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 15:05:07 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 476eda01-d447-11f0-9cce-f158ae23cfc8;
- Mon, 08 Dec 2025 16:05:05 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-477a219db05so31803245e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 07:05:05 -0800 (PST)
+ id 1vScxO-0008Li-4u
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 15:15:22 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b5948ee9-d448-11f0-b15b-2bf370ae4941;
+ Mon, 08 Dec 2025 16:15:19 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4779adb38d3so42808015e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 07:15:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479311fbaf4sm238459595e9.15.2025.12.08.07.05.02
+ 5b1f17b1804b1-479308cd87csm263041325e9.0.2025.12.08.07.15.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 07:05:03 -0800 (PST)
+ Mon, 08 Dec 2025 07:15:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 476eda01-d447-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: b5948ee9-d448-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765206305; x=1765811105; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765206919; x=1765811719; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qbvy8vPiPeBLmPIIJL9b1OwoeLYk8AFuNuzUbTevJis=;
-        b=NRVmHqGlSFPjdycqrlbhRVB5Qt6VdpPa3p0gqXS4nQGnO7BWInAR3IoE/Lq74tK6Fc
-         Ouiex2JvXVE4gOKc8k6mKU92q6DRUSnBmvbFa2hYrpoNGuZNb/dw1+ZrWTy4h/ybo06x
-         qivUlwVliAuWCNhWttDMkLu5Q0Fz0SbxOLZVfVZouEuDS/aYBUdN2UsosDHr55Mr1xyR
-         pk3nhkhWPns0LyJdDqkKlEZE8Eq6OaseMjEwlqY8VJO2UWvBGH10lUO7zhNJMgNO09T9
-         kZawSAlfDvBk/dg0IYmDGrfFkOJe/AaC0npqTBldB/VqokexBEIwG2QRzVuNzPQotecR
-         y0Bw==
+        bh=33jigMewdRtBcQZeZHJNcyU8HJff9PGm416rZH/o8JI=;
+        b=bG6MdZ0yQN+GF5C4eZR/9tayeOoHX7ypMc/C2Aoccfdt/9YggwqAjxUWThXHgYZmC5
+         mW1OkDEmI5qhI4vneZ6Smg9mQBW8zG7P4wxeR+Nzbt2TOLsaiI0ejwuv/gUAxGKTXuzZ
+         p80kwt1SBf5uUC6NMYSTFZc1F7HCi4ZY2bwaoFURpS7EEsEwJWbWt4mD1nEO23kCqqPZ
+         oxTeUpzqLIl+M5/Wyc/EAc3tLhep0DnbREAqFrsLruCAlpn5P1/TDZ15VvYzcKlMqxnB
+         m67kqYV6p1lwCA8LxIRfvz4vWitHiNqKSSGudebkbcJ+L9pbbrmoWkcLpqzSZsIBwctV
+         vxlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765206305; x=1765811105;
+        d=1e100.net; s=20230601; t=1765206919; x=1765811719;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qbvy8vPiPeBLmPIIJL9b1OwoeLYk8AFuNuzUbTevJis=;
-        b=MIrmB4uf8Y+xmBwVVlaAFOoDLRPue6vk3TitQBExzNn2yvldNz+91O+qnAbWuogSOO
-         Fa3zpw966QuaAnG1X46RTQn0Gmrv7OIKapx6Ysx9PMj4WxIWVy9JG5VsNDw3HiVIfH94
-         xqDRsWrYOGvv4F+87opNx9mU68SKJrYAs0xxz8G8RetVC+58rBv3YpmvwCgJ560TuL1j
-         CBqWiNoOrFs5LpsNelbW41dY1hDH8xKmyDr/SQUHOhIIguthYt7dwgglIyyVSD37WRHg
-         /fWWpjUN0Fqk+yedluNVCELz0Dg9GwVgLS1YeMQbVuuClD392PCXjMJV9mik4SgVftf6
-         ekrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWAzy96lp0vOtqCx2TlqM6irgWAJ+kdyM+MWLR+5u00IBk7qEQWOVElihyvZDUL7hhbuUSwGfX2PFs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz9zd7b9o6poi+iTcU3AbN8bz39VRrJcHBPtdZw8DWG6l14y3pT
-	YNRAXXrLKIfLR32VX85myaKkXfEBrNyPXOi9965eifBqPGu5dMMrDeHbwg7ffTC4Sw==
-X-Gm-Gg: ASbGnctNSCzPcWDSx7b3UrNJPXLjJNO78KnGboEvFNAyen10y9MKgzvZTT6x5Dr0dut
-	u6RB1X7y7xhCp9sq0WHkwpCjjZXtF439Oy6H46vLHnIt962wBneXY3NKlRYx60IDdjznjOyjz+2
-	xVUYHDThp9jodjTM9tGyLfjXRrT0m6qBz64gPCHGgmiMnc8rYqfZo5x7onzAC+wIXChEiCPk64l
-	sZ372eN3lGYmvM5QYRWaNnrrb/deLII0q/Wtf40vUOV9DT3FQhdU9ESljbxdw7oLVuffDTlvyAI
-	qm+7lpERCXEiTDKW3XEP0f2WerMQUA9ZuPC0hYqaUfw7MLMPYAGOMSueGfdVHRBKiCiUza1Jbu0
-	zn1JBnVPvng3cpuKjAWfnD3c77mTeYNcajeAenxMw1Ukqp7L1yMD29Oa6UG/1hsg5GpyajFRbsz
-	vE45WJnb9DVeCRIF/byrDJ1Ci5xqHM3iPOX7dRnE9jmsES0Khd8X2PMvAUKi0/FkDUBuhmPtTUN
-	2Q=
-X-Google-Smtp-Source: AGHT+IF1EdYfXz2+VVZTWqGkJvfeYoxCmbR8+RkXcao7Zy+o/JbtfDBdQeGYae2CkT1ZlEN0T4EIcg==
-X-Received: by 2002:a05:600c:c3cb:20b0:47a:7aa0:175a with SMTP id 5b1f17b1804b1-47a7aa0175emr10536955e9.26.1765206304984;
-        Mon, 08 Dec 2025 07:05:04 -0800 (PST)
-Message-ID: <c3d2a4c4-f591-4bff-b978-18b8c09cf512@suse.com>
-Date: Mon, 8 Dec 2025 16:05:04 +0100
+        bh=33jigMewdRtBcQZeZHJNcyU8HJff9PGm416rZH/o8JI=;
+        b=Poz0AHk3yeaD55IdLU/L0bboUGpliPFycMXqZru5TJ7IvL2YtDuLLW5xPertMfdgKO
+         dLJ/FGB8h5hx7wI9zgNeU9KxUOr4KzdKHzawe8Sz+juof+uYr3eKTUt3JD0YwYcwqx6I
+         OzuHhjZgCGwOzI0yE3FSLylSUIf3c+6/n2cbaZIgbGY8AeXRpDoD4kGSIVR+5+GwTiKI
+         1YDYI7QcJDJzEUqB9yflsSTxEKY60nfgr490lMr5Fuqe25vNlwPRxq1L/fZBqrFnH7g3
+         MvEi9n/cg8UGZHZ2N+DN4qpyNuG6mZDMk3yvbVctjcwgUx+UmrtDT5jtLJk2laSvgsOq
+         oDUg==
+X-Forwarded-Encrypted: i=1; AJvYcCV0S+4letZ5jT+q+MriEZzrUQ0k7Wt+q4OyjQM2u/OoN11iAIZ2+5tOAEtcUp8lIHLducTxziMkwc8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRTfs4fM/ujRSPmqGh17dWLu2A2NxM+NequYDbzOjAqcikwpKX
+	GzyXY3NvaXBFqlpYH+IzmNDp0Qp6kBqZ5LM1nAZs03vSgP2lSdWoqdgpsg7K7Nz64g==
+X-Gm-Gg: ASbGnctSIOq94cg75qCd/Vy14Ae1+G1pCmAkLqug0/kmX8t9rp2TqA4CGuk75cvGf6U
+	grV/2X20xM9dSSYi2DDfrewmpnO7ve45O1xp+G8VvcKapKfFEOrxsnqgMIL/ZQb276S2pxzZJD1
+	cZ3TJLMSoyt8XgMGg3vsEB7RGl7u3+O/Lj60Xv45EsHKMZt8mbv+k499w8ipsLfAPajnNAbfGAJ
+	tbFvS+T5cp/7ZA/n/CpVKNPlEfkJ5LnIHuYwQ43svLOoz/REb4QAKpNEwoNe19jr2FpCRgejMGd
+	1qzvbKqPwnhENLlFqoK2eV2mQkDQc01OueoBfZKueL7KQ8sHsq0ToAoXfME7P7YRnWYsr3jAfO1
+	/cxmWBEJMKyzdXiPOUNWX/fetIWkK4wBZvhXBvW8m4Jc6kP8xDEL/f3do597IAXxouWBkG6JtAU
+	WtOmcWbQtgtXlBp88jk/K+/WTbv32EgmAZYGs5rXQVkYeoUHYc05qrm6fImog4YB/K90YRjCSOi
+	Hs=
+X-Google-Smtp-Source: AGHT+IGnbrvO1gdgVELhw0Db7yiVvlMBWyj5KdVfXzIlqCnwoQCaJY2cMNoiAYod2Vx/Wy/hdYbiWA==
+X-Received: by 2002:a05:600c:524a:b0:477:b734:8c22 with SMTP id 5b1f17b1804b1-47939dfb06cmr74621985e9.8.1765206919504;
+        Mon, 08 Dec 2025 07:15:19 -0800 (PST)
+Message-ID: <275721bc-07c2-4f69-93c2-e6d3022fee4f@suse.com>
+Date: Mon, 8 Dec 2025 16:15:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/riscv: add RISC-V legacy SBI extension support
- for guests
+Subject: Re: [PATCH v1 3/3] xen/riscv: add RISC-V virtual SBI base extension
+ support for guests
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -100,7 +100,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
- <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
+ <d17dcac47752681eed6703360389dd542433ab3e.1764582112.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,44 +126,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <d17dcac47752681eed6703360389dd542433ab3e.1764582112.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 01.12.2025 11:24, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/sbi.h
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -14,8 +14,15 @@
->  
->  #include <xen/cpumask.h>
->  
-> -#define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
-> -#define SBI_EXT_0_1_SHUTDOWN			0x8
-> +#define SBI_EXT_0_1_SET_TIMER           0x0
-> +#define SBI_EXT_0_1_CONSOLE_PUTCHAR     0x1
-
-Why the padding adjustment when ...
-
-> +#define SBI_EXT_0_1_CONSOLE_GETCHAR     0x2
-> +#define SBI_EXT_0_1_CLEAR_IPI           0x3
-> +#define SBI_EXT_0_1_SEND_IPI            0x4
-> +#define SBI_EXT_0_1_REMOTE_FENCE_I      0x5
-> +#define SBI_EXT_0_1_REMOTE_SFENCE_VMA   0x6
-> +#define SBI_EXT_0_1_REMOTE_SFENCE_VMA_ASID  0x7
-
-... you immediately have one that doesn't fit?
-
-> --- a/xen/arch/riscv/vsbi/Makefile
-> +++ b/xen/arch/riscv/vsbi/Makefile
-> @@ -1 +1,2 @@
->  obj-y += vsbi.o
-> +obj-y += vsbi-legacy-extension.o
-
-No vsbi- prefixes please underneath vsbi/.
-
 > --- /dev/null
-> +++ b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
-> @@ -0,0 +1,37 @@
+> +++ b/xen/arch/riscv/vsbi/vsbi-base-extension.c
+> @@ -0,0 +1,52 @@
 > +
 > +/* SPDX-License-Identifier: GPL-2.0-only */
 > +
@@ -171,41 +141,63 @@ No vsbi- prefixes please underneath vsbi/.
 > +#include <xen/sched.h>
 > +
 > +#include <asm/processor.h>
+> +#include <asm/sbi.h>
 > +#include <asm/vsbi.h>
 > +
-> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
-> +                                     unsigned long fid,
-> +                                     struct cpu_user_regs *regs)
+> +extern unsigned long __ro_after_init sbi_spec_version;
+> +extern long __ro_after_init sbi_fw_id;
+> +extern long __ro_after_init sbi_fw_version;
+> +
+> +static int vsbi_base_ecall_handler(struct vcpu *vcpu, unsigned long eid,
+> +                                   unsigned long fid,
+> +                                   struct cpu_user_regs *regs)
 > +{
 > +    int ret = 0;
+> +    struct sbiret sbi_ret;
 > +
-> +    switch ( eid )
-> +    {
-> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
-> +        printk("%c", (char)regs->a0);
+> +    switch ( fid ) {
+> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
+> +        regs->a1 = sbi_spec_version;
 
-This is guest output, so shouldn't use plain printk().
+Wouldn't this need to be the minimum of what firmware supports and what Xen
+supports / knows about? (Assuming backward compatibility among the spec
+versions of course.)
 
 > +        break;
-> +
-> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
-> +        regs->a0 = SBI_ERR_NOT_SUPPORTED;
+> +    case SBI_EXT_BASE_GET_IMP_ID:
+> +        regs->a1 = sbi_fw_id;
+> +        break;
+> +    case SBI_EXT_BASE_GET_IMP_VERSION:
+> +        regs->a1 = sbi_fw_version;
 
-This will be overwritten with the return value you pass to the caller (i.e. 0),
-by that caller (i.e. vsbi_handle_ecall()).
+Same concern here, but see also below.
 
 > +        break;
-> +
+> +    case SBI_EXT_BASE_GET_MVENDORID:
+> +    case SBI_EXT_BASE_GET_MARCHID:
+> +    case SBI_EXT_BASE_GET_MIMPID:
+> +        sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
+
+This may be okay to do for the hardware domain, but hardly for DomU-s.
+
+Same concern for SBI_EXT_BASE_GET_IMP_ID.
+
+> +        ret = sbi_ret.error;
+> +        regs->a1 = sbi_ret.value;
+> +        break;
+> +    case SBI_EXT_BASE_PROBE_EXT:
+> +        regs->a1 = vsbi_find_extension(regs->a0) ? 1 : 0;
+
+At least for hwdom doesn't this also need combining virtual and
+underlying physical lookup, if for some extensions you may pass the
+requests down to the physical one (as done above)?
+
+> +        break;
 > +    default:
 > +        panic("%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
 > +              __func__, fid, eid);
 
-Please don't. domain_crash() may be okay to use here, but crashing the hypervisor
-because of unexpected guest input isn't okay.
-
-> +		break;
-
-Bad indentation.
+Again - inappropriate for anything controlled by guests.
 
 Jan
 
