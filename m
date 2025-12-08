@@ -2,54 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8455CAD7E9
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 15:53:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180781.1503906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F5BCAD81F
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 15:58:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180794.1503914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vScc3-0003W3-Cl; Mon, 08 Dec 2025 14:53:19 +0000
+	id 1vScgB-0004Fz-Vd; Mon, 08 Dec 2025 14:57:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180781.1503906; Mon, 08 Dec 2025 14:53:19 +0000
+Received: by outflank-mailman (output) from mailman id 1180794.1503914; Mon, 08 Dec 2025 14:57:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vScc3-0003Sw-98; Mon, 08 Dec 2025 14:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 1180781;
- Mon, 08 Dec 2025 14:53:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZPsC=6O=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1vScc1-0003SV-2H
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 14:53:17 +0000
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazlp170130006.outbound.protection.outlook.com
- [2a01:111:f403:c201::6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9fba4fb4-d445-11f0-9cce-f158ae23cfc8;
- Mon, 08 Dec 2025 15:53:14 +0100 (CET)
-Received: from AS4P191CA0045.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:657::28)
- by VI1PR08MB5485.eurprd08.prod.outlook.com (2603:10a6:803:138::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
- 2025 14:53:04 +0000
-Received: from AMS0EPF000001AD.eurprd05.prod.outlook.com
- (2603:10a6:20b:657:cafe::a6) by AS4P191CA0045.outlook.office365.com
- (2603:10a6:20b:657::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Mon,
- 8 Dec 2025 14:52:58 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001AD.mail.protection.outlook.com (10.167.16.153) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.8
- via Frontend Transport; Mon, 8 Dec 2025 14:53:03 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by DU0PR08MB8496.eurprd08.prod.outlook.com (2603:10a6:10:403::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
- 2025 14:51:58 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::ab1e:55db:9d8:afbc]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::ab1e:55db:9d8:afbc%5]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
- 14:51:58 +0000
+	id 1vScgB-0004EP-So; Mon, 08 Dec 2025 14:57:35 +0000
+Received: by outflank-mailman (input) for mailman id 1180794;
+ Mon, 08 Dec 2025 14:57:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vScg9-0004ED-Rn
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 14:57:33 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39746f25-d446-11f0-b15b-2bf370ae4941;
+ Mon, 08 Dec 2025 15:57:32 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-477619f8ae5so35880545e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 06:57:32 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42f7d2226c5sm26406434f8f.23.2025.12.08.06.57.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Dec 2025 06:57:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,245 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fba4fb4-d445-11f0-9cce-f158ae23cfc8
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=AdBi7To3PBWzx5LraHpM887QoFM47+RnjUQmxMqjQybObkB33YfScIaKGJW/xLKNaj/I59BlQ6BcWzDINawQolzF3j0b3t9aizI01FJznkKs1ppPwVRi3QA2jVRJGeLsHEAIpDCTxHU6Gvzq5WBxRXQzM0fdtyuoPsHkgYPnGyYiq9JajS2mlo6qbMPmkJzCR7ThPnNjdO4GK7Z7KJR9liQwKB2zY/yeAJ9iH0jNq7KHzwvHFRrW61fx8nxjyUDPL1h1awviUWV0hR5kKdFo/46vl8Ukso0OGSJYemYwfvJfL3wT9Yx3y6NzMb50w69NLaOSWixBTWeeemAICI50jA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o3BSPOOP7AZnjusguqzx0kCWp/NJwjqsq682neBhWls=;
- b=PvtUUK+mCKgeRTLUvt63DWl6dxMvE/fJ3PMbX8lwm4m4eMFUO9FVhHz1tPnPn0OCfXpeHf2p/wEWKAkL0KDo31CGkKFSE8k8XS5skfG/t3IOGwuEGoq4rmwlUum9k2A3G7wOdMgQYFc/lVBU3paP7AhknbE1VVp5f9FN9OJLa8lRvpye8lwpZZ58D8DLz8Z6nRolQq90QtxdG7upX6FPbJi5q7YVbiWEyyukioOnAqKuYuKFIETgOKBzqJ8LfmWerSrNCjuzsyIV9Xxm7pdRsfTE2et4c7XX6OGExnRaBR4u1YMXIzfapDnpP3LNC8JGMK5sQF1CUE9VvBFgqjvv5Q==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=suse.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o3BSPOOP7AZnjusguqzx0kCWp/NJwjqsq682neBhWls=;
- b=ajhGyHMGK/WHYRUnvcMuMQtCS4BysnY5T4Pm4d2Y3tK4KJLR9FVKuFHe3hZilSisv7KzGE5ac7fJSFAuEoW63NCDD4QIF9noqDrRA7eNuh9+tgzeKjWPJuMiPEKsErhFWyk8scG+VlU+vC8DfrVBNE6a05EJfwcTFOxHJn0S9aU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGbvWCgcSqYw5EYOxqSdGAzyQAYcVYOGMituV9AvJ979yRKd8UQKx3qcwC9qLj3dxIXnE9HanJNj8/umXohvIAWXC1lHoz6EhAnktqOf3k5BNMkcI18NVWCuP3J4LjfDXDAtjdrAVpBBGCdsLRSZcHc4nPHeWduYxKI4FBgvArWVjOjyH/j/uBvuMFpm4jaulQC9Xr9Ezj+V39gwQOeacMIeW5Lw1QUCh28SlDBjdqlC0lo54G5izoRzvyyEL63ZTjJWfYzRZTEZs2FV1Zchx775DNxEaMS5nTODN7eaSIe9xg+nUJ+yK43FvtdqkG4c1D3unJKxAPgf90WGs1azrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o3BSPOOP7AZnjusguqzx0kCWp/NJwjqsq682neBhWls=;
- b=vzwbglC3fTxQ1Pi1ONMqD2KmmOuvP7pwkPt7tCCMzE6cZQieDyoVx3fAKyGMfALMMvM4yPcIV86p1yBgG28tsikHzUHz1u/l7225AqpRllSmt+ugo9OFnrkLzfm8MWAKydzzN/fn+cshQA6UtRDSMV8k84oWzlvl3UCxe8s1J4CoBGHnGp3HPDb3h85f406wfMQgJUEtYXCqVIoYtX6AWVweRnZqx6hdW8G/oZ3OOv7FK2UWWz6tMNRGHK3A93U54MYt3NyGxeS3uON/Qs8aTkZPDMxGeN7NLOT8cco/3xtatm3VvfBMURmrNQezeD2GLfCbRCV9NuMGgsXDqTQPow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o3BSPOOP7AZnjusguqzx0kCWp/NJwjqsq682neBhWls=;
- b=ajhGyHMGK/WHYRUnvcMuMQtCS4BysnY5T4Pm4d2Y3tK4KJLR9FVKuFHe3hZilSisv7KzGE5ac7fJSFAuEoW63NCDD4QIF9noqDrRA7eNuh9+tgzeKjWPJuMiPEKsErhFWyk8scG+VlU+vC8DfrVBNE6a05EJfwcTFOxHJn0S9aU=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: 39746f25-d446-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765205852; x=1765810652; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bz/WMXUC4IcSRraXhVTFDQQTGMT6gXw7EEupWue5usg=;
+        b=T6isvvGF+XOQD+xMCNM0+HEGeFh31ldJyBBKiJ6xA/7jqY04tIgDN0m3K+lLBFzB7H
+         TyE8qqiqNNwdUIFWLA0F2RG5csXQyWUFPJvhXX3mLTmQt6tZxviLmGnmnCOdOWD/g8sH
+         acis057VSoIt1biLToVs0fXU51dEdqd1+k3GnYfNXNclC9o4Va0n/tT/UDgeeru4cP5G
+         qVFq1of2Fm2wDp+Up2eqKVu7f2bTXunZpHW16jJGfqh04zU3NmZb94ygyoKo5ERqdiEP
+         fnIjJp6qYrUraLpo1Fiuxdq9hP5uERoZryYj33h2muWV+yvBd4PoetkjfF9keEZ3/ik9
+         Fuwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765205852; x=1765810652;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bz/WMXUC4IcSRraXhVTFDQQTGMT6gXw7EEupWue5usg=;
+        b=NIEZee6hSa1f1XCABgp5BBshv7u/FTR1UKU8w+/SXqB89YGaJ/2dP+gwgnshISFKF8
+         TzS6LP5n8wqo6+QKMjYNTfYuSYh13HlrjWXdCABG++M0i/OdRdVpyjR7m/+cgHlYe1ff
+         SNs0L4YFu7hhj1O+S5/HkrhDQeJR9YLrl5DIAfjTs6UAyan4ELKpL3xjilXR/caVMoiW
+         z21AGB+/6F64h/j+putljaFzbhk6BTBqmtNT2vj7omIbqowveHx4EruP4g8yCImnG+3G
+         jzYYtJAglLGcfWtLZib7/cSegaVVPaq4amBxIRI1sSkzDISwzf5jX9rwzc/EzqgzNzYh
+         exUg==
+X-Forwarded-Encrypted: i=1; AJvYcCUKLzd0lo6AqTuUlzEcMyWBZxBKleN6eZpx1gvjJUnbB4+5uhzpxtmvvvbR42/0S+dZi2BbR6rp1o8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNbIqVNQgNGjnLYXVMSRI5IOnI7EqX3d2/UtMoUNUvd10rruRn
+	Iz41MfLVzwNM05+52ubYbrVZpUIfQOZU/zNav15poEcBvP62AfJC3ocdfJCXJJuhSQ==
+X-Gm-Gg: ASbGncvcdmWMBOY+KFBJa6lWMAlWkFyhMXWsNTTLbV9+lKSWie25QwyvYU36XA0YCDy
+	Rcqb+Ap4Elt6A8a2+QqtJHobo1KzD0AsV6KPx+nDC8Wv6y42B3V/ZcVvfNe+/USgsxji7NNV5WH
+	Tpgt8l87CXNmS9iXVVyBSpsoXhlgVwRCbDg71ctKWQVVmEr7IFkFYU134z6TCO9lE7XV/B3YHDe
+	h8IukW0U+WbSKNPd0ZHI2MJZyJ6zlDIEUWujWVtAxUIcXi2OEhAx3f5ij2OSFqMFGy9EtTshRmT
+	QkIUDtJunDvcWeG5NqjMWfnDF8soflboeouP2ch9f8MKOSDQrDCVBiHmbXDlogP4c6ZfzX3e3+g
+	hjJkqi5DfLCatUCGLT5hEKXCpPaJlfmhhIVOhnfgnBmLEnyi0sEumIWMB2asQk43inViniJIHD5
+	wTMlIjAr3g+0e1HeoxE29aF8XxxMosVk77tUJs0cEL3I0nWeAfrmv69K/wkvDwZxfimN1Ehp5ux
+	Bw=
+X-Google-Smtp-Source: AGHT+IHgFO+3jgtLukrZFolABk7LE5UhVJEUqoYZc2eisz4HNmRuKzvpP2+gfqQ/obFbuGBIckE26g==
+X-Received: by 2002:a05:600c:474d:b0:477:7bd2:693f with SMTP id 5b1f17b1804b1-47939dec8e1mr66916705e9.6.1765205852000;
+        Mon, 08 Dec 2025 06:57:32 -0800 (PST)
+Message-ID: <265bbc9b-d9e6-4e1c-b59d-cf77fb4d6786@suse.com>
+Date: Mon, 8 Dec 2025 15:57:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 7/8] symbols: drop symbols-dummy.c
-Thread-Topic: [PATCH 7/8] symbols: drop symbols-dummy.c
-Thread-Index: AQHcaFHEZgCWYRtzmkm7gvYg23aA3rUX05+A
-Date: Mon, 8 Dec 2025 14:51:58 +0000
-Message-ID: <47070C53-9EAE-48F8-BACE-B554BAF2DFA2@arm.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
  <639fb816-c2f6-45d6-9081-238a6b3c5c08@suse.com>
  <ae96860a-02b2-4ae1-ae98-eba0b749ff90@suse.com>
-In-Reply-To: <ae96860a-02b2-4ae1-ae98-eba0b749ff90@suse.com>
-Accept-Language: en-GB, en-US
+ <47070C53-9EAE-48F8-BACE-B554BAF2DFA2@arm.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|DU0PR08MB8496:EE_|AMS0EPF000001AD:EE_|VI1PR08MB5485:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd398730-b985-461f-d365-08de36697d7c
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- =?iso-8859-1?Q?a5TXirfLhliCK+eaSZVDA57ECnBFfvciCIam7a/mBm5PCNvXi+FKbUrIxo?=
- =?iso-8859-1?Q?YMEmDbNSS3xGYUJkYMnFs3TxNsUO+MEUuPybGAd3Erb1fW5cjeNyFKJ1ai?=
- =?iso-8859-1?Q?RE1cC2Gn8fWFbrDLnr6c9XXIqWKvLLnu2obIdo9b8yueoBHOHZ99FBYUth?=
- =?iso-8859-1?Q?IOVmvr8smaeAbpgCvEEXeHnwxTt1GGbphCx7Y/8yI48qO/GGJgK4sPuK7L?=
- =?iso-8859-1?Q?135fNR0fY+Kx/k7vsXZZxtaG9jl4awlE7xbCKMggyLBLL4HrX6S5kdWSGd?=
- =?iso-8859-1?Q?XTfZREcACvaVjq3UbqALvH+B/WNkJM4ZizQ7+L2obnmfKTpK/fffBYNaBF?=
- =?iso-8859-1?Q?eDuMVnn3k/rDJ1/PP3h3pVEjgsrjPhyFhaYeOSPcvMHKnA8ECgMOoWnZ3N?=
- =?iso-8859-1?Q?LhCWj+nZZ0e+W+JTnhVI2sTbjRUljbYSBuzG/t+sZh16uqrl+FMnMnFApf?=
- =?iso-8859-1?Q?fgPxbwcJlFehSD8NMEZYliYtQzEcYOXE8eyRL27+j7mAp/fYvlIxcppZ+W?=
- =?iso-8859-1?Q?H/2vQ0Cvez1BzDy+zAenW7anukyNeIdfCFyqCeJRkqKwwy0TKkQf1I5YEI?=
- =?iso-8859-1?Q?1fSYBvT8I6nxrYG7n07IOKVLcOybHlQTVmW6Uw2HhQd8dYYnc+Wf7kHwqn?=
- =?iso-8859-1?Q?eqFmfJe6wES8Y3UZAgbGmkznKIM7jRUzGFGrpWZTXMFD7ezcEt5S4Xe68z?=
- =?iso-8859-1?Q?P5QhcJRbUorE6Oz52uaqrX+wfAmjf2lLOiB3fvE8hvQgOyicW40Ek9RI7j?=
- =?iso-8859-1?Q?4GcjqCUKzTTfqFcDmfqElJTvJ0rULZNAioDyhQeGwMBn9RZUcBDUilwtpd?=
- =?iso-8859-1?Q?jREA+/fW7SlNC883Yo2EUtg6jIyre0hpy8XvM3SAECEYBFqw9zqzKml88w?=
- =?iso-8859-1?Q?7n+uLGffRbTdrJMVGx00YWKBD1D5l9E/GwtzNx/u7ApGmIynRauvSyO1Jg?=
- =?iso-8859-1?Q?QPCq4nnuaZASK0kom/MhXbmWu/Wk9791ki6Z6Qv+9ghuApUNXNeWiB8Z8/?=
- =?iso-8859-1?Q?82H/QpNkmyn5vee2BhELtplL759SG5sOHL6xemUKMfqLxF6tBOL5PYzjqF?=
- =?iso-8859-1?Q?c9PyegVuCvUwyeanHcX5Bw0DgIlb52CysyE2w1zyxltQfpF12tPfFunAsK?=
- =?iso-8859-1?Q?Xdoeu9eZoKK3VAFg1KqX1MeVf+unb27q62hF1GzIZ7f1WMMKUPmy6MwHy1?=
- =?iso-8859-1?Q?15GdY8h7G2Q47aszk9TuuMtIGekeaWFbqKVxho5GRroUkj0GWFNhy/ELbx?=
- =?iso-8859-1?Q?S9O3DNZBNuGk85tf0N/dnTweTZa9mL/QKHkwAhSPjbNMm7IbrCuAfkEZoV?=
- =?iso-8859-1?Q?aL76Y2FEsCFy/fkafo65oIG53tTL+9MeMPuti9wKQMro7R2/dk4lEhGHWY?=
- =?iso-8859-1?Q?qCVKsrGGZ1BknlZiMRKszDvCgps7ve19WcQu4KiRq8lnS3+srS/jAwv7pn?=
- =?iso-8859-1?Q?FXTERp8fOB77/WPcof3b1tOu+lXwv4O1VGrAbqffqlXsJ99jI/f6AcNQJj?=
- =?iso-8859-1?Q?ojF/wd6SOgZzYp8dXCU6AL2Dyj9ZTc85NCfv//1gWTaS+rx+a/d7igjia9?=
- =?iso-8859-1?Q?hJhO+arYfxA75iXBoFTY2pctNmGQ?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <F4EF2C883D4C1E43AA2140D77D7D1410@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8496
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001AD.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f42fc58f-6fe1-4936-f6ce-08de36695661
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|35042699022|36860700013|1800799024|82310400026|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?iso-8859-1?Q?3eUOqHS6u3zXvMMrSpL83owummlt8eJIc4PHSxE/slsHlgnDTSdmhUQ7wa?=
- =?iso-8859-1?Q?quo6bwYK/KObhC8g3du8djll0AcQ3GhFuiTg5Lhv++QOvNmgcBJOruIKaS?=
- =?iso-8859-1?Q?EQupajmqNCXG9BjyAVOuMUX4T6I+DuZIH/Zs1SZ5twMuKKW1FzaAisJnl+?=
- =?iso-8859-1?Q?6EMs+jfBh+1f799AUPdkSbbb+JKg1UiwyVMDjwO260rPaePlLG/DRVksNE?=
- =?iso-8859-1?Q?yKiVfjsIQKylQ1oPYni4Wm4S0mEXHgl3DN2lCozqW+8gPqJdP6wYbtOn79?=
- =?iso-8859-1?Q?CmGHXMBqoJEf97s7dJgHIrLMBUF/YQEiUn2ECfiHm8/kD1Va2vH0IQ4sRD?=
- =?iso-8859-1?Q?azfMqy0Ig5teY30wiQ+wMIZPzAQwB9/u5fb/lmYm16z67kNS5fIqLaqmEf?=
- =?iso-8859-1?Q?QMabvz7XiEPamyPlh6UNkc1NfBfFbTWlMg9nyMr596CpQTQ6/n9xhD+p14?=
- =?iso-8859-1?Q?KqZUqYqTGiNgpT/gKUDK1GcjWUIQLlvJIGUZFgLrIY6R5ULJRS59h9KPjy?=
- =?iso-8859-1?Q?MzrsA1j58UydHw5gqKcB44afjb4uCkBIgDLNy3n9yGFmNobJkix2620r3E?=
- =?iso-8859-1?Q?l3JHL5Bxr8U9ybrtaKKpVsoirE0uKXX+g7m7qFNuPCxr4k2R5PtJgKCgFN?=
- =?iso-8859-1?Q?Mx6zzBFubwXkA+UCgZK/CEJv6cE54PXO6Fr1cGIPorYLUKDVPggoWKXhtB?=
- =?iso-8859-1?Q?5QaZP3atJO0lTxRl58sKaNCKbcJjO9Ks89ag7nwM4Mp0F2WIshdBRYa44M?=
- =?iso-8859-1?Q?ZkeilVazUZZsvcm6Bo7d88E0zhPccxfijbNGSJZz0rY8sYRcRgCrNyjtOB?=
- =?iso-8859-1?Q?dm9YU6ozR0t0//Lt5ecIj8sKdhoMeU+rOeJFh/dC21qPBtZxowkWxezdBX?=
- =?iso-8859-1?Q?8o0ljSi3WuBE+0Cf6M65Cz1XYIpHdeZd4QCZ/5kkuMH6SsZiKZbOECEW8E?=
- =?iso-8859-1?Q?XKoH89rluXKjSO6ToteQnLneiVkbTvPXMjVxLApar2yJO5rBr40dzw5uaI?=
- =?iso-8859-1?Q?g5UO+5f7OsoNfARCmX2PbRm2PxtoJItca88a+zCNpF+DuYl0alKIDZu9N4?=
- =?iso-8859-1?Q?JxZjP+FKntPT1z4/Ow9reD6Nme+bGRzq//8FzC6Y5hyK2NtxZiKrpIUWI8?=
- =?iso-8859-1?Q?4h/9URIrpMfX4stzE+WbSfomZQhZI7auBT/Bfn1rx4Q8oO4PB+yFkjwS3D?=
- =?iso-8859-1?Q?0aUwEywbKZkvHF0P0CeCqYHCr7w5nnOGJOtMDzIGVnKJV1WD6RkdaVwen8?=
- =?iso-8859-1?Q?DEGzLJzXvDS3OqPJdwfh7XWhPCxySFWYD3MvjtahHWG3yEJyEnTzIv0nEb?=
- =?iso-8859-1?Q?L6G5H7m0BPkSfn5jrG5RwwmUFihaiCL5PLDkc3QEW1KQP2Y0FjgZWrW05f?=
- =?iso-8859-1?Q?oxaK8J4zvsoUyCRRq+WqJIs3K7ELi3qQtitmEyx4DjamT5Pk/j8pJxbLIw?=
- =?iso-8859-1?Q?jsDyTRC9fxeK72rYNMOqpVAJoTEklxbvaXjFPucjUsAevBUjJ1UUE5f3wX?=
- =?iso-8859-1?Q?yVqmOHPJ17rqDhqBwzp+N3G5OgOM9sPg9+qHiPE/RZe2rgPgx14wYpAwd0?=
- =?iso-8859-1?Q?o2wIXIHlOxM6Bsby7TspdB/O8mn8ZwujD0CMyta/j2aAU0IC6r2B8/dFgv?=
- =?iso-8859-1?Q?9hCjz7YAj9rfw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(35042699022)(36860700013)(1800799024)(82310400026)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 14:53:03.6998
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd398730-b985-461f-d365-08de36697d7c
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001AD.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5485
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <47070C53-9EAE-48F8-BACE-B554BAF2DFA2@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 08.12.2025 15:51, Luca Fancellu wrote:
+> Hi Jan,
+> 
+>> On 8 Dec 2025, at 14:48, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 26.11.2025 14:47, Jan Beulich wrote:
+>>> No architecture using it anymore, we can as well get rid of it.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> Should we also drop common/symbols.h again then, by moving its contents
+>>> back into common/symbols.c?
+>>>
+>>> --- a/xen/common/Makefile
+>>> +++ b/xen/common/Makefile
+>>> @@ -74,8 +74,6 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+>>> obj-y += domctl.o
+>>> endif
+>>>
+>>> -extra-y := symbols-dummy.o
+>>> -
+>>> obj-$(CONFIG_COVERAGE) += coverage/
+>>> obj-y += sched/
+>>> obj-$(CONFIG_UBSAN) += ubsan/
+>>> --- a/xen/common/symbols-dummy.c
+>>> +++ /dev/null
+>>> @@ -1,24 +0,0 @@
+>>> -/*
+>>> - * symbols-dummy.c: dummy symbol-table definitions for the inital partial
+>>> - *                  link of the hypervisor image.
+>>> - */
+>>> -
+>>> -#include "symbols.h"
+>>> -
+>>> -#ifdef SYMBOLS_ORIGIN
+>>> -const unsigned int symbols_offsets[1];
+>>> -#else
+>>> -const unsigned long symbols_addresses[1];
+>>> -#endif
+>>> -const unsigned int symbols_num_addrs;
+>>> -const unsigned char symbols_names[1];
+>>> -
+>>> -#ifdef CONFIG_FAST_SYMBOL_LOOKUP
+>>> -const unsigned int symbols_num_names;
+>>> -const struct symbol_offset symbols_sorted_offsets[1];
+>>> -#endif
+>>> -
+>>> -const uint8_t symbols_token_table[1];
+>>> -const uint16_t symbols_token_index[1];
+>>> -
+>>> -const unsigned int symbols_markers[1];
+>>>
+>>
+>> Now this is (to me at least) absurd: I'm removing a file, just to find the pipeline
+>> fails because cppcheck doesn't like docs/misra/exclude-list.json containing a
+>> reference to a non-existing file.
+>>
+>> I'll amend the commit with
+>>
+>> --- a/docs/misra/exclude-list.json
+>> +++ b/docs/misra/exclude-list.json
+>> @@ -170,10 +170,6 @@
+>>             "comment": "Imported from Linux, ignore for now"
+>>         },
+>>         {
+>> -            "rel_path": "common/symbols-dummy.c",
+>> -            "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+>> -        },
+>> -        {
+>>             "rel_path": "crypto/*",
+>>             "comment": "Origin is external and documented in crypto/README.source"
+>>         },
+>>
+>> but I think such tidying should be optional.
+> 
+> Can you share the error? 
 
-> On 8 Dec 2025, at 14:48, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 26.11.2025 14:47, Jan Beulich wrote:
->> No architecture using it anymore, we can as well get rid of it.
->>=20
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Should we also drop common/symbols.h again then, by moving its contents
->> back into common/symbols.c?
->>=20
->> --- a/xen/common/Makefile
->> +++ b/xen/common/Makefile
->> @@ -74,8 +74,6 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
->> obj-y +=3D domctl.o
->> endif
->>=20
->> -extra-y :=3D symbols-dummy.o
->> -
->> obj-$(CONFIG_COVERAGE) +=3D coverage/
->> obj-y +=3D sched/
->> obj-$(CONFIG_UBSAN) +=3D ubsan/
->> --- a/xen/common/symbols-dummy.c
->> +++ /dev/null
->> @@ -1,24 +0,0 @@
->> -/*
->> - * symbols-dummy.c: dummy symbol-table definitions for the inital parti=
-al
->> - *                  link of the hypervisor image.
->> - */
->> -
->> -#include "symbols.h"
->> -
->> -#ifdef SYMBOLS_ORIGIN
->> -const unsigned int symbols_offsets[1];
->> -#else
->> -const unsigned long symbols_addresses[1];
->> -#endif
->> -const unsigned int symbols_num_addrs;
->> -const unsigned char symbols_names[1];
->> -
->> -#ifdef CONFIG_FAST_SYMBOL_LOOKUP
->> -const unsigned int symbols_num_names;
->> -const struct symbol_offset symbols_sorted_offsets[1];
->> -#endif
->> -
->> -const uint8_t symbols_token_table[1];
->> -const uint16_t symbols_token_index[1];
->> -
->> -const unsigned int symbols_markers[1];
->>=20
->=20
-> Now this is (to me at least) absurd: I'm removing a file, just to find th=
-e pipeline
-> fails because cppcheck doesn't like docs/misra/exclude-list.json containi=
-ng a
-> reference to a non-existing file.
->=20
-> I'll amend the commit with
->=20
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -170,10 +170,6 @@
->             "comment": "Imported from Linux, ignore for now"
->         },
->         {
-> -            "rel_path": "common/symbols-dummy.c",
-> -            "comment": "The resulting code is not included in the final =
-Xen binary, ignore for now"
-> -        },
-> -        {
->             "rel_path": "crypto/*",
->             "comment": "Origin is external and documented in crypto/READM=
-E.source"
->         },
->=20
-> but I think such tidying should be optional.
->=20
-> Jan
++ xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j16
+ERROR: Issue with reading file /builds/xen-project/hardware/xen-staging/docs/misra/exclude-list.json: Malformed path: common/symbols-dummy.c refers to /builds/xen-project/hardware/xen-staging/xen/common/symbols-dummy.c that does not exists
 
-Can you share the error?=20
-
-Cheers,
-Luca=
+Jan
 
