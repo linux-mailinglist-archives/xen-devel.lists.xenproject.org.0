@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CD75CAD5B3
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 14:59:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180682.1503825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86135CAD5B6
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 14:59:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180688.1503835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSblI-0007nT-Q0; Mon, 08 Dec 2025 13:58:48 +0000
+	id 1vSbli-0008BB-0h; Mon, 08 Dec 2025 13:59:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180682.1503825; Mon, 08 Dec 2025 13:58:48 +0000
+Received: by outflank-mailman (output) from mailman id 1180688.1503835; Mon, 08 Dec 2025 13:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSblI-0007ke-N0; Mon, 08 Dec 2025 13:58:48 +0000
-Received: by outflank-mailman (input) for mailman id 1180682;
- Mon, 08 Dec 2025 13:58:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vSblh-000897-U3; Mon, 08 Dec 2025 13:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 1180688;
+ Mon, 08 Dec 2025 13:59:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSbj3-00055Z-Kw
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 13:56:29 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b11265df-d43d-11f0-9d1b-b5c5bf9af7f9;
- Mon, 08 Dec 2025 14:56:27 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-42e2e445dbbso2091462f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 05:56:27 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d2226e7sm26734980f8f.27.2025.12.08.05.56.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 05:56:26 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1vSblg-00088x-NB
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 13:59:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vSblf-0005fq-2x;
+ Mon, 08 Dec 2025 13:59:12 +0000
+Received: from [2a02:8012:3a1:0:55c6:6c20:a76e:cc19]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vSblg-005Qx2-02;
+ Mon, 08 Dec 2025 13:59:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +39,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b11265df-d43d-11f0-9d1b-b5c5bf9af7f9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765202187; x=1765806987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k/Mwj4VDCQF1kv1iPIWkt2u1vsM6KWzStKn9r48K/nk=;
-        b=Xm6IYm9QQZGf1Fqv0ghLWuNJtZz0BoTN37L6y31Y8YYbdUj6ovveIy4uGugkybCssS
-         Ku9MDBffP8pOUGvl+Au6GAXfU0AZaXqA6pvFPK76vJgZDu1leysSgAxB1LLC9whUgpw+
-         BW3JsLvcIkOL/iaDYucUDbpF894FAaf9dtjEiVlhs9Z4jyITG3cJQ1zNPt3UyLnhEs0V
-         Rb4RjpJdunZha2YB7g+22dW+Qsfc7Ir7otdWmYVorEGVfBTtLQuWjfw2e2FW/TPuEyIM
-         x8fG/j+8ENABP4LTAm3ffXDMHOnCkk/bB5t6B9gWSJzdOWPqQPuhMWmglwfTPmwjmWxx
-         K9yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765202187; x=1765806987;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k/Mwj4VDCQF1kv1iPIWkt2u1vsM6KWzStKn9r48K/nk=;
-        b=izXxs9FdlyDSx2v3+ppNmc8x/k5p2SeIWouexYEUw9kCsJks8ZIcpnXRrU4Nr55nbb
-         6FgSvtILsg/BJMkJtQsG9Tsg4Mu+VEzi3wm/R8/0C59/4xuuaoK1pZ+pPwY54KVpqccB
-         AFzw7Bst2xWD9W8FAgo9A8MdUAuo0xMhrWwFVuupD3JUgCDBIIraZ8tClVVTNqAVo5SO
-         BC00TsCZVnv6TkZmtLq9qlHg/CUir2QnYV3ZnwFm5TC9wG9THHCRKpG6eet0WAx5C7m6
-         q3uKgJiJBnux1jQZNlrheepuaiIa7Ysd36upIY7cj+p259KVrpP3kvtPyI5Y+C0u+PSA
-         ZMjA==
-X-Forwarded-Encrypted: i=1; AJvYcCXc7DvwiZ+j4V5A/lBxXgcXJKita7kJlIXzkFYVUanqb58oc9AKZvr3dG788tUE212u6oQb7itwcHU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUlyaBAF1aXI89GLYUjnSxJ/TpJzzPbrDrQgnLxdJ37Tx66Ruh
-	Q0Qwl8MSK82aFC8YrbDWvUFVnmqBmMClhUti+kBEQGJNyFzup6z+kKACo1bI0uh9mA==
-X-Gm-Gg: ASbGncvFCZkt+8dFW4P7nhVlrqOx21ElL2QQiVsLXY5eHLcBwhAWiN6oq2H8WUlaDgS
-	zyPfFahX6xKtzP9QoAVooX19yCCamCW0QscJaLo1miCPCM6UJN13SmesaAv7pH8sBIjSY3cq+n2
-	fwQBs2ir4zod4sMcf4GpaBt9fj9f5LGpbETyad1oZ5xyONuKps/oI31b++ANSlhdk3vgpx0Ffyx
-	qo0Atzs9FaUItYGg6EwGZUyZxs+4v4mbCn8ucXkCsILXX74W5yaDlDrgXwIP82l4IVOSzP8PDID
-	I1CRZrjc/0ZrmpdQXaoWIw3wGc4oPzjvYQ49O3wo3d2974RGmthaA4zk/is0YiMslPV/b7JQ2Ee
-	0M5bqrn2esllqttYFUktJ7J4a7Uy4EyN6lfKiMcRaT5cimYoZnkjIGYPEbrsaewYP0j5AsQWPXI
-	EibNx8TlGBVBjKp9Ju8UTOc6yxzIoN0saNvv2AZyIo7YbNlT2X8J/c5WbsksulEi2NwJsmUKxUi
-	gfyLUBRf/5tNg==
-X-Google-Smtp-Source: AGHT+IG/Hmsmox7FWhsIrOVeaINQYewYNUrSEiuE2UMmB6AoOdefsVznMW5LQyC8kh8IfVXY5I1Y4g==
-X-Received: by 2002:a5d:588c:0:b0:42b:3b8a:3090 with SMTP id ffacd0b85a97d-42f89f12857mr8332324f8f.23.1765202187263;
-        Mon, 08 Dec 2025 05:56:27 -0800 (PST)
-Message-ID: <f1964926-9b83-46df-838d-def42b0d7a53@suse.com>
-Date: Mon, 8 Dec 2025 14:56:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=q/gSLT5W0HlftcxYBIBbJXKMODHmxNE5EDQl/nus84U=; b=NJDKoXM/J8l6hlbivxITLle4UH
+	W6UqNerhPTIYVpD5pQMs7WFsh6tjEFOotTSvf7VzE4GR6kB0QsbB9krgtXAd8ikzcW9nUDGNtZID0
+	l14/gQ4VSbvOgRRYSbSw1ji/7I1BEsAYsZ/vMIOVW/d9cz55ykCooCryXOXE2lbHdhtM=;
+Message-ID: <f7ea4b88-6f15-4608-9918-227bf9c82e3b@xen.org>
+Date: Mon, 8 Dec 2025 13:59:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/2] Do not attempt to workaround older binutils
-To: Frediano Ziglio <frediano.ziglio@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Frediano Ziglio <freddy77@gmail.com>,
- Demi Marie Obenour <demiobenour@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <20251208133945.61375-1-frediano.ziglio@citrix.com>
- <20251208133945.61375-2-frediano.ziglio@citrix.com>
+Subject: Re: [PATCH 2/8] symbols/arm: don't use symbols-dummy
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <bd689f02-3e6b-4d15-aa1d-d757a9ee54a8@suse.com>
+ <f89a3d20-8194-4dc2-a38b-8788c070cd90@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251208133945.61375-2-frediano.ziglio@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f89a3d20-8194-4dc2-a38b-8788c070cd90@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 08.12.2025 14:39, Frediano Ziglio wrote:
-> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Hi Jan,
+
+On 26/11/2025 13:42, Jan Beulich wrote:
+> In particular when linking with lld, which converts hidden symbols to
+> local ones, the ELF symbol table can change in unhelpful ways between the
+> first two linking passes, resulting in the .rodata contributions to change
+> between the 2nd and 3rd pass. That, however, renders our embedded symbol
+> table pretty much unusable; the recently introduced self-test may then
+> also fail. (Another difference between compiling a C file and assembling
+> the generated ones is that - with -fdata-sections in use - the .rodata
+> contributions move between passes 1 and 2, when we'd prefer them not to.)
 > 
-> Older binutils versions do not handle correctly PE files.
-> It looks like they could work if they don't produce debug information
-> but they mess the PE file in other way like putting invalid
-> flags in sections.
-> For instance they set IMAGE_SCN_LNK_NRELOC_OVFL flag which should be
-> set only if the number of relocations are more than 64K and not on
-> executable (while xen.efi is an executable).
-> Although some UEFI implementation do not check for these minor flags
-> we should not allow building not working artifacts.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-The sentence is self-contradictory imo: When "some UEFI implementation
-do not check", what "not working artifacts" are you talking about?
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-> Also different tools will complain about the format (like
-> objdump and strip).
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Cheers,
 
-As said in reply to v9 - I don't think we should be taking this step
-unless we can prove the generated binaries to be entirely unusable.
-Which, again as said, contradicts my personal experience.
+-- 
+Julien Grall
 
-Jan
 
