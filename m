@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C96CCAD334
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 13:53:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180473.1503644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 131ADCAD359
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 14:01:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180484.1503656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSajV-0006Xa-03; Mon, 08 Dec 2025 12:52:53 +0000
+	id 1vSarp-00005K-QQ; Mon, 08 Dec 2025 13:01:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180473.1503644; Mon, 08 Dec 2025 12:52:52 +0000
+Received: by outflank-mailman (output) from mailman id 1180484.1503656; Mon, 08 Dec 2025 13:01:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSajU-0006Ul-Tl; Mon, 08 Dec 2025 12:52:52 +0000
-Received: by outflank-mailman (input) for mailman id 1180473;
- Mon, 08 Dec 2025 12:52:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSarp-0008Tx-ME; Mon, 08 Dec 2025 13:01:29 +0000
+Received: by outflank-mailman (input) for mailman id 1180484;
+ Mon, 08 Dec 2025 13:01:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSajU-0006Uf-0H
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 12:52:52 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd57b157-d434-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 13:52:49 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so35741095e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 04:52:49 -0800 (PST)
+ id 1vSaro-0008Tr-JU
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 13:01:28 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01bea7ab-d436-11f0-9d1b-b5c5bf9af7f9;
+ Mon, 08 Dec 2025 14:01:27 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b47f662a0so2733190f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 05:01:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7ca4f219sm24132051f8f.0.2025.12.08.04.52.48
+ ffacd0b85a97d-42f7d22249esm25460056f8f.25.2025.12.08.05.01.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 04:52:48 -0800 (PST)
+ Mon, 08 Dec 2025 05:01:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd57b157-d434-11f0-980a-7dc792cee155
+X-Inumbo-ID: 01bea7ab-d436-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765198369; x=1765803169; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765198886; x=1765803686; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oSfNQs/aaSi3hksy2OevppyStjwcZ9spCScFVOT4tUQ=;
-        b=RRTNABqIu3iaqsQp5QT/0PLAyp7Fw4fjmU+3Q0O1er0tgvrtzNmN/PnTmce0cWUCy8
-         457sgG5WMAs0gNHd+gvc8EMCoNMpmI1ODc8D/mwB1UeSyNIDvD/cAI0Z6T19XJ2I+fJ5
-         0e/JwGMg7uRLp6nrt62Bs9O5BZ7ZjyvtE5j699qRZfivii76cxz9zMOLkcH88okDBSwI
-         s4l+sSpd0jyFRcUFatiwYjCjMKaiNg/UDTWj45ZgOaorpbyjhzJvB3BGMYElRHo+Bn6Y
-         LM/a0Cms3KZxE9T6XqOenXx43xs5tMgN4ToAzOdW9K1DQboXFDCMkuQzTJ/vbONzriyF
-         msMQ==
+        bh=WXy6jB9yw+ZVDKGg8hvPvpGfExTmpiiO7+onUVRR1es=;
+        b=CGhmFJ2D+Chl5ZGaOkZpcATZSOGKm6gK0Rvmx51dVyjbdEvxKWJ0ORJhHCCIaq1Bkq
+         EogC7g+zdj+Vk1kXHvPxioOCSXUocXphdzCjwiyyuVUP9IxOLYFCJ4FCMXDz5ahV5BRG
+         UMiw47pRM2DPRj9+gaUO7ks/5SOrvx0BRMMgaBUtaKvq5bOcAS92kmYZCqQu0G51qlXN
+         ZeCg9UKi0tLvRPA5wWTcFftCjyKh8bhXs/dZdFdCFcFOadRmsxN4DD/LBIvptBtFEiTc
+         eN1cnHilmYhz0kh2uJ7aa6GOpbHtGl1wTR8kwC5j0GAs/qBvK8GQLvCUuKI39g+3kks1
+         nFXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765198369; x=1765803169;
+        d=1e100.net; s=20230601; t=1765198886; x=1765803686;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oSfNQs/aaSi3hksy2OevppyStjwcZ9spCScFVOT4tUQ=;
-        b=IcXq5AvtogDrTPmcNJNKm1Hb5PzEU0I9NOwSAEg8/CciKkZ8cOFv+oou6tAHqYjl9E
-         //75xsLLj7bhdxJf5/MyOyiQR18mcxIeP9pwhjrY637+7VwenImk99xAFfOsJcnzHOV1
-         vomuzz6zQT6MRFS1hwbBCokpapAxSaV6uS7o7dOLobP9JTMmtaVHPSUooXIPJfLmPcEF
-         bS92LNfddUCqP5mpaurEPDW5W+WwcCT6GL9n21LYig5PBz7dktfDbA8HybvlJxNwNZTp
-         UySbt0Pw5Eqk7xZLze77MXAAO1fiatCF1KZoPuDj65Qfrhi2WwRI7hYV4+Wv9Gu7He5W
-         8VXA==
-X-Forwarded-Encrypted: i=1; AJvYcCUT4uZq8WQMYiMGF7vNtyRr526OwXOelb8MIHblN6MBAx1h5Sryo6kZhCdLruutnXgl4eK3w2F096E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdzzTIL4PCrgqF9ITkBqhuKVRaByPu3s0viwbU1S9BWWTS3pp5
-	SzlzpfX94scNpY3AXuGwFXrkDGQ1DHjJSkvC0khFA/kWi0+qtEk4+0O5HnJKJqJwPw==
-X-Gm-Gg: ASbGncummDfPCSMqibDT0WRJYGVjzuG2T6XSimiMBugANLmj2ixEzj8uy/BFyNCi6hq
-	+ab0+4WqIj37gD1H+us2VqMHb15+7zR/fw2o4c+coBxJxWturBHlEtcN4u/omj+cCKCoCBADyT3
-	wQ53wLiJ/fqUUu7zR9ezbsCIJmBaZlHErwdXQuEO96Yn4qaFr9GTXCHs53aboWTkI+Dnr82AEQB
-	+hSkuFskBUwg2ocjnLWTa6jk5KiTO5HJm4x+h1nTEHf5tsGqSdU0qQdxGtmBmSnutzpRnlTBcvG
-	NJVGoQcX8O6X8NWmmNJ8zyRnv7KI68hr3D9ry4J0w+L7UxIh9ECFbgg9eCGa6sS8OYpsqfCnYY5
-	GvcvQDQKmwI/fEU7Vh+sS1B4pokQW9YmupP8FDZBQ2PdxXw9lF5dlWx6y7mb6vU1KTteXNGtRsI
-	ZxNSh4s4ZIVngCVm0MF1RXAj/U1+syw2H/gskX2+Y0jNWNnx/nr18t5MpkCdgYl9oldVe56XPQL
-	P0=
-X-Google-Smtp-Source: AGHT+IFVlJp+L80mm2IFLL+d9DUEpMcZKNfIpuBYDDLe0E5w+g28TEwCC05Ty+TpBFNOYkBnGacCEA==
-X-Received: by 2002:a05:600c:5489:b0:477:7925:f7fb with SMTP id 5b1f17b1804b1-47939dfcc18mr90740845e9.10.1765198369244;
-        Mon, 08 Dec 2025 04:52:49 -0800 (PST)
-Message-ID: <796783b3-0727-4375-bec1-0e6a18a2a582@suse.com>
-Date: Mon, 8 Dec 2025 13:52:49 +0100
+        bh=WXy6jB9yw+ZVDKGg8hvPvpGfExTmpiiO7+onUVRR1es=;
+        b=Z9N7Fsh3z/ztvup+zbTfhXDqFQnVK32dBZTsMIcnWAZRE2ah2+THYKEV0Je4GPnEMg
+         Xw8paAXxzwQnUA/alRRuZAVJ5e6rCUJk1ZQDwXwPL0viKW7JlYY3u5IlJbC8p1v/9dOM
+         T8Tc+uwrSfsJMfDzrBFjYMuDovZ2UWKQP9uN0yYGhZ/1Fodu9y1PPONHdOy63eD6iws+
+         MUWpIjsGkf/S5XRyQ4C96fQGn2IoeeIDoqex0xNix3wVMkk3zQ72ekIIp7YO32Wt0DCI
+         XDuQBrTSfqvvyAAHMMxVdkdzAx77BmOmHXwkrFCX42I6e74fH+L1ihB/RhEWJ9GIquJ1
+         ha9g==
+X-Forwarded-Encrypted: i=1; AJvYcCVbH+ttsDIZqLGKtfopbeMkRncmavk0LJ+bMvvwNUJT6uz6OMNjfBMj81jxAP/doPzwOxAi3RyrAmk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+hRa85D8n1J9vBz1NqNcO+uxixNrX1H5hVVEhwc5R/0TYxBE5
+	HvGJqdELVmOdR6vwEwLTwhK+XVTpVyudwNCHshpreg9sPb8TfUmbvWdoCtXJ3k5x8g==
+X-Gm-Gg: ASbGnctQRfmvHkVxilGATjdneAvtShh9B2lppM2tK1Re207dF04ds/W+mIvR3xrsAPu
+	sB800I4sPqf7gC4j83ip201pl+wZcHZTyxl00RWpLdQNAkMyel6JvXd6PhkMjNc6LaM9WY3aP/N
+	1bjJsAd2Cg28BnEaeGfj2aakHchzyHOj5HLmjVx51JTtouUUnfcpP3x8ASYVpIBtiGYG1Ai4dt5
+	5TTsb3IO6IAMxo7qzoY5lvbvOzZFCKqE8gNpSzTnhisvYkt3jzyKKjgJMeBWd6DoAxjp33b+MEq
+	FROtTy6AMvexEv+FmYvOpiEZcq2/daLed+Dgh4ruVkyIaoWrh6Yr2EjYVAQK8Rk8+vPyqGeAuHI
+	T5V5mO5SXO6eb0mYwBqy3WWEmv3M+hUwgwTREAIaqYC95mvyqs77Fm8/YUh62QXFQbyo0JAjRUw
+	sg3ir3lqeWbc88V9ctlrkmCfZtp5WC3iESDL/700Ak9oSBhW0zqitFgrJKTFoNjogU+TZQ2umIJ
+	d5GtV7UhJ1yrA==
+X-Google-Smtp-Source: AGHT+IEYVlXRgTNW/aZRF8MyAzZsLqRqo2xGsD6IbRuJjxUf65oqQe9WdTxQKIWiAylfZlXk84ahYg==
+X-Received: by 2002:a5d:5d01:0:b0:427:374:d91e with SMTP id ffacd0b85a97d-42f89ec5df5mr10446779f8f.11.1765198886471;
+        Mon, 08 Dec 2025 05:01:26 -0800 (PST)
+Message-ID: <744ccf37-db6d-4fa7-95ba-36c1d54f493f@suse.com>
+Date: Mon, 8 Dec 2025 14:01:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] tests: fixup domid test harness dependencies
+Subject: Re: [PATCH v1 2/2] tests: introduce Tests.mk fragment
 To: dmukhin@xen.org
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20251204123712.721443-1-dmukhin@ford.com>
- <20251204123712.721443-2-dmukhin@ford.com>
+ <20251204123712.721443-3-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,71 +121,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251204123712.721443-2-dmukhin@ford.com>
+In-Reply-To: <20251204123712.721443-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.12.2025 13:37, dmukhin@xen.org wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> There can be multiple test harnesses per one test target. Fix that by
-> iterating over all prerequisites in emit-harness-nested-rule().
+> Add new make fragment for unit tests with auto-generated test harness
+> dependencies.
 
-This reads as if previously there was no iterating, and you add some.
-What you do it further parameterize the existing macro. That anomaly
-actually looks to reflect itself ...
+Why is this (going to be) useful? And what exactly does "auto-generated"
+refer to here? Not ...
 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  tools/tests/domid/Makefile | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/tests/domid/Makefile b/tools/tests/domid/Makefile
-> index 753129029ed9..1a2129d20655 100644
-> --- a/tools/tests/domid/Makefile
-> +++ b/tools/tests/domid/Makefile
-> @@ -14,16 +14,18 @@ $(shell sed -n \
->      's/^[ \t]*# *include[ \t]*[<"]\([^">]*\)[">].*/\1/p' $(1) 2>/dev/null)
->  endef
->  
-> -# NB: $1 cannot be a list
-> +# $1 target
-> +# $2 list of test harnesses
+> --- /dev/null
+> +++ b/tools/Tests.mk
+> @@ -0,0 +1,34 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Unit test fragment.
+> +#
+> +# Copyright 2025 Ford Motor Company
+> +
+> +define list-c-headers
+> +$(shell sed -n \
+> +    's/^[ \t]*# *include[ \t]*[<"]\([^">]*\)[">].*/\1/p' $(1) 2>/dev/null)
+> +endef
 
-... in this comment. According to ...
-
->  define emit-harness-nested-rule
-> -$(1): $(CURDIR)/harness.h
-> -	mkdir -p $$(@D);
-> -	ln -sf $$< $$@;
-> +$(1): $(2)
-
-... the use of the parameter, this is the list of dependencies.
-
-And then, how does this make any difference at all when ...
-
-> +	mkdir -p $$(@D); \
-> +	for i in $$<; do ln -sf $$$$i $$@; done
->  
->  endef
->  
->  define emit-harness-rules
-> -$(foreach x,$(2),$(call emit-harness-nested-rule,$(CURDIR)/generated/$(x)))
-> +$(foreach x,$(2),$(call \
-> +    emit-harness-nested-rule,$(CURDIR)/generated/$(x),$(CURDIR)/harness.h))
-
-... you still hardcode the exact same file here?
-
-As an aside, imo this would better be wrapped as
-
-$(foreach x,$(2),$(call emit-harness-nested-rule, \
-                        $(CURDIR)/generated/$(x),$(CURDIR)/harness.h))
-
-or even
-
-$(foreach x,$(2),$(call emit-harness-nested-rule, \
-                        $(CURDIR)/generated/$(x), \
-                        $(CURDIR)/harness.h))
+... the use of this construct, I suppose? When we talk of auto-generated dependencies,
+we normally mean what the compiler can be told to produce via -MMD. If you want such,
+why would you introduce (and now generalize) a fragile, custom alternative? (Fragile
+because afaict transitively included headers wouldn't be accounted for.
 
 Jan
 
