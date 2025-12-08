@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB777CADB58
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 17:13:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180927.1504024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40DB5CADBC2
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 17:23:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180940.1504035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSdrh-0004Gq-Az; Mon, 08 Dec 2025 16:13:33 +0000
+	id 1vSe0U-00067W-8v; Mon, 08 Dec 2025 16:22:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180927.1504024; Mon, 08 Dec 2025 16:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 1180940.1504035; Mon, 08 Dec 2025 16:22:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSdrh-0004Di-7l; Mon, 08 Dec 2025 16:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 1180927;
- Mon, 08 Dec 2025 16:13:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vSe0U-000660-56; Mon, 08 Dec 2025 16:22:38 +0000
+Received: by outflank-mailman (input) for mailman id 1180940;
+ Mon, 08 Dec 2025 16:22:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSdrf-0004Dc-6x
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 16:13:31 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5c6ba46-d450-11f0-b15b-2bf370ae4941;
- Mon, 08 Dec 2025 17:13:30 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so49656755e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 08:13:29 -0800 (PST)
+ id 1vSe0T-00065u-FB
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 16:22:37 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a4294c4-d452-11f0-9cce-f158ae23cfc8;
+ Mon, 08 Dec 2025 17:22:34 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-477b5e0323bso29493095e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 08:22:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47930920b6dsm269434355e9.1.2025.12.08.08.13.28
+ 5b1f17b1804b1-479311e712fsm255673825e9.9.2025.12.08.08.22.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 08:13:28 -0800 (PST)
+ Mon, 08 Dec 2025 08:22:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5c6ba46-d450-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 1a4294c4-d452-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765210409; x=1765815209; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765210954; x=1765815754; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gh3qUL4MQb25aPiqKltO/J2z0usckCTLzhS1znvJPMI=;
-        b=b7b600OC5Q22dlWkoq/mg69hXVAPxKi8mBnmmLknJAVuFZ7oQpauXCrScpS86sDj76
-         BF5gUe9ccWeyGq8KyxfCS3YjfM5lLJEuCvfR08jBiGgNzLG1PGd8ZM90oxUy+15KQWG4
-         xbxFzpwlYrH5HGqk0PEuSOZER+rI1oF6ZBVFCsN3xxFP4q+3G9k+ZdqDIOMTwPSMvUth
-         g2mmyQSlB7vpeSy2d5TRziYq0UN8HSRgghaL4bZ0tTZO8NS3j8pePAN5eRAWiYedYqZh
-         ejvJ9m9JALRseiYel5AyMoRI1RWdnxxftSJgvFsDh2uWh468OqARb30Sv1tlU5onX1BR
-         H1LQ==
+        bh=Mk8PxYWGsC5xpEbfFbAkZZOsjHO6VGK2YuOX+AiKTtg=;
+        b=bG2C+6UYPkpSJvO4Wa/QT3Hr3NTQd7F+pjoNM2m0zQQb1hhNIfmdM1EgEhiLH/vznk
+         nD3xWXMq/RN8dfqroX+tb+5AT6Myw1lNPJt6sKo1mlotmbXmovBOhU/P3u95O8wQhFvJ
+         RoSccDR9e1nsv6+tAvetsM1LObvbX+F4EnWczlRKoKaytWK0TygJtCyR0mU1fsra95sn
+         vK2fXCl6dKeFx3CoEYSD22KBYKRIPdlCh7sVOUuJLXYyWg8amD8KPnGJD/IjGldXe/tC
+         IGjaOiaf9Nfy6zmuT+8ikdckqqzRzWu/O5zD9tx+E3RKF1denuGYXRvnq7cUFXSparJ+
+         GV2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765210409; x=1765815209;
+        d=1e100.net; s=20230601; t=1765210954; x=1765815754;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gh3qUL4MQb25aPiqKltO/J2z0usckCTLzhS1znvJPMI=;
-        b=sUZjewsk2Lpttt5LpAjXXO48YKCr1xBJ0C3kg8027riZtogm3opasgdI6GguUw9OZm
-         +Q9i/WYMH0kXWnundbTt/zdXiDyE4bxNvsi2k0lERjkpZB6PvKRe7+8v+vwJ1kyqEp5s
-         vCjxlg+lTSVIbxW5Q6LVLBdnMyjF0nzQdUGm7+1KYK1IY+Oxe/giZUmAnTLmjmIAjRhQ
-         rpf6EPiNTvYLuvaf4fg8y3/WSKW3WS4tIlNnevucGuYh9MXLcyd0b5gwc7WlIew8Mc6g
-         ZnlcACSPDR20fBpOe1p2AjoJrhr+zoihG2oDwkQ6tjoM8r6Rb0gKMBd1C9hBngud8lZk
-         abxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUfp9CSkkAQuW5rd1JgiAmShzGLNmQXp4ualJoDZMVjHLxcq+uLphaTmXbPIdcqJVDa2Db5MRKxjMA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQh3JghQ7Kn278GTkzZtUuSYsoJx7NWtoLFFQWFgfShSwhra4E
-	eFb9pwWJ3+xaLTPrtXJf5PX9DJzVluBJ9355lWnd0Mkk3IiWBq+7OSx3xo0LwirvjQ==
-X-Gm-Gg: ASbGncuDtGwoLsPd/DA0TPUZBuWYIvVDqurNLkXfYSTaDGB4zTmzRoFKIladsYSDs8k
-	ap1/iKtjvJljmHia1D2IGX2z7Usu3snLhkTg94oyXmdtQfB7SlYs7yI7sI0TTkze8X8vauWGHXN
-	HClzKb6GDbyoM1IITBV6/hnxuaJ4qzPyWYB86k7fj7Rm593Nsh7SwKhfy4UFgA4J6v2pTrEyWvL
-	B84eD1UOQocNENaqih3K+lVfeXM9YKPLtZIi8rD3gweszSa98W3thxQ5f7CkUmizrbUn+aM2Cfc
-	6tj7T7FVfpLVReoGzOppH6LCVzhtZNDccguelZzVTFHuwbKUz1x6sYlOBUm8EKHwvW7WcjNKN+y
-	qsUUfFylldffYU11zqDC1qGT3l6nK2m2K55YSp6/CTk79cniaxTmDFPdZ5u/+iL0mqHPzxPP1jK
-	PO0aBGwzZvazu7UcopopHMMYPo8dG2cz8chwfDQUo7NCjeafAXyGsLYelWV8D5qWfOoZmo7rQsv
-	t8=
-X-Google-Smtp-Source: AGHT+IGIUIaZqlmHz3Ob8nEv/tYCWZzNzlCm9smYHG4to6GtklGeYl92TYjgsnWPqi0Slu10t+os4w==
-X-Received: by 2002:a05:600c:8b65:b0:479:398d:4bbf with SMTP id 5b1f17b1804b1-47939e03c36mr81507865e9.13.1765210409230;
-        Mon, 08 Dec 2025 08:13:29 -0800 (PST)
-Message-ID: <92dbeef4-6c86-42a7-b92b-21d91c987850@suse.com>
-Date: Mon, 8 Dec 2025 17:13:29 +0100
+        bh=Mk8PxYWGsC5xpEbfFbAkZZOsjHO6VGK2YuOX+AiKTtg=;
+        b=MBRVdrqjuNUdhPIvIc3MvrMAoGSaIMpMlnflymyN2fUpGaAdpZ0Y67VGLWzSVaWEdD
+         lY/GcFLkCv2N67yZqD8EtE+VUSteC8cEIZzRSd8gL860qgSlTl6vqJbaweXQcpBy+pyY
+         2DANv5B/FAp73ktR4ubUpoX1Hn5R9gJFj8mjL64GgvcrA18daz6lItHUSZzsu7ftBN29
+         kdyMrWT1uhgOfIqs8l3QX2dHjpwa/9V1Cfn6BxGWnQXIZ1PhWCicffc4Kp1uz16MqItV
+         ErBoL1dPGYZ49QX02EspppNHCLBxBbfMb2FfnIjmHHo9hzWlzCB2RLsx/ugyjliLlcRj
+         0rPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUGJiUQEByFhHPTQiKDx+tTnqfS/0PRpPaIEZs1XyJ3NMCVLpv00il7AlxNhRNuS6ktPHHzoMR3+Vk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyk3bhAHqYCdI+8VH29q9On7APwOVz9V9+R60/CGlvSDKUJaCpm
+	b7arMx4vr8UaiYUmJ5isa56/2DEhAxqHPpu9dxh0H2gy7R571asm/RKRdbsuAOqmeQ==
+X-Gm-Gg: ASbGncvcf+Dmg63bwnexrJNjML0J1AjOczRB35cbJpXIpjmyr6U5ZTxvAt5aksGTWQU
+	MkWlgzLgs8jRMzccvp8uFzFAdXagD5wsWEgv+hSLRRBGHTkOQduA3r0Khp5dN8ZGsw5imQ8MU/x
+	5UFL8X0pOB2x2IBoVgOTTN8+zPiOvg/VeW08JeBv4lik47I4TRwFFN3wIZJlXZoW7JHGxtDRwHz
+	Sv8W2TGgpkwhBOmvBgjfKXtx4MFz5bboh3ckpwtjV6fQKPRyFs1QgZYLm1SzVHLHXWZJWvKOvFr
+	l8O0XD8s2xMbhyOmmXLz9oUua9yS+jzMQ3Bmq7lTHnSesIwym9wqnHH4VDZaQ5RpaiJRiQwA4BD
+	0kWE1xOA1MkU+6FXovNc5pxmwD00+OseEBWqHFh7QfMW05blc8bljlWQbYwfnP47gkwkW0IvkHz
+	jDyuFXoNqtfId9HLWVZa17CmR+Z7X0/D5ijxKChaEzFSdWVsyY1ttRt2TztRSlDzpB3B3ih3wQU
+	6k=
+X-Google-Smtp-Source: AGHT+IGRkuWmQJ+83eh3oHAt1OCZfRX2hCw5BwjLsm57j4aXVvZtO+DhQ+gKch0ANCx3ZcQ4sLfwcA==
+X-Received: by 2002:a05:600c:78a:b0:477:75b4:d2d1 with SMTP id 5b1f17b1804b1-4792eb73092mr113938295e9.15.1765210953608;
+        Mon, 08 Dec 2025 08:22:33 -0800 (PST)
+Message-ID: <67c222b8-fafe-4af4-be5e-2eb4638af4cf@suse.com>
+Date: Mon, 8 Dec 2025 17:22:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/19] xen/riscv: avoid redundant HGATP*_MODE_SHIFT and
- HGATP*_VMID_SHIFT
+Subject: Re: [PATCH v6 02/19] xen/riscv: detect and initialize G-stage mode
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -100,7 +99,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <f2f2e4ad98ca11763a4b754b80ea79121468ee36.1763986955.git.oleksii.kurochko@gmail.com>
+ <0e32a6bd86828952d7494b8d49b48d512f53cada.1763986955.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,20 +125,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2f2e4ad98ca11763a4b754b80ea79121468ee36.1763986955.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <0e32a6bd86828952d7494b8d49b48d512f53cada.1763986955.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2025 13:33, Oleksii Kurochko wrote:
-> It is sufficient to use HGATP*_MODE_MASK and HGATP*_VMID_MASK without
-> the corresponding *_SHIFT definitions.
-> 
-> Rename HGATP{32,64}_PPN to HGATP{32,64}_PPN_MASK to more accurately
-> describe their purpose. The top-level HGATP_PPN and related aliases are
-> updated accordingly.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> +static void __init gstage_mode_detect(void)
+> +{
+> +    static const struct gstage_mode_desc modes[] __initconst = {
+> +        /*
+> +         * Based on the RISC-V spec:
+> +         *   Bare mode is always supported, regardless of SXLEN.
+> +         *   When SXLEN=32, the only other valid setting for MODE is Sv32.
+> +         *   When SXLEN=64, three paged virtual-memory schemes are defined:
+> +         *   Sv39, Sv48, and Sv57.
+> +         */
+> +#ifdef CONFIG_RISCV_32
+> +        { HGATP_MODE_SV32X4, 2, "Sv32x4" }
+> +#else
+> +        { HGATP_MODE_SV39X4, 3, "Sv39x4" },
+> +        { HGATP_MODE_SV48X4, 4, "Sv48x4" },
+> +        { HGATP_MODE_SV57X4, 5, "Sv57x4" },
+> +#endif
+> +    };
+> +
+> +    unsigned int mode_idx;
 
+Can't this move ...
+
+> +    for ( mode_idx = ARRAY_SIZE(modes); mode_idx-- > 0; )
+
+... into here? You don't use the variable outside of the loop.
+
+> +    {
+> +        unsigned long mode = modes[mode_idx].mode;
+> +
+> +        csr_write(CSR_HGATP, MASK_INSR(mode, HGATP_MODE_MASK));
+> +
+> +        if ( MASK_EXTR(csr_read(CSR_HGATP), HGATP_MODE_MASK) == mode )
+> +        {
+> +            max_gstage_mode.mode = modes[mode_idx].mode;
+> +            max_gstage_mode.paging_levels = modes[mode_idx].paging_levels;
+> +            safe_strcpy(max_gstage_mode.name, modes[mode_idx].name);
+
+This looks as if you were overwriting .rodata here (the string literal
+"Bare"). You aren't, but why can't the whole copying be a single struct
+assignment?
+
+Preferably with the adjustments:
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
+Jan
 
