@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29302CAE431
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 22:48:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181147.1504243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5363BCAE600
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 00:01:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181157.1504253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSj5x-00028J-1h; Mon, 08 Dec 2025 21:48:37 +0000
+	id 1vSkDq-0003tN-1m; Mon, 08 Dec 2025 23:00:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181147.1504243; Mon, 08 Dec 2025 21:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 1181157.1504253; Mon, 08 Dec 2025 23:00:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSj5w-00026s-V7; Mon, 08 Dec 2025 21:48:36 +0000
-Received: by outflank-mailman (input) for mailman id 1181147;
- Mon, 08 Dec 2025 21:48:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSkDp-0003rX-US; Mon, 08 Dec 2025 23:00:49 +0000
+Received: by outflank-mailman (input) for mailman id 1181157;
+ Mon, 08 Dec 2025 23:00:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NKnm=6O=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vSj5w-00026j-Dz
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 21:48:36 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4c8d14a-d47f-11f0-9cce-f158ae23cfc8;
- Mon, 08 Dec 2025 22:48:34 +0100 (CET)
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
- by AS2PR03MB10057.eurprd03.prod.outlook.com (2603:10a6:20b:64b::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=NZw+=6O=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vSkDo-0003rR-EK
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 23:00:48 +0000
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c005::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba735f2b-d489-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 00:00:46 +0100 (CET)
+Received: from CH3P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1e8::26)
+ by DM6PR12MB4387.namprd12.prod.outlook.com (2603:10b6:5:2ac::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
- 2025 21:48:31 +0000
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae%6]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
- 21:48:31 +0000
+ 2025 23:00:39 +0000
+Received: from DS2PEPF00003445.namprd04.prod.outlook.com
+ (2603:10b6:610:1e8:cafe::aa) by CH3P220CA0011.outlook.office365.com
+ (2603:10b6:610:1e8::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Mon,
+ 8 Dec 2025 23:00:35 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Mon, 8 Dec 2025 23:00:39 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 8 Dec
+ 2025 17:00:38 -0600
+Received: from [172.29.90.244] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 8 Dec 2025 15:00:37 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,264 +59,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4c8d14a-d47f-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: ba735f2b-d489-11f0-b15b-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fMo/sebzQFY6dZlfXrPG1rO55J+JfMEK4xbYMsmSKnqEp1LAQS/4IjiWJpcW/xjIRs9dgFKQvAZ4KqSH7OEqgt8Xe4irf7X9woPCeJycfjp0txNayuZZ5G1Nn5eqzpYDVAOMa/DwGnRzjfkLwcHkHkMUYHpiJj19M/IyvoDWv3Z1Z7cH5ZiH9/3kwCiYnQ3lPCJFhxexqww8dBHTowvwoK+NmUWmhOlyDk54RnjdKROOhpNFJH0HAlJ2zpFezcEPAP4Jcd9+Z1iqpNRBu6pgRYUqqe52X4kjrC4RKkbYozmt10ko5CLUcvY2RcKGW2cNkDl2V7CpFbkQTX5qIw5VWw==
+ b=nVHoineSCpGhZmWYIj7Z+zT0TeRHQ3EapA7kWEkli3LbEt/YgeE2yVCXUKJNJYk8RqTsGOx6OiZd7Iif39y79ubeuaKwVQSKNd1lMxpRFiMr2JhGOgk8ttoIFCENaOiDmT7wmpok9MGEz78ZnnP0NoN/2g5cCMAH7aA0/CYVTvxNIX/UF1cG0ITmkx81cIcFEF7hK6773bzJKcHZrjYEO2BUS4oZVuSg6NMJ11mnn9GIvVoqtxo7ICe6iZiYC8hKN1wP3GlTvKvVSbq896AzX2vZO4lI78yVn5+WeYph3rpbJq+vV5fw7xLJZefAgkOczkfGDXUdq9HbYD/WXIJLGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HgeCzMJRWhWLkcmzsPeMXpR6mNV21H/+zRDJWNcFt58=;
- b=cbqBJjL0/+wzQrkz8L1spN1YTNevFGMFk7pQXSMdypGA0jKEDFZ5KEOtUTA6i/WzwFe2Wmnvrs8xp+PrcQMPiQvGWS4opzT7iIUSj7iJC+uk3xvZZskS8fra1fVY+VLejO9rS6RTaULdFMpqUcS9axX2Oy6YjfrqYmneo7kzBoXq/lFBAVZ7JPP2HB6+YLjz4X0DOjNUSh+3kKvg6GAMrbBNr14DtmLjtQs1GlqbIhfUCbNtqw/ffUGR7CixxxiVnumHrZjjyM6siDUkDwgNiiTEONRKug8strzFeaVxmuAHrulpjUd9RahIBJapHr2h1CfYIYj5Dyl2e43mo2XvHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=1n+5BTEIBK43FX2PyPfouKdwJV5ikhIWV/5npraqfv4=;
+ b=GFY0w9pqCqyy3m4PA2BCB9ZOu5cPAjXjxcDmQ/MvNZzlqOgDM5V1rfDjPHvqDNI1MivECpIQwMRUEzLgt2VldsNemesTO0un+jBcEVt/5LlTGlSyrd2j9m7LyJr/gXzjaSJNy1ov9G4od4MgkZ/JJuO3ArgWnMwLWo7Lpbazl6EYNmG3hDFDUmCVi7nRCwNmEiJkjZpJVyLqxndYuw4SRqYvFAfxHQImptxO2UfrjvBoK+7u0vFJwqf9ahVknGP6DcNi9J6LBQt734VYPVwexBhJcqBcWOj/JHvlGDF01uPx/SlyBWV3GPVM8QvEWBLB75QTRtstzUcVLTIJMUc7hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HgeCzMJRWhWLkcmzsPeMXpR6mNV21H/+zRDJWNcFt58=;
- b=j6y9hnGcoGMeX4uSj1qPtJcZU+fubACvEHHr/ORf9iPTSBkupmYVvTjpgBAlDU8WTpghx+0PCtYCEOZdo7GiYmvJvSPiT+nlvKDuy31cu+ZviqroAfdmpLHE/kQRzvENUgRSon5CuGYxyJsU8Q2oCPy5ZwGy+gIOA2fPqYQdbwu9/JdKYn/xzpjSUdQRupQfLVUNPfBNozSFbKBcvw/kFRZFvNd/sQMCCQEO2iHz7qMu+7fmBHSiMoqMl6z5mb7AqAe/Ndj7niPAwf4CVUTIooexgyG8E3nlfQuSEydFDw7Kc+597r9bGczAacmw6u+tEcgmScYT/KdXZVs2MbY6yw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <7891d66e-cd51-4694-9926-cf8f62c3053f@epam.com>
-Date: Mon, 8 Dec 2025 23:48:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86: move / split usercopy.c to / into
- arch-specific library
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <f46f89f6-242b-4433-958e-36088e567ccd@suse.com>
- <12852eae-849b-4576-a8e1-85edf401b455@suse.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <12852eae-849b-4576-a8e1-85edf401b455@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA1P291CA0022.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::29) To AM0PR03MB4594.eurprd03.prod.outlook.com
- (2603:10a6:208:c8::27)
+ bh=1n+5BTEIBK43FX2PyPfouKdwJV5ikhIWV/5npraqfv4=;
+ b=R+Jz0FbEqgaSKfebY+U7fcUn9e6C75L9s7MbGtMW6T9LsiOxT7zZQqQOML2h1yPO+o2AAVC0yHWkscIXKMK3EtOwf1RARpQc+RPPGHVbbSzhmgI3TvKWEVu2IBQw8RdPGc1if7MEz9QiZoo5M9yWW4ZPozfNsis4R/QtTLpLTuo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <1675a966-1095-4aba-af74-828e4c68e6b4@amd.com>
+Date: Mon, 8 Dec 2025 18:00:35 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Grygorii Strashko" <grygorii_strashko@epam.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20251205222813.277164-1-jason.andryuk@amd.com>
+ <6c10dbc4-3247-4a0d-9953-858d09df08a9@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <6c10dbc4-3247-4a0d-9953-858d09df08a9@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR03MB4594:EE_|AS2PR03MB10057:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbddd457-e0cd-4aab-2cfd-08de36a3874e
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|DM6PR12MB4387:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0442488e-7c53-4fec-62ae-08de36ad9b11
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UnpldWVuMG5pMDl5U0hrOHk0UjJ3b285SFQ3d3pFQjdVcXRwS2pab3FCRWtG?=
- =?utf-8?B?a0tkTG5rL0lUc1ArVW01cmcxOUxscVVVZmIrV1dUb1A1anBvNGoreUF0UHZY?=
- =?utf-8?B?QTY2Q3pWNEtxZVMzMXAxTEZocHhxdytvV2RtaDdnaVljWERWOXpsWWxKMEFy?=
- =?utf-8?B?bU1iQ1VTenVxYTJIVUdrTUdTenJBSjluQ0t5NFJCUUo1TGtiMkZFYVQ4Vlp2?=
- =?utf-8?B?WHh5YlVZK2JHT2JLZlNLUHRRejFkd3JqOExnZVgwb3JBK0pPK1ROVFZ2Tm5H?=
- =?utf-8?B?U1pGOW01Sjk5L1NDOCtQcFBjYk9FcUw2dUR4ZmVWakh0ZEdrcjF4OTVLVGpV?=
- =?utf-8?B?cEFqZ0xWeEFWK0JQRGJWT1FFWCt5M1VuWHNiQnNRZE9ScC9ScmlNNGZaQXVI?=
- =?utf-8?B?YWtjRnlkc0FBM1dSQjBIK3M3bE1NWk9aUWNmR2hWcWN0aUhNSnUxWUpHTFU1?=
- =?utf-8?B?eXlPbVAydkMvZlhTNkxocmtzaEx3bmdiOG9Wb2lHK05FNzJGZ29pZVV2bUZL?=
- =?utf-8?B?enRWQUI3b01TYlhuWGRmQmtrZkE5cWJ2bzRJcElwdDJ2MW1xR3NMT0t5WlUw?=
- =?utf-8?B?RUtuZWNyQ0NDVVVzbFczbmsyVEw1dVlzekUvbGc0c0Z1N09FQUJQTWlEczE4?=
- =?utf-8?B?RVJKRVlyYXBJdk9TcklhcFA2c3NCbEFidGxiejBqeFRxQVQvNHNCQUhySVhx?=
- =?utf-8?B?THhLeUtDRW0xSEFIczlMRnFtZkNZblFkR1BsU3ArR2tqamZhSFp6b1JZNVMz?=
- =?utf-8?B?c2JOOHRIWnE1dzRQNlVKYzJSRGppUE5yTkNlWkFTOVZnN2hzaVFqVjYvZDZF?=
- =?utf-8?B?emNoWndZelVDcE9VZTdyS1NEVjZrMC93ZFQzZ21XdXdta0dTMXJWK0x5akp2?=
- =?utf-8?B?dWhITWVMSzFObEQ1cEp0SitQTDZSVTRCUTdHL3dyeWRmQzVGYllmdndMY1c5?=
- =?utf-8?B?aWJlb2hMYkJuQTJRczlGNG1LZkx4MTROTHlYQkpXbHo0WHdINitPZHdva3lj?=
- =?utf-8?B?dXFlK0pGM2laTTBWNkhxY3dEWm9QUVJmNUllWEYwOVFETzhKa2pzQnZMTk16?=
- =?utf-8?B?aWN6T0hDb3lQYVNQT3VLazVXaEhvbUNVM09HZGNnYXNLVnQzeFFhQUM4OWwr?=
- =?utf-8?B?b29oT1F2dmlsbWJmRy9OL2s2VWlEZ3NYelM4TDU2c25CSkUyK3hPbUJCKzYv?=
- =?utf-8?B?WldDVlI1WTEranFJYmNvODRCY1NCVk0xZWo4WjBlNWVhUmp6N0dmSGd3N3M5?=
- =?utf-8?B?K29oZjFnaUJnM2hCUHlONHh4NnBoSWZCMGhoN1l3SXdQdXBScU9Td2Y2cWJx?=
- =?utf-8?B?QjNhY0MrTVA4bXB5Uko3YzZuRlIxQlh1WWpKY3grb2ZCd2Zja1lWblR5QmJI?=
- =?utf-8?B?Rm9iZ1JMeWNDMDgzZTdvbExRRDBPdWVxT1ppelVlSGprTEhSaTd4QUpOKzA0?=
- =?utf-8?B?V0EreTAxYkU5RUVNWE80V2RmRnE4M1JLRk1WWTgxYTdRNDlnYXhsM3crTTZo?=
- =?utf-8?B?WW01WjEvNldxYzZrbGV4TkZxUU82c2N1azZCYlp2WWZsSEpwdjc4R29tZ29w?=
- =?utf-8?B?aTdFWXNDK3JnZmVqcDUyUlFTRC83V1hvWVBWeWt5N09XYlZXL043Qit4UU5C?=
- =?utf-8?B?T1pGRmJxZ0hpdUtlc1Z2NndFOVBTZU9rbERkamlUc2hGKzhLODM5Z09BQzMr?=
- =?utf-8?B?RW5zZXo3d1oxMzFybjRseUlONXhHTTJ2YThhYlZ3YTc2TjJaNm9mUlZZLzZa?=
- =?utf-8?B?bjNWNi96K0FRQitXbmFoSVJteFVRTGZnaUtkOGV0SEtCZHF6bEhNL20xVUZk?=
- =?utf-8?B?Vjh1WHNUbWllOHAvMFF4cnVyc09lMnR6TnZLV1FSTXNUam1Uc2FVQjdpNFhs?=
- =?utf-8?B?L2crbG9kVXZWK0VocTlBOHZCRjBNbTFKS0puaFE5TU9DcUVWVFQ5dmc3V2VS?=
- =?utf-8?Q?0MppUYantLvXjKCjrYXLCXx4k4lN773o?=
+	=?utf-8?B?MEJ2cVZaeW5aTWN4YmdhNG5YMkcyNWg4aVZScVQrRmVoQlFvVXpPY2tQWWhD?=
+ =?utf-8?B?amV2QzgzemVna1FrdjVwbFVsazk1SWE1V1RkM091Sk1VdXJmSVFqY1h1bzBH?=
+ =?utf-8?B?TzU1c0JsN2RDWDlkWjUxZ3pFWXoxZ2ZHMXR6eFR0K1NLUXRnNTlnZG50aEdj?=
+ =?utf-8?B?dDMvc1l0WFA3MU9PeXoyT2lRU3QrREZUNkRRNElma29neDZybThEVUhRVFAv?=
+ =?utf-8?B?VWp4Qm55YmZ4WGxNdzh3dk1OVGs3OUszbCt3VDY5R29TYmdteEczbkxoNXBx?=
+ =?utf-8?B?K0tiek91NDFTN3JsazFrbmhxVUpvQVRhRElQdytPUi9rVVpSYyt3b3Y1NmRR?=
+ =?utf-8?B?a21tVkpYYzZMU1hHYW80T3lnekxLQ2l0MDFIeTIwL0YzU0dMLzJSbEdoQU9U?=
+ =?utf-8?B?NTUzQ0JDaitlbG53SUJIU1UvcmhSUENaQzBSMkgvTEcyd0FBdEc2RHVDUTRy?=
+ =?utf-8?B?Rm9SaStTUjVYdjlUYzI0N2FkaDZRekpLdFZDUlIrb0IwY2lSZE1mS0tGdUYv?=
+ =?utf-8?B?dE1IbWlQNVdYVCtRQXMvNWYydzJKNEtOam90eGgxeHY0YnVzUStkN21KY0VY?=
+ =?utf-8?B?NFFuemZMbW9Wck45eDd5akhRRjJDNEVob1ArK3p4OVlqS1QyLzMrNHdqN0ht?=
+ =?utf-8?B?MStrODBTVlZMNlIzV29NdnY5WlNBRlFOSURaYm1RRjBZUDZnejlEMzZJeC8v?=
+ =?utf-8?B?NXZlWWtIUFg1UmhkYXVNYnBpWWRLN0lFcng3R0d4SXR0MFI4UTgrcmdvZXEz?=
+ =?utf-8?B?V1UyTW9zTFBCR2xKYWFBOVZiakRyZ2pOdlBoMFI5bUtPTDg2N20yME5CcEFT?=
+ =?utf-8?B?U04yUXlWcHpxTWdIL0dLV29DMzBadzBqVkhudzN4VmxrbEt4MUI2WWhCZUty?=
+ =?utf-8?B?QXZpVzVOWWpGblVHQzBYekI2ZGhtVnY5bVZ1UnlKanphM3o5K2xjWE9IZGFp?=
+ =?utf-8?B?RHZMR0JRSC9ScUFsZlBkUktiU3h0eUJkUTh3SHNEOEtLU2JpS2NMRTZiRVdS?=
+ =?utf-8?B?WnFqeVZKYWd3aVBpNHdPK056dS9rWThRS0tBU29lbTQ1a0Y4a3RHekw3Vy9O?=
+ =?utf-8?B?cHlvRmNGNXNFZXlRU25paEMrQktuU3JKWTdrYklDVkN6QkxhcEtYMjAzd1Ay?=
+ =?utf-8?B?Nk1rdzlhWmp6b0hvbkZ6MVYxMGY0bmFVeDBTTWxnUlZXdFIvWm5vUkd0aDRH?=
+ =?utf-8?B?OGE0ZEVoUGpGci9zVmlMWEpDNTFwRHBibnpvSHlzRnpEemhJU0JrNzdWK2Va?=
+ =?utf-8?B?TXZOLzBHQms2UGhDYUJPVnJVWkJLaXpDV0JZWktxcDNCZ1ZWZGhHMXN1N1d2?=
+ =?utf-8?B?TGtMcE1zVTBRUFJKZmZ4bWJRM2ZsSkdzb3lLdW5YenpuSGxDVHhPSnYxYmZp?=
+ =?utf-8?B?SG9ndWlTcTZRdjFZOVZ5WG11Rmo4OXIxdXE1bkIrSmR5M2w5aXNUYkI4cERk?=
+ =?utf-8?B?d254dm9jM1QycTRPTEdTQ1NDem1PS1BSTFlGWGo3SEQ5WG15L3gwOGl1SkdH?=
+ =?utf-8?B?RlVmbzVLQzU5NkI5akxNbmg4OThZSmg2SG9xQ2NacG0zZmtRZEFrc1FuazBw?=
+ =?utf-8?B?MmdLYldmQWN1SFUrRU1aRXo2Wm5oMzN5bXBURTdiTWx3dTE5ZXJmeWYvRTFV?=
+ =?utf-8?B?K2JhR0NWSll3VDNDRHk2M1N6RVREZDdmMXNoWCtQQklmM2VUdzZWN1YwQ3hM?=
+ =?utf-8?B?UWM2dTZNUVF4cDRjcUlPQk5jUTBqaEMzU2U2TUpndk5oN1Vubkl2MGxnTDZI?=
+ =?utf-8?B?ZmlzN0Z4VmYrZjVyTDR6ODhxMlJVT1czazBPZTlaRmpkQ2tmei81d3JZeG1E?=
+ =?utf-8?B?S2VHcWdEdzlJakNFeFdIKzBkc0hOVDFqZ2pqblBUUXFiam1IdEZCREdVZEJ1?=
+ =?utf-8?B?VEdrRFpJYm84c1F0UE96WXo5bElFbmxmTmZYQXhmUGVuNllYbHBPSGlQdHM5?=
+ =?utf-8?B?dXhJOVlpN3lLQ3ZUdHVKbXFKWnRmbEdxZkpaeCtMT0xHWnIyR1ZncnBKb3Vz?=
+ =?utf-8?B?UTlnV2hPL2x4OEEvOHlibU1oU1NEeXRSMldKaTl5bmtNY08zQ3RiVEVEV3lL?=
+ =?utf-8?B?UGJVa2hqbzhEeWFaam9EOGliWjB6cnVOaW0xU2dJaWlGakJFWmlUTTM3TzBw?=
+ =?utf-8?Q?CKd4=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZnlEZVVOWmNNU1RqUlF6WFdUMnNsMEVpVUdzOTNUS09ZTWlUR3ZNTlFzS2Zx?=
- =?utf-8?B?bU9aZXlvam1NSWxmYlRoZGNlT3JlZXBBWlQ5TldiZnV5VjN4MXJ3aVZOQzA4?=
- =?utf-8?B?U1Y0aHZYTE51MkhyRWticnJ2cDRNb1dqRThhczJhYVd1bHFSRkgyL2UyUmJD?=
- =?utf-8?B?MjczL1hpUVBWOEVETG5JaitpNDhzQzVsSDhhNGFWWm5HZGZmUnBDQ1dHRjJQ?=
- =?utf-8?B?YnpZK1ZiMERrNURpRWNpSDQxUFVZZTdYVjhpODFmcWdxSXNUbktQS3NKQmly?=
- =?utf-8?B?MlNIM2hoanc3V3YrYTNsYWVzcjNmSkJUWTZFT0lyWDNUUDVYTC83U21QTHZp?=
- =?utf-8?B?QTBKWHFwT203alI5TVhYeHpjaTgrdHVVYWNrOVZCQ3VhZGRzNTZTM3NqTFlZ?=
- =?utf-8?B?YW9HaVJkN2k5cHl1VUNVM1VxbDlLYzNTV3FJRGpjTzc0NGJUeU1rTDNvNWJK?=
- =?utf-8?B?ZEt0emMvcFpUbzZXUnFUYnFHVXVNTDNLa2NkV2Q0UGo4VFJVa3FHNTNrdkpt?=
- =?utf-8?B?SzA1RlMzRHNJWjZjN1A2aFQvL1RiQ1czUllwSkVxRUc0LzJ0ZWZUUXBGRGhG?=
- =?utf-8?B?cGtYc3lPeWRuZ2wybVN4UHdTNzNMTndabjM1ejJLZ0JVbkxXWmp4dHQrcTlV?=
- =?utf-8?B?bjRzcDkvVGJPVlZTY0g4djhkcUxkMGNNdzFmaDdpbGNpaFRFMW4vS0I2Vjhn?=
- =?utf-8?B?eE80a1YveE15TFlTb0szRkViSXlUTWY3cjBqWEtUYThuN2FIRC8wZXpuaDlS?=
- =?utf-8?B?Y3J0dWM1S29hQ2hmZkY3RDBxc1BUaXNUK21hUXBRTExiUS84V29ScjU1TmxW?=
- =?utf-8?B?eFlOZzhPeWtLZlFVbmQ5YzRDcEo5RGJjanYzcGxjbGM3aElTamE1T2JVQTJx?=
- =?utf-8?B?Qy8yY21DL3lEWjdxQVYzamNyQ2dNdG4yVjBOWnNRM2MrR3BUM1pWbWZ6WmVN?=
- =?utf-8?B?RG03T0pXTDdBTFpFNU8xSTFGQ0JoV0RDZ1ZHQWptTkhqeDM4VzRtYXFPUHlq?=
- =?utf-8?B?ZVl4V0EyZ3FWMThGTVJ3M2hBNWRNRkFtczVUeTJsc0ROZEdvTVJwbzRGQkpY?=
- =?utf-8?B?Ri9EMkJseEFJeXJWNUNES1NmZDRaVlFOUDlnN3RmVi9LNWJpeCtNdHhUbXFp?=
- =?utf-8?B?aVdQRFoySXRLckNhd3ZTKzF3UzV3WjBmOUdBdnJHREYvMVQ1bVdwSjM4Zms0?=
- =?utf-8?B?MjlsMmxpYUZCY3lQWUR6TlNDVnpmUkZ0aHhtdnhXZ0g4TDFVbVRQMGFFbXVk?=
- =?utf-8?B?L0hsVEI3dUpSczRlNVVHeEtwc3FwSll5UzJ3SHdzbzRKNmF6dDdocmdKeUJV?=
- =?utf-8?B?dkYvLzVVQm9zcXN1VnRNakpzeHVsZG5ieThRY2FEazlxOTFEWHZEMlRKYXlU?=
- =?utf-8?B?WmgxMVNVciswNERIT3k0d0hLUFV5RzZ6NXNPSTdKZ0lIdGE1YW1Pa3N6UWxa?=
- =?utf-8?B?Ti9sRDkzNDJpR0wwUEVVQzkzQ1ExbC9NYm9zT2ZQRmV6em9JREMzaUdNVG5r?=
- =?utf-8?B?dldzV00vRHN5VkRCWjdNVkE1ZXdVVGYwcGRTZmNwZnVYdFVpMTQ0Mng1d1pm?=
- =?utf-8?B?bWpKKzVvVDZDcVpJSnQ5MWR1WmVxUnlzNytyMzVLdkgwWUVBdFRkWWRTenhZ?=
- =?utf-8?B?MjV2REw0aWZoQVBVZklVZjJqQkZHMXYvYlVxa2pwSHBnaW93OVRuTWduUXRm?=
- =?utf-8?B?aVM5WHkrSmdMUXJpcTBGNFF3UnJZMnVKV3FRQmJhb01mQlBOdkxKOUJYb1VR?=
- =?utf-8?B?MlRLUHpTU2hBbkdNTGdwY2ErNmdIaXdmYnpuQ3ZoYmtLT3JScmt3VU5FMnRp?=
- =?utf-8?B?NEF0K1g3MmtodjNvcVgxUU1pZXRycmtwQ3lqT2p2aTFoMW5xZjhKc1BDRG5K?=
- =?utf-8?B?K3BOK3d5MzMxaGpEMC9oajJPN0N4RTJPdEZxL1E0R3NaMTFHNmF5TkRGUk9p?=
- =?utf-8?B?UnN2azYxdytBeEZUNVRTWm1EVVJ4MjVqMWh4bEZRZklNMGVZelJyNlI2T3Fo?=
- =?utf-8?B?aHVjbTVWN0ltUm1hMjBkTEoxVlduM0d1VkdkQXlFdE9OSFpNME82YmFUcmJZ?=
- =?utf-8?B?RlVJM3NzT2RrbFVtb0s2TW5zczFpOTRXa2puYThOMjkrZXlUaVhKUmZFbjhH?=
- =?utf-8?B?UFVSb2orb2UxdXR2ajVtMzN6QVhRaldMVzJWU0Frb2RpL2lkZHVBOEtCd1Bw?=
- =?utf-8?B?Mnc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbddd457-e0cd-4aab-2cfd-08de36a3874e
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 21:48:31.1866
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 23:00:39.1237
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7IljhDhuCkugoWPBDBxQuJ8voC9oSW9IrZKLhHfG+48NM7WEV19rVPc5NyTnwfQvlBncVrMR5yH0epsFxFhBldaVvEs1593k/g4jizRhEA8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB10057
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0442488e-7c53-4fec-62ae-08de36ad9b11
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003445.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4387
 
-
-
-On 08.12.25 14:05, Jan Beulich wrote:
-> The file wasn't correctly named for our purposes anyway. Split it into its
-> "guest" and "unsafe" parts, thus allowing the latter to not be linked in
-> at all (for presently having no caller). The building of the "guest" part
-> can then (later) become conditional upon PV=y.
+On 2025-12-08 03:56, Jan Beulich wrote:
+> On 05.12.2025 23:28, Jason Andryuk wrote:
+>> When linking to create xen-syms, add --gc-sections to garbage collect
+>> unused stuff.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
->   xen/arch/x86/Makefile                         |  4 ----
->   xen/arch/x86/lib/Makefile                     |  2 ++
->   xen/arch/x86/{usercopy.c => lib/copy-guest.c} | 12 +---------
->   xen/arch/x86/lib/copy-unsafe.c                | 22 +++++++++++++++++++
->   4 files changed, 25 insertions(+), 15 deletions(-)
->   rename xen/arch/x86/{usercopy.c => lib/copy-guest.c} (94%)
->   create mode 100644 xen/arch/x86/lib/copy-unsafe.c
+> What about xen.efi?
+
+I tried briefly and it fails to link.  The GCC manual says it is 
+considered experimental for PE and COFF.
+
+I just added into EFI_LDFLAGS:
+   CC      .xen.efi.0s.o
+ld -mi386pep --no-warn-rwx-segments --subsystem=10 
+--enable-long-section-names --disable-high-entropy-va --dynamicbase 
+--image-base=0xffff82d040000000 --stack=0,0 --heap=0,0 
+--section-alignment=0x200000 --file-alignment=0x20 
+--major-image-version=4 --minor-image-version=22 --major-os-version=2 
+--minor-os-version=0 --major-subsystem-version=2 
+--minor-subsystem-version=0 --gc-sections --print-gc-sections 
+--build-id=sha1 -T arch/x86/efi.lds prelink.o  ./.xen.efi.0s.o -b 
+pe-x86-64 arch/x86/efi/buildid.o -o ./.xen.efi.0xffff82d040000000.0 && :
+ld: kexec_reloc is too large
+ld: kexec_reloc is too large
+ld: 
+prelink.o:/home/jandryuk/xen/xen/arch/x86/boot/head.S:60:(.text.header+0x48): 
+undefined reference to `start'
+
+
+>>   Relies on CONFIG_CC_SPLIT_SECTIONS
 > 
-> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> index 61e2293a467e..dfb258d7ac1c 100644
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -72,7 +72,6 @@ obj-y += time.o
->   obj-y += traps-setup.o
->   obj-y += traps.o
->   obj-$(CONFIG_INTEL) += tsx.o
-> -obj-y += usercopy.o
->   obj-y += x86_emulate.o
->   obj-$(CONFIG_TBOOT) += tboot.o
->   obj-y += hpet.o
-> @@ -93,9 +92,6 @@ hostprogs-y += efi/mkreloc
->   
->   $(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
->   
-> -# Allows usercopy.c to include itself
-> -$(obj)/usercopy.o: CFLAGS-y += -iquote .
-> -
->   ifneq ($(CONFIG_HVM),y)
->   $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
->   endif
-> diff --git a/xen/arch/x86/lib/Makefile b/xen/arch/x86/lib/Makefile
-> index ddf7e19bdc1d..8fe2dfd88553 100644
-> --- a/xen/arch/x86/lib/Makefile
-> +++ b/xen/arch/x86/lib/Makefile
-> @@ -1 +1,3 @@
-> +lib-y += copy-guest.o
-> +lib-y += copy-unsafe.o
->   lib-y += generic-hweightl.o
-> diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/lib/copy-guest.c
-> similarity index 94%
-> rename from xen/arch/x86/usercopy.c
-> rename to xen/arch/x86/lib/copy-guest.c
-> index a24b52cc66c1..25eeb35427e2 100644
-> --- a/xen/arch/x86/usercopy.c
-> +++ b/xen/arch/x86/lib/copy-guest.c
-> @@ -1,4 +1,4 @@
-> -/*
-> +/*
->    * User address space access functions.
->    *
->    * Copyright 1997 Andi Kleen <ak@muc.de>
-> @@ -6,8 +6,6 @@
->    * Copyright 2002 Andi Kleen <ak@suse.de>
->    */
->   
-> -#include <xen/lib.h>
-> -#include <xen/sched.h>
-
-This will not build :(
-
-   CC      arch/x86/lib/copy-guest.o
-In file included from ././include/xen/config.h:27,
-                  from <command-line>:
-arch/x86/lib/copy-guest.c: In function ‘copy_to_guest_pv’:
-./arch/x86/include/asm/config.h:270:32: error: invalid use of undefined type ‘struct vcpu’
-   270 |     (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
-
-
->   #include <asm/uaccess.h>
->   
->   #ifndef GUARD
-> @@ -139,14 +137,6 @@ unsigned int copy_from_guest_pv(void *to, const void __user *from,
->       return n;
->   }
->   
-> -# undef GUARD
-> -# define GUARD UA_DROP
-> -# define copy_to_guest_ll copy_to_unsafe_ll
-> -# define copy_from_guest_ll copy_from_unsafe_ll
-> -# undef __user
-> -# define __user
-> -# include __FILE__
-> -
->   #endif /* GUARD(1) */
->   
->   /*
-> diff --git a/xen/arch/x86/lib/copy-unsafe.c b/xen/arch/x86/lib/copy-unsafe.c
-> new file mode 100644
-> index 000000000000..a51500370fb1
-> --- /dev/null
-> +++ b/xen/arch/x86/lib/copy-unsafe.c
-> @@ -0,0 +1,22 @@
-> +/*
-> + * "Unsafe" access functions.
-> + */
-> +
-> +#include <asm/uaccess.h>
-> +
-> +#define GUARD UA_DROP
-> +#define copy_to_guest_ll copy_to_unsafe_ll
-> +#define copy_from_guest_ll copy_from_unsafe_ll
-> +#undef __user
-> +#define __user
-> +#include "copy-guest.c"
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
+> Yet still ...
 > 
+>> --- a/xen/arch/x86/Makefile
+>> +++ b/xen/arch/x86/Makefile
+>> @@ -137,18 +137,21 @@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+>>   	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
+>>   	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+>>   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+>> +	      --gc-sections \
+> 
+> ... you pass the option unconditionally. Which may be fine from a functional
+> perspective (little if anything will be saved), but besides being a little
+> inconsistent with the description I also wonder whether the option won't have
+> unwanted side effects (longer linking time, bigger working set).
+> 
+>>   	      $(dot-target).0.o -o $(dot-target).0
+>>   	$(NM) -pa --format=sysv $(dot-target).0 \
+>>   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+>>   		> $(dot-target).1.S
+>>   	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+>>   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+>> +	      --gc-sections \
+>>   	    $(dot-target).1.o -o $(dot-target).1
+>>   	$(NM) -pa --format=sysv $(dot-target).1 \
+>>   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
+>>   		> $(dot-target).2.S
+>>   	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+>>   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+>> +	      --gc-sections \
+>>   	    $(orphan-handling-y) $(dot-target).2.o -o $@
+>>   	$(NM) -pa --format=sysv $@ \
+> 
+> Rather than having to alter three locations (plus another three for xen.efi,
+> plus another three for every other architecture that would want to follow
+> suit), should we perhaps introduce $(XEN_FINAL_LDFLAGS) or some such? That
+> could then have --gc-sections conditionally upon CONFIG_CC_SPLIT_SECTIONS.
 
--- 
-Best regards,
--grygorii
+Yes, I thought something like thiat would be better after posting.
 
+> I further wonder whether the use of the option wouldn't want gating by its
+> own Kconfig control (dependent upon CC_SPLIT_SECTIONS). If nothing else than
+> to have an easy workaround if either we had a usage bug (e.g. a missing
+> KEEP() somewhere in a linker script) or there was a related bug in the
+> linker that we end up being affected by.
+Makes sense.
+
+Thanks,
+Jason
 
