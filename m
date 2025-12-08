@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67038CAC90E
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 09:56:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180218.1503446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98724CAC960
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:05:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180236.1503455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSX2n-0004XX-Mw; Mon, 08 Dec 2025 08:56:33 +0000
+	id 1vSXBA-0006XR-IU; Mon, 08 Dec 2025 09:05:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180218.1503446; Mon, 08 Dec 2025 08:56:33 +0000
+Received: by outflank-mailman (output) from mailman id 1180236.1503455; Mon, 08 Dec 2025 09:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSX2n-0004Ue-Ik; Mon, 08 Dec 2025 08:56:33 +0000
-Received: by outflank-mailman (input) for mailman id 1180218;
- Mon, 08 Dec 2025 08:56:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSXBA-0006Vb-En; Mon, 08 Dec 2025 09:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 1180236;
+ Mon, 08 Dec 2025 09:05:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSX2m-0004UY-Ma
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 08:56:32 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c96449a1-d413-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 09:56:29 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-42b38de7940so2130030f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 00:56:29 -0800 (PST)
+ id 1vSXB8-0006VP-P5
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:05:10 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ff61dcfb-d414-11f0-9d1b-b5c5bf9af7f9;
+ Mon, 08 Dec 2025 10:05:09 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4779a637712so31140135e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:05:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d222484sm24653242f8f.24.2025.12.08.00.56.28
+ 5b1f17b1804b1-4793092c32asm225987085e9.6.2025.12.08.01.05.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 00:56:28 -0800 (PST)
+ Mon, 08 Dec 2025 01:05:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c96449a1-d413-11f0-980a-7dc792cee155
+X-Inumbo-ID: ff61dcfb-d414-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765184189; x=1765788989; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765184709; x=1765789509; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F4k9GUhihgLRaSoIOZd9ZqRELSB3jUjtNblECQYml48=;
-        b=FL/ksLg7I28GV35jWLXG45ZU+VLjzd+cOabw7rTDPhUzcq0NHuh8giLeEgViOKVUXi
-         WxUrqqW/G3lWWReORjhqoyE9W24ycSTbH5Fekp593F9ik+RboHb6k1BrbtGBGnW1rENf
-         k6kijB1BHB7N+hIoyjIzDTSnuO7nFwFRzKwmmkRskzTEPCl0axHaInqULhK9kQhWP7+h
-         njQQmJ/3IWnRGo2i93FmwdAMzGkKUBVph0bXzATgZS0rlAXt54rvhXhByg0HZu1lM058
-         YDB85uTKNgIAUHExfwCpWiUhCnqSa4UfnmdnSXSzWsfETeGnGOboAWPbA81oQGZ2y06c
-         wezQ==
+        bh=uALucioVe2pYF4HUEnoEJKNTIWQ/OMYVWzf5bmpYIn0=;
+        b=TOhMnmAI8NetqVsapnjQkvRwr1bFssBR7pe2xjE3eCdGot+mVnz+PMn4FAKSaxq2tN
+         Nm4s6gymG8YO/OA+sjzoLLJ19CfXMCtRS22f/sg3bS4BFNhakTrFV3fEAGjUtBqTd1r3
+         c9lF8pM865aPW42qucotCGHs8hglE06EnJSlzKjFiAiX6UjUfkrRFD011WHwgdu/Aeqb
+         JEIWG4U5ovcReLDFvfmJiKoQ0dtDtVKFpfTxClXkevDPTMnCajLCXqqXMfwyrIOjVz/6
+         iS0xitpvMaAGGdtyfyekOxYzm1DhBQaOaDtN2YvaGu6XNiSaka3JagT2M14NbPtonD5p
+         X7Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765184189; x=1765788989;
+        d=1e100.net; s=20230601; t=1765184709; x=1765789509;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F4k9GUhihgLRaSoIOZd9ZqRELSB3jUjtNblECQYml48=;
-        b=PEBUvnXKUlNo5sUyR2+VOWk4lEfEL44kVg08CIpLn4qo8Zbe/xowgjnmStx5W1q8zk
-         x6ybK7iRmvVqedA8tRGXG/Jmi3cYVi7HmQWdZM483JiKw8lAcxgJdgWNm6hehnYgoUjy
-         nm9nvEhkxYb8IY27Dhp/Dqt3/tfaoTi/A/kq6cI419b+BfctGJZZMWmWReMpqbqisBVV
-         NtBHm3Px4N1mfM6TLFswnb4whcy+s03uKsKcfeX+wREReKTGf+8P0C4Rf9+Cw9WBfRa2
-         S95RzVDvjZdviEXqrkuEIyfq3VjZOcQHTryZZozYqwqUMiLaefaW/ybF0cwkLvreJ/Ba
-         tDog==
-X-Forwarded-Encrypted: i=1; AJvYcCWlPOkbEDhqyJws0ApAC6bCFLxPH3+511qtH9jHXB5l9wmuS0y29Mz3zl0/TwhYc8yo/gzZRIwMcXY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwAqrnJb0oAcw5ek0biYzF48J6yIHG31peEtt/+kav4KJkwVTj3
-	xetIzE4i2eEzOwXkAOOC3iMhgF5HSnEDiQrCVjaTci2vXAXEoHtsuYCf4OIOGSVltA==
-X-Gm-Gg: ASbGncvOlmByY0Wkaj/qqX1GhN4ea2tkawMJA7pV8cgANACnz1X5PtuBuFJef40V0Cg
-	VuDyCpdeLlVvcz6mIAS5p+Gbz1Kl+5QWfajuDqi7MfCu7QsOo93gSDI3w6EwC4lROiohY4zmo0n
-	ZxLVtX6p5MzV9N2vJNry8DzVKNDpnQMFISWzZeLSQOFq291UBScw3ley2aPq9pijxzJ9cqkik9S
-	3QtaaZ+YwuNWF+gWZLFKnpa1xbwOI8mcWFGoQsKh01Whp8tVAXm35AQgayS8k2bmu+Pd1qHQFIJ
-	DcA33BZRdjq/3PQbxUx0L8sg/3953Rr4vbVTQSNObPPsNAZRemqR0c8DDk6ce+oOfKAaJsQ6CY4
-	Il6c8HPH2WzL9gTFHTGJPl/ykmJW4y4cJEkV1VM4nQCKNQ7xl8t+Kcg2QBW3uPK2SbCdDADej6t
-	kSO/rQ04hfxFBjGVFyYeWpWcQklJJFWsAZxm4sxh37SAoo2t7FXhl0ugTV7xB0eI8cwKB/56W9T
-	hv4IG+vTdqRfw==
-X-Google-Smtp-Source: AGHT+IFG8f/coAjyNnTHlV5L+8VhKc/j8l9da18qTcBcGdMEbFlekgdu2FSV+7uj5pbYtE5fMBnbsw==
-X-Received: by 2002:a05:6000:40cb:b0:427:8c85:a4ac with SMTP id ffacd0b85a97d-42f89f54bdbmr7120626f8f.47.1765184189204;
-        Mon, 08 Dec 2025 00:56:29 -0800 (PST)
-Message-ID: <6c10dbc4-3247-4a0d-9953-858d09df08a9@suse.com>
-Date: Mon, 8 Dec 2025 09:56:30 +0100
+        bh=uALucioVe2pYF4HUEnoEJKNTIWQ/OMYVWzf5bmpYIn0=;
+        b=G197+lHYi4WIVwNVfWcNOKmvH+6f1bkeztnggIb+pAl5WLlGNQbdMHAu+6kqeCwjPA
+         Uwm9gWJ+GU+ZBe8HQiK3I0TMtGJvAI4MEAZmYH+iVG4m3LYbC2UVqh5FA2EXRP85jyZA
+         K/9qLfgA4bpHA4sH69h5dB+sGvOXjF7weGwyYm7ZqOi8g2HvHMHCrkgCr0EElCa/S9uC
+         DUfKkm6v3gWPSc5Ce8hhA5g1Y4Dbkvxc/PfStr3DlSW5rsR8g2Vh/ZoT3zz9vNBVOdSB
+         JeN4Y1/1dpQf1erkBPphNQP7WgWM2abzjjDu6mW28vv0MeRqz4Yczw5At/gsyEmd5kEG
+         agiw==
+X-Forwarded-Encrypted: i=1; AJvYcCX6VbWwfHgDu9PxtsNKqmXNcALuOMxqMyAjVTgtwxhiwd7SOd4fRf7fyTM01pRaN3K7uQlHIIn0YEA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6BbEg1tkNkaOZQ7r2F2T/qiXUBvKZo3vYxLl7qZauWLvAAoOQ
+	Ko8Ix3CK01GoPKjbQB+aP0p0923CnUOugqEgGWxTvY8L9CIIPSq4djsqTSUd3n0TSg==
+X-Gm-Gg: ASbGncu1ELyWj+xpvQH/fkEvhzCsjtXH6IQJDii1f/3W5Ufzz9zm+2Rw7W2bw0SPDPb
+	lV2rBSw6Cv4yri4qDpwOkR0DiIAsh453LKGCQWzzVpdMUD+UPKnSCVuNp2jXateFjJq0Y84qoXr
+	vO+UGwRxQFb9oB14hJZbaVh8vPE3QVDxtr38rUQ3huyXlnMImuiBX9rAAGmnyLpJt/PnbsMvpdw
+	7qnvG8Uaiv8ClIKn7atS/DMYkI+TgiU1OZSpaLdEF78TYIgSk7rhhQPgVOay5RZnhurkw6d7sZU
+	ofkQ3Jgmhb6MAlc9bTEoRxM2egMTrmZjirY1fAvrcN3BdcnxWNfnmzNACEGW9qtjXXJ4Fsk8gFm
+	ej8thaf8CUNRcN31S6u1iqHcHn9V7wot2/lxPGH9XtVLg0Gyb6TbLDnnITBXyphpS4XmVujPohF
+	yOrhm6ksFz88yphELBunEslyE1nwSNsljQAkBnfTEvFfofV6CA3QNvgJouJEAhi8z06ruZPPDNP
+	Uk=
+X-Google-Smtp-Source: AGHT+IGFTu6CUh2piz511A90vVDTdIxlOm/BS10JgH1LM7pt5oo+/u9mTWdCvyrkKzS3FVwToqV05g==
+X-Received: by 2002:a05:600c:c4ac:b0:471:9da:5252 with SMTP id 5b1f17b1804b1-47939e3992cmr63056115e9.29.1765184709272;
+        Mon, 08 Dec 2025 01:05:09 -0800 (PST)
+Message-ID: <373f19eb-39fc-4a76-95fe-4acb95ba71d8@suse.com>
+Date: Mon, 8 Dec 2025 10:05:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20251205222813.277164-1-jason.andryuk@amd.com>
+Subject: Re: [PATCH 1/3] x86/svm: Make vmcb_struct private to svm/
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
+ <20251128201937.1294742-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,60 +120,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251205222813.277164-1-jason.andryuk@amd.com>
+In-Reply-To: <20251128201937.1294742-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.12.2025 23:28, Jason Andryuk wrote:
-> When linking to create xen-syms, add --gc-sections to garbage collect
-> unused stuff.
+On 28.11.2025 21:19, Andrew Cooper wrote:
+> The rest of Xen has no buisness knowing this structure, and it is currently
+> included via xen/sched.h into most code.  Create a new private svm/vmcb.h.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hvm/svm/asid.c             |   1 +
+>  xen/arch/x86/hvm/svm/emulate.c          |   1 +
+>  xen/arch/x86/hvm/svm/intr.c             |   1 +
+>  xen/arch/x86/hvm/svm/nestedsvm.c        |   1 +
+>  xen/arch/x86/hvm/svm/svm.c              |   1 +
+>  xen/arch/x86/hvm/svm/svmdebug.c         |   2 +
+>  xen/arch/x86/hvm/svm/vmcb.c             |   2 +
+>  xen/arch/x86/hvm/svm/vmcb.h             | 617 ++++++++++++++++++++++++
+>  xen/arch/x86/include/asm/hvm/svm/vmcb.h | 606 -----------------------
+>  9 files changed, 626 insertions(+), 606 deletions(-)
+>  create mode 100644 xen/arch/x86/hvm/svm/vmcb.h
 
-What about xen.efi?
+I was actually hoping for the file to be moved. I notice that a few things are
+left in the original file, and I wonder if they couldn't be moved elsewhere up
+front. Yet I wouldn't insist; we can certainly do it this way round, accepting
+that the file name then is pretty much wrong considering what remains there.
 
->  Relies on CONFIG_CC_SPLIT_SECTIONS
+> --- a/xen/arch/x86/hvm/svm/asid.c
+> +++ b/xen/arch/x86/hvm/svm/asid.c
+> @@ -9,6 +9,7 @@
+>  #include <asm/hvm/svm/svm.h>
+>  
+>  #include "svm.h"
+> +#include "vmcb.h"
 
-Yet still ...
-
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -137,18 +137,21 @@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
->  	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
->  	$(MAKE) $(build)=$(@D) $(dot-target).0.o
->  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> +	      --gc-sections \
-
-... you pass the option unconditionally. Which may be fine from a functional
-perspective (little if anything will be saved), but besides being a little
-inconsistent with the description I also wonder whether the option won't have
-unwanted side effects (longer linking time, bigger working set).
-
->  	      $(dot-target).0.o -o $(dot-target).0
->  	$(NM) -pa --format=sysv $(dot-target).0 \
->  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->  		> $(dot-target).1.S
->  	$(MAKE) $(build)=$(@D) $(dot-target).1.o
->  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> +	      --gc-sections \
->  	    $(dot-target).1.o -o $(dot-target).1
->  	$(NM) -pa --format=sysv $(dot-target).1 \
->  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
->  		> $(dot-target).2.S
->  	$(MAKE) $(build)=$(@D) $(dot-target).2.o
->  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> +	      --gc-sections \
->  	    $(orphan-handling-y) $(dot-target).2.o -o $@
->  	$(NM) -pa --format=sysv $@ \
-
-Rather than having to alter three locations (plus another three for xen.efi,
-plus another three for every other architecture that would want to follow
-suit), should we perhaps introduce $(XEN_FINAL_LDFLAGS) or some such? That
-could then have --gc-sections conditionally upon CONFIG_CC_SPLIT_SECTIONS.
-
-I further wonder whether the use of the option wouldn't want gating by its
-own Kconfig control (dependent upon CC_SPLIT_SECTIONS). If nothing else than
-to have an easy workaround if either we had a usage bug (e.g. a missing
-KEEP() somewhere in a linker script) or there was a related bug in the
-linker that we end up being affected by.
+Instead of repeating this in every .c file, couldn't svm.h include the new file?
+Or are you foreseeing some of the .c files requiring svm.h to (later) not need
+this include anymore?
 
 Jan
 
