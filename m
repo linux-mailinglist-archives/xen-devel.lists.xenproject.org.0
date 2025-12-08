@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF933CAC981
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:07:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180244.1503464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF5BCAC9A2
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:10:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180255.1503474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXCs-00073s-RB; Mon, 08 Dec 2025 09:06:58 +0000
+	id 1vSXG7-00008E-8m; Mon, 08 Dec 2025 09:10:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180244.1503464; Mon, 08 Dec 2025 09:06:58 +0000
+Received: by outflank-mailman (output) from mailman id 1180255.1503474; Mon, 08 Dec 2025 09:10:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXCs-00071u-OF; Mon, 08 Dec 2025 09:06:58 +0000
-Received: by outflank-mailman (input) for mailman id 1180244;
- Mon, 08 Dec 2025 09:06:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vSXG7-00005a-60; Mon, 08 Dec 2025 09:10:19 +0000
+Received: by outflank-mailman (input) for mailman id 1180255;
+ Mon, 08 Dec 2025 09:10:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSXCq-00071m-WA
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:06:56 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e49f862-d415-11f0-9d1b-b5c5bf9af7f9;
- Mon, 08 Dec 2025 10:06:55 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-42b3c5defb2so2329268f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:06:55 -0800 (PST)
+ id 1vSXG5-0008Vc-OU
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:10:17 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b588ab73-d415-11f0-980a-7dc792cee155;
+ Mon, 08 Dec 2025 10:10:15 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-429ce7e79f8so2664032f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 01:10:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfee71sm24606278f8f.15.2025.12.08.01.06.52
+ ffacd0b85a97d-42f7d331e29sm24834189f8f.32.2025.12.08.01.10.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 01:06:53 -0800 (PST)
+ Mon, 08 Dec 2025 01:10:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e49f862-d415-11f0-9d1b-b5c5bf9af7f9
+X-Inumbo-ID: b588ab73-d415-11f0-980a-7dc792cee155
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765184815; x=1765789615; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765185015; x=1765789815; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AgCyVeDsYLXk4iinPjr41y8XrZc9h0G9eV2Fq1IlV+g=;
-        b=DjamhtURBovNp+Kym46G5VGKZZGYE4h8UJXThyKnHiDr8OBAqB1G1HyRgngaDoe2KZ
-         Pxmf/0BvP4SrMpRDpunHfEwdNFJoOP5/DslLhE/jkkX66ZwgpUH9C0ZDJP2x5uN0Gd8m
-         +TCQMdkEisSCsosnF54RMaVu1SchTg+i2O7xCemvtrlhfpysJ9Wj435XBq7OXoGg2I7x
-         T8NEG14xU712bjSOjYonDRwD1G2R+TtZBA4xTtiYfQUCerAfdqmNFnAGVXEmxuAQPzjt
-         nLL+b0CfBd+JW1ET8oWIk9AFaBVqbkLyhHva/YDoKb2cDoIE9cbx1DYuNBuVO4Qk0ylJ
-         H2wA==
+        bh=LTdNAJgKr2UFkzmJvH1/thYKNgic9UAy3c4K8AA3GOE=;
+        b=dIhTcw5WfmNkCJi8qhlTO6lMQk2AhhrPT7rf60yIs+Dm1t15VIfffEWlJvilEC6+ND
+         6yTGjwBK2y48W7pS9n+ScFlr77TyJSF8E9Fycxg1plnoR3qZ9yql2mQXzTijTRyRCYvA
+         JRhr0uKFDDUoPBGsfnBor5aF2Pe49KMlNQ76ptAMK8VMITneqz+/8C057g2H4ulVJ8nW
+         FY9eHO8s7IkOwAk6kdUSqXE0IprnfE+bwe5Ipn9JRq9TZsCiLbhPRY+j1rdOlsL5y3w6
+         1cfeAe/edZLmUmcPq9XPO0CWmPLc2zV+IAyVBMiT+1XWSsZwSc9/jv2h8jNuluqc7kx9
+         JsnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765184815; x=1765789615;
+        d=1e100.net; s=20230601; t=1765185015; x=1765789815;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AgCyVeDsYLXk4iinPjr41y8XrZc9h0G9eV2Fq1IlV+g=;
-        b=XLHT58/la6I9Oorgeq2j2zjrZoIcXSpZoWJVDRy8m1camcxuDi76PlABCgjcl1tqpT
-         r9W4O26/3ekxPrQBFUq/2yCG5oKt+C6+CBIBYolkjKIzs+qdmIB/fEnWh6E/4m5yggIn
-         ASg34KbCQ9sjHb2UY1oIZyKPKmg/XFJw/vYw6GnFlateMWQn3K/R7yqm5ksrnF34YplD
-         ERupxdnYke3DXoBHj+RUu0A1RSI6Ydxnhj9myVin1XHAUp0FM+FJhgHgK64HYTcF17TZ
-         WkQsr3ANtgObXS4bXjf2bSaaCMHbuWoChuY2RfrzG2l7UAP8gYK13pukFbqUBxRF76t9
-         y+8w==
-X-Forwarded-Encrypted: i=1; AJvYcCXhYJfzKMthsWINlictO/yaVmXADdL3GO0+4EDURvaGJk2QRhb70rK+1WHcEVmnf7C/Kc6Avnqnzo8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywkqd07s82fdzCMi15aLvBha5uIFtyJjoNLrI50MfRxSBr5fCAl
-	+tjbMFuZuSVt4VS86OnfXTCNK2HZAJ7AkF2B4iydBOsj4nBEIRWkGEgdPEKp8hW3MA==
-X-Gm-Gg: ASbGnctcNjvz70pAlZVQRPtGAENVUHM2PnuBx2TKQ2qcsPSNfFSe/Q2/ZQLxP+a8X+o
-	OFruQ7p4D7sBQjmX7vrm2JTa/QlU+A0xtMubkCFA4gJXNxdfj6u+N7M5Sq4QcyGxi2VjVTr+Cwl
-	e/JCzqdgjixKErKlIA15MimFmxksAfAF7FvSbbfGbGcSFLQPZtrrXyMd3+MltpK3yvGTvTWnNY0
-	vkCwXuXNphKQY8XULAElHxV+PwEt6jGoN1/djEstoneM6EDXKGqQ2kVOJHNqPrQbDK0WEvkrFWU
-	xfEViCdh+uul0JGZ2faAhb2QDuQQCBti5cERJaPkxQ62W0W5wApbctx+WxLtI1AhYfN7q6EYRSM
-	vulhmz+geRRCN/yv/nU2uRiCJ0cWkUgYDjtHrGllMqFFR3UPvOZPd6QBcWWmzO5BtXEZ8qf9Uw7
-	W4jbNNk9swT2ksIS5lXKa8pH/E31NjyaDVgguuTjr1bu/H4lhFsAzdeLX06T+p3Lu6c/hau8mZT
-	EE=
-X-Google-Smtp-Source: AGHT+IEi1vaCr0tG5V82L6Gv2Hcz1zpg65XKevi7Z9D+0r1dUSY9mJ08CfBhlv9HgN1MJRIJZ1ulzg==
-X-Received: by 2002:a05:6000:613:b0:42b:3ed2:c08a with SMTP id ffacd0b85a97d-42f89f0afa1mr6990591f8f.13.1765184814865;
-        Mon, 08 Dec 2025 01:06:54 -0800 (PST)
-Message-ID: <d74a4d73-31e7-4a75-b96d-6eee6c65ee0c@suse.com>
-Date: Mon, 8 Dec 2025 10:06:53 +0100
+        bh=LTdNAJgKr2UFkzmJvH1/thYKNgic9UAy3c4K8AA3GOE=;
+        b=JD3xeB8ThqSlKPseLffDK5pqRskNt0qRxjM+oouZToeETiUenMfojgSnGGFK1H5svn
+         NE3Ci2ziet+gYOo3VfqCeBwt+btT2IUhM9tYts/uLWzauZv7bqaQVe3eX68wkHlMzrSe
+         tbHlJ7wFPsSwDOjMe/3/GS1gd8drGTspGedaVO5R3ceyeUzSOAGhoRDfcV66vdAe3QKs
+         fSSyMLWT06gD894U1awmp6KyNlKfQAG3hJq+GR0te3C0jiQHFCtlB47qYXG3sAUsukPM
+         P7Ri1/PrxNBdnel//CTcpM/nOA677xuzKw8wwCKKOWmsR9qJh2i/KjW8LuBAObl3rhTN
+         F24g==
+X-Forwarded-Encrypted: i=1; AJvYcCWGfwPruG5TFeD4n1aU+YFLaiXEPPp2f1NL2n0qhrXM9lzF/lv7V7UY3kDfVsMu7Nb02tW8iC8CGiQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRr7nx6Jsn7rTHChXvC92KAz3mNmZuqLRyvasnufI/7Loktakv
+	3Y94D7To11PnMRZmwNb8pfBFChcLA4Q07VWiPQbwtShmt3M6vEmaCDTRgNSuL8uXpA==
+X-Gm-Gg: ASbGncsmlaM+vnUIpbLkRCi69I0Xv94BurK8RXYhNn8ZJIFfO60sGNyqsglpFxeHw5F
+	PxyG4p9GgyKZNRbDDmHRLsQg3UpJdBtdmLinauSGRWAGS5VNb8ZOwyMMYYQ7db3vDl8GlDafYJA
+	t74J5IjlIAY6YVbvU/dnbaIFIWtt8Wr0RTxdgfP6PXOMBxCixlfXuc+c0FVACRvh/fUAtRxHK5+
+	PRdLm+CBgV5ul4CIL8vxYXGP5JeBXlyvdYnZqEfRYhux2ApS4PGmSLZs4UJBxpgbVCqAjFBcBph
+	/CjrH27iU/nnu/9frz8hr8DgAKztxUdhKOQoMpAgELL4A/lPZfFlCnFG67YwQbWjcuSSYlIeQF4
+	LaIdzpjpoeOwithhqfa/QLcLUfr9CVOYyOOaCT2Q8ZLel2YJ0PWdvCfOZAGGjrI2Fy4MWGPfHpo
+	sxHxJFGFUT5AzlRANMJhitojRIaz2AtuhhjdFRypgmcfE3aELvJE+cfPzLy2kVHijPsVHXcyNRG
+	Gc=
+X-Google-Smtp-Source: AGHT+IEUwq3/+SDYCt8CFVGOCyoMwJod7uNKGIU/PnMwv6Iay4Vm9NylEpWbrI2asJw4JbkcyJ652w==
+X-Received: by 2002:a05:6000:144a:b0:42b:38b1:e32e with SMTP id ffacd0b85a97d-42f89f50d87mr7359937f8f.46.1765185014935;
+        Mon, 08 Dec 2025 01:10:14 -0800 (PST)
+Message-ID: <3caf4cc4-1c01-40f2-865a-5be98d609866@suse.com>
+Date: Mon, 8 Dec 2025 10:10:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/svm: Drop svmdebug.c
+Subject: Re: [PATCH 3/3] x86/svm: Drop svmdebug.h
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
- <20251128201937.1294742-3-andrew.cooper3@citrix.com>
+ <20251128201937.1294742-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,15 +120,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251128201937.1294742-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20251128201937.1294742-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.11.2025 21:19, Andrew Cooper wrote:
-> Everything here is really VMCB functionality, so merge it into vmcb.c.  Move
-> the declarations from the global svmdebug.h to the logical vmcb.h.
+> svmdebug.h now only contains the declaration for svm_sync_vmcb(), despite the
+> function being implemented in svm.c.  Move the declaration into svm.h
 
-Nit: s/logical/local/ ?
+Maybe again add "private" or "local", seeing that we have two svm.h?
 
 > No functional change.
 > 
