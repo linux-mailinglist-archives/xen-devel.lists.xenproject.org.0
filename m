@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4894CADC70
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 17:40:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180993.1504085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B2FCADCA3
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 17:53:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181008.1504094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSeHq-0002ff-Kg; Mon, 08 Dec 2025 16:40:34 +0000
+	id 1vSeTt-0004Vh-Lx; Mon, 08 Dec 2025 16:53:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180993.1504085; Mon, 08 Dec 2025 16:40:34 +0000
+Received: by outflank-mailman (output) from mailman id 1181008.1504094; Mon, 08 Dec 2025 16:53:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSeHq-0002dZ-HI; Mon, 08 Dec 2025 16:40:34 +0000
-Received: by outflank-mailman (input) for mailman id 1180993;
- Mon, 08 Dec 2025 16:40:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vSeTt-0004TV-Iz; Mon, 08 Dec 2025 16:53:01 +0000
+Received: by outflank-mailman (input) for mailman id 1181008;
+ Mon, 08 Dec 2025 16:53:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSeHp-0002dT-NA
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 16:40:33 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ceb2964-d454-11f0-b15b-2bf370ae4941;
- Mon, 08 Dec 2025 17:40:32 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477aa218f20so30228035e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 08:40:32 -0800 (PST)
+ id 1vSeTs-0004TP-3G
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 16:53:00 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 591e2ecf-d456-11f0-9cce-f158ae23cfc8;
+ Mon, 08 Dec 2025 17:52:57 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47778b23f64so29435325e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 08:52:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-479311e712fsm256653615e9.9.2025.12.08.08.40.30
+ 5b1f17b1804b1-479310b693csm245813425e9.4.2025.12.08.08.52.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 08:40:30 -0800 (PST)
+ Mon, 08 Dec 2025 08:52:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ceb2964-d454-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 591e2ecf-d456-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765212032; x=1765816832; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765212777; x=1765817577; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rTtWllHYA62w7VlcuiZIpXkl1SBHzN8+ONW4oNpSPVM=;
-        b=Ls38D8ylzUE7ynU5MfehfQLfjQIFCGpRbt8wGWewR1h64BJ244RmvquFwLaa8G+QE3
-         d+LXwA8Dxo2yLzOGlxbTLuhbLYSICtOShxPmJoCQLALzx+UvgXxjnm01vkvww4A05/Ul
-         xCfacYY3WRTbgpn7IubNx4Njl5uqZTSQaRg1890YkaX7huHmrYkCuug0rr2vrJ8HTjij
-         MTm9vRvSw+yomccbpHz/K3cFczu+w6yMQW7Xn3jh85qvWuOivJ9RKGi8Sm1Hz1Iu6RDQ
-         8i7bBMDyJy6UnqEMnaa8Qvze/0bv92gVA4hHiHAFPNj6wMD36OpckNFGv/1KeYhJdGos
-         YFxA==
+        bh=AkK4SbevVGpFc9xrhQZRO7dsOuBxGU85PZ4zZvmTVO8=;
+        b=IganNhztVIslFSYxtK9HR25Bhf2DrnLhnCs0QpxTEo+5j+3czOqR7/WgJgncUwosM3
+         XHJIDcTiGk4JyYhdA614Q/SA2mw2DqxsIH8aLCqFVlZOJWi80wEV1QW7fnduaVIipsom
+         SlA6SQm947dsrUPfVaaCRPIrz1IwWICE6BWzrvC9dBpjN4If2L7hvYdJk2qU0/F0bS3r
+         Pxo2MMNS4nZ4MZEUFWHyXvlpOBxPz6nMjlrKWr6xC3/kXGJ7naWHLSA1aieWev0jOO8M
+         IkQMv3Y2ExmwSzd94EdPtlB6D1Gmog7aQC35azqNB6ebeoi75Dq8KQe75DeeJK3+L9yz
+         H6Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765212032; x=1765816832;
+        d=1e100.net; s=20230601; t=1765212777; x=1765817577;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rTtWllHYA62w7VlcuiZIpXkl1SBHzN8+ONW4oNpSPVM=;
-        b=Hklb+FcEO8dEllEw+51KwYizKiMPSqBHncm95c9X6PwSBlQQTi4l2N1WvxhC0npxnL
-         gB22hmBVgltjiXysRfrUxZdLb28BREofCpe+yseF/1bt9Vs/6Zb2ccL3zDaLz9jWfk9v
-         qlK4wnGE6XmRC3J90nRebGd0+LbfcJW+9RLCZEXRmZ+WxQYy+D9LgflB+9ARYSpVblQz
-         8BH1bwEy1i5hFe7XY3e8kBx2I869LMfJ269c7AI2QoHDi9NDJowD0SCTDZIeRjAA70xw
-         zBS/8y49TOBljBR3MIsLsAoYTp1Gs7nuNnCRkaQB+WLeJeEi5T0YkWYUbKXEbYGnA5Q+
-         QyGg==
-X-Forwarded-Encrypted: i=1; AJvYcCUyMQUAUkxo3hg7tWDZQ1OMAPSdStiXE9h8f/6bgTW/JGciA46MCyjyW40b9TzHixX/B/4vO9loMpU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5CYoceQNa9jK9NLXslXsiiakwCNjpw6OHlRAAGaKpwQewlGxa
-	TEN3BoH0B6G22C5GKCYMdZbpcVEiic2P99KQOlOkUgSXPRfTbddcUnbc/3q2YCJe3A==
-X-Gm-Gg: ASbGncuF3tUdhiocmqTWxAtesiHiHfh7VX1QMziMqbDayfr2sTso/d4HuI+Es2wlbvL
-	NLfgtUpQ9va+9y2tytQs0fQuJ0tB1c3iiOpiwh6YI4WlsnCWeLlyHYZW0b1fOB5HlvqGkIa94KZ
-	5BSySBfOTt2d/rA48S9CvPf68kqkKGB5JIwUdcKgGuwWs82efNbvITUGPCRSmps3eiTnbS9Mskr
-	pyabLbhK9kU11S848BZW1dWL2R3UPFncISMT1Jybp3zMYNSCXvD45cKdBrh5Ojduct4LsAGO1y/
-	MsAq/6OMQN4I3OzufW3wROfPsbC0F1UpGtYU3rvf2RgfKOtlaKHyT0b3Ai8CM3fu37oOI3hV3tP
-	RiAXKB3RBYxsgJLfQGlxZT8s0snocaseF1A2hbWqIB3l+S1OA9L24sTIHLbvaYNyhSeNXOmtgXc
-	EpQVVbGYMS4pI5ubW3JckAIrmA/TLPDyRpRwW0UBAGlER2uF9oZrHBR7ttNbQSSjOzcuPWUq3hb
-	VM=
-X-Google-Smtp-Source: AGHT+IGGbkUt5VkmSpLSuTJVagMvVzZSi8WOukoJTdG7air4eB+Oqs5H0s8SQscIL2j987gZiusSFQ==
-X-Received: by 2002:a05:600c:c4ac:b0:471:9da:5252 with SMTP id 5b1f17b1804b1-47939e3992cmr76489305e9.29.1765212031865;
-        Mon, 08 Dec 2025 08:40:31 -0800 (PST)
-Message-ID: <6f9ba762-ba97-4cdb-85aa-ae4886599d19@suse.com>
-Date: Mon, 8 Dec 2025 17:40:31 +0100
+        bh=AkK4SbevVGpFc9xrhQZRO7dsOuBxGU85PZ4zZvmTVO8=;
+        b=L90juLMYvdChaE+xiPyzawOtZqX5W98/6WrdG7B1VAck+pL42Ih4AUNf9LCBOydDnz
+         Lmsg0qrzqa3KAa1XiJ2XLq6CD0i7R2QMDSFI6KqQUXOGkD++77mhN1+we8iqoypwug0C
+         mN2TEzw0PHTHDMpIRUkp9jwLcQek14VukpHUCoSm8IUivpi3tJEVxde7Jql7A+lq0KNg
+         YjuZ7dmB9lgD2nkRselsBRpDx8nC14Caln5M7daUpfEbv4h4ASnWlFAcAfUPa1Hx6LcZ
+         OlcHPrdeIWpIzUYozj0/sVjqkBLSGHsYqppHLbY7rW22DzYRbYJ9cx9zXH2EiEJBzrYI
+         4zGg==
+X-Forwarded-Encrypted: i=1; AJvYcCXP5J3ymqCYg8r5uTfm8fdR7xrAehbKTLxaGpfy7Qo2jodGTpwlMyXJXiAzixZ+36hojTolDZsWFdk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweV1wU/TADfrxHEaplJIUutKniA0ji+b8glJug9ahEIar2a/bx
+	2g1mqgTzZ1IPhyEf8gr94LKvcCRkkuJ2baCpaOkp7PIKxepk1og3VtaBMuimUqzc1w==
+X-Gm-Gg: ASbGncuW+bmpH40WnMM2K+iYIiOqAsMorSfTYVmOJdmv7Wcq6OPXyXW2nxOA9ZAwwzd
+	un9XpH3znQGWub4b54/2z6e5Uix/n82xnhf/3lDJBAYHtvIqtMwUXRPhshMBqD9JYqCW/d3qVJr
+	Di49GCoj/YBG9t2GIWh9n7lRnbVdo/TbSiKRiM7TTp2ZesLR9eTohc60GAsvTCT+4fIJRuE/5N9
+	VOKGkutW4LlWqAi7UynwngEcxLwDE3rw9waGe3Vt79nJaimf2BIfyp3ZnAKhZtnIt8wnUQBY2UE
+	/48L6J8Pu9fS587KBNIL2sPaapAr6r1hJ/WpKqqzRRtIW9p7oZBSGL5v6Pq1M3Ut5SSD2MmtVfz
+	evmWmySuKmJHus3s3vsE9jkdU1O7c4DwybLZdVgtwJbGnWXTdqjOD9WajzaD2gbMdvXvhMVhR0i
+	Gra8m1mL4c+j9x1n8pXrnL35sT9jIw6nP7Zul31uIhzAG2AI9JyO1/HJ+WybwcXqj5txAxJxwFi
+	WQ=
+X-Google-Smtp-Source: AGHT+IGFE68OxoCxypPQ6IJzfstn6YAYQWkJLyeONVXIzAD1hb+EEH857OovJt+FQVlgGh5y9HAu+A==
+X-Received: by 2002:a05:600c:43c5:b0:479:3a88:de60 with SMTP id 5b1f17b1804b1-4793a88dec8mr51086355e9.37.1765212777067;
+        Mon, 08 Dec 2025 08:52:57 -0800 (PST)
+Message-ID: <8b95ccca-7924-4cf8-818a-094782c6bbea@suse.com>
+Date: Mon, 8 Dec 2025 17:52:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/19] xen/riscv: add root page table allocation
+Subject: Re: [PATCH v6 11/19] xen/riscv: implement p2m_set_range()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,7 +99,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <fc5db52dc3076b19d0b7cfa6e5cb541b1ad5d545.1763986955.git.oleksii.kurochko@gmail.com>
+ <5f2812bb3b82ba1f9178eb00f68a85388f862f09.1763986955.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,30 +125,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fc5db52dc3076b19d0b7cfa6e5cb541b1ad5d545.1763986955.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <5f2812bb3b82ba1f9178eb00f68a85388f862f09.1763986955.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2025 13:33, Oleksii Kurochko wrote:
-> Introduce support for allocating and initializing the root page table
-> required for RISC-V stage-2 address translation.
-> 
-> To implement root page table allocation the following is introduced:
-> - p2m_get_clean_page() and p2m_alloc_root_table(), p2m_allocate_root()
->   helpers to allocate and zero a 16 KiB root page table, as mandated
->   by the RISC-V privileged specification for Sv32x4/Sv39x4/Sv48x4/Sv57x4
->   modes.
-> - Update p2m_init() to inititialize p2m_root_order.
-> - Add maddr_to_page() and page_to_maddr() macros for easier address
->   manipulation.
-> - Introduce paging_ret_to_domheap() to return some pages before
->   allocate 16 KiB pages for root page table.
-> - Allocate root p2m table after p2m pool is initialized.
-> - Add construct_hgatp() to construct the hgatp register value based on
->   p2m->root, p2m->hgatp_mode and VMID.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> @@ -28,6 +36,77 @@ unsigned char get_max_supported_mode(void)
+>      return max_gstage_mode.mode;
+>  }
+>  
+> +static inline unsigned int calc_offset(const struct p2m_domain *p2m,
+> +                                       const unsigned int lvl,
+> +                                       const paddr_t gpa)
+> +{
+> +    unsigned int off = (gpa >> P2M_GFN_LEVEL_SHIFT(lvl)) &
+> +                       P2M_TABLE_OFFSET(p2m, lvl);
+> +
+> +    /*
+> +     * For P2M_ROOT_LEVEL, `offset` ranges from 0 to 2047, since the root
+> +     * page table spans 4 consecutive 4KB pages.
+> +     * We want to return an index within one of these 4 pages.
+> +     * The specific page to use is determined by `p2m_get_root_pointer()`.
+> +     *
+> +     * Example: if `offset == 512`:
+> +     *  - A single 4KB page holds 512 entries.
+> +     *  - Therefore, entry 512 corresponds to index 0 of the second page.
+> +     *
+> +     * At all other levels, only one page is allocated, and `offset` is
+> +     * always in the range 0 to 511, since the VPN is 9 bits long.
+> +     */
+> +    return off & (PAGETABLE_ENTRIES - 1);
+> +}
+> +
+> +#define P2M_MAX_ROOT_LEVEL 5
+> +
+> +#define P2M_BUILD_LEVEL_OFFSETS(p2m, var, addr) \
+> +    unsigned int var[P2M_MAX_ROOT_LEVEL] = {-1}; \
 
+What use is this initializer? Slot 0 ...
+
+> +    BUG_ON(P2M_ROOT_LEVEL(p2m) >= P2M_MAX_ROOT_LEVEL); \
+> +    for ( unsigned int i = 0; i <= P2M_ROOT_LEVEL(p2m); i++ ) \
+> +        var[i] = calc_offset(p2m, i, addr);
+
+... is guaranteed to be written to, afaics. With this simplified (or an
+explanation given for why it is needed)
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
+Jan
 
