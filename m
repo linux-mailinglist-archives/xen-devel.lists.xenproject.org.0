@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1871CACC2C
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 10:54:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180335.1503534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0385CCACD7F
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 11:21:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180346.1503544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXwU-00042y-EN; Mon, 08 Dec 2025 09:54:06 +0000
+	id 1vSYMs-0008L2-Ep; Mon, 08 Dec 2025 10:21:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180335.1503534; Mon, 08 Dec 2025 09:54:06 +0000
+Received: by outflank-mailman (output) from mailman id 1180346.1503544; Mon, 08 Dec 2025 10:21:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSXwU-00040t-BQ; Mon, 08 Dec 2025 09:54:06 +0000
-Received: by outflank-mailman (input) for mailman id 1180335;
- Mon, 08 Dec 2025 09:54:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSYMs-0008JL-C0; Mon, 08 Dec 2025 10:21:22 +0000
+Received: by outflank-mailman (input) for mailman id 1180346;
+ Mon, 08 Dec 2025 10:21:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TwXn=6O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vSXwS-00040n-R6
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 09:54:05 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0a2991a-d41b-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 10:53:58 +0100 (CET)
-Received: from CYZPR02CA0007.namprd02.prod.outlook.com (2603:10b6:930:a1::24)
- by SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10)
+ <SRS0=ZPsC=6O=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1vSYMp-0008JF-V1
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 10:21:20 +0000
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c207::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a15d59b3-d41f-11f0-9d1b-b5c5bf9af7f9;
+ Mon, 08 Dec 2025 11:21:16 +0100 (CET)
+Received: from AM8P190CA0028.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::33)
+ by FRZPR08MB11022.eurprd08.prod.outlook.com (2603:10a6:d10:13d::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Mon, 8 Dec
- 2025 09:53:53 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:a1:cafe::c6) by CYZPR02CA0007.outlook.office365.com
- (2603:10b6:930:a1::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
+ 2025 10:21:13 +0000
+Received: from AM4PEPF00025F9C.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:219:cafe::e0) by AM8P190CA0028.outlook.office365.com
+ (2603:10a6:20b:219::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Mon,
- 8 Dec 2025 09:53:44 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Mon, 8 Dec 2025 09:53:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 8 Dec
- 2025 03:53:52 -0600
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 8 Dec 2025 01:53:51 -0800
+ 8 Dec 2025 10:21:07 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM4PEPF00025F9C.mail.protection.outlook.com (10.167.16.11) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.0
+ via Frontend Transport; Mon, 8 Dec 2025 10:21:13 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
+ by PA6PR08MB10419.eurprd08.prod.outlook.com (2603:10a6:102:3c8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
+ 2025 10:20:09 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::ab1e:55db:9d8:afbc]) by DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::ab1e:55db:9d8:afbc%5]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
+ 10:20:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,306 +61,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0a2991a-d41b-11f0-980a-7dc792cee155
+X-Inumbo-ID: a15d59b3-d41f-11f0-9d1b-b5c5bf9af7f9
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=YdCAIJ+rhzeiYnMFlYlycv+uPBppJOSOaokYtu2qoJw1MsRF1zL8n6ZEjoJupvwhyBYJ+wUPU9o7NDA8h5cJKDtxdXIZKb5RzoePmWiFPuks+kViR30ND+WV/mMcZQ2iiUKLQBspix7Y6yIip5uVkWcFqs8mrgrfXx5sfBwItFPiMSMIy+pAjXHZE0oQI+HUgdVICVS0VBGxHg9iZ5Fh4TC+d6A9hkICKcGOiGMr2Jwylh9cjCVksyVTtqWa/Wi+KK7Eq36m/sYshd0UEUiScRQ3hMLlmk9qHTeIcYL1tOIY//aNmdqrdm5MZXtW2DEqobl04rnMtgpl0aT4Zb5RAg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MHefE14gMgmCvOQ4jeTpNoUNB7fqYP9fPVqof3NvQl0=;
+ b=gvHxTZZKj7X8Un+S1kQQxlveTWIV8K8lIvpDLjHdjEFyY7o/GZZ1N/OjusBZrGnelCEwrW+89N6h+yFByKRINJwy4NA7x/xhJ6nDo6yHP1EQY25ysqD3ngQjKdcB24NC309EUXVTo6DAFM+SDJk0K2lSK+rwM6XkzA/onz3xVA4v7lBDxCOifoDd8gP3pMBY2ESpkfe0TkX+/hv+eB+SuZ586Etv9e0vmYm8Dxcpf0AzJXNjyk2bMyp1hfy9ZxGStXvgrbUyTNvv97YAk+1Ijrv36tZV7HGS4sBg8rafQOfJ60RPXnCTBSzyfcLfIg7q4J17PCXqg3S2nsQa5TlvaQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MHefE14gMgmCvOQ4jeTpNoUNB7fqYP9fPVqof3NvQl0=;
+ b=lcsRe9nzx3vuQ9x/9l6gvr2VddDqgH2AvSx74L/cSKbsOxDOaQvwV9QM4Gbwf+rFMRDTg01ZNHHvnQJehPP1EJb+RiIyYxhRmM0R7kD8yMwottfWmDKy4LIXYUh9TKU+9xsAMRBHpEF6j1LJsSJkC+5l8YZNW1xBcI1HZMh+idE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WgVYs79N73VVxczyWayq0wY2wfPU3ap2vNN/xrr2CF9fUbBOGt+PJ1gU6hxjbav7qnp9uUjwdYRYZKOCg4W4hEvnJTPhVAiqfIWY9akVc0sxlHeZJqJBXGRPBMhZf2QtgVHO20MwRAuaCzbneyiTlqkkba2Br+M0PzkvTzI5Ra7eRVNS80X69oWd1nv2SPoqBbzbbATcnSMtt0dvUg7Z2UIEl3mJunvZ1lakX134wqYQHDt0gCoKCwNYA6ejsj2epcaoFUzetZCu8GZmSmCWagaQGV6mfg5/PiNuuTuBJeaAJkUXb0CdUkKle1izk15gQO2b0kmzZk0/W4W/RhJBrQ==
+ b=Y47I8Shsb/IPgGNjfz5vfEEt/q+TRsquDVysZYO0mdStWRyxbWQn3b1V80gZwE2bX6UrpdAhkuF89ADhmljAdaubQ4ZMNgxdbb5/dJfV9EegFOMunJERFfwwXcYSnF/OKvoBYAuoNksM7+htmQGabb0JZ/D0r+KPBiP8dR2CZG3AWpxMhzs4QnTyY0ogaDyiSnfqk7DNeNe11UJBUNf1JO9MMlUFDQkc4lZM5q1aG8O5VlvsPwIsDEWi3ktRLGLzjztbeWVWQ8eT7LYulcJKpt587OJzjWD19arS9+b4tuZKgm9i3TeOTMEbJTlPbrRfR3MfVoN72MzdzunhWqA4JA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nqAGyUqismXMR9zFHdltjS6gLfxdmQoggg+u9lhVEoc=;
- b=JUUpIT9WhUBusKmM+gzpzH/tsXzyTLYQgISfP6CkZ/ohntMPDsnv8LMVNNST4SI9QuerP/BGTy+Y+lC3LCWMMMPrLryFef7XYR9izAfyZx8R+POkMbGVZLq2ezu/BqDQ10ZcN9uO7E46RNMo1oz8h1ZA1jTtM2X77jBfHf8rYjEsjq2y06/nWWC79H1whkoIRxIXA0EtbzRWuqliZIV9WwybJWdFuyw1mpp26C2+NR3+TrhYHsqSjwMU6EU7LWGPrQ4KnYEcL69OUFYQgKi8xfe9L6j8O2GPVgR3YSNm4n/6bPvqXiipUfy8CE15kjxFJJ5oVafbPy4JkXDrv+5GRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=MHefE14gMgmCvOQ4jeTpNoUNB7fqYP9fPVqof3NvQl0=;
+ b=IO6XWvpm2uD27xKmVpssbNtH5LxB3CjfCxFQWwILt8tChNwzjwBXkOrTwgQTfSvK2/D/sya3banYKQErfkWIEbReJW44S3p6UC8qoYxjgtlxkAyJDSYyX+93ft/dKUX6OD7vS2Qo0ltfvHXBVPz6Xb+1KGxwGNqQUyQbcPBhYXh21JW1zlwG+uTGvqOYF7cI56ro8V1KvrG57UHeoYILXUguPQfWSV3ZE70c0xvXC++VJYAsk7NFpcfY3Vrn/7pMoz/lZRn9U94KW5kqQdQDs+6I6Qkyuq9lSvAX5kHde3nI5n9DlhSYtoIrJ+tl6qBfstY3NJjgULNUjqTKmW/fUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nqAGyUqismXMR9zFHdltjS6gLfxdmQoggg+u9lhVEoc=;
- b=EMsJZtHS8lV0uZm7KwAqSeOCQYD8n9WvIpB8bV+wkOWQ85BxzuMQm72lapPUHXdLEpHNuIlFQLTq3VlS3d16hnNp6tnI7cUj9p74Tiyjkq/X1q/GEjJUX6qTZPyw+bUDmcXhHeRn7qLdM6DQrCYvPQ7LT1iGCNxmUCnFhzfSzeQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <3c0a4987-81ef-4cf1-a1ad-bd8872a0dd67@amd.com>
-Date: Mon, 8 Dec 2025 10:53:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ bh=MHefE14gMgmCvOQ4jeTpNoUNB7fqYP9fPVqof3NvQl0=;
+ b=lcsRe9nzx3vuQ9x/9l6gvr2VddDqgH2AvSx74L/cSKbsOxDOaQvwV9QM4Gbwf+rFMRDTg01ZNHHvnQJehPP1EJb+RiIyYxhRmM0R7kD8yMwottfWmDKy4LIXYUh9TKU+9xsAMRBHpEF6j1LJsSJkC+5l8YZNW1xBcI1HZMh+idE=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: "Orzel, Michal" <Michal.Orzel@amd.com>
+CC: Harry Ramsey <Harry.Ramsey@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: Re: [PATCH 2/6] arm/mpu: Implement vmap functions for MPU
-To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Thread-Topic: [PATCH 2/6] arm/mpu: Implement vmap functions for MPU
+Thread-Index: AQHcaCiVsmELIMmqw0CIjLYoH4Hmo7UXiACA
+Date: Mon, 8 Dec 2025 10:20:09 +0000
+Message-ID: <04784EBA-BB67-495B-894E-A20A10569D8F@arm.com>
 References: <20251128095859.11264-1-harry.ramsey@arm.com>
  <20251128095859.11264-3-harry.ramsey@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ <3c0a4987-81ef-4cf1-a1ad-bd8872a0dd67@amd.com>
+In-Reply-To: <3c0a4987-81ef-4cf1-a1ad-bd8872a0dd67@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-In-Reply-To: <20251128095859.11264-3-harry.ramsey@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|SN7PR12MB8002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e57eced-eb57-42f8-a975-08de363fb207
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.700.81)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DU2PR08MB7272:EE_|PA6PR08MB10419:EE_|AM4PEPF00025F9C:EE_|FRZPR08MB11022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b8a5b04-9853-49fc-7805-08de364383a1
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|376014|366016|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?utf-8?B?eHFUYWFEajdJQUdFT0NKbkVEanRJSGs1b2pSaDhzT1J5cnIxQlZSZU1KeVZW?=
+ =?utf-8?B?aG5Rd1d4ajFlKytvdXhnRWwzcVN1NDhkb3BhaTRrN1dGbHVOV2tTdzYzODFr?=
+ =?utf-8?B?Vy8xZWdxNk9KTTN2MWRjWnJZN2RRN2VwenQvK0FlK2h2VWJkMDFvZktRR3NE?=
+ =?utf-8?B?enpjcmRqQ3pRcWpqdERoQ01kb01IQXVRUS9PZUtRUzVRQlpmSHFma3RldElu?=
+ =?utf-8?B?eFJmTklyL3EvWUREdUFQSGJsUGJJdGl4RDJkRnBEU2wwV1dxQW9PeElMcU9i?=
+ =?utf-8?B?QWdkMHY4NmxSeEZTeldRMWorTHU3c25uZFh0L0UvM0dSaVBLYXZUWnpJYWF3?=
+ =?utf-8?B?VnJsTFlzdTdzR0VGRyt3MHppR3lLbVE1ZHpKZXhSVVhyRk56ZERHVXVNallH?=
+ =?utf-8?B?ZnhVNysybWdVcHZQd3RsVk5NMGc5S0ZGQ0pIZERMSnpHT1A2K2FyRHNkek9U?=
+ =?utf-8?B?ME02clFHZ2hkVWx6UVZtNW5WMmhaSWs4d3d6SU80SElXajZ5MVR4c2t5bklF?=
+ =?utf-8?B?UVRPQVE5U0MrVFVlcHJ3Y2pvS3RXay8rVXNad0piS2ZuRG42SjlidHJaSzV3?=
+ =?utf-8?B?cnRxSkNWaC9tbWZQQXg4cU95WjZVZkxVSlJsZXNreG9Zb2lUcTdtZGh4YXRy?=
+ =?utf-8?B?dEEyOWpwNXQ2YWgzUDZEMG03d3BoWWMrTjY5TWlXY01uNXN2TWxQVitma2lm?=
+ =?utf-8?B?Y0Z3Z2xtamtBdUhYNUVXTlJISVhyMTBKZ3FhT2tMTmR4M2Jqc1RPdVR5MEZn?=
+ =?utf-8?B?Yi92dDVjRHh4eHZOcGJJRS9JaVBFbU5JV1AzUzhaQ3hjMjNMYUZ3RHlJUkhx?=
+ =?utf-8?B?MUhOZlFsQlI0aFk2TU12cGh1em8rRHI2SVpDRTMxK05BbmExajJPcXQxMFFF?=
+ =?utf-8?B?eHN1MG5vaVpFamNpamdNTTNhV3BZeW1haW1tak53YmIrcEpSYVhkb2JHTHp4?=
+ =?utf-8?B?aDYyVTVlellxbEdwMG5EYkZoREU3WU5xc05tL085VGpCdG95dVk4YnZMUXdh?=
+ =?utf-8?B?MWJXQzRnVFI0bnJYWktyVllGWUVSNmFwMXJ3bVZCRWQrS0tSU0dKSDM1VS8z?=
+ =?utf-8?B?S1ZRSGFiMTBwdlQwTmw5bzRzdzd1bDNPQVJSZVQzbXpUb000Z29xbzVBUWxu?=
+ =?utf-8?B?ZG1ya1E5am93QTl6VWRMczZ2ditWWGpXZ3UzOE8vSTl0Y1QwL1BwWFpvR1hS?=
+ =?utf-8?B?RW5xeEU4K0wvNFV4dTlBOWZ3ZU5TQ0FGWkJYenUwajE2dlBtSnVSSkRXUFZH?=
+ =?utf-8?B?UmZveGdqSlJDWk53cFZ2ZU1EUDM3bDJxRmN0eFJOa2Z6L0FwOHNobHJxaUpQ?=
+ =?utf-8?B?SEtBRVBxOUtPdGFqR2FOaUNkVWtya0RqWVc3M2loYmhwa3pOaHJSbXNra09a?=
+ =?utf-8?B?YTE5NnlEZWRsdkd0U2NPeWt4bTluVG9PRnFKSWNyVG0reUhBeUExSUZ5Ui9G?=
+ =?utf-8?B?OGlUeFptMlo2Q3VscndnZzRqTVROSXZNZ3I3STVuSnNudW1HcFFXUlRzTHBX?=
+ =?utf-8?B?Mll6MzZmNlphMWtqeXFndTl4cXQ3S3Q4ZUFFK01yQUxheEtkSkhpUUg3WUJR?=
+ =?utf-8?B?cUFmbjdlL1BIOEFNQjZxK3lkbGx5SmUzUUZqaU5TWFhwRmEzS2J1azRuMEV0?=
+ =?utf-8?B?SzV0Wkh6cW9BTS9KdmswaTNKMTBUUFhWM3ZmS1JaeUsrWWU4N1NyTFBXdTlw?=
+ =?utf-8?B?TmNkREtHZ2FqZXd2ZEF3cDVCVnRTRzJBcURuNDkwR3BzRXM2cW0vcTd0TzJW?=
+ =?utf-8?B?TlhNeXA2a25XVTlaSnBTTXlnMkVDSEVwbXM1TWRhQWZieTVqZ3NrblJ3ZXRt?=
+ =?utf-8?B?TU5xYUFSNUI1RnBjVmhuUVpJSHdYUVA1NnluNVMvVFV1bExPRDA0dmF1Z1FD?=
+ =?utf-8?B?ejdVdVpudmF3eWdyQThFMjd0ZU8ycFg1MlRoRW5YOU9NZ014R2o5UVUxVCtL?=
+ =?utf-8?B?VVN2TU5zd3pScUlSb3o0T05MMUZ1aGt1b3p0VWgzVW11TzN1WWc0dWM0SnRw?=
+ =?utf-8?B?T0ZWYmQ3dVlyR2I5TkVtWW1CN2JCTnhNT3NUUVZ2c1poSHBjKzFzdncydGtl?=
+ =?utf-8?Q?fGyIbA?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <88B6CCB1E266B84F8ED3F8F93A5D5AD8@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB10419
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM4PEPF00025F9C.EURPRD83.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	e1aea263-daff-4260-9bf9-08de36435d96
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024|7053199007;
+	BCL:0;ARA:13230040|35042699022|14060799003|36860700013|1800799024|82310400026|376014|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NDJGWlk5TXpqMWJVT0hEQkVjL20wL0JJa0M2MEJmeXdsbDF5QUdoenVzUTg1?=
- =?utf-8?B?RFBpR0ZDN3lvclNmQzBhSHlVekhLM1FzRDZCMHRZdmM0VEF0UjAvOEdYd3Zq?=
- =?utf-8?B?enQxbHJHWUh2TU1NS2Z1Q3Zja1BkWHE1amg5Q0RkNFVubC9sOGNYMHVLTzVm?=
- =?utf-8?B?YmxrVVRkZzdNQ2FBbGlGN1VmT3BpT3ArMGZVSGVyV3dPdExyM2hFbHhoMSts?=
- =?utf-8?B?dVg2TWUrc2J3Uk9vd2RTc0s2ZHdSM08zM0ZMT0lmUThJblk2Q1FMM2kxc2dn?=
- =?utf-8?B?L0FqZjVDUFcvOGN0NFoxOVRMYW9OTVZiSmF4OVY0NndhNmRlSGY0M0tRVjJG?=
- =?utf-8?B?YnlQZFRPTG5iWEhoR1VvZENuNUxtSDlPdVFSRHJHRHV2V2VPcFI0Wnh0Vys4?=
- =?utf-8?B?SlNmajIzak5CbmJIeXVxZ0tYSnV0UDJNS04zeW95S3BoV3F5QVF4bFQvdjBx?=
- =?utf-8?B?R2puRlQ1VFc4djE1TGluSy9TQWIzTWptbjIxM0N6NG1RRi9WSTdSUE13WGxa?=
- =?utf-8?B?QzVqd3FaWHZsQXUwR1hieFpsUDgzWDk4OElremFFUW1aRXRVSXk1WkszbkJF?=
- =?utf-8?B?YmlxdlJ0dnliRTI4T2wxdXcraTRUMHpjc3dpcGpjeERmTVBJSGpwVTF5Q2ht?=
- =?utf-8?B?UW52UVBaK2dVS0QrQnRsczBLbHpIV1BKZy9ZY1ZtSUhSWCsyQmxycHFuZEZM?=
- =?utf-8?B?MEJWK2FpRURXdmc5R0Zab0Q5cEZVQXZXUFVBWnZIdCtFNHc1cEFNcjM4Uk5S?=
- =?utf-8?B?L0JjdjVpU2JpWjRia2I2L085bDdieEFQc0xtbS9leFBRbEZHckdlRU5KcWI1?=
- =?utf-8?B?eWJFWTJxc0dOYlBLWXZsNVpGN1hXeTUrY0RJVzBhKysraWhkY1hvUkVUQXQx?=
- =?utf-8?B?MHlLUXM0WVI1Q3ZTM29NNnJ5K3ZGc09lOVNDa2pTUjIyYnNvZWtXZE9KOVpa?=
- =?utf-8?B?ZkxBdlVzem9tQmJPQitrcUQvS05NUlpLeWl2ODNvSk1RRVduQWl0cnlrYnhJ?=
- =?utf-8?B?eXVGcHFud01GZ05USWtsSlE0VnVpUDdtTHoxUDEzODk3NzZkZTJGSXQzSlQ5?=
- =?utf-8?B?emVtQVBWc3N4WWQ0eTczR1ZwRTk3Y2VTMXNuU21kd0hZb0xQNFBpVTRER0Fh?=
- =?utf-8?B?TEtWKytxSzJOWjBXam9wS1lqTUtXb0dDV05tMWpFK1Y3TUhMWEErODFGZVNP?=
- =?utf-8?B?UjF5UnZzK01SY0FLOEtnckJDalJoWU91MmplZllGU2h5blRyV3F4azd4eTJu?=
- =?utf-8?B?amlIZ29iUmFxclo2eWtuT09yNCtEMGVGSUQvVWppZmpLRXhNUVZQeW55WVlR?=
- =?utf-8?B?dTJpdnZuWTA5SEVZU3ZtS2w5ejc1Z0gxQWNDNUx1cmtkOGt6VE15TURZbldu?=
- =?utf-8?B?Ujd0SVFYSS9mZnl5WkVJL25OYXZ2NXRFdWYxemFJZUw2Sko5ckZHOGlPUDQ4?=
- =?utf-8?B?NlkwUU1QOHJpT3ZTVWVzWmN3SHQ0cTRPb3ZJRUczK0g2aitTMy9MRDBOS1N1?=
- =?utf-8?B?bjBqUi9xUkx6RnlZOStqTm43cDdFWlgzUnhHQTR1Ulp1MVdMMlMybUVRa2xC?=
- =?utf-8?B?RExXM1BDQUtHRHUwNnluWkphWHRpZmZ1RWV0bC92YWNZdGk2TkM5eXJ5eGJr?=
- =?utf-8?B?SmpzNk4wU2d2dklOR20xd2xjckJIWGpDQXROMlJyVWl0cUZHcmlWbG1iTzVF?=
- =?utf-8?B?SmRVMlZ4T0VnRDJ5M2NmUjYzM29CK2pLYkY3QWMvUW5nRnZjQTEvSVZrRjNK?=
- =?utf-8?B?Q1pQcERwKzh0eVF4STU5NUlZdnV3UFdOMUM0S0lvWVlWNWpIV1pVVlB2Y29w?=
- =?utf-8?B?UmhpSENjRDRYY05YaEtXcVNYWWhnSGsxZXIxM1NheU1EazJiOFIwR0ZGeDZo?=
- =?utf-8?B?YVpHUjNBVWxQbE5jTEw2QzhXZWlER1ZrbDJXckJsWXJYOEhQdkRDWmdaRlkr?=
- =?utf-8?B?U3hZZ1Ryd21Pc0Z5aHAyVE1CdlA3OXpmaGR1bXJKQUlESEd3TnJFc01LWXc5?=
- =?utf-8?B?amJnT3pTZDY3b29SLzE4NmJCK2p0Yk4vVlZIUDZzeGlXdVFvTXVYVk5PYVVP?=
- =?utf-8?B?TTBldzJ2aDcwWFlpdVpEYWxmRnJ4dEtuamxnTFpwTUp4dkVmaUViYk16R0Ra?=
- =?utf-8?Q?+gbU=3D?=
+	=?utf-8?B?OTRYTnJVNFhMRi8rY0JZbkJPdmUwWGFyNTFzMjAvY3Q4eXFCS1VWUm9zejFY?=
+ =?utf-8?B?SFM2eSt1VVpiSkpuUlIzTTVpNGxVNFArblBzWVlUa2hXQTlpRDYya1ZaNmt2?=
+ =?utf-8?B?YnoyMmlaSmRzQmhuZHh6Mk9heFdNY0RGZlFxcjBzNmhyL1JGQTI0L1FycHF4?=
+ =?utf-8?B?SjM1d0t6NVlnQnUxcGVIT3ZNR0x2WnNLSVRFVXRJSk5PVnErdmUrWXAvbi90?=
+ =?utf-8?B?VXhRbGFSTVlPc0xCbjRpQzN6WnBGSzNCWEN5cUJVSGZ3Tjd3TlBZS2NEa2NM?=
+ =?utf-8?B?RGFYMDVKNVlyM0NhL0dNTWxaY1N1dDljV0wwejlRUXJIaHRLTEszOWR4WkJr?=
+ =?utf-8?B?Tjc0QWFFUXFuK09HVTUxT3I4OWlYYitBTUdZU1F2Z2Q0b21CWXVWdXZ1UWxT?=
+ =?utf-8?B?N1phMDRLUU91SDJIbzhQSFM2TlVEYW1mYXZ0WEZxVDM0bUdWMEdUVW1LUi9t?=
+ =?utf-8?B?bjFYS1hGMFBaT0FyNzJCeU1acStvQUYzQ204VHNWRDVRUE5qZEtuYkpVQkkv?=
+ =?utf-8?B?MXJVNEYzRDY2aUU5VTcwdVZrUFIwa2lrekMzSkd6T0hsd1pqanZFVVJEUDlS?=
+ =?utf-8?B?ZXpEdElGaENsN1crUG91enZpd0dJR1JTaUNod09qaUhUTUpaWXZZS0t5aDhK?=
+ =?utf-8?B?MzFrZk1XR3hUanVMNjlJK2pIMmF3T0hlUVFoVEJtaXFyYVdON3BtVUcyQThh?=
+ =?utf-8?B?dVJ1QW80Vkc0bXhzZGdJblJmbWFoNHUzSFQ3RmxYbFVhN2h3SWRLMk5JVVg1?=
+ =?utf-8?B?WDl4UzRpV0duYkZ2WWMzWnZVRmxEdzJBMXpOeTJVVjVPNTB1eEFYdldqcVJF?=
+ =?utf-8?B?cHJmUjJvb0RlRFpNUjRid3VaNVdHeEF5aDVGTm9MWGg3UTRVUm5FL0l2a05l?=
+ =?utf-8?B?b1hRNktHYWVjY0RMalhQbGlIYVRlUTZucnRuQ1FZWHY1MElvWDIzaVhnbGpT?=
+ =?utf-8?B?MjV0amFXKzlvSDhRVkUvazcycFpaQzBOdGkvNTVyaTcycmNsRHIrNStXZ2ZF?=
+ =?utf-8?B?UWxNTmIxdzlFR3dIUEl0NHhJeE1uU2FnLytjUHMyYmxUaEo3cFY0bEpTdlU3?=
+ =?utf-8?B?aUs3VkZyU0FUSEpOV1lpZFlyMEFOWDcrdDllOVNRRG1OWWd0TCtkcHJCQ0pt?=
+ =?utf-8?B?cEpiNTRrK0poUlBYaENRcC9FVWVUNHo5Y0Qzd1RFWDJyY1hUdFBtdnBraU4y?=
+ =?utf-8?B?T3BnTldQNUk2NkNxYmZ4czk0NGRUdWpCSEpLbXpKeGpqWG0zMUUwR1ppTE8x?=
+ =?utf-8?B?WVZmNDBFN3h4REk0eUNQZ3dyYVMxZGtQaHpLTE1XYUVDQnBmQ01SbG1OK1JI?=
+ =?utf-8?B?UENPWXJhNmJxY3lTSUloa3NvcDI4ZGhDNHpEaWZvQy9rZm1wcnpoM0M0SEVQ?=
+ =?utf-8?B?cnY2aFNBZ2tia2EyY0dHbGZGdGNueXFab3dtTzV4eVkxVGxFYUdpSkU1NmZj?=
+ =?utf-8?B?RG5PbFc4RlExb2tyWitkYndKOFFhUkhEekc4c2djcG4rYmtDR0RRRnJia3dY?=
+ =?utf-8?B?VmV0ZnV1SkhZSEZlR2xIRzI2R0tPWVREdlhvR1dTYjloNUpDRnV1amszcXFv?=
+ =?utf-8?B?d2FDRmlzWVMvcE9jM1dWakZROGNFblF2SFF2d3lhVGdvZnBlcG5HRnVQMCtY?=
+ =?utf-8?B?YXZSS0I5YlZvcmhqY09HK1dPdEpIQjVwVEtNMjJ2Z3Z0ZXVXWGtjeitiNHJr?=
+ =?utf-8?B?aW90RVZ5SEZtTWtrQ3MrZmtKS2ZUSTlyVHc3T2dLWmQzSVY0R1pKMVZ4VjQ0?=
+ =?utf-8?B?WHgzdzZ2eiszbFgzT1ZSaDh4Y1pUajkvSVJNQlFpNEllUnVyZk1xMEI3blZ6?=
+ =?utf-8?B?NVpvaFlyOHJZQjFYcnVnZ3Zjcmg5cWY0cEVTMGcraWxKL1FXRnVsYlo4bFUv?=
+ =?utf-8?B?RUEwYm9XMW53QlBPYnlpNzhnK0hYQlJtV0EvdTBvbXBPN3ZJT21uMnRpUlZy?=
+ =?utf-8?B?UVpJWlBYR3B2R2haSm1MejMxWXdPc1V3RmdZWEdHN21jQ0lKVWJZZGlnc0Vk?=
+ =?utf-8?B?UWp2Uzk0L0tOclV1WVVkZ0JTQmdOb1J4WFgwOEFGTjcvWWVmVDl5ZzFRc2Fa?=
+ =?utf-8?B?RmkxSnpaWlIxcTVoM1ZzY0VwUzZGU3ZObHZqeXJqaW9VWWR4MWhtemc2eldw?=
+ =?utf-8?Q?qKrk=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 09:53:53.0008
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(14060799003)(36860700013)(1800799024)(82310400026)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 10:21:13.1429
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e57eced-eb57-42f8-a975-08de363fb207
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8a5b04-9853-49fc-7805-08de364383a1
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE37.namprd05.prod.outlook.com
+	AM4PEPF00025F9C.EURPRD83.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR08MB11022
 
-
-
-On 28/11/2025 10:58, Harry Ramsey wrote:
-> From: Luca Fancellu <luca.fancellu@arm.com>
-> 
-> HAS_VMAP is not enabled on MPU systems, but the vmap functions are used
-Just as a reminder, we don't intend to support VMAP on MPU? Asking because it
-would otherwise be a duplicate effort to implement only these two helpers.
-
-> in places across common code. In order to keep the existing code and
-> maintain correct functionality, implement the `vmap_contig` and `vunmap`
-> functions for MPU systems.
-> 
-> Introduce a helper function `destroy_entire_xen_mapping` to aid with
-> unmapping an entire region when only the start address is known.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
-> ---
->  xen/arch/arm/include/asm/mpu/mm.h | 11 +++++
->  xen/arch/arm/mpu/mm.c             | 67 +++++++++++++++++++++++++------
->  xen/arch/arm/mpu/vmap.c           | 14 +++++--
->  3 files changed, 77 insertions(+), 15 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-> index e1ded6521d..83ee0e59ca 100644
-> --- a/xen/arch/arm/include/asm/mpu/mm.h
-> +++ b/xen/arch/arm/include/asm/mpu/mm.h
-> @@ -111,6 +111,17 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags);
->  int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
->                             paddr_t limit, uint8_t *index);
->  
-> +
-> +/*
-> + * Destroys and frees (if reference count is 0) an entire xen mapping on MPU
-> + * systems where only the start address is known.
-> + *
-> + * @param s     Start address of memory region to be destroyed.
-> + *
-> + * @return:     0 on success, negative on error.
-> + */
-> +int destroy_entire_xen_mapping(paddr_t s);
-NIT: I read it as all the mappings which is a bit misleading :)
-Maybe something like: destroy_mapping_containing or alike?
-
-> +
->  #endif /* __ARM_MPU_MM_H__ */
->  
->  /*
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 687dec3bc6..29d8e7ff11 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -290,6 +290,35 @@ static void disable_mpu_region_from_index(uint8_t index)
->          write_protection_region(&xen_mpumap[index], index);
->  }
->  
-> +/*
-> + * Free a xen_mpumap entry given the index. A mpu region is actually disabled
-> + * when the refcount is 0 and the region type is MPUMAP_REGION_FOUND.
-> + *
-> + * @param idx                   Index of the mpumap entry.
-> + * @param region_found_type     Either MPUMAP_REGION_FOUND or MPUMAP_REGION_INCLUSIVE.
-Both of these are unsigned, so why the parameter is int?
-
-> + * @return                      0 on success, otherwise negative on error.
-> + */
-> +static int xen_mpumap_free_entry(uint8_t idx, int region_found_type)
-> +{
-> +    ASSERT(spin_is_locked(&xen_mpumap_lock));
-> +    ASSERT(idx != INVALID_REGION_IDX);
-> +
-> +    if ( xen_mpumap[idx].refcount == 0 )
-> +    {
-> +        if ( MPUMAP_REGION_FOUND == region_found_type )
-> +            disable_mpu_region_from_index(idx);
-> +        else
-> +        {
-> +            printk(XENLOG_ERR "Cannot remove a partial region\n");
-> +            return -EINVAL;
-> +        }
-> +    }
-> +    else
-> +        xen_mpumap[idx].refcount -= 1;
-You could avoid nesting if/else by doing:
-    if ( xen_mpumap[idx].refcount )
-    {
-        xen_mpumap[idx].refcount -= 1;
-        return 0;
-    }
-
-    if ( MPUMAP_REGION_FOUND == region_found_type )
-        disable_mpu_region_from_index(idx);
-    else
-    {
-        printk(XENLOG_ERR "Cannot remove a partial region\n");
-        return -EINVAL;
-    }
-
-> +
-> +    return 0;
-> +}
-> +
->  /*
->   * Update the entry in the MPU memory region mapping table (xen_mpumap) for the
->   * given memory range and flags, creating one if none exists.
-> @@ -357,18 +386,7 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
->              return -EINVAL;
->          }
->  
-> -        if ( xen_mpumap[idx].refcount == 0 )
-> -        {
-> -            if ( MPUMAP_REGION_FOUND == rc )
-> -                disable_mpu_region_from_index(idx);
-> -            else
-> -            {
-> -                printk("Cannot remove a partial region\n");
-> -                return -EINVAL;
-> -            }
-> -        }
-> -        else
-> -            xen_mpumap[idx].refcount -= 1;
-> +        return xen_mpumap_free_entry(idx, rc);
->      }
->  
->      return 0;
-> @@ -418,6 +436,31 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->      return xen_mpumap_update(s, e, 0);
->  }
->  
-> +int destroy_entire_xen_mapping(paddr_t s)
-> +{
-> +    int rc;
-> +    uint8_t idx;
-> +
-> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
-> +
-> +    spin_lock(&xen_mpumap_lock);
-> +
-> +    rc = mpumap_contains_region(xen_mpumap, max_mpu_regions, s, s + PAGE_SIZE,
-> +                                &idx);
-So here you are searching for a region that includes at least s + PAGE_SIZE.
-
-> +    if ( rc == MPUMAP_REGION_NOTFOUND )
-> +    {
-> +        printk(XENLOG_ERR "Cannot remove entry that does not exist");
-> +        rc = -EINVAL;
-Here you assing rc but ...
-
-> +    }
-> +
-> +    /* As we are unmapping entire region use MPUMAP_REGION_FOUND instead */
-> +    rc = xen_mpumap_free_entry(idx, MPUMAP_REGION_FOUND);
-here you would redefine it.
-
-> +
-> +    spin_unlock(&xen_mpumap_lock);
-> +
-> +    return rc;
-> +}
-> +
->  int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
->                       unsigned int flags)
->  {
-> diff --git a/xen/arch/arm/mpu/vmap.c b/xen/arch/arm/mpu/vmap.c
-> index f977b79cd4..d3037ae98a 100644
-> --- a/xen/arch/arm/mpu/vmap.c
-> +++ b/xen/arch/arm/mpu/vmap.c
-> @@ -1,19 +1,27 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  
->  #include <xen/bug.h>
-> +#include <xen/mm.h>
->  #include <xen/mm-frame.h>
->  #include <xen/types.h>
->  #include <xen/vmap.h>
->  
->  void *vmap_contig(mfn_t mfn, unsigned int nr)
->  {
-> -    BUG_ON("unimplemented");
-> -    return NULL;
-> +    paddr_t base = mfn_to_maddr(mfn);
-> +
-> +    if ( map_pages_to_xen(base, mfn, nr, PAGE_HYPERVISOR ) )
-> +        return NULL;
-> +
-> +    return maddr_to_virt(base);
->  }
->  
->  void vunmap(const void *va)
->  {
-> -    BUG_ON("unimplemented");
-> +    paddr_t base = virt_to_maddr(va);
-> +
-> +    if ( destroy_entire_xen_mapping(base) )
-> +        panic("Failed to vunmap region\n");
-Looking at common vunmap() we ignore the return code from
-destroy_xen_mappings(). Is it ok to diverge?
-
-~Michal
-
->  }
->  
->  /*
-
+SGkgTWljaGFsLA0KDQp0aGFua3MgZm9yIHlvdXIgcmV2aWV3LCBJ4oCZbGwgYW5zd2VyIG9ubHkg
+ZmV3IG9mIHlvdXIgcG9pbnRzIGFuZCBJ4oCZbGwgbGV0IEhhcnJ5IHRha2UgdGhlIHJlc3QuDQoN
+Cj4gT24gOCBEZWMgMjAyNSwgYXQgMDk6NTMsIE9yemVsLCBNaWNoYWwgPE1pY2hhbC5PcnplbEBh
+bWQuY29tPiB3cm90ZToNCj4gDQo+IA0KPiANCj4gT24gMjgvMTEvMjAyNSAxMDo1OCwgSGFycnkg
+UmFtc2V5IHdyb3RlOg0KPj4gRnJvbTogTHVjYSBGYW5jZWxsdSA8bHVjYS5mYW5jZWxsdUBhcm0u
+Y29tPg0KPj4gDQo+PiBIQVNfVk1BUCBpcyBub3QgZW5hYmxlZCBvbiBNUFUgc3lzdGVtcywgYnV0
+IHRoZSB2bWFwIGZ1bmN0aW9ucyBhcmUgdXNlZA0KPiBKdXN0IGFzIGEgcmVtaW5kZXIsIHdlIGRv
+bid0IGludGVuZCB0byBzdXBwb3J0IFZNQVAgb24gTVBVPyBBc2tpbmcgYmVjYXVzZSBpdA0KPiB3
+b3VsZCBvdGhlcndpc2UgYmUgYSBkdXBsaWNhdGUgZWZmb3J0IHRvIGltcGxlbWVudCBvbmx5IHRo
+ZXNlIHR3byBoZWxwZXJzLg0KDQpZZXMgd2UgYXJlIG5vdCBnb2luZyB0byBzdXBwb3J0IFZNQVAg
+b24gTVBVLCBoZXJlIHdlIHdhbnQgb25seSB0byBwcm92aWRlIHRoZQ0KaW1wbGVtZW50YXRpb24g
+b2YgdGhlc2UgdHdvIGhlbHBlciBzbyB0aGF0IHdlIGRvbuKAmXQgdG91Y2ggdGhlIGNvbW1vbiBj
+b2RlIHVzaW5nIHRoZXNlLg0KQXJlIHlvdSBzdWdnZXN0aW5nIHNvbWUgcmV3b3JkaW5nIG9yIHdh
+cyBpdCBvbmx5IGEgY3VyaW9zaXR5IG9uIHlvdXIgc2lkZT8NCg0KPj4gDQo+PiArLyoNCj4+ICsg
+KiBGcmVlIGEgeGVuX21wdW1hcCBlbnRyeSBnaXZlbiB0aGUgaW5kZXguIEEgbXB1IHJlZ2lvbiBp
+cyBhY3R1YWxseSBkaXNhYmxlZA0KPj4gKyAqIHdoZW4gdGhlIHJlZmNvdW50IGlzIDAgYW5kIHRo
+ZSByZWdpb24gdHlwZSBpcyBNUFVNQVBfUkVHSU9OX0ZPVU5ELg0KPj4gKyAqDQo+PiArICogQHBh
+cmFtIGlkeCAgICAgICAgICAgICAgICAgICBJbmRleCBvZiB0aGUgbXB1bWFwIGVudHJ5Lg0KPj4g
+KyAqIEBwYXJhbSByZWdpb25fZm91bmRfdHlwZSAgICAgRWl0aGVyIE1QVU1BUF9SRUdJT05fRk9V
+TkQgb3IgTVBVTUFQX1JFR0lPTl9JTkNMVVNJVkUuDQo+IEJvdGggb2YgdGhlc2UgYXJlIHVuc2ln
+bmVkLCBzbyB3aHkgdGhlIHBhcmFtZXRlciBpcyBpbnQ/DQoNClVobSwgZ29vZCBjYXRjaCwgSSB0
+aGluayB0aGlzIGlzIGEgZG9jdW1lbnRhdGlvbiBpc3N1ZSBiZWNhdXNlIGl0IG1pZ2h0IGJlIGFs
+c28gTVBVTUFQX1JFR0lPTl9PVkVSTEFQIHdoaWNoIGlzDQotMSwgd2Ugc2hvdWxkIG5vdCBtYW5k
+YXRlIHdoaWNoIHZhbHVlIG1pZ2h0IGJlIGhlcmUsIHdlIHNob3VsZCBvbmx5IHNheSBNUFVNQVBf
+UkVHSU9OXyogdmFsdWVzLg0KDQoNCj4+IA0KPj4gDQo+PiB2b2lkIHZ1bm1hcChjb25zdCB2b2lk
+ICp2YSkNCj4+IHsNCj4+IC0gICAgQlVHX09OKCJ1bmltcGxlbWVudGVkIik7DQo+PiArICAgIHBh
+ZGRyX3QgYmFzZSA9IHZpcnRfdG9fbWFkZHIodmEpOw0KPj4gKw0KPj4gKyAgICBpZiAoIGRlc3Ry
+b3lfZW50aXJlX3hlbl9tYXBwaW5nKGJhc2UpICkNCj4+ICsgICAgICAgIHBhbmljKCJGYWlsZWQg
+dG8gdnVubWFwIHJlZ2lvblxuIik7DQo+IExvb2tpbmcgYXQgY29tbW9uIHZ1bm1hcCgpIHdlIGln
+bm9yZSB0aGUgcmV0dXJuIGNvZGUgZnJvbQ0KPiBkZXN0cm95X3hlbl9tYXBwaW5ncygpLiBJcyBp
+dCBvayB0byBkaXZlcmdlPw0KDQpJbiBvdXIgdGVzdHMgaXTigJlzIG9rLCBJIGFza2VkIEhhcnJ5
+IHRvIGhhdmUgdGhpcyBzbyB0aGF0IHdlIGNhbiBjYXRjaCBhbnkgdnVubWFwIHRoYXQgaXMgbm90
+IGJhbGFuY2VkDQp3aXRoIGEgcHJpb3IgbWFwcGluZy4gVG8gYmUgZmFpciBJ4oCZbSBub3QgcmVh
+bGx5IHN1cmUgd2h5IGluIHRoZSB2bWFwLmMgaW1wbGVtZW50YXRpb24gd2UgYXJlIG5vdA0KcmVh
+ZGluZyB0aGUgZXJyb3IgY29kZXMgZnJvbSBkZXN0cm95X3hlbl9tYXBwaW5ncy4NCg0KQ2hlZXJz
+LA0KTHVjYQ0KDQo=
 
