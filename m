@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D58CAC4E3
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 08:21:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1180044.1503296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154A2CAC792
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Dec 2025 09:18:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1180058.1503304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSVXv-0001z5-DH; Mon, 08 Dec 2025 07:20:35 +0000
+	id 1vSWRZ-0000AR-HU; Mon, 08 Dec 2025 08:18:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1180044.1503296; Mon, 08 Dec 2025 07:20:35 +0000
+Received: by outflank-mailman (output) from mailman id 1180058.1503304; Mon, 08 Dec 2025 08:18:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSVXv-0001vy-AP; Mon, 08 Dec 2025 07:20:35 +0000
-Received: by outflank-mailman (input) for mailman id 1180044;
- Mon, 08 Dec 2025 07:20:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSWRZ-00007b-EZ; Mon, 08 Dec 2025 08:18:05 +0000
+Received: by outflank-mailman (input) for mailman id 1180058;
+ Mon, 08 Dec 2025 08:18:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSVXt-0001vZ-0r
- for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 07:20:33 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c79fb70-d406-11f0-980a-7dc792cee155;
- Mon, 08 Dec 2025 08:20:23 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4779d47be12so37456665e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 07 Dec 2025 23:20:23 -0800 (PST)
+ id 1vSWRY-00007V-GE
+ for xen-devel@lists.xenproject.org; Mon, 08 Dec 2025 08:18:04 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6a4776b5-d40e-11f0-9d1b-b5c5bf9af7f9;
+ Mon, 08 Dec 2025 09:18:03 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4775ae5684fso20823395e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 00:18:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfee66sm23863237f8f.11.2025.12.07.23.20.21
+ ffacd0b85a97d-42f7d331e62sm24538905f8f.35.2025.12.08.00.18.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Dec 2025 23:20:21 -0800 (PST)
+ Mon, 08 Dec 2025 00:18:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c79fb70-d406-11f0-980a-7dc792cee155
+X-Inumbo-ID: 6a4776b5-d40e-11f0-9d1b-b5c5bf9af7f9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765178423; x=1765783223; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765181882; x=1765786682; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lYLgX4/oQ5Pzvq0EuENgse0eK/iRRIrgPfkQu9yEcXA=;
-        b=WKxVVOJd4eLEMhyUWyUUsl4A6t1CSpu1JAzFbsR/3uoZnq2INMRcNJwoUvM0c8UszF
-         LblUtHcbQofiSpNTUEvCMaNUnhxMGugSXPLziJfb46Ng6GUDEOAXJUDUMyQNZCVMDCbO
-         aWcOPWZ8HwDCjXuesGbnxb8ISThgCYLPtT5bnxdEeiFo6kbDw+ddruRV6WIgAS+wmMAY
-         Pr2Eyc3Z8FiCRQSd214kf3td/5BWJLdyGtJpiSTk+9kwbA7BxyLbIa50gHUCoxPUmFA2
-         HZC13k1UnyjkcT3MpFABU2y163btr6RQpCYoQXL22OQ5vulvMFQoDIAuaZF8hHovzH/E
-         bErg==
+        bh=uaelIxKgZbg/vTI+hjRH0f2tHh1thJuCEDAmmPig8u4=;
+        b=G7ij4SUIh9uK1ERiWP4qCgZ67tnkZ8KgPZ1VU7v+54EKjoYX5XKRbDTwDc/E8b2srZ
+         uNZQJHc6CtpdlCm+d1sYuZNJjqlQhHkL6XihEJO+ec86hhILnnLfDaeiyHUzbfKLXNsB
+         TbXaUYmGDxoD2PZVPtnw+tm7n/RZDxaKruMGYe1mKoQdy1nr7pDisq/3umAnWPtuSWeZ
+         wtGRRHbyjHIqRiK2ihDJ1E96WVDZL8ZIuJIaRCMOR/iqc8tYa8b7RtfTTyKzPmkuVf3q
+         Us4enO0lJ7DanC0QSEkR7INbdZyUD9OQpvyscHMCnRlrOqEaDHCAbAs5m5HJt04X2jxA
+         Ce1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765178423; x=1765783223;
+        d=1e100.net; s=20230601; t=1765181882; x=1765786682;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lYLgX4/oQ5Pzvq0EuENgse0eK/iRRIrgPfkQu9yEcXA=;
-        b=wBnHbJrEUPY6qBGxmyNTUkif+hghnGsdmxnwkemHH5dCD7BcTZY7u/0miVZj6RlJnv
-         tufKCVW+wFU/K9jqjOe42x2/vGZxoC/l42WjYOrhNk1JIaq9J/ZNg4zkZRdfTIiBxF3O
-         z5XRuspu/RfLk7SCCdnU5raschht0u2xs8KsrEnoq0nXiL+CXB8SXMKTqNPzuGAsZ5Xm
-         7JmkOZ5v1sf2b1Y+cvALAhMHeM0j5QBjNSqCkvCWCmtVkOIucP9yExufGuGP4/LQLG4u
-         vRrytuVLQCRxcNXTUjZ+VSOzZTQsOC+9lslytubzgHNDVv2EQJ0BPY2x+GsfoEE8fLRz
-         VE6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX6+SoRl5AMy4V2j6RmqKP1Z1FhBsj3onfaDOnaBgoE9qNLbXsUoR4pj+J7sgYJt0Xsm9EQ8RQeonQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBySa9bhxmlBitO35uwwq6ygbiPkZ5uTu1U/T+Q3lo9YbOeVSs
-	7tdflORf+AjyrEv4lQMCcamJwAlGauhURC5C3nk7ZOOMKmrIGyJV2I8MCuU4rP2Zog==
-X-Gm-Gg: ASbGnctp5+YbAhnPRKpUu1SlvD2Pa6z0hMF/rMniksWU1xdrcJtE3fMyGva0U+oKNMA
-	QcKWCk3+vJb+rh+V0hcKaKTUcaShElSG2bwWCBtl3rVPhXIsyE/UwQ8uqgWTtHkLNFqIpDB1azC
-	/Buyr9wzQFL542gfqFiHKfapd2Ye33hIVUwngxSfmXtQzpLi5gP/tTnGY4l1FqcWS43f5N+xqOs
-	wFRjKtlR1f5y++VqSgONNs2cfIhEuAdsOniM9MnII4oMMipRHCMae9h7N4LmZmdmR92kUeX2HDe
-	z22ECrv0unVaSn8i0XzG0on3T1HeRF4Do/X+NZp3SGn/ROyX7kJUEpvI6BUOIq0DlkC/nfH6WPM
-	Rg63PNfXZJeEDlysQy7ePF98Y2lG7STxH/3gxt8nrlAu8KEaeNS/AgqBStqz0TjfVzEWBVSg8NK
-	fw45JzwsI/wuXQvToXxMNQIr6vdyryDXKAQgBOGydDt85KQZS45qRuF3YlxF0UD8uAMAu8GllAA
-	0A=
-X-Google-Smtp-Source: AGHT+IEGbt1S/X4j34a1xAdY9OhdTc0Kct9Ps7akQkaK0bWgKwlja6IBG1gdr0SzuX5eK6272S/GzA==
-X-Received: by 2002:a05:6000:290f:b0:427:914:7468 with SMTP id ffacd0b85a97d-42f89f0d854mr7208628f8f.15.1765178422931;
-        Sun, 07 Dec 2025 23:20:22 -0800 (PST)
-Message-ID: <0f77c451-bd2b-48e4-bf32-6d2635151ebc@suse.com>
-Date: Mon, 8 Dec 2025 08:20:23 +0100
+        bh=uaelIxKgZbg/vTI+hjRH0f2tHh1thJuCEDAmmPig8u4=;
+        b=vt5gMw+dQmeLUIwFvbjfD+0CBNu0ZhSn//lj25bchGI+WY5bmmCMXF0lWzv3fQiYQl
+         IgEvIjuS5E+MJHNy9pnToFsAs3fTSU41iuX1w7CT7kGrdvl5G2qddHi7A/bws8LQ4ZfA
+         6XvZ7XIpUnywZEoXz3mHkozblJ0EYF1v4Lac/OU5rD3el7ay8j/ZtuDztFjYmQGIYK7t
+         vSX6elHXnx0HA71Hq+rpgyfQ5e9ZUMANMA6PpK1zD+b9a/9EE/VtiCZarRa8xMr2jbD2
+         G39NGtCOLEMYvCOZbIt3Y6BVYR6tRni+Ek5a4QdZJ/Yy9LhQG/ApXQdWjb/fEzPsLyF7
+         WW3g==
+X-Forwarded-Encrypted: i=1; AJvYcCXAJzWsLqkJKYrZAjsu1Qz4j7Q49DKT4r/FOxld5J91sakshfQbRIIaTdTXh1ftw8iSajFpcuY2XXo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmH548BeFHr4lAsXMhZJL+nmJ1LuWBH8/t2a37tjwPOsMD/SL1
+	EEONYfeB3A69Z394pG/zFCVn/y6RZCgxRwPFdfXvV8hShbuEzSRabz+3RM6pJXczz6+227+4PUF
+	P788=
+X-Gm-Gg: ASbGncsyCinz/kltc3+YbjchNYYnhKKZ35FlHdROctbEFPrmJwOSsAR/ncWHwFm1LD+
+	eKYPtbrDdpd2ZCAaAzYmTR4RlnqRuMf67Rl0SapjUohMyqcWa0SsokjcEt0eLzLREGYv3EaoKI6
+	aOd8yNr8LaYHSe2/UOkUr669nGsGiDWB2ddJbuLRC01BU5+5K7Qk/hRqOK7lCHh3hNf9jkasKR/
+	LC9qcv+4BjxiYYXzSZuknYQtD9bKGgvu+27TNQf+YpmbVKFoUiFdXqXQM/IEuhFNtwidwOn+Phr
+	fJ0nyyEqO5h1BnRczLFnL7Bl7PAk5nerIz9FCvB5U7QzY+bTeQwPRFT2dwiSgAUPwFAr0vxE8DR
+	3b0ugyePa5pK6GiK7C066pUv4fh1sf2xpHAdRJHpA8zhHEJD34b9WyF8EQTooOr9dK/eO5F5h7p
+	j8JeDZejQ11PnTMP4T5xYSIpj7pPHKfh+vxZvlA2XrMyuSoIwYjEtqZAEfLGKxrv6FIxdVAY5jK
+	tQ7kEgQj7A9Bg==
+X-Google-Smtp-Source: AGHT+IG4fHwbqdIaDwDKIiaV1wPZHApgf8r0cpC323o9sdviAUfa2+BWbM4tFLrcQtOXuQtoUly9gQ==
+X-Received: by 2002:a05:600c:5489:b0:477:2f7c:314f with SMTP id 5b1f17b1804b1-47939dfb990mr74560975e9.10.1765181882121;
+        Mon, 08 Dec 2025 00:18:02 -0800 (PST)
+Message-ID: <530ca67a-926c-4b38-93af-230f302bd6a7@suse.com>
+Date: Mon, 8 Dec 2025 09:18:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/treewide: Use __ASSEMBLER__ instead of __ASSEMBLY__
+Subject: Re: [PATCH] x86/kexec: Replace CALL+UD2 pattern with JMP
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251203133258.1624223-1-andrew.cooper3@citrix.com>
- <c21ddcb3-ba38-4dbb-9860-731eb43c38f3@suse.com>
- <6f189d1f-a6e6-48a2-875c-2df317b59b4d@citrix.com>
+References: <20251205152905.1925700-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,27 +120,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f189d1f-a6e6-48a2-875c-2df317b59b4d@citrix.com>
+In-Reply-To: <20251205152905.1925700-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 16:06, Andrew Cooper wrote:
-> On 05/12/2025 7:48 am, Jan Beulich wrote:
->> On 03.12.2025 14:32, Andrew Cooper wrote:
->>> __ASSEMBLER__ is how GCC and Clang spell this, removing the need to set it up
->>> manually in AFLAGS.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> While I fear this might end up biting us significantly on certain backports,
->> still:
->> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 05.12.2025 16:29, Andrew Cooper wrote:
+> Linux jumps to the target image rather than calling it.  Switch to using JMP,
+> and drop the trailing UD2s.
 > 
-> Thanks.  What problem do you see with backporting?
+> Linux does have a mode, named CONFIG_KEXEC_JUMP, where the target image can be
+> returned from, but that involves extra metadata and setting up a stack within
+> the target image which Xen doesn't support at the moment.
 > 
-> #ifdef __ASSEMBLER__ will work perfectly well in older trees which also
-> still have __ASSEMBLY__
+> No functional change.
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Oh, I see - __ASSEMBLER__ has been supported even by pretty old gcc.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+I wonder though why CALL was used in the first place. Usually this would be
+to e.g. have the callee have a call frame in order to e.g. unwind. For kexec
+that may not be overly relevant though.
 
 Jan
+
+> --- a/xen/arch/x86/x86_64/kexec_reloc.S
+> +++ b/xen/arch/x86/x86_64/kexec_reloc.S
+> @@ -75,10 +75,8 @@ FUNC(kexec_reloc, PAGE_SIZE)
+>          testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
+>          jnz     .L_call_32_bit
+>  
+> -.L_call_64_bit:
+> -        /* Call the image entry point.  This should never return. */
+> -        callq   *%rbp
+> -        ud2
+> +        /* Jump to the image entry point */
+> +        jmp     *%rbp
+>  
+>  .L_call_32_bit:
+>          /* Setup IDT. */
+> @@ -170,9 +168,8 @@ FUNC_LOCAL(compatibility_mode)
+>          xorl    %eax, %eax
+>          movl    %eax, %cr4
+>  
+> -        /* Call the image entry point.  This should never return. */
+> -        call    *%ebp
+> -        ud2
+> +        /* Jump to the image entry point. */
+> +        jmp     *%ebp
+>  END(compatibility_mode)
+>  
+>          /* Separate code and data into into different cache lines */
+> 
+> base-commit: 351d41e8aecc3f7566a0baa7b4066d06dedd7113
+
 
