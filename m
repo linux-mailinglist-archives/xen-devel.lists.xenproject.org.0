@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A111BCB0ACE
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 18:10:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181987.1504947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27F5CB0ADA
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 18:11:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182004.1504958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT1Dv-0002u2-Bp; Tue, 09 Dec 2025 17:10:03 +0000
+	id 1vT1FI-000485-P1; Tue, 09 Dec 2025 17:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181987.1504947; Tue, 09 Dec 2025 17:10:03 +0000
+Received: by outflank-mailman (output) from mailman id 1182004.1504958; Tue, 09 Dec 2025 17:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT1Dv-0002qc-7b; Tue, 09 Dec 2025 17:10:03 +0000
-Received: by outflank-mailman (input) for mailman id 1181987;
- Tue, 09 Dec 2025 17:10:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vT1FI-00046A-LF; Tue, 09 Dec 2025 17:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 1182004;
+ Tue, 09 Dec 2025 17:11:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rCN0=6P=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vT1Dt-0002Xq-WB
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 17:10:02 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e517e678-d521-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 18:10:00 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-6418738efa0so10391355a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 09:10:00 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-647b2edad10sm14300377a12.9.2025.12.09.09.09.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 09:09:59 -0800 (PST)
+ <SRS0=Nu2q=6P=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vT1FG-000458-Sy
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 17:11:27 +0000
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazlp17011000f.outbound.protection.outlook.com
+ [2a01:111:f403:c100::f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 171f3c1b-d522-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 18:11:25 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by LV3PR03MB7706.namprd03.prod.outlook.com (2603:10b6:408:289::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
+ 2025 17:11:20 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
+ 17:11:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,389 +47,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e517e678-d521-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765300200; x=1765905000; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=oaSGgoAW1hCnthIvUzdOaTGDvHd8cPDHsMIoTvubhEc=;
-        b=hTrohlvhkl6iGdSUVZX3P1lCQE6qVaeR0CP1Lihmc1ffTztVCqwKnkruRFt6S3DqOq
-         Yp31ayUML/qikcLAnR+hSS53LdisUv+fOaa6ocD7jF2OGYs/wB9TWclLeS3621JdSHPe
-         WLm8v6DfFQDx6oTMW2F69si8MqHBXAkHhhO6XVUvTn83hJVaPwDPDSHC7yFrNDRF/ABf
-         /eI22BdSE/on1KfvwbIulvy6Pw1RDy7B9zVktXQHzvONJ/chs7ZaKQS/r1wyIlokmUrf
-         QrHGUjP7IqqOAliaqwIVTZ+okghgRw57IEV1Vaib8wooYS8qd9heaR/uMRQHgQTABTLK
-         aMng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765300200; x=1765905000;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oaSGgoAW1hCnthIvUzdOaTGDvHd8cPDHsMIoTvubhEc=;
-        b=U39s0cr9Ik1G2B/Xp+VNYkxtYZ6BldrE49DC3zmJr/tqAg4l67VcpkbT7hPcAGPeaS
-         t8rkDaq8XwBEF83FXOHUwa7yXOOm3+ZyVTs0NIsSU4RlmUqpk2cVvaWyJMNw8Nueds/U
-         mHc2DHtZeuuFNQ0PnKr2vVbuhliFlglqGaN/QYfVbcRwCtonIajzLX3LkQHrPWPhNQr+
-         JjoUmYivYVbM3mYHDMiCofXO9tQzql01usNvgfUHPf1IxSeDuYP512hdO289q2fsNR4m
-         +qtj1bSaLRXT1uwm1MOxAlw6//1tTtlJpQLZcJeFzmpACZWoH5CkmhoGtLQv8cb2df3D
-         lkHg==
-X-Forwarded-Encrypted: i=1; AJvYcCUfvoCRlKsRz4NH+uUmADrp80Pk5VqHc8/7NkuPRheW/WyblWYdLqrIijOVbtnVz/0My5RqTBO5/is=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYeFuwWKKYhzHZVw8ItE0ylyUrIV2gT0ZYERdssTA7rhgv5dWu
-	UnwiZXANeLD4Wj2OLAoFqgFIvfZAdKye/BzQjOGFEClEmsTD1TZOTqPS
-X-Gm-Gg: ASbGncsbhdTwRJRmJB8gDxEie3LEyLLOqQTrSyXh6tg8NDNX+Z55yDH1LzHoWboQC/E
-	IWNuNfFvtptK/DafS7LXYuGDcTfo6g2QibAupve326yOEmGcc6a9djWICFfvh9Ywie9w6z8pjjJ
-	hhXzYgH73lVyn7Lb+5BRTbGrBueZQV3OW1juCA7nKXZgOHCAR8irj8NCo0O5WT21GLl403lIW5P
-	O/4WANgkCbc9aCRpjS2A9AxLBLAFTQSScjRW+0dA14DCinLDVOCFlb074+spf3rWWHRjaOG44vx
-	Ejx6NH98W9p9ENaEs+4+7vhPkOyFcaph73ZWtZ0T6DJMbtobGfgu5n5h6kYeCHvLGfDTLlR/m+l
-	WrIczmo/FySdmzYUU3g/1YfQUpgcs13md0hyORYjh4jNQyqSQ8IxgGg8xMwfJIU7aV1h0ZH0A7a
-	eYE6zm2ugY096rVlxKXHrj8vVp11UF+066hNj63LjbHe9wVedL7G3QV3uT3cgn
-X-Google-Smtp-Source: AGHT+IFiNejXPqZCFF7kgjutfJwiiYN1oKp7Y2hqpLFNHSmtqheHa3jDNqTIHeGTsaNaNUakpzYqeA==
-X-Received: by 2002:a05:6402:50ce:b0:641:66cc:9d91 with SMTP id 4fb4d7f45d1cf-6491a90f87emr9708939a12.27.1765300199459;
-        Tue, 09 Dec 2025 09:09:59 -0800 (PST)
-Message-ID: <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
-Date: Tue, 9 Dec 2025 18:09:58 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 171f3c1b-d522-11f0-9cce-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a2Ah5Xl9HNxXhMYAvsRKehfEtfErYe2hIh0LO9kQiWFb93oP6zIGgjwBXFwov6x5Pm/TtN9N9QaIEuAAdoOtqqDhzrklJF6Yt4nE9iKEKsUKF4uyTeGZz62+VXtKVvVoU4W5PWCrIv6Le6BktonLFBPl+HRc2w1SAhFwD+GB14hqSu2XvsHp9v1PJVWLpN67u7DJNgoS5GV+MT8JO0nDQEcL0bICq7GTnAFLTlHIILXFUUku8VTSNYPlvsqIhCiV9o/5zX7GKs+m9p59+wbsJAaDlA66z7Td89TT6MPutbXYn7LQ/GUSWVbwMttsDjKILPsmWcw+0oPf3zVN+mT3Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v6QRlRnOOWb0fT8WCiHNQNF5kN9b080mQBdOP1l46TQ=;
+ b=ygK/MO0rFY54QpwcAQ+qc4ZOscgnqUiBiUzvLXlOrVgHfg9jvlxiybFJi1pVEcoHcPk4Ltr8BXM1+QYrDppyd+LTXZMxCiWt7f8j+LX4tWfXktDxnXRfcbcRb5wyncTN5b3wJDXREfvRDg3fcZodjJXOhy+SggBfoviK/MJb/Zpz9/s2+HhWAEhHw+WdXqcW6hVmyvYhnrWsXb7Sl3kYoVuaiAloBXerXJJ4nz7GTZxZSyqs+HIpzx73SInIGILcSVZKfkXPgfpmcdnZ4v6KpaUsbfsT2VsWIybE0RRoIB26LqMKJ8GZgu6KaGWetzIwwtxS/15c7f5XjTrCi7/o0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v6QRlRnOOWb0fT8WCiHNQNF5kN9b080mQBdOP1l46TQ=;
+ b=tcj7OQyis0EMFmmNPi2FtNI5X2sSkqoGIqyeywtrPuQUU4LlC0pnNw/KpEvuGX58cCM+5MUvFCl2uZE2XqzA5U1m/2tqCoMMnWQLlPlEXk7VuQjsgGcTyr0yGN3k3rw4uGNllUgDGNPFEBxX5M76HFnNLKhDSLK1BLv3jsTrvdI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <2a9292dc-0903-43db-9646-437c6c2ed9eb@citrix.com>
+Date: Tue, 9 Dec 2025 17:11:16 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
- type
+Cc: andrew.cooper3@citrix.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/pv: Unhide writes to d->arch.hv_compat_vstart
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
- <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20251209155719.2098440-1-andrew.cooper3@citrix.com>
+ <79fd0f6a-8fbb-433e-9c74-3da339301b96@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <79fd0f6a-8fbb-433e-9c74-3da339301b96@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0514.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::21) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|LV3PR03MB7706:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21cb020c-1222-471f-6881-08de3745f8b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VzlSMEEwbEhaWkhQRUk5VnlqVjQ4clIvR0pmY25LVU4rMlNuazlvWEhma2VZ?=
+ =?utf-8?B?QjJWZU5DZmRRSG5lV3dXblp1RUl6TVFrcjFkWXYvUFZFWGdlRldnMnBnRlFU?=
+ =?utf-8?B?Y0ZTSTBUVis2RzdlTEJtOStMNW9RdmFJaGJwNytGYUF4NGI2Wm4yYmNuZFIw?=
+ =?utf-8?B?T0t6MjJ0bkVKQnUwU0FNNGVXV2tiL0N1bDRISWYzVjdCR0lIN2JVdnJ1MWdD?=
+ =?utf-8?B?RitvVmREMVNuOGtsRnJjdkc3SkRzbVVhYm5pM3FuSXI1Y0FNVzN2VnQ2aUxR?=
+ =?utf-8?B?cm1sMk14RnpNZnNWTkZ2c1ZlenM1VnNSSHF1OGJQbDJWeU91R21DNEpkdjhk?=
+ =?utf-8?B?OURSREtBa3ZlQTdtS3JvcHJoSmNmV05WbWhCWjVqcW1tWlYreVplQ0Q5SWZa?=
+ =?utf-8?B?MDdRQnFqYlVnQndEeDRDeXMxdjkvY0pmRWlNQi9ZSjJrbWJJY3o2NkRxU013?=
+ =?utf-8?B?azVTWFZSS1Q3aXR2R2FUMU4vTnBxc1FSQnVJVHFtaVBNdjF3SDlNcHpUeGdW?=
+ =?utf-8?B?RitYSE1UTXQzUHhnd29hV0pSMXUrRG81Y3NqSGJZS0RqdGUrWFBsdGQ2S2tm?=
+ =?utf-8?B?YVVsM2poaXpwdHNTTVhjK0J4NThIelVHbms4UXFlNFkyOC9BNlg2ZlI1eUlY?=
+ =?utf-8?B?VVVZM3cyU2U2eVRwMEpWRlJtOG5oYUxKaHBaNFRhNHhaOUVhSEhBeG1ES2dk?=
+ =?utf-8?B?ZFlBaUh6bktjendGZWh1aTdTZWMzVXVWb1NkVFpEaEhGVDYyVW9NNG5NK0xL?=
+ =?utf-8?B?T0NUTjVWcnVPbFdza0FvSlBub1lDdnFMVzBaS0F5aytlRklkVUtrSmI1TVJ1?=
+ =?utf-8?B?bXhpRldGMmNJekhhUmk0ZUxLZkNPVGgwWHFBbXBTZDRmOVhHenlaR0lodXFa?=
+ =?utf-8?B?bjBIK0ZrQXNnQU4zRHgwZkdiM2NlNmZ4KzBXdEd1L3puNmpmY21yVGlodFpl?=
+ =?utf-8?B?V2QvNmNjRkpudGRMWHJ2RmplUkZwcVNRSmdxRGowTWhOSGQ2dVRSaVhuOVBr?=
+ =?utf-8?B?OVY2eEFwZ09vekJRYi8zdHhYZm9jZDlZU1piaCtHU09VN3hNSlVMaURwSHJH?=
+ =?utf-8?B?enQzZ2ZoV285OTR4TlpQRzMvWGNKanpPRVVxYWNmaEtvc3ZpVmlVWHhNTDQy?=
+ =?utf-8?B?SWRFZURiS0Q2Q254SmI3bWNsZGloMmU2ZC9JZURUdUhydkE3U0tEREV0M0RB?=
+ =?utf-8?B?ZFQ1Tms5NUFmTXh0VjdFVFVlMUI3MDdubGFIK2xWZU5UaGdTc2ZreGxEZXVW?=
+ =?utf-8?B?UmQwcFROUG9rMnkwTEVReEM0bG9YSzVmay9MVkkvNGJBVkZLYytwR1RVNEFN?=
+ =?utf-8?B?ckRNUUllQkZqcU1va1FkVXZua3EwNW9yNndGMW00d3ozMCtnL2FVbEE3cTA4?=
+ =?utf-8?B?dUNaOUtKWnA3SFUvK1N0empJaUpJcjFpV3R1aUliOHlxSHV4eTYyaFh6MDZi?=
+ =?utf-8?B?bkNhTHBaMFlmU2dHRmljSjlPRGNNZEJzZE9IZDdYRmNXdk13TERmdTB0OXI3?=
+ =?utf-8?B?Q1M4dit6NTFzVWpHcTc1OE4rbFJwM1VpN2d1YUVwL0JmRUl3cHdCWHlhK0du?=
+ =?utf-8?B?c29TYW4ranNFZ3FodnRhUjgzL01LUExyT2RDTG9NY2VoaFFyQnQ0RDRwdjl1?=
+ =?utf-8?B?WkU0R1hRdDVwZzE1bFlmVnRmUXlwYW5aamNBZjhNQ2dKdFB4aGFrVFl5RitE?=
+ =?utf-8?B?V0VKTGtieVNZQXJWS3RsV3F6UG1OajBVZGZINUVIMi94QzM4V1YremF2am9I?=
+ =?utf-8?B?Ri9yTTJGMVh5MmhMajZJaWZGa3VYYWZUU290NkljS21rUlA1dnlwQktLTCtZ?=
+ =?utf-8?B?R1JhWXN1a3lJMTRtdHFtaTNOS1pZd3N4TjQzZUkwMm4wZ2dBYkh6UWt6dE93?=
+ =?utf-8?B?RWxYVjBLbkVBc2xaOEY1SmlLdXZVbThnY1ZidkZCNUR1YlUwc2NBOUZiclJ0?=
+ =?utf-8?Q?US4VB/N/k4KKZbEZUZm9rQ6ukPd1Bumj?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aFJvMnBpZFRMdGdMcFVYckhXendQYmh3SUxkMEpCSXJyR1dWY2MxUUY2S05U?=
+ =?utf-8?B?WHprRjFvUmVQOUt1UXFxYWlsQzFtRE5FWVZjVXZCUWFVd2FLcloxRWxkUG9T?=
+ =?utf-8?B?MVhCL0IreXI5dXhScEh0citaendWaGtpOVBDaVhvSFRXSkg2WitkazR2eFNC?=
+ =?utf-8?B?TzVZNWJzbDU4N0lsSDlkTXJIWHg0TVdkR2FSQnEzeHQxY2R4WnQxVFdlajMr?=
+ =?utf-8?B?bFZtMzE5V0dERHdzdUdzWklQUTBYbmdQVHd2S3RCdDZ0SjFBM28rRVdrSUlw?=
+ =?utf-8?B?Q2VzSFVHVkQzUERaVzMwVndLcHRRZExDVkhLL1k2MG5DUlpPajR2N1djWWlI?=
+ =?utf-8?B?WXl3ZWREdzhtL1hQZFMwWG9Jdk5TZHN0V3ZkNTVkcFRBSmJackJPMEJCRkk5?=
+ =?utf-8?B?eEZRTW1KQTdEbTRvTW5pWmhDaEVwMnp3ZmkwWENEOGRLMmwxN0V3RnFycE5X?=
+ =?utf-8?B?QkU1T2YrOFNIc1pvaURuOUlSK2lYRHNxc2dWZVJ1QUk1SCtyeDVzNWZKRmNM?=
+ =?utf-8?B?OGVWZ3hoN1BXZGNweTA5dDRRci94S3gvODIvVjdEWC96L2djOFJueUVRaUl0?=
+ =?utf-8?B?YnNTMDlHZktGRmpUTmRIR0tyM0RMVW12WG1oU29iQXVPRk05WkpvR2FleDM5?=
+ =?utf-8?B?STJGTWx5bllrVVF2VFJSdFU3SHZCTk5zSmhLNmxabHB6dm5XVllkUTVZVERB?=
+ =?utf-8?B?anM5a2YwdCtMS3NDa1UwQ3YwQkZBb3dCZVNKR3FVYzZnd0lPK0ZwUTBkWjJQ?=
+ =?utf-8?B?b3RqOG5HRW1RYk13bEt2NEJ0N0JGNkFldlVjRlZHSEtXZno3VG1NU0t0eFB3?=
+ =?utf-8?B?UXBwNEVLeDY2S1pXcnFWZW5kTURsb01vVHltbUw1cnZRem5SNk5HYVVSc1hN?=
+ =?utf-8?B?dFVHcXZNUUF3QjZ0WGorTldaUjlQcGgxV3dsYTZZV2xtSFhQeTlvL2xDRjB5?=
+ =?utf-8?B?WlRtaWdXV2RackR4WFhyeUl4eVlkYUpmM0dyWENmRHE4QktTMFliQVpwMjkz?=
+ =?utf-8?B?bVVvUWNGcWNrNkJ5SEZQMFhJYk9TQVNUQ3lEMmoybXlLUk9yTU92Ym40MGtp?=
+ =?utf-8?B?OHVhY1FXNTdRNng4ZDd0VEZvWXFoQzJZWXNtNkExQ2ZrUG1aVGdhejNnVGRm?=
+ =?utf-8?B?Yngrb2cyMG9DbmJPemZHRHI1SEZlSndxZEJVd05NeXc5ODN3QUE4ZXNUZERZ?=
+ =?utf-8?B?OG9OU3BpelFyNmR5M09UVFVlNXhoR0pEM0ZKY3RnQnZlNDVpK3U2Qkk3VDkx?=
+ =?utf-8?B?MGVGdG8xTVNhTGc4K1BXcm1pMU9OSkdzc2pFUVVuRm1hcGt1WTQvNGRBRlU2?=
+ =?utf-8?B?RkI1eG1VTGxEVmNqV2JUMjZWalV2enBiSUFPL0N4a0w2a01oSG41MkdyTlVQ?=
+ =?utf-8?B?Q0FXQkRHZ0V5SW4wSFpvclFpam5mbDBXck1BNTNwQkZwNE1VRzlDcW9SeHN5?=
+ =?utf-8?B?VW9vU0o2NXRhdHdLcXpGQSsvQWVORmJnd2ZZY3pWSjFHdDcvMnJZVjVTZFRZ?=
+ =?utf-8?B?eUl1QjgxMklKbWllU2ptcnhTZjhvYkhjellmU1hUVTJCbFdZQWZJMUU5RVc2?=
+ =?utf-8?B?T045REMxZlRBVkFwUGZNTFQ0TFZUUlNCUWFPamhGS2o2L3pMdWJtUVFISVNR?=
+ =?utf-8?B?enFwblJXTFRrQllKSUUxcEpxZ3oyY1A1ZTlGOS9pcHpNNVk2TXc0bDRvLzdT?=
+ =?utf-8?B?SkFqVEo5VExGOG0xTWJneWNEL3lxZFJjZEVIemFsZjJzV1NqTXFzeXR1clBo?=
+ =?utf-8?B?TlJQYkM0OER5cHZPUk9UcTdZVnlCbzU2ZnhCektvVjdlQzhNajNWbXVwVjR3?=
+ =?utf-8?B?ZEQxZVFwNlU5c0lNQXRzUmdXNW5qdVVZZDlLV0RrYmMzOUVSdFd1alUwQnFx?=
+ =?utf-8?B?OGlxL0hjVXpJU2Y0UHFIVHdhT0pvektHb01oZ1ZFUTJMbUtER1lHV1lIcmxY?=
+ =?utf-8?B?ZEhvQmx0LzdTVWt3aCtZaEVBOCtkSkVHV3g3R2Q3bnFDbGFrLytqWXdJVXU0?=
+ =?utf-8?B?M00xZ3diTjIzM25tQnNvOTE1Q3gwTkNwTzBPVlJkeERFNElqYjY0OXQrTUp2?=
+ =?utf-8?B?S2NFeWF3T2xmYSs4cDBpbUdDWkJmME8rczZvZXpQOEFxUUQ2ang1WHVYK1Ba?=
+ =?utf-8?B?eXN2YlJCRldmMUdpTUpTMHJnekdjYW1RaWNIZFMvNjVIM1RJWGltemFIaHNC?=
+ =?utf-8?B?K1E9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21cb020c-1222-471f-6881-08de3745f8b4
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 17:11:19.9978
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2YA9170VRX4VglaAA3jUmEtuRPlTQvUf8X47yunureJdIb0u6vKhIc+5p9/Z2gsrO+2XMWY7+l8K0EAwem58xQFo72OqYXNFy+Y+KGICa1A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7706
 
+On 09/12/2025 4:41 pm, Jan Beulich wrote:
+> On 09.12.2025 16:57, Andrew Cooper wrote:
+>> The variable is never 0, but because the writes into it are hidden behind the
+>> HYPERVISOR_COMPAT_VIRT_START() macro, it does a good impression of appearing
+>> to be 0.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I don't kind it being this way or the original one, so
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-On 12/9/25 2:47 PM, Jan Beulich wrote:
-> On 24.11.2025 13:33, Oleksii Kurochko wrote:
->> @@ -374,24 +399,107 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
->>       return pg;
->>   }
->>   
->> -static int p2m_set_type(pte_t *pte, p2m_type_t t)
->> +/*
->> + * `pte` – PTE entry for which the type `t` will be stored.
->> + *
->> + * If `t` is `p2m_ext_storage`, both `ctx` and `p2m` must be provided;
->> + * otherwise, only p2m may be NULL.
->> + */
->> +static void p2m_set_type(pte_t *pte, p2m_type_t t,
->> +                         struct p2m_pte_ctx *ctx,
->> +                         struct p2m_domain *p2m)
-> I assume you having struct p2m_domain * separate from ctx here is because the
-> "get" counterpart wouldn't need it. The same is true for the level member,
-> though. I wonder therefore whether putting p2m in pte_ctx as well wouldn't
-> make for an overall cleaner interface. (But this is truly just a thought; I
-> don#t mean to insist here.)
+Do you mean s/kind/mind/ ?
 
-I think it really makes sense to put p2m into pte_ctx.
+Thanks,
 
-Besides simplifying p2m_{set,get}_type(), it will also allow us to drop the p2m
-argument from p2m_pte_from_mfn().
-
-Let’s make this change now.
-
->>   {
->> -    int rc = 0;
->> +    struct page_info **md_pg;
->> +    struct md_t *metadata = NULL;
->>   
->> -    if ( t > p2m_first_external )
->> -        panic("unimplemeted\n");
->> -    else
->> -        pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->> +    ASSERT(p2m);
->>   
->> -    return rc;
->> +    /*
->> +     * It is sufficient to compare ctx->index with PAGETABLE_ENTRIES because,
->> +     * even for the p2m root page table (which is a 16 KB page allocated as
->> +     * four 4 KB pages), calc_offset() guarantees that the page-table index
->> +     * will always fall within the range [0, 511].
->> +     */
->> +    ASSERT(ctx && ctx->index < PAGETABLE_ENTRIES);
->> +
->> +    /*
->> +     * At the moment, p2m_get_root_pointer() returns one of four possible p2m
->> +     * root pages, so there is no need to search for the correct ->pt_page
->> +     * here.
->> +     * Non-root page tables are 4 KB pages, so simply using ->pt_page is
->> +     * sufficient.
->> +     */
->> +    md_pg = &ctx->pt_page->v.md.pg;
->> +
->> +    if ( !*md_pg && (t >= p2m_first_external) )
->> +    {
->> +        BUG_ON(ctx->level > P2M_MAX_SUPPORTED_LEVEL_MAPPING);
->> +
->> +        if ( ctx->level <= P2M_MAX_SUPPORTED_LEVEL_MAPPING )
->> +        {
->> +            /*
->> +             * Since p2m_alloc_page() initializes an allocated page with zeros, p2m_invalid
->> +             * is expected to have the value 0 as well. This ensures that if a metadata
->> +             * page is accessed before being properly initialized, the correct type
->> +             * (p2m_invalid in this case) will be returned.
->> +             */
-> Nit: Line length.
->
-> Also imo "properly initialized" is ambiguous. The clearing of the page can already
-> count as such. No access to the page may happen ahead of this clearing.
-
-I will drop then this part of the comment:
-+               This ensures that if a metadata
-+             * page is accessed before being properly initialized, the correct type
-+             * (p2m_invalid in this case) will be returned.
-
->
->> +            BUILD_BUG_ON(p2m_invalid);
->> +
->> +            *md_pg = p2m_alloc_page(p2m);
->> +            if ( !*md_pg )
->> +            {
->> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
->> +                domain_crash(p2m->domain);
->> +
->> +                return;
->> +            }
->> +        }
->> +    }
->> +
->> +    if ( *md_pg )
->> +        metadata = __map_domain_page(*md_pg);
->> +
->> +    if ( t >= p2m_first_external )
->> +    {
->> +        metadata[ctx->index].type = t;
->> +
->> +        t = p2m_ext_storage;
->> +    }
->> +    else if ( metadata )
->> +        metadata[ctx->index].type = p2m_invalid;
->> +
->> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->> +
->> +    unmap_domain_page(metadata);
->>   }
-> Just to mention (towards future work): Once a metadata page goes back to be
-> entirely zero-filled, it could as well be hooked off and returned to the pool.
-> Not doing so may mean detaining an unused page indefinitely.
-
-Won’t that already happen when p2m_free_table() is called?
-
-p2m_free_table() calls p2m_free_page(p2m, tbl_pg->v.md.pg), which in turn calls
-paging_free_page(), and that returns the page to the pool by doing:
-     page_list_add_tail(pg, &d->arch.paging.freelist);
-
->
->> -static p2m_type_t p2m_get_type(const pte_t pte)
->> +/*
->> + * `pte` -> PTE entry that stores the PTE's type.
->> + *
->> + * If the PTE's type is `p2m_ext_storage`, `ctx` should be provided;
->> + * otherwise it could be NULL.
->> + */
->> +static p2m_type_t p2m_get_type(const pte_t pte, const struct p2m_pte_ctx *ctx)
->>   {
->>       p2m_type_t type = MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK);
->>   
->> +    /*
->> +     * Since the PTE is initialized with all zeros by default, p2m_invalid must
->> +     * have the value 0. This ensures that if p2m_get_type() is called for a GFN
->> +     * that hasn't been initialized, the correct type (p2m_invalid in this case)
->> +     * will be returned. It also guarantees that metadata won't be touched when
->> +     * the GFN hasn't been initialized.
->> +     */
->> +    BUILD_BUG_ON(p2m_invalid);
-> I don't think comment and BUILD_BUG_ON() need repeating here. That's relevant
-> only when (zero-)initializing the page.
->
->>       if ( type == p2m_ext_storage )
->> -        panic("unimplemented\n");
->> +    {
->> +        const struct md_t *md = __map_domain_page(ctx->pt_page->v.md.pg);
->> +
->> +        type = md[ctx->index].type;
-> In exchange you may want to assert here that the type found is
->> = p2m_first_external (as - supposedly - guaranteed by p2m_set_type()).
-
-Make sense, will add the following after type = ...:
-         /*
-          * Since p2m_set_type() guarantees that the type will be greater than
-          * p2m_first_external, just check that we received a valid type here.
-          */
-         ASSERT(type > p2m_first_external);
-
->> @@ -792,6 +952,13 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
->>           pte = *entry;
->>           pte_set_mfn(&pte, mfn_add(mfn, i << level_order));
->>   
->> +        if ( MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage )
->> +        {
->> +            p2m_pte_ctx.index = i;
->> +
->> +            p2m_set_type(&pte, old_type, &p2m_pte_ctx, p2m);
-> In order to re-use p2m_pte_ctx across multiple iterations without fully re-
-> initializing, you want the respective parameter of p2m_set_type() be pointer-
-> to-const.
-
-Good point. I will update prototype of p2m_set_type() to:
-
-static void p2m_set_type(...
-                          const struct p2m_pte_ctx *ctx)
-
->
->> @@ -894,13 +1061,21 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->>       {
->>           /* We need to split the original page. */
->>           pte_t split_pte = *entry;
->> +        struct page_info *tbl_pg = mfn_to_page(domain_page_map_to_mfn(table));
->>   
->>           ASSERT(pte_is_superpage(*entry, level));
->>   
->> -        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
->> +        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets,
->> +                                  tbl_pg) )
->>           {
->> +            struct p2m_pte_ctx tmp_ctx = {
->> +                .pt_page = tbl_pg,
->> +                .index = offsets[level],
->> +                .level = level,
->> +            };
-> This, ...
->
->> @@ -938,7 +1113,13 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->>           p2m_clean_pte(entry, p2m->clean_dcache);
->>       else
->>       {
->> -        pte_t pte = p2m_pte_from_mfn(mfn, t, false);
->> +        struct p2m_pte_ctx tmp_ctx = {
->> +            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
->> +            .index = offsets[level],
->> +            .level = level,
->> +        };
-> ... this, and ...
->
->> @@ -974,7 +1155,15 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->>       if ( pte_is_valid(orig_pte) &&
->>            (!pte_is_valid(*entry) ||
->>             !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte))) )
->> -        p2m_free_subtree(p2m, orig_pte, level);
->> +    {
->> +        struct p2m_pte_ctx tmp_ctx = {
->> +            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
->> +            .index = offsets[level],
->> +            .level = level,
->> +        };
-> ... this initializer are identical. Perhaps (sorry) it wasn't a good idea
-> after all to move the context variable from function scope to the more
-> narrow ones?
-
-Probably, but I’m not 100% sure that making it a function-scope variable would be better.
-Essentially, it would only help eliminate the last two declarations of `tmp_ctx`:
-     struct p2m_pte_ctx tmp_ctx = {
-         .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
-         .index = offsets[level],
-         .level = level,
-     };
-
-It would also require re-initializing (or as an option it could done once after the
-superpage breakup happened; please look the diff below) all the fields (except the
-newly added `tmp_ctx.p2m`) inside the case where a superpage breakup is needed:
-     /*
-      * If we are here with level > target, we must be at a leaf node,
-      * and we need to break up the superpage.
-      */
-     if (level > target)
-In this case, `index`, `level`, and `pt_page` will be changed.
-
-It seems slightly better to use a function-scope variable, so I can rework the code to have
-the following:
-@@ -1049,6 +1047,8 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-  
-      entry = table + offsets[level];
-  
-+    tmp_ctx.p2m = p2m;
-+
-      /*
-       * If we are here with level > target, we must be at a leaf node,
-       * and we need to break up the superpage.
-@@ -1064,11 +1064,9 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-          if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets,
-                                    tbl_pg) )
-          {
--            struct p2m_pte_ctx tmp_ctx = {
--                .pt_page = tbl_pg,
--                .index = offsets[level],
--                .level = level,
--            };
-+            tmp_ctx.pt_page = tbl_pg;
-+            tmp_ctx.index = offsets[level];
-+            tmp_ctx.level = level;
-  
-              /* Free the allocated sub-tree */
-              p2m_free_subtree(p2m, split_pte, &tmp_ctx);
-@@ -1097,6 +1095,10 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-          entry = table + offsets[level];
-      }
-  
-+    tmp_ctx.pt_page = mfn_to_page(domain_page_map_to_mfn(table));
-+    tmp_ctx.index = offsets[level];
-+    tmp_ctx.level = level;
-+
-      /*
-       * We should always be there with the correct level because all the
-       * intermediate tables have been installed if necessary.
-@@ -1109,13 +1111,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-          p2m_clean_pte(entry, p2m->clean_dcache);
-      else
-      {
--        struct p2m_pte_ctx tmp_ctx = {
--            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
--            .index = offsets[level],
--            .level = level,
--        };
--
--        pte_t pte = p2m_pte_from_mfn(mfn, t, &tmp_ctx, p2m);
-+        pte_t pte = p2m_pte_from_mfn(mfn, t, &tmp_ctx);
-  
-          p2m_write_pte(entry, pte, p2m->clean_dcache);
-  
-@@ -1152,12 +1148,6 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-           (!pte_is_valid(*entry) ||
-            !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte))) )
-      {
--        struct p2m_pte_ctx tmp_ctx = {
--            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
--            .index = offsets[level],
--            .level = level,
--        };
--
-          p2m_free_subtree(p2m, orig_pte, &tmp_ctx);
-      }
-  
-@@ -1363,6 +1353,7 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
-                  .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
-                  .index = offsets[level],
-                  .level = level,
-+                .p2m = p2m,
-              };
-  
-              *t = p2m_get_type(entry, &p2m_pte_ctx);
-
-Does it make sense?
-
-Thanks.
-
-~ Oleksii
-
+~Andrew
 
