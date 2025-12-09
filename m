@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E03ACAF33B
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 08:51:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181217.1504302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E658CAF4EE
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:35:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181234.1504313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSsV9-0008Md-8b; Tue, 09 Dec 2025 07:51:15 +0000
+	id 1vStBF-0005n4-FQ; Tue, 09 Dec 2025 08:34:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181217.1504302; Tue, 09 Dec 2025 07:51:15 +0000
+Received: by outflank-mailman (output) from mailman id 1181234.1504313; Tue, 09 Dec 2025 08:34:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSsV9-0008KX-62; Tue, 09 Dec 2025 07:51:15 +0000
-Received: by outflank-mailman (input) for mailman id 1181217;
- Tue, 09 Dec 2025 07:51:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vStBF-0005lc-C5; Tue, 09 Dec 2025 08:34:45 +0000
+Received: by outflank-mailman (input) for mailman id 1181234;
+ Tue, 09 Dec 2025 08:34:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSsV8-0008Iq-Kh
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 07:51:14 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5b8e931-d4d3-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 08:51:13 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so35630975e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 23:51:13 -0800 (PST)
+ id 1vStBE-0005lW-GF
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:34:44 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8393e11-d4d9-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 09:34:41 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-42e2e239ec0so3058657f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:34:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7d6fa0f6sm24703715e9.4.2025.12.08.23.51.12
+ ffacd0b85a97d-42f7d353f8bsm30597913f8f.43.2025.12.09.00.34.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 23:51:12 -0800 (PST)
+ Tue, 09 Dec 2025 00:34:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5b8e931-d4d3-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: e8393e11-d4d9-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765266673; x=1765871473; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765269281; x=1765874081; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcuKfpljgdksu4+01HqEAe+OkfUPKdSm4XJx26cTmtc=;
-        b=eI6hTa5mN2qRn2Ilzczy5ecju6h7TsFFuoU8kD8T+tJ/Y8N7tetnAooimfqJz1Tjr4
-         snMnCRHXIfQ12UTVE8Z2N328Qf7FYLR4x77qZEe14gk/pjVM9QuG2YFpouwiKB18o6zr
-         Qf80CsJh+ETHopsPoaODefqLy9pv4HJJYF5A+z//Zcrzd5aIAtZ1H9SSkq8BgeqDpByB
-         p78N/qatyFNFqQxjSgfQO27NtPe3igSq3G5ThvIGkcCtfxeNvygnVSf1CRHh8ZE3BkuX
-         6fKUxsxir0hB2yE6iFIaxxrtwAJbC8mG/5VY28+rz1aDAYdVZYgmId5zHMiSG/h90Ane
-         RrGw==
+        bh=rxWBBGLtxOMLap3xEoElLubkQf7Vx8yrVuJ/uuTZMa0=;
+        b=S4WPlyNDk4EMLlDynTneQ/rp0rJPe2RQFo/cNVoa51pNqLIA21GOrvbfyvrMUPphtY
+         WJyRUaxAR61cUULFQo2DIl7LT/XWF9drNVg6pzqoXmkqTkTayYkn4b529UXRfuDarGpD
+         4hVh61NcDob0pqs+TWDnHTmHU/OKvOGhOg0Yp4HFDKxByfoFfY5TVow66+3VZsatbZT0
+         vwB4VF/r00X8ycxk3BqzbHk1pTByax/vQ2uPApqDJjGLR7o/QvZ+jAUQoo5coGaElbsF
+         ckXJ5CqIxB1j/SDNk8tG2rwZkgqhZ8sR6TEFN1ZQ8LMwkkfojJJy72OaNr6Xgp5SV56g
+         +mHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765266673; x=1765871473;
+        d=1e100.net; s=20230601; t=1765269281; x=1765874081;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rcuKfpljgdksu4+01HqEAe+OkfUPKdSm4XJx26cTmtc=;
-        b=S/1j54Fvkl0LfsOy+bMc/oiHujfVOjA98QijC0r0rFTBdXxGqKb/79uvnIYC8JN2AD
-         CmhYDVFuTjzhbIGYLgc5Fe2cMNH3K6YIVjfMiZYY3anfH5NHMison5OQf/X+MV8j4W1W
-         zI+xMRlI0yQvn/S3RgqRIFCndcH9dYuQ6gnnD380NMNg6h6KzP2KUcGpk4s2KAEMSf9E
-         +zei0VFbIqVTtBIWr/WJD4+kJv2ksJ3FhjhkN6ElEHpJxqUlu9NZgmoBKASus0/rAD+K
-         m5eqGtmCMPwHOfGyEdoGZl+J5/CijjQcakBqHTwNocjJrJiC8aChA9H2y4bs24W9RP9U
-         MOhA==
-X-Forwarded-Encrypted: i=1; AJvYcCX0aw9hXrizvhOTuaGliJESluXYSluuSX+MVh9tWRnqRlvN0/L1vFJdvCpqtrE6NIJodicoyEzZswk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMUtk//8eSvPn6X9AeKTLgtVeHvGG4WvlbQVCdkPxyM/bIlCer
-	2IXTp+ECtzq8XNPS0wsqG/EtDURjiVoSG3zZuqcsFhPTgMhTZGO9CC98wbbokOYGNA==
-X-Gm-Gg: ASbGnct6X4SF6soLRn59SHLec0uWi1xd+4rJeJmgpMlHmmj7qNvF1quLsO7yEDpJWOL
-	cRYUdIGdaGhQGVHm5M0uK+OyKje57daY/ITov68//+9eYDND4Yk4tfGZc+kkTI5ELNS1ulnlneT
-	qvyGV+DDPo0kjcIGTCty0E4C/AH3crD3EUZPVuBEDWHAUJV82BRW+uoi/YpWduhk3oE2BkxvNGv
-	S5uNRk0FOsN8O8XRnaSxberADi0ULv6zgxoPgWj0HNNPRxck+NpGbUQGKiqbEe5AqRkPBiwoYwU
-	iXbgQ/SwKiyysEjDeXcYqZgPVpRxpyRFk7dRS1jWXohJPW5LfBNhLuXvxTQ3HAS7iIhlCf+xd40
-	CCjBM4Pd2bnHo3JIioHoFgs0UDr5y0FFBv3DptE3zF6oeh4rkvuiEbONEyNlabMtRi8CXbCbcdp
-	PWFhp+MkUop45VeJ5/vb2E9ME+8ZI/Sk8rdkBklK9I6Juh66qLzFH6YGV9tP/TMo/BVeCrvC+AG
-	vWraLJGILzB7Q==
-X-Google-Smtp-Source: AGHT+IFZNBhyY3nSmUSMW7HgUBNq2kqveFIiwht+JjUfvXdJ5jqPOvx7VLb+PVOesJw94H3ZgRNUlA==
-X-Received: by 2002:a05:600c:37c3:b0:46e:35a0:3587 with SMTP id 5b1f17b1804b1-47939e37b60mr107541435e9.27.1765266673304;
-        Mon, 08 Dec 2025 23:51:13 -0800 (PST)
-Message-ID: <11680d9e-bbe8-4457-a7cc-c73f649276e3@suse.com>
-Date: Tue, 9 Dec 2025 08:51:12 +0100
+        bh=rxWBBGLtxOMLap3xEoElLubkQf7Vx8yrVuJ/uuTZMa0=;
+        b=P70r700Pp5Zr56mDIHY+IpsqHnG46W++c43jfGh9HVuO5Zx0JKCc1lvLu1AznYzGHB
+         uu84d4Bg2gSbu1cWMVG83Ap4Q/KTF8X+mcq7vpR/aBvkcWNWAPF5l3/TwK1uqMJHLMXX
+         H5OlTjEx3zdsLT3OjNsdyikdjyov6RD/3Vx/c4PenZG/3PdEo8J0iiuQbPHYSNq7qVfm
+         qXKg3hGI54pmyWKiKz0W/DqROYR5oxWtg2I8cqPTxDQKwe66nlokldeTL2IZFMyQkCxy
+         ZMQhnH9rmccLuZjontcjDuyCrP292CHka2qAfD6iVOjezSw32eTcMh7qPi2XsdvHt8+6
+         DiUg==
+X-Forwarded-Encrypted: i=1; AJvYcCVpeZHShEqhxfY3sF4pK2vOdZ5P1wFP4PUwOxqG922z2MsYaibDfTCzN5vwxGq18ire5tWwgtBWNU0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxms/EQOybBEehQRUPtLMnVfola3dxNIM9Mb3AeLz5cFKo9S/qp
+	+Z687BjMhxu3uNcuf6N0mrHnILK+IfZxm/Dt8wHosz1r7pNfuMnbzjv7XPaxtQ7D4Q==
+X-Gm-Gg: ASbGncsmnfRBy+TW644CMLVcg/0Ow7lOA/9gZ1ZyfjeOTDjebQ0Kq0++33/XgBYb6K7
+	D66Qvz01+YPcNhtOtNAobPuSfvzQZXty7HJfLZmKNtLuPXfB01NHQC2d0hWbijO2kKsFu7n3rsK
+	lJLvGStHbl/dKsev+evouRJP/8plTo65oPfgIMKHqm1C2ZfJw/jW49OTglKONn6hMGaTm1oYIbv
+	KUakr1w1uNiC863nZe/9ptmbMDbUCX2E7rz8IL15GMdefQcCvRPYVCABvT5WsyM18r0DKFHva2m
+	AE0RR8H7VgF3Li9aNDbdQrgTFE3ot41rYZB53r+tcKJY068JFmnnOlcFho1m+mu4QTBNY3MzT6k
+	pyCkrOT1kduAUcbN5yQlbKwX2buc1b3HJfqKqgL33pub3woPdk/UZjBBc3f7Vt0/BANApKHMOGi
+	eC0xCVm3sKE/1/Mvnu9oNOSCHbTAQrlJ32p+xmzRziNCmXfkGz25mlUom1DEzj8gLegNTHEG2eJ
+	fZaZ2KjEO9F8Q==
+X-Google-Smtp-Source: AGHT+IEBoHhBdF9iXMY+VpFXGiAoEf7fjTdvGYgcEp/PmZfg9OcXjQGfyeT/AKFIFLzryFKM/YY+2g==
+X-Received: by 2002:a05:6000:1ac6:b0:42b:3e60:18a3 with SMTP id ffacd0b85a97d-42f89f2a31amr11476692f8f.24.1765269281295;
+        Tue, 09 Dec 2025 00:34:41 -0800 (PST)
+Message-ID: <ba440c84-9254-4992-85d5-97f8269d15f2@suse.com>
+Date: Tue, 9 Dec 2025 09:34:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/19] xen/riscv: introduce VMID allocation and
- manegement
-To: Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <7805662d530eca29c5b0d0afa05a3cd0aac963bb.1763986955.git.oleksii.kurochko@gmail.com>
- <debd3ec1-2836-4481-aea9-833f04601a7a@vates.tech>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
+ <bd53bc18-f2b5-4857-b06c-2674c799ff0f@suse.com>
+ <7020e1fe-5f11-480b-bd72-311a93903030@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,36 +128,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <debd3ec1-2836-4481-aea9-833f04601a7a@vates.tech>
+In-Reply-To: <7020e1fe-5f11-480b-bd72-311a93903030@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.12.2025 18:28, Teddy Astie wrote:
-> Le 24/11/2025 à 13:36, Oleksii Kurochko a écrit :
->> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
->> index 34004ce282..6c4bfa3603 100644
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -3096,3 +3096,12 @@ the hypervisor was compiled with `CONFIG_XSM` enabled.
->>   * `silo`: this will deny any unmediated communication channels between
->>     unprivileged VMs.  To choose this, the separated option in kconfig must also
->>     be enabled.
->> +
->> +### vmid (RISC-V)
->> +> `= <boolean>`
->> +
->> +> Default: `true`
->> +
->> +Permit Xen to use Virtual Machine Identifiers. This is an optimisation which
->> +tags the TLB entries with an ID per vcpu. This allows for guest TLB flushes
->> +to be performed without the overhead of a complete TLB flush.
+On 08.12.2025 19:54, Grygorii Strashko wrote:
+> On 08.12.25 10:35, Jan Beulich wrote:
+>> On 05.12.2025 20:34, Grygorii Strashko wrote:
+>>> @@ -259,6 +259,7 @@ $(obj)/%.o: $(src)/%.S FORCE
+>>>   
+>>>   
+>>>   quiet_cmd_obj_init_o = INIT_O  $@
+>>> +ifneq ($(CONFIG_RELAX_INIT_CHECK),y)
+>>>   define cmd_obj_init_o
+>>>       $(OBJDUMP) -h $< | while read idx name sz rest; do \
+>>>           case "$$name" in \
+>>> @@ -271,6 +272,11 @@ define cmd_obj_init_o
+>>>       done || exit $$?; \
+>>>       $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+>>>   endef
+>>> +else
+>>> +define cmd_obj_init_o
+>>> +    $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+>>> +endef
+>>> +endif
+>>
+>> If the objcopy indeed needs suppressing altogether (as Andrew suggests), the
+>> unwanted redundancy here would go away anyway. Otherwise my (recurring)
+>> request to avoid such duplication.
 > 
-> Should we regroup all asid/vpid/vmid (which are pretty much the same 
-> thing with different names and for different arch) under a single 
-> command-line option ?
+> Could you suggest the best way to avoid duplication, please?
+> if/else/endif is not working inside "Custom commands" make file commands.
+> May be split it on two - cmd_obj_init_check and obj_init_objcopy?
 
-How would you name such an option, without losing it being recognized by people
-knowing the respective arch?
+That's one option. Another is to use something like
+$(if $(filter y,$(CONFIG_RELAX_INIT_CHECK)), ...).
 
 Jan
 
