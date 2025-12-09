@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6912CB03FE
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 15:23:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181754.1504758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FEBCB043A
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 15:24:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181762.1504766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSybR-0005JQ-ET; Tue, 09 Dec 2025 14:22:09 +0000
+	id 1vSydP-0005p1-Ov; Tue, 09 Dec 2025 14:24:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181754.1504758; Tue, 09 Dec 2025 14:22:09 +0000
+Received: by outflank-mailman (output) from mailman id 1181762.1504766; Tue, 09 Dec 2025 14:24:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSybR-0005GS-Ax; Tue, 09 Dec 2025 14:22:09 +0000
-Received: by outflank-mailman (input) for mailman id 1181754;
- Tue, 09 Dec 2025 14:22:07 +0000
+	id 1vSydP-0005nE-Lg; Tue, 09 Dec 2025 14:24:11 +0000
+Received: by outflank-mailman (input) for mailman id 1181762;
+ Tue, 09 Dec 2025 14:24:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I/6M=6P=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vSybP-0005GM-G6
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 14:22:07 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSydN-0005n4-N7
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 14:24:09 +0000
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [2607:f8b0:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ff22ec4-d50a-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 15:22:05 +0100 (CET)
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
- by AM9PR03MB7459.eurprd03.prod.outlook.com (2603:10a6:20b:268::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 14:22:03 +0000
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae%6]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
- 14:22:02 +0000
+ id b8b0289b-d50a-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 15:24:08 +0100 (CET)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-4537407477aso3503688b6e.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 06:24:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,340 +40,432 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ff22ec4-d50a-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ci3bKY4mKm7/iB26LodDIoR4BZQWMDuDgx1cZTjAj3pcOmU4bFdx6SCTBIk2Vdf85FATHZaHLt/heK9Y99m46iMHGJ3aDCZBJCVeBCsSDp88+NYNZ5IVjAp1xMngWM4THWA8q16nLXL4NOrZd2f2rGdBpysJjq+EJMgjlYuvxRByJNxvjCqGOzo5tE2mT/Vz/xL4OQvJ7GECcMp1nmRFhFweitRlZ14K/7i2QxCLxrcRP31rsFc7QBmWfgnZ38rGdB78h0TRrhEk3GMv/BCjU8090+GqtbxMH3jNmizMn32DWwy9CviresiMXa5HaUcanIFTBYa7U725yr3B9DiSDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p5qgmT2YSYvIfYW1pXZm7wasJ+8jZjmITWZqGKHzovg=;
- b=H7UxcrjAV0Yp8tKhvravS2jCj74qmD5I5tZSKV70Vp1huGQjGUNEMNnkbYZX8OFuFjQFzFnU6+adPH0ftEaQvb/eadY7n7Fc0WnYJKCzMvOf0EIcJ//GyeD/HtmBKgKSz3oWE2jIofgW/gi8W//qpC97iC+0VcC8Ge5qdN6y4xYU6LKqFTm+z9wyATFAj8oHdQ0SwdLTXPLo3IY56btF7x11/G/ok1JoJGfeFJax5oFBeQyqSJSVJqw2Xu+2uzWOjhmOjb3Hfvf3sssxa70kCm0HEGcEKqb5e8Z6KEFy7d9/hXZzRVeg+qwS56UJnCvzzXa4nWPjnlhTYMWzVVAonw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p5qgmT2YSYvIfYW1pXZm7wasJ+8jZjmITWZqGKHzovg=;
- b=TVJvhMxLIggoxGdSJ+rNk4aC1GfR9vDYrb0LujPfRNsZzX6sxJsRjeCPfQRR4EcY9dVkejZyL6pK0rI1025sTcTfOWDS9XD0VeELMtZRs87ZpkZ+wo1Hwr2MhRG8L42IjR+hgPz61KTxkQrBV1ogcQzS7M77pGCHB6KNeRuFge+1Ff0VngLjNs/dAcQ4UvoTjRAShcSpxl/wvadntQuj3q28xVM5c+Ebt2AaOLvtq+nZgm7bURheSrTXWpLp9PN8hsVBEZMsHht8am4WJXKRveL5MkAhQVcvax5ivQmh6YQMzvmZM4A82F9q+zOFTEalmUzKqdaghjCuthw4aax1nA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <4e7e8f25-a658-4e8d-bdce-1e1266ff6339@epam.com>
-Date: Tue, 9 Dec 2025 16:21:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>
-References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
- <d9a632d1-8587-45bb-bc13-8dab8d346cb2@citrix.com>
- <4fc76270-98e6-46c4-a6a4-d73772e079c9@epam.com>
- <483d50d9-a076-4698-bd14-28afabd5d369@citrix.com>
- <f6cccd82-3112-4696-850a-119843fca5ec@citrix.com>
- <18ab3734-deb9-4569-ade5-9d96a7bf3c7c@epam.com>
- <25069a8e-ef00-4706-bffa-b3b724cca200@citrix.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <25069a8e-ef00-4706-bffa-b3b724cca200@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0031.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::12) To AM0PR03MB4594.eurprd03.prod.outlook.com
- (2603:10a6:208:c8::27)
+X-Inumbo-ID: b8b0289b-d50a-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1765290247; x=1765895047; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hQJyQdQ4jp4dY3QIXN3bS663sSN2ihIY8NpuF0LJuNU=;
+        b=uRKMvXHPjUkEhNqkLKC6/naMzRElUr1N0Pshnxo37YhNTJaYFz7tpzx18wfMoL1l8+
+         nggXp+8W86SwlPzI9N07H0zbXGXZHEtW7vbF8pt5n/Ej5EAe7qawyZ1WJIu0negAOv1v
+         n6sMaiFts0v+N2pUiztmTGvo2bfja6oQfTC45GtA1Vs815FNMnReEqXdRuVyKSf4rcAE
+         gbGrt2OkXWVoccxE4vv/bWiQ8z0m4sXnV3D87FFq6/JFNRipCvyUtoK4dHzSS/L16zuT
+         Yfv7GbMpVXYGqdRUgGJxiv4bwo9YEoqpwk4P4xhgme3LauXk7ntPV+Qmdedil91dPo9F
+         w3xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765290247; x=1765895047;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=hQJyQdQ4jp4dY3QIXN3bS663sSN2ihIY8NpuF0LJuNU=;
+        b=wmkrq15Eikn6WGmM1W1x4jJza/hybI2L7KBixcZYHnupixJjOwUWwmMqqBhqXYzQEs
+         u+ZfuPJVpRwArW8Nl8zGy3b+uSmdLU6A1NCyZjVeywiCP9UhbQWZXxnHXw+M0KT1ozBG
+         u6Tz1y0cFWJURIiuyD2NdTMlhjhsGNNSdVTt7wsmwdfVvoO1y+BxQV5ZTymq03L9GzNm
+         q/8K95ELi/IcMNKr49w4bPqgRJsAocu+eguCbifvvDspXff3eQ0bp2FAnlHjSqeBXqdg
+         Y92N7pu52BxhV69pJND08ZQimXW3Zb1ueBw1WMbIKF/J/t0GF3Fwy1J8SEbDmDSu4HDJ
+         Fe5Q==
+X-Gm-Message-State: AOJu0YzL7vTW3dyBeinwX2TilyjWg41oFV0QaJgp3/OKgc2Hfkt005um
+	edhyTy5l+nExca29gwPE/VFNRhS9UAtXUoU+5ZPKU0oeU/b05bOSYL29Gtgbpg69nIanlePnip1
+	YpbnDWkR2zRJ0DS88xGkuoZD0rIBffQYu/J2mUbTcQA==
+X-Gm-Gg: ASbGnctLbL6YCivhbb5FIPQPFXBDSfXnCcsAtTijkmFVn3/hC2kfkb7rTJGWOrYcmbe
+	QGzlJILFIRvtxVW2Uo/ps/h2WEO3iU+/xoMKD6/o8DanPybsbEOSdNoPOxpULY4g/XnYz4bA4jP
+	iKZQGTAdNUKxvjaSaGxDt7GYZX5RCDPb2ab9n71v6qeFsrpHklzM+z4GxTYMfM1f8UGdMGVnivj
+	rcksUofZ4dQsPY/z0DVgujYxIMM8oSSO9R29Nlrs8MCpSA0U1NAuELMA/QwYHRiz2soQGvbSFvL
+	zxt+66dROOsigr7njqLwE0VGpgjMnRqSec+NUG2YQ8T2ny1EON9mFPeTaWJgQ7iTqxzfxrmZ
+X-Google-Smtp-Source: AGHT+IH4VnqchHfY/6m9MhvZ+qWlXH59zFsPLOEnkwvQ2qjiDLRvdGhJu/aObcFFgxJLfzsSWIk1cDzimFGntchd1Ns=
+X-Received: by 2002:a05:6808:1482:b0:450:b82d:804b with SMTP id
+ 5614622812f47-4539df9309fmr4045450b6e.8.1765290246606; Tue, 09 Dec 2025
+ 06:24:06 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR03MB4594:EE_|AM9PR03MB7459:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd84918a-20a0-47cd-ae50-08de372e528f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MkIvMExSa1JiUlRmaCs0d1IvM3ppNVNCenh2YVNSK0JtSUlBRGRDZlIvaWs1?=
- =?utf-8?B?U3l1ZGFMKzNhMHV3TnRJMG5NbHkvOUo4TzNxYVRTSVZqazJTdDJzcVc5cDNW?=
- =?utf-8?B?RGJidDRHUnNObHZuMUR3bjNpb2Y0YWZZYjJEcmZIWmZFOGhrVnRuUFhJUzBW?=
- =?utf-8?B?bkFSckxPOHRoWFhSZ1c0d09JNjk5U01mNzVYZE9ZaWQzb2VCazkyYlJWU1o4?=
- =?utf-8?B?cUtzMjE1UDFKbVQ0eTFyVVRKNXFMZXhyZU9hSWJka2M0blp0RkJDZHFHRXVt?=
- =?utf-8?B?R0FoRE5JUk1vOW8rTVIxVEFGVFB5S1A0dXRORUx3WmEzaEFCaStxeXdLTWFE?=
- =?utf-8?B?YjYvdkQ5VjhPVGhtVDRSN2wwL2pHbStza0NXR2VITGRSUklEVndXWnFYTUZP?=
- =?utf-8?B?NnNJaEdoRG1yVXJiYlYvU2J3RFZLOG1nOUxDNU5XbVo0cmdBWTBQWGh1WUt6?=
- =?utf-8?B?RXQvSE1tMmo2RUtLbHBQUlptQkN1TnRIcFdmYmMxSWduYnFOK1JuYXErTzJU?=
- =?utf-8?B?ZjNrNkRtS0JnMWNmMWdHME5DcjY4eTVrTENlaUgvNlVrMmhhMUQ0TGZrREor?=
- =?utf-8?B?Q25VN2pRajk1TzN2S09mcXJ3NDdCZUdKWVJZeVk5dFFpWUR1NUZpbkdHUnV3?=
- =?utf-8?B?MzV1NWRnMkczNDFLV3VROFdUbVRZKys3UWVHcUIyYzFtbHVBYzJ6dERKNmdX?=
- =?utf-8?B?azMyWjJrVGxZZnUyMm01SCtiL2xyL2Z3SmJSTFB1SUdLL2p2T3BUWDNQWW5p?=
- =?utf-8?B?SHRkUm1sNTdzUm9UWnN2cS9qOUk2VEN0YW5qcnhlNlVyaUdNODNidVFXS2Mx?=
- =?utf-8?B?WmVDTFREd2JHbmZyR1dhc1FHTW5tRXVEYjZHUmFUSm9wYVpKL0daVi9UVytn?=
- =?utf-8?B?NDArL2Q0UWJlcUVmT01qUy9KK1VnY2ZlSWtaWWdTZGZRNUFXRFlLaHc5VGt4?=
- =?utf-8?B?bmVnOHQyazcxUGZqRHdxVEh4SVh3amFYWFlBcExZekVNQ3ZKdTMrWWV3SFpW?=
- =?utf-8?B?RUxHZXhBTk85ZUhvYWlTalcwUjQwcWpCMlRUOWFYNVJNbTJ0UTF1T1VZKzVU?=
- =?utf-8?B?WUxQS1hVWWhQdTBWYnhFbGhGTm9xOEg3VzhDNmJyKzNyMnNTK05aYmgxYzZD?=
- =?utf-8?B?YUtCVnV6cG5UQThjQWxMa0tudmcwRE50aUJNTE4xT2oxU21BOVZEL3NjK1dR?=
- =?utf-8?B?TkM0d2dqQ3U5a2N2ZTYrSnV3RzhjaDE2dXo2MnBOcHlCemRCRHRldXkvU3Bh?=
- =?utf-8?B?MHpGT25wV2lnTk95Y0VCVWhUbjlNcHVsUjlvQmpmczJ4R0ZDQ2dzYTIzZm9T?=
- =?utf-8?B?YkdZdFpVRmtaeXhpSGQ5aDZTaFBBTm9aSDNxUnd0dXg3bHY5QzJLODkyT1B5?=
- =?utf-8?B?ZStwbkZwdVVmOWlKODBtMFRBL2hTSTFxcHd0RTBrUGJtTit1V1dleGtHc0Ro?=
- =?utf-8?B?U3dGcmtDSnN5OEU2WlUwSnlpK2lPaWZQRVM3WnJoVmtLWmI5eTIyR3dHL3du?=
- =?utf-8?B?Rmp5LzB0ekVlMko3MHZ3a2hBNEFkZ2FCODdMbkxoaUsybVE0cGtIVEk0TlFP?=
- =?utf-8?B?OTE3eXVXUlRjVVFMR0xwek42S0V0a1owWXY1Zm85Y2NzR2ZRVy9jSjdrcU5O?=
- =?utf-8?B?Q0dNZDBmWnJ1WmFNYWlvN0liVnh3NGREdzBmeEZsbGFueE11LzBaTDdBV1Rm?=
- =?utf-8?B?bGF2RlB1NVFDQVIxWkE1dzZCZ0lpdGFQOUhLNTJVNEc5bnFvcDJBZmRZU2tG?=
- =?utf-8?B?MUt0WG16VjZDeWk0Q0QrUlZzaEIydWx0aWJVN2orMDJOelBoM1EwMEZMbTJl?=
- =?utf-8?B?ekZTTU5wMW5TSEJUMkZUQ0puV1pDVnEzaFFOZ3V1MjU4aURXSkFnK1cyQ3Z1?=
- =?utf-8?B?SkxYMmFvU09yRGdtTzZ6VU10RVlJQUtoVGtLQlFTQW90QWtxVXdHWkpqeFpV?=
- =?utf-8?Q?xtfrDHzHK70ZMCcB9e0lvnuW1mvpHkSI?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZHBsdFdMZUp5S2NGeEVyMTBFaTg0NnZrcFJWQnJkcnJCZVRLeTNKbGZzRkUw?=
- =?utf-8?B?MkdoSWFRaVVGYjkyRWw0QU9XN2MzVDBvemdoWFVrdXpEVk9QWGQ2Q2Z3ODlV?=
- =?utf-8?B?cTRSMDBpa1lwT0RUWExwdncxbUh1dEYyZ0tjbmtZMEFlMFB4UllLUWNpRWlC?=
- =?utf-8?B?UWRIQ2tLRGE4Zllaazk1UlB0V2x6N1NKQkE4bXdhZEdnbStQUzB0eWN5dDE3?=
- =?utf-8?B?WElJU3JtajJtVG1Fb1h4Z282cjUxbWxVTEszWEFTTTlHQkl3dGd3Z0ZtQmNU?=
- =?utf-8?B?eUc1RityWE9yK1ppL3BMa2oxZGpXMisvZC9ndC9UOE43alNuZzA5dnNIR29t?=
- =?utf-8?B?bmpiUDJSTFE5ZmRwOTFTY2ExcUE0Vy94WW1YU1cycjdZUkQyZHJ6ckt5U0RN?=
- =?utf-8?B?T3RrK0lKSTVlS1VOOVd1eUlyREhJTHBTbk4vU21UWTYvMHJFQ1BwWW5MRkty?=
- =?utf-8?B?d1A3cDFMQ3A2YzRYVVdSdHEwTWVpNlVIRGFiS2d1Y2tQbVFpMG45SzNtOW8v?=
- =?utf-8?B?c0JCQ1FCV1FMU2Y4cktsdTVvOFllUTd3WTdQdzYvMnJneHh0ZEhKcU5taVV3?=
- =?utf-8?B?R2FaSHJPSDIvS3ZSRUwzUjV1RldPb3lNdWhKWGpXMmVVZXZJZS9XcG5wUGRl?=
- =?utf-8?B?TDZkSXROWTVJOFhadGxCdzVHOVRoNzh5THNmcGpINC9FYTYxVG9Yc1hyWkNl?=
- =?utf-8?B?YWJ5UkRtUWNuQ3lZZjg1QkRhc2FZdXV5THNTR21FNFd4a3kvQW9YMWM2eUhO?=
- =?utf-8?B?N216ZHVhdFBFMVI0ZnBaaEZCenpFcWtGak9pdmZaNVpscUIrRlByU2J5L25r?=
- =?utf-8?B?TllPV1JpZmNhb1dEQUFMY1hUb0cwREVDWjZVQ21NWXlqZkYzazJJSnk4OEdZ?=
- =?utf-8?B?b05LbkQrZWpjejY1elV2aE5XWHp2eGQ3SkxiUy9GRTdaaWNHSjhUcFFZMXMz?=
- =?utf-8?B?eGZjeWNtb1o1VUZUYUVkTWxVMm8vVDhsbkJSc1JvNmMyL09FaVdaaFNyOUly?=
- =?utf-8?B?Nk8xSTB1Q2VqT2NGZDYxeG9yWGM3cnBmZndnZjJhWE55UE5EUm15N3kvQ0Jx?=
- =?utf-8?B?bnhKdUxDS1VTUGhHck5VYkJZQzI0eDdTOEJDOHNodCs3M200MW40Q0gyZUt1?=
- =?utf-8?B?WEszWElmMXp1dmFvNmhNRUhmdmpQTFRIZ1p6VDZpUmxvVEJQMGQzZHBSaXJn?=
- =?utf-8?B?MXRRU0xMRGEvTytzTldBQ09jTVZ3dVpFaGVsZ0ZZZndDbnFpVTZtbkluTkw3?=
- =?utf-8?B?WnluNlRUaEZEc2p4VVE0bmNvbWFmYWJKK2ppVWxIZGtnUEdMTnZRRlJyTkQ3?=
- =?utf-8?B?YXJqTVBzWGUwU2QyTU1OTnVJd1F3aCtTdDh3bFAyeEdhVDcyM0JuVUcwS0Jl?=
- =?utf-8?B?S1ErZ24rajVrRG9QV1Y3TkhLbjUyZUpSVVN1cEVsU1FHR0dZbU5wdEFld0t4?=
- =?utf-8?B?Skh3SGg2OUFQRVYyRjVlYU15dURDWGxYcW9JRnVCVHdjSm1NZ09MNnJla0FI?=
- =?utf-8?B?RjUybk00Y2JRQUZrMklrT0RxY1VoVnNQUEl0RFNXYjFJbHRrNmFrUkcyRFli?=
- =?utf-8?B?alBpVTliZnF1VURQQW9DZ3JDVlFGWmxHZzQwMXJwRXdZSHRmMnAwc1ZTbFhu?=
- =?utf-8?B?a0lVb0lFbk10YVdsQjVRcnFuYmx2VmQ4SllmTDlCbzNXOUVoSHBZb1FWMFp4?=
- =?utf-8?B?MVFvODNtaEd0dFpZem1Nbk03RGZ1cUxXMHBudzdibE9uUUxSREE4Qm0zUUV5?=
- =?utf-8?B?YkxoVzR2cE9TSTdxN25pbUtkL0hNTjVjcklRTGo4TXNLT2lqT2c1VE40Rkpo?=
- =?utf-8?B?cnJVWlpIcHhBcHVYOGY0d0VaTTZKWFB5eEVTbjdQc0FlRmVFTC9FbG5yTXll?=
- =?utf-8?B?QysyTHFwazhZb1hQaU0rbzRTWUhBbGM1OXlBQytvdUJRaWw5TEppMitNMUZL?=
- =?utf-8?B?aHg1SGhBcTBNVFBSRzZJZFgrWldMUjEvSFFNN2Fkc3lSTGtIVHpKYVJWeFFX?=
- =?utf-8?B?UEVOVmM2VlVzQ1FnQVE2MUozZEplWXJCVzVpRDlxQURvSTJaak1zUTcvQUZT?=
- =?utf-8?B?VUcrS0Mzb1Foa295VktnRlRyWHJBNEVSODM4QXJSZTI0VTdLcVkxWXNPRFU1?=
- =?utf-8?B?MSt1azZDd0dUQW8xTlZIS3ovTEQzbEhkbVF5L0RDbWIvcHdkRHl3dGhITWdU?=
- =?utf-8?B?TkE9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd84918a-20a0-47cd-ae50-08de372e528f
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 14:22:02.7957
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GJCJjT0iX+SNfZ9qVGekh+Af5nj41rb/Vr64MKupF14t8cCZP1YOv6kyotPi7QV8nxZwgl/kle+9jWX7FiSlTFLXM3Qb1uESZTr6UCv97pE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7459
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <17755cde0354ba0a70996b3a0e9eae23c2342b72.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <17755cde0354ba0a70996b3a0e9eae23c2342b72.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 15:23:54 +0100
+X-Gm-Features: AQt7F2rbARK6cnGBk2kM9csj7Uk65_oJJqa3qb6VdHjeTeVVv0rdargd7yJr9m8
+Message-ID: <CAHUa44FEi-ir62bnjEx-ihN4AH18+K1qBYaaS17=7waGPRy0Uw@mail.gmail.com>
+Subject: Re: [PATCH v1 06/12] xen/arm: ffa: rework VM RX/TX buffer management
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Bertrand,
 
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Rework access to VM RX/TX buffer to use acquire/release functions
+> equivalent to the ones used for the SPMC RX/TX buffers and remove all
+> direct access to ctx->tx or ctx->rx by giving back the buffer pointer
+> and size back in acquire.
+>
+> This design ensures that rx or page_count is not accessed without the
+> lock held and limit direct usage of the context rx/tx buffer info to
+> ffa_rxtx.c
+>
+> Modify msg, partinfo and shm code to use the new RX/TX buffer
+> acquire/release functions and remove all direct accesses to rx/tx and
+> page_count so that any access is done only with the lock taken.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - patch introduced
+> ---
+>  xen/arch/arm/tee/ffa.c          |  2 +-
+>  xen/arch/arm/tee/ffa_msg.c      | 32 ++++++++++++------------
+>  xen/arch/arm/tee/ffa_partinfo.c |  8 +++---
+>  xen/arch/arm/tee/ffa_private.h  |  6 +++--
+>  xen/arch/arm/tee/ffa_rxtx.c     | 43 ++++++++++++++++++++++++++++-----
+>  xen/arch/arm/tee/ffa_shm.c      | 18 +++++++-------
+>  6 files changed, 72 insertions(+), 37 deletions(-)
 
-On 09.12.25 15:19, Andrew Cooper wrote:
-> On 08/12/2025 6:49 pm, Grygorii Strashko wrote:
->> Hi Andrew,
->>
->> On 06.12.25 16:21, Andrew Cooper wrote:
->>> On 06/12/2025 2:15 pm, Andrew Cooper wrote:
->>>> On 06/12/2025 9:10 am, Grygorii Strashko wrote:
->>>>>
->>>>> On 05.12.25 22:00, Andrew Cooper wrote:
->>>>>> On 05/12/2025 7:34 pm, Grygorii Strashko wrote:
->>>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>>>
->>>>>>> Extend coverage support on .init and lib code.
->>>>>>> Add two hidden Kconfig options:
->>>>>>> - RELAX_INIT_CHECK "Relax strict check for .init sections only in
->>>>>>> %.init.o
->>>>>>> files"
->>>>>>> - DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the
->>>>>>> end of
->>>>>>> Xen boot."
->>>>>>>
->>>>>>> Both selected selected when COVERAGE=y, as getting coverage
->>>>>>> report for
->>>>>>> ".init" code is required:
->>>>>>> - to bypass strict check for .init sections only in %.init.o files;
->>>>>>> - the .init code stay in memory after Xen boot.
->>>>>>>
->>>>>>> RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other
->>>>>>> debug
->>>>>>> features in the future.
->>>>>>>
->>>>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>>> ---
->>>>>>> changes in v2:
->>>>>>>     - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two
->>>>>>> different things,
->>>>>>>       both potentially reusable
->>>>>>>     - enable coverage for libfdt/libelf always
->>>>>>>     - enable colverage for .init always
->>>>>> This is a lot nicer (i.e. more simple).
->>>>>>
->>>>>> But, I still don't know why we need to avoid freeing init memory
->>>>>> to make
->>>>>> this work.  What explodes if we dont?
->>>>>>
->>>>> It will just crash when coverage data is collected.
->>>>>
->>>>> First I made changes in make file to get .init covered
->>>>> then I hit a crash
->>>>> then I checked %.init.o
->>>>> conclusion was obvious.
->>>>>
->>>>> For example:
->>>>> objdump -x bzimage.init.o | grep gcov
->>>>>
->>>>> 0000000000000010 l     O .bss    0000000000000028
->>>>> __gcov0.bzimage_check
->>>>> 0000000000000040 l     O .bss    0000000000000040
->>>>> __gcov0.bzimage_headroom
->>>>> 0000000000000000 l     O .bss    0000000000000008
->>>>> __gcov0.output_length
->>>>> 0000000000000080 l     O .bss    0000000000000060
->>>>> __gcov0.bzimage_parse
->>>>> 0000000000000098 l     O .init.data.rel.local    0000000000000028
->>>>> __gcov_.bzimage_parse
->>>>> 0000000000000070 l     O .init.data.rel.local    0000000000000028
->>>>> __gcov_.bzimage_headroom
->>>>> 0000000000000048 l     O .init.data.rel.local    0000000000000028
->>>>> __gcov_.bzimage_check
->>>>> 0000000000000020 l     O .init.data.rel.local    0000000000000028
->>>>> __gcov_.output_length
->>>>> 0000000000000000         *UND*    0000000000000000 __gcov_init
->>>>> 0000000000000000         *UND*    0000000000000000 __gcov_exit
->>>>> 0000000000000000         *UND*    0000000000000000 __gcov_merge_add
->>>>> 0000000000000008 R_X86_64_PLT32    __gcov_init-0x0000000000000004
->>>>> 0000000000000012 R_X86_64_PLT32    __gcov_exit-0x0000000000000004
->>>>> 0000000000000020 R_X86_64_64       __gcov_merge_add
->>>>>
->>>> Aah, we should exclude the OJBCOPY too.  That's what's moving
->>>> .data.rel.local amongst other sections we target with attributes
->>>> directly.
->>>
->>> we can't target.
->>
->> I've come up with below diff - seems it's working without
->> DO_NOT_FREE_INIT_MEMORY.
->> Is this what you have in mind?
->>
->> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
->> index 8fc201d12c2c..16b1a82db46e 100644
->> --- a/xen/Kconfig.debug
->> +++ b/xen/Kconfig.debug
->> @@ -40,7 +40,6 @@ config COVERAGE
->>          depends on SYSCTL && !LIVEPATCH
->>          select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if
->> !ENFORCE_UNIQUE_SYMBOLS
->>          select RELAX_INIT_CHECK
->> -       select DO_NOT_FREE_INIT_MEMORY
->>          help
->>            Enable code coverage support.
->>   
->> diff --git a/xen/Rules.mk b/xen/Rules.mk
->> index 8c4861a427e6..47fdcc1d23b5 100644
->> --- a/xen/Rules.mk
->> +++ b/xen/Rules.mk
->> @@ -33,11 +33,15 @@ cov-cflags-y :=
->>   nocov-y :=
->>   noubsan-y :=
->>   
->> +# when coverage is enabled the gcc internal section should stay in
->> memory
->> +# after Xen boot
->> +ifneq ($(CONFIG_COVERAGE),y)
->>   SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
->>                                               $(foreach w,1 2 4, \
->>                                                          
->> rodata.str$(w).$(a)) \
->>                                               rodata.cst$(a)) \
->>                            $(foreach r,rel rel.ro,data.$(r).local)
->> +endif
->>   
->>   # The filename build.mk has precedence over Makefile
->>   include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
->> diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
->> index 60b3ae40728f..8180c78f1510 100644
->> --- a/xen/common/libelf/Makefile
->> +++ b/xen/common/libelf/Makefile
->> @@ -1,8 +1,10 @@
->>   obj-bin-y := libelf.o
->>   libelf-objs := libelf-tools.o libelf-loader.o libelf-dominfo.o
->>   
->> +ifneq ($(CONFIG_COVERAGE),y)
->>   SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
->>   OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
->> .$(s)=.init.$(s))
->> +endif
->>   
->>   CFLAGS-y += -Wno-pointer-sign
->>   
->> diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
->> index ae0f69c01373..fb26e5bff0fd 100644
->> --- a/xen/common/libfdt/Makefile
->> +++ b/xen/common/libfdt/Makefile
->> @@ -4,7 +4,9 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
->>   
->>   # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed
->> during runtime.
->>   ifneq ($(CONFIG_OVERLAY_DTB),y)
->> -OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
->> .$(s)=.init.$(s))
->> +       ifneq ($(CONFIG_COVERAGE),y)
->> +               OBJCOPYFLAGS := $(foreach
->> s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
->> +       endif
->>   endif
-> 
-> This is the (aforementioned) non-standard way of doing .init.o, which is
-> why it doesn't play nicely.
-> 
-> I suggest that we first convert libelf and libfdt to the standard way of
-> doing .init.
+Looks good
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-I assume the rest is ok.
+Cheers,
+Jens
 
-> 
-> For libelf this means we need regular __init annotations, but #undef'd
-> outside of __XEN__ (when we're doing the userspace build).
-> 
-
-Need clarification here - this are imported libraries and changing their code
-directly was not welcome before. Therefore there is Xen specific magic in Makefiles.
-:(
-
-Just an idea1, may be ".init" handling can be just dropped from libelf and libfdt
-Makefiles with comment added instead (kinda "TODO") - they will be built-in.
-It doesn't work with CONFIG_CC_SPLIT_SECTIONS any way now.
-
-Just an idea2, drop libelf and libfdt changes from this patch.
-- they will be not in coverage report (nocov-y += *.obj)
-- will be resolved in the future.
-
-Trying to avoid blocking on external dependencies :(
-
-> For libfdt, this will need some init_or_$FOO things (matching
-> init_or_livepatch).
-> 
-> Once the custom init has been made standard, this code becomes easier to
-> move into lib, and we no longer have special cases when trying to extend
-> coverage.
-
-
--- 
-Best regards,
--grygorii
-
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 43af49d1c011..69a5e1e876ce 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -345,7 +345,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>          ffa_handle_partition_info_get(regs);
+>          return true;
+>      case FFA_RX_RELEASE:
+> -        e =3D ffa_rx_release(d);
+> +        e =3D ffa_rx_release(ctx);
+>          break;
+>      case FFA_MSG_SEND_DIRECT_REQ_32:
+>      case FFA_MSG_SEND_DIRECT_REQ_64:
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index 2c2ebc9c5cd6..d60eed6d8811 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -94,6 +94,8 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, const =
+void *src_buf,
+>      struct domain *dst_d;
+>      struct ffa_ctx *dst_ctx;
+>      struct ffa_part_msg_rxtx *dst_msg;
+> +    void *rx_buf;
+> +    size_t rx_size;
+>      int err;
+>      int32_t ret;
+>
+> @@ -120,20 +122,19 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, co=
+nst void *src_buf,
+>      }
+>
+>      /* This also checks that destination has set a Rx buffer */
+> -    ret =3D ffa_rx_acquire(dst_d);
+> +    ret =3D ffa_rx_acquire(dst_ctx , &rx_buf, &rx_size);
+>      if ( ret )
+>          goto out_unlock;
+>
+>      /* we need to have enough space in the destination buffer */
+> -    if ( (dst_ctx->page_count * FFA_PAGE_SIZE -
+> -          sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_size )
+> +    if ( (rx_size - sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_siz=
+e )
+>      {
+>          ret =3D FFA_RET_NO_MEMORY;
+> -        ffa_rx_release(dst_d);
+> +        ffa_rx_release(dst_ctx);
+>          goto out_unlock;
+>      }
+>
+> -    dst_msg =3D dst_ctx->rx;
+> +    dst_msg =3D rx_buf;
+>
+>      /* prepare destination header */
+>      dst_msg->flags =3D 0;
+> @@ -142,7 +143,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
+t void *src_buf,
+>      dst_msg->send_recv_id =3D src_msg->send_recv_id;
+>      dst_msg->msg_size =3D src_msg->msg_size;
+>
+> -    memcpy(dst_ctx->rx + sizeof(struct ffa_part_msg_rxtx),
+> +    memcpy(rx_buf + sizeof(struct ffa_part_msg_rxtx),
+>             src_buf + src_msg->msg_offset, src_msg->msg_size);
+>
+>      /* receiver rx buffer will be released by the receiver*/
+> @@ -159,17 +160,20 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *=
+regs)
+>  {
+>      struct domain *src_d =3D current->domain;
+>      struct ffa_ctx *src_ctx =3D src_d->arch.tee;
+> +    const void *tx_buf;
+> +    size_t tx_size;
+>      struct ffa_part_msg_rxtx src_msg;
+>      uint16_t dst_id, src_id;
+>      int32_t ret;
+>
+>      BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx) >=3D FFA_PAGE_SIZE);
+>
+> -    if ( !spin_trylock(&src_ctx->tx_lock) )
+> -        return FFA_RET_BUSY;
+> +    ret =3D ffa_tx_acquire(src_ctx, &tx_buf, &tx_size);
+> +    if ( ret !=3D FFA_RET_OK )
+> +        return ret;
+>
+>      /* create a copy of the message header */
+> -    memcpy(&src_msg, src_ctx->tx, sizeof(src_msg));
+> +    memcpy(&src_msg, tx_buf, sizeof(src_msg));
+>
+>      src_id =3D src_msg.send_recv_id >> 16;
+>      dst_id =3D src_msg.send_recv_id & GENMASK(15,0);
+> @@ -182,10 +186,8 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *r=
+egs)
+>
+>      /* check source message fits in buffer */
+>      if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) ||
+> -            src_msg.msg_size =3D=3D 0 ||
+> -            src_msg.msg_offset > src_ctx->page_count * FFA_PAGE_SIZE ||
+> -            src_msg.msg_size > (src_ctx->page_count * FFA_PAGE_SIZE -
+> -                                src_msg.msg_offset) )
+> +            src_msg.msg_size =3D=3D 0 || src_msg.msg_offset > tx_size ||
+> +            src_msg.msg_size > (tx_size - src_msg.msg_offset) )
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>          goto out;
+> @@ -206,12 +208,12 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *=
+regs)
+>      else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>      {
+>          /* Message for a VM */
+> -        ret =3D ffa_msg_send2_vm(dst_id, src_ctx->tx, &src_msg);
+> +        ret =3D ffa_msg_send2_vm(dst_id, tx_buf, &src_msg);
+>      }
+>      else
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>
+>  out:
+> -    spin_unlock(&src_ctx->tx_lock);
+> +    ffa_tx_release(src_ctx);
+>      return ret;
+>  }
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index 145b869957b0..16c905cb12b8 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -224,6 +224,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>          get_user_reg(regs, 4),
+>      };
+>      uint32_t dst_size =3D 0;
+> +    size_t buf_size;
+>      void *dst_buf, *end_buf;
+>      uint32_t ffa_vm_count =3D 0, ffa_sp_count =3D 0;
+>
+> @@ -268,12 +269,11 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>      }
+>
+>      /* Get the RX buffer to write the list of partitions */
+> -    ret =3D ffa_rx_acquire(d);
+> +    ret =3D ffa_rx_acquire(ctx, &dst_buf, &buf_size);
+>      if ( ret !=3D FFA_RET_OK )
+>          goto out;
+>
+> -    dst_buf =3D ctx->rx;
+> -    end_buf =3D ctx->rx + ctx->page_count * FFA_PAGE_SIZE;
+> +    end_buf =3D dst_buf + buf_size;
+>
+>      /* An entry should be smaller than a page */
+>      BUILD_BUG_ON(sizeof(struct ffa_partition_info_1_1) > FFA_PAGE_SIZE);
+> @@ -304,7 +304,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>
+>  out_rx_release:
+>      if ( ret )
+> -        ffa_rx_release(d);
+> +        ffa_rx_release(ctx);
+>  out:
+>      if ( ret )
+>          ffa_set_regs_error(regs, ret);
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 8797a62abd01..0d1bab6cc700 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -444,8 +444,10 @@ void ffa_rxtx_domain_destroy(struct domain *d);
+>  int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+>                              register_t rx_addr, uint32_t page_count);
+>  int32_t ffa_handle_rxtx_unmap(void);
+> -int32_t ffa_rx_acquire(struct domain *d);
+> -int32_t ffa_rx_release(struct domain *d);
+> +int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **buf, size_t *buf_size=
+);
+> +int32_t ffa_rx_release(struct ffa_ctx *ctx);
+> +int32_t ffa_tx_acquire(struct ffa_ctx *ctx, const void **buf, size_t *bu=
+f_size);
+> +int32_t ffa_tx_release(struct ffa_ctx *ctx);
+>
+>  void ffa_notif_init(void);
+>  void ffa_notif_init_interrupt(void);
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index e325eae07bda..f79f2cf406aa 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -257,10 +257,9 @@ int32_t ffa_handle_rxtx_unmap(void)
+>      return rxtx_unmap(current->domain);
+>  }
+>
+> -int32_t ffa_rx_acquire(struct domain *d)
+> +int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **buf, size_t *buf_size=
+)
+>  {
+>      int32_t ret =3D FFA_RET_OK;
+> -    struct ffa_ctx *ctx =3D d->arch.tee;
+>
+>      spin_lock(&ctx->rx_lock);
+>
+> @@ -278,21 +277,22 @@ int32_t ffa_rx_acquire(struct domain *d)
+>
+>      if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+>      {
+> -        ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ffa_get_vm_id(d), 0, 0, =
+0);
+> +        ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ctx->ffa_id, 0, 0, 0);
+>          if ( ret !=3D FFA_RET_OK )
+>              goto out;
+>      }
+>      ctx->rx_is_free =3D false;
+> +    *buf =3D ctx->rx;
+> +    *buf_size =3D ctx->page_count * FFA_PAGE_SIZE;
+>  out:
+>      spin_unlock(&ctx->rx_lock);
+>
+>      return ret;
+>  }
+>
+> -int32_t ffa_rx_release(struct domain *d)
+> +int32_t ffa_rx_release(struct ffa_ctx *ctx)
+>  {
+>      int32_t ret =3D FFA_RET_DENIED;
+> -    struct ffa_ctx *ctx =3D d->arch.tee;
+>
+>      spin_lock(&ctx->rx_lock);
+>
+> @@ -301,7 +301,7 @@ int32_t ffa_rx_release(struct domain *d)
+>
+>      if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+>      {
+> -        ret =3D ffa_simple_call(FFA_RX_RELEASE, ffa_get_vm_id(d), 0, 0, =
+0);
+> +        ret =3D ffa_simple_call(FFA_RX_RELEASE, ctx->ffa_id, 0, 0, 0);
+>          if ( ret !=3D FFA_RET_OK )
+>              goto out;
+>      }
+> @@ -313,6 +313,37 @@ out:
+>      return ret;
+>  }
+>
+> +int32_t ffa_tx_acquire(struct ffa_ctx *ctx, const void **buf, size_t *bu=
+f_size)
+> +{
+> +    int32_t ret =3D FFA_RET_DENIED;
+> +
+> +    if ( !spin_trylock(&ctx->tx_lock) )
+> +        return FFA_RET_BUSY;
+> +
+> +    if ( !ctx->page_count )
+> +        goto err_unlock;
+> +
+> +    if ( !ctx->tx )
+> +        goto err_unlock;
+> +
+> +    *buf =3D ctx->tx;
+> +    *buf_size =3D ctx->page_count * FFA_PAGE_SIZE;
+> +    return FFA_RET_OK;
+> +
+> +err_unlock:
+> +    spin_unlock(&ctx->tx_lock);
+> +
+> +    return ret;
+> +}
+> +
+> +int32_t ffa_tx_release(struct ffa_ctx *ctx)
+> +{
+> +    ASSERT(spin_is_locked(&ctx->tx_lock));
+> +
+> +    spin_unlock(&ctx->tx_lock);
+> +    return FFA_RET_OK;
+> +}
+> +
+>  int32_t ffa_rxtx_domain_init(struct domain *d)
+>  {
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> index e275d3769d9b..b862578c553c 100644
+> --- a/xen/arch/arm/tee/ffa_shm.c
+> +++ b/xen/arch/arm/tee/ffa_shm.c
+> @@ -460,6 +460,8 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+>      struct ffa_mem_transaction_int trans;
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> +    const void *tx_buf;
+> +    size_t tx_size;
+>      struct ffa_shm_mem *shm =3D NULL;
+>      register_t handle_hi =3D 0;
+>      register_t handle_lo =3D 0;
+> @@ -498,16 +500,14 @@ void ffa_handle_mem_share(struct cpu_user_regs *reg=
+s)
+>          goto out_set_ret;
+>      }
+>
+> -    if ( !spin_trylock(&ctx->tx_lock) )
+> -    {
+> -        ret =3D FFA_RET_BUSY;
+> +    ret =3D ffa_tx_acquire(ctx, &tx_buf, &tx_size);
+> +    if ( ret !=3D FFA_RET_OK )
+>          goto out_set_ret;
+> -    }
+>
+> -    if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+> +    if ( frag_len > tx_size )
+>          goto out_unlock;
+>
+> -    ret =3D read_mem_transaction(ACCESS_ONCE(ctx->guest_vers), ctx->tx,
+> +    ret =3D read_mem_transaction(ACCESS_ONCE(ctx->guest_vers), tx_buf,
+>                                 frag_len, &trans);
+>      if ( ret )
+>          goto out_unlock;
+> @@ -535,7 +535,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+>      if ( trans.mem_access_offs + trans.mem_access_size > frag_len )
+>          goto out_unlock;
+>
+> -    mem_access =3D ctx->tx + trans.mem_access_offs;
+> +    mem_access =3D tx_buf + trans.mem_access_offs;
+>
+>      dst_id =3D ACCESS_ONCE(mem_access->access_perm.endpoint_id);
+>      if ( !FFA_ID_IS_SECURE(dst_id) )
+> @@ -558,7 +558,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+>          goto out_unlock;
+>      }
+>
+> -    region_descr =3D ctx->tx + region_offs;
+> +    region_descr =3D tx_buf + region_offs;
+>      range_count =3D ACCESS_ONCE(region_descr->address_range_count);
+>      page_count =3D ACCESS_ONCE(region_descr->total_page_count);
+>
+> @@ -605,7 +605,7 @@ out:
+>      if ( ret )
+>          free_ffa_shm_mem(d, shm);
+>  out_unlock:
+> -    spin_unlock(&ctx->tx_lock);
+> +    ffa_tx_release(ctx);
+>
+>  out_set_ret:
+>      if ( ret =3D=3D 0)
+> --
+> 2.51.2
+>
 
