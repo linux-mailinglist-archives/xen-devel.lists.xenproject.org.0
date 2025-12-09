@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCF0CAF894
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:03:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181317.1504383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8258DCAF8D6
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:06:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181326.1504392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuZ3-0003B6-4x; Tue, 09 Dec 2025 10:03:25 +0000
+	id 1vSubb-0003fg-GM; Tue, 09 Dec 2025 10:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181317.1504383; Tue, 09 Dec 2025 10:03:25 +0000
+Received: by outflank-mailman (output) from mailman id 1181326.1504392; Tue, 09 Dec 2025 10:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuZ3-00038B-1t; Tue, 09 Dec 2025 10:03:25 +0000
-Received: by outflank-mailman (input) for mailman id 1181317;
- Tue, 09 Dec 2025 10:03:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSuZ1-000385-Fa
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:03:23 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b39ce07-d4e6-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 11:03:22 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so44135935e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 02:03:22 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbe8fe8sm30759265f8f.2.2025.12.09.02.03.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 02:03:20 -0800 (PST)
+	id 1vSubb-0003eF-Dk; Tue, 09 Dec 2025 10:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 1181326;
+ Tue, 09 Dec 2025 10:06:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSuba-0003e7-6e
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:06:02 +0000
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [2607:f8b0:4864:20::c2d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a8b9225a-d4e6-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 11:05:59 +0100 (CET)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-65962c714eeso2940758eaf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 02:05:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +40,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b39ce07-d4e6-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: a8b9225a-d4e6-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765274601; x=1765879401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FZpaecb+JF7bmSjlzXmdZ2nWOO8dFkaLpz8JThfqNYQ=;
-        b=duSde+ma8tmQgitZekuJ/EnhdF94zODPhXnsc+SZ+stlIxAoCQkxJqmeakY9DzdDeA
-         6T7b3uUJSDEwtysABylEsh4t+qR+hLHN6vbYQHezb8sF9D7M26t3UYJSBxefQim67+Uw
-         5ShP1sc2jvMNmSFwSOvl9MmzviZirFX6DtQQfQ4J2pGCJ5mI8Lx8P0YmmCFE8/trcbbm
-         7YBdr4AcfQewkYhYoQLijkPg/ERKCW/+g78rd7NU/3vs5q25QvSvEEyeSubwnpXGi1Da
-         +NawEvmew3a2lcMKoMldTsAcKAbm5974ZXaukoLHlZK9ql2eGIvAjXLuGFUa7c/Wcg26
-         QPkw==
+        d=linaro.org; s=google; t=1765274758; x=1765879558; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6DBmre1O1b4no6iYA3cLg6P0KAiM1DQSZPOuw0he+qA=;
+        b=JY8XChLdv9jSmmjMjbMqo1KLXHA3uDBBBy0nQUQTAhTHZ/VfNdi9GQfyf1jdO149HT
+         VX2UXA5Xi7ps/fW+8IXkGP3L2EFmHEphZ16I3O/AH2MC6Z9HQCOUNheN9vqMBycVfmV3
+         60k2vlPs46eFvR6BStlP/HjSnr+WZudn19CUrXTWc9ueN+lQiO63SGjaq84pZ8PIX2ph
+         1AeWV/v7g3POala/PQyOEkuJF9jv7TlpursTEr8NP9mKZarLl7lmQ0HterTffOBjDs3k
+         IZL0KPGPPWbgW314JzYhwocBOyw3z0UuxLfhkABp4cdprcQfQBkR/mUrzUpHlU3kZ4Vb
+         cWHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765274601; x=1765879401;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FZpaecb+JF7bmSjlzXmdZ2nWOO8dFkaLpz8JThfqNYQ=;
-        b=jhx5VKpDx6CAn60K6XuiQqH/C6CvyJaHZ6lUmt09DLTm6PyW6urA2PHwb4fHp8q2Ai
-         YrYIBC2L6XwSkgMU0PAQ/3DNZadPeFChjTcmfVYssn6aIum7sFDTjVydhRfzfYEMVGkR
-         MyAb8EOooZouDoadFj1sWnugStkkbKZdvxY3uCw5ccv7MPO+16UVyfA2YFgCSGXdjrEE
-         +I3T7/UGJw6tIH4IU8lWT/HcgL8ogmlORrXsNxQ7aQGUoRD+i+fq+PgQirXsRH1CmBmu
-         Pea6Hh5vs+rUVUvlnQl11RzlaEtD3PZoxrg2K3d7PEt3JxkXlyt189JXtFu9t1ZrAnF2
-         zJEA==
-X-Gm-Message-State: AOJu0Yw+hUErMcY699KSfdhNf/Szk3Bg3mZhB29MvNBa46k6UmkyXpqK
-	5MnfzH9IDU+cPyb8jd0Hw6dcKel1CGeuMKg8De30qb6g+kHya+2G1Qp6198q/S5AtlryiLIGYyG
-	mIXM=
-X-Gm-Gg: ASbGncv11V2vJgIys086c8y3WWyHl1RRUQSQ8dp46xc5/s8Y/DZWd5xra5G8AlfZkUY
-	N+IBVS3JJn4fOdMS6UM7smxEy3RezzFDhQyasVQfIxQ6Xxh6VW/3Nl+gd1zVXtc/ybgYM9nCadp
-	z6/cpatsODApUoD/2OH7QVtA86N9aNsojOOHhYUylAvOvDJPV4vwKIuay8/6ofLtqDdNMlsMqXn
-	8SgtWYudjRhTfYsIQUJ0SO9La12QrXfTc1S6QbomyDG8t8ILoNiH0OthtWz/Z46iCP1j+rTFbhQ
-	AESXnhKoKnh2DwBW5Lob0HfZKLZTc0SaAjpfCN/TIU66nOWcG/wRDjd6b+WrsFWXc5E7f2wftUu
-	Z5P7v+P/nOl4/yVehpx3ur6LAIxazRuCeHsbaJnNcDDOfZuOZOz9RIg4y/O2a3vxH5mTSweBhpS
-	uQPxk5m+t0ap26/LlE9gVsLG2Y8wEBcI4Qg8qTGE2eZaacfpo154j12ABSEaE3415zzpD7pXugF
-	Js=
-X-Google-Smtp-Source: AGHT+IHn34SEuxmGT+foHMrEd2tpF6jZnsvkNLnE+RdJKtsR0Fj0NiPI6Ag/LdGC/wsulvgWRWRkUw==
-X-Received: by 2002:a05:6000:230c:b0:429:c2fb:c268 with SMTP id ffacd0b85a97d-42f89f70656mr12105618f8f.56.1765274601262;
-        Tue, 09 Dec 2025 02:03:21 -0800 (PST)
-Message-ID: <f0f885a8-02f9-4d04-8bb1-4ed7dbd7666a@suse.com>
-Date: Tue, 9 Dec 2025 11:03:19 +0100
+        d=1e100.net; s=20230601; t=1765274758; x=1765879558;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6DBmre1O1b4no6iYA3cLg6P0KAiM1DQSZPOuw0he+qA=;
+        b=ZxnLHx1bcVcVn6zNmQbiGTZwqzJuwTc4JL1GRvr+Nyu4Yxzp46Rp+DUcRDLa1z1sVw
+         v7l8CdcwZokmrqxjwBiwTvoeKwgRMyGOvBZLOGXNpmfL2YogsEEBpagI1byeE7vugOV3
+         kJgDSV80Assy9J0NBaLEaATtk90HPce6VSuwTkj9DH0fo6eUgJuaYT+whVsyE43lOPRC
+         q14kZxHQZgUb3HpUNJmgDL4le8Jub2ztQDavWC+lMY8kZqiKBUh0JtXjIZWWhmEqonnY
+         RyyaVAWS34a/xOkpy6Yqzy70bAsZd6kGc4BOXaJhfzuaTt/TlxuxSAPQIcGDeI6YOsmr
+         GWRw==
+X-Gm-Message-State: AOJu0Yyx2DoVPTdXkx4ZZOnmaI64fZAInowLhtOklxvE+XPUkZxI5y0I
+	qRfa5WoDdCwTQQz9pZYziM9docPgEwcyXtogQcaY8+NnzQCXDy7F7dB7V26xKJj9arm4PWbEiNs
+	Qjh11eTe6cwnIorUOj/jGi3lGlGEsfIOwn9gr4rRiWA==
+X-Gm-Gg: ASbGncuL9Vevyi7HjY+8lG/pHm+Hih/GWhZl0twdeye5Hnt7oqxdHnIprYNgrAEwEXg
+	mmxXDCjuQTowm8Wqh6UDMQa3gdL//uN0Bdj+g1s3qPT5qQC/YIao71BLPXIMHJkq2hjKdricgw6
+	OCXJbVH0p+ECP0yimrGwkM/S7m8pkeB9VqBiG9sTS2li88SaBHfPndQcrUGsHns3/HEmkMwPgfp
+	IYa41edbvrGa1hdB02UlTEn3d7inVz2GpPziBWj9RfE4stScdwzV5txxDnZlp5QArPxaYnGkwVY
+	4FkmuTRvpgpv3l1f8ROcrHUXsOVMku41o+MYENEEdUcsNY9K/3TmlqgFxlgFKA==
+X-Google-Smtp-Source: AGHT+IHWrmnoZEbp0xEJjeKA0rmDYSUgnrLYgEdxZNs270TSIO3eL/0nlTFYYo5OCFY5m1m+OaPMQsdlMVGSo11PVxo=
+X-Received: by 2002:a05:6820:4de1:b0:659:9a49:8ed7 with SMTP id
+ 006d021491bc7-65b23833096mr233730eaf.11.1765274758504; Tue, 09 Dec 2025
+ 02:05:58 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Arm: restrict TEE{CR,HBR} to Arm32
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <697ab9880767b75c9964ae900a43fd4e065fc502.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <697ab9880767b75c9964ae900a43fd4e065fc502.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 11:05:46 +0100
+X-Gm-Features: AQt7F2qIz9Tr_AjJj-t3fM2ggtE88YxB1L-RMc_hPhi9Qg9pZWCgLl2vQ_KUW00
+Message-ID: <CAHUa44E+Cgs6WeuSyYi=r1BCzaYN+f9MBoSudyLxkU2LeGxzXg@mail.gmail.com>
+Subject: Re: [PATCH v1 03/12] xen/arm: ffa: Fix is_64bit init
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Support for TEECR32_EL1 and TEEHBR32_EL1 was removed from binutils on the
-basis that ThumbEE was removed from v8 before the spec was finalized (and
-hence it never appeared in production silicon). Limit respective code to
-Arm32 builds.
+Hi Bertrand,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Requires 5bbe1fe413f9 ("ARM: Drop ThumbEE support") to be reverted first.
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> is_64bit_domain(d) is not set during domain_init as the domain field is
+> only set when loading the domain image which is done after executing
+> domain_init.
+>
+> Fix the implementation to set is_64bit when version gets negotiated.
+> is_64bit is only used during partition_info_get once a domain is added
+> in the list of domains having ffa support. It must only be accessed when
+> the rwlock is taken (which is the case).
+>
+> is_64bit must not be used without the rwlock taken and other places in
+> the code needing to test 64bit support of the current domain will have
+> to use calls to is_64bit_domain instead of the field from now on.
+>
+> Fixes: 09a201605f99 ("xen/arm: ffa: Introduce VM to VM support")
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - patch introduced
+> ---
+>  xen/arch/arm/tee/ffa.c         | 9 ++++++++-
+>  xen/arch/arm/tee/ffa_private.h | 5 +++++
+>  2 files changed, 13 insertions(+), 1 deletion(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index aadd6c21e7f2..0f6f837378cc 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -180,6 +180,14 @@ static bool ffa_negotiate_version(struct cpu_user_re=
+gs *regs)
+>              goto out_handled;
+>          }
+>
+> +        /*
+> +         * We cannot set is_64bit during domain init because the field i=
+s not
+> +         * yet initialized.
+> +         * This field is only used during partinfo_get with the rwlock t=
+aken
+> +         * so there is no ordering issue with guest_vers.
+> +         */
+> +        ctx->is_64bit =3D is_64bit_domain(d);
 
-Further cleanup up may be wanted, but I wasn't sure whether to fold this
-into this patch: TEE{CR,HBR}32_EL1 are now unnecessary aliases, and the
-32-bit-only TEE{CR,HBR} constants could be used instead.
+This should only be assigned under the rwlock. But do we need the
+is_64bit field at all? Why can't we always use is_64bit_domain()
+instead?
 
-Also cpu_has_thumbee may better be either hidden from Arm64, or be made
-constant false there.
+Cheers,
+Jens
 
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -111,13 +111,13 @@ static void ctxt_switch_from(struct vcpu
-     p->arch.cntkctl = READ_SYSREG(CNTKCTL_EL1);
-     virt_timer_save(p);
- 
--    if ( is_32bit_domain(p->domain) && cpu_has_thumbee )
-+#ifdef CONFIG_ARM_32
-+    if ( cpu_has_thumbee )
-     {
-         p->arch.teecr = READ_SYSREG(TEECR32_EL1);
-         p->arch.teehbr = READ_SYSREG(TEEHBR32_EL1);
-     }
- 
--#ifdef CONFIG_ARM_32
-     p->arch.joscr = READ_CP32(JOSCR);
-     p->arch.jmcr = READ_CP32(JMCR);
- #endif
-@@ -244,13 +244,13 @@ static void ctxt_switch_to(struct vcpu *
-     WRITE_SYSREG(n->arch.tpidrro_el0, TPIDRRO_EL0);
-     WRITE_SYSREG(n->arch.tpidr_el1, TPIDR_EL1);
- 
--    if ( is_32bit_domain(n->domain) && cpu_has_thumbee )
-+#ifdef CONFIG_ARM_32
-+    if ( cpu_has_thumbee )
-     {
-         WRITE_SYSREG(n->arch.teecr, TEECR32_EL1);
-         WRITE_SYSREG(n->arch.teehbr, TEEHBR32_EL1);
-     }
- 
--#ifdef CONFIG_ARM_32
-     WRITE_CP32(n->arch.joscr, JOSCR);
-     WRITE_CP32(n->arch.jmcr, JMCR);
- #endif
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -211,8 +211,9 @@ struct arch_vcpu
-     register_t hcr_el2;
-     register_t mdcr_el2;
- 
--    uint32_t teecr, teehbr; /* ThumbEE, 32-bit guests only */
- #ifdef CONFIG_ARM_32
-+    uint32_t teecr, teehbr; /* ThumbEE */
-+
-     /*
-      * ARMv8 only supports a trivial implementation on Jazelle when in AArch32
-      * mode and therefore has no extended control registers.
+> +
+>          /*
+>           * A successful FFA_VERSION call does not freeze negotiation. Gu=
+ests
+>           * are allowed to issue multiple FFA_VERSION attempts (e.g. prob=
+ing
+> @@ -433,7 +441,6 @@ static int ffa_domain_init(struct domain *d)
+>
+>      ctx->ffa_id =3D ffa_get_vm_id(d);
+>      ctx->num_vcpus =3D d->max_vcpus;
+> -    ctx->is_64bit =3D is_64bit_domain(d);
+>
+>      /*
+>       * ffa_domain_teardown() will be called if ffa_domain_init() returns=
+ an
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 4e4ac7fd7bc4..2daa4589a930 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -344,6 +344,11 @@ struct ffa_ctx {
+>      /* FF-A Endpoint ID */
+>      uint16_t ffa_id;
+>      uint16_t num_vcpus;
+> +    /*
+> +     * Must only be accessed with the ffa_ctx_list_rwlock taken as it se=
+t
+> +     * when guest_vers is set and other accesses could see a partially s=
+et
+> +     * value.
+> +     */
+>      bool is_64bit;
+>
+>      /*
+> --
+> 2.51.2
+>
 
