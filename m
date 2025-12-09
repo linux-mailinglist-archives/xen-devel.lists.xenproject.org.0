@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A02ACB0651
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:25:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181865.1504846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B9ACB06D5
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:41:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181877.1504857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzaX-0000j6-3A; Tue, 09 Dec 2025 15:25:17 +0000
+	id 1vSzpy-0003cX-98; Tue, 09 Dec 2025 15:41:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181865.1504846; Tue, 09 Dec 2025 15:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 1181877.1504857; Tue, 09 Dec 2025 15:41:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzaX-0000hP-09; Tue, 09 Dec 2025 15:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 1181865;
- Tue, 09 Dec 2025 15:25:15 +0000
+	id 1vSzpy-0003a0-61; Tue, 09 Dec 2025 15:41:14 +0000
+Received: by outflank-mailman (input) for mailman id 1181877;
+ Tue, 09 Dec 2025 15:41:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vSzaV-0000hJ-HN
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:25:15 +0000
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [2607:f8b0:4864:20::234])
+ <SRS0=rCN0=6P=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vSzpw-0003Zt-CW
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:41:12 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 41d0778a-d513-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 16:25:14 +0100 (CET)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-450b3f60c31so2591465b6e.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 07:25:14 -0800 (PST)
+ id 7bb377a0-d515-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 16:41:09 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so822565566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 07:41:09 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b79f4975c56sm1397977966b.33.2025.12.09.07.41.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Dec 2025 07:41:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,193 +45,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41d0778a-d513-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 7bb377a0-d515-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1765293913; x=1765898713; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=px9k85v8oJRTGCidCYR/pxO2mba+FuoRZ1VGFVhqnjs=;
-        b=wxYmzTGyTevA/LFi1sovdYxqnDXQ7QrO6iHhBkJpKIYRrAM1QtFwLFEr7vAUALUSUD
-         4BIpcUZDjJ21fKLO+IEUKKpuUQHk9rMLObxOXTMrYtqCjZlumTz0aYnkBHGgZVxF6nFk
-         R6l3FHBl8RO+pAjuYIdYaBCcCKeVqGYJ4Od8/c6E8BBEHtDZpN7TbfNmhTQqhv9jltIg
-         12oS2pbC4/VWLkEjaprAD0s0yzyhNnvsj2iIG/rR7xP817fruKQJa5/6kmvPlGhWhD6q
-         4khjT4/kabM2ZA1HsowL3mHGdHY3go/8BnyWSZcHTCUK7Gj1lJ30hEJNlqAasG2+Iv6Y
-         DJKw==
+        d=gmail.com; s=20230601; t=1765294869; x=1765899669; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DXiaujvUvvR/z0zrzSKxFRSx3Lik8dAv8cTMffKtAic=;
+        b=EFf2DKELNS+ACR0RRcw5Gj4N3y4wmEGaq82i7Ab3T9Zahn8B7l+Ur6Uchye0oErylk
+         p7Xv/6kc8V6gojNAf5OiYOGnoEDaJENUPdMxbedT0YffNomEVSbCzt3RmOwPttme+4Cs
+         fFEtbU25WiY5QPqc8ui3yoFhvnCwm098Vr3fmcBQcHyMVSNEeAigfTVgCCnaPEbQDKwb
+         lcEnkyTs2snDsBss2BbV3FiEI+Z+EMyQknqn3uGCMfpE7t3K1tF9NHxppLmyjC338/1w
+         RebgjSJO4eaDz5GEanZUMbIH45jAZU4LKqdkxTaE72Fj5ylKEgviZJfm0/uF0J/h2dQu
+         jFBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765293913; x=1765898713;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=px9k85v8oJRTGCidCYR/pxO2mba+FuoRZ1VGFVhqnjs=;
-        b=fOAIRgYjIzjZFRgqmdrFo9sqdsF7QLdH428RiFge9fRyc04xNtjRxaYvUZAke/kMZW
-         jCHF7EzI47ofSy34T721zp4V75heWIXsr8Ze7q6+7YyvBnL5TyTJGAh85akowizx5b8M
-         1U8iBqirrgieaDzLePPWtYidkEuUCIMNuu2nszR/uzMNBxRZd+ggi+L5tC+Vkl9yphdM
-         norXq0gGGeDe2s52dlz1xbldUObKMQMHwm2yNPi2uVzzirm4MRhM9Mf2EnsJmfe6q5YF
-         vwlqK6ok11qFSenQN9VNMn0Md0JTPdl3givnv60mNC21+of0wo+IyHgZV+CWXenof66j
-         +9Yw==
-X-Gm-Message-State: AOJu0YyJkc7RgJnbM+3JYQhX7iP6eJJPIgUdGMLRlZ1U0dFyUIGwKWjN
-	W6aYbVraP9LTmaRLSaIZ7ZBnnSPh9Cfx88CHNvMlcFx0V45gKWF/gkII7X/VaiULWbNw7OgbiIO
-	EOrRsahgaUKXxUFlDpmzj7B5V+j/6lMN+9a6vhWhDZw==
-X-Gm-Gg: ASbGncvYW+Ul6gGJA78/GJ2lNNimJ+HkeJbMmlDc1nqNpi6MuHRAq5zqMNsqZB6DK3w
-	Yrplwg0XIbpZUrWEniA/aGnNjxRcdo3YsbGjV0LKxIj44RinZ0T6+s7ZWCk4DeZRfG5XauQdF/g
-	tKyKvRGIbvhKC1gOky8LEhRdI0mte0XnUJBRunIukFMmSp4QGOAIwes/YR8J0pvDh3ZYX0HMSJ5
-	9uaDLOR3k5CVfHSE+w1cQOjcZBreJIJoS90JDjz9zGcVRaWWD4Bmnrf005N7c2kQrN5XqCyf6K6
-	1bAgiDeVJwTSQFtfzYTylxh9G4c3UM0XvB/4QajYWAlMLJF6AXIG38saEUZUpg==
-X-Google-Smtp-Source: AGHT+IHlzgzyYPqo7sOs2PJmW1GMZ+FSO4vkkNGOiTT6Dgdxy2ffgddUtkkpa6WmfdMHRuGqpd5fr7ytaKzBvYoj/yE=
-X-Received: by 2002:a05:6808:1507:b0:450:4a53:54d4 with SMTP id
- 5614622812f47-4539df814admr4951024b6e.25.1765293912760; Tue, 09 Dec 2025
- 07:25:12 -0800 (PST)
+        d=1e100.net; s=20230601; t=1765294869; x=1765899669;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DXiaujvUvvR/z0zrzSKxFRSx3Lik8dAv8cTMffKtAic=;
+        b=GvpGpCblEiGMNJ9qz7kJNyY3UMaJxNCdokqZdgNsJOA2w4aJkWw6r/odKSBS5Trs44
+         p/FCkcKhuV84I+qFQLy/382bgRv6BE04xL52VT13Ow7ZnK1wOU6V7XjhbovPLPcvH/e5
+         /HHo33Ot7fz3hbnAxP3Op2lJ2iBBmfAaobo1BHx+V9Vo0RclZAuiysA4ryHj2FkyM/dZ
+         5/+p5qm0LWWgjx4ipXc/O/npfiDsfHKYpVXmDEtcWVbnE2oqJp8JVmeTu/iDFZ1Jo2tJ
+         nHlcMInc9bbtIa/5VbdKa3Q4XhkDp16SuZ6yAm/jagrt1RqIIayovVOMWSYDnh1Q5KOW
+         m2+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWvvuSFPhzX86MnxrBFsY6J5mTnZo0FYXVic7uKxaeCmtvJsCKrmS9NwGR8yLaKGn2xH1O8V14Wb0Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx57RBZ1SZA0qBt5stuIH486bHbIrNH3dH+9QH7GCHFemkXcloG
+	H8WpbCK74XrzSbvsvj7CrRFVP+SmcH9bLBy1y3dZH3gsSBzj0Cgvo7xa
+X-Gm-Gg: ASbGnctX1QR8+HnqTQVUQXz0eTAc0zlPT8Uwj1xHwroAJF+lW9+mcJdrHwBkh4BU8YP
+	JLkVznl1qVAOZwAq71vLRgBwWVWLm7WfRsb6vcV8sJxdbTploKmF5h1Z+TZYY9Tgbv8XTRkqKYR
+	uxvqvPDmQIV1GYKYAJ8ZuZs5fLguNgE4WQRmENJtgmb/o1xFQYI1WBGN0Qd4JBoFMUWLg7rmsbC
+	zFhZis35LBbAXsMFU+8h0BzrF7LGv+OMN8QvtyRVpYdm/ECoJneyxt4qbyjd42pfHfqSbd8mBpj
+	4XFzdv70r/oBIYToDnHGuXFfDbnbwPprTDgXpEIxbnsHIMWf2oF6M6CKeYLwkvnwAEbVDPhQKLJ
+	z00YPuXqbjS2WmTVOQ+Jb/JzzTgjUG1RX1xsnUa4cDZC3NX5ipBZ7RyHwVzGZt8cao/YmIsfVUp
+	NT4uRecfrqRDlq9EHv466WXkShe80P/1aur+bMGsB1455HkbTt8yWyg1vYtn14
+X-Google-Smtp-Source: AGHT+IHA2NuZn6kcL7SYzy0+2O+6yiAikMLG7Zb8Cmi7cpJKhSQh9n0KX5OcCRG4qTrhBgMEPNpBRQ==
+X-Received: by 2002:a17:906:c10c:b0:b73:3e15:a370 with SMTP id a640c23a62f3a-b7a248164b9mr1377298866b.57.1765294868549;
+        Tue, 09 Dec 2025 07:41:08 -0800 (PST)
+Message-ID: <86a87823-8b15-4897-9a97-ade444e2830d@gmail.com>
+Date: Tue, 9 Dec 2025 16:41:07 +0100
 MIME-Version: 1.0
-References: <cover.1764930353.git.bertrand.marquis@arm.com> <8412f616340976de6aa5f7da585cdc3dfd919732.1764930353.git.bertrand.marquis@arm.com>
-In-Reply-To: <8412f616340976de6aa5f7da585cdc3dfd919732.1764930353.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 9 Dec 2025 16:25:01 +0100
-X-Gm-Features: AQt7F2qmmqcj0G2BeaIRMJETyQttFjPk0jUpMMHtyc--gR_zFjo-RFHa3_Qb5GE
-Message-ID: <CAHUa44HqFfA=NzXYwRDnDoV9m2FVDh5PS5tTS+9dyL7uQLUEtg@mail.gmail.com>
-Subject: Re: [PATCH v1 12/12] xen/arm: ffa: advertise FF-A v1.2
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 18/19] xen/riscv: add support of page lookup by GFN
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <48a58cde3de6a459885465c6d29d00d046ae4a37.1763986955.git.oleksii.kurochko@gmail.com>
+ <69dce344-4dee-4778-99c2-0621c4e17cfc@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <69dce344-4dee-4778-99c2-0621c4e17cfc@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
 
-On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Expose the RX/TX MAP capacity field only once a guest has
-> negotiated FF-A v1.2.
->
-> While there, drop the stale <asm/tee/ffa.h> include.
->
-> To comply with the wider v1.2 register ABI, zero registers x8=E2=80=93x17=
- when
-> responding to a v1.2 VM. The dispatcher also rejects SMCCC64 calls from
-> AArch32 guests.
->
-> Finally, bump Xen's FF-A version to 1.2.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in v1:
-> - Remove advertising of YIELD/INTERRUPT/RUN which has now moved to patch
->   adding FFA_RUN support and adapt commit message
-> - Use ACCESS_ONCE to read guest_vers
-> - Use is_64bit_domain instead of ctx->is_64bit
-> ---
->  xen/arch/arm/tee/ffa.c         | 19 +++++++++++++++++--
->  xen/arch/arm/tee/ffa_private.h | 29 ++++++++++++++++++++---------
->  2 files changed, 37 insertions(+), 11 deletions(-)
+On 12/9/25 12:38 PM, Jan Beulich wrote:
+> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/p2m.c
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -1061,3 +1061,186 @@ int map_regions_p2mt(struct domain *d,
+>>   
+>>       return rc;
+>>   }
+>> +
+>> +/*
+>> + * p2m_get_entry() should always return the correct order value, even if an
+>> + * entry is not present (i.e. the GFN is outside the range):
+>> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+>> + *
+>> + * This ensures that callers of p2m_get_entry() can determine what range of
+>> + * address space would be altered by a corresponding p2m_set_entry().
+>> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
+>> + *
+>> + * Therefore, this function returns true for GFNs outside range (1), and in
+>> + * that case the corresponding level is returned via the level_out argument.
+>> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
+>> + * find the proper entry.
+>> + */
+>> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
+>> +                                   gfn_t boundary, bool is_lower,
+>> +                                   unsigned int *level_out)
+>> +{
+>> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
+>> +    bool ret = false;
+>> +
+>> +    ASSERT(p2m);
+>> +
+>> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
+>> +                  : gfn_x(gfn) > gfn_x(boundary) )
+>> +    {
+>> +        unsigned long mask = 0;
+>> +
+>> +        for ( ; level; level-- )
+>> +        {
+>> +            unsigned long masked_gfn;
+>> +
+>> +            mask |= PFN_DOWN(P2M_LEVEL_MASK(p2m, level));
+>> +            masked_gfn = gfn_x(gfn) & mask;
+>> +            masked_gfn |= (is_lower * (BIT(P2M_LEVEL_ORDER(level), UL) - 1));
+> I fear I still don't fully understand this. I would have expected the same mask to
+> be used for setting / clearing bits (once inverted, obviously). Why would you clear
+> only some of the lower bits in one case but set all of them in the other?
 
-Looks good.
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+Only when is_lower == true do we need to set the lower bits; in all other cases
+this is not required, if i am not confusing something.
 
-Cheers,
-Jens
+The idea is that if boundary = 0x1000 and gfn = 0x800, and is_lower == true,
+then to return the correct level value we must set all lower bits of gfn to 1.
+Otherwise, we would get level = root instead of level = 0 in this case.
+
+I decided not to reuse mask to set the lower bits when is_lower == true, because
+doing something like:
+
+     mask |= PFN_DOWN(P2M_LEVEL_MASK(p2m, level));
+     masked_gfn = gfn_x(gfn) & mask;
+     masked_gfn |= (is_lower * ~mask);
+
+would allow ~mask to introduce 1s into the upper bits, which is not what we want.
+
+> Overall, this alternative of clearing / setting of bits may also better (more
+> clearly / readably) be expressed using if/else or a conditional operator.
+
+Sure, I will rework it then, unless I have missed something in what I wrote above.
+
+>> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
+>> +                          : masked_gfn > gfn_x(boundary) )
+>> +                break;
+>> +        }
+>> +
+>> +        ret = true;
+>> +    }
+>> +
+>> +    if ( level_out )
+>> +        *level_out = level;
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +/*
+>> + * Get the details of a given gfn.
+>> + *
+>> + * If the entry is present, the associated MFN will be returned and the
+>> + * p2m type of the mapping.
+> There may be a word order issue in this sentence, or there are words missing
+> at the end. It more likely being the former, isn't the order being returned
+> also worth mentioning, ...
+>
+>> + * The page_order will correspond to the order of the mapping in the page
+>> + * table (i.e it could be a superpage).
+> ... since this really is a separate piece of commentary?
+
+I will reword it in the following way then:
+  * If the entry is present, the associated MFN, the p2m type of the mapping,
+  * and the page order of the mapping in the page table (i.e., it could be a
+  * superpage) will be returned.
 
 >
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 2c6443a7f6a4..ed18e76080d0 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -65,7 +65,6 @@
->  #include <asm/event.h>
->  #include <asm/regs.h>
->  #include <asm/smccc.h>
-> -#include <asm/tee/ffa.h>
->  #include <asm/tee/tee.h>
+>> + * If the entry is not present, INVALID_MFN will be returned and the
+>> + * page_order will be set according to the order of the invalid range.
+> ... and type will be "invalid".
+
+And this one I'll reword in the following way:
+
+  * If the entry is not present, INVALID_MFN will be returned,
+  * the page_order will be set according to the order of the invalid
+  * range, and type will be p2m_invalid.
+
+
 >
->  #include "ffa_private.h"
-> @@ -296,7 +295,16 @@ static void handle_features(struct cpu_user_regs *re=
-gs)
->           * differs from FFA_PAGE_SIZE (SZ_4K).
->           */
->          BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> -        ffa_set_regs_success(regs, 0, 0);
-> +
-> +        /*
-> +         * From FFA v1.2, we can give the maximum number of pages we sup=
-port
-> +         * for the RX/TX buffers.
-> +         */
-> +        if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        else
-> +            ffa_set_regs_success(regs, FFA_MAX_RXTX_PAGE_COUNT << 16, 0)=
-;
-> +
->          break;
->      case FFA_FEATURE_NOTIF_PEND_INTR:
->          ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
-> @@ -329,6 +337,13 @@ static bool ffa_handle_call(struct cpu_user_regs *re=
-gs)
->      if ( !ctx )
->          return false;
->
-> +    if ( !is_64bit_domain(d) && smccc_is_conv_64(fid) )
-> +    {
-> +        /* 32bit guests should only use 32bit convention calls */
-> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        return true;
-> +    }
-> +
->      /* A version must be negotiated first */
->      if ( !ACCESS_ONCE(ctx->guest_vers) )
->      {
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index 030e6724743c..1b5aebd6ef6b 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -53,7 +53,7 @@
->   * that particular guest or SP.
->   */
->  #define FFA_MY_VERSION_MAJOR    1U
-> -#define FFA_MY_VERSION_MINOR    1U
-> +#define FFA_MY_VERSION_MINOR    2U
->  #define FFA_MY_VERSION          MAKE_FFA_VERSION(FFA_MY_VERSION_MAJOR, \
->                                                   FFA_MY_VERSION_MINOR)
->
-> @@ -518,14 +518,25 @@ static inline void ffa_set_regs(struct cpu_user_reg=
-s *regs, register_t v0,
->                                  register_t v4, register_t v5, register_t=
- v6,
->                                  register_t v7)
->  {
-> -        set_user_reg(regs, 0, v0);
-> -        set_user_reg(regs, 1, v1);
-> -        set_user_reg(regs, 2, v2);
-> -        set_user_reg(regs, 3, v3);
-> -        set_user_reg(regs, 4, v4);
-> -        set_user_reg(regs, 5, v5);
-> -        set_user_reg(regs, 6, v6);
-> -        set_user_reg(regs, 7, v7);
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +    int i;
-> +
-> +    set_user_reg(regs, 0, v0);
-> +    set_user_reg(regs, 1, v1);
-> +    set_user_reg(regs, 2, v2);
-> +    set_user_reg(regs, 3, v3);
-> +    set_user_reg(regs, 4, v4);
-> +    set_user_reg(regs, 5, v5);
-> +    set_user_reg(regs, 6, v6);
-> +    set_user_reg(regs, 7, v7);
-> +
-> +    if ( ctx && ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 &&
-> +         is_64bit_domain(d) )
-> +    {
-> +        for (i =3D 8; i <=3D 17; i++)
-> +            set_user_reg(regs, i, 0);
-> +    }
->  }
->
->  static inline void ffa_set_regs_error(struct cpu_user_regs *regs,
-> --
-> 2.51.2
->
+>> + */
+>> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>> +                           p2m_type_t *t,
+>> +                           unsigned int *page_order)
+>> +{
+>> +    unsigned int level = 0;
+>> +    pte_t entry, *table;
+>> +    int rc;
+>> +    mfn_t mfn = INVALID_MFN;
+>> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
+>> +
+>> +    ASSERT(p2m_is_locked(p2m));
+>> +
+>> +    if ( t )
+>> +        *t = p2m_invalid;
+> The sole caller passes non-NULL right now. Are you having patches pending
+> where NULL would be passed? Else, this being a static helper, I'd suggest
+> to drop the check here (and the other one further down).
+
+I don’t have any such call in pending patches. I saw that Arm has a case
+where it is called with t = NULL (https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/mem_access.c#L64),
+so I decided to keep the check.
+
+What you wrote makes sense to me, and given that the mem_access code is
+Arm-specific, RISC-V will probably never have the same situation.
+However, it still seems reasonable to keep this check for flexibility,
+so that we don’t risk a NULL-pointer dereference in the future or end up
+needing to reintroduce the check (or providing an unused variable for a type)
+later. Does that make sense?
+
+~ Oleksii
+
 
