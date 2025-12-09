@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5671ACB05D8
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:12:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181834.1504816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0FECB0630
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:20:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181842.1504827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzNt-0006O1-D4; Tue, 09 Dec 2025 15:12:13 +0000
+	id 1vSzVw-00081Y-4W; Tue, 09 Dec 2025 15:20:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181834.1504816; Tue, 09 Dec 2025 15:12:13 +0000
+Received: by outflank-mailman (output) from mailman id 1181842.1504827; Tue, 09 Dec 2025 15:20:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzNt-0006Ln-AL; Tue, 09 Dec 2025 15:12:13 +0000
-Received: by outflank-mailman (input) for mailman id 1181834;
- Tue, 09 Dec 2025 15:12:11 +0000
+	id 1vSzVw-0007zP-1z; Tue, 09 Dec 2025 15:20:32 +0000
+Received: by outflank-mailman (input) for mailman id 1181842;
+ Tue, 09 Dec 2025 15:20:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=snnK=6P=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vSzNr-0006Lh-EC
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:12:11 +0000
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c10d::3])
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSzVu-0007zJ-FS
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:20:30 +0000
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [2607:f8b0:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e24e300-d511-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 16:12:09 +0100 (CET)
-Received: from CH0PR04CA0119.namprd04.prod.outlook.com (2603:10b6:610:75::34)
- by DM4PR12MB7575.namprd12.prod.outlook.com (2603:10b6:8:10d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.6; Tue, 9 Dec
- 2025 15:12:05 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:75:cafe::7f) by CH0PR04CA0119.outlook.office365.com
- (2603:10b6:610:75::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
- 9 Dec 2025 15:12:04 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 15:12:04 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
- 2025 09:12:04 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
- 2025 07:12:03 -0800
-Received: from [172.29.90.244] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 9 Dec 2025 07:12:03 -0800
+ id 97b27170-d512-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 16:20:28 +0100 (CET)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-4557c596339so302335b6e.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 07:20:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,149 +40,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e24e300-d511-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aGy7A2gJj6d2KpQQV+YQBk8UKUKF/thU9UBnIHO1s5lEDbzGQvRlkkck/Aygf+LUFIqBCA4HojoqoefjfzXnolfgcDB4BvX7fqRzFc4+r6jcf3TdtuSQlArovFuInYU6AZMP+vBYeKrcSFjSqnHjTO2/2NH1qFeBYD/XEjASh7x/36N4rUk8Q0cee5q2Hj4oIpSdwyXmPUbeV5ZgYdZXaxFh1Q7TGfNEDmWWpmaCQCg4laYmPcD9cSJdRlt3BOSFs0Vg3trSVX8i/qxb6rcx/ZgEWucY9fKc7SZoNnG0HzCmdc6TbTuLD7L5/OqibjXIIS16X9r5XVuaUjJ/BvQcoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zyRqL42Pv9oBW2yOakW5gRYlNvi81x59wZ/DHAsNt5A=;
- b=cpYz7f+63FpXqJR7snP7t+jfP20n2aihgnYYXN0iF39Z7vF5Vb4MAv7vOxdziwZYYrzY9yLIZBu2Y9PvkStQcE/G311BUohCYVMWtXvxmc5w7GkEULm8DSVQLuSZBMtlArDXkwOSFYfV83i4jgYa/wfVQYVWYqw7SGoPGNFaeqMYlMDN8RDan5VPTAqkBdRJkoRB/Owqg4KSeydMvH/I1J7NTrRF61eGM9ZGP3ff9M5zzfJIfXgi2nVjQiHnlFRHmFJiAzNZifFNA8nGr8hwkYtH+SBqlO4v7Wbvv2nvY4C0owE1mOiYMN7FOGk4jNBwkNiuy5UIg/7I61RF4eUk/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zyRqL42Pv9oBW2yOakW5gRYlNvi81x59wZ/DHAsNt5A=;
- b=pRuyUf464htymVnGLscc+eJQEy4TvrTQwCjYhIGqHmiG8iP8P1vSPa/w1gy0k6AQrVmcubicLiplhRo7/BSiW2QS1phhS+A22NczS9pp04Q1vWs7LV4K6hw9qCYcCYOZXhpZub8PM/vcpx2Vu8ojpBODRr8MVl/oH+QTwtV4F7s=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <48c3932e-5042-4586-a22f-5ab758e26df4@amd.com>
-Date: Tue, 9 Dec 2025 10:12:02 -0500
+X-Inumbo-ID: 97b27170-d512-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1765293627; x=1765898427; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5RXnCjLpBnFu3xg+Z5lOG4Th4AQLzsqJLO+ggFjyTTM=;
+        b=Tig/LbI91zrMaZHLEZPanny3Lu8FPt1AFoOqLhYRm87J0hg/s/qgvsQ/2PEVCaYaNF
+         s/T9DMbN3ftv7Uy+Bpb+xMqlErMqVZyB+RB4Dyz18FgNmF5IuOuBMWz5t/dLI2GBqPLa
+         wzCJlbFDbe21ImJwiq1jIFSxIRjnMh+M8QkvEEnvFJsaNiB+GZcQfqady0l/00yB35EU
+         Mn1aPkwCLZIThhzh77xaGIvVSIPw2hArJ2OHJ1jvZCPbK53jWpHHt/eMb4dLtFi+r85A
+         Z+JpdSf+Ufkj3L57a9J5ENOmyEJUou6YYcS/yLTenvIFh2De95v2MqTJ1sWg10P+N7Od
+         P+Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765293627; x=1765898427;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=5RXnCjLpBnFu3xg+Z5lOG4Th4AQLzsqJLO+ggFjyTTM=;
+        b=RAHhIOLXtlyKdP7MKDXJ/bIl9wSrDqXomcYF9CUNCqipJDiYkyiAqifr4Upg0Sr7Fm
+         xUoi2Qp72eZ6XsDJW8Ol1h1z6r5kMQLbaIW6oFw9XR6cYPlX9h4BhZ0bobCiiMKR8Qzx
+         K7703ILXQb2LxyfkDzhe1bW1Mp8czJAh0rNrDGdF9zSyZ5pOOMbT1g38TP+7RlMq+JK4
+         PFsfL2d6J//oqhIKRneWXKx73113Nb8lh4E6LhlObg4HTRZ8ZNs7BqUrQaQZEUsazrwv
+         TQOM32NavHH3obT9aIpPy4BNLhdEbfBGBqWspy8A+YWQATbgMoIucCz0Z+8tErFr3ZbI
+         2WtQ==
+X-Gm-Message-State: AOJu0YxYAA67bwM3LBXDbzbZOLUZG2EokK7SMugpempyTTzIDZDg6qS3
+	dvwWjkLk27q/y6EvGcXPY4zquCsgndZQZ7u5OALdUWIOmwrqNtNGLWO0YIlD/a/LEshNqrds69c
+	8PhtZEXANqGBZ3GdZ6rl8R63gjAHWUURwJQp8mzLN6w==
+X-Gm-Gg: ASbGncs8DvAQ3Mj/gs7SmWXffzZPjRSOQtj1dfYDfXV7KEUCEGdaEjA5/BBWR54nUPH
+	4Z71GSpLwFXGoKDPFMvPgzvZ7SKJbVLRd66scSjKGDmo4YS/My+/Y8hbTcBuaMvvzzRzRb6PfMM
+	myKaQMOuAKoVsJfjhpbwkdj5591YF8oqhg0jAo9teILYFQSqgeLsffaUXJnw7WiPqlm67TQboAE
+	ymPh5Nv4EVxkRmS0qEQPhvNJED93Q7BXEWlK94qW4IUuUf8uv/apKcSxGs3y5iQTiLsg4eQq057
+	2lRpsA7oxRB2zG0tWLT3aBsWOH4qDhUS3LePmWvCZT6Dj5AxcrxwHO4/uOMgUQ==
+X-Google-Smtp-Source: AGHT+IGHAWYoEMDEwAtDGEMcvorvWlm7YjJ5N/SnuWRZaGXfDfI2zv1KIHs0sJqkt5zwyq9iM9TVSsaGD8wibCiCfrQ=
+X-Received: by 2002:a05:6808:2381:b0:449:39e0:f3ce with SMTP id
+ 5614622812f47-4539df6497dmr5575017b6e.28.1765293627264; Tue, 09 Dec 2025
+ 07:20:27 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Grygorii Strashko <grygorii_strashko@epam.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20251205222813.277164-1-jason.andryuk@amd.com>
- <6c10dbc4-3247-4a0d-9953-858d09df08a9@suse.com>
- <1675a966-1095-4aba-af74-828e4c68e6b4@amd.com>
- <f922dad3-9e60-47ff-b4f6-f0ae87fd90af@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <f922dad3-9e60-47ff-b4f6-f0ae87fd90af@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|DM4PR12MB7575:EE_
-X-MS-Office365-Filtering-Correlation-Id: babd830f-ac53-43de-566e-08de37355006
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZXMyMktqang4Q1NyVkx6RWdXZ1l1bU1VbnJzdTdpeXR2T2E0Slk5dE0rMjE2?=
- =?utf-8?B?STlXOHhYTlpERUZLQUdrSXBIbTRXTW11MzJCT0pmMVB5aVRocjg1NFVvNHlY?=
- =?utf-8?B?UFEvWkJwZlJYMmltREtYdThaTDhmeHdzS3RZYzY4SW5kOFpva1VFQy91aWlE?=
- =?utf-8?B?czZKbU9WQWp5UVd4UEV2WjRzSUI2Y0N1ZXRPeFlUOU5vcS9iN3F0UExzOGx5?=
- =?utf-8?B?S0ltRS9ROEIwSDhodDQ3Q1MzdFdjcnRpdFVPTU9LU0FKcU42dUtGQ0diMUFB?=
- =?utf-8?B?RHp3dHlHYzdhUTY2QkxhWHBRS2x3Z2w1YisvS0UzUms2OCtjclFENCtkRWNx?=
- =?utf-8?B?Uk9hMk5VRENpSDMzTml0SlNEYm1BTjJSSG1zcWZyaVp1ZzhXV3EweGZjMFdr?=
- =?utf-8?B?TXlLYjZUaGp0NEQrMHFCM3V1enhmaTI2a2lJSXk2OVVxaEpXb0FyNjBtdjc5?=
- =?utf-8?B?cWZDaDVjMzRmd2tVWEEvZllINklzZE52MmtaTjRIa3JOMWFpZ05zUkM5WWYz?=
- =?utf-8?B?RVhtVUd5cUpBeUFIK1Z1em1OcnFxaGgrT0h5SFZlODJmOXV4alJpOXRBU3Rs?=
- =?utf-8?B?eW9sQnZ3ZGVIVnFWT2hmRStPMHMrUmZlbjh0eFhzYTZxanFOV3cvRUlxS1Rr?=
- =?utf-8?B?ZGd5NFAyNnBRWndCSUFDSHpqYWprdEtPc0Npb2RVRmNMR2NMS00yQTV6RHJu?=
- =?utf-8?B?ekIvUnVjemcrSkswTldXOGJXUWlOQ2U5ZHNpVUd4V213SmxmWFk1VkJ5eCt6?=
- =?utf-8?B?SWRMNjIySmpJTGthbVdkZUd1ZTkzKzdGeWIrVUc2VFVsQmx0OHV1eHpCUmVT?=
- =?utf-8?B?NXMwNU9BTUwvblg5ZkYrbU02M1J5V3I0SUliSTZBbFBoWVVTT2h3a1ZvNE9m?=
- =?utf-8?B?ZjBnait4SVFtMzN3cEoxR1ZDb2NVZzNjYkc3VEE0eFFNZVN3c0tqZUR4ODNV?=
- =?utf-8?B?K3JYalp0QjBTUXlock50YTZScFBnU3lFeEY1MTNtMzI5ZEg0UjdJYUR5eGRu?=
- =?utf-8?B?STArWlZTYXd5ZCtqZ0ZLa1YzSGRia3d4cnZRK21JQ2lHUnpZczdXSFcwM2lO?=
- =?utf-8?B?QjFNRXl4QXpudWZkcm5EUk1JWHVFVjJCVGZLbzFyUndQNkI3ZlBEZHRPZVQ2?=
- =?utf-8?B?UEgvVC94eDEyOGQxZWhSSkJhTWdpRG1LOHM3SEV1aHNpYUpFSVhnQkxrOC9P?=
- =?utf-8?B?Y3RHZm91NHIzS3lnQTQ5aTJ5MXN3TWp1dEVSVmFEU3VVcjY3SUR4UWZIVkpj?=
- =?utf-8?B?M29sZWljWW5SU21TVHZXMmJhZSs5UUlCVzh4TVJhdTljN3RYbDVaUldYY3JU?=
- =?utf-8?B?ZHlHK2cwUzB2N2Zid0ZMd3cyVHMrWVV2QVNUbjZnVHRsMHV3Q2srT1o1OTZx?=
- =?utf-8?B?S2RhWlpvQ1hIK0FzenFyOE5jOGswcWM4Rlp6N2pTTzlGR1FtSnNkRXZOcnVr?=
- =?utf-8?B?dEV4SUgvTmJtUnl3YnZsbG9zQ2l6WTV2UGFiZXZYQ01YL0NBazE2TktiS2hN?=
- =?utf-8?B?Sk5MVzZwU0hoVVFGWWp4UFplV29uYkRrODVmVXB1WTRTMjN6TXBMNE1Pb08v?=
- =?utf-8?B?bGI0UlN6WnNaNndMTFJOOGdZOHlNNllNZUczejR0MlFFazBmeVE3ejlHTmN1?=
- =?utf-8?B?ajBnbjFNNWVLV0twcGlYS0N1dzNiS0owZzhXdjltWGFKUWpZa2VSdmt4aHk4?=
- =?utf-8?B?d3FEWVhpR2VDa2FBdGRVbmIzeXpLTjhEMGk0NDNTR1kzS0Npc0ZKWjhURXZU?=
- =?utf-8?B?YjJ4UnFzQ095M3BLTjJHOXQ1bWRHL1FRbVQyK3lsSUFDSEtjdzl4SzlNcEc1?=
- =?utf-8?B?cTMweEZoQWpPZTBNMFVJcTUxc0JFekdvd1c4eEhpVmd3WVRxOHF0cmJEYUJL?=
- =?utf-8?B?Rk9aTlpQcGI3QWRScUxlMHQzcitKZkkxRHRsaGV1QktQbTNWMEd0cGxFRzQ0?=
- =?utf-8?B?eWQ2M01XZDFuOEgwOVd3Y0hBeXJONmVHdm05OTRFWnFwRG1VREI4aGUxUnFl?=
- =?utf-8?B?dkhvNnRiNEl6TDRXQXUzL3dxcmE0S2lFRWtpeWppUW9LenFSQ2ZyWktqdzlZ?=
- =?utf-8?Q?mz871t?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 15:12:04.8035
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: babd830f-ac53-43de-566e-08de37355006
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000141.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7575
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <cbf340d18fe0f2733d81455bb43e63775e29a055.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <cbf340d18fe0f2733d81455bb43e63775e29a055.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 16:20:15 +0100
+X-Gm-Features: AQt7F2q81BoYiQR4OX4zr61o9EJj4SHTTGX4rtJlYRspwav3At1blTAHMGI0938
+Message-ID: <CAHUa44FEunGHQ62FPLJz6wXmSMtVdO=yJ1e3Qk-Kd_ggEtvMwA@mail.gmail.com>
+Subject: Re: [PATCH v1 10/12] xen/arm: ffa: add v1.2 SEND2 header layout
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2025-12-09 02:36, Jan Beulich wrote:
-> On 09.12.2025 00:00, Jason Andryuk wrote:
->> On 2025-12-08 03:56, Jan Beulich wrote:
->>> On 05.12.2025 23:28, Jason Andryuk wrote:
->>>> When linking to create xen-syms, add --gc-sections to garbage collect
->>>> unused stuff.
->>>
->>> What about xen.efi?
->>
->> I tried briefly and it fails to link.  The GCC manual says it is
->> considered experimental for PE and COFF.
-> 
-> The gcc manual documents linker behavior? Do you have a more concrete pointer?
+Hi Bertrand,
 
-My bad - it's binutils.  https://sourceware.org/binutils/docs/ld.html 
-down at --gc-sections:
-"Note that garbage collection for COFF and PE format targets is 
-supported, but the implementation is currently considered to be 
-experimental."
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Teach the SEND2 path about the distinct FF-A v1.1 and v1.2 RX/TX header
+> layouts so we can propagate the 128-bit UUIDs introduced in v1.2.
+>
+> VM-to-VM SEND2 calls now build the larger v1.2 header, zeroing the UUID
+> fields for v1.1 senders, and the dispatcher validates messages using
+> the v1.1 header layout to keep legacy guests working.
+>
+> While there, make the code more robust by checking that the send is not
+> trying to send a message to himself.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - Mention self send check in commit message
+> - check header size depending on sender FF-A version and make sure 1.2
+>   has enough space for 1.2 header
+> - Simplify the code by setting uuid field of the header to Nil-UUID when
+>   testing the caller version and remove the need to pass the context to
+>   the send2_vm function
+> - Use ACCESS_ONCE when reading sender ffa version
+> ---
+>  xen/arch/arm/tee/ffa_msg.c | 58 ++++++++++++++++++++++++++++++--------
+>  1 file changed, 47 insertions(+), 11 deletions(-)
 
->> I just added into EFI_LDFLAGS:
->>     CC      .xen.efi.0s.o
->> ld -mi386pep --no-warn-rwx-segments --subsystem=10
->> --enable-long-section-names --disable-high-entropy-va --dynamicbase
->> --image-base=0xffff82d040000000 --stack=0,0 --heap=0,0
->> --section-alignment=0x200000 --file-alignment=0x20
->> --major-image-version=4 --minor-image-version=22 --major-os-version=2
->> --minor-os-version=0 --major-subsystem-version=2
->> --minor-subsystem-version=0 --gc-sections --print-gc-sections
->> --build-id=sha1 -T arch/x86/efi.lds prelink.o  ./.xen.efi.0s.o -b
->> pe-x86-64 arch/x86/efi/buildid.o -o ./.xen.efi.0xffff82d040000000.0 && :
->> ld: kexec_reloc is too large
->> ld: kexec_reloc is too large
->> ld:
->> prelink.o:/home/jandryuk/xen/xen/arch/x86/boot/head.S:60:(.text.header+0x48):
->> undefined reference to `start'
-> 
-> I see. This then would want mentioning in the patch description. And I've added
-> it to my binutils side todo list.
+Looks good
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-I trimmed, but the output continues for a long time.
+Cheers,
+Jens
 
-Thanks,
-Jason
+>
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index 5a4cb1bb8295..c3552a3ae36d 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -13,7 +13,7 @@
+>  #include "ffa_private.h"
+>
+>  /* Encoding of partition message in RX/TX buffer */
+> -struct ffa_part_msg_rxtx {
+> +struct ffa_part_msg_rxtx_1_1 {
+>      uint32_t flags;
+>      uint32_t reserved;
+>      uint32_t msg_offset;
+> @@ -21,6 +21,16 @@ struct ffa_part_msg_rxtx {
+>      uint32_t msg_size;
+>  };
+>
+> +struct ffa_part_msg_rxtx_1_2 {
+> +    uint32_t flags;
+> +    uint32_t reserved;
+> +    uint32_t msg_offset;
+> +    uint32_t send_recv_id;
+> +    uint32_t msg_size;
+> +    uint32_t reserved2;
+> +    uint64_t uuid[2];
+> +};
+> +
+>  static void ffa_finish_direct_req_run(struct cpu_user_regs *regs,
+>                                        struct arm_smccc_1_2_regs *req)
+>  {
+> @@ -105,11 +115,11 @@ out:
+>  }
+>
+>  static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
+> -                                struct ffa_part_msg_rxtx *src_msg)
+> +                                struct ffa_part_msg_rxtx_1_2 *src_msg)
+>  {
+>      struct domain *dst_d;
+>      struct ffa_ctx *dst_ctx;
+> -    struct ffa_part_msg_rxtx *dst_msg;
+> +    struct ffa_part_msg_rxtx_1_2 *dst_msg;
+>      void *rx_buf;
+>      size_t rx_size;
+>      int err;
+> @@ -143,7 +153,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
+t void *src_buf,
+>          goto out_unlock;
+>
+>      /* we need to have enough space in the destination buffer */
+> -    if ( (rx_size - sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_siz=
+e )
+> +    if ( (rx_size - sizeof(struct ffa_part_msg_rxtx_1_2)) < src_msg->msg=
+_size )
+>      {
+>          ret =3D FFA_RET_NO_MEMORY;
+>          ffa_rx_release(dst_ctx);
+> @@ -155,11 +165,14 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, co=
+nst void *src_buf,
+>      /* prepare destination header */
+>      dst_msg->flags =3D 0;
+>      dst_msg->reserved =3D 0;
+> -    dst_msg->msg_offset =3D sizeof(struct ffa_part_msg_rxtx);
+> +    dst_msg->msg_offset =3D sizeof(struct ffa_part_msg_rxtx_1_2);
+>      dst_msg->send_recv_id =3D src_msg->send_recv_id;
+>      dst_msg->msg_size =3D src_msg->msg_size;
+> +    dst_msg->reserved2 =3D 0;
+> +    dst_msg->uuid[0] =3D src_msg->uuid[0];
+> +    dst_msg->uuid[1] =3D src_msg->uuid[1];
+>
+> -    memcpy(rx_buf + sizeof(struct ffa_part_msg_rxtx),
+> +    memcpy(rx_buf + sizeof(struct ffa_part_msg_rxtx_1_2),
+>             src_buf + src_msg->msg_offset, src_msg->msg_size);
+>
+>      /* receiver rx buffer will be released by the receiver*/
+> @@ -178,11 +191,17 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *=
+regs)
+>      struct ffa_ctx *src_ctx =3D src_d->arch.tee;
+>      const void *tx_buf;
+>      size_t tx_size;
+> -    struct ffa_part_msg_rxtx src_msg;
+> +    /*
+> +     * src_msg is interpreted as v1.2 header, but:
+> +     * - for v1.1 guests, uuid[] is ignored and may contain payload byte=
+s
+> +     * - for v1.2 guests, uuid[] carries the FF-A v1.2 UUID fields
+> +     */
+> +    struct ffa_part_msg_rxtx_1_2 src_msg;
+>      uint16_t dst_id, src_id;
+>      int32_t ret;
+>
+> -    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx) >=3D FFA_PAGE_SIZE);
+> +    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx_1_1) >=3D FFA_PAGE_SIZE=
+);
+> +    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx_1_2) >=3D FFA_PAGE_SIZE=
+);
+>
+>      ret =3D ffa_tx_acquire(src_ctx, &tx_buf, &tx_size);
+>      if ( ret !=3D FFA_RET_OK )
+> @@ -194,15 +213,32 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *=
+regs)
+>      src_id =3D src_msg.send_recv_id >> 16;
+>      dst_id =3D src_msg.send_recv_id & GENMASK(15,0);
+>
+> -    if ( src_id !=3D ffa_get_vm_id(src_d) )
+> +    if ( src_id !=3D ffa_get_vm_id(src_d) ||
+> +         dst_id =3D=3D ffa_get_vm_id(src_d) )
+> +    {
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out;
+> +    }
+> +
+> +    if ( ACCESS_ONCE(src_ctx->guest_vers) < FFA_VERSION_1_2 )
+> +    {
+> +        if (src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_1))
+> +        {
+> +            ret =3D FFA_RET_INVALID_PARAMETERS;
+> +            goto out;
+> +        }
+> +        /* Set uuid to Nil UUID for v1.1 guests */
+> +        src_msg.uuid[0] =3D 0;
+> +        src_msg.uuid[1] =3D 0;
+> +    }
+> +    else if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_2) =
+)
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>          goto out;
+>      }
+>
+>      /* check source message fits in buffer */
+> -    if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) ||
+> -            src_msg.msg_size =3D=3D 0 || src_msg.msg_offset > tx_size ||
+> +    if ( src_msg.msg_size =3D=3D 0 || src_msg.msg_offset > tx_size ||
+>              src_msg.msg_size > (tx_size - src_msg.msg_offset) )
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+> --
+> 2.51.2
+>
 
