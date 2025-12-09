@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611ACCAFF6D
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 13:45:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181600.1504625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37278CAFF7D
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 13:47:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181611.1504635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSx5P-0002au-NN; Tue, 09 Dec 2025 12:44:59 +0000
+	id 1vSx7e-0003Au-67; Tue, 09 Dec 2025 12:47:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181600.1504625; Tue, 09 Dec 2025 12:44:59 +0000
+Received: by outflank-mailman (output) from mailman id 1181611.1504635; Tue, 09 Dec 2025 12:47:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSx5P-0002YD-Jt; Tue, 09 Dec 2025 12:44:59 +0000
-Received: by outflank-mailman (input) for mailman id 1181600;
- Tue, 09 Dec 2025 12:44:57 +0000
+	id 1vSx7e-00039T-3G; Tue, 09 Dec 2025 12:47:18 +0000
+Received: by outflank-mailman (input) for mailman id 1181611;
+ Tue, 09 Dec 2025 12:47:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nu2q=6P=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vSx5N-0002Y7-Lt
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 12:44:57 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSx7c-00039F-Bh
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 12:47:16 +0000
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [2607:f8b0:4864:20::c2b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd491253-d4fc-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 13:44:56 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by CY3PR03MB8151.namprd03.prod.outlook.com (2603:10b6:930:101::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 12:44:52 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
- 12:44:52 +0000
+ id 2f789e0f-d4fd-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 13:47:14 +0100 (CET)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-656de56ce7aso1761678eaf.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 04:47:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,257 +40,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd491253-d4fc-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jOg91Sk7VxX0IiXHvSJlA9iOJ+IsbtnSC1abftlkkc8cILN43yeFE7Wcvw4xeIMAlfL4X4297Ms4w56GppYYV8IUdrmYbYD9VFN8Q71ldkezwjTc3JGaVji6YCXrox0QeiSfELfjyTLNbJbfkwTdFubgYyAQN/axEL9yOHh92HdA9bLaPwIC0FVt0bKjOfbVM59KUVHGESnfJEf4BVNfzp/7Zw6HZb81s5Qc3c1CnxeSkQsCwg6F8wywk3qt4DyqMvtMWO7dQCypazOhMqxlWVW7vWQWjU2vCA7to5DCQCR/tt+ML5qsdYMKH8XGFzNdP1m8jvStcpnLTF+B5ZwoHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jFqfRDhuOc0G/Ww81q8L6L4R0aCrGmaU+cna8kpDqyA=;
- b=sLISzynRMqKl1D8srLNXzz9IMfjjUQF7I3+kEC1y+cQpH7+GmvNMKKDqbA2W5vLAgL6K34YYeX1NrfDirNl3zOILIT/n3C1NZkFny3bbPov+Kh4JW2ZIndzqTwHQUoN2IowjPyk+4xNZMpi3zEOD4Wxa+HJAUl8u9zn/xXUCAuBAZM0GFqyaT/uFuY6TH/Uoon/0kRHpIEOZtwcx5/+U7gccB1w8Uo8nIEcVKeTav0U7CqJw7Aafj4QxNGLapUNOomj4V8SlRRFb8Y09ZHcJwi8o6JY7jrmbIv+9/E4dam23qaE95G9cTFhKuEvb6TMttmbzjU9b6dsFjE92CvTh/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jFqfRDhuOc0G/Ww81q8L6L4R0aCrGmaU+cna8kpDqyA=;
- b=PWEEj7SBlupQF1fnMnfjO85jWpFw+50T+lRjI6vZNAzlX+lxjuHEboD5KSYYRAgJ35CAFMVSQs0i1E+kjbZ4Qh71UR0qpGyRoBibk3VCdvpopBfRHdpd3LkbvTDgpeyK5Rtmkb8wb6IzSKslz/Fa4UnQnjN9O5FnnhF6f7xCXCk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <85cdb866-0be2-4204-b106-f66e2b15f841@citrix.com>
-Date: Tue, 9 Dec 2025 12:44:49 +0000
-User-Agent: Mozilla Thunderbird
-Cc: andrew.cooper3@citrix.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 3/3] xen/x86: move d->arch.physaddr_bitsize field
- handling to pv32
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Jan Beulich <jbeulich@suse.com>
-References: <20251128152218.3886583-1-grygorii_strashko@epam.com>
- <20251128152218.3886583-4-grygorii_strashko@epam.com>
- <c9ee4fc8-44c6-43e8-88eb-9041c51aed16@suse.com>
- <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
- <a3dcfce1-4695-4064-a1e3-af09bfa04199@suse.com>
- <f0da7ce3-1846-4865-8e66-bc3e50f78390@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <f0da7ce3-1846-4865-8e66-bc3e50f78390@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0359.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18d::22) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: 2f789e0f-d4fd-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1765284433; x=1765889233; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2dwo0mK+bqzIMV2vqVZqr/nVM7rma+VBvCjtz+3mts0=;
+        b=F53ey8WpEZHUZwP9OIURFesXFssE18Pl1yXVgN1TiIQt1dgxUiJoJccIZN7WsHXveO
+         Z9ZG2tGjvkQqrXBQ36fx3bCQFfwpsB2dkDoCorP4G7dIdQWKNZPUaBXrzdUKW0Gv/Ead
+         ev90YUdhvErAfyLskIM6E7/Dkchzi/xpaXTlHXFXjjHZqfJ5/1HPGoyJSbWQ8VgbMGh8
+         +8BMY+1VTCN3O4oYn0hN4rlvGbPHBkTWRb7QtNhX3yxHatz/svVkfxRNtGJV139bdbP3
+         1B9ur3h7fHHbBMfGeqR+zQSVJRBLoqDH/y2aPVRfCBvbHW3MBEBaTS/Mg1M74TG6Fk4y
+         /jag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765284433; x=1765889233;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=2dwo0mK+bqzIMV2vqVZqr/nVM7rma+VBvCjtz+3mts0=;
+        b=hSaY8izCyNzf3nhU7Q4jtBZsWKzqNhhM/8Vk27nlpClx+xEosKfTPRPgE7oqho/Olg
+         Iaf6ubpmHQ0conmN2mteIDTg+xfyzGlWtHAmr6z/uSNkF2PkmoTZZIKo8vL0VkBKpSdl
+         JFNFWeFnjcc2h/DipsnDSEUTmWgki+N7emfLS+3a0iHxrSb2Rqtl2D+JjxLgyGN+l4xx
+         4ltwTf8VulBs0jCygKsoR1ub1e7fxPVnoPJzyOoY2Svu6lok4DlXSIjwt7+rxSuoTntv
+         szoCgm6RtFgI1DpVVZHrzkF3ROlP4HDNehZlPkD3kGi8wXiulUNgYBEHxhhzjQpCaReQ
+         XiAw==
+X-Gm-Message-State: AOJu0YzIlca2TtKj+eRapetUWhQYL1WCdcNv7Wi/tGpS7vVoJS+WFCBv
+	FoQkbe5jR4qeu/IoGKe9TRNeunZTJ9OgdtnlCQAWRw06Vl6RfuccNV5HhV3/XBDNxpdr0jdshHC
+	jgQw9fyW4d+ys4IiYjQufxCnFOypnNzFBAt5xwd98Ig==
+X-Gm-Gg: ASbGncsqHib3gMgfHgtD3Um5LdlfjQH8BjFNjTRJlEyNfKGCDvhZYE6J2Djz4KRD2u7
+	IJ9t915Ppv68xhx2SvmPckUuogFypW/1n/rqMb1QeVw6Lp7STnMQ+7U86KsOETRwPKJzEhah9Vs
+	luuOlnLXK1eh4B6uNdCvaSJeucpGs+K59WKSv6fqsiV1vZy30B/XQ13pgvVXNGsrSr0v9YdsWIH
+	wisUG3LR9zswmnGYM24FuoM2IdW7J3LG0W2lnidd0Kd3zyVx871tGOiaNshkH+P4OUFsu4NyiI7
+	xnba7TAA2QpQmEuqHdc4PNNQAy+ffkvTNvnbYPzryrIhdHR/27XoTkz/92URRWe2+O87YnJr
+X-Google-Smtp-Source: AGHT+IFFraRAeuiI1TjJcve+C8bWdGAK2iAh+f5+4vXjy4txmHxKc0Yi8Ai7Ds1xgFV9WZ/2ZcHhRDupTSRM5aVDIXQ=
+X-Received: by 2002:a05:6820:1885:b0:659:9a49:8dc6 with SMTP id
+ 006d021491bc7-6599a8ba575mr4078815eaf.8.1765284433326; Tue, 09 Dec 2025
+ 04:47:13 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|CY3PR03MB8151:EE_
-X-MS-Office365-Filtering-Correlation-Id: b741c25e-4535-4222-d900-08de3720bf9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dCtETlJvcVQvRDV3Y21zVkhEN1dlK3pOQWJudVhSUjdjQVJQYVkvc3EvOUIx?=
- =?utf-8?B?dWlnVXhsdksvVUI1Ym5vNzJZZHZsc2F0UUpQUXMvRzNzSGZLWjB0aEJPT3Ru?=
- =?utf-8?B?UTlXMW96R0xCemFSTEJHLzkyd2s4cmNlVG5XMWtxc2JRa0Y4cWZENTd3eEJP?=
- =?utf-8?B?R0JYREVHaytQNytoZHEzUllnWFZyMkdrNkwyU1piVzNpekptQmZvbTkxcE45?=
- =?utf-8?B?QjZqZjJtejcyYmh6U0tYN0l2V20wVk5Gb0k2eDQzU2E2K2pWemFKVFVNaVc2?=
- =?utf-8?B?VzJBUlc2K1BqWlNyYkIxSVRkdXVSVEYxdHh6dkdXNWlJK0o3dWIvajZ1NGgr?=
- =?utf-8?B?bnpLUEp2QUE3eDNWVXIrV3pmTmh6NE1uMzlzWStqWnN0R2QvVXV1eW1DZndI?=
- =?utf-8?B?RnNyNTBnOHIzM2dMUXFCR3h0ZmUvU2RQQjZ0bi9OUHREK3Vxc1hkVmdxT2tx?=
- =?utf-8?B?Z3JHTlhidmJuaEV1enpwVE16YjgvbU5seitQVlEyMjlEOWhDOTdUTmRDWE84?=
- =?utf-8?B?NTE0RlNCSHIxbmh1dWpaVGsyWDZlQ29QdHdLOXBPWDh4MjVUZWNRVDg1RnlS?=
- =?utf-8?B?UWNPRFdWZEVYRXJzVTRQOVB0NDdJbno4OEFxK2ZBU3o1MmFSVnBEM0h3aGh5?=
- =?utf-8?B?eGFXRmMva0tCNWFiaGtyWERQTDMyV29BZnFRM2tXdWRlTXF5d3dOY3phMGM1?=
- =?utf-8?B?aEpnNG5MdjhHR0RYRFNKQyt6d3ZPaEkxQW1lajZzbUlvNnlDaUNzQnhCY25m?=
- =?utf-8?B?d2dVNzVBMVNsL2U2MEtpTmUrQmNGOWJWczh2OHEvR2FrSTlFdXBTblcyeEZJ?=
- =?utf-8?B?Q2tISkd1ZGdmSGhDcy8waFAyMW5RRk9YbGU2RnZJN0FoNUJoU1piVkl5Y1Bn?=
- =?utf-8?B?S012bkNIaUNzTmV4YlBTOTVwenlGdFl6NUVHWE9DNnpDYnVwVEkzTHBya1hs?=
- =?utf-8?B?RFVCcWRza2JOcHVrL08yQmN1TWl6TVo2WHpsYVZWY3gyMzZJd3FrRnZyamZR?=
- =?utf-8?B?T3R5czJpS0hJSFFGZEhFbWVEb2pyZVZuZHpvc2dpRU4vUVVnWCtZQzJUOG5K?=
- =?utf-8?B?Q2d2RERxL1A3dFNDV0QyN3M3WFg0MmhjSWIyV0VPYmljODY3bVVYQTZrV21t?=
- =?utf-8?B?eDMxR09wTXRPQjlTeHN0dkJRblhnaFp1a0Y3VGoycUl4TTBEc3pCaGlzUkJC?=
- =?utf-8?B?Qml5MnNsZ01SdVZ5aHF1ZTZ1Ky9RMXBPenVoYUJSOEViUE1pdld5UzBmZEJ5?=
- =?utf-8?B?d3U2c0t1U0pCUVc5dGwyaHZLQTdZWWlJTGVSUVBlVDNuZHN3TFFBRm81RThi?=
- =?utf-8?B?c2dwL0cvdmhaSTZpbWx4d09rYVNkNm1taTlJRzFIUkh6THNtNkJKWUZsVW5v?=
- =?utf-8?B?cXhYTkJWaUQzY3JjVTlvdktNcVdJSm1WWmJoVW5mNUtRaE9BOVRmTms3RzJk?=
- =?utf-8?B?K3IwcmVCLysvai9wR3Z5MGlNbkVyNjVod3NETjd3Uk1hZjl3TXExQ0FvNkdH?=
- =?utf-8?B?a3Y3MFpLQW0xL2dsT2dPRy9rTHNKaXFJVVp6SUYxdk1QZXhQWnBLbktLMFF0?=
- =?utf-8?B?SUZGOHpOTFlSYlVrK25lOXZQaWdUZ29PeHE1SXg0UnhGOWlwYWdmbnFjV09G?=
- =?utf-8?B?SFE4d3g2elZxM2R0Z3krUHVvVDBtbzRSbFVMRU1qbktUSytJSHJQa1FSMldY?=
- =?utf-8?B?TjQ2SzN5R0NjeWNFb2ZiTmR1NDVkd0plbGlvaHV5MUJncFd6ZG5xYWpCN1N2?=
- =?utf-8?B?UWpCMWpqd1VqTVNwajJ4bGJoeFRFd3psS3BYOVBtc1RjdUF2Q3dKWGhveWtp?=
- =?utf-8?B?REI1VlJXV1dGYTg0MzA0eGR5d2pTNzl5RjhkTXhLZGlkdlhNbk5CSWhBV3Bv?=
- =?utf-8?B?ZjZrd2lMYkxJckFJN3NiaU5GRmVsY0V0WlNlOEhXN2o0aTl3am9ZTzdSa0ZL?=
- =?utf-8?Q?aztcpakyhF3AZ3rr5mO4HIjtzUvtm/a4?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bTJkUExKUE5hZExjSGc0dHNRcGZJOWlQc3NpQ3RHQTh0dHkwYlVIWm5HVEw1?=
- =?utf-8?B?dHRFQytVTEN5WGlieHRBQ0lxZmxlc01ZTHdRai9nVmt5Q3FyMTBhNUF3MlVN?=
- =?utf-8?B?MUdJczhDMXUrd1NLeWFuNlg0Q0kxaTM5dEt0Ymsya2FPOE1SSXRoZUFwYmNj?=
- =?utf-8?B?ZWs0Z0FCcHlHajFDZUF1T0tKK3NXOHk3c3RiRHlxNFlETFNEb1FwL1F4T2JJ?=
- =?utf-8?B?ZU55cFBMejNlVFJTWUJ0SDhTdHpwU1FJb2I1SXBLVmVoWDNNdFQyV2dKUVFk?=
- =?utf-8?B?L2dGd1RPSGVnKzZnbnUzNktNU2ZkVW1ROEtHWFdrelhHU0I0cXIzMlI2OERh?=
- =?utf-8?B?R2xIZ2tJRnFJMjdZcjJicld0UjRPK25kOGRVdzk4dWViQUxLeS9CNlhNRzl4?=
- =?utf-8?B?RVhyMlh4eVp6VlVTY1NJc3o1NC9MVmRIb3NZTTdOTHQ3ZXNUY05YTjVoakhk?=
- =?utf-8?B?SWZCbzlqY1ZabDlMVmhpOGdUcVJIWlkzU01iYVJURFc3YkE3TFF6RE5NQ2gx?=
- =?utf-8?B?dStkdDVKeU51clp3bEM4emNUazNOZGlFRXRpdldnY2dDZk5xR24rMWppV0li?=
- =?utf-8?B?ZmRWejljRzJYQW1LREQrR1BzMlBBYzR0Qit6UFhobDAybEl0UlA3d3ZqbmRw?=
- =?utf-8?B?dC9kcHN2dFhJZDhzYkVvdmpLN2xYKzZ0b1lVMkhIL01iSlRjZzZIUWNuWFBy?=
- =?utf-8?B?aUR6aDN6eXFtaEtubysxcDJ1OUgwd2dWSXROUm8xWDhHU1RBNkxOL01ibnhT?=
- =?utf-8?B?RWVQK1NDYlhEcWpGeTE5aUlsYWVaQmFNMG9PbnJES2x4WHNXTDdNa2JiQ2VR?=
- =?utf-8?B?T2J0b3RmbHBNWEpHZ0NHQTkrUmhQalJ3SlJ5cWdubjU0UGsvbkc5VTBsV0d1?=
- =?utf-8?B?b2FkT2plYXl5WXVWU0xkUHA4T0UwZmlYOFhtSUFsTDFyc1JHRkNrWWlMQXpu?=
- =?utf-8?B?NHowbGhJdUZHQktwSU9GSkRLbDhxYmZOOFdmZVZJWkZlbERLZWJMV3VwR2FH?=
- =?utf-8?B?T0hoQlpTby96VjFnamZSbG5EUkltWGlTRUZET2V5M2d3RzBLV28xME1KTnBE?=
- =?utf-8?B?eW5UZTFLaTdiWTc3emVobVRGRzFEU1BIMEFEL1ZWZ0lseWE5S1l5bDhpcGp6?=
- =?utf-8?B?dDFkRVBMWVFXb1F3WjNoYUtCV2VKWm50SUFVTXZmWDRpQ3FiMzA4bi83clBm?=
- =?utf-8?B?ZXI0MzdWVEdJYUI5dEo3dmZkWW9vVTVVS3ExdnFwdi9IWkgxM2tJSVFGdHRn?=
- =?utf-8?B?c3B1NThvR2ZRWmdJRTR2eks3UFhCc2l6WUdnZWR5bFB0ZGtkQzlsYyt5Ukti?=
- =?utf-8?B?RzhOT0ZsMXlDclBDcG1BOFZyc0pINUNWQVVYdG8zcGgzOVVWVmN4clJ4bkFx?=
- =?utf-8?B?TWw1TGY4SVFFNytla25mdi83eXYvbng3MCtiTk1EaVJvUmxzSVlsOWdHT2g5?=
- =?utf-8?B?TEJBSThCUGNhV1NkckxxQVoxMThwYXE5OU4reHY3czdKOFlsaGoxMTIxWWg2?=
- =?utf-8?B?a21MZ0c1T3ZTWldxcURlcGpXdndkRFZoRnkwKyt5ZXM1dzdZWXVvR3l0S3RB?=
- =?utf-8?B?NmcxRjZBd2Nxek1KaExVTUE4THJoVUhaOU01WmRSeDFjdVEzSFJYRWZ4ZXVQ?=
- =?utf-8?B?RTN5WEc4QSt3ME85RVhYTjlMVkhzb1BrVXM1ckMwLzNHNkM2elZRMkNwSGVr?=
- =?utf-8?B?Y0ZaK2RjMTJMdW92dkVyR1c4R1M3aU5LbWxQNXovK1Z4OUNnN1gyU0cxUm5N?=
- =?utf-8?B?NFNQSjVoU0lYMkYvSDFrR295Nk5wNFJJNWQ3SlpqWFVVQVIrVjFTc094NXNO?=
- =?utf-8?B?S2tvWFlRc21taHhKaDd5YkVzQVBHQWVyV0xnNHk4Ujl1OE9rZ29UUW1pd1Vi?=
- =?utf-8?B?bDhJK2Y0MjFiL1V3OHlCblJINEE3OXZPc0liS1NmUHlmRGVlY21Od3BER1Bn?=
- =?utf-8?B?U3cvV1BNL0dHNWt6OG9sekdJdk1lalhqbFlieU13VEgzcnZUYzJFNWo2ak9B?=
- =?utf-8?B?REl0U3IzTnVuNnhSQTdQQW5lcTVvby85ckJ0L3RJUE9Rc3loQkhubTZCRVVs?=
- =?utf-8?B?QzVJalgxVEZFZzBML2lVTXlNZUo4WDRVMnRxUzN6VzZYL3NoekYxdjJlMGdX?=
- =?utf-8?B?ZlZ4M01LV083aUVFbzBydUMzZHMrRy9jVFNob0M3dEFFSHo5MnJMbGJLZE5n?=
- =?utf-8?B?ckE9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b741c25e-4535-4222-d900-08de3720bf9d
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 12:44:52.7949
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SWo3ZMBK+wFgksbUwe0kLonxEsJJQKNe6z1BJGoIdhwtZx2qafp4dsnc46fZCEIOFnkZuQzdKLeUIO1WIwvAiyEg4fQLGg/9AlBK4OJxUq4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR03MB8151
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <93c6c48283da84976a40aae1395db5a8d47f0b97.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <93c6c48283da84976a40aae1395db5a8d47f0b97.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 13:47:00 +0100
+X-Gm-Features: AQt7F2qE3MCaTAIHsWrXx-HJTnu8lfdK-7AeZm2kqLq1LHEB0rd3n7x6V784etA
+Message-ID: <CAHUa44E2skYSjKVxq5a_j_CnvMJ6hLOnrLeb0egJK0eRNueAjg@mail.gmail.com>
+Subject: Re: [PATCH v1 04/12] xen/arm: ffa: harden RX/TX mapping
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09/12/2025 12:24 pm, Grygorii Strashko wrote:
->
->
-> On 09.12.25 10:59, Jan Beulich wrote:
->> On 08.12.2025 20:21, Grygorii Strashko wrote:
->>> On 08.12.25 14:44, Jan Beulich wrote:
->>>> On 28.11.2025 16:22, Grygorii Strashko wrote:
->>>>> --- a/xen/arch/x86/pv/domain.c
->>>>> +++ b/xen/arch/x86/pv/domain.c
->>>>> @@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
->>>>>                goto undo_and_fail;
->>>>>        }
->>>>>    -    domain_set_alloc_bitsize(d);
->>>>> +    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
->>>>
->>>> You mention the change in condition in the revlog (but not in the
->>>> description),
->>>
->>> The updated chunk was based on snippet from Andrew [1], which
->>> used incorrect condition - I've changed it and noted in change log
->>>
->>> [1] https://patchwork.kernel.org/comment/26680551/
->>>
->>>> and I'm having trouble to follow why ...
->>>>
->>>>> --- a/xen/arch/x86/x86_64/mm.c
->>>>> +++ b/xen/arch/x86/x86_64/mm.c
->>>>> @@ -1119,26 +1119,6 @@ unmap:
->>>>>        return ret;
->>>>>    }
->>>>>    -void domain_set_alloc_bitsize(struct domain *d)
->>>>> -{
->>>
->>> The domain_set_alloc_bitsize() inlined in  switch_compat() and x86
->>> PV domain
->>> always created as 64bit domain.
->>>
->>> At the beginning of switch_compat() there is:
->>>
->>>    ( is_pv_32bit_domain(d) )
->>>           return 0;
->>> [2]
->>> above ensures that switch_compat() can be actually called only once
->>> (at least it can reach
->>> point [2] only once, because there is no way to reset PV domain
->>> state 32bit->64bit
->>>
->>> this is original condition which says:
->>>>> -    if ( !is_pv_32bit_domain(d) ||
->>>
->>> do nothing if !is_pv_32bit_domain(d)
->>>    - for inlined code is_pv_32bit_domain(d) == true, so
->>> is_pv_32bit_domain(d) can be ignored
->>>
->>>>> -         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
->>>
->>> do nothing if (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page)
->>>     - inlinded code should proceed if this condition is opposite
->>>       (MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page)
->>>
->>>>> -         d->arch.physaddr_bitsize > 0 )
->>>
->>> do nothing if d->arch.physaddr_bitsize > 0 (already set)
->>>     - inlined code will be executed only once, so
->>> (d->arch.physaddr_bitsize ==/!= 0)
->>>       can be ignored
->>
->> This is the crucial point: It being executed only once isn't spelled out
->> anywhere in the description, and it's not entirely obvious why that
->> would
->> be. Yes, nowadays it is. Originally (iirc) one could switch the guest
->> back
->> to 64-bit mode, then again to 32-bit.
+Hi Bertrand,
 
-I changed it in 02e78311cdc6
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Harden the RX/TX mapping paths and keep signed FF-A return codes
+> end-to-end.
+>
+> Reject zero-length mappings and insist on page-aligned RX/TX buffer
+> addresses before touching the P2M. The unmap plumbing is switched to
+> use the same signed helpers so dispatcher error handling is consistent
+> across map and unmap operations.
+>
+> This avoids partially mapped or silently truncated buffers and makes the
+> mediator behaviour match the FF-A error model more closely.
+>
+> Prevent concurrent usage of rx or tx buffer during map or unmap by
+> holding the rx_lock and tx_lock.
+>
+> While there also introduce a domain_rxtx_init to properly initialize the
+> rxtx buffers spinlocks.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - take the rx_lock and tx_lock during rxtx_map and rxtx_unmap to prevent
+>   concurrent calls using the rx or tx buffer during mapping.
+> - properly clean rx/tx buffer related context entries during domain_init
+> ---
+>  xen/arch/arm/tee/ffa.c         |  4 ++
+>  xen/arch/arm/tee/ffa_private.h |  5 ++-
+>  xen/arch/arm/tee/ffa_rxtx.c    | 68 +++++++++++++++++++++++++++-------
+>  3 files changed, 62 insertions(+), 15 deletions(-)
+
+Looks good
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+Cheers,
+Jens
 
 >
-> I'll update description.
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 0f6f837378cc..497ada8264e0 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -451,6 +451,10 @@ static int ffa_domain_init(struct domain *d)
+>      if ( ret )
+>          return ret;
 >
-> Or can add it back as !d->arch.physaddr_bitsize to be safe and avoid
-> confusions?
-
-Please update the description.  The function really is singleshot now.
-
-I'd expect MC/DC coverage to complain at leaving the conditional in
-place, not that this particular codepath is going to be on the top of
-the list for coverage.
-
+> +    ret =3D ffa_rxtx_domain_init(d);
+> +    if ( ret )
+> +        return ret;
+> +
+>      return ffa_notif_domain_init(d);
+>  }
 >
->>
->>>> ... this 3rd part is going away.
->>>
->>> Another observation: MACH2PHYS_COMPAT_NR_ENTRIES(d) is looks like a
->>> const, as
->>> (d)->arch.hv_compat_vstart is always 0.
->>>
->>> grep -rw hv_compat_vstart ./*
->>> ./arch/x86/include/asm/config.h:#define
->>> HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.hv_compat_vstart)
->>> ./arch/x86/include/asm/domain.h:    unsigned int hv_compat_vstart;
->>
->> This observation isn't directly related here, is it?
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 2daa4589a930..d6400efd50bb 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -438,10 +438,11 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs);
 >
-> Yep. Just found it while investigated.
+>  bool ffa_rxtx_init(void);
+>  void ffa_rxtx_destroy(void);
+> +int32_t ffa_rxtx_domain_init(struct domain *d);
+>  void ffa_rxtx_domain_destroy(struct domain *d);
+> -uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> +int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+>                              register_t rx_addr, uint32_t page_count);
+> -uint32_t ffa_handle_rxtx_unmap(void);
+> +int32_t ffa_handle_rxtx_unmap(void);
+>  int32_t ffa_rx_acquire(struct domain *d);
+>  int32_t ffa_rx_release(struct domain *d);
 >
-
-Don't be deceived by that.  pv's dom0_construct() has
-
-    HYPERVISOR_COMPAT_VIRT_START(d) =
-        max_t(unsigned int, m2p_compat_vstart, value);
-
-which hides the write.  I've been meaning to fix this for ages.
-
-In fact, I could also submit the inlining of domain_set_alloc_bitsize()
-too with relevant history if you'd prefer.
-
-~Andrew
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index a40e5b32e3a5..5776693bb3f0 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -41,10 +41,10 @@ static int32_t ffa_rxtx_unmap(uint16_t id)
+>      return ffa_simple_call(FFA_RXTX_UNMAP, ((uint64_t)id) << 16, 0, 0, 0=
+);
+>  }
+>
+> -uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> +int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+>                              register_t rx_addr, uint32_t page_count)
+>  {
+> -    uint32_t ret =3D FFA_RET_INVALID_PARAMETERS;
+> +    int32_t ret =3D FFA_RET_INVALID_PARAMETERS;
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>      struct page_info *tx_pg;
+> @@ -66,20 +66,30 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t=
+ tx_addr,
+>          rx_addr &=3D UINT32_MAX;
+>      }
+>
+> -    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT )
+> +    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT || !page_count )
+>      {
+>          printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (lim=
+it %u)\n",
+>                 page_count, FFA_MAX_RXTX_PAGE_COUNT);
+>          return FFA_RET_INVALID_PARAMETERS;
+>      }
+>
+> +    if ( !IS_ALIGNED(tx_addr, FFA_PAGE_SIZE) ||
+> +         !IS_ALIGNED(rx_addr, FFA_PAGE_SIZE) )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +
+> +    spin_lock(&ctx->rx_lock);
+> +    spin_lock(&ctx->tx_lock);
+> +
+>      /* Already mapped */
+>      if ( ctx->rx )
+> -        return FFA_RET_DENIED;
+> +    {
+> +        ret =3D FFA_RET_DENIED;
+> +        goto err_unlock_rxtx;
+> +    }
+>
+>      tx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P2M=
+_ALLOC);
+>      if ( !tx_pg )
+> -        return FFA_RET_INVALID_PARAMETERS;
+> +        goto err_unlock_rxtx;
+>
+>      /* Only normal RW RAM for now */
+>      if ( t !=3D p2m_ram_rw )
+> @@ -167,6 +177,10 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_=
+t tx_addr,
+>      ctx->tx_pg =3D tx_pg;
+>      ctx->page_count =3D page_count;
+>      ctx->rx_is_free =3D true;
+> +
+> +    spin_unlock(&ctx->tx_lock);
+> +    spin_unlock(&ctx->rx_lock);
+> +
+>      return FFA_RET_OK;
+>
+>  err_unmap_rx:
+> @@ -177,24 +191,32 @@ err_put_rx_pg:
+>      put_page(rx_pg);
+>  err_put_tx_pg:
+>      put_page(tx_pg);
+> +err_unlock_rxtx:
+> +    spin_unlock(&ctx->tx_lock);
+> +    spin_unlock(&ctx->rx_lock);
+>
+>      return ret;
+>  }
+>
+> -static uint32_t  rxtx_unmap(struct domain *d)
+> +static int32_t rxtx_unmap(struct domain *d)
+>  {
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> +    int32_t ret =3D FFA_RET_OK;
+> +
+> +    spin_lock(&ctx->rx_lock);
+> +    spin_lock(&ctx->tx_lock);
+>
+>      if ( !ctx->page_count )
+> -        return FFA_RET_INVALID_PARAMETERS;
+> +    {
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto err_unlock_rxtx;
+> +    }
+>
+>      if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+>      {
+> -        uint32_t ret;
+> -
+>          ret =3D ffa_rxtx_unmap(ffa_get_vm_id(d));
+>          if ( ret !=3D FFA_RET_OK )
+> -            return ret;
+> +            goto err_unlock_rxtx;
+>      }
+>
+>      unmap_domain_page_global(ctx->rx);
+> @@ -208,10 +230,14 @@ static uint32_t  rxtx_unmap(struct domain *d)
+>      ctx->page_count =3D 0;
+>      ctx->rx_is_free =3D false;
+>
+> -    return FFA_RET_OK;
+> +err_unlock_rxtx:
+> +    spin_unlock(&ctx->tx_lock);
+> +    spin_unlock(&ctx->rx_lock);
+> +
+> +    return ret;
+>  }
+>
+> -uint32_t ffa_handle_rxtx_unmap(void)
+> +int32_t ffa_handle_rxtx_unmap(void)
+>  {
+>      return rxtx_unmap(current->domain);
+>  }
+> @@ -272,6 +298,22 @@ out:
+>      return ret;
+>  }
+>
+> +int32_t ffa_rxtx_domain_init(struct domain *d)
+> +{
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +
+> +    spin_lock_init(&ctx->rx_lock);
+> +    spin_lock_init(&ctx->tx_lock);
+> +    ctx->rx =3D NULL;
+> +    ctx->tx =3D NULL;
+> +    ctx->rx_pg =3D NULL;
+> +    ctx->tx_pg =3D NULL;
+> +    ctx->page_count =3D 0;
+> +    ctx->rx_is_free =3D false;
+> +
+> +    return 0;
+> +}
+> +
+>  void ffa_rxtx_domain_destroy(struct domain *d)
+>  {
+>      rxtx_unmap(d);
+> @@ -298,7 +340,7 @@ void ffa_rxtx_destroy(void)
+>
+>  bool ffa_rxtx_init(void)
+>  {
+> -    int e;
+> +    int32_t e;
+>
+>      /* Firmware not there or not supporting */
+>      if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
+> --
+> 2.51.2
+>
 
