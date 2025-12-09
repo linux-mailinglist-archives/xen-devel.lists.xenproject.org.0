@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14B9DCAF94B
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:13:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181366.1504423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10F07CAFA82
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:35:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181377.1504433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuiT-0006Vt-QU; Tue, 09 Dec 2025 10:13:09 +0000
+	id 1vSv3t-0001Ky-Ct; Tue, 09 Dec 2025 10:35:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181366.1504423; Tue, 09 Dec 2025 10:13:09 +0000
+Received: by outflank-mailman (output) from mailman id 1181377.1504433; Tue, 09 Dec 2025 10:35:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuiT-0006US-Nh; Tue, 09 Dec 2025 10:13:09 +0000
-Received: by outflank-mailman (input) for mailman id 1181366;
- Tue, 09 Dec 2025 10:13:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSuiS-0006U9-SR
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:13:08 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8833277-d4e7-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 11:13:08 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4779aa4f928so55137125e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 02:13:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7d6a19cesm32792355e9.15.2025.12.09.02.13.06
+	id 1vSv3t-0001Iy-9c; Tue, 09 Dec 2025 10:35:17 +0000
+Received: by outflank-mailman (input) for mailman id 1181377;
+ Tue, 09 Dec 2025 10:35:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rCN0=6P=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vSv3s-0001Iq-4Q
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:35:16 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id beb27878-d4ea-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 11:35:13 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b79af62d36bso241485866b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 02:35:13 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7a715226b7sm65136666b.22.2025.12.09.02.35.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 02:13:06 -0800 (PST)
+ Tue, 09 Dec 2025 02:35:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +45,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8833277-d4e7-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: beb27878-d4ea-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765275187; x=1765879987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WWPJshDJzBEu8qzhwxJvbtNx33wMB0a6dT2VppHZI/c=;
-        b=VT5YOqa4gE5p45/wnf+uES+X33pQuDrzM/oQJVTV7HfLhlWV5UQ/S1F1a44XRwiMFK
-         MWEuDm2gS/DXBWQGp7JpYkOd4WQFBypLI1ub/wCY/czXRGSmeariRayQ2i6NOaTNNjLe
-         YJJHcGZqZEUsHr7w4i1Y0sByQKHpoGcjG3vwL3UQ/+RXfzdmQuO4bQTFloRT+wwZUbNi
-         lCQoEFuWNKhfy53GoLnjTtvl95LMY66IwHKmT6EdhWOcG0+iBhd5Fo4D8gox7CzknkAL
-         A4BNKw6C4GN4wtgmTcyI6VCbPniBvHm5KcFjx07inphZ0FfY3o2NZV3LbyAHR6PTYNA5
-         2law==
+        d=gmail.com; s=20230601; t=1765276513; x=1765881313; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=R0uTBvp5iofLJ4mTT/eO/PplH7c9whmufIsWu+E31pI=;
+        b=dfPO5e+9jRZyIMGwWz5j6gk3vHcVdGmMuGUSOjt0swv4b88y/XLSsSKY4NQg58+TPd
+         joKUu1Z4NLEGyYzLAYATSjk5GKVLarqm/VMczO6V3xAIq8/XK75yFUlaUdy0zbWeCZd3
+         FVWR9ijfh8cPfZeS+GOg94xpHPqvHeB5bPokXxlnUleyS3ViJjLYYdMVy398sDq6pDEf
+         s7bNxUYo+XcXxjBD0Vtx8Raf1DGw3zgRl8NTFsEeHFZU7cmJi7efXv9hXyGtzlBSAc0Z
+         sEYkOgLoP++zZGfA7JzZ8lPegCf2BAbgtgPBdhJtrXoNHsVwXRkKLDkQ7biRpIfm2Bea
+         Rw+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765275187; x=1765879987;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WWPJshDJzBEu8qzhwxJvbtNx33wMB0a6dT2VppHZI/c=;
-        b=rwvLmR/Aso4z8M/VBY6Z0e/KLL8xzi3EzXLvOfa10fdO3J9/gSbD13cJO1C4Fp80LB
-         jGHcAHWUcqryvq70C+fcT3wodAlu0zNCxmf3gxQR2Yt/LZKGtb8eWPYgqosDVkKYQJ9E
-         Letj/l81TLufXz/cXSpV656yTdgzTyzYp+I1HJVgLP4L9UT++wtQ61e6G9xPH+9N0bpQ
-         hTed+5uqIWSxXzr7PUytf0CC8phvckppgafGboGyoik1qvPJBSDCafKd7XN2vXHNDMcq
-         xh6Y2MEUxXbpuQnM3j7Ieb6dN5zFx2NbunSIpZ3XCpYkOru/eZMstFvORmHv33Bis1/K
-         eGEw==
-X-Gm-Message-State: AOJu0YzRn50YY1HoJQ6e+BWzTjRw2LPwTmCLAs7efunLlq7osTUJC2GK
-	VZdkn8YgI8ky2qiuauFRtyLT1wmq5ez3xN4X4AXimQ2Gt/3ij3+S8JIiMwzJRSnamUPpXFe1nEg
-	CKw4=
-X-Gm-Gg: ASbGncuYiK+xuLPVb0CifU5jlPRogeRKif+nlSsgbp3S2y6Z715KUjOGX/5Ay6SV6OT
-	//00bmOVQP3JS2CepgERSV7fo6GBiCy6Jo+zefLwB/fz2djZMO0w7MvH0+jrFVLB7OjiaPmnKnr
-	I61wUl1Xw3K7lNYQ1UKswdhXYqY8aY2H1gggrK/VAhRPKE1l1AuJT+SNGIVblh3cQYes5zLaWqr
-	NL0clzkMgAUcTP7V6uxUOOZA9xu0WdHMpgv0LN0BI8ZOGI0Z1yKirBNBvZLmcKL9Ek7rptHGyDT
-	C+mXC+jEGKNsjHB6buwSSgpUI6T7SpTy/z11zCZFCXIUQrsf+Z2A4zkXiqzOlq4wIS7Qyzm005h
-	M17/bt1IaxtlpM+q2OeC2c6mLH+Y2WACqDRRfB43KxLnVg2Ea7WD1i9EWthcGUMTg1DHy2ZcLor
-	Ox1KK06Z9FOTZ4lG9yytVRr1hCgtQUtQfIsbiSNFOFlHjetOwZPjJJi8OCQw1jHaMML2fWcrBIo
-	VE=
-X-Google-Smtp-Source: AGHT+IFuS4XnzMwizOxvQtXmYahVqlvDRqEg/tIIJLJeE4IwWQ8sUfqtwqK535rhY0Vn4YtMjZql/A==
-X-Received: by 2002:a05:600c:470b:b0:479:1348:c653 with SMTP id 5b1f17b1804b1-47939e23fe9mr100269015e9.18.1765275187059;
-        Tue, 09 Dec 2025 02:13:07 -0800 (PST)
-Message-ID: <23b11dd1-1d18-4b89-9450-b3c92b09c7c4@suse.com>
-Date: Tue, 9 Dec 2025 11:13:05 +0100
+        d=1e100.net; s=20230601; t=1765276513; x=1765881313;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=R0uTBvp5iofLJ4mTT/eO/PplH7c9whmufIsWu+E31pI=;
+        b=fpn/rmC2I0bRtp3n4HjzZ6hhG6xytGzRXLWxdl7i9x2OG+3Qdx4sdM/21WjePhtRvx
+         8msr+5EkMYDcuJrWmnXyCJciKa/u5s5z60sCTmPanX79ov9W2y3GojszP48XuggpmLFB
+         WEsjqWRNEQP+tbNWC0KrVfP+24XOaBbZ3nn/tt85ntjJgobZJ325eRUHzKDBs24BtLrC
+         axsqUQtMIIWVTW6QB+qNod299zZjeJJN1TR3daRSnxx3StUUdOnvDD1+baakwtL0ibaV
+         jW30oHPaxtPmS4viAw94soFSY4LPhvKngQtgAhfrUEPl3u1jgEXckZia3nDmp5vrLECe
+         3YVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVbivnlV66yfEM1V4n/z3i9PFJk0/TiYpA4xYJjjBGhSFZAgX39DJqr1bjunCs9fdcR8BHuQFztvF0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHhcybFTHY4zF44tNRglPn0RF/YhjNzd4Gbd7v14WJCtYts6a+
+	Umvhw0RoEBwpqovq0i5LOnIMfRz7N2WwzstWUrfpH2ZX5QK26vgnTtc2
+X-Gm-Gg: ASbGncs1lotBJyPwHj1s5u1PFbdiDVr+cyLnFPtFo0alsdH0Yxo/IgmMnTKiT+JhkXN
+	/RuxkZZ08Tl1mz4EhwJo9bGe9IoFyQfRuGbvOxfZwM2U+1fO6eb8AwsUtvxlOdmczDSCalAIY7s
+	vtOeZ1YWmHOZggt9jnsousBKf75d9YjACNmTScqGhx1c0kgE4noiFzMJksCwkg7FZIMceMiBted
+	tn2ULSUIWhiu0mWcWM5Kk4scxcZrB45I0NZPQGLT/AtaPVRsJZiwkv7TauW0vbtKe2RJ5TOqKzP
+	2ZghmuqZt3vFhOfMAU6jHS77V+3Rpv98B1VV65NAXqn0yh/+qZOTDLsdCK3hhPSwE+WZ+bm/zDO
+	ZZjZ6HZYARLs4JTU2UEkBnhIEz6Cm9kB9K5f9sB80LoeeTnrE61VHYJSmjP7OcnsTSDkplFd9jd
+	OmnaEJcLzv2EyMG7zFjSQEDbJ9R6nKvIvE1fa5pjFWdXM54Cd8f/afibi5hH/l
+X-Google-Smtp-Source: AGHT+IESBsqGXppEJVKGdSNZn8in3p2o1DnKsqNZD1qYdGv4XG6Tbrb43X7EzM50O/Gsh2yZp+VwDQ==
+X-Received: by 2002:a17:907:8694:b0:b72:ad95:c1c2 with SMTP id a640c23a62f3a-b7a242d00c9mr1181779366b.11.1765276512817;
+        Tue, 09 Dec 2025 02:35:12 -0800 (PST)
+Message-ID: <369f14b0-8ed9-43ef-b5eb-7f5df9e2c642@gmail.com>
+Date: Tue, 9 Dec 2025 11:35:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v6 03/19] xen/riscv: introduce VMID allocation and
+ manegement
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] symbol: drop private header again
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <7805662d530eca29c5b0d0afa05a3cd0aac963bb.1763986955.git.oleksii.kurochko@gmail.com>
+ <dc12d791-c76e-499c-9731-0163c95203da@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <dc12d791-c76e-499c-9731-0163c95203da@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-With symbols-dummy.c gone, there's only on party using this header. Fold
-its contents back into symbols.c.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 12/8/25 5:31 PM, Jan Beulich wrote:
+> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -3096,3 +3096,12 @@ the hypervisor was compiled with `CONFIG_XSM` enabled.
+>>   * `silo`: this will deny any unmediated communication channels between
+>>     unprivileged VMs.  To choose this, the separated option in kconfig must also
+>>     be enabled.
+>> +
+>> +### vmid (RISC-V)
+>> +> `= <boolean>`
+>> +
+>> +> Default: `true`
+>> +
+>> +Permit Xen to use Virtual Machine Identifiers. This is an optimisation which
+>> +tags the TLB entries with an ID per vcpu. This allows for guest TLB flushes
+>> +to be performed without the overhead of a complete TLB flush.
+> Please obey to the alphabetic sorting within this file.
 
---- a/xen/common/symbols.c
-+++ b/xen/common/symbols.c
-@@ -15,12 +15,29 @@
- #include <xen/lib.h>
- #include <xen/string.h>
- #include <xen/spinlock.h>
-+#include <xen/symbols.h>
- #include <xen/virtual_region.h>
- #include <public/platform.h>
- #include <xen/guest_access.h>
- #include <xen/errno.h>
- 
--#include "symbols.h"
-+#ifdef SYMBOLS_ORIGIN
-+extern const unsigned int symbols_offsets[];
-+#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
-+#else
-+extern const unsigned long symbols_addresses[];
-+#define symbols_address(n) symbols_addresses[n]
-+#endif
-+extern const unsigned int symbols_num_addrs;
-+extern const unsigned char symbols_names[];
-+
-+extern const unsigned int symbols_num_names;
-+extern const struct symbol_offset symbols_sorted_offsets[];
-+
-+extern const uint8_t symbols_token_table[];
-+extern const uint16_t symbols_token_index[];
-+
-+extern const unsigned int symbols_markers[];
- 
- /* expand a compressed symbol data into the resulting uncompressed string,
-    given the offset to where the symbol is in the compressed stream */
---- a/xen/common/symbols.h
-+++ /dev/null
-@@ -1,36 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef SYMBOLS_H
--#define SYMBOLS_H
--
--#include <xen/stdint.h>
--#include <xen/symbols.h>
--
--#ifdef SYMBOLS_ORIGIN
--extern const unsigned int symbols_offsets[];
--#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
--#else
--extern const unsigned long symbols_addresses[];
--#define symbols_address(n) symbols_addresses[n]
--#endif
--extern const unsigned int symbols_num_addrs;
--extern const unsigned char symbols_names[];
--
--extern const unsigned int symbols_num_names;
--extern const struct symbol_offset symbols_sorted_offsets[];
--
--extern const uint8_t symbols_token_table[];
--extern const uint16_t symbols_token_index[];
--
--extern const unsigned int symbols_markers[];
--
--#endif /* SYMBOLS_H */
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * tab-width: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
+Do we have a definition of alphabetical order? In xen-command-line.pandoc there is
+`### vm-notify-window (Intel)`, and I would expect `### vmid` to appear before it.
+Am I right? So the ordering should be: letters first, then numbers, then special
+characters?
+
+>
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/vmid.c
+>> @@ -0,0 +1,170 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#include <xen/domain.h>
+>> +#include <xen/init.h>
+>> +#include <xen/sections.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/param.h>
+>> +#include <xen/percpu.h>
+>> +
+>> +#include <asm/atomic.h>
+>> +#include <asm/csr.h>
+>> +#include <asm/flushtlb.h>
+>> +#include <asm/p2m.h>
+>> +
+>> +/* Xen command-line option to enable VMIDs */
+>> +static bool __ro_after_init opt_vmid = true;
+>> +boolean_param("vmid", opt_vmid);
+>> +
+>> +/*
+>> + * VMIDs partition the physical TLB. In the current implementation VMIDs are
+>> + * introduced to reduce the number of TLB flushes. Each time a guest-physical
+>> + * address space changes, instead of flushing the TLB, a new VMID is
+>> + * assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
+>> + * The biggest advantage is that hot parts of the hypervisor's code and data
+>> + * retain in the TLB.
+>> + *
+>> + * Sketch of the Implementation:
+>> + *
+>> + * VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
+>> + * VMIDs are assigned in a round-robin scheme. To minimize the overhead of
+>> + * VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
+>> + * 64-bit generation. Only on a generation overflow the code needs to
+>> + * invalidate all VMID information stored at the VCPUs with are run on the
+>> + * specific physical processor. When this overflow appears VMID usage is
+>> + * disabled to retain correctness.
+>> + */
+>> +
+>> +/* Per-Hart VMID management. */
+>> +struct vmid_data {
+>> +   uint64_t generation;
+>> +   uint16_t next_vmid;
+>> +   uint16_t max_vmid;
+>> +   bool used;
+>> +};
+>> +
+>> +static DEFINE_PER_CPU(struct vmid_data, vmid_data);
+>> +
+>> +static unsigned int vmidlen_detect(void)
+>> +{
+>> +    unsigned int vmid_bits;
+>> +    unsigned char gstage_mode = get_max_supported_mode();
+>> +
+>> +    /*
+>> +     * According to the RISC-V Privileged Architecture Spec:
+>> +     *   When MODE=Bare, guest physical addresses are equal to supervisor
+>> +     *   physical addresses, and there is no further memory protection
+>> +     *   for a guest virtual machine beyond the physical memory protection
+>> +     *   scheme described in Section "Physical Memory Protection".
+>> +     *   In this case, the remaining fields in hgatp must be set to zeros.
+>> +     * Thereby it is necessary to set gstage_mode not equal to Bare.
+>> +     */
+>> +    ASSERT(gstage_mode != HGATP_MODE_OFF);
+>> +    csr_write(CSR_HGATP,
+>> +              MASK_INSR(gstage_mode, HGATP_MODE_MASK) | HGATP_VMID_MASK);
+>> +    vmid_bits = MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
+>> +    vmid_bits = flsl(vmid_bits);
+>> +    csr_write(CSR_HGATP, _AC(0, UL));
+>> +
+>> +    /* local_hfence_gvma_all() will be called at the end of pre_gstage_init. */
+>> +
+>> +    return vmid_bits;
+>> +}
+>> +
+>> +void vmid_init(void)
+> With the presently sole caller being __init, this (and likely the helper above)
+> could be __init. Iirc you intend to also call this as secondary harts come up,
+> so this may be okay. But then it wants justifing in the description.
+
+I will add the comment aobve vmidlen_detect():
+/*
+  * vmidlen_detect() is expected to be called during secondary hart bring-up,
+  * so it should not be marked as __init.
+  */
+
+And the similar comment for vmid_init().
+
+Thanks.
+
+~ Oleksii
+
 
