@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71486CB056E
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 15:54:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181807.1504797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1F8CB05A5
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:04:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181819.1504807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSz6R-0002qx-LH; Tue, 09 Dec 2025 14:54:11 +0000
+	id 1vSzFY-0004bb-Hp; Tue, 09 Dec 2025 15:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181807.1504797; Tue, 09 Dec 2025 14:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 1181819.1504807; Tue, 09 Dec 2025 15:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSz6R-0002oQ-IP; Tue, 09 Dec 2025 14:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 1181807;
- Tue, 09 Dec 2025 14:54:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSzFY-0004Yt-Do; Tue, 09 Dec 2025 15:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 1181819;
+ Tue, 09 Dec 2025 15:03:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vSz6Q-0002oK-EA
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 14:54:10 +0000
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [2607:f8b0:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e90d5c4d-d50e-11f0-9cce-f158ae23cfc8;
- Tue, 09 Dec 2025 15:54:07 +0100 (CET)
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-455749af2e1so477199b6e.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 06:54:07 -0800 (PST)
+ <SRS0=Nu2q=6P=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vSzFW-0004Yn-B2
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:03:34 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c105::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39d6995d-d510-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 16:03:33 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by PH0PR03MB6979.namprd03.prod.outlook.com (2603:10b6:510:169::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
+ 2025 15:03:27 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
+ 15:03:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,314 +47,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e90d5c4d-d50e-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1765292046; x=1765896846; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PtSKYdKsLvC0BkL/KUR7bFmUpaoVxk4mksRVHtUImPU=;
-        b=ewsVtqh8zkRtpaDiKI9yj6BtenWi8Gx8Ck9LQLzwQkHhxQ5ues+hK0J4Ihxwx9iH2v
-         VHJ6YhGCVh5c2014AwATPyXpTqSZ+bVNLFLdfYFj7Xx+vz65Geo9yN3jpuKr//AQGj/K
-         2GEUJVYwoqzMe6RQu9lMOBx+yEQcE/0LYOvySP4T6BJ+paGZybycd6r1PlRK/6msjLpA
-         hn4uqSovg3r5HSuV/X2w6CdfKp4Dcp0VovovSbY2VIJSY9BQC4W3zJ4ojkGgaXVcy+gG
-         ulZrhiLd4eCMJQTYk+vlHW6usW9P/q1Bc1ZQ1ftBKO5QJdderQbU0nVH+UVNwhfUjg0C
-         SW9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765292046; x=1765896846;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=PtSKYdKsLvC0BkL/KUR7bFmUpaoVxk4mksRVHtUImPU=;
-        b=d4QsTPmG8LnV2vAkuQ8kW2xBjCx7svy8duC47i/1Cmn2YX2g/uitQOxqt8nU6tw3zV
-         vNs2OQ5pA1L8BC3Sh9GppuzxCAbZD26zxqawtV8q0/7GEurcyNQF4okM7GnCTT6DJ8cm
-         9lZBGU9BpmXuW5yTLURPR3YTdiV7fIzTOtbva1hE/YiHjX90lAmF3sSpUmTF9Wdb1tA+
-         7gz2z3CEW2Uq26yKcUKhwqBKqWIEGmDHfzBsF/E65rGv1Bxynz+hpsKhk/lDZk2QlZ4w
-         2bkjU2HzU1n5MBFHWUPlZJQEHfGJijUVOCW6bkVGSbVw5cnLbalBxFkLXM5xGYkeonvU
-         0X0A==
-X-Gm-Message-State: AOJu0YzJnGQbFx3nFXGMYeSI8Gs+PwoiejrNP/4bOi6X9LfLHYfDdRix
-	96pqK/P7xV5O8LmcNUIZkQKaBi4Ac7vMbzbRJ3AMIR1RxT90kH9zMA862yLc6hwzUkuXjqLGwXK
-	9Xrb1QYyug0fZF3+Yk1guIP31H3v8vJ3j8SGpxN+jfg==
-X-Gm-Gg: ASbGncu+dA5WEyNVCfnygUALsSbC+fywuaF/jx2tCX5rTkZMOgFuobNjqTPrk8bytzo
-	aMvw8+261BB4FlxEl1++SocuV3cwrkzJLLthAQsld+eFU07Zq4nZe+SExdgGRp0zco5hDm8fW+1
-	iilmTO6++jqRBBD3dUKuFK15U3YCV3CoK4uIjxQP145MdxAXHkUHCMJsGYSA9n3kLnDN32BJfGf
-	tX58WVWC6lwcaUp7NTFcP6a8hKY9JzHBdQncZl8BBjQLMs7ilwdgMMU1MDvsZDSA760v6dB1a/w
-	e81b3N2zuisKEbU0P/GokgJNxexj33reJhqM9R0+G5bYjtJ0wYoZBKnyv2P46w==
-X-Google-Smtp-Source: AGHT+IGfo3a/ekLdUp4NC7ukgegFSt1yR8iQZkZbRYXsgd/vqcXJgZpXrnyyMQqmi/yVZmvGWoAMq/0aPfL1Fvi9YcE=
-X-Received: by 2002:a05:6808:4fde:b0:450:89ee:922b with SMTP id
- 5614622812f47-4557a989082mr590084b6e.22.1765292045745; Tue, 09 Dec 2025
- 06:54:05 -0800 (PST)
+X-Inumbo-ID: 39d6995d-d510-11f0-b15b-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a/JnIYMu0ysZffp2YQBoELvxpvcHkRjeYahpteeb9BLzbplfjlakTIeB84qYu8WeCuD1V+YwGGOIFNIBdQY3fWS5w0Ko60hBx+k78GfMASat+DWKjgiojWRjC99IBd13/8sOVwlaGqXqs4GC+zoy/DLn0ba4Me3G4BJJfx2bYykEjdkIpFYrrXXjufN/S4zpK28QITP/7vAThsJhx3qcUXsfkdU7PX7b01tYL4NB/LqRs10xX0QUqcggb/APWVnTbfv/wl1HRv4ze0muNy3f7yNGmIMtR6PwzIh0eVkulRFC6kLEUJwt/7adu3EQmm+SM/efIegJfc0BeITFjMHNlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qG3xqfQOpQ/MM+TfmY3It2bUE9accSpebY+kr3jsJ+Y=;
+ b=GpmWv90rT9PUbzI/FC99sU6RmbES7yfU6k96oEZxYsIpBiAu7j4T3+MnluiN36ZtDyIeP8ItfXviTqvM/GfSSkrodEDIaFHutEwXqRy5hG3ovKKXKfJmNoaVWrwOtXBcSVs7mZXP2Q0hN565vglOSx3ykyKzo1jV3DyvbVT/0Yk5Nr2KfLpMYe765wRLOwe9iIPOl53vE0ghkEsE9BeTyBxc29r9CFLbKbGxQ6SYlcFB8VvBuE8uQUKQYHSRK7a9xNfxXAPVNzp3zokz2t7rJP3Xzd9/pA2b+U6k5Mv0sgCj7tFVGAWGhr4AGcAbjnC2D9LyLvCycR3+gvhllhDa0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qG3xqfQOpQ/MM+TfmY3It2bUE9accSpebY+kr3jsJ+Y=;
+ b=hZckHbTmzBQl6mJYCTXuB1h45Lru7UzEImGBfnPckAmjgu1RzcJ+taiKzzybSscWSEDnTLIZtCEfWrXhId4+tq9nz1CWTmPYAp4SJsJWhFWnHxgsAhGpx1NHxRgju+4qK3E74KBd/aj6aEJZ4IBDXW1AKGacT84GF5NIUpOU1BA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <17923afb-526d-4141-8b08-a608ac4d2608@citrix.com>
+Date: Tue, 9 Dec 2025 15:03:22 +0000
+User-Agent: Mozilla Thunderbird
+Cc: andrew.cooper3@citrix.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+To: Jan Beulich <jbeulich@suse.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
+ <d9a632d1-8587-45bb-bc13-8dab8d346cb2@citrix.com>
+ <4fc76270-98e6-46c4-a6a4-d73772e079c9@epam.com>
+ <483d50d9-a076-4698-bd14-28afabd5d369@citrix.com>
+ <f6cccd82-3112-4696-850a-119843fca5ec@citrix.com>
+ <18ab3734-deb9-4569-ade5-9d96a7bf3c7c@epam.com>
+ <25069a8e-ef00-4706-bffa-b3b724cca200@citrix.com>
+ <4e7e8f25-a658-4e8d-bdce-1e1266ff6339@epam.com>
+ <c18b4522-e131-495b-bd7f-2eb7e6568a8a@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <c18b4522-e131-495b-bd7f-2eb7e6568a8a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0572.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:276::22) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <cover.1764930353.git.bertrand.marquis@arm.com> <9e205ba6bdd6d053dfbf8cf7892d347512acdb2e.1764930353.git.bertrand.marquis@arm.com>
-In-Reply-To: <9e205ba6bdd6d053dfbf8cf7892d347512acdb2e.1764930353.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 9 Dec 2025 15:53:54 +0100
-X-Gm-Features: AQt7F2pI5IAj8CdnEAD1FrOZgEr0CvWaEscKc-EPkWcheQkN3ha5RjQ1w1CrxqY
-Message-ID: <CAHUa44Gb3MCbyTmoqC6KN6GF5qBPJg3zXr2w3dojtVOV8deScQ@mail.gmail.com>
-Subject: Re: [PATCH v1 09/12] xen/arm: ffa: Add FFA_RUN support
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH0PR03MB6979:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd75caeb-056a-4d7e-5850-08de37341afe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RWwvdjJmQ3hyV25MUEx4cDhHSG1McVJEelVwNVdsNHlhcmdUZnB3OW9ET2U5?=
+ =?utf-8?B?VU10QytjSk4xS3JlT1lxbEhXbEFuR2JFbzhPblh3Y3dpZEZCMnBaSGR6Mno0?=
+ =?utf-8?B?Snc3UUpzUnJoSWFJbjF6eE95VmpmanVCcThTN3FYaUVEZGZFMnFFa2JIWEph?=
+ =?utf-8?B?UGhYWXZobzdHUWc1aWVZU2JDaUpiSjEwOFhXeWdZQ1hDMXMyR2hWaGxjTnF6?=
+ =?utf-8?B?YkVURW5DWlU4K3pkalpHMkU2N2FKRlBCWFk3NElDTG9EU3c1M2JTQkV2R28y?=
+ =?utf-8?B?MUlRdk0rWU1BK0Q2dXR1eVoxQjYyaDhEaHhYYzBoSWlUbWxlWE9EWSthM0pW?=
+ =?utf-8?B?alBOcGIrUDlYa3dCUWhkNjRNQ3AvN1R1SDVHV1h5USt5a09aUjBjRTFEamh0?=
+ =?utf-8?B?UktxYWlKMkk2MlNsd0pQSzhZaVhCZ29uRVZDZ0NFNGhLUEgrYzBnL0hKRW55?=
+ =?utf-8?B?emFJT0k5RVNweUxoZU9OM1EvNHRVaHQxWEdNZ3d4QnRCMVEyS0RPaEdpRExW?=
+ =?utf-8?B?a2ZqMXlaRHJuWW9tZkhFNHNJUGJPeEttYnl4M3M1djQyZmExQzBwYlBRWk5O?=
+ =?utf-8?B?cXpUTzlRZXNGQmEzMnJrTHI3QTJWa3VNOXdWdFFIekdZdDRxOHVTNjNnaDFo?=
+ =?utf-8?B?dk56a1RJOWZTdjVkSHp3N01mbzZDVXJ2aHpLMENSMi9QclJFWHgzeER0VDBH?=
+ =?utf-8?B?b0VDVjQyNzAvMHdxOHByWVR3WExGN1VEcWNiSVFnR1lNNWd2SzdXVG9yMkV0?=
+ =?utf-8?B?MHlWN2hUa05tWjJOZ3ExbERVOERpZWduYU1zREMxTStCSU4wWHo0Smh0bEJQ?=
+ =?utf-8?B?WDh0UE5OdEpxMkQrZXFXZFVONjJiNjlBUnpIVEtHYXhvbCtIdnJMczhkZFp5?=
+ =?utf-8?B?YTlKcWQ4YkpualhWOTJVbzd3SFpHbWtiT1czYWQ1QzFvRkhramtlVkllWmhI?=
+ =?utf-8?B?S29NSVFhQzhyODd0ZWd3TE9XSFdlTlZlZzJiWVZYN2E4SDdHSUw1WFJ6WU9O?=
+ =?utf-8?B?NjhiU1dnSHg2ditqNzAvU0dmQXVOT1d4OThDeGFiZ3h1OU5tY2tJaFdLQmUy?=
+ =?utf-8?B?MHF6aUtjbFlGZitRSTB5Tzk2c215VVNPN2M3VGViU0tFSjdkWmZORWljRCtx?=
+ =?utf-8?B?MHBMcjdaTU54YW85bG5VVmF1MmM2SmtsUXRSb3hSU3c3RFF1N3MyQnlCQWNJ?=
+ =?utf-8?B?VDY1bWVkaHhNNEQzTzZ3L0RMbVRjYnRSZFIxZEJxUUVBSE9DRDFQVnlTN1Vs?=
+ =?utf-8?B?TFByVndIYkdPdkxYbjMybGJNM1JJWkpTdGMwTXFSUXpoak1XdVRVZTN0SmxM?=
+ =?utf-8?B?RVdXdWwwUmk3aUZVSHJ2U09aSHFGTEZTaWE1djhhYmprZ05aNTE2VlQ5YlNW?=
+ =?utf-8?B?RzlWaWc4SVBFeFIxYWxKWVJpUjl2RUVPMUhmblhRYXROWEdmeEdtVzVNQmVM?=
+ =?utf-8?B?OWQ3amNZSCt3T2tLamVuTmZtZkw0d0o3cmZBSWNMWllDSUhwbWtldE9GTUln?=
+ =?utf-8?B?M05xYkR2MXVLKzRtemlKdmtXUTgrNEh0THNEeFdqYmhYaEdxalc0ZW9RSGJi?=
+ =?utf-8?B?cTB0akNGVTNIenBlNi9vK3lYVWpKYXRab2tVM1dXMi80U3hhcDV4Z1hpempz?=
+ =?utf-8?B?UTFhMkhPMzVFL3QzVlFEaytZNDA0QXpjU3I4RU9DYjRXZzE3VVRrZTFXdTJw?=
+ =?utf-8?B?Q054cXNZSHA1elc2RWlJbHY1bE15SDkvRE1UUXJmV2FLYkRKUUlveTR1OVNx?=
+ =?utf-8?B?WHFibzdNSUlJblZpa0lRS3VlZVBxbVlJRUJVZ05pK2MvMStjdnFHNU5NYjdJ?=
+ =?utf-8?B?QVBucGNZaXVvakQ0MHRMT2lEZkpWN3B0ZVpCaHhmVmxYRXJCMXcxeW5mMG9L?=
+ =?utf-8?B?V1hJbDhrNFFubk1sK0FiRmZIcndsUnJrZzNOQTRrL3RsV3VpSTlQcFg3OUFT?=
+ =?utf-8?Q?h8AVSa5eHznRVtCULslP90jIduRKQPuH?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YnVHQ005RHlKUitYVllUNXNjdUwrcWNMelY0aVpyV1gzSGNHTFNRWXN4Q2t4?=
+ =?utf-8?B?U1VzRTlKUGh1TFVHWHN0Z1JWbXVtbmZ5V0VEVHpRcFlUeVBoQVlhVVR1T3Q3?=
+ =?utf-8?B?ZnE4UmthNmdpanRCSEVMTXNMNmtKRDJzTlNRc0UyZnA4NzQ5cnZya2RuaE00?=
+ =?utf-8?B?QzZURi9QNm4xMitoMm8yeWVOYVZubGZ3a21zWjV5aS9UNXJPVnNJd1hlZk41?=
+ =?utf-8?B?Zkc4T04wUElSaVBGVGFVd09UNi9BbWxvZjNJNlpEZFNDaDA1R0xCRElpa28v?=
+ =?utf-8?B?aG92cVRrUXI1dGxqd2M3dVJ3ZDMvS3RlL2phaWlOL0lvZ09vd1NCOXNjUDV3?=
+ =?utf-8?B?S3Y2cVphWUxaVlU1NDk1Vmd5N1BZSE9RME1wYlBNbjIvRkJPY1o0WTlOYUd3?=
+ =?utf-8?B?eDZsbDd6WnEyTEFRc2Z3U250cDl4SDh0Y0VaclJDTnNqNGZtcVhjRTAvM0k4?=
+ =?utf-8?B?SGtrcFB3WkFtU2JlOGQwV3IzQk5WK0I5L0dhQUgyaWNYZy9tUDhmWGVWWmI1?=
+ =?utf-8?B?bjZuamFnR0FPK1RCRHhoNUNXbUZsR0hkUDdGWjhTWGtzMExORXNKeHZNdC9R?=
+ =?utf-8?B?eFdUbnhFdUNFSnAwZW05ZXJJSnI3Y2dFZEk4ODF3aFFRUnVMa2NBb2xUUnFO?=
+ =?utf-8?B?R0ZsRFhkdVpCcllaMU4vNC90Q3JESmE2cGI4MWdHSTdYSnI0K2VzaE5Wazh3?=
+ =?utf-8?B?RnRzZEdUL3luQzBIR2MvcGZYUUtGcUhTU24wZ3FXZkNQVlFSblc5NkE4NHhW?=
+ =?utf-8?B?M09IM1dTWlNYVVBBSmkxeUlkSnY2ME5tUTRvcnc4cCtzelFBMEs3QzFpMUhB?=
+ =?utf-8?B?RkdBWjEvNDVDMzVrUXhNRkwyakRVdWRhYVRJNGZ3OUg0UmliSmsrc1FkNUhD?=
+ =?utf-8?B?Q1hMbVhqR1YrU1RzVy81RGJvSWpsSzhqZjJQRFY1YzN6NVFSVnZDSDNUb3Bi?=
+ =?utf-8?B?MnBpN0pnTTR6YTdpWGVrTS9NcGVqRjdFZmN6Q3d0TFkrdlhsUUg4RGxzWnNK?=
+ =?utf-8?B?cmlBVEpWQVhPRVFSUnpKZkhjRXlpeUlpcUsveDZQY3gxYUVLcFFTdGsxV2l4?=
+ =?utf-8?B?ZjRKQ3VnQkdyM3ZoSWhQRERkN0YrWUcwei9uV2RPK0ljempvanFWUDJwL21Y?=
+ =?utf-8?B?TzZtVkJ5NVFtTU9vOHZoWEpDTk9FYVZxZmg5OGZKRkFVT1k3T2NtRnRZeE9v?=
+ =?utf-8?B?eUFpOGlFS08yUTA0L1dYRUMrdFJ3TTZvQjJ4VUx3eXRxazZURjNvNUFlU3Mw?=
+ =?utf-8?B?V1BJTHp2MTBHQmMrbzlXa2JmWVNlS3lEbkt0ZzNacE85NFlQUVR5cXdoVFRl?=
+ =?utf-8?B?SjNXeCtLNUZua0tvczZQTE9rTUp1eFozalB0VkJzcStuV3hpUFBUcHJLWDRw?=
+ =?utf-8?B?bDN5WlJDOFRkVDBqRWp0TXcrazRMNmxCa1hPU2YvbHBlQWxIWndneGRVU25K?=
+ =?utf-8?B?eFdUSklOc0ljVHI3Z0kwYm5HRnpYSytHSjZOb25OS2sxRzd3bzZISTdDVXJt?=
+ =?utf-8?B?Z3lveDc1NnV1ODRJMDhFVjdPNUlrUE5mOWhUQitMSTZ1Q1hmWVlGY2FGQXNQ?=
+ =?utf-8?B?RkdHMnVJTXhNeDBtTTNqSDN5UElwcUJObGJXeDJCdk9wUE93ZndKSUpsbHQ4?=
+ =?utf-8?B?aFRWZmNVTTcxVmZmbE1KeHBWbW40M1FjeVhPdkRtVTB0VnpQZStNaGJibWpn?=
+ =?utf-8?B?Q21IVUZwc3VUUFFQdVB3SHcrVU9Wc2VtRkR3UHBFUGtqdVhYa3VkOXl5YTNP?=
+ =?utf-8?B?T1RndGZ5SW9OMzJaaVUyY1Y3Z1dha0w4RXJCMUlxU0tEY3FVQzN2QXRUTnZ6?=
+ =?utf-8?B?TDVDZWtxcXJHaW1ubXRkTzcyamQ0Uk13TmxCVVhRLzRwcy9VU015YS9HejEv?=
+ =?utf-8?B?bXR5QmZnMGQ0TGt6d3NCR3JubWlIZU5VUDR0SFp2d2hMcjFWemhnbmkwZnN1?=
+ =?utf-8?B?cmtSQ0YweUt1V05LeU9Yd1Q5TytiVTVNTlZzc0NDUzZ2S21TN0x2YXJRelV4?=
+ =?utf-8?B?bTkwR2lCdC9BbXN3VkM2VEk2Y0NzNWI5VUlvVjV4N210YWRRSUZRV01wckRS?=
+ =?utf-8?B?dFdoR1FvUW9Pa1dtWU5zVGc0Q1hCS0VWNG9nQytEZ3lyWmFkVTYvbmEwQS92?=
+ =?utf-8?B?b0duaWxhVmozbmF1Z1FZWnkvMjJKUkNEWDlrM0VVUTNPRmFXc050SU9lREJM?=
+ =?utf-8?B?N3c9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd75caeb-056a-4d7e-5850-08de37341afe
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 15:03:26.5691
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OI+U+QBrRKxv3EJfYeizGX2EzTdXvTLvrUmGG/cVX3Adl9YN8BbzjF13UMrmyu8ixtCjKWuA+tb1HAQve4pZNGlJOVdVAJ7FNnxCwRAR5RM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6979
 
-Hi Bertrand,
+On 09/12/2025 2:28 pm, Jan Beulich wrote:
+> On 09.12.2025 15:21, Grygorii Strashko wrote:
+>>
+>> On 09.12.25 15:19, Andrew Cooper wrote:
+>>> On 08/12/2025 6:49 pm, Grygorii Strashko wrote:
+>>>> Hi Andrew,
+>>>>
+>>>> On 06.12.25 16:21, Andrew Cooper wrote:
+>>>>> On 06/12/2025 2:15 pm, Andrew Cooper wrote:
+>>>>>> On 06/12/2025 9:10 am, Grygorii Strashko wrote:
+>>>>>>> On 05.12.25 22:00, Andrew Cooper wrote:
+>>>>>>>> On 05/12/2025 7:34 pm, Grygorii Strashko wrote:
+>>>>>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>>>>>
+>>>>>>>>> Extend coverage support on .init and lib code.
+>>>>>>>>> Add two hidden Kconfig options:
+>>>>>>>>> - RELAX_INIT_CHECK "Relax strict check for .init sections only in
+>>>>>>>>> %.init.o
+>>>>>>>>> files"
+>>>>>>>>> - DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the
+>>>>>>>>> end of
+>>>>>>>>> Xen boot."
+>>>>>>>>>
+>>>>>>>>> Both selected selected when COVERAGE=y, as getting coverage
+>>>>>>>>> report for
+>>>>>>>>> ".init" code is required:
+>>>>>>>>> - to bypass strict check for .init sections only in %.init.o files;
+>>>>>>>>> - the .init code stay in memory after Xen boot.
+>>>>>>>>>
+>>>>>>>>> RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other
+>>>>>>>>> debug
+>>>>>>>>> features in the future.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>>>>> ---
+>>>>>>>>> changes in v2:
+>>>>>>>>>     - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two
+>>>>>>>>> different things,
+>>>>>>>>>       both potentially reusable
+>>>>>>>>>     - enable coverage for libfdt/libelf always
+>>>>>>>>>     - enable colverage for .init always
+>>>>>>>> This is a lot nicer (i.e. more simple).
+>>>>>>>>
+>>>>>>>> But, I still don't know why we need to avoid freeing init memory
+>>>>>>>> to make
+>>>>>>>> this work.  What explodes if we dont?
+>>>>>>>>
+>>>>>>> It will just crash when coverage data is collected.
+>>>>>>>
+>>>>>>> First I made changes in make file to get .init covered
+>>>>>>> then I hit a crash
+>>>>>>> then I checked %.init.o
+>>>>>>> conclusion was obvious.
+>>>>>>>
+>>>>>>> For example:
+>>>>>>> objdump -x bzimage.init.o | grep gcov
+>>>>>>>
+>>>>>>> 0000000000000010 l     O .bss    0000000000000028
+>>>>>>> __gcov0.bzimage_check
+>>>>>>> 0000000000000040 l     O .bss    0000000000000040
+>>>>>>> __gcov0.bzimage_headroom
+>>>>>>> 0000000000000000 l     O .bss    0000000000000008
+>>>>>>> __gcov0.output_length
+>>>>>>> 0000000000000080 l     O .bss    0000000000000060
+>>>>>>> __gcov0.bzimage_parse
+>>>>>>> 0000000000000098 l     O .init.data.rel.local    0000000000000028
+>>>>>>> __gcov_.bzimage_parse
+>>>>>>> 0000000000000070 l     O .init.data.rel.local    0000000000000028
+>>>>>>> __gcov_.bzimage_headroom
+>>>>>>> 0000000000000048 l     O .init.data.rel.local    0000000000000028
+>>>>>>> __gcov_.bzimage_check
+>>>>>>> 0000000000000020 l     O .init.data.rel.local    0000000000000028
+>>>>>>> __gcov_.output_length
+>>>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_init
+>>>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_exit
+>>>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_merge_add
+>>>>>>> 0000000000000008 R_X86_64_PLT32    __gcov_init-0x0000000000000004
+>>>>>>> 0000000000000012 R_X86_64_PLT32    __gcov_exit-0x0000000000000004
+>>>>>>> 0000000000000020 R_X86_64_64       __gcov_merge_add
+>>>>>>>
+>>>>>> Aah, we should exclude the OJBCOPY too.  That's what's moving
+>>>>>> .data.rel.local amongst other sections we target with attributes
+>>>>>> directly.
+>>>>> we can't target.
+>>>> I've come up with below diff - seems it's working without
+>>>> DO_NOT_FREE_INIT_MEMORY.
+>>>> Is this what you have in mind?
+>>>>
+>>>> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+>>>> index 8fc201d12c2c..16b1a82db46e 100644
+>>>> --- a/xen/Kconfig.debug
+>>>> +++ b/xen/Kconfig.debug
+>>>> @@ -40,7 +40,6 @@ config COVERAGE
+>>>>          depends on SYSCTL && !LIVEPATCH
+>>>>          select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if
+>>>> !ENFORCE_UNIQUE_SYMBOLS
+>>>>          select RELAX_INIT_CHECK
+>>>> -       select DO_NOT_FREE_INIT_MEMORY
+>>>>          help
+>>>>            Enable code coverage support.
+>>>>   
+>>>> diff --git a/xen/Rules.mk b/xen/Rules.mk
+>>>> index 8c4861a427e6..47fdcc1d23b5 100644
+>>>> --- a/xen/Rules.mk
+>>>> +++ b/xen/Rules.mk
+>>>> @@ -33,11 +33,15 @@ cov-cflags-y :=
+>>>>   nocov-y :=
+>>>>   noubsan-y :=
+>>>>   
+>>>> +# when coverage is enabled the gcc internal section should stay in
+>>>> memory
+>>>> +# after Xen boot
+>>>> +ifneq ($(CONFIG_COVERAGE),y)
+>>>>   SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
+>>>>                                               $(foreach w,1 2 4, \
+>>>>                                                          
+>>>> rodata.str$(w).$(a)) \
+>>>>                                               rodata.cst$(a)) \
+>>>>                            $(foreach r,rel rel.ro,data.$(r).local)
+>>>> +endif
+>>>>   
+>>>>   # The filename build.mk has precedence over Makefile
+>>>>   include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
+>>>> diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
+>>>> index 60b3ae40728f..8180c78f1510 100644
+>>>> --- a/xen/common/libelf/Makefile
+>>>> +++ b/xen/common/libelf/Makefile
+>>>> @@ -1,8 +1,10 @@
+>>>>   obj-bin-y := libelf.o
+>>>>   libelf-objs := libelf-tools.o libelf-loader.o libelf-dominfo.o
+>>>>   
+>>>> +ifneq ($(CONFIG_COVERAGE),y)
+>>>>   SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+>>>>   OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
+>>>> .$(s)=.init.$(s))
+>>>> +endif
+>>>>   
+>>>>   CFLAGS-y += -Wno-pointer-sign
+>>>>   
+>>>> diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
+>>>> index ae0f69c01373..fb26e5bff0fd 100644
+>>>> --- a/xen/common/libfdt/Makefile
+>>>> +++ b/xen/common/libfdt/Makefile
+>>>> @@ -4,7 +4,9 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+>>>>   
+>>>>   # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed
+>>>> during runtime.
+>>>>   ifneq ($(CONFIG_OVERLAY_DTB),y)
+>>>> -OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
+>>>> .$(s)=.init.$(s))
+>>>> +       ifneq ($(CONFIG_COVERAGE),y)
+>>>> +               OBJCOPYFLAGS := $(foreach
+>>>> s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
+>>>> +       endif
+>>>>   endif
+>>> This is the (aforementioned) non-standard way of doing .init.o, which is
+>>> why it doesn't play nicely.
+>>>
+>>> I suggest that we first convert libelf and libfdt to the standard way of
+>>> doing .init.
+>> I assume the rest is ok.
+>>
+>>> For libelf this means we need regular __init annotations, but #undef'd
+>>> outside of __XEN__ (when we're doing the userspace build).
+>>>
+>> Need clarification here - this are imported libraries and changing their code
+>> directly was not welcome before. Therefore there is Xen specific magic in Makefiles.
+>> :(
+> I can't and won't speak for libfdt, but for libelf I think we should really
+> consider this ours (not imported) the latest as of the re-work for XSA-55.
 
-On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Add FFA_RUN support and remove mention that YIELD and INTERRUPT are not
-> supported in the comment as we will now return them.
->
-> Make FFA_FEATURE answer supported for RUN, YIELD and INTERRUPT.
->
-> Share the SMCCC plumbing used by SEND_DIRECT and RUN via a common
-> ffa_finish_direct_req_run() helper so canonical success and error cases
-> are handled in one place.
->
-> The dispatcher now routes FFA_RUN through ffa_handle_run(), and direct
-> requests bail out early if a guest targets itself or a non-secure
-> endpoint. This simplifies the direct path while adding support for
-> INTERRUPT or YIELD answers from secure world.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in v1:
-> - Rework commit message to clearly mention that we add FFA_RUN support
-> - Remove mentions of FFA_MSG_YIELD/INTERRUPT/RUN not being supported
-> - Report YIELD, INTERRUPT an RUN as supported in ffa_features handling
-> ---
->  xen/arch/arm/tee/ffa.c         |   9 ++-
->  xen/arch/arm/tee/ffa_msg.c     | 111 ++++++++++++++++++++++++---------
->  xen/arch/arm/tee/ffa_private.h |   1 +
->  3 files changed, 87 insertions(+), 34 deletions(-)
+Agreed.  libelf was already modified for Xen, and then XSA-55 made it
+entirely unrecognisable.  It's very much our code now.
 
-Looks good
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+If we really don't want to modify libfdt's source, we should make a
+standard way of init-ing code like this, so we can move the custom logic
+out of libfdt's Makefile.
 
-Cheers,
-Jens
+The problem really is custom local logic; that's what we need to fix.
 
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 2c09d10ae6a1..0f07efe5a7b3 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -24,9 +24,6 @@
->   * o FFA_MEM_DONATE_* and FFA_MEM_LEND_* - Used when tranferring ownersh=
-ip
->   *   or access of a memory region
->   * o FFA_MSG_SEND2 and FFA_MSG_WAIT - Used for indirect messaging
-> - * o FFA_MSG_YIELD
-> - * o FFA_INTERRUPT - Used to report preemption
-> - * o FFA_RUN
->   *
->   * Limitations in the implemented FF-A interfaces:
->   * o FFA_RXTX_MAP_*:
-> @@ -266,6 +263,9 @@ static void handle_features(struct cpu_user_regs *reg=
-s)
->      case FFA_MSG_SEND_DIRECT_REQ_32:
->      case FFA_MSG_SEND_DIRECT_REQ_64:
->      case FFA_MSG_SEND2:
-> +    case FFA_RUN:
-> +    case FFA_INTERRUPT:
-> +    case FFA_MSG_YIELD:
->          ffa_set_regs_success(regs, 0, 0);
->          break;
->      case FFA_MEM_SHARE_64:
-> @@ -353,6 +353,9 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->      case FFA_MSG_SEND_DIRECT_REQ_64:
->          ffa_handle_msg_send_direct_req(regs, fid);
->          return true;
-> +    case FFA_RUN:
-> +        ffa_handle_run(regs, fid);
-> +        return true;
->      case FFA_MSG_SEND2:
->          e =3D ffa_handle_msg_send2(regs);
->          break;
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index d60eed6d8811..5a4cb1bb8295 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -21,42 +21,74 @@ struct ffa_part_msg_rxtx {
->      uint32_t msg_size;
->  };
->
-> -void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
- fid)
-> +static void ffa_finish_direct_req_run(struct cpu_user_regs *regs,
-> +                                      struct arm_smccc_1_2_regs *req)
->  {
-> -    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
->      struct arm_smccc_1_2_regs resp =3D { };
-> -    struct domain *d =3D current->domain;
-> -    uint32_t src_dst;
->      uint64_t mask;
->
-> -    if ( smccc_is_conv_64(fid) )
-> +    arm_smccc_1_2_smc(req, &resp);
-> +
-> +    switch ( resp.a0 )
-> +    {
-> +    case FFA_ERROR:
-> +    case FFA_SUCCESS_32:
-> +    case FFA_SUCCESS_64:
-> +    case FFA_MSG_SEND_DIRECT_RESP_32:
-> +    case FFA_MSG_SEND_DIRECT_RESP_64:
-> +    case FFA_MSG_YIELD:
-> +    case FFA_INTERRUPT:
-> +        break;
-> +    default:
-> +        /* Bad fid, report back to the caller. */
-> +        ffa_set_regs_error(regs, FFA_RET_ABORTED);
-> +        return;
-> +    }
-> +
-> +    if ( smccc_is_conv_64(resp.a0) )
->          mask =3D GENMASK_ULL(63, 0);
->      else
->          mask =3D GENMASK_ULL(31, 0);
->
-> +    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 =
-& mask,
-> +                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
-> +                 resp.a7 & mask);
-> +}
-> +
-> +void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
- fid)
-> +{
-> +    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
-> +    struct domain *d =3D current->domain;
-> +    uint32_t src_dst;
-> +    uint64_t mask;
-> +    int32_t ret;
-> +
->      if ( !ffa_fw_supports_fid(fid) )
->      {
-> -        resp.a0 =3D FFA_ERROR;
-> -        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
->          goto out;
->      }
->
->      src_dst =3D get_user_reg(regs, 1);
-> -    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
-> +    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) ||
-> +         (src_dst & GENMASK(15,0)) =3D=3D ffa_get_vm_id(d) )
->      {
-> -        resp.a0 =3D FFA_ERROR;
-> -        resp.a2 =3D FFA_RET_INVALID_PARAMETERS;
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
->          goto out;
->      }
->
->      /* we do not support direct messages to VMs */
->      if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
->      {
-> -        resp.a0 =3D FFA_ERROR;
-> -        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
->          goto out;
->      }
->
-> +    if ( smccc_is_conv_64(fid) )
-> +        mask =3D GENMASK_ULL(63, 0);
-> +    else
-> +        mask =3D GENMASK_ULL(31, 0);
-> +
->      arg.a1 =3D src_dst;
->      arg.a2 =3D get_user_reg(regs, 2) & mask;
->      arg.a3 =3D get_user_reg(regs, 3) & mask;
-> @@ -65,27 +97,11 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_r=
-egs *regs, uint32_t fid)
->      arg.a6 =3D get_user_reg(regs, 6) & mask;
->      arg.a7 =3D get_user_reg(regs, 7) & mask;
->
-> -    arm_smccc_1_2_smc(&arg, &resp);
-> -    switch ( resp.a0 )
-> -    {
-> -    case FFA_ERROR:
-> -    case FFA_SUCCESS_32:
-> -    case FFA_SUCCESS_64:
-> -    case FFA_MSG_SEND_DIRECT_RESP_32:
-> -    case FFA_MSG_SEND_DIRECT_RESP_64:
-> -        break;
-> -    default:
-> -        /* Bad fid, report back to the caller. */
-> -        memset(&resp, 0, sizeof(resp));
-> -        resp.a0 =3D FFA_ERROR;
-> -        resp.a1 =3D src_dst;
-> -        resp.a2 =3D FFA_RET_ABORTED;
-> -    }
-> +    ffa_finish_direct_req_run(regs, &arg);
-> +    return;
->
->  out:
-> -    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 =
-& mask,
-> -                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
-> -                 resp.a7 & mask);
-> +    ffa_set_regs_error(regs, ret);
->  }
->
->  static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
-> @@ -217,3 +233,36 @@ out:
->      ffa_tx_release(src_ctx);
->      return ret;
->  }
-> +
-> +void ffa_handle_run(struct cpu_user_regs *regs, uint32_t fid)
-> +{
-> +    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
-> +    uint32_t dst =3D get_user_reg(regs, 1);
-> +    int32_t ret;
-> +
-> +    if ( !ffa_fw_supports_fid(fid) )
-> +    {
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> +        goto out;
-> +    }
-> +
-> +    /*
-> +     * We do not support FFA_RUN to VMs.
-> +     * Destination endpoint ID is in bits [31:16], bits[15:0] contain th=
-e
-> +     * vCPU ID.
-> +     */
-> +    if ( !FFA_ID_IS_SECURE(dst >> 16) )
-> +    {
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> +        goto out;
-> +    }
-> +
-> +    arg.a1 =3D dst;
-> +
-> +    ffa_finish_direct_req_run(regs, &arg);
-> +
-> +    return;
-> +
-> +out:
-> +    ffa_set_regs_error(regs, ret);
-> +}
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index d883114948b1..030e6724743c 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -474,6 +474,7 @@ static inline void ffa_raise_rx_buffer_full(struct do=
-main *d)
->
->  void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
- fid);
->  int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs);
-> +void ffa_handle_run(struct cpu_user_regs *regs, uint32_t fid);
->
->  #ifdef CONFIG_FFA_VM_TO_VM
->  static inline uint16_t get_ffa_vm_count(void)
-> --
-> 2.51.2
->
+~Andrew
 
