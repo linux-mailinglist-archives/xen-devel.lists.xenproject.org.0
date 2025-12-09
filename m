@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E658CAF4EE
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:35:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181234.1504313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D99CAF51B
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:47:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181244.1504323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStBF-0005n4-FQ; Tue, 09 Dec 2025 08:34:45 +0000
+	id 1vStMh-0007R9-Bc; Tue, 09 Dec 2025 08:46:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181234.1504313; Tue, 09 Dec 2025 08:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 1181244.1504323; Tue, 09 Dec 2025 08:46:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStBF-0005lc-C5; Tue, 09 Dec 2025 08:34:45 +0000
-Received: by outflank-mailman (input) for mailman id 1181234;
- Tue, 09 Dec 2025 08:34:44 +0000
+	id 1vStMh-0007Ob-7i; Tue, 09 Dec 2025 08:46:35 +0000
+Received: by outflank-mailman (input) for mailman id 1181244;
+ Tue, 09 Dec 2025 08:46:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vStBE-0005lW-GF
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:34:44 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1vStMf-0007OV-Ee
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:46:33 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8393e11-d4d9-11f0-9cce-f158ae23cfc8;
- Tue, 09 Dec 2025 09:34:41 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-42e2e239ec0so3058657f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:34:41 -0800 (PST)
+ id 8dbddb2b-d4db-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 09:46:29 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47a80d4a065so1086455e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:46:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d353f8bsm30597913f8f.43.2025.12.09.00.34.40
+ ffacd0b85a97d-42f7d353f8bsm30668265f8f.43.2025.12.09.00.46.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 00:34:40 -0800 (PST)
+ Tue, 09 Dec 2025 00:46:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8393e11-d4d9-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 8dbddb2b-d4db-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765269281; x=1765874081; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765269988; x=1765874788; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rxWBBGLtxOMLap3xEoElLubkQf7Vx8yrVuJ/uuTZMa0=;
-        b=S4WPlyNDk4EMLlDynTneQ/rp0rJPe2RQFo/cNVoa51pNqLIA21GOrvbfyvrMUPphtY
-         WJyRUaxAR61cUULFQo2DIl7LT/XWF9drNVg6pzqoXmkqTkTayYkn4b529UXRfuDarGpD
-         4hVh61NcDob0pqs+TWDnHTmHU/OKvOGhOg0Yp4HFDKxByfoFfY5TVow66+3VZsatbZT0
-         vwB4VF/r00X8ycxk3BqzbHk1pTByax/vQ2uPApqDJjGLR7o/QvZ+jAUQoo5coGaElbsF
-         ckXJ5CqIxB1j/SDNk8tG2rwZkgqhZ8sR6TEFN1ZQ8LMwkkfojJJy72OaNr6Xgp5SV56g
-         +mHw==
+        bh=mFtIhQCGGbUgj0sWRO3ulsjj1uTcjXKRJYwANcq9Kok=;
+        b=NDk9zoUBrCeW1RgKwrn4DeF5r/6phVRG/rhIqiLg3eGMfh6Eo/7VQiaihW9UeOvh1u
+         ner/ryVsEpooDQQGq+xoACIccn8MKlHOgIBXrlYzLXEv4aKuO/aS1jMUDqPlXCQm2L91
+         YDOTKgFiG9kaTsFaIRm1dmwmAh/r2JePjJxVFTPyJH3DXJ/MpAFEG2HEIM2UsMFGteob
+         SESDG5D6fwhUHoFnCqUmRLQPHtaxOoYFmW9w9QYSRY2+RqX5VuwGKiKCZmhXD7qu7TOH
+         vbsrzSIUbhY3biOQ1NZYFAXlqztvf9wjNsU6FUdPq8mtEbTx1Rf9Et3em0cZmwPtjATZ
+         fKnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765269281; x=1765874081;
+        d=1e100.net; s=20230601; t=1765269988; x=1765874788;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rxWBBGLtxOMLap3xEoElLubkQf7Vx8yrVuJ/uuTZMa0=;
-        b=P70r700Pp5Zr56mDIHY+IpsqHnG46W++c43jfGh9HVuO5Zx0JKCc1lvLu1AznYzGHB
-         uu84d4Bg2gSbu1cWMVG83Ap4Q/KTF8X+mcq7vpR/aBvkcWNWAPF5l3/TwK1uqMJHLMXX
-         H5OlTjEx3zdsLT3OjNsdyikdjyov6RD/3Vx/c4PenZG/3PdEo8J0iiuQbPHYSNq7qVfm
-         qXKg3hGI54pmyWKiKz0W/DqROYR5oxWtg2I8cqPTxDQKwe66nlokldeTL2IZFMyQkCxy
-         ZMQhnH9rmccLuZjontcjDuyCrP292CHka2qAfD6iVOjezSw32eTcMh7qPi2XsdvHt8+6
-         DiUg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpeZHShEqhxfY3sF4pK2vOdZ5P1wFP4PUwOxqG922z2MsYaibDfTCzN5vwxGq18ire5tWwgtBWNU0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxms/EQOybBEehQRUPtLMnVfola3dxNIM9Mb3AeLz5cFKo9S/qp
-	+Z687BjMhxu3uNcuf6N0mrHnILK+IfZxm/Dt8wHosz1r7pNfuMnbzjv7XPaxtQ7D4Q==
-X-Gm-Gg: ASbGncsmnfRBy+TW644CMLVcg/0Ow7lOA/9gZ1ZyfjeOTDjebQ0Kq0++33/XgBYb6K7
-	D66Qvz01+YPcNhtOtNAobPuSfvzQZXty7HJfLZmKNtLuPXfB01NHQC2d0hWbijO2kKsFu7n3rsK
-	lJLvGStHbl/dKsev+evouRJP/8plTo65oPfgIMKHqm1C2ZfJw/jW49OTglKONn6hMGaTm1oYIbv
-	KUakr1w1uNiC863nZe/9ptmbMDbUCX2E7rz8IL15GMdefQcCvRPYVCABvT5WsyM18r0DKFHva2m
-	AE0RR8H7VgF3Li9aNDbdQrgTFE3ot41rYZB53r+tcKJY068JFmnnOlcFho1m+mu4QTBNY3MzT6k
-	pyCkrOT1kduAUcbN5yQlbKwX2buc1b3HJfqKqgL33pub3woPdk/UZjBBc3f7Vt0/BANApKHMOGi
-	eC0xCVm3sKE/1/Mvnu9oNOSCHbTAQrlJ32p+xmzRziNCmXfkGz25mlUom1DEzj8gLegNTHEG2eJ
-	fZaZ2KjEO9F8Q==
-X-Google-Smtp-Source: AGHT+IEBoHhBdF9iXMY+VpFXGiAoEf7fjTdvGYgcEp/PmZfg9OcXjQGfyeT/AKFIFLzryFKM/YY+2g==
-X-Received: by 2002:a05:6000:1ac6:b0:42b:3e60:18a3 with SMTP id ffacd0b85a97d-42f89f2a31amr11476692f8f.24.1765269281295;
-        Tue, 09 Dec 2025 00:34:41 -0800 (PST)
-Message-ID: <ba440c84-9254-4992-85d5-97f8269d15f2@suse.com>
-Date: Tue, 9 Dec 2025 09:34:39 +0100
+        bh=mFtIhQCGGbUgj0sWRO3ulsjj1uTcjXKRJYwANcq9Kok=;
+        b=vSCQCwQP/aAHO7nFT8T6bMPkNwnRkUTHZIPqAXH40f4tZvPkbA3FwIoV4nPEfjN/LN
+         eslU5WWZGStIhZF4N6EpMYUA1Xv22COeBHqiyZE9dy7bpRhOBc+wpIRwHK6JJNPr3Sf4
+         YatItSuUsiXZIOUvLZUGzV7400pTpWa4iHNcwZM7JFvCOIvyyRWQSvD4DfbW0fMjqp0Z
+         bpAgtfX9two6ze7XrtWmHNKBi7OATn4npNlMz2y5lmr14WAgO/39WoVvV2QamH9KSe4H
+         jP/HWN7r60j/vd+lKu9uEe7kk9rQWYTyBamgzw6mmtbE1XIXgIo2QKcNiszK0FUKI8ok
+         iZ1A==
+X-Forwarded-Encrypted: i=1; AJvYcCVjvU5LUS04jh/EpwR+Ot6cwTJqVMluw4xbkyZndKqnwdiX5wXHTfoqzMp70lIDhWGjCn6jv63sX4g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUIPP7Zwrt3WNlfvZ0qc05gTm+86YsRhg5VXBa8HzlnovfB7BH
+	w3RMl083GfLYePbDxLnizMsJbdtNOmdxm6XmJHY38Bn2mx5c1Oi+VPl3cRFt7bBzKQ==
+X-Gm-Gg: ASbGnctWjlrT6SH7X6/fyHtX+V1hggtzI+wunDCmALvY40vbUsGgGuWkBh5cSo/0FSe
+	qsTDUYCZQ2gfNZNrqwN+AviAjNFLrpHoNu7rF8r9EPxCO2A1pclfmUvHYXZGah5qvyjQvtVTNCw
+	c30FguZfm6jv1ebVHzzC+qeKwsQD7gwhfafUFQf6od+/9bOB9A17APoYXcjJd/acPhJVEVZLk4r
+	fZnqabBhd4Z5LpRW/4QXD5ovo8/ygCEgzEuKc2PAOh16UFYCC4rvb6+y9NkLmnA6RdlC/gkypbl
+	C3/37CReEixIXQbnsaWXmmzmj3MI6uj/bAgNx22augYbcYDyZLHGQGhSm0XLkPUtS4T3MCMaoIz
+	zTBhuKcMfYsZyycjukilLH+A5XunN8PDjwCp4v58+ZBzP+MdtAGaS6GhAeqjCW1MXnoOc3ZXhgc
+	rOs5Gy4HADWSjTzQrk9ljw0memfRbMkMgQuwkaqp74qwE6Q1vitgHz78Gj/qQOUe7V0z/UTLr9G
+	3Q=
+X-Google-Smtp-Source: AGHT+IFPOHIXQ2/GH1ywBHZjd4Vmw9dlyu3CeYjus0If5yuHr5iWxtpEZ+n9EXmKTK9K6leJ/I7dqA==
+X-Received: by 2002:a05:6000:613:b0:429:dde3:659d with SMTP id ffacd0b85a97d-42f89f563femr10590497f8f.47.1765269988426;
+        Tue, 09 Dec 2025 00:46:28 -0800 (PST)
+Message-ID: <cf359ffb-02e7-4c7e-bf16-88a21e08722c@suse.com>
+Date: Tue, 9 Dec 2025 09:46:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+Subject: Re: [PATCH v2 2/3] x86: move / split usercopy.c to / into
+ arch-specific library
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
- <bd53bc18-f2b5-4857-b06c-2674c799ff0f@suse.com>
- <7020e1fe-5f11-480b-bd72-311a93903030@epam.com>
+References: <f46f89f6-242b-4433-958e-36088e567ccd@suse.com>
+ <12852eae-849b-4576-a8e1-85edf401b455@suse.com>
+ <7891d66e-cd51-4694-9926-cf8f62c3053f@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,41 +123,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7020e1fe-5f11-480b-bd72-311a93903030@epam.com>
+In-Reply-To: <7891d66e-cd51-4694-9926-cf8f62c3053f@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.12.2025 19:54, Grygorii Strashko wrote:
-> On 08.12.25 10:35, Jan Beulich wrote:
->> On 05.12.2025 20:34, Grygorii Strashko wrote:
->>> @@ -259,6 +259,7 @@ $(obj)/%.o: $(src)/%.S FORCE
->>>   
->>>   
->>>   quiet_cmd_obj_init_o = INIT_O  $@
->>> +ifneq ($(CONFIG_RELAX_INIT_CHECK),y)
->>>   define cmd_obj_init_o
->>>       $(OBJDUMP) -h $< | while read idx name sz rest; do \
->>>           case "$$name" in \
->>> @@ -271,6 +272,11 @@ define cmd_obj_init_o
->>>       done || exit $$?; \
->>>       $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
->>>   endef
->>> +else
->>> +define cmd_obj_init_o
->>> +    $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
->>> +endef
->>> +endif
->>
->> If the objcopy indeed needs suppressing altogether (as Andrew suggests), the
->> unwanted redundancy here would go away anyway. Otherwise my (recurring)
->> request to avoid such duplication.
+On 08.12.2025 22:48, Grygorii Strashko wrote:
 > 
-> Could you suggest the best way to avoid duplication, please?
-> if/else/endif is not working inside "Custom commands" make file commands.
-> May be split it on two - cmd_obj_init_check and obj_init_objcopy?
+> 
+> On 08.12.25 14:05, Jan Beulich wrote:
+>> The file wasn't correctly named for our purposes anyway. Split it into its
+>> "guest" and "unsafe" parts, thus allowing the latter to not be linked in
+>> at all (for presently having no caller). The building of the "guest" part
+>> can then (later) become conditional upon PV=y.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>>   xen/arch/x86/Makefile                         |  4 ----
+>>   xen/arch/x86/lib/Makefile                     |  2 ++
+>>   xen/arch/x86/{usercopy.c => lib/copy-guest.c} | 12 +---------
+>>   xen/arch/x86/lib/copy-unsafe.c                | 22 +++++++++++++++++++
+>>   4 files changed, 25 insertions(+), 15 deletions(-)
+>>   rename xen/arch/x86/{usercopy.c => lib/copy-guest.c} (94%)
+>>   create mode 100644 xen/arch/x86/lib/copy-unsafe.c
+>>
+>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+>> index 61e2293a467e..dfb258d7ac1c 100644
+>> --- a/xen/arch/x86/Makefile
+>> +++ b/xen/arch/x86/Makefile
+>> @@ -72,7 +72,6 @@ obj-y += time.o
+>>   obj-y += traps-setup.o
+>>   obj-y += traps.o
+>>   obj-$(CONFIG_INTEL) += tsx.o
+>> -obj-y += usercopy.o
+>>   obj-y += x86_emulate.o
+>>   obj-$(CONFIG_TBOOT) += tboot.o
+>>   obj-y += hpet.o
+>> @@ -93,9 +92,6 @@ hostprogs-y += efi/mkreloc
+>>   
+>>   $(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
+>>   
+>> -# Allows usercopy.c to include itself
+>> -$(obj)/usercopy.o: CFLAGS-y += -iquote .
+>> -
+>>   ifneq ($(CONFIG_HVM),y)
+>>   $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
+>>   endif
+>> diff --git a/xen/arch/x86/lib/Makefile b/xen/arch/x86/lib/Makefile
+>> index ddf7e19bdc1d..8fe2dfd88553 100644
+>> --- a/xen/arch/x86/lib/Makefile
+>> +++ b/xen/arch/x86/lib/Makefile
+>> @@ -1 +1,3 @@
+>> +lib-y += copy-guest.o
+>> +lib-y += copy-unsafe.o
+>>   lib-y += generic-hweightl.o
+>> diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/lib/copy-guest.c
+>> similarity index 94%
+>> rename from xen/arch/x86/usercopy.c
+>> rename to xen/arch/x86/lib/copy-guest.c
+>> index a24b52cc66c1..25eeb35427e2 100644
+>> --- a/xen/arch/x86/usercopy.c
+>> +++ b/xen/arch/x86/lib/copy-guest.c
+>> @@ -1,4 +1,4 @@
+>> -/*
+>> +/*
+>>    * User address space access functions.
+>>    *
+>>    * Copyright 1997 Andi Kleen <ak@muc.de>
+>> @@ -6,8 +6,6 @@
+>>    * Copyright 2002 Andi Kleen <ak@suse.de>
+>>    */
+>>   
+>> -#include <xen/lib.h>
+>> -#include <xen/sched.h>
+> 
+> This will not build :(
+> 
+>    CC      arch/x86/lib/copy-guest.o
+> In file included from ././include/xen/config.h:27,
+>                   from <command-line>:
+> arch/x86/lib/copy-guest.c: In function ‘copy_to_guest_pv’:
+> ./arch/x86/include/asm/config.h:270:32: error: invalid use of undefined type ‘struct vcpu’
+>    270 |     (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+> 
 
-That's one option. Another is to use something like
-$(if $(filter y,$(CONFIG_RELAX_INIT_CHECK)), ...).
+Hmm, yes. It does build here, but of course I have many other patches in
+place. The issue looks to be that for me access_ok() isn't a macro anymore,
+but a function.
 
+Thanks for pointing out,
 Jan
 
