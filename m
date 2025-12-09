@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E71CB0047
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 14:08:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181660.1504687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F32CB005F
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 14:10:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181670.1504697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSxRw-0008Gy-LA; Tue, 09 Dec 2025 13:08:16 +0000
+	id 1vSxU9-0001LZ-11; Tue, 09 Dec 2025 13:10:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181660.1504687; Tue, 09 Dec 2025 13:08:16 +0000
+Received: by outflank-mailman (output) from mailman id 1181670.1504697; Tue, 09 Dec 2025 13:10:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSxRw-0008EZ-II; Tue, 09 Dec 2025 13:08:16 +0000
-Received: by outflank-mailman (input) for mailman id 1181660;
- Tue, 09 Dec 2025 13:08:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vSxU8-0001JN-Tg; Tue, 09 Dec 2025 13:10:32 +0000
+Received: by outflank-mailman (input) for mailman id 1181670;
+ Tue, 09 Dec 2025 13:10:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSxRu-0008ET-Iu
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 13:08:14 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d83feb0-d500-11f0-9cce-f158ae23cfc8;
- Tue, 09 Dec 2025 14:08:12 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42e2ba54a6fso1907124f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 05:08:12 -0800 (PST)
+ id 1vSxU7-0001J1-6J
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 13:10:31 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f6f3b60-d500-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 14:10:29 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4779cb0a33fso74237585e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 05:10:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d222506sm33659189f8f.28.2025.12.09.05.08.10
+ 5b1f17b1804b1-47a7d6fa0f6sm38928475e9.4.2025.12.09.05.10.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 05:08:11 -0800 (PST)
+ Tue, 09 Dec 2025 05:10:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d83feb0-d500-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 6f6f3b60-d500-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765285692; x=1765890492; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765285829; x=1765890629; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pMiVUzm8asTDH+CVtzYaOPE+6g1fAOaVu1cBSl+DPY4=;
-        b=cS3YolBzUwghkOodWo9Lp3FohOcTNT+TcMYpL4x2RRKRG1qf3dicvBFdFynxs1Pb3n
-         m8x2RYURZnRTvUW1vF/yfyS75JhUPAb4mqPyM8Pveme8NaVZTpL+rvgLzLOJXJ/uTEgC
-         PiaP5YgD/srRRqmD0Uf3YeVrXkz9t6PCiONw6Du5qGVM2fXN1dxYbNjHW04aTR4jfV8d
-         8S7MWeWXk8jE0lbBrXNcbkCH70pBKoYfkh3ycp9mXc+f7+CS33WR09yCEt5Fx4Lw+2EI
-         DwsaQ4WCxm4SWjsYeJ12v6azTVoGdMoYI3XpP0Wmj+zl61wDDSk5RLP0Qbleu53nBe4U
-         HuHA==
+        bh=HA3FsU1C68XXvu26OhGXA8OMdBn4esbuJPYmDzoaLv8=;
+        b=IJSDO2cWkW8gat3mVGXPOPSOiFGhZYR8cAWCTws+69BiE2be34k4AAE6UQ9DJylCxh
+         owQKuC4euPZpdeo89Hm20TEmfa/hYWDqrVLMkoeCI7A/MufjckHi7b6Pq3KkuYu0s3UO
+         bgU/G8XVkoGUeCWA00qhzbpKxBlMT6UX/ETwFvync8kRWdtwzy1Nchge8LVjrHdW/RWF
+         muD8/GG8HQAXpRHZXO1HdBkcDhASwBTnPDE9YMK7iXpPnXOVVMxMaHSgNjoGPoOrIuVs
+         o8IH2ovc9HgEfSZAJsGYI0TjXhruNYaDWhKYA1YhaWbPVCWi7Rdwzs/GAaI3joXQ7Cif
+         mAJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765285692; x=1765890492;
+        d=1e100.net; s=20230601; t=1765285829; x=1765890629;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pMiVUzm8asTDH+CVtzYaOPE+6g1fAOaVu1cBSl+DPY4=;
-        b=ap7WNw6K1vnw6GyyELUW8gaqX+xsSvZBq+ophzcQL5Wl7rVQ2tk1Vj5xPCgMBGpOZp
-         2M8W7qJeM6kMXa3KgAjbLYl7MmQz3YWJmAvwQHz6QPlBu9H9DsV07UwnZZaY2omILpV1
-         ZHK31egbf/LrlrjVzz3HXEJmoz55cfzwgkObcLPXY6e/4j5evp961AF3ncFekxysnKg8
-         kPnfoOmkE58eDYKEs0XZObkHuqj3SD3SlGKFB3RzkNqAOq3nuv4bKckRIFOQ0YW8xsse
-         SCpsyTIA397BwzmiBFjTX75eiSXYKJsr1gZHSoYcvF+MO7RmSgbVyu5albuTAJ+7n/eZ
-         0lwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXJFzDgLFsqACUZbqx0DMwPBO0dDLcCtvAgDPzXFi5rj8023Cy2NrMqjap4ku4HhB96RWN15wmXKvE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxn6/mMwy1R9EXkAl5diFfwCCUj/9k7UmEbYjCSKxX2yElbUEk8
-	GfiMPu2yUj/qjHk4+3uGKOQbKDW2ZPuQtDlKIt7V+P4IlPIBBY9prxwegbeL/C3Eaw==
-X-Gm-Gg: AY/fxX5+L6os/WLpUY0EGOu3JY/gdT/zGreIC5nliaDvfWysab/IW4dzRx5EiCgHOp1
-	WAvVfcAB2Ldj5ifOUrusZCKP84+o9r8CnOqtoyn0w56hbR3sGqozPNPP6nFI0gP4gRzVsyiYI/8
-	oWa40H0DbTWoO9UyaoE4q1EUlXrp7x+b4WE2fgukbU5xJ8YXM82ISDbShQ5RtQCS/0MwAOcfA9A
-	zkv2Zeorzl+zJj8SpnY/Erm5WJHtPIAHxo5FBKcmGHLdkbz1s8DdrOVqI9azqwCZkkRf2F0ePm+
-	iId8rIbEJVmx8q4BJ8gRhiNol2O/qa+JsriVoYErn9wqJjffZ/DWxc8zv1Bp3gS9SimLmeCiaPo
-	pSOJeXMs/zm6yUI6sWlcysr0qFMFlEW+Lfyxn9vipKU35WHxxviZDOWdKGnsDxSrb6sc5yo60H1
-	9GvaShfQZYpHzuomncqOoMHCia/cRGkFGRFY0PBOK9biVXGVcs+65TzqpJ58eiJ3RaMJs2YQZCJ
-	00=
-X-Google-Smtp-Source: AGHT+IFH+XZl2ULnlq0TQ77CqtWVsTgKBvaDJSspeH/H1vYPH7FfxcE3DwZmG3HGmZs/hGT0zfSsfA==
-X-Received: by 2002:a05:6000:bc1:b0:42f:9faf:4170 with SMTP id ffacd0b85a97d-42f9faf42eemr1601806f8f.31.1765285691639;
-        Tue, 09 Dec 2025 05:08:11 -0800 (PST)
-Message-ID: <2f8eba17-2fa0-47d0-8970-dba21ccd2759@suse.com>
-Date: Tue, 9 Dec 2025 14:08:09 +0100
+        bh=HA3FsU1C68XXvu26OhGXA8OMdBn4esbuJPYmDzoaLv8=;
+        b=PAPxvuwoc9RcbtBvq7aqJRRl5Odys7Y0m0z9MtBGwFBVonR6KOW475GKbPQn2WNTEn
+         OC+ovQCaAxisCUfoRrJmCfuDEbnsv96pqZv92qD888JOdr5E9Kzhy86TTTpvRLcKoozn
+         Z3dTeh87lpkaHBNpGn4ooIn2tm+MY8Butq3EwTHjPpEPJUkfohwtwO/BoHk99b9pdeNt
+         wZuiNmr7AvQ8ms3n8MyG8dl/F7lr6+boF9t5Yu7JZdDS19IgiIzZ29SL/lN3CcqgHXOu
+         SUC3voqhYENgkWZJU7bkEuSCPqyVjfRodgOKOK+kZmYyY2vctSIyJ75rmQlaqGJ8LWl4
+         y1Ew==
+X-Forwarded-Encrypted: i=1; AJvYcCVzhhiz623sTWaldr7L7ej8Q+sbU+ZnAi8ffhz/jAh17C2sQoIyHeTO6Wd2sn9U6ijZQ1cXT4cDKyQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxzWZTTIRyGjRa6hjEunt/oF/p3G5mjZAigBQiVVJJjdwUgvHIg
+	G8HFCauM1dcSjp2PA+gYyWGC6GlgugnCNnfjTNbpruiNUrU+QyWFFC2OE78VY7s2uQ==
+X-Gm-Gg: ASbGncu3iz38Tjswmr5hAbnkBklKfbNBE3Vc7ZZJS4fBtD4UWYJshzy0c4eLiWqxKtx
+	x/Kpyd7AxbKTcWTEy8qEWp6aRvUoQr4O7MEpp+cEz+vt21aJHgcLXP3UjswR97BYrAuFIIQuyKX
+	Kf/hMDlEeQ3lpfO/7b6xLeto7RVmm8gfGRK7xbpITGuYIVcXE81ir3gobtT4NuYyDAVKoSfOWpw
+	xSpbXcrQ9cij77IJH8MGZHv9LK49W/CTNYGDx+gQcKb66JWv/w2em9DpO2LI+U8bGrRcgdEFw85
+	3m/F5OPEBgUHjiyS8Ry3DU76UOc3C0/IW5YBGX/JGwwA7jDC88mFaCLYAttnsF4i17LNEZ1dt2Z
+	dAiBbbXn5kBuBDJfTOniN0K+jHRsT/kDxFwuYNLdP6JSU5hrrLdJ14NX5mv25k5snQwD7RRPR6G
+	py+Pm/LbORTLyg5v+GSVxIrJNldmBXAV4/E0TCEL7/qkIjq/Uhz74s0DRx0UHyp2zEUMlUg2RhF
+	Ms=
+X-Google-Smtp-Source: AGHT+IFn3ByWj22LbrrkHtGuFUFZRdTaG72UeJuwXlKrWry1B9n4728g5eQXGmZcIis2wgWQXeyl9w==
+X-Received: by 2002:a05:600c:a013:b0:477:9ce2:a0d8 with SMTP id 5b1f17b1804b1-47939c8bc7dmr127482135e9.0.1765285829365;
+        Tue, 09 Dec 2025 05:10:29 -0800 (PST)
+Message-ID: <e5f14ae4-da8f-4897-9cb5-99fe40ed28ca@suse.com>
+Date: Tue, 9 Dec 2025 14:10:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] domctl: Provide appropriate error code when PIRQs are
- not supported
-To: Milan Djokic <milan_djokic@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1764961645.git.milan_djokic@epam.com>
- <b38b7b65630d1f167d1589d21556be1493c180be.1764961645.git.milan_djokic@epam.com>
- <88ab7d88-9b25-418c-bc5a-fc080c5e78ff@suse.com>
- <c2749a60-daa0-40d7-9d98-27868d37a560@epam.com>
+Subject: Re: [PATCH v3 3/3] xen/x86: move d->arch.physaddr_bitsize field
+ handling to pv32
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251128152218.3886583-1-grygorii_strashko@epam.com>
+ <20251128152218.3886583-4-grygorii_strashko@epam.com>
+ <c9ee4fc8-44c6-43e8-88eb-9041c51aed16@suse.com>
+ <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
+ <a3dcfce1-4695-4064-a1e3-af09bfa04199@suse.com>
+ <f0da7ce3-1846-4865-8e66-bc3e50f78390@epam.com>
+ <85cdb866-0be2-4204-b106-f66e2b15f841@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,37 +127,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c2749a60-daa0-40d7-9d98-27868d37a560@epam.com>
+In-Reply-To: <85cdb866-0be2-4204-b106-f66e2b15f841@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.12.2025 13:48, Milan Djokic wrote:
-> On 12/8/25 14:08, Jan Beulich wrote:
->> On 05.12.2025 21:36, Milan Djokic wrote:
->>> When PIRQs are not supported (e.g. for arm), XEN_DOMCTL_irq_permission
->>> command is not handled.
->>> This results with default (-ENOSYS) error code returned to control domain.
->>> Update command handling to return -EOPNOTSUPP if control domain
->>> invokes it by mistake when PIRQs are not supported.
->>
->> Did you consider simply replacing the bogus ENOSYS by EOPNOTSUPP? (Assuming
->> the difference in error code really makes a difference to callers.)
+On 09.12.2025 13:44, Andrew Cooper wrote:
+> On 09/12/2025 12:24 pm, Grygorii Strashko wrote:
+>> On 09.12.25 10:59, Jan Beulich wrote:
+>>> On 08.12.2025 20:21, Grygorii Strashko wrote:
+>>>> On 08.12.25 14:44, Jan Beulich wrote:
+>>>>> On 28.11.2025 16:22, Grygorii Strashko wrote:
+>>>>>> --- a/xen/arch/x86/pv/domain.c
+>>>>>> +++ b/xen/arch/x86/pv/domain.c
+>>>>>> @@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
+>>>>>>                goto undo_and_fail;
+>>>>>>        }
+>>>>>>    -    domain_set_alloc_bitsize(d);
+>>>>>> +    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
+>>>>>
+>>>>> You mention the change in condition in the revlog (but not in the
+>>>>> description),
+>>>>
+>>>> The updated chunk was based on snippet from Andrew [1], which
+>>>> used incorrect condition - I've changed it and noted in change log
+>>>>
+>>>> [1] https://patchwork.kernel.org/comment/26680551/
+>>>>
+>>>>> and I'm having trouble to follow why ...
+>>>>>
+>>>>>> --- a/xen/arch/x86/x86_64/mm.c
+>>>>>> +++ b/xen/arch/x86/x86_64/mm.c
+>>>>>> @@ -1119,26 +1119,6 @@ unmap:
+>>>>>>        return ret;
+>>>>>>    }
+>>>>>>    -void domain_set_alloc_bitsize(struct domain *d)
+>>>>>> -{
+>>>>
+>>>> The domain_set_alloc_bitsize() inlined in  switch_compat() and x86
+>>>> PV domain
+>>>> always created as 64bit domain.
+>>>>
+>>>> At the beginning of switch_compat() there is:
+>>>>
+>>>>    ( is_pv_32bit_domain(d) )
+>>>>           return 0;
+>>>> [2]
+>>>> above ensures that switch_compat() can be actually called only once
+>>>> (at least it can reach
+>>>> point [2] only once, because there is no way to reset PV domain
+>>>> state 32bit->64bit
+>>>>
+>>>> this is original condition which says:
+>>>>>> -    if ( !is_pv_32bit_domain(d) ||
+>>>>
+>>>> do nothing if !is_pv_32bit_domain(d)
+>>>>    - for inlined code is_pv_32bit_domain(d) == true, so
+>>>> is_pv_32bit_domain(d) can be ignored
+>>>>
+>>>>>> -         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
+>>>>
+>>>> do nothing if (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page)
+>>>>     - inlinded code should proceed if this condition is opposite
+>>>>       (MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page)
+>>>>
+>>>>>> -         d->arch.physaddr_bitsize > 0 )
+>>>>
+>>>> do nothing if d->arch.physaddr_bitsize > 0 (already set)
+>>>>     - inlined code will be executed only once, so
+>>>> (d->arch.physaddr_bitsize ==/!= 0)
+>>>>       can be ignored
+>>>
+>>> This is the crucial point: It being executed only once isn't spelled out
+>>> anywhere in the description, and it's not entirely obvious why that
+>>> would
+>>> be. Yes, nowadays it is. Originally (iirc) one could switch the guest
+>>> back
+>>> to 64-bit mode, then again to 32-bit.
 > 
-> Yes, this is the simplest approach. I didn’t do it because I wanted to 
-> keep a distinction between commands that are part of the Xen interface 
-> but not supported on the current configuration/platform, and commands 
-> that don’t exist at all. I also tried to follow the existing pattern, 
-> where unsupported commands are handled explicitly rather than falling 
-> through to the default case (e.g. set_llc_colors, soft_reset, etc).
-> If this distinction isn’t useful, then yes, I can definitely just rely 
-> on a default-case error.
+> I changed it in 02e78311cdc6
+> 
+>>
+>> I'll update description.
+>>
+>> Or can add it back as !d->arch.physaddr_bitsize to be safe and avoid
+>> confusions?
+> 
+> Please update the description.  The function really is singleshot now.
 
-Before you (possibly) follow this route, maybe I should mention that there
-have been discussions around this in the past (sorry, no pointers, too
-long ago). IOW ahead of any consolidation (and making things consistent),
-imo as a community we need to settle on where exactly we consider ENOSYS
-valid to be used. My take is that almost all of the uses we (still) have
-are wrong. In particular all the ones for "unknown sub-op".
++1
 
 Jan
 
