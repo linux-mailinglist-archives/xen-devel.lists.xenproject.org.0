@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C39F4CAFC90
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 12:35:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181487.1504522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D525ACAFCB4
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 12:38:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181498.1504533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSvzZ-0005S3-Iq; Tue, 09 Dec 2025 11:34:53 +0000
+	id 1vSw2l-00069r-0e; Tue, 09 Dec 2025 11:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181487.1504522; Tue, 09 Dec 2025 11:34:53 +0000
+Received: by outflank-mailman (output) from mailman id 1181498.1504533; Tue, 09 Dec 2025 11:38:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSvzZ-0005PK-G8; Tue, 09 Dec 2025 11:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 1181487;
- Tue, 09 Dec 2025 11:34:52 +0000
+	id 1vSw2k-00067K-UD; Tue, 09 Dec 2025 11:38:10 +0000
+Received: by outflank-mailman (input) for mailman id 1181498;
+ Tue, 09 Dec 2025 11:38:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lCo+=6P=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vSvzY-0005PD-Ez
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 11:34:52 +0000
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c007::2])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vSw2j-00067E-R2
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 11:38:09 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12cbe32f-d4f3-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 12:34:51 +0100 (CET)
-Received: from BY1PR03MB7875.namprd03.prod.outlook.com (2603:10b6:a03:5b1::10)
- by BN9PR03MB6058.namprd03.prod.outlook.com (2603:10b6:408:137::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 11:34:47 +0000
-Received: from BY1PR03MB7875.namprd03.prod.outlook.com
- ([fe80::2e3c:781a:5f98:7f19]) by BY1PR03MB7875.namprd03.prod.outlook.com
- ([fe80::2e3c:781a:5f98:7f19%7]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
- 11:34:46 +0000
+ id 8895d41b-d4f3-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 12:38:08 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-42e2e6aa22fso2595627f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 03:38:08 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42f7d330b20sm30293764f8f.29.2025.12.09.03.38.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Dec 2025 03:38:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,214 +45,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12cbe32f-d4f3-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nelB+h2Y6vD2eI/5gS+/SGLX1AcVxmbZCjfQhFNVz0SzTGKN82ZrRCh8B8vygYwRjoYQkfwouATh0PKK7xZ7LxZaZ/xNWq+aSINGGn8V0t0h7/P9v8P90VgHQPOg1b9YFb9GGIif42M8SESxv2orgqFKuCQUT3UsBqWYkUDRgrwl68zzzYd/AlElcf6NDMPaaYNTOoK5H/ndozETaF0ZG9SSh7zXkLnVGF5+H6/oAvBNqK8eijk10t0uRcnTTTjgwaalNlB5seP7jED+C95p4Fg4QoC9bTBrMoEGPTkzITYTkIpcIXf34NRccQxvg8acINdd2m5T+hilGTS18IGXFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F8/Y2O7Arm6bAbKSoGDzhoy0307+o5PRtRKvglM+Tts=;
- b=FycJ2c+eNzzCTM1CfVgenpMNrDA+GTDYUOpWzO05/IEv/1fcwdc8M71Nbegz3VBSuNtJIqBOLQe0Az6rXD/vLkSjgRVL8jxMGOf8WNvWfFfuILdWXmaj8z2YlxHRYHdkF6YdS6AWzA7KUo7IZbF53fquxSNB9/nUibky5R7UwLMKuyka+cFpEmnIs91R//X/mKuNFyYptPM4YBsoeZtM0JfjhJY2FVEV4Cf3BottRJcsJYktrcWvhgzxpcUUXminvmHbMZQP1BiXWuq4XZaz/kzNdbwX1m/pnmskQvPY2KMOJdd1ykkCEltasVtoUwcl+I3kjA5QNZIZsaW1f5CBig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F8/Y2O7Arm6bAbKSoGDzhoy0307+o5PRtRKvglM+Tts=;
- b=FpMkfjHKxX/yOqKJoCGySKSmhl4OZyqnnJ/cfH1FjakCkUhy6VLwrd+hzlT8e8ErkGk8X+s8B2Weru6PTZRVEML8S51FIu9n3XUxgpGdC9MvXjkZiH+n6rsBv7UTi5v4Zln7fc+f/rzNXLz23Q4ExpUSKTPZnKEenMmbR6UfRwA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 9 Dec 2025 12:34:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH v3 7/8] x86/mm: update log-dirty bitmap when manipulating
- P2M
-Message-ID: <aTgJUvqTIQRc66L_@Mac.lan>
-References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
- <d47d01dd-0289-370d-7b5e-bd80f9e0a911@suse.com>
- <aTLjwbcm4fjwNJfb@Mac.lan>
- <b03a8039-e4b3-42ff-9781-031bf68ccb72@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b03a8039-e4b3-42ff-9781-031bf68ccb72@suse.com>
-X-ClientProxiedBy: PAZP264CA0100.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:1fb::9) To BY1PR03MB7875.namprd03.prod.outlook.com
- (2603:10b6:a03:5b1::10)
+X-Inumbo-ID: 8895d41b-d4f3-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765280288; x=1765885088; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=sfGTAzmOGepjRtubgeW/98EheXXXw06qLmTB8PXQAFA=;
+        b=egf6kJHWW/47VmpBX9Yml6IonP9muqyfyz5A8IymXcpqWSvc5pgUVLSihakqTKoeeO
+         nf9eqyJZa5AhfvTAZhj6HWiKmuV7UIocICGhWZyxI0TfCbQRLq/2wJh2KNuiZX0GF3tp
+         Myisr6KoTg4fy8mS5/SL8VL2rqe9BH+jEl5XwePWCAvewRTgWlJjnHiYLoEEGgC2NlQ8
+         wc9b4rh4dVE80VsRJ4FkCAfuvBAZHW+CM6JwheMk71N0S4Ss4MYIKpBa4Y1CKySWpXA9
+         p71Vp+OtEbJaOfoepNLa5g+mUN+NbeXRyE4E8HR8FdLU7T8FztW/N9ZtnM1mG834HO2Q
+         60dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765280288; x=1765885088;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sfGTAzmOGepjRtubgeW/98EheXXXw06qLmTB8PXQAFA=;
+        b=eF7BaeKnZcJ96wvux4O2UhPnjhzAY0INgLEY7a1EksZQNgEfmtHDF9dY/QS5acMS1w
+         oqEGDfeBohwlBS4+D4Pq4ZYTlU6VcVxxhoEj1kUE464cNhGmH+Xxc2WiyDn6vxhrCPEc
+         Gzz8aWQJAgBxV1H1QSkY+RrC7ynUBj5L/jCG5lknod811sjt2VEIH4s7/DXrwupME+hb
+         aAqXOPccNwDxMUkjfkWT6Kg4hKRv31QF6o4wa6o79y9oiFhnhYNWKQHc9mkOpPTAJ1rT
+         pdfRN1TzyZP/ebMP92IdQZQViyVKLsjIy24ruhKuKXIMsXNoDC3qvfgYWbJgQM10KPLe
+         OzkA==
+X-Forwarded-Encrypted: i=1; AJvYcCUKK5g3ENPgdjREPbzpIZxiiLb4ojG7+Ttsed3AFL/l3BZhsvj2vhW8QDRE6t00dFBtTvutqLtDssg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1Ab/NAe1xEE+r7LddP2YbiExsp6fbH8QMlDuQH01NaVC8xxGC
+	mbUxZzX/X1eJv2WlQxbN1zm33O3efmhz8SweeRe7TOitpn70gzqNgfymRGOgv1hpyA==
+X-Gm-Gg: ASbGncvrGl6TSsTeZupIzBkIQvxcdELjrnLPldkTMS8FwcHh+i1cuXaZ7FSwXisvtqu
+	/+EGt5Wwgo1KSEE2rsCzG6FHZq1/xcQnQgcVq5r1fiYbaTNtPEbMaN8gEqaCzF5zXwRISIoBxgU
+	cCcooSBuGPSTEGkbYT+L7JV6rqiq7iTLaKxbZii1VcAXC2iFVqrEo9xVv4p3tXyIMauh7l+fzzE
+	gZ3xSmBgsJljrH/yEjeDxJlhy9uO93wk/uQ39+mYjfHROmplZFlRlEtro4v7cusTTB9pI7yops7
+	mpa5h524UppTXurIxRFeuBMoh9jf0QCrasDu4BRaz/UOvYrmlj8SAkG9lliyBGkOBlcQnwdBIYx
+	Nb+p+6PipI8Lb8I9bKTfxIzzacNpjFQdUa+9YVmrmckV7bJZmxJ72IxGCZ1hUsp7VA4G/8aBilF
+	h96cTtTRGfcdooI6PVnlG5VsxcbEhiF97wPx/Cm6wMZU4+yTSUPVGKQQb4xU2+JbhnGpiKvEMGE
+	Gs=
+X-Google-Smtp-Source: AGHT+IGyeW2NX/e2wMXOHzrC/6ypCmtshFmXHiiW/Iv7frhoz92kVpfzDqImT3CshvEftCQu2MkPxg==
+X-Received: by 2002:a05:6000:40c8:b0:429:b525:6dc2 with SMTP id ffacd0b85a97d-42f89f1419dmr10680409f8f.17.1765280287632;
+        Tue, 09 Dec 2025 03:38:07 -0800 (PST)
+Message-ID: <69dce344-4dee-4778-99c2-0621c4e17cfc@suse.com>
+Date: Tue, 9 Dec 2025 12:38:06 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7875:EE_|BN9PR03MB6058:EE_
-X-MS-Office365-Filtering-Correlation-Id: c789119d-d2a7-46f0-26f7-08de3716f4a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eExKNDZIdTNjdXc1Q2dqbks0WDh4QVVaMUhLWGVEdHNPcVJGME84QzBScVZG?=
- =?utf-8?B?MTJpZDdIbGxYOEp3TXhtK1ZWbEF5OTY3RXBFMklGbnZTOXVhM3FMZ05kd1hF?=
- =?utf-8?B?RlVNZDFPNVZIM3VzKzR0NEFFYklQamJucDRPMWhUYmt5KzZFOEVjS2lLc0Vz?=
- =?utf-8?B?b1RmSVE1ZUxTRGJGS3lTWE9RWGdSS3JtRWhUbk9McDVObjc4UmVqQTluc2NC?=
- =?utf-8?B?TWJBMjhnTGkzWjNNei82b1lYeUpxem5Gc3UraHlHUEJkOGd0WXJZMGVRQVdl?=
- =?utf-8?B?RStQZjN1NTIzdlFSKzNqTWNmLzBmUFVhTGRvdzdFbmZXMDQrUWhrN2NGVXNk?=
- =?utf-8?B?OGFlR1gxaVNFTzdEbERqVWhhcm8rdDgxeW50RUp2cm5yZWhldFRJYTBFaEsx?=
- =?utf-8?B?OUI4YjZLM3YrdnRTMnZ2cFJGU0ZrRlg2YjdkQTJaTUo3NGVsYm5MK3lYM3p1?=
- =?utf-8?B?SmZnQmFoVEdUMUhvR1BHa2ZURnZTenFqUkxXQnU4ekRtdllxNXQvaVkraXVG?=
- =?utf-8?B?OGUvQXI2L0I0QkxIbEFGcXRJenlxTWZzZ1JSK3F1WncxRml4SkFBaUpNdmFh?=
- =?utf-8?B?UWQ1cXNQV29FTVdJT2hNUk5tZ1NKRkpGREI1M09lU0xiS0FXQVBFM0Yrc3pQ?=
- =?utf-8?B?V2Z5TSs0aDZMb3VNV1M3Y01PZ1ladkpaUndPa3V3Q1I3b1pnOTg1ZUZmSkUx?=
- =?utf-8?B?NGhLaytYcWJGT3FGQkd2ZFA2YnhkSWlOOXJTbXF5eGRpalZvUXNORlNkSTQy?=
- =?utf-8?B?V29IYmtVU2Q1V2ZEOEhvZDFpbWxIRkFnMmJOc28rUzFKUUVudVppVzFXRWpD?=
- =?utf-8?B?c1BFUWxCd0lCSVZtUGdkcHJKNXkzTzBSQlV1TnViTHhVN3ZocG5UbmErUjJ3?=
- =?utf-8?B?SWZ2aWlBMGJ0eEpVcjAzb0hkSGJqVGdMemRPanNBWENWbXNkK2pxLzd5cHdr?=
- =?utf-8?B?R051dFdzclpLUVVkeUxXN0V6d3MzMGpKSWVmN2xPUSs2TDVVdG80alNwQlU1?=
- =?utf-8?B?M3pHbm9mQzRPRDREaUNGY1kvR2c1QzA4NHU3TU1ZR2xIY1R4T3BDWXJtbCtw?=
- =?utf-8?B?RzIwL0QxbWxaRTZyN2xQblNDakhmckh3TExjWUU2N3Z3SVVHbU90VFRyd3dI?=
- =?utf-8?B?ZE90R2xIQktLbXllOXVGalhZQzhORlEwZnNnTk9HSkZUNWZhMGV5dnRJTzB2?=
- =?utf-8?B?TEtqa0hCWGI0MzU0cEwyNk1sN3JSalYxcWdaS3gvQ2ZyS3k2S0FnbWdMWVZK?=
- =?utf-8?B?aWQ3Mk9sN1Z4RnFGUldNQkZhdUprWUhpSHZscDVzQnp4S0FBREZTUlBhNkI0?=
- =?utf-8?B?a2xYb2R1eW9MK2VtNUlldFptbUpnWEttL0U0SHltOFg2NEdWYnV5a3RCSWNk?=
- =?utf-8?B?Q0MrOTJmODF1VjVwS2tPOEF0T2pyRkZBMXZaU0IzVTZZckZybzFCY2xkcE9m?=
- =?utf-8?B?Z1NrSzNnUGFZemhmLzhKOGxubGVRZGgvenVIdkFFQlYxSlAwbXh2WVF3ZG9z?=
- =?utf-8?B?RWZNS3NBUmFMS29jZUNGNldEM0FIQVd3VHFSNTR2ZUUxWHcrRjZUUHNGbW1I?=
- =?utf-8?B?ZWx6UGI5bHN4ZkNuTWdGTXhKQkJSUXRhZzJ1eFFxcUxoUmpZQWJ0eGRONVBT?=
- =?utf-8?B?SThCRExGVitYUTRweldML0dudlpjbXk5RW9RQkxXS2VPWWdqSlVSRVhiV1ZQ?=
- =?utf-8?B?bTRVUHFrbDk3dWxuYTRzK0s3MVhYZnoxa0FlMm1VMUlPV3g1REtsTnBNT0FO?=
- =?utf-8?B?aURYUGJyRnlkN1BXOWpxancyQnpVMm1YaHQyRzVWZFoxR293WFdZMEcrTyti?=
- =?utf-8?B?SmNYZTlYT2Nyci9PZGhJRTc1c1ZvYlZyanF4b1dlM0VCZFBZY1VncDBDRlVL?=
- =?utf-8?B?SksrcXgvZGhyTDdVN1ZjMkIzUUQwV1Bnek5scmozVUdHLy9tdWh6YWxVVkYv?=
- =?utf-8?Q?Y7tAwR0EyIZPm/utbxjlTWfcTAFPuR28?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7875.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEpVZjVtUEpWbUIwU2Ixd0lLcEp3QUdPSXhOQjA5MU1laDE2U2lOZzUySEF0?=
- =?utf-8?B?RThzTVhQUGpocVF4V2YxaWpwSTdnNmoxMnE0aDVpNHNIcVE3TjNScW9NOXZx?=
- =?utf-8?B?OExUMGR3RUpxb1N4SVRMSUc0dE03RHdtN291YUdJTXhCRlE0Q01NRmZMRkFI?=
- =?utf-8?B?eDZ2cmpHT1hsd3JuQnlPbVhXbnVOTjVrMHdncnNROUkxN0ZCdmdFWXVRbUNS?=
- =?utf-8?B?SHltamxlU1J1c0lkbFMvV2MxU0VVRjBFUXNDSUp5KzAxeHM5T1Z4bFloNUh4?=
- =?utf-8?B?NUZXaXRmZHRPcytSWnRhbklwME1nbEZhajFRL3FLZnkvdjRaakxKVXp5SXYv?=
- =?utf-8?B?QWJZVlBVeVMyTjhoMDF1UEQyNlNoSk5SZ2hzeVlMUU11RWM1ZlZCbldYYmY4?=
- =?utf-8?B?Y0lHZFU3WkphSnl3Z3NBbDVWbXJKenJIeWQ2UVNBalpQYWZIN2NybG5XOEpn?=
- =?utf-8?B?RnR1aVQ3c0RTS3F3cHh5dk9kQTBDUytLQ1ZqMk04QWRaKzlZclN0NmtMYjJx?=
- =?utf-8?B?a2x5MnNTd1YwTjBrZko4OWpKNWFFc0lIM05mUTV3akNyekdydWRBdGVqZXBV?=
- =?utf-8?B?K0NyeVR6VGNuSFFoMjkrbGloWUp1b0twSU00N01ySVdTRkh6aXNjQ0wyNTV1?=
- =?utf-8?B?d0p0c2E1c2lZNnhzeXZqZUZhdnRjRmVSTVFicjZSMnRxT2JJa3BJQUxRbVpF?=
- =?utf-8?B?VlFqUWpQSDQwKzZOZ3BwV084QTcyTnBFR3cwcHY0RDZOb01ZWUZqVzRGaUlM?=
- =?utf-8?B?RW1oeVpjcm8waUhRR0VadVJBNmZSYURJOGdJMHB2TVhIeTJGQkR0R3o1NzdF?=
- =?utf-8?B?NnZlTjZsTnFRQ2tSQlY1eElnOU5IMXFoU3dSbDE3cGVCajUvSTh5QnFjN0lr?=
- =?utf-8?B?SlRBNGc0NnN3OU51NlFUQkVYUFJiNEhPSk0zMlFaL1BVU0FzbjliYTJtVG9R?=
- =?utf-8?B?Sk1iQlBzSlpDN041TkNHYkp0cVlMRFRjQys4cVBTenF2ekJZbXlHZXMwbzZN?=
- =?utf-8?B?Vkw0dVA5UUNsRkpyMDJMaHNCTWFPejgyYlJGVk0vZWQvSTFER3IrckJhNE54?=
- =?utf-8?B?eGhKU0lJN1Vjam40dlQvdmx4WVVpaWdvNWw1MnNWdmZuVkNYaUV6WkVWN2pS?=
- =?utf-8?B?UVRQejVEYkV4K3J3TXlEcXo0cC9HZk5UNXU4YndoMVM4aUE4MFErZE4vNHVa?=
- =?utf-8?B?ZVhNa2NlejREK0thSUlTOVl0b0NSSzBKOHpJV3RYbkF5TEh2bGxUcHFuNTBC?=
- =?utf-8?B?UzRrMytRb3VvdW5HYitHc2NET09TTjIrTzFodUVJc2NIMGZiUXJrRTlGbk51?=
- =?utf-8?B?R1BTbkVFK21xRUdqWVBRU3I1eE1DeFNuTVJhNnBJbkg2NlE3eFlLVEwxS2JM?=
- =?utf-8?B?VzNZTFRRaVUweEErZGNLeXFiY1RkbWlDZDdDZHBrd3N6S3ltem9FYy8zcWFF?=
- =?utf-8?B?OXNqQ1kwOHM1NXRUTkF1VkQxSG5POTkweXpZSWdGbk0wUHQzN3ZETmRsVW5v?=
- =?utf-8?B?L01ONGtkc0pJNCtJemJBNGVXakw1dVd1L2k5UXVIWlRaUTA2TGNVVkJxaUtZ?=
- =?utf-8?B?dU1tWG5Yb2U1dW5PQlZQeXRTM2M4dW1WUVhtbDN3amQzQlY3aTdKd2QvMFQr?=
- =?utf-8?B?YkYxQ1FGQjJSSXJHdHlraFFFZkhJSXhqazloV1k4Z1duS1JuS3h5V2hiR3BG?=
- =?utf-8?B?Nm96SGlxa0FSa1E0a3VyYmVRYW5FcmpuK04vYmJPem5FclZtdjZxS0twemNW?=
- =?utf-8?B?cHIvYTkxTllScUtBZzlIazhTb0VGaTB4azNVZ290emVJOXRRMXNBMFFkek9t?=
- =?utf-8?B?WWRLR0RYazRXQldVekhSNk56VmVnV1U2djZmTDhCN1lvbDdHVTdjMmpncnNi?=
- =?utf-8?B?V0RhUXhlRmdTWDBpZC81alpRb21vYjRSdlNaV1Fmc2VuMTJrYUZ6UWhhSnN1?=
- =?utf-8?B?bGk3LzBRZVdWbjBVbWFOTmRDYklTSVQ3YkhIdFQwZE8rMUFkTE1CZ1VQZUdD?=
- =?utf-8?B?WmVBaGlEYUQ0V0ZObFhjRit5cHJrS0dRelo4aE1kcEtSbURHZE1mSEM5ODVy?=
- =?utf-8?B?SUd1dlkzd2dka1VMM3FzUUFTd1pUSkkxaVcvSVNVc2tIbnBuTjI5RUNFcXFy?=
- =?utf-8?Q?VTKXjkgsr9J5dbhhrr9+x3b/f?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c789119d-d2a7-46f0-26f7-08de3716f4a3
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7875.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 11:34:46.8654
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qfl13DOrox7rDSUunRjQHpn31rnsZp061fxY8A2BpIhC3Uqzzoz8rjIw5ZF0rhor6RVL6XXXosdd7zG4b/59LQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6058
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 18/19] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <48a58cde3de6a459885465c6d29d00d046ae4a37.1763986955.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <48a58cde3de6a459885465c6d29d00d046ae4a37.1763986955.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 08, 2025 at 11:48:00AM +0100, Jan Beulich wrote:
-> On 05.12.2025 14:53, Roger Pau Monné wrote:
-> > On Tue, Apr 26, 2022 at 12:26:10PM +0200, Jan Beulich wrote:
-> >> --- a/xen/arch/x86/mm/p2m.c
-> >> +++ b/xen/arch/x86/mm/p2m.c
-> >> @@ -549,7 +549,10 @@ p2m_remove_entry(struct p2m_domain *p2m,
-> >>          {
-> >>              p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
-> >>              if ( !p2m_is_special(t) && !p2m_is_shared(t) )
-> >> +            {
-> >>                  set_gpfn_from_mfn(mfn_x(mfn) + i, INVALID_M2P_ENTRY);
-> >> +                paging_mark_pfn_clean(p2m->domain, _pfn(gfn_x(gfn) + i));
-> >> +            }
-> >>          }
-> >>      }
-> >>  
-> >> @@ -737,8 +740,11 @@ p2m_add_page(struct domain *d, gfn_t gfn
-> >>          if ( !p2m_is_grant(t) )
-> >>          {
-> >>              for ( i = 0; i < (1UL << page_order); i++ )
-> >> +            {
-> >>                  set_gpfn_from_mfn(mfn_x(mfn_add(mfn, i)),
-> >>                                    gfn_x(gfn_add(gfn, i)));
-> >> +                paging_mark_pfn_dirty(d, _pfn(gfn_x(gfn) + i));
-> > 
-> > Have you considered placing the respective
-> > paging_mark_pfn_{clean,dirty}() calls in p2m_entry_modify()?
-> 
-> I didn't, but since you ask - I also don't think that's layering-wise
-> an appropriate place for them to live. Whether a page has to be
-> considered dirty needs determining elsewhere. No matter that ...
-> 
-> > There's a lot of repetition here with regard to handling the side
-> > effects of p2m changes that are forced into the callers, that could
-> > likely be contained inside of p2m_entry_modify() at first sight.
-> 
-> ... this way there is some redundancy.
+On 24.11.2025 13:33, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1061,3 +1061,186 @@ int map_regions_p2mt(struct domain *d,
+>  
+>      return rc;
+>  }
+> +
+> +/*
+> + * p2m_get_entry() should always return the correct order value, even if an
+> + * entry is not present (i.e. the GFN is outside the range):
+> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+> + *
+> + * This ensures that callers of p2m_get_entry() can determine what range of
+> + * address space would be altered by a corresponding p2m_set_entry().
+> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
+> + *
+> + * Therefore, this function returns true for GFNs outside range (1), and in
+> + * that case the corresponding level is returned via the level_out argument.
+> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
+> + * find the proper entry.
+> + */
+> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
+> +                                   gfn_t boundary, bool is_lower,
+> +                                   unsigned int *level_out)
+> +{
+> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
+> +    bool ret = false;
+> +
+> +    ASSERT(p2m);
+> +
+> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
+> +                  : gfn_x(gfn) > gfn_x(boundary) )
+> +    {
+> +        unsigned long mask = 0;
+> +
+> +        for ( ; level; level-- )
+> +        {
+> +            unsigned long masked_gfn;
+> +
+> +            mask |= PFN_DOWN(P2M_LEVEL_MASK(p2m, level));
+> +            masked_gfn = gfn_x(gfn) & mask;
+> +            masked_gfn |= (is_lower * (BIT(P2M_LEVEL_ORDER(level), UL) - 1));
 
-Redundancy is one of the aspects, the other being IMO code more prone
-to errors.  Having to do all this non-trivial extra work after a call
-to set a p2m entry, both in the success and failure cases, seems
-likely that it will be forgotten or incorrectly implemented by some
-of the callers.
+I fear I still don't fully understand this. I would have expected the same mask to
+be used for setting / clearing bits (once inverted, obviously). Why would you clear
+only some of the lower bits in one case but set all of them in the other?
 
-It's you doing the work to fix this, so I'm not going to insist.  It
-seems a lot of extra complexity duplicated across multiple callers.
+Overall, this alternative of clearing / setting of bits may also better (more
+clearly / readably) be expressed using if/else or a conditional operator.
 
-FWIW, it would be easier to understand if we had the logic to mark
-pages as dirty in a single place, rather than scattered around
-different callers that do p2m modifications.  For the time being I'm
-fine with doing as you propose, but long term we should see about
-cleaning this code IMO.
+> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
+> +                          : masked_gfn > gfn_x(boundary) )
+> +                break;
+> +        }
+> +
+> +        ret = true;
+> +    }
+> +
+> +    if ( level_out )
+> +        *level_out = level;
+> +
+> +    return ret;
+> +}
+> +
+> +/*
+> + * Get the details of a given gfn.
+> + *
+> + * If the entry is present, the associated MFN will be returned and the
+> + * p2m type of the mapping.
 
-> Furthermore p2m_entry_modify() also isn't really suitable: We don't
-> know the GFN there.
+There may be a word order issue in this sentence, or there are words missing
+at the end. It more likely being the former, isn't the order being returned
+also worth mentioning, ...
 
-For one of the callers there's the GFN in context.  For the EPT caller
-it will likely require some plumbing.
+> + * The page_order will correspond to the order of the mapping in the page
+> + * table (i.e it could be a superpage).
 
-> >> --- a/xen/arch/x86/include/asm/paging.h
-> >> +++ b/xen/arch/x86/include/asm/paging.h
-> >> @@ -165,8 +165,9 @@ void paging_log_dirty_init(struct domain
-> >>  
-> >>  /* mark a page as dirty */
-> >>  void paging_mark_dirty(struct domain *d, mfn_t gmfn);
-> >> -/* mark a page as dirty with taking guest pfn as parameter */
-> >> +/* mark a page as dirty/clean with taking guest pfn as parameter */
-> > 
-> > I think it would be clearer to use gfn here rather than "guest pfn",
-> > and the function parameter should be "gfn_t gfn".
-> 
-> For HVM I'd agree, but please see the one use for PV guests. As per
-> xen/mm.h gfn == mfn for them, i.e. we particularly mean PFN there.
+... since this really is a separate piece of commentary?
 
-Sorry, I now realize.  paging_mark_dirty() takes a plain MFN, while
-paging_mark_pfn_dirty() takes a PFN.
+> + * If the entry is not present, INVALID_MFN will be returned and the
+> + * page_order will be set according to the order of the invalid range.
 
-Thanks, Roger.
+... and type will be "invalid".
+
+> + */
+> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+> +                           p2m_type_t *t,
+> +                           unsigned int *page_order)
+> +{
+> +    unsigned int level = 0;
+> +    pte_t entry, *table;
+> +    int rc;
+> +    mfn_t mfn = INVALID_MFN;
+> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
+> +
+> +    ASSERT(p2m_is_locked(p2m));
+> +
+> +    if ( t )
+> +        *t = p2m_invalid;
+
+The sole caller passes non-NULL right now. Are you having patches pending
+where NULL would be passed? Else, this being a static helper, I'd suggest
+to drop the check here (and the other one further down).
+
+Jan
 
