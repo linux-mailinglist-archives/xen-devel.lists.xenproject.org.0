@@ -2,54 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3010CCAF930
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:11:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181343.1504403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C65CAF927
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 11:11:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181344.1504412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuh6-0005SV-7F; Tue, 09 Dec 2025 10:11:44 +0000
+	id 1vSuh7-0005fJ-Dr; Tue, 09 Dec 2025 10:11:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181343.1504403; Tue, 09 Dec 2025 10:11:44 +0000
+Received: by outflank-mailman (output) from mailman id 1181344.1504412; Tue, 09 Dec 2025 10:11:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSuh6-0005QC-49; Tue, 09 Dec 2025 10:11:44 +0000
-Received: by outflank-mailman (input) for mailman id 1181343;
- Tue, 09 Dec 2025 10:11:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/rha=6P=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1vSuh4-0005Q6-ES
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:11:42 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7484683d-d4e7-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 11:11:40 +0100 (CET)
-Received: from DB8PR04CA0001.eurprd04.prod.outlook.com (2603:10a6:10:110::11)
- by VE1PR08MB5677.eurprd08.prod.outlook.com (2603:10a6:800:1ab::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.6; Tue, 9 Dec
- 2025 10:11:32 +0000
-Received: from DB5PEPF00014B9E.eurprd02.prod.outlook.com
- (2603:10a6:10:110:cafe::d8) by DB8PR04CA0001.outlook.office365.com
- (2603:10a6:10:110::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
- 9 Dec 2025 10:11:32 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB5PEPF00014B9E.mail.protection.outlook.com (10.167.8.171) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.8
- via Frontend Transport; Tue, 9 Dec 2025 10:11:31 +0000
-Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
- by DB8PR08MB5307.eurprd08.prod.outlook.com (2603:10a6:10:114::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.6; Tue, 9 Dec
- 2025 10:10:27 +0000
-Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
- ([fe80::b27c:9593:1074:949d]) by PR3PR08MB5593.eurprd08.prod.outlook.com
- ([fe80::b27c:9593:1074:949d%4]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
- 10:10:27 +0000
+	id 1vSuh7-0005eM-AR; Tue, 09 Dec 2025 10:11:45 +0000
+Received: by outflank-mailman (input) for mailman id 1181344;
+ Tue, 09 Dec 2025 10:11:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vSuh6-0005QX-DI
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 10:11:44 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 754829a2-d4e7-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 11:11:42 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-477563e28a3so39229535e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 02:11:42 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a7d6eb1f1sm31214155e9.2.2025.12.09.02.11.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Dec 2025 02:11:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,241 +45,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7484683d-d4e7-11f0-b15b-2bf370ae4941
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=ChRjUdj9IsJFySsK/IPpFnAisGWBwXnHoOkagBLe1nBSwAfG5xhLY5YoTuJNZ14wL584kuCW2deEpUF37mpywOrWm+G16iO62UNDsJ3PuLnVVAXSKVreQLHutDVSiJdp5gXR3+xxil4yomzHYSy9j6qTCpkyDDUQXygBYWVsocea3lBbooSrqcHqSyarLpntlRkp3UZSmisib+cq6xRyRpaoEgwX2J50mhzNEEcGj3CKfQXlEfWTIDMaA7Fh/QByTxUQ0EOxYKCgqOIAkJMxCpaLlehICJcEdtcxLHqLuzLzcQKtiTEaffxfErjIcWRrJ9mx4SMmoGj7SLmme8Op7Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=et+xaRsON/DM4yFtAoptGyCY3LG1XOk2ch8yrqMsHrQ=;
- b=LkmZQRDEh0iKAQ4/bH5AjsfFWPJ+TxSPh+SzZrqY8Xqa9RQPQ5wwYqgmlr3ddtnU9hdD/OBN0zCQT06JItGbVRlruNUd4uFQFna03GGm7an8nF4PPwy2eUDiQZ+GOT5IV/MZodPRHp+UyS7vSVbTsa3W1nah0Zt1/BTPCcvQ6gpDtLBsjrMDJyKUOdRlqa3YzS57q7O1BmWxXOxps+BwADQGF2MABp+OuOeW3moF/piAfoR0LHiQc8K1oAbdLyMkQq5+cvBKBwS5tBzdCKw9Q310HJnOnmEgXLLV0p0eCD7vtbMvzfkV/FiuS/O+98xsfkZkPDnL77lD2HF0DUM62Q==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linaro.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=et+xaRsON/DM4yFtAoptGyCY3LG1XOk2ch8yrqMsHrQ=;
- b=eOT/gNFA215I3nGBH7m6uygEip33mLZ7Ob+3jnL8RNUPz2IDojNLBEcFoc3PJOHSnCrPOC7gM8YAy6CpRNS2lNR7MDU/tlleqZ39SSFQM265SCR7xHzT7UtuGIrY80T8GIQYMNyWwVZf3PV01hejetate38aPnq6uyYT5yBBqM4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YB20o/HhlZCpzzZ5Az9QAA3aIoZj7PpRBJ5urnEg1/wi7tHlWQt8pUawKi35LorBtGDlzTtCm/vzCG7pAuhEvNgr0oKrCM//WoInu4ANIJyY2rHx2xMNVKuL5oLz/SEfZVPY7Jf1CVozZQbz4Hp3hlbDXEn0vW5HFCDRVmDdij/rQ7rlYGI/wOfqMDChbu2sDO+1fmvKmMYYgfDaL8gHaZ0vUxO2xZZoOFdeyH24RBMEy20Li2s1alo1Zdp7t5Q2GBOppdAiOka/7mWRnoOyO9oK/R1hyWtinFZJVdmDgI0rH5C+106BoFhdQe6tQAgDTjlHoX6Yq1HamgXcYr0mtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=et+xaRsON/DM4yFtAoptGyCY3LG1XOk2ch8yrqMsHrQ=;
- b=GWIC4k174aKm3Jtpd3ip92Dne/6C9W8a3BN5kANWLQ+O8prHMSZRMndjSAgzpvagnUaaAhgDg6lzEBeNEhecKp8w3rjNNoAab6xJAFI+29Ex1O73xUUzUm4qDSgj9Tq+FYdl25skNtyQCQDIh9a9tqqD/5Pcf7eSaXNAWqMqa2XMkq6Ym9dWNFwiCD5Y+W80SI1/U/NYvVyuaHHeWgxKfiiXkoiYzq+9+IE5JpB57ZglvTH0PJjs/4JWQ78H0AXHmoVFvendPmKjYs/UW1wn86daVJ0tYRSgulW7WKL4ZqVnLaeWjEhtGSIIsdo1+UGkEZkV1yh4vJ7kH+JJK4NoOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=et+xaRsON/DM4yFtAoptGyCY3LG1XOk2ch8yrqMsHrQ=;
- b=eOT/gNFA215I3nGBH7m6uygEip33mLZ7Ob+3jnL8RNUPz2IDojNLBEcFoc3PJOHSnCrPOC7gM8YAy6CpRNS2lNR7MDU/tlleqZ39SSFQM265SCR7xHzT7UtuGIrY80T8GIQYMNyWwVZf3PV01hejetate38aPnq6uyYT5yBBqM4=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel
-	<michal.orzel@amd.com>
-Subject: Re: [PATCH v1 03/12] xen/arm: ffa: Fix is_64bit init
-Thread-Topic: [PATCH v1 03/12] xen/arm: ffa: Fix is_64bit init
-Thread-Index: AQHcZdM4PJInZ7Ib+k6qqA68hny4k7UZGx8AgAABQgA=
-Date: Tue, 9 Dec 2025 10:10:27 +0000
-Message-ID: <C518918D-1CAF-49D6-BC94-CACEF409E46A@arm.com>
-References: <cover.1764930353.git.bertrand.marquis@arm.com>
- <697ab9880767b75c9964ae900a43fd4e065fc502.1764930353.git.bertrand.marquis@arm.com>
- <CAHUa44E+Cgs6WeuSyYi=r1BCzaYN+f9MBoSudyLxkU2LeGxzXg@mail.gmail.com>
-In-Reply-To:
- <CAHUa44E+Cgs6WeuSyYi=r1BCzaYN+f9MBoSudyLxkU2LeGxzXg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3864.200.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	PR3PR08MB5593:EE_|DB8PR08MB5307:EE_|DB5PEPF00014B9E:EE_|VE1PR08MB5677:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6120fff-ba32-4b8e-dade-08de370b53a1
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- =?utf-8?B?cjhYNjFOZlhWSEhwaFh4dy9iTGRrVGtoVzREVmUyUTdmL2JWbXBlQ2dJTnc1?=
- =?utf-8?B?eXJZblZaWmtJejRjK2dHS1pZcTZDdGRpTlZZRFBUZzk1M0J6S1BnRVNqK0xS?=
- =?utf-8?B?SGpJNUt0NWZuaW1ZQjlYRjdvYW9Yc0hJWjIwZkJ6Q05jTEc5clBLTjVIeFcv?=
- =?utf-8?B?dm9VWXBPcEU4THFFY0lLODVJWWROVkpOUW1QbFQ1c3pmMmpmWHFvR3hmNWNS?=
- =?utf-8?B?UUNVVDh6QXNZeFhwcVpZSGdGbExGbFZ1eW8wSjFNUUpyMUp6Vm53R0JGMm1E?=
- =?utf-8?B?L1kwRCswbUpNb1BsZFNLNllqSHVyNG9qUzJpSkZGQ0lRN1dqRit5MndJbUc3?=
- =?utf-8?B?Q0hlbE5XRVFaK0hGTVhsWUgzRHFFSmJIeEJ4K3ZDMWR1Vm5uazVrNlExTy9a?=
- =?utf-8?B?ZDVRa3BSOE1QcHFuZklkNlF1aTB3VFFxaFlVRy8vekkrSjVNQ05vTWk0dnd0?=
- =?utf-8?B?bE9IUWdVWC9pR1owOG9VOFZUUWlJR0lLUy9XcVFnWVNwb25JbFFyTmxQM2Yv?=
- =?utf-8?B?QWxUUDV3QTFhWGFoYVpmRDNOQlFwemdFNkZtek92QTc3bm8xRzJWcmh5Qlha?=
- =?utf-8?B?eFFxVHJmRDdGSEpOdmh3SVQ2SlIvWGpkVmRpVXpTVXhLUk1tV3NKenBsZVJG?=
- =?utf-8?B?azJCa3JaUG1NbVJReFRNYVFRbEZKclVMclhqNDUzRmN2ODBsb1NzSmhGMWpQ?=
- =?utf-8?B?T21lc3kxTUVQamk1RW9GY3hvZkNkcXVVSE9acHNSaTdzZTFQMVdrWDd3Rm0v?=
- =?utf-8?B?RHZBSTFmNXhubzVEMEFHcTlBREdOU0Y3ZmpwOEd5dWhCb3ZIMmZlTklURk5i?=
- =?utf-8?B?b1cyNzNXL0I3N2xBRGFQOEZUREVOR0gvT2g0bThRYzdMSXkrcEQvdjcraTRV?=
- =?utf-8?B?eVYybGhaY3lEWmVJbFg0VDE3eVFjL2QwM2RxWktCVUVMNzNJTkVkMnd5Yyth?=
- =?utf-8?B?QTV6eVBBSE5uU21PdjVQd3h1SXg4bnUrYlc0WTBIdjBWR0RxSjZLTjRBSEhw?=
- =?utf-8?B?dU42RUp5UitSZVVpZHVxdnhsR1dvV2pXTUdTSlNsYThueTUzNDBVSWo5SWtL?=
- =?utf-8?B?eFJoSitNQ2kybC9WdGdJdnQyQWpZSlU4KzVqcHVBUmd1ZGdVZkFjeGwzLzFJ?=
- =?utf-8?B?TGpiNk4rQWgxVWhGQm5pZ250R3BSYjd5U0VnNHE1QlVaMnBRMlVrb3JxR292?=
- =?utf-8?B?Y0lCak4wd2RyVVZReUphaFdRWFVoYTlSa2s5MURkcjNZd1VMRGp6UjIxRG5D?=
- =?utf-8?B?UlhhbWxvTW5QM2pBMzBVQjBtQzR1c1VjT2x2Y3kvcitZc0JsMVRvSEIvYzFs?=
- =?utf-8?B?d0hqSG9CVVN3NzQ1OEUrUHR0SkJtUEUxMk9Geit2OVZ0UUFlc2tMcTZOb0ZY?=
- =?utf-8?B?cWdGU0lQUDU0a3NMSW9SYzdSOEtwVldaditWZ0t3d3R4U1g1Vit1SURIMTdX?=
- =?utf-8?B?cFcvcXh3Q1hFY2FXSTI3UE0xdHgzd1g5UlVLSllaakIrd05oMWdob01wTXdR?=
- =?utf-8?B?RTVWRm10T0pTZytuc1dKa2dtOGNmYXkxd1JjMk9sRHlxazB2aG9rbktWUkJi?=
- =?utf-8?B?cHFHbHNJbHlBcVVob01Ic2MyMjdJOXZaQUduVmhFNFFvT2U3NDBTaG9zMmZ5?=
- =?utf-8?B?Ry90S3I0TkZkTjcrWUZtUm1adGFvNnNPeE1BV3ZOQWI3dWIyWDVrUHAyWldZ?=
- =?utf-8?B?YUIyVmVja1ZMSlBGSDBJRzNVWVBlVkZkN2pDbUhpbWJiV2xpb0gvaFNmd0xx?=
- =?utf-8?B?eXZiMmo5RW1PcjFUaFpESnd0RXNGMEkwU0psUzZtMU5TOUtUcXFuNEpUZkFh?=
- =?utf-8?B?SlcxZTc0ZkpZVEwyNFRLNXlIRmp4NUxVZThrUi9UL09oQlpHckR3dXU3RFVD?=
- =?utf-8?B?NnpReGtRMnpSS1REZWdwYTEyaE5YVWVKSkluUEI1SGdyYVc3L2dPQktMY2xz?=
- =?utf-8?B?RkxUSjhScE5XZW5PNHNxcmUxMkpIWkhpWVdQcE5hVkFyT2loN3VZbTNLVzN5?=
- =?utf-8?B?QkZ3TGtKWHYxeWlMMzNidEpxcUl1bXFKMnkzM1lwMlRhSUpEbjkxZHh3Z1hz?=
- =?utf-8?Q?4B9HRh?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0BD59F1DA25F4F43A7218E6AB0819593@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 754829a2-d4e7-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765275101; x=1765879901; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0O+eWn3j79aksQzPv/rMROb15OmEt6zdxjgmz9ezRdg=;
+        b=SXWT2nvum7ASTf3w1TJqVxZle3ypEQEtLO/jcDpa2bYjOJxIPA5jb6EOdj4rBlZU8m
+         RVm6RGWk7nuOCTzRqcBdg8IhHzMI1rba4XbbsJL175AcefCn+ba8z5x3vLpcxnoblslN
+         X7ldXRipalO20l7xTY401MofBVuFtSvqcruo+AS3dPEW3MPVT0WVE7psvCd+NwdKbjKv
+         FAbAQfoZKu/kSTaCixXpuRvPd6U+tLdhv5QKY/mCeYrGYhbF8wQKp3tpDSgCHohLokDg
+         SaK3/v1VxMXUP7YacbDz8NIlDdy21LLdOqNCOIR4RpkYG2pi84R+QroTEWg1dxUn/tg0
+         /c3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765275101; x=1765879901;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0O+eWn3j79aksQzPv/rMROb15OmEt6zdxjgmz9ezRdg=;
+        b=HM1Ds0JqRJ/7DcaVDzuFGG1DRNp4pGu48SjKwyBrIimfKIQQ3/4SvsvY6pKTPcWJcT
+         Y+to97AbpJwysjn3jqEMjbJtgmydRPzTUlU+whcTKu8HZFvD+8hrxeeoGT4P3qeDTUPj
+         cyYp+CpG2hnj+JsUNsn1VgwZcVdw2ywMfbXPparwC6QnrUYI9QPcafiiivRfx0xviMKD
+         SbX7ubSDgFIluyAUSDlM+oapJAZjAUuJosCkBijxlFhOXC/tt4NOscwcZ5fJ0xFwD/YH
+         X+5zDBPcFR1T9AQzzSiMCiTCdAnTresFHUVxNTUkkQBu1CE3FNwrNcOqQmHW5uWTF9U1
+         E1Mg==
+X-Gm-Message-State: AOJu0YwKBYQ39UOjCwrOgwA3GcnaMi88o9e9bkrrVF0P5Z8yRKoOTQsl
+	gmWTwJxBQqgeZj60o2jJ4W1yHquUTEMY0G4orhJD1Vx4O75rNZh3m25gXUOLFjNoSN7Gppif7ur
+	7w24=
+X-Gm-Gg: ASbGncufvNINBtzAKkxJZUMQI7wnGn0OIZC67hJnhqintwldelsb9/m3zOrJvSuxw18
+	DWPaAYis5i1SBzW2AEaYYCEqwpd6unvRMG6eZkFXzvhAXAgsLoJ4zOWhuxWrv6PaXJFBfPu2yFj
+	KFazt9MlbBBRvhquXkWWRaxPuj24vw/TnZZZ22aQmm4V5RdIpjLDfkTyoL2qTzd6ORSRtqA/Qeu
+	mBcEG3KU59UuxYE3Oi+AnHM0v0v1SsilWfsSfOVFal26GXhcR0y0QQLLolZ8JVBOdZyUP6TDAoD
+	EfTXtXcOdZ22NT4RpbdCb24wGrWu3DqB9POSl7jXSBExSprGraDFQ7zuQGdlH9x8Z267AHt/wIT
+	NJEJ9iep7HfAF3AGXgIOok0Zi99sHf2fsV80xQoLzLxsQ2ALUyrVdOKbuRhjzjpkjEcRU4AB8Gq
+	ccxvQHCx4f1hTL6kQxpLm+2HF5CR3mOkw18TGJhfehSt4C8rm1UB/WUJ5bX3DhTOoSTVewWjSeF
+	SQB9TPILtJWfw==
+X-Google-Smtp-Source: AGHT+IHBEruT+4dgX6E3xfLYGXAeUGhAOpFYLd3NfOG2PCAdMFbbmxwnyJm0bH1HQQZ/5gj7Tc6J1Q==
+X-Received: by 2002:a05:600c:1da1:b0:479:3a8e:e490 with SMTP id 5b1f17b1804b1-47a7fa606eemr8656305e9.18.1765275101329;
+        Tue, 09 Dec 2025 02:11:41 -0800 (PST)
+Message-ID: <7e550d03-13c3-4607-bfa5-1a4bd57ecef6@suse.com>
+Date: Tue, 9 Dec 2025 11:11:40 +0100
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5307
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5PEPF00014B9E.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4dfb9c7a-2408-4a6c-76e7-08de370b2d0c
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|36860700013|376014|35042699022|82310400026|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OHhpdHFGZjIyc0RjT1c0aU9zd25jUE1wWlZid014Yzk2SEQ2cXlwY1FwMW54?=
- =?utf-8?B?K3p1c1ptSFNVczlOUnc0NE83MDEwd0RHUjluVmt1WGIwMU5NTDFTci9NOWRw?=
- =?utf-8?B?RVRqK3hZQTJqcjhrN29VWWdmR0RaNHFjK0tpbHA1aXFFdzhHVFgvNzBBU2I4?=
- =?utf-8?B?ZUtDdnpDK2w5ZXdrMzNibCtxR3FRY0dyVFBJUEJWb29JTEhzd0tTVlg1VkNq?=
- =?utf-8?B?UVZZYjR0RHRoZ1pMSVJVU2lNRzZtbzBxRTdFb2VWbHJlMS9yZ3Y1dWlxZk44?=
- =?utf-8?B?VDk2eDJraGJXNEtwL21YUVZEWFBianZqaEhWTDF6bDZyWENpRXUvWURCNU4r?=
- =?utf-8?B?c2M1NG1zN3pCblVXS3EwWE5WOVAxK09oMnZVQkdxczJYUFlmMGM5Wml0OHk0?=
- =?utf-8?B?WHZDbCtxeW5uYld4TEtyNGdqeWVZcktPLzIrWkdKWEUrVmRob0hVZUFrNVFo?=
- =?utf-8?B?a1FUSTNoMW41TWpSVmJ0T1hxL0c2a1VLbWhqQVBHQXAzUlF6TndFcEo2bU45?=
- =?utf-8?B?RTJ6NW00NUdrcFIrVWJsdE84emhpcTVtcHJicGhhNTNHUzVQOWVsUklMMjN5?=
- =?utf-8?B?SjhuTGZiWW9YV3VjendZUUFCY1R3UzU1dVMrR3FUVHo5MkdJWllrUWRIdmI5?=
- =?utf-8?B?U2l4RW0wcnJhNVBtdHE3SlFuSnhzbEZZcjQxamkxVXlwTTJMYXA2RDd0aG8x?=
- =?utf-8?B?NkEwUm5GSGR3a255aWJKd0VCd3JwYVh3ajFOZ1RybE9GeDJxbkJRT25SblE0?=
- =?utf-8?B?QlM5emE2dmd4U3YwbjFSeko1d0hLWnFjWVNMTVdqVlpNMmIrWjVIdDFnWDFt?=
- =?utf-8?B?L2kzM2N6a0R5eWUwN05WZVFYS3Y0Rmc5OU1uMzF5TXppT3E1dUN5MXhwNGRL?=
- =?utf-8?B?V0ZqdmlsWU92SDUwS3ZvWG5UcTdoS1l3clZhNXVacWV1RG5OV0FFWkg3RGh1?=
- =?utf-8?B?VnlkNVNSdjYrbTViODNlaHdiMms3VlR3WE5rdFNUZnJqK294L1J1K0J5TmNC?=
- =?utf-8?B?UHBYOGIxMENrY2RlOGY2YzRaaDdDcml2N2NPNnJSWWxGN3gzd05hZlViY0Y2?=
- =?utf-8?B?TlA3Nlh4U3d3WEVhL0hvUEhQU2RZSU5xdTJDajdjUGpxcWhaejVlQW9FaXp0?=
- =?utf-8?B?c1cvQkhnQ05nblBKQUc0WC9xMnZrUUdPV0YzUHZPd0Y0ZmhkdXF3M1ArTDFh?=
- =?utf-8?B?elc3K1NnbmVmV0lXd1N4akg0Y05oM0hQSUlOcWc2SExkZmFFaC9vTG1hUy9q?=
- =?utf-8?B?TE9MY0llNk9zTmNDZXdxR0ZlR3ExZzlZaWNYa3k0TXRyYXRXMnY4ZkhTK2RT?=
- =?utf-8?B?SVVCQUErVzR4VTZMQTdCanpWQXR6UityZUdGbTNRWHI2NW8vTmFTQWE4UzNz?=
- =?utf-8?B?YVBHaGZuQTgzVFpFUWhFNDgvcHpKRElqTm96TVRmQnFNZG9lVzBlaXVSVTJG?=
- =?utf-8?B?OCtMZkkySGFOSUJNWklDVDdhRHhUWHgzWkE4QUZmUFA3b0o4QUtPWGNiQ2Nw?=
- =?utf-8?B?MHNTSFY0Tzc1ZXNFSktMc2xQS2laU2NEL1hZbzUxM1BYcGlHL0VuWlZLNnpT?=
- =?utf-8?B?cys0bE9yc0oyMGtqaW0zRTlPeE84YUdTQkM1WFpuQzQ1V1AxK2NaMW13Zit6?=
- =?utf-8?B?RWp3VUs2cDRtb1pkSWovb29uUXhZWUY3ckp3QXE1c2NmdzBMYVpoQWF4alVx?=
- =?utf-8?B?Z2Z5a1hySDFNMFZPOTU1SkY4UU9KcXFTQkpqeFVqQUJmc0F4c3I3aUZtY09R?=
- =?utf-8?B?MW5BM0xRdHFuM3B4QjhGa1hCd2tVbU1QZ1RZYmxBY0FNY1lDNXh0aVl1NkdY?=
- =?utf-8?B?dFhMWmVxQkc4b29GcE02dHZheUNrUXgrSHJrNi9ONEpxZzhCS0hnNUFuZmx2?=
- =?utf-8?B?SjIveDlSRmljODdKSm92cUZlMlEzV2xkcTNQajc1NWl5VlZBaDVCYTZwQXhr?=
- =?utf-8?B?d0tMMFVNMGZwUTJGSjA4VTdRUEMwLzk3K3lkU21Qb1N0NFhUU1Ftd2I1V2Jr?=
- =?utf-8?B?dkJhb2d0YmR5cTE1b1dmWG9KSDlWTVNSaHBhN04zd0xNc0ZGcHhsanBIMGl5?=
- =?utf-8?B?djRRZi9Yc29ZL1ppeXZsOXlRSEpwS0oxemdIRWlPTWZzM1QrT2xMTGRaWmQ3?=
- =?utf-8?Q?B0S4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(36860700013)(376014)(35042699022)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 10:11:31.9158
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6120fff-ba32-4b8e-dade-08de370b53a1
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B9E.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5677
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] symbols: check table sizes don't change between linking
+ passes 2 and 3
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGkgSmVucywNCg0KPiBPbiA5IERlYyAyMDI1LCBhdCAxMDowNSwgSmVucyBXaWtsYW5kZXIgPGpl
-bnMud2lrbGFuZGVyQGxpbmFyby5vcmc+IHdyb3RlOg0KPiANCj4gSGkgQmVydHJhbmQsDQo+IA0K
-PiBPbiBGcmksIERlYyA1LCAyMDI1IGF0IDExOjM34oCvQU0gQmVydHJhbmQgTWFycXVpcw0KPiA8
-YmVydHJhbmQubWFycXVpc0Bhcm0uY29tPiB3cm90ZToNCj4+IA0KPj4gaXNfNjRiaXRfZG9tYWlu
-KGQpIGlzIG5vdCBzZXQgZHVyaW5nIGRvbWFpbl9pbml0IGFzIHRoZSBkb21haW4gZmllbGQgaXMN
-Cj4+IG9ubHkgc2V0IHdoZW4gbG9hZGluZyB0aGUgZG9tYWluIGltYWdlIHdoaWNoIGlzIGRvbmUg
-YWZ0ZXIgZXhlY3V0aW5nDQo+PiBkb21haW5faW5pdC4NCj4+IA0KPj4gRml4IHRoZSBpbXBsZW1l
-bnRhdGlvbiB0byBzZXQgaXNfNjRiaXQgd2hlbiB2ZXJzaW9uIGdldHMgbmVnb3RpYXRlZC4NCj4+
-IGlzXzY0Yml0IGlzIG9ubHkgdXNlZCBkdXJpbmcgcGFydGl0aW9uX2luZm9fZ2V0IG9uY2UgYSBk
-b21haW4gaXMgYWRkZWQNCj4+IGluIHRoZSBsaXN0IG9mIGRvbWFpbnMgaGF2aW5nIGZmYSBzdXBw
-b3J0LiBJdCBtdXN0IG9ubHkgYmUgYWNjZXNzZWQgd2hlbg0KPj4gdGhlIHJ3bG9jayBpcyB0YWtl
-biAod2hpY2ggaXMgdGhlIGNhc2UpLg0KPj4gDQo+PiBpc182NGJpdCBtdXN0IG5vdCBiZSB1c2Vk
-IHdpdGhvdXQgdGhlIHJ3bG9jayB0YWtlbiBhbmQgb3RoZXIgcGxhY2VzIGluDQo+PiB0aGUgY29k
-ZSBuZWVkaW5nIHRvIHRlc3QgNjRiaXQgc3VwcG9ydCBvZiB0aGUgY3VycmVudCBkb21haW4gd2ls
-bCBoYXZlDQo+PiB0byB1c2UgY2FsbHMgdG8gaXNfNjRiaXRfZG9tYWluIGluc3RlYWQgb2YgdGhl
-IGZpZWxkIGZyb20gbm93IG9uLg0KPj4gDQo+PiBGaXhlczogMDlhMjAxNjA1Zjk5ICgieGVuL2Fy
-bTogZmZhOiBJbnRyb2R1Y2UgVk0gdG8gVk0gc3VwcG9ydCIpDQo+PiBTaWduZWQtb2ZmLWJ5OiBC
-ZXJ0cmFuZCBNYXJxdWlzIDxiZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20+DQo+PiAtLS0NCj4+IENo
-YW5nZXMgaW4gdjE6DQo+PiAtIHBhdGNoIGludHJvZHVjZWQNCj4+IC0tLQ0KPj4geGVuL2FyY2gv
-YXJtL3RlZS9mZmEuYyAgICAgICAgIHwgOSArKysrKysrKy0NCj4+IHhlbi9hcmNoL2FybS90ZWUv
-ZmZhX3ByaXZhdGUuaCB8IDUgKysrKysNCj4+IDIgZmlsZXMgY2hhbmdlZCwgMTMgaW5zZXJ0aW9u
-cygrKSwgMSBkZWxldGlvbigtKQ0KPj4gDQo+PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL3Rl
-ZS9mZmEuYyBiL3hlbi9hcmNoL2FybS90ZWUvZmZhLmMNCj4+IGluZGV4IGFhZGQ2YzIxZTdmMi4u
-MGY2ZjgzNzM3OGNjIDEwMDY0NA0KPj4gLS0tIGEveGVuL2FyY2gvYXJtL3RlZS9mZmEuYw0KPj4g
-KysrIGIveGVuL2FyY2gvYXJtL3RlZS9mZmEuYw0KPj4gQEAgLTE4MCw2ICsxODAsMTQgQEAgc3Rh
-dGljIGJvb2wgZmZhX25lZ290aWF0ZV92ZXJzaW9uKHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdz
-KQ0KPj4gICAgICAgICAgICAgZ290byBvdXRfaGFuZGxlZDsNCj4+ICAgICAgICAgfQ0KPj4gDQo+
-PiArICAgICAgICAvKg0KPj4gKyAgICAgICAgICogV2UgY2Fubm90IHNldCBpc182NGJpdCBkdXJp
-bmcgZG9tYWluIGluaXQgYmVjYXVzZSB0aGUgZmllbGQgaXMgbm90DQo+PiArICAgICAgICAgKiB5
-ZXQgaW5pdGlhbGl6ZWQuDQo+PiArICAgICAgICAgKiBUaGlzIGZpZWxkIGlzIG9ubHkgdXNlZCBk
-dXJpbmcgcGFydGluZm9fZ2V0IHdpdGggdGhlIHJ3bG9jayB0YWtlbg0KPj4gKyAgICAgICAgICog
-c28gdGhlcmUgaXMgbm8gb3JkZXJpbmcgaXNzdWUgd2l0aCBndWVzdF92ZXJzLg0KPj4gKyAgICAg
-ICAgICovDQo+PiArICAgICAgICBjdHgtPmlzXzY0Yml0ID0gaXNfNjRiaXRfZG9tYWluKGQpOw0K
-PiANCj4gVGhpcyBzaG91bGQgb25seSBiZSBhc3NpZ25lZCB1bmRlciB0aGUgcndsb2NrLiBCdXQg
-ZG8gd2UgbmVlZCB0aGUNCj4gaXNfNjRiaXQgZmllbGQgYXQgYWxsPyBXaHkgY2FuJ3Qgd2UgYWx3
-YXlzIHVzZSBpc182NGJpdF9kb21haW4oKQ0KPiBpbnN0ZWFkPw0KDQpBcyB3ZSB0YWtlIGl0IGFm
-dGVyIHdoZW4gbmVlZGVkLCBzZXR0aW5nIGl0IGhlcmUgc2hvdWxkIGJlIG9rIGJ1dCBpIGNhbiBt
-b3ZlIHRoaXMNCmluc2lkZSB0aGUgcndsb2NrIHNlY3Rpb24gdG8gYmUgbW9yZSBjb2hlcmVudC4N
-Cg0KVGhlIGZpZWxkIGlzIG5lZWRlZCB3aGVuIGNyZWF0aW5nIHRoZSBsaXN0IG9mIHBhcnRpdGlv
-bnMuIFRvIHVzZSBpc182NGJpdF9kb21haW4sIEkNCndvdWxkIHRvIGdldCBhY2Nlc3MgdG8gdGhl
-IGZvcmVpZ24gZG9tYWluIGRlc2NyaXB0aW9uIHdoaWNoIGkgdHJ5IHRvIHByZXZlbnQgdG8gbm90
-DQpjcmVhdGUgYSB3YXkgZm9yIGEgZ3Vlc3QgdG8gYmxvY2sgb3RoZXIgZ3Vlc3RzIGJ5IGRvaW5n
-IHBhcnRpbmZvX2dldC4gVGhpcyBpcyB3aHkNCmkgc3RvcmUgdGhlIGluZm9ybWF0aW9uIGkgbmVl
-ZCBmb3IgZm9yZWlnbiBndWVzdHMgaW4gdGhlIGN0eCBpbnN0ZWFkIG9mIHVzaW5nIFJDVQ0KdG8g
-Z2V0IGFjY2VzcyB0byB0aGUgZG9tYWluIGRlc2NyaXB0b3IuDQoNCkNoZWVycw0KQmVydHJhbmQN
-Cg0KPiANCj4gQ2hlZXJzLA0KPiBKZW5zDQo+IA0KPj4gKw0KPj4gICAgICAgICAvKg0KPj4gICAg
-ICAgICAgKiBBIHN1Y2Nlc3NmdWwgRkZBX1ZFUlNJT04gY2FsbCBkb2VzIG5vdCBmcmVlemUgbmVn
-b3RpYXRpb24uIEd1ZXN0cw0KPj4gICAgICAgICAgKiBhcmUgYWxsb3dlZCB0byBpc3N1ZSBtdWx0
-aXBsZSBGRkFfVkVSU0lPTiBhdHRlbXB0cyAoZS5nLiBwcm9iaW5nDQo+PiBAQCAtNDMzLDcgKzQ0
-MSw2IEBAIHN0YXRpYyBpbnQgZmZhX2RvbWFpbl9pbml0KHN0cnVjdCBkb21haW4gKmQpDQo+PiAN
-Cj4+ICAgICBjdHgtPmZmYV9pZCA9IGZmYV9nZXRfdm1faWQoZCk7DQo+PiAgICAgY3R4LT5udW1f
-dmNwdXMgPSBkLT5tYXhfdmNwdXM7DQo+PiAtICAgIGN0eC0+aXNfNjRiaXQgPSBpc182NGJpdF9k
-b21haW4oZCk7DQo+PiANCj4+ICAgICAvKg0KPj4gICAgICAqIGZmYV9kb21haW5fdGVhcmRvd24o
-KSB3aWxsIGJlIGNhbGxlZCBpZiBmZmFfZG9tYWluX2luaXQoKSByZXR1cm5zIGFuDQo+PiBkaWZm
-IC0tZ2l0IGEveGVuL2FyY2gvYXJtL3RlZS9mZmFfcHJpdmF0ZS5oIGIveGVuL2FyY2gvYXJtL3Rl
-ZS9mZmFfcHJpdmF0ZS5oDQo+PiBpbmRleCA0ZTRhYzdmZDdiYzQuLjJkYWE0NTg5YTkzMCAxMDA2
-NDQNCj4+IC0tLSBhL3hlbi9hcmNoL2FybS90ZWUvZmZhX3ByaXZhdGUuaA0KPj4gKysrIGIveGVu
-L2FyY2gvYXJtL3RlZS9mZmFfcHJpdmF0ZS5oDQo+PiBAQCAtMzQ0LDYgKzM0NCwxMSBAQCBzdHJ1
-Y3QgZmZhX2N0eCB7DQo+PiAgICAgLyogRkYtQSBFbmRwb2ludCBJRCAqLw0KPj4gICAgIHVpbnQx
-Nl90IGZmYV9pZDsNCj4+ICAgICB1aW50MTZfdCBudW1fdmNwdXM7DQo+PiArICAgIC8qDQo+PiAr
-ICAgICAqIE11c3Qgb25seSBiZSBhY2Nlc3NlZCB3aXRoIHRoZSBmZmFfY3R4X2xpc3Rfcndsb2Nr
-IHRha2VuIGFzIGl0IHNldA0KPj4gKyAgICAgKiB3aGVuIGd1ZXN0X3ZlcnMgaXMgc2V0IGFuZCBv
-dGhlciBhY2Nlc3NlcyBjb3VsZCBzZWUgYSBwYXJ0aWFsbHkgc2V0DQo+PiArICAgICAqIHZhbHVl
-Lg0KPj4gKyAgICAgKi8NCj4+ICAgICBib29sIGlzXzY0Yml0Ow0KPj4gDQo+PiAgICAgLyoNCj4+
-IC0tDQo+PiAyLjUxLjINCg0KDQo=
+While sizes (and possibly positions) of the symbol table related symbols
+(and as a result other ones) are expected to change from linking pass 1
+to pass 2, no such change should happen anymore from pass 2 to pass 3, or
+else the internally recorded symbol table wouldn't represent the ELF or
+PE/COFF ones.
+
+For comparing to be actually useful, i.e. most notably also covering the
+last of the arrays emitted, symbol sizes need establishing. Make use of
+the xen/linkage.h machinery to achieve that.
+
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Likely other ports also want to add such checking. Really it would be nice
+if we could properly abstract out shared parts of the linking steps.
+
+RFC: I'm all ears towards improvement suggestions in the temporary helper
+     file handling of compare-symbol-tables. Or ideally some approach to
+     avoid the use of a helper file altogether.
+---
+v2: Actually compare the two files passed into compare-symbol-tables,
+    rather than the 1st one with itself.
+v1': Re-base over the re-numbering of intermediate files. Integrate into
+     series.
+
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -148,6 +148,7 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
+ 		> $(dot-target).2.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).2.o
++	$(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o)
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+ 	    $(orphan-handling-y) $(dot-target).2.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+@@ -230,6 +231,8 @@ endif
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).2s.S
+ 	$(MAKE) $(build)=$(@D) .$(@F).2r.o .$(@F).2s.o
++	$(call compare-symbol-tables, $(dot-target).1r.o, $(dot-target).2r.o)
++	$(call compare-symbol-tables, $(dot-target).1s.o, $(dot-target).2s.o)
+ 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+ 	      $(dot-target).2r.o $(dot-target).2s.o $(orphan-handling-y) \
+ 	      $(note_file_option) -o $@
+--- a/xen/scripts/Kbuild.include
++++ b/xen/scripts/Kbuild.include
+@@ -56,6 +56,19 @@ define filechk
+ 	fi
+ endef
+ 
++###
++# Compare the symbol tables of two object files.  As diff's -I option isn't
++# standardized, the name difference of the two object files needs abstracting
++# out.
++define compare-symbol-tables
++    ln -f $(1) $(@D)/.cst.$$$$; \
++    $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(1).sym; \
++    ln -f $(2) $(@D)/.cst.$$$$; \
++    $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(2).sym; \
++    rm -f $(@D)/.cst.$$$$
++    diff -u $(1).sym $(2).sym
++endef
++
+ # as-insn: Check whether assembler supports an instruction.
+ # Usage: cflags-y += $(call as-insn,CC FLAGS,"insn",option-yes,option-no)
+ as-insn = $(if $(shell echo 'void _(void) { asm volatile ( $(2) ); }' \
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -252,17 +252,26 @@ static void read_map(FILE *in)
+ 	}
+ }
+ 
+-static void output_label(char *label)
++static void output_label(const char *label, bool keep)
+ {
+-	if (symbol_prefix_char)
+-		printf(".globl %c%s\n", symbol_prefix_char, label);
+-	else
+-		printf(".globl %s\n", label);
+-	printf("\tALGN\n");
+-	if (symbol_prefix_char)
+-		printf("%c%s:\n", symbol_prefix_char, label);
+-	else
+-		printf("%s:\n", label);
++	static bool pending;
++
++	if (pending && !keep) {
++		printf("END(CURRENT)\n");
++		printf("#undef CURRENT\n\n");
++	}
++
++	pending = label;
++	if (!label)
++		return;
++
++	if (symbol_prefix_char) {
++		printf("DATA(%c%s, ALGN)\n", symbol_prefix_char, label);
++		printf("#define CURRENT %c%s\n", symbol_prefix_char, label);
++	} else {
++		printf("DATA(%s, ALGN)\n", label);
++		printf("#define CURRENT %s\n", label);
++	}
+ }
+ 
+ /* uncompress a compressed symbol. When this function is called, the best table
+@@ -331,22 +340,22 @@ static void write_src(void)
+ 
+ 		return;
+ 	}
+-	printf("#include <xen/config.h>\n");
++	printf("#include <xen/linkage.h>\n");
+ 	printf("#if BITS_PER_LONG == 64 && !defined(SYMBOLS_ORIGIN)\n");
+ 	printf("#define PTR .quad\n");
+-	printf("#define ALGN .balign 8\n");
++	printf("#define ALGN 8\n");
+ 	printf("#else\n");
+ 	printf("#define PTR .long\n");
+-	printf("#define ALGN .balign 4\n");
++	printf("#define ALGN 4\n");
+ 	printf("#endif\n");
+ 
+ 	printf("\t.section .rodata, \"a\"\n");
+ 
+ 	printf("#ifndef SYMBOLS_ORIGIN\n");
+ 	printf("#define SYMBOLS_ORIGIN 0\n");
+-	output_label("symbols_addresses");
++	output_label("symbols_addresses", false);
+ 	printf("#else\n");
+-	output_label("symbols_offsets");
++	output_label("symbols_offsets", true);
+ 	printf("#endif\n");
+ 	for (i = 0, ends = 0; i < table_cnt; i++) {
+ 		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n", table[i].addr);
+@@ -370,17 +379,15 @@ static void write_src(void)
+ 		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n",
+ 		       table[i].addr + table[i].size);
+ 	}
+-	printf("\n");
+ 
+-	output_label("symbols_num_addrs");
++	output_label("symbols_num_addrs", false);
+ 	printf("\t.long\t%d\n", table_cnt + ends);
+-	printf("\n");
+ 
+ 	/* table of offset markers, that give the offset in the compressed stream
+ 	 * every 256 symbols */
+ 	markers = malloc(sizeof(*markers) * ((table_cnt + ends + 255) >> 8));
+ 
+-	output_label("symbols_names");
++	output_label("symbols_names", false);
+ 	for (i = 0, off = 0, ends = 0; i < table_cnt; i++) {
+ 		if (((i + ends) & 0xFF) == 0)
+ 			markers[(i + ends) >> 8] = off;
+@@ -404,15 +411,12 @@ static void write_src(void)
+ 		printf("\t.byte 0\n");
+ 		++off;
+ 	}
+-	printf("\n");
+ 
+-	output_label("symbols_markers");
++	output_label("symbols_markers", false);
+ 	for (i = 0; i < ((table_cnt + ends + 255) >> 8); i++)
+ 		printf("\t.long\t%d\n", markers[i]);
+-	printf("\n");
+ 
+-
+-	output_label("symbols_token_table");
++	output_label("symbols_token_table", false);
+ 	off = 0;
+ 	for (i = 0; i < 256; i++) {
+ 		best_idx[i] = off;
+@@ -420,34 +424,27 @@ static void write_src(void)
+ 		printf("\t.asciz\t\"%s\"\n", buf);
+ 		off += strlen(buf) + 1;
+ 	}
+-	printf("\n");
+ 
+-	output_label("symbols_token_index");
++	output_label("symbols_token_index", false);
+ 	for (i = 0; i < 256; i++)
+ 		printf("\t.short\t%d\n", best_idx[i]);
+-	printf("\n");
+ 
+-	if (!sort_by_name) {
+-		free(markers);
+-		return;
+-	}
+-
+-	output_label("symbols_num_names");
+-	printf("\t.long\t%d\n", table_cnt);
+-	printf("\n");
+-
+-	/* Sorted by original symbol names and type. */
+-	qsort(table, table_cnt, sizeof(*table), compare_name_orig);
+-
+-	output_label("symbols_sorted_offsets");
+-	/* A fixed sized array with two entries: offset in the
+-	 * compressed stream (for symbol name), and offset in
+-	 * symbols_addresses (or symbols_offset). */
+-	for (i = 0; i < table_cnt; i++) {
+-		printf("\t.long %u, %u\n", table[i].stream_offset, table[i].addr_idx);
++	if (sort_by_name) {
++		output_label("symbols_num_names", false);
++		printf("\t.long\t%d\n", table_cnt);
++
++		/* Sorted by original symbol names and type. */
++		qsort(table, table_cnt, sizeof(*table), compare_name_orig);
++
++		/* A fixed sized array with two entries: offset in the
++		 * compressed stream (for symbol name), and offset in
++		 * symbols_addresses (or symbols_offset). */
++		output_label("symbols_sorted_offsets", false);
++		for (i = 0; i < table_cnt; i++)
++			printf("\t.long %u, %u\n", table[i].stream_offset, table[i].addr_idx);
+ 	}
+-	printf("\n");
+ 
++	output_label(NULL, false);
+ 	free(markers);
+ }
+ 
 
