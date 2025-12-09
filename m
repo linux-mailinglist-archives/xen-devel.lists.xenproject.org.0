@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024DACAF289
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 08:37:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181195.1504284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF53CAF32F
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 08:50:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181209.1504294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSsGq-00057x-OB; Tue, 09 Dec 2025 07:36:28 +0000
+	id 1vSsTq-0006w1-0B; Tue, 09 Dec 2025 07:49:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181195.1504284; Tue, 09 Dec 2025 07:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 1181209.1504294; Tue, 09 Dec 2025 07:49:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSsGq-00054r-Jp; Tue, 09 Dec 2025 07:36:28 +0000
-Received: by outflank-mailman (input) for mailman id 1181195;
- Tue, 09 Dec 2025 07:36:27 +0000
+	id 1vSsTp-0006tr-SE; Tue, 09 Dec 2025 07:49:53 +0000
+Received: by outflank-mailman (input) for mailman id 1181209;
+ Tue, 09 Dec 2025 07:49:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSsGo-00054V-OK
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 07:36:26 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1vSsTo-0006tl-4b
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 07:49:52 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3ade39f-d4d1-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 08:36:24 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-42e2e6aa22fso2461017f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 23:36:24 -0800 (PST)
+ id a40b0cb9-d4d3-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 08:49:50 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-477632b0621so38026695e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Dec 2025 23:49:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfee66sm29780376f8f.11.2025.12.08.23.36.23
+ 5b1f17b1804b1-47a7d70fa07sm25079445e9.11.2025.12.08.23.49.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 23:36:23 -0800 (PST)
+ Mon, 08 Dec 2025 23:49:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3ade39f-d4d1-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: a40b0cb9-d4d3-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765265784; x=1765870584; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765266590; x=1765871390; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3v18lpERP1o7wcOW3vmFWjesG9O2e2jY0hgZwXFEjKM=;
-        b=MyBeBGmJB7/ZXyAuFSddq9HgcAe3SbRwRzDNRBKDWGSEDi71A2aAxwBnnQQgNAuKFM
-         u3SXdP/DKPI9+He3969RO4tUXayonWVfxH0tBi3yt5OYAx3ZoisA2ph0+OmXX5doX0vE
-         B3dVNoHondM1NDTYeMcf/sHpSvCjLl1/OcPvYghgl3kko34eZNXkx/ueNEXKQW4Jia+r
-         ZmL1xzlo7Dlbz8y0x/IJxukNXMsbmV7c8d7MDI4fruWPK2kAf71iYGdflyj0rYoDvBaI
-         F7/CS5Snc0n8KO48mrjsK/IFC91FsFjnXDn9/LHpxjbZb2SW8Lp3gvDklKJOP12TJJEZ
-         LGdw==
+        bh=+3r+atcXVEiS+kDducUz0JqOu8TMMBGGKW/R5/SLZ8g=;
+        b=VVe43Liel5WwJ2i7EQJxBDagsd8sPjzYHh0VaMDu+ZNlBU+0Y7wHMety8u6gktlkHx
+         NksQWFcCh0yvsqL6KhXv1aep/pg9qNRNhEv0K4qIDBHnjLF/3G1+OWbKdWJMV7ukqoyT
+         2C6/y+cUO5YltU5HWzr/8hr6w3vEZBfXqRJxcLRKhSsUX2Exw9XkGJOex4qukKHd745I
+         ZWm0UGXlwLNdxN7JsUKEJrKsBuWqZVKa6lGubY+kuZVLbkct/hXHEePuX/XqCc9M9xAY
+         T1fHKxfBvxtTfxpv8IEVWxcsHEtMJ1zcuvKXAyJDrhCjJoTKhuBRPhy7BBhFjjwG4LUa
+         dpCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765265784; x=1765870584;
+        d=1e100.net; s=20230601; t=1765266590; x=1765871390;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3v18lpERP1o7wcOW3vmFWjesG9O2e2jY0hgZwXFEjKM=;
-        b=TH01a0pfE2ol23QsezBuRrjFGZhdt6OvlDFgEDL+yiBpvSa1SMK5w462MctilTkdrv
-         KWtqB8vgWowFrwyjhq3M6GzSs/3hIISv/fIvuXtzZWT3rjL7ZwIHUuWFTEoLBL9m6KGt
-         vr6LU8BbgSh8LctopFrmgdB2m81NZyWZFSAs3KDr57+sF9o05lZnsMpkdg5D2Mf8AzUM
-         SzpfblQhslVdt37OkppyZrSaMO5HX85H5HQCrzURMBzcDsl3E9VYXkO2tyEKeiXmq7rj
-         PxdkZ+j7dw/mbUplCyLRgGdmM06kbtwGX3kEXBRdzUlN1onsjnITQMeoqW9uv8Vgr96r
-         Ny7g==
-X-Forwarded-Encrypted: i=1; AJvYcCU8c2AX9liUlo2T8W3w61z7+r2tq2NenZriZp928iVL+JfprpYoTlC34aDemmLB1MMHAHnzMHZK7cs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxu1mpUXKipJOJNeaGUWhuXsoo9+tSs09L0eSYSVBIqBQA1jRY5
-	LP/v4ocjHrNzvpipwtooevt5/DvOP3yVOhvwN0iVXFwH46YY9ZvH+00Dby+gYj496g==
-X-Gm-Gg: ASbGncuRrzeBedVU67roSSC//g/ZmRlMc7c5zajCOb6u/69LDHz0Us0wzqIE+00QPmU
-	e9lyo20B8E0kKRu1swysCybjAGDfz7pKbEME/9McR5yCWKYNPau35SEazsjuZO/eQD2zgFbAFw2
-	tp4jSDoe8Id+iogIimCkSzKG+yspmgKQTmXrt+uEuqtZRPUU7OCkef1myqJSYf5O6akgE/vPvip
-	46Yy2QfuzVbU+mnAoC+Duv67KLd+4otsfjSU0Yx4kf2BEX0AwnilkAA/iPrBk4ecahKcQYjL6AF
-	fTccRL9s9rgsyQu01ZDIKuGea5dVrEx06x9GUc5QlfUdx06x4tAFfr+oFOrGyQBzFUADAd3A8SF
-	kKE3XospMwsw/su3EqBMdt3JvggnglN5nbwdg/M/geEaYdc1TW1Sn+tGbJTERyF6vF1g6N/ZKaW
-	vVDHnDtcd3rUxnfl/oLsrH/4xc02okRiOB5wLfezmYAmfds0wa6pU0FOLbc0F/+EnCw+7n9d1u5
-	Qw=
-X-Google-Smtp-Source: AGHT+IFVasnFPProKaZaTSKQ/Sm5uJSQnS56dIavADQxYgFdvmq2Xng1qIan0VtDIo5Pff0XvhOoTg==
-X-Received: by 2002:a05:6000:1863:b0:42b:39d0:63a4 with SMTP id ffacd0b85a97d-42f89f62011mr12039132f8f.29.1765265784026;
-        Mon, 08 Dec 2025 23:36:24 -0800 (PST)
-Message-ID: <f922dad3-9e60-47ff-b4f6-f0ae87fd90af@suse.com>
-Date: Tue, 9 Dec 2025 08:36:22 +0100
+        bh=+3r+atcXVEiS+kDducUz0JqOu8TMMBGGKW/R5/SLZ8g=;
+        b=gsOmxnAFygLSsce6B6MOoKBrDk5MvSQUB4OyVcm6ykPawhp191Dp8xmID93LPtOauo
+         a0dvDPlI9e+TbT1U6ByabbJGakJUEhXgKb7MsODP58rUJLYyOVNx9HPL0sorAhysRno4
+         893KN5YS66/Y2NUecLP++v96e98FsiXw56fHQEgpWnSFJ3+e+/E/m63FKKjhhCN8Ngxo
+         xJH1ivsZjQUNPQBiByM1se6nfVJ+zlGOLDQ7ekn/r30zgcNW/6jr3Zi6oOl81T/BR5Sz
+         tdpHcHeZTkDayo4VTn1+rYn8/bFkfWjzrkBE4/q1Mndo5769RZL48rhgeC+ZI9TsTQ+7
+         Xdbw==
+X-Forwarded-Encrypted: i=1; AJvYcCWbYCUMLEor7qx1ejIBXdF/DWkDfu6mrEz9ULusaCywY+g04vtDqeBs2hfTPwEEqcedV8p/8B/p+78=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRlH0XL2Qxz/DRtOkH3sH4K7kYzbEUgx6QAHlC4g2SnhOW3Thz
+	ATymplKd5apmzSVgbI+VuZbeiLOSTE6Rbj0wpHmpMBDXKu4PJiH3Cu/dVeMEDV5Ozw==
+X-Gm-Gg: ASbGncu0Ynh+6kXjN+5nhf/zdokbvs0OlNpEyOIuaU8s/G0+++Zupq2hwXOWlB0mniI
+	iUyrZ3nSb4qTBq6425q01cxHWrGvpYqklfZTM4x4zEtHRU0+3TFyWGjW0W53fOrDcls8VKXETEX
+	2s2nvzAzjydzzCN8SFadye2a6pj/fHaEmi9IAIWUvDPQpAKSNWDX+V0tQH7tsyHJTzRzmRlsL22
+	yNucRa3D6YPcq0jccmJj8gHEwAN+7shRpTvH6jG9/CPPTrnSYdpJuEBd1w6nD2cYnqzulUVx0JG
+	zJ0JGho6Kys/j8SnEYD2dbRC5Ztni6upUL6XsCGrXssvbbFbDbIkwdqTvmiSxA8hQuWFef4JI31
+	tVxCC8sUq8A7jGMNgFBA+fKzOE8jg6cJ3Aw+EsR9keT4LFBLhp9OG6+m9qmi7HUxy39byFKUaTf
+	Tx526RUC7L9n5wSEvTz5npg7QTgUGJRtWNAJhzlz4k/YL6jQ3kzn4K0fNDvy6dHjzUcGyI4hU7s
+	jU=
+X-Google-Smtp-Source: AGHT+IHE4I6HxVWWg1bmPHLKhGN+yac+uWKaYm7ARC+5RJCwRyLn4zBPcNpaHOkn8hYeQwI67pIBuA==
+X-Received: by 2002:a05:600c:1992:b0:46e:1abc:1811 with SMTP id 5b1f17b1804b1-47939e387e2mr96149125e9.27.1765266589926;
+        Mon, 08 Dec 2025 23:49:49 -0800 (PST)
+Message-ID: <0b6b23ab-c683-4cd4-a95c-6892a2c1f164@suse.com>
+Date: Tue, 9 Dec 2025 08:49:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
-To: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH] xen/arm64: Add support Clang build on arm64
+To: Saman Dehghan <samaan.dehghan@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  xen-devel@lists.xenproject.org
-References: <20251205222813.277164-1-jason.andryuk@amd.com>
- <6c10dbc4-3247-4a0d-9953-858d09df08a9@suse.com>
- <1675a966-1095-4aba-af74-828e4c68e6b4@amd.com>
+References: <bd6686e7fc0756e929334792b94ddd66bde125c4.1765239102.git.samaan.dehghan@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,42 +123,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1675a966-1095-4aba-af74-828e4c68e6b4@amd.com>
+In-Reply-To: <bd6686e7fc0756e929334792b94ddd66bde125c4.1765239102.git.samaan.dehghan@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.12.2025 00:00, Jason Andryuk wrote:
-> On 2025-12-08 03:56, Jan Beulich wrote:
->> On 05.12.2025 23:28, Jason Andryuk wrote:
->>> When linking to create xen-syms, add --gc-sections to garbage collect
->>> unused stuff.
->>
->> What about xen.efi?
+On 09.12.2025 01:37, Saman Dehghan wrote:
+> This patch enables building Xen on arm64 architecture using the Clang compiler.
+> Changes include:
+> - Add explicit -march=armv8 flag for arm64 builds.
+> - Add `__attribute__((target("fp-armv8")))` to `vfp_save_state` and
+>   `vfp_restore_state` functions when building with Clang to allow
+>   FP instructions despite `-mgeneral-regs-only`.
 > 
-> I tried briefly and it fails to link.  The GCC manual says it is 
-> considered experimental for PE and COFF.
+> Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+> ---
+>  xen/arch/arm/arch.mk     | 1 +
+>  xen/arch/arm/arm64/vfp.c | 6 ++++++
+>  2 files changed, 7 insertions(+)
 
-The gcc manual documents linker behavior? Do you have a more concrete pointer?
+Please also update ./README then accordingly.
 
-> I just added into EFI_LDFLAGS:
->    CC      .xen.efi.0s.o
-> ld -mi386pep --no-warn-rwx-segments --subsystem=10 
-> --enable-long-section-names --disable-high-entropy-va --dynamicbase 
-> --image-base=0xffff82d040000000 --stack=0,0 --heap=0,0 
-> --section-alignment=0x200000 --file-alignment=0x20 
-> --major-image-version=4 --minor-image-version=22 --major-os-version=2 
-> --minor-os-version=0 --major-subsystem-version=2 
-> --minor-subsystem-version=0 --gc-sections --print-gc-sections 
-> --build-id=sha1 -T arch/x86/efi.lds prelink.o  ./.xen.efi.0s.o -b 
-> pe-x86-64 arch/x86/efi/buildid.o -o ./.xen.efi.0xffff82d040000000.0 && :
-> ld: kexec_reloc is too large
-> ld: kexec_reloc is too large
-> ld: 
-> prelink.o:/home/jandryuk/xen/xen/arch/x86/boot/head.S:60:(.text.header+0x48): 
-> undefined reference to `start'
+> --- a/xen/arch/arm/arm64/vfp.c
+> +++ b/xen/arch/arm/arm64/vfp.c
+> @@ -46,6 +46,9 @@ static inline void restore_state(const uint64_t *fpregs)
+>                   : : "Q" (*fpregs), "r" (fpregs));
+>  }
+>  
+> +#if defined(CONFIG_CC_IS_CLANG)
+> +__attribute__((target("fp-armv8")))
+> +#endif
+>  void vfp_save_state(struct vcpu *v)
+>  {
+>      if ( !cpu_has_fp )
+> @@ -62,6 +65,9 @@ void vfp_save_state(struct vcpu *v)
+>          v->arch.vfp.fpexc32_el2 = READ_SYSREG(FPEXC32_EL2);
+>  }
+>  
+> +#if defined(CONFIG_CC_IS_CLANG)
+> +__attribute__((target("fp-armv8")))
+> +#endif
+>  void vfp_restore_state(struct vcpu *v)
+>  {
+>      if ( !cpu_has_fp )
 
-I see. This then would want mentioning in the patch description. And I've added
-it to my binutils side todo list.
+Aren't it save_state() and restore_state() which actually use FP registers?
+Applying such attributes in too wide a fashion risks the compiler using FP
+registers also for other purposes. On x86 we were hit by such when we
+suppressed use of SSE registers while not suppressing use of MMX ones. In
+some configuration, after many years of this having gone fine, the compiler
+chose to use MMX insns for some odd reason.
+
+Seeing that save_state() and restore_state() are a single asm() statement
+each, any reason not to actually have them in an assembly file, just like
+their SVE counterparts are?
 
 Jan
 
