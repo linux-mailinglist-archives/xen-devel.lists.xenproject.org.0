@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCE2CB0485
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 15:28:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181778.1504777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC5FCB04B6
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 15:33:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181789.1504787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSyhd-0006cz-D2; Tue, 09 Dec 2025 14:28:33 +0000
+	id 1vSylw-00088Q-V1; Tue, 09 Dec 2025 14:33:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181778.1504777; Tue, 09 Dec 2025 14:28:33 +0000
+Received: by outflank-mailman (output) from mailman id 1181789.1504787; Tue, 09 Dec 2025 14:33:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSyhd-0006bV-9m; Tue, 09 Dec 2025 14:28:33 +0000
-Received: by outflank-mailman (input) for mailman id 1181778;
- Tue, 09 Dec 2025 14:28:31 +0000
+	id 1vSylw-00086U-RA; Tue, 09 Dec 2025 14:33:00 +0000
+Received: by outflank-mailman (input) for mailman id 1181789;
+ Tue, 09 Dec 2025 14:32:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vSyhb-0006b9-MO
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 14:28:31 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSylu-00086O-W6
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 14:32:59 +0000
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [2607:f8b0:4864:20::c30])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55349ccf-d50b-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 15:28:30 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso54424335e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 06:28:30 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7da2d3e9sm16949845e9.17.2025.12.09.06.28.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 06:28:28 -0800 (PST)
+ id f3e2d81a-d50b-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 15:32:57 +0100 (CET)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-656b4881f55so3272755eaf.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 06:32:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,296 +40,512 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55349ccf-d50b-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: f3e2d81a-d50b-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765290509; x=1765895309; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bm/eR9tm4GrPgwE/G1zqJn6VZ+le5rWynby2zeWK9mM=;
-        b=Fn1kfn8NAPZ4uSS53pcAKpKR0k8M5SouCoJn/RvAvBv1LVoKIEEQ5FmBTMZtYMBs08
-         Up1YWlz9W0Djc4Slst2LoEATmaSpS8lqw/PYTLd+uAjrXZR7t6qIPclRactleaG2wx2N
-         8a5fWnqTRGk0WFVNQluCWy91LDE5vZWzat/7ly+6/VfBTetfxRbJAe3coosU/v4uDw9q
-         MgFUzGH/zcAUrU9OGzZuxKpoIu+TV8+xcE0Hv/4FBXLneD8P+ohyLe8MZMI2iibArz7q
-         cnqB9UTQBBo0GJKijT5ciw5BpVZ/uy6lrkYigbQN6LK/EQ8Yerf0khmr2tuOhRuqQJwj
-         FuFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765290509; x=1765895309;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1765290775; x=1765895575; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bm/eR9tm4GrPgwE/G1zqJn6VZ+le5rWynby2zeWK9mM=;
-        b=sRnS5KIcApItt7xDvclxzSVgfgwTjBdMGutwlktGVzjisff5IfwjPHkPBgpDT+5TYC
-         /97KOyvPXRYKwrAVDVbtDkinX6fE89Mg7xJfEKtu59/GPC8WKu8/XuXyjo6KngQ90ynj
-         Cbnw2W4mVdMoP5JDP5evV23M5f5zAi7MxTgm0AKtZ7d89GIQF+lOiIXSkOul5EQk2ZHr
-         sW0ugKXl8LY+qsaQWqWrAhfdBApp5jAtS43nY4iIH0DEXvRszoOktMk0rTMjPuELyZOK
-         Xlesj9rVlj/vLiC8TDnYBmL9RGd5eimnykOeXsCw+tBXvWnBHqOwTA9LTbN/rucjOcgv
-         uRxw==
-X-Forwarded-Encrypted: i=1; AJvYcCVeIwNcbIpFo+oel028/z0x+UWlUOv7G8awOb7tqzzpi2Xf+fJxYzcz9Ipvgacac+LVc7NaKJvO5ZQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfK1kCvBQmB1y0lJ5N/x/0luxE2bLZYj2kblXtv/TZgJh93yaQ
-	vwhmpY/5w+0DJUCVCNY6qn8B1fXxs7fqCUXnPdpgdcIOdEPxPEcXBE6+q7+dl5JIfQ==
-X-Gm-Gg: ASbGncvx2pJZ5EK1tqOxf2oLOJU5/Yayn38uovIdOXAe1I/El6zNE0RtjPcorbxY2uy
-	ANrPLd/sLMDY16I+QwgGp1S1JbEMEl9CnFmIKJizn/O13j1pceB9Q1xqxAdnQrTv4MgGkuR3EHH
-	3HNQJ/nff5HJQfCzZbSoW9KQXFWNZ5Vo3L04SgfEC8uV4QgvkMCil6STks9yDxrdgW9KSmtZLs/
-	eB531R2ITqc9JCC9Eu02JAWDsxAGmQ+Ezn7wzzJ7nxQN6BbdBrkcQgHqpZtDHI3wJXqQDLZpLFE
-	sWHbfQ1tGSIUDhM18JM5Sl1CWWg8Ux5+eJEE4tFEXcIOLapx/5hTO7yukFq1MWzsNaMb5NmGQql
-	mVo8k+VQyOsvwyTWKpGlVx6GkYEbXBCpxex/EJKQ0ljQqb9HDO7P6jyIrI9O2eDV0CwZKH3YBY9
-	I09DyONHGUM1Yx9ozc3mLiH44v50yF3LAu+INNkohnz9rK+YnL+E9XwteyCvnzIT/IOgoZeLazf
-	Kg=
-X-Google-Smtp-Source: AGHT+IFOClFM8GwC+og3tm1z//Ca8tzJIV19Ttv+tMbOacBeUyzRD9S2mnc4elzo4fVm7vSyRnx4/g==
-X-Received: by 2002:a05:600c:1e88:b0:479:2a78:4a2e with SMTP id 5b1f17b1804b1-47a7fa21c2fmr17817505e9.7.1765290509348;
-        Tue, 09 Dec 2025 06:28:29 -0800 (PST)
-Message-ID: <c18b4522-e131-495b-bd7f-2eb7e6568a8a@suse.com>
-Date: Tue, 9 Dec 2025 15:28:27 +0100
+        bh=MrEbIcaFUlerglvu1z8XnSK4ozsVICy6q92ovgflphE=;
+        b=ltB/yNnwnWdpgYLWtgkPeCrTVEF0h1cuDaegUz4R21pYCKe78t42NPRGLCS8ADAKxE
+         o2snhO0zY1mVzlzWQInhDgAyDM617UmOJdIUTMIs3/FROyi19MS/VJODw/wSR5oi0TFZ
+         JnMSGqjI5jyYm9KuWVLQunBXaiPFEX1q2G/tEMFd5gtOjdOR7RO6ylARUhH2mMEnpwfJ
+         BcN+ARzjIoO2GPMIiUL5A3u03Bpr3V2GfEdXWvqfN31vME2GRebIONhfXNVGqLd9eyE+
+         CH5iSzHSDN/98WO43dtUHbstWRm7oXeu8wuFHlrC0seYa7n+QODcZV6Zw9wRXHTkmree
+         c/ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765290775; x=1765895575;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=MrEbIcaFUlerglvu1z8XnSK4ozsVICy6q92ovgflphE=;
+        b=oktyvWst/qHMaBAaGZQVM1CCybFCNM4u5yl/5MEjD7RArIN9ZEStjbKipPTrCSptAZ
+         2RcraKHfbM1l+2bhg61oBgPzOAMfWppZoaiuDoTVV9c+cYz8pBAL9gb8uJzq1kYf78Y7
+         pjpECt4GLOz4+OmgGigEGB3NNxxmhTerUuEKliqZFoOcVm/akQrCQc7Se++/5ghIvvuu
+         yFvWQP+GEbxft0VyCD7G+gioGFQKsdzGhPjufQy+HSrdkupbcExyeTbf9vgffGcFzFQt
+         XrIvDk8KDhWox9Xq6FFd3MYkC0WJTNpAgEnLIqR+Lvt8RogsYdDxgS2ipJs4dEKxreCC
+         UUSg==
+X-Gm-Message-State: AOJu0YzrtaT8z4TQmpqJRlU+eBYOM/QyfifwAO4NxrCbjg+30wFvFF6H
+	7OdnHjdyZ5wn/nRwd5VmjBw46P261zpXUfZg+pGfpMWDivnAo2FkLsP7tPcW2v8QW5TMwz8sue1
+	eh5E0ooWfNZNuy8ZlmURG/lBOnoy5d55euKJhd+ea4w==
+X-Gm-Gg: ASbGncsjNgsdBdgpYcLJuULTCIFEPuhLcHquZbxzWW3gpKp2nDAHbMaPV7qCrl2dKSH
+	mkz+Bp7TFxrQQ6306b6Zezxd+fDxLBxg5oLJu62efWlsyK2NgRBmnud+DTkzDvbZiDqrOE/lcTQ
+	QKLj+WBxaaSfRB3V+GYn/OL9lZ29KdAs41muET2qxhFJP94KP9cds59rvEQyiwYjuO6tv9tPJW4
+	VQ2z3lbsBgnTpLCQFkQ7VY5h8H5xbE8K0tEKeA2GiQAFRlmxXC5959obWOJL5LzJusW++HPbJZ4
+	GHXvlHoPC/WZM+TW2G+mCPx5nyTFO4ddQs+3hNDQkuDi/oGxwIBbtpeBX15s9Q==
+X-Google-Smtp-Source: AGHT+IGbHFcbggvvLy4qFZqYsquqeJ2GR/w46U6BTcQ0srKK4rd1Wu6GmfB4fYrOeQzuj8j7YvRaZTRxmFvaFI7TkCs=
+X-Received: by 2002:a4a:e841:0:b0:659:9a49:907d with SMTP id
+ 006d021491bc7-6599a982eabmr4999773eaf.72.1765290775416; Tue, 09 Dec 2025
+ 06:32:55 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
- <d9a632d1-8587-45bb-bc13-8dab8d346cb2@citrix.com>
- <4fc76270-98e6-46c4-a6a4-d73772e079c9@epam.com>
- <483d50d9-a076-4698-bd14-28afabd5d369@citrix.com>
- <f6cccd82-3112-4696-850a-119843fca5ec@citrix.com>
- <18ab3734-deb9-4569-ade5-9d96a7bf3c7c@epam.com>
- <25069a8e-ef00-4706-bffa-b3b724cca200@citrix.com>
- <4e7e8f25-a658-4e8d-bdce-1e1266ff6339@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4e7e8f25-a658-4e8d-bdce-1e1266ff6339@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <480cc4c4c0a46fc7a812de5c7aa6365af220e9f2.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <480cc4c4c0a46fc7a812de5c7aa6365af220e9f2.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 15:32:42 +0100
+X-Gm-Features: AQt7F2puSVpAcq80FxNVk28f4msX_3iID7w2FHQSJsmWjZecPOh-FDpwI0AjyvI
+Message-ID: <CAHUa44GHiSB0KQXsjsRfdO3moBqmxWJDYb2WCTRH8hdMsHKmjQ@mail.gmail.com>
+Subject: Re: [PATCH v1 08/12] xen/arm: ffa: add UUID helpers for partition info
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09.12.2025 15:21, Grygorii Strashko wrote:
-> 
-> 
-> On 09.12.25 15:19, Andrew Cooper wrote:
->> On 08/12/2025 6:49 pm, Grygorii Strashko wrote:
->>> Hi Andrew,
->>>
->>> On 06.12.25 16:21, Andrew Cooper wrote:
->>>> On 06/12/2025 2:15 pm, Andrew Cooper wrote:
->>>>> On 06/12/2025 9:10 am, Grygorii Strashko wrote:
->>>>>>
->>>>>> On 05.12.25 22:00, Andrew Cooper wrote:
->>>>>>> On 05/12/2025 7:34 pm, Grygorii Strashko wrote:
->>>>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>>>>
->>>>>>>> Extend coverage support on .init and lib code.
->>>>>>>> Add two hidden Kconfig options:
->>>>>>>> - RELAX_INIT_CHECK "Relax strict check for .init sections only in
->>>>>>>> %.init.o
->>>>>>>> files"
->>>>>>>> - DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the
->>>>>>>> end of
->>>>>>>> Xen boot."
->>>>>>>>
->>>>>>>> Both selected selected when COVERAGE=y, as getting coverage
->>>>>>>> report for
->>>>>>>> ".init" code is required:
->>>>>>>> - to bypass strict check for .init sections only in %.init.o files;
->>>>>>>> - the .init code stay in memory after Xen boot.
->>>>>>>>
->>>>>>>> RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other
->>>>>>>> debug
->>>>>>>> features in the future.
->>>>>>>>
->>>>>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>>>> ---
->>>>>>>> changes in v2:
->>>>>>>>     - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two
->>>>>>>> different things,
->>>>>>>>       both potentially reusable
->>>>>>>>     - enable coverage for libfdt/libelf always
->>>>>>>>     - enable colverage for .init always
->>>>>>> This is a lot nicer (i.e. more simple).
->>>>>>>
->>>>>>> But, I still don't know why we need to avoid freeing init memory
->>>>>>> to make
->>>>>>> this work.  What explodes if we dont?
->>>>>>>
->>>>>> It will just crash when coverage data is collected.
->>>>>>
->>>>>> First I made changes in make file to get .init covered
->>>>>> then I hit a crash
->>>>>> then I checked %.init.o
->>>>>> conclusion was obvious.
->>>>>>
->>>>>> For example:
->>>>>> objdump -x bzimage.init.o | grep gcov
->>>>>>
->>>>>> 0000000000000010 l     O .bss    0000000000000028
->>>>>> __gcov0.bzimage_check
->>>>>> 0000000000000040 l     O .bss    0000000000000040
->>>>>> __gcov0.bzimage_headroom
->>>>>> 0000000000000000 l     O .bss    0000000000000008
->>>>>> __gcov0.output_length
->>>>>> 0000000000000080 l     O .bss    0000000000000060
->>>>>> __gcov0.bzimage_parse
->>>>>> 0000000000000098 l     O .init.data.rel.local    0000000000000028
->>>>>> __gcov_.bzimage_parse
->>>>>> 0000000000000070 l     O .init.data.rel.local    0000000000000028
->>>>>> __gcov_.bzimage_headroom
->>>>>> 0000000000000048 l     O .init.data.rel.local    0000000000000028
->>>>>> __gcov_.bzimage_check
->>>>>> 0000000000000020 l     O .init.data.rel.local    0000000000000028
->>>>>> __gcov_.output_length
->>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_init
->>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_exit
->>>>>> 0000000000000000         *UND*    0000000000000000 __gcov_merge_add
->>>>>> 0000000000000008 R_X86_64_PLT32    __gcov_init-0x0000000000000004
->>>>>> 0000000000000012 R_X86_64_PLT32    __gcov_exit-0x0000000000000004
->>>>>> 0000000000000020 R_X86_64_64       __gcov_merge_add
->>>>>>
->>>>> Aah, we should exclude the OJBCOPY too.  That's what's moving
->>>>> .data.rel.local amongst other sections we target with attributes
->>>>> directly.
->>>>
->>>> we can't target.
->>>
->>> I've come up with below diff - seems it's working without
->>> DO_NOT_FREE_INIT_MEMORY.
->>> Is this what you have in mind?
->>>
->>> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
->>> index 8fc201d12c2c..16b1a82db46e 100644
->>> --- a/xen/Kconfig.debug
->>> +++ b/xen/Kconfig.debug
->>> @@ -40,7 +40,6 @@ config COVERAGE
->>>          depends on SYSCTL && !LIVEPATCH
->>>          select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if
->>> !ENFORCE_UNIQUE_SYMBOLS
->>>          select RELAX_INIT_CHECK
->>> -       select DO_NOT_FREE_INIT_MEMORY
->>>          help
->>>            Enable code coverage support.
->>>   
->>> diff --git a/xen/Rules.mk b/xen/Rules.mk
->>> index 8c4861a427e6..47fdcc1d23b5 100644
->>> --- a/xen/Rules.mk
->>> +++ b/xen/Rules.mk
->>> @@ -33,11 +33,15 @@ cov-cflags-y :=
->>>   nocov-y :=
->>>   noubsan-y :=
->>>   
->>> +# when coverage is enabled the gcc internal section should stay in
->>> memory
->>> +# after Xen boot
->>> +ifneq ($(CONFIG_COVERAGE),y)
->>>   SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
->>>                                               $(foreach w,1 2 4, \
->>>                                                          
->>> rodata.str$(w).$(a)) \
->>>                                               rodata.cst$(a)) \
->>>                            $(foreach r,rel rel.ro,data.$(r).local)
->>> +endif
->>>   
->>>   # The filename build.mk has precedence over Makefile
->>>   include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
->>> diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
->>> index 60b3ae40728f..8180c78f1510 100644
->>> --- a/xen/common/libelf/Makefile
->>> +++ b/xen/common/libelf/Makefile
->>> @@ -1,8 +1,10 @@
->>>   obj-bin-y := libelf.o
->>>   libelf-objs := libelf-tools.o libelf-loader.o libelf-dominfo.o
->>>   
->>> +ifneq ($(CONFIG_COVERAGE),y)
->>>   SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
->>>   OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
->>> .$(s)=.init.$(s))
->>> +endif
->>>   
->>>   CFLAGS-y += -Wno-pointer-sign
->>>   
->>> diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
->>> index ae0f69c01373..fb26e5bff0fd 100644
->>> --- a/xen/common/libfdt/Makefile
->>> +++ b/xen/common/libfdt/Makefile
->>> @@ -4,7 +4,9 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
->>>   
->>>   # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed
->>> during runtime.
->>>   ifneq ($(CONFIG_OVERLAY_DTB),y)
->>> -OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
->>> .$(s)=.init.$(s))
->>> +       ifneq ($(CONFIG_COVERAGE),y)
->>> +               OBJCOPYFLAGS := $(foreach
->>> s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
->>> +       endif
->>>   endif
->>
->> This is the (aforementioned) non-standard way of doing .init.o, which is
->> why it doesn't play nicely.
->>
->> I suggest that we first convert libelf and libfdt to the standard way of
->> doing .init.
-> 
-> I assume the rest is ok.
-> 
->>
->> For libelf this means we need regular __init annotations, but #undef'd
->> outside of __XEN__ (when we're doing the userspace build).
->>
-> 
-> Need clarification here - this are imported libraries and changing their code
-> directly was not welcome before. Therefore there is Xen specific magic in Makefiles.
-> :(
+Hi Bertrand,
 
-I can't and won't speak for libfdt, but for libelf I think we should really
-consider this ours (not imported) the latest as of the re-work for XSA-55.
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Introduce struct ffa_uuid together with nil/equality/set helpers, and
+> use it end-to-end in the partition-info plumbing.
+>
+> The SP and VM enumeration paths now build UUIDs from the guest
+> registers, call a new ffa_copy_info() helper and ensure non-nil UUID
+> queries only return matching SP entries, relying on firmware UUID
+> filtering. VM entries are skipped because we do not track per-VM UUIDs.
+>
+> Count requests and subscriber initialisation are updated accordingly so
+> firmware is always called with an explicit UUID. This keeps count and
+> listing requests aligned with the FF-A v1.1 rules while preserving the
+> Linux compatibility workaround for v1.2 requesters.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - Use GENMASK in ffa_partition_info_get instead of explicit values.
+> - Use ACCESS_ONCE to read guest_vers
+> - use is_64bit_domain to get current domain 32/64 bit support
+> ---
+>  xen/arch/arm/tee/ffa_partinfo.c | 209 ++++++++++++++++++++------------
+>  xen/arch/arm/tee/ffa_private.h  |  21 ++++
+>  2 files changed, 154 insertions(+), 76 deletions(-)
 
-Jan
+Looks good
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-> Just an idea1, may be ".init" handling can be just dropped from libelf and libfdt
-> Makefiles with comment added instead (kinda "TODO") - they will be built-in.
-> It doesn't work with CONFIG_CC_SPLIT_SECTIONS any way now.
-> 
-> Just an idea2, drop libelf and libfdt changes from this patch.
-> - they will be not in coverage report (nocov-y += *.obj)
-> - will be resolved in the future.
-> 
-> Trying to avoid blocking on external dependencies :(
-> 
->> For libfdt, this will need some init_or_$FOO things (matching
->> init_or_livepatch).
->>
->> Once the custom init has been made standard, this code becomes easier to
->> move into lib, and we no longer have special cases when trying to extend
->> coverage.
-> 
-> 
+Cheers,
+Jens
 
+>
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index c9faf5415853..bf906ed0c88f 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -33,7 +33,7 @@ static uint16_t subscr_vm_created_count __read_mostly;
+>  static uint16_t *subscr_vm_destroyed __read_mostly;
+>  static uint16_t subscr_vm_destroyed_count __read_mostly;
+>
+> -static int32_t ffa_partition_info_get(uint32_t *uuid, uint32_t flags,
+> +static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t fla=
+gs,
+>                                        uint32_t *count, uint32_t *fpi_siz=
+e)
+>  {
+>      struct arm_smccc_1_2_regs arg =3D {
+> @@ -41,15 +41,12 @@ static int32_t ffa_partition_info_get(uint32_t *uuid,=
+ uint32_t flags,
+>          .a5 =3D flags,
+>      };
+>      struct arm_smccc_1_2_regs resp;
+> -    uint32_t ret;
+> +    int32_t ret;
+>
+> -    if ( uuid )
+> -    {
+> -        arg.a1 =3D uuid[0];
+> -        arg.a2 =3D uuid[1];
+> -        arg.a3 =3D uuid[2];
+> -        arg.a4 =3D uuid[3];
+> -    }
+> +    arg.a1 =3D uuid.val[0] & GENMASK(31, 0);
+> +    arg.a2 =3D (uuid.val[0] >> 32) & GENMASK(31, 0);
+> +    arg.a3 =3D uuid.val[1] & GENMASK(31, 0);
+> +    arg.a4 =3D (uuid.val[1] >> 32) & GENMASK(31, 0);
+>
+>      arm_smccc_1_2_smc(&arg, &resp);
+>
+> @@ -63,7 +60,26 @@ static int32_t ffa_partition_info_get(uint32_t *uuid, =
+uint32_t flags,
+>      return ret;
+>  }
+>
+> -static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_t *sp_count)
+> +static int32_t ffa_copy_info(void **dst, void *dst_end, const void *src,
+> +                             uint32_t dst_size, uint32_t src_size)
+> +{
+> +    uint8_t *pos =3D *dst;
+> +    uint8_t *end =3D dst_end;
+> +
+> +    if ( pos > end - dst_size )
+> +        return FFA_RET_NO_MEMORY;
+> +
+> +    memcpy(pos, src, MIN(dst_size, src_size));
+> +
+> +    if ( dst_size > src_size )
+> +        memset(pos + src_size, 0, dst_size - src_size);
+> +
+> +    *dst =3D pos + dst_size;
+> +
+> +    return FFA_RET_OK;
+> +}
+> +
+> +static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count=
+)
+>  {
+>      uint32_t src_size;
+>
+> @@ -71,8 +87,8 @@ static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_=
+t *sp_count)
+>                                    sp_count, &src_size);
+>  }
+>
+> -static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+> -                                   void *dst_buf, void *end_buf,
+> +static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_co=
+unt,
+> +                                   void **dst_buf, void *end_buf,
+>                                     uint32_t dst_size)
+>  {
+>      int32_t ret;
+> @@ -120,17 +136,18 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, =
+uint32_t *sp_count,
+>          /* filter out SP not following bit 15 convention if any */
+>          if ( FFA_ID_IS_SECURE(fpi->id) )
+>          {
+> -            if ( dst_buf > (end_buf - dst_size) )
+> -            {
+> -                ret =3D FFA_RET_NO_MEMORY;
+> -                goto out;
+> -            }
+> +            /*
+> +             * If VM is 1.0 but firmware is 1.1 we could have several en=
+tries
+> +             * with the same ID but different UUIDs. In this case the VM=
+ will
+> +             * get a list with several time the same ID.
+> +             * This is a non-compliance to the specification but 1.0 VMs=
+ should
+> +             * handle that on their own to simplify Xen implementation.
+> +             */
+>
+> -            memcpy(dst_buf, src_buf, MIN(src_size, dst_size));
+> -            if ( dst_size > src_size )
+> -                memset(dst_buf + src_size, 0, dst_size - src_size);
+> +            ret =3D ffa_copy_info(dst_buf, end_buf, src_buf, dst_size, s=
+rc_size);
+> +            if ( ret )
+> +                goto out;
+>
+> -            dst_buf +=3D dst_size;
+>              count++;
+>          }
+>
+> @@ -144,69 +161,90 @@ out:
+>      return ret;
+>  }
+>
+> -static int32_t ffa_get_vm_partinfo(uint32_t *vm_count, void *dst_buf,
+> -                                   void *end_buf, uint32_t dst_size)
+> +static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t *vm_co=
+unt,
+> +                                   void **dst_buf, void *end_buf,
+> +                                   uint32_t dst_size)
+>  {
+> -    struct ffa_ctx *curr_ctx =3D current->domain->arch.tee;
+> +    struct domain *d =3D current->domain;
+> +    struct ffa_ctx *curr_ctx =3D d->arch.tee;
+>      struct ffa_ctx *dest_ctx;
+>      uint32_t count =3D 0;
+>      int32_t ret =3D FFA_RET_OK;
+> +    /*
+> +     * We do not have UUID info for VMs so use the 1.0 structure so that=
+ we set
+> +     * UUIDs to zero using memset
+> +     */
+> +    struct ffa_partition_info_1_0 info;
+>
+>      /*
+> -     * There could potentially be a lot of VMs in the system and we coul=
+d
+> -     * hold the CPU for long here.
+> -     * Right now there is no solution in FF-A specification to split
+> -     * the work in this case.
+> -     * TODO: Check how we could delay the work or have preemption checks=
+.
+> +     * We do not have protocol UUIDs for VMs so if a request has non Nil=
+ UUID
+> +     * we must return an empty list.
+>       */
+> -    read_lock(&ffa_ctx_list_rwlock);
+> -    list_for_each_entry(dest_ctx, &ffa_ctx_head, ctx_list)
+> +    if ( !ffa_uuid_is_nil(uuid) )
+> +    {
+> +        *vm_count =3D 0;
+> +        return FFA_RET_OK;
+> +    }
+> +
+> +    /*
+> +     * Workaround for Linux FF-A Driver not accepting to have its own
+> +     * entry in the list before FF-A v1.2 was supported.
+> +     * This workaround is generally acceptable for other implementations
+> +     * as the specification was not completely clear on wether or not
+> +     * the requester endpoint information should be included or not
+> +     */
+> +    if ( ACCESS_ONCE(curr_ctx->guest_vers) >=3D FFA_VERSION_1_2 )
+> +    {
+> +        /* Add caller VM information */
+> +        info.id =3D curr_ctx->ffa_id;
+> +        info.execution_context =3D curr_ctx->num_vcpus;
+> +        info.partition_properties =3D FFA_PART_VM_PROP;
+> +        if ( is_64bit_domain(d) )
+> +            info.partition_properties |=3D FFA_PART_PROP_AARCH64_STATE;
+> +
+> +        ret =3D ffa_copy_info(dst_buf, end_buf, &info, dst_size, sizeof(=
+info));
+> +        if ( ret )
+> +            return ret;
+> +
+> +        count++;
+> +    }
+> +
+> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>      {
+>          /*
+> -         * Do not include an entry for the caller VM as the spec is not
+> -         * clearly mandating it and it is not supported by Linux.
+> +         * There could potentially be a lot of VMs in the system and we =
+could
+> +         * hold the CPU for long here.
+> +         * Right now there is no solution in FF-A specification to split
+> +         * the work in this case.
+> +         * TODO: Check how we could delay the work or have preemption ch=
+ecks.
+>           */
+> -        if ( dest_ctx !=3D curr_ctx )
+> +        read_lock(&ffa_ctx_list_rwlock);
+> +        list_for_each_entry(dest_ctx, &ffa_ctx_head, ctx_list)
+>          {
+> -            /*
+> -             * We do not have UUID info for VMs so use
+> -             * the 1.0 structure so that we set UUIDs to
+> -             * zero using memset
+> -             */
+> -            struct ffa_partition_info_1_0 info;
+> +            /* Ignore the caller entry as it was already added */
+> +            if ( dest_ctx =3D=3D curr_ctx )
+> +                continue;
+>
+> -            if  ( dst_buf > (end_buf - dst_size) )
+> -            {
+> -                ret =3D FFA_RET_NO_MEMORY;
+> -                goto out;
+> -            }
+> -
+> -            /*
+> -             * Context might has been removed since we go it or being re=
+moved
+> -             * right now so we might return information for a VM not exi=
+sting
+> -             * anymore. This is acceptable as we return a view of the sy=
+stem
+> -             * which could change at any time.
+> -             */
+>              info.id =3D dest_ctx->ffa_id;
+>              info.execution_context =3D dest_ctx->num_vcpus;
+>              info.partition_properties =3D FFA_PART_VM_PROP;
+>              if ( dest_ctx->is_64bit )
+>                  info.partition_properties |=3D FFA_PART_PROP_AARCH64_STA=
+TE;
+>
+> -            memcpy(dst_buf, &info, MIN(sizeof(info), dst_size));
+> -
+> -            if ( dst_size > sizeof(info) )
+> -                memset(dst_buf + sizeof(info), 0,
+> -                       dst_size - sizeof(info));
+> +            ret =3D ffa_copy_info(dst_buf, end_buf, &info, dst_size,
+> +                                sizeof(info));
+> +            if ( ret )
+> +            {
+> +                read_unlock(&ffa_ctx_list_rwlock);
+> +                return ret;
+> +            }
+>
+> -            dst_buf +=3D dst_size;
+>              count++;
+>          }
+> +        read_unlock(&ffa_ctx_list_rwlock);
+>      }
+> -    *vm_count =3D count;
+>
+> -out:
+> -    read_unlock(&ffa_ctx_list_rwlock);
+> +    *vm_count =3D count;
+>
+>      return ret;
+>  }
+> @@ -217,17 +255,18 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>      uint32_t flags =3D get_user_reg(regs, 5);
+> -    uint32_t uuid[4] =3D {
+> -        get_user_reg(regs, 1),
+> -        get_user_reg(regs, 2),
+> -        get_user_reg(regs, 3),
+> -        get_user_reg(regs, 4),
+> -    };
+> +    struct ffa_uuid uuid;
+>      uint32_t dst_size =3D 0;
+>      size_t buf_size;
+>      void *dst_buf, *end_buf;
+>      uint32_t ffa_vm_count =3D 0, ffa_sp_count =3D 0;
+>
+> +    ffa_uuid_set(&uuid,
+> +             get_user_reg(regs, 1),
+> +             get_user_reg(regs, 2),
+> +             get_user_reg(regs, 3),
+> +             get_user_reg(regs, 4));
+> +
+>      /*
+>       * If the guest is v1.0, he does not get back the entry size so we m=
+ust
+>       * use the v1.0 structure size in the destination buffer.
+> @@ -260,10 +299,23 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>          }
+>
+>          /*
+> -         * Do not count the caller VM as the spec is not clearly mandati=
+ng it
+> -         * and it is not supported by Linux.
+> +         * We do not have protocol UUIDs for VMs so if a request has non=
+ Nil
+> +         * UUID we must return a vm_count of 0
+>           */
+> -        ffa_vm_count =3D get_ffa_vm_count() - 1;
+> +        if ( ffa_uuid_is_nil(uuid) )
+> +        {
+> +            ffa_vm_count =3D get_ffa_vm_count();
+> +
+> +            /*
+> +             * Workaround for Linux FF-A Driver not accepting to have it=
+s own
+> +             * entry in the list before FF-A v1.2 was supported.
+> +             * This workaround is generally acceptable for other impleme=
+ntations
+> +             * as the specification was not completely clear on wether o=
+r not
+> +             * the requester endpoint information should be included or =
+not
+> +             */
+> +            if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
+> +                ffa_vm_count -=3D 1;
+> +        }
+>
+>          goto out;
+>      }
+> @@ -290,17 +342,15 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>
+>      if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+>      {
+> -        ret =3D ffa_get_sp_partinfo(uuid, &ffa_sp_count, dst_buf, end_bu=
+f,
+> +        ret =3D ffa_get_sp_partinfo(uuid, &ffa_sp_count, &dst_buf, end_b=
+uf,
+>                                    dst_size);
+>
+>          if ( ret )
+>              goto out_rx_release;
+> -
+> -        dst_buf +=3D ffa_sp_count * dst_size;
+>      }
+>
+> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> -        ret =3D ffa_get_vm_partinfo(&ffa_vm_count, dst_buf, end_buf, dst=
+_size);
+> +    ret =3D ffa_get_vm_partinfo(uuid, &ffa_vm_count, &dst_buf, end_buf,
+> +                              dst_size);
+>
+>  out_rx_release:
+>      if ( ret )
+> @@ -309,7 +359,13 @@ out:
+>      if ( ret )
+>          ffa_set_regs_error(regs, ret);
+>      else
+> +    {
+> +        /* Size should be 0 on count request and was not supported in 1.=
+0 */
+> +        if ( flags || ACCESS_ONCE(ctx->guest_vers) =3D=3D FFA_VERSION_1_=
+0 )
+> +            dst_size =3D 0;
+> +
+>          ffa_set_regs_success(regs, ffa_sp_count + ffa_vm_count, dst_size=
+);
+> +    }
+>  }
+>
+>  static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
+> @@ -450,6 +506,7 @@ bool ffa_partinfo_init(void)
+>      uint32_t count;
+>      int32_t e;
+>      void *spmc_rx;
+> +    struct ffa_uuid nil_uuid =3D { .val =3D { 0ULL, 0ULL } };
+>
+>      if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
+>           !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
+> @@ -459,7 +516,7 @@ bool ffa_partinfo_init(void)
+>      if (!spmc_rx)
+>          return false;
+>
+> -    e =3D ffa_partition_info_get(NULL, 0, &count, &fpi_size);
+> +    e =3D ffa_partition_info_get(nil_uuid, 0, &count, &fpi_size);
+>      if ( e )
+>      {
+>          printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index a18e56b05bbb..d883114948b1 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -307,6 +307,10 @@ struct ffa_mem_region {
+>      struct ffa_address_range address_range_array[];
+>  };
+>
+> +struct ffa_uuid {
+> +    uint64_t val[2];
+> +};
+> +
+>  struct ffa_ctx_notif {
+>      /*
+>       * True if domain is reported by FFA_NOTIFICATION_INFO_GET to have
+> @@ -580,4 +584,21 @@ static inline bool ffa_fw_supports_fid(uint32_t fid)
+>      return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
+>  }
+>
+> +static inline bool ffa_uuid_is_nil(struct ffa_uuid id)
+> +{
+> +    return id.val[0] =3D=3D 0 && id.val[1] =3D=3D 0;
+> +}
+> +
+> +static inline bool ffa_uuid_equal(struct ffa_uuid id1, struct ffa_uuid i=
+d2)
+> +{
+> +    return id1.val[0] =3D=3D id2.val[0] && id1.val[1] =3D=3D id2.val[1];
+> +}
+> +
+> +static inline void ffa_uuid_set(struct ffa_uuid *id, uint32_t val0,
+> +                                uint32_t val1, uint32_t val2, uint32_t v=
+al3)
+> +{
+> +    id->val[0] =3D ((uint64_t)val1 << 32U) | val0;
+> +    id->val[1] =3D ((uint64_t)val3 << 32U) | val2;
+> +}
+> +
+>  #endif /*__FFA_PRIVATE_H__*/
+> --
+> 2.51.2
+>
 
