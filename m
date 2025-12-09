@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89DCCB0CC2
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 19:09:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182103.1505037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA6FCB0D62
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 19:27:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182113.1505047 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT27x-0007Yi-IH; Tue, 09 Dec 2025 18:07:57 +0000
+	id 1vT2Q9-0001wL-WD; Tue, 09 Dec 2025 18:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182103.1505037; Tue, 09 Dec 2025 18:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 1182113.1505047; Tue, 09 Dec 2025 18:26:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT27x-0007Vu-EX; Tue, 09 Dec 2025 18:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 1182103;
- Tue, 09 Dec 2025 18:07:55 +0000
+	id 1vT2Q9-0001tz-Sq; Tue, 09 Dec 2025 18:26:45 +0000
+Received: by outflank-mailman (input) for mailman id 1182113;
+ Tue, 09 Dec 2025 18:26:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T3Df=6P=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vT27v-0007Ud-PH
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 18:07:55 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vT2Q7-0001t6-Vx
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 18:26:43 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb8e85dc-d529-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 19:07:54 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-477aa218f20so40024095e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 10:07:54 -0800 (PST)
+ id 9c41e0d2-d52c-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 19:26:42 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-47a80d4a065so6109935e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 10:26:42 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7d99ede7sm23307325e9.4.2025.12.09.10.07.52
+ ffacd0b85a97d-42f7d222484sm33422334f8f.24.2025.12.09.10.26.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Dec 2025 10:07:52 -0800 (PST)
+ Tue, 09 Dec 2025 10:26:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb8e85dc-d529-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 9c41e0d2-d52c-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1765303673; x=1765908473; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1765304802; x=1765909602; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=FCnAMLT3L0ZNCi75nLm7gFLzx+WgVtvN3eDexyByS7w=;
-        b=oEP4kW/3iIRJ0OpstWEdl3ZFRjx36QQrMJqP2fEU5IPMUk6OJjNZsJoncaHADg1v3w
-         uYL7C6ASRoJVQslZ9gNhWZNVzCelYTcdD0LF2aH4fq4U1pFF7GW5e36O7IKxjSKMC18b
-         HuxZ5sEOyqOiAHshP3d3QDU203fdHCWHeJtAQ=
+        bh=qgeu3O/7msTq+RISNhzvJM6a1GlYNkNz0h2icF9rS7o=;
+        b=le1QSbtIXNpHV/j8+cq+9k4QXOhEf0NJ5xb5R4nTPahyIfDjsU5esdq4bHq5zn5qFu
+         60pGwlyb7NSc+bMiNdiY+QaP+Kbae657CO9hZuoUohFHFdkxGWr37qAY5qGQKTbAV/Lh
+         FniWNt3JLLS01REhv+89gabvQeCujqXWkUP/k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765303673; x=1765908473;
+        d=1e100.net; s=20230601; t=1765304802; x=1765909602;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FCnAMLT3L0ZNCi75nLm7gFLzx+WgVtvN3eDexyByS7w=;
-        b=blwm2mEphsJNMXWF567KafDglplq3J79Pp5z5JHJjAEfPbrYgO/SiDlmRjgyWC8D++
-         Nnc3ZzSVefmUt5OTy7Ll77gF4KnU3+SWWtVUivq+PxS6Ca+i/cT+PJB0Js9pyxqJ7fHH
-         sGcVlnF60m4R7bj8Bf4hNpXZQb9ZiRhyHYuoXGpG2/DhDDnF+6t+NIoZW7jm63cvAcoU
-         6TvXv44ztJK3G1QAdq2L9OqgcQ8qbHbKTphJSj0Ush5gl3I5097DASJ81WpThwu1RM8Q
-         eDUGQFbKJ9gJjAZo+qMsFfebFgpaJivYVxqOV+RyiYJiSUy1bLwom7mPAbZoxN1c8h8Q
-         z5KA==
-X-Gm-Message-State: AOJu0Yxb/lgY7az+fCnktlY4rmBOHPc93oh3or9Tv60qjEWBAn2OqzgQ
-	WfOjk57H/WBhB64XUxoc+muzSUJ/qQ2aWHnVt6bLGJ4HvHPFDuXWw7ovYeY8Ik6tkcaJ/uD/ALB
-	SLjQh
-X-Gm-Gg: ASbGncvV6RUW/XrYB9/y5THlg0OvquyG6kSMIPMbOXO93Es7cWAf+uZxyLcVEwxF6Yr
-	/RWiOgv63ordG78AvUzjXnhJyhzO7cpI5qd4GE/+yQYakt4WU1rG5cpw5vBRddhKZTMeRheQWr5
-	HkEI7foJNHtfrJrTa8rLkO99llzfk0vc10KOvMdSNsaKq+/PVJWQye1LcYrqvvlNAE3RhTHCiKe
-	MbiUNu6WOXCzJNEu5RQytE62exII4qCf9xZVFn/4nsJiCrXDiVp43y6wxVELKGSz5gyz9q/ACBq
-	4XxO1lzcQzgT9g5J9UXVmliAsONYWA/enk2Nu74tzITVajzxendxFScjFKn3KonNcSZUl5fMX6J
-	adyhIvdOQj5HJPuD99O5ub33njAL3TBTEFzNNO85pdY8Br6KjSZ47gNeB+KbGu6YluHJ08Imti3
-	RAB6cnd80qCG9Tpel8DwDegV2qww4O9AnBPA7pP0W18L8nmYL/S25QNSWHVhyVNg==
-X-Google-Smtp-Source: AGHT+IE1x6QGfrVhzRyYIFiRU9A+KGW8sJZxobPw5EEF7+Y7BEFRpoTzq+Y0p4B03LahgORzJV/ZPQ==
-X-Received: by 2002:a05:600c:a43:b0:47a:75b6:32c with SMTP id 5b1f17b1804b1-47a7b17cfdfmr44385185e9.2.1765303673189;
-        Tue, 09 Dec 2025 10:07:53 -0800 (PST)
+        bh=qgeu3O/7msTq+RISNhzvJM6a1GlYNkNz0h2icF9rS7o=;
+        b=oYIjMKJisJEJ9tF+FOg3SAwN8QxbDQqx3yi+FNrtdlK7YUT/O9j+gvL7W2IFNodYNz
+         WkvPNRFGvw5DmbjgyTqLFeiTiBsfVRdajW50KVKq/LQdYskeFbrlo5I1fYjHX0jEErSY
+         dN9j1LS5l4pDwui1JTUmEtEgQbGB9n1vNTusDxU/LVqjDWdoWip9MzmVxpPsS2BHm38H
+         bzqjAe419ddUJHlo9zVUsZoeC/wf+l0E1N9r4Mg7nC5sjXQVszZRaNQIJowQVQJ9qwaC
+         Fa8pdOXX8JxN05VQp6CeYYvhg7g840y47yxQTtQZ5Ah6aecjTDqnmxaolEATh4YhIW0T
+         kthw==
+X-Gm-Message-State: AOJu0YyFDGZClPQ3tYGSY+jV112LYLbnxM7vBZN6UiS3pJYiRbLeLv+4
+	wuJVCwKDRKT6CgYGxQ7crpbK48D9bWh1Z8LhBa8sHhdlojjX1suyPBJSIPRRVwwyO+BLayHjAg8
+	UJc7C
+X-Gm-Gg: ASbGnculdiBJH8CEdRZzKGARAqp0m24yo0HBCVbA8ff5g9Fxilm3QrLLiNN8F03eyKV
+	ZaROUX82EOkQMX5oee2i/mH4Cx9UHDwjslw2BdCsynWlrLOGH0ygbyd14ThDEf+ZqQf6i8ieLPK
+	Xr7oNpy4tnjQCUqJeT7DGk/FFwiHdRlP1mrOvcFxXtzeuHoOBZ+d7xwWXoUihkcXuvYirzZS/Sy
+	kxpDfDRPhT+ZDb/xPYfZhNV4UOZW5BmxTjtdwOXgDxQH7CsMSvuSLeWeCXaSb23KS1XJYcO6VHb
+	pd8cMGaZZckN5MR3mFdcsIWNrVpV+uh6Nb+0jcCw8SQwUhhl+VmJXcTeiDkJ6eURJwfiWqVTZ5r
+	aPfxTOh0gukIoWdFJspvHTtPXiAJXd3gWNKkMU1zc0usJKmhsG1FlQ6rooXFH8x1viqBDU4aQVT
+	L0J7i3e8fHD3eYmRHhEL3C0yugPFcAjEhwodu9c3123dm0kj57mL2b2JQ8eiyZAA==
+X-Google-Smtp-Source: AGHT+IE35wsE3QIKMycmMi+jn5VAyMNL8EqgQOIZzhx3omT9CEYdt1JbuYd5/MrUaNof6LHS5cejwA==
+X-Received: by 2002:a05:600c:5252:b0:477:7b16:5f9f with SMTP id 5b1f17b1804b1-47939e3a708mr133176575e9.31.1765304801779;
+        Tue, 09 Dec 2025 10:26:41 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Grygorii Strashko <grygorii_strashko@epam.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/pv: Inline domain_set_alloc_bitsize() into it's single caller
-Date: Tue,  9 Dec 2025 18:07:50 +0000
-Message-Id: <20251209180750.2145364-1-andrew.cooper3@citrix.com>
+Subject: [PATCH] x86/pv: Move hv_compat_vstart into pv_domain
+Date: Tue,  9 Dec 2025 18:26:39 +0000
+Message-Id: <20251209182639.2171895-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Prior to commit 02e78311cdc6 ("x86/domctl: Make XEN_DOMCTL_set_address_size
-singleshot") (Xen 4.9, 2016), it was possible for domains to switch to being
-compat, and back again.  Since then however, becoming compat is a singleton
-action that can't be undone.
+The hv_compat_vstart variable is hidden behind CONFIG_PV32 but lives in
+arch_domain.  Moving it into pv_domain is an obvious improvement.
 
-From the context it's clear to see the is_pv_32bit_domain() check is
-redundant, and from the singleton nature being the only place setting
-physaddr_bitsize, there's no need to check it for being 0.
+The value however is less obvious, and a mess.
 
-No functional change.
+In !PV32 builds, it's uniformly 0, but in PV32 builds it's ~0U (HVM guests),
+__HYPERVISOR_COMPAT_VIRT_START (PV guests), or custom (PV32 dom0).  This seems
+to work because uses are guarded behind is_pv32_{domain,vcpu}().
 
-Co-developed-by: Grygorii Strashko <grygorii_strashko@epam.com>
+Simplify things by leaving it as 0 in PV32 builds for most domains,
+initialising it in only in switch_compat() when a domain becomes 32bit PV.
+dom0_construct() adjusts the value after calling switch_compat().
+
+Suggested-by: Grygorii Strashko <grygorii_strashko@epam.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Grygorii Strashko <grygorii_strashko@epam.com>
 
-Split out of series to simplify things.
+Texturally, but not logically, depends on "[PATCH] x86/pv: Inline
+domain_set_alloc_bitsize() into it's single caller"
 
-bloat-o-meter reports:
+Bloat-o-meter reports:
 
-  add/remove: 0/1 grow/shrink: 1/0 up/down: 25/-96 (-71)
+  add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-65 (-65)
   Function                                     old     new   delta
-  switch_compat                                447     472     +25
-  domain_set_alloc_bitsize                      96       -     -96
+  switch_compat                                472     463      -9
+  arch_domain_create                          1056    1000     -56
 
-which will mostly be the LFENCEs embedded in is_pv_32bit_domain().
+The reason that switch_compat() gets smaller is because
+MACH2PHYS_COMPAT_NR_ENTRIES(d) can now be calculated at compile time,
+including the fls() thereof.
 ---
- xen/arch/x86/include/asm/mm.h |  1 -
- xen/arch/x86/pv/domain.c      |  6 +++++-
- xen/arch/x86/x86_64/mm.c      | 13 -------------
- 3 files changed, 5 insertions(+), 15 deletions(-)
+ xen/arch/x86/domain.c             | 5 -----
+ xen/arch/x86/include/asm/config.h | 2 +-
+ xen/arch/x86/include/asm/domain.h | 8 ++++----
+ xen/arch/x86/pv/dom0_build.c      | 2 +-
+ xen/arch/x86/pv/domain.c          | 2 ++
+ 5 files changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-index 17ca6666a34e..9438f5ea0119 100644
---- a/xen/arch/x86/include/asm/mm.h
-+++ b/xen/arch/x86/include/asm/mm.h
-@@ -619,7 +619,6 @@ void __iomem *ioremap_wc(paddr_t pa, size_t len);
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index d33a42c8824c..5e37bfbd17d6 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -890,11 +890,6 @@ int arch_domain_create(struct domain *d,
+     }
+     d->arch.emulation_flags = emflags;
  
- extern int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm);
+-#ifdef CONFIG_PV32
+-    d->arch.hv_compat_vstart =
+-        is_pv_domain(d) ? __HYPERVISOR_COMPAT_VIRT_START : ~0u;
+-#endif
+-
+     spec_ctrl_init_domain(d);
  
--void domain_set_alloc_bitsize(struct domain *d);
- unsigned int domain_clamp_alloc_bitsize(struct domain *d, unsigned int bits);
- #define domain_clamp_alloc_bitsize(d, bits) domain_clamp_alloc_bitsize(d, bits)
+     if ( (rc = paging_domain_init(d)) != 0 )
+diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
+index 156369695442..cc80f2c62310 100644
+--- a/xen/arch/x86/include/asm/config.h
++++ b/xen/arch/x86/include/asm/config.h
+@@ -201,7 +201,7 @@
+ 
+ /* This is not a fixed value, just a lower limit. */
+ #define __HYPERVISOR_COMPAT_VIRT_START 0xF5800000
+-#define HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.hv_compat_vstart)
++#define HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.pv.hv_compat_vstart)
+ 
+ #else /* !CONFIG_PV32 */
+ 
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index 386ec6174589..7e5cbd11a464 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -288,6 +288,10 @@ struct pv_domain
+     /* Mitigate L1TF with shadow/crashing? */
+     bool check_l1tf;
+ 
++#ifdef CONFIG_PV32
++    unsigned int hv_compat_vstart;
++#endif
++
+     /* map_domain_page() mapping cache. */
+     struct mapcache_domain mapcache;
+ 
+@@ -315,10 +319,6 @@ struct arch_domain
+ {
+     struct page_info *perdomain_l3_pg;
+ 
+-#ifdef CONFIG_PV32
+-    unsigned int hv_compat_vstart;
+-#endif
+-
+     /* Maximum physical-address bitwidth supported by this guest. */
+     unsigned int physaddr_bitsize;
+ 
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index fed03dc15dcf..418b453ba8bf 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -521,7 +521,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+                 printk("Dom0 expects too high a hypervisor start address\n");
+                 return -ERANGE;
+             }
+-            d->arch.hv_compat_vstart =
++            d->arch.pv.hv_compat_vstart =
+                 max_t(unsigned int, m2p_compat_vstart, value);
+         }
  
 diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 9c4785c187dd..11db6a6d8396 100644
+index 11db6a6d8396..ca5f6920516e 100644
 --- a/xen/arch/x86/pv/domain.c
 +++ b/xen/arch/x86/pv/domain.c
-@@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
+@@ -254,6 +254,8 @@ int switch_compat(struct domain *d)
              goto undo_and_fail;
      }
  
--    domain_set_alloc_bitsize(d);
-+    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
-+        d->arch.physaddr_bitsize =
-+            /* 2^n entries can be contained in guest's p2m mapping space */
-+            fls(MACH2PHYS_COMPAT_NR_ENTRIES(d)) - 1 + PAGE_SHIFT;
++    d->arch.pv.hv_compat_vstart = __HYPERVISOR_COMPAT_VIRT_START;
 +
-     recalculate_cpuid_policy(d);
- 
-     d->arch.x87_fip_width = 4;
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index d4e6a9c0a2e0..42fd4fe4e9b5 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1119,19 +1119,6 @@ int handle_memadd_fault(unsigned long addr, struct cpu_user_regs *regs)
-     return ret;
- }
- 
--void domain_set_alloc_bitsize(struct domain *d)
--{
--    if ( !is_pv_32bit_domain(d) ||
--         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
--         d->arch.physaddr_bitsize > 0 )
--        return;
--    d->arch.physaddr_bitsize =
--        /* 2^n entries can be contained in guest's p2m mapping space */
--        fls(MACH2PHYS_COMPAT_NR_ENTRIES(d)) - 1
--        /* 2^n pages -> 2^(n+PAGE_SHIFT) bits */
--        + PAGE_SHIFT;
--}
--
- unsigned int domain_clamp_alloc_bitsize(struct domain *d, unsigned int bits)
- {
-     if ( (d == NULL) || (d->arch.physaddr_bitsize == 0) )
+     if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
+         d->arch.physaddr_bitsize =
+             /* 2^n entries can be contained in guest's p2m mapping space */
 -- 
 2.39.5
 
