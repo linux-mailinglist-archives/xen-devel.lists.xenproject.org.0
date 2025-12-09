@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31687CAF5E4
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:59:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181257.1504334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFB9CAF804
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 10:46:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181271.1504343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStZI-0000tO-Io; Tue, 09 Dec 2025 08:59:36 +0000
+	id 1vSuIR-00077M-2o; Tue, 09 Dec 2025 09:46:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181257.1504334; Tue, 09 Dec 2025 08:59:36 +0000
+Received: by outflank-mailman (output) from mailman id 1181271.1504343; Tue, 09 Dec 2025 09:46:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStZI-0000qS-F5; Tue, 09 Dec 2025 08:59:36 +0000
-Received: by outflank-mailman (input) for mailman id 1181257;
- Tue, 09 Dec 2025 08:59:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vStZH-0000qM-2a
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:59:35 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60b6d32a-d4dd-11f0-9cce-f158ae23cfc8;
- Tue, 09 Dec 2025 09:59:32 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-42b3d7c1321so3239716f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:59:32 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d330b20sm29591179f8f.29.2025.12.09.00.59.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 00:59:31 -0800 (PST)
+	id 1vSuIQ-00074a-Vn; Tue, 09 Dec 2025 09:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 1181271;
+ Tue, 09 Dec 2025 09:46:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vSuIP-00074T-MX
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 09:46:13 +0000
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [2607:f8b0:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e01b4fb3-d4e3-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 10:46:03 +0100 (CET)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-44ffed84cccso973867b6e.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 01:46:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +40,389 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60b6d32a-d4dd-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: e01b4fb3-d4e3-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765270772; x=1765875572; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iSudaLxSC12/glrex1pnn3uP4+VBeveqnn8TBYWgYII=;
-        b=I91N8t0QBEj6poajNlD9TNwTt9P7LY+tSLFdmGpCPCT0AGMQykUPrp+xMSKL7I6xDt
-         uT0Aa4yHjo/2UavFdH1XYbjpddo/DI3jSgpjXD6gJB7PC//lPk9gp/pSnncn2PKMSoS/
-         TjoQ9qDqcbynepga2HsXVl/th96WpgA8gW9SYZD0ZBK5LlyWjd5dYFYBQv34oWWab4M2
-         FiNhh8Xv6tXH16rorijT2z1m6dNHgfzscbnDRMiUw18irSpI0idyGkGTFTqu8JCfMeRP
-         tQ90zQP/FRaGlHPBo5uQ296muTb02kqjqlLSvgBBywb+W4tYEtvFSOrZCjlzkXnCGcXO
-         aaOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765270772; x=1765875572;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1765273562; x=1765878362; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iSudaLxSC12/glrex1pnn3uP4+VBeveqnn8TBYWgYII=;
-        b=k7JrKT4jWEieyZWFlNLZ+LdzUgWqd3MsMOZqbQDvrfkiqtJuk8w7g39Mz09JUBfGJO
-         GUDkZQvv686kcbUjwU4vu3FzFl/yXm4p+kMQa12FMzOlDhnUYUBpc7kmyfNhxeEJrWfg
-         cQdvAhP7GXLzjhjD9uH/Evo8kw3DDBfwOObEP0iU42xOywF0X16jkn80z1mSuq60bDHY
-         nYcOW8o43abVaPMaos6ZAWBwJDlwLkyAh/dbyhaiHWvaZvQCFHagBIfxiwr9NS3YnWbk
-         K11lUFZdPvselZbU0rwuqoCayuJh+83Z//Ug2UmRBsF3pA0bZgtev7Zk4o02HkvHdro0
-         dNLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWEtWTiO0+CatuJ9BBcf2945DKZ/gUpd2Rq5pulve0uqiG5tserSoNn2RXaG95fP9roUK351zzFbmg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz5sc3Rnq/2FQwPdRSpoyORem37E+z0rMhTNKThJFIUE+NBQSwU
-	c/Yl9SPtoJx+kK+76mXUDsPE7kOKP275Ar/BerMk8mHtuWzuXnVavnh1SujTXWcq6A==
-X-Gm-Gg: ASbGncsNk5hSe9/m83syRrBNEDghTJRc3pZOcGpLOagqThqPd50I9ZkJBT8MzquKomI
-	pL5VcdcIB90R+yoCGywKTOY1Iay1gf8DQPcMcdN0bV3mACoH2ADPbNPcfVKYba8tYWjCXRd+JLb
-	5wnxw8GaejxLU073L3PVh1KxwL6WqUIbwumjLYYw991nHR0kRIdppmGvVyJ1uV02a+5razfTGFF
-	OwDJ3xNWJUponCeZjxTpAjYFv2uqkDwTINjMATivSsSmDKBsDpM4YEAwmX+4RKYBctYuorNvW9t
-	lP40bx/DIdMdpFTwZKf6igofGgXbhi55vIYcmcxZqiqybFfIkVDGb3X6RDoJ1X3Ogrg99JULLR1
-	+gPppwms6lVIcf6Np1U0q85C0VQhFG0h+kuniO+Ih2tQ9pl83aAOfV8mmsZFwvSkjF8VI+5+wRc
-	Am3Ybvc0HrEMwR9VJE3PiIhpc5Xb4WR1PG8OFk49s7PyLx1/tt34j14ioy3/OaMrLojNAnkQfu4
-	9w=
-X-Google-Smtp-Source: AGHT+IGNv3wXntVimBoe8Au9/dVypZmS9s5gysTjzg/FnwnUFJkTJglT1nJGb8QapqnpHg776djuRg==
-X-Received: by 2002:a5d:64e3:0:b0:42b:2ea5:61b6 with SMTP id ffacd0b85a97d-42f89f53becmr11910974f8f.46.1765270771886;
-        Tue, 09 Dec 2025 00:59:31 -0800 (PST)
-Message-ID: <a3dcfce1-4695-4064-a1e3-af09bfa04199@suse.com>
-Date: Tue, 9 Dec 2025 09:59:30 +0100
+        bh=syvUArLXzYy1n1KpHA25Z5M7M/i5SOIJswk5ER2bT+I=;
+        b=HRzVWUqqAV5dO62cNRPxbKZR3EWelIBIoaH6F+MqMnGC+wGH+ZcRNuhrmP0GWnaIGA
+         e0ybsWC/wCgRXmIDHZBnxS8m/DzSxbzRM4OsJAFMP4KdPv32uwpgQ6TfqkSxaU48TMae
+         OZpgYH0ULnkySxf6zJ8AkgMPUjgL1buA7QQeG1ZR6X6AaWMlXJNbOdVn/ftIUQ0Xvwto
+         4i4DVEkq7jkMLNBZyPgw7uq7FH42sNf9gfYhUnANzx024+Sw2/pDGnUe541pjJh3aQyp
+         JD0KqXl6Va5QrnjY2lKOCDczXvtvfk9Q5r1eZO387fn8+OFxkhTzyTPfFfoTiIqgVk4Y
+         gbQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765273562; x=1765878362;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=syvUArLXzYy1n1KpHA25Z5M7M/i5SOIJswk5ER2bT+I=;
+        b=Q+mFur3NFaRpp96KqsW3HsYJpP9q4TOrWhGq6WzbEYBgfXxTVVZXhXVpWPdr1a5Iw+
+         oW9em1KAMtOKzMUugLrXPjEGNxPxxbUoWluqvEwT5SwFnXpY9o8cOJcJRccFzrUkEPmJ
+         foHImG5bBGge8pooc4mLHxATxjccNeqyMiUW3EgheEVvDa/LJpLjiFKjEhhqrm/gch0q
+         hfVuiRMDIrzSDTrHUBUu/q+1U6o+UlOOijdkz1Y4gsRcIlpJH5mKEQHFILrpk8tE1SIm
+         HfWm3HHvKInPBd/GZmozsly0bAunvchlYUEWrjoQgNtBgy0wNXfDz7Ur5Hlt3rQ4gfxz
+         FMYA==
+X-Gm-Message-State: AOJu0Yyp94vflYpX7hjnfQpMkTVCu1t879PYIPR+xKOQFMMk0slYauj/
+	SwW+5ul8CSyrmzogjgUD4/K4vmyE7CNSNeA+GC8KfN0afzX+A5Zy9h2TFt1qw8l2E6WoRyvDwsY
+	9S86Y7bF08rhAy41TMnKSvNLFW1RnheunMm3oP0a6CQ==
+X-Gm-Gg: ASbGncuEk2HWfgjhT5MXHot2cF8Dyea6W/5QMnPKvLLWUdGKnfpuAawF26YISL6F3hR
+	Nl6yV7vAikpMXYLudQF5luHnHyg0+ZLzce4XIcKV8BM8c7mTS/O8SgHz+NOSnvbnc5gr174DumI
+	ikZJ2fAfGcg5aCms8iJ9+3clRmwMDetdzFjJpWlQgV6sWWyK/1C3i/FIxg43e7OrZIGiGIX7F10
+	QUVaZclVXMiNkbS2dIHo/AJFe6YALx+QiyAmcpcwgoziuU4bEQzx6IHV6ECVBEcGRW+4ac5icO8
+	RAL0aIqkj+/pksAILDtJBkM/idPI9qTZV5XiZM07rpt+usQZCVa9ywRgpd15PQ==
+X-Google-Smtp-Source: AGHT+IHkoZ4RbyQbVi0TyuaDdRk4yBQVZvwsmSGuoqzYBoffn6BVN2d7XwpdPqEaHZOPSfukG3JAlVeIN9wYMIHg/hI=
+X-Received: by 2002:a05:6808:1910:b0:450:b249:719d with SMTP id
+ 5614622812f47-4539e0ab127mr3358635b6e.53.1765273562406; Tue, 09 Dec 2025
+ 01:46:02 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] xen/x86: move d->arch.physaddr_bitsize field
- handling to pv32
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251128152218.3886583-1-grygorii_strashko@epam.com>
- <20251128152218.3886583-4-grygorii_strashko@epam.com>
- <c9ee4fc8-44c6-43e8-88eb-9041c51aed16@suse.com>
- <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <d66e0935ad46953aa12a0830fc8a0a4947933fe3.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <d66e0935ad46953aa12a0830fc8a0a4947933fe3.1764930353.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 9 Dec 2025 10:45:51 +0100
+X-Gm-Features: AQt7F2ryCSbj5Ev_93JuxAQStl6MKCC8-ArCkOxrBu9a9gC0FV23zRLKSCD52h8
+Message-ID: <CAHUa44G85=NyMaB3qT6OD2v1N+f56wLwEUE1yqwtu++KQKyiuQ@mail.gmail.com>
+Subject: Re: [PATCH v1 02/12] xen/arm: ffa: per-VM FFA_VERSION negotiation state
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08.12.2025 20:21, Grygorii Strashko wrote:
-> On 08.12.25 14:44, Jan Beulich wrote:
->> On 28.11.2025 16:22, Grygorii Strashko wrote:
->>> --- a/xen/arch/x86/pv/domain.c
->>> +++ b/xen/arch/x86/pv/domain.c
->>> @@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
->>>               goto undo_and_fail;
->>>       }
->>>   
->>> -    domain_set_alloc_bitsize(d);
->>> +    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
->>
->> You mention the change in condition in the revlog (but not in the description),
-> 
-> The updated chunk was based on snippet from Andrew [1], which
-> used incorrect condition - I've changed it and noted in change log
-> 
-> [1] https://patchwork.kernel.org/comment/26680551/
-> 
->> and I'm having trouble to follow why ...
->>
->>> --- a/xen/arch/x86/x86_64/mm.c
->>> +++ b/xen/arch/x86/x86_64/mm.c
->>> @@ -1119,26 +1119,6 @@ unmap:
->>>       return ret;
->>>   }
->>>   
->>> -void domain_set_alloc_bitsize(struct domain *d)
->>> -{
-> 
-> The domain_set_alloc_bitsize() inlined in  switch_compat() and x86 PV domain
-> always created as 64bit domain.
-> 
-> At the beginning of switch_compat() there is:
-> 
->   ( is_pv_32bit_domain(d) )
+Hi Bertrand,
+
+On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Track FF-A version negotiation per VM and enforce that no FF-A ABI
+> (other than FFA_VERSION) is processed before a guest has selected a
+> version.
+>
+> Each ffa_ctx gains a dedicated guest_vers_lock, a negotiated version
+> (guest_vers) and a guest_vers_tmp:
+> - guest_vers is the version negotiated or 0 if no version has been
+>   negotiated. This must be used with ACCESS_ONCE when reading it without
+>   the spinlock taken.
+> - guest_vers_tmp stores the version currently requested by a VM.
+>
+> The version requested is the one actually negotiated once a call
+> different from FFA_VERSION is done to allow several attempts and as
+> requested by FF-A specification.
+> We always return our implementation version FFA_MY_VERSION, even if the
+> version requested was different, as requested by FF-A specification.
+>
+> Any call other than FFA_VERSION is rejected until a version has been
+> requested.
+>
+> Update all places in the code where guest_vers is used to use
+> ACCESS_ONCE.
+>
+> This prevents partially initialised contexts from using the mediator
+> and complies with the FF-A 1.2 FFA_VERSION semantics.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v1:
+> - remove the guest_vers_negotiated and use guest_vers =3D 0 as condition
+>   for a version being negotiated instead
+> - introduce guest_vers_tmp to store a requested version until it is
+>   becoming the one negotiated.
+> - remove not needed if negotiated condition.
+> - use ACCESS_ONCE when reading guest_vers and use guest_vers =3D=3D 0 as
+>   condition for a version being negotiated.
+> - Update FF-A version handling comment in ffa_private.h
+> ---
+>  xen/arch/arm/tee/ffa.c          | 101 +++++++++++++++++++++++++-------
+>  xen/arch/arm/tee/ffa_msg.c      |   2 +-
+>  xen/arch/arm/tee/ffa_partinfo.c |   4 +-
+>  xen/arch/arm/tee/ffa_private.h  |  26 ++++++--
+>  xen/arch/arm/tee/ffa_shm.c      |   3 +-
+>  5 files changed, 105 insertions(+), 31 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 2b4e24750d52..aadd6c21e7f2 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -158,31 +158,38 @@ static bool ffa_abi_supported(uint32_t id)
+>      return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+>  }
+>
+> -static void handle_version(struct cpu_user_regs *regs)
+> +static bool ffa_negotiate_version(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> -    uint32_t vers =3D get_user_reg(regs, 1);
+> -    uint32_t old_vers;
+> +    uint32_t fid =3D get_user_reg(regs, 0);
+> +    uint32_t in_vers =3D get_user_reg(regs, 1);
+> +    uint32_t out_vers =3D FFA_MY_VERSION;
+>
+> -    /*
+> -     * Guest will use the version it requested if it is our major and mi=
+nor
+> -     * lower or equals to ours. If the minor is greater, our version wil=
+l be
+> -     * used.
+> -     * In any case return our version to the caller.
+> -     */
+> -    if ( FFA_VERSION_MAJOR(vers) =3D=3D FFA_MY_VERSION_MAJOR )
+> +    spin_lock(&ctx->guest_vers_lock);
+> +
+> +    /* If negotiation already published, continue without handling. */
+> +    if ( ACCESS_ONCE(ctx->guest_vers) )
+> +        goto out_continue;
+> +
+> +    if ( fid !=3D FFA_VERSION )
+>      {
+> -        spin_lock(&ctx->lock);
+> -        old_vers =3D ctx->guest_vers;
+> +        if ( !ctx->guest_vers_tmp )
+> +        {
+> +            out_vers =3D 0;
+> +            goto out_handled;
+> +        }
+>
+> -        if ( FFA_VERSION_MINOR(vers) > FFA_MY_VERSION_MINOR )
+> -            ctx->guest_vers =3D FFA_MY_VERSION;
+> -        else
+> -            ctx->guest_vers =3D vers;
+> -        spin_unlock(&ctx->lock);
+> +        /*
+> +         * A successful FFA_VERSION call does not freeze negotiation. Gu=
+ests
+> +         * are allowed to issue multiple FFA_VERSION attempts (e.g. prob=
+ing
+> +         * several minor versions). Negotiation becomes final only when =
+a
+> +         * non-VERSION ABI is invoked, as required by the FF-A specifica=
+tion.
+> +         * Finalize negotiation: publish guest_vers once, then never cha=
+nge.
+> +         */
+> +        ACCESS_ONCE(ctx->guest_vers) =3D ctx->guest_vers_tmp;
+>
+> -        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !old_vers )
+> +        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>          {
+>              /* One more VM with FF-A support available */
+>              inc_ffa_vm_count();
+> @@ -190,8 +197,48 @@ static void handle_version(struct cpu_user_regs *reg=
+s)
+>              list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
+>              write_unlock(&ffa_ctx_list_rwlock);
+>          }
+> +
+> +        goto out_continue;
+>      }
+> -    ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+> +
+> +    /*
+> +     * guest_vers_tmp stores the version selected by the guest (lower mi=
+nor may
+> +     * require reduced data structures). However, the value returned to =
+the
+> +     * guest via FFA_VERSION is always FFA_MY_VERSION, the implementatio=
+n
+> +     * version, as required by FF-A. The two values intentionally differ=
+.
+> +     */
+> +
+> +    /*
+> +     * Return our highest implementation version on request different th=
+an our
+> +     * major and mark negotiated version as our implementation version.
+> +     */
+> +    if ( FFA_VERSION_MAJOR(in_vers) !=3D FFA_MY_VERSION_MAJOR )
+> +    {
+> +        ctx->guest_vers_tmp =3D FFA_MY_VERSION;
+> +        goto out_handled;
+> +    }
+> +
+> +    /*
+> +     * Use our minor version if a greater minor was requested or the req=
+uested
+> +     * minor if it is lower than ours was requested.
+> +     */
+> +    if ( FFA_VERSION_MINOR(in_vers) > FFA_MY_VERSION_MINOR )
+> +        ctx->guest_vers_tmp =3D FFA_MY_VERSION;
+> +    else
+> +        ctx->guest_vers_tmp =3D in_vers;
+> +
+> +out_handled:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +    if ( out_vers )
+> +        ffa_set_regs(regs, out_vers, 0, 0, 0, 0, 0, 0, 0);
+> +    else
+> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> +    return true;
+> +
+> +out_continue:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +
+> +    return false;
+>  }
+>
+>  static void handle_features(struct cpu_user_regs *regs)
+> @@ -274,10 +321,17 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
+egs)
+>      if ( !ctx )
+>          return false;
+>
+> +    /* A version must be negotiated first */
+> +    if ( !ACCESS_ONCE(ctx->guest_vers) )
+> +    {
+> +        if ( ffa_negotiate_version(regs) )
+> +            return true;
+> +    }
+> +
+>      switch ( fid )
+>      {
+>      case FFA_VERSION:
+> -        handle_version(regs);
+> +        ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+>          return true;
+>      case FFA_ID_GET:
+>          ffa_set_regs_success(regs, ffa_get_vm_id(d), 0);
+> @@ -371,6 +425,11 @@ static int ffa_domain_init(struct domain *d)
+>      d->arch.tee =3D ctx;
+>      ctx->teardown_d =3D d;
+>      INIT_LIST_HEAD(&ctx->shm_list);
+> +    spin_lock_init(&ctx->lock);
+> +    spin_lock_init(&ctx->guest_vers_lock);
+> +    ctx->guest_vers =3D 0;
+> +    ctx->guest_vers_tmp =3D 0;
+> +    INIT_LIST_HEAD(&ctx->ctx_list);
+>
+>      ctx->ffa_id =3D ffa_get_vm_id(d);
+>      ctx->num_vcpus =3D d->max_vcpus;
+> @@ -452,7 +511,7 @@ static int ffa_domain_teardown(struct domain *d)
+>      if ( !ctx )
 >          return 0;
-> [2]
-> above ensures that switch_compat() can be actually called only once (at least it can reach
-> point [2] only once, because there is no way to reset PV domain state 32bit->64bit
-> 
-> this is original condition which says:
->>> -    if ( !is_pv_32bit_domain(d) ||
-> 
-> do nothing if !is_pv_32bit_domain(d)
->   - for inlined code is_pv_32bit_domain(d) == true, so is_pv_32bit_domain(d) can be ignored
-> 
->>> -         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
-> 
-> do nothing if (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page)
->    - inlinded code should proceed if this condition is opposite
->      (MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page)
-> 
->>> -         d->arch.physaddr_bitsize > 0 )
-> 
-> do nothing if d->arch.physaddr_bitsize > 0 (already set)
->    - inlined code will be executed only once, so (d->arch.physaddr_bitsize ==/!= 0)
->      can be ignored
+>
+> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers )
+> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ACCESS_ONCE(ctx->guest_vers)=
+ )
+>      {
+>          dec_ffa_vm_count();
+>          write_lock(&ffa_ctx_list_rwlock);
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index c20c5bec0f76..2c2ebc9c5cd6 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -113,7 +113,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
+t void *src_buf,
+>      }
+>
+>      dst_ctx =3D dst_d->arch.tee;
+> -    if ( !dst_ctx->guest_vers )
+> +    if ( !ACCESS_ONCE(dst_ctx->guest_vers) )
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>          goto out_unlock;
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index fa56b1587e3b..ec5a53ed1cab 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -238,7 +238,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>       * use the v1.0 structure size in the destination buffer.
+>       * Otherwise use the size of the highest version we support, here 1.=
+1.
+>       */
+> -    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
+> +    if ( ACCESS_ONCE(ctx->guest_vers) =3D=3D FFA_VERSION_1_0 )
+>          dst_size =3D sizeof(struct ffa_partition_info_1_0);
+>      else
+>          dst_size =3D sizeof(struct ffa_partition_info_1_1);
+> @@ -250,7 +250,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>           * FF-A v1.0 has w5 MBZ while v1.1 allows
+>           * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
+>           */
+> -        if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 ||
+> +        if ( ACCESS_ONCE(ctx->guest_vers) =3D=3D FFA_VERSION_1_0 ||
+>                  flags !=3D FFA_PARTITION_INFO_GET_COUNT_FLAG )
+>          {
+>              ret =3D FFA_RET_INVALID_PARAMETERS;
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 8d01da0009d3..4e4ac7fd7bc4 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -355,12 +355,6 @@ struct ffa_ctx {
+>       * Global data accessed with lock locked.
+>       */
+>      spinlock_t lock;
+> -    /*
+> -     * FF-A version negotiated by the guest, only modifications to
+> -     * this field are done with the lock held as this is expected to
+> -     * be done once at init by a guest.
+> -     */
+> -    uint32_t guest_vers;
+>      /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
+>      unsigned int page_count;
+>      /* Number of allocated shared memory object */
+> @@ -368,6 +362,26 @@ struct ffa_ctx {
+>      /* Used shared memory objects, struct ffa_shm_mem */
+>      struct list_head shm_list;
+>
+> +    /*
+> +     * FF-A version handling
+> +     * guest_vers is the single published negotiated version. It is 0 un=
+til
+> +     * negotiation completes, after which it is set once and never chang=
+es.
+> +     * Negotiation uses guest_vers_tmp under guest_vers_lock; when a
+> +     * non-VERSION ABI is invoked, Xen finalizes negotiation by publishi=
+ng
+> +     * guest_vers using ACCESS_ONCE() store.
+> +     * Readers use ACCESS_ONCE(guest_vers) !=3D 0 to detect availability=
+ and
+> +     * can consume guest_vers without barriers because it never changes =
+once
+> +     * published.
+> +     */
+> +    spinlock_t guest_vers_lock;
+> +    /*
+> +     * Published negotiated version. Zero means "not negotiated yet".
+> +     * Once non-zero, it never changes.
+> +     */
+> +    uint32_t guest_vers;
 
-This is the crucial point: It being executed only once isn't spelled out
-anywhere in the description, and it's not entirely obvious why that would
-be. Yes, nowadays it is. Originally (iirc) one could switch the guest back
-to 64-bit mode, then again to 32-bit.
+It might be worth mentioning that this field must always be accessed
+using the ACCESS_ONCE() macro.
 
->> ... this 3rd part is going away.
-> 
-> Another observation: MACH2PHYS_COMPAT_NR_ENTRIES(d) is looks like a const, as
-> (d)->arch.hv_compat_vstart is always 0.
-> 
-> grep -rw hv_compat_vstart ./*
-> ./arch/x86/include/asm/config.h:#define HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.hv_compat_vstart)
-> ./arch/x86/include/asm/domain.h:    unsigned int hv_compat_vstart;
+Cheers,
+Jens
 
-This observation isn't directly related here, is it?
-
-Jan
+> +    /* Temporary version used during negotiation under guest_vers_lock *=
+/
+> +    uint32_t guest_vers_tmp;
+> +
+>      /*
+>       * Rx buffer, accessed with rx_lock locked.
+>       * rx_is_free is used to serialize access.
+> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> index d628c1b70609..dad3da192247 100644
+> --- a/xen/arch/arm/tee/ffa_shm.c
+> +++ b/xen/arch/arm/tee/ffa_shm.c
+> @@ -495,7 +495,8 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+>      if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+>          goto out_unlock;
+>
+> -    ret =3D read_mem_transaction(ctx->guest_vers, ctx->tx, frag_len, &tr=
+ans);
+> +    ret =3D read_mem_transaction(ACCESS_ONCE(ctx->guest_vers), ctx->tx,
+> +                               frag_len, &trans);
+>      if ( ret )
+>          goto out_unlock;
+>
+> --
+> 2.51.2
+>
 
