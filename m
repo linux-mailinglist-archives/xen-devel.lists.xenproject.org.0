@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97D99CAF51B
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:47:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181244.1504323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31687CAF5E4
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 09:59:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181257.1504334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStMh-0007R9-Bc; Tue, 09 Dec 2025 08:46:35 +0000
+	id 1vStZI-0000tO-Io; Tue, 09 Dec 2025 08:59:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181244.1504323; Tue, 09 Dec 2025 08:46:35 +0000
+Received: by outflank-mailman (output) from mailman id 1181257.1504334; Tue, 09 Dec 2025 08:59:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vStMh-0007Ob-7i; Tue, 09 Dec 2025 08:46:35 +0000
-Received: by outflank-mailman (input) for mailman id 1181244;
- Tue, 09 Dec 2025 08:46:33 +0000
+	id 1vStZI-0000qS-F5; Tue, 09 Dec 2025 08:59:36 +0000
+Received: by outflank-mailman (input) for mailman id 1181257;
+ Tue, 09 Dec 2025 08:59:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sSjK=6P=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vStMf-0007OV-Ee
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:46:33 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vStZH-0000qM-2a
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 08:59:35 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8dbddb2b-d4db-11f0-9cce-f158ae23cfc8;
- Tue, 09 Dec 2025 09:46:29 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47a80d4a065so1086455e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:46:29 -0800 (PST)
+ id 60b6d32a-d4dd-11f0-9cce-f158ae23cfc8;
+ Tue, 09 Dec 2025 09:59:32 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-42b3d7c1321so3239716f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 00:59:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d353f8bsm30668265f8f.43.2025.12.09.00.46.27
+ ffacd0b85a97d-42f7d330b20sm29591179f8f.29.2025.12.09.00.59.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 00:46:28 -0800 (PST)
+ Tue, 09 Dec 2025 00:59:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dbddb2b-d4db-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 60b6d32a-d4dd-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765269988; x=1765874788; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765270772; x=1765875572; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mFtIhQCGGbUgj0sWRO3ulsjj1uTcjXKRJYwANcq9Kok=;
-        b=NDk9zoUBrCeW1RgKwrn4DeF5r/6phVRG/rhIqiLg3eGMfh6Eo/7VQiaihW9UeOvh1u
-         ner/ryVsEpooDQQGq+xoACIccn8MKlHOgIBXrlYzLXEv4aKuO/aS1jMUDqPlXCQm2L91
-         YDOTKgFiG9kaTsFaIRm1dmwmAh/r2JePjJxVFTPyJH3DXJ/MpAFEG2HEIM2UsMFGteob
-         SESDG5D6fwhUHoFnCqUmRLQPHtaxOoYFmW9w9QYSRY2+RqX5VuwGKiKCZmhXD7qu7TOH
-         vbsrzSIUbhY3biOQ1NZYFAXlqztvf9wjNsU6FUdPq8mtEbTx1Rf9Et3em0cZmwPtjATZ
-         fKnw==
+        bh=iSudaLxSC12/glrex1pnn3uP4+VBeveqnn8TBYWgYII=;
+        b=I91N8t0QBEj6poajNlD9TNwTt9P7LY+tSLFdmGpCPCT0AGMQykUPrp+xMSKL7I6xDt
+         uT0Aa4yHjo/2UavFdH1XYbjpddo/DI3jSgpjXD6gJB7PC//lPk9gp/pSnncn2PKMSoS/
+         TjoQ9qDqcbynepga2HsXVl/th96WpgA8gW9SYZD0ZBK5LlyWjd5dYFYBQv34oWWab4M2
+         FiNhh8Xv6tXH16rorijT2z1m6dNHgfzscbnDRMiUw18irSpI0idyGkGTFTqu8JCfMeRP
+         tQ90zQP/FRaGlHPBo5uQ296muTb02kqjqlLSvgBBywb+W4tYEtvFSOrZCjlzkXnCGcXO
+         aaOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765269988; x=1765874788;
+        d=1e100.net; s=20230601; t=1765270772; x=1765875572;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mFtIhQCGGbUgj0sWRO3ulsjj1uTcjXKRJYwANcq9Kok=;
-        b=vSCQCwQP/aAHO7nFT8T6bMPkNwnRkUTHZIPqAXH40f4tZvPkbA3FwIoV4nPEfjN/LN
-         eslU5WWZGStIhZF4N6EpMYUA1Xv22COeBHqiyZE9dy7bpRhOBc+wpIRwHK6JJNPr3Sf4
-         YatItSuUsiXZIOUvLZUGzV7400pTpWa4iHNcwZM7JFvCOIvyyRWQSvD4DfbW0fMjqp0Z
-         bpAgtfX9two6ze7XrtWmHNKBi7OATn4npNlMz2y5lmr14WAgO/39WoVvV2QamH9KSe4H
-         jP/HWN7r60j/vd+lKu9uEe7kk9rQWYTyBamgzw6mmtbE1XIXgIo2QKcNiszK0FUKI8ok
-         iZ1A==
-X-Forwarded-Encrypted: i=1; AJvYcCVjvU5LUS04jh/EpwR+Ot6cwTJqVMluw4xbkyZndKqnwdiX5wXHTfoqzMp70lIDhWGjCn6jv63sX4g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUIPP7Zwrt3WNlfvZ0qc05gTm+86YsRhg5VXBa8HzlnovfB7BH
-	w3RMl083GfLYePbDxLnizMsJbdtNOmdxm6XmJHY38Bn2mx5c1Oi+VPl3cRFt7bBzKQ==
-X-Gm-Gg: ASbGnctWjlrT6SH7X6/fyHtX+V1hggtzI+wunDCmALvY40vbUsGgGuWkBh5cSo/0FSe
-	qsTDUYCZQ2gfNZNrqwN+AviAjNFLrpHoNu7rF8r9EPxCO2A1pclfmUvHYXZGah5qvyjQvtVTNCw
-	c30FguZfm6jv1ebVHzzC+qeKwsQD7gwhfafUFQf6od+/9bOB9A17APoYXcjJd/acPhJVEVZLk4r
-	fZnqabBhd4Z5LpRW/4QXD5ovo8/ygCEgzEuKc2PAOh16UFYCC4rvb6+y9NkLmnA6RdlC/gkypbl
-	C3/37CReEixIXQbnsaWXmmzmj3MI6uj/bAgNx22augYbcYDyZLHGQGhSm0XLkPUtS4T3MCMaoIz
-	zTBhuKcMfYsZyycjukilLH+A5XunN8PDjwCp4v58+ZBzP+MdtAGaS6GhAeqjCW1MXnoOc3ZXhgc
-	rOs5Gy4HADWSjTzQrk9ljw0memfRbMkMgQuwkaqp74qwE6Q1vitgHz78Gj/qQOUe7V0z/UTLr9G
-	3Q=
-X-Google-Smtp-Source: AGHT+IFPOHIXQ2/GH1ywBHZjd4Vmw9dlyu3CeYjus0If5yuHr5iWxtpEZ+n9EXmKTK9K6leJ/I7dqA==
-X-Received: by 2002:a05:6000:613:b0:429:dde3:659d with SMTP id ffacd0b85a97d-42f89f563femr10590497f8f.47.1765269988426;
-        Tue, 09 Dec 2025 00:46:28 -0800 (PST)
-Message-ID: <cf359ffb-02e7-4c7e-bf16-88a21e08722c@suse.com>
-Date: Tue, 9 Dec 2025 09:46:27 +0100
+        bh=iSudaLxSC12/glrex1pnn3uP4+VBeveqnn8TBYWgYII=;
+        b=k7JrKT4jWEieyZWFlNLZ+LdzUgWqd3MsMOZqbQDvrfkiqtJuk8w7g39Mz09JUBfGJO
+         GUDkZQvv686kcbUjwU4vu3FzFl/yXm4p+kMQa12FMzOlDhnUYUBpc7kmyfNhxeEJrWfg
+         cQdvAhP7GXLzjhjD9uH/Evo8kw3DDBfwOObEP0iU42xOywF0X16jkn80z1mSuq60bDHY
+         nYcOW8o43abVaPMaos6ZAWBwJDlwLkyAh/dbyhaiHWvaZvQCFHagBIfxiwr9NS3YnWbk
+         K11lUFZdPvselZbU0rwuqoCayuJh+83Z//Ug2UmRBsF3pA0bZgtev7Zk4o02HkvHdro0
+         dNLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWEtWTiO0+CatuJ9BBcf2945DKZ/gUpd2Rq5pulve0uqiG5tserSoNn2RXaG95fP9roUK351zzFbmg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5sc3Rnq/2FQwPdRSpoyORem37E+z0rMhTNKThJFIUE+NBQSwU
+	c/Yl9SPtoJx+kK+76mXUDsPE7kOKP275Ar/BerMk8mHtuWzuXnVavnh1SujTXWcq6A==
+X-Gm-Gg: ASbGncsNk5hSe9/m83syRrBNEDghTJRc3pZOcGpLOagqThqPd50I9ZkJBT8MzquKomI
+	pL5VcdcIB90R+yoCGywKTOY1Iay1gf8DQPcMcdN0bV3mACoH2ADPbNPcfVKYba8tYWjCXRd+JLb
+	5wnxw8GaejxLU073L3PVh1KxwL6WqUIbwumjLYYw991nHR0kRIdppmGvVyJ1uV02a+5razfTGFF
+	OwDJ3xNWJUponCeZjxTpAjYFv2uqkDwTINjMATivSsSmDKBsDpM4YEAwmX+4RKYBctYuorNvW9t
+	lP40bx/DIdMdpFTwZKf6igofGgXbhi55vIYcmcxZqiqybFfIkVDGb3X6RDoJ1X3Ogrg99JULLR1
+	+gPppwms6lVIcf6Np1U0q85C0VQhFG0h+kuniO+Ih2tQ9pl83aAOfV8mmsZFwvSkjF8VI+5+wRc
+	Am3Ybvc0HrEMwR9VJE3PiIhpc5Xb4WR1PG8OFk49s7PyLx1/tt34j14ioy3/OaMrLojNAnkQfu4
+	9w=
+X-Google-Smtp-Source: AGHT+IGNv3wXntVimBoe8Au9/dVypZmS9s5gysTjzg/FnwnUFJkTJglT1nJGb8QapqnpHg776djuRg==
+X-Received: by 2002:a5d:64e3:0:b0:42b:2ea5:61b6 with SMTP id ffacd0b85a97d-42f89f53becmr11910974f8f.46.1765270771886;
+        Tue, 09 Dec 2025 00:59:31 -0800 (PST)
+Message-ID: <a3dcfce1-4695-4064-a1e3-af09bfa04199@suse.com>
+Date: Tue, 9 Dec 2025 09:59:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86: move / split usercopy.c to / into
- arch-specific library
+Subject: Re: [PATCH v3 3/3] xen/x86: move d->arch.physaddr_bitsize field
+ handling to pv32
 To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f46f89f6-242b-4433-958e-36088e567ccd@suse.com>
- <12852eae-849b-4576-a8e1-85edf401b455@suse.com>
- <7891d66e-cd51-4694-9926-cf8f62c3053f@epam.com>
+References: <20251128152218.3886583-1-grygorii_strashko@epam.com>
+ <20251128152218.3886583-4-grygorii_strashko@epam.com>
+ <c9ee4fc8-44c6-43e8-88eb-9041c51aed16@suse.com>
+ <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,93 +124,84 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7891d66e-cd51-4694-9926-cf8f62c3053f@epam.com>
+In-Reply-To: <d025e3dd-ba2a-4a9d-af37-37570e690aee@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.12.2025 22:48, Grygorii Strashko wrote:
-> 
-> 
-> On 08.12.25 14:05, Jan Beulich wrote:
->> The file wasn't correctly named for our purposes anyway. Split it into its
->> "guest" and "unsafe" parts, thus allowing the latter to not be linked in
->> at all (for presently having no caller). The building of the "guest" part
->> can then (later) become conditional upon PV=y.
+On 08.12.2025 20:21, Grygorii Strashko wrote:
+> On 08.12.25 14:44, Jan Beulich wrote:
+>> On 28.11.2025 16:22, Grygorii Strashko wrote:
+>>> --- a/xen/arch/x86/pv/domain.c
+>>> +++ b/xen/arch/x86/pv/domain.c
+>>> @@ -254,7 +254,11 @@ int switch_compat(struct domain *d)
+>>>               goto undo_and_fail;
+>>>       }
+>>>   
+>>> -    domain_set_alloc_bitsize(d);
+>>> +    if ( MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page )
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->>   xen/arch/x86/Makefile                         |  4 ----
->>   xen/arch/x86/lib/Makefile                     |  2 ++
->>   xen/arch/x86/{usercopy.c => lib/copy-guest.c} | 12 +---------
->>   xen/arch/x86/lib/copy-unsafe.c                | 22 +++++++++++++++++++
->>   4 files changed, 25 insertions(+), 15 deletions(-)
->>   rename xen/arch/x86/{usercopy.c => lib/copy-guest.c} (94%)
->>   create mode 100644 xen/arch/x86/lib/copy-unsafe.c
+>> You mention the change in condition in the revlog (but not in the description),
+> 
+> The updated chunk was based on snippet from Andrew [1], which
+> used incorrect condition - I've changed it and noted in change log
+> 
+> [1] https://patchwork.kernel.org/comment/26680551/
+> 
+>> and I'm having trouble to follow why ...
 >>
->> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
->> index 61e2293a467e..dfb258d7ac1c 100644
->> --- a/xen/arch/x86/Makefile
->> +++ b/xen/arch/x86/Makefile
->> @@ -72,7 +72,6 @@ obj-y += time.o
->>   obj-y += traps-setup.o
->>   obj-y += traps.o
->>   obj-$(CONFIG_INTEL) += tsx.o
->> -obj-y += usercopy.o
->>   obj-y += x86_emulate.o
->>   obj-$(CONFIG_TBOOT) += tboot.o
->>   obj-y += hpet.o
->> @@ -93,9 +92,6 @@ hostprogs-y += efi/mkreloc
->>   
->>   $(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
->>   
->> -# Allows usercopy.c to include itself
->> -$(obj)/usercopy.o: CFLAGS-y += -iquote .
->> -
->>   ifneq ($(CONFIG_HVM),y)
->>   $(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
->>   endif
->> diff --git a/xen/arch/x86/lib/Makefile b/xen/arch/x86/lib/Makefile
->> index ddf7e19bdc1d..8fe2dfd88553 100644
->> --- a/xen/arch/x86/lib/Makefile
->> +++ b/xen/arch/x86/lib/Makefile
->> @@ -1 +1,3 @@
->> +lib-y += copy-guest.o
->> +lib-y += copy-unsafe.o
->>   lib-y += generic-hweightl.o
->> diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/lib/copy-guest.c
->> similarity index 94%
->> rename from xen/arch/x86/usercopy.c
->> rename to xen/arch/x86/lib/copy-guest.c
->> index a24b52cc66c1..25eeb35427e2 100644
->> --- a/xen/arch/x86/usercopy.c
->> +++ b/xen/arch/x86/lib/copy-guest.c
->> @@ -1,4 +1,4 @@
->> -/*
->> +/*
->>    * User address space access functions.
->>    *
->>    * Copyright 1997 Andi Kleen <ak@muc.de>
->> @@ -6,8 +6,6 @@
->>    * Copyright 2002 Andi Kleen <ak@suse.de>
->>    */
->>   
->> -#include <xen/lib.h>
->> -#include <xen/sched.h>
+>>> --- a/xen/arch/x86/x86_64/mm.c
+>>> +++ b/xen/arch/x86/x86_64/mm.c
+>>> @@ -1119,26 +1119,6 @@ unmap:
+>>>       return ret;
+>>>   }
+>>>   
+>>> -void domain_set_alloc_bitsize(struct domain *d)
+>>> -{
 > 
-> This will not build :(
+> The domain_set_alloc_bitsize() inlined in  switch_compat() and x86 PV domain
+> always created as 64bit domain.
 > 
->    CC      arch/x86/lib/copy-guest.o
-> In file included from ././include/xen/config.h:27,
->                   from <command-line>:
-> arch/x86/lib/copy-guest.c: In function ‘copy_to_guest_pv’:
-> ./arch/x86/include/asm/config.h:270:32: error: invalid use of undefined type ‘struct vcpu’
->    270 |     (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+> At the beginning of switch_compat() there is:
 > 
+>   ( is_pv_32bit_domain(d) )
+>          return 0;
+> [2]
+> above ensures that switch_compat() can be actually called only once (at least it can reach
+> point [2] only once, because there is no way to reset PV domain state 32bit->64bit
+> 
+> this is original condition which says:
+>>> -    if ( !is_pv_32bit_domain(d) ||
+> 
+> do nothing if !is_pv_32bit_domain(d)
+>   - for inlined code is_pv_32bit_domain(d) == true, so is_pv_32bit_domain(d) can be ignored
+> 
+>>> -         (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page) ||
+> 
+> do nothing if (MACH2PHYS_COMPAT_NR_ENTRIES(d) >= max_page)
+>    - inlinded code should proceed if this condition is opposite
+>      (MACH2PHYS_COMPAT_NR_ENTRIES(d) < max_page)
+> 
+>>> -         d->arch.physaddr_bitsize > 0 )
+> 
+> do nothing if d->arch.physaddr_bitsize > 0 (already set)
+>    - inlined code will be executed only once, so (d->arch.physaddr_bitsize ==/!= 0)
+>      can be ignored
 
-Hmm, yes. It does build here, but of course I have many other patches in
-place. The issue looks to be that for me access_ok() isn't a macro anymore,
-but a function.
+This is the crucial point: It being executed only once isn't spelled out
+anywhere in the description, and it's not entirely obvious why that would
+be. Yes, nowadays it is. Originally (iirc) one could switch the guest back
+to 64-bit mode, then again to 32-bit.
 
-Thanks for pointing out,
+>> ... this 3rd part is going away.
+> 
+> Another observation: MACH2PHYS_COMPAT_NR_ENTRIES(d) is looks like a const, as
+> (d)->arch.hv_compat_vstart is always 0.
+> 
+> grep -rw hv_compat_vstart ./*
+> ./arch/x86/include/asm/config.h:#define HYPERVISOR_COMPAT_VIRT_START(d) ((d)->arch.hv_compat_vstart)
+> ./arch/x86/include/asm/domain.h:    unsigned int hv_compat_vstart;
+
+This observation isn't directly related here, is it?
+
 Jan
 
