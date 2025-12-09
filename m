@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F26CB0ABF
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 18:09:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181982.1504937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A111BCB0ACE
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 18:10:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181987.1504947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT1DL-00028V-1b; Tue, 09 Dec 2025 17:09:27 +0000
+	id 1vT1Dv-0002u2-Bp; Tue, 09 Dec 2025 17:10:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181982.1504937; Tue, 09 Dec 2025 17:09:27 +0000
+Received: by outflank-mailman (output) from mailman id 1181987.1504947; Tue, 09 Dec 2025 17:10:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT1DK-00026A-V5; Tue, 09 Dec 2025 17:09:26 +0000
-Received: by outflank-mailman (input) for mailman id 1181982;
- Tue, 09 Dec 2025 17:09:25 +0000
+	id 1vT1Dv-0002qc-7b; Tue, 09 Dec 2025 17:10:03 +0000
+Received: by outflank-mailman (input) for mailman id 1181987;
+ Tue, 09 Dec 2025 17:10:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R0hE=6P=ariadne.space=ariadne@srs-se1.protection.inumbo.net>)
- id 1vT1DJ-000264-Hf
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 17:09:25 +0000
-Received: from outbound.ms.icloud.com
- (p-west3-cluster2-host12-snip4-10.eps.apple.com [57.103.74.103])
+ <SRS0=rCN0=6P=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vT1Dt-0002Xq-WB
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 17:10:02 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce3a6ef4-d521-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 18:09:22 +0100 (CET)
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
- by p00-icloudmta-asmtp-us-west-3a-100-percent-1 (Postfix) with ESMTPS id
- AC8A418011E8; Tue,  9 Dec 2025 17:09:19 +0000 (UTC)
-Received: from smtpclient.apple (unknown [17.57.154.37])
- by p00-icloudmta-asmtp-us-west-3a-100-percent-1 (Postfix) with ESMTPSA id
- 9B2EC18000AD; Tue,  9 Dec 2025 17:09:17 +0000 (UTC)
+ id e517e678-d521-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 18:10:00 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-6418738efa0so10391355a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 09:10:00 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-647b2edad10sm14300377a12.9.2025.12.09.09.09.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Dec 2025 09:09:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,78 +45,389 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce3a6ef4-d521-11f0-b15b-2bf370ae4941
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ariadne.space; s=sig1; bh=2Waf4NGfJpwjFcaXQ3o7PK0yB3PmgJFulZncjz1uAQQ=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=SUt5KYXH7DvUKX6LBDSv3iTvARxy6G9AEUvtTlqYnuAt3TrUGc2D+uyRygo8lvCXirPkadsscgbbsdyfL7N53gXsDkTnevO5PFne5YzDZNWdUY5hnrFszwROdrpU2+d2S0OSCSDGmu62WPo12Fbve7y98Q8iyg+Nx+X+LAO7vrvB0c9fqY8VnVyBBZQyuL5GxmgetQtyAZXjwOySGEx7S1VApv14okK73QLzVbTWWVmYlIpE+HoFQph0LGbVrrDQ7Qeq350cSp8kULElY7y5aWnCt7h8wek+u+quoscDnYiqstHR6Xs8twMC0CMVQg+EE9oc6Mg+8seVAm0RDWHafA==
-mail-alias-created-date: 1688796967087
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Ariadne Conill <ariadne@ariadne.space>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH] 9p/xen: mark 9p transport device as closing when removing it
-Date: Tue, 9 Dec 2025 09:09:06 -0800
-Message-Id: <BD7157CB-3064-4194-ABD9-8A4D9F57E908@ariadne.space>
-References: <409cccec-15dd-4e80-ba56-f0bba12772cb@gmail.com>
-Cc: v9fs@lists.linux.dev, xen-devel@lists.xenproject.org,
- asmadeus@codewreck.org, linux_oss@crudebyte.com, lucho@ionkov.net,
- ericvh@kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Alex Zenla <alex@edera.dev>
-In-Reply-To: <409cccec-15dd-4e80-ba56-f0bba12772cb@gmail.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-X-Mailer: iPhone Mail (23B85)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA5MDEzMCBTYWx0ZWRfX8lMlJlwmH5WR
- fVIpI0yiHEd4Cb3VwpObNDwkTK0SX9Rh9t/YT/7ycNt+rdyZ2VHZkK90RvfFsolx0eoxJoacZf6
- nLrYlcVDqDSVJgME4iM2UHpdeum6XAr/6yVg8AfS+JV4iVl9OyjuQcY11M2Uh0pbK3lvGTeEiQn
- rNX5mrs52UX0tiHb9Ml2cMAn0p4y3LHjzTaToSATlTXr5bFahN+VBzWrLEgfPZucRbelrmZkiy8
- i0LKblfMNqktiad0b5EAz+BWj0p5zEbwWnhwPSIYerxNvjbVkRi3AMTe9J1W3AeoPWzc5lqBoX+
- 3JXeOQE0sec00Tx7uhJ
-X-Authority-Info: v=2.4 cv=MYRhep/f c=1 sm=1 tr=0 ts=693857c0 cx=c_apl:c_pps
- a=qkKslKyYc0ctBTeLUVfTFg==:117 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=pGLkceISAAAA:8 a=HZpLikwPdqgVQqDg3OYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 4zPfDsAWTni_0hPDC8h7Hqj2HGICPk-S
-X-Proofpoint-ORIG-GUID: 4zPfDsAWTni_0hPDC8h7Hqj2HGICPk-S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-09_04,2025-12-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1030
- mlxscore=0 phishscore=0 mlxlogscore=999 adultscore=0 malwarescore=0
- spamscore=0 suspectscore=0 bulkscore=0 classifier=spam authscore=0 adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512090130
-X-JNJ: AAAAAAABIspwEJwcHlLJ41pAALdNpZgmbkhqoWvZAGrU6f65dZCwqh+nTwsAAhktrvrx5G8Lrmy1lf1Yk7GbOhREkLbQe2y9VCf8cvcPrQcDxNeKu3IQPSnNQOR2HjPASmoyNQkgvcngYTWw24S8S8qhdC9VVWExt4f1MweR+4DBWdLnTsdgQg8MBdl7LdQ3+W+P3opfVR4eg1631gTjLcSMsSAbM6u9VphVdbl09n1WvYsa/chNmE5FQ+uFb9ubIvCHWeoQ+2gqjouc9BaGNPP9zLBUa/M2riSRQodDJGTvp11makAfTATk0HIlH+3h4IbYfk6E5f9Qy1ZwVyVYbTEtKFmOQl5a0be9nHtv8GVfDZHc4RhKE80eb7aZbVvwoEaObgqMP8uD4FmXXgH24xahowgbySI9mpKFTxGE5vuBZS0lbdrOUXaFwbe9ZajsfJ/N0nqy2E+i+vU9VfdOtneYck4tacBJXN+Lbph518UTZRMFO+6pK84GgKDGmmXBd483PlgRlOn+Y8krsAkHMIOl1O9e/VJZL9axXfwcduEFGsiDAqrrjg4bf5KUm5quolFfn6s/rY8nuoE2ei3RaNKQNVCerHqkuMVigdUovNGgHCHYr7j1pOULrte/DDZh/1wGZyk8Wn/rH8HMQDqsU9tz4cSbkMjWKuqCsF6FuM3CsKXjjFgyfLS14f9ra5SXtWc6AjTBdBjQbbpTA5lNB+Vo9DscGZk/GQcbonTB9FIij6nWxzeOpSEVMC3O
+X-Inumbo-ID: e517e678-d521-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765300200; x=1765905000; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=oaSGgoAW1hCnthIvUzdOaTGDvHd8cPDHsMIoTvubhEc=;
+        b=hTrohlvhkl6iGdSUVZX3P1lCQE6qVaeR0CP1Lihmc1ffTztVCqwKnkruRFt6S3DqOq
+         Yp31ayUML/qikcLAnR+hSS53LdisUv+fOaa6ocD7jF2OGYs/wB9TWclLeS3621JdSHPe
+         WLm8v6DfFQDx6oTMW2F69si8MqHBXAkHhhO6XVUvTn83hJVaPwDPDSHC7yFrNDRF/ABf
+         /eI22BdSE/on1KfvwbIulvy6Pw1RDy7B9zVktXQHzvONJ/chs7ZaKQS/r1wyIlokmUrf
+         QrHGUjP7IqqOAliaqwIVTZ+okghgRw57IEV1Vaib8wooYS8qd9heaR/uMRQHgQTABTLK
+         aMng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765300200; x=1765905000;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oaSGgoAW1hCnthIvUzdOaTGDvHd8cPDHsMIoTvubhEc=;
+        b=U39s0cr9Ik1G2B/Xp+VNYkxtYZ6BldrE49DC3zmJr/tqAg4l67VcpkbT7hPcAGPeaS
+         t8rkDaq8XwBEF83FXOHUwa7yXOOm3+ZyVTs0NIsSU4RlmUqpk2cVvaWyJMNw8Nueds/U
+         mHc2DHtZeuuFNQ0PnKr2vVbuhliFlglqGaN/QYfVbcRwCtonIajzLX3LkQHrPWPhNQr+
+         JjoUmYivYVbM3mYHDMiCofXO9tQzql01usNvgfUHPf1IxSeDuYP512hdO289q2fsNR4m
+         +qtj1bSaLRXT1uwm1MOxAlw6//1tTtlJpQLZcJeFzmpACZWoH5CkmhoGtLQv8cb2df3D
+         lkHg==
+X-Forwarded-Encrypted: i=1; AJvYcCUfvoCRlKsRz4NH+uUmADrp80Pk5VqHc8/7NkuPRheW/WyblWYdLqrIijOVbtnVz/0My5RqTBO5/is=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzYeFuwWKKYhzHZVw8ItE0ylyUrIV2gT0ZYERdssTA7rhgv5dWu
+	UnwiZXANeLD4Wj2OLAoFqgFIvfZAdKye/BzQjOGFEClEmsTD1TZOTqPS
+X-Gm-Gg: ASbGncsbhdTwRJRmJB8gDxEie3LEyLLOqQTrSyXh6tg8NDNX+Z55yDH1LzHoWboQC/E
+	IWNuNfFvtptK/DafS7LXYuGDcTfo6g2QibAupve326yOEmGcc6a9djWICFfvh9Ywie9w6z8pjjJ
+	hhXzYgH73lVyn7Lb+5BRTbGrBueZQV3OW1juCA7nKXZgOHCAR8irj8NCo0O5WT21GLl403lIW5P
+	O/4WANgkCbc9aCRpjS2A9AxLBLAFTQSScjRW+0dA14DCinLDVOCFlb074+spf3rWWHRjaOG44vx
+	Ejx6NH98W9p9ENaEs+4+7vhPkOyFcaph73ZWtZ0T6DJMbtobGfgu5n5h6kYeCHvLGfDTLlR/m+l
+	WrIczmo/FySdmzYUU3g/1YfQUpgcs13md0hyORYjh4jNQyqSQ8IxgGg8xMwfJIU7aV1h0ZH0A7a
+	eYE6zm2ugY096rVlxKXHrj8vVp11UF+066hNj63LjbHe9wVedL7G3QV3uT3cgn
+X-Google-Smtp-Source: AGHT+IFiNejXPqZCFF7kgjutfJwiiYN1oKp7Y2hqpLFNHSmtqheHa3jDNqTIHeGTsaNaNUakpzYqeA==
+X-Received: by 2002:a05:6402:50ce:b0:641:66cc:9d91 with SMTP id 4fb4d7f45d1cf-6491a90f87emr9708939a12.27.1765300199459;
+        Tue, 09 Dec 2025 09:09:59 -0800 (PST)
+Message-ID: <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
+Date: Tue, 9 Dec 2025 18:09:58 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
+ type
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
+ <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello,
 
-> On Dec 9, 2025, at 2:43=E2=80=AFAM, Demi Marie Obenour <demiobenour@gmail.=
-com> wrote:
->=20
-> =EF=BB=BFOn 12/8/25 14:51, Ariadne Conill wrote:
->> We need to do this so that we can signal to the other end that the
->> device is being removed, so that it will release its claim on the
->> underlying memory allocation.  Otherwise releasing the grant-table
->> entries is deferred resulting in a kernel oops since the pages have
->> already been freed.
->=20
-> I don't think this is sufficient.  The backend can simply refuse
-> to release the grants.  The frontend needs to ensure that the pages
-> are not freed until the grant table entries are freed.  Right now,
-> the backend can cause a use-after-free in the frontend, and my
-> understanding of the Xen Project's security policy is that this is
-> a security vulnerability in the frontend code.
->=20
-> My instinct is that the core Xen code should take a reference on
-> each page before granting it to another domain, and not release that
-> reference until the pages are no longer granted.  This should prevent
-> any use-after-free problems if I understand Linux core MM correctly.
+On 12/9/25 2:47 PM, Jan Beulich wrote:
+> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>> @@ -374,24 +399,107 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
+>>       return pg;
+>>   }
+>>   
+>> -static int p2m_set_type(pte_t *pte, p2m_type_t t)
+>> +/*
+>> + * `pte` – PTE entry for which the type `t` will be stored.
+>> + *
+>> + * If `t` is `p2m_ext_storage`, both `ctx` and `p2m` must be provided;
+>> + * otherwise, only p2m may be NULL.
+>> + */
+>> +static void p2m_set_type(pte_t *pte, p2m_type_t t,
+>> +                         struct p2m_pte_ctx *ctx,
+>> +                         struct p2m_domain *p2m)
+> I assume you having struct p2m_domain * separate from ctx here is because the
+> "get" counterpart wouldn't need it. The same is true for the level member,
+> though. I wonder therefore whether putting p2m in pte_ctx as well wouldn't
+> make for an overall cleaner interface. (But this is truly just a thought; I
+> don#t mean to insist here.)
 
-Yes, there are other issues in the 9p transport that are likely in play here=
-.  In our internal testing, we confirm this is not a full fix for hotpluggin=
-g 9p transport devices, but no such claim of a complete fix has been made he=
-re or in the Matrix thread.
+I think it really makes sense to put p2m into pte_ctx.
 
-However, this is one defect that is contributing to the overall hotplugging p=
-roblem and should be merged regardless: if the driver isn=E2=80=99t telling t=
-he other side to disconnect, the other side will never release the grants to=
- begin with.
+Besides simplifying p2m_{set,get}_type(), it will also allow us to drop the p2m
+argument from p2m_pte_from_mfn().
 
-Ariadne
+Let’s make this change now.
+
+>>   {
+>> -    int rc = 0;
+>> +    struct page_info **md_pg;
+>> +    struct md_t *metadata = NULL;
+>>   
+>> -    if ( t > p2m_first_external )
+>> -        panic("unimplemeted\n");
+>> -    else
+>> -        pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+>> +    ASSERT(p2m);
+>>   
+>> -    return rc;
+>> +    /*
+>> +     * It is sufficient to compare ctx->index with PAGETABLE_ENTRIES because,
+>> +     * even for the p2m root page table (which is a 16 KB page allocated as
+>> +     * four 4 KB pages), calc_offset() guarantees that the page-table index
+>> +     * will always fall within the range [0, 511].
+>> +     */
+>> +    ASSERT(ctx && ctx->index < PAGETABLE_ENTRIES);
+>> +
+>> +    /*
+>> +     * At the moment, p2m_get_root_pointer() returns one of four possible p2m
+>> +     * root pages, so there is no need to search for the correct ->pt_page
+>> +     * here.
+>> +     * Non-root page tables are 4 KB pages, so simply using ->pt_page is
+>> +     * sufficient.
+>> +     */
+>> +    md_pg = &ctx->pt_page->v.md.pg;
+>> +
+>> +    if ( !*md_pg && (t >= p2m_first_external) )
+>> +    {
+>> +        BUG_ON(ctx->level > P2M_MAX_SUPPORTED_LEVEL_MAPPING);
+>> +
+>> +        if ( ctx->level <= P2M_MAX_SUPPORTED_LEVEL_MAPPING )
+>> +        {
+>> +            /*
+>> +             * Since p2m_alloc_page() initializes an allocated page with zeros, p2m_invalid
+>> +             * is expected to have the value 0 as well. This ensures that if a metadata
+>> +             * page is accessed before being properly initialized, the correct type
+>> +             * (p2m_invalid in this case) will be returned.
+>> +             */
+> Nit: Line length.
+>
+> Also imo "properly initialized" is ambiguous. The clearing of the page can already
+> count as such. No access to the page may happen ahead of this clearing.
+
+I will drop then this part of the comment:
++               This ensures that if a metadata
++             * page is accessed before being properly initialized, the correct type
++             * (p2m_invalid in this case) will be returned.
+
+>
+>> +            BUILD_BUG_ON(p2m_invalid);
+>> +
+>> +            *md_pg = p2m_alloc_page(p2m);
+>> +            if ( !*md_pg )
+>> +            {
+>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
+>> +                domain_crash(p2m->domain);
+>> +
+>> +                return;
+>> +            }
+>> +        }
+>> +    }
+>> +
+>> +    if ( *md_pg )
+>> +        metadata = __map_domain_page(*md_pg);
+>> +
+>> +    if ( t >= p2m_first_external )
+>> +    {
+>> +        metadata[ctx->index].type = t;
+>> +
+>> +        t = p2m_ext_storage;
+>> +    }
+>> +    else if ( metadata )
+>> +        metadata[ctx->index].type = p2m_invalid;
+>> +
+>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+>> +
+>> +    unmap_domain_page(metadata);
+>>   }
+> Just to mention (towards future work): Once a metadata page goes back to be
+> entirely zero-filled, it could as well be hooked off and returned to the pool.
+> Not doing so may mean detaining an unused page indefinitely.
+
+Won’t that already happen when p2m_free_table() is called?
+
+p2m_free_table() calls p2m_free_page(p2m, tbl_pg->v.md.pg), which in turn calls
+paging_free_page(), and that returns the page to the pool by doing:
+     page_list_add_tail(pg, &d->arch.paging.freelist);
+
+>
+>> -static p2m_type_t p2m_get_type(const pte_t pte)
+>> +/*
+>> + * `pte` -> PTE entry that stores the PTE's type.
+>> + *
+>> + * If the PTE's type is `p2m_ext_storage`, `ctx` should be provided;
+>> + * otherwise it could be NULL.
+>> + */
+>> +static p2m_type_t p2m_get_type(const pte_t pte, const struct p2m_pte_ctx *ctx)
+>>   {
+>>       p2m_type_t type = MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK);
+>>   
+>> +    /*
+>> +     * Since the PTE is initialized with all zeros by default, p2m_invalid must
+>> +     * have the value 0. This ensures that if p2m_get_type() is called for a GFN
+>> +     * that hasn't been initialized, the correct type (p2m_invalid in this case)
+>> +     * will be returned. It also guarantees that metadata won't be touched when
+>> +     * the GFN hasn't been initialized.
+>> +     */
+>> +    BUILD_BUG_ON(p2m_invalid);
+> I don't think comment and BUILD_BUG_ON() need repeating here. That's relevant
+> only when (zero-)initializing the page.
+>
+>>       if ( type == p2m_ext_storage )
+>> -        panic("unimplemented\n");
+>> +    {
+>> +        const struct md_t *md = __map_domain_page(ctx->pt_page->v.md.pg);
+>> +
+>> +        type = md[ctx->index].type;
+> In exchange you may want to assert here that the type found is
+>> = p2m_first_external (as - supposedly - guaranteed by p2m_set_type()).
+
+Make sense, will add the following after type = ...:
+         /*
+          * Since p2m_set_type() guarantees that the type will be greater than
+          * p2m_first_external, just check that we received a valid type here.
+          */
+         ASSERT(type > p2m_first_external);
+
+>> @@ -792,6 +952,13 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
+>>           pte = *entry;
+>>           pte_set_mfn(&pte, mfn_add(mfn, i << level_order));
+>>   
+>> +        if ( MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage )
+>> +        {
+>> +            p2m_pte_ctx.index = i;
+>> +
+>> +            p2m_set_type(&pte, old_type, &p2m_pte_ctx, p2m);
+> In order to re-use p2m_pte_ctx across multiple iterations without fully re-
+> initializing, you want the respective parameter of p2m_set_type() be pointer-
+> to-const.
+
+Good point. I will update prototype of p2m_set_type() to:
+
+static void p2m_set_type(...
+                          const struct p2m_pte_ctx *ctx)
+
+>
+>> @@ -894,13 +1061,21 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>>       {
+>>           /* We need to split the original page. */
+>>           pte_t split_pte = *entry;
+>> +        struct page_info *tbl_pg = mfn_to_page(domain_page_map_to_mfn(table));
+>>   
+>>           ASSERT(pte_is_superpage(*entry, level));
+>>   
+>> -        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
+>> +        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets,
+>> +                                  tbl_pg) )
+>>           {
+>> +            struct p2m_pte_ctx tmp_ctx = {
+>> +                .pt_page = tbl_pg,
+>> +                .index = offsets[level],
+>> +                .level = level,
+>> +            };
+> This, ...
+>
+>> @@ -938,7 +1113,13 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>>           p2m_clean_pte(entry, p2m->clean_dcache);
+>>       else
+>>       {
+>> -        pte_t pte = p2m_pte_from_mfn(mfn, t, false);
+>> +        struct p2m_pte_ctx tmp_ctx = {
+>> +            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+>> +            .index = offsets[level],
+>> +            .level = level,
+>> +        };
+> ... this, and ...
+>
+>> @@ -974,7 +1155,15 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>>       if ( pte_is_valid(orig_pte) &&
+>>            (!pte_is_valid(*entry) ||
+>>             !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte))) )
+>> -        p2m_free_subtree(p2m, orig_pte, level);
+>> +    {
+>> +        struct p2m_pte_ctx tmp_ctx = {
+>> +            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+>> +            .index = offsets[level],
+>> +            .level = level,
+>> +        };
+> ... this initializer are identical. Perhaps (sorry) it wasn't a good idea
+> after all to move the context variable from function scope to the more
+> narrow ones?
+
+Probably, but I’m not 100% sure that making it a function-scope variable would be better.
+Essentially, it would only help eliminate the last two declarations of `tmp_ctx`:
+     struct p2m_pte_ctx tmp_ctx = {
+         .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+         .index = offsets[level],
+         .level = level,
+     };
+
+It would also require re-initializing (or as an option it could done once after the
+superpage breakup happened; please look the diff below) all the fields (except the
+newly added `tmp_ctx.p2m`) inside the case where a superpage breakup is needed:
+     /*
+      * If we are here with level > target, we must be at a leaf node,
+      * and we need to break up the superpage.
+      */
+     if (level > target)
+In this case, `index`, `level`, and `pt_page` will be changed.
+
+It seems slightly better to use a function-scope variable, so I can rework the code to have
+the following:
+@@ -1049,6 +1047,8 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+  
+      entry = table + offsets[level];
+  
++    tmp_ctx.p2m = p2m;
++
+      /*
+       * If we are here with level > target, we must be at a leaf node,
+       * and we need to break up the superpage.
+@@ -1064,11 +1064,9 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+          if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets,
+                                    tbl_pg) )
+          {
+-            struct p2m_pte_ctx tmp_ctx = {
+-                .pt_page = tbl_pg,
+-                .index = offsets[level],
+-                .level = level,
+-            };
++            tmp_ctx.pt_page = tbl_pg;
++            tmp_ctx.index = offsets[level];
++            tmp_ctx.level = level;
+  
+              /* Free the allocated sub-tree */
+              p2m_free_subtree(p2m, split_pte, &tmp_ctx);
+@@ -1097,6 +1095,10 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+          entry = table + offsets[level];
+      }
+  
++    tmp_ctx.pt_page = mfn_to_page(domain_page_map_to_mfn(table));
++    tmp_ctx.index = offsets[level];
++    tmp_ctx.level = level;
++
+      /*
+       * We should always be there with the correct level because all the
+       * intermediate tables have been installed if necessary.
+@@ -1109,13 +1111,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+          p2m_clean_pte(entry, p2m->clean_dcache);
+      else
+      {
+-        struct p2m_pte_ctx tmp_ctx = {
+-            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+-            .index = offsets[level],
+-            .level = level,
+-        };
+-
+-        pte_t pte = p2m_pte_from_mfn(mfn, t, &tmp_ctx, p2m);
++        pte_t pte = p2m_pte_from_mfn(mfn, t, &tmp_ctx);
+  
+          p2m_write_pte(entry, pte, p2m->clean_dcache);
+  
+@@ -1152,12 +1148,6 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+           (!pte_is_valid(*entry) ||
+            !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte))) )
+      {
+-        struct p2m_pte_ctx tmp_ctx = {
+-            .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+-            .index = offsets[level],
+-            .level = level,
+-        };
+-
+          p2m_free_subtree(p2m, orig_pte, &tmp_ctx);
+      }
+  
+@@ -1363,6 +1353,7 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+                  .pt_page = mfn_to_page(domain_page_map_to_mfn(table)),
+                  .index = offsets[level],
+                  .level = level,
++                .p2m = p2m,
+              };
+  
+              *t = p2m_get_type(entry, &p2m_pte_ctx);
+
+Does it make sense?
+
+Thanks.
+
+~ Oleksii
+
 
