@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446E8CB0077
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 14:12:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181682.1504706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3537FCB00B1
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 14:20:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181694.1504717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSxW5-0001xC-GU; Tue, 09 Dec 2025 13:12:33 +0000
+	id 1vSxd6-0002sM-6h; Tue, 09 Dec 2025 13:19:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181682.1504706; Tue, 09 Dec 2025 13:12:33 +0000
+Received: by outflank-mailman (output) from mailman id 1181694.1504717; Tue, 09 Dec 2025 13:19:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSxW5-0001uc-Ds; Tue, 09 Dec 2025 13:12:33 +0000
-Received: by outflank-mailman (input) for mailman id 1181682;
- Tue, 09 Dec 2025 13:12:32 +0000
+	id 1vSxd6-0002pp-31; Tue, 09 Dec 2025 13:19:48 +0000
+Received: by outflank-mailman (input) for mailman id 1181694;
+ Tue, 09 Dec 2025 13:19:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vSxW3-0001uG-T8
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 13:12:32 +0000
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [2001:4860:4864:20::30])
+ <SRS0=Nu2q=6P=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vSxd4-0002pj-FX
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 13:19:46 +0000
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c000::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b68df554-d500-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 14:12:29 +0100 (CET)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-3e7e57450ceso2110184fac.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 05:12:29 -0800 (PST)
+ id b9bb1294-d501-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 14:19:44 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SJ0PR03MB6613.namprd03.prod.outlook.com (2603:10b6:a03:393::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
+ 2025 13:19:39 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
+ 13:19:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,637 +47,316 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b68df554-d500-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1765285948; x=1765890748; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HF30LrYtBxATdvxLtSIZCj1YWV3zgVTlbfbBmemMczs=;
-        b=EIvHphDczrBHMPDolYzwy7YS1hMsvS1L6Df5TpYQYUmTZ4bkkArdcMmbcj3C5dxP4I
-         EwBJoToeofctbuosjEqqRIGfZEmnBy/zWe4R/oGMoomWw+oCro/+wEFtfOXX1xLPKyTy
-         XUkY96dG2swGYx2NqT9N9whUvcDwuIYFqJ8bUQGgegXQQGweTvHLW7XSYYiqF6WEdR4V
-         eSDb3prB8CVSQTVcn+pi9iqGNyjWDPFhLtItub7phRWu8Oc6zkPYrCeQJ+m33NG13WkF
-         ccgxEoANr/yBR3U+YEOJpLejYWXIe/A5ja5i4XBoqmMseEXD+iMlNc1DQRfSqzYj0vaX
-         hx1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765285948; x=1765890748;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HF30LrYtBxATdvxLtSIZCj1YWV3zgVTlbfbBmemMczs=;
-        b=qeT2Flm6Jf7fhNLVauiQwzdCuVOzbyoBNwSBRMUOvZGD6ZGZOhjJQvuGlhSdB0muxc
-         GGQRhOu2F7Ys2pwdDlWUG5rKJaqhbq7CMWcJUoZvRkRt16/PU1Jkoa5RR94s7SWl9k+Z
-         ui4F6nU3KH6tXqn6FzAf9VHRqPoWwCFh/OtwSuWnFfqdgD5qtUNIGIHl6CPx6RNTp2aw
-         DRWY0Kaph6OiPlxbl7YH2g8HjYJ9Gk1D/FbCCAWTTEhqA7AsXJLLQTuBAorr79q6raxG
-         Fo92CXoJLFuCXRoowZ9DsYm+mEultf6WHVyD52o++rm4+R63woYPeOWL52IFDuutISs/
-         PkrA==
-X-Gm-Message-State: AOJu0YxyWBewTgOjVNwg7p3H2YLDiYj88ObmhdyjIDeNoWM+guKjgUZj
-	0W29mY2EQ0t7m5NNcsNpbRrHh5T3ku3KwYq20tNU32twhTyPrHHUT7afgS+48CgH4cF+QyGHKoz
-	+RANw/sSBtTOBHVj6dXbkj6MCGYdpmYQsm7Zz+m6GUQ==
-X-Gm-Gg: ASbGncus8VnwOA2Fdje4nqzHbiFUhy/trf3soSM9+ho69AvwOJ/owo81/eRI8eO46AL
-	I+iMugJCei5Z1d2ci4G9gSJQVv5GsKKIlv548/Vm0dsupCgQuiezuvypcKgi4j9djdWomQQVltg
-	IxLvecvNuyKXCL6/ljztJXckcKQhG/gmNmy28pJPoG05tvx3g6IIv/X5BNxHomS+NcD3CZpmIsa
-	NfqQC12t9O5MjEbM/cjUcegGgpNGO0tTas3+OBEE9LKeFkYLtcWKDejU+pXFiJeUd0EaD8wD8nf
-	TYALZldWi/7G5J8Td6RwGHVc75kGeGCUBXD69vwaS3KZU2V1lkc/YCBKrKQKoA==
-X-Google-Smtp-Source: AGHT+IGZZclFGNOhOsL/fSUx+lpNlJbIsEr/aSSh1hspWxX+qXZD75E0puGJfXg57jsgZr3ElxklU/h0zW2FF55UpvI=
-X-Received: by 2002:a05:6870:3412:b0:3c9:895a:d9ec with SMTP id
- 586e51a60fabf-3f543ef60f0mr5170785fac.17.1765285948256; Tue, 09 Dec 2025
- 05:12:28 -0800 (PST)
+X-Inumbo-ID: b9bb1294-d501-11f0-b15b-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U7KGTwVyUW0b+SxC94OLM7jZqHANyEmSWvdCRM0s+NJWSkgHHhSAXJyrbiJJ9hPAAqEGXy4kyu8XIZkjxJGk2TkrPigyoz3tvL0Tuirsq42Y7GCiP1f9l3VlRwgt7VD6NoSHX14lrPgrb3FxhgVFhs096DRuyzxD5CQIWPHtMwTCeIUmQMUcbB9vk2PYEeO812LqeN7+0wbCx1lT5n+dgA/XqUxUPVWsUo/D/m28hmVBuPru8KdtfsGvazWTWaqqWG1QhmlWriAR+1U+MBflm5U9leTUOsh4u+kGm7IKwbbwIgl1ao2GGm4r0ecvrmcGWgAtHf0SWFbShTXXOgCL1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BFP+hWantrk4VLarmx9WuD78vATgXibldqEnbljBg2Q=;
+ b=De6gag0DZPO1U9D+ngPt0Obw9yRf6aOgRS2STC8dnDY6hLf2m7RCcQzqMKn++qKGp7q/jUKYNZQImEzz1LXDKTfol27MqanedMpkBv/BKGHgdzuHkmMcHAs43+GzKEMBl1frSpGhrHsKFTzM5icb3aq2Ag7rfIfURvZ4R0sSEFlxbMIvJLEn/XSxxNJPupiwJ7tnZpvz8cmfypXYrTQjkKGelnXTbyoWEzyCf7Di2t3WOlol+RVf2TMfHFz+VkUrejlHdu8wjaWqdybHtWSlVvDQkWftL/P/Uzk98PQhiAJx9HX0SOShDw8Hua3m9fx2vG5IBaDYaE5b5sPRyyYD3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BFP+hWantrk4VLarmx9WuD78vATgXibldqEnbljBg2Q=;
+ b=Lg+6t0lDAcu9tEQi5agD7IQT1RHKkW4wdYr81lXsfvCaTzVJ8ZJFWb7+8huw6RL1qQ6hvENVwuAj7NwPj0Joyle9LVS0dDDlWPtfPisnpTM5I29DFuBh+coZNVbLdrskav4uEFSrcBtx1Vdsr4CeM0VQ22WHJUu/V+veEvgDkvs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <25069a8e-ef00-4706-bffa-b3b724cca200@citrix.com>
+Date: Tue, 9 Dec 2025 13:19:34 +0000
+User-Agent: Mozilla Thunderbird
+Cc: andrew.cooper3@citrix.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>
+Subject: Re: [XEN][PATCH v2] coverage: extend coverage on .init and lib code
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251205193411.1368659-1-grygorii_strashko@epam.com>
+ <d9a632d1-8587-45bb-bc13-8dab8d346cb2@citrix.com>
+ <4fc76270-98e6-46c4-a6a4-d73772e079c9@epam.com>
+ <483d50d9-a076-4698-bd14-28afabd5d369@citrix.com>
+ <f6cccd82-3112-4696-850a-119843fca5ec@citrix.com>
+ <18ab3734-deb9-4569-ade5-9d96a7bf3c7c@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <18ab3734-deb9-4569-ade5-9d96a7bf3c7c@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P265CA0430.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::34) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <cover.1764930353.git.bertrand.marquis@arm.com> <491f62ede43a7a135327fa68afe9a648fde1dcba.1764930353.git.bertrand.marquis@arm.com>
-In-Reply-To: <491f62ede43a7a135327fa68afe9a648fde1dcba.1764930353.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 9 Dec 2025 14:12:16 +0100
-X-Gm-Features: AQt7F2rBr8ZRUFieO0G-GfERXiiCpmKYG-ptldU6eMNcF0PGkFjM29f7cUXsa74
-Message-ID: <CAHUa44Hhp_gnjbBxMfOkUJ_HGzS+9VFhYm--pK-OtU=RKqqRsQ@mail.gmail.com>
-Subject: Re: [PATCH v1 05/12] xen/arm: ffa: rework SPMC RX/TX buffer management
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB6613:EE_
+X-MS-Office365-Filtering-Correlation-Id: a79d6b5f-9a84-49ff-d279-08de37259b1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WjlCSzRpRE5xZ3RNcDQzMDlOVkgrQkFQS1d6UDNhUTZ2ZUVMK0tnYWV5MitL?=
+ =?utf-8?B?K3QvL0N3dmtRWDh2U3BDM1dvVk43UEs4RTRIVzB2V0JKeDBldlZsVUdqcjhK?=
+ =?utf-8?B?SXZGM3JKdVpiTnNmMkVyQjlnS01pZjY0YmhhOWJ6cVhFa1AzWW84dnlVbWZm?=
+ =?utf-8?B?SlJtM1MwdlhnMkNYKzNYZ3U5Zy9mbWJJd016dmM4MEx3cXBzeGQxcDMwcDZN?=
+ =?utf-8?B?TVYvYzBoaXdnTzFlbmRVK2tnbm45RGVmZ0NuYk5UZzV3eXYxRm5TL1cxclc0?=
+ =?utf-8?B?Szk3ellCWFNqcXpXd2p2WkNmSE5Zbi94SVo5dm4wWWVmaWtweUZnb3JlNVVn?=
+ =?utf-8?B?RzZkLzY1UTFkL2ZpSzVGWFFTbWFETHAzdVZVcXhITDdSUzhNeXB2Y0ZsdS9i?=
+ =?utf-8?B?TnJ0NjBSWC9Yc2FCbmwvYnZVamEvdHV5SGIwMFFacE15Wm54MU04eXAvVFlG?=
+ =?utf-8?B?NlpHaEFKVnJYT2VEcWZpQmh3cVpvNFZraWdTZmdpdzVNQVRTazJVNGx4MjhB?=
+ =?utf-8?B?dzlvYzNOT0l0VTk3WWpzUU5YMk1EaUtNL21RTW5VVUVBUWJ5T1dmQ3FmUThE?=
+ =?utf-8?B?L2ppRXBaSlBLZnM5S2o2VUoyNzF4eGdWS0hGbWlEWTFMTC9NY0JHZmlIUkd3?=
+ =?utf-8?B?WmpzRHZKUE9LNDA4MU1tckZMUDBQQlpuaDE5aXlYa2Z1dTRycHJnMHNsQk9z?=
+ =?utf-8?B?ZVM2SG1XSmRieE4zTnc5RzZSbEtySzBlQ3VieVErakZ6eEZBVmlmZ0V2NU9Y?=
+ =?utf-8?B?a3p3QXdCODFtV0pmRVlyblNtQkNpRHRhZUJ2Ujk3aVpoL0VSbnRXNDNhYlp3?=
+ =?utf-8?B?T2ZIeHhaMUVLRVB4TklnKzY4RDNHRC9MU096QXlqWUl5NmV0NmJ5YktRcG1X?=
+ =?utf-8?B?MVQ3VloyeXJ4eXUrN0VsazJWSE5leGdPaGVrMmMxOUM2MURrZVdtNTVidTRv?=
+ =?utf-8?B?YmFhQjZ3MlNBakZvNWFYcXRwWTRTMU41VG1oQjdwNU5nTG1zRVIyaUdKRmgr?=
+ =?utf-8?B?TDRMYzJ4TTIwbEtneTdDWkxZRTN6YXNMeU92bUowMUt2SjRZbHZLTnlvVXp4?=
+ =?utf-8?B?YkRNYkJCV1lab1VEVFQ0cGhXVXdlRXkxM3RlUGtMalQrUW5rT0RUWnFIMjR5?=
+ =?utf-8?B?YUNkcVZFWUFNcVdKcktiejZoSzhUZTNaVG4yWVNJZ1RQbUpReEpsMmFsUFdV?=
+ =?utf-8?B?dkZrU0FKQzduM2dvc0R0ZDcxV3JQdDBmV1VxV2tYNmczMk5kSSt0ME9aNi9V?=
+ =?utf-8?B?TlpnRkZDZGtndXNTUnhGK2NXUHpLU1gvMitWRm5EenNSQTA4ejVyVWxBbDFF?=
+ =?utf-8?B?MWVzN0dLSVJ2Y0lmRUdGQk94K2hLYXR4R1VjWms1eUNLYnl4NlNMQ0FTbnAz?=
+ =?utf-8?B?ZVZRdUdITUo2OStvNzZRb25HUkJIV09BaXExVWpxczJkQXVPUm1MMkYwQko4?=
+ =?utf-8?B?V3hQZHZQK1BaanJRYTh0RUZEL2ZrQ2YwV1FRMUg4Sm4xenE4Vk1tV0M3SEJs?=
+ =?utf-8?B?bkZnQ2JtRnFycERoVEtIOVRaRjZWcVdxNjEzTDA2UG85T1RST0dkbnJwb244?=
+ =?utf-8?B?OXRJYkUvbzhTbkFyc09rQy9POUsyaG94aTV4QnNrdmJCZXJlQWdWVGUrZ1ZG?=
+ =?utf-8?B?MzJ3aHJhTWZOY2dsd0hySjMrdlV0Tk5JRGxiWnF5SnE4clNFSGhFMjMvWE1F?=
+ =?utf-8?B?RjRPZ3FwMlJrekpWdENQWFJLWHZjRC8wczlOU0VBT21rRy9lWVg1c3VRTGpW?=
+ =?utf-8?B?WGdka21ZVlZrS3F4MTRKM0ExUDdMa0JyTjY3eDM3NGpkWnVYUzFhcHNrc2Zh?=
+ =?utf-8?B?S0xRTjJYSXkvVjN2SEVGdXVqdkRTelFMZGlkWUJCVG96N2h3OGNReGNiVzIr?=
+ =?utf-8?B?am5JREhvdkE0LzlzVUl6RGFqL0RMVmNXR1kyWk5JTGUwem1tSzBrR25JMjF1?=
+ =?utf-8?Q?3QJavWCVsMA6pPMNemjMdrQaw9lpWYiI?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eFdtRHFib3AvUVhtNTVqZkJxOHZGWVNnMmJmdGhLazRJaGM1ZzhBMDQwMHBF?=
+ =?utf-8?B?dXkyQTh2aXFqS2ZQMFR3RjlkLzVOK1RBS1JXMDdBa21wcWp1eGdPZTN6NEt1?=
+ =?utf-8?B?R2tvdW0zVCswVjQ3UFNIdW5WT1I1aFByUVJhRWswOTM2Yk9nZzQrK1d6U2l2?=
+ =?utf-8?B?NHltOW5uY0xsY2trcEtsTDlOdk5CakdmSVFKNElGblA3NHluODI4Z1ZwaU5G?=
+ =?utf-8?B?MjREdWhzd3pJTkU2Z3JNZHVteDlNWGpqbStBUzJGMzByQ0kxYnBGRXRLVTBG?=
+ =?utf-8?B?MnB1b0p3aHpIT25HbG9SK2JPOUd0MTlId0plMGtkQTkxNzh2bzlIWk5MbnZo?=
+ =?utf-8?B?SGxZOG9PR0hKZzJLbjFIaDFYbGxSek5HWFh5ZlppTzZoYWhmTkVvTTY4QVFX?=
+ =?utf-8?B?WW1YdU5WaTVmQXpXWCtyaVFOS0YwNVlPUmFGWEdxZllSK3I1WnZBK0hWUkRG?=
+ =?utf-8?B?elptSWpJQjZSV0o5Q3ZHbHhmYWxvOVpnbHIxWGtYNlppN3lpWEw2b1h6YnM1?=
+ =?utf-8?B?Nm1VSXBvNCtYYUdkQ2tIKzlsWndXTmRQT2NITE90ZlEyRE51bnhvck9UK2hh?=
+ =?utf-8?B?b2dYNHJjbkRZWWJsSDlqS1ZreGVqY203NUxVaTVMUW9keHd1Ymd5TWg1WWEw?=
+ =?utf-8?B?ZnZzbVgxUkk2K1RzUDJXWkU0bnJUSFZCQXZ2Mmh4YnhFWG41TkE5NldLZy9u?=
+ =?utf-8?B?QndlT0ZEQm13V25rMHhIM05OczlVQTU5REJESWcraHA4YWZFZHFhcDE4aEJH?=
+ =?utf-8?B?b2xnUEk3aHFGbWlZeHNvOWdRR09KSTh2SDlWbWZ0VEF3UWwzNFJYZjRlalFG?=
+ =?utf-8?B?cDFHanAzOWt6SmRxd0Jnay9QN0NhN1FPRnlFS2ZMT29lWGhxc0pMNHRlYThz?=
+ =?utf-8?B?UDZkWGJOdVpEa3EvTkhIbjFzQ3g4Q1krMlJXdUdXY2t0a24yYkxvK1d1L1I2?=
+ =?utf-8?B?cWFaVG53RnMxS21VbnBUMkFKeVB5K2l0eGJjRjB3QWpubGVTeWx4VUdldDZM?=
+ =?utf-8?B?NzZRM0VBekE1YkcyUXE1WnVMb0FxS1NlWjU3WmxGTDZLM3dVcU52ZWJNWUxZ?=
+ =?utf-8?B?U1drUXBPcnBKYUR3UHMzN3hWYVEzVXcyTjA5elRYWFl5cDRuTFI4Vng3L0N6?=
+ =?utf-8?B?b3ZsMXdWKzNqNHdIZlR1cVFnWEU3Y0VNSGJ1dktkdGNWZ3ZBSDlKd1Zmdmdv?=
+ =?utf-8?B?Y1lwMC90SWMyNHgzS0xFdGhUSnFwTXdZdXk0T1M3dXVmT2c5NHZtQWpmY2sv?=
+ =?utf-8?B?eHBpMnE2c21rUUdDL3BvbFFDL0NvczRYa0lYWnlhK1ZabWdZL3NsS2hJVFJz?=
+ =?utf-8?B?V2Q5THZ0eWlMd0dwcVk5aUxLRGI5YTJoZkhid1F3MnNVZU1nSUhFaUI3Umc5?=
+ =?utf-8?B?TEo0UlNoR29JNkgzTUxEVlB0VGxWTS9wNyt2eTVoZjc4Y25BdXA4cTRYY0xa?=
+ =?utf-8?B?T0s3TEp2Tm1MM3dzbGJ3SEVzUksrUmdGRFBES0ZzK0ZiakFOS2ptdVN0cFRY?=
+ =?utf-8?B?NWJlbWI0YzN3aURTaElmZ2o5bW82VFZoVzBiZm42NW9FU2dMeXFXOVpweDAx?=
+ =?utf-8?B?bDB6Mzh4ZVd2QnppZ1dBdEhFZSttazdVK1lrMmNvYzRhbjlIZmlpWm4wRmV6?=
+ =?utf-8?B?R1A5WWUvcGprWThCd2MzdDF1MndmaWZuM2RpdnN5dFJtRlZNVHc1MVR6cTZF?=
+ =?utf-8?B?VGsvem4wUFFuaFhRVTIvKzBObVpMRCt5MkloWnBYeGJwZG5wZ3VRUzJNcjJ3?=
+ =?utf-8?B?cVRmV3N5ZEd1RURrQ0dDQ1dyTnYvbEVEMEthSE1Md1c3eFZQZ2VYTE4xSkp6?=
+ =?utf-8?B?dm9yck5OQmtYQjZRM0J5T1IvRXpROS8vL0NJT1VuUTI1OUc3RitnUHlQaDJw?=
+ =?utf-8?B?QVVwRXJubFBnLzJ0VGhDWlVQSGNheFJkbjh3RjdNRHBNa2dINmw2V1plVTAy?=
+ =?utf-8?B?MjE4eGwxUWQvd3Rkd0lCQU9uNzdEbmZLSm0vSjdjSUFTTjR2YU5iTXRjQUhh?=
+ =?utf-8?B?TXZET2FJMTA2bUp6bnkwSUorNHpNZEtoc244V1Q1NmkyN3VyMTJJQXNkdCtL?=
+ =?utf-8?B?NG5SNGJYR0FrbGxPWUdkTmJUa0NhRDlleS9YYzMvMjhYR1prT1pqdnUxMW9l?=
+ =?utf-8?B?ZHNvOGg0YUxlTFhLLzRwN3owY2hsQURYNUxDQTVDcE9iU294K01rM3ozR0RC?=
+ =?utf-8?B?b1E9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a79d6b5f-9a84-49ff-d279-08de37259b1c
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 13:19:38.9757
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JQ2RLwQBQkji9Q/wgGm4ZRZxU0fUcW6s23+2rkkOQYcFSCYi/n0V0veo1ZsjSC8WwIycTVT3WxQszRRJ+cKujlaw2peBvZgU8MlaAZZSlkY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6613
 
-Hi Bertrand,
+On 08/12/2025 6:49 pm, Grygorii Strashko wrote:
+> Hi Andrew,
+>
+> On 06.12.25 16:21, Andrew Cooper wrote:
+>> On 06/12/2025 2:15 pm, Andrew Cooper wrote:
+>>> On 06/12/2025 9:10 am, Grygorii Strashko wrote:
+>>>>
+>>>> On 05.12.25 22:00, Andrew Cooper wrote:
+>>>>> On 05/12/2025 7:34 pm, Grygorii Strashko wrote:
+>>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>>
+>>>>>> Extend coverage support on .init and lib code.
+>>>>>> Add two hidden Kconfig options:
+>>>>>> - RELAX_INIT_CHECK "Relax strict check for .init sections only in
+>>>>>> %.init.o
+>>>>>> files"
+>>>>>> - DO_NOT_FREE_INIT_MEMORY "Prevent freeing of .init sections at the
+>>>>>> end of
+>>>>>> Xen boot."
+>>>>>>
+>>>>>> Both selected selected when COVERAGE=y, as getting coverage
+>>>>>> report for
+>>>>>> ".init" code is required:
+>>>>>> - to bypass strict check for .init sections only in %.init.o files;
+>>>>>> - the .init code stay in memory after Xen boot.
+>>>>>>
+>>>>>> RELAX_INIT_CHECK/DO_NOT_FREE_INIT_MEMORY could be used by other
+>>>>>> debug
+>>>>>> features in the future.
+>>>>>>
+>>>>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>> ---
+>>>>>> changes in v2:
+>>>>>>    - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two
+>>>>>> different things,
+>>>>>>      both potentially reusable
+>>>>>>    - enable coverage for libfdt/libelf always
+>>>>>>    - enable colverage for .init always
+>>>>> This is a lot nicer (i.e. more simple).
+>>>>>
+>>>>> But, I still don't know why we need to avoid freeing init memory
+>>>>> to make
+>>>>> this work.  What explodes if we dont?
+>>>>>
+>>>> It will just crash when coverage data is collected.
+>>>>
+>>>> First I made changes in make file to get .init covered
+>>>> then I hit a crash
+>>>> then I checked %.init.o
+>>>> conclusion was obvious.
+>>>>
+>>>> For example:
+>>>> objdump -x bzimage.init.o | grep gcov
+>>>>
+>>>> 0000000000000010 l     O .bss    0000000000000028
+>>>> __gcov0.bzimage_check
+>>>> 0000000000000040 l     O .bss    0000000000000040
+>>>> __gcov0.bzimage_headroom
+>>>> 0000000000000000 l     O .bss    0000000000000008
+>>>> __gcov0.output_length
+>>>> 0000000000000080 l     O .bss    0000000000000060
+>>>> __gcov0.bzimage_parse
+>>>> 0000000000000098 l     O .init.data.rel.local    0000000000000028
+>>>> __gcov_.bzimage_parse
+>>>> 0000000000000070 l     O .init.data.rel.local    0000000000000028
+>>>> __gcov_.bzimage_headroom
+>>>> 0000000000000048 l     O .init.data.rel.local    0000000000000028
+>>>> __gcov_.bzimage_check
+>>>> 0000000000000020 l     O .init.data.rel.local    0000000000000028
+>>>> __gcov_.output_length
+>>>> 0000000000000000         *UND*    0000000000000000 __gcov_init
+>>>> 0000000000000000         *UND*    0000000000000000 __gcov_exit
+>>>> 0000000000000000         *UND*    0000000000000000 __gcov_merge_add
+>>>> 0000000000000008 R_X86_64_PLT32    __gcov_init-0x0000000000000004
+>>>> 0000000000000012 R_X86_64_PLT32    __gcov_exit-0x0000000000000004
+>>>> 0000000000000020 R_X86_64_64       __gcov_merge_add
+>>>>
+>>> Aah, we should exclude the OJBCOPY too.  That's what's moving
+>>> .data.rel.local amongst other sections we target with attributes
+>>> directly.
+>>
+>> we can't target.
+>
+> I've come up with below diff - seems it's working without
+> DO_NOT_FREE_INIT_MEMORY.
+> Is this what you have in mind?
+>
+> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+> index 8fc201d12c2c..16b1a82db46e 100644
+> --- a/xen/Kconfig.debug
+> +++ b/xen/Kconfig.debug
+> @@ -40,7 +40,6 @@ config COVERAGE
+>         depends on SYSCTL && !LIVEPATCH
+>         select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if
+> !ENFORCE_UNIQUE_SYMBOLS
+>         select RELAX_INIT_CHECK
+> -       select DO_NOT_FREE_INIT_MEMORY
+>         help
+>           Enable code coverage support.
+>  
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index 8c4861a427e6..47fdcc1d23b5 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -33,11 +33,15 @@ cov-cflags-y :=
+>  nocov-y :=
+>  noubsan-y :=
+>  
+> +# when coverage is enabled the gcc internal section should stay in
+> memory
+> +# after Xen boot
+> +ifneq ($(CONFIG_COVERAGE),y)
+>  SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
+>                                              $(foreach w,1 2 4, \
+>                                                         
+> rodata.str$(w).$(a)) \
+>                                              rodata.cst$(a)) \
+>                           $(foreach r,rel rel.ro,data.$(r).local)
+> +endif
+>  
+>  # The filename build.mk has precedence over Makefile
+>  include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
+> diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
+> index 60b3ae40728f..8180c78f1510 100644
+> --- a/xen/common/libelf/Makefile
+> +++ b/xen/common/libelf/Makefile
+> @@ -1,8 +1,10 @@
+>  obj-bin-y := libelf.o
+>  libelf-objs := libelf-tools.o libelf-loader.o libelf-dominfo.o
+>  
+> +ifneq ($(CONFIG_COVERAGE),y)
+>  SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+>  OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
+> .$(s)=.init.$(s))
+> +endif
+>  
+>  CFLAGS-y += -Wno-pointer-sign
+>  
+> diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
+> index ae0f69c01373..fb26e5bff0fd 100644
+> --- a/xen/common/libfdt/Makefile
+> +++ b/xen/common/libfdt/Makefile
+> @@ -4,7 +4,9 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+>  
+>  # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed
+> during runtime.
+>  ifneq ($(CONFIG_OVERLAY_DTB),y)
+> -OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section
+> .$(s)=.init.$(s))
+> +       ifneq ($(CONFIG_COVERAGE),y)
+> +               OBJCOPYFLAGS := $(foreach
+> s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
+> +       endif
+>  endif
 
-On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Rework how Xen accesses the RX/TX buffers shared with the SPMC so that
-> ownership and locking are handled centrally.
->
-> Move the SPMC RX/TX buffer bases into ffa_rxtx.c as ffa_spmc_rx/ffa_spmc_=
-tx,
-> protect them with dedicated ffa_spmc_{rx,tx}_lock spinlocks and expose
-> ffa_rxtx_spmc_{rx,tx}_{acquire,release}() helpers instead of the global
-> ffa_rx/ffa_tx pointers and ffa_{rx,tx}_buffer_lock.
->
-> The RX helpers now always issue FFA_RX_RELEASE when we are done
-> consuming data from the SPMC, so partition-info enumeration and shared
-> memory paths release the RX buffer on all exit paths. The RX/TX mapping
-> code is updated to use the descriptor offsets (rx_region_offs and
-> tx_region_offs) rather than hard-coded structure layout, and to use the
-> TX acquire/release helpers instead of touching the TX buffer directly.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in v1:
-> - modify share_shm function to use a goto and have one place to release
->   the spmc tx buffer instead of doing it directly in the if error
->   condition.
-> - fix rx_acquire and tx_acquire to not release the spinlock as this is
->   expected to be done only in release to ensure no parallel usage.
-> ---
->  xen/arch/arm/tee/ffa.c          |  22 +-----
->  xen/arch/arm/tee/ffa_partinfo.c |  40 +++++-----
->  xen/arch/arm/tee/ffa_private.h  |  18 ++---
->  xen/arch/arm/tee/ffa_rxtx.c     | 130 +++++++++++++++++++++++++-------
->  xen/arch/arm/tee/ffa_shm.c      |  29 ++++---
->  5 files changed, 153 insertions(+), 86 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 497ada8264e0..43af49d1c011 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -48,8 +48,8 @@
->   *     notification for secure partitions
->   *   - doesn't support notifications for Xen itself
->   *
-> - * There are some large locked sections with ffa_tx_buffer_lock and
-> - * ffa_rx_buffer_lock. Especially the ffa_tx_buffer_lock spinlock used
-> + * There are some large locked sections with ffa_spmc_tx_lock and
-> + * ffa_spmc_rx_lock. Especially the ffa_spmc_tx_lock spinlock used
->   * around share_shm() is a very large locked section which can let one V=
-M
->   * affect another VM.
->   */
-> @@ -108,20 +108,6 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] =
-=3D {
->      FW_ABI(FFA_RUN),
->  };
->
-> -/*
-> - * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
-> - * number of pages used in each of these buffers.
-> - *
-> - * The RX buffer is protected from concurrent usage with ffa_rx_buffer_l=
-ock.
-> - * Note that the SPMC is also tracking the ownership of our RX buffer so
-> - * for calls which uses our RX buffer to deliver a result we must call
-> - * ffa_rx_release() to let the SPMC know that we're done with the buffer=
-.
-> - */
-> -void *ffa_rx __read_mostly;
-> -void *ffa_tx __read_mostly;
-> -DEFINE_SPINLOCK(ffa_rx_buffer_lock);
-> -DEFINE_SPINLOCK(ffa_tx_buffer_lock);
-> -
->  LIST_HEAD(ffa_ctx_head);
->  /* RW Lock to protect addition/removal and reading in ffa_ctx_head */
->  DEFINE_RWLOCK(ffa_ctx_list_rwlock);
-> @@ -617,7 +603,7 @@ static bool ffa_probe_fw(void)
->                     ffa_fw_abi_needed[i].name);
->      }
->
-> -    if ( !ffa_rxtx_init() )
-> +    if ( !ffa_rxtx_spmc_init() )
->      {
->          printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
->          goto err_no_fw;
-> @@ -631,7 +617,7 @@ static bool ffa_probe_fw(void)
->      return true;
->
->  err_rxtx_destroy:
-> -    ffa_rxtx_destroy();
-> +    ffa_rxtx_spmc_destroy();
->  err_no_fw:
->      ffa_fw_version =3D 0;
->      bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index ec5a53ed1cab..145b869957b0 100644
-> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -77,28 +77,24 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, ui=
-nt32_t *sp_count,
->  {
->      int32_t ret;
->      uint32_t src_size, real_sp_count;
-> -    void *src_buf =3D ffa_rx;
-> +    void *src_buf;
->      uint32_t count =3D 0;
->
-> -    /* Do we have a RX buffer with the SPMC */
-> -    if ( !ffa_rx )
-> -        return FFA_RET_DENIED;
-> -
->      /* We need to use the RX buffer to receive the list */
-> -    spin_lock(&ffa_rx_buffer_lock);
-> +    src_buf =3D ffa_rxtx_spmc_rx_acquire();
-> +    if ( !src_buf )
-> +        return FFA_RET_DENIED;
->
->      ret =3D ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
->      if ( ret )
->          goto out;
->
-> -    /* We now own the RX buffer */
-> -
->      /* Validate the src_size we got */
->      if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
->           src_size >=3D FFA_PAGE_SIZE )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> -        goto out_release;
-> +        goto out;
->      }
->
->      /*
-> @@ -114,7 +110,7 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, ui=
-nt32_t *sp_count,
->      if ( real_sp_count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / src_siz=
-e )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> -        goto out_release;
-> +        goto out;
->      }
->
->      for ( uint32_t sp_num =3D 0; sp_num < real_sp_count; sp_num++ )
-> @@ -127,7 +123,7 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, ui=
-nt32_t *sp_count,
->              if ( dst_buf > (end_buf - dst_size) )
->              {
->                  ret =3D FFA_RET_NO_MEMORY;
-> -                goto out_release;
-> +                goto out;
->              }
->
->              memcpy(dst_buf, src_buf, MIN(src_size, dst_size));
-> @@ -143,10 +139,8 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, u=
-int32_t *sp_count,
->
->      *sp_count =3D count;
->
-> -out_release:
-> -    ffa_hyp_rx_release();
->  out:
-> -    spin_unlock(&ffa_rx_buffer_lock);
-> +    ffa_rxtx_spmc_rx_release();
->      return ret;
->  }
->
-> @@ -378,7 +372,7 @@ static void uninit_subscribers(void)
->          XFREE(subscr_vm_destroyed);
->  }
->
-> -static bool init_subscribers(uint16_t count, uint32_t fpi_size)
-> +static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_siz=
-e)
->  {
->      uint16_t n;
->      uint16_t c_pos;
-> @@ -395,7 +389,7 @@ static bool init_subscribers(uint16_t count, uint32_t=
- fpi_size)
->      subscr_vm_destroyed_count =3D 0;
->      for ( n =3D 0; n < count; n++ )
->      {
-> -        fpi =3D ffa_rx + n * fpi_size;
-> +        fpi =3D buf + n * fpi_size;
->
->          /*
->           * We need to have secure partitions using bit 15 set convention=
- for
-> @@ -433,7 +427,7 @@ static bool init_subscribers(uint16_t count, uint32_t=
- fpi_size)
->
->      for ( c_pos =3D 0, d_pos =3D 0, n =3D 0; n < count; n++ )
->      {
-> -        fpi =3D ffa_rx + n * fpi_size;
-> +        fpi =3D buf + n * fpi_size;
->
->          if ( FFA_ID_IS_SECURE(fpi->id) )
->          {
-> @@ -455,10 +449,14 @@ bool ffa_partinfo_init(void)
->      uint32_t fpi_size;
->      uint32_t count;
->      int e;
-> +    void *spmc_rx;
->
->      if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
-> -         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) ||
-> -         !ffa_rx || !ffa_tx )
-> +         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
-> +        return false;
-> +
-> +    spmc_rx =3D ffa_rxtx_spmc_rx_acquire();
-> +    if (!spmc_rx)
->          return false;
->
->      e =3D ffa_partition_info_get(NULL, 0, &count, &fpi_size);
-> @@ -475,10 +473,10 @@ bool ffa_partinfo_init(void)
->          goto out;
->      }
->
-> -    ret =3D init_subscribers(count, fpi_size);
-> +    ret =3D init_subscribers(spmc_rx, count, fpi_size);
->
->  out:
-> -    ffa_hyp_rx_release();
-> +    ffa_rxtx_spmc_rx_release();
->      return ret;
->  }
->
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index d6400efd50bb..8797a62abd01 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -415,10 +415,6 @@ struct ffa_ctx {
->      unsigned long *vm_destroy_bitmap;
->  };
->
-> -extern void *ffa_rx;
-> -extern void *ffa_tx;
-> -extern spinlock_t ffa_rx_buffer_lock;
-> -extern spinlock_t ffa_tx_buffer_lock;
->  extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
->
->  extern struct list_head ffa_ctx_head;
-> @@ -436,8 +432,13 @@ int ffa_partinfo_domain_init(struct domain *d);
->  bool ffa_partinfo_domain_destroy(struct domain *d);
->  void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
->
-> -bool ffa_rxtx_init(void);
-> -void ffa_rxtx_destroy(void);
-> +bool ffa_rxtx_spmc_init(void);
-> +void ffa_rxtx_spmc_destroy(void);
-> +void *ffa_rxtx_spmc_rx_acquire(void);
-> +void ffa_rxtx_spmc_rx_release(void);
-> +void *ffa_rxtx_spmc_tx_acquire(void);
-> +void ffa_rxtx_spmc_tx_release(void);
-> +
->  int32_t ffa_rxtx_domain_init(struct domain *d);
->  void ffa_rxtx_domain_destroy(struct domain *d);
->  int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-> @@ -567,11 +568,6 @@ static inline int32_t ffa_simple_call(uint32_t fid, =
-register_t a1,
->      return ffa_get_ret_code(&resp);
->  }
->
-> -static inline int32_t ffa_hyp_rx_release(void)
-> -{
-> -    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
-> -}
-> -
->  static inline bool ffa_fw_supports_fid(uint32_t fid)
->  {
->      BUILD_BUG_ON(FFA_FNUM_MIN_VALUE > FFA_FNUM_MAX_VALUE);
-> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-> index 5776693bb3f0..e325eae07bda 100644
-> --- a/xen/arch/arm/tee/ffa_rxtx.c
-> +++ b/xen/arch/arm/tee/ffa_rxtx.c
-> @@ -30,6 +30,20 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
->      uint32_t tx_region_offs;
->  };
->
-> +/*
-> + * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
-> + * number of pages used in each of these buffers.
-> + * Each buffer has its own lock to protect from concurrent usage.
-> + *
-> + * Note that the SPMC is also tracking the ownership of our RX buffer so
-> + * for calls which uses our RX buffer to deliver a result we must do an
-> + * FFA_RX_RELEASE to let the SPMC know that we're done with the buffer.
-> + */
-> +static void *ffa_spmc_rx __read_mostly;
-> +static void *ffa_spmc_tx __read_mostly;
-> +static DEFINE_SPINLOCK(ffa_spmc_rx_lock);
-> +static DEFINE_SPINLOCK(ffa_spmc_tx_lock);
-> +
->  static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
->                              uint32_t page_count)
->  {
-> @@ -126,8 +140,9 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t =
-tx_addr,
->                       sizeof(struct ffa_address_range) * 2 >
->                       FFA_MAX_RXTX_PAGE_COUNT * FFA_PAGE_SIZE);
->
-> -        spin_lock(&ffa_tx_buffer_lock);
-> -        rxtx_desc =3D ffa_tx;
-> +        rxtx_desc =3D ffa_rxtx_spmc_tx_acquire();
+This is the (aforementioned) non-standard way of doing .init.o, which is
+why it doesn't play nicely.
 
-Two guests can independently call FFA_RXTX_MAP_64 at the same time and
-reach this point on two CPUs in parallel. But,
-ffa_rxtx_spmc_tx_acquire() has an
-ASSERT(!spin_is_locked(&ffa_spmc_rx_lock)) before taking the spinlock.
-I think we have the same problem in ffa_get_sp_partinfo() with
-ffa_rxtx_spmc_rx_acquire().
+I suggest that we first convert libelf and libfdt to the standard way of
+doing .init.
 
-Cheers,
-Jens
+For libelf this means we need regular __init annotations, but #undef'd
+outside of __XEN__ (when we're doing the userspace build).
 
-> +        if ( !rxtx_desc )
-> +            goto err_unmap_rx;
->
->          /*
->           * We have only one page for each so we pack everything:
-> @@ -144,7 +159,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t =
-tx_addr,
->                                               address_range_array[1]);
->
->          /* rx buffer */
-> -        mem_reg =3D ffa_tx + sizeof(*rxtx_desc);
-> +        mem_reg =3D (void *)rxtx_desc + rxtx_desc->rx_region_offs;
->          mem_reg->total_page_count =3D 1;
->          mem_reg->address_range_count =3D 1;
->          mem_reg->reserved =3D 0;
-> @@ -154,7 +169,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t =
-tx_addr,
->          mem_reg->address_range_array[0].reserved =3D 0;
->
->          /* tx buffer */
-> -        mem_reg =3D ffa_tx + rxtx_desc->tx_region_offs;
-> +        mem_reg =3D (void *)rxtx_desc + rxtx_desc->tx_region_offs;
->          mem_reg->total_page_count =3D 1;
->          mem_reg->address_range_count =3D 1;
->          mem_reg->reserved =3D 0;
-> @@ -165,7 +180,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t =
-tx_addr,
->
->          ret =3D ffa_rxtx_map(0, 0, 0);
->
-> -        spin_unlock(&ffa_tx_buffer_lock);
-> +        ffa_rxtx_spmc_tx_release();
->
->          if ( ret !=3D FFA_RET_OK )
->              goto err_unmap_rx;
-> @@ -319,49 +334,112 @@ void ffa_rxtx_domain_destroy(struct domain *d)
->      rxtx_unmap(d);
->  }
->
-> -void ffa_rxtx_destroy(void)
-> +void *ffa_rxtx_spmc_rx_acquire(void)
-> +{
-> +    ASSERT(!spin_is_locked(&ffa_spmc_rx_lock));
-> +
-> +    spin_lock(&ffa_spmc_rx_lock);
-> +
-> +    if ( ffa_spmc_rx )
-> +        return ffa_spmc_rx;
-> +
-> +    return NULL;
-> +}
-> +
-> +void ffa_rxtx_spmc_rx_release(void)
-> +{
-> +    int32_t ret;
-> +
-> +    ASSERT(spin_is_locked(&ffa_spmc_rx_lock));
-> +
-> +    /* Inform the SPMC that we are done with our RX buffer */
-> +    ret =3D ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
-> +    if ( ret !=3D FFA_RET_OK )
-> +        printk(XENLOG_DEBUG "Error releasing SPMC RX buffer: %d\n", ret)=
-;
-> +
-> +    spin_unlock(&ffa_spmc_rx_lock);
-> +}
-> +
-> +void *ffa_rxtx_spmc_tx_acquire(void)
->  {
-> -    bool need_unmap =3D ffa_tx && ffa_rx;
-> +    ASSERT(!spin_is_locked(&ffa_spmc_tx_lock));
->
-> -    if ( ffa_tx )
-> +    spin_lock(&ffa_spmc_tx_lock);
-> +
-> +    if ( ffa_spmc_tx )
-> +        return ffa_spmc_tx;
-> +
-> +    return NULL;
-> +}
-> +
-> +void ffa_rxtx_spmc_tx_release(void)
-> +{
-> +    ASSERT(spin_is_locked(&ffa_spmc_tx_lock));
-> +
-> +    spin_unlock(&ffa_spmc_tx_lock);
-> +}
-> +
-> +void ffa_rxtx_spmc_destroy(void)
-> +{
-> +    bool need_unmap;
-> +
-> +    spin_lock(&ffa_spmc_rx_lock);
-> +    spin_lock(&ffa_spmc_tx_lock);
-> +    need_unmap =3D ffa_spmc_tx && ffa_spmc_rx;
-> +
-> +    if ( ffa_spmc_tx )
->      {
-> -        free_xenheap_pages(ffa_tx, 0);
-> -        ffa_tx =3D NULL;
-> +        free_xenheap_pages(ffa_spmc_tx, 0);
-> +        ffa_spmc_tx =3D NULL;
->      }
-> -    if ( ffa_rx )
-> +    if ( ffa_spmc_rx )
->      {
-> -        free_xenheap_pages(ffa_rx, 0);
-> -        ffa_rx =3D NULL;
-> +        free_xenheap_pages(ffa_spmc_rx, 0);
-> +        ffa_spmc_rx =3D NULL;
->      }
->
->      if ( need_unmap )
->          ffa_rxtx_unmap(0);
-> +
-> +    spin_unlock(&ffa_spmc_tx_lock);
-> +    spin_unlock(&ffa_spmc_rx_lock);
->  }
->
-> -bool ffa_rxtx_init(void)
-> +bool ffa_rxtx_spmc_init(void)
->  {
->      int32_t e;
-> +    bool ret =3D false;
->
->      /* Firmware not there or not supporting */
->      if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
->          return false;
->
-> -    ffa_rx =3D alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_CO=
-UNT), 0);
-> -    if ( !ffa_rx )
-> -        return false;
-> +    spin_lock(&ffa_spmc_rx_lock);
-> +    spin_lock(&ffa_spmc_tx_lock);
-> +
-> +    ffa_spmc_rx =3D alloc_xenheap_pages(
-> +                            get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0=
-);
-> +    if ( !ffa_spmc_rx )
-> +        goto exit;
->
-> -    ffa_tx =3D alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_CO=
-UNT), 0);
-> -    if ( !ffa_tx )
-> -        goto err;
-> +    ffa_spmc_tx =3D alloc_xenheap_pages(
-> +                            get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0=
-);
-> +    if ( !ffa_spmc_tx )
-> +        goto exit;
->
-> -    e =3D ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), FFA_RXTX_PAGE_COUNT);
-> +    e =3D ffa_rxtx_map(__pa(ffa_spmc_tx), __pa(ffa_spmc_rx),
-> +                     FFA_RXTX_PAGE_COUNT);
->      if ( e )
-> -        goto err;
-> +        goto exit;
->
-> -    return true;
-> +    ret =3D true;
->
-> -err:
-> -    ffa_rxtx_destroy();
-> +exit:
-> +    spin_unlock(&ffa_spmc_tx_lock);
-> +    spin_unlock(&ffa_spmc_rx_lock);
->
-> -    return false;
-> +    if ( !ret )
-> +        ffa_rxtx_spmc_destroy();
-> +
-> +    return ret;
->  }
-> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-> index dad3da192247..e275d3769d9b 100644
-> --- a/xen/arch/arm/tee/ffa_shm.c
-> +++ b/xen/arch/arm/tee/ffa_shm.c
-> @@ -286,9 +286,8 @@ static void init_range(struct ffa_address_range *addr=
-_range,
->  }
->
->  /*
-> - * This function uses the ffa_tx buffer to transmit the memory transacti=
-on
-> - * descriptor. The function depends ffa_tx_buffer_lock to be used to gua=
-rd
-> - * the buffer from concurrent use.
-> + * This function uses the ffa_spmc tx buffer to transmit the memory tran=
-saction
-> + * descriptor.
->   */
->  static int share_shm(struct ffa_shm_mem *shm)
->  {
-> @@ -298,17 +297,22 @@ static int share_shm(struct ffa_shm_mem *shm)
->      struct ffa_address_range *addr_range;
->      struct ffa_mem_region *region_descr;
->      const unsigned int region_count =3D 1;
-> -    void *buf =3D ffa_tx;
->      uint32_t frag_len;
->      uint32_t tot_len;
->      paddr_t last_pa;
->      unsigned int n;
->      paddr_t pa;
-> +    int32_t ret;
-> +    void *buf;
->
-> -    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
->      ASSERT(shm->page_count);
->
-> +    buf =3D ffa_rxtx_spmc_tx_acquire();
-> +    if ( !buf )
-> +        return FFA_RET_NOT_SUPPORTED;
-> +
->      descr =3D buf;
-> +
->      memset(descr, 0, sizeof(*descr));
->      descr->sender_id =3D shm->sender_id;
->      descr->handle =3D shm->handle;
-> @@ -340,7 +344,10 @@ static int share_shm(struct ffa_shm_mem *shm)
->      tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_count,
->                                  region_descr->address_range_count);
->      if ( tot_len > max_frag_len )
-> -        return FFA_RET_NOT_SUPPORTED;
-> +    {
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> +        goto out;
-> +    }
->
->      addr_range =3D region_descr->address_range_array;
->      frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_count=
-, 1);
-> @@ -360,7 +367,12 @@ static int share_shm(struct ffa_shm_mem *shm)
->          init_range(addr_range, pa);
->      }
->
-> -    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> +    ret =3D ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> +
-> +out:
-> +    ffa_rxtx_spmc_tx_release();
-> +
-> +    return ret;
->  }
->
->  static int read_mem_transaction(uint32_t ffa_vers, const void *buf, size=
-_t blen,
-> @@ -579,10 +591,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs=
-)
->      if ( ret )
->          goto out;
->
-> -    /* Note that share_shm() uses our tx buffer */
-> -    spin_lock(&ffa_tx_buffer_lock);
->      ret =3D share_shm(shm);
-> -    spin_unlock(&ffa_tx_buffer_lock);
->      if ( ret )
->          goto out;
->
-> --
-> 2.51.2
->
+For libfdt, this will need some init_or_$FOO things (matching
+init_or_livepatch).
+
+Once the custom init has been made standard, this code becomes easier to
+move into lib, and we no longer have special cases when trying to extend
+coverage.
+
+~Andrew
 
