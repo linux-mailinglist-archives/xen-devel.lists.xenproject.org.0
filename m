@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3C2CB063F
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:23:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1181851.1504838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A02ACB0651
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Dec 2025 16:25:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1181865.1504846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzXy-00008m-J0; Tue, 09 Dec 2025 15:22:38 +0000
+	id 1vSzaX-0000j6-3A; Tue, 09 Dec 2025 15:25:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1181851.1504838; Tue, 09 Dec 2025 15:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 1181865.1504846; Tue, 09 Dec 2025 15:25:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vSzXy-00005Q-EU; Tue, 09 Dec 2025 15:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 1181851;
- Tue, 09 Dec 2025 15:22:37 +0000
+	id 1vSzaX-0000hP-09; Tue, 09 Dec 2025 15:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 1181865;
+ Tue, 09 Dec 2025 15:25:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=R9j7=6P=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vSzXx-00005K-5V
- for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:22:37 +0000
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [2607:f8b0:4864:20::235])
+ id 1vSzaV-0000hJ-HN
+ for xen-devel@lists.xenproject.org; Tue, 09 Dec 2025 15:25:15 +0000
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [2607:f8b0:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e37c1074-d512-11f0-b15b-2bf370ae4941;
- Tue, 09 Dec 2025 16:22:35 +0100 (CET)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-45090ef26c6so1664352b6e.2
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 07:22:35 -0800 (PST)
+ id 41d0778a-d513-11f0-b15b-2bf370ae4941;
+ Tue, 09 Dec 2025 16:25:14 +0100 (CET)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-450b3f60c31so2591465b6e.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 07:25:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,51 +40,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e37c1074-d512-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 41d0778a-d513-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1765293754; x=1765898554; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1765293913; x=1765898713; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ujd9WVCGq6lmwU+W36A6T6c65HBI1XeVyX0ybbUAKYE=;
-        b=JfTy03lUw01wFWbEbXPQnaq2T7NpSYrCrqkg/QBwPhlCPIE6C4X8ks5Mxz6lnDRwje
-         J8u8V5zAR3G3AtGSWn7Hk8zd/r16+2iKaWVIkrw1DOgcCmsq2z5CwSXTHN1OVVVMrIxA
-         +jvQUrat7AL+h3C5NUP10zq3widn+xFLwE6GkhbOLpzU5Uc73/99a/BuECZxzLYH/ORR
-         T6QsIcCswXvWWLrQuYB3HVh0GqA5iJw8vNG1b51EmJbFgLYg20ynidUc6TKeS1FPMYU2
-         h6fEjQo9CF3XXQVH7r8JB4HteUNn6HUk4RPpOtz1y7CfV3u8U4vwZVl0jCGsvuR6ubjL
-         cE+g==
+        bh=px9k85v8oJRTGCidCYR/pxO2mba+FuoRZ1VGFVhqnjs=;
+        b=wxYmzTGyTevA/LFi1sovdYxqnDXQ7QrO6iHhBkJpKIYRrAM1QtFwLFEr7vAUALUSUD
+         4BIpcUZDjJ21fKLO+IEUKKpuUQHk9rMLObxOXTMrYtqCjZlumTz0aYnkBHGgZVxF6nFk
+         R6l3FHBl8RO+pAjuYIdYaBCcCKeVqGYJ4Od8/c6E8BBEHtDZpN7TbfNmhTQqhv9jltIg
+         12oS2pbC4/VWLkEjaprAD0s0yzyhNnvsj2iIG/rR7xP817fruKQJa5/6kmvPlGhWhD6q
+         4khjT4/kabM2ZA1HsowL3mHGdHY3go/8BnyWSZcHTCUK7Gj1lJ30hEJNlqAasG2+Iv6Y
+         DJKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765293754; x=1765898554;
+        d=1e100.net; s=20230601; t=1765293913; x=1765898713;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ujd9WVCGq6lmwU+W36A6T6c65HBI1XeVyX0ybbUAKYE=;
-        b=t8CSObEkhUq9cDS7f+FcNFpimLW+c5j5DTwgMsGjSVQKjzzsGo2WLh//9QgEuWgYv+
-         NXQ+UjEVm3on76nCRm3NRRozYEWD/MX7meL6LekKw9qCNN9HFdDBgxjLbQkLEwvkBo4h
-         8YrVKBtvwlzBE5cBFR9G+2p7G7DHzlEKfr3LyxUasmQVQVgIMMW9WqI87rIJzk7KKECW
-         A0lXs0zKPtCk9GxUkqpCGl35TfadtYxct1VjgPBcJkwXq0l+uBeY2Gll6hvdYUL567GX
-         7YxHy3K3MnnZjlB0lXuP3Ma/HNPNq7igUrbT/w4gkP2M3MHxjn8InlyQspvmFHQVzJz5
-         eovA==
-X-Gm-Message-State: AOJu0YxpGvjiudXtAaAg6b3wD7L17UBHkN4zCow/CIO3nMQzeDR0UDuo
-	CPGoEINIpFVTSVMJKnk5PGWrJEEVRsWVrc3FQ/JacNk/v8f184Z5YSPO6A6G2lVT3TutTed9u4C
-	zxSYym0+JUG/QCvtDSHTheGQyPPJztz9hSmk9R883MQ==
-X-Gm-Gg: ASbGnctFQl5VVyF2aeJF/wokxipMhnsb2cwG00MFdPfT7yEgfX23JCysDB5uoG/xL/L
-	HuxC5QNrDr7l54+uP4m4qntWWHhwQNMY+f+TIUxlOtaQf3ZBEwqiesmYRjAjN44aNYwcrPAWKD4
-	3fs4l3MAu0q6RWC1LolFuh3MJx/aAUYDQyMTVoTVebqJZuh0AK7ohHAddbTjALFyeC7j4SSUfu+
-	N8mV7hlo1JcNyvGhJ+3rTFW0h/TtTJGU5yIDFpoMndmvcnPOx6YdIhHQrngMl//NoDBdJWRT3kH
-	WjjTgPdnVEguBJlmo7NtI5jNi9CH/d1fUXKD+PqT2h+AcjkHW9kkkWrRN/geXKocvg9hL7Ua
-X-Google-Smtp-Source: AGHT+IHEWzhRh4IYErCmLYX0ClzF1H72e6SGrFqmxeL22S6Djt+UxuXsrNbtQpUn25IQ/eJP1M6r3xT1jmBu16p0Q1k=
-X-Received: by 2002:a05:6808:6f87:b0:442:2ce:46cf with SMTP id
- 5614622812f47-4539e08f38emr4837979b6e.34.1765293754417; Tue, 09 Dec 2025
- 07:22:34 -0800 (PST)
+        bh=px9k85v8oJRTGCidCYR/pxO2mba+FuoRZ1VGFVhqnjs=;
+        b=fOAIRgYjIzjZFRgqmdrFo9sqdsF7QLdH428RiFge9fRyc04xNtjRxaYvUZAke/kMZW
+         jCHF7EzI47ofSy34T721zp4V75heWIXsr8Ze7q6+7YyvBnL5TyTJGAh85akowizx5b8M
+         1U8iBqirrgieaDzLePPWtYidkEuUCIMNuu2nszR/uzMNBxRZd+ggi+L5tC+Vkl9yphdM
+         norXq0gGGeDe2s52dlz1xbldUObKMQMHwm2yNPi2uVzzirm4MRhM9Mf2EnsJmfe6q5YF
+         vwlqK6ok11qFSenQN9VNMn0Md0JTPdl3givnv60mNC21+of0wo+IyHgZV+CWXenof66j
+         +9Yw==
+X-Gm-Message-State: AOJu0YyJkc7RgJnbM+3JYQhX7iP6eJJPIgUdGMLRlZ1U0dFyUIGwKWjN
+	W6aYbVraP9LTmaRLSaIZ7ZBnnSPh9Cfx88CHNvMlcFx0V45gKWF/gkII7X/VaiULWbNw7OgbiIO
+	EOrRsahgaUKXxUFlDpmzj7B5V+j/6lMN+9a6vhWhDZw==
+X-Gm-Gg: ASbGncvYW+Ul6gGJA78/GJ2lNNimJ+HkeJbMmlDc1nqNpi6MuHRAq5zqMNsqZB6DK3w
+	Yrplwg0XIbpZUrWEniA/aGnNjxRcdo3YsbGjV0LKxIj44RinZ0T6+s7ZWCk4DeZRfG5XauQdF/g
+	tKyKvRGIbvhKC1gOky8LEhRdI0mte0XnUJBRunIukFMmSp4QGOAIwes/YR8J0pvDh3ZYX0HMSJ5
+	9uaDLOR3k5CVfHSE+w1cQOjcZBreJIJoS90JDjz9zGcVRaWWD4Bmnrf005N7c2kQrN5XqCyf6K6
+	1bAgiDeVJwTSQFtfzYTylxh9G4c3UM0XvB/4QajYWAlMLJF6AXIG38saEUZUpg==
+X-Google-Smtp-Source: AGHT+IHlzgzyYPqo7sOs2PJmW1GMZ+FSO4vkkNGOiTT6Dgdxy2ffgddUtkkpa6WmfdMHRuGqpd5fr7ytaKzBvYoj/yE=
+X-Received: by 2002:a05:6808:1507:b0:450:4a53:54d4 with SMTP id
+ 5614622812f47-4539df814admr4951024b6e.25.1765293912760; Tue, 09 Dec 2025
+ 07:25:12 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1764930353.git.bertrand.marquis@arm.com> <55a3df6c73581e7e77a76230cd445ccb16608269.1764930353.git.bertrand.marquis@arm.com>
-In-Reply-To: <55a3df6c73581e7e77a76230cd445ccb16608269.1764930353.git.bertrand.marquis@arm.com>
+References: <cover.1764930353.git.bertrand.marquis@arm.com> <8412f616340976de6aa5f7da585cdc3dfd919732.1764930353.git.bertrand.marquis@arm.com>
+In-Reply-To: <8412f616340976de6aa5f7da585cdc3dfd919732.1764930353.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 9 Dec 2025 16:22:23 +0100
-X-Gm-Features: AQt7F2rb6vDZtFGhkqEM-eWWiY1imgFjI7YWo1I8B_pWDlNdlHcCklbO8MkDde4
-Message-ID: <CAHUa44Ee+foLY-w7NCENzEWWJks54dpK4ijSs9SwD6OgnYtRMg@mail.gmail.com>
-Subject: Re: [PATCH v1 11/12] xen/arm: ffa: add MSG_SEND_DIRECT_REQ2 support
+Date: Tue, 9 Dec 2025 16:25:01 +0100
+X-Gm-Features: AQt7F2qmmqcj0G2BeaIRMJETyQttFjPk0jUpMMHtyc--gR_zFjo-RFHa3_Qb5GE
+Message-ID: <CAHUa44HqFfA=NzXYwRDnDoV9m2FVDh5PS5tTS+9dyL7uQLUEtg@mail.gmail.com>
+Subject: Re: [PATCH v1 12/12] xen/arm: ffa: advertise FF-A v1.2
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -97,22 +97,29 @@ Hi Bertrand,
 On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
 <bertrand.marquis@arm.com> wrote:
 >
-> Extend the direct-request path so FF-A v1.2 guests can issue
-> FFA_MSG_SEND_DIRECT_REQ2 and receive the matching RESP2.
+> Expose the RX/TX MAP capacity field only once a guest has
+> negotiated FF-A v1.2.
 >
-> The handler now marshals registers x8=E2=80=93x17, and
-> ffa_finish_direct_req_run() copies back the 17-register response used by
-> FFA_MSG_SEND_DIRECT_RESP2. The new opcode is exposed via FFA_FEATURES
-> and gated on guests that negotiated v1.2.
+> While there, drop the stale <asm/tee/ffa.h> include.
+>
+> To comply with the wider v1.2 register ABI, zero registers x8=E2=80=93x17=
+ when
+> responding to a v1.2 VM. The dispatcher also rejects SMCCC64 calls from
+> AArch32 guests.
+>
+> Finally, bump Xen's FF-A version to 1.2.
 >
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
 > Changes in v1:
-> - use ACCESS_ONCE to read guest_vers
+> - Remove advertising of YIELD/INTERRUPT/RUN which has now moved to patch
+>   adding FFA_RUN support and adapt commit message
+> - Use ACCESS_ONCE to read guest_vers
+> - Use is_64bit_domain instead of ctx->is_64bit
 > ---
->  xen/arch/arm/tee/ffa.c     | 20 +++++++++++++++++++
->  xen/arch/arm/tee/ffa_msg.c | 39 ++++++++++++++++++++++++++++++++++++++
->  2 files changed, 59 insertions(+)
+>  xen/arch/arm/tee/ffa.c         | 19 +++++++++++++++++--
+>  xen/arch/arm/tee/ffa_private.h | 29 ++++++++++++++++++++---------
+>  2 files changed, 37 insertions(+), 11 deletions(-)
 
 Looks good.
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
@@ -122,112 +129,103 @@ Jens
 
 >
 > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 0f07efe5a7b3..2c6443a7f6a4 100644
+> index 2c6443a7f6a4..ed18e76080d0 100644
 > --- a/xen/arch/arm/tee/ffa.c
 > +++ b/xen/arch/arm/tee/ffa.c
-> @@ -237,6 +237,8 @@ out_continue:
->  static void handle_features(struct cpu_user_regs *regs)
->  {
->      uint32_t a1 =3D get_user_reg(regs, 1);
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
->      unsigned int n;
+> @@ -65,7 +65,6 @@
+>  #include <asm/event.h>
+>  #include <asm/regs.h>
+>  #include <asm/smccc.h>
+> -#include <asm/tee/ffa.h>
+>  #include <asm/tee/tee.h>
 >
->      for ( n =3D 2; n <=3D 7; n++ )
-> @@ -268,6 +270,16 @@ static void handle_features(struct cpu_user_regs *re=
+>  #include "ffa_private.h"
+> @@ -296,7 +295,16 @@ static void handle_features(struct cpu_user_regs *re=
 gs)
->      case FFA_MSG_YIELD:
->          ffa_set_regs_success(regs, 0, 0);
->          break;
-> +    case FFA_MSG_SEND_DIRECT_REQ2:
-> +        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> +        {
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        }
-> +        else
-> +        {
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        }
-> +        break;
->      case FFA_MEM_SHARE_64:
->      case FFA_MEM_SHARE_32:
->          /*
-> @@ -353,6 +365,14 @@ static bool ffa_handle_call(struct cpu_user_regs *re=
-gs)
->      case FFA_MSG_SEND_DIRECT_REQ_64:
->          ffa_handle_msg_send_direct_req(regs, fid);
->          return true;
-> +    case FFA_MSG_SEND_DIRECT_REQ2:
-> +        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> +        {
-> +            ffa_handle_msg_send_direct_req(regs, fid);
-> +            return true;
-> +        }
-> +        e =3D FFA_RET_NOT_SUPPORTED;
-> +        break;
->      case FFA_RUN:
->          ffa_handle_run(regs, fid);
->          return true;
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index c3552a3ae36d..4e26596461a9 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -49,6 +49,30 @@ static void ffa_finish_direct_req_run(struct cpu_user_=
-regs *regs,
->      case FFA_MSG_YIELD:
->      case FFA_INTERRUPT:
->          break;
-> +    case FFA_MSG_SEND_DIRECT_RESP2:
+>           * differs from FFA_PAGE_SIZE (SZ_4K).
+>           */
+>          BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
+> -        ffa_set_regs_success(regs, 0, 0);
+> +
 > +        /*
-> +         * REQ2 / RESP2 use a 17-register payload (x1=E2=80=93x17). Copy=
- all of them
-> +         * back to the guest context.
+> +         * From FFA v1.2, we can give the maximum number of pages we sup=
+port
+> +         * for the RX/TX buffers.
 > +         */
-> +        set_user_reg(regs, 0, resp.a0);
-> +        set_user_reg(regs, 1, resp.a1);
-> +        set_user_reg(regs, 2, resp.a2);
-> +        set_user_reg(regs, 3, resp.a3);
-> +        set_user_reg(regs, 4, resp.a4);
-> +        set_user_reg(regs, 5, resp.a5);
-> +        set_user_reg(regs, 6, resp.a6);
-> +        set_user_reg(regs, 7, resp.a7);
-> +        set_user_reg(regs, 8, resp.a8);
-> +        set_user_reg(regs, 9, resp.a9);
-> +        set_user_reg(regs, 10, resp.a10);
-> +        set_user_reg(regs, 11, resp.a11);
-> +        set_user_reg(regs, 12, resp.a12);
-> +        set_user_reg(regs, 13, resp.a13);
-> +        set_user_reg(regs, 14, resp.a14);
-> +        set_user_reg(regs, 15, resp.a15);
-> +        set_user_reg(regs, 16, resp.a16);
-> +        set_user_reg(regs, 17, resp.a17);
-> +        return;
->      default:
->          /* Bad fid, report back to the caller. */
->          ffa_set_regs_error(regs, FFA_RET_ABORTED);
-> @@ -107,6 +131,21 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_=
-regs *regs, uint32_t fid)
->      arg.a6 =3D get_user_reg(regs, 6) & mask;
->      arg.a7 =3D get_user_reg(regs, 7) & mask;
+> +        if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
+> +            ffa_set_regs_success(regs, 0, 0);
+> +        else
+> +            ffa_set_regs_success(regs, FFA_MAX_RXTX_PAGE_COUNT << 16, 0)=
+;
+> +
+>          break;
+>      case FFA_FEATURE_NOTIF_PEND_INTR:
+>          ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
+> @@ -329,6 +337,13 @@ static bool ffa_handle_call(struct cpu_user_regs *re=
+gs)
+>      if ( !ctx )
+>          return false;
 >
-> +    if ( fid =3D=3D FFA_MSG_SEND_DIRECT_REQ2 )
+> +    if ( !is_64bit_domain(d) && smccc_is_conv_64(fid) )
 > +    {
-> +        /* 17 registers are used for REQ2 */
-> +        arg.a8 =3D get_user_reg(regs, 8);
-> +        arg.a9 =3D get_user_reg(regs, 9);
-> +        arg.a10 =3D get_user_reg(regs, 10);
-> +        arg.a11 =3D get_user_reg(regs, 11);
-> +        arg.a12 =3D get_user_reg(regs, 12);
-> +        arg.a13 =3D get_user_reg(regs, 13);
-> +        arg.a14 =3D get_user_reg(regs, 14);
-> +        arg.a15 =3D get_user_reg(regs, 15);
-> +        arg.a16 =3D get_user_reg(regs, 16);
-> +        arg.a17 =3D get_user_reg(regs, 17);
+> +        /* 32bit guests should only use 32bit convention calls */
+> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> +        return true;
 > +    }
 > +
->      ffa_finish_direct_req_run(regs, &arg);
->      return;
+>      /* A version must be negotiated first */
+>      if ( !ACCESS_ONCE(ctx->guest_vers) )
+>      {
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 030e6724743c..1b5aebd6ef6b 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -53,7 +53,7 @@
+>   * that particular guest or SP.
+>   */
+>  #define FFA_MY_VERSION_MAJOR    1U
+> -#define FFA_MY_VERSION_MINOR    1U
+> +#define FFA_MY_VERSION_MINOR    2U
+>  #define FFA_MY_VERSION          MAKE_FFA_VERSION(FFA_MY_VERSION_MAJOR, \
+>                                                   FFA_MY_VERSION_MINOR)
 >
+> @@ -518,14 +518,25 @@ static inline void ffa_set_regs(struct cpu_user_reg=
+s *regs, register_t v0,
+>                                  register_t v4, register_t v5, register_t=
+ v6,
+>                                  register_t v7)
+>  {
+> -        set_user_reg(regs, 0, v0);
+> -        set_user_reg(regs, 1, v1);
+> -        set_user_reg(regs, 2, v2);
+> -        set_user_reg(regs, 3, v3);
+> -        set_user_reg(regs, 4, v4);
+> -        set_user_reg(regs, 5, v5);
+> -        set_user_reg(regs, 6, v6);
+> -        set_user_reg(regs, 7, v7);
+> +    struct domain *d =3D current->domain;
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +    int i;
+> +
+> +    set_user_reg(regs, 0, v0);
+> +    set_user_reg(regs, 1, v1);
+> +    set_user_reg(regs, 2, v2);
+> +    set_user_reg(regs, 3, v3);
+> +    set_user_reg(regs, 4, v4);
+> +    set_user_reg(regs, 5, v5);
+> +    set_user_reg(regs, 6, v6);
+> +    set_user_reg(regs, 7, v7);
+> +
+> +    if ( ctx && ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 &&
+> +         is_64bit_domain(d) )
+> +    {
+> +        for (i =3D 8; i <=3D 17; i++)
+> +            set_user_reg(regs, i, 0);
+> +    }
+>  }
+>
+>  static inline void ffa_set_regs_error(struct cpu_user_regs *regs,
 > --
 > 2.51.2
 >
