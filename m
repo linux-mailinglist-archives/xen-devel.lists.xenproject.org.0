@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1411CCB1A73
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 02:49:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182491.1505361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA22CB1AAF
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 02:54:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182505.1505371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT9Js-0006Li-Rr; Wed, 10 Dec 2025 01:48:44 +0000
+	id 1vT9P7-0007vO-HR; Wed, 10 Dec 2025 01:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182491.1505361; Wed, 10 Dec 2025 01:48:44 +0000
+Received: by outflank-mailman (output) from mailman id 1182505.1505371; Wed, 10 Dec 2025 01:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT9Js-0006It-Oe; Wed, 10 Dec 2025 01:48:44 +0000
-Received: by outflank-mailman (input) for mailman id 1182491;
- Wed, 10 Dec 2025 01:48:43 +0000
+	id 1vT9P7-0007sk-ET; Wed, 10 Dec 2025 01:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 1182505;
+ Wed, 10 Dec 2025 01:54:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RTTf=6Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vT9Jr-0006In-9r
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 01:48:43 +0000
+ id 1vT9P5-0007se-Qw
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 01:54:07 +0000
 Received: from fhigh-b7-smtp.messagingengine.com
  (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59d39572-d56a-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 02:48:40 +0100 (CET)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 63E787A021B;
- Tue,  9 Dec 2025 20:48:39 -0500 (EST)
+ id 1b852086-d56b-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 02:54:05 +0100 (CET)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 5D0C27A019D;
+ Tue,  9 Dec 2025 20:54:04 -0500 (EST)
 Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Tue, 09 Dec 2025 20:48:39 -0500
+ by phl-compute-04.internal (MEProxy); Tue, 09 Dec 2025 20:54:04 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 9 Dec 2025 20:48:38 -0500 (EST)
+ 9 Dec 2025 20:54:03 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59d39572-d56a-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 1b852086-d56b-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1765331319;
-	 x=1765417719; bh=LzI1+sQ8xf2Ln6wZtfX0c6hRW5BXLELnAgDBiIDXSfc=; b=
-	yHroWnzuIO+Ql9QzigZMTeKmPcD2TEtMU85e90NTqMsIeWTGXHqvWxEs82jjj4sg
-	Bh8PnvFaFzRD5TLZQBOo3rQCsE8t3RQTki2k1i+bTvW9ngp5zCF5zoX/JLuDkV8k
-	9VkKAEtndu4XMLB6pt2CYkxWcO9jIyxA8ekyBqiU4gAF7yZ0ihPlhRV8qkN6QjYc
-	aqvRsSg7kB8ktZr/tcngTmvMZ4tubG6/8htho/z6x7PktYoU+kLRiPeBTr5qDxPX
-	P+j6eFJ3xokGPyUYDnGal87s0OAMgqrt5A8nfNpHS7+ekfXIrbTyB+kNU+ExxF/J
-	+0T7pdXepM9WpXeCbasThQ==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1765331644;
+	 x=1765418044; bh=yMFPRLeoM8jfJMeveP0/VibaSV0LekSZ4zGY9iaKxWo=; b=
+	L4ultSxkf+d+o266wMx/qrcWD3NLlMppoY8vGLuxNc0YcgrJOKAXYfKlFTAeKYoh
+	ZCUHN3ohcFCcucxNp/CSKyrPcWS8n1g3FpXYA8LRALbgpDM7SLNZ3XO50fWxTtCt
+	KAkQsTiBhJcItw4zJii3NXQJKZdXgEDpsIUWGnJSrIR5WHo+s5q9Y1ikBidKK8/m
+	2bJKxF/Ei9KZ90I1f7U2SSPL3CnIiZOmozUlZcRb5XIhDZ+wIFEV4FVamXeKl3d7
+	+5rTMm4zbgwfUH2/lrRZLjPE5s9GvWe0RKnAQbn2IHYGdfqvzvB9HN9QKhTKi4S1
+	UM9xoz7W5oMJRRwKmu/nEA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1765331319; x=1765417719; bh=LzI1+sQ8xf2Ln6wZtfX0c6hRW5BXLELnAgD
-	BiIDXSfc=; b=r/gG61jPR66Ii44GJ53vO774RGbL2yNQGiZFo4w8eBi5j++4iOD
-	aOHi8CcXf2GzZ6sFoIEjOZroozGubvJb0TAJtpz10lQN1ZihExnG5bmVCqH4s1FO
-	9OtLjRMiBgoDlfhoqCs1PwiEc+xYxWLiHpC39Useq5GmhUcXsyE0hQymt3bTbqvp
-	aX0yRwCO8UcNV3za5AOWwtXNjTT1kPYOljUSUOZTrrvrPUre+nCHhqV6lswmObxQ
-	tnkVqUp0Adj2jzVjG7mRVaPJFq4A2GBNqwomabN+MUFYstgeTk/ssFAuyp+dgEEF
-	R5pn99dxC/FtwqNP5eW2QTsWV7EeIRWh+Xg==
-X-ME-Sender: <xms:d9E4aaBNDJBDwmgptYAwT8nzsNvVJvFMHVEd2jWd6-WS8ZC7r1A26A>
-    <xme:d9E4abiNqRUYCutLdhkvhFZDR1pZbRfAZiDqA9tMxZfgvlMHPPbl8iR2Osxc2ICoI
-    Py7dNaS3UZJcbRsn9Z6Sohodo-DUJb12Q5jNp29FSnz5lHlxw>
-X-ME-Received: <xmr:d9E4aSm1DjJn2hgY-xfOcrUFMu3KRi0n3ZYLhIQMDhpras-D026IMRoqJS1AYlVqiSoCSMFC64pUqqK0gCnClvuZAFr3al0jjDg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvudduiecutefuodetggdotefrod
+	1765331644; x=1765418044; bh=yMFPRLeoM8jfJMeveP0/VibaSV0LekSZ4zG
+	Y9iaKxWo=; b=I49QDDWNBZCcj6GlUNvIwNPNavEaqXuCcD8832axcFcFrS7REOI
+	FXwWZCRKBM8uYDV4sFhTsxFmv998kUd58B621vwPilvdEHD1OpW3e3dRDmoDd9TP
+	bx9f3agx2ji9lM7AqFzRfG6F9M++55ImnHLinPk67gqw7lJWRKWpiqlv5MZpOnXe
+	59kfLB5kSJ6RffBJFoFcGcXp0aUSo9L5PQmksgztI56uhQBJ8Ddsv1M6w4pleEv/
+	aFBDkNRAJHyDXl3ks+wsSksJiOuqjizKMEr8V8F6hKV34GyOcFM4mFZTHAYy6JrP
+	Nuv1ScH42Sc4mAEne6sBPZLJ976p9/jSGHg==
+X-ME-Sender: <xms:vNI4aWzpbGP_dwUSvutqm9vylY0DaBv6Z7NCOAm2Lq6rcyAX-qVpHw>
+    <xme:vNI4aZQr1WnC_hM2cRAYHjzzwcOysV0C6Q260UWyP2yZGd-yPcI4ZbQpKPzXyVwk4
+    88YxJfnTuRtxVt52eyojWBFQoNHnwIcrQlr3VzDmkSaEOp7Wg>
+X-ME-Received: <xmr:vNI4adWTRIf8vdKc8ZZQHWdde6GeN8pkqjjuYh91poVF4HDmPaDavu0NIfZmehec2Dnfq1MmDqM_WM-7XWjnTSWJhmHMJpNBCm8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvuddujecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
     hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
@@ -85,96 +85,83 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvudduiecutefuodetgg
     lhdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhroh
     hjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhr
     ihigrdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomh
-X-ME-Proxy: <xmx:d9E4aXoG8u_TtFGgn3I6By_mqsk6LlSagonx-_SJmxNj3Ign7UAAHg>
-    <xmx:d9E4abGTlw1J-0eY3kXS4bFVTAkr0FvjgMPxmwIDrtEz-Xg_7HnmPQ>
-    <xmx:d9E4aTw2_esq-4NkAFqKTTk87o3RLkMYp82dz31vwMMcrOSXlFxorg>
-    <xmx:d9E4aQoTxYi0YqV0LJ1AKLWI_qn6h3YKTrwm6VDiY2_QGJ1Z8oJcig>
-    <xmx:d9E4aaGIb417JSnD_jV9_rMcfc1YzzqsPFFuL8o2YALOq5UtTaEFejoT>
+X-ME-Proxy: <xmx:vNI4abZdgAwgP0rbo6bKi0iqMwvRGbUDBymfdNdxtSIGJ3neTkY-IQ>
+    <xmx:vNI4aT2g4otQTrbZkyiGynyPRfCBzBzp4at-W91rT2IJyr5IBEXMmQ>
+    <xmx:vNI4adhVRxjCVZiozOhQ7sC1UYKI3whHRRFctyVdHgEXtdXt_P5_lQ>
+    <xmx:vNI4aXawimgEFPQtwLpEdwegtUfp91lteoeLCJmufKCx0JeHwaI9ng>
+    <xmx:vNI4aU32AWtgESe-fr9GCtof1FoDMFj374vbqzIBZEFgP6g9O412gBFP>
 Feedback-ID: i1568416f:Fastmail
-Date: Wed, 10 Dec 2025 02:48:36 +0100
+Date: Wed, 10 Dec 2025 02:54:01 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v4 1/6] automation: switch to alpine:3.22
-Message-ID: <aTjRdE_tUJIfp8Wi@mail-itl>
+Subject: Re: [PATCH v4 2/6] CI: extract qubes test container
+Message-ID: <aTjSueQPKmjmuLj0@mail-itl>
 References: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com>
- <94b63011f3a0969471425bb0f0677b20e16b8985.1764989098.git-series.marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2512091506260.19429@ubuntu-linux-20-04-desktop>
+ <ca2b4dfc19441f2ff609b197b4e97805ae2ef2ba.1764989098.git-series.marmarek@invisiblethingslab.com>
+ <alpine.DEB.2.22.394.2512091508500.19429@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="W4IE+oy/zWb6cnyn"
+	protocol="application/pgp-signature"; boundary="YcNbIcUxKP1fGIyi"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2512091506260.19429@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2512091508500.19429@ubuntu-linux-20-04-desktop>
 
 
---W4IE+oy/zWb6cnyn
+--YcNbIcUxKP1fGIyi
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Dec 2025 02:48:36 +0100
+Date: Wed, 10 Dec 2025 02:54:01 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v4 1/6] automation: switch to alpine:3.22
+Subject: Re: [PATCH v4 2/6] CI: extract qubes test container
 
-On Tue, Dec 09, 2025 at 03:07:46PM -0800, Stefano Stabellini wrote:
+On Tue, Dec 09, 2025 at 03:12:06PM -0800, Stefano Stabellini wrote:
 > On Sat, 6 Dec 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> > Alpine 3.18 is EOL. This patch updates Alpine to the latest stable
-> > Alpine release - 3.22.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > Changes in v4:
-> > - fix containerize script
-> > Changes in v2:
-> > Originally this patch was updating to 3.19 for upcoming stubdomain tests
-> > to get dracut-core package. But 3.19 is getting EOL very soon too.
+> > -  \
+> > -  # qemu build deps
+> > -  glib-dev \
+> > -  libattr \
+> > -  libcap-ng-dev \
+> > -  pixman-dev \
 >=20
-> This one escaped:
+> it would be good to mention in the commit message that the QEMU
+> build dependency packages are not needed anymore
+
+TBH, I'm not sure why they were here in the first place, none of the
+build jobs for ARM64 build QEMU, and commit adding those initially (for
+Alpine 3.12) doesn't tell either. I guess it's copy&paste from x86 one?
+
+> anyway:
 >=20
-> alpine-3.18-gcc-debug-arm64-mpu:
->   extends: .gcc-arm64-build-debug
->   variables:
->     CONTAINER: alpine:3.18-arm64v8
->     HYPERVISOR_ONLY: y
->     EXTRA_XEN_CONFIG: |
->       CONFIG_XEN_START_ADDRESS=3D0x0
->       CONFIG_MPU=3Dy
->       CONFIG_UNSUPPORTED=3Dy
->=20
-> was it on purpose?
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Right, I guess it was added after I made previous version of this
-patch...
-
-> You also might want to rename 3.18 to3.22 in docs/misc/ci.rst
-
-Yes.
+Thanks.
 
 --=20
 Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---W4IE+oy/zWb6cnyn
+--YcNbIcUxKP1fGIyi
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk40XQACgkQ24/THMrX
-1yzAwAf+Mv0iiLU2D+3BMWMZYpq2Rqosb2RfFUDIsg/DYZS+YcirHRaiqg5x02Jp
-43goIRjzaP7BXXWGMfa2pVi2EutgK5j7U/ei4ExDNptcpqLxIuDP9dMN1cDOB2Lt
-/trfJpXKJAvouM6j2agDeR1SiCt3et1HoC56sYFjpNnp8+8ysfChhp0JdUPT2Ikb
-xI268k5KmfT91ZBW5eb9ooUmyadDDimDlbW242WIxtFGxFiuieKAKD8pb3lYtscE
-F0986uXij+bpJm8MlyE8UIWoijOaC5cP7pD/ZQvyJfOVU+IzViWT1U4hNbxIiNPt
-dqDhQu/TeelnU7BWB05zGOt7xFk2Ww==
-=1HDx
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk40rkACgkQ24/THMrX
+1yz20wf9HUNh+aI+BGudwSNGVy1WROGbB+7KnDgeQwU6VYTdCzvrG2deWlpIHb6A
+YNoMgaw/Q4f29G0+7ghytek5y44hX3yoMvPINOqNC3r3f0cpa2spw5wUegbI3Gw6
+34MI+shE20XUeFius14fq0Ek0TGqTwp5NRUjSBZEYjELEGPUOD9gj+aFm1ZOpzGx
+wVGpyJ5r4PGYaaLyM99rnOMNfchjkLA2HqW0PgEh8w+k24IhiG/5zdmV/rboQ5FI
+l22ySANB1R64xubNAu11CclmIMue5Q5rLxyn9Q3hDqZ2gGRq7krd5+JumC72zsxR
+i4ItVOi7ZDeQiD7hHtCKfOP/YEgLxA==
+=sKyG
 -----END PGP SIGNATURE-----
 
---W4IE+oy/zWb6cnyn--
+--YcNbIcUxKP1fGIyi--
 
