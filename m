@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5384CB2F0C
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 13:45:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182911.1505724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE8ECB2F3C
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 13:52:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182923.1505735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTJYS-0003Od-IO; Wed, 10 Dec 2025 12:44:28 +0000
+	id 1vTJfr-0005B9-9z; Wed, 10 Dec 2025 12:52:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182911.1505724; Wed, 10 Dec 2025 12:44:28 +0000
+Received: by outflank-mailman (output) from mailman id 1182923.1505735; Wed, 10 Dec 2025 12:52:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTJYS-0003Mv-Fj; Wed, 10 Dec 2025 12:44:28 +0000
-Received: by outflank-mailman (input) for mailman id 1182911;
- Wed, 10 Dec 2025 12:44:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vTJfr-00058A-71; Wed, 10 Dec 2025 12:52:07 +0000
+Received: by outflank-mailman (input) for mailman id 1182923;
+ Wed, 10 Dec 2025 12:52:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NJGl=6Q=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vTJYR-0003Mp-IJ
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 12:44:27 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f510f13e-d5c5-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 13:44:24 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-640e9f5951aso1379572a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 04:44:24 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6496db4d839sm2203256a12.21.2025.12.10.04.44.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 04:44:23 -0800 (PST)
+ <SRS0=kYpY=6Q=bounce.vates.tech=bounce-md_30504962.69396cf1.v1-245b427f5e91429eb116c3e7049f174d@srs-se1.protection.inumbo.net>)
+ id 1vTJfp-000584-84
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 12:52:05 +0000
+Received: from mail132-20.atl131.mandrillapp.com
+ (mail132-20.atl131.mandrillapp.com [198.2.132.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 061dad58-d5c7-11f0-b15b-2bf370ae4941;
+ Wed, 10 Dec 2025 13:52:03 +0100 (CET)
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-20.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dRFwd4dCwzFCWYyl
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 12:52:01 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 245b427f5e91429eb116c3e7049f174d; Wed, 10 Dec 2025 12:52:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +43,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f510f13e-d5c5-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765370664; x=1765975464; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lAwvMfCMhh5cdxo7JU3Ky1Pa6SEDggGx0ky1nAkrQxo=;
-        b=h9yZD1T2JJAUyhWLJNZJA4I3noPYQ7G6zfo1GmEcCDTd89fl3lNo7BCm6XbO+lZnPD
-         cRZPH7ORGlHTYZobXOZZl37xQdEE+7G8FxUcIoLmPx7fnPQ5W2nJpbIItXlZnbH89T8w
-         1ofmdAAYvkT8w6ZBOi4zIs8pX0esUE5sgYqdIMxeVK8CS7KwOLYvQ2hwB5LnQqT0f71/
-         InqRQ7+HLGPxQ30gEyFmAB3KWIPhXUZvvsiln4jHRmSfq593QM5dST4nspxx6mll1HxL
-         Cm4FT/sullkQeczbeqF8jh1XpJcpVSD+7EbmsymgmI327gE4vSdfhHDrKnEwVR13r9N8
-         eN8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765370664; x=1765975464;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lAwvMfCMhh5cdxo7JU3Ky1Pa6SEDggGx0ky1nAkrQxo=;
-        b=UFHmg9zHgyLLGRuJOSn0C/tCIjaYp+QBctHT83KYyXb1lSYp5af1Cdi46zpz2yQ588
-         s8PPnQjSMkk3zm/Xolbywo8yhW3VP+TfEXhlP99V/61u7eNz07X8yOdZzwPrZAsbYFje
-         hN8Gwg7f/HtNd4rld1/EvZc4d6/AIFSsSBGgYOR0y9TFIMAnGkKzM4HXenz2CsNDH7Vb
-         BdsoBl0eHLxABSYSpJt5lYeP9vR4HBrO8GyJQA0J2YrJLtZB4hIO3E54jRT9zhuf09a7
-         pTcL0FfnDdyljCodBm2ybQhn+KHGBMILRsUySQKSFJcIP85dqhFynvEGm8lHMxHM0jAH
-         GGJg==
-X-Forwarded-Encrypted: i=1; AJvYcCVWpsz7tEo4tiCM09+TNLfJkPAfWFtr3YWhy4BR/D/oG4dFNZVgCggW2UWoF2a1dgyCCFbQTWDKa3w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy87yJjCj4FyU4j+V3LRAJwujSY5tUTcuGXz83TtDzHABFf8YbP
-	uYF9yNqG/w4ttO6bfsPmXzm/8SR9goWRjqP9gWBKuyKRm1OxX96YzgMS
-X-Gm-Gg: AY/fxX6TYj2QVBAXn3N9ahEKwWkh+zn1FFsPRFK295nVfMmm4N0QmZBYc4psWC3KDVW
-	cnsdSdB+ZHNMFdRtenPF1rDYM8J4R3F1KvXzZYWpQhIYpMtLY8juoghNIrGjc6859lM5czVDgOw
-	NFXveVkFv7+hMjzPJRKvSxDbUgz4zVBVWeP1iJ5cnNU0j9D000vNc1l5EBtbmNu/H9711W6+j1T
-	7fCXjHBa+rcvVIfh9BUVYH1/wn+Ony6JmPBOgFBEM7Moae+4kGmWF3ZxvNa8a0IGiYO2XuZFlvj
-	s5oxoIgtUVS4RPDSaRKHBY/AAP2ekvcTDzUVwgO140ZRsM04o20ujaPHJnQzs/zm2q7Wulap9tP
-	ZA78KSqDrmpc8MQFwwllVCcKILCOX8H3z1KffMLHtCPATzXyMGqys7HoF/9ky7lW1e2aKBe2y+2
-	OoKyIYap1Hnpz2a7G4CsxOa9x/aBUNolTnUfcLmK+fUTu19WI2g8uGJe9IDqrt
-X-Google-Smtp-Source: AGHT+IHOEkk2KXETBL2fXWcRZFPJnbcjRIHLPMB5HWMI6uFQjnDoLdUedLmCrogrsDr8juo9Lw+zGQ==
-X-Received: by 2002:aa7:d612:0:b0:640:abb1:5eff with SMTP id 4fb4d7f45d1cf-64963f319c4mr3300732a12.8.1765370663859;
-        Wed, 10 Dec 2025 04:44:23 -0800 (PST)
-Message-ID: <db24c624-0432-48ec-aecc-3efaa4973303@gmail.com>
-Date: Wed, 10 Dec 2025 13:44:22 +0100
+X-Inumbo-ID: 061dad58-d5c7-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1765371121; x=1765641121;
+	bh=8CytmQ/FbULeAYYu18F/ME3HWA3RoSA27CBhy1ssuhs=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=FBFmrdHHyvNEZTZn6E9O1kAGLBnCXAFk9qXwvU9lT1QWH07bMzIndmoszQilfuyS/
+	 6+9eAUK/fTBidp6+GRLtU4qCngGkolNUzHrm5qOXF+Hnqg6mGB2UtxWqozt5xVobNx
+	 lnA8ioAJz7HQVwIjARwI1wczIc3XDPSSGYFngLEvKTPClwRnD9FMAx4qQxjTl7RII3
+	 WbiheFTa40zmm7hWsApuI5OmmaKCkWvOMKZraSOZ1zUxo/n3KLUaIHQrpCD9zwHrT7
+	 7BCBn2B9tUIpf51GnMcU/rgbYYjaq5PuH2utBL9HG/wUyMdfk7AST7G+jxrE4uP5gN
+	 UySAuel8dD5Xg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1765371121; x=1765631621; i=teddy.astie@vates.tech;
+	bh=8CytmQ/FbULeAYYu18F/ME3HWA3RoSA27CBhy1ssuhs=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=eTb6vlOacSGpXwaRIR5sAPG22/kACXSGrPzNYgsW4v/5T97hTcAuV/Mr3H633MPqU
+	 bg8z/fWoW/CZ5BlcUpRAEah2wkivBsgi6BPuytBOq4Rx+50zH1nJFh14BQLDTB2hYR
+	 BR6Gg1l+fhsCWIpmE14W5uU7C/RBYXgPQ4XCdAnzEPinzlBTtDbYw1/m4Ybwx8wD1t
+	 dPCmKXpM/RvCPyVgLYVDz6pv9GMuEMO7Hg3ADLKurgnfw46rPJG5bdtC3oSTzFGYkD
+	 k808djrypQmw4yjcRQ82jDhwrd/sSldq3pU75cn0Yel2GcWzYr3uSJ+nNZ660OhqMz
+	 f6se5bl0EJrQA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH=20v2]=20libxl:=20Add=20virtio=20(virtio-vga)=20display=20support?=
+X-Mailer: git-send-email 2.51.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1765371120650
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
+Message-Id: <812ef472d775cf69b7ed4bab317df174c03e9ab2.1765371000.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.245b427f5e91429eb116c3e7049f174d?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251210:md
+Date: Wed, 10 Dec 2025 12:52:01 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
- type
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
- <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
- <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
- <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Add "virtio" vga which uses the virtio-vga device provided by upstream QEMU.
+It is VGA compatible and can be enlightened with virtio-gpu drivers which are
+available since Linux 4.4 and as a part of KVM Windows drivers.
+
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+v2:
+ - rebased CHANGELOG.md
+
+ CHANGELOG.md                     | 2 ++
+ docs/man/xl.cfg.5.pod.in         | 6 +++++-
+ tools/libs/light/libxl_dm.c      | 3 +++
+ tools/libs/light/libxl_types.idl | 1 +
+ tools/xl/xl_parse.c              | 2 ++
+ 5 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 3aaf598623..ed1ad61b0f 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ ### Changed
+ 
+ ### Added
++- On x86:
++  - Virtio-VGA display support for HVM guests
+ 
+ ### Removed
+  - On x86:
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 27c455210b..5952c36886 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -2566,6 +2566,8 @@ default and minimum is 8 MB.
+ For QXL vga, both the default and minimal are 128MB.
+ If B<videoram> is set less than 128MB, an error will be triggered.
+ 
++When using virtio, this parameter is ignored.
++
+ =item B<stdvga=BOOLEAN>
+ 
+ Specifies a standard VGA card with VBE (VESA BIOS Extensions) as the
+@@ -2579,7 +2581,7 @@ B<This option is deprecated, use vga="stdvga" instead>.
+ =item B<vga="STRING">
+ 
+ Selects the emulated video card.
+-Options are: B<none>, B<stdvga>, B<cirrus> and B<qxl>.
++Options are: B<none>, B<stdvga>, B<cirrus>, B<qxl> and B<virtio>.
+ The default is B<cirrus>.
+ 
+ In general, QXL should work with the Spice remote display protocol
+@@ -2587,6 +2589,8 @@ for acceleration, and a QXL driver is necessary in the guest in that case.
+ QXL can also work with the VNC protocol, but it will be like a standard
+ VGA card without acceleration.
+ 
++virtio uses the VGA compatible variant of virtio-gpu.
++
+ =item B<vnc=BOOLEAN>
+ 
+ Allow access to the display via the VNC protocol.  This enables the
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index 511ec76a65..a561ba695a 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -1210,6 +1210,9 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+                 GCSPRINTF("qxl-vga,vram_size_mb=%"PRIu64",ram_size_mb=%"PRIu64,
+                 (b_info->video_memkb/2/1024), (b_info->video_memkb/2/1024) ) );
+             break;
++        case LIBXL_VGA_INTERFACE_TYPE_VIRTIO:
++            flexarray_append_pair(dm_args, "-device", "virtio-vga");
++            break;
+         default:
+             LOGD(ERROR, guest_domid, "Invalid emulated video card specified");
+             return ERROR_INVAL;
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index d64a573ff3..5e704ba25a 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -239,6 +239,7 @@ libxl_vga_interface_type = Enumeration("vga_interface_type", [
+     (2, "STD"),
+     (3, "NONE"),
+     (4, "QXL"),
++    (5, "VIRTIO"),
+     ], init_val = "LIBXL_VGA_INTERFACE_TYPE_UNKNOWN")
+ 
+ libxl_vendor_device = Enumeration("vendor_device", [
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index af86d3186d..927adbd457 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2863,6 +2863,8 @@ skip_usbdev:
+                 b_info->u.hvm.vga.kind = LIBXL_VGA_INTERFACE_TYPE_NONE;
+             } else if (!strcmp(buf, "qxl")) {
+                 b_info->u.hvm.vga.kind = LIBXL_VGA_INTERFACE_TYPE_QXL;
++            } else if (!strcmp(buf, "virtio")) {
++                b_info->u.hvm.vga.kind = LIBXL_VGA_INTERFACE_TYPE_VIRTIO;
+             } else {
+                 fprintf(stderr, "Unknown vga \"%s\" specified\n", buf);
+                 exit(1);
+-- 
+2.51.2
 
 
-On 12/10/25 8:06 AM, Jan Beulich wrote:
-> On 09.12.2025 18:09, Oleksii Kurochko wrote:
->> On 12/9/25 2:47 PM, Jan Beulich wrote:
->>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
->>>> +            *md_pg = p2m_alloc_page(p2m);
->>>> +            if ( !*md_pg )
->>>> +            {
->>>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
->>>> +                domain_crash(p2m->domain);
->>>> +
->>>> +                return;
->>>> +            }
->>>> +        }
->>>> +    }
->>>> +
->>>> +    if ( *md_pg )
->>>> +        metadata = __map_domain_page(*md_pg);
->>>> +
->>>> +    if ( t >= p2m_first_external )
->>>> +    {
->>>> +        metadata[ctx->index].type = t;
->>>> +
->>>> +        t = p2m_ext_storage;
->>>> +    }
->>>> +    else if ( metadata )
->>>> +        metadata[ctx->index].type = p2m_invalid;
->>>> +
->>>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>>> +
->>>> +    unmap_domain_page(metadata);
->>>>    }
->>> Just to mention (towards future work): Once a metadata page goes back to be
->>> entirely zero-filled, it could as well be hooked off and returned to the pool.
->>> Not doing so may mean detaining an unused page indefinitely.
->> Won’t that already happen when p2m_free_table() is called?
-> Well, that's when both page table and metadata table are freed. But what if a
-> leaf page table is moving back to holding all p2m_ram_rw mappings? Then the
-> metadata page is unused, but will remain allocated.
 
-Good point...
+--
+Teddy Astie | Vates XCP-ng Developer
 
-This could be a rather expensive operation, since in the code:
-   +    else if ( metadata )
-   +        metadata[ctx->index].type = p2m_invalid;
-we would have to check all other metadata entries to determine whether they are
-(p2m_invalid) or not, and return the page to the pool.
+XCP-ng & Xen Orchestra - Vates solutions
 
-It would be nice to have something like metadata.used_entries_num, but the entire
-page is used for type entries.
-As an option, we could reserve 8 bits to store a counter of the number of used
-entries in the metadata page, and then use metadata[0].used_entries_num to check
-whether it is zero. If it is zero, we could simply return the metadata page to the
-pool in the “else if (metadata)” case mentioned above.
-
-How bad is this idea? Any better suggestions?
-
-~ Oleksii
+web: https://vates.tech
 
 
