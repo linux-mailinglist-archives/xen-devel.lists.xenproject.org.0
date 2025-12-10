@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB167CB3EE0
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 21:16:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183267.1506020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64F86CB3F56
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 21:28:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183277.1506031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTQbG-00041K-MI; Wed, 10 Dec 2025 20:15:50 +0000
+	id 1vTQnV-0005xa-Lk; Wed, 10 Dec 2025 20:28:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183267.1506020; Wed, 10 Dec 2025 20:15:50 +0000
+Received: by outflank-mailman (output) from mailman id 1183277.1506031; Wed, 10 Dec 2025 20:28:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTQbG-0003ym-Jd; Wed, 10 Dec 2025 20:15:50 +0000
-Received: by outflank-mailman (input) for mailman id 1183267;
- Wed, 10 Dec 2025 20:15:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTQnV-0005uW-Ip; Wed, 10 Dec 2025 20:28:29 +0000
+Received: by outflank-mailman (input) for mailman id 1183277;
+ Wed, 10 Dec 2025 20:28:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TEw+=6Q=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vTQbF-0003yg-69
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 20:15:49 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03f39788-d605-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 21:15:47 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 34BDF4EEBC5F;
- Wed, 10 Dec 2025 21:15:47 +0100 (CET)
+ <SRS0=8oeO=6Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vTQnT-0005uQ-VQ
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 20:28:27 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5b84a47-d606-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 21:28:23 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7909160053;
+ Wed, 10 Dec 2025 20:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0E6C4CEF1;
+ Wed, 10 Dec 2025 20:28:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,147 +41,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03f39788-d605-11f0-b15b-2bf370ae4941
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765397747;
-	b=wAnW7DL6Eg5EANgJyvr3rlG1v1sUJGiCjvdnGV8IlrVGTZu1CNXApzw2GDKqM6jPT3eF
-	 2Zv1EW1hUL67DWWI9MQKiuDcPD8Zo2HW8x2oJdH1Bqy2AQm6eEH9pzKlsn8+Lsvngiq53
-	 xvIPIMhJ+bNxwxO95TMhKYS48BmOUuTimq/nJJC+kwAqPlJifUIqrM75/Z9d//d8w0yTJ
-	 LzQcEiR5KYScCWtGtWkC3kLtka3D4ob5KaUbuzeXlUTc+p1sCCuUqV7Xqrjw+cDL9qQ6T
-	 a1wEgkBf0Lt9B0/0NgNDbT4FBQXAlrB4PsuyitxKfj55+fj7imZ813Q4Y8AgwTRmfk94q
-	 Nq6HoxRnMfikiIHIXHYL9B5X20Z85tNYaCwsfdYI7hYGVlfcX+qeHqj5cRgDTuoul1ID1
-	 U55Eg8om7Y5VaCiSEfwPBOLOoMElVHPfVllXW0PQbiVfAxl8mFaT4xEHGpmlZngd2RPJS
-	 fc6xGbLwqyR05tqxwDljwfQoWpw1yxbBluJQeNGUvDiIpw0+Zv0PT785B5xdARfkxedwo
-	 DHw6+8oG7j4y/WbmN3jYZ20UooXhvW8k6xhyRMV+Z5jCgylzaq049AaIVLs0ZxVckvzUp
-	 42h6PFj7+AnT6bD1JzSLZxAzo2miED6bb+pKWRlwcRuDkRJ4IiK3CE0xDo59mAY=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1765397747;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5SWB32j6qN5Z3Umy5Yr9Qmzm4X0peIk85zVEJRMym+c=;
-	b=OoNdUgXtM1ebaFWCw7F38apfrsc+O32RgB+8VbK21yt59e63iuNFBW//0TbO/NHmoeNe
-	 0n46b6gxtQBCS4Qvj9E7RSF3vgHQ2j5ary0V+V85Vvb5/rShVRfuoMcGhv5+Fa4Fx0meY
-	 NcQn3dMvipDt/MvRwqsSPMgZDBqqEJFqYqNAdGJN3H2SOprN8QBQ9q4uvQ/e5Ezdy5iZB
-	 ZLEaTFfG1lwUPyQ4AiUVgXUfyinO1pieWWrp/wmFHy37Qw0ntkO8Ok2jeMuBzIFTmZ2AM
-	 /GHFIlP4fzS1nouQJBPeMh8Q+lRHYRr6pwpO66QIkThijzJQBbC33o3FUcAtx/K/+8Bmr
-	 MPMXvq+f1JGKvC5Raer55wcDDH8adaoRohYHj1uDV9mIh7JNMwOBoxN0eNPaS7BpEGfHP
-	 q2c5e0V/ffN/QRjMvvwFXJsTfBEIe3ZvGlYUDHbexnpTirwmr4eiLLZUMygzl1n5E0URk
-	 GTZ5yEZ1kCb86la22DKpfVUP9v67QGi7JNmXbXYK6aE19VfHqkMUlu7JBpS5pVwUn0SDr
-	 MX8tCbNNfbrt8W/bbCNAA9sq4itQGEvha+3A2/zLPeZZyGliJt8cmNpPbuqn2KM9OuWuZ
-	 JgSTLSpblwn+wTZEbZIc/18UHdKnJ/7ACnbyvb5Y34enk+0mLac7I6qC/bcnRiY=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1765397747; bh=kJg82dbXHi0byGbCOTthmUyaYivblmEJJtIZHSAv5rY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=I/iPFEBmh+JHsVALv5MS5SghFa1tD5amOmPvVTtysweBGgSaVuK1e8mB0AJIGmPqH
-	 g/uAMRunekkY2Ndw+aoNfgdc8yfue9Xjkfv/Tr4qQ5vybzK1mLkOThubNE3Z3DQ9xN
-	 RwnveL0TtZbAE8SOQLp8WXEEmYmZYmsQ3AFciycBt7u+iYQsIGP5see1Xki48vz9fN
-	 c+pBbZXPe48/aNvqhgUm/1UJ9Tr101nZ+X2RnWDe9cWQzvlI8uzR681w2pGVEH8Mlx
-	 DHz6AKqzlu0pMC9Us/xTfsrs0sbwobEZ7DF29v0mO/h4S6aKsS1Qct0/7dhodAy1qX
-	 BHFxfHyIgZt1w==
+X-Inumbo-ID: c5b84a47-d606-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1765398501;
+	bh=vsanCo2G3AwHCiY9b7Lxtntypk+e2hGp0I0VT++pKhg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eBgPWGDFIonef9Dix31UjA1VIXWnM3eaBiaHq+0kkjwiIvyW8KmxCXPFH3jheTSSD
+	 bkA2mVY8ivPzHoRoecYicUQ7Z0xJFWmx8oMkxv1OcbFXRLhCo3crWHKatED6AdWjp0
+	 z9DnpDDfbLgt1yODSDlcmD0JS/Rj6ktPtXTw5jDUis7o5JIGdXSa49MQ344q9HYRbC
+	 KUY1vsm6hFSs8XtFmVIxXYDsOlBySbvoxA25vLvW1E99Y6Gpbrw8zTmjwSBlrazT5T
+	 4FJblQd8pFgNs2L1mVFVYxs7vTSCdVA/KRIet+ouqxwtg7B/Iz9y5J2VJ/aMYRAOB6
+	 vs6NnGudg1NFw==
+Date: Wed, 10 Dec 2025 12:28:19 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v4 4/6] CI: Add driver domains tests
+In-Reply-To: <aTjOBpuKMSO4LzzN@mail-itl>
+Message-ID: <alpine.DEB.2.22.394.2512101219460.19429@ubuntu-linux-20-04-desktop>
+References: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com> <cf2a2544fe27fedca5129b61912c064f4be08236.1764989098.git-series.marmarek@invisiblethingslab.com> <alpine.DEB.2.22.394.2512091534060.19429@ubuntu-linux-20-04-desktop>
+ <aTjOBpuKMSO4LzzN@mail-itl>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Date: Wed, 10 Dec 2025 21:15:47 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: Re: [PATCH 2/5] x86: Name parameters in function declarations
-In-Reply-To: <20251210183019.2241560-3-andrew.cooper3@citrix.com>
-References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
- <20251210183019.2241560-3-andrew.cooper3@citrix.com>
-Message-ID: <d64b368566892cf39c90f25b1ac34692@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-205764893-1765398261=:19429"
+Content-ID: <alpine.DEB.2.22.394.2512101224280.19429@ubuntu-linux-20-04-desktop>
 
-On 2025-12-10 19:30, Andrew Cooper wrote:
-> With the wider testing, some more violations have been spotted.  This
-> addresses violations of Rule 8.2 (parameters must be named).
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-One nit below
+--8323329-205764893-1765398261=:19429
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2512101224281.19429@ubuntu-linux-20-04-desktop>
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  xen/arch/x86/mm/shadow/common.c | 8 ++++----
->  xen/arch/x86/pv/emul-priv-op.c  | 2 +-
->  xen/include/xen/livepatch.h     | 2 +-
->  3 files changed, 6 insertions(+), 6 deletions(-)
+On Wed, 10 Dec 2025, Marek Marczykowski-Górecki wrote:
+> On Tue, Dec 09, 2025 at 04:02:06PM -0800, Stefano Stabellini wrote:
+> > On Sat, 6 Dec 2025, Marek Marczykowski-Górecki wrote:
+> > > Setup a simple two domU system. One with network backend, running
+> > > xendriverdomain service, and one with frontend, trying to ping the
+> > > backend.
+> > > 
+> > > Contrary to other similar tests, use disk image instead of initrd, to
+> > > allow bigger rootfs without adding more RAM (for both dom0 and domU).
+> > > But keep using pxelinux as a bootloader as it's easier to setup than
+> > > installing grub on the disk. Theoretically, it could be started via direct
+> > > kernel boot in QEMU, but pxelinux is slightly closer to real-world
+> > > deployment.
+> > > 
+> > > Use fakeroot to preserve file owners/permissions. This is especially
+> > > important for suid binaries like /bin/mount - without fakeroot, they
+> > > will end up as suid into non-root user.
+> > > 
+> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> > > ---
+> > > Changes in v3:
+> > > - add fakeroot
+> > > - run ldconfig at the disk image creation time, to avoid running it at
+> > >   dom0/domU boot time (which is much slower)
+> > > Changes in v2:
+> > > - use heredoc
+> > > - limit ping loop iterations
+> > > - use full "backend" / "frontend" in disk image names
+> > > - print domU consoles directly to /dev/console, to avoid systemd-added
+> > >   messages prefix
+> > > - terminate test on failure, don't wait for timeout
+> > > ---
+> > >  automation/build/debian/13-x86_64.dockerfile    |   2 +-
+> > >  automation/gitlab-ci/test.yaml                  |   8 +-
+> > >  automation/scripts/qemu-driverdomains-x86_64.sh | 138 +++++++++++++++++-
+> > >  3 files changed, 148 insertions(+)
+> > >  create mode 100755 automation/scripts/qemu-driverdomains-x86_64.sh
+> > > 
+> > > diff --git a/automation/build/debian/13-x86_64.dockerfile b/automation/build/debian/13-x86_64.dockerfile
+> > > index 2c6c9d4a5098..6382bafbd5bd 100644
+> > > --- a/automation/build/debian/13-x86_64.dockerfile
+> > > +++ b/automation/build/debian/13-x86_64.dockerfile
+> > > @@ -55,7 +55,9 @@ RUN <<EOF
+> > >  
+> > >          # for test phase, qemu-* jobs
+> > >          busybox-static
+> > > +        e2fsprogs
+> > >          expect
+> > > +        fakeroot
+> > >          ovmf
+> > >          qemu-system-x86
+> > >  
+> > > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> > > index 7b36f1e126ca..abc5339a74ab 100644
+> > > --- a/automation/gitlab-ci/test.yaml
+> > > +++ b/automation/gitlab-ci/test.yaml
+> > > @@ -656,6 +656,14 @@ qemu-alpine-x86_64-gcc:
+> > >      - *x86-64-test-needs
+> > >      - alpine-3.22-gcc
+> > >  
+> > > +qemu-alpine-driverdomains-x86_64-gcc:
+> > > +  extends: .qemu-x86-64
+> > > +  script:
+> > > +    - ./automation/scripts/qemu-driverdomains-x86_64.sh 2>&1 | tee ${LOGFILE}
+> > > +  needs:
+> > > +    - *x86-64-test-needs
+> > > +    - alpine-3.22-gcc
+> > > +
+> > >  qemu-smoke-x86-64-gcc:
+> > >    extends: .qemu-smoke-x86-64
+> > >    script:
+> > > diff --git a/automation/scripts/qemu-driverdomains-x86_64.sh b/automation/scripts/qemu-driverdomains-x86_64.sh
+> > > new file mode 100755
+> > > index 000000000000..c0241da54168
+> > > --- /dev/null
+> > > +++ b/automation/scripts/qemu-driverdomains-x86_64.sh
+> > > @@ -0,0 +1,138 @@
+> > > +#!/bin/bash
+> > > +
+> > > +set -ex -o pipefail
+> > > +
+> > > +dom0_rootfs_extra_comp=()
+> > > +dom0_rootfs_extra_uncomp=()
+> > > +
+> > > +cd binaries
+> > > +
+> > > +# DomU rootfs
+> > > +
+> > > +mkdir -p rootfs
+> > > +cd rootfs
+> > > +mkdir -p etc/local.d
+> > > +passed="ping test passed"
+> > > +failed="TEST FAILED"
+> > > +cat > etc/local.d/xen.start << EOF
+> > > +#!/bin/bash
+> > > +
+> > > +set -x
+> > > +
+> > > +if grep -q test=backend /proc/cmdline; then
+> > > +    brctl addbr xenbr0
+> > > +    ip link set xenbr0 up
+> > > +    ip addr add 192.168.0.1/24 dev xenbr0
+> > > +    bash /etc/init.d/xendriverdomain start
+> > > +    # log backend-related logs to the console
+> > > +    tail -F /var/log/xen/xldevd.log /var/log/xen/xen-hotplug.log >>/dev/console 2>/dev/null &
+> > > +else
+> > > +    ip link set eth0 up
+> > > +    ip addr add 192.168.0.2/24 dev eth0
+> > > +    timeout=6 # 6*10s
+> > > +    until ping -c 10 192.168.0.1; do
+> > > +        sleep 1
+> > > +        if [ \$timeout -le 0 ]; then
+> > > +            echo "${failed}"
+> > > +            exit 1
+> > > +        fi
+> > > +        ((timeout--))
+> > > +    done
+> > > +    echo "${passed}"
+> > > +fi
+> > > +EOF
+> > > +chmod +x etc/local.d/xen.start
+> > > +fakeroot sh -c "
+> > > +    zcat ../rootfs.cpio.gz | cpio -imd
+> > > +    zcat ../xen-tools.cpio.gz | cpio -imd
+> > > +    ldconfig -r .
+> > > +    touch etc/.updated
+> > > +    mkfs.ext4 -d . ../domU-rootfs.img 1024M
+> > 
+> > Do we really need 1GB? I would rather use a smaller size if possible.
+> > I would rather use as little resources as possible on the build server
+> > as we might run a few of these jobs in parallel one day soon.
 > 
-> diff --git a/xen/arch/x86/mm/shadow/common.c 
-> b/xen/arch/x86/mm/shadow/common.c
-> index 423764a32653..f2aee5be46a7 100644
-> --- a/xen/arch/x86/mm/shadow/common.c
-> +++ b/xen/arch/x86/mm/shadow/common.c
-> @@ -69,11 +69,11 @@ const uint8_t sh_type_to_size[] = {
-> 
->  DEFINE_PER_CPU(uint32_t,trace_shadow_path_flags);
-> 
-> -static int cf_check sh_enable_log_dirty(struct domain *);
-> -static int cf_check sh_disable_log_dirty(struct domain *);
-> -static void cf_check sh_clean_dirty_bitmap(struct domain *);
-> +static int cf_check sh_enable_log_dirty(struct domain *d);
-> +static int cf_check sh_disable_log_dirty(struct domain *d);
-> +static void cf_check sh_clean_dirty_bitmap(struct domain *d);
-> 
-> -static void cf_check shadow_update_paging_modes(struct vcpu *);
-> +static void cf_check shadow_update_paging_modes(struct vcpu *v);
-> 
->  /* Set up the shadow-specific parts of a domain struct at start of 
-> day.
->   * Called for every domain from arch_domain_create() */
-> diff --git a/xen/arch/x86/pv/emul-priv-op.c 
-> b/xen/arch/x86/pv/emul-priv-op.c
-> index 225d4cff03c1..08dec9990e39 100644
-> --- a/xen/arch/x86/pv/emul-priv-op.c
-> +++ b/xen/arch/x86/pv/emul-priv-op.c
-> @@ -40,7 +40,7 @@ struct priv_op_ctxt {
->  };
-> 
->  /* I/O emulation helpers.  Use non-standard calling conventions. */
-> -void nocall load_guest_gprs(struct cpu_user_regs *);
-> +void nocall load_guest_gprs(struct cpu_user_regs *regs);
->  void nocall save_guest_gprs(void);
-> 
->  typedef void io_emul_stub_t(struct cpu_user_regs *);
-> diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-> index d074a5bebecc..3f5ad01f1bdd 100644
-> --- a/xen/include/xen/livepatch.h
-> +++ b/xen/include/xen/livepatch.h
-> @@ -62,7 +62,7 @@ struct livepatch_fstate {
->      uint8_t insn_buffer[LIVEPATCH_OPAQUE_SIZE];
->  };
-> 
-> -int livepatch_op(struct xen_sysctl_livepatch_op *);
-> +int livepatch_op(struct xen_sysctl_livepatch_op *op);
+> This will be a sparse file, so it won't use really all the space. But
+> this size is the upper bound of what can be put inside.
+> That said, it's worth checking if sparse files do work properly on all
+> runners in /build. AFAIR some older docker versions had issues with that
+> (was it aufs not supporting sparse files?).
 
-xen/common/livepatch.c:int livepatch_op(struct xen_sysctl_livepatch_op 
-*livepatch)
+I ran the same command on my local baremetal Ubuntu dev environment
+(arm64) and it created a new file of the size passed on the command
+line (1GB in this case). It looks like they are not sparse on my end. If
+the result depends on versions and configurations, I would rather err on
+the side of caution and use the smallest possible number that works.
 
-Shouldn't this decl also use "*op" as well? Might not be triggered in 
-this configuration due to the absence of CONFIG_LIVEPATCH I think.
 
->  void check_for_livepatch_work(void);
->  unsigned long livepatch_symbols_lookup_by_name(const char *symname);
->  bool is_patch(const void *addr);
+> > Moreover this script will be run inside a container which means this
+> > data is probably in RAM.
+> 
+> Are runners configured to use tmpfs for /build? I don't think it's the
+> default.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+I don't know for sure, they are just using the default. My goal was to
+make our solution more reliable as defaults and configurations might
+change.
+
+
+> > The underlying rootfs is 25M on both ARM and x86. This should be at most
+> > 50M.
+> 
+> Rootfs itself is small, but for driver domains it needs to include
+> toolstack too, and xen-tools.cpio is over 600MB (for debug build).
+> I might be able to pick just the parts needed for the driver domain (xl
+> with its deps, maybe some startup scripts, probably few more files), but
+> it's rather fragile.
+
+My first thought is to avoid creating a 1GB file in all cases when it
+might only be needed for certain individual tests. Now, I realize that
+this script might end up only used in driver domains tests but if not, I
+would say to use the smallest number depending on the tests, especially
+as there seems to be use a huge difference, e.g. 25MB versus 600MB.
+
+My second thought is that 600MB for just the Xen tools is way too large.
+I have alpine linux rootfs'es with just the Xen tools installed that are
+below 50MB total. I am confused on how we get to 600MB. It might be due
+to QEMU and its dependencies but still going from 25MB to 600MB is
+incredible!
+
+
+> > > +"
+> > > +cd ..
+> > > +rm -rf rootfs
+> > > +
+> > > +# Dom0 rootfs
+> > > +mkdir -p rootfs
+> > > +cd rootfs
+> > > +fakeroot -s ../fakeroot-save sh -c "
+> > > +    zcat ../rootfs.cpio.gz | cpio -imd
+> > > +    zcat ../xen-tools.cpio.gz | cpio -imd
+> > > +    ldconfig -r .
+> > > +    touch etc/.updated
+> > > +"
+> > > +mkdir -p root etc/local.d
+> > > +cat > root/backend.cfg << EOF
+> > > +name="backend"
+> > > +memory=512
+> > > +vcpus=1
+> > > +kernel="/root/bzImage"
+> > > +extra="console=hvc0 root=/dev/xvda net.ifnames=0 test=backend"
+> > > +disk=[ '/root/domU-rootfs-backend.img,raw,xvda,rw' ]
+> > > +EOF
+> > > +cat > root/frontend.cfg << EOF
+> > > +name="frontend"
+> > > +memory=512
+> > > +vcpus=1
+> > > +kernel="/root/bzImage"
+> > > +extra="console=hvc0 root=/dev/xvda net.ifnames=0 test=frontend"
+> > > +disk=[ '/root/domU-rootfs-frontend.img,raw,xvda,rw' ]
+> > > +vif=[ 'bridge=xenbr0,backend=backend' ]
+> > > +EOF
+> > > +
+> > > +cat > etc/local.d/xen.start << EOF
+> > > +#!/bin/bash
+> > > +
+> > > +set -x
+> > > +
+> > > +bash /etc/init.d/xencommons start
+> > > +
+> > > +xl list
+> > > +
+> > > +tail -F /var/log/xen/console/guest-backend.log 2>/dev/null | sed -e "s/^/(backend) /" >>/dev/console &
+> > > +tail -F /var/log/xen/console/guest-frontend.log 2>/dev/null | sed -e "s/^/(frontend) /" >>/dev/console &
+> > > +xl -vvv create /root/backend.cfg
+> > > +xl -vvv create /root/frontend.cfg
+> > > +EOF
+> > > +chmod +x etc/local.d/xen.start
+> > > +
+> > > +cp ../domU-rootfs.img ./root/domU-rootfs-backend.img
+> > > +cp ../domU-rootfs.img ./root/domU-rootfs-frontend.img
+> > > +cp ../bzImage ./root/
+> > > +mkdir -p etc/default
+> > > +echo 'XENCONSOLED_TRACE=all' >> etc/default/xencommons
+> > > +mkdir -p var/log/xen/console
+> > > +fakeroot -i ../fakeroot-save mkfs.ext4 -d . ../dom0-rootfs.img 2048M
+> > 
+> > Same here. Also 2GB might not be sufficient to contain 2 copies of
+> > domU-rootfs.img, given that domU-rootfs.img is 1GB.
+> 
+> See the note about sparse files.
+
+I double checked and they don't appear to be sparse on my system.
+
+
+> > If we bring down domU-rootfs.img to 50M, then this could be 150M.
+> > 
+> > 
+> > > +cd ..
+> > > +rm -rf rootfs
+> > > +
+> > > +cd ..
+> > > +
+> > > +cat >> binaries/pxelinux.0 << EOF
+> > > +#!ipxe
+> > > +
+> > > +kernel xen console=com1 console_timestamps=boot
+> > > +module bzImage console=hvc0 root=/dev/sda net.ifnames=0
+> > > +boot
+> > > +EOF
+> > > +
+> > > +# Run the test
+> > > +rm -f smoke.serial
+> > > +export TEST_CMD="qemu-system-x86_64 \
+> > > +    -cpu qemu64,+svm \
+> > > +    -m 2G -smp 2 \
+> > > +    -monitor none -serial stdio \
+> > > +    -nographic \
+> > > +    -device virtio-net-pci,netdev=n0 \
+> > > +    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 \
+> > > +    -drive file=binaries/dom0-rootfs.img,format=raw"
+> > > +
+> > > +export TEST_LOG="smoke.serial"
+> > > +export BOOT_MSG="Latest ChangeSet: "
+> > > +export LOG_MSG="Domain-0"
+> > > +# exit early on test failure too, check if it was success below
+> > > +export PASSED="$passed|$failed"
+> > > +
+> > > +./automation/scripts/console.exp | sed 's/\r\+$//'
+> > > +
+> > > +grep "$passed" smoke.serial
+> > > -- 
+> > > git-series 0.9.1
+--8323329-205764893-1765398261=:19429--
 
