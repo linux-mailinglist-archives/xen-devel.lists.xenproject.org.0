@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75036CB3F77
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 21:33:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183305.1506051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3534ECB3FA1
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 21:37:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183316.1506060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTQsI-00082H-G4; Wed, 10 Dec 2025 20:33:26 +0000
+	id 1vTQvw-0000AT-V5; Wed, 10 Dec 2025 20:37:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183305.1506051; Wed, 10 Dec 2025 20:33:26 +0000
+Received: by outflank-mailman (output) from mailman id 1183316.1506060; Wed, 10 Dec 2025 20:37:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTQsI-0007zF-D7; Wed, 10 Dec 2025 20:33:26 +0000
-Received: by outflank-mailman (input) for mailman id 1183305;
- Wed, 10 Dec 2025 20:33:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTQvw-00007l-S4; Wed, 10 Dec 2025 20:37:12 +0000
+Received: by outflank-mailman (input) for mailman id 1183316;
+ Wed, 10 Dec 2025 20:37:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8oeO=6Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vTQsG-0007z9-Vg
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 20:33:24 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7873e8a3-d607-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 21:33:23 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F62540450;
- Wed, 10 Dec 2025 20:33:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD29C4CEF1;
- Wed, 10 Dec 2025 20:33:20 +0000 (UTC)
+ <SRS0=TEw+=6Q=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vTQvw-00007f-2Y
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 20:37:12 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 002567fa-d608-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 21:37:10 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 0166E4EEBC5F;
+ Wed, 10 Dec 2025 21:37:08 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,168 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7873e8a3-d607-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765398801;
-	bh=xVpxcPNAymiH4hxXMO3X0B6EwwMe7tmfVMVDxEEGGAU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fSdrUQofOlhxAR3lfpyu1H2jntR79W3XDY0q83JB1CiX81duBfVhQhPxRjcAUCZgk
-	 vPBnzGnacN0QkVyq5W3eXXH4WuMB+HBndS6rVPzViDF78gnLAMU/9c+O+hSVFlfykk
-	 ashHqbcb/cXqH2CM7EaKSpJGnNl2satQ+q/3xbW5ZmIOE6MvyJei+X+mGuh9GsGRIK
-	 z2AwcIeu2FpPZfL3EaRTOLZxf+6bPH0/XLRhZOoiYStxM2UROf/cX4Th/wwybuo9rg
-	 ZWwpffEGlqMofZVHoR+dDIYbLT2IP5KR7QQZRHcpomL/emCnGzVXC1VOFG/auUFJjA
-	 ZalA6gZX/mI1A==
-Date: Wed, 10 Dec 2025 12:33:19 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 07/12] Support building arbitrary Linux
- branch/tag/commit
-In-Reply-To: <aTjU2GJFw9WcaR9X@mail-itl>
-Message-ID: <alpine.DEB.2.22.394.2512101232130.19429@ubuntu-linux-20-04-desktop>
-References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com> <c7579b953d400d368f171e4dd56e1b7f879e386f.1764866136.git-series.marmarek@invisiblethingslab.com> <alpine.DEB.2.22.394.2512091625190.19429@ubuntu-linux-20-04-desktop>
- <aTjU2GJFw9WcaR9X@mail-itl>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 002567fa-d608-11f0-9cce-f158ae23cfc8
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765399029;
+	b=kmZrx2gRavTVlI80sQ0oLFOPMvz8CoAjYGuGBsBgy0O6vtqXmpmfDiFCASydRj63c84i
+	 jqqFlsBVGTV1MyvuGPbAvQGdtbwGn5HXHImmytv3rWwZbZya2Y/9F/zt55xp+3RmZQlnc
+	 xN9QECjiDT804rFlqq0EpZBVPZ2k4MQGjSGm778DOVOoOrWeyDxmZTlscGkYvHLDDPvDk
+	 Yg+TmlLdhEqnfFQlrYNkcB/YieKmk3+elYk53xm1dKAFa0nB7KEHryOk8XF6mageU2dmC
+	 le6aZTRhtMMjTEVkxMKvqsyfpor84Dhu+cVNO2deYL7cgXu+B+8ipduA2PBjPuqzfPJA1
+	 2jNVSi9dxk0aDnZek7ehxeMwbrQq2Gg0y/ZNuU2BtMtfWGR4dKo6FtFS4hYlbHl4rR5ik
+	 NAKRMi5xMY0APnmgCvbaCcveW2kv4t35l3SFetO5Bflt7+PJl050jQA44nmH7DUf+22K8
+	 l5/VYITvL/tRvdBwEX2LRNbwJX8EsaGf3MlstAGCDa3yB7pjNL+LLJ2/hePX0XSNt2qqv
+	 guFKzAzk2aldqCh4Nywykk5XF5KNxw6cY47fVeIB/SYQgkSxzrDrPhDblRPpA6JSPgjEN
+	 bsF2GAtZtCc/wU8ilOYKXkgG09E/idoj1/m0kGxhGnDr1Hkc/Pya7UrEbfiysT0=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1765399029;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1RXVffh6wiq/ymvU4iZWe5oifI/6dxTQnQPN9i1zS+Q=;
+	b=cY8fn2hbnKY08mWlZ8pG1kq/FbKVlc0txTXR10ZA+A2UOsrSfZFSDOcYNqHycayNNMDJ
+	 8sUw5KZ7LRWX6yempE96j0e+LkVyVMEMxv4w1RyWqK89TAyyP2S3oIXgJ5BA00/58kVDc
+	 d+j/QPxVA5O20N1F4rqCoSgk5SBK0TgPgl3YAN8N+j0wOVuY2C+6qjmWA9VE2RTtuUn04
+	 yVH3esTutob8CN5Q5dFx2WMaGFVPziYJlIc62gP6wjzsHXXwLGCn6EnrK1Y/6DXh+rbWX
+	 9FCX0x7oeNT2IPAJ27Cac/j5WmgfyOuW8luhuEXgVOvSkPO3fUflB6SOy45i0Yp2kvb1p
+	 Wny1Vn11B4qoq/HeN/2B7gS7cNHc914DQpUWz9XCYJMjFOiG4JZ2rtOM8gt0jSPE00TFg
+	 o/w0pNZlKA7xzPjH4EXSLO4d/5LPQOkQBE990sHQVZCH0iMCzjoid0oXB0eQnRcyMLhNI
+	 OFecmB5kljC/THgBH3OOFx7ys9q4nHV0adUJiY4Qdn3ikRIGEzuNfEx+2ErbpfRx4R6I1
+	 YtzsM8hjOMGxpNo8rUieQogcvv/NsyNs7Mwc45h4BYSZFgsM/594yDr5oJ+CNkvlhWHhE
+	 7vNu3MLAVDCqKg7geNg4yTmlWeKo+mv3lPGik2JC3OqW1EZ27VYGFLMb+9htqCs=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1765399029; bh=iDnkDoOYj0GFO6Zc892W2pwq08eZGtuyuFGMtqrri9Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=nAVdPEcjFdvDPaLasXnBW4bde23ZybjIDdBGqLZzlkt5B8iQZtyOQ+S0KK656fgTP
+	 wVvZsrecTnwDuQRsA/TOK62tkvlVbvl+IDrdIbGJLEbhFns4NCtbnkr11JbwOHwt4k
+	 hfPn5qEcYP9bGm4e++GTBSFbtfGGDjkKPGj3RRGxc8GZ0FVOwNz5q1vCPWZB9VnSBn
+	 jhkJ8X7V266UO1/udHLv+YL3hwSddtKVZlZq/kMSAsPEDnqC8hq48vdBL9iTgSVUg5
+	 loi6bNHpkvFE2V3pvxBwdtBzDI9Tso175cqjlrKexb77tSW3mbnmcWfnQKpZPoYH1p
+	 cIiPj/sqEHlYw==
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1490541269-1765398801=:19429"
+Date: Wed, 10 Dec 2025 21:37:08 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH 3/5] x86/ucode: Don't cast away const-ness in
+ cmp_patch_id()
+In-Reply-To: <20251210183019.2241560-4-andrew.cooper3@citrix.com>
+References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
+ <20251210183019.2241560-4-andrew.cooper3@citrix.com>
+Message-ID: <c260c81b7be1e5b27cd6c6705709c060@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1490541269-1765398801=:19429
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Wed, 10 Dec 2025, Marek Marczykowski-Górecki wrote:
-> On Tue, Dec 09, 2025 at 04:29:02PM -0800, Stefano Stabellini wrote:
-> > On Thu, 4 Dec 2025, Marek Marczykowski-Górecki wrote:
-> > > If LINUX_URL is set, fetch LINUX_VERSION from there. Go with "git
-> > > init" + "git fetch" instead of "git clone" to support any of
-> > > branch/tag/commit.
-> > > 
-> > > This also defines optional linux-git-* jobs which will build the thing
-> > > if LINUX_GIT_VERSION and LINUX_GIT_URL variables are provided for the
-> > > pipeline.
-> > > 
-> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > > ---
-> > > The script variable and job variable need to have different names, so a
-> > > pipeline variable won't override it for all jobs. While LINUX_VERSION /
-> > > LINUX_GIT_VERSION is IMO okay, I'm not very happy about LINUX_URL /
-> > > LINUX_GIT_URL. Any better ideas?
-> > 
-> > The problem is not LINUX_GIT_URL and LINUX_GIT_VERSION, those are good
-> > names. The issue is ...
-> > 
-> > > ---
-> > >  .gitlab-ci.yml         | 22 ++++++++++++++++++++++
-> > >  scripts/build-linux.sh | 18 +++++++++++++-----
-> > >  2 files changed, 35 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> > > index 184d0b3..8d1deee 100644
-> > > --- a/.gitlab-ci.yml
-> > > +++ b/.gitlab-ci.yml
-> > > @@ -1,5 +1,9 @@
-> > >  variables:
-> > >    REGISTRY: registry.gitlab.com/xen-project/hardware/test-artifacts
-> > > +  LINUX_GIT_VERSION:
-> > > +    description: "branch/tag/commit for the linux-git jobs"
-> > > +  LINUX_GIT_URL:
-> > > +    description: "git url for the linux-git jobs"
-> > >  
-> > >  stages:
-> > >    - build
-> > > @@ -53,6 +57,15 @@ linux-6.6.86-arm64:
-> > >    variables:
-> > >      LINUX_VERSION: 6.6.86
-> > >  
-> > > +linux-git-arm64:
-> > > +  extends: .arm64-artifacts
-> > > +  script: ./scripts/build-linux.sh
-> > > +  variables:
-> > > +    LINUX_VERSION: $LINUX_GIT_VERSION
-> > > +    LINUX_URL: $LINUX_GIT_URL
-> > > +  rules:
-> > > +  - if: $LINUX_GIT_VERSION && $LINUX_GIT_URL
-> > > +
-> > >  #
-> > >  # x86_64 artifacts
-> > >  #
-> > > @@ -91,6 +104,15 @@ linux-6.12.60-x86_64:
-> > >    variables:
-> > >      LINUX_VERSION: 6.12.60
-> > >  
-> > > +linux-git-x86_64:
-> > > +  extends: .x86_64-artifacts
-> > > +  script: ./scripts/build-linux.sh
-> > > +  variables:
-> > > +    LINUX_VERSION: $LINUX_GIT_VERSION
-> > > +    LINUX_URL: $LINUX_GIT_URL
-> > > +  rules:
-> > > +  - if: $LINUX_GIT_VERSION && $LINUX_GIT_URL
-> > > +
-> > >  microcode-x86:
-> > >    extends: .x86_64-artifacts
-> > >    script: ./scripts/x86-microcode.sh
-> > > diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
-> > > index cf0e744..1fc96d1 100755
-> > > --- a/scripts/build-linux.sh
-> > > +++ b/scripts/build-linux.sh
-> > > @@ -12,11 +12,19 @@ COPYDIR="${WORKDIR}/binaries"
-> > >  UNAME=$(uname -m)
-> > >  
-> > >  # Build Linux
-> > > -MAJOR=${LINUX_VERSION%%.*}
-> > > -curl -fsSLO \
-> > > -    https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX_VERSION}".tar.xz
-> > > -tar xf linux-"${LINUX_VERSION}".tar.xz
-> > > -cd linux-"${LINUX_VERSION}"
-> > > +if [[ -n "${LINUX_URL}" ]]; then
-> > > +    mkdir linux
-> > > +    cd linux
-> > > +    git init
-> > > +    git fetch --depth=1 "${LINUX_URL}" "${LINUX_VERSION}"
-> > > +    git checkout FETCH_HEAD
-> > > +else
-> > > +    MAJOR=${LINUX_VERSION%%.*}
-> > > +    curl -fsSLO \
-> > > +        https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX_VERSION}".tar.xz
-> > > +    tar xf linux-"${LINUX_VERSION}".tar.xz
-> > > +    cd linux-"${LINUX_VERSION}"
-> > > +fi
-> > 
-> > ... the issue is detecting to fetch via git or via curl based on the
-> > presence of a variable called "LINUX_URL". Technically 
-> > 
-> > https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX_VERSION}".tar.xz
-> > 
-> > is a a valid URL as well.
-> > 
-> > So I think you should keep LINUX_GIT_URL and LINUX_GIT_VERSION named as
-> > they are, expose them to scripts/build-linux.sh, and detect the fetch
-> > program based on the presence of LINUX_GIT_URL.
-> > 
-> > Ideally, we should not have LINUX_GIT_VERSION. Instead we should have a
-> > a common LINUX_VERSION used in both git and curl cases.
+On 2025-12-10 19:30, Andrew Cooper wrote:
+> Fixes a volation of MISRA rule 11.8.
 > 
-> The problem here is conflicting variables for different jobs. If you
-> specify a variable when starting a pipeline (either manually, or via
-> schedule, or via settings), the variable will be set for all the jobs.
-> So, to be able to schedule a pipeline with both linux-6.12.60-x86_64 and
-> linux-git-x86_64 (for example based on linux-next, or maybe some rc),
-> the pipeline variable needs to be named differently than the one used by
-> this script. And IMO it's more important to have clear naming
-> (LINUX_GIT_VERSION+LINUX_GIT_URL) at the pipeline level.
+> No functional change.
 > 
-> I can change this script to use arguments instead of variables to avoid
-> this issue, but it will result in slightly more duplication (in
-> .gitlab-ci.yml file).
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  xen/arch/x86/cpu/microcode/amd.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/cpu/microcode/amd.c 
+> b/xen/arch/x86/cpu/microcode/amd.c
+> index adabe6e6e838..2760ace92177 100644
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -106,7 +106,7 @@ static bool __ro_after_init 
+> entrysign_mitigiated_in_firmware;
+>  static int cf_check cmp_patch_id(const void *key, const void *elem)
+>  {
+>      const struct patch_digest *pd = elem;
+> -    uint32_t patch_id = *(uint32_t *)key;
+> +    uint32_t patch_id = *(const uint32_t *)key;
+> 
+>      if ( patch_id == pd->patch_id )
+>          return 0;
 
-It looks like it is a good idea to switch to arguments to avoid this
-issue
---8323329-1490541269-1765398801=:19429--
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
