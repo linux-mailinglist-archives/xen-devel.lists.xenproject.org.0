@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36EECCB18F2
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 02:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182460.1505326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DBC1CB1907
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 02:05:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182470.1505337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT8Zw-0001h5-50; Wed, 10 Dec 2025 01:01:16 +0000
+	id 1vT8dN-0006cj-Ix; Wed, 10 Dec 2025 01:04:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182460.1505326; Wed, 10 Dec 2025 01:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 1182470.1505337; Wed, 10 Dec 2025 01:04:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT8Zw-0001d4-1z; Wed, 10 Dec 2025 01:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 1182460;
- Wed, 10 Dec 2025 01:01:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vT8dN-0006b8-FC; Wed, 10 Dec 2025 01:04:49 +0000
+Received: by outflank-mailman (input) for mailman id 1182470;
+ Wed, 10 Dec 2025 01:04:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8oeO=6Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vT8Zu-00014J-UG
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 01:01:14 +0000
+ id 1vT8dM-0006b2-4O
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 01:04:48 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b8630b16-d563-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 02:01:12 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3791a481-d564-11f0-b15b-2bf370ae4941;
+ Wed, 10 Dec 2025 02:04:46 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C1A2860129;
- Wed, 10 Dec 2025 01:01:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18189C4CEF5;
- Wed, 10 Dec 2025 01:01:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CE65660129;
+ Wed, 10 Dec 2025 01:04:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5665CC4CEF5;
+ Wed, 10 Dec 2025 01:04:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,96 +41,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8630b16-d563-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 3791a481-d564-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765328471;
-	bh=Lq94aNmgtgqA/YmJ2lIveeijcUD3NIyxdaSwjWATQwM=;
+	s=k20201202; t=1765328684;
+	bh=FLCoESsDvUcfNYgbhJE+32xjdx8w9pQv9O0VV0vuu5M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=COZsmXgCEEWOzm8myvj6VbEh4nli3u1t3WS5dPAC6tghfG3yvYPb2jWI5RlnUZlS6
-	 +UMiHI2A2WUyufs76JRUlijR3bs6G1EJiNZH1aB4+LVZHQ7LL3Zl5PDqfmUeYi6bwa
-	 9g9dVRttRGZeOOcnMAbfufZbW2TY4bhyUonFqoTySNCLWxXNTHUci7COZ6xRvTN1RO
-	 3IkgwgpB04cxxrJbnaeIqcfb2f1BtVPSsSmLJixBJPD5Yep5a8AX0/RkLUXA4kzZKB
-	 sur3F3whH/D7NNfWhBxg7Ee/LqyRjUG87l2GW6OMLPGz3ZIOIzrvTR1KL66IdB4IOt
-	 HJiv1YRMi+bsA==
-Date: Tue, 9 Dec 2025 17:01:08 -0800 (PST)
+	b=dnyf1eNfq5SyypnerN2yr/CfQEDIII5GOP88FPDMK62bwBJjDtxcT0JMQA9+jf+rj
+	 VZEnSpFs6Vfxt39Au5snOZH6DnugeMtYwvpwdd7cpS+AvkwH6I4G/Ld1QwHodiPQRY
+	 44zNXYTePUWxWJX3FhfrspQR6hFgxRtVEsUgbWca4x7bAhja2i0ouso99UXOlL8/zk
+	 XR3MDFRpBjVc0cX+AOeHV/HoYJ9UXo38bszyA/B+3DOV6Dm/Lmxer25VTEtI9rJTIl
+	 DA3vgeHZLSO6riVy36i2s6WLxCQXWaQLlbNbmkCPRAKShVNipkjbgT1XfJak2DwW70
+	 E/adMiECa2sDw==
+Date: Tue, 9 Dec 2025 17:04:42 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] arm/gic_v3: fix MISRA C R2.1 violations in
- gicv3_do_LPI()
-In-Reply-To: <b26772df8733dbd1ce6ea14a6e8b73f278db3a3d.1759174857.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2512091700130.19429@ubuntu-linux-20-04-desktop>
-References: <b26772df8733dbd1ce6ea14a6e8b73f278db3a3d.1759174857.git.dmytro_prokopchuk1@epam.com>
+To: dmukhin@xen.org
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH v3] xen/domain: introduce DOMID_ANY
+In-Reply-To: <20250924030630.122229-2-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2512091704020.19429@ubuntu-linux-20-04-desktop>
+References: <20250924030630.122229-2-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 29 Sep 2025, Dmytro Prokopchuk1 wrote:
-> The function 'gicv3_do_LPI()' violates MISRA C 2012 Rule 2.1, which states:
-> "A project shall not contain unreachable code." This is due to the use of
-> the 'BUG()' macro, which causes the function to never return.
+On Tue, 23 Sep 2025, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> This behavior is intentional and safe within the specific build configuration
-> defined by 'CONFIG_HAS_ITS'. The 'BUG()' macro handles irrecoverable error
-> conditions where LPIs must not occur without an ITS enabled.
+> Add a new symbol DOMID_ANY aliasing DOMID_INVALID to improve the readability
+> of the code.
 > 
-> A SAF comment has been added to document the justification for this violation,
-> stating that it is safe within the context of the Xen project.
+> Update all relevant domid_alloc() call sites.
 > 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> Amends: 2d5065060710 ("xen/domain: unify domain ID allocation")
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
 > ---
-> Test CI pipeline:
-> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2070455717
+> Changes since v2:
+> - move DOMID_ANY back to the public header; add proper guards
+> - CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2056319227
+> - Link to v2: https://lore.kernel.org/xen-devel/20250920174732.1207847-2-dmukhin@ford.com/
 > ---
->  docs/misra/safe.json                  | 8 ++++++++
->  xen/arch/arm/include/asm/gic_v3_its.h | 1 +
->  2 files changed, 9 insertions(+)
+>  tools/tests/domid/harness.h             |  1 +
+>  tools/tests/domid/test-domid.c          | 12 ++++++------
+>  xen/common/device-tree/dom0less-build.c |  2 +-
+>  xen/common/domctl.c                     |  2 +-
+>  xen/common/domid.c                      |  2 +-
+>  xen/include/public/xen.h                |  5 +++++
+>  6 files changed, 15 insertions(+), 9 deletions(-)
 > 
-> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-> index 3584cb90c6..4c227c1e8b 100644
-> --- a/docs/misra/safe.json
-> +++ b/docs/misra/safe.json
-> @@ -124,6 +124,14 @@
->          },
->          {
->              "id": "SAF-15-safe",
-> +            "analyser": {
-> +                "eclair": "MC3A2.R2.1"
-> +            },
-> +            "name": "Rule 2.1: Unreachable code",
-> +            "text": "It is safe because the BUG() macro is intentionally used to terminate execution when LPIs are enabled without an ITS."
-> +        },
-> +        {
-> +            "id": "SAF-16-safe",
->              "analyser": {},
->              "name": "Sentinel",
->              "text": "Next ID to be used"
-> diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/asm/gic_v3_its.h
-> index fc5a84892c..672dae7ac3 100644
-> --- a/xen/arch/arm/include/asm/gic_v3_its.h
-> +++ b/xen/arch/arm/include/asm/gic_v3_its.h
-> @@ -229,6 +229,7 @@ static inline unsigned int vgic_v3_its_count(const struct domain *d)
->      return 0;
->  }
+> diff --git a/tools/tests/domid/harness.h b/tools/tests/domid/harness.h
+> index 17eb22a9a854..610b564d4061 100644
+> --- a/tools/tests/domid/harness.h
+> +++ b/tools/tests/domid/harness.h
+> @@ -41,6 +41,7 @@ extern unsigned long find_next_zero_bit(const unsigned long *addr,
 >  
-> +/* SAF-15-safe */
->  static inline void gicv3_do_LPI(unsigned int lpi)
->  {
->      /* We don't enable LPIs without an ITS. */
-
-Please replace the BUG with ASSERT_UNRECHEABLE and it should resolve the
-problem without needed the extra deviation
-
+>  #define DOMID_FIRST_RESERVED            (100)
+>  #define DOMID_INVALID                   (101)
+> +#define DOMID_ANY                       DOMID_INVALID
+>  
+>  #endif /* _TEST_HARNESS_ */
+>  
+> diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-domid.c
+> index 5915c4699a5c..71cc4e7fd86d 100644
+> --- a/tools/tests/domid/test-domid.c
+> +++ b/tools/tests/domid/test-domid.c
+> @@ -41,20 +41,20 @@ int main(int argc, char **argv)
+>          domid_free(expected);
+>  
+>      /*
+> -     * Test that that two consecutive calls of domid_alloc(DOMID_INVALID)
+> +     * Test that that two consecutive calls of domid_alloc(DOMID_ANY)
+>       * will never return the same ID.
+>       * NB: ID#0 is reserved and shall not be allocated by
+> -     * domid_alloc(DOMID_INVALID).
+> +     * domid_alloc(DOMID_ANY).
+>       */
+>      for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
+>      {
+> -        allocated = domid_alloc(DOMID_INVALID);
+> +        allocated = domid_alloc(DOMID_ANY);
+>          verify(allocated == expected,
+>                 "TEST 3: expected %u allocated %u\n", expected, allocated);
+>      }
+>      for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
+>      {
+> -        allocated = domid_alloc(DOMID_INVALID);
+> +        allocated = domid_alloc(DOMID_ANY);
+>          verify(allocated == DOMID_INVALID,
+>                 "TEST 4: expected %u allocated %u\n", DOMID_INVALID, allocated);
+>      }
+> @@ -64,7 +64,7 @@ int main(int argc, char **argv)
+>          domid_free(expected);
+>      for ( expected = 1; expected < DOMID_FIRST_RESERVED / 2; expected++ )
+>      {
+> -        allocated = domid_alloc(DOMID_INVALID);
+> +        allocated = domid_alloc(DOMID_ANY);
+>          verify(allocated == expected,
+>                 "TEST 5: expected %u allocated %u\n", expected, allocated);
+>      }
+> @@ -72,7 +72,7 @@ int main(int argc, char **argv)
+>      /* Re-allocate last ID from [1..DOMID_FIRST_RESERVED - 1]. */
+>      expected = DOMID_FIRST_RESERVED - 1;
+>      domid_free(DOMID_FIRST_RESERVED - 1);
+> -    allocated = domid_alloc(DOMID_INVALID);
+> +    allocated = domid_alloc(DOMID_ANY);
+>      verify(allocated == expected,
+>             "TEST 6: expected %u allocated %u\n", expected, allocated);
+>  
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index 9fd004c42af7..e2764768c983 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -848,7 +848,7 @@ void __init create_domUs(void)
+>          if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+>              panic("No more domain IDs available\n");
+>  
+> -        domid = domid_alloc(DOMID_INVALID);
+> +        domid = domid_alloc(DOMID_ANY);
+>          if ( domid == DOMID_INVALID )
+>              panic("Error allocating ID for domain %s\n", dt_node_name(node));
+>  
+> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+> index 954d79022645..ca91686a03d8 100644
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -410,7 +410,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>      case XEN_DOMCTL_createdomain:
+>      {
+>          /* NB: ID#0 is reserved, find the first suitable ID instead. */
+> -        domid_t domid = domid_alloc(op->domain ?: DOMID_INVALID);
+> +        domid_t domid = domid_alloc(op->domain ?: DOMID_ANY);
+>  
+>          if ( domid == DOMID_INVALID )
+>          {
+> diff --git a/xen/common/domid.c b/xen/common/domid.c
+> index 2387ddb08300..76b7f3e7ae6e 100644
+> --- a/xen/common/domid.c
+> +++ b/xen/common/domid.c
+> @@ -19,7 +19,7 @@ static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
+>   * @param domid Domain ID hint:
+>   * - If an explicit domain ID is provided, verify its availability and use it
+>   *   if ID is not used;
+> - * - If DOMID_INVALID is provided, search [1..DOMID_FIRST_RESERVED-1] range,
+> + * - If DOMID_ANY is provided, search [1..DOMID_FIRST_RESERVED-1] range,
+>   *   starting from the last used ID. Implementation guarantees that two
+>   *   consecutive calls will never return the same ID. ID#0 is reserved for
+>   *   the first boot domain (currently, dom0) and excluded from the allocation
+> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+> index 82b9c05a76b7..29b7c81ba1bb 100644
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -608,6 +608,11 @@ DEFINE_XEN_GUEST_HANDLE(mmuext_op_t);
+>  /* DOMID_INVALID is used to identify pages with unknown owner. */
+>  #define DOMID_INVALID        xen_mk_uint(0x7FF4)
+>  
+> +#if defined(__XEN__) || defined(__XEN_TOOLS__)
+> +/* Domain ID allocator: search [1..DOMID_FIRST_RESERVED-1] range. */
+> +#define DOMID_ANY            DOMID_INVALID
+> +#endif
+> +
+>  /* Idle domain. */
+>  #define DOMID_IDLE           xen_mk_uint(0x7FFF)
+>  
 > -- 
-> 2.43.0
+> 2.51.0
 > 
 
