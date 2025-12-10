@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7765CB28DA
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 10:28:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182708.1505553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B25FCB2931
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 10:35:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182718.1505563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTGUU-00047S-Kn; Wed, 10 Dec 2025 09:28:10 +0000
+	id 1vTGbj-0005eZ-BZ; Wed, 10 Dec 2025 09:35:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182708.1505553; Wed, 10 Dec 2025 09:28:10 +0000
+Received: by outflank-mailman (output) from mailman id 1182718.1505563; Wed, 10 Dec 2025 09:35:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTGUU-000458-Hn; Wed, 10 Dec 2025 09:28:10 +0000
-Received: by outflank-mailman (input) for mailman id 1182708;
- Wed, 10 Dec 2025 09:28:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTGUS-000452-Rt
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 09:28:08 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89683670-d5aa-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 10:28:07 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-477b5e0323bso3468285e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 01:28:07 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a82d12257sm34247735e9.1.2025.12.10.01.28.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 01:28:06 -0800 (PST)
+	id 1vTGbj-0005cL-8X; Wed, 10 Dec 2025 09:35:39 +0000
+Received: by outflank-mailman (input) for mailman id 1182718;
+ Wed, 10 Dec 2025 09:35:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c2u0=6Q=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vTGbi-0005cF-0V
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 09:35:38 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 94673efb-d5ab-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 10:35:35 +0100 (CET)
+Received: from BY1PR03MB7875.namprd03.prod.outlook.com (2603:10b6:a03:5b1::10)
+ by SA2PR03MB5676.namprd03.prod.outlook.com (2603:10b6:806:116::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Wed, 10 Dec
+ 2025 09:35:31 +0000
+Received: from BY1PR03MB7875.namprd03.prod.outlook.com
+ ([fe80::2e3c:781a:5f98:7f19]) by BY1PR03MB7875.namprd03.prod.outlook.com
+ ([fe80::2e3c:781a:5f98:7f19%7]) with mapi id 15.20.9388.013; Wed, 10 Dec 2025
+ 09:35:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89683670-d5aa-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765358887; x=1765963687; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6Vx/KXbJLCG6LLCav1TU/2FBVVobeYr4Pg30JIegfMs=;
-        b=fMOtlLv/tgFS4MdU9ciDo4klTMli4+wcfwZvhiS//HydCtfj2w/yy8p1L9nUp0d7Nf
-         BBQ3kVLRJsMzDA/Q0DLMpwinSTvajtUHZKRkDda17IlQ5KbL5+WLsKWwtqvlWqEOme09
-         rRE1+c7r/bX6OHMsMW2oA/0qNrjphHG7BqJanwcySa+P8/WvmTy7yEtAsvPRXpaLSS15
-         S5I8bNGjBZR+LuPxDgMfXp4R+t/sMxH27U/4RfQ9ncdbYA4QLaTFhT4NHgdSSO+tS9BO
-         67VJvQscdPNQ+utRFwul9lxxiXhROIJZ5nGpOW64RScKvlbw2AY6hEykun0xRFAnHJq2
-         UbRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765358887; x=1765963687;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6Vx/KXbJLCG6LLCav1TU/2FBVVobeYr4Pg30JIegfMs=;
-        b=Yr9bcpOZoESh1RAiMi+khCsQf+9EEfKTRZDjoWcok4Iv8SwWq/Qo9ea/jSqQZb2SpT
-         euaAaJddcKQzfNV+vjlmZYXps3upe61iwoy8+0XRqmNI7Ig7hP7EEgKJb7jHKcHg2EoO
-         MgnyXbJRQVyqyGz/1Mk8JOB6eIA6WIyq99nFqAkZNxAziSsYAdgF1PHXHXE+bagQ3feV
-         bhXjjrGCOT0TjuRTfhN0cOUQnFHpU0QbwGnxRaC6SQd5NMjx9KFggaHhjkRTWSVEaR8I
-         s2U6ed8l05PHmTiqFmfmo08HfunJnBJym2NxG0wWh4sKR5T1+5L6urhFu22OEEkrihL1
-         jSZQ==
-X-Gm-Message-State: AOJu0YwndNwKSHvDMfneEGfrWXfT5B5CxxlNYNu1xVW7VqGeJMK9bxqE
-	i5OstlABTQdRWL7IH8AnoiPfOpEBXgWizWkGDWE06DWtpapuke0LSWjmPRGHmkygUQ==
-X-Gm-Gg: ASbGncsFdBI51N0hPI5HhxFLIQAf7o+onJ3pddJeSObfv1XPgso7O1WjUzTytPPrNVg
-	cObq0ea4W8m5MWP2eOVEz83D8AauiAuMxQ8icyobFiMoLfRTA8lVjH6BcZek4HqtnI5Is3HjojM
-	whQ8n+5epypzyrAAPE2PKY80SR3WULDXE5wqxnF6VFEiaMB0wpmJR6NTaRv0qFDYttUw2GBrQyd
-	F3vUZzTUrlAmP3h1bNMCavbt2GW8G6tSgxohHJKgmoEbBa/+sJL5oCpNpOWd3PtscoAFaObaGqH
-	RADV5CMOcedcSnvpJtHWoqUMIOQfxJr1etV71vwvfaDlmt/eK9nQsC2lA8LCjcYhYM/2rAjb123
-	HXVgi72I+4nfLM6s1k3BZNXdbEG2q1Ym6QGfPDBV1PWwbnIYpWFwuPiMGbSTXhfktVYgnETFHLc
-	k3lm9N09KQOoapVQjt3vTxe0Q249pJQAokOx9X6kvPsNR5qHU+8q3yWGV0kkzhzRPZYtZCNWDgk
-	Sw=
-X-Google-Smtp-Source: AGHT+IE8JtL7JTforua3TTeE1iQgJq7FeGCaYJmTqiT93D8SapSMdGqK42thRd2v+Xvn6t1xnBIh+w==
-X-Received: by 2002:a05:600c:c0d5:b0:475:d7fd:5c59 with SMTP id 5b1f17b1804b1-47a7f95daf7mr38861375e9.16.1765358887037;
-        Wed, 10 Dec 2025 01:28:07 -0800 (PST)
-Message-ID: <5233c6e2-0cba-4f60-b80f-0b4857d16c98@suse.com>
-Date: Wed, 10 Dec 2025 10:28:05 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] x86/mm: update log-dirty bitmap when manipulating
- P2M
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>, Anthony PERARD <anthony.perard@vates.tech>
-References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
- <d47d01dd-0289-370d-7b5e-bd80f9e0a911@suse.com> <aTLjwbcm4fjwNJfb@Mac.lan>
- <b03a8039-e4b3-42ff-9781-031bf68ccb72@suse.com> <aTgJUvqTIQRc66L_@Mac.lan>
- <f09af4cf-09d7-462a-b8d1-0f2a4b3f32cc@suse.com> <aTk27qyaDM9FuL33@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aTk27qyaDM9FuL33@Mac.lan>
+X-Inumbo-ID: 94673efb-d5ab-11f0-9cce-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n/bPlColAkYYETPlvd4wUvhJQb2wpiKWaPM4dMS5ZzrrFQqmv22E89Vv9IRGtytw3sWBOTIzcPKqxs4fUTdzBsvak0s2kV6So91KYRFCb8j02eRsybrC2O9U1lpxHVWXLypnVhY+ioBIMjPcdYwGG/TvOQxKwek1UXnzKageAjJ+r1YY5siJAP6nZypkVGh5+MWhi/vUglQDTpck2XaLi3UCxneoy0+2zvetmzQI0/dU+WsQofd/I4uE9+e0seIdNprQhy5m5t3xIe8lMbQmwHt2a5hBvjYYBBlGnK5QDAnNJVdlmTc44cDEUN8oQNt3pblnG7CpSxEj7Lksg+zvHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BF2tLEa1ciGn4FPlLPIZRHS9g5i/rlx0nNwf49e0PUY=;
+ b=AWhfakboagIiiUdqsF2BMrjBkfWndl1s26ClKtz0a+GR/SWK4XI4i4FO5eZ5FbWQkf8zT6gCtTePOSUGIeuI6nZPZVqNiJDwzxWfQofH36vJIjAabAr40U5FvKiSGDNrhq8KWgAb87Y3g5IQgTEuM1/m7/OQiq2qBPXr2IfcrBbxjhBaH4pxFr39rQ5e4BB27lDNeDJNOKAe4QN85SeeYysIE9fzfx4hMvl7t0jjaNohFGqpE3MWDQs26I93TDuV74Lu5aRwpTvKz7ofkUZIcB8qBazsIXTQba/F/WhdlAMyrMZP0eZrdnyahj7c7eiJphLvAcR1/SeizAOrppTIQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BF2tLEa1ciGn4FPlLPIZRHS9g5i/rlx0nNwf49e0PUY=;
+ b=hi37Gq0TbuUW+Ub6e/DaHlt9Nzx1CYLyeeq10jrmGms9RcuCQzkdl0cuHIYvN8WmTJc0D4essMfhiC3NKUY8hjN7KSY+S/lxs7FWHFKsWC3V95q4iPDk2z8GSxuBS9o+5o+TsJGOMB5oFr1lgbcFxqqlnHFe9bfyFTMPA9FcNWQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] x86/pod: fix decrease_reservation() clearing of M2P entries
+Date: Wed, 10 Dec 2025 10:35:13 +0100
+Message-ID: <20251210093513.59534-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.51.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PR1P264CA0057.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2ca::7) To BY1PR03MB7875.namprd03.prod.outlook.com
+ (2603:10b6:a03:5b1::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PR03MB7875:EE_|SA2PR03MB5676:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7930c043-dfb1-4580-946f-08de37cf7620
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZUZJZVZiOXlmRFVRSFBYUlBaZHBwRGh3c0dnNTBXMTNCMFVuZEV0SmZQd2VK?=
+ =?utf-8?B?S01PUlNMMWxWekVsYXUxRnpja0FFeXpUSmI1Qm1Bc1dkT1VEcWdFdmtPWU0v?=
+ =?utf-8?B?by9iY1JrSlBDb0JaQXJXMHh0d0hwMURaRVB0R05lYnZLUTdUSmRHbXpteWRp?=
+ =?utf-8?B?eERZeVhiS2NxSkV3TkV3YXRrRUtzWkkzL1owcGRBT1VkeDY4OGpjSGsrUkxq?=
+ =?utf-8?B?cW9iUTRWN3NvTktCWkY4SU9QWDA1SkNJclN4ZTgzS1k3Nm9Jbm5zTG5WVUkx?=
+ =?utf-8?B?cVgzV0tXRjlqaERFS0NINGZ3dW5PTk5OYU5QemkzcDlXdjJGRzZzL1I3cDVF?=
+ =?utf-8?B?MUlUaUh4RDMvT1dMYzNDQkhqS3kwSDY1QVRVMitTSmJWQTlwcjJuM0M2dExj?=
+ =?utf-8?B?TlpLdmY4bWtFdWNMcmZHZXdTK3JqSTl4QzZZU050b3ora0lmM09YNGhCQjlU?=
+ =?utf-8?B?ZWdaeC84OFRwU1RpQzNCVjRJK292U1Y5S20vS2tCRE1PTmgrRXJOMnJucEhj?=
+ =?utf-8?B?ak5IL2Q5MVYyL2hhT3p2bXhDNGg1Yml6dEhuMUdwQWU2YS9zSTZqWmQ5QVk3?=
+ =?utf-8?B?MDhmdHNjMGo3NHVNeVJqL09nT281cVBpbE5KY0lYL0R4eDlDd3Jud1ZHNlZD?=
+ =?utf-8?B?K1BJTDViK013SFNaMVRFUHlhZjRxYnAzcFJtMWZUeEFsU05jK1hBSWtTZlZM?=
+ =?utf-8?B?MlNuMG9UQTBKUkhSLzh2Y0lyd1RDeFRrbEIyRm9ReXZoa0t0SWhvcnVvQmtF?=
+ =?utf-8?B?WjV6cWhtTmVMQ1hFS0VWbE1TZ3VmSzA1VGtYNnR3YW9ZcUdJTUo5ZGZHOXZK?=
+ =?utf-8?B?bFBGRTRoNmdlZW1WVzBNSkNyUS91UThnNHBTWlA2VkVDd051T3hGKyt1NUl0?=
+ =?utf-8?B?bGJqRHRsRHdVUHpaVjRYNE9sZkNLYk4wKzUyY2lVM09EWUgrdjBRMFFNNSsy?=
+ =?utf-8?B?TEtrT3JHaW5rMFBSUjVmdzNJQTYxd3IzS1l5a3FzcGhHMjRCZjhIdHdOa1Iz?=
+ =?utf-8?B?Wm5RcDVOQjViMElXYzNnSktvNHIrTk5Ld3oybkg0RmpuMnl6QjR0bWU4M3dz?=
+ =?utf-8?B?V3ZFZ0tjdjJHRXZmZzJwUmdnWDNqYW1qUzJoLzlXNVJHdmR3RmxqaTR3ZUhN?=
+ =?utf-8?B?ZmJTU2Z5TjJTeXBidFFoZHlyT2VnRHArN1FERFk2ckF6MFJCQW9FSVZIZVJC?=
+ =?utf-8?B?cXFWRXNZYW1mU3VJcjdDUnlQWjJseG9BR0JwVzFYQ2VPOTZqSitHQ0NsTEF0?=
+ =?utf-8?B?ck4wZjA1Ry8wemw2VTFMOE13ZlE2OVcrUnRadlE1enZ1NlArZHJNODVyK0V4?=
+ =?utf-8?B?NFBVN290UUh4ZCtMSVpOODdhY29RTkM2YnB4bVlwM3ZhMGE3OEI1UWFxNWtC?=
+ =?utf-8?B?ZUhZbm1jWHZzWWtZKzlXRUlFMVRwa1AvUWE0OWJhazBKSWVXSERkWHB6a0h4?=
+ =?utf-8?B?WElsOERUdFlaK0ZsT1M2U2RQN2IzNzNmS3pOR2MrdmQxYVY3bFhDc3E2Ym5I?=
+ =?utf-8?B?THpIaEtDNEVCaCt3YnhTclI5WFdMM3ZJbGphcUdJdmpuWEhRZ3l4U0JyMVhG?=
+ =?utf-8?B?V0Zyb3JUTWJRODQ2UUpuemZIQVlWcjJielo4aTVOYm4vZlMyTWdBYytKaTE5?=
+ =?utf-8?B?YkNsOS81cGFKeVFPcm1PWHY3RVJGbEUvQXNLaU1OaXF6TTQwbU9RVElKZStp?=
+ =?utf-8?B?by9od1NmdlBCdG1kSnAvQlNxQlU1b09zaTVEWkx0Q3VBUE1TendrTXdlSHIx?=
+ =?utf-8?B?eTR6VlJTdElnNU5GdmI0dTkwV0FzZmU4aFFlQWdvR1ZLb0p6WjZ5V2xKQjN2?=
+ =?utf-8?B?NDE1Nlp6Y3hUby9CZzFUclIzQzFiYlZIN28wQkdKbExONDcrNWFoSmxQeFpu?=
+ =?utf-8?B?TDZVRUNxZ3JDVmJUNGVtWXJEOVhmb3NxUHhYU1Z4ejMzVU9mVmxIMC85VUt3?=
+ =?utf-8?Q?zB1lB6g+eP0GKYuUx2xBPcXPTSGMaBdt?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7875.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MjBpSlhwei84alVmaW5mZkNFUTBXZkJFZWZzN0R3YlBKR1ZuUTBHd1RNNVA5?=
+ =?utf-8?B?TTdzanpmRklIZThtdCtRV3FRMWVIMCt0blViT254OHVCK1I5S2hjVnRZdEZ4?=
+ =?utf-8?B?ZkZGSFpna0ZabUYzNi9lZnh5NmR3RnUvaWdrUXh3YzVwWHJpQUlSK3N0Yyty?=
+ =?utf-8?B?NGNxUTRLNWp5ekNGdXk4eDJmQ1ljNXVZRFNyWkZ6a0hIWEpLZUlHbWxjbHhF?=
+ =?utf-8?B?UmN2L0d1dk5uMzlSc2RYRy9zUWU4OXo3M1FzeG5sSmpLZlMra2wvNFRKbjlw?=
+ =?utf-8?B?RXBtTzRIRllCamZJcFg0MmQyMnoxdXN1U1ZqUUFHWlJZazhFRXk2a3ZBc01T?=
+ =?utf-8?B?Mk5FajNPZzY0ZFZvRjhHT21lcmhobFdKVWUxYmpnVUZISmd5S0N4SkFaeEto?=
+ =?utf-8?B?VndCd1dHTzVzRzBVTXFEMm01MGVHaUM1Y2JRNGltdHV5VzMwZ09zOWs3aXJr?=
+ =?utf-8?B?NTJtSVBZVnVJYWNqbXRZK2JDVlA4SG0wUWpOeFVBTTFWOWRzam1kbjduclVi?=
+ =?utf-8?B?dDN5NDg1UEM4UTZCVGdlQkNxdmo5U250WmphR0JFbEtVcnRaVFBMRTQyYmJ5?=
+ =?utf-8?B?S0IrcE8rTzE4cXZLWVVvZlZuVnp0VTl4ZXIwQnc3MlZsb0dtbWZ4aWdXRGxi?=
+ =?utf-8?B?RysxYitkdkZ1RVdtcUF3cWdCQ0hmK3Q4MkVRVFNTa2MzYmxkcE5adW90ZEsx?=
+ =?utf-8?B?bVRxUHVYalJvdkRLRWxTSmpQTTBHblBDeG00MG9wdnk2TjUrZzFEKzFobjlB?=
+ =?utf-8?B?OVpHbmNlQnI5T3BsSmpRVkg3NTBUVWdheWZJcFBaUnZHOG83MjVNdHR4R2kz?=
+ =?utf-8?B?R1dDK29lMW1LVTNISkF5eGF0bW54N0crcDVXM3JnRHRiZWxsTEFIMnpOamc2?=
+ =?utf-8?B?U05yRHFGcEY1L3FpZHpZV09DMEdZVGlzNzEyV3VCZjQxL29aYlNxMlZhaE5X?=
+ =?utf-8?B?QTNPK3h3bllqRnFIdTBJcG44b0ZEZ28vTmRTSWlZbnpZSnRPTzZHUGRnUkt6?=
+ =?utf-8?B?Rmw4NEQwQjFkK0JHV09jTXA4MUEvQjB1eFhDWm8wWHhXSHROWkNKUWRzSEtU?=
+ =?utf-8?B?eC9xV29UYmJyWXdDRWRvZVdpRnZIWWtHVFVMWXRhRnd0TklRMC9SaUdKeEJq?=
+ =?utf-8?B?azl1NS9WWTlkdzRlZ3ppUHZJZ0RhK1NSeWlENkhMNklObEtzVCs2Mi9YV0lL?=
+ =?utf-8?B?VlNSQnFkUG1mNWZ5UC9hVWY4eVIzcExuSFNydGpHRUEvUlZORUpMYndSSitK?=
+ =?utf-8?B?QVBLS3RvdVpYaFlNSjRNb002ekk3cWlJaVJXeHA1Q2kzRFY0TkkyazFndFVa?=
+ =?utf-8?B?V3dRM2NoQVpSNm4rdlQ0K1c2SDlnTnh5ZmtkS0hSZDRvMDdsaVBkK2dpSGNa?=
+ =?utf-8?B?SG9YYndSVys3bVVaMHp3cituNnN2cXYzWDk0cThYRXdiYXpkRmpHVlRoQ0hx?=
+ =?utf-8?B?Z08xTUdPSmtQVm5DQ0JlRkxsT3U4Snl5aFltWW5zbFdOQmprUTVRYVZEb084?=
+ =?utf-8?B?djN1cmRVWWswL2pjbi9EQ3ZmOGNEZDAvTzlqUUJIQy95bVJBRks1OTRnckQ0?=
+ =?utf-8?B?UkFPQVFnajhuNUtFUmt2NzhkcUpWZG9PQXc1NmlSb3BFamwyUlIrREM0Rzlt?=
+ =?utf-8?B?emVPV3UvK2FnQzYvcTVaZS9IK0pTYUh0ZDMyVmFlUEY2UjZXRGdBZjhxZWVB?=
+ =?utf-8?B?dUc2TWdrUFJ5RzJ2MlFPTFNKYS9LeEx3d09keFFXaCs0Rzd4cFUzaTRzRTBS?=
+ =?utf-8?B?VDdJT0IzVUZKL2VwRC9oMlUwcU9idE8zUmNaTGpDdDlXazBMalZobTNBUlpa?=
+ =?utf-8?B?VEUrL3VyR2pnc00wTG1FbGwrVTM2djl1ZTNmZ0Vabk1UL3JYNVZrWHNxU0hM?=
+ =?utf-8?B?elZUR25qVmZCVXNnZTFNbTZRM242K214ZjFaeGdrdFMvTGlkTE05cVVqUytM?=
+ =?utf-8?B?QURyNURCWmlUbUh0R29ESVh2cHBnVXcxS2tKamNEZm13ZFV3UUtvZGtMZ0Vv?=
+ =?utf-8?B?MlIwL1pJQlRieUlMbi9zNFJGdy8zOWl3MVpWeTJqbW9YMWpGa0hldUVOQm56?=
+ =?utf-8?B?bUxldjB6c0Vka09weWl2cVptc3dQUUpzUm84cnpmQU5qQ2JxNzlzZ2NJVzZ3?=
+ =?utf-8?Q?pDSvtp0wmbP09ivanTSx4kQvl?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7930c043-dfb1-4580-946f-08de37cf7620
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7875.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 09:35:31.3537
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9GpK4A/D+sXBaeNseuHIaouSel0pgiicdXg3RxR2hQMtOH02WZsXIh0YlEMjM10Nb+HD4SoU+0T7M4QGI1WaCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5676
 
-On 10.12.2025 10:01, Roger Pau Monné wrote:
-> On Tue, Dec 09, 2025 at 12:49:59PM +0100, Jan Beulich wrote:
->> On 09.12.2025 12:34, Roger Pau Monné wrote:
->>> On Mon, Dec 08, 2025 at 11:48:00AM +0100, Jan Beulich wrote:
->>>> On 05.12.2025 14:53, Roger Pau Monné wrote:
->>>>> On Tue, Apr 26, 2022 at 12:26:10PM +0200, Jan Beulich wrote:
->>>>>> --- a/xen/arch/x86/mm/p2m.c
->>>>>> +++ b/xen/arch/x86/mm/p2m.c
->>>>>> @@ -549,7 +549,10 @@ p2m_remove_entry(struct p2m_domain *p2m,
->>>>>>          {
->>>>>>              p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
->>>>>>              if ( !p2m_is_special(t) && !p2m_is_shared(t) )
->>>>>> +            {
->>>>>>                  set_gpfn_from_mfn(mfn_x(mfn) + i, INVALID_M2P_ENTRY);
->>>>>> +                paging_mark_pfn_clean(p2m->domain, _pfn(gfn_x(gfn) + i));
->>>>>> +            }
->>>>>>          }
->>>>>>      }
->>>>>>  
->>>>>> @@ -737,8 +740,11 @@ p2m_add_page(struct domain *d, gfn_t gfn
->>>>>>          if ( !p2m_is_grant(t) )
->>>>>>          {
->>>>>>              for ( i = 0; i < (1UL << page_order); i++ )
->>>>>> +            {
->>>>>>                  set_gpfn_from_mfn(mfn_x(mfn_add(mfn, i)),
->>>>>>                                    gfn_x(gfn_add(gfn, i)));
->>>>>> +                paging_mark_pfn_dirty(d, _pfn(gfn_x(gfn) + i));
->>>>>
->>>>> Have you considered placing the respective
->>>>> paging_mark_pfn_{clean,dirty}() calls in p2m_entry_modify()?
->>>>
->>>> I didn't, but since you ask - I also don't think that's layering-wise
->>>> an appropriate place for them to live. Whether a page has to be
->>>> considered dirty needs determining elsewhere. No matter that ...
->>>>
->>>>> There's a lot of repetition here with regard to handling the side
->>>>> effects of p2m changes that are forced into the callers, that could
->>>>> likely be contained inside of p2m_entry_modify() at first sight.
->>>>
->>>> ... this way there is some redundancy.
->>>
->>> Redundancy is one of the aspects, the other being IMO code more prone
->>> to errors.  Having to do all this non-trivial extra work after a call
->>> to set a p2m entry, both in the success and failure cases, seems
->>> likely that it will be forgotten or incorrectly implemented by some
->>> of the callers.
->>>
->>> It's you doing the work to fix this, so I'm not going to insist.  It
->>> seems a lot of extra complexity duplicated across multiple callers.
->>>
->>> FWIW, it would be easier to understand if we had the logic to mark
->>> pages as dirty in a single place, rather than scattered around
->>> different callers that do p2m modifications.  For the time being I'm
->>> fine with doing as you propose, but long term we should see about
->>> cleaning this code IMO.
->>>
->>>> Furthermore p2m_entry_modify() also isn't really suitable: We don't
->>>> know the GFN there.
->>>
->>> For one of the callers there's the GFN in context.  For the EPT caller
->>> it will likely require some plumbing.
->>
->> From a more abstract perspective, passing a GFN into that function would
->> be wrong imo: Constructing a PTE may be unrelated to any particular GFN.
->> The association with a GFN comes into play only when placing the PTE in
->> a particular (live) page table.
-> 
-> But the usage of p2m_entry_modify() is not about constructing a PTE,
-> but getting notified on p2m changes, and any p2m entry change has an
-> associated GFN.
-> 
-> IMO the point of p2m_entry_modify() is to put all the side-effects of
-> p2m modifications into a single place, where it's easier to manage
-> them.  I think the log-dirty stuff is suitable for being one of those
-> p2m modification side-effects, but I'm not going to insist.
+Add the missing index increase in the M2P clearing loop, otherwise the loop
+keeps pointlessly setting the same MFN entry repeatedly.  This seems to be
+an oversight from the change that introduced support to process high order
+pages in one go.
 
-I can see your point, but I'm still having trouble seeing how exactly this
-would work, especially as the function then would have to have enough
-knowledge to choose between calling (at most) one of paging_mark_pfn_dirty()
-and paging_mark_pfn_clean().
+Fixes: 3c352011c0d3 ("x86/PoD: shorten certain operations on higher order ranges")
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/mm/p2m-pod.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> I might take a look at this myself if I get some free time.
+diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
+index 05633fe2ac88..22dde913cc3c 100644
+--- a/xen/arch/x86/mm/p2m-pod.c
++++ b/xen/arch/x86/mm/p2m-pod.c
+@@ -655,7 +655,7 @@ decrease_reservation(struct domain *d, gfn_t gfn, unsigned int order)
+             }
+             p2m_tlb_flush_sync(p2m);
+             for ( j = 0; j < n; ++j )
+-                set_gpfn_from_mfn(mfn_x(mfn), INVALID_M2P_ENTRY);
++                set_gpfn_from_mfn(mfn_x(mfn) + j, INVALID_M2P_ENTRY);
+             p2m_pod_cache_add(p2m, page, cur_order);
+ 
+             ioreq_request_mapcache_invalidate(d);
+-- 
+2.51.0
 
-In the meantime I wonder if we couldn't get this in, and then your other
-already pending patch on top.
-
-Jan
 
