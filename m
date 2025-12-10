@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5EEECB2756
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 09:51:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182669.1505514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249D3CB279E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 10:02:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182682.1505524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTFuM-0006uC-Fr; Wed, 10 Dec 2025 08:50:50 +0000
+	id 1vTG4w-0000IX-Ei; Wed, 10 Dec 2025 09:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182669.1505514; Wed, 10 Dec 2025 08:50:50 +0000
+Received: by outflank-mailman (output) from mailman id 1182682.1505524; Wed, 10 Dec 2025 09:01:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTFuM-0006sf-D7; Wed, 10 Dec 2025 08:50:50 +0000
-Received: by outflank-mailman (input) for mailman id 1182669;
- Wed, 10 Dec 2025 08:50:49 +0000
+	id 1vTG4w-0000Ga-B8; Wed, 10 Dec 2025 09:01:46 +0000
+Received: by outflank-mailman (input) for mailman id 1182682;
+ Wed, 10 Dec 2025 09:01:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTFuL-0006sZ-8b
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 08:50:49 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c2u0=6Q=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vTG4u-0000EX-CK
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 09:01:44 +0000
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c10d::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51f1273a-d5a5-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 09:50:47 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42b3c965cc4so255110f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 00:50:47 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfeae9sm36761718f8f.13.2025.12.10.00.50.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 00:50:45 -0800 (PST)
+ id d7b043e7-d5a6-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 10:01:42 +0100 (CET)
+Received: from BY1PR03MB7875.namprd03.prod.outlook.com (2603:10b6:a03:5b1::10)
+ by DM6PR03MB4954.namprd03.prod.outlook.com (2603:10b6:5:1e2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Wed, 10 Dec
+ 2025 09:01:38 +0000
+Received: from BY1PR03MB7875.namprd03.prod.outlook.com
+ ([fe80::2e3c:781a:5f98:7f19]) by BY1PR03MB7875.namprd03.prod.outlook.com
+ ([fe80::2e3c:781a:5f98:7f19%7]) with mapi id 15.20.9388.013; Wed, 10 Dec 2025
+ 09:01:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,216 +47,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51f1273a-d5a5-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765356646; x=1765961446; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GdxOMJ1aJGBzhGwqmFcvqL4PlfxOe3iufLLQ1Y5HEqk=;
-        b=TJu7VmColLBDTfsEpG0Qr1ddsGMn1qOFD6ysVJkbPDyFX2nLP4qPHf/W+W79OQlOYw
-         jK6m34DNj9hy9FMHiNzSZVrIwuVT9WUqUsPtYtwFVtJ/61JO+wtTu6R1JaRTixzrbEGx
-         ImKwMoGNwD284a/UMVgiIuJSUCf5xsrubkIZGUN0th1WcxtmEcpqg1syvBLckrkOLpLg
-         SLtdUWUNRFnA3teVgVZ97/FHpRPp0IjTD6AugRPDQTC7q5i8bE2r1N9oPYat5z5HEruD
-         p2xl7vWbfJYwsOjlOaWnmvESDcLal9C0ANj0sF+RQ/euI2qMp3uW94lZuhIzr2c7eehi
-         bi5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765356646; x=1765961446;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GdxOMJ1aJGBzhGwqmFcvqL4PlfxOe3iufLLQ1Y5HEqk=;
-        b=qpChY6ZqUv1J+DIaOLksJjABBJHm6sopgnYiDoSenncjbRfl78qT0IKYuhBoSiYGNv
-         W09bVChHd3ov7wz0mKT0zv5iYUId6NbDQfNX+4tQjwd7trYBjtIIGZmVlkzmkANauMkZ
-         G8Y3Syd4Z80sqz/pywFMHAiz2B6TbaE6fdGaGUkYCnlkQ7KgBdiY+Aa6m0SRZiRvUn43
-         1WusGGsp27OTol/mmZf0BdGVjPfELZDyj7pzcySkV+g3JzY4R1G1NtnNDoEOvpzJ0EZt
-         NssnmnKHroZa41fPW68INVQHVFSUF+0ylJ4AtEpWfj2AH93qL107LYPJwrtjtFSBAsgW
-         6pnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVzqnwRa2Y33SkWleHrz6SrJqfgiItjpAoPTuKxJB3cfy7SFuMlYgH5NnZa6Ae/inuqpofk2/jekoY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwkbP/keMwHdBYZv9xxhiYJGqvfKgg8lx427y50ucq/u4pYEqPR
-	ZCxKNmT+3I8+XLJd0l670c7xEu7nCPfNLUR6exRUw1wvIGiIM+FBJyi8T/yagv8qXQ==
-X-Gm-Gg: AY/fxX7EYeiMHK6PlByY0TK4gaiYxitSc8H92a0oZjTT+rYCV19GxX1p7ENQZdOod7m
-	kwCNBDwj0GysHHsK5v+ArfO8/ebZCh8P5tWsrK/Ifk+A44KnuzstfyiN6fJoXi/lQ0qmyx3ZUPo
-	XAr0cMpaXLt7A4qIvsVN1BkBmKEQFW2XXhsYK6YRXevQIcbzm6q+b+Yt7Zgboy656xC/guvrTrd
-	wRSDLLw/yPK6u//KNgxvGVwjc3ZNsSMMGrNArGc1p7EfSiNhp2du59xDHE6cRbnwvkdY+QNSpSv
-	VbNzGWICUy67qMbI+I/JLeoF4xdb8wc1IEUQGxstZn+kCGf4bntNG290lUKZv9QRNONbQ69lLsG
-	EuF9Sa7ETZDLZF9uI8kivOXIPi/dWNToTmkbDdz54OXNTOcNB/XicowkxMsLjKpPmcr/+7Bk6oG
-	XApxEdYGe3MsqiRALD/uKPbGAptpVNsXxretEzkjr2rfihO66fha65Jrt7wvGTs7Xx2ynm29cZk
-	zM19rm2VhvpTA==
-X-Google-Smtp-Source: AGHT+IG/HVX6sl7qvS5HuGpSlat+cDl0LQujIDtXQf0W9f0f6s+833nAhDQegxueecICNl4wV6F+tQ==
-X-Received: by 2002:a05:6000:2086:b0:42b:47ef:1d7a with SMTP id ffacd0b85a97d-42fa08621eamr4831232f8f.20.1765356646438;
-        Wed, 10 Dec 2025 00:50:46 -0800 (PST)
-Message-ID: <29100824-303a-46b2-b394-d15d617131bc@suse.com>
-Date: Wed, 10 Dec 2025 09:50:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] xenpm: Add get-intel-temp subcommand
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1765300623.git.teddy.astie@vates.tech>
- <6fcfea5d3f6be1bcf1d34ea5ccec40a477100472.1765300623.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6fcfea5d3f6be1bcf1d34ea5ccec40a477100472.1765300623.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
+X-Inumbo-ID: d7b043e7-d5a6-11f0-9cce-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jioqKAXQxU87x8M3lsWes9msjOcGDJSb16H/It8keel7C5Ik1aZgy6qtYv6PsJ2is0wICcZsoBes/Ct2JWtbkIVjv+fpJWW4duhLqRBc30KqL5kENHVbosJHAZ43JhdFvN2+OrmGpZw1wuf9BPL7YZwVtqjiyRPHSGDBFK5XInhnCHqA8vo8O0HzqPynJyTfXCqlW0zkwtR2jILsoxr3EhEHU2VgoQNYZIwXvSkY9F29Xs1gj0KdtadwmQunN5/hw8V9wWwOtd14TLUFUlS1pb1fNTjnUUpkek0rQPUnaoJe3JVAuNvGe76P98YSztCF52+3TSgeC2MeCwtSjR+suQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MHtOpjToBfe+/fGHL9n3cgmGnJve/H3YqpL+esDaiZc=;
+ b=Xiy8Nyr9arFIL2/0UtEocsqz8DbiGYCWClmrLI9+6GOPKOxxi15GQdQ1XmSE8oSU0yw9B/diO+lR8E3LWOdwxT/qlZzD0S2quRUp7kX0GYkDnMBD6txFJuYtt7Qfzhqq78HHx57kV+j4RFeAf/ANeUy0MlQ49kHt1c7aREOAuV3UPRwkhC8vYIrnreaUpgYTgcuSv2W7fJAbqpiDIlU0clP3tZrsE7xU7e+tu7aLTwOXP7s8nMrBY1MNiQXOtb7lGfq6BbKuIUKZiTZQqMwvYtPqP5+CYT8i/0ugSSpF7l4/ID6quj3fNkFeMc1+CgmYHJ6KUmqyFBDX8Cm2Cb4dXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MHtOpjToBfe+/fGHL9n3cgmGnJve/H3YqpL+esDaiZc=;
+ b=MtXiJKYYQJdqMjoyqFqu2QnpsY4HYYniIjAtMS73U7toBSWZ7O/4qr5R6HdgbkYCAagO8BsvPaqaYWxA9UmgVhZhrOfcc8Y6l9OxhtH2YzNOfrKmKCRiOZa6bDJalJJ5AsKdwTuIySjSssNI9tj3iGDgoCih1t5EykhY4obWgRI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 10 Dec 2025 10:01:34 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH v3 7/8] x86/mm: update log-dirty bitmap when manipulating
+ P2M
+Message-ID: <aTk27qyaDM9FuL33@Mac.lan>
+References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
+ <d47d01dd-0289-370d-7b5e-bd80f9e0a911@suse.com>
+ <aTLjwbcm4fjwNJfb@Mac.lan>
+ <b03a8039-e4b3-42ff-9781-031bf68ccb72@suse.com>
+ <aTgJUvqTIQRc66L_@Mac.lan>
+ <f09af4cf-09d7-462a-b8d1-0f2a4b3f32cc@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f09af4cf-09d7-462a-b8d1-0f2a4b3f32cc@suse.com>
+X-ClientProxiedBy: PA7P264CA0243.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:371::8) To BY1PR03MB7875.namprd03.prod.outlook.com
+ (2603:10b6:a03:5b1::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PR03MB7875:EE_|DM6PR03MB4954:EE_
+X-MS-Office365-Filtering-Correlation-Id: c709d4d2-5a24-45c5-7e39-08de37caba6b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NmpFcnByQnVxMlNLdCtFOEpnTjJlUkdtbWhsZ1lMWXFvTXFKL1BCNUkvL1JL?=
+ =?utf-8?B?RjZ1aFBuRjJBbHFMQysxQllUTnJxc0NtVngxaG5HQkxnV0MydjZBaEtlZjAr?=
+ =?utf-8?B?YVBsdmcvc1Nia0tXc0V1dys2OEV6YkRocGJCRWJ0RWt2RkNvTUo1RGw4ajhC?=
+ =?utf-8?B?NlRKMVJXdjlYVGs3NE9RM3ZrUS9aTm1HRjFkYkdKdEErRVlBTWZaaCtoU2l2?=
+ =?utf-8?B?YTJIeXRQaFhiNUliaVpPRGhZWGZ3c3NiU0tHaU41OFJMV29ld3dKdFMvNTFX?=
+ =?utf-8?B?U3ZVMFJuV09kc2lXQjgzOXhob0RPY2J6L09FVDZMSk55dWczOThkL3krdnk3?=
+ =?utf-8?B?RCt5eW9MZFZFa090dUJGMlBaQXAxR2pGdGE3MGJyRjc5TzVyV2FXV1VJZUlZ?=
+ =?utf-8?B?eW40YUVpYXJTQ2FSMFlOOFJUMSsvTTNSZCtCeVlyeGdUSDk1TlZLOC9LQXg0?=
+ =?utf-8?B?VDZ0amxnd0RQb010cUR2K0tvT21DdXlyU2I2OFZPZHpFdndUdXJWbGdUWlFW?=
+ =?utf-8?B?ZjBVRnBDbFlzRDh0RFpIc1dKTFNKTnUwMjhWOFVmRkVvZWRPcXJEeWFSRVlz?=
+ =?utf-8?B?eFk1YXdiRkIvak5aVEI0aGI5NnZEUUlVUm01ZzFqQmtJNGVFN0ZGbGhQLzlD?=
+ =?utf-8?B?a1lyOWtYM0dpZ1hUZ2t1N1FKUGlLL05NczBmakp5dENjU20vQnN5eU9aQ2Q2?=
+ =?utf-8?B?R3lUOVVMd0F0bjJObHplMlVweEs2OU1kUDkwbXlmQkJnYVh1c2JLRWd1WVpt?=
+ =?utf-8?B?elUwRDFlMVV0M1hRU3ZFVGU1c1NPNm83eXhWUjB2Q2FGT045cjdDd09xOGcr?=
+ =?utf-8?B?dXg3VXY5cWp0SHFIU1hOR1pFdVZiVW9JQWJBV1NVZGJLQXQ3eStySytobEgz?=
+ =?utf-8?B?NURzRWY3UG5BWDd1U2hGelM3MFNIbzFISlRzVmFPeTJPNDdKSFVtZk5MMmRl?=
+ =?utf-8?B?ZlhEK1hQMitHdXp0emduZHdIUGZpRjhrTEJlNUUzU3h4SzdKSlljR3Q2NGVw?=
+ =?utf-8?B?QUluK0VRenNuRWd1eFUxV1k1bjlLZ2NTRytOemZSekk2TnBxcTNweFk2WDdF?=
+ =?utf-8?B?ejlxYXl1SGRJeHkrRDdiRno4MDNBMWlhSTRvNGl4WE5obGl0ckcreGlCV2ZO?=
+ =?utf-8?B?dXk0eUVxekthdVBQd0YwMHpOUjZ5aUVxWFZRUm5acUhmNjQ0R1AwakJVaXJy?=
+ =?utf-8?B?Y3VsR0lFcXM0Y0E3Z2VBR2pzZnV3TFR5M3IzNnVlckMzRVFLWTZaZXpSU0U0?=
+ =?utf-8?B?K0psZjZqd292YlFoVkllbjFDdEgyTXFmaUdTK0xSMEowTXVxTHZsS256WTlj?=
+ =?utf-8?B?RTNCUHlEL1VwN20raVc1TDhkdmt3d0VjaHVEL2t0VjZ3emhBbHRUUEVZSDJr?=
+ =?utf-8?B?YWpwZWIyR2xZZitsdmpINndHZm9KelJnQWVsdXBLTW40UHlpaSsrKzZKVjlx?=
+ =?utf-8?B?V0xBS1NxWmhGZHRyYVV2dGNtZ1pJTDJtaEdDSzNMZmsvdjh0eFYwbnA4bml6?=
+ =?utf-8?B?eFM0bkVSYmVQMFdBaEVEVkFtdGl3T3FsdVA3M2FlZDhCYThNdEVOREE1aDBR?=
+ =?utf-8?B?VU9jSGN4dmxaNG1rWHMyS2hQSklmajlCWGU3S3lsL3FicEVhK2t3OVdaQlBN?=
+ =?utf-8?B?bFYrL0FOWE1qNkJtNHZCTlZPRnRjREp0K2hoSkJKVWVTYzRyUkIwOUlSaFo4?=
+ =?utf-8?B?bjdGWm5FSmVsUTU1NFZlcG8reXpwTCtmOEhvRjhGcHcyUUVjYkR0c3p4UEQw?=
+ =?utf-8?B?cTdDbGRyQkpkL1ZsekNhNm9sUDhETFdVQTJnWHVIaUUxM3NxeFY1TFBOYnM1?=
+ =?utf-8?B?V0s2NTk0cE9PeEJIMWpqdUZTTWdPNkMwQmVmNCtHZWJhUDNndkpaRHByZy8v?=
+ =?utf-8?B?RkhldzZvcXkzbjhCa2RMR0tVZ3lNVVN6WXROWVp3NnRtd2U1SXRocERTMmN3?=
+ =?utf-8?Q?DlmZEpveSn7ntmxdQSRs7GrqHR+DSh8t?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7875.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YXNBdGpIUnl3UHBFVnBtWU1SRUZOMWZLSW4vQjdIejEwbnFDcVlyTm5UOXVC?=
+ =?utf-8?B?NFc4dUlwejNTRS9yUTNhWnc0clVYUFhlRlRFVmVrUmhJSlpzallMWnpVQXR2?=
+ =?utf-8?B?dURCdFVNaHZPZDlWclF0bTg2UkxNTmZFN2JHOEFXWi9CQUxQcGpxN2g2VUdl?=
+ =?utf-8?B?MlRZZlErVjdxaE83d3hNQjNiR1JUL2FZd1BqbENLV1UreWJtcDZoQlVuTWZj?=
+ =?utf-8?B?UkRDOVdYeE9UT3NZU1M3MkNwTGwzTXZaWGxFZWFaZWkwMHgybXRTT0xBNmtj?=
+ =?utf-8?B?bnpwWlFpbERxbWtCMm5Jei9nRkVDc3puamF5MDZYZVdWRjFZdEY0bGhXeEQ3?=
+ =?utf-8?B?Qzc3TGNwUWZtYVRTc0FpTUhTQ0dUNUlvUmJiMkVEKzVoS25zWVZmUVZJOWVy?=
+ =?utf-8?B?OEdLZG1jWnlDSXRIcXpUd1c2L2R1WWxDQ2p3OWNPdWtmb1d3L3d5YlNLZEQz?=
+ =?utf-8?B?M2R1SHhRTWNtYlc4ZGg0MkZ4V05qa3JwdU5ybXdPak9OOTdmVHkzWHBvekxs?=
+ =?utf-8?B?ZHY3NWMvRytsZW1UMXFEYVBUREhGbnlIZVVWS05xWWVQbmFDcGJEWVFyajBE?=
+ =?utf-8?B?d09MdGt4cHR1UC9oU3lEeHJjK2ZyajkzeG1nRFdhc0x4VWtoei9hMkRwdHRO?=
+ =?utf-8?B?bmU4UWlaYWJVSk5TdHFnOHJUeUluT3FxczFYK01EWFhJNnRwMmtkdW00MkN1?=
+ =?utf-8?B?WlF1cVFnYkFHZE1KZTlnUitBeEp5c2IraU8wT3RQVDRONm1BK3kvOVZXNTdM?=
+ =?utf-8?B?NGUrd3pZZmZUNlBxUUZPVXozaVBoNFNnL004SEt6d0s0YytpeUxmbVNxTTRL?=
+ =?utf-8?B?RDZQNmF2WXpWdWVWbXJyaUVTNlNWMThMbnQ3dlovRUNPZ3hrMzJJSU5HVGJ4?=
+ =?utf-8?B?eDlHNTJVNzgrSlBYZkNUZjNzWGhudS9yUElweW44UWtITWdzWEFmODVNcmhx?=
+ =?utf-8?B?eUJnMWx6WGZ2SDFOSThmTnIxeXF0WGwvU055OUJreW9zTXJLS2lXWnJFTEVN?=
+ =?utf-8?B?Y2VVNDhQZ1ZyVHJLYVJjQm5tUExHdnc5ZFlCbmk3SXl5ZDVTWVlyaHZYZ1J2?=
+ =?utf-8?B?TC81ai9CaEthM01mMDJBYVZ2bHFwWFBkM2doUHg3WU5leUpwYVY0KytiL0FQ?=
+ =?utf-8?B?czgwNWFydkRvNjluVDh5U0p0U0NhZndubjV5SjRoeisrcENWYXk4U3lTRldm?=
+ =?utf-8?B?cHQyUWY2bkRnSGt1bTIzNmZxZDhnZDBhYmRZeTdoVk14RzhLSTRqZDZlTUI2?=
+ =?utf-8?B?ZTBnUTVUNTJaSCthRlk5ZmpYRldTS3VDN0d0SXY3a09YcTBMclhhdW1SSHVH?=
+ =?utf-8?B?UHBEa0o0Wk1lV0t1TVlUVSt0ZldUVGNmS3JoclBjY1BhSEN6OGk3SmJ6REpi?=
+ =?utf-8?B?ejJFSEJxRzlUSXE5T24xOEt5SXFtOGRFY2t3c1JHdTlLYUN2TERHSGNrYkM1?=
+ =?utf-8?B?OXhaR1JZWkhFSlNOWU1uc3k5eTQ5bDJpSSsza2NEWU53eS9sazdtbXhoVThV?=
+ =?utf-8?B?aVgyUmVRZ1ZRY3dUdnpvTy9JT1FVb3NFRXNuRWY5clg0Z0JNZHByM1IrNk1F?=
+ =?utf-8?B?c1FRWVFpOXZQVDlaS3ZuNE9tUnZMTUFRVFhLdm9VNEtyVTk0NW9qZmt4czNX?=
+ =?utf-8?B?MEJKZFZvU0lCMXhWZ05Odkl2cUYxQWpjRXhDVlJnMlFSNnVKMWN1WGhoSHRv?=
+ =?utf-8?B?K3BuSXVzcWJnYTZCemRCMjQ0bHdjb0pwZ3dlL3NlZHpiazFwL2tQeTJkVCtX?=
+ =?utf-8?B?R2V3RCtmdmFGV0ZGZTNBV3BESHRCTkdOM2YzVXlodmlYQVhmenNNdkpxVXFx?=
+ =?utf-8?B?TEl3T1NqVDVWek5RRnVIVEk3dG1nTEQ2SXUrRStDSXdjS3JrL1Q2RVNrRWJR?=
+ =?utf-8?B?NXFiejF0cWJ3aG00RHFCUnhQcy9TWmhWdjJDK2V2c1VuMUVTeHYrRjFpdGUr?=
+ =?utf-8?B?MTNqU29GYnRreHhJaVliT25OYThuMTRTVkdBN1N3RWt0Q2lEbm1NcVorRHVh?=
+ =?utf-8?B?dld0bUM4YjhENDRGNXkxUXNpaEZqc1UyQXlCZUlpZWc1SGE2UjFFUVVkUysz?=
+ =?utf-8?B?d2Q0Wi9Qa2tFNkVkdUZicXRvTjBEM3E3aVlrMmZHdmdkbytXeCtlQ1JYdTdP?=
+ =?utf-8?Q?DS8FgwuQ3FrZLTN4J49dypQIK?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c709d4d2-5a24-45c5-7e39-08de37caba6b
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7875.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 09:01:38.6873
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dcv6c6WpgDAAuJ6qzK7cVwZLrpk4tLYTlkUlc8iq/n8e+WeSXMNXYBcvjULiG4prCI5GxnDZjhJKR+wCrCnyDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4954
 
-On 09.12.2025 18:19, Teddy Astie wrote:
-> --- a/tools/misc/xenpm.c
-> +++ b/tools/misc/xenpm.c
-> @@ -30,6 +30,7 @@
->  #include <inttypes.h>
->  #include <sys/time.h>
->  
-> +#include <xen/asm/msr-index.h>
+On Tue, Dec 09, 2025 at 12:49:59PM +0100, Jan Beulich wrote:
+> On 09.12.2025 12:34, Roger Pau Monné wrote:
+> > On Mon, Dec 08, 2025 at 11:48:00AM +0100, Jan Beulich wrote:
+> >> On 05.12.2025 14:53, Roger Pau Monné wrote:
+> >>> On Tue, Apr 26, 2022 at 12:26:10PM +0200, Jan Beulich wrote:
+> >>>> --- a/xen/arch/x86/mm/p2m.c
+> >>>> +++ b/xen/arch/x86/mm/p2m.c
+> >>>> @@ -549,7 +549,10 @@ p2m_remove_entry(struct p2m_domain *p2m,
+> >>>>          {
+> >>>>              p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
+> >>>>              if ( !p2m_is_special(t) && !p2m_is_shared(t) )
+> >>>> +            {
+> >>>>                  set_gpfn_from_mfn(mfn_x(mfn) + i, INVALID_M2P_ENTRY);
+> >>>> +                paging_mark_pfn_clean(p2m->domain, _pfn(gfn_x(gfn) + i));
+> >>>> +            }
+> >>>>          }
+> >>>>      }
+> >>>>  
+> >>>> @@ -737,8 +740,11 @@ p2m_add_page(struct domain *d, gfn_t gfn
+> >>>>          if ( !p2m_is_grant(t) )
+> >>>>          {
+> >>>>              for ( i = 0; i < (1UL << page_order); i++ )
+> >>>> +            {
+> >>>>                  set_gpfn_from_mfn(mfn_x(mfn_add(mfn, i)),
+> >>>>                                    gfn_x(gfn_add(gfn, i)));
+> >>>> +                paging_mark_pfn_dirty(d, _pfn(gfn_x(gfn) + i));
+> >>>
+> >>> Have you considered placing the respective
+> >>> paging_mark_pfn_{clean,dirty}() calls in p2m_entry_modify()?
+> >>
+> >> I didn't, but since you ask - I also don't think that's layering-wise
+> >> an appropriate place for them to live. Whether a page has to be
+> >> considered dirty needs determining elsewhere. No matter that ...
+> >>
+> >>> There's a lot of repetition here with regard to handling the side
+> >>> effects of p2m changes that are forced into the callers, that could
+> >>> likely be contained inside of p2m_entry_modify() at first sight.
+> >>
+> >> ... this way there is some redundancy.
+> > 
+> > Redundancy is one of the aspects, the other being IMO code more prone
+> > to errors.  Having to do all this non-trivial extra work after a call
+> > to set a p2m entry, both in the success and failure cases, seems
+> > likely that it will be forgotten or incorrectly implemented by some
+> > of the callers.
+> > 
+> > It's you doing the work to fix this, so I'm not going to insist.  It
+> > seems a lot of extra complexity duplicated across multiple callers.
+> > 
+> > FWIW, it would be easier to understand if we had the logic to mark
+> > pages as dirty in a single place, rather than scattered around
+> > different callers that do p2m modifications.  For the time being I'm
+> > fine with doing as you propose, but long term we should see about
+> > cleaning this code IMO.
+> > 
+> >> Furthermore p2m_entry_modify() also isn't really suitable: We don't
+> >> know the GFN there.
+> > 
+> > For one of the callers there's the GFN in context.  For the EPT caller
+> > it will likely require some plumbing.
+> 
+> From a more abstract perspective, passing a GFN into that function would
+> be wrong imo: Constructing a PTE may be unrelated to any particular GFN.
+> The association with a GFN comes into play only when placing the PTE in
+> a particular (live) page table.
 
-For this to not break non-x86 builds, don't you need to constrain the building
-of the tool to CONFIG_X86? (I have no clue why it is being built for Arm as
-well right now, as I don't see how it could provide any value there.)
+But the usage of p2m_entry_modify() is not about constructing a PTE,
+but getting notified on p2m changes, and any p2m entry change has an
+associated GFN.
 
-> @@ -37,6 +38,7 @@
->  
->  static xc_interface *xc_handle;
->  static unsigned int max_cpu_nr;
-> +static xc_physinfo_t physinfo;
->  
->  /* help message */
->  void show_help(void)
-> @@ -93,6 +95,7 @@ void show_help(void)
->              "                                           units default to \"us\" if unspecified.\n"
->              "                                           truncates un-representable values.\n"
->              "                                           0 lets the hardware decide.\n"
-> +            " get-intel-temp        [cpuid]       get Intel CPU temperature of <cpuid> or all\n"
->              " start [seconds]                     start collect Cx/Px statistics,\n"
->              "                                     output after CTRL-C or SIGINT or several seconds.\n"
->              " enable-turbo-mode     [cpuid]       enable Turbo Mode for processors that support it.\n"
-> @@ -1354,6 +1357,92 @@ void enable_turbo_mode(int argc, char *argv[])
->                  errno, strerror(errno));
->  }
->  
-> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *temp)
-> +{
-> +    xc_resource_entry_t entries[2] = {
+IMO the point of p2m_entry_modify() is to put all the side-effects of
+p2m modifications into a single place, where it's easier to manage
+them.  I think the log-dirty stuff is suitable for being one of those
+p2m modification side-effects, but I'm not going to insist.
 
-Is the 2 actually useful to have here?
+I might take a look at this myself if I get some free time.
 
-> +        (xc_resource_entry_t){
+> Furthermore it's not quite clear what the conditions would be for
+> p2m_entry_modify() to actually mark a page dirty. Only new type? Might
+> old type also matter (so we wouldn't mark a page needlessly as dirty)?
+> Yet other criteria? That's what callers will "know" (better?).
 
-Why these type specifiers? They shouldn't be needed in initializers (while they
-would be needed in assignments)?
+I've just taken a quick look, but callers from the p2m tree seem to
+mark pages as dirty based on the new type.
 
-> +            .idx = package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STATUS
-> +        },
-> +        (xc_resource_entry_t){ .idx = MSR_TEMPERATURE_TARGET },
-> +    };
-> +    struct xc_resource_op ops = {
-> +        .cpu = cpu,
-> +        .entries = entries,
-> +        .nr_entries = 2,
-
-ARRAY_SIZE() please.
-
-> +    };
-> +    int tjmax;
-> +
-> +    int ret = xc_resource_op(xch, 1, &ops);
-> +
-> +    if ( ret <= 0 )
-> +        /* This CPU isn't online or can't query this MSR */
-> +        return ret ?: -EOPNOTSUPP;
-
-xc_resource_op() doesn't return errno values, so by using -EOPNOTSUPP here you
-put the caller into a difficult position when actually looking at the return
-value: Does -1 mean -1 or -EPERM?
-
-> +    if ( ret == 2 )
-> +        tjmax = (entries[1].val >> 16) & 0xff;
-> +    else
-> +    {
-> +        /*
-> +         * The CPU doesn't support MSR_IA32_TEMPERATURE_TARGET, we assume it's 100 which
-> +         * is correct aside a few selected Atom CPUs. Check coretemp source code for more
-> +         * information.
-> +         */
-
-What is "coretemp source code" in xen.git context? (I understand you mean the
-Linux driver, but that also needs saying then.)
-
-Further please respect line length limits, also ...
-
-> +        fprintf(stderr, "[CPU%d] MSR_IA32_TEMPERATURE_TARGET is not supported, assume "
-
-... e.g. here.
-
-Additionally there are still IA32 infixes here.
-
-Finally, if this message triggers once on a system, it'll likely trigger once
-per get_intel_temp()'s loop iteration. Feels like a lot of (potential) noise.
-
-> +                "tjmax=100°C, readings may be incorrect\n", cpu);
-> +        tjmax = 100;
-> +    }
-> +    
-> +    *temp = tjmax - ((entries[0].val >> 16) & 0xff);
-> +    return 0;
-> +}
-> +
-> +
-> +void get_intel_temp(int argc, char *argv[])
-
-static?
-
-> +{
-> +    int temp, cpu = -1;
-> +    unsigned int socket;
-> +    bool has_data = false;
-> +
-> +    if ( argc > 0 )
-> +        parse_cpuid(argv[0], &cpu);
-> +
-> +    if ( cpu != -1 )
-> +    {
-> +        if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
-> +            printf("CPU%d: %d°C\n", cpu, temp);
-> +        else
-> +            printf("No data\n");
-> +        return;
-> +    }
-> +
-> +    /* Per socket measurement */
-> +    for ( socket = 0, cpu = 0; cpu < max_cpu_nr;
-> +          socket++, cpu += physinfo.cores_per_socket * physinfo.threads_per_core )
-> +    {
-> +        if ( !fetch_dts_temp(xc_handle, cpu, true, &temp) )
-> +        {
-> +            has_data = true;
-> +            printf("Package%d: %d°C\n", socket, temp);
-
-%u please for socket.
-
-Jan
+Thanks, Roger.
 
