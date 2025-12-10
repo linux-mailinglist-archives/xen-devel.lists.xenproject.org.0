@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B082CB4043
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 21:58:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183336.1506071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445EDCB406B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 22:04:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183351.1506080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTRG2-0003Yf-IV; Wed, 10 Dec 2025 20:57:58 +0000
+	id 1vTRM3-0005BD-9U; Wed, 10 Dec 2025 21:04:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183336.1506071; Wed, 10 Dec 2025 20:57:58 +0000
+Received: by outflank-mailman (output) from mailman id 1183351.1506080; Wed, 10 Dec 2025 21:04:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTRG2-0003WC-Fi; Wed, 10 Dec 2025 20:57:58 +0000
-Received: by outflank-mailman (input) for mailman id 1183336;
- Wed, 10 Dec 2025 20:57:57 +0000
+	id 1vTRM3-00058u-6v; Wed, 10 Dec 2025 21:04:11 +0000
+Received: by outflank-mailman (input) for mailman id 1183351;
+ Wed, 10 Dec 2025 21:04:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RTTf=6Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vTRG1-0003W6-2B
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 20:57:57 +0000
-Received: from fout-a3-smtp.messagingengine.com
- (fout-a3-smtp.messagingengine.com [103.168.172.146])
+ <SRS0=TEw+=6Q=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vTRM1-00058o-AN
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 21:04:09 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e52c09a6-d60a-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 21:57:54 +0100 (CET)
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
- by mailfout.phl.internal (Postfix) with ESMTP id B07D0EC04B8;
- Wed, 10 Dec 2025 15:57:52 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-10.internal (MEProxy); Wed, 10 Dec 2025 15:57:52 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Dec 2025 15:57:51 -0500 (EST)
+ id c3a99718-d60b-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 22:04:06 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 868724EEBC5F;
+ Wed, 10 Dec 2025 22:04:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,329 +40,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e52c09a6-d60a-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1765400272;
-	 x=1765486672; bh=14/kWMkIUVhB0X0jzvXh5YDdzZKS/Fx19hNDc2RZ6+k=; b=
-	Pfeqw+r9ccTUJ9hoedInbLCUXG2/wP06haiam+WOSvWHYwwvDuXLSRKQbLCfnD/U
-	USnkMMi4zZbnLeT4FPOtUqNleHJWi3Q5q2f8Ajf/5sD9vKPFaM4Mo/FxLTh/GjXj
-	fwqbEwsWiQDXx73OdcwuZ/fvEEesbYZJIodeCdSXbwEXRCakVvdG1zF4ih4UAHMp
-	zN02l1rk3TUW+oCKLe6/HWXrUB9td3iPa5TSsDbwnD94/hv0Wo9KtjrInGfXHNSJ
-	q0kLWwcARW1TjIcyJteF42+HFdkX1XHH4JjyhjycuPlY6pnz5GHYc5p6HFWT9dxc
-	KGTbBpfuPhjO1+wi+JCcbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1765400272; x=1765486672; bh=14/kWMkIUVhB0X0jzvXh5YDdzZKS/Fx19hN
-	Dc2RZ6+k=; b=PUx98JFaeKKRoIhD8ddG0o1WZk+ehUzzDEqGlI3DZ/iY+JDGvaF
-	Fo+cXGP0ZmyQVsAvEsg9GzzsQhcpWXQsIWzAR7vZhl3mr2vSpnJ9AoIqhpvEor43
-	AtsP1kZwYOUFp/PumgnYZQpRtXCl9MtJZ+Rux7y2ekOES7VJJxKBw58GRzuhIqIW
-	r3MmBDWv9UVnGxl5/BQvX0qmGnYgNa5NLaMUjUO92c7WZabWflJ66LSAB7wh+9YP
-	NcDuMlB5DBiwQ40RnA178rwPbXkFCy7cJru7f0yCshUFkvPaTK58oRjFK3EHloqB
-	PxwpZSmKmzybgZ4uOfyGnq/YO3KPStNLaug==
-X-ME-Sender: <xms:0N45aax2OPnqRp7ofBRW1d01PEiB_jntujvkI4s_6dB8MvkcAyKSew>
-    <xme:0N45adTPZ8kbR99oQTqDPwAkj6D6d3lO6tOVCREsEaSUbG64Sc6gu2wcIxxh8Zfiy
-    _OQIbC-URTMmbLrxUnRc6nl2-OXynukVtgPGoVXcxRCdcyAEA>
-X-ME-Received: <xmr:0N45aRUDRuNAQZSI9v5qiL6azZhyJsRwAKnrN7gBXuYGG6ZefqF7HqfM52TcFBJmSrQoXjBPpEhNE3gmUpBwQqYapMVNsCXwSYw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvfeeggecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
-    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
-    guvgepshhmthhpohhuthdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgv
-    lhdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhroh
-    hjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhr
-    ihigrdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomh
-X-ME-Proxy: <xmx:0N45afY7EJI9a4U6gP_qrlS_LjZE29iwTdrwmaW0ZOOmOXkaKa36ig>
-    <xmx:0N45aX3B0Q6q1HPv-TpQ1No8GGBtIW_t5dhp-CVAOe_9KMibtQPChQ>
-    <xmx:0N45aRj-99agYpjAow3GJda0Yjl7zU-IllskNACUGbyVyUU1o3JT4A>
-    <xmx:0N45abbT6-u8vNc_zO5bQPe6RyDd2dMM_Vbkvtu224d50ld_gA9DfA>
-    <xmx:0N45aY31LtbtpXuFdmDKeFY9o9Y27at0Pzb4WnH9mT_nERl5m0mVmFUy>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 10 Dec 2025 21:57:48 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v4 4/6] CI: Add driver domains tests
-Message-ID: <aTnezVY1NoE-vZRF@mail-itl>
-References: <cover.b56a66dfe4d98db2f1cc8b1fe0c2091d02cebe38.1764989098.git-series.marmarek@invisiblethingslab.com>
- <cf2a2544fe27fedca5129b61912c064f4be08236.1764989098.git-series.marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2512091534060.19429@ubuntu-linux-20-04-desktop>
- <aTjOBpuKMSO4LzzN@mail-itl>
- <alpine.DEB.2.22.394.2512101219460.19429@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: c3a99718-d60b-11f0-9cce-f158ae23cfc8
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765400645;
+	b=UVWQKr7i3CEPZbe9jcgNIAApjOf9xxsp9ncE23f+5PapjejdqOknjp7GnQGtRdQoONNA
+	 rSRTtz+FYa+k2yLgt47tfP4odngiyc43fijlSOfD26sT+iFl+jgruwqS5azjAQdBgeQ1c
+	 eGGJNDpDB6FrPfnEVD6Qnpd38Yg+/xHt3NCJmmStgqaCebr4zjSJwZh8bYQPzC0ECGY35
+	 DB10Zk+VBNSwdqq3oUqpb3iYz9zV5py6qr1Eim4ZIG1L+Cu/KtCadSEuMzcvrSsB0Rq3G
+	 nNdfRx51obBl7JOPEUK1g+bIXzmpdZtpowIAA7AV1pPQvzGokyBcQNJEsfRXtNz979LZq
+	 JNk85VLuRDEBrUeFPQ9URiu/1nAIGfRFHhl9KHt8GnaG5TohZR8W5LsIDaD3aTEKVAr6o
+	 mIc1GeKp5AINT/mN2QT8EUeVD6UqDU/QlKRcKp64ZmusUtpnlKfby7zF+JqQi7qLUODhN
+	 Pa2d5XC4fjzfxSDyc0IK8dUGbBznwmoE60bkGCv8Po8FbiEwiAMVZQK+r68xbf72aKrp8
+	 yslgvlfWMnbPmc3LX+bfUCPuhdSdcPJZg5yRoib14ahSHBa+AlcNsegTMhDTZADx2R0z0
+	 ugmBaJHhi+oDzdXLyEeh6TvDI5pP72CFl2Je7/JHgOdgqzmUojJuEG0ULKRUxHk=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1765400645;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gpQNHSCoovOcTqunSkPw0fNbA6p+CFqBvbrVIGEp3y8=;
+	b=aUPrncKMjKkM5JYWALznHgn7r3d8FgwCsysbe9vnzlpzFR5A5R4o1uo6wxtDJ9MALIbS
+	 OFSXdTJorNCJJo01hvRsfzVq9OkxnlR/hO/iJE1PSX2+GVNoaXFZrHjxhysMq1zXRhnw0
+	 Q3XN9DpcyLlHMeGKpFKA+ZOIGJXQrH8h0qG/BboHcQzJB1sfu1v6e0zHwSwsFpC+YCoFl
+	 Gf5fapfDsUVDO/VQpgztQAoHzA4Y5dcfm5VaLREX2Eb+nl+QdB9oHhR70Voa/gHKrrSV2
+	 mRm9yexd7RHVFA7RMwOm9Nzk/Vu4kWKBhRFLPTe7O0WBt8hzuDuFQXLHS9kgdEiocLzVk
+	 oEB98BDqZwilDgBcnEmlUdOUd4BBz90tdEcscIjkWPs9LN79zHU9i5dn/kf4bIpuYwu1q
+	 h6t5tRa/ewvzmSrN4q7tRyxMvmA0yitwqc6qlHRfgX4A3RGwVXxBFTkQB8BwnxAyFVd/T
+	 QtFAqaT8I2dwAQ/fWSm8j8L1wdiIuYODlqDttkUDTt7+Fxy3H87SpIqNTYnjzO5AuzbpE
+	 ZuagHyKduQxyBtmXHuVrqN+v2Se3KHK+YbOaPWLksUIF+a4huHeAb3oKXcJ7DbnJPps40
+	 JyoNiYB5hbwb918Lx+zGdRAfa0L1FOGJF/GkZkkRSviGR/zG0siO4mmHD1mK+BI=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1765400645; bh=WHZFWu8nSKbFzZ9HJhJFOwjiWKcn2bf8J+Aly1L6I/s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=dlciX0m1RarpBtNl00QHcDFBlapziiClbRqSTwX6VV+mzdAh7vShr6MB+ZokztHkR
+	 x4LLPu1yh7yIwDFk3Pk/OHU4eEAOU20PuSRf4J6bxN4WSaPLuxeNxmdnrmFTP0i4oG
+	 xmBekcRqXX0ENTJPClb8E4SEy8OgDpjPsOVfqeOVssU97Ko1ACs1A6/3wGdBfPAKqZ
+	 pzolcwVEA7Sn+YKBIEW0Nk2zYg7AiEMixiGcHTDXoSaFbEgMiGSc4Aw9S4PrWdQlG/
+	 GE3j9bqlL+3oe9gq1GX7jb0ZN3SrDPAGbXzNlk809QtaLg8XUBk1+q9ggfNlI0tfoJ
+	 FE9iBBIaBiq7g==
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="QWoZckLLoHKI7985"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2512101219460.19429@ubuntu-linux-20-04-desktop>
+Date: Wed, 10 Dec 2025 22:04:05 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH 4/5] x86: Fix missing breaks
+In-Reply-To: <20251210183019.2241560-5-andrew.cooper3@citrix.com>
+References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
+ <20251210183019.2241560-5-andrew.cooper3@citrix.com>
+Message-ID: <5272a5198db51a40318b844a629900db@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 2025-12-10 19:30, Andrew Cooper wrote:
+> With the wider testing, some more violations have been spotted.  This
+> addresses violations of Rule 16.3 which requires all case statements to 
+> be
+> terminated with a break or other unconditional control flow change.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
---QWoZckLLoHKI7985
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Dec 2025 21:57:48 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v4 4/6] CI: Add driver domains tests
+with one nit below
 
-On Wed, Dec 10, 2025 at 12:28:19PM -0800, Stefano Stabellini wrote:
-> On Wed, 10 Dec 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Tue, Dec 09, 2025 at 04:02:06PM -0800, Stefano Stabellini wrote:
-> > > On Sat, 6 Dec 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > Setup a simple two domU system. One with network backend, running
-> > > > xendriverdomain service, and one with frontend, trying to ping the
-> > > > backend.
-> > > >=20
-> > > > Contrary to other similar tests, use disk image instead of initrd, =
-to
-> > > > allow bigger rootfs without adding more RAM (for both dom0 and domU=
-).
-> > > > But keep using pxelinux as a bootloader as it's easier to setup than
-> > > > installing grub on the disk. Theoretically, it could be started via=
- direct
-> > > > kernel boot in QEMU, but pxelinux is slightly closer to real-world
-> > > > deployment.
-> > > >=20
-> > > > Use fakeroot to preserve file owners/permissions. This is especially
-> > > > important for suid binaries like /bin/mount - without fakeroot, they
-> > > > will end up as suid into non-root user.
-> > > >=20
-> > > > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblet=
-hingslab.com>
-> > > > ---
-> > > > Changes in v3:
-> > > > - add fakeroot
-> > > > - run ldconfig at the disk image creation time, to avoid running it=
- at
-> > > >   dom0/domU boot time (which is much slower)
-> > > > Changes in v2:
-> > > > - use heredoc
-> > > > - limit ping loop iterations
-> > > > - use full "backend" / "frontend" in disk image names
-> > > > - print domU consoles directly to /dev/console, to avoid systemd-ad=
-ded
-> > > >   messages prefix
-> > > > - terminate test on failure, don't wait for timeout
-> > > > ---
-> > > >  automation/build/debian/13-x86_64.dockerfile    |   2 +-
-> > > >  automation/gitlab-ci/test.yaml                  |   8 +-
-> > > >  automation/scripts/qemu-driverdomains-x86_64.sh | 138 ++++++++++++=
-+++++-
-> > > >  3 files changed, 148 insertions(+)
-> > > >  create mode 100755 automation/scripts/qemu-driverdomains-x86_64.sh
-> > > >=20
-> > > > diff --git a/automation/build/debian/13-x86_64.dockerfile b/automat=
-ion/build/debian/13-x86_64.dockerfile
-> > > > index 2c6c9d4a5098..6382bafbd5bd 100644
-> > > > --- a/automation/build/debian/13-x86_64.dockerfile
-> > > > +++ b/automation/build/debian/13-x86_64.dockerfile
-> > > > @@ -55,7 +55,9 @@ RUN <<EOF
-> > > > =20
-> > > >          # for test phase, qemu-* jobs
-> > > >          busybox-static
-> > > > +        e2fsprogs
-> > > >          expect
-> > > > +        fakeroot
-> > > >          ovmf
-> > > >          qemu-system-x86
-> > > > =20
-> > > > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/=
-test.yaml
-> > > > index 7b36f1e126ca..abc5339a74ab 100644
-> > > > --- a/automation/gitlab-ci/test.yaml
-> > > > +++ b/automation/gitlab-ci/test.yaml
-> > > > @@ -656,6 +656,14 @@ qemu-alpine-x86_64-gcc:
-> > > >      - *x86-64-test-needs
-> > > >      - alpine-3.22-gcc
-> > > > =20
-> > > > +qemu-alpine-driverdomains-x86_64-gcc:
-> > > > +  extends: .qemu-x86-64
-> > > > +  script:
-> > > > +    - ./automation/scripts/qemu-driverdomains-x86_64.sh 2>&1 | tee=
- ${LOGFILE}
-> > > > +  needs:
-> > > > +    - *x86-64-test-needs
-> > > > +    - alpine-3.22-gcc
-> > > > +
-> > > >  qemu-smoke-x86-64-gcc:
-> > > >    extends: .qemu-smoke-x86-64
-> > > >    script:
-> > > > diff --git a/automation/scripts/qemu-driverdomains-x86_64.sh b/auto=
-mation/scripts/qemu-driverdomains-x86_64.sh
-> > > > new file mode 100755
-> > > > index 000000000000..c0241da54168
-> > > > --- /dev/null
-> > > > +++ b/automation/scripts/qemu-driverdomains-x86_64.sh
-> > > > @@ -0,0 +1,138 @@
-> > > > +#!/bin/bash
-> > > > +
-> > > > +set -ex -o pipefail
-> > > > +
-> > > > +dom0_rootfs_extra_comp=3D()
-> > > > +dom0_rootfs_extra_uncomp=3D()
-> > > > +
-> > > > +cd binaries
-> > > > +
-> > > > +# DomU rootfs
-> > > > +
-> > > > +mkdir -p rootfs
-> > > > +cd rootfs
-> > > > +mkdir -p etc/local.d
-> > > > +passed=3D"ping test passed"
-> > > > +failed=3D"TEST FAILED"
-> > > > +cat > etc/local.d/xen.start << EOF
-> > > > +#!/bin/bash
-> > > > +
-> > > > +set -x
-> > > > +
-> > > > +if grep -q test=3Dbackend /proc/cmdline; then
-> > > > +    brctl addbr xenbr0
-> > > > +    ip link set xenbr0 up
-> > > > +    ip addr add 192.168.0.1/24 dev xenbr0
-> > > > +    bash /etc/init.d/xendriverdomain start
-> > > > +    # log backend-related logs to the console
-> > > > +    tail -F /var/log/xen/xldevd.log /var/log/xen/xen-hotplug.log >=
->/dev/console 2>/dev/null &
-> > > > +else
-> > > > +    ip link set eth0 up
-> > > > +    ip addr add 192.168.0.2/24 dev eth0
-> > > > +    timeout=3D6 # 6*10s
-> > > > +    until ping -c 10 192.168.0.1; do
-> > > > +        sleep 1
-> > > > +        if [ \$timeout -le 0 ]; then
-> > > > +            echo "${failed}"
-> > > > +            exit 1
-> > > > +        fi
-> > > > +        ((timeout--))
-> > > > +    done
-> > > > +    echo "${passed}"
-> > > > +fi
-> > > > +EOF
-> > > > +chmod +x etc/local.d/xen.start
-> > > > +fakeroot sh -c "
-> > > > +    zcat ../rootfs.cpio.gz | cpio -imd
-> > > > +    zcat ../xen-tools.cpio.gz | cpio -imd
-> > > > +    ldconfig -r .
-> > > > +    touch etc/.updated
-> > > > +    mkfs.ext4 -d . ../domU-rootfs.img 1024M
-> > >=20
-> > > Do we really need 1GB? I would rather use a smaller size if possible.
-> > > I would rather use as little resources as possible on the build server
-> > > as we might run a few of these jobs in parallel one day soon.
-> >=20
-> > This will be a sparse file, so it won't use really all the space. But
-> > this size is the upper bound of what can be put inside.
-> > That said, it's worth checking if sparse files do work properly on all
-> > runners in /build. AFAIR some older docker versions had issues with that
-> > (was it aufs not supporting sparse files?).
->=20
-> I ran the same command on my local baremetal Ubuntu dev environment
-> (arm64) and it created a new file of the size passed on the command
-> line (1GB in this case). It looks like they are not sparse on my end. If
-> the result depends on versions and configurations, I would rather err on
-> the side of caution and use the smallest possible number that works.
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+>  xen/arch/x86/domain.c          | 1 +
+>  xen/arch/x86/mm/shadow/hvm.c   | 1 +
+>  xen/arch/x86/pv/emul-priv-op.c | 1 +
+>  xen/arch/x86/pv/emulate.c      | 1 +
+>  xen/common/livepatch.c         | 1 -
+>  xen/common/livepatch_elf.c     | 1 +
+>  6 files changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 5e37bfbd17d6..b15120180993 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -1517,6 +1517,7 @@ int arch_set_info_guest(
+>          {
+>          case -EINTR:
+>              rc = -ERESTART;
+> +            fallthrough;
+>          case -ERESTART:
+>              break;
+>          case 0:
+> diff --git a/xen/arch/x86/mm/shadow/hvm.c 
+> b/xen/arch/x86/mm/shadow/hvm.c
+> index 114957a3e1ec..69334c095608 100644
+> --- a/xen/arch/x86/mm/shadow/hvm.c
+> +++ b/xen/arch/x86/mm/shadow/hvm.c
+> @@ -268,6 +268,7 @@ hvm_emulate_cmpxchg(enum x86_segment seg,
+>      default:
+>          SHADOW_PRINTK("cmpxchg size %u is not supported\n", bytes);
+>          prev = ~old;
+> +        break;
+>      }
+> 
+>      if ( prev != old )
+> diff --git a/xen/arch/x86/pv/emul-priv-op.c 
+> b/xen/arch/x86/pv/emul-priv-op.c
+> index 08dec9990e39..fb6d57d6fbd3 100644
+> --- a/xen/arch/x86/pv/emul-priv-op.c
+> +++ b/xen/arch/x86/pv/emul-priv-op.c
+> @@ -407,6 +407,7 @@ static void _guest_io_write(unsigned int port, 
+> unsigned int bytes,
+> 
+>      default:
+>          ASSERT_UNREACHABLE();
+> +        break;
+>      }
+>  }
+> 
+> diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
+> index 8c44dea12330..b201ea1c6a97 100644
+> --- a/xen/arch/x86/pv/emulate.c
+> +++ b/xen/arch/x86/pv/emulate.c
+> @@ -120,6 +120,7 @@ void pv_set_reg(struct vcpu *v, unsigned int reg, 
+> uint64_t val)
+>          printk(XENLOG_G_ERR "%s(%pv, 0x%08x, 0x%016"PRIx64") Bad 
+> register\n",
+>                 __func__, v, reg, val);
+>          domain_crash(d);
+> +        break;
+>      }
+>  }
+> 
+> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+> index 9285f88644f4..b39f8d7bfe20 100644
+> --- a/xen/common/livepatch.c
+> +++ b/xen/common/livepatch.c
+> @@ -1924,7 +1924,6 @@ static void noinline do_livepatch_work(void)
+>                              p->name);
+>                      ASSERT_UNREACHABLE();
+>                  }
+> -            default:
+>                  break;
 
-Hm, interesting. What filesystem is that on?
+could I talk you into changing to
 
-On my side it's definitely sparse (ext4):
+   fallthrough;
+default:
+   break;
 
-    [user@disp8129 Downloads]$ du -sch
-    12K	.
-    12K	total
-    [user@disp8129 Downloads]$ mkfs.ext4 -d . ../domU-rootfs.img 1024M
-    mke2fs 1.47.2 (1-Jan-2025)
-    Creating regular file ../domU-rootfs.img
-    Creating filesystem with 262144 4k blocks and 65536 inodes
-    Filesystem UUID: f50a5dfe-4dcf-4f3e-82d0-3dc54a788ab0
-    Superblock backups stored on blocks:=20
-        32768, 98304, 163840, 229376
+while it's clear that the meaning is the same, the LIVEPATCH_ACTION_* 
+constants being switched on are not in an enum, which is made more 
+obvious by the presence of a default clause.
 
-    Allocating group tables: done                           =20
-    Writing inode tables: done                           =20
-    Creating journal (8192 blocks): done
-    Copying files into the device: done
-    Writing superblocks and filesystem accounting information: done
+>              }
+>          }
+> diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
+> index 25ce1bd5a0ad..2e82f2cb8c46 100644
+> --- a/xen/common/livepatch_elf.c
+> +++ b/xen/common/livepatch_elf.c
+> @@ -347,6 +347,7 @@ int livepatch_elf_resolve_symbols(struct 
+> livepatch_elf *elf)
+>                  dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Symbol resolved: 
+> %s => %#"PRIxElfAddr" (%s)\n",
+>                         elf->name, elf->sym[i].name,
+>                         st_value, elf->sec[idx].name);
+> +            break;
+>          }
+> 
+>          if ( rc )
 
-    [user@disp8129 Downloads]$ ls -lhs ../domU-rootfs.img=20
-    33M -rw-r--r--. 1 user user 1.0G Dec 10 21:45 ../domU-rootfs.img
-
-> > > Moreover this script will be run inside a container which means this
-> > > data is probably in RAM.
-> >=20
-> > Are runners configured to use tmpfs for /build? I don't think it's the
-> > default.
->=20
-> I don't know for sure, they are just using the default. My goal was to
-> make our solution more reliable as defaults and configurations might
-> change.
->=20
->=20
-> > > The underlying rootfs is 25M on both ARM and x86. This should be at m=
-ost
-> > > 50M.
-> >=20
-> > Rootfs itself is small, but for driver domains it needs to include
-> > toolstack too, and xen-tools.cpio is over 600MB (for debug build).
-> > I might be able to pick just the parts needed for the driver domain (xl
-> > with its deps, maybe some startup scripts, probably few more files), but
-> > it's rather fragile.
->=20
-> My first thought is to avoid creating a 1GB file in all cases when it
-> might only be needed for certain individual tests. Now, I realize that
-> this script might end up only used in driver domains tests but if not,=20
-
-Indeed this script is specifically about driverdomains test.
-
-> I
-> would say to use the smallest number depending on the tests, especially
-> as there seems to be use a huge difference, e.g. 25MB versus 600MB.
->=20
-> My second thought is that 600MB for just the Xen tools is way too large.
-> I have alpine linux rootfs'es with just the Xen tools installed that are
-> below 50MB total. I am confused on how we get to 600MB. It might be due
-> to QEMU and its dependencies but still going from 25MB to 600MB is
-> incredible!
-
-Indeed it's mostly about QEMU (its main binary itself takes 55MB),
-including all bundled firmwares etc (various flavors of edk2 alone take
-270MB). There is also usr/lib/debug which takes 85MB.
-But then, usr/lib/libxen* combined takes almost 50MB.
-
-OTOH, non-debug xen-tools.cpio takes "just" 130MB.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---QWoZckLLoHKI7985
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk53s0ACgkQ24/THMrX
-1ywtywf8Cs7vQtVL6mhgo2MRT7u7AYIoE2or0T4OyHnjoLQExcLbDYF6LUAksqB6
-3g7Xdu5uyRbWn0RQxRnTcUuQsGwzybCN5v2uKjJPdxdanLCOyHCGz050fJEYvvQA
-pEVVMXriZFjEIlvjvm4K9wvTVVHrnySssev+CGMnJFZW1NJ4tsYIEvp6nAYgxUpo
-Aqah8YNZwjPgMkjzZ7PXycUtTZOXqnjW/+pn6hyhVIWUjEbjDq4YuXqhdGbo6Xpd
-a6ppE6jd8PRlhlvcr0bxLankZiNy7lPRgk4yAWLxdzQkrgggPrEZBMZ65G0zwm9d
-G/amoMaGmVlBun6N6MTBUExVjY3c2A==
-=XRld
------END PGP SIGNATURE-----
-
---QWoZckLLoHKI7985--
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
