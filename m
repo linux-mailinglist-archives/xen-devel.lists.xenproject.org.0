@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363CFCB22EF
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:25:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182552.1505415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 572A1CB22FB
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:26:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182560.1505425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEZm-0006vd-Aq; Wed, 10 Dec 2025 07:25:30 +0000
+	id 1vTEay-0007Qf-KC; Wed, 10 Dec 2025 07:26:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182552.1505415; Wed, 10 Dec 2025 07:25:30 +0000
+Received: by outflank-mailman (output) from mailman id 1182560.1505425; Wed, 10 Dec 2025 07:26:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEZm-0006uC-7q; Wed, 10 Dec 2025 07:25:30 +0000
-Received: by outflank-mailman (input) for mailman id 1182552;
- Wed, 10 Dec 2025 07:25:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vTEay-0007Or-Gj; Wed, 10 Dec 2025 07:26:44 +0000
+Received: by outflank-mailman (input) for mailman id 1182560;
+ Wed, 10 Dec 2025 07:26:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTEZl-0006tz-Ae
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:25:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6660f8be-d599-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 08:25:27 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-42e2e5da5fcso3735047f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:25:27 -0800 (PST)
+ id 1vTEax-00079l-FW
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:26:43 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 932e465c-d599-11f0-b15b-2bf370ae4941;
+ Wed, 10 Dec 2025 08:26:42 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47a8195e515so9383305e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:26:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbfeadesm35587108f8f.10.2025.12.09.23.25.25
+ 5b1f17b1804b1-47a82d7efdbsm28772775e9.9.2025.12.09.23.26.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 23:25:26 -0800 (PST)
+ Tue, 09 Dec 2025 23:26:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6660f8be-d599-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 932e465c-d599-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765351527; x=1765956327; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765351602; x=1765956402; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PgvsZxZi8/3tji1mtIJHvj0/V1Zc/8cPHf2LB2s0MQI=;
-        b=L7Wvq7BCV3M76LFywPS3C5n6qp3FRbuSWE6vEyu7Gloul/3ZD3KmlzaWXeyQwIvV/y
-         9j3xsB9FZZ69EnS95Eq7SRE/PTLLS/z9qigVPwUCHt30HvHXDxJyEpn8XO8Qw9A/8zGN
-         WoAWuHseuplB7wZetL+jFEodCk3oefdbEl/r9QeS4OQvs4VKw4dO0Y4PxTF0mnPxVupr
-         IGCabD+Ah24vh5Bqp6halGBpJvFyIWPbUNX6xaWC70+MoAR2DDtDJfYyU1L5OaYadFsE
-         QWsMz6lxQI05d2oKddc1zfF4jILotKd91U8UlT3Arq4akC18O1MQlIOEZ2QnmRBBWOQk
-         gVnQ==
+        bh=zqywqUdy3YN7phaZJxe9UjAwAUx8vUcjAfTfGIKB1/U=;
+        b=NLGT/uWAJ0YGMyv+aEZoW5mQvOmaQFtMAxAxZJLmY3YhDM1K/XE7EWC2nNYKiTWaf0
+         K28mcAF2KoAftANEhxPFp6zDgoqnF9L/YjHu8giyNKWppj3y9XCr12bCYmI5EBL65bmu
+         k/D0eY5eG7mzj50NEkalQt2QqK373joiO0UWU32u5YPTI8Ka4By41h2ZQeiHDRflsEGv
+         d79y+Kf7zELxXPg6HzPrYED+jxffQz3nxk3zTDrwjses3XsRcKOhk9f1qx7dln0pe4oV
+         5DlMKTqT8LDLY1oqyrHrl92z12lk9AHQvbSaEoayOkkA7etKzcK6qB5i2Hr375G8KzjM
+         54Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765351527; x=1765956327;
+        d=1e100.net; s=20230601; t=1765351602; x=1765956402;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PgvsZxZi8/3tji1mtIJHvj0/V1Zc/8cPHf2LB2s0MQI=;
-        b=ly7bcV+9kmcBcJXU4Qr1lad/qzbcOk8Xj4CxZRb0GwVZImBaP2veBWNDkq2kgKsIg0
-         629LJScvhDl8BPAWKL2r4GDlyvAKqgvH6Z8SlAkV1IwsnXldmVCOOuHts5weFRkeGymB
-         c2P+Kz4jRCYzsqkc0aM7blbg/wBKq5eee6M4Qp4wBSS8imrP9XaSIyfstqwi+ZdR8s3g
-         AAqzzkJ5hfa1AB/ECoLKF0Jp2EbiQXQH7MxCb4XgFdRqDGJOpNdiqwnokV+lYtIDVMn+
-         amgujilUdIxKlRtfODrEvTf1uoKAN2jSMn3knq6gEjZPrvQ0RPxceFjGeBA+ZGsVwC+x
-         Eqgw==
-X-Forwarded-Encrypted: i=1; AJvYcCW8j10AVYctLgaQ59QxeGi4XEjAOlR+dQHaOZpRy66AID6SqX9F7LlRhzXJhSwi8AUkVv49DCwLJOo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwhQhPoMJeSOXNV30iTs9M10NFSSNW29UUi3nNRcK1lA29Qe8vX
-	Y1+5B5yFiSjnySL9oTfSH3lCPbQfpRaayJ0yRgxfxx46S/xD+71GyR+5trM8ycNVTg==
-X-Gm-Gg: AY/fxX4VAbFZ5RPDA4mBTAmkboutbY3EJy4IuOt0Or5WFBHIAkdrOyNsZsqNj197Qf/
-	J0gMICmzC3pOIaJQuuFWsNl+o6voJWyXtU3iqy2jWlBViwmL7AaDsMS5/OWHQHJWrYDvcTRdaiK
-	qBbhU0VVwRywrmZhZHgHt8IpuWxdcW+m4jR2Ns0SgS3NjIs/Iy8tmtjGbpRFsT//AjenvJBTSSo
-	cYgUvO9E/lFQ1Sg1C2KYMzgGCREFiTyKWBKngVh1fq614EhjmqFaHUSL2p4+nKRqq/9bAPRtYmk
-	fB6Fu8Upn2fVUwOmyOYqISpcRd0218+q/SR3l+KlJAg9/Vw719RlwAYvAauOfEFleZNrUnUKkGw
-	Awquspy7kO8waPnb15CXYKCmhO5uxFgV7O7evueKVuty24iS6jcGToh8Vlsm8GbtvET7fOAATQP
-	EErbAqf/X2SYuiUiLSkXveShXPBHqwdv5TAeQH9yVqmoiUv3/54ndG6oPYRIxJDtqfRErO9Wuww
-	JY=
-X-Google-Smtp-Source: AGHT+IEQFsPPDCp1qWx2r2jFqA2YLxk+vMABwAEVt5u5DoIun/KEAGe4Ormzv67TYA/z5+n7rYTMqA==
-X-Received: by 2002:a5d:584a:0:b0:42b:3dfb:645f with SMTP id ffacd0b85a97d-42fa3b07c26mr1304505f8f.47.1765351526793;
-        Tue, 09 Dec 2025 23:25:26 -0800 (PST)
-Message-ID: <51d10106-14b3-4f5b-91f1-4cd0492dec03@suse.com>
-Date: Wed, 10 Dec 2025 08:25:25 +0100
+        bh=zqywqUdy3YN7phaZJxe9UjAwAUx8vUcjAfTfGIKB1/U=;
+        b=mfTt9noaTfH6hDNQfMz4naQEZtw5icGz9N2fRyRtwGp8wS+iur45H8RAk3XslilPgB
+         bxS6m5s4/P4WxYBNdHjJZU/b6KuEg9dG3mg0aZzdZtRHhUnTu+wGqLec3R+ScOthe8h0
+         a1oWHsou9vLgS6w1DQpURZwmVGYMmBqMYUfigXDHlw+32aCN+0cf0JdKWq/H3ZFZ6E6j
+         vfB+M6pa6gn0vXOj0ulo60YT/Kz3ADdRZFxvPX56+slgbzwnSvheVp1NtV+w9Seddmc9
+         4hLMhs12bQ7NqSNgvgq9TRctCrX3vVZmb6r02I710tgIcwoOEywDkuZTsbdYCp499tHa
+         sUyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWJ+1mSCSnsCIjaUdCIcsZ5ye1IkAPxlBq5OXuY6qzsEI4eX76k9+tFun+Q+OmV2jBZDsM1dPjYsdQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZLEf7h0hctOT97oQ2l616/7Dgsiy+WcJlu4vexP3KN71VCQFx
+	cPhjTYxDKB7W2nlpsBsxcI0yOdY/wlkcyMyGo0NwEvPHL7993opx10+62bIGKIGYnA==
+X-Gm-Gg: ASbGncunzAbZ4AXLPoy9Oonk2KzdeGFTavyXrN4gOUmCg4ZJLSjYqUexhiCzgIF/JnW
+	oxevakPN6W0PiGQE6lF8Dvs/KBpDyO0CKSmuuVasUsFiYn9BZbu0Kgzi4+QGi1PHzBSW3nQeEsg
+	sqfwM/Um9ma08gIR9Fyy8KMk3zvzDNaDYhWd3r0kMSyAoyIVs3Su+JlrYOAGgZPOCWfXux7nZ0t
+	wtSR7Z/O8CK9DHIR4bTrE53njxm3j06tW6ZSeGZk5qSdlAPWNkLN8yQSvZKUhwSIlyuOTGgawQW
+	aiM4wQKNmO4rglljpYezdKW6QpJXGWw3eCi905KZNatP22AyV85/ydUeylOp/LKW6fGUtovBMUB
+	2R1/1AC/3WWe0xSb182fx7LPCr+j4mqrXQNEEp0P58l6cn3dzDeV82UAW3yCH8YLyCr9hmEUwqH
+	nYkpXrroAcL+Mkse2BxVxYjV5YrJRmIJnV6F4BliXWJkMRu7RcIr65Bb4+0LUYlHibHrSx2WopI
+	5EFhMBUEhzfVg==
+X-Google-Smtp-Source: AGHT+IFQFFTyL20QkZFqlq25pfjYnhMTqBFSZq0HrYtE5kF6svVVxT7sZafJKAUxjkaWPZwt+K0Ikg==
+X-Received: by 2002:a05:600c:1392:b0:471:9da:5248 with SMTP id 5b1f17b1804b1-47a8384c54bmr12083685e9.26.1765351602038;
+        Tue, 09 Dec 2025 23:26:42 -0800 (PST)
+Message-ID: <c6ab6537-4166-438c-8c08-948d5c0f96a8@suse.com>
+Date: Wed, 10 Dec 2025 08:26:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH] x86/pv: Unhide writes to d->arch.hv_compat_vstart
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20251205222813.277164-1-jason.andryuk@amd.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251209155719.2098440-1-andrew.cooper3@citrix.com>
+ <79fd0f6a-8fbb-433e-9c74-3da339301b96@suse.com>
+ <2a9292dc-0903-43db-9646-437c6c2ed9eb@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,46 +122,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251205222813.277164-1-jason.andryuk@amd.com>
+In-Reply-To: <2a9292dc-0903-43db-9646-437c6c2ed9eb@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.12.2025 23:28, Jason Andryuk wrote:
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -76,7 +76,7 @@ SECTIONS
->    _start = .;
->    DECL_SECTION(.text) {
->          _stext = .;            /* Text and read-only data */
-> -       *(.text.header)
-> +       KEEP(*(.text.header))
+On 09.12.2025 18:11, Andrew Cooper wrote:
+> On 09/12/2025 4:41 pm, Jan Beulich wrote:
+>> On 09.12.2025 16:57, Andrew Cooper wrote:
+>>> The variable is never 0, but because the writes into it are hidden behind the
+>>> HYPERVISOR_COMPAT_VIRT_START() macro, it does a good impression of appearing
+>>> to be 0.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> I don't kind it being this way or the original one, so
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Do you mean s/kind/mind/ ?
 
-Andrew already commented on the KEEP()s, yet I'd like to extend on that. The
-one above looks to be necessary (from an abstract pov; in practice it shouldn't
-be necessary due the entry point being there), but ...
-
-> @@ -98,7 +98,7 @@ SECTIONS
->  #endif
->         *(.text.__x86_indirect_thunk_*)
->  
-> -       *(.fixup)
-> +       KEEP(*(.fixup))
->         *(.gnu.warning)
->         _etext = .;             /* End of text section */
->    } PHDR(text) = 0x9090
-> @@ -116,12 +116,12 @@ SECTIONS
->         . = ALIGN(8);
->         /* Exception table */
->         __start___ex_table = .;
-> -       *(.ex_table)
-> +       KEEP(*(.ex_table))
-
-... these two for example should be strictly be omitted (as Andrew also hinted
-at). I think more preparatory work is necessary here: We may need to use
-section groups to associate auxiliary sections with their main ones. Otherwise,
-by pulling in full .fixup or .ex_table from an object file, technically unused
-.text.* would also need to be retained (due to .fixup / .ex_table having
-references into there).
+Of course, sorry; must have hit the neighboring key.
 
 Jan
 
