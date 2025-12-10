@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2848CB1B09
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 03:03:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182515.1505381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE38CB2258
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182528.1505395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT9Xs-0001s2-Ad; Wed, 10 Dec 2025 02:03:12 +0000
+	id 1vTEHb-0003Zz-GX; Wed, 10 Dec 2025 07:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182515.1505381; Wed, 10 Dec 2025 02:03:12 +0000
+Received: by outflank-mailman (output) from mailman id 1182528.1505395; Wed, 10 Dec 2025 07:06:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vT9Xs-0001pZ-7g; Wed, 10 Dec 2025 02:03:12 +0000
-Received: by outflank-mailman (input) for mailman id 1182515;
- Wed, 10 Dec 2025 02:03:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RTTf=6Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vT9Xq-0001pT-O5
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 02:03:10 +0000
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f37255a-d56c-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 03:03:08 +0100 (CET)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 794137A011B;
- Tue,  9 Dec 2025 21:03:07 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-11.internal (MEProxy); Tue, 09 Dec 2025 21:03:07 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 9 Dec 2025 21:03:06 -0500 (EST)
+	id 1vTEHb-0003X2-DV; Wed, 10 Dec 2025 07:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 1182528;
+ Wed, 10 Dec 2025 07:06:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vTEHZ-0003Ww-CH
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:06:41 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c57c3514-d596-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 08:06:38 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso5304535e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:06:38 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a82d35904sm27747065e9.9.2025.12.09.23.06.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Dec 2025 23:06:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,234 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f37255a-d56c-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1765332187;
-	 x=1765418587; bh=4I0nkr8i8c3PoewggU8q4XmJwBA8i9gKRowua0k6lTc=; b=
-	lGR3Xko0zbn6H4/9sS1UoRSkG9XQd1DMimoYfV2EW8vPDTJLSRkpWqfEklJQal6/
-	ZbOjGGx1YEvdxwpJ3A0fPsKgjJ7gMRHonjmNFwfKxomLYCC84iwRF2+uUpYVfDlB
-	dlVt5RtCkdGmpJFacmnAeSY9R+LSLWd10mYclPbv+HQmQrI0Y5WmtA9VhtpJUMLO
-	KIHzDpmbprKtJ/UWEpcTE+hjNwEzmFsb15c1N5yK21hV997HN07sGC3753HJr0BN
-	r+9Ma+z4RkTWOxlrDgIPtItqxvqds2C3heVs5tmoEiBks6JjT+aKs/uEQQdExyQI
-	OZaj6VcxCBb8rNfSuWm0BQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1765332187; x=1765418587; bh=4I0nkr8i8c3PoewggU8q4XmJwBA8i9gKRow
-	ua0k6lTc=; b=YTzywSK/rCMg3wQfYYhQ08gN1KE1XLSApX3txHIpOM91N60IijO
-	JpwRc4nW3ZrUu4uddt83f3oo3xTHFZRIgp7RCEY94OFiH/uFSRNEFxkknT2M6TLw
-	1wjbEJDx7adjwf28/NVrWAreq400jbAcFytosS+vVLzAZYxrbLleDCmYYiIjXK+b
-	2TExXL1O5J4xRtDSlV2SdCrh66luHLnzBpaswr+nDwKiTcvhXhVW2G2oI9d/KEjn
-	syHolnM6zWjPC5im2TTDY9DElMwuZawCqrJH3lamZTEIExV8D2wuWqT81MUbct+5
-	0IgN3twF7wgbfONmF4MDVx0O7JMfdqEz9Kg==
-X-ME-Sender: <xms:29Q4aYOv_HbcbdkoB4-ejM54iISHF6jGlkLoWKqyce-mkifcZN2kiQ>
-    <xme:29Q4aV8tOXnPWYTJtyJQKwjFxOrRjI8UU80lajNzFIE8mgqvEwMwb2fHw6S0QDwhd
-    Uda4W4e5Gu1I8TXFnIA9fkKxpK6B3Nj21aV4w-bmvPMQ6RB>
-X-ME-Received: <xmr:29Q4aUS5mZ9aY0EtzmSATaXqPKH9_O_uPGQUXREyS_wOiTmxFTYDjY_b00r3zEU-8cbKD_7XSp04NScU6sU7WE_CH4wbtcnctvY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvuddulecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedugfdugfdv
-    vdekjeeffefgieegheduffelieeghffhiedtleeikeelgfeguddtudenucffohhmrghinh
-    epghhithhlrggsrdgtohhmpdhkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhm
-    thhpohhuthdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
-    dprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdr
-    ohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtoh
-    hmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhm
-X-ME-Proxy: <xmx:29Q4afkHt6zcje62QRtGKNYFnIlxcEbA18XEUFpY2C2alirhZXx7Aw>
-    <xmx:29Q4acRQ5e-UAknVWG3cJce0UkNxIEbGifKESMxcWel3_Sbem9HQWg>
-    <xmx:29Q4aVPJeeakB_A8WSuIm6g9vWwazYMus-XDNmIiqzmA6pDCdbxGUw>
-    <xmx:29Q4adVdKqfrLd1CcLJDKSyxyBAn1hfPq3FB2D8RKyxrS5FMHV9xuA>
-    <xmx:29Q4afmnuFlE26ua1VyqJc4Tkc8DNF6nc-qtQP9Q5zCNGxJhYPvU0MFk>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 10 Dec 2025 03:03:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 07/12] Support building arbitrary Linux
- branch/tag/commit
-Message-ID: <aTjU2GJFw9WcaR9X@mail-itl>
-References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
- <c7579b953d400d368f171e4dd56e1b7f879e386f.1764866136.git-series.marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2512091625190.19429@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: c57c3514-d596-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765350398; x=1765955198; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=n2rUepR2JxU7xCMZFVHhVI8Kb+gjIUPdxVT6PD7ILq0=;
+        b=OfSCtbJ4bp9VbvRK9S1F48L75oGlicfq5xwGJB7xjjf5DIid1WgdP7PG5PCrplyNfS
+         876Xpa6uVW292hXmEajw/RLJU6oex/LNe04MHrm4P7JNFkB2oZLR5uAKAjwwr9wbJuQ3
+         SpKfne8u1VzHKI1Uwb+o6oRGJtipjMSfW36FQy8GTObZpREz1qWERjiS6S6QNRHIVRz1
+         utGd9LfvVAX3tHu1ibL8cEVIRf5DcvRMCCCDUYUd9uP3TT9P+Oqf3yU60tzr282tb82m
+         dHHTOKdOSQcs5gRTYG0KLR5vl71ox2kl3RF6FDPQXYRJJWKkhEUnWULi+BDz0wtUeTh1
+         QMig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765350398; x=1765955198;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n2rUepR2JxU7xCMZFVHhVI8Kb+gjIUPdxVT6PD7ILq0=;
+        b=MARmZBs0lHzSe+NETb7u3fbaz5RYtpYpmka1zWaNbTLmlpZFMo+GCPEF5orgfIVYO0
+         qXh36fzfir9I9QijBVQI6tScXKRqAErdofT8u+MSRPgqiFfVtgUTzUnu9MEUXxWIxWX3
+         06ZZ49Vq5nSxzz0GklGSJswmhGj3zQFPhwZoGL7PPrtCEl1eJPgd0qjpQARZgwPZH8hL
+         UhyR4gNBKINUNz+MHRPLYLOSypUz0sf687tktmwNatmcsT87mQoNOc6sTla1J5sLTQt/
+         /QcuOAdWPBxHoyfeWiAMewuR4jP6dabDUS3UzQhplHlkodoMb+3HUxNl772TbB++jOxU
+         Ogdg==
+X-Forwarded-Encrypted: i=1; AJvYcCW3+aV3zADYn13RaXgMH9YcFtAYMUfzNnJHUh8Cvl3OuIn1u9pdZVKh2nHUd9Un8gqittGsJq/pQuA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWAKp7e/mQmSHuzHVSYnR3AUv4QH2T5Cnj9+fIUdWPldJouLRA
+	vrACTQUJH39WRPVxdnrOlvvwAxpUdCnyX+m6IAEQXUh0MVeNw3Y/pmju+nvjgsJzDA==
+X-Gm-Gg: ASbGncvBJDs/HKyJUhyUL5or+XCI00QCxr1mtWihtWR90A3W6nqVchkSdaNr8OICsjQ
+	/kM2s6ayz24sMOs7g4ucsePy5EBK9624YfwLgs7+46/9Wz9RzOjcS7id59j6e3XeSUTI/hu0yWk
+	dBqtWOuTHioxuHHN6oIPwQvY/HioSUL1DXF5pwgmXzovCXmwTGbW3rSFbO24ptZSJxqsKIY13Ww
+	GkprqCgg8C15+GQRks88vsxAaTbC9oGxFCvPoLRY0+4paRP0NL39bMRlM2SSeFZoZsz7nVeeVVQ
+	Id6S1DmLhN1pEEDs52b7NA4yr47Wd7so6SMOsO0bUQoGTX5DWSHtsRgLEqjRnHYDtSfUXVTXm6X
+	5hzguTa6sOG3Z3ilqmU8f8oacCTRNX9g3O0Urtq4KKmU2fpbqoX7kSM6XZrc9TOpR5DSZqg2YyC
+	KKa60ZMIg5G9avVbLjlNdOtwJXtMrGzGs5D0i+M7dyeLcMawuRCn5DdMe+wLUhaAaUPbz6FN+xM
+	Xc=
+X-Google-Smtp-Source: AGHT+IGxFctI4wpLHGz6N/DNGti/3WQih3A+sHOk7lbFxOPreLppRdmE7qW9jwlOn8cZhfn8KcjSyw==
+X-Received: by 2002:a05:600c:3147:b0:477:9890:9ab8 with SMTP id 5b1f17b1804b1-47a838ca7famr10472495e9.3.1765350397900;
+        Tue, 09 Dec 2025 23:06:37 -0800 (PST)
+Message-ID: <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
+Date: Wed, 10 Dec 2025 08:06:36 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ZHvvibANWmZnJ243"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2512091625190.19429@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
+ type
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
+ <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
+ <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 09.12.2025 18:09, Oleksii Kurochko wrote:
+> On 12/9/25 2:47 PM, Jan Beulich wrote:
+>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>>> +            *md_pg = p2m_alloc_page(p2m);
+>>> +            if ( !*md_pg )
+>>> +            {
+>>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
+>>> +                domain_crash(p2m->domain);
+>>> +
+>>> +                return;
+>>> +            }
+>>> +        }
+>>> +    }
+>>> +
+>>> +    if ( *md_pg )
+>>> +        metadata = __map_domain_page(*md_pg);
+>>> +
+>>> +    if ( t >= p2m_first_external )
+>>> +    {
+>>> +        metadata[ctx->index].type = t;
+>>> +
+>>> +        t = p2m_ext_storage;
+>>> +    }
+>>> +    else if ( metadata )
+>>> +        metadata[ctx->index].type = p2m_invalid;
+>>> +
+>>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+>>> +
+>>> +    unmap_domain_page(metadata);
+>>>   }
+>> Just to mention (towards future work): Once a metadata page goes back to be
+>> entirely zero-filled, it could as well be hooked off and returned to the pool.
+>> Not doing so may mean detaining an unused page indefinitely.
+> 
+> Won’t that already happen when p2m_free_table() is called?
 
---ZHvvibANWmZnJ243
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 10 Dec 2025 03:03:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 07/12] Support building arbitrary Linux
- branch/tag/commit
+Well, that's when both page table and metadata table are freed. But what if a
+leaf page table is moving back to holding all p2m_ram_rw mappings? Then the
+metadata page is unused, but will remain allocated.
 
-On Tue, Dec 09, 2025 at 04:29:02PM -0800, Stefano Stabellini wrote:
-> On Thu, 4 Dec 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> > If LINUX_URL is set, fetch LINUX_VERSION from there. Go with "git
-> > init" + "git fetch" instead of "git clone" to support any of
-> > branch/tag/commit.
-> >=20
-> > This also defines optional linux-git-* jobs which will build the thing
-> > if LINUX_GIT_VERSION and LINUX_GIT_URL variables are provided for the
-> > pipeline.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > The script variable and job variable need to have different names, so a
-> > pipeline variable won't override it for all jobs. While LINUX_VERSION /
-> > LINUX_GIT_VERSION is IMO okay, I'm not very happy about LINUX_URL /
-> > LINUX_GIT_URL. Any better ideas?
->=20
-> The problem is not LINUX_GIT_URL and LINUX_GIT_VERSION, those are good
-> names. The issue is ...
->=20
-> > ---
-> >  .gitlab-ci.yml         | 22 ++++++++++++++++++++++
-> >  scripts/build-linux.sh | 18 +++++++++++++-----
-> >  2 files changed, 35 insertions(+), 5 deletions(-)
-> >=20
-> > diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> > index 184d0b3..8d1deee 100644
-> > --- a/.gitlab-ci.yml
-> > +++ b/.gitlab-ci.yml
-> > @@ -1,5 +1,9 @@
-> >  variables:
-> >    REGISTRY: registry.gitlab.com/xen-project/hardware/test-artifacts
-> > +  LINUX_GIT_VERSION:
-> > +    description: "branch/tag/commit for the linux-git jobs"
-> > +  LINUX_GIT_URL:
-> > +    description: "git url for the linux-git jobs"
-> > =20
-> >  stages:
-> >    - build
-> > @@ -53,6 +57,15 @@ linux-6.6.86-arm64:
-> >    variables:
-> >      LINUX_VERSION: 6.6.86
-> > =20
-> > +linux-git-arm64:
-> > +  extends: .arm64-artifacts
-> > +  script: ./scripts/build-linux.sh
-> > +  variables:
-> > +    LINUX_VERSION: $LINUX_GIT_VERSION
-> > +    LINUX_URL: $LINUX_GIT_URL
-> > +  rules:
-> > +  - if: $LINUX_GIT_VERSION && $LINUX_GIT_URL
-> > +
-> >  #
-> >  # x86_64 artifacts
-> >  #
-> > @@ -91,6 +104,15 @@ linux-6.12.60-x86_64:
-> >    variables:
-> >      LINUX_VERSION: 6.12.60
-> > =20
-> > +linux-git-x86_64:
-> > +  extends: .x86_64-artifacts
-> > +  script: ./scripts/build-linux.sh
-> > +  variables:
-> > +    LINUX_VERSION: $LINUX_GIT_VERSION
-> > +    LINUX_URL: $LINUX_GIT_URL
-> > +  rules:
-> > +  - if: $LINUX_GIT_VERSION && $LINUX_GIT_URL
-> > +
-> >  microcode-x86:
-> >    extends: .x86_64-artifacts
-> >    script: ./scripts/x86-microcode.sh
-> > diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
-> > index cf0e744..1fc96d1 100755
-> > --- a/scripts/build-linux.sh
-> > +++ b/scripts/build-linux.sh
-> > @@ -12,11 +12,19 @@ COPYDIR=3D"${WORKDIR}/binaries"
-> >  UNAME=3D$(uname -m)
-> > =20
-> >  # Build Linux
-> > -MAJOR=3D${LINUX_VERSION%%.*}
-> > -curl -fsSLO \
-> > -    https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LIN=
-UX_VERSION}".tar.xz
-> > -tar xf linux-"${LINUX_VERSION}".tar.xz
-> > -cd linux-"${LINUX_VERSION}"
-> > +if [[ -n "${LINUX_URL}" ]]; then
-> > +    mkdir linux
-> > +    cd linux
-> > +    git init
-> > +    git fetch --depth=3D1 "${LINUX_URL}" "${LINUX_VERSION}"
-> > +    git checkout FETCH_HEAD
-> > +else
-> > +    MAJOR=3D${LINUX_VERSION%%.*}
-> > +    curl -fsSLO \
-> > +        https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"$=
-{LINUX_VERSION}".tar.xz
-> > +    tar xf linux-"${LINUX_VERSION}".tar.xz
-> > +    cd linux-"${LINUX_VERSION}"
-> > +fi
->=20
-> ... the issue is detecting to fetch via git or via curl based on the
-> presence of a variable called "LINUX_URL". Technically=20
->=20
-> https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX_VERS=
-ION}".tar.xz
->=20
-> is a a valid URL as well.
->=20
-> So I think you should keep LINUX_GIT_URL and LINUX_GIT_VERSION named as
-> they are, expose them to scripts/build-linux.sh, and detect the fetch
-> program based on the presence of LINUX_GIT_URL.
->=20
-> Ideally, we should not have LINUX_GIT_VERSION. Instead we should have a
-> a common LINUX_VERSION used in both git and curl cases.
-
-The problem here is conflicting variables for different jobs. If you
-specify a variable when starting a pipeline (either manually, or via
-schedule, or via settings), the variable will be set for all the jobs.
-So, to be able to schedule a pipeline with both linux-6.12.60-x86_64 and
-linux-git-x86_64 (for example based on linux-next, or maybe some rc),
-the pipeline variable needs to be named differently than the one used by
-this script. And IMO it's more important to have clear naming
-(LINUX_GIT_VERSION+LINUX_GIT_URL) at the pipeline level.
-
-I can change this script to use arguments instead of variables to avoid
-this issue, but it will result in slightly more duplication (in
-=2Egitlab-ci.yml file).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---ZHvvibANWmZnJ243
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk41NgACgkQ24/THMrX
-1yy6/wf/ayndzmYmyqZ+uVeBME9WDOdQGj+H3zSUSAODb5cKCLYypgk3+XfUpSm7
-AbtWuIsaqaXE3sTS3rtwLt0vs9/t/IVNr5ZfrbMfM/FAP3fLx+QDKcLJ/LcbzeWO
-DFKvylrCR+tkVZwproQyqkIlmU53VxbaGlriVyTV3n+sZJpvvt61xpii0Zu9PZXR
-jgFi/5tuCwlo5c8K+5KLfS5L3uvXYEse8jpS6aUuG/DZKZkYXGW6tvXBYuQn5yoZ
-X0OJ9WGRc2nqNmqjTwk2Wek3Q1HgrEtX7XJn9zgSkGnJNKLAgIXGQ5nu2T92P3As
-A7zznPCI+UtEWtEITEQyE9w70I4/YA==
-=lZc0
------END PGP SIGNATURE-----
-
---ZHvvibANWmZnJ243--
+Jan
 
