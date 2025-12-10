@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92354CB2526
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:48:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182596.1505454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237E6CB25B0
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 09:05:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182612.1505465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEvJ-0003Hm-QV; Wed, 10 Dec 2025 07:47:45 +0000
+	id 1vTFBy-0006bs-BC; Wed, 10 Dec 2025 08:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182596.1505454; Wed, 10 Dec 2025 07:47:45 +0000
+Received: by outflank-mailman (output) from mailman id 1182612.1505465; Wed, 10 Dec 2025 08:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEvJ-0003FY-Ne; Wed, 10 Dec 2025 07:47:45 +0000
-Received: by outflank-mailman (input) for mailman id 1182596;
- Wed, 10 Dec 2025 07:47:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTFBy-0006Yv-7s; Wed, 10 Dec 2025 08:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 1182612;
+ Wed, 10 Dec 2025 08:04:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTEvI-0003FR-Jv
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:47:44 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 829166f6-d59c-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 08:47:43 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4779aa4f928so65630075e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:47:43 -0800 (PST)
+ id 1vTFBw-0006Yp-Hf
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 08:04:56 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e913730c-d59e-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 09:04:54 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4779d47be12so58560645e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 00:04:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a82d26f5asm29189765e9.5.2025.12.09.23.47.41
+ 5b1f17b1804b1-47a82d255e7sm32759365e9.4.2025.12.10.00.04.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 23:47:42 -0800 (PST)
+ Wed, 10 Dec 2025 00:04:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 829166f6-d59c-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: e913730c-d59e-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765352862; x=1765957662; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765353893; x=1765958693; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eprrhfRj3nLrnvsgngCIE6OvGdb1CaqJ1OF6INC752M=;
-        b=K3vXWaFgUkugeTrSNQ9RDQ9WNgJL9s1la2jlwgjDp4G3vZeyhFsBJ9KlXAxplDwfKF
-         MnxE1Ra5bw4mb2UMPDP0EJ1pFeubosPxTj8QS2vniPbyLxjepMIdeND6EiZyTVt37sZr
-         gpxTSxSMYk4JZKorQtA6Vc9sclr190y31x7qorRCzm4+HcEt9NtX3SwEYZogN5YGdaMF
-         ASUTAPOFWTOfnX3K0fnN9SNaDCQopaBFJHsbNMxGh7ieGxcRfaILxnolWIF4bM8a7wyZ
-         6LVZ5Dzyuk3VLEztB+uTDqSL59w8/QYA7dIIRLWnJYsCtPQVOe1MKAyrcMd61KFiKigj
-         qyRw==
+        bh=9rzmXT9d8zfBcFDKmkT//aaKMVUubtf7TzwjmLE8A7U=;
+        b=MOYxl+zj/8pDz6pj32G+cveISlDm1nK/GdYyPA1cbaOyPkycYEYYyZjv08fHlj4pQU
+         NaWQaiCBfJXpoedQuMh6ZujmhsmZDCNOQkl55cEGDKLSGBn8N7xJs+L/I9FoCb2CXehS
+         sSV4fExnKdnAD1ASQsl1diUv/SYuRuASUK+/CmRkzOuUrLFuJKk7C0lR3cpwJsCrPddt
+         Po9oTYbypVv0svAsNnu2Xb9iorPmolRTy7vBO+oKxNxDDYpnqPN3CpQ1Ts+QqE2pqAVE
+         K/UiujcJ3YjVk5wN6eJ918NIXilBBMJC1jbyEKI/LyAxo/3SPsjbgZoxVeKy8FnWuj04
+         z9qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765352862; x=1765957662;
+        d=1e100.net; s=20230601; t=1765353893; x=1765958693;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eprrhfRj3nLrnvsgngCIE6OvGdb1CaqJ1OF6INC752M=;
-        b=qX8alrCv/SnjRR47qqXU8SLeuDcwM6PszAJ7UZ1PylGAIn5S2czrJ4InK5H9vyrlxy
-         toKrBqOZEsR0v3RhzyjhVXVIeL/81nF2nFS3Hni2V8i8FMKl5naFs/5lejHUTtSqs+uD
-         ulW2AS0/225DLPP4GuV1aBlZin8xnMOBOQVgC7F66xYiNmt07DsTFai/KnHeF5k+ptVf
-         5dSge3iyuomCTpEChsUvczYZ1eQin6vzmv+hch3vIbvRICPQ8M0eEcaBmVUJfcke7dqf
-         XZ1yNWLOAqX8e5xjLxbVfdnK65aT63LJ9pbfCXoXmiH6tc6cQGdcakQuVeiNe5ivT8FW
-         urCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUEJyTiywB0J/aSsdXD1wRdSRetO1Xxv8CVZTY8kK7y61rf5KyEqEFZHRAdYFfeZ0xD7L5ZY0d/QYE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5OPjn2IEzbXNEKZpo0OH7F3Rw8on7nAKTHGGb/lplBetuAGPe
-	gvKEVx5+SoHbgymBpHZL2BeArUNaa8VdvUmqAoUmirEati94VfPXAeQp/6Y1BFpkLQ==
-X-Gm-Gg: ASbGncsj1mN1N//wNQ5IpQq45UEv6+Il7De5ism2EizVGuqUyAhCQyjt+rKq2WL0WoC
-	T9uXfSOXMMygkDV/QPTwuK2+RMzhoU6+GmV23nDMFMHXxpUotwp7y6h21WlnfYiTzsw8gCHtYL2
-	e7CBxEajpDzo8pTC9PAQNGmWfAQHjfcCApb6oX8hpb3R8CdG0CLUIUQhrrASUJRCm2V/XjujY9z
-	BgppatgD4j3kCnQtYnIEGVgZDg0hfssWjmrePY3WaMat27V2CtCpxHtFcY62ob58oDqYZvDG0JW
-	Dgrbm9NGzkme5rfllKKDloI+qOGA4GOZqoijrwNUkWdo1TjYvIDco63cO/5v7w14oyeXJEfLhki
-	lu/tdJyfK+nNOf9VmgAwN5FgwpqAYviOJTMkUcXMc+UQPnn+KszgOQIw1QK1DdE9cXKTtQ6oWCm
-	xTzjR/JR9HMygsQwXcIsLmBYEjDQ1xTy9SDiwMlMm+c6aM4JUqheo5R0YvToOOwNyuZNx9R8Slu
-	a9UPwxMxg4a0w==
-X-Google-Smtp-Source: AGHT+IFUKuR0uj/RqHsIPIjzyahs1mbfNZxgsCWOJUTI6ZFwVjk5O86SOfrXpmCCkVcRqpSqTlRsmg==
-X-Received: by 2002:a05:600c:8709:b0:477:58:7cf4 with SMTP id 5b1f17b1804b1-47a837fe50amr14964405e9.4.1765352862605;
-        Tue, 09 Dec 2025 23:47:42 -0800 (PST)
-Message-ID: <4880e134-2b5d-47af-8cd9-16706f2285fb@suse.com>
-Date: Wed, 10 Dec 2025 08:47:40 +0100
+        bh=9rzmXT9d8zfBcFDKmkT//aaKMVUubtf7TzwjmLE8A7U=;
+        b=ltKHNbY+H9bg1t2Rw0/ncMEkna1C5ClCmrjcMyKxaR2nUTdXhAY52UsCu0wv4zx8T2
+         R8aTh+Ak3QR5kyhDS+oQlQ77DCQQTbp3JsyJY1NIcCRQN6hOQnf1LOATZjt2b3edDVxV
+         yXdI+zc2Uh34P5ky+mF63rDyXukRpwxX6M23Ne8oM262PssTN+OtNOiKVP7UIyeQBXZ8
+         uWy9ylLGPrDA6BC3w/7aYnK+AfRbxsxfgV8OfppAYE0s51UvbADMTwznOB4fKWsuMLBc
+         pPzMC2Ntx5vnlaUdY0HvMWGCAed33bz5oDKu2swBx2LjDLPmOTfstysjd53P9pOZe/rX
+         iBHA==
+X-Forwarded-Encrypted: i=1; AJvYcCXxP/fwYE27OmAytbMQodiDzrvWdEJupoWSL9gs0XNTfKuiEiiPyfj4PiNuMRwLU8AfpNiUbOq18jU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXNngrotA6JhumOLR7to1lbpjaRmbpaKc8RXwIhkSqn8+BEdcz
+	1oBxU3s6VXjFfrC3fOEtOFBoAQ3l1c9Twk5xzyZp/R+hqOkYgNGhVjXid7gNSHMQGw==
+X-Gm-Gg: ASbGncs8h/VaiA4r0PHSj8nIeOH7nmNAhrGLic5Zh+UL8eKy+xVdIv4wsT9qWU+yVq1
+	IgQLM4ZYqXeM3XkNacZCE5I1ZVjAvGUtWHlhxj4K2Ym7YgLZ+wNCOqvxc7wnVjmMo29nFFUnN4/
+	O0REEL/uKZFtEr7m9xKpSgtypcFUtC1iBv7EollHBiaAH5z9Wjay94DyR/9CmVOS3RHApSL3/ct
+	fzKdJg8DQHl7EJ6+NBl3ix7CA//eUMaP9aZBdxx9aTLdG7XsmF+gVcxlBms+iifxto30NXqaa74
+	hJR05cyDlmFl0YD3VztiEyLIxaFyjl4dy/s4PxmUko+RevJBzCKcA94kmrOdcoC2v4KWLvhCnyB
+	mAwDwxHO1fO1l2f9rnBI7sK75kMRnvs/DzYRSWozEjVVdION3pWt47VQDWcikApRsZEikiSe5lQ
+	zUMqX/3gn4S4tFS5FzvoZofPrCIvE1KpIWi7C61XIwFs3bEsNgh5CAo4BTApDBqElwXOP9DYMzg
+	Cs=
+X-Google-Smtp-Source: AGHT+IHKIaCphMmCaLpoG2yKa8huvH1TFn/4Ec6Jkk1SoqOadIcjicNB7hZdwm2YRvi5txy2qFbhIw==
+X-Received: by 2002:a05:600c:1381:b0:477:7b16:5fb1 with SMTP id 5b1f17b1804b1-47a8380b264mr13135085e9.7.1765353893553;
+        Wed, 10 Dec 2025 00:04:53 -0800 (PST)
+Message-ID: <d6133546-fb8c-4062-ad0a-ce6e010a007d@suse.com>
+Date: Wed, 10 Dec 2025 09:04:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pv: Move hv_compat_vstart into pv_domain
+Subject: Re: [PATCH] x86/pv: Inline domain_set_alloc_bitsize() into it's
+ single caller
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Grygorii Strashko <grygorii_strashko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251209182639.2171895-1-andrew.cooper3@citrix.com>
+References: <20251209180750.2145364-1-andrew.cooper3@citrix.com>
+ <83c524ed-dec0-4792-9129-0bfc7498ac97@epam.com>
+ <d8a37c7e-106f-4bb3-a4fb-3ad082cda7fa@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,27 +123,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251209182639.2171895-1-andrew.cooper3@citrix.com>
+In-Reply-To: <d8a37c7e-106f-4bb3-a4fb-3ad082cda7fa@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.12.2025 19:26, Andrew Cooper wrote:
-> The hv_compat_vstart variable is hidden behind CONFIG_PV32 but lives in
-> arch_domain.  Moving it into pv_domain is an obvious improvement.
+On 09.12.2025 20:29, Andrew Cooper wrote:
+> On 09/12/2025 7:21 pm, Grygorii Strashko wrote:
+>> Hi Andrew,
+>>
+>> On 09.12.25 20:07, Andrew Cooper wrote:
+>>> Prior to commit 02e78311cdc6 ("x86/domctl: Make
+>>> XEN_DOMCTL_set_address_size
+>>> singleshot") (Xen 4.9, 2016), it was possible for domains to switch
+>>> to being
+>>> compat, and back again.  Since then however, becoming compat is a
+>>> singleton
+>>> action that can't be undone.
+>>>
+>>>  From the context it's clear to see the is_pv_32bit_domain() check is
+>>> redundant, and from the singleton nature being the only place setting
+>>> physaddr_bitsize, there's no need to check it for being 0.
+>>>
+>>> No functional change.
+>>>
+>>> Co-developed-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>
+>>> Split out of series to simplify things.
+>>>
+>>> bloat-o-meter reports:
+>>>
+>>>    add/remove: 0/1 grow/shrink: 1/0 up/down: 25/-96 (-71)
+>>>    Function                                     old     new   delta
+>>>    switch_compat                                447     472     +25
+>>>    domain_set_alloc_bitsize                      96       -     -96
+>>>
+>>> which will mostly be the LFENCEs embedded in is_pv_32bit_domain().
+>>
+>> Thank you for doing this.
+>> Not sure if it's needed, any way.
+>> Reviewed-by: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> The value however is less obvious, and a mess.
-> 
-> In !PV32 builds, it's uniformly 0, but in PV32 builds it's ~0U (HVM guests),
-> __HYPERVISOR_COMPAT_VIRT_START (PV guests), or custom (PV32 dom0).  This seems
-> to work because uses are guarded behind is_pv32_{domain,vcpu}().
-> 
-> Simplify things by leaving it as 0 in PV32 builds for most domains,
-> initialising it in only in switch_compat() when a domain becomes 32bit PV.
-> dom0_construct() adjusts the value after calling switch_compat().
-> 
-> Suggested-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> It does help.  Technically it lets me commit the patch right now, but
+> I'll leave it until at least tomorrow in case anyone else has comments.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Just to confirm:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
+Jan
 
