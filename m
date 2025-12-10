@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D66CB226A
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:10:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182537.1505405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 363CFCB22EF
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 08:25:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182552.1505415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEKl-00049h-0N; Wed, 10 Dec 2025 07:09:59 +0000
+	id 1vTEZm-0006vd-Aq; Wed, 10 Dec 2025 07:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182537.1505405; Wed, 10 Dec 2025 07:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 1182552.1505415; Wed, 10 Dec 2025 07:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTEKk-000479-Sp; Wed, 10 Dec 2025 07:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 1182537;
- Wed, 10 Dec 2025 07:09:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTEZm-0006uC-7q; Wed, 10 Dec 2025 07:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 1182552;
+ Wed, 10 Dec 2025 07:25:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTEKi-000473-NL
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:09:56 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3adb0175-d597-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 08:09:55 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47775fb6c56so55537025e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:09:55 -0800 (PST)
+ id 1vTEZl-0006tz-Ae
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 07:25:29 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6660f8be-d599-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 08:25:27 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42e2e5da5fcso3735047f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Dec 2025 23:25:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a82d1d497sm28462235e9.4.2025.12.09.23.09.54
+ ffacd0b85a97d-42f7cbfeadesm35587108f8f.10.2025.12.09.23.25.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Dec 2025 23:09:54 -0800 (PST)
+ Tue, 09 Dec 2025 23:25:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3adb0175-d597-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 6660f8be-d599-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765350595; x=1765955395; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765351527; x=1765956327; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lwS509WMIxBr8aH2Zqp+csF4vi9Wp96nHKV5Z0rr9Kk=;
-        b=bXvi3cUnlCP6lxxIqRG5GqaPBJwkdFMOz8Q+YZZiL4ZYhFmy3Cg8vb2ywO2P6nWgxv
-         uEmXRa1k9TJm26ZAhybqGqN7Dhul8vpyeW+b8HvcXJEcKIBtA7T5WCxTl91xVLjaj5IB
-         fEV/dM6ytUevcwgUqQ1tFIh8POWwahrojsv21KNwT+FAY8jkdks9f0M5LKaOk92JzCkJ
-         /JH/LS9E6WmucmcKaJytcDAxoaabNqxgDUwtxLmkte4Ny7pdJFFY/Z2fuWwLAg/CN8KP
-         ClrQsaObS4EAOB8E7D32Qofo4SoaHVJRCM6WtUtL0+NpeZvKLR7C2HgEnlGIgoRfZmLc
-         ks1Q==
+        bh=PgvsZxZi8/3tji1mtIJHvj0/V1Zc/8cPHf2LB2s0MQI=;
+        b=L7Wvq7BCV3M76LFywPS3C5n6qp3FRbuSWE6vEyu7Gloul/3ZD3KmlzaWXeyQwIvV/y
+         9j3xsB9FZZ69EnS95Eq7SRE/PTLLS/z9qigVPwUCHt30HvHXDxJyEpn8XO8Qw9A/8zGN
+         WoAWuHseuplB7wZetL+jFEodCk3oefdbEl/r9QeS4OQvs4VKw4dO0Y4PxTF0mnPxVupr
+         IGCabD+Ah24vh5Bqp6halGBpJvFyIWPbUNX6xaWC70+MoAR2DDtDJfYyU1L5OaYadFsE
+         QWsMz6lxQI05d2oKddc1zfF4jILotKd91U8UlT3Arq4akC18O1MQlIOEZ2QnmRBBWOQk
+         gVnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765350595; x=1765955395;
+        d=1e100.net; s=20230601; t=1765351527; x=1765956327;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lwS509WMIxBr8aH2Zqp+csF4vi9Wp96nHKV5Z0rr9Kk=;
-        b=AbOwR2dhzgFW7eJstgzZ7t+DeH9Lk46nbnO3yC1m2CIRUwts6p5aR1Xt3d/gEZyEGy
-         VCPhCkouLGqjyOrBc9EaiRhwnzqv2CMVI0ZEvXM1bgnNxN49nngqrZwXtr3dMG37uSiM
-         +ViqvyatkkGqQTCcOD6SV+h4J8fhfpv7rJI7cJZME7R3tjUI6qLJEL1jgWjn93rHn6Im
-         I5vkSgTyn3Sawz/oAC4+vJbZZr/1z1jCxhW9ydVghwWO5HJqB8UZPoidoOYEq4PHbIak
-         dn93wvjD50vih+IqzDsIbb7djV3mE3L0UXvKZENabpna86I+gWrnTwW+C6MJ7tC8PORv
-         jcCg==
-X-Forwarded-Encrypted: i=1; AJvYcCUPyNgpr8agvtFj7DC990qvX8Lfjohkpe9Ifc7DMqP69YaDd0WwFZxDQRQPpgR9LiOtVUbThP2dYX0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAhOQF2iowa+UWngQwHqJXaacJ+tWXMHNFO53YRwTZ9ZB7vlmA
-	9JaHuQmYSsncv/hovo/UVv8IsirREqScZEK7Davqnm8vlfPxCbOl45783BTtL85wB5Fxfa1I52H
-	rBRU=
-X-Gm-Gg: ASbGncsv/+/NWgitR5J++XldMZkKdvfzmJjULUnTH2zYINPW+YL9Fi0eLodajTWiXxA
-	FjgWCbfHUJMHpo6iZ67QY0SuHayzuudFlheSlFCxFKk9n2aKC3UlpgiBDAOqU//DGvgS7umYmf6
-	ccXdU4rGo+OS5Ztcbb+/XpOxAzIX9UFp71Qn6uftuBmiJBteGiQtxz7JvHQWNie4ifsLdnUuJDm
-	VO9OxvWdQlcZTOaXZ45wrD87pKKDvYilWsIGnEkpMWmnA4kw5Eo5cv2vFT06NTxtCVZImzofHmp
-	Td8DfXjMn96u/FtiyfPTbtP9MbMEayuFPdybto6fX3NHmsm9U4seoosZbdE02fRVM3sxwCEjNCy
-	Z5sZFuvmXpFCQiqeEsDxGLgIKGdu+UvhmcJc6yJGcNihpxpv0vCABgukadwAijKMqDouLP1PO52
-	8C37WTCBaaq3VHUnyz8P6k6whi/gRBa6V4g/mVAxKgEykIna7oT+AzgAoyltxvhvcNc8ip7mO4P
-	MEBgL3rce9xyA==
-X-Google-Smtp-Source: AGHT+IHIVLM6klgAcCTDKTXc+zgyW2yKmFGqBAzGrRC3ngG0xTlqtZdh0y3ZBOZqn4KeYRGZLCKQww==
-X-Received: by 2002:a05:600c:4f09:b0:477:fad:acd9 with SMTP id 5b1f17b1804b1-47a8379fe25mr9709685e9.34.1765350594847;
-        Tue, 09 Dec 2025 23:09:54 -0800 (PST)
-Message-ID: <2bf5c46b-0b95-46ef-9c25-849fcba0f170@suse.com>
-Date: Wed, 10 Dec 2025 08:09:53 +0100
+        bh=PgvsZxZi8/3tji1mtIJHvj0/V1Zc/8cPHf2LB2s0MQI=;
+        b=ly7bcV+9kmcBcJXU4Qr1lad/qzbcOk8Xj4CxZRb0GwVZImBaP2veBWNDkq2kgKsIg0
+         629LJScvhDl8BPAWKL2r4GDlyvAKqgvH6Z8SlAkV1IwsnXldmVCOOuHts5weFRkeGymB
+         c2P+Kz4jRCYzsqkc0aM7blbg/wBKq5eee6M4Qp4wBSS8imrP9XaSIyfstqwi+ZdR8s3g
+         AAqzzkJ5hfa1AB/ECoLKF0Jp2EbiQXQH7MxCb4XgFdRqDGJOpNdiqwnokV+lYtIDVMn+
+         amgujilUdIxKlRtfODrEvTf1uoKAN2jSMn3knq6gEjZPrvQ0RPxceFjGeBA+ZGsVwC+x
+         Eqgw==
+X-Forwarded-Encrypted: i=1; AJvYcCW8j10AVYctLgaQ59QxeGi4XEjAOlR+dQHaOZpRy66AID6SqX9F7LlRhzXJhSwi8AUkVv49DCwLJOo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwhQhPoMJeSOXNV30iTs9M10NFSSNW29UUi3nNRcK1lA29Qe8vX
+	Y1+5B5yFiSjnySL9oTfSH3lCPbQfpRaayJ0yRgxfxx46S/xD+71GyR+5trM8ycNVTg==
+X-Gm-Gg: AY/fxX4VAbFZ5RPDA4mBTAmkboutbY3EJy4IuOt0Or5WFBHIAkdrOyNsZsqNj197Qf/
+	J0gMICmzC3pOIaJQuuFWsNl+o6voJWyXtU3iqy2jWlBViwmL7AaDsMS5/OWHQHJWrYDvcTRdaiK
+	qBbhU0VVwRywrmZhZHgHt8IpuWxdcW+m4jR2Ns0SgS3NjIs/Iy8tmtjGbpRFsT//AjenvJBTSSo
+	cYgUvO9E/lFQ1Sg1C2KYMzgGCREFiTyKWBKngVh1fq614EhjmqFaHUSL2p4+nKRqq/9bAPRtYmk
+	fB6Fu8Upn2fVUwOmyOYqISpcRd0218+q/SR3l+KlJAg9/Vw719RlwAYvAauOfEFleZNrUnUKkGw
+	Awquspy7kO8waPnb15CXYKCmhO5uxFgV7O7evueKVuty24iS6jcGToh8Vlsm8GbtvET7fOAATQP
+	EErbAqf/X2SYuiUiLSkXveShXPBHqwdv5TAeQH9yVqmoiUv3/54ndG6oPYRIxJDtqfRErO9Wuww
+	JY=
+X-Google-Smtp-Source: AGHT+IEQFsPPDCp1qWx2r2jFqA2YLxk+vMABwAEVt5u5DoIun/KEAGe4Ormzv67TYA/z5+n7rYTMqA==
+X-Received: by 2002:a5d:584a:0:b0:42b:3dfb:645f with SMTP id ffacd0b85a97d-42fa3b07c26mr1304505f8f.47.1765351526793;
+        Tue, 09 Dec 2025 23:25:26 -0800 (PST)
+Message-ID: <51d10106-14b3-4f5b-91f1-4cd0492dec03@suse.com>
+Date: Wed, 10 Dec 2025 08:25:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] RFC: xen/x86: Enable --gc-sections
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+ xen-devel@lists.xenproject.org
 References: <20251205222813.277164-1-jason.andryuk@amd.com>
- <8dce8443-5a97-42c4-b867-27b83415b3d1@citrix.com>
- <32f54604-706b-4377-b59a-b287ef1afb3a@suse.com>
- <049bb40b-13f6-4b5c-9105-aeac03680f86@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,57 +124,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <049bb40b-13f6-4b5c-9105-aeac03680f86@amd.com>
+In-Reply-To: <20251205222813.277164-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.12.2025 22:55, Jason Andryuk wrote:
-> On 2025-12-08 03:46, Jan Beulich wrote:
->> On 05.12.2025 23:40, Andrew Cooper wrote:
->>> On 05/12/2025 10:28 pm, Jason Andryuk wrote:
->>>> When linking to create xen-syms, add --gc-sections to garbage collect
->>>> unused stuff.  Relies on CONFIG_CC_SPLIT_SECTIONS
->>>>
->>>> We need to add KEEP() to the linker script in assorted places to retain
->>>> appropriate data - especially the arrays created therein.
->>>>
->>>> Something is off though.  In a test where memory_add() is unreachable,
->>>> it is still included.  I'm not sure, but I am wondering if it's the
->>>> alternatives somehow keeping a reference to it.
->>>
->>> Yes, .altinstructions contains relocations against the origin patch
->>> site, which will cause it to appear to be referenced. The same will be
->>> happening with a bunch of other sections.
->>
->> We will need to derive helper section names from base section ones. See
->> e.g. HAVE_AS_SECTNAME_SUBST as introduced by "common: honor
->> CONFIG_CC_SPLIT_SECTIONS also for assembly functions", controlling the
->> use of the --sectname-subst asssembler option, to in turn be able to use
->> %S in section names (available from gas 2.26 onwards).
-> 
-> I tried to add your patch and change ALTERNATIVE to:
-> ".pushsection .altinstructions.%S, \"a\", @progbits\n"
-> but it fails to build.  One example:
-> ./include/xen/compiler.h:62:21: error: invalid 'asm': operand number 
-> missing after %-letter
->     62 | # define asm_inline asm __inline
->        |                     ^~~
-> ./arch/x86/include/asm/pdx.h:13:5: note: in expansion of macro ‘asm_inline’
->     13 |     asm_inline goto (                               \
->        |     ^~~~~~~~~~
-> ./arch/x86/include/asm/pdx.h:22:5: note: in expansion of macro 
-> ‘PDX_ASM_GOTO’
->     22 |     PDX_ASM_GOTO(skip);
->        |     ^~~~~~~~~~~~
-> 
-> ".pushsection .altinstructions.%%S, \"a\", @progbits\n" ends up creating 
-> section ".altinstructions.%S" which doesn't helpful.
-> 
-> Is %S expected to work with inline asm, or only standalone?
+On 05.12.2025 23:28, Jason Andryuk wrote:
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -76,7 +76,7 @@ SECTIONS
+>    _start = .;
+>    DECL_SECTION(.text) {
+>          _stext = .;            /* Text and read-only data */
+> -       *(.text.header)
+> +       KEEP(*(.text.header))
 
-Both, as long as --sectname-subst is passed to the assembler. My patch adds
-that option to AFLAGS only, whereas for inline assembly it would need adding
-to CFLAGS. Did you perhaps overlook that?
+Andrew already commented on the KEEP()s, yet I'd like to extend on that. The
+one above looks to be necessary (from an abstract pov; in practice it shouldn't
+be necessary due the entry point being there), but ...
+
+> @@ -98,7 +98,7 @@ SECTIONS
+>  #endif
+>         *(.text.__x86_indirect_thunk_*)
+>  
+> -       *(.fixup)
+> +       KEEP(*(.fixup))
+>         *(.gnu.warning)
+>         _etext = .;             /* End of text section */
+>    } PHDR(text) = 0x9090
+> @@ -116,12 +116,12 @@ SECTIONS
+>         . = ALIGN(8);
+>         /* Exception table */
+>         __start___ex_table = .;
+> -       *(.ex_table)
+> +       KEEP(*(.ex_table))
+
+... these two for example should be strictly be omitted (as Andrew also hinted
+at). I think more preparatory work is necessary here: We may need to use
+section groups to associate auxiliary sections with their main ones. Otherwise,
+by pulling in full .fixup or .ex_table from an object file, technically unused
+.text.* would also need to be retained (due to .fixup / .ex_table having
+references into there).
 
 Jan
 
