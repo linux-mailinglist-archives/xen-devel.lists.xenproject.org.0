@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA0CCB38DA
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 18:04:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183104.1505884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D9CCB38F2
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 18:08:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183114.1505895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTNbQ-0008SE-B4; Wed, 10 Dec 2025 17:03:48 +0000
+	id 1vTNfm-0000sg-TL; Wed, 10 Dec 2025 17:08:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183104.1505884; Wed, 10 Dec 2025 17:03:48 +0000
+Received: by outflank-mailman (output) from mailman id 1183114.1505895; Wed, 10 Dec 2025 17:08:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTNbQ-0008QY-8U; Wed, 10 Dec 2025 17:03:48 +0000
-Received: by outflank-mailman (input) for mailman id 1183104;
- Wed, 10 Dec 2025 17:03:47 +0000
+	id 1vTNfm-0000qx-P4; Wed, 10 Dec 2025 17:08:18 +0000
+Received: by outflank-mailman (input) for mailman id 1183114;
+ Wed, 10 Dec 2025 17:08:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NJGl=6Q=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vTNbP-0008QS-3L
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 17:03:47 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ <SRS0=11gW=6Q=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vTNfl-0000qr-Na
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 17:08:17 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 300e671e-d5ea-11f0-b15b-2bf370ae4941;
- Wed, 10 Dec 2025 18:03:45 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-b734fcbf1e3so1444960166b.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 09:03:45 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64982040e2bsm72804a12.6.2025.12.10.09.03.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 09:03:44 -0800 (PST)
+ id d00e840c-d5ea-11f0-b15b-2bf370ae4941;
+ Wed, 10 Dec 2025 18:08:15 +0100 (CET)
+Received: from PH7P221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::9)
+ by BY5PR12MB4148.namprd12.prod.outlook.com (2603:10b6:a03:208::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.9; Wed, 10 Dec
+ 2025 17:08:10 +0000
+Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
+ (2603:10b6:510:32a:cafe::5) by PH7P221CA0013.outlook.office365.com
+ (2603:10b6:510:32a::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.7 via Frontend Transport; Wed,
+ 10 Dec 2025 17:08:09 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9388.8 via Frontend Transport; Wed, 10 Dec 2025 17:08:09 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 11:08:08 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 09:08:08 -0800
+Received: from [172.17.249.106] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 10 Dec 2025 09:08:07 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,343 +63,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 300e671e-d5ea-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765386225; x=1765991025; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HDty72hcYyiibH87TqbPlise8L/YjpZ5f2bIDgdPjoc=;
-        b=VH6tjRNl4pRh1XquPg9CKotZj3x5EXpE6TQt69s473eGJv+fZExjYY6ecBbPOqHhLa
-         wcWQ6v1EOdZaK++y8vcoaRhtJRB1oRtYd+8eVyRFSTQLjht+wj5J2/0fcTD5bKAGiBqq
-         a4dSrkJLXCzuEctNuMPVqG0zPxKWCgbM0w848SfS4IyHYWKjE27tLlGjumJi1bzCgUCI
-         Vp/S7Q0xkddXuBen04+KXhdr1S4wNIjuQYsQpyOsXxquNmEmuNoFk9NqbiGJUwfkzslb
-         efGMlWGT5S6TTwvA4x7QAVpsOHzKxXMF9BcnViLIkhyJ//FYSdBexpnAbNbFxXAb0Hc/
-         qsEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765386225; x=1765991025;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HDty72hcYyiibH87TqbPlise8L/YjpZ5f2bIDgdPjoc=;
-        b=HAFaoZ6bXwDuLhN++NIDqnuC9MtLikQiDFpgC8UUNs9LqvB8EjIsWiNVckn55JV+wZ
-         9Hy4I8auVbIv8/qtY9koaNxI8EnXyS8MT41/8zON2C44EuKajLZf99hyqNakEESeeBFD
-         4JfaiMDmR7bwbya39KOfyH494sC+cx7r9ljNOcATXpmnG6NjGuOR8GcT3PUBD167585g
-         EY5uk8/C2SWb3AERVvpMGVHcpzTzIBLbze9kWCxhpRsM0G2kTFYmF7MsfrOHkyc8nPlu
-         UKc1Sw9y++3PAiZqk1YdZwJlglwNM2NnlFgCJDNfq50D/W9O1779y94t0L8Q8aZEtZSU
-         IIog==
-X-Forwarded-Encrypted: i=1; AJvYcCVAqAPCsA5P19J+cXJXSlFYYxmojGS/tqJECP7eWWgas7a7k9iiQTpGbw13huI1YZyL2qcyCDJ0Njo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx0ObGE0+x+yQdEGf2agPdMSBhpeObuA+mPohd+Ph9ewzy091hV
-	/Ew/y+zIAxvUZO2A6rzVeJTA6zB6gTW49Dyn93nJ1p3/Mc+ZRJBF2nyc
-X-Gm-Gg: ASbGncvnWF3hcKqQ1YB6PDzZPkAXiUWxr89nHd9fDpxyT+g5pURCJR3+Na02nUzRHcR
-	crvQKqpxJbSChZ9gD3hbhSg6NqmlQtmWQsXAGXzg6GW4Ipy8N4nBkTFG06gTPDS3U5StB4b9QSJ
-	zA+nOX1MZBYauBf8hUJVnHmsynwF0nvm6C74NiuDH7XrMeh4dkKmBosJycke19on0LSjQgGut/Z
-	JpC2Nf27aHuTADpcQSsI1rxGFDUiJ2Stqu132ZGgL0C5uBPQMo0bXWuddo6dQYG/+AbmCN1yy6z
-	yNFRh0eGPtqHIcxTERpe7DmtT9juReNIP+zZTzewxbQ9BbvEs/ER+xlyEfQPq062lgHqV3RGShq
-	T43E1+xHWqD0sFFx62qxdUmWuL8Wbw1pPUtmCDjeY2sGGavuaHaHZRaBzNFc4UqqWRnsXuOppuM
-	8rW+Ezva1RV1d9DfBUWrrKyTfZRM1y4/eAK1eYu5ma4JKWA7MKCjjkgp1sp+ai
-X-Google-Smtp-Source: AGHT+IE5ijayu3JjqjEj3IcbtNR0EQUeWkX6ToS9yU28PsPNEZrYWw7pVyNoK2r0nIRZJIgfl87jog==
-X-Received: by 2002:a17:907:1c07:b0:b4c:137d:89bb with SMTP id a640c23a62f3a-b7ce8317ee9mr321498166b.29.1765386224574;
-        Wed, 10 Dec 2025 09:03:44 -0800 (PST)
-Message-ID: <02b72d6f-d95b-4caf-825a-15280902af27@gmail.com>
-Date: Wed, 10 Dec 2025 18:03:41 +0100
+X-Inumbo-ID: d00e840c-d5ea-11f0-b15b-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zNH379ABrs9JcV0sveeVcWK+VPxueXRjH9iytQTm4yCRd0Lcm9vESpUple6eDzck35GGB9NX1GNJlMtJ5z0pAXrCdbLgdsDG6QfySz0mxTxY6bxe3X3cWtPfb/17kU5lxsg3HrXgWiIhzs/CMgLJB45YQfwE9HVx14Il0B9eFZcABHfYb2OJANPaWD1do1cq0T8jqMOi+FZ+VxGJBTPda9nj0unVZIAOPlKGozE7CaUssmXT3bjFEOZ/yHMineNIr/0JpL31EZdKXJXQno3O/ATMvaSFyG2bdoWMGFSpPhl8EW0ilb8nsjURRFiSbBVctXRwDqd36d0U/OCcJJDAYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fLeVL7ayWcVTMb4z9L6irY86uDxmPJ66naDSp/8q4Iw=;
+ b=iq23b022SLKGdZpsJG9SuIFoysY6ZxnIylj86t9RyfeNkqUEcDIP27LdR2rFvrc7u/7hnUstSjtnPC9wDoLnZcOQ56VO7guBrQZl7YzIGHXuSeUPfW2OUPTqrHmSrrq+hK8CFC2JmRbOJrTOU6wPyAHl4WfBTzNtqHq94gSwzY7okJd1KD1jwG4lt17QOy8IOLM4Q43W8Io2b45zZcF+RZVyuQwt60P5oscxhkju1nMlEqnG1h6UeuGSFvOuOZAbWNClncVE5KeAUR0GUHduPmUA7XqKBECja5FA7psdFFNU7v4+gxnQcDNumMXahTme+GWUtORO/zkxf/OiV2qUVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fLeVL7ayWcVTMb4z9L6irY86uDxmPJ66naDSp/8q4Iw=;
+ b=QOCvBxALdeenKl1ISe98EzzryIWu7J0v2lO/FYLFzNaoDi7889uDrTusbO+P8K78OOYbPqojgwnF5yxd3gBaVWptS5/5IVCNc8Badn/PfwqjDJgnYLIk6ObQjVowXASvBISh1uMiUpRbaL23vg6S0lOWIbaWEe4SRsZNWM7aWLs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <a6d3737f-19e0-4a52-a5d9-70bbfe7630a8@amd.com>
+Date: Wed, 10 Dec 2025 12:08:01 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen/riscv: introduce vSBI extension framework
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
- <3b67330dc4c1aa053eb15261a559e7b4eac3f493.1764582112.git.oleksii.kurochko@gmail.com>
- <df316e2f-9eb0-4bb8-96cd-e5e0c42d123e@suse.com>
+Subject: Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
+To: Anthony PERARD <anthony@xenproject.org>
+CC: <xen-devel@lists.xenproject.org>, Victor Lira <victorm.lira@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Timothy Pearson
+	<tpearson@raptorengineering.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
+ Davis" <connojdavis@gmail.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20251209214728.278949-1-jason.andryuk@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com> <aTmGTWIO2ZKWuQeu@l14>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <df316e2f-9eb0-4bb8-96cd-e5e0c42d123e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <aTmGTWIO2ZKWuQeu@l14>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|BY5PR12MB4148:EE_
+X-MS-Office365-Filtering-Correlation-Id: 019f125b-1517-4b2c-5480-08de380eb183
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|7416014|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dkVIQ2R3dG5qbzh4S2dQQzA1R0k3SWNBK1pPRHRCalBNOE83dGF6b2FzZk5N?=
+ =?utf-8?B?WDZ6M1QwR2owQ0NvaDhPU1pYS2x0MDdKOWdXM3pFOVB6U25COFlnOHROL0I5?=
+ =?utf-8?B?eStQWGN6S3JmMzl5L2ppbDJ5akU3TzBhcjFhd2g5cForb0ZtUStSZ2FXV254?=
+ =?utf-8?B?eTVhOFNRcTR5YVk0YXZvVlJramVUanVOTUZuZk9hSXNIRHRKN1crNHI0NzB3?=
+ =?utf-8?B?ZjVTd0RoMUw3U0Z2eTl6aktFYUZ4RmpXTUgwOEdkd1BYaTZFWkNpQTVZTWZv?=
+ =?utf-8?B?SnR2eHl5d0xzU1ZIUDlvT2JrdlpYWXpNZmRaNTI4Szl6RWlJanhEcFppOGtR?=
+ =?utf-8?B?Mkh0UW1NNzlwekhNZ0FGcUhpQmgrWFk4eGptMHo1KzRTYkh2d1pmZHRmUmtQ?=
+ =?utf-8?B?eS9kSkJNNVVyZ1dHZnV2clpHYlBOZFVIVlErd3pnRVo1MXczZDJIZ0NKMlJt?=
+ =?utf-8?B?aExSQjlmRHE3cFlZM0xMTVdKMXVJOGVEK0k5cHJpM0ZsV0xGRzRGeHRSN08x?=
+ =?utf-8?B?bGtNc2xQOUNISlloMGFXVmQxNWJRTlAyM0RwY3Q4SXA2Tk5UUXUydE5UOFJw?=
+ =?utf-8?B?aXljNWFKd3N4d3NzekVlUnI1S1BkdWxlWTM2ZU5jcmFya21NU0JKOGVhWlZS?=
+ =?utf-8?B?K1h2MVo1VWgrUkZrUllvT2wvbHZJQUdvbHA1T1RzUkFHa2ovaEtKSE45bGVl?=
+ =?utf-8?B?WjIrWENZeW5wbW5YK1RMWk5HZVBDRWRFME1LUFI4cTNXODBSS2J1QXhsYTYw?=
+ =?utf-8?B?cy93MFZZZ0J2TU1lV3V4QXpXU1J6Unc4T0xwRGpKdWNVMXRNK1ZvYTJRbmF4?=
+ =?utf-8?B?NGUxRnU3MXh3NFJyWTFqMElnbDRVQ2dPd3NXeXU0clkrTG8wakhQMkVGVExG?=
+ =?utf-8?B?Q04rc1A5TmZqVE9RYjRnKyt3KzZ1RS9QQlY0Y1hnMFkrQURiZ29Pa1ZrcTZS?=
+ =?utf-8?B?Rk1HUFYxOVpvRmRJcHJ0TDhqc2tNQ2VmRUlNdUlhWTVhdjhYZGo2U0pjMkR5?=
+ =?utf-8?B?bHNQSG4xcDVGajhjYXpxRnBUV29FbmJ5Q2sva29vKzYrNS8yenNpOWhPZ2lv?=
+ =?utf-8?B?WFBaWmd1N2dpUzBRSnVtemtYbGtab28xWlRGSkRaWk9sM1p1bUltNmp5cVNK?=
+ =?utf-8?B?YVd3czFraU5TN21TYjZZeFlvQXNBTFpVTWFsNk5sb3NxTzB4QWU2dWRZZjF6?=
+ =?utf-8?B?SUVDZVhaV2xhdE1helE0YzVQbHEzaVVlR3JFL1hoR3NGcWhJVHB0bUEwNkZ6?=
+ =?utf-8?B?Y0hwWDVsSHo4d1lrYi9QVGJIK05yRkhkSUkyTmx3VmZhR2dwYVBXTzdCbzNh?=
+ =?utf-8?B?ZFp1WGJVTGxJa1ZGSmh0dE9aODRwK0ZWOWx3TUdkeGFJdEV6S2EwUE9vejRu?=
+ =?utf-8?B?K1pld2gzK2dwV3BkalVoSUdYMXBkaGVzTDhleTZ4ZGtYaWVMVEl0TlRQKytq?=
+ =?utf-8?B?UisyeG5ZS3lBQWZSa2FGMnNtTVJxWVNKd3RCSE1TNEdHK1c0ME9BQnZQdnkz?=
+ =?utf-8?B?Mk5HQkZQRnZ1L2tnZXZyU095R0xidVpjbU9SbDZBZ2xWY254VEFWN1BTejFF?=
+ =?utf-8?B?bGRJL0dlcy9ON2lKVm5xNXgwZ3c3K2pKR3pZWGZZcHVsUEhMS0pqdWh4bXN5?=
+ =?utf-8?B?cmhVWTZySjI5SnBLbTM4bzVVOUp1ZzcxUEc2aWUzZUFXRjBmdTdROU53OWd6?=
+ =?utf-8?B?YXR2OCtJTldNcUsydGI2OVVSSklTQlBjS1ZFemhFa1dlOEh5VC9kK25MMDR6?=
+ =?utf-8?B?cWhMM1daTEtHVGNxVjB3ZEk1Vk1uandWWVVxOGxmMkp5TEVuSnFka1BtRFZR?=
+ =?utf-8?B?dmFIOVM0bmtBR08xY0lPSS8veGk5UWhjSGltNXVRc2ErMDV2QnRBS0x6YXQ5?=
+ =?utf-8?B?U1B0c1kzVkg5bmJqeHl0L21WQ2R6UzlNTXpKMU1FVWRvOGhwcmhoZVpUclpR?=
+ =?utf-8?B?dVllSkxaeXY5MzZBYUt0ZzV0Q1UxOVBNV083c0NUcW9ieXpTSlRVYUMrK3o0?=
+ =?utf-8?B?UzJOOHdxNVEvbE93ZkN6OUFORTlHM0pMZnhtM2pJNDk1cmhBejVuT0NuMEdC?=
+ =?utf-8?B?dmVQby81anZwaStreFBIWDdYaW9Sa25sZ2pFb28wMkVXU3JXZzZCeXIveGpq?=
+ =?utf-8?Q?yRSE=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 17:08:09.1182
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 019f125b-1517-4b2c-5480-08de380eb183
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCBF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4148
 
-
-On 12/8/25 3:25 PM, Jan Beulich wrote:
-> On 01.12.2025 11:24, Oleksii Kurochko wrote:
->> This commit introduces support for handling virtual SBI extensions in Xen.
->>
->> The changes include:
->> - Added new vsbi.c and vsbi.h files to implement virtual SBI extension
->>    handling.
->> - Modified traps.c to handle CAUSE_VIRTUAL_SUPERVISOR_ECALL by calling
->>    vsbi_handle_ecall() when the trap originates from VS-mode.
->> - Updated xen.lds.S to include a new .vsbi.exts section for virtual SBI
->>    extension data.
->> - Updated Makefile to include the new vsbi/ directory in the build.
->> - Add hstatus register to struct cpu_user_regs as it is needed for
->>    a check that CAUSE_VIRTUAL_SUPERVISOR_ECALL happens from VS-mode.
-> I can spot the check, yes, but without the field ever being set how is one
-> to determine whether that check actually makes sense?
-
-But hstatus is set automatically when a trap occurs and will be copied in
-handle_trap() in entry.S. The HSTATUS_SPV bit in hstatus will be set only
-when a trap originates from a guest, which is not the case now since we do not
-have any guest running yet. This is why hstatus is not currently saved or
-restored.
-
-Probably, you meant that it would be better to introduce csr init function
-now, something like:
-static void vcpu_csr_init(struct vcpu *v)
-{
-     unsigned long hedeleg, hideleg, hstatus;
-
-     hstatus = HSTATUS_SPV | HSTATUS_SPVP | HSTATUS_VTW;
-     guest_regs(v)->hstatus = hstatus;
-     
-     ....
-}
-But it also make sense only for a guest, which isn't ran now.
-
-If you think it is better to introduce saving and restoring of hstatus in
-handle_trap() now, or instead drop the handling of
-“case CAUSE_VIRTUAL_SUPERVISOR_ECALL:” in do_trap(), please let me know.
-
->
->> The implementation allows for registration and handling of SBI
->> extensions via a new vsbi_ext structure and ".vsbi.exts" section,
->> enabling extensible virtual SBI support for RISC-V guests.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->>   xen/arch/riscv/Makefile                |  1 +
->>   xen/arch/riscv/include/asm/processor.h |  1 +
->>   xen/arch/riscv/include/asm/vsbi.h      | 31 +++++++++++++++++
->>   xen/arch/riscv/traps.c                 |  8 +++++
->>   xen/arch/riscv/vsbi/Makefile           |  1 +
->>   xen/arch/riscv/vsbi/vsbi.c             | 46 ++++++++++++++++++++++++++
-> A file named identical to the directory it lives in raises the question of
-> why there is such a new sub-directory. Are you expecting moree files to
-> appear there?
-
-Yes, I'm expecting that and it is done in the next patches of this patch
-series.
-
->   How's vsbi.c then be "special" compared to the others? Do
-> you perhaps mean someling like "core.c" or "common.c" here?
-
-Agree, this is more appropriate for either “core.c” or “common.c”. Both options
-are fine with me. I slightly prefer using the prefix “vsbi-{core/common}.c”, but
-if you think it is better to omit the prefix since the folder name already
-provides that context, I’m fine with dropping it.
-
->
->> --- /dev/null
->> +++ b/xen/arch/riscv/include/asm/vsbi.h
->> @@ -0,0 +1,31 @@
->> +/* SPDX-License-Identifier:  GPL-2.0-only */
->> +
->> +#ifndef ASM_RISCV_VSBI_H
->> +#define ASM_RISCV_VSBI_H
->> +
->> +struct regs;
-> DYM struct cpu_user_regs?
-
-Should be struct cpu_user_regs.
-
->
->> +struct vcpu;
->> +
->> +struct vsbi_ext {
->> +    const char *name;
->> +    unsigned long eid_start;
->> +    unsigned long eid_end;
->> +    int (*handle)(struct vcpu *vcpu, unsigned long eid,
->> +                  unsigned long fid, struct cpu_user_regs *regs);
-> Nit: Maybe better "handler", as this isn't really a handle?
-
-It could be handler, I am okay with that.
-
->
->> +};
->> +
->> +#define VSBI_EXT_START(ext, extid_start, extid_end, extid_handle)   \
-> The extid_ prefixes aren't adding much value here, are they?
-
-Agree, not to much sense to have extid_ prefix here, lets drop it.
-
->
->> +static const struct vsbi_ext vsbi_ext_##ext __used                  \
->> +__section(".vsbi.exts") = {                                         \
->> +    .name = #ext,                                                   \
->> +    .eid_start = extid_start,                                       \
->> +    .eid_end = extid_end,                                           \
->> +    .handle = extid_handle,
->> +
->> +#define VSBI_EXT_END                                                \
->> +};
-> There's no use here, and peeking ahead at the other two patches shows
-> no use where this odd split of the macros would be necessary. What is
-> this about?
-
-I thought this was the common approach, similar to DT_DEVICE, where we have
-DT_DEVICE_START and DT_DEVICE_END. There may be no need for it right now, but
-perhaps we will eventually want similar behavior for VSBI_EXT_START.
-
-If you think it is better to drop VSBI_EXT_END for now, I’m okay with that,
-and can just use VSBI_EXT instead of VSBI_EXT_START.
-
->
->> --- a/xen/arch/riscv/traps.c
->> +++ b/xen/arch/riscv/traps.c
->> @@ -15,6 +15,7 @@
->>   #include <asm/processor.h>
->>   #include <asm/riscv_encoding.h>
->>   #include <asm/traps.h>
->> +#include <asm/vsbi.h>
+On 2025-12-10 09:40, Anthony PERARD wrote:
+> On Tue, Dec 09, 2025 at 04:47:28PM -0500, Jason Andryuk wrote:
+>> diff --git a/xen/Makefile b/xen/Makefile
+>> index e6cf287425..aeb5dcf2ee 100644
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -469,10 +469,13 @@ all-symbols-$(CONFIG_FAST_SYMBOL_LOOKUP) += --sort-by-name
 >>   
->>   /*
->>    * Initialize the trap handling.
->> @@ -114,6 +115,13 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+>>   include $(srctree)/arch/$(SRCARCH)/arch.mk
 >>   
->>       switch ( cause )
->>       {
->> +    case CAUSE_VIRTUAL_SUPERVISOR_ECALL:
->> +        if ( !(cpu_regs->hstatus & HSTATUS_SPV) )
->> +            panic("CAUSE_VIRTUAL_SUPERVISOR_ECALL came not from VS-mode\n");
-> This might more naturally want to be BUG_ON()? Assuming of course the value
-> in question is exclusively under hypervisor control. Otherwise panic() would
-> also be wrong to use here.
+>> +XEN_FINAL_LDFLAGS-$(CONFIG_GC_SECTIONS) := --gc-sections
+> 
+> Is there a good reason to add this flags after the arch-specific
+> makefiles? If not, could you move that just before, and right after the
+> definition of "$(all-symbols)" as it's a variable that is used in the
+> same phase of the build. (With Jan's other feedback)
 
-Only hypervisor can access ->hstatus (of course, hart is changing it when a trap
-happens, for example).
-BUG_ON() is a good option for me.
+No, there is no reason for its location.  I can move it.
 
->
->> --- /dev/null
->> +++ b/xen/arch/riscv/vsbi/vsbi.c
->> @@ -0,0 +1,46 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/sched.h>
->> +
->> +#include <asm/processor.h>
->> +#include <asm/sbi.h>
->> +#include <asm/vsbi.h>
->> +
->> +extern const struct vsbi_ext _svsbi_exts[], _evsbi_exts[];
->> +
->> +const struct vsbi_ext *vsbi_find_extension(unsigned long ext_id)
-> static?
+>>   # define new variables to avoid the ones defined in Config.mk
+>>   export XEN_CFLAGS := $(CFLAGS)
+>>   export XEN_AFLAGS := $(AFLAGS)
+>>   export XEN_LDFLAGS := $(LDFLAGS)
+>> +export XEN_FINAL_LDFLAGS := $(LDFLAGS) $(XEN_FINAL_LDFLAGS-y)
+> 
+> "FINAL" isn't very descriptive. A completely wrong interpretation might
+> be that we should use the "final" variable instead of "XEN_LDFLAGS". How
+> about a name that describe where this set of flags is going to be used,
+> like "XEN_LDFLAGS_xen_syms" (which unfortunately doesn't exactly fit
+> with x86 xen.efi target), or maybe suffix it with "_target" or just
+> "_xen"? (In Linux build system, they use "LDFLAGS_vmlinux", but I don't
+> know what would be the equivalent of "vmlinux" in our build system.)
 
-It could be use not in vsbi.c (for example, in the next patches it is used for
-SBI_EXT_BASE_PROBE_EXT), so it shouldn't be static.
+I plan to use "_xen" unless anyone objects.  "_xen_lds" could be another 
+option, but again that doesn't match efi.lds.
 
->
-> Also, again - is the ext_ prefix adding any value here?
+Hmmm - maybe my earlier xen.efi link failure was from efi.lds needing to 
+be updated.
 
-Not really, I guess.
+> 
+> The prefix "XEN_" is used as namespace, with one reason described in the
+> comment.
 
->
->> +{
->> +    const struct vsbi_ext *vsbi_ext;
->> +
->> +    for ( vsbi_ext = _svsbi_exts; vsbi_ext != _evsbi_exts; vsbi_ext++ )
->> +        if ( ext_id >= vsbi_ext->eid_start &&
->> +             ext_id <= vsbi_ext->eid_end )
->> +            return vsbi_ext;
-> What if multiple entries have overlapping EID ranges?
+I'm not sure what you mean here.  Are you just pointing out that XEN_ is 
+the prefix and not the target?
 
-Good question, I wasn't able to find that EID is always unique in SBI spec,
-but, at the same time, if to look at all available extensions and their id(s),
-they are always unique, so I expect that they will be always unique, otherwise,
-it won't be possible which extension should be used.
+> Also, could you use $(XEN_LDFLAGS) instead of $(LDFLAGS) ?
 
->
-> Also at the macro definition site please clarify (by way of a comment)
-> that these ramnges are inclusive (especially at the upper end).
+Yes.
 
-I will add the following above VSBI_EXT_START:
-   /* Ranges (start and end) are inclusive within an extension */
-
->
->> +void vsbi_handle_ecall(struct vcpu *vcpu, struct cpu_user_regs *regs)
->> +{
->> +    const unsigned long eid = regs->a7;
->> +    const unsigned long fid = regs->a6;
->> +    const struct vsbi_ext *ext = vsbi_find_extension(eid);
->> +    int ret;
->> +
->> +    if ( ext && ext->handle )
->> +        ret = ext->handle(vcpu, eid, fid, regs);
-> Is a registration record NULL handler pointer actually legitimate / useful?
-> (If there was range overlap checking I could see a reason to permit such.)
-
-it is a good question, I think ext->handle = NULL should be impossible. At
-least, at the moment I can't come up with the case where it is possible and
-what will be a use case. I will drop ext->handle check.
-
->
->> +    else
->> +    {
->> +        printk("Unsupported Guest SBI EID #%#lx, FID #%lu\n", eid, regs->a1);
-> Are the #-es ahead of the %-s adding value here?
-
-It is how SBI spec writes them. For example,
-  9. Hart State Management Extension (EID #0x48534D "HSM") . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
-  9.1. Function: Hart start (FID #0) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
-
-So I thought that it would help to find stuff faster.
-
->   Is printing an ID as
-> decimal going to be useful, when the value is pretty much arbitrary?
-
-It seems like FID (in comparison with EID) is always in sequence and
-start from 0, but I don't see that SBI spec guarantees that.
-
-But in the same side for old extension they used hexdecimal for FID, but
-again it is in sequence:
-5. Legacy Extensions (EIDs #0x00 - #0x0F) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-5.1. Extension: Set Timer (EID #0x00) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-5.2. Extension: Console Putchar (EID #0x01) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
-
->
->> +        ret = SBI_ERR_NOT_SUPPORTED;
->> +    }
->> +
->> +    /*
->> +     * The ecall instruction is not part of the RISC-V C extension (compressed
->> +     * instructions), so it is always 4 bytes long. Therefore, it is safe to
->> +     * use a fixed length of 4 bytes instead of reading guest memory to
->> +     * determine the instruction length.
->> +     */
-> And ECALL is also the sole possible cause of CAUSE_VIRTUAL_SUPERVISOR_ECALL?
-
-I think yes, in Trap Cause Codes paragraph in RISC-V spec is mentioned the following:
-   Furthermore, environment calls from VS-mode are assigned cause 10,
-   whereas those from HS-mode or S-mode use cause 9 as usual.
-
-So it is explicitly tells that environemt calls, so ECALL.
-
->
->> --- a/xen/arch/riscv/xen.lds.S
->> +++ b/xen/arch/riscv/xen.lds.S
->> @@ -91,6 +91,13 @@ SECTIONS
->>   
->>       DT_DEV_INFO                       /* Devicetree based device info */
->>   
->> +    . = ALIGN(POINTER_ALIGN);
->> +    DECL_SECTION(.vsbi.exts) {
->> +        _svsbi_exts = .;
->> +        *(.vsbi.exts)
->> +        _evsbi_exts = .;
->> +    } :text
-> Isn't this read-only data? In which case it wants to move up ahead of _erodata?
-
-It is. I will move it to recommended place.
-
-Thanks.
-
-~ Oleksii
-
+Thanks,
+Jason
 
