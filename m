@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9EE4CB2C1F
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 12:01:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1182853.1505685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A64BFCB2D70
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Dec 2025 12:37:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1182865.1505694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTHwa-0006LO-GE; Wed, 10 Dec 2025 11:01:16 +0000
+	id 1vTIUj-00024h-1c; Wed, 10 Dec 2025 11:36:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1182853.1505685; Wed, 10 Dec 2025 11:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 1182865.1505694; Wed, 10 Dec 2025 11:36:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTHwa-0006J8-Cd; Wed, 10 Dec 2025 11:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 1182853;
- Wed, 10 Dec 2025 11:01:15 +0000
+	id 1vTIUi-00023h-VF; Wed, 10 Dec 2025 11:36:32 +0000
+Received: by outflank-mailman (input) for mailman id 1182865;
+ Wed, 10 Dec 2025 11:36:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K7qh=6Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTHwZ-0006J2-KW
- for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 11:01:15 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NJGl=6Q=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vTIUh-00023b-Vo
+ for xen-devel@lists.xenproject.org; Wed, 10 Dec 2025 11:36:32 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85fca3fd-d5b7-11f0-9cce-f158ae23cfc8;
- Wed, 10 Dec 2025 12:01:05 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47795f6f5c0so43601165e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 03:01:05 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7da1dff5sm37009645e9.15.2025.12.10.03.01.04
+ id 77a218f4-d5bc-11f0-9cce-f158ae23cfc8;
+ Wed, 10 Dec 2025 12:36:28 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-b76b5afdf04so1093830266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 03:36:28 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b79f4a78869sm1661421566b.71.2025.12.10.03.36.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 03:01:04 -0800 (PST)
+ Wed, 10 Dec 2025 03:36:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +45,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85fca3fd-d5b7-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 77a218f4-d5bc-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765364465; x=1765969265; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZHsz3Ybet+Oz3L7pfFuqVu7LnxlVqEN6KZidekt/HEQ=;
-        b=dOX/UN5hI2sDBXhYkxW7/dazB7D22/11cFZGKYmt4+y3HDfpZSxGzD9IELgul3wuOk
-         fnUJaAdFQ3U6e+mBtoROTHfNk1X/WBnX880itxPKtqbNiW7QKGgq9EurIWtpV2NXRZgR
-         C0uvE4nzoe0IH36nnt6qctPe9Xj9oG2SoNJmLam8FKEQ2dfS0Ak72mcD0YuVZn0BGLVs
-         KFPrqOfK5PclHgXGx5SkIRcqWPAZimcyH//3+d4l/5XWfZ6+aTjnpORblUnnJQLOi9QT
-         0Ex40Tt5XhU5g84Jcl6Sd7aQLkW4269OAFCZdgTJNxiSBP8oJLLzdaaTHulfRxcvkVAT
-         6ybg==
+        d=gmail.com; s=20230601; t=1765366588; x=1765971388; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/nWqjvUa51CVTyMBmFpjkeCnXLmzU/A9jVG22EhPfEg=;
+        b=jtnKzW58aJG1twl8ok0j7CUacsO2KO2xKEzbHNGUox4CVhbxRpwSJYmJAK5S2kGS12
+         RVpqdjJaAX6c1nYNtzWc4xNgBc5M3qM3uFuYC4fukgp2q9T2KK+NEY3lve2m/znVln7D
+         csZQWZBjCNKXx0C3Os2WUlbpVXX0wUX0BHNLGBxMu7aWRnsvticAgeQvRhwJkTVoN/uk
+         PyFcxoLA/DTGIT1nF30Ku+c/WtKbaJ9RzqRuA7zW28QPts7ChjGpKlZyFtLmkmrOxr8v
+         Z/z6mXGj0/URLIlgyCfTJrZ0JlhNzkhCFcl5IX0C9WhWQsvPqMU8xwLBknYb68AZcNca
+         RSTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765364465; x=1765969265;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZHsz3Ybet+Oz3L7pfFuqVu7LnxlVqEN6KZidekt/HEQ=;
-        b=aD3G5D4Bn43vwSNwN6Kiw/Nf8sKrsyLnwabGhN/bDjijA+GVBZsQDXXiUMSJoJZuDS
-         3AhG6aEgMD+PNR/RqCJWZ9mATuK7jnw+uoA9SpZz/OfDChEOaiO3L9ncApQd5WZR5ZDg
-         rpRjRz4dNHYjv1cHuOLCRA2zOvNIW3Q2QQ+zN1a7YWjKprbf+a//44LpvzpM1RvisdFl
-         p++cOvLgCI5XFsn3onEC5Sqqq7VTA8akmDaSLgzF0mhf296rvc+Op1QaBCJzqwmci2qM
-         zx6ir3kYlTaDqqzTE+PgpiezBarVBRxguJO9TyqEI8x6tdGRDKb2Doj+Zdsi7M6PJgKi
-         VaZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUyBemjqE51b3lVXMoi+o0LPmo/UQv/I5IKmymT2KukpqEPHBsXaOW/VMlhzwKjdTV10ihLNY9GWPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAnn/Bs0y5o+O6IHVur/S4kKdo+Xlo0iihWS3J7mhZWqc2U2WM
-	pHH6GvPDaVZqUtbgHCh1C8V65KL0O7uKqIig8VY6cC+hO87CL3vxqpOJY/zAFCyHDQ==
-X-Gm-Gg: ASbGncsFALDkEDT0xGBXNXqHeQs6wn3MfA5b1Wcc1FBlh90daD4nuYi/twZ8qUjbUqV
-	HquZlRKxDNwnx6+MUWqz6DZFy2yBGHBDVFND5eOPY0XA3o2y8Vys5zq0HyaXjrMPJaxrioE+ZJB
-	WCIfGvYy3cPWHIvRiIzMZQNcsFes0FSzlgqmYFsOLCsYxDWdO6qSR0oKH5/FhI1qNQAlolyDQoF
-	2JYDFQYCt3hH/0sWZAlQLGIeYIiV3yFAAgv0LgTInFVI7//XrMsmFun1xsP2KT5q/zuQi2+jK6G
-	uW9qiMyeu/wE8QoHo1BtN97cYj91QfHACiGrmMp8ZSP73lt/0wHPvGb8sVspAVcPPQBTj9gdyX0
-	u+xBoSRo+V0gq5UE2EfKaOaN/RF8oY/soXo80zbH1w3yWakOWo2uFknORbxfwQ1HyvuUqs2vHQ/
-	iKh/aKBplK5pIJcxjqbUGn0qPN7tDyQSWOApbNzl7NKkZqCZsTtulXOGrDz4mG16boCgwPRYZQo
-	mo=
-X-Google-Smtp-Source: AGHT+IH5FQ+FkIbHXCiqDZ68KlhJ82E/hWR2aO7jA6uf9qUhNKZBqW1B4dG8xbEMpWPoWvSJmb+v4A==
-X-Received: by 2002:a05:600c:314c:b0:477:63dc:be00 with SMTP id 5b1f17b1804b1-47a83810f28mr20675825e9.25.1765364464753;
-        Wed, 10 Dec 2025 03:01:04 -0800 (PST)
-Message-ID: <b2fae779-3b22-47ff-9da0-a17b61455c04@suse.com>
-Date: Wed, 10 Dec 2025 12:01:03 +0100
+        d=1e100.net; s=20230601; t=1765366588; x=1765971388;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/nWqjvUa51CVTyMBmFpjkeCnXLmzU/A9jVG22EhPfEg=;
+        b=ded/fhbBkkRm9mrtKq/xmsy71eTs0mQvLPe1FxHQ/peMGP7+PXTa9rUF9l3xSY385W
+         nkdhF62sWEFnjPKv3+yGSvqwT/4qcxodwBY2pwk16SqbzL+Yg4cNlXTv16qE/Yjo4Woo
+         Azeyr9Q2BLCjssx3G33uiPXsrKdHm9Aku+LZRYH3yXbvGy8C0MHeN2/918tZ8JEBCpUO
+         qWfeP47zJu2Z+8effA/4t8pwc8BPW7TnY05oeVi5fpuE7eNvQx2fojImoh32NMzxg9/e
+         69O/rf48jFcpeS/8w1jgSXKK9hU2bA89TjDIMapCQIz8yRFzbsuLQc7oAa767esZRBcN
+         gX9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVT+bnOTlep8aoDoelYjCl4XultCZEbi1ObIfopRtvahYeGkFDS3SAFg7kXF5DlMiR0isgJCbTikUQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWeLZzEKDSyQlvf2yoffMk2sj6GWd1RPS5O0lZ1t1YSrHSIVbP
+	E+yIHe4jelycMh0+YKFODtZ4TJ3T/W6y7dLqSRPR+WUm/MmES0N8aoMp
+X-Gm-Gg: ASbGncvlrOjmWp/o6VTx/zmHvqu1Pj7Ce/PEyunW6KumP46OoOOszXrWBRvT2TceF0k
+	2GzABT5CKhPNjcWh8K1pEFa7L0nFkp2NAmWHcE+5yNRyPgMtKfFxQKkaUIzM4LljRQSDXZUkFnq
+	kVzhc51J2p7DePJ+bWPBkTSwf7AYiOMH7dbSowOsAliZS/uwf/FNSer5P1WWPJK0WyYY9jF1+9v
+	WzC3ur1uJ5yg2I4PHMV5jlfCZ/kdD9nmDlE8mg9tdQWawfnEanPjh210kewZukUxIB1XuiIMbGo
+	9OOKzd840I/TJrtKT+cU0ejIhnhn52X55IDEVjCe/mHoEtQ+pDZxUCFo8xwr/VIXqOSbYYkiSyi
+	/qEBL3rO8S8KvOw8W5fJ6bZYFURZCnEnlyFT+a2UkoAGi1b3PaaVTM/JDoWu7N5EFzPbbQxRdF+
+	ntsaPpihSQdKnHp7TDkdNrgeQHov/SpADkFg3XOK34cg86Avc36NHEoWX1BXCw
+X-Google-Smtp-Source: AGHT+IFJJWJ27sKiQ/ytu7lVsjkdANKZQkoaHKNxOLaM3Ffi2HacfnSNEfYBwcRaBhmwu7RJSDVULQ==
+X-Received: by 2002:a17:907:8693:b0:b76:b632:1123 with SMTP id a640c23a62f3a-b7ce841ef18mr221880166b.42.1765366587785;
+        Wed, 10 Dec 2025 03:36:27 -0800 (PST)
+Message-ID: <e6240b4a-c8f9-4618-916a-d97ce3ae7d3e@gmail.com>
+Date: Wed, 10 Dec 2025 12:36:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] xenpm: Add get-intel-temp subcommand
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1765300623.git.teddy.astie@vates.tech>
- <6fcfea5d3f6be1bcf1d34ea5ccec40a477100472.1765300623.git.teddy.astie@vates.tech>
- <29100824-303a-46b2-b394-d15d617131bc@suse.com>
- <3e9f828a-218e-4b20-9fe1-c8da3f06f87d@vates.tech>
+Subject: Re: [PATCH v6 18/19] xen/riscv: add support of page lookup by GFN
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <48a58cde3de6a459885465c6d29d00d046ae4a37.1763986955.git.oleksii.kurochko@gmail.com>
+ <69dce344-4dee-4778-99c2-0621c4e17cfc@suse.com>
+ <86a87823-8b15-4897-9a97-ade444e2830d@gmail.com>
+ <5fd516ed-c6db-4e7f-beea-a87c89faa6c0@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3e9f828a-218e-4b20-9fe1-c8da3f06f87d@vates.tech>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <5fd516ed-c6db-4e7f-beea-a87c89faa6c0@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2025 11:37, Teddy Astie wrote:
-> Le 10/12/2025 à 09:50, Jan Beulich a écrit :
->> xc_resource_op() doesn't return errno values, so by using -EOPNOTSUPP here you
->> put the caller into a difficult position when actually looking at the return
->> value: Does -1 mean -1 or -EPERM?
-> 
-> That's a bit unfortunate as xc_resource_op() can return either -1 or 
-> some -errno; so -1 could be either -EPERM or a internal failure of 
-> xc_resource_op and we can't really know.
 
-Can it? Assuming do_platform_op() and do_multicall_op() behave correctly,
-I can't see any problematic return.
+On 12/9/25 4:49 PM, Jan Beulich wrote:
+> On 09.12.2025 16:41, Oleksii Kurochko wrote:
+>> On 12/9/25 12:38 PM, Jan Beulich wrote:
+>>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/p2m.c
+>>>> +++ b/xen/arch/riscv/p2m.c
+>>>> @@ -1061,3 +1061,186 @@ int map_regions_p2mt(struct domain *d,
+>>>>    
+>>>>        return rc;
+>>>>    }
+>>>> +
+>>>> +/*
+>>>> + * p2m_get_entry() should always return the correct order value, even if an
+>>>> + * entry is not present (i.e. the GFN is outside the range):
+>>>> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+>>>> + *
+>>>> + * This ensures that callers of p2m_get_entry() can determine what range of
+>>>> + * address space would be altered by a corresponding p2m_set_entry().
+>>>> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
+>>>> + *
+>>>> + * Therefore, this function returns true for GFNs outside range (1), and in
+>>>> + * that case the corresponding level is returned via the level_out argument.
+>>>> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
+>>>> + * find the proper entry.
+>>>> + */
+>>>> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
+>>>> +                                   gfn_t boundary, bool is_lower,
+>>>> +                                   unsigned int *level_out)
+>>>> +{
+>>>> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
+>>>> +    bool ret = false;
+>>>> +
+>>>> +    ASSERT(p2m);
+>>>> +
+>>>> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
+>>>> +                  : gfn_x(gfn) > gfn_x(boundary) )
+>>>> +    {
+>>>> +        unsigned long mask = 0;
+>>>> +
+>>>> +        for ( ; level; level-- )
+>>>> +        {
+>>>> +            unsigned long masked_gfn;
+>>>> +
+>>>> +            mask |= PFN_DOWN(P2M_LEVEL_MASK(p2m, level));
+>>>> +            masked_gfn = gfn_x(gfn) & mask;
+>>>> +            masked_gfn |= (is_lower * (BIT(P2M_LEVEL_ORDER(level), UL) - 1));
+>>> I fear I still don't fully understand this. I would have expected the same mask to
+>>> be used for setting / clearing bits (once inverted, obviously). Why would you clear
+>>> only some of the lower bits in one case but set all of them in the other?
+>> Only when is_lower == true do we need to set the lower bits; in all other cases
+>> this is not required, if i am not confusing something.
+> That wasn't my point though. I don't follow the !is_lower case: Why would you
+> clear only the bits for the given level, not all further down as well? Or am
+> I reading P2M_LEVEL_MASK() incorrectly?
 
-Jan
+Maybe I am still misunderstanding your question, but let’s consider what happens
+in the loop in the case of !is_lower.
+
+P2M_LEVEL_MASK() returns the mask for a given level, so:
+
+   P2M_LEVEL_MASK(2) = 0x1FFC0000000
+   P2M_LEVEL_MASK(1) = 0x0003FE00000
+   P2M_LEVEL_MASK(0) = 0x000001FF000  (not really used/checked, because if we need
+                                       to calculate it, we already know we are at
+                                       level 0)
+
+Since we accumulate the mask across iterations, we get:
+
+   level 2: mask = 0x1FFC0000000
+   level 1: mask = 0x1FFFFE00000
+   level 0: doesn’t matter for the same reason as above.
+
+So, in the !is_lower case, it is clearing only the low bits for the current level.
+On each iteration, we get only the portion of the GFN that corresponds to the
+current level, plus the portions from previous level(s) if the level is not the root.
+
+
+>
+>> The idea is that if boundary = 0x1000 and gfn = 0x800, and is_lower == true,
+>> then to return the correct level value we must set all lower bits of gfn to 1.
+>> Otherwise, we would get level = root instead of level = 0 in this case.
+>>
+>> I decided not to reuse mask to set the lower bits when is_lower == true, because
+>> doing something like:
+>>
+>>       mask |= PFN_DOWN(P2M_LEVEL_MASK(p2m, level));
+>>       masked_gfn = gfn_x(gfn) & mask;
+>>       masked_gfn |= (is_lower * ~mask);
+>>
+>> would allow ~mask to introduce 1s into the upper bits, which is not what we want.
+> If you set "mask" such that it has suitably many of its low bits set then you
+> should be able to simply do
+>
+>        if ( is_lower )
+>            masked_gfn = gfn_x(gfn) | mask;
+>        else
+>            masked_gfn = gfn_x(gfn) & ~mask;
+
+So, if I understand correctly, your suggestion is to calculate the mask as follows:
+   level 2: mask = 0x3fffffff
+   level 1: mask = 0x001fffff
+(i.e., mask = BIT(P2M_GFN_LEVEL_SHIFT(level), UL) - 1)
+
+I agree that this works fully in the is_lower case, but it may cause issues
+in the !is_lower case. According to the spec, the (guest) physical address is
+56 bits (and the corresponding GFN is 44 bits). My concern is that bits above
+bit 44 must be zero. However, ~mask would have all higher bits set to 1, so
+those (above bit 44) upper bits would not be cleared.
+
+Perhaps this is not an issue at all, since a GFN larger than 44 bits should be
+considered invalid. In that case, it may be sufficient for check_outside_boundary()
+to ensure something like:
+   ASSERT(gfn_x(gfn) < (BIT(PADDR_BITS - PAGE_SHIFT + 1, UL) - 1));
+
+Does it make sense or I still continue to confuse something?
+
+
+>
+>>>> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>>>> +                           p2m_type_t *t,
+>>>> +                           unsigned int *page_order)
+>>>> +{
+>>>> +    unsigned int level = 0;
+>>>> +    pte_t entry, *table;
+>>>> +    int rc;
+>>>> +    mfn_t mfn = INVALID_MFN;
+>>>> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
+>>>> +
+>>>> +    ASSERT(p2m_is_locked(p2m));
+>>>> +
+>>>> +    if ( t )
+>>>> +        *t = p2m_invalid;
+>>> The sole caller passes non-NULL right now. Are you having patches pending
+>>> where NULL would be passed? Else, this being a static helper, I'd suggest
+>>> to drop the check here (and the other one further down).
+>> I don’t have any such call in pending patches. I saw that Arm has a case
+>> where it is called with t = NULL (https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/mem_access.c#L64),
+>> so I decided to keep the check.
+>>
+>> What you wrote makes sense to me, and given that the mem_access code is
+>> Arm-specific, RISC-V will probably never have the same situation.
+>> However, it still seems reasonable to keep this check for flexibility,
+>> so that we don’t risk a NULL-pointer dereference in the future or end up
+>> needing to reintroduce the check (or providing an unused variable for a type)
+>> later. Does that make sense?
+> To a degree. The other perspective is that the check is dead code right now,
+> and dead code is often disliked (e.g. by Misra). Introducing the check when
+> it becomes necessary is pretty simple.
+
+Then it makes sense to me to drop the check for now.
+
+Thanks.
+
+~ Oleksii
+
 
