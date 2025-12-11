@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F500CB5174
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 09:21:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183633.1506248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66831CB5186
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 09:24:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183640.1506258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbun-0001qe-1b; Thu, 11 Dec 2025 08:20:45 +0000
+	id 1vTbxv-0002Q0-Es; Thu, 11 Dec 2025 08:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183633.1506248; Thu, 11 Dec 2025 08:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 1183640.1506258; Thu, 11 Dec 2025 08:23:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbum-0001pD-VA; Thu, 11 Dec 2025 08:20:44 +0000
-Received: by outflank-mailman (input) for mailman id 1183633;
- Thu, 11 Dec 2025 08:20:43 +0000
+	id 1vTbxv-0002OI-CB; Thu, 11 Dec 2025 08:23:59 +0000
+Received: by outflank-mailman (input) for mailman id 1183640;
+ Thu, 11 Dec 2025 08:23:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTbul-0001p7-Gp
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 08:20:43 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1vTbxt-0002O5-9K
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 08:23:57 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47e25011-d66a-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 09:20:41 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47796a837c7so4884645e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 00:20:41 -0800 (PST)
+ id bb8b3ca3-d66a-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 09:23:55 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-477bf34f5f5so5607755e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 00:23:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a89f74291sm20421535e9.11.2025.12.11.00.20.39
+ 5b1f17b1804b1-47a89d9a174sm23498105e9.3.2025.12.11.00.23.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 00:20:39 -0800 (PST)
+ Thu, 11 Dec 2025 00:23:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47e25011-d66a-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: bb8b3ca3-d66a-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765441240; x=1766046040; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765441434; x=1766046234; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=199tdwz7sf7JJNa5p7Oom8elNhVDlkcvMlfTdUa4kEc=;
-        b=M7MQnjX/amoDdyT7tyzu2UQ/AzQbEaXwXlxsj4Dh5BWc87bD9BtME9e+e5LraEIEKN
-         DTK7ILiiMkDYjusE8vWDb/Dqdn0m0BCeMBkP3foxFB0FsovDUEZ7Qxgks2D8c+SLXEUs
-         biJ7BA9VD1rVdnDWcmXSV+N3lR+W/sBPkhu4o0iu0LuUfEhN+6xjOAAv+I1HBk+ALzJM
-         Py8lXHpj4J6q723EAVTVxwUVQFcTiriwYmBqd1tKz/Mud9oDyaW9rI9fMJdgcwMS6olT
-         1V5EiR/J2Mjt93G7enep6QOySkQrgwC6lu2E7pdieAE4+sTkXontZHuednuXlhKh7GVI
-         eaVA==
+        bh=j7LMydaAXChFSGiONcnEvTsTxDWWWR/TBL4AqqtXITo=;
+        b=XBoUCab7mljmApNJhOsauuI0ICuss1yDvErHk2+SZDWkLNnlmLtZE8u25O/5AUmxp0
+         KjNf2MRm/TV1CFfrr4XeZ/ottTJkwG0w6RUmxV9IOMvo7n4q9m2TLA1yAFYR/pkTuybM
+         wTmDmBSXGyVVeRz2eprXlW5V505ruPsQuepPWIomhJq60eYr148+lnEF4avV/9JLrvE+
+         iaXmK+AdFPJ4D0sw5sSDRIWon4HyrXu+itwWRM2O6J91ZM8E5tKcuyh9Co2R/ozxrSmQ
+         8qaus9tMaz3L0r/iTNsNRKaIzTkr16OFvpdiX+FBHW7dLFXq7VL+Wz70rBOtzVuHWZuc
+         ryKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765441240; x=1766046040;
+        d=1e100.net; s=20230601; t=1765441434; x=1766046234;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=199tdwz7sf7JJNa5p7Oom8elNhVDlkcvMlfTdUa4kEc=;
-        b=J5kBJBt8zdUJrCGIUnTKpA2BuI0VTlX5wQF3tfHKOhLcy66Xks9YzjFSKhUHPPUPa1
-         T9Db+3j2gtqIoQgi11g9SByxEoBrFZTbavCIO7Ca08aZx9QJko0vdPy3B7RmXGtTFWph
-         E0MgeqDy7J5jqGanIbTtVGtUrOCTu/dJIzeu3x/AYs1ECZ66ztdEhWVPpU8i829xkbM5
-         l2ZGx3K+vPj1ZNJbSipyvJvsGkodNM/yXOjenue89MOpOgltuVMevVisjtKSQ4seb1bc
-         xNr8JQCoZ75m1Adc13bNgnAEzS73hekZUfSynazyq98qH0TCH+F8EpyagZ2+rovJlyVy
-         /UFw==
-X-Forwarded-Encrypted: i=1; AJvYcCVB5eVuJiyo7vh0aQPWgkHtR8+BqgxTdl+QhZlpSVxxj8WRtuJqNBpsMGwVQB7rDY++QlrRgcGUK4c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznQ7ZCclRRGiEc5BXtROvnzdiVdj8sXMR8aMrfxhziCvGzbuVK
-	nFPGe8q2daOqeXOKECw/7GU/uBqTVAPwHjIkyMMYiBLSMnzzYM8bRT+7tgKzEsSHDQ==
-X-Gm-Gg: AY/fxX7ORpYLBcs61bEupF2KRj6ozVZvjNLN42/GSespjqhwEvvKV1hADyB7tR2N6k4
-	S+ALNPwhXmzPbgIt0xMSgOlI9O8MkvjYVcEj5nQzpZALBCNHUozfIrrLsBwcLzENn5q4YkL4U7V
-	OgL1FWCcCiqcjvWnfNu8LKHv/NFQ6qspt/Su1AoTQm62Fkq/Re0XMoyPtHSJBSxBvpJf/qgYjC3
-	F1szwKwAd1TboJBQl9UDhkKvE0nA99FyoY+I5woTZOo0NpVZdves1B4gA9T7bIoTLJaSsqguPOM
-	iFUu1psMfCw2O+/sPOn7caoh95PPz458cUngve9dGk1Sz1Mm2gztwBFYUqB2NbXHtLvL8IBjN0s
-	gE8jiFbbfCOjpIZMYCrBHo8sKJcEq3DP1AqBe62LwDIPaieidCDoomBN/ExT3LF6JSr5FT2a9uH
-	qjTPyPl5NQ7yEvTAcZQZ71in+lXEVRBRd+SJqaQ8DOV5DrpzrObb30yuDkFO8gCYz6awGcwduqf
-	+zge8nnM/Ovcg==
-X-Google-Smtp-Source: AGHT+IHXVwBp1NRR+fgRyAdxAhAveZwTAo4jwG2ekFJ6zyCdN/9UIO2Xo2hKZNExS62NbkuWDcbBrg==
-X-Received: by 2002:a05:600c:190f:b0:47a:8154:33e3 with SMTP id 5b1f17b1804b1-47a83810f33mr50819525e9.28.1765441240270;
-        Thu, 11 Dec 2025 00:20:40 -0800 (PST)
-Message-ID: <d40dc64e-cf8e-4bf7-9d04-1dcfe4c6abea@suse.com>
-Date: Thu, 11 Dec 2025 09:20:37 +0100
+        bh=j7LMydaAXChFSGiONcnEvTsTxDWWWR/TBL4AqqtXITo=;
+        b=coYG6Tez8YXAmoeor5vO3iWW3yjwIQEXzGpd+UcgHqKhlKWANM1xkz4wQNlnXSiZXe
+         fIpbMFMD/gtR1S0LVZ0E9QmeWDPfw1u538FZiqH1p4NprFqnSMnlO6gTt1binIfJ/CMt
+         MCVB8Mhg+nn8kVW0zoLAf6KIsxAwkbvr2907IW+PmHyvWxy8b13Pq9+/0tFokis8Bn7c
+         g7WZPPRvN7enn+ueJCpdD9qRthFs6sdJpJI2zw8HRu4XE0aVUeh/d/OU5SkLG6Dg1oxO
+         tdFYa4HDQh8GyQDPMsTalboMpOXJNrwPVpvf0h71GJL06S4hViU+LCi76MLg57q9eXUQ
+         QkNQ==
+X-Gm-Message-State: AOJu0YxEdcrK3ZFFGUgMXPb91KyKodjaefxPUXMfhuZqtOGIhd0PDsk5
+	96Twg11Wf0E5j98jJBqKnJhe/aLn4Oh2VhVaTClt4WoQyGWDgnFvBi3TS5L3lEkrWQ==
+X-Gm-Gg: AY/fxX78AhvLUlvjV8+9lKvVrTS2vcakhjKlYMPqBPhnR+lzHtIP8E+eDzqfohIlhXb
+	+KmJXC3B7ls06C5mox4Cb5rNL6JIEnspdIgq0DOIhxdZ92GmifNPc4S7pxL5RG76sQ02IjcEi3n
+	DnMl9V0avjOW1YCWqPGBKvaOp79tNgkr9f+ef5HGwSLJ3Oq5ytCmD0i7yc6Pa22/NsBZSz3unEc
+	ejURMc95qeTkyzivFAmhnMNxuklooIZA5tduupg9XqkN7815Jb9EBN8PZ9w6kUevACDXNkxMBek
+	1lL2Ympdm1iHalA+p9Qc05LrGsvwdY9C4QyCJXCLffbaTHN9N7WHvPR2fF5idf3aJ+jxkHa7tXs
+	ITPPHFhhl3f4KUQ25slO89Wb2DOS9z43Enh38YOCJ+c7poya8IsuA/e5DYOBCPgutGD4o4E7PzV
+	Ow/jwo44dEtxwwghF5Gh2mvCQBcxCItMQWk70vbELZK5NKchRHTkaFKWCx8k1BO3l2frbY3rkDc
+	5Q=
+X-Google-Smtp-Source: AGHT+IE/zPKUoHR7dBbS39aCe2sUKVFnUMcB5mK5j5+Yjvcm7F3jSDPdKcovkk4sw1+DtlTByS9r6Q==
+X-Received: by 2002:a05:600c:c171:b0:477:79c7:8994 with SMTP id 5b1f17b1804b1-47a83795f6emr61653905e9.30.1765441434513;
+        Thu, 11 Dec 2025 00:23:54 -0800 (PST)
+Message-ID: <9b7f6d06-a23e-42b3-bc6e-bee5bc6e4186@suse.com>
+Date: Thu, 11 Dec 2025 09:23:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Victor Lira <victorm.lira@amd.com>,
+Cc: xen-devel@lists.xenproject.org, Victor Lira <victorm.lira@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
@@ -104,11 +103,10 @@ Cc: Victor Lira <victorm.lira@amd.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony@xenproject.org>
 References: <20251209214728.278949-1-jason.andryuk@amd.com>
- <20251209214728.278949-3-jason.andryuk@amd.com>
- <a734eeb0-c3f2-4880-86ee-7eeeb7beeacf@suse.com>
- <974c3c29-8f58-46fd-9ffd-4c574525f66c@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com> <aTmGTWIO2ZKWuQeu@l14>
+ <a6d3737f-19e0-4a52-a5d9-70bbfe7630a8@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,50 +132,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <974c3c29-8f58-46fd-9ffd-4c574525f66c@amd.com>
+In-Reply-To: <a6d3737f-19e0-4a52-a5d9-70bbfe7630a8@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.12.2025 17:57, Jason Andryuk wrote:
-> On 2025-12-10 03:17, Jan Beulich wrote:
->> On 09.12.2025 22:47, Jason Andryuk wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -680,4 +680,13 @@ config PM_STATS
->>>   	  Enable collection of performance management statistics to aid in
->>>   	  analyzing and tuning power/performance characteristics of the system
+On 10.12.2025 18:08, Jason Andryuk wrote:
+> On 2025-12-10 09:40, Anthony PERARD wrote:
+>> On Tue, Dec 09, 2025 at 04:47:28PM -0500, Jason Andryuk wrote:
+>>> diff --git a/xen/Makefile b/xen/Makefile
+>>> index e6cf287425..aeb5dcf2ee 100644
+>>> --- a/xen/Makefile
+>>> +++ b/xen/Makefile
+>>> @@ -469,10 +469,13 @@ all-symbols-$(CONFIG_FAST_SYMBOL_LOOKUP) += --sort-by-name
 >>>   
->>> +config GC_SECTIONS
->>> +	bool "Garbage Collect Sections"
->>> +	select CC_SPLIT_SECTIONS
->>> +	help
->>> +	  During final linking, garbage collect unused sections.  This will
->>> +	  reduce the size of the final Xen binary
->>> +
->>> +	  Only supported for ELF/Multiboot xen/xen.gz, not EFI xen.efi.
+>>>   include $(srctree)/arch/$(SRCARCH)/arch.mk
+>>>   
+>>> +XEN_FINAL_LDFLAGS-$(CONFIG_GC_SECTIONS) := --gc-sections
 >>
->> This last sentence is x86-centric, which it shouldn't be here (or it should
->> say that this is an x86-only aspect).
+>> Is there a good reason to add this flags after the arch-specific
+>> makefiles? If not, could you move that just before, and right after the
+>> definition of "$(all-symbols)" as it's a variable that is used in the
+>> same phase of the build. (With Jan's other feedback)
+> 
+> No, there is no reason for its location.  I can move it.
+> 
+>>>   # define new variables to avoid the ones defined in Config.mk
+>>>   export XEN_CFLAGS := $(CFLAGS)
+>>>   export XEN_AFLAGS := $(AFLAGS)
+>>>   export XEN_LDFLAGS := $(LDFLAGS)
+>>> +export XEN_FINAL_LDFLAGS := $(LDFLAGS) $(XEN_FINAL_LDFLAGS-y)
 >>
->> I also wonder whether this wouldn't better live next to CC_SPLIT_SECTIONS.
+>> "FINAL" isn't very descriptive. A completely wrong interpretation might
+>> be that we should use the "final" variable instead of "XEN_LDFLAGS". How
+>> about a name that describe where this set of flags is going to be used,
+>> like "XEN_LDFLAGS_xen_syms" (which unfortunately doesn't exactly fit
+>> with x86 xen.efi target), or maybe suffix it with "_target" or just
+>> "_xen"? (In Linux build system, they use "LDFLAGS_vmlinux", but I don't
+>> know what would be the equivalent of "vmlinux" in our build system.)
 > 
-> If I put it immediately after CC_SPLIT_SECTIONS, menuconfig puts it as a 
-> top level option:
-> 
-> │ │    [*] Garbage Collect Sections
-> │ │        Architecture Features  --->
-> │ │        Common Features  --->
-> 
-> I thought Common Features was a better place for it.
+> I plan to use "_xen" unless anyone objects.  "_xen_lds" could be another 
+> option, but again that doesn't match efi.lds.
 
-Oh, right. I didn't recall CC_SPLIT_SECTIONS wouldn't even have a prompt. I
-wonder if it shouldn't gain one, move somewhere here, and then this new
-option could be placed next to it.
-
-> Also, I think it should probably gain " if EXPERT" as well.
-
-Not sure there. If this works reliably, I don't see why it would take an
-expert to enable. Eventually, after all, this may want to be the default.
+_lds would also be wrong - that rather refers to the linker script than the
+final binary linking of which these flags influence.
 
 Jan
 
