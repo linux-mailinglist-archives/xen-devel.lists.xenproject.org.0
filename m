@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88F55CB58F6
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 11:50:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183870.1506450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73CBCB597D
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 12:02:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183881.1506460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTeFZ-0006ea-Mr; Thu, 11 Dec 2025 10:50:21 +0000
+	id 1vTeR9-00007H-Mu; Thu, 11 Dec 2025 11:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183870.1506450; Thu, 11 Dec 2025 10:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 1183881.1506460; Thu, 11 Dec 2025 11:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTeFZ-0006cz-K3; Thu, 11 Dec 2025 10:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 1183870;
- Thu, 11 Dec 2025 10:50:20 +0000
+	id 1vTeR9-00005O-KM; Thu, 11 Dec 2025 11:02:19 +0000
+Received: by outflank-mailman (input) for mailman id 1183881;
+ Thu, 11 Dec 2025 11:02:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTeFY-0006cr-EN
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 10:50:20 +0000
+ id 1vTeR8-00005I-Dx
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 11:02:18 +0000
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2eb516aa-d67f-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 11:50:18 +0100 (CET)
+ id daa0a1da-d680-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 12:02:16 +0100 (CET)
 Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4779d47be12so7524995e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 02:50:18 -0800 (PST)
+ 5b1f17b1804b1-4779adb38d3so6552035e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 03:02:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8b8a851sm5207531f8f.29.2025.12.11.02.50.17
+ 5b1f17b1804b1-47a89d0e34fsm11675465e9.0.2025.12.11.03.02.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 02:50:17 -0800 (PST)
+ Thu, 11 Dec 2025 03:02:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eb516aa-d67f-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: daa0a1da-d680-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765450218; x=1766055018; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765450935; x=1766055735; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hZj0RITDx4r82StgH/0g+X+fv0iCmUnFptUDp5VTpN4=;
-        b=YMyV9ZKJTr5BBYLNF/f/JHWwg0dxs5b/TLN30DkQqZWekNIoYwciP5S7JfcM+W0syC
-         PVm99wGrTNP3duESLASLEJ43ns/k26apeIhc8cY7uqn8fC+KC2k7xLmPa/6mEffWJJ4z
-         I9hwNtgLmvSzB6yvuscby8n1yitYTDhJG7UD95i94rYnYzRVhhXD8/KFJDE7rZtTQBnv
-         kYjpdA8WtNOUUMfLR5++qCPeJAihLQXzHZpGfM9vsOPkpykA1omFqb/I5uYtuR7B7cqZ
-         qcLpSfxLtsqM3uGhlvIJZM3Y1sh+SFv3EgNXD9ZxIvX90bTOEZyRbuZ/WGoq5KHZ3gTo
-         58og==
+        bh=IZWMqVWenxDjosYfCNhiES1QudgsN2fStVx6QKswj+s=;
+        b=aZPbIXFMO+AjbGJJcD04Q4TY8IZXB94CKRkU9BFsk9PtAzca5upiZUPlGnUeIK4FWh
+         gZswoPgLtRfzeR46eJ/zQ9IlEbA7cWoYJogrjLPql6HceggfHB/GNjazwHon8fGxRdUB
+         OV/QTIlGv1TxSH1S7CV4xHzSNOfs5vEXSWNhyXZdvK3/jKg+3ANlXET3bkQmVY8VrV6o
+         htC1vNYcZU0IeTO22Sdv0eGvdFd50xJ925FnnAG1RzskPgObqkx50pmV0XPj58Mp9Bal
+         BRz4mMx97mAJ6GcLMVaM//vLg0NcKiUzbMepTYHCnVbuDlllqHXjyQgnoC3fapTZL/b4
+         9cRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765450218; x=1766055018;
+        d=1e100.net; s=20230601; t=1765450935; x=1766055735;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hZj0RITDx4r82StgH/0g+X+fv0iCmUnFptUDp5VTpN4=;
-        b=UnS/8pjgyJZnMWpLttGeWfvrDU1z/GCd3zimhD477mqUNlODfQHGxaz+zoEpqXVtjM
-         QQ4m8RUbudMnGga46hBtxQk/HYJrB9Ei68Xf5rK4fYfzZWojDi1wwTOSLvhyUalaYdtX
-         1SEtjzzmDJo+OMCocZhENiR5aa+Mx8mp3RsKxmeGhFSWbT6saQ71veAAluFb05E8O26G
-         Jikv2fG1efos1VFPpg2JuU/bx9B9V08xpukJAf7RpR6WhHEEqQymvVWKcmZFTuYULHqO
-         OkLFEvi8fGBkiPsSrUdhDYpSsvqJSxYhjKBgKrIbjBlOf9jW+avDmr9r5xWotCHZjp3b
-         HYiw==
-X-Gm-Message-State: AOJu0YxDSdh/H0g+qvtWCZuVW/CzfhGBzfQtANUB9BaGTQTlyrA8tEjA
-	fasmFXt5nraINaML2crhw7lfDWRV9ij3Xlp3lp25o29U/sJYu33bIyjhYXaq970VLQ==
-X-Gm-Gg: AY/fxX5i7TiJgn9/EC3iXZA0IaxWCAGJW45KZ9SnjcVlKy4Z+ucHha9vfcm0zx+mF82
-	XMqItlKWO4yt+OifLDaEx/Ux/bedIFg3lnJfYUFwveeWxvxADgO9y5kkoHnRPKWPh7G8kkjO/GS
-	V8cqD7yYn2sRonQxvkGqEcFVrifpjFrIS88tlghjw+JPpOfZeKA5QXJtmojBbXRli2wx3EhDt6Y
-	lyoahHNiy05jSweMcJSFUV9RA8MIy5ta5moXuScfcQGOFAXIANJdasP/EaKW1o0Zbp4Rlba1GTq
-	5lh4HA1kM/cMaS4nyzrI8gWfj8eJwA3I521W9zJjUKfhytrzsJE9PWKniqqJ42F9QZqmK2M6n1Q
-	55IwjtE7NqyGf/XmXsh8Pajap8NXIBISNJTD2jWWfqNMrg+p1vB+IduLkmbe9KibMisz36FYjpv
-	IzX52iK85yw5BVn97NjaWPYkhLypjJSK+Ib1haCzuT2eKhu8h4YWyDgZLYONtS8VEWi6mnnZHLh
-	ccFiapKjme54w==
-X-Google-Smtp-Source: AGHT+IEKIMTElX7KJAQqLhdb6vhLVglED2tCrt5CH/eubbsi+72iNDzig7F2cx56rJR5h8jSjkyqnA==
-X-Received: by 2002:a05:600c:6098:b0:479:1ac2:f9b8 with SMTP id 5b1f17b1804b1-47a8384c0e6mr54629115e9.21.1765450217690;
-        Thu, 11 Dec 2025 02:50:17 -0800 (PST)
-Message-ID: <67d26857-6b7a-4b5d-8bdb-c973885926a0@suse.com>
-Date: Thu, 11 Dec 2025 11:50:15 +0100
+        bh=IZWMqVWenxDjosYfCNhiES1QudgsN2fStVx6QKswj+s=;
+        b=hPTWMZ11fCLB+/4/VpMQNlNma0C56Ce3FzvHUYq5HXfa1aBR/3Ht9Y6/5Bwien8yj6
+         2twBdMv+qzXBKYlGNJIS2H0ux6bW0kzFjrY+HjqQzSHKTlseKNKmrebovl69RqhotCXU
+         njKrfie8Ha5FCv7fxTy63zG7EB9RWZUM/qfk6WyUG97InRwJ+P0GmxC+zddpeX/XVFVS
+         zseuRn24bUB7abSIjE4IwMQxdJQbBkvtnS0g/Wt7d7fUbMFGorx1H3+y79sJ+szXVJCC
+         NGW8QMm9FM+pN9EiYNBQ35abYbqZZ4Obox4pSFaYntLyBX6LVBGSJBSoDSJJEARXLnL7
+         Yt4w==
+X-Forwarded-Encrypted: i=1; AJvYcCUYwuq3Pf9ZXOJMhKCaXRESdXEFv2VVMOoiVUPRVq0HUJXuySToO/1iOTInXjLu8Nn3A6GZtApr69c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZy4BpeJiig3u2Nazw9UWWPJSO8U6EO3Jw+Cu06jeTObITtANP
+	QsBY0pQ8jdSIaw0Ae47k/cGBv5Dnmm9xR8CV+i1mD9VWGMRZHTcRmXnNhBKia96SZg==
+X-Gm-Gg: AY/fxX7dGANWIdJnhu9XcyT+iknyonLl3OwskV9sN5k9JjfTapub1+zzBIMkEA3PZpH
+	yAMPEtesIeupqj6EnY2gK9jozGqJlba51blOGsadg08biaSvhVz9Ua0FyHyQI7EBpWss/N7sH2V
+	9UGZhuFKZgANeJYHym0a4hhrYxxhFBX1/X1Xl0qJQhc7qTRhieWjIwSn+y5F6iV/iuEU0q/69mc
+	Rbl5At1QH7PJjaAWVJdZ5yJVRTrUJ1OIy3PcXzZNakz2W2dAOaVFx/NBFVVmKm7mG/q4o2Ajem7
+	BMrT5SMdbGR8gzr33H2of6KBWo5m/8M4YKWnypqJf3v7U0I6RWkqySbfh1ORPHciH8x64+8x/dh
+	IfvZ/oIReoFzN0qIu61oqrrmXJc/KN4Dlqo3Oio1aEf1g9nOz0KCxeV4yIi4ahTeSxGQpYlc79N
+	GvwUAumZnvSePFx0LLzuPkl6F/ypwr2KBY0FLuGuJBE//ksXpBczIdiDfLdEFQVV8ohtYNt1Tb3
+	04=
+X-Google-Smtp-Source: AGHT+IFpHD5cdhCp8Z81Rz2Yd7LTHOUGi9B9EUgPqfN4ck7wysCwHzahm6gMJAQG+basb8hgxEigFQ==
+X-Received: by 2002:a05:600c:45c4:b0:477:73e9:dc17 with SMTP id 5b1f17b1804b1-47a837eec21mr56833495e9.35.1765450935467;
+        Thu, 11 Dec 2025 03:02:15 -0800 (PST)
+Message-ID: <2c84660b-4333-42f9-b178-aab72be9a40d@suse.com>
+Date: Thu, 11 Dec 2025 12:02:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Current Eclair analysis
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
+Subject: Re: [PATCH v1 2/3] xen/riscv: add RISC-V legacy SBI extension support
+ for guests
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <7744f9e7-17da-4f48-837d-8fc087899af5@citrix.com>
- <c0d5cf8c-cb57-47a5-a989-f65677e565aa@suse.com>
- <dab08dfc1de25d7573c401ecad8a1f21@bugseng.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
+ <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
+ <c3d2a4c4-f591-4bff-b978-18b8c09cf512@suse.com>
+ <c1ca8efb-3e17-45e2-ba90-a6f49616bb51@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,33 +128,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dab08dfc1de25d7573c401ecad8a1f21@bugseng.com>
+In-Reply-To: <c1ca8efb-3e17-45e2-ba90-a6f49616bb51@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.12.2025 11:08, Nicola Vetrini wrote:
-> On 2025-12-11 11:00, Jan Beulich wrote:
->> On 10.12.2025 19:14, Andrew Cooper wrote:
->>> The Eclair step is now the dominating aspect of wallclock time.  While
->>> the recent changes were a step in the right direction, we need some
->>> adjustments.
->>
->> One other question, related to the "dominating" aspect, but not to any
->> of the points raised so far. Can scan results possibly be recorded
->> somehow, somewhere, such that upon re-scanning the same tree (pre-push
->> test followed by post-push test) the identical re-scan can be avoided?
->> And perhaps even incrementally - if only .c files change within a (set
->> of) commit(s), only re-scan those, rather than everything? Could be
->> extended to .h files if dependencies were properly taken into account.
+On 11.12.2025 11:29, Oleksii Kurochko wrote:
+> On 12/8/25 4:05 PM, Jan Beulich wrote:
+>> On 01.12.2025 11:24, Oleksii Kurochko wrote:
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
+>>> @@ -0,0 +1,37 @@
+>>> +
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +
+>>> +#include <xen/lib.h>
+>>> +#include <xen/sched.h>
+>>> +
+>>> +#include <asm/processor.h>
+>>> +#include <asm/vsbi.h>
+>>> +
+>>> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
+>>> +                                     unsigned long fid,
+>>> +                                     struct cpu_user_regs *regs)
+>>> +{
+>>> +    int ret = 0;
+>>> +
+>>> +    switch ( eid )
+>>> +    {
+>>> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
+>>> +        printk("%c", (char)regs->a0);
+>> This is guest output, so shouldn't use plain printk().
 > 
-> We support incremental analysis, but it requires non-trivial changes to 
-> the current Xen integration. If someone wants to invest time and/or 
-> resources in it, I can support the effort, but it requires a fair deal 
-> of rearrangements of scripting in order to avoid losing information
+> I think that I don't know what should be used instead. Could you suggest me something
+> or point to the code in other arch-s?
+> 
+> Or do you mean that guest_printk() should be used?
 
-What about the initial part of the question, scanning the exact same tree
-a 2nd time? Is that merely a special case of "incremental", and hence would
-require the same amount of effort?
+No direct replacement will do what you want, as they all prefix something to the
+string passed (which isn't what you want). You may need to buffer characters and
+emit them in batches (full lines unless overly long). For x86 see hvm_print_line(),
+but I think Arm also has something like this.
+
+>>> +    default:
+>>> +        panic("%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
+>>> +              __func__, fid, eid);
+>> Please don't. domain_crash() may be okay to use here, but crashing the hypervisor
+>> because of unexpected guest input isn't okay.
+> 
+> |domain_crash()| is better. I also considered just returning|SBI_ERR_NOT_SUPPORTED|,
+> but it wasn’t too convenient for debugging which FID/EID the guest was called,
+> so I started using|panic()| instead.
+
+FTAOD - domain_crash() is acceptable here while things are still under development.
+It shouldn't stay like this in the end though: Guests should not be punished like
+this for something Xen hasn't implemented.
 
 Jan
 
