@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C97CB55E1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 10:36:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183764.1506359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6046FCB560B
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 10:40:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183776.1506369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTd5b-0008LZ-NM; Thu, 11 Dec 2025 09:35:59 +0000
+	id 1vTd9V-0000ph-5Y; Thu, 11 Dec 2025 09:40:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183764.1506359; Thu, 11 Dec 2025 09:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 1183776.1506369; Thu, 11 Dec 2025 09:40:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTd5b-0008K5-KE; Thu, 11 Dec 2025 09:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 1183764;
- Thu, 11 Dec 2025 09:35:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1vTd9V-0000nM-26; Thu, 11 Dec 2025 09:40:01 +0000
+Received: by outflank-mailman (input) for mailman id 1183776;
+ Thu, 11 Dec 2025 09:39:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vTd5a-0008Jz-Ab
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 09:35:58 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vTd5Z-004kfO-1h;
- Thu, 11 Dec 2025 09:35:57 +0000
-Received: from [2a02:8012:3a1:0:cd49:6fb:8176:d6c5]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vTd5Z-004m19-23;
- Thu, 11 Dec 2025 09:35:57 +0000
+ (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vTd9T-0000mx-Ep
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 09:39:59 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5acaf057-d675-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 10:39:57 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-42e33956e76so299648f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 01:39:57 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42fa8b9b20dsm4777456f8f.38.2025.12.11.01.39.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Dec 2025 01:39:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=AfwQizTc1jEFFteetgNTxLeD46FJeUWFZtg2IATFydA=; b=ZYxYM/AzJW/RrAnW48ANfvQpoA
-	FQaGGpjdGX1xZE3WoMgySFmk21ljGSpbg4/AnEvQ/p7bZC7TnUA8KrAr+hINsd6GzfbmIYFauT+cx
-	W6PQDWIxxPgHvkzX3YPXaRwNboHjH2sS1kXdywaGFLSC8hN9N+cIt1CroVp1WqNmw6e8=;
-Message-ID: <f49dd123-32ca-46b2-a00e-751267667bd2@xen.org>
-Date: Thu, 11 Dec 2025 09:35:55 +0000
+X-Inumbo-ID: 5acaf057-d675-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765445996; x=1766050796; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TbyWlY43I8YNaY8NIaU6uRJ6j5Q61T5qm3XXPGj//Dg=;
+        b=JRU1cF/4ZaA4Abd1sCUFN98ljvr9MopEwohlmrJs+sY+DmR9m3m6wjySD4S8Z0XNbx
+         7I4Z+HTsrVLd+Mxhf6Eu+Ozhix8BDH7uSI/8CSRKXHjYIeCrDHjsAmwn5dwBd9LDHXvQ
+         EoXHBZHToX/X3DczRvgrd+Y6+fNx56bQuWhhJ3wDjDcDEY5AfWUfVQgeC8IckvmvhKFi
+         iAgv7PymbCvYU55EhUWw0FrhIPswDBPNblEBTib+OdXUYLFb1qw4lGJmXtlj2lgaA8kA
+         TxcjbooBiJFRZ0P4T5Y7geulhtbGc+oVhirqFBdEQnkwowsgMlEyMgiO7wbJzgv6Y/Sv
+         hprQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765445996; x=1766050796;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TbyWlY43I8YNaY8NIaU6uRJ6j5Q61T5qm3XXPGj//Dg=;
+        b=jL/wMiNCKU0qwVESRRiFKAuyWMKjnJ66o1AhLNqO5YRz2sI/o0Hdd5LP+bA0y8b/VN
+         LWzJTkVj4D+QZ7n5gf8CcNkrXMF8XrjNP5Yv9gNGy+qcXLX7JHqT01fogFwOxQZR+bXL
+         54JgBEM4K+ZaWIySiHWfaHo7RJcGurEqJxU5W8Q33SkwA1jtIYzYP7usNkrD3gmy08jp
+         6uHnB77Rvnl1vJ9oXD3eRYgkVWMiyy37c4JWpviD4WsXNieG8fHtmp4AgCFOenAbOnEv
+         hxwmcp2gAZ5qpleXeKxufepxgfb3SJbr2QYeDSuZmjv+uqQkRlGizn0ktlTGZjnY3tym
+         acuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXUlyKAm1bz8QEMpzxYi/S8lL8g0kNCsUE7gtGCBzT61dfjytEIoUM4uFA95yAttNmQMIt5kU2I8VM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyIx9knb7GKBKb8/xnog2BLeC5IDPsoAYbey4KU7/aaKSePM7oc
+	7lxWKRIYd6UtGAw1FU65pPnnKEkvtLrp0AQz3M916dKRe9PL3IRRa3rWrpyIiwVOrA==
+X-Gm-Gg: AY/fxX4iTbJ6RBUlpgop9OlU8WeYjaZGF8Si7amnTx/9Bwf6UGDOxZKpJNNao3lVXOt
+	sWvoUs0cR4Cpj9IgUXuFykh4n8cW9P+WV6Hi+GNyVIxl9Ht8363ryML25nCk4z3TiwMyC1XnLgv
+	a29Vmq6J4XqCGYANm7eoHWKHZtzWiiuARF5NdDkwCojy24I3bDZHCj7uhc+qB/QA9eqajhwdKUe
+	8lZjQw1YHj/olvIEYUgLrjX0Z4qrNpQoxjgeZ3sJ0WC0NVqYFjNdQAY7/DCwgQEEmTyQko2scmA
+	a2k8nu86NaGhoHxgjj8cNQ3TLWMkEWm0PpNOT9oWNOsix2FRP1dB/OvpaxFK/8qGKqBdT9t76dX
+	kQxX+b4FH50dMCmLhVZVFhMRFm/qpMexZHuBMOzONl6yuDAaJdITzjA1v302wleAQI2QlOyPX3X
+	xLdEw3NGnSXSzSuG+X5oZl1aDF+HZsG3ZtIt30OgjtWou1yrzcWFbQgcYXyIrX8D/q33LLfBbK0
+	nQ=
+X-Google-Smtp-Source: AGHT+IF529wFkWTwjQAyKTpyo8H7sKKJ7ouL3Uvm0G2xd03Feez211R+RQrfuTcJIxs7cUiebw/r1Q==
+X-Received: by 2002:a05:6000:184d:b0:42b:2e1c:6341 with SMTP id ffacd0b85a97d-42fa39d9371mr5435328f8f.9.1765445996511;
+        Thu, 11 Dec 2025 01:39:56 -0800 (PST)
+Message-ID: <6c78a029-7437-4256-afca-c5d39fbd3f8b@suse.com>
+Date: Thu, 11 Dec 2025 10:39:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm64: Add support Clang build on arm64
-To: Saman Dehghan <samaan.dehghan@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
+ type
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <bd6686e7fc0756e929334792b94ddd66bde125c4.1765239102.git.samaan.dehghan@gmail.com>
- <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
+ <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
+ <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
+ <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
+ <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
+ <db24c624-0432-48ec-aecc-3efaa4973303@gmail.com>
 Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <db24c624-0432-48ec-aecc-3efaa4973303@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 11/12/2025 02:39, Saman Dehghan wrote:
-> This patch enables building Xen on arm64 architecture using the Clang compiler.
-> Changes include:
-> - Add explicit -march=armv8 flag for arm64 builds.
-> - Add `__attribute__((target("fp-armv8")))` to `vfp_save_state` and
->    `vfp_restore_state` functions when building with Clang to allow
->    FP instructions despite `-mgeneral-regs-only`.
+On 10.12.2025 13:44, Oleksii Kurochko wrote:
+> On 12/10/25 8:06 AM, Jan Beulich wrote:
+>> On 09.12.2025 18:09, Oleksii Kurochko wrote:
+>>> On 12/9/25 2:47 PM, Jan Beulich wrote:
+>>>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
+>>>>> +            *md_pg = p2m_alloc_page(p2m);
+>>>>> +            if ( !*md_pg )
+>>>>> +            {
+>>>>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
+>>>>> +                domain_crash(p2m->domain);
+>>>>> +
+>>>>> +                return;
+>>>>> +            }
+>>>>> +        }
+>>>>> +    }
+>>>>> +
+>>>>> +    if ( *md_pg )
+>>>>> +        metadata = __map_domain_page(*md_pg);
+>>>>> +
+>>>>> +    if ( t >= p2m_first_external )
+>>>>> +    {
+>>>>> +        metadata[ctx->index].type = t;
+>>>>> +
+>>>>> +        t = p2m_ext_storage;
+>>>>> +    }
+>>>>> +    else if ( metadata )
+>>>>> +        metadata[ctx->index].type = p2m_invalid;
+>>>>> +
+>>>>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+>>>>> +
+>>>>> +    unmap_domain_page(metadata);
+>>>>>    }
+>>>> Just to mention (towards future work): Once a metadata page goes back to be
+>>>> entirely zero-filled, it could as well be hooked off and returned to the pool.
+>>>> Not doing so may mean detaining an unused page indefinitely.
+>>> Won’t that already happen when p2m_free_table() is called?
+>> Well, that's when both page table and metadata table are freed. But what if a
+>> leaf page table is moving back to holding all p2m_ram_rw mappings? Then the
+>> metadata page is unused, but will remain allocated.
 > 
-> Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-> ---
->   README                   | 2 ++
->   xen/arch/arm/arch.mk     | 1 +
->   xen/arch/arm/arm64/vfp.c | 6 ++++++
->   3 files changed, 9 insertions(+)
+> Good point...
 > 
-> diff --git a/README b/README
-> index 889a4ea906..67c1aa7fe6 100644
-> --- a/README
-> +++ b/README
-> @@ -45,6 +45,8 @@ provided by your OS distributor:
->         - For ARM:
->           - GCC 5.1 or later
->           - GNU Binutils 2.25 or later
-> +        or
-> +        - Clang/LLVM 11 or later
+> This could be a rather expensive operation, since in the code:
+>    +    else if ( metadata )
+>    +        metadata[ctx->index].type = p2m_invalid;
+> we would have to check all other metadata entries to determine whether they are
+> (p2m_invalid) or not, and return the page to the pool.
+> 
+> It would be nice to have something like metadata.used_entries_num, but the entire
+> page is used for type entries.
+> As an option, we could reserve 8 bits to store a counter of the number of used
+> entries in the metadata page, and then use metadata[0].used_entries_num to check
+> whether it is zero. If it is zero, we could simply return the metadata page to the
+> pool in the “else if (metadata)” case mentioned above.
+> 
+> How bad is this idea? Any better suggestions?
 
-I forgot to ask. Is this cross-compiling or native? Or both?
+First, as said in my initial reply: This may not need taking care of right away.
+It will need keeping in mind, of course.
 
-And OOI, how did you chose Clang 11?
+As to suggestions - hardly any of the fields in struct page_info for the page
+can be used when the page is a metadata one. Simply record the count there?
 
-Cheers,
+Finally, as to "rather expensive": Scanning a 4k page to hold all zeroes can't
+be all that expensive? In any event that expensiveness needs weighing carefully
+against the risk of getting the counter maintenance wrong.
 
--- 
-Julien Grall
-
+Jan
 
