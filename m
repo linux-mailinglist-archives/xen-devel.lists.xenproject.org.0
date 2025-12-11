@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37FBCB5F23
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 13:52:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184037.1506583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0170FCB5F33
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 13:53:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184047.1506592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTg9O-000452-Ot; Thu, 11 Dec 2025 12:52:06 +0000
+	id 1vTgAc-0004b3-25; Thu, 11 Dec 2025 12:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184037.1506583; Thu, 11 Dec 2025 12:52:06 +0000
+Received: by outflank-mailman (output) from mailman id 1184047.1506592; Thu, 11 Dec 2025 12:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTg9O-00043b-ME; Thu, 11 Dec 2025 12:52:06 +0000
-Received: by outflank-mailman (input) for mailman id 1184037;
- Thu, 11 Dec 2025 12:52:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vTgAb-0004ZS-VG; Thu, 11 Dec 2025 12:53:21 +0000
+Received: by outflank-mailman (input) for mailman id 1184047;
+ Thu, 11 Dec 2025 12:53:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fhd1=6R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vTg9N-00043T-1r
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 12:52:05 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3084ef9a-d690-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 13:52:03 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-64951939e1eso87643a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 04:52:02 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7cfa2e6dc1sm261121066b.17.2025.12.11.04.52.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 04:52:01 -0800 (PST)
+ <SRS0=oCI8=6R=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vTgAa-0004YM-9D
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 12:53:20 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ce116b0-d690-11f0-b15b-2bf370ae4941;
+ Thu, 11 Dec 2025 13:53:18 +0100 (CET)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-297f35be2ffso622385ad.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 04:53:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +40,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3084ef9a-d690-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 5ce116b0-d690-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765457522; x=1766062322; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gjHKG9zHoHi2T4haNYd1lNI7CXkznaRBQj6DUEU14rQ=;
-        b=SiR60E7m3EIdK0ibBl95mscqPeSmeU2giQ34N/sIcNI/RnMw9BpXSe17qREe1DXxQj
-         LGRG2+TcVyOzBRZrkRvbzZvU+UkKTqzjYd/unWSmxcWaZHOWXbV++93cl8ySwc3MYr1X
-         melgHdfkqNI7HPPeg+DA4YIc7RtjRC04zqXWZoelZDLyvdfPtk3SDt2aZSYVIP0/+LOq
-         5ayI1Cat/c/AZbM5WjQHPro7eKs8LZHb0glbcaB+9hPpUVrpNXJPW1ewA+FTmwDxcetC
-         V4WcWmyYtfqj+8ltHozHmxCP17EvzRDfo3P2X6SMjEdMfV56Wt/69O5lJHq6daqY/Xj7
-         A8uA==
+        d=gmail.com; s=20230601; t=1765457596; x=1766062396; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tSU2plybhLrgyCN7UmWG+2960KnH0dAyA+3GYCfpQhE=;
+        b=iA6SNDzQpmySuVes1yd1niVdYz2//SU+llsgSOiTuB8NTn+Gdo6eMEqqEc33B4o8No
+         4aVhp82+B9OghwrYTR/FncfhYpWVaJQSO1szlXB9r4bP2JQTj00px+5D5BXUDXVjKruf
+         HPq3SkV3UUS+GAfxDDe0vLtJDuTaryYrm7P25eQeGW7d0FpkrcF9SWNy70TBBGD2Lj8o
+         qn2E/j7RW8e5XPerN7a6twKLfVbQegzK76ttKOSCVUWDca33QzDgz7RCac1JYwr7XgpL
+         psR0ZPRvDcF1jnEWrgaZFWOJZcZR35YZpK7O7eTQ69AiKnZHe5GRoz+feH1EPimOBO52
+         J2hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765457522; x=1766062322;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gjHKG9zHoHi2T4haNYd1lNI7CXkznaRBQj6DUEU14rQ=;
-        b=B/sKamnN2DEoETENg4ix4sb0rRieA6oSk6Cyzvzb8TynvM03qlvdJ6LL4MIReU6zsS
-         PvkH9uoK5XiLmovMXVUvrzCcVnvfXQ0PiQr4wnDfAe36TcHjlA/hNyTCMrqg2b+VGiyp
-         PeO6pkR9XwOBmv/GVjE/dRxyq4jRp5HQrT+EnVfYyysNNpNsOagtGUxU98fTpBiFx8Ey
-         L6+xUlwBGnlcdHerCkaOy2im9SkdKwWCSRC7WS32rPyLI0mTuBGNUD0yr6dMX2UkFltt
-         Cy3euloHAG5kloaeiRE6EwOtXxedlGyZHeZhKYP+kSmJY9lJ0NalhpZwVaQmIh1Ib0v9
-         Zhqg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyZIzGBTMb+YYiLSNQWBC55Epys6ZncLPdNCvaPoHi/6ISq3AsnnQgYC3ui9jRXobW7ktnRzzxxyU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXez+uwcalsZBprsabTUO87Kswjdm4xf8hATwf73Wpxb2cNwms
-	M3PoRQGVeCzRO2It66DMg483N+V9Wm8kV8VB+mAWYTNI59BkVnZFMepV
-X-Gm-Gg: AY/fxX7HHRijns+MlYD8cCFSP3GMvxR2zOMMvLNLu3zIbF7PVvvOBP2zNTWbsmjcOcQ
-	U12sJWqYcG40W+9KPGfU9rV4kxvzSO/fYdNGw5bcwngD5lthKoNDRsCIVAeHpsHrZdC027gyKWP
-	iW9Hq264DQl8pbJpCfW2pff13hN2cZBd8SoqcNWbyI3H0/Fn5fdHr+9gHNfp8KuvizG9KmIc9PJ
-	art5Z+TcMdQ5x07F1jPtLPYHMk66cMAEu52+uHUcrINU96Rtmm0ZOFaT6RdiVZ4ejzzeQ3J8WCL
-	BWHtk9lV4kTgQzUnlYWnUmi13xgxNV5HzWByPHY6f6UvIvvadJECmTVUN9+cAuiL9V+ChQPuWWb
-	nelASmWFVD1QZ6MqQtph/dzPGTY4/gD3PuOYnSRUpalIx74YTxTqiXD0pj8oUNODdSX/Fj7RFG2
-	GxxW92CmRf49QRnAIW7pF2pXWpQFFxpIXheSuKiUKav3bxX0NsXbXK/WsFAgLP
-X-Google-Smtp-Source: AGHT+IH4Qx1hKOzoBZXyN5X3aBiQyqgoGQc2gf6Ni8y5zg8VdZmwAJ7TaV6EO1Ec0cVTzXzPMiRM2Q==
-X-Received: by 2002:a17:907:75e1:b0:b7d:11ae:4006 with SMTP id a640c23a62f3a-b7d11ae4373mr20001966b.52.1765457521866;
-        Thu, 11 Dec 2025 04:52:01 -0800 (PST)
-Message-ID: <60e200ad-96d3-4384-b9a6-458256f87256@gmail.com>
-Date: Thu, 11 Dec 2025 13:52:00 +0100
+        d=1e100.net; s=20230601; t=1765457596; x=1766062396;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tSU2plybhLrgyCN7UmWG+2960KnH0dAyA+3GYCfpQhE=;
+        b=XUan3tzm5iInJgoxw2N/s8cfjxz7ry557OJgKUK6ayQLjeqqhiT1iGO0RPTCKfup1e
+         Hn34SUIEfAP2IDMxscTRZi/CjCeJkxP/8yfLDdSev1utE817XTWYzsr5CyzzN+ec+kwg
+         xDK+OPICJ3Mq/GioJqKVFitIqvoE8qtVHXpABiYvIiHJcsBUt80eTAtfw6ohKyAWy474
+         PzlaMJPheToGfvSxev3E+tLNmrA7ysIvnLxRsGa5tFAkQ9hGqVu7K6FA7xJGpI8eXoND
+         bI+nrJk+nCwNatqrGOXGijElNDq/EfP6W9qHET7n5qCzNNP0qlYy7TKpE+4/GDWLnTDp
+         nClg==
+X-Gm-Message-State: AOJu0YxjF18lB7OXtFJwSpBHQEPknVXPFRgczVsHDIfMcoi0qq2eMAW4
+	7gJmDYJLh79+2PTtY2HY66p4Iz7duB3PbY+VaHDbqsKp1Bhd1Mv++RrqlNanDzEKCnsrWLsw+Zn
+	miyX1YL4kgTkk83iv6ftB+jLpONmmXw==
+X-Gm-Gg: AY/fxX6Fh9visEoQTPTquKW+krq3Ulzoalb0lLXoMRI5/HzC0daTEVpI6IVE074HGw4
+	TsTKCCpsAudm4YCOjlu3/GLyj7QvoirxjEMzUdH5OdJm0ihcYNR/CsjYBVBLwD6OeQjnVNnxYZQ
+	45xqDF5ORWEu4/Nqc+KhJ2Kvy1RwrAA7Y5OpiE66L+5iGQ0yKzoNV7599ckANZVnVFsS1sXSFid
+	eFi6yrGm4GPmiQLJwdcChjCjlapY0KIzQboRihpWyxMu1E4ixq75gUjflfagWPDHWCiudXihcug
+	b0rETcf7rhYlgHhqetZO7nyO
+X-Google-Smtp-Source: AGHT+IFUEUBOkjA3mCUzNTlRBT16P4XNRgwRuxDJ1n+ZVyV89wFdKoWb8TVyjpmZdom549cG2CdvMH0IxglPXZV0sr8=
+X-Received: by 2002:a17:903:98d:b0:29e:9387:f2b7 with SMTP id
+ d9443c01a7336-29ec229d253mr57583835ad.11.1765457596312; Thu, 11 Dec 2025
+ 04:53:16 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/riscv: add RISC-V legacy SBI extension support
- for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
- <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
- <c3d2a4c4-f591-4bff-b978-18b8c09cf512@suse.com>
- <c1ca8efb-3e17-45e2-ba90-a6f49616bb51@gmail.com>
- <2c84660b-4333-42f9-b178-aab72be9a40d@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <2c84660b-4333-42f9-b178-aab72be9a40d@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <bd6686e7fc0756e929334792b94ddd66bde125c4.1765239102.git.samaan.dehghan@gmail.com>
+ <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
+ <ff441352-ee38-4357-9479-9398c7df356d@xen.org>
+In-Reply-To: <ff441352-ee38-4357-9479-9398c7df356d@xen.org>
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+Date: Thu, 11 Dec 2025 06:53:05 -0600
+X-Gm-Features: AQt7F2ogxwumaI9N1aS8g7Y0ccorogLjZ0WcYzsKD__J15wB9qBGB7i-VaGlgOo
+Message-ID: <CAHFNDNhVEdM9G3Lgx1mJfdKz2OntdVZ9Ja14GQHSjWvWOp09EA@mail.gmail.com>
+Subject: Re: [PATCH v2] xen/arm64: Add support Clang build on arm64
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Dec 11, 2025 at 3:33=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
+:
+>
+> Hi Saman,
+>
+> A bit of process first. Usually, when sending a v2, a new thread is
+> started (IOW, this is not sent in reply to v1).
 
-On 12/11/25 12:02 PM, Jan Beulich wrote:
-> On 11.12.2025 11:29, Oleksii Kurochko wrote:
->> On 12/8/25 4:05 PM, Jan Beulich wrote:
->>> On 01.12.2025 11:24, Oleksii Kurochko wrote:
->>>> --- /dev/null
->>>> +++ b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
->>>> @@ -0,0 +1,37 @@
->>>> +
->>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>> +
->>>> +#include <xen/lib.h>
->>>> +#include <xen/sched.h>
->>>> +
->>>> +#include <asm/processor.h>
->>>> +#include <asm/vsbi.h>
->>>> +
->>>> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
->>>> +                                     unsigned long fid,
->>>> +                                     struct cpu_user_regs *regs)
->>>> +{
->>>> +    int ret = 0;
->>>> +
->>>> +    switch ( eid )
->>>> +    {
->>>> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
->>>> +        printk("%c", (char)regs->a0);
->>> This is guest output, so shouldn't use plain printk().
->> I think that I don't know what should be used instead. Could you suggest me something
->> or point to the code in other arch-s?
->>
->> Or do you mean that guest_printk() should be used?
-> No direct replacement will do what you want, as they all prefix something to the
-> string passed (which isn't what you want). You may need to buffer characters and
-> emit them in batches (full lines unless overly long). For x86 see hvm_print_line(),
-> but I think Arm also has something like this.
+Hi Julien,
 
-I don’t recall anything like that for ARM. The only thing related to character
-buffering that I remember is in vpl011_write_data_xen()
-(https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/vpl011.c#L76), but it
-does not use the buf declared in struct domain_console. Instead, it provides a
-separate structure for vpl011:
-     struct vpl011_xen_backend {
-         char in[SBSA_UART_FIFO_SIZE];
-         char out[SBSA_UART_OUT_BUF_SIZE];
-         XENCONS_RING_IDX in_cons, in_prod;
-         XENCONS_RING_IDX out_prod;
-     };
-
-I don’t see that ARM uses struct domain_console.
-
-By the way, I can’t find a counterpart of hvm_print_line() for reading a character(s).
-Is domain_console->buf intended to be used only for writing characters?
-
+Thanks :)
 
 >
->>>> +    default:
->>>> +        panic("%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
->>>> +              __func__, fid, eid);
->>> Please don't. domain_crash() may be okay to use here, but crashing the hypervisor
->>> because of unexpected guest input isn't okay.
->> |domain_crash()| is better. I also considered just returning|SBI_ERR_NOT_SUPPORTED|,
->> but it wasn’t too convenient for debugging which FID/EID the guest was called,
->> so I started using|panic()| instead.
-> FTAOD - domain_crash() is acceptable here while things are still under development.
-> It shouldn't stay like this in the end though: Guests should not be punished like
-> this for something Xen hasn't implemented.
+> On 11/12/2025 02:39, Saman Dehghan wrote:
+> > This patch enables building Xen on arm64 architecture using the Clang c=
+ompiler.
+> > Changes include:
+> > - Add explicit -march=3Darmv8 flag for arm64 builds.
+> > - Add `__attribute__((target("fp-armv8")))` to `vfp_save_state` and
+> >    `vfp_restore_state` functions when building with Clang to allow
+> >    FP instructions despite `-mgeneral-regs-only`.
+> >
+> > Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+> > ---
+> >   README                   | 2 ++
+> >   xen/arch/arm/arch.mk     | 1 +
+> >   xen/arch/arm/arm64/vfp.c | 6 ++++++
+> >   3 files changed, 9 insertions(+)
+> >
+> > diff --git a/README b/README
+> > index 889a4ea906..67c1aa7fe6 100644
+> > --- a/README
+> > +++ b/README
+> > @@ -45,6 +45,8 @@ provided by your OS distributor:
+> >         - For ARM:
+> >           - GCC 5.1 or later
+> >           - GNU Binutils 2.25 or later
+> > +        or
+> > +        - Clang/LLVM 11 or later
+> >         - For RISC-V 64-bit:
+> >           - GCC 12.2 or later
+> >           - GNU Binutils 2.39 or later
+> > diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+> > index 9c4bedfb3b..bcf548069b 100644
+> > --- a/xen/arch/arm/arch.mk
+> > +++ b/xen/arch/arm/arch.mk
+> > @@ -13,6 +13,7 @@ ifeq ($(CONFIG_MPU),y)
+> >   CFLAGS-$(CONFIG_ARM_64) +=3D -march=3Darmv8-r
+> >   else
+> >   CFLAGS-$(CONFIG_ARM_64) +=3D -mcpu=3Dgeneric
+> > +CFLAGS-$(CONFIG_ARM_64) +=3D -march=3Darmv8
+> >   endif
+> >   CFLAGS-$(CONFIG_ARM_64) +=3D -mgeneral-regs-only # No fp registers et=
+c
+> >   $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
+> > diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+> > index c4f89c7b0e..51fd2ddc54 100644
+> > --- a/xen/arch/arm/arm64/vfp.c
+> > +++ b/xen/arch/arm/arm64/vfp.c
+> > @@ -46,6 +46,9 @@ static inline void restore_state(const uint64_t *fpre=
+gs)
+> >                    : : "Q" (*fpregs), "r" (fpregs));
+> >   }
+> >
+> > +#if defined(CONFIG_CC_IS_CLANG)
+> > +__attribute__((target("fp-armv8")))
+> > +#endif
+>
+> Based on Jan's comment, I am a bit puzzled why adding #ifdef is
+> sufficient. In fact, I do agree with Jan, my understanding of
+> target(...) is this will impact the ABI.
+>
+> I haven't experienced any issue with the C side yet. But I know in the
+> Rust world (they also have an LLVM backend), they decided to prevent
+> enabling fp/neon [1] at the function level.
+>
+> Did you find any documentation that would suggest this is safe?
+>
+> Now regarding the issue you mentioned in v1:
+>
+>  > On top of those, `READ_SYSREG(FPSR)`, `READ_SYSREG(FPCR)`,
+>  > `WRITE_SYSREG(v->arch.vfp.fpsr, FPSR)`and
+>  > `WRITE_SYSREG(v->arch.vfp.fpcr, FPCR)` using FP.
+>  > I think I cannot apply __attribute__ on statements.
+>
+> Do you mean the compiler will complain that you are trying to access
+> FPCR/FPSR if you don't add the __atribute__ at the function level?
+>
+> If so, what you could possibly do is either rewriting the functions in
+> assembly or open-code the "{WRITE, READ}_SYSREG()" and add a line
+> ".arch_extension fp".
 
-Agree, I will create a task in my Xen's repo to not forget to drop panic()/domain_crash().
+I couldn't find any documentation to suggest that it is safe. I will
+do what you and Jan suggested and use ".arch_extension fp".
 
-~ Oleksii
+~Saman
 
+>
+> Cheers,
+>
+> [1] https://github.com/llvm/llvm-project/issues/110632
+>
+> --
+> Julien Grall
+>
 
