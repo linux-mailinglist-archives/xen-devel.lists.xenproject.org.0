@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90DCACB55A8
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 10:24:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183717.1506318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A250CB55C0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 10:30:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183733.1506329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTctW-0004zB-UE; Thu, 11 Dec 2025 09:23:30 +0000
+	id 1vTd07-0006mu-Mw; Thu, 11 Dec 2025 09:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183717.1506318; Thu, 11 Dec 2025 09:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 1183733.1506329; Thu, 11 Dec 2025 09:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTctW-0004xl-Rc; Thu, 11 Dec 2025 09:23:30 +0000
-Received: by outflank-mailman (input) for mailman id 1183717;
- Thu, 11 Dec 2025 09:23:29 +0000
+	id 1vTd07-0006kR-Jo; Thu, 11 Dec 2025 09:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 1183733;
+ Thu, 11 Dec 2025 09:30:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTctV-0004xf-KI
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 09:23:29 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vTd05-0006kL-VX
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 09:30:17 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d51c1bf-d673-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 10:23:28 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso6659385e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 01:23:28 -0800 (PST)
+ id 00abe5e1-d674-11f0-b15b-2bf370ae4941;
+ Thu, 11 Dec 2025 10:30:16 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42b47f662a0so926199f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 01:30:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a89f74284sm25553135e9.9.2025.12.11.01.23.26
+ ffacd0b85a97d-42fa8a702a1sm4955260f8f.13.2025.12.11.01.30.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 01:23:27 -0800 (PST)
+ Thu, 11 Dec 2025 01:30:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d51c1bf-d673-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 00abe5e1-d674-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765445008; x=1766049808; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765445416; x=1766050216; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kNO9XuR2fhQM61QZ4gHtoS+xI87s6RFcxonDT/qIhXc=;
-        b=I6PGtovGNOZASLWggGpytJqGIbDfq/L6+B0nYTvM697JgUOch2GgD3ykQ5Gkm9uEGu
-         0XKmQ4lLUAR8xobQl18JDYcP28pfX4VxY+1iqHGS/iEfBSXHfFRRk8vvDl4xp+aqAxl/
-         sAgC4nKc5QZjCxbYj1X/zl7WDig/QVf4z7uwOCwdW572MH40dPJsR4y1n6mDMFWfAX7P
-         J1a43wzAiYJGdY9pEuv1VMF0vuCfKcbFOGvXH8hut/59Wmcmx3dcEXcSFMkXUmnBQUib
-         Ls8zxSGFjRTLbQ56WtJrb0rxY2f4v0yOJGTvRyzTNqkbvl8ImjqdpvabCK3zYgF1m2ZX
-         Z/kQ==
+        bh=7zIy/YADuu1IFfXeyMuJC85jg6UCkUQ3c9lyuWQPy8A=;
+        b=O9LlUnl0Use4K55V4BhP7Z9pCtZUeuF4W8KnyQ90UYZdrpKZCvUBwg3GZIkj2+5n2/
+         bdf1vFDTXgjpHNW7R3YeQUVr7GYRCJvIRTnIlglCbF2RZUZVVm+x0JQoG8vXYtuoSDBK
+         36lCV7RazMxDSAjFZxjsQMNZrnM0KBHzVi5DXgDvepybhKNLJkTT6QcaDIWpVndR/s0J
+         d7GLsM4LWax50jWZta/xP3inqFMlxcaR6kZRXnlShKeczSdywwbKmh0QlH+ZMRlcCgV6
+         YhLCWAVp5OEC+wKtXQd2RQXu0CA6FXPDcW+RskTz+5tz0JMvcizw9eK0TgpVKVXdlN5/
+         HrFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765445008; x=1766049808;
+        d=1e100.net; s=20230601; t=1765445416; x=1766050216;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kNO9XuR2fhQM61QZ4gHtoS+xI87s6RFcxonDT/qIhXc=;
-        b=q8QVOC6+Y7QZChGtPJF24DuSmEYI+GFVY1qwTqnrsHeHykeVYxTpEX0XmoePR1SbTE
-         6tV544BQ1tWFjAYs4pAetN9234giDTlBxcNi44+1rBqpluqXREIOHtsuOVigzcPyUovx
-         C4pGZOuVZkgQostTfehyEg/H+FBHE19oESESl2+87XF2WH9rlR/jTB4hC26gX8sw/sL0
-         erbva3nkql+MRRBHyARcc1bn/BxWLBMaHjylUxyU9vcYM4Utgfc8ebnP7x98gLyIH3Kj
-         NFtScqXtumk5ql02okSLo4PjOqj5yCd7ighrk32wBWSdxGUr2eUdUYo4TVRk0L77lUA5
-         CdOg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6aAXLmLgxfsrxd7R+D7hVMw/ZEu7Yfm9DWWgmrsKsrc09LgIN45VuHHCwFZ6RLOU5hxHJgp83nT0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxe1cx7XPFXhY4k8xA+qWiULbC7ZgIcYfhLpzxkWYOdgzqGKVay
-	8sxtL9vTduxj6/AIvK8MH1jO9TYE2gtbHspSx09lvkANHfLPJM5v2GTu3NpNUluvFw==
-X-Gm-Gg: AY/fxX5yhUVX5z9KgQglQrJmkE0i+zIuRebRpWhgrFhVcRM+BRs6wXS9TDvjLmGJz94
-	+hOU3BRRkccqbXiQLRkpffPuh48LoPOy8qxgt0xurlJL1DQpH3OJ6N0OPtYtiJmFCEbU+fHMXhR
-	rQwpSjOWCq4vHnOKVGvtUfjqCdYmufy66EgxOiDrJN/dZ/hx+SUSic1r3SKAr1SafrridWmLEOx
-	2NjzlXehxC8cHPLKEpALh7V0aF9zcABEQ4dMId2sqt6zpDzgbBOODJWBduJeTP5RVqztesy2lzx
-	uC3AVHaE7/EglVtB4w++R5M/Cyfs6KfKyvGgqRf3hSxoEWXCDSIxbXkv+Aj7ObPLAFziA52DrPC
-	USJ4q2YBkPfl4n2Q1gvvDYKUR51fLclpyGPWqalYg+YMF+gPAcnauWZ5Lij5SECw7g7LALnivbS
-	NTBL3Hx/HVYKvwS2sGBetZ3GH9Gq4HYEX+J5tfru1vFyQL0EYsQ1e0GSoPOP9rX3zzXmUdAPu9U
-	t9Hat6lHfJbFw==
-X-Google-Smtp-Source: AGHT+IE2G9UKETmAEgg9VgMKE92zhI1fwv913Bim39G+c/AJfrzY/Tjvd8GqZ9I9iesDSlqEiYV8yA==
-X-Received: by 2002:a05:600c:46d0:b0:477:9fa0:7495 with SMTP id 5b1f17b1804b1-47a89fa781amr14610365e9.14.1765445007575;
-        Thu, 11 Dec 2025 01:23:27 -0800 (PST)
-Message-ID: <a6ab2189-bf24-4384-8b28-58729c7d0d9f@suse.com>
-Date: Thu, 11 Dec 2025 10:23:25 +0100
+        bh=7zIy/YADuu1IFfXeyMuJC85jg6UCkUQ3c9lyuWQPy8A=;
+        b=rbH/bpwmtRhyKJJ3KS4L1/jb7hgP83OQDlqr/4uPYxPw0zn/E6ikylOCYdYVe3ThJ4
+         /LZUne3rfmJcWTJvJS2etnhcoFToWSZ1QIhRFHrQxlsTF1fMmyNASIw25mNcM98V8gPf
+         e2riUQKlSUz5XplnhogJaCpFEUot+XNWxOSYH46NmztL0tdj6bQC6gglWp/Z2YFUSgJG
+         Qqr4YEzNl3tWu6st0kCZnzxRc4/gDTDzTWeiWJCOX1dw2Ponsa/tFzN2ob9wvSTxD4Dt
+         7ASkx7FNRUBCE7fVf8sD6S4/rG7JwFjelIq+y4gLzTBkC/FJf8trBs3elh+fNJznFl51
+         9lxw==
+X-Forwarded-Encrypted: i=1; AJvYcCVNuGHTqnMlaitvzfIbiQrNxlkhIdobqA2wH/SZaLumKS1DIacQoGjn/CRONQsQUKsjbj6v7UZz7Eg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVdiBSgrdqHX78h+w0Fi9O4lpmuBtAO0FN1cKO8cJFAG2AU4+k
+	z1287WfErhH+O8ZzymZxfaKU0JNtSRFKWYGR61P12ZqRe29WJphZdx1T4cgxRy7CmA==
+X-Gm-Gg: AY/fxX6GR2Nefo639cyUtxeftd8j1bj6E/RSI3lDg1/B3F57P4un+grWDGlOnL//TSe
+	mskkXu7iK0escJ99wGQFDQldeyT+ypeWZdUDDmJZtO+1KN1QxxvYHF2IOQcg/RtEKhlkz/Ojwxb
+	5LlDapOy6dtWQFnoluYJox9ixg+vNnvhA6H4oi8HID95Ulu4BjqP1fmiVY1VVGF6XnDRlj6zY+U
+	f9u02le9zguVV7a1Y2A1lozeLFFuqggwajUVuIuqLNSkeVZcS2FqKxYq6o/XNGw6cWGxi27fT5F
+	rd/kqNjpmwaAjxUsEwk/nqoDpaXFWS6cp18sQLBwPZFFqywgNttSTfDqUGTX+IG8ToUcJbGxIUR
+	xzW91dP+g5CQYvF2nkJDNmf6HPaIAgjfVMy2y6JRaA7NXtVNmwGAPrgcbcCHYV9lMUpg0wooPq7
+	P39Enihy8zUk/wlmOYRvwpNQilBlTqADs0rTpfa/L7Gmw96JEMxgNi/I2hTd8gN282fQe+xZp8D
+	/r3Mt2IDBiKBg==
+X-Google-Smtp-Source: AGHT+IHoCeunng9GxsZskFoAYVHXoNXbreKVjlFa92kC0g4hmI5N0HidPVKo27XBlioSzZtN5AgdXg==
+X-Received: by 2002:a05:6000:2510:b0:411:3c14:3ad9 with SMTP id ffacd0b85a97d-42fab31c8eemr1557832f8f.21.1765445415955;
+        Thu, 11 Dec 2025 01:30:15 -0800 (PST)
+Message-ID: <d2988b31-66e0-4a6b-8f77-4ae2cf2c4bd4@suse.com>
+Date: Thu, 11 Dec 2025 10:30:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen/riscv: introduce vSBI extension framework
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 5/5] x86: Fix missing brackets in macros
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
- <3b67330dc4c1aa053eb15261a559e7b4eac3f493.1764582112.git.oleksii.kurochko@gmail.com>
- <df316e2f-9eb0-4bb8-96cd-e5e0c42d123e@suse.com>
- <02b72d6f-d95b-4caf-825a-15280902af27@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
+ <20251210183019.2241560-6-andrew.cooper3@citrix.com>
+ <5a4695fa-1520-4d52-adc3-72c159892e33@suse.com>
+ <fdf95d1d02274a6442d4eb4c6b7284b8@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,199 +125,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <02b72d6f-d95b-4caf-825a-15280902af27@gmail.com>
+In-Reply-To: <fdf95d1d02274a6442d4eb4c6b7284b8@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2025 18:03, Oleksii Kurochko wrote:
-> On 12/8/25 3:25 PM, Jan Beulich wrote:
->> On 01.12.2025 11:24, Oleksii Kurochko wrote:
->>> This commit introduces support for handling virtual SBI extensions in Xen.
+On 11.12.2025 10:15, Nicola Vetrini wrote:
+> On 2025-12-11 09:36, Jan Beulich wrote:
+>> On 10.12.2025 19:30, Andrew Cooper wrote:
+>>> With the wider testing, some more violations have been spotted.  This
+>>> addresses violations of Rule 20.7 which requires macro parameters to 
+>>> be
+>>> bracketed.
 >>>
->>> The changes include:
->>> - Added new vsbi.c and vsbi.h files to implement virtual SBI extension
->>>    handling.
->>> - Modified traps.c to handle CAUSE_VIRTUAL_SUPERVISOR_ECALL by calling
->>>    vsbi_handle_ecall() when the trap originates from VS-mode.
->>> - Updated xen.lds.S to include a new .vsbi.exts section for virtual SBI
->>>    extension data.
->>> - Updated Makefile to include the new vsbi/ directory in the build.
->>> - Add hstatus register to struct cpu_user_regs as it is needed for
->>>    a check that CAUSE_VIRTUAL_SUPERVISOR_ECALL happens from VS-mode.
->> I can spot the check, yes, but without the field ever being set how is one
->> to determine whether that check actually makes sense?
-> 
-> But hstatus is set automatically when a trap occurs and will be copied in
-> handle_trap() in entry.S.
-
-Just that entry.S isn't even touched by this series. Did you perhaps omit an
-important part of the change?
-
-> If you think it is better to introduce saving and restoring of hstatus in
-> handle_trap() now, or instead drop the handling of
-> “case CAUSE_VIRTUAL_SUPERVISOR_ECALL:” in do_trap(), please let me know.
-
-I think what I said above is quite clear: When you introduce a field that's
-supposed to be filled upon entry to the hypervisor, the entry code wants
-updating accordingly.
-
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >>> ---
->>>   xen/arch/riscv/Makefile                |  1 +
->>>   xen/arch/riscv/include/asm/processor.h |  1 +
->>>   xen/arch/riscv/include/asm/vsbi.h      | 31 +++++++++++++++++
->>>   xen/arch/riscv/traps.c                 |  8 +++++
->>>   xen/arch/riscv/vsbi/Makefile           |  1 +
->>>   xen/arch/riscv/vsbi/vsbi.c             | 46 ++++++++++++++++++++++++++
->> A file named identical to the directory it lives in raises the question of
->> why there is such a new sub-directory. Are you expecting moree files to
->> appear there?
-> 
-> Yes, I'm expecting that and it is done in the next patches of this patch
-> series.
-> 
->>   How's vsbi.c then be "special" compared to the others? Do
->> you perhaps mean someling like "core.c" or "common.c" here?
-> 
-> Agree, this is more appropriate for either “core.c” or “common.c”. Both options
-> are fine with me. I slightly prefer using the prefix “vsbi-{core/common}.c”, but
-> if you think it is better to omit the prefix since the folder name already
-> provides that context, I’m fine with dropping it.
-
-Yes, I'm actually quite heavily opposed to such redundant prefixes. They obfuscate
-things, and they get in the way of name completion features in shells and alike.
-
->>> +static const struct vsbi_ext vsbi_ext_##ext __used                  \
->>> +__section(".vsbi.exts") = {                                         \
->>> +    .name = #ext,                                                   \
->>> +    .eid_start = extid_start,                                       \
->>> +    .eid_end = extid_end,                                           \
->>> +    .handle = extid_handle,
->>> +
->>> +#define VSBI_EXT_END                                                \
->>> +};
->> There's no use here, and peeking ahead at the other two patches shows
->> no use where this odd split of the macros would be necessary. What is
->> this about?
-> 
-> I thought this was the common approach, similar to DT_DEVICE, where we have
-> DT_DEVICE_START and DT_DEVICE_END. There may be no need for it right now, but
-> perhaps we will eventually want similar behavior for VSBI_EXT_START.
-
-For DT_DEVICE_{START,END} there at least is a reason to have a split like
-this. (I would very much like for that to be done without such a split, though.)
-
-> If you think it is better to drop VSBI_EXT_END for now, I’m okay with that,
-> and can just use VSBI_EXT instead of VSBI_EXT_START.
-
-Yes please. If and when the need arises, it can be introduced, or (as per above)
-a better solution be found.
-
->>> --- a/xen/arch/riscv/traps.c
->>> +++ b/xen/arch/riscv/traps.c
->>> @@ -15,6 +15,7 @@
->>>   #include <asm/processor.h>
->>>   #include <asm/riscv_encoding.h>
->>>   #include <asm/traps.h>
->>> +#include <asm/vsbi.h>
->>>   
->>>   /*
->>>    * Initialize the trap handling.
->>> @@ -114,6 +115,13 @@ void do_trap(struct cpu_user_regs *cpu_regs)
->>>   
->>>       switch ( cause )
->>>       {
->>> +    case CAUSE_VIRTUAL_SUPERVISOR_ECALL:
->>> +        if ( !(cpu_regs->hstatus & HSTATUS_SPV) )
->>> +            panic("CAUSE_VIRTUAL_SUPERVISOR_ECALL came not from VS-mode\n");
->> This might more naturally want to be BUG_ON()? Assuming of course the value
->> in question is exclusively under hypervisor control. Otherwise panic() would
->> also be wrong to use here.
-> 
-> Only hypervisor can access ->hstatus (of course, hart is changing it when a trap
-> happens, for example).
-> BUG_ON() is a good option for me.
-
-Just to clarify: "can access" != "under control". There's also the possibility
-that a guest could do something causing the hardware to raise a
-CAUSE_VIRTUAL_SUPERVISOR_ECALL trap without setting HSTATUS_SPV. That was the
-underlying question here.
-
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/vsbi/vsbi.c
->>> @@ -0,0 +1,46 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +
->>> +#include <xen/sched.h>
->>> +
->>> +#include <asm/processor.h>
->>> +#include <asm/sbi.h>
->>> +#include <asm/vsbi.h>
->>> +
->>> +extern const struct vsbi_ext _svsbi_exts[], _evsbi_exts[];
->>> +
->>> +const struct vsbi_ext *vsbi_find_extension(unsigned long ext_id)
->> static?
-> 
-> It could be use not in vsbi.c (for example, in the next patches it is used for
-> SBI_EXT_BASE_PROBE_EXT), so it shouldn't be static.
-
-Okay. In RISC-V that's okay as long as it's not subject to Misra scanning. Yet
-still introducing a non-static function without callers from other CUs may
-warrant a remark in the description. Once RISC-V becomes subject to Misra scans,
-such will be problematic, after all.
-
->> Also, again - is the ext_ prefix adding any value here?
-> 
-> Not really, I guess.
-
-Maybe, to still distinguish from "fid", use "eid" here then?
-
->>> +{
->>> +    const struct vsbi_ext *vsbi_ext;
->>> +
->>> +    for ( vsbi_ext = _svsbi_exts; vsbi_ext != _evsbi_exts; vsbi_ext++ )
->>> +        if ( ext_id >= vsbi_ext->eid_start &&
->>> +             ext_id <= vsbi_ext->eid_end )
->>> +            return vsbi_ext;
->> What if multiple entries have overlapping EID ranges?
-> 
-> Good question, I wasn't able to find that EID is always unique in SBI spec,
-> but, at the same time, if to look at all available extensions and their id(s),
-> they are always unique, so I expect that they will be always unique, otherwise,
-> it won't be possible which extension should be used.
-
-Then should there be a build-time (or if that's not easily possible, boot-
-time) check?
-
->>> +void vsbi_handle_ecall(struct vcpu *vcpu, struct cpu_user_regs *regs)
->>> +{
->>> +    const unsigned long eid = regs->a7;
->>> +    const unsigned long fid = regs->a6;
->>> +    const struct vsbi_ext *ext = vsbi_find_extension(eid);
->>> +    int ret;
->>> +
->>> +    if ( ext && ext->handle )
->>> +        ret = ext->handle(vcpu, eid, fid, regs);
->> Is a registration record NULL handler pointer actually legitimate / useful?
->> (If there was range overlap checking I could see a reason to permit such.)
-> 
-> it is a good question, I think ext->handle = NULL should be impossible. At
-> least, at the moment I can't come up with the case where it is possible and
-> what will be a use case. I will drop ext->handle check.
-> 
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: consulting@bugseng.com <consulting@bugseng.com>
+>>> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> ---
+>>>  xen/arch/x86/mm/shadow/multi.c     | 2 +-
+>>>  xen/arch/x86/mm/shadow/private.h   | 6 +++---
+>>>  xen/drivers/passthrough/vtd/dmar.h | 2 +-
+>>>  xen/include/xen/kexec.h            | 4 ++--
+>>>  4 files changed, 7 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/mm/shadow/multi.c 
+>>> b/xen/arch/x86/mm/shadow/multi.c
+>>> index 03be61e225c0..36ee6554b4c4 100644
+>>> --- a/xen/arch/x86/mm/shadow/multi.c
+>>> +++ b/xen/arch/x86/mm/shadow/multi.c
+>>> @@ -781,7 +781,7 @@ do {                                               
+>>>                      \
+>>>          (_sl1e) = _sp + _i;                                           
+>>>   \
+>>>          if ( shadow_l1e_get_flags(*(_sl1e)) & _PAGE_PRESENT )         
+>>>   \
+>>>              {_code}                                                   
+>>>   \
+>>> -        if ( _done ) break;                                           
+>>>   \
+>>> +        if ( (_done) ) break;                                         
+>>>   \
 >>
->>> +    else
->>> +    {
->>> +        printk("Unsupported Guest SBI EID #%#lx, FID #%lu\n", eid, regs->a1);
->> Are the #-es ahead of the %-s adding value here?
+>> I don't understand this: There are parentheses already from if() 
+>> itself.
 > 
-> It is how SBI spec writes them. For example,
->   9. Hart State Management Extension (EID #0x48534D "HSM") . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
->   9.1. Function: Hart start (FID #0) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
-> 
-> So I thought that it would help to find stuff faster.
+> Yeah, syntactically there are, but those are parsed as part of the if, 
+> rather than its condition; the AST node contained within does not have 
+> parentheses around it.
 
-Okay. Maybe mention such in the description?
+I fear I don't follow. Besides us not using parentheses elsewhere when
+if() is used like this macros, the point of requiring parentheses is (aiui)
+to make precedence explicit. There already is no ambiguity here due to the
+syntactically require parentheses in if(). Why would a rule and/or the
+tool require redundant ones?
 
 Jan
 
