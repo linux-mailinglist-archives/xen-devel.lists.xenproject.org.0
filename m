@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B41CB4F70
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 08:11:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183562.1506209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0858ACB4FFE
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 08:39:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183584.1506218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTaoj-0007bM-8S; Thu, 11 Dec 2025 07:10:25 +0000
+	id 1vTbGp-00029j-BG; Thu, 11 Dec 2025 07:39:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183562.1506209; Thu, 11 Dec 2025 07:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 1183584.1506218; Thu, 11 Dec 2025 07:39:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTaoj-0007YZ-5Z; Thu, 11 Dec 2025 07:10:25 +0000
-Received: by outflank-mailman (input) for mailman id 1183562;
- Thu, 11 Dec 2025 07:10:23 +0000
+	id 1vTbGp-00028I-8b; Thu, 11 Dec 2025 07:39:27 +0000
+Received: by outflank-mailman (input) for mailman id 1183584;
+ Thu, 11 Dec 2025 07:39:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTaoh-0007YS-9R
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 07:10:23 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BerU=6R=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vTbGm-00028C-LT
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 07:39:25 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 734a8e06-d660-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 08:10:19 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-42e2e628f8aso212794f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 23:10:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8b8a973sm3736468f8f.36.2025.12.10.23.10.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 23:10:17 -0800 (PST)
+ id 8227d142-d664-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 08:39:22 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 8B1094EEBF88;
+ Thu, 11 Dec 2025 08:39:20 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +40,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 734a8e06-d660-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765437018; x=1766041818; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2KgxQsLHdNymULbr/SuEn7RfD0QTKnAtn1DTFMZDgVw=;
-        b=UGumYigsIgzBDibnpoKIGDt/5SM34aI8nLrwhvZZu4F+h3IpMbOGjK05iVVwmMqfS6
-         xdH1ZdlcpfIF9ZpKZtFmvVBfnXJzOM9dfKxKUPF4Tyyh+UMMae3gF6H0q/SRSTAn6UIA
-         EU9hXWbSHV2lC8v0W0tRA3isJxh9sSG/XQxQVJzC3nAsjDhcPD11S4eYQr6zP70qjp9E
-         y3eVpYlckW1wRgD0OaMxCpM1aYrJQ/0Els8QSMV/maRVDxjkKjllTX2BUfOPtOGA9+hb
-         3e6x+2brS5Li+okxp0h6It+NqEmjikoJ4ldN59jT3oqWrViOpxlo475HbOSxslxl6ENm
-         405g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765437018; x=1766041818;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2KgxQsLHdNymULbr/SuEn7RfD0QTKnAtn1DTFMZDgVw=;
-        b=PDtqaG2EkS5UexxO9bwqRVs+uSvXE6AjTYKgg37PIxmfgBEAnbCMJI19SdMaqtnn0E
-         0ZDB3TldAc0xt9gFEjUVxRCdHBQIKJjTGgis1Z+tY1ZR3nXFqPTRz7w+gSV9fPkHFJyb
-         gwyvSLb/t18hbPQGnZBi97PDrUZcK6pLtxeWNA7dYMogMMuFDxYQmuDop0OIA4Xhit32
-         c6ySaWA/iT5FIhD/meK5y9JNZkKMYsyrh1cpjVxa8y2IlU6SBfZ+ng3sTbUxPiDNQqIR
-         n3eR4IppI4H/r7jHgoCGosq8/4MDHDHBjx8CKj3SZEffN8YhFTsxkG2qLw91TY5lQnyC
-         GeFA==
-X-Forwarded-Encrypted: i=1; AJvYcCW1+mSgfuKYvVzPYPMxcjNcg217iujrtyFXOx6HHfvF63kxrfE0k/q5jcR7cbMV+50Nhqv/PeK9Sl0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxkxwKx71dsyy0nq0pJth6SLSHdHz3ovQCIl+nCvZZh4/4pLEQe
-	L3ETqej726eOJEiQAQoJ5cP0ATG5XOA4E9L/+UpoH9gXnJoV9nujSReFD4uPjwrc+w==
-X-Gm-Gg: AY/fxX4Rl1H6gF4qhS769jA7vpPblr5uqrEEk0BgQQLzlhJtGLEeoDl32pDUMaVIIxT
-	DMtJn+pSV6o86ObqAH6wON+tba/Zxejj7whwLYh9RYqWmO2dZfaQJ1zUETB/Ad0bBaD4hqTk2Qd
-	8jkhsCapEW4Je6Ggm4clzy/kodEV2boGbbsAbriG4ftZ3Ohx3aBGpPR5jvDyFlvfm/vfW9a+MF1
-	Aj/WVHZ0s0g0IPv4h/b1w2xXuB/Sb9hRxCUPOMI9cB4l27m74h6AQ1NVPjP+pk2LXeSSTbv7JnS
-	DGHoHFypWHOO0J+keBPnxsuCyAOgogjj0UEZyJOA6neF6FUFzHRgzvSIHeVaXbSc4pcM9JQN6eA
-	OaOi4biDvW6AWQXHMJ3szsywUle5KPvzi3jWH0sOqOPniloiumqK0a3XnyVCc23hDK/Y8rTJlhb
-	mt60LL88i1oMLZZ7UWnHRtxG9BAgeNz+XAb4+GeOGE7AixdXu7pCoiJkaLRvLPKsermNFWdqOew
-	h1lKDOPkHM/aw==
-X-Google-Smtp-Source: AGHT+IEQWGqg3n1PYCE8mt2mbF/Z3pOeqi4qVcNaP+Ak59/hQh3aDWjsb9YtLTnnVFH1WNSK/P5MYw==
-X-Received: by 2002:a05:6000:2c08:b0:42b:389a:b49 with SMTP id ffacd0b85a97d-42fa39d7eefmr5169406f8f.28.1765437018083;
-        Wed, 10 Dec 2025 23:10:18 -0800 (PST)
-Message-ID: <e2d5c0b4-a857-4b06-9148-4c7d5d22b44f@suse.com>
-Date: Thu, 11 Dec 2025 08:10:16 +0100
+X-Inumbo-ID: 8227d142-d664-11f0-9cce-f158ae23cfc8
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765438760;
+	b=DypkyhLfR5cJF6uDWANQJRAlQRWLOh0+bHCA4TKcawofcWTnSKQ7xInvjPAohYuhGbH5
+	 tsnD9F40QThk286l3ArKMeQwaqXKL8c9Et/beqtySy7LwcpdJ935k2lAZDmhV15LNxNlw
+	 GSymwn9t03ljx/G0wc0mRdp9H9Vu+ejNpYAZ5OCmzWpncKxK0AhX76/fKQNBbyO1ZGaWQ
+	 rcHVh5uiOWdCXz82JTxGUBsSI9rGrC7my6/whDXMO01qU/rS1JuDvncezmhch8EqhwUPm
+	 4q0wkfp/0UeLom9I8ebqdiN20UW70GgAPjb+5Jw4WjzyBD5alnkcWP+NWU4iufzs3GLCQ
+	 rlhvHks14iq4r1dpON+v/MEPKA5DD3qkTEGzAWe+jTUP2yPBOBmcCL/Ods0qWGJlFcf6s
+	 4J6qjzfSTCfbett2KiEugwlSxyr+VBcitHY+oYaNbvkKEWmeMxBgqKue1fC+79DJCIQSp
+	 +Pmm1V7tS2fCQKYHsDJY+PvndIxGcadp/zkwBpBdniNjfZH3zb2Eg3Am/OX4ZrjyQXNgQ
+	 IJUNZmA3mX2xIDbv9x/dFQze164qmLzYU0WZdNtYUKNhoXXlFqDqK4a8xyUUd+eSyYsrT
+	 edOuhWx3TdEoxvcN5cD2ym6SMn2Of1ycVwjY/Pq6X7oFO6Rk0lJb8d52rUgpb8U=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1765438760;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=L9WU1G5zKbxi4Cn3+3HW95CjXgBsCbejbcW+mkFs/nI=;
+	b=iOi2/LI2B2bVid/7vEBLJ2AQK8B8GWLw0CZQXdj0G2GV9V+aUNv42ByVq+EujP548cRk
+	 YK80dCToLqlrQv1jUS4Ii0J1j2+3Hc8T8+YkQC11m2jzOFAkDmlyST954Wd0o7cp2xblV
+	 dk+p5QMRp49e54fVLcfJ+bWZybOcH2hO6I7RjSxUtYsWHg5JBpioJahFqOKY8BF79tlv1
+	 a6A9IY18eBlCaUhGD9vaEQjTS4jSb3JJ1srSOGzn/dle/+i1aelTNR3WxjKOfpqtsBFrN
+	 JkuSBJ2oPaulKgwh+ybM3DNSZirRMmae9txNx+dEpzcIOwwu4d414ZoFOqL5kJbUTkLaf
+	 H8aCzFufTFN3ERoWqxntDOXVvh+nV9AC1q9o9ND9belYRhGJWuYKvyN/1q9CzkV6t3tK2
+	 rVA5qHkEu4Bf3RaMQM4yoPJp9gowx3A6Jbp+Q3ZBEQaj9Bk1gFX2mYzSCbze5XMb5T+vu
+	 DZ0eFcwJCEge0BQI4H+OmO9CGoVjzKd30wFmq5YVAYOdEiCOz2TKFgZDhVvpBrsgEDGV6
+	 KKL14eFZGbdLkYEqaW0O+0cvYMk87GA2l9C+nO9oL3zkPiILHE56CSafvnVy1v0LAtSL/
+	 B+cB8Hp3ObXnlDnSe3p6cI4LJZnB/+rNENBHarGzWv/VTxAtRrCyiX92wWREaYE=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1765438760; bh=E+HldCsOnG2PoKHFcpvLXYZ79+DuZZiscDTPs+aOWRM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=CkCZ2DDGipQ7NHQvYfdJxNDdd1Y0n48+7T7+Up2fYRNtVdtlDKWpeYM/p2Cw6ZLrv
+	 GSfRBJl/BkJfO6WsxaZoCiBQ2AI4V9b+I015WvvjaYAVQXABM41zGq7vg95kb4iJhk
+	 i5VNtmIiun7U9Tw0dqwk6Rvs58S5nkA5Zk9iI/uEeLtFwFIc6dLBdyW4bGVL8kgOyJ
+	 u0VguTseGwivQnY+6/ua+T8d5cmvWJNo+jao0rbck5Owpwp+33S83cFnFEF8npW3TB
+	 tlXpMWr7FUtFnWU4BVPwzyZhyeQKNVRLrpKAVZLy6NYezxcgfC+hl5BZ4CM9dcB/6e
+	 gH0aaqBjJXJXA==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/svm: Make vmcb_struct private to svm/
+Date: Thu, 11 Dec 2025 08:39:20 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251128201937.1294742-1-andrew.cooper3@citrix.com>
- <20251128201937.1294742-2-andrew.cooper3@citrix.com>
- <373f19eb-39fc-4a76-95fe-4acb95ba71d8@suse.com>
- <eef80a07-ccde-4948-8213-3ef5352c5283@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <eef80a07-ccde-4948-8213-3ef5352c5283@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH 1/5] x86: Misra fixes for U/L suffixes
+In-Reply-To: <673e625a-4df9-45fe-a45d-49d988197da8@citrix.com>
+References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
+ <20251210183019.2241560-2-andrew.cooper3@citrix.com>
+ <c9c7deeecc839295d04c5374691f848d@bugseng.com>
+ <aa03d225a116bbb5db0e7a0df61161b5@bugseng.com>
+ <673e625a-4df9-45fe-a45d-49d988197da8@citrix.com>
+Message-ID: <a9cd462f7210e12a307b492c85e249b1@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2025 15:25, Andrew Cooper wrote:
-> On 08/12/2025 9:05 am, Jan Beulich wrote:
->> On 28.11.2025 21:19, Andrew Cooper wrote:
->>> The rest of Xen has no buisness knowing this structure, and it is currently
->>> included via xen/sched.h into most code.  Create a new private svm/vmcb.h.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>  xen/arch/x86/hvm/svm/asid.c             |   1 +
->>>  xen/arch/x86/hvm/svm/emulate.c          |   1 +
->>>  xen/arch/x86/hvm/svm/intr.c             |   1 +
->>>  xen/arch/x86/hvm/svm/nestedsvm.c        |   1 +
->>>  xen/arch/x86/hvm/svm/svm.c              |   1 +
->>>  xen/arch/x86/hvm/svm/svmdebug.c         |   2 +
->>>  xen/arch/x86/hvm/svm/vmcb.c             |   2 +
->>>  xen/arch/x86/hvm/svm/vmcb.h             | 617 ++++++++++++++++++++++++
->>>  xen/arch/x86/include/asm/hvm/svm/vmcb.h | 606 -----------------------
->>>  9 files changed, 626 insertions(+), 606 deletions(-)
->>>  create mode 100644 xen/arch/x86/hvm/svm/vmcb.h
->> I was actually hoping for the file to be moved. I notice that a few things are
->> left in the original file, and I wonder if they couldn't be moved elsewhere up
->> front.
+On 2025-12-11 00:48, Andrew Cooper wrote:
+> On 10/12/2025 8:31 pm, Nicola Vetrini wrote:
+>> On 2025-12-10 21:09, Nicola Vetrini wrote:
+>>> On 2025-12-10 19:30, Andrew Cooper wrote:
+>>>> diff --git a/xen/include/xen/elfstructs.h
+>>>> b/xen/include/xen/elfstructs.h
+>>>> index eb6b87a823a8..8770e7454672 100644
+>>>> --- a/xen/include/xen/elfstructs.h
+>>>> +++ b/xen/include/xen/elfstructs.h
+>>>> @@ -360,7 +360,7 @@ typedef struct {
+>>>>  } Elf64_Rela;
+>>>> 
+>>>>  #define    ELF64_R_SYM(info)    ((info) >> 32)
+>>>> -#define    ELF64_R_TYPE(info)    ((info) & 0xFFFFFFFF)
+>>>> +#define    ELF64_R_TYPE(info)    ((uint32_t)(info))
+>> 
+>> Actually I think this doesn't build:
+>> 
+>> arch/x86/livepatch.c: In function ‘arch_livepatch_perform_rela’:
+>> ././include/xen/config.h:55:24: error: format ‘%lu’ expects argument
+>> of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’
+>> [-Werror=format=]
+>>    55 | #define XENLOG_ERR     "<0>"
+>>       |                        ^~~~~
+>> arch/x86/livepatch.c:332:20: note: in expansion of macro ‘XENLOG_ERR’
+>>   332 |             printk(XENLOG_ERR LIVEPATCH "%s: Unhandled
+>> relocation %lu\n",
+>>       |                    ^~~~~~~~~~
+>> arch/x86/livepatch.c:332:69: note: format string is defined here
+>>   332 |             printk(XENLOG_ERR LIVEPATCH "%s: Unhandled
+>> relocation %lu\n",
+>>      
+>> |                                                                  
+>>  ~~^
+>>      
+>> |                                                                     
+>> |
+>>      
+>> |                                                                    
+>> long unsigned int
+>>      
+>> |                                                                   %u
+>> 
+>> the error location is a bit unclear, but the cast is the culprit
 > 
-> No, they can't be moved yet.  There's other cleanup on the list, and
-> more header dis-entangling needed first.
+> Yeah, I spotted that just as I heading out, and ran
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2207521982
+> instead.
 > 
-> But I do agree the name is wrong and wants to go.
+> I've swapped back to using 0xFFFFFFFFU.  info ends up being long, and
+> the result of the expression needs to stay that way.
+> 
+> However, looking at the report for that, I still missed one.  I've
+> folded in this hunk too.
+> 
+> diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
+> index 8c44dea12330..e741e686c1af 100644
+> --- a/xen/arch/x86/pv/emulate.c
+> +++ b/xen/arch/x86/pv/emulate.c
+> @@ -37,7 +37,7 @@ int pv_emul_read_descriptor(unsigned int sel, const 
+> struct vcpu *v,
+>      if ( !(desc.b & _SEGMENT_L) )
+>      {
+>          *base = ((desc.a >> 16) + ((desc.b & 0xff) << 16) +
+> -                 (desc.b & 0xff000000));
+> +                 (desc.b & 0xff000000U));
+>          *limit = (desc.a & 0xffff) | (desc.b & 0x000f0000);
+>          if ( desc.b & _SEGMENT_G )
+>              *limit = ((*limit + 1) << 12) - 1;
+> 
 
-Well, then let's go this route:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Makes sense, feel free to retain my R-by with these two changes.
 
-Jan
+> 
+> ~Andrew
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
