@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B986CB6D6F
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 19:01:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184481.1506906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 830B9CB6DB1
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 19:05:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184492.1506917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTkyE-0003zz-S1; Thu, 11 Dec 2025 18:00:54 +0000
+	id 1vTl1y-0004b2-Al; Thu, 11 Dec 2025 18:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184481.1506906; Thu, 11 Dec 2025 18:00:54 +0000
+Received: by outflank-mailman (output) from mailman id 1184492.1506917; Thu, 11 Dec 2025 18:04:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTkyE-0003xx-PN; Thu, 11 Dec 2025 18:00:54 +0000
-Received: by outflank-mailman (input) for mailman id 1184481;
- Thu, 11 Dec 2025 18:00:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTl1y-0004Yo-81; Thu, 11 Dec 2025 18:04:46 +0000
+Received: by outflank-mailman (input) for mailman id 1184492;
+ Thu, 11 Dec 2025 18:04:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cEbC=6R=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vTkyD-0002cg-0T
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 18:00:53 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazlp17011000f.outbound.protection.outlook.com
- [2a01:111:f403:c100::f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54f5c03e-d6bb-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 19:00:52 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by SA2PR03MB5851.namprd03.prod.outlook.com (2603:10b6:806:11b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.15; Thu, 11 Dec
- 2025 18:00:49 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Thu, 11 Dec 2025
- 18:00:48 +0000
+ <SRS0=oCI8=6R=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
+ id 1vTl1w-0004Yg-EC
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 18:04:44 +0000
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [2607:f8b0:4864:20::82a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dd86614a-d6bb-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 19:04:41 +0100 (CET)
+Received: by mail-qt1-x82a.google.com with SMTP id
+ d75a77b69052e-4ee4c64190cso2611601cf.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 10:04:41 -0800 (PST)
+Received: from wirelessprv-10-195-113-235.near.illinois.edu
+ (mobile-130-126-255-145.near.illinois.edu. [130.126.255.145])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4f1bd6b504csm23434601cf.19.2025.12.11.10.04.38
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 11 Dec 2025 10:04:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +46,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54f5c03e-d6bb-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uTmbNME3kGphzMRd5l3dX9zA5avwkCiMIx6v1DEkKg77Qaarbys3YOOdRq669tflc0WqWrIF5cgQYi66QPAsF5fTu7WW6UELsYL1szg2hbOiRj2vdovhN+g4oyOK/TRTOWG1RGlxkoITRX60UkLF+ZgAWWMGnNf0+5vJv3rUJuFNj/JgAE6RlQ7Z//ksH6dVF3oBITRMnewK6l8NgB6Q1IlqN4EWEvB0k03z3th/sNSBL54EJnxL0C55q5vaL3k0BZmv8fdna5PfALkg5iT1mR6cqgRZH1CpfiEZ5J+b+N/jGGA9U8Tj/uFxISyz4V+cjxFbUtYGzC2uwwMHx3fLfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bO9ZNoyg/dO1UIM0jL1mnfdLsA+af6I1/SfRN24ERFE=;
- b=nWFQUWcLnjFNvYm6FPw1eZ0zVaa85cBGAzoRzi2TsCz4TUwg4grNhVh8m5rbjuamHfJWqPxxNyilvf5eaSaIY51QNHf4bwJUJEnaUmuSQtOWh4Mh0q+iOvF1UnmhcxfysBGBuWXZmhdKx3a+f/RwXBSPrBWYeQhmN5/MAHMejvlly5Y+NbmfT7+hOnKOlzCxLPPsl/EAMjKHL8+yFihZDiA8Lc16xRB08Dabjx0O6SGXLWluUQU3kihN72JMNKZIb1+ysrKFzzEIuDFVA3Q6MMrIMvnJmBGtQRN//01PxCcb3jRRRhvBdM8FvL93/dhW68pKR/f3IKhMtolMH6Et0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bO9ZNoyg/dO1UIM0jL1mnfdLsA+af6I1/SfRN24ERFE=;
- b=zcy69nO/+f9zbjdn0mCtBFEPBrJ88/YsomAVSll6f00459O0eTGp2dfFA7s3eSMsynM2Kx0enyRglzfhgM+Kx68KqpuqafA/44rjUaSsSu1BuRvFj1y+q8kLCLVHcJhL1G6zt+67PI0aAm/G/u4UUtOXJS6KyNNC+ZJQoo53cZk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <03bbb773-cc02-408f-a01d-bb7f2447e57b@citrix.com>
-Date: Thu, 11 Dec 2025 18:00:45 +0000
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: dd86614a-d6bb-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765476280; x=1766081080; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+vYfskH8zOcau01PfYhVtuVtrctZjdSbs9m0dZHvRNg=;
+        b=BcN6o0v0V4ZV1XcIX7p9c/If2mqla1JowdrPoS62mCDqlKYCTkgCKwx5EwiAEoJS5k
+         PjGAJmliTDcwY6z1/yTzOfFiTumUBtDEfOoB9KbsFOvn7Q3jrBfLzZYpjxq/AN/z4lXE
+         6L/3XimOy5aM0Ko3Dthd6kPbeoC6MAMjnm4PGitO8mJp5hvHGxuCgAT9BkK0d2lIFoPX
+         qO3AbsB1X+kOGzIQgBB5der9LluA0X6aXcBTIZcG4+RWxE9yMNXBxEfBA6i0VCPUHhYY
+         OaA9cfAZXGgWZM7/h8a7jvISg06Vrji8rfCb9Ewx14kX+Qk/Z2upumMOj14EC6aDlG8Q
+         5xFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765476280; x=1766081080;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+vYfskH8zOcau01PfYhVtuVtrctZjdSbs9m0dZHvRNg=;
+        b=PK8SydZVvyjZo/aY15ScUTA8sTpq3F/EtztSp+tUZUHyizTsp4bSxLOuHYDVTKujQL
+         bQ8Jalr6aVVIVCsWw+bGA6JjcRuj7nrochT6v1Cp2x2qpDNib2er6+sTsYIAVMmxtf8g
+         45NNyCaIKiBYTyU69FQwBEOiHbFlPqUarYVBcw2eucRjh6pzoW+Vkv06LqF3+YUA25QB
+         51tJ8TWFzoPCtfB5Nng05WupyMxBlSpWgiSTrlYbZTY9jBKRaMx9zeks4cjjrLPqQFXQ
+         GFCpAqFRpktPA9ls+EE42/rt0tA6sZcYp4tU852Sch1C3MDCHjvIP0WywZTtfddGVCkd
+         OJ3g==
+X-Gm-Message-State: AOJu0YztHNc89d6Ol/2U00L0zGkqKMBBI4glbRyx9ynP4XIVaOSlBxCD
+	7kgyPLFnUxv8DJgwzHSDB6OfNcjYuRaq1xMBsHnMKmnSQskzwqXejAAguLxTLk8=
+X-Gm-Gg: AY/fxX5ZmayndShyu7IDDMfeHbWpy+GLmttmfo+5Si87Ec0u8qyR8NNOR47fhEb0/l+
+	YF2yemYuvPB21UsTszHyN8iCe2nIc/8ipwKgm7gEc+GalwB9XhEHihzHT3vUbst2eD5Ap5gPfPo
+	5fLHRiHlID7FOxVRMfsispat1VtpwqG4xbNmj5sEn94sgQ5YAu+HNx3bb0imty1Dj3yospcJ6RX
+	74eTnZn9DDlK1Zq7exxweiSNCpvHG42P7vBkWYsQ5Mv6HtehXrfJIaPqL3/0JR+58oAMNBM6Q/6
+	sRdx+LiMqQlz3mZWfQsJA84C1VYAJhurHh/Eb+f0xx5Lh+0kB0y3Tso3LVdShSoFV6lXXN166Tr
+	0oDerJzSnFIt4o0bFNJDA/ttRD5F/+Y2b90b6RJ1XWz5tLRkcgVhamKHm6jfm8HbkwKF8rwQ2cZ
+	oqz1IaWr9XJy7ZB2VImLL72RZTQ89GKfgWsBZd3EqQoNNYU0zrrq34T2JPJm/VfB8LgQ8pq4ctl
+	U+5b2OcvR5SagPWm/4hW9mAQqKLT4R3ugau7Y0CFLrjFkcmVMhKUyVjZsjZAG4ziLa/grqUBt68
+	U0vpYSwjOp98yfHrgQ==
+X-Google-Smtp-Source: AGHT+IEuzUeFlSeeWruvyRUPMGsquOlx9fbmGJ6QYyIBtGJ3wM1PXPXuFYGbaYpCGdSvwxgae6RopA==
+X-Received: by 2002:a05:622a:ca:b0:4ee:28b8:f110 with SMTP id d75a77b69052e-4f1b19d4bc0mr105700091cf.29.1765476280240;
+        Thu, 11 Dec 2025 10:04:40 -0800 (PST)
+From: Saman Dehghan <samaan.dehghan@gmail.com>
+To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "consulting @ bugseng . com"
- <consulting@bugseng.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [PATCH] CI/eclair: Rename the eclair-* jobs to *-all and *-amd
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <20251211161339.2296433-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2512110959140.17367@ubuntu-linux-20-04-desktop>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <alpine.DEB.2.22.394.2512110959140.17367@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0667.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:316::20) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4] xen/arm64: Add support Clang build on arm64
+Date: Thu, 11 Dec 2025 12:04:34 -0600
+Message-ID: <da1f2ca7a651a5c482a68f6a4377250fcbbce715.1765465950.git.samaan.dehghan@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA2PR03MB5851:EE_
-X-MS-Office365-Filtering-Correlation-Id: b475612e-7a9b-43f6-c719-08de38df371b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Ty8xeEpNcmpvc0VQVzhnT2ZRc1ZqOWRndi9DWFFtWFJXZVlaeXJlaDRCZ1ow?=
- =?utf-8?B?T2Voa1B0ZFE1S29uSCtUY1B4Um1Rd0Q3RC9RczNMMm5UUCtnaFlpUzdGMlRs?=
- =?utf-8?B?dmhWVVRpa2VSYytHTk1aRmdhLzlYVTQ5V2xzZjVpb25xR1FoYURiUzBLRzBo?=
- =?utf-8?B?bHB0UmtYOGtIS2V2SWFHMXR6RzkwMEJqdUpSYXVEY1M5aG1kQThNa0pMNlhS?=
- =?utf-8?B?UXliTnppdXBsekF1TzBYRWdQNHlDdWdKL2hYb29mUEJBaVVsY0wzVGtiOUVG?=
- =?utf-8?B?MjNYeTFZUHkwRkpzRkRvRHZJTUpYd21mUSs0YUt2SXZSR3doNVNzUXFLUUZl?=
- =?utf-8?B?S0puS0N0TjdkTU16a0o1Qm5id3JNZVhwQ3NyY2FUdG5FTk5WK2JYUTNTK1hY?=
- =?utf-8?B?TDltSUhiLzRCdytjVDJNeDAvb0pKVldPSEp0SVpST3c4YXNYUW55aXlxOWtN?=
- =?utf-8?B?RWRvM1Y3TEdxQ2FIc1NsZEp2SVFPSmU0a2oycXNqRFY5akV5UEllbWc0Qjlp?=
- =?utf-8?B?N2Z5V0lVckdUYkNKQWFnc0VtMW56aGR3UGxBTXNZRnNoQ3h0WUU3ZHBzMVBO?=
- =?utf-8?B?bGJJUElyVE9NNlVzNkNoK0ZPcTlKSWlGV0luRUdyTW9SNndkTDBrczF3MmJQ?=
- =?utf-8?B?TlFVd3J4SDJLaWJMeXVXTjZWV2c0Mm9ZeUY5YXd0akZ4ZUo1UzNCUGR6SXRJ?=
- =?utf-8?B?OUJmRkpydmlFVlhJLzJMekRDSlErbnd1V3hyakQ3cUYrdVVtS1dIY0NkMi93?=
- =?utf-8?B?SjNya1ZjdmRHT2dDV2RuVmJ6Uncyd2xHcThpM080MFhqRisvSkVFdmVSYTJJ?=
- =?utf-8?B?N2IvMnBmK0dNUkpLMEZaa0VIZ2NsUys4VWltQjFsNDVuN09tMkNOOCtudUNs?=
- =?utf-8?B?aDYrdmlxc3BZR2J3KzliOU5Wb0JmMVQwYnF6aTN5Smo4SVE3bVVaOWU0RXE2?=
- =?utf-8?B?cEFudkJwdXJlcVozUkRESENHMHFBS1pCSG5EV3YvbEpWMzE4SFh5WndtMlBk?=
- =?utf-8?B?Ynd1MWhFTy9palloNkxLL2hvVXRiMmdkV3UzelZFMHl3ZHF0SDlJdFdSalc5?=
- =?utf-8?B?aUdxeTFYMzd5T2VQKzFTYWlLUmxmSiswWVRjc0p4MGRzNlBSMndhb3UxSk1F?=
- =?utf-8?B?L0lwY0cwZ01FNHZ1UFByL2NlakhUcGFBUi8rczMzOW9RWHdobGQ5RVdBY1U4?=
- =?utf-8?B?RS9aR3krRXVGUEkwc1c5UStSd28zSHVzQi9ma1k5NVRYMjd4NWV5eThNakJX?=
- =?utf-8?B?aFY1bFJBWnNJdHUvWTRlU0Zmdk9JZml3cmZsNjl4UkVmcVI2Q1N0bndHNnJX?=
- =?utf-8?B?dGRsZkViOUdpdGpQdGgyek5KK2N2UXhYTnhocVloTkVRRm5uVkw3RUlzNWFJ?=
- =?utf-8?B?KzZyUkxLUEVFOE5EMUNUQkRqTUtEelVPYTBVZFdNRElnQ2hnYUVMR2tKVk9o?=
- =?utf-8?B?LzFYOTYwREJJL2E0YjE1SThtajhkVHVTVkZYVi9Zd1V5b2EvMmcvOUVEYnc3?=
- =?utf-8?B?Y2xHeEYvSWw2YktnSEhGbDZtYThmVmRXYU44N3RMZUw1dlBMYWZHRHlqdHc4?=
- =?utf-8?B?RHdSVzdmL2ZsT0FjT0szUjJlZTBRc3Z2V29lUzNJVlR4bEtpYVNMa2hodUJN?=
- =?utf-8?B?eUNvM2c5Nkh6RDdrdUJVSndib3NtbnFKNXJ5ZCttdzVXbHF4NkNZQnhFL2tT?=
- =?utf-8?B?eUJBQ2cxMk5oQ1l5Nk1HMktJaEFES25iSXU4RkpMVnJQeWdXRjJIZUpFR0Rq?=
- =?utf-8?B?cXZnS1NwMWYvaVdoQmJ0RmsrbUUwazlzWG11SUdyanJaeGIzWC9FRXhQVXFT?=
- =?utf-8?B?bjVaV21xRllLV1owQllCRWFQNncxVnZzTk80Y1BhSldyL2dRL053aERBbHJ6?=
- =?utf-8?B?dFdwajVkS21yWmFHTWxjeTZNYUUrc1lOY25jV3I2QnRISGFJdnkyVXhUb3JL?=
- =?utf-8?Q?ZhIZWYGRB4UDmyRcyKBH1N/wsTzYhJsV?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K3BXcUJDdFZrTUk1eElnWEtEL1BoQ1lsbE05NXVNaDNMK3kxclRwVmsralpl?=
- =?utf-8?B?aTV4UHM2eVFHNXF5ZmJXWkFlZVVxZmw0eVVWbDFzeFI4NURIZkpnMlNjRlpw?=
- =?utf-8?B?a2tySlBSOXpJY3BKRXo1NjJMaUkwajRmelNYZlZCSUo0bzR0dUZpZG4rQkFp?=
- =?utf-8?B?Z2xlQmFyREtFWnY5RWpxQmFEcDZneTFsaVB3S1pBWGsrMkFwc3M2WHhWK290?=
- =?utf-8?B?c1AvNGZVUUdzTVQ4QVZzcC92Y0M3WkhOY3pRNGV5NTNiSXR5WjQ2WDVxcUNY?=
- =?utf-8?B?ZzR6Q0s1NkpRK01MQmVuMXhQZkczSVQvdktKQUIySVZXalZqV2RXc2paL2lq?=
- =?utf-8?B?WkpjNHR3dzNxcjNZeWpkbXFLcVMzL1JNUFNzNzEyUkRpRERRUHpSL2lIWEdI?=
- =?utf-8?B?ekoyVHdpQ0I5am1GYzZLd0FuU3MxS0hvU3ZXc2N3eGdwRU94Ty9ONkJ0S1RG?=
- =?utf-8?B?dE5BVHR2MW9OMll1WXJQMmRHcmlJazk3THNvSHQwQ3hrT3B4NjhQa2liMlY2?=
- =?utf-8?B?S1lBS1VxYWpvWVdSVFlGb2lITzFWdzByREwvYml5R0czS201ZVp5ZlhoMHIr?=
- =?utf-8?B?dUw1R2liTGxlTkcza280aHFwUGNud1FreVMyM0ZWM2RYcE9RWGFTcnJhZlpu?=
- =?utf-8?B?RjMvMHJwR0w4Uk80eDVmbWZMZjNxUjZqdExhcjV3WlJYOGNLdmpNWHJzNlZu?=
- =?utf-8?B?cjBMeUUvNGNOdlJJMjYxL0pNSGg4bCtmNGtZNG5OZ0pway82NHpKVUduQzdp?=
- =?utf-8?B?L3RYcjNqd0FqTC9SU25JQ2JqdW8rRE42dDlUME95My9rcS9Ib2N5bWZwMXdG?=
- =?utf-8?B?V2wwKzNSdUlJRHlTY0gydkl3Nk5jSFJqL3VhNXNiQ3VaczZ1OThpNFYxRExK?=
- =?utf-8?B?dTBFR3ZnS0VSNUMrZ1gwRStiYitTTjBuTDNXc09DK0s5R0cvMHkrZDBXdk9T?=
- =?utf-8?B?aDgva0QvOS9IZ0xOaithNXpYQW5ELy9OamVoN2VoeHIyLzAvYkdLb3J5ajNG?=
- =?utf-8?B?blduK3hNSXl3dnVaQU4yUFVDa01tQWs3Vzc5cm8zc3M1RzdFZUNPZmQwZy9a?=
- =?utf-8?B?YTdXTDgzRFQ0a2VmaC9taW4zd1ZtOWZvQUp2cmtBdzNPM1pVOFJnR3lYSVFY?=
- =?utf-8?B?TTkwVC9Od0lJbE5Idmk5MDk3Y0RLVjIzbVVjeWFtazBkK3ZHRXN4Z3ZVenBu?=
- =?utf-8?B?ZitRbndkd1hYLyt2Q25FRUdVcXhySkd0M1RxZUpUYTU1ZG1FZlZPNU5hckxu?=
- =?utf-8?B?ZEtQSCtlK2ZITndyckhGVmZoRnlLdTdhK1ZKRVd0d0hLT3FldmJPc0JuTXBK?=
- =?utf-8?B?SnZKdFB2aDhMOGd1UDJUN3g3bmhxcXBwN3NZbzZJRlBYSVIvWmxFUWt5QXg0?=
- =?utf-8?B?ZWEvb2E2dE13aTRtMjR5SXFBei9TVGxxNC9tQ0xhaHBpZUxlRGkvelpDL3Fl?=
- =?utf-8?B?dUdmZWtKVEQ0RDNKcEVldW9VNWRQT3FQaVdHRVNwTlFucEdjbkxFWVhtUzZq?=
- =?utf-8?B?VytuY3UrbG8vNWRXMDUwM3JzaGEzc1FvcXNaV0o4M21WWkx6WTdWNFBqMUNV?=
- =?utf-8?B?cHRnYUowZXJDb1hBR3l1NVJXRmhCcWRzTjFickhNL3lUQUp3ZCtHUHhjN0Zx?=
- =?utf-8?B?M2FsaHYxYnpBVFRVdW1kYjlyaVVDOFNPQVQ1Vi9NOHg1R3p5U0xvNDRXMmM4?=
- =?utf-8?B?eGJpUkRtOFVBdUVnN2JJd3IvK2RLQjdjNDVhajhsRFdzZ1B4TG8wTnpoWkpS?=
- =?utf-8?B?SWcrenZ3enlJTkhNRGhnRlNpRkN5VGlyamRWREJjMnlLMCtjaWd6cU1pWm01?=
- =?utf-8?B?dkEyWVpUcngxbm9INEhTUHg5eTJwMlNFakc4K3B4ZkdDbXFFZThDaVVveEN0?=
- =?utf-8?B?VUxYZHpONkMvSEFHN1JJMnBxN0JyUS92TDE2aVR4cUdyMjlpMGhsQ1NLc3Br?=
- =?utf-8?B?dnJYQURXNHVQTy9jRXBQQTQrQXovN0t4ZVJjemNTbjg4SFBQSjhuVUVVVlV3?=
- =?utf-8?B?SjQ4R0RzTVJVbkZjbE1oV3VhUjI5Mkt2RHlJUm5MTFFHeXBlakU1b1puSXI4?=
- =?utf-8?B?SzRVSTVNWmtveFh5ckJJRXpzNzB6ZlA0ajBnOFdkS1FkME9uMWRZVzFHNXY2?=
- =?utf-8?B?eFd0WXc5d2lSYlQyd2VWVTNlNFk5Qmg0U2d1VDNVRE1JdWthSEZHYlFPQ1JP?=
- =?utf-8?B?MXc9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b475612e-7a9b-43f6-c719-08de38df371b
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2025 18:00:48.8171
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hxcpYzZ5VsccRQnrUl3UDjwi8Am9qvFC6+jl5RMmulMBLTdiEgutZIoZE6VXLtxGEbPr1JoTJxqPubZ/vjnhW4fE8kmmjSYVsxUrkBlaWrM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5851
+Content-Transfer-Encoding: 8bit
 
-On 11/12/2025 5:59 pm, Stefano Stabellini wrote:
-> On Thu, 11 Dec 2025, Andrew Cooper wrote:
->> The *-safety jobs are AMD's configuration specifically, and other
->> configurations will likely be different.
->>
->> Give the un-suffixed job an *-all suffix to make it clearer what they're
->> doing.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> This is straightforward:
->
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->
-> I like this and I think we should also rename eclair-x86_64:on-schedule
-> and eclair-ARM64:on-schedule for extra clarity. For instance:
->
-> eclair-x86_64-allrules:on-schedule
-> eclair-ARM64-allrules:on-schedule
->
-> It could be in this patch but also in a different patch.
+This patch enables building Xen for the arm64 using the Clang/LLVM compiler.
+Changes include:
+- Add explicit -march=armv8 flag for arm64 builds.
+- Introduce `READ_FP_SYSREG` and `WRITE_FP_SYSREG` to encapsulate the required
+  `.arch_extension fp` directive for system fp register access.
+- Add ".arch_extension fp" to the inline assembly for `save_state` and
+  `restore_state`.
 
-Oh, that's easy enough to do.  I'll fold in.
+Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+---
+ README                   |  2 ++
+ xen/arch/arm/arch.mk     |  1 +
+ xen/arch/arm/arm64/vfp.c | 34 ++++++++++++++++++++++++++--------
+ 3 files changed, 29 insertions(+), 8 deletions(-)
 
-Given allrules for that, do we want to make this allcode for clarity?
+diff --git a/README b/README
+index 889a4ea906..67c1aa7fe6 100644
+--- a/README
++++ b/README
+@@ -45,6 +45,8 @@ provided by your OS distributor:
+       - For ARM:
+         - GCC 5.1 or later
+         - GNU Binutils 2.25 or later
++        or
++        - Clang/LLVM 11 or later
+       - For RISC-V 64-bit:
+         - GCC 12.2 or later
+         - GNU Binutils 2.39 or later
+diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+index 9c4bedfb3b..bcf548069b 100644
+--- a/xen/arch/arm/arch.mk
++++ b/xen/arch/arm/arch.mk
+@@ -13,6 +13,7 @@ ifeq ($(CONFIG_MPU),y)
+ CFLAGS-$(CONFIG_ARM_64) += -march=armv8-r
+ else
+ CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic
++CFLAGS-$(CONFIG_ARM_64) += -march=armv8
+ endif
+ CFLAGS-$(CONFIG_ARM_64) += -mgeneral-regs-only # No fp registers etc
+ $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
+diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+index c4f89c7b0e..cd5c97cfd0 100644
+--- a/xen/arch/arm/arm64/vfp.c
++++ b/xen/arch/arm/arm64/vfp.c
+@@ -6,7 +6,8 @@
+ 
+ static inline void save_state(uint64_t *fpregs)
+ {
+-    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
++    asm volatile(".arch_extension fp\n\t"
++                 "stp q0, q1, [%1, #16 * 0]\n\t"
+                  "stp q2, q3, [%1, #16 * 2]\n\t"
+                  "stp q4, q5, [%1, #16 * 4]\n\t"
+                  "stp q6, q7, [%1, #16 * 6]\n\t"
+@@ -22,12 +23,14 @@ static inline void save_state(uint64_t *fpregs)
+                  "stp q26, q27, [%1, #16 * 26]\n\t"
+                  "stp q28, q29, [%1, #16 * 28]\n\t"
+                  "stp q30, q31, [%1, #16 * 30]\n\t"
++                 ".arch_extension nofp\n\t"
+                  : "=Q" (*fpregs) : "r" (fpregs));
+ }
+ 
+ static inline void restore_state(const uint64_t *fpregs)
+ {
+-    asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
++    asm volatile(".arch_extension fp\n\t"
++                 "ldp q0, q1, [%1, #16 * 0]\n\t"
+                  "ldp q2, q3, [%1, #16 * 2]\n\t"
+                  "ldp q4, q5, [%1, #16 * 4]\n\t"
+                  "ldp q6, q7, [%1, #16 * 6]\n\t"
+@@ -43,9 +46,24 @@ static inline void restore_state(const uint64_t *fpregs)
+                  "ldp q26, q27, [%1, #16 * 26]\n\t"
+                  "ldp q28, q29, [%1, #16 * 28]\n\t"
+                  "ldp q30, q31, [%1, #16 * 30]\n\t"
++                 ".arch_extension nofp\n\t"
+                  : : "Q" (*fpregs), "r" (fpregs));
+ }
+ 
++#define WRITE_FP_SYSREG(v, name) do {                   \
++     uint64_t _r = (v);                                 \
++     asm volatile(".arch_extension fp\n\t"              \
++                  "msr "__stringify(name)", %0\n\t"     \
++                  ".arch_extension nofp" : : "r" (_r)); \
++} while (0)
++
++#define READ_FP_SYSREG(name) ({                         \
++     uint64_t _r;                                       \
++     asm volatile(".arch_extension fp\n\t"              \
++                  "mrs  %0, "__stringify(name)"\n\t"    \
++                  ".arch_extension nofp" : "=r" (_r));  \
++_r; })
++
+ void vfp_save_state(struct vcpu *v)
+ {
+     if ( !cpu_has_fp )
+@@ -56,10 +74,10 @@ void vfp_save_state(struct vcpu *v)
+     else
+         save_state(v->arch.vfp.fpregs);
+ 
+-    v->arch.vfp.fpsr = READ_SYSREG(FPSR);
+-    v->arch.vfp.fpcr = READ_SYSREG(FPCR);
++    v->arch.vfp.fpsr = READ_FP_SYSREG(FPSR);
++    v->arch.vfp.fpcr = READ_FP_SYSREG(FPCR);
+     if ( is_32bit_domain(v->domain) )
+-        v->arch.vfp.fpexc32_el2 = READ_SYSREG(FPEXC32_EL2);
++        v->arch.vfp.fpexc32_el2 = READ_FP_SYSREG(FPEXC32_EL2);
+ }
+ 
+ void vfp_restore_state(struct vcpu *v)
+@@ -72,8 +90,8 @@ void vfp_restore_state(struct vcpu *v)
+     else
+         restore_state(v->arch.vfp.fpregs);
+ 
+-    WRITE_SYSREG(v->arch.vfp.fpsr, FPSR);
+-    WRITE_SYSREG(v->arch.vfp.fpcr, FPCR);
++    WRITE_FP_SYSREG(v->arch.vfp.fpsr, FPSR);
++    WRITE_FP_SYSREG(v->arch.vfp.fpcr, FPCR);
+     if ( is_32bit_domain(v->domain) )
+-        WRITE_SYSREG(v->arch.vfp.fpexc32_el2, FPEXC32_EL2);
++        WRITE_FP_SYSREG(v->arch.vfp.fpexc32_el2, FPEXC32_EL2);
+ }
+-- 
+2.49.0
 
-~Andrew
 
