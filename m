@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228CCCB5847
+	by mail.lfdr.de (Postfix) with ESMTPS id 38185CB584A
 	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 11:30:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183823.1506411 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1183824.1506417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTdvf-0000uZ-Be; Thu, 11 Dec 2025 10:29:47 +0000
+	id 1vTdvf-0000zv-Ih; Thu, 11 Dec 2025 10:29:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183823.1506411; Thu, 11 Dec 2025 10:29:47 +0000
+Received: by outflank-mailman (output) from mailman id 1183824.1506417; Thu, 11 Dec 2025 10:29:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTdvf-0000sP-7G; Thu, 11 Dec 2025 10:29:47 +0000
-Received: by outflank-mailman (input) for mailman id 1183823;
+	id 1vTdvf-0000uz-FJ; Thu, 11 Dec 2025 10:29:47 +0000
+Received: by outflank-mailman (input) for mailman id 1183824;
  Thu, 11 Dec 2025 10:29:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QWGN=6R=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vTdve-0000sE-0Y
+ <SRS0=Fhd1=6R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vTdve-0000sD-7L
  for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 10:29:46 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fc1296e-d67c-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 11:29:45 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-5943b62c47dso776337e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 02:29:45 -0800 (PST)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d7e50b4-d67c-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 11:29:41 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b735e278fa1so153121166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 02:29:41 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64982040d14sm2134346a12.5.2025.12.11.02.29.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Dec 2025 02:29:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,122 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fc1296e-d67c-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 4d7e50b4-d67c-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765448984; x=1766053784; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=D8H17ulhkEgslJAdnXMogvfprVdOXngzyHF6etvOG2k=;
-        b=Rjl1p0SpdosA6OjP3TQ33/kwWS9kfdScx3aOEXICdIOkYuPur1kQkjGhBrKt8O6ASe
-         vXT+KnmyVgQtfj6QZQa5UsF9TVuIccfMxeOQqFxsMLe8Tv1QU21/xoq+hmZz9uPObt06
-         niyWBRif99DRiGnoQFMIv2kFyvjz/Ocqh79UMbBEHvyas1Khc1v3mhCedPuz9ZtvJJHY
-         6I+ZJVrLN/9puWxmY8fhx+6b0kOxhIph4NmYWLKAsCKSMBV+ixuC+0YNygtMYI9874qq
-         qb6+0VOxVJol+qUy67AsHHg7JaBI/BDSGGlCsA9MYEB7l6B5oT/ImXw3ovUvYr8RsLxT
-         Mjeg==
+        d=gmail.com; s=20230601; t=1765448981; x=1766053781; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0dFtbPgS018TneGvw6TmMwgYf3+nEk6sgqMPx24LyAA=;
+        b=TzpO7LasZFN/QRvYjrkNDvpEpIra9IfkeL2RVhhjKicbgwwba5olJhJLdACrcsnoNT
+         7POn0XsTe8aAZ787HOGj9LUHjhSpeikViwEpC/kz3tx8dwawvJhbZjdp6/Z5yBTtBnu6
+         3ZRnGTPkodm8N2UuVfL+LFPPLuGl1kWvwK7O9klv6KkYpcICS248/1O2TLAbXYjUl8Gm
+         tQ0I0PqOkSwtNNok8MyO9IJ3qTno4UKJOKxvVsc2Tytl985ofgZIxb4Dy6iLMKCsjrje
+         trbP41ovoAF3RKqXHGkUmCmLNqG8vfRluFRs1rP2pTrxP9Nhyponk7+Xv/CDalXfrC+o
+         OqPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765448984; x=1766053784;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+        d=1e100.net; s=20230601; t=1765448981; x=1766053781;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D8H17ulhkEgslJAdnXMogvfprVdOXngzyHF6etvOG2k=;
-        b=Wbo2rGgBlw6i3BNMYPWDtRoJm6xxPqOy8xJx2iYJuiXe8cQDFCm6pN35rihNiodJvR
-         ztbWnVz/jUj1DrP/weOU82MXvY4x5JYJolaiwB20fmgR8WlYtBVu4mHnPOwfkOxMqJ7W
-         nkvNgIEc/5a0mR05Yk8rhgUZM2cijBWMeDjaIznEw5A1MKWx5vJ6I8tyt65fsGiML1lb
-         Sg/n2h9TJT2BzZlwQS2qoQ9fTlMslJDE/k/wt47z6SdMu85lF61pOHzww7GrDBil8ROW
-         1o9sIl+R6dfUxmV9DQKPiF+5srUsa2GuIRmFEjX4hd95T8BxgDAmzIRdQ7gjmgY511R0
-         /4zw==
-X-Gm-Message-State: AOJu0Yz4lb57P/1ceSIizjPBcys0Id3dDAYymL5MS1yuCnr2tqyNQ5fQ
-	nhSSZG4Ddggat6xyRqOeOnNC35qPm161HlO17OtOAQXppjbfzORQp1M0OXqf7QRe7EDGsUj2Pos
-	9Iqu5ygiRoEab0yeHY8Bf4jqNyyINKIKBmpQxXVg=
-X-Gm-Gg: AY/fxX5ZY5oEqtPlZH85A0dhkYRD6Fk7GDGk9dATgVL8KFdLs6B3lN1Jerj4jek+R3o
-	8bJ0pUMHC4+pCTg4SShpXUxCAgscHPOsWEYtumyy4wtPilIhxjIxRp/gKo+3fFNWdClp8dpHGSP
-	tH7/EuiHusWEyvg2H0xIeFnTqviJRvfS4KYTeC3ZZK+RcFB7B+BrU0dF0A1ZVngufNPaU/+u6rw
-	2O60J13JoPHg4Sd9w9OFQo52aeB3Uua6f815nLrX9+wsxNU4P8b0eG3K1h+bedih8bK4JcmQNyW
-	cpFakA==
-X-Google-Smtp-Source: AGHT+IGZ+FjRzDf5bSv56dVqOshHOfALqgZ6MvexoSnKuv6KWdisPUBH0kkC7/Yht27JCm5linNCS3ILJnDhdBVbn9Y=
-X-Received: by 2002:a05:6512:b20:b0:598:8f91:6d12 with SMTP id
- 2adb3069b0e04-598ee4cb5aemr1998664e87.53.1765448983853; Thu, 11 Dec 2025
- 02:29:43 -0800 (PST)
+        bh=0dFtbPgS018TneGvw6TmMwgYf3+nEk6sgqMPx24LyAA=;
+        b=PndZh1tSoBm0MU1HZ7+Q7mcPUSZd25zwde9JXjgpKg/IGRRbwcOuKNoOPpMTtCXjtQ
+         lEiSIx+e0E/KtZbZlLMUC5YOA62gpi0V83Ht3LXc7SZDqD/bV0/Zt1I6oxk3HUdeP3tq
+         ie6HOI67gQSRk2njtaiBrS3/kf0dfBthVz1ARXzRMMOQBkJtP/0YZuTZaJ67JnSlr6p9
+         6XT56RG8B1Rj3YEZNgtrQRa2FYDsZ5abcvWRn1DHciX8mQLtYTRVzXnJ8c8F9qYFckYt
+         ViJabzTJ6f4sVY8R/xztQic1/kmJTbkrieDw/S4JPQDCFYF3eoYjZtjWhavYFSu6CHov
+         xL1g==
+X-Forwarded-Encrypted: i=1; AJvYcCV5ZxlBVNCee3reiPaiIgTOsCLd1GT8+O0BRBk34DFEOTJBoVzhMQRiAY8EB6+aHHJPxT7NTTQbE9E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTvX4oQP7V5pmD9D69znysP5iS+LaRp8tCgfXBIUC63CnMTfZh
+	hQSEiRyzmqOz8w7vRYY8YbaAQx+JbUWb+GcsvLlb+wESWr0ex6XyXEsl
+X-Gm-Gg: ASbGncu1Img4JZk+JrINA3QuPnyycL94eJWxq3m+K1a1C9nJEyGZKFR2zQ3NecZyzmd
+	RdX5utmA7AsHmJBHeDLefgaxpCVVbvhQ26JzMQuIwnZiSE8X+hYVTO7yKgmbSLL9gGYhYbRt0ug
+	zBClsqyCgmjsbs3VAXjvEBnMXTTfkWFtw28fUdvN+1zFYunnfHtn2w67EV8Cw2JUT3Xe3hTGytE
+	u4D8uLAXKttVwUhNUkJcRxefHQR5WpLy62JqlKunEiSt3P9x5qn0bzaPkTGkooqh4QNvYfyk4a9
+	ojaGfqKJ6zZp33RFiQbu+2MhgFSQQIbFUCaxwTTALD4UPsP2RpzQtKYaFcc1v2t7HmagpTclmAv
+	zONZuU5wMFEW66smwhiOlAzPcZH+VmTq2Q5ED3OLAeA5FEa4D3liFVOUfIATUzLN+2vXYiYj5N+
+	k43EGNHJfZqX8PD5ywEOmqiZd5thlja5sBmzl734HKlc2JpNwO6OsP1f3c1kKt
+X-Google-Smtp-Source: AGHT+IGyDJ/V5v0DHgjHWU81DAHpLw4A9MDBZx0ADNMylxL8iTs0DNAdPLV8mfYTXfpFhD+zVOq4BQ==
+X-Received: by 2002:a17:906:c151:b0:b73:5936:77fc with SMTP id a640c23a62f3a-b7ce8234ee8mr603939866b.13.1765448980446;
+        Thu, 11 Dec 2025 02:29:40 -0800 (PST)
+Message-ID: <c1ca8efb-3e17-45e2-ba90-a6f49616bb51@gmail.com>
+Date: Thu, 11 Dec 2025 11:29:39 +0100
 MIME-Version: 1.0
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Thu, 11 Dec 2025 12:29:32 +0200
-X-Gm-Features: AQt7F2qErL4ON8m6tEuUXjZBl5Q0l7hmpTGVGsY-eC3CFABY5vP2IioCC2yEZ3g
-Message-ID: <CAGeoDV_YS8hV2+FXVgXxvHLw=MQOAoJZwrP1Ypw8+ZUjKB9GSA@mail.gmail.com>
-Subject: Strange symbols_lookup() behaviour in test-symbols on arm64 CI
-To: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 2/3] xen/riscv: add RISC-V legacy SBI extension support
+ for guests
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
+ <f4e4dc9beef4618ffaabe1c6caec3e10cf78fd5d.1764582112.git.oleksii.kurochko@gmail.com>
+ <c3d2a4c4-f591-4bff-b978-18b8c09cf512@suse.com>
+Content-Language: en-US
+In-Reply-To: <c3d2a4c4-f591-4bff-b978-18b8c09cf512@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi all,
 
-While working on an arm64 s2ram series for Xen I have hit what looks
-like very strange behaviour in symbols_lookup() as exercised by test-symbols.
+On 12/8/25 4:05 PM, Jan Beulich wrote:
+> On 01.12.2025 11:24, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/include/asm/sbi.h
+>> +++ b/xen/arch/riscv/include/asm/sbi.h
+>> @@ -14,8 +14,15 @@
+>>   
+>>   #include <xen/cpumask.h>
+>>   
+>> -#define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
+>> -#define SBI_EXT_0_1_SHUTDOWN			0x8
+>> +#define SBI_EXT_0_1_SET_TIMER           0x0
+>> +#define SBI_EXT_0_1_CONSOLE_PUTCHAR     0x1
+> Why the padding adjustment when ...
+>
+>> +#define SBI_EXT_0_1_CONSOLE_GETCHAR     0x2
+>> +#define SBI_EXT_0_1_CLEAR_IPI           0x3
+>> +#define SBI_EXT_0_1_SEND_IPI            0x4
+>> +#define SBI_EXT_0_1_REMOTE_FENCE_I      0x5
+>> +#define SBI_EXT_0_1_REMOTE_SFENCE_VMA   0x6
+>> +#define SBI_EXT_0_1_REMOTE_SFENCE_VMA_ASID  0x7
+> ... you immediately have one that doesn't fit?
 
-The series is in the branch referenced at [1]. All patches there except
-the last one build and pass CI; adding only the last patch makes the CI
-job referenced at [2] start failing.
+IDK, the padding adjustment shouldn't be done in this way.
+I will correct it.
 
-Note that the tests in that job are built without CONFIG_SYSTEM_SUSPEND
-enabled, so most of the code introduced by the s2ram branch is not
-compiled at all for that configuration. That is why I initially did not
-expect my series to affect this job.
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/vsbi/vsbi-legacy-extension.c
+>> @@ -0,0 +1,37 @@
+>> +
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#include <xen/lib.h>
+>> +#include <xen/sched.h>
+>> +
+>> +#include <asm/processor.h>
+>> +#include <asm/vsbi.h>
+>> +
+>> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
+>> +                                     unsigned long fid,
+>> +                                     struct cpu_user_regs *regs)
+>> +{
+>> +    int ret = 0;
+>> +
+>> +    switch ( eid )
+>> +    {
+>> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
+>> +        printk("%c", (char)regs->a0);
+> This is guest output, so shouldn't use plain printk().
 
-To investigate, I tried to reproduce the issue locally. I downloaded the
-xen-config artifact from the failing job [3] and used it to build Xen
-with my local aarch64 cross compiler. With this local toolchain
-I could not reproduce the failure, and the resulting .config changed slightly
-compared to the job's config. The relevant part of the diff looks like this:
+I think that I don't know what should be used instead. Could you suggest me something
+or point to the code in other arch-s?
 
-    diff --git a/xen/.config b/xen-config
-    index 057553f510..44dcf6bacc 100644
-    --- a/xen/.config
-    +++ b/xen-config
-    @@ -3,11 +3,11 @@
-     # Xen/arm 4.22-unstable Configuration
-     #
-     CONFIG_CC_IS_GCC=y
-    -CONFIG_GCC_VERSION=130300
-    +CONFIG_GCC_VERSION=120201
-     CONFIG_CLANG_VERSION=0
-     CONFIG_LD_IS_GNU=y
-     CONFIG_CC_HAS_ASM_INLINE=y
-    -CONFIG_CC_HAS_ASM_GOTO_OUTPUT=y
-    +CONFIG_GCC_ASM_GOTO_OUTPUT_BROKEN=y
-     CONFIG_FUNCTION_ALIGNMENT_4B=y
-     CONFIG_FUNCTION_ALIGNMENT=4
-     CONFIG_ARM_64=y
+Or do you mean that guest_printk() should be used?
 
-So there is at least a difference in GCC version and asm-goto related
-Kconfig options between the CI environment and my local one.
+>> +        break;
+>> +
+>> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
+>> +        regs->a0 = SBI_ERR_NOT_SUPPORTED;
+> This will be overwritten with the return value you pass to the caller (i.e. 0),
+> by that caller (i.e. vsbi_handle_ecall()).
 
-After that I tried rebuilding inside the same Docker image that GitLab
-CI uses:
+Oh, thanks. It should be "ret = SBI_ERR_NOT_SUPPORTED;" here.
 
-    registry.gitlab.com/xen-project/xen/alpine:3.18-arm64v8
 
-When I build Xen in that container, using the same branch, the problem
-reproduces in the same way as in the CI job.
+>
+>> +        break;
+>> +
+>> +    default:
+>> +        panic("%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
+>> +              __func__, fid, eid);
+> Please don't. domain_crash() may be okay to use here, but crashing the hypervisor
+> because of unexpected guest input isn't okay.
 
-Even more confusingly, adding extra prints in test_symbols just before
-the calls to test_lookup() makes the problem disappear. This made me
-suspect some undefined behaviour or logic issue that is very sensitive
-to optimisation or layout changes.
+|domain_crash()| is better. I also considered just returning|SBI_ERR_NOT_SUPPORTED|,
+but it wasn’t too convenient for debugging which FID/EID the guest was called,
+so I started using|panic()| instead.
 
-At this point, to me it looks like something might be wrong in the
-logic inside symbols_lookup() (or in how the test drives it), but I may
-well be missing an important detail about the expected behaviour here or
-about the toolchain assumptions.
+Thanks.
 
-Could someone familiar with symbols_lookup() and the test-symbols code
-please take a look or suggest what else I should check? If there is a
-maintainer who would be willing to own this issue, I would be happy to
-provide more data or try additional experiments as needed.
+~ Oleksii
 
-Thanks in advance for any hints or guidance.
-
-Best regards,
-Mykola
-
-[1] https://gitlab.com/xen-project/people/mykola_kvach/xen/-/commits/reg
-[2] https://gitlab.com/xen-project/people/mykola_kvach/xen/-/jobs/12394355047
-[3] https://gitlab.com/xen-project/people/mykola_kvach/xen/-/jobs/12394354611/artifacts/file/xen-config
 
