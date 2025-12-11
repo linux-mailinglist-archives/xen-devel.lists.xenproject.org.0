@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA4BCB6EB7
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 19:38:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184533.1506946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCA0CCB6F06
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 19:46:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184546.1506962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTlY3-0001ma-8U; Thu, 11 Dec 2025 18:37:55 +0000
+	id 1vTlfk-0003Q9-Af; Thu, 11 Dec 2025 18:45:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184533.1506946; Thu, 11 Dec 2025 18:37:55 +0000
+Received: by outflank-mailman (output) from mailman id 1184546.1506962; Thu, 11 Dec 2025 18:45:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTlY3-0001l9-5j; Thu, 11 Dec 2025 18:37:55 +0000
-Received: by outflank-mailman (input) for mailman id 1184533;
- Thu, 11 Dec 2025 18:37:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTlfk-0003LY-75; Thu, 11 Dec 2025 18:45:52 +0000
+Received: by outflank-mailman (input) for mailman id 1184546;
+ Thu, 11 Dec 2025 18:45:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k3Jk=6R=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vTlY1-0001l3-B0
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 18:37:53 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ee3e966-d6c0-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 19:37:51 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6615743E10;
- Thu, 11 Dec 2025 18:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27845C4CEF7;
- Thu, 11 Dec 2025 18:37:48 +0000 (UTC)
+ <SRS0=QWGN=6R=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vTlfi-0003I9-Hb
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 18:45:50 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9bcab944-d6c1-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 19:45:48 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-b76b5afdf04so81056866b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 10:45:48 -0800 (PST)
+Received: from EPUAKYIW02F7.. (pool185-5-253-4.as6723.net. [185.5.253.4])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7cfa5d0b0dsm345870466b.67.2025.12.11.10.45.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Dec 2025 10:45:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,186 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ee3e966-d6c0-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765478269;
-	bh=miMLHBUuiuz/joNDWhtdCtxriZ+b8d1UpNxlY0I02T8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nRR9mvFXQ1rDsDqnG7gxkc5XTzXJ6UtqMoBrNpyHBvcQ02skZUWQOHdIaOQgWAihQ
-	 bMiiXoT1qcrCzGNKpuq/iXaAycubXAPUQ80uN6iR6cmFwana6+vQFsbrqukwKT2/to
-	 zETDWqhIJAJnBKZ0tvopGsAt1zdznGdb4MCYNpQ365iqgeyUoL5WGlPucnP5oUv1B7
-	 Aep6H44QTneFuLDtXeyjSipZdv7YHDplXqCVTV/UFVaKJtwStrQyHXGLIZi0gBXyxL
-	 v/tyH8SVYv1DmXvL1LNcF6igfep0r3gb4WkSZs/Srv5ZBrpL3ZX4ifwlf4f49D9l7M
-	 bWp5E5JgXtz3w==
-Date: Thu, 11 Dec 2025 10:37:46 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3] xen/irq: Delete the pirq_cleanup_check() macro
-In-Reply-To: <0959802e4fa73b848b2b9e47c57c6daf062e9630.1756149543.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2512111037070.17367@ubuntu-linux-20-04-desktop>
-References: <0959802e4fa73b848b2b9e47c57c6daf062e9630.1756149543.git.dmytro_prokopchuk1@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 9bcab944-d6c1-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765478747; x=1766083547; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aDNyNuv61rTQkRcvMIs1ekn0SWXLuqr0Rx/eBFoPIHY=;
+        b=fP4WAbMXo5yR4S3go4lsuZhtx2TS0SFOW/N8XF4pnZLovGy6bopu2wD5VXsIhJ98i/
+         vdHU9IA4nmhHNs+eZPw0Tfy59kHT+bL9ncnl0FRU6FpvBmpBMevONv116GErXvg0T+VM
+         c0QdOA968Qk6YQ5bvPuqMSxPH2W1NV2KCrw+XjXCIdyBl8fV5IR/9vsz6CGPzk25HHW/
+         uX8P6WTLa6saaGb7Egt7qaKY30fSo3ohJOoQRk6fxnAZbSzc8sIVOi9J3IE3wDAYEMTL
+         m8K2p82aTIkTVVJX0Ld5v5L3RstJECAZ9qMfhe6IYlyHYGZDRKpkPcW87uFOLvAt8UXv
+         CZTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765478747; x=1766083547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aDNyNuv61rTQkRcvMIs1ekn0SWXLuqr0Rx/eBFoPIHY=;
+        b=J9fAWJk7Ai/RtZGSqDzcA9NHDTGRzznJBvGaX5N6nhlONnxE/e/Jtc/G5uWsmje1+t
+         UrFm+FPDWikq8IPLacbIZJv6xHMCECIMgERMfO4fIMfx8LVAU5EzvktI0B9vbZ3xYg4k
+         ksbR79xVfBLEqC+AAYZ/JICNj9KgQogD6rGzBy+Q0R+i3Zs0FyE91Td9+XSqKJQn2DE0
+         lVMouXf753CeCAzdltQ1Y/8j6JYz9f3wU+qMNcWdQ692NB7A69l9/EQPW5hTo/GUvooQ
+         jiEqjzW2ho4DGYvEIuE59vg526ObP2rf1sci6nf3vJWzHEcrhjv4B/H3poyIGKjiCxmX
+         dz3A==
+X-Gm-Message-State: AOJu0YyZ97peVn4Q9ZF0TShxdmwp+HvQTsX+snwl43Rzv+T8VuOjQ2qb
+	f269Xj46J+N8kNHG7NXGwN25XpTMszQwLOIOytE7af/3BlsZINRwRCze9qNOU28v
+X-Gm-Gg: AY/fxX4hfC+KYNI4IR+pVzrYdfvE6JAnsfdC7u78jRVbJ+w9nlwa4uIay7Whokz07Fr
+	/0wh2aekHKg7FrhWsh1BsGvERMDPXaKZQJuexrdJ9hJJBZkk5hJ8jWjXAPZEfaa21BzeD+xeyG9
+	AJsH4mX4QScnVV4R+GDmPvdCDn20QX9NdXYhlVDvHXliRtK/DJSQpRmMjE4CyvVQSjqjFkGLxlQ
+	8BjIjpDu/AL0GFX7GrAhxQcNQ03Qw/vKOZI03ENH/J2KS/CBmpKAbUx1KQQHRpfRQu6yCdtuKqQ
+	UI4c5aU/r/KjBCNZpIkt+eX7dM82iEo7ZGQpGv4k22X1WFe/2N/FfyJ1v38V5KImyFB4hKL6qLg
+	ysdv0slci+Gb4dIRxohpfZZVIhG7lroMXEiQVUtgwHcOLL1dXRj1raB1xuoP2dZXgLyzsDGvbN/
+	L+QbkTrf7w5nZtMSJ8hPx9oFydohhKxZCQ4mCLs29/
+X-Google-Smtp-Source: AGHT+IFm4NeTfQ9xmDk7GfTvvFZ9mCEEJhtzChUQNcs8E9MYwMmZt5mL0u7P9Pmlmjh5XlxyPuE1Gw==
+X-Received: by 2002:a17:907:3cca:b0:b73:853d:540e with SMTP id a640c23a62f3a-b7ce841d73emr743131966b.30.1765478746840;
+        Thu, 11 Dec 2025 10:45:46 -0800 (PST)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Mykola Kvach <xakep.amatop@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Rahul Singh <rahul.singh@arm.com>
+Subject: [PATCH v7 00/12] Add initial Xen Suspend-to-RAM support on ARM64 
+Date: Thu, 11 Dec 2025 20:43:24 +0200
+Message-ID: <cover.1765472890.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 25 Aug 2025, Dmytro Prokopchuk1 wrote:
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> MISRA Rule 5.5 objects to a macro aliasing a function, which is what
-> pirq_cleanup_check() does. The macro was originally intended to ensure
-> the condition 'if (!pirq->evtchn)' is always checked before invoking
-> the function, avoiding errors across call sites.
-> 
-> There are only a handful of users, so expand it inline to be plain
-> regular C. Doing this shows one path now needing braces, and one path
-> in 'evtchn_bind_pirq()' where the expanded form simplies back to no
-> delta, as it follows an unconditional clear of 'info->evtchn'.
-> 
-> While this complies with MISRA, it shifts the responsibility to
-> developers to check 'if (!pirq->evtchn)' at call sites.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+This is part 2 of version 7 of the ARM Xen system suspend/resume patch
+series, based on earlier work by Mirela Simonovic and Mykyta Poturai.
 
-> ---
-> Changes in v3:
-> - added back wording from v1, originally written by Andrew.
-> 
-> Link to v2:
-> https://patchew.org/Xen/ce37bdf7b5189d314c0f41628dbfb3281358bcf4.1755361782.git.dmytro._5Fprokopchuk1@epam.com/
-> 
-> Link to v1:
-> https://patchew.org/Xen/20250729223110.3404441-1-andrew.cooper3@citrix.com/
-> ---
->  xen/arch/x86/irq.c                | 11 +++++++----
->  xen/common/event_channel.c        |  5 ++++-
->  xen/drivers/passthrough/x86/hvm.c |  9 ++++++---
->  xen/include/xen/irq.h             |  3 ---
->  4 files changed, 17 insertions(+), 11 deletions(-)
-> 
-> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-> index 556134f85a..1ed85c0c11 100644
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -1325,7 +1325,8 @@ static void clear_domain_irq_pirq(struct domain *d, int irq, struct pirq *pirq)
->  static void cleanup_domain_irq_pirq(struct domain *d, int irq,
->                                      struct pirq *pirq)
->  {
-> -    pirq_cleanup_check(pirq, d);
-> +    if ( !pirq->evtchn )
-> +        pirq_cleanup_check(pirq, d);
->      radix_tree_delete(&d->arch.irq_pirq, irq);
->  }
->  
-> @@ -1383,7 +1384,7 @@ struct pirq *alloc_pirq_struct(struct domain *d)
->      return pirq;
->  }
->  
-> -void (pirq_cleanup_check)(struct pirq *pirq, struct domain *d)
-> +void pirq_cleanup_check(struct pirq *pirq, struct domain *d)
->  {
->      /*
->       * Check whether all fields have their default values, and delete
-> @@ -2823,7 +2824,8 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq, int emuirq)
->                  radix_tree_int_to_ptr(pirq));
->              break;
->          default:
-> -            pirq_cleanup_check(info, d);
-> +            if ( !info->evtchn )
-> +                pirq_cleanup_check(info, d);
->              return err;
->          }
->      }
-> @@ -2858,7 +2860,8 @@ int unmap_domain_pirq_emuirq(struct domain *d, int pirq)
->      if ( info )
->      {
->          info->arch.hvm.emuirq = IRQ_UNBOUND;
-> -        pirq_cleanup_check(info, d);
-> +        if ( !info->evtchn )
-> +            pirq_cleanup_check(info, d);
->      }
->      if ( emuirq != IRQ_PT )
->          radix_tree_delete(&d->arch.hvm.emuirq_pirq, emuirq);
-> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-> index 67700b050a..a3d18bc464 100644
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -741,11 +741,14 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
->              if ( !is_hvm_domain(d1) ||
->                   domain_pirq_to_irq(d1, pirq->pirq) <= 0 ||
->                   unmap_domain_pirq_emuirq(d1, pirq->pirq) < 0 )
-> +            {
->                  /*
->                   * The successful path of unmap_domain_pirq_emuirq() will have
->                   * called pirq_cleanup_check() already.
->                   */
-> -                pirq_cleanup_check(pirq, d1);
-> +                if ( !pirq->evtchn )
-> +                    pirq_cleanup_check(pirq, d1);
-> +            }
->          }
->          unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
->          break;
-> diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-> index a2ca7e0e57..b73bb55055 100644
-> --- a/xen/drivers/passthrough/x86/hvm.c
-> +++ b/xen/drivers/passthrough/x86/hvm.c
-> @@ -329,7 +329,8 @@ int pt_irq_create_bind(
->                  pirq_dpci->gmsi.gvec = 0;
->                  pirq_dpci->dom = NULL;
->                  pirq_dpci->flags = 0;
-> -                pirq_cleanup_check(info, d);
-> +                if ( !info->evtchn )
-> +                    pirq_cleanup_check(info, d);
->                  write_unlock(&d->event_lock);
->                  return rc;
->              }
-> @@ -536,7 +537,8 @@ int pt_irq_create_bind(
->                      hvm_irq_dpci->link_cnt[link]--;
->                  }
->                  pirq_dpci->flags = 0;
-> -                pirq_cleanup_check(info, d);
-> +                if ( !info->evtchn )
-> +                    pirq_cleanup_check(info, d);
->                  write_unlock(&d->event_lock);
->                  xfree(girq);
->                  xfree(digl);
-> @@ -693,7 +695,8 @@ int pt_irq_destroy_bind(
->           */
->          pt_pirq_softirq_reset(pirq_dpci);
->  
-> -        pirq_cleanup_check(pirq, d);
-> +        if ( !pirq->evtchn )
-> +            pirq_cleanup_check(pirq, d);
->      }
->  
->      write_unlock(&d->event_lock);
-> diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
-> index 95034c0d6b..6071b00f62 100644
-> --- a/xen/include/xen/irq.h
-> +++ b/xen/include/xen/irq.h
-> @@ -185,9 +185,6 @@ extern struct pirq *pirq_get_info(struct domain *d, int pirq);
->  
->  void pirq_cleanup_check(struct pirq *pirq, struct domain *d);
->  
-> -#define pirq_cleanup_check(pirq, d) \
-> -    (!(pirq)->evtchn ? pirq_cleanup_check(pirq, d) : (void)0)
-> -
->  extern void pirq_guest_eoi(struct pirq *pirq);
->  extern void desc_guest_eoi(struct irq_desc *desc, struct pirq *pirq);
->  extern int pirq_guest_unmask(struct domain *d);
-> -- 
-> 2.43.0
-> 
+The first part is here:
+https://patchew.org/Xen/cover.1764755558.git.xakep.amatop@gmail.com/
+
+NOTE: Most of the code is guarded by CONFIG_SYSTEM_SUSPEND, which can
+currently only be selected when UNSUPPORTED is set, and thus the
+functionality is neither enabled by default nor even built.
+
+This version is ported to Xen master and includes extensive improvements
+based on reviewer feedback. The patch series restructures code to improve
+robustness, maintainability, and implements system Suspend-to-RAM support
+on ARM64 hardware/control domains.
+
+Key updates in this series:
+ - Introduced architecture-specific suspend/resume infrastructure
+ - Integrated GICv2/GICv3 suspend and resume, including memory-backed context
+   save/restore with error handling
+ - Added time and IRQ suspend/resume hooks, ensuring correct timer/interrupt
+   state across suspend cycles
+ - Implemented proper PSCI SYSTEM_SUSPEND invocation and version checks
+ - Improved state management and recovery in error cases during suspend/resume
+ - Added support for IPMMU-VMSA/SMMUv3 context save/restore
+ - Added support for GICv3 eSPI registers context save/restore
+ - Added support for ITS registers context save/restore
+---
+
+TODOs:
+ - Enable "xl suspend" support on ARM
+ - Properly disable Xen timer watchdog from relevant services (only init.d left)
+ - Add suspend/resume CI test for ARM (QEMU if feasible)
+---
+
+Detailed changelogs can be found in each patch.
+
+Changes in v7:
+- Timer helper renamed/clarified; virtual/hyper/phys handling documented.
+- GICv2 uses one context block; restore saved CTLR; panic on alloc failure.
+- GICv3/eSPI/ITS always suspend/resume; restore LPI/eSPI; rdist timeout.
+- IPMMU suspend context allocated before PCI setup.
+- System suspend: control domain drives host suspend.
+- Dropped v6 IRQ descriptor restore patches; use setup_irq and re-register
+  local IRQs on resume instead.
+
+For earlier changelogs, please refer to the previous cover letters.
+
+Mirela Simonovic (6):
+  xen/arm: Add suspend and resume timer helpers
+  xen/arm: gic-v2: Implement GIC suspend/resume functions
+  xen/arm: Resume memory management on Xen resume
+  xen/arm: Save/restore context on suspend/resume
+  xen/arm: Implement PSCI SYSTEM_SUSPEND call (host interface)
+  xen/arm: Add support for system suspend triggered by control domain
+
+Mykola Kvach (5):
+  xen/arm: gic-v3: Implement GICv3 suspend/resume functions
+  xen/arm: gic-v3: add ITS suspend/resume support
+  xen/arm: tee: keep init_tee_secondary() for hotplug and resume
+  xen/arm: ffa: fix notification SRI across CPU hotplug/suspend
+  arm/smmu-v3: add suspend/resume handlers
+
+Oleksandr Tyshchenko (1):
+  iommu/ipmmu-vmsa: Implement suspend/resume callbacks
+
+ xen/arch/arm/Kconfig                     |   1 +
+ xen/arch/arm/Makefile                    |   1 +
+ xen/arch/arm/arm64/head.S                | 112 ++++++++
+ xen/arch/arm/gic-v2.c                    | 126 +++++++++
+ xen/arch/arm/gic-v3-its.c                |  91 +++++++
+ xen/arch/arm/gic-v3-lpi.c                |   3 +
+ xen/arch/arm/gic-v3.c                    | 332 ++++++++++++++++++++++-
+ xen/arch/arm/gic.c                       |  29 ++
+ xen/arch/arm/include/asm/gic.h           |  12 +
+ xen/arch/arm/include/asm/gic_v3_defs.h   |   1 +
+ xen/arch/arm/include/asm/gic_v3_its.h    |  23 ++
+ xen/arch/arm/include/asm/mm.h            |   2 +
+ xen/arch/arm/include/asm/psci.h          |   1 +
+ xen/arch/arm/include/asm/suspend.h       |  31 +++
+ xen/arch/arm/include/asm/time.h          |   5 +
+ xen/arch/arm/mmu/smpboot.c               |   2 +-
+ xen/arch/arm/psci.c                      |  23 +-
+ xen/arch/arm/suspend.c                   | 153 +++++++++++
+ xen/arch/arm/tee/ffa_notif.c             |  63 ++++-
+ xen/arch/arm/tee/tee.c                   |   2 +-
+ xen/arch/arm/time.c                      |  44 ++-
+ xen/arch/arm/vpsci.c                     |  12 +-
+ xen/common/Kconfig                       |   5 +
+ xen/common/domain.c                      |   7 +-
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c | 305 ++++++++++++++++++++-
+ xen/drivers/passthrough/arm/smmu-v3.c    | 170 +++++++++---
+ xen/drivers/passthrough/arm/smmu.c       |  10 +
+ xen/include/xen/list.h                   |  14 +
+ 28 files changed, 1507 insertions(+), 73 deletions(-)
+ create mode 100644 xen/arch/arm/suspend.c
+
+-- 
+2.43.0
 
