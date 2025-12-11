@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30A2CB6879
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 17:42:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184417.1506876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E267CB695F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 17:59:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184438.1506887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTjkZ-0000MR-09; Thu, 11 Dec 2025 16:42:43 +0000
+	id 1vTk0G-0002it-AM; Thu, 11 Dec 2025 16:58:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184417.1506876; Thu, 11 Dec 2025 16:42:42 +0000
+Received: by outflank-mailman (output) from mailman id 1184438.1506887; Thu, 11 Dec 2025 16:58:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTjkY-0000Ky-TX; Thu, 11 Dec 2025 16:42:42 +0000
-Received: by outflank-mailman (input) for mailman id 1184417;
- Thu, 11 Dec 2025 16:42:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vTk0G-0002g8-6u; Thu, 11 Dec 2025 16:58:56 +0000
+Received: by outflank-mailman (input) for mailman id 1184438;
+ Thu, 11 Dec 2025 16:58:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fhd1=6R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vTjkX-0000Kq-SP
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 16:42:41 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67c98aee-d6b0-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 17:42:39 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-5943b62c47dso315915e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 08:42:39 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-598f2f37b02sm996042e87.20.2025.12.11.08.42.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 08:42:38 -0800 (PST)
+ <SRS0=JdCA=6R=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vTk0F-0002g1-2g
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 16:58:55 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aabe4aa8-d6b2-11f0-b15b-2bf370ae4941;
+ Thu, 11 Dec 2025 17:58:53 +0100 (CET)
+Received: from BYAPR06CA0058.namprd06.prod.outlook.com (2603:10b6:a03:14b::35)
+ by CH3PR12MB9121.namprd12.prod.outlook.com (2603:10b6:610:1a1::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.8; Thu, 11 Dec
+ 2025 16:58:41 +0000
+Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::ce) by BYAPR06CA0058.outlook.office365.com
+ (2603:10b6:a03:14b::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.7 via Frontend Transport; Thu,
+ 11 Dec 2025 16:58:37 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Thu, 11 Dec 2025 16:58:38 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 11 Dec
+ 2025 10:58:36 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,213 +56,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67c98aee-d6b0-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765471359; x=1766076159; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=R3yR7kNyuezzbiEULFKfXlBwf+Npdb5YvHWOzk+SdQI=;
-        b=Co9JItMIydyNG/JZDobZuWr/kxlGBOIm1uSOlnDuEne2CrC23gdLJRz7Ogp6JWcNqz
-         VPr0vkoM3GMOFI5xyVLtDO3QhPgueEzLxyylfloAMavEcHyTJSL3A5tceU/QU/O0zf3P
-         wrKxXBdgwqK6npsMN4Fthcvzj0rsgs2KUm7zFZpQp9pO46/qg++irUqRmcJ46WUZ30XY
-         x1YjTg6/e7Al3igc4cHwg/jtlOX1wdQd0MGmbLK0YIylza4jhr2KM1d6TahSViEN1qxp
-         rdoDcO9dlyzGSA5HjQDyY4ybpq3+IFNQ+3e8RxDExOC7SEbRJHzM3LkW8+2cdztSk4it
-         u1fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765471359; x=1766076159;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=R3yR7kNyuezzbiEULFKfXlBwf+Npdb5YvHWOzk+SdQI=;
-        b=gAGOC+skh2uoyQosfqMm/b8Xi25XZQxb6+j/LnHatkTBTSvDfzA+y2tQhzrJsl2PAw
-         hV+PdwBbWkAH20FRheUWJigJtgn35fqo66fZ9LXUz51qIeQFJEwF7eRq78Uu5hJd/kYJ
-         3qVav7aOCPSSexIVVtY7UY1/mCD9D4WfZtvyKu1gcDXTlQ5LNr4a5R7FZqYWKCELSMrb
-         jCymGf8RtaQXy+hWxLo6Haw0zGfN8gcecWgyTRvRXhea9MU1QvIZ+kbv2moG4qLzjwU9
-         nOadFnvdnGyDIC2GX7yazNUKPZ7KEtdWQSA1X8r/n+Hs7KLbbR+KETdQh8Z8PawVtmqJ
-         FdBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWI5esb4AIij8c5YL5Gt4eP8d0fq/AQkcLmzWbN67Ta2d3H0cRDSWHtXGYwZHygaCAi2bsOu16H+JE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyAtfmZH6nXa01T9nQe7TKo6mdcqNCOLVG4HuSnxODNQUSyIZHx
-	xxh4R3U4Cw0aNkgbi14oVA8vf92Rl6lZV9aKyJq7yeTg2RY634Yc/o0X
-X-Gm-Gg: AY/fxX7A84MIh+J7M8pqraY0NQ7QG6TSsb7zvK/NsQeegnAn90vPfEJiJB/dHgXQTrw
-	0Ki0cMVsPPQoF7k7aNGQMPu26K7ByovDjNSUIMJJfzU2yeRuLGyajLI8RGqrQmrFQEFpBLwIq7S
-	4zzY7bVlYpXTofT0y1ejno55hE8UYMZejpaKG3YEaHO8c4nkDKxXIDyXq6SGgZwLPuXEWyuLwXo
-	LqyD6lLxAecpIz07NTWGe985WFfBOfwYTYJ7wVvvWz9lEFWc3fZ79BN2qdkYW3x+4Mx4IC8SvbL
-	x4D5+1UQpqOiTpJpCigEfIimY1PATU1JcoKc4d5ej5r9gszPNgtF6hJlYRczFfhWq0EeF0Ib2O+
-	ucJE8RqbcKcickhy0/n+lUUMW5iiXyAfGe4A70DI6As+iYS2uns6+effQQF1FPm+zBAgW/xnI3+
-	ifZKbngTao8n4GGGQswG9zrfXEXOjYS4/1b25WZRqjWcfx16OUOtXDpRhii+rc
-X-Google-Smtp-Source: AGHT+IFMYIqs7RAPLPzyaYJ/Lzz1tnEHQ2NJQWeroQXEt8DlcOf2gS4JWWmW6/4aWIRIFOyVLJhB0Q==
-X-Received: by 2002:a05:6512:e9d:b0:598:ef42:d59b with SMTP id 2adb3069b0e04-598ef42d9e6mr2481225e87.4.1765471358472;
-        Thu, 11 Dec 2025 08:42:38 -0800 (PST)
-Message-ID: <45231d95-1745-44a6-b364-e97f9f501e10@gmail.com>
-Date: Thu, 11 Dec 2025 17:42:36 +0100
+X-Inumbo-ID: aabe4aa8-d6b2-11f0-b15b-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jnVTBTHV4tLYUa0hbc5OqZDb8giq4bG4OXwq7r30ManRqwN8LDEI+7TPvVghCf5fKYDZ0uTE62oZtSh1sTg8UsXqw9FUW7Tz1SSR8ocFanqW0kKLghmXSbO2bokUKl5d0teMrOO7vBtlEg5vAEekjKVIyE9a74WK5EZ83mj9uq2bY6Pq8+37nm+UYXZWQfSoPIiKuhAnbpWk6YSjqvmfo500y0OrlPDGkVSecB6z3EFZrDNaNEOAxrzk7kVlDDW7zH8+2EwsNAAirZTlBymIZnIN0iTYL4XJpX6ZFVOxJsGy+zveX+c9pdnPJKGRHg991o/oi+rYUQqrth9hzrEJQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=inpOtOOOx85Hkfv3AGqVmFHAJKG7KeiIe+lWCogNBos=;
+ b=bKb3pK0ycDefy+IIUGBwhhvh1KuEOPaalXUQ2WpQzLTNvHRJlpxczG7Cvm1UdAIAB773gFegCkqyu0DPLTym25yaVYxUzBjrZjUn9g+439RXDJFxOPvgZXefnj9zTyPp4O/gDWxtREBJwpn2AEfF3PLEyRtc05B0MzWHvdfGsdjmOiLMOnHTv2zPR9Ds1fnTjaOyNo4WnIjoA8Z/f+FAJiO59ySIGWaqUs1g5Pxv4whzfrhnG7WSc1YYFylQDsnVRT1QiL0gW318GxwJ27DF5FaKeUa4U1codDeWdaN506ez+mWsDYbwvqw7YmW7ibxz04Jqavnwzk15itU7VCF/jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=inpOtOOOx85Hkfv3AGqVmFHAJKG7KeiIe+lWCogNBos=;
+ b=FkVTr4GG+BZKQbIC9LYtrSoCEfyp8c9MqL7PeDmA4mD12tKbs0p3pOphRJpP9NGmp8XTucu6w4v63tW9uN5w3pOE+6iBCiTFYOBLOqP70jntKay3Pd1ra91INWWGLAU7XoBgA11zkWw8LdElsZE2pgmxjBKnudADBj1m6wCo/XQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
- type
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
- <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
- <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
- <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
- <db24c624-0432-48ec-aecc-3efaa4973303@gmail.com>
- <6c78a029-7437-4256-afca-c5d39fbd3f8b@suse.com>
-Content-Language: en-US
-In-Reply-To: <6c78a029-7437-4256-afca-c5d39fbd3f8b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 11 Dec 2025 17:58:34 +0100
+Message-ID: <DEVJPCRTRA9Z.2JNMRFAN47BU8@amd.com>
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+CC: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH 09/11] x86: Migrate spec_ctrl vendor checks to
+ x86_vendor_is()
+X-Mailer: aerc 0.20.1
+References: <20251126164419.174487-1-alejandro.garciavallejo@amd.com>
+ <20251126164419.174487-10-alejandro.garciavallejo@amd.com>
+ <73146271-c849-4d16-8eb8-80e7d59f42f2@suse.com>
+ <DEVBH18RU4WL.2GFVGYVC8SWAC@amd.com>
+ <15659af8-4604-455a-b7de-91c4df213ab5@citrix.com>
+In-Reply-To: <15659af8-4604-455a-b7de-91c4df213ab5@citrix.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|CH3PR12MB9121:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae362a6-6ffa-436b-fcc2-08de38d687d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eitORUp6KzFLT3hwdG5nQkw4TXgxbjhiUm4rRGVLTU5rYXYrbTR4dXZxZ3dt?=
+ =?utf-8?B?eFozNnc4RXlKZk96YWN3eUl0TEVFbU1DcDJ3ckM0UDhwelg1ZzFDMloxZjJW?=
+ =?utf-8?B?WHY5Zm85TmxPMHhxbUgrMTN2U0lKL3BGRktveHVSR3IrNlVXcGpRMFdDSHNN?=
+ =?utf-8?B?MXFmT3MrTytFRjUzbGYva3MrM29adkJWMzVDWGxpT2l1OStTYlR5RVpoZ21u?=
+ =?utf-8?B?c3d0WlNVWXlTVWNka1VGNlVTNEZHN3E3WmV0UGJHaUFtNVJEcHJHZEhNVEdH?=
+ =?utf-8?B?NllCbVBoZzVkYVAyU1BpVXZSUTN1Vm96bXVTanNLVXlTWlFFUWtLaWtlcm1I?=
+ =?utf-8?B?TWRxR1pkMFppVlpZaGY2SzJ4ZHd3UGdwUzA5NUhSOUJXR2dsYlkvcVVJMFlI?=
+ =?utf-8?B?OXVISUdWWkNqaXBXRmFocHpLZTNtNkVDcDBFcFhMdEZFRlRwT295R3hPcUxQ?=
+ =?utf-8?B?SnRMeDJZRkh4T3h4OFlWcEtyY3NZMGpzWEp3WEhjaGY4Yno4TklFeWh5a1lU?=
+ =?utf-8?B?YzBNMmxZK2MwVnVtcUh2TkFwTmFObFZXVU9aRnY4RlpodkxFdHBPQW50K3pO?=
+ =?utf-8?B?THlkazdkTHQyYWErZkNpeEl2dkU1TWI1UXVieDE5cFNSVGtNQWhPbk1RWkty?=
+ =?utf-8?B?UjdSeHM5SldqN293SkFEbHlUV1huSDdoUVpvSG1kQ0Z2bmRCN0JUMTNTbHU0?=
+ =?utf-8?B?TllVY2lFOUdMcVpCNUY4V09tWmlmNHJ5a3Vlc1IrNmF6NC9FNkJ3Y2c5eEhw?=
+ =?utf-8?B?eFdPRWdOazMveE95T21nWHUxSTd4Tk1KWUtOWE9CdVl3ZmVhOGxTd3BySDk5?=
+ =?utf-8?B?NmdEemZaRWRLUndRQ1RhQThrQmVsMVYrZFVuWjJLWG9NTkIvd2p0ZEpzR2Zv?=
+ =?utf-8?B?cVJuM0pnVXlvUE1yWkRCYjkzaVZYK1E5azhteHo5ZW9JTUZscUoxckp6U282?=
+ =?utf-8?B?a2VmeFRmL2dwSU9meENObFE3Q1Fpd0VVVUU0M05oRFc5bGcvWkwxSDh5Zlg5?=
+ =?utf-8?B?ZksvcDlFR2JzbnFUdGFIVktHK1hkQ25oQmVQWnNpb3g3cUNpUmVyVDBoVFN2?=
+ =?utf-8?B?QXBzMlhwY1ZoWDM4Q3l0SDl2OXEwSGJSckdWYzhtUWNZVjZPbExaVlFCeVR5?=
+ =?utf-8?B?RE03SktCYjV2VSs0ZThxc0V6bWFCcm1EZHdXSCtEMnR2YU05QkYrNHRtQ3F3?=
+ =?utf-8?B?ZjAwOTYzSmg5UExJeDRGK2R4aTBUcFZCQi9kb254cStKMFJqazR2aE5CY2tq?=
+ =?utf-8?B?WnVNY3NJanNsRnhMK0VVc2pQL2F2WkNBV2RsMVRhN3NyQi9jWTRYeXQwRitj?=
+ =?utf-8?B?elh6dVRzZTlXWHJvdGpIYVkraktoak5kdU9BbHJJUlU0OFVOekJkMk56ZWJ2?=
+ =?utf-8?B?MDJvOFZVQTlTTHVaUEZrc1NHaUNMYVpMRjlSeUhMcXI1YW1ib0VZbVNCUG0z?=
+ =?utf-8?B?SGJ3bVQrdDQyZkdpbGUzYyswNTRtYkdrcmNkcG1wd2hEMCtDYy9lV29wWDl0?=
+ =?utf-8?B?L2hYUXNIZU5QN0tQeFVyNDJZanVPUjB6TytsbXF3ekxHQnZuL0djNk13QzV5?=
+ =?utf-8?B?YTg4M3BVUFRsOStla1h2RFVobmZWVk02MDVpeDVhTVh5TkNwUlJUbHRlSkZV?=
+ =?utf-8?B?Slg0RmplL2xOVnBNMzlUVEp2UzhCQUhQODNlMEduUGcrc1QwNmxXdkE4U0Fq?=
+ =?utf-8?B?UUhxME9wS1Nzenk5NmlITXpRNXU2WXFyZ3VBbUZEdG9oTHFMZkUzSS9PVzNR?=
+ =?utf-8?B?ZVhJYTVuSWZaZDBpbFl2RHhCN1ZNa1VTTENTWlliM0QxTktXZUZ4OVR0ZjQy?=
+ =?utf-8?B?UkRZZjV1K1hvWkJzYXcvZzlsMU4yYmpBZkxRZmhnWDcrZ2g3M2hZQWVwKzBF?=
+ =?utf-8?B?Smk3L3BONTNzaVN1RDh1enVrZzdKcitxdWdQSTBFRGp2dm1Ba3F6NTk1dFFV?=
+ =?utf-8?B?c1ZFQU5SNmFvdHFqREdVSGZDay9TT1p6TGVScStmWXd2QVA5MUFGODFVdVND?=
+ =?utf-8?B?Zzg4cVI3NUhFUUdLYzNMWm5rYm56RnE0NUwzZFF6Q1U4UDh1OUE2Sk9EQmNq?=
+ =?utf-8?B?YVQwallKMWNuUFh6VjhPTzVoY28rR1dMS01IaVhkVkZseS9hdkJ3c2RGVXM4?=
+ =?utf-8?Q?/ZXA=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2025 16:58:38.4766
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae362a6-6ffa-436b-fcc2-08de38d687d2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9121
 
-
-On 12/11/25 10:39 AM, Jan Beulich wrote:
-> On 10.12.2025 13:44, Oleksii Kurochko wrote:
->> On 12/10/25 8:06 AM, Jan Beulich wrote:
->>> On 09.12.2025 18:09, Oleksii Kurochko wrote:
->>>> On 12/9/25 2:47 PM, Jan Beulich wrote:
->>>>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
->>>>>> +            *md_pg = p2m_alloc_page(p2m);
->>>>>> +            if ( !*md_pg )
->>>>>> +            {
->>>>>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
->>>>>> +                domain_crash(p2m->domain);
->>>>>> +
->>>>>> +                return;
->>>>>> +            }
->>>>>> +        }
->>>>>> +    }
->>>>>> +
->>>>>> +    if ( *md_pg )
->>>>>> +        metadata = __map_domain_page(*md_pg);
->>>>>> +
->>>>>> +    if ( t >= p2m_first_external )
->>>>>> +    {
->>>>>> +        metadata[ctx->index].type = t;
->>>>>> +
->>>>>> +        t = p2m_ext_storage;
->>>>>> +    }
->>>>>> +    else if ( metadata )
->>>>>> +        metadata[ctx->index].type = p2m_invalid;
->>>>>> +
->>>>>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>>>>> +
->>>>>> +    unmap_domain_page(metadata);
->>>>>>     }
->>>>> Just to mention (towards future work): Once a metadata page goes back to be
->>>>> entirely zero-filled, it could as well be hooked off and returned to the pool.
->>>>> Not doing so may mean detaining an unused page indefinitely.
->>>> Won’t that already happen when p2m_free_table() is called?
->>> Well, that's when both page table and metadata table are freed. But what if a
->>> leaf page table is moving back to holding all p2m_ram_rw mappings? Then the
->>> metadata page is unused, but will remain allocated.
->> Good point...
->>
->> This could be a rather expensive operation, since in the code:
->>     +    else if ( metadata )
->>     +        metadata[ctx->index].type = p2m_invalid;
->> we would have to check all other metadata entries to determine whether they are
->> (p2m_invalid) or not, and return the page to the pool.
->>
->> It would be nice to have something like metadata.used_entries_num, but the entire
->> page is used for type entries.
->> As an option, we could reserve 8 bits to store a counter of the number of used
->> entries in the metadata page, and then use metadata[0].used_entries_num to check
->> whether it is zero. If it is zero, we could simply return the metadata page to the
->> pool in the “else if (metadata)” case mentioned above.
->>
->> How bad is this idea? Any better suggestions?
-> First, as said in my initial reply: This may not need taking care of right away.
-> It will need keeping in mind, of course.
-
-I am thinking if it won't be too intrusive, I think that I am okay to introduce that
-now.
-
+On Thu Dec 11, 2025 at 4:38 PM CET, Andrew Cooper wrote:
+> On 11/12/2025 10:31 am, Alejandro Vallejo wrote:
+>> Seeing how both you and Andrew seem onboard with dropping cross-vendor s=
+upport
 >
-> As to suggestions - hardly any of the fields in struct page_info for the page
-> can be used when the page is a metadata one. Simply record the count there?
+> I found another cross-vendor dropping which you'll want to look into.
+>
+> struct svm_vcpu contains three guest_sysenter_* MSRs.
+>
+> In AMD CPUs, these MSRs only have 32 bits of storage, with the upper
+> halfs write-discard.=C2=A0 They are switched via VMLOAD/VMSAVE.
+>
+> However, in the cross-vendor case, the upper halves are needed for 64bit
+> kernels setting up SYSENTER support.=C2=A0 Therefore, they're uncondition=
+ally
+> intercepted so we can avoid losing the upper half.
+>
+> By dropping cross-vendor support, we can get rid of these fields, allow
+> the guest unconditional access, and simply the MSR intercept logic a litt=
+le.
+>
+> ~Andrew
 
-I suppose that|union u| could be used.
-The only thing that confuses me is the shadow paging implementation on x86.
-In|struct page_info|, it has the following:
-     /* Context-dependent fields follow... */
-     union {
+Sounds straightforward, I'll add it to the pile.
 
-         /* Page is in use: ((count_info & PGC_count_mask) != 0). */
-         struct {
-             /* Type reference count and various PGT_xxx flags and fields. */
-             unsigned long type_info;
-         } inuse;
-
-         /* Page is in use as a shadow: count_info == 0. */
-         struct {
-	   ....
-         } sh;
-
-         /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
-         union {
-
-So it seems that something in the shadow code must set|count_info| to zero for
-shadow pages. But I cannot find where this happens. I would expect it to be done
-in|shadow_alloc()|, when the page is taken from the free list. However, pages
-from the free list donot have|count_info == 0| since|alloc_heap_pages() |initializes|count_info|.
-What guarantees that|count_info| will be zero for shadow tables?
-
-Interestingly, in the shadow p2m page free code, there is logic that resets
-|count_info| to zero:
-{
-     struct domain *owner = page_get_owner(pg);
-
-     /* Should still have no owner and count zero. */
-     if ( owner || (pg->count_info & PGC_count_mask) )
-     {
-         printk(XENLOG_ERR
-                "d%d: Odd p2m page %"PRI_mfn" d=%d c=%lx t=%"PRtype_info"\n",
-                d->domain_id, mfn_x(page_to_mfn(pg)),
-                owner ? owner->domain_id : DOMID_INVALID,
-                pg->count_info, pg->u.inuse.type_info);
-         pg->count_info &= ~PGC_count_mask;
-         page_set_owner(pg, NULL);
-     }
-...
-
-And another question: since|u.sh.*| is updated, it effectively overwrites
-|u.inuse.type_info|. But|u.inuse.type_info| is used by|free_domheap_pages()|,
-which is called from|shadow_free()|:
-void free_domheap_pages(struct page_info *pg, unsigned int order)
-{
-...
-                 if ( pg[i].u.inuse.type_info & PGT_count_mask )
-                 {
-                     printk(XENLOG_ERR
-                            "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
-                            i, mfn_x(page_to_mfn(pg + i)),
-                            pg[i].count_info, pg[i].v.free.order,
-                            pg[i].u.free.val, pg[i].tlbflush_timestamp);
-                     BUG();
-                 }
-...
-
-Why is it acceptable that|u.inuse.type_info| will likely not be zero, since
-|u.sh.*| modifies the same union field, at least during shadow page allocation?
-
-
-
-> Finally, as to "rather expensive": Scanning a 4k page to hold all zeroes can't
-> be all that expensive? In any event that expensiveness needs weighing carefully
-> against the risk of getting the counter maintenance wrong.
-
-It depends on how often|p2m_set_type()| will be called.
-In the worst case, it will require a loop that performs up to 512 iterations
-to scan a 4 KB page (512 * sizeof(struct mt_d) = 4096), which I think could be
-expensive if|p2m_set_type()| is invoked frequently.
-
-~ Oleksii
-
+Cheers,
+Alejandro
 
