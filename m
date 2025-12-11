@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0858ACB4FFE
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 08:39:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183584.1506218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92E9CB5007
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 08:41:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183593.1506228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbGp-00029j-BG; Thu, 11 Dec 2025 07:39:27 +0000
+	id 1vTbIu-0003cp-MH; Thu, 11 Dec 2025 07:41:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183584.1506218; Thu, 11 Dec 2025 07:39:27 +0000
+Received: by outflank-mailman (output) from mailman id 1183593.1506228; Thu, 11 Dec 2025 07:41:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbGp-00028I-8b; Thu, 11 Dec 2025 07:39:27 +0000
-Received: by outflank-mailman (input) for mailman id 1183584;
- Thu, 11 Dec 2025 07:39:25 +0000
+	id 1vTbIu-0003ap-Jc; Thu, 11 Dec 2025 07:41:36 +0000
+Received: by outflank-mailman (input) for mailman id 1183593;
+ Thu, 11 Dec 2025 07:41:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BerU=6R=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vTbGm-00028C-LT
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 07:39:25 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vTbIt-0003ah-J6
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 07:41:35 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8227d142-d664-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 08:39:22 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 8B1094EEBF88;
- Thu, 11 Dec 2025 08:39:20 +0100 (CET)
+ id d0699258-d664-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 08:41:33 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47790b080e4so2935455e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 23:41:33 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a89d836c4sm7578065e9.1.2025.12.10.23.41.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Dec 2025 23:41:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,146 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8227d142-d664-11f0-9cce-f158ae23cfc8
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765438760;
-	b=DypkyhLfR5cJF6uDWANQJRAlQRWLOh0+bHCA4TKcawofcWTnSKQ7xInvjPAohYuhGbH5
-	 tsnD9F40QThk286l3ArKMeQwaqXKL8c9Et/beqtySy7LwcpdJ935k2lAZDmhV15LNxNlw
-	 GSymwn9t03ljx/G0wc0mRdp9H9Vu+ejNpYAZ5OCmzWpncKxK0AhX76/fKQNBbyO1ZGaWQ
-	 rcHVh5uiOWdCXz82JTxGUBsSI9rGrC7my6/whDXMO01qU/rS1JuDvncezmhch8EqhwUPm
-	 4q0wkfp/0UeLom9I8ebqdiN20UW70GgAPjb+5Jw4WjzyBD5alnkcWP+NWU4iufzs3GLCQ
-	 rlhvHks14iq4r1dpON+v/MEPKA5DD3qkTEGzAWe+jTUP2yPBOBmcCL/Ods0qWGJlFcf6s
-	 4J6qjzfSTCfbett2KiEugwlSxyr+VBcitHY+oYaNbvkKEWmeMxBgqKue1fC+79DJCIQSp
-	 +Pmm1V7tS2fCQKYHsDJY+PvndIxGcadp/zkwBpBdniNjfZH3zb2Eg3Am/OX4ZrjyQXNgQ
-	 IJUNZmA3mX2xIDbv9x/dFQze164qmLzYU0WZdNtYUKNhoXXlFqDqK4a8xyUUd+eSyYsrT
-	 edOuhWx3TdEoxvcN5cD2ym6SMn2Of1ycVwjY/Pq6X7oFO6Rk0lJb8d52rUgpb8U=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1765438760;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=L9WU1G5zKbxi4Cn3+3HW95CjXgBsCbejbcW+mkFs/nI=;
-	b=iOi2/LI2B2bVid/7vEBLJ2AQK8B8GWLw0CZQXdj0G2GV9V+aUNv42ByVq+EujP548cRk
-	 YK80dCToLqlrQv1jUS4Ii0J1j2+3Hc8T8+YkQC11m2jzOFAkDmlyST954Wd0o7cp2xblV
-	 dk+p5QMRp49e54fVLcfJ+bWZybOcH2hO6I7RjSxUtYsWHg5JBpioJahFqOKY8BF79tlv1
-	 a6A9IY18eBlCaUhGD9vaEQjTS4jSb3JJ1srSOGzn/dle/+i1aelTNR3WxjKOfpqtsBFrN
-	 JkuSBJ2oPaulKgwh+ybM3DNSZirRMmae9txNx+dEpzcIOwwu4d414ZoFOqL5kJbUTkLaf
-	 H8aCzFufTFN3ERoWqxntDOXVvh+nV9AC1q9o9ND9belYRhGJWuYKvyN/1q9CzkV6t3tK2
-	 rVA5qHkEu4Bf3RaMQM4yoPJp9gowx3A6Jbp+Q3ZBEQaj9Bk1gFX2mYzSCbze5XMb5T+vu
-	 DZ0eFcwJCEge0BQI4H+OmO9CGoVjzKd30wFmq5YVAYOdEiCOz2TKFgZDhVvpBrsgEDGV6
-	 KKL14eFZGbdLkYEqaW0O+0cvYMk87GA2l9C+nO9oL3zkPiILHE56CSafvnVy1v0LAtSL/
-	 B+cB8Hp3ObXnlDnSe3p6cI4LJZnB/+rNENBHarGzWv/VTxAtRrCyiX92wWREaYE=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1765438760; bh=E+HldCsOnG2PoKHFcpvLXYZ79+DuZZiscDTPs+aOWRM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=CkCZ2DDGipQ7NHQvYfdJxNDdd1Y0n48+7T7+Up2fYRNtVdtlDKWpeYM/p2Cw6ZLrv
-	 GSfRBJl/BkJfO6WsxaZoCiBQ2AI4V9b+I015WvvjaYAVQXABM41zGq7vg95kb4iJhk
-	 i5VNtmIiun7U9Tw0dqwk6Rvs58S5nkA5Zk9iI/uEeLtFwFIc6dLBdyW4bGVL8kgOyJ
-	 u0VguTseGwivQnY+6/ua+T8d5cmvWJNo+jao0rbck5Owpwp+33S83cFnFEF8npW3TB
-	 tlXpMWr7FUtFnWU4BVPwzyZhyeQKNVRLrpKAVZLy6NYezxcgfC+hl5BZ4CM9dcB/6e
-	 gH0aaqBjJXJXA==
+X-Inumbo-ID: d0699258-d664-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765438892; x=1766043692; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qgJnG7vvKe5fkGL1qjYTwfe696ujHpCbU/AQkE7N9r4=;
+        b=GN8IXZ7pliZQhuAvJmiguIDT6FxlRa8wWPUO6tZWmOTmDS/fstsxJU3DH3z0QykR8r
+         Rc53FyS7+/qfZi81LvVgrrJVio2H/LCAWz5bwWwJII2Vel3yMbeSdZiigkGrXRz6dEAr
+         PaP1St9OSNavZx07204EJORyMRzvRzyT4Q3A8N7k6Hbi5pFDYs10tvhVqeYhEtwwN+GL
+         t27d+5Y4PrD+WnhUdj1r+yxj5JTVhdhJDWBO+H0LcHDQYXbBAprThN9cmZVs9VpFn32k
+         5UntdCxmNCgFlDFqGMIXc1kJwDf+z+OPXYpxS18F2/Kv1XPVYCRjFEFPz3p1tuUJV8cd
+         2iMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765438892; x=1766043692;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qgJnG7vvKe5fkGL1qjYTwfe696ujHpCbU/AQkE7N9r4=;
+        b=cMhDdMlBzJPgTeFrp1gYYeaQ8SDhw0roYzsxUDgBEfL4ne52vrvs4MyIVX6JSMc7dw
+         YBrQVRKiZMbEf/98pZzRw2DIoPppnsQNiGNydiXHC/G5sgN1fY9+pyQrYjGutjx4/BnN
+         m9WyqPJnKtuSIJzCq5MdvJWSUliWEtn+QIcHvPw4b+rW0uLAP2XI3605gNa1WGeKS2by
+         leRzenRpYPL87dny2fEMv/Ih2zShrIJk6mzfxyXiGOdBUOFZk8nJZ9cw13jOi1Ugn+K3
+         LmFpjLnvi2tAz63vhHNjShzvGRiF3zczBGuEtyAEitwmdAy8rv02FPchDJSMZuYkL8/f
+         PtmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXigBhyuEUMC6zNdaHyO8OUbL3lx5tuB3+2/qgZLhYGRZYmk536oFJuMInqDaRMRbCkaKFw2vQLSq0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyU807GzbrWLu/mydWdcYZ5NikEOd93FFLQl/x04rwEQRZcblSd
+	QJs5oUTGdbcfH8y7HUdw/K0RySQTtIOrunaD22CnCa9C84yvtDgebuwhe8I6OXAyuQ==
+X-Gm-Gg: AY/fxX5FyEAlppgftjn9F/W16hjMgeDV6kkqBEULAH7vk8gdr0Sk74urPLIVcDeklha
+	bVpJ/tPZV3F7DM87jRFmlaayDYCbSoAtAO2sKDTSTq8NUqTp2g8Mf2JT/ZbNMA0H7l2c3wggmyf
+	gIh+g6KOdNVdkigxjd/wn1mx7lO6rJ1IEfPLgd+vr9yLbpaUxCQslYyrPGlJsjLlbx2MFT3+x+o
+	VbZUCQqlpKl+58Ehi3dij5RRJQbvBa0GKHL05unEZSzIcwjFHUahjdAr7r9eUhAqieinv/BkzmF
+	c/HE+0wiO+Gqz4t2qqmE003yj9uSyCWne/QmA9wApV61i7/cQ7taB/i6QyHYI4Wm5w+DLjGW9Tj
+	9cpi3/jh508TkE3ZEZj+nVsab0FJgdAMS4lVprSk9+5jULWaUw/8LVueYJac7W8v2lZVbaLNxvL
+	KzU1i+JVwTTp7zCtfbrKAwd8XuBzUhAZbj9/Msl+KAuhf0oWi0SQ7CwLLdH7hs0UjnCa3QboM40
+	e0=
+X-Google-Smtp-Source: AGHT+IHk7yg8vwepikh5N/rsUopvmmKH+5c3I7V+xXxNg3MVELgABK/+95unmFmJh461UFvcFXyDtg==
+X-Received: by 2002:a05:600c:681b:b0:477:632a:fd67 with SMTP id 5b1f17b1804b1-47a838040e1mr51922065e9.12.1765438892580;
+        Wed, 10 Dec 2025 23:41:32 -0800 (PST)
+Message-ID: <d3943552-07ca-4d3d-955f-64302da152e4@suse.com>
+Date: Thu, 11 Dec 2025 08:41:30 +0100
 MIME-Version: 1.0
-Date: Thu, 11 Dec 2025 08:39:20 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] x86/cpu-policy: define bits of leaf 6
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: Re: [PATCH 1/5] x86: Misra fixes for U/L suffixes
-In-Reply-To: <673e625a-4df9-45fe-a45d-49d988197da8@citrix.com>
-References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
- <20251210183019.2241560-2-andrew.cooper3@citrix.com>
- <c9c7deeecc839295d04c5374691f848d@bugseng.com>
- <aa03d225a116bbb5db0e7a0df61161b5@bugseng.com>
- <673e625a-4df9-45fe-a45d-49d988197da8@citrix.com>
-Message-ID: <a9cd462f7210e12a307b492c85e249b1@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f0ac75c8-5d65-43ef-aeeb-78d34f1da470@suse.com>
+ <8791387c-2799-4e0b-b187-1900b224a101@suse.com>
+ <4827eec7-1452-4840-a151-1f5deeff1384@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4827eec7-1452-4840-a151-1f5deeff1384@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2025-12-11 00:48, Andrew Cooper wrote:
-> On 10/12/2025 8:31 pm, Nicola Vetrini wrote:
->> On 2025-12-10 21:09, Nicola Vetrini wrote:
->>> On 2025-12-10 19:30, Andrew Cooper wrote:
->>>> diff --git a/xen/include/xen/elfstructs.h
->>>> b/xen/include/xen/elfstructs.h
->>>> index eb6b87a823a8..8770e7454672 100644
->>>> --- a/xen/include/xen/elfstructs.h
->>>> +++ b/xen/include/xen/elfstructs.h
->>>> @@ -360,7 +360,7 @@ typedef struct {
->>>>  } Elf64_Rela;
->>>> 
->>>>  #define    ELF64_R_SYM(info)    ((info) >> 32)
->>>> -#define    ELF64_R_TYPE(info)    ((info) & 0xFFFFFFFF)
->>>> +#define    ELF64_R_TYPE(info)    ((uint32_t)(info))
->> 
->> Actually I think this doesn't build:
->> 
->> arch/x86/livepatch.c: In function ‘arch_livepatch_perform_rela’:
->> ././include/xen/config.h:55:24: error: format ‘%lu’ expects argument
->> of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’
->> [-Werror=format=]
->>    55 | #define XENLOG_ERR     "<0>"
->>       |                        ^~~~~
->> arch/x86/livepatch.c:332:20: note: in expansion of macro ‘XENLOG_ERR’
->>   332 |             printk(XENLOG_ERR LIVEPATCH "%s: Unhandled
->> relocation %lu\n",
->>       |                    ^~~~~~~~~~
->> arch/x86/livepatch.c:332:69: note: format string is defined here
->>   332 |             printk(XENLOG_ERR LIVEPATCH "%s: Unhandled
->> relocation %lu\n",
->>      
->> |                                                                  
->>  ~~^
->>      
->> |                                                                     
->> |
->>      
->> |                                                                    
->> long unsigned int
->>      
->> |                                                                   %u
->> 
->> the error location is a bit unclear, but the cast is the culprit
+On 10.12.2025 14:37, Andrew Cooper wrote:
+> On 24/11/2025 12:23 pm, Jan Beulich wrote:
+>> ... as far as we presently use them in the codebase.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Or should we make both parts proper featureset elements? At least
+>> APERFMPERF could likely be made visible to guests (in principle).
+>> ---
+>> v2: Use bool and unions.
+>>
+>> --- a/xen/include/xen/lib/x86/cpu-policy.h
+>> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+>> @@ -121,7 +121,46 @@ struct cpu_policy
+>>              uint64_t :64, :64; /* Leaf 0x3 - PSN. */
+>>              uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
+>>              uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
+>> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
+>> +
+>> +            /* Leaf 0x6 - Therm/Perf. */
+>> +            union {
+>> +                uint32_t _6a;
+>> +                struct {
+>> +                    bool :1,
+>> +                        turbo:1,
+>> +                        arat:1,
+>> +                        :1,
+>> +                        :1,
+>> +                        :1,
+>> +                        :1,
+>> +                        hwp:1,
+>> +                        hwp_notification:1,
+>> +                        hwp_activity_window:1,
+>> +                        hwp_epp:1,
+>> +                        hwp_plr:1,
+>> +                        :1,
+>> +                        hdc:1,
+>> +                        :1,
+>> +                        :1,
+>> +                        hwp_peci:1,
+>> +                        :1,
+>> +                        :1,
+>> +                        hw_feedback:1;
+>> +                };
+>> +            };
+>> +            union {
+>> +                uint32_t _6b;
+>> +            };
+>> +            union {
+>> +                uint32_t _6c;
+>> +                struct {
+>> +                    bool aperfmperf:1;
+>> +                };
+>> +            };
+>> +            union {
+>> +                uint32_t _6d;
+>> +            };
 > 
-> Yeah, I spotted that just as I heading out, and ran
-> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2207521982
-> instead.
+> The _6[a-d] variables are only needed for the featureset <-> policy
+> conversion which isn't the case here (notice how you don't need it the
+> series), and we're unlikely to want in the future.
 > 
-> I've swapped back to using 0xFFFFFFFFU.  info ends up being long, and
-> the result of the expression needs to stay that way.
+> This wants to read:
 > 
-> However, looking at the report for that, I still missed one.  I've
-> folded in this hunk too.
+>             /* Leaf 0x6 - Therm/Perf. */
+>             bool :1,
+>                 turbo:1,
+>                 arat:1,
+>                 :1,
+>                 :1,
+>                 :1,
+>                 :1,
+>                 hwp:1,
+>                 hwp_notification:1,
+>                 hwp_activity_window:1,
+>                 hwp_epp:1,
+>                 hwp_plr:1,
+>                 :1,
+>                 hdc:1,
+>                 :1,
+>                 :1,
+>                 hwp_peci:1,
+>                 :1,
+>                 :1,
+>                 hw_feedback:1;
+>             uint32_t :32; /* b */
+>             bool aperfmperf:1;
+>             uint32_t :32; /* d */
 > 
-> diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
-> index 8c44dea12330..e741e686c1af 100644
-> --- a/xen/arch/x86/pv/emulate.c
-> +++ b/xen/arch/x86/pv/emulate.c
-> @@ -37,7 +37,7 @@ int pv_emul_read_descriptor(unsigned int sel, const 
-> struct vcpu *v,
->      if ( !(desc.b & _SEGMENT_L) )
->      {
->          *base = ((desc.a >> 16) + ((desc.b & 0xff) << 16) +
-> -                 (desc.b & 0xff000000));
-> +                 (desc.b & 0xff000000U));
->          *limit = (desc.a & 0xffff) | (desc.b & 0x000f0000);
->          if ( desc.b & _SEGMENT_G )
->              *limit = ((*limit + 1) << 12) - 1;
-> 
+> and with that, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Makes sense, feel free to retain my R-by with these two changes.
+Thanks, but: If then someone doesn't pay close attention when breaking up the "b"
+field (perhaps also into booleans), things may go wrong. I deliberately added the
+"raw" fields, despite not (presently) being used.
 
-> 
-> ~Andrew
+And to be frank: I said I would even before I sent the new version, without you
+indicating I shouldn't go this route. Now what is pretty much a mechanical patch
+will face yet more of a delay going in. I think requests like this should either
+be made in a timely manner, or simply be omitted (in particular if otherwise a
+patch is ready to go in). Had Jason not reviewed the series, and had I not
+indicated that on this basis I would commit it today, how much longer would I
+have had to wait? How's the backlog ever going to reduce this way?
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Now that this is going to take yet longer anyway, we can as well deal with your
+naming request in reply to patch 6 (which really would apply here first, imo). I
+picked names largely based on what was used in the HWP driver, as that was the
+in-tree status quo. I can certainly move closer to what the SDM has, but your
+reply to patch 6 ended up being non-conclusive to me. I'll reply in more detail
+there.
+
+Jan
 
