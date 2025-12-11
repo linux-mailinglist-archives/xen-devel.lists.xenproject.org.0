@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0170FCB5F33
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 13:53:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184047.1506592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680AACB5F46
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 13:57:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184058.1506602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTgAc-0004b3-25; Thu, 11 Dec 2025 12:53:22 +0000
+	id 1vTgEZ-0005Co-Fx; Thu, 11 Dec 2025 12:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184047.1506592; Thu, 11 Dec 2025 12:53:22 +0000
+Received: by outflank-mailman (output) from mailman id 1184058.1506602; Thu, 11 Dec 2025 12:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTgAb-0004ZS-VG; Thu, 11 Dec 2025 12:53:21 +0000
-Received: by outflank-mailman (input) for mailman id 1184047;
- Thu, 11 Dec 2025 12:53:20 +0000
+	id 1vTgEZ-0005Au-DL; Thu, 11 Dec 2025 12:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 1184058;
+ Thu, 11 Dec 2025 12:57:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oCI8=6R=gmail.com=samaan.dehghan@srs-se1.protection.inumbo.net>)
- id 1vTgAa-0004YM-9D
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 12:53:20 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
+ id 1vTgEY-0005Ao-80
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 12:57:26 +0000
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [2607:f8b0:4864:20::f2d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ce116b0-d690-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 13:53:18 +0100 (CET)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-297f35be2ffso622385ad.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 04:53:17 -0800 (PST)
+ id f05fd0b8-d690-11f0-b15b-2bf370ae4941;
+ Thu, 11 Dec 2025 13:57:25 +0100 (CET)
+Received: by mail-qv1-xf2d.google.com with SMTP id
+ 6a1803df08f44-8823dfa84c5so279826d6.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 04:57:25 -0800 (PST)
+Received: from localhost.localdomain
+ (host-154-4.mdu.ilcmifre.champaign.il.us.clients.pavlovmedia.net.
+ [66.253.154.4]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8886eef8dcbsm22988176d6.37.2025.12.11.04.57.22
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 11 Dec 2025 04:57:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,165 +46,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ce116b0-d690-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: f05fd0b8-d690-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765457596; x=1766062396; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1765457844; x=1766062644; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tSU2plybhLrgyCN7UmWG+2960KnH0dAyA+3GYCfpQhE=;
-        b=iA6SNDzQpmySuVes1yd1niVdYz2//SU+llsgSOiTuB8NTn+Gdo6eMEqqEc33B4o8No
-         4aVhp82+B9OghwrYTR/FncfhYpWVaJQSO1szlXB9r4bP2JQTj00px+5D5BXUDXVjKruf
-         HPq3SkV3UUS+GAfxDDe0vLtJDuTaryYrm7P25eQeGW7d0FpkrcF9SWNy70TBBGD2Lj8o
-         qn2E/j7RW8e5XPerN7a6twKLfVbQegzK76ttKOSCVUWDca33QzDgz7RCac1JYwr7XgpL
-         psR0ZPRvDcF1jnEWrgaZFWOJZcZR35YZpK7O7eTQ69AiKnZHe5GRoz+feH1EPimOBO52
-         J2hg==
+        bh=2kjup8IXurSGnJos/cvAZljvqR45Kt88E1lA50HDgVc=;
+        b=K4OLfr8Uwz/YMAji2tPZ71jv8OydADlSUqXnJzXSYv7qwqhrfj0sdladJrbxH/n2QC
+         tm67EzbURPFpTiHVXj1BIVBjLYOgKMpHJak22TwUSlXGhTQpqU4u33u2ZOTMYZk7JHji
+         YD53KXmmqW0LRiHOs9wdZsj/6thyQ0M1M02w/4NMa/4ImUxSy2lXQBu6EQ+isi+boN8L
+         63ZKyCkPOGPIIEFZOMmkNmLkgzjVSbS/OGQ1hMITn3eX4fLjc2ntUG3VfEV7e5vzG2Cy
+         tdO0yEGvK9arr8Vd+2SGaZ8hUvSnjQF4X5EevnsvQXrh3PF1UY4r5P4MgBwJwmIIWVkt
+         +Rlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765457596; x=1766062396;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20230601; t=1765457844; x=1766062644;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=tSU2plybhLrgyCN7UmWG+2960KnH0dAyA+3GYCfpQhE=;
-        b=XUan3tzm5iInJgoxw2N/s8cfjxz7ry557OJgKUK6ayQLjeqqhiT1iGO0RPTCKfup1e
-         Hn34SUIEfAP2IDMxscTRZi/CjCeJkxP/8yfLDdSev1utE817XTWYzsr5CyzzN+ec+kwg
-         xDK+OPICJ3Mq/GioJqKVFitIqvoE8qtVHXpABiYvIiHJcsBUt80eTAtfw6ohKyAWy474
-         PzlaMJPheToGfvSxev3E+tLNmrA7ysIvnLxRsGa5tFAkQ9hGqVu7K6FA7xJGpI8eXoND
-         bI+nrJk+nCwNatqrGOXGijElNDq/EfP6W9qHET7n5qCzNNP0qlYy7TKpE+4/GDWLnTDp
-         nClg==
-X-Gm-Message-State: AOJu0YxjF18lB7OXtFJwSpBHQEPknVXPFRgczVsHDIfMcoi0qq2eMAW4
-	7gJmDYJLh79+2PTtY2HY66p4Iz7duB3PbY+VaHDbqsKp1Bhd1Mv++RrqlNanDzEKCnsrWLsw+Zn
-	miyX1YL4kgTkk83iv6ftB+jLpONmmXw==
-X-Gm-Gg: AY/fxX6Fh9visEoQTPTquKW+krq3Ulzoalb0lLXoMRI5/HzC0daTEVpI6IVE074HGw4
-	TsTKCCpsAudm4YCOjlu3/GLyj7QvoirxjEMzUdH5OdJm0ihcYNR/CsjYBVBLwD6OeQjnVNnxYZQ
-	45xqDF5ORWEu4/Nqc+KhJ2Kvy1RwrAA7Y5OpiE66L+5iGQ0yKzoNV7599ckANZVnVFsS1sXSFid
-	eFi6yrGm4GPmiQLJwdcChjCjlapY0KIzQboRihpWyxMu1E4ixq75gUjflfagWPDHWCiudXihcug
-	b0rETcf7rhYlgHhqetZO7nyO
-X-Google-Smtp-Source: AGHT+IFUEUBOkjA3mCUzNTlRBT16P4XNRgwRuxDJ1n+ZVyV89wFdKoWb8TVyjpmZdom549cG2CdvMH0IxglPXZV0sr8=
-X-Received: by 2002:a17:903:98d:b0:29e:9387:f2b7 with SMTP id
- d9443c01a7336-29ec229d253mr57583835ad.11.1765457596312; Thu, 11 Dec 2025
- 04:53:16 -0800 (PST)
-MIME-Version: 1.0
-References: <bd6686e7fc0756e929334792b94ddd66bde125c4.1765239102.git.samaan.dehghan@gmail.com>
- <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
- <ff441352-ee38-4357-9479-9398c7df356d@xen.org>
-In-Reply-To: <ff441352-ee38-4357-9479-9398c7df356d@xen.org>
+        bh=2kjup8IXurSGnJos/cvAZljvqR45Kt88E1lA50HDgVc=;
+        b=BVg6qAbat/9KzZrz8zmQTbMRiRXBangqc2SAgX4BA4zGWGCNZHrP3YKz6y5shi9eej
+         t7aSUAt5fxNVkLMMexjUmmBFIC/T6R657N8HDVAWBUwCv/R7vW++zPVKQc1Bxq1TJ1nd
+         MRkFaLwXz2iUYlMnSZ+pYbloV+aGDMnBHfXlNuOECjdDowmUJyO73aVVNr+BvUg9KRoD
+         PIMslfte/UFVNwEmTeY+at2Zt/7cUBNroMZ/c9FgqmYbl/hBtywM7b4le5L/m2s0x1c+
+         mL1TAcfCFmHObLZryaZtIIxIVyBYiaRk4ZX8H/I/gnGf6p97AAzMRyKWXNspwjLrN0et
+         d9sQ==
+X-Gm-Message-State: AOJu0YymFJXcapMPfcWX9GXx6CmvmGWbnTfoRL9QdDo8mgy/7Nzfp9iF
+	oPJXLWHQgTBfVPqhxy8WulhOlThiWcEtUwgJjjNsJ9DVVsZMop5WnvRezOUufH4=
+X-Gm-Gg: AY/fxX4q0b92hc0qvkYGmwvd8EiWAx9d3jZhcGz10A1xC1OtcC4R9HSwXWDWLBsTJkn
+	2Bz8l7xYtL2f9qKXWZIlf9BtzkBptpmKHqEV655/5QBhQaifLk1owXNVeSlo4fnCHqHEL35U5/7
+	bvMZ+7Rary600kEAmS5YAS57MXVelyn/QW46PpZMtnbKw1HvxYW6MnYedLI5Nn4xJzYg2JcuK2p
+	P6E/kGrbmdViO4IxE52J8VCUNZ/5rFAovdQz9vGeuRr+IHsJSnWoF4fqiUTxhEJ9VINHkyxBc+M
+	hS8zwab16wgOC0aVgTk7JS1XGTc+ikPMsxrZ7C9GNUk2KfjZ8+FB0HveE9zxWxYRLWmJWH0otNN
+	EnFyCDungibTNSeInS895eVDY7RzlUHAb4oo0OZ/x0KpQfUg1fholcfEowf5iEGioougQfGqB+f
+	cmn6BPG6kM52XanUION6UHh5MmUWV35au5Vz/bJjWvzGojvcA66nTMLKU9yhd/OAx6dootKk1JV
+	3VAX8lJTn+9+YXLSO50JcjQKIW+4wgQ1aN2e4XyIN4XuLmYUFjFnCJ3BCneE5/M6hOGBNAlO/0Q
+	MR2fuC5B
+X-Google-Smtp-Source: AGHT+IFlbZxMZNSJQQ3a7Dp2bbpHm+8RnpjrSNjIidhmYd6RGT+TFyrPBZI/z1rvXEaZlhxJxorkog==
+X-Received: by 2002:ad4:5cee:0:b0:880:22f3:3376 with SMTP id 6a1803df08f44-88863a215c6mr90575406d6.10.1765457843482;
+        Thu, 11 Dec 2025 04:57:23 -0800 (PST)
 From: Saman Dehghan <samaan.dehghan@gmail.com>
-Date: Thu, 11 Dec 2025 06:53:05 -0600
-X-Gm-Features: AQt7F2ogxwumaI9N1aS8g7Y0ccorogLjZ0WcYzsKD__J15wB9qBGB7i-VaGlgOo
-Message-ID: <CAHFNDNhVEdM9G3Lgx1mJfdKz2OntdVZ9Ja14GQHSjWvWOp09EA@mail.gmail.com>
-Subject: Re: [PATCH v2] xen/arm64: Add support Clang build on arm64
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH v3] xen/arm64: Add support Clang build on arm64
+Date: Thu, 11 Dec 2025 06:57:17 -0600
+Message-ID: <fbb12a9b0aede6dcb398a76018c274a5c76ba1fa.1765456914.git.samaan.dehghan@gmail.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
+References: <bb575726fe0ac783121e563b1c92f81f51e41f75.1765420376.git.samaan.dehghan@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Dec 11, 2025 at 3:33=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi Saman,
->
-> A bit of process first. Usually, when sending a v2, a new thread is
-> started (IOW, this is not sent in reply to v1).
+This patch enables building Xen for the arm64 using the Clang/LLVM compiler.
+Changes include:
+- Add explicit -march=armv8 flag for arm64 builds.
+- Introduce `READ_FP_SYSREG` and `WRITE_FP_SYSREG` to encapsulate the required
+  `.arch_extension fp` directive for system fp register access.
+- Add ".arch_extension fp" to the inline assembly for `save_state` and
+  `restore_state`.
 
-Hi Julien,
+Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
+---
+ README                   |  2 ++
+ xen/arch/arm/arch.mk     |  1 +
+ xen/arch/arm/arm64/vfp.c | 30 ++++++++++++++++++++++--------
+ 3 files changed, 25 insertions(+), 8 deletions(-)
 
-Thanks :)
+diff --git a/README b/README
+index 889a4ea906..67c1aa7fe6 100644
+--- a/README
++++ b/README
+@@ -45,6 +45,8 @@ provided by your OS distributor:
+       - For ARM:
+         - GCC 5.1 or later
+         - GNU Binutils 2.25 or later
++        or
++        - Clang/LLVM 11 or later
+       - For RISC-V 64-bit:
+         - GCC 12.2 or later
+         - GNU Binutils 2.39 or later
+diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+index 9c4bedfb3b..bcf548069b 100644
+--- a/xen/arch/arm/arch.mk
++++ b/xen/arch/arm/arch.mk
+@@ -13,6 +13,7 @@ ifeq ($(CONFIG_MPU),y)
+ CFLAGS-$(CONFIG_ARM_64) += -march=armv8-r
+ else
+ CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic
++CFLAGS-$(CONFIG_ARM_64) += -march=armv8
+ endif
+ CFLAGS-$(CONFIG_ARM_64) += -mgeneral-regs-only # No fp registers etc
+ $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
+diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+index c4f89c7b0e..ea75c7a2b2 100644
+--- a/xen/arch/arm/arm64/vfp.c
++++ b/xen/arch/arm/arm64/vfp.c
+@@ -6,7 +6,8 @@
+ 
+ static inline void save_state(uint64_t *fpregs)
+ {
+-    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
++    asm volatile(".arch_extension fp\n\t"
++                 "stp q0, q1, [%1, #16 * 0]\n\t"
+                  "stp q2, q3, [%1, #16 * 2]\n\t"
+                  "stp q4, q5, [%1, #16 * 4]\n\t"
+                  "stp q6, q7, [%1, #16 * 6]\n\t"
+@@ -27,7 +28,8 @@ static inline void save_state(uint64_t *fpregs)
+ 
+ static inline void restore_state(const uint64_t *fpregs)
+ {
+-    asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
++    asm volatile(".arch_extension fp\n\t"
++                 "ldp q0, q1, [%1, #16 * 0]\n\t"
+                  "ldp q2, q3, [%1, #16 * 2]\n\t"
+                  "ldp q4, q5, [%1, #16 * 4]\n\t"
+                  "ldp q6, q7, [%1, #16 * 6]\n\t"
+@@ -46,6 +48,18 @@ static inline void restore_state(const uint64_t *fpregs)
+                  : : "Q" (*fpregs), "r" (fpregs));
+ }
+ 
++#define WRITE_FP_SYSREG(v, name) do {                               \
++    uint64_t _r = (v);                                              \
++    asm volatile(".arch_extension fp\n\t"                           \
++                 "msr "__stringify(name)", %0" : : "r" (_r));       \
++} while (0)
++
++#define READ_FP_SYSREG(name) ({                                     \
++    uint64_t _r;                                                    \
++    asm volatile(".arch_extension fp\n\t"                           \
++                 "mrs  %0, "__stringify(name) : "=r" (_r));         \
++    _r; })
++
+ void vfp_save_state(struct vcpu *v)
+ {
+     if ( !cpu_has_fp )
+@@ -56,10 +70,10 @@ void vfp_save_state(struct vcpu *v)
+     else
+         save_state(v->arch.vfp.fpregs);
+ 
+-    v->arch.vfp.fpsr = READ_SYSREG(FPSR);
+-    v->arch.vfp.fpcr = READ_SYSREG(FPCR);
++    v->arch.vfp.fpsr = READ_FP_SYSREG(FPSR);
++    v->arch.vfp.fpcr = READ_FP_SYSREG(FPCR);
+     if ( is_32bit_domain(v->domain) )
+-        v->arch.vfp.fpexc32_el2 = READ_SYSREG(FPEXC32_EL2);
++        v->arch.vfp.fpexc32_el2 = READ_FP_SYSREG(FPEXC32_EL2);
+ }
+ 
+ void vfp_restore_state(struct vcpu *v)
+@@ -72,8 +86,8 @@ void vfp_restore_state(struct vcpu *v)
+     else
+         restore_state(v->arch.vfp.fpregs);
+ 
+-    WRITE_SYSREG(v->arch.vfp.fpsr, FPSR);
+-    WRITE_SYSREG(v->arch.vfp.fpcr, FPCR);
++    WRITE_FP_SYSREG(v->arch.vfp.fpsr, FPSR);
++    WRITE_FP_SYSREG(v->arch.vfp.fpcr, FPCR);
+     if ( is_32bit_domain(v->domain) )
+-        WRITE_SYSREG(v->arch.vfp.fpexc32_el2, FPEXC32_EL2);
++        WRITE_FP_SYSREG(v->arch.vfp.fpexc32_el2, FPEXC32_EL2);
+ }
+-- 
+2.49.0
 
->
-> On 11/12/2025 02:39, Saman Dehghan wrote:
-> > This patch enables building Xen on arm64 architecture using the Clang c=
-ompiler.
-> > Changes include:
-> > - Add explicit -march=3Darmv8 flag for arm64 builds.
-> > - Add `__attribute__((target("fp-armv8")))` to `vfp_save_state` and
-> >    `vfp_restore_state` functions when building with Clang to allow
-> >    FP instructions despite `-mgeneral-regs-only`.
-> >
-> > Signed-off-by: Saman Dehghan <samaan.dehghan@gmail.com>
-> > ---
-> >   README                   | 2 ++
-> >   xen/arch/arm/arch.mk     | 1 +
-> >   xen/arch/arm/arm64/vfp.c | 6 ++++++
-> >   3 files changed, 9 insertions(+)
-> >
-> > diff --git a/README b/README
-> > index 889a4ea906..67c1aa7fe6 100644
-> > --- a/README
-> > +++ b/README
-> > @@ -45,6 +45,8 @@ provided by your OS distributor:
-> >         - For ARM:
-> >           - GCC 5.1 or later
-> >           - GNU Binutils 2.25 or later
-> > +        or
-> > +        - Clang/LLVM 11 or later
-> >         - For RISC-V 64-bit:
-> >           - GCC 12.2 or later
-> >           - GNU Binutils 2.39 or later
-> > diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
-> > index 9c4bedfb3b..bcf548069b 100644
-> > --- a/xen/arch/arm/arch.mk
-> > +++ b/xen/arch/arm/arch.mk
-> > @@ -13,6 +13,7 @@ ifeq ($(CONFIG_MPU),y)
-> >   CFLAGS-$(CONFIG_ARM_64) +=3D -march=3Darmv8-r
-> >   else
-> >   CFLAGS-$(CONFIG_ARM_64) +=3D -mcpu=3Dgeneric
-> > +CFLAGS-$(CONFIG_ARM_64) +=3D -march=3Darmv8
-> >   endif
-> >   CFLAGS-$(CONFIG_ARM_64) +=3D -mgeneral-regs-only # No fp registers et=
-c
-> >   $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
-> > diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
-> > index c4f89c7b0e..51fd2ddc54 100644
-> > --- a/xen/arch/arm/arm64/vfp.c
-> > +++ b/xen/arch/arm/arm64/vfp.c
-> > @@ -46,6 +46,9 @@ static inline void restore_state(const uint64_t *fpre=
-gs)
-> >                    : : "Q" (*fpregs), "r" (fpregs));
-> >   }
-> >
-> > +#if defined(CONFIG_CC_IS_CLANG)
-> > +__attribute__((target("fp-armv8")))
-> > +#endif
->
-> Based on Jan's comment, I am a bit puzzled why adding #ifdef is
-> sufficient. In fact, I do agree with Jan, my understanding of
-> target(...) is this will impact the ABI.
->
-> I haven't experienced any issue with the C side yet. But I know in the
-> Rust world (they also have an LLVM backend), they decided to prevent
-> enabling fp/neon [1] at the function level.
->
-> Did you find any documentation that would suggest this is safe?
->
-> Now regarding the issue you mentioned in v1:
->
->  > On top of those, `READ_SYSREG(FPSR)`, `READ_SYSREG(FPCR)`,
->  > `WRITE_SYSREG(v->arch.vfp.fpsr, FPSR)`and
->  > `WRITE_SYSREG(v->arch.vfp.fpcr, FPCR)` using FP.
->  > I think I cannot apply __attribute__ on statements.
->
-> Do you mean the compiler will complain that you are trying to access
-> FPCR/FPSR if you don't add the __atribute__ at the function level?
->
-> If so, what you could possibly do is either rewriting the functions in
-> assembly or open-code the "{WRITE, READ}_SYSREG()" and add a line
-> ".arch_extension fp".
-
-I couldn't find any documentation to suggest that it is safe. I will
-do what you and Jan suggested and use ".arch_extension fp".
-
-~Saman
-
->
-> Cheers,
->
-> [1] https://github.com/llvm/llvm-project/issues/110632
->
-> --
-> Julien Grall
->
 
