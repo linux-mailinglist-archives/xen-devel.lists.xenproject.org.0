@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE59BCB51DA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 09:36:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183674.1506288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5AC1CB54C9
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 10:04:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183694.1506300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTc9g-0005LB-24; Thu, 11 Dec 2025 08:36:08 +0000
+	id 1vTcav-0001PB-8Z; Thu, 11 Dec 2025 09:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183674.1506288; Thu, 11 Dec 2025 08:36:08 +0000
+Received: by outflank-mailman (output) from mailman id 1183694.1506300; Thu, 11 Dec 2025 09:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTc9f-0005Ic-Vk; Thu, 11 Dec 2025 08:36:07 +0000
-Received: by outflank-mailman (input) for mailman id 1183674;
- Thu, 11 Dec 2025 08:36:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vTcav-0001ML-5S; Thu, 11 Dec 2025 09:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 1183694;
+ Thu, 11 Dec 2025 09:04:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTc9e-0005IW-9T
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 08:36:06 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e75e10f-d66c-11f0-b15b-2bf370ae4941;
- Thu, 11 Dec 2025 09:36:04 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477b1cc8fb4so3838575e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 00:36:04 -0800 (PST)
+ id 1vTcat-0001MF-QM
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 09:04:15 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c2702ab-d670-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 10:04:12 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b38de7940so288930f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 01:04:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8a6fd62sm4583373f8f.10.2025.12.11.00.36.03
+ ffacd0b85a97d-42fa8b8a9b9sm4717107f8f.35.2025.12.11.01.04.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Dec 2025 00:36:03 -0800 (PST)
+ Thu, 11 Dec 2025 01:04:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e75e10f-d66c-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 5c2702ab-d670-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765442164; x=1766046964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765443851; x=1766048651; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bDtPUDKKMk4nFwEr5IHIcAO4aTBeiNvZxrTN7QzbzB4=;
-        b=YXhNOyhZHJfVGP63YZ0BRFkNfGgW0r1FOhDVoIU6ug6yOXL2sQ7hqDRaLjNnk95PaH
-         KE3MQFAto1LJCUpHEEQccyA/yhVwwpSo26igteuDlXive1XtDBdwV1IKIamg4gV0UGJW
-         b144QBd1HvGFpABi/q9WdCqsI330Hiy6zJj50a7iRfaxCbPqMdwsUkUDfHYXApxvxFEB
-         vIIp98ZWCTjhVWLcvY5/02SfSSZUEamu8B7bbfh8e5C5rYMbGJGXUiYKQ+fSj7IX50Em
-         c05JLDFxURhXBFvwNXko2z+EjnfnEYtgoEMc6opFTVS5bA+Q+ZnMQJ/LOVNUhrDSDhyn
-         9GBQ==
+        bh=5ktbatWojyLrk8e+iwdl3ql2qu08x44yls8JHisvP5I=;
+        b=TuHgt3cRbdUYVAund4ca12f33NdCHxyCaFrc9yDeki1pddptn/xI+vEz2B0LwPMkO8
+         8UyfjYVNuQsjtbcfq+tKx6xoiNWF9RaeoYW/bLr34aCY9ybdAVNPrJr386rGUmnzoPsL
+         MBNgzFHY/lOwUjaeupmvWGcM8Sv6ScY+G/hNwFpWyTyZ21/PmsLsDjysD4+ed2m7TUfX
+         EEX/Zk3+rGPI+4/lm5oejAgN31NFAsW6KLTB0KujCkc2oHKTqsgFp6ej5QQXqPwNfTBw
+         MqQMzplRCh8sVlRt0lMoTJ24nlkPWPGseq+6RiXXLidlEGvLrFkUWywjTzusw24UIHPL
+         8TYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765442164; x=1766046964;
+        d=1e100.net; s=20230601; t=1765443851; x=1766048651;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bDtPUDKKMk4nFwEr5IHIcAO4aTBeiNvZxrTN7QzbzB4=;
-        b=JK5/7pUGMFMqcBv4pd9slAH9M4hlBO5wyeFaEfzbR6IcHLmQyYiaBdH+pt8Mwyfhhg
-         ZRTCwW6K/yqy9BMzNbv5EwQxybsLRnJTJvLfY7G7BW0sD6m4EeBxJ3GXRdZj3lM2vCBR
-         pR9/HeAKaCEyBKPfHjwvWDCYelNRZXE7u0HVyT8QGJO6/z1ueBMgl1cFaBoMGzqy3a5D
-         KB1AmBc22V/yxzN8fskNgeIbgDujn4t0wKJ518xjrt0/9pgWnp5WuLXrEhwZ/n8txSzS
-         uJKKECxQI6Xwd5OhCieeHIyX6P89rpcBWPFRnaDuaOS4QYcDctdU9TCK3I57W/H54U7F
-         hWZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUzm0qrdpa6vW4Rzwas8y0dmC1d95ifko9xPMiQ+M5FAKhio0r0XtxTujABdfcoIbJta/N18RA3Xi0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoDlzWfnKGhEguLTjrSBS+tesYD6WX7X3H57KbaBVljb48rBzc
-	9jVNqjQS1D6vtilVC29V4Uw72kH+oT0cGnxjdMXwp79yn0qOYy5AAVqc4EmoPC267Q==
-X-Gm-Gg: AY/fxX7Aq0Z8qXOb38NAitgs6sekIDd2ioTvebSP3xJb22iq/24XABQX7Fn+G2CtR33
-	R3Ozn5WxodHcjrI/ec7TpKLt9vjekfDOnXXMHNUzLWVJGyxOGkmBpITowjIBEshGXMb6pVH6dNJ
-	cCK/NZt+qHKtTDOnqKz4HRO2PaosIg3QhBYjpxxjSxyceW8wSPNkeRtFcJUcvIzI78fK7urb+Rg
-	iHtu7wnghA0/47M4MBWne2a/LyuZB3bwoRAsUWKAdZD7PYD3Mie6em20MVBCDjk0JQni6mjTF2b
-	0sP8W538E9iZSJxB7KbN1EgtYm0fknPhxus8QKZkDPcF1J0Nzw5d0tyVczEp41TedHBNR+zEBmw
-	pWZ4L7CHVZHTq/rcQHnVH5jHTYSVGVS5hlAzn0972akYw6WMDDwgOjDH1jVc5NY/pd9ZQsgDn2X
-	BDR3RHPm14ifRdN91wic14qsFMDA0IT6JcY9BIElR5FsvasQyEObbZ1AWcTiHNQ0+oI6yl9f8Yi
-	v0=
-X-Google-Smtp-Source: AGHT+IH+J2vMvGfmMfwvQ3NNycFMFPkAMKrM7+frFdHNpodC+UaWuzUWz0q/0Du7wd64YFGW+KLhwA==
-X-Received: by 2002:a05:6000:40c8:b0:42b:3bc4:16dc with SMTP id ffacd0b85a97d-42fa39d2c8emr4601631f8f.21.1765442164166;
-        Thu, 11 Dec 2025 00:36:04 -0800 (PST)
-Message-ID: <5a4695fa-1520-4d52-adc3-72c159892e33@suse.com>
-Date: Thu, 11 Dec 2025 09:36:02 +0100
+        bh=5ktbatWojyLrk8e+iwdl3ql2qu08x44yls8JHisvP5I=;
+        b=QfApxB2gfDM8eq6G+bHEF2mGzJYSIWwkdlMXvX+HLHEPLL7keVdaVV0q02pKXr6tXt
+         bVzdDrb/9lNw2DW5e9PPZDC9Wc6XMOUQZ/X8znci72XL+3CKRNqZ4Ns71da345KxTIys
+         7eyBUt3bIoh07ARSysumgJKRS2LPqtxkPF7wzaac1+jiycZ4NBKFpcuO+AwdBP6uDwqm
+         X0o1QqX3SzMuWurCPMaiGnC84RF7Yr5l1dHRiqHa7olu220AtPwVaMkyjJ/Bnhru+Wx0
+         4dbMz2TsHRguMihDVVflxMos+rKQAau1f0feyD7TX0dmGPVWJ/koZOcIgDUUSYOHzZIr
+         wwDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUKhj0WuZArmp/tVot/GJo+0KHmiIqtCe1TABBpfrevlelYuR8V1LCXZdkqPOxLsd+e1jXbjNOtejc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxASxjXFvwiK7I99+LjgkQfWnwfWXZg9CWS+saunwmg/ZW8MDJn
+	sa7wJHcAHF7pgHXsdVpbA9049JUb6L1dMRmZPirsdZWC0v+gFxJCV0PounYmtVVJfg==
+X-Gm-Gg: AY/fxX7a5HevuzuLkaOhCqfNUYiVAcKOUsr0wwFz2auhqVpbF/LbjXPSkrQT+qIuR/B
+	PkP2vck2DSGu1WYc/+mgZNdBOPCZiTIX+yslAwC8VjtgDLc4JmCSZ0ruub98kpP5p5wLEWELdP+
+	I43ek4VdNICDzHdTLJvGlA5fxNx5ax3Y3kxJStPqcVyAO+ZD6hk2RL+qirnOHlG2+kVyBwLjotK
+	5zwtklwtdYlNwo2ugbzFPuNDKNjNVnvN2petLxp1h7tyoluLCYUP5kng/UlKDWKX5bq05PAeqks
+	tsPDE0CQ0c1QrG2l/qjXByMtM2DKN4wmbsJlhADT768X6J5MN7wMvvLddZRtC4FmDEZlT2XH0gz
+	VLJIVxPf8Xc2VH0fNK6b+TizOab+gcNhA3B8PSw3rtlJZByafGEt58yTveBtHgdC1osqWB524mF
+	w7ItHccKJY4WWSl6xuSt+gsymKv7iGjGTkisT71z7t0frkOcDLtXEvWh/yyeW9YDAFkKij2DyLZ
+	NY=
+X-Google-Smtp-Source: AGHT+IGCRZQRDdsmT3XgqI/7TDpuv+yUrvw+OrltmDEZoxbRuq8wetolDqrtiqnbxa9JtbQ+n/BWJQ==
+X-Received: by 2002:a05:6000:2405:b0:42b:3dbe:3a53 with SMTP id ffacd0b85a97d-42fa3b0fb04mr6047264f8f.40.1765443851390;
+        Thu, 11 Dec 2025 01:04:11 -0800 (PST)
+Message-ID: <73559a38-d5c2-4e04-a6d1-24695573552d@suse.com>
+Date: Thu, 11 Dec 2025 10:04:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] x86: Fix missing brackets in macros
+Subject: Re: Current Eclair analysis
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ xen-devel <xen-devel@lists.xenproject.org>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
- <20251210183019.2241560-6-andrew.cooper3@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <7744f9e7-17da-4f48-837d-8fc087899af5@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,58 +124,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251210183019.2241560-6-andrew.cooper3@citrix.com>
+In-Reply-To: <7744f9e7-17da-4f48-837d-8fc087899af5@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2025 19:30, Andrew Cooper wrote:
-> With the wider testing, some more violations have been spotted.  This
-> addresses violations of Rule 20.7 which requires macro parameters to be
-> bracketed.
+On 10.12.2025 19:14, Andrew Cooper wrote:
+> Overall, what I think we want is something more like this:
 > 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
->  xen/arch/x86/mm/shadow/multi.c     | 2 +-
->  xen/arch/x86/mm/shadow/private.h   | 6 +++---
->  xen/drivers/passthrough/vtd/dmar.h | 2 +-
->  xen/include/xen/kexec.h            | 4 ++--
->  4 files changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-> index 03be61e225c0..36ee6554b4c4 100644
-> --- a/xen/arch/x86/mm/shadow/multi.c
-> +++ b/xen/arch/x86/mm/shadow/multi.c
-> @@ -781,7 +781,7 @@ do {                                                                    \
->          (_sl1e) = _sp + _i;                                             \
->          if ( shadow_l1e_get_flags(*(_sl1e)) & _PAGE_PRESENT )           \
->              {_code}                                                     \
-> -        if ( _done ) break;                                             \
-> +        if ( (_done) ) break;                                           \
+> Jobs named as *-all and *-amd.  After all, it's AMD's safety target
+> specifically, not necessarily someone elses.
 
-I don't understand this: There are parentheses already from if() itself.
++1
 
-> --- a/xen/arch/x86/mm/shadow/private.h
-> +++ b/xen/arch/x86/mm/shadow/private.h
-> @@ -636,9 +636,9 @@ prev_pinned_shadow(struct page_info *page,
->  }
->  
->  #define foreach_pinned_shadow(dom, pos, tmp)                    \
-> -    for ( pos = prev_pinned_shadow(NULL, (dom));                \
-> -          pos ? (tmp = prev_pinned_shadow(pos, (dom)), 1) : 0;  \
-> -          pos = tmp )
-> +    for ( (pos) = prev_pinned_shadow(NULL, dom);                \
-> +          (pos) ? (tmp = prev_pinned_shadow(pos, dom), 1) : 0;  \
-> +          (pos) = tmp )
+> The *-all targets want everything possible enabling. Ideally we want
+> something like Linux's COMPILE_TEST, but in the short term we can just
+> adjust the input Kconfig.
 
-What about tmp (twice)?
+Assuming the PV_SHIM_EXCLUSIVE negative dependencies get sorted, what's
+wrong with simply using allyesconfig there?
+
+> Like we had with the common configuration and the per-arch
+> configuration, I think we want to express the clean rules as common,
+> with a wider (a.k.a stricter) set used for the *-amd target.
+
++1
 
 Jan
 
