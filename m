@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5FCCB5058
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 08:52:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1183604.1506239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F500CB5174
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Dec 2025 09:21:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1183633.1506248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbSd-0005OC-JR; Thu, 11 Dec 2025 07:51:39 +0000
+	id 1vTbun-0001qe-1b; Thu, 11 Dec 2025 08:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1183604.1506239; Thu, 11 Dec 2025 07:51:39 +0000
+Received: by outflank-mailman (output) from mailman id 1183633.1506248; Thu, 11 Dec 2025 08:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTbSd-0005MM-GD; Thu, 11 Dec 2025 07:51:39 +0000
-Received: by outflank-mailman (input) for mailman id 1183604;
- Thu, 11 Dec 2025 07:51:38 +0000
+	id 1vTbum-0001pD-VA; Thu, 11 Dec 2025 08:20:44 +0000
+Received: by outflank-mailman (input) for mailman id 1183633;
+ Thu, 11 Dec 2025 08:20:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+yrZ=6R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vTbSc-0005MG-Bd
- for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 07:51:38 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1vTbul-0001p7-Gp
+ for xen-devel@lists.xenproject.org; Thu, 11 Dec 2025 08:20:43 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37b0a17a-d666-11f0-9cce-f158ae23cfc8;
- Thu, 11 Dec 2025 08:51:35 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-42f9ed40b8fso268159f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Dec 2025 23:51:35 -0800 (PST)
+ id 47e25011-d66a-11f0-9cce-f158ae23cfc8;
+ Thu, 11 Dec 2025 09:20:41 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47796a837c7so4884645e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Dec 2025 00:20:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8b85d1esm3887430f8f.26.2025.12.10.23.51.34
+ 5b1f17b1804b1-47a89f74291sm20421535e9.11.2025.12.11.00.20.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Dec 2025 23:51:35 -0800 (PST)
+ Thu, 11 Dec 2025 00:20:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37b0a17a-d666-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 47e25011-d66a-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765439495; x=1766044295; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765441240; x=1766046040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zD9AKYovvfVOsnkYxku+GEY0D2V91PqdigXEXM1V5W4=;
-        b=N6hzFu2naweI0+fWhc4dzvI53/4i+E2Uhr1fBO92GLP9mMvGCiAACrY5EAQM7k3qrF
-         IexTxxvdSH9oGZNnKbS3xBpkhFc8cZ44A2rUl9RkbGQQ9LQb9loWuy9xBTU5GftsJpoY
-         Pr6amU6n7lVt1LObnj5HV9RPiMTBHWTdDUiuDsgpGoWHICHjEhVbqO73g2OlIjYVqX9v
-         POYFCKLuoNlZyFYMRiY12a6SXAKHWW2SKKieR/v531yIDDIGT3Ad3oNNQpsliyXdM1h1
-         uvKWZpuk/z7hQi+V9775PczQMMIsdOtFI/dZTOhqtLVKUG3D2EKWWN0288G37QJcxEN8
-         6HKA==
+        bh=199tdwz7sf7JJNa5p7Oom8elNhVDlkcvMlfTdUa4kEc=;
+        b=M7MQnjX/amoDdyT7tyzu2UQ/AzQbEaXwXlxsj4Dh5BWc87bD9BtME9e+e5LraEIEKN
+         DTK7ILiiMkDYjusE8vWDb/Dqdn0m0BCeMBkP3foxFB0FsovDUEZ7Qxgks2D8c+SLXEUs
+         biJ7BA9VD1rVdnDWcmXSV+N3lR+W/sBPkhu4o0iu0LuUfEhN+6xjOAAv+I1HBk+ALzJM
+         Py8lXHpj4J6q723EAVTVxwUVQFcTiriwYmBqd1tKz/Mud9oDyaW9rI9fMJdgcwMS6olT
+         1V5EiR/J2Mjt93G7enep6QOySkQrgwC6lu2E7pdieAE4+sTkXontZHuednuXlhKh7GVI
+         eaVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765439495; x=1766044295;
+        d=1e100.net; s=20230601; t=1765441240; x=1766046040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zD9AKYovvfVOsnkYxku+GEY0D2V91PqdigXEXM1V5W4=;
-        b=DKDly5ENwzLpfOOocbjqvjB9yiYNCBB9btj3mMOoik/9jA80IV6/K1JKOskBEFgoJD
-         M8/1V8AV+OwXy80mcqYL6ervxbQZgYCRhCqapWVQYiFJEFlTsBmkC/HGbMz800DhvgsZ
-         ZOtWCYVQAXy2d3Jajsx0mDMw0/m4/2I3dOV+uxFQoU+UbvChOwmL0GnT2O5LqgH/DF5t
-         KmhhoH/48d5C+L/zoE0OOZ67kciQirZo+p1sYgGiwdMZSeeWexV/zZsa2UDDwR4uloYv
-         cvEQzAuUb1uqMaLWQIXOXiuMxyNROgs+yVqHKs+b1jRzm/zG/OEyhX1ghJIziPnZgWzE
-         9HBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWrVPKfgGs9l9BW890Bg/4bWUfUcnqxFjYMZS/zahT61wiomljWj+2+LC862wHjWCX7soIq0fUnXkA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4ay2DKZrYd9bOroY0SpUoeDVjl+fHfiySnoanEgv6kACJEkim
-	acFcRzDu64mZ4lrJIR7fJZnYCw70e9oP7UHd/HT/8GzA6vPkauWtCldFO0L5VylyMA==
-X-Gm-Gg: AY/fxX7FjkIW7479Ncg4hbJxeL6GlsEKsehtqa/vM4fREI7hxEFFchYSzamVK5Q7oRz
-	/KbUk3bqzpsSOPSgCvkgTL/2t9Kbz0vVPMMTr59xW3UB0k8GNb+XRFSewb88nmUQMsQt19bb0wu
-	dgBhHZLk+2ux5Nc7oU2L9bEyNwv9E/1whex/Ksv+n0aomXOCqMjojJoWKGTfHoXSbUmF8B22S/Z
-	iJpQBSYiebczAj1WGNfKkM8hL7k2wOKYLMXzQolFqOYyyGEEQhD8pkUIUsSq62DGZYJXDXv7f5L
-	XT57ZZCiyyMu+jFlUcMmXAeHm0+xaIHx1fw4nJlqwkNdzPJ9+3TwrnI/HCExi/jWr03VipMc0zt
-	5ugP4LLXjlx7Z80E5YjLVFCcU50f6Z+tyojE5HMcai8EvWpg9S8TOecfqJRktlU+N6J5yaKF4bS
-	NL+Cdnk479Llkd+YARUY6b7wB/pqyoqOz43zx5LHzcKyhjzwwYskdh9L7ex1/xQAr8iRPGelSvr
-	LG6JkJFY0M1qA==
-X-Google-Smtp-Source: AGHT+IEchYXYx3e6nGbAC3jj8c77XQfR2s7OpXKpLYkv59YCrIz9FxgqTDBeBDWsxLoJvDN+JsDdLQ==
-X-Received: by 2002:a05:6000:2210:b0:42b:4061:2416 with SMTP id ffacd0b85a97d-42fa3b19914mr5593014f8f.52.1765439495317;
-        Wed, 10 Dec 2025 23:51:35 -0800 (PST)
-Message-ID: <43ba31c7-a180-4e03-90e2-e80a9b551d30@suse.com>
-Date: Thu, 11 Dec 2025 08:51:33 +0100
+        bh=199tdwz7sf7JJNa5p7Oom8elNhVDlkcvMlfTdUa4kEc=;
+        b=J5kBJBt8zdUJrCGIUnTKpA2BuI0VTlX5wQF3tfHKOhLcy66Xks9YzjFSKhUHPPUPa1
+         T9Db+3j2gtqIoQgi11g9SByxEoBrFZTbavCIO7Ca08aZx9QJko0vdPy3B7RmXGtTFWph
+         E0MgeqDy7J5jqGanIbTtVGtUrOCTu/dJIzeu3x/AYs1ECZ66ztdEhWVPpU8i829xkbM5
+         l2ZGx3K+vPj1ZNJbSipyvJvsGkodNM/yXOjenue89MOpOgltuVMevVisjtKSQ4seb1bc
+         xNr8JQCoZ75m1Adc13bNgnAEzS73hekZUfSynazyq98qH0TCH+F8EpyagZ2+rovJlyVy
+         /UFw==
+X-Forwarded-Encrypted: i=1; AJvYcCVB5eVuJiyo7vh0aQPWgkHtR8+BqgxTdl+QhZlpSVxxj8WRtuJqNBpsMGwVQB7rDY++QlrRgcGUK4c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznQ7ZCclRRGiEc5BXtROvnzdiVdj8sXMR8aMrfxhziCvGzbuVK
+	nFPGe8q2daOqeXOKECw/7GU/uBqTVAPwHjIkyMMYiBLSMnzzYM8bRT+7tgKzEsSHDQ==
+X-Gm-Gg: AY/fxX7ORpYLBcs61bEupF2KRj6ozVZvjNLN42/GSespjqhwEvvKV1hADyB7tR2N6k4
+	S+ALNPwhXmzPbgIt0xMSgOlI9O8MkvjYVcEj5nQzpZALBCNHUozfIrrLsBwcLzENn5q4YkL4U7V
+	OgL1FWCcCiqcjvWnfNu8LKHv/NFQ6qspt/Su1AoTQm62Fkq/Re0XMoyPtHSJBSxBvpJf/qgYjC3
+	F1szwKwAd1TboJBQl9UDhkKvE0nA99FyoY+I5woTZOo0NpVZdves1B4gA9T7bIoTLJaSsqguPOM
+	iFUu1psMfCw2O+/sPOn7caoh95PPz458cUngve9dGk1Sz1Mm2gztwBFYUqB2NbXHtLvL8IBjN0s
+	gE8jiFbbfCOjpIZMYCrBHo8sKJcEq3DP1AqBe62LwDIPaieidCDoomBN/ExT3LF6JSr5FT2a9uH
+	qjTPyPl5NQ7yEvTAcZQZ71in+lXEVRBRd+SJqaQ8DOV5DrpzrObb30yuDkFO8gCYz6awGcwduqf
+	+zge8nnM/Ovcg==
+X-Google-Smtp-Source: AGHT+IHXVwBp1NRR+fgRyAdxAhAveZwTAo4jwG2ekFJ6zyCdN/9UIO2Xo2hKZNExS62NbkuWDcbBrg==
+X-Received: by 2002:a05:600c:190f:b0:47a:8154:33e3 with SMTP id 5b1f17b1804b1-47a83810f33mr50819525e9.28.1765441240270;
+        Thu, 11 Dec 2025 00:20:40 -0800 (PST)
+Message-ID: <d40dc64e-cf8e-4bf7-9d04-1dcfe4c6abea@suse.com>
+Date: Thu, 11 Dec 2025 09:20:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] x86/cpufreq: use host CPU policy in HWP driver
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f0ac75c8-5d65-43ef-aeeb-78d34f1da470@suse.com>
- <bacee005-8ba3-468e-8de4-681af1cc4856@suse.com>
- <ad7daa54-0529-4e14-9eff-32d42a24f9e3@citrix.com>
+Subject: Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Victor Lira <victorm.lira@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20251209214728.278949-1-jason.andryuk@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com>
+ <a734eeb0-c3f2-4880-86ee-7eeeb7beeacf@suse.com>
+ <974c3c29-8f58-46fd-9ffd-4c574525f66c@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,66 +134,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ad7daa54-0529-4e14-9eff-32d42a24f9e3@citrix.com>
+In-Reply-To: <974c3c29-8f58-46fd-9ffd-4c574525f66c@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2025 15:11, Andrew Cooper wrote:
->> --- a/xen/arch/x86/include/asm/cpufeature.h
->> +++ b/xen/arch/x86/include/asm/cpufeature.h
->> @@ -115,14 +115,6 @@ static inline bool boot_cpu_has(unsigned
->>  }
->>  
->>  #define CPUID_PM_LEAF                                6
->> -#define CPUID6_EAX_HWP                               BIT(7, U)
->> -#define CPUID6_EAX_HWP_NOTIFICATION                  BIT(8, U)
->> -#define CPUID6_EAX_HWP_ACTIVITY_WINDOW               BIT(9, U)
->> -#define CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE BIT(10, U)
->> -#define CPUID6_EAX_HWP_PACKAGE_LEVEL_REQUEST         BIT(11, U)
->> -#define CPUID6_EAX_HDC                               BIT(13, U)
->> -#define CPUID6_EAX_HWP_PECI                          BIT(16, U)
->> -#define CPUID6_EAX_HW_FEEDBACK                       BIT(19, U)
->>  
->>  /* CPUID level 0x00000001.edx */
->>  #define cpu_has_fpu             1
->> @@ -179,6 +171,14 @@ static inline bool boot_cpu_has(unsigned
->>  /* CPUID level 0x00000006.eax */
->>  #define cpu_has_turbo           host_cpu_policy.basic.turbo
->>  #define cpu_has_arat            host_cpu_policy.basic.arat
->> +#define cpu_has_hwp             host_cpu_policy.basic.hwp
->> +#define cpu_has_hwp_notification host_cpu_policy.basic.hwp_notification
->> +#define cpu_has_hwp_activity_window host_cpu_policy.basic.hwp_activity_window
->> +#define cpu_has_hwp_epp        host_cpu_policy.basic.hwp_epp
->> +#define cpu_has_hwp_plr        host_cpu_policy.basic.hwp_plr
->> +#define cpu_has_hdc            host_cpu_policy.basic.hdc
->> +#define cpu_has_hwp_peci       host_cpu_policy.basic.hwp_peci
->> +#define cpu_has_hw_feedback    host_cpu_policy.basic.hw_feedback
+On 10.12.2025 17:57, Jason Andryuk wrote:
+> On 2025-12-10 03:17, Jan Beulich wrote:
+>> On 09.12.2025 22:47, Jason Andryuk wrote:
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -680,4 +680,13 @@ config PM_STATS
+>>>   	  Enable collection of performance management statistics to aid in
+>>>   	  analyzing and tuning power/performance characteristics of the system
+>>>   
+>>> +config GC_SECTIONS
+>>> +	bool "Garbage Collect Sections"
+>>> +	select CC_SPLIT_SECTIONS
+>>> +	help
+>>> +	  During final linking, garbage collect unused sections.  This will
+>>> +	  reduce the size of the final Xen binary
+>>> +
+>>> +	  Only supported for ELF/Multiboot xen/xen.gz, not EFI xen.efi.
+>>
+>> This last sentence is x86-centric, which it shouldn't be here (or it should
+>> say that this is an x86-only aspect).
+>>
+>> I also wonder whether this wouldn't better live next to CC_SPLIT_SECTIONS.
 > 
-> The indentation of these final 5 is one-too-few spaces.
+> If I put it immediately after CC_SPLIT_SECTIONS, menuconfig puts it as a 
+> top level option:
 > 
-> I can't help but feel that notification could be shortened to notify. 
-> Except upon looking in the SDM, it's named HWP_INTERRUPT because it
-> enumerates MSR_HWP_INTERRUPT.
+> │ │    [*] Garbage Collect Sections
+> │ │        Architecture Features  --->
+> │ │        Common Features  --->
 > 
-> Similarly, HWP_PLR is really HWP_REQUEST_PKG because it enumerates
-> MSR_HWP_REQUEST_PKG.
-> 
-> ACTIVITY_WINDOW and EPP are wonky because they're out of order WRT
-> PLR/REQUEST_PKG.  It clearly means they all came in together, but have
-> SKU controls.
-> 
-> But I digress.  ACTIVITY_WINDOW can probably be shortened to just
-> WINDOW, and that fixes the two egregiously long ones.
+> I thought Common Features was a better place for it.
 
-To be honest, I see only one of two options: Either we stick to what we had
-settled on when the HWP driver went in (switching to acronyms where helpful),
-or we strictly follow the SDM. In the latter case I think I will need to
-split this patch, for every of the renames to be separate (to be easier to
-verify). And the naming decisions then want applying in patch 1 as well.
+Oh, right. I didn't recall CC_SPLIT_SECTIONS wouldn't even have a prompt. I
+wonder if it shouldn't gain one, move somewhere here, and then this new
+option could be placed next to it.
 
-Unless I hear otherwise (soon), I'll go the "strictly per SDM" route. Still,
-the union-or-not question in patch 1 also needs sorting, so I'm dependent
-anyway upon you replying in a somewhat timely manner.
+> Also, I think it should probably gain " if EXPERT" as well.
+
+Not sure there. If this works reliably, I don't see why it would take an
+expert to enable. Eventually, after all, this may want to be the default.
 
 Jan
 
