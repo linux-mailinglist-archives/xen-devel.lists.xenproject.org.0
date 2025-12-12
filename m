@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB214CB91BD
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 16:26:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1185488.1507605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD17ACB9297
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 16:39:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1185501.1507616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vU51I-0001w8-1v; Fri, 12 Dec 2025 15:25:24 +0000
+	id 1vU5F2-00040I-Dg; Fri, 12 Dec 2025 15:39:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1185488.1507605; Fri, 12 Dec 2025 15:25:24 +0000
+Received: by outflank-mailman (output) from mailman id 1185501.1507616; Fri, 12 Dec 2025 15:39:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vU51H-0001ug-VI; Fri, 12 Dec 2025 15:25:23 +0000
-Received: by outflank-mailman (input) for mailman id 1185488;
- Fri, 12 Dec 2025 15:25:22 +0000
+	id 1vU5F2-0003xB-Ao; Fri, 12 Dec 2025 15:39:36 +0000
+Received: by outflank-mailman (input) for mailman id 1185501;
+ Fri, 12 Dec 2025 15:39:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JhEj=6S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vU51G-0001ua-J1
- for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 15:25:22 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ <SRS0=aL34=6S=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vU5F1-0003x5-CI
+ for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 15:39:35 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c49cd990-d76e-11f0-9cce-f158ae23cfc8;
- Fri, 12 Dec 2025 16:25:20 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-6418738efa0so2629306a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 12 Dec 2025 07:25:19 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64982040e2bsm5517984a12.6.2025.12.12.07.25.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Dec 2025 07:25:18 -0800 (PST)
+ id bea2a205-d770-11f0-9cce-f158ae23cfc8;
+ Fri, 12 Dec 2025 16:39:29 +0100 (CET)
+Received: from DM6PR07CA0102.namprd07.prod.outlook.com (2603:10b6:5:337::35)
+ by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.11; Fri, 12 Dec
+ 2025 15:39:22 +0000
+Received: from DS1PEPF00017098.namprd05.prod.outlook.com
+ (2603:10b6:5:337:cafe::20) by DM6PR07CA0102.outlook.office365.com
+ (2603:10b6:5:337::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.10 via Frontend Transport; Fri,
+ 12 Dec 2025 15:39:02 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017098.mail.protection.outlook.com (10.167.18.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Fri, 12 Dec 2025 15:39:22 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 12 Dec
+ 2025 09:39:21 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 12 Dec
+ 2025 09:39:21 -0600
+Received: from [172.30.226.132] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 12 Dec 2025 07:39:20 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +63,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c49cd990-d76e-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765553119; x=1766157919; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qsx71SfY8ENXmCY+aS8orXuS6MifDjwJC6JXAXxzUfg=;
-        b=Ofqz/ZPaa8rrYbU4foK5Kld2Ex5zQcgpfVeRrygfPm8hCpTN3XxpfKNHs4QDon+kN+
-         sDxzJbQQ0kUrnb06zqHCPhzQEU8G7Zj2aM10rZ5xITePJOhMxubnOAqIApxInwMJGKCx
-         fluIe4gXeH4aIOw8LlBQoHf3mJSAXtUFfCO6osOUz2lvTgVKOv+wfYx4K7uL+x+FNIOL
-         ta09JWl6xZif+CI1vx0jVkCdYWjrwVYVZXqqlWd03XpyIWPuvjLNwUasZRyKPpg5KXr+
-         kAj4ac2tGAfHR/O0Se+autlbXCDIvBhtTyjfYD/cZ4LlUbgPNPPcYDTCO18LbvXmsLGJ
-         LUKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765553119; x=1766157919;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qsx71SfY8ENXmCY+aS8orXuS6MifDjwJC6JXAXxzUfg=;
-        b=jCqFLTZF7qBL5NtqsYfbtghTgZ/4YuhsgHp89Ej4Rkw0rqymII78ysXD6SxlRh+y2c
-         Fz1Fxb1ZQNHm7H4a7zf69WWvBYjxjO7t4vYWixpKjhPTwnd3k5qXNaAY0b6J4TsPW8V5
-         9MVCUJBBSgMVFtoAOiu1/bQg+FOLY9dFDkNklAuBvW6mGKZY/xkP8pD4oglfKx4lLL93
-         bHYNAEqzz6/KJtUYTmIhXq/+iQUgGo4qWa6MuiGNu3IGKSrMeKvSAy+xCM2ogHf8naNw
-         vdZHqpfOZi/foyH9YfHdQpTpCVITG2tFZEVbrYF04O5ymeNkPH6IT+yYfFFyb0iZsHRC
-         QSmg==
-X-Forwarded-Encrypted: i=1; AJvYcCVmyqh5MPpGGIjREvzmG2XP84B04DWBiApMi5+M28SsScUmZQMRQN5xhAVVmhexZeRqaMCZoquC0ek=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMXDOaiyWHFlOrBL+47fVj9xsBvSQk4TVsE8KxZOyh6fAoAfE5
-	wlC+XfGaiCGyCL859NDR6zpiLaTsW8mrUmNTfFVOpjnUVYe3FL4/bpZg
-X-Gm-Gg: AY/fxX78Pj85eMXcTATb5fsJCBsXSOyYBORVfV/6nBsw795rmUGJ4qxRPLGfxbYk1di
-	Dyg6jMjaq6ulHO5YIiZ1CG0e0q4I78thTuIYdH4rY4RFKG3LofWKNaO8Z7rl3lrbmof2C0o+q2H
-	XLWsgAudoL9o2RxQd1odQv57XcfFgqtj9aALH4tVGgcVIuVJs/3fqooAoAg0bQ54NfStT45PVEe
-	9CKM4BvBhmebpZCBHwX2f5SfPOGUf8xRWmrLVCIvl2kCpZ/mFs3TdA67Wa1f5A3VluMHxkmgW6q
-	FJaMMX+UJvI9lg3xDikljVw0bj4YNB+x/E+qNvNuRsnhRU8RNe94ufmhVovJeDw58T/4pOASuRe
-	QWbaIJKNwMo9yR5/9oIyNfaSyI3K50OIc/nslkAo4t91OXzBF81wkZ4ddzrHunj5Lq3CWijzzFq
-	yq0sgljbt7bqDPyk2V7ynGHQNgc0aIyoWJ5vPrvOwDnsk7JCj0t3LhCUqRZezg
-X-Google-Smtp-Source: AGHT+IGp2DjCLvtutjD4U7N8WcKeRA8y6iGg1Yzc39Atqf8sU3QphKZmY0xKmSCu6+K5otLdCdNjPQ==
-X-Received: by 2002:a17:907:608d:b0:b77:1d75:8b78 with SMTP id a640c23a62f3a-b7d23cb3a2fmr259807166b.53.1765553118314;
-        Fri, 12 Dec 2025 07:25:18 -0800 (PST)
-Message-ID: <5154e129-675b-4027-b97f-257559c7ea50@gmail.com>
-Date: Fri, 12 Dec 2025 16:25:16 +0100
+X-Inumbo-ID: bea2a205-d770-11f0-9cce-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Is5GG6cH/9n+QESLq/HPDUgA4kB1XvF2cLtbEF67vE0zxK75DwOvvjV1gNanlP+WCYBYBup5M5a56cqqWLJ2DV9KPIw85rujaWTNQZh9R7K9VGAHxF0wMU7JKesPyQsGw2dXrOu6IYWeKtqc8Lwbp0edmJJ7+9pjTdkla+xk544jX9/MVNMFRXGH6G2lRpIVw10OFHXt5WpRKGFPn2/mSk3weeQ0EAI1Tlapw3Ului7yXtiZ+mPzJVSapnDiqLfr3F2JpZqFS1rUnpCi9RiWXk1RQ//995FA4Y/7S4McOvV0NSKRklrs7Ikx9msqsmbHe8ZklU1/QbN5plpwWYfIGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=saytSzNsWVJpn/J2fhxZt8d5gzmsd3ZyUq/odixdtog=;
+ b=TeJVpYFPXL6skHpXvMCic+IH9rMR82yPXyOXIRlynW1txknkBUTU7La+xQv9xig55D2GAiQXdn/6GbcA4jVRmA5Rgu4WVEUzQNz2pIUbrwFfdTqLn/GNoNsbs+4Ndwwy7zlYKgThgR8OvpifSrsj6iuGbRdjSckXMVTq7kB4df3gKQw983roR4/C6ZszPyS0bS+U7STewMg1qhiWk5EqOV7UGZW3ru3PrPns8vLuqoVnGH6uW/UL0RDcmrP/di+9fo3vZjzhb0fftZxgnqXMcd95Z6qJ0UOR4bdorAwbCBq7s0VCt7sr10g15dsyYvXKNpO3qB6TLtCkUtPuQfdDvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=saytSzNsWVJpn/J2fhxZt8d5gzmsd3ZyUq/odixdtog=;
+ b=Wme9MgnAom2h4+WHWY2FYdAAshOWSl5o+clipUC/JIKc4FnCcaV8phd/gl+QilM0LByDOgaEsQwlhaFdifAmmCth/En8RMpkYjBobMINjDYTyslBrHRs+E8p/b3O6OjPJGlVdSebAvclKFu3Ng8PUn9xJtNh2r9FkBssYCzZCsE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <bf2d3cfd-373e-4ef5-9734-91f911d988cb@amd.com>
+Date: Fri, 12 Dec 2025 10:39:20 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1764582112.git.oleksii.kurochko@gmail.com>
- <d17dcac47752681eed6703360389dd542433ab3e.1764582112.git.oleksii.kurochko@gmail.com>
- <275721bc-07c2-4f69-93c2-e6d3022fee4f@suse.com>
+Subject: Re: KEEP Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Victor Lira <victorm.lira@amd.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Timothy Pearson
+	<tpearson@raptorengineering.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
+ Davis" <connojdavis@gmail.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20251209214728.278949-1-jason.andryuk@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com>
+ <ed620cd5-9630-4987-bd5c-9f69ae2c2609@citrix.com>
+ <43d30e02-f818-4cf2-98c9-4182a2f65f64@amd.com>
+ <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <275721bc-07c2-4f69-93c2-e6d3022fee4f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|IA1PR12MB8191:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53ebdecb-db70-405f-8747-08de39949f51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?S0p6bEErS253UUNkY202UTlKQWp2dG1hOE1XaTQ4YWJlcWtFcWVyYWZKSkFO?=
+ =?utf-8?B?RFZJUHprbmhjeXQyNTBHaFBTWHlGVERVS3NVK3JPSXFrbGF3OC92ODVSVTc0?=
+ =?utf-8?B?N1h2RjBDc2gvVllrN3R4b3MvWVd1RTEycEJ5eWN5Z1d1L0VlK2Q2ZFhjRXFK?=
+ =?utf-8?B?em9JbElSS0IxVG9LNElScC9CbkJuMnJJVEllVUl2VEtxeGxaNmJJdG1rTWp2?=
+ =?utf-8?B?cE50amVtTVRMZGEzZVV2Z09YRktBK2dCbTdoaXlYNHNYYmswMWZITHlxZ05Q?=
+ =?utf-8?B?bFBOdDRiZ0RpMlBucmtMK202eHVSOVQ2YkQrUTdMOUtYVE8zVTBRNld3N3lT?=
+ =?utf-8?B?LzZoQzNMSmVzL3l6NU91YUc3cGs4N3gxNlAxMGlpSENBWjVNcmNOOHVLd2dL?=
+ =?utf-8?B?RDlZbHRacldmSEJIU2ROeGF3VE1uakx6a1ZjM1AvSklOMXN3VVVoZmVOUGlY?=
+ =?utf-8?B?TnRpN1RsYVR6M2FnUDgxRTlHUGdVMWM1c2g2aG10VDlyYXRXekYrL3lCVkds?=
+ =?utf-8?B?aEJpdldQRmVQbTc3KzN3eno0dzN6aUY2RTA2cU10b2loMDNNYUlJVzRROGxj?=
+ =?utf-8?B?VlBlNXpTbUQ2dnowME1rMGNSRXVHVnJGY3lmNHorYm1ObHVJY25XRHdNNU13?=
+ =?utf-8?B?Z1VoZGtidlM3VzRqd0tWVWZYd1dJZks5VDd1c3ljWUVCam5qY29DSnpFQ0lx?=
+ =?utf-8?B?NDdNQ1JNaHhqeUpvdEhDZ0EyWjZKT0pUS0JYRnVpWVFHWW4wN1VWS3R6VXFT?=
+ =?utf-8?B?UXFKZkhZN1lGZVUrUm8ycTVBSUxLMFJLTkxoaGxjR2NIWnlBVEZjL1ZYOXJi?=
+ =?utf-8?B?S2lHaXA2YjkrZkRMWllGVzUzR1RyU0tBZmFxMENaWGsvcWNnSXlUa285NVNQ?=
+ =?utf-8?B?Zjl1NXFjcTF1YkI4Zm5udmJTWjNBdy9aaTQrVThyQ2liZ1dpeDBYSTFhMEUx?=
+ =?utf-8?B?MDlaM3VlNkdKZHpXeUFtbnYxSmhrWFloL0dBaWtMZFlPNkZOZ3JPL3dxNmp6?=
+ =?utf-8?B?UnlIb0xVOW83VVI1SlphS1hGekRXSHhTcXAwQlVNakZ0azdMV3Z2a1hvVmla?=
+ =?utf-8?B?UnFOUVVTUmZreFZ0SzNBK29MVzcvUUdacFQyZDZObEtFNlRaUXkzRklHd1VL?=
+ =?utf-8?B?RmtPR2IxOTFBcjM1WUFiVHJ2YzBUKzBZZktaUlpMb3ZPeDJHczZob25nRzFu?=
+ =?utf-8?B?VmpnOWsrWGJRM1FwN2w1TkdOTlRSOHFRNyszc0FJSE9FMDlUVGxwelpMYS9G?=
+ =?utf-8?B?MU1Pa2JNSDBuZldDamFGUzdOeFlMVmVhVHVkdG56ZVJyNjIvNXZiZUtpUDBi?=
+ =?utf-8?B?QkNMZWhkWDRKcSsxTFRHc25uR29MUzRFNE55cW1USVkwbXNTYUdiZExvL01L?=
+ =?utf-8?B?WTlrNE9xYmh3bzlVYysxL2FEZ0wyVy9iNWcwc0V3UlRtMVZCUGhqV0tqZ216?=
+ =?utf-8?B?NmZIWTJQZGpLb0V6enVhVXRPeEF4T2pZVkRNRit3QjRIYm9UNXg4STBjTnI2?=
+ =?utf-8?B?QUpqV2ZObUFIMGR3ZENDQ01OSEFyU0JLNENmWDZzc3hkMmVHSWgyS2o3SWNu?=
+ =?utf-8?B?cDRCeVNZWkY4Nmh6eFVpM0Z0ci93RlpESEFjYnBBaXVYbk5PMURTOVVQRXVn?=
+ =?utf-8?B?YTBXNnJVVmtNWEVFT2sraGNEcWhVbDhtTmZoQ0g4QWczSDcyQkt4Vm1CWTg1?=
+ =?utf-8?B?ckJqd0tMdS82eVhsWWw4eVZXb202dFZBVkpucFNGdnQxeHlpZ3Y0N1BOS1hT?=
+ =?utf-8?B?cWVXUE84N2F5MEZDbXNhcGxlcm5qY0NIekhXZTZDaThlMGNnMXFZL1FnU3Uv?=
+ =?utf-8?B?anNpd0JydldTOXROMkFIa3JjZnVtNDNCeUlaL2xOUGxNcFg2bXEzVE5MNGoz?=
+ =?utf-8?B?dEJRWUp1SHAxd3VCdEkrenc4VVRQTUpmVGdKMzF2SGxBL1BBUlJLK3dyVXFP?=
+ =?utf-8?B?ZUcvSEV1eFdpbzVVQjVEa0xmeVVCQXUzY0lNblFnTGRRbTNLRVlSNnJ0TWF6?=
+ =?utf-8?B?bmptSXpXNFBzVXJDOUI4bTRqVUI1dWRDK0N5eGVPRnJQYVdrc2NuT3htQUJE?=
+ =?utf-8?B?Q2lPek9ud0hMaWZnRFFESnpDaEdKK2FzeTVZWU8ycko0ZjhxbXNzbE1VTWIx?=
+ =?utf-8?Q?9Kb0=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 15:39:22.3302
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53ebdecb-db70-405f-8747-08de39949f51
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017098.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
 
+On 2025-12-10 21:47, Andrew Cooper wrote:
+> On 11/12/2025 1:28 am, Jason Andryuk wrote:
 
-On 12/8/25 4:15 PM, Jan Beulich wrote:
-> On 01.12.2025 11:24, Oleksii Kurochko wrote:
->> --- /dev/null
->> +++ b/xen/arch/riscv/vsbi/vsbi-base-extension.c
->> @@ -0,0 +1,52 @@
->> +
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/lib.h>
->> +#include <xen/sched.h>
->> +
->> +#include <asm/processor.h>
->> +#include <asm/sbi.h>
->> +#include <asm/vsbi.h>
->> +
->> +extern unsigned long __ro_after_init sbi_spec_version;
->> +extern long __ro_after_init sbi_fw_id;
->> +extern long __ro_after_init sbi_fw_version;
->> +
->> +static int vsbi_base_ecall_handler(struct vcpu *vcpu, unsigned long eid,
->> +                                   unsigned long fid,
->> +                                   struct cpu_user_regs *regs)
->> +{
->> +    int ret = 0;
->> +    struct sbiret sbi_ret;
->> +
->> +    switch ( fid ) {
->> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
->> +        regs->a1 = sbi_spec_version;
-> Wouldn't this need to be the minimum of what firmware supports and what Xen
-> supports / knows about? (Assuming backward compatibility among the spec
-> versions of course.)
+>> +        "567:\n"                                                      \
 
-The base extension is mandatory (according to the spec), and based on some Linux
-commits from contributors to the OpenSBI spec, it is also intended to allow
-backward compatibility and probing of future extensions (although I was not able
-to find this explicitly stated in the spec).
+> which also avoids the timebomb of using blind numbers and hoping for no
+> collision.
 
-However, none of this guarantees that everything else is backward compatible.
-For example, the entire v0.1 SBI has been moved to the legacy extension, which
-is now an optional extension. This is technically a backwards-incompatible
-change because the legacy extension is optional, and v0.1 of the SBI does not
-allow probing.
+Timebomb?  The bomb already went off!  That's why it's not 1.  :(
 
-Regarding what should be written to|regs->a1|, I think you are right: it should
-be the minimum of what the firmware provides and what Xen supports. Otherwise,
-if|sbi_spec_version| is set to 2.0 and we return 2.0 to the guest, the guest might
-try to probe the DBGN (which Xen does not currently support) extension and use
-it instead of the legacy extension for the early console.
-
-
->> +        break;
->> +    case SBI_EXT_BASE_GET_IMP_ID:
->> +        regs->a1 = sbi_fw_id;
->> +        break;
->> +    case SBI_EXT_BASE_GET_IMP_VERSION:
->> +        regs->a1 = sbi_fw_version;
-> Same concern here, but see also below.
-
-For SBI_EXT_BASE_GET_IMP_ID, I think we want to return XEN id which is according
-to OpenSBI spec is 7.
-
-Something similar for SBI_EXT_BASE_GET_IMP_VERSION, maybe we want to return Xen
-version code (XEN_FULLVERSION).
-
->
->> +        break;
->> +    case SBI_EXT_BASE_GET_MVENDORID:
->> +    case SBI_EXT_BASE_GET_MARCHID:
->> +    case SBI_EXT_BASE_GET_MIMPID:
->> +        sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
-> This may be okay to do for the hardware domain, but hardly for DomU-s.
-
-I don’t see an issue with returning the vendor, microarchitecture, and
-processor ID. This is essentially what other hypervisors do.
-
-What would be better to return? Returning 0 could be an option, and according
-to the RISC-V spec:
-   This register must be readable in any implementation, but a value of 0 can
-   be returned to indicate the field is not implemented.
-
-So returning 0 would simply indicate that the field is not provided for case
-of DomUs, and provide it for hardware domain.
-
-Would it be better?
-
->
-> Same concern for SBI_EXT_BASE_GET_IMP_ID.
->
->> +        ret = sbi_ret.error;
->> +        regs->a1 = sbi_ret.value;
->> +        break;
->> +    case SBI_EXT_BASE_PROBE_EXT:
->> +        regs->a1 = vsbi_find_extension(regs->a0) ? 1 : 0;
-> At least for hwdom doesn't this also need combining virtual and
-> underlying physical lookup, if for some extensions you may pass the
-> requests down to the physical one (as done above)?
-
-I think I understand your intention, but I am not 100% sure that we need to
-perform a physical lookup. There may be implementation-specific cases where
-a call is emulated by the hypervisor instead of being passthroughed to
-OpenSBI.
-In other words, it could be the case that an extension is fully emulated
-without requiring support for the corresponding physical extension.
-
-~ Oleksii
-
+Regards,
+Jason
 
