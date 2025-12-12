@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E088FCB78C4
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 02:36:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1184810.1507096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE3CCB78D9
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 02:39:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1184819.1507106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTs3Z-0002fq-B1; Fri, 12 Dec 2025 01:34:53 +0000
+	id 1vTs7r-0003Li-QE; Fri, 12 Dec 2025 01:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1184810.1507096; Fri, 12 Dec 2025 01:34:53 +0000
+Received: by outflank-mailman (output) from mailman id 1184819.1507106; Fri, 12 Dec 2025 01:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vTs3Z-0002cp-7S; Fri, 12 Dec 2025 01:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 1184810;
- Fri, 12 Dec 2025 01:34:51 +0000
+	id 1vTs7r-0003Jj-NL; Fri, 12 Dec 2025 01:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 1184819;
+ Fri, 12 Dec 2025 01:39:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aL34=6S=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vTs3X-0002cj-K1
- for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 01:34:51 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
+ <SRS0=lRu3=6S=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vTs7q-0003Jd-Gu
+ for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 01:39:18 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bee76aed-d6fa-11f0-b15b-2bf370ae4941;
- Fri, 12 Dec 2025 02:34:49 +0100 (CET)
-Received: from SA1P222CA0105.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::13)
- by CH3PR12MB7523.namprd12.prod.outlook.com (2603:10b6:610:148::13)
+ id 5e9d4f30-d6fb-11f0-b15b-2bf370ae4941;
+ Fri, 12 Dec 2025 02:39:17 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by CO1PR03MB7985.namprd03.prod.outlook.com (2603:10b6:303:273::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.10; Fri, 12 Dec
- 2025 01:34:43 +0000
-Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
- (2603:10b6:806:3c5:cafe::e3) by SA1P222CA0105.outlook.office365.com
- (2603:10b6:806:3c5::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.10 via Frontend Transport; Fri,
- 12 Dec 2025 01:34:43 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Fri, 12 Dec 2025 01:34:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 11 Dec
- 2025 19:34:42 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 11 Dec
- 2025 19:34:42 -0600
-Received: from [172.30.226.132] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 11 Dec 2025 17:34:40 -0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Fri, 12 Dec
+ 2025 01:39:13 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::b334:94c2:4965:89b8%5]) with mapi id 15.20.9388.013; Fri, 12 Dec 2025
+ 01:39:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,265 +47,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bee76aed-d6fa-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 5e9d4f30-d6fb-11f0-b15b-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=re464mdR1BtVHLKKFJSY1GSMDU27ucY9+MEcXTzTWG7QqfbH2gnp09PAVT7HbuoGIrtJFWbIqa2Y4S7DrLUpvccPX6VqvuTqDLTkA50TI0tGe4yzxfYRmv3wiVD9J2opn421C24g0lFzUdwPXw8giqBmIjFiQGetWN9bRTsuDVggS03EVrv1KCbnWUd442LqL7cHOygtpjOITyX0F+qC3/pTufkFO9fhBnXySAXVcOrsInvjMiVPld+z7b3m4Xv85L0a3xCcg2pjVt0LKOM4J3cIh06MwWHXUBNFVJfuc+RiO3DDEkGpEMbua2Av0iSE2u8zyKnP7iZo/a4OOQ9E+g==
+ b=EpeNwRgksZkctc9y8FIeeSfss04i4IN5hrTZAGqG6IKJ5S0wzNgxnADIvgER9ibVZ0PTu8xJyzwJNbCvJSDDEQmFBvP9WJczu8d6fKtF2j53rEoGSLbv13G4TX4Az5ZrVPONEuTfIJiweTfevW3WJlrQ7nZ0OCiqfjYGbIe3tTjxwz7Axt6HnsnED0tCJNVDnEIfFDh8GzEvtHxPDpumL1Vw3vBCcVmdlqouTgatE+fCO+w86gIEYvoBsOTZcN597+83ozaorb8eZHvcXb9zppMXtMU+k4HMwrUEEeg3gDvEuFYBIb7VgAJw/qvwx9rGGZjFHtg0vCNJRXh1XnIuvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2tLlvn5bqm9GdUuvWheXY+BVx7twHKSUSsvq5c0iXHQ=;
- b=A3y2YSn/CRFo/4KLgc9e8rNt1szOEGZTcrT8Own5vWwFdOsU5NNpYXZzPP17esg+oItpbuLl6mDKtsESLt+gJ9SRgg3xhrCeDlDxaa3GMGmywx5kl+KoPY/+F2X+rmKR67NNuIdQtYQpptseGLcQzDChKlJ0G1cUmakwThHQU2p19DQ6feuCZii79o86O2nDPXnnCyt3cfKbRGGZyQYXyLdjqb+Mpz34cl4irrx6dtqDI1C6Qz4MjOvjsF82ouJ2tRY1QL5FXu276oZH1P/qOrJWlJKTed1gj8p4vk9IqHCDF2B6YJY3EVyS5LiuMttuS/Js3MyHNxhW/JQvSK9B+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=JZALJNq0kxwBQQHPsocYIkfEBSpsgHPFBMF0u2aGVKQ=;
+ b=cYMnJagWfOCKqxJi23PCGQshXy+oXfEeUnKDBU53uAFiYIBPB6ZyGkCURG1xFGJc141LyMCZ0p6OLoh6GdH8yYdqMJ9rxLd22oMoz7Gp+9jAdkl5bFs7vq2zQQER1/luatLkSX4b/tKQ8Ar69MK+LX0B2jAQojOC83jGDUuvHs6uFjw0NC1FyQJdiN+s8IFe2Jx1bGE8pHgPt4VOp++RkM7fHYA9+gJAX0R89xUSsiPPiafTlwAKP+ciXn2GUbDe9JxVJw0LYG0dvtt0Ev8tmlSjQikIepR7HusLKB9xfBQUDCYe2Rdu1eM9y35d8RUBL51FokU9lPTBPPPxPZeuSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2tLlvn5bqm9GdUuvWheXY+BVx7twHKSUSsvq5c0iXHQ=;
- b=DsQerVc2XDO8o+IKJYdXT0St01VgYR9xgclfhEtLz734DttGcn+VtHsUPEdye/ywO0q9VnnY1cOtyYiJavwRcGg98iDfrNE1Ttl0v3zUKeyQS/jyfSSXVjOqHVIYmdunKtPztHsoYc2q3uWqHx+qgxhDTLF194YtR8lk65CiaEU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <fbe63318-b764-46ce-a377-dd4ce7229abe@amd.com>
-Date: Thu, 11 Dec 2025 20:34:40 -0500
-MIME-Version: 1.0
+ bh=JZALJNq0kxwBQQHPsocYIkfEBSpsgHPFBMF0u2aGVKQ=;
+ b=bFAFJr7ejK4SYFoxNi9ulczi5abe/6/wwCG5u1uOIxGZ6DyQWvo6nP/V5uhnMYUBz0FRAngc7HSO/MtzOtxKdw0AAV0Ap617WiYJE5sFSfY3+jWEsBBDim6lEaYr2CaP4XsUIWPoXTbU8brEzb3kFAahc8qBDK0S9FoeD7FfCy8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <86bd8cf4-7c54-4e54-b923-86c7ea1c3dd5@citrix.com>
+Date: Fri, 12 Dec 2025 01:39:09 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: KEEP Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Victor Lira <victorm.lira@amd.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Timothy Pearson
-	<tpearson@raptorengineering.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
- Davis" <connojdavis@gmail.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20251209214728.278949-1-jason.andryuk@amd.com>
- <20251209214728.278949-3-jason.andryuk@amd.com>
- <ed620cd5-9630-4987-bd5c-9f69ae2c2609@citrix.com>
- <43d30e02-f818-4cf2-98c9-4182a2f65f64@amd.com>
- <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
- <7514a67c-d140-43b6-bed0-3467530a086d@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <7514a67c-d140-43b6-bed0-3467530a086d@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH 2/5] x86: Name parameters in function declarations
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20251210183019.2241560-1-andrew.cooper3@citrix.com>
+ <20251210183019.2241560-3-andrew.cooper3@citrix.com>
+ <d64b368566892cf39c90f25b1ac34692@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <d64b368566892cf39c90f25b1ac34692@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO4P123CA0673.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:351::8) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|CH3PR12MB7523:EE_
-X-MS-Office365-Filtering-Correlation-Id: bef7a5cc-3cdb-45bb-ba02-08de391ea03b
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|CO1PR03MB7985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5365442e-725e-4555-a358-08de391f410b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013|7416014|13003099007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TW5MckFURWh2WElKTDFoaDk0K0hDQ3cvSU1UYlQ1TmlHN2djQzBicUp1b0tq?=
- =?utf-8?B?d1hqVjdjcnFLdzYrcUl1ZWFkWnhQcEVHVzFreHY0dmN1djBuU2NkMVJZQk94?=
- =?utf-8?B?dzNPZlRkVHNPSmlyK2NxMUdMZm9LZ3RDM3g3NE4rdGVWdmFVSGlFbnlkREI5?=
- =?utf-8?B?dnI4cHhmcTFoS0JhSGJIek1xNlFuNGQ3Z243OUJzQ2xxNWFOby9CNmNKQThM?=
- =?utf-8?B?SkdtcW9JSUlYWkZhUFdWTlEyV3J1WVZEckplQ0hnSGFLMUNzdXRGMCtPN2Vu?=
- =?utf-8?B?S3BrakNlN20rR2YvUnowTHBZZ2hRa1pyT2lYbHZlZXRYUmVRQURFMGh6b0sx?=
- =?utf-8?B?YkVEelc0V3Q5L0l1MDNreEZLcWtYOU5IS1VMQmlvZkVnS0g5ZkE2T0tBdEZB?=
- =?utf-8?B?THp5b29QR1lCZFFRRzJjYUZlc2owTlEwb0N4KzBnVmhSdnpLd2tCelU5Tklu?=
- =?utf-8?B?WVlsSVlXalNwOHdJY2FYbXVqSE5oRDR4YzNEZVpxM253bG9ZVVVzU1NkYkQ3?=
- =?utf-8?B?V2l3RFpkeGNwS2s2Y3J0Nm1hallsN2tHTmphaUJ1RnYxRWQwR3NYbTBIU3N2?=
- =?utf-8?B?YURoU2Y5SUZUamhIN283WnpFWU9SWTFGSDVvTVMrRzdMcVhmWWZPWEVQZ2ZK?=
- =?utf-8?B?OXFoMTFOdE9vZVhHWG9uUWhTbndwRUlab2VnOC91THNvUE9xSE90NnE0SlZ6?=
- =?utf-8?B?TnY3d3FmT3dld2VuWi9rWXhQL3c2S01IYi9qc2hqajRVT0hrM3Z1Q2puMHFh?=
- =?utf-8?B?Z09aK0dZekc2OVFiMGhRRDFuSDAxaUpNeUFCNE8rbmt0VXJYOEJHbWgwTkwy?=
- =?utf-8?B?czN2aEtZbjBxZmFGUWFYTFdFb3luU0s2cUwwSkQxS1hnaVIzU0VmNHVBVGo3?=
- =?utf-8?B?ZStDS2xoZERCNS91MHJnbkhSbFoxcjI5SWxzbC9WRUROaXNGa1EwamVCeDNa?=
- =?utf-8?B?QXJYL2JybTJ6NDdPT2IvVmlaeDZtTmtiNThKVEU2OGtHMU8zNC9FdjNmN2pY?=
- =?utf-8?B?SkxkNTkzeGRCOFoyTTFzemsvMHdCZG96LzZmbWdLNkpFWUlMQVpiZHBpaVJp?=
- =?utf-8?B?Vyt6elB5bTRoZjZsRDZOZU9QdWFpdjB3RlRRdUVrNEU5WkVLMUE0b1NlcXlY?=
- =?utf-8?B?UlFaallMaS9naTZMVFVCdytVYnI3K0czdlRDQ2Fndzd5VmVuUitPOGVVSWVW?=
- =?utf-8?B?eWw4aHB1WXpmUXI3cEFxcGRJTmU0NjA0eGxacUgxbnNEWHUyOC94aC90ZmM2?=
- =?utf-8?B?UjFwNS9CdjBxMS9FYmZ4Nzl6ZkdPV1FqeEtkV2M4cGRydVRaV293bmNVRVVw?=
- =?utf-8?B?YXQyYm1NbXF4NmhHVVRXOGlScnB1SHdoVyt2YzhDRGdPUHJvdnlwMENiOEFP?=
- =?utf-8?B?WC9UM2Nvay9HTmlVWXlyMzNSSUc4L3lYMjZMdm9iQU9pWEQ1NVI5U0oxYzhp?=
- =?utf-8?B?aFA1amMvVWMyTlA3YytHc2grS1d4TDdjTkxJRW5Samd6bjdkVmdmN1owSXcz?=
- =?utf-8?B?OUJhZkpSN2NCSjNiTGtFWTJQanZ3bnBhNWxzU0c1V2h0RXlEYWcxZVJEVVV0?=
- =?utf-8?B?TUxPL204Wll0cUMzVnVJUTV2RVlMcVVyOTJiNTNUWk12bE9zTGdYSUkvSEJJ?=
- =?utf-8?B?Ui9ycFVHVzR0NUZvQjdBcVlkQzQ1NDVsVWpzeThZMTZ1aCtsZXpLNVpRSUdH?=
- =?utf-8?B?a1U4V2s3dEd2cCtUOXVDRWhmOW4rajROYVRmZEdqVHNBRmxYS0c3cGJ1Mk1D?=
- =?utf-8?B?LzEwZHBzMGExbFlBSC9ibUFEUEhsaVBRWVdvWjdlWUVaNm1Ed0FZRXNuM3JU?=
- =?utf-8?B?ZlF3Vjc3NjBtbXc2bGtLeVRnYkZjV0NQcXp2UHIxWE5CT2hJUFNoVkVwbGhH?=
- =?utf-8?B?NlFpQkVUK0hGcUFqa2Z1RE80cjJJVEw3bXhBcWt1eHdxMW5oYjk5c2dUN1dh?=
- =?utf-8?B?NE1RZ1plSHc5UTNxSDBPR1ZCOTVJU25obWczZmt2WjhyZ3ZrWlAzNGZGYVg0?=
- =?utf-8?B?NnFTaEowem5oVFhuRG1UME5LS1dCeUhEV1I2Y1MvTlhsa3R2eXVCem9nVlNS?=
- =?utf-8?B?a0xqOVpnT3BkRVpzSS91YktYaE1ORmErZzdmNW1WRmRDdEVJUlJQMVk3c2Er?=
- =?utf-8?Q?tHyg=3D?=
+	=?utf-8?B?QmpQMjFWRFRDS1RRaVJ4S25JNHdBV3V5VmhaSmR5OVlCWS9VVW1VMndwT1A1?=
+ =?utf-8?B?bG1pbDZGeDBhSDNJbDJzYkZtZEFNem96ZTV1UzZNL0FObkw1aFE2a3FvMlRK?=
+ =?utf-8?B?aW5XLzkzQmtZckZHMnM4cUUvblBSV3FNTmFUS2wyaXd0L01Vd015aUJIRUFU?=
+ =?utf-8?B?VW4wTjJpeFh2NTNlTnViNW5QMGx5WjhtbllvZlIyVk5vcDhtUUp1ZUplQzdJ?=
+ =?utf-8?B?T1c0M2d5YlhwamlUOHlWbVZkV0RSMHlIazE3YnlVaWlYdzk0ZHJOVmt5VmY5?=
+ =?utf-8?B?QU1qRURGMUlySjRZdGdBb1hGbldCaHdwYkRVN0QvV0ZSSmxSZ09zMlhKV1B1?=
+ =?utf-8?B?VU1tRzBWVkM0dkZNSWxObDJxb0ZsTWVnaUJKOGRJMHhEaWtJRXhycnVoaGRM?=
+ =?utf-8?B?REIrVWlDY254N2FodUZmNEk4T2h6MTVVN2J4ZE5WREV2TUQ0cm5tN2ViYVZw?=
+ =?utf-8?B?L0pWU2xnR2p5OXlrb0xPQkR0Lzl1aEs0RlBnTG5aaE1EellqdEtyTFJITmJH?=
+ =?utf-8?B?NHR1djFZbUcycEJVSmdiZHVTQWM5R2xqVlhhTm8ybTVWZitoM2k4d3NOWGhD?=
+ =?utf-8?B?RHpJYUZoTEJaUjVEVHZodEZmV3c1d1BoUHFMQkhwYTNkQkE4cVBlQnpFZUR2?=
+ =?utf-8?B?ZUhTTmI0SmVPa1VKdnlVZlh4SXUyMWVXZ0ZQeFRqQ251UVcyUm9IY2xRdTlE?=
+ =?utf-8?B?aWJmdEFPUFlXcGZBQVlLVldTN2lhSkpiaVB6ZiszdHh6Wm1jSFduampucFdr?=
+ =?utf-8?B?VlIvdnl0SGhLRURadDZJaHAweUFMS2V5OE1NM3BLOXZzRmVLUmk2Y1JJRVhV?=
+ =?utf-8?B?UVFSZDdKSXFZbDJKdmFxay9kSyt4V1ZFbHNyNW1kUGNlUzdXT016M1Zlb2ZJ?=
+ =?utf-8?B?UlJkZlNwQkQ1SitsVjlwb0hUT1VBK0dFU0U1aUFhOU5vQU41eldsckxTRFR4?=
+ =?utf-8?B?NUhIYWdDa3dzVWVpZnZwTDNhK1hnMC9XQ2J2a0prcGllL1lzbEFISElhNDcr?=
+ =?utf-8?B?OVJ5ZEI5eFowQXNoNjV3M0xTeStVcUZ1SHJwMkJvVE5RckFOSWNvQ3E2cnhx?=
+ =?utf-8?B?STVGOWRtR0lYSzh5SkFxd1lGYlowMkY3cVI5b1N4MVUrQVFWZjJsS2pUL1My?=
+ =?utf-8?B?VEJGUVM4dktVNHR2eEF2eDFPYzN4RjFac0ZaeUtmYmYzZlhuRVVsSE5aMUc4?=
+ =?utf-8?B?OVNUWElzN0Z2OFhYWlVGeW01NDYyS2txYUlXZzUrSEp3QkRUSkl2QVpDRE0y?=
+ =?utf-8?B?V1k5TkplL3JINE9WdFYyM1NPdENLS2phWW55b2REZ3p0QzhQMUFHa1U0ZWps?=
+ =?utf-8?B?K1FSbzdEaUhRRzYvYTQyOXFqT0FvNDFYOEl4b3lCWTArbmVDSDBWS2ZwdG1D?=
+ =?utf-8?B?ZFBoU09ydW5lcEdGeTB2SGh5QXpMUk5rR0V0UmgyTnFQeE05KzBCZ1FMNVVa?=
+ =?utf-8?B?SkRla0J5Qnc3Q3BUbjJ3MEUwdVZmZzRZc1E5N2RXdnZJaHk0M1RhTUxtR2Zy?=
+ =?utf-8?B?NlFkMmQvck00eEQ0NVlzaXNrNUF2MzFGYTYvbzllOXUvcGNybDM0aWtYb2xL?=
+ =?utf-8?B?SUlPMWVCRTRNQWFLZXhjdG0zQ2tRTlZYUVFDQkNISVBqeUZ6UWRmYU1iU3lN?=
+ =?utf-8?B?Zm55MmpMK2k5VngyT3puc01qdGdyM2RqRDBEbEY1blhEN3ZoUmFFOUpaTXRj?=
+ =?utf-8?B?R21DMVI1enNxZjdRR0RPTWFXOHlCSm9yQXozRXV0SG9CT3h3bXAvK1REZ1Rm?=
+ =?utf-8?B?OFFRTmxjbEdrenVSZ29hcC90NWFBbHQ0R0NTd1ZwWXhaVU44bzgxbUpGR2Rm?=
+ =?utf-8?B?d2RFUWxGaWl5MUhENldNNW1RUzZRb1RpcHd6a2Q3OXc5UjhoYUV6T3VZdWtz?=
+ =?utf-8?B?M2lmWDU0SDJGYkhGdTYrL3RhZGQ1SUxGUzY4RCtXMHR4eVBpQzJFS2pMZWJv?=
+ =?utf-8?Q?N8CmF1b1GSqiznOgUnV8fFakOy5T/W2E?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(7416014)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 01:34:43.2523
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V2NNVmFLb0ZXTVJmREROR3YvdnpWd3JsZGNHT016VXBYU2hyeGRRbllsU3dS?=
+ =?utf-8?B?emlpZEpjK2F4bWNXTVUyamdrRDQ0bndQUGlFWU41Y05Xc0Q2eGxxN0R4cXkv?=
+ =?utf-8?B?K1NiYmcvUUFWZGd2RHFkZkI0WnlTYWdJM0R1a1lIbDJMVFdhNjVlMEhhL3Vu?=
+ =?utf-8?B?K3R0UTZyTWlldS8xeCtxZEdXR0pBODJvem1raExMdUp0TzdJeW00MFJKaFdv?=
+ =?utf-8?B?aHNBZzJFdWU0SGZSdHdwRTlaWENDTmRiQ0k1Z3A2MzhoQ09IWkpON3JVNHMv?=
+ =?utf-8?B?MUJMemhoUlpGeTg0ODZYeHAyekROTzBmbVRLelpDdWg0V3VadGtibUpWTlhT?=
+ =?utf-8?B?K3A2aDA3WFJYWkZLSUE1T2tKdUo3V3M4OWEzNWV3MGJFRElNcnNNajVjZzh1?=
+ =?utf-8?B?MWVmTC91YkJsQTNBSEE3OXo1MVhFK3dpQlc1TGttS0NRWTI3TDB6WXlYVDFP?=
+ =?utf-8?B?cUxNeHhLWU9UNFAwdTk0cnBIckZKTFQwbUFyUWJDb0FOWGNIODdGdUozY2Jl?=
+ =?utf-8?B?MGRiNnFxblNzVmQ2MXU2bGpXS2F5bEdKeDl2bnpHQmxRTTQzZGtHVkhQYzY1?=
+ =?utf-8?B?TU90NWJIdVVyVk41TEZlMmNEbzUwcEp5M2RrNFltTmhjREs4M2l1Q0Nkcnc0?=
+ =?utf-8?B?YTR6aGtDZGV5RnJaWkRGU1A2N0gvUVNtWlllUFN4bVlza3l5V1ducmFMUjYv?=
+ =?utf-8?B?OCs3T3pOMTNhMHI5NjZTSUR2eFJiMzZ5SWF2bjk0NzlzT0Y4S0Q4WFNlSU5v?=
+ =?utf-8?B?T0RaVEh1cGNqN2ZmYlNHVFN4TXhNc0RBVnFCbXozZUdnMU9iVldSeHJ2K294?=
+ =?utf-8?B?YVVXczhObUJmQXRkWVZDYkU0OVRyK2hwbm14QWZ2TldmejZCbnVKNmxWb1NF?=
+ =?utf-8?B?eU5PTklQV1VCSnllREpDa2RnUk9QZW12VTFzdE9wclJvU0tFWldkZHBlL1Zq?=
+ =?utf-8?B?WFBQY3ptT1BFdjJUVXcwbnNwSDErQWk4bVY4c1lLV01YMCt6bXdkZVJGSTkx?=
+ =?utf-8?B?cE1WRjZoRzVabEpnaFRKTWVCcEx1cDJZam1iaG5pMW02VWlnWUJmMEJ3K0NZ?=
+ =?utf-8?B?S1R2LzNHeGU0cmZUYm92YXlwa0xsSVhQQ0Z2SnAvT1Nzd3U2UHEvNG1HaTF0?=
+ =?utf-8?B?UVNQbVpRalViNVVSODlHZTdBeGNLSGk3M3JLRnM2QjdWNUtpZzFlMjM4VzRG?=
+ =?utf-8?B?SFNrUDcvU0JUR3FhblIvc1EzQ0IzZ1hqOHBoVUNheExxSW5JT3VjZGhSWERq?=
+ =?utf-8?B?eDBFc3IyOTJmbXljd2t0c0FwQ0FjWUpIMUtSdmNwZTl3WFdtZWZYS3hTMVBl?=
+ =?utf-8?B?WExpa2wxSWNwbVJYZ3VWWE1QUTdvWW5kcG1CZWlJMEY0QWp0ZC9KZnVtRm5p?=
+ =?utf-8?B?U0FPby8wWG1GU3B1YWR2YkFUMVFmQitRYk5LKzhQcXhYKzBMcm9VeXpWQmVH?=
+ =?utf-8?B?VVNWbWZhOVBKbS9FVGp3b0o1L3FEN0V5Q2ZoVTJiK016UGM2c3VwSW16cTZK?=
+ =?utf-8?B?L2JRd1dka2Y4TE9jUklvd0hqbW9FeWJrOVlsQ3d6dW9YRGlhUEkrdWo0SDJZ?=
+ =?utf-8?B?RzE2cUpMUmpRYi9MSEVYQllpazRWTEk3Sy9xekhpangvVmlFOG8yZVBpSU40?=
+ =?utf-8?B?ZEFSNVI0a08wbk5OMk9xS0Y2WmdmSnh3UXI3UEtRdWtYQ21lQ0VFek5ZeVgr?=
+ =?utf-8?B?TTg3WkE1VTVnNzlHelo0WENrTldsY2VhT0E3N0c4Z0YvZ3pncno2eFFWMjJ4?=
+ =?utf-8?B?NEtVNjNtckFJZ1JiVExqdFlkS0ZxUWxEU0g4T0ZUMEM5cWZ5WSt2TVhzc3Vy?=
+ =?utf-8?B?UDVhTWJVT1Q5Wk5kOHZLUzNrWEM2U1lTWFJSQ3VxVDZYZFFpQmZZdkl1Q2hL?=
+ =?utf-8?B?anMxVlBsQVhRQnJQZ3E4aGhIV1BTOWZRTTczcjEwMDNPODhzYXkyenEyRUxu?=
+ =?utf-8?B?K1ZHWTZtcW5MeUh0Um5yYkhvTkN6S2hpYWdGQ1hoVUE5MHhUNjVCS1doQUxk?=
+ =?utf-8?B?N1hYc3Q4SnhtcDRZZWhoRmlaa0NTMFdJU0k2TjZnWVpWeDlCMmx6ek5WUXUz?=
+ =?utf-8?B?R3RSMWdyam13QWJOTTJYOUZzYmVjcmtwNVdaSThRWlVybE9pVnpZN3RrdG9l?=
+ =?utf-8?B?YTNYVkwya3dZZWs3L1JjeDJEQnB1R0FrYXRid3NVSGUvZk15QXBKOExVRWVU?=
+ =?utf-8?B?ZUE9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5365442e-725e-4555-a358-08de391f410b
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 01:39:13.3110
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bef7a5cc-3cdb-45bb-ba02-08de391ea03b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F64.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7523
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MIEsIwSUUCNKjBfeqQ+mHuOF9z1fv5zlSupLRuXMAUgMZdhtDPb+PhYnAKufCSNHNGjWZqqi/XYyEUTXs/vWxTsPrrNGcikeNh39Vsv2yoA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB7985
 
-On 2025-12-11 03:29, Jan Beulich wrote:
-> On 11.12.2025 03:47, Andrew Cooper wrote:
->> On 11/12/2025 1:28 am, Jason Andryuk wrote:
->>> On 2025-12-10 11:55, Andrew Cooper wrote:
->>>> On 09/12/2025 9:47 pm, Jason Andryuk wrote:
->>>>>           . = ALIGN(4);
->>>>>           __alt_instructions = .;
->>>>> -       *(.altinstructions)
->>>>> +       KEEP(*(.altinstructions))
->>>>>           __alt_instructions_end = .;
->>>>
->>>> Thinking about this, what we need is for there to be a reference tied to
->>>> the source location, referencing the replacement metadata and
->>>> replacement instructions.
->>>>
->>>> Looking at https://maskray.me/blog/2021-02-28-linker-garbage-collection
->>>> might be able to do this with .reloc of type none.  In fact,
->>>> BFD_RELOC_NONE seems to have been invented for precisely this purpose.
->>>>
->>>> This means that if and only if the source function gets included, so
->>>> does the metadata and replacement.
->>>
->>> With Jan's -Wa,--sectname-subst changes added to CFLAGS, this seems to
->>> work somewhat.  I'm trying to make the ALTERNATIVE place relocations
->>> against the .altinstructions.%%S and .altinstr_replacement sections:
->>>
->>> diff --git c/xen/arch/x86/include/asm/alternative.h
->>> w/xen/arch/x86/include/asm/alternative.h
->>> index 18109e3dc5..e871bfc04c 100644
->>> --- c/xen/arch/x86/include/asm/alternative.h
->>> +++ w/xen/arch/x86/include/asm/alternative.h
->>> @@ -90,18 +90,25 @@ extern void alternative_instructions(void);
->>>   /* alternative assembly primitive: */
->>>   #define ALTERNATIVE(oldinstr, newinstr, feature)                      \
->>>           OLDINSTR_1(oldinstr, 1)                                       \
->>> -        ".pushsection .altinstructions, \"a\", @progbits\n"           \
->>> +        ".reloc ., BFD_RELOC_NONE, 567f\n"                            \
->>> +        ".reloc ., BFD_RELOC_NONE, 568f\n"                            \
->>> +        ".pushsection .altinstructions.%%S, \"a\", @progbits\n"       \
->>> +        "567:\n"                                                      \
->>>           ALTINSTR_ENTRY(feature, 1)                                    \
->>>           ".section .discard, \"a\", @progbits\n"                       \
->>>           ".byte " alt_total_len "\n" /* total_len <= 255 */            \
->>>           DISCARD_ENTRY(1)                                              \
->>>           ".section .altinstr_replacement, \"ax\", @progbits\n"         \
->>> +        "568:\n"                                                      \
->>>           ALTINSTR_REPLACEMENT(newinstr, 1)                             \
->>>           ".popsection\n"
->>>
+On 10/12/2025 8:15 pm, Nicola Vetrini wrote:
+> On 2025-12-10 19:30, Andrew Cooper wrote:
+>> With the wider testing, some more violations have been spotted.  This
+>> addresses violations of Rule 8.2 (parameters must be named).
 >>
->> There's already a symbol for the start of the replacement.  We only need
->> to introduce a symbol for the metadata.  Try something like this:
+>> No functional change.
 >>
->> diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
->> index 18109e3dc594..a1295ed816f5 100644
->> --- a/xen/arch/x86/include/asm/alternative.h
->> +++ b/xen/arch/x86/include/asm/alternative.h
->> @@ -55,6 +55,10 @@ extern void alternative_instructions(void);
->>   
->>   #define as_max(a, b) "(("a") ^ ((("a") ^ ("b")) & -("AS_TRUE("("a") < ("b")")")))"
->>   
->> +#define REF(num)                                        \
->> +    ".reloc ., BFD_RELOC_NONE, .LXEN%=_alt" #num "\n\t" \
->> +    ".reloc ., BFD_RELOC_NONE, "alt_repl_s(num)  "\n\t"
-> 
-> Is it even worthwhile trying to further pursue this route if xen.efi can't
-> be built with it?
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-The alternative is section groups?  I'm trying that, and it kinda works 
-sometimes, but .attach_to_group fails when .init.text is involved.
+Thanks.
 
-Here's an example that I think would work, I could make it to 
---gc-sectrions:
-group section [    3] `.group' [.text.vpmu_do_msr] contains 5 sections:
-    [Index]    Name
-    [   43]   .text.vpmu_do_msr
-    [   44]   .rela.text.vpmu_do_msr
-    [   45]   .altinstructions..text.vpmu_do_msr
-    [   46]   .rela.altinstructions..text.vpmu_do_msr
-    [   47]   .altinstr_replacement..text.vpmu_do_msr
+>
+> One nit below
+>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: consulting@bugseng.com <consulting@bugseng.com>
+>> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> ---
+>>  xen/arch/x86/mm/shadow/common.c | 8 ++++----
+>>  xen/arch/x86/pv/emul-priv-op.c  | 2 +-
+>>  xen/include/xen/livepatch.h     | 2 +-
+>>  3 files changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/mm/shadow/common.c
+>> b/xen/arch/x86/mm/shadow/common.c
+>> index 423764a32653..f2aee5be46a7 100644
+>> --- a/xen/arch/x86/mm/shadow/common.c
+>> +++ b/xen/arch/x86/mm/shadow/common.c
+>> @@ -69,11 +69,11 @@ const uint8_t sh_type_to_size[] = {
+>>
+>>  DEFINE_PER_CPU(uint32_t,trace_shadow_path_flags);
+>>
+>> -static int cf_check sh_enable_log_dirty(struct domain *);
+>> -static int cf_check sh_disable_log_dirty(struct domain *);
+>> -static void cf_check sh_clean_dirty_bitmap(struct domain *);
+>> +static int cf_check sh_enable_log_dirty(struct domain *d);
+>> +static int cf_check sh_disable_log_dirty(struct domain *d);
+>> +static void cf_check sh_clean_dirty_bitmap(struct domain *d);
+>>
+>> -static void cf_check shadow_update_paging_modes(struct vcpu *);
+>> +static void cf_check shadow_update_paging_modes(struct vcpu *v);
+>>
+>>  /* Set up the shadow-specific parts of a domain struct at start of day.
+>>   * Called for every domain from arch_domain_create() */
+>> diff --git a/xen/arch/x86/pv/emul-priv-op.c
+>> b/xen/arch/x86/pv/emul-priv-op.c
+>> index 225d4cff03c1..08dec9990e39 100644
+>> --- a/xen/arch/x86/pv/emul-priv-op.c
+>> +++ b/xen/arch/x86/pv/emul-priv-op.c
+>> @@ -40,7 +40,7 @@ struct priv_op_ctxt {
+>>  };
+>>
+>>  /* I/O emulation helpers.  Use non-standard calling conventions. */
+>> -void nocall load_guest_gprs(struct cpu_user_regs *);
+>> +void nocall load_guest_gprs(struct cpu_user_regs *regs);
+>>  void nocall save_guest_gprs(void);
+>>
+>>  typedef void io_emul_stub_t(struct cpu_user_regs *);
+>> diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
+>> index d074a5bebecc..3f5ad01f1bdd 100644
+>> --- a/xen/include/xen/livepatch.h
+>> +++ b/xen/include/xen/livepatch.h
+>> @@ -62,7 +62,7 @@ struct livepatch_fstate {
+>>      uint8_t insn_buffer[LIVEPATCH_OPAQUE_SIZE];
+>>  };
+>>
+>> -int livepatch_op(struct xen_sysctl_livepatch_op *);
+>> +int livepatch_op(struct xen_sysctl_livepatch_op *op);
+>
+> xen/common/livepatch.c:int livepatch_op(struct xen_sysctl_livepatch_op
+> *livepatch)
+>
+> Shouldn't this decl also use "*op" as well? Might not be triggered in
+> this configuration due to the absence of CONFIG_LIVEPATCH I think.
 
-But I don't make it that far.  Other files blow up with tons of:
-{standard input}:9098: Warning: dwarf line number information for 
-.init.text ignored
-and
-{standard input}:50083: Error: leb128 operand is an undefined symbol: 
-.LVU4040
+Yes, I've converted the main function to use op too.  It makes the patch
+a bit larger, but it's a much better name to use in this context.
 
-Line 9098 of apic.s is .loc below:
-"""
-         .section        .init.text
-         .globl  setup_boot_APIC_clock
-         .hidden setup_boot_APIC_clock
-         .type   setup_boot_APIC_clock, @function
-setup_boot_APIC_clock:
-.LFB827:
-         .loc 1 1150 1 is_stmt 1 view -0
-         .cfi_startproc
-         pushq   %rbp
-"""
-
-diff below.  Any ideas?
-
-Thanks,
-Jason
-
-diff --git a/xen/arch/x86/include/asm/alternative.h 
-b/xen/arch/x86/include/asm/alternative.h
-index 18109e3dc5..8701d0e0a7 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -90,25 +90,31 @@ extern void alternative_instructions(void);
-  /* alternative assembly primitive: */
-  #define ALTERNATIVE(oldinstr, newinstr, feature)                      \
-          OLDINSTR_1(oldinstr, 1)                                       \
--        ".pushsection .altinstructions, \"a\", @progbits\n"           \
-+        ".attach_to_group %%S\n"                                      \
-+        ".pushsection .altinstructions.%%S, \"a?\", @progbits\n"      \
-          ALTINSTR_ENTRY(feature, 1)                                    \
--        ".section .discard, \"a\", @progbits\n"                       \
-+        ".popsection\n"                                               \
-+        ".pushsection .discard, \"a\", @progbits\n"                   \
-          ".byte " alt_total_len "\n" /* total_len <= 255 */            \
-          DISCARD_ENTRY(1)                                              \
--        ".section .altinstr_replacement, \"ax\", @progbits\n"         \
-+        ".popsection\n"                                               \
-+        ".pushsection .altinstr_replacement.%%S, \"ax?\", @progbits\n"\
-          ALTINSTR_REPLACEMENT(newinstr, 1)                             \
-          ".popsection\n"
-
-  #define ALTERNATIVE_2(oldinstr, newinstr1, feature1, newinstr2, 
-feature2) \
-          OLDINSTR_2(oldinstr, 1, 2)                                    \
--        ".pushsection .altinstructions, \"a\", @progbits\n"           \
-+        ".attach_to_group %%S\n"                                      \
-+        ".pushsection .altinstructions.%%S, \"a?\", @progbits\n"      \
-          ALTINSTR_ENTRY(feature1, 1)                                   \
-          ALTINSTR_ENTRY(feature2, 2)                                   \
--        ".section .discard, \"a\", @progbits\n"                       \
-+        ".popsection\n"                                               \
-+        ".pushsection .discard, \"a\", @progbits\n"                   \
-          ".byte " alt_total_len "\n" /* total_len <= 255 */            \
-          DISCARD_ENTRY(1)                                              \
-          DISCARD_ENTRY(2)                                              \
--        ".section .altinstr_replacement, \"ax\", @progbits\n"         \
-+        ".popsection\n"                                               \
-+        ".pushsection .altinstr_replacement.%%S, \"ax?\", @progbits\n"\
-          ALTINSTR_REPLACEMENT(newinstr1, 1)                            \
-          ALTINSTR_REPLACEMENT(newinstr2, 2)                            \
-          ".popsection\n"
+~Andrew
 
