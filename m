@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB67CB9E42
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 22:33:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1185855.1507804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EF3BCB9E45
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 22:34:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1185863.1507815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUAke-00047V-5F; Fri, 12 Dec 2025 21:32:36 +0000
+	id 1vUAmI-0004cr-G6; Fri, 12 Dec 2025 21:34:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1185855.1507804; Fri, 12 Dec 2025 21:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 1185863.1507815; Fri, 12 Dec 2025 21:34:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUAke-000453-2Y; Fri, 12 Dec 2025 21:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 1185855;
- Fri, 12 Dec 2025 21:32:35 +0000
+	id 1vUAmI-0004Zw-D2; Fri, 12 Dec 2025 21:34:18 +0000
+Received: by outflank-mailman (input) for mailman id 1185863;
+ Fri, 12 Dec 2025 21:34:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vPyE=6S=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vUAkc-00044x-RI
- for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 21:32:34 +0000
+ id 1vUAmH-0004Zq-0K
+ for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 21:34:17 +0000
 Received: from fout-b7-smtp.messagingengine.com
  (fout-b7-smtp.messagingengine.com [202.12.124.150])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1081d8bf-d7a2-11f0-b15b-2bf370ae4941;
- Fri, 12 Dec 2025 22:32:32 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfout.stl.internal (Postfix) with ESMTP id 7DCE91D00112;
- Fri, 12 Dec 2025 16:32:30 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Fri, 12 Dec 2025 16:32:30 -0500
+ id 4e84ea0d-d7a2-11f0-b15b-2bf370ae4941;
+ Fri, 12 Dec 2025 22:34:15 +0100 (CET)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfout.stl.internal (Postfix) with ESMTP id B0D351D0001D;
+ Fri, 12 Dec 2025 16:34:14 -0500 (EST)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Fri, 12 Dec 2025 16:34:14 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 12 Dec 2025 16:32:29 -0500 (EST)
+ 12 Dec 2025 16:34:13 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1081d8bf-d7a2-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 4e84ea0d-d7a2-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1765575150;
-	 x=1765661550; bh=p/wZERNdh5bjulE/fxRfnW/S7pEeyAkpaDPTdkEdhUc=; b=
-	rUcvKBOe+bFbPa8dBHKeZXo8bWqrH23uFugmpHpzMBcDjj9wcSMmsKxD1S1qppGw
-	+zf5GCXDfc1jgeAqY8p0Rmy/CblXAhVAuGb5a7TlooflRRUtbzymz3n5lu0ZYCr7
-	IcyYxJhO7f0TnO4Bh3RARIT1D1m3Kw+4nbk/Y7I/DFk2fFF3puoDBzpKMtemjPFW
-	zkJeyrX315BB0rBXHysJ39vYAjCbV5WabIQAeoLqHi3eewad9DXJHaauP/r3qxhg
-	Yc/gDf9okAQArD5YHMdmqRlWtoGxJ1HFxRKe7ZMoI81OMPQSLzhxeChrTamvdk1I
-	5P+urR8xy9wequHBL8/tEw==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1765575254;
+	 x=1765661654; bh=2+YzOw1U5rJDpRAuNhuLJtLfCR/ST+UE/HlgIi/6LxU=; b=
+	ohd4LqndH+u44ivtlPFshgkg1MMqXG9E4x3gSFxQHOtgnhFybPK+yxI+2LmHNnPQ
+	16UOM/FW9Xptb31ks0ZuzgCSwhUyu9YzZDcB87SokR5t7MoH9VSpNy2T7+s5Gcke
+	KWZ3QXcUnyo68ro+RTJs0aGF89S/hZQBjWmOubS1OFGJzIQmXZ4mSkCWR67qAkFi
+	IeW3bRlpCtFLG8zqn4Bp3DqCXOa3Zbmlz3yP19H3+DFPHUOR+3Mj5PvEwTxTBIBj
+	0frdaeZN8QqYRM1WkcIQKDMbOkssAujsy4R8FVPuYbBwIytHSmUwn3Tm4u1RrpuV
+	g1l+6iU9nXE0ko8eOswYug==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1765575150; x=1765661550; bh=p/wZERNdh5bjulE/fxRfnW/S7pEeyAkpaDP
-	TdkEdhUc=; b=Wh4qzdXg19WaNbR3/oDqwGehKI6E+b3gfZOL3DjltkJBuswaciT
-	l/Rj6oZ+mWvj+xy/CibIkWst15rNAWFdoxWd8+hUwwCLvFyAcihWXMoP8H8IyA6l
-	IhogyBMoieVQ9O5dzBeJ1yu6sSqTGwWGiAXkJcWJttEAv++8KySzpnmLOgyNWTin
-	n5IUyCWPMmmPbB+nJW1tTcyv4NHsUkryfBASXftEGlzguCtV7CTE0PjzwgWy/zZP
-	CnDURmVqxZN46YR/bf0VfWDDu/8SbMfAPcRyxDgKB/iFDHWcvsV+31I6r3NhL0sn
-	SfCC62A8Xct5GMLYIqMS92BB1blIGjDhjNw==
-X-ME-Sender: <xms:7ok8aYpo22LXAO3t-t68sBKtqbK7WxfuwdBwRIm6_YAdJ09ksVyxBQ>
-    <xme:7ok8aVo_vqWyu8SGbDFOQjrd8DG56al_Vh45qCNudGFGj-El_Rpn-OllWO85TwQV9
-    Q6t6xcr18WKsYV7R4OGtr8b33sbTY4cfp3ScrsT6IKkXK16>
-X-ME-Received: <xmr:7ok8aSPjzV9t5kO31_6uiGbEhNR3ut976Oc-6_BEx4gKKW-fRIqSHudnY0OplnyfQfaGw-i-pKaO5F2dyaBRDccbUkn4t-WigvI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvledviecutefuodetggdotefrod
+	1765575254; x=1765661654; bh=2+YzOw1U5rJDpRAuNhuLJtLfCR/ST+UE/Hl
+	gIi/6LxU=; b=jJm9xSMbxK77UHy4sTkOte7Kpl29DGyfn8gsc48Ve0Hcwp5VS4m
+	vGaUIHgaIYoCptmexrSymNDmPYw7HCnINRlmlJzI+UdNnYq47Llce7kYP4COi96X
+	/Q/K0lY4byUyO439vHVd2CpLT1LYjFK38c0tnXS2BZkZ9fo2RQ09hjplwdP6leC9
+	63zajC/TKSk0pIflX8dreiNa8lwkFyDa+uxgGxoz1TsJlsxBaZOCPdvwexsulkd+
+	GcjXXGVmW2kv8LD2fSnfrWZwDUP576CjwHxvXm1GXNW+OcUNCSScha3XnJbAd+OO
+	6U/bpdInsHihuoK4GmeDxXSeXrqaXlNXJpA==
+X-ME-Sender: <xms:Voo8aWxhP7WKLS0kTbmjsKEIXy1BYAEAbOD-2PeyCwUJsxooMhUmjA>
+    <xme:Voo8aZRDQvjSk4T6g45AatZCbkH7rPxH2ZPD_4e7sVR1B_eXkqdo48BMPRreX5Q-A
+    5HhXUWrExngpJED4p5mHsPZq5Sqo8lvUaTCNoOjwHGUVoX9cA>
+X-ME-Received: <xmr:Voo8adXLR09nGY3bLpZAPQZq8TAesOSprGNawVKH8d7ijcRNIwbPznlDAL_PMM_G-Gui_Jv8-dz9YHh85XG1QgRBamFE-LFG1R0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvledvjecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
     hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
@@ -85,115 +85,102 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvledviecutefuodetgg
     thhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnh
     hprhhojhgvtghtrdhorhhgpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhn
     vghlrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhm
-X-ME-Proxy: <xmx:7ok8aew1H1z5HMPEULur1IEFWlhNim_MgiT4m8_EOIDlM_NW05ZuTQ>
-    <xmx:7ok8aTszjU5NvdHdrWSOAcjOXZbDaE26Ey4UBoULApYfvmvwDV8A-w>
-    <xmx:7ok8af4fIAGMuyl9uYI7C4xdjfbO2sFAtJwrGgaw87uXwfnQ-WWhbA>
-    <xmx:7ok8aaTmfqGqMhklvGV6oHjWq-VGXcGxn2ksuyaE_ve9YG2t5HuN8Q>
-    <xmx:7ok8acgXDIpyuKlL0Yk57rzvBCjd0DZCoVVHjju5wUPqim3q37wzSEnJ>
+X-ME-Proxy: <xmx:Voo8abY1L7oNqzIv-S4V2DN6E0ln7H9mIz0ruNV-2fwRdV_a6cNBdw>
+    <xmx:Voo8aT2YZLVV8LDdRxHxyUuPLhUR8fvILW8WJV0wg6jfEa3h9M_E3g>
+    <xmx:Voo8adjtbSnu2r71dLL53ObjSH2QGnJKN2Zd3ztooDer87w9ASk94Q>
+    <xmx:Voo8aXZoiYIj5txYLEn8Wf0Y1aWIhoEoEwgwAB5NlKRxh14sgQjjDg>
+    <xmx:Voo8aZq7sXf_OlhQTJOdbTFdNzQawCobD3jB0OSch7d5IadN4JEs1T_0>
 Feedback-ID: i1568416f:Fastmail
-Date: Fri, 12 Dec 2025 22:32:27 +0100
+Date: Fri, 12 Dec 2025 22:34:11 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: xen-devel@lists.xenproject.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 01/12] Add Alpine 3.22 containers
-Message-ID: <aTyJ6yyR1U1C2PLI@mail-itl>
+Subject: Re: [PATCH v2 02/12] Switch Linux builds to use Alpine 3.22 container
+Message-ID: <aTyKU-KyOhMuvvuf@mail-itl>
 References: <cover.fb9bd2be49ef9017f3552508f8c59849b8c0086f.1764866136.git-series.marmarek@invisiblethingslab.com>
- <08274c26cc710d3bfa87a66431f441b5703df272.1764866136.git-series.marmarek@invisiblethingslab.com>
- <dd3225bd-d416-4b61-8e5b-0a0637b0193e@citrix.com>
+ <b1d58190ac7e2b65f80542685191944b83338960.1764866136.git-series.marmarek@invisiblethingslab.com>
+ <f79a31b6-9153-47c1-b1c9-21f5aa5c5a8f@citrix.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="LvivmXX/wf7Sej/c"
+	protocol="application/pgp-signature"; boundary="Hdu4f8EpiRufg3m4"
 Content-Disposition: inline
-In-Reply-To: <dd3225bd-d416-4b61-8e5b-0a0637b0193e@citrix.com>
+In-Reply-To: <f79a31b6-9153-47c1-b1c9-21f5aa5c5a8f@citrix.com>
 
 
---LvivmXX/wf7Sej/c
+--Hdu4f8EpiRufg3m4
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Dec 2025 22:32:27 +0100
+Date: Fri, 12 Dec 2025 22:34:11 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: xen-devel@lists.xenproject.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 01/12] Add Alpine 3.22 containers
+Subject: Re: [PATCH v2 02/12] Switch Linux builds to use Alpine 3.22 container
 
-On Fri, Dec 12, 2025 at 09:12:38PM +0000, Andrew Cooper wrote:
+On Fri, Dec 12, 2025 at 09:15:34PM +0000, Andrew Cooper wrote:
 > On 04/12/2025 4:37 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > Add it in all variants:
-> > - base container
-> > - build container
-> > - initramfs archive
-> >
-> > libdw used to be part of libelf in Alpine 3.18, but it's a separate
-> > package in 3.22.
->=20
-> I think this ...
->=20
+> > Slowly phase out 3.18 one.
 > >
 > > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
 slab.com>
 > > ---
-> >  .gitlab-ci.yml                             | 14 +++++++-
-> >  containerize                               |  4 ++-
-> >  images/alpine/3.22-arm64-base.dockerfile   |  6 +++-
-> >  images/alpine/3.22-arm64-build.dockerfile  | 31 +++++++++++++++++-
-> >  images/alpine/3.22-x86_64-base.dockerfile  |  6 +++-
-> >  images/alpine/3.22-x86_64-build.dockerfile | 43 ++++++++++++++++++++++=
-+-
-> >  scripts/alpine-rootfs.sh                   |  4 ++-
-> >  7 files changed, 108 insertions(+)
-> >  create mode 100644 images/alpine/3.22-arm64-base.dockerfile
-> >  create mode 100644 images/alpine/3.22-arm64-build.dockerfile
-> >  create mode 100644 images/alpine/3.22-x86_64-base.dockerfile
-> >  create mode 100644 images/alpine/3.22-x86_64-build.dockerfile
+> >  .gitlab-ci.yml | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 > >
-> > diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-> > index 6fa1d56..c9c0d43 100755
-> > --- a/scripts/alpine-rootfs.sh
-> > +++ b/scripts/alpine-rootfs.sh
-> > @@ -40,6 +40,10 @@ case $UNAME in
-> >              # QEMU
-> >              libelf
-> >              )
->=20
-> ... wants to be a comment here too.=C2=A0 I can fix on commit.
-
-+1=20
-
-> ~Andrew
->=20
-> > +        if ! grep -q VERSION_ID=3D3.18 /etc/os-release; then
-> > +            # QEMU
-> > +            PKGS+=3D( libdw )
-> > +        fi
-> >          ;;
+> > diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> > index 17d25ce..36622c7 100644
+> > --- a/.gitlab-ci.yml
+> > +++ b/.gitlab-ci.yml
+> > @@ -21,14 +21,14 @@ stages:
+> >    tags:
+> >      - arm64
+> >    variables:
+> > -    CONTAINER: alpine:3.18-arm64-build
+> > +    CONTAINER: alpine:3.22-arm64-build
 > > =20
-> >      aarch64)
+> >  .x86_64-artifacts:
+> >    extends: .artifacts
+> >    tags:
+> >      - x86_64
+> >    variables:
+> > -    CONTAINER: alpine:3.18-x86_64-build
+> > +    CONTAINER: alpine:3.22-x86_64-build
+> > =20
+> >  #
+> >  # ARM64 artifacts
 >=20
+> Just to double check.=C2=A0 This should be safe because it gets us a newer
+> build environment for Linux, but the resulting kernel and modules are
+> not tied the alpine runtime.
+
+Yes, they shouldn't be specific to alpine runtime, and I'm pretty sure
+we already mix Alpine and Debian here without issues.
+
+> i.e. I can commit this to test-artefacts and it won't break Xen's CI ?
 
 --=20
 Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---LvivmXX/wf7Sej/c
+--Hdu4f8EpiRufg3m4
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk8iesACgkQ24/THMrX
-1yz5JAf/bUQskNY10T13wDPfkLedOBjwBu6b3cfEWmmtmyKy8504fHOb4nnQZ4Wg
-g/vH946GWYnAbJoNc+QYSZfY8c0C1m2R+g8MJUDuM6eqLb8sU6QqEaw6ZJBz9rpD
-tb1gGVUoO1sXrLlM87SO2Old4sBx4o+Sfa1/U35CJf/JmUKYbDtgzytgDm68CU29
-MKiMFqY3raQwEUT/XmZA6X0PKQczJyIu1mlpneXmHokTfjhSlWmGyGYrVGV3tkfK
-80Tyn6QBRs4+fCI6ZoYMBZN0CBMqKzoU8B+x+m2qBfmgAEIrLa1EXLMchPUbE7CF
-mq5ZCcg8CNyhZPnFkGcVrAIHJvOBIg==
-=IR37
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmk8ilMACgkQ24/THMrX
+1yx6pAgAiF/mE+3d3tFQZ5VFlIDm/gPYUV/K/0fYDvc96EnVoPZKShv7i84C9jAX
+ve4kN4ahq+HmvXWA7T6ZfCHmHt1A7cLbvlcKRmrSWLZHkR17vKRG9WK6KUNaOdh1
+T5GAz8awhsBfMObbtP/UkuLctugTpfZxqnWxCFA5n5+AUXZ68x20aXBrSSsP06EI
+FmSNQLsrA4iHflUBfFaOidvd1+U9fanlJXMdeApwkur9IeJbIGcENZHRy/WMATvP
+bCWo1G4rP5WFrPukwRu4+3G5iD7fdYD2zQLwVZPzbdmFUM4L8pCU4nfAXELaUqHW
+up8CRN4TWsCOHknyTH8niI+U6bGDvA==
+=8/la
 -----END PGP SIGNATURE-----
 
---LvivmXX/wf7Sej/c--
+--Hdu4f8EpiRufg3m4--
 
