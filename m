@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A7CCB9EAA
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FBACB9EA9
 	for <lists+xen-devel@lfdr.de>; Fri, 12 Dec 2025 23:21:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1185897.1507841 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1185898.1507855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUBVA-0004X4-Bl; Fri, 12 Dec 2025 22:20:40 +0000
+	id 1vUBVB-0004sv-QN; Fri, 12 Dec 2025 22:20:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1185897.1507841; Fri, 12 Dec 2025 22:20:40 +0000
+Received: by outflank-mailman (output) from mailman id 1185898.1507855; Fri, 12 Dec 2025 22:20:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUBVA-0004Qr-84; Fri, 12 Dec 2025 22:20:40 +0000
-Received: by outflank-mailman (input) for mailman id 1185897;
+	id 1vUBVB-0004pn-Lc; Fri, 12 Dec 2025 22:20:41 +0000
+Received: by outflank-mailman (input) for mailman id 1185898;
  Fri, 12 Dec 2025 22:20:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SbWK=6S=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vUBV9-0004Ar-3i
+ id 1vUBV9-0004Ar-T6
  for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 22:20:39 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c97c5cb0-d7a8-11f0-b15b-2bf370ae4941;
+ id c994d10b-d7a8-11f0-b15b-2bf370ae4941;
  Fri, 12 Dec 2025 23:20:38 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so13644855e9.2
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42b47f662a0so944756f8f.0
  for <xen-devel@lists.xenproject.org>; Fri, 12 Dec 2025 14:20:38 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fb38a977esm6314350f8f.12.2025.12.12.14.20.36
+ ffacd0b85a97d-42fb38a977esm6314350f8f.12.2025.12.12.14.20.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Dec 2025 14:20:36 -0800 (PST)
+ Fri, 12 Dec 2025 14:20:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c97c5cb0-d7a8-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: c994d10b-d7a8-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1765578038; x=1766182838; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UtChIVPu0BlsEPgndceh88YwfrCdmpi/AIn67jRojGc=;
-        b=ZeLVW29nqfNc0g+8SmI+MvE2OTKMfYqyEm2ijOS3d70zG0A8a6etKYlqWLIOoE/2ur
-         ZoC/AaTf0+lk4B4CxT5jghPil8U1k+NrlnyNSJTVEa5rHJnZdIJqTTTfIZtKDPpOtmob
-         y7VJxOCg7kMCsO5lUbO7tyB5AtntewqGu6EuM=
+        bh=OyZGG1ygUMUNjDL5OLP0NhL/jpu/4gZZc2fwoRc5MXU=;
+        b=u1mps+EnvP7auSoNtrTmBX76G4QcGPBLsxbSDde9BQC3JJ3kxBiHxUHGFQVoZ1c3m9
+         rU8XkZj5/mHHzyjuALzcsBHp2z3/43pFSmq/Po3I+dJD59FsTEuwfCRwXTf5ZhiIBFL5
+         Flm5jNW3ES5C9LExzBizYK0YZgQfON/0W2L8s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1765578038; x=1766182838;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=UtChIVPu0BlsEPgndceh88YwfrCdmpi/AIn67jRojGc=;
-        b=MhyJoMQZIai/i3U+gRu576cx9nqGjY3pJTcVaFqV+MXcVPHPt3ogrcirnEPHFFxQKq
-         GtP4CFpcRRtnt446nuFnfolfPtxjB/YVElXDZrBj/Qk3rZebZTBCbxa9n0xXs5FXgmrP
-         4LRFU+IbYtZ/ZJ/4NoUaTgQKVHBKFyOV7oHXgNutD96BXyKAEw7Raw1djKjGvaSrh0il
-         O801uQK7KawvGa1I8+6W+xpexWfh5o+oGDFXBluCfpiSh8zQAOhx5ZkEe2Em2MSacbIS
-         4QCdu7yWe/ham2nqQ81nZy06mZ7q6tuWRf8q/vJh8FdJLDhXC/gBz5YkIqsjLv9ERBDU
-         xaQw==
-X-Gm-Message-State: AOJu0YxTxoJtwlurUOjsCoMWKf8h8le+Gq7CVN3ppAq3CsgsX668FTNZ
-	pad/vtRYC7j0GaQL86v+E5g98ABEuTSdp0rPnOMndAuKnhnT5MDGVX0V8yAJjF930bihOHI4V20
-	bpHFs
-X-Gm-Gg: AY/fxX7omZbKMwTj56+mQ8kD4VtZQAL6wL7a7ytnNLP4SF4BRppN4VPk96vN3u2z5b3
-	ekuIpgI4wxwNp5INjoh4XV3kal0LBKKIevv9UtEIVkik0/Jo55VzD+5g3JaE/2Af1XIYZ0YlbAT
-	GdUIjLoJJ7iZqDxyTMkE1cquIN77dKVzOAis5AcEwcU1aKhECMGxXTnThGD7WLGquReWiI/v5DL
-	BcGSTqqPukZ9Abczk2i4NgDD/+XJsU5Cd49IE09/mOHCBXl9eELC7ONghIdLZuHdVv7kgPO0lSQ
-	ygL10g1DdabrKgvjU+ns5Y+R11o/0jeROp3RQtps8CV/s6Bmu7wj/kzO4XLcwZClUCO+AryDqhu
-	EjEFZNfsEzfnAUKW51TkwmLs3wTlKRcRdT28dZKb0/QYqvFxnxonyXpoRRGLQronXDOI+P2C3Mj
-	hAGm5MPkXJYMzB47eCXRp1EyoecUqFJB7rSbkWd1gLOPUflZlcyKxSX4UPg2JPmw==
-X-Google-Smtp-Source: AGHT+IEEhwGOvC1NWFj0FHtn2MKgrphtOCvdtqOghBBeK7Hvaw39jEigq6qqiNLqGTLTDh/euTzATA==
-X-Received: by 2002:a05:600c:8115:b0:47a:7fd0:9eea with SMTP id 5b1f17b1804b1-47a8f8a9c1bmr38046705e9.3.1765578037115;
+        bh=OyZGG1ygUMUNjDL5OLP0NhL/jpu/4gZZc2fwoRc5MXU=;
+        b=LL3tPG1453s2cvJI1/UFRKNN6n2u41Zv71JrBeDXtg8iUGqNJwQ3lsdDjTCDewpA4z
+         cRCJD9cPj6DXvza4SF3ITz9pNjGU5ej2ezn/Gzq1iW2KGoQhEoOylS1FmQXwE1a6rO4C
+         Qj0TtAClKsb9tWtZeZBoWWTy4hBD29LE3CNgZN+hm3Hb0uK8/WBHdkXdqz2Psh6CG3+o
+         yiRBDT5kagr8PScTYmdVtgetyyKcozac12nFuZOU0Oto+q44n+hiR46CklmrOU/zCmPz
+         k7JQYBrikExVX8/EFIY5m08m3Y9KVFoq/c8aQeNUHtF7yhnmc7BjCv0qpwUsCPzcCXAL
+         mMdQ==
+X-Gm-Message-State: AOJu0Yx8YWZgBozPSwi+JTdGdquzRn7c1oekFHyIGc3mgY0c24bMBPoy
+	cjA6YmAkZiRrP1z1GteMk2XCFPOgAQ/FlxZYnwwLkOoImgYSDl8MHsn3vlh5YTnmagW70+eEev4
+	M9C+/
+X-Gm-Gg: AY/fxX7CHElMNz04rhxsllb6t3uQLsJXHLGeMsNK4SKCme8jqoRzLLVpu2P9micfyda
+	7g5Cw/EBZXeltH5pMANKQKKPJb6QApqYZRP+/FX7Yxgg/PW7557X9uQ6lM4kevrVG+ndrlveaCi
+	LM0/Eev9vrH7rUBYhPqN6cFuK2TzpnQOshh0xJzCifh0cBeJw8SOJTU3rJgDbpydvu8oYuzYPaS
+	N3atoIYHh/64gcoq6koo3cejxtFb7NVIYT4PFDBLQp2H0wpTxYXJpKu4sOCpCZ542vnqN5p/UnI
+	Yri+mdWnACCBMtE5obsgnjRMWdrA/+GKqxfCDvGPH7UZJa7I5vojopQ954y41/BP3Xtmt+aqDbU
+	i7Z2P61ZxpMJlbPZTtB9xwSB4jW7YZq9Py07kWD1tikwuvFQIrMHNYEbzXoLN+rSyFyQq8zuHoj
+	huTNgWn9WzQ+z99hC8YTy50jMFGlNmhnMab6d2Tnm23wqNL6KLgSM9yx2ddD0J9g==
+X-Google-Smtp-Source: AGHT+IEZaNzPYFn3TDq7ikgSgUJ4bznYDpM+vmENe+1Wa9S5DEc+y3RDl3/Lc8P+ud530mgQw3Zj+Q==
+X-Received: by 2002:a5d:64c3:0:b0:429:eb80:11f5 with SMTP id ffacd0b85a97d-42fab27d472mr7902693f8f.26.1765578037746;
         Fri, 12 Dec 2025 14:20:37 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -88,9 +88,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	"consulting @ bugseng . com" <consulting@bugseng.com>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 3/5] x86: Address MIRSA R8.3 (declaration/definition mismatch) issues
-Date: Fri, 12 Dec 2025 22:20:30 +0000
-Message-Id: <20251212222032.2640580-4-andrew.cooper3@citrix.com>
+Subject: [PATCH 4/5] x86: Address MIRSA R8.4 (declaration visibility) issues
+Date: Fri, 12 Dec 2025 22:20:31 +0000
+Message-Id: <20251212222032.2640580-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251212222032.2640580-1-andrew.cooper3@citrix.com>
 References: <20251212222032.2640580-1-andrew.cooper3@citrix.com>
@@ -98,10 +98,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-These are mostly name mismatches, but a couple have type alias mismatches too.
+set_guest_*_trapbounce() are only called from assembly so gain asmlinkage to
+identify them.
 
-For shadow_put_top_level() and is_patch(), the declaration name is the better
-choice so change the name in the function.
+xen_msr_s_cet_value() is called by assembly and C, so asmlinkage isn't
+appropriate.  Make the declaration unconditional, which silences the
+complaint.
 
 No functional change.
 
@@ -113,227 +115,54 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: consulting@bugseng.com <consulting@bugseng.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/x86/include/asm/hypercall.h |  4 ++--
- xen/arch/x86/include/asm/pv/mm.h     |  4 ++--
- xen/arch/x86/include/asm/shadow.h    |  2 +-
- xen/arch/x86/mm.c                    |  4 ++--
- xen/arch/x86/mm/shadow/common.c      |  8 ++++----
- xen/arch/x86/mm/shadow/multi.h       |  4 ++--
- xen/arch/x86/mm/shadow/private.h     | 10 +++++-----
- xen/common/kimage.c                  |  2 +-
- xen/common/livepatch.c               | 14 +++++++-------
- xen/include/xen/livepatch.h          |  2 +-
- 10 files changed, 27 insertions(+), 27 deletions(-)
+ xen/arch/x86/pv/traps.c | 4 ++--
+ xen/arch/x86/setup.c    | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hypercall.h b/xen/arch/x86/include/asm/hypercall.h
-index f6e9e2313b3c..bf2f0e169aef 100644
---- a/xen/arch/x86/include/asm/hypercall.h
-+++ b/xen/arch/x86/include/asm/hypercall.h
-@@ -22,8 +22,8 @@
- void pv_hypercall(struct cpu_user_regs *regs);
+diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
+index c3c0976c440f..26a468108a77 100644
+--- a/xen/arch/x86/pv/traps.c
++++ b/xen/arch/x86/pv/traps.c
+@@ -99,7 +99,7 @@ void pv_inject_event(const struct x86_event *event)
+  * Called from asm to set up the MCE trapbounce info.
+  * Returns false no callback is set up, else true.
+  */
+-bool set_guest_machinecheck_trapbounce(void)
++bool asmlinkage set_guest_machinecheck_trapbounce(void)
+ {
+     struct vcpu *curr = current;
+     struct trap_bounce *tb = &curr->arch.pv.trap_bounce;
+@@ -114,7 +114,7 @@ bool set_guest_machinecheck_trapbounce(void)
+  * Called from asm to set up the NMI trapbounce info.
+  * Returns false if no callback is set up, else true.
+  */
+-bool set_guest_nmi_trapbounce(void)
++bool asmlinkage set_guest_nmi_trapbounce(void)
+ {
+     struct vcpu *curr = current;
+     struct trap_bounce *tb = &curr->arch.pv.trap_bounce;
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 44da5efa1d20..27c63d1d97c9 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -877,6 +877,8 @@ static void noreturn init_done(void)
+     startup_cpu_idle_loop();
+ }
+ 
++unsigned int xen_msr_s_cet_value(void); /* To avoid ifdefary, and placate MISRA */
++
+ #if defined(CONFIG_XEN_SHSTK) || defined(CONFIG_XEN_IBT)
+ /*
+  * Used by AP and S3 asm code to calcualte the appropriate MSR_S_CET setting.
+@@ -888,8 +890,6 @@ unsigned int xen_msr_s_cet_value(void)
+     return ((cpu_has_xen_shstk ? CET_SHSTK_EN | CET_WRSS_EN : 0) |
+             (cpu_has_xen_ibt   ? CET_ENDBR_EN : 0));
+ }
+-#else
+-unsigned int xen_msr_s_cet_value(void); /* To avoid ifdefary */
  #endif
  
--void pv_ring1_init_hypercall_page(void *ptr);
--void pv_ring3_init_hypercall_page(void *ptr);
-+void pv_ring1_init_hypercall_page(void *p);
-+void pv_ring3_init_hypercall_page(void *p);
- 
- /*
-  * Both do_mmuext_op() and do_mmu_update():
-diff --git a/xen/arch/x86/include/asm/pv/mm.h b/xen/arch/x86/include/asm/pv/mm.h
-index 182764542c1f..a5745908206a 100644
---- a/xen/arch/x86/include/asm/pv/mm.h
-+++ b/xen/arch/x86/include/asm/pv/mm.h
-@@ -18,7 +18,7 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
-                unsigned int entries);
- void pv_destroy_gdt(struct vcpu *v);
- 
--bool pv_map_ldt_shadow_page(unsigned int off);
-+bool pv_map_ldt_shadow_page(unsigned int offset);
- bool pv_destroy_ldt(struct vcpu *v);
- 
- int validate_segdesc_page(struct page_info *page);
-@@ -40,7 +40,7 @@ static inline int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
- { ASSERT_UNREACHABLE(); return -EINVAL; }
- static inline void pv_destroy_gdt(struct vcpu *v) { ASSERT_UNREACHABLE(); }
- 
--static inline bool pv_map_ldt_shadow_page(unsigned int off) { return false; }
-+static inline bool pv_map_ldt_shadow_page(unsigned int offset) { return false; }
- static inline bool pv_destroy_ldt(struct vcpu *v)
- { ASSERT_UNREACHABLE(); return false; }
- 
-diff --git a/xen/arch/x86/include/asm/shadow.h b/xen/arch/x86/include/asm/shadow.h
-index 9a8d1b8353cd..60589c3cacee 100644
---- a/xen/arch/x86/include/asm/shadow.h
-+++ b/xen/arch/x86/include/asm/shadow.h
-@@ -63,7 +63,7 @@ int shadow_enable(struct domain *d, u32 mode);
- 
- /* Enable VRAM dirty bit tracking. */
- int shadow_track_dirty_vram(struct domain *d,
--                            unsigned long first_pfn,
-+                            unsigned long begin_pfn,
-                             unsigned int nr_frames,
-                             XEN_GUEST_HANDLE(void) guest_dirty_bitmap);
- 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index b929d15d0050..0d0d5292953b 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -4566,7 +4566,7 @@ static int __do_update_va_mapping(
- }
- 
- long do_update_va_mapping(
--    unsigned long va, u64 val64, unsigned long flags)
-+    unsigned long va, uint64_t val64, unsigned long flags)
- {
-     int rc = __do_update_va_mapping(va, val64, flags, current->domain);
- 
-@@ -4578,7 +4578,7 @@ long do_update_va_mapping(
- }
- 
- long do_update_va_mapping_otherdomain(
--    unsigned long va, u64 val64, unsigned long flags, domid_t domid)
-+    unsigned long va, uint64_t val64, unsigned long flags, domid_t domid)
- {
-     struct domain *pg_owner;
-     int rc;
-diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-index f2aee5be46a7..f9310d008de6 100644
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -751,7 +751,7 @@ void shadow_promote(struct domain *d, mfn_t gmfn, unsigned int type)
-     TRACE_SHADOW_PATH_FLAG(TRCE_SFLAG_PROMOTE);
- }
- 
--void shadow_demote(struct domain *d, mfn_t gmfn, u32 type)
-+void shadow_demote(struct domain *d, mfn_t gmfn, unsigned int type)
- {
-     struct page_info *page = mfn_to_page(gmfn);
- 
-@@ -2615,11 +2615,11 @@ pagetable_t sh_set_toplevel_shadow(struct vcpu *v,
-  * Helper invoked when releasing of a top-level shadow's reference was
-  * deferred in sh_set_toplevel_shadow() above.
-  */
--void shadow_put_top_level(struct domain *d, pagetable_t old_entry)
-+void shadow_put_top_level(struct domain *d, pagetable_t old)
- {
--    ASSERT(!pagetable_is_null(old_entry));
-+    ASSERT(!pagetable_is_null(old));
-     paging_lock(d);
--    sh_put_ref(d, pagetable_get_mfn(old_entry), 0);
-+    sh_put_ref(d, pagetable_get_mfn(old), 0);
-     paging_unlock(d);
- }
- 
-diff --git a/xen/arch/x86/mm/shadow/multi.h b/xen/arch/x86/mm/shadow/multi.h
-index 0e938594345a..fc86d7a8d9cd 100644
---- a/xen/arch/x86/mm/shadow/multi.h
-+++ b/xen/arch/x86/mm/shadow/multi.h
-@@ -89,11 +89,11 @@ SHADOW_INTERNAL_NAME(sh_paging_mode, GUEST_LEVELS);
- #if SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC
- extern void
- SHADOW_INTERNAL_NAME(sh_resync_l1, GUEST_LEVELS)
--     (struct vcpu *v, mfn_t gmfn, mfn_t snpmfn);
-+     (struct vcpu *v, mfn_t gl1mfn, mfn_t snpmfn);
- 
- extern int
- SHADOW_INTERNAL_NAME(sh_safe_not_to_sync, GUEST_LEVELS)
--     (struct vcpu*v, mfn_t gmfn);
-+     (struct vcpu*v, mfn_t gl1mfn);
- 
- extern int
- SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p, GUEST_LEVELS)
-diff --git a/xen/arch/x86/mm/shadow/private.h b/xen/arch/x86/mm/shadow/private.h
-index bc99e00100f7..12cfb52f095b 100644
---- a/xen/arch/x86/mm/shadow/private.h
-+++ b/xen/arch/x86/mm/shadow/private.h
-@@ -364,11 +364,11 @@ bool  shadow_hash_delete(struct domain *d,
-                          unsigned long n, unsigned int t, mfn_t smfn);
- 
- /* shadow promotion */
--void shadow_promote(struct domain *d, mfn_t gmfn, u32 type);
--void shadow_demote(struct domain *d, mfn_t gmfn, u32 type);
-+void shadow_promote(struct domain *d, mfn_t gmfn, unsigned int type);
-+void shadow_demote(struct domain *d, mfn_t gmfn, unsigned int type);
- 
- /* Shadow page allocation functions */
--bool __must_check shadow_prealloc(struct domain *d, unsigned int shadow_type,
-+bool __must_check shadow_prealloc(struct domain *d, unsigned int type,
-                                   unsigned int count);
- mfn_t shadow_alloc(struct domain *d,
-                     u32 shadow_type,
-@@ -392,11 +392,11 @@ int sh_validate_guest_entry(struct vcpu *v, mfn_t gmfn, void *entry, u32 size);
-  * Returns non-zero if we need to flush TLBs.
-  * level and fault_addr desribe how we found this to be a pagetable;
-  * level==0 means we have some other reason for revoking write access. */
--extern int sh_remove_write_access(struct domain *d, mfn_t readonly_mfn,
-+extern int sh_remove_write_access(struct domain *d, mfn_t gmfn,
-                                   unsigned int level,
-                                   unsigned long fault_addr);
- #else
--static inline int sh_remove_write_access(struct domain *d, mfn_t readonly_mfn,
-+static inline int sh_remove_write_access(struct domain *d, mfn_t gmfn,
-                                          unsigned int level,
-                                          unsigned long fault_addr)
- {
-diff --git a/xen/common/kimage.c b/xen/common/kimage.c
-index 9961eac187e9..e1aec5a18a54 100644
---- a/xen/common/kimage.c
-+++ b/xen/common/kimage.c
-@@ -66,7 +66,7 @@
- static int kimage_is_destination_range(struct kexec_image *image,
-                                        paddr_t start, paddr_t end);
- static struct page_info *kimage_alloc_page(struct kexec_image *image,
--                                           paddr_t dest);
-+                                           paddr_t destination);
- 
- static struct page_info *kimage_alloc_zeroed_page(unsigned memflags)
- {
-diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index d0da2aa28132..7446533c8cfb 100644
---- a/xen/common/livepatch.c
-+++ b/xen/common/livepatch.c
-@@ -107,7 +107,7 @@ static int verify_payload(const struct xen_sysctl_livepatch_upload *upload, char
-     return 0;
- }
- 
--bool is_patch(const void *ptr)
-+bool is_patch(const void *addr)
- {
-     const struct payload *data;
-     bool r = false;
-@@ -115,12 +115,12 @@ bool is_patch(const void *ptr)
-     rcu_read_lock(&rcu_payload_lock);
-     list_for_each_entry_rcu ( data, &payload_list, list )
-     {
--        if ( (ptr >= data->rw_addr &&
--              ptr < (data->rw_addr + data->rw_size)) ||
--             (ptr >= data->ro_addr &&
--              ptr < (data->ro_addr + data->ro_size)) ||
--             (ptr >= data->text_addr &&
--              ptr < (data->text_addr + data->text_size)) )
-+        if ( (addr >= data->rw_addr &&
-+              addr < (data->rw_addr + data->rw_size)) ||
-+             (addr >= data->ro_addr &&
-+              addr < (data->ro_addr + data->ro_size)) ||
-+             (addr >= data->text_addr &&
-+              addr < (data->text_addr + data->text_size)) )
-         {
-             r = 1;
-             break;
-diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-index 3f5ad01f1bdd..45c8924f3412 100644
---- a/xen/include/xen/livepatch.h
-+++ b/xen/include/xen/livepatch.h
-@@ -89,7 +89,7 @@ enum va_type {
-  * Function to secure the allocate pages (from arch_livepatch_alloc_payload)
-  * with the right page permissions.
-  */
--int arch_livepatch_secure(const void *va, unsigned int pages, enum va_type types);
-+int arch_livepatch_secure(const void *va, unsigned int pages, enum va_type type);
- 
- void arch_livepatch_init(void);
- 
+ /* Reinitalise all state referring to the old virtual address of the stack. */
 -- 
 2.39.5
 
