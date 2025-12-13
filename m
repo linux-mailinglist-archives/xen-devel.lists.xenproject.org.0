@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03864CBA2B0
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Dec 2025 02:40:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186045.1507942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2BDCBA2B3
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Dec 2025 02:40:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186046.1507952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUEcO-0005FJ-Vz; Sat, 13 Dec 2025 01:40:20 +0000
+	id 1vUEcY-0005WC-CB; Sat, 13 Dec 2025 01:40:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186045.1507942; Sat, 13 Dec 2025 01:40:20 +0000
+Received: by outflank-mailman (output) from mailman id 1186046.1507952; Sat, 13 Dec 2025 01:40:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUEcO-0005Cx-TD; Sat, 13 Dec 2025 01:40:20 +0000
-Received: by outflank-mailman (input) for mailman id 1186045;
- Sat, 13 Dec 2025 01:40:19 +0000
+	id 1vUEcY-0005UQ-97; Sat, 13 Dec 2025 01:40:30 +0000
+Received: by outflank-mailman (input) for mailman id 1186046;
+ Sat, 13 Dec 2025 01:40:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Uk1a=6T=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vUEcN-0005Cr-AQ
- for xen-devel@lists.xenproject.org; Sat, 13 Dec 2025 01:40:19 +0000
+ id 1vUEcW-0005Cr-QJ
+ for xen-devel@lists.xenproject.org; Sat, 13 Dec 2025 01:40:28 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad741737-d7c4-11f0-b15b-2bf370ae4941;
- Sat, 13 Dec 2025 02:40:18 +0100 (CET)
+ id b3a8bb7c-d7c4-11f0-b15b-2bf370ae4941;
+ Sat, 13 Dec 2025 02:40:28 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 967F560197;
- Sat, 13 Dec 2025 01:40:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F75BC4CEF5;
- Sat, 13 Dec 2025 01:40:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 64391600AA;
+ Sat, 13 Dec 2025 01:40:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98D3C4CEF1;
+ Sat, 13 Dec 2025 01:40:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,40 +41,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad741737-d7c4-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: b3a8bb7c-d7c4-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765590016;
-	bh=sJ4RR/YDaD3uR8Zhckm1hynsY52H0lkF9ncPKODrChw=;
+	s=k20201202; t=1765590027;
+	bh=DCSgugzk5Z0QBFh8mdWZMPlnXeIyKxVPOwV/MY0A10U=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MX03DpFKucfStOaSk+0mDtjqljCddhjtWLsEfEQFgBXf/6DGi3EhQpW4ZSc6Ye5tM
-	 j6TrQeYmGUXy1PncRIedhU4zoLGSmeEQq7NJkybDNEWfZkrTSHKeCRlNYds4+1s1vK
-	 F6OEvyzE7iZedgkz076CgxF0WVkRl4+sAMC7MMV8qCIGL+TynwnwVYluJrTIkkEZNI
-	 G2R+Qqow8NwIZrRqqC+6dBvUiqCEaboXTW7m2y0wR1NWKuK5s040GSEoHLN2ADJd2T
-	 hB46r15hBkJCJHj2VhqKuF982xraRJSprC3N9MCt+cxaeoIvUHoEtTwyni/alDFiqh
-	 kvy2fv9R40mQw==
-Date: Fri, 12 Dec 2025 17:40:14 -0800 (PST)
+	b=NFTjaofucD8tkfHftidBTyZPJKBYjAvI6YoSpKmwp6lsONDoVkJnRtRNdUMq7NS3D
+	 TZJjv8BrL0fhMnGCVMOjosBJ79E8CU1llFGVkrB2wD0LuwOPVb1gtn+P6JmT5Gv3Pm
+	 5PpQqsd8iL7fy/9UrqPC7REHusPTvAJ0OctimazKS2HU+lVjvpyYqZtg1vpnBFNfqo
+	 GSeTgZtrsxdPd3+ReV3a6w+nyTS5hgIf2FuaOeSx9Q2ivKybbm3V0Tfm0Un4VebmQv
+	 1W59ffHqBMUFbvC+P65O/ZVhDgQmvDKcAOKL8xalbwVr7eDGjvwvvHRb3HWxsQMpPV
+	 FlHI6EamgXu4g==
+Date: Fri, 12 Dec 2025 17:40:25 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v1] automation: edit pipeline to fix blocked status
-In-Reply-To: <20251212235727.1377099-1-victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2512121740040.381016@ubuntu-linux-20-04-desktop>
-References: <20251212190850.1357779-2-victorm.lira@amd.com> <20251212235727.1377099-1-victorm.lira@amd.com>
+cc: xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v1] automation: edit pipeline to fix hardware jobs
+ running by mistake
+In-Reply-To: <20251213013028.1382461-1-victorm.lira@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2512121740190.381016@ubuntu-linux-20-04-desktop>
+References: <20251212235727.1377099-1-victorm.lira@amd.com> <20251213013028.1382461-1-victorm.lira@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 12 Dec 2025, Victor Lira wrote:
-> The original yocto config had a hidden default of allow_failure: true for the
-> manual job while the hidden default for rules is false. This causes the
-> stages with manual jobs to show as blocked.
+On Sat, 13 Dec 2025, Victor Lira wrote:
+> The selected jobs regex was assumed to be possibly empty in some places
+> and setting a default value for the regex caused the hardware jobs to
+> bypass some rules checks.
 > 
-> Set it explicitly to true to avoid the analyze and build stages being shown as
-> blocked.
+> To fix this, adjust the rules to remove the check for empty and
+> instead just match the regex.
 > 
 > Fixes: 485ab1b5db0f358625fafe2df4e41e3ef008aed8
 > Signed-off-by: Victor Lira <victorm.lira@amd.com>
