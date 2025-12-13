@@ -2,53 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA1ECBA142
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Dec 2025 00:59:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1185994.1507914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728AECBA1C4
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Dec 2025 01:21:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186005.1507923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUD1H-0005Ar-Ll; Fri, 12 Dec 2025 23:57:55 +0000
+	id 1vUDOC-0001lr-Az; Sat, 13 Dec 2025 00:21:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1185994.1507914; Fri, 12 Dec 2025 23:57:55 +0000
+Received: by outflank-mailman (output) from mailman id 1186005.1507923; Sat, 13 Dec 2025 00:21:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vUD1H-00057j-Id; Fri, 12 Dec 2025 23:57:55 +0000
-Received: by outflank-mailman (input) for mailman id 1185994;
- Fri, 12 Dec 2025 23:57:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vUDOC-0001k5-7H; Sat, 13 Dec 2025 00:21:36 +0000
+Received: by outflank-mailman (input) for mailman id 1186005;
+ Sat, 13 Dec 2025 00:21:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tg47=6S=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
- id 1vUD1G-00057d-Ns
- for xen-devel@lists.xenproject.org; Fri, 12 Dec 2025 23:57:54 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58ecdafe-d7b6-11f0-9cce-f158ae23cfc8;
- Sat, 13 Dec 2025 00:57:43 +0100 (CET)
-Received: from CH5PR02CA0006.namprd02.prod.outlook.com (2603:10b6:610:1ed::16)
- by DS7PR12MB6262.namprd12.prod.outlook.com (2603:10b6:8:96::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.10; Fri, 12 Dec 2025 23:57:36 +0000
-Received: from CH2PEPF0000009B.namprd02.prod.outlook.com
- (2603:10b6:610:1ed:cafe::82) by CH5PR02CA0006.outlook.office365.com
- (2603:10b6:610:1ed::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.12 via Frontend Transport; Fri,
- 12 Dec 2025 23:57:30 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009B.mail.protection.outlook.com (10.167.244.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Fri, 12 Dec 2025 23:57:35 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 12 Dec
- 2025 17:57:35 -0600
-Received: from xsjvictlira01-ubuntu-0.mshome.net (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Fri, 12 Dec 2025 15:57:34 -0800
+ <SRS0=XKAJ=6T=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1vUDOA-0001jz-L2
+ for xen-devel@lists.xenproject.org; Sat, 13 Dec 2025 00:21:34 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac867d3d-d7b9-11f0-b15b-2bf370ae4941;
+ Sat, 13 Dec 2025 01:21:32 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1765585286539823.6498816067525;
+ Fri, 12 Dec 2025 16:21:26 -0800 (PST)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7c6da42fbd4so894569a34.1
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Dec 2025 16:21:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,124 +41,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58ecdafe-d7b6-11f0-9cce-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YFP9ydVNOzEA+S+lEy2I6x9a1oQxdmU/JPsP30RpxHd170EpP1aJsI+6l32+b5yvk1xVnFVv+nwPWFbv0UvZX4WbWSHbEQpNMC4pazj7Gq4lZtqYq12D01Z2Q2nI+lxw5GTMDpEVXHTfEaEwIEfIINIWCz2PEA3QxDgShxw4ZNk4ah0FtVJA5nEbZJzEita4lsIcg43lWIQffPlPPeq7hOwqVwSEPYHo0ZVlddHE7hlcW2U/p9MIGO9yQ7vwwSZtalrQwnxXO8jyEx/xI+T4BIO2PbOxPbKC2xuMnY6hI7lhhdhBb8DVM6xz9y54SITUnFxyWe0JXiYzC4g6rJtU1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BmXjRzinjcL1ebSRx8JkIRIIdbtFwIRfI39UPTEn6NE=;
- b=loWW2BdjFe8gZdvfSSKtE5PKLi3Arw79wiJMbS9k/zCOrbTM4Tfy41xfqOq2VpBlZ/SwB5sq7Z5a5bK9++39d/7jZXB99m/AQ4kxawJ7ebdYNxnNuv/zkHQUnWsZYHXuGet9TJTmMakh9VEROQZ8fHFWAC/B4UOunlQ5wkDHUUn1LZJnzz7AeTLiqxofd9cFDqqZT/kB0pizt9zukY/dJJ3Oc9XnYZVmVYaelaLuXz/D5vEHpoDMK3JcqWc0jQoQ25SW0QzuP/fJYwCULlV8cLXShWB8F+7dKqSAGeGMQF5sxIuucgAWjgRECN804jkjhVrLdWf6dH9LZ72eABdtug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BmXjRzinjcL1ebSRx8JkIRIIdbtFwIRfI39UPTEn6NE=;
- b=ej9khcbRtdSEGtLFL6huAhf/Zib4bhVSOVx7YPk/6IdPE52PpNvKrcHLICBsSY5v6U+9lRU85TT+zrmgEEMTPbfHHORqbPNI4V+hLNBJqEzAMznKaLv9NNnGzIr1IuXz80YJ7cAsKnfBrwbRM0H1jiB8Dp84+Pni1ZgQkuyFQIg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Victor Lira <victorm.lira@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Victor Lira <victorm.lira@amd.com>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [XEN PATCH v1] automation: edit pipeline to fix blocked status
-Date: Fri, 12 Dec 2025 23:57:27 +0000
-Message-ID: <20251212235727.1377099-1-victorm.lira@amd.com>
-X-Mailer: git-send-email 2.51.GIT
-In-Reply-To: <20251212190850.1357779-2-victorm.lira@amd.com>
-References: <20251212190850.1357779-2-victorm.lira@amd.com>
+X-Inumbo-ID: ac867d3d-d7b9-11f0-b15b-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1765585288; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Cw3bX0mrOpW1ENyuax8uYZVvUxa2aqXZtF/VQWG3IU990K6B0mJV+Yo9mNjsBNPktbQdeQG8vS0Nh09uolw+bpQMfB4sED1QCrOU8WKDxG16rU/XYcWtfCnqM0uCKi3/iA80TybdrGMwkPhxeyc6jeZnuugSYurGybfKW2U0930=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1765585288; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6UKyMjBm/KA3X23N94H3JmDIPbxhK7G8MuncgybTHaM=; 
+	b=XffCxOoeGVQqZQahPdTUhaHW5uDVLU4KazMFv8nbkxXZGBHAXhsdS7yrz4VXayPLa4I5PMwdw9ckks2AJXp3ZLOWcVkhqei68SWPlfXZoslwvGflLyU6RHgAwrGIDR5ejdrx1oIW36iCE/eiYjd+1vB9kjDFCizyCZbZy6EoXyQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765585288;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6UKyMjBm/KA3X23N94H3JmDIPbxhK7G8MuncgybTHaM=;
+	b=IJo29Get54TbVlvL/oZqqguZrA53NSClDNsAVMhICI1mBqX9JZK9/EGNv7/Oh3Qv
+	gXCGyInxsjE9DPEnHdoEw2mbcSZXSUFPKbtNWs17vnAlWgeF0lVyQrJZc2OX7AepJyI
+	TX7R5wt/lmHQH1bP4lZq61FHjFrPYENkSptRkKqU=
+X-Forwarded-Encrypted: i=1; AJvYcCUfeW5QUKZmzok+6dATleuz9WVX9GvZjVuzCRBpWr0w9EGyY2FxRkas57N0KW6vYSMy4FAx53AGU34=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxAT50g0Tui4AWK7rp/ne9zFMYLDuMzxiZyVDktK7/pxy0Nj+Y4
+	VILWeaO8/vlyw+YImmZOdVmv8UMc3RUzwoKH0R0e717ANwlA+DtUcBAL8mkad0OPM0WOVM3ecOz
+	fkgdnhuz7/4CnMfRg/gu3Yp/2YdU4EIw=
+X-Google-Smtp-Source: AGHT+IET+jpYygZ4B+R6X3+pl4mxnl7ymXRUBVL2WDbKAdBVaEALFQoQvTp2COMQDKFqp1vUwbigsY/GzuEQskZFumI=
+X-Received: by 2002:a05:6808:1a1d:b0:450:3cbb:f1e2 with SMTP id
+ 5614622812f47-455ac98a755mr1811054b6e.46.1765585285287; Fri, 12 Dec 2025
+ 16:21:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009B:EE_|DS7PR12MB6262:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8a4a793-d18f-4d9c-36d5-08de39da3925
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?1jwPweIPzFdMhz9fiWjqqece2xRq5IxtDGWQPAa0KE6gibTkgjZd+Gfc9rRa?=
- =?us-ascii?Q?80RO9YvdOu7jtVJKFZUuAaZ2MfipY+x3g4aRpmY6OKtZVjfQLJEhRWsKH4pq?=
- =?us-ascii?Q?Or2sFnN3YW9wGIateIC0TyaOtSWTlrAYh+aXwgVDuSUY4nwGS13kAF4xDYod?=
- =?us-ascii?Q?fODSHK7sHmO8j6gFhuYCuXKoM5KjwIMM5GukRh7NL0nqCOkDmjqUdnOI3zyX?=
- =?us-ascii?Q?cKJ7htbD//1wKOcFFYipOyOyZr787GVIjC8Nm+IuPy/VMqcw8ufFtLOp+72v?=
- =?us-ascii?Q?HB5iNqlLjRJZaEWmE+xmfJIbevEKM65+EYi52AgQgf17ifPoaSenrs9JDEWC?=
- =?us-ascii?Q?WG95z6wUfVq2cZHOFhyHzjx/PkXr4qcCpySdY8fuEpuNSJKRgrlLbgR1bQvQ?=
- =?us-ascii?Q?Bgs+JU0xDXFzm6PwcIetp0veqQT6M805deX2FfeLnedwec9UCF4RwlR8Dxtp?=
- =?us-ascii?Q?6rcFU2EYcc0tQ4yof8v4wu5f+64t/G1t1Kmkf4dtD7AKhJFJUwaka64shTod?=
- =?us-ascii?Q?gaoHqvXuNAZy+kaOamIZ+ydHX95QQfGEbYKMSQ9o5DyQuF7WOg1iJ8plGufB?=
- =?us-ascii?Q?NTtX8p5jqwwEpA9CUMVUNapLzztw2WGy/kfvthctKEA3yaI4WSAmkdwEDIDQ?=
- =?us-ascii?Q?hZY3369dExqqcO954RHOWopwiZX4x+gJYubBUfxONSi13tzJULHXmwG94kHO?=
- =?us-ascii?Q?dqu7gA+OQq9hov3rASYlGDnUztctUJwRlhK3xdHc9c9tgMxjype2Alzu9/Ex?=
- =?us-ascii?Q?xvZTLc94a7DrWjLG1I8geuHBLSZI/b72o6IIZX1Yq1zVxG+oH2sWWh9vvUSc?=
- =?us-ascii?Q?j5oP3gWttLIX6lrvBP1M/zo9sWz/MYmk5maRr4SCP8a4ckOpQWjv06a/ZZaC?=
- =?us-ascii?Q?+pgBRHZL24GP+9cX9Krjod89IeCMEDO0q4R9xljoWSQTjb2pdKWAju3EQzZC?=
- =?us-ascii?Q?ItiiiANzxD7ABKmVgl/gycTNERMWugrH/cUCgXayiOHuqIAkzSNnRpvwDi+q?=
- =?us-ascii?Q?wksfdNalMsK95q/wgWH8xln5doxOh7rzaYcjI3APi0q5T9BkJAOYWVH0cf44?=
- =?us-ascii?Q?quoFy9zFQt/mBSnhaW0JiUjVz+xIkDEO0xay5RaKzow4PtXMVMeal3iyVTVZ?=
- =?us-ascii?Q?ld2CEqNH9S3dyMhkQaFcrMG14GV3fr2bpSXORk1malou9exqu1qvli0/nfuw?=
- =?us-ascii?Q?5m8h5r74iDs2xOuGB/2N8sHOcyUt5gDBwF/lHD3a7l2Ptx+pTQixmYp0U2b9?=
- =?us-ascii?Q?A/u46NUKohQ9MW3wIsPOgaBPlx5seVua3ZNA3YcyQX4vvWLxKgr+fC4S480G?=
- =?us-ascii?Q?2xHt7iVi9wDpWCtDmzUbFrTAmu0SB8z+fDj0auMk8KblDukbNoHpfrjmkssu?=
- =?us-ascii?Q?aenHy2MX+qXFGQgqFQbTn0e/yRfUfhsi8XOUF9Xoa3VqBEyEQWLFJZnTsr7M?=
- =?us-ascii?Q?OFMRKBD4QVNbDQmt5vcfpZXIGCRhoUmmvMgqTv82YaXWxzgN8+EVYRzRpeq/?=
- =?us-ascii?Q?03QJMClHpkgvUlTD/i7B7Wh+mKtaTyijhujLX+dSk++g7hpGzBNtcqkMTKXT?=
- =?us-ascii?Q?r6XoarsNj/C0Igqi8fs=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 23:57:35.7030
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8a4a793-d18f-4d9c-36d5-08de39da3925
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000009B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6262
+References: <20251212040209.1970553-1-Penny.Zheng@amd.com> <20251212040209.1970553-9-Penny.Zheng@amd.com>
+ <f55d729e-e25a-408e-91ae-355033eaedde@suse.com>
+In-Reply-To: <f55d729e-e25a-408e-91ae-355033eaedde@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 12 Dec 2025 19:20:49 -0500
+X-Gmail-Original-Message-ID: <CABfawh=WGft2pF3tKGyevPY7i5tM7W6_of6RahrGvku6FRsreA@mail.gmail.com>
+X-Gm-Features: AQt7F2pOWGWm2OYUrVvYThEWKde72aA3R3NhM5nWdJgICpd-uxcYWDws8qAGQ4I
+Message-ID: <CABfawh=WGft2pF3tKGyevPY7i5tM7W6_of6RahrGvku6FRsreA@mail.gmail.com>
+Subject: Re: [PATCH v5 08/24] xen/mem_sharing: make memory sharing depend on MGMT_HYPERCALLS
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Penny Zheng <Penny.Zheng@amd.com>, ray.huang@amd.com, grygorii_strashko@epam.com, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The original yocto config had a hidden default of allow_failure: true for the
-manual job while the hidden default for rules is false. This causes the
-stages with manual jobs to show as blocked.
+On Fri, Dec 12, 2025 at 4:23=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 12.12.2025 05:01, Penny Zheng wrote:
+> > The enabling bit (d->arch.hvm.mem_sharing.enabled) for memory sharing c=
+ould
+> > only be enabled via domctl-op, so we shall make memory sharing feature
+> > depend on MGMT_HYPERCALLS.
+> >
+> > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-Set it explicitly to true to avoid the analyze and build stages being shown as
-blocked.
+Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
 
-Fixes: 485ab1b5db0f358625fafe2df4e41e3ef008aed8
-Signed-off-by: Victor Lira <victorm.lira@amd.com>
----
-https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2212386023
-(stuck because of hardware jobs)
+>
+> Tamas,
+>
+> this is something that rather you should ack (or reject). (Penny, you wou=
+ld
+> have wanted to Cc Tamas here right away, no matter what F: entries in
+> ./MAINTAINERS would say.)
+>
+> Thanks, Jan
 
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
----
- automation/gitlab-ci/build.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Thanks, seems fine to me.
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index e9e04e37d4..f7e032320a 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -229,6 +229,7 @@
-   rules:
-     - if: $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-       when: manual
-+      allow_failure: true
-
- .yocto-test-arm64:
-   extends: .yocto-test
---
-2.51.GIT
+Tamas
 
