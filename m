@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1619CCBD142
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:00:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186691.1508116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13EEECBD296
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:26:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186700.1508127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV4Qy-0003iR-Hx; Mon, 15 Dec 2025 09:00:00 +0000
+	id 1vV4q1-0008TD-Id; Mon, 15 Dec 2025 09:25:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186691.1508116; Mon, 15 Dec 2025 09:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 1186700.1508127; Mon, 15 Dec 2025 09:25:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV4Qy-0003fu-Et; Mon, 15 Dec 2025 09:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 1186691;
- Mon, 15 Dec 2025 08:59:59 +0000
+	id 1vV4q1-0008Q5-F5; Mon, 15 Dec 2025 09:25:53 +0000
+Received: by outflank-mailman (input) for mailman id 1186700;
+ Mon, 15 Dec 2025 09:25:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV4Qx-0003fo-Gf
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 08:59:59 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vV4q0-0008Pz-C9
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 09:25:52 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e386bdf-d994-11f0-b15b-2bf370ae4941;
- Mon, 15 Dec 2025 09:59:58 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so31925295e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 00:59:57 -0800 (PST)
+ id 0ba1fe7c-d998-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 10:25:50 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-477b198f4bcso25473215e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 01:25:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47bd2aab5b5sm1813795e9.5.2025.12.15.00.59.55
+ 5b1f17b1804b1-47a8f7037casm63551785e9.15.2025.12.15.01.25.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 00:59:56 -0800 (PST)
+ Mon, 15 Dec 2025 01:25:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e386bdf-d994-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 0ba1fe7c-d998-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765789197; x=1766393997; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765790750; x=1766395550; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=72OPFhWon9kXoIauxRwR1Xkd54AI2MBkQuX1waJPnt4=;
-        b=Gk9t0pmWQqBJE6Zag9cmB63w9k3wUbajqbHH6g69+EyEqzcGbp4hMuGqACDmiqU1qB
-         WZpGA1gg0r7PGncfNtPLzNFhw7p7d/OvDhlzrfwS4zmK5wYarp03cnKbp/iFL2BZEK1E
-         G4ItdV2wtaxtItqoiy5hgTmvSoR68rjkxy5ul6dRHBG8pwEJirwPEq7oW1ZTD77DYgbu
-         nXMrLveinuYitG146FE8FJ6o5fn8xoyEZCxDySe4JRu+HqVy0KXTx2W7fVTnR2dhSWQt
-         Z5l2dV1+udxPyXSk/QKRwvMrnRkcFAEKAAELvrKz0eAv3v+4/QBgezXjHCxkrOtXgHa0
-         kaPw==
+        bh=YWk0EIbt82JQ1964f4M96lQ0hioHPVaulROOQ/otUgg=;
+        b=CNy0yX+AIC/7pB9GaGceHaWOkJ0LdD/vTN1MqDuGy1f2VWjIONY/A8c3GSZK2EdAky
+         Pw9/mfKt3bC3Ik0SV4BbTztl1DvRuo7Mw91qvQ3GrumQOQHn3enGQG4+140p0x6E9xeQ
+         hl5Un7zg2pOrN/k1jcm7KmmkJuoPil2n0m/aGfUNWcqOviJx2xm1yfUOzM0ehkQCsEA0
+         OjLztc3/e5K4CSRqV5igL4vgWJcQO1DwHFXpNkKq2uwgDedIK1xgPlr5iDMvv3B1P/wc
+         TC3+V8UNJDzvLrklNkIx+IdkbWKNBZrEvuqSFX2atUjYi/EZ4S2fwvdN1Z4MSHDla7/u
+         4U+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765789197; x=1766393997;
+        d=1e100.net; s=20230601; t=1765790750; x=1766395550;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=72OPFhWon9kXoIauxRwR1Xkd54AI2MBkQuX1waJPnt4=;
-        b=G+WDmunb6aNLCAQofbbK+C6C4oHUiKnGP72XM8gRu0wL6wdXAJINDJuFSZpL37dBa1
-         xptpJnUZZ4NRRelA7Aa/0+D/7+f0v9B6++2rEFL4ttUHhGMrr3k4GmYrJhTeaNuBdxHU
-         slLh2yZj2ohL2QmPMAbvpz7YPJcruYZJbvcZANtMH5nIRJB8D1BhlUDct4U7BfWF6cGN
-         G84tz9YBpSxRNf4DAgYg+dHLXM7QSqeGWMcCfc4dWhGNPnt/jNLV9TnyIrXdmkwWVOxC
-         uEqYRDQje0B9MQ9UdNocR3qEtJoeJ0o7Lv7GRSToy9hpVlJiqTlPvFqJJSiyAVPtEfSK
-         qo+A==
-X-Forwarded-Encrypted: i=1; AJvYcCWJd4mEeCEARVb1wJSaCeUbvngi8KvnKlPTnjCo6dFmmKrN1ewlGeTpWHmW4fFdVDI7J4vkpBMUXE8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/szuBHFyQnyCnjmAXOrn6kBqvEh2C/iwpFlKtmggPGm2tBo95
-	q9E15LDzcEf61AOweaHvEtIHAIZd2Os7ylxlGdpXEb5jpp7BMf4Fz8ohHf+uVOZtpw==
-X-Gm-Gg: AY/fxX6k0SaU9mVH6edxo5rgxczBvNAMzVK135YO2Wm1Q6u9Bjt5LrYTtXVaOCQ/KLY
-	66lpcfXqZu3eqJvzryX+G0tSK69+pBlViSD+mlk5NfHelxiiib2sFGf+sog/k2dNvMmwcQZdPld
-	mXecOTJ8QKOYSZR4us8kMCUaNiTHs/It6y5aa7slXzueGf6qxZ0D66rr3+yQk+f26aLxsTc4Qe/
-	G/2ibj3JnOD6kYpxxC8LU3DumN0GBuNo/e41rWfbl0qWmG35/7BXXhppD9fV5YyejK8cctdDXTa
-	td8ps5Dgq42j+dOSCqorHPAzz5QMp2k/9Sv3AeAq71408UefE3Q6dAyXdg9JskFZQY+MaJ8YtTb
-	LKcjWLBc985oxyqLEfTnQWaMk1YHpfG1sGG1MuO2SciuDwgHfFMlDPsoRjQvDwW7E76IluD+WPK
-	D/OFwHhbOHcNzD79Hwq0Y80BgUjX2TymwQZeBu2D/9ghSC/YqrA1R348X48Uw/9YxL7+T1hUYEd
-	vE=
-X-Google-Smtp-Source: AGHT+IEWkjr/yMbQZ11FRxIPuaPgvXEE7kWLlUguvX5EU1Obn2SGT+6EZRea6meYGrKNKaeOKoqGRA==
-X-Received: by 2002:a05:600c:4f4a:b0:477:28c1:26ce with SMTP id 5b1f17b1804b1-47a8f8a717dmr109516885e9.7.1765789196903;
-        Mon, 15 Dec 2025 00:59:56 -0800 (PST)
-Message-ID: <f1bd1d10-c3a0-4dfa-88aa-f14a5bf88308@suse.com>
-Date: Mon, 15 Dec 2025 09:59:58 +0100
+        bh=YWk0EIbt82JQ1964f4M96lQ0hioHPVaulROOQ/otUgg=;
+        b=tSENDaeAXnu1//r8w1GAXIRWT6tug8eqhCV8X3hNpI/2ScqGDNfr3WZP+6Ac2V8pkv
+         vOfG/08f+KVPA8uFgJbGfsNG4ZD/ztob385VWXorGM6vU2iRc1NjNBwXmAWgBfZVSAk5
+         SnS+qtMVXc7/Y50/5y4izHUciM20gLjLB6OddTXAbLQ2imH0AYxZxkknRpe5lVJaqgtD
+         jfRc8a6qHshi/SdJTHYqSlsBYar7Eduu85XP2O84d9IPOIsQPDPW8z5D5e0+V5Yn6HoJ
+         HfzgSTB27f0+r+xNLb5WVTCL58d6jYcrkEv7duufJvxkbcmZhw3z0Z8wDnkukI0qmkSG
+         iodw==
+X-Forwarded-Encrypted: i=1; AJvYcCUpxRBIjUdUgq+Go1IchwM1See65JE4sQh2Y6teGHd5iuob9waCWE14wnw5oFBcHrR11eC0U0RAax8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzKb1S27eX3MncygOU0P5GK6VyH1YWOUigxt7voUKVnHRvEKq1
+	qV0dRDmTyMlnNmIhi7WpzUNXSY2y+8uK+22by0p6yYgzQM26Zy9cm1tji+3oVKmTnQ==
+X-Gm-Gg: AY/fxX56klAg8Nv4IJR416GH5znEugHCgE3EBnb1YC2/WMAdIuL/y85QqObZntWIXe6
+	MKWNTJU39aXjwWmw8nMS1YhD1CUj42iES+jEVD9AtAZp4Jrw3KHRSEXpd5eOGWB5kfeYI7Q6uBp
+	03MIDqa8H5Vp9t9EYa9aaUKPyL9iFeKXArdsQtR6yJWwY50hCnSVJckX9ZfIe8s7f3+U+L9yi1W
+	PuOVqvztSXRdvzMFgpuo+9ZvvemkZ4uOGI5MZeW3PSFk7fqiXYeq6YEl4Z1fS5fChTrKg595bHq
+	XP4uvqkaPDzaYqJJBP+3flMaov8PpMBfLfU/ZuaaVg0EzhT+yhYORGPhL2+KvnEtcesycJDwr9r
+	20GfwisGRc3elSjmn3u57TT71zomCRPysBHTxQ7tGycpq1zZ9iYaNm7xwMsnbF18sxTf5m8UhFP
+	CPQW6pExJNZ4KbCks4kKuAqU4GuZfuL7+bzf/FF01gcXQ1d5M9f3L9ToPdcfF33TiBKtLCAa+0/
+	D8=
+X-Google-Smtp-Source: AGHT+IF1kY+et7A0eINI32lT7R4Cp9IIw7Bkrws9ZmETX4My62fVEix+Hc34r5GnRwJ8JNgORLUfkA==
+X-Received: by 2002:a05:600c:6095:b0:471:9da:5252 with SMTP id 5b1f17b1804b1-47a8f90db57mr110265785e9.29.1765790749773;
+        Mon, 15 Dec 2025 01:25:49 -0800 (PST)
+Message-ID: <1d285717-e4ac-442e-b63b-14c99925418b@suse.com>
+Date: Mon, 15 Dec 2025 10:25:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: KEEP Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Victor Lira <victorm.lira@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20251209214728.278949-1-jason.andryuk@amd.com>
- <20251209214728.278949-3-jason.andryuk@amd.com>
- <ed620cd5-9630-4987-bd5c-9f69ae2c2609@citrix.com>
- <43d30e02-f818-4cf2-98c9-4182a2f65f64@amd.com>
- <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
- <7514a67c-d140-43b6-bed0-3467530a086d@suse.com>
- <fbe63318-b764-46ce-a377-dd4ce7229abe@amd.com>
- <83eedd0c-dcaf-4e28-ac0f-f4991f053350@suse.com>
- <c2d3da12-7bcb-4a61-a495-a09c4d4123c4@amd.com>
+Subject: Re: [PATCH] x86/shadow: Drop SHADOW_AUDIT_ENABLE indirection
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251212160153.2485230-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,103 +119,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c2d3da12-7bcb-4a61-a495-a09c4d4123c4@amd.com>
+In-Reply-To: <20251212160153.2485230-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.12.2025 16:48, Jason Andryuk wrote:
-> On 2025-12-12 08:22, Jan Beulich wrote:
->> On 12.12.2025 02:34, Jason Andryuk wrote:
->>> The alternative is section groups?  I'm trying that, and it kinda works
->>> sometimes, but .attach_to_group fails when .init.text is involved.
->>>
->>> Here's an example that I think would work, I could make it to
->>> --gc-sectrions:
->>> group section [    3] `.group' [.text.vpmu_do_msr] contains 5 sections:
->>>      [Index]    Name
->>>      [   43]   .text.vpmu_do_msr
->>>      [   44]   .rela.text.vpmu_do_msr
->>>      [   45]   .altinstructions..text.vpmu_do_msr
->>>      [   46]   .rela.altinstructions..text.vpmu_do_msr
->>>      [   47]   .altinstr_replacement..text.vpmu_do_msr
->>>
->>> But I don't make it that far.  Other files blow up with tons of:
->>> {standard input}:9098: Warning: dwarf line number information for
->>> .init.text ignored
->>> and
->>> {standard input}:50083: Error: leb128 operand is an undefined symbol:
->>> .LVU4040
->>>
->>> Line 9098 of apic.s is .loc below:
->>> """
->>>           .section        .init.text
->>>           .globl  setup_boot_APIC_clock
->>>           .hidden setup_boot_APIC_clock
->>>           .type   setup_boot_APIC_clock, @function
->>> setup_boot_APIC_clock:
->>> .LFB827:
->>>           .loc 1 1150 1 is_stmt 1 view -0
->>>           .cfi_startproc
->>>           pushq   %rbp
->>> """
->>>
->>> diff below.  Any ideas?
->>
->> I haven't looked into this in detail yet, but ...
->>
->>> --- a/xen/arch/x86/include/asm/alternative.h
->>> +++ b/xen/arch/x86/include/asm/alternative.h
->>> @@ -90,25 +90,31 @@ extern void alternative_instructions(void);
->>>    /* alternative assembly primitive: */
->>>    #define ALTERNATIVE(oldinstr, newinstr, feature)                      \
->>>            OLDINSTR_1(oldinstr, 1)                                       \
->>> -        ".pushsection .altinstructions, \"a\", @progbits\n"           \
->>> +        ".attach_to_group %%S\n"                                      \
->>> +        ".pushsection .altinstructions.%%S, \"a?\", @progbits\n"      \
->>
->> ... wouldn't you need another .attach_to_group here and ...
->>
->>>            ALTINSTR_ENTRY(feature, 1)                                    \
->>> -        ".section .discard, \"a\", @progbits\n"                       \
->>> +        ".popsection\n"                                               \
->>> +        ".pushsection .discard, \"a\", @progbits\n"                   \
->>>            ".byte " alt_total_len "\n" /* total_len <= 255 */            \
->>>            DISCARD_ENTRY(1)                                              \
->>> -        ".section .altinstr_replacement, \"ax\", @progbits\n"         \
->>> +        ".popsection\n"                                               \
->>> +        ".pushsection .altinstr_replacement.%%S, \"ax?\", @progbits\n"\
->>
->> ... here? Or alternatively use the 'G' section flag to the specify the group
->> name?
+On 12.12.2025 17:01, Andrew Cooper wrote:
+> Simply define shadow_audit_enable to be false for the !SHADOW_AUDIT case.
 > 
-> The '?' flag puts the new section in the previous group, so it doesn't 
-> have to be specified.  I have used 'G' and %%S with similar results. 
-> The example vpmu output above shows that is working.  I can't get to 
-> linking with --gc-sections yes to see if %%S is no longer necessary with 
-> proper groups.
-
-Oh, sorry - I had managed to overlook the use of '?' above.
-
-> The problem is "the current function" needs to be assigned to the same 
-> group, and that is what I hoped to address with .attach_to_group.  From 
-> what I can tell, the function-section is not assigned to a group without 
-> .attach_to_group.
+> Change the variable to be a bool, and __read_mostly as it's only enabled by
+> debugkey.
 > 
->> As to debug info, I wonder whether playing with groups behind the back of the
->> compiler is going to work well. Iirc it groups sections itself, too. Did you
->> look at the generated assembly with this in mind?
+> No functional change.
 > 
-> The generated assembly differs only by the presence of .attach_to_group 
-> for build vs. doesn't build.  Is the debug information expected to 
-> differ according to groups?  (This is all new to me).  I have more to 
-> look into, I figured I'd post what I have in case anyone had seen it before.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Hmm, looking at a random example, .debug_info (and other Dwarf sections) is
-still monolithic with -ffunction-sections. I'm having a hard time seeing
-how that would work nicely. And while I'm sure I saw gcc emit section
-groups in certain cases (e.g. while building tools/), I can't observe it
-doing so there, so that must also depend on something I haven't figured out
-yet.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+However, any tidying of shadow code reminds me that I still have a series
+pending [1]. Iirc you did look at v1 and/or v2, but v3 has been sitting
+largely unresponded to for two and a half years (one patch went in with
+Roger's ack, and one other patch was ack-ed by him but apparently wants
+other stuff to go in first). Can we please see about having that make some
+progress as well?
 
 Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2023-05/msg01140.html
 
