@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93E2CBD3F6
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:46:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186732.1508156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7318ACBD553
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 11:15:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186742.1508172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV59d-0004jW-KP; Mon, 15 Dec 2025 09:46:09 +0000
+	id 1vV5c1-000168-Ru; Mon, 15 Dec 2025 10:15:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186732.1508156; Mon, 15 Dec 2025 09:46:09 +0000
+Received: by outflank-mailman (output) from mailman id 1186742.1508172; Mon, 15 Dec 2025 10:15:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV59d-0004gx-Hl; Mon, 15 Dec 2025 09:46:09 +0000
-Received: by outflank-mailman (input) for mailman id 1186732;
- Mon, 15 Dec 2025 09:46:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vV5c1-000130-OY; Mon, 15 Dec 2025 10:15:29 +0000
+Received: by outflank-mailman (input) for mailman id 1186742;
+ Mon, 15 Dec 2025 10:15:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV59c-0004gm-23
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 09:46:08 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0b7955c-d99a-11f0-b15b-2bf370ae4941;
- Mon, 15 Dec 2025 10:46:06 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-42fbc305552so1505692f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 01:46:06 -0800 (PST)
+ id 1vV5c0-00012u-Mg
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 10:15:28 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f973e9b9-d99e-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 11:15:26 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-430f57cd471so637420f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 02:15:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-430f280cf05sm13848537f8f.7.2025.12.15.01.46.05
+ ffacd0b85a97d-430f280cf05sm13999882f8f.7.2025.12.15.02.15.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 01:46:05 -0800 (PST)
+ Mon, 15 Dec 2025 02:15:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0b7955c-d99a-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: f973e9b9-d99e-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765791966; x=1766396766; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765793726; x=1766398526; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kDG5BCQ/JRgGD6HuKS9/Op4F9K+3rC/MJt9KqbnAoKc=;
-        b=f299eAvF3x+b8cRs0DkTehCov8BjrATpIQr85jj7DjZIjRM3aFA3rzmzf6VSiRVlLS
-         M3XXnulkwyyk4d2KoTKf+rEIilXLN592dtd9ZoJnS/+99b+q6EPHXZ2aHFTGNMPITIb+
-         LVS7ncjFWEZiuhjpOQsT5P1wzCzkXI4AgIj/xsi7ewlTD9R9B2EkP75nOzekQfPJ07Il
-         1cdQlzOl4VYDRHMMXBVqC8Y9SrhEC3GgyCt/PfM4TCjl1UMvwG2t+xPdX4Y1NJiTU+5u
-         uPlzEE9k5hjilZ4x49vajFM2DtIck3G7D7h5WcfIFCF3PbTvdPU2LsfXqMen/CdtUw9B
-         yoFw==
+        bh=pQjvX/81CH6ZZnSTvWZRPbFFMm1X0PFLak+jNLSdFyY=;
+        b=Y8R2PNoDhPmH3E+hTcqOz9i+tCw4UYsul6rcyOuv/q/vOLzIPLkwa3Wtln6z4af3G7
+         QkJMgCiXh7aF9tdnkFimueUcAlOBxS7Jq41OtMUetpA+n/88mbycd88zv/EFo1YP/lLx
+         /xLe/vkVwPgiJEXtUqrQRnv5HZf6ckR0ixbjC2YUoVVQ16AqdYLHOVHaXVygzDGNKlEe
+         lWNTlql1wqN76cGVbqBs7v2uT6fusw4lpm8QE47GatbV88on1AMsjoW5a9/03E+jntc5
+         044dntiD5OxPWNAS+sVFZg2Qqx6otk+Ko2kyZ7UgJeaiuwhmzjCekalm3/jPqVQ9kb+4
+         xU4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765791966; x=1766396766;
+        d=1e100.net; s=20230601; t=1765793726; x=1766398526;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kDG5BCQ/JRgGD6HuKS9/Op4F9K+3rC/MJt9KqbnAoKc=;
-        b=CNH0iS+1FHnfB5LU1yY6JfFzJ3WfMXInn0DFdOcF/a4xDHPb97DqTmSvdXTd7luCwX
-         rL3XtC4xaHmD7ex9jWTsXIU+w983wDKbHKnqJPwtkGkw4ws4fDYzizZQ2PYwM+UgMLzI
-         Nbkm6dgxahK6FrY/0iWovx1zYW0B7ZsE9Hlq9tbhhv6dkwbUcA+FXVmRvv2HPSFuM1/M
-         asPSlQdl9qHjDNyxoRfjfbHYAOcmjBfKPYecx5UmQfI8ikCu59i3tzorcAwLs0IKMlDE
-         7W+A1Sajjlynep6nOOKipg7K6ulvoL+Y7k57gMzDLwzdtLz5GRdyPfBnD6jos67hwulQ
-         NleQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVkapYy1P9854hE3paIRRstAjf0Du2HCidDZWlCQVhHeErcW+NsHgbawp9aYpe9+1gWx0v6IuHKKSs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKg8Y0EjPQt5x2OIeA5XUiDRkGAm6a++UU6Mi14gzstkvd5w8w
-	EQcJuMpLS6WkA2FAgRA8OH1XFX3VVAHiaeyd86Pvqs0ak7Zr/YYZ/ZCKBfahDRbPow==
-X-Gm-Gg: AY/fxX4sIvP7MAbyQIZ1Po09fWoISsTXw+NmAmLPycMpBxEENSUwRnvMgQDvTbAN5eU
-	VfAVPfZpe/6he/meGDPaQPrjs9X0SmGq59NYLxSbnS9/I8+fOscPnz2UoUMDYtAmfni1sNf1iZt
-	9Nc3ZRNtsO5CdKKKQoNcmPXCW+vrPrktbPYv0/yNBdaUJ49VjP01AF3i26QHIeQXteOgqd+/pEZ
-	a5y5KAs3fv779Y7aBPhTeUzD1JVvnobL14sJqMPyXoPpow6VHI3qDrjpHTa2X4R9K4EDWO2I6Nn
-	CTuizzhu+1qX6xnmhRoCmm1BHEn8MR2tds0rslZ8LdZi6lHi0RsDXDOKOZ/x0CVZ3PVwsoRH/JM
-	gsCc5v5OPcZSuPTcMg2vwdT6RWPQI+9lgBPqiyhi7M1LahG2YZZqREOvWIbp8Davn2HlI2mERBZ
-	LlE+qevyONxgwFTuLz50fxJ7/drPQN3Q/4N9lTh72VHzxT0YTDtNAYG93LEu/6EdDZSO2VARmfN
-	i4=
-X-Google-Smtp-Source: AGHT+IGkkmXl7OUDHfby41M3u0pPpwH4QdM18eq26Cf6ZjN4eW14Q9bij+W9Mx9bXQ4NVCeh5f8qXA==
-X-Received: by 2002:a05:6000:240a:b0:430:f494:6a9c with SMTP id ffacd0b85a97d-430f4946d3amr5295965f8f.17.1765791966065;
-        Mon, 15 Dec 2025 01:46:06 -0800 (PST)
-Message-ID: <1646c1ef-ec42-4148-94e1-24b8874a1cfc@suse.com>
-Date: Mon, 15 Dec 2025 10:46:07 +0100
+        bh=pQjvX/81CH6ZZnSTvWZRPbFFMm1X0PFLak+jNLSdFyY=;
+        b=rlh5ZqRRCxQ60BCMgZbdlVx+4wwyBrWI1YAZtVCT+WLpsRgfABTfk4ZdboYBLGh6KU
+         Qs5wCEQGCNXYzPHlNt3aTTZSqvf6MqFsk6197NXlurwXzDF2nd4ah+7fOq1XCTziJ3p+
+         AQ8mBd7naf6aU6OwKxP52EthMLEAf0R+11k19QTPAto8a0hkqUPvchji6tbcgSfkkrq3
+         XJkIRN9RCzZRTtT9DOy4IYlCzhBjpfXwrShXrjtx4qK31XrQ48V/nOHHKBqXAKn7kuzd
+         tB6YhDBQsNS6Jy7wQuSTKLxukAxt6hwi5doCeH+2pIZT6SDUPpDBM7AReGHNQQeeJOsN
+         wyrA==
+X-Forwarded-Encrypted: i=1; AJvYcCWLU3clJj2/6gEsrAS3eJfCc0W6G97pBBRspRDuqFrf6hMK1WcwKyWrceg6dSLvyvZtyDwXTWNoxPQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAhBiP6g/a1dS2SEvY/JsPsj3Jb+DxU9MKPHC7wuqnGeNncSX0
+	gMR85GvqgY6p0MjnBAhqyjucY7Pr6k4MHJaTaciDEKSf2JwKB5XFN5YDZRzd1FFN2g==
+X-Gm-Gg: AY/fxX6ZRdMqa+4yJFJxDM7EZn0PCeESCRQd6toEVP4SyLSLZG4DAVZwLIHA7u4l6nb
+	S6amiRTBt2IJ9Il2bKxgKHKcYzXUwjeUeVQ1DDPOuWry94mfHxPCV4xZuln1Vq5j5jaHWqgxNJ+
+	lFhkcrQx/cf9knvPXN8yXxsM2NaW/lw27PzZwkiZqSZKG9T4rD0WBEzePRQhs3R5DXV2a7nf22/
+	LfRb0snfjWQ4FlVwgOFSpTu7i4BLeFrhJ/g63lM/DtHxOubkWG7XtaLncPheqOQY2g7PnN2YMTe
+	bIG8o4GyoOy5lYpsRebfMh1tVjop1Sube2HzBcTndevoJtJR8//aN6/x0RVJdqTac/FyQaHfd7Y
+	t0NuoqqgkQMpLH1lSfqgbRKUgi8vEMhBn/p4dejHcolDvHPHMJlVVoNaugdT9BZVN9wUmUmqZw8
+	6r1ZXFXpQYd6wyU/FyhUWW13UHKgPJguYtEkKBHDTbaeT2SclE0lCCAsq2+/vvZ4uqeD6+G3qJx
+	WQ=
+X-Google-Smtp-Source: AGHT+IHXJsC1EWtpqMaqNYFrKONJpF3BkaEpTZKV0YT+tlJDGaA2LeTm8reGVNJyjRQXxFx+E4WBYw==
+X-Received: by 2002:a05:6000:2207:b0:430:f255:14a2 with SMTP id ffacd0b85a97d-430f255183fmr7043939f8f.54.1765793725629;
+        Mon, 15 Dec 2025 02:15:25 -0800 (PST)
+Message-ID: <73cbf642-aa89-49a9-a3e4-61ed08c9bc99@suse.com>
+Date: Mon, 15 Dec 2025 11:15:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Pass TPM ACPI table to PVH dom0
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20251212222949.626539-1-jason.andryuk@amd.com>
+Subject: Re: [PATCH 0/5] x86: More misc MISRA fixes
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251212222032.2640580-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,41 +122,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251212222949.626539-1-jason.andryuk@amd.com>
+In-Reply-To: <20251212222032.2640580-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.12.2025 23:29, Jason Andryuk wrote:
-> Pass the TPM2 ACPI table so that the device can be found by a PVH dom0.
-> 
-> Otherwise dom0 shows:
-> tpm_tis MSFT0101:00: [Firmware Bug]: failed to get TPM2 ACPI table
-> tpm_tis MSFT0101:00: probe with driver tpm_tis failed with error -22
-> 
-> TCPA is "Trusted Computing Platform Alliance table", but it is really
-> the table for a TPM 1.2.  Use that as the comment as it's more
-> identifiable for readers.
+On 12.12.2025 23:20, Andrew Cooper wrote:
+> Andrew Cooper (5):
+>   x86/pv: Address MISRA C:2012 Rule 4.1
+>   x86/pv: Change type of do_update_descriptor()'s desc parameter
+>   x86: Address MIRSA R8.3 (declaration/definition mismatch) issues
+>   x86: Address MIRSA R8.4 (declaration visibility) issues
 
-Not sure about this particular aspect - this and ...
-
-> --- a/xen/include/acpi/actbl3.h
-> +++ b/xen/include/acpi/actbl3.h
-> @@ -78,8 +78,10 @@
->  #define ACPI_SIG_CSRT           "CSRT"	/* Core System Resources Table */
->  #define ACPI_SIG_MATR           "MATR"	/* Memory Address Translation Table */
->  #define ACPI_SIG_MSDM           "MSDM"	/* Microsoft Data Management Table */
-> -#define ACPI_SIG_WPBT           "WPBT"	/* Windows Platform Binary Table */
-> +#define ACPI_SIG_TCPA           "TCPA"	/* TPM 1.2 Table */
-> +#define ACPI_SIG_TPM2           "TPM2"	/* TPM 2.0 Table */
-
-... the TPM2 comment bring us out of sync with what Linux has there.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+(with the title typos taken care of, preferably)
 
 Jan
-
->  #define ACPI_SIG_VFCT           "VFCT"	/* AMD Video BIOS */
-> +#define ACPI_SIG_WPBT           "WPBT"	/* Windows Platform Binary Table */
->  
->  /*
->   * All tables must be byte-packed to match the ACPI specification, since
-
 
