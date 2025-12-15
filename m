@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08CE3CBE327
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:10:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187044.1508467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1B51CBE32A
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:10:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187046.1508477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9Gx-0001ue-HR; Mon, 15 Dec 2025 14:09:59 +0000
+	id 1vV9H7-00039Z-Oa; Mon, 15 Dec 2025 14:10:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187044.1508467; Mon, 15 Dec 2025 14:09:59 +0000
+Received: by outflank-mailman (output) from mailman id 1187046.1508477; Mon, 15 Dec 2025 14:10:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9Gx-0001tD-Ee; Mon, 15 Dec 2025 14:09:59 +0000
-Received: by outflank-mailman (input) for mailman id 1187044;
- Mon, 15 Dec 2025 14:09:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pjwr=6V=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vV9Gw-0001t7-Ca
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:09:58 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb7ca1b2-d9bf-11f0-b15b-2bf370ae4941;
+	id 1vV9H7-00036l-La; Mon, 15 Dec 2025 14:10:09 +0000
+Received: by outflank-mailman (input) for mailman id 1187046;
+ Mon, 15 Dec 2025 14:10:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vV9H6-00036K-Dc
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:10:08 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbd21ad0-d9bf-11f0-9cce-f158ae23cfc8;
  Mon, 15 Dec 2025 15:09:56 +0100 (CET)
-Received: from BN1PR13CA0004.namprd13.prod.outlook.com (2603:10b6:408:e2::9)
- by MW6PR12MB8663.namprd12.prod.outlook.com (2603:10b6:303:240::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Mon, 15 Dec
- 2025 14:09:50 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:408:e2:cafe::58) by BN1PR13CA0004.outlook.office365.com
- (2603:10b6:408:e2::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.6 via Frontend Transport; Mon,
- 15 Dec 2025 14:09:39 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9434.6 via Frontend Transport; Mon, 15 Dec 2025 14:09:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 15 Dec
- 2025 08:09:49 -0600
-Received: from [172.24.22.120] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 15 Dec 2025 06:09:48 -0800
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-477b198f4bcso28222425e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 06:09:56 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a8f8e9115sm191173085e9.12.2025.12.15.06.09.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Dec 2025 06:09:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,158 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb7ca1b2-d9bf-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zRVdAHsnFuOPy5DZKpGyPLpLXmLfd2GC0iENr9Utj2K1guss+X+7t75KxvDvqp2hXcn16tgy5rAENRteK9+dbE8QvJPig18mQrTrsRMAUy0pGe6VvHMGEZWwQZonDLI/0KnXQNVP2Bg/i0HydqUi0Cz8WrYDTPGRl0SU1tZVTifFVq/bd17wb3TEbMQlU/7+AWwhjR55Wrf+rTuE53+soWpKiHhwDzlU+JHODUq3X80cgpEqOVg5IxeyBgWBhtNk7L+gDDOXS0/8JvxVp4AOMCyh5D01rP4+I612Q3Ga93aQhnL2Zm1uNOKnwhjESq8F/hEMdHGd+EsdK3AAlBXOQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v5Ngp4Cw/KVUFwKUdgTxgebpD/pZuZwpDbwRoLX/T8c=;
- b=qOKvbrlojbGOeqz7GfQaqHtVJiyzKV1siHONy3Tb8f9Mp1sW9sa5H5P/e1Gtd/7rKVcu5TpA/7CMl1aOqemULTma241QNW6lAfmGVmuL28LvZDcYRBFPoH4rEfVQKL1lB+a4JX8EyQZWjlHkehQlZyvBPpHdqbctZ/IminNW97HaAwQvkOLnCNlTCej9ka6DEw388TfeMrYchYzK6klx/wtaRg8yvasE+nN7c98iLQjsyODEmt/v7y+TCcpojTboAoTqJJmQg1zpag/alzU+F1UIWiISEoDIHwQ5KXxlMU3SYdLwMnbg0XJpV8FDivGII5nsD9Lla1EaCQ0nbQT7ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v5Ngp4Cw/KVUFwKUdgTxgebpD/pZuZwpDbwRoLX/T8c=;
- b=d2O3DS1E6Njo6M7BfgFIhJFfskOiajkKibIfjLG2e8UPgKQ0Silxujaw+HkzkKMRkrpHXhmBayQvfyZx6vrhumVsUXuWEF8Ur9AKF2aj8MvOOC0FKvqSa2pjzQdUIcJ7hHIJrTiEzgmJtpdgFUlZk+EvQFki60XjlIVPe5n5fm0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <fee2760b-e49b-4025-9e97-040de2b28372@amd.com>
-Date: Mon, 15 Dec 2025 09:09:47 -0500
+X-Inumbo-ID: bbd21ad0-d9bf-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765807796; x=1766412596; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IkzkyO8rsnWrEYhYiX/uJfUzaY1Qiyu6dEUX9CxH620=;
+        b=gZO37MprNycINCsbGY8lwdiyIus+VHNFiRYSsDyA4ototoMCkE14D26arJXrg/B1yM
+         VkhdoNjWlcAFFyNsCaiEKRJW+OiHHI5KVkbKH+MMPOXzVNyuePqRAv7TwJc7yjMAbzDu
+         GlEr0IxekESKxqgwoyHwoVF/bjNbzLhmYV9bkEE+ptczpMzmnANnGjueIk7tnq5dKyWx
+         KiDQJqxG9bIcm+0866sUjoz0NRLh51CH6Bi5AGeJijuRD+RPyQy5BRIDIrNr3sPKVstC
+         pnxAHMUGul6DBDAvrkQD6tgYNh75Y4ahkwpqYr3smc/SvhTsqGsqdje0Sw6Rkergd781
+         Ivtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765807796; x=1766412596;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IkzkyO8rsnWrEYhYiX/uJfUzaY1Qiyu6dEUX9CxH620=;
+        b=xKkRdTZufN06ItcrzOxbEm3zs+sLgnQ6NQ/C2ejCXA85UrnR5LMd0E1wvaQPpHkSob
+         /sEok8azrz3vNzUjwU+jhwCGWUadg2+V1aioUQJjUNhXooLNpG/RfqSmKBOR6MR9YJKN
+         I9Lpq+yqk0P2if0L2mWX7BlSkFmvD/OVqzujK2tfBcHPh13mhGiv249zyCylFp2p9ANz
+         FOT7UVlTsGYaPKsROr6hIar0653ESDMiHjX7svwajw5fnNcyD7/jyQh5W+i98mOg34M4
+         VE5mCl3vjLEUnvCxRM3/GFKB8Qr43I3N8AgaEw501v+KZlDjons0fWpV01Ms/C5yMZ5C
+         4qbg==
+X-Forwarded-Encrypted: i=1; AJvYcCXxKwwejSlxL1RuJAT+WtwE2XXxxENsXskxIRuxgRpCY7NuSqpb8BQuHZRiwgHLQLrg85GhlIkHoJ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxU7SCyxV8hofagr1jMgVd6SiM31yPreZ8FPfdjAtFVBYQgeYuB
+	t68OW+fAwP2Rbu8FFgVVJE2RmrYyOzOD7BghgWdCKoyzJAi9LwWWgQormsmG2u8VXQ==
+X-Gm-Gg: AY/fxX5bvqPDu+D5UdwSUZu8ISsPFHC3VOERf7AsTlAlSCyOFYUkG3IIWNUetbaJdSS
+	XvdKftHmfuAG2LJUry6bPVC0VmQw5gXVffVTp3QOMLIoDOvA1F567FhPn5JZ+SAGm0Z5b4Kbcep
+	eBf8irhsULFsxHP+THoxSU0r4b9YZrbFokR3bFO3tVZIhGmWt35rPxpJPCK8kWkRgQQ88kWxlby
+	AFiQ4PV8Va/6QnZ5A7+E55U6pq1x3si1sttkkBeTc8zdHAh1bcMv9mom5RxNzVRDCu39+0VUWOc
+	X/R5FMXAOzgaIqK7kh0V99mGOPlXh4uee1nuVdRY/ksIngnhj+CQf5DrlqDbvJULVOz3OFVqJIj
+	7t0tK2cJh0L51S/jL8D5V9r9TsQMj2QH3N5cx8uxIGO3aSagLy9lddvet2+KsxBwnbkhsbI/YnK
+	+rXVo3HsRTbl9ikNugY+uBjN7FeCPC3gC+Zhf2iPu/auTATLtI7CMyupcAXDRebt0vBt8uX+J5i
+	LU=
+X-Google-Smtp-Source: AGHT+IEK6EPC7YSjjl5gIkpXsJ8eA+ROk66oIRuZnKJ6wp8efiRqLqkGUm6jCOAPnGNTsp2ihz0dOQ==
+X-Received: by 2002:a05:600d:105:b0:47a:97c7:f08b with SMTP id 5b1f17b1804b1-47a97c7f1a9mr41033765e9.31.1765807795448;
+        Mon, 15 Dec 2025 06:09:55 -0800 (PST)
+Message-ID: <091bafe9-ba7f-413a-a740-7856b79f9307@suse.com>
+Date: Mon, 15 Dec 2025 15:09:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Pass TPM ACPI table to PVH dom0
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Daniel Smith <dpsmith@apertussolutions.com>,
-	"krystian.hebel@3mdeb.com" <krystian.hebel@3mdeb.com>, Sergii Dmytruk
-	<sergii.dmytruk@3mdeb.com>, Ross Philipson <ross.philipson@oracle.com>
-References: <20251212222949.626539-1-jason.andryuk@amd.com>
- <4c548455-ea55-430d-9fe7-6a6cf21eec38@citrix.com>
+Subject: Re: [PATCH v5 02/24] xen/x86: library-fy cpuid-releated functions
+From: Jan Beulich <jbeulich@suse.com>
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20251212040209.1970553-1-Penny.Zheng@amd.com>
+ <20251212040209.1970553-3-Penny.Zheng@amd.com>
+ <e09ed373-47a4-4afc-84df-b66184ea424a@suse.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <4c548455-ea55-430d-9fe7-6a6cf21eec38@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e09ed373-47a4-4afc-84df-b66184ea424a@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|MW6PR12MB8663:EE_
-X-MS-Office365-Filtering-Correlation-Id: 008976ca-a902-4ee7-d397-08de3be39c6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VStzaGN0VEJuUTZicm1LNk1tYXBBSFU5dFRLUDZ0dG44VWM1WitTZHVLRkdU?=
- =?utf-8?B?d01nU2lmdVJnUGdXVmJXcVp1UStGeGxOUEw1dHBTOEVWd0s3OHZFNVU4Q0xU?=
- =?utf-8?B?N05RQ3Q3Yy84WDhldzNrb2ZCcG1tOU5iVk1RN1g3VjV0bTFiS1FyUXFTMWU2?=
- =?utf-8?B?NHhzUndGU2cvQ2Z6RVZSaVN0TnlsNVRRb1FRMWxSMWExWjNaQkxpWnI5ZHpn?=
- =?utf-8?B?b2FEdVRlUThBVWdJOWI4NkVRSW9YU2JhOCtWTlJqdTIyb014QWRyQy84UEdr?=
- =?utf-8?B?a2E1Q1NLZ29wS2t0U2Q4RS9Ebk4yVEV6WjdNaks4ZHp0LzhMMGxMaS9ZZ1Zv?=
- =?utf-8?B?NGlkSVRZUkRWMEZYVXNQYjd3WXUydlo3VitwNUJLbENlTzV1SmRCRXNKc0h5?=
- =?utf-8?B?YUt3RkxRc2J1UGZhMDUzWEFCdURqZWJCZGdjVzFkbEF0NjFlRmJCRGVVejha?=
- =?utf-8?B?SFZ2dXB5ZWpXUnpGSGtDakdqZWJPV01NbUFTdDYvTGJQaDlTemxjWVd5cHVs?=
- =?utf-8?B?K3Z1cDQ4QTdaNEJCR0hZNnZOK29ReU9Iblg3MitWVjlQU0lZaVVvVEt0SkRw?=
- =?utf-8?B?NHE3Ukg5ODRXcEMxVkYzNmJDWEJNRUhBcHlnN2k3OHpjckRiYWFiWXY4WE9n?=
- =?utf-8?B?YXdzd25sR3pteDdQZ1Bud3BURWxSRkNwczBkcXBwUXpPUHBEbnFsN29WR3lY?=
- =?utf-8?B?ZmozRStFV3dmckF3VE9wRWU3cEdDQWpzSEM5b0JQRDFjbUxHUm8vblNGNUZS?=
- =?utf-8?B?aUpONnhSOHFoREFpNW9pNFdEcFpYeFhYMHB3NlNGeUJLVW9NTjNvd0p6bVJp?=
- =?utf-8?B?d3QxZU1ITk9WQ2ovWU5hVDUzaFNsUVdxR29pYWd2NDNKQ05MdnI0M205ME9N?=
- =?utf-8?B?QzUwM3MvdXVUQnVIcE5PSFBVUWFiYmQwTmM4eG1JanRpa3BLTGwvQ1QxK2w4?=
- =?utf-8?B?MUxwUzVaN1N1blVLb0Vsa1NPOWZhSWlUdUdLZFdZS1MrWVp5WWhRN2pWZm9Z?=
- =?utf-8?B?dmFhd0FCVkVrN1kxTXFQMDBvZEhWMW1NSXRNbGUxL3E2ekdwOG80QzVzdlQv?=
- =?utf-8?B?NUdvTHJoSGpOYzFPTlplUEpKMlM3cmxJV0ZvOVArKytJOVRxRkhXenRIMndr?=
- =?utf-8?B?Z0Jxd0JFZFhDQzU4a1hGQThsTGVqM1VySERXZTRzb1RPb0RCblRpeVNUK01V?=
- =?utf-8?B?ajlacFNXQ0o1TXl2ZWhSQ1pTTCtrbFhIRUtTaXZkK0s4dnorWXFhdmlzMHRF?=
- =?utf-8?B?NlhsZDlzMWNxeG9palBjbTdCM0FOdUMxcFFLSmdPN3VLNUJxNENuSzN5d3RQ?=
- =?utf-8?B?b3NWUjFtZVh6WEszK1M4UTF3MXh2L3BlVGhvZVlPb0YvVXoxVU5uRGV6SndN?=
- =?utf-8?B?OWxoOCt2dEcwVjA2MVJBM3pjWDl4dHZ4SUY3UUpmU0E3U2NkaEYySXFMWnpm?=
- =?utf-8?B?OGVGcWpsSHQrLzNpY1JXcnRGQlhCUnhIdjFFS2R3NFhuL3lSM1E3SXVUS2Fx?=
- =?utf-8?B?VVVOTTJsaVJOeThwMEJoSXE5WXR4TDBKTVlycXZINXlCSzMrVENON1UwN3RH?=
- =?utf-8?B?NDFkM1l6Z3lkUUpFajhMajdtZGZJUEpZTXpicGlOZzUrdDFYOHNVcnNDWWxl?=
- =?utf-8?B?bXhIWkhEV2hNM3VaYlMvQWZ4TlI1NXl3WmhadVkyd3BuZG96MGpLQ0hMK1VD?=
- =?utf-8?B?WDlvOE85YzIzRXlsNFBCVTBFYmRMa3ZJYzFhbHg3MHNldm1IUDF6Q3lHVlVL?=
- =?utf-8?B?cHBXbGtMRHFHRTk1b055bUVQbWw5Z2EvTUVYR3dacEVqNExIRDloYVk1eCsr?=
- =?utf-8?B?VmJGblM3dnFKaktVV0RpWEkxVHhhclhmMEU3eVFQTU84K092Wk40RWtYdUs3?=
- =?utf-8?B?TXNPS3pIeWhFamFLbFVwMFBGeFFJRW9ZaTFLNnpjNXNYckp3YkZ6MmVaR0U3?=
- =?utf-8?B?dW9DYVp3aitPUWl5UzhtM3hvUWVKZm1QUVJzZk92eXBVdGVXZE9rZWgrVFBC?=
- =?utf-8?B?K3EyR0dkRWo4WE5Va2lXSGhYdjlpQkNlYzZDY01JVTVGOGhKQndrbE8wWExQ?=
- =?utf-8?B?UEJhN01DMTN1YmpqQmt4UGJLa0hTYTU1YWNDZWRZcURqWWI3OC9YOUFsOHZR?=
- =?utf-8?Q?eO2Q=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2025 14:09:50.0815
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 008976ca-a902-4ee7-d397-08de3be39c6d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004684.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8663
 
-On 2025-12-12 17:38, Andrew Cooper wrote:
-> On 12/12/2025 10:29 pm, Jason Andryuk wrote:
->> Pass the TPM2 ACPI table so that the device can be found by a PVH dom0.
->>
->> Otherwise dom0 shows:
->> tpm_tis MSFT0101:00: [Firmware Bug]: failed to get TPM2 ACPI table
->> tpm_tis MSFT0101:00: probe with driver tpm_tis failed with error -22
->>
->> TCPA is "Trusted Computing Platform Alliance table", but it is really
->> the table for a TPM 1.2.  Use that as the comment as it's more
->> identifiable for readers.
->>
->> While doing this, move ACPI_SIG_WPBT to alpabetize the entries.
+On 15.12.2025 13:14, Jan Beulich wrote:
+> On 12.12.2025 05:01, Penny Zheng wrote:
+>> There are some cpuid library functions only referenced in
+>> XEN_DOMCTL-case, and shall be wrapped with CONFIG_MGMT_HYPERCALLS later,
+>> otherwise they will become unreachable when MGMT_HYPERCALLS=n, and hence
+>> violate Misra 2.1
 > 
-> It's probably worth stating that this brings PVH dom0 more in line with
-> PV dom0.
-
-"This exposes TPM event log tables on PVH dom0, bring it in line with a 
-PV dom0."
-
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> At this point of the series there's no MGMT_HYPERCALLS yet (see also my reply
+> to the cover letter).
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Thanks!
-
+>> For file cpupolicy-clr.c to contain cpupolicy clearing library function:
+>> - x86_cpu_policy_clear_out_of_range_leaves
+>>   - zero_leaves
+>> For file cpuid-cp2buf.c to contain cpuid copy-to-buffer library function:
+>> - x86_cpuid_copy_to_buffer
+>>   - copy_leaf_to_buffer
+>> For file cpuid-cpfrbuf.c to contain cpuid copy-from-buffer library function:
+>> - x86_cpuid_copy_from_buffer
+>> Sunmmerize all needed cpuid-library object file under a new variable
+>> CPUID_OBJS in Makefile.
+>>
+>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 >> ---
->> Only TPM2 has been tested.
->>
->> AIUI, a TPM 1.2 is probed without the ACPI entry, so it is usable.
->> But since I know the table exists, I added it.
+>> v4 -> v5:
+>> - library-fy cpuid-releated functions
+>> ---
+>>  tools/fuzz/cpu-policy/Makefile               |   4 +-
+>>  tools/fuzz/x86_instruction_emulator/Makefile |  11 +-
+>>  tools/libs/guest/Makefile.common             |   4 +-
+>>  tools/tests/cpu-policy/Makefile              |   3 +-
+>>  tools/tests/x86_emulator/Makefile            |   3 +-
+>>  xen/lib/Makefile                             |   5 +
+>>  xen/lib/x86/cpuid-cp2buf.c                   | 123 ++++++++
+>>  xen/lib/x86/cpuid-cpfrbuf.c                  | 129 +++++++++
+>>  xen/lib/x86/cpuid.c                          | 286 -------------------
+>>  xen/lib/x86/cpupolicy-clr.c                  |  73 +++++
+>>  10 files changed, 346 insertions(+), 295 deletions(-)
+>>  create mode 100644 xen/lib/x86/cpuid-cp2buf.c
+>>  create mode 100644 xen/lib/x86/cpuid-cpfrbuf.c
+>>  create mode 100644 xen/lib/x86/cpupolicy-clr.c
 > 
-> Yeah - I'd have asked you to do this if you hadn't already.
+> This looks to be doing at least three things in one go. If all of them would be
+> simple (including them being a reasonably small diff), that may be fine. But
+> the diffstat above says otherwise, so I may I ask that this be split in three,
+> maybe even four pieces (one per function moving to a new file, and maybe one
+> doing prep work in the Makefile-s touched)?
 > 
-> That said, it highlights that the Trenchboot series needs to grow the
-> ability to hide the TPM from dom0, both the APCI tables and blind probing.
-> 
-> I presume that tboot already does this, because I'm sure it's been
-> tested, right...?
+> The filenames also aren't very descriptive. cp-from-buffer.c, cp-to-buffer.c,
+> and cp-clear.c maybe? Albeit the last one is where I'm the least convinced
+> that splitting out and making a library function is actually a good idea. Note
+> how I also didn't mention that function as a possible candidate for library-
+> fying. I'll try to not forget to bring this up with the x86 maintainers later
+> in the day.
 
-Tested which way?  This has *not* been tested with tboot, but I think 
-it's orthogonal.
+Having discussed this, we thought we might as well aim for proper library
+fication (longer term, i.e. not something we'd ask you to do). Therefore
+splitting by function is generally okay, but the filenames really want to be
+sufficiently descriptive. For x86_cpu_policy_clear_out_of_range_leaves() this
+may very well mean cp-clear-out-of-range-leaves.c (not sure whether
+shortening to e.g. cp-clear-oor-leaves.c would make sense).
 
-After tboot launches Xen, tboot is dormant until Xen calls back into 
-tboot for shutdown.  Control of the TPM passes to Xen/Dom0.  This is 
-expected with DRTM and TPMs.  The TPM locality differentiates TPM 
-accesses inside and outside the measured launch environment.
-
-The TPM ACPI table specifies the location of the TPM Event Log - a 
-reserved RAM region.  There are other ACPI PNP devices to specify the 
-TPM device itself.  Those are in DSDT or SSDT (I think), so distinct 
-from the event log table - the subject of this patch.
-
-Regards,
-Jason
+Jan
 
