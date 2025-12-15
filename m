@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A85CBF0E6
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 17:55:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187477.1508866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C897CBF15F
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 18:01:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187495.1508876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVBqn-0002gm-BQ; Mon, 15 Dec 2025 16:55:09 +0000
+	id 1vVBwD-0004Vj-39; Mon, 15 Dec 2025 17:00:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187477.1508866; Mon, 15 Dec 2025 16:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 1187495.1508876; Mon, 15 Dec 2025 17:00:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVBqn-0002fC-8Y; Mon, 15 Dec 2025 16:55:09 +0000
-Received: by outflank-mailman (input) for mailman id 1187477;
- Mon, 15 Dec 2025 16:55:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vVBwD-0004Tt-0L; Mon, 15 Dec 2025 17:00:45 +0000
+Received: by outflank-mailman (input) for mailman id 1187495;
+ Mon, 15 Dec 2025 17:00:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vVBql-0002ee-Pw
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 16:55:07 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca82eb5a-d9d6-11f0-b15b-2bf370ae4941;
- Mon, 15 Dec 2025 17:54:59 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47755de027eso25695695e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 08:54:59 -0800 (PST)
+ id 1vVBwC-0004Tn-2j
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 17:00:44 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 969aaf36-d9d7-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 18:00:41 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47a95efd2ceso18154695e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 09:00:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f718279sm69921395e9.19.2025.12.15.08.54.58
+ ffacd0b85a97d-430f639c132sm13567146f8f.35.2025.12.15.09.00.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 08:54:58 -0800 (PST)
+ Mon, 15 Dec 2025 09:00:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca82eb5a-d9d6-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 969aaf36-d9d7-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765817699; x=1766422499; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765818041; x=1766422841; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lDZKaTx1zWUxx3w8S0Bvlet6BEaZTayv8riYm07q4pE=;
-        b=TfHHTWwXzIxKdufWuJTSjWYj7IoPMZSBHz1qBE7xjJ1cIbgNL5n4Fl70d+/cLaCw+Q
-         PQ4BB1Lfw/G+XldtsmoxCobWrSvux/+11204Od2YwaMB0O8ugaPtCWs0E8zVig48FB8I
-         MFSRvCyDEQ9MJxvoZssmGBlmaasOYJ1PGZAsU8oH0DiTcgTYULC2xOOkVpKyjDdH0Vs5
-         el0cZo4ea5uIBCNUT5Kv4iqVn8DFUTINp9JbFzcpuuBcOomuCRKqozjK86ShI/hsCWKB
-         rVF2j2CEFOPyWrOjs6F9wC8tW93BL3QK1X8Cbqjui3QGMRITIxRXflQEISDRlOYmYuUi
-         50jQ==
+        bh=hhVDKiBBRCs0p9ctqMfDm6ayoFlhICw0kQHUDdjJieM=;
+        b=dsBcvCOEYZW0KS23ZqkByKbnrgiFEe3eYdeTzjvW+vJqDWovXwSG4972n+o0Z2F4pQ
+         qguwlWLpPdggjT5xSfmfL3O/awq2CFTo+3+SUo0S8TIQqcJWw215PopiP3P4/QOe179L
+         jRdb9b9fgdya+zy59pl+qdZcJdmVg2Ozr5pbb7C2I78CWfkdl09vmC5Hb5vSi/2wbRgM
+         GocJ6CDNOPBA3480VW41MgpCvIhyjCq6Q+ZkUPHfofpEgjzY13v35RxvKIHI5o0qjbgw
+         QmpvltX2VqN4RzpG8Dm0d9+KhEdx2K/6qPpFE27GMaZFmOeri864iKEhjeTEXBGhgmXa
+         n1jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765817699; x=1766422499;
+        d=1e100.net; s=20230601; t=1765818041; x=1766422841;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lDZKaTx1zWUxx3w8S0Bvlet6BEaZTayv8riYm07q4pE=;
-        b=k1kwp1YQeZBRKaeaOcfNzqlRchQppkNLZlbrCHx7Am84GNp+P5fkyQ3M6k9fPwhde6
-         UBWmvNVc4T7EAbhXlEzmQle9Gw63eybzd4whMZEj+V7Gj5RNUYYakrvsA5ZJxpewXecr
-         EXqjJ3mDRn/EKd4XRVcdLoqahUkCV1oK1px9JtQZBk1za972PK/eW6JyMU2AjNRJYyes
-         +ZMCUdILyE+OrlcA9WEgzh5iw4UREmYwTtGclace5KwWQWfCpd4j87XUGmWmWJI+EIOZ
-         tdTWOtgJx1YxSsXkGA4Kf0Ao4LSv8f18g9SiF2c3/I15SRjhqJRdAtwTwh3bKGZ/8o3v
-         Z1MQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVFyJ5aP6T4qlTP9e6CDCpbD5Re3Rh7dzj8uJclEZk+hx6148meZMjyYet2UohcxtFB6isSz2gc1OM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyaVAtKZDyWa8kjpYFGI7etfYTduCH2ZN2chSQ4b/0NFOakAoap
-	uYwUrIFm154mODKMpjTQT+DBuN7Sp7HdOUfmIrWFzYlRZHOtPt0cSZYloFFciFo1fw==
-X-Gm-Gg: AY/fxX6iBTzgBVXh3V/v9MPvp2jx9TOjybIJuOXYgycdWSqNs6Xg4dsgEsvXndQA6yT
-	KSCp+QIsgsebMwEkcoIbN7xD/ZFH9HgdsGRMo0JeFfd8R2SKmlcvtUME4hMv7yw8wFGZOv9njTT
-	p+mRhauisIl8+mKyx7xIlOLQunJLBpSLrGHZ1hWvL0ukc1QJokGwwDBlLVESOX4xU5eoCn+v/Yy
-	9k4OyZhcho2aK0WBqLokTWF6Nz5Ol8za2IxE9JytxU4wrlR9cumELDY/8G7xt/7oOys8LZ/UtfB
-	2qosUApEbfMl3k+vmuO2XRQTA/f764dm07zMluLCd+ntsZM7zUg+OMexqIEsHx4YRATXLtGIGEz
-	m2wcCGHItuxDu8a6weftt9HZFCyOlhBRhvRWVEvaIPmI40w77oauAzohPFJu1wnKS4Flr0+Zo/7
-	kBP9C0quP0VhaEALQLp4mPB36Sgtw8hr4x5SJfGuPOxPEGqhBS9kg1zg4Uy+/GgDslY4ecSTbDY
-	K8=
-X-Google-Smtp-Source: AGHT+IEAGCtyC9+i9cDXcpF59QG8txdDD4ECMiy3kXemRCCyH+aqI3u12iQQyjFLrLl58kPVauy4SA==
-X-Received: by 2002:a05:600c:3491:b0:476:4efc:8ed4 with SMTP id 5b1f17b1804b1-47a96a2e1f8mr77485165e9.11.1765817698785;
-        Mon, 15 Dec 2025 08:54:58 -0800 (PST)
-Message-ID: <737b4297-2844-4fc8-99c4-a3c1cf206580@suse.com>
-Date: Mon, 15 Dec 2025 17:55:00 +0100
+        bh=hhVDKiBBRCs0p9ctqMfDm6ayoFlhICw0kQHUDdjJieM=;
+        b=MY6DQntWDe3Cw52s0ddiGPrSjQNaOC/YrG6O8KazFRvLZo24eORjqdCl1NAJYxRkXB
+         7YxOV60tvxSTecNDpKZCiX68sOFn2aeTWD1wt24qPZl2o7itsyOPhpEbvqo4njO2K9bv
+         GWuG73mHP6PGtZJ+QJyEb2i8wAn48Qfm7lddy15DYosPVEe0xUZbJKlToo6gsDQp9QKs
+         f/7fdVLhr5ZmUH7sxXUrJByvWbH10C+Ge5DXQGQbyBjFjlLjnHo8L8YJQLbMBkClMnAU
+         6UXWKNiZeuR17ItcUJ3SNRX8g6RuUy9h5jYkzPU8ybYhuiriHdji3prtJVsnkzAKQPXj
+         mibw==
+X-Forwarded-Encrypted: i=1; AJvYcCXQ8T0XgfUFpgjBKUE7cLkloSxDcwV/g6EeGUhv108qC6hM8bElpH3JwDCwCnOdjDy55AZbkgvkdEI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKTDl/UTagUtPcfW6q18Y/79iW26/KktdUBeLzR3uFs9ebEud8
+	50uF9Ym4gXqmIiQUl79CR2MPvUuUgLh2YwphUVJT9r01KeSg3k0yNug2HD7uORxdCQ==
+X-Gm-Gg: AY/fxX4obDWfzIarJCcaMwNx2dMesAZXKsK3isgN7zu6sceo1TYM4yJyGZluJy88hoz
+	IEh4epc0Zu4QZN/MUYHFbxZPtnT4ErX1wbAVc48GVaSFAjscRCwwOXXaNhnrM79u+Ndvuh9Qfk5
+	i1vuJvgpDocM2JmJYqKkk8ir5z4LSzkYfqSd/7Hjpt3WZYnl//SUVXK0KRZuyHzNCaNOMwKUtCV
+	ZzUtRGaT67txHIMzPCfx9Lm4DP53asT/c+vkvAim+577NGAvTuza/yH9vtM9PafGt4sC8Wzv4GU
+	I7ImzeILG1K6jaYlQ6f+d/0w3xjDjuEeXU++yifcukGy8/ie2GxBSEPA3oDrguIcQw6lnzM9rou
+	9PAT5uvOiVG6LUMBhwEyrQe57NhkaI8hJSwNZOtMoRXKUdrFUNCkaX6uKJngV6y5c38U8ggOBnA
+	tUvFatpZ9eAiL3kakJORM5lGlGfxJYXnmLLXE6DNHzVI9EXJoWGN6kuilrFQtQqUqtRSjgKYhB7
+	fI=
+X-Google-Smtp-Source: AGHT+IGOZUmESHwEmMO9Ne3aLJtxpBy1yi9TiruzsqJ6PuDoeCUcuEK7qdNEhIcQ4BXj9x/maQHb4A==
+X-Received: by 2002:a05:600c:5296:b0:46f:c55a:5a8d with SMTP id 5b1f17b1804b1-47a8f89ba4amr100738765e9.4.1765818041122;
+        Mon, 15 Dec 2025 09:00:41 -0800 (PST)
+Message-ID: <b14362f4-aaa2-4ded-943f-4ad4a246f521@suse.com>
+Date: Mon, 15 Dec 2025 18:00:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/domain: enable VCPUOP_register_runstate_phys_area
- hypercall
-To: torsten.oehlenschlager@tutanota.de
-Cc: Andrew Cooper3 <andrew.cooper3@citrix.com>,
- Sstabellini <sstabellini@kernel.org>, Julien <julien@xen.org>,
- Xen Devel <xen-devel@lists.xenproject.org>
-References: <OgJMhRT--F-9@tutanota.de>
+Subject: Re: [PATCH v2] x86/ucode: Adjust parse_ucode() to match other list
+ handling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251215153245.2675388-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,43 +120,84 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <OgJMhRT--F-9@tutanota.de>
+In-Reply-To: <20251215153245.2675388-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.12.2025 22:01, torsten.oehlenschlager@tutanota.de wrote:
-> ice@blossom ..............................................................................................................................................................................…/xen 🌸 enable-runstate-phys-area ?
-> ❯ cat 0001-xen-domain-enable-VCPUOP_register_runstate_phys_area.patch
-
-I don't quite understand what this is.
-
-> From 416992b30258d34b7cc7bc4f7875719f47618147 Mon Sep 17 00:00:00 2001
-> From: melanie <torsten.oehlenschlager@tutanota.de>
-> Date: Fri, 12 Dec 2025 20:55:50 +0000
-> Subject: [PATCH] xen/domain: enable VCPUOP_register_runstate_phys_area
-> hypercall
+On 15.12.2025 16:32, Andrew Cooper wrote:
+> parse_ucode() is abnormal compared to similar parsing elsewhere in Xen.
 > 
-> The XENFEAT_runstate_phys_area feature is unconditionally advertised to
-> guests via XENVER_get_features ( see xen/common/kernel.c ),  but the
-> corresponding VCPUOP_register_runstate_phys_area hypercall was disabled
-> with a placeholder check that always returned -ENOSYS!
-
-Well, no. The check you remove ...
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -2284,10 +2284,6 @@ long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->          struct vcpu_register_runstate_memory_area area;
+> Invert the ucode_mod_forced check with respect to the "scan" and integer
+> handling, so we can warn the user when we've elected to ignore the parameters,
+> and yield -EINVAL for any unrecognised list element.
 > 
-> -        rc = -ENOSYS;
-> -        if ( 0 /* TODO: Dom's XENFEAT_runstate_phys_area setting */ )
-> -            break;
+> Rewrite the ucode= command line docs for clarity.
+> 
+> No practical change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-... is dead code, yes, but it certainly didn't cause the function to
-return -ENOSYS. See commit 48a3fd14327f ("domain: expose newly introduced
-hypercalls as XENFEAT"), which in a change like this the description surely
-should have referenced.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+albeit I'm not quite happy with ...
+
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2752,34 +2752,52 @@ performance.
+>     Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
+>  
+>  ### ucode
+> -> `= List of [ <integer> | scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
+> +> `= List of [ <integer>, scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
+
+... this change when ...
+
+>      Applicability: x86
+>      Default: `scan` is selectable via Kconfig, `nmi,digest-check`
+>  
+> -Controls for CPU microcode loading. For early loading, this parameter can
+> -specify how and where to find the microcode update blob. For late loading,
+> -this parameter specifies if the update happens within a NMI handler.
+> -
+> -'integer' specifies the CPU microcode update blob module index. When positive,
+> -this specifies the n-th module (in the GrUB entry, zero based) to be used
+> -for updating CPU micrcode. When negative, counting starts at the end of
+> -the modules in the GrUB entry (so with the blob commonly being last,
+> -one could specify `ucode=-1`). Note that the value of zero is not valid
+> -here (entry zero, i.e. the first module, is always the Dom0 kernel
+> -image). Note further that use of this option has an unspecified effect
+> -when used with xen.efi (there the concept of modules doesn't exist, and
+> -the blob gets specified via the `ucode=<filename>` config file/section
+> -entry; see [EFI configuration file description](efi.html)).
+> -
+> -'scan' instructs the hypervisor to scan the multiboot images for an cpio
+> -image that contains microcode. Depending on the platform the blob with the
+> -microcode in the cpio name space must be:
+> -  - on Intel: kernel/x86/microcode/GenuineIntel.bin
+> -  - on AMD  : kernel/x86/microcode/AuthenticAMD.bin
+> -When using xen.efi, the `ucode=<filename>` config file setting takes
+> -precedence over `scan`. The default value for `scan` is set with
+> -`CONFIG_UCODE_SCAN_DEFAULT`.
+> +Controls for CPU microcode loading.
+> +
+> +In order to load microcode at boot, Xen needs to find a suitable update
+> +amongst the modules provided by the bootloader.  Two kinds of microcode update
+> +are supported:
+> +
+> + 1. Raw microcode containers.  The format of the container is CPU vendor
+> +    specific.
+> +
+> + 2. CPIO archive.  This is Linux's preferred mechanism, and involves having
+> +    the raw containers expressed as files
+> +    (e.g. `kernel/x86/microcode/{GenuineIntel,AuthenticAMD}.bin`) in a CPIO
+> +    archive, typically prepended to the initrd.
+> +
+> +The `<integer>` and `scan=<bool>` options are mutually exclusive and select
+> +between these two options.  Further restrictions exist for booting xen.efi
+> +(see below).
+
+... then you say verbally that the two are exclusive of one another. That's
+what the | there was intended to indicate. IOW I would prefer that line to
+be left alone, but I'm not intending to insist.
 
 Jan
 
