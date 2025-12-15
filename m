@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6CE1CBD6DE
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 12:01:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186776.1508204 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91443CBD714
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 12:08:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186783.1508215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV6Jc-00008n-GB; Mon, 15 Dec 2025 11:00:32 +0000
+	id 1vV6Qj-0000rW-6O; Mon, 15 Dec 2025 11:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186776.1508204; Mon, 15 Dec 2025 11:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 1186783.1508215; Mon, 15 Dec 2025 11:07:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV6Jc-00007A-DF; Mon, 15 Dec 2025 11:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 1186776;
- Mon, 15 Dec 2025 11:00:30 +0000
+	id 1vV6Qj-0000q1-3C; Mon, 15 Dec 2025 11:07:53 +0000
+Received: by outflank-mailman (input) for mailman id 1186783;
+ Mon, 15 Dec 2025 11:07:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m1E3=6V=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vV6Ja-000074-Td
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 11:00:30 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ <SRS0=WtO4=6V=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vV6Qg-0000ps-P6
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 11:07:50 +0000
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [2607:f8b0:4864:20::c2a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 443d8b06-d9a5-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 12:00:28 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-37fd6e91990so19076151fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 03:00:28 -0800 (PST)
+ id 481877be-d9a6-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 12:07:45 +0100 (CET)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-65727896f35so1628440eaf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 03:07:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +40,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 443d8b06-d9a5-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 481877be-d9a6-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765796428; x=1766401228; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1765796864; x=1766401664; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FTBLPqPGIRbACnY00LVcERO0/OxxlHHMe3kOX8QKx6Y=;
-        b=R24WvzvFURh4MjggnqAg4XFm3DaQQMafHyGVx7wnm6MK4UW1ugk8gyjGL2jtE8x6Tg
-         7uBfMzyS3xfgBfPzGUFYgA70TRwQcv6gwIOdYKh6O2Fkg6QNy/kpOhZCKIYNOKa+JUDN
-         qd2Mhbn9GlYjBJNWHRcJ6G5XwKeGDPzrFeOSiYwoB7POY8eeggBl4oqvjd6ugs9V2Th5
-         Px6hOPtov9vaQOrsotSUMhPVraRKHpxqJUMU65lSGjxs4RUsuw9bx8KTCTrXhn2djMpZ
-         W0G2F4ydofv5K1Naeggljyvr5sFe6GSVMYv96PPIGASxtgD8hQ/vgaI8j8bdeg17ehLs
-         fCNA==
+        bh=b3ie6mkJXake+dGXC7wEuSw0D+J7MaJwU+4ZglpUrr8=;
+        b=WWAljKS0pc/cjwtljgpuN7x4gaZ6JUsxgFB3KBdcvwDwn2992/H1+4R0YtpCBdHVx4
+         XvMP5g0Zgp3vsPUnVUwS/FQ2AXI1s3dLr5rS2HBAuReKzJ1Z4z2RX6aAzRJh6jgIGzJp
+         mZlwaoAFdDiZ2SJ4y14IvS509rdPZmKvWKOMITdHtwQGDukG1k3dGYpUdkWXjO9PTshV
+         dLmgzr+YDT/1uvTFG6+MLWdHO3gYkbJYLTbMtV6U7owtMmDuloR/uTRxXZXhcQlRzw+O
+         Jgg86+MCobB9AOXhfdWfN76ikxia/vCIlWzrSe3whUvDlQdyG2dU2LFxcWV6I9Bf4N6u
+         VHTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765796428; x=1766401228;
+        d=1e100.net; s=20230601; t=1765796864; x=1766401664;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FTBLPqPGIRbACnY00LVcERO0/OxxlHHMe3kOX8QKx6Y=;
-        b=TeCD58nDsXn9Wh4GGM7I+VAiYOOECAHyBSbvJ2QrRsEgo9tVg/w1dNOTsgFalrZAfr
-         igPKrZ6/nHPS/TB3i0tn68eFZyQFhEgrANild3tpaLKCGFE/XzpPDlLvoGD9xti1zND8
-         e7ajriH2yEEhiSC7GvBrPryzBe/COLI39YirsneyEBW8NixbgBtus437UI+75m9PKota
-         vyhLx5R11ZKoRixqf2ImXGSauNCOgau8IwJKcCOnIATpVr4INQbFUL7DO7JO+Xcewsm1
-         9nP3m5TiHuCTjnYVsqeCSPUx+O+URwRw6Tf6QeMw0BovryBKeTv8lwloMkg3SxUcRuWE
-         E1wg==
-X-Gm-Message-State: AOJu0YxmJE3vAjgg11Upke9GlcSFIgatepniCMOaVhCO6VTRlO+ZqhTz
-	HcLnRnsaQikebFi9caqiKG2a0WSvcC92bU+7k8R3oF9f6/WElDAm9E3d7pC7wrqvI2dyF45C+2b
-	rQsTsquYLIsQipX4i5hTDmiMNsb2TsHk=
-X-Gm-Gg: AY/fxX7N5ZwdO0deOr5xtdUtwzwfwmblf4cfuLVmvo3QFsKLw/Bsyfkvdd479+05CkC
-	13cf2O48jiazTDmU1H9AUXnNj9wPP51ygP1Nt9+z2Avsz5uPIf6SLKMhJVG14oIlT5fSWdemSbF
-	3vvMyufD21MSmRWif+HHTu3Ifc7FnLhB+WHiDpLlaxXZ8UoGWYEFWPms9LDXyXT6XUBZoX+6+y9
-	Cwlpnijm81x2ULzwQwCTTU107LUyJVDTk31brOJyz5eoj+o15dVeQLSWdpu5uSB4JIr
-X-Google-Smtp-Source: AGHT+IFCN37rT0N5fWwrYDPT4prXTH+lsvxB6zobuTj9rCtkYva3S9uoWF83f7ADpIJi0hJkkwmbsR5MBAmmYRTRcic=
-X-Received: by 2002:a05:651c:1542:b0:37f:c5ca:a6bd with SMTP id
- 38308e7fff4ca-37fd08a6a5cmr33851681fa.29.1765796427793; Mon, 15 Dec 2025
- 03:00:27 -0800 (PST)
+        bh=b3ie6mkJXake+dGXC7wEuSw0D+J7MaJwU+4ZglpUrr8=;
+        b=r9DLPabYRlF4V/XYg+YoHf5f0OQg3wQf0hXYCZFrCqMfitQcCTDKhCaSNkLbqxEBZ4
+         382QESLMWavXQgKp60yNd9P/K2K0Gp1DquSSO8t3DdsiPAlg4XWbYItm1wypyyq3HYKF
+         VotCLcLb5NjsQJNNauVPBdzOnhCiThJoNU5if/KZHSPFChQzDb5QCJdO1gFhep0kSoeO
+         S/FRsVh53ulV40e8vM4D9GCV2u1Ouli7vYH+cawaSTmwJVTJyt41XJAgwWaYzq0HrZGa
+         ZEGbdrWWR9u9tGjPxlp4NU5PJt1ZmoKIavE0rkMxo0A8AcSV2RHb1TbOQUVmV+fna3mw
+         uMMQ==
+X-Gm-Message-State: AOJu0Yzi2aOJaQJJUL7JImbSx5QKyyI4AVGxs9UIHTteKuZwXHYGoeMv
+	qqJIez3+XAQvl/hZv4jsMjPKuomc5hXciGLdCQ4iy8XtuRtAJfFTBkLKId52/O2bkf8F/fcRVSH
+	2GSj6mm1R+etRo7d8j9GG0AkWgRYJaasplrPHgras5w==
+X-Gm-Gg: AY/fxX5TX4+0rNuH1TdEUNOD4uvZx0qinW6y9IsXZr/EPg77FDeE4wmEuVhr2YivTmX
+	xylbmPhPInqphXvBeI3nmNMOJWhy1pyyQVOSnHQJ347Y01u1fEqSROS6bmrT6p5kUxrPrhgg3bU
+	21IZEhTPBXI4VpvCx6zGiTVxXPY2phsZBvZpcSWVpm3uin6OLRy3xxj/hH1z85tPStvEbNs/nlu
+	AVg0ftmyPFUEU3Q67DXQ5gaGN4I5H4AHx/fX/qxQafjrsiQjyMDyaXWXTqDjvmhlHVuKgWcJxt7
+	Q8AzJqn/O8QlqBKCTtRzxXi9jg==
+X-Google-Smtp-Source: AGHT+IFNPn3XKyJlrKL84DFskB97NvCL6Dm5zMdbv78TDP5kUPwSkLIR8UiPvDpMSr4febpnksovq4dtsOHRLv8Zi90=
+X-Received: by 2002:a05:6820:220e:b0:659:9a49:8fc8 with SMTP id
+ 006d021491bc7-65b45288874mr5298203eaf.65.1765796863968; Mon, 15 Dec 2025
+ 03:07:43 -0800 (PST)
 MIME-Version: 1.0
-References: <CAGeoDV_YS8hV2+FXVgXxvHLw=MQOAoJZwrP1Ypw8+ZUjKB9GSA@mail.gmail.com>
- <a5361a51-128d-47e0-b5ed-58bfd0d9e8ad@suse.com> <CAGeoDV-vfiKECmvWzJ4dnzicXDL7XJDxwEy_Z737k+234Gkzpg@mail.gmail.com>
- <CAGeoDV8VZ1m6CQAkKK-9UDz4npXm2V+Up+BBo=+NyzgLJMW+3g@mail.gmail.com>
- <b4013cae-f27a-4c69-b136-d33db2d22725@suse.com> <CAGeoDV91W24tu6MOuM6a9B1jDjJ_8oNdsMYaxNA-ehbxn3xLoA@mail.gmail.com>
- <10aaed6d-6cb1-4bed-aa8c-5f9761f04fde@suse.com> <CAGeoDV_bTFNMS_XbEyfB0xNmpi=Yhr5VzszDBPTS5yYtjo1hnQ@mail.gmail.com>
- <e38c24dd-1acc-4d9a-b6f6-5e1964753840@suse.com> <CAGeoDV8QDBeqTPv30hcbd2giGRJp_1h+JgeGuTodhP3m8qHpHQ@mail.gmail.com>
- <b30ecffe-f696-4777-8e85-2fe30407534d@suse.com>
-In-Reply-To: <b30ecffe-f696-4777-8e85-2fe30407534d@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 15 Dec 2025 13:00:16 +0200
-X-Gm-Features: AQt7F2pEQl0RqqALirVjfzhzolZMNop7ibVcfVghXzlY7STaWF1mR5uqdCabJew
-Message-ID: <CAGeoDV8US=pPHN-jYCKDLJpjJGwLg7jm2FaBCRwv-zmQ3rUUkw@mail.gmail.com>
-Subject: Re: Strange symbols_lookup() behaviour in test-symbols on arm64 CI
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1764930353.git.bertrand.marquis@arm.com>
+ <697ab9880767b75c9964ae900a43fd4e065fc502.1764930353.git.bertrand.marquis@arm.com>
+ <CAHUa44E+Cgs6WeuSyYi=r1BCzaYN+f9MBoSudyLxkU2LeGxzXg@mail.gmail.com>
+ <C518918D-1CAF-49D6-BC94-CACEF409E46A@arm.com> <CAHUa44Ff=rzsd-3MtjB4YoT4=e_Xbgy0Yss=TSe=2=X77XQcXA@mail.gmail.com>
+In-Reply-To: <CAHUa44Ff=rzsd-3MtjB4YoT4=e_Xbgy0Yss=TSe=2=X77XQcXA@mail.gmail.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 15 Dec 2025 12:07:31 +0100
+X-Gm-Features: AQt7F2rEkF0jluTUWzBmWuUgl6H6lmJVxHi2HsnPgcgFDDcTubgokG_QTJ8lB_c
+Message-ID: <CAHUa44G4jGt=DbSV3+Z0v_g-vX2gLQX1UEReHObp28yprGptdA@mail.gmail.com>
+Subject: Re: [PATCH v1 03/12] xen/arm: ffa: Fix is_64bit init
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 11, 2025 at 6:40=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+Hi Bertrand,
+
+On Tue, Dec 9, 2025 at 11:41=E2=80=AFAM Jens Wiklander
+<jens.wiklander@linaro.org> wrote:
 >
-> On 11.12.2025 17:30, Mykola Kvach wrote:
-> > I have now attached the corresponding build log.
+> Hi Bertrand,
 >
-> Okay, so indeed not a table size change issue here. Then I fear some inst=
-rumenting
-> will be needed to at least know what exactly is going wrong. Alternativel=
-y you could
-> arrange for the intermediate binaries to not be deleted, and make them av=
-ailable
-> somehow / somewhere for me to see whether by inspection I can gain some c=
-lue.
+> On Tue, Dec 9, 2025 at 11:11=E2=80=AFAM Bertrand Marquis
+> <Bertrand.Marquis@arm.com> wrote:
+> >
+> > Hi Jens,
+> >
+> > > On 9 Dec 2025, at 10:05, Jens Wiklander <jens.wiklander@linaro.org> w=
+rote:
+> > >
+> > > Hi Bertrand,
+> > >
+> > > On Fri, Dec 5, 2025 at 11:37=E2=80=AFAM Bertrand Marquis
+> > > <bertrand.marquis@arm.com> wrote:
+> > >>
+> > >> is_64bit_domain(d) is not set during domain_init as the domain field=
+ is
+> > >> only set when loading the domain image which is done after executing
+> > >> domain_init.
+> > >>
+> > >> Fix the implementation to set is_64bit when version gets negotiated.
+> > >> is_64bit is only used during partition_info_get once a domain is add=
+ed
+> > >> in the list of domains having ffa support. It must only be accessed =
+when
+> > >> the rwlock is taken (which is the case).
+> > >>
+> > >> is_64bit must not be used without the rwlock taken and other places =
+in
+> > >> the code needing to test 64bit support of the current domain will ha=
+ve
+> > >> to use calls to is_64bit_domain instead of the field from now on.
+> > >>
+> > >> Fixes: 09a201605f99 ("xen/arm: ffa: Introduce VM to VM support")
+> > >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > >> ---
+> > >> Changes in v1:
+> > >> - patch introduced
+> > >> ---
+> > >> xen/arch/arm/tee/ffa.c         | 9 ++++++++-
+> > >> xen/arch/arm/tee/ffa_private.h | 5 +++++
+> > >> 2 files changed, 13 insertions(+), 1 deletion(-)
+> > >>
+> > >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > >> index aadd6c21e7f2..0f6f837378cc 100644
+> > >> --- a/xen/arch/arm/tee/ffa.c
+> > >> +++ b/xen/arch/arm/tee/ffa.c
+> > >> @@ -180,6 +180,14 @@ static bool ffa_negotiate_version(struct cpu_us=
+er_regs *regs)
+> > >>             goto out_handled;
+> > >>         }
+> > >>
+> > >> +        /*
+> > >> +         * We cannot set is_64bit during domain init because the fi=
+eld is not
+> > >> +         * yet initialized.
+> > >> +         * This field is only used during partinfo_get with the rwl=
+ock taken
+> > >> +         * so there is no ordering issue with guest_vers.
+> > >> +         */
+> > >> +        ctx->is_64bit =3D is_64bit_domain(d);
+> > >
+> > > This should only be assigned under the rwlock. But do we need the
+> > > is_64bit field at all? Why can't we always use is_64bit_domain()
+> > > instead?
+> >
+> > As we take it after when needed, setting it here should be ok but i can=
+ move this
+> > inside the rwlock section to be more coherent.
 
-I prepared a small patch to keep the intermediate artifacts instead of
-deleting them.
+It's not needed since this field is initialized before it can be found
+in the list. I'm OK with either way.
 
-It removes two cleanup commands:
-    xen/arch/arm/Makefile: drops rm -f $(@D)/.$(@F).[0-9]* (keeps
-.xen-syms.* intermediates)
-    xen/scripts/Kbuild.include: drops rm -f $(@D)/.cst.$$$$ (keeps
-.cst.<pid> used by compare-symbol-tables)
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-Should I gather any other files/logs that would be useful?
+Cheers,
+Jens
 
-
-
-Mykola
-
+> >
+> > The field is needed when creating the list of partitions. To use is_64b=
+it_domain, I
+> > would to get access to the foreign domain description which i try to pr=
+event to not
+> > create a way for a guest to block other guests by doing partinfo_get. T=
+his is why
+> > i store the information i need for foreign guests in the ctx instead of=
+ using RCU
+> > to get access to the domain descriptor.
 >
-> Jan
+> Got it, thanks for the explanation.
+>
+> Cheers,
+> Jens
+>
+> >
+> > Cheers
+> > Bertrand
+> >
+> > >
+> > > Cheers,
+> > > Jens
+> > >
+> > >> +
+> > >>         /*
+> > >>          * A successful FFA_VERSION call does not freeze negotiation=
+. Guests
+> > >>          * are allowed to issue multiple FFA_VERSION attempts (e.g. =
+probing
+> > >> @@ -433,7 +441,6 @@ static int ffa_domain_init(struct domain *d)
+> > >>
+> > >>     ctx->ffa_id =3D ffa_get_vm_id(d);
+> > >>     ctx->num_vcpus =3D d->max_vcpus;
+> > >> -    ctx->is_64bit =3D is_64bit_domain(d);
+> > >>
+> > >>     /*
+> > >>      * ffa_domain_teardown() will be called if ffa_domain_init() ret=
+urns an
+> > >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_p=
+rivate.h
+> > >> index 4e4ac7fd7bc4..2daa4589a930 100644
+> > >> --- a/xen/arch/arm/tee/ffa_private.h
+> > >> +++ b/xen/arch/arm/tee/ffa_private.h
+> > >> @@ -344,6 +344,11 @@ struct ffa_ctx {
+> > >>     /* FF-A Endpoint ID */
+> > >>     uint16_t ffa_id;
+> > >>     uint16_t num_vcpus;
+> > >> +    /*
+> > >> +     * Must only be accessed with the ffa_ctx_list_rwlock taken as =
+it set
+> > >> +     * when guest_vers is set and other accesses could see a partia=
+lly set
+> > >> +     * value.
+> > >> +     */
+> > >>     bool is_64bit;
+> > >>
+> > >>     /*
+> > >> --
+> > >> 2.51.2
+> >
+> >
 
