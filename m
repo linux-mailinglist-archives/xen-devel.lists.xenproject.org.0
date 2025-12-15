@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3ABCBEAD5
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 16:33:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187435.1508827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E805BCBEF06
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 17:38:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187445.1508836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVAZE-0007Ur-1V; Mon, 15 Dec 2025 15:32:56 +0000
+	id 1vVBZY-0007GB-DP; Mon, 15 Dec 2025 16:37:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187435.1508827; Mon, 15 Dec 2025 15:32:56 +0000
+Received: by outflank-mailman (output) from mailman id 1187445.1508836; Mon, 15 Dec 2025 16:37:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVAZD-0007SZ-UZ; Mon, 15 Dec 2025 15:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 1187435;
- Mon, 15 Dec 2025 15:32:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53Et=6V=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vVAZD-0007SQ-8F
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 15:32:55 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 506df4cb-d9cb-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 16:32:50 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4779a637712so24361045e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 07:32:50 -0800 (PST)
-Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
- [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-430f6a42c8csm12367656f8f.16.2025.12.15.07.32.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 07:32:47 -0800 (PST)
+	id 1vVBZY-0007Ed-Ag; Mon, 15 Dec 2025 16:37:20 +0000
+Received: by outflank-mailman (input) for mailman id 1187445;
+ Mon, 15 Dec 2025 16:37:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vVBZW-0007ET-Lq
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 16:37:18 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50ced49f-d9d4-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 17:37:16 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-42f9ece6387so1481942f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 08:37:16 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-430f984a268sm10384018f8f.1.2025.12.15.08.37.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Dec 2025 08:37:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 506df4cb-d9cb-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 50ced49f-d9d4-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1765812769; x=1766417569; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tWfExaDqsghC/g9mOl/LeYRBxy2Sr9vZUZj145GUV9I=;
-        b=Jss7NUyXdZbIIgUvEFFIF87isYrYm0MRlmJKFkHCjF/NxvDnccnNYfb2sAQBvrf7AT
-         G3r+LgUgGd4fFAi2XU/YhNbzUskPSazJKcF5BQ+iW24YOOzj4u8CLITu6JmEt+iVyKyp
-         31bBgX4nYSUklKMCBgp6/uA/ZrmJLwzBkVEB8=
+        d=suse.com; s=google; t=1765816635; x=1766421435; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=s6kU7Hc5AETBlewka46/PlUa4wWZ7ukkAJTBWrTSqSQ=;
+        b=cRM8A+3HikN61aSzIMOU5tBEg2M6SQakplx9O37/Fx+vAy6E6kAown4P3g7YLrAqtE
+         TC6+qRcD3Xat90/TKECo1uvlJjY8At2Qmap1NuymT3jFUZ0Q7w/iZYZAYo1vUyKwOVGB
+         Hcpio8zWRezsLZGp4zH313MTCD6bpuAJlct96Cb1TPjnuuSvD20crti2a0Rf/KELGRIz
+         N0hscn0T+AGmhIYLtCbf2uEs/35AiRaPYQsbnwTYQb8PnENM8zWHIEu3aS3yNR0XwIJN
+         Q41P8jGHUh+PL05zm8AB81yebXJ3Px9f2f5QlxT9J1YpMNe7BaXNy5aWYs78IXf9d/IT
+         51PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765812769; x=1766417569;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1765816635; x=1766421435;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tWfExaDqsghC/g9mOl/LeYRBxy2Sr9vZUZj145GUV9I=;
-        b=NdmiNzATA0/ierQQVXuInYYQdJrQ3Vs9EgWrM4kQeSTCzM8y1ltHBCODe0QkqIMgo8
-         VAK0uavvkIqwTE+R4+D5Wm64U83io7vWwQMaUtYF0cMiCxUNa6ceXr8DfqKBj11LmQBf
-         ZG/Cs79Vrg5VvCjKKTyRwqpBnkIuSUDrwr4C+PRaa47/896uopzWByUdy/G2C/fQ4Ip9
-         lIJlhTpqYoLXsvxBe3Y8P87KrhrLAMiopTGmus4W5If0exN7jDFX9pSSTjey2IHeSYW1
-         K4gie8U5HEpLoQSn/PHUMCopJnH/AhnEBq8/XMi6OMNqKZfTeWSR5MGdC10frLxGAmBw
-         mTSQ==
-X-Gm-Message-State: AOJu0Yxea+ftiU6sqx7EyJ6Yvwgd1+jleUX8H18U7w4TpPd50poIIZn5
-	v1WI5svaNiA9Tvz3Pez0HicRveGzHvJe+l7qNGtKq1coJaIBAykNuDbAJkHjTcVjcoPtUn3U52w
-	62rLG
-X-Gm-Gg: AY/fxX62Bs50er2fsuQlOVrVv2l+hPqwMhK1n3FHAlVXQKVKEw7b28r9vLp+6+bLCO6
-	G1eW0EDY3LU1y+dH2yq++usieSbamQO3MQgNlx+rnieKjVcDDUxJP73WgkUxpenJJsmzNXXt6nv
-	fsQxg1R4yoO3+iudZDpYzd7mE29iPK3Sw0uY6vhCJgmeSe3j5Z7gEQfZamwqlk4yyOqAUtrp/fw
-	OASRdc0X55LhgVBGEhIeYLGj9wxwKXNufeP3jA6RxYAHdP0cSuITeRp8/D378De6CN95hIut10W
-	M0PQejv2NttE9q6iMEyD+CE6SGGHt/flnAI0qFH4GKJU1JU4PprY4g2XA1R0df7e9KvP7pgeccy
-	iAW6GxVF9LUtzq/DVBiDD4+fsCREp8cTgXErqlAkp5suQv+my7Sl33YvK10fvQxmXP6esqx62cN
-	fScXKVMppDOEkW3uybyb6g1x+23TQ+JahW3TlkTuMjYF74iY848YbHLJKZhFJn6w==
-X-Google-Smtp-Source: AGHT+IHiZNUCGoXP38X0ID+QXAPimIRxmAwySmxrbkelNr7NNi1ANhIHMy2ZDYXh2xRrOjimFLFUag==
-X-Received: by 2002:a05:600c:1994:b0:477:952d:fc00 with SMTP id 5b1f17b1804b1-47a8f8c0a28mr109337795e9.12.1765812768446;
-        Mon, 15 Dec 2025 07:32:48 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2] x86/ucode: Adjust parse_ucode() to match other list handling
-Date: Mon, 15 Dec 2025 15:32:45 +0000
-Message-Id: <20251215153245.2675388-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        bh=s6kU7Hc5AETBlewka46/PlUa4wWZ7ukkAJTBWrTSqSQ=;
+        b=XFQOmwgomcan0JAHnxqF4GQduyWvhzXsvi2721N62yf9sOz6uQgXc+XbO2n1eF/F5Z
+         Be2I+c7N464LiH7DDc/RjgccXyxDbdyj79FV1tG/VfOQ8jbVeCose3F9PewQweJLkmE0
+         PJ4lmRCso1SbkKfsVjKFQQNf7eDH2FmJvHOkbo7sXZv3F37MqlXO8qNBZgJrz2gjB0Ck
+         csESwL+2/o40w97O8NesmFFyfMFRuWjnmBDr54ocXy5zBZvZRigwVJvd9G9Vf+R0upfu
+         1tB2EmZanezbtlxk5qOjlt+SYCeKWVaeHXsGO6cyWUCqwiAtcJkC8GaZ+9ghzCvUV5iw
+         0StA==
+X-Forwarded-Encrypted: i=1; AJvYcCWZomN4Hb/mPaN+Ku/yAWKZcEeN0N1k3DOQlGq5XD8pajZkjXtakj3UGQ5Z/Tnma3GY6k1xm/GSZ6k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/5sr2IXRUnIW0qugA8WofRAqW5gvIUROgn3JOWBBqHIZ+UQYG
+	Ll4uMjqBLte65JIxrrBsEqEZnp/cdX81WoqEQJDQBpJ4OyFnFPCvSynW9jXQ2q3wZw==
+X-Gm-Gg: AY/fxX6B2AcdcPQ9YRcE9KmneKLJlok/4/U+DrvEZCCwnxIsvtXr2y6EMjtn7o53l3I
+	KDaDtTxWXoM1u3IcTuzCAIJNhi0bDFWxmPO6v53UaylO3eXfeDtTcgt+SnuCPRRK6fyIjge2Uqr
+	zy5n0E9YUcjLJaot8LSMtT78BzRC9QHuG/Uij6L1Xy5IyENMvseSBG4QFhCYeqfZ2JvC70SIzom
+	OPnRjMNgZeKldOjr61OUHzhfLD/Dd8W+/3SDSRjPYFsJLOAaomnwLLFgEZ67Wia8qkQYZjqJebn
+	AUPUaTZgaUSuaA4dHZlRM/l9U5Fy2glAFAH60hFbO+8QNrSP6LQm4vLdbmZPCH1uTd/Ft0oebYN
+	KyXB7I9sDbGIpIygEaR8VMxb0FMn8uMYuUNqUKcU67Vkg6uJv2rBbb1odPG88nF3HxMk/4CL+yA
+	RE7UHvCitjZ5NAj6J6Yq92/yyq2+9U5it3605Q3LRutYFyu6RC10IzFsItUywwIXLEQDTzRrgSr
+	4Q=
+X-Google-Smtp-Source: AGHT+IGwUU3Q5x8MjB31DFPb6NrOEDp1e0e5AJrUHBFP+RDuLG/Kz6Eq8qJxZRA0HM59DdDhkU4fOQ==
+X-Received: by 2002:a5d:5d09:0:b0:3ec:db87:e5f4 with SMTP id ffacd0b85a97d-42fb44762cbmr11160923f8f.7.1765816635576;
+        Mon, 15 Dec 2025 08:37:15 -0800 (PST)
+Message-ID: <dbd26a5e-d6d3-42c8-b1f9-325be2f807ff@suse.com>
+Date: Mon, 15 Dec 2025 17:37:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] memory: overlapping XENMAPSPACE_gmfn_range requests
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7d254163-ac13-4c58-bcb5-aaff2e892e15@suse.com>
+ <8038ba8e-ea1f-4005-94ab-56e4ab5f7062@citrix.com>
+ <1ce5a050-929c-48e4-8645-7310a07279cc@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1ce5a050-929c-48e4-8645-7310a07279cc@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-parse_ucode() is abnormal compared to similar parsing elsewhere in Xen.
+On 15.12.2025 15:17, Jan Beulich wrote:
+> On 15.12.2025 13:46, Andrew Cooper wrote:
+>> On 15/12/2025 11:22 am, Jan Beulich wrote:
+>>> Overlapping requests may need processing backwards, or else the intended
+>>> effect wouldn't be achieved (and instead some pages would be moved more
+>>> than once).
+>>>
+>>> Also covers XEN_DMOP_relocate_memory, where the potential issue was first
+>>> noticed.
+>>>
+>>> Fixes: a04811a315e0 ("mm: New XENMEM space, XENMAPSPACE_gmfn_range")
+>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> Of course an alternative would be to simply reject overlapping requests.
+>>> Then we should reject all overlaps though, I think. But since the code
+>>> change didn't end up overly intrusive, I thought I would go the "fix it"
+>>> route first.
+>>>
+>>> In-place moves (->idx == ->gpfn) are effectively no-ops, but we don't look
+>>> to short-circuit them for XENMAPSPACE_gmfn, so they're not short-circuited
+>>> here either.
+>>
+>> Maybe we should short-circuit them.  I can't think of anything good that
+>> will come of having redundant TLB/IOTLB flushing.  At the best it's a
+>> waste of time, and at the worst it covers up bugs.
+> 
+> I can do so (in a prereq change).
 
-Invert the ucode_mod_forced check with respect to the "scan" and integer
-handling, so we can warn the user when we've elected to ignore the parameters,
-and yield -EINVAL for any unrecognised list element.
+Or rather not. In looking more closely while actually trying to carry this out,
+I had to realize that such a request e.g. has the side effect of unsharing the
+source page (i.e. implicitly also allocating it). We would also take away from
+the caller certain error indicators or state changes (e.g. a p2m_ram_logdirty
+-> p2m_ram_rw type change; see also Roger's "x86/hvm: be more strict with
+XENMAPSPACE_gmfn source types").
 
-Rewrite the ucode= command line docs for clarity.
-
-No practical change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Rebase by a year.
- * Explain how to use scan= for EFI.
----
- docs/misc/xen-command-line.pandoc | 66 ++++++++++++++++++++-----------
- xen/arch/x86/cpu/microcode/core.c | 22 +++++++----
- 2 files changed, 57 insertions(+), 31 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index e92b6d55b556..2b4f80c234e1 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2752,34 +2752,52 @@ performance.
-    Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
- 
- ### ucode
--> `= List of [ <integer> | scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
-+> `= List of [ <integer>, scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
- 
-     Applicability: x86
-     Default: `scan` is selectable via Kconfig, `nmi,digest-check`
- 
--Controls for CPU microcode loading. For early loading, this parameter can
--specify how and where to find the microcode update blob. For late loading,
--this parameter specifies if the update happens within a NMI handler.
--
--'integer' specifies the CPU microcode update blob module index. When positive,
--this specifies the n-th module (in the GrUB entry, zero based) to be used
--for updating CPU micrcode. When negative, counting starts at the end of
--the modules in the GrUB entry (so with the blob commonly being last,
--one could specify `ucode=-1`). Note that the value of zero is not valid
--here (entry zero, i.e. the first module, is always the Dom0 kernel
--image). Note further that use of this option has an unspecified effect
--when used with xen.efi (there the concept of modules doesn't exist, and
--the blob gets specified via the `ucode=<filename>` config file/section
--entry; see [EFI configuration file description](efi.html)).
--
--'scan' instructs the hypervisor to scan the multiboot images for an cpio
--image that contains microcode. Depending on the platform the blob with the
--microcode in the cpio name space must be:
--  - on Intel: kernel/x86/microcode/GenuineIntel.bin
--  - on AMD  : kernel/x86/microcode/AuthenticAMD.bin
--When using xen.efi, the `ucode=<filename>` config file setting takes
--precedence over `scan`. The default value for `scan` is set with
--`CONFIG_UCODE_SCAN_DEFAULT`.
-+Controls for CPU microcode loading.
-+
-+In order to load microcode at boot, Xen needs to find a suitable update
-+amongst the modules provided by the bootloader.  Two kinds of microcode update
-+are supported:
-+
-+ 1. Raw microcode containers.  The format of the container is CPU vendor
-+    specific.
-+
-+ 2. CPIO archive.  This is Linux's preferred mechanism, and involves having
-+    the raw containers expressed as files
-+    (e.g. `kernel/x86/microcode/{GenuineIntel,AuthenticAMD}.bin`) in a CPIO
-+    archive, typically prepended to the initrd.
-+
-+The `<integer>` and `scan=<bool>` options are mutually exclusive and select
-+between these two options.  Further restrictions exist for booting xen.efi
-+(see below).
-+
-+ *  The `<integer>` option nominates a specific multiboot module as a raw
-+    container (option 1 above).  Valid options start from 1 (module 0 is
-+    always the dom0 kernel).  A negative number may be used, and will
-+    back-reference from the end of the module list.  i.e. `ucode=-1` will
-+    nominate the final multiboot module.
-+
-+ *  The `scan=` option causes Xen to search all modules in order to find the
-+    first CPIO archive containing the appropriate file (option 2 above).  The
-+    default for this option can be chosen at build time via
-+    `CONFIG_UCODE_SCAN_DEFAULT`.
-+
-+When booting xen.efi natively, the concept of multiboot modules doesn't exist.
-+Instead:
-+
-+ *  In the [EFI configuration file](efi.html), `ucode=<filename>` can be used
-+    to identify a file as a raw container (option 1 above).  Use of this
-+    mechanism will disable both `<integer>` and `scan=`.
-+
-+ *  If `ucode=<filename>` in the EFI configuration file is not used, it is
-+    still possible to use `scan=` to search all modules.  The order of module
-+    is undefined, but there is only a single `ramdisk=<filename>`
-+    configuration option available.  The use of `<integer>` for xen.efi is
-+    always undefined.
- 
- 'nmi' determines late loading is performed in NMI handler or just in
- stop_machine context. In NMI handler, even NMIs are blocked, which is
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index fe47c3a6c18d..87ab623bf9e6 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -115,11 +115,6 @@ void __init microcode_set_module(unsigned int idx)
-     ucode_mod_forced = 1;
- }
- 
--/*
-- * The format is '[<integer>|scan=<bool>, nmi=<bool>]'. Both options are
-- * optional. If the EFI has forced which of the multiboot payloads is to be
-- * used, only nmi=<bool> is parsed.
-- */
- static int __init cf_check parse_ucode(const char *s)
- {
-     const char *ss;
-@@ -134,13 +129,24 @@ static int __init cf_check parse_ucode(const char *s)
-             ucode_in_nmi = val;
-         else if ( (val = parse_boolean("digest-check", s, ss)) >= 0 )
-             opt_digest_check = val;
--        else if ( !ucode_mod_forced ) /* Not forced by EFI */
-+        else if ( (val = parse_boolean("scan", s, ss)) >= 0 )
-         {
--            if ( (val = parse_boolean("scan", s, ss)) >= 0 )
-+            if ( ucode_mod_forced )
-+                printk(XENLOG_WARNING
-+                       "Ignoring ucode=%.*s setting; overridden by EFI\n",
-+                       (int)(ss - s), s);
-+            else
-             {
-                 opt_scan = val;
-                 opt_mod_idx = 0;
-             }
-+        }
-+        else if ( isdigit(s[0]) || s[0] == '-' )
-+        {
-+            if ( ucode_mod_forced )
-+                printk(XENLOG_WARNING
-+                       "Ignoring ucode=%.*s setting; overridden by EFI\n",
-+                       (int)(ss - s), s);
-             else
-             {
-                 const char *q;
-@@ -155,6 +161,8 @@ static int __init cf_check parse_ucode(const char *s)
-                     opt_scan = false;
-             }
-         }
-+        else
-+            rc = -EINVAL;
- 
-         s = ss + 1;
-     } while ( *ss );
--- 
-2.39.5
-
+Jan
 
