@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD5EBCBE639
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:50:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187132.1508587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B466CBE644
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:50:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187133.1508592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9tn-0004uX-5y; Mon, 15 Dec 2025 14:50:07 +0000
+	id 1vV9tn-0004zv-Id; Mon, 15 Dec 2025 14:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187132.1508587; Mon, 15 Dec 2025 14:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 1187133.1508592; Mon, 15 Dec 2025 14:50:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9tm-0004rp-Vm; Mon, 15 Dec 2025 14:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 1187132;
+	id 1vV9tn-0004uJ-92; Mon, 15 Dec 2025 14:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 1187133;
  Mon, 15 Dec 2025 14:50:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pAKg=6V=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vV9tl-00038W-1G
+ id 1vV9tl-0003Ov-0B
  for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:50:05 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 564167ba-d9c5-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 15:50:03 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 5709fbfe-d9c5-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 15:50:04 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2711F497;
- Mon, 15 Dec 2025 06:49:55 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 843C2FEC;
+ Mon, 15 Dec 2025 06:49:56 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.46.206])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 33BD23F694;
- Mon, 15 Dec 2025 06:50:01 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 963F53F694;
+ Mon, 15 Dec 2025 06:50:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 564167ba-d9c5-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 5709fbfe-d9c5-11f0-b15b-2bf370ae4941
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -50,229 +50,543 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2 04/12] xen/arm: ffa: harden RX/TX mapping
-Date: Mon, 15 Dec 2025 15:49:21 +0100
-Message-ID: <5c8d22e3c3db0a62aa14f000fe4867614bc78456.1765807707.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 05/12] xen/arm: ffa: rework SPMC RX/TX buffer management
+Date: Mon, 15 Dec 2025 15:49:22 +0100
+Message-ID: <9810a2728cfd8541d6aa680c7af7728324e6a1dd.1765807707.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <cover.1765807707.git.bertrand.marquis@arm.com>
 References: <cover.1765807707.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Harden the RX/TX mapping paths and keep signed FF-A return codes
-end-to-end.
+Rework how Xen accesses the RX/TX buffers shared with the SPMC so that
+ownership and locking are handled centrally.
 
-Reject zero-length mappings and insist on page-aligned RX/TX buffer
-addresses before touching the P2M. The unmap plumbing is switched to
-use the same signed helpers so dispatcher error handling is consistent
-across map and unmap operations.
+Move the SPMC RX/TX buffer bases into ffa_rxtx.c as ffa_spmc_rx/ffa_spmc_tx,
+protect them with dedicated ffa_spmc_{rx,tx}_lock spinlocks and expose
+ffa_rxtx_spmc_{rx,tx}_{acquire,release}() helpers instead of the global
+ffa_rx/ffa_tx pointers and ffa_{rx,tx}_buffer_lock.
 
-This avoids partially mapped or silently truncated buffers and makes the
-mediator behaviour match the FF-A error model more closely.
-
-Prevent concurrent usage of rx or tx buffer during map or unmap by
-holding the rx_lock and tx_lock.
-
-While there also introduce a domain_rxtx_init to properly initialize the
-rxtx buffers spinlocks.
+The RX helpers now always issue FFA_RX_RELEASE when we are done
+consuming data from the SPMC, so partition-info enumeration and shared
+memory paths release the RX buffer on all exit paths. The RX/TX mapping
+code is updated to use the descriptor offsets (rx_region_offs and
+tx_region_offs) rather than hard-coded structure layout, and to use the
+TX acquire/release helpers instead of touching the TX buffer directly.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
 Changes in v2:
-- add Jens R-b
+- remove invalid ASSERT in SPMC RX/TX acquire as it is expected that the
+  buffer are already taken and the spinlock is here to serialize.
 Changes in v1:
-- take the rx_lock and tx_lock during rxtx_map and rxtx_unmap to prevent
-  concurrent calls using the rx or tx buffer during mapping.
-- properly clean rx/tx buffer related context entries during domain_init
+- modify share_shm function to use a goto and have one place to release
+  the spmc tx buffer instead of doing it directly in the if error
+  condition.
+- fix rx_acquire and tx_acquire to not release the spinlock as this is
+  expected to be done only in release to ensure no parallel usage.
 ---
- xen/arch/arm/tee/ffa.c         |  4 ++
- xen/arch/arm/tee/ffa_private.h |  5 ++-
- xen/arch/arm/tee/ffa_rxtx.c    | 68 +++++++++++++++++++++++++++-------
- 3 files changed, 62 insertions(+), 15 deletions(-)
+ xen/arch/arm/tee/ffa.c          |  22 +-----
+ xen/arch/arm/tee/ffa_partinfo.c |  40 +++++-----
+ xen/arch/arm/tee/ffa_private.h  |  18 ++---
+ xen/arch/arm/tee/ffa_rxtx.c     | 126 +++++++++++++++++++++++++-------
+ xen/arch/arm/tee/ffa_shm.c      |  29 +++++---
+ 5 files changed, 149 insertions(+), 86 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 0f6f837378cc..497ada8264e0 100644
+index 497ada8264e0..43af49d1c011 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -451,6 +451,10 @@ static int ffa_domain_init(struct domain *d)
-     if ( ret )
-         return ret;
+@@ -48,8 +48,8 @@
+  *     notification for secure partitions
+  *   - doesn't support notifications for Xen itself
+  *
+- * There are some large locked sections with ffa_tx_buffer_lock and
+- * ffa_rx_buffer_lock. Especially the ffa_tx_buffer_lock spinlock used
++ * There are some large locked sections with ffa_spmc_tx_lock and
++ * ffa_spmc_rx_lock. Especially the ffa_spmc_tx_lock spinlock used
+  * around share_shm() is a very large locked section which can let one VM
+  * affect another VM.
+  */
+@@ -108,20 +108,6 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] = {
+     FW_ABI(FFA_RUN),
+ };
  
-+    ret = ffa_rxtx_domain_init(d);
-+    if ( ret )
-+        return ret;
-+
-     return ffa_notif_domain_init(d);
- }
- 
-diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index 96794ecebe4b..0bb5a84553ce 100644
---- a/xen/arch/arm/tee/ffa_private.h
-+++ b/xen/arch/arm/tee/ffa_private.h
-@@ -439,10 +439,11 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
- 
- bool ffa_rxtx_init(void);
- void ffa_rxtx_destroy(void);
-+int32_t ffa_rxtx_domain_init(struct domain *d);
- void ffa_rxtx_domain_destroy(struct domain *d);
--uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-+int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
- 			     register_t rx_addr, uint32_t page_count);
--uint32_t ffa_handle_rxtx_unmap(void);
-+int32_t ffa_handle_rxtx_unmap(void);
- int32_t ffa_rx_acquire(struct domain *d);
- int32_t ffa_rx_release(struct domain *d);
- 
-diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-index a40e5b32e3a5..5776693bb3f0 100644
---- a/xen/arch/arm/tee/ffa_rxtx.c
-+++ b/xen/arch/arm/tee/ffa_rxtx.c
-@@ -41,10 +41,10 @@ static int32_t ffa_rxtx_unmap(uint16_t id)
-     return ffa_simple_call(FFA_RXTX_UNMAP, ((uint64_t)id) << 16, 0, 0, 0);
- }
- 
--uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-+int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
- 			     register_t rx_addr, uint32_t page_count)
- {
--    uint32_t ret = FFA_RET_INVALID_PARAMETERS;
-+    int32_t ret = FFA_RET_INVALID_PARAMETERS;
-     struct domain *d = current->domain;
-     struct ffa_ctx *ctx = d->arch.tee;
-     struct page_info *tx_pg;
-@@ -66,20 +66,30 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-         rx_addr &= UINT32_MAX;
+-/*
+- * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
+- * number of pages used in each of these buffers.
+- *
+- * The RX buffer is protected from concurrent usage with ffa_rx_buffer_lock.
+- * Note that the SPMC is also tracking the ownership of our RX buffer so
+- * for calls which uses our RX buffer to deliver a result we must call
+- * ffa_rx_release() to let the SPMC know that we're done with the buffer.
+- */
+-void *ffa_rx __read_mostly;
+-void *ffa_tx __read_mostly;
+-DEFINE_SPINLOCK(ffa_rx_buffer_lock);
+-DEFINE_SPINLOCK(ffa_tx_buffer_lock);
+-
+ LIST_HEAD(ffa_ctx_head);
+ /* RW Lock to protect addition/removal and reading in ffa_ctx_head */
+ DEFINE_RWLOCK(ffa_ctx_list_rwlock);
+@@ -617,7 +603,7 @@ static bool ffa_probe_fw(void)
+                    ffa_fw_abi_needed[i].name);
      }
  
--    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT )
-+    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT || !page_count )
+-    if ( !ffa_rxtx_init() )
++    if ( !ffa_rxtx_spmc_init() )
      {
-         printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
-                page_count, FFA_MAX_RXTX_PAGE_COUNT);
-         return FFA_RET_INVALID_PARAMETERS;
+         printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+         goto err_no_fw;
+@@ -631,7 +617,7 @@ static bool ffa_probe_fw(void)
+     return true;
+ 
+ err_rxtx_destroy:
+-    ffa_rxtx_destroy();
++    ffa_rxtx_spmc_destroy();
+ err_no_fw:
+     ffa_fw_version = 0;
+     bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
+index ec5a53ed1cab..145b869957b0 100644
+--- a/xen/arch/arm/tee/ffa_partinfo.c
++++ b/xen/arch/arm/tee/ffa_partinfo.c
+@@ -77,28 +77,24 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+ {
+     int32_t ret;
+     uint32_t src_size, real_sp_count;
+-    void *src_buf = ffa_rx;
++    void *src_buf;
+     uint32_t count = 0;
+ 
+-    /* Do we have a RX buffer with the SPMC */
+-    if ( !ffa_rx )
+-        return FFA_RET_DENIED;
+-
+     /* We need to use the RX buffer to receive the list */
+-    spin_lock(&ffa_rx_buffer_lock);
++    src_buf = ffa_rxtx_spmc_rx_acquire();
++    if ( !src_buf )
++        return FFA_RET_DENIED;
+ 
+     ret = ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
+     if ( ret )
+         goto out;
+ 
+-    /* We now own the RX buffer */
+-
+     /* Validate the src_size we got */
+     if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
+          src_size >= FFA_PAGE_SIZE )
+     {
+         ret = FFA_RET_NOT_SUPPORTED;
+-        goto out_release;
++        goto out;
      }
  
-+    if ( !IS_ALIGNED(tx_addr, FFA_PAGE_SIZE) ||
-+         !IS_ALIGNED(rx_addr, FFA_PAGE_SIZE) )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    spin_lock(&ctx->rx_lock);
-+    spin_lock(&ctx->tx_lock);
-+
-     /* Already mapped */
-     if ( ctx->rx )
--        return FFA_RET_DENIED;
-+    {
-+        ret = FFA_RET_DENIED;
-+        goto err_unlock_rxtx;
-+    }
+     /*
+@@ -114,7 +110,7 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+     if ( real_sp_count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / src_size )
+     {
+         ret = FFA_RET_NOT_SUPPORTED;
+-        goto out_release;
++        goto out;
+     }
  
-     tx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P2M_ALLOC);
-     if ( !tx_pg )
--        return FFA_RET_INVALID_PARAMETERS;
-+        goto err_unlock_rxtx;
+     for ( uint32_t sp_num = 0; sp_num < real_sp_count; sp_num++ )
+@@ -127,7 +123,7 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+             if ( dst_buf > (end_buf - dst_size) )
+             {
+                 ret = FFA_RET_NO_MEMORY;
+-                goto out_release;
++                goto out;
+             }
  
-     /* Only normal RW RAM for now */
-     if ( t != p2m_ram_rw )
-@@ -167,6 +177,10 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-     ctx->tx_pg = tx_pg;
-     ctx->page_count = page_count;
-     ctx->rx_is_free = true;
-+
-+    spin_unlock(&ctx->tx_lock);
-+    spin_unlock(&ctx->rx_lock);
-+
-     return FFA_RET_OK;
+             memcpy(dst_buf, src_buf, MIN(src_size, dst_size));
+@@ -143,10 +139,8 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
  
- err_unmap_rx:
-@@ -177,24 +191,32 @@ err_put_rx_pg:
-     put_page(rx_pg);
- err_put_tx_pg:
-     put_page(tx_pg);
-+err_unlock_rxtx:
-+    spin_unlock(&ctx->tx_lock);
-+    spin_unlock(&ctx->rx_lock);
+     *sp_count = count;
  
+-out_release:
+-    ffa_hyp_rx_release();
+ out:
+-    spin_unlock(&ffa_rx_buffer_lock);
++    ffa_rxtx_spmc_rx_release();
      return ret;
  }
  
--static uint32_t  rxtx_unmap(struct domain *d)
-+static int32_t rxtx_unmap(struct domain *d)
+@@ -378,7 +372,7 @@ static void uninit_subscribers(void)
+         XFREE(subscr_vm_destroyed);
+ }
+ 
+-static bool init_subscribers(uint16_t count, uint32_t fpi_size)
++static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_size)
  {
-     struct ffa_ctx *ctx = d->arch.tee;
-+    int32_t ret = FFA_RET_OK;
-+
-+    spin_lock(&ctx->rx_lock);
-+    spin_lock(&ctx->tx_lock);
- 
-     if ( !ctx->page_count )
--        return FFA_RET_INVALID_PARAMETERS;
-+    {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto err_unlock_rxtx;
-+    }
- 
-     if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+     uint16_t n;
+     uint16_t c_pos;
+@@ -395,7 +389,7 @@ static bool init_subscribers(uint16_t count, uint32_t fpi_size)
+     subscr_vm_destroyed_count = 0;
+     for ( n = 0; n < count; n++ )
      {
--        uint32_t ret;
--
-         ret = ffa_rxtx_unmap(ffa_get_vm_id(d));
-         if ( ret != FFA_RET_OK )
--            return ret;
-+            goto err_unlock_rxtx;
+-        fpi = ffa_rx + n * fpi_size;
++        fpi = buf + n * fpi_size;
+ 
+         /*
+          * We need to have secure partitions using bit 15 set convention for
+@@ -433,7 +427,7 @@ static bool init_subscribers(uint16_t count, uint32_t fpi_size)
+ 
+     for ( c_pos = 0, d_pos = 0, n = 0; n < count; n++ )
+     {
+-        fpi = ffa_rx + n * fpi_size;
++        fpi = buf + n * fpi_size;
+ 
+         if ( FFA_ID_IS_SECURE(fpi->id) )
+         {
+@@ -455,10 +449,14 @@ bool ffa_partinfo_init(void)
+     uint32_t fpi_size;
+     uint32_t count;
+     int e;
++    void *spmc_rx;
+ 
+     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
+-         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) ||
+-         !ffa_rx || !ffa_tx )
++         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
++        return false;
++
++    spmc_rx = ffa_rxtx_spmc_rx_acquire();
++    if (!spmc_rx)
+         return false;
+ 
+     e = ffa_partition_info_get(NULL, 0, &count, &fpi_size);
+@@ -475,10 +473,10 @@ bool ffa_partinfo_init(void)
+         goto out;
      }
  
-     unmap_domain_page_global(ctx->rx);
-@@ -208,10 +230,14 @@ static uint32_t  rxtx_unmap(struct domain *d)
-     ctx->page_count = 0;
-     ctx->rx_is_free = false;
+-    ret = init_subscribers(count, fpi_size);
++    ret = init_subscribers(spmc_rx, count, fpi_size);
  
--    return FFA_RET_OK;
-+err_unlock_rxtx:
-+    spin_unlock(&ctx->tx_lock);
-+    spin_unlock(&ctx->rx_lock);
+ out:
+-    ffa_hyp_rx_release();
++    ffa_rxtx_spmc_rx_release();
+     return ret;
+ }
+ 
+diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+index 0bb5a84553ce..4c97041829a9 100644
+--- a/xen/arch/arm/tee/ffa_private.h
++++ b/xen/arch/arm/tee/ffa_private.h
+@@ -416,10 +416,6 @@ struct ffa_ctx {
+     unsigned long *vm_destroy_bitmap;
+ };
+ 
+-extern void *ffa_rx;
+-extern void *ffa_tx;
+-extern spinlock_t ffa_rx_buffer_lock;
+-extern spinlock_t ffa_tx_buffer_lock;
+ extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+ 
+ extern struct list_head ffa_ctx_head;
+@@ -437,8 +433,13 @@ int ffa_partinfo_domain_init(struct domain *d);
+ bool ffa_partinfo_domain_destroy(struct domain *d);
+ void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
+ 
+-bool ffa_rxtx_init(void);
+-void ffa_rxtx_destroy(void);
++bool ffa_rxtx_spmc_init(void);
++void ffa_rxtx_spmc_destroy(void);
++void *ffa_rxtx_spmc_rx_acquire(void);
++void ffa_rxtx_spmc_rx_release(void);
++void *ffa_rxtx_spmc_tx_acquire(void);
++void ffa_rxtx_spmc_tx_release(void);
++
+ int32_t ffa_rxtx_domain_init(struct domain *d);
+ void ffa_rxtx_domain_destroy(struct domain *d);
+ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+@@ -568,11 +569,6 @@ static inline int32_t ffa_simple_call(uint32_t fid, register_t a1,
+     return ffa_get_ret_code(&resp);
+ }
+ 
+-static inline int32_t ffa_hyp_rx_release(void)
+-{
+-    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+-}
+-
+ static inline bool ffa_fw_supports_fid(uint32_t fid)
+ {
+     BUILD_BUG_ON(FFA_FNUM_MIN_VALUE > FFA_FNUM_MAX_VALUE);
+diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+index 5776693bb3f0..63203b22b84c 100644
+--- a/xen/arch/arm/tee/ffa_rxtx.c
++++ b/xen/arch/arm/tee/ffa_rxtx.c
+@@ -30,6 +30,20 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
+     uint32_t tx_region_offs;
+ };
+ 
++/*
++ * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
++ * number of pages used in each of these buffers.
++ * Each buffer has its own lock to protect from concurrent usage.
++ *
++ * Note that the SPMC is also tracking the ownership of our RX buffer so
++ * for calls which uses our RX buffer to deliver a result we must do an
++ * FFA_RX_RELEASE to let the SPMC know that we're done with the buffer.
++ */
++static void *ffa_spmc_rx __read_mostly;
++static void *ffa_spmc_tx __read_mostly;
++static DEFINE_SPINLOCK(ffa_spmc_rx_lock);
++static DEFINE_SPINLOCK(ffa_spmc_tx_lock);
++
+ static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
+                             uint32_t page_count)
+ {
+@@ -126,8 +140,9 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+                      sizeof(struct ffa_address_range) * 2 >
+                      FFA_MAX_RXTX_PAGE_COUNT * FFA_PAGE_SIZE);
+ 
+-        spin_lock(&ffa_tx_buffer_lock);
+-        rxtx_desc = ffa_tx;
++        rxtx_desc = ffa_rxtx_spmc_tx_acquire();
++        if ( !rxtx_desc )
++            goto err_unmap_rx;
+ 
+         /*
+          * We have only one page for each so we pack everything:
+@@ -144,7 +159,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+                                              address_range_array[1]);
+ 
+         /* rx buffer */
+-        mem_reg = ffa_tx + sizeof(*rxtx_desc);
++        mem_reg = (void *)rxtx_desc + rxtx_desc->rx_region_offs;
+         mem_reg->total_page_count = 1;
+         mem_reg->address_range_count = 1;
+         mem_reg->reserved = 0;
+@@ -154,7 +169,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+         mem_reg->address_range_array[0].reserved = 0;
+ 
+         /* tx buffer */
+-        mem_reg = ffa_tx + rxtx_desc->tx_region_offs;
++        mem_reg = (void *)rxtx_desc + rxtx_desc->tx_region_offs;
+         mem_reg->total_page_count = 1;
+         mem_reg->address_range_count = 1;
+         mem_reg->reserved = 0;
+@@ -165,7 +180,7 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+ 
+         ret = ffa_rxtx_map(0, 0, 0);
+ 
+-        spin_unlock(&ffa_tx_buffer_lock);
++        ffa_rxtx_spmc_tx_release();
+ 
+         if ( ret != FFA_RET_OK )
+             goto err_unmap_rx;
+@@ -319,49 +334,108 @@ void ffa_rxtx_domain_destroy(struct domain *d)
+     rxtx_unmap(d);
+ }
+ 
+-void ffa_rxtx_destroy(void)
++void *ffa_rxtx_spmc_rx_acquire(void)
++{
++    spin_lock(&ffa_spmc_rx_lock);
++
++    if ( ffa_spmc_rx )
++        return ffa_spmc_rx;
++
++    return NULL;
++}
++
++void ffa_rxtx_spmc_rx_release(void)
++{
++    int32_t ret;
++
++    ASSERT(spin_is_locked(&ffa_spmc_rx_lock));
++
++    /* Inform the SPMC that we are done with our RX buffer */
++    ret = ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
++    if ( ret != FFA_RET_OK )
++        printk(XENLOG_DEBUG "Error releasing SPMC RX buffer: %d\n", ret);
++
++    spin_unlock(&ffa_spmc_rx_lock);
++}
++
++void *ffa_rxtx_spmc_tx_acquire(void)
+ {
+-    bool need_unmap = ffa_tx && ffa_rx;
++    spin_lock(&ffa_spmc_tx_lock);
+ 
+-    if ( ffa_tx )
++    if ( ffa_spmc_tx )
++        return ffa_spmc_tx;
++
++    return NULL;
++}
++
++void ffa_rxtx_spmc_tx_release(void)
++{
++    ASSERT(spin_is_locked(&ffa_spmc_tx_lock));
++
++    spin_unlock(&ffa_spmc_tx_lock);
++}
++
++void ffa_rxtx_spmc_destroy(void)
++{
++    bool need_unmap;
++
++    spin_lock(&ffa_spmc_rx_lock);
++    spin_lock(&ffa_spmc_tx_lock);
++    need_unmap = ffa_spmc_tx && ffa_spmc_rx;
++
++    if ( ffa_spmc_tx )
+     {
+-        free_xenheap_pages(ffa_tx, 0);
+-        ffa_tx = NULL;
++        free_xenheap_pages(ffa_spmc_tx, 0);
++        ffa_spmc_tx = NULL;
+     }
+-    if ( ffa_rx )
++    if ( ffa_spmc_rx )
+     {
+-        free_xenheap_pages(ffa_rx, 0);
+-        ffa_rx = NULL;
++        free_xenheap_pages(ffa_spmc_rx, 0);
++        ffa_spmc_rx = NULL;
+     }
+ 
+     if ( need_unmap )
+         ffa_rxtx_unmap(0);
++
++    spin_unlock(&ffa_spmc_tx_lock);
++    spin_unlock(&ffa_spmc_rx_lock);
+ }
+ 
+-bool ffa_rxtx_init(void)
++bool ffa_rxtx_spmc_init(void)
+ {
+     int32_t e;
++    bool ret = false;
+ 
+     /* Firmware not there or not supporting */
+     if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
+         return false;
+ 
+-    ffa_rx = alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
+-    if ( !ffa_rx )
+-        return false;
++    spin_lock(&ffa_spmc_rx_lock);
++    spin_lock(&ffa_spmc_tx_lock);
+ 
+-    ffa_tx = alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
+-    if ( !ffa_tx )
+-        goto err;
++    ffa_spmc_rx = alloc_xenheap_pages(
++                            get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
++    if ( !ffa_spmc_rx )
++        goto exit;
+ 
+-    e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), FFA_RXTX_PAGE_COUNT);
++    ffa_spmc_tx = alloc_xenheap_pages(
++                            get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
++    if ( !ffa_spmc_tx )
++        goto exit;
++
++    e = ffa_rxtx_map(__pa(ffa_spmc_tx), __pa(ffa_spmc_rx),
++                     FFA_RXTX_PAGE_COUNT);
+     if ( e )
+-        goto err;
++        goto exit;
++
++    ret = true;
+ 
+-    return true;
++exit:
++    spin_unlock(&ffa_spmc_tx_lock);
++    spin_unlock(&ffa_spmc_rx_lock);
+ 
+-err:
+-    ffa_rxtx_destroy();
++    if ( !ret )
++        ffa_rxtx_spmc_destroy();
+ 
+-    return false;
++    return ret;
+ }
+diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+index dad3da192247..e275d3769d9b 100644
+--- a/xen/arch/arm/tee/ffa_shm.c
++++ b/xen/arch/arm/tee/ffa_shm.c
+@@ -286,9 +286,8 @@ static void init_range(struct ffa_address_range *addr_range,
+ }
+ 
+ /*
+- * This function uses the ffa_tx buffer to transmit the memory transaction
+- * descriptor. The function depends ffa_tx_buffer_lock to be used to guard
+- * the buffer from concurrent use.
++ * This function uses the ffa_spmc tx buffer to transmit the memory transaction
++ * descriptor.
+  */
+ static int share_shm(struct ffa_shm_mem *shm)
+ {
+@@ -298,17 +297,22 @@ static int share_shm(struct ffa_shm_mem *shm)
+     struct ffa_address_range *addr_range;
+     struct ffa_mem_region *region_descr;
+     const unsigned int region_count = 1;
+-    void *buf = ffa_tx;
+     uint32_t frag_len;
+     uint32_t tot_len;
+     paddr_t last_pa;
+     unsigned int n;
+     paddr_t pa;
++    int32_t ret;
++    void *buf;
+ 
+-    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
+     ASSERT(shm->page_count);
+ 
++    buf = ffa_rxtx_spmc_tx_acquire();
++    if ( !buf )
++        return FFA_RET_NOT_SUPPORTED;
++
+     descr = buf;
++
+     memset(descr, 0, sizeof(*descr));
+     descr->sender_id = shm->sender_id;
+     descr->handle = shm->handle;
+@@ -340,7 +344,10 @@ static int share_shm(struct ffa_shm_mem *shm)
+     tot_len = ADDR_RANGE_OFFSET(descr->mem_access_count, region_count,
+                                 region_descr->address_range_count);
+     if ( tot_len > max_frag_len )
+-        return FFA_RET_NOT_SUPPORTED;
++    {
++        ret = FFA_RET_NOT_SUPPORTED;
++        goto out;
++    }
+ 
+     addr_range = region_descr->address_range_array;
+     frag_len = ADDR_RANGE_OFFSET(descr->mem_access_count, region_count, 1);
+@@ -360,7 +367,12 @@ static int share_shm(struct ffa_shm_mem *shm)
+         init_range(addr_range, pa);
+     }
+ 
+-    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
++    ret = ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
++
++out:
++    ffa_rxtx_spmc_tx_release();
 +
 +    return ret;
  }
  
--uint32_t ffa_handle_rxtx_unmap(void)
-+int32_t ffa_handle_rxtx_unmap(void)
- {
-     return rxtx_unmap(current->domain);
- }
-@@ -272,6 +298,22 @@ out:
-     return ret;
- }
+ static int read_mem_transaction(uint32_t ffa_vers, const void *buf, size_t blen,
+@@ -579,10 +591,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+     if ( ret )
+         goto out;
  
-+int32_t ffa_rxtx_domain_init(struct domain *d)
-+{
-+    struct ffa_ctx *ctx = d->arch.tee;
-+
-+    spin_lock_init(&ctx->rx_lock);
-+    spin_lock_init(&ctx->tx_lock);
-+    ctx->rx = NULL;
-+    ctx->tx = NULL;
-+    ctx->rx_pg = NULL;
-+    ctx->tx_pg = NULL;
-+    ctx->page_count = 0;
-+    ctx->rx_is_free = false;
-+
-+    return 0;
-+}
-+
- void ffa_rxtx_domain_destroy(struct domain *d)
- {
-     rxtx_unmap(d);
-@@ -298,7 +340,7 @@ void ffa_rxtx_destroy(void)
+-    /* Note that share_shm() uses our tx buffer */
+-    spin_lock(&ffa_tx_buffer_lock);
+     ret = share_shm(shm);
+-    spin_unlock(&ffa_tx_buffer_lock);
+     if ( ret )
+         goto out;
  
- bool ffa_rxtx_init(void)
- {
--    int e;
-+    int32_t e;
- 
-     /* Firmware not there or not supporting */
-     if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
 -- 
 2.51.2
 
