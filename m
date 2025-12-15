@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB81CBE63B
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:50:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187137.1508617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48804CBE64D
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:50:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187138.1508621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9tq-0005uG-HV; Mon, 15 Dec 2025 14:50:10 +0000
+	id 1vV9tq-0005vz-MU; Mon, 15 Dec 2025 14:50:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187137.1508617; Mon, 15 Dec 2025 14:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 1187138.1508621; Mon, 15 Dec 2025 14:50:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9tq-0005qb-5m; Mon, 15 Dec 2025 14:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 1187137;
- Mon, 15 Dec 2025 14:50:07 +0000
+	id 1vV9tq-0005tz-F2; Mon, 15 Dec 2025 14:50:10 +0000
+Received: by outflank-mailman (input) for mailman id 1187138;
+ Mon, 15 Dec 2025 14:50:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pAKg=6V=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vV9tn-0003Ov-KL
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:50:07 +0000
+ id 1vV9tp-0003Ov-3d
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:50:09 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 58ac9a9d-d9c5-11f0-b15b-2bf370ae4941;
- Mon, 15 Dec 2025 15:50:07 +0100 (CET)
+ id 598bf526-d9c5-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 15:50:08 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B70C1655;
- Mon, 15 Dec 2025 06:49:59 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B004A497;
+ Mon, 15 Dec 2025 06:50:00 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.46.206])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BB703F694;
- Mon, 15 Dec 2025 06:50:05 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BD48A3F694;
+ Mon, 15 Dec 2025 06:50:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58ac9a9d-d9c5-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 598bf526-d9c5-11f0-b15b-2bf370ae4941
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -50,266 +50,415 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2 07/12] xen/arm: ffa: use signed 32-bit status codes
-Date: Mon, 15 Dec 2025 15:49:24 +0100
-Message-ID: <fa64cec364a243fd43326665ebeac5e5a795958b.1765807707.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 08/12] xen/arm: ffa: add UUID helpers for partition info
+Date: Mon, 15 Dec 2025 15:49:25 +0100
+Message-ID: <671ef6011b32690bf5d5f9b4826e593ae5114378.1765807707.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <cover.1765807707.git.bertrand.marquis@arm.com>
 References: <cover.1765807707.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The FF-A spec defines return status values as signed 32-bit integers.
-Align the Xen mediator with this requirement by:
+Introduce struct ffa_uuid together with nil/equality/set helpers, and
+use it end-to-end in the partition-info plumbing.
 
-- switching the FF-A helpers (ffa_handle_mem_reclaim(), partition info
-  init, notification ops, dispatcher glue, etc.) to int32_t return types
-  so callers cannot silently truncate negative values
-- masking SMCCC responses/exits in ffa_get_version(),
-  ffa_get_ret_code() and ffa_set_regs_error() to 32 bits before storing
-  them in guest registers
-- updating notifier, shared-memory reclaim, partition-info and
-  dispatcher call sites to use the new prototypes so the entire FF-A
-  path propagates spec-compliant 32-bit signed error codes
+The SP and VM enumeration paths now build UUIDs from the guest
+registers, call a new ffa_copy_info() helper and ensure non-nil UUID
+queries only return matching SP entries, relying on firmware UUID
+filtering. VM entries are skipped because we do not track per-VM UUIDs.
 
-While there, tidy up the FF-A notification helpers by using GENMASK(15, 0)
-for endpoint extraction and fix the secure-endpoint check in
-ffa_handle_notification_set() to apply the mask to the endpoint ID before
-calling FFA_ID_IS_SECURE(), instead of testing the wrong halfword of
-src_dst.
+Count requests and subscriber initialisation are updated accordingly so
+firmware is always called with an explicit UUID. This keeps count and
+listing requests aligned with the FF-A v1.1 rules while preserving the
+Linux compatibility workaround for v1.2 requesters.
 
-Fixes: 911b305e7bdab ("xen/arm: ffa: Enable VM to VM without firmware")
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
 Changes in v2:
-- no changes
-Changes in v1:
 - add Jens R-b
+Changes in v1:
+- Use GENMASK in ffa_partition_info_get instead of explicit values.
+- Use ACCESS_ONCE to read guest_vers
+- use is_64bit_domain to get current domain 32/64 bit support
 ---
- xen/arch/arm/tee/ffa.c          | 12 +++++++-----
- xen/arch/arm/tee/ffa_notif.c    | 14 +++++++-------
- xen/arch/arm/tee/ffa_partinfo.c |  4 ++--
- xen/arch/arm/tee/ffa_private.h  | 21 +++++++++++----------
- xen/arch/arm/tee/ffa_shm.c      |  4 ++--
- 5 files changed, 29 insertions(+), 26 deletions(-)
+ xen/arch/arm/tee/ffa_partinfo.c | 209 ++++++++++++++++++++------------
+ xen/arch/arm/tee/ffa_private.h  |  21 ++++
+ 2 files changed, 154 insertions(+), 76 deletions(-)
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 69a5e1e876ce..2c09d10ae6a1 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -129,12 +129,14 @@ static bool ffa_get_version(uint32_t *vers)
-         .a1 = FFA_MY_VERSION,
-     };
-     struct arm_smccc_1_2_regs resp;
-+    int32_t ret;
- 
-     arm_smccc_1_2_smc(&arg, &resp);
--    if ( resp.a0 == FFA_RET_NOT_SUPPORTED )
-+    ret = resp.a0 & GENMASK_ULL(31, 0);
-+    if ( ret == FFA_RET_NOT_SUPPORTED )
-         return false;
- 
--    *vers = resp.a0;
-+    *vers = resp.a0 & GENMASK_ULL(31, 0);
- 
-     return true;
- }
-@@ -310,7 +312,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-     uint32_t fid = get_user_reg(regs, 0);
-     struct domain *d = current->domain;
-     struct ffa_ctx *ctx = d->arch.tee;
--    int e;
-+    int32_t e;
- 
-     if ( !ctx )
-         return false;
-@@ -382,8 +384,8 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
- 
-     default:
-         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
--        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
--        return true;
-+        e = FFA_RET_NOT_SUPPORTED;
-+        break;
-     }
- 
-     if ( e )
-diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-index 86bef6b3b2ab..37b05747cd21 100644
---- a/xen/arch/arm/tee/ffa_notif.c
-+++ b/xen/arch/arm/tee/ffa_notif.c
-@@ -19,7 +19,7 @@
- static bool __ro_after_init fw_notif_enabled;
- static unsigned int __ro_after_init notif_sri_irq;
- 
--int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-+int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs)
- {
-     struct domain *d = current->domain;
-     uint32_t src_dst = get_user_reg(regs, 1);
-@@ -27,7 +27,7 @@ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-+    if ( (src_dst & GENMASK(15, 0)) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
-     if ( flags )    /* Only global notifications are supported */
-@@ -40,14 +40,14 @@ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-     return FFA_RET_NOT_SUPPORTED;
- }
- 
--int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-+int32_t ffa_handle_notification_unbind(struct cpu_user_regs *regs)
- {
-     struct domain *d = current->domain;
-     uint32_t src_dst = get_user_reg(regs, 1);
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-+    if ( (src_dst & GENMASK(15, 0)) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
-     if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-@@ -106,7 +106,7 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-         return;
-     }
- 
--    if ( (recv & 0xFFFFU) != ffa_get_vm_id(d) )
-+    if ( (recv & GENMASK(15, 0)) != ffa_get_vm_id(d) )
-     {
-         ffa_set_regs_error(regs, FFA_RET_INVALID_PARAMETERS);
-         return;
-@@ -162,7 +162,7 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-     ffa_set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, w4, w5, w6, w7);
- }
- 
--int ffa_handle_notification_set(struct cpu_user_regs *regs)
-+int32_t ffa_handle_notification_set(struct cpu_user_regs *regs)
- {
-     struct domain *d = current->domain;
-     uint32_t src_dst = get_user_reg(regs, 1);
-@@ -173,7 +173,7 @@ int ffa_handle_notification_set(struct cpu_user_regs *regs)
-     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
--    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+    if ( FFA_ID_IS_SECURE(src_dst & GENMASK(15, 0)) && fw_notif_enabled )
-         return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
-                                bitmap_hi);
- 
 diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index 16c905cb12b8..c9faf5415853 100644
+index c9faf5415853..bf906ed0c88f 100644
 --- a/xen/arch/arm/tee/ffa_partinfo.c
 +++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -448,7 +448,7 @@ bool ffa_partinfo_init(void)
-     bool ret = false;
-     uint32_t fpi_size;
-     uint32_t count;
--    int e;
-+    int32_t e;
-     void *spmc_rx;
+@@ -33,7 +33,7 @@ static uint16_t subscr_vm_created_count __read_mostly;
+ static uint16_t *subscr_vm_destroyed __read_mostly;
+ static uint16_t subscr_vm_destroyed_count __read_mostly;
  
-     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
-@@ -515,7 +515,7 @@ static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
-     }
- }
- 
--int ffa_partinfo_domain_init(struct domain *d)
-+int32_t ffa_partinfo_domain_init(struct domain *d)
+-static int32_t ffa_partition_info_get(uint32_t *uuid, uint32_t flags,
++static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t flags,
+                                       uint32_t *count, uint32_t *fpi_size)
  {
-     unsigned int count = BITS_TO_LONGS(subscr_vm_destroyed_count);
-     struct ffa_ctx *ctx = d->arch.tee;
-diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index 904ad1df733b..c274177029de 100644
---- a/xen/arch/arm/tee/ffa_private.h
-+++ b/xen/arch/arm/tee/ffa_private.h
-@@ -31,9 +31,9 @@
- 
- /* FFA_VERSION helpers */
- #define FFA_VERSION_MAJOR_SHIFT         16U
--#define FFA_VERSION_MAJOR_MASK          0x7FFFU
-+#define FFA_VERSION_MAJOR_MASK          GENMASK(14, 0)
- #define FFA_VERSION_MINOR_SHIFT         0U
--#define FFA_VERSION_MINOR_MASK          0xFFFFU
-+#define FFA_VERSION_MINOR_MASK          GENMASK(15, 0)
- #define MAKE_FFA_VERSION(major, minor)  \
-         ((((major) & FFA_VERSION_MAJOR_MASK) << FFA_VERSION_MAJOR_SHIFT) | \
-          ((minor) & FFA_VERSION_MINOR_MASK))
-@@ -426,10 +426,10 @@ extern atomic_t ffa_vm_count;
- 
- bool ffa_shm_domain_destroy(struct domain *d);
- void ffa_handle_mem_share(struct cpu_user_regs *regs);
--int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags);
-+int32_t ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags);
- 
- bool ffa_partinfo_init(void);
--int ffa_partinfo_domain_init(struct domain *d);
-+int32_t ffa_partinfo_domain_init(struct domain *d);
- bool ffa_partinfo_domain_destroy(struct domain *d);
- void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
- 
-@@ -455,11 +455,11 @@ void ffa_notif_init_interrupt(void);
- int ffa_notif_domain_init(struct domain *d);
- void ffa_notif_domain_destroy(struct domain *d);
- 
--int ffa_handle_notification_bind(struct cpu_user_regs *regs);
--int ffa_handle_notification_unbind(struct cpu_user_regs *regs);
-+int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs);
-+int32_t ffa_handle_notification_unbind(struct cpu_user_regs *regs);
- void ffa_handle_notification_info_get(struct cpu_user_regs *regs);
- void ffa_handle_notification_get(struct cpu_user_regs *regs);
--int ffa_handle_notification_set(struct cpu_user_regs *regs);
-+int32_t ffa_handle_notification_set(struct cpu_user_regs *regs);
- 
- #ifdef CONFIG_FFA_VM_TO_VM
- void ffa_raise_rx_buffer_full(struct domain *d);
-@@ -525,9 +525,10 @@ static inline void ffa_set_regs(struct cpu_user_regs *regs, register_t v0,
- }
- 
- static inline void ffa_set_regs_error(struct cpu_user_regs *regs,
--                                      uint32_t error_code)
-+                                      int32_t error_code)
- {
--    ffa_set_regs(regs, FFA_ERROR, 0, error_code, 0, 0, 0, 0, 0);
-+    ffa_set_regs(regs, FFA_ERROR, 0, error_code & GENMASK_ULL(31, 0), 0, 0, 0,
-+                 0, 0);
- }
- 
- static inline void ffa_set_regs_success(struct cpu_user_regs *regs,
-@@ -542,7 +543,7 @@ static inline int32_t ffa_get_ret_code(const struct arm_smccc_1_2_regs *resp)
-     {
-     case FFA_ERROR:
-         if ( resp->a2 )
--            return resp->a2;
-+            return resp->a2 & GENMASK_ULL(31, 0);
-         else
-             return FFA_RET_NOT_SUPPORTED;
-     case FFA_SUCCESS_32:
-diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-index b862578c553c..8282bacf85d3 100644
---- a/xen/arch/arm/tee/ffa_shm.c
-+++ b/xen/arch/arm/tee/ffa_shm.c
-@@ -626,14 +626,14 @@ static struct ffa_shm_mem *find_shm_mem(struct ffa_ctx *ctx, uint64_t handle)
-     return NULL;
- }
- 
--int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags)
-+int32_t ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags)
- {
-     struct domain *d = current->domain;
-     struct ffa_ctx *ctx = d->arch.tee;
-     struct ffa_shm_mem *shm;
-     register_t handle_hi;
-     register_t handle_lo;
--    int ret;
+     struct arm_smccc_1_2_regs arg = {
+@@ -41,15 +41,12 @@ static int32_t ffa_partition_info_get(uint32_t *uuid, uint32_t flags,
+         .a5 = flags,
+     };
+     struct arm_smccc_1_2_regs resp;
+-    uint32_t ret;
 +    int32_t ret;
  
-     if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
-         return FFA_RET_NOT_SUPPORTED;
+-    if ( uuid )
+-    {
+-        arg.a1 = uuid[0];
+-        arg.a2 = uuid[1];
+-        arg.a3 = uuid[2];
+-        arg.a4 = uuid[3];
+-    }
++    arg.a1 = uuid.val[0] & GENMASK(31, 0);
++    arg.a2 = (uuid.val[0] >> 32) & GENMASK(31, 0);
++    arg.a3 = uuid.val[1] & GENMASK(31, 0);
++    arg.a4 = (uuid.val[1] >> 32) & GENMASK(31, 0);
+ 
+     arm_smccc_1_2_smc(&arg, &resp);
+ 
+@@ -63,7 +60,26 @@ static int32_t ffa_partition_info_get(uint32_t *uuid, uint32_t flags,
+     return ret;
+ }
+ 
+-static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_t *sp_count)
++static int32_t ffa_copy_info(void **dst, void *dst_end, const void *src,
++                             uint32_t dst_size, uint32_t src_size)
++{
++    uint8_t *pos = *dst;
++    uint8_t *end = dst_end;
++
++    if ( pos > end - dst_size )
++        return FFA_RET_NO_MEMORY;
++
++    memcpy(pos, src, MIN(dst_size, src_size));
++
++    if ( dst_size > src_size )
++        memset(pos + src_size, 0, dst_size - src_size);
++
++    *dst = pos + dst_size;
++
++    return FFA_RET_OK;
++}
++
++static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count)
+ {
+     uint32_t src_size;
+ 
+@@ -71,8 +87,8 @@ static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_t *sp_count)
+                                   sp_count, &src_size);
+ }
+ 
+-static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+-                                   void *dst_buf, void *end_buf,
++static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
++                                   void **dst_buf, void *end_buf,
+                                    uint32_t dst_size)
+ {
+     int32_t ret;
+@@ -120,17 +136,18 @@ static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+         /* filter out SP not following bit 15 convention if any */
+         if ( FFA_ID_IS_SECURE(fpi->id) )
+         {
+-            if ( dst_buf > (end_buf - dst_size) )
+-            {
+-                ret = FFA_RET_NO_MEMORY;
+-                goto out;
+-            }
++            /*
++             * If VM is 1.0 but firmware is 1.1 we could have several entries
++             * with the same ID but different UUIDs. In this case the VM will
++             * get a list with several time the same ID.
++             * This is a non-compliance to the specification but 1.0 VMs should
++             * handle that on their own to simplify Xen implementation.
++             */
+ 
+-            memcpy(dst_buf, src_buf, MIN(src_size, dst_size));
+-            if ( dst_size > src_size )
+-                memset(dst_buf + src_size, 0, dst_size - src_size);
++            ret = ffa_copy_info(dst_buf, end_buf, src_buf, dst_size, src_size);
++            if ( ret )
++                goto out;
+ 
+-            dst_buf += dst_size;
+             count++;
+         }
+ 
+@@ -144,69 +161,90 @@ out:
+     return ret;
+ }
+ 
+-static int32_t ffa_get_vm_partinfo(uint32_t *vm_count, void *dst_buf,
+-                                   void *end_buf, uint32_t dst_size)
++static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t *vm_count,
++                                   void **dst_buf, void *end_buf,
++                                   uint32_t dst_size)
+ {
+-    struct ffa_ctx *curr_ctx = current->domain->arch.tee;
++    struct domain *d = current->domain;
++    struct ffa_ctx *curr_ctx = d->arch.tee;
+     struct ffa_ctx *dest_ctx;
+     uint32_t count = 0;
+     int32_t ret = FFA_RET_OK;
++    /*
++     * We do not have UUID info for VMs so use the 1.0 structure so that we set
++     * UUIDs to zero using memset
++     */
++    struct ffa_partition_info_1_0 info;
+ 
+     /*
+-     * There could potentially be a lot of VMs in the system and we could
+-     * hold the CPU for long here.
+-     * Right now there is no solution in FF-A specification to split
+-     * the work in this case.
+-     * TODO: Check how we could delay the work or have preemption checks.
++     * We do not have protocol UUIDs for VMs so if a request has non Nil UUID
++     * we must return an empty list.
+      */
+-    read_lock(&ffa_ctx_list_rwlock);
+-    list_for_each_entry(dest_ctx, &ffa_ctx_head, ctx_list)
++    if ( !ffa_uuid_is_nil(uuid) )
++    {
++        *vm_count = 0;
++        return FFA_RET_OK;
++    }
++
++    /*
++     * Workaround for Linux FF-A Driver not accepting to have its own
++     * entry in the list before FF-A v1.2 was supported.
++     * This workaround is generally acceptable for other implementations
++     * as the specification was not completely clear on wether or not
++     * the requester endpoint information should be included or not
++     */
++    if ( ACCESS_ONCE(curr_ctx->guest_vers) >= FFA_VERSION_1_2 )
++    {
++        /* Add caller VM information */
++        info.id = curr_ctx->ffa_id;
++        info.execution_context = curr_ctx->num_vcpus;
++        info.partition_properties = FFA_PART_VM_PROP;
++        if ( is_64bit_domain(d) )
++            info.partition_properties |= FFA_PART_PROP_AARCH64_STATE;
++
++        ret = ffa_copy_info(dst_buf, end_buf, &info, dst_size, sizeof(info));
++        if ( ret )
++            return ret;
++
++        count++;
++    }
++
++    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+     {
+         /*
+-         * Do not include an entry for the caller VM as the spec is not
+-         * clearly mandating it and it is not supported by Linux.
++         * There could potentially be a lot of VMs in the system and we could
++         * hold the CPU for long here.
++         * Right now there is no solution in FF-A specification to split
++         * the work in this case.
++         * TODO: Check how we could delay the work or have preemption checks.
+          */
+-        if ( dest_ctx != curr_ctx )
++        read_lock(&ffa_ctx_list_rwlock);
++        list_for_each_entry(dest_ctx, &ffa_ctx_head, ctx_list)
+         {
+-            /*
+-             * We do not have UUID info for VMs so use
+-             * the 1.0 structure so that we set UUIDs to
+-             * zero using memset
+-             */
+-            struct ffa_partition_info_1_0 info;
++            /* Ignore the caller entry as it was already added */
++            if ( dest_ctx == curr_ctx )
++                continue;
+ 
+-            if  ( dst_buf > (end_buf - dst_size) )
+-            {
+-                ret = FFA_RET_NO_MEMORY;
+-                goto out;
+-            }
+-
+-            /*
+-             * Context might has been removed since we go it or being removed
+-             * right now so we might return information for a VM not existing
+-             * anymore. This is acceptable as we return a view of the system
+-             * which could change at any time.
+-             */
+             info.id = dest_ctx->ffa_id;
+             info.execution_context = dest_ctx->num_vcpus;
+             info.partition_properties = FFA_PART_VM_PROP;
+             if ( dest_ctx->is_64bit )
+                 info.partition_properties |= FFA_PART_PROP_AARCH64_STATE;
+ 
+-            memcpy(dst_buf, &info, MIN(sizeof(info), dst_size));
+-
+-            if ( dst_size > sizeof(info) )
+-                memset(dst_buf + sizeof(info), 0,
+-                       dst_size - sizeof(info));
++            ret = ffa_copy_info(dst_buf, end_buf, &info, dst_size,
++                                sizeof(info));
++            if ( ret )
++            {
++                read_unlock(&ffa_ctx_list_rwlock);
++                return ret;
++            }
+ 
+-            dst_buf += dst_size;
+             count++;
+         }
++        read_unlock(&ffa_ctx_list_rwlock);
+     }
+-    *vm_count = count;
+ 
+-out:
+-    read_unlock(&ffa_ctx_list_rwlock);
++    *vm_count = count;
+ 
+     return ret;
+ }
+@@ -217,17 +255,18 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+     struct domain *d = current->domain;
+     struct ffa_ctx *ctx = d->arch.tee;
+     uint32_t flags = get_user_reg(regs, 5);
+-    uint32_t uuid[4] = {
+-        get_user_reg(regs, 1),
+-        get_user_reg(regs, 2),
+-        get_user_reg(regs, 3),
+-        get_user_reg(regs, 4),
+-    };
++    struct ffa_uuid uuid;
+     uint32_t dst_size = 0;
+     size_t buf_size;
+     void *dst_buf, *end_buf;
+     uint32_t ffa_vm_count = 0, ffa_sp_count = 0;
+ 
++    ffa_uuid_set(&uuid,
++             get_user_reg(regs, 1),
++             get_user_reg(regs, 2),
++             get_user_reg(regs, 3),
++             get_user_reg(regs, 4));
++
+     /*
+      * If the guest is v1.0, he does not get back the entry size so we must
+      * use the v1.0 structure size in the destination buffer.
+@@ -260,10 +299,23 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+         }
+ 
+         /*
+-         * Do not count the caller VM as the spec is not clearly mandating it
+-         * and it is not supported by Linux.
++         * We do not have protocol UUIDs for VMs so if a request has non Nil
++         * UUID we must return a vm_count of 0
+          */
+-        ffa_vm_count = get_ffa_vm_count() - 1;
++        if ( ffa_uuid_is_nil(uuid) )
++        {
++            ffa_vm_count = get_ffa_vm_count();
++
++            /*
++             * Workaround for Linux FF-A Driver not accepting to have its own
++             * entry in the list before FF-A v1.2 was supported.
++             * This workaround is generally acceptable for other implementations
++             * as the specification was not completely clear on wether or not
++             * the requester endpoint information should be included or not
++             */
++            if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
++                ffa_vm_count -= 1;
++        }
+ 
+         goto out;
+     }
+@@ -290,17 +342,15 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+ 
+     if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+     {
+-        ret = ffa_get_sp_partinfo(uuid, &ffa_sp_count, dst_buf, end_buf,
++        ret = ffa_get_sp_partinfo(uuid, &ffa_sp_count, &dst_buf, end_buf,
+                                   dst_size);
+ 
+         if ( ret )
+             goto out_rx_release;
+-
+-        dst_buf += ffa_sp_count * dst_size;
+     }
+ 
+-    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+-        ret = ffa_get_vm_partinfo(&ffa_vm_count, dst_buf, end_buf, dst_size);
++    ret = ffa_get_vm_partinfo(uuid, &ffa_vm_count, &dst_buf, end_buf,
++                              dst_size);
+ 
+ out_rx_release:
+     if ( ret )
+@@ -309,7 +359,13 @@ out:
+     if ( ret )
+         ffa_set_regs_error(regs, ret);
+     else
++    {
++        /* Size should be 0 on count request and was not supported in 1.0 */
++        if ( flags || ACCESS_ONCE(ctx->guest_vers) == FFA_VERSION_1_0 )
++            dst_size = 0;
++
+         ffa_set_regs_success(regs, ffa_sp_count + ffa_vm_count, dst_size);
++    }
+ }
+ 
+ static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
+@@ -450,6 +506,7 @@ bool ffa_partinfo_init(void)
+     uint32_t count;
+     int32_t e;
+     void *spmc_rx;
++    struct ffa_uuid nil_uuid = { .val = { 0ULL, 0ULL } };
+ 
+     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
+          !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
+@@ -459,7 +516,7 @@ bool ffa_partinfo_init(void)
+     if (!spmc_rx)
+         return false;
+ 
+-    e = ffa_partition_info_get(NULL, 0, &count, &fpi_size);
++    e = ffa_partition_info_get(nil_uuid, 0, &count, &fpi_size);
+     if ( e )
+     {
+         printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
+diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+index c274177029de..fb5212bd2820 100644
+--- a/xen/arch/arm/tee/ffa_private.h
++++ b/xen/arch/arm/tee/ffa_private.h
+@@ -307,6 +307,10 @@ struct ffa_mem_region {
+     struct ffa_address_range address_range_array[];
+ };
+ 
++struct ffa_uuid {
++    uint64_t val[2];
++};
++
+ struct ffa_ctx_notif {
+     /*
+      * True if domain is reported by FFA_NOTIFICATION_INFO_GET to have
+@@ -581,4 +585,21 @@ static inline bool ffa_fw_supports_fid(uint32_t fid)
+     return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
+ }
+ 
++static inline bool ffa_uuid_is_nil(struct ffa_uuid id)
++{
++    return id.val[0] == 0 && id.val[1] == 0;
++}
++
++static inline bool ffa_uuid_equal(struct ffa_uuid id1, struct ffa_uuid id2)
++{
++    return id1.val[0] == id2.val[0] && id1.val[1] == id2.val[1];
++}
++
++static inline void ffa_uuid_set(struct ffa_uuid *id, uint32_t val0,
++                                uint32_t val1, uint32_t val2, uint32_t val3)
++{
++    id->val[0] = ((uint64_t)val1 << 32U) | val0;
++    id->val[1] = ((uint64_t)val3 << 32U) | val2;
++}
++
+ #endif /*__FFA_PRIVATE_H__*/
 -- 
 2.51.2
 
