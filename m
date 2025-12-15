@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B51CBE32A
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:10:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187046.1508477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F266CCBE360
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:12:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187067.1508487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9H7-00039Z-Oa; Mon, 15 Dec 2025 14:10:09 +0000
+	id 1vV9Iq-0003xy-6B; Mon, 15 Dec 2025 14:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187046.1508477; Mon, 15 Dec 2025 14:10:09 +0000
+Received: by outflank-mailman (output) from mailman id 1187067.1508487; Mon, 15 Dec 2025 14:11:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9H7-00036l-La; Mon, 15 Dec 2025 14:10:09 +0000
-Received: by outflank-mailman (input) for mailman id 1187046;
- Mon, 15 Dec 2025 14:10:08 +0000
+	id 1vV9Iq-0003wW-2O; Mon, 15 Dec 2025 14:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 1187067;
+ Mon, 15 Dec 2025 14:11:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV9H6-00036K-Dc
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:10:08 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vV9Io-0003wM-4F
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:11:54 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbd21ad0-d9bf-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 15:09:56 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-477b198f4bcso28222425e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 06:09:56 -0800 (PST)
+ id 00e101b7-d9c0-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 15:11:52 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4777771ed1aso26635305e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 06:11:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f8e9115sm191173085e9.12.2025.12.15.06.09.54
+ ffacd0b85a97d-430f1fa232csm15343605f8f.6.2025.12.15.06.11.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 06:09:54 -0800 (PST)
+ Mon, 15 Dec 2025 06:11:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbd21ad0-d9bf-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 00e101b7-d9c0-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765807796; x=1766412596; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IkzkyO8rsnWrEYhYiX/uJfUzaY1Qiyu6dEUX9CxH620=;
-        b=gZO37MprNycINCsbGY8lwdiyIus+VHNFiRYSsDyA4ototoMCkE14D26arJXrg/B1yM
-         VkhdoNjWlcAFFyNsCaiEKRJW+OiHHI5KVkbKH+MMPOXzVNyuePqRAv7TwJc7yjMAbzDu
-         GlEr0IxekESKxqgwoyHwoVF/bjNbzLhmYV9bkEE+ptczpMzmnANnGjueIk7tnq5dKyWx
-         KiDQJqxG9bIcm+0866sUjoz0NRLh51CH6Bi5AGeJijuRD+RPyQy5BRIDIrNr3sPKVstC
-         pnxAHMUGul6DBDAvrkQD6tgYNh75Y4ahkwpqYr3smc/SvhTsqGsqdje0Sw6Rkergd781
-         Ivtg==
+        d=suse.com; s=google; t=1765807911; x=1766412711; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Rua8TyvBHPfiCCfpfnlGRR0IiDMfB1BUicr1d2iJq+Q=;
+        b=asPbtzJ79SCiTVSrw0A/vTfN8xWir1oz4YBz+sb7lCaQHK9tq/Y2OO22+q9Ui6Dgeg
+         Yd9Isa/VBQHuCZXsxKihPtcOmO7j723pcEn6Dd/5GXbr5AwRKvR1W6Due21NmrEbFrCo
+         sKA1RwSq4pbyNK2mPQLf2G9/lCaN/XLrfW9IWcga73G0HnACq+J8tOZFjmrHmIUG6a1T
+         HkW2CEVFghgulzdcX2n0CdRNSkiuDUk02n5VmRDsnIXi6a1QONrhWALWe9560BpS+BKT
+         gYN/j2WO/JvYvsLbq0LQvmey+qMokZtnmW0GbEU1sqQmsmf1qfF8brX5E7MPN3kT+Vqc
+         Clxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765807796; x=1766412596;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1765807911; x=1766412711;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IkzkyO8rsnWrEYhYiX/uJfUzaY1Qiyu6dEUX9CxH620=;
-        b=xKkRdTZufN06ItcrzOxbEm3zs+sLgnQ6NQ/C2ejCXA85UrnR5LMd0E1wvaQPpHkSob
-         /sEok8azrz3vNzUjwU+jhwCGWUadg2+V1aioUQJjUNhXooLNpG/RfqSmKBOR6MR9YJKN
-         I9Lpq+yqk0P2if0L2mWX7BlSkFmvD/OVqzujK2tfBcHPh13mhGiv249zyCylFp2p9ANz
-         FOT7UVlTsGYaPKsROr6hIar0653ESDMiHjX7svwajw5fnNcyD7/jyQh5W+i98mOg34M4
-         VE5mCl3vjLEUnvCxRM3/GFKB8Qr43I3N8AgaEw501v+KZlDjons0fWpV01Ms/C5yMZ5C
-         4qbg==
-X-Forwarded-Encrypted: i=1; AJvYcCXxKwwejSlxL1RuJAT+WtwE2XXxxENsXskxIRuxgRpCY7NuSqpb8BQuHZRiwgHLQLrg85GhlIkHoJ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxU7SCyxV8hofagr1jMgVd6SiM31yPreZ8FPfdjAtFVBYQgeYuB
-	t68OW+fAwP2Rbu8FFgVVJE2RmrYyOzOD7BghgWdCKoyzJAi9LwWWgQormsmG2u8VXQ==
-X-Gm-Gg: AY/fxX5bvqPDu+D5UdwSUZu8ISsPFHC3VOERf7AsTlAlSCyOFYUkG3IIWNUetbaJdSS
-	XvdKftHmfuAG2LJUry6bPVC0VmQw5gXVffVTp3QOMLIoDOvA1F567FhPn5JZ+SAGm0Z5b4Kbcep
-	eBf8irhsULFsxHP+THoxSU0r4b9YZrbFokR3bFO3tVZIhGmWt35rPxpJPCK8kWkRgQQ88kWxlby
-	AFiQ4PV8Va/6QnZ5A7+E55U6pq1x3si1sttkkBeTc8zdHAh1bcMv9mom5RxNzVRDCu39+0VUWOc
-	X/R5FMXAOzgaIqK7kh0V99mGOPlXh4uee1nuVdRY/ksIngnhj+CQf5DrlqDbvJULVOz3OFVqJIj
-	7t0tK2cJh0L51S/jL8D5V9r9TsQMj2QH3N5cx8uxIGO3aSagLy9lddvet2+KsxBwnbkhsbI/YnK
-	+rXVo3HsRTbl9ikNugY+uBjN7FeCPC3gC+Zhf2iPu/auTATLtI7CMyupcAXDRebt0vBt8uX+J5i
-	LU=
-X-Google-Smtp-Source: AGHT+IEK6EPC7YSjjl5gIkpXsJ8eA+ROk66oIRuZnKJ6wp8efiRqLqkGUm6jCOAPnGNTsp2ihz0dOQ==
-X-Received: by 2002:a05:600d:105:b0:47a:97c7:f08b with SMTP id 5b1f17b1804b1-47a97c7f1a9mr41033765e9.31.1765807795448;
-        Mon, 15 Dec 2025 06:09:55 -0800 (PST)
-Message-ID: <091bafe9-ba7f-413a-a740-7856b79f9307@suse.com>
-Date: Mon, 15 Dec 2025 15:09:57 +0100
+        bh=Rua8TyvBHPfiCCfpfnlGRR0IiDMfB1BUicr1d2iJq+Q=;
+        b=aGOX9O0MgRdXUA321qRIpePp/yvQHV7+Ew7ZsXAVVaABAy2LSRyH5ZyWjmEGPP4axp
+         HjFLgKVVUo4/O/ElOwmuXngLxQreQzbjHOXVnARHhaDkXeh0hw1rj6tQjPAVfdhXJsmo
+         5hI289NvnqEVm7H/ngrqdfR7WTpOcDfHt/rJwzUMx3kcNj9gx9oHAttFBDq4V9KvKgCq
+         5laaXRAMHNCGo6FVdqDzbXn5w5QJGQWl0uKeruok3R+2uQyFsr+Y3JG5TDI7syDk3kO9
+         QqTEcqjsRQ3uPcSkxzEHiAudkROt8On+JAwCjrs2yV0ipxLbE9cnXOHiyage4o9+1AGp
+         aExA==
+X-Forwarded-Encrypted: i=1; AJvYcCW0fFMFCu9TCOphemk+xbha9YzBNR9w5EqaNDfqL1hYY0xby982S4cRrR4t9Bx+2fdn9oKk47v29RI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZjq4ImHcyo9Qx8W76efpd/TX4NA1Z+IxGkxqmmGhvNsT7/yRi
+	ci80XGv1UhvVlD9/d34FY6pZ2GJ+XDh0736R3yJcXlAqXVDPbm6roSFSLRuMICO/Yg==
+X-Gm-Gg: AY/fxX6cZJfvLK7Ws0+ZlyPQnndr4s08LedbMzTeqGE/0qhUk1eaQO5d0RhxJ7ZLk1D
+	bF4zEjqB0+AG7VTYTOlr6Xg3y1LC3RKYUTjnCfZKmWN4hh1ZBLEfEB5xCMNYGe04r77+dbvOZhM
+	vbks5WvguZfrUcdL/9bRILXr5CaqyDfmoLIzTrT20CIMwbydkALUPdfEe8oEcBuzjbFOBzcMHRB
+	aIS7ECC9dbXfhtUkscDxZJeYR1YeD32WXNEo2vcldkLWVi68egD8Gvll1XIID8MglAYGxlgEKqn
+	g/08uiQwNJK2C8stfCPYJ2L3kk0S2ciqK51LbIw+bfAMrz3s1KfIzk/jEgYelVIwMs3yMjtdF3U
+	HjhYGuPcxc7aMlPLbQ+oM8+Pu75R5YxYiF+b+pHrrSb7RyZUlQ0p3PvIq9T+CMkl18yDlcwp5t/
+	OpzAnwbyeAEK1pwLE0Mxrjd9QzoEnBJHjl2MN91u6tiqCfVvpO7GVDWseP/DgaJ5moKBkFw2I5o
+	dQ=
+X-Google-Smtp-Source: AGHT+IFelnAXioZPsFx84Nz1O+B+BVYB70gu7qbELOL/ukfRvpA6J6nCI9N4mq1JgqaOtZD5PSEkqQ==
+X-Received: by 2002:a05:6000:1865:b0:430:fd84:3171 with SMTP id ffacd0b85a97d-430fd8433afmr3405024f8f.22.1765807911523;
+        Mon, 15 Dec 2025 06:11:51 -0800 (PST)
+Message-ID: <92e6ecac-7a5f-4831-8116-0c34856f1175@suse.com>
+Date: Mon, 15 Dec 2025 15:11:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/24] xen/x86: library-fy cpuid-releated functions
-From: Jan Beulich <jbeulich@suse.com>
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20251212040209.1970553-1-Penny.Zheng@amd.com>
- <20251212040209.1970553-3-Penny.Zheng@amd.com>
- <e09ed373-47a4-4afc-84df-b66184ea424a@suse.com>
+Subject: Re: [XEN PATCH] libxl: Fix device_add QMP calls with QEMU 9.2 and
+ newer
+To: Anthony PERARD <anthony@xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20251215135124.11410-1-anthony@xenproject.org>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -126,71 +120,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e09ed373-47a4-4afc-84df-b66184ea424a@suse.com>
+In-Reply-To: <20251215135124.11410-1-anthony@xenproject.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.12.2025 13:14, Jan Beulich wrote:
-> On 12.12.2025 05:01, Penny Zheng wrote:
->> There are some cpuid library functions only referenced in
->> XEN_DOMCTL-case, and shall be wrapped with CONFIG_MGMT_HYPERCALLS later,
->> otherwise they will become unreachable when MGMT_HYPERCALLS=n, and hence
->> violate Misra 2.1
+On 15.12.2025 14:51, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@vates.tech>
 > 
-> At this point of the series there's no MGMT_HYPERCALLS yet (see also my reply
-> to the cover letter).
-> 
->> For file cpupolicy-clr.c to contain cpupolicy clearing library function:
->> - x86_cpu_policy_clear_out_of_range_leaves
->>   - zero_leaves
->> For file cpuid-cp2buf.c to contain cpuid copy-to-buffer library function:
->> - x86_cpuid_copy_to_buffer
->>   - copy_leaf_to_buffer
->> For file cpuid-cpfrbuf.c to contain cpuid copy-from-buffer library function:
->> - x86_cpuid_copy_from_buffer
->> Sunmmerize all needed cpuid-library object file under a new variable
->> CPUID_OBJS in Makefile.
->>
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->> ---
->> v4 -> v5:
->> - library-fy cpuid-releated functions
->> ---
->>  tools/fuzz/cpu-policy/Makefile               |   4 +-
->>  tools/fuzz/x86_instruction_emulator/Makefile |  11 +-
->>  tools/libs/guest/Makefile.common             |   4 +-
->>  tools/tests/cpu-policy/Makefile              |   3 +-
->>  tools/tests/x86_emulator/Makefile            |   3 +-
->>  xen/lib/Makefile                             |   5 +
->>  xen/lib/x86/cpuid-cp2buf.c                   | 123 ++++++++
->>  xen/lib/x86/cpuid-cpfrbuf.c                  | 129 +++++++++
->>  xen/lib/x86/cpuid.c                          | 286 -------------------
->>  xen/lib/x86/cpupolicy-clr.c                  |  73 +++++
->>  10 files changed, 346 insertions(+), 295 deletions(-)
->>  create mode 100644 xen/lib/x86/cpuid-cp2buf.c
->>  create mode 100644 xen/lib/x86/cpuid-cpfrbuf.c
->>  create mode 100644 xen/lib/x86/cpupolicy-clr.c
-> 
-> This looks to be doing at least three things in one go. If all of them would be
-> simple (including them being a reasonably small diff), that may be fine. But
-> the diffstat above says otherwise, so I may I ask that this be split in three,
-> maybe even four pieces (one per function moving to a new file, and maybe one
-> doing prep work in the Makefile-s touched)?
-> 
-> The filenames also aren't very descriptive. cp-from-buffer.c, cp-to-buffer.c,
-> and cp-clear.c maybe? Albeit the last one is where I'm the least convinced
-> that splitting out and making a library function is actually a good idea. Note
-> how I also didn't mention that function as a possible candidate for library-
-> fying. I'll try to not forget to bring this up with the x86 maintainers later
-> in the day.
+> QEMU used to ignore JSON types and do conversion string <-> integer
+> automatically for the command "device_add", but that was removed in
+> QEMU 9.2 (428d1789df91 ("docs/about: Belatedly document tightening of
+> QMP device_add checking")).
 
-Having discussed this, we thought we might as well aim for proper library
-fication (longer term, i.e. not something we'd ask you to do). Therefore
-splitting by function is generally okay, but the filenames really want to be
-sufficiently descriptive. For x86_cpu_policy_clear_out_of_range_leaves() this
-may very well mean cp-clear-out-of-range-leaves.c (not sure whether
-shortening to e.g. cp-clear-oor-leaves.c would make sense).
+And older qemu accepts integers as well?
 
 Jan
 
