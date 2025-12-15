@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021ECCBE807
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 16:08:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187375.1508812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8CD9CBE7EF
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 16:07:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187326.1508773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVABA-0002En-8v; Mon, 15 Dec 2025 15:08:04 +0000
+	id 1vVAAT-0000GC-6n; Mon, 15 Dec 2025 15:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187375.1508812; Mon, 15 Dec 2025 15:08:04 +0000
+Received: by outflank-mailman (output) from mailman id 1187326.1508773; Mon, 15 Dec 2025 15:07:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVABA-0002Am-3V; Mon, 15 Dec 2025 15:08:04 +0000
-Received: by outflank-mailman (input) for mailman id 1187375;
- Mon, 15 Dec 2025 15:08:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vVAAT-0000BG-2S; Mon, 15 Dec 2025 15:07:21 +0000
+Received: by outflank-mailman (input) for mailman id 1187326;
+ Mon, 15 Dec 2025 15:07:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lpeD=6V=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vVA85-0004yw-W7
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 15:04:54 +0000
+ id 1vVA8A-0003s4-30
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 15:04:58 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 67f3d97b-d9c7-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 16:04:51 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6b45298b-d9c7-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 16:04:57 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3DCB16F3;
- Mon, 15 Dec 2025 07:04:43 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 62D991713;
+ Mon, 15 Dec 2025 07:04:49 -0800 (PST)
 Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
  [10.1.194.54])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 858633F73B;
- Mon, 15 Dec 2025 07:04:45 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 41F803F73B;
+ Mon, 15 Dec 2025 07:04:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67f3d97b-d9c7-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 6b45298b-d9c7-11f0-b15b-2bf370ae4941
 From: Kevin Brodsky <kevin.brodsky@arm.com>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -84,77 +84,137 @@ Cc: linux-kernel@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	sparclinux@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	"David Hildenbrand (Red Hat)" <david@kernel.org>
-Subject: [PATCH v6 13/14] x86/xen: use lazy_mmu_state when context-switching
-Date: Mon, 15 Dec 2025 15:03:22 +0000
-Message-ID: <20251215150323.2218608-14-kevin.brodsky@arm.com>
+	x86@kernel.org
+Subject: [PATCH v6 14/14] mm: Add basic tests for lazy_mmu
+Date: Mon, 15 Dec 2025 15:03:23 +0000
+Message-ID: <20251215150323.2218608-15-kevin.brodsky@arm.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20251215150323.2218608-1-kevin.brodsky@arm.com>
 References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We currently set a TIF flag when scheduling out a task that is in
-lazy MMU mode, in order to restore it when the task is scheduled
-again.
+Add basic KUnit tests for the generic aspects of the lazy MMU mode:
+ensure that it appears active when it should, depending on how
+enable/disable and pause/resume pairs are nested.
 
-The generic lazy_mmu layer now tracks whether a task is in lazy MMU
-mode in task_struct::lazy_mmu_state. We can therefore check that
-state when switching to the new task, instead of using a separate
-TIF flag.
-
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
-Reviewed-by: Juergen Gross <jgross@suse.com>
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- arch/x86/include/asm/thread_info.h | 4 +---
- arch/x86/xen/enlighten_pv.c        | 3 +--
- 2 files changed, 2 insertions(+), 5 deletions(-)
+ mm/Kconfig                     | 12 ++++++
+ mm/Makefile                    |  1 +
+ mm/tests/lazy_mmu_mode_kunit.c | 71 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 84 insertions(+)
+ create mode 100644 mm/tests/lazy_mmu_mode_kunit.c
 
-diff --git a/arch/x86/include/asm/thread_info.h b/arch/x86/include/asm/thread_info.h
-index e71e0e8362ed..0067684afb5b 100644
---- a/arch/x86/include/asm/thread_info.h
-+++ b/arch/x86/include/asm/thread_info.h
-@@ -100,8 +100,7 @@ struct thread_info {
- #define TIF_FORCED_TF		24	/* true if TF in eflags artificially */
- #define TIF_SINGLESTEP		25	/* reenable singlestep on user return*/
- #define TIF_BLOCKSTEP		26	/* set when we want DEBUGCTLMSR_BTF */
--#define TIF_LAZY_MMU_UPDATES	27	/* task is updating the mmu lazily */
--#define TIF_ADDR32		28	/* 32-bit address space on 64 bits */
-+#define TIF_ADDR32		27	/* 32-bit address space on 64 bits */
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 62073bd61544..ac48deb44884 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1471,6 +1471,18 @@ config ARCH_HAS_LAZY_MMU_MODE
+ 	  MMU-related architectural state to be deferred until the mode is
+ 	  exited. See <linux/pgtable.h> for details.
  
- #define _TIF_SSBD		BIT(TIF_SSBD)
- #define _TIF_SPEC_IB		BIT(TIF_SPEC_IB)
-@@ -114,7 +113,6 @@ struct thread_info {
- #define _TIF_FORCED_TF		BIT(TIF_FORCED_TF)
- #define _TIF_BLOCKSTEP		BIT(TIF_BLOCKSTEP)
- #define _TIF_SINGLESTEP		BIT(TIF_SINGLESTEP)
--#define _TIF_LAZY_MMU_UPDATES	BIT(TIF_LAZY_MMU_UPDATES)
- #define _TIF_ADDR32		BIT(TIF_ADDR32)
++config LAZY_MMU_MODE_KUNIT_TEST
++	tristate "KUnit tests for the lazy MMU mode" if !KUNIT_ALL_TESTS
++	depends on ARCH_HAS_LAZY_MMU_MODE
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  Enable this option to check that the lazy MMU mode interface behaves
++	  as expected. Only tests for the generic interface are included (not
++	  architecture-specific behaviours).
++
++	  If unsure, say N.
++
+ source "mm/damon/Kconfig"
  
- /* flags to check in __switch_to() */
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 4806cc28d7ca..98dbb6a61087 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -426,7 +426,6 @@ static void xen_start_context_switch(struct task_struct *prev)
- 
- 	if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU) {
- 		arch_leave_lazy_mmu_mode();
--		set_ti_thread_flag(task_thread_info(prev), TIF_LAZY_MMU_UPDATES);
- 	}
- 	enter_lazy(XEN_LAZY_CPU);
- }
-@@ -437,7 +436,7 @@ static void xen_end_context_switch(struct task_struct *next)
- 
- 	xen_mc_flush();
- 	leave_lazy(XEN_LAZY_CPU);
--	if (test_and_clear_ti_thread_flag(task_thread_info(next), TIF_LAZY_MMU_UPDATES))
-+	if (__task_lazy_mmu_mode_active(next))
- 		arch_enter_lazy_mmu_mode();
- }
- 
+ endmenu
+diff --git a/mm/Makefile b/mm/Makefile
+index 2d0570a16e5b..9175f8cc6565 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -147,3 +147,4 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
+ obj-$(CONFIG_EXECMEM) += execmem.o
+ obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
+ obj-$(CONFIG_PT_RECLAIM) += pt_reclaim.o
++obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
+diff --git a/mm/tests/lazy_mmu_mode_kunit.c b/mm/tests/lazy_mmu_mode_kunit.c
+new file mode 100644
+index 000000000000..2720eb995714
+--- /dev/null
++++ b/mm/tests/lazy_mmu_mode_kunit.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <kunit/test.h>
++#include <linux/pgtable.h>
++
++static void expect_not_active(struct kunit *test)
++{
++	KUNIT_EXPECT_FALSE(test, is_lazy_mmu_mode_active());
++}
++
++static void expect_active(struct kunit *test)
++{
++	KUNIT_EXPECT_TRUE(test, is_lazy_mmu_mode_active());
++}
++
++static void lazy_mmu_mode_active(struct kunit *test)
++{
++	expect_not_active(test);
++
++	lazy_mmu_mode_enable();
++	expect_active(test);
++
++	{
++		/* Nested section */
++		lazy_mmu_mode_enable();
++		expect_active(test);
++
++		lazy_mmu_mode_disable();
++		expect_active(test);
++	}
++
++	{
++		/* Paused section */
++		lazy_mmu_mode_pause();
++		expect_not_active(test);
++
++		{
++			/* No effect (paused) */
++			lazy_mmu_mode_enable();
++			expect_not_active(test);
++
++			lazy_mmu_mode_disable();
++			expect_not_active(test);
++
++			lazy_mmu_mode_pause();
++			expect_not_active(test);
++
++			lazy_mmu_mode_resume();
++			expect_not_active(test);
++		}
++
++		lazy_mmu_mode_resume();
++		expect_active(test);
++	}
++
++	lazy_mmu_mode_disable();
++	expect_not_active(test);
++}
++
++static struct kunit_case lazy_mmu_mode_test_cases[] = {
++	KUNIT_CASE(lazy_mmu_mode_active),
++	{}
++};
++
++static struct kunit_suite lazy_mmu_mode_test_suite = {
++	.name = "lazy_mmu_mode",
++	.test_cases = lazy_mmu_mode_test_cases,
++};
++kunit_test_suite(lazy_mmu_mode_test_suite);
++
++MODULE_DESCRIPTION("Tests for the lazy MMU mode");
++MODULE_LICENSE("GPL");
 -- 
 2.51.2
 
