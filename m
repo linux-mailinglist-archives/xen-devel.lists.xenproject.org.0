@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFDBCBDA31
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 12:55:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186916.1508347 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5649CBDBC6
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 13:14:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186945.1508357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV7AW-00050u-UE; Mon, 15 Dec 2025 11:55:12 +0000
+	id 1vV7TA-0008S1-JF; Mon, 15 Dec 2025 12:14:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186916.1508347; Mon, 15 Dec 2025 11:55:12 +0000
+Received: by outflank-mailman (output) from mailman id 1186945.1508357; Mon, 15 Dec 2025 12:14:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV7AW-0004z7-Qh; Mon, 15 Dec 2025 11:55:12 +0000
-Received: by outflank-mailman (input) for mailman id 1186916;
- Mon, 15 Dec 2025 11:55:12 +0000
+	id 1vV7TA-0008QW-FR; Mon, 15 Dec 2025 12:14:28 +0000
+Received: by outflank-mailman (input) for mailman id 1186945;
+ Mon, 15 Dec 2025 12:14:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV7AW-0004z1-1A
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 11:55:12 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vV7T9-0008QP-7r
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 12:14:27 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7cc04e4-d9ac-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 12:55:09 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779aa4f928so42424725e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 03:55:09 -0800 (PST)
+ id 9845c305-d9af-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 13:14:24 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42fb3801f7eso1631505f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 04:14:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42fa8b9b26fsm31252679f8f.40.2025.12.15.03.55.07
+ ffacd0b85a97d-42fa8b8a97esm34375300f8f.31.2025.12.15.04.14.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 03:55:08 -0800 (PST)
+ Mon, 15 Dec 2025 04:14:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,72 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7cc04e4-d9ac-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 9845c305-d9af-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765799709; x=1766404509; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765800864; x=1766405664; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sjuHSq8h84FCm+1YVHRK6Isnwzx1r6c6eHy4YXikf4Y=;
-        b=caTc5gPLn7OqJ0lGEzKByw6rG5s35w8zDghmdEIrFPW5E2mcLe2ZtmbPTz7m9132pI
-         auAjSYmOszJ245cCNIqA5lO2uESu4j/rrMzYvesgfslwlSw3D/whJg1dGNct7/M5/whn
-         wtDHHGdYf+A44UfvnnLSqEK3thOLgtyXxcNoRu8IdLAMZK9/czRv6o24860yKiDMDEnD
-         DGz97lpMQKzyNzNBtIO0RL/eIxUWBRpZx7ToM3UTLwO1nbVsNMuV1hFWJWWUAJAPcHvI
-         CcfNraDl7qKG54Th8djERQHL49x7Oq+dZodpZAQsEb6hvHe2zDFdheY6RH/OcyDfzQD7
-         wrGg==
+        bh=ZB1WBJ6vDK63my/LFq96eNx+2B218Aztxa04KQZUL5Y=;
+        b=GcreQUqXLmdiNxcH8ACmmQ47IZU/0b5y5zq1vrav/1ybssCuQSdEipcRXhy9jxJnYh
+         M076/BbfLb2BuUIM0cp+09669Le1FrHWMyaMXAhYdY8UYenhF0Dx95r0UyXg1a01yCfl
+         dm4U0e8XzcMNEJBasSJ2nm/HaqplW5er2JPICSVnKySPuMtcZf/0Gk2x/f6bj+9bge/E
+         HyRQYpcEogkkqq7AwFYUgIZUUY6DQMpR1hkuXzcW1OHooARdXgHSGhWJdcz/eH/Cu0lE
+         B1n0GwXbUaSGhaBQW5ujPb7F4I/loaSX6ghMOG7I9rQ2LosaJi8Y6dvkzUpHNxotkJU9
+         fPwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765799709; x=1766404509;
+        d=1e100.net; s=20230601; t=1765800864; x=1766405664;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sjuHSq8h84FCm+1YVHRK6Isnwzx1r6c6eHy4YXikf4Y=;
-        b=ubTd7QyIPpwXWAXLkwLdLSSOgm77ec7q//4v7sHYwWalb269cfX+1GCAmCp1xZ2LHq
-         WmkZfifiHd0dK5hWrnIiUJJ7ZxA2mNfaS7aiZoCZ+3ehudZ6OQJQUafgCzGMvYSDIzBp
-         Nj7mudA+maeluC7RGQ+8h9IxO8juFXYrbX5qpCcfxSEYt1rGDcRBZZ1J4lly0Wrrk9AF
-         5GqjTGRoKc+IJjDyr7GmgTm+7bdubMaUZ6z4MQJTOK0d5SUccSABQ3Gxiez14xHK/6UC
-         uBZJr0hYltXqY8n5uWKgRb940RWnEB+9qfU7FmNMdxilHVbRMGawBAGvefGQXH69STZ4
-         V3hg==
-X-Forwarded-Encrypted: i=1; AJvYcCWe1kSXqN99BHpVw/rZPnMzdZGeEURSU9ouzF0vaMJwea4uUzUL5+Wu0FX+wnGdGYUJisioCZSxzwI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMLxX8iixatlrJe1cd5PQN2ubammyU6zMKKCxyIMpbVv4+d+5J
-	1QFpJFCalYGY1fIsXMqgxVVJmtLnb14+qN7szg61sjgVMeow9aNOuIZsOmwM2oNnKA==
-X-Gm-Gg: AY/fxX4L2ge3AfIl+FPTLzeidXqWV0cO7XE5kYUFBSbsPfn1Rlo2e6GvZ1MuIYy6Bmy
-	7sVrydwtAfBRXJsQg+e9jLyPi+c+iH29GEQTC6ya+lSpLnkkpHnVNCOD5AMBDQTuLJXy/ZLZA8K
-	pAOdSo1bX1O3W9fE0x7iT8OE6JUicgExgJOab8EWwAv7qEHot4xhbZEY3yVGws8PPJGz8x2Kza5
-	ApX0dfzE2bhvEfCUYAhUv64A4pTqB/5ZPSV9xaP63R+ep3CGArZ5uUIk8BzH997jTSxwE5+N4/E
-	5ZCKtMlh8aRYG+GLcbhDpRi4z40WmVmnTv4/ntA3nUtOyAmpJVDJD/BJKqot8zG5mNjjS7eLQHc
-	XN9PfEAlKM9W1dc91UPwkemAPHePydXHvfRsATbLPR7eJgUe99OOt3jiHQSQH/QVcBf6YvinMl+
-	0eB51NN/N1MZwSve6eH7E45hg2uJOZHlKR9ssHyFNMwt+BABxXeMQfA2+LVPBVJJu/ms7LvC2AI
-	30=
-X-Google-Smtp-Source: AGHT+IF6ktL+2lwO6UtDjZzMOBi4xITykOt045Q+rt88fJt49UF4+ujnM0F7GaymLPJE3W7FFOCs2g==
-X-Received: by 2002:a05:600c:1c9d:b0:477:9cc3:7971 with SMTP id 5b1f17b1804b1-47a8f903800mr100886385e9.20.1765799709061;
-        Mon, 15 Dec 2025 03:55:09 -0800 (PST)
-Message-ID: <807efc08-b805-4a33-8001-ef0ab70f7d05@suse.com>
-Date: Mon, 15 Dec 2025 12:55:10 +0100
+        bh=ZB1WBJ6vDK63my/LFq96eNx+2B218Aztxa04KQZUL5Y=;
+        b=AOc2yNSz15Yuortj+SH6RWZVoGYwKzzv+feiKslrgPQKStkdFoSQMTAcelyMtmFrgI
+         PmF/8nMB9aGJJLyHOJAgaNW9NoYeCiXA9W4MA4NW9xST5lf4jtvUmXTlDS3THxYRKo4u
+         iNi+HaLxwDWtS+GgecKZj9XTEKTXYAgxMdo71h2P35vH5rffJTWRUy9AKYbjuVrL8J9P
+         1ZQ1zMr8IMuuUOAwiELPg8e/uGckKqIVYWvNr9lY7jBDMETqQ+YleoTe25aZNTtCz25g
+         Bs+zP2Pl+WDBz9pbYCrVK3XVI0XcXwXfd1/IXGXNXb/B+wHt23aKv6+HsL8Dc3lwod55
+         U5hA==
+X-Forwarded-Encrypted: i=1; AJvYcCWi9clXMPn4DGUWQRHZawcjOSTPVVQ9oga66v8CxYpc/GaDkii3Do7B7usy7sH6XEiN8bvkU2lfLCU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqG82V17+azzuJGkoMgd6Nxb7xgQcx056wz7hJoq1Qya2WwauK
+	3fqpxrDhpTT4ESsKvHmLYwjjRvSLS0/kb34sEp9Tr7IN01EvwbzzaH1nrvIXGk9sxA==
+X-Gm-Gg: AY/fxX5+Qt9rWLfFJmfMi9mjvfIp6TYwitab7wIT4qpMTxgXydL0YIUO8//9i3wqlOo
+	11gtu47Jt+P7wSJcnPdzWwP53l+9K25RnXpVa8BixO5c3yCUGv+aX2+WyMseLR6DwYQWCNX9glH
+	7XZWMbz2A+8ElhGomNO7jIVCJxsSikmewGkN/fWCs+rVM/gMx+brNypPZ7HQh2HIpbLrJFoxTZR
+	2vo+3JMvUsBfU8GNGCr/n0FkKKASoQ+smvuLU1lAAE0rHJfq8nrhQAS2KijeqJEm3p8vwKTMdKD
+	doWTlTMcYXuypvm1/ZShYZMQzuVbuyoMyDirpJBrEWKI3RjHSoqY3LICeP3DoFP/0UL0g9fGQ69
+	ld0uGSblmTGllvCack6MwWXT/zUuugVgfPhyzwUoMJe2JAUMPq4IXCEqtEwA2x0oLmAk4KBo/QG
+	DfEFGx2AYM4GuRT63lwfvUIK7hn0hkbIo39dJkra4jEhAu4idpCDXnFuWJBe+FAlY+c+Iu5uQs2
+	HnvGED/3MYoOw==
+X-Google-Smtp-Source: AGHT+IEacf+dUgs31kkUmRiOeY74zlLEC2GenZ4gBnfTgsMeNTJsPYfTExy8+VOJ3B0lEZpW7815nQ==
+X-Received: by 2002:a05:6000:4202:b0:431:1ae:a3be with SMTP id ffacd0b85a97d-43101aeac36mr1343285f8f.3.1765800864092;
+        Mon, 15 Dec 2025 04:14:24 -0800 (PST)
+Message-ID: <e09ed373-47a4-4afc-84df-b66184ea424a@suse.com>
+Date: Mon, 15 Dec 2025 13:14:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/24] Disable domctl-op via CONFIG_MGMT_HYPERCALLS
-To: Penny Zheng <Penny.Zheng@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v5 02/24] xen/x86: library-fy cpuid-releated functions
+To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Meng Xu <mengxu@cis.upenn.edu>, Jason Andryuk <jason.andryuk@amd.com>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
- xen-devel@dornerworks.com
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
 References: <20251212040209.1970553-1-Penny.Zheng@amd.com>
+ <20251212040209.1970553-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,54 +125,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251212040209.1970553-1-Penny.Zheng@amd.com>
+In-Reply-To: <20251212040209.1970553-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.12.2025 05:01, Penny Zheng wrote:
-> It can be beneficial for some dom0less systems to further reduce Xen footprint
-> via disabling some hypercalls handling code, which may not to be used &
-> required in such systems.
-> We are introducing a new single Kconfig CONFIG_MGMT_HYPERCALLS to manage
-> such hypercalls.
-> 
-> We are trying to disable hypercalls in the following aspects:
-> - sysctl
-> - domctl
-> - hvm
-> - physdev
-> - platform
-> This patch serie is only focusing on domctl-op. Different aspects will be
-> covered in different patch serie.
-> 
-> Features, like VM event, or paging log-dirty support, which fully rely on
-> domctl-op, will be wrapped with CONFIG_MGMT_HYPERCALLS, to reduce Xen
-> footprint as much as possible.
-> 
-> It is derived from Stefano Stabellini's commit "xen: introduce kconfig options
-> to disable hypercalls"(
-> https://lore.kernel.org/xen-devel/20241219092917.3006174-1-Sergiy_Kibrik@epam.com)
-> ---
-> This patch serie is based on "[PATCH v3 0/7] consolidate vm event subsystem"
-> ---
-> The following commits are prerequisite, and could be committed independently:
-> - xen/xsm: remove redundant flask_iomem_mapping()
-> - xen/x86: library-fy cpuid-releated functions
-> - xen/arm: move dt_find_node_by_gpath() to passthrough/device_tree.c
-> - xen/sysctl: replace CONFIG_SYSCTL with CONFIG_MGMT_HYPERCALLS
-> ---
-> Penny Zheng (24):
->   xen/xsm: remove redundant flask_iomem_mapping()
->   xen/x86: library-fy cpuid-releated functions
->   xen/arm: move dt_find_node_by_gpath() to passthrough/device_tree.c
->   xen/sysctl: replace CONFIG_SYSCTL with CONFIG_MGMT_HYPERCALLS
+> There are some cpuid library functions only referenced in
+> XEN_DOMCTL-case, and shall be wrapped with CONFIG_MGMT_HYPERCALLS later,
+> otherwise they will become unreachable when MGMT_HYPERCALLS=n, and hence
+> violate Misra 2.1
 
-From past discussion I would have concluded that this is what wants doing first.
-Is there a reason this isn't the first patch (and hence it's unclear whether it
-could go in as soon as you managed to chase the - apparently - one missing ack)?
+At this point of the series there's no MGMT_HYPERCALLS yet (see also my reply
+to the cover letter).
 
-As to missing ack-s - may I once again point out that it is on you to chase them?
-(Daniel, first and foremost to you: Hint, hint.)
+> For file cpupolicy-clr.c to contain cpupolicy clearing library function:
+> - x86_cpu_policy_clear_out_of_range_leaves
+>   - zero_leaves
+> For file cpuid-cp2buf.c to contain cpuid copy-to-buffer library function:
+> - x86_cpuid_copy_to_buffer
+>   - copy_leaf_to_buffer
+> For file cpuid-cpfrbuf.c to contain cpuid copy-from-buffer library function:
+> - x86_cpuid_copy_from_buffer
+> Sunmmerize all needed cpuid-library object file under a new variable
+> CPUID_OBJS in Makefile.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v4 -> v5:
+> - library-fy cpuid-releated functions
+> ---
+>  tools/fuzz/cpu-policy/Makefile               |   4 +-
+>  tools/fuzz/x86_instruction_emulator/Makefile |  11 +-
+>  tools/libs/guest/Makefile.common             |   4 +-
+>  tools/tests/cpu-policy/Makefile              |   3 +-
+>  tools/tests/x86_emulator/Makefile            |   3 +-
+>  xen/lib/Makefile                             |   5 +
+>  xen/lib/x86/cpuid-cp2buf.c                   | 123 ++++++++
+>  xen/lib/x86/cpuid-cpfrbuf.c                  | 129 +++++++++
+>  xen/lib/x86/cpuid.c                          | 286 -------------------
+>  xen/lib/x86/cpupolicy-clr.c                  |  73 +++++
+>  10 files changed, 346 insertions(+), 295 deletions(-)
+>  create mode 100644 xen/lib/x86/cpuid-cp2buf.c
+>  create mode 100644 xen/lib/x86/cpuid-cpfrbuf.c
+>  create mode 100644 xen/lib/x86/cpupolicy-clr.c
+
+This looks to be doing at least three things in one go. If all of them would be
+simple (including them being a reasonably small diff), that may be fine. But
+the diffstat above says otherwise, so I may I ask that this be split in three,
+maybe even four pieces (one per function moving to a new file, and maybe one
+doing prep work in the Makefile-s touched)?
+
+The filenames also aren't very descriptive. cp-from-buffer.c, cp-to-buffer.c,
+and cp-clear.c maybe? Albeit the last one is where I'm the least convinced
+that splitting out and making a library function is actually a good idea. Note
+how I also didn't mention that function as a possible candidate for library-
+fying. I'll try to not forget to bring this up with the x86 maintainers later
+in the day.
+
+> --- a/tools/libs/guest/Makefile.common
+> +++ b/tools/libs/guest/Makefile.common
+> @@ -35,7 +35,9 @@ OBJS-y += $(LIBELF_OBJS)
+>  ifeq ($(CONFIG_X86),y) # Add libx86 to the build
+>  vpath %.c ../../../xen/lib/x86
+>  
+> -OBJS-y                 += cpuid.o msr.o policy.o
+> +CPUID_OBJS := cpuid.o cpuid-cp2buf.o cpuid-cpfrbuf.o cpupolicy-clr.o
+> +OBJS-y                 += $(CPUID_OBJS)
+> +OBJS-y                 += msr.o policy.o
+>  endif
+
+Why the mismatched padding on the := line?
+
+> --- a/xen/lib/Makefile
+> +++ b/xen/lib/Makefile
+> @@ -45,3 +45,8 @@ lib-$(CONFIG_X86) += xxhash64.o
+>  lib32-y := divmod.o
+>  lib32-$(CONFIG_64BIT) :=
+>  lib-y += $(lib32-y)
+> +
+> +libx86-y := x86/cpuid-cp2buf.o
+> +libx86-y += x86/cpuid-cpfrbuf.o
+> +libx86-y += x86/cpupolicy-clr.o
+> +lib-$(CONFIG_X86) += $(libx86-y)
+
+Why the intermediate libx86-y? And why is this not being done in xen/lib/x86/Makefile
+anyway?
 
 Jan
 
