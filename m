@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FF99CBE3D3
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:17:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187086.1508506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46D68CBE4BE
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 15:34:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187095.1508516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9Nt-00053w-TF; Mon, 15 Dec 2025 14:17:09 +0000
+	id 1vV9dQ-0008Ee-72; Mon, 15 Dec 2025 14:33:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187086.1508506; Mon, 15 Dec 2025 14:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 1187095.1508516; Mon, 15 Dec 2025 14:33:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV9Nt-00051r-Qg; Mon, 15 Dec 2025 14:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 1187086;
- Mon, 15 Dec 2025 14:17:09 +0000
+	id 1vV9dQ-0008Bu-4R; Mon, 15 Dec 2025 14:33:12 +0000
+Received: by outflank-mailman (input) for mailman id 1187095;
+ Mon, 15 Dec 2025 14:33:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV9Nt-00051l-5I
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:17:09 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vV9dO-0008Bm-Eh
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 14:33:10 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc848ca8-d9c0-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 15:17:07 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so27039075e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 06:17:06 -0800 (PST)
+ id f7a484a7-d9c2-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 15:33:05 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4775e891b5eso15629825e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 06:33:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f38a455sm186533825e9.1.2025.12.15.06.17.05
+ ffacd0b85a97d-42fa8b8a97esm35190534f8f.31.2025.12.15.06.33.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 06:17:05 -0800 (PST)
+ Mon, 15 Dec 2025 06:33:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc848ca8-d9c0-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: f7a484a7-d9c2-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765808226; x=1766413026; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765809184; x=1766413984; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7xVD0Xnb81MH+uApkWmpkt4aDsnULLzH8Qt19fhs1Uc=;
-        b=RRM9EDNJTLUgJSflne472p7wKSVykOZFEbDa0bJKQsH5fAppGxEXZ7YCWKPIldLN2V
-         0sGQ1+/1qbaFjMPUPukUKa3AyQ5+R45TPYnH3rgNHnuY0qgusb4MtCXIBNJOQw8ZD4AR
-         ynHuj5Kx7wyK4EBeGFe5ldxpTzeGA0xazXKg5syJn7/3lyP0v3rfpCEI+t7bPuC4KVWn
-         oqH/cIsPqhagq7NXOwkQAP+soTDeWti+UpjJWBokySDOLi+Z0etrssh4RSUUGsafgH+z
-         mXDiqDywhz8ZvT1+FM72oelRLOs4Bum/u7eG+Q5cB5GwYDo/uY8XiNbM30lz8kxCSzN9
-         et0A==
+        bh=TMD7lQhrWjDvpZcq77Oqn+f4GeDE5Pb+lzzDOBJD86A=;
+        b=dF96lLlc+Aqy11hz5x3j+m6PvDQpv5UW2k6MdyvwjzH7+IGM8mKMO66nGOlpGMJYTP
+         tYrfp9nHyMC+scB96ux47yft0yReHYilQQB8qLBwUARLjQpPiPGfCgvvVa4MPpZPJ3Bl
+         Vqs9q54HLE+UMCION65N1kvEaR3u+Dm7USAgGXDssAA21TDIjzeVT5kccwXTHRufYDaO
+         x5FLOVSlIQw9AY/ppF8sLInSOz+xJ27lqETKp62Q0+ucn9J/nBiHUc28kaxGW4gVsOYm
+         C6tyl3hKJvulo+W+BSZ5VzmBwXaVBCiBjbTTn1/d5y7rOiuVZ64Gpd/6bRtYRKzaXZEz
+         NORA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765808226; x=1766413026;
+        d=1e100.net; s=20230601; t=1765809184; x=1766413984;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7xVD0Xnb81MH+uApkWmpkt4aDsnULLzH8Qt19fhs1Uc=;
-        b=krw8TIq9R4dZHkzXUwN2WNqFyycbYonBrbrkbkgxOqfvzEHsLSFkURnrhJTOAlccMU
-         O6Wak5f4ROwSif13n35mTRK77Syf/adFlnUDhwUJ2opiwkc1rOudcO0kAWXKvWrmyrAX
-         gQNV9KSrJ0ct7z+Mje8pAaXvhy/RWIPQ7TpgwxSGcCKUhOaNxRQLC2eIrL/dFhwkhBQZ
-         LVxSPIy+pwKIw+xaN3uvPEL9FBAkxhZk1EIwz7a9M7MxAbfLglML9Y6a7Rup1IWWNkio
-         6qXG1Lb1U+pHJxq5dfZTEaPWtd1c/uU/D5S+Hd3Kcf3aXHYY5LmPyxq1mM3CZA5rOmhh
-         0ITQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU2TqJ6cfI4xKHStsVKS6Nn85SkplvQv6V7jwayWH5Wv9Wjm0YLoWSkPPq6u4eUJDcZ8LPv3E3uNuU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCeTYHG2BVF6VwmGQU7CVc6jyS7ZZGewI8lHsJjaVTgzpiGlWN
-	da6FHPgfb6lR7BCqeVdruCPF5Cp19oWMvNcsib5Q9EBZyb7fIa7W7e0ydXXK7OVCfg==
-X-Gm-Gg: AY/fxX6F+0eupmqgvZGYTrEeeci+cFUEQyyTcY2kvq7g0m+CKOeJN6qs/xcMQwwlRMY
-	NldnFTsjytsQA/Bnslnn1+jxGhpquW2yzreY55vMhGvjEa4wPTMKkp3XgtnxMx8Csm5P+tuRgDt
-	ZybxanUEv8IgMr5P3pOWsF3HitYoVAkYw9LQ4dTWyMHCYXHheTW8j3MhTHQ61p8Tq2WU7h9+DwT
-	7uITSzy/F1wBHLjxRan8obJtPcFYL998zn8HOw3GDqk/okVie3yV32r23NcAKKY/xAY4lDnAKps
-	2ovfzUpTjNtdVZElHdnD/wsREOJWuIFDYLvGEtBKpsvYzHhSxSx2n7TOYZIGomTnjUfc/YXbk35
-	POW2FcBlDwU348SSNqsTY35gsPTDRLtMxcGurZKIrMt+g0wUMAU+XNvVms2HMyKubDR/PRcgyZG
-	lCI7Ms4jdSIc8miB72K9MH9dcuJNiHdDbaRD9WH43G0D5hD4jefhL6d+aqeFwarFVScBTnnLQWl
-	m0=
-X-Google-Smtp-Source: AGHT+IEBP2Q46RzHGMHgABBFVwnVzVa1ELRQtgUNT/CfiNyKt39PcEcMlYz5BoTVM1NMs6Ke5fXs8w==
-X-Received: by 2002:a05:600c:a009:b0:46f:d682:3c3d with SMTP id 5b1f17b1804b1-47a8f8c4b8emr117469695e9.13.1765808226155;
-        Mon, 15 Dec 2025 06:17:06 -0800 (PST)
-Message-ID: <1ce5a050-929c-48e4-8645-7310a07279cc@suse.com>
-Date: Mon, 15 Dec 2025 15:17:08 +0100
+        bh=TMD7lQhrWjDvpZcq77Oqn+f4GeDE5Pb+lzzDOBJD86A=;
+        b=lFgyFzt9n1nCLjEAK7Rg5ouzS+7SnO2kmVhtkPA9ze/Ie169lO1J2kAAQOcYfaMPwo
+         adNfT0t/PLwxympyN83mwIhvaq6g8N4qpfLIO+jHHSr7LHLdzQXwYIdMLhS4C7UzTKga
+         sORIBXzZYQlaequB449+2c2jSTFll6oLvgVkPyP7BAs2ZpsGMCd9SUBnGAR36MZuEqbR
+         37AR9Enwee7kz8T8iGOZTP/5JkWmO9iFMyZT8x6Zm7aE4b1cSHLA/VW1VqMTcZQQ4MB3
+         RkMAjQXE97h6sHGgmMlUJC4dXykC1fkG5lco3+7ihMbkwKZSIHLxwPkCpNSDtJl4J1hk
+         dUlA==
+X-Forwarded-Encrypted: i=1; AJvYcCWCri4u90zL9+f+QMO9WPZHwveRPm1Xm92upbQfBW0XpTXCPI43IOZJow1ho41w9Afqe7vLmCOt9JI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyg7EYqxDJmfyBk9+P/aJ1WAZro9QYY+NM37u/Zf/ZFeyhKlmpW
+	nl3MBM/Sy/c2b11dA8W3b2zFzAVX3ZQg+KovLNWhDUdHPeIVYHdgNz2z7X5TMPUaVw==
+X-Gm-Gg: AY/fxX7mkd5gCapmXMLbZHIyejo6AyMO3KJ7kPTasuCyz+maHSU/P61EWO5DIU6H+vm
+	/T6b22ydUl/rExyYXJe/YdtXkec0HFnjuS25NdamZpnmhblUjfwYfCl00jbzc7b0gKIMt9yLTYJ
+	dsNdFB6NK1UJSuwxUdUwzFCf09/ZE9Fi88/ktZvMiF9WxQeQ5YYlE5x/gY2mpI6wHrqYTTr5fuq
+	KPy3xU5iszLV6fRUIjc5e72H7+mVYPGSIAlUgazLCAi3gqgcuyJKzEsqpGoCPhLm2v5zd15PG/f
+	/T2sPkhTW2Wimbrkan4qWqleyIKPslEQOnccgJtSKeRQRH8CkHmqvyYdaojwGP2gmUPUsXiBWFx
+	/hsYB9oUtzgkzorLuPOtKoeBIorlvXk3ynAgZ5CevluSfw6Lnll3evlUEk3xeunittGTopDrQ43
+	fXvvJnI76ldaGvgd209ne7cKJu7t/XmqYYOXY0wSgwVEAWlymH+2EOvCYYycrq19pKR3dcjY8cY
+	zWamd9Jar8G+Q==
+X-Google-Smtp-Source: AGHT+IGExVobOqU5RgOo5uxwiOsWDqR42oPc1CwwyDN+GE0nluLliI5rT4x5ZBMrXRmtqqvgEMyfzg==
+X-Received: by 2002:a05:6000:178a:b0:431:35a:4aa3 with SMTP id ffacd0b85a97d-431035a4e21mr104019f8f.18.1765809184409;
+        Mon, 15 Dec 2025 06:33:04 -0800 (PST)
+Message-ID: <23f85e06-4d63-47c4-b232-8469ccb66126@suse.com>
+Date: Mon, 15 Dec 2025 15:33:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] memory: overlapping XENMAPSPACE_gmfn_range requests
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <7d254163-ac13-4c58-bcb5-aaff2e892e15@suse.com>
- <8038ba8e-ea1f-4005-94ab-56e4ab5f7062@citrix.com>
+Subject: Re: [PATCH v5 20/24] xen/x86: wrap x86-specific domctl-op with
+ CONFIG_MGMT_HYPERCALLS
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, grygorii_strashko@epam.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20251212040209.1970553-1-Penny.Zheng@amd.com>
+ <20251212040209.1970553-21-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,84 +127,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8038ba8e-ea1f-4005-94ab-56e4ab5f7062@citrix.com>
+In-Reply-To: <20251212040209.1970553-21-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.12.2025 13:46, Andrew Cooper wrote:
-> On 15/12/2025 11:22 am, Jan Beulich wrote:
->> Overlapping requests may need processing backwards, or else the intended
->> effect wouldn't be achieved (and instead some pages would be moved more
->> than once).
->>
->> Also covers XEN_DMOP_relocate_memory, where the potential issue was first
->> noticed.
->>
->> Fixes: a04811a315e0 ("mm: New XENMEM space, XENMAPSPACE_gmfn_range")
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Of course an alternative would be to simply reject overlapping requests.
->> Then we should reject all overlaps though, I think. But since the code
->> change didn't end up overly intrusive, I thought I would go the "fix it"
->> route first.
->>
->> In-place moves (->idx == ->gpfn) are effectively no-ops, but we don't look
->> to short-circuit them for XENMAPSPACE_gmfn, so they're not short-circuited
->> here either.
-> 
-> Maybe we should short-circuit them.  I can't think of anything good that
-> will come of having redundant TLB/IOTLB flushing.  At the best it's a
-> waste of time, and at the worst it covers up bugs.
+On 12.12.2025 05:02, Penny Zheng wrote:
+> ---
+> v4 -> v5:
+> - do not undo imply and add "depends on MGMT_HYPERCALLS" in option
+> - use IS_ENABLED(...) to avoid too long line
 
-I can do so (in a prereq change). In fact I first had the short-circuiting,
-but then remembered that in (somewhat) similar situations elsewhere you
-didn't like me doing such.
+Coming back to this patch when looking at patch 24, I have to add: I don't
+understand this. We ...
 
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -849,7 +849,7 @@ int xenmem_add_to_physmap(struct domain
->>                            unsigned int start)
->>  {
->>      unsigned int done = 0;
->> -    long rc = 0;
->> +    long rc = 0, adjust = 1;
->>      union add_to_physmap_extra extra = {};
->>      struct page_info *pages[16];
->>  
->> @@ -884,8 +884,25 @@ int xenmem_add_to_physmap(struct domain
->>          return -EOVERFLOW;
->>      }
->>  
->> -    xatp->idx += start;
->> -    xatp->gpfn += start;
->> +    /*
->> +     * Overlapping ranges need processing backwards when destination is above
->> +     * source.
->> +     */
->> +    if ( xatp->gpfn > xatp->idx &&
->> +         unlikely(xatp->gpfn < xatp->idx + xatp->size) )
->> +    {
->> +        adjust = -1;
->> +
->> +        /* Both fields store "next item to process". */
->> +        xatp->idx += xatp->size - start - 1;
->> +        xatp->gpfn += xatp->size - start - 1;
->> +    }
->> +    else
->> +    {
->> +        xatp->idx += start;
->> +        xatp->gpfn += start;
->> +    }
-> 
-> These fields get written back during continuations.
+> --- a/xen/arch/x86/include/asm/paging.h
+> +++ b/xen/arch/x86/include/asm/paging.h
+> @@ -57,7 +57,8 @@
+>  #endif
+>  #if defined(CONFIG_PAGING) && !defined(CONFIG_PV_SHIM_EXCLUSIVE)
+>  /* Enable log dirty mode */
+> -#define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
+> +#define PG_log_dirty   IS_ENABLED(CONFIG_MGMT_HYPERCALLS) &&                \
+> +                        (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
+>  #else
+>  #define PG_log_dirty   0
+>  #endif
 
-I double-checked yet again, but no, I don't think so.
+... already have an #if here, so mixing #if and IS_ENABLED() doesn't look
+like a good idea to me. To deal with the line length issue, all you need to
+do is split the line:
 
-> XEN_DMOP_relocate_memory will corrupt itself, given the expectation that
-> 'done' only moves forwards.
+#if defined(CONFIG_PAGING) && defined(CONFIG_MGMT_HYPERCALLS) && \
+    !defined(CONFIG_PV_SHIM_EXCLUSIVE)
 
-This, otoh, I really need to fix.
+. The alternative could be
+
+#define PG_log_dirty   (IS_ENABLED(CONFIG_PAGING) &&             \
+                        IS_ENABLED(CONFIG_MGMT_HYPERCALLS) &&    \
+                        !IS_ENABLED(CONFIG_PV_SHIM_EXCLUSIVE) && \
+                        (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift))
+
+, just that then PG_log_dirty likely can't be used in #if anymore (see the
+related comment on patch 24 that I'm in the process of writing).
 
 Jan
 
