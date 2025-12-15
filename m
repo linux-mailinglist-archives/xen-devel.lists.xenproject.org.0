@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 862C3CBE7F2
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 16:07:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187325.1508766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12EFACBE7F5
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 16:07:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187336.1508787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVAAS-0000BI-UG; Mon, 15 Dec 2025 15:07:20 +0000
+	id 1vVAAb-0000kE-C8; Mon, 15 Dec 2025 15:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187325.1508766; Mon, 15 Dec 2025 15:07:20 +0000
+Received: by outflank-mailman (output) from mailman id 1187336.1508787; Mon, 15 Dec 2025 15:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVAAS-00008Y-R9; Mon, 15 Dec 2025 15:07:20 +0000
-Received: by outflank-mailman (input) for mailman id 1187325;
- Mon, 15 Dec 2025 15:07:18 +0000
+	id 1vVAAb-0000hL-8P; Mon, 15 Dec 2025 15:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 1187336;
+ Mon, 15 Dec 2025 15:07:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lpeD=6V=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vVA7o-0004yw-GH
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 15:04:36 +0000
+ id 1vVA7v-0004yw-IL
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 15:04:43 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 5dcfa142-d9c7-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 16:04:34 +0100 (CET)
+ id 61200597-d9c7-11f0-9cce-f158ae23cfc8;
+ Mon, 15 Dec 2025 16:04:40 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB8BF169E;
- Mon, 15 Dec 2025 07:04:26 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B0D916A3;
+ Mon, 15 Dec 2025 07:04:32 -0800 (PST)
 Received: from e123572-lin.arm.com (e123572-lin.cambridge.arm.com
  [10.1.194.54])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7E8EC3F73B;
- Mon, 15 Dec 2025 07:04:28 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A02B3F73B;
+ Mon, 15 Dec 2025 07:04:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dcfa142-d9c7-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 61200597-d9c7-11f0-9cce-f158ae23cfc8
 From: Kevin Brodsky <kevin.brodsky@arm.com>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -84,91 +84,93 @@ Cc: linux-kernel@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	sparclinux@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	"David Hildenbrand (Red Hat)" <david@kernel.org>
-Subject: [PATCH v6 10/14] arm64: mm: replace TIF_LAZY_MMU with is_lazy_mmu_mode_active()
-Date: Mon, 15 Dec 2025 15:03:19 +0000
-Message-ID: <20251215150323.2218608-11-kevin.brodsky@arm.com>
+	x86@kernel.org
+Subject: [PATCH v6 11/14] powerpc/mm: replace batch->active with is_lazy_mmu_mode_active()
+Date: Mon, 15 Dec 2025 15:03:20 +0000
+Message-ID: <20251215150323.2218608-12-kevin.brodsky@arm.com>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20251215150323.2218608-1-kevin.brodsky@arm.com>
 References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+A per-CPU batch struct is activated when entering lazy MMU mode; its
+lifetime is the same as the lazy MMU section (it is deactivated when
+leaving the mode). Preemption is disabled in that interval to ensure
+that the per-CPU reference remains valid.
+
 The generic lazy_mmu layer now tracks whether a task is in lazy MMU
-mode. As a result we no longer need a TIF flag for that purpose -
-let's use the new is_lazy_mmu_mode_active() helper instead.
+mode. We can therefore use the generic helper
+is_lazy_mmu_mode_active() to tell whether a batch struct is active
+instead of tracking it explicitly.
 
-The explicit check for in_interrupt() is no longer necessary either
-as is_lazy_mmu_mode_active() always returns false in interrupt
-context.
-
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Acked-by: David Hildenbrand <david@redhat.com>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- arch/arm64/include/asm/pgtable.h     | 19 +++----------------
- arch/arm64/include/asm/thread_info.h |  3 +--
- 2 files changed, 4 insertions(+), 18 deletions(-)
+ arch/powerpc/include/asm/book3s/64/tlbflush-hash.h | 9 ---------
+ arch/powerpc/mm/book3s64/hash_tlb.c                | 2 +-
+ 2 files changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 7f528c36d53c..445e18e92221 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -62,28 +62,16 @@ static inline void emit_pte_barriers(void)
+diff --git a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
+index 565c1b7c3eae..6cc9abcd7b3d 100644
+--- a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
++++ b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
+@@ -12,7 +12,6 @@
+ #define PPC64_TLB_BATCH_NR 192
  
- static inline void queue_pte_barriers(void)
+ struct ppc64_tlb_batch {
+-	int			active;
+ 	unsigned long		index;
+ 	struct mm_struct	*mm;
+ 	real_pte_t		pte[PPC64_TLB_BATCH_NR];
+@@ -26,8 +25,6 @@ extern void __flush_tlb_pending(struct ppc64_tlb_batch *batch);
+ 
+ static inline void arch_enter_lazy_mmu_mode(void)
  {
--	unsigned long flags;
+-	struct ppc64_tlb_batch *batch;
 -
--	if (in_interrupt()) {
--		emit_pte_barriers();
--		return;
--	}
--
--	flags = read_thread_flags();
--
--	if (flags & BIT(TIF_LAZY_MMU)) {
-+	if (is_lazy_mmu_mode_active()) {
- 		/* Avoid the atomic op if already set. */
--		if (!(flags & BIT(TIF_LAZY_MMU_PENDING)))
-+		if (!test_thread_flag(TIF_LAZY_MMU_PENDING))
- 			set_thread_flag(TIF_LAZY_MMU_PENDING);
- 	} else {
- 		emit_pte_barriers();
- 	}
+ 	if (radix_enabled())
+ 		return;
+ 	/*
+@@ -35,8 +32,6 @@ static inline void arch_enter_lazy_mmu_mode(void)
+ 	 * operating on kernel page tables.
+ 	 */
+ 	preempt_disable();
+-	batch = this_cpu_ptr(&ppc64_tlb_batch);
+-	batch->active = 1;
  }
- 
--static inline void arch_enter_lazy_mmu_mode(void)
--{
--	set_thread_flag(TIF_LAZY_MMU);
--}
-+static inline void arch_enter_lazy_mmu_mode(void) {}
  
  static inline void arch_flush_lazy_mmu_mode(void)
- {
-@@ -94,7 +82,6 @@ static inline void arch_flush_lazy_mmu_mode(void)
+@@ -53,14 +48,10 @@ static inline void arch_flush_lazy_mmu_mode(void)
+ 
  static inline void arch_leave_lazy_mmu_mode(void)
  {
+-	struct ppc64_tlb_batch *batch;
+-
+ 	if (radix_enabled())
+ 		return;
+-	batch = this_cpu_ptr(&ppc64_tlb_batch);
+ 
  	arch_flush_lazy_mmu_mode();
--	clear_thread_flag(TIF_LAZY_MMU);
+-	batch->active = 0;
+ 	preempt_enable();
  }
  
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-index a803b887b0b4..e7cd017b07c8 100644
---- a/arch/arm64/include/asm/thread_info.h
-+++ b/arch/arm64/include/asm/thread_info.h
-@@ -84,8 +84,7 @@ void arch_setup_new_exec(void);
- #define TIF_SME_VL_INHERIT	28	/* Inherit SME vl_onexec across exec */
- #define TIF_KERNEL_FPSTATE	29	/* Task is in a kernel mode FPSIMD section */
- #define TIF_TSC_SIGSEGV		30	/* SIGSEGV on counter-timer access */
--#define TIF_LAZY_MMU		31	/* Task in lazy mmu mode */
--#define TIF_LAZY_MMU_PENDING	32	/* Ops pending for lazy mmu mode exit */
-+#define TIF_LAZY_MMU_PENDING	31	/* Ops pending for lazy mmu mode exit */
- 
- #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
- #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
+diff --git a/arch/powerpc/mm/book3s64/hash_tlb.c b/arch/powerpc/mm/book3s64/hash_tlb.c
+index 787f7a0e27f0..fbdeb8981ae7 100644
+--- a/arch/powerpc/mm/book3s64/hash_tlb.c
++++ b/arch/powerpc/mm/book3s64/hash_tlb.c
+@@ -100,7 +100,7 @@ void hpte_need_flush(struct mm_struct *mm, unsigned long addr,
+ 	 * Check if we have an active batch on this CPU. If not, just
+ 	 * flush now and return.
+ 	 */
+-	if (!batch->active) {
++	if (!is_lazy_mmu_mode_active()) {
+ 		flush_hash_page(vpn, rpte, psize, ssize, mm_is_thread_local(mm));
+ 		put_cpu_var(ppc64_tlb_batch);
+ 		return;
 -- 
 2.51.2
 
