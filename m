@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDC58CBD39C
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:42:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186723.1508146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93E2CBD3F6
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:46:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186732.1508156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV55Z-00042Z-4a; Mon, 15 Dec 2025 09:41:57 +0000
+	id 1vV59d-0004jW-KP; Mon, 15 Dec 2025 09:46:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186723.1508146; Mon, 15 Dec 2025 09:41:57 +0000
+Received: by outflank-mailman (output) from mailman id 1186732.1508156; Mon, 15 Dec 2025 09:46:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV55Z-000400-1u; Mon, 15 Dec 2025 09:41:57 +0000
-Received: by outflank-mailman (input) for mailman id 1186723;
- Mon, 15 Dec 2025 09:41:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vV59d-0004gx-Hl; Mon, 15 Dec 2025 09:46:09 +0000
+Received: by outflank-mailman (input) for mailman id 1186732;
+ Mon, 15 Dec 2025 09:46:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV55X-0003zu-9c
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 09:41:55 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4963720e-d99a-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 10:41:53 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so24559355e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 01:41:52 -0800 (PST)
+ id 1vV59c-0004gm-23
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 09:46:08 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0b7955c-d99a-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 10:46:06 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-42fbc305552so1505692f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 01:46:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f4bebf4sm64334105e9.8.2025.12.15.01.41.51
+ ffacd0b85a97d-430f280cf05sm13848537f8f.7.2025.12.15.01.46.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 01:41:51 -0800 (PST)
+ Mon, 15 Dec 2025 01:46:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4963720e-d99a-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: e0b7955c-d99a-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765791712; x=1766396512; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HD9BBJU0e1MmcNRgmpeJcbkLD64hxkGHNzeKFm27JsE=;
-        b=RtCbit1/7ZyqMG9+NqA9vSBb6ntHMYznkk5u9D99vYDY2lTh35NegmRMagshXNJRgD
-         U0ijXe77G5iOkF9O47FQDhyVc9wFCzrA12tBEpOliRahH3LDCAcrRUv4G/Hm7G3x9j7k
-         qDENHXM7GRQ2GXUpoLpNNw0urEaqvLZUYkjJQKTnClOTzLocA+lqK9i5gN7C+LOGxCgc
-         AUv7oCr6FPFMdLZ9r7nOymZdR4mk6TLhNj1bbA3bS1EdLiluTDVUQonkfCnxRcAkwnFa
-         r/Vn0isEitxaDjmmOmt22OhAgrS14nga8R18uQWJ5Mzm5riHmF87Bx9+vimjbYpoR/tm
-         DD0g==
+        d=suse.com; s=google; t=1765791966; x=1766396766; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=kDG5BCQ/JRgGD6HuKS9/Op4F9K+3rC/MJt9KqbnAoKc=;
+        b=f299eAvF3x+b8cRs0DkTehCov8BjrATpIQr85jj7DjZIjRM3aFA3rzmzf6VSiRVlLS
+         M3XXnulkwyyk4d2KoTKf+rEIilXLN592dtd9ZoJnS/+99b+q6EPHXZ2aHFTGNMPITIb+
+         LVS7ncjFWEZiuhjpOQsT5P1wzCzkXI4AgIj/xsi7ewlTD9R9B2EkP75nOzekQfPJ07Il
+         1cdQlzOl4VYDRHMMXBVqC8Y9SrhEC3GgyCt/PfM4TCjl1UMvwG2t+xPdX4Y1NJiTU+5u
+         uPlzEE9k5hjilZ4x49vajFM2DtIck3G7D7h5WcfIFCF3PbTvdPU2LsfXqMen/CdtUw9B
+         yoFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765791712; x=1766396512;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1765791966; x=1766396766;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HD9BBJU0e1MmcNRgmpeJcbkLD64hxkGHNzeKFm27JsE=;
-        b=RFqdk5m9lmATCGUTiAdAklAnxDw0fdQ3VxZ5/QTOPjC/1mzYVhCjCQZlE59W2ra1Lc
-         E4GJWBoT1fC2h8kVi159WTxY5yN5O1ElXk9p+zB1eh8VHOATCSykxu8/mI4JLZ60vNTx
-         fYFWK/1r2ZT/EKBm5nMohAwYCwCT2yIaue4Q2lKNRsbGJDdtYQhXBMi5D4CTwAUNBH4X
-         6vyMEZHhfssp5pnGH0bwm30hCfqFb50vjiO4kEC5/l9q1O1drNUKkikOvbRHDgK+ROOH
-         2RGVcZ0l8o4M5zZhxzEKqyfgps1nkrd0aO30aVpCy22K7O2lLBzob7c0Jbvn00dRWKxe
-         5ibg==
-X-Forwarded-Encrypted: i=1; AJvYcCXSDaVoYz5oxBVR2Ja9v+Sbbzwum6BobZkHcwfEf+WQkvKsFJqpiiU8DAlMTpFWSsC7ckFjBZ7hRnk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzxXK3RlCOd45bU593o53Ry5S7EaR4tWY6v7ARoNa5crKFT4HOW
-	iVYUq2/EgqxRm+wRzn3GS+BEc3PZNwxlto7fTn0qKu3QUwifUb/3ra22L4DxIWWFpg==
-X-Gm-Gg: AY/fxX7KH8uBZCMeGrAT7/G5oMb69ppQveyeCKw3rsYvILNaZfAKpJq+bAsYs+9RgBR
-	bn+xF2At9JrvqvlesgKRFAyQoUTwQbDi3P/r2/UtwtyALR/4ArnqnaIChl6HSqjEGWEWy1Aw6C3
-	C34mP1bnTglxCuRMA74LM26Mupx+61S09mXOGvKkhrcpF3bkVp7xNehnEBE304/dSbdhcE6k12R
-	fw1R/tXm6hH9IycPg7lHjJwYzLXqzajJuGysFtwN1TRppx6LmlzUMigrqfPEBoU9rGjmt/yyBZk
-	l5dAaQkGfSQ13hPTk3n2vxLnwCerriFt1A+8ONVUPZndKCDN8Dn9ZTM7ifCSOT9zEmqbJzK5HPp
-	KQbXnuECxcFcEDBc0iW6zUPyk8cLPBqW+Swy16d6yp859/+Cs89WSpJxWOFkhGECHoP7wPmbSME
-	KIufbNfdGJiQPUaaJpwmDNknsFGyCI3PmAQAaT1myDZjhKcId/s3d02GhefpDWQEbaoL6+Sl586
-	BA=
-X-Google-Smtp-Source: AGHT+IFc9/2z0Ls5hD05ZsromCvWsGeCSIMIITkL3humZFikzdcshM0+ed+f35gs3VvK33y4cLsfkg==
-X-Received: by 2002:a05:600c:524c:b0:477:73cc:82c2 with SMTP id 5b1f17b1804b1-47a8f8c4334mr103126545e9.9.1765791712297;
-        Mon, 15 Dec 2025 01:41:52 -0800 (PST)
-Message-ID: <7beb1c09-dcbf-4cc8-ae90-cd9151ca97e1@suse.com>
-Date: Mon, 15 Dec 2025 10:41:54 +0100
+        bh=kDG5BCQ/JRgGD6HuKS9/Op4F9K+3rC/MJt9KqbnAoKc=;
+        b=CNH0iS+1FHnfB5LU1yY6JfFzJ3WfMXInn0DFdOcF/a4xDHPb97DqTmSvdXTd7luCwX
+         rL3XtC4xaHmD7ex9jWTsXIU+w983wDKbHKnqJPwtkGkw4ws4fDYzizZQ2PYwM+UgMLzI
+         Nbkm6dgxahK6FrY/0iWovx1zYW0B7ZsE9Hlq9tbhhv6dkwbUcA+FXVmRvv2HPSFuM1/M
+         asPSlQdl9qHjDNyxoRfjfbHYAOcmjBfKPYecx5UmQfI8ikCu59i3tzorcAwLs0IKMlDE
+         7W+A1Sajjlynep6nOOKipg7K6ulvoL+Y7k57gMzDLwzdtLz5GRdyPfBnD6jos67hwulQ
+         NleQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVkapYy1P9854hE3paIRRstAjf0Du2HCidDZWlCQVhHeErcW+NsHgbawp9aYpe9+1gWx0v6IuHKKSs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKg8Y0EjPQt5x2OIeA5XUiDRkGAm6a++UU6Mi14gzstkvd5w8w
+	EQcJuMpLS6WkA2FAgRA8OH1XFX3VVAHiaeyd86Pvqs0ak7Zr/YYZ/ZCKBfahDRbPow==
+X-Gm-Gg: AY/fxX4sIvP7MAbyQIZ1Po09fWoISsTXw+NmAmLPycMpBxEENSUwRnvMgQDvTbAN5eU
+	VfAVPfZpe/6he/meGDPaQPrjs9X0SmGq59NYLxSbnS9/I8+fOscPnz2UoUMDYtAmfni1sNf1iZt
+	9Nc3ZRNtsO5CdKKKQoNcmPXCW+vrPrktbPYv0/yNBdaUJ49VjP01AF3i26QHIeQXteOgqd+/pEZ
+	a5y5KAs3fv779Y7aBPhTeUzD1JVvnobL14sJqMPyXoPpow6VHI3qDrjpHTa2X4R9K4EDWO2I6Nn
+	CTuizzhu+1qX6xnmhRoCmm1BHEn8MR2tds0rslZ8LdZi6lHi0RsDXDOKOZ/x0CVZ3PVwsoRH/JM
+	gsCc5v5OPcZSuPTcMg2vwdT6RWPQI+9lgBPqiyhi7M1LahG2YZZqREOvWIbp8Davn2HlI2mERBZ
+	LlE+qevyONxgwFTuLz50fxJ7/drPQN3Q/4N9lTh72VHzxT0YTDtNAYG93LEu/6EdDZSO2VARmfN
+	i4=
+X-Google-Smtp-Source: AGHT+IGkkmXl7OUDHfby41M3u0pPpwH4QdM18eq26Cf6ZjN4eW14Q9bij+W9Mx9bXQ4NVCeh5f8qXA==
+X-Received: by 2002:a05:6000:240a:b0:430:f494:6a9c with SMTP id ffacd0b85a97d-430f4946d3amr5295965f8f.17.1765791966065;
+        Mon, 15 Dec 2025 01:46:06 -0800 (PST)
+Message-ID: <1646c1ef-ec42-4148-94e1-24b8874a1cfc@suse.com>
+Date: Mon, 15 Dec 2025 10:46:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Undefined behavior in libxenvchan
-To: Demi Marie Obenour <demiobenour@gmail.com>
-References: <e06eb432-289b-447a-8c3d-43da4705b4e9@gmail.com>
- <e0c8ffb0-a916-4c78-bd5f-010b9a7a8bc3@citrix.com>
- <bdf22b1a-49b5-43d4-8dfc-178c0076c917@gmail.com>
-Content-Language: en-US
+Subject: Re: [PATCH] xen/x86: Pass TPM ACPI table to PVH dom0
+To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20251212222949.626539-1-jason.andryuk@amd.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,56 +120,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bdf22b1a-49b5-43d4-8dfc-178c0076c917@gmail.com>
+In-Reply-To: <20251212222949.626539-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.12.2025 00:08, Demi Marie Obenour wrote:
-> On 12/14/25 17:50, Andrew Cooper wrote:
->> On 14/12/2025 7:09 pm, Demi Marie Obenour wrote:
->>> I noticed that libxenvchan has undefined behavior: it passes pointers
->>> to guest memory to memcpy() even though they can be concurrently
->>> changed.
->>>
->>> Would it make sense to reuse some of Xen's copy_from_guest() code
->>> instead?  There might be a licensing problem (GPL vs LGPL), though.
->>> I think the only approach that isn't UB and has decent performance
->>> is to do the whole copy in assembly.
->>
->> memcpy() is well defined.
+On 12.12.2025 23:29, Jason Andryuk wrote:
+> Pass the TPM2 ACPI table so that the device can be found by a PVH dom0.
 > 
-> Rich Felker wrote otherwise on the musl mailing list.  Specifically,
-> it is undefined behavior if the data is changed while memcpy() is
-> accessing it, either for reading or for writing.
+> Otherwise dom0 shows:
+> tpm_tis MSFT0101:00: [Firmware Bug]: failed to get TPM2 ACPI table
+> tpm_tis MSFT0101:00: probe with driver tpm_tis failed with error -22
+> 
+> TCPA is "Trusted Computing Platform Alliance table", but it is really
+> the table for a TPM 1.2.  Use that as the comment as it's more
+> identifiable for readers.
 
-Aren't you talking about undefined-ness beyond what the C spec uses the
-term for? Of course it is always unpredictable what the result of a
-function will be when you fiddle with its source behind its back. But
-that's not of concern as far as safety is concerned (while the
-correctness issue that results is solely a problem for the party doing
-the undue modifications).
+Not sure about this particular aspect - this and ...
 
-What we need to guarantee is that whatever copy is made of whatever
-in-flight data, any sanity and consistency checking as well as subsequent
-use would take only the one, exact same copy of source data. Which, as
-Andrew said, may require some extra barriers, while using memcpy() for
-the mechanical copying ought to be okay.
+> --- a/xen/include/acpi/actbl3.h
+> +++ b/xen/include/acpi/actbl3.h
+> @@ -78,8 +78,10 @@
+>  #define ACPI_SIG_CSRT           "CSRT"	/* Core System Resources Table */
+>  #define ACPI_SIG_MATR           "MATR"	/* Memory Address Translation Table */
+>  #define ACPI_SIG_MSDM           "MSDM"	/* Microsoft Data Management Table */
+> -#define ACPI_SIG_WPBT           "WPBT"	/* Windows Platform Binary Table */
+> +#define ACPI_SIG_TCPA           "TCPA"	/* TPM 1.2 Table */
+> +#define ACPI_SIG_TPM2           "TPM2"	/* TPM 2.0 Table */
+
+... the TPM2 comment bring us out of sync with what Linux has there.
 
 Jan
 
->> The problem is the potential for creating TOCTOU races if suitable
->> barriers aren't used, due to the compiler being able to optimise through
->> memcpy().
-> 
-> The concern here is about races in memcpy() itself.
-> 
->> Xen's copy to/from guest are not appropriate in userspace.  They're
->> guarding against pagefaults and address ranges not belonging to the
->> target context.
->>
->> If more compiler/smp barriers are needed, then that's the appropriate fix.
-> 
-> Rich Felker suggested to use an open-coded memcpy() that used volatile
-> accesses.
+>  #define ACPI_SIG_VFCT           "VFCT"	/* AMD Video BIOS */
+> +#define ACPI_SIG_WPBT           "WPBT"	/* Windows Platform Binary Table */
+>  
+>  /*
+>   * All tables must be byte-packed to match the ACPI specification, since
 
 
