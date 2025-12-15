@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F39E0CBCF55
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 09:28:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1186679.1508107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1619CCBD142
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Dec 2025 10:00:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1186691.1508116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV3wE-00074J-66; Mon, 15 Dec 2025 08:28:14 +0000
+	id 1vV4Qy-0003iR-Hx; Mon, 15 Dec 2025 09:00:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1186679.1508107; Mon, 15 Dec 2025 08:28:14 +0000
+Received: by outflank-mailman (output) from mailman id 1186691.1508116; Mon, 15 Dec 2025 09:00:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vV3wE-00072V-2T; Mon, 15 Dec 2025 08:28:14 +0000
-Received: by outflank-mailman (input) for mailman id 1186679;
- Mon, 15 Dec 2025 08:28:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vV4Qy-0003fu-Et; Mon, 15 Dec 2025 09:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 1186691;
+ Mon, 15 Dec 2025 08:59:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vV3wC-0006Tz-Es
- for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 08:28:12 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd7ecdab-d98f-11f0-9cce-f158ae23cfc8;
- Mon, 15 Dec 2025 09:28:10 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-477b198f4bcso24919085e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 00:28:10 -0800 (PST)
+ id 1vV4Qx-0003fo-Gf
+ for xen-devel@lists.xenproject.org; Mon, 15 Dec 2025 08:59:59 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e386bdf-d994-11f0-b15b-2bf370ae4941;
+ Mon, 15 Dec 2025 09:59:58 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-477770019e4so31925295e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 00:59:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f4b1347sm190739325e9.8.2025.12.15.00.28.09
+ 5b1f17b1804b1-47bd2aab5b5sm1813795e9.5.2025.12.15.00.59.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Dec 2025 00:28:09 -0800 (PST)
+ Mon, 15 Dec 2025 00:59:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd7ecdab-d98f-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 6e386bdf-d994-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765787290; x=1766392090; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1765789197; x=1766393997; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6qRfA0WPGABEWDzgLPF/qpTfW0+fzLNFTO1YVf/Np+I=;
-        b=KcOyTKyRPVhdUUbjOv6e5TAvcyL+mnwY9iCWspg7NuUwCNRXAXkvrUCq+DQnbOL2Fx
-         xxOFfOzYiCH/lr79yh+wJhdHnapBhZXX6ZOamRgBvZvw5cv8wJZr1QtnVH8WnzLF8O9A
-         1lKkH6KW+V0b/xtM+rIn/cMVXxZS8aO7jNy0sKvPn1bRzUSFGHvz98UGBfke7+9tUgJ1
-         1gFD/frzLSEi9Hrpuzvphx+A6i3zQA/Isji3qLPXCkA2hdGCMxWp45apUxszePSs16Ru
-         FP6RACUNdCoESps8zSLyjKMO0VRpcyM5++w75bUgn932kykZLG0TSuzH1bYELPmjQuuJ
-         IMEA==
+        bh=72OPFhWon9kXoIauxRwR1Xkd54AI2MBkQuX1waJPnt4=;
+        b=Gk9t0pmWQqBJE6Zag9cmB63w9k3wUbajqbHH6g69+EyEqzcGbp4hMuGqACDmiqU1qB
+         WZpGA1gg0r7PGncfNtPLzNFhw7p7d/OvDhlzrfwS4zmK5wYarp03cnKbp/iFL2BZEK1E
+         G4ItdV2wtaxtItqoiy5hgTmvSoR68rjkxy5ul6dRHBG8pwEJirwPEq7oW1ZTD77DYgbu
+         nXMrLveinuYitG146FE8FJ6o5fn8xoyEZCxDySe4JRu+HqVy0KXTx2W7fVTnR2dhSWQt
+         Z5l2dV1+udxPyXSk/QKRwvMrnRkcFAEKAAELvrKz0eAv3v+4/QBgezXjHCxkrOtXgHa0
+         kaPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765787290; x=1766392090;
+        d=1e100.net; s=20230601; t=1765789197; x=1766393997;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6qRfA0WPGABEWDzgLPF/qpTfW0+fzLNFTO1YVf/Np+I=;
-        b=C/uIqXSbHK7k3oGhSIcLNIASoeYu9xZIgMJxEqCQy0IwhIQTerBuK7cK7S8G4xd7ya
-         jn+8g9GkHu5xwWSoIK+Ihs8y5t5WV12mGkdf/8D00564ZAbVaSOOTlppZDVCQHW9GCUi
-         p4x9M7vRmPJdcQTAqx82TFrcR1/vOuv0EmJvdWuRtUZ/vGyDe3PSYiDu4fBB0qTTYA/N
-         5l+DPOzWmr1ZsVE0s0SXe/0GWLVLv6PDNzsUifsKs3MdoS8JmgCQdIdTAb5FMTyCEuOt
-         +BUnvZyEBpkEkL0Dzf1H1wCOQOqvSCX4pGY+vD7u08ljDf/mNQw1gAsR4FFqhD3UzbE3
-         wjEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXecGl1r87RIAbd42PRW4cilROOdipo0zW7CGW8AHjn/2qiAXHd6Ddv0AnXd0Gv0zQYyPYwbX8ZctI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxj+s/tZ6mvAbMY6sqwXu08CP6PflIoyf74DcmbgoVMa+WEHm5i
-	hlIf9xPXmZS0/hDUZU8XyASeUb6IxIXaymQWz43AOvrqnrglzHB0lsNWmadMXAWnnw==
-X-Gm-Gg: AY/fxX5f7u6En/x5J3fBVYdNN7bfH1IIc6y4UBR1q0Nk5bCHGFwQv332xexPg4w1RFZ
-	pSAHDAQVXC7KtOopMzIequIfeQ9Rf/JyiFyFLG4l1rmc2DaG3sqHa4h3Pn9anOkK+kS+QM9sCT3
-	E9d6LErQ8Oq4DYX/xI++ZZyI1Es9Tfvtg5mgsC6E6Sn/Yd/HH1R3XJXxulcy+/umnRZ45z6SkjF
-	4B50W2pWgyIDBcUFeqCsvb/RlGzmrAykQ1US1iwLlUI6rhIMsQXertcuwD/TWksp0M0GmpmdWh5
-	Qx5Cvmza1h2/w5sisjeXQeuiZ3vNOPdhkWRUJXw9CUbCGZt4QD0Ig8OzJktzsLKSNeCgwZMzT/o
-	gmzyL3XQaYtqFM9TA9ZDHdjKNdIj7hb1HyHsgfAUoVvEVdXEDYPrur9H/NdRrSWey+9zL/CXYyH
-	05bkOl0kwrlOkgdeoQEDn7V3E4qvUINwiCA5EGkaS9xHlnAQ92T5+Xcu1iB9gXOBkyvT7E8L0jB
-	UY=
-X-Google-Smtp-Source: AGHT+IEByL7kP3Wvh6M8xfn0pW1etVB54Rs+TC9RMmqiJXlKqwZuyCMIQfWlM8eyXSNCRPvYXjtHFw==
-X-Received: by 2002:a05:600c:4e47:b0:477:3e0b:c0e3 with SMTP id 5b1f17b1804b1-47a8f9155c6mr79820335e9.32.1765787289983;
-        Mon, 15 Dec 2025 00:28:09 -0800 (PST)
-Message-ID: <becae376-2d01-4019-919d-c6840c6d4506@suse.com>
-Date: Mon, 15 Dec 2025 09:28:11 +0100
+        bh=72OPFhWon9kXoIauxRwR1Xkd54AI2MBkQuX1waJPnt4=;
+        b=G+WDmunb6aNLCAQofbbK+C6C4oHUiKnGP72XM8gRu0wL6wdXAJINDJuFSZpL37dBa1
+         xptpJnUZZ4NRRelA7Aa/0+D/7+f0v9B6++2rEFL4ttUHhGMrr3k4GmYrJhTeaNuBdxHU
+         slLh2yZj2ohL2QmPMAbvpz7YPJcruYZJbvcZANtMH5nIRJB8D1BhlUDct4U7BfWF6cGN
+         G84tz9YBpSxRNf4DAgYg+dHLXM7QSqeGWMcCfc4dWhGNPnt/jNLV9TnyIrXdmkwWVOxC
+         uEqYRDQje0B9MQ9UdNocR3qEtJoeJ0o7Lv7GRSToy9hpVlJiqTlPvFqJJSiyAVPtEfSK
+         qo+A==
+X-Forwarded-Encrypted: i=1; AJvYcCWJd4mEeCEARVb1wJSaCeUbvngi8KvnKlPTnjCo6dFmmKrN1ewlGeTpWHmW4fFdVDI7J4vkpBMUXE8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/szuBHFyQnyCnjmAXOrn6kBqvEh2C/iwpFlKtmggPGm2tBo95
+	q9E15LDzcEf61AOweaHvEtIHAIZd2Os7ylxlGdpXEb5jpp7BMf4Fz8ohHf+uVOZtpw==
+X-Gm-Gg: AY/fxX6k0SaU9mVH6edxo5rgxczBvNAMzVK135YO2Wm1Q6u9Bjt5LrYTtXVaOCQ/KLY
+	66lpcfXqZu3eqJvzryX+G0tSK69+pBlViSD+mlk5NfHelxiiib2sFGf+sog/k2dNvMmwcQZdPld
+	mXecOTJ8QKOYSZR4us8kMCUaNiTHs/It6y5aa7slXzueGf6qxZ0D66rr3+yQk+f26aLxsTc4Qe/
+	G/2ibj3JnOD6kYpxxC8LU3DumN0GBuNo/e41rWfbl0qWmG35/7BXXhppD9fV5YyejK8cctdDXTa
+	td8ps5Dgq42j+dOSCqorHPAzz5QMp2k/9Sv3AeAq71408UefE3Q6dAyXdg9JskFZQY+MaJ8YtTb
+	LKcjWLBc985oxyqLEfTnQWaMk1YHpfG1sGG1MuO2SciuDwgHfFMlDPsoRjQvDwW7E76IluD+WPK
+	D/OFwHhbOHcNzD79Hwq0Y80BgUjX2TymwQZeBu2D/9ghSC/YqrA1R348X48Uw/9YxL7+T1hUYEd
+	vE=
+X-Google-Smtp-Source: AGHT+IEWkjr/yMbQZ11FRxIPuaPgvXEE7kWLlUguvX5EU1Obn2SGT+6EZRea6meYGrKNKaeOKoqGRA==
+X-Received: by 2002:a05:600c:4f4a:b0:477:28c1:26ce with SMTP id 5b1f17b1804b1-47a8f8a717dmr109516885e9.7.1765789196903;
+        Mon, 15 Dec 2025 00:59:56 -0800 (PST)
+Message-ID: <f1bd1d10-c3a0-4dfa-88aa-f14a5bf88308@suse.com>
+Date: Mon, 15 Dec 2025 09:59:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 19/19] xen/riscv: introduce metadata table to store P2M
- type
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: KEEP Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Victor Lira <victorm.lira@amd.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1763986955.git.oleksii.kurochko@gmail.com>
- <2c41da84b3e7fb0f6e6c3c856bff6edaf9e1d505.1763986955.git.oleksii.kurochko@gmail.com>
- <889df78f-7196-4b44-9558-fb83f432e18a@suse.com>
- <36be69fb-9362-43a4-8308-1e62be60d27f@gmail.com>
- <621089a4-d946-46ce-a3cf-4d0938d4a39a@suse.com>
- <db24c624-0432-48ec-aecc-3efaa4973303@gmail.com>
- <6c78a029-7437-4256-afca-c5d39fbd3f8b@suse.com>
- <45231d95-1745-44a6-b364-e97f9f501e10@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251209214728.278949-1-jason.andryuk@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com>
+ <ed620cd5-9630-4987-bd5c-9f69ae2c2609@citrix.com>
+ <43d30e02-f818-4cf2-98c9-4182a2f65f64@amd.com>
+ <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
+ <7514a67c-d140-43b6-bed0-3467530a086d@suse.com>
+ <fbe63318-b764-46ce-a377-dd4ce7229abe@amd.com>
+ <83eedd0c-dcaf-4e28-ac0f-f4991f053350@suse.com>
+ <c2d3da12-7bcb-4a61-a495-a09c4d4123c4@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,114 +138,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <45231d95-1745-44a6-b364-e97f9f501e10@gmail.com>
+In-Reply-To: <c2d3da12-7bcb-4a61-a495-a09c4d4123c4@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.12.2025 17:42, Oleksii Kurochko wrote:
-> On 12/11/25 10:39 AM, Jan Beulich wrote:
->> On 10.12.2025 13:44, Oleksii Kurochko wrote:
->>> On 12/10/25 8:06 AM, Jan Beulich wrote:
->>>> On 09.12.2025 18:09, Oleksii Kurochko wrote:
->>>>> On 12/9/25 2:47 PM, Jan Beulich wrote:
->>>>>> On 24.11.2025 13:33, Oleksii Kurochko wrote:
->>>>>>> +            *md_pg = p2m_alloc_page(p2m);
->>>>>>> +            if ( !*md_pg )
->>>>>>> +            {
->>>>>>> +                printk("%pd: can't allocate metadata page\n", p2m->domain);
->>>>>>> +                domain_crash(p2m->domain);
->>>>>>> +
->>>>>>> +                return;
->>>>>>> +            }
->>>>>>> +        }
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    if ( *md_pg )
->>>>>>> +        metadata = __map_domain_page(*md_pg);
->>>>>>> +
->>>>>>> +    if ( t >= p2m_first_external )
->>>>>>> +    {
->>>>>>> +        metadata[ctx->index].type = t;
->>>>>>> +
->>>>>>> +        t = p2m_ext_storage;
->>>>>>> +    }
->>>>>>> +    else if ( metadata )
->>>>>>> +        metadata[ctx->index].type = p2m_invalid;
->>>>>>> +
->>>>>>> +    pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>>>>>> +
->>>>>>> +    unmap_domain_page(metadata);
->>>>>>>     }
->>>>>> Just to mention (towards future work): Once a metadata page goes back to be
->>>>>> entirely zero-filled, it could as well be hooked off and returned to the pool.
->>>>>> Not doing so may mean detaining an unused page indefinitely.
->>>>> Won’t that already happen when p2m_free_table() is called?
->>>> Well, that's when both page table and metadata table are freed. But what if a
->>>> leaf page table is moving back to holding all p2m_ram_rw mappings? Then the
->>>> metadata page is unused, but will remain allocated.
->>> Good point...
+On 12.12.2025 16:48, Jason Andryuk wrote:
+> On 2025-12-12 08:22, Jan Beulich wrote:
+>> On 12.12.2025 02:34, Jason Andryuk wrote:
+>>> The alternative is section groups?  I'm trying that, and it kinda works
+>>> sometimes, but .attach_to_group fails when .init.text is involved.
 >>>
->>> This could be a rather expensive operation, since in the code:
->>>     +    else if ( metadata )
->>>     +        metadata[ctx->index].type = p2m_invalid;
->>> we would have to check all other metadata entries to determine whether they are
->>> (p2m_invalid) or not, and return the page to the pool.
+>>> Here's an example that I think would work, I could make it to
+>>> --gc-sectrions:
+>>> group section [    3] `.group' [.text.vpmu_do_msr] contains 5 sections:
+>>>      [Index]    Name
+>>>      [   43]   .text.vpmu_do_msr
+>>>      [   44]   .rela.text.vpmu_do_msr
+>>>      [   45]   .altinstructions..text.vpmu_do_msr
+>>>      [   46]   .rela.altinstructions..text.vpmu_do_msr
+>>>      [   47]   .altinstr_replacement..text.vpmu_do_msr
 >>>
->>> It would be nice to have something like metadata.used_entries_num, but the entire
->>> page is used for type entries.
->>> As an option, we could reserve 8 bits to store a counter of the number of used
->>> entries in the metadata page, and then use metadata[0].used_entries_num to check
->>> whether it is zero. If it is zero, we could simply return the metadata page to the
->>> pool in the “else if (metadata)” case mentioned above.
+>>> But I don't make it that far.  Other files blow up with tons of:
+>>> {standard input}:9098: Warning: dwarf line number information for
+>>> .init.text ignored
+>>> and
+>>> {standard input}:50083: Error: leb128 operand is an undefined symbol:
+>>> .LVU4040
 >>>
->>> How bad is this idea? Any better suggestions?
->> First, as said in my initial reply: This may not need taking care of right away.
->> It will need keeping in mind, of course.
-> 
-> I am thinking if it won't be too intrusive, I think that I am okay to introduce that
-> now.
-> 
+>>> Line 9098 of apic.s is .loc below:
+>>> """
+>>>           .section        .init.text
+>>>           .globl  setup_boot_APIC_clock
+>>>           .hidden setup_boot_APIC_clock
+>>>           .type   setup_boot_APIC_clock, @function
+>>> setup_boot_APIC_clock:
+>>> .LFB827:
+>>>           .loc 1 1150 1 is_stmt 1 view -0
+>>>           .cfi_startproc
+>>>           pushq   %rbp
+>>> """
+>>>
+>>> diff below.  Any ideas?
 >>
->> As to suggestions - hardly any of the fields in struct page_info for the page
->> can be used when the page is a metadata one. Simply record the count there?
+>> I haven't looked into this in detail yet, but ...
+>>
+>>> --- a/xen/arch/x86/include/asm/alternative.h
+>>> +++ b/xen/arch/x86/include/asm/alternative.h
+>>> @@ -90,25 +90,31 @@ extern void alternative_instructions(void);
+>>>    /* alternative assembly primitive: */
+>>>    #define ALTERNATIVE(oldinstr, newinstr, feature)                      \
+>>>            OLDINSTR_1(oldinstr, 1)                                       \
+>>> -        ".pushsection .altinstructions, \"a\", @progbits\n"           \
+>>> +        ".attach_to_group %%S\n"                                      \
+>>> +        ".pushsection .altinstructions.%%S, \"a?\", @progbits\n"      \
+>>
+>> ... wouldn't you need another .attach_to_group here and ...
+>>
+>>>            ALTINSTR_ENTRY(feature, 1)                                    \
+>>> -        ".section .discard, \"a\", @progbits\n"                       \
+>>> +        ".popsection\n"                                               \
+>>> +        ".pushsection .discard, \"a\", @progbits\n"                   \
+>>>            ".byte " alt_total_len "\n" /* total_len <= 255 */            \
+>>>            DISCARD_ENTRY(1)                                              \
+>>> -        ".section .altinstr_replacement, \"ax\", @progbits\n"         \
+>>> +        ".popsection\n"                                               \
+>>> +        ".pushsection .altinstr_replacement.%%S, \"ax?\", @progbits\n"\
+>>
+>> ... here? Or alternatively use the 'G' section flag to the specify the group
+>> name?
 > 
-> I suppose that|union u| could be used.
-> The only thing that confuses me is the shadow paging implementation on x86.
-> In|struct page_info|, it has the following:
->      /* Context-dependent fields follow... */
->      union {
-> 
->          /* Page is in use: ((count_info & PGC_count_mask) != 0). */
->          struct {
->              /* Type reference count and various PGT_xxx flags and fields. */
->              unsigned long type_info;
->          } inuse;
-> 
->          /* Page is in use as a shadow: count_info == 0. */
->          struct {
-> 	   ....
->          } sh;
-> 
->          /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
->          union {
-> 
-> So it seems that something in the shadow code must set|count_info| to zero for
-> shadow pages. But I cannot find where this happens. I would expect it to be done
-> in|shadow_alloc()|, when the page is taken from the free list. However, pages
-> from the free list donot have|count_info == 0| since|alloc_heap_pages() |initializes|count_info|.
-> What guarantees that|count_info| will be zero for shadow tables?
+> The '?' flag puts the new section in the previous group, so it doesn't 
+> have to be specified.  I have used 'G' and %%S with similar results. 
+> The example vpmu output above shows that is working.  I can't get to 
+> linking with --gc-sections yes to see if %%S is no longer necessary with 
+> proper groups.
 
-This is all a little (or maybe even pretty) subtle. On x86 PGC_state_inuse is 0.
-Together with logic guaranteeing that PGC_need_scrub would be clear by the time
-a page is handed to the caller, what alloc_heap_pages() does is actually to
-clear the field.
+Oh, sorry - I had managed to overlook the use of '?' above.
 
-> Interestingly, in the shadow p2m page free code, there is logic that resets
-> |count_info| to zero:
+> The problem is "the current function" needs to be assigned to the same 
+> group, and that is what I hoped to address with .attach_to_group.  From 
+> what I can tell, the function-section is not assigned to a group without 
+> .attach_to_group.
+> 
+>> As to debug info, I wonder whether playing with groups behind the back of the
+>> compiler is going to work well. Iirc it groups sections itself, too. Did you
+>> look at the generated assembly with this in mind?
+> 
+> The generated assembly differs only by the presence of .attach_to_group 
+> for build vs. doesn't build.  Is the debug information expected to 
+> differ according to groups?  (This is all new to me).  I have more to 
+> look into, I figured I'd post what I have in case anyone had seen it before.
 
-Yes, because iirc there used to be a strict requirement that pages need to be
-handed back to the allocator the way they came out of it: With .count_info
-clear. mark_page_free() documents / handles a couple of special cases now.
+Hmm, looking at a random example, .debug_info (and other Dwarf sections) is
+still monolithic with -ffunction-sections. I'm having a hard time seeing
+how that would work nicely. And while I'm sure I saw gcc emit section
+groups in certain cases (e.g. while building tools/), I can't observe it
+doing so there, so that must also depend on something I haven't figured out
+yet.
 
 Jan
 
