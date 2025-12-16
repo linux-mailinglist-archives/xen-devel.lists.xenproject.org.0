@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843CBCC44F5
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 17:33:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1188084.1509361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680B7CC44FB
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 17:33:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1188083.1509345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVXyc-00027j-Fr; Tue, 16 Dec 2025 16:32:42 +0000
+	id 1vVXya-0001gh-9I; Tue, 16 Dec 2025 16:32:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1188084.1509361; Tue, 16 Dec 2025 16:32:42 +0000
+Received: by outflank-mailman (output) from mailman id 1188083.1509345; Tue, 16 Dec 2025 16:32:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVXyc-00025U-CH; Tue, 16 Dec 2025 16:32:42 +0000
-Received: by outflank-mailman (input) for mailman id 1188084;
- Tue, 16 Dec 2025 16:32:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vVXya-0001aX-4H; Tue, 16 Dec 2025 16:32:40 +0000
+Received: by outflank-mailman (input) for mailman id 1188083;
+ Tue, 16 Dec 2025 16:32:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vVXya-0001QJ-Pi
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 16:32:40 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d618581b-da9c-11f0-9cce-f158ae23cfc8;
- Tue, 16 Dec 2025 17:32:39 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso48128635e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 08:32:39 -0800 (PST)
+ id 1vVXyZ-0001Pz-8N
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 16:32:39 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d5f8a76a-da9c-11f0-b15b-2bf370ae4941;
+ Tue, 16 Dec 2025 17:32:38 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-47798ded6fcso31265585e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 08:32:38 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47bd994a221sm12994765e9.7.2025.12.16.08.32.36
+ 5b1f17b1804b1-47bd994a221sm12994765e9.7.2025.12.16.08.32.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Dec 2025 08:32:36 -0800 (PST)
+ Tue, 16 Dec 2025 08:32:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d618581b-da9c-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: d5f8a76a-da9c-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1765902758; x=1766507558; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W6MmJLh1zedBGYOEKBR6Zhdpkfv4rz6s7azRwwDKfXc=;
-        b=jm7sYpSWm9Y3wA3bkW2SyZQG/aiMPdq03oVTFZNBk3DQxRod5tsc0nSyF5qLpE0Ju4
-         6VFqC8wF1RhkiDS/YuumhK8qiErcym33bBTV4GYWEr+8h0uzxC/z2Wr7KwV/ohLAuAhl
-         FyIZQ+3T8eCHTBHQsSIMyeiEjzORwZB62UeiQ=
+        bh=snhnKxagIbQr19lSVEDCo+bKb0pwUs/EFkhnzt3TEJw=;
+        b=JftgUmZIq4XX379CGQfilend91sx/9l2hy4U7Jk71q11prXYucvcq6+BRWUFfIAex0
+         sf08Ghr3E33v5xOjBK0t7QUagrPWpgH/whTiHiOI0le/zb9+3BnY611B5sSFFUYZpmro
+         wCdTNg/+a8V7nG/b9mRaU6eSyw6vsZQ6xn0f8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1765902758; x=1766507558;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=W6MmJLh1zedBGYOEKBR6Zhdpkfv4rz6s7azRwwDKfXc=;
-        b=CfCkNHaS/FnPgvfgVmfb6ixMRU4V134ubp8LiHnqkOnmIiLIv91Z9if2ZCEdDQmPfS
-         e1S7MuOuiTd13BR+CCf5vgPaHK0SnSD3Rx3psqdeElDv0LoCBDk4GRhNBtwk1e5vl81w
-         KGIVM7xmHPVvWkZUbSNWVYtD6dqByssmYkRFK3/V6BM7fiGL66suOdFaBLDOWwDrMHij
-         bfpefYEOLH/AbiZqYMvuVQn2sqVd6dsE+7Oz31Whz5wmX5Zo6T2uawBP2reE1e7Gnfc1
-         iEVp0GtqG2rVln/R9LvUq7ZNdd2M0XfFt3BYuypQOazrLwvT7DUbCyfUHD8xSQMEvAWJ
-         Gdlg==
-X-Gm-Message-State: AOJu0Yxe+xPLKtmgr+fVg4VxU/waGHIaiXKAdLiFJs/BblRDS8YbezYx
-	fEOHpTiMhs330rbnCumXXkTOlWPrWzch3QK3tq874D3gOvjERW+O3MnN4M2Adb1q1s1ZXDhCV1w
-	fNA8w
-X-Gm-Gg: AY/fxX6t8hnXQVyWMkqyiRcvOQAjyovOE37ylLKQvDmf6ip1qaVqSQ5J/o3hY7wmCgb
-	bRwXPn5ZqPhejraismbYopLbBrg3p9VlSnxw73JO35bxepFf0YQQVhFbD8c7qiYw+Bv2EjTmRjn
-	HqNgIK62LQKyWqQHmmBGyvPS42tq3nqrGXTNL3dvhkOSnoMAtFb31jV9+kK7ZIqmVC54V1y4pFI
-	TF8OC/YFtsJ9cS4avnlFbVGF2LrwuhhPAI1tMRYrdFJJt0Wf+nzptdy16NjTfrcmaPyDGkXNYQg
-	/VLUOHxoVGIGiq4iVoffka9upKASOrqNB3Cj2Iwr1e30Y5Hsvi83GfVtqLTny81eZ+MwKcgcfjs
-	Jvqe95kIqL4Q0AzF9QfrYlDDwBjeCmTxCTK2/KevXxH326jZ1tP2JQ/b0FA/XzYBgsg4pNMtdF8
-	D3/swLc8CF6OAbZw7QoJ6Cb2Fgc6ChbjljmcX+JxVKDXXK1EwXL3O7VF6qqYreag==
-X-Google-Smtp-Source: AGHT+IEGipICJb4JSzbzK0o4frKIyWRr5GCOORTNhsNH3E1yt67Zo6pTCUJjYuMnO0Bux+AQ/LiqiA==
-X-Received: by 2002:a05:600c:3ba3:b0:477:a219:cdc3 with SMTP id 5b1f17b1804b1-47a8f1c33c5mr186972085e9.12.1765902757451;
-        Tue, 16 Dec 2025 08:32:37 -0800 (PST)
+        bh=snhnKxagIbQr19lSVEDCo+bKb0pwUs/EFkhnzt3TEJw=;
+        b=bkxx7Uaiaj4gmA2lS46f15qnnMpwpFgXXM0Hz0IhbB3vOmS0QxbHfbAEyOiCFMLV73
+         ZWqkH/nI69eeaAayyiMxklMyxiQidEYAS1FkB/9yO5v93UJZvV4zukMVwD/rUr4/2xTm
+         9d9mmXhNlSzIzXwQ0DtN2C1s1QTcmuHFfZ3MUTfwOyzxU2QHBif1iPTSnD+CIw/H5vZn
+         LuHNXGho4vssHjj5sldrkYQCuXr56rnGCuFWvyiTAlD+RRMtO7w4YZxCY+UukwKu65I/
+         oOqhzKgHIcTbs+eUwiy2dwkbIztzLVoHpgXvPIJaP5JLfioA8GFsFE+/7D3RK6JTEhvd
+         ZE6A==
+X-Gm-Message-State: AOJu0Yw+DVAhviThKIVyD41kVtZoUaRln4Dneero7R3DKsdh7eXItnO3
+	saKrtZEHZS2vRM7u2H7MgvROrDv4wTg7Y77+NC+Jxu7qLJ8ZVxQsdp4py7KZCJKVfkjS8ncT+N4
+	+GC7c
+X-Gm-Gg: AY/fxX4Sshvjcv34y58gJjSqE7WPELsaRV6NmXVauu3aocxPM4bVcHzlo2LT3lFwJAW
+	2PpZHhZlL43U0AKSu2IE2joWq9ObO3SKQXgd3z1W9KYXnLXL9Az/CHmhMNpFqAz4qjnl87O6pSI
+	d0B99Go5NrBK3JlwGD8YB8z8zpB//Cz5zVf/K9pKGaRx5Gsk/7sFujK6MzNMFzikC7Q6VZaUgBo
+	KlOF+Azioz94h6QqbxRkslnRn3+1riFtdNqt99/aVxWEkelm7UM/TOi3yx2KJBzXhTOP5Nmb/IT
+	ePo4irImIZ1TISNs8T5ESyMHMFQ/KnmxQ5dT7vcrDG2fwOHZKoD9gtJ6P0qy1k7XV1FhRhGiUX0
+	dqEaZ/CWHK4hGK3wpxC/4vOLGPV/+8Bx3ZwMCCgaVBbxKmGagXgwxC+R4Qok/bu3d65tqX4CLMn
+	2oG/WYxofPM7y+b6hHWJH7D9wLnvfzOKunpYsaNJq1B/enPo26cSRmnan51673OQ==
+X-Google-Smtp-Source: AGHT+IEbflKNlKyo/6l8Gv/3P7NCIjBvrKq+UBG5fId11wBHJqrSBQTJC4+ks2VcgDEeYEnN86Yi2g==
+X-Received: by 2002:a05:600c:8284:b0:477:8b2e:aa7d with SMTP id 5b1f17b1804b1-47a8f90e53cmr151427135e9.30.1765902758134;
+        Tue, 16 Dec 2025 08:32:38 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,9 +89,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/4] tools/libxc: Delete ENOSYS squashing in xc_domain_claim_pages()
-Date: Tue, 16 Dec 2025 16:32:28 +0000
-Message-Id: <20251216163230.2768186-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/4] tools/tests: Sort Makefile
+Date: Tue, 16 Dec 2025 16:32:29 +0000
+Message-Id: <20251216163230.2768186-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251216163230.2768186-1-andrew.cooper3@citrix.com>
 References: <20251216163230.2768186-1-andrew.cooper3@citrix.com>
@@ -99,13 +99,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It's not acceptable to hide this from the caller; the effect of doing so is to
-break an atomicity expectation.
+... and split the x86 group away from the common group.
 
-Only the caller can know what the appropriate safety action is in the case
-that the claim hypercall isn't available.
+No functional change.
 
-Fixes: fc67e9dc0c1f ("xc: use XENMEM_claim_pages hypercall during guest creation.")
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Anthony PERARD <anthony.perard@vates.tech>
@@ -115,36 +112,37 @@ CC: Julien Grall <julien@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 ---
- tools/libs/ctrl/xc_domain.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ tools/tests/Makefile | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 2ddc3f4f426d..01c0669c8863 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -1074,7 +1074,6 @@ int xc_domain_claim_pages(xc_interface *xch,
-                                uint32_t domid,
-                                unsigned long nr_pages)
- {
--    int err;
-     struct xen_memory_reservation reservation = {
-         .nr_extents   = nr_pages,
-         .extent_order = 0,
-@@ -1082,13 +1081,7 @@ int xc_domain_claim_pages(xc_interface *xch,
-         .domid        = domid
-     };
+diff --git a/tools/tests/Makefile b/tools/tests/Makefile
+index ac5737364623..e566bd169952 100644
+--- a/tools/tests/Makefile
++++ b/tools/tests/Makefile
+@@ -3,17 +3,18 @@ include $(XEN_ROOT)/tools/Rules.mk
  
--    set_xen_guest_handle(reservation.extent_start, HYPERCALL_BUFFER_NULL);
--
--    err = xc_memory_op(xch, XENMEM_claim_pages, &reservation, sizeof(reservation));
--    /* Ignore it if the hypervisor does not support the call. */
--    if (err == -1 && errno == ENOSYS)
--        err = errno = 0;
--    return err;
-+    return xc_memory_op(xch, XENMEM_claim_pages, &reservation, sizeof(reservation));
- }
+ SUBDIRS-y :=
+ SUBDIRS-y += domid
++SUBDIRS-y += paging-mempool
++SUBDIRS-y += pdx
++SUBDIRS-y += rangeset
+ SUBDIRS-y += resource
++SUBDIRS-y += vpci
++SUBDIRS-y += xenstore
++
+ SUBDIRS-$(CONFIG_X86) += cpu-policy
+ SUBDIRS-$(CONFIG_X86) += tsx
+ ifneq ($(clang),y)
+ SUBDIRS-$(CONFIG_X86) += x86_emulator
+ endif
+-SUBDIRS-y += xenstore
+-SUBDIRS-y += pdx
+-SUBDIRS-y += rangeset
+-SUBDIRS-y += vpci
+-SUBDIRS-y += paging-mempool
  
- int xc_domain_populate_physmap(xc_interface *xch,
+ .PHONY: all clean install distclean uninstall
+ all clean distclean install uninstall: %: subdirs-%
 -- 
 2.39.5
 
