@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB45CC1E91
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 11:09:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187814.1509149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5EDBCC1FDF
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 11:37:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187826.1509158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVRyg-0005DJ-Vu; Tue, 16 Dec 2025 10:08:22 +0000
+	id 1vVSQl-0000pH-3O; Tue, 16 Dec 2025 10:37:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187814.1509149; Tue, 16 Dec 2025 10:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 1187826.1509158; Tue, 16 Dec 2025 10:37:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVRyg-0005BV-Sn; Tue, 16 Dec 2025 10:08:22 +0000
-Received: by outflank-mailman (input) for mailman id 1187814;
- Tue, 16 Dec 2025 10:08:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jT/p=6W=bounce.vates.tech=bounce-md_30504962.69412f8d.v1-74f08a6edcc549c793f4b5dd515270bb@srs-se1.protection.inumbo.net>)
- id 1vVRyf-0005BP-6s
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 10:08:21 +0000
-Received: from mail186-20.suw21.mandrillapp.com
- (mail186-20.suw21.mandrillapp.com [198.2.186.20])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22688576-da67-11f0-9cce-f158ae23cfc8;
- Tue, 16 Dec 2025 11:08:15 +0100 (CET)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-20.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4dVt0s4B7NzFCWtpf
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 10:08:13 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 74f08a6edcc549c793f4b5dd515270bb; Tue, 16 Dec 2025 10:08:13 +0000
+	id 1vVSQl-0000me-0F; Tue, 16 Dec 2025 10:37:23 +0000
+Received: by outflank-mailman (input) for mailman id 1187826;
+ Tue, 16 Dec 2025 10:37:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=t3Kb=6W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vVSQk-0000mY-Eu
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 10:37:22 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3362f5df-da6b-11f0-b15b-2bf370ae4941;
+ Tue, 16 Dec 2025 11:37:20 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-42e33956e76so2071541f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 02:37:20 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-430f7475895sm16087765f8f.33.2025.12.16.02.37.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Dec 2025 02:37:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,173 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22688576-da67-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1765879693; x=1766149693;
-	bh=F9FK6axYLMyEWWB4TkV/gZ+MceqbjwNwadiM4VDNDkU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=zSBuNerVNUE9UmTKEa2o7Kn3B5RX6fbnqpyKoPWKxGa1/V+T9gfYM22ipWLDQQpJp
-	 6HpVVVJJoLzHmU5W0hmoZcBIAWICcYvbmDoVwpGCgBATUiRTNalvHMaES5zMU2wH4e
-	 nvy0tobQxmwraq7hAvJPYhwcQTSco+cSVz5cxO8Ey7gtq0uHtc1fjyOueXatFf6McJ
-	 2kww/Uf4RFuOBIe8R72oLoS33r8WLr8Cehq4f6/9BoBofwa1/uYBNtYetY9/9aRFQX
-	 u/P2ka9IeTMIng+Qb6TVhZ6PNGWpoNbreYg+orRt0LGz6U2vWE/jbXHD/zuojJynVo
-	 xAP6BQpWBW1RQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1765879693; x=1766140193; i=teddy.astie@vates.tech;
-	bh=F9FK6axYLMyEWWB4TkV/gZ+MceqbjwNwadiM4VDNDkU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=jiMMyQjaneDlfTb6P9TZx2PuZ7XNL238+TRzL3TSUuG5F8rwVOUFteoIu6PyQPabJ
-	 6bqAQrFASAM5hHIxFD96mg0cm1Tp8j+EcgTtZCIG+ki+JtTIIO2bl6ZcNqbBL1Kutm
-	 NGUXmmzOz4G+76RtGfRIAR7zPlkEFone7qmSfFt8gs2/OaHekB3ZRadWJLh1zejAIV
-	 d5iSmh3jBrg0SrDNB/fcfc04+lrqA9m2PyJA2qJuswOBB8/H16WIzwV/SxJd1oxanr
-	 TkORmOPgWTojw+T1z0Auky06ldq/4hM0oWxjs0SZR1MLhfraPiXB1w65e3qIA41iv0
-	 zLkQV4szMhy6Q==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=202/2]=20x86/AMD:=20disable=20RDSEED=20on=20problematic=20Zen5?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1765879692590
-Message-Id: <c4f7c28c-c5da-4c52-b243-a07dea8bf201@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <0b15a3fb-6ce4-4bf7-a235-073742fff35d@suse.com> <05012660-b93f-4439-a383-ff6e8e8d9566@suse.com>
-In-Reply-To: <05012660-b93f-4439-a383-ff6e8e8d9566@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.74f08a6edcc549c793f4b5dd515270bb?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251216:md
-Date: Tue, 16 Dec 2025 10:08:13 +0000
+X-Inumbo-ID: 3362f5df-da6b-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1765881440; x=1766486240; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hO0F1xOUvtlwJl1z+INLlQfmgAbeX/EB504Kr7PQQqs=;
+        b=ZF/+SixYi/nJrCAKyTCHnp7L7uJh15lybHIKSRVGL5V+9qLYY8rXr9BG93LfJp63m+
+         HkeFPkp9rnyggNx/a0ZqEnAY2UAZzrbimDqXSl5P6h4uUl6HWQsWJTJ+gEpWo6bgT82z
+         omXXJ0dJ/8IL5IZHy6yCzYN2sPrXQiKa1OuvfDa0LQT4FnxlI/0p5HJzEao3H2NvtKf1
+         MJSJOuASekVkRJm9sxw0loyzSeFs60GfDXHgzZL1vJOJeo9eHs43T/AH2pZYNZ6+etBr
+         uitCCc9sHcJaxZ/ATSbr/qIUpnE/A3DQCg1iDr9EG+aY+LQfFLbBHrWElkpXke7Z3Qs+
+         7yWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765881440; x=1766486240;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hO0F1xOUvtlwJl1z+INLlQfmgAbeX/EB504Kr7PQQqs=;
+        b=M/mKY4jJWsjgz1kh3hMaFFm3jkwIPFXfwx2p23hPUBQHSJHAq/0A4LlwjAm+KEeShb
+         NDaiYitlaQ0lH8OCgjEU+87FEjWsU8889eMCRn7aWHX5hXmAY330Y7aWKYjrnUW1Vz0M
+         61Je5UHd4BikWLbPtDgvfxdSf4+gxy3lKSc7CuEwqgmXTsvDYLGb7/wx+JACpl0erSMt
+         2TdZYRnp8MWMUr4JZmuTF/fx9s4AOQZIxFnIsmX5k2SauomeXamIfgkC62o1AcyBHPxu
+         CDbycIt7RQfouCEfGpWK9lAZqOO78gZnMEZ902CBECW6GybBCh4XL3Z9bsQYJvmWkzjl
+         tjPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUsE5DzPeiiO8CL3KCDnC7iY8zPyAYBvUpmHmNPExKQF4HuJAXQQH6QYpyIbTniHWwdW7Mso7uTczI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3n2IFIj9rvV2v9jHQv7JkDvpgrrQ52z/p6s7RSTpYNthZIVKg
+	s0e47ekFJA0VQPfDgWUjWz5M/3T2/uWpHtS7GcZSsC6Nsgl7bV2MpyTvxOBXGME2Ow==
+X-Gm-Gg: AY/fxX4M8+TuFHYvx28Ou6nK6thbD3UhNSdASFVVuMSaWUk2GDRkZM2X6CshaXu+4xr
+	KLsOvNOuElAN/QHP75EdvSwW/82EbVN4EhxaD2yRKwGdOgD/gZx0o0ryoHOEWu4PhZsKBcUFy+a
+	8NOD/B0W4K4T0YrpWnBs51M4z10ccM7NkcC6P75Ck+LuBhhiCYP7fPFZYOMjNT/+r5m6PWpt91V
+	wL9ar498Subn9XKUD69Az08fAe3TBUpxP75sINzvlHyRvrZFNRtOcd+j/zeUOF1ksaSsLUdY2lO
+	dw7GBPap5DvHbHvxBJfpKQR+qK3PUtAZELRKV1AnlCNFN2LEaXAvAA9yGeDmm624dM6cFXFz1hI
+	pbIuwLBv+VlI3bX7BrjtzP87qmMZFRzpbdrOsC/+AUSI9uPqCsLX4Tl7xLC89S2nOmCcgd62vwi
+	CI6hv8sQmIXDtUz58voIeD6kWfnwqeatD1Ui7oGO1t3DA+jgzlq2NT59YmFY9ZzyImAwKOwU7wk
+	z8=
+X-Google-Smtp-Source: AGHT+IGbQVFaZKgEom16huaPISPOZJNwrs7f32fclSfNAyWLlKJ28snWspLYmjYlrsW2W7YWlZcjTQ==
+X-Received: by 2002:a05:6000:2305:b0:431:32f:314b with SMTP id ffacd0b85a97d-431032f34cemr2595467f8f.9.1765881440234;
+        Tue, 16 Dec 2025 02:37:20 -0800 (PST)
+Message-ID: <342a49c9-6b83-4605-a5e7-b2f7fbdac269@suse.com>
+Date: Tue, 16 Dec 2025 11:37:19 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] x86/AMD: disable RDSEED on problematic Zen5
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <0b15a3fb-6ce4-4bf7-a235-073742fff35d@suse.com>
+ <05012660-b93f-4439-a383-ff6e8e8d9566@suse.com>
+ <c4f7c28c-c5da-4c52-b243-a07dea8bf201@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c4f7c28c-c5da-4c52-b243-a07dea8bf201@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 16/12/2025 =C3=A0 10:03, Jan Beulich a =C3=A9crit=C2=A0:
-> This particular variant has an error that causes 16- and 32-bit forms of
-> RDSEED to frequently return 0 while still signaling success (CF=3D1). Ref=
-er
-> to AMD-SB-7055 / CVE-2025-62626.
+On 16.12.2025 11:08, Teddy Astie wrote:
+> Le 16/12/2025 à 10:03, Jan Beulich a écrit :
+>> @@ -1130,6 +1152,28 @@ static void cf_check init_amd(struct cpu
+>>   		    !cpu_has(c, X86_FEATURE_BTC_NO))
+>>   			setup_force_cpu_cap(X86_FEATURE_BTC_NO);
+>>   		break;
+>> +
+>> +	case 0x1a:
+>> +		/*
+>> +		 * Zen5 have an error that causes the 16- and 32-bit forms of
+>> +		 * RDSEED to frequently return 0 while signaling success (CF=1).
+>> +		 * Sadly at the time of writing the fixed microcode revision is
+>> +		 * known for only two of the models.
 > 
-> Relevant data taken from Linux commits 607b9fb2ce24 ("x86/CPU/AMD: Add
-> RDSEED fix for Zen5") and e1a97a627cd0 ("x86/CPU/AMD: Add additional fixe=
-d
-> RDSEED microcode revisions").
+> Is it still two models ?
+
+Oops - s/two/some/. Thanks for noticing.
+
+>> +		 */
+>> +		if (c == &boot_cpu_data &&
+>> +		    cpu_has(c, X86_FEATURE_RDSEED) &&
+>> +		    !is_forced_cpu_cap(X86_FEATURE_RDSEED)) {
+>> +			static const char __initconst text[] =
+>> +				"RDSEED32 is unreliable on this hardware; disabling its exposure\n";
+>> +
+>> +			if (zen5_rdseed_good(c))
+>> +				break;
+>> +
+>> +			setup_clear_cpu_cap(X86_FEATURE_RDSEED);
+>> +			cpuidmask_defaults._7ab0 &= ~cpufeat_mask(X86_FEATURE_RDSEED);
+>> +			warning_add(text);
+>> +		}
+>> +		break;
 > 
-> Like for the other RDSEED issue, the same command line override can be
-> used to keep RDSEED enabled.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> See "x86/AMD: disable RDSEED on Fam17 model 47 stepping 0" for pending
-> opens.
-> 
-> The choice of using AVX-IFMA to tell Zen6 from Zen5 is somewhat arbitrary=
-;
-> a few other features could equally(?) well be used.
-> 
-> I will admit that I was on the edge of switching to a table-based
-> approach. (I'm also not happy with the case 0x44 layout, but keeping the
-> "break" on the earlier line triggers [imo bogusly] gcc's "misleading
-> indentation" warning. We could of course move yet farther away from the
-> Linux originals and use switch(curr_rev >> 8), like we do in
-> zenbleed_use_chickenbit() and amd_check_entrysign().)
-> ---
-> v3: Incorporate another Linux commit. Cover Zen6, assuming it is
->      universally unaffected.
-> v2: New.
-> 
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -863,6 +863,28 @@ static void cf_check fam17_disable_c6(vo
->   =09wrmsrl(MSR_AMD_CSTATE_CFG, val & mask);
->   }
->   
-> +static noinline bool __init zen5_rdseed_good(const struct cpuinfo_x86 *c=
-)
-> +{
-> +    unsigned int curr_rev =3D this_cpu(cpu_sig).rev, fixed_rev =3D ~0;
-> +
-> +    switch ( c->model )
-> +    {
-> +    case 0x02: if ( c->stepping =3D=3D 1 ) fixed_rev =3D 0x0b00215a; bre=
-ak;
-> +    case 0x08: if ( c->stepping =3D=3D 1 ) fixed_rev =3D 0x0b008121; bre=
-ak;
-> +    case 0x11: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b101054; bre=
-ak;
-> +    case 0x24: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b204037; bre=
-ak;
-> +    case 0x44: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b404035;
-> +               if ( c->stepping =3D=3D 1 ) fixed_rev =3D 0x0b404108;
-> +               break;
-> +    case 0x60: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b600037; bre=
-ak;
-> +    case 0x68: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b608038; bre=
-ak;
-> +    case 0x70: if ( c->stepping =3D=3D 0 ) fixed_rev =3D 0x0b700037; bre=
-ak;
-> +    default:   if ( cpu_has_avx_ifma ) fixed_rev =3D 0 /* Zen6 */; break=
-;
-> +    }
-> +
-> +    return curr_rev >=3D fixed_rev;
-> +}
-> +
->   static bool zenbleed_use_chickenbit(void)
->   {
->       unsigned int curr_rev;
-> @@ -1130,6 +1152,28 @@ static void cf_check init_amd(struct cpu
->   =09=09    !cpu_has(c, X86_FEATURE_BTC_NO))
->   =09=09=09setup_force_cpu_cap(X86_FEATURE_BTC_NO);
->   =09=09break;
-> +
-> +=09case 0x1a:
-> +=09=09/*
-> +=09=09 * Zen5 have an error that causes the 16- and 32-bit forms of
-> +=09=09 * RDSEED to frequently return 0 while signaling success (CF=3D1).
-> +=09=09 * Sadly at the time of writing the fixed microcode revision is
-> +=09=09 * known for only two of the models.
+> Do we still want to disable if we are running in a hypervisor; we can 
+> expect the host to emulate the instructions to workaround the issue ?
 
-Is it still two models ?
+That would only work if we knew the host intercepts that insn. We don't
+ourselves, so I can't see us legitimately expecting anyone else to do so. Plus
+while I'm aware RDSEED can be intercepted on VMX, I'm unaware of there being
+equivalent functionality on SVM (PM vol 3 does not yield any hit when searching
+for RDSEED).
 
-> +=09=09 */
-> +=09=09if (c =3D=3D &boot_cpu_data &&
-> +=09=09    cpu_has(c, X86_FEATURE_RDSEED) &&
-> +=09=09    !is_forced_cpu_cap(X86_FEATURE_RDSEED)) {
-> +=09=09=09static const char __initconst text[] =3D
-> +=09=09=09=09"RDSEED32 is unreliable on this hardware; disabling its expo=
-sure\n";
-> +
-> +=09=09=09if (zen5_rdseed_good(c))
-> +=09=09=09=09break;
-> +
-> +=09=09=09setup_clear_cpu_cap(X86_FEATURE_RDSEED);
-> +=09=09=09cpuidmask_defaults._7ab0 &=3D ~cpufeat_mask(X86_FEATURE_RDSEED)=
-;
-> +=09=09=09warning_add(text);
-> +=09=09}
-> +=09=09break;
-
-Do we still want to disable if we are running in a hypervisor; we can 
-expect the host to emulate the instructions to workaround the issue ?
-
->   =09}
->   
->   =09display_cacheinfo(c);
-> 
-> 
-
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
