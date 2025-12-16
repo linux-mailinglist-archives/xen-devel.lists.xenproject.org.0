@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DAE3CC0518
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 01:13:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187590.1508947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCF4FCC058B
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 01:23:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187600.1508957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVIfN-0001cv-6S; Tue, 16 Dec 2025 00:11:49 +0000
+	id 1vVIqP-0003De-5z; Tue, 16 Dec 2025 00:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187590.1508947; Tue, 16 Dec 2025 00:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 1187600.1508957; Tue, 16 Dec 2025 00:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVIfN-0001aO-31; Tue, 16 Dec 2025 00:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 1187590;
- Tue, 16 Dec 2025 00:11:46 +0000
+	id 1vVIqP-0003Bf-2O; Tue, 16 Dec 2025 00:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 1187600;
+ Tue, 16 Dec 2025 00:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rZqM=6W=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vVIfK-0001ZT-9N
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 00:11:46 +0000
+ id 1vVIqN-0003BG-Mf
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 00:23:11 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb387576-da13-11f0-b15b-2bf370ae4941;
- Tue, 16 Dec 2025 01:11:39 +0100 (CET)
+ id 62809d7d-da15-11f0-b15b-2bf370ae4941;
+ Tue, 16 Dec 2025 01:23:03 +0100 (CET)
 Received: from nico.tail79467d.ts.net (93-44-185-214.ip98.fastwebnet.it
  [93.44.185.214]) (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPSA id 3AA8E4EE7F04;
- Tue, 16 Dec 2025 01:11:35 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 29B0A4EE7F07;
+ Tue, 16 Dec 2025 01:22:58 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,44 +40,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb387576-da13-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 62809d7d-da15-11f0-b15b-2bf370ae4941
 Authentication-Results: bugseng.com; arc=none smtp.remote-ip=93.44.185.214
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765843898;
-	b=jFOprYsa4t6Yr1bge1vwFGIjjFV6q+SMisTuFubh+YEf6xFtZtRgsggfwLQbbLqt0nvz
-	 TaERSrLSnx3Oj2CRBq6xiFkR6w8jxAngBxmLNomPVZ4g8IFMRGlxCQ7siDz9wqHYCWytA
-	 gU/zavhefXG+05BJQ8ZXLVDh2lAxJRjyJbiV/3gApyJzqm6Y72dtFqJhMkne1fLhrJWcG
-	 u3ZzW3b+NonVbCg5wFIEPIPOwjc2Gfco2vow+lnlVIujQRprVXXLew/TWtaGiQiJvXIcl
-	 Tbf6+oBwH5/5yDhO2rNdu0uNSfouDL7mfRMzWbkGbvi/juX9XkJoJR4C77Zj9PuuU3gAI
-	 AlxKCk5qSjD2ZWU3q+2DbYm0SFI8lFoDSyZGn4OQ3cGlyxDWXYsConYu4vx1PDScZtUZ6
-	 GuQue9TFR7EKLW7Jq4PD54Iza+m1f4RmJZR3zAAYJd/apSfKigwNrXZEYid+2Qb19daeG
-	 wVXHzFjDImGDX4H0hAcHeEL928HYHrzanI7p/lkpc/kO25mUnSD3e3QfBnR4B8Nkjk0fN
-	 Btz6Cgivm7dyWzK9QmvFKwofxc44JzECbKZ1sC/CMV9A2Wk8Rn+GM+zlmbPKRajCaS5rH
-	 Md0KhkShqKGckflByruBE/AplXEDTaNoPoYFHZHeHqoqCofFcUID6IhcmwYuQvo=
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1765844582;
+	b=zGEHrltTWPdDbRAyM6K9wDWxymADggaZG6fzIlglH3wVm2cDicyRDsoy4aRu7e4wvrJR
+	 Oo+B5a29gWH9Wy4V2a2pCjmxNdsoyBZr8s7H8GsyzubrPIUJmUf7LTjDApK/V0r07/dZw
+	 Od+HwCZ9HIOXnzbmxiyunn5ht2L/Ajpb2Wj3zD3w3EYLewfSg2ZUkkLMLdxbD8zenvNVm
+	 2qHkDZqGqVKBjmk5bjN99Eu6OXAgwDivs+LYv2R7TPBkBdSxjRI+X6QOcwZlg5uHKjr0E
+	 2rhij/E181VVbAjZufGM1+8HQrfYakyidiAWLCIgBzObiNnTUdC+/Z+wWaF30cToPgx6n
+	 XP+FKKOAom/ahwS92iZyI3+LrbigxEs27AqSI4t5OPip+Qpnftx6ItAStpSs1WyFnWpbh
+	 E8XY8x1y9lJv0gvUso4vJ35aY7ZxjtJvqSauUyUWL1ZX62tv2ZnOqaT4lZIS/kCgM8Kxc
+	 1+UlR3bf045s7/wy07CkBbP+uoDlu0IpLZsjwwmAlfz7erIHcrxPQUd+E5+MVoEu0RbzG
+	 hTMQQdRtA/Dl0W4to26NLmSDXqNHHgHCF42Pgfen+Bl3Fajdmz9nPmuZvlKz+tWIbPrh9
+	 k6sLRntbm+jWTgCQhDbk2deOtkMs7Wi+tDQ2JZpVMq57Fw+tOdK3QvGsuF6M8zY=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1765843898;
+	c=relaxed/relaxed; t=1765844582;
 	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=0wvIjzYU8DB2Ky+MSUIQO68qxDoQ24PdTMnMJPEjtu4=;
-	b=MMd+Y0/Lse0S3beJlRb7zw6gxooMGCB/+jJhmEcJcTDxF5k8iy70czCfKB9Lwoiwd1RN
-	 3760l8b4EKQh4uyJgNeXqPWlPuO8GllypYeGIS0jN0bmpP9CT/o8WlQbbhpl2C3uN5WLs
-	 sqJFAJt4FzqFlvQc2iv8S6yWxt4ificOePwJcKHyMXMDBFWSY0HtQ9YKXntHAt7XXreCx
-	 UfgmyIUklbMjWvKweTwuXDMUDBvOS1oR7dwhZCCjR6o2Gb4u+zJ6et46Qojcl1YcMmuE3
-	 NJE3QEb6TqOCFTyWZv/qAZjuYU2/Jb/8MgFGfxdUKsZw9ubCqZCemeRLlRbOkSWoEOLNI
-	 nNxHoro9jQvehlJZqbLRolFhqQQw1Y+gfQCIkuHDT1gibv+KjE5qZeZDtHWoP4k7+iAey
-	 zCwkLbEMEl9CeHFS2eWzKfViQ8xjJx24DTQ4UgTFWGDH8fBHaxy4JTh5Ha2Txz72gH3RU
-	 5hS9eU8oTyH9kSPTX5hIkpTy3kuZF9BbFu2rOFLQzjV24bDjSIY+zbGeMreC+zS3tSgdY
-	 vevFEgYza7cf/epsIP18RraZIigpxISf29VFIlZN+XrdKWgFWmCoWXadTl7YPldTzxm1a
-	 M0cpH7xumMEcOwSpsJIL/rxJC03ntMmsUtfSt+AYRUVUs1TrtXVDAm0Cu34G240=
+	bh=WdMNly/zURqI76BJfEXjjsKvFJGrqlZNOGTi8OcXOMc=;
+	b=FQNFurfwHEJjYRx2/nhtDdDi/KucWaSEzfj8kdVM4Ni8HXIhCbbZq0jH+fkADEKRuMAC
+	 N30bTlpyerOqupty8VsEdbpKXVjJxDLwlmPusb3cETP+PXihAFkAnUTUdKIvQ5N+EpMvX
+	 X8u++BT5Uo8F36ETZGmC1ZRI1el5yUxJL0BkVDZ94iedbKeK59n2AyKeqEV9SDtaGZZmJ
+	 oPu0H2APuLRrQRjMz7kSSXa1pHMlzkWqBYSQsarayG/jtThaFYYvowYK85ZMdIuO8VNkK
+	 LMhrd4hYCnpAsyyyljJCBoGvMnmf2gtmd3/I+2nSxC6Jo1ST6dhkoeqLCWsM0XS2TGlKL
+	 uTunqVVybwYzA2RPw335L/EmbKH3cfqdCvOxuNO90kXTs2w28eV0n3pLz7Kjs+RhEeQps
+	 aPEEMQsXjqxlw66hVQthmfQZjaR7Q5mt3oaCgtAInTfYFxlD6LRInNA6ftjh6NCk7Q7yx
+	 8e73ezul493qbHZ27/kvBDq8b6cW20LPpOGWSOgt8HH/LKZpXN2PHIRwuTQkMcbHp3dmH
+	 iokswVA9kBelk7ae+3wwhKT95PuFWNJUyyQpZuUQ3y+/1DppPuTyzqlfieL/LMkFEx4Km
+	 a0mI45OkGuBvvN65ysN0xA0iJnZK4ta599rpOaXD9Ll+Ph5eywn4/F3Triwx5qM=
 ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=93.44.185.214
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1765843898; bh=+zYNMMj0QZZurjKyyiRrhQ4bPdUSpZuE+qDfLVgXSsE=;
+	t=1765844582; bh=me4e3FkuyO3ZIHzqKYFSvYGmfLuhj2voW8l2K91NigU=;
 	h=From:To:Cc:Subject:Date:From;
-	b=hdLtm8b6Hm/hUpbnS+TvP3ISFL0ZU/i0Mf6Nod+/UoK5OV1/E+p5VD8ZVFSGgYfN5
-	 aPjCEmXXVGfDnXIXviPHIjPhC0+C40SYbnvdEgSRR1MoodBB6957zZMwwsGJoq5ZlD
-	 VYWC1TUhbB5CXK4mW6hozB/EbfqywaTA4cViQOvAdO4Pv0yfjOa80zHhjSYIraM624
-	 VhaEorOM5A/owzZ3O6dxOe8Dq7/5BUdzjA44Vui7Ary6s4Cnvw7n1PFI+49jMjErw0
-	 SFN23n5NRVmhi71aTfZQBAPGQOV/LjJ7NqIA7pm/IBpVDvQKfGPZzq6BczWD5r1+VR
-	 bXRLL51IS7Y9g==
+	b=C47mmfJQ2BLJZ/Xn9eKB72bAl9gKtxuoBIXwp8NX8weY+XutFlTYz1MFlB0JLWT3Y
+	 CsBzdyM0+dM8ZItoUbLCjuoiJkYxNf6v2inIzMYO4GtNG+JktRmQUc3fNE91AdQfnC
+	 XvzkiImrGjxTULaM8PapsQKzLzXLqlgwSw7w2UDNhHNQuoG7L/Xh2bc0zAvDRESsTR
+	 xlv/QMTnYqEs6kKjVNwUsu+/YtR3NkBrBarnCCnhGWrIYRLtVZf1HXD9GYLvE4o6Ur
+	 UCbtrp9KYV+HwMcE+7ScLuRxtQo+TpUuxBBKrjphRdsGj+fzwfnxbBqRFdfHHk/ABQ
+	 m7RyLyNpbmnMw==
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -90,59 +90,49 @@ Cc: sstabellini@kernel.org,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH] misra: add deviation of Rule 5.6 for shadow paging code
-Date: Tue, 16 Dec 2025 01:11:29 +0100
-Message-ID: <e408b8bb6e64e7fbe709ae8a26efa7c247a3f999.1765843801.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH] misra: extend toolchain assumption about source character set
+Date: Tue, 16 Dec 2025 01:22:55 +0100
+Message-ID: <5351e65c12a4fcc0a27b5e18102030ccf20bd28a.1765844467.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The rule headline states: "A typedef name shall be a unique identifier".
-
-in x86/mm/shadow/multi.c the typedef names for `guest_va_t` and `guest_pa_t`
-are deliberately reused multiple times due to the file being included with
-different GUEST_PAGING_LEVELS. As a result, a deviation for the rule is
-introduced.
+Similar to the ARM64 compiler, the same assumptions can be made about
+the X86_64 toolchain.
 
 No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
-CI pipeline: https://gitlab.com/xen-project/people/bugseng/xen/-/pipelines/2216437709
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 5 +++++
- docs/misra/deviations.rst                        | 2 ++
- 2 files changed, 7 insertions(+)
+ automation/eclair_analysis/ECLAIR/toolchain.ecl | 1 +
+ docs/misra/C-language-toolchain.rst             | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 219ba6993b90..86e782da3f12 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -143,6 +143,11 @@ number of guest paging levels."
- -config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(file(^xen/arch/x86/include/asm/guest_pt\\.h$)))&&any_area(any_loc(text(^.*(guest_intpte_t|guest_l[12]e_t).*$)))"}
+diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+index 842f8377e561..4bc88aa02942 100644
+--- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
++++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+@@ -210,6 +210,7 @@ ext_sizeof_alignof_void_type"
+ 
+ -doc_begin="See Section \"1.1 Character sets\" of "CPP_MANUAL".  We assume the locale is not restricting any UTF-8 characters being part of the source character set."
+ -config=STD.charset,behavior={c99, GCC_ARM64, "utf8"}
++-config=STD.charset,behavior={c99, GCC_X86_64, "utf8"}
  -doc_end
  
-+-doc_begin="On X86 shadow paging code, the types \"guest_(va|pa)_t\" are deliberately
-+defined multiple times, depending on the number of guest paging levels."
-+-config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(file(^xen/arch/x86/mm/shadow/multi\\.c$)))&&any_area(any_loc(text(^typedef.*guest_(va|pa)_t.*$)))"}
-+-doc_end
-+
- -doc_begin="The following files are imported from the gnu-efi package."
- -file_tag+={adopted_r5_6,"^xen/include/efi/.*$"}
- -file_tag+={adopted_r5_6,"^xen/arch/.*/include/asm/.*/efibind\\.h$"}
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index b3431ef24e26..7f877142109d 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -187,6 +187,8 @@ Deviations related to MISRA C:2012 Rules:
-      - Tagged as `deliberate` for ECLAIR. Such types are:
-          - guest_intpte_t
-          - guest_l[12]e_t
-+         - guest_va_t
-+         - guest_pa_t
+ -doc_begin="See Section \"4.3 Identifiers\" of "GCC_MANUAL"."
+diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+index cb81f5c09872..ec0c9953be1c 100644
+--- a/docs/misra/C-language-toolchain.rst
++++ b/docs/misra/C-language-toolchain.rst
+@@ -400,7 +400,7 @@ The table columns are as follows:
+      - See Section "4.15 Architecture" of GCC_MANUAL and Section "3.1.2 Data Representation" of X86_64_ABI_MANUAL.
  
-    * - R5.6
-      - Some files are not subject to respect MISRA rules at
+    * - Character not in the basic source character set is encountered in a source file, except in an identifier, a character constant, a string literal, a header name, a comment, or a preprocessing token that is never converted to a token
+-     - ARM64
++     - ARM64, X86_64
+      - UTF-8
+      - See Section "1.1 Character sets" of CPP_MANUAL.
+        We assume the locale is not restricting any UTF-8 characters being part of the source character set.
 -- 
 2.43.0
 
