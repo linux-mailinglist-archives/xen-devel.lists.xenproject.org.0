@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF09CC35E8
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 14:56:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187958.1509251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58613CC371D
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 15:11:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187971.1509261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVVWy-0002PK-4C; Tue, 16 Dec 2025 13:56:00 +0000
+	id 1vVVlH-0005Tr-D3; Tue, 16 Dec 2025 14:10:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187958.1509251; Tue, 16 Dec 2025 13:56:00 +0000
+Received: by outflank-mailman (output) from mailman id 1187971.1509261; Tue, 16 Dec 2025 14:10:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVVWy-0002NJ-1T; Tue, 16 Dec 2025 13:56:00 +0000
-Received: by outflank-mailman (input) for mailman id 1187958;
- Tue, 16 Dec 2025 13:55:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JXU2=6W=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vVVWw-0002ND-Ua
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 13:55:58 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1c7291e-da86-11f0-9cce-f158ae23cfc8;
- Tue, 16 Dec 2025 14:55:56 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b713c7096f9so776076266b.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 05:55:56 -0800 (PST)
-Received: from ?IPV6:2003:e5:8704:4800:66fd:131f:60bd:bc29?
- (p200300e58704480066fd131f60bdbc29.dip0.t-ipconnect.de.
- [2003:e5:8704:4800:66fd:131f:60bd:bc29])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b7cfa56a7f9sm1664639666b.51.2025.12.16.05.55.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Dec 2025 05:55:55 -0800 (PST)
+	id 1vVVlH-0005Rf-9N; Tue, 16 Dec 2025 14:10:47 +0000
+Received: by outflank-mailman (input) for mailman id 1187971;
+ Tue, 16 Dec 2025 14:10:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5yu6=6W=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vVVlF-0005RY-LN
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 14:10:45 +0000
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [2607:f8b0:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02510caa-da89-11f0-b15b-2bf370ae4941;
+ Tue, 16 Dec 2025 15:10:44 +0100 (CET)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-7cae2330765so3064507a34.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 06:10:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,234 +40,393 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1c7291e-da86-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 02510caa-da89-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765893356; x=1766498156; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=MZJ3FETBXD9TS3o6//ymZAuDIhX6kGuwiVGP8SgrP7s=;
-        b=B9gqbeaHgWeNkk/nbezib5VaAYCoD9r9lbI6pNlcxR6tSFy+FK3qWQEwIX+OrmuVAA
-         qveYn8JR+/AHzLVke9Ko4p3HDPajGfWeNtfsV9AoPIGF+t7DpNtSfQpmugprWB1kWCnK
-         i9ypWJamlo2fZxXm/mNjI9NNigfuKwYwy5EBiMXnmEWVH0k3z4yAGjuZ8O6fZnL7jULX
-         4CWXlk1tTvGILeyhJE/CdMuhkI2c9TNAZEgzzxcibb51ZPTJ9DBG5s2ItJv7L9+qetxQ
-         ygzMv65Y0MV2hl/B6aWXeWmPefmQWja4he+Bz+4yNMUYtAlk9om8TvKk95/FY0WfcWFw
-         n7KA==
+        d=linaro.org; s=google; t=1765894242; x=1766499042; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vLkVLQ6doUJPusiJJnRT8V1HK2AOLoVVOlX6ZU4PdHw=;
+        b=PQOBm6I6BrE1PRBg9b8kb/Rnr3MfV7ysIpKRg6MqG5b6suzOvsLY3EnnFE9uhXqhuH
+         ArfTQKD6GOHL0dmupQFhB3zaDy0P4MA82xMRl31BuwwyvdN4ZWvXC1nmmyMWWeEsBAfz
+         W1oUYcVOoCa+E27fRSC9SAoei/2u/+MlIEZX/WyPehahyA5yEPO0ZQjZ8GPmlUrTylbM
+         JvIDy+atL67olIHAsrGA9x/z6bOwV0jye9k3LmJM1qNtNR9Gw7y/9V7Zeqb/+xwvHuxD
+         u0sd+SYM5i0s5v0CEHVHP7uX1C/G4rW6BDQLy6D0W2xVct6uD/Oug/3SdnBjEk0TJqCS
+         QP2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765893356; x=1766498156;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MZJ3FETBXD9TS3o6//ymZAuDIhX6kGuwiVGP8SgrP7s=;
-        b=rrFgvmbkKbpN5/ogInRjbPZiWGN8BQ+7eD9yZl+Z17DoGtWEq1sm66JqALtggOH+iA
-         ZnX/K+vr+P9UycfTsNOnRr3RNExKUQzBHuhxR7KOswq1TqJTkWp6dCJaau3ajXuyllcP
-         adWwevbqpYiuqdSmlHL4SzY3GEPbq0cTAac+krp8jo03Rs5vpLrdoqqGlrQqNpw8f6/K
-         gffQBYHgoapkCUvKjKZEMv/H7KGLOxWL5L3aebPWC4bOPmfUp87efeyV65tJbAFCjwM5
-         061AuDgcoP3lKv2X2moPUWLrz5ZI4boUrdwebLApZpaRdwPbSQ4nBEhDDHNlEWaPk/0u
-         QYcg==
-X-Forwarded-Encrypted: i=1; AJvYcCUbdbfMWR00fg/U9wLOqylyUdgG3apTcNPhFwRbvbdbblxhI+JWfmx6QYxNc1KWIEQAVhtTGIjq55E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMmSi1AmAe1x1EWfKDa8CYEPPW6UtIw6SRdf1Rajj9xzHKaZ2F
-	bJE6BAq8j/Ex+DThQcjUw8BrTpnYV8MH7URu5YGWQnS1CT/ziBHjvWlTYRGclpsMx+c=
-X-Gm-Gg: AY/fxX53HJBlSQFAI9UfH6W08mpDMGgDQHsjCJbNJnAUzCNqgdBJvYpzH0+LLMi4ERd
-	Voa1nmKOBe0OIdGm4GtDc4r2dUIkfWkOir9ctx64w4TBY75rL8Vn6hAbdbuYnA/QRuUAQPyecPX
-	4ZI0luXzSm9iBLdgnIRx+l19JadvqulmPtayhJrQc+am9/M1zItoNe0KK3AASc3mEmfuJqcKuxs
-	Zdn38mYRJAtolBOylWRKr/pwf1Li7Xzobqv6Q8FbcSPpgLTwpNFeSjjER6gCNQ24A4Dv3n8HOUm
-	XPskGe/6yRJvBcQq6eLFWBTbjGEfjgmcDZjeunzXMT1CamSJk9BVGDOq+XQ2uI/MXsKawxChxBE
-	pLuSvUMKYfjj9bc7mGUIMMXiAaQY3o91yUOP8osTfR1bkp5SG6VQeVH/Pk9A/6AtlexSwit3N5e
-	hSgTdmsLO8SAEHdsgLlGnL1mo+/SVrSRN5Q9rKgIpEGPQhlLrjpyvMc3r3gGuiJNtkl4Lnn6yrZ
-	w7O+irRTr4NUGU7YtsMemhQfZ6IePxgFM2NfMDHyrH+RgwUbw==
-X-Google-Smtp-Source: AGHT+IHzZQ3OEAigaywtzQ9r+hHh1OJDEQW4HOx/O5epDoa3HSt7OtaAwfQ43xfhubj1spEkYKExSg==
-X-Received: by 2002:a17:906:9fc8:b0:b79:f4e4:b55d with SMTP id a640c23a62f3a-b7d23a64a76mr1505380966b.51.1765893356035;
-        Tue, 16 Dec 2025 05:55:56 -0800 (PST)
-Message-ID: <b969cff5-be11-4fd3-8356-95185ea5de4c@suse.com>
-Date: Tue, 16 Dec 2025 14:55:54 +0100
+        d=1e100.net; s=20230601; t=1765894242; x=1766499042;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=vLkVLQ6doUJPusiJJnRT8V1HK2AOLoVVOlX6ZU4PdHw=;
+        b=m4uqxaDgUvneZtBZzm8qdKyR43Zrix/6PrmpCaymFZltEBGYYHz09GkVkCceoT9HJl
+         r34UWLHtXbMVhM2k2Gxwnbcm8MfGQGkk41J5/nL3wHd7zsFpS/8IhxcLzfkVjvnk+kEo
+         FKQ68Njm7cFXlK5fk40rAV+TK9PqJ7LEc6gzl+BypcC5/Np3EnbkYseIdfyMxERmOf33
+         la5MPPgjfqmDF2W3Ryms8Mg4kO6wtUkrZEg9UgycJ0kCYm3WhCQbzBkSWLwcKLuy10nv
+         ZjSym0ZG7G866Y+qLTZsE01x0pIMQEXG06gCpo/Lo4liN7xM/MIFcMNnoh3XlRw+HcwI
+         PgcA==
+X-Gm-Message-State: AOJu0Yz9IU0iFKWyFr2joQGKhdq7AFx/686C1R+lAw5GzK4p2rYiY1hF
+	GfxrxtJmaNywRCisWT3UyuxP8tvn2xv1rHA694k3YKNoR2rreD+khhu6/GauP4YzuLd5xBPPsmS
+	DZngMTDhYXiFQtS6SxJniy5avX12xxUIutGnMD6a4Jg==
+X-Gm-Gg: AY/fxX6k36/g4rHV+mtiSq3dO91RC3umRU080FtpHjWceb+0+99AXX5X0pQCqAyH/u5
+	z/lfTXg0kH8JSMsof7dd3NOZdyeCpyxbXVHCP6QCGOT+M5Z+nOiIiDsZWx72rwmBNNWAqSQoZU6
+	hRphGCYMbi/e/+83zVPXkGKLyHgNLnBMf9mcIhEvM5+J9HcTg/5S1JJcuJDyre4Cv0Oeq8wFUK1
+	Tlj8F9gFfoWOuHAXO86KLAddUs/cW9miia2sZz3o43ZhfNiaiuqX3fvYjnClSiI13vkeXPZIrtF
+	013PB0cLHMT6V3/rRBL79SejpQ==
+X-Google-Smtp-Source: AGHT+IHAyEscQmKKdMyqUaJxLIVgjYDwUMG5rpQkwLwzo6H2cDNOx8H90JKkVvdN7RRqgrdA4e4C+SYFMKGu/9ZhG28=
+X-Received: by 2002:a05:6820:1612:b0:659:9a49:8eec with SMTP id
+ 006d021491bc7-65b45269409mr7634862eaf.32.1765894242455; Tue, 16 Dec 2025
+ 06:10:42 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] x86: Cleanups around slow_down_io()
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, kvm@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-block@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, Denis Efremov <efremov@linux.com>,
- Jens Axboe <axboe@kernel.dk>
-References: <20251126162018.5676-1-jgross@suse.com>
- <aT5vtaefuHwLVsqy@gmail.com> <bff8626d-161e-4470-9cbd-7bbda6852ec3@suse.com>
- <aUFjRDqbfWMsXvvS@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <aUFjRDqbfWMsXvvS@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------hG03P9e82QtHWkQdCpdPIljK"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------hG03P9e82QtHWkQdCpdPIljK
-Content-Type: multipart/mixed; boundary="------------FRi08TqW3WbnvLOkdi4sn1XX";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, kvm@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-block@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>, Denis Efremov <efremov@linux.com>,
- Jens Axboe <axboe@kernel.dk>
-Message-ID: <b969cff5-be11-4fd3-8356-95185ea5de4c@suse.com>
-Subject: Re: [PATCH 0/5] x86: Cleanups around slow_down_io()
-References: <20251126162018.5676-1-jgross@suse.com>
- <aT5vtaefuHwLVsqy@gmail.com> <bff8626d-161e-4470-9cbd-7bbda6852ec3@suse.com>
- <aUFjRDqbfWMsXvvS@gmail.com>
-In-Reply-To: <aUFjRDqbfWMsXvvS@gmail.com>
-
---------------FRi08TqW3WbnvLOkdi4sn1XX
-Content-Type: multipart/mixed; boundary="------------yS0Z00x0XwA0tB4BnEYEOAIQ"
-
---------------yS0Z00x0XwA0tB4BnEYEOAIQ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTYuMTIuMjUgMTQ6NDgsIEluZ28gTW9sbmFyIHdyb3RlOg0KPiANCj4gKiBKw7xyZ2Vu
-IEdyb8OfIDxqZ3Jvc3NAc3VzZS5jb20+IHdyb3RlOg0KPiANCj4+PiBDUFVzIGFueW1vcmUu
-IFNob3VsZCBpdCBjYXVzZSBhbnkgcmVncmVzc2lvbnMsIGl0J3MgZWFzeSB0byBiaXNlY3Qg
-dG8uDQo+Pj4gVGhlcmUncyBiZWVuIGVub3VnaCBjaGFuZ2VzIGFyb3VuZCBhbGwgdGhlc2Ug
-ZmFjaWxpdGllcyB0aGF0IHRoZQ0KPj4+IG9yaWdpbmFsIHRpbWluZ3MgYXJlIHByb2JhYmx5
-IHdheSBvZmYgYWxyZWFkeSwgc28gd2UndmUganVzdCBiZWVuDQo+Pj4gY2FyZ28tY3VsdCBw
-b3J0aW5nIHRoZXNlIHRvIG5ld2VyIGtlcm5lbHMgZXNzZW50aWFsbHkuDQo+Pg0KPj4gRmlu
-ZSB3aXRoIG1lLg0KPj4NCj4+IFdoaWNoIHBhdGggdG8gcmVtb3ZhbCBvZiBpb19kZWxheSB3
-b3VsZCB5b3UgKGFuZCBvdGhlcnMpIHByZWZlcj8NCj4+DQo+PiAxLiBSaXBwaW5nIGl0IG91
-dCBpbW1lZGlhdGVseS4NCj4gDQo+IEknZCBqdXN0IHJpcCBpdCBvdXQgaW1tZWRpYXRlbHks
-IGFuZCBzZWUgd2hvIGNvbXBsYWlucy4gOi0pDQoNCkkgZmlndXJlZCB0aGlzIG1pZ2h0IGJl
-IGEgbGl0dGxlIGJpdCB0b28gZXZpbC4gOi0pDQoNCkkndmUganVzdCBzZW50IFYyIGRlZmF1
-bHRpbmcgdG8gaGF2ZSBubyBkZWxheSwgc28gYW55b25lIGhpdCBieSB0aGF0DQpjYW4gc3Rp
-bGwgZml4IGl0IGJ5IGFwcGx5aW5nIHRoZSAiaW9fZGVsYXkiIGJvb3QgcGFyYW1ldGVyLg0K
-DQpJJ2xsIGRvIHRoZSByaXBwaW5nIG91dCBmb3Iga2VybmVsIDYuMjEgKG9yIHdoYXRldmVy
-IGl0IHdpbGwgYmUgY2FsbGVkKS4NCg0KDQpKdWVyZ2VuDQo=
---------------yS0Z00x0XwA0tB4BnEYEOAIQ
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+References: <cover.1765807707.git.bertrand.marquis@arm.com> <359051357e82739378c2ebfb5461d27951d42e7b.1765807707.git.bertrand.marquis@arm.com>
+In-Reply-To: <359051357e82739378c2ebfb5461d27951d42e7b.1765807707.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 16 Dec 2025 15:10:30 +0100
+X-Gm-Features: AQt7F2ojS9F7rVIhUmFMpfzy5sqGJYtnsD_rANtwkt8iNn1U4RpL2pZUvq6IwwM
+Message-ID: <CAHUa44F3nUBjUX+HyDA6w2L6gGx9zScfgSCOtmE8H6k4g5_sPg@mail.gmail.com>
+Subject: Re: [PATCH v2 02/12] xen/arm: ffa: per-VM FFA_VERSION negotiation state
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Bertrand,
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+On Mon, Dec 15, 2025 at 3:50=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Track FF-A version negotiation per VM and enforce that no FF-A ABI
+> (other than FFA_VERSION) is processed before a guest has selected a
+> version.
+>
+> Each ffa_ctx gains a dedicated guest_vers_lock, a negotiated version
+> (guest_vers) and a guest_vers_tmp:
+> - guest_vers is the version negotiated or 0 if no version has been
+>   negotiated. This must be used with ACCESS_ONCE when reading it without
+>   the spinlock taken.
+> - guest_vers_tmp stores the version currently requested by a VM.
+>
+> The version requested is the one actually negotiated once a call
+> different from FFA_VERSION is done to allow several attempts and as
+> requested by FF-A specification.
+> We always return our implementation version FFA_MY_VERSION, even if the
+> version requested was different, as requested by FF-A specification.
+>
+> Any call other than FFA_VERSION is rejected until a version has been
+> requested.
+>
+> Update all places in the code where guest_vers is used to use
+> ACCESS_ONCE.
+>
+> This prevents partially initialised contexts from using the mediator
+> and complies with the FF-A 1.2 FFA_VERSION semantics.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v2:
+> - add comment on top of guest_vers to instruct to always use ACCESS_ONCE
+>   to access it.
+> Changes in v1:
+> - remove the guest_vers_negotiated and use guest_vers =3D 0 as condition
+>   for a version being negotiated instead
+> - introduce guest_vers_tmp to store a requested version until it is
+>   becoming the one negotiated.
+> - remove not needed if negotiated condition.
+> - use ACCESS_ONCE when reading guest_vers and use guest_vers =3D=3D 0 as
+>   condition for a version being negotiated.
+> - Update FF-A version handling comment in ffa_private.h
+> ---
+>  xen/arch/arm/tee/ffa.c          | 101 +++++++++++++++++++++++++-------
+>  xen/arch/arm/tee/ffa_msg.c      |   2 +-
+>  xen/arch/arm/tee/ffa_partinfo.c |   4 +-
+>  xen/arch/arm/tee/ffa_private.h  |  27 +++++++--
+>  xen/arch/arm/tee/ffa_shm.c      |   3 +-
+>  5 files changed, 106 insertions(+), 31 deletions(-)
 
---------------yS0Z00x0XwA0tB4BnEYEOAIQ--
+Looks good.
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
---------------FRi08TqW3WbnvLOkdi4sn1XX--
+Cheers,
+Jens
 
---------------hG03P9e82QtHWkQdCpdPIljK
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmlBZOoFAwAAAAAACgkQsN6d1ii/Ey+V
-iAf9FVH0m3WXq4l8yruW3PIrj/mjEvEM0IMwcDdtj9CEaAkBhowu/FSHdVIyNNCmcOIhub1YYs58
-8e0wwRGHAZxOjVI7ZUIP5hNH+RB6Ik5O9yIXDAPxEHK37EzMNPO738A0hnpG2OkugrM7UyfNxUW1
-4otNpUsQ++CCamX/83gfOtKTuYymcyuj2gkrzfk+cth1IGIAvMhATN/sNlyllO5SKBnPaA9ER5HZ
-sT3BHMoYq2FX2moh+Jgd0CFRwLE1R77KuxuUJIzYXv/MN8KQEiCekVCFrMD248e2p1696V47/OAQ
-g2SQKlCrh1VZssHgMaSBE7Jx4c4xoejF5eVgLw+oww==
-=CbB/
------END PGP SIGNATURE-----
-
---------------hG03P9e82QtHWkQdCpdPIljK--
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 2b4e24750d52..aadd6c21e7f2 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -158,31 +158,38 @@ static bool ffa_abi_supported(uint32_t id)
+>      return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+>  }
+>
+> -static void handle_version(struct cpu_user_regs *regs)
+> +static bool ffa_negotiate_version(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> -    uint32_t vers =3D get_user_reg(regs, 1);
+> -    uint32_t old_vers;
+> +    uint32_t fid =3D get_user_reg(regs, 0);
+> +    uint32_t in_vers =3D get_user_reg(regs, 1);
+> +    uint32_t out_vers =3D FFA_MY_VERSION;
+>
+> -    /*
+> -     * Guest will use the version it requested if it is our major and mi=
+nor
+> -     * lower or equals to ours. If the minor is greater, our version wil=
+l be
+> -     * used.
+> -     * In any case return our version to the caller.
+> -     */
+> -    if ( FFA_VERSION_MAJOR(vers) =3D=3D FFA_MY_VERSION_MAJOR )
+> +    spin_lock(&ctx->guest_vers_lock);
+> +
+> +    /* If negotiation already published, continue without handling. */
+> +    if ( ACCESS_ONCE(ctx->guest_vers) )
+> +        goto out_continue;
+> +
+> +    if ( fid !=3D FFA_VERSION )
+>      {
+> -        spin_lock(&ctx->lock);
+> -        old_vers =3D ctx->guest_vers;
+> +        if ( !ctx->guest_vers_tmp )
+> +        {
+> +            out_vers =3D 0;
+> +            goto out_handled;
+> +        }
+>
+> -        if ( FFA_VERSION_MINOR(vers) > FFA_MY_VERSION_MINOR )
+> -            ctx->guest_vers =3D FFA_MY_VERSION;
+> -        else
+> -            ctx->guest_vers =3D vers;
+> -        spin_unlock(&ctx->lock);
+> +        /*
+> +         * A successful FFA_VERSION call does not freeze negotiation. Gu=
+ests
+> +         * are allowed to issue multiple FFA_VERSION attempts (e.g. prob=
+ing
+> +         * several minor versions). Negotiation becomes final only when =
+a
+> +         * non-VERSION ABI is invoked, as required by the FF-A specifica=
+tion.
+> +         * Finalize negotiation: publish guest_vers once, then never cha=
+nge.
+> +         */
+> +        ACCESS_ONCE(ctx->guest_vers) =3D ctx->guest_vers_tmp;
+>
+> -        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !old_vers )
+> +        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>          {
+>              /* One more VM with FF-A support available */
+>              inc_ffa_vm_count();
+> @@ -190,8 +197,48 @@ static void handle_version(struct cpu_user_regs *reg=
+s)
+>              list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
+>              write_unlock(&ffa_ctx_list_rwlock);
+>          }
+> +
+> +        goto out_continue;
+>      }
+> -    ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+> +
+> +    /*
+> +     * guest_vers_tmp stores the version selected by the guest (lower mi=
+nor may
+> +     * require reduced data structures). However, the value returned to =
+the
+> +     * guest via FFA_VERSION is always FFA_MY_VERSION, the implementatio=
+n
+> +     * version, as required by FF-A. The two values intentionally differ=
+.
+> +     */
+> +
+> +    /*
+> +     * Return our highest implementation version on request different th=
+an our
+> +     * major and mark negotiated version as our implementation version.
+> +     */
+> +    if ( FFA_VERSION_MAJOR(in_vers) !=3D FFA_MY_VERSION_MAJOR )
+> +    {
+> +        ctx->guest_vers_tmp =3D FFA_MY_VERSION;
+> +        goto out_handled;
+> +    }
+> +
+> +    /*
+> +     * Use our minor version if a greater minor was requested or the req=
+uested
+> +     * minor if it is lower than ours was requested.
+> +     */
+> +    if ( FFA_VERSION_MINOR(in_vers) > FFA_MY_VERSION_MINOR )
+> +        ctx->guest_vers_tmp =3D FFA_MY_VERSION;
+> +    else
+> +        ctx->guest_vers_tmp =3D in_vers;
+> +
+> +out_handled:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +    if ( out_vers )
+> +        ffa_set_regs(regs, out_vers, 0, 0, 0, 0, 0, 0, 0);
+> +    else
+> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> +    return true;
+> +
+> +out_continue:
+> +    spin_unlock(&ctx->guest_vers_lock);
+> +
+> +    return false;
+>  }
+>
+>  static void handle_features(struct cpu_user_regs *regs)
+> @@ -274,10 +321,17 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
+egs)
+>      if ( !ctx )
+>          return false;
+>
+> +    /* A version must be negotiated first */
+> +    if ( !ACCESS_ONCE(ctx->guest_vers) )
+> +    {
+> +        if ( ffa_negotiate_version(regs) )
+> +            return true;
+> +    }
+> +
+>      switch ( fid )
+>      {
+>      case FFA_VERSION:
+> -        handle_version(regs);
+> +        ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+>          return true;
+>      case FFA_ID_GET:
+>          ffa_set_regs_success(regs, ffa_get_vm_id(d), 0);
+> @@ -371,6 +425,11 @@ static int ffa_domain_init(struct domain *d)
+>      d->arch.tee =3D ctx;
+>      ctx->teardown_d =3D d;
+>      INIT_LIST_HEAD(&ctx->shm_list);
+> +    spin_lock_init(&ctx->lock);
+> +    spin_lock_init(&ctx->guest_vers_lock);
+> +    ctx->guest_vers =3D 0;
+> +    ctx->guest_vers_tmp =3D 0;
+> +    INIT_LIST_HEAD(&ctx->ctx_list);
+>
+>      ctx->ffa_id =3D ffa_get_vm_id(d);
+>      ctx->num_vcpus =3D d->max_vcpus;
+> @@ -452,7 +511,7 @@ static int ffa_domain_teardown(struct domain *d)
+>      if ( !ctx )
+>          return 0;
+>
+> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ctx->guest_vers )
+> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ACCESS_ONCE(ctx->guest_vers)=
+ )
+>      {
+>          dec_ffa_vm_count();
+>          write_lock(&ffa_ctx_list_rwlock);
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index c20c5bec0f76..2c2ebc9c5cd6 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -113,7 +113,7 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, cons=
+t void *src_buf,
+>      }
+>
+>      dst_ctx =3D dst_d->arch.tee;
+> -    if ( !dst_ctx->guest_vers )
+> +    if ( !ACCESS_ONCE(dst_ctx->guest_vers) )
+>      {
+>          ret =3D FFA_RET_INVALID_PARAMETERS;
+>          goto out_unlock;
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index fa56b1587e3b..ec5a53ed1cab 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -238,7 +238,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>       * use the v1.0 structure size in the destination buffer.
+>       * Otherwise use the size of the highest version we support, here 1.=
+1.
+>       */
+> -    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
+> +    if ( ACCESS_ONCE(ctx->guest_vers) =3D=3D FFA_VERSION_1_0 )
+>          dst_size =3D sizeof(struct ffa_partition_info_1_0);
+>      else
+>          dst_size =3D sizeof(struct ffa_partition_info_1_1);
+> @@ -250,7 +250,7 @@ void ffa_handle_partition_info_get(struct cpu_user_re=
+gs *regs)
+>           * FF-A v1.0 has w5 MBZ while v1.1 allows
+>           * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
+>           */
+> -        if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 ||
+> +        if ( ACCESS_ONCE(ctx->guest_vers) =3D=3D FFA_VERSION_1_0 ||
+>                  flags !=3D FFA_PARTITION_INFO_GET_COUNT_FLAG )
+>          {
+>              ret =3D FFA_RET_INVALID_PARAMETERS;
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 8d01da0009d3..8ef214344711 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -355,12 +355,6 @@ struct ffa_ctx {
+>       * Global data accessed with lock locked.
+>       */
+>      spinlock_t lock;
+> -    /*
+> -     * FF-A version negotiated by the guest, only modifications to
+> -     * this field are done with the lock held as this is expected to
+> -     * be done once at init by a guest.
+> -     */
+> -    uint32_t guest_vers;
+>      /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
+>      unsigned int page_count;
+>      /* Number of allocated shared memory object */
+> @@ -368,6 +362,27 @@ struct ffa_ctx {
+>      /* Used shared memory objects, struct ffa_shm_mem */
+>      struct list_head shm_list;
+>
+> +    /*
+> +     * FF-A version handling
+> +     * guest_vers is the single published negotiated version. It is 0 un=
+til
+> +     * negotiation completes, after which it is set once and never chang=
+es.
+> +     * Negotiation uses guest_vers_tmp under guest_vers_lock; when a
+> +     * non-VERSION ABI is invoked, Xen finalizes negotiation by publishi=
+ng
+> +     * guest_vers using ACCESS_ONCE() store.
+> +     * Readers use ACCESS_ONCE(guest_vers) !=3D 0 to detect availability=
+ and
+> +     * can consume guest_vers without barriers because it never changes =
+once
+> +     * published.
+> +     */
+> +    spinlock_t guest_vers_lock;
+> +    /*
+> +     * Published negotiated version. Zero means "not negotiated yet".
+> +     * Once non-zero, it never changes.
+> +     * Must always be accessed using ACCESS_ONCE().
+> +     */
+> +    uint32_t guest_vers;
+> +    /* Temporary version used during negotiation under guest_vers_lock *=
+/
+> +    uint32_t guest_vers_tmp;
+> +
+>      /*
+>       * Rx buffer, accessed with rx_lock locked.
+>       * rx_is_free is used to serialize access.
+> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> index d628c1b70609..dad3da192247 100644
+> --- a/xen/arch/arm/tee/ffa_shm.c
+> +++ b/xen/arch/arm/tee/ffa_shm.c
+> @@ -495,7 +495,8 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+>      if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+>          goto out_unlock;
+>
+> -    ret =3D read_mem_transaction(ctx->guest_vers, ctx->tx, frag_len, &tr=
+ans);
+> +    ret =3D read_mem_transaction(ACCESS_ONCE(ctx->guest_vers), ctx->tx,
+> +                               frag_len, &trans);
+>      if ( ret )
+>          goto out_unlock;
+>
+> --
+> 2.51.2
+>
 
