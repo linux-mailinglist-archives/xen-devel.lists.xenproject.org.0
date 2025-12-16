@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C13CCC0FDE
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 06:18:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187615.1508966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B608CC165A
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 08:56:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187626.1508978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVNQi-0002oU-S4; Tue, 16 Dec 2025 05:17:00 +0000
+	id 1vVPuV-00050l-J3; Tue, 16 Dec 2025 07:55:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187615.1508966; Tue, 16 Dec 2025 05:17:00 +0000
+Received: by outflank-mailman (output) from mailman id 1187626.1508978; Tue, 16 Dec 2025 07:55:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVNQi-0002lQ-M5; Tue, 16 Dec 2025 05:17:00 +0000
-Received: by outflank-mailman (input) for mailman id 1187615;
- Tue, 16 Dec 2025 05:16:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4lhm=6W=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1vVNQh-0002lK-Gu
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 05:16:59 +0000
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [2607:f8b0:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7014f142-da3e-11f0-9cce-f158ae23cfc8;
- Tue, 16 Dec 2025 06:16:56 +0100 (CET)
-Received: by mail-pf1-x42e.google.com with SMTP id
- d2e1a72fcca58-7ba55660769so3234708b3a.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 21:16:56 -0800 (PST)
-Received: from dw-tp ([203.81.242.64]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c0c25a87487sm14064659a12.7.2025.12.15.21.16.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 21:16:53 -0800 (PST)
+	id 1vVPuV-0004yB-EU; Tue, 16 Dec 2025 07:55:55 +0000
+Received: by outflank-mailman (input) for mailman id 1187626;
+ Tue, 16 Dec 2025 07:55:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=t3Kb=6W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vVPuT-0004y5-Gr
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 07:55:53 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a45e52a0-da54-11f0-b15b-2bf370ae4941;
+ Tue, 16 Dec 2025 08:55:52 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4779cb0a33fso51524985e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Dec 2025 23:55:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a8f6e5baasm243042955e9.13.2025.12.15.23.55.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Dec 2025 23:55:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,101 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7014f142-da3e-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: a45e52a0-da54-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765862214; x=1766467014; darn=lists.xenproject.org;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xjD+cNbyJGOMAKpBo5e8LJBh9aFpu4/6uuuLCwZXOF0=;
-        b=ZUNvAxA/vJRzB2TXHETPULp2O1/+D2Kf4cRC+JA0JZSsRilCh548D3/sCbzW25Agh+
-         SlE1NDxzphXoQbGf1UrwrnYLVtu0ijh6uD6eMb+2yBAIvASX4ss6ID+hNGgSFD56Vhne
-         MDwNRkjFWuMxwgslVhT5qCq6vANxIO/xmwF0amz+SUxm8BPE7ZKNNETEmO0guXcRp58K
-         cdTfhMe6MpooyEEfxQedpSt8V5R5S5/H2r/IFWLMYhxqUmoWTnp6yMWa6Pk+C3PXRcl5
-         K0edBnJCWt4DFFlHBYMWWq5y2UJwykD8kI/Vz2zUl9c7AodPeM3AF5GQqttHreRj003P
-         x46w==
+        d=suse.com; s=google; t=1765871751; x=1766476551; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RlPtpsfMLI3vNX0v+D09nikJBlZj/5sGKY+71A649M0=;
+        b=T37IHYCbMQtagagP6JrPzX9sJnQlhKDC4S/AGRbUNIm1ywkWMWtlCxETnXGtC7vIin
+         +RW/9ce3Z9uTiMVJIo70kjmhA9WtoFFDt3LMcjWquZJvjpPvHvzaIWOmYwGPubSug5vj
+         YULhu3Re750Efm7LOa9BOlDbLFDY5zG0jQ1KxhXnIOyl6VofkKaGzGeHBDfdteHdMMVw
+         Ay/KClcsvnwLpT8i+4e5PYXAW/768m+lE2+FMOvV5BjKSPJo4mZzbs4jRe4+UTdEZYfB
+         HqZPdIwBb8E0vxeKtXCslyiyiuFTqi0T+d8RaeboYgoFoxE2HFxwZptFp9ppiEjpss5b
+         yRgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765862214; x=1766467014;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xjD+cNbyJGOMAKpBo5e8LJBh9aFpu4/6uuuLCwZXOF0=;
-        b=J7Ho8d9eNypBoJT1SYCk3TacAjfccmXL4cDu2pKs20muMIMhSc2YhNoRf0gXdioOba
-         TmjgKVDKMM/Fr50bwS3Y3Awka92jErUzqpNsPypbBf1Own6BP1i8qD+UwELBIogpmkN/
-         DzbR0jcO9JiT0mDjg0s+mxPx8u1BrEVIKnJiMNKR5GS/Xt0seS6yS1vPwPVeP0qPR0bB
-         rWlF7JFTgi/tJD+VSjgq78BGYihhPDD9aBmUHQDOCxj4mNJfOYkhpAbf5HMqTZC10Ow6
-         myHN2RCSxxRa+cg+51fvxLSc3CG+pl1jVq4dstimJmspFNLScXqglJ8CCmNE1VRwUere
-         DeOg==
-X-Forwarded-Encrypted: i=1; AJvYcCWQ5wESi2S81YoIP5bczmUUzpnjUIrp1P1wr7fH5l1yQiWU1yZ+iA+aacDczowAptyrA7s7wmFoe4M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5CV1NQBVSLwvhjBPurANIoixCOPdcGdXKkp4ZNIx0ZIjJzG4L
-	TKGOl5GQfzQR7xUarrYyGR9Peff6cdVkSid84sSGn+9GRftAQu8QT6OA
-X-Gm-Gg: AY/fxX5Dtp5NOmg5c8/jXx2PYQ4KGlrD2bjNZ9ipByizhwnRXHR2RVB3zKLdh0yn/r+
-	pSHtj9gAGWZxUlmqk96X2Ij5NTvcro4MASAyHSv5dcNooS4yd9dx0uBJ7fet3LP/i2JILx5KS9X
-	YBJ/D+vNoH0h2tLaXXoAwypwba20gOZwJNj3rGQaf5pCOghlLHMRjtwY1+qGMdY5xjY2wceET0G
-	l14NI/z/qBe/3UqUKpbvYz+bN7JywhhWTtysTt3CxOFJYu85itekDPXB/ryzhypNDZ8C7iXoNEe
-	LvtR1zJ60b4SDzxttSkQuKbqz/x9FTH6eJFD5voLTHvK0HR+T5L5RMM7a0mBp1CoIYulzxloyH1
-	SmYGQsCYEn8K/lfjF3SqUUgAJ9M0LDpNYM3K1dOYVjEb/lZ7eVDpWXMkHglPB1tiJxyhf5HeXBp
-	toxrMB
-X-Google-Smtp-Source: AGHT+IFRNBpu36xO7SS++RmJSf+Yd0YivNXXnhzhZN3Px6CmR0fp7AX2KZRojw083jfNpLsrb718Lg==
-X-Received: by 2002:a05:6a20:5491:b0:366:14b0:4b05 with SMTP id adf61e73a8af0-369afc00407mr13380900637.65.1765862214371;
-        Mon, 15 Dec 2025 21:16:54 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Andreas Larsson <andreas@gaisler.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Anshuman Khandual <anshuman.khandual@arm.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov <bp@alien8.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, David Hildenbrand <david@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>, 
-	Juergen Gross <jgross@suse.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Nicholas Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, 
-	Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>, Yeoreum Yun <yeoreum.yun@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org
-Subject: Re: [PATCH v6 03/14] powerpc/mm: implement arch_flush_lazy_mmu_mode()
-In-Reply-To: <20251215150323.2218608-4-kevin.brodsky@arm.com>
-Date: Tue, 16 Dec 2025 10:44:45 +0530
-Message-ID: <87345b6m9m.ritesh.list@gmail.com>
-References: <20251215150323.2218608-1-kevin.brodsky@arm.com> <20251215150323.2218608-4-kevin.brodsky@arm.com>
+        d=1e100.net; s=20230601; t=1765871751; x=1766476551;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RlPtpsfMLI3vNX0v+D09nikJBlZj/5sGKY+71A649M0=;
+        b=NK/cjHKCmICRNxBw6Vop9fLL8ataBqoSzl4rihOCKw5ggRhvMoXe8eLUmm5q8SPjRD
+         YNgwNyE4hIsnlh7r9iysmgwin9ul3sSfZf8w0gfGEIilWEqWz0F6A1DgCXcL2ClDGQgx
+         2PoGm2644RCt9gPWO35Bvs+wZQqdvIkLpMiEeq6F2YPH3PIrNeBqq3vRZUgEuWa9V91B
+         CDdONgyPWdT+mFc4UDPzxFOYcqqyVLboegDy9Pi6WUEf599iZvHgcFpFT79PUiIBmsgS
+         5DGAEp6+tAzJGVwQMkabMOTGywCo2kAkdDbNBEoP6UJ5n1KA/PtXra1bSDo4WLr8SPJA
+         ZCVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXXgcHTQsKihZyviFnxHq2s6Fskf2/jV3QFhAfVy8ICC2yzAHqPvwb+uN4UUirvkM2qM2yfLzREYwk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJO4wu/WHaxIhZ/DzqH/2hRyZLrymXCfrBAKjGmCXoX8xHQREm
+	75ahu2xTfWPKJS9iWkrMag9LYnGKbBAu4nqibldOjIPA4o2HhAF4OpyXzi+R5SvgNA==
+X-Gm-Gg: AY/fxX7YEqOmzVKPbj19+mB9z1zMjv7eREfU7rM3pcI9KnWQHff2RLW5zM9EpQ522C/
+	kyBsRmzyNcvg3hM+/QvLuxRNB4J4DDhPTlUa6GeRk085CBhROAFi0+uW68zA58Mzt6mFD4eyyFa
+	NbMj46ui1BWhBlNolBRww6ca+eWHIoMH2gmE5Whf9qu1LYqQlikb6Wgltn21z/dQDx5/6gfecXk
+	eBJdUwWe/DcHfg3nXoPPb4/0Z7T5d7YxNwD8tWsGd0Tsz5ijCLh4ROA/zpoGKO8L0d1Dpg2GH+L
+	maDCtwwBIOMF4X82hZNn0q6Efm/BOHMuVwblgGbnNO9FYUP4Nnp+xeAo4PCwUFOUM6EanSJkp1u
+	/RQAc9VTg7+HdK0xSLpBm9OBtOwm3luhxo8qUWxk5Vig0RMQS+C3wHNfyJVkXMy6/0O2BhcYlxa
+	7Nv76+HtWhk003dHdl01wacbgBFknaXiC+oggiamP838UPCxBD03bSiwt8XHQWN4PwgV6O46Uq0
+	9c=
+X-Google-Smtp-Source: AGHT+IFIWEVxfsS5q4qSBoHiHXIOmMdHqkp+2xTLVG0cMIds/QRKNPQVl0ahq5KcAQ/DpDNUlwNAQw==
+X-Received: by 2002:a05:600c:470e:b0:471:13fa:1b84 with SMTP id 5b1f17b1804b1-47a8f8c0527mr153840435e9.12.1765871751317;
+        Mon, 15 Dec 2025 23:55:51 -0800 (PST)
+Message-ID: <2a661e47-78f1-4569-9ed9-b4c3e62af646@suse.com>
+Date: Tue, 16 Dec 2025 08:55:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/ucode: Adjust parse_ucode() to match other list
+ handling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251215153245.2675388-1-andrew.cooper3@citrix.com>
+ <b14362f4-aaa2-4ded-943f-4ad4a246f521@suse.com>
+ <b6dc5f41-9504-44d2-ad17-72d0b20f1434@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b6dc5f41-9504-44d2-ad17-72d0b20f1434@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Kevin Brodsky <kevin.brodsky@arm.com> writes:
+On 15.12.2025 18:08, Andrew Cooper wrote:
+> On 15/12/2025 5:00 pm, Jan Beulich wrote:
+>> On 15.12.2025 16:32, Andrew Cooper wrote:
+>>> parse_ucode() is abnormal compared to similar parsing elsewhere in Xen.
+>>>
+>>> Invert the ucode_mod_forced check with respect to the "scan" and integer
+>>> handling, so we can warn the user when we've elected to ignore the parameters,
+>>> and yield -EINVAL for any unrecognised list element.
+>>>
+>>> Rewrite the ucode= command line docs for clarity.
+>>>
+>>> No practical change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> albeit I'm not quite happy with ...
+>>
+>>> --- a/docs/misc/xen-command-line.pandoc
+>>> +++ b/docs/misc/xen-command-line.pandoc
+>>> @@ -2752,34 +2752,52 @@ performance.
+>>>     Alternatively, selecting `tsx=1` will re-enable TSX at the users own risk.
+>>>  
+>>>  ### ucode
+>>> -> `= List of [ <integer> | scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
+>>> +> `= List of [ <integer>, scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
+>> ... this change when ...
+>>
+>>>      Applicability: x86
+>>>      Default: `scan` is selectable via Kconfig, `nmi,digest-check`
+>>>  
+>>> -Controls for CPU microcode loading. For early loading, this parameter can
+>>> -specify how and where to find the microcode update blob. For late loading,
+>>> -this parameter specifies if the update happens within a NMI handler.
+>>> -
+>>> -'integer' specifies the CPU microcode update blob module index. When positive,
+>>> -this specifies the n-th module (in the GrUB entry, zero based) to be used
+>>> -for updating CPU micrcode. When negative, counting starts at the end of
+>>> -the modules in the GrUB entry (so with the blob commonly being last,
+>>> -one could specify `ucode=-1`). Note that the value of zero is not valid
+>>> -here (entry zero, i.e. the first module, is always the Dom0 kernel
+>>> -image). Note further that use of this option has an unspecified effect
+>>> -when used with xen.efi (there the concept of modules doesn't exist, and
+>>> -the blob gets specified via the `ucode=<filename>` config file/section
+>>> -entry; see [EFI configuration file description](efi.html)).
+>>> -
+>>> -'scan' instructs the hypervisor to scan the multiboot images for an cpio
+>>> -image that contains microcode. Depending on the platform the blob with the
+>>> -microcode in the cpio name space must be:
+>>> -  - on Intel: kernel/x86/microcode/GenuineIntel.bin
+>>> -  - on AMD  : kernel/x86/microcode/AuthenticAMD.bin
+>>> -When using xen.efi, the `ucode=<filename>` config file setting takes
+>>> -precedence over `scan`. The default value for `scan` is set with
+>>> -`CONFIG_UCODE_SCAN_DEFAULT`.
+>>> +Controls for CPU microcode loading.
+>>> +
+>>> +In order to load microcode at boot, Xen needs to find a suitable update
+>>> +amongst the modules provided by the bootloader.  Two kinds of microcode update
+>>> +are supported:
+>>> +
+>>> + 1. Raw microcode containers.  The format of the container is CPU vendor
+>>> +    specific.
+>>> +
+>>> + 2. CPIO archive.  This is Linux's preferred mechanism, and involves having
+>>> +    the raw containers expressed as files
+>>> +    (e.g. `kernel/x86/microcode/{GenuineIntel,AuthenticAMD}.bin`) in a CPIO
+>>> +    archive, typically prepended to the initrd.
+>>> +
+>>> +The `<integer>` and `scan=<bool>` options are mutually exclusive and select
+>>> +between these two options.  Further restrictions exist for booting xen.efi
+>>> +(see below).
+>> ... then you say verbally that the two are exclusive of one another. That's
+>> what the | there was intended to indicate. IOW I would prefer that line to
+>> be left alone, but I'm not intending to insist.
+> 
+> You said that last time around, but it's still not how the parsing works.
+> 
+> ucode=1,1,1,scan,scan,scan,2 is legal.  The latest takes priority and
+> cancels prior selections.
+> 
+> The reality is that | used in this context is meaningless when there's a
+> comma separated loop around the whole thing.
+> 
+> If you don't like "mutually exclusive", what else do you suggest?
 
-> Upcoming changes to the lazy_mmu API will cause
-> arch_flush_lazy_mmu_mode() to be called when leaving a nested
-> lazy_mmu section.
->
-> Move the relevant logic from arch_leave_lazy_mmu_mode() to
-> arch_flush_lazy_mmu_mode() and have the former call the latter. The
-> radix_enabled() check is required in both as
-> arch_flush_lazy_mmu_mode() will be called directly from the generic
-> layer in a subsequent patch.
->
-> Note: the additional this_cpu_ptr() and radix_enabled() calls on the
-> arch_leave_lazy_mmu_mode() path will be removed in a subsequent
-> patch.
->
-> Acked-by: David Hildenbrand <david@redhat.com>
-> Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> ---
->  .../powerpc/include/asm/book3s/64/tlbflush-hash.h | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
+I'm happy with mutually exclusive. What I said I don't like is the dropping
+of the |, expressing the same "mutually exclusive" in a non-verbal way. Imo
+those short forms aren't supposed to describe how parsing works, but how the
+options are intended to be used.
 
-Sorry I was away for a while. 
-
-Thanks for taking care of the radix path as we had discussed previously
-here [1]. 
-
-[1]: https://lore.kernel.org/all/87jz044xn4.ritesh.list@gmail.com/
-
-The change looks good to me. So, please feel free to add:
-
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Jan
 
