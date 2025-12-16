@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0989CC476C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 17:56:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1188143.1509391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FF1CC4772
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 17:56:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1188144.1509401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVYKx-0006vM-TO; Tue, 16 Dec 2025 16:55:47 +0000
+	id 1vVYKz-00079I-43; Tue, 16 Dec 2025 16:55:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1188143.1509391; Tue, 16 Dec 2025 16:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 1188144.1509401; Tue, 16 Dec 2025 16:55:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVYKx-0006u9-PT; Tue, 16 Dec 2025 16:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 1188143;
+	id 1vVYKz-00077d-04; Tue, 16 Dec 2025 16:55:49 +0000
+Received: by outflank-mailman (input) for mailman id 1188144;
  Tue, 16 Dec 2025 16:55:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wcum=6W=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vVYKx-0006gk-4g
+ id 1vVYKx-0006gk-Ey
  for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 16:55:47 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f3105b3-daa0-11f0-9cce-f158ae23cfc8;
- Tue, 16 Dec 2025 17:55:43 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b79ea617f55so372279966b.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 08:55:43 -0800 (PST)
+ id 0fe45179-daa0-11f0-9cce-f158ae23cfc8;
+ Tue, 16 Dec 2025 17:55:44 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-64951939e1eso8589841a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 08:55:44 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8003cb349csm63169766b.68.2025.12.16.08.55.41
+ a640c23a62f3a-b8003cb349csm63169766b.68.2025.12.16.08.55.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Dec 2025 08:55:42 -0800 (PST)
+ Tue, 16 Dec 2025 08:55:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,354 +45,444 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f3105b3-daa0-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 0fe45179-daa0-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765904143; x=1766508943; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1765904144; x=1766508944; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dZegd6aXaLBRkNeMFMoN/ND2IHAaan6sTyPeWinaod4=;
-        b=LQ0huGgF8wCp5i2uPXcUdbd5RPmm0DW6ViZt2qFSbIDFXsajGOzEBy9p26ea05TIzR
-         TLnIYNrnY6OLzLaTfttoOdPhBHlm183QwGgT68Iulg8JR8ZWlQmnn4ItVk7F8NJbAOR8
-         BnNd5dh6BM3NT/kqpv3HDJGe25LogfdI99/73H4bZO4eNOzX1SznAFSkRLUtBVCsySK6
-         whYQoKHw4SwA8PuyWB8S/d/YoitRFSOoL5l9GsZmF8pM20L9GPdNK87w0ZUkNYWX5Y+s
-         Uj7Rd1caDSP3v1EEB2D3hNrS2sHCIeLsM/vdmZkAc9dSbcS7NCfCmYfbCX5Q/APwQ1qm
-         hQjw==
+        bh=+8mMORbxMUNZTkX3VOmvWIBTB416zrhf+ZA68Ll67BU=;
+        b=jgbcqIj9E+tfUpFgwFzICor6pVhXldTmx4au37sbJJzghhhv3yaItS7t90w5Cx1nt/
+         e1VzHVCZpYeeteiRWysLILGETqWWJZ0wvS3gpTGmMk+Z7GdJB5mrjs/C0SSTXrwp5etL
+         aYTiJIYzo9oeZ679H5gF1JseJm4SZvFFAc6Q/WEcvcR5Z7JG4QQvdE43NKDkxH37Dl3L
+         jIXF1HzlvKUH3kG5REXk/GbXeakKDlQkW6wXXfCuyCOdsbUJpGA55Ue7yAfAXEj4+Gl0
+         qERT6EiKpjeWE82xsnZ6mFv3qtmofBuh5jw9bJshFE/J7QVB0O5t2D0hQL8fMhg3T6gw
+         LB3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765904143; x=1766508943;
+        d=1e100.net; s=20230601; t=1765904144; x=1766508944;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=dZegd6aXaLBRkNeMFMoN/ND2IHAaan6sTyPeWinaod4=;
-        b=JxiGslUzQ9OQPmNzcdqwPHZ6+U99EAU6mr7rNDE5vOn7pIKOmQainOyith2Of0OoJi
-         ehk9MBWd6cu0+omGGTzygEB6kWilPNUfB234twsWo5+kCO1oey1s+1jegaQZ2bV7EIBj
-         IxS0FhlwLdfB/qwGDAQLXm3rKfdSQtPiUv5oNaWXCXgdELRoc/dHjLaKGhNsFr7QNWEP
-         fCGY9uvm2Z3rqW3NGAFOyNIYLuJkOoeyMVdO2McJ2nsExebXq7dNh3UrZ+TLS0MCNEDk
-         j2yRJYmTZuMw8j75IaO12p1OQMPuH0KnXqli4jserGd59cmVezpBOz+D3ralYKEOsQdH
-         bIjg==
-X-Gm-Message-State: AOJu0Yyajb7U3oTUVKrORh9zW1yNUVa1h0XHaKaQhE2kbp+/hem42q3e
-	dlY5e06kIPdQ0BSWiTEZzQCEPRITfbjDcS5ldaXenUs6n0lzmtl+Qpl2tDKbyg==
-X-Gm-Gg: AY/fxX4N+lE22qXGUImkUNyHzXdocOLVONij6OZT2BFJ3jcZ/OKrNaA4W359VUArmer
-	IEwtoLXsIyLctN8oN6WrnsYS17JWzqtU0eeZqcW02BpZXkm5Yytw45r03A2OSjdo72HJgIgYb1y
-	ky1yCwLxLlapc5wsgzh+aie85Qg3AceAl8Tjfl4/2x5pCTLjleDchhAQukzdG9MjU92/oyAX+l/
-	jHgFNylCFwB26SNubzrfuuWzDYlePNxkR/lozPdmEoThRNnjCqnDu2udfAx4+NlMdlUZUQ+gfK1
-	2NQPUFJpd86YBqcSJpny39UGDsz1HPQ2hRZqk6zI2fxqnzloTLBj140HafV7pTt6hl8ZRdL9WnU
-	zHeVq+aY8Mos2Znh0tbifjU0EZqF1mXN0YfDbk6sNyl8/0Q2i2m4YPA/MxBL/mUJSASYZ1y7AId
-	3wSBmDP27LhFd9FoE9jZ+CtJ/O6To/4dgF32EJMkD5P5ePNdxw4Zrz198roFj+6w==
-X-Google-Smtp-Source: AGHT+IH3DGz5GXtrkhcYsGxJ0b6IyRxNosABDTpAkHu0Tw3UPS3EMFoBU/qYVHt8cuGlW2ZETNJHUg==
-X-Received: by 2002:a17:907:2d1f:b0:b7d:11b0:31ca with SMTP id a640c23a62f3a-b7d23bbf1e8mr1461635966b.65.1765904142320;
-        Tue, 16 Dec 2025 08:55:42 -0800 (PST)
+        bh=+8mMORbxMUNZTkX3VOmvWIBTB416zrhf+ZA68Ll67BU=;
+        b=nlTDnenG+85RnJeFMDnPdIl9+tVo8osI5m1yDtKgaVRt57ZO0x80/uVdfKgT30qxMR
+         +eMNAvANnGyUtwHcYiLhytI2RK7K5ndI0+tAww4ergvAKt2R6XKeC5SiXfJBPuvRwJvS
+         xoUpsUkKPQqak0kgOzpVJsGwK5AngnGlmrSwA4ebbAzvWjhAVg9SaIm+1Rptm5DHb8Ml
+         nd6aceFhQUnBi06gCQg4jsZN+y/Jd7TTFZbj8z0EPulavT34fX3k/elpNVxAszyEgSpK
+         PJ0lgC4dviVPS6c1fncVc/WaHJ0KVWSzwYAwCkpqO+vFw3zDO9mF2axCZnoDQRo5Jk9T
+         AAQA==
+X-Gm-Message-State: AOJu0YxGqa2C9QpuMn0lIyw4emkS5+sj6/RJx67YJbhf5KSWEbpk4JZQ
+	hxoM+dhjPrSZQdPhwBp+thPNqmACmvD4RVJSEdxu/ocQeLB8oe2JR4XlZ1/LfA==
+X-Gm-Gg: AY/fxX5ohw+VLDzcAfX/dnBttfZjZnzUSoxdNY5eUforyMQyuDRqDSYNrkQg5X7M8DP
+	v1OY/dk2ndMvqTd4e6z7bTLvxKiudF0B+ognuQjcM1bp2vNlLaAgULjxACheEoFddtM51SmUNIy
+	1W1YmrdhT1NT5LNY6QPuhRPYdER3T/U6Ky2iXhoOlrF6+j/0P9hFhPwOnqrmGkrNakmSNgSr8CQ
+	pLFZM0iBb5okWFIefN7d109VSixNRGTH3U8Zw3tAYzedsR3a2naWLpw9dP7Tmkt2EUjB0R5G3cN
+	7AXbYaa00QgT4O2QNdpCOLdUVGclWL4jUdQ8vif58aNMQcCmj0cDm1K8Ndocj54iH30phxCZFwc
+	qOcOKtUMVxnBrsIqF3G3h3B2v4V5hVWqfNydRmPrMDabxGf5u/51xPPVhsAob+9RvY6MCgDdWSI
+	r1FS3GuD+Sg+nQUc7fNYgLPw+9ptnp8WKRRp3H+4WemtovBfg4nkY=
+X-Google-Smtp-Source: AGHT+IGgbO4YlQIWDEz5KRaCudwLVcKh42BfPi/+6okZeg1Z2kEChyGw3R22qdLLxZt3JYvY9BHeoA==
+X-Received: by 2002:a17:907:3c91:b0:b7a:5c1a:85e with SMTP id a640c23a62f3a-b7d23665af1mr1313493966b.23.1765904143465;
+        Tue, 16 Dec 2025 08:55:43 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v7 01/19] xen/riscv: detect and initialize G-stage mode
-Date: Tue, 16 Dec 2025 17:55:11 +0100
-Message-ID: <497b52495e108ae2a89952b8b430d865f0bea4d3.1765879052.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v7 02/19] xen/riscv: introduce VMID allocation and manegement
+Date: Tue, 16 Dec 2025 17:55:12 +0100
+Message-ID: <909072f0b5ede1869e6c6993be348ecbdd47e0fa.1765879052.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1765879052.git.oleksii.kurochko@gmail.com>
 References: <cover.1765879052.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce gstage_mode_detect() and guest_mm_init() to probe supported
-G-stage paging modes at boot. The function iterates over possible
-HGATP modes (Sv32x4 on RV32, Sv39x4/Sv48x4/Sv57x4 on RV64) and selects
-the largest supported MMU translation address mode by programming
-CSR_HGATP and reading it back.
+Current implementation is based on x86's way to allocate VMIDs:
+  VMIDs partition the physical TLB. In the current implementation VMIDs are
+  introduced to reduce the number of TLB flushes. Each time a guest-physical
+  address space changes, instead of flushing the TLB, a new VMID is
+  assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
+  The biggest advantage is that hot parts of the hypervisor's code and data
+  retain in the TLB.
 
-The selected mode is stored in max_gstage_mode (marked __ro_after_init)
-and reported via printk. If no supported mode is found, Xen panics
-since Bare mode is not expected to be used.
+  VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
+  VMIDs are assigned in a round-robin scheme. To minimize the overhead of
+  VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
+  64-bit generation. Only on a generation overflow the code needs to
+  invalidate all VMID information stored at the VCPUs with are run on the
+  specific physical processor. When this overflow appears VMID usage is
+  disabled to retain correctness.
 
-Finally, CSR_HGATP is cleared and a local_hfence_gvma_all() is issued
-to avoid any potential speculative pollution of the TLB, as required
-by the RISC-V spec.
-
-The following issue starts to occur:
- ./<riscv>/asm/flushtlb.h:37:55: error: 'struct page_info'  declared inside
-   parameter list will not be visible outside of this definition or
-   declaration [-Werror]
- 37 | static inline void page_set_tlbflush_timestamp(struct page_info *page)
-To resolve it, forward declaration of struct page_info is added to
-<asm/flushtlb.h.
+Only minor changes are made compared to the x86 implementation.
+These include using RISC-V-specific terminology, adding a check to ensure
+the type used for storing the VMID has enough bits to hold VMIDLEN,
+and introducing a new function vmidlen_detect() to clarify the VMIDLEN
+value, rename stuff connected to VMID enable/disable to "VMID use
+enable/disable".
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V7:
- - Move mode_idx declaration into the for loop header.
- - Use single struct assignment instead of assignment of each field of struct
-   gstage_mode_desc.
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
+ - Move the vmid description up in xen-command-line.pandoc to maintain
+   alphabetical order.
+ - Add explanatory comments above vmid_init() and vmidlen_detect() explaining
+   why they are not marked as __init.
 ---
 Changes in V6:
- - Sort items properly in riscv/Makefile.
- - Move the  call of local_hfence_gvma_all() from gstage_mode_detect()
-   to pre_gstage_init() to avoid a redundancy when vmid_init() will be
-   introduced.
- - Rename pre_gstage_init() to more generic name guest_mm_init().
- - s/gstage_mode/max_gstage_mode
- - Reverse direction of gstage mode detection to find a maximum supported mode to understand what modes are supported. (lower modes are supported automatically)
- - Introduce struct gstage_mode_desc.
- - Introduce get_max_supported_mode().
+ - Add information about VMID command line option to
+   docs/misc/xen-command-line.pandoc.
+ - Drop the call of local_hfence_gvma_all() from vmid_init() to avoid
+   redundancy as this function is called now in pre_gstage_init().
+   Also, update the comment in guest_mm_init() above local_hfence_gvma_all().
+ - Add __ro_after_init in declaration of g_disabled.
+ - Drop logging of function name in vmid_flush_hart() and drop full stop at
+   the end of the message.
+ - Add the check that vmid is used at the start of vmid_handle_enter().
+ - Drop parentheses around (vmid->vmid == 1) in vmid_handle_enter().
+ - Update BUILD_BUG_ON() in vmid_init as HGATP_VMID_SHIFT was dropped.
 ---
 Changes in V5:
- - Add static and __initconst for local variable modes[] in
-   gstage_mode_detect().
- - Change type for gstage_mode from 'unsigned long' to 'unsigned char'.
- - Update the comment inisde defintion if modes[] variable in
-   gstage_mode_detect():
-   - Add information about Bare mode.
-   - Drop "a paged virtual-memory scheme described in Section 10.3" as it isn't
-     relevant here.
- - Drop printing of function name when chosen G-stage mode message is printed.
- - Drop the call of gstage_mode_detect() from start_xen(). It will be added into
-   p2m_init() when the latter will be introduced.
- - Introduce pre_gstage_init().
- - make gstage_mode_detect() static.
+ - Rename opt_vmid_use_enabled with opt_vmid to be in sync with command line
+   option.
+ - Invert the expression for data->used = ... and swap "dis" and "en". Also,
+   invert usage of data->used elsewhere.
+ - s/vcpu_vmid_flush_vcpu/vmid_flush_vcpu.
+ - Add prototypes to asm/vmid.h which could be used outside vmid.c.
+ - Update the comment in vmidlen_detect(): instead of Section 3.7 ->
+   Section "Physical Memory Protection".
+ - Move vmid_init() call to pre_gstage_init().
 ---
 Changes in V4:
+ - s/guest's virtual/guest-physical in the comment inside vmid.c
+   and in commit message.
+ - Drop x86-related numbers in the comment about "Sketch of the Implementation".
+ - s/__read_only/__ro_after_init in declaration of opt_vmid_enabled.
+ - s/hart_vmid_generation/generation.
+ - Update vmidlen_detect() to work with unsigned int type for vmid_bits
+   variable.
+ - Drop old variable im vmdidlen_detetct, it seems like there is no any reason
+   to restore old value of hgatp with no guest running on a hart yet.
+ - Update the comment above local_hfence_gvma_all() in vmidlen_detect().
+ - s/max_availalbe_bits/max_available_bits.
+ - use BITS_PER_BYTE, instead of "<< 3".
+ - Add BUILD_BUILD_BUG_ON() instead run-time check that an amount of set bits
+   can be held in vmid_data->max_vmid.
+ - Apply changes from the patch "x86/HVM: polish hvm_asid_init() a little" here
+   (changes connected to g_disabled) with the following minor changes:
+   Update the printk() message to "VMIDs use is...".
+   Rename g_disabled to g_vmid_used.
+ - Rename member 'disabled' of vmid_data structure to used.
+ - Use gstage_mode to properly detect VMIDLEN.
+---
+Changes in V3:
+ - Reimplemnt VMID allocation similar to what x86 has implemented.
+---
+Changes in V2:
  - New patch.
 ---
- xen/arch/riscv/Makefile                     |   1 +
- xen/arch/riscv/include/asm/flushtlb.h       |   7 ++
- xen/arch/riscv/include/asm/p2m.h            |   9 ++
- xen/arch/riscv/include/asm/riscv_encoding.h |   5 +
- xen/arch/riscv/p2m.c                        | 102 ++++++++++++++++++++
- xen/arch/riscv/setup.c                      |   3 +
- 6 files changed, 127 insertions(+)
- create mode 100644 xen/arch/riscv/p2m.c
+ docs/misc/xen-command-line.pandoc   |   9 ++
+ xen/arch/riscv/Makefile             |   1 +
+ xen/arch/riscv/include/asm/domain.h |   6 +
+ xen/arch/riscv/include/asm/vmid.h   |  14 +++
+ xen/arch/riscv/p2m.c                |   7 +-
+ xen/arch/riscv/vmid.c               | 178 ++++++++++++++++++++++++++++
+ 6 files changed, 213 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/vmid.h
+ create mode 100644 xen/arch/riscv/vmid.c
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index e92b6d55b5..805da22c44 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2863,6 +2863,15 @@ to disable the feature.  Value is in units of crystal clock cycles.
+ Note the hardware might add a threshold to the provided value in order to make
+ it safe, and hence using 0 is fine.
+ 
++### vmid (RISC-V)
++> `= <boolean>`
++
++> Default: `true`
++
++Permit Xen to use Virtual Machine Identifiers. This is an optimisation which
++tags the TLB entries with an ID per vcpu. This allows for guest TLB flushes
++to be performed without the overhead of a complete TLB flush.
++
+ ### vpid (Intel)
+ > `= <boolean>`
+ 
 diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index d667234949..7b8d0e20e5 100644
+index 7b8d0e20e5..c93c837aac 100644
 --- a/xen/arch/riscv/Makefile
 +++ b/xen/arch/riscv/Makefile
-@@ -6,6 +6,7 @@ obj-y += imsic.o
- obj-y += intc.o
- obj-y += irq.o
- obj-y += mm.o
-+obj-y += p2m.o
- obj-y += pt.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
-diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
-index 51c8f753c5..e70badae0c 100644
---- a/xen/arch/riscv/include/asm/flushtlb.h
-+++ b/xen/arch/riscv/include/asm/flushtlb.h
-@@ -7,6 +7,13 @@
+@@ -17,6 +17,7 @@ obj-y += smpboot.o
+ obj-y += stubs.o
+ obj-y += time.o
+ obj-y += traps.o
++obj-y += vmid.o
+ obj-y += vm_event.o
  
- #include <asm/sbi.h>
+ $(TARGET): $(TARGET)-syms
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index c3d965a559..aac1040658 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -5,6 +5,11 @@
+ #include <xen/xmalloc.h>
+ #include <public/hvm/params.h>
  
-+struct page_info;
-+
-+static inline void local_hfence_gvma_all(void)
-+{
-+    asm volatile ( "hfence.gvma zero, zero" ::: "memory" );
-+}
-+
- /* Flush TLB of local processor for address va. */
- static inline void flush_tlb_one_local(vaddr_t va)
- {
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index e43c559e0c..3776b98303 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -8,6 +8,12 @@
- 
- #define paddr_bits PADDR_BITS
- 
-+struct gstage_mode_desc {
-+    unsigned char mode;
-+    unsigned int paging_levels;
-+    char name[8];
++struct vcpu_vmid {
++    uint64_t generation;
++    uint16_t vmid;
 +};
 +
- /*
-  * List of possible type for each page in the p2m entry.
-  * The number of available bit per page in the pte for this purpose is 2 bits.
-@@ -88,6 +94,9 @@ static inline bool arch_acquire_resource_check(struct domain *d)
-     return false;
- }
+ struct hvm_domain
+ {
+     uint64_t              params[HVM_NR_PARAMS];
+@@ -14,6 +19,7 @@ struct arch_vcpu_io {
+ };
  
-+void guest_mm_init(void);
-+unsigned char get_max_supported_mode(void);
-+
- #endif /* ASM__RISCV__P2M_H */
+ struct arch_vcpu {
++    struct vcpu_vmid vmid;
+ };
  
- /*
-diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
-index fd27f74cb7..e0a5e8b58b 100644
---- a/xen/arch/riscv/include/asm/riscv_encoding.h
-+++ b/xen/arch/riscv/include/asm/riscv_encoding.h
-@@ -131,10 +131,13 @@
- #define HGATP_MODE_SV32X4		_UL(1)
- #define HGATP_MODE_SV39X4		_UL(8)
- #define HGATP_MODE_SV48X4		_UL(9)
-+#define HGATP_MODE_SV57X4		_UL(10)
- 
-+#define HGATP32_MODE_MASK		_UL(0x80000000)
- #define HGATP32_VMID_MASK		_UL(0x1FC00000)
- #define HGATP32_PPN_MASK		_UL(0x003FFFFF)
- 
-+#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
- #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
- #define HGATP64_PPN_MASK		_ULL(0x00000FFFFFFFFFFF)
- 
-@@ -164,6 +167,7 @@
- 
- #define HGATP_PPN_MASK			HGATP64_PPN_MASK
- #define HGATP_VMID_MASK			HGATP64_VMID_MASK
-+#define HGATP_MODE_MASK			HGATP64_MODE_MASK
- #else
- #define MSTATUS_SD			MSTATUS32_SD
- #define SSTATUS_SD			SSTATUS32_SD
-@@ -173,6 +177,7 @@
- 
- #define HGATP_PPN_MASK			HGATP32_PPN_MASK
- #define HGATP_VMID_MASK			HGATP32_VMID_MASK
-+#define HGATP_MODE_MASK			HGATP32_MODE_MASK
- #endif
- 
- #define TOPI_IID_SHIFT			16
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+ struct arch_domain {
+diff --git a/xen/arch/riscv/include/asm/vmid.h b/xen/arch/riscv/include/asm/vmid.h
 new file mode 100644
-index 0000000000..076a1c35b2
+index 0000000000..1c500c4aff
 --- /dev/null
-+++ b/xen/arch/riscv/p2m.c
-@@ -0,0 +1,102 @@
++++ b/xen/arch/riscv/include/asm/vmid.h
+@@ -0,0 +1,14 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/macros.h>
-+#include <xen/sections.h>
++#ifndef ASM_RISCV_VMID_H
++#define ASM_RISCV_VMID_H
 +
++struct vcpu;
++struct vcpu_vmid;
++
++void vmid_init(void);
++bool vmid_handle_vmenter(struct vcpu_vmid *vmid);
++void vmid_flush_vcpu(struct vcpu *v);
++void vmid_flush_hart(void);
++
++#endif /* ASM_RISCV_VMID_H */
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+index 076a1c35b2..4e84acaafd 100644
+--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -9,6 +9,7 @@
+ #include <asm/flushtlb.h>
+ #include <asm/p2m.h>
+ #include <asm/riscv_encoding.h>
++#include <asm/vmid.h>
+ 
+ static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
+     .mode = HGATP_MODE_OFF,
+@@ -68,9 +69,11 @@ void __init guest_mm_init(void)
+ {
+     gstage_mode_detect();
+ 
++    vmid_init();
++
+     /*
+-     * As gstage_mode_detect() is changing CSR_HGATP, it is necessary to flush
+-     * guest TLB because:
++     * As gstage_mode_detect() and vmid_init() are changing CSR_HGATP, it is
++     * necessary to flush guest TLB because:
+      *
+      * From RISC-V spec:
+      *   Speculative executions of the address-translation algorithm behave as
+diff --git a/xen/arch/riscv/vmid.c b/xen/arch/riscv/vmid.c
+new file mode 100644
+index 0000000000..8fbcd500f2
+--- /dev/null
++++ b/xen/arch/riscv/vmid.c
+@@ -0,0 +1,178 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/domain.h>
++#include <xen/init.h>
++#include <xen/sections.h>
++#include <xen/lib.h>
++#include <xen/param.h>
++#include <xen/percpu.h>
++
++#include <asm/atomic.h>
 +#include <asm/csr.h>
 +#include <asm/flushtlb.h>
 +#include <asm/p2m.h>
-+#include <asm/riscv_encoding.h>
 +
-+static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
-+    .mode = HGATP_MODE_OFF,
-+    .paging_levels = 0,
-+    .name = "Bare",
++/* Xen command-line option to enable VMIDs */
++static bool __ro_after_init opt_vmid = true;
++boolean_param("vmid", opt_vmid);
++
++/*
++ * VMIDs partition the physical TLB. In the current implementation VMIDs are
++ * introduced to reduce the number of TLB flushes. Each time a guest-physical
++ * address space changes, instead of flushing the TLB, a new VMID is
++ * assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
++ * The biggest advantage is that hot parts of the hypervisor's code and data
++ * retain in the TLB.
++ *
++ * Sketch of the Implementation:
++ *
++ * VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
++ * VMIDs are assigned in a round-robin scheme. To minimize the overhead of
++ * VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
++ * 64-bit generation. Only on a generation overflow the code needs to
++ * invalidate all VMID information stored at the VCPUs with are run on the
++ * specific physical processor. When this overflow appears VMID usage is
++ * disabled to retain correctness.
++ */
++
++/* Per-Hart VMID management. */
++struct vmid_data {
++   uint64_t generation;
++   uint16_t next_vmid;
++   uint16_t max_vmid;
++   bool used;
 +};
 +
-+unsigned char get_max_supported_mode(void)
++static DEFINE_PER_CPU(struct vmid_data, vmid_data);
++
++/*
++ * vmidlen_detect() is expected to be called during secondary hart bring-up,
++ * so it should not be marked as __init.
++ */
++static unsigned int vmidlen_detect(void)
 +{
-+    return max_gstage_mode.mode;
-+}
-+
-+static void __init gstage_mode_detect(void)
-+{
-+    static const struct gstage_mode_desc modes[] __initconst = {
-+        /*
-+         * Based on the RISC-V spec:
-+         *   Bare mode is always supported, regardless of SXLEN.
-+         *   When SXLEN=32, the only other valid setting for MODE is Sv32.
-+         *   When SXLEN=64, three paged virtual-memory schemes are defined:
-+         *   Sv39, Sv48, and Sv57.
-+         */
-+#ifdef CONFIG_RISCV_32
-+        { HGATP_MODE_SV32X4, 2, "Sv32x4" }
-+#else
-+        { HGATP_MODE_SV39X4, 3, "Sv39x4" },
-+        { HGATP_MODE_SV48X4, 4, "Sv48x4" },
-+        { HGATP_MODE_SV57X4, 5, "Sv57x4" },
-+#endif
-+    };
-+
-+    for ( unsigned int mode_idx = ARRAY_SIZE(modes); mode_idx-- > 0; )
-+    {
-+        unsigned long mode = modes[mode_idx].mode;
-+
-+        csr_write(CSR_HGATP, MASK_INSR(mode, HGATP_MODE_MASK));
-+
-+        if ( MASK_EXTR(csr_read(CSR_HGATP), HGATP_MODE_MASK) == mode )
-+        {
-+            max_gstage_mode = modes[mode_idx];
-+
-+            break;
-+        }
-+    }
-+
-+    if ( max_gstage_mode.mode == HGATP_MODE_OFF )
-+        panic("Xen expects that G-stage won't be Bare mode\n");
-+
-+    printk("Max supported G-stage mode is %s\n", max_gstage_mode.name);
-+
-+    csr_write(CSR_HGATP, 0);
-+
-+    /* local_hfence_gvma_all() will be called at the end of guest_mm_init. */
-+}
-+
-+void __init guest_mm_init(void)
-+{
-+    gstage_mode_detect();
++    unsigned int vmid_bits;
++    unsigned char gstage_mode = get_max_supported_mode();
 +
 +    /*
-+     * As gstage_mode_detect() is changing CSR_HGATP, it is necessary to flush
-+     * guest TLB because:
-+     *
-+     * From RISC-V spec:
-+     *   Speculative executions of the address-translation algorithm behave as
-+     *   non-speculative executions of the algorithm do, except that they must
-+     *   not set the dirty bit for a PTE, they must not trigger an exception,
-+     *   and they must not create address-translation cache entries if those
-+     *   entries would have been invalidated by any SFENCE.VMA instruction
-+     *   executed by the hart since the speculative execution of the algorithm
-+     *   began.
-+     *
-+     * Also, despite of the fact here it is mentioned that when V=0 two-stage
-+     * address translation is inactivated:
-+     *   The current virtualization mode, denoted V, indicates whether the hart
-+     *   is currently executing in a guest. When V=1, the hart is either in
-+     *   virtual S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest
-+     *   OS running in VS-mode. When V=0, the hart is either in M-mode, in
-+     *   HS-mode, or in U-mode atop an OS running in HS-mode. The
-+     *   virtualization mode also indicates whether two-stage address
-+     *   translation is active (V=1) or inactive (V=0).
-+     * But on the same side, writing to hgatp register activates it:
-+     *   The hgatp register is considered active for the purposes of
-+     *   the address-translation algorithm unless the effective privilege mode
-+     *   is U and hstatus.HU=0.
-+     *
-+     * Thereby it leaves some room for speculation even in this stage of boot,
-+     * so it could be that we polluted local TLB so flush all guest TLB.
++     * According to the RISC-V Privileged Architecture Spec:
++     *   When MODE=Bare, guest physical addresses are equal to supervisor
++     *   physical addresses, and there is no further memory protection
++     *   for a guest virtual machine beyond the physical memory protection
++     *   scheme described in Section "Physical Memory Protection".
++     *   In this case, the remaining fields in hgatp must be set to zeros.
++     * Thereby it is necessary to set gstage_mode not equal to Bare.
 +     */
-+    local_hfence_gvma_all();
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 483cdd7e17..8f46f1a1de 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -22,6 +22,7 @@
- #include <asm/early_printk.h>
- #include <asm/fixmap.h>
- #include <asm/intc.h>
-+#include <asm/p2m.h>
- #include <asm/sbi.h>
- #include <asm/setup.h>
- #include <asm/traps.h>
-@@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     console_init_postirq();
- 
-+    guest_mm_init();
++    ASSERT(gstage_mode != HGATP_MODE_OFF);
++    csr_write(CSR_HGATP,
++              MASK_INSR(gstage_mode, HGATP_MODE_MASK) | HGATP_VMID_MASK);
++    vmid_bits = MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
++    vmid_bits = flsl(vmid_bits);
++    csr_write(CSR_HGATP, _AC(0, UL));
 +
-     printk("All set up\n");
- 
-     machine_halt();
++    /* local_hfence_gvma_all() will be called at the end of pre_gstage_init. */
++
++    return vmid_bits;
++}
++
++/*
++ * vmid_init() is expected to be called during secondary hart bring-up,
++ * so it should not be marked as __init.
++ */
++void vmid_init(void)
++{
++    static int8_t __ro_after_init g_vmid_used = -1;
++
++    unsigned int vmid_len = vmidlen_detect();
++    struct vmid_data *data = &this_cpu(vmid_data);
++
++    BUILD_BUG_ON(MASK_EXTR(HGATP_VMID_MASK, HGATP_VMID_MASK) >
++                 (BIT((sizeof(data->max_vmid) * BITS_PER_BYTE), UL) - 1));
++
++    data->max_vmid = BIT(vmid_len, U) - 1;
++    data->used = opt_vmid && (vmid_len > 1);
++
++    if ( g_vmid_used < 0 )
++    {
++        g_vmid_used = data->used;
++        printk("VMIDs use is %sabled\n", data->used ? "en" : "dis");
++    }
++    else if ( g_vmid_used != data->used )
++        printk("CPU%u: VMIDs use is %sabled\n", smp_processor_id(),
++               data->used ? "en" : "dis");
++
++    /* Zero indicates 'invalid generation', so we start the count at one. */
++    data->generation = 1;
++
++    /* Zero indicates 'VMIDs use disabled', so we start the count at one. */
++    data->next_vmid = 1;
++}
++
++void vmid_flush_vcpu(struct vcpu *v)
++{
++    write_atomic(&v->arch.vmid.generation, 0);
++}
++
++void vmid_flush_hart(void)
++{
++    struct vmid_data *data = &this_cpu(vmid_data);
++
++    if ( !data->used )
++        return;
++
++    if ( likely(++data->generation != 0) )
++        return;
++
++    /*
++     * VMID generations are 64 bit.  Overflow of generations never happens.
++     * For safety, we simply disable ASIDs, so correctness is established; it
++     * only runs a bit slower.
++     */
++    printk("VMID generation overrun. Disabling VMIDs\n");
++    data->used = false;
++}
++
++bool vmid_handle_vmenter(struct vcpu_vmid *vmid)
++{
++    struct vmid_data *data = &this_cpu(vmid_data);
++
++    if ( !data->used )
++        goto disabled;
++
++    /* Test if VCPU has valid VMID. */
++    if ( read_atomic(&vmid->generation) == data->generation )
++        return 0;
++
++    /* If there are no free VMIDs, need to go to a new generation. */
++    if ( unlikely(data->next_vmid > data->max_vmid) )
++    {
++        vmid_flush_hart();
++        data->next_vmid = 1;
++        if ( !data->used )
++            goto disabled;
++    }
++
++    /* Now guaranteed to be a free VMID. */
++    vmid->vmid = data->next_vmid++;
++    write_atomic(&vmid->generation, data->generation);
++
++    /*
++     * When we assign VMID 1, flush all TLB entries as we are starting a new
++     * generation, and all old VMID allocations are now stale.
++     */
++    return vmid->vmid == 1;
++
++ disabled:
++    vmid->vmid = 0;
++    return 0;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.52.0
 
