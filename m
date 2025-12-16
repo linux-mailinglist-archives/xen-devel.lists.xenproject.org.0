@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5EDBCC1FDF
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 11:37:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1187826.1509158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8809FCC28B4
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Dec 2025 13:09:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1187862.1509180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVSQl-0000pH-3O; Tue, 16 Dec 2025 10:37:23 +0000
+	id 1vVTrF-00035S-Hr; Tue, 16 Dec 2025 12:08:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1187826.1509158; Tue, 16 Dec 2025 10:37:23 +0000
+Received: by outflank-mailman (output) from mailman id 1187862.1509180; Tue, 16 Dec 2025 12:08:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVSQl-0000me-0F; Tue, 16 Dec 2025 10:37:23 +0000
-Received: by outflank-mailman (input) for mailman id 1187826;
- Tue, 16 Dec 2025 10:37:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t3Kb=6W=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vVSQk-0000mY-Eu
- for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 10:37:22 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3362f5df-da6b-11f0-b15b-2bf370ae4941;
- Tue, 16 Dec 2025 11:37:20 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-42e33956e76so2071541f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 02:37:20 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-430f7475895sm16087765f8f.33.2025.12.16.02.37.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Dec 2025 02:37:19 -0800 (PST)
+	id 1vVTrF-00033i-F0; Tue, 16 Dec 2025 12:08:49 +0000
+Received: by outflank-mailman (input) for mailman id 1187862;
+ Tue, 16 Dec 2025 12:08:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1bw3=6W=siemens.com=haseeb.ashraf@srs-se1.protection.inumbo.net>)
+ id 1vVTrD-00033c-H4
+ for xen-devel@lists.xenproject.org; Tue, 16 Dec 2025 12:08:47 +0000
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c405::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4b9160a-da77-11f0-9cce-f158ae23cfc8;
+ Tue, 16 Dec 2025 13:08:41 +0100 (CET)
+Received: from TYZPR06MB4580.apcprd06.prod.outlook.com (2603:1096:400:123::12)
+ by SEYPR06MB5695.apcprd06.prod.outlook.com (2603:1096:101:bc::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Tue, 16 Dec
+ 2025 12:08:33 +0000
+Received: from TYZPR06MB4580.apcprd06.prod.outlook.com
+ ([fe80::6e63:c82c:d0d5:eaeb]) by TYZPR06MB4580.apcprd06.prod.outlook.com
+ ([fe80::6e63:c82c:d0d5:eaeb%4]) with mapi id 15.20.9434.001; Tue, 16 Dec 2025
+ 12:08:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +47,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3362f5df-da6b-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765881440; x=1766486240; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hO0F1xOUvtlwJl1z+INLlQfmgAbeX/EB504Kr7PQQqs=;
-        b=ZF/+SixYi/nJrCAKyTCHnp7L7uJh15lybHIKSRVGL5V+9qLYY8rXr9BG93LfJp63m+
-         HkeFPkp9rnyggNx/a0ZqEnAY2UAZzrbimDqXSl5P6h4uUl6HWQsWJTJ+gEpWo6bgT82z
-         omXXJ0dJ/8IL5IZHy6yCzYN2sPrXQiKa1OuvfDa0LQT4FnxlI/0p5HJzEao3H2NvtKf1
-         MJSJOuASekVkRJm9sxw0loyzSeFs60GfDXHgzZL1vJOJeo9eHs43T/AH2pZYNZ6+etBr
-         uitCCc9sHcJaxZ/ATSbr/qIUpnE/A3DQCg1iDr9EG+aY+LQfFLbBHrWElkpXke7Z3Qs+
-         7yWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765881440; x=1766486240;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hO0F1xOUvtlwJl1z+INLlQfmgAbeX/EB504Kr7PQQqs=;
-        b=M/mKY4jJWsjgz1kh3hMaFFm3jkwIPFXfwx2p23hPUBQHSJHAq/0A4LlwjAm+KEeShb
-         NDaiYitlaQ0lH8OCgjEU+87FEjWsU8889eMCRn7aWHX5hXmAY330Y7aWKYjrnUW1Vz0M
-         61Je5UHd4BikWLbPtDgvfxdSf4+gxy3lKSc7CuEwqgmXTsvDYLGb7/wx+JACpl0erSMt
-         2TdZYRnp8MWMUr4JZmuTF/fx9s4AOQZIxFnIsmX5k2SauomeXamIfgkC62o1AcyBHPxu
-         CDbycIt7RQfouCEfGpWK9lAZqOO78gZnMEZ902CBECW6GybBCh4XL3Z9bsQYJvmWkzjl
-         tjPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUsE5DzPeiiO8CL3KCDnC7iY8zPyAYBvUpmHmNPExKQF4HuJAXQQH6QYpyIbTniHWwdW7Mso7uTczI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3n2IFIj9rvV2v9jHQv7JkDvpgrrQ52z/p6s7RSTpYNthZIVKg
-	s0e47ekFJA0VQPfDgWUjWz5M/3T2/uWpHtS7GcZSsC6Nsgl7bV2MpyTvxOBXGME2Ow==
-X-Gm-Gg: AY/fxX4M8+TuFHYvx28Ou6nK6thbD3UhNSdASFVVuMSaWUk2GDRkZM2X6CshaXu+4xr
-	KLsOvNOuElAN/QHP75EdvSwW/82EbVN4EhxaD2yRKwGdOgD/gZx0o0ryoHOEWu4PhZsKBcUFy+a
-	8NOD/B0W4K4T0YrpWnBs51M4z10ccM7NkcC6P75Ck+LuBhhiCYP7fPFZYOMjNT/+r5m6PWpt91V
-	wL9ar498Subn9XKUD69Az08fAe3TBUpxP75sINzvlHyRvrZFNRtOcd+j/zeUOF1ksaSsLUdY2lO
-	dw7GBPap5DvHbHvxBJfpKQR+qK3PUtAZELRKV1AnlCNFN2LEaXAvAA9yGeDmm624dM6cFXFz1hI
-	pbIuwLBv+VlI3bX7BrjtzP87qmMZFRzpbdrOsC/+AUSI9uPqCsLX4Tl7xLC89S2nOmCcgd62vwi
-	CI6hv8sQmIXDtUz58voIeD6kWfnwqeatD1Ui7oGO1t3DA+jgzlq2NT59YmFY9ZzyImAwKOwU7wk
-	z8=
-X-Google-Smtp-Source: AGHT+IGbQVFaZKgEom16huaPISPOZJNwrs7f32fclSfNAyWLlKJ28snWspLYmjYlrsW2W7YWlZcjTQ==
-X-Received: by 2002:a05:6000:2305:b0:431:32f:314b with SMTP id ffacd0b85a97d-431032f34cemr2595467f8f.9.1765881440234;
-        Tue, 16 Dec 2025 02:37:20 -0800 (PST)
-Message-ID: <342a49c9-6b83-4605-a5e7-b2f7fbdac269@suse.com>
-Date: Tue, 16 Dec 2025 11:37:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86/AMD: disable RDSEED on problematic Zen5
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <0b15a3fb-6ce4-4bf7-a235-073742fff35d@suse.com>
- <05012660-b93f-4439-a383-ff6e8e8d9566@suse.com>
- <c4f7c28c-c5da-4c52-b243-a07dea8bf201@vates.tech>
+X-Inumbo-ID: f4b9160a-da77-11f0-9cce-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PJLqNjOS4FCMgd2i5XsOk/hTEWt/eXoGv1f5d+Xrb3l3TwPyagdPMyb0ZpzTubmp8RaR0+mGQEo5hz120uDzW4bLQnO1pR6efR17cSBzhJ22J/HC8bC3yuL5iCvXn4xASgqiR90imKjSya2A0bFVQCNjGq6j74xr7HRigQp+WVRlx7VmwQ1a7PzpEon64TToBWKu0kMGLKeY7cYKnXHqHfJyaxBhAdme+oZs3wwul1cm6S+OL4mM50Lr7PkqaNoLz1/bXo4fd9HOhO0bouoRZrA5ScNC//JqeqGm0VwMKEX77Onx2nwiMJa3HWuKHaEVCgTtsDf39wmeEPnG0vf8kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IT7uAHagASG+WfEcAHmRSeDoL/5ZllQjf5VVCGHdvZQ=;
+ b=Z7hV2aIc8pHvVqTCLgdXl6eJoJRcLanfpiWRIVYyTwlBz4DMjgJ9nQJI6N9P9Yo50NXWRamfDb/t/bfOPmrMu79jmnasZAKocbYK9brO1Wy7CvZA4oBP6wlG2jpQN+Fq4d7bNkQGxtpJZNSe22LvQjm2mJzGtSMBs1Upsc34H/kuf5z/zxyb8gsqHlJFE4D1wO0zr6mqJeuhOCtkiUhT+PGDpFxBRx8qd/mrFK4/FsXcdqCg0QDisyNYBADCHtGV9mmXcNeVKdju4gObQMZwp7FGQmabsCklFyUF0tuJJEplHGrl5T01zr24Vr2vSHUzYkuN1Kz7/H4kZtD1vioz+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IT7uAHagASG+WfEcAHmRSeDoL/5ZllQjf5VVCGHdvZQ=;
+ b=InAoM/UQ6TxDdFZOZPtTOaNpk0Re7/BkfjserXQp9Nw51SMwXlyVDfNBdwzx8RarLj9pUKXd1E4vEfRAU/ajrmilFgUD/RLDFQTX8dnlXDDD49yavGjBcJ/u/zo7tnXYDg+3N7pKa51b7+PUqNv5aQabf7h7r8YZNwcgPI48Yg11LRiBUiWFNeg3a3GPoXUqXZwJb4w8ZGS5AdvfS1Vf0QqQXi5m4E/sg/CjZ7SFUVHcVJNEOcZSXxTvVAQp3KcjVGoB7ZmZMOFMdVx4U/zDOyDFrzUGPDSbEB2u8CHXAeP0SB7URUaDvjbprAovhPn+wm5S8FLvldTKWHe+9pnxjQ==
+From: "Ashraf, Haseeb" <haseeb.ashraf@siemens.com>
+To: Haseeb Ashraf <haseebashraf091@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
+ Grall <julien@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, "Driscoll, Dan"
+	<dan.driscoll@siemens.com>, "Ahsan Khawaja, Noor" <noor.ahsan@siemens.com>,
+	"Arslan, Fahad" <fahad.arslan@siemens.com>, "Bachtel, Andrew"
+	<andrew.bachtel@siemens.com>
+Subject: Re: [PATCH 0/3] xen/arm{32,64}: perform IPA-based TLBI when IPA is
+Thread-Topic: [PATCH 0/3] xen/arm{32,64}: perform IPA-based TLBI when IPA is
+Thread-Index: AQHcaEpRSCjrYdYkH06BEtnycvkPLLUkOFKP
+Date: Tue, 16 Dec 2025 12:08:33 +0000
+Message-ID:
+ <TYZPR06MB4580CBD5DF15805985A70453E6AAA@TYZPR06MB4580.apcprd06.prod.outlook.com>
+References: <cover.1765197209.git.haseeb.ashraf@siemens.com>
+In-Reply-To: <cover.1765197209.git.haseeb.ashraf@siemens.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c4f7c28c-c5da-4c52-b243-a07dea8bf201@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mentions: julien@xen.org
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Enabled=True;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SiteId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_SetDate=2025-12-16T12:08:32.638Z;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Name=C1
+ -
+ Restricted;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_ContentBits=1;MSIP_Label_9d258917-277f-42cd-a3cd-14c4e9ee58bc_Method=Standard;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR06MB4580:EE_|SEYPR06MB5695:EE_
+x-ms-office365-filtering-correlation-id: b1588c3d-b4b4-4dd8-f347-08de3c9bd58e
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|39142699007|31052699007|8096899003|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?uadtVCrsnt5HxP8PE+/4xRBYPnYy5fNSd4gdydSY6QL9szs6oXEOJubD9b?=
+ =?iso-8859-1?Q?EUsfy8bW2oZXU9i07/0iUCokWRhNx/9yW/rnWivkV5bj8HXDr6TYYqSme7?=
+ =?iso-8859-1?Q?j+JQ158jQmf+RlbFlfgRo62fPTEhgXxywEIZLYCTezZ2XB/p2U/uvMvSlr?=
+ =?iso-8859-1?Q?TmrcPLnF+PDjwG1iMeyUNLpkoDN+E/8F9bDzeN3HZVDAOLQAuwiDvpIE83?=
+ =?iso-8859-1?Q?94OOQgZ/9NqqyhpUmp/xQU4DxVZAvv8Il1EIHf6DITPece2jkpNSeN29+B?=
+ =?iso-8859-1?Q?+iLHcdX/5fYE43WoEXPB+0wh4W60RUp88/JRV0GW0qLjFg5alpBZn2CIFC?=
+ =?iso-8859-1?Q?b03AJazq0ksXSFOYYJgVJ9OSTp8SKbJwgbilUZ5vU9pGqxa9XgvICbcr1a?=
+ =?iso-8859-1?Q?qX9zSPoZVpuFj6G4lftyDChWLYvgUB9xiXtE6TNXo9ZAD2FYuNolly7P1b?=
+ =?iso-8859-1?Q?UM/Inktu5lrLlCq7qux5yvpNvg+K7JM0RkZWK8r44IFzFJTcGaFAG8sbrb?=
+ =?iso-8859-1?Q?fxRnpzBQzKMv7hf2pdPSmB4vY5FAAHhzPG1Ba5FxrtNV3AfR/FlQb7sdyt?=
+ =?iso-8859-1?Q?p75IxQqu2e/qvSL8yqjB+a+ghfWPYMD52O6QQBnoJ3wnIG80qebF2iXPXk?=
+ =?iso-8859-1?Q?5FcRRlNqfxlP2B5LIsiovWEYcydmFqlLnKk4efoD7tMUJox+lgQ6R+C/0x?=
+ =?iso-8859-1?Q?Nqhh0BCmh99XLcoO5d8hgtapzDrAUrq/vvDzR4oP7v3yyoaH75Do6OW/59?=
+ =?iso-8859-1?Q?2mWdYqTPpwGGZnjlzBaZvWA9AZAF4NGCH4VvlMjtBY/+ukwwKOPIrZKRFx?=
+ =?iso-8859-1?Q?9KblT88UlQn3TSNsdNnEdUBsEthB8TEiMjIbu8QXwOCR3slnqbPCO1X9LF?=
+ =?iso-8859-1?Q?pMb+6DuRdlnySlAUz2VoCeLxE1ACT97ej0vSnJqUJrmnc5NoUc+C9sBcRw?=
+ =?iso-8859-1?Q?SCMtKIY6iMFaIm4PL0sAKVOQr6kEnLihBwowUHIwycvRgElY+ulnmIGdbe?=
+ =?iso-8859-1?Q?ZdX2Wcy6r2ZmmFuK9/mMJ0yglyILIrkouCVic1p6TW77DJI2xyPxknsI2P?=
+ =?iso-8859-1?Q?6BQ/L0YCuZtEqGckBa1KW5UFr7RF3XUKA0GdOYgYKfRGNyXmAtriWpp5gX?=
+ =?iso-8859-1?Q?0lqce4MYq/dtqwiryxhFY3y3Jh3RS9JitbKozoTwqLncjfwyEoe/mqkOio?=
+ =?iso-8859-1?Q?mAgfNY2EQ33014WL+GfZ7iFewpCgnC1sK5iTWsX4Q661WmsKtmL6geyJwQ?=
+ =?iso-8859-1?Q?x6y7vM8j9fsto9tNta1dGRAV7NqVdkMs9JUhTULlt4T08pSyMP2zkE3KzG?=
+ =?iso-8859-1?Q?T8cIrR7Fido1lVj7oJCd91r5JKjRh9Cl+4rlNSUO5V/2RBumkqbz37mTTm?=
+ =?iso-8859-1?Q?adzygKzMngm14oRDQkbqyCzM+oCN0HvBwO/6KK9XEMuORknQfYyouFxOgV?=
+ =?iso-8859-1?Q?MNDkgjwJ/wze/sa+bppFkmShYzBeZEzWPnSe1S5lN4rDKW/p625rYNGRys?=
+ =?iso-8859-1?Q?bqBIJh1SHFpX3/9M8AHJH9vPUfpl5RNr1jYvxybtSVAaEr7l+OrSxi4jq9?=
+ =?iso-8859-1?Q?9CfB0cSQPcQGhQWOUPFKpXMSwnRn?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR06MB4580.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(39142699007)(31052699007)(8096899003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?O4ENd5HOaXdMnuAT9tGqvTAvZGd62pZypg1/7fwcxw9M+md+P2C7t1togt?=
+ =?iso-8859-1?Q?qmgBhJswIQ/H6dN6V9iHH6nFKcqpNdTCnRg7rRS6L5uNMxhdQ90uSXZS3E?=
+ =?iso-8859-1?Q?AekW715y3elXSmXYx1D7O9KV6jYyQ3oZZqbE6eMJ5eOMSL+nSATq8AwXsN?=
+ =?iso-8859-1?Q?4ICZMBaB4t+WdEIm4QTPLwnIRxAprlXBpR9p4CZRVfD4xfHWd+eduZCKiU?=
+ =?iso-8859-1?Q?8TO8/vpug41V2DlzxNpWnZC2MVBf/7AzPgo2UorcCutXq/QhOLLj8iztWB?=
+ =?iso-8859-1?Q?UPlByhzjlgEVGzqbDWDB8yjCrZ5bhNw30oikSuNjrhmIjULQomzOLcvBNl?=
+ =?iso-8859-1?Q?1PPW/YeAGsR9/ESv8CYK3jpvUs5IOwgnbS1RfM0OJp+VuDTit6b7NIjNKH?=
+ =?iso-8859-1?Q?N3vQ/2GqwpIixjDTc4o2sfYFz7NbCDGLcZL5tp7eN8b13YYJ8u4ZDiGOVe?=
+ =?iso-8859-1?Q?eerzqKX5nGMIdxEnAkJiME4nbVYtcBipLfiCz5/puw3lyjS6h0O0kV1lZY?=
+ =?iso-8859-1?Q?uqEOmA/p1pjrFyJxM7YOXaOQJQ5678HaFEusdAlVTOsZO+1hgxc7XVZ66R?=
+ =?iso-8859-1?Q?IWyBxaRx69RapfeAOqGNKfeEnL/h2uAvjI5XSFxtaqx8vD06G0oCm9DmJ4?=
+ =?iso-8859-1?Q?v0PXIECJypSC16jdTxKnSskGRwHC0nZweRrZyoW08a7hmiRQVOF9cVLSRF?=
+ =?iso-8859-1?Q?H7LMaEd2O5nTGqGTV7/26V0Yb3dYyjFEdeN9RKiO1FLu40RwQGY/GGVIE0?=
+ =?iso-8859-1?Q?I6Tzd9YSzNqA5OWssM+8mnTjTv7nZc61Ga7q/xqEgG1uTbwLhdpPpqyoE9?=
+ =?iso-8859-1?Q?nK+wcOEWf4wITIqxnmFpKaF1io+ZrJPf9ddgGj1uSPsQTknI1Tvl7S8nge?=
+ =?iso-8859-1?Q?C8pA2dDfvUr4Y7HOyby7V8G6DtMEI1Z75dEjVoNkQXDCcWLtDTEtPnlV6Z?=
+ =?iso-8859-1?Q?+NlqTr3f+pRI2KBzvEqZ1nB2FbybJEkG26g7Tt49VHz2Prcx69SPYJbpPf?=
+ =?iso-8859-1?Q?ofDIwVsxUUKIlP0551h0VeF8fUxhyyZEevB1nr1z69XaoMSkbDTUZtjBJg?=
+ =?iso-8859-1?Q?+XFMxnPz1yC1TbVybVSfiAOEYuj4Un8yHwrGbm9pTWl3y8QA9WyUsBRSZN?=
+ =?iso-8859-1?Q?p1y32KSEzZxVBwYEKFF8bDIW+Akz++2hFCBgnnTzUGhchMJ26/hNTbYQdo?=
+ =?iso-8859-1?Q?3Qt3fF1NLhohFblIe4PeDfmHT/kl4RCMTCtRctxXXRCP7PGce3tqmHyrIO?=
+ =?iso-8859-1?Q?kDY1p9pt4oHPHdvH3Dl6NiQ74Jjp0ocYBlmF9rRlC8GmcQdHojPz05OV/v?=
+ =?iso-8859-1?Q?oSrQFGTQVVMrf2H2lfd+W6Nfngk+ehMHT5keQ8GZPAdlweJOW3deQWSVfz?=
+ =?iso-8859-1?Q?kee7JS0bB0WS8vM90dr82ohcA5kV+/ON18l9BNkE0RKFnrGNX8Ibhs8Gbb?=
+ =?iso-8859-1?Q?Mqvp+qzQYSDaz93zxssdGton/lGUdv4OJ1gz+ptgnOdGOqX5wZRYBjQ7MQ?=
+ =?iso-8859-1?Q?80SLWl+cZNHmjEbfIrTaXtzH4G8+jTRQuK+UlUNUifMOSi1KJSdazl3w5I?=
+ =?iso-8859-1?Q?hpASBEFI1ffXVbH8vtESHL/XxcU+rDjeLfEXQFy/DD0S/rPplxokEwB1Bd?=
+ =?iso-8859-1?Q?kvogfq7zqZRzHEoqfqVLiiT5OY4jraNRvK?=
+Content-Type: multipart/alternative;
+	boundary="_000_TYZPR06MB4580CBD5DF15805985A70453E6AAATYZPR06MB4580apcp_"
+MIME-Version: 1.0
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR06MB4580.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1588c3d-b4b4-4dd8-f347-08de3c9bd58e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2025 12:08:33.3014
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2Iya8r0DbpJiPUZluDgnnqWDoOX9NwQo17GookYyDTNv8/nAHu+bFrfjuXZEkUF4fKIAmvm2dI7YN/MBrvBsg/pVjZyLWCC/oP6XwGyPeqw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5695
 
-On 16.12.2025 11:08, Teddy Astie wrote:
-> Le 16/12/2025 à 10:03, Jan Beulich a écrit :
->> @@ -1130,6 +1152,28 @@ static void cf_check init_amd(struct cpu
->>   		    !cpu_has(c, X86_FEATURE_BTC_NO))
->>   			setup_force_cpu_cap(X86_FEATURE_BTC_NO);
->>   		break;
->> +
->> +	case 0x1a:
->> +		/*
->> +		 * Zen5 have an error that causes the 16- and 32-bit forms of
->> +		 * RDSEED to frequently return 0 while signaling success (CF=1).
->> +		 * Sadly at the time of writing the fixed microcode revision is
->> +		 * known for only two of the models.
-> 
-> Is it still two models ?
+--_000_TYZPR06MB4580CBD5DF15805985A70453E6AAATYZPR06MB4580apcp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Oops - s/two/some/. Thanks for noticing.
+Hi @Julien Grall<mailto:julien@xen.org>,
 
->> +		 */
->> +		if (c == &boot_cpu_data &&
->> +		    cpu_has(c, X86_FEATURE_RDSEED) &&
->> +		    !is_forced_cpu_cap(X86_FEATURE_RDSEED)) {
->> +			static const char __initconst text[] =
->> +				"RDSEED32 is unreliable on this hardware; disabling its exposure\n";
->> +
->> +			if (zen5_rdseed_good(c))
->> +				break;
->> +
->> +			setup_clear_cpu_cap(X86_FEATURE_RDSEED);
->> +			cpuidmask_defaults._7ab0 &= ~cpufeat_mask(X86_FEATURE_RDSEED);
->> +			warning_add(text);
->> +		}
->> +		break;
-> 
-> Do we still want to disable if we are running in a hypervisor; we can 
-> expect the host to emulate the instructions to workaround the issue ?
+Bringing up this patch series. Please have a look at it, and let me if ther=
+e is any comment on v3 of this series.
 
-That would only work if we knew the host intercepts that insn. We don't
-ourselves, so I can't see us legitimately expecting anyone else to do so. Plus
-while I'm aware RDSEED can be intercepted on VMX, I'm unaware of there being
-equivalent functionality on SVM (PM vol 3 does not yield any hit when searching
-for RDSEED).
+Thanks & Regards,
+Haseeb
 
-Jan
+--_000_TYZPR06MB4580CBD5DF15805985A70453E6AAATYZPR06MB4580apcp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Hi <a class=3D"tWKOu mention ms-bgc-nlr ms-fcl-b" id=3D"OWAAM423234" href=
+=3D"mailto:julien@xen.org">
+@Julien Grall</a>,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Bringing up this patch series. Please have a look at it, and let me if ther=
+e is any comment on v3 of this series.</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Thanks &amp; Regards,</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);" class=3D"elementToProof">
+Haseeb</div>
+<div style=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10pt; c=
+olor: rgb(0, 0, 0);">
+<span style=3D"font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, =
+0);"></span></div>
+</body>
+</html>
+
+--_000_TYZPR06MB4580CBD5DF15805985A70453E6AAATYZPR06MB4580apcp_--
 
