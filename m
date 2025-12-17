@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A84DCC6687
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 08:48:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1188588.1509720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78ACCCC6732
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 08:57:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1188597.1509730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVmFu-0003Gp-Jn; Wed, 17 Dec 2025 07:47:30 +0000
+	id 1vVmP9-0004sD-EF; Wed, 17 Dec 2025 07:57:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1188588.1509720; Wed, 17 Dec 2025 07:47:30 +0000
+Received: by outflank-mailman (output) from mailman id 1188597.1509730; Wed, 17 Dec 2025 07:57:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVmFu-0003EV-H1; Wed, 17 Dec 2025 07:47:30 +0000
-Received: by outflank-mailman (input) for mailman id 1188588;
- Wed, 17 Dec 2025 07:47:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vVmP9-0004pq-BY; Wed, 17 Dec 2025 07:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 1188597;
+ Wed, 17 Dec 2025 07:57:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=10za=6X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vVmFs-0003EP-Dc
- for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 07:47:28 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f636d7a-db1c-11f0-9cce-f158ae23cfc8;
- Wed, 17 Dec 2025 08:47:22 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-477b198f4bcso43255855e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 23:47:22 -0800 (PST)
+ id 1vVmP8-0004pk-0B
+ for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 07:57:02 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7940af2-db1d-11f0-b15b-2bf370ae4941;
+ Wed, 17 Dec 2025 08:57:00 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-477b5e0323bso1378335e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Dec 2025 23:57:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4310ada8426sm3312629f8f.5.2025.12.16.23.47.21
+ 5b1f17b1804b1-47bd993f026sm23790605e9.12.2025.12.16.23.56.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Dec 2025 23:47:22 -0800 (PST)
+ Tue, 16 Dec 2025 23:56:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f636d7a-db1c-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: f7940af2-db1d-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1765957642; x=1766562442; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tdcc4DDrbE+/4pognCRSg2l+tF0fZwy0o0r04FYXIZk=;
-        b=gPILFuCWLHHca36oQoITgmYrpftUzyJjwli4R1BTFhZHzzlJMwnXZVygJGdQrmzoVK
-         mEbmQUoBSoOMFuz7abpTWwG4x9qRIZnhe9P1e1rS7XUVdfkhwYrrES6zTEcHhIUyosn7
-         15JRJMO4rahmDzw5uVs58qC9vKwGkjHltbJB5hjNudDRLmgi6WoR+T31yB64tV3mUSj2
-         oq5q6ITPTfIwBoVXMNDDSdt2cmzJYcrqA7bK/KjGt2thqxEmFbQRTh+NTt6x0hY828No
-         ZfYSMRbwlM/mMzRLwR3ppswvCXhgnpHy/m3s0BoF84uu5TW1aTjha/wQZarHuRTG7r/U
-         4t2A==
+        d=suse.com; s=google; t=1765958220; x=1766563020; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6bS2HtutJIOKEgHvKCYmMbwkYl2FVxLkCBY4kdmTe4w=;
+        b=KVtG/zhfCFUu6MKtk7K5aKmEl1seebVvtqyTyHofHJr2FEyszjUwJ7oWCs+X/eCgy4
+         MlHv6bUfWA8kSbPxYjfnv3swc7twraECvTvW7npOaFuG55Rr/YAm+Sy4MdelrrhkalrG
+         R8zgidxF3EQ2HaH/cPKhEVTvaKwVtM9pe1V5QZ6cpSAv6lSJ89HdiscmXSJ50DH3GuEQ
+         QaD01bofVjxgwhTN2W5fBeIJEt9gXxeRlK3mwGFTXRp3vfCdF7uF0L12Y4blg6q9ruX3
+         mQwwbrywDGxDIi+Yjc7kF+uqyFlstXlMHT8aGiU0Q3T4PmmzOo0TctSV2enU3WZNclMl
+         NveA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765957642; x=1766562442;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1765958220; x=1766563020;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tdcc4DDrbE+/4pognCRSg2l+tF0fZwy0o0r04FYXIZk=;
-        b=gBCAGYYWQvoSztHsryTIlg3ongQvHcRRa9qU+DBd+sIWGOSYffLiBngkN4lH7g63fO
-         rGlxPikUU4T+3bR8lo9SQMbkJ/1nMH1wEBxgy5Gg9XHY6Uc6eOq8pNOi+qjDf66hwOh6
-         YxKNE+78Cj/LHWIGIgQro2p/gn/Sv9pcCWxZKD/TrNo7VB2en19Cihx7cTluVi7HGiaJ
-         Ogmal/+2cfu8M9bTSY+ndY19/ennEs28oFyeoXFb+4z7965Fg5gK5zc7U+STF6KjwT5Z
-         HmNRNiazYfDuv3u6JY9VY00B3y3fsqlWRvNeY/W8doaIW1UyNVoMiKiarQkwOb+Fpf15
-         slAQ==
-X-Gm-Message-State: AOJu0YymVln170t1Vs2hZaBelapnwpycpxRGPoWzHR90fWemcEdcg5mH
-	5kVB/Zh2fu/AedQMNQB9nJmDhl1qbXZsHLBobIv5pzpNUVjpadYoaxzdlupbFSJmPw==
-X-Gm-Gg: AY/fxX4B5CAyrmL7w6mGO/f0jcE4S3t9OykngkLvIrvwpQjUDxArPECPJ8/KuxNIQ/O
-	gbsbr3lmPP1G9nyvrvNzHAJRnyjyJ4nKgn6X6X6pS0WkHiT4oTXofYSbv0zTE5Az6V1Rt1SGaZA
-	9va6Jg6qCkQQBZxfpWAJsFNehXe7fWBFNTUphaggPnzssB6t/X5IAzeLUo2ekkvPvrsSjHrFko+
-	kIAmXdPp1zdH8h1Q/5oRn+BiMn64PrJT0d/j/B8/Lj0JifTyxNMuyoPwpFLkp7xSWlF+zMM9jy3
-	9P/JdnZhIeUg0ioePkQv5Kw1GUrH9cSMyeMGmDfHOn4mIRT1OvrFGF9Y1tyGjscKSm8kKgCn/47
-	F9x8aobVvYCh5rr486OG9l7ul7vaAwWDTSsYYHttMVdQBNDkO8a8OBHYRqWTeckIcMgrONNzX+u
-	NnouC9i9fk50q1uWiEHGgP/WgvPI9+JZ8+mLcAldMEgQNF+DLqyDbWWWgV6Uf7wsWbQSpq7/ev1
-	z0=
-X-Google-Smtp-Source: AGHT+IFYEVCHdbCHpkhfM1LGD3ZUypj6N6CMOLbKmDvV4iOzaQxlhmGB6A+5D/1991To8GDyT6AlWg==
-X-Received: by 2002:a05:600c:524b:b0:477:bb0:751b with SMTP id 5b1f17b1804b1-47a8f90d716mr179672215e9.27.1765957642383;
-        Tue, 16 Dec 2025 23:47:22 -0800 (PST)
-Message-ID: <6483e684-accc-41ed-a934-e72f3c470af2@suse.com>
-Date: Wed, 17 Dec 2025 08:47:20 +0100
+        bh=6bS2HtutJIOKEgHvKCYmMbwkYl2FVxLkCBY4kdmTe4w=;
+        b=QZYWvCgSvzij6QdQdT0+G+6uZ77840LtO9g1YYy34IYIy0b1rSf91gXVUypNDfnD8r
+         9su/eDFNlaUJ41d26L1oeQCaV+DkR34MAWQrkbEjAQXcZc41/2bVRAhHJTqx/CIUHgc0
+         DwZPgwtwbmsInCP34w82bOvKdXAiCTJmVNBc+RUUuoHKyDbdFRgBYBkPiRBcwqjoMSJN
+         +Rdhr87Af5um4+HqOSyxERIOmi5MX3AfpOS1vab/F9Lyy4UuYjkoyl3Bt4px/xrRrXyz
+         OJrF9P9/coyRbzMvpSmjkgOlXYSLIP+Voc4dDFTkSb8hCLTAPZyEQwcaPMFaTREVE4yK
+         kzWg==
+X-Forwarded-Encrypted: i=1; AJvYcCUBZCipL6KjsfCxoyz33jAsp2mCavXMb+IaTkqL8wUKjEweBxCMwHbUqYricJFqS9d7zK/L9jKbzA0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLwmzO/nuT2F67NuH3V6hKuL634BVIHZpisuERjl+dOPJHyFsv
+	uzs3lfUA6lHznmRN6hAYnOkQN7V/mod9rB7HVQAQFOPUASNJhmkmnjekChhTdb1pRw==
+X-Gm-Gg: AY/fxX7bOTHotkgkC5M3elkCDUtqhGmejwDxo0m4cjlCGQEhmPqS/V/GgG/55tZwIAw
+	xY49qc+G33d5Gt6ldhF2Uc+0PC3iRCgw1wdDOgz3ZPvnYJOcZjGC1UV8BQr15L0ZKjRYFH+ReBX
+	jMLNgEY+dwIc0PpuJOl+prGulAMLsJa8WmFAeFcaytzAaQFIhhQvwDb55SlcigChEmXGvTw6Sdl
+	dh/mvX72bDWGNzTmZ2QXZsNrHlGrOGqV7lX6X41OmohvGrYia/EV9MTvEC5vqbGnRcL0SOvghk3
+	qgztU3pzCFt8rKgEyfP3k/Zr2YsSNG46SFXKm3mXOZOMTlkUPzSmKjNruJJ2ZaOJ4rbiQFDUP+F
+	APyjPcyCqx+liizTwo4YcStrBwnVhD+nfCJOuP82yTlHPaai9XCZROKWsjfXHr077UlQ7pGpIlR
+	fbcJ1PWUvvyjQjA/mpIcibII/GOm3UggSADbBEAvhvLhKD4Cl8V7T6K2G0wfhjXZsb6vPQ9bXlJ
+	GY=
+X-Google-Smtp-Source: AGHT+IEGgMmiug20du4vdt4sFwvZJXH6H4IWs89UQUWbL9GsW5tXn3l5Q5DmZzHGEY15cr/cfEXfYw==
+X-Received: by 2002:a05:600c:529b:b0:475:d9de:952e with SMTP id 5b1f17b1804b1-47a8f09428fmr185098925e9.1.1765958219702;
+        Tue, 16 Dec 2025 23:56:59 -0800 (PST)
+Message-ID: <d3c61635-875c-46e3-967d-64def04c7df4@suse.com>
+Date: Wed, 17 Dec 2025 08:56:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: X86: build failure
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <8ee2e801-9a3a-414d-9df9-113f419e02e9@epam.com>
- <63b6f29f-29ca-458e-8d6f-3408e84173e9@citrix.com>
+Subject: Re: [PATCH v4 1/2] xen/x86: move domain_clamp_alloc_bitsize() into
+ pv32 code
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251216231348.3897820-1-grygorii_strashko@epam.com>
+ <20251216231348.3897820-2-grygorii_strashko@epam.com>
 Content-Language: en-US
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,86 +122,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <63b6f29f-29ca-458e-8d6f-3408e84173e9@citrix.com>
+In-Reply-To: <20251216231348.3897820-2-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17.12.2025 00:54, Andrew Cooper wrote:
-> On 16/12/2025 11:35 pm, Grygorii Strashko wrote:
->> Hi All,
->>
->> I experience build failure with following Kconfig combination:
->>  CONFIG_DEBUG=n and CONFIG_XEN_IBT=n
->>
->> with gcc:
->>  gcc --version
->>  gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
->>  Copyright (C) 2021 Free Software Foundation, Inc.
->>  This is free software; see the source for copying conditions.  There
->> is NO
->>  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
->> PURPOSE.
->>
->> Is this known issue?
->>
->> ====== log ===============
->>   CC      arch/x86/x86_emulate.o
->> In file included from arch/x86/x86_emulate.c:27:
->> arch/x86/x86_emulate/x86_emulate.c: In function ‘x86_emulate’:
->> arch/x86/x86_emulate/x86_emulate.c:70:36: error: writing 1 byte into a
->> region of size 0 [-Werror=stringop-overflow=]
->>    70 |     gcc11_wrap(ptr)[0 - PFX_BYTES] = ext < ext_8f08 ? 0xc4 :
->> 0x8f; \
->> arch/x86/x86_emulate/x86_emulate.c:78:9: note: in expansion of macro
->> ‘copy_VEX’
->>    78 |         copy_VEX(ptr, vex); \
->>       |         ^~~~~~~~
->> arch/x86/x86_emulate/x86_emulate.c:8140:13: note: in expansion of
->> macro ‘copy_REX_VEX’
->>  8140 |             copy_REX_VEX(opc, rex_prefix, vex);
->>       |             ^~~~~~~~~~~~
->> In file included from arch/x86/x86_emulate/x86_emulate.c:11,
->>                  from arch/x86/x86_emulate.c:27:
->> arch/x86/x86_emulate/private.h:691:17: note: at offset [0, 4095] into
->> destination object of size [0, 9223372036854775807] allocated by
->> ‘map_domain_page’
->>   691 |     (stb).ptr = map_domain_page(_mfn(this_cpu(stubs.mfn))) + \
->>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> arch/x86/x86_emulate/x86_emulate.c:60:21: note: in expansion of macro
->> ‘get_stub’
->>    60 |     uint8_t *buf_ = get_stub(stub); \
->>       |                     ^~~~~~~~
->> arch/x86/x86_emulate/x86_emulate.c:3354:15: note: in expansion of
->> macro ‘init_prefixes’
->>  3354 |         opc = init_prefixes(stub);
->>       |               ^~~~~~~~~~~~~
->> arch/x86/x86_emulate/private.h:691:17: note: at offset [1, 4096] into
->> destination object of size [0, 9223372036854775807] allocated by
->> ‘map_domain_page’
->>   691 |     (stb).ptr = map_domain_page(_mfn(this_cpu(stubs.mfn))) + \
->>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> arch/x86/x86_emulate/x86_emulate.c:94:21: note: in expansion of macro
->> ‘get_stub’
->>    94 |     uint8_t *buf_ = get_stub(stub); \
->>       |                     ^~~~~~~~
->> arch/x86/x86_emulate/x86_emulate.c:3402:15: note: in expansion of
->> macro ‘init_evex’
->>  3402 |         opc = init_evex(stub);
->> [...]
->>
-> 
-> Hmm - that looks like more of the GCC 11 bounds bugs, but that's what
-> the gcc11_wrap() visible at the top is supposed to be fixing.
-> 
-> Neither of those CONFIG options ought to be relevant.
+On 17.12.2025 00:13, Grygorii Strashko wrote:
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -619,8 +619,16 @@ void __iomem *ioremap_wc(paddr_t pa, size_t len);
+>  
+>  extern int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm);
+>  
+> -unsigned int domain_clamp_alloc_bitsize(struct domain *d, unsigned int bits);
+> -#define domain_clamp_alloc_bitsize(d, bits) domain_clamp_alloc_bitsize(d, bits)
+> +#ifdef CONFIG_PV32
+> +#define domain_clamp_alloc_bitsize(d, bits) ({                                 \
+> +    struct domain *_d = (d);                                                   \
 
-CONFIG_DEBUG=n may well matter, due to the different -O<n> settings.
-CONFIG_XEN_IBT=n otoh is indeed curious.
+This imo wants to be pointer-to-const. Question is whether then I'm upsetting you
+again, Andrew?
 
-May want experimenting some starting from the pre-processed file. Grygorii,
-could you generate that in your build env and then make it available
-somewhere (together with the exact options passed to gcc when you observe
-the build failure)?
+> +    ((_d &&                                                                    \
+> +      _d->arch.physaddr_bitsize)                                               \
+> +         ? min_t(unsigned int, _d->arch.physaddr_bitsize, bits)                \
+> +         : bits);                                                              \
+
+This imo wants to look more like
+
+    ((_d && _d->arch.physaddr_bitsize)                      \
+     ? min_t(unsigned int, _d->arch.physaddr_bitsize, bits) \
+     : (bits));                                             \
+
+The parenthesization of the latter use of "bits" is a must.
+
+With the adjustments (happy to carry out while committing, so long as there's
+agreement):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Albeit, as indicated before, I'm not quite happy with the use of min_t(). Maybe
+another macro-local variable _bits should be introduced?
 
 Jan
 
