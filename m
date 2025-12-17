@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54693CC87DC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 16:38:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1188855.1509883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D3FCC87DF
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 16:38:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1188856.1509889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVtb0-0006N1-QS; Wed, 17 Dec 2025 15:37:46 +0000
+	id 1vVtb1-0006Qo-2d; Wed, 17 Dec 2025 15:37:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1188855.1509883; Wed, 17 Dec 2025 15:37:46 +0000
+Received: by outflank-mailman (output) from mailman id 1188856.1509889; Wed, 17 Dec 2025 15:37:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVtb0-0006KZ-M0; Wed, 17 Dec 2025 15:37:46 +0000
-Received: by outflank-mailman (input) for mailman id 1188855;
- Wed, 17 Dec 2025 15:37:44 +0000
+	id 1vVtb0-0006N0-Ts; Wed, 17 Dec 2025 15:37:46 +0000
+Received: by outflank-mailman (input) for mailman id 1188856;
+ Wed, 17 Dec 2025 15:37:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=trBu=6X=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
- id 1vVtay-0006KO-Om
- for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 15:37:44 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 536c9a00-db5e-11f0-b15b-2bf370ae4941;
- Wed, 17 Dec 2025 16:37:42 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7EBF6FEC;
- Wed, 17 Dec 2025 07:37:34 -0800 (PST)
-Received: from [10.57.47.3] (unknown [10.57.47.3])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 487443F73F;
- Wed, 17 Dec 2025 07:37:35 -0800 (PST)
+ <SRS0=ddEZ=6X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vVtaz-0006KO-E8
+ for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 15:37:45 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 54db21ce-db5e-11f0-b15b-2bf370ae4941;
+ Wed, 17 Dec 2025 16:37:44 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-b79e7112398so1147742666b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Dec 2025 07:37:44 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
+ [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7ff90481edsm468504566b.34.2025.12.17.07.37.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Dec 2025 07:37:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 536c9a00-db5e-11f0-b15b-2bf370ae4941
-Message-ID: <6afcb722-80cc-4bb2-a745-d9ad7893f0ae@arm.com>
-Date: Wed, 17 Dec 2025 16:37:32 +0100
+X-Inumbo-ID: 54db21ce-db5e-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765985864; x=1766590664; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HckJ8z4ErRqks7W4b2m+C2DmrfPMINuN05vvWMpfNgg=;
+        b=SWecz9mr6av526T6wmSx0z3HRtBXF9OFlkvOVDboNqqBdIL2Kl9JobzsUCmc3Ueyns
+         iWKNJdoifK67s+xgB2Jpdtl9kwICL0Ip0egIWTWshbjbacAZ92UJa+bE7WTl4LAixrHU
+         0GsKZN4/nHodz3TK9wu/7QU9ZX4EAhI1KDv6IztgE/3jpU4iuGxiW6aZglMVTDDfkKGE
+         L1WSZ1hJPZUcH18u3xrHipeFYPxT5lmkbfVd4acbV9weewe0/Z0eMP5gewYJPVRJ2+b9
+         iEVLxdo9Hzqv7FGzWFb564yByGYoA00fMfPyKm/2Q50nW1feXlkEFG1kW9BTNs23l7B2
+         EOfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765985864; x=1766590664;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HckJ8z4ErRqks7W4b2m+C2DmrfPMINuN05vvWMpfNgg=;
+        b=vh8z/NZAPR+tUWe++gMdxy6BCrpkSn65pYeoIY5jxZ0rJm0S/uyTuAyke/e5pxiShj
+         pgHpbh0FJnalzL0S/QGmH35lNmODI5wpI4vr0j6CyvHD5QBMS+9Um+EcZX0TT+m65t8v
+         vTZ2PP3yp7GeTTE4NlRT7EG0f/mvl+qGoxRqknwrCRyPNWJ1Rd2uAokWS/KOpm2OvBNU
+         e2Ojw20i65kRS9uH9MQARIsVCn2msSnV8OqtW29WsbZk48RpJN3Cpx6G6velK4ef2PqI
+         8wdOnnj2F1NZHsZ+ZF8G+VHFq67q2iW4lUZ3vR0SR3hJWUV7o2ucShG264gb79ONAHJJ
+         BMKw==
+X-Forwarded-Encrypted: i=1; AJvYcCXCYJ/+a1BGyGlCi9J6BsPW3pww33ORBb8n+/n1H8GXRwN994tLyCoMnb6E1i6fitKgYugf5MV/x9E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwXql3m+DSQGm6C0CAfc2TBVuvcnMc5plsSZslsKtevsyf4hjNF
+	t9zSjPDQzHz0qUhSR9AWFN5aQ6wMQiu2ZPofgE5lEpsdeI4hXUBrVLdu
+X-Gm-Gg: AY/fxX5APdxmH1n7sIiGT8n1vaY33dbbwAOtz1FZANkLo0D8mx9y5bI/zbHdCPsauwv
+	DGfqOiLtx8UnqQOMu6Qs07j4y8fCZFedbhmO011R70ucpSvEnuhBTUU4Y4ZErhEOFAWvCMSpUVF
+	WNacyI9uuppADp5x3TAlXFnUoeHqFNuh8slq45mFCrm4dtRtaf+7royGg+705+jAZn039hHC06J
+	VRV24NP7yTFNgME2RAHgDIYQOQWa8mNVvFwvRdy2Uv+pTKFicgHmdty+vRFAlcF6+GdeHk7wvAn
+	OdfSbbY3hAf6Od4CVo7arqn561iJx8ENWrb87t+bxUkdgBW+vlQ+iCjTHT0D/OnaE8BVFtHAAU/
+	hAmYh7HGdhxGC0KHINiN38/+QknIa/WbuGQ+tN0wcd6YpKpt303U10V7vBj107p2vadvKnv1BkU
+	nxWbjmTMTpuvHTDX8fSiw7a2n8p4PygE9II6XBVWapzwOLx56/yqicN/5z3ARcsQZV3iRremoa3
+	kc=
+X-Google-Smtp-Source: AGHT+IGSdeISRy+HvZiudkm+cKzuNTH3tuGa1XGE6FDSUUUQhwJDL9iagHVO03MD4D3zaU79FF2IUg==
+X-Received: by 2002:a17:907:db03:b0:b73:1634:6d71 with SMTP id a640c23a62f3a-b7d23693326mr1889704866b.26.1765985863641;
+        Wed, 17 Dec 2025 07:37:43 -0800 (PST)
+Message-ID: <7bec6dab-9776-4f94-b121-0be696be78d8@gmail.com>
+Date: Wed, 17 Dec 2025 16:37:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 14/14] mm: Add basic tests for lazy_mmu
-To: Ryan Roberts <ryan.roberts@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
- <20251215150323.2218608-15-kevin.brodsky@arm.com>
- <20251216201403.4647a4f9861d3122ee9e90d7@linux-foundation.org>
- <f9550d22-8810-4145-aaa8-48961f6ea35e@arm.com>
- <ca0da7fd-245c-4d52-8f4d-f8fce4717494@arm.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <ca0da7fd-245c-4d52-8f4d-f8fce4717494@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1] xen: move alloc/free_vcpu_struct() to common code
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+References: <5f75053750a9fca2b5fecf1dcf6f097b25e8f27f.1765967934.git.oleksii.kurochko@gmail.com>
+ <8aee5daf-be3b-4f10-aa38-b8c1504ba0b4@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <8aee5daf-be3b-4f10-aa38-b8c1504ba0b4@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 17/12/2025 11:01, Ryan Roberts wrote:
-> On 17/12/2025 09:26, Kevin Brodsky wrote:
->> On 17/12/2025 05:14, Andrew Morton wrote:
->>> On Mon, 15 Dec 2025 15:03:23 +0000 Kevin Brodsky <kevin.brodsky@arm.com> wrote:
->>>
->>>> Add basic KUnit tests for the generic aspects of the lazy MMU mode:
->>>> ensure that it appears active when it should, depending on how
->>>> enable/disable and pause/resume pairs are nested.
->>> I needed this for powerpc allmodconfig;
->>>
->>> --- a/arch/powerpc/mm/book3s64/hash_tlb.c~mm-add-basic-tests-for-lazy_mmu-fix
->>> +++ a/arch/powerpc/mm/book3s64/hash_tlb.c
->>> @@ -30,6 +30,7 @@
->>>  #include <trace/events/thp.h>
->>>  
->>>  DEFINE_PER_CPU(struct ppc64_tlb_batch, ppc64_tlb_batch);
->>> +EXPORT_SYMBOL_GPL(ppc64_tlb_batch);
->>>  
->>>  /*
->>>   * A linux PTE was changed and the corresponding hash table entry
->>> @@ -154,6 +155,7 @@ void __flush_tlb_pending(struct ppc64_tl
->>>  		flush_hash_range(i, local);
->>>  	batch->index = 0;
->>>  }
->>> +EXPORT_SYMBOL_GPL(__flush_tlb_pending);
->>>  
->>>  void hash__tlb_flush(struct mmu_gather *tlb)
->>>  {
->>> _
->> Oh indeed I hadn't considered that arch_{enter,leave}_lazy_mmu_mode()
->> refer to those symbols on powerpc... Maybe a bit overkill to export
->> those just for a test module, but I'm not sure there's a good
->> alternative. Forcing LAZY_MMU_MODE_KUNIT_TEST=y is ugly as it would also
->> force KUNIT=y. Alternatively we could depend on !PPC, not pretty either.
-> Does EXPORT_SYMBOL_IF_KUNIT() help?
 
-It most certainly would, I didn't know about that one, thanks!
+On 12/17/25 12:46 PM, Andrew Cooper wrote:
+> On 17/12/2025 10:53 am, Oleksii Kurochko wrote:
+>> alloc_vcpu_struct() and free_vcpu_struct() contain little
+>> architecture-specific logic and are suitable for sharing across
+>> architectures. Move both helpers to common code.
+>>
+>> To support the remaining architectural differences, introduce
+>> arch_vcpu_struct_memflags(), allowing architectures to override the
+>> memory flags passed to alloc_xenheap_pages(). This is currently needed
+>> by x86, which may require MEMF_bits(32) for HVM guests using shadow
+>> paging.
+> You lost the comment explaining the restriction.  This needs adding back.
+>
+>> Move the definition of MAX_PAGES_PER_VCPU to xen/domain.h and default
+>> it to 1. Retain the ARM64 exception (with CONFIG_NEW_VGIC) where two
+>> pages are required due to larger per-IRQ structures.
+> CONFIG_NEW_VGIC is still off by default, unsupported, and has had no
+> work on it since it's introduction in 2018.
+>
+> There are a lot of good reasons to enforce struct vcpu being a single
+> page allocation, not least because an allocation can fail due to
+> fragmentation despite there being enough free RAM.
+>
+> I would far rather that common code enforced it being page size, and
+> NEW_VGIC gets deleted or adjusted to cope, than to make it this easy for
+> architectures to shoot themselves in the foot.
 
-- Kevin
+I am not sure that everyone would agree to simply drop|NEW_VGIC|.
+
+Based on the commit message ...:
+     ARM: new VGIC: Allocate two pages for struct vcpu
+     
+     At the moment we allocate exactly one page for struct vcpu on ARM, also
+     have a check in place to prevent it growing beyond 4KB.
+     As the struct includes the state of all 32 private (per-VCPU) interrupts,
+     we are at 3840 bytes on arm64 at the moment already. Growing the per-IRQ
+     VGIC structure even slightly makes the VCPU quickly exceed the 4K limit.
+     The new VGIC will need more space per virtual IRQ. I spent a few hours
+     trying to trim this down, but couldn't get it below 4KB, even with the
+     nasty hacks piling up to save some bytes here and there.
+     It turns out that beyond efficiency, maybe, there is no real technical
+     reason this struct has to fit in one page, so lifting the limit to two
+     pages seems like the most pragmatic solution.
+     Restrict the compilation error to compiling with the new VGIC and for
+     ARM64 only.
+
+... Given this, I initially thought it would be difficult to adjust.
+However, it seems there might be enough to do the following ...:
+@@ -238,7 +238,7 @@ struct arch_vcpu
+      union gic_state_data gic;
+      uint64_t lr_mask;
+  
+-    struct vgic_cpu vgic;
++    struct vgic_cpu *vgic;
+  
+      /* Timer registers  */
+      register_t cntkctl;
+
+... with|vgic| allocated in|vcpu_vgic_init()| and freed in|vcpu_vgic_free()|.
+
+I only checked whether this is sufficient to build with ...:
+    #if defined(CONFIG_NEW_VGIC) && defined(CONFIG_ARM_64)
+    -#define MAX_PAGES_PER_VCPU  2
+    +#define MAX_PAGES_PER_VCPU  1
+    #endif
+   
+   $ grep -nE "^(CONFIG_NEW_VGIC|CONFIG_ARM_64)=y" xen/.config
+   13:CONFIG_ARM_64=y
+   28:CONFIG_NEW_VGIC=y
+... and it seems to work.
+
+The question to the Arm maintainers is whether you would be fine with such a
+solution.
+
+~ Oleksii
+
+
+>
+>> The ARM implementation of alloc/free_vcpu_struct() is removed and
+>> replaced by the common version. Stub implementations are also dropped
+>> from PPC and RISC-V.
+>>
+>> Finally, make alloc_vcpu_struct() and free_vcpu_struct() static to
+>> common/domain.c, as they are no longer used outside common code.
+>>
+>> No functional changes.
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
 
