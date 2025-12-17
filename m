@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB23ACC898F
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 16:53:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1188895.1509912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2958ECC8B21
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Dec 2025 17:11:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1188910.1509924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVtq0-0001jE-Kc; Wed, 17 Dec 2025 15:53:16 +0000
+	id 1vVu7B-00057U-1j; Wed, 17 Dec 2025 16:11:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1188895.1509912; Wed, 17 Dec 2025 15:53:16 +0000
+Received: by outflank-mailman (output) from mailman id 1188910.1509924; Wed, 17 Dec 2025 16:11:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vVtq0-0001hC-Hf; Wed, 17 Dec 2025 15:53:16 +0000
-Received: by outflank-mailman (input) for mailman id 1188895;
- Wed, 17 Dec 2025 15:53:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vVu7A-00054N-Ui; Wed, 17 Dec 2025 16:11:00 +0000
+Received: by outflank-mailman (input) for mailman id 1188910;
+ Wed, 17 Dec 2025 16:10:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tELU=6X=bounce.vates.tech=bounce-md_30504962.6942d1e7.v1-99a52fcc01f648c7b119ad0d794d5bed@srs-se1.protection.inumbo.net>)
- id 1vVtpz-0001h6-Cy
- for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 15:53:15 +0000
-Received: from mail186-20.suw21.mandrillapp.com
- (mail186-20.suw21.mandrillapp.com [198.2.186.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e2c5eff-db60-11f0-b15b-2bf370ae4941;
- Wed, 17 Dec 2025 16:53:13 +0100 (CET)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-20.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4dWdcS0DyLzFCWmvh
- for <xen-devel@lists.xenproject.org>; Wed, 17 Dec 2025 15:53:12 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 99a52fcc01f648c7b119ad0d794d5bed; Wed, 17 Dec 2025 15:53:11 +0000
+ <SRS0=trBu=6X=arm.com=kevin.brodsky@srs-se1.protection.inumbo.net>)
+ id 1vVu79-00054H-9e
+ for xen-devel@lists.xenproject.org; Wed, 17 Dec 2025 16:10:59 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id f615cd44-db62-11f0-9cce-f158ae23cfc8;
+ Wed, 17 Dec 2025 17:10:53 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 70ACCFEC;
+ Wed, 17 Dec 2025 08:10:45 -0800 (PST)
+Received: from [10.57.47.3] (unknown [10.57.47.3])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E837B3F5CA;
+ Wed, 17 Dec 2025 08:10:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e2c5eff-db60-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1765986792; x=1766256792;
-	bh=6RDxNa/bxEp+ttbWuXALs6hqj1w9id+IWGqp/NgQemQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=C76IhOJA+BbGrHO14dKqIHyV4vzreTDqb8N4ODuaHG+PH3fy99VC+lKQ/BmMoERpq
-	 c6+PKPtySfqYvlkxbn2+eL8UxvfeVTOdGWAOIwM12oZ81FCj1MKrmz4jxuYHIaFycz
-	 pz+juaEYNtMw+SGH4iyvLuTYfWI1ITXyEPYECcZ+T512GwN3+EZYpb/g8LQ8+SC+gB
-	 w3kQnQDxq/jhfzq+tJog8ruwk+Sf/lLukjRgwxq8xFlG9Aj/s/+0HZgIwXaCaWKmUz
-	 xLMgmzyNp2WbssSi58ZChklcG6JtUn/gzvgZX1r8b81HFFDqMtxLoOXFJsUa/C5WW1
-	 OF3Qu6JCAsj2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1765986792; x=1766247292; i=anthony.perard@vates.tech;
-	bh=6RDxNa/bxEp+ttbWuXALs6hqj1w9id+IWGqp/NgQemQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=xVbJe8jGHmH/ITFFlrENlDshb7HL0jF003Ccpv50PXU1zW1oYbVR9tl63Hik64jay
-	 hqirTvnjVZK4cW6IiZg8qs6FqyBMvb47frmS60MIgAFKxoeN3HulkHNGg6HbnUPUOp
-	 tfmt3CnNhP4N55OEOYTPCznUrXxhhRdEoZyt0V1lyY7+dBmAf5apGOrKrQ7vLf6Ngl
-	 ES/OHyHbTyBt6XTFpfbTsir+ELTyiatjcYlQTsYlBCT20oiSt3KzV15JwjXVYYVApW
-	 umYkvDGUVPn1dyg3JnzgWNlCKB0pfaQu1BtxzfHz0ZbWP7UIa/jIltpVq27rOV8wxc
-	 bQJP089ulPfGw==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RESEND=20PATCH=20v2=201/3]=20xen:=20Define=20xen=5Fdomain=5Fhandle=5Ft=20encoding=20and=20formatting?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1765986790604
-To: "Teddy Astie" <teddy.astie@vates.tech>
-Cc: xen-devel@lists.xenproject.org, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
-Message-Id: <aULR5vTz1DEHxu8X@l14>
-References: <cover.1756460430.git.teddy.astie@vates.tech> <a12f705dae18ae2b87c9e21027d14c4e60bff146.1756460430.git.teddy.astie@vates.tech>
-In-Reply-To: <a12f705dae18ae2b87c9e21027d14c4e60bff146.1756460430.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.99a52fcc01f648c7b119ad0d794d5bed?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251217:md
-Date: Wed, 17 Dec 2025 15:53:11 +0000
+X-Inumbo-ID: f615cd44-db62-11f0-9cce-f158ae23cfc8
+Message-ID: <799bdcb5-cb18-4b7a-b33f-bea1553f3650@arm.com>
+Date: Wed, 17 Dec 2025 17:10:40 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 14/14] mm: Add basic tests for lazy_mmu
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Ryan Roberts <ryan.roberts@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Suren Baghdasaryan
+ <surenb@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
+ <20251215150323.2218608-15-kevin.brodsky@arm.com>
+ <20251216201403.4647a4f9861d3122ee9e90d7@linux-foundation.org>
+ <f9550d22-8810-4145-aaa8-48961f6ea35e@arm.com>
+ <ca0da7fd-245c-4d52-8f4d-f8fce4717494@arm.com>
+ <87a4zhkt6h.ritesh.list@gmail.com>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <87a4zhkt6h.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 29, 2025 at 09:58:15AM +0000, Teddy Astie wrote:
-> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-> index 82b9c05a76..a219ef870f 100644
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -973,6 +973,13 @@ typedef struct dom0_vga_console_info {
->  #define xen_vga_console_info dom0_vga_console_info
->  #define xen_vga_console_info_t dom0_vga_console_info_t
+On 17/12/2025 16:46, Ritesh Harjani (IBM) wrote:
+> Ryan Roberts <ryan.roberts@arm.com> writes:
+>
+>> On 17/12/2025 09:26, Kevin Brodsky wrote:
+>>> On 17/12/2025 05:14, Andrew Morton wrote:
+>>>> On Mon, 15 Dec 2025 15:03:23 +0000 Kevin Brodsky <kevin.brodsky@arm.com> wrote:
+>>>>
+>>>>> Add basic KUnit tests for the generic aspects of the lazy MMU mode:
+>>>>> ensure that it appears active when it should, depending on how
+>>>>> enable/disable and pause/resume pairs are nested.
+>>>> I needed this for powerpc allmodconfig;
+>>>>
+>>>> --- a/arch/powerpc/mm/book3s64/hash_tlb.c~mm-add-basic-tests-for-lazy_mmu-fix
+>>>> +++ a/arch/powerpc/mm/book3s64/hash_tlb.c
+>>>> @@ -30,6 +30,7 @@
+>>>>  #include <trace/events/thp.h>
+>>>>  
+>>>>  DEFINE_PER_CPU(struct ppc64_tlb_batch, ppc64_tlb_batch);
+>>>> +EXPORT_SYMBOL_GPL(ppc64_tlb_batch);
+>>>>  
+>>>>  /*
+>>>>   * A linux PTE was changed and the corresponding hash table entry
+>>>> @@ -154,6 +155,7 @@ void __flush_tlb_pending(struct ppc64_tl
+>>>>  		flush_hash_range(i, local);
+>>>>  	batch->index = 0;
+>>>>  }
+>>>> +EXPORT_SYMBOL_GPL(__flush_tlb_pending);
+>>>>  
+>>>>  void hash__tlb_flush(struct mmu_gather *tlb)
+>>>>  {
+>>>> _
+>>> Oh indeed I hadn't considered that arch_{enter,leave}_lazy_mmu_mode()
+>>> refer to those symbols on powerpc... Maybe a bit overkill to export
+>>> those just for a test module, but I'm not sure there's a good
+>>> alternative. Forcing LAZY_MMU_MODE_KUNIT_TEST=y is ugly as it would also
+>>> force KUNIT=y. Alternatively we could depend on !PPC, not pretty either.
+>> Does EXPORT_SYMBOL_IF_KUNIT() help?
+>>
+> yes, that make sense. Thanks for the suggestion!
+> I guess we will need a diff like this in that case -
+>
+>
+> diff --git a/arch/powerpc/mm/book3s64/hash_tlb.c b/arch/powerpc/mm/book3s64/hash_tlb.c
+> index fbdeb8981ae7..ec2941cec815 100644
+> --- a/arch/powerpc/mm/book3s64/hash_tlb.c
+> +++ b/arch/powerpc/mm/book3s64/hash_tlb.c
+> @@ -25,11 +25,12 @@
+>  #include <asm/tlb.h>
+>  #include <asm/bug.h>
+>  #include <asm/pte-walk.h>
+> -
+> +#include <kunit/visibility.h>
 >  
-> +/*
-> + * The domain handle is chosen by the toolstack, and intended to hold a UUID
-> + * conforming to RFC 9562 (i.e. big endian).
-> + *
-> + * Certain cases (e.g. SMBios) transform it to a Microsoft GUID (little
-> + * endian) for presentation to the guest.
-> + */
+>  #include <trace/events/thp.h>
+>  
+>  DEFINE_PER_CPU(struct ppc64_tlb_batch, ppc64_tlb_batch);
+> +EXPORT_SYMBOL_IF_KUNIT(ppc64_tlb_batch);
+>  
+>  /*
+>   * A linux PTE was changed and the corresponding hash table entry
+> @@ -154,6 +155,7 @@ void __flush_tlb_pending(struct ppc64_tlb_batch *batch)
+>                 flush_hash_range(i, local);
+>         batch->index = 0;
+>  }
+> +EXPORT_SYMBOL_IF_KUNIT(__flush_tlb_pending);
+>  
+>  void hash__tlb_flush(struct mmu_gather *tlb)
+>  {
+> diff --git a/mm/tests/lazy_mmu_mode_kunit.c b/mm/tests/lazy_mmu_mode_kunit.c
+> index 2720eb995714..340d7cda9096 100644
+> --- a/mm/tests/lazy_mmu_mode_kunit.c
+> +++ b/mm/tests/lazy_mmu_mode_kunit.c
+> @@ -69,3 +69,4 @@ kunit_test_suite(lazy_mmu_mode_test_suite);
+>  
+>  MODULE_DESCRIPTION("Tests for the lazy MMU mode");
+>  MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
 
-So, there's already a definition about this, but it's a comment on
-XENVER_guest_handle (in public/version.h):
+Indeed, that's pretty much what I was about to send :)
 
-> /* arg == xen_domain_handle_t.
->  *
->  * The toolstack fills it out for guest consumption. It is intended to hold
->  * the UUID of the guest.
->  */
-
-We can add that the binary format is most significant byte or network
-byte order, but that's already the format stated in RFC 4122 and its
-successor RFC 9562.
-
-Also, I don't think it is useful here to point out how that handle/UUID
-might be used/transformed by guest.
-
->  typedef uint8_t xen_domain_handle_t[16];
-
-Cheers,
-
--- 
-
---
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+- Kevin
 
