@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13BF1CCC71D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 16:23:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189805.1510515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB39CCC747
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 16:27:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189817.1510525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWFpu-00043X-QG; Thu, 18 Dec 2025 15:22:38 +0000
+	id 1vWFuH-0004eO-AJ; Thu, 18 Dec 2025 15:27:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189805.1510515; Thu, 18 Dec 2025 15:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 1189817.1510525; Thu, 18 Dec 2025 15:27:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWFpu-00040Q-Mj; Thu, 18 Dec 2025 15:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 1189805;
- Thu, 18 Dec 2025 15:22:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vWFuH-0004bJ-7J; Thu, 18 Dec 2025 15:27:09 +0000
+Received: by outflank-mailman (input) for mailman id 1189817;
+ Thu, 18 Dec 2025 15:27:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWFps-00040K-EU
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 15:22:36 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6080ad8f-dc25-11f0-9cce-f158ae23cfc8;
- Thu, 18 Dec 2025 16:22:34 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4775ae5684fso3339495e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 07:22:34 -0800 (PST)
+ id 1vWFuF-0004bD-Si
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 15:27:07 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02cc662b-dc26-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 16:27:06 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47118259fd8so7469835e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 07:27:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be273f147sm48137355e9.7.2025.12.18.07.22.32
+ 5b1f17b1804b1-47be3286e72sm44073445e9.15.2025.12.18.07.27.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 07:22:33 -0800 (PST)
+ Thu, 18 Dec 2025 07:27:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6080ad8f-dc25-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 02cc662b-dc26-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766071353; x=1766676153; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766071626; x=1766676426; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gbKhiEjso363HPfXjBY0CYwBedfDXFTFr72Ds1gRcEc=;
-        b=bym74cVYOsLmDOdV2IJpJ28aMJrENUGDIh+mSOBQ2J5822C2rFYI1hUydUPkpGYsGW
-         WFaegq8aUDV0VjhVmDaYkMcEM2oNxGRhoDiLVUL33yJGN/JTZ2GGn7ITmczhdom+nl5q
-         0LK8dBdGlo4iT7RLCBHKOmnimS9LpfvKzyDcxlx4OJ/Q0aqjHIFcDH7dsjdHyZ8N7YuD
-         JUjsLHIMdz/nqxpK/fSAsUEHv4PYXzfNltKsLCcgoQ5XvWiqMrxrfxixYH+m0SLeLASS
-         MC0jgacHi0r8R3ZPHAf9MUJWpSvt+YV/8r8EOZke/kPR0YsVUI6s1+PSMHj3Nv/Xo0wj
-         iFqw==
+        bh=JHLHzXFqeQNuBT/YaIpQNpdKJL6MPjWbCC3ZJ9xRFxE=;
+        b=DG6s11uI7YpJLzSXfQRURgXfXbytUNOyCwhhDlzojBF6cyZLyoCK7gKAkie3KxlFIS
+         8TNguwgEQ6PGz9GAen4CC8Mll1ibu+WVoEf0G4zaxyNcjrLMjURR93otEiik+BeJ4nbm
+         FF1tDd42GAvmb66MNt9EPjeeaHsrHXVJ4GGKWmHxR3HhOeE7b527+/EoNa4nCagGDqoV
+         RBnwwtYM/hazf1qXVgpO6TIGth+BWAOYKXYtzWbQ6AV/DBRqf5Lb6oKoGqCpeHGGr4me
+         YFhIM4jfCvNkzAOCn9VYtItuRhW09SGzs9PVnGUcCjIUxogiMQmbpqpU/uDJJeqtt9OZ
+         AwDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766071353; x=1766676153;
+        d=1e100.net; s=20230601; t=1766071626; x=1766676426;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gbKhiEjso363HPfXjBY0CYwBedfDXFTFr72Ds1gRcEc=;
-        b=Pf4Xh0jsfOXjwo0YUZw13QNsn/rso5s9m0w2veUatzIghZnfzd6ab44Z82+yIQs8KD
-         ksk23uuh3GG+UA4ZkUg7aUmVbAFVifdQsoXvoU69hkEV+yBhdVbnXD/ncNHMXZQoAUlD
-         bUMa8ZLwQx7/jcTQKqUlPuGu67ICLVh2fYobrqoetS+5fhH+Av6tzfJN3irBOKZ0h7OZ
-         JJp+LgM7KLmxfmwS/MrBOchgrX/pLASy3Mmknj9htKG6TiYmWMSfNSnPFAj9EGJHs6fO
-         4ms8WsI9r0kyZgPglYlndvHBXY8vU0SVeDKxJPhCpnsFcDBwvon+NWY/r1GIMlqN/htu
-         HMmg==
-X-Forwarded-Encrypted: i=1; AJvYcCVRFTziwc9V208g3vMftAoDX4GV6cmMJIytVgWOFobxa00awcDz0pOgNJ+K/hk4UR/7sw7cMtAvzWY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyx6yQD2uj30C3mH292ypbvwC5Khl/hjbhLnzuSDc5vHb860Dzx
-	dfmT2lEtBcq1eW1fP1xR82So/rQ9fTfMauzRRvp7Ggo6Go1+CX4E+sM4FFnDqgHynQ==
-X-Gm-Gg: AY/fxX7leylsmYDF2USO8WgF43knABU9f4alARg4dMpo89EWhlEu89puODJGCIjcvVG
-	/+yAhT73GxehCEqkWPPpYUb5VK0pLZjAZhx82S/GUPzsQYQWIWivuglItzpHYi8Uhisx2cYlNem
-	l9XH6DbhGE933OEpRx3kUgwSyUBvHCWtVuSk7X2l4sgprCxaskmreRkUNPrnkOM4J9Gs50CX+2d
-	DglnUzicQrac721bJ3rMum3O6XAvkcW1hmog6j9AIACoIJL/FaMQUft+bp0i8WQ6DPG/G5OTJtG
-	sUTQ3lhND+ov7kOtCGWw+Qh3DRXM7rtsHhFZ80yfrKsBYMADq3wXF+LsyXMvXuHs5ix0RgSJg7e
-	P5U9btoGtyLl/q1os6pyciJa2NWt4YBKNxEj8IARUdO5BxVQk5t2TvMswhuiMpMldIQoFG1e7dW
-	oSbYHUywZhbeG8eahG7gpuuJ9qPXUA0qeTQpQdv7t25Ojfzi3JHqENGf/Dwvi7EGZXHd+2TeifA
-	72b/X4jg539lA==
-X-Google-Smtp-Source: AGHT+IGTg9t9Y+M4wJ1tKEgpRBAKwEg389Ww5+v6PcEDF5PqkaUzzIimuPR6FdvVmpHbDJ0kKAzi/w==
-X-Received: by 2002:a05:600c:a00f:b0:477:97c7:9be7 with SMTP id 5b1f17b1804b1-47a8f8a6adamr229562335e9.1.1766071353426;
-        Thu, 18 Dec 2025 07:22:33 -0800 (PST)
-Message-ID: <eb7d910d-8fe1-453c-933d-9b2f208c8b12@suse.com>
-Date: Thu, 18 Dec 2025 16:22:31 +0100
+        bh=JHLHzXFqeQNuBT/YaIpQNpdKJL6MPjWbCC3ZJ9xRFxE=;
+        b=ajbfjL//pv5VVexRQfk6tX4AysnGWnio44QGtbXgOaTrDpxvULr5HSI5XY3dgCs6BZ
+         yfQZ+5eo4NSROhZIouRUgvwCrjJDoLm8qsrpUdysDrTYfPCZjvk6gZd+X4ztDwuz528M
+         BLP/bIuEaz7m63/M9BNub1YW6GU9HVpMwUsuJcVX9RtbkQxmR+pDy28SXObD7fXciAeC
+         5v8yBQ/T6njnYoA0nCqpN12P3KvOkegMj1CIUfHGys+kMMgO8opA5nFatHL0F4qxBJIR
+         7IxXwSGQOpNIBVNy7/Ii9Df9OsI74krsGhjkQBV7V415S3kOa+F6MFj0HaJwoS5yS0cJ
+         m3Nw==
+X-Forwarded-Encrypted: i=1; AJvYcCW27oGCFTyAJ2xrr5fY8eqpP3yV0XBqfYjyVTP1XiaM8L+Z+AA0HG4DMYuYzZbbvvIDdm6g2J6NwPE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx98MSXvHdh8U5nWfk1YTi2/aWZ4NbzxTovyRj49nWQb0woinFe
+	KrKHznlqzrHHUVKp7H+LMvga9wDPb8g40PZkQVd4b/O58WxwATWcIGmlPYZyOtX1kA==
+X-Gm-Gg: AY/fxX73mLIUSAlOlKfYx+nkxsrva0m++iGQIn6c4mtSX+fBKbL0KcXvAbysBzspplo
+	b2KeSCGdbUQLQbZ9GLPu9ocXpCfw1GIwZJBOi/ngGiJF0ZEKfSrxXjMXrN1g38hc+5h2qbnBhPB
+	T8Sx8jyyuTKtxMRp4aoSwH3zhxACvor0G1q2j8w0pLgW++lr8IzUZ+guUYB62KE6iqiG0vmLxq9
+	YOcOydNVyovu7tkRkV207SVIPYx7EIRytppy+aEzL0pqJifm1+4/cSpqz4sXOaIwD3DAFeh9JNQ
+	O/Q44PXck+5nspWW/R/CK8tyh3SYWaWockF0J+n926DxOps4TzMofWbyyamoLzNndE1LGAzMmAw
+	lghNAiJ55vAy13YXTWC4tPV83nkrs2kywmc8aIAp18DfQ7AzKYQfosbP0fQoB752BJAFL7QEROL
+	jb55ij7IWYekPUel8vltoHiOQp+S/iUxHFp3El4hKLmiNuBRhlkmDRiwjjk8t2FiFBgg7kI6HUO
+	bo=
+X-Google-Smtp-Source: AGHT+IEgVAOGRbEiLxnSWcLDNVYlzMl+foRqhcS4BWabdPKXt8EGstBvG74Qs/lpWl0zPbjjo0hwAw==
+X-Received: by 2002:a05:600c:699a:b0:479:2651:3f9c with SMTP id 5b1f17b1804b1-47bda6e58d4mr87075315e9.14.1766071625743;
+        Thu, 18 Dec 2025 07:27:05 -0800 (PST)
+Message-ID: <b9e1d2d9-22c9-4574-9f83-46ab649d28af@suse.com>
+Date: Thu, 18 Dec 2025 16:27:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v5] xen/x86: guest_access: optimize raw_x_guest() for
- PV and HVM combinations
-To: Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20251218135926.188059-1-grygorii_strashko@epam.com>
+Subject: Re: [PATCH] libs/xg: allow caller to provide extra memflags for
+ populate physmap
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20251218151728.28339-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,80 +120,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251218135926.188059-1-grygorii_strashko@epam.com>
+In-Reply-To: <20251218151728.28339-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.12.2025 14:59, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> Xen uses below pattern for raw_x_guest() functions:
-> 
-> define raw_copy_to_guest(dst, src, len)        \
->     (is_hvm_vcpu(current) ?                     \
->      copy_to_user_hvm((dst), (src), (len)) :    \
->      copy_to_guest_pv(dst, src, len))
-> 
-> This pattern works depending on CONFIG_PV/CONFIG_HVM as:
-> - PV=y and HVM=y
->   Proper guest access function is selected depending on domain type.
-> - PV=y and HVM=n
->   Only PV domains are possible. is_hvm_domain/vcpu() will constify to "false"
->   and compiler will optimize code and skip HVM specific part.
-> - PV=n and HVM=y
->   Only HVM domains are possible. is_hvm_domain/vcpu() will not be constified.
->   No PV specific code will be optimized by compiler.
-> - PV=n and HVM=n
->   No guests should possible. The code will still follow PV path.
-> 
-> Rework raw_x_guest() code to use static inline functions which account for
-> above PV/HVM possible configurations with main intention to optimize code
-> for (PV=n and HVM=y) case.
-> 
-> For the case (PV=n and HVM=n) return "len" value indicating a failure (no
-> guests should be possible in this case, which means no access to guest
-> memory should ever happen).
-
-I agree with Teddy's sentiment towards HVM={y,n} not really mattering when
-PV=n, as far as non-HVM domains go.
-
-> --- a/xen/arch/x86/include/asm/guest_access.h
-> +++ b/xen/arch/x86/include/asm/guest_access.h
-> @@ -13,26 +13,64 @@
->  #include <asm/hvm/guest_access.h>
+On 18.12.2025 16:17, Roger Pau Monne wrote:
+> --- a/tools/libs/guest/xg_dom_x86.c
+> +++ b/tools/libs/guest/xg_dom_x86.c
+> @@ -1260,14 +1260,15 @@ static int meminit_pv(struct xc_dom_image *dom)
+>      /* allocate guest memory */
+>      for ( i = 0; i < nr_vmemranges; i++ )
+>      {
+> -        unsigned int memflags;
+> +        unsigned int memflags = dom->memflags;
+>          uint64_t pages, super_pages;
+>          unsigned int pnode = vnode_to_pnode[vmemranges[i].nid];
+>          xen_pfn_t extents[SUPERPAGE_BATCH_SIZE];
+>          xen_pfn_t pfn_base_idx;
 >  
->  /* Raw access functions: no type checking. */
-> -#define raw_copy_to_guest(dst, src, len)        \
-> -    (is_hvm_vcpu(current) ?                     \
-> -     copy_to_user_hvm((dst), (src), (len)) :    \
-> -     copy_to_guest_pv(dst, src, len))
-> -#define raw_copy_from_guest(dst, src, len)      \
-> -    (is_hvm_vcpu(current) ?                     \
-> -     copy_from_user_hvm((dst), (src), (len)) :  \
-> -     copy_from_guest_pv(dst, src, len))
-> -#define raw_clear_guest(dst,  len)              \
-> -    (is_hvm_vcpu(current) ?                     \
-> -     clear_user_hvm((dst), (len)) :             \
-> -     clear_guest_pv(dst, len))
-> -#define __raw_copy_to_guest(dst, src, len)      \
-> -    (is_hvm_vcpu(current) ?                     \
-> -     copy_to_user_hvm((dst), (src), (len)) :    \
-> -     __copy_to_guest_pv(dst, src, len))
-> -#define __raw_copy_from_guest(dst, src, len)    \
-> -    (is_hvm_vcpu(current) ?                     \
-> -     copy_from_user_hvm((dst), (src), (len)) :  \
-> -     __copy_from_guest_pv(dst, src, len))
-> +static inline unsigned int raw_copy_to_guest(void *dst, const void *src,
-> +                                             unsigned int len)
+> -        memflags = 0;
+> -        if ( pnode != XC_NUMA_NO_NODE )
+> +        if ( pnode != XC_NUMA_NO_NODE &&
+> +             /* Only set the node if the caller hasn't done so. */
+> +             XENMEMF_get_node(memflags) == 0xFFU )
+>              memflags |= XENMEMF_exact_node(pnode);
 
-A side effect of the converting to inline functions, besides being more
-intrusive, is that now you will want to add proper __user modifiers.
-See lib/copy-guest.c's use of them. That said, ..._user_hvm() functions
-also don't have them, but imo wrongly so. Really I question the use of
-pointers in that case, because they "point" into a different address
-space, entirely inaccessible via use of those pointers. Hence adding
-__user is going to be only a marginal improvement for the HVM case, but
-is going to be wanted for the PV side of things.
+I'd like to suggest to avoid open-coding the 0xff here and elsewhere.
+XENMEMF_get_node(0) will be less fragile overall, imo.
 
 Jan
 
