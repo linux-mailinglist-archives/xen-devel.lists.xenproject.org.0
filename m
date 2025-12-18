@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D433CCC2DD
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:08:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189696.1510398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7332CCC3F4
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:21:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189710.1510408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEgG-0006dZ-DN; Thu, 18 Dec 2025 14:08:36 +0000
+	id 1vWEsJ-0000xc-FV; Thu, 18 Dec 2025 14:21:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189696.1510398; Thu, 18 Dec 2025 14:08:36 +0000
+Received: by outflank-mailman (output) from mailman id 1189710.1510408; Thu, 18 Dec 2025 14:21:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEgG-0006c8-AI; Thu, 18 Dec 2025 14:08:36 +0000
-Received: by outflank-mailman (input) for mailman id 1189696;
- Thu, 18 Dec 2025 14:08:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vWEsJ-0000uv-CD; Thu, 18 Dec 2025 14:21:03 +0000
+Received: by outflank-mailman (input) for mailman id 1189710;
+ Thu, 18 Dec 2025 14:21:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWEgE-0006c2-Fa
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:08:34 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 08daa572-dc1b-11f0-9cce-f158ae23cfc8;
- Thu, 18 Dec 2025 15:08:32 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-477a219dbcaso6233635e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 06:08:32 -0800 (PST)
+ id 1vWEsI-0000up-FL
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:21:02 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c33e8b1e-dc1c-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 15:20:54 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-477bf34f5f5so5057295e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 06:20:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be3269e2asm40051015e9.10.2025.12.18.06.08.31
+ ffacd0b85a97d-432449ade52sm5067027f8f.41.2025.12.18.06.20.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 06:08:31 -0800 (PST)
+ Thu, 18 Dec 2025 06:20:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08daa572-dc1b-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: c33e8b1e-dc1c-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766066911; x=1766671711; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766067654; x=1766672454; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KOiHxY9urHshkLkyx70QEMfU3IbH3HkpOy76UUpuVpc=;
-        b=KK29bzqWFbuXPsPqpMOVjc2u5S3IJGxUHIaiHpkol9wufjlFZ84KobuFsA+hJgnG0G
-         B3DFClvzIC9yUE27zxwLPqffPc2bqa4e3Cf0h+3HxTJKEdi+QC9lP1t9CCliwGWut+lt
-         aUwfgpFmybz5yM8Bgz58eEnUBUCufnuvu1F2eLy3i9lLAN7oxjbJS0y5kbbRl8RLLgwJ
-         DisyjWHpFCaGWr2MwSwwrMIV0AUkt2oY584ZbYw2HW+APoX2jdTesqejSaTYHEwMYrpC
-         a9yx1wd3XAXGTL3kFxn/slTLVMc2xqGYuCaSmSqMnuR/mSUrt32CggVgGGna+v7X4bLa
-         454g==
+        bh=DaO9i08OkU05whvdD850C4mWkAu1OL9jIelLce/0NFQ=;
+        b=T+/ofYtFKnzpBUyQCsKORTi6aIrJgVaOFJ5oTuPE+7AOX/GhGDYQgxAA1Na9CIMyZg
+         QA/T/ieOAm/q/wqb+9Ga5ZWGrDLKy/18nSn805BHhaPRVIycVOiQYdxDlrKqUyrMB3yW
+         f8KxKziGpn5ajpaXJz6E64uUBwtbrEZw4ICZIc4tVsemT70Y5UU58jI8O3P9YnHoZEPo
+         nfAe9bNqyvhPe/VRTaXtFyRszV9G4G+C0NyZH69F+kHmXfdXEFL44UG+i/UDS4q/cmSx
+         w2xzubCVK1Zp0gsbAdLoKm+h0aUCXIpQnzw36JLf2Zscuxx4MRCIo4cJay+9ucN4IY1l
+         yJqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766066911; x=1766671711;
+        d=1e100.net; s=20230601; t=1766067654; x=1766672454;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KOiHxY9urHshkLkyx70QEMfU3IbH3HkpOy76UUpuVpc=;
-        b=Q7calxGjghZBYkQ8nQXT18QXUl/Bby+TygYj7jgo/AnDbEYLZFajWO6NEOk3Be0cxZ
-         7GgKojfXz3BzTLU/R2+QmtJlFE0seawAl22qw/j0Z3yLFSq8VcRiovE+CpfP85o1mr8T
-         MgZySJCMO2h1LfESjcjMUlmWQs5k6ifXSUlUIwKT878TSv4T96GXy9XuBY/uFqmxsAxT
-         3h8eA6rh1SADSkgj1TMAT487yIEiu9BM8d4VcLMgzK3QMeraDAM9hLHihWU1ZadSEJn7
-         icuPHY9hUSadRfyiiD8TunkAherLeUVtXHChrpouUhSUrKJmC3ncsSl1ns7/w/pUvTqq
-         upkg==
-X-Gm-Message-State: AOJu0YxNiEoBN6mIK1udO9IPo9XxIzXjtFmFEwrP4c82otYXLt97V9wb
-	0ArU6jCV+Pnmf42TQ8X3Hyx05S97p0xp4PAb6E/xyNOJHo8kystm+Z1qqbs0YVJwFw==
-X-Gm-Gg: AY/fxX4F5wCa8Y79JPwFE2M95DhvW59fsHKikcrCajYJod3TDFIbO2CeGh/Lpm065Kh
-	qWqPfHYuwNaqhPpND0ryA7C5wP/hYMlDo1jd3xc/DzW/KE656TYhOV/l7Oq38d6/5mdN8Cr6GoU
-	x4yxClyoG7aMkmpTU7C+5aGLsWkjTZjEYp/lqtIKL+RGQiCrWtvc99984qwCNZYYIdfePiomrgz
-	KvDYdZBszQsqq6B1GNUoSWBAxFmcd29FeidTsgFegzwwC4Oj7SDdgnJTfPgnA8XrB0NQFGj43UD
-	xKicrl/yPByLu0L/CawjNNyFsQih50UOx/s2eCxHkVpbk5hraozHBZ9IJKmnnpJUGO2lIgr3fLk
-	8V1XxLEoKqY9fuOGCLjdL+Wu78Cnh3oiVqo8ao345KJUwSeUQXzu/AgX0/KVENHx/toScFxz05r
-	iTzTSuzst8/DeLaRct8Jop2QAqcDl2IXD5eoQm22ixeViiA5N1vsYixsrmmNrt6VvMox1tnQO/+
-	qs=
-X-Google-Smtp-Source: AGHT+IFH0/aBFJ0on3hxYT3b3lQnYJTM05an+hh+y6myQCplpRXZjU+GqzfpWyRey4EtzZTHwG2HXw==
-X-Received: by 2002:a05:600c:1c1a:b0:477:755b:5587 with SMTP id 5b1f17b1804b1-47a8f89b8b5mr255947415e9.8.1766066911485;
-        Thu, 18 Dec 2025 06:08:31 -0800 (PST)
-Message-ID: <c0a054c5-258a-41fd-a392-4c33f8055fc0@suse.com>
-Date: Thu, 18 Dec 2025 15:08:29 +0100
+        bh=DaO9i08OkU05whvdD850C4mWkAu1OL9jIelLce/0NFQ=;
+        b=PVMrmUBgM17u62K91X/XXjSgpEqm5si+MOwvoMEnzXbgXog9oz6N3FOW2xnIfRBCBy
+         cwp1W66+7OUai4B+If/H5fx/M3gMh/3eCGm+TmtZ6v4lE2OHhROlJM4aStxW5ZDv6Lnw
+         1nTERwqM951ba5DAGUyuWCTfGZ0nItZxR5LU8Q3Fu4spBG2X+AfAiDqdG3Os0YCebF01
+         5Ac99jDnh2TKRj6xx1B2V1KjaH1t5MGhLJHsa6AYUH03oHFtOQ4quBn/A63cXbaSo9/q
+         RAHo42SVpfoK2jHSMWyx772x5R027+51WX6GFFR7GTZCDhuJSH7Jq/vdTQdFKkmCqa2k
+         6ITA==
+X-Forwarded-Encrypted: i=1; AJvYcCXemr8dzS9x4WmyQrv+j1T1Z6Tt1IjcZswh7RIfoMYgfLVvtG24l9bepYbVb+AvuS+SXEmss3/wGYM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycFAXpf05F5/tK4ZzS3AANfspDUwxeuk48BYx426KtqF6NAT3V
+	Dr/WxzaxTPR2TqZmH526vxbpv2y7sfIE5LbXyHWx5O+vUS2Aqdi4k+XR01e66GbgrA==
+X-Gm-Gg: AY/fxX6WtFwIqbHMQTHtgMB9fn6xyiLQhZkA1/SMjcuGl3kjkyyxXoanM6nfWWW/S8N
+	jMO2gmhpD4WObv/ovtSBs8q12o8j8RDkRWFnGWtIAEeVBA9oU30v0b4abKF6bQCZoROLl9bGtmP
+	0Xe3zKqXtNIFbFBQFoODAcLxrzeKaH9QQgbPJ7LVWPKUyDx46D5F5uUbjQybHH9V/boEwY9rm4X
+	ClRy7lswHKQeXrR7sv9aNqXd4+LHQcddTGA7mTuetxYHfAf6nwEQPgQF9f7y+JyReg6ru5TjBln
+	/A12bQERslDGmboASs0Kcs5nbPsnFsuMDHfqsau1KwAFpaor3ZCY1QWp4yFbD8B9L/eTxfPZlI7
+	KGoLbSTm6HvMc8nsElaBL0Q9sWZ60icqaH/HGwoDw7d61e+VkNR8ajA9lOauW7sZwdrVWqQ+fCT
+	JmeO1tQUBIRHheZnBIjnYa+yUn0osQLPTJK2zHV7wxoayzBaaHwS/A2WF2QSEUIh6kHKbG1zMfG
+	/rETZHoMSFAfg==
+X-Google-Smtp-Source: AGHT+IFACwxr0g/Y3TpmLH240B1+d8SiK93Q/xp5LsDTnnhWInjXn88dNPCI0AOR/PAsx3gD4PExpw==
+X-Received: by 2002:a05:600c:3b05:b0:477:7bca:8b34 with SMTP id 5b1f17b1804b1-47a8f8ab546mr226447445e9.6.1766067653565;
+        Thu, 18 Dec 2025 06:20:53 -0800 (PST)
+Message-ID: <08105722-0920-462a-aeba-a36f8044a5dc@suse.com>
+Date: Thu, 18 Dec 2025 15:20:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/fuzz: use vpath uniformly for access to hypervisor
- library code
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Subject: Re: [PATCH v2 2/3] xen/riscv: add RISC-V legacy SBI extension support
+ for guests
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <0cdf924a-2e9b-4997-a01d-6d8b2f711104@suse.com>
- <aUQEbVRCXxzXJxJk@l14>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
+ <df7a7e94fba79265138d6cc8d23b1f6b958f5bd5.1765888425.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,27 +126,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aUQEbVRCXxzXJxJk@l14>
+In-Reply-To: <df7a7e94fba79265138d6cc8d23b1f6b958f5bd5.1765888425.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.12.2025 14:41, Anthony PERARD wrote:
-> On Tue, Dec 16, 2025 at 04:34:31PM +0100, Jan Beulich wrote:
->> It's not quite clear why for libelf and the emulator we use symlink-ing,
->> while elsewhere we use vpath. Do so for these two as well, thus also
->> eliminating the need for custom -iquote options and custom cleaning.
+On 17.12.2025 17:54, Oleksii Kurochko wrote:
+> This commit adds support for legacy SBI extensions (version 0.1) in Xen
+> for guest domains.
 > 
-> It was an attempt to rework the "tools/" makefiles to be non-recursive,
-> via the use of subdirmk. `vpath` wouldn't have worked in that
-> configuration as stated in the commit introducing the symlink.
+> The changes include:
+> 1. Define all legacy SBI extension IDs (0x0 to 0x8) for better clarity and
+>    completeness.
+> 2. Implement handling of legacy SBI extensions, starting with support for
+>    SBI_EXT_0_1_CONSOLE_{PUT,GET}CHAR.
 
-Hmm, I see it says so, yet it says nothing as to why.
+I can't spot any actual support for GETCHAR.
 
-> But I never managed to finish this conversion.
+> --- /dev/null
+> +++ b/xen/arch/riscv/vsbi/legacy-extension.c
+> @@ -0,0 +1,65 @@
+> +
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/console.h>
+> +#include <xen/lib.h>
+> +#include <xen/sched.h>
+> +
+> +#include <asm/processor.h>
+> +#include <asm/vsbi.h>
+> +
+> +static void vsbi_print_line(char c)
 
-Plus the symlinking also comes with downsides. They may get in the way of
-moving build and/or source trees, for example. (Not that the tools/ subtree
-would support out-of-tree builds yet, but still.)
+Misleading function name? The parameter doesn't fit the name, and ...
+
+> +{
+> +    struct domain *cd = current->domain;
+
+I guess you copied this code from somewhere, but a variable of this type and
+contents wants to be named "currd".
+
+> +    struct domain_console *cons = cd->console;
+> +
+> +    if ( !is_console_printable(c) )
+> +        return;
+> +
+> +    spin_lock(&cons->lock);
+> +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
+> +    if ( c != '\n' )
+> +        cons->buf[cons->idx++] = c;
+> +    if ( (cons->idx == (ARRAY_SIZE(cons->buf) - 1)) || (c == '\n') )
+> +    {
+> +        cons->buf[cons->idx] = '\0';
+> +        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cons->buf);
+
+... you also only print a line under certain conditions.
+
+> +        cons->idx = 0;
+> +    }
+> +    spin_unlock(&cons->lock);
+> +}
+> +
+> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
+> +                                     unsigned long fid,
+> +                                     struct cpu_user_regs *regs)
+> +{
+> +    int ret = 0;
+> +
+> +    switch ( eid )
+> +    {
+> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
+> +        vsbi_print_line((char)regs->a0);
+
+The cast isn't really needed, is it? And just to double-check: The spec demands
+the upper bits to be ignored? (A link to the spec could have been useful, e.g.
+in the cover letter.)
+
+> +        break;
+> +
+> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
+> +        ret = SBI_ERR_NOT_SUPPORTED;
+> +        break;
+> +
+> +    default:
+> +        /*
+> +         * TODO: domain_crash() is acceptable here while things are still under
+> +         * development.
+> +         * It shouldn't stay like this in the end though: guests should not
+> +         * be punished like this for something Xen hasn't implemented.
+> +         */
+
+Question then is why SBI_EXT_0_1_CONSOLE_GETCHAR gets a separate case block.
 
 Jan
 
