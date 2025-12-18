@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88100CCBDAE
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 13:55:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189560.1510318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F575CCBF4B
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 14:17:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189583.1510327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWDXD-00025W-9b; Thu, 18 Dec 2025 12:55:11 +0000
+	id 1vWDs6-0005AK-V4; Thu, 18 Dec 2025 13:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189560.1510318; Thu, 18 Dec 2025 12:55:11 +0000
+Received: by outflank-mailman (output) from mailman id 1189583.1510327; Thu, 18 Dec 2025 13:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWDXD-00022Q-6u; Thu, 18 Dec 2025 12:55:11 +0000
-Received: by outflank-mailman (input) for mailman id 1189560;
- Thu, 18 Dec 2025 12:55:10 +0000
+	id 1vWDs6-00058q-SL; Thu, 18 Dec 2025 13:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 1189583;
+ Thu, 18 Dec 2025 13:16:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWDXC-00022K-4F
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 12:55:10 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vWDs5-00057w-Jl
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 13:16:45 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c7ef55ae-dc10-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 13:55:08 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4777771ed1aso4827065e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 04:55:08 -0800 (PST)
+ id c538b080-dc13-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 14:16:32 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-47118259fd8so5929265e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 05:16:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be3020f25sm45559445e9.6.2025.12.18.04.55.06
+ 5b1f17b1804b1-47be279d6d8sm42337945e9.10.2025.12.18.05.16.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 04:55:07 -0800 (PST)
+ Thu, 18 Dec 2025 05:16:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7ef55ae-dc10-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: c538b080-dc13-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766062508; x=1766667308; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766063791; x=1766668591; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f+kVThU9cCW60pfANQ5ApGFVtqmwBzEYyE2ua5P7vqE=;
-        b=ZCCZvjY3PWyVVXVnhPiVjUnmZn1sqEV6zIWKJ4NfC0zoTcueEwwba3V/ggLGnrRen7
-         Dv0Q2/o3/gWvcJwZHvY5NkNbuGgpFQ64q/ADF/AVdS/uZPWb5KP1XRwcYfx1LNoRW3dR
-         UYsU68nJ/jeZcKTevvehok305BzL5UbYsX9kmhP9IL37h7cfbwy3E1aHTCE1AUCbYbSl
-         ijzPIVhF+XzYXLoRVe0IXddTk1cEVzfH48gPHGOcXy11MF38CMTdS2HJezaVunJNRD9Q
-         y09kZAKayHEwYAToZuJ2nnN+teLfi/tsGB6b7u716L9pvuoDujG04MkAtynrqltY3lJy
-         bpvA==
+        bh=pw2Id4jeiee2DdZWCrc3Q12FtfinQY6laWIk5vOqSHc=;
+        b=Jt44lJE6pAu3tXfWyHJ4f9TG8PjNRHCDojrcQQAHZfw/+GjlObOVUAbeFWCKYJql4T
+         BfZxCkvRT17Xyy6Yadjf0Dctt6sSCCc1IP60Qu5h16g8PSzmcQnS+Nf2l1hlDfOsKCkY
+         42zBHXMzmkjAbCuDact5npqc3FjqJWvq+bUM+mluamCN2pZLhk7GdK9kOauCAxHM03vb
+         8ca6U9J6/ySCELAWy7KVX6DqW2nuxsy1tw6f+/NEmJtZlmqh2/x199spn1wfwIvWD8Q3
+         8N553D9x5GL0UKqGIUAV+LH3no4vjiRuUMNBWtUboDJ+MSYprzx05q5FMmKNiLYPcptp
+         ByBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766062508; x=1766667308;
+        d=1e100.net; s=20230601; t=1766063791; x=1766668591;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f+kVThU9cCW60pfANQ5ApGFVtqmwBzEYyE2ua5P7vqE=;
-        b=UZ9OBKFcpEGQ0D/mNmbcQJ5lkUIhBqpv9z+iy3uRMwbiV3S/eI1+Idk9XtloksiSFd
-         1+LmM/zYX/4UB85sH+OuMqvotjmJFvkFFPlFQetQUknXxvnxwszNaWVlYZDMnEXesPxH
-         CJe23QTub3tgosmuqDhLzz2d/9RtPrq+ovgrr3b5CwOVIErcgqMWFny2+H92aLz+V5yZ
-         HPLD0MlkO1IEq0yc/z+iq5anC7vvq61kEzJThf0S9SyYbKzHmdOk36kERTfIE6uWrjwG
-         +UeAoIc5MIjNpUS7FrSM4KAMz4hukfKckvljGn6Bu5Cdyo3y2l57F22PetMBW+5vkBpv
-         Spvg==
-X-Forwarded-Encrypted: i=1; AJvYcCUzzHU0dZwP4OFcUhgUY5umGzCti2Awm6PasVPJDoOjPwx2zr6q86tqDYWVeAQFVOWH9eb5az78Sp4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFZtM66mog3GAk8F4G85XLLowMIIwwO4UxFMGjYAD52EodyqCZ
-	WYszcVKXdijjauDZnJ0koHV4SEkTzFkKfOq7QX5+iC6e65YlY/c/U4rn1r1cZJK/9A==
-X-Gm-Gg: AY/fxX4Hk8zPVG5iINLvRYEsnZ2Iz3WXqqtmDYDupZD9tt2Eef0R+vzbFiWvAyqntgM
-	WYigMLIPPyg0qp4QbjGJn4OqZbLOdRikIV9FlHaFqThLzqstRSRFnJY3jPNHkbzwAk9+wk64Db0
-	q2KPG2sVhNwtmDLzPVPPCb7cbSqXcIOry627+ouaOROuoFp1irV1p9GQrIxIfCfw1qrn6K9S78Q
-	AlXwYm9v5kVPbYiXxpdEqDi5hsAJ4LiRgdUjWdtJhA/QZtlGuCu6sJC/7KETenVaY8RuyoBa7Hx
-	bhTl+N3Fjt4IKqJWClIggCUEx+I7MCECBznBXYtEJ0RhvWX2tsFk+4IC+aAccfrz3M/m628yiGe
-	ixOG/ecK/FuIKozQVVJLa0tQHTyXPfRah9LpH2eisSG3EKp50jF3Rv2ICOa63XSCo2L5568oLgd
-	Huv15RiktPAANpWV17WPqKxKWkYdzhv2DU4XVha4yUzpRr0YI+WP8DBneb6M+fHDAk46HMo8eqP
-	2yiex2iQXKScQ==
-X-Google-Smtp-Source: AGHT+IGefmEjr5sN7qRc0Lq10CCOiUoILkPS69i0wmNR6zx6hw4yRjPBP4i3yEx9SufLfzIO/5Oxcg==
-X-Received: by 2002:a05:600c:4751:b0:477:7b9a:bb0a with SMTP id 5b1f17b1804b1-47a8f907e5dmr218095055e9.21.1766062507617;
-        Thu, 18 Dec 2025 04:55:07 -0800 (PST)
-Message-ID: <9d4d89f1-81c1-4532-8646-c736ac56e7f3@suse.com>
-Date: Thu, 18 Dec 2025 13:55:05 +0100
+        bh=pw2Id4jeiee2DdZWCrc3Q12FtfinQY6laWIk5vOqSHc=;
+        b=GWuKXct0IZsq65N8ocnsqzSqXdat5m4z70JTDIJ39sBZjxDyFXhsndT6Acd+v42fDr
+         N72mn2ewbzKS3uxVE+b+zK1FqP2AUCUb0dI27mqQR03POuiXkujntPZIefy+jYeslks9
+         ORGXcWMIiuiJwyToY9QLVklqbM/WuB0l5wVn5gu5NHq2fcEwsQFz+OIM2FaLGsLXMrsy
+         oMW0D6cslO0qJToUg/7hfp9acD8+mbX7CWQC6c+vXEifR3jqMgaYeWsu8HG5mHb03b7L
+         zVst20QjnG/mI4reRWDOzaozhTRYKdF7IdXYpXoj8+L5gE0uZoMm7x88ONxHSxBbF3R9
+         2MGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUxjqw5x2LUoO9Oc3+KCg/xOmu353ZamS62VjvIVetgc6VsGLPtIO5meXPkwtcagRnGlpB9XOdbiY4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEzLsMueZVFCB5i5P8pNvFbL1JZtEilvUVzbjgyi6U3bmwgKDU
+	VluMXoH3ZiA6aZKjukP963odNGcruwZ3XzAGcdV9FN99O6mt89xoIpWJO7N8xjj9rQ==
+X-Gm-Gg: AY/fxX5n6ObGxos6cQnt/tdNHG9pjta0evk/cgZXubIiuCe53L6py/WXzaWykKOisPU
+	5te97LJf1Fe44bJWY8x0stQcWiREJ9EgzHnfsir92Gb3QheVbFRHDc+v1Ud3A8KSZ/5lUP3OfBm
+	YYtGqCry/QwWLkdXeP2nylB75jtJ6wbqaiwjNn1qy8OCh9EI7k7beyc5gd3a6Utw3WNcviapQJQ
+	+Yi1YbSivSszxbI9IVb7bguHY1w4hndT3dT1HBrJe0aohWacvfURDXMFbmR5tWpDxh48NYC06ek
+	Zortz3e8PyoILCkpFbcUgWdu2J7K55iF3jK2JjAv4EPZPUCZkPw6dpdX4kGWW67miNFmQgxd8aW
+	wRpv6uec2gxoRwMDirKb2YuXQm52IgcWEo09hxr/YbEr2K60dN9Wfhyr4Sh9m7iEny3SpZYlGxx
+	bf4qmhOB5SxGxO9ii9SXcp/8o146x4u+540YdwAscDNAB8KVsu4H0Hg3rfOh0Q0XHYPnujCPj05
+	A4=
+X-Google-Smtp-Source: AGHT+IE3pR0YX5eSvrLCSuA24PYk+aSuQZaQwKQV1bVt+fyHeXVsJahurfY33pxCACGBkw5bKsVNhA==
+X-Received: by 2002:a05:600c:64c5:b0:477:b48d:ba7a with SMTP id 5b1f17b1804b1-47a8f915607mr214320665e9.32.1766063791500;
+        Thu, 18 Dec 2025 05:16:31 -0800 (PST)
+Message-ID: <c7a00f3e-cbbf-46b3-8d37-ed4565a9314a@suse.com>
+Date: Thu, 18 Dec 2025 14:16:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 17/19] xen/riscv: add support of page lookup by GFN
+Subject: Re: [PATCH v7 18/19] xen/riscv: introduce metadata table to store P2M
+ type
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,7 +100,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1765879052.git.oleksii.kurochko@gmail.com>
- <4cef2922ff0fa82eb70e50c737cb00ef27ef13a3.1765879052.git.oleksii.kurochko@gmail.com>
+ <b1e4ed0bb4e2f47a7cdb6afe4b9b05462e00fc84.1765879052.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,112 +126,156 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4cef2922ff0fa82eb70e50c737cb00ef27ef13a3.1765879052.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <b1e4ed0bb4e2f47a7cdb6afe4b9b05462e00fc84.1765879052.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 16.12.2025 17:55, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -1057,3 +1057,187 @@ int map_regions_p2mt(struct domain *d,
->  
->      return rc;
+> @@ -370,24 +396,101 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
+>      return pg;
 >  }
-> +
+>  
+> -static int p2m_set_type(pte_t *pte, p2m_type_t t)
 > +/*
-> + * p2m_get_entry() should always return the correct order value, even if an
-> + * entry is not present (i.e. the GFN is outside the range):
-> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+> + * `pte` – PTE entry for which the type `t` will be stored.
 > + *
-> + * This ensures that callers of p2m_get_entry() can determine what range of
-> + * address space would be altered by a corresponding p2m_set_entry().
-> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
-> + *
-> + * Therefore, this function returns true for GFNs outside range (1), and in
-> + * that case the corresponding level is returned via the level_out argument.
-> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
-> + * find the proper entry.
+> + * If `t` is `p2m_ext_storage`, both `ctx` and `p2m` must be provided.
+
+Stale comment? There's no ...
+
 > + */
-> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
-> +                                   gfn_t boundary, bool is_lower,
-> +                                   unsigned int *level_out)
-> +{
-> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
-> +    bool ret = false;
+> +static void p2m_set_type(pte_t *pte, p2m_type_t t,
+> +                         const struct p2m_pte_ctx *ctx)
+
+... "p2m" among the parameters anymore. Furthermore, would any caller pass in
+p2m_ext_storage? Judging from the code you may mean "If `t` is greater or
+equal to `p2m_first_external` ..."
+
+>  {
+> -    int rc = 0;
+> +    struct page_info **md_pg;
+> +    struct md_t *metadata = NULL;
+>  
+> -    if ( t > p2m_first_external )
+> -        panic("unimplemeted\n");
+> -    else
+> -        pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
+> +    /*
+> +     * It is sufficient to compare ctx->index with PAGETABLE_ENTRIES because,
+> +     * even for the p2m root page table (which is a 16 KB page allocated as
+> +     * four 4 KB pages), calc_offset() guarantees that the page-table index
+> +     * will always fall within the range [0, 511].
+> +     */
+> +    ASSERT(ctx && ctx->index < PAGETABLE_ENTRIES);
+>  
+> -    return rc;
+> +    /*
+> +     * At the moment, p2m_get_root_pointer() returns one of four possible p2m
+> +     * root pages, so there is no need to search for the correct ->pt_page
+> +     * here.
+> +     * Non-root page tables are 4 KB pages, so simply using ->pt_page is
+> +     * sufficient.
+> +     */
+> +    md_pg = &ctx->pt_page->v.md.pg;
 > +
-> +    ASSERT(p2m);
-> +
-> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
-> +                  : gfn_x(gfn) > gfn_x(boundary) )
+> +    if ( !*md_pg && (t >= p2m_first_external) )
 > +    {
-> +        for ( ; level; level-- )
-> +        {
-> +            unsigned long mask = BIT(P2M_GFN_LEVEL_SHIFT(level), UL) - 1;
-> +            unsigned long masked_gfn;
-> +
-> +            if ( is_lower )
-> +                masked_gfn = gfn_x(gfn) | mask;
-> +            else
-> +                masked_gfn = gfn_x(gfn) & ~mask;
-> +
-> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
-> +                          : masked_gfn > gfn_x(boundary) )
-> +                break;
+> +        BUG_ON(ctx->level > P2M_MAX_SUPPORTED_LEVEL_MAPPING);
 
-Having two is_lower conditionals here is imo unhelpful. Likely the compiler
-would manage to fold them, but imo
+With this, ...
 
-            if ( is_lower ? (gfn_x(gfn) | mask) < gfn_x(boundary)
-                          : (gfn_x(gfn) & ~mask) > gfn_x(boundary) )
-                break;
+> +        if ( ctx->level <= P2M_MAX_SUPPORTED_LEVEL_MAPPING )
 
-would be more clear to the reader as well. I'm not going to insist, though.
+... this isn't needed (dead code). Things would be different with ASSERT().
 
-> +        }
-> +
-> +        ret = true;
-> +    }
-> +
-> +    if ( level_out )
-> +        *level_out = level;
-> +
-> +    return ret;
-> +}
-> +
+Also, isn't this a requirement independent of P2M type? In which case it should
+be moved out of the if()? Yet then, further code in the function (including in
+the body of this if()) doesn't look to be using ->level. Then why the check?
+
+> @@ -477,7 +580,14 @@ static void p2m_set_permission(pte_t *e, p2m_type_t t)
+>      }
+>  }
+>  
+> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
 > +/*
-> + * Get the details of a given gfn.
-> + *
-> + * If the entry is present, the associated MFN, the p2m type of the mapping,
-> + * and the page order of the mapping in the page table (i.e., it could be a
-> + * superpage) will be returned.
-> + *
-> + * If the entry is not present, INVALID_MFN will be returned, page_order will
-> + * be set according to the order of the invalid range, and the type will be
-> + * p2m_invalid.
+> + * If p2m_pte_from_mfn() is called with p2m_pte_ctx = NULL,
+> + * it means the function is working with a page table for which the `t`
+> + * should not be applicable. Otherwise, the function is handling a leaf PTE
+> + * for which `t` is applicable.
 > + */
-> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
-> +                           p2m_type_t *t,
-> +                           unsigned int *page_order)
-> +{
-> +    unsigned int level = 0;
-> +    pte_t entry, *table;
-> +    int rc;
-> +    mfn_t mfn = INVALID_MFN;
-> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
-> +
-> +    ASSERT(p2m_is_locked(p2m));
-> +
-> +    *t = p2m_invalid;
-> +
-> +    if ( gfn_x(gfn) > (BIT(PADDR_BITS - PAGE_SHIFT + 1, UL) - 1) )
-> +        return mfn;
+> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t,
+> +                              struct p2m_pte_ctx *p2m_pte_ctx)
 
-Since on all other error paths you set *page_order (as long as the pointer
-is non-NULL), shouldn't you do so here as well (to the order corresponding
-to the full [2nd-level] address space)?
+Name the parameter just "ctx", as you have it elsewhere?
 
-Furthermore, is PADDR_BITS really the right basis? Don't things rather depend
-on the number of levels the 2nd-level page tables have for the given guest?
+> @@ -679,12 +804,14 @@ static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg)
+>  
+>  /* Free pte sub-tree behind an entry */
+>  static void p2m_free_subtree(struct p2m_domain *p2m,
+> -                             pte_t entry, unsigned int level)
+> +                             pte_t entry,
+> +                             const struct p2m_pte_ctx *p2m_pte_ctx)
+
+Same question here then.
+
+> @@ -756,6 +891,10 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
+>      unsigned int next_level = level - 1;
+>      unsigned int level_order = P2M_LEVEL_ORDER(next_level);
+>  
+> +    struct p2m_pte_ctx p2m_pte_ctx;
+> +    /* Init with p2m_invalid just to make compiler happy. */
+> +    p2m_type_t old_type = p2m_invalid;
+> +
+>      /*
+>       * This should only be called with target != level and the entry is
+>       * a superpage.
+> @@ -777,6 +916,24 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
+>  
+>      table = __map_domain_page(page);
+>  
+> +    p2m_pte_ctx.p2m = p2m;
+
+To play safe and have all struct fields initialized (all others implicitly),
+better make this the initializer of the variable? Then you could shorten ...
+
+> +    if ( MASK_EXTR(entry->pte, P2M_TYPE_PTE_BITS_MASK) == p2m_ext_storage )
+> +    {
+> +        p2m_pte_ctx.pt_page = tbl_pg;
+> +        p2m_pte_ctx.index = offsets[level];
+> +        /*
+> +         * It doesn't really matter what is a value for a level as
+> +         * p2m_get_type() doesn't need it, so it is initialized just in case.
+> +         */
+> +        p2m_pte_ctx.level = level;
+
+... the comment here and really omit the assignment of .level.
+
+> @@ -840,6 +1004,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>       * are still allowed.
+>       */
+>      bool removing_mapping = mfn_eq(mfn, INVALID_MFN);
+> +    struct p2m_pte_ctx tmp_ctx;
+>      P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
+>  
+>      ASSERT(p2m_is_write_locked(p2m));
+> @@ -882,6 +1047,8 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>  
+>      entry = table + offsets[level];
+>  
+> +    tmp_ctx.p2m = p2m;
+
+Again better make this the variable's initializer?
+
+> @@ -970,7 +1147,9 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+>      if ( pte_is_valid(orig_pte) &&
+>           (!pte_is_valid(*entry) ||
+>            !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte))) )
+> -        p2m_free_subtree(p2m, orig_pte, level);
+> +    {
+> +        p2m_free_subtree(p2m, orig_pte, &tmp_ctx);
+> +    }
+
+Why braces all of the sudden?
 
 Jan
 
