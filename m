@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38019CCBD81
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 13:51:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189547.1510308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88100CCBDAE
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 13:55:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189560.1510318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWDTI-0001Ou-Je; Thu, 18 Dec 2025 12:51:08 +0000
+	id 1vWDXD-00025W-9b; Thu, 18 Dec 2025 12:55:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189547.1510308; Thu, 18 Dec 2025 12:51:08 +0000
+Received: by outflank-mailman (output) from mailman id 1189560.1510318; Thu, 18 Dec 2025 12:55:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWDTI-0001NN-Gg; Thu, 18 Dec 2025 12:51:08 +0000
-Received: by outflank-mailman (input) for mailman id 1189547;
- Thu, 18 Dec 2025 12:51:06 +0000
+	id 1vWDXD-00022Q-6u; Thu, 18 Dec 2025 12:55:11 +0000
+Received: by outflank-mailman (input) for mailman id 1189560;
+ Thu, 18 Dec 2025 12:55:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KG2Y=6Y=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vWDTG-0001ND-K7
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 12:51:06 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vWDXC-00022K-4F
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 12:55:10 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36039ca4-dc10-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 13:51:04 +0100 (CET)
-Received: from SJ0PR03CA0077.namprd03.prod.outlook.com (2603:10b6:a03:331::22)
- by LV3PR12MB9258.namprd12.prod.outlook.com (2603:10b6:408:1bb::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Thu, 18 Dec
- 2025 12:50:54 +0000
-Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::2f) by SJ0PR03CA0077.outlook.office365.com
- (2603:10b6:a03:331::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.6 via Frontend Transport; Thu,
- 18 Dec 2025 12:50:52 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9434.6 via Frontend Transport; Thu, 18 Dec 2025 12:50:51 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 18 Dec
- 2025 06:50:51 -0600
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 18 Dec 2025 04:50:49 -0800
+ id c7ef55ae-dc10-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 13:55:08 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4777771ed1aso4827065e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 04:55:08 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47be3020f25sm45559445e9.6.2025.12.18.04.55.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Dec 2025 04:55:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,146 +45,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36039ca4-dc10-11f0-b15b-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p7MJhvof3IlmnHFoU+wf97rlWOs4kwaCS+s6YUaTQi5DjJKCgh0uvKOL2BJCE1OlXITkdFI4futOEA5CDOJ9dy0VrZDBAf4P72zoiwm9BC+yAyPkTIeqHAHtMGKzJA4wM8LPQNA7Q5zyBui35/XAyjiTk+V9CpfMMSYQNEgWljBg41rwF7khWsRhRsBxXZ9v+RvoNxsjG41XBF52B0MA4qqfQWtDbLXPnxKCnfhaXt9oNjrESAtlGw88NnHOh1E0owze9NEb4YzZW/Nul10W2z9lDgd3JTmJ/AWr7vUYmLdTOShyMKv5pjEH/hs8qYRVhIO4A9en2WLAf1hJ1aPOWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gQz3QSUX2/UoZuzfBtpPoxx5Wtc2heciyCuAKC2cvRs=;
- b=m5P+U2xirJMvNScLwiXoyVoToioVt1VuvDKtzlDFCfh3rcaYuNIt5N9ek7vWkGPm+MBiqaWl3nZK6flq2rSUCwZqcU2+w1ZLLgL8l0XGuqgor+516065LsFPQzo22SNxlZmBO4tA0vCjZaNrSi36SusVTYzjfovw2zyiuGYJqyf2lGWMZ0hHbg5Q+SGWpXe6IboFntDrl9lrrAl5zGWJGqZguUTn4KtOHdY94bBJz2OkezyWTaZxesiQ6RK2QpZlYfXIvgPvyxiJpMUczz1EwjZtwVEGfqYHsMHNdUIegNN/pQwECjfgGbs5rWH5MRXg06GCZrprIv4i7E5WMG4efQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gQz3QSUX2/UoZuzfBtpPoxx5Wtc2heciyCuAKC2cvRs=;
- b=SCosbqFmDUutBAcl6SB114Nx97tNEHd2+0TsSso2jhGFUiY+IsZf/tsKXoVMKRd0MLsQNuZfDffU9cY5+DKZ+HxKTE7uJYSW7zodA4WRu5UUULMItLVzSbECRM8q7lKA3SQg3U14JdTAwAmv4X5klja/t+X3VI7wrL1IxFIPRrc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <c09e86a1-df0f-438c-8295-1fe211baf687@amd.com>
-Date: Thu, 18 Dec 2025 13:50:44 +0100
+X-Inumbo-ID: c7ef55ae-dc10-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1766062508; x=1766667308; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=f+kVThU9cCW60pfANQ5ApGFVtqmwBzEYyE2ua5P7vqE=;
+        b=ZCCZvjY3PWyVVXVnhPiVjUnmZn1sqEV6zIWKJ4NfC0zoTcueEwwba3V/ggLGnrRen7
+         Dv0Q2/o3/gWvcJwZHvY5NkNbuGgpFQ64q/ADF/AVdS/uZPWb5KP1XRwcYfx1LNoRW3dR
+         UYsU68nJ/jeZcKTevvehok305BzL5UbYsX9kmhP9IL37h7cfbwy3E1aHTCE1AUCbYbSl
+         ijzPIVhF+XzYXLoRVe0IXddTk1cEVzfH48gPHGOcXy11MF38CMTdS2HJezaVunJNRD9Q
+         y09kZAKayHEwYAToZuJ2nnN+teLfi/tsGB6b7u716L9pvuoDujG04MkAtynrqltY3lJy
+         bpvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766062508; x=1766667308;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=f+kVThU9cCW60pfANQ5ApGFVtqmwBzEYyE2ua5P7vqE=;
+        b=UZ9OBKFcpEGQ0D/mNmbcQJ5lkUIhBqpv9z+iy3uRMwbiV3S/eI1+Idk9XtloksiSFd
+         1+LmM/zYX/4UB85sH+OuMqvotjmJFvkFFPlFQetQUknXxvnxwszNaWVlYZDMnEXesPxH
+         CJe23QTub3tgosmuqDhLzz2d/9RtPrq+ovgrr3b5CwOVIErcgqMWFny2+H92aLz+V5yZ
+         HPLD0MlkO1IEq0yc/z+iq5anC7vvq61kEzJThf0S9SyYbKzHmdOk36kERTfIE6uWrjwG
+         +UeAoIc5MIjNpUS7FrSM4KAMz4hukfKckvljGn6Bu5Cdyo3y2l57F22PetMBW+5vkBpv
+         Spvg==
+X-Forwarded-Encrypted: i=1; AJvYcCUzzHU0dZwP4OFcUhgUY5umGzCti2Awm6PasVPJDoOjPwx2zr6q86tqDYWVeAQFVOWH9eb5az78Sp4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwFZtM66mog3GAk8F4G85XLLowMIIwwO4UxFMGjYAD52EodyqCZ
+	WYszcVKXdijjauDZnJ0koHV4SEkTzFkKfOq7QX5+iC6e65YlY/c/U4rn1r1cZJK/9A==
+X-Gm-Gg: AY/fxX4Hk8zPVG5iINLvRYEsnZ2Iz3WXqqtmDYDupZD9tt2Eef0R+vzbFiWvAyqntgM
+	WYigMLIPPyg0qp4QbjGJn4OqZbLOdRikIV9FlHaFqThLzqstRSRFnJY3jPNHkbzwAk9+wk64Db0
+	q2KPG2sVhNwtmDLzPVPPCb7cbSqXcIOry627+ouaOROuoFp1irV1p9GQrIxIfCfw1qrn6K9S78Q
+	AlXwYm9v5kVPbYiXxpdEqDi5hsAJ4LiRgdUjWdtJhA/QZtlGuCu6sJC/7KETenVaY8RuyoBa7Hx
+	bhTl+N3Fjt4IKqJWClIggCUEx+I7MCECBznBXYtEJ0RhvWX2tsFk+4IC+aAccfrz3M/m628yiGe
+	ixOG/ecK/FuIKozQVVJLa0tQHTyXPfRah9LpH2eisSG3EKp50jF3Rv2ICOa63XSCo2L5568oLgd
+	Huv15RiktPAANpWV17WPqKxKWkYdzhv2DU4XVha4yUzpRr0YI+WP8DBneb6M+fHDAk46HMo8eqP
+	2yiex2iQXKScQ==
+X-Google-Smtp-Source: AGHT+IGefmEjr5sN7qRc0Lq10CCOiUoILkPS69i0wmNR6zx6hw4yRjPBP4i3yEx9SufLfzIO/5Oxcg==
+X-Received: by 2002:a05:600c:4751:b0:477:7b9a:bb0a with SMTP id 5b1f17b1804b1-47a8f907e5dmr218095055e9.21.1766062507617;
+        Thu, 18 Dec 2025 04:55:07 -0800 (PST)
+Message-ID: <9d4d89f1-81c1-4532-8646-c736ac56e7f3@suse.com>
+Date: Thu, 18 Dec 2025 13:55:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3] xen/dom0less: Calculate guest DTB size based on
- MAX_VIRT_CPUS
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
- Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Grygorii
- Strashko <grygorii_strashko@epam.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, Harry Ramsey <harry.ramsey@arm.com>
-References: <20251217081248.2807849-1-oleksandr_tyshchenko@epam.com>
- <alpine.DEB.2.22.394.2512171605420.21522@ubuntu-linux-20-04-desktop>
- <a23716aa-cae1-4636-b027-2344e2b08f10@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v7 17/19] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1765879052.git.oleksii.kurochko@gmail.com>
+ <4cef2922ff0fa82eb70e50c737cb00ef27ef13a3.1765879052.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
-In-Reply-To: <a23716aa-cae1-4636-b027-2344e2b08f10@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4cef2922ff0fa82eb70e50c737cb00ef27ef13a3.1765879052.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|LV3PR12MB9258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 411180ac-0ba8-4744-03a1-08de3e34137a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NzBsL01LOVZSVWV5aGNaejQyVGIrY2RmbDJlOFhVREJIM053RWFHOFlzbG4y?=
- =?utf-8?B?OUtnYlJvSzh1c0JjY3U0MUVUZ1BJNDI3bUdtbnNTTEZTTGkzbTNVR1JDR3FI?=
- =?utf-8?B?dVVhL0pqQlBBMWprYXJBVG9hbVlsQmNQaHJ5Y2tyajQ1dmZWb0ZsbXdwaXNa?=
- =?utf-8?B?NXVyZ0QralF0LzJWbE90NjhUd01tSmxjM3dDNC9GTERFaks4V2k4TjVXNEQ1?=
- =?utf-8?B?ZkxxNDRZQVB5T2Z3R3NMWGYrN1ZDNk1tbTNUMWFOMEZWWHZhZHJnZFN3M1lX?=
- =?utf-8?B?V0xrVms0Yk1wUnIyb2FGRU94NFlhdHFaN0lpUUVUaEk4azk1d3ZuT2l5SE5K?=
- =?utf-8?B?bDRMeEpBU2U2ME9TSUNlZzRBMHdHZ1NJMVh2eUw4YldWM3YrK3l3UGNyMkl6?=
- =?utf-8?B?azVEZ0xzQWovVlhDbkZLMFZ4UkhzZkkvdkZkb3g3a1Nnd0lLbEJ4S09RSjJh?=
- =?utf-8?B?Y3RzU2w2VnV1K1FWbWRCUno0ZUp2aFB3NW9hcWU0aitvbEZYY1Q0eGRNcFpW?=
- =?utf-8?B?WkxZN0NQQ3hWOTltdzZqaTUrc0VFYWp5bzVXZXZMNVVwMEpRbDcyY1RmYnBh?=
- =?utf-8?B?dEdKQUpZWVRjV0dkZDU1a1hldnRLUkdwYXgzUWhaTHptWE9TOEFic1BJRVV3?=
- =?utf-8?B?dUpPdjRDVFkvdk9xYkx6MTA2U1NwL1ZNQTJhM2lMRmpQTG90bklRZGZOS3Ew?=
- =?utf-8?B?WG1RenJJU1V5TnJJTjcvRmtCd3l0M01VY2ZUR1FjMTBqZUY0eDlHcGw5ZW5N?=
- =?utf-8?B?MnllWXU0K0loUkNCblRHWXQwRmIwL0JtdTAvVktMV1llRGxCU0FxTWljS1Zk?=
- =?utf-8?B?eXV2bFRRNWU3RE5KcmZHekxiTlJtUkZpMU1pRHQ1Wm05RitnWkoxRFl0ajFl?=
- =?utf-8?B?Y3ZRS1doalV5QmlhVFg0Qk1MRURDTzhqYlcyOVp3TDBQZDFJa215TTJjS2Nu?=
- =?utf-8?B?dk9UUUpUb3dpQTZaUFM1SU8wU1FsMXpZQndFMnhLMVIzZHpVSi81d2YzVTF1?=
- =?utf-8?B?azdpYTBNK2V1bitQMDYxKzMyWk04K1VDRkFkR0dpVUJqdURQLzJEc0E4R2I0?=
- =?utf-8?B?cGN5aEFDZ2hGRFd4bHdkajZaNnBISDRJZWIwbTQwWU5GQzV0NUxFZE12VVRs?=
- =?utf-8?B?ZGFIZXBEVk5TL2tsbHRhNU5UMHF3VzEzRFJQdGQ4cXdzTUxBbS9CRGdIUXJm?=
- =?utf-8?B?NUJpcjR0NlFnTW9IekZvc0RGak9Tay9XNERiR1piK2ZNY1pwd3Y0RkR4Zy9U?=
- =?utf-8?B?NUJueUplSUJJeEZMUEhrTzJKOXo3WS9tQkcyRy9YY0QzN3VucXlrbGhCMFpj?=
- =?utf-8?B?dTVSSXNMc3JZcjBEbGRLRFF4KzdxUzNLbXBzN3BzNVh6MHRXRzVCNUpRbWhG?=
- =?utf-8?B?Ky9ZbHRReWlkNmV6TXJRNnZzS1kxSzZVZFgzdzdrR1YrWmxnSzRSZEM5Wk9Q?=
- =?utf-8?B?QUJGRXhCVVFUTW16dFFUc1BtZ1M4b1RRemQ3bHllZThwb1gxMzZJNmpsQWJL?=
- =?utf-8?B?c1RESlNFSWlrWU42UjFGZmMxWisrNUNpdGRzTTBrSHVDcXhuSWZpck5KT3RB?=
- =?utf-8?B?Wms2Mkw1aExOUUNYVGIxL1BYQ21oS1Vvb29mOEMybTM3cVc0MmVRU0FGVkdN?=
- =?utf-8?B?dGE2aXNaQ0FHZ0pWSi82NjNoNE1xZU43MTdzYi9md29QaWpDRkorR1dyS05a?=
- =?utf-8?B?N1ZmYUVseEc5SmJUMjdZWVNWTGV6eG51ZlJCWkdnTldJcVZqNUJMZUZ2WVJl?=
- =?utf-8?B?d2Z1d1hjeUx6R2lLRHdqMFBSSjhTNXIzZXFSUUhvV1hYM1VLeC80cXdFVW1Y?=
- =?utf-8?B?QXR1MVJPd0xpUk9pdjVtVnliOXp5b0U5Sm52Y2thRFRDOW9TZkR3QWRMcWtO?=
- =?utf-8?B?NFFvVm51RmNVYi9QUGJjaVlnT3IwWVlSajk0YmVwU2FXd1pwZ3FKSzNWMlZ1?=
- =?utf-8?B?NFNSKzVxbk5USGlVZkV1Uk8vTE9aaHJPQkRBQ0pnd2NZV3FCRTAvZkthZTBM?=
- =?utf-8?B?NVZlMjZJblFGcE40L2d2ckZIa2RETElBeDNuZkw0MmNKNFVWcDhaTTc4THVj?=
- =?utf-8?B?SFRqVkJTMWE2a09udzEzVmZxaUJhcnE3ZVg3U2tKdmJ2bUJ6THlyenl3WDZQ?=
- =?utf-8?Q?QYIw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2025 12:50:51.7841
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 411180ac-0ba8-4744-03a1-08de3e34137a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9258
 
+On 16.12.2025 17:55, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1057,3 +1057,187 @@ int map_regions_p2mt(struct domain *d,
+>  
+>      return rc;
+>  }
+> +
+> +/*
+> + * p2m_get_entry() should always return the correct order value, even if an
+> + * entry is not present (i.e. the GFN is outside the range):
+> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+> + *
+> + * This ensures that callers of p2m_get_entry() can determine what range of
+> + * address space would be altered by a corresponding p2m_set_entry().
+> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
+> + *
+> + * Therefore, this function returns true for GFNs outside range (1), and in
+> + * that case the corresponding level is returned via the level_out argument.
+> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
+> + * find the proper entry.
+> + */
+> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
+> +                                   gfn_t boundary, bool is_lower,
+> +                                   unsigned int *level_out)
+> +{
+> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
+> +    bool ret = false;
+> +
+> +    ASSERT(p2m);
+> +
+> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
+> +                  : gfn_x(gfn) > gfn_x(boundary) )
+> +    {
+> +        for ( ; level; level-- )
+> +        {
+> +            unsigned long mask = BIT(P2M_GFN_LEVEL_SHIFT(level), UL) - 1;
+> +            unsigned long masked_gfn;
+> +
+> +            if ( is_lower )
+> +                masked_gfn = gfn_x(gfn) | mask;
+> +            else
+> +                masked_gfn = gfn_x(gfn) & ~mask;
+> +
+> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
+> +                          : masked_gfn > gfn_x(boundary) )
+> +                break;
 
+Having two is_lower conditionals here is imo unhelpful. Likely the compiler
+would manage to fold them, but imo
 
-On 18/12/2025 08:44, Oleksandr Tyshchenko wrote:
-> 
-> 
-> On 18.12.25 02:05, Stefano Stabellini wrote:
-> 
-> Hello Stefano
-> 
->> On Wed, 17 Dec 2025, Oleksandr Tyshchenko wrote:
->>> Creating a dom0less guest with a high vCPU count (e.g., >32) fails
->>> because the fixed 4KiB device tree buffer (DOMU_DTB_SIZE) overflows
->>> during creation.
->>>
->>> The FDT nodes for each vCPU are the primary consumer of space,
->>> and the previous fixed-size buffer was insufficient.
->>>
->>> This patch replaces the fixed size with a formula that calculates
->>> the required buffer size based on a fixed baseline plus a scalable
->>> portion for each potential vCPU up to the MAX_VIRT_CPUS limit.
->>>
->>> Please note, the change to DOMU_DTB_SIZE formula would result in
->>> a smaller buffer size of 3072 bytes compared to the original 4096 bytes
->>> on Arm32 platforms where MAX_VIRT_CPUS is 8.
->>
->> I am OK with this patch I would only ask to retain the minimum size of
->> 4KB due to the possible presence of passthrough device nodes.
-> 
-> I think there might be cases when even 4KB would not be enough to cover 
-> the whole dtb with passthrough device nodes. But the existing code 
-> should already handle that, so if a partial device tree is provided, 
-> then it will be accounted separately:
-> 
->       /* Account for domU passthrough DT size */
->       if ( kinfo->dtb )
->           fdt_size += kinfo->dtb->size;
-I agree with Oleksandr:
-Acked-by: Michal Orzel <michal.orzel@amd.com>
+            if ( is_lower ? (gfn_x(gfn) | mask) < gfn_x(boundary)
+                          : (gfn_x(gfn) & ~mask) > gfn_x(boundary) )
+                break;
 
-~Michal
+would be more clear to the reader as well. I'm not going to insist, though.
 
+> +        }
+> +
+> +        ret = true;
+> +    }
+> +
+> +    if ( level_out )
+> +        *level_out = level;
+> +
+> +    return ret;
+> +}
+> +
+> +/*
+> + * Get the details of a given gfn.
+> + *
+> + * If the entry is present, the associated MFN, the p2m type of the mapping,
+> + * and the page order of the mapping in the page table (i.e., it could be a
+> + * superpage) will be returned.
+> + *
+> + * If the entry is not present, INVALID_MFN will be returned, page_order will
+> + * be set according to the order of the invalid range, and the type will be
+> + * p2m_invalid.
+> + */
+> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+> +                           p2m_type_t *t,
+> +                           unsigned int *page_order)
+> +{
+> +    unsigned int level = 0;
+> +    pte_t entry, *table;
+> +    int rc;
+> +    mfn_t mfn = INVALID_MFN;
+> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
+> +
+> +    ASSERT(p2m_is_locked(p2m));
+> +
+> +    *t = p2m_invalid;
+> +
+> +    if ( gfn_x(gfn) > (BIT(PADDR_BITS - PAGE_SHIFT + 1, UL) - 1) )
+> +        return mfn;
+
+Since on all other error paths you set *page_order (as long as the pointer
+is non-NULL), shouldn't you do so here as well (to the order corresponding
+to the full [2nd-level] address space)?
+
+Furthermore, is PADDR_BITS really the right basis? Don't things rather depend
+on the number of levels the 2nd-level page tables have for the given guest?
+
+Jan
 
