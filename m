@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128F1CCC1B9
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 14:52:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189639.1510358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F301CCC257
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 14:59:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189655.1510368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEQP-00031P-6q; Thu, 18 Dec 2025 13:52:13 +0000
+	id 1vWEWm-0003kj-VR; Thu, 18 Dec 2025 13:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189639.1510358; Thu, 18 Dec 2025 13:52:13 +0000
+Received: by outflank-mailman (output) from mailman id 1189655.1510368; Thu, 18 Dec 2025 13:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEQP-0002ye-3u; Thu, 18 Dec 2025 13:52:13 +0000
-Received: by outflank-mailman (input) for mailman id 1189639;
- Thu, 18 Dec 2025 13:52:11 +0000
+	id 1vWEWm-0003hk-SC; Thu, 18 Dec 2025 13:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 1189655;
+ Thu, 18 Dec 2025 13:58:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWEQN-0002yY-JC
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 13:52:11 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1vWEWl-0003hd-Tw
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 13:58:47 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb389da9-dc18-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 14:52:02 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-42fbc544b09so427472f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 05:52:02 -0800 (PST)
+ id abda7b77-dc19-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 14:58:46 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-477a2ab455fso6613795e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 05:58:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324493fd73sm5154331f8f.13.2025.12.18.05.52.01
+ ffacd0b85a97d-432449346c9sm4996917f8f.5.2025.12.18.05.58.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 05:52:01 -0800 (PST)
+ Thu, 18 Dec 2025 05:58:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb389da9-dc18-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: abda7b77-dc19-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766065922; x=1766670722; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766066326; x=1766671126; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8KQEzeDMBB4G5Mt9Ktn5ugA5PE7RnTwgZmI3MUCJ24s=;
-        b=UJIQRq8i+AWUfML86FEr072oEDiLr5FpJnB5yac4REvICcd/j8eo5OO7ziACF183xF
-         rRORkj56lbr8YfIo2Ot84myJl4c6dmVIygYVyqYSzW3lfRakhobS0yikNvv+7MS/bTZ9
-         uJT+J+0KLVtqd1Wi9zGWT1an16PjPQ3F7pcaE1oumFPKNC5rMZBR7O3h/oxBKG/qyv+8
-         xMwPpmOrVeStJcUIAcoxyXn8lkuDSM+kCT3aorUD3HeTQF92xuv4A2bJmnEPnFrYVWMY
-         mI0W7n+ZUuxpyuLAxpGwxd5vMQiz6bWfNzOvv6fcm0hhqFkMzoOtkVZI7kPkYS9zxkkd
-         aekQ==
+        bh=XikDTTl3jt4xfjLfAYt/47969CSl/TLXYmDCZNjFwOk=;
+        b=C3s0vnDRMMBZpwU0DeeEgt52ts7a16HX1TofP9cOJN4hI/V8JDrQ20BefHaVVw5vSj
+         5sH0/O44Bbx7cOP4CeLvVu2ir7vlBkvN0lIwZLYMw0d+Jr7AqnZPzTfUt23FFLhzFFXr
+         1rTEu+3yulbgn3xn14pXAksjC85i43cGaln79tErbSfdJv0EHt8fah6s9Syy/m8sqvH1
+         kRISTUUUiBVvR+EBngjSFpcQJkFFt6oFdwj2ZBqx+6CFLdBPBGxGJdj9TMBA/HCW5X7N
+         /9Z80KkMKBZKPpOv+B9afDvr4OcP8xrxyETGeTpYzoiOC2CiS4xOBI3+iQW63qc3Apla
+         x6BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766065922; x=1766670722;
+        d=1e100.net; s=20230601; t=1766066326; x=1766671126;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8KQEzeDMBB4G5Mt9Ktn5ugA5PE7RnTwgZmI3MUCJ24s=;
-        b=sah0zVhMi858bphFBUPUFk1YGdTBOlHYwlUDu2JNJSaj/FUf2sd+113Ds1eDy/FHps
-         A5btRScMfDP2UCCkrjz/FJjpCE5T/JlRzQDDLDkhX1yYAp5bAYMt3xIfnduKegsFvJHs
-         zemt9iPMK1yEjHh7gFKukUaokdE9oHvO/S7CPFFBYY5Btbs6WmLa41bHJMZHkVUxvh1z
-         x8WkdODgf72AOKipQK67U8y+jg2sjEpvv6Fgnefn7/an8PD3pfkjSQ4BIY3RrtUKJxC/
-         WWgHdnUAERkD/INTLmJd8xRKhcvyHr/0PV4dRxXFX4wsEuJIyG2IrMus7vBq3mixVlt9
-         6QEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRvcp/WQPTVLth5+FXQTMFtlQdQx8kLv7zawnjPcr1O9Wk8GEfo29qWLihEpLFUdPoa8iE0lK3RZA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDxNR0B4qOvvzkltSUtCC+B+v+CZbkB0T6fNdw2YL5HyoEjDVJ
-	HzrsH7CY17zpHro1NaKx9AO9sAUovAMkPi6YixZdcgpIZcIJCLyGcuTRkR2ps+rr5g==
-X-Gm-Gg: AY/fxX4RGflgFdwhrohjvMhqcNCcvTDxO0AeFPvyNOOVDJNiJkLQTdIt5KaBL6MfWbo
-	vucsSbKPuc5MGdRjd0sLRbYUGSX2L5qwZ/EF4KrDP+OyKSSZg5XKr2FIFohDXJuEf+gm5dZLaNk
-	sIVQJemQr9FgGzjpBhEJP5ezWuOZ3glKc8qzhoF8HAhVuB2Tgag+eIVVnekGRX6pFF9wWdElRaQ
-	Pf9AngiFveyW9EBhFdjf7VbuPUXmfNbpFFc558DxebLjJ9GpJb3pqooE+wB9KiWrwJ6pf6h3iM8
-	hF2CezJOliYp+szEGdvCQfZPAGN0hBXduhHS0NAY5ASQQtkFTaShPXcnqNYhOZfqxFPj3+pFjT7
-	NyDH9erJ73bl+4lBY5dggmykFckM60ZYR8RzyvOTYIp391loyDRB0RmaT8kkotnwdlI5rOs+4tP
-	3X1nQ1KxH7pBiQUJV5QhUgjEqgLDEhPdO3WNtcpqZYZH3OXYaZX5TNu7JE1kQgXJ0etm2IelVI8
-	nQ=
-X-Google-Smtp-Source: AGHT+IG4SJ+CatxaCIUEG95Hw0jTP0pfOx5/SlNwLmuvpU2MkAkOqxUbR85bjLUU/IM+LMlxmUnmVw==
-X-Received: by 2002:a05:6000:2486:b0:431:8f8:7f2b with SMTP id ffacd0b85a97d-43108f880f1mr8685967f8f.37.1766065922200;
-        Thu, 18 Dec 2025 05:52:02 -0800 (PST)
-Message-ID: <870f4a16-eda3-48ae-9d67-f496cf6493b1@suse.com>
-Date: Thu, 18 Dec 2025 14:52:00 +0100
+        bh=XikDTTl3jt4xfjLfAYt/47969CSl/TLXYmDCZNjFwOk=;
+        b=fdcHQ1G9BbXQ46eHytLxcPQqJsGlJBtYFyxfsaSa/VpXtnxyUXC1JDNnHu7Xh7+W+x
+         82WffvLXOSSWnq9UQ8VlZ97DlHoXzGtRRP56Db13yfMfoOhdhiCZ2KyI76eTnuZZIEYP
+         Ny5S/hFrOAJ9RjeOoCmCYZKdLweU/tQFHj1j6M7poRJiRlOi5kJ1r677mbLCgrbyAw7Q
+         PFhssIyWeycROQR/xGvBKD3ZqhvePkQfIqH36lOmp9VP2D+HTy0RWpTAYlQqk1+4pEyn
+         kPePrLiK//AXEUcZidNJnTD5G6T80XHcGBJLuof5hgcrYXuQHDKTtbsnSVRMgcCxj+6t
+         VHgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVTmtFu712+6dNhoatnGlXEepjXemLLBP75zY5it8ramhBpvjIaqM9WKd02KUJQaqf8saDRMYZihQI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOojTRAU0SpTEbdjnLKd6/5/llXDcicA5yHSr74AxzCJKbl21H
+	f9DXjbcWz6kPlNNGcb3zHSCMVsgKqk3AGbXsy1f5aiuzj1Hp1OCD2P1HZuN83Cxt/w==
+X-Gm-Gg: AY/fxX6z9Km+oJL7XVKju68LrfUpUsQqsFjkdgeoBXfLSHuAFOwAiBqVKr0Yj2+iPri
+	k2TcatiD/dCtSKD6fJU9B4ySlj48OLEusnwWfCllzJk0ca3u0L0oofxNaD4c9YnyTD4gKR2CqUg
+	+Ua9NTtfdPydpVvkGDNHwl/iwD6o2m3iEW2w7oPp3niDOThW+PeXEkFK3Pw39UWuLiLv0mdJScm
+	lQ6P9wUqME9UDfcyu6D6f9PAyxN0qMLv5Qk0vrU1DJyxgGgTal3I/AXxdCMxHL9eEgxMcHmnApo
+	LVd7cdTy9+G9qzYV8T0ptGOq3CAmrWvC4/d7m/ikXYa2tvrhgtzBCu4jLXiLHokc1c06H+r6gM5
+	yd1azpY06x6uTr5NMZF9ChzgK+57njLlwpR3T2yDYyeKt8axxJnL/oWdYqbpgw20wwfrSvHc7uj
+	23K+wIthNAcJo7MkolczttSSZBopR0coNdFGVw4hfs607uvTa/3pwMFVYxiRljktYQIvAUp1kJu
+	i4=
+X-Google-Smtp-Source: AGHT+IFhij8fG6ujpD+tGti8zBJOPiR0taVYZKolyqseZaLlez0SRVhXB/Wo+kFSFdInrUDqGOozFA==
+X-Received: by 2002:a05:6000:438a:b0:430:fa52:9eaf with SMTP id ffacd0b85a97d-430fa52a19emr16775212f8f.60.1766066325776;
+        Thu, 18 Dec 2025 05:58:45 -0800 (PST)
+Message-ID: <935d4342-aff0-4ba5-b23b-b281e2427ffb@suse.com>
+Date: Thu, 18 Dec 2025 14:58:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/riscv: introduce vSBI extension framework
+Subject: Re: [PATCH v7 05/19] xen/riscv: add root page table allocation
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,8 +98,8 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
- <dc1045d1831908678a1e4a79571adab2ab362ef6.1765888425.git.oleksii.kurochko@gmail.com>
+References: <cover.1765879052.git.oleksii.kurochko@gmail.com>
+ <0c85ea3e9e00ee1f00d6e143a15f118d714d128f.1765879052.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,73 +125,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dc1045d1831908678a1e4a79571adab2ab362ef6.1765888425.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <0c85ea3e9e00ee1f00d6e143a15f118d714d128f.1765879052.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.12.2025 17:54, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/vsbi/core.c
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+On 16.12.2025 17:55, Oleksii Kurochko wrote:
+> @@ -30,6 +34,11 @@ struct p2m_domain {
+>      /* Pages used to construct the p2m */
+>      struct page_list_head pages;
+>  
+> +    /* The root of the p2m tree. May be concatenated */
+> +    struct page_info *root;
 > +
-> +#include <xen/sched.h>
-> +
-> +#include <asm/processor.h>
-> +#include <asm/sbi.h>
-> +#include <asm/vsbi.h>
-> +
-> +extern const struct vsbi_ext _svsbi_exts[], _evsbi_exts[];
-> +
-> +void __init check_vsbi_ext_ranges(void)
-> +{
-> +    for ( const struct vsbi_ext *a = _svsbi_exts; a != _evsbi_exts; a++ )
-> +        for ( const struct vsbi_ext *b = a + 1; b != _evsbi_exts; b++ )
+> +    struct gstage_mode_desc mode;
 
-Like here, ...
+Why would this need a copy (instance) of the struct? Can't this be a
+(const) pointer into the static array that currently is local to
+gstage_mode_detect()? Similarly there max_gstage_mode could be a pointer
+rather than a separate instance of the struct.
 
-> +            if ( !(a->eid_end < b->eid_start || b->eid_end < a->eid_start) )
-> +                panic("EID range overlap detected: "
-> +                      "%s:[#%#lx..#%#lx] vs %s:[#%#lx..#%#lx]\n",
-> +                      a->name, a->eid_start, a->eid_end,
-> +                      b->name, b->eid_start, b->eid_end);
-> +}
-> +
-> +const struct vsbi_ext *vsbi_find_extension(unsigned long eid)
-> +{
-> +    const struct vsbi_ext *ext;
-> +
-> +    for ( ext = _svsbi_exts; ext != _evsbi_exts; ext++ )
+Yes, there is a connection to ...
 
-... declare "ext" inside the for()?
-
-> +        if ( (eid >= ext->eid_start) && (eid <= ext->eid_end) )
-> +            return ext;
+> @@ -124,6 +193,24 @@ int p2m_init(struct domain *d)
+>      rwlock_init(&p2m->lock);
+>      INIT_PAGE_LIST_HEAD(&p2m->pages);
+>  
+> +    /*
+> +     * Currently, the infrastructure required to enable CONFIG_HAS_PASSTHROUGH
+> +     * is not ready for RISC-V support.
+> +     *
+> +     * When CONFIG_HAS_PASSTHROUGH=y, p2m->clean_dcache must be properly
+> +     * initialized.
+> +     * At the moment, it defaults to false because the p2m structure is
+> +     * zero-initialized.
+> +     */
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+> +#   error "Add init of p2m->clean_dcache"
+> +#endif
 > +
-> +    return NULL;
-> +}
-> +
-> +void vsbi_handle_ecall(struct vcpu *vcpu, struct cpu_user_regs *regs)
-> +{
-> +    const unsigned long eid = regs->a7;
-> +    const unsigned long fid = regs->a6;
-> +    const struct vsbi_ext *ext = vsbi_find_extension(eid);
-> +    int ret;
-> +
-> +    if ( ext )
-> +        ret = ext->handler(vcpu, eid, fid, regs);
-> +    else
-> +    {
-> +        printk("Unsupported Guest SBI EID #%#lx, FID #%lu\n", eid, regs->a1);
+> +    /* TODO: don't hardcode used for a domain g-stage mode. */
+> +    p2m->mode.mode = HGATP_MODE_SV39X4;
+> +    p2m->mode.paging_levels = 2;
+> +    safe_strcpy(p2m->mode.name, "Sv39x4");
 
-As before - anything guest triggered must not cause log spam issues.
-Minimally you want to use XENLOG_GUEST in such cases, but I think you
-really mean gprintk() here.
-
-A connected question then arises: Why is "vcpu" being passed in, when
-the sole caller only ever passes "current"? (The connection here is
-that gprintk() also uses current, and hence would be wrong to use when
-vcpu != current.) Same question goes for the ->handler() hook.
+... this TODO, but surely this code could similarly be made reference the
+(then) global array.
 
 Jan
 
