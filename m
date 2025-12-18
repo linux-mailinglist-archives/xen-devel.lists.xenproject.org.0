@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7332CCC3F4
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:21:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189710.1510408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57B77CCC40F
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:22:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189718.1510417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEsJ-0000xc-FV; Thu, 18 Dec 2025 14:21:03 +0000
+	id 1vWEtk-0001Sp-PO; Thu, 18 Dec 2025 14:22:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189710.1510408; Thu, 18 Dec 2025 14:21:03 +0000
+Received: by outflank-mailman (output) from mailman id 1189718.1510417; Thu, 18 Dec 2025 14:22:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWEsJ-0000uv-CD; Thu, 18 Dec 2025 14:21:03 +0000
-Received: by outflank-mailman (input) for mailman id 1189710;
- Thu, 18 Dec 2025 14:21:02 +0000
+	id 1vWEtk-0001Qt-Lw; Thu, 18 Dec 2025 14:22:32 +0000
+Received: by outflank-mailman (input) for mailman id 1189718;
+ Thu, 18 Dec 2025 14:22:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWEsI-0000up-FL
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:21:02 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YG3a=6Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vWEtj-0001Ql-Ja
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:22:31 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c33e8b1e-dc1c-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 15:20:54 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-477bf34f5f5so5057295e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 06:20:54 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432449ade52sm5067027f8f.41.2025.12.18.06.20.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 06:20:53 -0800 (PST)
+ id fb64f23f-dc1c-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 15:22:28 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-640c1fda178so1245493a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 06:22:28 -0800 (PST)
+Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64b585eddfasm2683571a12.15.2025.12.18.06.22.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Dec 2025 06:22:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,177 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c33e8b1e-dc1c-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: fb64f23f-dc1c-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766067654; x=1766672454; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DaO9i08OkU05whvdD850C4mWkAu1OL9jIelLce/0NFQ=;
-        b=T+/ofYtFKnzpBUyQCsKORTi6aIrJgVaOFJ5oTuPE+7AOX/GhGDYQgxAA1Na9CIMyZg
-         QA/T/ieOAm/q/wqb+9Ga5ZWGrDLKy/18nSn805BHhaPRVIycVOiQYdxDlrKqUyrMB3yW
-         f8KxKziGpn5ajpaXJz6E64uUBwtbrEZw4ICZIc4tVsemT70Y5UU58jI8O3P9YnHoZEPo
-         nfAe9bNqyvhPe/VRTaXtFyRszV9G4G+C0NyZH69F+kHmXfdXEFL44UG+i/UDS4q/cmSx
-         w2xzubCVK1Zp0gsbAdLoKm+h0aUCXIpQnzw36JLf2Zscuxx4MRCIo4cJay+9ucN4IY1l
-         yJqg==
+        d=gmail.com; s=20230601; t=1766067748; x=1766672548; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qjMqUDTOPTxrmqmlAzpdZsg9bO4lkWNc7k62rKcAr10=;
+        b=Zkm97K+gU6TFItTC3NDgBPotrgL9vz0/Y7fif/YYpryNsgq/zRPokJMmkKqglh4iGn
+         nkYxB7hdASH4UoZ82D+Cb9Ve1SXwLFc/7WP6YFf9aIu2aDmclXFoKNAEMAugq+XydQtb
+         yNNRjlcLTFmcOGyBbii9LtFTEJOpDTwbj5DwtwFKMnx9mTUs2HiFV6JwPJReGVjBwQPG
+         +ZQN33s7F4qmj7C1FIM4KbjndP63vX9wiasfWit8qqU3O7EmhoDysA+nEeDSQt7V5Gug
+         VVMidDQookAD460fUtbHywACjDmc513F1jbCJZua6oFgU1Pe3Rz7RzbRNbuJih9Dl7h8
+         i/Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766067654; x=1766672454;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1766067748; x=1766672548;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DaO9i08OkU05whvdD850C4mWkAu1OL9jIelLce/0NFQ=;
-        b=PVMrmUBgM17u62K91X/XXjSgpEqm5si+MOwvoMEnzXbgXog9oz6N3FOW2xnIfRBCBy
-         cwp1W66+7OUai4B+If/H5fx/M3gMh/3eCGm+TmtZ6v4lE2OHhROlJM4aStxW5ZDv6Lnw
-         1nTERwqM951ba5DAGUyuWCTfGZ0nItZxR5LU8Q3Fu4spBG2X+AfAiDqdG3Os0YCebF01
-         5Ac99jDnh2TKRj6xx1B2V1KjaH1t5MGhLJHsa6AYUH03oHFtOQ4quBn/A63cXbaSo9/q
-         RAHo42SVpfoK2jHSMWyx772x5R027+51WX6GFFR7GTZCDhuJSH7Jq/vdTQdFKkmCqa2k
-         6ITA==
-X-Forwarded-Encrypted: i=1; AJvYcCXemr8dzS9x4WmyQrv+j1T1Z6Tt1IjcZswh7RIfoMYgfLVvtG24l9bepYbVb+AvuS+SXEmss3/wGYM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycFAXpf05F5/tK4ZzS3AANfspDUwxeuk48BYx426KtqF6NAT3V
-	Dr/WxzaxTPR2TqZmH526vxbpv2y7sfIE5LbXyHWx5O+vUS2Aqdi4k+XR01e66GbgrA==
-X-Gm-Gg: AY/fxX6WtFwIqbHMQTHtgMB9fn6xyiLQhZkA1/SMjcuGl3kjkyyxXoanM6nfWWW/S8N
-	jMO2gmhpD4WObv/ovtSBs8q12o8j8RDkRWFnGWtIAEeVBA9oU30v0b4abKF6bQCZoROLl9bGtmP
-	0Xe3zKqXtNIFbFBQFoODAcLxrzeKaH9QQgbPJ7LVWPKUyDx46D5F5uUbjQybHH9V/boEwY9rm4X
-	ClRy7lswHKQeXrR7sv9aNqXd4+LHQcddTGA7mTuetxYHfAf6nwEQPgQF9f7y+JyReg6ru5TjBln
-	/A12bQERslDGmboASs0Kcs5nbPsnFsuMDHfqsau1KwAFpaor3ZCY1QWp4yFbD8B9L/eTxfPZlI7
-	KGoLbSTm6HvMc8nsElaBL0Q9sWZ60icqaH/HGwoDw7d61e+VkNR8ajA9lOauW7sZwdrVWqQ+fCT
-	JmeO1tQUBIRHheZnBIjnYa+yUn0osQLPTJK2zHV7wxoayzBaaHwS/A2WF2QSEUIh6kHKbG1zMfG
-	/rETZHoMSFAfg==
-X-Google-Smtp-Source: AGHT+IFACwxr0g/Y3TpmLH240B1+d8SiK93Q/xp5LsDTnnhWInjXn88dNPCI0AOR/PAsx3gD4PExpw==
-X-Received: by 2002:a05:600c:3b05:b0:477:7bca:8b34 with SMTP id 5b1f17b1804b1-47a8f8ab546mr226447445e9.6.1766067653565;
-        Thu, 18 Dec 2025 06:20:53 -0800 (PST)
-Message-ID: <08105722-0920-462a-aeba-a36f8044a5dc@suse.com>
-Date: Thu, 18 Dec 2025 15:20:51 +0100
+        bh=qjMqUDTOPTxrmqmlAzpdZsg9bO4lkWNc7k62rKcAr10=;
+        b=kj2kBV9XFtnjbf8QMqFK5itEGFwq239YrG4fg7Ss0cFloE3eRzBA2/uGIrOSHOGvbu
+         FuESs6CkOAGEhf7MoTBu2K3Op34YBzWLG/EhVzZoZr1FR9gUbQ3Z6RkhcW/cIwlu9886
+         1+1s8tzGcqJS4SONgugf+iUMoR5YxKiEt0X1adA7N/nwltpUgnzJIUUQL9YoQa2Me1Pa
+         IFogfkWoaLkAMLPhVgSYqeSIaBIInWDVi0u8Ev53m/Si1xxhWGUuel8xHoH5o+oTBam2
+         erAL+xVRKgdPBeKZxnts9rUAMGZ/PbQzRf/vXAPubEXyGtFZsiteElAB3BAG4uED6Dy0
+         7gCQ==
+X-Gm-Message-State: AOJu0YyNhA8ap87mE0lrgseferDGSdFnbSaZlBI9vlPud2fN6tZNEHCn
+	Z/xSslmPI9h/c8ZQQ/T841Cbu1cYxPlnV1bAExPEzBQG7biY2Qv1+AAiQkHvEw==
+X-Gm-Gg: AY/fxX55YrZKhIJYtmatkxxWpQwr7WcrRrJ85UZirxLKXqYMkoMPjdEsVDBpA4YW3Xh
+	gpzY4n+vTsQ9nTyncTT8bsyJc4M/DUMy3c2cAY7Ybaq+F2c9iiU8D0si2YkdQzh0GDK4ng8BnFF
+	bJKPWd5bX74WVRB2fyM/kDQeaMmxQK6SupZ8Oh2eJaTBOs0dVmuWUwiPgcKLXuyBFjrO31K4zu1
+	opEQLWRZG/YTrscPya9Zr92kQtw91D+IpYESVDiq9lQM10oOT+nJS+UeFA0cqTf5UF79t01UMTj
+	bhLzENzzEool5WFah0mQ5dIPeTEFeaR+rYFBnP8rN8dmYKpJnl9PqkXI36mD/lAuAPEEr56JN2Z
+	GnIIRSoRkoFWA8E+WHEvq+VVB5DF2kkgVgW5+ZjXUI7pd2pm9XoqwB+uqA5yAZpQn86GK7yu72d
+	oCe2Shd9vJzF/9vXktnEqQ11JfHERuzKnWrCkIUhf4PCVk0Z65GdI4OHc=
+X-Google-Smtp-Source: AGHT+IF48XDoCzvWX8YN114TuI73BnnnKUwHGkubFE9MebNp7YAUy2yjL8c5eQ1QenyK/rtXaZIIeA==
+X-Received: by 2002:a05:6402:1468:b0:64b:58bf:a05 with SMTP id 4fb4d7f45d1cf-64b58bf0c9emr2902881a12.18.1766067747410;
+        Thu, 18 Dec 2025 06:22:27 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Yann Dirson <yann.dirson@vates.tech>,
+	Yann Sionneau <yann.sionneau@vates.tech>
+Subject: [PATCH v1] acpi/arm: relax MADT GICC entry length check to support newer ACPI revisions
+Date: Thu, 18 Dec 2025 15:22:14 +0100
+Message-ID: <929f7a0fb8f92112d445015726db30122a05eb9f.1766060265.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/riscv: add RISC-V legacy SBI extension support
- for guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
- <df7a7e94fba79265138d6cc8d23b1f6b958f5bd5.1765888425.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <df7a7e94fba79265138d6cc8d23b1f6b958f5bd5.1765888425.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.12.2025 17:54, Oleksii Kurochko wrote:
-> This commit adds support for legacy SBI extensions (version 0.1) in Xen
-> for guest domains.
-> 
-> The changes include:
-> 1. Define all legacy SBI extension IDs (0x0 to 0x8) for better clarity and
->    completeness.
-> 2. Implement handling of legacy SBI extensions, starting with support for
->    SBI_EXT_0_1_CONSOLE_{PUT,GET}CHAR.
+Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
+The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
+match the known values, which leads to:
+  GICv3: No valid GICC entries exist.
+as observed on the AmpereOne platform.
 
-I can't spot any actual support for GETCHAR.
+To fix this, import the logic from import from Linux commit 9eb1c92:
+  The BAD_MADT_GICC_ENTRY check is a little too strict because
+  it rejects MADT entries that don't match the currently known
+  lengths. We should remove this restriction to avoid problems
+  if the table length changes. Future code which might depend on
+  additional fields should be written to validate those fields
+  before using them, rather than trying to globally check
+  known MADT version lengths.
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/vsbi/legacy-extension.c
-> @@ -0,0 +1,65 @@
-> +
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/console.h>
-> +#include <xen/lib.h>
-> +#include <xen/sched.h>
-> +
-> +#include <asm/processor.h>
-> +#include <asm/vsbi.h>
-> +
-> +static void vsbi_print_line(char c)
+  Link: https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
+  Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
+  [lorenzo.pieralisi@arm.com: added MADT macro comments]
+  Signed-off-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+  Acked-by: Sudeep Holla <sudeep.holla@arm.com>
+  Cc: Will Deacon <will.deacon@arm.com>
+  Cc: Catalin Marinas <catalin.marinas@arm.com>
+  Cc: Al Stone <ahs3@redhat.com>
+  Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+  Signed-off-by: Will Deacon <will.deacon@arm.com>
 
-Misleading function name? The parameter doesn't fit the name, and ...
+As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
+used. As we rewrite the MADT for hwdom, reuse the host GICC header length
+instead of ACPI_MADT_GICC_LENGTH.
 
-> +{
-> +    struct domain *cd = current->domain;
+[1] https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
 
-I guess you copied this code from somewhere, but a variable of this type and
-contents wants to be named "currd".
+Reported-By: Yann Dirson <yann.dirson@vates.tech>
+Co-developed-by: Yann Sionneau <yann.sionneau@vates.tech>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+I ran CI tests where it made sense for this patch, as I don’t see any CI job
+that builds Xen with CONFIG_ACPI=y:
+  https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2222160666
 
-> +    struct domain_console *cons = cd->console;
-> +
-> +    if ( !is_console_printable(c) )
-> +        return;
-> +
-> +    spin_lock(&cons->lock);
-> +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
-> +    if ( c != '\n' )
-> +        cons->buf[cons->idx++] = c;
-> +    if ( (cons->idx == (ARRAY_SIZE(cons->buf) - 1)) || (c == '\n') )
-> +    {
-> +        cons->buf[cons->idx] = '\0';
-> +        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cons->buf);
+I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
+AmpereOne platform.
+---
+ xen/arch/arm/gic-v2.c           |  3 ++-
+ xen/arch/arm/gic-v3.c           |  3 ++-
+ xen/arch/arm/gic.c              | 12 +++++++++++-
+ xen/arch/arm/include/asm/acpi.h | 21 +++++++++++++++------
+ 4 files changed, 30 insertions(+), 9 deletions(-)
 
-... you also only print a line under certain conditions.
+diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+index b23e72a3d0..aae6a7bf30 100644
+--- a/xen/arch/arm/gic-v2.c
++++ b/xen/arch/arm/gic-v2.c
+@@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
+     host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+                              header);
+ 
+-    size = ACPI_MADT_GICC_LENGTH;
++    size = host_gicc->header.length;
++
+     /* Add Generic Interrupt */
+     for ( i = 0; i < d->max_vcpus; i++ )
+     {
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index bc07f97c16..75b89efad4 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
+ 
+     host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+                              header);
+-    size = ACPI_MADT_GICC_LENGTH;
++    size = host_gicc->header.length;
++
+     for ( i = 0; i < d->max_vcpus; i++ )
+     {
+         gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
+diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+index ee75258fc3..a0ccda14bf 100644
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -418,8 +418,18 @@ unsigned long gic_get_hwdom_madt_size(const struct domain *d)
+ {
+     unsigned long madt_size;
+ 
++    struct acpi_subtable_header *header;
++    struct acpi_madt_generic_interrupt *host_gicc;
++
++    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
++    if ( !header )
++        panic("Can't get GICC entry");
++
++    host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
++                             header);
++
+     madt_size = sizeof(struct acpi_table_madt)
+-                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
++                + host_gicc->header.length * d->max_vcpus
+                 + sizeof(struct acpi_madt_generic_distributor)
+                 + gic_hw_ops->get_hwdom_extra_madt_size(d);
+ 
+diff --git a/xen/arch/arm/include/asm/acpi.h b/xen/arch/arm/include/asm/acpi.h
+index 13756dd341..30bc446d1f 100644
+--- a/xen/arch/arm/include/asm/acpi.h
++++ b/xen/arch/arm/include/asm/acpi.h
+@@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
+  */
+ paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
+ 
+-/* Macros for consistency checks of the GICC subtable of MADT */
+-#define ACPI_MADT_GICC_LENGTH	\
+-    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
++/*
++ * MADT GICC minimum length refers to the MADT GICC structure table length as
++ * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
++ *
++ * The efficiency_class member was added to the
++ * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
++ * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
++ * is therefore used to delimit the MADT GICC structure minimum length
++ * appropriately.
++ */
++#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
++    struct acpi_madt_generic_interrupt, efficiency_class)
+ 
+-#define BAD_MADT_GICC_ENTRY(entry, end)						\
+-    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
+-     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
++#define BAD_MADT_GICC_ENTRY(entry, end) \
++    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
++    (unsigned long)(entry) + (entry)->header.length > (end))
+ 
+ #ifdef CONFIG_ACPI
+ extern bool acpi_disabled;
+-- 
+2.52.0
 
-> +        cons->idx = 0;
-> +    }
-> +    spin_unlock(&cons->lock);
-> +}
-> +
-> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
-> +                                     unsigned long fid,
-> +                                     struct cpu_user_regs *regs)
-> +{
-> +    int ret = 0;
-> +
-> +    switch ( eid )
-> +    {
-> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
-> +        vsbi_print_line((char)regs->a0);
-
-The cast isn't really needed, is it? And just to double-check: The spec demands
-the upper bits to be ignored? (A link to the spec could have been useful, e.g.
-in the cover letter.)
-
-> +        break;
-> +
-> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
-> +        ret = SBI_ERR_NOT_SUPPORTED;
-> +        break;
-> +
-> +    default:
-> +        /*
-> +         * TODO: domain_crash() is acceptable here while things are still under
-> +         * development.
-> +         * It shouldn't stay like this in the end though: guests should not
-> +         * be punished like this for something Xen hasn't implemented.
-> +         */
-
-Question then is why SBI_EXT_0_1_CONSOLE_GETCHAR gets a separate case block.
-
-Jan
 
