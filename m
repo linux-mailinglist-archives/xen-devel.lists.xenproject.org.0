@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9644CCCC4A0
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:32:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189735.1510427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D0DCCC54D
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 15:48:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189755.1510474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWF3A-0003IM-My; Thu, 18 Dec 2025 14:32:16 +0000
+	id 1vWFIF-0005gG-CC; Thu, 18 Dec 2025 14:47:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189735.1510427; Thu, 18 Dec 2025 14:32:16 +0000
+Received: by outflank-mailman (output) from mailman id 1189755.1510474; Thu, 18 Dec 2025 14:47:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWF3A-0003GE-KI; Thu, 18 Dec 2025 14:32:16 +0000
-Received: by outflank-mailman (input) for mailman id 1189735;
- Thu, 18 Dec 2025 14:32:15 +0000
+	id 1vWFIF-0005dA-9W; Thu, 18 Dec 2025 14:47:51 +0000
+Received: by outflank-mailman (input) for mailman id 1189755;
+ Thu, 18 Dec 2025 14:47:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWF39-0003G8-Ml
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:32:15 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/sWj=6Y=bounce.vates.tech=bounce-md_30504962.6944140e.v1-8714dd6c4f2045cda88ee93a1981ca80@srs-se1.protection.inumbo.net>)
+ id 1vWFIE-0005d2-Hl
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 14:47:50 +0000
+Received: from mail137-31.atl71.mandrillapp.com
+ (mail137-31.atl71.mandrillapp.com [198.2.137.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56fcecab-dc1e-11f0-9cce-f158ae23cfc8;
- Thu, 18 Dec 2025 15:32:11 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso7532725e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 06:32:11 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43244934cd4sm5252216f8f.7.2025.12.18.06.32.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 06:32:10 -0800 (PST)
+ id 828ef504-dc20-11f0-9cce-f158ae23cfc8;
+ Thu, 18 Dec 2025 15:47:44 +0100 (CET)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-31.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dXD6Q337jz7lmRj8
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 14:47:42 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 8714dd6c4f2045cda88ee93a1981ca80; Thu, 18 Dec 2025 14:47:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +43,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56fcecab-dc1e-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766068331; x=1766673131; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nk73o7Y8MbEoLrwk/VfsxO6AXheeLt25cTkWWhJBiF8=;
-        b=Giae6Os28Wre9jVcO8RiQwXr7i6GiJnJ9THiU52/blE47iDs/pOWIi/5DJTnyvyOrJ
-         WdYRq9V4yfexgyLXvhNe37+Kkkjoqt+uvKgnwmkvlzFd4AhRgFWVE1yBJMrw3Hqkix/U
-         vjB54VPAdjsMGm4kg3lmQwWf5A3sreBKtD4W8Y5/8nQXM0OVBqNe5GkKV3ru9ednfxEn
-         2+AShRbldA+r3CjOO0iZU9d9RGKtU1guS7tFijeuxqwH6htcEzYweYcD7+MVxlRcnDV6
-         TxJ08vGP42nNSck8T4LOdiFFZZXLrGwNVbwS7sKzz301lJdZMHjyJ1p0KnLbUqrgv82e
-         4OJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766068331; x=1766673131;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nk73o7Y8MbEoLrwk/VfsxO6AXheeLt25cTkWWhJBiF8=;
-        b=HO/9qodJrDiAP5G0RglzQrAes5BzVZ+TOl2miarO366C+I5t4uv7XwLgIKtn7/noMe
-         /vmwFSc8m7Mj3dX36bsQprNn6XotA3QwRVIZzqmjEd4j1oRlBcgORrVh+Z0LJFr7w/CD
-         wTkRtq9MYyZYFa0L81E2bmNVfnWkv2tGvJqaL2dQDgjyL4oKWZPxeTi3ytC9HJKxLpta
-         KxxGn317rR+2pSHki2WkqWcXrqMuWb80zFQStqdiysjehWpjVp8ZaVWR/Egptg9F3suS
-         jHvuTbyNq0uT/ksnQ6A19ojlXSlBoKDhfbOp1ERZGTTwIoJFqYrJLYpRm8T7YX+abZym
-         i+uA==
-X-Forwarded-Encrypted: i=1; AJvYcCVt3XPtFVa93fxusLnVBHtbG5/x1F/bqwB9Xa3JIG1uZ9TgooWFvGTz1VGz0BXkks5nGEWnJT5pdDI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8Fv/uXxNmEK8l0xBBEID8jbl9lcrom3ylf9JGsjIz4muQxIPt
-	g+Vi0k5rH+CFC74J0vHiEQVXFXwX+5b+zAe23PIoGpbKvPpRuPCK3lFiJ4Ke0Lx79A==
-X-Gm-Gg: AY/fxX5O7l4rEq8R2PVBr8BbyJpSA7D8Fy3U5KmYeAGfi885dM9oew+HoBX6RrmkvML
-	cMwrWbZ16RIbdgpuCfKCmhDCa2hGFTCL7q2r552VxFQCFbSDY7K2Zpe1ZzFtJ2rTVzgpNqqbTmY
-	YCGUjXdink4CeXDIIymZz1C04TNqqj13IwcZvDyCLF5iSg3g5ZBRD911Z71/fAphimTCbUaEMQf
-	m2JktVesr5ld9//4cQr0GXMxcTyh2qVu3zoQqUWnQZ77DCKVgwSn2JrgKY9qewpWBYi5pjPAGAI
-	g7pZGus391SsurwzayYE2uV/gAWPdviJC6n83cVnXN/xYnMMyinrDsgkXLcEPJxZVGlWnioOsjG
-	HrjEZaYsUXazrIT4azRkFDIwb3c+g/UN01xnBuxowF4jZiMKWzNPn+fftNw+xrLJrgLjmy2TTbf
-	AWLiij65I+1bIhslI5XTqn65x5EkGkITbur5Q13d0ANwPLcs8UBBsLRMEIwbuxHnzT69ugv1LpL
-	4Q=
-X-Google-Smtp-Source: AGHT+IE7q2f5ms5LwMXi0QaPe2Z1KBXXY2RffLtO3tve3P7dQ+r/BEVBq9y2lGfmt4gH0NhucJpApw==
-X-Received: by 2002:a05:6000:230f:b0:430:fa9a:74d with SMTP id ffacd0b85a97d-430fa9a0c13mr16464532f8f.24.1766068330987;
-        Thu, 18 Dec 2025 06:32:10 -0800 (PST)
-Message-ID: <f5206b63-1f82-4abb-9740-9a0042fbcfb6@suse.com>
-Date: Thu, 18 Dec 2025 15:32:08 +0100
+X-Inumbo-ID: 828ef504-dc20-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1766069262; x=1766339262;
+	bh=ERqb2O7Mon4Rnq2ikf7KB+qMfBBBYPzBn/QbCL2RHpY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=apXgbyHBl7bZtRwpfr1HxKHS3eq7y+3X0BQVe1CIJD2rJTvdZrCgMC8I+HBtoGdmd
+	 k5lJq6uERZg8yfeG+OSGKza5CsHmDbMbGKZM1y48+QlCmzybvVfZmGTlQw/AMkSfwm
+	 DUuaR5MDBrVpBdf3QeHZp8sHNFi7BtSjJ3YMEx4WFq0PVXBsIPj9bkBRXVjQe2Oo17
+	 7ZChjwxotxMMv3igdWalhipipnaih0pEnJq1ZcbO0QJeTuFvXPcrsNhNI3wLEfkiEQ
+	 BfPftETWc/vefJuVMPYvEs23PE4SijOK9gvsObxWDvoajFP7tFhi35Hn7KdQ2e1Nfe
+	 c1VI0CkA/Y/JA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1766069262; x=1766329762; i=teddy.astie@vates.tech;
+	bh=ERqb2O7Mon4Rnq2ikf7KB+qMfBBBYPzBn/QbCL2RHpY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=hfZDNDghqzU39BTW+Xyi5TQHF+KNDLShKD907AM7k/PCKEoxkxDAzBfiHZ0evew10
+	 pp8fG0eFijEskeJ4rLCCO6DFE+8hIU90x8KRQaEfeQm9eHz0g7JwPPVKYi2C+7hpIh
+	 beFc0I00lMv3mnpl4LWwxisuv68CiuKfTdeIy6oqUahFJCUKwhbf5rvCHTHdBos8UF
+	 tzrP+qgUGRRELeBU3WaftGzP3fOTW4Z4kNmDRuHk0mihUafQNx10fcmTdmBizKT9Wb
+	 1ME8A6f0P85uUtVnp+P2wdmZ5JaB5CTrsqXZNYNrPWe7s4Ck7KDYoHp/I6mZiC65Pn
+	 1OnCzq7p79Zwg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN][PATCH=20v5]=20xen/x86:=20guest=5Faccess:=20optimize=20raw=5Fx=5Fguest()=20for=20PV=20and=20HVM=20combinations?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1766069260671
+Message-Id: <a220ce20-9f1f-4310-b5f3-680c1dad6d2d@vates.tech>
+To: "Grygorii Strashko" <grygorii_strashko@epam.com>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Jason Andryuk" <jason.andryuk@amd.com>, "Alejandro Vallejo" <alejandro.garciavallejo@amd.com>
+References: <20251218135926.188059-1-grygorii_strashko@epam.com>
+In-Reply-To: <20251218135926.188059-1-grygorii_strashko@epam.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.8714dd6c4f2045cda88ee93a1981ca80?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251218:md
+Date: Thu, 18 Dec 2025 14:47:42 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
- <2e42e8ee51badcfa2cb16e3db71fdecaac445bca.1765888425.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2e42e8ee51badcfa2cb16e3db71fdecaac445bca.1765888425.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 17.12.2025 17:54, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/sbi.h
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -14,6 +14,10 @@
->  
->  #include <xen/cpumask.h>
->  
-> +#define XEN_SBI_VER_MAJOR 0
-> +#define XEN_SBI_VER_MINOR 2
-> +#define XEN_SBI_IMPID 7
+Le 18/12/2025 =C3=A0 15:01, Grygorii Strashko a =C3=A9crit=C2=A0:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> Xen uses below pattern for raw_x_guest() functions:
+> 
+> define raw_copy_to_guest(dst, src, len)        \
+>      (is_hvm_vcpu(current) ?                     \
+>       copy_to_user_hvm((dst), (src), (len)) :    \
+>       copy_to_guest_pv(dst, src, len))
+> 
+> This pattern works depending on CONFIG_PV/CONFIG_HVM as:
+> - PV=3Dy and HVM=3Dy
+>    Proper guest access function is selected depending on domain type.
+> - PV=3Dy and HVM=3Dn
+>    Only PV domains are possible. is_hvm_domain/vcpu() will constify to "f=
+alse"
+>    and compiler will optimize code and skip HVM specific part.
 
-Are these numbers part of the spec (sorry, lack of a reference makes me wonder,
-plus if that were the case, I'd kind of expect the names to be SBI_XEN_..., not
-XEN_SBI_...)?
+> - PV=3Dn and HVM=3Dy
+>    Only HVM domains are possible. is_hvm_domain/vcpu() will not be consti=
+fied.
+>    No PV specific code will be optimized by compiler.
+> - PV=3Dn and HVM=3Dn
+>    No guests should possible. The code will still follow PV path.
+> 
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/vsbi/base-extension.c
-> @@ -0,0 +1,71 @@
-> +
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/lib.h>
-> +#include <xen/sched.h>
-> +#include <xen/version.h>
-> +
-> +#include <asm/processor.h>
-> +#include <asm/sbi.h>
-> +#include <asm/vsbi.h>
-> +
-> +static int vsbi_base_ecall_handler(struct vcpu *vcpu, unsigned long eid,
-> +                                   unsigned long fid,
-> +                                   struct cpu_user_regs *regs)
+^ regarding this
+
+> For the case (PV=3Dn and HVM=3Dn) return "len" value indicating a failure=
+ (no
+> guests should be possible in this case, which means no access to guest
+> memory should ever happen).
+> 
+
+^ and this
+
+AFAIU it is the same for PV=3Dn and HVM=3Dy for non-HVM domains (the few 
+that "exists"), so we should rather say that these functions fails on 
+"non-HVM" domains in PV=3Dn configurations (since no actual PV domain 
+exists in these cases).
+
+IOW, there is no PV path in PV=3Dn configurations and in !HVM domains, the 
+function fails instead (as we would expect).
+
+Once the commit message is adjusted on this
+Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+
+> The measured (bloat-o-meter) improvement for (PV=3Dn and HVM=3Dy) case is=
+ about -11K.
+> 
+> [teddy.astie@vates.tech: Suggested to use static inline functions vs
+> macro combinations]
+> Suggested-by: Teddy Astie <teddy.astie@vates.tech>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+> changes in v5:
+> - rebase
+> - drop moving usercopy.c as it is not needed since commit 7370966d1cb7
+>    ("x86: move / split usercopy.c to / into arch-specific library")
+> 
+> changes in v4:
+> - move usercopy.c into arch/x86/pv/
+> - rework to always dynamically check for HVM vcpu(domain) by using is_hvm=
+_vcpu()
+>    as requested by Jan Beulich
+> 
+> changes in v3:
+> - add raw_use_hvm_access() wrapper
+> 
+> changes in v2:
+> - use static inline functions instead of macro combinations
+> 
+>   xen/arch/x86/include/asm/guest_access.h | 78 ++++++++++++++++++-------
+>   1 file changed, 58 insertions(+), 20 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/guest_access.h b/xen/arch/x86/inclu=
+de/asm/guest_access.h
+> index 69716c8b41bb..f0e56b112e14 100644
+> --- a/xen/arch/x86/include/asm/guest_access.h
+> +++ b/xen/arch/x86/include/asm/guest_access.h
+> @@ -13,26 +13,64 @@
+>   #include <asm/hvm/guest_access.h>
+>   
+>   /* Raw access functions: no type checking. */
+> -#define raw_copy_to_guest(dst, src, len)        \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_to_user_hvm((dst), (src), (len)) :    \
+> -     copy_to_guest_pv(dst, src, len))
+> -#define raw_copy_from_guest(dst, src, len)      \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_from_user_hvm((dst), (src), (len)) :  \
+> -     copy_from_guest_pv(dst, src, len))
+> -#define raw_clear_guest(dst,  len)              \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     clear_user_hvm((dst), (len)) :             \
+> -     clear_guest_pv(dst, len))
+> -#define __raw_copy_to_guest(dst, src, len)      \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_to_user_hvm((dst), (src), (len)) :    \
+> -     __copy_to_guest_pv(dst, src, len))
+> -#define __raw_copy_from_guest(dst, src, len)    \
+> -    (is_hvm_vcpu(current) ?                     \
+> -     copy_from_user_hvm((dst), (src), (len)) :  \
+> -     __copy_from_guest_pv(dst, src, len))
+> +static inline unsigned int raw_copy_to_guest(void *dst, const void *src,
+> +                                             unsigned int len)
 > +{
-> +    int ret = 0;
-> +    struct sbiret sbi_ret;
+> +    if ( is_hvm_vcpu(current) )
+> +        return copy_to_user_hvm(dst, src, len);
+> +
+> +    if ( !IS_ENABLED(CONFIG_PV) )
+> +        return len;
+> +
+> +    return copy_to_guest_pv(dst, src, len);
+> +}
+> +
+> +static inline unsigned int raw_copy_from_guest(void *dst, const void *sr=
+c,
+> +                                               unsigned int len)
+> +{
+> +    if ( is_hvm_vcpu(current) )
+> +        return copy_from_user_hvm(dst, src, len);
+> +
+> +    if ( !IS_ENABLED(CONFIG_PV) )
+> +        return len;
+> +
+> +    return copy_from_guest_pv(dst, src, len);
+> +}
+> +
+> +static inline unsigned int raw_clear_guest(void *dst, unsigned int len)
+> +{
+> +    if ( is_hvm_vcpu(current) )
+> +        return clear_user_hvm(dst, len);
+> +
+> +    if ( !IS_ENABLED(CONFIG_PV) )
+> +        return len;
+> +
+> +    return clear_guest_pv(dst, len);
+> +}
+> +
+> +static inline unsigned int __raw_copy_to_guest(void *dst, const void *sr=
+c,
+> +                                               unsigned int len)
+> +{
+> +    if ( is_hvm_vcpu(current) )
+> +        return copy_to_user_hvm(dst, src, len);
+> +
+> +    if ( !IS_ENABLED(CONFIG_PV) )
+> +        return len;
+> +
+> +    return __copy_to_guest_pv(dst, src, len);
+> +}
+> +
+> +static inline unsigned int __raw_copy_from_guest(void *dst, const void *=
+src,
+> +                                                 unsigned int len)
+> +{
+> +    if ( is_hvm_vcpu(current) )
+> +        return copy_from_user_hvm(dst, src, len);
+> +
+> +    if ( !IS_ENABLED(CONFIG_PV) )
+> +        return len;
+> +
+> +    return __copy_from_guest_pv(dst, src, len);
+> +}
+>   
+>   /*
+>    * Pre-validate a guest handle.
 
-    ASSERT(eid == SBI_EXT_BASE);
+Teddy
 
-> +    switch ( fid ) {
 
-Nit: Brace placement.
+--
+Teddy Astie | Vates XCP-ng Developer
 
-> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
-> +        regs->a1 = MASK_INSR(XEN_SBI_VER_MAJOR, SBI_SPEC_VERSION_MAJOR_MASK) |
-> +                   XEN_SBI_VER_MINOR;
-> +        break;
-> +    case SBI_EXT_BASE_GET_IMP_ID:
-> +        regs->a1 = XEN_SBI_IMPID;
-> +        break;
-> +    case SBI_EXT_BASE_GET_IMP_VERSION:
-> +        regs->a1 = (xen_major_version() << 16) | xen_minor_version();
-> +        break;
+XCP-ng & Xen Orchestra - Vates solutions
 
-Along those lines here - are we free to use an arbitrary layout (shifting major by
-16 bits), or is this mandated by the spec? At least in the latter case, the 16 will
-want to gain a #define.
+web: https://vates.tech
 
-Also - blank lines please between non-fall-through case blocks.
 
-Jan
 
