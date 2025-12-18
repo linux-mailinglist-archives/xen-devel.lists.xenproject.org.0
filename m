@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41F28CCCF57
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 18:26:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1190013.1510678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF43CCCF75
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 18:28:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1190022.1510687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWHlA-0001sI-Gk; Thu, 18 Dec 2025 17:25:52 +0000
+	id 1vWHna-0002XU-Sr; Thu, 18 Dec 2025 17:28:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1190013.1510678; Thu, 18 Dec 2025 17:25:52 +0000
+Received: by outflank-mailman (output) from mailman id 1190022.1510687; Thu, 18 Dec 2025 17:28:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWHlA-0001pP-Di; Thu, 18 Dec 2025 17:25:52 +0000
-Received: by outflank-mailman (input) for mailman id 1190013;
- Thu, 18 Dec 2025 17:25:50 +0000
+	id 1vWHna-0002Uh-Q2; Thu, 18 Dec 2025 17:28:22 +0000
+Received: by outflank-mailman (input) for mailman id 1190022;
+ Thu, 18 Dec 2025 17:28:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YG3a=6Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vWHl8-0001pJ-MS
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 17:25:50 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1vWHna-0002UZ-6K
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 17:28:22 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98741fdb-dc36-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 18:25:49 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-64b7b737eddso671182a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 09:25:49 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8023465fbcsm287979566b.43.2025.12.18.09.25.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 09:25:48 -0800 (PST)
+ id f2f839be-dc36-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 18:28:21 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-64175dfc338so1676982a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 09:28:21 -0800 (PST)
+Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64b585b53c1sm3209423a12.5.2025.12.18.09.28.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Dec 2025 09:28:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,214 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98741fdb-dc36-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: f2f839be-dc36-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766078749; x=1766683549; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lVMYe8biLOfqadpnxrKZq0Sh4LFOmZsedrt+maqnr/Q=;
-        b=mK6XqHsdP2+nrJBaYR1RpBJyxdC7iU2D1L9jyydYSrrWthAsLnqFz3fRIIWgupuwck
-         K2wc0mr6xkTo3NtLcGWDOwdSWH4hblsyQRbqxTjlpW+W5Ubr9THBz1EDXQVBmyk9bL/G
-         pWBt8PtLX3Zgp0iKHL3gAvpPsUuhJoS+ezEoTwL2XHcb8Z2AitWqGovdVbaHNYf8oORD
-         lunKmHhk8fK67C2fvRZCScJOV7IFzI2k2iMOd1yShT18yN7GnMCu6PAO5yhdOu0GqCPO
-         79qBVZQhQlh17MJlF40qGBgj7n5kWwE6RwvWUwbwH+xD32UQsY7Ef4fpKhdo6e1Xnr3K
-         +2TA==
+        d=gmail.com; s=20230601; t=1766078900; x=1766683700; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tvtRY9zMhGFYrUi8ZWXK2j7PbU+9ofe0PtgkUeWeJTA=;
+        b=csKMPgdnBHhrY1A9T8AUjaSXtBdYhLH/wZ36/OS+8B1ZHMLfzMzt64XgtwIQIP6GWj
+         AGvS0BXeXJvc0jK9sr2m+AmvBIHQJbPF8skJpXheIeJZNc7MDKdmx+qRGJmPFfAIcYEC
+         z1BwBr6j+72Q/9qfEZrolkwdNKBwKU40TOngcV11z2+3qHCEk9g9RP9PiGE9Or3N0leU
+         t4BJogZ88yGR4LIBA+a8i0CFEuYCFTksV6d+d39uUUMHon/tVS+p4sIPm69oqH/FqcVc
+         Uv1UprT3pzqMgjQ38CKNBoDrXaadZpv+ObQKW9JAOkFAYKsbz5WiJhELC2enMTm5nFN5
+         yucw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766078749; x=1766683549;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lVMYe8biLOfqadpnxrKZq0Sh4LFOmZsedrt+maqnr/Q=;
-        b=Wa77hqTw3lpr7cYZvoWc9tLYMWtmLG6xU07cCrVyXtA3Uv7gtHHz2SMsj9N2wemL2g
-         /UokHiSvE61UR+jBY/gzSUaVwrNKZCv4UMg+QrfCaV9QNj3gi259PJFn7Pvq69UnEFNO
-         fiBRcETQveSvoXd5rekfliEOTXnKwbl3ooUnSiCc1nyNl+sMO05vwu7BrbfTUZRso2zY
-         usCstxTjosj7EgzRXTLPVgA5VmO9L+TPrR5TZoC+7UuiH2j5niyAomHMj6+V8sShP2f7
-         /BN5EJmWpoIJh6PdWAeB0pSU3D+2QMcq4UMzT07W6pupWdH/Pc2+3d2S9q8Cz7jwIRrs
-         XWxg==
-X-Forwarded-Encrypted: i=1; AJvYcCVXNwob27SSRTiSYEGqm/Va59sODA/343Uk9gp+NRW7YYDL/OsOa5Rkajy3T8ZFYHWbMuqAUUW8C2o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwUt9xqe67OPkzTOpOJUsYKyHvEP19fa6NDn1av6/T6Ymf6D/z
-	cvM457UtQl7o7YxaJo5b3z9BLTcwnO5YYy+ruV5U2MXqDGn2Y8O2sv/7
-X-Gm-Gg: AY/fxX4rFF3WXCr6MKTR7zWh0rBJMoLOgkRMCd18s3si3+zFEmPh83nv6H8YYEQVLKr
-	QFYxdjXbHvj1gRiVcJHdTFugm1twkVuy/JTZXcPFxhz+1VD3lUj/5WUpUTC3OabgLzojbZrhQ1H
-	gBojoTLmSFUJdmWjfBcfXydIWCkfnwo/oHNJ1LjoowCFEHvNmy55MwzD5tUZWAcldzMC26J8vg1
-	U8pB1n3MxVqh8220Dx/gdBoLYxg9q39ssQKYEjgA1X8mqa+iuETIXZ2n4jINfgvKp2ASxQruFly
-	NFdDxJN1jyZJuMVFWjuAK+Ru6ZzChqr+wnp2bDS2qsBvLS47qaxCKNNQPRuhGEdxZAbbFC1n4AJ
-	A1fVjmfOBTWayUG2XRj3+Dn/dsuVWkPVwz4q8F/yuGx7xWiCrc4lStIax5tg2z6Ks7rDczCPwPM
-	NXSzjt6BbDxugRxfe3fAysj72xa2X8oyMeb8JPx5AD83IyTxchZftD0lR9oXj0+Je/xRjnwT/o/
-	OY=
-X-Google-Smtp-Source: AGHT+IEBKuCWv0bZqZGNl5yfTlVjX6b4eoFOq0Od2EVGrREgZkQefIkj6hmwLJUgyC15FBs+nYG89w==
-X-Received: by 2002:a17:906:f584:b0:b76:ece6:2ca1 with SMTP id a640c23a62f3a-b80371f2941mr11028966b.57.1766078748593;
-        Thu, 18 Dec 2025 09:25:48 -0800 (PST)
-Message-ID: <4eec691b-6c81-4c9e-a9c1-00c81e51c691@gmail.com>
-Date: Thu, 18 Dec 2025 18:25:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 17/19] xen/riscv: add support of page lookup by GFN
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1765879052.git.oleksii.kurochko@gmail.com>
- <4cef2922ff0fa82eb70e50c737cb00ef27ef13a3.1765879052.git.oleksii.kurochko@gmail.com>
- <9d4d89f1-81c1-4532-8646-c736ac56e7f3@suse.com>
-Content-Language: en-US
+        d=1e100.net; s=20230601; t=1766078900; x=1766683700;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tvtRY9zMhGFYrUi8ZWXK2j7PbU+9ofe0PtgkUeWeJTA=;
+        b=AY8eIULmGA1djtiAnFxX1rGN4sEwFlZkcHnWKceOXOoJ5mXJitQnY5muCv/kbcjG+G
+         IJpKFB+bzMzsoNaLm3QFD8W6EGHL8QZBggZ7GcyUtrt+jf0AOfkJE9pU9sRBN3xB3sgz
+         XmfNRuxjKwHoTeU81I78hEOAgQo/xnI7l5U27zVBN0KQmD/+eDtoh5UI8oD2c7CBeHpe
+         zUvVdo71SabnGd26lL1PPOzPIZS+R5dPQFCHsx8GDwLmApsjNsQeK3bMfHwWSKpBhU0Y
+         z6f/RNQW69sXEOAYWT01xH40n2aTDICziWU332PTmoJ9XkNxdbP9jbI3cK3C+uCQlKij
+         Ny6w==
+X-Gm-Message-State: AOJu0YxWJJSpJoKAUbzhD/y0ls7sEzlRHSEuf6N2Daw9pqYPrtr/21xu
+	1bWNl/NL4zc2zWF/k0W880jE1PybyYhqqc9BdwrzoUbjyGDInqgu9uP4T28aOA==
+X-Gm-Gg: AY/fxX6km4eYs//jj0yd1gzTL8X+Om8FSDhQ/git9XLjkPnpWeDNwMobil9sucDXnPa
+	oh3Bww0Qh69cEjQ3B7u/NG/72BSD0jSF1cJRlZirbr4YjHbWvYxmsSwV0gCm0bAp9Nx45Zd6RHj
+	bUkAkvvuF80kiUz0NvsQoyz7IGdfJjWCZ9SvnQGtMwShPWdORqp/3Ka93cqZ11DLx0y+IpR93EY
+	WsGB9/p6AfEF+3XOiJFdc/BByEu9GBab+yQQ9mdG+XwEbm5f7aaLvt2AneG8w2MXh6wXzVyz/Io
+	OScUrsqbZoHkuv+gM7IngIN8dqlNmUq/Uy+VS0+lWmzR7I+uleYzFZwO5Zp0XfC3Ov+vZSw3zo0
+	ti0Wajjh4trRfq/wCyay83pBn0cNi+qcnahRZ0nDPs7kP6DYHpqXZVOQOdPBRJVhP3AOJa7OfJ9
+	PU1FUMSFMuIHMAH5IxlOd5U7FSf2kRsoXn5j0zndraPRyL/JHqHlb3q08=
+X-Google-Smtp-Source: AGHT+IGPD+oDnTKpEVZLFDRg0kkPGbJ+eCYF3xJoE326ho4SiUlAggTqnnw4hrNZQjAjI0fp6KEJhg==
+X-Received: by 2002:a05:6402:146f:b0:64b:7ab2:9f83 with SMTP id 4fb4d7f45d1cf-64b8edb758emr123995a12.31.1766078900141;
+        Thu, 18 Dec 2025 09:28:20 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <9d4d89f1-81c1-4532-8646-c736ac56e7f3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Timothy Pearson <tpearson@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v2 0/4] Move alloc/free_vcpu_struct() to common code
+Date: Thu, 18 Dec 2025 18:28:05 +0100
+Message-ID: <cover.1766053253.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+As it was suggested in [1] it would be better to allocate one page for struct
+vcpu for all arch-es. To do that it is needed to align Arm code to allocate
+one page (as there is a case(when CONFIG_NEW_VGIC=y) when Arm64 will require
+to allocate two pages). As a result, the following patches for Arm have been
+introduced:
+ - [PATCH v2 1/4] xen/arm: optimize the size of struct vcpu
+ - [PATCH v2 2/4] xen/arm: drop MAX_PAGES_PER_VCPU
 
-On 12/18/25 1:55 PM, Jan Beulich wrote:
-> On 16.12.2025 17:55, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -1057,3 +1057,187 @@ int map_regions_p2mt(struct domain *d,
->>   
->>       return rc;
->>   }
->> +
->> +/*
->> + * p2m_get_entry() should always return the correct order value, even if an
->> + * entry is not present (i.e. the GFN is outside the range):
->> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
->> + *
->> + * This ensures that callers of p2m_get_entry() can determine what range of
->> + * address space would be altered by a corresponding p2m_set_entry().
->> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
->> + *
->> + * Therefore, this function returns true for GFNs outside range (1), and in
->> + * that case the corresponding level is returned via the level_out argument.
->> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
->> + * find the proper entry.
->> + */
->> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
->> +                                   gfn_t boundary, bool is_lower,
->> +                                   unsigned int *level_out)
->> +{
->> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
->> +    bool ret = false;
->> +
->> +    ASSERT(p2m);
->> +
->> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
->> +                  : gfn_x(gfn) > gfn_x(boundary) )
->> +    {
->> +        for ( ; level; level-- )
->> +        {
->> +            unsigned long mask = BIT(P2M_GFN_LEVEL_SHIFT(level), UL) - 1;
->> +            unsigned long masked_gfn;
->> +
->> +            if ( is_lower )
->> +                masked_gfn = gfn_x(gfn) | mask;
->> +            else
->> +                masked_gfn = gfn_x(gfn) & ~mask;
->> +
->> +            if ( is_lower ? masked_gfn < gfn_x(boundary)
->> +                          : masked_gfn > gfn_x(boundary) )
->> +                break;
-> Having two is_lower conditionals here is imo unhelpful. Likely the compiler
-> would manage to fold them, but imo
->
->              if ( is_lower ? (gfn_x(gfn) | mask) < gfn_x(boundary)
->                            : (gfn_x(gfn) & ~mask) > gfn_x(boundary) )
->                  break;
->
-> would be more clear to the reader as well. I'm not going to insist, though.
+This patches are dependency for:
+ - [PATCH v2 3/4] xen: move alloc/free_vcpu_struct() to common code
 
-Agree, probably, it would be better to drop masked_gfn and merge is_lower conditionals.
+Also, as a part of this patch series another clean up is done which makes
+{alloc,free}_domain_struct() static.
 
+[1] https://lore.kernel.org/xen-devel/f8a9be3a-a0c6-496a-806f-40760dca5aee@suse.com/T/#m275dfcbdccef0461fa9a8acef072403f18091768
 
->
->> +        }
->> +
->> +        ret = true;
->> +    }
->> +
->> +    if ( level_out )
->> +        *level_out = level;
->> +
->> +    return ret;
->> +}
->> +
->> +/*
->> + * Get the details of a given gfn.
->> + *
->> + * If the entry is present, the associated MFN, the p2m type of the mapping,
->> + * and the page order of the mapping in the page table (i.e., it could be a
->> + * superpage) will be returned.
->> + *
->> + * If the entry is not present, INVALID_MFN will be returned, page_order will
->> + * be set according to the order of the invalid range, and the type will be
->> + * p2m_invalid.
->> + */
->> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
->> +                           p2m_type_t *t,
->> +                           unsigned int *page_order)
->> +{
->> +    unsigned int level = 0;
->> +    pte_t entry, *table;
->> +    int rc;
->> +    mfn_t mfn = INVALID_MFN;
->> +    P2M_BUILD_LEVEL_OFFSETS(p2m, offsets, gfn_to_gaddr(gfn));
->> +
->> +    ASSERT(p2m_is_locked(p2m));
->> +
->> +    *t = p2m_invalid;
->> +
->> +    if ( gfn_x(gfn) > (BIT(PADDR_BITS - PAGE_SHIFT + 1, UL) - 1) )
->> +        return mfn;
-> Since on all other error paths you set *page_order (as long as the pointer
-> is non-NULL), shouldn't you do so here as well (to the order corresponding
-> to the full [2nd-level] address space)?
+---
+Changes in v2:
+ - Introduce new patches for Arm:
+     - [PATCH v2 1/4] xen/arm: optimize the size of struct vcpu
+     - [PATCH v2 2/4] xen/arm: drop MAX_PAGES_PER_VCPU
+    to allocate one page for struct vcpu in common code for all the arch-es.
+ - Introduce patch to clean up xen/domain.h a little bit:
+     - [PATCH v2 4/4] xen/common: make {alloc,free}_domain_struct() static
+ - Address the comments from v1:
+     - [PATCH v2 3/4] xen: move alloc/free_vcpu_struct() to common code
+---
 
-It makes sense. I am thinking if something like would be fine:
-   @@ -1123,7 +1117,7 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
-                               p2m_type_t *t,
-                               unsigned int *page_order)
-    {
-   -    unsigned int level = 0;
-   +    unsigned int level = P2M_ROOT_LEVEL(p2m);
-        pte_t entry, *table;
-        int rc;
-        mfn_t mfn = INVALID_MFN;
-   @@ -1134,7 +1128,13 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
-        *t = p2m_invalid;
-    
-        if ( gfn_x(gfn) > (BIT(PADDR_BITS - PAGE_SHIFT + 1, UL) - 1) )
-   +    {
-   +        if ( page_order )
-   +            *page_order =
-   +                P2M_LEVEL_ORDER(level + 1) + P2M_ROOT_EXTRA_BITS(p2m, level);
-   +
-            return mfn;
-   +    }
-    
-        if ( check_outside_boundary(p2m, gfn, p2m->lowest_mapped_gfn, true,
-                                    &level) )
-   @@ -1152,7 +1152,6 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
-        if ( !table )
-        {
-            ASSERT_UNREACHABLE();
-   -        level = P2M_ROOT_LEVEL(p2m);
-            goto out;
-        }
+Oleksii Kurochko (4):
+  xen/arm: optimize the size of struct vcpu
+  xen/arm: drop MAX_PAGES_PER_VCPU
+  xen: move alloc/free_vcpu_struct() to common code
+  xen/common: make {alloc,free}_domain_struct() static
 
-Or it isn't the best one option to define page_order using "non-existing" level?
+ xen/arch/arm/domain.c             | 32 --------------
+ xen/arch/arm/gic-vgic.c           | 48 ++++++++++-----------
+ xen/arch/arm/include/asm/domain.h |  2 +-
+ xen/arch/arm/vgic-v3.c            | 34 +++++++--------
+ xen/arch/arm/vgic.c               | 72 +++++++++++++++++--------------
+ xen/arch/arm/vgic/vgic-init.c     | 10 ++++-
+ xen/arch/arm/vgic/vgic-v2.c       |  4 +-
+ xen/arch/arm/vgic/vgic.c          | 50 ++++++++++-----------
+ xen/arch/ppc/stubs.c              | 10 -----
+ xen/arch/riscv/stubs.c            | 10 -----
+ xen/arch/x86/domain.c             | 17 +-------
+ xen/arch/x86/include/asm/domain.h |  3 ++
+ xen/common/domain.c               | 26 ++++++++++-
+ xen/include/xen/domain.h          |  8 ----
+ 14 files changed, 145 insertions(+), 181 deletions(-)
 
->
-> Furthermore, is PADDR_BITS really the right basis? Don't things rather depend
-> on the number of levels the 2nd-level page tables have for the given guest?
-
-I think you are right, it depends on the number of levels the 2nd-level page tables
-have for the given guest.
-
-
-~ Oleksii
+-- 
+2.52.0
 
 
