@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23464CCCAE6
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 17:15:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189897.1510618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46CACCCB45
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 17:20:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189906.1510629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWGeP-0006WJ-Aw; Thu, 18 Dec 2025 16:14:49 +0000
+	id 1vWGja-0008Gb-Sf; Thu, 18 Dec 2025 16:20:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189897.1510618; Thu, 18 Dec 2025 16:14:49 +0000
+Received: by outflank-mailman (output) from mailman id 1189906.1510629; Thu, 18 Dec 2025 16:20:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWGeP-0006Ub-7M; Thu, 18 Dec 2025 16:14:49 +0000
-Received: by outflank-mailman (input) for mailman id 1189897;
- Thu, 18 Dec 2025 16:14:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vWGja-0008DU-Pa; Thu, 18 Dec 2025 16:20:10 +0000
+Received: by outflank-mailman (input) for mailman id 1189906;
+ Thu, 18 Dec 2025 16:20:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vWGeO-0006UV-3D
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 16:14:48 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab97cabb-dc2c-11f0-b15b-2bf370ae4941;
- Thu, 18 Dec 2025 17:14:46 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-42fb6ce71c7so654324f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 08:14:46 -0800 (PST)
+ id 1vWGjZ-0008DO-3T
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 16:20:09 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 68749e14-dc2d-11f0-9cce-f158ae23cfc8;
+ Thu, 18 Dec 2025 17:20:03 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4775ae5684fso3640185e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 08:20:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324498f910sm5685891f8f.23.2025.12.18.08.14.45
+ ffacd0b85a97d-4324498f8fcsm6074700f8f.24.2025.12.18.08.20.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 08:14:45 -0800 (PST)
+ Thu, 18 Dec 2025 08:20:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab97cabb-dc2c-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 68749e14-dc2d-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766074486; x=1766679286; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766074803; x=1766679603; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cyEKBWaWBfS4XLD0YSDLrc5n41zIDk7vKrx8g83/Das=;
-        b=bkE3UT1zhGUfyJ7hEeZMgHN4VwnPM4NVhI4lIaBgef5+NTcRHomwPUJg4SJt1GAGbL
-         7gGwl/Oi0qnlrMIhA9cCXwnbADXrwJ+sQfBcpAmmbUr82TZxSxtg4BTvksOgZRCCQuf2
-         JIItkriGMYyh7Z6j8AKkpEbJ4frYnvXtXv6GBMvi+cTXhZ9YEt6I9/gPXP+mf0Rt7mwg
-         gx8mGQbCxJdI6rdFvxnsQL6kFGvdqQlMhA71aIXcvlxjhtS7E5utdX0rMVoB82p9ij+l
-         O7gdDvjPGy+WvGa7tP0vXEDsmcLhKUn/b48I49XKhE6J9aUI8TM8qer6SSQPLZ4ugkXF
-         L7aw==
+        bh=AbY1A2navqHGoxYq4ADdTsAQYnXtOjPOmroHMNFGK9w=;
+        b=WEu/xXW0zh5YsQw6EHYrBF3LyHx1q8ECuOjlgSnq8mJZvOJW/tkXnjdMAs3phivO39
+         idKgBXyf4soXPz6+TLCfpOkBaDwlg+vzTPwRQwmqJPoD9RJMqxPfsMuDOvj3XRUxjSVI
+         /PYcr11HuXf4Q7baCSG4AnK1OhuphG7sx1oaODJBiwC0ypfZ8pnFuHlf7Ib0tXWxh+Yk
+         Cf8oVn7qEF1P8AIoMRnaU7FjEL/KYYDLf4epOMzh8uDwIM4ZjSS7g5p2pqXv5fMq0w1C
+         flMa/PpGwC7VgOz/gYQaF5NJOBj5jXHOkY46Q9jpuc8fVR/XxGolVxNxMvKub9b9DLAC
+         UpLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766074486; x=1766679286;
+        d=1e100.net; s=20230601; t=1766074803; x=1766679603;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cyEKBWaWBfS4XLD0YSDLrc5n41zIDk7vKrx8g83/Das=;
-        b=ghvPkJmsFikcOq0BHVSSqIQeQKB0OVMUoGuABMy168vbLUU9FB7xrxjRv84GmsQo9K
-         BMNvifVk8yPOO/Q/fLYftg0bP8s5iT+SGV/lCNRGecg0Gy95dg7cArxiv0jGbEj59Xaj
-         LzSQcDRd2BMQ+xV1x9VB0aliUEkwxKBrZSVvpsmbU1KHhvnHAfxBgl+BSz3qZRueXKOa
-         SYEM02hz5x5aHczAXjbqIMqhK6+46wEue0icXk2e10kCUpDEvDozu/dS/7UTdhIKLTzO
-         EsHSA80ahzQoO8IDTgTCyWxTdR8Z48tuJkf1Brptslcz24hJ0FgnOoKU1mpqLTnT4f4A
-         +eFg==
-X-Forwarded-Encrypted: i=1; AJvYcCWrUCvtg0jsc/dhM/LJsFMrE0Ua7Uk9G3102+fcia+EoDbRk33oXSzeV950VHAzZOwz2y9aInhGOHA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsAxCiLnqbgycsFHWiqyg1M3PdwjBkKK91rINbKysPmOxM+deL
-	uX2lMljUtbi1FSqUEdP0CdAQPpdCst7KeevG7kIVPSuj9Tw/j8tnZJN1Pz2z/mr3yA==
-X-Gm-Gg: AY/fxX5m1MSSGUPb2LH6nXlq8adVIpqW8NuH7TOgoUx+kg2PR88FhXwuyIVx1k2VoSq
-	Q6JBt9jLwM06inj9qEgjVqrNoDfAXPtX/OotamBXWv6Oxhc2yPMbAloAp4Qt95ZgydMs8k3/eDj
-	3VWfrX6HAz4Rn++oGqAesSeLL7/KyhyJj5TfKx72aHuVH9A8/IcSMg/sekvAQU1FH6gSXwzlKSc
-	SzHXxUugRkckPQlYiCR8verL50PjRq82m3qhDGlv/cRZb4UYHDlWpqrKJ6DQWE2dL2n3t8PUeAo
-	Lj3WZnLTpYYWOccQbOHxgpOU5eT5lhkfDd1YnFW6zGY/GBUd+xF2tipUz5xZQz10Lmp+82gn5lZ
-	xEk+6/gTz7nsPVG54j8VlmW79mQz5LeOYRbX3Z674xZ4yHl3USPzOxNIT9Qy5BJ0sdK0vVVLS2g
-	sXjKYhUw//d46BOUHTb++lxtgJT6fU8LfnPLtVCcKrnh5fbFG6Mt2IUpboVbPg85wtwM/7I7izx
-	rY=
-X-Google-Smtp-Source: AGHT+IFVdekmEOalt4NUeEDUyB8AvzOiOrtZeCsWREBZcKPl8mPPHRAWA/2M8vFy3ePZ/IRfUDjOEQ==
-X-Received: by 2002:a05:6000:430b:b0:431:62:d946 with SMTP id ffacd0b85a97d-4324e4c9de8mr34536f8f.23.1766074485872;
-        Thu, 18 Dec 2025 08:14:45 -0800 (PST)
-Message-ID: <c5f210b5-f321-4153-a508-1abf5fc43644@suse.com>
-Date: Thu, 18 Dec 2025 17:14:44 +0100
+        bh=AbY1A2navqHGoxYq4ADdTsAQYnXtOjPOmroHMNFGK9w=;
+        b=r7+T8xGvIOghFB0zeOYUuTyACQekXax+R/saxNaPSTBcuS7aOUE5Ir9KFpdHVbT7Je
+         UG0PaJWRa36z2BJMc3ea3835rUulHkFB6SFQFTwVSRtZMpkGLilKiHAXd+CejIf70Khe
+         EzC0gysUfuod5sZ0+EFV1zAsFQQFgRdvVlUca90tHlgnRNorxDBSz9pWpKXumTsip6P0
+         F/DyaX/eOsq7vx6f0idiWjovxbn4l3a/K2IliU78MM1UEM8P/dCqBpEfwcfH3oWrfsNk
+         +fDh8qpk9YDw8ZeQ5WqS3WtRDah2WD1fi26pxCivoji7+wpSxR+3pmMw6FpBhVZ4aXGu
+         skRA==
+X-Forwarded-Encrypted: i=1; AJvYcCXopG6S17XWWbwqIxiPyDc/J275PdjXs2rGoQEwpNQAZLufNTK3c7WSnRZUjaKxV8sLZprGeyYulCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxU9idX5D9gOenbTEyEB3HUc8v4d7km85NhOmJB3Dv1n7bDtmIP
+	Aj48Pm9q0OEh/KXPnteRhdi5rz6nDqQ62TauQBzrXI2jdMoIpMZux/S8K4hJnPncyw==
+X-Gm-Gg: AY/fxX5nXewOtN5yn7vTNe+pzETVn9nQRriCBc5Sq5MObmEGHKSkB8EC/nRXjuBgukS
+	jwvgoAW2hzin2BPBFLd6WD62QxcNuRNAz8QiJcdxf4hVoCGy+q4NKODCN5YaZENx/2LMkLGTNR0
+	yMX2LJCVmUriGvQMnARpPvIRVLO1jhBpGkpvbN+EoC8WO7TSDObTzBaouq5b5A9c6SJbpZt1RAK
+	oCsHvAT7XGtbQsUd/I9xSbzXmngxKtkym7I2Glo9kgvutOalyun+/qkhr4sraUON2nV39nqynwm
+	57qGAjZXu++iSwuBXo+Q9Dcz647SINtiPxO4NRTC4rbc4vcT36dguCSbJB2d8aGtKyeCeNM35oD
+	yfHnH+505FNS9TUCR2E0uhNvuF3Q5AlYYaf+8FX5/VdI+fmWNfjl0gkSloXyn/aA/8o1ps5FqpP
+	0j4w3xiySJBWadyy40qtJlPQ11IkQXVKJfYaFsvLHif1qBmxOMvIAloeBEqfIMZ23/c7k9obDqC
+	QM=
+X-Google-Smtp-Source: AGHT+IEOTg+P7LbaeXXk6v7BKyV2LM9SS6/kk/IOVOALyS1efuaU2rnwCTJWaxO2euhvicWPlH7WdQ==
+X-Received: by 2002:a05:600c:4f14:b0:475:dcbb:7903 with SMTP id 5b1f17b1804b1-47a8f8bd9a7mr246940525e9.9.1766074802678;
+        Thu, 18 Dec 2025 08:20:02 -0800 (PST)
+Message-ID: <129a076a-6523-4134-98b7-e67b0041b970@suse.com>
+Date: Thu, 18 Dec 2025 17:20:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vPCI: avoid bogus "overlap in extended cap list" warnings
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>,
+Subject: Re: [PATCH v2] x86/hvm: vlapic: fix RO bits emulation in LVTx regs
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <26294a6d-e99b-4290-988a-da7b7b838651@suse.com>
- <e1fe4599-02e2-487d-a2c5-bc912fe8646e@amd.com>
+References: <20250930190550.1166875-1-grygorii_strashko@epam.com>
+ <26376311-33fb-42fd-a346-417b4faba55e@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,73 +122,95 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1fe4599-02e2-487d-a2c5-bc912fe8646e@amd.com>
+In-Reply-To: <26376311-33fb-42fd-a346-417b4faba55e@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.12.2025 16:37, Stewart Hildebrand wrote:
-> On 12/18/25 02:56, Jan Beulich wrote:
->> Legacy PCI devices don't have any extended config space. Reading any part
->> thereof may very well return all ones. That then necessarily means we
->> would think we found a "loop", when there simply is nothing.
+On 18.12.2025 16:32, Grygorii Strashko wrote:
+> On 30.09.25 22:05, Grygorii Strashko wrote:
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
 >>
->> Fixes: a845b50c12f3 ("vpci/header: Emulate extended capability list for dom0")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> The LAPIC LVTx registers have two RO bits:
+>> - all: Delivery Status (DS) bit 12
+>> - LINT0/LINT1: Remote IRR Flag (RIR) bit 14.
+>>
+>> The Delivery Status (DS) is not emulated by Xen - there is no IRQ msg bus,
+>> and the IRQ is:
+>> - or accepted at destination and appears as pending
+>>    (vLAPIC Interrupt Request Register (IRR))
+>> - or get rejected immediately.
+>>
+>> The Remote IRR Flag (RIR) behavior emulation is not implemented for
+>> LINT0/LINT1 in Xen for now.
+>>
+>> The current vLAPIC implementations allows guest to write to these RO bits.
+>>
+>> The vLAPIC LVTx registers write happens in vlapic_reg_write() which expect
+>> to implement "Write ignore" access type for RO bits by applying masks from
+>> vlapic_lvt_mask[], but vlapic_lvt_mask[] contains incorrect masks which
+>> allows writing to RO fields.
+>>
+>> Hence it is definitely wrong to allow guest to write to LVTx regs RO bits,
+>> fix it by fixing LVTx registers masks in vlapic_lvt_mask[].
+>>
+>> In case of WRMSR (guest_wrmsr_x2apic()) access to LVTx registers, the SDM
+>> clearly defines access type for "Reserved" bits as RsvdZ (Non-zero writes
+>> to reserved bits should cause #GP exception), but contains no statements
+>> for RO bits except that they are not "Reserved". So, guest_wrmsr_x2apic()
+>> now uses different masks (than vlapic_reg_write()) for checking LVTx
+>> registers values for "Reserved" bit settings, which include RO bits and
+>> do not cause #GP exception.
+>>
+>> Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 >> ---
->> This is the minimalistic change to get rid of "overlap in extended cap
->> list" warnings I'm observing. We may want to avoid any attempt to access
->> extended config space when there is none
+>> Changes in v2:
+>> - masks fixed in vlapic_lvt_mask[]
+>> - commit msg reworded
+>>
+>> v1: https://patchwork.kernel.org/project/xen-devel/patch/20250925195558.519568-1-grygorii_strashko@epam.com/>   xen/arch/x86/hvm/vlapic.c | 14 ++++++++------
+>>   1 file changed, 8 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+>> index 79697487ba90..2ecba8163f48 100644
+>> --- a/xen/arch/x86/hvm/vlapic.c
+>> +++ b/xen/arch/x86/hvm/vlapic.c
+>> @@ -44,15 +44,17 @@
+>>   static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =
+>>   {
+>>        /* LVTT */
+>> -     LVT_MASK | APIC_TIMER_MODE_MASK,
+>> +     (LVT_MASK | APIC_TIMER_MODE_MASK) & ~APIC_SEND_PENDING,
+>>        /* LVTTHMR */
+>> -     LVT_MASK | APIC_DM_MASK,
+>> +     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
+>>        /* LVTPC */
+>> -     LVT_MASK | APIC_DM_MASK,
+>> -     /* LVT0-1 */
+>> -     LINT_MASK, LINT_MASK,
+>> +     (LVT_MASK | APIC_DM_MASK) & ~APIC_SEND_PENDING,
+>> +     /* LVT0 */
+>> +     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
+>> +     /* LVT1 */
+>> +     LINT_MASK & ~(APIC_LVT_REMOTE_IRR | APIC_SEND_PENDING),
+>>        /* LVTERR */
+>> -     LVT_MASK
+>> +     LVT_MASK & ~APIC_SEND_PENDING,
+>>   };
+>>   
+>>   #define vlapic_lvtt_period(vlapic)                              \
 > 
-> Agreed.
-
-First - I realize only now that I should have Cc-ed you on both vPCI patches;
-sorry.
-
->> - see Linux'es
->> pci_cfg_space_size() and it helper pci_cfg_space_size_ext(). This would
->> then also avoid us interpreting as an extended cap list what isn't one at
->> all (some legacy PCI devices don't decode register address bits 9-11, some
->> return other non-0, non-all-ones data). Including the risk of reading a
->> register with read side effects. Thoughts?
+> I'd like to return back here and finally get this issue fixed (and make tests green again).
 > 
-> I couldn't find any mention in the PCIe spec how reads of extended config space
-> should behave for legacy PCI devices. So, you're right, reading all 1s may not
-> be a guarantee. The PCIe spec seems to imply that a PCI Express Capability is
-> required for devices that have extended config space. How about adding something
-> like this at the top of vpci_init_ext_capability_list() (untested)?
+> So could this simple fix be merged?
 > 
-> if ( !pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_EXP) )
->     return 0;
+> There is also follow up patch [1] which can be still a "follow up" patch or can be made prerequisite patch.
 > 
-> This would seem to me like a reasonable effort to handle the situation
-> (according to spec), without the complexities/quirks/cruft that Linux has.
+> [XEN] x86: hvm: vlapic: rework WR/rsvdz masks for LVTx regs
+> [1] https://patchwork.kernel.org/project/xen-devel/patch/20251009114249.1964387-1-grygorii_strashko@epam.com/
 
-But it wouldn't be sufficient. Host bridges are special, and PCI-X also
-needs handling.
-
->> The DomU part of the function worries me as well. Rather than making it
->> "read 0, write ignore" for just the first 32 bits, shouldn't we make it so
->> for the entire extended config space, and shouldn't we also make it "read
->> all ones, write ignore" when there is no extended config space in the
->> first place (then in particular also for the first 32 bits)?
-> 
-> Hm, yes, perhaps. If we simply omit the call to vpci_add_register(), it should
-> default to the "read all ones, write ignore" behavior.
-
-But it doesn't right now, unless I'm mistaken?
-
->> --- a/xen/drivers/vpci/header.c
->> +++ b/xen/drivers/vpci/header.c
->> @@ -839,6 +839,15 @@ static int vpci_init_ext_capability_list
->>          uint32_t header = pci_conf_read32(pdev->sbdf, pos);
->>          int rc;
->>  
->> +        if ( header == 0xffffffff )
-> 
-> This constant should have a U suffix.
-
-Oh, of course - thanks for spotting. If we go the more sophisticated route,
-this would disappear again anyway, though.
+I was really intending for "x86/vLAPIC: CMCI LVT handling" to go first. Which
+obviously requires someone to review it ...
 
 Jan
 
