@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B22CCC6D7
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 16:16:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189773.1510484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96DCECCC702
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 16:19:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189785.1510493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWFjB-0001I7-F9; Thu, 18 Dec 2025 15:15:41 +0000
+	id 1vWFmT-0001z9-W6; Thu, 18 Dec 2025 15:19:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189773.1510484; Thu, 18 Dec 2025 15:15:41 +0000
+Received: by outflank-mailman (output) from mailman id 1189785.1510493; Thu, 18 Dec 2025 15:19:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWFjB-0001FO-Bz; Thu, 18 Dec 2025 15:15:41 +0000
-Received: by outflank-mailman (input) for mailman id 1189773;
- Thu, 18 Dec 2025 15:15:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vWFmT-0001wz-TW; Thu, 18 Dec 2025 15:19:05 +0000
+Received: by outflank-mailman (input) for mailman id 1189785;
+ Thu, 18 Dec 2025 15:19:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ars1=6Y=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vWFjA-0001FI-8s
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 15:15:40 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 667ad482-dc24-11f0-9cce-f158ae23cfc8;
- Thu, 18 Dec 2025 16:15:34 +0100 (CET)
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
- by DB9PR03MB7194.eurprd03.prod.outlook.com (2603:10a6:10:22c::5) with
+ <SRS0=kszt=6Y=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vWFmS-0001wt-Ar
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 15:19:04 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e23334da-dc24-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 16:19:03 +0100 (CET)
+Received: from DS1PR03MB7871.namprd03.prod.outlook.com (2603:10b6:8:21f::17)
+ by SJ0PR03MB6456.namprd03.prod.outlook.com (2603:10b6:a03:397::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.7; Thu, 18 Dec
- 2025 15:15:31 +0000
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae%6]) with mapi id 15.20.9434.001; Thu, 18 Dec 2025
- 15:15:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.8; Thu, 18 Dec
+ 2025 15:18:56 +0000
+Received: from DS1PR03MB7871.namprd03.prod.outlook.com
+ ([fe80::3a7e:e6ed:f8e9:9fb3]) by DS1PR03MB7871.namprd03.prod.outlook.com
+ ([fe80::3a7e:e6ed:f8e9:9fb3%7]) with mapi id 15.20.9434.001; Thu, 18 Dec 2025
+ 15:18:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,258 +47,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 667ad482-dc24-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: e23334da-dc24-11f0-b15b-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hcavef1eYK2JUIntYwsCEucLqJvsk/zZxGjjFNbIJURnVnhSwb4oQI7ZiFU1/z9CmTKSqp+4+IMdYmI5DcwdlFTurQmmpwKGtwFZ2AL9QLB/uFY8US3DWxBHH0zBWi5rc5MhJruZOqqSj45dwZOgqdAuepvOiDwP22mZJxxFXG4edI/nUDZOH1hwP6eCUKmdAcpesNbiNh0QUEG+jXzMH2Pv0XNudNDdhqL6BfRvFntHuQlocdhwquFocH2xcCO+yb28vHXnM8ajW8KbWtnFSnn/dw2E/cBabqXlIQWs1zNk+69BKj81tQ9hR6za6pBVCxBBPyPxACWCFqwaH9GA/w==
+ b=ArHfal4Mea3gGc6qOydg73A2DMXHtgyoUfRuyZvaABxfzjf92A00MpFGEPBAKTUoyrsmhqPpQCGU3Jjo90gvQE0X9lHFWY91rj9Vp+xCVN/DhzL6GbsmJ4uxeS/kGt2o9lTVjyW7DJQzwekLtytNtZ7rawAJ4x8RJ5Mgc3ZGV6LeW1pzx1Cwh1IaEZMYyPoeNrB4NAS26he6eIsFSYJHa0scsi+COAWeF21Kje52jB+dcK/GVK92W7EOgcNls3a3lGPajLSBPK35WaOqEVAqHeUdmm6bRTzYZusGVkqEX3WTYAjCfG4UJwkItLZKWkSeISTMLSHN9noUCzmkkHGFUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t8hmnY0aC2xdlj9g5eJ9RbkTonQqKXrtQjX0wXyKp6Q=;
- b=CkvkCF5c59UmN8kMWzOqL6cCf1rMJXAJRiv94zBSk8pDO6M+mfBXMusUDSZayt16udDqdq1opQeT/tSRQ2+1SOaVLwphnxJMoosx1zZls1yrpQNCLfpl6XQZ4q4QrJXjVI3SbX3/CNd3lQaCJEaNHeXM5R/h1YIU2qfuMqE57Pucc1GCwrR9H1ZYnIrAlr/TbmocJXxbS6CQyWisrogO0EPnS76Xk4WDrhcNIbIOHCFmj6W2k1oEhb2vBHKGNCIlrUfUst3ALQMXbY4mMTwV60bk36F6IWFrsnqIuo7cmWFCwpSwoU/Nj1f7VlTD+K0M0iCFptBG2iSCKkdePtB4bQ==
+ bh=R++uV1yAR9k1ljueZvT2JgoT5w32aYSiPMmriZgXdoc=;
+ b=JrHKbfzoyF/uwtQM1+Z8Hb8wbZDie38Br3kMZDoxf7U92nAKbj4ctHKapWi8nbqh0Jyag8A4bQTMwExvz87wg/5fYFox02JhGOgxSmEhEW066ZW1qPZnXP1RkXpyxRc1NtaLaLMMMrzJyF1Dd6Uchf6SkEcTIpr8t9M6CMOuMU7BVWG1BXAm5MlidCWjV37m7cxrf/wes/24tDTtIddP7NM5mFSYUmbLqPjUpeuMDO59aJm6bSzSIl7Rl4/Auvm4vXJnW+2siHeZAj23hoES7aE5xk7axWDGu8Yrode8tP5eA+z88YRZt8L5kCqAN7sOICnl2u3RTkxQetpz40cA+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t8hmnY0aC2xdlj9g5eJ9RbkTonQqKXrtQjX0wXyKp6Q=;
- b=K/eXOYZSJSNXc5q/loAY1j0eupoyh6w96CSt9e7bnwe/NI0COYCUrMo4sC8YO9yrf9sJBSlBAcIDpyVrp8HHdQbesgO6xjt9bNaJJS0EZOoalanLO0iYEyC2niK/4Ds/I90yGotiq4kE1nWuz/+P6uIr+s8OceVPNIFtDKXd7i/fhXRkg8Lhd26ISrrfFzlUXXLYmxNXGBt+UawQ/HTeD8L9W/duP/IVpnlUzBAXEFeUXkwgyO42qj9GymVNSbFvnqS7DZRv/oB1SV/e+6Uoep4QO7tOoPnksPgxagU9tl6AaNiuQo57gY8nMqmkkU8oqLkErCXdwDhAU5q9wKJ9VQ==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Jason
- Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>
-Subject: [XEN][PATCH v3] coverage: extend coverage on .init and lib code
-Thread-Topic: [XEN][PATCH v3] coverage: extend coverage on .init and lib code
-Thread-Index: AQHccDEmmUShmwm5mkaS+qWQBIDIEg==
-Date: Thu, 18 Dec 2025 15:15:31 +0000
-Message-ID: <20251218151530.249065-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM0PR03MB4594:EE_|DB9PR03MB7194:EE_
-x-ms-office365-filtering-correlation-id: 07899b37-b728-4012-fc02-08de3e4848c7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?z+Qdh4Doje2bVFod4QQWKAJrT6CvJD7ILubiw5vB607iw3/3+myQQVO2sL?=
- =?iso-8859-1?Q?0RYaqywWU3YxJyk7sN89an4NiPIroDaK/hp3BJl9YlYALvs9R5emDtgm40?=
- =?iso-8859-1?Q?iHRlEAXPKch+RKseGP7silC7i1JbmXsAiqiXrav5B27E894wAaLsc+eOMW?=
- =?iso-8859-1?Q?J1hF9sSGbhE23cVOTuImNFuLMmmRY9L8dtEluxZr7r6i9lzT0pRrEJzMgB?=
- =?iso-8859-1?Q?E8QjwuIx6uXfW0a8F4P1mX/vP9YJsQtu3IaWJmmPFM6RyfkrmhZKKy6R4l?=
- =?iso-8859-1?Q?wmP9dt86PXkuRsD550bV6p6wuKPzRjNU+5RAUxec8tdgjWYDtvgSDV3ATx?=
- =?iso-8859-1?Q?dEpaGUlt3FReTexSoVb73yerIrGQ12JEx4ZEcPlcIZ4KMMDAjxy02bVLmC?=
- =?iso-8859-1?Q?t1goRnNP63pkIm5+XBKvylSQ30TId5H+jfEkitw2tElckzSpIJtmLYaHQq?=
- =?iso-8859-1?Q?EugiVweIRoZct8TmxVLDqopomtDf4CqybXM3F14TEs9reP4VCg5flYkmHR?=
- =?iso-8859-1?Q?aeDZ5vtjOQij7VOpjzYRyLVoa2lw1ccYpX42R5MMylO1qpDMkxwJTPehYf?=
- =?iso-8859-1?Q?vVk+jrpSa6K9Xeunph6dwb0XhbuS7zP5raktS6tIswfJV5D2HpcDnfw55Q?=
- =?iso-8859-1?Q?Zqmr+vGC4ahVHXvHI9Yvq1qXYYHH2+F3pIgYQTnqVKxwemeTfALp5lyhy4?=
- =?iso-8859-1?Q?FXv8chuQibXo2E2RSboC9VtFKmfV189jH4et6oLheQIxqeZUJO2yquZgQu?=
- =?iso-8859-1?Q?Own9jlZoSePAXOTJumGco+xes6P7FbcrKduThzZLYKCgciM2d2prXzJJFj?=
- =?iso-8859-1?Q?6qMT9p8WVltaZLBJ+O/zQ2iX4GUHs99sk0JmgBXg6FDyP+s4qLOLgbey9c?=
- =?iso-8859-1?Q?eDmn16azozwl67n8+GQsS6pFkH9q0CdjVkBG5xm39SEWsgeCjBr6jbvC0k?=
- =?iso-8859-1?Q?Ud4pxpY+ZPcLqoBqBjEAC0EIyO6HxtSQ0ilGPlJ0Gyf38+2wn/3I1YBmne?=
- =?iso-8859-1?Q?OMadyVni3qgKhEQdmYE6rrGAYMbjc5awt8xza7VEm2C+Vh/xVxSc0vVnvC?=
- =?iso-8859-1?Q?tWfLMiEB9lVstTahG6IW4d+S9Xh8/jJ4Aw9Y9pgCKY2j+iTkYakI1chMNu?=
- =?iso-8859-1?Q?uQxD49KrDSanhpuQwDlWD9pzy653oCUQ+G7qt9oRSzYY6DWrL6pFUQQWig?=
- =?iso-8859-1?Q?3jGpg4rYAfK3ipUDP0BgUwp8Rd9fOEYIU2Lu18CNpgBgNfI0eH8zQh4p6L?=
- =?iso-8859-1?Q?nRx301CjeGhKUz3N2QUbOIWnaSjzUQ1BqeAbSCt11bVjHH0ZCa+WgkDJHF?=
- =?iso-8859-1?Q?LUpFCFN+AaIAfQHG9aGvx/GPB0Sk8TE2xEpISrCRWWLrqnK96heRc0aJuK?=
- =?iso-8859-1?Q?dLvHtg4/6bIuE0Ltp1Y/RfqyEHG0Bl+UjsSO2uILBi39QCmOq4P8snqMnu?=
- =?iso-8859-1?Q?fkLAa33yYx/yvc5xNf5jrEKmOKY1tq0VVDrTKnoorfoxdpxT7fNMWwcOEx?=
- =?iso-8859-1?Q?BcfnfI8X3+Jq+1JiEHwxVvH0NamYz1DmMF+wUYlc3lP33baAitNrbv+jBJ?=
- =?iso-8859-1?Q?8F73umg2nmfvbM+HsXn3/ei9NTtA?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?4/Q0aMUQHS+JAc5ig9MbMpLqn2FoFREj0TvsIxtHQamJvORnymz6jMevTF?=
- =?iso-8859-1?Q?IdXn2iDbgFN24E54++zEw90zsh6VhJAxIbxtHyJKLYq6JsTNw1GKXTSWCd?=
- =?iso-8859-1?Q?WPT8j1tNHorylV4+Rs3w1WLa+/OUCbMuo582xOeXzzc0A91z5EAWjjiEvV?=
- =?iso-8859-1?Q?04AO3uRoowtkP2Q58mvNVwBoeqs0zxQlfocu1Lu4DHe5LWt33bAj6ew1r2?=
- =?iso-8859-1?Q?7Gfd1FKJ+y+fx61zzA+4V0rQgB1BhAGvznXfqmt+sIvIcK67FvChRNncUt?=
- =?iso-8859-1?Q?3sJ9vc/tw7fGtshr4g9pfmKUtIKAkPMgpol4138XPwebC2gjk/BO0mQSQy?=
- =?iso-8859-1?Q?6Ytp8dW5qDQ6/mn0mOXTZPanahgkQFRoXe0it3xoLVCVBGMrlnofy7NA1B?=
- =?iso-8859-1?Q?YLP9e1jwt0vQyCcbBIvyuz4nngC3j+l26vWfyFiVY9qc5CFJUgQnYTdN1X?=
- =?iso-8859-1?Q?/BztRdnUxFeXpwcNCahsC7ENkgAObI1mtdEz5F+z/nFfQ5f9xkPJYwU+xi?=
- =?iso-8859-1?Q?T+EdK0NgqgKACbG6gsXM34mzlmE0Px/r5aRJbnidq0IpiBKjUx4VmrrbQ5?=
- =?iso-8859-1?Q?xQ//LC/Kj9/yYEeHoKL7SLVARBR5WPlPiW38u5F5oRqhxcrD1sntOXSCsH?=
- =?iso-8859-1?Q?ZHvjURIMkT6k6K+0YExDvjhHem2HuVhEh2AZlZ2Yj3xE2rKAAXixK6i19R?=
- =?iso-8859-1?Q?cG1t2bzBJfB13gsBMaEMd+sjV9SdAfxKN5Uwcl89hY+MP/7gtyG2aPtJcy?=
- =?iso-8859-1?Q?ZARPYykmhPRbHo/GgcJ8108Ljxop9gH6Qh54j5eLuj/wp2Vuww3F8qUTUW?=
- =?iso-8859-1?Q?1jxo+zpzNDyALwrx+t6Y9ACMZmBdWXvuzgBQJPGnFdLLt6SA472lz+j2XG?=
- =?iso-8859-1?Q?vlCi0NTz9ua3s8EgWBjxrXvv5NOSimeO7OAnb63lUQ6qht6VJ4XwpQIJDb?=
- =?iso-8859-1?Q?CtswRUMykqNAuJkX1vmWZV1d5zADmnVKugQebnezT77kzqcl8CjYl+Hvpo?=
- =?iso-8859-1?Q?5gE2BjJS8iOFThXCVEIjaq4MeXbWNZy5wIzcbf0RK5lG5mvX7NUkU7cDp+?=
- =?iso-8859-1?Q?Sbx6DHBZGNFJLz0vuZ0FGLU9aLxXGCjR/skTMAffN/wl4SZO/yagVAGQFV?=
- =?iso-8859-1?Q?0w9cI6xUO/vrgZQIN34wFEyBBSSFKeT93vqqRlWLlxT13OyN0N4xAKVvgk?=
- =?iso-8859-1?Q?/idY3qsvq731ErwOChQMgF2xzl9iDn+cFUtZVM1sOYsOvhfgiCAzxoLYcX?=
- =?iso-8859-1?Q?i3x73olqvhyw6mkU6UODbWvvL/hTZdGuw/RV++7DHMN+H9hB1fVpg4w0Pn?=
- =?iso-8859-1?Q?X62z4rWQrEh+8Y7wDAawwdFVcj8Na450NgIxYdbYscDAskZJbhkONIArl4?=
- =?iso-8859-1?Q?oOyonMWPs2+iV1ZXmZ2lZwf+6Roacbf5mfy9RYLKFVwWp1iah0fUDf2Rnn?=
- =?iso-8859-1?Q?CnEBVr13cPSq0PPmpKfUOkxu3rGo5zsARwwxdLAiIbq9dd1bhNZqpUziwy?=
- =?iso-8859-1?Q?wEr+TQdKn98L8loPCnEfmly5xYXTV8VRrt5Rxyk/ukMtxybIbNtF4MHqoz?=
- =?iso-8859-1?Q?RCDIqaRqeIIFKimN59pAVj5E8OobjtQrqBGT3igUwdSk04YjfEDegryMur?=
- =?iso-8859-1?Q?5cOgtidU3kKBJ3golFhrZQdmQwT8WAYRL4ctp13IAU2eMJixPPDXLDyA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=R++uV1yAR9k1ljueZvT2JgoT5w32aYSiPMmriZgXdoc=;
+ b=sf+AJZXCuoRDwqNQ5mtegMBIfoiX9oZVHGtsGd+XEUnwSaG9IU2RXRYC5k8+fA4dU8/YzRRrXffe14/iDDF97O5bKGpHwMyevJHjYRRoO4/eT3dGgSmMg7PxYqBFIzEMgTozdpTFjfBxVl1/TAp04HKl3foAYAwFCjn4WTZomyg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] libs/xg: allow caller to provide extra memflags for populate physmap
+Date: Thu, 18 Dec 2025 16:17:28 +0100
+Message-ID: <20251218151728.28339-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.51.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PR1P264CA0081.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2cc::19) To DS1PR03MB7871.namprd03.prod.outlook.com
+ (2603:10b6:8:21f::17)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PR03MB7871:EE_|SJ0PR03MB6456:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc7c65d8-301f-4fd4-544a-08de3e48c2ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dS9ZdU5KSGt5MDJJVzUwZzZBeC9CODRRQjFZaG55TVI1akpIZUlhSjBEWEVY?=
+ =?utf-8?B?Z2VPWFNsRGpKSHpicDVtR0VWRXc1NGxMczA3b1Q3ejNmeUhSZUVKMXVHVVNk?=
+ =?utf-8?B?V3dVNFUxbm9PUHU2MDArc0szeExFTkhkMVRkYnlIeWMxUDlFSXV4SzMxYk5J?=
+ =?utf-8?B?VTZmbjVBdVlaODZ0Nnl4SWZPOFExaUxuTkFoVGlaTjg3clRpZnpNTWN0RElx?=
+ =?utf-8?B?TWtmUHB4aG52S0J1NzdSUzZOWkZKR3Y3dGxlWkdzNkZZWi9Xekg2NDZvcUlP?=
+ =?utf-8?B?dit2RXdEanBVa3Mvb2xQVFkwNmRTc09NeCtMdm9zZ2UyWEFPOFh0UVlrWnJj?=
+ =?utf-8?B?SWFJaVp0SXV4UzlqUVh4dk00WXJoTy9GVW0yWmNhdUk2OElXRW55eWxmbEU2?=
+ =?utf-8?B?Vmp1ZEJ0MVNQUnlJUDVKOURiWXFKNFpWYlA0VnY0MmwrQktXdHU0SS8xVHJr?=
+ =?utf-8?B?b0hMQTJhN2pBeDRzbm8xNG1xSGJDVE54TUMvcmgyOGRybXNreHMvRFBUdHcx?=
+ =?utf-8?B?Y0pVUVdwRVdibVFPTEhMVkxGTVl4bHJ0U01pbUFjRWhlNGhLbVRhWVU0RXBU?=
+ =?utf-8?B?a1Z3ZFhkQW1xd2lMcVhMMmtxMzJCODA3bXU0Y2tuTnhvUnZGY0NRYzh3SDVL?=
+ =?utf-8?B?UVB5VTJXaUQva212YWRUeVJIeFhWd0VONnhRU3kwMkF0c3RMRjBuQXhEeENa?=
+ =?utf-8?B?Z2liQnhSTXR5bkFkejJXVzNHMWhKbDNSdWt6NGRGYnlCYlFiTUQ5OTRPNHFR?=
+ =?utf-8?B?WWRNTEpHc3FBZUhNM2k5WGExZXMyQ0ROSS8rYjZuOW1LK21GcWhqaXd4eGdJ?=
+ =?utf-8?B?MzdadHQ0T1piQ3NvY2R1K29URmtBVHRpTW04RXZMd0xzVVNHUGFCTU9hV1pn?=
+ =?utf-8?B?a2E4VW1GbTJUbGN3ZHpTN0U4YlZVdWE0U2t2VDA4NGhZdDl3K25FMFZwWUdm?=
+ =?utf-8?B?bjN2SVk2aURzUC8xc2llYVR0TFlQZFEzd2w5ekM0U1kvWFdvaGkvcndSQlM2?=
+ =?utf-8?B?NlRvMWgzSEJpK0NtSzJLMjRkb3EvU2tPM1pMY3BwV0JJY2JxUnpieFY5Vm11?=
+ =?utf-8?B?R3BGcFVtcEw2QlZRRGY4cHBSdFlmdVVmR0lGNXhUNXFGSTY1WEF0RStaVlUv?=
+ =?utf-8?B?UTgwVWYvZW5VaWpaS2xhNFVlenExajRMeHhKc1RUU1hraW52SlgzV1ZNdk80?=
+ =?utf-8?B?SmpDT1dqUXJuUVRycGlXZ3VLd3Yzd3dXcVJpOCtFaWJscFZPdnhPVDgwWkhG?=
+ =?utf-8?B?TmtjS2hXREdHTXdWZDRHZ1A3WXBDOG9TSldJSVdJdS94K1ZsMVN4N3JQOEVv?=
+ =?utf-8?B?ZkdwVjVKTHI0R1BwNm5aaUJIWmpPWXVFOGFGbXlNaUw0eFQxa0MxSGJJZ3BD?=
+ =?utf-8?B?N0hYZnY2ZVNrdkQ5QytlK00rUFFsaDJndmFUUlpJQllKVEQva3ptdXhKK0x3?=
+ =?utf-8?B?WXBGUmJ6c2oySHNpMDl2UzZ4YWQ5NUM2T2JmdjZPYzE5d2hKRGg4SFlmMTRS?=
+ =?utf-8?B?elZEY00wdXplS3VVYWdBaWk3cTFNb0w3bFF1TlpHZE85L3NKSDkvR1Zub2wx?=
+ =?utf-8?B?aW55Y3lGUW5jMUd2NWk3K0RDMmJBQ2MrVVVYZ0JhcHNQTm8vT25WSXlVaUNy?=
+ =?utf-8?B?N0pkRUJxSGh4ekpjVDRIUXhWUHdBT3VkMTZzUUlacFBqOXBZK3hKTlFuN245?=
+ =?utf-8?B?dS9iWHc1cStQYmpNNDFLUWwvSzl6dWUrTlRDTEtMcjRPNGRyNytXZGV3TzhP?=
+ =?utf-8?B?Y3B0VkVoOGtHaHpKc0xaOFkwNHJ5TlFCQ3F4cjBIU0tUcURBSlZPam1HY2pR?=
+ =?utf-8?B?SnJwS3pXZ21HOU1TY0NUWkQrQkNiOThkbjFpbWNhVVRQOW51L2dMUHpnOTZR?=
+ =?utf-8?B?aWw3M3JpaWFMdE1NNW1IM3pUU1d4L1J0NllBaXl3SDhmVTAzVzA2Y3Q0dEdy?=
+ =?utf-8?Q?iVg1br5HCbSfjb2bklCCbeYrnucNucTR?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS1PR03MB7871.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YUR0THQxaVE5ZldPaVljQWdnL1NIWjBkMndBUkFHMXpwYWdyOUMvTStkSVVD?=
+ =?utf-8?B?bjlqaEZnZmEvTEZYcUNvVmp5V3FQSkRHeDFMOXMyRnc3UUlGTDVyRGt2czdU?=
+ =?utf-8?B?SkhHeS9NeTZlTWNmMnJnQm9mMmp0eExnOFE5eUV2RnEwazQxOVN4d0dXNmFO?=
+ =?utf-8?B?Y2YzZWFyWFB2dk9OYWc2Y240U2hYd3Jia2dxWVovMW00WTJlMk45QU1WWWln?=
+ =?utf-8?B?TXB6WTJPQ2tLNUtmSHN5T2ZCTEtVeEpmNEtxVDJQWGM4Z2FlQ2QveU10TGxo?=
+ =?utf-8?B?QVVYTkxlb01oS0w0bW9OeGJMU1FwcFc5WXRlU01YWGN5WUJSZ0VCbExLV2VW?=
+ =?utf-8?B?Wmg0dTBLT0xLOUxTZEVRVWI4MlN3cTI2WExQbTJrSk1odGx1QmdoNFJ3dFNr?=
+ =?utf-8?B?ejdjOWlBLytRVEpyWnZtMnJzNmhFM0JlOVIrWnUzK1kzV1A4Z01qTlI1aXBI?=
+ =?utf-8?B?dFlOS3h1dnU5a0VQVXFSR3hSNzErMTg4K2xMUk8vcEUxcU5USkdabjBLTzdm?=
+ =?utf-8?B?SHhPVTNtWSt6WXE3UDBFMjgxMXVvZDJTVVZHYndnZlVhcnVBUHFUM3RPMm04?=
+ =?utf-8?B?NTVxT3FXalE4SmIxems4UWZvVyt0NFRma2trL3NNL2NtTXgrb0N6cFdPZTNh?=
+ =?utf-8?B?L3ZpRXZQVFloVGFtMFArYlZJa0RWUFVrM1VGdTFFRk93elp1UXBQQmJmRHJn?=
+ =?utf-8?B?WGNkQjRITXQ4KzdNdGlyYUtwS1FnTXBKeE9YOEg2NGJSckw1ZlNpcEs1NWd1?=
+ =?utf-8?B?M1Urc0tjSjNMZzh5cWd6aDZKMVBGYVcvblJFVGRSTFE5dmtaRk1Xai9aZ3ls?=
+ =?utf-8?B?ZDVWS2ZZMFhQU2lzTFVKYTVZSU5wU2lsQkJHa3ZnRzAwZGMyS3IzV0FRUm9q?=
+ =?utf-8?B?eENYZUNTWXlJSVd1WlVHVndoaUJvb1NUWVk5ajJmcDlJd2lKeEhBenhEZlA4?=
+ =?utf-8?B?MnR2OXhOOEd1MGdBeG1ZYmRXS0hIdG4zY0tJeTdqNmFPdW9OSjFldDQrbTRp?=
+ =?utf-8?B?TXVRdW0wSzdtYXdpcVdDWENwNnR5bXhtVUNRTVlKRXVOTFM1M2t4U1pod1FS?=
+ =?utf-8?B?WTJUYlljYXJUb2grWTNXUmVRL0VRN1d6T2oyaFczem5pZGRQNjlaQ3Mwenhq?=
+ =?utf-8?B?ZFl5eEM0ZFBpeWZpN3R3OC9FOUVFT1RTdDN3enZPeDJqVkZscmF1R2pGdUF3?=
+ =?utf-8?B?Ni9Gd3c4S0hKdmpOeUFIenFrYk90MWVaaUlpQ0FRTW0vSkJIU1pJVnkrdDBy?=
+ =?utf-8?B?djJpYVNrL2RESWpsdW1iakU0ODFSbDRwdWVYak9TVU5aZjhzRFNaRmpCaVMx?=
+ =?utf-8?B?ZThjekhSaGVlcC8rdXp5WHVDYlkzclRNTFdiNHJzdXhwODB3dkpQQ2x1WWlx?=
+ =?utf-8?B?VUtQeUFRQUp1SG9YMFBjbE5LQ1k0Y2ZndkhpRDJTendsK0UydGwzUGEyVGNH?=
+ =?utf-8?B?ZW1YWHVZZFA3Z3hhUlRNZ2FkSHdRRWtjTlM2WDZjLytyaHFObUJ4QXc4bE92?=
+ =?utf-8?B?MW1WTnp4ODhkaGxYTmt4T3BrM1dvUTZwV3ZUQkNkQ1JDcU8xZGNsUE5IUm10?=
+ =?utf-8?B?UnFiM0VtZkkvNkdQYjFEOHFPWUV3MDlpS252ODM0VXVxZm9zYis4SERLeEtu?=
+ =?utf-8?B?ZVV1QzYzbjdwNkY0OTEyVGUyMTZCT29ZNS9QN09PNlkrSWhSZE82M0NMdGRh?=
+ =?utf-8?B?QkRicGdaSlMyK2U1Q3FxeDd6WlUwT09FT2pDaFFrWGQ5NWw3bTkycThiS3No?=
+ =?utf-8?B?MUVtNHU3VDE5S3JTSjc3R0xvZUZ1ZzdrdnBJNy9FWFg0TzIzMUxldzhqemRF?=
+ =?utf-8?B?Rk5Ccm5uc0orTHN0Vi96NzFRaHBFM2J2WTdJU1kyYjQrUmM3amFOMHYrZnpK?=
+ =?utf-8?B?UGM0dW5nSnR3MzVvTk5jSGpheW55dEQ5eTk5cWExb1NnNnRVUTBLRjU4Ly93?=
+ =?utf-8?B?anFBWHBTcDU2UmJLWHR6bzA5N1NkZm1DWlRkZDhrNUx3aHNQZnNOVGxoUkpw?=
+ =?utf-8?B?OGFIN2FMREttSFJHQ2V3Qk0xbTFyQkRSdDhmR2FQSnI0UlN1V3FIOW53cWhq?=
+ =?utf-8?B?Nk9VaGJVREgzQTlyL0NyMFk4dVQ5cnFOZDlYSHJNdUNMN2pNaEFHZHBoZlhP?=
+ =?utf-8?B?SitiZ1VUai9qNjNGa2wyVGtyOFpzSFI5NmlzN1NTeFJKNWFhczRIM3FGa3ZH?=
+ =?utf-8?B?ZEZYS1cwdlQ4WWN4OEpXeXRMRXNkZzFHd08xalNtS1RwSnc2V0YzRzExSVVN?=
+ =?utf-8?B?YnlyZmtSZjl0NHdzNnhFUklaZ0NHRlZ3NUdKa092bzZzSGJub2thRExMOElh?=
+ =?utf-8?B?SERZSlRLam5QZEJlaWVpeUpnVUZDS3ltYVp2LzA5N21BNnJCcU9TUT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc7c65d8-301f-4fd4-544a-08de3e48c2ed
+X-MS-Exchange-CrossTenant-AuthSource: DS1PR03MB7871.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07899b37-b728-4012-fc02-08de3e4848c7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2025 15:15:31.2245
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2025 15:18:56.4107
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kgCxoa3GRRZrrOBqJtGWD6U7CzJF/aLB30yglhxMJgjnWE8kEQwYs+izCifEeA3AymDMlprq3PEJWHVkwGFlWx4o1Vw/68mOFS/e4qxr3jk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7194
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CSGXzcBz0OyS/r/PpaQt9Uf3lBxBQukXIPHT8nSGOhXrrTZzK2H7w7B77JDScDB18R50XedERTTd/D0Bbzwf/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6456
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+Introduce an additional memflags field to the xc_dom_image and
+xc_sr_context structures and use it to pass additional memflags to use when
+populating the domain physmap.
 
-Extend coverage support on .init and lib code.
+No meaningful usages of this new field are added as part of the patch.  The
+only know usage will be from the XAPI domain builder, which lives in a
+different repository.
 
-To enable coverage support on .init code the gcc special
-section should stay in memory after Xen boot when COVERAGE=3Dy.
-
-So, add hidden Kconfig option RELAX_INIT_CHECK "Relax strict check for
-.init sections only in %.init.o files", which is selected when COVERAGE=3Dy
-and allows to bypass strict check for .init sections only in %.init.o
-files.
-
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-changes in v3:
- - drop DO_NOT_FREE_INIT_MEMORY: only gcc special section should stay
-   in memory after Xen boot
- - split make cmd quiet_cmd_obj_init_o on two: obj_init_check and
-   obj_init_check
- - drop libfdt/libelf changes - they need additional work
-   -- before v2 of this patch libfdt/libelf were out of code coverage scope
-   -- v2 allowed to enable coverage for libfdt/libelf easily thanks to DO_N=
-OT_FREE_INIT_MEMORY
-      which kept all .init code in memory
-   -- without DO_NOT_FREE_INIT_MEMORY it's not so easy any more, so drop li=
-bfdt/libelf changes
+ tools/include/xenguest.h             |  8 +++++++-
+ tools/libs/guest/xg_dom_x86.c        | 13 ++++++++-----
+ tools/libs/guest/xg_nomigrate.c      |  3 ++-
+ tools/libs/guest/xg_sr_common.h      |  3 +++
+ tools/libs/guest/xg_sr_restore.c     |  9 ++++++---
+ tools/libs/light/libxl_save_helper.c |  2 +-
+ 6 files changed, 27 insertions(+), 11 deletions(-)
 
-changes in v2:
- - add RELAX_INIT_CHECK and DO_NOT_FREE_INIT_MEMORY, those are two differen=
-t things,
-   both potentially reusable
- - enable coverage for libfdt/libelf always
- - enable colverage for .init always
-
-v2: https://patchwork.kernel.org/project/xen-devel/patch/20251205193411.136=
-8659-1-grygorii_strashko@epam.com/
-v1: https://patchwork.kernel.org/project/xen-devel/patch/20251203222436.660=
-044-1-grygorii_strashko@epam.com/
- xen/Kconfig.debug |  6 ++++++
- xen/Rules.mk      | 22 +++++++++++++++-------
- 2 files changed, 21 insertions(+), 7 deletions(-)
-
-diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index d900d926c555..7770de87a44b 100644
---- a/xen/Kconfig.debug
-+++ b/xen/Kconfig.debug
-@@ -39,11 +39,17 @@ config COVERAGE
- 	bool "Code coverage support"
- 	depends on SYSCTL && !LIVEPATCH
- 	select SUPPRESS_DUPLICATE_SYMBOL_WARNINGS if !ENFORCE_UNIQUE_SYMBOLS
-+	select RELAX_INIT_CHECK
- 	help
- 	  Enable code coverage support.
-=20
- 	  If unsure, say N here.
-=20
-+config RELAX_INIT_CHECK
-+	bool
-+	help
-+	  Relax strict check for .init sections only in %.init.o files.
+diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+index c88958faa9a3..7c3b8b098352 100644
+--- a/tools/include/xenguest.h
++++ b/tools/include/xenguest.h
+@@ -242,6 +242,9 @@ struct xc_dom_image {
+ 
+     /* Number of vCPUs */
+     unsigned int max_vcpus;
 +
- config CONDITION_COVERAGE
- 	bool "Condition coverage support"
- 	depends on COVERAGE && CC_HAS_MCDC
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 2b28d1ac3c18..25aeb08cbfef 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -33,11 +33,15 @@ cov-cflags-y :=3D
- nocov-y :=3D
- noubsan-y :=3D
-=20
-+# when coverage is enabled the gcc special section should stay in memory
-+# after Xen boot
-+ifneq ($(CONFIG_COVERAGE),y)
- SPECIAL_DATA_SECTIONS :=3D rodata $(foreach a,1 2 4 8 16, \
-                                             $(foreach w,1 2 4, \
-                                                         rodata.str$(w).$(a=
-)) \
-                                             rodata.cst$(a)) \
-                          $(foreach r,rel rel.ro,data.$(r).local)
-+endif
-=20
- # The filename build.mk has precedence over Makefile
- include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
-@@ -146,10 +150,9 @@ endif
- $(call cc-option-add,cov-cflags-$(CONFIG_COVERAGE),CC,-fprofile-update=3Da=
-tomic)
-=20
- # Reset cov-cflags-y in cases where an objects has another one as prerequi=
-site
--$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
--    cov-cflags-y :=3D
-+$(nocov-y) $(extra-y): cov-cflags-y :=3D
-=20
--$(non-init-objects): _c_flags +=3D $(cov-cflags-y)
-+$(obj-y) $(obj-bin-y) $(extra-y) $(lib-y): _c_flags +=3D $(cov-cflags-y)
-=20
- ifeq ($(CONFIG_UBSAN),y)
- # Any -fno-sanitize=3D options need to come after any -fsanitize=3D option=
-s
-@@ -259,8 +262,8 @@ $(obj)/%.o: $(src)/%.S FORCE
- 	$(call if_changed_dep,cc_o_S)
-=20
-=20
--quiet_cmd_obj_init_o =3D INIT_O  $@
--define cmd_obj_init_o
-+quiet_cmd_obj_init_check =3D INIT_C  $@
-+define cmd_obj_init_check
-     $(OBJDUMP) -h $< | while read idx name sz rest; do \
-         case "$$name" in \
-         .*.local) ;; \
-@@ -269,12 +272,17 @@ define cmd_obj_init_o
-             echo "Error: size of $<:$$name is 0x$$sz" >&2; \
-             exit $$(expr $$idx + 1);; \
-         esac; \
--    done || exit $$?; \
-+    done || exit $$?
-+endef
++    /* Caller provided memflags to use when populating physmap. */
++    unsigned int memflags;
+ };
+ 
+ /* --- arch specific hooks ----------------------------------------- */
+@@ -611,6 +614,8 @@ struct restore_callbacks {
+  *        specific data
+  * @param send_back_fd Only used for XC_STREAM_COLO.  Contains backchannel to
+  *        the source side.
++ * @param memflags Optional memflags to pass in
++ *        xc_domain_populate_physmap{_exact}() calls.
+  * @return 0 on success, -1 on failure
+  */
+ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
+@@ -618,7 +623,8 @@ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
+                       uint32_t store_domid, unsigned int console_evtchn,
+                       unsigned long *console_mfn, uint32_t console_domid,
+                       xc_stream_type_t stream_type,
+-                      struct restore_callbacks *callbacks, int send_back_fd);
++                      struct restore_callbacks *callbacks, int send_back_fd,
++                      unsigned int memflags);
+ 
+ /**
+  * This function will create a domain for a paravirtualized Linux
+diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
+index a82b481a123f..a141a5861b25 100644
+--- a/tools/libs/guest/xg_dom_x86.c
++++ b/tools/libs/guest/xg_dom_x86.c
+@@ -1260,14 +1260,15 @@ static int meminit_pv(struct xc_dom_image *dom)
+     /* allocate guest memory */
+     for ( i = 0; i < nr_vmemranges; i++ )
+     {
+-        unsigned int memflags;
++        unsigned int memflags = dom->memflags;
+         uint64_t pages, super_pages;
+         unsigned int pnode = vnode_to_pnode[vmemranges[i].nid];
+         xen_pfn_t extents[SUPERPAGE_BATCH_SIZE];
+         xen_pfn_t pfn_base_idx;
+ 
+-        memflags = 0;
+-        if ( pnode != XC_NUMA_NO_NODE )
++        if ( pnode != XC_NUMA_NO_NODE &&
++             /* Only set the node if the caller hasn't done so. */
++             XENMEMF_get_node(memflags) == 0xFFU )
+             memflags |= XENMEMF_exact_node(pnode);
+ 
+         pages = (vmemranges[i].end - vmemranges[i].start) >> PAGE_SHIFT;
+@@ -1354,7 +1355,7 @@ static int meminit_hvm(struct xc_dom_image *dom)
+     int rc;
+     unsigned long stat_normal_pages = 0, stat_2mb_pages = 0,
+         stat_1gb_pages = 0;
+-    unsigned int memflags = 0;
++    unsigned int memflags = dom->memflags;
+     int claim_enabled = dom->claim_enabled;
+     uint64_t total_pages;
+     xen_vmemrange_t dummy_vmemrange[2];
+@@ -1500,7 +1501,9 @@ static int meminit_hvm(struct xc_dom_image *dom)
+         unsigned int vnode = vmemranges[vmemid].nid;
+         unsigned int pnode = vnode_to_pnode[vnode];
+ 
+-        if ( pnode != XC_NUMA_NO_NODE )
++        if ( pnode != XC_NUMA_NO_NODE &&
++             /* Only set the node if the caller hasn't done so. */
++             XENMEMF_get_node(new_memflags) == 0xFFU )
+             new_memflags |= XENMEMF_exact_node(pnode);
+ 
+         end_pages = vmemranges[vmemid].end >> PAGE_SHIFT;
+diff --git a/tools/libs/guest/xg_nomigrate.c b/tools/libs/guest/xg_nomigrate.c
+index 6795c62ddc28..9790d2b4a844 100644
+--- a/tools/libs/guest/xg_nomigrate.c
++++ b/tools/libs/guest/xg_nomigrate.c
+@@ -33,7 +33,8 @@ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
+                       uint32_t store_domid, unsigned int console_evtchn,
+                       unsigned long *console_mfn, uint32_t console_domid,
+                       xc_stream_type_t stream_type,
+-                      struct restore_callbacks *callbacks, int send_back_fd)
++                      struct restore_callbacks *callbacks, int send_back_fd,
++                      unsigned int memflags)
+ {
+     errno = ENOSYS;
+     return -1;
+diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
+index 0e419c3a96a0..f1573aefcbff 100644
+--- a/tools/libs/guest/xg_sr_common.h
++++ b/tools/libs/guest/xg_sr_common.h
+@@ -295,6 +295,9 @@ struct xc_sr_context
+ 
+             /* Sender has invoked verify mode on the stream. */
+             bool verify;
 +
-+quiet_cmd_obj_init_objcopy =3D INIT_O  $@
-+define cmd_obj_init_objcopy
-     $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=
-=3D.init.$(s)) $< $@
- endef
-=20
- $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): $(obj)/%.init.o: $(ob=
-j)/%.o FORCE
--	$(call if_changed,obj_init_o)
-+	$(if $(filter y,$(CONFIG_RELAX_INIT_CHECK)),,$(call if_changed,obj_init_c=
-heck))
-+	$(call if_changed,obj_init_objcopy)
-=20
- quiet_cmd_cpp_i_c =3D CPP     $@
- cmd_cpp_i_c =3D $(CPP) $(call cpp_flags,$(c_flags)) -MQ $@ -o $@ $<
---=20
-2.34.1
++            /* memflags to pass to xc_domain_populate_physmap{_exact}(). */
++            unsigned int memflags;
+         } restore;
+     };
+ 
+diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
+index 4aed5cf4acb1..e148fc594a73 100644
+--- a/tools/libs/guest/xg_sr_restore.c
++++ b/tools/libs/guest/xg_sr_restore.c
+@@ -141,7 +141,8 @@ static bool populate_small_superpage(struct xc_sr_context *ctx, xen_pfn_t gfn)
+     xen_pfn_t mfn = gfn;
+ 
+     if ( xc_domain_populate_physmap_exact(
+-         ctx->xch, ctx->domid, 1, SMALL_SUPERPAGE_ORDER, 0, &mfn) )
++         ctx->xch, ctx->domid, 1, SMALL_SUPERPAGE_ORDER, ctx->restore.memflags,
++         &mfn) )
+         return false;
+ 
+     /*
+@@ -217,7 +218,7 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
+     if ( nr_pfns )
+     {
+         rc = xc_domain_populate_physmap_exact(
+-            xch, ctx->domid, nr_pfns, 0, 0, mfns);
++            xch, ctx->domid, nr_pfns, 0, ctx->restore.memflags, mfns);
+         if ( rc )
+         {
+             PERROR("Failed to populate physmap");
+@@ -901,7 +902,8 @@ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
+                       uint32_t store_domid, unsigned int console_evtchn,
+                       unsigned long *console_gfn, uint32_t console_domid,
+                       xc_stream_type_t stream_type,
+-                      struct restore_callbacks *callbacks, int send_back_fd)
++                      struct restore_callbacks *callbacks, int send_back_fd,
++                      unsigned int memflags)
+ {
+     bool hvm;
+     xen_pfn_t nr_pfns;
+@@ -918,6 +920,7 @@ int xc_domain_restore(xc_interface *xch, int io_fd, uint32_t dom,
+     ctx.restore.xenstore_domid = store_domid;
+     ctx.restore.callbacks = callbacks;
+     ctx.restore.send_back_fd = send_back_fd;
++    ctx.restore.memflags = memflags;
+ 
+     /* Sanity check stream_type-related parameters */
+     switch ( stream_type )
+diff --git a/tools/libs/light/libxl_save_helper.c b/tools/libs/light/libxl_save_helper.c
+index 65dff389bf8f..64bdeb3b32fd 100644
+--- a/tools/libs/light/libxl_save_helper.c
++++ b/tools/libs/light/libxl_save_helper.c
+@@ -285,7 +285,7 @@ int main(int argc, char **argv)
+ 
+         r = xc_domain_restore(xch, io_fd, dom, store_evtchn, &store_mfn,
+                               store_domid, console_evtchn, &console_mfn,
+-                              console_domid, stream_type, &cb, send_back_fd);
++                              console_domid, stream_type, &cb, send_back_fd, 0);
+         helper_stub_restore_results(store_mfn,console_mfn,0);
+         complete(r);
+ 
+-- 
+2.51.0
+
 
