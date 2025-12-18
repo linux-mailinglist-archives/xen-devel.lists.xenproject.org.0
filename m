@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A7BCCC9CC
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 17:03:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1189879.1510608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23464CCCAE6
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Dec 2025 17:15:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1189897.1510618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWGSs-0004Yi-7d; Thu, 18 Dec 2025 16:02:54 +0000
+	id 1vWGeP-0006WJ-Aw; Thu, 18 Dec 2025 16:14:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1189879.1510608; Thu, 18 Dec 2025 16:02:54 +0000
+Received: by outflank-mailman (output) from mailman id 1189897.1510618; Thu, 18 Dec 2025 16:14:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWGSs-0004XK-2i; Thu, 18 Dec 2025 16:02:54 +0000
-Received: by outflank-mailman (input) for mailman id 1189879;
- Thu, 18 Dec 2025 16:02:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XN7D=6Y=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vWGSr-0004Wy-4A
- for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 16:02:53 +0000
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c105::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0033518d-dc2b-11f0-9cce-f158ae23cfc8;
- Thu, 18 Dec 2025 17:02:50 +0100 (CET)
-Received: from SA1P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::13)
- by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.12; Thu, 18 Dec
- 2025 16:02:40 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:22c:cafe::a0) by SA1P222CA0011.outlook.office365.com
- (2603:10b6:806:22c::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.7 via Frontend Transport; Thu,
- 18 Dec 2025 16:02:36 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9434.6 via Frontend Transport; Thu, 18 Dec 2025 16:02:39 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 18 Dec
- 2025 10:02:39 -0600
-Received: from [172.29.241.99] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 18 Dec 2025 10:02:38 -0600
+	id 1vWGeP-0006Ub-7M; Thu, 18 Dec 2025 16:14:49 +0000
+Received: by outflank-mailman (input) for mailman id 1189897;
+ Thu, 18 Dec 2025 16:14:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rjMb=6Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vWGeO-0006UV-3D
+ for xen-devel@lists.xenproject.org; Thu, 18 Dec 2025 16:14:48 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab97cabb-dc2c-11f0-b15b-2bf370ae4941;
+ Thu, 18 Dec 2025 17:14:46 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-42fb6ce71c7so654324f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Dec 2025 08:14:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4324498f910sm5685891f8f.23.2025.12.18.08.14.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Dec 2025 08:14:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,118 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0033518d-dc2b-11f0-9cce-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VveY/Qt5ZOfcXMURSju+OOrgclo0hVs3mChcZTxePXczu1CkxdS42cx+xmnZ4LKfolmD9JdLtzIbVtm/YkcFH2GHnvj71TVReevTOnUFYXZ6Nx62w4JtzlYtOg6VdqtExqUJ0NbnUexLZRWgC/GGt4Pd1vQe0FMLnwTcKOjGQX0ZZvmWdCoJLINZWyGqd6yp4uM2XqZV8TQbIvp5W4odE2n+1fJ/CiY2Rv0zH/pEhIbCeG62M3NNcuxbSxwgPsAuhggXbWa3UDAwizC5WJf9Yhx78aVYYNyrt/P0QEzJ8wB5AgU+jHLJgE5dkxAwI0IyOrRp8JgKgxRIRO/bBFxNRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ATrvPXP9//m7IKl0otWR4YqwSwtzB4Mq1gbZJcufMc0=;
- b=DKi2XTEaehWzLNeFPHtd/ivZfTpvoY559ELiRpomoNOXUgTHeIW2puQ0U2mJJ19M7oz217B/I2neYk50DJKGbSkpYO+uPHkZ/7S0FhP803AWIgaDCeC4nwkEUqRCvKPHsyHxab5YXXXUWZaczkMbsmS4gJj03Idf5nVW7HSurb62zNgUcOt7ZO4/1ZYtbHbG2NhFtblr11JF0WJA6hP+PrpQw1l7b6eUH+t1cgqIAiOpIJUcY2vAb5QM0Fqc2EC5Qaw1N2glV/A3wNoxyWZrDhDTtembF3hUq4mcTmoKmOUkdDC8K0aFQOWTBeQ+SZHtSb6TYfhvoiI3GVgJQ8LRmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ATrvPXP9//m7IKl0otWR4YqwSwtzB4Mq1gbZJcufMc0=;
- b=XmyD/mv7fntPAENSJANQHp01ZS/HBftE2oUgjzUkeC0W5/UPYmLny6BVYUV/v/nG6wRwXc2KBrYIGu/x2nDYukl8M65wz/vwouGbXrKDSrojnr5jLgweoVH/BlioGagjGtarIB6yh1FzBI19yHqnYHH8dxSctznYSUBf7eUakJ8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <4db98b05-5277-4ca4-a6bb-0054490a0280@amd.com>
-Date: Thu, 18 Dec 2025 11:02:40 -0500
+X-Inumbo-ID: ab97cabb-dc2c-11f0-b15b-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1766074486; x=1766679286; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cyEKBWaWBfS4XLD0YSDLrc5n41zIDk7vKrx8g83/Das=;
+        b=bkE3UT1zhGUfyJ7hEeZMgHN4VwnPM4NVhI4lIaBgef5+NTcRHomwPUJg4SJt1GAGbL
+         7gGwl/Oi0qnlrMIhA9cCXwnbADXrwJ+sQfBcpAmmbUr82TZxSxtg4BTvksOgZRCCQuf2
+         JIItkriGMYyh7Z6j8AKkpEbJ4frYnvXtXv6GBMvi+cTXhZ9YEt6I9/gPXP+mf0Rt7mwg
+         gx8mGQbCxJdI6rdFvxnsQL6kFGvdqQlMhA71aIXcvlxjhtS7E5utdX0rMVoB82p9ij+l
+         O7gdDvjPGy+WvGa7tP0vXEDsmcLhKUn/b48I49XKhE6J9aUI8TM8qer6SSQPLZ4ugkXF
+         L7aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766074486; x=1766679286;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cyEKBWaWBfS4XLD0YSDLrc5n41zIDk7vKrx8g83/Das=;
+        b=ghvPkJmsFikcOq0BHVSSqIQeQKB0OVMUoGuABMy168vbLUU9FB7xrxjRv84GmsQo9K
+         BMNvifVk8yPOO/Q/fLYftg0bP8s5iT+SGV/lCNRGecg0Gy95dg7cArxiv0jGbEj59Xaj
+         LzSQcDRd2BMQ+xV1x9VB0aliUEkwxKBrZSVvpsmbU1KHhvnHAfxBgl+BSz3qZRueXKOa
+         SYEM02hz5x5aHczAXjbqIMqhK6+46wEue0icXk2e10kCUpDEvDozu/dS/7UTdhIKLTzO
+         EsHSA80ahzQoO8IDTgTCyWxTdR8Z48tuJkf1Brptslcz24hJ0FgnOoKU1mpqLTnT4f4A
+         +eFg==
+X-Forwarded-Encrypted: i=1; AJvYcCWrUCvtg0jsc/dhM/LJsFMrE0Ua7Uk9G3102+fcia+EoDbRk33oXSzeV950VHAzZOwz2y9aInhGOHA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzsAxCiLnqbgycsFHWiqyg1M3PdwjBkKK91rINbKysPmOxM+deL
+	uX2lMljUtbi1FSqUEdP0CdAQPpdCst7KeevG7kIVPSuj9Tw/j8tnZJN1Pz2z/mr3yA==
+X-Gm-Gg: AY/fxX5m1MSSGUPb2LH6nXlq8adVIpqW8NuH7TOgoUx+kg2PR88FhXwuyIVx1k2VoSq
+	Q6JBt9jLwM06inj9qEgjVqrNoDfAXPtX/OotamBXWv6Oxhc2yPMbAloAp4Qt95ZgydMs8k3/eDj
+	3VWfrX6HAz4Rn++oGqAesSeLL7/KyhyJj5TfKx72aHuVH9A8/IcSMg/sekvAQU1FH6gSXwzlKSc
+	SzHXxUugRkckPQlYiCR8verL50PjRq82m3qhDGlv/cRZb4UYHDlWpqrKJ6DQWE2dL2n3t8PUeAo
+	Lj3WZnLTpYYWOccQbOHxgpOU5eT5lhkfDd1YnFW6zGY/GBUd+xF2tipUz5xZQz10Lmp+82gn5lZ
+	xEk+6/gTz7nsPVG54j8VlmW79mQz5LeOYRbX3Z674xZ4yHl3USPzOxNIT9Qy5BJ0sdK0vVVLS2g
+	sXjKYhUw//d46BOUHTb++lxtgJT6fU8LfnPLtVCcKrnh5fbFG6Mt2IUpboVbPg85wtwM/7I7izx
+	rY=
+X-Google-Smtp-Source: AGHT+IFVdekmEOalt4NUeEDUyB8AvzOiOrtZeCsWREBZcKPl8mPPHRAWA/2M8vFy3ePZ/IRfUDjOEQ==
+X-Received: by 2002:a05:6000:430b:b0:431:62:d946 with SMTP id ffacd0b85a97d-4324e4c9de8mr34536f8f.23.1766074485872;
+        Thu, 18 Dec 2025 08:14:45 -0800 (PST)
+Message-ID: <c5f210b5-f321-4153-a508-1abf5fc43644@suse.com>
+Date: Thu, 18 Dec 2025 17:14:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vPCI: make vpci_add_register() an out-of-line function
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <70e156e1-c51f-40a7-83b4-2d228a102367@suse.com>
+Subject: Re: [PATCH] vPCI: avoid bogus "overlap in extended cap list" warnings
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <26294a6d-e99b-4290-988a-da7b7b838651@suse.com>
+ <e1fe4599-02e2-487d-a2c5-bc912fe8646e@amd.com>
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <70e156e1-c51f-40a7-83b4-2d228a102367@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e1fe4599-02e2-487d-a2c5-bc912fe8646e@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|LV2PR12MB5798:EE_
-X-MS-Office365-Filtering-Correlation-Id: 152e645c-fa53-42c8-b71f-08de3e4edec2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U3k3NnlCTFhyQ0o1MEdiRkRNWkhJeDA3cVFnbWhzNjJvYnJmWmpTSXVRVS85?=
- =?utf-8?B?RlAveVM3T2dSVHpMQmxWQjVxbmFza2RDOGc3aTFNY05LMlMrYUpzb0JYQWJt?=
- =?utf-8?B?NVpZSEw5WkJzbjJXck0zazdDYitkT1pjQ1l5a3VIRldyMkpZeUhDa0lGaHFh?=
- =?utf-8?B?OG95WVRKdC9rdzRucm94ZnRCcy9mNVQyZVNrQ2lZSlVyNnRic2o1RHZQeVlu?=
- =?utf-8?B?VkMvUytndWxIWHF2ZCt0cUhuOVFGZFl5V2VYVytaS2xzWXQ3STNkbmJoa3ZC?=
- =?utf-8?B?ell2M2gwT3ZNNy9COW1ISmQ4Sm5XREEwR0NDeTI3Vms2Vy9FNFRoTkhyRmEr?=
- =?utf-8?B?NCswOFE1Zzc3bEVxUGZ2ZTdFZnJPemY5cHRCbm40dzV0Wmg5U3lwd3BNdm1v?=
- =?utf-8?B?WnEwVmZxS2I0SEVDeVBLWjkxaXNSNEhvdGpxdUpoSE9LNlBIYnp3algwQzhu?=
- =?utf-8?B?NVB3NzVpUkdieC9uVk83MWsvOHhJNUNUdEQ2a1hkeUQ3dDdDNWhpY1NRQ0x1?=
- =?utf-8?B?QjZ1MEVDelJoQ3FsQ25hV3d0eUVTWEtONkpETDEvRktaYmxvRDR3TVJxVHp6?=
- =?utf-8?B?L0dqZllNNnpJN0FNYkVXWHFWM2YwL2lCbmZCUk5TMFZBcWRkT1diRlNUdWZL?=
- =?utf-8?B?VURVaU9RMFRVcWJVYUhJS1I0UW00a2Y5ZGNCVlZIOEV6QjNEbVhlSlIvSzc4?=
- =?utf-8?B?QUlaR3N5TkNkbkJRRGJwUlFzOWx0NnlVUHA3bDR5U3kwUWUxSi8yKzZhL25y?=
- =?utf-8?B?RGxRaHJLOVdZYVNFUzcyZ3ZxdFZ4dUJkZ050bXV0VWhxdG1yRC9wRGhJc05C?=
- =?utf-8?B?bVo5MDg2cmppSjVYbkdnemFpbVZ5cGgzblNmNzRhdHJMSXVrVDBGWWZqRWhk?=
- =?utf-8?B?cStJc1pEancxYy9NWnUxZjRGSlpoSmJWWE83blJoU1hZdDNMZEJQcHJ6VUZS?=
- =?utf-8?B?MjlLMzVncnhNU2NRalNhSTVrMUhxWndDNHBQWEEwT3oyczNwaVpYSXZLQzdO?=
- =?utf-8?B?eVI0ZDF5QjVhMlhid3ZONG45b3NCTHE0UXJiSW5vU1lrUHNKeXA4aWZMSVR3?=
- =?utf-8?B?ZFN0aHZ4a1hDOEtiUDlFOEhYWjk5ZkxhbENBTnhROGJiRlhVRlhlQlJ3STBD?=
- =?utf-8?B?VWNralk1RmV4ckptWUN2LzBKWHB5LzhNbVNGMUdtQ2kvMlJOdWNSd3pIcjRN?=
- =?utf-8?B?b1lGMlF4dU80ZjdiSTZGZERwRDFiQ1BsTVA2QUZHMGZFWHJJQ1ByK2dYdHpC?=
- =?utf-8?B?ZHY2aWxkbm45TENWSm9IMjZlY29wVUZJT1psbDFzMlIxZTVQQmF2aUVvNVRk?=
- =?utf-8?B?SFdMVEtOdmdSTFhaSSt4MnpKV1dZL2o4M0NPRDZVRXJiUTV5dlRBRlNSZVpG?=
- =?utf-8?B?dCtJeG5qR2tXS0I1Zm5kaDA0OStLMlpybjJsSWVsSUxkK2V0Q09jcGdYNGhC?=
- =?utf-8?B?dDJHcnlNZldOVTEvUUY0RG5nUnhjVFk3bnZnczF3VFhoU1QwSkxyei81Ukt4?=
- =?utf-8?B?UmdwVS9hZ1dweG9xVi83WnU5ZXFjWS9JZmNqaENuc3VBaVk2YVQ3YnJDQXlR?=
- =?utf-8?B?QkRPQUI1Uy95cnYrMldtdWFCTEhyTWtDbVc4bWw2VGhjSDZXMEV5RXM0L1h1?=
- =?utf-8?B?dWc4U2Nkdm9jYUxzL01YaUgxUVU4dFZEeU5oNVhSM05zQ2lobHMrN1lyWEcr?=
- =?utf-8?B?Qm5RemlEU1E0ZmhuR3lWUG55TVNxY3FuK0ozazZGU0xoemo5Z1loZTZuTnVi?=
- =?utf-8?B?cndVSDhURmZyc2tqOCtjZ3htclBqWXZ2SDNiMGJoSjlCdjM5RnlvSGVlZHpU?=
- =?utf-8?B?dmg2Z3M2Y2J4QVVEZG1uZVM3dm9FbHFrQStOUktkRFBWeTNvdDNvNTVHUnBX?=
- =?utf-8?B?NnA0L2JseGhHR2VrNG1mc2dEaG5icm53d0VPTTBjYzA1dzBRWWdDTzBxMkx6?=
- =?utf-8?B?a0ZEeHhBdVl3R3ZDL0I1MkwwSXZxc2N0YTViQUpkRzZYRU00dGU0S0FHKzJ1?=
- =?utf-8?B?Z2YySUVwa3cvS2N4dmhpOHFGc1VONVg5d3hoOWtPamUwOS9DNXhnVjJ4a1NV?=
- =?utf-8?B?bXhqRzJsbGNSbk1zOGlUekFhMTIvYldGL2RpYlVoQUpCVjRpelEzOEJOc24v?=
- =?utf-8?Q?xDN4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2025 16:02:39.8207
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 152e645c-fa53-42c8-b71f-08de3e4edec2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F63.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
 
-On 12/18/25 05:45, Jan Beulich wrote:
-> Calling a function with 10 arguments is inefficient on many architectures:
-> x86-64 allows for up to 6 register parameters, Arm64 for up to 8.
-> Everything else needs passing on the stack, i.e. forcing the compiler to
-> emit stack manipulation insns at every call site.
+On 18.12.2025 16:37, Stewart Hildebrand wrote:
+> On 12/18/25 02:56, Jan Beulich wrote:
+>> Legacy PCI devices don't have any extended config space. Reading any part
+>> thereof may very well return all ones. That then necessarily means we
+>> would think we found a "loop", when there simply is nothing.
+>>
+>> Fixes: a845b50c12f3 ("vpci/header: Emulate extended capability list for dom0")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> This is the minimalistic change to get rid of "overlap in extended cap
+>> list" warnings I'm observing. We may want to avoid any attempt to access
+>> extended config space when there is none
 > 
-> Shrinks generated code on x86 (with gcc15) by over 250 bytes. The gains on
-> Arm64 are a little less.
+> Agreed.
+
+First - I realize only now that I should have Cc-ed you on both vPCI patches;
+sorry.
+
+>> - see Linux'es
+>> pci_cfg_space_size() and it helper pci_cfg_space_size_ext(). This would
+>> then also avoid us interpreting as an extended cap list what isn't one at
+>> all (some legacy PCI devices don't decode register address bits 9-11, some
+>> return other non-0, non-all-ones data). Including the risk of reading a
+>> register with read side effects. Thoughts?
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> I couldn't find any mention in the PCIe spec how reads of extended config space
+> should behave for legacy PCI devices. So, you're right, reading all 1s may not
+> be a guarantee. The PCIe spec seems to imply that a PCI Express Capability is
+> required for devices that have extended config space. How about adding something
+> like this at the top of vpci_init_ext_capability_list() (untested)?
+> 
+> if ( !pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_EXP) )
+>     return 0;
+> 
+> This would seem to me like a reasonable effort to handle the situation
+> (according to spec), without the complexities/quirks/cruft that Linux has.
 
-Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+But it wouldn't be sufficient. Host bridges are special, and PCI-X also
+needs handling.
 
-> ---
-> Why is it, btw, that the declarations live in xen/vpci.h? These functions
-> aren't supposed to be called from outside xen/drivers/vpci/, are they? In
-> which case their decls may better live in a private header?
+>> The DomU part of the function worries me as well. Rather than making it
+>> "read 0, write ignore" for just the first 32 bits, shouldn't we make it so
+>> for the entire extended config space, and shouldn't we also make it "read
+>> all ones, write ignore" when there is no extended config space in the
+>> first place (then in particular also for the first 32 bits)?
+> 
+> Hm, yes, perhaps. If we simply omit the call to vpci_add_register(), it should
+> default to the "read all ones, write ignore" behavior.
 
-You have a good point, they could very well live in a private header IMO.
+But it doesn't right now, unless I'm mistaken?
+
+>> --- a/xen/drivers/vpci/header.c
+>> +++ b/xen/drivers/vpci/header.c
+>> @@ -839,6 +839,15 @@ static int vpci_init_ext_capability_list
+>>          uint32_t header = pci_conf_read32(pdev->sbdf, pos);
+>>          int rc;
+>>  
+>> +        if ( header == 0xffffffff )
+> 
+> This constant should have a U suffix.
+
+Oh, of course - thanks for spotting. If we go the more sophisticated route,
+this would disappear again anyway, though.
+
+Jan
 
