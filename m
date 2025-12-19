@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F2DCCE125
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 01:34:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1190341.1510829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8022CCE1CD
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 02:02:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1190356.1510839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWOR6-0004H0-2P; Fri, 19 Dec 2025 00:33:36 +0000
+	id 1vWOsQ-0007qR-9Q; Fri, 19 Dec 2025 01:01:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1190341.1510829; Fri, 19 Dec 2025 00:33:36 +0000
+Received: by outflank-mailman (output) from mailman id 1190356.1510839; Fri, 19 Dec 2025 01:01:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWOR5-0004EP-VR; Fri, 19 Dec 2025 00:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 1190341;
- Fri, 19 Dec 2025 00:33:35 +0000
+	id 1vWOsQ-0007mW-6O; Fri, 19 Dec 2025 01:01:50 +0000
+Received: by outflank-mailman (input) for mailman id 1190356;
+ Fri, 19 Dec 2025 01:01:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U+Ik=6Z=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vWOR5-0004EJ-0W
- for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 00:33:35 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 589d0c54-dc72-11f0-b15b-2bf370ae4941;
- Fri, 19 Dec 2025 01:33:32 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 020CA60053;
- Fri, 19 Dec 2025 00:33:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C86C4AF09;
- Fri, 19 Dec 2025 00:33:29 +0000 (UTC)
+ <SRS0=lTMo=6Z=ariadne.space=ariadne@srs-se1.protection.inumbo.net>)
+ id 1vWOsO-00072l-81
+ for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 01:01:48 +0000
+Received: from outbound.ci.icloud.com (ci-2006c-snip4-5.eps.apple.com
+ [57.103.90.156]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 491378aa-dc76-11f0-b15b-2bf370ae4941;
+ Fri, 19 Dec 2025 02:01:45 +0100 (CET)
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-central-1k-100-percent-9 (Postfix) with ESMTPS id
+ 379DA1800976; Fri, 19 Dec 2025 01:01:41 +0000 (UTC)
+Received: from phoebe.my.domain (unknown [17.57.156.36])
+ by p00-icloudmta-asmtp-us-central-1k-100-percent-9 (Postfix) with ESMTPSA id
+ 581AD1800950; Fri, 19 Dec 2025 01:01:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,97 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 589d0c54-dc72-11f0-b15b-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766104410;
-	bh=SKpIYYg5LvhEolxzARMhQDVhZlSdet2k9GzqRmxdyIk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kSmFDdMASYkKE4bsTUeLDtf/Oo/Sk+y1ZlsZ7M7GehFhCiNnk8UubTW29jwOvlX47
-	 6aE/6g4PE0NMATqCRcIVEOYZhny8Sp7Il+cRTESCjvA33Cis3thRg9SDFNhI33qg1r
-	 4FdOp3WC7kE8OpruvAXLkLd7oyA8OUSjh43xF+xM6AzIH/fLLbZ3Vyg4Et4vIAfedV
-	 QzLXSsbndVyPRrMQaNugaLDBZhygwaD3i36d7DaM0wB+ejMBmilLK5vQQ0lTu/LYfS
-	 i7UOdGrywzYJUJEa+epSxYbt/QMlNCyHamFDspMhxUvIE75umfJJeYZCEvonTDsIpI
-	 3t84Eneyg9yrA==
-Date: Thu, 18 Dec 2025 16:33:28 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Grygorii Strashko <grygorii_strashko@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN][PATCH v2 0/4] x86: pvh: allow to disable 32-bit (COMPAT)
- interface support
-In-Reply-To: <e7e12bee-2b0b-4474-a64e-78f570432a3e@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2512181629220.21522@ubuntu-linux-20-04-desktop>
-References: <20251119192916.1009549-1-grygorii_strashko@epam.com> <a4646368-2c91-4d57-846f-e7de51395627@epam.com> <e7e12bee-2b0b-4474-a64e-78f570432a3e@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 491378aa-dc76-11f0-b15b-2bf370ae4941
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ariadne.space; s=sig1; bh=k/sGFpxfsXXE4bG/gLuHDwciH+XbI6Fj1Tr7xEr6v5E=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=l08dQAmdWxd78K9aTsjzZqQqJP20hlqWzb9XcSdc7O2beVBuqN5KJLLi68TMY5qS3fivMURmk7JkWRnxMmF4L3YuWUxVC9qvV+/fEn32BrjLmkzqUXSMNRl/vnbFhLl8xGPUvMscAb+1/axGSaDjH75cNi4BYfUPhH7/YYeauqNLp072Wrgt6RTYflDXEATzONN2x4pbf9KLjAU0C3UZelUN19B+1oS9Ijh/+RNVOeSRL9KG4EGn9AQFXdYKrXNTGBes2WRj4MO2FCfyk8ZZiITj/CHDF4nnvlKPho8nAFMcSl/DZ/aZccu5gJcGqcVKMeN7TWZ6LFxa5ukT3Jyr4Q==
+mail-alias-created-date: 1688796967087
+From: Ariadne Conill <ariadne@ariadne.space>
+To: linux-kernel@vger.kernel.org
+Cc: mario.limonciello@amd.com,
+	darwi@linutronix.de,
+	sandipan.das@amd.com,
+	kai.huang@intel.com,
+	me@mixaill.net,
+	yazen.ghannam@amd.com,
+	riel@surriel.com,
+	peterz@infradead.org,
+	hpa@zytor.com,
+	x86@kernel.org,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	Ariadne Conill <ariadne@ariadne.space>,
+	xen-devel@lists.xenproject.org,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/CPU/AMD: avoid printing reset reasons on Xen domU
+Date: Thu, 18 Dec 2025 17:01:31 -0800
+Message-ID: <20251219010131.12659-1-ariadne@ariadne.space>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-Authority-Info: v=2.4 cv=EvbfbCcA c=1 sm=1 tr=0 ts=6944a3f6 cx=c_apl:c_pps
+ a=2G65uMN5HjSv0sBfM2Yj2w==:117 a=2G65uMN5HjSv0sBfM2Yj2w==:17
+ a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=wP3pNCr1ah4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=cWRNjhkoAAAA:8 a=VwQbUJbxAAAA:8
+ a=64mAIdLp92yHhwu-ie0A:9 a=sVa6W5Aao32NNC1mekxh:22
+X-Proofpoint-ORIG-GUID: 1g18WFCENcLrMa1DtA2XBcKaizFIFmka
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE5MDAwNSBTYWx0ZWRfX/XpCqHGo7QO8
+ XVEEd3U/KM52M38w2R3bbNH4op/A1zG3zWse8yplnN98hfQQ5GScFAaMWZDNnLjSsobxsn9wtMv
+ oQD4cfxn1mcvBW42+XnjIq0uudpEieWbdtuH9wxL27zMjW38iPPiqYyOSazNxAL2Tflxazp73XC
+ o6ltxRDRu65VSwW8mzkBKilupg+8at7y2zzy/nNK/fGqxggSYEp/UWRvvdWkzOot3zxqLpBOgsg
+ MNX1TelkMr9UmLZ3yKxck5uWvPMpZAAcbShqnu1jujqsLH9nn02wKOgehR45nur8sPRegqbAJFv
+ 0Vjb/iS5jZOhSuLHKjZ
+X-Proofpoint-GUID: 1g18WFCENcLrMa1DtA2XBcKaizFIFmka
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-18_04,2025-12-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=873
+ adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0 phishscore=0
+ clxscore=1030 spamscore=0 mlxscore=0 classifier=spam authscore=0 adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512190005
+X-JNJ: AAAAAAABr0Q3G94xuvIY8bsEvQNKzbJxhRRxFTbgzGxeuuI6C4zYTCLLh4fyc9dUpyIayNXyTsbSuWjV2AV54y4wdepy1oZRzxT1yakRmjtaGyrQW2y3wNZQTnMfpq7Ugrm8fiopawQF4k5T+2TL9XAykNLaotdeii7CwWE+aS/fDwEgTr/Vdya1EC76gKNdiQiU2Ikhj4OpKbau8+Wmz9+XrYGvly7BbqWkmc6rWCepubDzm03rOas3Pu8Ua3sqZtFsKeh+/ujqEC41cG3j8JOcyybKSb9pwuEw7q+0Sg4C/DsFUrBQ9vGmPZNeQXK5BxB8a2AUCJULS7XY/cU8qUrlgl1+gWwOBjQPrFjnyW9Delr8Us3j3WK3HyNEZQYXEEOkqzW1Lf1En3sIdS4PmdmfJJS2S7a3IM5z+Pcv6uEm+xTWRKCeXHF3BZ1xGimnSePcGtkbpLJP5RLw5fbOK/wM6T/cSP8d9RYbr50D1XJWoRw9o1rBQg3B12lHUc681qn8HgtRRf0OegUnzTTLD6J3Uk22T9Ek9iqvSBZJzTqG6FtiBZTLO01NTv4Aox6FZCjw84u4HXBBVd8dnjbueW6thg69a5AeocA2wQwl/5VSwx9M4CLpIm3g7tt62oVdJkxVcc6TxOWjgE8rqnJKDPzZ2dP8N2XTE5+WjgtJ3735dNOIm9AHEHuepai7KoKUxpI78edlvtC1Oo+1tY7zcauaPbJ89OHwXDGE/Icm4ZmhNUpHr8sIKO/3MxZD/6VPHqhroh4rd5OivC8uzGsxZCbH06iOmNFiD/FBPFvK6n1oh0Bj0ESDDeTQzvFX0SpT1y3bhx/KSjvEjmEfCVU=
 
-On Thu, 18 Dec 2025, Jan Beulich wrote:
-> On 18.12.2025 17:20, Grygorii Strashko wrote:
-> > I'm planning to send v3 - so would be appreciated for any other comments.
-> 
-> Andrew,
-> 
-> could you please write down the outline of what you described verbally the
-> other day, to scope the extent to which we may want to take changes here?
+Xen domU cannot access the given MMIO address for security reasons,
+resulting in a failed hypercall in ioremap() due to permissions.
 
-I am not Andrew, but I just wanted to take the opportunity to write down
-my recollection, letting Andrew chime in as needed of course.
+Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
+Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+Cc: xen-devel@lists.xenproject.org
+Cc: stable@vger.kernel.org
+---
+ arch/x86/kernel/cpu/amd.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-We would make it possible to remove the compat code itself and compat
-hypercall entries. This would be acceptable right away.
-
-When it comes to 32-bit code intermixed with 64-bit code, we would have
-to look at it on a case by case basis.
-
-
+diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+index a6f88ca1a6b4..99308fba4d7d 100644
+--- a/arch/x86/kernel/cpu/amd.c
++++ b/arch/x86/kernel/cpu/amd.c
+@@ -29,6 +29,8 @@
+ # include <asm/mmconfig.h>
+ #endif
  
-> > On 19.11.25 21:30, Grygorii Strashko wrote:
-> >> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> >>
-> >> Hi
-> >>
-> >> This series introduces possibility to disable 32-bit (COMPAT) interface support
-> >> in the following case:
-> >>        - Only PVH domains are used
-> >>        - Guests (OS) are started by using direct Direct Kernel Boot
-> >>        - Guests (OS) are 64-bit and Guest early boot code, which is running not
-> >>          in 64-bit mode, does not access Xen interfaces
-> >>          (hypercalls, shared_info, ..)
-> >>
-> >> If above criterias are met the COMPAT HVM interface become unreachable and can be disabled.
-> >> Coverage reports analyze and adding guard (debug) exceptions in hvm_hypercall/hvm_do_multicall_call
-> >> and hvm_latch_shinfo_size() confirm that COMPAT HVM interface is unused for safety use-case.
-> >>
-> >> Changes in v2 described in each patch:
-> >> - patch "x86: constify has_32bit_shinfo() if !CONFIG_COMPAT" squashed in patch 2.
-> >>
-> >> v1:
-> >>   https://patchwork.kernel.org/project/xen-devel/cover/20251111175413.3540690-1-grygorii_strashko@epam.com/
-> >>
-> >> Grygorii Strashko (4):
-> >>    x86: hvm: dm: factor out compat code under ifdefs
-> >>    x86: hvm: compat: introduce is_hcall_compat() helper
-> >>    x86: hvm: factor out COMPAT code under ifdefs
-> >>    x86: pvh: allow to disable 32-bit interface support
-> >>
-> >>   xen/arch/x86/hvm/Kconfig          | 19 ++++++++++++++++++-
-> >>   xen/arch/x86/hvm/dm.c             |  2 ++
-> >>   xen/arch/x86/hvm/hvm.c            | 24 ++++++++++++++++++++----
-> >>   xen/arch/x86/hvm/hypercall.c      | 22 +++++++++++++++++-----
-> >>   xen/arch/x86/hypercall.c          |  6 +-----
-> >>   xen/arch/x86/include/asm/domain.h |  9 +++++++--
-> >>   xen/common/kernel.c               |  2 +-
-> >>   xen/include/hypercall-defs.c      |  9 +++++++--
-> >>   xen/include/xen/sched.h           |  9 +++++++++
-> >>   9 files changed, 82 insertions(+), 20 deletions(-)
-> >>
-> > 
-> 
++#include <xen/xen.h>
++
+ #include "cpu.h"
+ 
+ u16 invlpgb_count_max __ro_after_init = 1;
+@@ -1333,6 +1335,10 @@ static __init int print_s5_reset_status_mmio(void)
+ 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+ 		return 0;
+ 
++	/* Xen PV domU cannot access hardware directly, so bail for domU case */
++	if (cpu_feature_enabled(X86_FEATURE_XENPV) && !xen_initial_domain())
++		return 0;
++
+ 	addr = ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
+ 	if (!addr)
+ 		return 0;
+-- 
+2.51.0
+
 
