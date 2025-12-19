@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77789CCE03A
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 01:01:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1190304.1510818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94F2DCCE125
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 01:34:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1190341.1510829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWNvN-00088c-Ib; Fri, 19 Dec 2025 00:00:49 +0000
+	id 1vWOR6-0004H0-2P; Fri, 19 Dec 2025 00:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1190304.1510818; Fri, 19 Dec 2025 00:00:49 +0000
+Received: by outflank-mailman (output) from mailman id 1190341.1510829; Fri, 19 Dec 2025 00:33:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWNvN-00085r-Fk; Fri, 19 Dec 2025 00:00:49 +0000
-Received: by outflank-mailman (input) for mailman id 1190304;
- Fri, 19 Dec 2025 00:00:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vWOR5-0004EP-VR; Fri, 19 Dec 2025 00:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 1190341;
+ Fri, 19 Dec 2025 00:33:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=U+Ik=6Z=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vWNvL-00085l-DN
- for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 00:00:47 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c35327ea-dc6d-11f0-9cce-f158ae23cfc8;
- Fri, 19 Dec 2025 01:00:44 +0100 (CET)
+ id 1vWOR5-0004EJ-0W
+ for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 00:33:35 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 589d0c54-dc72-11f0-b15b-2bf370ae4941;
+ Fri, 19 Dec 2025 01:33:32 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CB9BF438D9;
- Fri, 19 Dec 2025 00:00:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89519C4CEFB;
- Fri, 19 Dec 2025 00:00:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 020CA60053;
+ Fri, 19 Dec 2025 00:33:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C86C4AF09;
+ Fri, 19 Dec 2025 00:33:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,185 +41,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c35327ea-dc6d-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 589d0c54-dc72-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766102442;
-	bh=nejwZ4CXBVS0SWLhjOCvOoKs91xMXUc4UNl5EIeFV0I=;
+	s=k20201202; t=1766104410;
+	bh=SKpIYYg5LvhEolxzARMhQDVhZlSdet2k9GzqRmxdyIk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QjctMkPXbbFSpbQzip03CbkY1Vz2UsBCwatTuyAf7X0cS8FZs0Pd4iuLbMbg8iBQU
-	 6Zh/IWeofclbw1q78fU8s2kdRJrPOVRcgt2Z5FJwiYbKwYIPduKGk5ik5c8eNlaI0I
-	 W2YkPk+NG5prEWRtF/4XFBR0Qg/7xP+LWgAvZ96kJnYdE0+v55sS/0zFCa7zWI8e0x
-	 aNRLTG65u/0CPTh/8dzqm3bGdOU/qz1yXHPYe6gMUsh8KoxsgdGYcr3G3EZQHKu4CG
-	 FMGjjnjAcuovM5Zp0TO2H+IiUzzQwGq5AqeK293vbqI81r6x3Nl143N7xcX1P6gfTG
-	 kisBxKaMO8ZKA==
-Date: Thu, 18 Dec 2025 16:00:40 -0800 (PST)
+	b=kSmFDdMASYkKE4bsTUeLDtf/Oo/Sk+y1ZlsZ7M7GehFhCiNnk8UubTW29jwOvlX47
+	 6aE/6g4PE0NMATqCRcIVEOYZhny8Sp7Il+cRTESCjvA33Cis3thRg9SDFNhI33qg1r
+	 4FdOp3WC7kE8OpruvAXLkLd7oyA8OUSjh43xF+xM6AzIH/fLLbZ3Vyg4Et4vIAfedV
+	 QzLXSsbndVyPRrMQaNugaLDBZhygwaD3i36d7DaM0wB+ejMBmilLK5vQQ0lTu/LYfS
+	 i7UOdGrywzYJUJEa+epSxYbt/QMlNCyHamFDspMhxUvIE75umfJJeYZCEvonTDsIpI
+	 3t84Eneyg9yrA==
+Date: Thu, 18 Dec 2025 16:33:28 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Yann Dirson <yann.dirson@vates.tech>, 
-    Yann Sionneau <yann.sionneau@vates.tech>
-Subject: Re: [PATCH v1] acpi/arm: relax MADT GICC entry length check to
- support newer ACPI revisions
-In-Reply-To: <929f7a0fb8f92112d445015726db30122a05eb9f.1766060265.git.oleksii.kurochko@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2512181600320.21522@ubuntu-linux-20-04-desktop>
-References: <929f7a0fb8f92112d445015726db30122a05eb9f.1766060265.git.oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Grygorii Strashko <grygorii_strashko@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN][PATCH v2 0/4] x86: pvh: allow to disable 32-bit (COMPAT)
+ interface support
+In-Reply-To: <e7e12bee-2b0b-4474-a64e-78f570432a3e@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2512181629220.21522@ubuntu-linux-20-04-desktop>
+References: <20251119192916.1009549-1-grygorii_strashko@epam.com> <a4646368-2c91-4d57-846f-e7de51395627@epam.com> <e7e12bee-2b0b-4474-a64e-78f570432a3e@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-511701984-1766102442=:21522"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, 18 Dec 2025, Jan Beulich wrote:
+> On 18.12.2025 17:20, Grygorii Strashko wrote:
+> > I'm planning to send v3 - so would be appreciated for any other comments.
+> 
+> Andrew,
+> 
+> could you please write down the outline of what you described verbally the
+> other day, to scope the extent to which we may want to take changes here?
 
---8323329-511701984-1766102442=:21522
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+I am not Andrew, but I just wanted to take the opportunity to write down
+my recollection, letting Andrew chime in as needed of course.
 
-On Thu, 18 Dec 2025, Oleksii Kurochko wrote:
-> Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
-> The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
-> match the known values, which leads to:
->   GICv3: No valid GICC entries exist.
-> as observed on the AmpereOne platform.
-> 
-> To fix this, import the logic from import from Linux commit 9eb1c92:
->   The BAD_MADT_GICC_ENTRY check is a little too strict because
->   it rejects MADT entries that don't match the currently known
->   lengths. We should remove this restriction to avoid problems
->   if the table length changes. Future code which might depend on
->   additional fields should be written to validate those fields
->   before using them, rather than trying to globally check
->   known MADT version lengths.
-> 
->   Link: https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
->   Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
->   [lorenzo.pieralisi@arm.com: added MADT macro comments]
->   Signed-off-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
->   Acked-by: Sudeep Holla <sudeep.holla@arm.com>
->   Cc: Will Deacon <will.deacon@arm.com>
->   Cc: Catalin Marinas <catalin.marinas@arm.com>
->   Cc: Al Stone <ahs3@redhat.com>
->   Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>
->   Signed-off-by: Will Deacon <will.deacon@arm.com>
-> 
-> As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
-> used. As we rewrite the MADT for hwdom, reuse the host GICC header length
-> instead of ACPI_MADT_GICC_LENGTH.
-> 
-> [1] https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
-> 
-> Reported-By: Yann Dirson <yann.dirson@vates.tech>
-> Co-developed-by: Yann Sionneau <yann.sionneau@vates.tech>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+We would make it possible to remove the compat code itself and compat
+hypercall entries. This would be acceptable right away.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+When it comes to 32-bit code intermixed with 64-bit code, we would have
+to look at it on a case by case basis.
 
 
-> ---
-> I ran CI tests where it made sense for this patch, as I don’t see any CI job
-> that builds Xen with CONFIG_ACPI=y:
->   https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2222160666
+ 
+> > On 19.11.25 21:30, Grygorii Strashko wrote:
+> >> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> >>
+> >> Hi
+> >>
+> >> This series introduces possibility to disable 32-bit (COMPAT) interface support
+> >> in the following case:
+> >>        - Only PVH domains are used
+> >>        - Guests (OS) are started by using direct Direct Kernel Boot
+> >>        - Guests (OS) are 64-bit and Guest early boot code, which is running not
+> >>          in 64-bit mode, does not access Xen interfaces
+> >>          (hypercalls, shared_info, ..)
+> >>
+> >> If above criterias are met the COMPAT HVM interface become unreachable and can be disabled.
+> >> Coverage reports analyze and adding guard (debug) exceptions in hvm_hypercall/hvm_do_multicall_call
+> >> and hvm_latch_shinfo_size() confirm that COMPAT HVM interface is unused for safety use-case.
+> >>
+> >> Changes in v2 described in each patch:
+> >> - patch "x86: constify has_32bit_shinfo() if !CONFIG_COMPAT" squashed in patch 2.
+> >>
+> >> v1:
+> >>   https://patchwork.kernel.org/project/xen-devel/cover/20251111175413.3540690-1-grygorii_strashko@epam.com/
+> >>
+> >> Grygorii Strashko (4):
+> >>    x86: hvm: dm: factor out compat code under ifdefs
+> >>    x86: hvm: compat: introduce is_hcall_compat() helper
+> >>    x86: hvm: factor out COMPAT code under ifdefs
+> >>    x86: pvh: allow to disable 32-bit interface support
+> >>
+> >>   xen/arch/x86/hvm/Kconfig          | 19 ++++++++++++++++++-
+> >>   xen/arch/x86/hvm/dm.c             |  2 ++
+> >>   xen/arch/x86/hvm/hvm.c            | 24 ++++++++++++++++++++----
+> >>   xen/arch/x86/hvm/hypercall.c      | 22 +++++++++++++++++-----
+> >>   xen/arch/x86/hypercall.c          |  6 +-----
+> >>   xen/arch/x86/include/asm/domain.h |  9 +++++++--
+> >>   xen/common/kernel.c               |  2 +-
+> >>   xen/include/hypercall-defs.c      |  9 +++++++--
+> >>   xen/include/xen/sched.h           |  9 +++++++++
+> >>   9 files changed, 82 insertions(+), 20 deletions(-)
+> >>
+> > 
 > 
-> I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
-> AmpereOne platform.
-> ---
->  xen/arch/arm/gic-v2.c           |  3 ++-
->  xen/arch/arm/gic-v3.c           |  3 ++-
->  xen/arch/arm/gic.c              | 12 +++++++++++-
->  xen/arch/arm/include/asm/acpi.h | 21 +++++++++++++++------
->  4 files changed, 30 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index b23e72a3d0..aae6a7bf30 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
->      host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->                               header);
->  
-> -    size = ACPI_MADT_GICC_LENGTH;
-> +    size = host_gicc->header.length;
-> +
->      /* Add Generic Interrupt */
->      for ( i = 0; i < d->max_vcpus; i++ )
->      {
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index bc07f97c16..75b89efad4 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
->  
->      host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->                               header);
-> -    size = ACPI_MADT_GICC_LENGTH;
-> +    size = host_gicc->header.length;
-> +
->      for ( i = 0; i < d->max_vcpus; i++ )
->      {
->          gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
-> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> index ee75258fc3..a0ccda14bf 100644
-> --- a/xen/arch/arm/gic.c
-> +++ b/xen/arch/arm/gic.c
-> @@ -418,8 +418,18 @@ unsigned long gic_get_hwdom_madt_size(const struct domain *d)
->  {
->      unsigned long madt_size;
->  
-> +    struct acpi_subtable_header *header;
-> +    struct acpi_madt_generic_interrupt *host_gicc;
-> +
-> +    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
-> +    if ( !header )
-> +        panic("Can't get GICC entry");
-> +
-> +    host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
-> +                             header);
-> +
->      madt_size = sizeof(struct acpi_table_madt)
-> -                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
-> +                + host_gicc->header.length * d->max_vcpus
->                  + sizeof(struct acpi_madt_generic_distributor)
->                  + gic_hw_ops->get_hwdom_extra_madt_size(d);
->  
-> diff --git a/xen/arch/arm/include/asm/acpi.h b/xen/arch/arm/include/asm/acpi.h
-> index 13756dd341..30bc446d1f 100644
-> --- a/xen/arch/arm/include/asm/acpi.h
-> +++ b/xen/arch/arm/include/asm/acpi.h
-> @@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
->   */
->  paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
->  
-> -/* Macros for consistency checks of the GICC subtable of MADT */
-> -#define ACPI_MADT_GICC_LENGTH	\
-> -    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
-> +/*
-> + * MADT GICC minimum length refers to the MADT GICC structure table length as
-> + * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
-> + *
-> + * The efficiency_class member was added to the
-> + * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
-> + * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
-> + * is therefore used to delimit the MADT GICC structure minimum length
-> + * appropriately.
-> + */
-> +#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
-> +    struct acpi_madt_generic_interrupt, efficiency_class)
->  
-> -#define BAD_MADT_GICC_ENTRY(entry, end)						\
-> -    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
-> -     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
-> +#define BAD_MADT_GICC_ENTRY(entry, end) \
-> +    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
-> +    (unsigned long)(entry) + (entry)->header.length > (end))
->  
->  #ifdef CONFIG_ACPI
->  extern bool acpi_disabled;
-> -- 
-> 2.52.0
-> 
---8323329-511701984-1766102442=:21522--
 
