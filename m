@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1912CD08EB
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 16:42:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1190779.1511075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDDF7CD0C04
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Dec 2025 17:10:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1190839.1511089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWccb-0007TC-KO; Fri, 19 Dec 2025 15:42:25 +0000
+	id 1vWd2z-0004HH-JB; Fri, 19 Dec 2025 16:09:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1190779.1511075; Fri, 19 Dec 2025 15:42:25 +0000
+Received: by outflank-mailman (output) from mailman id 1190839.1511089; Fri, 19 Dec 2025 16:09:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vWccb-0007OG-G8; Fri, 19 Dec 2025 15:42:25 +0000
-Received: by outflank-mailman (input) for mailman id 1190779;
- Fri, 19 Dec 2025 15:42:23 +0000
+	id 1vWd2z-0004F9-GI; Fri, 19 Dec 2025 16:09:41 +0000
+Received: by outflank-mailman (input) for mailman id 1190839;
+ Fri, 19 Dec 2025 16:09:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Twhv=6Z=bounce.vates.tech=bounce-md_30504962.69457259.v1-09a0b611dd5446099d0793746429beb8@srs-se1.protection.inumbo.net>)
- id 1vWccZ-0006gp-Op
- for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 15:42:23 +0000
-Received: from mail179-28.suw41.mandrillapp.com
- (mail179-28.suw41.mandrillapp.com [198.2.179.28])
+ <SRS0=mxbk=6Z=flex--seanjc.bounces.google.com=3vXhFaQYKCRYE0w95y2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@srs-se1.protection.inumbo.net>)
+ id 1vWd2x-0004F3-Tt
+ for xen-devel@lists.xenproject.org; Fri, 19 Dec 2025 16:09:39 +0000
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [2607:f8b0:4864:20::104a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4caa9cfe-dcf1-11f0-9cce-f158ae23cfc8;
- Fri, 19 Dec 2025 16:42:18 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-28.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4dXsGx0phBzMQxZwl
- for <xen-devel@lists.xenproject.org>; Fri, 19 Dec 2025 15:42:17 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 09a0b611dd5446099d0793746429beb8; Fri, 19 Dec 2025 15:42:17 +0000
+ id 1bbab737-dcf5-11f0-9cce-f158ae23cfc8;
+ Fri, 19 Dec 2025 17:09:34 +0100 (CET)
+Received: by mail-pj1-x104a.google.com with SMTP id
+ 98e67ed59e1d1-34cc88eca7eso3312741a91.2
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Dec 2025 08:09:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,112 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4caa9cfe-dcf1-11f0-9cce-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1766158937; x=1766428937;
-	bh=EDhYIftkVJKhg5aQNHcgY2YjTEfUugXGsd0ObHTK3Xw=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=vDXECE+MK8Kom/1/s9ReIpPR8xqOrZ2YxsbC152JTcLTiwNR9kS5JahPQqnY3j3eQ
-	 g3+l4bYaQgTRskb6Ydr9+5OA7XHxdTgwTU4ZTD3NC9psxRsgOte+XsCYB5f7jpfy6x
-	 O22r3YI11ax+keBGGjY9i6d3jwt9N6c+hNNNw3nPmF+KBN2E7U3ur9rvRv0xXNVGnm
-	 XbqZzQqcODCvgQfkpJDe20eBxWV/uitCL2zV5W3CQaQSi0FiIhuKHndH6Di9um558j
-	 QFChuNgunmiPQF/W2ueDGRciVf4YpJ0I9pwXtOoNBFRjqQXL76YlKqSVtOXOXq4jbn
-	 +GKBaT6px+PmA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1766158937; x=1766419437; i=teddy.astie@vates.tech;
-	bh=EDhYIftkVJKhg5aQNHcgY2YjTEfUugXGsd0ObHTK3Xw=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=h+aH68cqw1OlH3mZrzVvHHq4s6hllU94c1MnTvuWmRFVZkT2n0nLsJz/zeQof8EqV
-	 iZ1+oxTrS2kTBCRZTRWoiHMS4qXoK1LSV9HHEejG0wvxXQcPJQIXTZz4eppe3w3Wl6
-	 3IUliInyN9Ru8cx4C1tqlPJ/DoHkWRsK2Z3utJSQnDF5G1p3akFshWcZR0/qP5J0cT
-	 KXuSGzVStHnri8Da6n1yQ+oQvkEvHPAnQ2ZBj6D8PvXLRR92xNw4pNvrhcWOnClP2K
-	 QtBBmjoH68YfxJhOMLgRe3sA8md4D4D2L2Ld3aB91iruT5qyYnO3XYFXA3273FpHVC
-	 imugzjincqAMw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v4=201/4]=20x86/cpu-policy:=20define=20bits=20of=20leaf=206?=
-X-Mailer: git-send-email 2.51.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1766158936226
-To: xen-devel@lists.xenproject.org
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Teddy Astie" <teddy.astie@vates.tech>
-Message-Id: <8a4adb89e6b6152fca074f2bb9091b42af936630.1766158766.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1766158766.git.teddy.astie@vates.tech>
-References: <cover.1766158766.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.09a0b611dd5446099d0793746429beb8?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20251219:md
-Date: Fri, 19 Dec 2025 15:42:17 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 1bbab737-dcf5-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1766160573; x=1766765373; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=WvkkN/JVfJ0/HpY6p1MGYv4ARJvfILZSEbErMl1MA/4=;
+        b=l6dEehs9riv2W9mfDFD4qn2Qi3/CWC6kejqEPn6ZaqcGtkHSwgbcGDE6kxdvqQYHQG
+         wGMhIAbD7o6ee4YGG6tVISgwOBALb+jHzM4f73gzPGsXWIbA/ioCnZOQ7qXISYSaq9w/
+         5kqd4RJM9TBbdTqDKgyStrGUbqyxj2wkgbrOCCtAT7Vytps6zAO9TPOhlAJzjhHX1v82
+         SzY8WwuN2HCrPl29SFYO26yv/k0WVmV+zq5xPQ956DgUm0r8ZheoUOynZYc5SBkzXGYc
+         TZlf0ZoTjGa/GEzx8kJLdt4/r4QqmBmUVB/elZ66NwXMvB4IQg+k29Fl51ywWGaUFe3G
+         UK+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766160573; x=1766765373;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WvkkN/JVfJ0/HpY6p1MGYv4ARJvfILZSEbErMl1MA/4=;
+        b=rnW8Z/yQ8/P9KA/+oyyW2olMFOy8I8R3MtJHOFceWeC2sn97yafYpeqnexszhKdUGE
+         i+TZtxkbhd7H+ya1tFBEhDh6j+aY/JA2L8PncH3EA7Nn+NZk4Fjjrm42zmjouX+VO0wy
+         wEI0xceW/4fEmcyeiPpkBTWv3S+6FUKGgc7Yp7ozLTNYR4EVZ/7MdMD1/4WKB2kq/no+
+         sUZuvC1DebFvXXZbiMkxNsdrstIn4HyNICrTpclC/hW0bpJV64gAdX+Ba1kNmvyqKMew
+         2GEkH2IcE5HSnvIweIJv/fO7VR8E9r7Pydff0RmOmCkVMij5CB8WiGSq0snrO8pI7uW8
+         QeQw==
+X-Forwarded-Encrypted: i=1; AJvYcCWvQnpMu4UryheJX7WNJYc9nNmsbBvUlSiojdfKLxP5g5rTq6AawAcBwBj/t3DQ2r2bGzfO7nfWD48=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyK2DE9Rh7T9CJqAlPRI0alwYj5PoGH5Onbg9IwZtbN07fZj07y
+	zlFJcrXDfbg89HrJ91uH+TTQI8bDvh7fFjH2m6CM6rAWrCLSHY0e8ykaHEN3CfrvrX/DabbUG00
+	JDOZWCA==
+X-Google-Smtp-Source: AGHT+IFi0EOmNsJLwNWNd+F7YnuERxayE0iVrblPiIXpt/oQKEFPGSZPOu2wHmeTgNma9jT1j9/KpGT8+c8=
+X-Received: from pjso12.prod.google.com ([2002:a17:90a:c08c:b0:34c:6892:136f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3f90:b0:340:c261:f9f3
+ with SMTP id 98e67ed59e1d1-34e92130102mr3375788a91.14.1766160573108; Fri, 19
+ Dec 2025 08:09:33 -0800 (PST)
+Date: Fri, 19 Dec 2025 08:09:31 -0800
+In-Reply-To: <7C6C14C2-ABF8-4A94-B110-7FFBE9D2ED79@alien8.de>
+Mime-Version: 1.0
+References: <20251219010131.12659-1-ariadne@ariadne.space> <7C6C14C2-ABF8-4A94-B110-7FFBE9D2ED79@alien8.de>
+Message-ID: <aUV4u0r44V5zHV5f@google.com>
+Subject: Re: [PATCH] x86/CPU/AMD: avoid printing reset reasons on Xen domU
+From: Sean Christopherson <seanjc@google.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Ariadne Conill <ariadne@ariadne.space>, linux-kernel@vger.kernel.org, 
+	mario.limonciello@amd.com, darwi@linutronix.de, sandipan.das@amd.com, 
+	kai.huang@intel.com, me@mixaill.net, yazen.ghannam@amd.com, riel@surriel.com, 
+	peterz@infradead.org, hpa@zytor.com, x86@kernel.org, tglx@linutronix.de, 
+	mingo@redhat.com, dave.hansen@linux.intel.com, xen-devel@lists.xenproject.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-From: Jan Beulich <jbeulich@suse.com>
+On Fri, Dec 19, 2025, Borislav Petkov wrote:
+> On December 19, 2025 1:01:31 AM UTC, Ariadne Conill <ariadne@ariadne.space> wrote:
+> >Xen domU cannot access the given MMIO address for security reasons,
+> >resulting in a failed hypercall in ioremap() due to permissions.
 
-... as far as we presently use them in the codebase.
+Why does that matter though?  Ah, because set_pte() assumes success, and so
+presumably the failed hypercall goes unnoticed and trying to access the MMIO
+#PFs due to !PRESENT mapping.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
-I don't know to which extend Reviewed-by applies as I only applied Andrew's
-proposal.
+> >Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
+> >Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+> >Cc: xen-devel@lists.xenproject.org
+> >Cc: stable@vger.kernel.org
+> >---
+> > arch/x86/kernel/cpu/amd.c | 6 ++++++
+> > 1 file changed, 6 insertions(+)
+> >
+> >diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+> >index a6f88ca1a6b4..99308fba4d7d 100644
+> >--- a/arch/x86/kernel/cpu/amd.c
+> >+++ b/arch/x86/kernel/cpu/amd.c
+> >@@ -29,6 +29,8 @@
+> > # include <asm/mmconfig.h>
+> > #endif
+> > 
+> >+#include <xen/xen.h>
+> >+
+> > #include "cpu.h"
+> > 
+> > u16 invlpgb_count_max __ro_after_init = 1;
+> >@@ -1333,6 +1335,10 @@ static __init int print_s5_reset_status_mmio(void)
+> > 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+> > 		return 0;
+> > 
+> >+	/* Xen PV domU cannot access hardware directly, so bail for domU case */
 
- xen/include/xen/lib/x86/cpu-policy.h | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+Heh, Xen on Zen crime.
 
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index f94f23e159..8772ef80e3 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -121,7 +121,32 @@ struct cpu_policy
-             uint64_t :64, :64; /* Leaf 0x3 - PSN. */
-             uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
-             uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
--            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
-+
-+            /* Leaf 0x6 - Therm/Perf. */
-+            bool :1,
-+                turbo:1,
-+                arat:1,
-+                :1,
-+                :1,
-+                :1,
-+                :1,
-+                hwp:1,
-+                hwp_notification:1,
-+                hwp_activity_window:1,
-+                hwp_epp:1,
-+                hwp_plr:1,
-+                :1,
-+                hdc:1,
-+                :1,
-+                :1,
-+                hwp_peci:1,
-+                :1,
-+                :1,
-+                hw_feedback:1;
-+            uint32_t :32; /* b */
-+            bool aperfmperf:1;
-+            uint32_t :32; /* d */
-+
-             uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
-             uint64_t :64, :64; /* Leaf 0x8 - rsvd */
-             uint64_t :64, :64; /* Leaf 0x9 - DCA */
--- 
-2.51.2
+> >+	if (cpu_feature_enabled(X86_FEATURE_XENPV) && !xen_initial_domain())
+> >+		return 0;
+> >+
+> > 	addr = ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
+> > 	if (!addr)
+> > 		return 0;
+> 
+> Sean, looka here. The other hypervisor wants other checks.
+>
+> Time to whip out the X86_FEATURE_HYPERVISOR check.
 
+LOL, Ariadne, be honest, how much did Boris pay you?  :-D
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jokes aside, I suppose I'm fine adding a HYPERVISOR check, but at the same time,
+how is this not a Xen bug?  Refusing to create a mapping because the VM doesn't
+have a device defined at a given GPA is pretty hostile behavior for a hypervisor.
 
