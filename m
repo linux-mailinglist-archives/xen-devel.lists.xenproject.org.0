@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6070CD45D5
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Dec 2025 22:24:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1191878.1511302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B013DCD4E20
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 08:41:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1191926.1511313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXQt0-0008Vi-MT; Sun, 21 Dec 2025 21:22:42 +0000
+	id 1vXaWm-0003qU-JF; Mon, 22 Dec 2025 07:40:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1191878.1511302; Sun, 21 Dec 2025 21:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 1191926.1511313; Mon, 22 Dec 2025 07:40:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXQt0-0008Si-GI; Sun, 21 Dec 2025 21:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 1191878;
- Sun, 21 Dec 2025 21:22:41 +0000
+	id 1vXaWm-0003nh-G6; Mon, 22 Dec 2025 07:40:24 +0000
+Received: by outflank-mailman (input) for mailman id 1191926;
+ Mon, 22 Dec 2025 07:40:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+6Rm=63=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1vXQsy-0008Sc-SV
- for xen-devel@lists.xenproject.org; Sun, 21 Dec 2025 21:22:40 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c200::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vXaWk-0003na-HU
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 07:40:22 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2cca8ff2-deb3-11f0-9cce-f158ae23cfc8;
- Sun, 21 Dec 2025 22:22:38 +0100 (CET)
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com (2603:10a6:208:c8::27)
- by AS8PR03MB7603.eurprd03.prod.outlook.com (2603:10a6:20b:34e::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Sun, 21 Dec
- 2025 21:22:35 +0000
-Received: from AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae]) by AM0PR03MB4594.eurprd03.prod.outlook.com
- ([fe80::5a:31d6:fee4:ccae%6]) with mapi id 15.20.9434.009; Sun, 21 Dec 2025
- 21:22:35 +0000
+ id 747fc437-df09-11f0-9cce-f158ae23cfc8;
+ Mon, 22 Dec 2025 08:40:15 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4779cb0a33fso37535255e9.0
+ for <xen-devel@lists.xenproject.org>; Sun, 21 Dec 2025 23:40:15 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47be3a20af0sm88800465e9.4.2025.12.21.23.40.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 21 Dec 2025 23:40:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,227 +45,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cca8ff2-deb3-11f0-9cce-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FA3bDbe0P6LBLHZ1QbS5tfPhf0TuSA+5mZPKyzxeE5LRtspNWNUwYtItgeU+4ekEiBa6OETgRaDcXI9IFH/NXkztQmNf8FKCwAFruU/VZGpqGmepTYCOo6IGzaJxcCPpXaXGFIUJ6LG5E4ASS3D1VsxOJseqfluKMZLXloM3SmdqjKQZJhVZPWqIi4AK3CcTrthgxakv97CDJKkrR+WmSAPCWWYEJ9QPtEaa1WHGI49E8BhgKryIEC+KcQysu1EdbXvrEMlzmU4FthPGGMAi8xWUG5VUqcnhTkNO2QbAvaWs3iwk9r6oK5VmnqGNwrzkfgO0tTOJe8fDmIWQ/7sk/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K7tf16p5uVfKOGdFPvoAM40ttXm4vOTqWqvXPCz1Gi4=;
- b=ReL0J9GjytSN1gzzf10ppZabFMQyX5KwbTpo1Z7UB2PQMfvivascUmy6ND/5J1KytVQXU1YcYy06ZOLR3ubEzGeFvF0W/oQP4xAsFgAI38jqFIVMashHQAMP4awlkFbjCmnuW4926rQ1QoLFugTPplk5WCJMZqkHAa++zSf/xXpShD+78i8KzfFf5WfJP5AtNMQlAOh8+Yhv16YCGGR0NAxaM76aFsQzSkBJGO5gCxtxUfJTjj3xI5p7+QPxU0EcuXTrl+BR7lrdFZnQ+C1GUGuutIEXWa61OCyLpr/sgFnGFOj0msp+PSBMaVrZ7n8FtVXamuNtNjgwDWwCEG7wEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7tf16p5uVfKOGdFPvoAM40ttXm4vOTqWqvXPCz1Gi4=;
- b=scz49qmDR4k8F3tKgNBMgjCISj7NtCcOtCStDZkW4O+QWKBJMudrXU9SgA/r4vFn1ZQOPPwZyUSngA3iZaNG/Z26zZrGXOPzmjZPLFKxrHV1eJouv7dcLCCXT9siZ1fAqH+LYNVlllHI0enFvsj2E987W6z37hFJqUbYw5EoG/gXHq8kTFKPcv5ULcaoZ/IMwWwtLvgK9txvn9vn0Lv1OAlOqNI9L2+SpRPLjoXnPsNsqWXzBw9fAp/8zxWrsWfhKs9lUp+boLBkF9bQQJ5C6lylZrh928jazXqtjBU+JYcz1h8xHdC1tq74Lae33d5QDESYeIDiAV8C6TouykyecA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <571605ab-08fa-4cca-9462-5e4645431314@epam.com>
-Date: Sun, 21 Dec 2025 23:19:37 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] xen/domctl: add XEN_DOMCTL_CDF_ALL mask
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20251111201627.3579504-1-grygorii_strashko@epam.com>
- <67f0d3e0-bd90-4817-a084-49d01d8305ff@epam.com>
- <570f1e3d-94ab-40a9-8d6c-c36615e5aa2b@vates.tech>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <570f1e3d-94ab-40a9-8d6c-c36615e5aa2b@vates.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0017.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::17) To AM0PR03MB4594.eurprd03.prod.outlook.com
- (2603:10a6:208:c8::27)
+X-Inumbo-ID: 747fc437-df09-11f0-9cce-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1766389214; x=1766994014; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1dX/tWMl+E0a5KW2fk14VTiHOdF85cPvS4qKeRhQgqY=;
+        b=GHwxDIlMGRQNuPkSMPnJAgNCS0M6Zm8KFjy+RNS9rDEu+y+YGnFmzwtuN9WzE5qbTr
+         feiI+4IcoaujhCpyiAnzl5CQLhgUqLc/nVJieQqMsU4hNFTfuGb/TWmiKsvBrIOJKNM3
+         jAJT8Qk+nTndB7N9plL0XMZGB9HCqqIeKVIZDdH7qjW7rfCjuIWN49GIDvq0m1taeRSW
+         q62sE3n3bvI0Zx85JtMi5xhF05zpQnB/UB0LqId3H0as02IcAqvH7dfSfaLNqxVr3HXa
+         S67MJpCQTeSCP1nvB7Oev73WpRMZTzsxzBhOweDyMm0pw5BhLhyxuEUbqR2A0WxLB7fn
+         og/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766389214; x=1766994014;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1dX/tWMl+E0a5KW2fk14VTiHOdF85cPvS4qKeRhQgqY=;
+        b=ux3BqFZzvI48JMdT4xWl8LTPt+xdLncwdtcJ849cNNeDT9HZYIL2u3hIXSSd7DuVyU
+         w0T8sL/vz63ModAgKcYyN/LCGkv+226Ty+z9wQ7NxisXmI1iGAI+uAtzDTEvlyrpRiJe
+         GHvwWt6aEtQBVCrTWJsSzM9egbv9uqQvpt3VNciMETwSlYhmKSVMto9ztDAvFYMWZfBC
+         ChAMdwWg9EgsYO3AyvTL6ctvPuv9XOXcGY7o+wN99Oo72XZODzNqOTcyJje91swi1DW4
+         GX1pcgP6qgHNojelOU5CnccWWsP/Ut29Q8RtpkM6nPq6M6K0imHmKbUfb/YELDLKdEey
+         0ncw==
+X-Forwarded-Encrypted: i=1; AJvYcCWxJbpEOOJWe2iGgXEKKHK9SR2Piriyvs9+KsPKboU/0J8RGUaX1TuWDtu9lse65/AWD+J10QxJo7s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1p4Ud5sw2GFw3y5lDwuMvL2CHzoc92K/wnfbkga2nH71Uk+lj
+	235cYiCmfH8rpiKb6vzBULoqJWIIWwrgLB161CwRh+wvud0rygodkJ8wvi9247Oz6Q==
+X-Gm-Gg: AY/fxX5dypw0Z6v4eZllkNJHk2uU1TesHyYJ4V5IGf8y9dvtCfKd4c9i5Slr+MJ0yrD
+	BhyTlsfNYqub8jp4xQIfQrlHq1GnkTNQ4+X1Ji9YZgYpkb0Aa9BfPl+4xYORpmbKAz/5H5wTNiT
+	U4eEUXBUgPp+N2LLzp+BvZ0PyfDkBHjzOl+duqCLrNDLXgMObtIj/xqmA4flDBVxbvgUD+E+P4R
+	x8g/SrN8extlSHESeVhPBU/VEIFYR3KbXS9OIhHeKZZQEv4DK2xW+tDZSNxkeUWjQZI+93MJ5Hm
+	HU33kWWaEzRJihRezWpQG1eUR2kTlx65uSODWHI2aADwTEVNTwVvJdNlKtFI6cU2naJTrSdXmD+
+	NN4zHdTBJgp12cxSMBC4wzj5cBwnEsbR7RIf0011wsWHzlNKmKA6d4IWnIMIXu981StDw+lbSw8
+	W13szsmC5xI0Ouo4ZsTCdmtveRWfnb6sMoh4kXlKhU1UruDaUZ1PPQUUYm+TuwcdsmGQG/hKq8p
+	9s=
+X-Google-Smtp-Source: AGHT+IG+1wIOIC2D7fvIE6GH7KrxUp1iatLigrZmPnwjEYiIjqpl6mtOZHaFVznGav/2uYjWcPt4nw==
+X-Received: by 2002:a05:600c:4f09:b0:477:7bca:8b2b with SMTP id 5b1f17b1804b1-47d195672d1mr100339485e9.15.1766389214605;
+        Sun, 21 Dec 2025 23:40:14 -0800 (PST)
+Message-ID: <d3f6189d-7a4b-4d7e-8b22-71c325ce109e@suse.com>
+Date: Mon, 22 Dec 2025 08:40:15 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR03MB4594:EE_|AS8PR03MB7603:EE_
-X-MS-Office365-Filtering-Correlation-Id: b597d1f5-c6c3-4f75-e358-08de40d70f45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dnB1R2tzaWlxdUoyVkRJTEVRUUV5RWxJSXNuOE1PV01CaHJmTjgzMCtaeGly?=
- =?utf-8?B?TEt5NmJQWFU5TmlpQnc5L0VjL0xUUllCT0VDTUwwelZFa1lvSWdoYzc1ZW9T?=
- =?utf-8?B?RUtIQktCS1JsZFRUcDFRL0xhTmJkNDV6Q0FhMGdNMkJnMFVCTzFYbjAvR3k2?=
- =?utf-8?B?cUkwVlEwSFlDQ3lHR2ZQa2sxSEdQV0VyU05XNGNhczd3eUVUc0FKcHFObFNB?=
- =?utf-8?B?UVhPSXRSdnYrSC90L3RYeU5QalMvT1c2WDZndmlsS2ZUVG80dGVvUjc3TFN3?=
- =?utf-8?B?Smw5WU9zQVZESytDL1RoZ1dVUHNJN1BOUSsyK3ZRK1h6ZDlwaTZ2cGViOXI0?=
- =?utf-8?B?d1F5YkdYNTJzUStPM2ZIQ2Nzbmw1cGFYV1IwV1pJcjFGdGhheXp4Y2VxTndW?=
- =?utf-8?B?VnJDaEdxdnRvRVB1N3BaSVNHSy8wWjFTcmhRblNIYVdmQXJOdTJoY0hUVUFu?=
- =?utf-8?B?Um1BcDRsN1g4VGxJYTFsVkRHdDI5ZkdHdnAxTHFMZkRiRWxCYmdPK1dUN1BH?=
- =?utf-8?B?Y2ZURk84TnQ5WUNtdDhlbm9kUHVQbWhMMWo2bHgxZm1EeGhpRXM4dHNhTXRl?=
- =?utf-8?B?QkdoOGhIM3dMN242MUE0KzNRZEUrSytjeFdzb1FEWVF6TkoyVDl2bnlqalZI?=
- =?utf-8?B?YTBxR3B6NVAvbmRSM0VZdWtoeDBiOE9DMG5NYWlmaU1PdzZsUTRPczZqL2Zq?=
- =?utf-8?B?bUFMQktLbkhnYmNHQzZTV08zeTBBcEc1MDkrNkFSVlRneVNxTHRNbWVWY1NC?=
- =?utf-8?B?S0NBUllEWVJYc0FwbDRVRzFFaFEwWHcwbGk3TGZaUHQ3anZRcDNmNm15T1hB?=
- =?utf-8?B?S1F2TXkrQzJFSXFUSVNJZzV3N3NkN1BvdjNiVFpwYk9uZzhiQWZzZnVHY2tr?=
- =?utf-8?B?Nml1bGF2cGxFUzR2NjZvODZKMGpGM3R2bWNEVVhOcG8zMUtsdk5jOGZxUWcz?=
- =?utf-8?B?Mk14ZGF4c3BtZmgxLzRKUDE2blY5TXJCQTVvRnBtNER5WWtUT0VISzhnT3Qw?=
- =?utf-8?B?enU1Ry9VOFB0ZEx6SmFscGdqSmFvdU1KcTdhVDFDdnV5R2N1blZheWo1MVdN?=
- =?utf-8?B?WElYM0xxbVpPeXZ2akZGRzFQTTh0SU1Gems5TStickNXdjczeW9RcjJtbXVZ?=
- =?utf-8?B?ZTk5dEp2Y1VJVVprczVGbkFNeHV5N3Nnai9HYnN4R0xnaC95NVhpaGVhRHQ3?=
- =?utf-8?B?V3Mxalc5U2ZVWStURXUzWUhIWUtGVG04Mk9CMi9HNDAwZ05nclczbzRCOVBv?=
- =?utf-8?B?Y1RpMzkwbElrMm1RcERpVnRNVG9qTzUzbjBPRk1jWFU4aXlHWnVYaEZWT1lG?=
- =?utf-8?B?SnNiNFlGNmhSQ2tldmtvOGkzRGkvTWZGUEl6NU12SmthRGpmSTFsRTViMkpF?=
- =?utf-8?B?WVB6SjVzTTRQWVJKaUxiczVnZTZmOEF6NHRLR0lGVnlscS9sSXlBZW1PTUFx?=
- =?utf-8?B?WHZCamw5MFQ4RGlBcUlUcEFsaGVDRjdMQTFDZGtyU3VJOWtVMGQzVmw2YmN1?=
- =?utf-8?B?akIvbElDaXdWc0lRS2ptU21ocDhFTmJ0cG5FTXA3M0NOb1pjdjdJM2NFZGZQ?=
- =?utf-8?B?Y041bzM0M2RGK0xLMlJlYTRidWtUMVA5TktrNStTWDA4NlIwQTkyYy82TWsz?=
- =?utf-8?B?TGtIOTlVa05oMGhMTzFNK1NmNlZ1WThRVDNkSVpiUVFYUGFXQ0kxdXdTWEhV?=
- =?utf-8?B?WVc3YWJYYkJvWmkwbzRLMFVSc0drcmpvOWNPSUcraC9wVU51bzRuc0JkdUwx?=
- =?utf-8?B?WHQ2aitVNFZhRm14MlFwOEhBNDUwK2t2WkdDZG1qTmdIQkJRcEdxc1l0QjZp?=
- =?utf-8?B?NEszaCtORWlCSExNM2FaajBzei9RU0NUbnd5Vm0wVGVNbEVEN0hOdDVyb0pS?=
- =?utf-8?B?UmpyQnl4ZzZveWFPeG5URlFWNmNlV1pqRUdBVEt5cUNxVGZabVpHb1VQTHcr?=
- =?utf-8?Q?6bg+sIev4sxtuFlcLYF/ukRKTWT4AOws?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB4594.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YitNb1NvbmI3ak1FbCs2WjQ4eXVHTWZrNkhWR25wK201TGR0OGc3SmdjYWxF?=
- =?utf-8?B?R29TRlZJY1hjaU9IaWZONlNZYmZ3a2U1UlJTZkNjUkNyNUtRQjlaN0pUT2N0?=
- =?utf-8?B?NWNmODRrRmRSWFVqK0hFK3Y3M0xiZDVBcHZBUlI2UkRwMXVxOUlQcTdCdkVX?=
- =?utf-8?B?d01oQkZBVXlLcmtxRHhVNjNjN1hlTEE3RHZmV2NkL2NJelVOMTdyMEw0TFhz?=
- =?utf-8?B?YWJWNm9XTUNqT2NweS90b2VWMjlXbXhoZEZkdnFwU2grSFZlQklhbmNhQWNP?=
- =?utf-8?B?VFpCYzNic1Fva3M5SmhoR2FEN0NvOEhyRXUyNytLOWFjeFI3bkp6dWRlcGdS?=
- =?utf-8?B?SzJVdEdYOWhlb1pjYjMzNVVlN0dNc2lOYXBzS0xqQ0dpVHNrdHhzTTRmUXBY?=
- =?utf-8?B?L1pJajA3bVRucDZyOUZSdXVtNmtLMzFkYnhLdnlLQk5DWU9oVW1ESlJ4Y2pC?=
- =?utf-8?B?Nk5YdkhJN1BjZVcrZ3VWdGMraU5NRUYvcGRaR2NTS1JxbDdlRktla0xmdVpm?=
- =?utf-8?B?R3lpYTQzazJXdzRDZTNyUTJ1S1prK2poM3FMOHNuN1FncW5zMUNBS3E3Z2o3?=
- =?utf-8?B?ZmdFVDVha3llMFVNNUdXRis5NUVlaUFTUm9hcGR0YXk3V05XLzF1YjJCWWI5?=
- =?utf-8?B?cm5qd3Eya2FNeDBLUFkwSEVCZXFoakpVUGhjVWNDYmFVclBhOGt2TGxyUm1o?=
- =?utf-8?B?NlllcnozVmVFbGUwU29VelQveEY0R1M0TCtZSWU2d0FZYTFHU0JRMm9oN1Bo?=
- =?utf-8?B?cmpmUWVESnVCMW42b1NiOUJNczBxVnltK2hCUGJJcjgrMUw0LzFPb2JHMUl3?=
- =?utf-8?B?N2EzTXl2RzI3U2c2WHN1Y2N0TEVwQzk3bVErWlh4K25tRHpVaElPbmFZN2R6?=
- =?utf-8?B?SlBMb0FRbmxReVREaXQ4YXJmM2ZYQnREd1M1RHNCSnpxbGp6Q1huUXlSNzRX?=
- =?utf-8?B?c1NROFZabjllNkdTd1p1R3M3cC9TeHdDR1RZNzYvc0ZsQlh5QzB1RmQvNGMv?=
- =?utf-8?B?NUVVY0xLbkVqUTZ3dkhYSTViU2VTb2ZiWDZTRzlrQ3FLdHIrcm52NG1ONjFi?=
- =?utf-8?B?dEVwN1hwUFVqTmd0OWRUWlVlWXJLWFdrUTl5UERMTlc0ZkRRcStpU0ZoYjhm?=
- =?utf-8?B?bGtmTUtMSkhzbTY2SXJMcDVQT3dEUy8wNHUzSWdha2JYeVlEWE1SL3BabzUr?=
- =?utf-8?B?elpvcndHZm5YbHU3SWw4c2VOVTgzR3FzOUl4Q0xBOHozK1RobHNyNXV5eXNn?=
- =?utf-8?B?OFhBM3ByZlZ5SUNPbDFXS2tHeXdkUjZRR3lmSmYwL2UzdXlURm16U2hJMG9z?=
- =?utf-8?B?MmszUC9CY0pZS3k5ZWVKTDBscEdaR1dsNCtHUjRlMExsMFNvQzlLWXlOMGg1?=
- =?utf-8?B?b0pVWWJFL3hIUytNeFZJMDdxa3F0akl5c1Z0UmZwWUVlQlhNaHFiVXhYaGZu?=
- =?utf-8?B?UzJTVUlRSHZMdGxaZk0xWDM0ZFNhcnptaks5YXRneWpINk9tWWR5Rmsra2hK?=
- =?utf-8?B?SFFDa1VpZnpwS2tkWElIUFNnM28wakJTMzlXUlBkT1VpdER6WXpuQjd5NXo5?=
- =?utf-8?B?UmZZR0p4aXRPZWZ5c0ZzbjBJODdmNm01SGI0R3BaYUlXVDBuTUhrTVNTNmFl?=
- =?utf-8?B?SEd2MUo4b205b0IxVDcxa0c1Ukw1RVVGZkg4UldNUFRoWExnbXpUOXNBcDZJ?=
- =?utf-8?B?QXMySVN1MlgxanlmWUl4YmQxYUxJTXpYVHk5UkRheURSUExxYlI5OERiMmtH?=
- =?utf-8?B?MDdCZnJrRS9VTU1tY0FyYlVzU1NKUHl1MW9tNkNtZzZ4QVE4bUt3Si9TdmYz?=
- =?utf-8?B?TW1TTEpiUVZYbkR6NmhQYzI5ejNSbHAxanVUaTdic0t6dFZLOVM5K0hYeCs4?=
- =?utf-8?B?RnVwaXk2Nk9rN0NmNC9DYXY2Y0hpcUluc1psKzNJS2RsUldqQXlTZXBCcXZF?=
- =?utf-8?B?bG8xbm5vTnN3dURXMnRuNWovWk1jb2xOR1d1T3ByUENxOVdMMFErbVNiRGRa?=
- =?utf-8?B?OHJKQXpzcEFCbzBURVpoaFVOYWFhQTVSSVl6T1dUNHNiaTA0amdWUitEaXls?=
- =?utf-8?B?alFmaFpoZnVLa0pZbm9XVEJMQnZOS0Evazh0K3JEODlVN3p2VWI5MHJUWTZW?=
- =?utf-8?B?Z09RNFZBTWtPWW0zcXpPdHE4NDJsaVpTVXpKenZIWWJ2d2tPYmh3VXdlWWsz?=
- =?utf-8?B?bnViTGdPRGJXVVlwTVJtSU85Ri9wSW9YUEcxNWplKy9LOW9BZEdQdDdVMmR4?=
- =?utf-8?B?RjR3QkU5Zk4yelRnOGJja2JONG1ObzFyRUtDZWRVUlpsamlNa3p2dU5UWTl4?=
- =?utf-8?B?S3lWaElTRUNUMTZtRTBZcGVYODJlRDZmUDF2VFBaNzAvKzg4YllDWlpYQU5a?=
- =?utf-8?Q?ys0GF51dRz9umPcs=3D?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b597d1f5-c6c3-4f75-e358-08de40d70f45
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB4594.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2025 21:22:35.3014
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XQWhnNJXALOAnrkqmv0iSP/6+jBozm34J2D1qdo+lo4J7LVI0OlXtB/Mw5iWtNShCpaZQSyByAVkD3j/DMuv0ykVcmNaQOOcfA9NNeu2UNQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7603
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] xen/riscv: add RISC-V legacy SBI extension support
+ for guests
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
+ <df7a7e94fba79265138d6cc8d23b1f6b958f5bd5.1765888425.git.oleksii.kurochko@gmail.com>
+ <08105722-0920-462a-aeba-a36f8044a5dc@suse.com>
+ <dddbd311-99a2-44b1-926e-f3859ff936dc@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <dddbd311-99a2-44b1-926e-f3859ff936dc@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 19.12.25 18:10, Teddy Astie wrote:
-> Le 18/12/2025 à 16:21, Grygorii Strashko a écrit :
->>
->>
->> On 11.11.25 22:16, Grygorii Strashko wrote:
->>> From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 19.12.2025 21:04, Oleksii Kurochko wrote:
+> On 12/18/25 3:20 PM, Jan Beulich wrote:
+>> On 17.12.2025 17:54, Oleksii Kurochko wrote:
+>>> This commit adds support for legacy SBI extensions (version 0.1) in Xen
+>>> for guest domains.
 >>>
->>> Every XEN_DOMCTL_CDF_x flag:
->>> - is defined in public/domctl.h
->>> - explicitly listed in sanitise_domain_config() (common/domain.c) to form
->>> mask containing all supported DOMCTL_CDF flags for "Unknown CDF flags"
->>> check.
->>>
->>> So, it is required to modify two files every time XEN_DOMCTL_CDF_x flags
->>> set is modified.
->>>
->>> Simplify the things by introducing XEN_DOMCTL_CDF_ALL mask, so
->>> sanitise_domain_config() no need to be modified any more.
->>>
->>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>> ---
+>>> The changes include:
+>>> 1. Define all legacy SBI extension IDs (0x0 to 0x8) for better clarity and
+>>>     completeness.
+>>> 2. Implement handling of legacy SBI extensions, starting with support for
+>>>     SBI_EXT_0_1_CONSOLE_{PUT,GET}CHAR.
+>> I can't spot any actual support for GETCHAR.
 >>
->> Seems nobody interested, sad, dropping from backlog.
->>
-> 
-> Sorry, I missed this one (I guess others have too).
-> 
->>
->>>    xen/common/domain.c         | 7 +------
->>>    xen/include/public/domctl.h | 7 +++++++
->>>    2 files changed, 8 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/xen/common/domain.c b/xen/common/domain.c
->>> index 775c33928585..4f91316ad93e 100644
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -730,12 +730,7 @@ static int sanitise_domain_config(struct
->>> xen_domctl_createdomain *config)
->>>        bool iommu = config->flags & XEN_DOMCTL_CDF_iommu;
->>>        bool vpmu = config->flags & XEN_DOMCTL_CDF_vpmu;
->>> -    if ( config->flags &
->>> -         ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
->>> -           XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
->>> -           XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
->>> -           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu |
->>> -           XEN_DOMCTL_CDF_trap_unmapped_accesses) )
->>> +    if ( config->flags & ~XEN_DOMCTL_CDF_ALL )
->>>        {
->>>            dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
->>>            return -EINVAL;
->>> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->>> index 8f6708c0a7cd..94a8e3042cbf 100644
->>> --- a/xen/include/public/domctl.h
->>> +++ b/xen/include/public/domctl.h
->>> @@ -72,6 +72,13 @@ struct xen_domctl_createdomain {
->>>    /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
->>>    #define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_trap_unmapped_accesses
->>> +#define
->>> XEN_DOMCTL_CDF_ALL                                                     \
->>> +        (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
->>>                               \
->>> +         XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
->>>                  \
->>> +         XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
->>>                       \
->>> +         XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu |
->>>                      \
->>> +         XEN_DOMCTL_CDF_trap_unmapped_accesses)
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/vsbi/legacy-extension.c
+>>> @@ -0,0 +1,65 @@
 >>> +
->>>        uint32_t flags;
->>>    #define _XEN_DOMCTL_IOMMU_no_sharept  0
->>
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +
+>>> +#include <xen/console.h>
+>>> +#include <xen/lib.h>
+>>> +#include <xen/sched.h>
+>>> +
+>>> +#include <asm/processor.h>
+>>> +#include <asm/vsbi.h>
+>>> +
+>>> +static void vsbi_print_line(char c)
+>> Misleading function name? The parameter doesn't fit the name, and ...
 > 
-> Given that we already have XEN_DOMCTL_CDF_MAX, we could base the check
-> using it instead.
-> Something like checking fls(config->flags) > fls(XEN_DOMCTL_CDF_MAX) ?
+> It was called only because of ...
+> 
+>>
+>>> +{
+>>> +    struct domain *cd = current->domain;
+>> I guess you copied this code from somewhere, but a variable of this type and
+>> contents wants to be named "currd".
+>>
+>>> +    struct domain_console *cons = cd->console;
+>>> +
+>>> +    if ( !is_console_printable(c) )
+>>> +        return;
+>>> +
+>>> +    spin_lock(&cons->lock);
+>>> +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
+>>> +    if ( c != '\n' )
+>>> +        cons->buf[cons->idx++] = c;
+>>> +    if ( (cons->idx == (ARRAY_SIZE(cons->buf) - 1)) || (c == '\n') )
+>>> +    {
+>>> +        cons->buf[cons->idx] = '\0';
+>>> +        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cons->buf);
+>> ... you also only print a line under certain conditions.
+> 
+> ... this. (for the same reason as hvm_print_line() which has an argument
+> 'uint32_t *val' but inside function working with chars because of
+> 'char c = *val;')
+> 
+> I will change the name to vsbi_print_char().
+> 
+>>
+>>> +        cons->idx = 0;
+>>> +    }
+>>> +    spin_unlock(&cons->lock);
+>>> +}
+>>> +
+>>> +static int vsbi_legacy_ecall_handler(struct vcpu *vcpu, unsigned long eid,
+>>> +                                     unsigned long fid,
+>>> +                                     struct cpu_user_regs *regs)
+>>> +{
+>>> +    int ret = 0;
+>>> +
+>>> +    switch ( eid )
+>>> +    {
+>>> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
+>>> +        vsbi_print_line((char)regs->a0);
+>> The cast isn't really needed, is it?
+> 
+> No, I think it could be omitted.
+> 
+>>   And just to double-check: The spec demands
+>> the upper bits to be ignored? (A link to the spec could have been useful, e.g.
+>> in the cover letter.)
+> 
+> It doesn't mention anything about upper bit for PUTCHAR:
+>    https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/ext-legacy.adoc#extension-console-putchar-eid-0x01
+>    (I will add a link to the spec in the cover letter.)
+> So I assume that they don't care about it. (IIUC your question correctly).
 
-That's what I've tried first.
-The problem is that there is possibility of CDF_X to be removed/deprecated, small, but still it is.
-In such case fls() can't be used.
-So using define which list allowed flags is safer from long term point of view.
+I fear such a conclusion cannot be easily drawn. The parameter there is even
+"int". Anything not ASCII will remain unclear how to handle until the spec is
+changed to actually say what is intended.
 
--- 
-Best regards,
--grygorii
+>>> +        break;
+>>> +
+>>> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
+>>> +        ret = SBI_ERR_NOT_SUPPORTED;
+>>> +        break;
+>>> +
+>>> +    default:
+>>> +        /*
+>>> +         * TODO: domain_crash() is acceptable here while things are still under
+>>> +         * development.
+>>> +         * It shouldn't stay like this in the end though: guests should not
+>>> +         * be punished like this for something Xen hasn't implemented.
+>>> +         */
+>> Question then is why SBI_EXT_0_1_CONSOLE_GETCHAR gets a separate case block.
+> 
+> Because we intentionally do not support|SBI_EXT_0_1_CONSOLE_GETCHAR|,|domain_crash()|
+> should not be called for it.
 
+That contradicts the patch description saying "starting with support for
+SBI_EXT_0_1_CONSOLE_{PUT,GET}CHAR." (Still in context at the top.)
+
+Jan
 
