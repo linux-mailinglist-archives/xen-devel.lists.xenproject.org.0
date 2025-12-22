@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E840CD59BC
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 11:34:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192017.1511383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F134CD5A4F
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 11:44:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192027.1511393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXdEe-0002yj-2d; Mon, 22 Dec 2025 10:33:52 +0000
+	id 1vXdOk-0004f2-09; Mon, 22 Dec 2025 10:44:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192017.1511383; Mon, 22 Dec 2025 10:33:52 +0000
+Received: by outflank-mailman (output) from mailman id 1192027.1511393; Mon, 22 Dec 2025 10:44:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXdEd-0002wW-Vm; Mon, 22 Dec 2025 10:33:51 +0000
-Received: by outflank-mailman (input) for mailman id 1192017;
- Mon, 22 Dec 2025 10:33:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vXdOj-0004cr-Sm; Mon, 22 Dec 2025 10:44:17 +0000
+Received: by outflank-mailman (input) for mailman id 1192027;
+ Mon, 22 Dec 2025 10:44:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vXdEc-0002wQ-M9
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 10:33:50 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b31585d0-df21-11f0-9cce-f158ae23cfc8;
- Mon, 22 Dec 2025 11:33:48 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-477b5e0323bso24452155e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 02:33:48 -0800 (PST)
+ id 1vXdOi-0004cl-IS
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 10:44:16 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 285bce78-df23-11f0-b15b-2bf370ae4941;
+ Mon, 22 Dec 2025 11:44:14 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-477770019e4so32828705e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 02:44:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea22674sm21900700f8f.10.2025.12.22.02.33.46
+ 5b1f17b1804b1-47be3ac5409sm91542085e9.15.2025.12.22.02.44.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Dec 2025 02:33:47 -0800 (PST)
+ Mon, 22 Dec 2025 02:44:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b31585d0-df21-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 285bce78-df23-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766399627; x=1767004427; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=p5/knIgOEOu9E/fUoy13iVCzcZC0VgGVlLf1H4S1hZk=;
-        b=Cpez3oyZtI+nYDO9rH98TiO9elMHLtEugOod1lPaT9gwhfy2e6s8KX6GLfODGBK9uG
-         oudbrrTvX5+fLyljPXqOcTIfE0mH4GE/oiQkESPBzU0s1O2f+r7JLOxZV886NT88O4JZ
-         BM+l3IwRhGsnheJ+o3ODjXbKqzBDLzvOjJO0WhTsOIjTlpyYu6CumpOggJapxIa4kRzW
-         8y4UxwfEYtXxLmQIUjxRxBGcr/f82tLmdhyz0Z3jAzQNO5r6YvYVnHHn64ESV7cT3qTF
-         W1e8QwEus/htMsg7sq/uYmqOaHbxTg+JLyiWBZyMtHjsKuUIOSZBofjLzScou9QGE5OQ
-         1qCA==
+        d=suse.com; s=google; t=1766400254; x=1767005054; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YEl4NTplPsoOXXXkGSP9wfMuOcwX8N0nGF7mYuPNQtA=;
+        b=CC23UTnlUy76yVoC0KdE/MatqFsCWmrQmvk1CljdbTVxn62BwEKg2o3F0QyweVF8ua
+         ovIsDjF62JH3Cng1UuJH7EFqQpJMkpuZ6/6BOzZeTDQbcL0vXbwdwyFaef+Gxjzqs8D2
+         WqED8inTnNw5UOLaS+Gk3tqQ2vWK7Vvh5Yv0twUSnrbTejhIC/1nWJcNSesWWaqZSRnv
+         1uYz84b66we4iT3cgXs/uO0bmTA48zwwtQNH8IsbWdd73oNC6ovCjbUFzzzBsMGGkEnL
+         X8qRp3vzqNV3RhYaGrx4/L0jh1XCtVdus6t0oSEb7CbJFJQdBxnU4Hs73NLhRDH6dF0I
+         fuqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766399627; x=1767004427;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=p5/knIgOEOu9E/fUoy13iVCzcZC0VgGVlLf1H4S1hZk=;
-        b=oppgcAvjZcAdCwyGyKs1kX/R1YBFzUqCiNpClmvoi0liu24DCcdtM/Mxt+86A9EZdA
-         Vl12YOsWewLSiCu3h37ZcRpB51/Xz3QbkC7JfwsVhMZpbK9QpF7FD2aIdcCc+OXSyvGP
-         B1Lcboz/ThIh3Q3ST6NmcFyWh7ZcvyUkXV8/3eBnRY/TD1s7dCVBQ7623I+Yr/6FpfEU
-         Nr/uN90UuERZU5ogdCXvTmuOTvJYEZze3TVMWfDCL19v/sIApqZ1d5eL3LZ6QECnUyX6
-         mLlE8Eo3Puqfcwj4hDFgEC28rw0y8ZSJeMqiaY6J0cLgz3roETK2LnGBg39lwfe/yWOo
-         tMRQ==
-X-Gm-Message-State: AOJu0YyfmARUO6l/ez2tH2XQ39flzvqzAFhSf8ysflMwNPdM12Gw5eGy
-	OS9nGeWCTetpMIHidwMXG98zTLG/wl3CtZi+UG86NZC8MK5gecIJB8AHcBLLFYcR+5e8nTh3KC0
-	Vp14=
-X-Gm-Gg: AY/fxX7vE353Yf9JluKHi3M02oTxxFUJqSSqkrgPfY2mmFqfnJMxn4muzZlzdOgpB3/
-	MFwfd0ChSiwkseCATNg7C/5LADNrri3iDQwGIikHlkaEIZ/wiaMN9hlL1nY9JtY8J2LsPC1ZTDs
-	dtC1uH3JlcI+rxLWZOXZLjl21qZCNHKVzAiR57yFMjUOD67j++xqY4rbsJ2sUWfWVIYD/gZUiut
-	Pqg+Osqbg66lMCHyi1XUY3+P+prrzf+ZiIeqEFKsyloDMt1Gk9hOIoxbyjxEURMdPEQZRSTsejF
-	3fXy+EZ4xPiI5gGvxSd1VS9tVTjpau2TEOKGX2kCcivxbMmE3w3kx6B6WOC6bKxOY9yrHvBzCQN
-	zF0doevjOnaxKX1CggDRhWKOe2c0rsjAjCik5am/ENz+rqqijF528hxqdWuEU9OH6rWhY0XXZr4
-	BQLKMH5njJ3S6kXFRe6ke9NN10Ze5r55kvnVVCtJne8w3rBRMhApoRxRSGK2sXdnqbK9yXhL8JD
-	E4=
-X-Google-Smtp-Source: AGHT+IETn/3FS5zkysbMWW6Y6GFvYHXnEUETdITfoq6pRnlrg4J+6Z0hc9iC3O5gcuK6QLZenMemSQ==
-X-Received: by 2002:a05:6000:400b:b0:430:f74d:6e9f with SMTP id ffacd0b85a97d-432448b7e8emr16999556f8f.14.1766399627441;
-        Mon, 22 Dec 2025 02:33:47 -0800 (PST)
-Message-ID: <e3af387a-dd8b-4d58-8356-777319c7a2bf@suse.com>
-Date: Mon, 22 Dec 2025 11:33:49 +0100
+        d=1e100.net; s=20230601; t=1766400254; x=1767005054;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YEl4NTplPsoOXXXkGSP9wfMuOcwX8N0nGF7mYuPNQtA=;
+        b=UtA8HPYJLMjlGz7R+rin2o9DqliR8GIGvDa/0x1yNC3Av3iKicEjWknXgeOGKvQXUg
+         +/iQ3GyEzd5+V1xf9z1dT5dBpv2Q6I+NtOAfGyCyzXAb9DmSMEVIOwhCPSbK+i9rB9AN
+         JXYFn6e8t6GGvsdjLe3davGaLzrBqN1PBKR/5zbS5RqL9OCO4Upb1XIOFftDkNig2M25
+         PgtwX7urNDoPTSp2vqp31K1mNaRrrnotFHMJoa9JcwWHKM+F7nA8TZ1kmtle66JYYS6f
+         BwhNBN85bGopsvWKm9OV1OObK4Q1VvLjNBipH59i5+LthCS4PjLQswMhvZ9AYy5g7k/I
+         XrMA==
+X-Forwarded-Encrypted: i=1; AJvYcCUbh/UgLYKEkYd5FR15JmQg/4o57+qG9LwpYyi7p+hGNTgSDT383sXMYrt3TZkOoF4ZfrKp10mS0j4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzkqAg6nD0xgAc90GP4ZUZv3C8oBvTDoZZE/cbURz5p4argZNcj
+	X05/tFhQ/4HhdZgD7UIsWtfR4Ma2ZJcgqtfxZBxsxLj96WjmihCh+Aky/Mm2s6iA1v1IPYZVoTa
+	lLHA=
+X-Gm-Gg: AY/fxX7jygBse4rVKU4+aLWAw+x/pd8Da4rU+3jfJ8Xv/3vBL0y4d/Bnsywo6P9Unhe
+	7xBFxT7gjaecCF0eqnTEdQOa1MkCl9IAUbIzmoJTWUNxchirOt9Hp03QJTS1oHF0QtYJaZOzIuh
+	S68guVK/82VQMp0fTbpIbdWT9jFikIcvgetb7+lMhmZm7r4RhcjywhOIAVE0RPr6Fr4IUkfxADA
+	B1AyQrAiIYZX6IQq2EmfKZdpQt61xHlmyn6EIdKPbj49emwVwzG3J+0eglR0fru587twib4z20N
+	LkhYMmO0lIWaJNgsdBg3Ku5Y1MwNyi4l3wqES3pQz40UyoFtL8ynbjfiX65lCHUrHUKS1LnO9uT
+	jlj3B3Q8Y5mWvn6P/3tq3Yz6fz9Lnp3RobGJEB579hPDfx8821iPrFR3EJ0JEo1znTHW5ktndV7
+	cd/c6XI4iCZBw1y7Oen56wY6kg/Kp/9bepgQuhd4W1lnkPd4TsF2nPAzKhQe7T3gT2qE2Y+F4z5
+	lCtVAF6u6zoCQ==
+X-Google-Smtp-Source: AGHT+IHfQNASd2Xp3b1gNmW4F+7Y4OV24Kyzy/9a7G8jlIHIF1cnol61Wm30kox/wu7RZ+2qxrG6kQ==
+X-Received: by 2002:a05:600c:4e49:b0:471:13dd:bae7 with SMTP id 5b1f17b1804b1-47d195911b8mr95350835e9.30.1766400253764;
+        Mon, 22 Dec 2025 02:44:13 -0800 (PST)
+Message-ID: <f68c37a6-a3d7-4426-a702-82412fd6361c@suse.com>
+Date: Mon, 22 Dec 2025 11:44:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] memory: overlapping XENMAPSPACE_gmfn_range requests
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Subject: Re: [PATCH v4 2/4] xenpm: Don't build outside of x86
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1766158766.git.teddy.astie@vates.tech>
+ <77dc07c4b4431fb53aa5b226d302f437e4314d8c.1766158766.git.teddy.astie@vates.tech>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,137 +122,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <77dc07c4b4431fb53aa5b226d302f437e4314d8c.1766158766.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Overlapping requests may need processing backwards, or else the intended
-effect wouldn't be achieved (and instead some pages would be moved more
-than once).
+On 19.12.2025 16:42, Teddy Astie wrote:
+> xenpm doesn't provide any interesting usable features outside of x86,
+> skip building it if we are not x86.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+>  CHANGELOG.md        | 3 +++
+>  tools/misc/Makefile | 2 +-
+>  2 files changed, 4 insertions(+), 1 deletion(-)
 
-With some adjustment there this also covers XEN_DMOP_relocate_memory,
-where the potential issue was first noticed.
+Arm being what is mainly affected, I think you may have wanted to Cc Arm folks,
+for them to ack this (alongside Anthony).
 
-Fixes: a04811a315e0 ("mm: New XENMEM space, XENMAPSPACE_gmfn_range")
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course an alternative would be to simply reject overlapping requests.
-Then we should reject all overlaps though, I think. But since the code
-change didn't end up overly intrusive, I thought I would go the "fix it"
-route first.
----
-v2: Adjust XEN_DMOP_relocate_memory handling for the working-backwards
-    case.
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>       deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
+>       2011 onwards.
+>  
+> + - Removed xenpm on non-x86 platforms as it doesn't actually provide anything
+> +   useful outside of x86.
 
---- a/xen/arch/x86/hvm/dm.c
-+++ b/xen/arch/x86/hvm/dm.c
-@@ -569,12 +569,16 @@ int dm_op(const struct dmop_args *op_arg
- 
-         rc = xenmem_add_to_physmap(d, &xatp, 0);
-         if ( rc == 0 && data->size != xatp.size )
-+        {
-             rc = xatp.size;
-+            xatp.idx += rc;
-+            xatp.gpfn += rc;
-+        }
-         if ( rc > 0 )
-         {
-             data->size -= rc;
--            data->src_gfn += rc;
--            data->dst_gfn += rc;
-+            data->src_gfn = xatp.idx;
-+            data->dst_gfn = xatp.gpfn;
-             const_op = false;
-             rc = -ERESTART;
-         }
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -849,7 +849,7 @@ int xenmem_add_to_physmap(struct domain
-                           unsigned int start)
- {
-     unsigned int done = 0;
--    long rc = 0;
-+    long rc = 0, adjust = 1;
-     union add_to_physmap_extra extra = {};
-     struct page_info *pages[16];
- 
-@@ -884,8 +884,25 @@ int xenmem_add_to_physmap(struct domain
-         return -EOVERFLOW;
-     }
- 
--    xatp->idx += start;
--    xatp->gpfn += start;
-+    /*
-+     * Overlapping ranges need processing backwards when destination is above
-+     * source.
-+     */
-+    if ( xatp->gpfn > xatp->idx &&
-+         unlikely(xatp->gpfn < xatp->idx + xatp->size) )
-+    {
-+        adjust = -1;
-+
-+        /* Both fields store "next item to process". */
-+        xatp->idx += xatp->size - start - 1;
-+        xatp->gpfn += xatp->size - start - 1;
-+    }
-+    else
-+    {
-+        xatp->idx += start;
-+        xatp->gpfn += start;
-+    }
-+
-     xatp->size -= start;
- 
- #ifdef CONFIG_HAS_PASSTHROUGH
-@@ -903,8 +920,8 @@ int xenmem_add_to_physmap(struct domain
-         if ( rc < 0 )
-             break;
- 
--        xatp->idx++;
--        xatp->gpfn++;
-+        xatp->idx += adjust;
-+        xatp->gpfn += adjust;
- 
-         if ( extra.ppage )
-             ++extra.ppage;
-@@ -927,7 +944,10 @@ int xenmem_add_to_physmap(struct domain
- 
-         this_cpu(iommu_dont_flush_iotlb) = 0;
- 
--        ret = iommu_iotlb_flush(d, _dfn(xatp->idx - done), done,
-+        if ( likely(adjust > 0) )
-+            adjust = done;
-+
-+        ret = iommu_iotlb_flush(d, _dfn(xatp->idx - adjust), done,
-                                 IOMMU_FLUSHF_modified);
-         if ( unlikely(ret) && rc >= 0 )
-             rc = ret;
-@@ -941,13 +961,26 @@ int xenmem_add_to_physmap(struct domain
-         for ( i = 0; i < done; ++i )
-             put_page(pages[i]);
- 
--        ret = iommu_iotlb_flush(d, _dfn(xatp->gpfn - done), done,
-+        ret = iommu_iotlb_flush(d, _dfn(xatp->gpfn - adjust), done,
-                                 IOMMU_FLUSHF_added | IOMMU_FLUSHF_modified);
-         if ( unlikely(ret) && rc >= 0 )
-             rc = ret;
-     }
- #endif
- 
-+    /*
-+     * For internal callers (e.g. XEN_DMOP_relocate_memory handling) leave
-+     * the GFNs from where to resume in *xatp (they're correct already when
-+     * we worked forwards). These are the values not biased for a possible
-+     * non-zero "start" that a subsequent invocation might use, so also do
-+     * this updating only when incoming "start" was 0.
-+     */
-+    if ( rc > 0 && !start && unlikely(adjust < 0) )
-+    {
-+        xatp->idx -= xatp->size - rc - 1;
-+        xatp->gpfn -= xatp->size - rc - 1;
-+    }
-+
-     return rc;
- }
- 
+Maybe add the word "tool" for those who don't recognize "xenpm" at the first
+glance?
+
+Jan
 
