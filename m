@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F134CD5A4F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 11:44:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192027.1511393 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ACB4CD5A7C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 11:48:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192038.1511404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXdOk-0004f2-09; Mon, 22 Dec 2025 10:44:18 +0000
+	id 1vXdSS-0005M8-G2; Mon, 22 Dec 2025 10:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192027.1511393; Mon, 22 Dec 2025 10:44:17 +0000
+Received: by outflank-mailman (output) from mailman id 1192038.1511404; Mon, 22 Dec 2025 10:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXdOj-0004cr-Sm; Mon, 22 Dec 2025 10:44:17 +0000
-Received: by outflank-mailman (input) for mailman id 1192027;
- Mon, 22 Dec 2025 10:44:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vXdSS-0005JI-BF; Mon, 22 Dec 2025 10:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 1192038;
+ Mon, 22 Dec 2025 10:48:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vXdOi-0004cl-IS
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 10:44:16 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 285bce78-df23-11f0-b15b-2bf370ae4941;
- Mon, 22 Dec 2025 11:44:14 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so32828705e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 02:44:14 -0800 (PST)
+ id 1vXdSQ-0005JC-Iw
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 10:48:06 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b185ca1f-df23-11f0-9cce-f158ae23cfc8;
+ Mon, 22 Dec 2025 11:48:04 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-42fed090e5fso1773604f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 02:48:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be3ac5409sm91542085e9.15.2025.12.22.02.44.13
+ ffacd0b85a97d-4324ea830f3sm21291633f8f.22.2025.12.22.02.48.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Dec 2025 02:44:13 -0800 (PST)
+ Mon, 22 Dec 2025 02:48:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 285bce78-df23-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: b185ca1f-df23-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766400254; x=1767005054; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766400484; x=1767005284; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YEl4NTplPsoOXXXkGSP9wfMuOcwX8N0nGF7mYuPNQtA=;
-        b=CC23UTnlUy76yVoC0KdE/MatqFsCWmrQmvk1CljdbTVxn62BwEKg2o3F0QyweVF8ua
-         ovIsDjF62JH3Cng1UuJH7EFqQpJMkpuZ6/6BOzZeTDQbcL0vXbwdwyFaef+Gxjzqs8D2
-         WqED8inTnNw5UOLaS+Gk3tqQ2vWK7Vvh5Yv0twUSnrbTejhIC/1nWJcNSesWWaqZSRnv
-         1uYz84b66we4iT3cgXs/uO0bmTA48zwwtQNH8IsbWdd73oNC6ovCjbUFzzzBsMGGkEnL
-         X8qRp3vzqNV3RhYaGrx4/L0jh1XCtVdus6t0oSEb7CbJFJQdBxnU4Hs73NLhRDH6dF0I
-         fuqg==
+        bh=MOVdg3KxuxJI/OvC5S/Ed6qCE+9UNJsSXye+vlru8hM=;
+        b=a4EOcRAycBdZDE03Ruw3U77jWOL0dr7pzquk6LubU7EKe+ZWiLlUZmMI6A8IGj2J+F
+         ehOlOMiM2b8da/sgpJe8X5PAq2JB5g2T2nFwA10MBKaStrTB8HmdeL9UB07dYTOagDpr
+         L8NHAdGNtcN1Fn5D/1dh9KHMLGBqndKNjYoBsD/ebks79qeOdHfk84RwyRhWqEBXsEfb
+         0Xwpovu283fXEA7mH3tk5BvRiuROPMPjvEIr2EGmYtQ3TM36LgJB/VwQwT+bYbgcKcjd
+         KMvqqRNLuHPn7yG6L/2wt5bv/k9X0A9mj8m8sg0oeiW0gfYQkJ6eSFfcV+/V2RFWMcUg
+         0Q4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766400254; x=1767005054;
+        d=1e100.net; s=20230601; t=1766400484; x=1767005284;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YEl4NTplPsoOXXXkGSP9wfMuOcwX8N0nGF7mYuPNQtA=;
-        b=UtA8HPYJLMjlGz7R+rin2o9DqliR8GIGvDa/0x1yNC3Av3iKicEjWknXgeOGKvQXUg
-         +/iQ3GyEzd5+V1xf9z1dT5dBpv2Q6I+NtOAfGyCyzXAb9DmSMEVIOwhCPSbK+i9rB9AN
-         JXYFn6e8t6GGvsdjLe3davGaLzrBqN1PBKR/5zbS5RqL9OCO4Upb1XIOFftDkNig2M25
-         PgtwX7urNDoPTSp2vqp31K1mNaRrrnotFHMJoa9JcwWHKM+F7nA8TZ1kmtle66JYYS6f
-         BwhNBN85bGopsvWKm9OV1OObK4Q1VvLjNBipH59i5+LthCS4PjLQswMhvZ9AYy5g7k/I
-         XrMA==
-X-Forwarded-Encrypted: i=1; AJvYcCUbh/UgLYKEkYd5FR15JmQg/4o57+qG9LwpYyi7p+hGNTgSDT383sXMYrt3TZkOoF4ZfrKp10mS0j4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkqAg6nD0xgAc90GP4ZUZv3C8oBvTDoZZE/cbURz5p4argZNcj
-	X05/tFhQ/4HhdZgD7UIsWtfR4Ma2ZJcgqtfxZBxsxLj96WjmihCh+Aky/Mm2s6iA1v1IPYZVoTa
-	lLHA=
-X-Gm-Gg: AY/fxX7jygBse4rVKU4+aLWAw+x/pd8Da4rU+3jfJ8Xv/3vBL0y4d/Bnsywo6P9Unhe
-	7xBFxT7gjaecCF0eqnTEdQOa1MkCl9IAUbIzmoJTWUNxchirOt9Hp03QJTS1oHF0QtYJaZOzIuh
-	S68guVK/82VQMp0fTbpIbdWT9jFikIcvgetb7+lMhmZm7r4RhcjywhOIAVE0RPr6Fr4IUkfxADA
-	B1AyQrAiIYZX6IQq2EmfKZdpQt61xHlmyn6EIdKPbj49emwVwzG3J+0eglR0fru587twib4z20N
-	LkhYMmO0lIWaJNgsdBg3Ku5Y1MwNyi4l3wqES3pQz40UyoFtL8ynbjfiX65lCHUrHUKS1LnO9uT
-	jlj3B3Q8Y5mWvn6P/3tq3Yz6fz9Lnp3RobGJEB579hPDfx8821iPrFR3EJ0JEo1znTHW5ktndV7
-	cd/c6XI4iCZBw1y7Oen56wY6kg/Kp/9bepgQuhd4W1lnkPd4TsF2nPAzKhQe7T3gT2qE2Y+F4z5
-	lCtVAF6u6zoCQ==
-X-Google-Smtp-Source: AGHT+IHfQNASd2Xp3b1gNmW4F+7Y4OV24Kyzy/9a7G8jlIHIF1cnol61Wm30kox/wu7RZ+2qxrG6kQ==
-X-Received: by 2002:a05:600c:4e49:b0:471:13dd:bae7 with SMTP id 5b1f17b1804b1-47d195911b8mr95350835e9.30.1766400253764;
-        Mon, 22 Dec 2025 02:44:13 -0800 (PST)
-Message-ID: <f68c37a6-a3d7-4426-a702-82412fd6361c@suse.com>
-Date: Mon, 22 Dec 2025 11:44:15 +0100
+        bh=MOVdg3KxuxJI/OvC5S/Ed6qCE+9UNJsSXye+vlru8hM=;
+        b=HmUOKSAwWdAIcMMPYRVQtz5vm/FY7bQBfleyIk0qnn9j38i9z8jng5ovVt5dylPbAl
+         HQAeozXj6BGiR7eHTbXjpIM2Ob/VR2b9Eox7CsK7D9pdMUaIvfLAgec+8rzgk5a1pkhQ
+         q/nhxzGYDdbAS3xKJ0zYHZqkAulKpq35DSYhX0ka4ak558/Kw4VYM6SQQoU18Z99Y1uO
+         QHP43pzKuX8t1xFkRVeWf5Q781y8VNiiKPysFfIwV9i6IjKGPbGPj/PjQOLMLASMDXPW
+         wq7r1iydE85AHeVqP6hY7a82DgzDaEnt6lGTCmawQAoRqwJMV/+xBXMy3cXTxuv6gjjY
+         yHrw==
+X-Forwarded-Encrypted: i=1; AJvYcCUD/vyN10FPK3c+vCVsVRPkDD1PSGy5ICrTjwMyVYtHHI6Uio44hoA2AWmwa9NI6qKkAgbm+3vizw4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmpcAVFLH0cfF7qa/4r289TDIzppId28SbjB6UGl0ezp2RRqnT
+	vIbgGqwkKIUataQ9Wgsi++bCpqWoSyrvRmsqqOOLbtMz77Y1J5RwcOAtUh+Bh93jfA==
+X-Gm-Gg: AY/fxX47dfqEfKCZypmnv8fgOgi7YqZde+AJh5Dzyq02lbDeefX5yqoVcv/rce4YydY
+	CK7NtS6uRwH6HtgzAGT9l2DyL+62/vf9Cyb/djkOfPEDvWVyplFnuaqdqlB3t6thdRgTbOTiBVT
+	b0zLBsJAKfH0tQxRT4uNqJF2jObkFAZGdg7eO8Kd2BcFVynfPV/Pk0WnGrBLzYC77BpnhAl2H2H
+	vlqBNs6zFS+WFdXXoS9yWMysNfgnXvTnAxM+RccHBZVT19PjyWVjA0aPwmy9geoz+T9D9eiJZ1r
+	rOVe3YhDkzTpy3NPfN4QcTZDcx6DX4z3sAof0cOcvkf0bQKkTPuOAAYxdDKbBKKtf+1V+UmszDX
+	EyWedR0jtgceWVMFaYzq1tujHmYRFzML92LDNqVclG5GIqcHwvMq/iv0+45moExPWP8tf9koh1o
+	XgWKrXar6bO1LopvL42rbHW+9dJqca+ZRq9vI1HmBXTMPcYTRsBs/AGqNS+Ho1CZD1NTxfU+n9I
+	lo=
+X-Google-Smtp-Source: AGHT+IHNFthoYXKM4NMIFzPuKqwhRKt8wIxmoxGhWc2sX1cIX8m0ce7Kw/d+f1l9wWiYIA0rQP9T3g==
+X-Received: by 2002:a05:6000:22c3:b0:430:fdc8:8bc9 with SMTP id ffacd0b85a97d-4324e4f92d8mr11692798f8f.40.1766400483874;
+        Mon, 22 Dec 2025 02:48:03 -0800 (PST)
+Message-ID: <1b34443f-03df-47c9-805a-6267d1e237c3@suse.com>
+Date: Mon, 22 Dec 2025 11:48:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] xenpm: Don't build outside of x86
+Subject: Re: [PATCH v4 4/4] xenpm: Add get-intel-temp subcommand
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Community Manager <community.manager@xenproject.org>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1766158766.git.teddy.astie@vates.tech>
- <77dc07c4b4431fb53aa5b226d302f437e4314d8c.1766158766.git.teddy.astie@vates.tech>
+ <417d27567b9ef00d10335de089eaabe8e8e76102.1766158766.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,35 +121,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <77dc07c4b4431fb53aa5b226d302f437e4314d8c.1766158766.git.teddy.astie@vates.tech>
+In-Reply-To: <417d27567b9ef00d10335de089eaabe8e8e76102.1766158766.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19.12.2025 16:42, Teddy Astie wrote:
-> xenpm doesn't provide any interesting usable features outside of x86,
-> skip building it if we are not x86.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
->  CHANGELOG.md        | 3 +++
->  tools/misc/Makefile | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-
-Arm being what is mainly affected, I think you may have wanted to Cc Arm folks,
-for them to ack this (alongside Anthony).
-
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->       deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
->       2011 onwards.
+> @@ -1354,6 +1358,113 @@ void enable_turbo_mode(int argc, char *argv[])
+>                  errno, strerror(errno));
+>  }
 >  
-> + - Removed xenpm on non-x86 platforms as it doesn't actually provide anything
-> +   useful outside of x86.
+> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *temp)
+> +{
+> +    xc_resource_entry_t entries[] = {
+> +        { .idx = package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STATUS },
+> +        { .idx = MSR_TEMPERATURE_TARGET },
+> +    };
+> +    struct xc_resource_op ops = {
+> +        .cpu = cpu,
+> +        .entries = entries,
+> +        .nr_entries = ARRAY_SIZE(entries),
+> +    };
+> +    int tjmax;
+> +
+> +    int ret = xc_resource_op(xch, 1, &ops);
+> +
+> +    switch ( ret )
+> +    {
+> +    case -1:
+> +        /* xc_resource_op returns -1 in out of memory scenarios */
+> +        return -ENOMEM;
+> +    case 0:
+> +        /* This CPU isn't online or can't query this MSR */
+> +        return -ENODATA;
+> +    case 1:
+> +    {
+> +        /*
+> +         * The CPU doesn't support MSR_TEMPERATURE_TARGET, we assume it's 100
+> +         * which is correct aside a few selected Atom CPUs. Check Linux
+> +         * kernel's coretemp.c for more information.
+> +         */
+> +        static bool has_reported_once = false;
+> +
+> +        if ( !has_reported_once )
+> +        {
+> +            fprintf(stderr, "MSR_TEMPERATURE_TARGET is not supported, assume "
+> +                            "tjmax = 100, readings may be incorrect.\n");
+> +            has_reported_once = true;
+> +        }
+> +
+> +        tjmax = 100;
+> +        break;
+> +    }
+> +    case 2:
+> +    {
+> +        tjmax = (entries[1].val >> 16) & 0xff;
+> +        break;
+> +    }
 
-Maybe add the word "tool" for those who don't recognize "xenpm" at the first
-glance?
+No need for figure braces here; you don't have ones either in cases further up
+where there are no new local variables. Instead a blank line between non-fall-
+through case blocks may be nice.
 
 Jan
 
