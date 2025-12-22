@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A011FCD69BA
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 16:47:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192123.1511452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0848DCD6AD9
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 17:37:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192150.1511492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXi7W-00012Y-KP; Mon, 22 Dec 2025 15:46:50 +0000
+	id 1vXiup-0000UX-0o; Mon, 22 Dec 2025 16:37:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192123.1511452; Mon, 22 Dec 2025 15:46:50 +0000
+Received: by outflank-mailman (output) from mailman id 1192150.1511492; Mon, 22 Dec 2025 16:37:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXi7W-00010J-Hf; Mon, 22 Dec 2025 15:46:50 +0000
-Received: by outflank-mailman (input) for mailman id 1192123;
- Mon, 22 Dec 2025 15:46:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vXiuo-0000SK-U9; Mon, 22 Dec 2025 16:37:46 +0000
+Received: by outflank-mailman (input) for mailman id 1192150;
+ Mon, 22 Dec 2025 16:37:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G4iM=64=flex--seanjc.bounces.google.com=35mdJaQYKCS0bNJWSLPXXPUN.LXVgNW-MNeNUURbcb.gNWYaXSNLc.XaP@srs-se1.protection.inumbo.net>)
- id 1vXi7V-0000zx-2v
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 15:46:49 +0000
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [2607:f8b0:4864:20::449])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c271a5a-df4d-11f0-b15b-2bf370ae4941;
- Mon, 22 Dec 2025 16:46:47 +0100 (CET)
-Received: by mail-pf1-x449.google.com with SMTP id
- d2e1a72fcca58-7b8a12f0cb4so4767252b3a.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 07:46:47 -0800 (PST)
+ <SRS0=ACBk=64=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vXiun-00085h-C6
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 16:37:45 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8302be99-df54-11f0-9cce-f158ae23cfc8;
+ Mon, 22 Dec 2025 17:37:31 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so743214166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 08:37:31 -0800 (PST)
+Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-64b9105655asm10977819a12.9.2025.12.22.08.37.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Dec 2025 08:37:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,117 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c271a5a-df4d-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 8302be99-df54-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1766418406; x=1767023206; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bv2gntJgBXtiu31zWj5aMqoO8tc0JdlMD+qDh291wic=;
-        b=D8pWnYTYod2rdumiArk+KQ4ppuH6/tqeq93omkmcG50eNp0rCvufIgT4a0/8gmpPHb
-         vpzian6wGVTWqC2ul+DP7KvFV1CxYwNpCEwGYY64g64CRqcEUH75EBWi6JnjYOAsuPW1
-         JJOEi9K8xSlWhfT/5ImCGkWCgSqGuQHC/IpsbpBAsJUqHmHSSkIdimDwZ06lCl8AZtwu
-         13DZqfidzI2xWAS9pzITOKjoNxCq6+h7+2qCsY+acGqLhoYZ4kEnf9/WIplP7VfcyzMR
-         HWHw5XPb8PLxbGGqxTIhA4yODSXrnorbQAZ005Bx13UmPKYL+nplL942Lxf1VcH9ogsw
-         uJZg==
+        d=gmail.com; s=20230601; t=1766421451; x=1767026251; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UfaMQVt71vudvZ+6o553qPxHKZsQhzxz3nxmG/7MgzY=;
+        b=gZwGr8xWzT02772LM4V8/wExtqXsEkVx7g3K3RZdMfe4RR8jt7hHgVmacgXl8Lp/tQ
+         4haysiOCJg6msOQb4vJ7Trd4Wcdx09wt7yzqE8++/vgZd+IT78uoTDZ0vtXbftUGsSMm
+         5aJeqd5HXX0MBYG0sYyAjTtY/divf4tJXR/OpUxiSG9RPPFiAq3xmajeixKc79wSWkUN
+         k3Z3rMtzdy94qk7eMb65t9hOgypDTl/CjRYBgA12w7T372nSJl3Rl9XzOZtXW9XtA9Do
+         TrEg6M6eHLmYrhwi8inkzosw9AG1Ev3cmi8egfV4GmHq9f16+kZDNBU7E+NTRXA412WM
+         bYdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766418406; x=1767023206;
-        h=content-transfer-encoding:cc:to:from:subject:message-id:references
-         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=bv2gntJgBXtiu31zWj5aMqoO8tc0JdlMD+qDh291wic=;
-        b=HnmDp4nzzVSfX0LcooKjTKJkeRtVGCHot7HiFcKM0D3cy6NV7Gf2s+TrThOz34lqaR
-         MvvrIhHv7HsyrP7k91yyBNifwijAGENa+vjSbmsoOmLoHxjaHltzP79dGTko6welS36I
-         7liZ8QV3RS427P7X3NFbJRSP/TvkgJEvFmJLtHXbBkG3nx61+ohxuspyWKXb4BYO4S2d
-         1TMM0Ebe46V9KyOUpb5qqLl2aznIGSMysR5wIRjnrIXAA6/+tXsqRdR0Ovww0V0rzJQZ
-         ERE+SYRF3toWfo+NGxslc7nHp1CV3LaDQ4hzPFBHO9bVxZWdEnZF5KOW1yX7wF7ul2Ok
-         rCUg==
-X-Forwarded-Encrypted: i=1; AJvYcCXUvC2lm/FtepUv58rprRRak8EipavCc9GSyqfxKOviZi66dQW+H3QmJAoJc7oJR+e7t0hU3PMhbuw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzBC2UAcaDgZG4VImkqGoIbVNW0FDSIHEDqwRzF7YxJZHyY49lr
-	7akU2vvGDomD69kXgmSGQM1ng0JhWel4J/8lRTgImuu3v+8c7wTJRJl7sbfwVOtMlHrqp1InfCG
-	mHV02og==
-X-Google-Smtp-Source: AGHT+IGvLBoGsXVzBr3m/Do0woX/jUwcUSCQPKj8JoQh4+EdFhAiTc99FBbRBZXfb91qRfmoWJoeFEq2Qbw=
-X-Received: from pfuj2.prod.google.com ([2002:a05:6a00:1302:b0:7e5:5121:f943])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:6ca8:b0:7e8:43f5:bd51
- with SMTP id d2e1a72fcca58-7ff676624demr9901855b3a.61.1766418406100; Mon, 22
- Dec 2025 07:46:46 -0800 (PST)
-Date: Mon, 22 Dec 2025 07:46:44 -0800
-In-Reply-To: <190f226a-a92f-4dab-ad7a-f7ea22e6a976@vates.tech>
-Mime-Version: 1.0
-References: <20251219010131.12659-1-ariadne@ariadne.space> <dbe68678-0bc4-483f-aef3-e4c7462bcaff@vates.tech>
- <aUWNlTAmbSTXsBDE@google.com> <190f226a-a92f-4dab-ad7a-f7ea22e6a976@vates.tech>
-Message-ID: <aUln5DdCMcvhJzl9@google.com>
-Subject: Re: [PATCH] x86/CPU/AMD: avoid printing reset reasons on Xen domU
-From: Sean Christopherson <seanjc@google.com>
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Ariadne Conill <ariadne@ariadne.space>, linux-kernel@vger.kernel.org, 
-	mario.limonciello@amd.com, darwi@linutronix.de, sandipan.das@amd.com, 
-	kai.huang@intel.com, me@mixaill.net, yazen.ghannam@amd.com, riel@surriel.com, 
-	peterz@infradead.org, hpa@zytor.com, x86@kernel.org, tglx@linutronix.de, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, 
-	xen-devel@lists.xenproject.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1766421451; x=1767026251;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UfaMQVt71vudvZ+6o553qPxHKZsQhzxz3nxmG/7MgzY=;
+        b=l0jOfGS8nhQX0GkFdkxMUdPzvUmn6hzDDEMEtCOAJxkefiIyJZqKzHe6Oq2jFGi83N
+         s1OUzoPYkZsD6LnnrM63OqnniscYRjR4r8AxzDHZQ9cjv3ZPAmVH1BNkzAzh1Epb2h2g
+         QEuBo28HVtLSDYI0n6ObwWmOX/IYglIcJgHtRTaF20b1Eg8CrsFGh/0pWVgzUf/OzIiD
+         nKHyqXhVmsYMvFuEiiY914LL9WDgKhUbOaaQQU7loKhrxOHCH1NuMMnKrnEiZi+6CMHQ
+         /Gpo66jndwZQGgSFWUH2Vg+Zl79x8E0A+Os9p/0GfCrHclXYROAVojPR/mDmhv1kEjAO
+         XdYg==
+X-Gm-Message-State: AOJu0Yxaj3vYuYptZPTCecvZ6Yhc7zcPJJsUSdnILM5qY/aLU/Qi45sr
+	42fr/nJW5FDlgLzeM9gl7+ngH1ClNl4zWmBOXPj1Hy9YcF4ITCJy3+VTdOCbag==
+X-Gm-Gg: AY/fxX6cIJ/aYV4oAsAuCr2coCrfjH+EthZTnVSGi2g4rtRFeYUnVS3ge3HSlGxZ5nm
+	0oIAVVEqE5ckSQOmMnvf6bMqj5Sh3w1MGnARCfkMSrdBd1ComhqpcT5Z9JnSP1fQGrEP+6OWQZR
+	BWBNsyOlBp4MvfLhTOd+/iCikx/D/1MXKh/N/q3YCNOFPozmi7ZT8LlSqQfGuBpewNMuQrCOtOt
+	Ni6/BGTdsbGh4n/caEqaRAI5h+hcOmxYfAuz2VA92i3rA0xra2/fjlgKz7hLsF3QyNvsrwNQNtD
+	t5EIifpaBPwa+RKGQHVXVnBPx8ZK8sAYLz+gmqI4lzAXzjH+kfIauFGJmI/IjBS7SgQ2XX74EJd
+	SotWwGAlnEI1zw16vW+BdWENz/5MkiZynffDn9UWMRvl0MuDWlQm6eCYIDRxzudSS1xuuoL2lfE
+	bvl2b5c4EmZaTom+4ArGzfMBGDN/hsYFimPO7pRkS/3Tkq8kwa+5x+PQA=
+X-Google-Smtp-Source: AGHT+IGvXT3pTP0j8wqYblo4WAN9/SFFYARSVhXay+MvpV+gtEzGYzertZngk3eBbBhQ73TrTRc30Q==
+X-Received: by 2002:a17:906:730f:b0:b73:9937:e96b with SMTP id a640c23a62f3a-b8037183903mr1275110066b.52.1766421450688;
+        Mon, 22 Dec 2025 08:37:30 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 0/3] RISC-V: Introduce vSBI framework
+Date: Mon, 22 Dec 2025 17:37:18 +0100
+Message-ID: <cover.1766399205.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Dec 20, 2025, Teddy Astie wrote:
-> Le 19/12/2025 =C3=A0 18:40, Sean Christopherson a =C3=A9crit=C2=A0:
-> > On Fri, Dec 19, 2025, Teddy Astie wrote:
-> >>> @@ -1333,6 +1335,10 @@ static __init int print_s5_reset_status_mmio(v=
-oid)
-> >>>    	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
-> >>>    		return 0;
-> >>>
-> >>> +	/* Xen PV domU cannot access hardware directly, so bail for domU ca=
-se */
-> >>> +	if (cpu_feature_enabled(X86_FEATURE_XENPV) && !xen_initial_domain()=
-)
-> >>> +		return 0;
-> >>> +
-> >>>    	addr =3D ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(val=
-ue));
-> >>>    	if (!addr)
-> >>>    		return 0;
-> >>
-> >> Such MMIO only has a meaning in a physical machine, but the feature
-> >> check is bogus as being on Zen arch is not enough for ensuring this.
-> >>
-> >> I think this also translates in most hypervisors with odd reset codes
-> >> being reported; without being specific to Xen PV (Zen CPU is
-> >> unfortunately not enough to ensuring such MMIO exists).
-> >>
-> >> Aside that, attempting unexpected MMIO in a SEV-ES/SNP guest can cause
-> >> weird problems since they may not handled MMIO-NAE and could lead the
-> >> hypervisor to crash the guest instead (unexpected NPF).
-> >
-> > IMO, terminating an SEV-ES+ guest because it accesses an unknown MMIO r=
-ange is
-> > unequivocally a hypervisor bug.
->=20
-> Terminating may be a bit excessive, but the hypervisor can respond #GP
-> to either unexpected MMIO-NAE and NPF-AE if it doesn't know how to deal
-> with this MMIO/NPF (xAPIC has a similar behavior when it is disabled).
+Introduce the vSBI framework to handle extension ecall instruction calls
+from a guest.
 
-Maybe with a very liberal interpretation of AMD specs, e.g. to mimic the re=
-served
-HyperTransport region behavior.  Defining a virtual platform/bus that #GPs =
-on
-accesses to any "unknown" MMIO region would be incredibly hostile behavior =
-for
-a hypervisor.
+In this patch series, support is added for only a few extensions and FIDs,
+just enough to boot the first guest domains and obtain logs from them. This
+keeps the patch series independent from other ongoing work.
 
-> > The right behavior there is to configure a reserved NPT entry
-> > to reflect the access into the guest as a #VC.
->=20
-> I'm not sure this is the best approach, that would allow the guest to
-> trick the hypervisor into making a unbounded amount of reserved entries.
+It was decided to start with support for the Legacy Extension, as it is still
+supported by Linux (so we may need it anyway), and because some of its FIDs
+require less functionality to implement at this stage compared to the more
+modern extensions.
 
-No, the maximum number of reserved entries is bounded by the number of vCPU=
-s in
-the VM, because each reserved entry only needs to exist long enough to refe=
-ct
-the access into the guest.  Recycling NPT page tables after every MMIO-NAE =
-would
-be comically agressively, but it's very doable for a hypervisor to set a re=
-asonable
-limit on the number of NPT page tables it creates for a VM.
+CI tests: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2228014400
+
+---
+Changes in v3:
+ - Address a comments from v2.
+---
+Changes in v2:
+ - Address a comments from v1.
+---
+
+Oleksii Kurochko (3):
+  xen/riscv: introduce vSBI extension framework
+  xen/riscv: add RISC-V legacy SBI extension support for guests
+  xen/riscv: add RISC-V virtual SBI base extension support for guests
+
+ xen/arch/riscv/Makefile                |  1 +
+ xen/arch/riscv/entry.S                 |  6 ++
+ xen/arch/riscv/include/asm/processor.h |  1 +
+ xen/arch/riscv/include/asm/sbi.h       | 21 ++++++-
+ xen/arch/riscv/include/asm/vsbi.h      | 31 ++++++++++
+ xen/arch/riscv/riscv64/asm-offsets.c   |  1 +
+ xen/arch/riscv/setup.c                 |  3 +
+ xen/arch/riscv/traps.c                 |  8 +++
+ xen/arch/riscv/vsbi/Makefile           |  3 +
+ xen/arch/riscv/vsbi/base-extension.c   | 78 ++++++++++++++++++++++++++
+ xen/arch/riscv/vsbi/core.c             | 57 +++++++++++++++++++
+ xen/arch/riscv/vsbi/legacy-extension.c | 64 +++++++++++++++++++++
+ xen/arch/riscv/xen.lds.S               |  7 +++
+ 13 files changed, 279 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/vsbi.h
+ create mode 100644 xen/arch/riscv/vsbi/Makefile
+ create mode 100644 xen/arch/riscv/vsbi/base-extension.c
+ create mode 100644 xen/arch/riscv/vsbi/core.c
+ create mode 100644 xen/arch/riscv/vsbi/legacy-extension.c
+
+-- 
+2.52.0
+
 
