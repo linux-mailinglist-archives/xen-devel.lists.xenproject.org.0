@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E15BCD4E2C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 08:43:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1191935.1511322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60AFCD4EF0
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 09:13:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1191959.1511333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXaZv-0004Ml-1Z; Mon, 22 Dec 2025 07:43:39 +0000
+	id 1vXb20-0000e5-FM; Mon, 22 Dec 2025 08:12:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1191935.1511322; Mon, 22 Dec 2025 07:43:39 +0000
+Received: by outflank-mailman (output) from mailman id 1191959.1511333; Mon, 22 Dec 2025 08:12:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXaZu-0004Kc-U0; Mon, 22 Dec 2025 07:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 1191935;
- Mon, 22 Dec 2025 07:43:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vXb20-0000bu-C3; Mon, 22 Dec 2025 08:12:40 +0000
+Received: by outflank-mailman (input) for mailman id 1191959;
+ Mon, 22 Dec 2025 08:12:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vXaZs-0004KR-SY
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 07:43:36 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb76d9cf-df09-11f0-9cce-f158ae23cfc8;
- Mon, 22 Dec 2025 08:43:34 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4777771ed1aso24689385e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 21 Dec 2025 23:43:34 -0800 (PST)
+ id 1vXb1y-0000bo-NC
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 08:12:38 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f9bd0342-df0d-11f0-b15b-2bf370ae4941;
+ Mon, 22 Dec 2025 09:12:36 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-42fb3801f7eso1922436f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 00:12:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4325d10cc48sm10508152f8f.16.2025.12.21.23.43.33
+ ffacd0b85a97d-4324eaa08d9sm21237509f8f.30.2025.12.22.00.12.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 21 Dec 2025 23:43:33 -0800 (PST)
+ Mon, 22 Dec 2025 00:12:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb76d9cf-df09-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: f9bd0342-df0d-11f0-b15b-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766389414; x=1766994214; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766391156; x=1766995956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a6SNnt2aOMZOvd4m1ek+Vk8ndoELmwEFbwsZqrOQp4I=;
-        b=Ijz58Hjd2pRWJVa1CL8rycyhodaohrN7b5ZV7KLF/jV30r0Xj8D8bB9VPvHPTyVn9W
-         AOx5YaYTT7XuRXA0upUTdkcDfDCdV0AMXRjw+BH7o2ZGL3FlBS7hPCTZ49YLq2y/sV2U
-         iUegnFx/YrR+C9MrCQjqTHsK8UppA18i05BXLg25+m05C9DmWKxw8ewZ0erGzTHGl+aV
-         4io2wT02eUszMdcm8tnfvgtWD/+uVuBLrHoKfBD/SCqlMJ0Owf/xyN0e1MocLzaGJar5
-         rC5KypQU0YNwLSbSsq5IZV4gpvE2n37P9x3ulpQ1+UgkdKNY+kvW8wJpFuzdUjRb0t77
-         m3zg==
+        bh=mMgbWRHJlcjH1gkZyfQrVR12HAIUL5qZSN3OMOTMnc4=;
+        b=MvBjpKI8vRnFXvljg0CdkTY8qdoFXpus+v4jua1gHxuKzT1EXIWJleOMYtkdB75eb+
+         PAyaQVqUTpkFCrX3vbI937UziebyN2KQFO6vY+F/TxmXEec7Wnzg5bmA+fJaG4yar6CN
+         WEAmICCwwaJnqqkfCQkZWktgiEAByTcq3AAxJ6Jr3s0zz1nfZ7vJ8nxOMRaL6KIcwAk8
+         EIXzMV+wphVKGuYPIazxQE0sZmdCR6f+uk4554+t84FHMcT0buU+zcMpztDITq5v9TAf
+         qNUsoooJzKw2fTUroDuKUI8oXFwl506JNaq8NVgkciThi4WDCYSeDzo5lshU4rSfNTGX
+         pmqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766389414; x=1766994214;
+        d=1e100.net; s=20230601; t=1766391156; x=1766995956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a6SNnt2aOMZOvd4m1ek+Vk8ndoELmwEFbwsZqrOQp4I=;
-        b=Ulg11JV7LxDy04xblGoSHoHfqwEMlMfX7NtezQAIKPRiEpbfwCblnTvp4ajXSMVI7X
-         2cKQ7EJBOHWzkdWR/b5x2ecWSMmatzM1lMkJ9tqe5EPmY+FPStwJbZ7EmbIqc5SBDEDi
-         uacbbr5LEMZyqNVF+7ccYtdroO6yxHjsKs+uDslsv41GKr5MChN77QkSmb+A+SHZwEPP
-         hMP12SCwoAsBBvgJyUgCJ0YEExwqtVCSj3c2YLTBjPIH8DS4/PKmiEIUwze4wcyPloBF
-         v0LQG8hEIeB+HYi+OiMiNNXvrtG4y+om9Ql/bDK59ilF79I5eHw6iQ1WYQgxoshh4GEd
-         P7eg==
-X-Forwarded-Encrypted: i=1; AJvYcCV5BJEvluLRNjZWD1MOFAik26r/0cVxL4vLBn170LB8pmDlo8VwawhKx93pQRXUCs7f6eejwCaZQ3w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyy3IVBZek87DGn58PtOOxl8q/ic4LkbPuc6Md83LvYqAuK1lUX
-	BcAP64LzB6xki1o5W1iEPy+GbN//oob83yb8b2aTJJ7pyDuAsv52SB0SZEd+2eH+4A==
-X-Gm-Gg: AY/fxX4CPG57vvQ9Xbixt3+LibAjWveEUjUGYFpyLeYjRPDPyX/wtsfiiOWzcocNF9i
-	uWEf8s7Hcet2WkbzsXur8wpc00cegYP/DGxFqusV3EnDC/JhRR/gvgzwLMlsWzxs6BwhVwgVrAB
-	SOiqrolCGQY+6cUmX8hReRrlKt4EXdZCmDqFzUR3difKbyGJjfQdj3KQoL5MFSntm+Rr1rE9SI2
-	JipZAB/0xs5Adyol5hQQNVodwnEYs09nY6JUpFatNNNVcuHSG5QfjJ8xvKpzo9y3IpDWGzdjLFY
-	h6538mQY7mFOD9OePiA3OOKfy5DGHvVajJUpMAolxOsWy5tI8rQjE1kxU6vajro2XnDoTPNZmO8
-	qQStmD3GfNkH1xODYRUkZN0NSXceYWhJB3cc/0LZjltmVLTccs9CQSzoWZ4QNmMWQTr/HH0894h
-	Sm8NWU3msJsNBtwBBQzVAMwE5WkxiKJhuFAPJNJwTa5NeuvoRxt21eXo2wpS51xTpbjtdhDxmjr
-	FU=
-X-Google-Smtp-Source: AGHT+IGONtXXbe8WUOAfxlett703mQBuZWvP6Zng8vKPFmx7z7sYaExy9pYtLetXQnmct9ucXHHtQw==
-X-Received: by 2002:a05:600c:458f:b0:46f:b32e:5094 with SMTP id 5b1f17b1804b1-47d19592a3dmr95608285e9.32.1766389414206;
-        Sun, 21 Dec 2025 23:43:34 -0800 (PST)
-Message-ID: <440d8453-ff8f-439c-8395-aee30b28e11e@suse.com>
-Date: Mon, 22 Dec 2025 08:43:36 +0100
+        bh=mMgbWRHJlcjH1gkZyfQrVR12HAIUL5qZSN3OMOTMnc4=;
+        b=ueLyg9tDU+vHLiA9cWRBYnuLbp+Zc84+fTA+pFOxKbyh6VA+wCgNRdAqi1GxkcCsLh
+         B/ec5J5DO55hwV3UuZodmEAeTVc2C7JlToQplGRkWnn7Lx4c0NYDIuXDQ0odHk6YE9yM
+         i2P+PE81zOJcC2Tg30Dmz03Jb46qI9bJgctflECke1uyrCRMD3+rZxlmj2bxYjEXJ32Y
+         1b/JoCUxHI2yck/6UV6KnSjaRWSUugwKpsfX3OQ2liOYWWvJoVQ1a3t3kGxld/xKBH/H
+         bsyligC6o50aFMTFiW9wmQ9PqjoAWy3nGHQSSX9XDZmiojEqdXcv06T4SYYqDq/yCY8V
+         FA8A==
+X-Forwarded-Encrypted: i=1; AJvYcCUsJLu8zdJRtthkt8jvmfdHXI1RGQL628LbzQ7N1Nj7dYxq4Ph1OBwU9yN/LUA4cIbctyQoWOgl0qk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwF7Kf/O4utZK5cKH09Mej3Ki/Pv7idT5cugdL1kDlRcGmS8Cqw
+	tvBWwWvapON1F6dWHLIZNzn9eFWwaE03UPhv5Cti/1y/DH5HLUTLIKYZIdWaJ5cC9w==
+X-Gm-Gg: AY/fxX4JB0CGt57iDc3Wc1bEBs4pBAusAlOnYMUcE96D36LMEnZFYqVZl2eJxWSvPSb
+	ey/XSQlkwQsvC9uwC8zBkAONyKtp3ohfV/h0Ejv7hWkYDGP1eaqMW7UnZPl5ojazV2E1Xo7cqqX
+	LDbUABRIpxAjYLc3STmvgSXfCCHwJGciCfeSrYKvgv9n1A/7ZOaeHhzSED19e498Bpl/fklkb6D
+	X142B7GD1q2BixfKMj+ljwyl1XE2UHWRAuvPZJ4DhW6Jq1A+yMXwt67fcnZiLOAZ4ga43/c1FSN
+	3Rua6rcKLAMLU9aI6q0DlLuO6IsmusWmvUcj6Ew0qNuAr7XleW5WZr/yFXDDy0YgAGZu8m5toXD
+	YtZ9tW0Vt3KIQBoMqvqROR5pkLIy+KTileBtG+EmfueyBVPkLTpQKQFUhU8iBndgQ/20DDBOWck
+	SqctA2UDak9M4CwhnQ+htdid5ytKLcTU8AWL4IcZ1l3CmKwI0JJrLzi36Z+sRz5KsvySrMdeAyX
+	vm9D0LiRZMDBQ==
+X-Google-Smtp-Source: AGHT+IH3M8CfFtmgcXJWPC4oZ0lhp3Zingm+RWf5JDp/SC+VkVmJUWXRg8rRL9kZD6T/VVTo/k9LEA==
+X-Received: by 2002:a05:6000:220c:b0:431:752:671e with SMTP id ffacd0b85a97d-4324e4c906cmr12482561f8f.15.1766391156103;
+        Mon, 22 Dec 2025 00:12:36 -0800 (PST)
+Message-ID: <a3421224-2f74-4cba-ab9d-c0f197c77669@suse.com>
+Date: Mon, 22 Dec 2025 09:12:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v4 1/4] x86/cpu-policy: define bits of leaf 6
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1765888425.git.oleksii.kurochko@gmail.com>
- <2e42e8ee51badcfa2cb16e3db71fdecaac445bca.1765888425.git.oleksii.kurochko@gmail.com>
- <f5206b63-1f82-4abb-9740-9a0042fbcfb6@suse.com>
- <aac3c5e8-02a8-4463-bba9-d7b5b90c4273@gmail.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1766158766.git.teddy.astie@vates.tech>
+ <8a4adb89e6b6152fca074f2bb9091b42af936630.1766158766.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,37 +121,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aac3c5e8-02a8-4463-bba9-d7b5b90c4273@gmail.com>
+In-Reply-To: <8a4adb89e6b6152fca074f2bb9091b42af936630.1766158766.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.12.2025 21:34, Oleksii Kurochko wrote:
-> On 12/18/25 3:32 PM, Jan Beulich wrote:
->> On 17.12.2025 17:54, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/sbi.h
->>> +++ b/xen/arch/riscv/include/asm/sbi.h
->>> @@ -14,6 +14,10 @@
->>>   
->>>   #include <xen/cpumask.h>
->>>   
->>> +#define XEN_SBI_VER_MAJOR 0
->>> +#define XEN_SBI_VER_MINOR 2
->>> +#define XEN_SBI_IMPID 7
->> Are these numbers part of the spec (sorry, lack of a reference makes me wonder,
->> plus if that were the case, I'd kind of expect the names to be SBI_XEN_..., not
->> XEN_SBI_...)?
+On 19.12.2025 16:42, Teddy Astie wrote:
+> From: Jan Beulich <jbeulich@suse.com>
 > 
-> XEN_SBI_IMPID is a number defined by the SBI specification:
->    https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/ext-base.adoc#sbi-implementation-ids
+> ... as far as we presently use them in the codebase.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> I don't know to which extend Reviewed-by applies as I only applied Andrew's
+> proposal.
 
-I see. For this the name change below is then appropriate; for ...
-
-> XEN_SBI_VER_MAJOR and XEN_SBI_VER_MINOR somehow also is a part of the spec, there is
-> no such defines explicitly, but it is real numbers of the SBI version.
-
-... these two I'm unconvinced, otoh: If it is us to control the versions
-used here, the present names should imo remain. Brief comments may then
-also want adding to clarify the different origin of the numbers.
+Which I pointed out has a latent weakness. I'm intending to submit a new version
+of my patch, but instead with the names change to better match the SDM (as was
+requested by Andrew in reply to a change later in that other series of mine).
 
 Jan
 
