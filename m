@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39030CD602E
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 13:41:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192073.1511422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F7A5CD60BA
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 13:52:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192083.1511432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXfCu-0003SH-G0; Mon, 22 Dec 2025 12:40:12 +0000
+	id 1vXfO5-00058c-GG; Mon, 22 Dec 2025 12:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192073.1511422; Mon, 22 Dec 2025 12:40:12 +0000
+Received: by outflank-mailman (output) from mailman id 1192083.1511432; Mon, 22 Dec 2025 12:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXfCu-0003QA-D2; Mon, 22 Dec 2025 12:40:12 +0000
-Received: by outflank-mailman (input) for mailman id 1192073;
- Mon, 22 Dec 2025 12:40:10 +0000
+	id 1vXfO5-000570-DK; Mon, 22 Dec 2025 12:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 1192083;
+ Mon, 22 Dec 2025 12:51:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vXfCs-0003Q4-QE
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 12:40:10 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1vXfO3-000569-Jg
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 12:51:43 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 589ee9f3-df33-11f0-9cce-f158ae23cfc8;
- Mon, 22 Dec 2025 13:40:07 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-47798ded6fcso22761945e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 04:40:07 -0800 (PST)
+ id f63a0d57-df34-11f0-9cce-f158ae23cfc8;
+ Mon, 22 Dec 2025 13:51:41 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42e33956e76so1452414f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 04:51:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be396c909sm94031065e9.0.2025.12.22.04.40.05
+ ffacd0b85a97d-4325dbc522esm11184995f8f.11.2025.12.22.04.51.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Dec 2025 04:40:06 -0800 (PST)
+ Mon, 22 Dec 2025 04:51:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 589ee9f3-df33-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: f63a0d57-df34-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766407207; x=1767012007; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766407901; x=1767012701; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xig+IFvynUIZpO+27KFQTKf8K4uXXN2jGUDgiz6rQos=;
-        b=cBUvgfzW73qn+TncIX2EOvzj2mAGThL2PQFlUp2HeBs9nllyh2PqkGqwJQKD72DyYH
-         THadlu26wAvMND826NoYom6ArwKAfw+IM8olB1mhtxRnHfcOdKypzoFjNu47M/SvQ4EN
-         kVOQuwHlqMB0IGNCCgT0OpoDeh2UWsmBdlsasx4N4R3t4egTv+xgwEj6FYdsNBjdG02i
-         2JwaYTVCyR9sNDxxl9o6RW4441yqy2Qxg5qOdhT4bW4HYk7Ms5tr/OOzUg+Uqg3MJSjD
-         4eQDQZWRuyxXoecV8+W+o5PehM9yFF0ScEJ27hsUT4ReVdHT2XuNRd/4YCWhh2phSSKq
-         5p+w==
+        bh=n3OD+bwAin0vzopokKROaodSWCLiZhEzXg2sOIsrxjU=;
+        b=eDQZbCXS/3deBURv3MnrCEQsn+OmW+CbQqILJvevnnExpbuJJLI0q7TGRgzGfv4REM
+         FEx5MJFf560sMFgLapSA5YD2AILcsgWQy17bpwNdorRK31E8J3Z6637ubsNFT6idcn8q
+         dTQtTkPfV0zkrWIJ3BYayiximApG25tDonTdRScbripnRmToWuAVlSwkZ+Hmp4INe0py
+         l1eObcf6xxpq86JBifm/mV9sgnRupaSYXhcpmxO69yonK+76+8P+7DzuWctAWVMNkMfU
+         UAwVN+NfNnDKiXkUuK+PQhYzJ2OrvsjUN4FEIqpnPbPCoLbln6Mn/y8x3AXgDDSsbgGf
+         pyBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766407207; x=1767012007;
+        d=1e100.net; s=20230601; t=1766407901; x=1767012701;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xig+IFvynUIZpO+27KFQTKf8K4uXXN2jGUDgiz6rQos=;
-        b=n1wdEdUuXsl8zhx6786iPHBoGJCIIyML+JCLTuADO0PM0tHmhbwrCwPZxwB1I6A5FE
-         pOAJNc1XH8IedFz2VwFHz3HtlEefITjhNr8+hMF6XIfdoCcY6KOE34epDUyOcKGRxbNV
-         540prj7l1aNwdQ79Aw3WOlf4ODZPGGiRiCgTcDku2MFdxvXCws1tlu2Jz6GOj+aMDmHd
-         Zfs7ii8NYDJhj9HQLj5ZFYjcDaZYdSkzhl2T7TX357jYMMzUhbsISGdAGb29GW1k64Kc
-         0G1K4Vkd8aFU1bLyCzZ5qnCX/LXQT/AwXIxZwozR6d29HVRhYtNBmozp5gvhNSuPaJ9s
-         UvsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVXYc2sIfbGYzSHSL35X/epDrEsQYMAztRjWrZegfidWFa21AuJjtaeuZiJ7Nxqc9vqykwepzc89E8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzq7nd9K+yYIVPJUE7Hxj8Nt17G+7XntKZjaXW6Jre6If11vtnY
-	ryBtdO7N7c5bDSMFr1PPAzcgM7zNcPM0bHVjJe8RGlAPVOBkR+/RHBn5k2X4ih8azQ==
-X-Gm-Gg: AY/fxX5dqGqp6D/6Zpd0oFeuVonKdygNTQY2wHnYnMTAU8R6eNFBQFIJji4rElGQcD2
-	2mD+Ot31hIKAddg4pIgxUwqkwdQE5HfXtnUeebqFvmfiDUJvzkTC+hv2gzOzumwB4sm07ZofwOL
-	+hzRO2QOivpnSZsm/qr1AgP8yn7YRCXh7xvd5hB3hnvl3fCbd66kStR6roV/K0w59a0S0797hhI
-	Re/Siapg9ju22X+3KUyZvNpfxu8Ly07gK/eWH9gfVix/QS0qVtwqGrs+HJkAtGDk051sSYb8zGk
-	FhTyY79ws6kvZDRIUrFiOLth+zs7sY5augtsgLECpVuSdv7faE6fNwQXkhUEzjKtnqaX6lnSa7s
-	VHfmDey9hEpHOmBwBmIb6i4KfdfdLt/wO9o9Zb9m46pla0EPbVOVfsRM0Vpg59jbVtUi1xA2AWu
-	JQ/xvkta1lH+8jgXk0du64ZL0yxXfuhcPk4PbZPmNN65jVkXI56egBLH/FoNPFBpR+pq7ss5qEZ
-	co=
-X-Google-Smtp-Source: AGHT+IE+Pk4pFGkbhqkiWhPM/2TGuVQeSKXlhmm0OkTy4ViH+toJ8cYD+wIzdkDDqV6g74QYtujHDg==
-X-Received: by 2002:a05:600c:470a:b0:477:7b16:5f9f with SMTP id 5b1f17b1804b1-47d1958a61fmr110614795e9.31.1766407206655;
-        Mon, 22 Dec 2025 04:40:06 -0800 (PST)
-Message-ID: <5d48b6ea-6979-4d45-a726-67e25fc25cb7@suse.com>
-Date: Mon, 22 Dec 2025 13:40:08 +0100
+        bh=n3OD+bwAin0vzopokKROaodSWCLiZhEzXg2sOIsrxjU=;
+        b=K46+NTr4VCBhhJdfiN8WtNU24IoTaIJ76Sluc1x55/ESL1DxyC8/jfEQGNgJjXDjFu
+         fahwbcvBpiwEGKmhiYY4AkUi3WnqYCUy2u/JogZmu342A4hfZzCINq712Uqvi5qY45H8
+         FXogeJNqOeC9vSY7d0/bzjMOVPFAa6Zv5dL+9QRQYIyo9jJQqLVkCCB92UhVyqWpAcvb
+         zxBY6WrCo3ZTSal3f00/3B8q2J2pwRa1FxGNQ5voJ0lYkdrMkQI6XHxJtmXMp0iet3Kg
+         WjEbcEV0sHyScZTk9aRc2EtX1XpDXy5lx3/W6DdLy8EfnWAHUWFEffV6/tyvq9w1dc+r
+         5zYg==
+X-Forwarded-Encrypted: i=1; AJvYcCUhndo3YLsZUAxtzXH2z1Ln1RVj/nlLcRXULnO6HaAnAEm+/hIrHtwEKb+1mMu75JlBSUL/fIF5nTQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7s+CBhzapqRf23gotbFqkRJ8SmVob7bAqFGGrIyBLO0YRiwys
+	AjtGQHD8RX8ZKC4ibjQlOAXJDxMf79NxVb0f8lCKciXhjCdI7YWo9TsKtFkr0VvkPw==
+X-Gm-Gg: AY/fxX7XbGOzqg46z4nchlvz9sXARKUKQkmgep04i+qe3InefxIvLK35NoXhh1FohDo
+	EBziGfv2JzW7RDRUc3EU5CQTSLIwSpx+r/OIXZABmKck4DPKkrTfiY04HdVX7Oiew89xzL3tCBv
+	qhnAurIA0NWfubx0bsY2D4i6+FkqQVjW1MVb72GK491akDiEHIphwc+F/aTecfvFHGWPfzl4wmY
+	AcM7f0OJnBheusXIZ967EsL0ITrWlhIK6aNFsaJlnHn/+HJvifKKvahLoNN+a0vt9/oNY5/Jd9J
+	eBwXDjqtTUqY8EGkCnTB/9fuMO8lW2a0z9n8zHMMWnKK9SLxl7Xp6CSDSeYfLIk6zfXBnA3msmA
+	EigunlJ09QBEySjfoo3sTMs6yD2SsQtMdsuFe4vqx0t9/NilAfSx8tnW1IZdeRkCic76fU8eJDZ
+	83uIm8CjwcftcRgJ7wQMLUcpmeNOlaVVcqaAm5ZCYSzNJzMGh7Lq1+VfrlMaMV57BcdlpUcGefh
+	/8=
+X-Google-Smtp-Source: AGHT+IH3U4fd+YoBi45sYQ+Uu3aQEpfOQ6Fd5/YdzuWxv47BMGZEsqVokaZIRCgOLPPFGymQvsUdaQ==
+X-Received: by 2002:a05:6000:12c9:b0:431:104:6db7 with SMTP id ffacd0b85a97d-4324e4d012fmr10543772f8f.26.1766407900595;
+        Mon, 22 Dec 2025 04:51:40 -0800 (PST)
+Message-ID: <5b0950d6-b321-410b-b3fa-2ce6031fe46d@suse.com>
+Date: Mon, 22 Dec 2025 13:51:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] x86/platform: Expose DTS sensors MSR
-To: Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [XEN][PATCH v3] coverage: extend coverage on .init and lib code
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1766158766.git.teddy.astie@vates.tech>
- <829177fefa7b2e2edeb8121357b5b3372ad1c092.1766158766.git.teddy.astie@vates.tech>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20251218151530.249065-1-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,34 +124,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <829177fefa7b2e2edeb8121357b5b3372ad1c092.1766158766.git.teddy.astie@vates.tech>
+In-Reply-To: <20251218151530.249065-1-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.12.2025 16:42, Teddy Astie wrote:
-> Intel provide CPU sensors through "DTS" MSRs. As these MSR are core-specific
-> (or package-specific), we can't reliably fetch them from Dom0 directly.
-> Expose these MSR (if supported) through XENPF_resource_op so that it is
-> accessible through hypercall.
+On 18.12.2025 16:15, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> Extend coverage support on .init and lib code.
+> 
+> To enable coverage support on .init code the gcc special
+> section should stay in memory after Xen boot when COVERAGE=y.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+What is "the gcc special section" here, and ...
 
-I wonder though whether ...
+> So, add hidden Kconfig option RELAX_INIT_CHECK "Relax strict check for
+> .init sections only in %.init.o files", which is selected when COVERAGE=y
+> and allows to bypass strict check for .init sections only in %.init.o
+> files.
 
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -123,7 +123,7 @@ struct cpu_policy
->              uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
+... why / how would this mechanism get in the way?
+
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -33,11 +33,15 @@ cov-cflags-y :=
+>  nocov-y :=
+>  noubsan-y :=
 >  
->              /* Leaf 0x6 - Therm/Perf. */
-> -            bool :1,
-> +            bool dts:1,
+> +# when coverage is enabled the gcc special section should stay in memory
+> +# after Xen boot
 
-... we really want to go with the acronym here, when for other bits the plan
-now is to stay close to the SDM names.
+Nit: Comment style (./CODING_STYLE applies to Makefile-s equally in this
+regard).
+
+> +ifneq ($(CONFIG_COVERAGE),y)
+>  SPECIAL_DATA_SECTIONS := rodata $(foreach a,1 2 4 8 16, \
+>                                              $(foreach w,1 2 4, \
+>                                                          rodata.str$(w).$(a)) \
+>                                              rodata.cst$(a)) \
+>                           $(foreach r,rel rel.ro,data.$(r).local)
+> +endif
+>  
+>  # The filename build.mk has precedence over Makefile
+>  include $(firstword $(wildcard $(srcdir)/build.mk) $(srcdir)/Makefile)
+> @@ -146,10 +150,9 @@ endif
+>  $(call cc-option-add,cov-cflags-$(CONFIG_COVERAGE),CC,-fprofile-update=atomic)
+>  
+>  # Reset cov-cflags-y in cases where an objects has another one as prerequisite
+> -$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
+> -    cov-cflags-y :=
+> +$(nocov-y) $(extra-y): cov-cflags-y :=
+>  
+> -$(non-init-objects): _c_flags += $(cov-cflags-y)
+> +$(obj-y) $(obj-bin-y) $(extra-y) $(lib-y): _c_flags += $(cov-cflags-y)
+>  
+>  ifeq ($(CONFIG_UBSAN),y)
+>  # Any -fno-sanitize= options need to come after any -fsanitize= options
+> @@ -259,8 +262,8 @@ $(obj)/%.o: $(src)/%.S FORCE
+>  	$(call if_changed_dep,cc_o_S)
+>  
+>  
+> -quiet_cmd_obj_init_o = INIT_O  $@
+> -define cmd_obj_init_o
+> +quiet_cmd_obj_init_check = INIT_C  $@
+> +define cmd_obj_init_check
+>      $(OBJDUMP) -h $< | while read idx name sz rest; do \
+>          case "$$name" in \
+>          .*.local) ;; \
+> @@ -269,12 +272,17 @@ define cmd_obj_init_o
+>              echo "Error: size of $<:$$name is 0x$$sz" >&2; \
+>              exit $$(expr $$idx + 1);; \
+>          esac; \
+> -    done || exit $$?; \
+> +    done || exit $$?
+> +endef
+
+The " || exit $$?" isn't needed anymore when this is the last command?
+
+> +quiet_cmd_obj_init_objcopy = INIT_O  $@
+> +define cmd_obj_init_objcopy
+>      $(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+
+What use is this step when $(SPECIAL_DATA_SECTIONS) isn't set at all?
+
+>  endef
+>  
+>  $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): $(obj)/%.init.o: $(obj)/%.o FORCE
+> -	$(call if_changed,obj_init_o)
+> +	$(if $(filter y,$(CONFIG_RELAX_INIT_CHECK)),,$(call if_changed,obj_init_check))
+> +	$(call if_changed,obj_init_objcopy)
+
+Feels pretty fragile to do the modifications (as per above - if there were any
+in the first place) without first having checked that doing them is actually
+(going to be) okay.
+
+Furthermore - why RELAX_INIT_CHECK when you don't really "relax" it, but skip
+it altogether?
 
 Jan
 
