@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B1F6CD50DE
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 09:30:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1191969.1511343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B1BECD519B
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 09:40:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1191978.1511353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXbIn-0002SI-Qv; Mon, 22 Dec 2025 08:30:01 +0000
+	id 1vXbS8-00045e-Mc; Mon, 22 Dec 2025 08:39:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1191969.1511343; Mon, 22 Dec 2025 08:30:01 +0000
+Received: by outflank-mailman (output) from mailman id 1191978.1511353; Mon, 22 Dec 2025 08:39:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXbIn-0002Px-O5; Mon, 22 Dec 2025 08:30:01 +0000
-Received: by outflank-mailman (input) for mailman id 1191969;
- Mon, 22 Dec 2025 08:30:00 +0000
+	id 1vXbS8-00042n-Jh; Mon, 22 Dec 2025 08:39:40 +0000
+Received: by outflank-mailman (input) for mailman id 1191978;
+ Mon, 22 Dec 2025 08:39:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vXbIm-0002Pp-D3
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 08:30:00 +0000
+ id 1vXbS6-00042h-I4
+ for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 08:39:38 +0000
 Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
  [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 664ee99d-df10-11f0-9cce-f158ae23cfc8;
- Mon, 22 Dec 2025 09:29:57 +0100 (CET)
+ id bf3a4df3-df11-11f0-9cce-f158ae23cfc8;
+ Mon, 22 Dec 2025 09:39:36 +0100 (CET)
 Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-42f9ece6387so1336378f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 00:29:57 -0800 (PST)
+ ffacd0b85a97d-42fb0fc5aa4so3008737f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Dec 2025 00:39:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea227e0sm21246407f8f.17.2025.12.22.00.29.56
+ ffacd0b85a97d-4324ea1b1bdsm20250637f8f.8.2025.12.22.00.39.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Dec 2025 00:29:57 -0800 (PST)
+ Mon, 22 Dec 2025 00:39:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 664ee99d-df10-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: bf3a4df3-df11-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766392197; x=1766996997; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766392776; x=1766997576; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6Fj+XfaxlxrnCmfjmeRGTyI1GjowWr+hnAA+TfTzTnk=;
-        b=cENRNOpWAiuJwJFtMokkxR1A6tV91ngI/D9FRVIpC0qC0GlNUJDZIFU4VRSmh87Yp5
-         NgR4WqQUbZSwnVHe3NfRyT/RgrCGAtk6lTrk1uDuufB/RWUqCXm7Go2oMK5uW0EiaodW
-         x0hl12gX26UOQpXiB9XL6nbke0c8gnaLKGbF9S/DOlYPOjzJFc74eJAcvmrqSPi/VlNk
-         vTF/JhsVkQLL4P6WGz/hcLoyfu+ZQNpZjckQmSYQW+nXMg2GjrtHH1asvrwyotVf7+ZG
-         eKekg6c0JGXZ5fWLDGoJte2Mn/zTat49jOM/swcdguMO6SAbOZnZ5xMK/YRMKfhwEu3V
-         /m9Q==
+        bh=kM/G+3vOlIVJr3eIOgvO/AXnK7vKxY6uR+eXbYXpnBI=;
+        b=b9RkonsTa5gejcIMoQWk7VqE7aawvxxdeYPR3CPSrQGBbDfcbnyz1bfLdeENQVKhl7
+         swA3TcqWcqRbbFWdK97BBQKIKxA1GUgCtwiLo5DvzyAzOUlS7JKgAq1R6VzxOk/i2tUS
+         B/7WMTXBPcfz/6xMLAwIMTLtmutZUnMeHCC9PzqssHtUYpuezAE1LH+1z0i+NPi/guUj
+         /OHdNJ3c+HL9BvP2EX3DYwdADVMlq9oVbxd8s8Yy1+WlUKYSmUwxMjSOj4rCPm4s4mqC
+         dOE91AXPv/o7fr+q8R3SkEh9C6RjfjvFGAXTa+aq5nZSsdiWyeMGz/c9Y8DYuAI64a1w
+         Khpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766392197; x=1766996997;
+        d=1e100.net; s=20230601; t=1766392776; x=1766997576;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6Fj+XfaxlxrnCmfjmeRGTyI1GjowWr+hnAA+TfTzTnk=;
-        b=vtzqz3kJe7aQxhOOJFWyyG3uuPMMRi7DIga3cF8kVyc6lfYu6PY74LgSJiey51Vd9m
-         8HoO0yinpXDC4UwJh7yQhi1cVOUorFedwuzsRkvYQB09gYDMeTozPS0/A0maKv+bIZKN
-         8XjKoK+TxuTqU631Ahv6zWXbuiEpx+OfGw9Nk9qNqz8gbfdJcd1R/diKwv58ZU5dtuAZ
-         6YRmRmXPSBcHD7oWEIlaXS5cuFWqm/I0193kWe+Dt2f1uDfYHZbJRdkJmWwVitpconnK
-         G+m0Unuq28RKSdPOD1++2DbJ1HvOLlAepSFPOtyIT01vadJPUlBf9sioiH4MHNQ0xVwm
-         ygPw==
-X-Forwarded-Encrypted: i=1; AJvYcCVFznreRy8KpVpialp3FNmzVlscnux3MmggvfysdBRrxni5H2MfCy7wP/Ad/6xb/YC86NZqPGzvv3E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwiFblv8Tb1YQa7BhcVWVKdKO/Fd9pBrqH5YE4dWU9qnFrUMVJC
-	lg6IGLCoyeMmFy4KkZXkL4961IMGVw3Z8IcNI4WnO+UIDd5WBLhYGvQYG3VGoe5u+g==
-X-Gm-Gg: AY/fxX5ACZjV9InyDpg/tnAOvYBwzAq+bR0JCm8jKaXb7tQuakNfvUleFtiX2hLsQoQ
-	DtF4L2ZSKzwDZ2IDf8hCUUWGnGvC+uZgFDgBksz3kFgDwYejrMBM+4EQPtmWkmKAw4nG4YtkvMm
-	NkhOKewc3B91UTwqgeVeIkF+DnvuhFtMcAGHsz3Q2c/v7i07IjEjfb3m1duBLKc2sQsOaUFFW7O
-	NY+LRWE8t2/QYCW3boj1GQ0wi20UBdNNLeq/NZjjXB1UKH5XRQgrZiVzCfe59YCW9ryogP4cCxr
-	R97GjHEldhe05dOABUsZ/Y4k26BWjM04P4X6uFH8aLieT0DroYZJWge2Hb6ISiUlYsc4taLD7Ln
-	drh2HoHFxxXhTC08C93mwTAb58XpJJzNfX4RBSrasvqOgI4HR+2vGIUgqcKtc7sAVG2wLK2ibux
-	BgC8AZHeu/JmmFETIzs9+xCaCKJTTZb41lkkrX2U0gEWf6mJtZQTC/KLTxxjV0GjRxlPLLgCIv1
-	sk=
-X-Google-Smtp-Source: AGHT+IER8t25Edmik/0I/v5wM2t/A80Fb84UQFpMKqlhx/MXc1Ez7LtXXhYk4lKyPG4OR3h/kNqMUA==
-X-Received: by 2002:a05:6000:240e:b0:431:16d:63c4 with SMTP id ffacd0b85a97d-4324e4f9344mr12004554f8f.32.1766392197301;
-        Mon, 22 Dec 2025 00:29:57 -0800 (PST)
-Message-ID: <a80dd079-ecda-48fa-b84e-3c00edd6840b@suse.com>
-Date: Mon, 22 Dec 2025 09:29:59 +0100
+        bh=kM/G+3vOlIVJr3eIOgvO/AXnK7vKxY6uR+eXbYXpnBI=;
+        b=rpaRRL0RHSYluJ2MJ/EWqhoP8sKlDbJ02rNQ7bmGrzJMRSbqgode3clqXx48WKuGxq
+         Rl0sZ9hGKfzhgFhLL2JeVadS2p6ruGqemR45LLkNAngFDqsbkTCDFdoHPVU9QLHfWzO0
+         Iy7Ut86DcjXNf7puokXKHZIxBMVjM4XVAxmQV8bgTnJUB+1yiEOAklXi6BEoIhkNzRRd
+         88vsfK04kpxD5MpVnkVUJ4gA1prXpajT23a4Tc82oNdgQ6fuJE8dv8Cc2u15YVVhCYFL
+         4XSiNxE3QmPrc6iQ5FOAwufzZHcLd2oCzMOHrFQUUKDnQWFvYBFfFko0BT+MXeQ0xWQK
+         wbYw==
+X-Gm-Message-State: AOJu0YwjPjnLzuCMBnu8WETtQD5BUTReqXa7NzW2+H6moSVVcEv+SgKk
+	2FXfOlz13UfLTR8351RZP7Bs7bShjSmcuSKEHFVAK1l+e35xfQAwSenEaf7d4mTDUA==
+X-Gm-Gg: AY/fxX4+ZGB5Brg+MSBk2RVzeER/6gcRYYeX6BUFHmhIChT0o2tY3Tf99LycaFSaDbx
+	JoPAsGAROrpllMbd5H+ndZh8wqpfIzexPB57JUsO/d6IEnVlAROBaVwRsDHcrr9inEqS+/Sq+2i
+	npsQrAkvPasbPFUSyWJ4xmYqqfvZ1xgLY9WbAsMkAWzSbg5qo8dvOQOVsdJNsC8Vr4GRqnI055v
+	89UG0JHWrYtUQyhvhBqR9wmHsUhi2BqWcfExz6vmaCf+NtZAW3uwhyfoSq9px9sQQTtAAU59Ui5
+	m9CZp+3fXek426f8o61fM7FFK9UKu0HVwOjvXHj5Q3g3EV1yvzz6Jcm1wbGlbHG9feb+h3aV9x6
+	WgMfOpaz8QWxuVsK9IobPTI7ee8CBzFNN4F9YY9FHbUPTyVCVxFOKDOwTle8P9EGGDuUsmzQ+3z
+	4suI9lfMJahb+0mzqrfrrjjoKE+ozSL8KUR67sFD+cBY0g55X8QbYtWqw+qedwUc3YdGC90HQ9C
+	xk=
+X-Google-Smtp-Source: AGHT+IELJDtylkiXIOj/1JApop7nYHXK3BTk53NIp3FKZhWQEepymwHi3KDGNKsOR6MYtSO0ZceJ3g==
+X-Received: by 2002:a5d:588c:0:b0:42f:b707:56cc with SMTP id ffacd0b85a97d-4324e4fdb0bmr10316197f8f.30.1766392775951;
+        Mon, 22 Dec 2025 00:39:35 -0800 (PST)
+Message-ID: <4159dd59-4301-4265-bb5c-82949ed095a9@suse.com>
+Date: Mon, 22 Dec 2025 09:39:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] vPCI: avoid bogus "overlap in extended cap list" warnings
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
 References: <26294a6d-e99b-4290-988a-da7b7b838651@suse.com>
- <e1fe4599-02e2-487d-a2c5-bc912fe8646e@amd.com>
- <c5f210b5-f321-4153-a508-1abf5fc43644@suse.com>
- <b3e23e9d-e18a-4412-88c9-3fc34de4f11b@amd.com>
+ <aUUPPPYyuLUdj3XJ@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,31 +119,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b3e23e9d-e18a-4412-88c9-3fc34de4f11b@amd.com>
+In-Reply-To: <aUUPPPYyuLUdj3XJ@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.12.2025 19:56, Stewart Hildebrand wrote:
-> On 12/18/25 11:14, Jan Beulich wrote:
->> On 18.12.2025 16:37, Stewart Hildebrand wrote:
->>> On 12/18/25 02:56, Jan Beulich wrote:
->>>> The DomU part of the function worries me as well. Rather than making it
->>>> "read 0, write ignore" for just the first 32 bits, shouldn't we make it so
->>>> for the entire extended config space, and shouldn't we also make it "read
->>>> all ones, write ignore" when there is no extended config space in the
->>>> first place (then in particular also for the first 32 bits)?
->>>
->>> Hm, yes, perhaps. If we simply omit the call to vpci_add_register(), it should
->>> default to the "read all ones, write ignore" behavior.
+On 19.12.2025 09:39, Roger Pau Monné wrote:
+> On Thu, Dec 18, 2025 at 08:56:24AM +0100, Jan Beulich wrote:
+>> Legacy PCI devices don't have any extended config space. Reading any part
+>> thereof may very well return all ones. That then necessarily means we
+>> would think we found a "loop", when there simply is nothing.
 >>
->> But it doesn't right now, unless I'm mistaken?
+>> Fixes: a845b50c12f3 ("vpci/header: Emulate extended capability list for dom0")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> For !is_hardware_domain(d), any access that isn't explicitly handled with
-> vpci_add_register{,*}() will default to "read all 1s, write ignore". See
-> vpci_{read,write}_hw().
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> With the U suffix added to the constant, as noted by Stewart.
 
-Oh, indeed - I keep forgetting that "read hardware" as indicated by the name
-doesn't really mean "read hardware" in all cases. (IOW I find this confusing.)
+Thanks, albeit I'm not quite convinced I actually should put it in. Imo ...
+
+>> ---
+>> This is the minimalistic change to get rid of "overlap in extended cap
+>> list" warnings I'm observing. We may want to avoid any attempt to access
+>> extended config space when there is none - see Linux'es
+>> pci_cfg_space_size() and it helper pci_cfg_space_size_ext(). This would
+>> then also avoid us interpreting as an extended cap list what isn't one at
+>> all (some legacy PCI devices don't decode register address bits 9-11, some
+>> return other non-0, non-all-ones data). Including the risk of reading a
+>> register with read side effects. Thoughts?
+> 
+> I think that's likely too much - for the hardware domain we want to
+> allow the domain to access all the PCI config space, regardless of
+> Xen's thinking there's nothing there.
+
+... we really need to do better here, irrespective of this intended behavior
+for hwdom. Us accessing the supposed extended capabilities list is already a
+mistake when there's no extended config space. Us then calling
+vpci_add_register() to "pin down" the value read is wrong too in that case.
+
+Question here is whether even with that fixed the check being added here
+would make sense to keep. In that case putting it in now and then doing the
+other re-work would likely be the right thing to do.
+
+>> The DomU part of the function worries me as well. Rather than making it
+>> "read 0, write ignore" for just the first 32 bits, shouldn't we make it so
+>> for the entire extended config space, and shouldn't we also make it "read
+>> all ones, write ignore" when there is no extended config space in the
+>> first place (then in particular also for the first 32 bits)?
+> 
+> If there's no explicitly handler added, the behavior for domU will
+> already be to drop writes, and return reads as all 1s, which is fine
+> for the rest of the extended config space?  We just need to return 0
+> for the first 32bits to avoid seeming to have extended capability
+> support.
+> 
+> Maybe we want to keep the same behavior as expected from native for
+> legacy devices and just return all 1s consistency for the extended
+> space?
+> 
+> Hence we don't need to special case this region, as it's already
+> covered by how unhandled accesses are resolved for domUs.
+> 
+> Or is there something else I'm missing?
+
+Imo correct behavior would be to return 0 for the first 32 bits when there
+is extended config space, and ~0 when there isn't.
 
 Jan
 
