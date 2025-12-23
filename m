@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3822FCD9E79
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Dec 2025 17:11:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192680.1511808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91CDECD9E88
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Dec 2025 17:13:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192689.1511818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vY4yb-00028R-FZ; Tue, 23 Dec 2025 16:11:09 +0000
+	id 1vY510-0002gN-R3; Tue, 23 Dec 2025 16:13:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192680.1511808; Tue, 23 Dec 2025 16:11:09 +0000
+Received: by outflank-mailman (output) from mailman id 1192689.1511818; Tue, 23 Dec 2025 16:13:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vY4yb-00026S-Ct; Tue, 23 Dec 2025 16:11:09 +0000
-Received: by outflank-mailman (input) for mailman id 1192680;
- Tue, 23 Dec 2025 16:11:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vY510-0002eL-Nz; Tue, 23 Dec 2025 16:13:38 +0000
+Received: by outflank-mailman (input) for mailman id 1192689;
+ Tue, 23 Dec 2025 16:13:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7uuJ=65=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vY4ya-00026I-GL
- for xen-devel@lists.xenproject.org; Tue, 23 Dec 2025 16:11:08 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd00a426-e019-11f0-b15b-2bf370ae4941;
- Tue, 23 Dec 2025 17:11:07 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4775ae77516so46261335e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Dec 2025 08:11:07 -0800 (PST)
+ id 1vY50z-0002eF-Hv
+ for xen-devel@lists.xenproject.org; Tue, 23 Dec 2025 16:13:37 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 534a487d-e01a-11f0-9cce-f158ae23cfc8;
+ Tue, 23 Dec 2025 17:13:32 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4775ae77516so46280155e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Dec 2025 08:13:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d193cbe58sm247204175e9.9.2025.12.23.08.11.05
+ 5b1f17b1804b1-47d193cbc0bsm250242475e9.11.2025.12.23.08.13.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Dec 2025 08:11:06 -0800 (PST)
+ Tue, 23 Dec 2025 08:13:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd00a426-e019-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 534a487d-e01a-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766506267; x=1767111067; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766506411; x=1767111211; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nqo5wDbuAUVDMAX9DWfPckr5yjybwEaleuaH630r/Og=;
-        b=dzZ+sobQhckGyxoQ0xMFfjPFOdmYD+K2/Wr6p9nba1uLqCgxIBkmo66mUXddsTXv8M
-         vVYRu6XpU/LvYJpHb215p9czkKoU1g+TSseiAgfYSxPEIu1NSq7fvwioBjKhywrexl79
-         cxHlDkzlt7YbgX9boQrfbrIbfbkjkoDwHznm1H+vIJwsTbWAuahkr9OtTjHC5TJZX/Df
-         uA7KkXADreYBvBiTc5YhXnGvd/cD9QxQja1r5oa8cSsqhRH+6/HSeOxxd/s/3bujASjA
-         jdwOi4D+W+1EEys9mGAKY2a3Y1IEaqj/tNCfB/sPwtSsoeXhZAsVMasDaWVUEsIQyq/6
-         YNIQ==
+        bh=XaAmLtP9lufuDfAjNuVDIKxib9iohk8JY6Eod+nUjJo=;
+        b=CTjAZAjJ6/VGo9/MeY01l3qSABKEFsNAAh0NHS3YOTfCUHYQ7o6lxyIM/PifNshy39
+         sGpUpNzKe9PMXdjGtoheH4Iw/hhK6pyT3UklT1nUVUVS5WEmgkWJCT7E5W+/hDjWfR5f
+         X9PVIyVrpwTzzdv0Wnv8+g4fCtFT40CNUY+c7BsqmupUWjs0ZwvqGNOx7KLhS/vyZ0GN
+         g0A807n5ML5qUSUQ8hTU0QFPkxGn7HS/mE+FnuMWiGSTpOfkQoNQykQmCSTT9zuL6jx8
+         xtjky2ZwwA6Y2OGSeP2B1paNLq1m8Ybp5YbxvCnlD1kIlpviyhVIl9bpshOQIyou4ESO
+         k2gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766506267; x=1767111067;
+        d=1e100.net; s=20230601; t=1766506411; x=1767111211;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Nqo5wDbuAUVDMAX9DWfPckr5yjybwEaleuaH630r/Og=;
-        b=k0kvoEJVEWimHQKwyINlsk/lpwuGWTT9F+H3QYnxAkH0sLzY1bXZFUVoHWBszftbbF
-         VDZ4TF/A8MCmNiWxkeWzuKPyNvPNZm05SfrUI8BMoAv1guNj59jquKKt2jme4y0Pdbb5
-         h48+/zliZKTCyI9GUosbRLijgZ3lDW1SE9JC5IH6yncm0F8miWHyllWtLWM3lyQcEMq1
-         jd1eXMjD2IbOpheCcoXeCua+N15STpytOlL+9XSFbz8XWSh2yzCHFxxBcx8vyxhNCekW
-         FDYL//pA5wLxto6xF7vfUt+awKD0ahpIWncBWbIWgXiM3uMBtjpv/lK8CFIkuGPojZ9q
-         DcQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV86cs9ZRg7Cd3LYTLe140M7LzOxhAjZskobxdmdyq3RjThzapO+B1MEQIaC5PcAW6yYakIFVtsF7Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYfYEvB4fkt7cMAcJN+Eua5/MaYCSLQAzn/YvIgE81gPVbpfvU
-	fkmlBayGnK2M0tO/gLGlt377asEdAwBI5iqwRLvl0QCSNsTleeYtISBCDImRJ7HEeQ==
-X-Gm-Gg: AY/fxX4VuuuGG66lqyajDxBWMkHzO5F/9RfV4uZs7NDvmJpb9ZWusftoL8uE1gD271f
-	gjjsdd85Z1XHMOWslDsD8N8b0kFwei1PGqlED9jXib3+SXL5wi3ZB83TK0LbgQ7s5KAW8fHg8IW
-	NsKFre89W0+p7AW0Lr4WZiw8pVGg8ZIGgZQdaoA2Hn3kU1ddpeG5NL2aUaAml5Pt/aQ4lday6/K
-	Qdfq2Q3KbjT4gplx9HVzzAlTMFA0YDIbXQSC414k8Wg0j3BOON09PKtAdH1QeRmRwm0IubKzgzZ
-	302sBdcbwCGgvJLHEd60WM7CYHP5FvzbUNlKhHuokgU9p8U90iC3SkMZF/qgkBI0frbZzDOgSI5
-	TWqhWhUDSuPnDTexqfjHqZSL9U9tbV0/cKEYsHs5TzFE3ndX+Tlic4FU73aEdCQuAl3NvOGPmQc
-	+9fG4JKo6k6JsAc3U2lvSe52T+i07kOcztrqWoDa/dJbv4uyyWSxcit7OztSSr2/Za7Osfzv7L8
-	JiIRR/XpwVW/w==
-X-Google-Smtp-Source: AGHT+IGsAI9FZgLBIsvL83CNcSQw8hzv/PGJlHvzpL8QFcry5wEuDe30pf5twxIBNwbdvVYDrMvj9w==
-X-Received: by 2002:a05:600c:4711:b0:47a:9560:5944 with SMTP id 5b1f17b1804b1-47d195c1a71mr162729425e9.34.1766506266739;
-        Tue, 23 Dec 2025 08:11:06 -0800 (PST)
-Message-ID: <74eec4dc-de48-4060-8f87-ba04023fda17@suse.com>
-Date: Tue, 23 Dec 2025 17:11:05 +0100
+        bh=XaAmLtP9lufuDfAjNuVDIKxib9iohk8JY6Eod+nUjJo=;
+        b=ObePlnpUfZIcXO9Ra2R1RSyCTOl0BVclR3dDO/mYsaXULB9hEE4SvM1DTGOYWUqMzm
+         vSx9KqZNekEJxJ0LT+vZnA9tVx33s1weSckcWKFgHmAHa7yZKKXn4bUSz9LD+Vq9AnD2
+         XkSNCWmAUxyEFKY1Y2+r7eXFIyXxH4PS8h+UQVcFbHO+8CbU2V+YVQdxePlCIpdcbIMh
+         yxDbiIjqjbq9thDMOzaC4MmU3CdJe50j40k7Z4xMHiMb3/h2Vsp+UGyTWUeWhToF439t
+         s1PhCqS0mPTAW2cdptq5exdeDmP3JiDnVWtpGzGd4EZKOy71eYCBFiZUMFEU9EvpUdJg
+         3ibw==
+X-Forwarded-Encrypted: i=1; AJvYcCUB9RY8wZU0TtpnFRGTa5TvJFO94DCa3L+8WAbz9ANzBtFuW6OTNfXLOFiRBaVjZHMGa1y3WJH0bjY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6MXyhAYxa6u3yOqfcIY4nQZjCne+fE4JJDe1ObfX41S5ZKzGX
+	kqUfN9iv1Tct1AhbP6G53hW8MNjsY6liHR8paZ7THjOCJyLvGMY9rxlQGsuaFLElCw==
+X-Gm-Gg: AY/fxX7VMZUoJlbbQbMEuoQ4j/SJfcTR0MZybwUXAtCHiOxT4/39Ka1NNATYOAPyMhk
+	wJ1J9B4E1WpJoaBDT8xBg4uKvVGaVQ3OkBrmoTwk/EWeNXUcW6DcjJHAe3YlN5MIu1j0D5FBVE4
+	8YFFhwzp1thYTlbR2Q80oGBmJxXj8ZfLZ7YUvaIGzXbf17cXQ5JhA/rQBIkluZLB8wxG4mEjX23
+	awEnuOdPyBQRPOrMdE41wENu0YauSybrC3Q1bpo18O2L+KfW7MYt1/ZT9DBsbQhhtUseDRHF8gf
+	je7cEsypCu9pooL1UwxO4yxj/v2VgVaMox+OTbIWTn4Vc5JyraK+1W3hqquD9a5wsvFz/Cgp5Ah
+	m9n22V5+wj8/v62AMFk4L6kQk/v17mwW3VUz0sQ8KtygFppnBV82sU83Qjuk3kXgthRETylA+ke
+	tLT+JYSCICoqlUW4ZOZZfHEhHQIleYBTixo7P4SxQTR3529GNNhLLi5fhasb5s/2XeYknKGtdMq
+	5g=
+X-Google-Smtp-Source: AGHT+IF/iT/J9oF+tyHAhZPPin6vUZshytWGXHkITtP9sQ7ZJK0FHgCliah38cQ+dFK3pQ9YMUbzOw==
+X-Received: by 2002:a05:600c:4711:b0:47a:9560:5944 with SMTP id 5b1f17b1804b1-47d195c1a71mr162820365e9.34.1766506411523;
+        Tue, 23 Dec 2025 08:13:31 -0800 (PST)
+Message-ID: <6d7304db-7b75-4b69-aec6-663f951c37f7@suse.com>
+Date: Tue, 23 Dec 2025 17:13:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] xen/riscv: add RISC-V legacy SBI extension support
- for guests
+Subject: Re: [PATCH v3 3/3] xen/riscv: add RISC-V virtual SBI base extension
+ support for guests
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -100,7 +100,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766399205.git.oleksii.kurochko@gmail.com>
- <f4225d3134ec12a392a2e5d91414bfdf9d0665a1.1766399205.git.oleksii.kurochko@gmail.com>
+ <d7c8217605ad5d88a94baf32c2543654a415236d.1766399205.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,24 +126,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f4225d3134ec12a392a2e5d91414bfdf9d0665a1.1766399205.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <d7c8217605ad5d88a94baf32c2543654a415236d.1766399205.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.12.2025 17:37, Oleksii Kurochko wrote:
-> +static int vsbi_legacy_ecall_handler(unsigned long eid, unsigned long fid,
-> +                                     struct cpu_user_regs *regs)
+> --- a/xen/arch/riscv/include/asm/sbi.h
+> +++ b/xen/arch/riscv/include/asm/sbi.h
+> @@ -14,6 +14,13 @@
+>  
+>  #include <xen/cpumask.h>
+>  
+> +/* Xen-controlled SBI version reported to guests */
+> +#define XEN_SBI_VER_MAJOR 0
+> +#define XEN_SBI_VER_MINOR 2
+
+Are these going to gain a 2nd use, justifying their placement here?
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/vsbi/base-extension.c
+> @@ -0,0 +1,78 @@
+> +
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/lib.h>
+> +#include <xen/sched.h>
+> +#include <xen/version.h>
+> +
+> +#include <asm/processor.h>
+> +#include <asm/sbi.h>
+> +#include <asm/vsbi.h>
+> +
+> +static int vsbi_base_ecall_handler(unsigned long eid, unsigned long fid,
+> +                                   struct cpu_user_regs *regs)
 > +{
 > +    int ret = 0;
+> +    struct sbiret sbi_ret;
 > +
-> +    switch ( eid )
+> +    ASSERT(eid == SBI_EXT_BASE);
+> +
+> +    switch ( fid )
 > +    {
-> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
-> +        vsbi_print_char(regs->a0);
+> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
+> +        regs->a1 = MASK_INSR(XEN_SBI_VER_MAJOR, SBI_SPEC_VERSION_MAJOR_MASK) |
+> +                   XEN_SBI_VER_MINOR;
 > +        break;
 > +
-> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
-> +        ret = SBI_ERR_NOT_SUPPORTED;
+> +    case SBI_EXT_BASE_GET_IMP_ID:
+> +        regs->a1 = SBI_XEN_IMPID;
+> +        break;
+> +
+> +    case SBI_EXT_BASE_GET_IMP_VERSION:
+> +        regs->a1 = (xen_major_version() << 16) | xen_minor_version();
+> +        break;
+> +
+> +    case SBI_EXT_BASE_GET_MVENDORID:
+> +    case SBI_EXT_BASE_GET_MARCHID:
+> +    case SBI_EXT_BASE_GET_MIMPID:
+> +        if ( is_hardware_domain(current->domain) )
+> +        {
+> +            sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
+> +            ret = sbi_ret.error;
+> +            regs->a1 = sbi_ret.value;
+> +        }
+> +        else
+> +            /*
+> +             * vSBI should present a consistent, virtualized view to guests.
+> +             * In particular, DomU-visible data must remain stable across
+> +             * migration and must not expose hardware-specific details.
+> +             *
+> +             * These register(s) must be readable in any implementation,
+> +             * but a value of 0 can be returned to indicate the field
+> +             * is not implemented.
+> +             */
+> +            regs->a1 = 0;
+> +
+> +        break;
+> +
+> +    case SBI_EXT_BASE_PROBE_EXT:
+> +        regs->a1 = vsbi_find_extension(regs->a0) ? 1 : 0;
 > +        break;
 > +
 > +    default:
@@ -156,8 +217,7 @@ On 22.12.2025 17:37, Oleksii Kurochko wrote:
 > +        domain_crash(current->domain,
 > +                     "%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
 
-Hmm, wait - patch 1 says you would consistently use #%lu for FIDs. I can adjust
-while committing, unless you tell me not to.
+Same remark here as for patch 2.
 
 Jan
 
