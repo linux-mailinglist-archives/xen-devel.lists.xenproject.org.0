@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B772CD741A
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Dec 2025 23:17:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192361.1511633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45EC1CD8707
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Dec 2025 09:16:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192403.1511643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXoCv-0000TO-LK; Mon, 22 Dec 2025 22:16:49 +0000
+	id 1vXxY8-0004Dz-NM; Tue, 23 Dec 2025 08:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192361.1511633; Mon, 22 Dec 2025 22:16:49 +0000
+Received: by outflank-mailman (output) from mailman id 1192403.1511643; Tue, 23 Dec 2025 08:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vXoCv-0000RR-IB; Mon, 22 Dec 2025 22:16:49 +0000
-Received: by outflank-mailman (input) for mailman id 1192361;
- Mon, 22 Dec 2025 22:16:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vXxY8-0004CA-Jz; Tue, 23 Dec 2025 08:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 1192403;
+ Tue, 23 Dec 2025 08:15:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yff0=64=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vXoCt-0000RI-Pa
- for xen-devel@lists.xenproject.org; Mon, 22 Dec 2025 22:16:47 +0000
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c10d::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5c943ef-df83-11f0-9cce-f158ae23cfc8;
- Mon, 22 Dec 2025 23:16:44 +0100 (CET)
-Received: from SJ0PR03CA0334.namprd03.prod.outlook.com (2603:10b6:a03:39c::9)
- by LV8PR12MB9134.namprd12.prod.outlook.com (2603:10b6:408:180::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Mon, 22 Dec
- 2025 22:16:39 +0000
-Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
- (2603:10b6:a03:39c:cafe::31) by SJ0PR03CA0334.outlook.office365.com
- (2603:10b6:a03:39c::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.11 via Frontend Transport; Mon,
- 22 Dec 2025 22:16:30 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9456.9 via Frontend Transport; Mon, 22 Dec 2025 22:16:38 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 22 Dec
- 2025 16:16:37 -0600
-Received: from [172.19.65.57] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 22 Dec 2025 14:16:37 -0800
+ <SRS0=I0w9=65=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vXxY7-0004C4-0q
+ for xen-devel@lists.xenproject.org; Tue, 23 Dec 2025 08:15:19 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8327db84-dfd7-11f0-b15b-2bf370ae4941;
+ Tue, 23 Dec 2025 09:15:17 +0100 (CET)
+Received: from DS1PR03MB7871.namprd03.prod.outlook.com (2603:10b6:8:21f::17)
+ by SA2PR03MB5913.namprd03.prod.outlook.com (2603:10b6:806:11d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Tue, 23 Dec
+ 2025 08:15:13 +0000
+Received: from DS1PR03MB7871.namprd03.prod.outlook.com
+ ([fe80::3a7e:e6ed:f8e9:9fb3]) by DS1PR03MB7871.namprd03.prod.outlook.com
+ ([fe80::3a7e:e6ed:f8e9:9fb3%7]) with mapi id 15.20.9434.009; Tue, 23 Dec 2025
+ 08:15:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,211 +47,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5c943ef-df83-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 8327db84-dfd7-11f0-b15b-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aULm5CkdeSeXJkQQZoaSyDbchRpZxps+kIdaQYsKNM0CG3MeovWMgiEerWndyAWDeXbB3xT05wqXizVlDAv8/htGAJkQ7n6S6+Ggz25tO/lASikt6slfKPgnU/ey4U3ZlKDS/HK7tKMwXz0A86IuTiPqyyfbuOkehxmVSuUnV51UKG03j37T7CuLf1nlyHDOrSJEZM4Yn8eI4j/vzV7l97o2IX1esmO8Jc7rSMGRbwN6l/t9E823ZjWnfMXv3Fy7Y9Ch3XZPyrQMLTsAsiCXu6od0GS4v1zH7VoVlD1PwmiOs86E1nANOvItPxTpkFzO1O2v0XIonE84RJP3a1/4hg==
+ b=HUhFDWBK8ZFmjmCNbe0gjAxPljluajQxUTTToHrMcqG2VEcscnm6QMYWUmg+QviuaH6onvW/Yju9QTf6vRZ1UFZWitsvrEEZt+EnUZENcpnRy2wGSxKtW/EtwyjsJg/fE//giWTx1B6Yhi0Ev36RFFOLqm1OIq/EmBH+TVsxwqqyxXedYmi580/F26izA36vjYh0nEX2X8hfT9p/SqIZgghJiTDOc7sz2tcmrZXYxq/POT4wWYAp3gErPazppRvXRr0L5Hq4VRu4lbpEQEc795gntk4XLDwyFQafaS6DHhh46U5nuQLDslU6Vz8DvLodqFw4K3XZqCP74d2X/LRCOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qsIWPT9WDjEvu3Aq4Cc0UHAv0xFUY0brzLwai+P/4VA=;
- b=JA1YBiqtbdpcGYTg7E87tpUO3E4s+11ajqDvfp3wxhMHohNnZ3lLlmTR199U3OvsWPgZUEYW1tllucIis6tpnolkKRpB2ZVO6o/fRZKs3/mle7qAu9xAQH5X7y1MdMREfT1hmq1JyK5y4i/JoQ4oGJXihYRi1LsWvl/j3k92qHeOeTJXyvXnTRu3vPR3C7WaWTppoo9FN7Ho6KxwB2H9up2BNBwUZHERt/4grV2Iiye15Br69F5Iiu7eYppdyOzacL1pua/Nw2mMH1erHPFYA5mGxsRYjb9VtkRXykpQwCRCLh1qMW0p5O2vEC/4cPXrxazUFC736WNHDw4OEp06nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=9Lg6YZh7pE0TJ+LHAdARxWRraAx+sb0tnkDjhERzLs8=;
+ b=Sinp5HVgDxB4vyIHOSalOutCrkUn9TsAYqlinez/QfheqLpCjzJRT3kUdj1Jec8sWwIdxCFUI+jhSwpxviPMA+MelHcybWA1I/gRDSbg+fSKwogO9VOc2/PQ65H+fLR2ihlgVmao05QxMoEQwVsTC0xxRUtZjAnBTQzM2qCPCYU2wWSrp9W+hTKvc2xNv1FfAqfv4UaiW85hCbYX0tpDItc1SxPY04uHD59qRFNapLzvmZPut7G1r3WhTanC5BqopzVCDp5Wm09rXJSjL3+zr+lQucFfX5evckRwixqahxt+WUd9xd2XNqXsRN0NJWCIzkwHYS/2+YlY6UMaZFuDTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qsIWPT9WDjEvu3Aq4Cc0UHAv0xFUY0brzLwai+P/4VA=;
- b=yHYc/6kOqR9ZsOyWyDsw30dDBSyT7EhuDvRdbw/for7kdCxnmnVt+IMRTDs1Rf9mgjNlVh4eup4+R+BTI9ZoE3AETkBv7LOtBw45oSMM0VfQxvzlhcf/Cujyr43UM/YnjDnjEH4C0o2eB5SHmpYTIzYW1+HCdyTcIDWR9SRtDg0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <8941cf0c-fac4-4406-b2b5-429a55c1d088@amd.com>
-Date: Mon, 22 Dec 2025 17:11:07 -0500
+ bh=9Lg6YZh7pE0TJ+LHAdARxWRraAx+sb0tnkDjhERzLs8=;
+ b=Myw+M+Ef0LTVMUWkwcj5I2+p0ZbQ3dB3jNOEs3q4Wrn0D06hY1igANOHl7wBn6q6FbVE2zBV7RMkLGV9rlUSrbnQ0XZ0npibgU1VEUsy12uQzsetP3lJ30ziUsMHfWPnuynIvPbMXRN5ygS0iccfha1F7XC+G15rPbbM8IpJVKU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/mm: move adjustment of claimed pages counters on allocation
+Date: Tue, 23 Dec 2025 09:15:07 +0100
+Message-ID: <20251223081507.29325-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.51.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PAYP264CA0029.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:11f::16) To DS1PR03MB7871.namprd03.prod.outlook.com
+ (2603:10b6:8:21f::17)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] console/consoleio: account for xen serial input
- focus during write
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Victor Lira <victorm.lira@amd.com>
-References: <20251204233211.980862-1-grygorii_strashko@epam.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20251204233211.980862-1-grygorii_strashko@epam.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|LV8PR12MB9134:EE_
-X-MS-Office365-Filtering-Correlation-Id: 328cd818-9ea6-4f98-fe27-08de41a7c6fe
+X-MS-TrafficTypeDiagnostic: DS1PR03MB7871:EE_|SA2PR03MB5913:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea090cec-c62a-42ff-1ca7-08de41fb65dd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MkhUVGk0dXorbTFqTHpzR2RqelF6NE8xTEp1Zk1WZkZVN3RGVlE3WHY2Uk1P?=
- =?utf-8?B?M0pXS3dwNzlEUk8wVUY5bHZuMFNTeHhEcTBCMDViQ2xmN1BYWWdFVnJDUkk3?=
- =?utf-8?B?M3h3cnRMcWc0Vks1SjA5Q1Fha2VwWXEzcElkSmg5RUZMKzVYekJPdlFYbklE?=
- =?utf-8?B?dkN5c0h4U21UVXpPZWI1UnhoSzhmdnhSeGN3WVFSanVEOTFPZjZsUzhOQm1q?=
- =?utf-8?B?MzlHSW4yOUJpK05XUEtOVUdYdU94S0VzSGRqWFpDaHFBeit4V1dSUnpsaTJC?=
- =?utf-8?B?WExzSUg1MXJCSERnL1A0YkU2azdua0tvS1YzaFdoSjFHV1o5dnlQemNWWENS?=
- =?utf-8?B?c0lZWEJuWEtld291QStXR0xaTmlRSi9ySkVoT2JpakI1Q3hXcDBtT1ViQ25U?=
- =?utf-8?B?VGQ0anVucTZiR2lwU2hUemFISmRtVURzTGJaTHE1TVNaOHladDJJdXAyK0Er?=
- =?utf-8?B?Ykdob1g1Tis4elh5V0hqeDZZd0dkckxGVlVvSjVrbmJsM2RGT2ZraU1NdzZj?=
- =?utf-8?B?OXdiSGU4Z3V3MWdIR01NS0RXNkJEREVjMGNpTHRwNy9qT3NwLzZzVkxNY3ow?=
- =?utf-8?B?Nmh5N3o4QVp4emp5TXVoN0QyQ2ZYU0xXdjliaGhBTjgxU3NReU1JY3RYcEUr?=
- =?utf-8?B?TlIzOHFLZnFqTDRZQzd1NHQ5L1pFajlWMm9ycTl2Yk9CMFczRU1ndXF3aWp5?=
- =?utf-8?B?d1B4WmxseUFaZEZZdHNtZVlxVzNiblBDbFBmVThFV1VLSkVnN3pkOTRIOXZk?=
- =?utf-8?B?STlaMFIrQ2FlVFg3OUpLdG5NVjdIeElzU01TWENVdXB6SDhCVHRpcWNPVW8r?=
- =?utf-8?B?OUNkLy94QjdYd2VDUVVUZ1ZoenBudmoxZGdNUWk2NktzSWYzc09pcjQ5bndj?=
- =?utf-8?B?NS9xY2pGWk51QkR2SFRyai95ZFpCOFR6aXYxRFFtQzU2VW9IWFFnOFFmK2ZN?=
- =?utf-8?B?TG5uMUI5R3VpcjFIcTNneE02SmpPbG1CY0xmR2V1UmFIa29mbnZtVk9FZlht?=
- =?utf-8?B?SDhPOU02UjZzNHpDdnoyQVBxZFB1UU55VkNOOWp1VmcxbGVVaVlTcE12UHB4?=
- =?utf-8?B?RzRBR2RpUTZ3VzVjMkF6d1prNDluU3BOdnJJOTkwYXdnU29aeGtwcEwvQW55?=
- =?utf-8?B?Z1U2TGJjOXlXMXhUYUVGcys2bmh0cHlPTGNqOGVscEtRWjJRYzVhOWRvUEtJ?=
- =?utf-8?B?V0E4MWVnbW05d2ZvKzZneE1tWUdEUWFrWDVkZDN3KzVpNWx0UzVWT29ibG0z?=
- =?utf-8?B?ajNHMkwxSkJLWTM5eE4zaDZLNUZnV21aeExnNm9raFJtdTBRZGNHcWdsOWVm?=
- =?utf-8?B?QnROdDVOL3BlNzlQZ3JFY1JVbFRSSmNHNUhXZFN0ei9ZdVBjQ3M3TmVXMytY?=
- =?utf-8?B?SEk4dGlTczV1V2w5ZVJJU3lYREFQQm1pREJJQlBpVnBmUVAwR1BXMFdHd2tk?=
- =?utf-8?B?Z0xFZGMxTytMeHhuOERGWmtiZ2dDTi9GNGpBNXYvQWtRYlRaYTF3ZW1lRTJS?=
- =?utf-8?B?MVovRUJiamxlek9oNFhoMW1yZUsyQ29vbGJRRVVjaXlSQTFoZDl1YWxCanls?=
- =?utf-8?B?TTNUVGwwTUY2RUg2NXJESnJoNEowZzBYR292emNLVFN6Wkp4K2xtK0pWdWky?=
- =?utf-8?B?U3A2OEVVeFV3eERBMkZkL05yR3ovRmkvbHBHTWJWT1k5K3RjcGdFcXNjNHdK?=
- =?utf-8?B?Smd2bEFpd3FvaU5WMVV4ck5OTDVDRUZvRnduazdOTGFmNVZiL0o2Uitjczhh?=
- =?utf-8?B?TTMyekpVRkU5eFJPMjlGOXFKV2IyNlRGTFg4aE1zcFZzMFVMRVVBbnZkNHdv?=
- =?utf-8?B?c1VLUk9kRXNyOFVReVoxVkg1ZkRHek1nMnNERzF4NXlITU1aeWdFaWh5MXB1?=
- =?utf-8?B?WTNXTTJUc1hDTmM1TC96M2dFK05lSS9NVnN0RklhTXJwREZYdG5NVlJEZ3ln?=
- =?utf-8?B?TkNiUUl1SEZOTUVmcnErc2tNUnVRdDhmcFJkcmFEUkwrSTF2cDVIRmNiSjNT?=
- =?utf-8?B?bDZtWWlsWGovbHpFOUNua2hPVGpBK0pZaXo4VTRlQlp4WE80YzBNWFJuNURM?=
- =?utf-8?B?akpkT2dwdnc2MjQ0UzhqMTNkeGhRTkVoOXlRL0dkbWEyR3E0aUwrTlhVNmJN?=
- =?utf-8?Q?kkAo=3D?=
+	=?utf-8?B?SUpJRUd0ek44SkR0dmd5TGN3R0IwNzVZYVE5SFYxSGt5QzBDSHc0YW1RMDAx?=
+ =?utf-8?B?czd3Q2xacHlUTnc1QjFDNHFyU1BxZE5tZGRsNHVvRlpIeDRPMytmQTVHc3d0?=
+ =?utf-8?B?VlFwdXdMRUdweURrOWNBWGU3U09BcVpnbHlpQ2VHRmIyeEFsUUNEVXovU1g5?=
+ =?utf-8?B?UDg1RTBUWm1jOVZadmtxT3MyVFhHWGJpYUlmWGZORHdNQzR1UVRvUkZLQk5R?=
+ =?utf-8?B?czRRWFBydGpJM3RJNHFxZk9BYmQyTDRoalBHMDRzYW42Tm9nUDhwR1lNdThT?=
+ =?utf-8?B?K21BaGlRcE5YUzhLamgxVjRsZ2N0NlkvWXRIVjBCaldZcTFKc2FkeG5leHdX?=
+ =?utf-8?B?eTl3eDQ1ZzExS2dmK2RqUmVWU0VVS2ozYlFtTXNWQWl4ajhicTNMMXVPVmdz?=
+ =?utf-8?B?LzJjRGN3RlpSWDdyckVpdzZ6SnQ1T2NzNDI1TkhySHdKdGc3MDIreWFoTXVB?=
+ =?utf-8?B?dzIwSWNxc1ZNNjhuMFlucDgyWUxyQm9Od0VJTm9xMDhFb0U2RkdEVXJ0VFho?=
+ =?utf-8?B?aTIrb0JNOFY1NGFUL3Z0cHRPWm81SytSNHc5Y1BNdkNQdURvU1FmSGdTU2FR?=
+ =?utf-8?B?VXdrbDRqVHcreXFjcnJ0MmpMNU9BYVgrWW1EbklHK0krMnE1ekJiTlN4NjZK?=
+ =?utf-8?B?QzlRNzA5ZDRoZEVzZzFqRUgwcXltUHltQ0ZNcTh6RUx1OG5VWDFqMXpHVkZU?=
+ =?utf-8?B?TWZNdFBQc2NrNGlCbHIwbWFrT3hPV1NLMHVCWE44MnFGZUR3b0xaVnJYQVQ3?=
+ =?utf-8?B?Z1h2TnlzcmJETDhrRm90QWwyNmVOMVE0RjJFM3NTRVZxV1dGckk1R3dudW1q?=
+ =?utf-8?B?OFQ3L1FkQ2RvVE1BNlBqTlRVOW5xRTZKY3NXYXhRTVNJZFBVWjJoUWJsbGdW?=
+ =?utf-8?B?ZEY1b3JoSTdhSG1EMzdpaUlUVjdDSXc0OFA0R21XSG5jQmQzd1prZ0t0NkVL?=
+ =?utf-8?B?cGNwYzQ4SXdvbU1XcDY1c0N3akFjYkdHMzlVT1gyeUpNYWk3TmVNWVNuU3B3?=
+ =?utf-8?B?eDhXOTVLTzJxcU81MXYwR3IvRno1enBNQ04weVZ2RTRDWHRnd25qU2pJTDNs?=
+ =?utf-8?B?ZE5ib0VDTUVBN0xDNkxaYlJ1dVJWb2NadDdXZkZkam5RcWNWZ29yRXZhTmd3?=
+ =?utf-8?B?amZrNnJyanZxNEZVRU5keDBhK1hWV0ltZkp4L3U4OHBVb2luQnZYMHcrbld6?=
+ =?utf-8?B?RHpNYlNROHNqS1FPZWZRa25pejZzZ1c5RlJIb1BNeUhEL3R2WmJXb1htaXJy?=
+ =?utf-8?B?dnl5emlGNU9IRW1lbVVLVlVpMWxEbGhtNGtvSmhFbEpPWStOUlpWMjlVOHF6?=
+ =?utf-8?B?U0RlbFZ5M0YvdEZqL3dNUHduYXVINEdwc0FXbU4zOURKVDdaOHRjNlE0NDFh?=
+ =?utf-8?B?c0drbnRWVWpxbHpVcVQwZFFtNFZYY05zdlN2aGw5SEo4V1JGN3QzdHRCVWQx?=
+ =?utf-8?B?b0pjQTZXQTRCTnVaR21iVXBZNHJuWndVNEJiRlVTUThrQXp5VkFUKzViVXVP?=
+ =?utf-8?B?aWFCZmpXRWNsNmJxeDYvalBlVEYyeTBmYnJHT1BiNUNrRUNqVnVCdWlsbFBB?=
+ =?utf-8?B?K2dNdVlyVlorSko4WHdsMUJiUmJsamthck1tZHJGbU5BZythRUd2UjVGOFRv?=
+ =?utf-8?B?Ti82ZHhJaW9DV0t2Q1VwbitNeFVqTGoyb05KcWNYZ21rNHlNa1hvSm1TNUxB?=
+ =?utf-8?B?N2FIdllHTE9LOUdJMHZ2MEVoekhlQU5LRkxtOGhsaVI2cEdHcXhURkVpMlJw?=
+ =?utf-8?B?dFBIRmlwREpGR09nd1RaSmI2UXZPa2pQU0FwbER5UUtEQmZwZS83a2Fxd0Rk?=
+ =?utf-8?B?SW5iR01WZHZHWnd0VE5LRFZhWE9hWlQ4Y284MWpWQUVsVW92VHZ5K01Xd3RQ?=
+ =?utf-8?B?dzdLaG1XVEIwdEZ6UkhlbExES0JJTlJzem9kRzZoZU5zdG9HUU1PSU4wREFG?=
+ =?utf-8?Q?rrmYQDGQHthuQg3w9owR9GAi8xYuNYp4?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2025 22:16:38.5796
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS1PR03MB7871.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MzIzSHZWRWkrS2dwbEZHVW92V3VFWWxTMUsrbkdDRnJRZ0V0Vk4wb0p5NHFY?=
+ =?utf-8?B?UTNmTDhUc1hMS2F4ZGEzOG0ySW5oUmVuUDRjVVNiN3JWdXM4MnZtSmhjM2tP?=
+ =?utf-8?B?S2ZUalF4Q055UVQ3TG0xNTRkcUlObDRQcVVrL1hhNUdYOE1XOVMraTgrNFJh?=
+ =?utf-8?B?bFNGMjNmemRnVGkwZWxWcWs5MDN0RXlCanZySVJBdG43RWxJQ3NjOU5yQVBC?=
+ =?utf-8?B?Mm8wR0l3TnFkNzZhMFJBMy85ak1QRFY1R2tJZkpFZGp5eFVGdDhiM0pTYzJV?=
+ =?utf-8?B?aE82b2hya2o1bDBCOVUzUWw5c2N0SS9aNXBNN2FjQmtYcEtDTmg5OVRwV2h5?=
+ =?utf-8?B?TVptd0xWcGNROWpqMzBHZkNVNXllaVREWDdEajdhVVhxc1lCNnJqRlYzS0xB?=
+ =?utf-8?B?MzVpVk9RTjJraTYxcjZEcnNKL1BSVHA3T2VUanRDRXdSSHVjdkRGY013Z2Y2?=
+ =?utf-8?B?bVprMFBwMWhnNm0yWGwyMHNLeDh6ZU9MMDRWSURhYnlUVUs0ZmMrbHoyeHp1?=
+ =?utf-8?B?Vy9DQzkwNW93YnVzUGU3OWI3dFlqbHMvT1Nvcm9MTHBkYTJTZ0xUNzhRSjN3?=
+ =?utf-8?B?THVzaEVTOFNtQzVaMVNKd3Zjd0JqV0RCRzNkS1doUS96SmRTTTBFTmo1SVZV?=
+ =?utf-8?B?NUxYYlRvYTQxNXA2eHpHMDExcTZza1RWbk5mdG1ONmVkb0JBY1RoTno2T1Vy?=
+ =?utf-8?B?eFE3VXZrN09DMUJMUDVnQmtvU01jcmcwOExpcVc3d1hLcElQS2k4Y3FLMW5G?=
+ =?utf-8?B?cFphdUZPa3d2OVB1c2pwKzJkWGpFZi9POXRXUnZTL2p1Nm9vWkliSXFaMkRw?=
+ =?utf-8?B?TTdtRXAvbEQrekI5K1Q4dVlBV2k3ODZqblR6REJMNC96ZGxzUzlzZDd2Uklo?=
+ =?utf-8?B?M1FMalhKZ09WUWhCc0piUlkxZmU3OWhLMm5wQ1MySWxmZW5DT29uKzUzQXFX?=
+ =?utf-8?B?TlZxUXUrS3JpYkVNd3dmL0M2bzFpbWtlN2cwbzVtQWJISlBYUHo1YTRwc2VY?=
+ =?utf-8?B?d0VaMjBPaEZwd1U1ZXNwWFd4cjNnaFRiNjIxNTdpRmVpZDdpTUtzd0pPWU9v?=
+ =?utf-8?B?NnZURWpyOW81TzcvMzZsVGxTNTd0L3FsT1NweXBtUGR5eGJiQTROMk8zQTg2?=
+ =?utf-8?B?NWJBTW9DWklybllRMDNXMC80ZTBxaFZqZ0lvZXREencrdCtxdklhZ3BQbDBN?=
+ =?utf-8?B?R0lyWGRIb3U4Y2xFbXhpUzZQMzhNSm12dkZiT3BmNHdNR1BnVU9qZjFyMG94?=
+ =?utf-8?B?dUF3ZjVBbVRmUXFYV2xVOFU2WGVZTTE4am9WWXFYcExZcHgwSmNrSU1ZVUx3?=
+ =?utf-8?B?ZFRaOGsyZ1NQdXNiZ2szL1VGdnQ2bnVCaUVwMVV0Ujd5dU15Um9oazgrRUNO?=
+ =?utf-8?B?OVNsaTRRZis4ZmJXWTdzY1BlQlRRNXJMa1JLSDFReHVGa3dMb1pCdU9jVDd1?=
+ =?utf-8?B?NjVZb01YaFlQOEx2ZHhwclBBTFNnS2V2RUE1RElsSlozZmVSVlhxL0ZSc3hZ?=
+ =?utf-8?B?QytIZ2MrTkUvQU5UM0I4M0xrN1c4R3JnL3ZEYS9kMWRmNlBHVDBDYlU1a0Vl?=
+ =?utf-8?B?ZkFlY08rNmJtaDhPMFVqVnVGRW5POWFtNlN5QzFrdHJUUS9aQ0hJV3RnVFV4?=
+ =?utf-8?B?aExQbk9BSXAvQW9jbE42Wm5BVUVaY09TNjcrWUVpUE10TU5SNUdsL2RjWFNS?=
+ =?utf-8?B?Rkx4SGhVOGdqc3VJdHd0dmFVR2hFcXZkQzRsRTczMklLNklLc2V4QlJiMzV3?=
+ =?utf-8?B?ZEJLMDZvbnVrcVZkZkdSdmNjOEhrMENQYmpQdzdnKzZhc1kySWVja3FweHl3?=
+ =?utf-8?B?TlBTMlNqUWdPM0gzWk9tTW1BRUo5RlBrSjJHd3l4SXkvR2RtSlpTdFMvcFFq?=
+ =?utf-8?B?dWJzSlBldzRSQTV0Vi9OZGZzU29aUU1IRDdYbitaM0lNOVBDbTlPREpBcXdB?=
+ =?utf-8?B?RDdMWWgrdG00b3hlODZDWEFHZXRpWm9iWUgydThDb1N6ck1INnp6NG44TC82?=
+ =?utf-8?B?Nm82cGRJMG8wTkR6ZVVSVnhnYkRlZnB4Ymk3RE1xNHB4dEd1M1BxV2s2WFB5?=
+ =?utf-8?B?eTZvR1hEanB0TkZkRWtzTXNHMnp1VkhhZkhaSnV5UTM3Zmc0VUJkRG4yWTBT?=
+ =?utf-8?B?a0JaOGVOM2ViUjl0YmsvYWVheVJGYi9SZ2VTZXpTeXRyOHZORVVrZzBneG5F?=
+ =?utf-8?B?SjhWS2R5aWs2aHFGVHRLaVBmWjR0WkpJT3lPRklGWVJLNDhuUVNOWE9lWUl0?=
+ =?utf-8?B?KzZDK1JvY09CeWt2N0M2ZXRSbnduUjhIOEl3dG03TFRUa3B2WW5UcnFuaTA4?=
+ =?utf-8?B?clgxZHFHK0hMWWN6cjZwT2pMQ080S2dlc3l4YzBQTEhjYXZVYm9iQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea090cec-c62a-42ff-1ca7-08de41fb65dd
+X-MS-Exchange-CrossTenant-AuthSource: DS1PR03MB7871.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2025 08:15:13.6828
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 328cd818-9ea6-4f98-fe27-08de41a7c6fe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000971E8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9134
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EgVFhlLWjtoj4BNaTD/T4LMu/gZCWzbxwzEhb1R45U6Mfy6ZpjZdGHKZOtAES7TnIk0aqTkmdZRauvQHcPHQHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5913
 
-On 2025-12-04 18:32, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> When 2 or more domains are created and:
-> - one is hwdom with "hvc0" (console_io) console
-> - other DomUs with vpl011 or "hvc0" (console_io) console
-> console output from hwdom may mix with output from other domains.
-> 
-> Example:
-> [    2.288816] Key type id_legacy registered
-> [    2.291894] n(XEN) DOM1: [    1.016950] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
-> fs4filelayout_init: NFSv4 File Layout Driver Registering...
-> (XEN) DOM1: [    1.018846] audit: initializing netlink subsys (disabled)
-> 
-> This happens because for hwdom the console output is produced by domain and
-> handled by Xen as stream of chars, which can be interrupted when hwdom is
-> scheduled out and so, cause console output mix.
-> The Xen consoleio code trying to mimic serial HW behavior for hwdom
-> unconditionally by sending available data to serial HW on arrival.
-> Xen consoleio code does not account for Xen console input focus, comparing
-> to emulated serial hw, like vpl011, which does the same for domain with
-> active Xen console input focus only.
-> 
-> Switching console input focus to Xen improves situation, but not enough.
-> 
-> This patch changes consoleio code to account for domain with active Xen
-> console input focus - console output will be sent directly to serial HW
-> only if domain has active Xen console input focus. For other domains -
-> console output will be buffered and sync on per-line basis.
-> 
-> Example output:
-> (d2) [    4.263417] Key type id_legacy registered
-> (XEN) DOM1: [    4.658080] Advanced Linux Sound Architecture Driver Initialized.
-> (d2) [    4.277824] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> ---
-> This causes random multi-domain tests failures due to inter-domain console
-> mixing which breaks console parsing checks.
+The current logic splits the update of the amount of available memory in
+the system (total_avail_pages) and pending claims into two separately
+locked regions.  This leads to a window between counters adjustments where
+the result of total_avail_pages - outstanding_claims doesn't reflect the
+real amount of free memory available, and can return a negative value due
+to total_avail_pages having been updated ahead of outstanding_claims.
 
-Part of the motivation here is that in a downstream, I've enabled domUs 
-to use the consoleio hypercalls with Hyperlunch to remove dependency on 
-xenconsoled.  Grygorii can confirm if it also affects ARM sometimes.
+Fix by adjusting outstanding_claims and d->outstanding_pages in the same
+place where total_avail_pages is updated.  This can possibly lead to the
+pages failing to be assigned to the domain later, after they have already
+been subtracted from the claimed amount.  Ultimately this would result in a
+domain losing part of it's claim, but that's better than the current skew
+between total_avail_pages and outstanding_claims.
 
-> 
->   xen/drivers/char/console.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index a99605103552..391cefc1a7c6 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -733,6 +733,8 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->   
->       while ( count > 0 )
->       {
-> +        struct domain *input;
-> +
->           if ( kcount && hypercall_preempt_check() )
->               return hypercall_create_continuation(
->                   __HYPERVISOR_console_io, "iih",
-> @@ -742,7 +744,9 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->           if ( copy_from_guest(kbuf, buffer, kcount) )
->               return -EFAULT;
->   
-> -        if ( is_hardware_domain(cd) )
-> +        input = console_get_domain();
-> +
+Fixes: 65c9792df600 ("mmu: Introduce XENMEM_claim_pages (subop of memory ops)")
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Arguably we could also get rid of domain_adjust_tot_pages() given what it
+currently does, which will be a revert of:
 
-Maybe remove this blank line?
+1c3b9dd61dab xen: centralize accounting for domain tot_pages
 
-> +        if ( cd == input )
->           {
->               /* Use direct console output as it could be interactive */
->               nrspin_lock_irq(&console_lock);
-> @@ -783,6 +787,8 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+Opinions?  Should it be done in a separate commit, possibly as a clear
+revert?  Maybe it's worth keeping the helper in case we need to add more
+content there, and it's already introduced anyway.
+---
+ xen/common/page_alloc.c | 44 +++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 24 deletions(-)
 
-In between the hunks is:
-     guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbuf);
-
-So a background dom0 would get a d0 prefix and print at debug level.
-
-For ARM, vpl011_write_data_xen() does:
-
-if ( d == input )
-     printk("%s", intf->out);
-else
-     printk("DOM%u: %s", d->domain_id, intf->out);
-
-I think d0: is okay for background printing, but we'd need to up the log 
-level for at least hardware domain.  Maybe we want a properly to control 
-the level for each domain?
-
-I think the changes made in this patch make sense.
-
-Thanks,
-Jason
-
->               spin_unlock(&cons->lock);
->           }
->   
-> +        console_put_domain(input);
-> +
->           guest_handle_add_offset(buffer, kcount);
->           count -= kcount;
->       }
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 1f67b88a8933..f550b1219f87 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -515,30 +515,6 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+     ASSERT(rspin_is_locked(&d->page_alloc_lock));
+     d->tot_pages += pages;
+ 
+-    /*
+-     * can test d->outstanding_pages race-free because it can only change
+-     * if d->page_alloc_lock and heap_lock are both held, see also
+-     * domain_set_outstanding_pages below
+-     */
+-    if ( !d->outstanding_pages || pages <= 0 )
+-        goto out;
+-
+-    spin_lock(&heap_lock);
+-    BUG_ON(outstanding_claims < d->outstanding_pages);
+-    if ( d->outstanding_pages < pages )
+-    {
+-        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+-        outstanding_claims -= d->outstanding_pages;
+-        d->outstanding_pages = 0;
+-    }
+-    else
+-    {
+-        outstanding_claims -= pages;
+-        d->outstanding_pages -= pages;
+-    }
+-    spin_unlock(&heap_lock);
+-
+-out:
+     return d->tot_pages;
+ }
+ 
+@@ -1071,6 +1047,26 @@ static struct page_info *alloc_heap_pages(
+     total_avail_pages -= request;
+     ASSERT(total_avail_pages >= 0);
+ 
++    if ( d && d->outstanding_pages && !(memflags & MEMF_no_refcount) )
++    {
++        /*
++         * Adjust claims in the same locked region where total_avail_pages is
++         * adjusted, not doing so would lead to a window where the amount of
++         * free memory (avail - claimed) would be incorrect.
++         *
++         * Note that by adjusting the claimed amount here it's possible for
++         * pages to fail to be assigned to the claiming domain while already
++         * having been subtracted from d->outstanding_pages.  Such claimed
++         * amount is then lost, as the pages that fail to be assigned to the
++         * domain are freed without replenishing the claim.
++         */
++        unsigned long outstanding = min(outstanding_claims, request);
++
++        outstanding_claims -= outstanding;
++        BUG_ON(outstanding > d->outstanding_pages);
++        d->outstanding_pages -= outstanding;
++    }
++
+     check_low_mem_virq();
+ 
+     if ( d != NULL )
+-- 
+2.51.0
 
 
