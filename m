@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13EB5CD9E3D
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Dec 2025 17:04:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192655.1511788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92CACD9E58
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Dec 2025 17:07:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192670.1511799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vY4qs-0008LT-FV; Tue, 23 Dec 2025 16:03:10 +0000
+	id 1vY4vD-0000cs-2a; Tue, 23 Dec 2025 16:07:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192655.1511788; Tue, 23 Dec 2025 16:03:10 +0000
+Received: by outflank-mailman (output) from mailman id 1192670.1511799; Tue, 23 Dec 2025 16:07:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vY4qs-0008J4-Cf; Tue, 23 Dec 2025 16:03:10 +0000
-Received: by outflank-mailman (input) for mailman id 1192655;
- Tue, 23 Dec 2025 16:03:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vY4vC-0000bP-W3; Tue, 23 Dec 2025 16:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 1192670;
+ Tue, 23 Dec 2025 16:07:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7uuJ=65=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vY4qr-0008Iy-1W
- for xen-devel@lists.xenproject.org; Tue, 23 Dec 2025 16:03:09 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9e7b8ce-e018-11f0-b15b-2bf370ae4941;
- Tue, 23 Dec 2025 17:02:59 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47a80d4a065so26735055e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Dec 2025 08:02:59 -0800 (PST)
+ id 1vY4vB-0000bJ-Sz
+ for xen-devel@lists.xenproject.org; Tue, 23 Dec 2025 16:07:37 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7df92acd-e019-11f0-9cce-f158ae23cfc8;
+ Tue, 23 Dec 2025 17:07:34 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4779ce2a624so38199125e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Dec 2025 08:07:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea1b1b1sm28230244f8f.3.2025.12.23.08.02.57
+ 5b1f17b1804b1-47be27b0d5asm303119575e9.13.2025.12.23.08.07.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Dec 2025 08:02:57 -0800 (PST)
+ Tue, 23 Dec 2025 08:07:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9e7b8ce-e018-11f0-b15b-2bf370ae4941
+X-Inumbo-ID: 7df92acd-e019-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766505778; x=1767110578; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766506054; x=1767110854; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/bfVXbB8kQZhoL4RMELUcwCbnZ0xL5uYCFSerBP/wPQ=;
-        b=IKx67pXwviVP+P3BCyNBEJ6YQk9fNMCKovQp+yc0r3Cl/jNOmo8WzfDG47cx5Lrh1j
-         7vaTWLQY43tLJ4msTFN09qOebTYAbxcUPt3qcjWf6Zd7LLzZDeY/xKsYF+VFL2JGt+XR
-         6qEj/LK827pFoNUmiq+r6UsS8UYltZ3nT8pdwvAhDRNmKSHCWzrAAcwkN0v24bDHb6WK
-         BmoEyihmw4bWjRAyufVj4U6Ejvsoh2p0Tz15Ze1p4yAg3S08ylgt+5eV3O41OTJk2Pg/
-         OJN9UU7lPH/K6iTYFsdgT0VsBJ4AI4eVsHnnZMyuX0pXQh5id3UdcFDcTZbZgpmpcuB9
-         duoQ==
+        bh=y2NYvTDdGpfWSiBAEHhov5XADOTREO/6HBvHqvC2q9g=;
+        b=XcXfmfORavYoWlFxo9qrHR5Bdki8Z/2HH4dzJveEM9vHhtqAlugc0bmbXxk4Lk+K0X
+         CSVGM0kroeS/0w9qu5uvC+vpV/k21UFoeM6fskSVhBvbL6vvYpilSOlCTkmiJ1lltZOP
+         9t5XH3Uvs7P0XuE0tc2wMOjNSTLhtU26HvIqK/bKntWIEHqfpuEgrXRXQE6ufTG/mvmZ
+         7iAx0BhGpCB4FUTPuHGEE7l9D0ke9YP9M+WcLqtB2WPX7FI5QdkZBS4K6xH2p460JaxO
+         JDnQHSEwZZI8mNUaA825IIpmyiI2hphw/IrFWcRw8MbxDqxAZEyTgx4R0KdkTZhuQJ+B
+         y9zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766505778; x=1767110578;
+        d=1e100.net; s=20230601; t=1766506054; x=1767110854;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/bfVXbB8kQZhoL4RMELUcwCbnZ0xL5uYCFSerBP/wPQ=;
-        b=f+F7+oT2b4fb5o+znnJmFx4oJHjMvT+r34aFxApJxyO5s0/82ja+TdlPdjItEF/Gqu
-         BKE1/hLHHCWoodRm68OKDvqeTqH7lnIVpZozmvY7f0XoEdNBcUrVmAIUJwPExI3BbdrV
-         8irzuAHVLFYwlXdulyUgQEaZAgiyHUTdmoJpVKDjZkDOlL98drkovT7c/P/GACqcxBtX
-         BgymYiq3chLZVFlKWNxiPm39TVcYZqxiHpz41HQXI99wWtCv20z1xtG05yNyPoBnDeL+
-         FaeXsdBb/ysKuduWGoLzkoDn7Nz7yL+lCXjpE30gbToOqz0jhACJ6ytRlFT/cglEGy48
-         G4Zg==
-X-Forwarded-Encrypted: i=1; AJvYcCXJhuxLDFPP3zVzCs0aKV+KP5DxbmhQkibyDI2Z+9UjrbHRSbxumnYNCyhripVsUTpuZCaZwoQyZx8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yziwe08Jtxydvs6uTeVQ1kfZy8UaMdttvCSagcR64lUDRmSqb8J
-	bXq6f+ypS7SEQjZHtuSEivMJOPZGY+Pny5uARk61aLAiA9L4KFF/yq0j9fwyBBMnoA==
-X-Gm-Gg: AY/fxX59J/GM+FxaVsfnTrQoTq67jbPXTkO8cyaXY9stEyz8N6j/rxm52Gp92SY3wIH
-	pLrCXgQxhbKMWlGa+QX1HzPk1g3qwBlRymUgAa+4IQh/y0NInIM4p7CVAwvzC7Cz9o6kQrXj9AD
-	kCru7nJyBoSVG3CWTUF559lnXyjSx8PwZROCyZwZP2kCgYdDHrXLvJ6nisjPtyCOrY11w3cmezi
-	8l8hHg4VUV2SmcTyxEqF3M1DHuyqnqx3cNfXjX0zQ7PtCJb2UM7YW5LIHZotR+QK7i03HHMLpK+
-	RpFfYyBj/hMMh3wfVkzJ/f/ZVV0vrR8r36vYC4VEo0tfDXFJWEZDZFiey0D+sN/SaoVmK6Jr5CC
-	XWTAo3zKsedHNtWbkJof9HxwcIJp+cw/kTHo4/CnLl4iF/wOd0WYOru7He/aMMLTNdOVsUmliYm
-	uagPVJ0ZeYQeONDh3S4UkYoMcCMbo5RSNzZMhMaX1mD7pIttay4eGVT65YeAoKRdNLX8Wxk+DRl
-	GM=
-X-Google-Smtp-Source: AGHT+IFfREY3YMPGFUf6v3NIwBsFeakci6Bwj7AF01bscagOls90NqJtTVZYpWS9BZmvUpK5wNVOBA==
-X-Received: by 2002:a05:600c:1d1d:b0:477:632a:fd67 with SMTP id 5b1f17b1804b1-47d19546487mr155798055e9.12.1766505778260;
-        Tue, 23 Dec 2025 08:02:58 -0800 (PST)
-Message-ID: <8efecc2a-a5c4-4918-acd7-ed7007fb03c5@suse.com>
-Date: Tue, 23 Dec 2025 17:02:56 +0100
+        bh=y2NYvTDdGpfWSiBAEHhov5XADOTREO/6HBvHqvC2q9g=;
+        b=q8btdEtLKRmOepKtaCch62NQhhbA6QskolSh1EZkHuJDNxB9jCaQhA27TL+C1nU8iU
+         DscZq3rvowE7L84Engwah2vT+DsswPed7QlLVLsThyINpFXUfhel3N9RqJkbl52KAAea
+         kYY+pKmoiav45T7cNG0jSlNafydsXGtxW0TfwITLdO5wCqq2jrqYP3EEGLaVpjXegTQ6
+         SGxr3PDPiJRH6l2e3w6FeXpiotg9yuG+sYJZNS6UBSI+n8vKMeQVCTevCAqoZA7lcFpU
+         uoRA6CcWoDcB6dMUBAL+XD7LT1nTPRKCd/pQzII3EIkmhmhIreJiGEYLFoV+iEzdSCbL
+         mBIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVjC+Ef44IvK2/TOfQLEJpIvAyNzokONeMFeJnVpDFM4aKH23XMjYuMGUBE3YyEmU0m+F5DKTz/LTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDE/wTNFx06AHpGJY00YJ5kbaanpZM9PHKR73Ps0dkOAp6TW/R
+	2zjVefeuWZrc6m79yuo87l1olvNmOBnZnt7vt90NlfHO2AurhdFP6HnIcjWzO9HBXQ==
+X-Gm-Gg: AY/fxX4nay01Q4BWu1s3M/k1jCaU7R99fxjocvf604B1OZz+W1B7r8cBPgqWxIQPaOJ
+	XX8QicfiRmXVtOo95tlwzK08oPl82BeyXvTOpBPhD2V7viXMnDM6oQpVPBhLd7nqJJtdHdC0v9l
+	gyBOoO9HuQJIrl9M06Bsl+8tettneYe6gn3AZdV7ec00JV6HE9Gv69ewNX+pagdiXTcOhB+es8M
+	xGLtS0fr3t5OoKC4DQwdsFM4oYGZ06t15801yTq1PUOiBIvjwv9gUuS5Im/qouDR7yD7uRN9HN8
+	GXGucy3D9QWCJKKhk5F2lE8zF9/xrCFy7V8s0S75M1OhRspzDOHojPzToAP9QIifVGhjRlv6Qp9
+	oKSChqtMsaOyp/Yx0JTbcLX+2LJPYWR8mrXVDyHTfLHnqT67SkeNBEa2/DSsKmJlxrigJaMHpp2
+	NsI3lEcWWXsKpfUKoKe/txEkD9Qh/DD064Cs3YfLo8ze+2OQSTdeQkCb3YVRawWfkuGOf6WRquW
+	QQ=
+X-Google-Smtp-Source: AGHT+IEqT718fsxVAsvcDWymrIpItWoo/i+5WfJkQuUmxojG2zlqk5ZXRaYuaSo7HcA6Mm7oip1dkA==
+X-Received: by 2002:a05:600c:8b11:b0:477:55ce:f3bc with SMTP id 5b1f17b1804b1-47d2d273515mr81680775e9.19.1766506053528;
+        Tue, 23 Dec 2025 08:07:33 -0800 (PST)
+Message-ID: <74557019-d616-4724-a5d5-4ae3d5a6728f@suse.com>
+Date: Tue, 23 Dec 2025 17:07:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] xen/riscv: introduce vSBI extension framework
+Subject: Re: [PATCH v3 2/3] xen/riscv: add RISC-V legacy SBI extension support
+ for guests
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,7 +100,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766399205.git.oleksii.kurochko@gmail.com>
- <61c84c3e296ab53f57d090c6ba3a533aa7049088.1766399205.git.oleksii.kurochko@gmail.com>
+ <f4225d3134ec12a392a2e5d91414bfdf9d0665a1.1766399205.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,95 +126,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <61c84c3e296ab53f57d090c6ba3a533aa7049088.1766399205.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f4225d3134ec12a392a2e5d91414bfdf9d0665a1.1766399205.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.12.2025 17:37, Oleksii Kurochko wrote:
-> This commit introduces support for handling virtual SBI extensions in Xen.
+> This commit adds support for legacy SBI extensions (version 0.1) in Xen
+> for guest domains.
 > 
 > The changes include:
-> - Added new vsbi/core.c and vsbi.h files to implement virtual SBI extension
->   handling.
-> - Modified traps.c to handle CAUSE_VIRTUAL_SUPERVISOR_ECALL by calling
->   vsbi_handle_ecall() when the trap originates from VS-mode.
-> - Updated xen.lds.S to include a new .vsbi.exts section for virtual SBI
->   extension data.
-> - Updated Makefile to include the new vsbi/ directory in the build.
-> - Add hstatus register to struct cpu_user_regs as it is needed for
->   a check that CAUSE_VIRTUAL_SUPERVISOR_ECALL happens from VS-mode.
->   Also, add storing/restoring of hstatus register in handle_trap().
-> - Introduce vsbi_find_extension() to check if vsbi extension is supported
->   by Xen. For now it is called only inside vsbi/core.c, but in future
->   it is going to be called from other files.
-> - Introduce check_vsbi_ext_ranges() to check if there EIDs ranges
->   overlapping between extensions.
+> 1. Define all legacy SBI extension IDs (0x0 to 0x8) for better clarity and
+>    completeness.
+> 2. Implement handling of legacy SBI extensions, starting with support for
+>    SBI_EXT_0_1_CONSOLE_PUTCHAR. SBI_EXT_0_1_CONSOLE_GETCHAR is marked as
+>    not supported as legacy SBI console related stuff is expected to be used
+>    only for early debugging of guest.
 > 
-> The implementation allows for registration and handling of SBI
-> extensions via a new vsbi_ext structure and ".vsbi.exts" section,
-> enabling extensible virtual SBI support for RISC-V guests.
-> 
-> Note: All EIDs are printed in the format #%#lx and all FIDs in #%lu, as
-> the SBI spec uses these formats. Printing them this way makes it easier
-> to search for them in the SBI spec.
+> The implementation uses the existing virtual SBI framework to handle legacy
+> SBI ecalls, ensuring compatibility with older SBI specifications in
+> RISC-V guests.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-I'd like to note though that ...
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/vsbi/core.c
-> @@ -0,0 +1,57 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/sched.h>
-> +
-> +#include <asm/processor.h>
-> +#include <asm/sbi.h>
-> +#include <asm/vsbi.h>
-> +
-> +extern const struct vsbi_ext _svsbi_exts[], _evsbi_exts[];
-> +
-> +void __init check_vsbi_ext_ranges(void)
-> +{
-> +    for ( const struct vsbi_ext *a = _svsbi_exts; a != _evsbi_exts; a++ )
-> +        for ( const struct vsbi_ext *b = a + 1; b != _evsbi_exts; b++ )
-> +            if ( !(a->eid_end < b->eid_start || b->eid_end < a->eid_start) )
-> +                panic("EID range overlap detected: "
-> +                      "%s:[#%#lx..#%#lx] vs %s:[#%#lx..#%#lx]\n",
-> +                      a->name, a->eid_start, a->eid_end,
-> +                      b->name, b->eid_start, b->eid_end);
-> +}
-> +
-> +const struct vsbi_ext *vsbi_find_extension(unsigned long eid)
-> +{
-> +    for ( const struct vsbi_ext *ext = _svsbi_exts;
-> +          ext != _evsbi_exts;
-> +          ext++ )
-> +        if ( (eid >= ext->eid_start) && (eid <= ext->eid_end) )
-> +            return ext;
-> +
-> +    return NULL;
-> +}
-> +
-> +void vsbi_handle_ecall(struct cpu_user_regs *regs)
-> +{
-> +    const unsigned long eid = regs->a7;
-> +    const unsigned long fid = regs->a6;
-> +    const struct vsbi_ext *ext = vsbi_find_extension(eid);
-> +    int ret;
-> +
-> +    if ( ext )
-> +        ret = ext->handler(eid, fid, regs);
-> +    else
-> +    {
-> +        gprintk(XENLOG_ERR, "Unsupported Guest SBI EID #%#lx, FID #%lu\n",
-> +                eid, regs->a1);
-
-... I still consider this too verbose. Before switching RISC-V into "supported"
-status, changing this and alike to gdprintk() may want considering.
+Peeking ahead into patch 3, I notice that there you (properly) avoid saying
+"this commit" in the description. Unlike here and in patch 1. Please try to
+remember to avoid this and alike wording.
 
 Jan
 
