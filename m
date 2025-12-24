@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F83CDCEA2
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192954.1512019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31DADCDCEAF
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192956.1512035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH4-0004aA-SW; Wed, 24 Dec 2025 17:03:46 +0000
+	id 1vYSH6-0004vU-No; Wed, 24 Dec 2025 17:03:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192954.1512019; Wed, 24 Dec 2025 17:03:46 +0000
+Received: by outflank-mailman (output) from mailman id 1192956.1512035; Wed, 24 Dec 2025 17:03:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH4-0004Vk-Nf; Wed, 24 Dec 2025 17:03:46 +0000
-Received: by outflank-mailman (input) for mailman id 1192954;
- Wed, 24 Dec 2025 17:03:45 +0000
+	id 1vYSH6-0004rx-Dp; Wed, 24 Dec 2025 17:03:48 +0000
+Received: by outflank-mailman (input) for mailman id 1192956;
+ Wed, 24 Dec 2025 17:03:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jcWU=66=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vYSH3-0003b7-K0
- for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 17:03:45 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1vYSH4-0003b7-Bs
+ for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 17:03:46 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80ea9404-e0ea-11f0-9cce-f158ae23cfc8;
+ id 8162f76f-e0ea-11f0-9cce-f158ae23cfc8;
  Wed, 24 Dec 2025 18:03:44 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b73a9592fb8so1149477966b.1
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b7cee045187so1086233066b.0
  for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 09:03:44 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.42
+ a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Dec 2025 09:03:42 -0800 (PST)
+ Wed, 24 Dec 2025 09:03:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80ea9404-e0ea-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 8162f76f-e0ea-11f0-9cce-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766595823; x=1767200623; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1766595824; x=1767200624; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eVSU+W1QGWlyg8JQ8PYuBMuNclIYpGmrVspxyegORmI=;
-        b=ZBAC5fYFgAiZeyasBl4AMnNhfyiqULx860sfQYCDYuZKoX5O7YFjTEFmtNTvEx/4qL
-         bfOgjqbUGD5iskG0I9z9pJhk4Rujtp6F4Qgf4sT9392Q+E63HZpFczUDijQbssiBiTc+
-         tpKyZuoLoosJQS2G739KfGtaHgaWS8xzxCktWSgW/w6ldU+LZWl/QCh8NafPJPADZ4sv
-         s7ZXXnstL48FnasR0egQqE5rM08eb99chyTXZPNBX/vCncDUEFAZJWiXXvrTEk0IHN9h
-         czrmjf3J47/z/9M+veX9QdtbQf73NCl1e74HSBWJwdO9/YSo6cO1/1XOD+Momx9sf6xI
-         Xm7Q==
+        bh=f81w3dP1tK2eL4eFxpXsxUA2ohrjxt2N+AHHpB9O6MY=;
+        b=cixfmFkV76J2i6aUf83Gci9BXp7acnnehZOyNLl2lZLptxlmMx5UFw9uybJy/uOxS3
+         9WOtavKThU0/fcbkQv5BWDhI8AKfVGtz2RbLC/mmkUd1u0o0EP/7W1kpAF6FR+5DxgZ4
+         cE9/1OmNMF9jtD/0cwhzxo++KbkhgoqfxSFzVZQGj/2Q7wGRA+aQO6lJl067yTcRHnFW
+         kEL/v/1Eba/IquCukZo1VfWvXhp0hJoS1xEiZ8H74B8Lb+Wl6AXzXpj9CY9ssGBSgbzV
+         nWNpBzIlMN1RGg2Xuh+0Tiy0rWYqs0uJxDeOyROvfOV6U7xP2VT5NdSU0GlDzTpOKj7h
+         9yDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766595823; x=1767200623;
+        d=1e100.net; s=20230601; t=1766595824; x=1767200624;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=eVSU+W1QGWlyg8JQ8PYuBMuNclIYpGmrVspxyegORmI=;
-        b=b9dk8hNrAFbXTSEyV5GpJrxh0CCXZEJ576COyZyClNqAu9TFPfDvKOJ2cy1PdhJhDP
-         qaoXBcHsD+CVp8N59jAEM0qUoWjydLqqmnSmQtjAXLmzof27yx5FLnDvHn81udWI0aiD
-         XFAA0Mdjh8ZS5SoIpKnoa2oOLwh/JvcXSTkbI2fA/zHlGYT0LJO2HYdukdnLEWaWD/UE
-         JDwUBiaKNBG7UXAnbzmjcUYrJDKNMov6MkCG+Jtvn32PYnCZbZzPHObOdeOTkrHM1+jF
-         p85hgr/Yw1cwSveGnRx88bUul+anb9Ls4xw/eIsdseTYeihxigJcAOxNxY6ZQcRptqZk
-         rJBg==
-X-Gm-Message-State: AOJu0YxzMeHElkjWfjn6iDLA1enbCkFCgSZ56thqBvikWCdRD1Zweo26
-	V0s0hlPB0vAoIPCJA4b2MqnecN0zQcRndEjkA5XNUyS/rXtoHt1JNsXgOLA9QA==
-X-Gm-Gg: AY/fxX5jrn5FkK+jkSzjxQhtbnTZ76eTGLE3TSZn0EmGcGZ5e6nyxr3K1noI8oUkHZH
-	r8brMcV+8/M0wmdlermHGkyZ9j8hi+LKsnvw003Xzv9uh3ZGXPAVNIh8kW/xacqT0fnF3Q/4Jsr
-	mxV5mrGaANxwtHb3RAKxSrOK/qmZC7bXcSaW+WE5T575WU4ckbqm1p+X3SI41+FZWQ5oaB6R7Ye
-	K0++DNAS6WimOrnTW/mBaJTAGxCHPO7WVmFr9dSmUx3Aa6Wgkgjakskvodjwjvl89ajR03J88tT
-	ejundnrBQCEvv02DjnmZqLno+EyTGvJ24dGjsDJ6QJ2hHcTMIojcM9PGey++3jkrMAigjVdQ8+Z
-	eTgZPSTcJf+rOUHMmFVIA1RpuPdB2SxSaWquANoVxY0dG1+VfievMWBZB7i4+gLbcKt0jzy9HZZ
-	nR8Fmv3nyYziAE5FTk/WlT0Oh2VW0LB+5IpqVQkPUGek/7DAQU3nl8evA=
-X-Google-Smtp-Source: AGHT+IHyvwi6tzwoa0da4D5yRiLL+x7c5L6uyL4HDN/1K0/a4HJYGqOGf1921C5u1CXXdfwvsTy1xg==
-X-Received: by 2002:a17:906:aa16:b0:b72:dcda:fe5a with SMTP id a640c23a62f3a-b802040097fmr1699255866b.5.1766595822996;
-        Wed, 24 Dec 2025 09:03:42 -0800 (PST)
+        bh=f81w3dP1tK2eL4eFxpXsxUA2ohrjxt2N+AHHpB9O6MY=;
+        b=i0cgsjigt5BH8xl/S7IEAyNLXaccp/VLNIAbNEr9dGnPgo59tBAt/ei9Uny/0fZQwB
+         AUm4l+fmDjaMFP51J/X35bWOnlw2aeDQIAcUSU0eOFM2LU5Bx76/DMJ2oTGJ1X+O8k7d
+         7FZ7TVvPQ+Ebs33+uAQciP+kWpWt/RG71ojfkORpoJrbxjD59ZSU81iB4m5FdCyT3Ga7
+         OxLW4GyZXlqARyx/V30xvZKxuEChBQSmsV9zITIEvCgevcMxdbK3DUtOZjLXuJ4/guEm
+         +Ti0XcR9E91DbPqQheuKVT9xTKQYwpb8xdTD3/OtKuY9JGLc84jGSrWC+6ACx3Azllm3
+         kCPA==
+X-Gm-Message-State: AOJu0Yzu5/WfQkeNCgNITqpN4+piC+skAYLeEfTWcXPL77O8mqU1Lk0G
+	zVRPv+BzaDl8Mmxc58CO2uLPRMJdhaf/oVhbXhP7ZHgEJiCVLSBKpY+1AcpPDQ==
+X-Gm-Gg: AY/fxX5TeXcrfT0SqvSSe1b+hXs5Cy7curRO2Oxu4OHM67C1FtpUOZDv4gfoeOZ7dfc
+	EYziGZlRFmofKVD9IpPJpW+Iyi108WsroAMc6xp54bK9oLxGJsGPeqNBsTYF5qvI7ToAGTEequX
+	ArXabQ/MaAsRVpC6N/Y17gFGBMJkEkKWjPE+GDSJI00D4LRUFGgNmokrNQtSamg5uxELOANdESs
+	qvbvsP9JGcY8nVCAtKCRAD+ZTgBaU0AfxVILj5HaaS0fTnrRLqpM0VSzrRckMu2yISh6/naI01w
+	esJPRlJ+4Mo9tRKw8SLoSjOXqNvXX8B2tdOtknEwJp2sb21uRpBUXkcyGRWj6BpDWkY0J9rSYgP
+	duDrcZiGXEoOHEbLCogdfc6Vj/v7wZpsKmZrzmhnsGjebikkLXjmIkguFplgTD5YpPDLDZ4ewuD
+	9tZbRbkluX4bZpZutCxAmiHdaBDNflsMOJBrBVqA/Ur7jLklX9O+nqHM0=
+X-Google-Smtp-Source: AGHT+IHshSx3l5OrJNFlQ2SSgcsfwt3lta9Ueb5q3FYlqr00Fpc0Dn1/nt2xc9qJJ5HAxNygBYvj1w==
+X-Received: by 2002:a17:907:7e85:b0:b3a:8070:e269 with SMTP id a640c23a62f3a-b8035649310mr2198873866b.14.1766595823899;
+        Wed, 24 Dec 2025 09:03:43 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,9 +95,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU interrupts, part 1
-Date: Wed, 24 Dec 2025 18:03:20 +0100
-Message-ID: <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and vtimer_expired()
+Date: Wed, 24 Dec 2025 18:03:21 +0100
+Message-ID: <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1766595589.git.oleksii.kurochko@gmail.com>
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
@@ -105,151 +105,85 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch is based on Linux kernel 6.16.0.
+Introduce vtimer_set_timer() to program a vCPU’s virtual timer based on
+guest-provided tick values. The function handles clearing pending timer
+interrupts, converting ticks to nanoseconds, and correctly treating
+(uint64_t)-1 as a request to disable the timer per the RISC-V SBI
+specification.
 
-Introduce a lockless mechanism for tracking pending vCPU interrupts using
-atomic bit operations. The design follows a multi-producer, single-consumer
-model where the consumer is the vCPU itself.
-
-Two bitmaps are added:
- - irqs_pending — represents interrupts currently pending
- - irqs_pending_mask — represents bits that have changed in irqs_pending
-
-Introduce vcpu_(un)set_interrupt() to mark an interrupt in irqs_pending{_mask}
-bitmap(s) to notify vCPU that it has or no an interrupt.
-
-Other parts (such as vcpu_has_interrupts(), vcpu_flush_interrupts() and
-vcpu_sync_interrupts()) of a lockless mechanism for tracking pending vCPU
-interuupts are going to be introduced in a separate patch.
+Additionally, update vtimer_expired() to inject IRQ_VS_TIMER into
+the target vCPU instead of panicking, enabling basic virtual timer
+operation.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/domain.c                     | 47 +++++++++++++++++++++
- xen/arch/riscv/include/asm/domain.h         | 19 +++++++++
- xen/arch/riscv/include/asm/riscv_encoding.h |  1 +
- 3 files changed, 67 insertions(+)
+ xen/arch/riscv/include/asm/vtimer.h |  2 ++
+ xen/arch/riscv/vtimer.c             | 30 ++++++++++++++++++++++++++++-
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 164ab14a5209..8a010ae5b47e 100644
---- a/xen/arch/riscv/domain.c
-+++ b/xen/arch/riscv/domain.c
-@@ -5,9 +5,11 @@
- #include <xen/sched.h>
- #include <xen/smp.h>
+diff --git a/xen/arch/riscv/include/asm/vtimer.h b/xen/arch/riscv/include/asm/vtimer.h
+index a2ca704cf0cc..2cacaf74b83b 100644
+--- a/xen/arch/riscv/include/asm/vtimer.h
++++ b/xen/arch/riscv/include/asm/vtimer.h
+@@ -22,4 +22,6 @@ void vcpu_timer_destroy(struct vcpu *v);
  
-+#include <asm/bitops.h>
- #include <asm/cpufeature.h>
- #include <asm/csr.h>
- #include <asm/riscv_encoding.h>
-+#include <asm/system.h>
- #include <asm/vtimer.h>
+ int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config);
  
- static void vcpu_csr_init(struct vcpu *v)
-@@ -100,6 +102,9 @@ int arch_vcpu_create(struct vcpu *v)
-     if ( is_idle_vcpu(v) )
-         return rc;
- 
-+    bitmap_zero(v->arch.irqs_pending, RISCV_VCPU_NR_IRQS);
-+    bitmap_zero(v->arch.irqs_pending_mask, RISCV_VCPU_NR_IRQS);
++void vtimer_set_timer(struct vtimer *t, const uint64_t ticks);
 +
-     if ( (rc = vcpu_vtimer_init(v)) )
-         goto fail;
+ #endif /* ASM__RISCV__VTIMER_H */
+diff --git a/xen/arch/riscv/vtimer.c b/xen/arch/riscv/vtimer.c
+index 5ba533690bc2..99a0c5986f1d 100644
+--- a/xen/arch/riscv/vtimer.c
++++ b/xen/arch/riscv/vtimer.c
+@@ -1,6 +1,8 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
  
-@@ -135,3 +140,45 @@ void vcpu_kick(struct vcpu *v)
-         smp_send_event_check_mask(cpumask_of(v->processor));
-     }
++#include <xen/domain.h>
+ #include <xen/sched.h>
++#include <xen/time.h>
+ 
+ #include <public/xen.h>
+ 
+@@ -15,7 +17,9 @@ int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config)
+ 
+ static void vtimer_expired(void *data)
+ {
+-    panic("%s: TBD\n", __func__);
++    struct vtimer *t = data;
++
++    vcpu_set_interrupt(t->v, IRQ_VS_TIMER);
+ }
+ 
+ int vcpu_vtimer_init(struct vcpu *v)
+@@ -37,3 +41,27 @@ void vcpu_timer_destroy(struct vcpu *v)
+ 
+     kill_timer(&v->arch.vtimer.timer);
  }
 +
-+int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq)
++void vtimer_set_timer(struct vtimer *t, const uint64_t ticks)
 +{
++    s_time_t expires = ticks_to_ns(ticks - boot_clock_cycles);
++
++    vcpu_unset_interrupt(t->v, IRQ_VS_TIMER);
++
 +    /*
-+     * We only allow VS-mode software, timer, and external
-+     * interrupts when irq is one of the local interrupts
-+     * defined by RISC-V privilege specification.
++     * According to the RISC-V sbi spec:
++     *   If the supervisor wishes to clear the timer interrupt without
++     *   scheduling the next timer event, it can either request a timer
++     *   interrupt infinitely far into the future (i.e., (uint64_t)-1),
++     *   or it can instead mask the timer interrupt by clearing sie.STIE CSR
++     *   bit.
 +     */
-+    if ( irq < IRQ_LOCAL_MAX &&
-+         irq != IRQ_VS_SOFT &&
-+         irq != IRQ_VS_TIMER &&
-+         irq != IRQ_VS_EXT )
-+        return -EINVAL;
++    if ( ticks == ((uint64_t)~0ULL) )
++    {
++        stop_timer(&t->timer);
 +
-+    set_bit(irq, v->arch.irqs_pending);
-+    smp_mb__before_atomic();
-+    set_bit(irq, v->arch.irqs_pending_mask);
++        return;
++    }
 +
-+    vcpu_kick(v);
-+
-+    return 0;
++    set_timer(&t->timer, expires);
 +}
-+
-+int vcpu_unset_interrupt(struct vcpu *v, const unsigned int irq)
-+{
-+    /*
-+     * We only allow VS-mode software, timer, external
-+     * interrupts when irq is one of the local interrupts
-+     * defined by RISC-V privilege specification.
-+     */
-+    if ( irq < IRQ_LOCAL_MAX &&
-+         irq != IRQ_VS_SOFT &&
-+         irq != IRQ_VS_TIMER &&
-+         irq != IRQ_VS_EXT )
-+        return -EINVAL;
-+
-+    clear_bit(irq, v->arch.irqs_pending);
-+    smp_mb__before_atomic();
-+    set_bit(irq, v->arch.irqs_pending_mask);
-+
-+    return 0;
-+}
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index be7ddaff30e7..a7538e0dc966 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -85,6 +85,22 @@ struct arch_vcpu
-     register_t vstval;
-     register_t vsatp;
-     register_t vsepc;
-+
-+    /*
-+     * VCPU interrupts
-+     *
-+     * We have a lockless approach for tracking pending VCPU interrupts
-+     * implemented using atomic bitops. The irqs_pending bitmap represent
-+     * pending interrupts whereas irqs_pending_mask represent bits changed
-+     * in irqs_pending. Our approach is modeled around multiple producer
-+     * and single consumer problem where the consumer is the VCPU itself.
-+     *
-+     * DECLARE_BITMAP() is needed here to support 64 vCPU local interrupts
-+     * on RV32 host.
-+     */
-+#define RISCV_VCPU_NR_IRQS 64
-+    DECLARE_BITMAP(irqs_pending, RISCV_VCPU_NR_IRQS);
-+    DECLARE_BITMAP(irqs_pending_mask, RISCV_VCPU_NR_IRQS);
- }  __cacheline_aligned;
- 
- struct paging_domain {
-@@ -123,6 +139,9 @@ static inline void update_guest_memory_policy(struct vcpu *v,
- 
- static inline void arch_vcpu_block(struct vcpu *v) {}
- 
-+int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq);
-+int vcpu_unset_interrupt(struct vcpu *v, const unsigned int irq);
-+
- #endif /* ASM__RISCV__DOMAIN_H */
- 
- /*
-diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
-index dd15731a86fa..32d25f2d3e94 100644
---- a/xen/arch/riscv/include/asm/riscv_encoding.h
-+++ b/xen/arch/riscv/include/asm/riscv_encoding.h
-@@ -91,6 +91,7 @@
- #define IRQ_M_EXT			11
- #define IRQ_S_GEXT			12
- #define IRQ_PMU_OVF			13
-+#define IRQ_LOCAL_MAX		(IRQ_PMU_OVF + 1)
- 
- #define MIP_SSIP			(_UL(1) << IRQ_S_SOFT)
- #define MIP_VSSIP			(_UL(1) << IRQ_VS_SOFT)
 -- 
 2.52.0
 
