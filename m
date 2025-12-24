@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33326CDBD71
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 10:44:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192875.1511939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3256CDCA0E
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 16:07:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192926.1511949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYLPF-0002md-5p; Wed, 24 Dec 2025 09:43:45 +0000
+	id 1vYQR9-0005N3-Uv; Wed, 24 Dec 2025 15:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192875.1511939; Wed, 24 Dec 2025 09:43:45 +0000
+Received: by outflank-mailman (output) from mailman id 1192926.1511949; Wed, 24 Dec 2025 15:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYLPF-0002k6-2P; Wed, 24 Dec 2025 09:43:45 +0000
-Received: by outflank-mailman (input) for mailman id 1192875;
- Wed, 24 Dec 2025 09:43:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vYQR9-0005La-S7; Wed, 24 Dec 2025 15:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 1192926;
+ Wed, 24 Dec 2025 15:06:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jcWU=66=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vYLPC-0002k0-Uu
- for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 09:43:42 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6a96c1e-e0ac-11f0-9cce-f158ae23cfc8;
- Wed, 24 Dec 2025 10:43:12 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-598efcf3a89so5798120e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 01:43:12 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-71-38.play-internet.pl.
- [109.243.71.38]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59a1861f85dsm4822450e87.73.2025.12.24.01.43.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Dec 2025 01:43:11 -0800 (PST)
+ <SRS0=DYbN=66=suse.com=marco.crivellari@srs-se1.protection.inumbo.net>)
+ id 1vYQR8-0005LU-8w
+ for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 15:06:02 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0edc2140-e0da-11f0-b15c-2bf370ae4941;
+ Wed, 24 Dec 2025 16:06:00 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5942bac322dso6664023e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 07:06:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +40,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6a96c1e-e0ac-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 0edc2140-e0da-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766569392; x=1767174192; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kTeZegnuJTiKkWXCugrXS1xONo6wmmfVLwXs4g/KXKA=;
-        b=WU8fE095FYOu4Vp4DW4/APQGax/RJpzP5NtBLWLdFeSh2OmvDLlv059dHQbSN6AjDQ
-         6VXE7HBpmqVk8QIKlIKfGuPK7vrQczeDJmq/d49wzUB43F8+1B04fCom8wTFezZxMTyc
-         S09h1nIvyfS6b6oQ1mUU+d7gouTyrDOW1sltu3BjZPkMnOTlpYIoIjvBUOz2iyeuixSN
-         /BsPoNG9J/X0ggPC5OFl6JPLYnp+q2/cpUzQd3jV/5BHKPJtVnohBQQXONMk4lxCDF+3
-         puDNZNRU6HEAQ/4o6MlmGeH0NilKRdgn+Spng3+oHtVzPuZolDB5ttpp8NMAAdej3kSq
-         DF+Q==
+        d=suse.com; s=google; t=1766588760; x=1767193560; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7AxcJ++mDjVdg2vkVJXskNfABxiuOiTbK8B4BuH1PAo=;
+        b=CdOoTDt9HymXaqk7oRgskgJysBSs/gKFCDOze+m36desJE6nDlvFbqQNPnWdKFeA/y
+         borNQBAF0+w9Us4Qv9CCzrKA6kH7wEGI4lwJF9yraYGCg4afuEP8J/itWCJmtws+02fE
+         VoWdv1mimrtyK2ReHCC21yjHtuAWoT/sWER++Yks/qUDtdMx1d5ZdWUE699L3g5HW7C0
+         baSmjrNO+eAdqs0vvQodimsI3baP2PEiIqgwNLQOKVGvCybvXp6/8nHSDDkubSDPh9UV
+         Wns3wKIyBVLX+fP050O+e6VGxPMPNb4N+3L9XY9zfMzc5lXYxGkkHOGOvehHmPAJDzKU
+         KxnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766569392; x=1767174192;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kTeZegnuJTiKkWXCugrXS1xONo6wmmfVLwXs4g/KXKA=;
-        b=AKkPyt4vkyz25893hFOLDs55FW6CJizDzjq+/c0h437igrfF2ydLMvCk+47mxaUCvV
-         BLRuO4nWP4RR/tbgyzLRh17dUvuese3Tc6z7p4B4SAsQxyCUvOICMXVxez/HOtS+5mT8
-         DmZmqcYS37zkaBSpKMSr/ycX7x1/N3EJ2MC+0KxwumjyvJ/3PlcejIT8cKoTbdvjcWlz
-         Ea0oka6Cba/1jOeFZDM/CA3SXiXpwaZzqWo/uwrzuGruCpJpPOEQNBaMbVMLLlZ3EQTs
-         vhJcOGeF6pr+AU6hgtNM7SuZ4kvyHCJ7Jllw5bmGBvQsWOitBeg2YKrFMzDQaENiU6NZ
-         ddpg==
-X-Forwarded-Encrypted: i=1; AJvYcCWx/yCOY/k/Fn/yFP1YufktLRs558yRewAhECXmo19/vylum8aI4gBpTk4Nu4iLO2AFMHL4ZYuCf1k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz1rU081M8SuxndXI9w+dV//mHyxDVfEKTi8it4dNtP4cujcpW5
-	RhskwfJUD7uaDVAj+o3J9ikpKsdJegA1ekjL9krg+lzOZTJG5G1uSbOA
-X-Gm-Gg: AY/fxX7NOHPkElChAISpR6s2E4CwktSd+q6Ok545V07vCDa5VHr8zR+JdjODI3jcdHZ
-	I2wOtJWZOr18R/9SHhQayoUyfhzhPduCrjO35TRcnSnhM1LAp8eK7wvY4+CpKn6LcmUuwAXWk+l
-	R5YVPml5UTHXKjC5qYLnV5yoo6jPiT6CRnWA4DYE2AUH5MazAM3IkpvUqt6jWpmqw3wDDrEgdVn
-	ymawqHRKGKqfJ41pRfz1Ou4Wf6E9zJfBCMTEGeymIO1COiZgiqbylWown5RK/jolRe66WJBILp0
-	MvrYSYg7fUGdGxQfn54dWXYrZJAKGVDDSGh9xMtowWk5zQO6+okia9eUv+8GFSornhdYQmswcrW
-	3oLDqbUHy7fZIvCusSsHybQX/MtbwkxtaYmNYWqGWImUNhDS1Bd93TRLaVKl0dNz80Zt5yD6w3n
-	OO0C/F0vGE7dnVhWa1JtbE8CnUqwrVqK2nKpbbl/bUvm+Ccip2gI9j06pHqkUiru2s
-X-Google-Smtp-Source: AGHT+IFb5TINByeCKF+DINOhGYc88r5vudLqxCzjPVayFnzj4v9iQdIAnCuQkl9p5OI268rR95pOAg==
-X-Received: by 2002:a05:6512:3d1e:b0:598:8f91:a03e with SMTP id 2adb3069b0e04-59a17df1de2mr5709571e87.50.1766569391690;
-        Wed, 24 Dec 2025 01:43:11 -0800 (PST)
-Message-ID: <babde702-eaf1-4f97-8961-14f1e635128d@gmail.com>
-Date: Wed, 24 Dec 2025 10:43:09 +0100
+        d=1e100.net; s=20230601; t=1766588760; x=1767193560;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=7AxcJ++mDjVdg2vkVJXskNfABxiuOiTbK8B4BuH1PAo=;
+        b=EXokm6AwlmvRYQLAAy0zv/9oTpkm/NQSzJmy/o91sQofuF6XZgFiRpAogg6k7/B8A/
+         pEQy+FFw8p177lhjjfFXbyMHfAE6NMQC3KkTWghcZZfAru8e2rP+vVkxdomykPC+wElT
+         JlqihfBzj90rEoUzTmkflKq5gZVjNb8gqjGQxHWZ/a8Vxt5b/rnaR5TBtjGsFg9Hpje6
+         YE1c0HLWg6qMueqprWDTunwfgyJ1Sue5WJUfQx+xfJtHxIKUWNeU+eB8bYHi7ufMFv3E
+         Fa7T+YeEceagzX3yVxzi/1P/8VtmU0JNlbdD65cSQhehKYUxxEnWsOlf4u5L4vvjBwSd
+         uIMw==
+X-Forwarded-Encrypted: i=1; AJvYcCWGjg5zFjQnXctriuqHRahBRLaZx8hjNX6+WhHsKrRvbRzU47q3R1Gb+RvM7R3T+Cm7xQpc4XffYR4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEcNV1dvjKIacXNlVAQ3fMmsDNw2O5NWjrJ+aZOS79r3c3DQg2
+	uHjBTTNbuXZF5lD7kLA/XVNzRXtl0GD7GPJBo9UoTogblUwPhtNDw8Nl4oM7+X/XtMD8QWfj3bm
+	vGnXUcUbXRXh4FKkVNTcnI1p+Hyxy2B70/y6whJGuqg==
+X-Gm-Gg: AY/fxX6HwbHV8zbKMrxCOtansX3L5XmFuEKXiScQj8L326ytgdTbQ61FWUe/f5RpTHL
+	qjwhUPdZ4IkeeBIMJa6G9ImGWqvs6EPqHbwM53KsUDUrxAWSnVBNzBoOmAjlc46snnzbwcRABfx
+	3T6X2dePu4XFj0w/+n7gPQYWusJll9eCE1DMEEPQ0tQp80g+0TpMz6u/d+1j9DOqnyPLMr0O3Lo
+	czfCkbLMfqkK2OR6cdXB7icMQwVHDZDO6m06/UiXu593/rKRliFrSQqz2b/YwTzQxseVe0rf57v
+	A80qBvU017XguPZlToA64OqOhP59JGiOEsFzZm8=
+X-Google-Smtp-Source: AGHT+IHVMuch2kTut9aphBozo1dC5IDPtF6bAMCdul3HMtqOKgey6ooHrpGe08sKt7YgR/cYTyIecO5t303sGEVu1JE=
+X-Received: by 2002:a05:6512:2211:b0:59a:115f:5b86 with SMTP id
+ 2adb3069b0e04-59a17d08f04mr6718124e87.12.1766588760030; Wed, 24 Dec 2025
+ 07:06:00 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] xen/riscv: add RISC-V legacy SBI extension support
- for guests
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766399205.git.oleksii.kurochko@gmail.com>
- <f4225d3134ec12a392a2e5d91414bfdf9d0665a1.1766399205.git.oleksii.kurochko@gmail.com>
- <74eec4dc-de48-4060-8f87-ba04023fda17@suse.com>
- <ace5aa8d-d192-4f6e-a0b7-0005f759d151@gmail.com>
-Content-Language: en-US
-In-Reply-To: <ace5aa8d-d192-4f6e-a0b7-0005f759d151@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20251106155831.306248-1-marco.crivellari@suse.com>
+In-Reply-To: <20251106155831.306248-1-marco.crivellari@suse.com>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Wed, 24 Dec 2025 16:05:49 +0100
+X-Gm-Features: AQt7F2o93fZnlXnIb_xtPnoUbRnCKdtLBd5hClRrFTCRxTDzaZg28FIXeuTcS4s
+Message-ID: <CAAofZF4JXeLpXHNLeKXSY=Xz18XcOwA6FFvnX=0+NbKMh3rYrQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] replace system_wq with system_percpu_wq, add
+ WQ_PERCPU to alloc_workqueue
+To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Frederic Weisbecker <frederic@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Michal Hocko <mhocko@suse.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/24/25 10:05 AM, Oleksii Kurochko wrote:
+On Thu, Nov 6, 2025 at 4:58=E2=80=AFPM Marco Crivellari
+<marco.crivellari@suse.com> wrote:
+>  [...]
+>   xen/events: replace use of system_wq with system_percpu_wq
+>   xen: privcmd: WQ_PERCPU added to alloc_workqueue users
 >
-> On 12/23/25 5:11 PM, Jan Beulich wrote:
->> On 22.12.2025 17:37, Oleksii Kurochko wrote:
->>> +static int vsbi_legacy_ecall_handler(unsigned long eid, unsigned 
->>> long fid,
->>> +                                     struct cpu_user_regs *regs)
->>> +{
->>> +    int ret = 0;
->>> +
->>> +    switch ( eid )
->>> +    {
->>> +    case SBI_EXT_0_1_CONSOLE_PUTCHAR:
->>> +        vsbi_print_char(regs->a0);
->>> +        break;
->>> +
->>> +    case SBI_EXT_0_1_CONSOLE_GETCHAR:
->>> +        ret = SBI_ERR_NOT_SUPPORTED;
->>> +        break;
->>> +
->>> +    default:
->>> +        /*
->>> +         * TODO: domain_crash() is acceptable here while things are 
->>> still under
->>> +         * development.
->>> +         * It shouldn't stay like this in the end though: guests 
->>> should not
->>> +         * be punished like this for something Xen hasn't implemented.
->>> +         */
->>> +        domain_crash(current->domain,
->>> +                     "%s: Unsupported ecall: FID: #%lx, EID: #%lx\n",
->> Hmm, wait - patch 1 says you would consistently use #%lu for FIDs. I 
->> can adjust
->> while committing, unless you tell me not to.
->
-> I think that we should drop printing FID at all for Legacy extension 
-> as according to
-> the spec.:
->   The SBI function ID field in a6 register is ignored because these 
-> are encoded as multiple SBI
->   extension IDs.
-> And according to "Function Listing" FID will be 0:
-> https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/ext-legacy.adoc#function-listing
->
-> I would be happy if you could drop printing of FID during commit. Let 
-> me know if you want me to
-> drop printing of FID in the next patch series version.
->
-EID printing should be also updated to #%#lx.
+>  drivers/xen/events/events_base.c | 6 +++---
+>  drivers/xen/privcmd.c            | 3 ++-
+>  2 files changed, 5 insertions(+), 4 deletions(-)
 
-Sorry for noticing that only now.
+Gentle ping.
 
-~ Oleksii
+Thanks!
 
+--=20
+
+Marco Crivellari
+
+L3 Support Engineer
 
