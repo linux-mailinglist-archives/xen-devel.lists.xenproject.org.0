@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB31CDCEAE
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192955.1512028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40BD8CDCE99
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192948.1511960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH6-0004sV-8j; Wed, 24 Dec 2025 17:03:48 +0000
+	id 1vYSGz-0003Fk-3v; Wed, 24 Dec 2025 17:03:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192955.1512028; Wed, 24 Dec 2025 17:03:48 +0000
+Received: by outflank-mailman (output) from mailman id 1192948.1511960; Wed, 24 Dec 2025 17:03:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH6-0004od-2c; Wed, 24 Dec 2025 17:03:48 +0000
-Received: by outflank-mailman (input) for mailman id 1192955;
- Wed, 24 Dec 2025 17:03:46 +0000
+	id 1vYSGz-0003Cg-0n; Wed, 24 Dec 2025 17:03:41 +0000
+Received: by outflank-mailman (input) for mailman id 1192948;
+ Wed, 24 Dec 2025 17:03:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jcWU=66=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vYSH4-0003CV-77
- for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 17:03:46 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1vYSGw-0003CV-UR
+ for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 17:03:39 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ce6cb94-e0ea-11f0-b15c-2bf370ae4941;
- Wed, 24 Dec 2025 18:03:37 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-b804646c718so554404266b.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 09:03:37 -0800 (PST)
+ id 7d646a97-e0ea-11f0-b15c-2bf370ae4941;
+ Wed, 24 Dec 2025 18:03:38 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-b734fcbf1e3so1217307366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 09:03:38 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.35
+ a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 24 Dec 2025 09:03:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ce6cb94-e0ea-11f0-b15c-2bf370ae4941
+X-Inumbo-ID: 7d646a97-e0ea-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766595816; x=1767200616; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Dl0Ake+HXqNEfqkHZLA61ApiAKY7FnWbGJ13njfYtKQ=;
-        b=G35OaN8ZxT+N+5krgo/O/mUQ/ZwXR4z+BXx7lbj8KLTETYipvixTwdgy6uwFb1zHKS
-         GrgXgbdkhDtvROe0fWEjP2ivPNQ+S4kYjd4PseuyViRzwUVKJKsbdlsQC+VSsaGW6kgg
-         RfQjoACZz5YA1C6BNBRBu7OlldvqfcCG/aMCJry9iBCtenTD8hg8YWYSQLP0kSajgTRO
-         lQsfRy96ctx6497K1ooJ3u5aMEauwMOW+DcyAkB55bZjjKUJiodRrvfrOCn/pU9GOu15
-         oQWC8UEIIqONWRo0xIovTZpuuXMxx4jcFDfWINdVlYbm0tfIuK9qwb+HQp8qlMW4c6qq
-         3xow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766595816; x=1767200616;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1766595817; x=1767200617; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Dl0Ake+HXqNEfqkHZLA61ApiAKY7FnWbGJ13njfYtKQ=;
-        b=Y+ZrU9dppgER837uEs2xVJ36fjEktckScMmMYEPLkNhMzPs6kdjKcJKUC8b+ESRRwc
-         jm+9hMeXaDz1uXilNMXCQznqoa/ZEOzkEUtsOHb8Whc9kJLvIsJmPWYA7hozyMS24wc1
-         bFEos0iVjy9uGSih9Fl2eQPXM5UOlio2Wat/Youa/G4bxVijyDOqcEdI47znhCouuj6Z
-         Jh9pXdNMk3qssQIRrxCoWo/lQ+qRTft1CcePhfgLeYZmWN/koBLcFdyKoE0T7wGInyrh
-         h0M91QG41ZoxX2kA1XWM9tdlK5HKrrotTVJsRJMmCO6D5+xd2Rat8ueKh666yVOdaeBN
-         Pl0w==
-X-Gm-Message-State: AOJu0YxZz4BVCOGYq/RNfWUzxXWx4319JWS5KqRjJYmdyY5D7GLWTGUA
-	HKam59QHCaGQAHgqsanOnvTk4ps/DCuGMMOLS7iJHF1G2HWE335FzZh/NVM07Q==
-X-Gm-Gg: AY/fxX7fqZwLql6WmsfSVStuvquhr2s6A/T0RgfaPGzhWWTH+i9gofpMm8X66afREiA
-	AhXiOc87v8q6Q8YDVWqKowKWoAjjH9Sdp9xD1ehrWIqGTazVNOp+mVH7o4RYVGxF11NYkobR5ds
-	OMMWzLbtWUY3BYTTGaQkRmOiGq2CEdi8LCE+q7GqF8BOHlWcW7c8qohmtwbddXWCl60l61uu5OE
-	yl+XcaguUtIlKP0XfgjgXYU05Gnj2zV0qdyfv+RXlEmsTx2ObB4Su6WLYZVpYpCZ4mYtP7w4EWu
-	6Fx7+bACQxNCVxw2ewJzMA5v5+tFp2lsAX2zftSyx4Rm6HZKTcujZG1n7j5/QLX5AO+5JEi1+oG
-	ePXQJdQFjNhfA6zD2Fo9k5MRepaF+YBrtJpZmLKnWwZGBsXgnGMfM5EA2sGC9EfE34/cIVIjyAr
-	5sTtrZrTsUdMbcdwOP4+qT6pTODg1YEAcF4kPOCN3FiuFncUm9aaqiFqs=
-X-Google-Smtp-Source: AGHT+IGwOuzWLr3FRHp6q4S5/8OelYbfkz3Ei3PM9Zq/6NZE+5MxKeogyVq0QocQjIhpTgr3Uvj69Q==
-X-Received: by 2002:a17:907:5c8:b0:b73:544d:b963 with SMTP id a640c23a62f3a-b8036ecf4c0mr1794500866b.13.1766595816253;
-        Wed, 24 Dec 2025 09:03:36 -0800 (PST)
+        bh=wpMnoBhXlHEbQcv+4CcUZ/GWflidq/CRvs1qhabX/PA=;
+        b=G9pcf8rlJ11GmoH/zo4K3aolXbeoCsyXum94q4bVwUbKf0QT5vjesdVZUjjg0isMZE
+         TDJsGkKmA4qrG1mxMogeVEN10wJqks8CnSJFhvQzpYh1WFbDZgst2KqDDTBxjF3F9tan
+         62VA/L7m3D9mZbaYU2A/6Oe/Wcb1W5tUcuHIjqMmPJu/UrhPDw/jxl5OsUfWIpkDUgft
+         RfJ54hdhHbsQ4y1CJ6sRmR0aQKwXdkvWuJDVZDfq931p9T1iabOXLwzskzBIPgGU8gYk
+         PlM2acAO3mrJb9cJ+yI79QYDTCgmZuX58QXaoBjciBgW0cDlfgH1A6reYOHZVZEcbXa5
+         qZOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766595817; x=1767200617;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wpMnoBhXlHEbQcv+4CcUZ/GWflidq/CRvs1qhabX/PA=;
+        b=VB7wog8KxkkodcztIlpg3sMV8M1F+w5GrYANATkHqRNhet4gyGbW58EXQ/9Nx6p0sg
+         p8kghPCCn23RFXW6pUoDUJOj97qrl61Q58HhC26gBIw2+yQXdwR6j+vHWYUGqxaJkwze
+         5/AICg9h+bOHljtH3CEuxYsoWlFLY5SiiuR3ic27InGpwRPO67ZVzpOZ6oe/pMqqzD48
+         DGF8QZMCoI+cv9jCj9vHMWhSaEo2wKQc3FHLyuSIeTsBP3GYTXoD2oB0WWlG5eGuHNvy
+         GQ/BphQHzgvb6R4ZEX1/7Qu59gO/7b+0PDbuuC7OIpoOSKoRgbo/EoF0fpghoXW7e2nR
+         Vb+A==
+X-Gm-Message-State: AOJu0YxCRrr3SXAN9V2Q13yfF8yWbdBDjj60GV9YPNxUzTvWItSxntrX
+	Kg2s/jfNnXW5htHrGSs/WkR1h0GEQsoWsHWIvthMTOY/D3iZiLEZ/374nMGEfA==
+X-Gm-Gg: AY/fxX5QqjLhE0cyJZ9v5CY4t04PXMwbhHMIx/72QfXAzYQEkHODPr9QIdJZEBdk8kY
+	TnrRG3Eu0T/fkydAwf3/UDOoAUJIzjXPq5uqQF75TPgIqu2zud0v683n85kri/jvDA0vrkaYae7
+	uX1IVxaGB2xm0sWnx/g2uLddXdEuLfUa5h60kp/RKH4tii+NQ1WwY5RkAppoTcj/bUDXilcR8pq
+	Kwbcos58yohcGzbD1DpeuLvMG6tUDFQRUQWOqaEY6dJsSHLX44rWcVbkh48zQ9NDsRTPbk4jfIq
+	S2j7HjEJEa7PmRyLVAr+gz62Puprh6Adb4yXCQoAbllUM4Bk8KcaFccXFy0ab7sMCGWVxoOvMC0
+	m94GsDQ8XOj+a8pvVnFcdW0tq7RDYykuJwfbKgRzQ818Vgx7xC+HjuuN+A6kf5ckI91MmGGH59c
+	hpyeh6dwehc+nxnzpuszA3rqDhSTYyIelt4omicjhRghm1jucicorYHHY=
+X-Google-Smtp-Source: AGHT+IFGQXiCGFZ8YkznAaepnlm3r06T108zPJKrH4/O/E2AgvWDQNvAco8SXKUUx+l0Bwryvt9Q1w==
+X-Received: by 2002:a17:907:7245:b0:b83:13ee:5875 with SMTP id a640c23a62f3a-b8313ee5957mr212455666b.50.1766595817168;
+        Wed, 24 Dec 2025 09:03:37 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -94,81 +95,92 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 00/15] xen/riscv: introduce vtimer related things.
-Date: Wed, 24 Dec 2025 18:03:13 +0100
-Message-ID: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 01/15] xen/riscv: introduce struct arch_vcpu
+Date: Wed, 24 Dec 2025 18:03:14 +0100
+Message-ID: <3b531dff3755da010664111cf7d936ccba7c1f5d.1766595589.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch series introduces the components necessary to implement a virtual
-timer (vtimer).
+Introduce structure with VCPU's registers which describes its state.
 
-Since the SSTC extension is not supported by Xen, an emulated (SBI-based)
-timer is required. To address this, a virtual timer built on Xen’s timer
-infrastructure is introduced, with save/restore support and SBI-based
-programming.
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ xen/arch/riscv/include/asm/domain.h | 58 ++++++++++++++++++++++++++++-
+ 1 file changed, 56 insertions(+), 2 deletions(-)
 
-To provide full guest software–based timer support, the following components
-are also introduced:
-- arch_vcpu_{create,destroy}() to initialize the virtual timer and other
-  vCPU-related state not directly tied to timer functionality. As part of this
-  work, struct arch_vcpu is introduced to describe the internal state of a
-  virtual CPU, along with vcpu_csr_init() to initialize the relevant CSR state.
-- Support functions required by the virtual timer, including:
-  - vcpu_kick(), and a stub implementation of smp_send_event_check_mask()
-    (since SMP is not yet supported in Xen), which is used by vcpu_kick().
-  - Support for guest timer programming via interception of the SBI legacy
-    SET_TIMER call from guest.
-  - Implement reprogram_timer() using introduced sbi_set_timer().
-  - Initial lockless tracking of pending vCPU interrupts using atomic bitmaps.
-    Not full support, only vcpu_set_interrupt() and vcpu_unset_interrupt() are
-    introduced. All others functions will be introduced separately. [1]
-- Handling of hypervisor timer interrupts and dispatch into Xen’s generic timer
-  softirq.
-
-Oleksii Kurochko (15):
-  xen/riscv: introduce struct arch_vcpu
-  xen/riscv: implement arch_vcpu_{create,destroy}()
-  xen/riscv: implement vcpu_csr_init()
-  xen/riscv: introduce vtimer
-  xen/riscv: implement stub for smp_send_event_check_mask()
-  xen/riscv: introduce vcpu_kick() implementation
-  xen/riscv: introduce tracking of pending vCPU interrupts, part 1
-  xen/riscv: introduce vtimer_set_timer() and vtimer_expired()
-  xen/riscv: add vtimer_{save,restore}()
-  xen/riscv: implement SBI legacy SET_TIMER support for guests
-  xen/riscv: introduce ns_to_ticks()
-  xen/riscv: introduce sbi_set_timer()
-  xen/riscv: implement reprogram_timer() using SBI
-  xen/riscv: handle hypervisor timer interrupts
-  xen/riscv: init tasklet subsystem
-
- xen/arch/riscv/Makefile                     |   2 +
- xen/arch/riscv/cpufeature.c                 |   1 +
- xen/arch/riscv/domain.c                     | 207 ++++++++++++++++++++
- xen/arch/riscv/include/asm/config.h         |   3 +-
- xen/arch/riscv/include/asm/cpufeature.h     |   1 +
- xen/arch/riscv/include/asm/current.h        |   6 +
- xen/arch/riscv/include/asm/domain.h         |  84 +++++++-
- xen/arch/riscv/include/asm/riscv_encoding.h |   3 +
- xen/arch/riscv/include/asm/sbi.h            |  17 ++
- xen/arch/riscv/include/asm/time.h           |   5 +
- xen/arch/riscv/include/asm/vtimer.h         |  30 +++
- xen/arch/riscv/sbi.c                        |  26 +++
- xen/arch/riscv/setup.c                      |   3 +
- xen/arch/riscv/smp.c                        |   8 +
- xen/arch/riscv/stubs.c                      |  35 ----
- xen/arch/riscv/time.c                       |  31 +++
- xen/arch/riscv/traps.c                      |  14 ++
- xen/arch/riscv/vsbi/legacy-extension.c      |   6 +
- xen/arch/riscv/vtimer.c                     |  82 ++++++++
- 19 files changed, 526 insertions(+), 38 deletions(-)
- create mode 100644 xen/arch/riscv/domain.c
- create mode 100644 xen/arch/riscv/include/asm/vtimer.h
- create mode 100644 xen/arch/riscv/vtimer.c
-
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index 316e7c6c8448..639cafdade99 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -22,9 +22,63 @@ struct hvm_domain
+ struct arch_vcpu_io {
+ };
+ 
+-struct arch_vcpu {
++struct arch_vcpu
++{
+     struct vcpu_vmid vmid;
+-};
++
++    /* Xen's state: Callee-saved registers and tp, gp, ra */
++    struct
++    {
++        register_t s0;
++        register_t s1;
++        register_t s2;
++        register_t s3;
++        register_t s4;
++        register_t s5;
++        register_t s6;
++        register_t s7;
++        register_t s8;
++        register_t s9;
++        register_t s10;
++        register_t s11;
++
++        register_t sp;
++        register_t gp;
++
++        /* ra is used to jump to guest when creating new vcpu */
++        register_t ra;
++    } xen_saved_context;
++
++    /* CSRs */
++    register_t hstatus;
++    register_t hedeleg;
++    register_t hideleg;
++    register_t hvip;
++    register_t hip;
++    register_t hie;
++    register_t hgeie;
++    register_t henvcfg;
++    register_t hcounteren;
++    register_t htimedelta;
++    register_t htval;
++    register_t htinst;
++    register_t hstateen0;
++#ifdef CONFIG_RISCV_32
++    register_t henvcfgh;
++    register_t htimedeltah;
++#endif
++
++    /* VCSRs */
++    register_t vsstatus;
++    register_t vsip;
++    register_t vsie;
++    register_t vstvec;
++    register_t vsscratch;
++    register_t vscause;
++    register_t vstval;
++    register_t vsatp;
++    register_t vsepc;
++}  __cacheline_aligned;
+ 
+ struct paging_domain {
+     spinlock_t lock;
 -- 
 2.52.0
 
