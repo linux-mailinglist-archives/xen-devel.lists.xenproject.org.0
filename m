@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198D2CDCEBA
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1192952.1512000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00AC4CDCE96
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Dec 2025 18:04:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1192951.1511985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH3-00049I-AW; Wed, 24 Dec 2025 17:03:45 +0000
+	id 1vYSH1-0003iq-RW; Wed, 24 Dec 2025 17:03:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1192952.1512000; Wed, 24 Dec 2025 17:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 1192951.1511985; Wed, 24 Dec 2025 17:03:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vYSH3-00045q-5d; Wed, 24 Dec 2025 17:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 1192952;
- Wed, 24 Dec 2025 17:03:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vYSH1-0003gu-M8; Wed, 24 Dec 2025 17:03:43 +0000
+Received: by outflank-mailman (input) for mailman id 1192951;
+ Wed, 24 Dec 2025 17:03:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jcWU=66=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vYSH0-0003b7-VP
+ id 1vYSH0-0003CV-Ph
  for xen-devel@lists.xenproject.org; Wed, 24 Dec 2025 17:03:42 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f4a175e-e0ea-11f0-9cce-f158ae23cfc8;
- Wed, 24 Dec 2025 18:03:41 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-b7a6e56193cso998928766b.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 09:03:41 -0800 (PST)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7fc64ca4-e0ea-11f0-b15c-2bf370ae4941;
+ Wed, 24 Dec 2025 18:03:42 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-6418b55f86dso8317203a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Dec 2025 09:03:42 -0800 (PST)
 Received: from fedora (user-109-243-71-38.play-internet.pl. [109.243.71.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.39
+ a640c23a62f3a-b8037ab7f7bsm1798927766b.18.2025.12.24.09.03.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Dec 2025 09:03:39 -0800 (PST)
+ Wed, 24 Dec 2025 09:03:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f4a175e-e0ea-11f0-9cce-f158ae23cfc8
+X-Inumbo-ID: 7fc64ca4-e0ea-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766595820; x=1767200620; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1766595821; x=1767200621; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=g8XzwJhnCm5wKitCTTX5wDHC/h0G6FAP9bDwWltV38M=;
-        b=nfgR1hChQELx+mxttjRdYhOFXOR1RF4K7nrL6wgUmEgNw3EKUYlPwi+XBrl/dnM2ME
-         4vX0tuxnVVBQKKt465vlcY58VH6SqQByeDwgPS+rpOnCLtAvG9lnEtqysEBa4TJT3Bgo
-         ITKm0bjs1Fc5wmT4IvfHAGI/RBlE5xSKNb/AJaiU+b7LI6+xJGLMb8YB2OG70ouOUklT
-         kl/foLM1hRmEcwYd5ZACcE4/UjuTOLG6P8Vh7MbI73x3OYTzgXbXM2IToIvEglbcF0HY
-         nArl3PzdqYlSeurj9cOZYDKT1cWri2/n32dUfdI2Fe14ZjbBCY0+9BEikKQUy/N/MBlq
-         1Kew==
+        bh=v3trXYiveaHvhlgyXDqsatKIS2roH4Y0Sc6KIceNuMI=;
+        b=NuV3PMpskygdAPgT8ca6gM4FGYNEOL3TKCj404/GxHKDeiH6+xIRwXBQonRl2KmNx3
+         cyn/dK4qp4TM/pGn8xV+Fnj6e58zaKbCmdZBklcW0jPeAff0NSsytKajO2uHM3YEhyMp
+         RFWeAdPLWAkK1amuVZZ0F0X3d1DzSiYQuJJ806f6Cl0EpC2ayISMxMPa1T972+h8J9Yr
+         ANnHmhVPJwnjAEoBGvxqEM5QhWvFEp8uJU2wtsOHoSusE2hG8gJCwuF8EVtiRCit/tfm
+         QklVcf9jT1C1zgL+P+5nZCdqZYJjsz0wQ14/ecYTEA3Hk1GQfUNLotK+DKUy/jN0KgTI
+         L2cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766595820; x=1767200620;
+        d=1e100.net; s=20230601; t=1766595821; x=1767200621;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=g8XzwJhnCm5wKitCTTX5wDHC/h0G6FAP9bDwWltV38M=;
-        b=qyhwnoB/5tayQGys97/Dx6fs/FtQaBEypYUvKOFaLItSlZ7jWfDA7w4jvYovEOoa6b
-         JCB15pg5MNM0nFtoNljLYUrZA4KW329osYZcbLeFIwRC8GxQYqQxE8+75Yj2HNaHyBBM
-         ehIqfmstzCNuTU5WtXgJqaN3FTVMphPecTZucVTiu+olNJIG/8Dc/GYsgREY2/3RDOD9
-         psjUyEBZJoKkWKYUq+k8FzrnkBZ1VmZJ/A+tejuNEx4gCZWgiYhDECK1J5veYoeHNiQX
-         zxVCYZEy2lbMhFwxgTgYHdH2H7Cvs0s6j3j1slx+7c9jQEavE9zoY8BmInatIQRuw39Z
-         jp7w==
-X-Gm-Message-State: AOJu0YzhyFnMeeb2NrbUJra8j6baXJNSpGvDJXEGW6Lx39edHfYApBjZ
-	wvpG9LbBYGitFamwHy6pb6aoOtH2vaXXjjoIOxLueurrwTJgWM3UVEqRcksemQ==
-X-Gm-Gg: AY/fxX6Ipj8/Uoz6RxN6XFizFGQ8OozhgMWIBp6szchNqDkdDdxBkU8MVweYTcoE5cZ
-	bGm1CU6oOhEZxJR9mbdcUGWSSVF4GbfPoRP/S1sGCefuAoYO1IxDHe5kekrJ+TFjlXDFkoYtcPn
-	3hSKKa3ga9KquoqeJDZwfsR8+8asJrRYLwW8oYrEentZYHLqbkknvmm/B418Y4x+rLzNrmjIM0J
-	Pz0B+aklR90TMgofG2JCdlJGMa2Yz3gu9/wjDH4H1k0h4UIsLAgi1bWoMFG8bUQ7of8dVbKCRwW
-	/wmu/cacys820Pcgjqc1iMVj5/7n4Q3a9Qhy0WrJahWsvFto6RQB81B2Wup63dAoOqfpz7rwCQ3
-	zj3BVbc9jDGyFU9fXINZZ8zpIL01TKa1snLVpRLf461kH87lFaS4qYwlK97Tb6IZHeFw6/+ga2C
-	JvNOEEedBG4SNW8sRJxGI0xR+Wu/OZrRciZMbLdmlkDZDFpuFzw6EuQdUzGWMPaxBo4A==
-X-Google-Smtp-Source: AGHT+IH6Bhd0noBuZdsNvUD5oseP8WhloVgyS5FPCVJYVoTkO6Qd/swFoYV/yyKbBks3zpi7Qwzu6g==
-X-Received: by 2002:a17:907:7e85:b0:b7c:eb19:2094 with SMTP id a640c23a62f3a-b8037257589mr1663597366b.48.1766595820172;
-        Wed, 24 Dec 2025 09:03:40 -0800 (PST)
+        bh=v3trXYiveaHvhlgyXDqsatKIS2roH4Y0Sc6KIceNuMI=;
+        b=u3h2bllInSCYIRgZujb4p94MrP7v7KRY6oUiQDjKUxL96HC+H4sMBF+pFyeAphI2+i
+         sLTp2zJKW18yWz50zaXAJQQiNTZ5QI7JQorUgAP/tY9Pt4otmNKbY945xOtF7+gkEr42
+         o10NFUVS6Ggm3bt+CEPXZ8CCZzkIVFHBLavERGiqisYawnu8aMo1PbeY9TeWkDTIbZs/
+         6Syz77KgORnATAVP0pESXTCJRrQxQmsdxSNbMAzNzTUgVCFR9m8Hr2f2a6/mNPxbg+DY
+         AKyp/ngEhk1rjilt/sU5G5tCVQG/dopeUIBXP5MfAbLfsGxkWCMOROZ9iqfImz47NXH9
+         8PyQ==
+X-Gm-Message-State: AOJu0YwOgzV6Msd1pURVVK1eQIGkjDZ/FHgv40h6cS+6IojoxcJjoHwh
+	sgKKRFdJ6it0loI0MykIGp1CM15nVcscA9luYYC824wQf0BWAXPX4qL3Kaclmg==
+X-Gm-Gg: AY/fxX7jeHF3KC/p+nekFjV6mGaP/+PjxB/aPJFwYJlQlfYHqioZ9WhGQGJXo22LAo0
+	lbzH6AWrew0BlvDRHBsj6R5sApqqnw/Nsf2fbukGuKqx8Vd5QDfNHd88mP17cz5HyM5o61sK9w5
+	pQjVdJdCdOfdL9oi6oeX65o/OC607sGn8N0hQS7KPh8ZabPxZ+40yVNp39tIVHfMeY3tFBMMA8z
+	HzxIVf2InEF1CGRG61I6lWvLoIccG6WF6BiJJF5EE4sWwNNAICOTLbCq9wtzuopTigoQp6/zPT1
+	JRQuh0KoigQFqbQP2HJhpEB+XCW0jM+VhV+vV5M9DwkwGBLtxvTpKNavZo4RfuALpVegzDu7+Gc
+	U6tsJHvLAGvEXFjbOvskEaiI8u4GtWOG4mOgfpSI1pXkSNj7YoUYNJKqUvT06Y7y5iNBYwBOO5D
+	2UWztLxc1MO0XaBP+oVaTjGHAtcEAPl1yY+UYpnz6nBz2bfscf3vcvITA=
+X-Google-Smtp-Source: AGHT+IF9OfLAnUg/4nt8QKZLGFjhUX1TmmbLlZPfFQKnsGxPFkAGTeLHlwNnhCdhFUm6gHPgOXbSRA==
+X-Received: by 2002:a17:907:1de2:b0:b80:4117:b6b3 with SMTP id a640c23a62f3a-b804117f48bmr1194562666b.10.1766595821194;
+        Wed, 24 Dec 2025 09:03:41 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,173 +95,60 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 04/15] xen/riscv: introduce vtimer
-Date: Wed, 24 Dec 2025 18:03:17 +0100
-Message-ID: <94ffc70d3050e532290126560355dc548161f466.1766595589.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 05/15] xen/riscv: implement stub for smp_send_event_check_mask()
+Date: Wed, 24 Dec 2025 18:03:18 +0100
+Message-ID: <837c863f5995cc4371e82b481211b053656ec7e7.1766595589.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1766595589.git.oleksii.kurochko@gmail.com>
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce a virtual timer structure along with functions to initialize
-and destroy the virtual timer.
-
-Add a vtimer_expired() function and implement it as a stub, as the timer
-and tasklet subsystems are not functional at this stage.
-
-Call vcpu_vtimer_init() in arch_vcpu_create().
+Since SMP is not yet supported, it is acceptable to implement
+smp_send_event_check_mask() as a stub.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile             |  1 +
- xen/arch/riscv/domain.c             |  8 ++++--
- xen/arch/riscv/include/asm/domain.h |  4 +++
- xen/arch/riscv/include/asm/vtimer.h | 25 ++++++++++++++++++
- xen/arch/riscv/vtimer.c             | 39 +++++++++++++++++++++++++++++
- 5 files changed, 75 insertions(+), 2 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/vtimer.h
- create mode 100644 xen/arch/riscv/vtimer.c
+ xen/arch/riscv/smp.c   | 8 ++++++++
+ xen/arch/riscv/stubs.c | 5 -----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 8863d4b15605..5bd180130165 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -22,6 +22,7 @@ obj-y += traps.o
- obj-y += vmid.o
- obj-y += vm_event.o
- obj-y += vsbi/
-+obj-y += vtimer.o
+diff --git a/xen/arch/riscv/smp.c b/xen/arch/riscv/smp.c
+index 4ca6a4e89200..e727fdb09612 100644
+--- a/xen/arch/riscv/smp.c
++++ b/xen/arch/riscv/smp.c
+@@ -1,3 +1,4 @@
++#include <xen/cpumask.h>
+ #include <xen/smp.h>
  
- $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
-diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 44387d056546..dd3c237d163d 100644
---- a/xen/arch/riscv/domain.c
-+++ b/xen/arch/riscv/domain.c
-@@ -6,6 +6,7 @@
- #include <asm/cpufeature.h>
- #include <asm/csr.h>
- #include <asm/riscv_encoding.h>
-+#include <asm/vtimer.h>
+ /*
+@@ -13,3 +14,10 @@
+ struct pcpu_info pcpu_info[NR_CPUS] = { [0 ... NR_CPUS - 1] = {
+     .processor_id = NR_CPUS,
+ }};
++
++void smp_send_event_check_mask(const cpumask_t *mask)
++{
++#if CONFIG_NR_CPUS > 1
++# error "smp_send_event_check_mask() unimplemented"
++#endif
++}
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index eab826e8c3ae..6ebb5139de69 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -65,11 +65,6 @@ int arch_monitor_domctl_event(struct domain *d,
  
- static void vcpu_csr_init(struct vcpu *v)
+ /* smp.c */
+ 
+-void smp_send_event_check_mask(const cpumask_t *mask)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void smp_send_call_function_mask(const cpumask_t *mask)
  {
-@@ -97,11 +98,14 @@ int arch_vcpu_create(struct vcpu *v)
-     if ( is_idle_vcpu(v) )
-         return rc;
- 
-+    if ( (rc = vcpu_vtimer_init(v)) )
-+        goto fail;
-+
-     /*
--     * As the vtimer and interrupt controller (IC) are not yet implemented,
-+     * As interrupt controller (IC) is not yet implemented,
-      * return an error.
-      *
--     * TODO: Drop this once the vtimer and IC are implemented.
-+     * TODO: Drop this once IC is implemented.
-      */
-     rc = -EOPNOTSUPP;
-     goto fail;
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index a0ffbbc09c6f..be7ddaff30e7 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -8,6 +8,7 @@
- #include <public/hvm/params.h>
- 
- #include <asm/p2m.h>
-+#include <asm/vtimer.h>
- 
- struct vcpu_vmid {
-     uint64_t generation;
-@@ -52,6 +53,9 @@ struct arch_vcpu
-     struct cpu_info *cpu_info;
-     void *stack;
- 
-+    struct vtimer vtimer;
-+    bool vtimer_initialized;
-+
-     /* CSRs */
-     register_t hstatus;
-     register_t hedeleg;
-diff --git a/xen/arch/riscv/include/asm/vtimer.h b/xen/arch/riscv/include/asm/vtimer.h
-new file mode 100644
-index 000000000000..a2ca704cf0cc
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/vtimer.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * (c) 2023-2024 Vates
-+ */
-+
-+#ifndef ASM__RISCV__VTIMER_H
-+#define ASM__RISCV__VTIMER_H
-+
-+#include <xen/timer.h>
-+
-+struct domain;
-+struct vcpu;
-+struct xen_arch_domainconfig;
-+
-+struct vtimer {
-+    struct vcpu *v;
-+    struct timer timer;
-+};
-+
-+int vcpu_vtimer_init(struct vcpu *v);
-+void vcpu_timer_destroy(struct vcpu *v);
-+
-+int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config);
-+
-+#endif /* ASM__RISCV__VTIMER_H */
-diff --git a/xen/arch/riscv/vtimer.c b/xen/arch/riscv/vtimer.c
-new file mode 100644
-index 000000000000..5ba533690bc2
---- /dev/null
-+++ b/xen/arch/riscv/vtimer.c
-@@ -0,0 +1,39 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/sched.h>
-+
-+#include <public/xen.h>
-+
-+#include <asm/vtimer.h>
-+
-+int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config)
-+{
-+    /* Nothing to do at the moment */
-+
-+    return 0;
-+}
-+
-+static void vtimer_expired(void *data)
-+{
-+    panic("%s: TBD\n", __func__);
-+}
-+
-+int vcpu_vtimer_init(struct vcpu *v)
-+{
-+    struct vtimer *t = &v->arch.vtimer;
-+
-+    t->v = v;
-+    init_timer(&t->timer, vtimer_expired, t, v->processor);
-+
-+    v->arch.vtimer_initialized = true;
-+
-+    return 0;
-+}
-+
-+void vcpu_timer_destroy(struct vcpu *v)
-+{
-+    if ( !v->arch.vtimer_initialized )
-+        return;
-+
-+    kill_timer(&v->arch.vtimer.timer);
-+}
+     BUG_ON("unimplemented");
 -- 
 2.52.0
 
