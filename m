@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3653CDEB46
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Dec 2025 13:39:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193436.1512189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEF1CDFD66
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Dec 2025 15:23:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193532.1512250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZ76N-0000Y6-8a; Fri, 26 Dec 2025 12:39:27 +0000
+	id 1vZVC8-0007su-44; Sat, 27 Dec 2025 14:23:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193436.1512189; Fri, 26 Dec 2025 12:39:27 +0000
+Received: by outflank-mailman (output) from mailman id 1193532.1512250; Sat, 27 Dec 2025 14:23:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZ76N-0000Wo-4k; Fri, 26 Dec 2025 12:39:27 +0000
-Received: by outflank-mailman (input) for mailman id 1193436;
- Fri, 26 Dec 2025 12:39:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1vZVC7-0007iX-S1; Sat, 27 Dec 2025 14:22:59 +0000
+Received: by outflank-mailman (input) for mailman id 1193532;
+ Sat, 27 Dec 2025 00:30:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vZ76L-0000Wi-Hp
- for xen-devel@lists.xenproject.org; Fri, 26 Dec 2025 12:39:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vZ76K-00AzAT-2f;
- Fri, 26 Dec 2025 12:39:25 +0000
-Received: from [2a02:8012:3a1:0:7185:a579:c:f908]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vZ76K-003IZT-2n;
- Fri, 26 Dec 2025 12:39:25 +0000
+ (envelope-from <SRS0=4j1x=7B=gmail.com=21cnbao@srs-se1.protection.inumbo.net>)
+ id 1vZICL-0000j8-C6
+ for xen-devel@lists.xenproject.org; Sat, 27 Dec 2025 00:30:21 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38c1311a-e2bb-11f0-b15c-2bf370ae4941;
+ Sat, 27 Dec 2025 01:30:19 +0100 (CET)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-8b2ec756de0so794401785a.3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Dec 2025 16:30:19 -0800 (PST)
+Received: from barry-desktop.hub ([47.72.129.29])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-34e772ac1acsm9981428a91.9.2025.12.26.14.53.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Dec 2025 14:53:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fsQznIkrg6H7tvIDni1EPby3qUwh9TCBqZdL0/wLRLY=; b=HdKGgCR+VHy7fZY5lrcOAdbuI6
-	AbdFW+6m7xee7lAQfj3nCPlxI1XwaVLANtYSkYgRCsGULCy5hht7hdCquyiD57268l8tqQHnjtaqI
-	/tiDPtkPTef8zzvlOJhgGtYD0Am4wjBQD6lHIG+dlqZ9YwdCNItKK/vCwenaNkzhDn34=;
-Message-ID: <a2be5ae1-7e4a-4137-9e36-6c5845a93ca1@xen.org>
-Date: Fri, 26 Dec 2025 12:39:22 +0000
+X-Inumbo-ID: 38c1311a-e2bb-11f0-b15c-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1766795418; x=1767400218; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/r7srQmiwZEhg1qAC5GzWj8afC3w1hmN+Jy3ezOc8f0=;
+        b=iXDYOoXz6/KP7iKHkqxGxIz56GGhsqXPnadTM4wEwQ1FgI7qQ/87NxbVhe9LxuvivJ
+         SkWCaUkay/aVDJdh+oaC9xhNp/00BtHTLKbQDwwhDpozjOom9fJFEkON6/L+Zvz6vxSX
+         ailF84KVIHWhaQA2aNZ9hhhsNh1uz0rZQc0WBellX0mzR5aNmMi3KYFNKtps6rCpPfsR
+         9heQXY16qp06g0VwApgFaTaKrr1kVWBbZI3nX+Had8A5rTNJW580PpGgXGOVUEToNyPa
+         ZKgEy9//c2aLdkYJDyiMLg5QP2/gf3bSpSDVklxE4aI9kKpFnNSRexSZyshWJio5lGhi
+         D2MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766795418; x=1767400218;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/r7srQmiwZEhg1qAC5GzWj8afC3w1hmN+Jy3ezOc8f0=;
+        b=aU/0UdMgUClcvmd2yvMmyWNIhYbkofjGb12/7HCc1w5C99GgJZOH/ffMddhC6a4NMv
+         fMsTRZw2JkYa3d/CTXmT66iT98yg36HzX6ra/mROuI5+ArvATDFSTY2KDyUfigzyUXF8
+         nskl86F0BfalM/uz4V8Qd9nlRzc9ej5RkiU6D73RN/zCES9jbaLhLb01Be02VbKoJUy7
+         26DeJsMQ1KLhH813hktf7+2wl+j6FzPqE5SxSxYAjjITLuzYQB46yGBuGmfk8K4+m0jM
+         xJ5v4gLX6SyM2xFEOmuSiVFMpb6vgviPoJBBOopT9XHH8GR6C90ygcVM3AR0pHaFolWV
+         Tb1A==
+X-Forwarded-Encrypted: i=1; AJvYcCUWN8x2xbhU32RaenDxWv6htg8OSz5ZqVRyj48DNLvXqOq3/dJnZO3tdyPQvUgu6h6U89I7XrIzQMo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxuNf5Pb32egnL9A3ggzLF6nbBCxfvCQgq2djIkPuWKD7W4a+EX
+	Un/ce7Qhp3t+/6iLUq2ggjtyQEX33/ov3uvfBHLcwDiSn8rV/vBcl3JDSAdfBmg1
+X-Gm-Gg: AY/fxX62iC+lwQZcIqyENBSvLcbmZwKbqTO9TAGzQFYCCXRFe6g23uOj4jwPUL1nBTE
+	B0XAP9H4fD4E7/w7/j+xDEmqcPoBIM18yrGzv/MgG01HrJOl3k6mXox0TyQwfYtWs1JN5HTFiB7
+	JjhSgDr2XGftRh0OpxgvdrA4hJ1bLVaTnWpcjTq99hbiIP7Y1kKqy//l+bhtyalyvjFOiCwBHYk
+	eWGA4R84nuHCbu5pEuneFxY13GQQjSWLMNajWAYGryePo3dILGZThtYkJPe3iyw/GKqODkToR7Z
+	WSpVmt26iNhN6xUb7SgyNsi8418CniaoKU44WdOzGBAAwX9a5cdgBXMUfPnlLEEzTZxgIJ4nCl4
+	PXjAwVOFFRBh+22JQNjyYsvRw51xg+h9dqG/E8yty3k7mWpqipIIPGzS9hMM8iCtBDp/Q3V8AZO
+	hJK91ORX5tFxV5
+X-Google-Smtp-Source: AGHT+IGRk72ichKRcHInGwm03WbYMZHXhydzrv/dBjOlD3Ki0dbJk2IiVKSqfCl2HL9XczgL6zklJg==
+X-Received: by 2002:a17:90a:e7c9:b0:32e:7340:a7f7 with SMTP id 98e67ed59e1d1-34e921131admr17034959a91.2.1766789597799;
+        Fri, 26 Dec 2025 14:53:17 -0800 (PST)
+From: Barry Song <21cnbao@gmail.com>
+To: catalin.marinas@arm.com,
+	m.szyprowski@samsung.com,
+	robin.murphy@arm.com,
+	will@kernel.org,
+	iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Barry Song <baohua@kernel.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Tangquan Zheng <zhengtangquan@oppo.com>,
+	Huacai Zhou <zhouhuacai@oppo.com>
+Subject: [PATCH v2 0/8] dma-mapping: arm64: support batched cache sync
+Date: Sat, 27 Dec 2025 11:52:40 +1300
+Message-ID: <20251226225254.46197-1-21cnbao@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/12] xen/arm: gic-v3: Implement GICv3 suspend/resume
- functions
-Content-Language: en-GB
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1765472890.git.mykola_kvach@epam.com>
- <9f084beff76e40fed2138ba2d59145a96b930c63.1765472890.git.mykola_kvach@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <9f084beff76e40fed2138ba2d59145a96b930c63.1765472890.git.mykola_kvach@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Mykola,
+From: Barry Song <baohua@kernel.org>
 
-On 11/12/2025 18:43, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
-> 
-> System suspend may lead to a state where GIC would be powered down.
-> Therefore, Xen should save/restore the context of GIC on suspend/resume.
-> 
-> Note that the context consists of states of registers which are
-> controlled by the hypervisor. Other GIC registers which are accessible
-> by guests are saved/restored on context switch.
-> 
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
-> Changes in V7:
-> - restore LPI regs on resume
-> - add timeout during redist disabling
-> - squash with suspend/resume handling for GICv3 eSPI registers
-> - drop ITS guard paths so suspend/resume always runs; switch missing ctx
->    allocation to panic
-> - trim TODO comments; narrow redistributor storage to PPI icfgr
-> - keep distributor context allocation even without ITS; adjust resume
->    to use GENMASK(31, 0) for clearing enables
-> - drop storage of the SGI configuration register, as SGIs are always
->    edge-triggered
-> ---
->   xen/arch/arm/gic-v3-lpi.c              |   3 +
->   xen/arch/arm/gic-v3.c                  | 319 ++++++++++++++++++++++++-
->   xen/arch/arm/include/asm/gic_v3_defs.h |   1 +
->   3 files changed, 320 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-> index de5052e5cf..61a6e18303 100644
-> --- a/xen/arch/arm/gic-v3-lpi.c
-> +++ b/xen/arch/arm/gic-v3-lpi.c
-> @@ -391,6 +391,9 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
->       switch ( action )
->       {
->       case CPU_UP_PREPARE:
-> +        if ( system_state == SYS_STATE_resume )
-> +            break;
+Many embedded ARM64 SoCs still lack hardware cache coherency support, which
+causes DMA mapping operations to appear as hotspots in on-CPU flame graphs.
 
-Do we need this check because we don't free the LPI pending table when 
-the CPU is turned off?
+For an SG list with *nents* entries, the current dma_map/unmap_sg() and DMA
+sync APIs perform cache maintenance one entry at a time. After each entry,
+the implementation synchronously waits for the corresponding region’s
+D-cache operations to complete. On architectures like arm64, efficiency can
+be improved by issuing all entries’ operations first and then performing a
+single batched wait for completion.
 
-If so, don't we already have a problem for CPU hotplug because the 
-percpu area will be freed but not the pending table?
+Tangquan's results show that batched synchronization can reduce
+dma_map_sg() time by 64.61% and dma_unmap_sg() time by 66.60% on an MTK
+phone platform (MediaTek Dimensity 9500). The tests were performed by
+pinning the task to CPU7 and fixing the CPU frequency at 2.6 GHz,
+running dma_map_sg() and dma_unmap_sg() on 10 MB buffers (10 MB / 4 KB
+sg entries per buffer) for 200 iterations and then averaging the
+results.
 
-Cheers,
+I also ran this patch set on an RK3588 Rock5B+ board and
+observed that millions of DMA sync operations were batched.
 
--- 
-Julien Grall
+v2:
+ * Refine a large amount of arm64 asm code based on feedback from
+   Robin, thanks!
+ * Drop batch_add APIs and always use arch_sync_dma_for_* + flush,
+   even for a single buffer, based on Leon’s suggestion, thanks!
+ * Refine a large amount of code based on feedback from Leon, thanks!
+ * Also add batch support for iommu_dma_sync_sg_for_{cpu,device}
+v1 link:
+ https://lore.kernel.org/lkml/20251219053658.84978-1-21cnbao@gmail.com/
+
+v1, diff with RFC:
+ * Drop a large number of #ifdef/#else/#endif blocks based on feedback
+   from Catalin and Marek, thanks!
+ * Also add batched iova link/unlink support, marked as RFC since I lack
+   the required hardware. This was suggested by Marek, thanks!
+RFC link:
+ https://lore.kernel.org/lkml/20251029023115.22809-1-21cnbao@gmail.com/
+
+Barry Song (8):
+  arm64: Provide dcache_by_myline_op_nosync helper
+  arm64: Provide dcache_clean_poc_nosync helper
+  arm64: Provide dcache_inval_poc_nosync helper
+  dma-mapping: Separate DMA sync issuing and completion waiting
+  dma-mapping: Support batch mode for dma_direct_sync_sg_for_*
+  dma-mapping: Support batch mode for dma_direct_{map,unmap}_sg
+  dma-iommu: Support DMA sync batch mode for IOVA link and unlink
+  dma-iommu: Support DMA sync batch mode for iommu_dma_sync_sg_for_{cpu,
+    device}
+
+ arch/arm64/include/asm/assembler.h  | 24 +++++++++---
+ arch/arm64/include/asm/cache.h      |  6 +++
+ arch/arm64/include/asm/cacheflush.h |  2 +
+ arch/arm64/kernel/relocate_kernel.S |  3 +-
+ arch/arm64/mm/cache.S               | 57 +++++++++++++++++++++++------
+ arch/arm64/mm/dma-mapping.c         |  4 +-
+ drivers/iommu/dma-iommu.c           | 35 ++++++++++++++----
+ drivers/xen/swiotlb-xen.c           | 24 ++++++++----
+ include/linux/dma-map-ops.h         |  6 +++
+ kernel/dma/direct.c                 | 23 +++++++++---
+ kernel/dma/direct.h                 | 21 ++++++++---
+ kernel/dma/mapping.c                |  6 +--
+ kernel/dma/swiotlb.c                |  4 +-
+ 13 files changed, 165 insertions(+), 50 deletions(-)
+
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Tangquan Zheng <zhengtangquan@oppo.com>
+Cc: Huacai Zhou <zhouhuacai@oppo.com>
+--
+2.43.0
 
 
