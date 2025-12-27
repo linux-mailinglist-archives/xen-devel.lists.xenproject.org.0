@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A3DCE01C9
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Dec 2025 21:09:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193690.1512309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D684CE01D2
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Dec 2025 21:14:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193701.1512318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZabf-0004DL-Fp; Sat, 27 Dec 2025 20:09:43 +0000
+	id 1vZag3-0005lv-W4; Sat, 27 Dec 2025 20:14:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193690.1512309; Sat, 27 Dec 2025 20:09:43 +0000
+Received: by outflank-mailman (output) from mailman id 1193701.1512318; Sat, 27 Dec 2025 20:14:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZabf-0004Ar-D7; Sat, 27 Dec 2025 20:09:43 +0000
-Received: by outflank-mailman (input) for mailman id 1193690;
- Sat, 27 Dec 2025 20:09:41 +0000
+	id 1vZag3-0005kC-TQ; Sat, 27 Dec 2025 20:14:15 +0000
+Received: by outflank-mailman (input) for mailman id 1193701;
+ Sat, 27 Dec 2025 20:14:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yTPZ=7B=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1vZabd-0004Ag-Pt
- for xen-devel@lists.xenproject.org; Sat, 27 Dec 2025 20:09:41 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ id 1vZag1-0005k6-PL
+ for xen-devel@lists.xenproject.org; Sat, 27 Dec 2025 20:14:13 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f89ea0e0-e35f-11f0-9ccf-f158ae23cfc8;
- Sat, 27 Dec 2025 21:09:39 +0100 (CET)
+ id 9b09d0e1-e360-11f0-9ccf-f158ae23cfc8;
+ Sat, 27 Dec 2025 21:14:11 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B71D743AB9;
- Sat, 27 Dec 2025 20:09:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A38C4CEF1;
- Sat, 27 Dec 2025 20:09:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E7B164082A;
+ Sat, 27 Dec 2025 20:14:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32314C4CEF1;
+ Sat, 27 Dec 2025 20:14:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f89ea0e0-e35f-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 9b09d0e1-e360-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766866177;
-	bh=y+u6yKllr0W68e3y8Qfj41GWvPDO6M/CKO30+K0JRSk=;
+	s=k20201202; t=1766866449;
+	bh=5BvZzNPtiik1Rf2hGQJZuruUvtsWoa36oLJFsqbPeIg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UkotPNQvY3OS7Z6GK5eJREW5U1iKBosJXAf3OKZhq4w1e63KJ/6n6aLGdvhL0t9RI
-	 qsawET5wu8X69005mh6s57Pu51m8COX9B90PGXro409saWdjcvqp/bYQzEVY5S5NG2
-	 YIts3LU54RlZXyyGEde8YS5GTaAYv9wggXZREwV5m3akH9NKC8/HO8gZWCEiKuWSvd
-	 vxDKsTSMCxwmQr8YlKHrU+GoWa5OP8vubgWVXShl/Qvt0n+FJVsO8VUBJuNf8n4FxZ
-	 6khccCuOWwhueLLZ7+uDADNwuxl58ICHfO+AW4UZkA+oc+CY31hC1XeOqeTi+XkKA2
-	 5iOODsc1HE7rQ==
-Date: Sat, 27 Dec 2025 22:09:33 +0200
+	b=j8mX/F/qNxveAViAw3M67+ZlSkxoNkRKoE+i7UiDr/K8/lElkqvuc9vkn65DJgg01
+	 pF5Pb5lIKx8k8SBZHzueiJEkrfAz9wVBYC3qQhGt74fNQZUGCOWAUc01JwaEYXMdpM
+	 FJit8Tv20CSZzdYdRg0UZB+Yo9Gdf3qhLW7C+ke6SKiJj1zsi7T5LNOYlCoMCpxGoE
+	 n5D4Asm3R6CzLphE/Xh5kr1cHps3f5Rhemo2HeOJTBRXD1DzwfYcZIWAAXNYWEBlih
+	 bSMq1kRI2kpZ5c18WLkXj+BEo8HgxpRnn/JvRkD8SEbP8nnzGwzQaYj+Higdc0Svrv
+	 VyCS4ZKkgq3bA==
+Date: Sat, 27 Dec 2025 22:14:06 +0200
 From: Leon Romanovsky <leon@kernel.org>
 To: Barry Song <21cnbao@gmail.com>
 Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
@@ -66,22 +65,31 @@ Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Tangquan Zheng <zhengtangquan@oppo.com>
-Subject: Re: [PATCH v2 5/8] dma-mapping: Support batch mode for
- dma_direct_sync_sg_for_*
-Message-ID: <20251227200933.GO11869@unreal>
+Subject: Re: [PATCH v2 6/8] dma-mapping: Support batch mode for
+ dma_direct_{map,unmap}_sg
+Message-ID: <20251227201406.GP11869@unreal>
 References: <20251226225254.46197-1-21cnbao@gmail.com>
- <20251226225254.46197-6-21cnbao@gmail.com>
+ <20251226225254.46197-7-21cnbao@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251226225254.46197-6-21cnbao@gmail.com>
+In-Reply-To: <20251226225254.46197-7-21cnbao@gmail.com>
 
-On Sat, Dec 27, 2025 at 11:52:45AM +1300, Barry Song wrote:
+On Sat, Dec 27, 2025 at 11:52:46AM +1300, Barry Song wrote:
 > From: Barry Song <baohua@kernel.org>
 > 
-> Instead of performing a flush per SG entry, issue all cache
-> operations first and then flush once. This ultimately benefits
-> __dma_sync_sg_for_cpu() and __dma_sync_sg_for_device().
+> Leon suggested extending a flush argument to
+
+Let's move this sentence out of the commit message and place it in the
+changelog instead.
+
+> dma_direct_unmap_phys(), dma_direct_map_phys(), and
+> dma_direct_sync_single_for_cpu(). For single-buffer cases, this
+> would use flush=true, while for SG cases flush=false would be
+> used, followed by a single flush after all cache operations are
+> issued in dma_direct_{map,unmap}_sg().
+> 
+> This ultimately benefits dma_map_sg() and dma_unmap_sg().
 > 
 > Cc: Leon Romanovsky <leon@kernel.org>
 > Cc: Catalin Marinas <catalin.marinas@arm.com>
@@ -97,23 +105,11 @@ On Sat, Dec 27, 2025 at 11:52:45AM +1300, Barry Song wrote:
 > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
 > Signed-off-by: Barry Song <baohua@kernel.org>
 > ---
->  kernel/dma/direct.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+>  kernel/dma/direct.c  | 17 +++++++++++++----
+>  kernel/dma/direct.h  | 16 ++++++++++------
+>  kernel/dma/mapping.c |  6 +++---
+>  3 files changed, 26 insertions(+), 13 deletions(-)
 
-<...>
-
-> -		if (!dev_is_dma_coherent(dev)) {
-> +		if (!dev_is_dma_coherent(dev))
->  			arch_sync_dma_for_device(paddr, sg->length,
->  					dir);
-> -			arch_sync_dma_flush();
-> -		}
->  	}
-> +	if (!dev_is_dma_coherent(dev))
-> +		arch_sync_dma_flush();
-
-This patch should be squashed into the previous one. You introduced
-arch_sync_dma_flush() there, and now you are placing it elsewhere.
-
-Thanks
+Thanks,
+Reviewed-by: Leon Romanovsky <leon@kernel.org>
 
