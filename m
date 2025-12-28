@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2B4BCE5186
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Dec 2025 15:50:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193796.1512379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DEB0CE518C
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Dec 2025 15:51:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193804.1512388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZs59-0005UW-9Q; Sun, 28 Dec 2025 14:49:19 +0000
+	id 1vZs6a-0006uG-K7; Sun, 28 Dec 2025 14:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193796.1512379; Sun, 28 Dec 2025 14:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 1193804.1512388; Sun, 28 Dec 2025 14:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZs59-0005SF-6F; Sun, 28 Dec 2025 14:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 1193796;
- Sun, 28 Dec 2025 14:49:17 +0000
+	id 1vZs6a-0006s0-HR; Sun, 28 Dec 2025 14:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 1193804;
+ Sun, 28 Dec 2025 14:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8FLo=7C=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1vZs57-0005S9-Mn
- for xen-devel@lists.xenproject.org; Sun, 28 Dec 2025 14:49:17 +0000
+ id 1vZs6Z-0006rs-PP
+ for xen-devel@lists.xenproject.org; Sun, 28 Dec 2025 14:50:47 +0000
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61333ab9-e3fc-11f0-b15c-2bf370ae4941;
- Sun, 28 Dec 2025 15:49:16 +0100 (CET)
+ id 9711a2f2-e3fc-11f0-b15c-2bf370ae4941;
+ Sun, 28 Dec 2025 15:50:46 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D15F403D6;
- Sun, 28 Dec 2025 14:49:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D38BC4CEFB;
- Sun, 28 Dec 2025 14:49:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B69B43EC7;
+ Sun, 28 Dec 2025 14:50:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDB8C4CEFB;
+ Sun, 28 Dec 2025 14:50:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61333ab9-e3fc-11f0-b15c-2bf370ae4941
+X-Inumbo-ID: 9711a2f2-e3fc-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766933354;
-	bh=KsIQ/N3MhVA4l2rlxf/X6rqlexltaiPqA/C+R9KBRrw=;
+	s=k20201202; t=1766933445;
+	bh=qbiHTFr5GuNGzRGenhnbtkv5WysSVwMoyJI42ZMBbjI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qxr7ascqLWsFOwQZLmWr4VaoaU6kLt3JWfsyukATtuABzJxpEZhqUFeO5FQAhs+ir
-	 u+cu2HY3hReFb+9sXcFor11aS/eIJMyuJ68Nmt/L+c2T0y3p+0rkU3gMrVEqEGGT26
-	 hNG//3ORDr7c1ijghi5Ug5ZvJpG77gZxoqnLrhKcMTDOR0VSqIASJ2vv+Y8cPZIU/R
-	 TyyELt1hdTT3RjWVZtdsFz/Yn3kHtB6+BiS+aVF/R8MuwUvFb7nETSS2aMOFPcoJA6
-	 bNJ47oEeKqGd4FlgSKH6xIdPpwQG0Fv+x+JMZG7xHiN0aummhOQwA1dvg6SgWN7Jkc
-	 XiChRt88500Gg==
-Date: Sun, 28 Dec 2025 16:49:09 +0200
+	b=uR1KTIMbxcfjIMp5BeqFx3rLg3y1/DslfD3E9dpTGsYLDXumEMvyTDlrtJexRliP8
+	 4rMhxVlEgscTX6SMvyoGGbqBB9s3IhOyr0Dq1rOTTq9DRKyQCs5R4MMaiXq5SMJDv8
+	 ypPf4xJu36IIq2elskChlmVCggK0X5P0P3iMsdzipt3Q/Pz09VtoJGRlajt3LsI+Wl
+	 gbwuGIGXFZFArEze9cY3ogr29kq3DbeOzLDvfFkXuQM3i0eAPwqneC1a0xL9kATsPV
+	 e7ey8Ht1VOWWZqIFGccgi1XAHIthQy1YRdTkX615ut3eBb5C2AjajZOKWeMy6qELr1
+	 bfIt1iNGLWgqA==
+Date: Sun, 28 Dec 2025 16:50:41 +0200
 From: Leon Romanovsky <leon@kernel.org>
 To: Barry Song <21cnbao@gmail.com>
 Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
@@ -64,49 +64,29 @@ Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
 	Anshuman Khandual <anshuman.khandual@arm.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Suren Baghdasaryan <surenb@google.com>,
-	Joerg Roedel <joro@8bytes.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Tangquan Zheng <zhengtangquan@oppo.com>
-Subject: Re: [PATCH v2 4/8] dma-mapping: Separate DMA sync issuing and
- completion waiting
-Message-ID: <20251228144909.GR11869@unreal>
+Subject: Re: [PATCH v2 5/8] dma-mapping: Support batch mode for
+ dma_direct_sync_sg_for_*
+Message-ID: <20251228145041.GS11869@unreal>
 References: <20251226225254.46197-1-21cnbao@gmail.com>
- <20251226225254.46197-5-21cnbao@gmail.com>
- <20251227200706.GN11869@unreal>
- <CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
+ <20251226225254.46197-6-21cnbao@gmail.com>
+ <20251227200933.GO11869@unreal>
+ <CAGsJ_4yA83-K7PXiEtyidzF_j6qqKkt92z485KBS9+zGe_rjnw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
+In-Reply-To: <CAGsJ_4yA83-K7PXiEtyidzF_j6qqKkt92z485KBS9+zGe_rjnw@mail.gmail.com>
 
-On Sun, Dec 28, 2025 at 10:45:13AM +1300, Barry Song wrote:
-> On Sun, Dec 28, 2025 at 9:07 AM Leon Romanovsky <leon@kernel.org> wrote:
+On Sun, Dec 28, 2025 at 09:52:05AM +1300, Barry Song wrote:
+> On Sun, Dec 28, 2025 at 9:09 AM Leon Romanovsky <leon@kernel.org> wrote:
 > >
-> > On Sat, Dec 27, 2025 at 11:52:44AM +1300, Barry Song wrote:
+> > On Sat, Dec 27, 2025 at 11:52:45AM +1300, Barry Song wrote:
 > > > From: Barry Song <baohua@kernel.org>
 > > >
-> > > Currently, arch_sync_dma_for_cpu and arch_sync_dma_for_device
-> > > always wait for the completion of each DMA buffer. That is,
-> > > issuing the DMA sync and waiting for completion is done in a
-> > > single API call.
-> > >
-> > > For scatter-gather lists with multiple entries, this means
-> > > issuing and waiting is repeated for each entry, which can hurt
-> > > performance. Architectures like ARM64 may be able to issue all
-> > > DMA sync operations for all entries first and then wait for
-> > > completion together.
-> > >
-> > > To address this, arch_sync_dma_for_* now issues DMA operations in
-> > > batch, followed by a flush. On ARM64, the flush is implemented
-> > > using a dsb instruction within arch_sync_dma_flush().
-> > >
-> > > For now, add arch_sync_dma_flush() after each
-> > > arch_sync_dma_for_*() call. arch_sync_dma_flush() is defined as a
-> > > no-op on all architectures except arm64, so this patch does not
-> > > change existing behavior. Subsequent patches will introduce true
-> > > batching for SG DMA buffers.
+> > > Instead of performing a flush per SG entry, issue all cache
+> > > operations first and then flush once. This ultimately benefits
+> > > __dma_sync_sg_for_cpu() and __dma_sync_sg_for_device().
 > > >
 > > > Cc: Leon Romanovsky <leon@kernel.org>
 > > > Cc: Catalin Marinas <catalin.marinas@arm.com>
@@ -119,68 +99,38 @@ On Sun, Dec 28, 2025 at 10:45:13AM +1300, Barry Song wrote:
 > > > Cc: Anshuman Khandual <anshuman.khandual@arm.com>
 > > > Cc: Ryan Roberts <ryan.roberts@arm.com>
 > > > Cc: Suren Baghdasaryan <surenb@google.com>
-> > > Cc: Joerg Roedel <joro@8bytes.org>
-> > > Cc: Juergen Gross <jgross@suse.com>
-> > > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > > Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
 > > > Signed-off-by: Barry Song <baohua@kernel.org>
 > > > ---
-> > >  arch/arm64/include/asm/cache.h |  6 ++++++
-> > >  arch/arm64/mm/dma-mapping.c    |  4 ++--
-> > >  drivers/iommu/dma-iommu.c      | 37 +++++++++++++++++++++++++---------
-> > >  drivers/xen/swiotlb-xen.c      | 24 ++++++++++++++--------
-> > >  include/linux/dma-map-ops.h    |  6 ++++++
-> > >  kernel/dma/direct.c            |  8 ++++++--
-> > >  kernel/dma/direct.h            |  9 +++++++--
-> > >  kernel/dma/swiotlb.c           |  4 +++-
-> > >  8 files changed, 73 insertions(+), 25 deletions(-)
+> > >  kernel/dma/direct.c | 14 +++++++-------
+> > >  1 file changed, 7 insertions(+), 7 deletions(-)
 > >
 > > <...>
 > >
-> > > +#ifndef arch_sync_dma_flush
-> > > +static inline void arch_sync_dma_flush(void)
-> > > +{
-> > > +}
-> > > +#endif
+> > > -             if (!dev_is_dma_coherent(dev)) {
+> > > +             if (!dev_is_dma_coherent(dev))
+> > >                       arch_sync_dma_for_device(paddr, sg->length,
+> > >                                       dir);
+> > > -                     arch_sync_dma_flush();
+> > > -             }
+> > >       }
+> > > +     if (!dev_is_dma_coherent(dev))
+> > > +             arch_sync_dma_flush();
 > >
-> > Over the weekend I realized a useful advantage of the ARCH_HAVE_* config
-> > options: they make it straightforward to inspect the entire DMA path simply
-> > by looking at the .config.
+> > This patch should be squashed into the previous one. You introduced
+> > arch_sync_dma_flush() there, and now you are placing it elsewhere.
 > 
-> I am not quite sure how much this benefits users, as the same
-> information could also be obtained by grepping for
-> #define arch_sync_dma_flush in the source code.
-
-It differs slightly. Users no longer need to grep around or guess whether this
-platform used the arch_sync_dma_flush path. A simple grep for ARCH_HAVE_ in
-/proc/config.gz provides the answer.
-
+> Hi Leon,
 > 
-> >
-> > Thanks,
-> > Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Thanks very much, Leon, for reviewing this over the weekend. One thing
-> you might have missed is that I place arch_sync_dma_flush() after all
-> arch_sync_dma_for_*() calls, for both single and sg cases. I also
-> used a Python script to scan the code and verify that every
-> arch_sync_dma_for_*() is followed by arch_sync_dma_flush(), to ensure
-> that no call is left out.
-> 
-> In the subsequent patches, for sg cases, the per-entry flush is
-> replaced by a single flush of the entire sg. Each sg case has
-> different characteristics: some are straightforward, while others
-> can be tricky and involve additional contexts.
+> The previous patch replaces all arch_sync_dma_for_* calls with
+> arch_sync_dma_for_* plus arch_sync_dma_flush(), without any
+> functional change. The subsequent patches then implement the
+> actual batching. I feel this is a better approach for reviewing
+> each change independently. Otherwise, the previous patch would
+> be too large.
 
-I didn't overlook it, and I understand your rationale. However, this is
-not how kernel patches should be structured. You should not introduce
-code in patch X and then move it elsewhere in patch X + Y.
+Don't worry about it. Your patches are small enough.
 
-Place the code in the correct location from the start. Your patches are
-small enough to review as is.
-
-Thanks"
 > 
 > Thanks
 > Barry
