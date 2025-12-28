@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00537CE0274
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Dec 2025 22:46:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193750.1512359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41ABECE4D62
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Dec 2025 13:50:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193781.1512368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZc6M-0002E5-4u; Sat, 27 Dec 2025 21:45:30 +0000
+	id 1vZqDL-0007o4-3y; Sun, 28 Dec 2025 12:49:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193750.1512359; Sat, 27 Dec 2025 21:45:30 +0000
+Received: by outflank-mailman (output) from mailman id 1193781.1512368; Sun, 28 Dec 2025 12:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vZc6M-0002BT-1f; Sat, 27 Dec 2025 21:45:30 +0000
-Received: by outflank-mailman (input) for mailman id 1193750;
- Sat, 27 Dec 2025 21:45:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4j1x=7B=gmail.com=21cnbao@srs-se1.protection.inumbo.net>)
- id 1vZc6K-0002Az-5O
- for xen-devel@lists.xenproject.org; Sat, 27 Dec 2025 21:45:28 +0000
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [2607:f8b0:4864:20::f2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a366456-e36d-11f0-b15c-2bf370ae4941;
- Sat, 27 Dec 2025 22:45:26 +0100 (CET)
-Received: by mail-qv1-xf2f.google.com with SMTP id
- 6a1803df08f44-88ffcb14e11so34683096d6.0
- for <xen-devel@lists.xenproject.org>; Sat, 27 Dec 2025 13:45:26 -0800 (PST)
+	id 1vZqDK-0007my-Vy; Sun, 28 Dec 2025 12:49:38 +0000
+Received: by outflank-mailman (input) for mailman id 1193781;
+ Sun, 28 Dec 2025 12:49:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eIfO=7C=bounce.vates.tech=bounce-md_30504962.69512754.v1-d36f786847d04c379ce739a8e79bc6c2@srs-se1.protection.inumbo.net>)
+ id 1vZqDJ-0007ms-D4
+ for xen-devel@lists.xenproject.org; Sun, 28 Dec 2025 12:49:37 +0000
+Received: from mail137-23.atl71.mandrillapp.com
+ (mail137-23.atl71.mandrillapp.com [198.2.137.23])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a42a1725-e3eb-11f0-9ccf-f158ae23cfc8;
+ Sun, 28 Dec 2025 13:49:26 +0100 (CET)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-23.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dfK1J5V8xz1XLFWK
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Dec 2025 12:49:24 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ d36f786847d04c379ce739a8e79bc6c2; Sun, 28 Dec 2025 12:49:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,153 +43,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a366456-e36d-11f0-b15c-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1766871925; x=1767476725; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lt41blxsMyjhc3LV6WnC+/wCpChm6SDa9UhbOfqHfRs=;
-        b=IclloBh96jd4HwYnKOq5XQoOSR8CpKlEqitOFbnTZwhX9JXh6yjq3/tpn/Ie55w8TP
-         2DE8m0eOlxegIucmdBB9fDQ3SN6gtIQqaodNZFJ2LCrEwZeAn10ClMhrOyk4LCHGTs2c
-         8EWlUjijUmF4ANmvLex7c+DK2BymJKmYSqh7yNBg2fASyfnsQi4t1Cm7q1j7Jm15TYnA
-         etSJJ9yikI8nS8IL+Ivc975XVHf/ofpGwp8dRXEskJCLzNat2AZmtnWXz5UTsMg7Yql/
-         Kifl/CDAzf3uEN33QWcbf/rCbXUkfh1O5hmncUGYUx40bE61+XMFKdI/pr0TIM+g6b0w
-         hIAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766871925; x=1767476725;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lt41blxsMyjhc3LV6WnC+/wCpChm6SDa9UhbOfqHfRs=;
-        b=YYA8fYsc5B7BKAbaGlCOfxLeRU4xhX+SfniwL/LjHSsJNiscVy6G+iMXioswCT4uYy
-         cJnUiOAHg3T404BwPXYiWtsO4LdGpsehf1V5Dc7sy9GrnFrqiffORJcpOXwpDVzhOwsu
-         u45IoTL5n9Zvp1j+0me4mONdNeeAcoVkaNid5RKlDNYzBE2mOIlUfTZh3oZ+OLW8xAjQ
-         NtrVqKZ6kPGwVFQKHdGH/ycNDPceCUmYo6E0gJeoefouIM9Q9XSB+Og0VcNUjBXtntWO
-         eAzvchZCEW456KFXtA2XXzA31lGUyNy/i8b7GUHCh4EOwSmWAbIlCFEY4tOtzWfDabS/
-         bpcw==
-X-Forwarded-Encrypted: i=1; AJvYcCWT3YP5A20Y5pMk0EUpf5XEfBcP/c0evjQbsOk0tylDQe25Jtqtj3Lz4Q9nejDpexTiDqE6qCai5b0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9w8rDuclboTI2X0i9rRsK1UOLw/qLmjoUvc2b58gVQM8EC1cY
-	Lk39cQS3SH9ZiO74/VSWtf10khg/HqSvh6hc0Y/I5OoQWaMCFUaCaYIE60S9zhBBWFv/akDj+7y
-	MHoPg8lojs8nLnQ9gjmyBgYAqqOI8w+mHNBPR
-X-Gm-Gg: AY/fxX7zhFc7nilKnIKhqEwfgAAJmk7Bteraytk24TSiduNLyINx6Qidr3FXl6Bevag
-	QWNA3MQ1g8ajvZMpjiFrfhqdVJC9lPT6iA7BWBwLT4ySpEnDNm3zkqX+RC7z/Xza7TCIvhgHqzb
-	3lHA97NLAMg7KDthgdT1JZOXX0Bbr6Xsf4r45KNNXQZNQvzvcV8Hkyqo/yLbGC4Zvm0Hk8SxV1i
-	mkIfVh9v2S0/BCHi2K9p5k+Qf+te808ROZGlhH9JhBNEi3QnD/VaQ69QtnZqByY5O1cpQ==
-X-Google-Smtp-Source: AGHT+IHmBi29677t2O37ea1flM7K/Y0dIjXGGt2yXIRM7uMA6APSnauCpQ+0jFlHKgITt5UGFK02RSmCY0Fj091CN4k=
-X-Received: by 2002:a05:6214:5092:b0:888:6ea5:a90b with SMTP id
- 6a1803df08f44-88d7f5b331fmr425798726d6.0.1766871924468; Sat, 27 Dec 2025
- 13:45:24 -0800 (PST)
+X-Inumbo-ID: a42a1725-e3eb-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1766926164; x=1767196164;
+	bh=3XiTMeV+2IW1xdRQNSSLaOcS0uReSSjLIjsndGXvcE8=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=MUKPzb3XmYozgV02JCGMP3YUXqGSmhe7BDyIgw0l/Vgvp591kSYfzmpnCMcxOugN9
+	 +edbdGinBZkuRbeKLFSj6U1tzkagBwCRN88y5rHt3NXhqkdQdfeNTgoSaLqRhWCPnv
+	 /cmVa6ybNYa0WqdYBwtY+k6bbKbEiVPihmK+B+48S2hM2ko0EpJE1Q+YuG1EhiM0mo
+	 G03892+5J9qAglGD+xcZEqzg3TjsahyOeMux9EKN2ri3ApkO/AKefEUGvhYyZ7moXR
+	 SO4TZHNTd3U1SgSpeK9RPEoG2MMRahNFY6kMi1qgWniTVpVbDMU/ygY1urkkAEwETn
+	 q3fdpr1ISkQ5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1766926164; x=1767186664; i=teddy.astie@vates.tech;
+	bh=3XiTMeV+2IW1xdRQNSSLaOcS0uReSSjLIjsndGXvcE8=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=of+TdZRsfX3uD8wiBEuSLDShvXkRpEiTADnY4tfXJR/FGVjUo4Abe48PWIShVGtGN
+	 cIwGzarykgeVkEhWBUAhq/sMrkrXhMlkpasNLiq0Ix64Kl2nYxG5z0gzSi+z+Nv96p
+	 zcZ0VsbCUBwqVGl7vZULE7i+9kIGYTRdImqFSfhicVHXBXJnGGk89+eVHgTy2sUaMY
+	 8V+4sn3c6qXOCOpp5xNkIqYkk3QOW7UVMiJN6+cpiQu3YCx+xcknfT3CpF33Uw+KuC
+	 B0+N3JPT8UEpob+ffoKJXWtau8UFh1n31cOQdcl8pLbgnKxQayAsIGHF7LHr9nEl6r
+	 Rw58ujMYtd9OQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[RFC=20PATCH]=20pvh:=20Introduce=20SIF=5FHVM=5FGHCB=20for=20SEV-ES/SNP=20guests?=
+X-Mailer: git-send-email 2.52.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1766926163327
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Message-Id: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d36f786847d04c379ce739a8e79bc6c2?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20251228:md
+Date: Sun, 28 Dec 2025 12:49:24 +0000
 MIME-Version: 1.0
-References: <20251226225254.46197-1-21cnbao@gmail.com> <20251226225254.46197-5-21cnbao@gmail.com>
- <20251227200706.GN11869@unreal>
-In-Reply-To: <20251227200706.GN11869@unreal>
-From: Barry Song <21cnbao@gmail.com>
-Date: Sun, 28 Dec 2025 10:45:13 +1300
-X-Gm-Features: AQt7F2r-YxjjSYpd8cllnEqpFXg5kopB86XJsQIZsxDdh04rwEIBpc-UuQSQ9GE
-Message-ID: <CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/8] dma-mapping: Separate DMA sync issuing and
- completion waiting
-To: Leon Romanovsky <leon@kernel.org>
-Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com, 
-	will@kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Anshuman Khandual <anshuman.khandual@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Joerg Roedel <joro@8bytes.org>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Tangquan Zheng <zhengtangquan@oppo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Dec 28, 2025 at 9:07=E2=80=AFAM Leon Romanovsky <leon@kernel.org> w=
-rote:
->
-> On Sat, Dec 27, 2025 at 11:52:44AM +1300, Barry Song wrote:
-> > From: Barry Song <baohua@kernel.org>
-> >
-> > Currently, arch_sync_dma_for_cpu and arch_sync_dma_for_device
-> > always wait for the completion of each DMA buffer. That is,
-> > issuing the DMA sync and waiting for completion is done in a
-> > single API call.
-> >
-> > For scatter-gather lists with multiple entries, this means
-> > issuing and waiting is repeated for each entry, which can hurt
-> > performance. Architectures like ARM64 may be able to issue all
-> > DMA sync operations for all entries first and then wait for
-> > completion together.
-> >
-> > To address this, arch_sync_dma_for_* now issues DMA operations in
-> > batch, followed by a flush. On ARM64, the flush is implemented
-> > using a dsb instruction within arch_sync_dma_flush().
-> >
-> > For now, add arch_sync_dma_flush() after each
-> > arch_sync_dma_for_*() call. arch_sync_dma_flush() is defined as a
-> > no-op on all architectures except arm64, so this patch does not
-> > change existing behavior. Subsequent patches will introduce true
-> > batching for SG DMA buffers.
-> >
-> > Cc: Leon Romanovsky <leon@kernel.org>
-> > Cc: Catalin Marinas <catalin.marinas@arm.com>
-> > Cc: Will Deacon <will@kernel.org>
-> > Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-> > Cc: Robin Murphy <robin.murphy@arm.com>
-> > Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> > Cc: Ard Biesheuvel <ardb@kernel.org>
-> > Cc: Marc Zyngier <maz@kernel.org>
-> > Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-> > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > Cc: Suren Baghdasaryan <surenb@google.com>
-> > Cc: Joerg Roedel <joro@8bytes.org>
-> > Cc: Juergen Gross <jgross@suse.com>
-> > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
-> > Signed-off-by: Barry Song <baohua@kernel.org>
-> > ---
-> >  arch/arm64/include/asm/cache.h |  6 ++++++
-> >  arch/arm64/mm/dma-mapping.c    |  4 ++--
-> >  drivers/iommu/dma-iommu.c      | 37 +++++++++++++++++++++++++---------
-> >  drivers/xen/swiotlb-xen.c      | 24 ++++++++++++++--------
-> >  include/linux/dma-map-ops.h    |  6 ++++++
-> >  kernel/dma/direct.c            |  8 ++++++--
-> >  kernel/dma/direct.h            |  9 +++++++--
-> >  kernel/dma/swiotlb.c           |  4 +++-
-> >  8 files changed, 73 insertions(+), 25 deletions(-)
->
-> <...>
->
-> > +#ifndef arch_sync_dma_flush
-> > +static inline void arch_sync_dma_flush(void)
-> > +{
-> > +}
-> > +#endif
->
-> Over the weekend I realized a useful advantage of the ARCH_HAVE_* config
-> options: they make it straightforward to inspect the entire DMA path simp=
-ly
-> by looking at the .config.
+Under SEV, the pagetables needs to be post-processed to add the C-bit
+(to make the mapping encrypted). The guest is expected to query the C-bit
+through CPUID. However, under SEV-ES and SEV-SNP modes, this instruction
+now triggers #VC instead. The guest would need to setup a IDT very early
+and instead use the early-GHCB protocol to emulate CPUID, which is
+complicated.
 
-I am not quite sure how much this benefits users, as the same
-information could also be obtained by grepping for
-#define arch_sync_dma_flush in the source code.
+Alternatively, we can signal to the guest that it is a SEV-ES/SNP through
+start_info structure, which is visible to the guest early on. All SEV-ES/SNP
+guests have the GHCB MSR available, which can be trivially [1] used to get the
+C-bit and proceed with the initialization avoiding CPUID instruction.
 
->
-> Thanks,
-> Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+We integrate that to the PVH ABI and expect all SEV-enabled domain builders
+to honor this flag for simplifying the PVH entry point logic of guests.
 
-Thanks very much, Leon, for reviewing this over the weekend. One thing
-you might have missed is that I place arch_sync_dma_flush() after all
-arch_sync_dma_for_*() calls, for both single and sg cases. I also
-used a Python script to scan the code and verify that every
-arch_sync_dma_for_*() is followed by arch_sync_dma_flush(), to ensure
-that no call is left out.
+[1] Initial GHCB MSR value contains the C-bit. The guest can trivially read this
+MSR and skip CPUID logic.
 
-In the subsequent patches, for sg cases, the per-entry flush is
-replaced by a single flush of the entire sg. Each sg case has
-different characteristics: some are straightforward, while others
-can be tricky and involve additional contexts.
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+Actually, C-bit itself cannot be a part of ABI as it is hardware-dependant
+(and even firmware configuration dependant).
+---
+ docs/misc/pvh.pandoc     | 5 +++++
+ xen/include/public/xen.h | 2 ++
+ 2 files changed, 7 insertions(+)
 
-Thanks
-Barry
+diff --git a/docs/misc/pvh.pandoc b/docs/misc/pvh.pandoc
+index 3e18789d36..6453ee21eb 100644
+--- a/docs/misc/pvh.pandoc
++++ b/docs/misc/pvh.pandoc
+@@ -44,6 +44,11 @@ using HVMPARAMS, just like it's done on HVM guests.
+ The setup of the hypercall page is also performed in the same way
+ as HVM guests, using the hypervisor cpuid leaves and msr ranges.
+ 
++## SEV-ES/SNP guests ##
++
++The domain builder must set `SIF_HVM_GHCB` in start_info if the guest uses
++SEV-ES or SEV-SNP technologies; i.e requires the use of GHCB protocol.
++
+ ## AP startup ##
+ 
+ AP startup can be performed using hypercalls or the local APIC if present.
+diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+index 7f15204c38..9b84df573b 100644
+--- a/xen/include/public/xen.h
++++ b/xen/include/public/xen.h
+@@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
+ #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
+ #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. mapped */
+                                    /* P->M making the 3 level tree obsolete? */
++#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that requires */
++                                   /* use of GHCB. */
+ #define SIF_PM_MASK       (0xFF<<8) /* reserve 1 byte for xen-pm options */
+ 
+ /*
+-- 
+2.52.0
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
