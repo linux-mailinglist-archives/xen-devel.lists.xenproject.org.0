@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8F4CE6FB8
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:14:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194045.1512542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABADBCE6FF7
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:21:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194055.1512552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaDzw-00086V-LG; Mon, 29 Dec 2025 14:13:24 +0000
+	id 1vaE7w-0001GE-CB; Mon, 29 Dec 2025 14:21:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194045.1512542; Mon, 29 Dec 2025 14:13:24 +0000
+Received: by outflank-mailman (output) from mailman id 1194055.1512552; Mon, 29 Dec 2025 14:21:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaDzw-00084g-If; Mon, 29 Dec 2025 14:13:24 +0000
-Received: by outflank-mailman (input) for mailman id 1194045;
- Mon, 29 Dec 2025 14:13:22 +0000
+	id 1vaE7w-0001EP-8P; Mon, 29 Dec 2025 14:21:40 +0000
+Received: by outflank-mailman (input) for mailman id 1194055;
+ Mon, 29 Dec 2025 14:21:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PeLl=7D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vaDzu-00084Y-Rj
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:13:22 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UciX=7D=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1vaE7u-0001EJ-IS
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:21:38 +0000
+Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
+ [2607:f8b0:4864:20::112b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87597977-e4c0-11f0-b15c-2bf370ae4941;
- Mon, 29 Dec 2025 15:13:20 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso72628955e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 06:13:20 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d1936d220sm588588865e9.8.2025.12.29.06.13.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Dec 2025 06:13:19 -0800 (PST)
+ id aef4d2b6-e4c1-11f0-b15c-2bf370ae4941;
+ Mon, 29 Dec 2025 15:21:37 +0100 (CET)
+Received: by mail-yw1-x112b.google.com with SMTP id
+ 00721157ae682-78fc7893c93so59085037b3.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 06:21:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +40,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87597977-e4c0-11f0-b15c-2bf370ae4941
+X-Inumbo-ID: aef4d2b6-e4c1-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767017600; x=1767622400; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s25DVCqfHmQafw1ohr4pMsnXszddCek/2CFl1b0qNFI=;
-        b=Qye6y1MQLaNGm6VNSPZ1568eI95JQgS4X7sd/3S4p9+MzL4+U90QVBXCIqVyF9hIfa
-         Lm2VxG2Mb9sXh4csKQbUAzER8xXtbhuij/ByXaNUxb8X77+xqLensrGfxcRfR1NcvkQZ
-         2JTOWB2QsFRn7dr81O7n+eFmz/Vi7i6rgirq+6uAiLDp79AxsszwVHxnfyeXcpUQoZg2
-         cZD1A/n/AJC/dRv++6SP7VVDMXvrtRmXlVNG5sQhnNn+PCpnRtQU9EOZ4MvHIjLo6Xga
-         O96YH778u6JqM2svf+J4OXj7egcTJaAPY5DqlBsGd4NUyJFDJwByprR34hHvZAvy7Igo
-         5AhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767017600; x=1767622400;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1767018096; x=1767622896; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s25DVCqfHmQafw1ohr4pMsnXszddCek/2CFl1b0qNFI=;
-        b=akve6/eWgs5tv5pV7cW1Dd+WFJHpuha5I5b7tpN6OnUXL+Enr23OBYl8YDJ0TiQivQ
-         i+tpjRYcGezhDcjc+63QhoCQK1blrAvpiF/qktbrfJ/cEqucbowPzNSZgYN8/W9etCnn
-         EvqCY5ImY61GCdrPeEm+j3WflUb/+FjHkTbGBiHz4KsfbVLG0BUTcd/BOnzwfXeOix17
-         JhVc+n63kDL+3wopMYhD5jz9QUVL7f0PNg/CE0rfLLe1pnFK3RLiuU3KU7Lv+Mq8orey
-         JIC9UaT6fSvTf5avGSAmwzM6Arg7GxCO3C2KdfePSizyCkD42tWe/W0ZqKlpds03cHKu
-         jimA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUJAS9tz/YsHisANbzb6OdcYyf5MxzgDRi+UjcARUz/5VmJPcWMrRtJ+EhMrryezuGO/6v8ZftQUk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4AGoUdFKQsB3tZPt7evftOE9L8EXEUO8BHbxKDzeF2ANBmqAe
-	WzXxV9YTlxJOprOfMRjZoP5b4RRI6/3VrJNCUWmOxgsN/aFQbwaQgjV2D2AGqqBI4f6mAZF3Wmn
-	RYvA=
-X-Gm-Gg: AY/fxX7604iOQjDwEYE+2a0HLS/DN7nA5PGml78k7BSFZzdR3oIYnNpZ3qckj5RmCMD
-	k2lHEiDK/YYiBlN+XFMYcyfhv5AXQAsZSJjSXOv45NbpXh7QzpKJUOkE4g3r0dQ3f65ioeYYwcl
-	R1wAoQYAxBeOMGwpvPUbKfBGN+i8xrAImMguRjVsateOTjCwLpS1VnBHLppAa2e8zqMdh1wQcZD
-	7BJy44MN3uVrV7OfSzHDhSy9zmV6aElcEsQ4+Nby+3SWBxERpCS79BIguCUl+m5dRav/U5eGfG2
-	P3g2b+9VYG0SRoOG+2odUX/irVB80IZ00PshECzeMxMe0KblkNzF/1PrA4XOx8a0qf5oea4Hrcv
-	6wsJ2Cgf0aXpDjQwdKs2wJhVD9WdC3dqGQ/Cz7E9MHJT03xqoYZFVjrT25Vp0sEgB69+33xoYhc
-	hgCuW7sn8ANO7hbWmoHacfAq9K7LZJsRxJPR0D4UY9xbPQIiCSyF2tKc8hFMwYOJ+si9JJgLaLo
-	To=
-X-Google-Smtp-Source: AGHT+IF/RFWARPMdGLaHmnK3YtOHppclyuwVkHp60M5uoWSk96CEn+pNRkZaw05fJ0m17BFyJlz7GQ==
-X-Received: by 2002:a05:600c:5489:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-47d18bd5651mr361111165e9.11.1767017599784;
-        Mon, 29 Dec 2025 06:13:19 -0800 (PST)
-Message-ID: <b7a31f50-4fa7-4b53-ad92-3df6c4ff624c@suse.com>
-Date: Mon, 29 Dec 2025 15:13:18 +0100
+        bh=z444mcpbqBo/U3loZCXm/YDc96pZitp2FUUv2yw0WA0=;
+        b=Z/i5+HVZG0bs+zxhOvmygyDU28xkMsfLUQ7NGIc8KQVvvCf+gOlWHYsnwIXVK4uQNq
+         0OMcDQMI91AcJvanht7wxGf9oyHRxwM0e657eqeqgiSE/ZN0qv6YtHN+Z5jc1kGXYKGo
+         d6RJXzui/C6AD2oMPGvlddX+jkoXugXXe8hLqzsBuxl10NxUEkuI1QN7fGrdAnnEKQ1n
+         NbRrUbFOAdfuTWUDqhb6RS1M6kgdwNWV+1jahA5reKSkGkWVnIpPmqcmBK8nhAuVs/UN
+         oykQ7ryxLcKY4ryxYk3kLJEnHLdeExWQv2k0v9g3I050DFIyAkBr1AkphxYChL7tfygR
+         WErg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767018096; x=1767622896;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=z444mcpbqBo/U3loZCXm/YDc96pZitp2FUUv2yw0WA0=;
+        b=k+7fhv890TrZHgeGTt8kDNGOjD7ktTOc5duiRlawAPUkfw5LPoTA91g/9vH03yLUhb
+         JeSVe8Uspmmkop9Xa9iR75FnAUHb1/7WTJM+CJjqOKpdZ6NBV/R5DNYfu9dZi6Rg/scl
+         6++UTdX5lVxEVDX/pce+wgR3+kfPD2JdILqapEf2xzgDTKJ0X+YfDe20Zm9bKVGTozaE
+         bdo5Lg1uYAv07VGHKixDUEqWYg485Sv4Kq0z3JawX7mcbE0j62aHdTQXXVTdVFY46awJ
+         +2Z5AmpI1Db027cm+BlF2HELIqa7aYDJWtMm96F/rW7gDhVi77qpMzPqcY/VrT4xObUW
+         w98w==
+X-Gm-Message-State: AOJu0YwcBjdSRfQWYxyl6h4H88o98FfWt/hsrkXi2h9H/t9m6dMHf29m
+	mIU8Xezu2A9Qr//yQtwd6sw0bi+3Ooh2gaUHwLpjA8MX3ELAldOe2Eu9zabka/w1XPxVSl0oioJ
+	m+bjXDpviRUvjgLPS/nE/AwIDlFrwM1U=
+X-Gm-Gg: AY/fxX7vmozi9GABhRX1E4nqWa3bETrBH3vwVO6L8qURtwlKsqrU39e1AX6hB7n31pD
+	rTBYv6H23/KIVsgzCOl1rUdx9AALV5UE9Vl1j/5F8gM0RXpLHBmbYIu51qDtyKXS0Lol8y7tlsN
+	vIUCp43j3mvounQTGS24NBaZjB3/IMNX/32/Task/J8ZamNQapKoXxBZqyLMk4asQSIzQQ9uD62
+	QhN4ZQBJh4JhL9QJHWCfFFUqz1U2nn63UgpgRRte5HuzFibU73ddRXMTJl/+AfDl2MqNVqHUTJN
+	3DotaUgipx6FcHzw/1J8/71QRLM=
+X-Google-Smtp-Source: AGHT+IE9pEDqQtHUb/bjKuaIbCji207bhi5Fj7d175ksfCH14OxIzBJa59UWW1hNX02X0Cly7DhAr5t4UcyCaP6dTok=
+X-Received: by 2002:a05:690c:6311:b0:788:17ef:4ecf with SMTP id
+ 00721157ae682-78fb407e423mr287567217b3.50.1767018095747; Mon, 29 Dec 2025
+ 06:21:35 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] pvh: Introduce SIF_HVM_GHCB for SEV-ES/SNP guests
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
- <7d439b75-801b-406d-98e0-29c207e1c1ba@suse.com>
- <7bbd6560-c988-44d9-a2e8-448cceb455e2@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7bbd6560-c988-44d9-a2e8-448cceb455e2@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
+In-Reply-To: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 29 Dec 2025 09:21:24 -0500
+X-Gm-Features: AQt7F2rbJsKstOaPs8sxnLYFgI_7U_kAosD5WrmQNWz1AFMLiwrBNgAjF9ZJHkM
+Message-ID: <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com>
+Subject: Re: Cpufreq drivers not working on T480S
+To: Milky <milky_way_303030@proton.me>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 29.12.2025 13:39, Teddy Astie wrote:
-> Le 29/12/2025 à 09:24, Jan Beulich a écrit :
->> On 28.12.2025 13:49, Teddy Astie wrote:
->>> --- a/xen/include/public/xen.h
->>> +++ b/xen/include/public/xen.h
->>> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
->>>   #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
->>>   #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. mapped */
->>>                                      /* P->M making the 3 level tree obsolete? */
->>> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that requires */
->>> +                                   /* use of GHCB. */
->>
->> Naming-wise, do we really want to tie this to AMD (and hence exclude other
->> vendors, or require yet another bit to be allocated later)?
-> 
-> This is SEV-ES/SNP only, I don't think the same bit can be reused for 
-> another technology (unless it also uses the GHCB MSR). As the guest 
-> can't even check if it is Intel or AMD CPU at this point (if running 
-> under SEV-ES or SEV-SNP).
+Hi Milky,
 
-If it was just telling AMD from Intel, that would be possible. There are
-a few well-known differences in how certain instructions behave [1]. But
-here you aren't after telling apart the vendors; you want to know whether
-you're (fundamentally) on SVM or VT-x.
+On Sat, Dec 27, 2025 at 9:23=E2=80=AFAM Milky <milky_way_303030@proton.me> =
+wrote:
+>
+> System is T480s with i5-8250U and Libreboot, booting Qubes R4.2 with Xen =
+4.17.5.
+>
+> I=E2=80=99ve tested the following configurations:
+>
+> 1. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Dxen:performance"` as per [the x=
+en docs](https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#c=
+pufreq)
+> 2. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Ddom0-kernel dom0_vcpus_pin"` as=
+ per [the xen wiki](http://wiki.xenproject.org/wiki/Xen_power_management#Do=
+main0_based_cpufreq); tho I suspect this option might be deprecated.
+> 3. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Dxen:hwp"`, which should have ac=
+tivated [this patch from the Qubes team](https://github.com/QubesOS/qubes-v=
+mm-xen/pull/158).
 
-Of course I have to admit that I find it quite irritating that in order
-to execute CPUID one has to have a #VC handler properly set up. This
-inverses the typical flow of events. Did they really not think of some
-replacement for at least the most basic information?
+The dom0-kernel option is a legacy configuration and doesn't really
+work.  You don't want it.  From the logs below, #1 and #3 enable HWP.
 
-Jan
+>
+> In all cases, `cat /proc/cpuinfo` reports the fixed value `cpu Mhz: 1800`=
+, confirmed also using `dmidecode`. `sysbench` in an AppVM with max vcpus c=
+onsistently reports about 1600 events per second, while the dom0 CPU stats =
+in the previous commands remain unchanged.
 
-[1] Of course, such details can change going forward. Vendors did alter
-the behavior of certain insns in the past.
+Xen domains don't see real-time updates of CPU frequency, so it's
+working as intended.  xenpm is the way to query Xen for CPU info.
+
+>`xenpm start 10 | grep 'Avg freq'` reports bizarre values, like `609350368=
+ KHz`.
+
+In my testing with HWP, CPU frequency was reported correctly by xenpm.
+My 4.8GHz cpu shows 47xx MHz under load, but it would also throttle
+down after a bit.
+
+Ok, I previously wrote:
+"""
+The output of `xenpm get-cpufreq-average`
+under HWP looks reasonable for scaling all the way up to 4800MHz
+(which can only be hit briefly before throttling down) - I think I've
+only seen ~4700MHz as a maximum in my use, and them it may drop to
+~4200MHz for extended preiods.  Maybe try that command on your test
+system?
+"""
+
+That is with the version of HWP upstreamed, which is a later version
+than Qubes included in R4.2.
+
+>
+> The following commands were also checked:
+>
+> ```
+> $ xenpm get-cpufreq-para
+> [CPU0] failed to get cpufreq parameter
+> <...>
+>
+> $ xenpm get-cpufreq-states
+> <no output>
+>
+> $ lsmod | grep 'xen_acpi_processor'
+> <no output>
+>
+> $ modprobe xen_acpi_processor
+> modprobe: ERROR: could not insert 'xen_acpi_processor': No such device
+
+Are you sure you are running these commands from dom0?  It looks like
+xen_acpi_processor returns -ENODEV/No such device when modprobed from
+a domU and not dom0.  You need dom0 to query Xen for this information.
+
+> ```
+>
+> Based on (this Xen mailing list message)[https://old-list-archives.xen.or=
+g/archives/html/xen-devel/2020-01/msg02588.html], the `xen-acpi-processor` =
+module is what enables dom0 to pass critical information to Xen. Thus, it s=
+eems a big part of the problem is that `xen-acpi-processor` is refusing to =
+load.
+>
+> To rule out causes independent of Xen/Qubes, I booted using a Debian Live=
+ image. `sysbench` consistently reported 4000 events per second, while `/sy=
+s/cpuinfo` reliably showed a jump from 900Mhz to 3.4GHz.
+>
+> In conclusion, only under Qubes/Xen, something seems to block the scaling=
+ drivers from working on this system.
+>
+> For each of the configurations above, I am pasting the complete output of=
+ `xl dmesg`. Let me know if there is anything else I should do.
+>
+> ```
+> ########################################################################
+> # `cpufreq=3Dxen:performance`
+>
+> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
+>  Xen 4.17.5
+> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
+ (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
+
+> (XEN) HWP: 1 notify: 1 act-window: 1 energy-perf: 1 pkg-level: 0 peci: 0
+> (XEN) HWP: Hardware Duty Cycling (HDC) supported, enabled
+> (XEN) HWP: HW_FEEDBACK not supported
+> (XEN) Using HWP for cpufreq
+
+HWP enabled
+
+> ########################################################################
+> # `cpufreq=3Ddom0-kernel dom0_vcpus_pin`
+>
+> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
+>  Xen 4.17.5
+> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
+ (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
+
+No HWP line.
+
+> ########################################################################
+> # `cpufreq=3Dxen:hwp`
+>
+> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
+>  Xen 4.17.5
+> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
+ (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
+
+> (XEN) Command line: placeholder cpufreq=3Dxen:hwp,verbose loglvl=3Dall do=
+m0_mem=3Dmin:1024M dom0_mem=3Dmax:4096M ucode=3Dscan smt=3Doff gnttab_max_f=
+rames=3D2048 gnttab_max_maptrack_frames=3D4096 no-real-mode edd=3Doff
+
+> (XEN) HWP: 1 notify: 1 act-window: 1 energy-perf: 1 pkg-level: 0 peci: 0
+> (XEN) HWP: Hardware Duty Cycling (HDC) supported, enabled
+> (XEN) HWP: HW_FEEDBACK not supported
+> (XEN) Using HWP for cpufreq
+
+And HWP enabled again.
+
+Regards,
+Jason
 
