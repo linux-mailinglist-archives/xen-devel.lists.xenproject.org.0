@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66922CE6BD6
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 13:43:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194032.1512532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B8F4CE6FB8
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:14:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194045.1512542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaCaY-0005ai-Eh; Mon, 29 Dec 2025 12:43:06 +0000
+	id 1vaDzw-00086V-LG; Mon, 29 Dec 2025 14:13:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194032.1512532; Mon, 29 Dec 2025 12:43:06 +0000
+Received: by outflank-mailman (output) from mailman id 1194045.1512542; Mon, 29 Dec 2025 14:13:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaCaY-0005Xd-C7; Mon, 29 Dec 2025 12:43:06 +0000
-Received: by outflank-mailman (input) for mailman id 1194032;
- Mon, 29 Dec 2025 12:43:05 +0000
+	id 1vaDzw-00084g-If; Mon, 29 Dec 2025 14:13:24 +0000
+Received: by outflank-mailman (input) for mailman id 1194045;
+ Mon, 29 Dec 2025 14:13:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PeLl=7D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vaCaX-0005XV-1V
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 12:43:05 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vaDzu-00084Y-Rj
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:13:22 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea7c1980-e4b3-11f0-b15c-2bf370ae4941;
- Mon, 29 Dec 2025 13:43:03 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so55933955e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 04:43:03 -0800 (PST)
+ id 87597977-e4c0-11f0-b15c-2bf370ae4941;
+ Mon, 29 Dec 2025 15:13:20 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso72628955e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 06:13:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea227casm61921693f8f.15.2025.12.29.04.43.02
+ 5b1f17b1804b1-47d1936d220sm588588865e9.8.2025.12.29.06.13.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Dec 2025 04:43:02 -0800 (PST)
+ Mon, 29 Dec 2025 06:13:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea7c1980-e4b3-11f0-b15c-2bf370ae4941
+X-Inumbo-ID: 87597977-e4c0-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767012183; x=1767616983; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767017600; x=1767622400; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lmr7Q/HcT6fVIJ8ez55NnDaH+7UaV4yiXG3pMTu7JSc=;
-        b=csqtyqRJZEqGyJ3/S96Ftb59l4BAByRYla4Fi29INQMdHesJ0xVOI0ZNGBpoTiJfFi
-         Xf6SBR7kKzk9qnh6LkHYOr67LZqY+dgVQqoyB5j/EWZiqHYQm1x3bVH8SLhXokfORWWw
-         /202xcPz5TqxomC44uDPiKvqUSnsyiC1/5iHpLx4iOhLP6/hgjMnOOmXgQPRBwPuMQVJ
-         kfFLIm4YG+xmzLefCfbmOC6xfdwx6Iaqa+QzGTezNTUjapaA5QTpzcaFPuqN5Nnj2is9
-         gFNNhJqOV7dNu6Yu9O452zMa2d28/um2yGl+JTf2a7TgiuBvyMambJdL9cLIKLv8K2+d
-         mrtw==
+        bh=s25DVCqfHmQafw1ohr4pMsnXszddCek/2CFl1b0qNFI=;
+        b=Qye6y1MQLaNGm6VNSPZ1568eI95JQgS4X7sd/3S4p9+MzL4+U90QVBXCIqVyF9hIfa
+         Lm2VxG2Mb9sXh4csKQbUAzER8xXtbhuij/ByXaNUxb8X77+xqLensrGfxcRfR1NcvkQZ
+         2JTOWB2QsFRn7dr81O7n+eFmz/Vi7i6rgirq+6uAiLDp79AxsszwVHxnfyeXcpUQoZg2
+         cZD1A/n/AJC/dRv++6SP7VVDMXvrtRmXlVNG5sQhnNn+PCpnRtQU9EOZ4MvHIjLo6Xga
+         O96YH778u6JqM2svf+J4OXj7egcTJaAPY5DqlBsGd4NUyJFDJwByprR34hHvZAvy7Igo
+         5AhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767012183; x=1767616983;
+        d=1e100.net; s=20230601; t=1767017600; x=1767622400;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Lmr7Q/HcT6fVIJ8ez55NnDaH+7UaV4yiXG3pMTu7JSc=;
-        b=II9O0weyuJyH08oWr13x28HKWjz27usn0FUrql40fYoJtlfLuDlg+FGga/YxpwUeU5
-         vJIW9AS2Hikf+KotKpYpS/QitaKPTimNBWFYCQyX05TrbVEfhkFTpM1LMOxKXjmF3Zhc
-         RKfSWo/re+eteIm3PsBxxW9Pdm7oYNruSxUV2BpNyzzc3XGlj820lEMEmHYgb8cbsEvK
-         VpmxCfWGX+1EtxKxgfANB2kLyhdOXHv/QVFVdqquUmb+lw/Qn0ZJneHgL39CkpMXK6Re
-         2eC2X7X70zhsp/DqXQbedZg1NtGfmaI/V2dH4gechuC36GniWq6zUmb4qCnwHUGW489m
-         2yCA==
-X-Forwarded-Encrypted: i=1; AJvYcCUHg+LgpPUobVvNUOho2u5tEBQcKK7pl6ega71JZh5lvbq+PaM+idvxWbEAXhb+TFknD0/nZwjHPnU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXDBaDVSdrIWQgpIPu5665ulFKWR3o5bvm3/PfIMz/Cc3JLPzs
-	AAP/EpfxtEQhx5rMA2ahN1nzeL9liAUc5M7Sx/VBDbed7ZLMrd4G9UlhicbBYyvg/w==
-X-Gm-Gg: AY/fxX7MMOo1liL5606Yg8Bq9hhIAq02Cu7Bz+LzJOesyU9gUv2MWodzb22k4qF8uRm
-	ciSj6XaitBJ+uwM653YtPp90tbiCLsaqR6rUKhwnGKlBbtdtO/AZOUak6L8OlCPskWOTN7/DF43
-	5BX7J/5ckae9hvBHUPdtsd8TxaYDKwXNEUrwFaaJ25oaaK8cBV8WJi3bHJfnmnBkZqiV/0hs1hi
-	t1kG/KK8VpDCfF03zULSzbcAjYvCG1DcxcsD/fEC4geUggWjVm9Mat2iFL8DnltW75bqQekUWz0
-	iC/CcEX9KxQCg/kGLk55IK4xw4Mu/fw814TmbTanr0ay1MfcgFsBgiEhjXgcVIFSgEA/6jv0e3+
-	d7CiV3VSnJE5+PoHSbVU4V3xGiYKyxY6gmRZeVHPBxlehTDQ/8mK5vff2bLx2go+4y+6vFYr/mD
-	3BdVW3JANuBzvHp7d+kIzq8aEeYUj+zyR6gArJTmlUk+5S14zPxsoePGpukvXQvVIEXBRqUzy1p
-	RY=
-X-Google-Smtp-Source: AGHT+IFaVj/38g1E0VfHlSKU6YGecsW21efGK1p6pjlzWrqALiEm/1dV68lCKDbTzFVY9u+G9ChqOA==
-X-Received: by 2002:a05:600c:198d:b0:46e:35a0:3587 with SMTP id 5b1f17b1804b1-47d195a06a0mr362164075e9.27.1767012182715;
-        Mon, 29 Dec 2025 04:43:02 -0800 (PST)
-Message-ID: <ca0bc5bb-ba16-474c-86a6-350cbf7e8f18@suse.com>
-Date: Mon, 29 Dec 2025 13:43:01 +0100
+        bh=s25DVCqfHmQafw1ohr4pMsnXszddCek/2CFl1b0qNFI=;
+        b=akve6/eWgs5tv5pV7cW1Dd+WFJHpuha5I5b7tpN6OnUXL+Enr23OBYl8YDJ0TiQivQ
+         i+tpjRYcGezhDcjc+63QhoCQK1blrAvpiF/qktbrfJ/cEqucbowPzNSZgYN8/W9etCnn
+         EvqCY5ImY61GCdrPeEm+j3WflUb/+FjHkTbGBiHz4KsfbVLG0BUTcd/BOnzwfXeOix17
+         JhVc+n63kDL+3wopMYhD5jz9QUVL7f0PNg/CE0rfLLe1pnFK3RLiuU3KU7Lv+Mq8orey
+         JIC9UaT6fSvTf5avGSAmwzM6Arg7GxCO3C2KdfePSizyCkD42tWe/W0ZqKlpds03cHKu
+         jimA==
+X-Forwarded-Encrypted: i=1; AJvYcCWUJAS9tz/YsHisANbzb6OdcYyf5MxzgDRi+UjcARUz/5VmJPcWMrRtJ+EhMrryezuGO/6v8ZftQUk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4AGoUdFKQsB3tZPt7evftOE9L8EXEUO8BHbxKDzeF2ANBmqAe
+	WzXxV9YTlxJOprOfMRjZoP5b4RRI6/3VrJNCUWmOxgsN/aFQbwaQgjV2D2AGqqBI4f6mAZF3Wmn
+	RYvA=
+X-Gm-Gg: AY/fxX7604iOQjDwEYE+2a0HLS/DN7nA5PGml78k7BSFZzdR3oIYnNpZ3qckj5RmCMD
+	k2lHEiDK/YYiBlN+XFMYcyfhv5AXQAsZSJjSXOv45NbpXh7QzpKJUOkE4g3r0dQ3f65ioeYYwcl
+	R1wAoQYAxBeOMGwpvPUbKfBGN+i8xrAImMguRjVsateOTjCwLpS1VnBHLppAa2e8zqMdh1wQcZD
+	7BJy44MN3uVrV7OfSzHDhSy9zmV6aElcEsQ4+Nby+3SWBxERpCS79BIguCUl+m5dRav/U5eGfG2
+	P3g2b+9VYG0SRoOG+2odUX/irVB80IZ00PshECzeMxMe0KblkNzF/1PrA4XOx8a0qf5oea4Hrcv
+	6wsJ2Cgf0aXpDjQwdKs2wJhVD9WdC3dqGQ/Cz7E9MHJT03xqoYZFVjrT25Vp0sEgB69+33xoYhc
+	hgCuW7sn8ANO7hbWmoHacfAq9K7LZJsRxJPR0D4UY9xbPQIiCSyF2tKc8hFMwYOJ+si9JJgLaLo
+	To=
+X-Google-Smtp-Source: AGHT+IF/RFWARPMdGLaHmnK3YtOHppclyuwVkHp60M5uoWSk96CEn+pNRkZaw05fJ0m17BFyJlz7GQ==
+X-Received: by 2002:a05:600c:5489:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-47d18bd5651mr361111165e9.11.1767017599784;
+        Mon, 29 Dec 2025 06:13:19 -0800 (PST)
+Message-ID: <b7a31f50-4fa7-4b53-ad92-3df6c4ff624c@suse.com>
+Date: Mon, 29 Dec 2025 15:13:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/cpu-policy: move copy-in/-out functions to arch
- library
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Penny Zheng <Penny.Zheng@amd.com>, Anthony PERARD
- <anthony.perard@vates.tech>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4a8f06b9-8210-487f-9dd7-e0221e2df9db@suse.com>
- <41447fdb-bc9a-4b1a-afd0-9d878ab21301@suse.com>
- <ec5ecc50-d8e4-4385-9dd2-d20441d079da@citrix.com>
+Subject: Re: [RFC PATCH] pvh: Introduce SIF_HVM_GHCB for SEV-ES/SNP guests
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+ <7d439b75-801b-406d-98e0-29c207e1c1ba@suse.com>
+ <7bbd6560-c988-44d9-a2e8-448cceb455e2@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,76 +125,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ec5ecc50-d8e4-4385-9dd2-d20441d079da@citrix.com>
+In-Reply-To: <7bbd6560-c988-44d9-a2e8-448cceb455e2@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.12.2025 12:22, Andrew Cooper wrote:
-> On 22/12/2025 4:54 pm, Jan Beulich wrote:
->> --- a/tools/tests/cpu-policy/Makefile
->> +++ b/tools/tests/cpu-policy/Makefile
->> @@ -42,11 +42,15 @@ CFLAGS += $(APPEND_CFLAGS)
->>  
->>  LDFLAGS += $(APPEND_LDFLAGS)
->>  
->> -vpath %.c ../../../xen/lib/x86
->> +vpath %.c $(XEN_ROOT)/xen/lib/x86
->> +vpath %.c $(XEN_ROOT)/xen/arch/x86/lib
->> +
->> +lib-y :=
->> +include $(XEN_ROOT)/xen/arch/x86/lib/Makefile.cpu-policy
->>  
->>  %.o: Makefile
->>  
->> -test-cpu-policy: test-cpu-policy.o msr.o cpuid.o policy.o
->> +test-cpu-policy: test-cpu-policy.o cpuid.o policy.o $(lib-y)
->>  	$(CC) $^ -o $@ $(LDFLAGS)
->>  
->>  -include $(DEPS_INCLUDE)
->> --- a/xen/arch/x86/lib/Makefile
->> +++ b/xen/arch/x86/lib/Makefile
->> @@ -6,3 +6,5 @@ lib-y += generic-hweightl.o
->>  lib-y += memcpy.o
->>  lib-y += memset.o
->>  lib-y += scrub-page.o
->> +
->> +include $(srcdir)/Makefile.cpu-policy
->> --- /dev/null
->> +++ b/xen/arch/x86/lib/Makefile.cpu-policy
->> @@ -0,0 +1,2 @@
->> +lib-y += cp-copy-from-buffer.o
->> +lib-y += cp-copy-to-buffer.o
+On 29.12.2025 13:39, Teddy Astie wrote:
+> Le 29/12/2025 à 09:24, Jan Beulich a écrit :
+>> On 28.12.2025 13:49, Teddy Astie wrote:
+>>> --- a/xen/include/public/xen.h
+>>> +++ b/xen/include/public/xen.h
+>>> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
+>>>   #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
+>>>   #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. mapped */
+>>>                                      /* P->M making the 3 level tree obsolete? */
+>>> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that requires */
+>>> +                                   /* use of GHCB. */
+>>
+>> Naming-wise, do we really want to tie this to AMD (and hence exclude other
+>> vendors, or require yet another bit to be allocated later)?
 > 
-> cp works as a name in source code because it's used by a type called
-> cpu_policy.
-> 
-> In this case, cp with it's UNIX association makes the file name very weird.
-> 
-> 
-> If we're going to be properly lib-ing the whole thing, then we're going
-> to have enough TUs for a directory anyway.
-> 
-> So, I think we want xen/arch/x86/lib/cpu-policy/copy-{to,from}-buffer.o
-> right from the outset.
+> This is SEV-ES/SNP only, I don't think the same bit can be reused for 
+> another technology (unless it also uses the GHCB MSR). As the guest 
+> can't even check if it is Intel or AMD CPU at this point (if running 
+> under SEV-ES or SEV-SNP).
 
-I did consider this, but didn't like it very much because of this implication:
-Either I need to touch arch.mk again to specify yet another archive to the
-linker (not very scalable). Or I need to teach the build system to know to
-combine archives from sub-directories into the parent directory's (i.e. follow
-how built_in.o are being treated).
+If it was just telling AMD from Intel, that would be possible. There are
+a few well-known differences in how certain instructions behave [1]. But
+here you aren't after telling apart the vendors; you want to know whether
+you're (fundamentally) on SVM or VT-x.
 
-As you ask for it, I'll use the former of the two approaches (for likely
-being simpler). Let me know if you disagree, or if you know of another good
-approach.
-
-> Also, I'd really prefer not to have things split between the old and new
-> locations.  Everything wants to move in one go.
-> 
-> I'd suggest having one patch doing a wholesale move of xen/lib/x86 into
-> xen/arch/x86/lib/cpu-policy and fixing up the vpath's, then a subsequent
-> patch splitting copy-{to,from}-buffer.o out.
-
-Can do; I would have thought that doing the move piecemeal ought to be okay.
+Of course I have to admit that I find it quite irritating that in order
+to execute CPUID one has to have a #VC handler properly set up. This
+inverses the typical flow of events. Did they really not think of some
+replacement for at least the most basic information?
 
 Jan
+
+[1] Of course, such details can change going forward. Vendors did alter
+the behavior of certain insns in the past.
 
