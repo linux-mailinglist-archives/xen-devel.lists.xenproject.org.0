@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 784D3CE63C7
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 09:22:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193920.1512418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E71D5CE63FA
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 09:45:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193932.1512429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1va8Vq-0004DI-6p; Mon, 29 Dec 2025 08:21:58 +0000
+	id 1va8s3-0007EI-0P; Mon, 29 Dec 2025 08:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193920.1512418; Mon, 29 Dec 2025 08:21:58 +0000
+Received: by outflank-mailman (output) from mailman id 1193932.1512429; Mon, 29 Dec 2025 08:44:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1va8Vq-0004AX-48; Mon, 29 Dec 2025 08:21:58 +0000
-Received: by outflank-mailman (input) for mailman id 1193920;
- Mon, 29 Dec 2025 08:21:56 +0000
+	id 1va8s2-0007CE-SR; Mon, 29 Dec 2025 08:44:54 +0000
+Received: by outflank-mailman (input) for mailman id 1193932;
+ Mon, 29 Dec 2025 08:44:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PeLl=7D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1va8Vo-0004AR-PO
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 08:21:56 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1va8s1-0007C8-JM
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 08:44:53 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ed1c76a-e48f-11f0-9ccf-f158ae23cfc8;
- Mon, 29 Dec 2025 09:21:54 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47755de027eso52216995e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 00:21:54 -0800 (PST)
+ id a3ae2f85-e492-11f0-9ccf-f158ae23cfc8;
+ Mon, 29 Dec 2025 09:44:51 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-477a2ab455fso85012385e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 00:44:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea1b36fsm60601733f8f.5.2025.12.29.00.21.52
+ 5b1f17b1804b1-47be3aac6d9sm241224875e9.4.2025.12.29.00.44.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Dec 2025 00:21:53 -0800 (PST)
+ Mon, 29 Dec 2025 00:44:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ed1c76a-e48f-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: a3ae2f85-e492-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766996513; x=1767601313; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766997891; x=1767602691; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hytBz7VzpljCGb3OHq8gb/mWkNkwb/OUDvrC1jucXss=;
-        b=Z3J+eqihll1HVpv7CDN7B0MMzo06F1uapADpLNo2nBHT7+HCPjVNtOtVLWuMThIhbr
-         TQ+5/1GGuX641synQMDUYZZ7lS6H905deAuZ5lKch6V/WjNJUW7lvQCp4oKi7tRULjR9
-         OA+r5YuNct+M1R+KkS7lL5ek1pMjBWSK66zvK1P5AXpq/JlRfyPbuUBpJLXmBqpSWGOn
-         M7ZLCFDHa3Md/vjq9nKX8t/eKRSbN6msoVkDpk4L6k7G34/YMN89I7U8Z5LP5yz4rmnj
-         dvsivrDBqcC2OdbbTwMpS2CIH2V+KZvLSd3CCJbUKUcgIwml539DtVOdnowxa4x7u/tu
-         HT1g==
+        bh=q2LxhFklo+9vcT4liU9CbBqJDKAbnLUQqaPmkX4LGtA=;
+        b=J6dymoNl4cwrZzGrb/pM+zDPMo2kh5e+XHNAiJvqXcwmLh68L22KwwlT+fj0RMu6qc
+         5qDX6ls/gsRN1ZEoAThqI+jdyVK41wzmIMtHSnm5RxB95mUTvUWprzciZgbX3rXxGbOz
+         fNZq4a2zJ+6UXcoFTFVPyCqua8I62Sa0c3vvMlGkfhcMQtGNTD0e6zTdq2eHg7hH/3hQ
+         CE9YUkgCHIGPwzysDLRmSSt80JHc+d1MKhH1lAmki9DrQ7/Q1/2nPig6LIpxa5OF6Qnj
+         QYtIcdKdq5JyYyV4vcJw3xfpkZGPZmM8I1oEhMAkE12E9ZCzrqgyOhawy8eL25XNOt+W
+         hP+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766996513; x=1767601313;
+        d=1e100.net; s=20230601; t=1766997891; x=1767602691;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hytBz7VzpljCGb3OHq8gb/mWkNkwb/OUDvrC1jucXss=;
-        b=wTtCV8OCeqW/gIwB2lf9uMCyYMG7BLLYEiO4vBb02TtC4hqyhqfTbQS4T6nV3NcWyy
-         x8E04xwjqvq73upmsUFawL5hRB+WgjD9odmwd2S2htTEWv6VZTMHllFw3Vz0PRcjgPya
-         tE3agjZedp5oSBpT+7XvlD5qLsQdMP5YqCqboqVfu4SWU/SXgrWoVHPynVXEPOBdnuzu
-         vxSFFr2+5q+iIJUby68Kp5lHbLYr9vB5QCiK8SVmUH4PmVohm2wW2x5iJlLEVGihrip8
-         JoKMm3lLoGC3o+MvDDrmVNgcgKqMnq7xwFM+cLV9x4QprcoKmw2XsHccQdnvV5wIZf74
-         5adA==
-X-Forwarded-Encrypted: i=1; AJvYcCW0xOPA8kSwFQf2hmzsImtnlgPgoSa6X+xmUlTnC7BFxM46GVhW/Ca/raiScFjjoFOGxr190/yS/+I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyaZEYQQnZtdk1FTizNDBRrRVvcESz6P40QBixzEwt6yf/yTZT1
-	ZuRdj7zFnHBrWZgbxoPf9ngtNjmFEOqyyxfCME9V+P95zZW595zCo7pJXNFtdKUgTg==
-X-Gm-Gg: AY/fxX5ov9jsz1EbPurwECfGCxeVIrNyVW3WSycrfh0fmJIB4ir0ZbGI1aQRiKL2mPA
-	zSPPN4k7knKO/AsA5rJWLCCOXHWpXG04Zo8lvbI/Cy4knE/Uij2mAPqiPy3Ss2BndZOEL9E0RmE
-	qV/qHqrQcBnjTrhsZcmZcH8/nbq+M1mSEG3+eDHSDc404fjD+e5LxDAHK3zq36SKF7LgmLSx/89
-	ydrRDxfE8+Odl/bB9UgT0pSioEDs+e33ZFxzbQi82I5kVwj0mXa56ujvCPksqabyU+L5cUtScqH
-	ecDAkY0zah4uFj99YiPh27UkXur26UAy+f5Y2aLo5oqwUcDdyS92nFYLqXFnT6YxetVJaCYNo3N
-	ErOubc4pvmf/yBbyruuV1/9fdEqCJ0n07Zgno+MNpvxkBXU2M2g0Q5rRc7J2yN0LnCv6KgqdaCt
-	+abOw0VW8HYfeq5gQ7lmrXXyc9JGqgGubvlnKt6HxA08Kd1O5YlRcDZNG6Qr99k42kjoLYJRIvr
-	AM=
-X-Google-Smtp-Source: AGHT+IHIM0An+Rx3y22ipPqUB0hQNSemKQ8/qOroB2rLHU3HB0Ev9wNCNLiFCKQywRk2xWhNOCsgAw==
-X-Received: by 2002:a05:600c:828c:b0:479:3a87:2092 with SMTP id 5b1f17b1804b1-47d19598e86mr264051965e9.36.1766996513465;
-        Mon, 29 Dec 2025 00:21:53 -0800 (PST)
-Message-ID: <7d439b75-801b-406d-98e0-29c207e1c1ba@suse.com>
-Date: Mon, 29 Dec 2025 09:21:52 +0100
+        bh=q2LxhFklo+9vcT4liU9CbBqJDKAbnLUQqaPmkX4LGtA=;
+        b=OPH1PN7gsw5ufKViAPxqiDKYTZGhmlnqJTcsvCysMHEVcOt0tKhdWsWFPvrN6zquO6
+         EdshxMe2+BlEWp+cz9NJvKqCim6ztN8MmCZZweFkwUbXNwVa1nkxLziV6DI3jGsifVSc
+         JoejjoSLTroi7e10VRShFqTtwh7aYs9veoB6jOhiLOC+IBcT3OnHnIW6BBtNNZjiYjN1
+         Bsn+4H/74R4FgrMxwBqXbUH09bCADHRj4oYl7mWHqMXTKHFO9wxgnfJVyuh7yjhI7KvN
+         rh1tZJUjHiOlXSgERIGfI/4OJGbPE/BrQsveehDmK41GbQMrccEQXub+dQlG1Syz7MNx
+         TJFA==
+X-Forwarded-Encrypted: i=1; AJvYcCXOQLtfrrpWlxf9+6OaYsB7g8ZIjsdvXA9IjczYrTmghCn6myXnRAfhwo+FrnLaJDc4UvcyRc0YVTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0jmElfBF9aUH56JVnrt7Vl1VcbtHuELblJOZUd2shft6TxdKK
+	wojOjb8EKq0pCmbwRMQhmGHujWfbEHTrfGk9KN+czGiXrealuEsxafw8JsvsISD5Ug==
+X-Gm-Gg: AY/fxX6qTFKoM3WXaayyI3u2sc2rMlgINGDiQo/vD+XVmQk+YCSZVcwpk5/0+pW3jlq
+	j37F18Hq4SCGBwsAXr93FumzPffUGDk6ugg74e67x953Dk4rHT9H29n1rvOymarxx2OisCIjHr8
+	i0aa6EgvYxAW6g8+zp+/TrZsTXl+z7j19Srnb+hJCrrl/P5K9kCwjymkXZcgOazRV/zSkF5Rc+u
+	/2CiXkQfz+VjtjyGEw4FENZ8Rg2oQYB+F9V1Fc6wGeBEbC6jM4FAW50ojUAKwKK59ZDYVX6ZEze
+	TEjCuoP3ICOpaj3Xnpd2jV7yOV3NqIEGehL06ddZytHsoyjWOHuTmtxbuZvqU5XlQ7Y8P7zd9kY
+	PfXp10qHNkfybmf8NjW5B4Jcdh+s7cuJT1rci0KV8RtZd4bkuDjGrAaDPv5vbomkakSpgm0CDyA
+	8O2H30H7qBuTV9jXO5YbTLyFVTOEOtLIffMyf7OgvQ9LOq+J1wgOTgCCz7yQMGM/rEoibkVMwSu
+	U8=
+X-Google-Smtp-Source: AGHT+IHCc/3ftJop2txqh4Ayd4GWmGhqEZcmyUNzHxaY80ju8dyu/DdS2je2Xi0Tlpi4yO2GlOBMiQ==
+X-Received: by 2002:a05:600c:1d1d:b0:477:abea:9023 with SMTP id 5b1f17b1804b1-47d19577fb8mr336159555e9.9.1766997890646;
+        Mon, 29 Dec 2025 00:44:50 -0800 (PST)
+Message-ID: <6ba614c0-740f-4c39-b81d-990a1d0add0a@suse.com>
+Date: Mon, 29 Dec 2025 09:44:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] pvh: Introduce SIF_HVM_GHCB for SEV-ES/SNP guests
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v2 1/2] xen/mm: move adjustment of claimed pages counters
+ on allocation
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+References: <20251224194035.60173-1-roger.pau@citrix.com>
+ <20251224194035.60173-2-roger.pau@citrix.com>
+ <bf6a97ed-2daf-4057-a283-cfe820954c71@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,31 +124,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+In-Reply-To: <bf6a97ed-2daf-4057-a283-cfe820954c71@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.12.2025 13:49, Teddy Astie wrote:
-> Under SEV, the pagetables needs to be post-processed to add the C-bit
-> (to make the mapping encrypted). The guest is expected to query the C-bit
-> through CPUID. However, under SEV-ES and SEV-SNP modes, this instruction
-> now triggers #VC instead. The guest would need to setup a IDT very early
-> and instead use the early-GHCB protocol to emulate CPUID, which is
-> complicated.
+On 24.12.2025 23:31, Andrew Cooper wrote:
+> On 24/12/2025 7:40 pm, Roger Pau Monne wrote:
+>> The current logic splits the update of the amount of available memory in
+>> the system (total_avail_pages) and pending claims into two separately
+>> locked regions.  This leads to a window between counters adjustments where
+>> the result of total_avail_pages - outstanding_claims doesn't reflect the
+>> real amount of free memory available, and can return a negative value due
+>> to total_avail_pages having been updated ahead of outstanding_claims.
+>>
+>> Fix by adjusting outstanding_claims and d->outstanding_pages in the same
+>> place where total_avail_pages is updated.  Note that accesses to
+>> d->outstanding_pages is protected by the global heap_lock, just like
+>> total_avail_pages or outstanding_claims.  Add a comment to the field
+>> declaration, and also adjust the comment at the top of
+>> domain_set_outstanding_pages() to be clearer in that regard.
+>>
+>> Finally, due to claims being adjusted ahead of pages having been assigned
+>> to the domain, add logic to re-gain the claim in case assign_page() fails.
+>> Otherwise the page is freed and the claimed amount would be lost.
+>>
+>> Fixes: 65c9792df600 ("mmu: Introduce XENMEM_claim_pages (subop of memory ops)")
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> Changes since v1:
+>>  - Regain the claim if allocated page cannot be assigned to the domain.
+>>  - Adjust comments regarding d->outstanding_pages being protected by the
+>>    heap_lock (instead of the d->page_alloc_lock).
+> 
+> This is a complicated patch, owing to the churn from adding extra
+> parameters.
+> 
+> I've had a go splitting this patch in half.  First to adjust the
+> parameters, and second the bugfix. 
+> https://gitlab.com/xen-project/hardware/xen-staging/-/commits/andrew/roger-claims
+> 
+> I think the result is nicer to follow.  Thoughts?
 
-But isn't this going to be needed for plain HVM anyway?
-
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
->  #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
->  #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. mapped */
->                                     /* P->M making the 3 level tree obsolete? */
-> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that requires */
-> +                                   /* use of GHCB. */
-
-Naming-wise, do we really want to tie this to AMD (and hence exclude other
-vendors, or require yet another bit to be allocated later)?
+Question (from the unfinished v1 thread) being whether we actually need the
+restoration, given Roger's analysis of the affected failure cases.
 
 Jan
 
