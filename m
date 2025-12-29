@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABADBCE6FF7
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:21:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194055.1512552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C226CE715C
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:40:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194070.1512562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaE7w-0001GE-CB; Mon, 29 Dec 2025 14:21:40 +0000
+	id 1vaEQ3-0004KM-Oh; Mon, 29 Dec 2025 14:40:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194055.1512552; Mon, 29 Dec 2025 14:21:40 +0000
+Received: by outflank-mailman (output) from mailman id 1194070.1512562; Mon, 29 Dec 2025 14:40:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaE7w-0001EP-8P; Mon, 29 Dec 2025 14:21:40 +0000
-Received: by outflank-mailman (input) for mailman id 1194055;
- Mon, 29 Dec 2025 14:21:38 +0000
+	id 1vaEQ3-0004IP-Lm; Mon, 29 Dec 2025 14:40:23 +0000
+Received: by outflank-mailman (input) for mailman id 1194070;
+ Mon, 29 Dec 2025 14:40:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UciX=7D=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1vaE7u-0001EJ-IS
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:21:38 +0000
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [2607:f8b0:4864:20::112b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1Bjg=7D=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1vaEQ1-0004II-UT
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:40:21 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aef4d2b6-e4c1-11f0-b15c-2bf370ae4941;
- Mon, 29 Dec 2025 15:21:37 +0100 (CET)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-78fc7893c93so59085037b3.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 06:21:37 -0800 (PST)
+ id 4bfc7018-e4c4-11f0-b15c-2bf370ae4941;
+ Mon, 29 Dec 2025 15:40:19 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2031943445;
+ Mon, 29 Dec 2025 14:40:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E160C16AAE;
+ Mon, 29 Dec 2025 14:40:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,192 +41,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aef4d2b6-e4c1-11f0-b15c-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767018096; x=1767622896; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z444mcpbqBo/U3loZCXm/YDc96pZitp2FUUv2yw0WA0=;
-        b=Z/i5+HVZG0bs+zxhOvmygyDU28xkMsfLUQ7NGIc8KQVvvCf+gOlWHYsnwIXVK4uQNq
-         0OMcDQMI91AcJvanht7wxGf9oyHRxwM0e657eqeqgiSE/ZN0qv6YtHN+Z5jc1kGXYKGo
-         d6RJXzui/C6AD2oMPGvlddX+jkoXugXXe8hLqzsBuxl10NxUEkuI1QN7fGrdAnnEKQ1n
-         NbRrUbFOAdfuTWUDqhb6RS1M6kgdwNWV+1jahA5reKSkGkWVnIpPmqcmBK8nhAuVs/UN
-         oykQ7ryxLcKY4ryxYk3kLJEnHLdeExWQv2k0v9g3I050DFIyAkBr1AkphxYChL7tfygR
-         WErg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767018096; x=1767622896;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=z444mcpbqBo/U3loZCXm/YDc96pZitp2FUUv2yw0WA0=;
-        b=k+7fhv890TrZHgeGTt8kDNGOjD7ktTOc5duiRlawAPUkfw5LPoTA91g/9vH03yLUhb
-         JeSVe8Uspmmkop9Xa9iR75FnAUHb1/7WTJM+CJjqOKpdZ6NBV/R5DNYfu9dZi6Rg/scl
-         6++UTdX5lVxEVDX/pce+wgR3+kfPD2JdILqapEf2xzgDTKJ0X+YfDe20Zm9bKVGTozaE
-         bdo5Lg1uYAv07VGHKixDUEqWYg485Sv4Kq0z3JawX7mcbE0j62aHdTQXXVTdVFY46awJ
-         +2Z5AmpI1Db027cm+BlF2HELIqa7aYDJWtMm96F/rW7gDhVi77qpMzPqcY/VrT4xObUW
-         w98w==
-X-Gm-Message-State: AOJu0YwcBjdSRfQWYxyl6h4H88o98FfWt/hsrkXi2h9H/t9m6dMHf29m
-	mIU8Xezu2A9Qr//yQtwd6sw0bi+3Ooh2gaUHwLpjA8MX3ELAldOe2Eu9zabka/w1XPxVSl0oioJ
-	m+bjXDpviRUvjgLPS/nE/AwIDlFrwM1U=
-X-Gm-Gg: AY/fxX7vmozi9GABhRX1E4nqWa3bETrBH3vwVO6L8qURtwlKsqrU39e1AX6hB7n31pD
-	rTBYv6H23/KIVsgzCOl1rUdx9AALV5UE9Vl1j/5F8gM0RXpLHBmbYIu51qDtyKXS0Lol8y7tlsN
-	vIUCp43j3mvounQTGS24NBaZjB3/IMNX/32/Task/J8ZamNQapKoXxBZqyLMk4asQSIzQQ9uD62
-	QhN4ZQBJh4JhL9QJHWCfFFUqz1U2nn63UgpgRRte5HuzFibU73ddRXMTJl/+AfDl2MqNVqHUTJN
-	3DotaUgipx6FcHzw/1J8/71QRLM=
-X-Google-Smtp-Source: AGHT+IE9pEDqQtHUb/bjKuaIbCji207bhi5Fj7d175ksfCH14OxIzBJa59UWW1hNX02X0Cly7DhAr5t4UcyCaP6dTok=
-X-Received: by 2002:a05:690c:6311:b0:788:17ef:4ecf with SMTP id
- 00721157ae682-78fb407e423mr287567217b3.50.1767018095747; Mon, 29 Dec 2025
- 06:21:35 -0800 (PST)
+X-Inumbo-ID: 4bfc7018-e4c4-11f0-b15c-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767019218;
+	bh=95eNv0h9dSeUKHPEZrk+7tpopWsRyVF7shUNwo04uqc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DszPpcjz/Spb2AyOl63ty/4z8XQXdNDT2k5mex3OvCAL3GdXV9aZIJusPmtNqz3rv
+	 aMpD13xVXd9F6++80Vo1rqKhu2Ga2X8v/s+If0TACH4BOK0SOpTYDAwmAq+3imQSqX
+	 TU2dgZQ3bGgJvLI+4AKBpfP48IAYG3OSGTJbGAl+h/VcM6+mA+OexW0F+EIc4a49N9
+	 0IorIwjny+Ch/PyYfbziHYxnL5aVuMOQ2JKnD5Qs5cdZ6dFWJQFiTuT5Vt71qWYiJS
+	 oWyNFHfT7qew344ucLY53r6xzG5+5DuL6XWs5/PDNykw9rtP/xzBZr5VoOvdsQfsZo
+	 TfBOjJLvXo88Q==
+Date: Mon, 29 Dec 2025 16:40:12 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Barry Song <21cnbao@gmail.com>
+Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
+	will@kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Joerg Roedel <joro@8bytes.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Tangquan Zheng <zhengtangquan@oppo.com>
+Subject: Re: [PATCH v2 4/8] dma-mapping: Separate DMA sync issuing and
+ completion waiting
+Message-ID: <20251229144012.GT11869@unreal>
+References: <20251226225254.46197-1-21cnbao@gmail.com>
+ <20251226225254.46197-5-21cnbao@gmail.com>
+ <20251227200706.GN11869@unreal>
+ <CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
+ <20251228144909.GR11869@unreal>
+ <CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
-In-Reply-To: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 29 Dec 2025 09:21:24 -0500
-X-Gm-Features: AQt7F2rbJsKstOaPs8sxnLYFgI_7U_kAosD5WrmQNWz1AFMLiwrBNgAjF9ZJHkM
-Message-ID: <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com>
-Subject: Re: Cpufreq drivers not working on T480S
-To: Milky <milky_way_303030@proton.me>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
 
-Hi Milky,
+On Mon, Dec 29, 2025 at 10:38:26AM +1300, Barry Song wrote:
+> On Mon, Dec 29, 2025 at 3:49 AM Leon Romanovsky <leon@kernel.org> wrote:
+> >
+> > On Sun, Dec 28, 2025 at 10:45:13AM +1300, Barry Song wrote:
+> > > On Sun, Dec 28, 2025 at 9:07 AM Leon Romanovsky <leon@kernel.org> wrote:
+> > > >
+> > > > On Sat, Dec 27, 2025 at 11:52:44AM +1300, Barry Song wrote:
+> > > > > From: Barry Song <baohua@kernel.org>
+> > > > >
+> > > > > Currently, arch_sync_dma_for_cpu and arch_sync_dma_for_device
+> > > > > always wait for the completion of each DMA buffer. That is,
+> > > > > issuing the DMA sync and waiting for completion is done in a
+> > > > > single API call.
+> > > > >
+> > > > > For scatter-gather lists with multiple entries, this means
+> > > > > issuing and waiting is repeated for each entry, which can hurt
+> > > > > performance. Architectures like ARM64 may be able to issue all
+> > > > > DMA sync operations for all entries first and then wait for
+> > > > > completion together.
+> > > > >
+> > > > > To address this, arch_sync_dma_for_* now issues DMA operations in
+> > > > > batch, followed by a flush. On ARM64, the flush is implemented
+> > > > > using a dsb instruction within arch_sync_dma_flush().
+> > > > >
+> > > > > For now, add arch_sync_dma_flush() after each
+> > > > > arch_sync_dma_for_*() call. arch_sync_dma_flush() is defined as a
+> > > > > no-op on all architectures except arm64, so this patch does not
+> > > > > change existing behavior. Subsequent patches will introduce true
+> > > > > batching for SG DMA buffers.
+> > > > >
+> > > > > Cc: Leon Romanovsky <leon@kernel.org>
+> > > > > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > > > > Cc: Will Deacon <will@kernel.org>
+> > > > > Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+> > > > > Cc: Robin Murphy <robin.murphy@arm.com>
+> > > > > Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> > > > > Cc: Ard Biesheuvel <ardb@kernel.org>
+> > > > > Cc: Marc Zyngier <maz@kernel.org>
+> > > > > Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+> > > > > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > > > > Cc: Suren Baghdasaryan <surenb@google.com>
+> > > > > Cc: Joerg Roedel <joro@8bytes.org>
+> > > > > Cc: Juergen Gross <jgross@suse.com>
+> > > > > Cc: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
+> > > > > Signed-off-by: Barry Song <baohua@kernel.org>
+> > > > > ---
+> > > > >  arch/arm64/include/asm/cache.h |  6 ++++++
+> > > > >  arch/arm64/mm/dma-mapping.c    |  4 ++--
+> > > > >  drivers/iommu/dma-iommu.c      | 37 +++++++++++++++++++++++++---------
+> > > > >  drivers/xen/swiotlb-xen.c      | 24 ++++++++++++++--------
+> > > > >  include/linux/dma-map-ops.h    |  6 ++++++
+> > > > >  kernel/dma/direct.c            |  8 ++++++--
+> > > > >  kernel/dma/direct.h            |  9 +++++++--
+> > > > >  kernel/dma/swiotlb.c           |  4 +++-
+> > > > >  8 files changed, 73 insertions(+), 25 deletions(-)
+> > > >
+> > > > <...>
+> > > >
+> > > > > +#ifndef arch_sync_dma_flush
+> > > > > +static inline void arch_sync_dma_flush(void)
+> > > > > +{
+> > > > > +}
+> > > > > +#endif
+> > > >
+> > > > Over the weekend I realized a useful advantage of the ARCH_HAVE_* config
+> > > > options: they make it straightforward to inspect the entire DMA path simply
+> > > > by looking at the .config.
+> > >
+> > > I am not quite sure how much this benefits users, as the same
+> > > information could also be obtained by grepping for
+> > > #define arch_sync_dma_flush in the source code.
+> >
+> > It differs slightly. Users no longer need to grep around or guess whether this
+> > platform used the arch_sync_dma_flush path. A simple grep for ARCH_HAVE_ in
+> > /proc/config.gz provides the answer.
+> 
+> In any case, it is only two or three lines of code, so I am fine with
+> either approach. Perhaps Marek, Robin, and others have a point here?
+> 
+> >
+> > >
+> > > >
+> > > > Thanks,
+> > > > Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+> > >
+> > > Thanks very much, Leon, for reviewing this over the weekend. One thing
+> > > you might have missed is that I place arch_sync_dma_flush() after all
+> > > arch_sync_dma_for_*() calls, for both single and sg cases. I also
+> > > used a Python script to scan the code and verify that every
+> > > arch_sync_dma_for_*() is followed by arch_sync_dma_flush(), to ensure
+> > > that no call is left out.
+> > >
+> > > In the subsequent patches, for sg cases, the per-entry flush is
+> > > replaced by a single flush of the entire sg. Each sg case has
+> > > different characteristics: some are straightforward, while others
+> > > can be tricky and involve additional contexts.
+> >
+> > I didn't overlook it, and I understand your rationale. However, this is
+> > not how kernel patches should be structured. You should not introduce
+> > code in patch X and then move it elsewhere in patch X + Y.
+> 
+> I am not quite convinced by this concern. This patch only
+> separates DMA sync issuing from completion waiting, and it
+> reflects that the development is done step by step.
+> 
+> >
+> > Place the code in the correct location from the start. Your patches are
+> > small enough to review as is.
+> 
+> My point is that this patch places the code in the correct locations
+> from the start. It splits arch_sync_dma_for_*() into
+> arch_sync_dma_for_*() plus arch_sync_dma_flush() everywhere, without
+> introducing any functional changes from the outset.
+> The subsequent patches clearly show which parts are truly batched.
+> 
+> In the meantime, I do not have a strong preference here. If you think
+> it is better to move some of the straightforward batching code here,
+> I can follow that approach. Perhaps I could move patch 5, patch 8,
+> and the iommu_dma_iova_unlink_range_slow change from patch 7 here,
+> while keeping
+> 
+>   [PATCH 6] dma-mapping: Support batch mode for
+>   dma_direct_{map,unmap}_sg
+> 
+> and the IOVA link part from patch 7 as separate patches, since that
+> part is not straightforward. The IOVA link changes affect both
+> __dma_iova_link() and dma_iova_sync(), which are two separate
+> functions and require a deeper understanding of the contexts to
+> determine correctness. That part also lacks testing.
 
-On Sat, Dec 27, 2025 at 9:23=E2=80=AFAM Milky <milky_way_303030@proton.me> =
-wrote:
->
-> System is T480s with i5-8250U and Libreboot, booting Qubes R4.2 with Xen =
-4.17.5.
->
-> I=E2=80=99ve tested the following configurations:
->
-> 1. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Dxen:performance"` as per [the x=
-en docs](https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#c=
-pufreq)
-> 2. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Ddom0-kernel dom0_vcpus_pin"` as=
- per [the xen wiki](http://wiki.xenproject.org/wiki/Xen_power_management#Do=
-main0_based_cpufreq); tho I suspect this option might be deprecated.
-> 3. `GRUB_CMDLINE_XEN_DEFAULT=3D"cpufreq=3Dxen:hwp"`, which should have ac=
-tivated [this patch from the Qubes team](https://github.com/QubesOS/qubes-v=
-mm-xen/pull/158).
+Don't worry about testing. NVME, RDMA and GPU are using this path
+and someone will test it.
 
-The dom0-kernel option is a legacy configuration and doesn't really
-work.  You don't want it.  From the logs below, #1 and #3 enable HWP.
+> 
+> Would that be okay with you?
 
->
-> In all cases, `cat /proc/cpuinfo` reports the fixed value `cpu Mhz: 1800`=
-, confirmed also using `dmidecode`. `sysbench` in an AppVM with max vcpus c=
-onsistently reports about 1600 events per second, while the dom0 CPU stats =
-in the previous commands remain unchanged.
+I don't know, need to see the code.
 
-Xen domains don't see real-time updates of CPU frequency, so it's
-working as intended.  xenpm is the way to query Xen for CPU info.
+Thanks
 
->`xenpm start 10 | grep 'Avg freq'` reports bizarre values, like `609350368=
- KHz`.
-
-In my testing with HWP, CPU frequency was reported correctly by xenpm.
-My 4.8GHz cpu shows 47xx MHz under load, but it would also throttle
-down after a bit.
-
-Ok, I previously wrote:
-"""
-The output of `xenpm get-cpufreq-average`
-under HWP looks reasonable for scaling all the way up to 4800MHz
-(which can only be hit briefly before throttling down) - I think I've
-only seen ~4700MHz as a maximum in my use, and them it may drop to
-~4200MHz for extended preiods.  Maybe try that command on your test
-system?
-"""
-
-That is with the version of HWP upstreamed, which is a later version
-than Qubes included in R4.2.
-
->
-> The following commands were also checked:
->
-> ```
-> $ xenpm get-cpufreq-para
-> [CPU0] failed to get cpufreq parameter
-> <...>
->
-> $ xenpm get-cpufreq-states
-> <no output>
->
-> $ lsmod | grep 'xen_acpi_processor'
-> <no output>
->
-> $ modprobe xen_acpi_processor
-> modprobe: ERROR: could not insert 'xen_acpi_processor': No such device
-
-Are you sure you are running these commands from dom0?  It looks like
-xen_acpi_processor returns -ENODEV/No such device when modprobed from
-a domU and not dom0.  You need dom0 to query Xen for this information.
-
-> ```
->
-> Based on (this Xen mailing list message)[https://old-list-archives.xen.or=
-g/archives/html/xen-devel/2020-01/msg02588.html], the `xen-acpi-processor` =
-module is what enables dom0 to pass critical information to Xen. Thus, it s=
-eems a big part of the problem is that `xen-acpi-processor` is refusing to =
-load.
->
-> To rule out causes independent of Xen/Qubes, I booted using a Debian Live=
- image. `sysbench` consistently reported 4000 events per second, while `/sy=
-s/cpuinfo` reliably showed a jump from 900Mhz to 3.4GHz.
->
-> In conclusion, only under Qubes/Xen, something seems to block the scaling=
- drivers from working on this system.
->
-> For each of the configurations above, I am pasting the complete output of=
- `xl dmesg`. Let me know if there is anything else I should do.
->
-> ```
-> ########################################################################
-> # `cpufreq=3Dxen:performance`
->
-> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
->  Xen 4.17.5
-> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
- (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
-
-> (XEN) HWP: 1 notify: 1 act-window: 1 energy-perf: 1 pkg-level: 0 peci: 0
-> (XEN) HWP: Hardware Duty Cycling (HDC) supported, enabled
-> (XEN) HWP: HW_FEEDBACK not supported
-> (XEN) Using HWP for cpufreq
-
-HWP enabled
-
-> ########################################################################
-> # `cpufreq=3Ddom0-kernel dom0_vcpus_pin`
->
-> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
->  Xen 4.17.5
-> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
- (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
-
-No HWP line.
-
-> ########################################################################
-> # `cpufreq=3Dxen:hwp`
->
-> (XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
->  Xen 4.17.5
-> (XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508=
- (Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
-
-> (XEN) Command line: placeholder cpufreq=3Dxen:hwp,verbose loglvl=3Dall do=
-m0_mem=3Dmin:1024M dom0_mem=3Dmax:4096M ucode=3Dscan smt=3Doff gnttab_max_f=
-rames=3D2048 gnttab_max_maptrack_frames=3D4096 no-real-mode edd=3Doff
-
-> (XEN) HWP: 1 notify: 1 act-window: 1 energy-perf: 1 pkg-level: 0 peci: 0
-> (XEN) HWP: Hardware Duty Cycling (HDC) supported, enabled
-> (XEN) HWP: HW_FEEDBACK not supported
-> (XEN) Using HWP for cpufreq
-
-And HWP enabled again.
-
-Regards,
-Jason
+> 
+> Thanks
+> Barry
 
