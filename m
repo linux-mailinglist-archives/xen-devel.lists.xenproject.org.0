@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0916DCE6361
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 09:14:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1193911.1512408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784D3CE63C7
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 09:22:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1193920.1512418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1va8N0-0002YN-DS; Mon, 29 Dec 2025 08:12:50 +0000
+	id 1va8Vq-0004DI-6p; Mon, 29 Dec 2025 08:21:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1193911.1512408; Mon, 29 Dec 2025 08:12:50 +0000
+Received: by outflank-mailman (output) from mailman id 1193920.1512418; Mon, 29 Dec 2025 08:21:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1va8N0-0002Vo-9F; Mon, 29 Dec 2025 08:12:50 +0000
-Received: by outflank-mailman (input) for mailman id 1193911;
- Mon, 29 Dec 2025 08:12:48 +0000
+	id 1va8Vq-0004AX-48; Mon, 29 Dec 2025 08:21:58 +0000
+Received: by outflank-mailman (input) for mailman id 1193920;
+ Mon, 29 Dec 2025 08:21:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PeLl=7D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1va8My-0002Vi-8r
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 08:12:48 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1va8Vo-0004AR-PO
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 08:21:56 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2484b588-e48e-11f0-9ccf-f158ae23cfc8;
- Mon, 29 Dec 2025 09:12:40 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47795f6f5c0so47095585e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 00:12:39 -0800 (PST)
+ id 6ed1c76a-e48f-11f0-9ccf-f158ae23cfc8;
+ Mon, 29 Dec 2025 09:21:54 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47755de027eso52216995e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 00:21:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47be3aea77bsm225400525e9.17.2025.12.29.00.12.38
+ ffacd0b85a97d-4324ea1b36fsm60601733f8f.5.2025.12.29.00.21.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Dec 2025 00:12:38 -0800 (PST)
+ Mon, 29 Dec 2025 00:21:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2484b588-e48e-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 6ed1c76a-e48f-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1766995959; x=1767600759; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1766996513; x=1767601313; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2N8yK39D9Qijs0V1Nkp7KCjwUA5tvQwd1AFnlJM64B8=;
-        b=GyJ+s2AhUqvYrvEpXYR+FHYQnAPmaTNp8k7u1FY9iu10gDyNGpUU67Cyi71Xfny8Xj
-         s8/Wl7o2wi+LX6/IkQFDrrIO9qQlBre9sxWgoEY0ZOaQHfRzjhTvvVM9tvBYXisLJNBi
-         71t5YP+cxlh1QXiJKaRR0zdurEOpwOsraO3lTonCnOYxpnzymRPBzOoVHsx+axhiwGYj
-         SddC3gbRmLRx0B2dakV4MJjLpUnSqHkr+HIlMrYXCYkuSFH53N7OaZ52/8jsOSxhGmTx
-         c/71KPCXiGPn1HCc7hWLAvLG0wl0wLPLli9iaRWpZi7ZS9SEW5bkYJtxck/69iIA86Vb
-         jsog==
+        bh=hytBz7VzpljCGb3OHq8gb/mWkNkwb/OUDvrC1jucXss=;
+        b=Z3J+eqihll1HVpv7CDN7B0MMzo06F1uapADpLNo2nBHT7+HCPjVNtOtVLWuMThIhbr
+         TQ+5/1GGuX641synQMDUYZZ7lS6H905deAuZ5lKch6V/WjNJUW7lvQCp4oKi7tRULjR9
+         OA+r5YuNct+M1R+KkS7lL5ek1pMjBWSK66zvK1P5AXpq/JlRfyPbuUBpJLXmBqpSWGOn
+         M7ZLCFDHa3Md/vjq9nKX8t/eKRSbN6msoVkDpk4L6k7G34/YMN89I7U8Z5LP5yz4rmnj
+         dvsivrDBqcC2OdbbTwMpS2CIH2V+KZvLSd3CCJbUKUcgIwml539DtVOdnowxa4x7u/tu
+         HT1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766995959; x=1767600759;
+        d=1e100.net; s=20230601; t=1766996513; x=1767601313;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2N8yK39D9Qijs0V1Nkp7KCjwUA5tvQwd1AFnlJM64B8=;
-        b=q9gg34Niz48oIe5CgAKIveqizKhPA+Bhv8za+2juUqdZaF9FGAM+DhaPwU49Jqn5E0
-         zXS7P5xNOUhXVGIfiUaOBFasCFbAqa/Eoqf08ilN+CuCutpCxe1/SoDJVSBrNquz/lP6
-         qsjN9xMz2k5F4bA00Sb/3uHUky1CIuU6Px7nZP0Zcc+R01y40uCHKwyK3iL5OJLB1Dom
-         6VTj0ujeY5hWX0nZhOaYie2xbTDLzC/JOvrncHPNKMW4nN58uAe651SQqJsTsDTDxaIE
-         hS3VcXLgsCN+FVkC6o+Avz6FN4tMPpsgLEB/zHCp4Lu/cOaZqQ+0v2LGt4fL2gy9XzY7
-         XPqg==
-X-Forwarded-Encrypted: i=1; AJvYcCVp06XH89DF6mTzBiCBdfRXxZY//kYXTYPbHpMhkj7QQauxv4N9KulbNSeo7O8wF8Aq6yg9JcvmzSQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz0bLnUYleg1raNNxO42itF33YYnOTrjjCncWHZghyHALoawLOO
-	L1riVazHW2JbJY7zrB4uE14cZpvqEZOZf6M2iE5O0012fa9v4L7a4dhbhPX/iTNpsg==
-X-Gm-Gg: AY/fxX4/PEAsmzblXk62SXXxbE3Bi7DZhXhKOxhOgARtY6xHxpcWJ0B9BkxW/JS8twd
-	LjMC6kAL++yrNzNT0gZS5d2Qx+sOPLDTP/DDhp0MndZev26rEtf+479yITWeYd5l3gIdqILItHn
-	63dmWAeGG5o+2K2f5EnpeerzILXNme90fCjlomX03aqkPlgfiCxPKvx8jqcB/0XhA0xJk+Bg9ro
-	brN+kV/XHGYhdkO3UDgS7ydA4915dwGeF3QEMMus73X4LIFj4xtDAYt8x71H7HhonqLw5rY6UAD
-	g9qcStpBZzE0/urYjfcsmeM6OWWtDm7sM4w94Kd7yLdK8FosREtNCaFN4Merj2ws+KZixALMsCc
-	rHhoWkiN+W99msdeDoLDdgkf8amgkhlN+ISewdZTQiGasUciG11PnLs9r2+cgj4R8H9oTAO5ztb
-	oHjEupEMi5LU+uY+uicLQGs3WJg9ZVuMxVEovxeenwmPHgtxrcQUuwWWMJDiigCZnnzrijocYeg
-	T4=
-X-Google-Smtp-Source: AGHT+IHTOBPaCd3i6HRzzNq5KWYv2pSkCSIs3T1YWzxq9s0DfldE4F8cvQzz36nZOzwHIhR3GzVOSQ==
-X-Received: by 2002:a05:600c:1d1d:b0:477:8ba7:fe0a with SMTP id 5b1f17b1804b1-47d1957da90mr334813035e9.24.1766995959260;
-        Mon, 29 Dec 2025 00:12:39 -0800 (PST)
-Message-ID: <221c0357-833e-4dec-b265-ac15a1932281@suse.com>
-Date: Mon, 29 Dec 2025 09:12:38 +0100
+        bh=hytBz7VzpljCGb3OHq8gb/mWkNkwb/OUDvrC1jucXss=;
+        b=wTtCV8OCeqW/gIwB2lf9uMCyYMG7BLLYEiO4vBb02TtC4hqyhqfTbQS4T6nV3NcWyy
+         x8E04xwjqvq73upmsUFawL5hRB+WgjD9odmwd2S2htTEWv6VZTMHllFw3Vz0PRcjgPya
+         tE3agjZedp5oSBpT+7XvlD5qLsQdMP5YqCqboqVfu4SWU/SXgrWoVHPynVXEPOBdnuzu
+         vxSFFr2+5q+iIJUby68Kp5lHbLYr9vB5QCiK8SVmUH4PmVohm2wW2x5iJlLEVGihrip8
+         JoKMm3lLoGC3o+MvDDrmVNgcgKqMnq7xwFM+cLV9x4QprcoKmw2XsHccQdnvV5wIZf74
+         5adA==
+X-Forwarded-Encrypted: i=1; AJvYcCW0xOPA8kSwFQf2hmzsImtnlgPgoSa6X+xmUlTnC7BFxM46GVhW/Ca/raiScFjjoFOGxr190/yS/+I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyaZEYQQnZtdk1FTizNDBRrRVvcESz6P40QBixzEwt6yf/yTZT1
+	ZuRdj7zFnHBrWZgbxoPf9ngtNjmFEOqyyxfCME9V+P95zZW595zCo7pJXNFtdKUgTg==
+X-Gm-Gg: AY/fxX5ov9jsz1EbPurwECfGCxeVIrNyVW3WSycrfh0fmJIB4ir0ZbGI1aQRiKL2mPA
+	zSPPN4k7knKO/AsA5rJWLCCOXHWpXG04Zo8lvbI/Cy4knE/Uij2mAPqiPy3Ss2BndZOEL9E0RmE
+	qV/qHqrQcBnjTrhsZcmZcH8/nbq+M1mSEG3+eDHSDc404fjD+e5LxDAHK3zq36SKF7LgmLSx/89
+	ydrRDxfE8+Odl/bB9UgT0pSioEDs+e33ZFxzbQi82I5kVwj0mXa56ujvCPksqabyU+L5cUtScqH
+	ecDAkY0zah4uFj99YiPh27UkXur26UAy+f5Y2aLo5oqwUcDdyS92nFYLqXFnT6YxetVJaCYNo3N
+	ErOubc4pvmf/yBbyruuV1/9fdEqCJ0n07Zgno+MNpvxkBXU2M2g0Q5rRc7J2yN0LnCv6KgqdaCt
+	+abOw0VW8HYfeq5gQ7lmrXXyc9JGqgGubvlnKt6HxA08Kd1O5YlRcDZNG6Qr99k42kjoLYJRIvr
+	AM=
+X-Google-Smtp-Source: AGHT+IHIM0An+Rx3y22ipPqUB0hQNSemKQ8/qOroB2rLHU3HB0Ev9wNCNLiFCKQywRk2xWhNOCsgAw==
+X-Received: by 2002:a05:600c:828c:b0:479:3a87:2092 with SMTP id 5b1f17b1804b1-47d19598e86mr264051965e9.36.1766996513465;
+        Mon, 29 Dec 2025 00:21:53 -0800 (PST)
+Message-ID: <7d439b75-801b-406d-98e0-29c207e1c1ba@suse.com>
+Date: Mon, 29 Dec 2025 09:21:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/mm: move adjustment of claimed pages counters on
- allocation
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH] pvh: Introduce SIF_HVM_GHCB for SEV-ES/SNP guests
+To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20251223081507.29325-1-roger.pau@citrix.com>
- <754a5e55-828d-4b3f-85cd-574760ddc69b@suse.com> <aUrXiaWnyM-eTJg2@Mac.lan>
+References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,73 +122,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aUrXiaWnyM-eTJg2@Mac.lan>
+In-Reply-To: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.12.2025 18:55, Roger Pau Monné wrote:
-> On Tue, Dec 23, 2025 at 11:59:54AM +0100, Jan Beulich wrote:
->> On 23.12.2025 09:15, Roger Pau Monne wrote:
->>> The current logic splits the update of the amount of available memory in
->>> the system (total_avail_pages) and pending claims into two separately
->>> locked regions.  This leads to a window between counters adjustments where
->>> the result of total_avail_pages - outstanding_claims doesn't reflect the
->>> real amount of free memory available, and can return a negative value due
->>> to total_avail_pages having been updated ahead of outstanding_claims.
->>>
->>> Fix by adjusting outstanding_claims and d->outstanding_pages in the same
->>> place where total_avail_pages is updated.  This can possibly lead to the
->>> pages failing to be assigned to the domain later, after they have already
->>> been subtracted from the claimed amount.  Ultimately this would result in a
->>> domain losing part of it's claim, but that's better than the current skew
->>> between total_avail_pages and outstanding_claims.
->>
->> For the system as a whole - yes. For just the domain rather not. It may be
->> a little cumbersome, but can't we restore the claim from the error path
->> after failed assignment? (In fact the need to (optionally) pass a domain
->> into free_heap_pages() would improve symmetry with alloc_heap_pages().)
-> 
-> Passing a domain parameter to free_heap_pages() is not that much of an
-> issue.  The problem with restoring the claim value on failure to
-> assign is the corner cases.  For example consider an allocation that
-> depletes the existing claim, allocating more than what was left to be
-> claimed.  Restoring the previous claim value on failure to assign to
-> the domain would be tricky.  It would require returning the consumed
-> claim from alloc_heap_pages(), so that alloc_domheap_pages() could
-> restore it on failure to assign.
-> 
-> However, I was looking at the possible failure causes of
-> assign_pages() and I'm not sure there's much point in attempting to
-> restore the claimed amount.  Current cases where assign_pages() will
-> fail:
-> 
->  - Domain is dying: keeping the claim is irrelevant, the domain is
->    dying anyway.
-> 
->  - tot_pages > max_pages: inconsistent domain state, and a claim
->    should never be bigger than max_pages.
-> 
->  - tot_pages + alloc > max_pages: only possible if alloc is using
->    claim pages plus unclaimed ones, as the claim cannot be bigger than
->    max_pages.  Such alloc is doomed to fail anyway, and would point at
->    the claim value being incorrectly set.
-> 
->  - tot_pages + alloc < alloc: overflow of tot_pages, should never
->    happen with claimed pages as tot_pages <= max_pages, and claim <=
->    max_pages.
-> 
-> However that only covers current code in assign_pages(), there's no
-> guarantee that future code might introduce new failure cases.
-> 
-> Having said all that, I have a prototype that restores the claimed
-> amount that I could send to the list.  It involves adding two extra
-> parameters to free_heap_pages(): the domain and the claim amount to
-> restore.  It's not super-nice, but I was expecting it to be worse.
+On 28.12.2025 13:49, Teddy Astie wrote:
+> Under SEV, the pagetables needs to be post-processed to add the C-bit
+> (to make the mapping encrypted). The guest is expected to query the C-bit
+> through CPUID. However, under SEV-ES and SEV-SNP modes, this instruction
+> now triggers #VC instead. The guest would need to setup a IDT very early
+> and instead use the early-GHCB protocol to emulate CPUID, which is
+> complicated.
 
-With the justification above I'd be okay with the claim not being
-restored upon failure; the extra logic could then be added if and when
-an error case appears which would make it desirable to restore the
-claim.
+But isn't this going to be needed for plain HVM anyway?
+
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
+>  #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
+>  #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. mapped */
+>                                     /* P->M making the 3 level tree obsolete? */
+> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that requires */
+> +                                   /* use of GHCB. */
+
+Naming-wise, do we really want to tie this to AMD (and hence exclude other
+vendors, or require yet another bit to be allocated later)?
 
 Jan
 
