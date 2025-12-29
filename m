@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C226CE715C
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 15:40:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194070.1512562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6C7CE72AA
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Dec 2025 16:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194081.1512572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaEQ3-0004KM-Oh; Mon, 29 Dec 2025 14:40:23 +0000
+	id 1vaEpE-0007KV-L2; Mon, 29 Dec 2025 15:06:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194070.1512562; Mon, 29 Dec 2025 14:40:23 +0000
+Received: by outflank-mailman (output) from mailman id 1194081.1512572; Mon, 29 Dec 2025 15:06:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaEQ3-0004IP-Lm; Mon, 29 Dec 2025 14:40:23 +0000
-Received: by outflank-mailman (input) for mailman id 1194070;
- Mon, 29 Dec 2025 14:40:22 +0000
+	id 1vaEpE-0007Hq-Ha; Mon, 29 Dec 2025 15:06:24 +0000
+Received: by outflank-mailman (input) for mailman id 1194081;
+ Mon, 29 Dec 2025 15:06:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1Bjg=7D=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1vaEQ1-0004II-UT
- for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 14:40:21 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (envelope-from <SRS0=PeLl=7D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vaEpD-0007He-4d
+ for xen-devel@lists.xenproject.org; Mon, 29 Dec 2025 15:06:23 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bfc7018-e4c4-11f0-b15c-2bf370ae4941;
- Mon, 29 Dec 2025 15:40:19 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2031943445;
- Mon, 29 Dec 2025 14:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E160C16AAE;
- Mon, 29 Dec 2025 14:40:17 +0000 (UTC)
+ id ef44a2dc-e4c7-11f0-b15c-2bf370ae4941;
+ Mon, 29 Dec 2025 16:06:21 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-47d3ffa6720so33985455e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Dec 2025 07:06:21 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4324ea22674sm64321599f8f.10.2025.12.29.07.06.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Dec 2025 07:06:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,191 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bfc7018-e4c4-11f0-b15c-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767019218;
-	bh=95eNv0h9dSeUKHPEZrk+7tpopWsRyVF7shUNwo04uqc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DszPpcjz/Spb2AyOl63ty/4z8XQXdNDT2k5mex3OvCAL3GdXV9aZIJusPmtNqz3rv
-	 aMpD13xVXd9F6++80Vo1rqKhu2Ga2X8v/s+If0TACH4BOK0SOpTYDAwmAq+3imQSqX
-	 TU2dgZQ3bGgJvLI+4AKBpfP48IAYG3OSGTJbGAl+h/VcM6+mA+OexW0F+EIc4a49N9
-	 0IorIwjny+Ch/PyYfbziHYxnL5aVuMOQ2JKnD5Qs5cdZ6dFWJQFiTuT5Vt71qWYiJS
-	 oWyNFHfT7qew344ucLY53r6xzG5+5DuL6XWs5/PDNykw9rtP/xzBZr5VoOvdsQfsZo
-	 TfBOjJLvXo88Q==
-Date: Mon, 29 Dec 2025 16:40:12 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Barry Song <21cnbao@gmail.com>
-Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
-	will@kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Joerg Roedel <joro@8bytes.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Tangquan Zheng <zhengtangquan@oppo.com>
-Subject: Re: [PATCH v2 4/8] dma-mapping: Separate DMA sync issuing and
- completion waiting
-Message-ID: <20251229144012.GT11869@unreal>
-References: <20251226225254.46197-1-21cnbao@gmail.com>
- <20251226225254.46197-5-21cnbao@gmail.com>
- <20251227200706.GN11869@unreal>
- <CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
- <20251228144909.GR11869@unreal>
- <CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
+X-Inumbo-ID: ef44a2dc-e4c7-11f0-b15c-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1767020781; x=1767625581; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3ASk0IL4GdTMIFlqQWlB83En4Kn46atbuh9mB1I3mb0=;
+        b=MOuEVaF2x9+I1MZ/nM2PTM1YCysu0axw+7xcbkFIgiqcF0pmQSskLUxv1Y2I5MwzGR
+         d8PnSLb625tiaR1UyPxYEl41f0RKNt1TBjeYmPNkiQusMxw2UOidMJf8z8NbAzpcZJWG
+         HaO3lwxXkeYKh/yyavsXH+sasEyHK8ov3Fb7AJ2nUc+UQOxqEcu7oDGS+LtYjKI4PJSt
+         m3LhbItnvWJJ9vnsTYPwEExkvop9wRCV8Aj/ue7gljKnFwTsza7HmmpS1OmeBAtf4FQa
+         mG4y7r0iUh+qMgzkOxexGX+kdJj0hVN9p6NYoYpY2FH2uoKH7Rz5GNusFgqV9BWyyarp
+         ayOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767020781; x=1767625581;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3ASk0IL4GdTMIFlqQWlB83En4Kn46atbuh9mB1I3mb0=;
+        b=jVgrvAPRwGeCM/DoltpJlCM4oT65HaAkr0x7p6po4hMse0cH8q0VKYdxgAuaK21SYv
+         Nqwo1MuW7MRvF7pdrSKCc3F/nHK7b5CsF+TqNBKtpGapbYmaRptpGPWNt0JQ6YzJjT1U
+         v0Y7eZXToryYrzusafC9klkluQllzLY9xf+nh4O/HCqypMP5mGRLLwiDQEExvVUHYjXv
+         h0mPoPWnTybgCVCPJysBppcSCRL1yY24I3drM09tmiGyDekFudwMeqoy54lSttSwHI/x
+         XR9dCFBCif0GIxHjeGc2iZgjuvslYntpJUy1mx57gcDXgeqjsipa1Qc3+AZy4MOFocwd
+         DmNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXIeOF/eAdHQwTd9HhhA0oD6+0gI1qkzLfLMWlmXkWA/AmJveVEK3wRnjIeAokbUimF+cmt1HL3giM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw9L40NoGLRmJRygJ88rhoO3TKVAYJ+7rlHnvQ8Bvq4HqFrrtKv
+	XCl7vbackRBI9rOLyMDLe4H5czE2AXZekSEbKO8wjaLMzLnS8Rk6Gcg2K7KBrO+5UA==
+X-Gm-Gg: AY/fxX6/hudKTEb/mQBpTmdprV1NXkcde5532DzN4mJKc3IFB1xen8HU+a47X577r0i
+	i6nmDQE7eNkj/xDFUzitPrsuN7csMwUi8hwl7VyGhqeuUKDgJwOP6CE+AqRjKcCQi/4wo15b59K
+	XvvJbQIlZoW5zBrNNThoM1IEnIPiVs8Nu0LbhkikBWCCtuiLTX5k0lQMdrw1Q88PJkqyAKDOx0B
+	ta+lxvyVHBL6jVojWtvRqO8m+tkWbR5jhLomCzG3LS1c5PLsA65mz1tsrT0SkB5QHTSqSOg3Zsx
+	CXjbZoWzt2csroZnOzBevwFMKxmHHP+hLhDJ+E3SbiacEsmzgQv+MfTEYFXw9EDEqEb/YiUOMBd
+	9vJ7tTt7NlTDwP8Ey6FgYiFdaATvKHtENuLM+t67HD/nhvi4t82AWp+OP9VLI3zPTKI6a9QEM/k
+	tnP1iE6sfDXZV/KGpL26DFdMXnP5bU2LugfpsUMPv7yRTE+9mFQK2qACzycCKPNdMlokAJH8OQV
+	pM=
+X-Google-Smtp-Source: AGHT+IG63OAcNeeFyN1juc0f8JCIZDRtzgIO66IUyWBTlizbr/0n8P4gF1n2/wxZgoikfzqL+fHkhA==
+X-Received: by 2002:a05:600c:190f:b0:475:dd89:acb with SMTP id 5b1f17b1804b1-47d195a72fbmr359283205e9.22.1767020780539;
+        Mon, 29 Dec 2025 07:06:20 -0800 (PST)
+Message-ID: <e77ddd04-3dfa-464c-9655-3cc853e1759e@suse.com>
+Date: Mon, 29 Dec 2025 16:06:19 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/3] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766406895.git.oleksii.kurochko@gmail.com>
+ <5d10efb00eebb35861135280dfee391d0c55cf0d.1766406895.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5d10efb00eebb35861135280dfee391d0c55cf0d.1766406895.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 29, 2025 at 10:38:26AM +1300, Barry Song wrote:
-> On Mon, Dec 29, 2025 at 3:49 AM Leon Romanovsky <leon@kernel.org> wrote:
-> >
-> > On Sun, Dec 28, 2025 at 10:45:13AM +1300, Barry Song wrote:
-> > > On Sun, Dec 28, 2025 at 9:07 AM Leon Romanovsky <leon@kernel.org> wrote:
-> > > >
-> > > > On Sat, Dec 27, 2025 at 11:52:44AM +1300, Barry Song wrote:
-> > > > > From: Barry Song <baohua@kernel.org>
-> > > > >
-> > > > > Currently, arch_sync_dma_for_cpu and arch_sync_dma_for_device
-> > > > > always wait for the completion of each DMA buffer. That is,
-> > > > > issuing the DMA sync and waiting for completion is done in a
-> > > > > single API call.
-> > > > >
-> > > > > For scatter-gather lists with multiple entries, this means
-> > > > > issuing and waiting is repeated for each entry, which can hurt
-> > > > > performance. Architectures like ARM64 may be able to issue all
-> > > > > DMA sync operations for all entries first and then wait for
-> > > > > completion together.
-> > > > >
-> > > > > To address this, arch_sync_dma_for_* now issues DMA operations in
-> > > > > batch, followed by a flush. On ARM64, the flush is implemented
-> > > > > using a dsb instruction within arch_sync_dma_flush().
-> > > > >
-> > > > > For now, add arch_sync_dma_flush() after each
-> > > > > arch_sync_dma_for_*() call. arch_sync_dma_flush() is defined as a
-> > > > > no-op on all architectures except arm64, so this patch does not
-> > > > > change existing behavior. Subsequent patches will introduce true
-> > > > > batching for SG DMA buffers.
-> > > > >
-> > > > > Cc: Leon Romanovsky <leon@kernel.org>
-> > > > > Cc: Catalin Marinas <catalin.marinas@arm.com>
-> > > > > Cc: Will Deacon <will@kernel.org>
-> > > > > Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-> > > > > Cc: Robin Murphy <robin.murphy@arm.com>
-> > > > > Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> > > > > Cc: Ard Biesheuvel <ardb@kernel.org>
-> > > > > Cc: Marc Zyngier <maz@kernel.org>
-> > > > > Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-> > > > > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > > > > Cc: Suren Baghdasaryan <surenb@google.com>
-> > > > > Cc: Joerg Roedel <joro@8bytes.org>
-> > > > > Cc: Juergen Gross <jgross@suse.com>
-> > > > > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > > > > Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > > > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
-> > > > > Signed-off-by: Barry Song <baohua@kernel.org>
-> > > > > ---
-> > > > >  arch/arm64/include/asm/cache.h |  6 ++++++
-> > > > >  arch/arm64/mm/dma-mapping.c    |  4 ++--
-> > > > >  drivers/iommu/dma-iommu.c      | 37 +++++++++++++++++++++++++---------
-> > > > >  drivers/xen/swiotlb-xen.c      | 24 ++++++++++++++--------
-> > > > >  include/linux/dma-map-ops.h    |  6 ++++++
-> > > > >  kernel/dma/direct.c            |  8 ++++++--
-> > > > >  kernel/dma/direct.h            |  9 +++++++--
-> > > > >  kernel/dma/swiotlb.c           |  4 +++-
-> > > > >  8 files changed, 73 insertions(+), 25 deletions(-)
-> > > >
-> > > > <...>
-> > > >
-> > > > > +#ifndef arch_sync_dma_flush
-> > > > > +static inline void arch_sync_dma_flush(void)
-> > > > > +{
-> > > > > +}
-> > > > > +#endif
-> > > >
-> > > > Over the weekend I realized a useful advantage of the ARCH_HAVE_* config
-> > > > options: they make it straightforward to inspect the entire DMA path simply
-> > > > by looking at the .config.
-> > >
-> > > I am not quite sure how much this benefits users, as the same
-> > > information could also be obtained by grepping for
-> > > #define arch_sync_dma_flush in the source code.
-> >
-> > It differs slightly. Users no longer need to grep around or guess whether this
-> > platform used the arch_sync_dma_flush path. A simple grep for ARCH_HAVE_ in
-> > /proc/config.gz provides the answer.
-> 
-> In any case, it is only two or three lines of code, so I am fine with
-> either approach. Perhaps Marek, Robin, and others have a point here?
-> 
-> >
-> > >
-> > > >
-> > > > Thanks,
-> > > > Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-> > >
-> > > Thanks very much, Leon, for reviewing this over the weekend. One thing
-> > > you might have missed is that I place arch_sync_dma_flush() after all
-> > > arch_sync_dma_for_*() calls, for both single and sg cases. I also
-> > > used a Python script to scan the code and verify that every
-> > > arch_sync_dma_for_*() is followed by arch_sync_dma_flush(), to ensure
-> > > that no call is left out.
-> > >
-> > > In the subsequent patches, for sg cases, the per-entry flush is
-> > > replaced by a single flush of the entire sg. Each sg case has
-> > > different characteristics: some are straightforward, while others
-> > > can be tricky and involve additional contexts.
-> >
-> > I didn't overlook it, and I understand your rationale. However, this is
-> > not how kernel patches should be structured. You should not introduce
-> > code in patch X and then move it elsewhere in patch X + Y.
-> 
-> I am not quite convinced by this concern. This patch only
-> separates DMA sync issuing from completion waiting, and it
-> reflects that the development is done step by step.
-> 
-> >
-> > Place the code in the correct location from the start. Your patches are
-> > small enough to review as is.
-> 
-> My point is that this patch places the code in the correct locations
-> from the start. It splits arch_sync_dma_for_*() into
-> arch_sync_dma_for_*() plus arch_sync_dma_flush() everywhere, without
-> introducing any functional changes from the outset.
-> The subsequent patches clearly show which parts are truly batched.
-> 
-> In the meantime, I do not have a strong preference here. If you think
-> it is better to move some of the straightforward batching code here,
-> I can follow that approach. Perhaps I could move patch 5, patch 8,
-> and the iommu_dma_iova_unlink_range_slow change from patch 7 here,
-> while keeping
-> 
->   [PATCH 6] dma-mapping: Support batch mode for
->   dma_direct_{map,unmap}_sg
-> 
-> and the IOVA link part from patch 7 as separate patches, since that
-> part is not straightforward. The IOVA link changes affect both
-> __dma_iova_link() and dma_iova_sync(), which are two separate
-> functions and require a deeper understanding of the contexts to
-> determine correctness. That part also lacks testing.
+On 22.12.2025 17:37, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1057,3 +1057,188 @@ int map_regions_p2mt(struct domain *d,
+>  
+>      return rc;
+>  }
+> +
+> +/*
+> + * p2m_get_entry() should always return the correct order value, even if an
+> + * entry is not present (i.e. the GFN is outside the range):
+> + *   [p2m->lowest_mapped_gfn, p2m->max_mapped_gfn]    (1)
+> + *
+> + * This ensures that callers of p2m_get_entry() can determine what range of
+> + * address space would be altered by a corresponding p2m_set_entry().
+> + * Also, it would help to avoid costly page walks for GFNs outside range (1).
+> + *
+> + * Therefore, this function returns true for GFNs outside range (1), and in
+> + * that case the corresponding level is returned via the level_out argument.
+> + * Otherwise, it returns false and p2m_get_entry() performs a page walk to
+> + * find the proper entry.
+> + */
+> +static bool check_outside_boundary(const struct p2m_domain *p2m, gfn_t gfn,
+> +                                   gfn_t boundary, bool is_lower,
+> +                                   unsigned int *level_out)
+> +{
+> +    unsigned int level = P2M_ROOT_LEVEL(p2m);
+> +    bool ret = false;
+> +
+> +    ASSERT(p2m);
+> +
+> +    if ( is_lower ? gfn_x(gfn) < gfn_x(boundary)
+> +                  : gfn_x(gfn) > gfn_x(boundary) )
+> +    {
+> +        for ( ; level; level-- )
+> +        {
+> +            unsigned long mask = BIT(P2M_GFN_LEVEL_SHIFT(level), UL) - 1;
+> +
+> +            if ( is_lower ? (gfn_x(gfn) | mask) < gfn_x(boundary)
+> +                          : (gfn_x(gfn) & ~mask) > gfn_x(boundary) )
+> +                break;
+> +        }
+> +
+> +        ret = true;
 
-Don't worry about testing. NVME, RDMA and GPU are using this path
-and someone will test it.
+For this case ...
 
-> 
-> Would that be okay with you?
+> +    }
+> +
+> +    if ( level_out )
+> +        *level_out = level;
 
-I don't know, need to see the code.
+... this is correct, but of "ret" is still false it very likely isn't, and
+arranging things this way may end up being confusing. Perhaps "level" should
+be constrained to the if()'s scope? The caller cares about the value only
+when the return value is true, after all.
 
-Thanks
-
-> 
-> Thanks
-> Barry
+Jan
 
