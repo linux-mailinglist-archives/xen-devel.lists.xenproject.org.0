@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3056ACEA1C2
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 16:53:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194361.1512765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C440CEA20F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 17:04:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194373.1512775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vac1g-000314-9V; Tue, 30 Dec 2025 15:52:48 +0000
+	id 1vacCe-0005LP-8n; Tue, 30 Dec 2025 16:04:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194361.1512765; Tue, 30 Dec 2025 15:52:48 +0000
+Received: by outflank-mailman (output) from mailman id 1194373.1512775; Tue, 30 Dec 2025 16:04:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vac1g-0002yt-6e; Tue, 30 Dec 2025 15:52:48 +0000
-Received: by outflank-mailman (input) for mailman id 1194361;
- Tue, 30 Dec 2025 15:52:46 +0000
+	id 1vacCe-0005Jk-5b; Tue, 30 Dec 2025 16:04:08 +0000
+Received: by outflank-mailman (input) for mailman id 1194373;
+ Tue, 30 Dec 2025 16:04:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hKsM=7E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vac1e-0002yn-Nl
- for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 15:52:46 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1vacCc-0005Je-Gb
+ for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 16:04:06 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94a3b21e-e597-11f0-9ccf-f158ae23cfc8;
- Tue, 30 Dec 2025 16:52:44 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-64ba9a00b5aso11684488a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 07:52:44 -0800 (PST)
+ id 2995876d-e599-11f0-9ccf-f158ae23cfc8;
+ Tue, 30 Dec 2025 17:04:04 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b832522b47cso556724166b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 08:04:04 -0800 (PST)
 Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
  [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64b91599844sm35260022a12.25.2025.12.30.07.52.43
+ a640c23a62f3a-b8037f0cea9sm3624154066b.50.2025.12.30.08.04.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Dec 2025 07:52:43 -0800 (PST)
+ Tue, 30 Dec 2025 08:04:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94a3b21e-e597-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 2995876d-e599-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767109964; x=1767714764; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1767110643; x=1767715443; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=bLkc9FoZq3YTct54aDb92kNA/9i0FxcpSqRx6vpEmH4=;
-        b=T4J2qIzSdngydBnH7i7YMoSlx+Qa2qop9YNcleF/V8XmCTHyEqLPURE0UIfrRVTPcI
-         qYZ9TXAmGxD/GuwmB7Cehtgj6zBCoLjQwd85f1vpI5hC70GkKGhW+iENyFQv7xgI8P5d
-         Hs406XhKSilbILrkwQRBxBcJKF0wIOL6DK3HJ67XAspwyH/DZUa8W2rYINDJpuFI0pyt
-         P6sE514b0A2dN/hjNX0cIeANmMnu/h6YhWqlPNQ+/d5cxlpV1F4Ft2VvDYKQ/kmgeGTF
-         FRixBP4qsUpyo22ZyxvV8opIQQzFkR3oFeW8sKnUU7SLSJ6XDASaxe/kMfymmW4qdq2m
-         f+Sg==
+        bh=fnhyMCr8T/iszehS58YhFGhLWSLr/RAMi197kNxHSnE=;
+        b=NhwJPoCYrhTLz9tKLcL54kcndCPPxR/v8lRlD24XqMFxp1pr3FupfMdaK0BBwuMaIW
+         ERfaVHGUPiABYxQ83O2M8pCtQ88kM0vAjVmxpg21+/ONcI9mkuBvnUVXRDZOB70PBXH5
+         2Vh8jiOXbgEnW3ZhOWBpXT6lWWLKn2r4vju8Lvghi/YFgZn1McnNoRyyxSCMaywj48q0
+         DvprPzjIH2cEf2892cYS2s0ZFdof8/pOh3NbPi6PUOVDJlBRrjKqxd5GR0WNBz7hSL40
+         JsTn4PBWXZSecluPI74C0fwgmM/ka0zf4MKykT5mpBqSteT05o9FShMjakaLZKjHxqfz
+         fPfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767109964; x=1767714764;
+        d=1e100.net; s=20230601; t=1767110643; x=1767715443;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=bLkc9FoZq3YTct54aDb92kNA/9i0FxcpSqRx6vpEmH4=;
-        b=LBKdISjlnWph1RstnhvApItxx//UScq+4hiPssxGjwKPownFSaqBdRUgogA6HtgVDb
-         O9jAwwtPiVh/FgIeCr+SmNC7U5G4o3pJWTfcriS3T3V9U0wknOkb3iA2b+JRcgF+VcCh
-         1+lKkShPnoqC5iAZYa9AjDhAXO7vn80WAyNxiDfZrLO1W5EaYcn9dgKtxoS3ZDTeX5qD
-         4XNjhYcPCxzPNX1sgopeq9C7TFFvU8G+jcn1cqYOcfQrdojnzPy6IjO/RnVxupdfsUHb
-         RAa43Cokg8VC0Xp8BdZ0H9MnoldTesTNPHv1uxgIs82wqTv/puBq+3HncPJmop83++Zr
-         e+kg==
-X-Forwarded-Encrypted: i=1; AJvYcCVSvqVrNEtBrA07pMB3I74u6wAjRwzkc69Oj+8ucoBHjYJUh7mss9Vv+zZgh+SYEPpDssbMKIEwOEw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjARdZrzIaMSK9HOtl1YsseSMONcEKg7loZLFg6sdZ8D/M66A8
-	IVb0PfJsoN0wDE4bU2HM63FAjnd1igtc30ajiuAOh4Ifk6uFXOPPlA4M
-X-Gm-Gg: AY/fxX5pXB9HyYrziExxc/9yJ+qr2aOLAdktEJc9IRGnXxbFCf20xK2zaOqsg0XYoA2
-	CWnMqfGTAVPZvUHTiV92QRYew345M85IWxt5E/a5CCvIbPD3VTDii45Ji4OPjgk1gbl6rO6e7Nc
-	1JJ3WOYYfYq0kqH/xjDBE9aJ9KUL3ZfGW8eYx1Y/W8RimuGgZ3iJNNcWA1aMYgiSVQu7N6mprdP
-	rhjfRrQFqIEN9k5edZ1AYBRcwGG5lF/G20hGurioxTNeEQsMw0e7gukjY0ksgberL4EJx31tv+M
-	U7/YamGqxApGO7ZSecqwD0jXkKHQdUDNODMH/1r3AXAPFg0hlAF3T2+Fh4MRESsNhQ6uAsYpmmm
-	VbB3/wroBeou18dm3PF2cRSpv0cegOH2BrDUSB9IdsRD39PwmaAAKNFd+fa5Hb9LkaXEmhyofy4
-	OsFdU80Nv2MYpQqDYn5D/As8FuYPcR3UqOV4IMs3pTTK28KHBYvQccladaCyRpoqk=
-X-Google-Smtp-Source: AGHT+IF7nUKnadZrx5gs11egT3DU4G1WMv3sk3hckkCfKISBVERyvcgKwBe1iEgy5CNPXKoQH85fKg==
-X-Received: by 2002:a05:6402:3596:b0:64d:1d2b:238f with SMTP id 4fb4d7f45d1cf-64d1d2b268cmr28013387a12.19.1767109963862;
-        Tue, 30 Dec 2025 07:52:43 -0800 (PST)
-Message-ID: <a691f12f-e453-4286-a0ff-d6db8f582874@gmail.com>
-Date: Tue, 30 Dec 2025 16:52:42 +0100
+        bh=fnhyMCr8T/iszehS58YhFGhLWSLr/RAMi197kNxHSnE=;
+        b=E61bE5ff3nU8UCh2Nxhg/DTJvJvmdxsDvbAGYnVUfgaXpDZcP2zzRK9cBjBFQB1HC+
+         VwGMFpOkYxXaA2bGMZvKwFDv0mntvdiPHRbGVX1BxEngboeUC4qM12cKJiTW+/KMSi4r
+         jxqOz2r+8oQvNL2JTLUrh46SoUXRaurozUPyoTSPeQH59tiXi7FKL+bOKkEmME5oaB5D
+         zYEyfNSRrqQh/N+KifFCeSzN7Dh1ucAoW4DPBe9atm5KS68lohN/2Cj5P18tJ5iI4ouL
+         7zMd7WHJgR/78ZjY7PtpO7HD3TNkddGu71Btg9Hg6EeYOUEpIwQHDqC/RgstSvUnemgN
+         8i6w==
+X-Forwarded-Encrypted: i=1; AJvYcCXiQFMO/jbltY3BqRZH2aCXqiEAON+sxmFA78bQCyVgmAchivBn5Gz5QhqKjJXGmykmFd9PeSCxFpw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySkLR0YL1EX6zM14mqmtlUc9zt54uCXmpk0bAKRnWnJJweVhsR
+	Y6yqTYmZr0Q+MpKPKjSGQU5BOPPWio/9crLFU4+QXFjN9RF6wLaqSDaUzg0s/A==
+X-Gm-Gg: AY/fxX4JG+t1MWCqSoMif9chq9HTgobrb5BuKQRMah2B9bJH76lUWbWfrHIhCQ2H209
+	TUPMTKkPOLDkRZGNbgTXv5fqCdJp/Iz1eXwwRkDU/kcw434Y4Fv1Ncex384POOOmBdN3Db8rlDg
+	74osOKzqMvdeHLixniNW71ssnNQds6CeAWQqOIitT7xl9ZwidtpqGENozAe3esxB0kTBOdmSpTI
+	bgH78lxbLlHDiowUsXWP76++LPUHQB87emW7j34ZRDx1WrANmeJbwvgFE5tfmxzgziyKtK4wiXT
+	QfGptgAcxm+VvE1OSzviOICQrC9ezMSJtK7XqaYdITJLdxZHnchzVr0fBezjIuoANcH5j+OFjRc
+	bg+d9WKeo7dHHXnJjhBkkP4XMp116RDlRvvQVoJ0803uNcxfWLuPtNtpA2l7up+JIMxNGsG/cpz
+	EUo2Hi+VqUkx3sWmuQOpQSs4su7aM2dZ9Z0DrNxP0secdrBIaD+M+rcHoWn6u/SY8=
+X-Google-Smtp-Source: AGHT+IErZpa+22bSz0+RlmLdzxxrIJqmj+e6rRQzrAD4CptdPmXHu8b4Ylvwh59XnT1ERFd9PacfGg==
+X-Received: by 2002:a17:907:724e:b0:b6d:5bc3:e158 with SMTP id a640c23a62f3a-b8036f2ac34mr3630100566b.17.1767110643229;
+        Tue, 30 Dec 2025 08:04:03 -0800 (PST)
+Message-ID: <3ffe9668-84c6-4866-9833-20b5748bf339@gmail.com>
+Date: Tue, 30 Dec 2025 17:04:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] xen/arm: vcpu_vgic_free() updates
+Subject: Re: [PATCH v4 2/4] xen/arm: optimize the size of struct vcpu
 To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 References: <cover.1766504313.git.oleksii.kurochko@gmail.com>
- <ca86bf36375d19555961225f214b9d23557b0d3a.1766504313.git.oleksii.kurochko@gmail.com>
- <4c09cc87-307e-440d-9a1d-7ef2313ae466@amd.com>
+ <0756ee97dd47f6acdefe593694b743eb6bfefacb.1766504313.git.oleksii.kurochko@gmail.com>
+ <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <4c09cc87-307e-440d-9a1d-7ef2313ae466@amd.com>
+In-Reply-To: <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 12/29/25 11:50 AM, Orzel, Michal wrote:
+On 12/29/25 12:08 PM, Orzel, Michal wrote:
 >
 > On 23/12/2025 18:01, Oleksii Kurochko wrote:
->> Use XFREE() instead of xfree() so that vcpu_vgic_free() can be idempotent.
->> With XFREE(), vgic_vcpu->private_irqs is set to NULL, so calling
->> vcpu_vgic_free() a second time is not an issue.
-> Usually it would be beneficial to back such statement with an example of a
-> situation where this is or will be the issue.
+>> When CONFIG_NEW_VGIC=y and CONFIG_ARM_64=y, the size of struct vcpu
+>> exceeds one page, which requires allocating two pages and led to the
+>> introduction of MAX_PAGES_PER_VCPU.
+>>
+>> To remove the need for MAX_PAGES_PER_VCPU in a follow-up patch, the vgic
+>> member of NEW_VGIC's struct vgic_vcpu member private_irq is changed to a
+> s/vgic_vcpu/vgic_cpu/
+> s/private_irq/private_irqs/
+>
+>> pointer to struct vgic_irq.
+>> As a result, the size of struct vcpu for Arm64 is reduced to 2176 bytes,
+>> compared to 3840 bytes (without these changes and with CONFIG_ARM_64=y)
+>> and 4736 bytes (without these changes and with both CONFIG_ARM_64=y and
+>> CONFIG_NEW_VGIC=y).
+> You only touch new vGIC, so there should be no size reduction without it but the
+> paragraph reads as if the change affected both old and new vGIC. Also I would
+> mention that probably you provided the numbers based on a defconfig target.
 
-I think there is not a case now in current code base, but just common practice
-to have such type of functions to be idempotent.
+   Yes, all the numbers are provided based on defconfig target.
+   I will update this paragraph in the following way to be more clear:
+   As a result, the size of struct vcpu for Arm64 is reduced to 2176 bytes
+   in the case when CONFIG_ARM_64=y and CONFIG_NEW_VGIC=y, compared to 3840
+   bytes (without these changes and with CONFIG_ARM_64=y) and 4736 bytes
+   (without these changes and with both CONFIG_ARM_64=y and CONFIG_NEW_VGIC=y).
+   Note that all numbers are based on defconfig with the mentioned options
+   enabled or disabled as specified.
 
 >
->> Update the prototype of vcpu_vgic_free() to return void to satisfy MISRA
->> Rule 17.7, since the return value of vcpu_vgic_free() is not used by any
->> callers.
+>> Since the private_irqs member is now a pointer, vcpu_vgic_init() and
+>> vcpu_vgic_free() are updated to allocate and free private_irqs instance.
 >>
 >> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 >> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Other than that:
 > Acked-by: Michal Orzel <michal.orzel@amd.com>
 
-Thanks.
+Thanks!
 
 ~ Oleksii
 
