@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 042E7CE9D13
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 14:51:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194172.1512596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B48EACE9D0F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 14:51:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194175.1512607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaa7N-00040D-Eo; Tue, 30 Dec 2025 13:50:33 +0000
+	id 1vaa7n-0004L6-Nc; Tue, 30 Dec 2025 13:50:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194172.1512596; Tue, 30 Dec 2025 13:50:33 +0000
+Received: by outflank-mailman (output) from mailman id 1194175.1512607; Tue, 30 Dec 2025 13:50:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaa7N-0003x9-9C; Tue, 30 Dec 2025 13:50:33 +0000
-Received: by outflank-mailman (input) for mailman id 1194172;
- Tue, 30 Dec 2025 13:50:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vaa7n-0004Ia-Gd; Tue, 30 Dec 2025 13:50:59 +0000
+Received: by outflank-mailman (input) for mailman id 1194175;
+ Tue, 30 Dec 2025 13:50:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=owPK=7E=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vaa7L-0003x2-I3
- for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 13:50:31 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80849b61-e586-11f0-9ccf-f158ae23cfc8;
- Tue, 30 Dec 2025 14:50:29 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-42fed090e5fso4609451f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 05:50:29 -0800 (PST)
+ id 1vaa7m-0004Hp-5H
+ for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 13:50:58 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9058b66c-e586-11f0-b15c-2bf370ae4941;
+ Tue, 30 Dec 2025 14:50:57 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-47a8195e515so61479945e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 05:50:56 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea2278dsm69961974f8f.18.2025.12.30.05.50.27
+ 5b1f17b1804b1-47d193d4f09sm609436115e9.12.2025.12.30.05.50.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Dec 2025 05:50:28 -0800 (PST)
+ Tue, 30 Dec 2025 05:50:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80849b61-e586-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 9058b66c-e586-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1767102628; x=1767707428; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1767102655; x=1767707455; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ksrdaSIqpwx0gSdwMJzQe6JesX3RHk4cyQkoMRTQARM=;
-        b=DG9vauJ3Q+u4E3CMWSlFW62Y+EV0S2oKGWz+M5zMLSLj/gPcWUXLcjoFpvlWn+aA3s
-         J3ckXDTXuqL5ciVnt8oIwhIKsCK4RnyUiBYlOv+QnAFV2e9VMOYGVrpZv1tbx/O8vXZL
-         Yuf/U5Clv4vAxdAl7JI3SDVx1rNz+ahe3JN40=
+        bh=tYBfgeYkXFs2JqwcJcMeiu4Xt+bQnFiJZLerrgLP0nQ=;
+        b=izpVbiUZyAyrTTYVHQGEItgetepm+fzsi88ihswhr2n5ZzTQ4Hytm0o7RNQfWUWZJ3
+         lvMDjBJ44kzkUT7BdNSdVsoNJs93BMyVhc0KZa5col4IewDLo7PMhpao9tc+NEchNMca
+         8Pe3tQoqhb/lJhQoGtYALJDf3PwCyDc6JT6rY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767102628; x=1767707428;
+        d=1e100.net; s=20230601; t=1767102655; x=1767707455;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ksrdaSIqpwx0gSdwMJzQe6JesX3RHk4cyQkoMRTQARM=;
-        b=H7Cg8OJuS0n8xDpQY1kurQ86NWHoWyE7WPpUBi1kMqRPU3aWSwG+uIk8uCC/SYT/3I
-         hu/8cFIEy2KM9u5burQ+y7My0Jo9+gM+v2+5kV1s5q1i6E6q/lkg6/cGjElj7Cr4/8kA
-         L22Bc0qA97W8mAHGJr23FLe0GGroVIV118lR1tAPf3cnNazXlT1VjSr0PHoRRGw8q8EA
-         s1VXwO6ZECCI/E/pEM+Gjbyu4t08qUm7gnMJaDveJ+SnofqjTYamhHSlEBmxMLXIwF0J
-         rUDW+fiI+HUcmbIXWGZ4dHmncJMKdUn/+KE3kNo95G0yFZN1YUsVi60IUGCJDrRR0CwS
-         GuyQ==
-X-Gm-Message-State: AOJu0YzgZWF1HCFb8lB1/F0r6/CsT+2d3ulYekmQpbOaPpFfZBqGhd6B
-	WM4AalOe2SHoOuNfRLcZCF+R95O8TeLZVu6rtgXDtizwyxS25MjZtzPfs+nFa2p2lT97q0vopm+
-	ZnAQp
-X-Gm-Gg: AY/fxX4Cin9eeNug+DzMr7lxTvRqVYXjgxLdCA3Nw4Uh6no+QxuHnEhKWCbSj21SypI
-	sWopjskHtNHMnXP9+2UB1TQ1wKBvYrTExXp1ukjvTy4uhQP5tC6cwlUBO9ejM5rYK61N880lE+D
-	5/VkW7vyZQGy1tJLuQUZbEM1+nbdta4DGz0qFb1dpoOEGwbrLar/YPA1DJmoe7pO4tf+ZxFZwVK
-	4tx8my2SXPGf2NVvh50fmluMSkX5Gb3oFAGV5Y09qqV9/T9MOD2QWoTUHZrGhIN7dA1RalK5fTg
-	Kv7EQl40r/qgqJ+eDTEpZ/Yoy8yq/cn/jhG8FDOw9JznEQnVsRdQJg81JMS9TsFV5oi8EgNpv/t
-	AUPsTuzezuL8XXU7bRQUGXeQ85XRyvlHwMi028oaxiZuo6VHSEES1leuamutoZzxCy7GQ1M5xcw
-	6ibfzW6oHMMw+ePp9Sb72K/sQcz1PDOJHbDpwRmDgIDfZflGYWX9s+yWq4pmPkMA==
-X-Google-Smtp-Source: AGHT+IHaqF47HJqm1YDjq1Jsb9kbryBaY7byzAQJ0uQrFuifDesZdt5QT7Jw47Hx4lpDmHAtkOf3Jg==
-X-Received: by 2002:a05:6000:2508:b0:42b:3062:c647 with SMTP id ffacd0b85a97d-4324e4c9d6bmr40179989f8f.21.1767102628412;
-        Tue, 30 Dec 2025 05:50:28 -0800 (PST)
+        bh=tYBfgeYkXFs2JqwcJcMeiu4Xt+bQnFiJZLerrgLP0nQ=;
+        b=vZ7Asnae43BoTPQ58SYYTa9mvD7oc0MQVvnTO6/OC80Ez8rmrVF5azYTIR5OYzijud
+         Yqcg7b0Kej0lZwrkSkE3q7+kjx8c70aPwT51SdNotsjrbQQlGS68lDoVnqCYtimFo+pW
+         ieh+PjDPB5tihxy+qsyV0cb22qeNd0F5oA7urSROzURFDrLtEnPm4Nti+Hn0VTY1Es3g
+         Z0m6ku8orU5/8bGi5EQFt5nGMTKwVh87WyMbazSVr4pu6guTXmQuzgY4XIU7EY3r99P9
+         V0ljRB0ty7diCgIYG248BAT2rStcX0zXEwGeB1/GA/VWCIMAZrylpEa5T84Eq5J6Y/Xx
+         i7Sg==
+X-Gm-Message-State: AOJu0YyLDwcadxPx7kB+mtw73I3r8wXOSLpRuMS13ryOJvQePza2NMg/
+	QmIFrRWMXq/H2BBzHxDsGMxYJ7pyrX+5Y9knT7ji1+wkQJjwQsrmObfRHWPS3ejoewuXk6qZ4/4
+	2nie7
+X-Gm-Gg: AY/fxX49jt4496orboAF87ewfdWvohV52yhLnpJs/QqeigglcxzYW7xLsR9i5u4+/Y7
+	edJPzPNtdtRcK2vZ0TyJTWkRi+B4l8OML/Joh7sbg5q6E4Etlg++JO+XsPlbCvJVunvMfLeey5l
+	toagfCVZY6P0d1d/tD7mVwqTRohHw4y02sqH+xYp+2n8sakQ2PhsDyNwAgMuHS3n9Phko8QYD6Z
+	YKGcjNDNfECmT26Fl+rsj2wUT0lFkmhmB/uAGpNCwX5pkXiFQ5r8nONd74ZnNzrlSk1xxHfY4TC
+	QbyH7JeReMQ6CBWwiQ7RKAZtYp7r8Fg0QCWdMF97plU7cuSFGQgaQVlrcB2C7r/rjpzYfxQsB3t
+	lWyvvtcPlAt3eLntNMa/wutHCi+gYQXhiGAJRe9lUtmgAGSR2gOycmM7nKRfLX/VC3gf9dWDF6k
+	iLKa6vX3Ym44B8QT3T8tQ/gvDU9WmrQIAi01VkMnnR6T3BebavPtBBmJUV9bLs5A==
+X-Google-Smtp-Source: AGHT+IGxPFz0/stvHz7GQfWtCzy3oHV6WfJm4ey2uSL3F/GsksQV6YA/+Rpmm3G3SOyxNE0g7JyK0Q==
+X-Received: by 2002:a05:600c:444b:b0:477:561f:6fc8 with SMTP id 5b1f17b1804b1-47d19549625mr351100915e9.5.1767102655140;
+        Tue, 30 Dec 2025 05:50:55 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -90,126 +90,38 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] xen: Move x86-ism out of muldiv64.c
-Date: Tue, 30 Dec 2025 13:50:26 +0000
-Message-Id: <20251230135026.188162-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 0/5] xen/lib: muldiv64() cleanup
+Date: Tue, 30 Dec 2025 13:50:45 +0000
+Message-Id: <20251230135050.188191-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Having an #ifdef CONFIG_X86 section in a common library is rude.
+Split out of lib.h, remove x86-isms from the common library.
 
-Furthermore, for x86 the main logic is 6 bytes, meaning it's ripe for
-inlining.  Create an x86-specific asm/muldiv.h implementing arch_muldiv64().
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2237126270
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Andrew Cooper (5):
+  xen: Fix endian handling in muldiv64.c
+  arm/time: Sort headers
+  x86/time: Sort headers
+  xen: Split muldiv64() out of lib.h
+  xen: Move x86-ism out of muldiv64.c
 
-bloat-o-meter results:
-
-  add/remove: 0/1 grow/shrink: 1/2 up/down: 10/-39 (-29)
-  Function                                     old     new   delta
-  get_count                                    240     250     +10
-  calibrate_apic_timer                         211     203      -8
-  calibrate_tsc                                190     177     -13
-  muldiv64                                      18       -     -18
-
-The increase in get_count is from different register scheduling.
----
- xen/arch/x86/include/asm/muldiv.h | 20 ++++++++++++++++++++
- xen/include/xen/muldiv.h          |  8 ++++++++
- xen/lib/muldiv64.c                |  8 --------
- 3 files changed, 28 insertions(+), 8 deletions(-)
+ xen/arch/arm/time.c               | 21 ++++++++--------
+ xen/arch/riscv/include/asm/time.h |  4 +--
+ xen/arch/x86/emul-i8254.c         | 12 ++++-----
+ xen/arch/x86/include/asm/muldiv.h | 20 +++++++++++++++
+ xen/arch/x86/time.c               | 42 ++++++++++++++++---------------
+ xen/common/bitops.c               | 12 +++++++++
+ xen/include/xen/lib.h             |  2 --
+ xen/include/xen/muldiv.h          | 26 +++++++++++++++++++
+ xen/lib/muldiv64.c                | 19 +++++---------
+ 9 files changed, 105 insertions(+), 53 deletions(-)
  create mode 100644 xen/arch/x86/include/asm/muldiv.h
+ create mode 100644 xen/include/xen/muldiv.h
 
-diff --git a/xen/arch/x86/include/asm/muldiv.h b/xen/arch/x86/include/asm/muldiv.h
-new file mode 100644
-index 000000000000..563cab0564da
---- /dev/null
-+++ b/xen/arch/x86/include/asm/muldiv.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef X86_MULDIV_H
-+#define X86_MULDIV_H
-+
-+#include <xen/stdint.h>
-+
-+static inline uint64_t attr_const arch_muldiv64(uint64_t a, uint32_t b, uint32_t c)
-+{
-+    asm_inline (
-+        "mulq %[b]\n\t"
-+        "divq %[c]"
-+        : "+a" (a)
-+        : [b] "rm" ((uint64_t)b), [c] "rm" ((uint64_t)c)
-+        : "rdx" );
-+
-+    return a;
-+}
-+#define arch_muldiv64 arch_muldiv64
-+
-+#endif /* X86_MULDIV_H */
-diff --git a/xen/include/xen/muldiv.h b/xen/include/xen/muldiv.h
-index 8ed2c68caf84..e7f8fdcf01ea 100644
---- a/xen/include/xen/muldiv.h
-+++ b/xen/include/xen/muldiv.h
-@@ -4,6 +4,10 @@
- 
- #include <xen/stdint.h>
- 
-+#if __has_include(<asm/muldiv.h>)
-+# include <asm/muldiv.h>
-+#endif
-+
- uint64_t attr_const generic_muldiv64(uint64_t a, uint32_t b, uint32_t c);
- 
- /*
-@@ -12,7 +16,11 @@ uint64_t attr_const generic_muldiv64(uint64_t a, uint32_t b, uint32_t c);
-  */
- static inline uint64_t attr_const muldiv64(uint64_t a, uint32_t b, uint32_t c)
- {
-+#ifdef arch_muldiv64
-+    return arch_muldiv64(a, b, c);
-+#else
-     return generic_muldiv64(a, b, c);
-+#endif
- }
- 
- #endif /* XEN_MULDIV_H */
-diff --git a/xen/lib/muldiv64.c b/xen/lib/muldiv64.c
-index 5e6db1b2f4d2..6ee86d124a21 100644
---- a/xen/lib/muldiv64.c
-+++ b/xen/lib/muldiv64.c
-@@ -2,13 +2,6 @@
- 
- uint64_t generic_muldiv64(uint64_t a, uint32_t b, uint32_t c)
- {
--#ifdef CONFIG_X86
--    asm ( "mulq %1; divq %2" : "+a" (a)
--                             : "rm" ((uint64_t)b), "rm" ((uint64_t)c)
--                             : "rdx" );
--
--    return a;
--#else
-     union {
-         uint64_t ll;
-         struct {
-@@ -31,7 +24,6 @@ uint64_t generic_muldiv64(uint64_t a, uint32_t b, uint32_t c)
-     res.l.low = (((rh % c) << 32) + (uint32_t)rl) / c;
- 
-     return res.ll;
--#endif
- }
- 
- /*
 -- 
 2.39.5
 
