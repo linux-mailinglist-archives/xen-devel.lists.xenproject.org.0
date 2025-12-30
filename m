@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9155ACE9D45
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 14:54:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194219.1512691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D047CE9D3F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Dec 2025 14:54:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194218.1512685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaaBJ-00080m-ST; Tue, 30 Dec 2025 13:54:37 +0000
+	id 1vaaBJ-0007x2-Hu; Tue, 30 Dec 2025 13:54:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194219.1512691; Tue, 30 Dec 2025 13:54:37 +0000
+Received: by outflank-mailman (output) from mailman id 1194218.1512685; Tue, 30 Dec 2025 13:54:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaaBJ-0007wm-Ka; Tue, 30 Dec 2025 13:54:37 +0000
-Received: by outflank-mailman (input) for mailman id 1194219;
- Tue, 30 Dec 2025 13:54:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vaaBJ-0007uL-DR; Tue, 30 Dec 2025 13:54:37 +0000
+Received: by outflank-mailman (input) for mailman id 1194218;
+ Tue, 30 Dec 2025 13:54:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=owPK=7E=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vaaBI-0007fS-1J
- for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 13:54:36 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 120b39ed-e587-11f0-9ccf-f158ae23cfc8;
- Tue, 30 Dec 2025 14:54:33 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-430f2ee2f00so4688213f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 05:54:33 -0800 (PST)
+ id 1vaaBH-0007RX-SB
+ for xen-devel@lists.xenproject.org; Tue, 30 Dec 2025 13:54:35 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12575937-e587-11f0-b15c-2bf370ae4941;
+ Tue, 30 Dec 2025 14:54:34 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42b3b0d76fcso5737414f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Dec 2025 05:54:34 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea226d1sm70198245f8f.13.2025.12.30.05.54.31
+ ffacd0b85a97d-4324ea226d1sm70198245f8f.13.2025.12.30.05.54.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Dec 2025 05:54:31 -0800 (PST)
+ Tue, 30 Dec 2025 05:54:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 120b39ed-e587-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 12575937-e587-11f0-b15c-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1767102873; x=1767707673; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Dfg9SOntw48QjjQPH4731TXdZMbOgAkel6auQMh8/BY=;
-        b=VpiiVmCt1R6YGCSlUWQepLY5D+/PqyxfrUaEbRY8dL3Sz5jxTQzrE951o/7ZnIjuIt
-         lhLq6yIHjAQS9SW6nsh6By6mZ0OGvjFrRoLn3RdqCmb2ev0wcJR20MeTCWc5XNpgy/TT
-         8zFo/luVJOY7TtUCs8z5/0CtktDvYNGU0JhDk=
+        bh=MN4BFE0zEOL3BVNw4e4DwpxZUXh2vOZGnzYNY10L858=;
+        b=HT7N8+PxYkzY+OrxbC1s3vhI7tWNqDVDu30adLMucxDWQXurWNVsBer3hNoA+8LMLo
+         KMCmbxKQNp8eTcYWmqkd6nEK7/uM+HPbc94JNGSzB+zUVj1fJXvZNNjdYTThfYoJnGRe
+         oqBA+1LVCTMTygoazKbwmtTdMTxkLDFJiLEyY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1767102873; x=1767707673;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Dfg9SOntw48QjjQPH4731TXdZMbOgAkel6auQMh8/BY=;
-        b=jP6XoInLSgKAc4PQ/zEt3NL8rfcz+yyOG+jf7HGhiIredBHfpPMIDkA4fEYINss/Aa
-         VsAU1eJX+ooRmv/GElFgdD3JQIHD42KAtdbE50ZKl+onmHZJaLa6Egux4WoTlyWAdtzF
-         Lzg2sRLWM/bjlyDAc6XPBShL/KVn72pa58QeZioaziDUWd/bW6MdrQw+ZJsSXLCOTtBK
-         UFAOiYMTKztBIpFKoP9G4xbcqU+uddmgfnT1UaHJoAx2F/iw25mKMt6q/9JnjDq/uVOR
-         yvJXJPR4mwtk7MQiHEvgFU75IFZ1gQAli6w2/QXI0niqyCVPu8lR99aGgMzjc033XdYm
-         AS6A==
-X-Gm-Message-State: AOJu0YxW8XjMagdHAYxSlx9A4sqFsLjG32vuOBgwHe2wDuLTT85JTj2q
-	8O4ePUhmTPV69tCLySQudT8VcTA8MbXRIKRDwd1PQazsuGpl0PbcWtX0SxQgjYDrQdDTQ4adTF9
-	JoBqX
-X-Gm-Gg: AY/fxX6PS1tOYLE7VrmRM9mPK6owmfzZUC9ixUmqVq/VwMrfbizISm3oauX0s74gYNV
-	FTwYPg5M0FhfUFt0er98Ruer7HCc8fAbU0Jho8ejyz4azqU/p3+mkITi5k9GZmc2S47LSjC2Xom
-	4zy/1nV0K9d5Ylkn0mm1h0Iv5DXYnHLIA+YPzjQ1nNR8j8ulO1HBxB+wKx73mBBY33ihbniN+x0
-	KYRFgPMDoKJ7zrRxq4Cacyq9VCMw2k0MWgHtjHQWPmH/fP2GQdFORuNbm+Sytb4/btQDMQ5ZVly
-	69+GaDQJgmbq0ajMgE4bsWlCDAMJq9mAQnCAB0sJVDUX/4TqntaWwEXBt4RPrNPBwi/W99EdgGW
-	+gg8PERqpeIGsDCqJAc0KFfGk4NUYvBB2X/9E8NSbG/52U7X71OLNvaG78XXdFvN1l3xztoXKCt
-	XOaMyJTDamOi2yLU/1Z6YVW1OjfjgQWu/Mct7PXcfLr6edGsMIK7+LXoY7AsdJXw==
-X-Google-Smtp-Source: AGHT+IHx15LPlEcPx2ILuydl9rgMLwSDyB0zTQBjhnlj0f6IMxG0RthWvbrpoDSFJWWj/AEtUBimvQ==
-X-Received: by 2002:a05:6000:310f:b0:431:4b7:a309 with SMTP id ffacd0b85a97d-4324e4cc2d7mr42430294f8f.20.1767102872062;
+        bh=MN4BFE0zEOL3BVNw4e4DwpxZUXh2vOZGnzYNY10L858=;
+        b=b1ywm5xppRVvOvvMF0qMSsisnAC5O2bjt6W0LZ1hyxghznXzEVn8MsvD9ZYbRRtTNQ
+         p/K9faL+M0UqkegrinMQ67wiiSIYuRFwAmJtbwoKDka06UWGpllZ9swqQnuvssPO7Y6d
+         FmAraJn4Zanzfh0GBnoq4cc9tT+4vtX8FEAlNnQk3d0YTAg7yKicL5kyPhmNCN+4R6p6
+         zDBabIQXflGL/PxtuJ8devKifOEjVRD5o//PIOXoXQfrB7c3fffGJ5MkrXBsBEFzlKAj
+         gQzkquASeKKgFnTV7s7v3CZ1LwCXt8yH3Nd6apwakVerUNFm/USyj18nWzQ5Au8HexQK
+         lPwA==
+X-Gm-Message-State: AOJu0YwFFuYfNSlMTy0IIxiheEn6sdkvTXzRAiT3IA6awxLk/H3jwe7e
+	s5ZvMztGIQfVTsR3QcflNOypWvHfeWvKWvDO9T0lnnLtFfWMPVjfY2z89qF+uTCm8kZ0IHMRTtN
+	Pbjzy
+X-Gm-Gg: AY/fxX6+MhpHlShmDda9TVgbduLPRTefg+tCsdNTaxTCnizJT29DQ1LnPtyCge5WHD9
+	HupBfXWEGQyUJqwLJ9S5uxL5bw8gDiZ6vK16jUkNJDyFD8dNYkSmuYxSQ6BPIK8bLRZmYqot6iE
+	E6OZZChSo60WQS4oh568uPlGCK4b1YVuYJzMy20LBg2e8D/aWoVTaKCfpUWhdzzS9Oe+JQa1OOs
+	rEEv3nrxLLBVrvDEs2x5iB/Gbzn/3Vi2STOBKK1vhDutatWh1z/QGETgtGf9mrEe2E6NuZRmj9m
+	rnLcWQ19Jkao+YEcsv0WxPojsflJPTL4IkD8MGJue2P/tEqDe6I6LWa9cjX4+t/vpqhe/G9ufz+
+	Az0ddu9oDG3QopW1LuDWbnnsLipvVttHwmcX/78j7sE0WV8+SWcquIsxdIxxk7xud3osNjrTm37
+	yYDCgV7Q1PRCgYrZYrbjee9ztuIB5ecQp5LOMc2bwz6JRBxtonr2aB71FR9bA52A==
+X-Google-Smtp-Source: AGHT+IHFH/BV9WhXNCgKpX0SIy7xp1x+BfEGUzDeblCEGZc8taSwD0E9sOYy6vTP8EC8/FdC48ljbg==
+X-Received: by 2002:a05:6000:178e:b0:430:b100:f594 with SMTP id ffacd0b85a97d-4324e50d9bcmr41314069f8f.50.1767102872660;
         Tue, 30 Dec 2025 05:54:32 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 1/4] x86/xstate: Deindent the logic in xrstor()
-Date: Tue, 30 Dec 2025 13:54:24 +0000
-Message-Id: <20251230135427.188440-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/4] x86/xstate: Rework XSAVE/XRSTOR given a newer toolchain baseline
+Date: Tue, 30 Dec 2025 13:54:25 +0000
+Message-Id: <20251230135427.188440-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251230135427.188440-1-andrew.cooper3@citrix.com>
 References: <20251230135427.188440-1-andrew.cooper3@citrix.com>
@@ -95,7 +95,14 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-... to improve the legibility of the following fix.
+The new toolchain baseline knows all the mnemonics, so a plain memory operand
+can be used, rather than needing to hard-code the ModRM byte as (%rdi).
+
+For xrstor(), use asm goto rather than hiding the increment of the faults
+variable inside the .fixup section.  Remove the loop and replace it with a
+goto retry pattern.  Put the domain_crash() into the default case for fault
+handling, and provide a concrete error message rather than leaving it as an
+exercise for extra code diving.
 
 No functional change.
 
@@ -103,167 +110,170 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-Best reviewed with `git show --ignore-all-space`
 ---
- xen/arch/x86/xstate.c | 131 ++++++++++++++++++++++--------------------
- 1 file changed, 68 insertions(+), 63 deletions(-)
+ xen/arch/x86/xstate.c | 77 ++++++++++++++++++++-----------------------
+ 1 file changed, 36 insertions(+), 41 deletions(-)
 
 diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index e990abc9d18c..384f78bd5281 100644
+index 384f78bd5281..4215a83efefb 100644
 --- a/xen/arch/x86/xstate.c
 +++ b/xen/arch/x86/xstate.c
-@@ -407,19 +407,19 @@ void xrstor(struct vcpu *v, uint64_t mask)
-      */
-     for ( prev_faults = faults = 0; ; prev_faults = faults )
+@@ -310,21 +310,21 @@ void xsave(struct vcpu *v, uint64_t mask)
+     uint32_t hmask = mask >> 32;
+     uint32_t lmask = mask;
+     unsigned int fip_width = v->domain->arch.x87_fip_width;
+-#define XSAVE(pfx) \
+-        if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY ) \
+-            asm volatile ( ".byte " pfx "0x0f,0xc7,0x2f\n" /* xsaves */ \
+-                           : "=m" (*ptr) \
+-                           : "a" (lmask), "d" (hmask), "D" (ptr) ); \
+-        else \
+-            alternative_io(".byte " pfx "0x0f,0xae,0x27\n", /* xsave */ \
+-                           ".byte " pfx "0x0f,0xae,0x37\n", /* xsaveopt */ \
+-                           X86_FEATURE_XSAVEOPT, \
+-                           "=m" (*ptr), \
+-                           "a" (lmask), "d" (hmask), "D" (ptr))
++
++#define XSAVE(pfx)                                                      \
++    if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )                      \
++        asm volatile ( "xsaves %0"                                      \
++                       : "=m" (*ptr)                                    \
++                       : "a" (lmask), "d" (hmask) );                    \
++    else                                                                \
++        alternative_io("xsave %0",                                      \
++                       "xsaveopt %0", X86_FEATURE_XSAVEOPT,             \
++                       "=m" (*ptr),                                     \
++                       "a" (lmask), "d" (hmask))
+ 
+     if ( fip_width == 8 || !(mask & X86_XCR0_X87) )
      {
--        switch ( __builtin_expect(ptr->fpu_sse.x[FPU_WORD_SIZE_OFFSET], 8) )
--        {
--            BUILD_BUG_ON(sizeof(faults) != 4); /* Clang doesn't support %z in asm. */
--#define _xrstor(insn) \
--        asm volatile ( "1: .byte " insn "\n" \
--                       "3:\n" \
--                       "   .section .fixup,\"ax\"\n" \
--                       "2: incl %[faults]\n" \
--                       "   jmp 3b\n" \
--                       "   .previous\n" \
--                       _ASM_EXTABLE(1b, 2b) \
--                       : [mem] "+m" (*ptr), [faults] "+g" (faults) \
--                       : [lmask] "a" (lmask), [hmask] "d" (hmask), \
-+    switch ( __builtin_expect(ptr->fpu_sse.x[FPU_WORD_SIZE_OFFSET], 8) )
-+    {
-+        BUILD_BUG_ON(sizeof(faults) != 4); /* Clang doesn't support %z in asm. */
-+#define _xrstor(insn)                                               \
-+        asm volatile ( "1: .byte " insn "\n"                        \
-+                       "3:\n"                                       \
-+                       "   .section .fixup,\"ax\"\n"                \
-+                       "2: incl %[faults]\n"                        \
-+                       "   jmp 3b\n"                                \
-+                       "   .previous\n"                             \
-+                       _ASM_EXTABLE(1b, 2b)                         \
-+                       : [mem] "+m" (*ptr), [faults] "+g" (faults)  \
-+                       : [lmask] "a" (lmask), [hmask] "d" (hmask),  \
-                          [ptr] "D" (ptr) )
+-        XSAVE("0x48,");
++        XSAVE("rex64 ");
+     }
+     else if ( fip_width == 4 )
+     {
+@@ -349,7 +349,7 @@ void xsave(struct vcpu *v, uint64_t mask)
+ 
+         ptr->fpu_sse.fip.addr = bad_fip;
+ 
+-        XSAVE("0x48,");
++        XSAVE("rex64 ");
+ 
+         /* FIP/FDP not updated? Restore the old FIP value. */
+         if ( ptr->fpu_sse.fip.addr == bad_fip )
+@@ -384,7 +384,7 @@ void xrstor(struct vcpu *v, uint64_t mask)
+     uint32_t hmask = mask >> 32;
+     uint32_t lmask = mask;
+     struct xsave_struct *ptr = v->arch.xsave_area;
+-    unsigned int faults, prev_faults;
++    unsigned int faults = 0;
+ 
+     /*
+      * Some CPUs don't save/restore FDP/FIP/FOP unless an exception
+@@ -405,22 +405,15 @@ void xrstor(struct vcpu *v, uint64_t mask)
+      * possibility, which may occur if the block was passed to us by control
+      * tools or through VCPUOP_initialise, by silently adjusting state.
+      */
+-    for ( prev_faults = faults = 0; ; prev_faults = faults )
+-    {
++ retry:
+     switch ( __builtin_expect(ptr->fpu_sse.x[FPU_WORD_SIZE_OFFSET], 8) )
+     {
+-        BUILD_BUG_ON(sizeof(faults) != 4); /* Clang doesn't support %z in asm. */
+-#define _xrstor(insn)                                               \
+-        asm volatile ( "1: .byte " insn "\n"                        \
+-                       "3:\n"                                       \
+-                       "   .section .fixup,\"ax\"\n"                \
+-                       "2: incl %[faults]\n"                        \
+-                       "   jmp 3b\n"                                \
+-                       "   .previous\n"                             \
+-                       _ASM_EXTABLE(1b, 2b)                         \
+-                       : [mem] "+m" (*ptr), [faults] "+g" (faults)  \
+-                       : [lmask] "a" (lmask), [hmask] "d" (hmask),  \
+-                         [ptr] "D" (ptr) )
++#define _xrstor(insn)                                       \
++        asm_inline volatile goto (                          \
++            "1: " insn " %0\n"                              \
++            _ASM_EXTABLE(1b, %l[fault])                     \
++            :: "m" (*ptr), "a" (lmask), "d" (hmask)         \
++            :: fault )
  
  #define XRSTOR(pfx) \
-@@ -437,62 +437,67 @@ void xrstor(struct vcpu *v, uint64_t mask)
+         if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY ) \
+@@ -432,13 +425,13 @@ void xrstor(struct vcpu *v, uint64_t mask)
+                 ptr->xsave_hdr.xcomp_bv = ptr->xsave_hdr.xstate_bv | \
+                                           XSTATE_COMPACTION_ENABLED; \
+             } \
+-            _xrstor(pfx "0x0f,0xc7,0x1f"); /* xrstors */ \
++            _xrstor(pfx "xrstors"); \
+         } \
          else \
-             _xrstor(pfx "0x0f,0xae,0x2f") /* xrstor */
+-            _xrstor(pfx "0x0f,0xae,0x2f") /* xrstor */
++            _xrstor(pfx "xrstor")
  
--        default:
--            XRSTOR("0x48,");
--            break;
--        case 4: case 2:
--            XRSTOR("");
--            break;
-+    default:
-+        XRSTOR("0x48,");
-+        break;
-+
-+    case 4: case 2:
-+        XRSTOR("");
-+        break;
-+
- #undef XRSTOR
+     default:
+-        XRSTOR("0x48,");
++        XRSTOR("rex64 ");
+         break;
+ 
+     case 4: case 2:
+@@ -449,8 +442,10 @@ void xrstor(struct vcpu *v, uint64_t mask)
  #undef _xrstor
--        }
--        if ( likely(faults == prev_faults) )
--            break;
-+    }
-+
-+    if ( likely(faults == prev_faults) )
-+        break;
-+
- #ifndef NDEBUG
--        gprintk(XENLOG_WARNING, "fault#%u: mxcsr=%08x\n",
--                faults, ptr->fpu_sse.mxcsr);
--        gprintk(XENLOG_WARNING, "xs=%016lx xc=%016lx\n",
--                ptr->xsave_hdr.xstate_bv, ptr->xsave_hdr.xcomp_bv);
--        gprintk(XENLOG_WARNING, "r0=%016lx r1=%016lx\n",
--                ptr->xsave_hdr.reserved[0], ptr->xsave_hdr.reserved[1]);
--        gprintk(XENLOG_WARNING, "r2=%016lx r3=%016lx\n",
--                ptr->xsave_hdr.reserved[2], ptr->xsave_hdr.reserved[3]);
--        gprintk(XENLOG_WARNING, "r4=%016lx r5=%016lx\n",
--                ptr->xsave_hdr.reserved[4], ptr->xsave_hdr.reserved[5]);
-+    gprintk(XENLOG_WARNING, "fault#%u: mxcsr=%08x\n",
-+            faults, ptr->fpu_sse.mxcsr);
-+    gprintk(XENLOG_WARNING, "xs=%016lx xc=%016lx\n",
-+            ptr->xsave_hdr.xstate_bv, ptr->xsave_hdr.xcomp_bv);
-+    gprintk(XENLOG_WARNING, "r0=%016lx r1=%016lx\n",
-+            ptr->xsave_hdr.reserved[0], ptr->xsave_hdr.reserved[1]);
-+    gprintk(XENLOG_WARNING, "r2=%016lx r3=%016lx\n",
-+            ptr->xsave_hdr.reserved[2], ptr->xsave_hdr.reserved[3]);
-+    gprintk(XENLOG_WARNING, "r4=%016lx r5=%016lx\n",
-+            ptr->xsave_hdr.reserved[4], ptr->xsave_hdr.reserved[5]);
- #endif
--        switch ( faults )
-+
-+    switch ( faults )
-+    {
-+    case 1: /* Stage 1: Reset state to be loaded. */
-+        ptr->xsave_hdr.xstate_bv &= ~mask;
-+        /*
-+         * Also try to eliminate fault reasons, even if this shouldn't be
-+         * needed here (other code should ensure the sanity of the data).
-+         */
-+        if ( ((mask & X86_XCR0_SSE) ||
-+              ((mask & X86_XCR0_YMM) &&
-+               !(ptr->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED))) )
-+            ptr->fpu_sse.mxcsr &= mxcsr_mask;
-+        if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )
-         {
--        case 1: /* Stage 1: Reset state to be loaded. */
--            ptr->xsave_hdr.xstate_bv &= ~mask;
--            /*
--             * Also try to eliminate fault reasons, even if this shouldn't be
--             * needed here (other code should ensure the sanity of the data).
--             */
--            if ( ((mask & X86_XCR0_SSE) ||
--                  ((mask & X86_XCR0_YMM) &&
--                   !(ptr->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED))) )
--                ptr->fpu_sse.mxcsr &= mxcsr_mask;
--            if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )
--            {
--                ptr->xsave_hdr.xcomp_bv &= this_cpu(xcr0) | this_cpu(xss);
--                ptr->xsave_hdr.xstate_bv &= ptr->xsave_hdr.xcomp_bv;
--                ptr->xsave_hdr.xcomp_bv |= XSTATE_COMPACTION_ENABLED;
--            }
--            else
--            {
--                ptr->xsave_hdr.xstate_bv &= this_cpu(xcr0);
--                ptr->xsave_hdr.xcomp_bv = 0;
--            }
--            memset(ptr->xsave_hdr.reserved, 0, sizeof(ptr->xsave_hdr.reserved));
--            continue;
--
--        case 2: /* Stage 2: Reset all state. */
--            ptr->fpu_sse.mxcsr = MXCSR_DEFAULT;
--            ptr->xsave_hdr.xstate_bv = 0;
--            ptr->xsave_hdr.xcomp_bv = v->arch.xcr0_accum & XSTATE_XSAVES_ONLY
--                                      ? XSTATE_COMPACTION_ENABLED : 0;
--            continue;
-+            ptr->xsave_hdr.xcomp_bv &= this_cpu(xcr0) | this_cpu(xss);
-+            ptr->xsave_hdr.xstate_bv &= ptr->xsave_hdr.xcomp_bv;
-+            ptr->xsave_hdr.xcomp_bv |= XSTATE_COMPACTION_ENABLED;
-         }
-+        else
-+        {
-+            ptr->xsave_hdr.xstate_bv &= this_cpu(xcr0);
-+            ptr->xsave_hdr.xcomp_bv = 0;
-+        }
-+        memset(ptr->xsave_hdr.reserved, 0, sizeof(ptr->xsave_hdr.reserved));
-+        continue;
-+
-+    case 2: /* Stage 2: Reset all state. */
-+        ptr->fpu_sse.mxcsr = MXCSR_DEFAULT;
-+        ptr->xsave_hdr.xstate_bv = 0;
-+        ptr->xsave_hdr.xcomp_bv = v->arch.xcr0_accum & XSTATE_XSAVES_ONLY
-+            ? XSTATE_COMPACTION_ENABLED : 0;
-+        continue;
-+    }
+     }
  
-         domain_crash(current->domain);
+-    if ( likely(faults == prev_faults) )
+-        break;
++    return;
++
++ fault:
++    faults++;
+ 
+ #ifndef NDEBUG
+     gprintk(XENLOG_WARNING, "fault#%u: mxcsr=%08x\n",
+@@ -489,17 +484,17 @@ void xrstor(struct vcpu *v, uint64_t mask)
+             ptr->xsave_hdr.xcomp_bv = 0;
+         }
+         memset(ptr->xsave_hdr.reserved, 0, sizeof(ptr->xsave_hdr.reserved));
+-        continue;
++        goto retry;
+ 
+     case 2: /* Stage 2: Reset all state. */
+         ptr->fpu_sse.mxcsr = MXCSR_DEFAULT;
+         ptr->xsave_hdr.xstate_bv = 0;
+         ptr->xsave_hdr.xcomp_bv = v->arch.xcr0_accum & XSTATE_XSAVES_ONLY
+             ? XSTATE_COMPACTION_ENABLED : 0;
+-        continue;
+-    }
++        goto retry;
+ 
+-        domain_crash(current->domain);
++    default: /* Stage 3: Nothing else to do. */
++        domain_crash(v->domain, "Uncorrectable XRSTOR fault\n");
          return;
+     }
+ }
+@@ -1041,17 +1036,17 @@ uint64_t read_bndcfgu(void)
+ 
+     if ( cpu_has_xsavec )
+     {
+-        asm ( ".byte 0x0f,0xc7,0x27\n" /* xsavec */
++        asm ( "xsavec %0"
+               : "=m" (*xstate)
+-              : "a" (X86_XCR0_BNDCSR), "d" (0), "D" (xstate) );
++              : "a" (X86_XCR0_BNDCSR), "d" (0) );
+ 
+         bndcsr = (void *)(xstate + 1);
+     }
+     else
+     {
+-        asm ( ".byte 0x0f,0xae,0x27\n" /* xsave */
++        asm ( "xsave %0"
+               : "=m" (*xstate)
+-              : "a" (X86_XCR0_BNDCSR), "d" (0), "D" (xstate) );
++              : "a" (X86_XCR0_BNDCSR), "d" (0) );
+ 
+         bndcsr = (void *)xstate + xstate_offsets[ilog2(X86_XCR0_BNDCSR)];
+     }
 -- 
 2.39.5
 
