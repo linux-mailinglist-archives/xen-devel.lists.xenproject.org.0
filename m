@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43912CEB873
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 09:28:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194523.1512909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8887CEBDB3
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 12:24:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194535.1512917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1varYe-0001rn-02; Wed, 31 Dec 2025 08:27:52 +0000
+	id 1vauIU-0005P4-Tk; Wed, 31 Dec 2025 11:23:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194523.1512909; Wed, 31 Dec 2025 08:27:51 +0000
+Received: by outflank-mailman (output) from mailman id 1194535.1512917; Wed, 31 Dec 2025 11:23:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1varYd-0001p5-S1; Wed, 31 Dec 2025 08:27:51 +0000
-Received: by outflank-mailman (input) for mailman id 1194523;
- Wed, 31 Dec 2025 08:27:50 +0000
+	id 1vauIU-0005Nc-Qv; Wed, 31 Dec 2025 11:23:22 +0000
+Received: by outflank-mailman (input) for mailman id 1194535;
+ Wed, 31 Dec 2025 11:23:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TQtY=7F=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1varYc-0001os-0q
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 08:27:50 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ <SRS0=KlCN=7F=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vauIS-0005NU-0Z
+ for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 11:23:20 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9719126c-e622-11f0-b15d-2bf370ae4941;
- Wed, 31 Dec 2025 09:27:48 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-64dfb22c7e4so7367764a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 31 Dec 2025 00:27:48 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64b91599605sm36937041a12.23.2025.12.31.00.27.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Dec 2025 00:27:47 -0800 (PST)
+ id 1a062afa-e63b-11f0-b15d-2bf370ae4941;
+ Wed, 31 Dec 2025 12:23:16 +0100 (CET)
+Received: from nico.tail79467d.ts.net (unknown [46.228.253.214])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id F22564EE0745;
+ Wed, 31 Dec 2025 12:23:11 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9719126c-e622-11f0-b15d-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767169668; x=1767774468; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fobpSK9AUXphPAhG1PyM5Pwgt4TvSHa2X/lrd8clEqM=;
-        b=aIteteG8NdbWENjFWnS8zke9aG+mLSegZ/WJwUwY0JfykdaJ7YaRRE3XQ96yk+/HXW
-         AuTZvGJUeipgaK0fX1JjWwJ/uaCl2JIlWFfe5WBIMgYjvt4rk+J923QVNCw8us27Bf93
-         qYT/GbPEhqS89YobJtQbSzjgqQ9RWOs2Hhbslo4mSsxbQ1hfO8qwp+1163VJa+lyodNy
-         nv0Hxz4bTe0+sd+6mhkJsttoRe71mTh11KI8ICwB5aKxRjSoCyy5B2BWpwS4sS2+1tnL
-         NM5jI5kOG3eYYFoFdxVYmOxSM6nuQP4XZ5c8aIUm7Rw6WseWWXEksuk8SDBD2E4SWjys
-         27/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767169668; x=1767774468;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fobpSK9AUXphPAhG1PyM5Pwgt4TvSHa2X/lrd8clEqM=;
-        b=qY+VmKZeT3dY4T6obYboNEgi3HoqPhc475cQPBkRatm1z8Aw/eAqTNTBRe554pVZ92
-         icT9wO3d+8FZ+7eF4y093uCvVaq0qD7l8Qc9Qw3JI6bI/jmsf+BZLn/o/N8LsShiUnwQ
-         65bCKkaDxyAEvHMxz0728rsTE+QYYA0Xf+SYHpgXD3zREqRTTRPIsyp2bkchrjwEk3F7
-         QMhFnS4yxZGGFrsbromR5gJshscf2gJ9Z2/sHmwARS/M+TBiJR/AgowjB3v+0xVP3QA5
-         YDvH2wcQTSMfbp6vY02A72Tbarn1iLR2Zr3SrEQgftIrp8i5b2UD+ZyPJb2BIu4HxPkG
-         moZg==
-X-Forwarded-Encrypted: i=1; AJvYcCUtjVvLSE4I/IaE08ijgV9r+iwCv4JPJ8dVavsBmU6IyMk9T+xzL20KYb0gAOUsUcJo9jmIAA3L4oQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/1SfxeTn9Kw4fbyCaLuvWgE+PLb0czu9CSLh+UFFxUz0npURj
-	36IAllTZNhyQLX5dD5QqIlhSlMTvH7JAh8W+uFllIZ+8ReX+zJiadcYL
-X-Gm-Gg: AY/fxX5jLKJyy6Kbp1keObCCdAPOJIBs3ZLO+4u9nIDNiOMJfN85Dk+BVa7Xd3DPK7a
-	SzpIuGO0QPtH8mnQIF4bTP2fC6zYqJx5A+Eg1kAxAUz535lXjBgQX3xkZPJNbVg7UgWzMB5j4hD
-	NlYmDvY1tvSydLWIaro4ZS94Hw8WZ+Vp1wciblKhb3yVPP+ZE3c/wv9eDrDsssJKe6bJ23uZNiR
-	Vvl0RJ5k8SFm+WLri6SsMiBmljTuEjgUPCOrKj41ZPFZ/ivdY/BsgYmF8tD6Ak4eKI/Afka90QN
-	FWKaipwHKVn+NbGjnNyz1AF0VTaP/prjU0sLjcRzb/3VeWM+P5YD1f9lVZyitHVKkGskn5c7Xtx
-	4aOkczZJsTWzNInruH/70ABNu0rTE0/yofUUfNIJ/Jm4FS4+iO+TzC34sT0m6gCXdnWPEAwvtCM
-	pdDTfUteL6Cfi+N4uTZ1vW7gW5G2uL9u9wrpnGolveY1be2LQyTg6C8fcRzmgnyCU=
-X-Google-Smtp-Source: AGHT+IFFR875P5sAxSwb8eNWKE2TGpCv7OYBlEAvuaiumzld7urOY4EmCLTTRinr0c5I0yvFw6GWfQ==
-X-Received: by 2002:a17:907:70d7:b0:b80:1403:764c with SMTP id a640c23a62f3a-b80205e6bd3mr3024207366b.24.1767169668174;
-        Wed, 31 Dec 2025 00:27:48 -0800 (PST)
-Message-ID: <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
-Date: Wed, 31 Dec 2025 09:27:47 +0100
+X-Inumbo-ID: 1a062afa-e63b-11f0-b15d-2bf370ae4941
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=46.228.253.214
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1767180195;
+	b=1Go5Mp+oNpR3wTCaoEn6TLkMX7BdPQvhFJeXXOpcyL0gmBRje/A8FsyvhEb8t81j/Q3l
+	 05NIezIs1/QWUT/FQ74mnWP8SEpIL1qZiQyBhMWpYvxiylZf852ZYlOvZ9AgsYMjKulqp
+	 8K+5578J0S+fK/Zkf0LgrpPjr8CrVx5HiZHO6QhlOvUGgL8nyg0H62g6C3ACaWxWj76a3
+	 K/MK5JZwg56A/9Sw+L57dZpwvdlHjZfeYMgqTpUzHoNkqg9iuH4uJmWsHkLUtlStnAIti
+	 P25LrKSp+OoKChm0hYRi0+eoL1kMgKROM6800kIOrjuLMznR67rw2HnC0Eyz/S/q3Jay/
+	 q3Q1wwhUZb2k5jNLJathqrsgfTFFXfa0HeRVrckPo1y0/xIlNqa7Ai+YlQKzAfGSoK1BI
+	 hjEeIuV/2z8+vs0xYJfzOxwIul3YbrwOt8y9ux/dzy57zWGT/Yam7L/tB5HeSD8hQJAbM
+	 ARpvWGY537255JqIvAjDVQY9TJvm7ZN/801E4Rs634AKfVZCK0uedns+TBoXZIdyNXw4B
+	 C0KfoYqmZZ38ZCuJKzTKSBWJ+cjtDx41PpfSextA8qmY08y7Y2owBz0FZ9w4pkdoJhgU8
+	 BT0oe3n0xzHj4Wyh2FaxzTJDKxs2o5RCDFhV9NSFVGgSrg2V3czb0ghdi/oeP4g=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1767180195;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=h8T//oEFRoqKd83Hn5Dtc+/fNA6sTXVBavX9GYkdTfA=;
+	b=t+2ru1SwbdKapPD5ZdInuJs1cq2Tp+f0Cy6+nVQ/lrwqWmEbf6j+od0ijZILkth1m7s1
+	 1YhOcKk1dTKpyxc9QqT9ELJfo3FNtj2MK5uXTZhPIdq4q2jo/tBA3iClIKqS7J6qSehf3
+	 Ixuc1eDGM3tOw5DehKqMtaVjAUtcGbXGmJxC6ouStaxUXDLgmYPzcAEmzmu+Z4S87Ybxz
+	 e3J7OquRJMQWSbJtCbpDO/0iIK3Tuu8e7nrDt4AXkmPm/lijB/C+iKoEesGPacVl35leb
+	 ivcHaJ17cA/iQTPQ/2jkrDb2j4qWowNo1P1uCQGyga72Hi2O1mFz6BW3nga2SBuET8dTh
+	 lZEXN0lFYPIho+sdxS3L0aJfvMf8Qo9OJoYLS+7qM2H51vapHeTYuleeIHtHkKO/guvoE
+	 52R3ir0jvdKF8Q02x/pxXgr/zzMDBJkRLsl+lCsXGhH+ufRgtPa0/1FMnnVa0fFchAgLs
+	 4HfkvDXpsDFYO75wUZRm3xFdfVqIPZKPW0IkSzEFsodX2H16uBmkb2IaCHti68q4rkPhu
+	 cBFgbZIIVPvSODOfkC37DS/yLnmyifCkIRqZHhYad5HHZ41EjkU86WuQaUhNrSN4o5Q36
+	 69Pun6p1z5mvm5XZPuOlPZbTEprUPtwt+nJSoraOLVtK6gKWP71aYA6sdY5bcBw=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=46.228.253.214
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1767180195; bh=LiusyckpAnrHrIbBjcv7AvQQOHCxMvLko16lHg5FGqg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=l8EScjgLd185Ck1znZsKyFMavtun2OwLd+q1kwUXIFEwUmDjnQIWewU3Yq6DdCURK
+	 n5bGbyBxCgHe10IeDDFCTE122qWlHkm5bjfzRZKb7JCvPRuXtgCdhmlPsQjwcgTiqB
+	 9cU8Ymz7a8xjp+ChZf+FcqSoLmFBXoL6dZWdm7gUH+OUiKpl4j9JasuuY7Ae0kHX2m
+	 OScVY0c0mCRsxZwFo02ybHjBareCXac2gNSEVsDTT/ulbGp+lmJH3h2nPNjIEhkSfn
+	 LjCPKizfB3cO9q6j+qfbbngiuhB78gPky9t9W6AYKIaxE6CNTl4DTkGjOh6F5jilAm
+	 JMSLskl3SfKMA==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH] xen: rework deviation to address varargs MISRA violations
+Date: Wed, 31 Dec 2025 12:22:52 +0100
+Message-ID: <d2ba22d6a36a4f2b952a80712aac2cfe632e8609.1767174251.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] xen/arm: optimize the size of struct vcpu
-To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1766504313.git.oleksii.kurochko@gmail.com>
- <0756ee97dd47f6acdefe593694b743eb6bfefacb.1766504313.git.oleksii.kurochko@gmail.com>
- <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
- <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+MISRA C Rule 17.1 prohibits the use of the features that support
+variadic functions. Make the deviation already in place for controlled
+use of such features more general, relying on the presence of the
+`format' attribute on the function declaration.
 
-On 12/29/25 12:10 PM, Orzel, Michal wrote:
->
-> On 29/12/2025 12:08, Orzel, Michal wrote:
->>
->> On 23/12/2025 18:01, Oleksii Kurochko wrote:
->>> When CONFIG_NEW_VGIC=y and CONFIG_ARM_64=y, the size of struct vcpu
->>> exceeds one page, which requires allocating two pages and led to the
->>> introduction of MAX_PAGES_PER_VCPU.
-> Also, I think it would be better to drop MAX_PAGES_PER_VCPU in this patch.
+Add attributes where missing in order to avoid special-casing
+certain functions that use variadic arguments.
 
-Then I'll update alloc_vcpu_struct() and free_vcpu_struct() to:
-  struct vcpu *alloc_vcpu_struct(const struct domain *d)
-  {
-      struct vcpu *v;
-  
--    BUILD_BUG_ON(sizeof(*v) > MAX_PAGES_PER_VCPU * PAGE_SIZE);
--    v = alloc_xenheap_pages(get_order_from_bytes(sizeof(*v)), 0);
-+    BUILD_BUG_ON(sizeof(*v) > PAGE_SIZE);
-+    v = alloc_xenheap_pages(0, 0);
-      if ( v != NULL )
--    {
--        unsigned int i;
--
--        for ( i = 0; i < DIV_ROUND_UP(sizeof(*v), PAGE_SIZE); i++ )
--            clear_page((void *)v + i * PAGE_SIZE);
--    }
-+        clear_page(v);
-  
-      return v;
-@@ -503,5 +488,5 @@ struct vcpu *alloc_vcpu_struct(const struct domain *d)
-  void free_vcpu_struct(struct vcpu *v)
-  {
--    free_xenheap_pages(v, get_order_from_bytes(sizeof(*v)));
-+    free_xenheap_page(v);
-  }
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+CI pipeline: https://gitlab.com/xen-project/people/bugseng/xen/-/pipelines/2239414827
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 12 +++++-------
+ docs/misra/deviations.rst                        |  4 ++--
+ xen/common/libelf/libelf-private.h               |  4 +++-
+ xen/drivers/char/console.c                       |  4 +++-
+ 4 files changed, 13 insertions(+), 11 deletions(-)
 
-Thanks.
-
-~ Oleksii
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 219ba6993b90..7dee4a488d45 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -570,13 +570,11 @@ safe."
+ # Series 17.
+ #
+ 
+--doc_begin="printf()-like functions are allowed to use the variadic features provided by stdarg.h."
+--config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\\(.*\\)$)))"}
+--config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\\(.*\\)$)))"}
+--config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
+--config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
+--config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vprintk_common)&&kind(function))))"}
+--config=MC3A2.R17.1,macros+={hide , "^va_(arg|start|copy|end)$"}
++-doc_begin="printf()-like or scanf()-like functions are allowed to use the variadic features provided by stdarg.h,
++provided that they are declared using the `format' attribute."
++-decl_selector+={format_attr, "property(format)"}
++-config=MC3A2.R17.1,reports+={deliberate, "any_area(^.*va_list.*$&&context(ancestor_or_self(format_attr)))"}
++-config=MC3A2.R17.1,macros+={deliberate , "^va_(arg|start|copy|end)$"}
+ -doc_end
+ 
+ -doc_begin="Not using the return value of a function does not endanger safety if it coincides with an actual argument."
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index b3431ef24e26..584907b048ec 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -570,8 +570,8 @@ Deviations related to MISRA C:2012 Rules:
+      - Tagged as `deliberate` for ECLAIR.
+ 
+    * - R17.1
+-     - printf()-like functions  are allowed to use the variadic features provided
+-       by `stdarg.h`.
++     - printf()-like or scanf()-like functions are allowed to use the variadic
++       features provided by `stdarg.h`.
+      - Tagged as `deliberate` for ECLAIR.
+ 
+    * - R17.7
+diff --git a/xen/common/libelf/libelf-private.h b/xen/common/libelf/libelf-private.h
+index e5c9cc109972..239d000f49d1 100644
+--- a/xen/common/libelf/libelf-private.h
++++ b/xen/common/libelf/libelf-private.h
+@@ -84,7 +84,9 @@
+ #define elf_err(elf, fmt, args ... )                    \
+     elf_call_log_callback(elf, 1, fmt , ## args );
+ 
+-void elf_call_log_callback(struct elf_binary*, bool iserr, const char *fmt,...);
++void
++__attribute__ ((format (printf, 3, 4)))
++elf_call_log_callback(struct elf_binary*, bool iserr, const char *fmt, ...);
+ 
+ #define safe_strcpy(d,s)                        \
+ do { strncpy((d),(s),sizeof((d))-1);            \
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index a99605103552..2bdb4d5fb417 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -969,7 +969,9 @@ static void printk_start_of_line(const char *prefix)
+     __putstr(tstr);
+ }
+ 
+-static void vprintk_common(const char *fmt, va_list args, const char *prefix)
++static void
++__attribute__ ((format (printf, 1, 0)))
++vprintk_common(const char *fmt, va_list args, const char *prefix)
+ {
+     struct vps {
+         bool continued, do_print;
+-- 
+2.43.0
 
 
