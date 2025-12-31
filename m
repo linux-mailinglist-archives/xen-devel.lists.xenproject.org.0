@@ -2,33 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8887CEBDB3
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 12:24:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194535.1512917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06F3ECEC1DC
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 15:44:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194565.1512927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vauIU-0005P4-Tk; Wed, 31 Dec 2025 11:23:22 +0000
+	id 1vaxQM-00038T-Ie; Wed, 31 Dec 2025 14:43:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194535.1512917; Wed, 31 Dec 2025 11:23:22 +0000
+Received: by outflank-mailman (output) from mailman id 1194565.1512927; Wed, 31 Dec 2025 14:43:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vauIU-0005Nc-Qv; Wed, 31 Dec 2025 11:23:22 +0000
-Received: by outflank-mailman (input) for mailman id 1194535;
- Wed, 31 Dec 2025 11:23:20 +0000
+	id 1vaxQM-00036l-FM; Wed, 31 Dec 2025 14:43:42 +0000
+Received: by outflank-mailman (input) for mailman id 1194565;
+ Wed, 31 Dec 2025 14:43:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KlCN=7F=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vauIS-0005NU-0Z
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 11:23:20 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=7szS=7F=samsung.com=m.szyprowski@srs-se1.protection.inumbo.net>)
+ id 1vaxQL-00036f-2b
+ for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 14:43:41 +0000
+Received: from mailout1.w1.samsung.com (unknown [210.118.77.11])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a062afa-e63b-11f0-b15d-2bf370ae4941;
- Wed, 31 Dec 2025 12:23:16 +0100 (CET)
-Received: from nico.tail79467d.ts.net (unknown [46.228.253.214])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPSA id F22564EE0745;
- Wed, 31 Dec 2025 12:23:11 +0100 (CET)
+ id 13616cbd-e657-11f0-b15d-2bf370ae4941;
+ Wed, 31 Dec 2025 15:43:35 +0100 (CET)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20251231144330euoutp012b4b98da0a0ee7973e3abd06409fe05a~GU-PoEOpK3076130761euoutp014
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Dec 2025 14:43:30 +0000 (GMT)
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20251231144330eucas1p2e45e514c58572acda6dc94e809f9d2ee~GU-PNyoET1215412154eucas1p27;
+ Wed, 31 Dec 2025 14:43:30 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20251231144321eusmtip23facba6ecea740b65bcbedd64e01dd62~GU-GtmYe61784117841eusmtip2B;
+ Wed, 31 Dec 2025 14:43:21 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,150 +48,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a062afa-e63b-11f0-b15d-2bf370ae4941
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=46.228.253.214
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1767180195;
-	b=1Go5Mp+oNpR3wTCaoEn6TLkMX7BdPQvhFJeXXOpcyL0gmBRje/A8FsyvhEb8t81j/Q3l
-	 05NIezIs1/QWUT/FQ74mnWP8SEpIL1qZiQyBhMWpYvxiylZf852ZYlOvZ9AgsYMjKulqp
-	 8K+5578J0S+fK/Zkf0LgrpPjr8CrVx5HiZHO6QhlOvUGgL8nyg0H62g6C3ACaWxWj76a3
-	 K/MK5JZwg56A/9Sw+L57dZpwvdlHjZfeYMgqTpUzHoNkqg9iuH4uJmWsHkLUtlStnAIti
-	 P25LrKSp+OoKChm0hYRi0+eoL1kMgKROM6800kIOrjuLMznR67rw2HnC0Eyz/S/q3Jay/
-	 q3Q1wwhUZb2k5jNLJathqrsgfTFFXfa0HeRVrckPo1y0/xIlNqa7Ai+YlQKzAfGSoK1BI
-	 hjEeIuV/2z8+vs0xYJfzOxwIul3YbrwOt8y9ux/dzy57zWGT/Yam7L/tB5HeSD8hQJAbM
-	 ARpvWGY537255JqIvAjDVQY9TJvm7ZN/801E4Rs634AKfVZCK0uedns+TBoXZIdyNXw4B
-	 C0KfoYqmZZ38ZCuJKzTKSBWJ+cjtDx41PpfSextA8qmY08y7Y2owBz0FZ9w4pkdoJhgU8
-	 BT0oe3n0xzHj4Wyh2FaxzTJDKxs2o5RCDFhV9NSFVGgSrg2V3czb0ghdi/oeP4g=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1767180195;
-	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h8T//oEFRoqKd83Hn5Dtc+/fNA6sTXVBavX9GYkdTfA=;
-	b=t+2ru1SwbdKapPD5ZdInuJs1cq2Tp+f0Cy6+nVQ/lrwqWmEbf6j+od0ijZILkth1m7s1
-	 1YhOcKk1dTKpyxc9QqT9ELJfo3FNtj2MK5uXTZhPIdq4q2jo/tBA3iClIKqS7J6qSehf3
-	 Ixuc1eDGM3tOw5DehKqMtaVjAUtcGbXGmJxC6ouStaxUXDLgmYPzcAEmzmu+Z4S87Ybxz
-	 e3J7OquRJMQWSbJtCbpDO/0iIK3Tuu8e7nrDt4AXkmPm/lijB/C+iKoEesGPacVl35leb
-	 ivcHaJ17cA/iQTPQ/2jkrDb2j4qWowNo1P1uCQGyga72Hi2O1mFz6BW3nga2SBuET8dTh
-	 lZEXN0lFYPIho+sdxS3L0aJfvMf8Qo9OJoYLS+7qM2H51vapHeTYuleeIHtHkKO/guvoE
-	 52R3ir0jvdKF8Q02x/pxXgr/zzMDBJkRLsl+lCsXGhH+ufRgtPa0/1FMnnVa0fFchAgLs
-	 4HfkvDXpsDFYO75wUZRm3xFdfVqIPZKPW0IkSzEFsodX2H16uBmkb2IaCHti68q4rkPhu
-	 cBFgbZIIVPvSODOfkC37DS/yLnmyifCkIRqZHhYad5HHZ41EjkU86WuQaUhNrSN4o5Q36
-	 69Pun6p1z5mvm5XZPuOlPZbTEprUPtwt+nJSoraOLVtK6gKWP71aYA6sdY5bcBw=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=46.228.253.214
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1767180195; bh=LiusyckpAnrHrIbBjcv7AvQQOHCxMvLko16lHg5FGqg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=l8EScjgLd185Ck1znZsKyFMavtun2OwLd+q1kwUXIFEwUmDjnQIWewU3Yq6DdCURK
-	 n5bGbyBxCgHe10IeDDFCTE122qWlHkm5bjfzRZKb7JCvPRuXtgCdhmlPsQjwcgTiqB
-	 9cU8Ymz7a8xjp+ChZf+FcqSoLmFBXoL6dZWdm7gUH+OUiKpl4j9JasuuY7Ae0kHX2m
-	 OScVY0c0mCRsxZwFo02ybHjBareCXac2gNSEVsDTT/ulbGp+lmJH3h2nPNjIEhkSfn
-	 LjCPKizfB3cO9q6j+qfbbngiuhB78gPky9t9W6AYKIaxE6CNTl4DTkGjOh6F5jilAm
-	 JMSLskl3SfKMA==
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH] xen: rework deviation to address varargs MISRA violations
-Date: Wed, 31 Dec 2025 12:22:52 +0100
-Message-ID: <d2ba22d6a36a4f2b952a80712aac2cfe632e8609.1767174251.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 13616cbd-e657-11f0-b15d-2bf370ae4941
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20251231144330euoutp012b4b98da0a0ee7973e3abd06409fe05a~GU-PoEOpK3076130761euoutp014
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1767192210;
+	bh=M8aPWywfPFOyTSGu0q6hhPXyHxVoa1F4hqfQwCmIl58=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Alom80QxoG+L7ICMesd3Euki0jWEh5m9WrDQOO82KpT3M8GlUii6jb4NC/BUwrtla
+	 x3F2P1lkvxBq8MsCMGMLR2GRCZGVZ1OzbjGOF4McE9zgsSSTUJqP6FtdiWlME5ilT5
+	 BOXZctdYokjY0BnnWLe9y+syt3f3BRIA9KcPecjg=
+Message-ID: <d19c559e-c93b-4a4d-9a0d-ec289ed4c2e6@samsung.com>
+Date: Wed, 31 Dec 2025 15:43:19 +0100
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 4/8] dma-mapping: Separate DMA sync issuing and
+ completion waiting
+To: Barry Song <21cnbao@gmail.com>, Leon Romanovsky <leon@kernel.org>
+Cc: catalin.marinas@arm.com, robin.murphy@arm.com, will@kernel.org,
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, Ada Couprie
+	Diaz <ada.coupriediaz@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Marc
+	Zyngier <maz@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+	Joerg Roedel <joro@8bytes.org>, Juergen Gross <jgross@suse.com>, Stefano
+	Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Tangquan Zheng <zhengtangquan@oppo.com>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20251231144330eucas1p2e45e514c58572acda6dc94e809f9d2ee
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20251228213843eucas1p298280bb01abe59739cd6e0482f570455
+X-EPHeader: CA
+X-CMS-RootMailID: 20251228213843eucas1p298280bb01abe59739cd6e0482f570455
+References: <20251226225254.46197-1-21cnbao@gmail.com>
+	<20251226225254.46197-5-21cnbao@gmail.com> <20251227200706.GN11869@unreal>
+	<CAGsJ_4zyascnpQ1cB-BMO9PDeeRZTBAh8Z-j-ip=RcxApa4zSg@mail.gmail.com>
+	<20251228144909.GR11869@unreal>
+	<CGME20251228213843eucas1p298280bb01abe59739cd6e0482f570455@eucas1p2.samsung.com>
+	<CAGsJ_4y=yoYZn+_ztdfuOCj_dS-M0h8YWO51AXubPbeR1FH6uQ@mail.gmail.com>
 
-MISRA C Rule 17.1 prohibits the use of the features that support
-variadic functions. Make the deviation already in place for controlled
-use of such features more general, relying on the presence of the
-`format' attribute on the function declaration.
+On 28.12.2025 22:38, Barry Song wrote:
+> On Mon, Dec 29, 2025 at 3:49 AM Leon Romanovsky <leon@kernel.org> wrote:
+>> On Sun, Dec 28, 2025 at 10:45:13AM +1300, Barry Song wrote:
+>>> On Sun, Dec 28, 2025 at 9:07 AM Leon Romanovsky <leon@kernel.org> wrote:
+>>>> On Sat, Dec 27, 2025 at 11:52:44AM +1300, Barry Song wrote:
+>>>>> From: Barry Song <baohua@kernel.org>
+>>>>>
+>>>>> Currently, arch_sync_dma_for_cpu and arch_sync_dma_for_device
+>>>>> always wait for the completion of each DMA buffer. That is,
+>>>>> issuing the DMA sync and waiting for completion is done in a
+>>>>> single API call.
+>>>>>
+>>>>> For scatter-gather lists with multiple entries, this means
+>>>>> issuing and waiting is repeated for each entry, which can hurt
+>>>>> performance. Architectures like ARM64 may be able to issue all
+>>>>> DMA sync operations for all entries first and then wait for
+>>>>> completion together.
+>>>>>
+>>>>> To address this, arch_sync_dma_for_* now issues DMA operations in
+>>>>> batch, followed by a flush. On ARM64, the flush is implemented
+>>>>> using a dsb instruction within arch_sync_dma_flush().
+>>>>>
+>>>>> For now, add arch_sync_dma_flush() after each
+>>>>> arch_sync_dma_for_*() call. arch_sync_dma_flush() is defined as a
+>>>>> no-op on all architectures except arm64, so this patch does not
+>>>>> change existing behavior. Subsequent patches will introduce true
+>>>>> batching for SG DMA buffers.
+>>>>>
+>>>>> Cc: Leon Romanovsky <leon@kernel.org>
+>>>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
+>>>>> Cc: Will Deacon <will@kernel.org>
+>>>>> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+>>>>> Cc: Robin Murphy <robin.murphy@arm.com>
+>>>>> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+>>>>> Cc: Ard Biesheuvel <ardb@kernel.org>
+>>>>> Cc: Marc Zyngier <maz@kernel.org>
+>>>>> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+>>>>> Cc: Ryan Roberts <ryan.roberts@arm.com>
+>>>>> Cc: Suren Baghdasaryan <surenb@google.com>
+>>>>> Cc: Joerg Roedel <joro@8bytes.org>
+>>>>> Cc: Juergen Gross <jgross@suse.com>
+>>>>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>>>>> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>> Cc: Tangquan Zheng <zhengtangquan@oppo.com>
+>>>>> Signed-off-by: Barry Song <baohua@kernel.org>
+>>>>> ---
+>>>>>   arch/arm64/include/asm/cache.h |  6 ++++++
+>>>>>   arch/arm64/mm/dma-mapping.c    |  4 ++--
+>>>>>   drivers/iommu/dma-iommu.c      | 37 +++++++++++++++++++++++++---------
+>>>>>   drivers/xen/swiotlb-xen.c      | 24 ++++++++++++++--------
+>>>>>   include/linux/dma-map-ops.h    |  6 ++++++
+>>>>>   kernel/dma/direct.c            |  8 ++++++--
+>>>>>   kernel/dma/direct.h            |  9 +++++++--
+>>>>>   kernel/dma/swiotlb.c           |  4 +++-
+>>>>>   8 files changed, 73 insertions(+), 25 deletions(-)
+>>>> <...>
+>>>>
+>>>>> +#ifndef arch_sync_dma_flush
+>>>>> +static inline void arch_sync_dma_flush(void)
+>>>>> +{
+>>>>> +}
+>>>>> +#endif
+>>>> Over the weekend I realized a useful advantage of the ARCH_HAVE_* config
+>>>> options: they make it straightforward to inspect the entire DMA path simply
+>>>> by looking at the .config.
+>>> I am not quite sure how much this benefits users, as the same
+>>> information could also be obtained by grepping for
+>>> #define arch_sync_dma_flush in the source code.
+>> It differs slightly. Users no longer need to grep around or guess whether this
+>> platform used the arch_sync_dma_flush path. A simple grep for ARCH_HAVE_ in
+>> /proc/config.gz provides the answer.
+> In any case, it is only two or three lines of code, so I am fine with
+> either approach. Perhaps Marek, Robin, and others have a point here?
 
-Add attributes where missing in order to avoid special-casing
-certain functions that use variadic arguments.
+If possible I would suggest to follow the already used style in the 
+given code even if it means a bit larger patch.
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-CI pipeline: https://gitlab.com/xen-project/people/bugseng/xen/-/pipelines/2239414827
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 12 +++++-------
- docs/misra/deviations.rst                        |  4 ++--
- xen/common/libelf/libelf-private.h               |  4 +++-
- xen/drivers/char/console.c                       |  4 +++-
- 4 files changed, 13 insertions(+), 11 deletions(-)
+>>>> Thanks,
+>>>> Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+>>> Thanks very much, Leon, for reviewing this over the weekend. One thing
+>>> you might have missed is that I place arch_sync_dma_flush() after all
+>>> arch_sync_dma_for_*() calls, for both single and sg cases. I also
+>>> used a Python script to scan the code and verify that every
+>>> arch_sync_dma_for_*() is followed by arch_sync_dma_flush(), to ensure
+>>> that no call is left out.
+>>>
+>>> In the subsequent patches, for sg cases, the per-entry flush is
+>>> replaced by a single flush of the entire sg. Each sg case has
+>>> different characteristics: some are straightforward, while others
+>>> can be tricky and involve additional contexts.
+>> I didn't overlook it, and I understand your rationale. However, this is
+>> not how kernel patches should be structured. You should not introduce
+>> code in patch X and then move it elsewhere in patch X + Y.
+> I am not quite convinced by this concern. This patch only
+> separates DMA sync issuing from completion waiting, and it
+> reflects that the development is done step by step.
+>
+>> Place the code in the correct location from the start. Your patches are
+>> small enough to review as is.
+> My point is that this patch places the code in the correct locations
+> from the start. It splits arch_sync_dma_for_*() into
+> arch_sync_dma_for_*() plus arch_sync_dma_flush() everywhere, without
+> introducing any functional changes from the outset.
+> The subsequent patches clearly show which parts are truly batched.
+>
+> In the meantime, I do not have a strong preference here. If you think
+> it is better to move some of the straightforward batching code here,
+> I can follow that approach. Perhaps I could move patch 5, patch 8,
+> and the iommu_dma_iova_unlink_range_slow change from patch 7 here,
+> while keeping
+>
+>    [PATCH 6] dma-mapping: Support batch mode for
+>    dma_direct_{map,unmap}_sg
+>
+> and the IOVA link part from patch 7 as separate patches, since that
+> part is not straightforward. The IOVA link changes affect both
+> __dma_iova_link() and dma_iova_sync(), which are two separate
+> functions and require a deeper understanding of the contexts to
+> determine correctness. That part also lacks testing.
+>
+> Would that be okay with you?
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 219ba6993b90..7dee4a488d45 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -570,13 +570,11 @@ safe."
- # Series 17.
- #
- 
---doc_begin="printf()-like functions are allowed to use the variadic features provided by stdarg.h."
---config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printk\\(.*\\)$)))"}
---config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(^.*printf\\(.*\\)$)))"}
---config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(panic)&&kind(function))))"}
---config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(elf_call_log_callback)&&kind(function))))"}
---config=MC3A2.R17.1,reports+={deliberate,"any_area(^.*va_list.*$&&context(ancestor_or_self(name(vprintk_common)&&kind(function))))"}
---config=MC3A2.R17.1,macros+={hide , "^va_(arg|start|copy|end)$"}
-+-doc_begin="printf()-like or scanf()-like functions are allowed to use the variadic features provided by stdarg.h,
-+provided that they are declared using the `format' attribute."
-+-decl_selector+={format_attr, "property(format)"}
-+-config=MC3A2.R17.1,reports+={deliberate, "any_area(^.*va_list.*$&&context(ancestor_or_self(format_attr)))"}
-+-config=MC3A2.R17.1,macros+={deliberate , "^va_(arg|start|copy|end)$"}
- -doc_end
- 
- -doc_begin="Not using the return value of a function does not endanger safety if it coincides with an actual argument."
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index b3431ef24e26..584907b048ec 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -570,8 +570,8 @@ Deviations related to MISRA C:2012 Rules:
-      - Tagged as `deliberate` for ECLAIR.
- 
-    * - R17.1
--     - printf()-like functions  are allowed to use the variadic features provided
--       by `stdarg.h`.
-+     - printf()-like or scanf()-like functions are allowed to use the variadic
-+       features provided by `stdarg.h`.
-      - Tagged as `deliberate` for ECLAIR.
- 
-    * - R17.7
-diff --git a/xen/common/libelf/libelf-private.h b/xen/common/libelf/libelf-private.h
-index e5c9cc109972..239d000f49d1 100644
---- a/xen/common/libelf/libelf-private.h
-+++ b/xen/common/libelf/libelf-private.h
-@@ -84,7 +84,9 @@
- #define elf_err(elf, fmt, args ... )                    \
-     elf_call_log_callback(elf, 1, fmt , ## args );
- 
--void elf_call_log_callback(struct elf_binary*, bool iserr, const char *fmt,...);
-+void
-+__attribute__ ((format (printf, 3, 4)))
-+elf_call_log_callback(struct elf_binary*, bool iserr, const char *fmt, ...);
- 
- #define safe_strcpy(d,s)                        \
- do { strncpy((d),(s),sizeof((d))-1);            \
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index a99605103552..2bdb4d5fb417 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -969,7 +969,9 @@ static void printk_start_of_line(const char *prefix)
-     __putstr(tstr);
- }
- 
--static void vprintk_common(const char *fmt, va_list args, const char *prefix)
-+static void
-+__attribute__ ((format (printf, 1, 0)))
-+vprintk_common(const char *fmt, va_list args, const char *prefix)
- {
-     struct vps {
-         bool continued, do_print;
+Yes, this will be okay. The changes are easy to understand, so we don't 
+need to go there with such very small steps.
+
+Best regards
 -- 
-2.43.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
 
