@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A485CEC2D3
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 16:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194585.1512948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA05CCEC2DC
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 16:35:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194594.1512957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vay9k-0001O1-3R; Wed, 31 Dec 2025 15:30:36 +0000
+	id 1vayEE-0001xP-J9; Wed, 31 Dec 2025 15:35:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194585.1512948; Wed, 31 Dec 2025 15:30:36 +0000
+Received: by outflank-mailman (output) from mailman id 1194594.1512957; Wed, 31 Dec 2025 15:35:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vay9j-0001MX-W5; Wed, 31 Dec 2025 15:30:35 +0000
-Received: by outflank-mailman (input) for mailman id 1194585;
- Wed, 31 Dec 2025 15:30:33 +0000
+	id 1vayEE-0001v4-GV; Wed, 31 Dec 2025 15:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 1194594;
+ Wed, 31 Dec 2025 15:35:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vay9h-0001MP-Pb
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:30:33 +0000
+ (envelope-from <julien@xen.org>) id 1vayED-0001uy-KO
+ for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:35:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vay9h-001IDH-0M;
- Wed, 31 Dec 2025 15:30:33 +0000
+ (envelope-from <julien@xen.org>) id 1vayEC-001IGV-39;
+ Wed, 31 Dec 2025 15:35:13 +0000
 Received: from [213.226.64.151] (helo=[192.168.8.236])
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vay9h-001Dy5-0a;
- Wed, 31 Dec 2025 15:30:33 +0000
+ (envelope-from <julien@xen.org>) id 1vayED-001EH7-08;
+ Wed, 31 Dec 2025 15:35:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,110 +40,96 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=21dj1HuxM77VKz4tWKQE72pq1xIKbRJlIF5a8K0+pEc=; b=fooyLPqU4ssInDyzAz7BxOppP9
-	Ly/KJjumao2xN8nMJ6p4UKi1e9MQgxEejismyjDHnOUxYkgYd4gfW1HQ24u3VmrvpevJEKUieilDB
-	biyJZVqOfPQOSZayfln1rg3v9b3RHPqs+fVU761xGNZ55z6GVEw8uz+YU2Wu4t/HR8tI=;
-Message-ID: <18f249c1-3717-42e4-86df-84552741702d@xen.org>
-Date: Wed, 31 Dec 2025 15:30:31 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=CihMYYJbpoIXf277OYZHUjp/wj51Xq3PLyghtTYVVSY=; b=jU31Z53S9Cd0OoJ3ERjQKE1WOq
+	eJ9ADpVlMg0p/YLf/3nsdJiJjYzwWRX3DswBq8rgyVNEjunz1QBUpXFkTYE+a7EzdXj/Gkcd/+kpr
+	U6TORZMq9wQjmVKeFCvOQ/CbYft8ZopMtqhUnlVrZfaVxpJzRun/sdxBKDhW6Joffwfg=;
+Message-ID: <584bcb9e-ca3a-442a-9b6c-bdb5fb5fb8f4@xen.org>
+Date: Wed, 31 Dec 2025 15:35:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/8] arm/irq: Migrate IRQs from dyings CPUs
+Subject: Re: [PATCH v7 03/12] xen/arm: gic-v3: Implement GICv3 suspend/resume
+ functions
 Content-Language: en-GB
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+From: Julien Grall <julien@xen.org>
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org,
+ Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1762939773.git.mykyta_poturai@epam.com>
- <6371ac96102f48b55ffd884656770187ed3a7f84.1762939773.git.mykyta_poturai@epam.com>
- <8099d0ed-74bd-4c98-9441-296daf76c41e@xen.org>
- <5569161c-2edc-4409-901d-d65493f12496@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5569161c-2edc-4409-901d-d65493f12496@epam.com>
+References: <cover.1765472890.git.mykola_kvach@epam.com>
+ <9f084beff76e40fed2138ba2d59145a96b930c63.1765472890.git.mykola_kvach@epam.com>
+ <a2be5ae1-7e4a-4137-9e36-6c5845a93ca1@xen.org>
+In-Reply-To: <a2be5ae1-7e4a-4137-9e36-6c5845a93ca1@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On 12/12/2025 10:01, Mykyta Poturai wrote:
-> On 16.11.25 13:24, Julien Grall wrote:
->> Hi,
->>
->> On 12/11/2025 10:51, Mykyta Poturai wrote:
->>> Move IRQs from dying CPU to the online ones.
->>> Guest-bound IRQs are already handled by scheduler in the process of
->>> moving vCPUs to active pCPUs, so we only need to handle IRQs used by Xen
->>> itself.
->>>
->>> If IRQ is to be migrated, it's affinity is set to a mask of all online
->>> CPUs. With current GIC implementation, this means they are routed to a
->>> random online CPU. This may cause extra moves if multiple cores are
->>> disabled in sequence, but should prevent all interrupts from piling up
->>> on CPU0 in case of repeated up-down cycles on different cores.
->>
->> Wouldn't they eventually all move to CPU0 in the case of suspend/resume
->> or if all the CPUs but CPU0 are turned off and then off? If so,
->> shouldn't we try to rebalance the interrupts?
->>
+On 26/12/2025 12:39, Julien Grall wrote:
+> Hi Mykola,
 > 
-> In case of disabling/enabling all cores in a sequence, yes. This was
-> designed with the idea of achieving some balancing when
-> enabling/disabling some cores for power saving reasons.
-
-I understand how this may balance when disabling some cores. But I don't 
-understand how it helps for enabling cores. Can you provide more details?
-
-> I agree that
-> proper balancing should be implemented, but it is a complex task on its
-> own and requires a substantial amount of testing on different hardware
-> to prove it is close to optimal. So I think implementing it is out of
-> scope for what I’m trying to do here.
-
-Can you provide some details about what you are trying and why it would 
-be ok to avoid the balancing?
-
- > > If this would be okay, I can implement a relatively simple solution of
-> just adding onlined CPUs back to the affinity mask for now. I think it
-> should improve the situation for the “switching all cores” case.
-
-Do you mean calling gic_irq_set_affinity() with the CPU? If so, Xen is 
-still going to get one CPU from the affinity mask.
-
-> 
->>>
->>> IRQs from CPU 0 are never migrated, as dying CPU 0 means we are either
->>> shutting down compeletely or entering system suspend.
+> On 11/12/2025 18:43, Mykola Kvach wrote:
+>> From: Mykola Kvach <mykola_kvach@epam.com>
 >>
->> I can't find a place where __cpu_disable() is called on CPU0. Do you
->> have any pointer? In any case, I am not sure I want to bake that
->> assumption in more places of the code.
+>> System suspend may lead to a state where GIC would be powered down.
+>> Therefore, Xen should save/restore the context of GIC on suspend/resume.
 >>
-> 
-> I assume it would be called when suspend is implemented. In any case, I
-> will rework this to replace the hard check for CPU 0 with the “is it the
-> last CPU online” one.
-
-AFAIK __cpu_disable() is not going to be called during suspend/resume 
-for CPU0. So the only case is shutting down the platform.
-
-> 
->>>
->>> Considering that all Xen-used IRQs are currently allocated during init
->>> on CPU 0, and setup_irq uses smp_processor_id for the initial affinity.
+>> Note that the context consists of states of registers which are
+>> controlled by the hypervisor. Other GIC registers which are accessible
+>> by guests are saved/restored on context switch.
 >>
->> Looking at the SMMU driver, we seems to request IRQs at the time the
->> device is attached. So are you sure about this?
+>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+>> ---
+>> Changes in V7:
+>> - restore LPI regs on resume
+>> - add timeout during redist disabling
+>> - squash with suspend/resume handling for GICv3 eSPI registers
+>> - drop ITS guard paths so suspend/resume always runs; switch missing ctx
+>>    allocation to panic
+>> - trim TODO comments; narrow redistributor storage to PPI icfgr
+>> - keep distributor context allocation even without ITS; adjust resume
+>>    to use GENMASK(31, 0) for clearing enables
+>> - drop storage of the SGI configuration register, as SGIs are always
+>>    edge-triggered
+>> ---
+>>   xen/arch/arm/gic-v3-lpi.c              |   3 +
+>>   xen/arch/arm/gic-v3.c                  | 319 ++++++++++++++++++++++++-
+>>   xen/arch/arm/include/asm/gic_v3_defs.h |   1 +
+>>   3 files changed, 320 insertions(+), 3 deletions(-)
 >>
+>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+>> index de5052e5cf..61a6e18303 100644
+>> --- a/xen/arch/arm/gic-v3-lpi.c
+>> +++ b/xen/arch/arm/gic-v3-lpi.c
+>> @@ -391,6 +391,9 @@ static int cpu_callback(struct notifier_block 
+>> *nfb, unsigned long action,
+>>       switch ( action )
+>>       {
+>>       case CPU_UP_PREPARE:
+>> +        if ( system_state == SYS_STATE_resume )
+>> +            break;
 > 
-> Indeed, I have missed that one. I will remove those statements then.
+> Do we need this check because we don't free the LPI pending table when 
+> the CPU is turned off?
+> 
+> If so, don't we already have a problem for CPU hotplug because the 
+> percpu area will be freed but not the pending table?
 
-I think you need to have something in the commit message explaining why 
-you are ignoring the balancing for the SMMU.
+Looking at [1], we don't seem to support CPU OFF when the GICv3 ITS is 
+enabled. So this change could be delayed. But CC Mykyta for awareness.
 
 Cheers,
+
+[1] 
+https://lore.kernel.org/48bafdb8e6269a3d958065c6a1062ce2736632a0.1762939773.git.mykyta_poturai@epam.com
+
+> 
+> Cheers,
+> 
 
 -- 
 Julien Grall
