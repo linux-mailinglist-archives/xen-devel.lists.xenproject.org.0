@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72EDECEC250
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 16:08:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194574.1512938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A485CEC2D3
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 16:31:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194585.1512948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaxoG-00068s-Dp; Wed, 31 Dec 2025 15:08:24 +0000
+	id 1vay9k-0001O1-3R; Wed, 31 Dec 2025 15:30:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194574.1512938; Wed, 31 Dec 2025 15:08:24 +0000
+Received: by outflank-mailman (output) from mailman id 1194585.1512948; Wed, 31 Dec 2025 15:30:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vaxoG-00066I-Al; Wed, 31 Dec 2025 15:08:24 +0000
-Received: by outflank-mailman (input) for mailman id 1194574;
- Wed, 31 Dec 2025 15:08:22 +0000
+	id 1vay9j-0001MX-W5; Wed, 31 Dec 2025 15:30:35 +0000
+Received: by outflank-mailman (input) for mailman id 1194585;
+ Wed, 31 Dec 2025 15:30:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vaxoE-00066C-Hi
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:08:22 +0000
+ (envelope-from <julien@xen.org>) id 1vay9h-0001MP-Pb
+ for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:30:33 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vaxoE-001Hk8-0c
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:08:22 +0000
-Received: from mail-vk1-f182.google.com ([209.85.221.182])
+ (envelope-from <julien@xen.org>) id 1vay9h-001IDH-0M;
+ Wed, 31 Dec 2025 15:30:33 +0000
+Received: from [213.226.64.151] (helo=[192.168.8.236])
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vaxoE-001CfW-1I
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:08:22 +0000
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-55e8c539b11so7654166e0c.2
- for <xen-devel@lists.xenproject.org>; Wed, 31 Dec 2025 07:08:22 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1vay9h-001Dy5-0a;
+ Wed, 31 Dec 2025 15:30:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,118 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
-	From:MIME-Version; bh=U41R3gTQ0+/idXMOyzv5zTdUM6vSJ45ituaK+6Ib9xk=; b=c1qnG/L
-	rucbbk+nxINawzWFKpuB3tDw9s1CU/JTAmGl8pJy19PG1HTB8I58n5vtpZtGRM8uZPSBorK4oi8Qw
-	nX11JIZE9sw3B8BdttYqo3han0nIDRNGm2l4c6gQeuj0mPeGlwHIBeQc5iwgIpWUKJY9Ol1TqtEHZ
-	5inPSa2RJQ=;
-X-Gm-Message-State: AOJu0Yza9IMJ/P4C2gWne0JUxkHDOKQJrvf+VJMvLIHCynvgLlOxmZPP
-	E5H7P6yc6X1W8cwk4i8ChnbrFBC2k+vxQu1eyPMayxzvLjgRcM5nskRKZRrlw9XORuBASPSwuKk
-	ObyuvCBCxPHm7IuggYnRZeBJmCO11uQ4=
-X-Google-Smtp-Source: AGHT+IFhqgcqYtqz08ex0f8BFZaWDkFWMRtXro1kMKM8yHap3hbLRxKViuFmmWSct+XWefHwGM4v4AhA/i39FauPWoI=
-X-Received: by 2002:a05:6122:1781:b0:54b:bc2a:f58d with SMTP id
- 71dfb90a1353d-5615bd19be1mr13653020e0c.3.1767193701945; Wed, 31 Dec 2025
- 07:08:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=21dj1HuxM77VKz4tWKQE72pq1xIKbRJlIF5a8K0+pEc=; b=fooyLPqU4ssInDyzAz7BxOppP9
+	Ly/KJjumao2xN8nMJ6p4UKi1e9MQgxEejismyjDHnOUxYkgYd4gfW1HQ24u3VmrvpevJEKUieilDB
+	biyJZVqOfPQOSZayfln1rg3v9b3RHPqs+fVU761xGNZ55z6GVEw8uz+YU2Wu4t/HR8tI=;
+Message-ID: <18f249c1-3717-42e4-86df-84552741702d@xen.org>
+Date: Wed, 31 Dec 2025 15:30:31 +0000
 MIME-Version: 1.0
-From: Cody Zuschlag <cody.zuschlag@xenproject.org>
-Date: Wed, 31 Dec 2025 16:08:09 +0100
-X-Gmail-Original-Message-ID: <CAJbE=KwdDf9P-kec0zPbSQEvzARWT8LX_D=EGWGM_LPPtvyj=w@mail.gmail.com>
-X-Gm-Features: AQt7F2rox-MyRHPGxhd4BJlJ-XH59UtFhRZObHT0p-uLaw_CLceQbS5qir2KAsY
-Message-ID: <CAJbE=KwdDf9P-kec0zPbSQEvzARWT8LX_D=EGWGM_LPPtvyj=w@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items for January 8 Xen Community Call @
- 16:00 UTC
-To: xen-devel@lists.xenproject.org, xen-announce@lists.xenprojet.org
-Content-Type: multipart/alternative; boundary="000000000000da98c9064740d851"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/8] arm/irq: Migrate IRQs from dyings CPUs
+Content-Language: en-GB
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1762939773.git.mykyta_poturai@epam.com>
+ <6371ac96102f48b55ffd884656770187ed3a7f84.1762939773.git.mykyta_poturai@epam.com>
+ <8099d0ed-74bd-4c98-9441-296daf76c41e@xen.org>
+ <5569161c-2edc-4409-901d-d65493f12496@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5569161c-2edc-4409-901d-d65493f12496@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---000000000000da98c9064740d851
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Hi everyone,
+On 12/12/2025 10:01, Mykyta Poturai wrote:
+> On 16.11.25 13:24, Julien Grall wrote:
+>> Hi,
+>>
+>> On 12/11/2025 10:51, Mykyta Poturai wrote:
+>>> Move IRQs from dying CPU to the online ones.
+>>> Guest-bound IRQs are already handled by scheduler in the process of
+>>> moving vCPUs to active pCPUs, so we only need to handle IRQs used by Xen
+>>> itself.
+>>>
+>>> If IRQ is to be migrated, it's affinity is set to a mask of all online
+>>> CPUs. With current GIC implementation, this means they are routed to a
+>>> random online CPU. This may cause extra moves if multiple cores are
+>>> disabled in sequence, but should prevent all interrupts from piling up
+>>> on CPU0 in case of repeated up-down cycles on different cores.
+>>
+>> Wouldn't they eventually all move to CPU0 in the case of suspend/resume
+>> or if all the CPUs but CPU0 are turned off and then off? If so,
+>> shouldn't we try to rebalance the interrupts?
+>>
+> 
+> In case of disabling/enabling all cores in a sequence, yes. This was
+> designed with the idea of achieving some balancing when
+> enabling/disabling some cores for power saving reasons.
 
-We=E2=80=99re getting ready for January's Xen Project Community Call on Thu=
-rsday, 8
-January 2026 at 16:00 UTC (4 pm UK time).
+I understand how this may balance when disabling some cores. But I don't 
+understand how it helps for enabling cores. Can you provide more details?
 
-We=E2=80=99d love for you to join. Feel free to participate or just observe=
-. This
-call is a great opportunity to see what the community is working on, align
-our various efforts, and share updates. Everyone is welcome!
+> I agree that
+> proper balancing should be implemented, but it is a complex task on its
+> own and requires a substantial amount of testing on different hardware
+> to prove it is close to optimal. So I think implementing it is out of
+> scope for what I’m trying to do here.
 
-*Preparation:*
+Can you provide some details about what you are trying and why it would 
+be ok to avoid the balancing?
 
-   - Add any proposed agenda items or missing action items:
-   https://cryptpad.fr/pad/#/2/pad/edit/Xq3h+gPoWoOOLtDIGebk+K8Q/
-   - If any action items have been resolved or are no longer relevant, feel
-   free to remove them from the doc. I attempted to clean up the doc, so fe=
-el
-   free to make any adjustments.
+ > > If this would be okay, I can implement a relatively simple solution of
+> just adding onlined CPUs back to the affinity mask for now. I think it
+> should improve the situation for the “switching all cores” case.
 
+Do you mean calling gic_irq_set_affinity() with the CPU? If so, Xen is 
+still going to get one CPU from the affinity mask.
 
+> 
+>>>
+>>> IRQs from CPU 0 are never migrated, as dying CPU 0 means we are either
+>>> shutting down compeletely or entering system suspend.
+>>
+>> I can't find a place where __cpu_disable() is called on CPU0. Do you
+>> have any pointer? In any case, I am not sure I want to bake that
+>> assumption in more places of the code.
+>>
+> 
+> I assume it would be called when suspend is implemented. In any case, I
+> will rework this to replace the hard check for CPU 0 with the “is it the
+> last CPU online” one.
 
-*Call Details:*
+AFAIK __cpu_disable() is not going to be called during suspend/resume 
+for CPU0. So the only case is shutting down the platform.
 
-   - Date: Thursday, 8 January 2026
-   - Time: 16:00 UTC (agenda begins at 16:05 UTC)
-   - Find your local timezone here
-   <https://www.worldtimebuddy.com/?qm=3D1&lid=3D5368361,2988507,5128581,26=
-43743,100,1850147,6&h=3D2988507&date=3D2026-1-8&sln=3D17-18&hf=3Dundefined&=
-c=3D1187>
-   - Link to Join the Call: https://meet.jit.si/XenProjectCommunityCall
+> 
+>>>
+>>> Considering that all Xen-used IRQs are currently allocated during init
+>>> on CPU 0, and setup_irq uses smp_processor_id for the initial affinity.
+>>
+>> Looking at the SMMU driver, we seems to request IRQs at the time the
+>> device is attached. So are you sure about this?
+>>
+> 
+> Indeed, I have missed that one. I will remove those statements then.
 
+I think you need to have something in the commit message explaining why 
+you are ignoring the balancing for the SMMU.
 
-We plan to open the meeting room at 16:00 UTC, but to allow time for
-switching between meetings and handling any technical issues, we=E2=80=99ll
-officially start discussing the agenda at 16:05 UTC.
+Cheers,
 
-Want to be CC=E2=80=99d on future calls?
+-- 
+Julien Grall
 
-Add or remove yourself from our Sign-up Sheet
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>.
-
-See you Thursday! Happy new year!
-
-
-Cody Zuschlag
-Xen Project - Community Manager
-
---000000000000da98c9064740d851
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>Hi everyone,<br><br>We=E2=80=99re getting ready =
-for January&#39;s Xen Project Community Call on Thursday, 8 January 2026 at=
- 16:00 UTC (4 pm UK time).<br><br>We=E2=80=99d love for you to join. Feel f=
-ree to participate or just observe. This call is a great opportunity to see=
- what the community is working on, align our various efforts, and share upd=
-ates. Everyone is welcome!<br><br><b>Preparation:</b><br><ul><li style=3D"m=
-argin-left:15px">Add any proposed agenda items or missing action items: <a =
-href=3D"https://cryptpad.fr/pad/#/2/pad/edit/Xq3h+gPoWoOOLtDIGebk+K8Q/">htt=
-ps://cryptpad.fr/pad/#/2/pad/edit/Xq3h+gPoWoOOLtDIGebk+K8Q/</a></li><li sty=
-le=3D"margin-left:15px">If any action items have been resolved or are no lo=
-nger relevant, feel free to remove them from the doc. I attempted to clean =
-up the doc, so feel free to make any adjustments.</li></ul><br><b>Call Deta=
-ils:<br></b><ul><li style=3D"margin-left:15px">Date: Thursday, 8 January 20=
-26</li><li style=3D"margin-left:15px">Time: 16:00 UTC (agenda begins at 16:=
-05 UTC)</li><li style=3D"margin-left:15px"><a href=3D"https://www.worldtime=
-buddy.com/?qm=3D1&amp;lid=3D5368361,2988507,5128581,2643743,100,1850147,6&a=
-mp;h=3D2988507&amp;date=3D2026-1-8&amp;sln=3D17-18&amp;hf=3Dundefined&amp;c=
-=3D1187" target=3D"_blank">Find your local timezone here</a></li><li style=
-=3D"margin-left:15px">Link to Join the Call:=C2=A0<a href=3D"https://meet.j=
-it.si/XenProjectCommunityCall" target=3D"_blank">https://meet.jit.si/XenPro=
-jectCommunityCall</a></li></ul><br></div><div>We plan to open the meeting r=
-oom at 16:00 UTC, but to allow time for switching between meetings and hand=
-ling any technical issues, we=E2=80=99ll officially start discussing the ag=
-enda at 16:05 UTC.<br><br>Want to be CC=E2=80=99d on future calls?<br><br>A=
-dd or remove yourself from our=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/=
-pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" target=3D"_blank">Sign-up Sheet</a>.<br=
-><br>See you Thursday! Happy new year!</div></div><div><br></div><div><div =
-dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><d=
-iv dir=3D"ltr"><img src=3D"https://ci3.googleusercontent.com/mail-sig/AIorK=
-4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJU=
-rl12"><br><div>Cody Zuschlag</div><div>Xen Project - Community Manager</div=
-></div></div></div></div>
-
---000000000000da98c9064740d851--
 
