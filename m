@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66FEDCEB870
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 09:27:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194514.1512897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43912CEB873
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 09:28:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194523.1512909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1varWr-0001Ie-KK; Wed, 31 Dec 2025 08:26:01 +0000
+	id 1varYe-0001rn-02; Wed, 31 Dec 2025 08:27:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194514.1512897; Wed, 31 Dec 2025 08:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 1194523.1512909; Wed, 31 Dec 2025 08:27:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1varWr-0001H5-Gy; Wed, 31 Dec 2025 08:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 1194514;
- Wed, 31 Dec 2025 08:26:00 +0000
+	id 1varYd-0001p5-S1; Wed, 31 Dec 2025 08:27:51 +0000
+Received: by outflank-mailman (input) for mailman id 1194523;
+ Wed, 31 Dec 2025 08:27:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TQtY=7F=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1varWq-0001Gz-2J
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 08:26:00 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1varYc-0001os-0q
+ for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 08:27:50 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5520330d-e622-11f0-b15d-2bf370ae4941;
- Wed, 31 Dec 2025 09:25:58 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-64b8123c333so15542916a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Dec 2025 00:25:58 -0800 (PST)
+ id 9719126c-e622-11f0-b15d-2bf370ae4941;
+ Wed, 31 Dec 2025 09:27:48 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-64dfb22c7e4so7367764a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Dec 2025 00:27:48 -0800 (PST)
 Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
  [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64b9159a6d0sm37274445a12.28.2025.12.31.00.25.56
+ 4fb4d7f45d1cf-64b91599605sm36937041a12.23.2025.12.31.00.27.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Dec 2025 00:25:56 -0800 (PST)
+ Wed, 31 Dec 2025 00:27:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,255 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5520330d-e622-11f0-b15d-2bf370ae4941
+X-Inumbo-ID: 9719126c-e622-11f0-b15d-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767169557; x=1767774357; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1767169668; x=1767774468; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=P/Fpjb0bF3HFDiGsBLIcCPc1rGuQa+vBiK0RSagfPnQ=;
-        b=T7R5wK+86v0lAyT2ORKBSK4Yw5YMXWYg8FDR03ysfKrTFkVYg+sMD66Spcep2o5iBl
-         P4Vc5B9SHJ0GYmk1k5xexWvFK1nJEJGrq1lOePobcIrsFeqm+ZJw1Il5d0sOxFXK1qsg
-         htcKNHK70dv3IS+/Eo/48qjl3pMN+JTFqw0x7qXtY1IZ1jcUU1m9o1SldNKhzCvddm1/
-         FJaxTx9FObvdQ+rh5W6L+7YQyqwsmsoD57PA8KDoXST1Y6kLzKbgqMKYpC7BvloB8KK5
-         swJj9xj5hUC5ruNfnngrQ/R09KZIH5qb1SbCoMdF6h9tb+Ebx6lZyj8+mt1hR97LT6x1
-         BNhA==
+        bh=fobpSK9AUXphPAhG1PyM5Pwgt4TvSHa2X/lrd8clEqM=;
+        b=aIteteG8NdbWENjFWnS8zke9aG+mLSegZ/WJwUwY0JfykdaJ7YaRRE3XQ96yk+/HXW
+         AuTZvGJUeipgaK0fX1JjWwJ/uaCl2JIlWFfe5WBIMgYjvt4rk+J923QVNCw8us27Bf93
+         qYT/GbPEhqS89YobJtQbSzjgqQ9RWOs2Hhbslo4mSsxbQ1hfO8qwp+1163VJa+lyodNy
+         nv0Hxz4bTe0+sd+6mhkJsttoRe71mTh11KI8ICwB5aKxRjSoCyy5B2BWpwS4sS2+1tnL
+         NM5jI5kOG3eYYFoFdxVYmOxSM6nuQP4XZ5c8aIUm7Rw6WseWWXEksuk8SDBD2E4SWjys
+         27/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767169557; x=1767774357;
+        d=1e100.net; s=20230601; t=1767169668; x=1767774468;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=P/Fpjb0bF3HFDiGsBLIcCPc1rGuQa+vBiK0RSagfPnQ=;
-        b=LH71di7+mxnRXlJtJiTVpBI4DtnkfIb8Ezn5YKnxTog1k+LfBu/XvsyFPv0WizDc/v
-         G5iPNRPaokfPu6gFsQOm3SkKYeG1eDG6WByd3ykc/x8MqOAU+SxSWd5NhrT/IO430o4d
-         sbjGaocvta0jab6vsAsL+dL0bD1j1lJHDF84VGqfEdZe8yRsqLKGrmYCvKLqmXJvETc9
-         TMkfEFkV36mj0+Tf/hm2YVpRMyLdb/SZuyB2jtEuLVmhTd8oWMGR0cF3sDEOIqSjxpdT
-         Xbh5vKowoZmPdQSxDJF97jRZ8cS2cySFKQkuMHl83hS7o9KOLyah3C6XNqoJEzPtghNC
-         pbYQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwvdjDemxfcWvYhGt5xNIwS6S0G0biuNX9qmH/7vNtuGGlIc14bQmNCfFlPQ34CBLKx2DB+iblQMc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy2rz9HpagjiN0MivHDz9QTMi9vqaKun6ggcfXTFCN464I+YJd+
-	+QMTVvjA4J1+5qpVo4PFKsFlbSNLz+sxR8SAY23HQq0bPhrcoNPeN9Qh
-X-Gm-Gg: AY/fxX79frkZR9Oy3csgncwIT/JMgbKcHF3ObCC6+PoGIIxIr0DGuoAFAvfIamamHK5
-	mluGaFfeVdi6iLdv6jwa1dBTRLH/tjbc7XH3yA+knXWOLxVcVCWX/e/Y1g+TsYGsJm8c/rg5Hgp
-	IvFVLF812r33lvsVaoS7NA+t7DhA5uHHR0cId5E/HFt0A3cGlMy8gUPcb7Yw3v4dRIfIe1N3FUE
-	c7vdN666POyL+S7UwVxnVkN4bCAMnRKGdlSqltDgVuXVV0uN2+AAS7RiyBZHolQilZuYkZtMHoK
-	VhevypPI3pV9NA514efwFniskCyHd3TFuyEWaZhNr3g83eDzUaAinim/ieldjnCEVYqxnjEncEa
-	VdwAbssF6b8zfmuWfHNn5rHzUIf5uz9llIz+wbMPLXPYfBusrUE87N5umlhaV4fCW8UgTM17nPs
-	NE1/ni/6iX7S2rLA73pTuvu8T52Ak/v6W3/JczUac7WWjgseDN1QsyzK46mtSP5B4=
-X-Google-Smtp-Source: AGHT+IFnhaGWdlnnfBTlaw87D6c3dx7QoDyTdPFMdXmu6aKrKNhf834Ni0Y6DnmUTkpR/CdQSJKCWA==
-X-Received: by 2002:aa7:dad6:0:b0:64b:8d7a:71cf with SMTP id 4fb4d7f45d1cf-64b8ecb2eb3mr24844238a12.26.1767169557346;
-        Wed, 31 Dec 2025 00:25:57 -0800 (PST)
-Message-ID: <1cbe7c3e-bfe5-4ee7-a8f7-6a76089ef4d5@gmail.com>
-Date: Wed, 31 Dec 2025 09:25:56 +0100
+        bh=fobpSK9AUXphPAhG1PyM5Pwgt4TvSHa2X/lrd8clEqM=;
+        b=qY+VmKZeT3dY4T6obYboNEgi3HoqPhc475cQPBkRatm1z8Aw/eAqTNTBRe554pVZ92
+         icT9wO3d+8FZ+7eF4y093uCvVaq0qD7l8Qc9Qw3JI6bI/jmsf+BZLn/o/N8LsShiUnwQ
+         65bCKkaDxyAEvHMxz0728rsTE+QYYA0Xf+SYHpgXD3zREqRTTRPIsyp2bkchrjwEk3F7
+         QMhFnS4yxZGGFrsbromR5gJshscf2gJ9Z2/sHmwARS/M+TBiJR/AgowjB3v+0xVP3QA5
+         YDvH2wcQTSMfbp6vY02A72Tbarn1iLR2Zr3SrEQgftIrp8i5b2UD+ZyPJb2BIu4HxPkG
+         moZg==
+X-Forwarded-Encrypted: i=1; AJvYcCUtjVvLSE4I/IaE08ijgV9r+iwCv4JPJ8dVavsBmU6IyMk9T+xzL20KYb0gAOUsUcJo9jmIAA3L4oQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/1SfxeTn9Kw4fbyCaLuvWgE+PLb0czu9CSLh+UFFxUz0npURj
+	36IAllTZNhyQLX5dD5QqIlhSlMTvH7JAh8W+uFllIZ+8ReX+zJiadcYL
+X-Gm-Gg: AY/fxX5jLKJyy6Kbp1keObCCdAPOJIBs3ZLO+4u9nIDNiOMJfN85Dk+BVa7Xd3DPK7a
+	SzpIuGO0QPtH8mnQIF4bTP2fC6zYqJx5A+Eg1kAxAUz535lXjBgQX3xkZPJNbVg7UgWzMB5j4hD
+	NlYmDvY1tvSydLWIaro4ZS94Hw8WZ+Vp1wciblKhb3yVPP+ZE3c/wv9eDrDsssJKe6bJ23uZNiR
+	Vvl0RJ5k8SFm+WLri6SsMiBmljTuEjgUPCOrKj41ZPFZ/ivdY/BsgYmF8tD6Ak4eKI/Afka90QN
+	FWKaipwHKVn+NbGjnNyz1AF0VTaP/prjU0sLjcRzb/3VeWM+P5YD1f9lVZyitHVKkGskn5c7Xtx
+	4aOkczZJsTWzNInruH/70ABNu0rTE0/yofUUfNIJ/Jm4FS4+iO+TzC34sT0m6gCXdnWPEAwvtCM
+	pdDTfUteL6Cfi+N4uTZ1vW7gW5G2uL9u9wrpnGolveY1be2LQyTg6C8fcRzmgnyCU=
+X-Google-Smtp-Source: AGHT+IFFR875P5sAxSwb8eNWKE2TGpCv7OYBlEAvuaiumzld7urOY4EmCLTTRinr0c5I0yvFw6GWfQ==
+X-Received: by 2002:a17:907:70d7:b0:b80:1403:764c with SMTP id a640c23a62f3a-b80205e6bd3mr3024207366b.24.1767169668174;
+        Wed, 31 Dec 2025 00:27:48 -0800 (PST)
+Message-ID: <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
+Date: Wed, 31 Dec 2025 09:27:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/1] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1767108625.git.oleksii.kurochko@gmail.com>
- <d49e5b9555d4f04d569e20d9c9feb23b298c7ee1.1767108625.git.oleksii.kurochko@gmail.com>
- <991068a3-0e17-4cae-9653-5be170f29ab6@vates.tech>
+Subject: Re: [PATCH v4 2/4] xen/arm: optimize the size of struct vcpu
+To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.1766504313.git.oleksii.kurochko@gmail.com>
+ <0756ee97dd47f6acdefe593694b743eb6bfefacb.1766504313.git.oleksii.kurochko@gmail.com>
+ <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
+ <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <991068a3-0e17-4cae-9653-5be170f29ab6@vates.tech>
+In-Reply-To: <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hello Teddy,
 
-On 12/30/25 7:02 PM, Teddy Astie wrote:
-> Le 30/12/2025 à 16:52, Oleksii Kurochko a écrit :
->> Add support of virtual SBI base extension calls for RISC-V guests, delegating
->> hardware-specific queries to the underlying SBI and handling version and
->> firmware ID queries directly.
+On 12/29/25 12:10 PM, Orzel, Michal wrote:
+>
+> On 29/12/2025 12:08, Orzel, Michal wrote:
 >>
->> The changes include:
->> 1. Define new SBI base extension function IDs (SBI_EXT_BASE_GET_MVENDORID,
->>      SBI_EXT_BASE_GET_MARCHID, SBI_EXT_BASE_GET_MIMPID).
->> 2. Introduce XEN_SBI_VER_MAJOR, XEN_SBI_VER_MINOR for imeplenataion of
->>      SBI_EXT_BASE_GET_SPEC_VERSION.
->> 4. Introduce SBI_XEN_IMPID to implement SBI_EXT_BASE_GET_IMP_ID.
->> 5. Implement handling of SBI base extension functions, including version,
->>      firmware ID, and machine-specific queries.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Changes in v4:
->>    - Move definition of XEN_SBI_VER_{MAJOR, MINOR} to base-extension.c.
->>    - Correct string format for FID: s/#%#lx/#%lu.
->>    - Print first EID then FID (as vsbi/core.c code does).
->> ---
->> Changes in v3:
->>    - s/XEN_SBI_IMPID/SBI_XEN_IMPID
->>    - Add ASSERT(eid == SBI_EXT_BASE) in vsbi_base_ecall_handler().
->>    - Fix code style for switch/case.
->>    - Use current instead of `vcpu` argument as it was dropped from
->>      vsbi_base_ecall_handler() prototype.
->>    - Add comments for define-s XEN_SBI_VER_{MAJOR, MINOR} and SBI_XEN_IMPID.
->> ---
->> Changes in v2:
->>    - s/vsbi-base-extension.*/base-extension.*
->>    - Introduce VCPU_SBI_IMPID, XEN_SBI_VER_MINOR and XEN_SBI_VER_MAJOR.
->>    - Return VCPU_SBI_IMPID in the case of SBI_EXT_BASE_GET_IMP_ID.
->>    - Return Xen version in the case of SBI_EXT_BASE_GET_IMP_VERSION.
->>    - Use domain_crash() instead of panic() for default case.
->>    - For SBI_EXT_BASE_GET_{MVENDORID,MARCHID,MIMPID} abd SBI_EXT_BASE_PROBE_EXT
->>      add handling of a domain is h/w or not.
->> ---
->>    xen/arch/riscv/include/asm/sbi.h     |  6 ++
->>    xen/arch/riscv/vsbi/Makefile         |  1 +
->>    xen/arch/riscv/vsbi/base-extension.c | 82 ++++++++++++++++++++++++++++
->>    3 files changed, 89 insertions(+)
->>    create mode 100644 xen/arch/riscv/vsbi/base-extension.c
->>
->> diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
->> index 751bae6d6654..79f7ff5c5501 100644
->> --- a/xen/arch/riscv/include/asm/sbi.h
->> +++ b/xen/arch/riscv/include/asm/sbi.h
->> @@ -14,6 +14,9 @@
->>    
->>    #include <xen/cpumask.h>
->>    
->> +/* SBI-defined implementation ID */
->> +#define SBI_XEN_IMPID 7
->> +
->>    #define SBI_EXT_0_1_SET_TIMER               0x0
->>    #define SBI_EXT_0_1_CONSOLE_PUTCHAR         0x1
->>    #define SBI_EXT_0_1_CONSOLE_GETCHAR         0x2
->> @@ -32,6 +35,9 @@
->>    #define SBI_EXT_BASE_GET_IMP_ID         0x1
->>    #define SBI_EXT_BASE_GET_IMP_VERSION    0x2
->>    #define SBI_EXT_BASE_PROBE_EXT          0x3
->> +#define SBI_EXT_BASE_GET_MVENDORID      0x4
->> +#define SBI_EXT_BASE_GET_MARCHID        0x5
->> +#define SBI_EXT_BASE_GET_MIMPID         0x6
->>    
->>    /* SBI function IDs for RFENCE extension */
->>    #define SBI_EXT_RFENCE_REMOTE_FENCE_I           0x0
->> diff --git a/xen/arch/riscv/vsbi/Makefile b/xen/arch/riscv/vsbi/Makefile
->> index bc5755cb13d6..8ce470f787c5 100644
->> --- a/xen/arch/riscv/vsbi/Makefile
->> +++ b/xen/arch/riscv/vsbi/Makefile
->> @@ -1,2 +1,3 @@
->> +obj-y += base-extension.o
->>    obj-y += core.o
->>    obj-y += legacy-extension.o
->> diff --git a/xen/arch/riscv/vsbi/base-extension.c b/xen/arch/riscv/vsbi/base-extension.c
->> new file mode 100644
->> index 000000000000..41a95ae188dd
->> --- /dev/null
->> +++ b/xen/arch/riscv/vsbi/base-extension.c
->> @@ -0,0 +1,82 @@
->> +
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/lib.h>
->> +#include <xen/sched.h>
->> +#include <xen/version.h>
->> +
->> +#include <asm/processor.h>
->> +#include <asm/sbi.h>
->> +#include <asm/vsbi.h>
->> +
->> +/* Xen-controlled SBI version reported to guests */
->> +#define XEN_SBI_VER_MAJOR 0
->> +#define XEN_SBI_VER_MINOR 2
->> +
->> +static int vsbi_base_ecall_handler(unsigned long eid, unsigned long fid,
->> +                                   struct cpu_user_regs *regs)
->> +{
->> +    int ret = 0;
->> +    struct sbiret sbi_ret;
->> +
->> +    ASSERT(eid == SBI_EXT_BASE);
->> +
->> +    switch ( fid )
->> +    {
->> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
->> +        regs->a1 = MASK_INSR(XEN_SBI_VER_MAJOR, SBI_SPEC_VERSION_MAJOR_MASK) |
->> +                   XEN_SBI_VER_MINOR;
->> +        break;
->> +
->> +    case SBI_EXT_BASE_GET_IMP_ID:
->> +        regs->a1 = SBI_XEN_IMPID;
->> +        break;
->> +
->> +    case SBI_EXT_BASE_GET_IMP_VERSION:
->> +        regs->a1 = (xen_major_version() << 16) | xen_minor_version();
->> +        break;
->> +
->> +    case SBI_EXT_BASE_GET_MVENDORID:
->> +    case SBI_EXT_BASE_GET_MARCHID:
->> +    case SBI_EXT_BASE_GET_MIMPID:
->> +        if ( is_hardware_domain(current->domain) )
->> +        {
->> +            sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
->> +            ret = sbi_ret.error;
->> +            regs->a1 = sbi_ret.value;
->> +        }
->> +        else
->> +            /*
->> +             * vSBI should present a consistent, virtualized view to guests.
->> +             * In particular, DomU-visible data must remain stable across
->> +             * migration and must not expose hardware-specific details.
->> +             *
->> +             * These register(s) must be readable in any implementation,
->> +             * but a value of 0 can be returned to indicate the field
->> +             * is not implemented.
->> +             */
->> +            regs->a1 = 0;
->> +
->> +        break;
->> +
->> +    case SBI_EXT_BASE_PROBE_EXT:
->> +        regs->a1 = vsbi_find_extension(regs->a0) ? 1 : 0;
->> +        break;
->> +
->> +    default:
->> +        /*
->> +         * TODO: domain_crash() is acceptable here while things are still under
->> +         * development.
->> +         * It shouldn't stay like this in the end though: guests should not
->> +         * be punished like this for something Xen hasn't implemented.
->> +         */
->> +        domain_crash(current->domain,
->> +                     "%s: Unsupported ecall: EID: #%#lx FID: #%lu\n",
->> +                     __func__, eid, fid);
-> I think we should rather report "SBI_ERR_NOT_SUPPORTED" (-2) instead
-> (eventually logging a warning in Xen) ?
+>> On 23/12/2025 18:01, Oleksii Kurochko wrote:
+>>> When CONFIG_NEW_VGIC=y and CONFIG_ARM_64=y, the size of struct vcpu
+>>> exceeds one page, which requires allocating two pages and led to the
+>>> introduction of MAX_PAGES_PER_VCPU.
+> Also, I think it would be better to drop MAX_PAGES_PER_VCPU in this patch.
 
-The final goal is to return|SBI_ERR_NOT_SUPPORTED|.|domain_crash()| is used
-only temporarily and will be kept until a usable alternative (lets say fully
-supported dom0less) is available.
+Then I'll update alloc_vcpu_struct() and free_vcpu_struct() to:
+  struct vcpu *alloc_vcpu_struct(const struct domain *d)
+  {
+      struct vcpu *v;
+  
+-    BUILD_BUG_ON(sizeof(*v) > MAX_PAGES_PER_VCPU * PAGE_SIZE);
+-    v = alloc_xenheap_pages(get_order_from_bytes(sizeof(*v)), 0);
++    BUILD_BUG_ON(sizeof(*v) > PAGE_SIZE);
++    v = alloc_xenheap_pages(0, 0);
+      if ( v != NULL )
+-    {
+-        unsigned int i;
+-
+-        for ( i = 0; i < DIV_ROUND_UP(sizeof(*v), PAGE_SIZE); i++ )
+-            clear_page((void *)v + i * PAGE_SIZE);
+-    }
++        clear_page(v);
+  
+      return v;
+@@ -503,5 +488,5 @@ struct vcpu *alloc_vcpu_struct(const struct domain *d)
+  void free_vcpu_struct(struct vcpu *v)
+  {
+-    free_xenheap_pages(v, get_order_from_bytes(sizeof(*v)));
++    free_xenheap_page(v);
+  }
+
+Thanks.
 
 ~ Oleksii
 
->
->> +        break;
->> +    }
->> +
->> +    return ret;
->> +}
->> +
->> +VSBI_EXT(base, SBI_EXT_BASE, SBI_EXT_BASE, vsbi_base_ecall_handler)
-> Teddy
->
->
-> --
-> Teddy Astie | Vates XCP-ng Developer
->
-> XCP-ng & Xen Orchestra - Vates solutions
->
-> web: https://vates.tech
->
->
->
 
