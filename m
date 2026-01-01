@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA05CCEC2DC
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Dec 2025 16:35:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1194594.1512957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71EE3CED876
+	for <lists+xen-devel@lfdr.de>; Thu, 01 Jan 2026 23:57:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1194792.1512983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vayEE-0001xP-J9; Wed, 31 Dec 2025 15:35:14 +0000
+	id 1vbRao-0000rb-4R; Thu, 01 Jan 2026 22:56:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1194594.1512957; Wed, 31 Dec 2025 15:35:14 +0000
+Received: by outflank-mailman (output) from mailman id 1194792.1512983; Thu, 01 Jan 2026 22:56:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vayEE-0001v4-GV; Wed, 31 Dec 2025 15:35:14 +0000
-Received: by outflank-mailman (input) for mailman id 1194594;
- Wed, 31 Dec 2025 15:35:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vayED-0001uy-KO
- for xen-devel@lists.xenproject.org; Wed, 31 Dec 2025 15:35:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vayEC-001IGV-39;
- Wed, 31 Dec 2025 15:35:13 +0000
-Received: from [213.226.64.151] (helo=[192.168.8.236])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vayED-001EH7-08;
- Wed, 31 Dec 2025 15:35:13 +0000
+	id 1vbRao-0000pg-06; Thu, 01 Jan 2026 22:56:30 +0000
+Received: by outflank-mailman (input) for mailman id 1194792;
+ Thu, 01 Jan 2026 22:56:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bd48=7G=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vbRam-0000pa-EI
+ for xen-devel@lists.xenproject.org; Thu, 01 Jan 2026 22:56:28 +0000
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1986dcc7-e765-11f0-b15e-2bf370ae4941;
+ Thu, 01 Jan 2026 23:56:26 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id E7A6C1D000B5;
+ Thu,  1 Jan 2026 17:56:24 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Thu, 01 Jan 2026 17:56:25 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Jan 2026 17:56:23 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +44,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=CihMYYJbpoIXf277OYZHUjp/wj51Xq3PLyghtTYVVSY=; b=jU31Z53S9Cd0OoJ3ERjQKE1WOq
-	eJ9ADpVlMg0p/YLf/3nsdJiJjYzwWRX3DswBq8rgyVNEjunz1QBUpXFkTYE+a7EzdXj/Gkcd/+kpr
-	U6TORZMq9wQjmVKeFCvOQ/CbYft8ZopMtqhUnlVrZfaVxpJzRun/sdxBKDhW6Joffwfg=;
-Message-ID: <584bcb9e-ca3a-442a-9b6c-bdb5fb5fb8f4@xen.org>
-Date: Wed, 31 Dec 2025 15:35:10 +0000
+X-Inumbo-ID: 1986dcc7-e765-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1767308184; x=1767394584; bh=aV
+	Knce9UA3xLzfq4I/i29bc4sVrFPEl/2n54K2rVS1Y=; b=dxTDEVcQXAAvHqAkYZ
+	5A8Q+Zxzty4kB7X9kCh8XiqhouAWpQhMfJfw6ddV8UZaIjJDcDMe9jVzPwvZnRh2
+	lCsQenFYdAed+0gI8lKWnmLJnNttrnS8r8irJcPR61XaQ1VoVCE3jAtw+WzlMRt1
+	jqZ1QRXFzTn+Uw0ii6X+5ljl3uqfV03qppWGuQV00zJ5a0B0k1pKTjrc1Bwi/U1v
+	3RuJyspO37ka4S7uRx2sCxW3Hu2B23E1B5nv6kT/zT504N5rn5bQPCQMUYKT8ri7
+	rewQ4ggQiJTz1OW8Wuenq8u0NeLA6T3oIUh0F8s7ShW63db3KYrQ4c3jP/eUVxUY
+	kVcQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1767308184; x=
+	1767394584; bh=aVKnce9UA3xLzfq4I/i29bc4sVrFPEl/2n54K2rVS1Y=; b=S
+	UzJXl1Bqbm/cpkQsxJzT5ASRFnyTMVDV2wms8kkYTxtN6A85LMb3k67m1Qkm/adG
+	WSJWP7D0fbsz6S6Z4cC73k78b2u8scEc9dmmuKINScJ5X5FTA7dHgMtR1HTej6e1
+	BWLDQEpRyWelDc/711xQ/BT5uCl1pT+9/wXu+OEOguCJQl0kInyOjjqqF9N08SV1
+	lK5Eey7zmJaqOmWsxA7VlgQUZaw/+XkyGcjpIeSe/OBvQC/b2IxDgkJDIff2xIIF
+	nJIgrNenFxx5QX3CPlAfFRx4bxtlzi7H/ZWQ5PzeHhHkupHcEDF0JTX6EpqeL8xI
+	lFaVz9aZ0iXfTtgphpEHg==
+X-ME-Sender: <xms:mPtWaShxPe5ctH_NatnA6NTRSYgngqj1874yNGGdOXwEEVKyWreXlw>
+    <xme:mPtWaaDe4QePOpg8mDyHPH4t56Au1kalm9o3aRtkj-qTorzLkvtAdtnmZ3OaKCPcu
+    BGivKLMvMIqgI43k70GQ4Br6WjlxHjTu-B498FqpAYJW8yH>
+X-ME-Received: <xmr:mPtWafGXmbJxR5myMEC3afTxafBHC5gaHiVd1FTtvnJ0o9Hqn9SB_PDXkhKGPpXoG-dTs5MdSZuGXS4bjoe04Ad_4IwaHzp_WzU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdekjedtgecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfggtggusehgtderredttdejnecuhfhrohhmpeforghrvghkucforghr
+    tgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisg
+    hlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgtdfgvdetteff
+    leeugfdugfegjeekgfefffdvheffhfdtfeeggfeuhedtffeuleenucffohhmrghinhepqh
+    husggvshdqohhsrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+    drtghomhdpnhgspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthht
+    ohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtg
+    hpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgv
+    fidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrph
+    gruhestghithhrihigrdgtohhm
+X-ME-Proxy: <xmx:mPtWaaJFNPN8I8ic7Tl9ebsJiB-lzbQRnPhB78rwx9Z2zSHRnGxL5A>
+    <xmx:mPtWablnat5ZxNzfJwaLRWoMnoDVe3zSXl3aB5nbsflJ7c3LI8VhoA>
+    <xmx:mPtWaaStoKf2BK2HYeyQgqeB0HHaQWgvn3ZnRRRU-sJ_uRoAoly37g>
+    <xmx:mPtWaVJaho51rUVC1IBuQACYhqSaGNXAis3ZQ0Y5yrmbxQW18kwgcg>
+    <xmx:mPtWaXR1bIbKyCRaBw7ve4iRFOIopBPYpdRwRAFaGRE5n-vamq-7sGOX>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 1 Jan 2026 23:56:12 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Dealing with SIOV/IMS
+Message-ID: <aVb7jL52nkmSD-Gr@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/12] xen/arm: gic-v3: Implement GICv3 suspend/resume
- functions
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org,
- Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1765472890.git.mykola_kvach@epam.com>
- <9f084beff76e40fed2138ba2d59145a96b930c63.1765472890.git.mykola_kvach@epam.com>
- <a2be5ae1-7e4a-4137-9e36-6c5845a93ca1@xen.org>
-In-Reply-To: <a2be5ae1-7e4a-4137-9e36-6c5845a93ca1@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="NBzhMn7VFeiIx1Hq"
+Content-Disposition: inline
+
+
+--NBzhMn7VFeiIx1Hq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 1 Jan 2026 23:56:12 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Dealing with SIOV/IMS
 
 Hi,
 
-On 26/12/2025 12:39, Julien Grall wrote:
-> Hi Mykola,
-> 
-> On 11/12/2025 18:43, Mykola Kvach wrote:
->> From: Mykola Kvach <mykola_kvach@epam.com>
->>
->> System suspend may lead to a state where GIC would be powered down.
->> Therefore, Xen should save/restore the context of GIC on suspend/resume.
->>
->> Note that the context consists of states of registers which are
->> controlled by the hypervisor. Other GIC registers which are accessible
->> by guests are saved/restored on context switch.
->>
->> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
->> ---
->> Changes in V7:
->> - restore LPI regs on resume
->> - add timeout during redist disabling
->> - squash with suspend/resume handling for GICv3 eSPI registers
->> - drop ITS guard paths so suspend/resume always runs; switch missing ctx
->>    allocation to panic
->> - trim TODO comments; narrow redistributor storage to PPI icfgr
->> - keep distributor context allocation even without ITS; adjust resume
->>    to use GENMASK(31, 0) for clearing enables
->> - drop storage of the SGI configuration register, as SGIs are always
->>    edge-triggered
->> ---
->>   xen/arch/arm/gic-v3-lpi.c              |   3 +
->>   xen/arch/arm/gic-v3.c                  | 319 ++++++++++++++++++++++++-
->>   xen/arch/arm/include/asm/gic_v3_defs.h |   1 +
->>   3 files changed, 320 insertions(+), 3 deletions(-)
->>
->> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
->> index de5052e5cf..61a6e18303 100644
->> --- a/xen/arch/arm/gic-v3-lpi.c
->> +++ b/xen/arch/arm/gic-v3-lpi.c
->> @@ -391,6 +391,9 @@ static int cpu_callback(struct notifier_block 
->> *nfb, unsigned long action,
->>       switch ( action )
->>       {
->>       case CPU_UP_PREPARE:
->> +        if ( system_state == SYS_STATE_resume )
->> +            break;
-> 
-> Do we need this check because we don't free the LPI pending table when 
-> the CPU is turned off?
-> 
-> If so, don't we already have a problem for CPU hotplug because the 
-> percpu area will be freed but not the pending table?
+I've got yet another report[1] of device failing because (I assume) the
+drivers reads MSI/MSI-X values (thinking it sees values actually set in
+the HW) and then pass them to the device via some alternative means.
+IIUC this is what IMS does.
 
-Looking at [1], we don't seem to support CPU OFF when the GICv3 ITS is 
-enabled. So this change could be delayed. But CC Mykyta for awareness.
+I'm interested in two things:
+1. Some plan for a long term solution - it was briefly discussed on
+XenDevel matrix room in September, Roger said:
 
-Cheers,
+> urg, that's the spec that also defines IMS IIRC?  I think the only way
+> to support anything like that is using vfio/mdev and re-using the
+> drivers from Linux.  There's too much device-specific magic to
+> implement any of this in Xen, or do our own Xen-specific drivers.
 
-[1] 
-https://lore.kernel.org/48bafdb8e6269a3d958065c6a1062ce2736632a0.1762939773.git.mykyta_poturai@epam.com
+2. A short term workaround for few specific devices. If you look at the
+linked threads, users resort to patching the domU driver and then
+copying MSI values from dom0's lspci output manually... I think we can
+do better than this short term, via some quirks in QEMU. Either let the
+domU see the real HW values, or translate IMS writes at QEMU level
+(assuming they can be identified). Disclaimer - I haven't looked yet at
+this specific driver, nor the SIOV/IMS spec, so I'm not sure if that's
+viable approach...
 
-> 
-> Cheers,
-> 
+[1] https://forum.qubes-os.org/t/solved-qualcomm-qcnfa765-ath11k-wcn6855-wi=
+fi-working-on-thinkpad-p14s-gen4-amd/38192
 
--- 
-Julien Grall
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--NBzhMn7VFeiIx1Hq
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmlW+4wACgkQ24/THMrX
+1ywQbAf/Rpii9AUUJGqZCu+T23c77jmTYIL0wp0V/o6DCSlGWAIn4ECJudQ4AGw8
+tqn0LAQ/eSIrcPQLgybq5JoDQYmwaCbYMvaL1Uvrl4Ea9DmfCT3yJ2k8majjaeZH
+/DMo6nM477N02eULdUQi4Emfika4wbOIDDsZQAte7S0Zup1VBIWdO7rC2hmKmGF1
+tQrrwxBoXwYRjA+5iH4S4SZeX9wJs7ehPcCIT+uz173opjrTPBUMNYfM7Nbl724f
+xamnTETpU82DNCCRd/q481HNlGiXWTr+JJh319tNBpENRQAyetI5sQOc5bcyTsS8
+x2arJHrJKbF4MRDGs5kRAv6ky3+PSw==
+=Bnc3
+-----END PGP SIGNATURE-----
+
+--NBzhMn7VFeiIx1Hq--
 
