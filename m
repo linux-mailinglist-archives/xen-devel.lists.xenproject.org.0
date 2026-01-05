@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61EE7CF4188
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 15:25:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195430.1513370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 464ECCF4332
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 15:44:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195442.1513379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vclW2-0007eE-GF; Mon, 05 Jan 2026 14:25:02 +0000
+	id 1vclop-0002OU-WB; Mon, 05 Jan 2026 14:44:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195430.1513370; Mon, 05 Jan 2026 14:25:02 +0000
+Received: by outflank-mailman (output) from mailman id 1195442.1513379; Mon, 05 Jan 2026 14:44:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vclW2-0007bd-DI; Mon, 05 Jan 2026 14:25:02 +0000
-Received: by outflank-mailman (input) for mailman id 1195430;
- Mon, 05 Jan 2026 14:25:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vclop-0002MU-TN; Mon, 05 Jan 2026 14:44:27 +0000
+Received: by outflank-mailman (input) for mailman id 1195442;
+ Mon, 05 Jan 2026 14:44:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vclW1-0007ak-KZ
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 14:25:01 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51a2fe92-ea42-11f0-b15e-2bf370ae4941;
- Mon, 05 Jan 2026 15:25:00 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47d59da3d81so8844815e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 06:25:00 -0800 (PST)
+ id 1vcloo-0002MO-B1
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 14:44:26 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06e28607-ea45-11f0-9ccf-f158ae23cfc8;
+ Mon, 05 Jan 2026 15:44:24 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso11305e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 06:44:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324eab33f5sm100662528f8f.41.2026.01.05.06.24.59
+ 5b1f17b1804b1-47d6d13ed0asm165934995e9.3.2026.01.05.06.44.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jan 2026 06:24:59 -0800 (PST)
+ Mon, 05 Jan 2026 06:44:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51a2fe92-ea42-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 06e28607-ea45-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767623100; x=1768227900; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767624263; x=1768229063; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3gMqLT/CFiOQX20PMXoEv4yOZ+d5HtUyUw7rUQE9dAE=;
-        b=QuyCZq3geUzUtJsdUMHR80f55+YHwscm+KoYmjN350OYnwkFx+mc9FTlyERVmfwEDR
-         DRshI+MypPOtTwjDLi+o1WXjf03wG8j7FM/t7TGen+9jK7ec35uBX7O9SpPH+7Hs0py0
-         UKeG4Me7a799Zr7OT6qhoSTo794jmM3DmkscEfkwzvf3pS2J5CakBrRV1QYoFbb8vqPG
-         gwD+VwbAPVzPSLhYEUSF/ln60EZoWsXbFr2GlPhe4A2o0NTxC+WS0FR0oL8VQW9NsXR4
-         smB6aIJLlCkTfQJ1Kke9sZZyYABpZj+ZjaSjVpBI1suKLJTkOVC3zTfTkMhjZh8kSN19
-         5rpQ==
+        bh=v2XZa/+OUht4lzTXEfmEYzo3p577uCWIJ6aVSCp22xM=;
+        b=Sp9+hxR2ryjaYS617xM+iDCQle+6rAJyTE3uxepBK2xHUUFndxgQuZT4iLDWCjyPB9
+         7RMIt76/4h/gj4SGjB5Sdwuz6KJNtkHcX+52mYY7Mcmg8YwGqgfGEcR9Y3N0dP/8Wzgi
+         EFQeM0YKZakz7Ty7AEt4hFuEOjVILBQgHIC2hiNhRrNd4IZu3AQ4OBzl7jHzWlIe3Oov
+         rQDPy8KJrQwT3qwIbnn9VBJdGU0Ir+2irAPsQwV2nzFyUVj7VnRM7//BHnHO+vLnbYuE
+         0mvfM3RvTiYO93OelUTUX3H1/GW7g/3DZOaayO0ZkW8hMUVGIHSNcmSvOl0Xrrmgjyq1
+         dwSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767623100; x=1768227900;
+        d=1e100.net; s=20230601; t=1767624263; x=1768229063;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3gMqLT/CFiOQX20PMXoEv4yOZ+d5HtUyUw7rUQE9dAE=;
-        b=nyLzz08NBvCQnGYS92mXXiFzYSwEb7Zm6xWg4qOQrCUiafYhTtGcG2DQV+kFxn0H4q
-         tbNvrZM95HHkZ6y2GZuXlllFD3LtT86VmCuVawPp982I+urFa2YghtEEGkqBW/MzHt5I
-         8wnytPZKd5klNeMdLD9eTr7fDjOb6lquE7hwy5s470s+qbhiyFOMnThbrqXw1TYdZNoG
-         wQVgG/YnZMuh39a9UE2s0LAcn1T0E1InZFeudovoHkUKg+0bX3A63ZFm3SIHvUK/wWtv
-         +gdmlqmLFlRel3lVU5vOB4/bLXXrfYnT8w9nhrpa1soDK8tfynBrLwtoERGW9qA7m88D
-         534w==
-X-Forwarded-Encrypted: i=1; AJvYcCX5J0BMujHMLd1AR9L0d3g5Pc36cbDHfn4yeZzp1P+zMwflemrgGihc/YP85qy7/jmhu+pmJHS8q7Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy7APKEBmRg4rMLku3Eg3SXhvE04OkmnfH5D0n67ykBzCS4Ev/s
-	Q/iiTspDf/AP9u8rIcBucUBHL3cs6fcyd/jP1kmLW91txhFuvfQHmbX7IYCana4doA==
-X-Gm-Gg: AY/fxX4EpOGOzmHIvis9NejWJ5yrFtf/KRl1DdBmD7Rlt+6FFRjXNC5bP/RB2Sv1wNc
-	h5dntUmgOjlxqdhJNQbNXOSAIfXUUn9PV6ptGKzFfHxCUln/oFDA7kMU90XrNZrpCVAKQOVLhDL
-	ds6q6A2QZpoKPhV0xYtNEOEhDOVbk46iD5d46lC50Pnv0Aj3rdYxExNXs0fp4J0USBqpUrJ6fdR
-	87/n1c/KcTUoxGqNTvoXu2ovZiaX7FGGwg+h2oMPkzjXb/AeCwSgU+RRzCvUHbDJQxtSzANBCAd
-	86xxUJpIDGAKYqhdl9MDnHCwUab45G4hgy8ZNfPC+atKYSfqounEmP5642sGAZuKrPaKJ7sfK/F
-	lw6lxY3cmR6ssB/oH3Buss5f6pU8wtvQbGEYZp5iIQuE41Pl95fMmp8lh3lX0GnmWv3hcKMH2K5
-	MiPDSfKbJpmtkfm0bJCEe9N4GS87GlSShCYw+wcQ0R/U4B6IAT3lGxLORCi7kF3fN8/kvyCO5N8
-	bM=
-X-Google-Smtp-Source: AGHT+IHpU8IiDPanCMLgsSJ4So9NkzNYI1iTXldwl49PLS0ncjedA/PYsgVDYaw6ROvzZI+4yhosBw==
-X-Received: by 2002:a05:6000:4313:b0:431:cf0:2e8b with SMTP id ffacd0b85a97d-432aa40933cmr10579266f8f.29.1767623100172;
-        Mon, 05 Jan 2026 06:25:00 -0800 (PST)
-Message-ID: <d995ae85-7f50-422f-89f6-e6ed288276be@suse.com>
-Date: Mon, 5 Jan 2026 15:24:58 +0100
+        bh=v2XZa/+OUht4lzTXEfmEYzo3p577uCWIJ6aVSCp22xM=;
+        b=ftXz3Gp8sQ9++eXr1PkiX/VJHusXNg76Mw14Q6qv7ljn1Pa1s/LGSQOVoJTJytXrlw
+         7qKT0xcZw82uOtcNQ/HzG7ZJSvSzsl6tbmY3Vu5grEVb48mj62oBKEoSN4jq/vJ8yRxs
+         W2NKKzIpvdM4pytsk5OPQO4ZFSd1h/CXUmN8xcS512+Ept3cUIX4bYnj5oxzFgpEsNcX
+         xvyHrJuQy5izxUG3lXf9BYBAhXaZGJNyRzETdd1SDy49chO2ai3X/vn5er2i4Zlotdbm
+         N6nfP4HtmUPunWoy3Oomjs47aHIZP3X170636CdynGkM5998G7Q0WnJ30xV+HzS0L+BP
+         RdpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWCVvw9DFkOT4COwhRfxlhqYRuSbmQvTx+/szp5vkeRjDd4nrnVBvscYLCtezbXnYgaDo+I+gH9Spk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzaOClO2gcO+u9HBCupyVsb+EGsltRZYfk9o/qLclASIQKKRQtm
+	vFz6s/K7jJMjDJl0HC/zFW4t24QgjsVVAeT/yrBgx+VF79PHE4v9YfzP6wffp3Zs7A==
+X-Gm-Gg: AY/fxX44RmaCVVawyXfEWQZjV9WGkG2kTYmtKEw3NvAH8czMXsa7Y8+mCLVJJoBWMyU
+	RpbU3f9mDM28ZE4nZBiIrAbojGMcPL+iN3kV2Np+G8qtNHYGj1W5RS+jiJTq9C9wI/ssw+VFOzo
+	1g2/B9n7OxQuX3A4HcghCzaIx/wOnLUvBrc94Y874UtvETHtZt8/Ec+SK8slQWAdQ+PXplnVzVM
+	OANcsEAXhZG55b69Zfbv5XaYvh/7R7OZ/V8N6EHDbqqiD347ydpyu3Z9ONyjhPzGUrS5JXq/6ti
+	EymBTOGmzylcx7z5gs63iRHWcHPC0mMBQarmmVYc7nwfUW5Q9GMJ/E8I/NhW9fNIN0uvhexQzLq
+	uNc1HXfuS82j6Vb/sy2ggOoN1oB+eTDtItDwnasZeJ/HKUXv49ONlqY+LP5xGD03y19CHQSVms7
+	FhhAvJDNJRkp1OfUw8UolSPc75ZIcXesidQYuDJ+lMAFyfKECE0BULx8rCwzlV8Ee2mwhbIuVx7
+	uc=
+X-Google-Smtp-Source: AGHT+IFeQqpVgX73VR7ao41n1Yipw9jK1Ar6juD309qcJVIGnx8BFGjbwpDYbpRFKsZEhbnTADFWlg==
+X-Received: by 2002:a05:600c:6a8f:b0:47d:52ef:c572 with SMTP id 5b1f17b1804b1-47d6ba7ac36mr74123265e9.1.1767624263289;
+        Mon, 05 Jan 2026 06:44:23 -0800 (PST)
+Message-ID: <d6453811-1a4e-4b37-9c39-94bfcfa057d2@suse.com>
+Date: Mon, 5 Jan 2026 15:44:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] xen/riscv: introduce metadata table to store P2M
- type
+Subject: Re: [PATCH v4 2/4] xen/arm: optimize the size of struct vcpu
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766406895.git.oleksii.kurochko@gmail.com>
- <127d893e3b6a0da1195f9a128c8d0591e6ef473d.1766406895.git.oleksii.kurochko@gmail.com>
- <0a4fb29a-a0b5-4e20-91c4-425702677d11@suse.com>
- <ff4b8b38-3621-4ad9-8f43-d134c4e70567@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <cover.1766504313.git.oleksii.kurochko@gmail.com>
+ <0756ee97dd47f6acdefe593694b743eb6bfefacb.1766504313.git.oleksii.kurochko@gmail.com>
+ <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
+ <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
+ <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,77 +126,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ff4b8b38-3621-4ad9-8f43-d134c4e70567@gmail.com>
+In-Reply-To: <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30.12.2025 16:47, Oleksii Kurochko wrote:
+On 31.12.2025 09:27, Oleksii Kurochko wrote:
+> On 12/29/25 12:10 PM, Orzel, Michal wrote:
+>> On 29/12/2025 12:08, Orzel, Michal wrote:
+>>> On 23/12/2025 18:01, Oleksii Kurochko wrote:
+>>>> When CONFIG_NEW_VGIC=y and CONFIG_ARM_64=y, the size of struct vcpu
+>>>> exceeds one page, which requires allocating two pages and led to the
+>>>> introduction of MAX_PAGES_PER_VCPU.
+>> Also, I think it would be better to drop MAX_PAGES_PER_VCPU in this patch.
 > 
-> On 12/29/25 4:13 PM, Jan Beulich wrote:
->> On 22.12.2025 17:37, Oleksii Kurochko wrote:
->>> @@ -370,24 +396,96 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
->>>       return pg;
->>>   }
->>>   
->>> -static int p2m_set_type(pte_t *pte, p2m_type_t t)
->>> +/*
->>> + * `pte` – PTE entry for which the type `t` will be stored.
->>> + *
->>> + * If `t` >= p2m_first_external, a valid `ctx` must be provided.
->>> + */
->>> +static void p2m_set_type(pte_t *pte, p2m_type_t t,
->>> +                         const struct p2m_pte_ctx *ctx)
->>>   {
->>> -    int rc = 0;
->>> +    struct page_info **md_pg;
->>> +    struct md_t *metadata = NULL;
->>>   
->>> -    if ( t > p2m_first_external )
->>> -        panic("unimplemeted\n");
->>> -    else
->>> -        pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->>> +    /*
->>> +     * It is sufficient to compare ctx->index with PAGETABLE_ENTRIES because,
->>> +     * even for the p2m root page table (which is a 16 KB page allocated as
->>> +     * four 4 KB pages), calc_offset() guarantees that the page-table index
->>> +     * will always fall within the range [0, 511].
->>> +     */
->>> +    ASSERT(ctx && ctx->index < PAGETABLE_ENTRIES);
->>>   
->>> -    return rc;
->>> +    /*
->>> +     * At the moment, p2m_get_root_pointer() returns one of four possible p2m
->>> +     * root pages, so there is no need to search for the correct ->pt_page
->>> +     * here.
->>> +     * Non-root page tables are 4 KB pages, so simply using ->pt_page is
->>> +     * sufficient.
->>> +     */
->>> +    md_pg = &ctx->pt_page->v.md.pg;
->>> +
->>> +    if ( !*md_pg && (t >= p2m_first_external) )
->>> +    {
->>> +        /*
->>> +         * Since p2m_alloc_page() initializes an allocated page with
->>> +         * zeros, p2m_invalid is expected to have the value 0 as well.
->>> +         */
->>> +        BUILD_BUG_ON(p2m_invalid);
->>> +
->>> +        ASSERT(ctx->p2m);
->> I think I previously asked for this to be moved out of the if(). Else you
->> may not notice a caller side issue until a point where a metadata page
->> actually needs allocating. (This could simply be folded into the earlier
->> ASSERT().)
-> 
-> I think that I understand your intention and okay to fold ASSERT(ctx->p2m)
-> into the earlier ASSERT().
-> Just want to note that generally if the metadata page has been already
-> allocated and then p2m_set_type() will be called with ctx->p2m == NULL then
-> nothing serious will happen as basically ctx->p2m is needed in this function
-> only for allocation of metadata page.
+> Then I'll update alloc_vcpu_struct() and free_vcpu_struct() to:
+>   struct vcpu *alloc_vcpu_struct(const struct domain *d)
+>   {
+>       struct vcpu *v;
+>   
+> -    BUILD_BUG_ON(sizeof(*v) > MAX_PAGES_PER_VCPU * PAGE_SIZE);
+> -    v = alloc_xenheap_pages(get_order_from_bytes(sizeof(*v)), 0);
+> +    BUILD_BUG_ON(sizeof(*v) > PAGE_SIZE);
+> +    v = alloc_xenheap_pages(0, 0);
 
-Correct, but how would any particular caller know? Yes, there may be special
-cases where a caller does know, but imo the code is going to be more robust
-if the check is always being made (forcing all callers to set ->p2m).
+Just one nit here: As (iirc) previously indicated by Andrew, please
+avoid open-coding of alloc_xenheap_page().
 
 Jan
 
