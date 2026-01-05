@@ -2,54 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A429CF2AD9
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 10:17:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195138.1513115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9853CF3240
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 12:06:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195150.1513125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcghX-00072r-13; Mon, 05 Jan 2026 09:16:35 +0000
+	id 1vciOw-0003OA-DX; Mon, 05 Jan 2026 11:05:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195138.1513115; Mon, 05 Jan 2026 09:16:34 +0000
+Received: by outflank-mailman (output) from mailman id 1195150.1513125; Mon, 05 Jan 2026 11:05:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcghW-000712-UC; Mon, 05 Jan 2026 09:16:34 +0000
-Received: by outflank-mailman (input) for mailman id 1195138;
- Mon, 05 Jan 2026 09:16:32 +0000
+	id 1vciOw-0003LX-Ap; Mon, 05 Jan 2026 11:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 1195150;
+ Mon, 05 Jan 2026 11:05:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bdeF=7K=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1vcghU-00070w-Ls
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 09:16:32 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=l/Gm=7K=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vciOv-0003LR-DO
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 11:05:29 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 384709cf-ea17-11f0-b15e-2bf370ae4941;
- Mon, 05 Jan 2026 10:16:30 +0100 (CET)
-Received: from DUZPR01CA0040.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:468::18) by PAVPR08MB9185.eurprd08.prod.outlook.com
- (2603:10a6:102:30d::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
- 2026 09:16:23 +0000
-Received: from DB5PEPF00014B98.eurprd02.prod.outlook.com
- (2603:10a6:10:468:cafe::2b) by DUZPR01CA0040.outlook.office365.com
- (2603:10a6:10:468::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.4 via Frontend Transport; Mon, 5
- Jan 2026 09:16:39 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB5PEPF00014B98.mail.protection.outlook.com (10.167.8.165) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.1
- via Frontend Transport; Mon, 5 Jan 2026 09:16:22 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by MRWPR08MB11828.eurprd08.prod.outlook.com (2603:10a6:501:9a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
- 2026 09:15:17 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9478.004; Mon, 5 Jan 2026
- 09:15:17 +0000
+ id 70fc182b-ea26-11f0-b15e-2bf370ae4941;
+ Mon, 05 Jan 2026 12:05:27 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 514E43371A;
+ Mon,  5 Jan 2026 11:05:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A2DBE13964;
+ Mon,  5 Jan 2026 11:05:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uP41JvSaW2ntWQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 05 Jan 2026 11:05:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,184 +52,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 384709cf-ea17-11f0-b15e-2bf370ae4941
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=HFHtk6Xfwx7tFlVt2IdlxMlTLAmnSjq9bsoFg3FVcURS+lDjbRK4XWQryRgdCspiOe1B8puRtMAHIJ8SzQOqfdxVEDctnp4NiRbDKrPowBaPeNjvMD++ES9fVXuWBIsE4va4/+nUiAjhQTuc3OmoAE9sVyu0kpIGV/CboU29gFNHdHyiJz1qMyr7i+lqLI5sh79P1VAcT+lQDjad3IaPoiQ+47gf6ljPNtXzJJeDCMAeAYBh7iMoUpHuSW/OdNULkQiXU24lQeoaHa6iR7u1tlgPKUBqU8iT1iFwKHAZ5lSkaa16O+nZRIQHBJfGjieYtEFVaCxgLBzD6ouCb3XPKg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
- b=Oc72TmBe0qX52I9yMggK52yh2E0LZ3oMmAIHlQcc0PNIk52F7vWTa/Z2fpNOchp0LrO8ISm4yWR9evH2uQP6jxQPxQlr2OvloTYOSkqDh34BRBDXHhLi4kziosyl9KV3GbdgGTXksGvSGHBbPW3w+8jhDpUa0IwZ0X/YYASNm+esL44ZVW9tVIj1F5R1/I/k+wxrsNNeqdNKfB+tdeLRMCTGYp3cO9DNqZdkfeOcNuLZvDKyzkSYuEMFCll10EMIn3Nv1j3Vmr4W49nBuz06jlZ/WVckvRXxijQUOLgi7Buhlq6IJO5X0Yz7+v51rCeAMutGVHcQrsjfSqEVuBbF5A==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
- b=EtzLvFHIm3PeF13yqg1mKVkKlbCTTU5L6JiILq4f4QbLOs0kKeFDVTQW3xWtR/prMgTxCuxFMsvfqBaebVERK6nwjjb6pu6yjszUlXp7sSma5jhSdIh5LLCo004d9TEbrvgsRfuh14lW1EAls8VyLPyOzEiUTGKVC7h/MQc8TKw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L5KsgNWCF6IKl3zEy/I6XS2EM1/x6vUGFWvx/USQzSVXZ01F0Z01yptYSdWNFhq9qKexbiijViKr1RY0qQjzBaM6Hq3lSFbr3VJsKYvY3VIJF/KGEFRf9OAWXHsky7Lm+irkxxokVls161sdZwd7MPtPrvW4HT/mHW2ynWq5FhjvA2JaCeAR3m9kd+VYmF7QePRoH7fyqnZ+gw1VT7fafOK3S1jbD4zRy+uns3ycZ+JXXr27EFgWxd9kkfXwXXYct0Ll6GnXzXoJQ93znzPguWmq2SklgtObsCHxUQAYky0si30ys754yO4evfu9amAA17LfdIQ0HyhLaRE48IkTLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
- b=jWFaH2b3WKFgaaA80TdIPH1w6OrLFvYORHdHge61Xs06RZ3a5of57w/wWe2CXLDkGtL6yhJaXmRbpeLvg1aJm3Ppy5/5cDIS+qQVGR25xt+wrlQJ4q6ozIwZUi1ZLobti/nML+sMFzr/cCbqtLA/APP7Cf8QDPiZQ5biYqLDHuWT/UewVAzbQzNHhEyjkFRje5pbHdY+VPAXUwDpdxQjxgGqvmJJOBAJDOgmFSjCYRR87DHEGqBzURBOD1BkMGVU2J5HAfPzDtEwCRGVUmuMyeKUtiX7tlBYM6E5h/pMwZEkweKmK2so+hF/66e0HBUiNXzSr4djCpdmPeURpnrjxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
- b=EtzLvFHIm3PeF13yqg1mKVkKlbCTTU5L6JiILq4f4QbLOs0kKeFDVTQW3xWtR/prMgTxCuxFMsvfqBaebVERK6nwjjb6pu6yjszUlXp7sSma5jhSdIh5LLCo004d9TEbrvgsRfuh14lW1EAls8VyLPyOzEiUTGKVC7h/MQc8TKw=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Set ThumbEE as not present in PFR0
-Thread-Topic: [PATCH] xen/arm: Set ThumbEE as not present in PFR0
-Thread-Index: AQHcfiO80ZeGSKmclk2/0HK7x9tq5A==
-Date: Mon, 5 Jan 2026 09:15:17 +0000
-Message-ID: <A6F1798A-BDAD-4FCF-A473-EE9B8DBACF9A@arm.com>
-References:
- <b9e9ec4a393b34b8872a87335db2bde707973c0c.1765276607.git.bertrand.marquis@arm.com>
-In-Reply-To:
- <b9e9ec4a393b34b8872a87335db2bde707973c0c.1765276607.git.bertrand.marquis@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|MRWPR08MB11828:EE_|DB5PEPF00014B98:EE_|PAVPR08MB9185:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2372975-7704-4028-610f-08de4c3b180d
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?JOalNdXt64IkkmEgKThr0UbuXJ4b1ZY9E6r3iPR+gAmMveXxtNt2wbYm/AGT?=
- =?us-ascii?Q?+1Jc2ILBvoQdyOKOsjGv83Ty9zq5R42QHnrVmvoevTcD0AIL5hlqGv680MhR?=
- =?us-ascii?Q?LFihNcsWxv6tv4uKhGJ9HJVTZgzOgf9DhcvXyTYej4NHkOKHr/UeliHhPmYA?=
- =?us-ascii?Q?4a+pD4hVIpwyoS3drIJraxFIEOARFMJqs/jHwR8szdhTJafriJNFcG2GxBxr?=
- =?us-ascii?Q?82NnFAzHyi9v75k0S8tK0SsvC6itDbflF9hI8IKg/2AHkWhsobAcOt8ws2YS?=
- =?us-ascii?Q?qjuTCUKjhQQM/YLFAJzk9DDwVs8vhJnq+jAGH83CrFW8PwuQxZSf0ryz1P3o?=
- =?us-ascii?Q?W1659SdKBCt0fodvlLd1HOWv/eFJBeLWoIOjNcJtWU9DRPCVJIgwKJ4Vt4oc?=
- =?us-ascii?Q?LxeAEx3X7aeshZASJyFvrJfXkxUPPQ7/D8epBQUZ45IgwkHq2rE7TpmnlUFA?=
- =?us-ascii?Q?SqcvFlUhkJKiHA/lZmaLSwouNW0KMXf+foi56dc9GWmffN7beSPquworSNoj?=
- =?us-ascii?Q?Y3IemTXYg6SvJ0Dyk6UIAcUDXJUCX70XRWqW3IZxzQ3k7Mi/8khOGS3Crr1R?=
- =?us-ascii?Q?X2Bvhhp3jjK8T30UYvJDqI+9B4EPp9U6y2j5OaZ0uywK7hLMm9SfWtSuJQUM?=
- =?us-ascii?Q?PbAudeUwLp8eWg1lxB8Qt1aoOhe+jJRxh/h7f0w9ctjciE1vjdkDT69TX3gD?=
- =?us-ascii?Q?ArOWwy9Qnle4blX5fNLNt/nvg0+RST6Fg5tL4KQRr+8FSAABbFTjEzsJbGW3?=
- =?us-ascii?Q?H1PyyLPBbY6tjB8wqsxVlelexL4l+SdSxjp3qTf4+48sACDzunBlbad3CQJ+?=
- =?us-ascii?Q?wBV8CSG3Wv+/69W7GyIaQv0SC2XwZhzkZLHOIM+059425IyTp/gpcYfL3J+O?=
- =?us-ascii?Q?0CHXlCiulZuL7WoNygWIg+6JxOylQz4h+ltN2CvaRVuYHEhw9oWclv19CMkt?=
- =?us-ascii?Q?j2KiB//zB9D/njamC82/u1C4oMHbfvFBbenb69RRb30h01LvHRXRzFdFi4HM?=
- =?us-ascii?Q?SYaQfSXUcvzWAlisLZllIOzmKfD1ccOE4GMG9gkVZnFiKcC7rz/HQ9/mewTX?=
- =?us-ascii?Q?rfUTNKvvMUERtH8WwwSaX5VgBtzfgIQji0ZGReQ5bd8yNoZOvnkdo0ATn8aT?=
- =?us-ascii?Q?Xia1dJIhzuc969Nk4sDA5v2B6e0vVqg2xk4VS5EN2pEg1b6DHQeidL4jk3kC?=
- =?us-ascii?Q?GIMJTPdUJAGJSToq3ZoqLl0tzZHsCRSGeAp4DUGocU+9xs+YRpnkqsP17g4n?=
- =?us-ascii?Q?9TVjNZsTjQ7ZEglgZHR+IM7YAsh4ATI1ybm5MxgTsXhabAxZWRH+JIEpTPs6?=
- =?us-ascii?Q?sFskRMcB2ftNDtC/DvLsinHsKFZzQCLjbzSlryenBuXvtJrNXj6dw8PFns1F?=
- =?us-ascii?Q?4xBVRDINKXycbsbitvv/6haC8BM1+9sTS17WFW4hhEsOpCZfa0+Fj9kGF81J?=
- =?us-ascii?Q?w2JgAGzuh/amtmZc2cXzwtj37ACJ5AMN6PuSgtraN+NUKZN4EAvqgFf4Foxa?=
- =?us-ascii?Q?2qJVSy3Vrxk0TwiiaH364l2VPf9WzaQudV6D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8F9D7965CA59A448B72CD21A356F8FC5@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 70fc182b-ea26-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1767611126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=iVzu4kE4MLmm+li5ZBJK76LENzxCWIbHtMPjUgiboWw=;
+	b=C3JCCpcVjFUSa3srxxotvwVl2NOiZOLOK8hHyDzwSRoieBhrKbvEUjN82h9eqkbtyDTgdF
+	ORnfKNzTkvWpfTGy3qHgHY0Ey3JJXC7lzxwiNA7E1GZd1Jk6DQGiEDHrpVWYD5nhtPOlnj
+	fp6hjeZ+kuRgsZiXem+tNUV+QN0M2lw=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=C3JCCpcV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1767611126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=iVzu4kE4MLmm+li5ZBJK76LENzxCWIbHtMPjUgiboWw=;
+	b=C3JCCpcVjFUSa3srxxotvwVl2NOiZOLOK8hHyDzwSRoieBhrKbvEUjN82h9eqkbtyDTgdF
+	ORnfKNzTkvWpfTGy3qHgHY0Ey3JJXC7lzxwiNA7E1GZd1Jk6DQGiEDHrpVWYD5nhtPOlnj
+	fp6hjeZ+kuRgsZiXem+tNUV+QN0M2lw=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	kvm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Waiman Long <longman@redhat.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [PATCH v5 00/21] paravirt: cleanup and reorg
+Date: Mon,  5 Jan 2026 12:04:59 +0100
+Message-ID: <20260105110520.21356-1-jgross@suse.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR08MB11828
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5PEPF00014B98.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	6709afd2-bce3-47e1-a6b1-08de4c3af15a
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|35042699022|14060799003|82310400026|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?YvXBA0PPcxjRBJr98zUI9Hox55AyjKW0wG0w4YMRMyp+4GoV+FCVbbhxEhOK?=
- =?us-ascii?Q?Yy4RRciykuXc6UA0wAGJ5CqOdQDnkcVHXFwvjLZtGCyZUuIJ7kiCKsFHSuEp?=
- =?us-ascii?Q?BF+eNJwQuGUZa8JEWL16R2hYdYUG9qCYBzqFCbXMfIp32OrOpDHFTsMv429l?=
- =?us-ascii?Q?yPLcEznDRGJMjYBGbv/bz02O9K3fSM9KKXxHVtFpu4naTTzhI6DQJ/AHOm7J?=
- =?us-ascii?Q?86pHl/cfVzluJlaP6seozwnMJm5v9wqwJts4Ww4lWjvQrUlFH8BBlpTtbxvo?=
- =?us-ascii?Q?cTORvaCsZzgUaBo+xoz451YzYzDlGaQOEUwqiyBd1Ie5puSyzTfnjwFfbJTb?=
- =?us-ascii?Q?G4P5gjaryxVdwNFWB3X0OIKu8JR0x2cUUWE/xwzs5Wlm0d/5x+re7w4YIrsp?=
- =?us-ascii?Q?njiGTqBrmKdIjPnpcVaRgrjaf8nJ6fFWgYuDxfkaLcUuchln2DqbL1wTitJn?=
- =?us-ascii?Q?zIhvA7G79JStkUDjy4q3TaRR2j6E7adtP0nNBbmITpk7d2DgM0tk0uRwd53n?=
- =?us-ascii?Q?Yd478eddpwgEQFIpYS6zLHPBgHMBUzHCrpYGmc+fyryVbmo11YUlJl0MgJHx?=
- =?us-ascii?Q?Gb1679YlHUZvIt2233UTw7vhsMiv/dxlLkeSc1KnGSrUg4qGzt5qQeT17Gym?=
- =?us-ascii?Q?UtqjbttMN0j53bE83dmpMEFHEfHC2B7ZnJ7jbHuvxqa6QlD3ao92/Kwlimyp?=
- =?us-ascii?Q?J7eVS3SHYf9cnDggSbQhA/VSPvn/I6orHN1SxAJzP1X42TeRFA6+tJ73TpUh?=
- =?us-ascii?Q?W4veEU1g/+ALi1YOMLiHavEPCuTQ6M5cV/RHS4wQpJZXmOXcA6BqGq9E5LTN?=
- =?us-ascii?Q?I/rDBZIIevnZBFP3R97J8YwNsAt+ysuuTHNjq6d96FwVjyhU3Sfjan98FKtf?=
- =?us-ascii?Q?rKBNrel87qlKyFIKy/pDA/3eQgQNVX+9Bo3noVkiV8GZq+/yQJkAMT7cbYdE?=
- =?us-ascii?Q?k8fbcgIIRp5YOrLIsjqq52IA2909Tp8ugmovy2Kw8aHrzHGoSZstLXcvru0l?=
- =?us-ascii?Q?aJvPe3i+3w2YUHQ8E2zqU8Rm5UJdYsU6692apHjWAlg0/MaZqWgD73EfbRVr?=
- =?us-ascii?Q?KLAleBFm+60ImcCq3ld+o7GynZmZWQ1Ooi8NnBh2OmjoCOTJblvgW0xSLjQQ?=
- =?us-ascii?Q?j6OedjVP1YD3JfiJsTXtvcRkyWD5jEl95UxPvV4vTzKaPi8Te3ZU42qhUiMp?=
- =?us-ascii?Q?ZXXtKdHGlcyAxmATBKhdEwmXFwx62aIW6uHM1WfHzHCkqi4q5lBMwINOwYA8?=
- =?us-ascii?Q?dvPDkEIX/De1LBD5xOvcy0BDLS71wVMmtgYS7+if4yvhIxDepZw8pXPozj5+?=
- =?us-ascii?Q?i5GccCI8CIBN4f6Ceekt1PPcbj9Gdq1ZGIkBp0jxYZJH+CxRAtLdBZ90BJx5?=
- =?us-ascii?Q?VAE3HxWlvDhDFuDi9OrzJvwCAkIr96355BfSvutJfAPCdA2Xpd4uXW06nFCi?=
- =?us-ascii?Q?Mccm/eAjSVRXefSKzAw3anY9/LXQ3IxeQydMv91MlLHPxkjL8tuar0e4LjVA?=
- =?us-ascii?Q?zBmh9JDmfFnL4GCz+WukB7kgcTIo4TNr+h1TaJxSROnb4p+D/7W/E5k6woX0?=
- =?us-ascii?Q?7UTbSKyo8A0ZzoVqhsA=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(35042699022)(14060799003)(82310400026)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2026 09:16:22.2445
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2372975-7704-4028-610f-08de4c3b180d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B98.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9185
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -1.51
+X-Rspamd-Queue-Id: 514E43371A
+X-Spamd-Result: default: False [-1.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,kernel.org,linutronix.de,redhat.com,alien8.de,linux.intel.com,zytor.com,microsoft.com,infradead.org,gmail.com,oracle.com,lists.xenproject.org,broadcom.com,armlinux.org.uk,arm.com,xen0n.name,linux.ibm.com,ellerman.id.au,dabbelt.com,eecs.berkeley.edu,ghiti.fr,linaro.org,goodmis.org,google.com,suse.de,lists.infradead.org,epam.com];
+	DKIM_TRACE(0.00)[suse.com:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[58];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Level: 
 
-Hi all,
+Some cleanups and reorg of paravirt code and headers:
 
-> On 9 Dec 2025, at 10:37, Bertrand Marquis <bertrand.marquis@arm.com> wrot=
-e:
->=20
-> Force ThumbEE support to not available in the version of the PFR0
-> register value we present to guest.
-> Xen does not support ThumbEE and will trap all access to ThumbEE
-> registers so do not report it being supported if the hardware supports
-> it.
->=20
-> Fixes: 5bbe1fe413f9 ("ARM: Drop ThumbEE support")
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
+- The first 2 patches should be not controversial at all, as they
+  remove just some no longer needed #include and struct forward
+  declarations.
 
-just a follow up on this one, the QEMU bug preventing PFR0 to be trapped at=
- EL2 on
-Arm v7a will be fixed when these pathes will be merged:
+- The 3rd patch is removing CONFIG_PARAVIRT_DEBUG, which IMO has
+  no real value, as it just changes a crash to a BUG() (the stack
+  trace will basically be the same). As the maintainer of the main
+  paravirt user (Xen) I have never seen this crash/BUG() to happen.
 
-https://patchew.org/QEMU/20251231170858.254594-1-peter.maydell@linaro.org/
+- The 4th patch is just a movement of code.
 
-Cheers,
-Luca
+- I don't know for what reason asm/paravirt_api_clock.h was added,
+  as all archs supporting it do it exactly in the same way. Patch
+  5 is removing it.
 
+- Patches 6-14 are streamlining the paravirt clock interfaces by
+  using a common implementation across architectures where possible
+  and by moving the related code into common sched code, as this is
+  where it should live.
+
+- Patches 15-20 are more like RFC material preparing the paravirt
+  infrastructure to support multiple pv_ops function arrays.
+  As a prerequisite for that it makes life in objtool much easier
+  with dropping the Xen static initializers of the pv_ops sub-
+  structures, which is done in patches 15-17.
+  Patches 18-20 are doing the real preparations for multiple pv_ops
+  arrays and using those arrays in multiple headers.
+
+- Patch 21 is an example how the new scheme can look like using the
+  PV-spinlocks.
+
+Changes in V2:
+- new patches 13-18 and 20
+- complete rework of patch 21
+
+Changes in V3:
+- fixed 2 issues detected by kernel test robot
+
+Changes in V4:
+- fixed one build issue
+
+Changes in V5:
+- fixed another build issue
+- rebase
+
+Juergen Gross (21):
+  x86/paravirt: Remove not needed includes of paravirt.h
+  x86/paravirt: Remove some unneeded struct declarations
+  x86/paravirt: Remove PARAVIRT_DEBUG config option
+  x86/paravirt: Move thunk macros to paravirt_types.h
+  paravirt: Remove asm/paravirt_api_clock.h
+  sched: Move clock related paravirt code to kernel/sched
+  arm/paravirt: Use common code for paravirt_steal_clock()
+  arm64/paravirt: Use common code for paravirt_steal_clock()
+  loongarch/paravirt: Use common code for paravirt_steal_clock()
+  riscv/paravirt: Use common code for paravirt_steal_clock()
+  x86/paravirt: Use common code for paravirt_steal_clock()
+  x86/paravirt: Move paravirt_sched_clock() related code into tsc.c
+  x86/paravirt: Introduce new paravirt-base.h header
+  x86/paravirt: Move pv_native_*() prototypes to paravirt.c
+  x86/xen: Drop xen_irq_ops
+  x86/xen: Drop xen_cpu_ops
+  x86/xen: Drop xen_mmu_ops
+  objtool: Allow multiple pv_ops arrays
+  x86/paravirt: Allow pv-calls outside paravirt.h
+  x86/paravirt: Specify pv_ops array in paravirt macros
+  x86/pvlocks: Move paravirt spinlock functions into own header
+
+ arch/Kconfig                                  |   3 +
+ arch/arm/Kconfig                              |   1 +
+ arch/arm/include/asm/paravirt.h               |  22 --
+ arch/arm/include/asm/paravirt_api_clock.h     |   1 -
+ arch/arm/kernel/Makefile                      |   1 -
+ arch/arm/kernel/paravirt.c                    |  23 --
+ arch/arm64/Kconfig                            |   1 +
+ arch/arm64/include/asm/paravirt.h             |  14 -
+ arch/arm64/include/asm/paravirt_api_clock.h   |   1 -
+ arch/arm64/kernel/paravirt.c                  |  11 +-
+ arch/loongarch/Kconfig                        |   1 +
+ arch/loongarch/include/asm/paravirt.h         |  13 -
+ .../include/asm/paravirt_api_clock.h          |   1 -
+ arch/loongarch/kernel/paravirt.c              |  10 +-
+ arch/powerpc/include/asm/paravirt.h           |   3 -
+ arch/powerpc/include/asm/paravirt_api_clock.h |   2 -
+ arch/powerpc/platforms/pseries/setup.c        |   4 +-
+ arch/riscv/Kconfig                            |   1 +
+ arch/riscv/include/asm/paravirt.h             |  14 -
+ arch/riscv/include/asm/paravirt_api_clock.h   |   1 -
+ arch/riscv/kernel/paravirt.c                  |  11 +-
+ arch/x86/Kconfig                              |   8 +-
+ arch/x86/entry/entry_64.S                     |   1 -
+ arch/x86/entry/vsyscall/vsyscall_64.c         |   1 -
+ arch/x86/hyperv/hv_spinlock.c                 |  11 +-
+ arch/x86/include/asm/apic.h                   |   4 -
+ arch/x86/include/asm/highmem.h                |   1 -
+ arch/x86/include/asm/mshyperv.h               |   1 -
+ arch/x86/include/asm/paravirt-base.h          |  35 ++
+ arch/x86/include/asm/paravirt-spinlock.h      | 145 ++++++++
+ arch/x86/include/asm/paravirt.h               | 331 +++++-------------
+ arch/x86/include/asm/paravirt_api_clock.h     |   1 -
+ arch/x86/include/asm/paravirt_types.h         | 269 +++++++-------
+ arch/x86/include/asm/pgtable_32.h             |   1 -
+ arch/x86/include/asm/ptrace.h                 |   2 +-
+ arch/x86/include/asm/qspinlock.h              |  87 +----
+ arch/x86/include/asm/spinlock.h               |   1 -
+ arch/x86/include/asm/timer.h                  |   1 +
+ arch/x86/include/asm/tlbflush.h               |   4 -
+ arch/x86/kernel/Makefile                      |   2 +-
+ arch/x86/kernel/apm_32.c                      |   1 -
+ arch/x86/kernel/callthunks.c                  |   1 -
+ arch/x86/kernel/cpu/bugs.c                    |   1 -
+ arch/x86/kernel/cpu/vmware.c                  |   1 +
+ arch/x86/kernel/kvm.c                         |  13 +-
+ arch/x86/kernel/kvmclock.c                    |   1 +
+ arch/x86/kernel/paravirt-spinlocks.c          |  26 +-
+ arch/x86/kernel/paravirt.c                    |  42 +--
+ arch/x86/kernel/tsc.c                         |  10 +-
+ arch/x86/kernel/vsmp_64.c                     |   1 -
+ arch/x86/lib/cache-smp.c                      |   1 -
+ arch/x86/mm/init.c                            |   1 -
+ arch/x86/xen/enlighten_pv.c                   |  82 ++---
+ arch/x86/xen/irq.c                            |  20 +-
+ arch/x86/xen/mmu_pv.c                         | 100 ++----
+ arch/x86/xen/spinlock.c                       |  11 +-
+ arch/x86/xen/time.c                           |   2 +
+ drivers/clocksource/hyperv_timer.c            |   2 +
+ drivers/xen/time.c                            |   2 +-
+ include/linux/sched/cputime.h                 |  18 +
+ kernel/sched/core.c                           |   5 +
+ kernel/sched/cputime.c                        |  13 +
+ kernel/sched/sched.h                          |   3 +-
+ tools/objtool/arch/x86/decode.c               |   8 +-
+ tools/objtool/check.c                         |  78 ++++-
+ tools/objtool/include/objtool/check.h         |   1 +
+ 66 files changed, 662 insertions(+), 827 deletions(-)
+ delete mode 100644 arch/arm/include/asm/paravirt.h
+ delete mode 100644 arch/arm/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/arm/kernel/paravirt.c
+ delete mode 100644 arch/arm64/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/loongarch/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/powerpc/include/asm/paravirt_api_clock.h
+ delete mode 100644 arch/riscv/include/asm/paravirt_api_clock.h
+ create mode 100644 arch/x86/include/asm/paravirt-base.h
+ create mode 100644 arch/x86/include/asm/paravirt-spinlock.h
+ delete mode 100644 arch/x86/include/asm/paravirt_api_clock.h
+
+-- 
+2.51.0
 
 
