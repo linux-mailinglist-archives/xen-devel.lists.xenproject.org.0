@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD09CF4CDF
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 17:49:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195654.1513579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A49ECF4D6C
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 17:55:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195663.1513589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcnkz-0006IF-Rt; Mon, 05 Jan 2026 16:48:37 +0000
+	id 1vcnrM-0007sH-GO; Mon, 05 Jan 2026 16:55:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195654.1513579; Mon, 05 Jan 2026 16:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 1195663.1513589; Mon, 05 Jan 2026 16:55:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcnkz-0006GG-On; Mon, 05 Jan 2026 16:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 1195654;
- Mon, 05 Jan 2026 16:48:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vcnky-0006Fo-9w
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 16:48:36 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5df10cd8-ea56-11f0-9ccf-f158ae23cfc8;
- Mon, 05 Jan 2026 17:48:31 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47aa03d3326so1034585e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 08:48:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d7ee79168sm2487765e9.15.2026.01.05.08.48.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jan 2026 08:48:30 -0800 (PST)
+	id 1vcnrM-0007pY-DU; Mon, 05 Jan 2026 16:55:12 +0000
+Received: by outflank-mailman (input) for mailman id 1195663;
+ Mon, 05 Jan 2026 16:55:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XtAc=7K=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vcnrK-0007pQ-QH
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 16:55:10 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a5c308d-ea57-11f0-b15e-2bf370ae4941;
+ Mon, 05 Jan 2026 17:55:09 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by DS0PR03MB8341.namprd03.prod.outlook.com (2603:10b6:8:28f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
+ 2026 16:55:06 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9478.004; Mon, 5 Jan 2026
+ 16:55:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,230 +47,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df10cd8-ea56-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767631711; x=1768236511; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E09I5imYmWYeJj+EEPmVbW6LYOM7SpfXkaLt0CMgNbo=;
-        b=A68nNRGpEhCiwTDo6y0FfH3yVu8elnvNu6u0AzAZLEZx61PTnOKX75jA+v5dycRr8q
-         CExB3n/J06R77MuHiAk/RAyJXrF2O9e3pZNxWbfYwf1I40ANTcOrlrbMgDTf0u6mBf2Z
-         TKWKiZTdq4/VKVGmlRvCtwSItKxrpJQboxzEzWmS+nDpNtmwVXPaIrO3aozPKh2Oaem+
-         /90bpNiVnKAeDmxbPuhpkIrHn00S2xDw/1rxYIDACXDa3OpB24xFFk2r6zrUzft42rRZ
-         tYc5sazDmvvCGVuF72bTjRLHcX+I5l4I0+fs1FZWGqULjPOjc1PYPoSyE2MZxgaERpTj
-         jzoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767631711; x=1768236511;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E09I5imYmWYeJj+EEPmVbW6LYOM7SpfXkaLt0CMgNbo=;
-        b=cGRv7hwpNxQBkL9wjVVY+EXf5pz6/EhQNUZOLSd13GbEWgqmd/pByZljKDOn8Huram
-         +qn4fZR24b+XrHO31ngDSDkIBX+I7nSnPqOMOEN8GG5xM/xBO0IPuQFPXuDDPuMQHQUB
-         /7y1VXGDzazUa8z8cPRZar/IsufUtTs5unvdYefryHxLwi2a9kkgaFOWXOkHAg4QzHtM
-         IIFyGoFRLQhvBSJPot/cd3isjAZgzF1ytySVaaNKO/fUH1jWYpXeDasTSzIFij+VUdAP
-         CNEHWLhuSVk9S9NQDibL/v8vBBJzfDZ/tQ0ClI9YvItScxUcdDMIrn4EWibqTroR+P3y
-         gD1g==
-X-Forwarded-Encrypted: i=1; AJvYcCUmV5qx0sgd7WAeZeGrkoEffeclfun4cm2Nr0s3YksrPymSEhLLq6vHeTqt9WweXF6dqt9AegxoBIA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+jTUx0A6hPzW941woshWBehluYdkThFJK2EB+garS2MfQzzfm
-	OqzIGlTHjdUFyFr7NSjkenI8+OWLLNSzTqDvy+TlpgcBsshmG/6RuGbLlQswZKc+XiaXxEX8rFg
-	Ro8k=
-X-Gm-Gg: AY/fxX6y35CgTGa0zRMWiXEL/bljXd44BKntysE1OQlQQmVf8QFnsG+ZNB3g5KR+h/E
-	FcstpSnHNpodsV6/u61oEM+Rf0M6m+5NHJV5UhixjrRhe9R+tqz7fvg1rChrZMdH2ovt4eI9VV7
-	dZ51Z7uu+lUk5ueZaYCglwBpiYM0FexaQI4sUFICI7y0D4z5Bm9R9XZxIHNn48Eb6VIpbve7pM8
-	bSAJfwuUPsuvH9HEljPcWK8T3hKAM22mWg4XUzRgKV4Udygwpq2Jt+L29w9FWUjfg06vWWzdk3o
-	+80pIN1kPst43TxdMDIB8hzhjq0BWjGafo/1hRK7ASx/qB1VzGRXysak+UHqEhDcL1mMmkqWCR3
-	Y6jZj8RJZl3EpU2Zmck34wOTUPdpliCkyKk1hirhlRKCKbTMk1vpSx+dEMWwL9ukavmY2dhWx4d
-	bbHQZg8M7FAnVllUfRL6Z+pya+STKdsRL1FFgIa7iZfDeWnuDB/DYLc7z+6DxYaGdaC93ewj7fX
-	Xo=
-X-Google-Smtp-Source: AGHT+IEJr6hXDvCpEsE99FObOMSKOczkJqcOtquEVpKhtfmXSLfCgqr7ukl7hsp8hGMEWSYHJ4iQVw==
-X-Received: by 2002:a05:600c:858e:b0:47a:81b7:9a20 with SMTP id 5b1f17b1804b1-47d1c62930dmr467911725e9.9.1767631710726;
-        Mon, 05 Jan 2026 08:48:30 -0800 (PST)
-Message-ID: <daac660c-a797-4784-b902-665f4c85effe@suse.com>
-Date: Mon, 5 Jan 2026 17:48:29 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 4a5c308d-ea57-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pDCIFjEzkxN+5E3WTM6RFbT0Z13xB2sYHdexMIYAKHtPKrSPpKPXaHkJapRKjsjLdlEiXM6bvdqBUtZ18qhNdMScfGqA2Vd2CHdavCvX2h28IoQeZ5oCKsFdIkd1d0zK0S5ho6uT8KddbKN6Drq6EsJ/nJPqjW44cwrUL/ylsnKaq5kZeDbO51Z7PJHhsm+6Aj9ASlXyeZ2zETjLwt8GtWZo7DJ+wz6ZoxzReUF5p2esQnqt2WIBAT/ZcozavVJ239QynVv7Wt8OzD67ru4B2JVIZTR7LP18LvyY330ZcdE4aI2JJiv5OIclkM6R5daF3tQkiLN239RgN0JIQLu7KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/1U2VkXkLrnVS++cCGGmJu5RGKllksxQxfv4Jh4ZWvA=;
+ b=ea0ZON/c/P3/d+5mYSFv5sauOPzA/2KFWRextaI5r2Wqvf8qXfvYnIrcYmpbk+GqPl3A/AuZe1MOH6JxrLhhLdUHaaLKbEOEW/2IK9jJA/Qy5QB/5ByhCGKs1f6iLWF3136lT+GVa6OccVewH1c16Llkln1jiULQ7TP9i8zDE6iZ6+LZxRYQEyzwavyDwne8k8HB8FuuyJ8QAdIPKMzkVLb0qL6HTgmxLntpIzyzfowTMzfq/YvM+ZYoYYFJxxKkrD3X0cJnTButdLxhgiSzE6eofKGmZODZJ3u3zeU/fx9gj8HCzq0+/BMo6MBYGYeLP2i0HHjwcF7NeFXWDSiycA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/1U2VkXkLrnVS++cCGGmJu5RGKllksxQxfv4Jh4ZWvA=;
+ b=aNaRJaQrqU6QP/tpfB44a4gA4XMvVDdg5vWKezHz60Kxztfp3BSlChERTRM3K4lxbZR5qLl1MQYFwbSOkSzrN2sSxaAA7IObM4Ibf19n9YGb8ykJCdi3IUJdKC9R4+NX0HZUKV+NCSmWQqTuJ3tIxxT+H/OvbZNKXrnVwPYB9cI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <2a22afe1-7b85-4671-a534-00306b97ec21@citrix.com>
+Date: Mon, 5 Jan 2026 16:55:02 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/i387: Rework fpu_fxrstor() given a newer
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/4] x86/xstate: Rework XSAVE/XRSTOR given a newer
  toolchain baseline
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
 References: <20251230135427.188440-1-andrew.cooper3@citrix.com>
- <20251230135427.188440-4-andrew.cooper3@citrix.com>
- <662888ee-e983-4194-b8ca-f28560881c29@suse.com>
- <37ff7e30cc0715d619a20d7ea6ab72b5@bugseng.com>
- <31301264-0655-4cda-a66c-8768269e0c89@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <31301264-0655-4cda-a66c-8768269e0c89@citrix.com>
+ <20251230135427.188440-3-andrew.cooper3@citrix.com>
+ <5b49e965-7e1a-4b04-baa9-c14e2de2e247@citrix.com>
+ <7bd2372a-6687-47c5-94df-2366866f53ea@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <7bd2372a-6687-47c5-94df-2366866f53ea@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2bc::8) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS0PR03MB8341:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0eaf3194-b86f-4cc1-b902-08de4c7b2d33
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?em9qdlBMOG5naGJIN3cyeDMrTUFNN3gwODZ2Z1VQS2xSUDNrZEtZQ1liQnND?=
+ =?utf-8?B?WFBBRUtldE5GbE1KUFFtWlVTUW45VDlCSE1EN3d6NTZJRGlNa3pSY0g5cHd6?=
+ =?utf-8?B?d0h1Y3B0MXRnYWRxTnBFaDRVc3gyUUcrWFdqVTNBNEYxSk5NUDgxaVFreHY3?=
+ =?utf-8?B?amFSS2xCT3N1NkMveHNhR09NQXBvKzRITk1Qc2FHWWRqdXA4aXlHZzRadDgx?=
+ =?utf-8?B?TU9WZWxtOUZPaFlzL0RYUGY4WEc1dE4xN1FTbytuQ0d1WG1mY3VNaWxXMDE4?=
+ =?utf-8?B?Y1hTdkMralFyVmY3eWtxR2dVeHkrdzZ4SW42VkgwVE9aOGdWQVRXU1l1dVRv?=
+ =?utf-8?B?RkxJWUpLYXI1TFlEVTJ5dzBXRGtrSk8rVEFLZnRlc3Q1b09MSjh3Vk8zcjFr?=
+ =?utf-8?B?Ulk2QVk3eDFHOGRFV3hIdUpDd0FIRTE5RW51b29WcHczamc4NkVOWldhQzlq?=
+ =?utf-8?B?SDRNbUNGVFdSaXVJTHczaUZxbXNjRC9PZmgvKzJ2UUlJQkR0bVJIcFN2Z0FB?=
+ =?utf-8?B?NXdRYk5qMmpGQnpncHBiQ1lwUGtxVE8rZTVkU3BydzhvZXhhNnh3QnQ4WkQw?=
+ =?utf-8?B?T1JCMzFrTXZEQ3MzSEVJQWlsNitDT3FidTZDK3F6TXkvWWljZ1VsOWYrdmpt?=
+ =?utf-8?B?OTV6MGlUdVhOeVNiQXQzWHEvQk84MnU0eTg5TlFLUys0SlArdksrbnZ5aVAr?=
+ =?utf-8?B?WU05ZmpxelYxNXJ6MHJPajdlVk11N1JqaDJaMlpSRTBCY1ZrRVVrNlEvUDE2?=
+ =?utf-8?B?bjhhM3NVRHExTDk3a0tVRXVsUWpKbEZXaVVtTzZNTzZRRDZaMTZmQmlKRDdW?=
+ =?utf-8?B?Q2hnQ0FUT2p0WlIvemVWdGtQa0NZR09FS1o1L0xnSzVGcXMzdjA2SlRKcno0?=
+ =?utf-8?B?Njd2KzdtUURaYlVsY3Fnai9ZZ0dvNHJ6dm1lUFd0cTYxZjRvbUhWcHlBNXQv?=
+ =?utf-8?B?VnJ2eHNzOWJ1MVc2ZmlMb3lyMGtTbWpWaWd4Ukk3L0s0emhMUmlxajYwdlhn?=
+ =?utf-8?B?ajJpNHFPYUtxeGpxTzZoZzJtd1FUK2ZZeGVld3kzMnBrRmhEdzRueTRYdGcv?=
+ =?utf-8?B?Q0ZMaklzUlZzcmU2WDR1Q0VyRTlJUFBBSU40M1NvTFZlS0t2R04wUjk3cldT?=
+ =?utf-8?B?ZW11M2I5RGl6NEJ3cndjWXB0dDlNOEhlTmlWYmEzamU2Y3lFUjJ0ajRCeW90?=
+ =?utf-8?B?NGVVMkVYZUFucllhMzB3L092b3VIaDJiWnJPc1g3eXJnRVcybUJHN2hZRUFz?=
+ =?utf-8?B?aVdrYlZnM3Y0S3pWcU9pcDBQaTJJckVkdWUveTFsd1dzWmRybVYvemlrSFdT?=
+ =?utf-8?B?OXB5WnZsMTEwaXo5ZXJjOFp5QmpSbTdHdXRKR0lNNWg2Syszc0xRVk1wclBB?=
+ =?utf-8?B?R3lUbGVRZ3NhdjloaHNqVWRjNnNnMzIyb1lWVi8wdDNkK2RSNHpkQ2ZSN2hl?=
+ =?utf-8?B?N21MaHFCRjZkYlAyOW1UL1ZtRkRvajRqRWVzV2tEQWFSbHgxRTlZcXdrZDls?=
+ =?utf-8?B?UVU5TFh2MnpBdEpBZ0M4K3VoekszdXFHNUNTK2VNWnVaQXhNTVRrc2pWSXF0?=
+ =?utf-8?B?ZnZ0NEpqUXJhRmNiTnNWejhPNnlKcFI0b0RabDErS2VDZ0FZVWdPdXNNaWxy?=
+ =?utf-8?B?WEdYNEFDYmp1THo2d1AyVTllWnJ6NDFQSW0vT0dUZkladklJUks0Qk5NVmtW?=
+ =?utf-8?B?MWdwK2pYT3M5d2p1cVVXb2ZLdzVCbVd0bzMxYnIwNTBKSFU4TUNIbldUSkFM?=
+ =?utf-8?B?RVVaVjYzZFowdklGSHNxSFY5Zy9JT0ZJR25QTmt0MUV6RnhPL0dPLzM5ZzFj?=
+ =?utf-8?B?VmQwaFM2QmQ4ZndEbVVsM2Z3bmlTUEdjR0lXUWhjaU5EMU95UWVURVhiUUVn?=
+ =?utf-8?B?WDNnQzhZYlV6M09mcWE3bnBBbmFzZmR4SHZqR1lsRldVcmxtVWJka2FvYXhO?=
+ =?utf-8?Q?2a5ThqhhEJZsQnpR51vxq7mSP5AkcuxE?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MW5RaDkvaTBWSmlKemVpcnh2TU9ndUgrWEswMUdwVVgwc1Bybk9FY3VPb2VW?=
+ =?utf-8?B?VEc2TDd0UURTcG1UUk5UNVNsRHJraDV4b0RwTkwzcTZmM1NjSDk3SllHSDdk?=
+ =?utf-8?B?b2xCMXR2K1RIMTI5K0xnTW9yNDh6YWo1VzduUVBmQTlUeHdZdi9qUDhFNG9X?=
+ =?utf-8?B?VExvSk9SWXN2TjhaaGNRd1NNM2U1V0lDenl4ZTBqTGtuNWFCQmd0VXdEdmhs?=
+ =?utf-8?B?ZHFxUXhtTDBBdXVzTmsrbWc3VkdINVM5MlZxNlBJQVc1V3JjbDNoYUtaeW9T?=
+ =?utf-8?B?TTJXalNBazB0NzRwZExoZ2VWdi8zR2lOWmpNSGR1QUYxNk9YRWN3dklTZk1M?=
+ =?utf-8?B?M1drZ2d1NGZMNWhpdjhmZmxIU1Z1MU4wSEhBSEp1RkE3N2hURWhwUmI0aXFP?=
+ =?utf-8?B?YVhoU01WRjlWblI1TzZxcUxLUm91UXQ4azFiTTM0N0FJOEVxcFRUekZPenBQ?=
+ =?utf-8?B?UWU4TjhoazQvRXY3VVlLcjc2UE9QdVJRZFZnYzdtelZveEp1VFo2QXVtUkhO?=
+ =?utf-8?B?VGZKamsrN00rVEkrcTJJc1pDRmYvY1U3SERkdlZ5UVR5TTQ4ZlRQSThlMGRI?=
+ =?utf-8?B?VXFtZ3l5dHpuS0xEN00zaFI2L2lMQ1p1ZEpLSU4zcDlBWXdmWThJQ0ozR0s1?=
+ =?utf-8?B?V1kydzJzK0VXSVpydGQ4M2Y0VGhNRmx3TmVQeG15YzBoUFAzcUxxMDZIUHV0?=
+ =?utf-8?B?L3ZpZGpjNXB3YmgzL2xBd0dIakk3THJSYVgvRmdpazFWYlpub3FJWXJqNC93?=
+ =?utf-8?B?WmN5OHErOEw3VE42Q3FWTzU5K3R5VXNPcDRtWkV2c3hMUzJoZ2R1dElWZTNU?=
+ =?utf-8?B?WjM3L0t2MlhMY24rbHVhbmkzQVIwZXBZKy9zWWtCZDYzRkNqNm5La3pIRnpu?=
+ =?utf-8?B?QmFmRmlSRVFLTUp2akVncURGaWk4T2gybDViTjUwd2h0K0RMdkpMalRhZXFw?=
+ =?utf-8?B?aGhQdkptcVorS0hSWnpuYUFOV2pIMElDT1N3eHlIcVllVmo5MGR3Q01jd2Qx?=
+ =?utf-8?B?bWZMZVk5YjVsWk0wUEtDOXg1NjRidWhqMVl6SThaMlMvUHdhM2MzdTVhNDJu?=
+ =?utf-8?B?clhCbFN3eGRLalpMY3hjYm5vQmM0TUpZM0VsdXVGUDArTlVtbEVkeTdqVmI5?=
+ =?utf-8?B?blc0TGo1WVNIaTZ2NUdzSHdCR3FtQk5mNG9mdXhCNEY3QmRXR2JTWVI3Vzk2?=
+ =?utf-8?B?aVVOYkhtZUprZEVOMW9JMm1hdzFSV0V2L1U3ZWVKaDUvZExPRzRRN3I0dzdu?=
+ =?utf-8?B?aU1ORUFkMlF4Y24zcmdxL29QQlRsVC8xRFlaTFdWMnpDczk0OTlCOXZvYjFl?=
+ =?utf-8?B?M1R2V0JCcUlNak9MUEpNR2k5cjlFNVl5ZHBOVjBhdTFyWUxtaVdCaFI5MVdo?=
+ =?utf-8?B?dytUWko3WmJBT0MvNDIrYzhLeW5LazlNZFF4VTVkUEpEWmlsS21odjVlV09w?=
+ =?utf-8?B?RlR4UUFzb3RZS0UvKzVPMEtmaWxpaUEvMHlLeEI0UUoxV1RYL21PR3FneGJW?=
+ =?utf-8?B?T2NqcGxQdmlVTnpLUnBvMnB3c2hPbml6LzQrV3ZlRHpISk5CZDc3bThSTzQ5?=
+ =?utf-8?B?alUwRGFZVnpkNmY2OHB6ZEhGNVg2d2xSd2ZZVjVzb0wrUytuREZvVnlZTTRP?=
+ =?utf-8?B?ekVXVlZZWWdSbnNENkwzL244RVlZazUyd2ZsTWtqSDRnWklaaUFQbFl2SU1V?=
+ =?utf-8?B?UUZDN3lsTzFHelo0Ylh3d1RpSjcvQWVlSzhISS9qU0MvUWUxZ0VEamNIb2RR?=
+ =?utf-8?B?bVJnR29kTmxEME1iTmFPSlJkSnJ5YVhiNFgwRlJvYXN2TXAxcllFQnFaVTFx?=
+ =?utf-8?B?eFJuTEljelNwUzRCZnQ2M3MzemRUSk1OSEViOFEvekovTXd0YUdpbklrdFNS?=
+ =?utf-8?B?VnNQY0Y0b3ZkcHdlZU5qTW9uUXR4cTd2SUFuaDlFOVR4TGUvenpXbzFHOFVD?=
+ =?utf-8?B?V1ZQSU1DS0ZDOWI0NkRqMkJPZ0FQeUEzaERGdGFjNlJWMkh2dElEVGlqSDAw?=
+ =?utf-8?B?YklSWTh3ZWRyUDE4M1pyNWszbk9MZ1dDcEQwUnBsUHpEOHhENGVGM29XTjc1?=
+ =?utf-8?B?SWFWVW1NUGYzRmVNUUNlV3V3dDRFcDY5aTF5d0RXQ1lYUWpGT2JRNVFnMCsy?=
+ =?utf-8?B?UisvTm5pYzNWUVhKNVY4MGlOa3VVQkkwcHVpTHdqSS9TWm5KbUd6NmhDQ0RQ?=
+ =?utf-8?B?UllWRVB6ck00WlhBZG1adXBBK1JnVmtPVzRsUW9VMjFINWpxYmF1ZkZsQUVC?=
+ =?utf-8?B?TzVja0RLcHd6bkJvaEMxL2dNSXlUS2tYaEtkNkNwRXNWamJBZ083eUhyM2Z0?=
+ =?utf-8?B?UnUvbmwwaEJRVWhyVVY2anBhaDdFWnpMeWFWN2dCdmZkaklhOEJQQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0eaf3194-b86f-4cc1-b902-08de4c7b2d33
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2026 16:55:05.7744
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JvxoPGGEoyl4XXgm3z+WNjyydgYkjWnG0W01cz0sD646K2u6oSuLBiRHr++funZCTJrIFDeZ1RXJNBbZT4YeHRNe8b0Tz6jmidBUGhtbJEc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB8341
 
-On 05.01.2026 17:39, Andrew Cooper wrote:
-> On 05/01/2026 4:13 pm, Nicola Vetrini wrote:
->> On 2026-01-05 16:52, Jan Beulich wrote:
->>> On 30.12.2025 14:54, Andrew Cooper wrote:
->>>> Use asm goto rather than hiding a memset() in the fixup section. 
->>>> With the
->>>> compiler now able to see the write into fpu_ctxt (as opposed to the asm
->>>> constraint erroneously stating it as input-only), it validly objects
->>>> to the
->>>> pointer being const.
->>>>
->>>> While FXRSTOR oughtn't to fault on an all-zeros input, avoid a risk
->>>> of an
->>>> infinite loop entirely by using a fixup scheme similar to xrstor(), and
->>>> crashing the domain if we run out options.
->>>
->>> Question being - does ...
->>>
->>>> --- a/xen/arch/x86/i387.c
->>>> +++ b/xen/arch/x86/i387.c
->>>> @@ -38,7 +38,8 @@ static inline void fpu_xrstor(struct vcpu *v,
->>>> uint64_t mask)
->>>>  /* Restore x87 FPU, MMX, SSE and SSE2 state */
->>>>  static inline void fpu_fxrstor(struct vcpu *v)
->>>>  {
->>>> -    const fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
->>>> +    fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
->>>> +    unsigned int faults = 0;
->>>>
->>>>      /*
->>>>       * Some CPUs don't save/restore FDP/FIP/FOP unless an exception
->>>> @@ -59,49 +60,41 @@ static inline void fpu_fxrstor(struct vcpu *v)
->>>>       * possibility, which may occur if the block was passed to us
->>>> by control
->>>>       * tools or through VCPUOP_initialise, by silently clearing the
->>>> block.
->>>>       */
->>>> + retry:
->>>>      switch ( __builtin_expect(fpu_ctxt->x[FPU_WORD_SIZE_OFFSET], 8) )
->>>>      {
->>>>      default:
->>>> -        asm_inline volatile (
->>>> +        asm_inline volatile goto (
->>>>              "1: fxrstorq %0\n"
->>>> -            ".section .fixup,\"ax\"   \n"
->>>> -            "2: push %%"__OP"ax       \n"
->>>> -            "   push %%"__OP"cx       \n"
->>>> -            "   push %%"__OP"di       \n"
->>>> -            "   lea  %0,%%"__OP"di    \n"
->>>> -            "   mov  %1,%%ecx         \n"
->>>> -            "   xor  %%eax,%%eax      \n"
->>>> -            "   rep ; stosl           \n"
->>>> -            "   pop  %%"__OP"di       \n"
->>>> -            "   pop  %%"__OP"cx       \n"
->>>> -            "   pop  %%"__OP"ax       \n"
->>>> -            "   jmp  1b               \n"
->>>> -            ".previous                \n"
->>>> -            _ASM_EXTABLE(1b, 2b)
->>>> -            :
->>>> -            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
->>>> +            _ASM_EXTABLE(1b, %l[fault])
->>>> +            :: "m" (*fpu_ctxt)
->>>> +            :: fault );
->>>>          break;
->>>> +
->>>>      case 4: case 2:
->>>> -        asm_inline volatile (
->>>> -            "1: fxrstor %0         \n"
->>>> -            ".section .fixup,\"ax\"\n"
->>>> -            "2: push %%"__OP"ax    \n"
->>>> -            "   push %%"__OP"cx    \n"
->>>> -            "   push %%"__OP"di    \n"
->>>> -            "   lea  %0,%%"__OP"di \n"
->>>> -            "   mov  %1,%%ecx      \n"
->>>> -            "   xor  %%eax,%%eax   \n"
->>>> -            "   rep ; stosl        \n"
->>>> -            "   pop  %%"__OP"di    \n"
->>>> -            "   pop  %%"__OP"cx    \n"
->>>> -            "   pop  %%"__OP"ax    \n"
->>>> -            "   jmp  1b            \n"
->>>> -            ".previous             \n"
->>>> -            _ASM_EXTABLE(1b, 2b)
->>>> -            :
->>>> -            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
->>>> +        asm_inline volatile goto (
->>>> +            "1: fxrstor %0\n"
->>>> +            _ASM_EXTABLE(1b, %l[fault])
->>>> +            :: "m" (*fpu_ctxt)
->>>> +            :: fault );
->>>>          break;
->>>>      }
->>>> +
->>>> +    return;
->>>> +
->>>> + fault:
->>>> +    faults++;
->>>> +
->>>> +    switch ( faults )
->>>> +    {
->>>> +    case 1: /* Stage 1: Reset all state. */
->>>> +        memset(fpu_ctxt, 0, sizeof(*fpu_ctxt));
->>>> +        goto retry;
->>>> +
->>>> +    default: /* Stage 2: Nothing else to do. */
->>>> +        domain_crash(v->domain, "Uncorrectable FXRSTOR fault\n");
->>>> +        return;
->>>
->>> ... this then count as unreachable and/or dead code in Misra's terms?
->>> Nicola?
->>> Sure, Eclair wouldn't be able to spot it, but that's no excuse imo.
->>
->> Right now, probably not, but even if it did, an ASSERT_UNREACHABLE can
->> be added in the default branch to deal with that.
-> 
-> It's fully reachable.
-> 
-> FXRSTOR can fault multiple times, and can fault for reasons unrelated to
-> the contents of the buffer.  Fault recovery isn't even limited to only
-> #GP[0] only, and FXRSTOR can suffer #AC from a misaligned pointer.
+On 05/01/2026 3:16 pm, Jan Beulich wrote:
+> On 02.01.2026 17:01, Andrew Cooper wrote:
+>> On 30/12/2025 1:54 pm, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/xstate.c
+>>> +++ b/xen/arch/x86/xstate.c
+>>> @@ -310,21 +310,21 @@ void xsave(struct vcpu *v, uint64_t mask)
+>>>      uint32_t hmask = mask >> 32;
+>>>      uint32_t lmask = mask;
+>>>      unsigned int fip_width = v->domain->arch.x87_fip_width;
+>>> -#define XSAVE(pfx) \
+>>> -        if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY ) \
+>>> -            asm volatile ( ".byte " pfx "0x0f,0xc7,0x2f\n" /* xsaves */ \
+>>> -                           : "=m" (*ptr) \
+>>> -                           : "a" (lmask), "d" (hmask), "D" (ptr) ); \
+>>> -        else \
+>>> -            alternative_io(".byte " pfx "0x0f,0xae,0x27\n", /* xsave */ \
+>>> -                           ".byte " pfx "0x0f,0xae,0x37\n", /* xsaveopt */ \
+>>> -                           X86_FEATURE_XSAVEOPT, \
+>>> -                           "=m" (*ptr), \
+>>> -                           "a" (lmask), "d" (hmask), "D" (ptr))
+>>> +
+>>> +#define XSAVE(pfx)                                                      \
+>>> +    if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )                      \
+>>> +        asm volatile ( "xsaves %0"                                      \
+>>> +                       : "=m" (*ptr)                                    \
+>>> +                       : "a" (lmask), "d" (hmask) );                    \
+>>> +    else                                                                \
+>>> +        alternative_io("xsave %0",                                      \
+>>> +                       "xsaveopt %0", X86_FEATURE_XSAVEOPT,             \
+>>> +                       "=m" (*ptr),                                     \
+>>> +                       "a" (lmask), "d" (hmask))
+>> This loses the pfx.  I've fixed up locally and double checked the
+>> disassembly.
+> Question being: Do we want to stick to using the prefix form, when gas
+> specifically has been offering a kind-of-suffix form instead from the
+> very beginning (xsaves and xsaves64)?
+>
+> If we wanted to stick to the prefixes, I'd favor a form where the use
+> sites don't need to supply the separating blank (i.e. the macro itself
+> would insert it, as doing do with an empty prefix results in merely
+> an indentation "issue" in the generated assembly). Thoughts?
 
-None of these faults are what we mean to recover from here. Faults
-unrelated to buffer contents would pretty likely occur on the memset()
-as well.
+I don't expect this macro to survive the fixes to use the compressed
+format.  From that point of view, "closest to the original" is least churn.
 
-As to #AC - in ring 3, but not in ring 0 (where Xen runs)?
+One problem with using a suffix form is that you could feed in "opt"
+instead of "64" and break things in rather more subtle ways.
 
-> If Xen is operating properly, it oughtn't to fault more than once, but
-> right now the logic will livelock rather than terminate.
+I'll adjust the position of the space, but I think this can keep on
+using prefixes in the short term.
 
-s/will/would/ as that's only hypothetical (assuming no other bugs).
-
-> Further fixes being discussed (better auditing of toolstack-provided
-> buffers) should cause it never to fault for buffer-contents reasons, at
-> which point I'll be removing the retry aspect and escalating to
-> domain_crash() unconditionally.
-
-Still in the meantime I think Nicola's suggestion should be taken
-and ASSERT_UNREACHABLE() be added. Then
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
+~Andrew
 
