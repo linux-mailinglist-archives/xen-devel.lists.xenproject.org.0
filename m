@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 981BBCF47CA
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 16:46:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195519.1513449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C741CF4851
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 16:52:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195528.1513460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcmmi-0006Ge-ND; Mon, 05 Jan 2026 15:46:20 +0000
+	id 1vcmsG-00086Y-9b; Mon, 05 Jan 2026 15:52:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195519.1513449; Mon, 05 Jan 2026 15:46:20 +0000
+Received: by outflank-mailman (output) from mailman id 1195528.1513460; Mon, 05 Jan 2026 15:52:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcmmi-0006Ea-KC; Mon, 05 Jan 2026 15:46:20 +0000
-Received: by outflank-mailman (input) for mailman id 1195519;
- Mon, 05 Jan 2026 15:46:19 +0000
+	id 1vcmsG-00084p-6Y; Mon, 05 Jan 2026 15:52:04 +0000
+Received: by outflank-mailman (input) for mailman id 1195528;
+ Mon, 05 Jan 2026 15:52:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vcmmh-0006EU-8O
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 15:46:19 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1vcmsF-00084j-FH
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 15:52:03 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac78bc01-ea4d-11f0-b15e-2bf370ae4941;
- Mon, 05 Jan 2026 16:46:17 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-4327790c4e9so3164188f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 07:46:17 -0800 (PST)
+ id 7999460c-ea4e-11f0-b15e-2bf370ae4941;
+ Mon, 05 Jan 2026 16:52:01 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-43277900fb4so891912f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 07:52:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bca2f8fbsm194740f8f.10.2026.01.05.07.46.16
+ ffacd0b85a97d-432bca27603sm234937f8f.6.2026.01.05.07.52.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jan 2026 07:46:16 -0800 (PST)
+ Mon, 05 Jan 2026 07:52:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac78bc01-ea4d-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 7999460c-ea4e-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767627977; x=1768232777; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767628321; x=1768233121; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XPnu0vThWEgbI0+DkMRoNLVg7V3inLjFC/70HVjgUUs=;
-        b=JW/QT+lwarqZDhzbC74GNIkXZwAA8vPY3q96d7AmfLhCW2IWWZU15XA0kLqdHNxD8p
-         z5Byu6TqAZ3ssWty69dvtSDddf7wYfyI/C1F+UGRHzSlOXk64/nscV4t2jj7ZTcbIVil
-         zNOdldHYft+8eFrRApWRp3DJI9v6Y078jthSATNOANhVef0NMyWFHhkVN25mIyVYuM6D
-         B90xHiSLHT1Hrxy9p3UlpcGdD3Z1myvLIBFT/bGjMEU9Uh887KWu+fLUBd/ZSkQgOsXt
-         3vY47uS/lsW2Fk0iaU/cHdig6xZszZfT8Y8NmJXCQPpbA/JubO4eB+vroG2Jlp5jE8B7
-         FJ/A==
+        bh=5GBBwsA4/MhDc4ro2F+Qm/pUvbzErcSrA6GY4MVFwfs=;
+        b=b51x9XbWRJFZJ6fuJQ60kN7o/JefkVqS4x0nmX9d0i1ExThWg3SOv6Ow8FB4mmm50V
+         TCJbLhVV/ynpRLbHFqgZAIvre3OGqUQIiFzylBzYouRn113W5Quc+NlmqyLIZ86YZqiQ
+         i77Nok4BSqkW5fkROKAgWL/NmY60Y6rTqp95wHTh3EPPN8vpHFL1kOqHiM5VFhURE6kK
+         S/TxYCy+xy7wWG1Xi7mA/13MG7BDgztYKkt2+SB/oF0+xrpLVa1siZ0ZL+BF3gxLoeYN
+         FmT+qqeezibB+ytNDNYSh/UIUGPDICQplwhKM0IiREc3js5sEdCqjEh49nNA0/b64bIY
+         z6dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767627977; x=1768232777;
+        d=1e100.net; s=20230601; t=1767628321; x=1768233121;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XPnu0vThWEgbI0+DkMRoNLVg7V3inLjFC/70HVjgUUs=;
-        b=lnp5d3SONkF2BguHTna/f/IL8JQYfC3AjtTkBhKBOzr5L8uNRb5Qo3R6iHth8P2lJL
-         2V7GLnfmcVsEUp8Mx5O1Lb1HZWHfbxBOzPI4QwCeF+umH+RGC7csexD++gkNSa7nZQRH
-         i453KyVsOyz6R4Zm/AaUZJcm86dQ8PeF0TJkbZU9/QAiyOP2snobF14S+dhmeO4lLdyL
-         rAwl/4JCosLmeAdrUjr0dywhEVoIjNlsMPdi8w+PdFjfAm4akxFKySt6VXSem/eBSx7L
-         xQ7J3yYPezx6l65os5yhWsMZqsWd5RcMmfeWaeP2DG2YAWRPQbotwNioHq+DCmO0a7f1
-         EveA==
-X-Forwarded-Encrypted: i=1; AJvYcCX1YeqGSPMo+kuijBpgeopyJnfSZHvaYQmWJ2MoMOQ+c530qJVuVMyaTcBgMd05WWqJxt2zUDkqCDo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdydBmSDTjWRwuKLlwqt3sv9Io/6DsBi9riN4dDx5NrPSiK5l8
-	vK5n3pFvQfbcarp5yFqtrd8QpI/2QdQXHC+nXXwh/qKWQoFcXbabr9RO4b60dGszKw==
-X-Gm-Gg: AY/fxX4edg3SWg9dcNzA6/jXG9VMm8w/Ee/9HcC02F3AEjM7EBKeu4DuDUJXgWpDoOH
-	Cm0Hq8aH0fliQLw557Yq0hBPZ7yoZ8+KKgWSI2s5LTN7JAXyLXwDvgHsCBuBI4SQX5tsqN7naOy
-	VZAMOZQRRnQon/K7IqA4Kb1k0NyUQ5nApreLMdoli1wVjH8kh/FhrQ7QEGQpAZYsDWPmirrcmDg
-	jGBSsekYqmLoVkdShzegkG+iq+1VnWcrADwWUeCFG8zF/5le8flI7+kC9D+x5toZEz7BimrTaBw
-	cdJKJ/wzwBZy2ZCuDoqVx8bjwOtRP5LAq9dl3uJ5jvzngWRTXcGq0vMRzpGH/D6cQO7r42YvZ9a
-	J/3iwF3uCsyKeDgVpQue2XIULt7PGLvQtAS5XpSfwvRDaxOdhUj8B78xVgUu3+ASz+RUYybC6PV
-	l00ghGrgTv5xKrJdZHQqCyCsr5+2i8Kr99T8sws+3IaCz6DTyROae54kwP0xwoWpTanx7Q5u0xY
-	8k=
-X-Google-Smtp-Source: AGHT+IHmgw+GvbLF1rhSiPMvK24miYy9YjgnCuuiN8osungdBnVsOfZFUxZx1FpUVxhYW7LEd34wRA==
-X-Received: by 2002:a05:6000:4287:b0:430:f272:3489 with SMTP id ffacd0b85a97d-432bca3e33amr232998f8f.28.1767627977017;
-        Mon, 05 Jan 2026 07:46:17 -0800 (PST)
-Message-ID: <4b051e1f-0d99-4637-b433-bade93e67e0a@suse.com>
-Date: Mon, 5 Jan 2026 16:46:16 +0100
+        bh=5GBBwsA4/MhDc4ro2F+Qm/pUvbzErcSrA6GY4MVFwfs=;
+        b=h/cy3FnqwBexb/CIj7hLLZjngUJ9W9oUWWQKat+nvD2G3ITAqaxR7v7vhrZ9EXItuO
+         R0jyMD0ee6mqvQPqWWlFoRHrogxb2Qhquly1VT6WYVN8CDGbZyopgPhTekDilA9/yiFd
+         K2YunvtXwptNqRgzlYPsMdWLkyAw8tmKXR+QV+K78vjvMCOJVUaPntcINm123uXGYCeQ
+         IB/rXRKJX8ZeqzAM+RM/ry5yJGoMycdM+luAA1pNqDcm437sp+ZzrtPoVvZM8YXpoptC
+         swQ3peBs+6TJ6MTY1qbbHqHWBOMTEtEmM2w3p5KRFs9PXnxy4Qc+6rZe6uEOnZXKmkD5
+         x2Eg==
+X-Forwarded-Encrypted: i=1; AJvYcCX0ILiyqIx/LYIatYSXIyiMxYTJmBxo8ufObQWfwd1Pnf89NTPLm7XEJQeZPzeJry4mHanAsp9NfcI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygM/H6so05cNRfSUB49kLmVJBgSUT5LRsnDjBJva+vaMm8c62O
+	riGg+GgIio5Kb1/exCWAGlLE0O7teyipjbFuRtAgrxphKqOHobDBJkIXgaYVhgrD8g==
+X-Gm-Gg: AY/fxX6teFBDeI4K+eaf8UjDzJB/HQrEvu/MvFlvObULlhIQzgsE1WAL80nULAcSfk4
+	6TmxFY6D+cdlUkyV1AddUVZIpTozZ/qLAJlclr4dv1ljsXqzR/5YW4sqURCR8pKx74JmYCIuctE
+	pNqYrqYQB+3VXgmQRSNPyXdZs1TQoONY/mTaBD23qWX6nFjRslyUuE7dpNaf5B4JVs5/UrsDapx
+	KBVtbw/MYx6ZL3Gjw45JB46V+LRd1gTBuQ9KA2axRwsjq5/A+gg6FsKuf1XsygGbdsqovLVKM/2
+	Se+LeftMh3ieR+kpsxG0xkyuewU5swH+b7Wj2He6wBYumZAvdWE86CgKykDiuYfd7gWbyH5YCWo
+	VNTtr14tEXFQt3AANGS7ekDy2ExfwHuKLkkN3nio9xYmyiGcWJRubvMqhHmi2a4H8jax6BS6403
+	8ki7cYfkVIHcrxeoBtdhyubUQIg7rltPDHp4dcMOMuEch1RfFkw6+aOMjxs9bbPDd7fcOB7S9AT
+	WI=
+X-Google-Smtp-Source: AGHT+IEMyNRObhYzSbz+PCesMqEiMiXAWNK+ovyNYDL70lk3k3QXYC+TtbWmmBsLxVWIS486sJpwIg==
+X-Received: by 2002:a05:6000:2312:b0:431:4ee:1f4e with SMTP id ffacd0b85a97d-432aa3f8464mr12158082f8f.11.1767628321222;
+        Mon, 05 Jan 2026 07:52:01 -0800 (PST)
+Message-ID: <662888ee-e983-4194-b8ca-f28560881c29@suse.com>
+Date: Mon, 5 Jan 2026 16:52:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/xstate: Rework XSAVE/XRSTOR given a newer
+Subject: Re: [PATCH 3/4] x86/i387: Rework fpu_fxrstor() given a newer
  toolchain baseline
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251230135427.188440-1-andrew.cooper3@citrix.com>
- <20251230135427.188440-3-andrew.cooper3@citrix.com>
+ <20251230135427.188440-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,78 +122,110 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251230135427.188440-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20251230135427.188440-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.12.2025 14:54, Andrew Cooper wrote:
-> --- a/xen/arch/x86/xstate.c
-> +++ b/xen/arch/x86/xstate.c
-> @@ -310,21 +310,21 @@ void xsave(struct vcpu *v, uint64_t mask)
->      uint32_t hmask = mask >> 32;
->      uint32_t lmask = mask;
->      unsigned int fip_width = v->domain->arch.x87_fip_width;
-> -#define XSAVE(pfx) \
-> -        if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY ) \
-> -            asm volatile ( ".byte " pfx "0x0f,0xc7,0x2f\n" /* xsaves */ \
-> -                           : "=m" (*ptr) \
-> -                           : "a" (lmask), "d" (hmask), "D" (ptr) ); \
-> -        else \
-> -            alternative_io(".byte " pfx "0x0f,0xae,0x27\n", /* xsave */ \
-> -                           ".byte " pfx "0x0f,0xae,0x37\n", /* xsaveopt */ \
-> -                           X86_FEATURE_XSAVEOPT, \
-> -                           "=m" (*ptr), \
-> -                           "a" (lmask), "d" (hmask), "D" (ptr))
+> Use asm goto rather than hiding a memset() in the fixup section.  With the
+> compiler now able to see the write into fpu_ctxt (as opposed to the asm
+> constraint erroneously stating it as input-only), it validly objects to the
+> pointer being const.
+> 
+> While FXRSTOR oughtn't to fault on an all-zeros input, avoid a risk of an
+> infinite loop entirely by using a fixup scheme similar to xrstor(), and
+> crashing the domain if we run out options.
+
+Question being - does ...
+
+> --- a/xen/arch/x86/i387.c
+> +++ b/xen/arch/x86/i387.c
+> @@ -38,7 +38,8 @@ static inline void fpu_xrstor(struct vcpu *v, uint64_t mask)
+>  /* Restore x87 FPU, MMX, SSE and SSE2 state */
+>  static inline void fpu_fxrstor(struct vcpu *v)
+>  {
+> -    const fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
+> +    fpusse_t *fpu_ctxt = &v->arch.xsave_area->fpu_sse;
+> +    unsigned int faults = 0;
+>  
+>      /*
+>       * Some CPUs don't save/restore FDP/FIP/FOP unless an exception
+> @@ -59,49 +60,41 @@ static inline void fpu_fxrstor(struct vcpu *v)
+>       * possibility, which may occur if the block was passed to us by control
+>       * tools or through VCPUOP_initialise, by silently clearing the block.
+>       */
+> + retry:
+>      switch ( __builtin_expect(fpu_ctxt->x[FPU_WORD_SIZE_OFFSET], 8) )
+>      {
+>      default:
+> -        asm_inline volatile (
+> +        asm_inline volatile goto (
+>              "1: fxrstorq %0\n"
+> -            ".section .fixup,\"ax\"   \n"
+> -            "2: push %%"__OP"ax       \n"
+> -            "   push %%"__OP"cx       \n"
+> -            "   push %%"__OP"di       \n"
+> -            "   lea  %0,%%"__OP"di    \n"
+> -            "   mov  %1,%%ecx         \n"
+> -            "   xor  %%eax,%%eax      \n"
+> -            "   rep ; stosl           \n"
+> -            "   pop  %%"__OP"di       \n"
+> -            "   pop  %%"__OP"cx       \n"
+> -            "   pop  %%"__OP"ax       \n"
+> -            "   jmp  1b               \n"
+> -            ".previous                \n"
+> -            _ASM_EXTABLE(1b, 2b)
+> -            :
+> -            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
+> +            _ASM_EXTABLE(1b, %l[fault])
+> +            :: "m" (*fpu_ctxt)
+> +            :: fault );
+>          break;
 > +
-> +#define XSAVE(pfx)                                                      \
-> +    if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )                      \
-> +        asm volatile ( "xsaves %0"                                      \
-> +                       : "=m" (*ptr)                                    \
-> +                       : "a" (lmask), "d" (hmask) );                    \
-> +    else                                                                \
-> +        alternative_io("xsave %0",                                      \
-> +                       "xsaveopt %0", X86_FEATURE_XSAVEOPT,             \
-> +                       "=m" (*ptr),                                     \
-> +                       "a" (lmask), "d" (hmask))
-
-While no doubt neater to read this way, there's a subtle latent issue here:
-"m" doesn't exclude RIP-relative addressing, yet that addressing form can't
-be used in replacement code (up and until we leverage your decode-lite to
-actually be able to fix up the displacement). Sadly "o" as a constraint
-doesn't look to be any different in this regard (I think it should be, as
-adding a "small integer" may already bring the displacement beyond the
-permitted range, but their definition of "offsettable" allows this).
-
-This issue is latent until such time that (a) a caller appears passing in
-the address of a Xen-internal variable and (b) we make LTO work again.
-Since the breakage would be impossible to notice at build time, I think we
-would be better off if we avoided it from the beginning. Which may mean
-sacrificing on code gen, by using "r" and then "(%0)" as the insn operand.
-
-> @@ -489,17 +484,17 @@ void xrstor(struct vcpu *v, uint64_t mask)
->              ptr->xsave_hdr.xcomp_bv = 0;
->          }
->          memset(ptr->xsave_hdr.reserved, 0, sizeof(ptr->xsave_hdr.reserved));
-> -        continue;
+>      case 4: case 2:
+> -        asm_inline volatile (
+> -            "1: fxrstor %0         \n"
+> -            ".section .fixup,\"ax\"\n"
+> -            "2: push %%"__OP"ax    \n"
+> -            "   push %%"__OP"cx    \n"
+> -            "   push %%"__OP"di    \n"
+> -            "   lea  %0,%%"__OP"di \n"
+> -            "   mov  %1,%%ecx      \n"
+> -            "   xor  %%eax,%%eax   \n"
+> -            "   rep ; stosl        \n"
+> -            "   pop  %%"__OP"di    \n"
+> -            "   pop  %%"__OP"cx    \n"
+> -            "   pop  %%"__OP"ax    \n"
+> -            "   jmp  1b            \n"
+> -            ".previous             \n"
+> -            _ASM_EXTABLE(1b, 2b)
+> -            :
+> -            : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
+> +        asm_inline volatile goto (
+> +            "1: fxrstor %0\n"
+> +            _ASM_EXTABLE(1b, %l[fault])
+> +            :: "m" (*fpu_ctxt)
+> +            :: fault );
+>          break;
+>      }
+> +
+> +    return;
+> +
+> + fault:
+> +    faults++;
+> +
+> +    switch ( faults )
+> +    {
+> +    case 1: /* Stage 1: Reset all state. */
+> +        memset(fpu_ctxt, 0, sizeof(*fpu_ctxt));
 > +        goto retry;
->  
->      case 2: /* Stage 2: Reset all state. */
->          ptr->fpu_sse.mxcsr = MXCSR_DEFAULT;
->          ptr->xsave_hdr.xstate_bv = 0;
->          ptr->xsave_hdr.xcomp_bv = v->arch.xcr0_accum & XSTATE_XSAVES_ONLY
->              ? XSTATE_COMPACTION_ENABLED : 0;
-> -        continue;
-> -    }
-> +        goto retry;
->  
-> -        domain_crash(current->domain);
-> +    default: /* Stage 3: Nothing else to do. */
-> +        domain_crash(v->domain, "Uncorrectable XRSTOR fault\n");
->          return;
+> +
+> +    default: /* Stage 2: Nothing else to do. */
+> +        domain_crash(v->domain, "Uncorrectable FXRSTOR fault\n");
+> +        return;
 
-There's an unexplained change here as to which domain is being crashed.
-You switch to crashing the subject domain, yet if that's not also the
-requester, it isn't "guilty" in causing the observed fault.
+... this then count as unreachable and/or dead code in Misra's terms? Nicola?
+Sure, Eclair wouldn't be able to spot it, but that's no excuse imo.
 
 Jan
 
