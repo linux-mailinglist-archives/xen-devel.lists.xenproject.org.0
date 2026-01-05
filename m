@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D0DCF452E
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 16:12:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195492.1513430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E5DCF456A
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 16:16:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195504.1513439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcmFg-0000Vx-Vy; Mon, 05 Jan 2026 15:12:12 +0000
+	id 1vcmJV-0001MO-Em; Mon, 05 Jan 2026 15:16:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195492.1513430; Mon, 05 Jan 2026 15:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 1195504.1513439; Mon, 05 Jan 2026 15:16:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcmFg-0000TP-SR; Mon, 05 Jan 2026 15:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 1195492;
- Mon, 05 Jan 2026 15:12:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vcmJV-0001Km-BO; Mon, 05 Jan 2026 15:16:09 +0000
+Received: by outflank-mailman (input) for mailman id 1195504;
+ Mon, 05 Jan 2026 15:16:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vcmFf-0000TJ-BQ
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 15:12:11 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6e80784-ea48-11f0-9ccf-f158ae23cfc8;
- Mon, 05 Jan 2026 16:12:08 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso326035e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 07:12:08 -0800 (PST)
+ id 1vcmJT-0001Kc-CI
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 15:16:07 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 743a29c9-ea49-11f0-b15e-2bf370ae4941;
+ Mon, 05 Jan 2026 16:16:05 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47d3ba3a4deso97615e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 07:16:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d6d143f6asm167040315e9.6.2026.01.05.07.12.07
+ ffacd0b85a97d-432bca2fbfdsm98065f8f.17.2026.01.05.07.16.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jan 2026 07:12:07 -0800 (PST)
+ Mon, 05 Jan 2026 07:16:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6e80784-ea48-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 743a29c9-ea49-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767625927; x=1768230727; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767626165; x=1768230965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8hrn6pHQjABHadqBMB5YW34vBH/fMQ5tWPi/R90yKAw=;
-        b=as8/8La1UcUEfTInk44YPZ4Vgt9Vget3ugTsQVvkA6bvpzMdQGv1UjFhf6BadstYry
-         IZPZ5d55YAk+9UBWBNrVHWN7J9L9pH5euykk6zGcR1EJ3z+mn/2xqz9m1TXQy4NNAjpK
-         rdrvQshtLGzhXO+bdv02yfhtfZBJZgIoyjOlS/HDwgY6CHwkH/Jn4IWlt+5c74+zqDG8
-         WXB1kKYNusgsxMuJS/5oLKPyUEoE5myZUdVd7cSuQITukwAhKIoJlxN93zNDnSfsTUzG
-         GGePALWWQUN20sMK2KY0E3SPYh85rIqB/yYLTZtCakxrbDBJ7qQ8S5sKPG8PCoXuTpRM
-         YQRg==
+        bh=d0ZvIJsgBJSFFLwejM+snzgNBAfb6u9D3qK9/6a/auo=;
+        b=Mfs21TKmAMAHfJsy25OMilOM1p+k5GWvTtoCo5hc/wGeG4Jg+WRD7u7/vF5q0bAeDH
+         OXsWCyQrwGEXUV7cXLzOhecy25ncKIKt+xNLqjBzCY1I5QwctadSTph29f5tOvb30IEk
+         j7NixxaNqyGgiO0jr3sqoNBXpE72SnWffU6rEee+jyKtUfyfzyzQdbzVzeRtliHY1G7L
+         aAQvPyDLu5m+XkkwoPqN4W/BiT8S7ZRLt4BwRrbRCys0dq5ryLr6vFoOGjd5y5Lp7PKI
+         5tIoL00qRJXVgGu7vPy0QlYdP9VmtCjNEE2YGq+vKR4+c6NkyhyXFyGW57DUTt/wcJDo
+         R6rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767625927; x=1768230727;
+        d=1e100.net; s=20230601; t=1767626165; x=1768230965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8hrn6pHQjABHadqBMB5YW34vBH/fMQ5tWPi/R90yKAw=;
-        b=Lu8b7HkCU4whTWCQc3J6PM6jrBUAsZ0VouomtLL1bQ2XVPDn9c0O8r/5FkHIkZEfSW
-         Bet3/2vthAL1rRxmZMKb8DBktGShzoacXYsuP3NI/h/4z8w/KHQdWqK7BHGa6KQzmyMv
-         3Cn4CCyggQAew5AXUK/9XmoxHGIxbMEuRX8BNFzYcJFf6NUFk/dD84a7QWFr2I5Jdb1R
-         DDs4D/hQPhnTphQekNYwpc49iNJCuJc8xjvGgRadKIcPhg/UKkJSilkaYzK+x1KIHa89
-         yPmIaywUTTuAh1Q9gbpjMg/ZUbbTDj0ScOYQwjz+3I2LiZHYfwRzK2zxgT8W7y9QT7tA
-         aH2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWGC1gKr1BvJx8pYXUVyVz7ksqYuq+iTRpZYliYC3s3mXH2igpT0xJBQwDzSHWN+TOyD7J2evnQU70=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyNRUAu0sQbwQOIpciqjqL2/L9UiwpTUj0P3tL2/I1FyOh012N5
-	lGjqCOMhVtjkCJe2Q4PnOp/NW6bRVtGmgz9gTR4WlQX9i4Ys5HhPyvesqZ7E6qLqQA==
-X-Gm-Gg: AY/fxX6lTXRyA1WgTEGnzmqZARbk1jdZPFsbvDnSKHRYLkx3u1LXH4B8I33czF+kdTU
-	u8m2gWI1qTx+JV4I6i8kb1dC/cedN4pmo+L60Y5tq6XJDdy8K20DDZdeLKKQQ7zyIa4lTXPoBBZ
-	NeCA0TTNvqFgamkD0nqu5ltZq2HQqfZULvHJzA0fTOTyFS+QirOmhq4x3PO9QEsC9DI6sWf9QAJ
-	jpZos2RxXf1SwNglKHQh9w4mnyBBHDDcHxRzIVu5m9D6EdW9lhKsaNfhOT80X45K7qlxs0uQoe5
-	N0Wu2fCi+PaYqNZ4UtDX4iHFYrYk6qxHlOE0pAN7JvGRYHvczKIqLywJ1inIMBOMLbVWTpEK4f0
-	CQvkmaPDX7cAoWvM/OgCxED69UT2u2UtcOe/Fqk7Vjkcl/8ufhY8GTYAAoPvHhwRVTqF7za/BKu
-	BD9kLGF0YwAdp2OynPWl8oB4zs0yYN37fWCEWyw1T6AIvLLd3O//nbx3anUz+ATpC8Kk2P5Vk7c
-	N31bctbnT6yWw==
-X-Google-Smtp-Source: AGHT+IHZyN7U5aT0UYgATnhqh9Xqt1sc9MPAssVhBJEJwbNwRIya3CzWusYqM02OySmkP049cdz63g==
-X-Received: by 2002:a05:600c:8208:b0:47b:d949:9ba9 with SMTP id 5b1f17b1804b1-47d19566f0dmr629104285e9.13.1767625927597;
-        Mon, 05 Jan 2026 07:12:07 -0800 (PST)
-Message-ID: <12a0ebd2-26b6-4743-a1cd-8948ad85e1f0@suse.com>
-Date: Mon, 5 Jan 2026 16:12:06 +0100
+        bh=d0ZvIJsgBJSFFLwejM+snzgNBAfb6u9D3qK9/6a/auo=;
+        b=MDFZmKLfTdm7NOHKqk8z19iZ9IouJsynkrfkNh4HczSz/9rpHKXxgXcyqbl+knoDNR
+         sGCpBNoxQcezCHskr9Ub0tlSQyfLRfQ8AQdNl/QcBsjLNy4gn7fZ+OFH6YM4bjbX6pKv
+         DP4M9HEMiDoaBmBYAZSaSC/1ypj6mr42J55LPWeJKCEW+CIHxk7GLGaEyMJ263oxhRc4
+         PaQVbwUmZcmq/sjEVQ/nXF3UCY68sUyQC1i+/3xKQ4xMdxQkhlU6cPLkN3sFg5ulpG1d
+         cnOfWsxGikXafL0aDcugS96higbIlu4+jY8WLGyexAGjU4XfrKNZNlA9X5qx+GNbu8tA
+         pe5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUbRkPRT8RUU0R112vJh4XzDH5yKpDamjBZ4SYTOAHFnOGDcHpwIEA7QPRWTpwYN0/cmMZ757WcI+c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yza5eu8EEkqdzrTR5+lYKrd/Q1UVyYSkK8uP/DpHeCpfRAcI9+p
+	evagBhBziSMCQkYyKrZqnPZVkAoLUK6ssLJbIZtwhAzbEN1hKJ/3uJWzM307tHkjbw==
+X-Gm-Gg: AY/fxX4ENpyu5K/gfM2G6Pq71s4/hQGi9znMEfODtIhr/gE/RT4NLOjojTE0pbEjMJO
+	5nQ39ZwKixLfBW8/HWE836DFbCa9FtAZFSbhxkgmDKObdPoNQHq3RPwwGksMiUTBe53FoThAi5Z
+	ID4pATQWW181Yh6l83uJpqdDD9I9kQ6jXvzY2SnyWWY/HlcSZB5qSiCKU6Gb/bMTLRBtFuzaL/3
+	4rXsSJ0JSPs/8rw1qLMtHjFJ6Z3tKMDIoMylfi7ZLYoUAEw2GhZRmf+5qYaZASnfblfLfUycABT
+	MrrIqfv0o/EMFdXVEUTMVlO76WKJ9zNcJHuKgYXqi4fa5AKmSaxVAX/glj2EN6L0PmGPahc2D6g
+	06X/yglICzrv0lL+e+FtojfXdFh1twvH0I3eU9XRAWCNlo4LRLmmWpxoTHVpwN/Ny9+Uh9/rJWD
+	QdM7XuQ/u16Vl9UchT1eXSLLD/Kv6K9q3pv4keUQpQpp8rEe+okL67WfCQihDT7NsdB7BazP10p
+	8FprzjFWaHNwA==
+X-Google-Smtp-Source: AGHT+IHvUgte7wULTj3XTxiQKEJLLoloXRcQ2p/6mAU+wT8Ak6K5k71/9n7c2m9Rg3FtlPmT5F93Gg==
+X-Received: by 2002:a05:600c:35cb:b0:479:3a88:de60 with SMTP id 5b1f17b1804b1-47d1959e061mr604262115e9.37.1767626164690;
+        Mon, 05 Jan 2026 07:16:04 -0800 (PST)
+Message-ID: <7bd2372a-6687-47c5-94df-2366866f53ea@suse.com>
+Date: Mon, 5 Jan 2026 16:16:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] x86/xstate: Deindent the logic in xrstor()
+Subject: Re: [PATCH 2/4] x86/xstate: Rework XSAVE/XRSTOR given a newer
+ toolchain baseline
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251230135427.188440-1-andrew.cooper3@citrix.com>
- <20251230135427.188440-2-andrew.cooper3@citrix.com>
+ <20251230135427.188440-3-andrew.cooper3@citrix.com>
+ <5b49e965-7e1a-4b04-baa9-c14e2de2e247@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,21 +122,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20251230135427.188440-2-andrew.cooper3@citrix.com>
+In-Reply-To: <5b49e965-7e1a-4b04-baa9-c14e2de2e247@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.12.2025 14:54, Andrew Cooper wrote:
-> ... to improve the legibility of the following fix.
-
-... wanting to replace the for() with an open-coded form of a loop. Which
-is fine, but could have done with saying here.
-
-> No functional change.
+On 02.01.2026 17:01, Andrew Cooper wrote:
+> On 30/12/2025 1:54 pm, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/xstate.c
+>> +++ b/xen/arch/x86/xstate.c
+>> @@ -310,21 +310,21 @@ void xsave(struct vcpu *v, uint64_t mask)
+>>      uint32_t hmask = mask >> 32;
+>>      uint32_t lmask = mask;
+>>      unsigned int fip_width = v->domain->arch.x87_fip_width;
+>> -#define XSAVE(pfx) \
+>> -        if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY ) \
+>> -            asm volatile ( ".byte " pfx "0x0f,0xc7,0x2f\n" /* xsaves */ \
+>> -                           : "=m" (*ptr) \
+>> -                           : "a" (lmask), "d" (hmask), "D" (ptr) ); \
+>> -        else \
+>> -            alternative_io(".byte " pfx "0x0f,0xae,0x27\n", /* xsave */ \
+>> -                           ".byte " pfx "0x0f,0xae,0x37\n", /* xsaveopt */ \
+>> -                           X86_FEATURE_XSAVEOPT, \
+>> -                           "=m" (*ptr), \
+>> -                           "a" (lmask), "d" (hmask), "D" (ptr))
+>> +
+>> +#define XSAVE(pfx)                                                      \
+>> +    if ( v->arch.xcr0_accum & XSTATE_XSAVES_ONLY )                      \
+>> +        asm volatile ( "xsaves %0"                                      \
+>> +                       : "=m" (*ptr)                                    \
+>> +                       : "a" (lmask), "d" (hmask) );                    \
+>> +    else                                                                \
+>> +        alternative_io("xsave %0",                                      \
+>> +                       "xsaveopt %0", X86_FEATURE_XSAVEOPT,             \
+>> +                       "=m" (*ptr),                                     \
+>> +                       "a" (lmask), "d" (hmask))
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> This loses the pfx.  I've fixed up locally and double checked the
+> disassembly.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Question being: Do we want to stick to using the prefix form, when gas
+specifically has been offering a kind-of-suffix form instead from the
+very beginning (xsaves and xsaves64)?
+
+If we wanted to stick to the prefixes, I'd favor a form where the use
+sites don't need to supply the separating blank (i.e. the macro itself
+would insert it, as doing do with an empty prefix results in merely
+an indentation "issue" in the generated assembly). Thoughts?
 
 Jan
 
