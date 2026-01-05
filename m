@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 464ECCF4332
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 15:44:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195442.1513379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D5E9CF43CE
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 15:51:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195452.1513391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vclop-0002OU-WB; Mon, 05 Jan 2026 14:44:27 +0000
+	id 1vclv1-0004Bn-K0; Mon, 05 Jan 2026 14:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195442.1513379; Mon, 05 Jan 2026 14:44:27 +0000
+Received: by outflank-mailman (output) from mailman id 1195452.1513391; Mon, 05 Jan 2026 14:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vclop-0002MU-TN; Mon, 05 Jan 2026 14:44:27 +0000
-Received: by outflank-mailman (input) for mailman id 1195442;
- Mon, 05 Jan 2026 14:44:26 +0000
+	id 1vclv1-00048g-Gs; Mon, 05 Jan 2026 14:50:51 +0000
+Received: by outflank-mailman (input) for mailman id 1195452;
+ Mon, 05 Jan 2026 14:50:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vcloo-0002MO-B1
- for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 14:44:26 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vclv0-00048a-4m
+ for xen-devel@lists.xen.org; Mon, 05 Jan 2026 14:50:50 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06e28607-ea45-11f0-9ccf-f158ae23cfc8;
- Mon, 05 Jan 2026 15:44:24 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47774d3536dso11305e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Jan 2026 06:44:24 -0800 (PST)
+ id ebb183f3-ea45-11f0-9ccf-f158ae23cfc8;
+ Mon, 05 Jan 2026 15:50:47 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-47a95efd2ceso126838635e9.2
+ for <xen-devel@lists.xen.org>; Mon, 05 Jan 2026 06:50:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d6d13ed0asm165934995e9.3.2026.01.05.06.44.22
+ 5b1f17b1804b1-47d6d452a3bsm153988995e9.11.2026.01.05.06.50.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Jan 2026 06:44:22 -0800 (PST)
+ Mon, 05 Jan 2026 06:50:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06e28607-ea45-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: ebb183f3-ea45-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767624263; x=1768229063; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=v2XZa/+OUht4lzTXEfmEYzo3p577uCWIJ6aVSCp22xM=;
-        b=Sp9+hxR2ryjaYS617xM+iDCQle+6rAJyTE3uxepBK2xHUUFndxgQuZT4iLDWCjyPB9
-         7RMIt76/4h/gj4SGjB5Sdwuz6KJNtkHcX+52mYY7Mcmg8YwGqgfGEcR9Y3N0dP/8Wzgi
-         EFQeM0YKZakz7Ty7AEt4hFuEOjVILBQgHIC2hiNhRrNd4IZu3AQ4OBzl7jHzWlIe3Oov
-         rQDPy8KJrQwT3qwIbnn9VBJdGU0Ir+2irAPsQwV2nzFyUVj7VnRM7//BHnHO+vLnbYuE
-         0mvfM3RvTiYO93OelUTUX3H1/GW7g/3DZOaayO0ZkW8hMUVGIHSNcmSvOl0Xrrmgjyq1
-         dwSg==
+        d=suse.com; s=google; t=1767624647; x=1768229447; darn=lists.xen.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AkszFi0SMt9EIcyN2EucawmenV3NU2J1E6gDS8B9vxY=;
+        b=EqJB2ojlamIHBy+e8zziskz8Yj4stLjOIiDZodipKq62jB367Ql/3fdjm+EjngD5BY
+         TbM+XCiAF2o+aH8lMnmpEAqAZCRPF2b1ILCyqRd+Ezh4LSQ4+YtTImLBbTNsRMJ8L7A4
+         Djj2zzgY20Q+aXL98SrvPMXyi/mNMOfxDbutRIJx8169uF2DbaY1VMRUbzizTj4ofMBk
+         J7I/kT6qUBhj6XcjE5I3D345crxAAQO5ZixdgKE3VT2gGs/PNy3y4ciPBDOLuTR89gVM
+         kBVrC2/SqL4h+zy623iS821zoHwymUowv+3ZYiwUrk9hILwmOMfkvAUKDaF8SAMg8WS2
+         P+IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767624263; x=1768229063;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1767624647; x=1768229447;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=v2XZa/+OUht4lzTXEfmEYzo3p577uCWIJ6aVSCp22xM=;
-        b=ftXz3Gp8sQ9++eXr1PkiX/VJHusXNg76Mw14Q6qv7ljn1Pa1s/LGSQOVoJTJytXrlw
-         7qKT0xcZw82uOtcNQ/HzG7ZJSvSzsl6tbmY3Vu5grEVb48mj62oBKEoSN4jq/vJ8yRxs
-         W2NKKzIpvdM4pytsk5OPQO4ZFSd1h/CXUmN8xcS512+Ept3cUIX4bYnj5oxzFgpEsNcX
-         xvyHrJuQy5izxUG3lXf9BYBAhXaZGJNyRzETdd1SDy49chO2ai3X/vn5er2i4Zlotdbm
-         N6nfP4HtmUPunWoy3Oomjs47aHIZP3X170636CdynGkM5998G7Q0WnJ30xV+HzS0L+BP
-         RdpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWCVvw9DFkOT4COwhRfxlhqYRuSbmQvTx+/szp5vkeRjDd4nrnVBvscYLCtezbXnYgaDo+I+gH9Spk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzaOClO2gcO+u9HBCupyVsb+EGsltRZYfk9o/qLclASIQKKRQtm
-	vFz6s/K7jJMjDJl0HC/zFW4t24QgjsVVAeT/yrBgx+VF79PHE4v9YfzP6wffp3Zs7A==
-X-Gm-Gg: AY/fxX44RmaCVVawyXfEWQZjV9WGkG2kTYmtKEw3NvAH8czMXsa7Y8+mCLVJJoBWMyU
-	RpbU3f9mDM28ZE4nZBiIrAbojGMcPL+iN3kV2Np+G8qtNHYGj1W5RS+jiJTq9C9wI/ssw+VFOzo
-	1g2/B9n7OxQuX3A4HcghCzaIx/wOnLUvBrc94Y874UtvETHtZt8/Ec+SK8slQWAdQ+PXplnVzVM
-	OANcsEAXhZG55b69Zfbv5XaYvh/7R7OZ/V8N6EHDbqqiD347ydpyu3Z9ONyjhPzGUrS5JXq/6ti
-	EymBTOGmzylcx7z5gs63iRHWcHPC0mMBQarmmVYc7nwfUW5Q9GMJ/E8I/NhW9fNIN0uvhexQzLq
-	uNc1HXfuS82j6Vb/sy2ggOoN1oB+eTDtItDwnasZeJ/HKUXv49ONlqY+LP5xGD03y19CHQSVms7
-	FhhAvJDNJRkp1OfUw8UolSPc75ZIcXesidQYuDJ+lMAFyfKECE0BULx8rCwzlV8Ee2mwhbIuVx7
-	uc=
-X-Google-Smtp-Source: AGHT+IFeQqpVgX73VR7ao41n1Yipw9jK1Ar6juD309qcJVIGnx8BFGjbwpDYbpRFKsZEhbnTADFWlg==
-X-Received: by 2002:a05:600c:6a8f:b0:47d:52ef:c572 with SMTP id 5b1f17b1804b1-47d6ba7ac36mr74123265e9.1.1767624263289;
-        Mon, 05 Jan 2026 06:44:23 -0800 (PST)
-Message-ID: <d6453811-1a4e-4b37-9c39-94bfcfa057d2@suse.com>
-Date: Mon, 5 Jan 2026 15:44:22 +0100
+        bh=AkszFi0SMt9EIcyN2EucawmenV3NU2J1E6gDS8B9vxY=;
+        b=Q8g4FUP9Kmsi04aJw0CsN1iykGiR4Cgpana98ddYJkk9cSbLwBfXt5GhXio5qut+bD
+         4Y8kkNEwGK/FPfYjnJfSxgqSVCpbxBRuXUuCKjPP6c77Qk8pC5U98TdSkX0+kaduC+dn
+         yK9uJbD/Mbocngpw0HV7borv00LzYiyxZcgLrgZNMVB9LOPVunnbOjZTWOzQhU1fcqml
+         IC9VQFe7KTUwgVyrx8Q0SHWCbMZYC4vng156ACVKL2VG5OLFC2QvnOXvnAnIbnW+uxOX
+         wv2acCyQlVU+uTgPW5wy26St/2LL6KPI7sCZck6qx90eze4sL+r3yt4mxjE82Bnfx05q
+         P0YQ==
+X-Gm-Message-State: AOJu0YxcHbW3NQJ88/gtYoE5ylZBuEcGEoUCz5ayV8+rhFhjrKYiFvEK
+	WciyJ56VA33UTqXdV05lWXESf6sIKGQYYaUW1mOAuH43HzbpTkNNXDnNiWakEsyDww==
+X-Gm-Gg: AY/fxX5CJqi5vSoxYInFJHYkmMYyx2C9LLQf6zqd8MRFoMj3T+45HKtmja4+Cgk9l3O
+	po7H0RhGjM4jCuEo09AsD5L1TV3GpejNkIizVvk9ZOjLmiyfXhMn7JIOytiZpTSJUjUedlxB8AP
+	0YgTTFr6IJK/Xupbc8MeHuOcfIQnSZsPfoRhslmqH7Qk3IxPkoqcbV42gISh4LVvq+NvW89b+/y
+	azPrLGp+ibPijjEo+J1hfOqVovHK+xg1sXV5voN+GvKuwQ460rLXCvJw72vSLSR1JfEhVR4LCTA
+	bz2/e+BCZIURO6BFcXvpq9KSZQjillzlKA6ywRopulDXV2tdBjptnf229PSPCbBRQ37DewU6P/M
+	AkXMIfs3ZdfiOk+LfziYaop/+xzaRrmH+utGBaAaoCHnAeSShnB++H4qxdOMBSHa6B+CGN7FQCX
+	MKaKiBxOIJk6sdzZYahebA5hMho0A+oLqYjoPiOTVw1amORuBSE93rniCPddhpfFBezepH8WTfv
+	3I=
+X-Google-Smtp-Source: AGHT+IFWOXrKpXO0AzGK4GY5IibfyG3pyDn9QAJKNg5ULkz0pnXCQB/TlOLggKIq4M7ml8ZJJVFvtw==
+X-Received: by 2002:a05:600c:4686:b0:47a:80f8:82ac with SMTP id 5b1f17b1804b1-47d195a08c8mr661239935e9.26.1767624647094;
+        Mon, 05 Jan 2026 06:50:47 -0800 (PST)
+Message-ID: <4f49c839-39c1-4562-87b7-69ee9d8b6aef@suse.com>
+Date: Mon, 5 Jan 2026 15:50:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] xen/arm: optimize the size of struct vcpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-References: <cover.1766504313.git.oleksii.kurochko@gmail.com>
- <0756ee97dd47f6acdefe593694b743eb6bfefacb.1766504313.git.oleksii.kurochko@gmail.com>
- <9f2c9e4a-64e3-4e5e-b5da-976ab433f6cd@amd.com>
- <9f343323-2743-4bd6-82de-afe3b48adb70@amd.com>
- <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
+Subject: Re: [BUG] Potential Integer Underflow in Time Calibration Logic and
+ Live Snapshot Revert causing DWM crashes in Windows Guests
+To: =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+References: <3ef6bcd6-2936-46f8-a7d0-54cd965a6861@gmail.com>
 Content-Language: en-US
+Cc: xen-devel@lists.xen.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -126,31 +118,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <096a8105-667e-43a6-856f-3ed52fb1c0a0@gmail.com>
+In-Reply-To: <3ef6bcd6-2936-46f8-a7d0-54cd965a6861@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.12.2025 09:27, Oleksii Kurochko wrote:
-> On 12/29/25 12:10 PM, Orzel, Michal wrote:
->> On 29/12/2025 12:08, Orzel, Michal wrote:
->>> On 23/12/2025 18:01, Oleksii Kurochko wrote:
->>>> When CONFIG_NEW_VGIC=y and CONFIG_ARM_64=y, the size of struct vcpu
->>>> exceeds one page, which requires allocating two pages and led to the
->>>> introduction of MAX_PAGES_PER_VCPU.
->> Also, I think it would be better to drop MAX_PAGES_PER_VCPU in this patch.
+On 04.01.2026 18:29, Антон Марков wrote:
+> Component: Xen Hypervisor (x86 / time.c)
+> Versions affected: Potential in 4.17-4.21 and unstable (tested on 4.18 
+> with high vCPU density)
+> Description:
+> In high-load scenarios (24+ cores, heavy Dom0 load, and frequent VM 
+> pauses via DRAKVUF/VMI), Windows guests experience Desktop Window 
+> Manager (DWM.exe) crashes with error 0x8898009b.
+> The root cause is an integer memory overflow in the time scaling logic, 
+> in case if the time calibration occurs simultaneously with a snapshot 
+> reversion or RDTSC(P) instruction emulation.
+> Technical Analysis:
+> The get_s_time_fixed function in (xen/arch/x86/time.c) accepts at_tsc as 
+> an argument. If it is less than local_tsc, a negative delta will be 
+> produced, which will be incorrectly handled in scale_delta (Or, if 
+> at_tsc is zero, a race condition may occur after receiving ticks via 
+> rdtsc_ordered, time calibration will occur, and local_tsc may become 
+> larger than the tick values). This will result in an extremely large 
+> number instead of a backward offset. This is guaranteed to be 
+> reproducible in hvm_load_cpu_ctxt (xen/arch/x86/hvm/hvm.c), as sync_tsc 
+> will be less than local_tsc after time calibration.
+
+Indeed, this will need fixing.
+
+> This can also 
+> potentially occur during RDTSC(P) emulation simultaneously with 
+> time_calibration_rendezvous_tail (xen/arch/x86/time.c).
+> Windows DWM, sensitive to QueryPerformanceCounter jumps, fails 
+> catastrophically when it receives an essentially infinite timestamp delta.
 > 
-> Then I'll update alloc_vcpu_struct() and free_vcpu_struct() to:
->   struct vcpu *alloc_vcpu_struct(const struct domain *d)
->   {
->       struct vcpu *v;
->   
-> -    BUILD_BUG_ON(sizeof(*v) > MAX_PAGES_PER_VCPU * PAGE_SIZE);
-> -    v = alloc_xenheap_pages(get_order_from_bytes(sizeof(*v)), 0);
-> +    BUILD_BUG_ON(sizeof(*v) > PAGE_SIZE);
-> +    v = alloc_xenheap_pages(0, 0);
+> Steps to Reproduce:
+> 
+>        Setup a host with a high core count (e.g., 24+ cores).
+> 
+>        Run a high density of Windows 10 DomUs (20 domains with 4 vcpus 
+> each).
+> 
+>        Apply heavy load on Dom0 (e.g., DRAKVUF monitoring).
+> 
+>        Frequently pause/resume or revert snapshots of the DomUs.
+> 
+>        Observe dwm.exe crashes in Guests with 
+> MILERR_QPC_TIME_WENT_BACKWARD (0x8898009b).
+> 
+> Currently, the lack of sign-awareness in the delta scaling path allows a 
+> nanosecond-scale race condition to turn into a multi-millennium time jump.
 
-Just one nit here: As (iirc) previously indicated by Andrew, please
-avoid open-coding of alloc_xenheap_page().
+Just to mention: I think scale_delta() was never intended to be called
+with negative delta values. Hence my plan is to deal with those call sites
+which may encounter negative deltas. I hope to get to this tomorrow.
 
-Jan
+Thanks for the report, Jan
 
