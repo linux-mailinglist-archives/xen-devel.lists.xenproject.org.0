@@ -2,39 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22981CF2524
-	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 09:08:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195067.1513105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A429CF2AD9
+	for <lists+xen-devel@lfdr.de>; Mon, 05 Jan 2026 10:17:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195138.1513115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcfcC-0006v5-53; Mon, 05 Jan 2026 08:07:00 +0000
+	id 1vcghX-00072r-13; Mon, 05 Jan 2026 09:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195067.1513105; Mon, 05 Jan 2026 08:07:00 +0000
+Received: by outflank-mailman (output) from mailman id 1195138.1513115; Mon, 05 Jan 2026 09:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vcfcC-0006su-2A; Mon, 05 Jan 2026 08:07:00 +0000
-Received: by outflank-mailman (input) for mailman id 1195067;
- Sun, 04 Jan 2026 17:29:29 +0000
+	id 1vcghW-000712-UC; Mon, 05 Jan 2026 09:16:34 +0000
+Received: by outflank-mailman (input) for mailman id 1195138;
+ Mon, 05 Jan 2026 09:16:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9R8C=7J=gmail.com=akmarkov45@srs-se1.protection.inumbo.net>)
- id 1vcRuz-00081A-IC
- for xen-devel@lists.xen.org; Sun, 04 Jan 2026 17:29:29 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=bdeF=7K=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1vcghU-00070w-Ls
+ for xen-devel@lists.xenproject.org; Mon, 05 Jan 2026 09:16:32 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb3e4084-e992-11f0-b15e-2bf370ae4941;
- Sun, 04 Jan 2026 18:29:28 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-598f81d090cso13857935e87.2
- for <xen-devel@lists.xen.org>; Sun, 04 Jan 2026 09:29:27 -0800 (PST)
-Received: from [192.168.1.66] (95-24-239-83.broadband.corbina.ru.
- [95.24.239.83]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38122687547sm124189561fa.47.2026.01.04.09.29.22
- for <xen-devel@lists.xen.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 04 Jan 2026 09:29:24 -0800 (PST)
+ id 384709cf-ea17-11f0-b15e-2bf370ae4941;
+ Mon, 05 Jan 2026 10:16:30 +0100 (CET)
+Received: from DUZPR01CA0040.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:468::18) by PAVPR08MB9185.eurprd08.prod.outlook.com
+ (2603:10a6:102:30d::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
+ 2026 09:16:23 +0000
+Received: from DB5PEPF00014B98.eurprd02.prod.outlook.com
+ (2603:10a6:10:468:cafe::2b) by DUZPR01CA0040.outlook.office365.com
+ (2603:10a6:10:468::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.4 via Frontend Transport; Mon, 5
+ Jan 2026 09:16:39 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB5PEPF00014B98.mail.protection.outlook.com (10.167.8.165) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.1
+ via Frontend Transport; Mon, 5 Jan 2026 09:16:22 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
+ by MRWPR08MB11828.eurprd08.prod.outlook.com (2603:10a6:501:9a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
+ 2026 09:15:17 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9478.004; Mon, 5 Jan 2026
+ 09:15:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,181 +61,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb3e4084-e992-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767547766; x=1768152566; darn=lists.xen.org;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y1u5fdZmMOkdhG7z6A4tRt3Cl7Fdt/qRjWRb6Ckni6s=;
-        b=ncBNsJ/nMmHj9RHihGv5OecoqdpB1ICezFezZrr1wtYJAEyYryXpuOH+8PCG+FlzyF
-         WdKpGZjoBSTqfLeiAr/oint3kivSIv1djcutBlC4oHiVg8NgQv+e3d53Z5wmoiTQm66t
-         G5AcOChjiiZzyYFRqyqVKvCYO6/x3j2iWqTeaovXmGYMb5Ys1z8kEKkxz2HAwgb66/9k
-         bibs/qZ2Gb+WO6AQssJD8PJ1brGIuQo7U/NyNUv3/RiGNmA+FyVvwQNdpZvSB3hddOgU
-         OKoVHxuC4aKoUPJyOBSrZOtUwAN3Ha0TA58ADUJlwOqP3dgmoRacimE6fOOZGGbJu7jy
-         wJog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767547766; x=1768152566;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Y1u5fdZmMOkdhG7z6A4tRt3Cl7Fdt/qRjWRb6Ckni6s=;
-        b=KYmWg9OgY4eeu8azUMQeWnqKpYVFiwH8iCDTNHaRoecLCzyeSf/8r/SHtgbTAGFSQG
-         K9uFq8cjChVhOZPqe78zsY2eYDEh38mgGEeSbEbC4LUL8Rk23vsbMIQ3Sx3lXsDknRG7
-         PJoJcdy037gCX6dKZJ/J3bFLTD4sRDewaMci6TgaeO2sWX1A+UXnzkJ7njdgRCl9ORWv
-         xvBP2ZAd784xdoAfBWM7Ge5vpLgdEoHsZOaNWYOqf8wgezQR5vaH8d7d+CSssj5SUY7g
-         9Q7n34tScxp9S202AlOas2hGofmyLDWFtiQ0g7RLpvrU1XWF9sXlOuOGa+LJ6hST3mUt
-         Bh2Q==
-X-Gm-Message-State: AOJu0Yzd07JHk9Mf+De4Fmi1u5EFjYG+KPM+mTw/kJ/KJh0oRAjh8b1C
-	epOGUZfZjHxktDP+YWq3/wqvfAM1HB55y4eFc0KIhPUbuC3kGZQ6VxrH7Ig5DRKaGuE=
-X-Gm-Gg: AY/fxX7+KBcRJKaOSVIUoPmWi8hO1BGtZcM8bhHEF/d2K5RQV/KCM2FfNFwXsdWThJa
-	DMj0qXY+E7DO8URsvqr19RI10TFJrXHWqaLCrL1wToVo0xISkHSiz29ffxCsK1KyDOgJz7qVRlt
-	rpWm1NNfITpuXPsaB3ULi29HRpxEWudpXS/zI1ybAQpzR8hDVQW+2XO44huxNwycz37c8fczPVZ
-	Z9foxx3W5PkZoYZr5HPq71hGYgSdhUrEUPAfZOXWVhkSFVb1XOPB/U2aJVVmDXQsyU0fmQetlGT
-	BuVeVWU+o16FBZubnEzl3rCFdRodPdeLV9Z3djLDNptmPMkLY9WcnAAsx6+6JyCurqCZ6mcjCJA
-	6mu681knerxsw7kjbci7BZgBBGDoz55sV+k+i/Gq/Usa7+8eNAhvMkD7ZtspT4d9/SclFu4Z7bb
-	W/Gq63fWDmt+t91O/Kze34ZZ1jB8gyp0vjmyPBo1OQg9qNOSsoPwRlZO8hc9A=
-X-Google-Smtp-Source: AGHT+IFVRoqwOGEN8QOYprmFNMDA9/GZs2cS7OnM0rGqPrBoKd6LyKkJmd08CLTb/htPss0OhMtErw==
-X-Received: by 2002:a2e:a816:0:b0:36d:4996:1c26 with SMTP id 38308e7fff4ca-3812158e095mr137682301fa.11.1767547765754;
-        Sun, 04 Jan 2026 09:29:25 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------HQ8XlUAhr8DTv2IAMrzprYDH"
-Message-ID: <3ef6bcd6-2936-46f8-a7d0-54cd965a6861@gmail.com>
-Date: Sun, 4 Jan 2026 20:29:21 +0300
+X-Inumbo-ID: 384709cf-ea17-11f0-b15e-2bf370ae4941
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=HFHtk6Xfwx7tFlVt2IdlxMlTLAmnSjq9bsoFg3FVcURS+lDjbRK4XWQryRgdCspiOe1B8puRtMAHIJ8SzQOqfdxVEDctnp4NiRbDKrPowBaPeNjvMD++ES9fVXuWBIsE4va4/+nUiAjhQTuc3OmoAE9sVyu0kpIGV/CboU29gFNHdHyiJz1qMyr7i+lqLI5sh79P1VAcT+lQDjad3IaPoiQ+47gf6ljPNtXzJJeDCMAeAYBh7iMoUpHuSW/OdNULkQiXU24lQeoaHa6iR7u1tlgPKUBqU8iT1iFwKHAZ5lSkaa16O+nZRIQHBJfGjieYtEFVaCxgLBzD6ouCb3XPKg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
+ b=Oc72TmBe0qX52I9yMggK52yh2E0LZ3oMmAIHlQcc0PNIk52F7vWTa/Z2fpNOchp0LrO8ISm4yWR9evH2uQP6jxQPxQlr2OvloTYOSkqDh34BRBDXHhLi4kziosyl9KV3GbdgGTXksGvSGHBbPW3w+8jhDpUa0IwZ0X/YYASNm+esL44ZVW9tVIj1F5R1/I/k+wxrsNNeqdNKfB+tdeLRMCTGYp3cO9DNqZdkfeOcNuLZvDKyzkSYuEMFCll10EMIn3Nv1j3Vmr4W49nBuz06jlZ/WVckvRXxijQUOLgi7Buhlq6IJO5X0Yz7+v51rCeAMutGVHcQrsjfSqEVuBbF5A==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
+ b=EtzLvFHIm3PeF13yqg1mKVkKlbCTTU5L6JiILq4f4QbLOs0kKeFDVTQW3xWtR/prMgTxCuxFMsvfqBaebVERK6nwjjb6pu6yjszUlXp7sSma5jhSdIh5LLCo004d9TEbrvgsRfuh14lW1EAls8VyLPyOzEiUTGKVC7h/MQc8TKw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L5KsgNWCF6IKl3zEy/I6XS2EM1/x6vUGFWvx/USQzSVXZ01F0Z01yptYSdWNFhq9qKexbiijViKr1RY0qQjzBaM6Hq3lSFbr3VJsKYvY3VIJF/KGEFRf9OAWXHsky7Lm+irkxxokVls161sdZwd7MPtPrvW4HT/mHW2ynWq5FhjvA2JaCeAR3m9kd+VYmF7QePRoH7fyqnZ+gw1VT7fafOK3S1jbD4zRy+uns3ycZ+JXXr27EFgWxd9kkfXwXXYct0Ll6GnXzXoJQ93znzPguWmq2SklgtObsCHxUQAYky0si30ys754yO4evfu9amAA17LfdIQ0HyhLaRE48IkTLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
+ b=jWFaH2b3WKFgaaA80TdIPH1w6OrLFvYORHdHge61Xs06RZ3a5of57w/wWe2CXLDkGtL6yhJaXmRbpeLvg1aJm3Ppy5/5cDIS+qQVGR25xt+wrlQJ4q6ozIwZUi1ZLobti/nML+sMFzr/cCbqtLA/APP7Cf8QDPiZQ5biYqLDHuWT/UewVAzbQzNHhEyjkFRje5pbHdY+VPAXUwDpdxQjxgGqvmJJOBAJDOgmFSjCYRR87DHEGqBzURBOD1BkMGVU2J5HAfPzDtEwCRGVUmuMyeKUtiX7tlBYM6E5h/pMwZEkweKmK2so+hF/66e0HBUiNXzSr4djCpdmPeURpnrjxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HOJU0ZwIPPkllI4+3caktRw115EKGzLiBmLFkOAAD00=;
+ b=EtzLvFHIm3PeF13yqg1mKVkKlbCTTU5L6JiILq4f4QbLOs0kKeFDVTQW3xWtR/prMgTxCuxFMsvfqBaebVERK6nwjjb6pu6yjszUlXp7sSma5jhSdIh5LLCo004d9TEbrvgsRfuh14lW1EAls8VyLPyOzEiUTGKVC7h/MQc8TKw=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: Set ThumbEE as not present in PFR0
+Thread-Topic: [PATCH] xen/arm: Set ThumbEE as not present in PFR0
+Thread-Index: AQHcfiO80ZeGSKmclk2/0HK7x9tq5A==
+Date: Mon, 5 Jan 2026 09:15:17 +0000
+Message-ID: <A6F1798A-BDAD-4FCF-A473-EE9B8DBACF9A@arm.com>
+References:
+ <b9e9ec4a393b34b8872a87335db2bde707973c0c.1765276607.git.bertrand.marquis@arm.com>
+In-Reply-To:
+ <b9e9ec4a393b34b8872a87335db2bde707973c0c.1765276607.git.bertrand.marquis@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.700.81)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DU2PR08MB7272:EE_|MRWPR08MB11828:EE_|DB5PEPF00014B98:EE_|PAVPR08MB9185:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2372975-7704-4028-610f-08de4c3b180d
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?JOalNdXt64IkkmEgKThr0UbuXJ4b1ZY9E6r3iPR+gAmMveXxtNt2wbYm/AGT?=
+ =?us-ascii?Q?+1Jc2ILBvoQdyOKOsjGv83Ty9zq5R42QHnrVmvoevTcD0AIL5hlqGv680MhR?=
+ =?us-ascii?Q?LFihNcsWxv6tv4uKhGJ9HJVTZgzOgf9DhcvXyTYej4NHkOKHr/UeliHhPmYA?=
+ =?us-ascii?Q?4a+pD4hVIpwyoS3drIJraxFIEOARFMJqs/jHwR8szdhTJafriJNFcG2GxBxr?=
+ =?us-ascii?Q?82NnFAzHyi9v75k0S8tK0SsvC6itDbflF9hI8IKg/2AHkWhsobAcOt8ws2YS?=
+ =?us-ascii?Q?qjuTCUKjhQQM/YLFAJzk9DDwVs8vhJnq+jAGH83CrFW8PwuQxZSf0ryz1P3o?=
+ =?us-ascii?Q?W1659SdKBCt0fodvlLd1HOWv/eFJBeLWoIOjNcJtWU9DRPCVJIgwKJ4Vt4oc?=
+ =?us-ascii?Q?LxeAEx3X7aeshZASJyFvrJfXkxUPPQ7/D8epBQUZ45IgwkHq2rE7TpmnlUFA?=
+ =?us-ascii?Q?SqcvFlUhkJKiHA/lZmaLSwouNW0KMXf+foi56dc9GWmffN7beSPquworSNoj?=
+ =?us-ascii?Q?Y3IemTXYg6SvJ0Dyk6UIAcUDXJUCX70XRWqW3IZxzQ3k7Mi/8khOGS3Crr1R?=
+ =?us-ascii?Q?X2Bvhhp3jjK8T30UYvJDqI+9B4EPp9U6y2j5OaZ0uywK7hLMm9SfWtSuJQUM?=
+ =?us-ascii?Q?PbAudeUwLp8eWg1lxB8Qt1aoOhe+jJRxh/h7f0w9ctjciE1vjdkDT69TX3gD?=
+ =?us-ascii?Q?ArOWwy9Qnle4blX5fNLNt/nvg0+RST6Fg5tL4KQRr+8FSAABbFTjEzsJbGW3?=
+ =?us-ascii?Q?H1PyyLPBbY6tjB8wqsxVlelexL4l+SdSxjp3qTf4+48sACDzunBlbad3CQJ+?=
+ =?us-ascii?Q?wBV8CSG3Wv+/69W7GyIaQv0SC2XwZhzkZLHOIM+059425IyTp/gpcYfL3J+O?=
+ =?us-ascii?Q?0CHXlCiulZuL7WoNygWIg+6JxOylQz4h+ltN2CvaRVuYHEhw9oWclv19CMkt?=
+ =?us-ascii?Q?j2KiB//zB9D/njamC82/u1C4oMHbfvFBbenb69RRb30h01LvHRXRzFdFi4HM?=
+ =?us-ascii?Q?SYaQfSXUcvzWAlisLZllIOzmKfD1ccOE4GMG9gkVZnFiKcC7rz/HQ9/mewTX?=
+ =?us-ascii?Q?rfUTNKvvMUERtH8WwwSaX5VgBtzfgIQji0ZGReQ5bd8yNoZOvnkdo0ATn8aT?=
+ =?us-ascii?Q?Xia1dJIhzuc969Nk4sDA5v2B6e0vVqg2xk4VS5EN2pEg1b6DHQeidL4jk3kC?=
+ =?us-ascii?Q?GIMJTPdUJAGJSToq3ZoqLl0tzZHsCRSGeAp4DUGocU+9xs+YRpnkqsP17g4n?=
+ =?us-ascii?Q?9TVjNZsTjQ7ZEglgZHR+IM7YAsh4ATI1ybm5MxgTsXhabAxZWRH+JIEpTPs6?=
+ =?us-ascii?Q?sFskRMcB2ftNDtC/DvLsinHsKFZzQCLjbzSlryenBuXvtJrNXj6dw8PFns1F?=
+ =?us-ascii?Q?4xBVRDINKXycbsbitvv/6haC8BM1+9sTS17WFW4hhEsOpCZfa0+Fj9kGF81J?=
+ =?us-ascii?Q?w2JgAGzuh/amtmZc2cXzwtj37ACJ5AMN6PuSgtraN+NUKZN4EAvqgFf4Foxa?=
+ =?us-ascii?Q?2qJVSy3Vrxk0TwiiaH364l2VPf9WzaQudV6D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8F9D7965CA59A448B72CD21A356F8FC5@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: ru
-To: xen-devel@lists.xen.org
-From: =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-Subject: [BUG] Potential Integer Underflow in Time Calibration Logic and Live
- Snapshot Revert causing DWM crashes in Windows Guests
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR08MB11828
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5PEPF00014B98.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6709afd2-bce3-47e1-a6b1-08de4c3af15a
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|35042699022|14060799003|82310400026|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?YvXBA0PPcxjRBJr98zUI9Hox55AyjKW0wG0w4YMRMyp+4GoV+FCVbbhxEhOK?=
+ =?us-ascii?Q?Yy4RRciykuXc6UA0wAGJ5CqOdQDnkcVHXFwvjLZtGCyZUuIJ7kiCKsFHSuEp?=
+ =?us-ascii?Q?BF+eNJwQuGUZa8JEWL16R2hYdYUG9qCYBzqFCbXMfIp32OrOpDHFTsMv429l?=
+ =?us-ascii?Q?yPLcEznDRGJMjYBGbv/bz02O9K3fSM9KKXxHVtFpu4naTTzhI6DQJ/AHOm7J?=
+ =?us-ascii?Q?86pHl/cfVzluJlaP6seozwnMJm5v9wqwJts4Ww4lWjvQrUlFH8BBlpTtbxvo?=
+ =?us-ascii?Q?cTORvaCsZzgUaBo+xoz451YzYzDlGaQOEUwqiyBd1Ie5puSyzTfnjwFfbJTb?=
+ =?us-ascii?Q?G4P5gjaryxVdwNFWB3X0OIKu8JR0x2cUUWE/xwzs5Wlm0d/5x+re7w4YIrsp?=
+ =?us-ascii?Q?njiGTqBrmKdIjPnpcVaRgrjaf8nJ6fFWgYuDxfkaLcUuchln2DqbL1wTitJn?=
+ =?us-ascii?Q?zIhvA7G79JStkUDjy4q3TaRR2j6E7adtP0nNBbmITpk7d2DgM0tk0uRwd53n?=
+ =?us-ascii?Q?Yd478eddpwgEQFIpYS6zLHPBgHMBUzHCrpYGmc+fyryVbmo11YUlJl0MgJHx?=
+ =?us-ascii?Q?Gb1679YlHUZvIt2233UTw7vhsMiv/dxlLkeSc1KnGSrUg4qGzt5qQeT17Gym?=
+ =?us-ascii?Q?UtqjbttMN0j53bE83dmpMEFHEfHC2B7ZnJ7jbHuvxqa6QlD3ao92/Kwlimyp?=
+ =?us-ascii?Q?J7eVS3SHYf9cnDggSbQhA/VSPvn/I6orHN1SxAJzP1X42TeRFA6+tJ73TpUh?=
+ =?us-ascii?Q?W4veEU1g/+ALi1YOMLiHavEPCuTQ6M5cV/RHS4wQpJZXmOXcA6BqGq9E5LTN?=
+ =?us-ascii?Q?I/rDBZIIevnZBFP3R97J8YwNsAt+ysuuTHNjq6d96FwVjyhU3Sfjan98FKtf?=
+ =?us-ascii?Q?rKBNrel87qlKyFIKy/pDA/3eQgQNVX+9Bo3noVkiV8GZq+/yQJkAMT7cbYdE?=
+ =?us-ascii?Q?k8fbcgIIRp5YOrLIsjqq52IA2909Tp8ugmovy2Kw8aHrzHGoSZstLXcvru0l?=
+ =?us-ascii?Q?aJvPe3i+3w2YUHQ8E2zqU8Rm5UJdYsU6692apHjWAlg0/MaZqWgD73EfbRVr?=
+ =?us-ascii?Q?KLAleBFm+60ImcCq3ld+o7GynZmZWQ1Ooi8NnBh2OmjoCOTJblvgW0xSLjQQ?=
+ =?us-ascii?Q?j6OedjVP1YD3JfiJsTXtvcRkyWD5jEl95UxPvV4vTzKaPi8Te3ZU42qhUiMp?=
+ =?us-ascii?Q?ZXXtKdHGlcyAxmATBKhdEwmXFwx62aIW6uHM1WfHzHCkqi4q5lBMwINOwYA8?=
+ =?us-ascii?Q?dvPDkEIX/De1LBD5xOvcy0BDLS71wVMmtgYS7+if4yvhIxDepZw8pXPozj5+?=
+ =?us-ascii?Q?i5GccCI8CIBN4f6Ceekt1PPcbj9Gdq1ZGIkBp0jxYZJH+CxRAtLdBZ90BJx5?=
+ =?us-ascii?Q?VAE3HxWlvDhDFuDi9OrzJvwCAkIr96355BfSvutJfAPCdA2Xpd4uXW06nFCi?=
+ =?us-ascii?Q?Mccm/eAjSVRXefSKzAw3anY9/LXQ3IxeQydMv91MlLHPxkjL8tuar0e4LjVA?=
+ =?us-ascii?Q?zBmh9JDmfFnL4GCz+WukB7kgcTIo4TNr+h1TaJxSROnb4p+D/7W/E5k6woX0?=
+ =?us-ascii?Q?7UTbSKyo8A0ZzoVqhsA=3D?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(35042699022)(14060799003)(82310400026)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2026 09:16:22.2445
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2372975-7704-4028-610f-08de4c3b180d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B98.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9185
 
-This is a multi-part message in MIME format.
---------------HQ8XlUAhr8DTv2IAMrzprYDH
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi all,
 
-Component: Xen Hypervisor (x86 / time.c)
-Versions affected: Potential in 4.17-4.21 and unstable (tested on 4.18 
-with high vCPU density)
-Description:
-In high-load scenarios (24+ cores, heavy Dom0 load, and frequent VM 
-pauses via DRAKVUF/VMI), Windows guests experience Desktop Window 
-Manager (DWM.exe) crashes with error 0x8898009b.
-The root cause is an integer memory overflow in the time scaling logic, 
-in case if the time calibration occurs simultaneously with a snapshot 
-reversion or RDTSC(P) instruction emulation.
-Technical Analysis:
-The get_s_time_fixed function in (xen/arch/x86/time.c) accepts at_tsc as 
-an argument. If it is less than local_tsc, a negative delta will be 
-produced, which will be incorrectly handled in scale_delta (Or, if 
-at_tsc is zero, a race condition may occur after receiving ticks via 
-rdtsc_ordered, time calibration will occur, and local_tsc may become 
-larger than the tick values). This will result in an extremely large 
-number instead of a backward offset. This is guaranteed to be 
-reproducible in hvm_load_cpu_ctxt (xen/arch/x86/hvm/hvm.c), as sync_tsc 
-will be less than local_tsc after time calibration. This can also 
-potentially occur during RDTSC(P) emulation simultaneously with 
-time_calibration_rendezvous_tail (xen/arch/x86/time.c).
-Windows DWM, sensitive to QueryPerformanceCounter jumps, fails 
-catastrophically when it receives an essentially infinite timestamp delta.
+> On 9 Dec 2025, at 10:37, Bertrand Marquis <bertrand.marquis@arm.com> wrot=
+e:
+>=20
+> Force ThumbEE support to not available in the version of the PFR0
+> register value we present to guest.
+> Xen does not support ThumbEE and will trap all access to ThumbEE
+> registers so do not report it being supported if the hardware supports
+> it.
+>=20
+> Fixes: 5bbe1fe413f9 ("ARM: Drop ThumbEE support")
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
 
-Steps to Reproduce:
+just a follow up on this one, the QEMU bug preventing PFR0 to be trapped at=
+ EL2 on
+Arm v7a will be fixed when these pathes will be merged:
 
-       Setup a host with a high core count (e.g., 24+ cores).
+https://patchew.org/QEMU/20251231170858.254594-1-peter.maydell@linaro.org/
 
-       Run a high density of Windows 10 DomUs (20 domains with 4 vcpus 
-each).
+Cheers,
+Luca
 
-       Apply heavy load on Dom0 (e.g., DRAKVUF monitoring).
 
-       Frequently pause/resume or revert snapshots of the DomUs.
-
-       Observe dwm.exe crashes in Guests with 
-MILERR_QPC_TIME_WENT_BACKWARD (0x8898009b).
-
-Currently, the lack of sign-awareness in the delta scaling path allows a 
-nanosecond-scale race condition to turn into a multi-millennium time jump.
-
-Environment:
-
-       CPU: 24 cores (Intel Xeon with Invariant TSC)
-
-       Dom0: High vCPU count (24)
-
-       Feature: tsc_mode="always_emulate", 
-*timer_mode="**no_delay_for_missed_ticks**"*
-
-       Guest: Windows 10/11 with tsc as time source
-
---------------HQ8XlUAhr8DTv2IAMrzprYDH
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Component: Xen Hypervisor (x86 / time.c)<br>
-      Versions affected: Potential in 4.17-4.21 and unstable (tested on
-      4.18 with high vCPU density)<br>
-      Description:<br>
-      In high-load scenarios (24+ cores, heavy Dom0 load, and frequent
-      VM pauses via DRAKVUF/VMI), Windows guests experience Desktop
-      Window Manager (DWM.exe) crashes with error 0x8898009b.<br>
-      <span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">The root cause is an integer memory overflow
-            in the time scaling logic, in case if the time calibration
-            occurs simultaneously with a snapshot reversion or RDTSC(P)
-            instruction emulation</span></span></span>.<br>
-      Technical Analysis:<br>
-      The get_s_time_fixed function in (xen/arch/x86/time.c) accepts
-      at_tsc as an argument. If it is less than local_tsc, a negative
-      delta will be produced, which will be incorrectly handled in
-      scale_delta (<span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">Or, if at_tsc is
-            zero, a race condition may occur after receiving ticks via
-            rdtsc_ordered, time calibration will occur, and local_tsc
-            may become larger than the tick values</span></span></span>).
-      This will result in an extremely large number instead of a
-      backward offset. This is guaranteed to be reproducible in
-      hvm_load_cpu_ctxt (xen/arch/x86/hvm/hvm.c), as sync_tsc will be
-      less than local_tsc after time calibration. This can also
-      potentially occur during RDTSC(P) emulation simultaneously with
-      time_calibration_rendezvous_tail (xen/arch/x86/time.c).<br>
-      Windows DWM, sensitive to QueryPerformanceCounter jumps, fails
-      catastrophically when it receives an essentially infinite
-      timestamp delta.</p>
-    <p>Steps to Reproduce:<br>
-      <br>
-            Setup a host with a high core count (e.g., 24+ cores).<br>
-              <br>
-            Run a high density of Windows 10 DomUs (20 domains with 4
-      vcpus each).<br>
-              <br>
-            Apply heavy load on Dom0 (e.g., DRAKVUF monitoring).<br>
-              <br>
-            Frequently pause/resume or revert snapshots of the DomUs.<br>
-              <br>
-            Observe dwm.exe crashes in Guests with
-      MILERR_QPC_TIME_WENT_BACKWARD (0x8898009b).<br>
-      <br>
-      Currently, the lack of sign-awareness in the delta scaling path
-      allows a nanosecond-scale race condition to turn into a
-      multi-millennium time jump.</p>
-    <p>Environment:<br>
-      <br>
-            CPU: 24 cores (Intel Xeon with Invariant TSC)<br>
-      <br>
-            Dom0: High vCPU count (24)<br>
-              <br>
-            Feature: tsc_mode="always_emulate", <b>timer_mode="</b><b>no_delay_for_missed_ticks</b><b>"</b><br>
-              <br>
-            Guest: Windows 10/11 with tsc as time source</p>
-  </body>
-</html>
-
---------------HQ8XlUAhr8DTv2IAMrzprYDH--
 
