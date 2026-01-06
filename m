@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8287DCF8ADB
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 15:07:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196202.1514077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9028BCF8A69
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 15:00:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196182.1514058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7ip-0004ps-HE; Tue, 06 Jan 2026 14:07:43 +0000
+	id 1vd7bn-0003a2-Ip; Tue, 06 Jan 2026 14:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196202.1514077; Tue, 06 Jan 2026 14:07:43 +0000
+Received: by outflank-mailman (output) from mailman id 1196182.1514058; Tue, 06 Jan 2026 14:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7ip-0004nw-EB; Tue, 06 Jan 2026 14:07:43 +0000
-Received: by outflank-mailman (input) for mailman id 1196202;
- Tue, 06 Jan 2026 14:07:42 +0000
+	id 1vd7bn-0003YA-GC; Tue, 06 Jan 2026 14:00:27 +0000
+Received: by outflank-mailman (input) for mailman id 1196182;
+ Tue, 06 Jan 2026 14:00:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd7b9-0000Ic-6G
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 13:59:47 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1vd7bl-0003Y4-R2
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 14:00:25 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4ca02ae-eb07-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 14:59:45 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-43246af170aso568541f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 05:59:45 -0800 (PST)
+ id 0b86e8b6-eb08-11f0-9ccf-f158ae23cfc8;
+ Tue, 06 Jan 2026 15:00:23 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4779adb38d3so7683695e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 06:00:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e1adbsm4682325f8f.17.2026.01.06.05.59.44
+ ffacd0b85a97d-432bd0dad8bsm4656713f8f.8.2026.01.06.06.00.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 05:59:44 -0800 (PST)
+ Tue, 06 Jan 2026 06:00:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4ca02ae-eb07-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0b86e8b6-eb08-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767707985; x=1768312785; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767708023; x=1768312823; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YfooQE8xDDthz+4K3ntwahmx+kDJ4t+nLpvD3J6Xa0o=;
-        b=e7rChalbrBiJP+j9GJJPJ2BQaMW1HkbgnHdbWigWbU9nSZpOw1ZsmdDkcCuyYqQC2M
-         xFQKrloCycnZDh6Dgc3QPn8iremNvSMgTMAQH8Q5n63gVxd+D2reXM4HnggMEINQxkQO
-         jlGyp9AvrXaii/mEp77ZwQzc1LHVl2ls7PCfoOKuc1XOmgW2mjsJtAeiCiQQMSxZo1Mh
-         vjOvF1HkzxmlgMOuYdMkDa6huWG5LjSdDuqxjlQCrDiwpUNu1ZlWSNcqVOgGKz8gb9B8
-         WxYYt/KsTC+5dupwqPG7YLQR9AH7Db6FYYMTIxMc7FE0AsXJGwBXedw69Ubc6orH8TM9
-         BcWQ==
+        bh=mUKumA/eSvAXgzYPa6wZCvrzBSQf3BW7uOlRVhXEMGg=;
+        b=ahGHzP6DLUcqQ7fs25W/EqeQt8s4MfqXr5yVHiWDwPYM1mQ16CfwqP4UO6O9kAke1A
+         GystfiFUnFSsbcHraFm7EJ397l6yBNIkgVQL+Bb5xCfe377huKN0jzosuz5xHn33NAs/
+         bbzqdd+UWCV3LOvGGD+JwUjU7P9jTSV+XwVz6XKvbwNPU15FOGYG5M5xaxspmEvEKj2U
+         oIubnZF1Jtqydi5abVw4455pbyrdUyQbnlbvzX48V2/uCC2l8a0vFXYFUlZud+H+ttTz
+         wzhLQszQxf6winYCzO8cyXFRQSe24nHuhNydcLFhFB6HcA8YL4ck7Jl8prkhqMoHbI3D
+         oWpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767707985; x=1768312785;
+        d=1e100.net; s=20230601; t=1767708023; x=1768312823;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YfooQE8xDDthz+4K3ntwahmx+kDJ4t+nLpvD3J6Xa0o=;
-        b=FXKPwHtUiBpJKqMOU9q6XQYA1SOBIiWGnNdcBVIjvZc7T/GdqFotbAGnaqYHrdhNMJ
-         02bnmuiQ4meCL+ILUstt0jIFEuJyLfUMLT6jpCbI0R84kJru3gqEEVAL0jIrRPp+Redh
-         UW8nnF7e2xDwxHhcEI44YxIWQlWMLRQDFukh0VHjhm50mPELsF1gbSK9aoLRk6zxzGLP
-         rWf8fB3YZ+nBt+6tME6z2nYTwxGTm5bjlYmBUBJLobZEG3HqT4O5Vzvv67GLcP18aSOj
-         EiEJbU0pUYow+QbDTGfZl2hyLio53t1SNdm5nCeOHE7ZKcMvCBn6WhKwVr0xKZ3wFgso
-         tZDA==
-X-Gm-Message-State: AOJu0YzYA49csU5lKNje6oibCi0g5UV1CVw9/ZsM2QsC9e1Ob8Iv0Ax2
-	WVbD56ZHBPR2ztqDQNxuu1hkfVnwSLNwtqjWnMgZCJtMWwRUwXhfwXz8fGUrqYzchgekbzoGd2Z
-	8yto=
-X-Gm-Gg: AY/fxX4m8Ab3Je0aioVdib5GfWTjVGOQjYl53bGugfyjNyqLuhQ0H4aJ6l4wPQz2Uq4
-	vEcso6wDPN3nROJWRTJpwrlq6jhEmNTW8CB1PqZn6ELU2AmpL+vn8lfSehTAv6hZqxPDhG0td2e
-	L1NZF8aGpp1mNru8/eqVw+G0cjHvp5ySvoHlKdPy8HNGsMPHzjN4clkZUIEX29fIU1cT/o0OI7c
-	gcCTzsyr8RrJZvkx7v7mmVjuq45Jmi+CUZCWl85Xlbi0DHdnQYEgIc+5iZw1NJuiqQQwVycyBvJ
-	GZQeikjYuvxtQAhuUZ1th+4NowL9DHYy+IYW6Op2Armyc1dUz6GT9FC/eeqLTU9I+Lc5TnGRhlB
-	yURW32o6sRcsB/QG2bkRtOgqazFkso+6u4JAmDAW5nWCHrWYrsKNn6K697q0EMf3T8V5pXpSa5v
-	FxB9v/67twuPyHxqfOkWJFec0Y8EMJwkFP2PvIX8dIwkni5KIO7H2EVYiUgJnaYr+fDEZ5bwOL+
-	do=
-X-Google-Smtp-Source: AGHT+IEmEb4GNZ4LQani0gWmVmOvIO6J/jf0qV6+//ns/nO7VSMpuKJYFdNvqeudPiMcRiJv0q4/7Q==
-X-Received: by 2002:a05:6000:430e:b0:432:b953:b02b with SMTP id ffacd0b85a97d-432bcfd3d7cmr3819280f8f.16.1767707984860;
-        Tue, 06 Jan 2026 05:59:44 -0800 (PST)
-Message-ID: <79c32e1e-15d6-4b9a-9645-1429a21e63ec@suse.com>
-Date: Tue, 6 Jan 2026 14:59:43 +0100
+        bh=mUKumA/eSvAXgzYPa6wZCvrzBSQf3BW7uOlRVhXEMGg=;
+        b=T2JKVOd81wwq69GpQKYcAWcHRkSFiMc1k3diVUYsCmkzX2bs8ieTfl6Yg0N2HCfb7h
+         LJ1EXXsVe2nUR+sHq1I7Foh3pYKB4EojRyIBjgakz2m90ZNurbi74N58BAeIvJogba7z
+         RZyeQMaPothzY/0FXTOY31ki9F8FEcsMfQSYD646KrJyFKIW5p1wEyEIe47A1U8K8AjX
+         EsEngZX2D18pZur4R1o2ADBo4orVonVGhmtvFeHIW0mERuBBiGyquC7sA3TY+euchaXF
+         ClwBCCRxzOK9hzZOJO/8CFJlYBH9h+Rf8LMWQEBlgaUH4nHfbbXNXkJvjpJpiOttHsfs
+         iZXw==
+X-Gm-Message-State: AOJu0YzkV+ZMVqbhc18Ddg0a0RtBxNlM3JhjNpOeP6Nb6tYLF5M8p2aO
+	gWg7eRXcli3MM9nCnTkMKHu2DL9PMCTS8acV0oCuPMAOgccC0BVzwjDknEoxaORrI9OwxbYkb47
+	QR80=
+X-Gm-Gg: AY/fxX5UMPjB7uNTOr2L9SbuSJDNSOvadfhPJe7SWtw/VctI/up1rxKvTusl1RDBh5s
+	65y9QPR7Rszi3yZMTmhq7Vdv0Fq/upNU9B31YRNavRrOU9kQm1CL33XyOVtVdqf2g+povb69b8Z
+	gfgBvI8f70bA8n86z2hJc1glIMwR2V7bRpUM6gM1kS0Zgb4r4kF/rsIwAgx7LwQB57UFD8dj/iO
+	AvwdS57VtnzUwK9CB1jPDU8NHsmvBfKlzQvgDuEdvZBErNXk0JjyUcIN+Lv70OdYMUU3cqUG3N/
+	s7NB/W8ZHFzjkHui+gs6kvIiyOYUHQ6IUwumRPHdUcQXX2cs2CiaUCHXNRTzW4ptxtupPvudOTS
+	WTcHyy3nSA6lrWVpRX7XfZhQmY7bevOTu3ZqL8HYFAsdRyrrXn+QVuF1li9F3+jErCvHLm4wpVr
+	Y8sboNNzLrc+Lmqxis8CC+lGJvzCexL3V3pxJyl9mpwTWSl3pJRDeQQFmNjh8ThXq82bpgSIDEz
+	hY=
+X-Google-Smtp-Source: AGHT+IHY95kcdHPxzm5HEAVWP8bxzJnA+ZrGdPY3OXpzuMGfiL6929Ime8G2sAWu9aPCN/sb41102g==
+X-Received: by 2002:a05:600c:1384:b0:477:fcb:226b with SMTP id 5b1f17b1804b1-47d7f05d468mr31298525e9.2.1767708022953;
+        Tue, 06 Jan 2026 06:00:22 -0800 (PST)
+Message-ID: <5467f5c4-e752-4d44-bbb7-05e6fa1a672c@suse.com>
+Date: Tue, 6 Jan 2026 15:00:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/5] x86/time: gtsc_to_gtime() is HVM-only
+Subject: [PATCH 5/5] x86/time: pv_soft_rdtsc() is PV-only
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -123,31 +123,75 @@ In-Reply-To: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Omit the function when HVM=n. With that the !HVM logic can also go away;
-leave an assertion.
+Omit the function when PV=n, by moving it to the sole file using it, thus
+allowing it to become static as well.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+--- a/xen/arch/x86/include/asm/time.h
++++ b/xen/arch/x86/include/asm/time.h
+@@ -37,8 +37,6 @@ uint64_t cf_check acpi_pm_tick_to_ns(uin
+ 
+ uint64_t tsc_ticks2ns(uint64_t ticks);
+ 
+-struct cpu_user_regs;
+-uint64_t pv_soft_rdtsc(const struct vcpu *v, const struct cpu_user_regs *regs);
+ uint64_t gtime_to_gtsc(const struct domain *d, uint64_t time);
+ uint64_t gtsc_to_gtime(const struct domain *d, uint64_t tsc);
+ 
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -874,6 +874,20 @@ static uint64_t guest_efer(const struct
+     return val;
+ }
+ 
++static uint64_t soft_rdtsc(
++    const struct vcpu *v, const struct cpu_user_regs *regs)
++{
++    s_time_t old, new, now = get_s_time();
++    struct domain *d = v->domain;
++
++    do {
++        old = d->arch.vtsc_last;
++        new = now > d->arch.vtsc_last ? now : old + 1;
++    } while ( cmpxchg(&d->arch.vtsc_last, old, new) != old );
++
++    return gtime_to_gtsc(d, new);
++}
++
+ static int cf_check read_msr(
+     unsigned int reg, uint64_t *val, struct x86_emulate_ctxt *ctxt)
+ {
+@@ -920,7 +934,7 @@ static int cf_check read_msr(
+         return X86EMUL_OKAY;
+ 
+     case MSR_IA32_TSC:
+-        *val = currd->arch.vtsc ? pv_soft_rdtsc(curr, ctxt->regs) : rdtsc();
++        *val = currd->arch.vtsc ? soft_rdtsc(curr, ctxt->regs) : rdtsc();
+         return X86EMUL_OKAY;
+ 
+     case MSR_EFER:
 --- a/xen/arch/x86/time.c
 +++ b/xen/arch/x86/time.c
-@@ -2840,14 +2840,13 @@ uint64_t gtime_to_gtsc(const struct doma
-     return scale_delta(time, &d->arch.ns_to_vtsc);
+@@ -2848,19 +2848,6 @@ uint64_t gtsc_to_gtime(const struct doma
  }
+ #endif /* CONFIG_HVM */
  
-+#ifdef CONFIG_HVM
- uint64_t gtsc_to_gtime(const struct domain *d, uint64_t tsc)
- {
--    u64 time = scale_delta(tsc, &d->arch.vtsc_to_ns);
+-uint64_t pv_soft_rdtsc(const struct vcpu *v, const struct cpu_user_regs *regs)
+-{
+-    s_time_t old, new, now = get_s_time();
+-    struct domain *d = v->domain;
 -
--    if ( !is_hvm_domain(d) )
--        time += d->arch.vtsc_offset;
--    return time;
-+    ASSERT(is_hvm_domain(d));
-+    return scale_delta(tsc, &d->arch.vtsc_to_ns);
- }
-+#endif /* CONFIG_HVM */
- 
- uint64_t pv_soft_rdtsc(const struct vcpu *v, const struct cpu_user_regs *regs)
+-    do {
+-        old = d->arch.vtsc_last;
+-        new = now > d->arch.vtsc_last ? now : old + 1;
+-    } while ( cmpxchg(&d->arch.vtsc_last, old, new) != old );
+-
+-    return gtime_to_gtsc(d, new);
+-}
+-
+ bool clocksource_is_tsc(void)
  {
+     return plt_src.read_counter == READ_TSC_POISON;
 
 
