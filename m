@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3D0CFADEB
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 21:11:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196477.1514284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8696CFB096
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 22:08:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196487.1514294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdDON-0000SI-Gg; Tue, 06 Jan 2026 20:10:59 +0000
+	id 1vdEGz-0006pL-HV; Tue, 06 Jan 2026 21:07:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196477.1514284; Tue, 06 Jan 2026 20:10:59 +0000
+Received: by outflank-mailman (output) from mailman id 1196487.1514294; Tue, 06 Jan 2026 21:07:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdDON-0000Q7-Dk; Tue, 06 Jan 2026 20:10:59 +0000
-Received: by outflank-mailman (input) for mailman id 1196477;
- Tue, 06 Jan 2026 20:10:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vdEGz-0006n0-Dy; Tue, 06 Jan 2026 21:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 1196487;
+ Tue, 06 Jan 2026 21:07:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xx60=7L=gmail.com=akmarkov45@srs-se1.protection.inumbo.net>)
- id 1vdDOL-0000Q1-SX
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 20:10:58 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cea886b0-eb3b-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 21:10:56 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-59b679cff1fso692290e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 12:10:55 -0800 (PST)
-Received: from [192.168.1.66] (95-24-239-83.broadband.corbina.ru.
- [95.24.239.83]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59b6a2c02fcsm516228e87.33.2026.01.06.12.10.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 12:10:53 -0800 (PST)
+ <SRS0=heAF=7L=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vdEGy-0006mu-IE
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 21:07:24 +0000
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c10d::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b003ff48-eb43-11f0-9ccf-f158ae23cfc8;
+ Tue, 06 Jan 2026 22:07:21 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by PH7PR03MB6943.namprd03.prod.outlook.com (2603:10b6:510:15b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 6 Jan
+ 2026 21:07:16 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9478.005; Tue, 6 Jan 2026
+ 21:07:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,427 +47,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cea886b0-eb3b-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767730254; x=1768335054; darn=lists.xenproject.org;
-        h=in-reply-to:cc:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a3UTB1lNTQeoNfnkSkfwz+TsiIQzBrduP5eAxBGpTQs=;
-        b=gKEz0TsTgksrlsggf3QVaxl+NA/NtlXzBN5tLNDI8Zx1VvWYTz5BXGBxP2YRfsJ3Ja
-         YrTtIcz2DXWyPKaMOskkubNbGKciiYLuCV/h+Ze6DUEEW+Ofwe6AkWBfBfy+SohQsXiM
-         tvqD/NADb+J9SzD2YL+21XcE/gUYQ7/NKi8h/C0qgqHwi03hYwLWTLC8gBH9a/8J9NPe
-         AuD/UyEyZvGTcqHUVwbsyA1iiCpa1IUqu/pOgXcrHbyza2j5yBxxvOYGs0W7b5jriYBl
-         40kW+fwY1fGVvaPajbPAXnZhw8aRihkgPbDdW8UUT7j7lf8VUx2eLKsSxLhCjyphTZpb
-         kPfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767730254; x=1768335054;
-        h=in-reply-to:cc:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=a3UTB1lNTQeoNfnkSkfwz+TsiIQzBrduP5eAxBGpTQs=;
-        b=c2lnFPNuRIY8T9dHxTYhsT8ktVTS8VSgAftw05HbUfNTnRDbzOQ8X2/gCfnm+ccf4g
-         0jZsjxZMLidpLpNqpH7pj4Dgf7PX+0PECRep8WP8235uvMGXfKLq+re9U915v56tzt4r
-         8EH1cNQAJYRyroFoTsqL2X17SjmGzWcc/fIdHtBuMrbQzmQYU3BRdFPoRAq4U24sjPn9
-         ua3zQbRkfS34xGOyNQnLMi9TeHnOolTRIJ2k6b5IjiWikW0sqrMZuQRrfN7wGpynRR5c
-         xHwn7pCuFKrwjvXH0G9u0Q7CX1ClWlk1vlPZR0a9IrIE6J/lEVDC/BNaR5AIYNnXwZUO
-         5HZw==
-X-Gm-Message-State: AOJu0YyjC1uUxi3xMGF3IokE8fewcSUXZGjNNWW3smJNEIcTttoqFkxX
-	5kC7NJZBi1KBGopxSa8eaU2QemP5+vrUYakdvVqVXi1cmnTptrw0YxJq9M8S7yS1iwA=
-X-Gm-Gg: AY/fxX5tcshyV3XcU/BgNxreW8yO9rQgB23sIOpKa/yAc38jbtsjDPgaYk/psb09/AN
-	RWQBkVVYJrCDmmqN+v52QCP9SktR3o7iYUJc+K+deAB9Piw/ZPz5QXaCtrAooNRzacJbCBSYKkO
-	YFcaN6ERXo3MHrjbrUWVqYUfMyh7byiDjZPvAPCcIAbdQ07pdGImEnsy+UMRN2omJjbjSRgBaiS
-	UF0IyhWPCeVl0f6idjwAXKUi7NV7nSxuwH3FJS1w6u2Nnp324q3HIl6oaRG+R/k89BfwgOQVp3N
-	pXzZl1Iui8Bq7Zjol3QcfIRvUZxDoOcx2HBafQYpo3H3eOYzjY6XmXEbj2dacA9fEMDnhBznJwY
-	DFI+vyhjmxsDhg3xmSBQF5O1AVr88rcTiHhFSyKG0/2SOvRiMG0qUwGuaCBiKpi6P8Enx/jSRkt
-	/c0ptEuRj6Fr6z39fWqtB4FWlpzheBst0GmG4qO0LAiiWaGpr4t5Y47yv1Nb0K
-X-Google-Smtp-Source: AGHT+IHwnilKl5BndLuLZeNs0nq1DIFFkNMYA/jKYARJ6qW7pJolE5NLSvbiM/4fJQ8g0MVzZIaJmA==
-X-Received: by 2002:ac2:4e12:0:b0:597:cf12:bea6 with SMTP id 2adb3069b0e04-59b6f043818mr60073e87.48.1767730253926;
-        Tue, 06 Jan 2026 12:10:53 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------aYSA0nJRu5if1P0AvfxZyP59"
-Message-ID: <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
-Date: Tue, 6 Jan 2026 23:10:52 +0300
-MIME-Version: 1.0
+X-Inumbo-ID: b003ff48-eb43-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vvFg4d4U1GvEwQxK69ROUerfpQZLMpx+6f/6FdGm/VoKtsODds37qwyBh5PZma/oJMnbIt0MTrXW4RwfoObTb+E7DSxo3xt9DzEk0xVPTaCoupWTGPvoGG0PllPFxD5sUjuaCiyzwVfjyCy30h3q3OYwrzOLzGI2juHLGlmiroIRq11lW+YUNmo3mKF1PAXIdg52S67nF8hxuQfXs4FJMp2hVzkZ9tUVaRe3J9KfArrfVyj5v37qT/MNRZXiT+2RWulxo7b1LxWbxTecx5LeCKPlhwkuTZGqmqkYSFt63ZSrknDyHN7lahTTMYrOfJVustRE1hB5tvKkUUSjRica1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T+Qkxo2/murvC9IJKVYbJXH1tg93Vz2Ht9AUoo6S1LY=;
+ b=FX0VzJFY3vJEfz1fyYBXic1Epbe2BzY6gzVQf1303QEN1KddMicuoM6RAuasj3h5vQOB5qy59zwsRG66DWz+C0b2XpUe56a38Wo3UopEioLFOOzSDc6tHKxW3itkKnRQd2kbOXXfisGB7/WE/T8jWHmZP+ZOYxvhurBbuzX/uiR5jGR1u+kR5MgIwKNqd/NmU2tb5drtn9tKaQRVxyo5CGoEzLWUiGd5oeu1djR/TEeP0IB1cPItSwNg+p7Nmt+A+PEXuRdZkHYUBuOlmjZ0Ym79QOs4AM6VfzgYYg/MZdJO6+vTfJCbKJ6SKpG7Ud6qBKSKpzR13cq2i4TyDzlUAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T+Qkxo2/murvC9IJKVYbJXH1tg93Vz2Ht9AUoo6S1LY=;
+ b=waJO8TeEAEMxGA+G290aZzFewMNLEHWpiu6eyRlphBnmTSVbMIrXaqav8XdfS8bhOJwxg/renhi0z5+CKyWYU/G4yFZIrFQ9Y9jiIMbJDrQXxe3ynaxgA8wxwFVdEpLEgpYvrY8Azlyi8+Sn1bAAgguUYd/1IiLEMPqBgfbs5Jw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <98855b1c-2cda-467e-8b88-ff24e7862b61@citrix.com>
+Date: Tue, 6 Jan 2026 21:07:13 +0000
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/5] x86/time: deal with negative deltas in get_s_time_fixed()
-To: xen-devel@lists.xenproject.org
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
-Content-Language: ru
-From: =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com
-In-Reply-To: <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
-
-This is a multi-part message in MIME format.
---------------aYSA0nJRu5if1P0AvfxZyP59
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Andrew Cooper <andrew.cooper@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH for-4.21 v2] x86/AMD: avoid REP MOVSB for Zen3/4
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+ <693449f18cc4480ea2cb2161a9361354@DM4PR03MB7015.namprd03.prod.outlook.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <693449f18cc4480ea2cb2161a9361354@DM4PR03MB7015.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0071.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::22) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB6943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0eecf3ae-82e1-431c-94c4-08de4d67924f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cTE1SVVBN2U4aVYyODdrN2NLcFZBY0o5UUZGTUM4M1RwRE9ObVBBL2d4eGNK?=
+ =?utf-8?B?QWhKVWRtaWtiWGxGVVVPcEdWOHQwWmhxYWdzdUVMQytZQnIxT2NQRjFITmF3?=
+ =?utf-8?B?cmg2K0prcjJKR2xUdDMzdVIxaVc3SFFQOTcxQXpRWEdBUFNFTnZobThKYmMv?=
+ =?utf-8?B?VFE0Y1RPamx0ZDFpeTNoWEpDVXlvZm8wVHhGVzRscE5jMG8yRkY3TnJlRll4?=
+ =?utf-8?B?MWZvUUpZYWpYcnFJcXlPOVM2TUxRWmxYUFRrYXVNOVJhVmJFajkxSGJ5a3c1?=
+ =?utf-8?B?eUUybXB2SGd3QjV6Z1FYWW5HdHpQeFdCaTRGNzlIaUF2TUVBWCtoUWx2MHBo?=
+ =?utf-8?B?d0RSODJlM3VNOXZ0dDQxcUJSMXo2YzNqRDdCSTBqTGNLYXZ1b3RHeFYranpw?=
+ =?utf-8?B?eXgrb3ZsNEdrNjVYcWc1b0pPbDYwOHV6T3FJYTlmcUdvVjhtMzhTL2lMbzVa?=
+ =?utf-8?B?SFlaK2hRMXRHNUpQakpmZ09xOGcvQi9aUlMxMGwwaG5mYVhWUTZwQVVHNStw?=
+ =?utf-8?B?UjQyNFpSNm5yd2ViQWxETTMrNEJnMlRENWFGMXkxbGhvbzVXRHZDeTc4K0E2?=
+ =?utf-8?B?bkprSHgxdkE3dDZDUUhYNXVsRU5Od1gvbXBDUUozS0piQ3FaUDNqbXhRL203?=
+ =?utf-8?B?aEpwNkpES240RE1xS3AraElFM1loTk5ZR05UQVFlRDdYSEk3SStIYlVWOVpj?=
+ =?utf-8?B?cHZ4UDQvdFIzU01TeFE4aDZhTnR1OS95MVlpYWhkdkNQMjNQSlg0bm43VlpY?=
+ =?utf-8?B?bXJtNVR3RmhkQ25ESjIycVd1b3JpU0dXSi9XeGNGTlUvYU9rcERyWFhyR0Zp?=
+ =?utf-8?B?OFpLZWVPZSsvNGJ5SFpldmMvRVBOUlc4c2s2aUpDU2NYUUtvMVpsSmZQNHhp?=
+ =?utf-8?B?Zk1ieFg1ZFNrSEYrZGpKdHh6SmF0Zk5kMWZKZW1nMGFZbUY2cWoxWkdKdndQ?=
+ =?utf-8?B?YnA4Sy82NXdiTzVuNWN1dmtZdDhxb01sVjViODJCRDF3RktSamF0MUpFeFN5?=
+ =?utf-8?B?dzMwYnUyQ2drTjFZZjNuQnNqQ1NmZXJZTE84WGZSOWdWMzVqQlNYNWhkeDlJ?=
+ =?utf-8?B?MEtlUWFaVGJTVy81QTg3MTRleGNiZk0wUFo5UWZRaVNBeHk0ZmtJYzlsdGVG?=
+ =?utf-8?B?MkEvWi9rWEVtRmlQNGpTaUlkeDUydzhQZW5CSVZxME42cnF2aG5rNGNFMjMr?=
+ =?utf-8?B?RnlKVGgyNm1wN3lvVmZpdktrY3NyOEt6YlJKUlB3Wk5oSTV3OEhab2QxaU1W?=
+ =?utf-8?B?MGUraVV4dEJPV3FZeDE5ekxOOGkwWXlRNzhKbXZvd0dUNitCM3hXOG5WZ1hP?=
+ =?utf-8?B?UTFEemVRNTV4MSsrZGt0V2tEMjY4UmNCNERLRWZwMWFxODlvS3lWdDliOVRq?=
+ =?utf-8?B?R3cwSlQycURQUjlTM005K0Q0aUx4NnJYbExVNXhaWlFmdTFBWFVvcndkY0RB?=
+ =?utf-8?B?Mk80MEY5bVo0UXBhNGhDOVVOSzZmNFduSDBYc1FsSGNUWW1FbmRlVUZVVUR2?=
+ =?utf-8?B?dk1WbU9pUVQ5bTR5NXZSVUVGRFJXcERwR3Y5TXBMOEFvWUlXSnpUS09aZ0ZP?=
+ =?utf-8?B?bHRVc0RqVUFtZTFUYWc3UW42cWVHcVUxRnhUVVJzQkZoZWxWckxqSnlNNUl2?=
+ =?utf-8?B?NHdJeXJmRS95a0tiY0MycG1lZVEveWhZWmVOb05xM2lCZTVINXdhVzZ1eFI2?=
+ =?utf-8?B?TVkycUZpOU5tYjQxYjBnOEVlYjNtMm9qZHo0ejNKckRxRTBMVnQ1Q2EvUXFR?=
+ =?utf-8?B?ZzYxK3BCNlcvM0d3dkFMZ1Vvek5Zb0ZRbGYrK2FybUNxQkJYSk1IS0lDTHho?=
+ =?utf-8?B?WEpDY25meVprUHJvNDZ0YnJOYkpqQ3dWMmhVNXpvdWFqWGZSU01jKzBqc216?=
+ =?utf-8?B?bkY5aFJ1SG5iRzlYbFhrYzZtZmZZaGVrWHhXa05LZllmc2hjRGUrdDhOU1Zr?=
+ =?utf-8?Q?s9ImJETJNIsUeK4pV2NGCMJcw0GY6Xsh?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWYzV1FTc3h5Z2ZPWDEyVVlQbHJubEZ3TjludW9tcFRzRU5BQzViZi8rdGNp?=
+ =?utf-8?B?WjdTdWJFK0QxbUJQcUVURHpDeWFvSUltaEZYS0ZmNlJMeTVQTGhrSW0vQWxy?=
+ =?utf-8?B?UWF6NHhqZUI4V3VMVDY3WlExdCt6TlA0Um5LM3hxRVozQjRSS0xQODMwVlRO?=
+ =?utf-8?B?VGxhdU5mdHdyWkdIM3J2MzNVOFJFTzJScDVyREhIdFk2NC9KcTBEaUxtZzVX?=
+ =?utf-8?B?RFZyL1JCVDByTlA2aGZwV0h0MU8yakx6U2w1SFBhWXpmTHoxT0ZqYk91cHpn?=
+ =?utf-8?B?S1MxQkd5ZmNvaVFaY3JXbXd6WjBMOGxYcG1UREpMYlBVc0FyUFZ2aVVLeFpu?=
+ =?utf-8?B?ai9zV0xXZWtxd01sMlhrMHc1R3NqRWVCb0szSDRRMkFmQ1UwdTJBUkJLaUd2?=
+ =?utf-8?B?cWYvUHFsMktOaU1sWjBWOEJHMGFkUVRYSDE3MU91azZmZkJWSXVveHd3aVcz?=
+ =?utf-8?B?WWt0MG5aYUdqNXBrdFVKUVZRZ3RkeGlNUzY3M2VWMnFtMTBrdEluaGx4QUhw?=
+ =?utf-8?B?VURFWkwvVUdXQ0Y1R1YxQmY3akNDRmsxRjRkbDhiN1U3eUZLbTJ0RFV4OTJN?=
+ =?utf-8?B?SHlWQ2hWN2thVk8xRGQvM1VHcHorVmo3azg5Qmh5TVJtZ1JpV1hlM0dJMTBL?=
+ =?utf-8?B?QkxlTVhocjEwaGhidEJOdU1sZ1ZlV3F4WWtQUkJzOXZnNGhhVTZwM3lWZnVp?=
+ =?utf-8?B?UnNyNjRCQVVXeUM5d1VLVER4YkJscmxZdmJURTFGMWlEN3RmNWFxYmIyTnNJ?=
+ =?utf-8?B?Tm5EaHZsMWZEWGVrRWZDZVc3VW5Td0toNEpzTDZzV0JWektxcmpRT0lXM0d3?=
+ =?utf-8?B?bENYNnpjMzM5TTlSS3lIam1Lc2hWLzNtQWRyOFM3ZzVOcEVzWnFsbUxUWDE1?=
+ =?utf-8?B?SlFXUU1DYU9KREpWOUNFUGQ3WFUwMitVczJNSUVNdkR0OHRtN0JPLzhsd3pK?=
+ =?utf-8?B?ckI1WDRDTFN3d2xmZEZIMVNSbk42WEpGdzlsVDdVODljNzAvQVozTzllZnc1?=
+ =?utf-8?B?dEdTSm9ETDg5dlRWaFU5NWF1S3NtRVRVZm5SaUZjNXZjU2xBYnQ5VjA2RDc3?=
+ =?utf-8?B?K1hCMXhPdHJqU2EvcklXNXZuSS9NRyswU3loTUl2N0FyeXpGaTZLSTdFTDVQ?=
+ =?utf-8?B?ODlpSkpFSWF4YUJ6TVVMWjJhNXlhNnlKakZyVXJ0YjdGaTRNQTZUeE5tbzlh?=
+ =?utf-8?B?L1JRU2VhV2N4S1RaZnpZRE9ob0t4Nmptc3QzZXU0K21GRStkTEF6cXVtS1dv?=
+ =?utf-8?B?bVIwbG1BWi9SY3lwa2l4N1phbGhsbUZxcHNJTUE1aEdwVVpRUzRITTl4Qmg1?=
+ =?utf-8?B?NHVPbjZ2bC9RNU9zZExpekI0RmczVG52dW9iM2FEa3MycUxnV2EyTWNpWHp3?=
+ =?utf-8?B?d2NxTmIzRmdIOENVMzB6OTY1cGJSbEZoSTcwR2UwdGE4cnk1L0VyN0p1a09q?=
+ =?utf-8?B?c1JPTUpzaENETEN1ZmtBSlpDTEh3d3hpMjJzTm82MkVFNDMwUHhta3FGMm9D?=
+ =?utf-8?B?OU1XWmppOG1nWVF1OUl1Rk5IWHpUd1Q1cVdJL050M3cyTjc3MEx5Q05Ubm5v?=
+ =?utf-8?B?MUNNYW9BNHVJM2tJUzNPcGFhL2IzdEZxd2wyN2VhdW04ak92UGsvaUZvMUxL?=
+ =?utf-8?B?K3B6MCt4aHBZR090T0lmejVMYks4L2tJK0kvMTJMcWVVaFFpMVk1aHhMQVE0?=
+ =?utf-8?B?Um1NTEVqNjFmWEdkUXZiSWZNTDI1VmpsWWZ6RWJ1cTB4SlkycHd5aGs1UHBM?=
+ =?utf-8?B?R3NCZkV2M2owNHBZbDZrUk9xUzUwc2dlcDZjckZFYnlvdFZHZStBZkdHWXpW?=
+ =?utf-8?B?NGVjalBlVDZkUEtVR2wyaFp1UnNlVUh0TlpoOVAvRUlCMFNFb1I3d0xydkZK?=
+ =?utf-8?B?RFgwSzlhaEs4cHdlczZLUDVrczNGVytQdjUrd0Q1RDFCRmltM2d6NGJaQWxQ?=
+ =?utf-8?B?UWR6aUx4SEdzSzFwSGh2U25uQTVRcHg3U1pydGpZTVU0bUxZZzJEVWlxNnFT?=
+ =?utf-8?B?MVViUnpKMjVWLy8xb2xHZk81dXVpOGJDTXZndmZuTkVUdTVNbGNCNGs3Mzhh?=
+ =?utf-8?B?QUVDdjZKdXZQRDJxRklwRklSSHJKRXVhY09qcUZBQkY2NEM3QStsa1g4bTJD?=
+ =?utf-8?B?WkJ1dWxHK3NFKzhYRlNZR1NqYzlUcXh5NWQ4RG55T0VrZ3ZtZFkwekNoREVz?=
+ =?utf-8?B?RlBQQTdHWmUvODB0b055YjZyT3NIU3lOdGFuNzR2eVFnUk9udVFwd2E5RGEv?=
+ =?utf-8?B?TGNnd1Jka3RET3dqeXlTWGI3dWJ3dU5GekFyR3p4cWVmUnBwaFA4czViUTBP?=
+ =?utf-8?B?M2NMNzc3OFg2L01OMFJnY296RlUzektiMzlNeUg3YmJRRS9Wdm9oT29jVUJk?=
+ =?utf-8?Q?fh3k0A4ZkWrsQ/tE=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0eecf3ae-82e1-431c-94c4-08de4d67924f
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 21:07:16.6606
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XB3RY8rPaHwNp2uM74Pn3KS1atqZgJWAigUNwMeaRzUktusaVm705VMiKS/+3bWxcVhxJlftUe4hBorx+TakAAJlkVesfdjE+wKDcrri6IY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB6943
 
-Hi, I'm not sure about the other places. In hvm_load_cpu_ctxt 
-(xen/arch/x86/hvm/hvm.c ), it was easy to catch because 
-process_pending_softirqs is frequently called there, which in turn 
-processes softirqs from the timer (where the timestamp is updated). 
-After I fixed sync_tsc in hvm_load_cpu_ctxt, the problem stopped 
-reproducing under no load. However, when the number of vCPUs is 4 times 
-greater than the number of CPUs (under heavy load), the problem rarely 
-reoccurs (mostly during snapshot restores during 
-process_pending_softirqs calls), and this is no longer a simple case. If 
-get_s_time_fixed can indeed be interrupted during execution after 
-rdtsc_ordered, then the current fix is ​​insufficient. It's necessary to 
-atomically copy "t->stamp" to the stack using local_irq_disable and 
-local_irq_enable (as in local_time_calibration), and then work with the 
-copy, confident in its lifetime and immutability. But until 
-get_s_time_fixed is proven to be interruptible, this is premature, so 
-your fix is ​​sufficient. I think I need more information and testing to 
-say more.
+On 13/10/2025 2:06 pm, Jan Beulich wrote:
+> Along with Zen2 (which doesn't expose ERMS), both families reportedly
+> suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
+> can actually be carried out the accelerated way. Therefore we want to
+> avoid its use in the common case of memcpy(); copy_page_hot() is fine, as
+> its two pointers are always going to be having the same low 5 bits.
 
-Regarding the other scale_delta calls, if they include values 
-​​calculated from externally saved tsc values ​​that could have become 
-stale during the process_pending_softirqs call, this definitely needs to 
-be fixed.
+I think this could be a bit clearer.  How about this:
 
-Here's the problematic code from dwm.exe, if that helps:
+---8<---
+Zen2 (which doesn't expose ERMS) through Zen4 have sub-optimal aliasing
+detection for REP MOVS, and fall back to a unit-at-a-time loop when the
+two pointers have differing bottom 5 bits.  While both forms are
+affected, this makes REP MOVSB 8 times slower than REP MOVSQ.
 
-void __fastcall 
-CPartitionVerticalBlankScheduler::UpdateCurrentTime(CPartitionVerticalBlankScheduler 
-*this) {
-     uint64_t *xor_time_ptr = (uint64_t *)((char *)this + 0x3E40);
-     CPartitionVerticalBlankScheduler *scheduler = this;
-     LARGE_INTEGER *current_time_ptr = (LARGE_INTEGER *)((char *)this + 
-0x3E30);
-     uint64_t previous_time = *((_QWORD *)this + 0x7C6); // 0x3e30
-     uint64_t address_high = ((_QWORD)this + 0x3E40) << 32;
-     uint64_t xor_key = ((uint64_t)this + 0x3E40) | address_high;
+memcpy() has a high likelihood of encountering this slowpath, so avoid
+using REP MOVSB.  This undoes the ERMS optimisation added in commit
+d6397bd0e11c which turns out to be an anti-optimisation on these
+microarchitectures.
 
-     // validate internal state
-     if ((previous_time ^ xor_key) != *((_QWORD *)this + 0x7C8)) { // 0x3e40
-         char exception_record[0x98];
-         memset(exception_record, 0, sizeof(exception_record));
-         *(int *)exception_record = 0x88980080; // MILERR_INTERNALERROR
+However, retain the use of ERMS-based REP MOVSB in other cases such as
+copy_page_hot() where there parameter alignment is known to avoid the
+slowpath.
+---8<---
 
-         uint64_t computed_xor = *xor_time_ptr ^ ((uint64_t)xor_time_ptr 
-| address_high);
-         int param_count = 4;
-         int previous_time_high = (int)(previous_time >> 32);
-         uint32_t previous_time_low = (uint32_t)previous_time;
-         int computed_xor_high = (int)(computed_xor >> 32);
-         uint32_t computed_xor_low = (uint32_t)computed_xor;
+?
 
-RaiseFailFastException((PEXCEPTION_RECORD)exception_record, nullptr, 0);
-         previous_time = *((_QWORD *)scheduler + 1990);
-     }
+This at least gets us back to the 4.20 behaviour.
 
-     // get current timestamp
-     *((_QWORD *)scheduler + 0x7C7) = previous_time; // 0x3e38
-     QueryPerformanceCounter(current_time_ptr);
-
-     LARGE_INTEGER new_time = *current_time_ptr;
-     uint64_t last_previous_time = *((_QWORD *)scheduler + 0x7C7); // 0x3e38
-
-     // check if time go backward
-     if (new_time.QuadPart < last_previous_time) {
-         char exception_record[0x98];
-         memset(exception_record, 0, sizeof(exception_record));
-         *(int *)exception_record = 0x8898009B; // 
-MILERR_QPC_TIME_WENT_BACKWARD
-
-         int new_time_high = new_time.HighPart;
-         uint32_t new_time_low = new_time.LowPart;
-         int last_previous_high = (int)(last_previous_time >> 32);
-         uint32_t last_previous_low = (uint32_t)last_previous_time;
-         int frequency_high = g_qpcFrequency.HighPart;
-         uint32_t frequency_low = g_qpcFrequency.LowPart;
-
-         int64_t time_delta = last_previous_time - new_time.QuadPart;
-         int64_t millis_delta = (1000 * time_delta) / 
-g_qpcFrequency.QuadPart;
-         int millis_high = (int)(millis_delta >> 32);
-         uint32_t millis_low = (uint32_t)millis_delta;
-
-         int param_count = 8;
-
-RaiseFailFastException((PEXCEPTION_RECORD)exception_record, nullptr, 0);
-         new_time = *(LARGE_INTEGER *)((char *)scheduler + 15920);
-     }
-
-     *xor_time_ptr = new_time.QuadPart ^ xor_key;
-}
-
-Thanks.
-
-06.01.2026 16:58, Jan Beulich пишет:
-> Callers may pass in TSC values from before the local TSC stamp was last
-> updated (this would in particular be the case when the TSC was latched, a
-> time rendezvous occurs, and the latched value is used only afterwards).
-> scale_delta(), otoh, deals with unsigned values, and hence would treat
-> negative incoming deltas as huge positive values, yielding entirely bogus
-> return values.
->
-> Fixes: 88e64cb785c1 ("x86/HVM: use fixed TSC value when saving or restoring domain")
-> Reported-by: Антон Марков<akmarkov45@gmail.com>
-> Signed-off-by: Jan Beulich<jbeulich@suse.com>
-> ---
-> An alternative might be to have scale_delta() deal with signed deltas, yet
-> that seemed more risky to me.
->
-> There could likely be more Fixes: tags; the one used is the oldest
-> applicable one, from what I can tell.
->
-> A similar issue looks to exist in read_xen_timer() and its read_cycle()
-> helper, if we're scheduled out (and beck in) between reading of the TSC
-> and calculation of the delta (involving ->tsc_timestamp). Am I
-> overlooking anything there?
->
-> stime2tsc() guards against negative deltas by using 0 instead; I'm not
-> quite sure that's correct either.
->
-> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
-> comment towards the TSC being "sane", but is that correct? Due to
-> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
-> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
-> calling tsc_ticks2ns()?
->
-> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
-> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
-> whether we shouldn't subtract boot_tsc_stamp.
->
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
->           tsc = at_tsc;
->       else
->           tsc = rdtsc_ordered();
-> -    delta = tsc - t->stamp.local_tsc;
-> -    return t->stamp.local_stime + scale_delta(delta, &t->tsc_scale);
-> +
-> +    if ( tsc >= t->stamp.local_tsc )
-> +        delta = scale_delta(tsc - t->stamp.local_tsc, &t->tsc_scale);
-> +    else
-> +        delta = -scale_delta(t->stamp.local_tsc - tsc, &t->tsc_scale);
-> +
-> +    return t->stamp.local_stime + delta;
->   }
->   
->   s_time_t get_s_time(void)
->
---------------aYSA0nJRu5if1P0AvfxZyP59
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">Hi, I'm not sure
-            about the other places.</span></span> <span
-          class="jCAhz ChMk0b"><span class="ryNqvb">In hvm_load_cpu_ctxt
-            (xen/arch/x86/hvm/hvm.c ), it was easy to catch because
-            process_pending_softirqs is frequently called there, which
-            in turn processes softirqs from the timer (where the
-            timestamp is updated).</span></span> <span
-          class="jCAhz ChMk0b"><span class="ryNqvb">After I fixed
-            sync_tsc in hvm_load_cpu_ctxt, the problem stopped
-            reproducing under no load.</span></span> <span
-          class="jCAhz ChMk0b"><span class="ryNqvb">However, when the
-            number of vCPUs is 4 times greater than the number of CPUs
-            (under heavy load), the problem rarely reoccurs (mostly
-            during snapshot restores during process_pending_softirqs
-            calls), and this is no longer a simple case.</span></span> <span
-          class="jCAhz ChMk0b"><span class="ryNqvb">If get_s_time_fixed
-            can indeed be interrupted during execution after
-            rdtsc_ordered, then the current fix is ​​insufficient. It's
-            necessary to atomically copy "t-&gt;stamp" to the stack
-            using local_irq_disable and
-            local_irq_enable (as in local_time_calibration), and then
-            work with the copy, confident in its lifetime and
-            immutability.</span></span> <span class="jCAhz ChMk0b"><span
-            class="ryNqvb">But until get_s_time_fixed is proven to be
-            interruptible, this is premature, so your fix is
-            ​​sufficient.</span></span> <span class="jCAhz ChMk0b"><span
-            class="ryNqvb">I think I need more information and testing
-            to say more.</span></span><span class="jCAhz ChMk0b"><span
-            class="ryNqvb"> </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
-          </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">Regarding the other
-            scale_delta calls, if they include values ​​calculated from
-            externally saved tsc values ​​that could have become stale
-            during the process_pending_softirqs call, this definitely
-            needs to be fixed.</span></span><span class="jCAhz ChMk0b"><span
-            class="ryNqvb"> </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
-          </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">Here's the
-            problematic code from dwm.exe, if that helps:</span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
-          </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">void __fastcall
-CPartitionVerticalBlankScheduler::UpdateCurrentTime(CPartitionVerticalBlankScheduler
-            *this) {<br>
-                uint64_t *xor_time_ptr = (uint64_t *)((char *)this +
-            0x3E40);<br>
-                CPartitionVerticalBlankScheduler *scheduler = this;<br>
-                LARGE_INTEGER *current_time_ptr = (LARGE_INTEGER
-            *)((char *)this + 0x3E30);<br>
-                uint64_t previous_time = *((_QWORD *)this + 0x7C6); //
-            0x3e30<br>
-                uint64_t address_high = ((_QWORD)this + 0x3E40) &lt;&lt;
-            32;<br>
-                uint64_t xor_key = ((uint64_t)this + 0x3E40) |
-            address_high;<br>
-            <br>
-                // validate internal state<br>
-                if ((previous_time ^ xor_key) != *((_QWORD *)this +
-            0x7C8)) { // 0x3e40<br>
-                    char exception_record[0x98];<br>
-                    memset(exception_record, 0,
-            sizeof(exception_record));<br>
-                    *(int *)exception_record = 0x88980080; //
-            MILERR_INTERNALERROR<br>
-            <br>
-                    uint64_t computed_xor = *xor_time_ptr ^
-            ((uint64_t)xor_time_ptr | address_high);<br>
-                    int param_count = 4;<br>
-                    int previous_time_high = (int)(previous_time
-            &gt;&gt; 32);<br>
-                    uint32_t previous_time_low =
-            (uint32_t)previous_time;<br>
-                    int computed_xor_high = (int)(computed_xor &gt;&gt;
-            32);<br>
-                    uint32_t computed_xor_low = (uint32_t)computed_xor;<br>
-            <br>
-                   
-            RaiseFailFastException((PEXCEPTION_RECORD)exception_record,
-            nullptr, 0);<br>
-                    previous_time = *((_QWORD *)scheduler + 1990);<br>
-                }<br>
-            <br>
-                // get current timestamp<br>
-                *((_QWORD *)scheduler + 0x7C7) = previous_time; //
-            0x3e38<br>
-                QueryPerformanceCounter(current_time_ptr);<br>
-            <br>
-                LARGE_INTEGER new_time = *current_time_ptr;<br>
-                uint64_t last_previous_time = *((_QWORD *)scheduler +
-            0x7C7); // 0x3e38<br>
-            <br>
-                // check if time go backward<br>
-                if (new_time.QuadPart &lt; last_previous_time) {<br>
-                    char exception_record[0x98];<br>
-                    memset(exception_record, 0,
-            sizeof(exception_record));<br>
-                    *(int *)exception_record = 0x8898009B; //
-            MILERR_QPC_TIME_WENT_BACKWARD<br>
-            <br>
-                    int new_time_high = new_time.HighPart;<br>
-                    uint32_t new_time_low = new_time.LowPart;<br>
-                    int last_previous_high = (int)(last_previous_time
-            &gt;&gt; 32);<br>
-                    uint32_t last_previous_low =
-            (uint32_t)last_previous_time;<br>
-                    int frequency_high = g_qpcFrequency.HighPart;<br>
-                    uint32_t frequency_low = g_qpcFrequency.LowPart;<br>
-            <br>
-                    int64_t time_delta = last_previous_time -
-            new_time.QuadPart;<br>
-                    int64_t millis_delta = (1000 * time_delta) /
-            g_qpcFrequency.QuadPart;<br>
-                    int millis_high = (int)(millis_delta &gt;&gt; 32);<br>
-                    uint32_t millis_low = (uint32_t)millis_delta;<br>
-            <br>
-                    int param_count = 8;<br>
-            <br>
-                   
-            RaiseFailFastException((PEXCEPTION_RECORD)exception_record,
-            nullptr, 0);<br>
-                    new_time = *(LARGE_INTEGER *)((char *)scheduler +
-            15920);<br>
-                }<br>
-            <br>
-                *xor_time_ptr = new_time.QuadPart ^ xor_key;<br>
-            }<br>
-            <br>
-          </span></span></span></div>
-    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
-          class="jCAhz ChMk0b"><span class="ryNqvb">Thanks.</span></span></span><span
-        class="ZSCsVd"></span></div>
-    <div aria-hidden="true" class="UdTY9 WdefRb" data-location="2">
-      <div class="kO6q6e"><br>
-      </div>
-    </div>
-    <p></p>
-    <div class="moz-cite-prefix">06.01.2026 16:58, Jan Beulich пишет:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com">
-      <pre wrap="" class="moz-quote-pre">Callers may pass in TSC values from before the local TSC stamp was last
-updated (this would in particular be the case when the TSC was latched, a
-time rendezvous occurs, and the latched value is used only afterwards).
-scale_delta(), otoh, deals with unsigned values, and hence would treat
-negative incoming deltas as huge positive values, yielding entirely bogus
-return values.
-
-Fixes: 88e64cb785c1 ("x86/HVM: use fixed TSC value when saving or restoring domain")
-Reported-by: Антон Марков <a class="moz-txt-link-rfc2396E" href="mailto:akmarkov45@gmail.com">&lt;akmarkov45@gmail.com&gt;</a>
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
----
-An alternative might be to have scale_delta() deal with signed deltas, yet
-that seemed more risky to me.
-
-There could likely be more Fixes: tags; the one used is the oldest
-applicable one, from what I can tell.
-
-A similar issue looks to exist in read_xen_timer() and its read_cycle()
-helper, if we're scheduled out (and beck in) between reading of the TSC
-and calculation of the delta (involving -&gt;tsc_timestamp). Am I
-overlooking anything there?
-
-stime2tsc() guards against negative deltas by using 0 instead; I'm not
-quite sure that's correct either.
-
-amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
-comment towards the TSC being "sane", but is that correct? Due to
-TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
-wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
-calling tsc_ticks2ns()?
-
-A similar issue looks to exist in tsc_get_info(), again when rdtsc()
-possibly returns a huge value due to TSC_ADJUST. Once again I wonder
-whether we shouldn't subtract boot_tsc_stamp.
-
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
-         tsc = at_tsc;
-     else
-         tsc = rdtsc_ordered();
--    delta = tsc - t-&gt;stamp.local_tsc;
--    return t-&gt;stamp.local_stime + scale_delta(delta, &amp;t-&gt;tsc_scale);
-+
-+    if ( tsc &gt;= t-&gt;stamp.local_tsc )
-+        delta = scale_delta(tsc - t-&gt;stamp.local_tsc, &amp;t-&gt;tsc_scale);
-+    else
-+        delta = -scale_delta(t-&gt;stamp.local_tsc - tsc, &amp;t-&gt;tsc_scale);
-+
-+    return t-&gt;stamp.local_stime + delta;
- }
- 
- s_time_t get_s_time(void)
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------aYSA0nJRu5if1P0AvfxZyP59--
+~Andrew
 
