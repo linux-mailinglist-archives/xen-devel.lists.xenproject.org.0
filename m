@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B2BCF9325
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 16:57:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196295.1514154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 587ECCF9386
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 17:00:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196307.1514165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd9QH-0005G5-Ay; Tue, 06 Jan 2026 15:56:41 +0000
+	id 1vd9Tp-0007S7-UG; Tue, 06 Jan 2026 16:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196295.1514154; Tue, 06 Jan 2026 15:56:41 +0000
+Received: by outflank-mailman (output) from mailman id 1196307.1514165; Tue, 06 Jan 2026 16:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd9QH-0005D9-7u; Tue, 06 Jan 2026 15:56:41 +0000
-Received: by outflank-mailman (input) for mailman id 1196295;
- Tue, 06 Jan 2026 15:56:40 +0000
+	id 1vd9Tp-0007P0-RE; Tue, 06 Jan 2026 16:00:21 +0000
+Received: by outflank-mailman (input) for mailman id 1196307;
+ Tue, 06 Jan 2026 16:00:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd9QG-0005D3-1k
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 15:56:40 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A8PS=7L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vd9To-0007Ou-9n
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 16:00:20 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48e0eda0-eb18-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 16:56:38 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-47d1d8a49f5so7645575e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 07:56:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5ff1e9sm5387608f8f.41.2026.01.06.07.56.37
+ id cc6cd723-eb18-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 17:00:19 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-b7277324054so205902466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 08:00:19 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b842a23433asm265070766b.3.2026.01.06.08.00.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 07:56:37 -0800 (PST)
+ Tue, 06 Jan 2026 08:00:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48e0eda0-eb18-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: cc6cd723-eb18-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767714998; x=1768319798; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ebd+bkqBU1tfghm0vHLMcZDmdzfTwmFGQGb6MBYMJ0k=;
-        b=aa26EJEJps2H1E8jF6BwimpFMtrnV8vXPpbTC5F5p4Zx02A+QqwUHhs4IfpCKlUZbr
-         on1aPbavuh/YEBI/g5PzLySCIhR+DXoV1q8PEBcxkUhlk1iNEQ8sdtftj5HgE/If4h25
-         dnCJFYEorbKGD+ZSSc6hH5AYFn28NtgWpLD8tmxgdt6O2v2g/bM9FIlpM/eIrmSnQnYj
-         5IqfvdBbBnB3eKOP7iat1omR9+gELMAZog4iC8rXMeKZcsIfMGvXGXeZWIbDKviMpy7I
-         nPIDBMn1jHqC5i2xdxdcQzmj5xzfDcnmWs9w5UIU6qg6OBnvudF4mq12bQaNBkLDNFKY
-         RJgg==
+        d=gmail.com; s=20230601; t=1767715218; x=1768320018; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dXzgotMMoAFsrtHUndWOcVA3dD1wQQgYXVKnrLhYyn4=;
+        b=TOUPPS4C+q4EWZshIqnckI9WB4vsolWX0lN15o/tXItvKsqfEpQXZ9nA+mWvFC2/fe
+         eFaHHjijpJD5qegcfBEkDBzV/1wAF+k9WatiquUrZNn+08YO0EYehkQ4X3acNn8X4vOh
+         o4pK5zE0sKZnGiqkIV6z6Bhr4J6SpD7clfXfk4OCYwz7cNAq7qp7TgW9yp4/3oW2Ajye
+         1fNfurKGFcRBBStlSsaOpo76EtV/r9SgJCEGKCqfMduevZH1/jKESCo/iVpVFXkpbwyu
+         49VFqD4+pD1Iil6LH+Cc0CrQ0iXDwRhF2YY75YuU8Xe2NH6DaOUsf4/6HwWN4J8Ox0D0
+         2ixw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767714998; x=1768319798;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ebd+bkqBU1tfghm0vHLMcZDmdzfTwmFGQGb6MBYMJ0k=;
-        b=wOBBvraBy5294Z4UJhiXlc1abE4QRAvQhaCDrG1R2/4M6m6WKq02XPvGFLaXNQmCrf
-         dB5lv0pQanmDl1S49jit+pVoIOPN5g28y8iLgmCku5TMSUDuc/gpfqjl1x0tE6F3cHy6
-         qCbB11BESAl1o9fPdI7NAgGBTzcwhha7AklwGjfBV4BsS7JBjK45cU6N4yASv313O6UY
-         D9w8Nw2pbiqmF9oemQ0f7JJ1kTjszrRxPgnwe3Jl6mlUwRT2b/VSDrIWuA5al68Ijq5i
-         6UmfRtEQWiPfNpyaqRHRV6KI1mjNK3/CIW3HpslRsZmnj51sbB0OMz/vt0xCSFYK3KFL
-         lEMA==
-X-Forwarded-Encrypted: i=1; AJvYcCWI4M+6M/PgaYZcoxOr4llgkLX1iklhbRoZutXR1CIbLOgoDKwS2r/p4z+vDMZTIkswU21iIClIV0s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzN/aWKLCd7GUQbQYaH8yoiptVUJz8z0SEGCxTYYIVZfl7nMtYw
-	PIPAHodJye8e3+70rwpskRhx3yVRFZMuz9/E0YF4+bBX7r/vHCoRSr4+OaEAc7X6Ig==
-X-Gm-Gg: AY/fxX5yL7zMd7TD8OtYBz6n/COwWUJZFhVP2onMw/pS1zGgXud2xc0H5+4S44dCTHc
-	OiwarsyLRlgKaprnaWmXBD0VicIdpaNyjN7OGdpLgLu0ywzkzF3917Eu5BFfYfkrao7Mtp7WoCh
-	wvmma/hFn8l7OveaB6SgKS0YAY2NZR+s+qFhswrNqhcwth4XNvPzApxDILZR71nJnotX9tYViUz
-	Iyk2RegCZZ7rHpb6ijxDYZmqlTsQcIEE8/qE7lH7k8FleUcl2hxmwQjZq11TqLfH7Hj8oYl9Isz
-	NqemhnI/iZe1Q/2sD7La0xg0rMtFki3bnkN1+JFpVCf+1vk/H3CuDpT2uVaPBcUaXmCib2ERj0u
-	0Sa4+wyIDqoQUdY/u8TMIg1VGQLom6x/nvVQ+RzelDA91e508QQQaraZayAWp4QjbcVP1sTF62e
-	OvDYZRsPbaOHHiYPdigVa3Ahal3h62JtZfvh0JLEJ025q+6C4IqN08GfpVeENv8mTLbMy4iqS8c
-	bM=
-X-Google-Smtp-Source: AGHT+IFcuBWkErPL8McMvOrvh0UDAPXRH1NnRq9qrF5d3VpNbxNTY/oXCW5Gb5o096DI1gPWGdE1HQ==
-X-Received: by 2002:a05:600c:3b27:b0:477:8a29:582c with SMTP id 5b1f17b1804b1-47d7f0a1804mr40155165e9.34.1767714997801;
-        Tue, 06 Jan 2026 07:56:37 -0800 (PST)
-Message-ID: <2e7ab738-6b5d-4ac4-a46b-1eef1cd09fb1@suse.com>
-Date: Tue, 6 Jan 2026 16:56:36 +0100
+        d=1e100.net; s=20230601; t=1767715218; x=1768320018;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dXzgotMMoAFsrtHUndWOcVA3dD1wQQgYXVKnrLhYyn4=;
+        b=AuS5zW09Vd0saIKb2rkkMG+sp1J1SxmDvStRzhnOK9rvvzZUusGK62V0CDL+sRZDGa
+         49BJrY5etPPKNl9RJABrP/sDByrAkBxInN5wovX4DGoNKOoglqc8jHw0Q1Bmx+certo2
+         +nJGrAFu++zcVPi9Bf4N6/PIDEVUd0AyOOOj3BBh6mZ74OweLbqrlO0zif0lhxT62qIg
+         +yIy6JJ65o1FZqwk0kjz3/sqRYhRDNvFQAqVFrpTazMCtLOW14E/9zNY/UWK037gRWb1
+         xE4OihAoyArHyNb8lk9hOIqwkO1ir1fWDy4P7uc4rI2wsBbxo8odC3Nb9qTsH8YQhk4M
+         n7Fg==
+X-Forwarded-Encrypted: i=1; AJvYcCV0T8fgPV+S0y/y3eP9tnMWjbdUIfvkxoF2+X9rQQwxPgk9Yqil9v+Sl7sWMDq+h0DkeF5YWPyRREI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjBbYO3MZ/UV1+v5y+9oSzm6Gq58n7Wq1q3T2w2IjS2JQLt5pr
+	1t9P0KKMZGZ4CZ+cb8F3qW1uUZ+OGlGHhqdozRthtMYjnyXWOEl+Gr8/
+X-Gm-Gg: AY/fxX5Q0LBLylveaYPES90nPjydrpDWNqTkk/EDmOhop5mI7aXiAZgrJwREuD0Oifg
+	oG9LI0gIhSj6pKNiAvU9zE5gsnmjpC4d1VOFbll6F/CV5pLO7KzLjqZxNVNFQ1juSQvAoQBnitc
+	j6YEQn8lLwFj2XnmwWjZ2wb1gjLPklPsyfLhDQ63/azjCluQNIMxb0xu0EjSJxioL/WfZUeeYrn
+	eEccLiHLih/b9UqqOglT5opHJPakbLkC5XUzsrTuaFSRi4JLQd/Bgv0N2iD2hRxbwrqiZic+lc1
+	yPKILyZukYJTUgRk8O21rCoaQ1UwB8VHmkxgSeuT3ctRCkAqmcIzbqgxjBEk3YCXtL8Zmsi4DwH
+	sPlh3AeDI1PbWKgM6ZmICRveL0HIxi247EoY7RhOvMq0RpHipAVQrfVXMvgULiIe3rFfQb6U2lK
+	j5eRt08bTp8Z13oYaQJb4Pv6R9s7wqMl+/V5aqcQfijhOTYZig34DMEk7xlEfwZ9c=
+X-Google-Smtp-Source: AGHT+IGYiWtL2mzfcJjYIj/lQRLe2q1dB3h9umdIT1pjm3drjpprFqVbwfeFZp/61e1z1tOFDCmx4A==
+X-Received: by 2002:a17:907:970a:b0:b76:da45:e3d6 with SMTP id a640c23a62f3a-b8426a6bc17mr374828966b.16.1767715218120;
+        Tue, 06 Jan 2026 08:00:18 -0800 (PST)
+Message-ID: <5daf24da-0600-4afe-8a20-9f938e2dadaa@gmail.com>
+Date: Tue, 6 Jan 2026 17:00:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 02/15] xen/riscv: implement
- arch_vcpu_{create,destroy}()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 01/15] xen/riscv: introduce struct arch_vcpu
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -100,138 +98,115 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <be49a360ad584edf5fd9891e5f4534a2c2586048.1766595589.git.oleksii.kurochko@gmail.com>
+ <3b531dff3755da010664111cf7d936ccba7c1f5d.1766595589.git.oleksii.kurochko@gmail.com>
+ <41b7b388-6c10-4cbe-a4af-a25baba64e2a@suse.com>
+ <89629a0d-de6e-46e2-8517-a4b2fdd52183@gmail.com>
+ <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
+ <839c06a2-dbd2-44c5-abe6-905a1f3ffefd@gmail.com>
+ <e8a1fc9c-6715-4ac7-acee-754ec29283fe@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <be49a360ad584edf5fd9891e5f4534a2c2586048.1766595589.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <e8a1fc9c-6715-4ac7-acee-754ec29283fe@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-(some or even all of the comments may also apply to present Arm code)
 
-On 24.12.2025 18:03, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/domain.c
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/mm.h>
-> +#include <xen/sched.h>
-> +
-> +static void continue_new_vcpu(struct vcpu *prev)
-> +{
-> +    BUG_ON("unimplemented\n");
-> +}
-> +
-> +int arch_vcpu_create(struct vcpu *v)
-> +{
-> +    int rc = 0;
-> +
-> +    BUILD_BUG_ON(sizeof(struct cpu_info) > STACK_SIZE);
+On 1/6/26 4:33 PM, Jan Beulich wrote:
+> On 06.01.2026 16:05, Oleksii Kurochko wrote:
+>> On 1/6/26 3:26 PM, Jan Beulich wrote:
+>>> On 06.01.2026 15:19, Oleksii Kurochko wrote:
+>>>> On 1/5/26 5:58 PM, Jan Beulich wrote:
+>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>>>>>> Introduce structure with VCPU's registers which describes its state.
+>>>>>>
+>>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>> Since none of this is being used for the time being, I think the description
+>>>>> wants to be a little less terse. Coming from the x86 (rather then the Arm)
+>>>>> side, I find the arrangements irritating. And even when comparing to Arm, ...
+>>>>>
+>>>>>> --- a/xen/arch/riscv/include/asm/domain.h
+>>>>>> +++ b/xen/arch/riscv/include/asm/domain.h
+>>>>>> @@ -22,9 +22,63 @@ struct hvm_domain
+>>>>>>     struct arch_vcpu_io {
+>>>>>>     };
+>>>>>>     
+>>>>>> -struct arch_vcpu {
+>>>>>> +struct arch_vcpu
+>>>>>> +{
+>>>>>>         struct vcpu_vmid vmid;
+>>>>>> -};
+>>>>>> +
+>>>>>> +    /* Xen's state: Callee-saved registers and tp, gp, ra */
+>>>>> ... I don't think the following structure describes "Xen's state". On Arm
+>>>>> it's guest controlled register values which are being saved afaict. I
+>>>>> would then expect the same to become the case for RISC-V.
+>>>> I think this is not fully correct, because guest-controlled registers on
+>>>> Arm are allocated on the stack [1][2].
+>>> I'll admit that I should have said "possibly guest-controlled". Callee-
+>>> saved registers may or may not be used in functions, and if one isn't
+>>> used throughout the call-stack reaching __context_switch(), it would
+>>> still hold whatever the guest had put there.
+>> But the guest doesn't put there nothing, only Xen does that and it is a reason
+>> why I am trying to call it Xen state. Guest works only with what is stored in
+>> struct cpu_info->guest_cpu_user_regs.* ...
+>>
+>>>> Regarding|xen_saved_context| (or|saved_context| on Arm, which I used as a base),
+>>>> I think|xen_saved_context| is a slightly better name. Looking at how the
+>>>> |saved_context| structure is used on Arm [3], it can be concluded that
+>>>> |__context_switch()| switches only Xen’s internal context. What actually happens is
+>>>> that|__context_switch()| is called while running on the previous vCPU’s stack
+>>>> and returns on the next vCPU’s stack. Therefore, it is necessary to have
+>>>> the correct register values stored in the|saved_context| structure in order
+>>>> to continue Xen’s execution when it later returns to the previous stack.
+>>> For this and ...
+>>>
+>>>> Probably I need to introduce|__context_switch()| in this patch series for RISC-V
+>>>> now; I hope this will clarify things better. At the moment, it looks like [4].
+>>>>
+>>>> [1] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/include/asm/arm64/processor.h#L14
+>>>> [2] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/domain.c#L547
+>>>>
+>>>> [3] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/arm64/entry.S#L650
+>>>>
+>>>> [4] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/entry.S?ref_type=heads#L153
+>>>>
+>>>>>> +    struct
+>>>>>> +    {
+>>>>>> +        register_t s0;
+>>>>>> +        register_t s1;
+>>>>>> +        register_t s2;
+>>>>>> +        register_t s3;
+>>>>>> +        register_t s4;
+>>>>>> +        register_t s5;
+>>>>>> +        register_t s6;
+>>>>>> +        register_t s7;
+>>>>>> +        register_t s8;
+>>>>>> +        register_t s9;
+>>>>>> +        register_t s10;
+>>>>>> +        register_t s11;
+>>>>>> +
+>>>>>> +        register_t sp;
+>>>>>> +        register_t gp;
+>>>>>> +
+>>>>>> +        /* ra is used to jump to guest when creating new vcpu */
+>>>>>> +        register_t ra;
+>>>>>> +    } xen_saved_context;
+>>>>> The xen_ prefix here also doesn't exist in Arm code.
+>>>> I think it should be added for Arm too. I can send a patch.
+>>> ... this, to reword my comment: What value does the xen_ prefix add?
+>> ... because guest doesn't access saved_context and as I mentioned above
+>> guest has "access" only to struct cpu_info->guest_cpu_user_regs.*.
+> The guest has no access to anything in the hypervisor.
 
-I fear you're in trouble also when == or when only a few bytes are left on
-the stack. IOW I'm unconvinced that this is a useful check to have.
+Of course, the guest doesn't have access. By "access" I meant guest context
+stored in cpu_info->guest_cpu_user_regs.*.
 
-> +    v->arch.stack = alloc_xenheap_pages(STACK_ORDER, MEMF_node(vcpu_to_node(v)));
-> +    if ( !v->arch.stack )
-> +        return -ENOMEM;
+>   That said, seeing
+> that Andrew had asked for this, so be it then (albeit I remain unconvinced).
 
-You don't really need contiguous memory, do you? In which case why not
-vmalloc()? This would then also use the larger domheap.
+I will add some extra comments about xen_saved_context to make things more
+clear.
 
-> +    v->arch.cpu_info = (struct cpu_info *)(v->arch.stack
-> +                                           + STACK_SIZE
-> +                                           - sizeof(struct cpu_info));
+~ Oleksii
 
-Why the cast?
-
-> +    memset(v->arch.cpu_info, 0, sizeof(*v->arch.cpu_info));
-> +
-> +    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
-> +    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
-> +
-> +    printk("Create vCPU with sp=%#lx, pc=%#lx, cpu_info(%#lx)\n",
-> +           v->arch.xen_saved_context.sp, v->arch.xen_saved_context.ra,
-> +           (unsigned long)v->arch.cpu_info);
-
-Please don't, as this is going to get pretty noisy. (And if this wanted
-keeping, use %p for pointers rather than casting to unsigned long.)
-
-> +    /* Idle VCPUs don't need the rest of this setup */
-> +    if ( is_idle_vcpu(v) )
-> +        return rc;
-> +
-> +    /*
-> +     * As the vtimer and interrupt controller (IC) are not yet implemented,
-> +     * return an error.
-> +     *
-> +     * TODO: Drop this once the vtimer and IC are implemented.
-> +     */
-> +    rc = -EOPNOTSUPP;
-> +    goto fail;
-> +
-> +    return rc;
-> +
-> + fail:
-> +    arch_vcpu_destroy(v);
-> +    return rc;
-> +}
-> +
-> +void arch_vcpu_destroy(struct vcpu *v)
-> +{
-> +    free_xenheap_pages(v->arch.stack, STACK_ORDER);
-> +}
-
-Better to use FREE_XENHEAP_PAGES() here, I think, to make the function
-idempotent.
-
-> --- a/xen/arch/riscv/include/asm/current.h
-> +++ b/xen/arch/riscv/include/asm/current.h
-> @@ -21,6 +21,12 @@ struct pcpu_info {
->  /* tp points to one of these */
->  extern struct pcpu_info pcpu_info[NR_CPUS];
->  
-> +/* Per-VCPU state that lives at the top of the stack */
-> +struct cpu_info {
-> +    /* This should be the first member. */
-> +    struct cpu_user_regs guest_cpu_user_regs;
-> +};
-
-You may want to enforce what the comment says by way of a BUILD_BUG_ON().
-
-> --- a/xen/arch/riscv/include/asm/domain.h
-> +++ b/xen/arch/riscv/include/asm/domain.h
-> @@ -49,6 +49,9 @@ struct arch_vcpu
->          register_t ra;
->      } xen_saved_context;
->  
-> +    struct cpu_info *cpu_info;
-> +    void *stack;
-
-Do you really need both fields, when one is derived from the other?
-
-Jan
 
