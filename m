@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64AECFAC65
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 20:48:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196462.1514274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3D0CFADEB
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 21:11:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196477.1514284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdD21-0004zM-JO; Tue, 06 Jan 2026 19:47:53 +0000
+	id 1vdDON-0000SI-Gg; Tue, 06 Jan 2026 20:10:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196462.1514274; Tue, 06 Jan 2026 19:47:53 +0000
+Received: by outflank-mailman (output) from mailman id 1196477.1514284; Tue, 06 Jan 2026 20:10:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdD21-0004xJ-GT; Tue, 06 Jan 2026 19:47:53 +0000
-Received: by outflank-mailman (input) for mailman id 1196462;
- Tue, 06 Jan 2026 19:47:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=feBW=7L=gmail.com=21cnbao@srs-se1.protection.inumbo.net>)
- id 1vdD20-0004wx-6c
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 19:47:52 +0000
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [2607:f8b0:4864:20::f36])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 944edfd0-eb38-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 20:47:49 +0100 (CET)
-Received: by mail-qv1-xf36.google.com with SMTP id
- 6a1803df08f44-8887f43b224so16144576d6.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 11:47:49 -0800 (PST)
+	id 1vdDON-0000Q7-Dk; Tue, 06 Jan 2026 20:10:59 +0000
+Received: by outflank-mailman (input) for mailman id 1196477;
+ Tue, 06 Jan 2026 20:10:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Xx60=7L=gmail.com=akmarkov45@srs-se1.protection.inumbo.net>)
+ id 1vdDOL-0000Q1-SX
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 20:10:58 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cea886b0-eb3b-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 21:10:56 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-59b679cff1fso692290e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 12:10:55 -0800 (PST)
+Received: from [192.168.1.66] (95-24-239-83.broadband.corbina.ru.
+ [95.24.239.83]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59b6a2c02fcsm516228e87.33.2026.01.06.12.10.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Jan 2026 12:10:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,193 +45,427 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 944edfd0-eb38-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: cea886b0-eb3b-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767728868; x=1768333668; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1767730254; x=1768335054; darn=lists.xenproject.org;
+        h=in-reply-to:cc:from:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pntXy9Hj0WqvRGVZav4oj27VTA9+7WcxJK6ERgbcGK8=;
-        b=ZDaZ4RmPIURtIIImM+ZQZgpEfTCloZQAiGZ2yEpjOuVLT809UcuuqlMq1S/IxvoOhC
-         6YKaejwZtEaTfDgBAWgtkotoVsVVhC4Lgr/V87TKcXgilWTjmNtWDGCmh7NdRuJsV2VX
-         EXu+vnpAlRSKk/ZjuV3poz2i2i+LLeSgx1+A9yEGNYlgWzaHLzi9aKVj8jBt7G0BGP9x
-         8Ql9Z5DQT4RNsb+vvtIqKS3PA1cUNzcxxBpkjZZQZukRTX/Rtg3t/gqLYiuLtavuHrdE
-         uHygjsIfKVEKwkk5wZSTCCtG4TogHuVbyxW/Dn1RoQ4Am7azcM0/iLCwx9PRGKrT+U0o
-         GdKw==
+        bh=a3UTB1lNTQeoNfnkSkfwz+TsiIQzBrduP5eAxBGpTQs=;
+        b=gKEz0TsTgksrlsggf3QVaxl+NA/NtlXzBN5tLNDI8Zx1VvWYTz5BXGBxP2YRfsJ3Ja
+         YrTtIcz2DXWyPKaMOskkubNbGKciiYLuCV/h+Ze6DUEEW+Ofwe6AkWBfBfy+SohQsXiM
+         tvqD/NADb+J9SzD2YL+21XcE/gUYQ7/NKi8h/C0qgqHwi03hYwLWTLC8gBH9a/8J9NPe
+         AuD/UyEyZvGTcqHUVwbsyA1iiCpa1IUqu/pOgXcrHbyza2j5yBxxvOYGs0W7b5jriYBl
+         40kW+fwY1fGVvaPajbPAXnZhw8aRihkgPbDdW8UUT7j7lf8VUx2eLKsSxLhCjyphTZpb
+         kPfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767728868; x=1768333668;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pntXy9Hj0WqvRGVZav4oj27VTA9+7WcxJK6ERgbcGK8=;
-        b=ThZs0mbWue2D3hXz5w7X8d4vIJ0sSx/FSgIyGDFDoDctKg1K8iupJfjIHAXz6vOGWw
-         MBp3wvdmjCWKPGqkvyBlxU1sTcpvpRg8P3HBaKLRrduCmrz2NeuYddECvSZB0o+b1ICu
-         1VFAKs5sFKCILFrLpuoAFkOdfzYw/yE+N337zQqj6YAcfSxojO3gpolwdhr2yieO8DZJ
-         JUc9Y1kuz4E3hPZETY3L5G+VGanegFRSzRhmpXxuqnWg7J1M5brSdyhoqcIVJi1CwZPP
-         vDdDsPeVdvFmuESRmkdwopJn5FPXlwRrNAFS6nOPFyk4qwFdrCw8BlXU2ab7hdbSERfa
-         KFRw==
-X-Forwarded-Encrypted: i=1; AJvYcCWg/2xxOKXCzMc/e4WgA67a7HfXWR2hYPfTG66LuHeKzajkZbpXfkCd03hBeQOGFntzklIV/cosGCc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHPUAdlPUq+aPsllIfHqKeV2WXXBgmj/b81YRtZYxIHAJhAeZi
-	+Etk/6wxgLqq4+p952WgoOBZCdzJ16jALj+BXxT2Ig0WvXEVcqmaL3ivO+abjXGqjKh4CcVZbno
-	mqTCK40VVDWfY6OkQLQmHS1hcdMhD+6Q=
-X-Gm-Gg: AY/fxX5bEZruvw8QT43Kel7bLZC4NsLPZKa2AhWVxTGVjVooRXhX4T0uW29WQolHXdp
-	6zdCadVXNTZhHMv6YsI0gr3COvMq7jIKQk6YMMSyrbzOj4Cz9a7EIoS3/0fGBykrCcXh+ROZQyA
-	wIsZGxmcwAkYoH0dbcgXYkEnpCgNxsPASACz4cDmocJ+R13IMJ1m6YGd/uhIwT5JBQA2gln+Iwh
-	2VciBHGC0mDJS9KJtBQ/ob/abwzcUSpLwpcxKPy7obQcl3GwN2wSSNIA0KSfHwJYby25A==
-X-Google-Smtp-Source: AGHT+IEsDozTTuOpHzQH0xjAygijM9mAO6rgCGg7RgPz/1lUD4/ZMIEqkH9QqpKy9eDQlYCqtEtPfalOfqOAQTgTldI=
-X-Received: by 2002:a05:6214:622:b0:890:5973:a567 with SMTP id
- 6a1803df08f44-890841e56d5mr1480896d6.12.1767728867862; Tue, 06 Jan 2026
- 11:47:47 -0800 (PST)
+        d=1e100.net; s=20230601; t=1767730254; x=1768335054;
+        h=in-reply-to:cc:from:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=a3UTB1lNTQeoNfnkSkfwz+TsiIQzBrduP5eAxBGpTQs=;
+        b=c2lnFPNuRIY8T9dHxTYhsT8ktVTS8VSgAftw05HbUfNTnRDbzOQ8X2/gCfnm+ccf4g
+         0jZsjxZMLidpLpNqpH7pj4Dgf7PX+0PECRep8WP8235uvMGXfKLq+re9U915v56tzt4r
+         8EH1cNQAJYRyroFoTsqL2X17SjmGzWcc/fIdHtBuMrbQzmQYU3BRdFPoRAq4U24sjPn9
+         ua3zQbRkfS34xGOyNQnLMi9TeHnOolTRIJ2k6b5IjiWikW0sqrMZuQRrfN7wGpynRR5c
+         xHwn7pCuFKrwjvXH0G9u0Q7CX1ClWlk1vlPZR0a9IrIE6J/lEVDC/BNaR5AIYNnXwZUO
+         5HZw==
+X-Gm-Message-State: AOJu0YyjC1uUxi3xMGF3IokE8fewcSUXZGjNNWW3smJNEIcTttoqFkxX
+	5kC7NJZBi1KBGopxSa8eaU2QemP5+vrUYakdvVqVXi1cmnTptrw0YxJq9M8S7yS1iwA=
+X-Gm-Gg: AY/fxX5tcshyV3XcU/BgNxreW8yO9rQgB23sIOpKa/yAc38jbtsjDPgaYk/psb09/AN
+	RWQBkVVYJrCDmmqN+v52QCP9SktR3o7iYUJc+K+deAB9Piw/ZPz5QXaCtrAooNRzacJbCBSYKkO
+	YFcaN6ERXo3MHrjbrUWVqYUfMyh7byiDjZPvAPCcIAbdQ07pdGImEnsy+UMRN2omJjbjSRgBaiS
+	UF0IyhWPCeVl0f6idjwAXKUi7NV7nSxuwH3FJS1w6u2Nnp324q3HIl6oaRG+R/k89BfwgOQVp3N
+	pXzZl1Iui8Bq7Zjol3QcfIRvUZxDoOcx2HBafQYpo3H3eOYzjY6XmXEbj2dacA9fEMDnhBznJwY
+	DFI+vyhjmxsDhg3xmSBQF5O1AVr88rcTiHhFSyKG0/2SOvRiMG0qUwGuaCBiKpi6P8Enx/jSRkt
+	/c0ptEuRj6Fr6z39fWqtB4FWlpzheBst0GmG4qO0LAiiWaGpr4t5Y47yv1Nb0K
+X-Google-Smtp-Source: AGHT+IHwnilKl5BndLuLZeNs0nq1DIFFkNMYA/jKYARJ6qW7pJolE5NLSvbiM/4fJQ8g0MVzZIaJmA==
+X-Received: by 2002:ac2:4e12:0:b0:597:cf12:bea6 with SMTP id 2adb3069b0e04-59b6f043818mr60073e87.48.1767730253926;
+        Tue, 06 Jan 2026 12:10:53 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------aYSA0nJRu5if1P0AvfxZyP59"
+Message-ID: <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+Date: Tue, 6 Jan 2026 23:10:52 +0300
 MIME-Version: 1.0
-References: <20251226225254.46197-1-21cnbao@gmail.com> <20251226225254.46197-6-21cnbao@gmail.com>
- <20251227200933.GO11869@unreal> <CAGsJ_4yA83-K7PXiEtyidzF_j6qqKkt92z485KBS9+zGe_rjnw@mail.gmail.com>
- <20251228145041.GS11869@unreal> <CAGsJ_4yex5MKQkGtFr2zUcg4h0PtsFs2QVcE_NSfiyOn4qBzhQ@mail.gmail.com>
- <de876e61-42c5-414d-b439-2f9196c6c128@arm.com>
-In-Reply-To: <de876e61-42c5-414d-b439-2f9196c6c128@arm.com>
-From: Barry Song <21cnbao@gmail.com>
-Date: Wed, 7 Jan 2026 08:47:36 +1300
-X-Gm-Features: AQt7F2rGhHEzeZcOruGijVOJFT9sChymTkhWX1JfhRWGcohbyfQWWuu1bqdVJW0
-Message-ID: <CAGsJ_4xYqseJMFXOU39JJW4Lk2ZHXAnRJLhZdVuFLxAi=Dy5sw@mail.gmail.com>
-Subject: Re: [PATCH v2 5/8] dma-mapping: Support batch mode for dma_direct_sync_sg_for_*
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Leon Romanovsky <leon@kernel.org>, catalin.marinas@arm.com, m.szyprowski@samsung.com, 
-	will@kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Anshuman Khandual <anshuman.khandual@arm.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Tangquan Zheng <zhengtangquan@oppo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH 1/5] x86/time: deal with negative deltas in get_s_time_fixed()
+To: xen-devel@lists.xenproject.org
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
+Content-Language: ru
+From: =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+Cc: jbeulich@suse.com, andrew.cooper3@citrix.com, roger.pau@citrix.com
+In-Reply-To: <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
 
-On Wed, Jan 7, 2026 at 8:12=E2=80=AFAM Robin Murphy <robin.murphy@arm.com> =
-wrote:
+This is a multi-part message in MIME format.
+--------------aYSA0nJRu5if1P0AvfxZyP59
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi, I'm not sure about the other places. In hvm_load_cpu_ctxt 
+(xen/arch/x86/hvm/hvm.c ), it was easy to catch because 
+process_pending_softirqs is frequently called there, which in turn 
+processes softirqs from the timer (where the timestamp is updated). 
+After I fixed sync_tsc in hvm_load_cpu_ctxt, the problem stopped 
+reproducing under no load. However, when the number of vCPUs is 4 times 
+greater than the number of CPUs (under heavy load), the problem rarely 
+reoccurs (mostly during snapshot restores during 
+process_pending_softirqs calls), and this is no longer a simple case. If 
+get_s_time_fixed can indeed be interrupted during execution after 
+rdtsc_ordered, then the current fix is ​​insufficient. It's necessary to 
+atomically copy "t->stamp" to the stack using local_irq_disable and 
+local_irq_enable (as in local_time_calibration), and then work with the 
+copy, confident in its lifetime and immutability. But until 
+get_s_time_fixed is proven to be interruptible, this is premature, so 
+your fix is ​​sufficient. I think I need more information and testing to 
+say more.
+
+Regarding the other scale_delta calls, if they include values 
+​​calculated from externally saved tsc values ​​that could have become 
+stale during the process_pending_softirqs call, this definitely needs to 
+be fixed.
+
+Here's the problematic code from dwm.exe, if that helps:
+
+void __fastcall 
+CPartitionVerticalBlankScheduler::UpdateCurrentTime(CPartitionVerticalBlankScheduler 
+*this) {
+     uint64_t *xor_time_ptr = (uint64_t *)((char *)this + 0x3E40);
+     CPartitionVerticalBlankScheduler *scheduler = this;
+     LARGE_INTEGER *current_time_ptr = (LARGE_INTEGER *)((char *)this + 
+0x3E30);
+     uint64_t previous_time = *((_QWORD *)this + 0x7C6); // 0x3e30
+     uint64_t address_high = ((_QWORD)this + 0x3E40) << 32;
+     uint64_t xor_key = ((uint64_t)this + 0x3E40) | address_high;
+
+     // validate internal state
+     if ((previous_time ^ xor_key) != *((_QWORD *)this + 0x7C8)) { // 0x3e40
+         char exception_record[0x98];
+         memset(exception_record, 0, sizeof(exception_record));
+         *(int *)exception_record = 0x88980080; // MILERR_INTERNALERROR
+
+         uint64_t computed_xor = *xor_time_ptr ^ ((uint64_t)xor_time_ptr 
+| address_high);
+         int param_count = 4;
+         int previous_time_high = (int)(previous_time >> 32);
+         uint32_t previous_time_low = (uint32_t)previous_time;
+         int computed_xor_high = (int)(computed_xor >> 32);
+         uint32_t computed_xor_low = (uint32_t)computed_xor;
+
+RaiseFailFastException((PEXCEPTION_RECORD)exception_record, nullptr, 0);
+         previous_time = *((_QWORD *)scheduler + 1990);
+     }
+
+     // get current timestamp
+     *((_QWORD *)scheduler + 0x7C7) = previous_time; // 0x3e38
+     QueryPerformanceCounter(current_time_ptr);
+
+     LARGE_INTEGER new_time = *current_time_ptr;
+     uint64_t last_previous_time = *((_QWORD *)scheduler + 0x7C7); // 0x3e38
+
+     // check if time go backward
+     if (new_time.QuadPart < last_previous_time) {
+         char exception_record[0x98];
+         memset(exception_record, 0, sizeof(exception_record));
+         *(int *)exception_record = 0x8898009B; // 
+MILERR_QPC_TIME_WENT_BACKWARD
+
+         int new_time_high = new_time.HighPart;
+         uint32_t new_time_low = new_time.LowPart;
+         int last_previous_high = (int)(last_previous_time >> 32);
+         uint32_t last_previous_low = (uint32_t)last_previous_time;
+         int frequency_high = g_qpcFrequency.HighPart;
+         uint32_t frequency_low = g_qpcFrequency.LowPart;
+
+         int64_t time_delta = last_previous_time - new_time.QuadPart;
+         int64_t millis_delta = (1000 * time_delta) / 
+g_qpcFrequency.QuadPart;
+         int millis_high = (int)(millis_delta >> 32);
+         uint32_t millis_low = (uint32_t)millis_delta;
+
+         int param_count = 8;
+
+RaiseFailFastException((PEXCEPTION_RECORD)exception_record, nullptr, 0);
+         new_time = *(LARGE_INTEGER *)((char *)scheduler + 15920);
+     }
+
+     *xor_time_ptr = new_time.QuadPart ^ xor_key;
+}
+
+Thanks.
+
+06.01.2026 16:58, Jan Beulich пишет:
+> Callers may pass in TSC values from before the local TSC stamp was last
+> updated (this would in particular be the case when the TSC was latched, a
+> time rendezvous occurs, and the latched value is used only afterwards).
+> scale_delta(), otoh, deals with unsigned values, and hence would treat
+> negative incoming deltas as huge positive values, yielding entirely bogus
+> return values.
 >
-> On 2026-01-06 6:41 pm, Barry Song wrote:
-> > On Mon, Dec 29, 2025 at 3:50=E2=80=AFAM Leon Romanovsky <leon@kernel.or=
-g> wrote:
-> >>
-> >> On Sun, Dec 28, 2025 at 09:52:05AM +1300, Barry Song wrote:
-> >>> On Sun, Dec 28, 2025 at 9:09=E2=80=AFAM Leon Romanovsky <leon@kernel.=
-org> wrote:
-> >>>>
-> >>>> On Sat, Dec 27, 2025 at 11:52:45AM +1300, Barry Song wrote:
-> >>>>> From: Barry Song <baohua@kernel.org>
-> >>>>>
-> >>>>> Instead of performing a flush per SG entry, issue all cache
-> >>>>> operations first and then flush once. This ultimately benefits
-> >>>>> __dma_sync_sg_for_cpu() and __dma_sync_sg_for_device().
-> >>>>>
-> >>>>> Cc: Leon Romanovsky <leon@kernel.org>
-> >>>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> >>>>> Cc: Will Deacon <will@kernel.org>
-> >>>>> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-> >>>>> Cc: Robin Murphy <robin.murphy@arm.com>
-> >>>>> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> >>>>> Cc: Ard Biesheuvel <ardb@kernel.org>
-> >>>>> Cc: Marc Zyngier <maz@kernel.org>
-> >>>>> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-> >>>>> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> >>>>> Cc: Suren Baghdasaryan <surenb@google.com>
-> >>>>> Cc: Tangquan Zheng <zhengtangquan@oppo.com>
-> >>>>> Signed-off-by: Barry Song <baohua@kernel.org>
-> >>>>> ---
-> >>>>>   kernel/dma/direct.c | 14 +++++++-------
-> >>>>>   1 file changed, 7 insertions(+), 7 deletions(-)
-> >>>>
-> >>>> <...>
-> >>>>
-> >>>>> -             if (!dev_is_dma_coherent(dev)) {
-> >>>>> +             if (!dev_is_dma_coherent(dev))
-> >>>>>                        arch_sync_dma_for_device(paddr, sg->length,
-> >>>>>                                        dir);
-> >>>>> -                     arch_sync_dma_flush();
-> >>>>> -             }
-> >>>>>        }
-> >>>>> +     if (!dev_is_dma_coherent(dev))
-> >>>>> +             arch_sync_dma_flush();
-> >>>>
-> >>>> This patch should be squashed into the previous one. You introduced
-> >>>> arch_sync_dma_flush() there, and now you are placing it elsewhere.
-> >>>
-> >>> Hi Leon,
-> >>>
-> >>> The previous patch replaces all arch_sync_dma_for_* calls with
-> >>> arch_sync_dma_for_* plus arch_sync_dma_flush(), without any
-> >>> functional change. The subsequent patches then implement the
-> >>> actual batching. I feel this is a better approach for reviewing
-> >>> each change independently. Otherwise, the previous patch would
-> >>> be too large.
-> >>
-> >> Don't worry about it. Your patches are small enough.
-> >
-> > My hardware does not require a bounce buffer, but I am concerned that
-> > this patch may be incorrect for systems that do require one.
-> >
-> > Now it is:
-> >
-> > void dma_direct_sync_sg_for_cpu(struct device *dev,
-> >                  struct scatterlist *sgl, int nents, enum dma_data_dire=
-ction dir)
-> > {
-> >          struct scatterlist *sg;
-> >          int i;
-> >
-> >          for_each_sg(sgl, sg, nents, i) {
-> >                  phys_addr_t paddr =3D dma_to_phys(dev, sg_dma_address(=
-sg));
-> >
-> >                  if (!dev_is_dma_coherent(dev))
-> >                          arch_sync_dma_for_cpu(paddr, sg->length, dir);
-> >
-> >                  swiotlb_sync_single_for_cpu(dev, paddr, sg->length, di=
-r);
-> >
-> >                  if (dir =3D=3D DMA_FROM_DEVICE)
-> >                          arch_dma_mark_clean(paddr, sg->length);
-> >          }
-> >
-> >          if (!dev_is_dma_coherent(dev)) {
-> >                  arch_sync_dma_flush();
-> >                  arch_sync_dma_for_cpu_all();
-> >          }
-> > }
-> >
-> > Should we call swiotlb_sync_single_for_cpu() and
-> > arch_dma_mark_clean() after the flush to ensure the CPU sees the
-> > latest data and that the memcpy is correct? I mean:
+> Fixes: 88e64cb785c1 ("x86/HVM: use fixed TSC value when saving or restoring domain")
+> Reported-by: Антон Марков<akmarkov45@gmail.com>
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+> ---
+> An alternative might be to have scale_delta() deal with signed deltas, yet
+> that seemed more risky to me.
 >
-> Yes, this and the equivalents in the later patches are broken for all
-> the sync_for_cpu and unmap paths which may end up bouncing (beware some
-> of them get a bit fiddly) - any cache maintenance *must* be completed
-> before calling SWIOTLB. As for mark_clean, IIRC that was an IA-64 thing,
-> and appears to be entirely dead now.
+> There could likely be more Fixes: tags; the one used is the oldest
+> applicable one, from what I can tell.
+>
+> A similar issue looks to exist in read_xen_timer() and its read_cycle()
+> helper, if we're scheduled out (and beck in) between reading of the TSC
+> and calculation of the delta (involving ->tsc_timestamp). Am I
+> overlooking anything there?
+>
+> stime2tsc() guards against negative deltas by using 0 instead; I'm not
+> quite sure that's correct either.
+>
+> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+> comment towards the TSC being "sane", but is that correct? Due to
+> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+> calling tsc_ticks2ns()?
+>
+> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+> whether we shouldn't subtract boot_tsc_stamp.
+>
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+>           tsc = at_tsc;
+>       else
+>           tsc = rdtsc_ordered();
+> -    delta = tsc - t->stamp.local_tsc;
+> -    return t->stamp.local_stime + scale_delta(delta, &t->tsc_scale);
+> +
+> +    if ( tsc >= t->stamp.local_tsc )
+> +        delta = scale_delta(tsc - t->stamp.local_tsc, &t->tsc_scale);
+> +    else
+> +        delta = -scale_delta(t->stamp.local_tsc - tsc, &t->tsc_scale);
+> +
+> +    return t->stamp.local_stime + delta;
+>   }
+>   
+>   s_time_t get_s_time(void)
+>
+--------------aYSA0nJRu5if1P0AvfxZyP59
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thanks, Robin. Personally, I would prefer an approach like the one below=E2=
-=80=94
-that is, not optimizing the bounce buffer cases, as they are already slow
-due to hardware limitations with memcpy, and optimizing them would make
-the code quite messy.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb">Hi, I'm not sure
+            about the other places.</span></span> <span
+          class="jCAhz ChMk0b"><span class="ryNqvb">In hvm_load_cpu_ctxt
+            (xen/arch/x86/hvm/hvm.c ), it was easy to catch because
+            process_pending_softirqs is frequently called there, which
+            in turn processes softirqs from the timer (where the
+            timestamp is updated).</span></span> <span
+          class="jCAhz ChMk0b"><span class="ryNqvb">After I fixed
+            sync_tsc in hvm_load_cpu_ctxt, the problem stopped
+            reproducing under no load.</span></span> <span
+          class="jCAhz ChMk0b"><span class="ryNqvb">However, when the
+            number of vCPUs is 4 times greater than the number of CPUs
+            (under heavy load), the problem rarely reoccurs (mostly
+            during snapshot restores during process_pending_softirqs
+            calls), and this is no longer a simple case.</span></span> <span
+          class="jCAhz ChMk0b"><span class="ryNqvb">If get_s_time_fixed
+            can indeed be interrupted during execution after
+            rdtsc_ordered, then the current fix is ​​insufficient. It's
+            necessary to atomically copy "t-&gt;stamp" to the stack
+            using local_irq_disable and
+            local_irq_enable (as in local_time_calibration), and then
+            work with the copy, confident in its lifetime and
+            immutability.</span></span> <span class="jCAhz ChMk0b"><span
+            class="ryNqvb">But until get_s_time_fixed is proven to be
+            interruptible, this is premature, so your fix is
+            ​​sufficient.</span></span> <span class="jCAhz ChMk0b"><span
+            class="ryNqvb">I think I need more information and testing
+            to say more.</span></span><span class="jCAhz ChMk0b"><span
+            class="ryNqvb"> </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
+          </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb">Regarding the other
+            scale_delta calls, if they include values ​​calculated from
+            externally saved tsc values ​​that could have become stale
+            during the process_pending_softirqs call, this definitely
+            needs to be fixed.</span></span><span class="jCAhz ChMk0b"><span
+            class="ryNqvb"> </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
+          </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb">Here's the
+            problematic code from dwm.exe, if that helps:</span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb"><br>
+          </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb">void __fastcall
+CPartitionVerticalBlankScheduler::UpdateCurrentTime(CPartitionVerticalBlankScheduler
+            *this) {<br>
+                uint64_t *xor_time_ptr = (uint64_t *)((char *)this +
+            0x3E40);<br>
+                CPartitionVerticalBlankScheduler *scheduler = this;<br>
+                LARGE_INTEGER *current_time_ptr = (LARGE_INTEGER
+            *)((char *)this + 0x3E30);<br>
+                uint64_t previous_time = *((_QWORD *)this + 0x7C6); //
+            0x3e30<br>
+                uint64_t address_high = ((_QWORD)this + 0x3E40) &lt;&lt;
+            32;<br>
+                uint64_t xor_key = ((uint64_t)this + 0x3E40) |
+            address_high;<br>
+            <br>
+                // validate internal state<br>
+                if ((previous_time ^ xor_key) != *((_QWORD *)this +
+            0x7C8)) { // 0x3e40<br>
+                    char exception_record[0x98];<br>
+                    memset(exception_record, 0,
+            sizeof(exception_record));<br>
+                    *(int *)exception_record = 0x88980080; //
+            MILERR_INTERNALERROR<br>
+            <br>
+                    uint64_t computed_xor = *xor_time_ptr ^
+            ((uint64_t)xor_time_ptr | address_high);<br>
+                    int param_count = 4;<br>
+                    int previous_time_high = (int)(previous_time
+            &gt;&gt; 32);<br>
+                    uint32_t previous_time_low =
+            (uint32_t)previous_time;<br>
+                    int computed_xor_high = (int)(computed_xor &gt;&gt;
+            32);<br>
+                    uint32_t computed_xor_low = (uint32_t)computed_xor;<br>
+            <br>
+                   
+            RaiseFailFastException((PEXCEPTION_RECORD)exception_record,
+            nullptr, 0);<br>
+                    previous_time = *((_QWORD *)scheduler + 1990);<br>
+                }<br>
+            <br>
+                // get current timestamp<br>
+                *((_QWORD *)scheduler + 0x7C7) = previous_time; //
+            0x3e38<br>
+                QueryPerformanceCounter(current_time_ptr);<br>
+            <br>
+                LARGE_INTEGER new_time = *current_time_ptr;<br>
+                uint64_t last_previous_time = *((_QWORD *)scheduler +
+            0x7C7); // 0x3e38<br>
+            <br>
+                // check if time go backward<br>
+                if (new_time.QuadPart &lt; last_previous_time) {<br>
+                    char exception_record[0x98];<br>
+                    memset(exception_record, 0,
+            sizeof(exception_record));<br>
+                    *(int *)exception_record = 0x8898009B; //
+            MILERR_QPC_TIME_WENT_BACKWARD<br>
+            <br>
+                    int new_time_high = new_time.HighPart;<br>
+                    uint32_t new_time_low = new_time.LowPart;<br>
+                    int last_previous_high = (int)(last_previous_time
+            &gt;&gt; 32);<br>
+                    uint32_t last_previous_low =
+            (uint32_t)last_previous_time;<br>
+                    int frequency_high = g_qpcFrequency.HighPart;<br>
+                    uint32_t frequency_low = g_qpcFrequency.LowPart;<br>
+            <br>
+                    int64_t time_delta = last_previous_time -
+            new_time.QuadPart;<br>
+                    int64_t millis_delta = (1000 * time_delta) /
+            g_qpcFrequency.QuadPart;<br>
+                    int millis_high = (int)(millis_delta &gt;&gt; 32);<br>
+                    uint32_t millis_low = (uint32_t)millis_delta;<br>
+            <br>
+                    int param_count = 8;<br>
+            <br>
+                   
+            RaiseFailFastException((PEXCEPTION_RECORD)exception_record,
+            nullptr, 0);<br>
+                    new_time = *(LARGE_INTEGER *)((char *)scheduler +
+            15920);<br>
+                }<br>
+            <br>
+                *xor_time_ptr = new_time.QuadPart ^ xor_key;<br>
+            }<br>
+            <br>
+          </span></span></span></div>
+    <div class="lRu31" dir="ltr"><span class="HwtZe" lang="en"><span
+          class="jCAhz ChMk0b"><span class="ryNqvb">Thanks.</span></span></span><span
+        class="ZSCsVd"></span></div>
+    <div aria-hidden="true" class="UdTY9 WdefRb" data-location="2">
+      <div class="kO6q6e"><br>
+      </div>
+    </div>
+    <p></p>
+    <div class="moz-cite-prefix">06.01.2026 16:58, Jan Beulich пишет:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com">
+      <pre wrap="" class="moz-quote-pre">Callers may pass in TSC values from before the local TSC stamp was last
+updated (this would in particular be the case when the TSC was latched, a
+time rendezvous occurs, and the latched value is used only afterwards).
+scale_delta(), otoh, deals with unsigned values, and hence would treat
+negative incoming deltas as huge positive values, yielding entirely bogus
+return values.
 
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index 550a1a13148d..a4840f7e8722 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -423,8 +423,11 @@ void dma_direct_sync_sg_for_cpu(struct device *dev,
-        for_each_sg(sgl, sg, nents, i) {
-                phys_addr_t paddr =3D dma_to_phys(dev, sg_dma_address(sg));
+Fixes: 88e64cb785c1 ("x86/HVM: use fixed TSC value when saving or restoring domain")
+Reported-by: Антон Марков <a class="moz-txt-link-rfc2396E" href="mailto:akmarkov45@gmail.com">&lt;akmarkov45@gmail.com&gt;</a>
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+---
+An alternative might be to have scale_delta() deal with signed deltas, yet
+that seemed more risky to me.
 
--               if (!dev_is_dma_coherent(dev))
-+               if (!dev_is_dma_coherent(dev)) {
-                        arch_sync_dma_for_cpu(paddr, sg->length, dir);
-+                       if (unlikely(dev->dma_io_tlb_mem))
-+                               arch_sync_dma_flush();
-+               }
+There could likely be more Fixes: tags; the one used is the oldest
+applicable one, from what I can tell.
 
-                swiotlb_sync_single_for_cpu(dev, paddr, sg->length, dir);
+A similar issue looks to exist in read_xen_timer() and its read_cycle()
+helper, if we're scheduled out (and beck in) between reading of the TSC
+and calculation of the delta (involving -&gt;tsc_timestamp). Am I
+overlooking anything there?
 
-I=E2=80=99d like to check with you, Leon, and Marek on your views about thi=
-s.
+stime2tsc() guards against negative deltas by using 0 instead; I'm not
+quite sure that's correct either.
 
-Thanks
-Barry
+amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+comment towards the TSC being "sane", but is that correct? Due to
+TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+calling tsc_ticks2ns()?
+
+A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+whether we shouldn't subtract boot_tsc_stamp.
+
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+         tsc = at_tsc;
+     else
+         tsc = rdtsc_ordered();
+-    delta = tsc - t-&gt;stamp.local_tsc;
+-    return t-&gt;stamp.local_stime + scale_delta(delta, &amp;t-&gt;tsc_scale);
++
++    if ( tsc &gt;= t-&gt;stamp.local_tsc )
++        delta = scale_delta(tsc - t-&gt;stamp.local_tsc, &amp;t-&gt;tsc_scale);
++    else
++        delta = -scale_delta(t-&gt;stamp.local_tsc - tsc, &amp;t-&gt;tsc_scale);
++
++    return t-&gt;stamp.local_stime + delta;
+ }
+ 
+ s_time_t get_s_time(void)
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------aYSA0nJRu5if1P0AvfxZyP59--
 
