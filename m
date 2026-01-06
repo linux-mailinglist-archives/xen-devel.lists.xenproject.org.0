@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558B9CFA84A
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 20:12:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196437.1514253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7BACFABD9
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 20:43:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196449.1514264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdCTT-0000Jd-Qe; Tue, 06 Jan 2026 19:12:11 +0000
+	id 1vdCwf-0004M0-1g; Tue, 06 Jan 2026 19:42:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196437.1514253; Tue, 06 Jan 2026 19:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 1196449.1514264; Tue, 06 Jan 2026 19:42:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdCTT-0000IR-O5; Tue, 06 Jan 2026 19:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 1196437;
- Tue, 06 Jan 2026 19:12:10 +0000
+	id 1vdCwe-0004KG-Uo; Tue, 06 Jan 2026 19:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 1196449;
+ Tue, 06 Jan 2026 19:42:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IdvV=7L=arm.com=robin.murphy@srs-se1.protection.inumbo.net>)
- id 1vdCTS-0000IK-GZ
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 19:12:10 +0000
+ id 1vdCwd-0004KA-7I
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 19:42:19 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 98718ec2-eb33-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 20:12:08 +0100 (CET)
+ id ce23d1c8-eb37-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 20:42:16 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C9CDB497;
- Tue,  6 Jan 2026 11:12:00 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 01059497;
+ Tue,  6 Jan 2026 11:42:09 -0800 (PST)
 Received: from [10.57.46.241] (unknown [10.57.46.241])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C7853F5A1;
- Tue,  6 Jan 2026 11:12:04 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 259E33F5A1;
+ Tue,  6 Jan 2026 11:42:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,13 +42,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98718ec2-eb33-11f0-b15e-2bf370ae4941
-Message-ID: <de876e61-42c5-414d-b439-2f9196c6c128@arm.com>
-Date: Tue, 6 Jan 2026 19:12:02 +0000
+X-Inumbo-ID: ce23d1c8-eb37-11f0-b15e-2bf370ae4941
+Message-ID: <73c533b9-1315-409f-baad-ef9a46ab6bf0@arm.com>
+Date: Tue, 6 Jan 2026 19:42:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] dma-mapping: Support batch mode for
- dma_direct_sync_sg_for_*
+Subject: Re: [PATCH RFC v2 8/8] dma-iommu: Support DMA sync batch mode for
+ iommu_dma_sync_sg_for_{cpu, device}
 To: Barry Song <21cnbao@gmail.com>, Leon Romanovsky <leon@kernel.org>
 Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, will@kernel.org,
  iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
@@ -57,169 +57,82 @@ Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, will@kernel.org,
  <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>,
  Anshuman Khandual <anshuman.khandual@arm.com>,
  Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Tangquan Zheng <zhengtangquan@oppo.com>
+ Joerg Roedel <joro@8bytes.org>, Tangquan Zheng <zhengtangquan@oppo.com>
 References: <20251226225254.46197-1-21cnbao@gmail.com>
- <20251226225254.46197-6-21cnbao@gmail.com> <20251227200933.GO11869@unreal>
- <CAGsJ_4yA83-K7PXiEtyidzF_j6qqKkt92z485KBS9+zGe_rjnw@mail.gmail.com>
- <20251228145041.GS11869@unreal>
- <CAGsJ_4yex5MKQkGtFr2zUcg4h0PtsFs2QVcE_NSfiyOn4qBzhQ@mail.gmail.com>
+ <20251226225254.46197-9-21cnbao@gmail.com> <20251227201642.GQ11869@unreal>
+ <CAGsJ_4xssfB7hNOWLDianQfx+9wC2e4qZKtRBUzEZ-v97Sa63Q@mail.gmail.com>
 From: Robin Murphy <robin.murphy@arm.com>
 Content-Language: en-GB
-In-Reply-To: <CAGsJ_4yex5MKQkGtFr2zUcg4h0PtsFs2QVcE_NSfiyOn4qBzhQ@mail.gmail.com>
+In-Reply-To: <CAGsJ_4xssfB7hNOWLDianQfx+9wC2e4qZKtRBUzEZ-v97Sa63Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 2026-01-06 6:41 pm, Barry Song wrote:
-> On Mon, Dec 29, 2025 at 3:50 AM Leon Romanovsky <leon@kernel.org> wrote:
+On 2025-12-27 8:59 pm, Barry Song wrote:
+> On Sun, Dec 28, 2025 at 9:16 AM Leon Romanovsky <leon@kernel.org> wrote:
 >>
->> On Sun, Dec 28, 2025 at 09:52:05AM +1300, Barry Song wrote:
->>> On Sun, Dec 28, 2025 at 9:09 AM Leon Romanovsky <leon@kernel.org> wrote:
->>>>
->>>> On Sat, Dec 27, 2025 at 11:52:45AM +1300, Barry Song wrote:
->>>>> From: Barry Song <baohua@kernel.org>
->>>>>
->>>>> Instead of performing a flush per SG entry, issue all cache
->>>>> operations first and then flush once. This ultimately benefits
->>>>> __dma_sync_sg_for_cpu() and __dma_sync_sg_for_device().
->>>>>
->>>>> Cc: Leon Romanovsky <leon@kernel.org>
->>>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
->>>>> Cc: Will Deacon <will@kernel.org>
->>>>> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
->>>>> Cc: Robin Murphy <robin.murphy@arm.com>
->>>>> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
->>>>> Cc: Ard Biesheuvel <ardb@kernel.org>
->>>>> Cc: Marc Zyngier <maz@kernel.org>
->>>>> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
->>>>> Cc: Ryan Roberts <ryan.roberts@arm.com>
->>>>> Cc: Suren Baghdasaryan <surenb@google.com>
->>>>> Cc: Tangquan Zheng <zhengtangquan@oppo.com>
->>>>> Signed-off-by: Barry Song <baohua@kernel.org>
->>>>> ---
->>>>>   kernel/dma/direct.c | 14 +++++++-------
->>>>>   1 file changed, 7 insertions(+), 7 deletions(-)
->>>>
->>>> <...>
->>>>
->>>>> -             if (!dev_is_dma_coherent(dev)) {
->>>>> +             if (!dev_is_dma_coherent(dev))
->>>>>                        arch_sync_dma_for_device(paddr, sg->length,
->>>>>                                        dir);
->>>>> -                     arch_sync_dma_flush();
->>>>> -             }
->>>>>        }
->>>>> +     if (!dev_is_dma_coherent(dev))
->>>>> +             arch_sync_dma_flush();
->>>>
->>>> This patch should be squashed into the previous one. You introduced
->>>> arch_sync_dma_flush() there, and now you are placing it elsewhere.
+>> On Sat, Dec 27, 2025 at 11:52:48AM +1300, Barry Song wrote:
+>>> From: Barry Song <baohua@kernel.org>
 >>>
->>> Hi Leon,
+>>> Apply batched DMA synchronization to iommu_dma_sync_sg_for_cpu() and
+>>> iommu_dma_sync_sg_for_device(). For all buffers in an SG list, only
+>>> a single flush operation is needed.
 >>>
->>> The previous patch replaces all arch_sync_dma_for_* calls with
->>> arch_sync_dma_for_* plus arch_sync_dma_flush(), without any
->>> functional change. The subsequent patches then implement the
->>> actual batching. I feel this is a better approach for reviewing
->>> each change independently. Otherwise, the previous patch would
->>> be too large.
+>>> I do not have the hardware to test this, so the patch is marked as
+>>> RFC. I would greatly appreciate any testing feedback.
+>>>
+>>> Cc: Leon Romanovsky <leon@kernel.org>
+>>> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
+>>> Cc: Will Deacon <will@kernel.org>
+>>> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+>>> Cc: Ard Biesheuvel <ardb@kernel.org>
+>>> Cc: Marc Zyngier <maz@kernel.org>
+>>> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+>>> Cc: Ryan Roberts <ryan.roberts@arm.com>
+>>> Cc: Suren Baghdasaryan <surenb@google.com>
+>>> Cc: Robin Murphy <robin.murphy@arm.com>
+>>> Cc: Joerg Roedel <joro@8bytes.org>
+>>> Cc: Tangquan Zheng <zhengtangquan@oppo.com>
+>>> Signed-off-by: Barry Song <baohua@kernel.org>
+>>> ---
+>>>   drivers/iommu/dma-iommu.c | 15 +++++++--------
+>>>   1 file changed, 7 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+>>> index ffa940bdbbaf..b68dbfcb7846 100644
+>>> --- a/drivers/iommu/dma-iommu.c
+>>> +++ b/drivers/iommu/dma-iommu.c
+>>> @@ -1131,10 +1131,9 @@ void iommu_dma_sync_sg_for_cpu(struct device *dev, struct scatterlist *sgl,
+>>>                        iommu_dma_sync_single_for_cpu(dev, sg_dma_address(sg),
+>>>                                                      sg->length, dir);
+>>>        } else if (!dev_is_dma_coherent(dev)) {
+>>> -             for_each_sg(sgl, sg, nelems, i) {
+>>> +             for_each_sg(sgl, sg, nelems, i)
+>>>                        arch_sync_dma_for_cpu(sg_phys(sg), sg->length, dir);
+>>> -                     arch_sync_dma_flush();
+>>> -             }
+>>> +             arch_sync_dma_flush();
 >>
->> Don't worry about it. Your patches are small enough.
+>> This and previous patches should be squashed into the one which
+>> introduced arch_sync_dma_flush().
 > 
-> My hardware does not require a bounce buffer, but I am concerned that
-> this patch may be incorrect for systems that do require one.
+> Hi Leon,
 > 
-> Now it is:
+> The series is structured to first introduce no functional change by
+> replacing all arch_sync_dma_for_* calls with arch_sync_dma_for_* plus
+> arch_sync_dma_flush(). Subsequent patches then add batching for
+> different scenarios as separate changes.
 > 
-> void dma_direct_sync_sg_for_cpu(struct device *dev,
->                  struct scatterlist *sgl, int nents, enum dma_data_direction dir)
-> {
->          struct scatterlist *sg;
->          int i;
-> 
->          for_each_sg(sgl, sg, nents, i) {
->                  phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
-> 
->                  if (!dev_is_dma_coherent(dev))
->                          arch_sync_dma_for_cpu(paddr, sg->length, dir);
-> 
->                  swiotlb_sync_single_for_cpu(dev, paddr, sg->length, dir);
-> 
->                  if (dir == DMA_FROM_DEVICE)
->                          arch_dma_mark_clean(paddr, sg->length);
->          }
-> 
->          if (!dev_is_dma_coherent(dev)) {
->                  arch_sync_dma_flush();
->                  arch_sync_dma_for_cpu_all();
->          }
-> }
-> 
-> Should we call swiotlb_sync_single_for_cpu() and
-> arch_dma_mark_clean() after the flush to ensure the CPU sees the
-> latest data and that the memcpy is correct? I mean:
+> Another issue is that I was unable to find a board that both runs
+> mainline and exercises the IOMMU paths affected by these changes.
+> As a result, patches 7 and 8 are marked as RFC, while the other
+> patches have been tested on a real board running mainline + changes.
 
-Yes, this and the equivalents in the later patches are broken for all 
-the sync_for_cpu and unmap paths which may end up bouncing (beware some 
-of them get a bit fiddly) - any cache maintenance *must* be completed 
-before calling SWIOTLB. As for mark_clean, IIRC that was an IA-64 thing, 
-and appears to be entirely dead now.
+FWIW if you can get your hands on an M.2 NVMe for the Rock5 then that 
+has an SMMU in front of PCIe (and could also work to test non-coherent 
+SWIOTLB, with the SMMU in bypass and either some fake restrictive 
+dma-ranges in the DT or a hack to reduce the DMA mask in the NVMe driver.)
 
-Thanks,
+Cheers,
 Robin.
-
-> void dma_direct_sync_sg_for_cpu(struct device *dev,
->                  struct scatterlist *sgl, int nents, enum dma_data_direction dir)
-> {
->          struct scatterlist *sg;
->          int i;
-> 
->          for_each_sg(sgl, sg, nents, i) {
->                  phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
-> 
->                  if (!dev_is_dma_coherent(dev))
->                          arch_sync_dma_for_cpu(paddr, sg->length, dir);
->          }
-> 
->          if (!dev_is_dma_coherent(dev)) {
->                  arch_sync_dma_flush();
->                  arch_sync_dma_for_cpu_all();
->          }
-> 
->          for_each_sg(sgl, sg, nents, i) {
->                  phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
-> 
->                  swiotlb_sync_single_for_cpu(dev, paddr, sg->length, dir);
-> 
->                  if (dir == DMA_FROM_DEVICE)
->                          arch_dma_mark_clean(paddr, sg->length);
->          }
-> }
-> 
-> Could this be the same issue for dma_direct_unmap_sg()?
-> 
-> Another option is to not support batched synchronization for the bounce
-> buffer case, since it is rare. In that case, it could be:
-> 
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index 550a1a13148d..a4840f7e8722 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -423,8 +423,11 @@ void dma_direct_sync_sg_for_cpu(struct device *dev,
->          for_each_sg(sgl, sg, nents, i) {
->                  phys_addr_t paddr = dma_to_phys(dev, sg_dma_address(sg));
-> 
-> -               if (!dev_is_dma_coherent(dev))
-> +               if (!dev_is_dma_coherent(dev)) {
->                          arch_sync_dma_for_cpu(paddr, sg->length, dir);
-> +                       if (unlikely(dev->dma_io_tlb_mem))
-> +                               arch_sync_dma_flush();
-> +               }
-> 
->                  swiotlb_sync_single_for_cpu(dev, paddr, sg->length, dir);
-> 
-> What’s your view on this, Leon?
-> 
-> Thanks
-> Barry
-
 
