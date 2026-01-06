@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84A9CF7D8C
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 11:42:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196000.1513871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283C7CF7ED0
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 11:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196010.1513881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd4Vd-00052n-Tn; Tue, 06 Jan 2026 10:41:53 +0000
+	id 1vd4mF-0006vJ-9q; Tue, 06 Jan 2026 10:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196000.1513871; Tue, 06 Jan 2026 10:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 1196010.1513881; Tue, 06 Jan 2026 10:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd4Vd-00050N-Qh; Tue, 06 Jan 2026 10:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 1196000;
- Tue, 06 Jan 2026 10:41:53 +0000
+	id 1vd4mF-0006sP-71; Tue, 06 Jan 2026 10:59:03 +0000
+Received: by outflank-mailman (input) for mailman id 1196010;
+ Tue, 06 Jan 2026 10:59:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A8PS=7L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vd4Vc-00050H-Uv
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 10:41:53 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=heAF=7L=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vd4mD-0006sJ-LJ
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 10:59:01 +0000
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c10d::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f0112fb-eaec-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 11:41:50 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b727f452fffso412413466b.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 02:41:50 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a51543fsm191522466b.55.2026.01.06.02.41.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 02:41:49 -0800 (PST)
+ id b3699dd6-eaee-11f0-9ccf-f158ae23cfc8;
+ Tue, 06 Jan 2026 11:58:59 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by MN6PR03MB8006.namprd03.prod.outlook.com (2603:10b6:208:4ee::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 6 Jan
+ 2026 10:58:55 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9478.005; Tue, 6 Jan 2026
+ 10:58:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,190 +47,291 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f0112fb-eaec-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767696110; x=1768300910; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/FTe9m+tOClIYe1qC/TkyZS0SAPAYTqJ/3osCXjap5Y=;
-        b=nCrz/WCWZMn/Q9XMyjxGmMg6STNLBG2r5IaNR0yfl4clYAg4nc66Oxi+Ms5TnZg7G/
-         3F6AxebURedCxbPbI3XuT3AMkXUEwtBZjDf4zLf5gVt0CTKm2pNXSXMc0JAYthJ9XadZ
-         vx3rQm/YEBek2KzpZVCFrHwF/4LSLDS/3sYjyh7FE2U/lVxBHBzgmJbMJOI9qK21NrWN
-         wegSqA6LC4kIM/wAsMazIp36RXxtAxNmDmoxNNZAuZ+6XhjVaE+/kwZcPje7vBf84si8
-         rnyH+7mk97buICCYahCHUWlcboKLvuZlrd5xlcqDLSN2XiTSYyFPYDUq4DGYGgap66WX
-         /W7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767696110; x=1768300910;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/FTe9m+tOClIYe1qC/TkyZS0SAPAYTqJ/3osCXjap5Y=;
-        b=X4uQo2BxdP1VDMfm0jqJHALuA/AizUEjVrf/1kCNsQBhWq3dY1rZaYhWF6S2J2QPgi
-         SJFQfu7CxW7hi7AfCkLeybZULygXcnxKdjfzmch+bpFEfj0g0NSy24Ppk1SyKMilvGAl
-         UPuMw5bDg11G2RKCwFtzqmlMEesszfUrW77tXMBHXOVompSZJo2CMX1jOUpf5ooIzV0b
-         37qIwISdpfo2PVnnrpxnp94YI9HMImBmfbt0qprw1cjY4vyNWkpSJKhMzEWVtEl3xY4j
-         X6mBUS4Usz1Ml7Yjx7FYv/rMzR3bMP/zhqNCPnl0yunVl+uNqGtiTMyaBNnMPpBii0wT
-         wRNA==
-X-Forwarded-Encrypted: i=1; AJvYcCWiFXJw1ooG7BZ4vpCT+6zmovwt7hi2ezUH6/jud2cfHqp6WNEvtWO7j8Jlbj+FPyR8KY7i/4mB5Gw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy0j4dvyVCmmehJIgaT9duRwHjo14SQfOCq6697CzRQzz9En8Fi
-	8uzRKgGGNNldMjJshyeRpiUo8ssOrL6+/ZqWlvZGWzLFny4pAaJ3CSC4
-X-Gm-Gg: AY/fxX5k7PhNNsFwaxRWQg3qDV93R6l3JdmAmfKoM81cZiOfHluwTWubJQihXlU9wbL
-	kGXW+ujLS0U7EKsQFTD1FNmANktFP8qesVvKOGWvzOnk2hvxWaTGEWdGG8A20aKqzxcntvcmeUm
-	Mz3G1q9fzFRF6GEVwWbjLWZjDCYwELDMwhElUG137iybPO3jbOnTXIZk61Vt5XDFH5oIEx6B13l
-	86RV+smH/G5PIDJ8PJBlvJFVB+yfFI0JdUZACgs0GcktpwAzxzqqGOW83pxyPSxNDJd1m7SWkz4
-	ylX3mvS3Y+sqvgusoydTIf9ZWK2uMWBDZrM9vNSVKDOD1E/iFFpUodC5wzLRutacqw1JQfltG05
-	S5okmL9OhqDpEFYtV3vZmPyxR/0l+jbcka4wXkwxmXpvLLD32IgDVOmChEaKxTP+dqMxt431bzT
-	7F7WZmUA/pUL6NKsBcC9Oq2Iv9Gzr6D4FxMfKhZB+qz2Gs6ho7K4EVLTjWt5PNN3k=
-X-Google-Smtp-Source: AGHT+IEPYDYiYjdLEn5HH9xuGeHUbcxplmWJdYHPJbCMz6E74+h7gmLC/QUgnDJSqIqqFJlWloTVow==
-X-Received: by 2002:a17:907:9413:b0:b72:b7cd:f59e with SMTP id a640c23a62f3a-b84298bddeamr212845066b.8.1767696109810;
-        Tue, 06 Jan 2026 02:41:49 -0800 (PST)
-Message-ID: <78cb2186-1fa9-4ad1-9999-410beb34b71e@gmail.com>
-Date: Tue, 6 Jan 2026 11:41:48 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: b3699dd6-eaee-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qr5AoxmO6/PwWORAeWF/ypc+T0I86ca6pfYixY5IMPy6wafagrBaXpC20st1PFTLJ12UkSocs9y4FzKXGEOhRgptZzQgkl6Sv5nwV2APoErtXI9SfD9CWXYSJxDhfe45Lp12qHJWsZyQykeV9vtKvfHWk8dRmR/9LkizBWO1hk5Pz26uTL+m6qMu0v8IAJA3bQo6u7GSbwmzZBSlX3EwtbQ1Ye0vw6X3UY3ZYzfaUPicfpeLbBSCPnjQJfa8cHT295gApRcrTDJ7KnZRxesPOG3lMoCLnwxi8yPW1Lf3rr3iejuSiTSnazCZhCTON1MHJR8HfvUVX2hJCqoDSurORw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=26l3ZTOJrrzdLT8AAIkQDwGgWRD9N4s7dh3yPy7iVWo=;
+ b=HzN9TwpNCFyJcA6KnbsusbKoQzxVdk0fVviiPYx8/xShgTP/HlFfDxwRmlCBNamyXBZypaIfCEhRI0Bj+5GB2IVGZJChhF/SRgbcaGE3HZN8Hc9pIrMFU089p9nrrvQY2tWcg85Yn3Yog0ueHeOPyGEX0fmqBtNSdPA45wn3j7DzIflspZyOhdQWYTE+nNjeqsksT06K1Nx64BCv4XRH3Zj5udd5u2FAe0zhQhkxoZMm5+Q9EG3GrrJPaVljMZgqFcTFL2FshT9c6EdYUDI70dKfmOmMcj31Ffyiabs49bv9ryT5BKtaYEdcqwoEAV92wSc7PTBHkyFFfx5Gq5L0Iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=26l3ZTOJrrzdLT8AAIkQDwGgWRD9N4s7dh3yPy7iVWo=;
+ b=O63RvtuOFJbk7psFOfKYtlJj57mCBbOLrsE7VK2ELivm3jkt193KOtHfRvgmvyETA0obiaut3fLOhPfow9aA6PNq9f335AZCq9bmSX+rH7AHivdFSAsiyyHImTYf4oigzov7drdevERolMu99alJxB3jRpWxJLPnYzzmzMhMHYc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <5ae32738-9fef-4ba6-a53c-0f665e536eba@citrix.com>
+Date: Tue, 6 Jan 2026 10:58:51 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/1] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1767108625.git.oleksii.kurochko@gmail.com>
- <d49e5b9555d4f04d569e20d9c9feb23b298c7ee1.1767108625.git.oleksii.kurochko@gmail.com>
- <63a1aa58-f609-4bfe-b827-90c59e40a02d@suse.com>
- <6bbe1965-ff08-46dc-9e9c-215ca73f9f16@gmail.com>
- <bc275f4f-4138-4120-9e85-3bf298efb276@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <bc275f4f-4138-4120-9e85-3bf298efb276@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] xen: Drop xenoprofile support
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Jan Beulich <jbeulich@suse.com>
+References: <20260105195717.601500-1-andrew.cooper3@citrix.com>
+ <724e78ef-b6ed-40db-a5c0-bd6473b6fe16@gmail.com>
+ <8561e1dd-492b-4d51-bf10-0a4523c941a8@suse.com>
+ <10a38a49-c19a-4bca-8616-1490c3ef6a57@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <10a38a49-c19a-4bca-8616-1490c3ef6a57@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0409.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:189::18) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|MN6PR03MB8006:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e33b79b-b5ba-4a33-de76-08de4d1295bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YmxCaHF3Z3dsMkN6MTg3TnFIWFZPU2NaK1l3TDlTY3Ewb1p6dmxnVDdQL1lt?=
+ =?utf-8?B?Ti85QXBMUUxTeGVVOWdYUTZIam1ONGQ4UzdWV1JxTTZCbkZYQXBMM1hCZDlP?=
+ =?utf-8?B?ZSthVFNuTUp5UWx5REdkYmJBUEtSdk5zNFZmU2YwdHBiQWhZdTNua0Jibkxs?=
+ =?utf-8?B?VE9pVFNvUnRIVkRheXNDQWpMWElncUxWYlpHQVdWZWRkMUdjL0ZwM2ljR0FZ?=
+ =?utf-8?B?WUZRaWJtMFV0RWZqUnhZTS9MZWF4UVhCNWJTeEY5RDFPWVVQaFFBeFl6d0VL?=
+ =?utf-8?B?aUV0T1BnZlRqbTA5OFJERlFDdElUUWJuNExrRUJCK2c4dkwxWXNIa0JJaTl0?=
+ =?utf-8?B?SWZ5NTRDVnFhMG5udWc1K3NhZitYRG91SnFmMHVKU2hXaEQ0cHlBM3d2N3cy?=
+ =?utf-8?B?RHdpU2JONy9KQllaRHZlVGM3MVRoZ0NSUjEwaTl2eXhaWTA1eEQvZWVSUUFw?=
+ =?utf-8?B?WUtZRTZxaENHWDZFaHhwbzBuTFVqYXRFSEhxQ2RwY3lnVUZCVnd4K214MXN3?=
+ =?utf-8?B?Vk5adzVHS3F2emFSRTljVUxHb0FHZXJvSk5zWUwyMys2bzFZWnRqZTdBcXgr?=
+ =?utf-8?B?OXVXcHpQd2lPa3ZRaDFjU2huekxOeDJjMG55WXdOSGdad2tXV2RSM3Z4Tmow?=
+ =?utf-8?B?SGRnenlBTTlNVWhRMUI2VlIyN253Z0I2aUQrbTlFL2pibDloOFlUNVI0bmtI?=
+ =?utf-8?B?ajZQNWhpeWRIVjVTM0x0MEdsbDFXRFFFMHlOcW5nVjBod0tsdk5LdHdNTVI0?=
+ =?utf-8?B?ejdQcUtTSG1pWncwQXgrQTVZVjJFOG1qZFVnbnZrZ3ZabEpCSnI0U0lDVHFR?=
+ =?utf-8?B?WlAxek9BTms2Qk9iQnVSUGtzYldXOEdFSXYvRGQ4bW5kQkFKcnlGRG0xeVZs?=
+ =?utf-8?B?cFpjc3hZRFlYUWU3a0RZaDdjLytqcGI1VFNuVlFhY0VtM1BwQ3VybDlKbVJB?=
+ =?utf-8?B?TFJsSmsxWGk5VStEVVZTTDVjSjcrZGMvMmxoNG1PRitCdkRCdGNBZ25CNWdZ?=
+ =?utf-8?B?cHBteUF6bWtmT2JtY3NsZERYQ25Ed0NIMHd3RjZ1Uk9uNUVIUlVGVi90QmE5?=
+ =?utf-8?B?OERtWU5YeFdnR3JlY2dEWG9ZV0dUTlE1SUt1aVhzengvMUsyK0p3djkydXg1?=
+ =?utf-8?B?Q3k2WkZoOE55YThsUzIxWXhPdDRYMXRoZ3lZemJ5ZzQyNUFjUWFmKzBoOC9W?=
+ =?utf-8?B?OFNDQkhZUVA2UXVBR1FVVWNDS00wcEtja1EyRTAzbVRtRkxHRWw3VnMyMXZu?=
+ =?utf-8?B?MXovcFlwdGJOOEJJNXBtdllDK1NWb1IzMlc0Ukloa21mU3MwWGxwbVVhWk9L?=
+ =?utf-8?B?bTV5a3JoRlBhWnZkeUhPOTZWNkdpWWZYMW5Pb3pLaktuRERJQWw0YnFBWjdq?=
+ =?utf-8?B?ZG91UHhMaEtianM2ejN1ZDM0WjBaV3VsL2JTNUxvVEdqWWF2KzBIcEl4MGo1?=
+ =?utf-8?B?WDFEbmZDaXN5UEMzbTkrM2xmbUhlMmpXTk4rMmFNeHlzcUM1WEphMmVqVmFm?=
+ =?utf-8?B?Szdud1Zmd1VPYnZBQlVzT0s4Rkd0clFvRytubG9BNk5UaWdwOWV3R0svb2x2?=
+ =?utf-8?B?UlNuSXRxSFE3V3laNUN6ZTkwc0RzaWlmRDFUVjh5VVVsQWhCSmhEOERtZXVo?=
+ =?utf-8?B?U29rdGRBV3dvcWhZTVBFUTFiWGhwcVNBR3NFN1JmNVJTU3VyNXpnYVNqS1lh?=
+ =?utf-8?B?bTJOaFZhR1RRY1k4QlhYY2xsNDZpOWY1S0tWRlhhWlh1SzdIQjBaYmZsdk9p?=
+ =?utf-8?B?a0RaVkovcmlsaXNPcEx4enhETmZtNzdmenhrTkVFVG9lUWZlK2lQelRKTXRD?=
+ =?utf-8?B?VzI2SmF0SHk1cWZLWC9TQUFpR2I3VDJtWlZZNXJmSWFaNnZDNU9IL2l5NWtP?=
+ =?utf-8?B?dDdqY3FTRnBoRkF1Z2FxblgzSEdFbHJ3anNVM3Z3bXhwbVE9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y0lLZHliMnVKV2tRd0lHOXc1c2xDYitxckd5amRIbk5nb01aUkxwN0R2TlBm?=
+ =?utf-8?B?ZUNyRHZiaThiMVBVQ1c3ZDhDK2xzdFgrbmNERFVFTzlpNUJJWmd5S3h4Wngy?=
+ =?utf-8?B?VFp3Snd3SlpuWE1PREJJTmc4eHBwWFRCRzJxeFdWSGdiUTVUNXFVYzdib29p?=
+ =?utf-8?B?ZEhMZEhzdUE5T2ZPMUdxTUtSQ1Vpbm9uSHhRRjh4dFNIdHFPcGxXVjQzeGxJ?=
+ =?utf-8?B?ZDdwQUZhOTN2MjAwRUJuR2k0Tmc5c2JxNXJwQ0FVd1E4ZFBWa1I0cFkwSW5j?=
+ =?utf-8?B?VEN5THdvSHNhbXhQZlVNeEFBcWJPaFBiMlhLUGcxU2ExRGkzeWEyZUZHKzhv?=
+ =?utf-8?B?TlREL2k0WklheUpHY0lwSFN2RDczOW5nRTROYjl3UTRROGRKRFV0M3puUUFY?=
+ =?utf-8?B?VWJLeWRmaFdyZVREdENXbkdaSnRSY21vN0FGemk4N05DV1pmbk4rTzFSenBG?=
+ =?utf-8?B?L0x3ZHptS244NzN1WC9sTGYzWGFwNGhJYXpmTUs2NHEzMnhFYmh4NmdQTDhh?=
+ =?utf-8?B?Ly9qNi9waE5pWE9rNDFXZ1ZWTUl4TjZmNzF0dUdqOGswK05KbVdmUk1wa2dP?=
+ =?utf-8?B?T1FpNDgzM1h0NWV6Z2FpV01GNXJEUFV6UjFPUVdaN1dxY0h6YUg0RTdVNkRN?=
+ =?utf-8?B?T2VZMDNOSXU5TFREMy9jdlRGMHlCZFAveHNzdnNONWIxelE2ejRkSGtmeHhW?=
+ =?utf-8?B?RHdMa3QyU0lMcFVIQmthQkprTTcwWkhCZTFQRituc05RNS9ybm15ZjZxTWsv?=
+ =?utf-8?B?d000N0lqVWtUZDRUd3RrYlM4bmJPTjkvcVdEM09WVkRzUC9Cd1BUbVhJKzJX?=
+ =?utf-8?B?SWsySUNOWTU3Z0w1NzJJZjJkV0FCenQ4cHd6VkduV0phV3BLK0U5dVp6ZGdm?=
+ =?utf-8?B?Mk94UVFBMlZ4b05STlB1cWtLVGh5aDhGOTB0RWgzYm1xeGJnUDVwNXhiLytj?=
+ =?utf-8?B?ZTlmMzVUY0pRNFhndWV0WWZJV2dxTUZudjFQZzVSMXdsL3BYc1YyZHJ4em9J?=
+ =?utf-8?B?Nm84VUR5eXB3NXVuaERPMEN3dmpKVU9SM2E5YS8yWHN3eVJzdXIwdklZNnJH?=
+ =?utf-8?B?SDZwS2tvdnhkbnZJamRud0JFSnhUN08xUm5ZSkhmQTJ2Q0Z0UG55aWxtRVNV?=
+ =?utf-8?B?ODZBMENGWjJqWFRhVWI4Mk02VVV5L0Rnb1JLWkN2RDRuTktKM0hKcW5wUC85?=
+ =?utf-8?B?d25wdzBod1ZOa0tqMnVwRmVQNWR5amtiZVE5NDlwQVpPOXB3b28xR0lzUE0r?=
+ =?utf-8?B?VWtsV2lrdDJ3bXM0dHFzbEl1MGtlK3NYbEtVL08wdk9xVDlmb0FHQnJKVGg1?=
+ =?utf-8?B?NEFvNlVRSFhBTSt5ZjFkMVhoOU5OZ2NhdXpLR3M4R3JpODB2Q1haV2o5Zi9v?=
+ =?utf-8?B?WnJnR3dDYU54SnFYbThlbjlKMFBMNXZOTlY0TlBHbHVrMmN1Mm16MXo3V1VH?=
+ =?utf-8?B?M2ZwZ2tMTHJxbVVSOHNKNWxFUnplYUFOYjJGdmc4V2dJTUNRK2IxRHFFVCs3?=
+ =?utf-8?B?WFIzZ3hsZHJiZGx2WFIxSUVkSmdLbjRISWIvMUNuMDQ1czNNNWZEbWRGdVVa?=
+ =?utf-8?B?bHdvRU9HbUF4ZWtYYzFCTEJ0WHZKTjE0WExhTWRVUXBSQW9kRGx2RTlaajFm?=
+ =?utf-8?B?ekVSNUErWThEWUNCWHJNdEUzZmRINEpqVTdGNWd6MGFMa2Ztd3gxK0RxVnZJ?=
+ =?utf-8?B?ZHAxcE5lejJlNVlLUTUvbEY0aUFIbGw3MkpEbVJOM0p3UEV3UlplV3ZBWW1j?=
+ =?utf-8?B?bmtwbEhQd0JyeERFOGhyNnhZajB6UHdkLzV4Q0Qvb01lcGtRS3FnSG1MSDYz?=
+ =?utf-8?B?eWVaQVNLOWhnQXAvNzhxREZKdGFHa2l5cklTL3JCMzVEdm14QksyTmlDMWYv?=
+ =?utf-8?B?L21IQmNPODdRbWtOUi9NbUNNYitQeUcrZjYxd01LdXg4dlExeUZPZjJpdnlD?=
+ =?utf-8?B?QnNtcno5bmx6MGpYVnRGekd2OXk2alY5UVBva3NNWVgwak5EeG1YbWx2TWVO?=
+ =?utf-8?B?Y25EQWppTjJGVTZIZFpNMTd4alJXVStoN2NGaDdzbk01S1dYejJvWG90aFht?=
+ =?utf-8?B?emVKYmhGaGsrU2l3eG1pemVsOEtVOVJrMjBMR0NVRWk5M0RmSW50am9CUUl2?=
+ =?utf-8?B?dmZmekltOS9oZXlWTHhnZVBzVzU4Q3pDcE5FTjBMN3lzNVRQMHovR3UxQTBt?=
+ =?utf-8?B?WS93dlg5UmltdndEM2VKRnBvMUdPUmh3MmFWTFA5KzBKbTVId0k4TkR4SXV0?=
+ =?utf-8?B?TUl1b3FOVGcxN2F3NjY5cld1MGJzTDR6OXl3dVduc0ZQVjl2UTE3UDVvcGtL?=
+ =?utf-8?B?Uk9ydXJBbGptN2J2WkVvZ1lCTkJMbXRiZXBINnlYdjJrNENFdTZrWkpkY2J6?=
+ =?utf-8?Q?PU05qzwCAuYaWLlI=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e33b79b-b5ba-4a33-de76-08de4d1295bd
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 10:58:55.0861
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U+wBDqINGQ6DaeAl66MQGFASV7h7JZm7PjFZObSY1PvSRh3kAlI8sM3MUSnZNxtJ5U/Qv+8cIAMEV1AvY9jXfyRxJTdMspZ7hmIJjtfrNAY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB8006
 
-
-On 1/6/26 10:55 AM, Jan Beulich wrote:
-> On 06.01.2026 10:30, Oleksii Kurochko wrote:
->> On 1/5/26 5:26 PM, Jan Beulich wrote:
->>> On 30.12.2025 16:50, Oleksii Kurochko wrote:
->>>> Add support of virtual SBI base extension calls for RISC-V guests, delegating
->>>> hardware-specific queries to the underlying SBI and handling version and
->>>> firmware ID queries directly.
->>>>
->>>> The changes include:
->>>> 1. Define new SBI base extension function IDs (SBI_EXT_BASE_GET_MVENDORID,
->>>>      SBI_EXT_BASE_GET_MARCHID, SBI_EXT_BASE_GET_MIMPID).
->>>> 2. Introduce XEN_SBI_VER_MAJOR, XEN_SBI_VER_MINOR for imeplenataion of
->>>>      SBI_EXT_BASE_GET_SPEC_VERSION.
->>>> 4. Introduce SBI_XEN_IMPID to implement SBI_EXT_BASE_GET_IMP_ID.
->>>> 5. Implement handling of SBI base extension functions, including version,
->>>>      firmware ID, and machine-specific queries.
->>>>
->>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> Acked-by: Jan Beulich <jbeulich@suse.com>
->> Thanks.
->>
->>> Albeit with a question:
->>>
->>>> --- /dev/null
->>>> +++ b/xen/arch/riscv/vsbi/base-extension.c
->>>> @@ -0,0 +1,82 @@
->>>> +
->>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>> +
->>>> +#include <xen/lib.h>
->>>> +#include <xen/sched.h>
->>>> +#include <xen/version.h>
->>>> +
->>>> +#include <asm/processor.h>
->>>> +#include <asm/sbi.h>
->>>> +#include <asm/vsbi.h>
->>>> +
->>>> +/* Xen-controlled SBI version reported to guests */
->>>> +#define XEN_SBI_VER_MAJOR 0
->>>> +#define XEN_SBI_VER_MINOR 2
->>> Is it clear from whatever spec it is that is ...
->>>
->>>> +static int vsbi_base_ecall_handler(unsigned long eid, unsigned long fid,
->>>> +                                   struct cpu_user_regs *regs)
->>>> +{
->>>> +    int ret = 0;
->>>> +    struct sbiret sbi_ret;
->>>> +
->>>> +    ASSERT(eid == SBI_EXT_BASE);
->>>> +
->>>> +    switch ( fid )
->>>> +    {
->>>> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
->>>> +        regs->a1 = MASK_INSR(XEN_SBI_VER_MAJOR, SBI_SPEC_VERSION_MAJOR_MASK) |
->>>> +                   XEN_SBI_VER_MINOR;
->>>> +        break;
->>> ... implied here (it's ..._SPEC_VERSION after all) under what conditions the
->>> version would need bumping and what effects this would have on existing (e.g.
->>> migrating-in) guests? Recall that ...
->> For example, sooner or later we will want to use the SBI DBCN (Debug Console
->> Extension) for early debug output for guests, as it provides an API to work with
->> strings instead of single characters. This will require bumping the SBI version
->> to 2.0.
-> I fear there's a misunderstanding here, likely on my side: Why would it be 2.0?
-> Didn't you say the version is Xen controlled? If so, why not 0.3 or 1.0?
-
-I mentioned 2.0 because SBI DBCN support starts in SBI version 2.0 (2.0-rc2, to be
-more precise). If we use 0.3 or 1.0 instead, the guest won’t know [1][2] that it
-can use the SBI DBCN extension instead of the legacy extension.
-
-[1] https://elixir.bootlin.com/linux/v6.18.3/source/arch/riscv/kernel/sbi.c#L692
-[2] https://elixir.bootlin.com/linux/v6.18.3/source/drivers/tty/hvc/hvc_riscv_sbi.c#L67
-
+On 06/01/2026 9:37 am, Oleksii Kurochko wrote:
 >
-> Contrary to what you said previously, it now looks to me as if the version
-> wasn't "Xen-controlled", but instead what we pick reflects functionality
-> required by a particular spec version of a spec we do not control. That's
-> "SBI version implemented by Xen" to me though, not really a "Xen-controlled"
-> version.
-
-I will update the comment above definitions of XEN_SBI_VER_MAJOR and XEN_SBI_VER_MINOR
-to:
-   /* SBI version implemented by Xen and reported to guests */
-
-~ Oleksii
-
->> I don’t think this should cause any migration issues. If a guest was fully booted
->> and running with Xen SBI version 0.2, it would continue to use the legacy extension
->> for early console output (or for hvc console which is using SBI calls in Linux for
->> the moment). If the guest was still in the initialization stage (before SBI
->> extensions were probed), it would simply use the newer SBI DBCN extension instead
->> of the Legacy one.
->>
->> ~ Oleksii
->>
->>>> +    case SBI_EXT_BASE_GET_IMP_ID:
->>>> +        regs->a1 = SBI_XEN_IMPID;
->>>> +        break;
->>>> +
->>>> +    case SBI_EXT_BASE_GET_IMP_VERSION:
->>>> +        regs->a1 = (xen_major_version() << 16) | xen_minor_version();
->>>> +        break;
->>>> +
->>>> +    case SBI_EXT_BASE_GET_MVENDORID:
->>>> +    case SBI_EXT_BASE_GET_MARCHID:
->>>> +    case SBI_EXT_BASE_GET_MIMPID:
->>>> +        if ( is_hardware_domain(current->domain) )
->>>> +        {
->>>> +            sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
->>>> +            ret = sbi_ret.error;
->>>> +            regs->a1 = sbi_ret.value;
->>>> +        }
->>>> +        else
->>>> +            /*
->>>> +             * vSBI should present a consistent, virtualized view to guests.
->>>> +             * In particular, DomU-visible data must remain stable across
->>>> +             * migration and must not expose hardware-specific details.
->>> ... what is being said here applies to other sub-functions as well. IOW it
->>> looks to me as if the version reported needs to be a per-guest property.
+> On 1/6/26 9:53 AM, Jan Beulich wrote:
+>> On 06.01.2026 09:43, Oleksii Kurochko wrote:
+>>> On 1/5/26 8:57 PM, Andrew Cooper wrote:
+>>>> The most recent xenoprof change was 300ef0cb4fde ("x86: Add
+>>>> Xenoprofile
+>>>> support for AMD Family16h") in 2013, despite there being 42 changes
+>>>> worth of
+>>>> other cleanup/rearranging since then.
+>>>>
+>>>> Oprofile themselves dropped Xen support in commit 0c142c3a096d
+>>>> ("Remove
+>>>> opcontrol and the GUI and processor models dependent on it") in
+>>>> 2014, as part
+>>>> of releasing version 1.0 and switching over to using operf based on
+>>>> the Linux
+>>>> perf_event subsystem.  Linux's version of this patch was merged in
+>>>> commit
+>>>> 24880bef417f ("Merge tag 'oprofile-removal-5.12'") in 2021.
+>>>>
+>>>> Drop xenoprof and all supporting infrastructure, including the
+>>>> hypercall, the
+>>>> XSM hook and flask vectors which lose their only caller, and even
+>>>> shrinks
+>>>> struct domain by one pointer which wasn't properly excluded in
+>>>> !CONFIG_XENOPROF builds.
+>>>>
+>>>> Retain the public xenoprof.h header as it is ABI, but note that the
+>>>> functionality is removed.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> ---
+>>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>>> CC: Jan Beulich <jbeulich@suse.com>
+>>>> CC: Julien Grall <julien@xen.org>
+>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>>
+>>>> Despite appearing to be architecture neutral, the internals of
+>>>> Xenoprof were
+>>>> entirely x86-specific.  Another curiosity is that only the VMX MSR
+>>>> hooks
+>>>> called passive_domain_do_{rd,wr}msr(), and I can't see how this was
+>>>> correct
+>>>> for SVM.
+>>>>
+>>>> The real reason for finally getting around to this is the number of
+>>>> MISRA
+>>>> violations reported by the eclair-x86_64-allcode job that I don't
+>>>> feel like
+>>>> fixing.
+>>>> ---
+>>>>    CHANGELOG.md                            |   3 +
+>>>>    docs/misc/xen-command-line.pandoc       |   6 -
+>>>>    tools/flask/policy/modules/dom0.te      |   2 -
+>>>>    xen/arch/x86/Makefile                   |   1 -
+>>>>    xen/arch/x86/cpu/vpmu_amd.c             |   7 -
+>>>>    xen/arch/x86/cpu/vpmu_intel.c           |   6 -
+>>>>    xen/arch/x86/hvm/svm/entry.S            |   1 -
+>>>>    xen/arch/x86/hvm/svm/svm.c              |   2 -
+>>>>    xen/arch/x86/hvm/vmx/vmx.c              |   9 -
+>>>>    xen/arch/x86/include/asm/xenoprof.h     |  95 ---
+>>>>    xen/arch/x86/oprofile/Makefile          |   6 -
+>>>>    xen/arch/x86/oprofile/backtrace.c       | 145 ----
+>>>>    xen/arch/x86/oprofile/nmi_int.c         | 485 ------------
+>>>>    xen/arch/x86/oprofile/op_counter.h      |  41 -
+>>>>    xen/arch/x86/oprofile/op_model_athlon.c | 547 -------------
+>>>>    xen/arch/x86/oprofile/op_model_p4.c     | 721 -----------------
+>>>>    xen/arch/x86/oprofile/op_model_ppro.c   | 348 ---------
+>>>>    xen/arch/x86/oprofile/op_x86_model.h    |  58 --
+>>>>    xen/arch/x86/oprofile/xenoprof.c        | 106 ---
+>>>>    xen/arch/x86/traps.c                    |   4 -
+>>>>    xen/common/Kconfig                      |  11 -
+>>>>    xen/common/Makefile                     |   1 -
+>>>>    xen/common/compat/xenoprof.c            |  42 -
+>>>>    xen/common/domain.c                     |   6 -
+>>>>    xen/common/xenoprof.c                   | 977
+>>>> ------------------------
+>>>>    xen/include/Makefile                    |   1 -
+>>>>    xen/include/hypercall-defs.c            |   6 -
+>>>>    xen/include/public/xen.h                |   2 +-
+>>>>    xen/include/public/xenoprof.h           |   2 +-
+>>>>    xen/include/xen/sched.h                 |   3 -
+>>>>    xen/include/xen/xenoprof.h              |  49 --
+>>>>    xen/include/xsm/dummy.h                 |   7 -
+>>>>    xen/include/xsm/xsm.h                   |   7 -
+>>>>    xen/xsm/dummy.c                         |   2 -
+>>>>    xen/xsm/flask/hooks.c                   |  35 -
+>>>>    xen/xsm/flask/policy/access_vectors     |   4 -
+>>>>    36 files changed, 5 insertions(+), 3743 deletions(-)
+>>>>    delete mode 100644 xen/arch/x86/include/asm/xenoprof.h
+>>>>    delete mode 100644 xen/arch/x86/oprofile/Makefile
+>>>>    delete mode 100644 xen/arch/x86/oprofile/backtrace.c
+>>>>    delete mode 100644 xen/arch/x86/oprofile/nmi_int.c
+>>>>    delete mode 100644 xen/arch/x86/oprofile/op_counter.h
+>>>>    delete mode 100644 xen/arch/x86/oprofile/op_model_athlon.c
+>>>>    delete mode 100644 xen/arch/x86/oprofile/op_model_p4.c
+>>>>    delete mode 100644 xen/arch/x86/oprofile/op_model_ppro.c
+>>>>    delete mode 100644 xen/arch/x86/oprofile/op_x86_model.h
+>>>>    delete mode 100644 xen/arch/x86/oprofile/xenoprof.c
+>>>>    delete mode 100644 xen/common/compat/xenoprof.c
+>>>>    delete mode 100644 xen/common/xenoprof.c
+>>>>    delete mode 100644 xen/include/xen/xenoprof.h
+>>>>
+>>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>>> index 3aaf5986231c..1663f6878ef2 100644
+>>>> --- a/CHANGELOG.md
+>>>> +++ b/CHANGELOG.md
+>>>> @@ -15,6 +15,9 @@ The format is based on [Keep a
+>>>> Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>>       - The cpuid_mask_* command line options for legacy AMD CPUs. 
+>>>> These were
+>>>>         deprecated in Xen 4.7 and noted not to work correctly with
+>>>> AMD CPUs from
+>>>>         2011 onwards.
+>>>> +   - Xenoprofile support.  Oprofile themselves removed support for
+>>>> Xen in 2014
+>>>> +     prior to the version 1.0 release, and there has been no
+>>>> development since
+>>>> +     before then in Xen.
+>>> LGTM:
+>>> Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> # CHANGELOG.md
 >>>
->>> Jan
+>>> Nit: It is necessary to drop the extra space before "  Oprofile
+>>> themselves...".
+>> Why would that be? See the other bullet point in context, which also
+>> uses a
+>> two blanks after the inner full stop. This is deliberate.
+>
+> I just missed that a similar case was mentioned above. If this is
+> deliberate,
+> then I’m fine with it. It’s just not obvious (at least, for me) where
+> it’s
+> acceptable and where it isn’t to have extra spaces.
+
+The hunk looks correct in
+https://lore.kernel.org/xen-devel/20260105195717.601500-1-andrew.cooper3@citrix.com/T/#u
+
+It's only your reply
+https://lore.kernel.org/xen-devel/724e78ef-b6ed-40db-a5c0-bd6473b6fe16@gmail.com/
+where it looks to have whitespace problems, so I suspect that will be a
+local MUA problem.
+
+~Andrew
 
