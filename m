@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68186CF7A31
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 10:55:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195968.1513841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B64CF7BDF
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 11:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195977.1513852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd3ms-0005mI-5g; Tue, 06 Jan 2026 09:55:38 +0000
+	id 1vd48G-0000WD-R6; Tue, 06 Jan 2026 10:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195968.1513841; Tue, 06 Jan 2026 09:55:38 +0000
+Received: by outflank-mailman (output) from mailman id 1195977.1513852; Tue, 06 Jan 2026 10:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd3ms-0005k5-2i; Tue, 06 Jan 2026 09:55:38 +0000
-Received: by outflank-mailman (input) for mailman id 1195968;
- Tue, 06 Jan 2026 09:55:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd3mq-0005jz-9S
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 09:55:36 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7c39dcc-eae5-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 10:55:33 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-47d3ffb0f44so4809945e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 01:55:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d7fb5b246sm13959195e9.18.2026.01.06.01.55.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 01:55:32 -0800 (PST)
+	id 1vd48G-0000Tl-Na; Tue, 06 Jan 2026 10:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 1195977;
+ Tue, 06 Jan 2026 10:17:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jZuO=7L=bounce.vates.tech=bounce-md_30504962.695ce142.v1-87690f0c43da4feab2fe905a101f6203@srs-se1.protection.inumbo.net>)
+ id 1vd48E-0000SE-RM
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 10:17:43 +0000
+Received: from mail187-9.suw11.mandrillapp.com
+ (mail187-9.suw11.mandrillapp.com [198.2.187.9])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eda7efdb-eae8-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 11:17:39 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-9.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4dlnD21WhpzK5vgM2
+ for <xen-devel@lists.xenproject.org>; Tue,  6 Jan 2026 10:17:38 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 87690f0c43da4feab2fe905a101f6203; Tue, 06 Jan 2026 10:17:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,204 +42,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7c39dcc-eae5-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767693333; x=1768298133; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gpvm82FPEXt9e5XX+Tq+esnYxOTnUKZ6E3gFo+R7kjI=;
-        b=b0VVdWyAsblawRvHakhdtREG0pae9JLz1R3izTqjjRcVynOjL11WZod7knAm+7Kj5k
-         dKCWVuz7jWGovPW6i7h06a3egOb2n8KLatGaYM5LdXKrRXskjHfwp60+gaEoOqgTACju
-         OEWV9A5lZQnGwwGWLSXVyrCNQUVqbChg6DcpGq2J3cih5qQIYXlNH1u3V3fJflBIt7ti
-         ei1Niayy4QTFQRJi5nVivQpCvkZzTkMYgzl2RbnyJAQfTjWkvlULQ7bpC+WkzZpZjytV
-         F06MgxvreEkdUQk451pd0BckuVl96gC0K6qWQclyDkcY0AHCABVYuewR0YfhtqYJCOxn
-         rn7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767693333; x=1768298133;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gpvm82FPEXt9e5XX+Tq+esnYxOTnUKZ6E3gFo+R7kjI=;
-        b=jMTLBzOwJ7sGyO+jZuXvhC1s3ZYmoH9wyb5rHC6BESFWAw/Z5PSQPdY8GkERWv1i/A
-         Ac8Y1LAy380frEWZznGByA6S4ijEQllsXy+FwgQqTn3HzYBguRxOfbHfjqwfq6NdAAWy
-         EzPd+PBl00zz/C3a5yYuvQWxmo1ItW5Cpvcfn7N6r7gTtzB2Zv9XlxKAfXjnVSkQn19p
-         K1AsLWj/EKym6XFTuFmeMeHhRTQDOA/wz9llS+pfvUKFeHp34ujLsSW4owpMzbo4WNRp
-         l9H6GbDw2FD05Gb9R7dUdOooFoBEKXMvZ4hcxa2rja9qRhMmiJSUuFmnPwGdYUBKp0E3
-         KR7A==
-X-Forwarded-Encrypted: i=1; AJvYcCWBdAEfuAyQEYutKiuel3rVurxD85AfVDbkebdolcduF3C3lR8v/CD5SEuy7aZUVz6Wkrzp7iuoBMA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw42xPh0xLAopJ8B9SSTbBohwKicqhFBIPxLIv+EpoNXALYUxpr
-	YW4w8CbyuR8XhDj5DrZBhWrDqZYvi2PF/xCZwDsAQk0iLv44O9DsdFdoo8/OGN0bLw==
-X-Gm-Gg: AY/fxX6IDiX3sh2O88CHKZA8WT4Ud2uKe0z+XCGKY2ec5vEd1DA572gg7RgAS75o3Ew
-	NH51d0SybfcaOPc+MCGp3vZ+arD1pmDc/kUbbStN3G9sCYlmVTSeWxbJ8FwB2eIpoEx01nkB6/v
-	N77cLV046NyEgDix6+e7V6LQ+aP0eH8cVosEdErlL5mBrbo9ZC6IOJUewnsHNYuEAi9WcgobtrQ
-	9bghDn6tnuRDEZdDnV6+PNjLOfP913c4T4RfXOE2pUrEAn+h8ByhdQV0mWzzYPBJMMtELENf7yP
-	Sa0p/x+JW/+3XY+FgPMLv8GixjqR0CVzmE8srywH8iXCWVAH2yejw9Lfy1ZL3cXXPXKst6rOjVu
-	DpVLFnei1DSl8iDPD1oYATE73o6EK/zenv+MowHjfxhGjnJbVg6Rflz0NMa5NltRSie0W3Qpe6Z
-	F4dsUGqNtBwzq7/v5SPI4tbMU1uaHR7jAPGOnD35HKU6m6obTaWQoWOb3fh9r+ozBnyN5qsUIHE
-	Ds=
-X-Google-Smtp-Source: AGHT+IHdV8x8zlhDAqO0qJm6N0sa0i81lW9i5VSx/iLSJI+kd+D91uHMyzTXoV+dvhBYNKX+5VTEwg==
-X-Received: by 2002:a05:600c:3f14:b0:477:89d5:fdac with SMTP id 5b1f17b1804b1-47d7f09ffcbmr31724265e9.31.1767693333134;
-        Tue, 06 Jan 2026 01:55:33 -0800 (PST)
-Message-ID: <bc275f4f-4138-4120-9e85-3bf298efb276@suse.com>
-Date: Tue, 6 Jan 2026 10:55:31 +0100
+X-Inumbo-ID: eda7efdb-eae8-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1767694658; x=1767964658;
+	bh=bsU2eUdwrfoDXp5ItDq8DJEDIz9Wl4CJVMm0N36WL8E=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=kkBcbENirjuN3QPZqnsVlv5KZe7yVpdBAYsoYQtlzLniJwRXpyIT8oPTwQEGgana0
+	 FSHtTgL0JreQI9XfzznpjeJOeEdIaw6eAoSW8lLugOXq4fEMCszRqTkqd+oJoDezYD
+	 E5DkD7Ga5ePEXXRX157tuUWBO1n0zuAJYU5s+MFT6eN9chMxiqezjCnmjIpJOgvA91
+	 +xdELVQLNYNM3dPcvS/6T3N5pAyHowr/dw3QDrZyrfcm3tiAL4wOmobhg7PNQJ63UF
+	 bY2sgyoZt3qU3dsrrqs5gy1ozExFYCgrJP9bc2Qu2+eIb9mi7LmvJVE7hB6QftY/eu
+	 ChOn67Dpw3uzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1767694658; x=1767955158; i=teddy.astie@vates.tech;
+	bh=bsU2eUdwrfoDXp5ItDq8DJEDIz9Wl4CJVMm0N36WL8E=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=GgdXkVMoiIPBZQ5hyIHIdCnTE5fKIEnbeM7cF0CjWIvJjlsdOWROnBGTO9IOcgVD/
+	 7+jBYPRGVV6kmTDA5lyTVOxBmT2TOgp87xEeLdPQgrRsTqYTzkw9zprQhlLDV0FkHi
+	 Qp1MDK1Huk60hjSSyKwH8x38cqPhklnLARptVsAC9F749SV1sCY3Czmpq9nq/WyfQu
+	 nmwW0YYoNzAf8b3+HXTx+SzTttpF9UAsRJHkD9a2saS4zmBsXcvuEqd/MrT/OUXZP8
+	 6yaOBVK0LhtMxyigKezaQNjLXrL0ELG6F+gSNVtHo60f+Db9+vxveQqBUpZsqZC+uN
+	 l1HFqD4hQsddg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xen:=20Drop=20xenoprofile=20support?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1767694656181
+Message-Id: <03ede724-4b01-4a16-a23f-0bc2ed25efbf@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20260105195717.601500-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20260105195717.601500-1-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.87690f0c43da4feab2fe905a101f6203?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260106:md
+Date: Tue, 06 Jan 2026 10:17:38 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/1] xen/riscv: add RISC-V virtual SBI base extension
- support for guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1767108625.git.oleksii.kurochko@gmail.com>
- <d49e5b9555d4f04d569e20d9c9feb23b298c7ee1.1767108625.git.oleksii.kurochko@gmail.com>
- <63a1aa58-f609-4bfe-b827-90c59e40a02d@suse.com>
- <6bbe1965-ff08-46dc-9e9c-215ca73f9f16@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6bbe1965-ff08-46dc-9e9c-215ca73f9f16@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 06.01.2026 10:30, Oleksii Kurochko wrote:
-> On 1/5/26 5:26 PM, Jan Beulich wrote:
->> On 30.12.2025 16:50, Oleksii Kurochko wrote:
->>> Add support of virtual SBI base extension calls for RISC-V guests, delegating
->>> hardware-specific queries to the underlying SBI and handling version and
->>> firmware ID queries directly.
->>>
->>> The changes include:
->>> 1. Define new SBI base extension function IDs (SBI_EXT_BASE_GET_MVENDORID,
->>>     SBI_EXT_BASE_GET_MARCHID, SBI_EXT_BASE_GET_MIMPID).
->>> 2. Introduce XEN_SBI_VER_MAJOR, XEN_SBI_VER_MINOR for imeplenataion of
->>>     SBI_EXT_BASE_GET_SPEC_VERSION.
->>> 4. Introduce SBI_XEN_IMPID to implement SBI_EXT_BASE_GET_IMP_ID.
->>> 5. Implement handling of SBI base extension functions, including version,
->>>     firmware ID, and machine-specific queries.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
+Le 05/01/2026 =C3=A0 21:01, Andrew Cooper a =C3=A9crit=C2=A0:
+> The most recent xenoprof change was 300ef0cb4fde ("x86: Add Xenoprofile
+> support for AMD Family16h") in 2013, despite there being 42 changes worth=
+ of
+> other cleanup/rearranging since then.
 > 
-> Thanks.
+> Oprofile themselves dropped Xen support in commit 0c142c3a096d ("Remove
+> opcontrol and the GUI and processor models dependent on it") in 2014, as =
+part
+> of releasing version 1.0 and switching over to using operf based on the L=
+inux
+> perf_event subsystem.  Linux's version of this patch was merged in commit
+> 24880bef417f ("Merge tag 'oprofile-removal-5.12'") in 2021.
 > 
->> Albeit with a question:
->>
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/vsbi/base-extension.c
->>> @@ -0,0 +1,82 @@
->>> +
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +
->>> +#include <xen/lib.h>
->>> +#include <xen/sched.h>
->>> +#include <xen/version.h>
->>> +
->>> +#include <asm/processor.h>
->>> +#include <asm/sbi.h>
->>> +#include <asm/vsbi.h>
->>> +
->>> +/* Xen-controlled SBI version reported to guests */
->>> +#define XEN_SBI_VER_MAJOR 0
->>> +#define XEN_SBI_VER_MINOR 2
->> Is it clear from whatever spec it is that is ...
->>
->>> +static int vsbi_base_ecall_handler(unsigned long eid, unsigned long fid,
->>> +                                   struct cpu_user_regs *regs)
->>> +{
->>> +    int ret = 0;
->>> +    struct sbiret sbi_ret;
->>> +
->>> +    ASSERT(eid == SBI_EXT_BASE);
->>> +
->>> +    switch ( fid )
->>> +    {
->>> +    case SBI_EXT_BASE_GET_SPEC_VERSION:
->>> +        regs->a1 = MASK_INSR(XEN_SBI_VER_MAJOR, SBI_SPEC_VERSION_MAJOR_MASK) |
->>> +                   XEN_SBI_VER_MINOR;
->>> +        break;
->> ... implied here (it's ..._SPEC_VERSION after all) under what conditions the
->> version would need bumping and what effects this would have on existing (e.g.
->> migrating-in) guests? Recall that ...
+> Drop xenoprof and all supporting infrastructure, including the hypercall,=
+ the
+> XSM hook and flask vectors which lose their only caller, and even shrinks
+> struct domain by one pointer which wasn't properly excluded in
+> !CONFIG_XENOPROF builds.
 > 
-> For example, sooner or later we will want to use the SBI DBCN (Debug Console
-> Extension) for early debug output for guests, as it provides an API to work with
-> strings instead of single characters. This will require bumping the SBI version
-> to 2.0.
+> Retain the public xenoprof.h header as it is ABI, but note that the
+> functionality is removed.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> Despite appearing to be architecture neutral, the internals of Xenoprof w=
+ere
+> entirely x86-specific.  Another curiosity is that only the VMX MSR hooks
+> called passive_domain_do_{rd,wr}msr(), and I can't see how this was corre=
+ct
+> for SVM.
+> 
+> The real reason for finally getting around to this is the number of MISRA
+> violations reported by the eclair-x86_64-allcode job that I don't feel li=
+ke
+> fixing.
+> ---
+>   CHANGELOG.md                            |   3 +
+>   docs/misc/xen-command-line.pandoc       |   6 -
+>   tools/flask/policy/modules/dom0.te      |   2 -
+>   xen/arch/x86/Makefile                   |   1 -
+>   xen/arch/x86/cpu/vpmu_amd.c             |   7 -
+>   xen/arch/x86/cpu/vpmu_intel.c           |   6 -
+>   xen/arch/x86/hvm/svm/entry.S            |   1 -
+>   xen/arch/x86/hvm/svm/svm.c              |   2 -
+>   xen/arch/x86/hvm/vmx/vmx.c              |   9 -
+>   xen/arch/x86/include/asm/xenoprof.h     |  95 ---
+>   xen/arch/x86/oprofile/Makefile          |   6 -
+>   xen/arch/x86/oprofile/backtrace.c       | 145 ----
+>   xen/arch/x86/oprofile/nmi_int.c         | 485 ------------
+>   xen/arch/x86/oprofile/op_counter.h      |  41 -
+>   xen/arch/x86/oprofile/op_model_athlon.c | 547 -------------
+>   xen/arch/x86/oprofile/op_model_p4.c     | 721 -----------------
+>   xen/arch/x86/oprofile/op_model_ppro.c   | 348 ---------
+>   xen/arch/x86/oprofile/op_x86_model.h    |  58 --
+>   xen/arch/x86/oprofile/xenoprof.c        | 106 ---
+>   xen/arch/x86/traps.c                    |   4 -
+>   xen/common/Kconfig                      |  11 -
+>   xen/common/Makefile                     |   1 -
+>   xen/common/compat/xenoprof.c            |  42 -
+>   xen/common/domain.c                     |   6 -
+>   xen/common/xenoprof.c                   | 977 ------------------------
+>   xen/include/Makefile                    |   1 -
+>   xen/include/hypercall-defs.c            |   6 -
+>   xen/include/public/xen.h                |   2 +-
+>   xen/include/public/xenoprof.h           |   2 +-
+>   xen/include/xen/sched.h                 |   3 -
+>   xen/include/xen/xenoprof.h              |  49 --
+>   xen/include/xsm/dummy.h                 |   7 -
+>   xen/include/xsm/xsm.h                   |   7 -
+>   xen/xsm/dummy.c                         |   2 -
+>   xen/xsm/flask/hooks.c                   |  35 -
+>   xen/xsm/flask/policy/access_vectors     |   4 -
+>   36 files changed, 5 insertions(+), 3743 deletions(-)
+>   delete mode 100644 xen/arch/x86/include/asm/xenoprof.h
+>   delete mode 100644 xen/arch/x86/oprofile/Makefile
+>   delete mode 100644 xen/arch/x86/oprofile/backtrace.c
+>   delete mode 100644 xen/arch/x86/oprofile/nmi_int.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_counter.h
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_athlon.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_p4.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_ppro.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_x86_model.h
+>   delete mode 100644 xen/arch/x86/oprofile/xenoprof.c
+>   delete mode 100644 xen/common/compat/xenoprof.c
+>   delete mode 100644 xen/common/xenoprof.c
+>   delete mode 100644 xen/include/xen/xenoprof.h
+> 
+> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+> index 7f15204c3885..b12fd10e6315 100644
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -106,7 +106,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
+>   #define __HYPERVISOR_nmi_op               28
+>   #define __HYPERVISOR_sched_op             29
+>   #define __HYPERVISOR_callback_op          30
+> -#define __HYPERVISOR_xenoprof_op          31
+> +#define __HYPERVISOR_xenoprof_op          31 /* Dropped in Xen 4.22 */
+>   #define __HYPERVISOR_event_channel_op     32
+>   #define __HYPERVISOR_physdev_op           33
+>   #define __HYPERVISOR_hvm_op               34
+> diff --git a/xen/include/public/xenoprof.h b/xen/include/public/xenoprof.=
+h
+> index 2298b6759ed3..f97a67042e07 100644
+> --- a/xen/include/public/xenoprof.h
+> +++ b/xen/include/public/xenoprof.h
+> @@ -3,7 +3,7 @@
+>    * xenoprof.h
+>    *
+>    * Interface for enabling system wide profiling based on hardware perfo=
+rmance
+> - * counters
+> + * counters.  Dropped from Xen in 4.22.
+>    *
+>    * Copyright (C) 2005 Hewlett-Packard Co.
+>    * Written by Aravind Menon & Jose Renato Santos
 
-I fear there's a misunderstanding here, likely on my side: Why would it be 2.0?
-Didn't you say the version is Xen controlled? If so, why not 0.3 or 1.0?
+Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
 
-Contrary to what you said previously, it now looks to me as if the version
-wasn't "Xen-controlled", but instead what we pick reflects functionality
-required by a particular spec version of a spec we do not control. That's
-"SBI version implemented by Xen" to me though, not really a "Xen-controlled"
-version.
+Some question: do we plan to drop xenoprof.h headers at some point (even 
+if not today) ?
 
-Jan
+Teddy
 
-> I don’t think this should cause any migration issues. If a guest was fully booted
-> and running with Xen SBI version 0.2, it would continue to use the legacy extension
-> for early console output (or for hvc console which is using SBI calls in Linux for
-> the moment). If the guest was still in the initialization stage (before SBI
-> extensions were probed), it would simply use the newer SBI DBCN extension instead
-> of the Legacy one.
-> 
-> ~ Oleksii
-> 
->>
->>> +    case SBI_EXT_BASE_GET_IMP_ID:
->>> +        regs->a1 = SBI_XEN_IMPID;
->>> +        break;
->>> +
->>> +    case SBI_EXT_BASE_GET_IMP_VERSION:
->>> +        regs->a1 = (xen_major_version() << 16) | xen_minor_version();
->>> +        break;
->>> +
->>> +    case SBI_EXT_BASE_GET_MVENDORID:
->>> +    case SBI_EXT_BASE_GET_MARCHID:
->>> +    case SBI_EXT_BASE_GET_MIMPID:
->>> +        if ( is_hardware_domain(current->domain) )
->>> +        {
->>> +            sbi_ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
->>> +            ret = sbi_ret.error;
->>> +            regs->a1 = sbi_ret.value;
->>> +        }
->>> +        else
->>> +            /*
->>> +             * vSBI should present a consistent, virtualized view to guests.
->>> +             * In particular, DomU-visible data must remain stable across
->>> +             * migration and must not expose hardware-specific details.
->> ... what is being said here applies to other sub-functions as well. IOW it
->> looks to me as if the version reported needs to be a per-guest property.
->>
->> Jan
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
