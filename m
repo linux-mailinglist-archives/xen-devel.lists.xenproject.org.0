@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D59CF8A36
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 14:58:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196143.1514018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9231CCF89FA
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 14:56:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196118.1513997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7ZN-0000OB-Es; Tue, 06 Jan 2026 13:57:57 +0000
+	id 1vd7Xr-0007ea-Ts; Tue, 06 Jan 2026 13:56:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196143.1514018; Tue, 06 Jan 2026 13:57:57 +0000
+Received: by outflank-mailman (output) from mailman id 1196118.1513997; Tue, 06 Jan 2026 13:56:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7ZN-0000L6-C3; Tue, 06 Jan 2026 13:57:57 +0000
-Received: by outflank-mailman (input) for mailman id 1196143;
- Tue, 06 Jan 2026 13:57:56 +0000
+	id 1vd7Xr-0007cD-RG; Tue, 06 Jan 2026 13:56:23 +0000
+Received: by outflank-mailman (input) for mailman id 1196118;
+ Tue, 06 Jan 2026 13:56:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd7Rz-0004MT-QV
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 13:50:19 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1vd7Xq-0007c1-VP
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 13:56:22 +0000
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [2a00:1450:4864:20::341])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a340ddc3-eb06-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 14:50:19 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-43260a5a096so624029f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 05:50:19 -0800 (PST)
+ id 7b6d9c2b-eb07-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 14:56:21 +0100 (CET)
+Received: by mail-wm1-x341.google.com with SMTP id
+ 5b1f17b1804b1-477a2ab455fso9398355e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 05:56:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0daa84sm4502490f8f.2.2026.01.06.05.50.18
+ 5b1f17b1804b1-47d7f653c78sm46337045e9.11.2026.01.06.05.56.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 05:50:18 -0800 (PST)
+ Tue, 06 Jan 2026 05:56:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a340ddc3-eb06-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 7b6d9c2b-eb07-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767707418; x=1768312218; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LxIHHnoWmRfEZQKRp7c/KawtwyGIc/YRyMoiBmbjtBI=;
-        b=RsrYTQMd77w/i4NR2tSMUQeGxnUa5vi08TgmHHTS8+NeY12NvLXlLVr6Ma95yWIB/P
-         d3qLDo8J+GttBcWDzz9RXYtm/51+CzY85nh2ROhV+PzYscPUmXCUc2VKmGt4lb/+qt0l
-         O1IPOLTDwwf8STmaxY91GGjYAijrpLUvZVQjXqLnmqcHDoysY66XvBPI3RMOLasIWEyT
-         PfCqlTvU7SKbPwTLKG3V0A1sxGNwFRJHEaxTF4xBV1X5LU+t7o/TihonsTKq9Mna2p3u
-         8QKwouyXfpdEAJnhYSInaKU6Kc8dWMj919mzRyuCPFpC18BB7wdf3lqCbZeZXqy76c1F
-         HdkA==
+        d=suse.com; s=google; t=1767707781; x=1768312581; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZO8rgZJr4KzU2Xy8wgmhHWqpTW2gXbvRQCQ99uEvvTE=;
+        b=Se9JHngtMTCw0qGJ3ssBY5xa2deus4dSPEy8JGyGIgxlpIbuWD65Dn2C9oSpkzLyw1
+         mP+5GyRE26q8h/lZc5yfh87oelNGM72qgVHMDCi0SgE3CkaRx7EbuML7ydJZ8xY3W1Gm
+         bDXAvz/pwZaVePg2csxS3tAPewpuUOGQCFc66LIxnfeD0WBnSDZSJFlbe0cZKHNQE/LE
+         l4MY6aQATvzeiowlSKJkIDbGTLMMqaNPdVJhdyIJWJ3ez7Np0S36cc5u0z+vrJGAnPlx
+         52hdnRgRrngxX27GyY3Ni7s6gR6yPZW45uCZF99X7YDucFqt0lvyJlQ5CUZUOtTEWdEw
+         ZC6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767707418; x=1768312218;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LxIHHnoWmRfEZQKRp7c/KawtwyGIc/YRyMoiBmbjtBI=;
-        b=ONIB+vNLqVZbdnEnKl5YSSBiy1962kRTXW7oaSHYsp5qEaSafsNJkdIeZXbVdR6iF7
-         YUuQdH1xJc+lLHOIjvFpiUsp4tuycuDC4GMnMXamWM+LCTn4HZWMzVFiNb4eMoHPShh9
-         4zK3/30ZDQMFN9xwUQ/52/7UbaOQ3EvXxWHhngSwYAlCO/1xYaXynvM65/ljWPBfmVIM
-         A9KVfFU17t4v8XLIqvzAslkf2oqLb/uHw7TLSg9YvF5JWQN3nYBs+lwfAmHl+TgV5q4D
-         kE7lMqmO4oB/oLWwO9+sjYpspQL17ui+x4QQ/rybXjA/WndqvHI1htDXkidXPWeiAoHA
-         d+WA==
-X-Gm-Message-State: AOJu0YxTgMMgN/8XsZM9PpjYwc0zkteZUlfZ85C45gf0TJSE3CFkESls
-	Pa8fFsDhWuQrz23bGTQ1Sf/J7uyuTi9wdKpgCkDG+5ivHMKfWL8gS4iTsml0k7plSnBwBMKxNwd
-	cngA=
-X-Gm-Gg: AY/fxX7cfQNJK5Lh6QmfRKY9/eAVJargNQagFH3RstYNQsxwJK8j0OSpF6oFhP2Bvvg
-	j0SQQCh66g/4embbNOp+MH1nUGVKI1NIYOj9Z+oWMJPnIRi/s/34m2I4nwTyHULc3XkwdSOqfeV
-	wjp0F5h+CFwDqNBocRjlccWNDogDqQRnMyj8xYzWk+FCyP/iJGGN7K3vKCK+8+D9pbe/Md3wwO+
-	6GVaaSkGVSA1IOQiQP15/qxbhLDS42ouEDMUQtihrYXWshlKnloeJ6TzMHxyOE9raxGYW4kIYUN
-	IMTozgdhxZXdUkKlOBNRii+1Rx9OfOE0vWmbgkoKQzcNABj4bUWnbeRh0OL1Oo6uZZH00IOFPdA
-	25+uFjP/0bYj7LDkrUioGcJvPHnFpQsPilwHTEzFz8Xussk74kARIlhhYq53yxG3SZwfIyyoiqY
-	NwEDAxm7F5xmdXEKgs7xaHvMbpADsUdd0Ra8mf4qodSlvWjb5W9sGyMPJJChYgTEZMqaqOJ5KbG
-	Ao=
-X-Google-Smtp-Source: AGHT+IFoIKcKZEb6fpXZ3yLHOppIPAnw6aSQPSZKTVyBbq08Aq6Hb6k95aMw0wy4H5RvXABb/dNEoQ==
-X-Received: by 2002:a05:6000:2c0c:b0:427:23a:c339 with SMTP id ffacd0b85a97d-432bca2ac7fmr3599687f8f.14.1767707418501;
-        Tue, 06 Jan 2026 05:50:18 -0800 (PST)
-Message-ID: <432bb0bd-96a6-4505-8c1c-7e8eb4de1f5c@suse.com>
-Date: Tue, 6 Jan 2026 14:50:17 +0100
+        d=1e100.net; s=20230601; t=1767707781; x=1768312581;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZO8rgZJr4KzU2Xy8wgmhHWqpTW2gXbvRQCQ99uEvvTE=;
+        b=uLto6qlaprti5wQkTS8QgvGWoRob85trLr3BTFcySdvqy89UgWjXFqrQelC6qKTgwF
+         xmvEcfx642erSfWtBr+pNIGBlX66HDDqvq6HKtclTsDOI6d+usJzZdTY3/ej8E6sXExS
+         dyt4ghMGGDVPpVJuoBHPzpuwgrq7pJcUMVNT/yqkh5/CM23uhv8JjIAfW8UtRnPxjs/+
+         SVr28zR7fooeLq1lOJxWR6e5nozPKX4J27Jv+OcV9jGeP/39/pfPZrsc45oaomX6Ntmn
+         PJ8LK4zqdYWY05rCZtAraVKQFyLpyV7m6kouXcwa5HLIs6dcHxO+dekJQkGpfhvV1Udb
+         qqfA==
+X-Gm-Message-State: AOJu0YwRbIIBykUD3jaWxdD3/1Xt90gJUUOWK7LEhT/6+yEeICl5CQ1T
+	7rFv4jNRL3T6weFCRU8M6iGGL3TtkSETZ1TJuEo7OfsSjZHCiAK8HS4uAU+K97pddjGPIWsOrgf
+	oG9Wp4Q==
+X-Gm-Gg: AY/fxX4gbukjJRt8aBiRf5VDIwbRukXc2pyeDGebE5ypPwUqDpZG84xMyygVTMLjdJb
+	H3NMq8UGgp/K5TcFB2t8EE4J2TGhOBYoHlQuVeLZMYmQH375jihot39AgCv7Oi/6LZl6+y8gQ9c
+	zUKANJpJw8m2wTsJzPNqOI7E+0yDukINGWOiq72ZFp3ZvIEWY/RVmCWGFBzuv/0SL9OI+0u/SNb
+	scZFoEg0pEuJ3OJKcxArg7cMZlXTMZS3gcmthAA5xIYQfgqsDVKpJ9/8msOJJ4/1DDZRy4owhFd
+	6TXwi6i7A60q9LnwRZUggb+Si5S3B5WRVT6mR1+YYHRRlDe0jZaF+Bac+SOSol/WhafkwXbg5L9
+	4KIx82SALMpHQTEskswUoVuWg6tBZX3lDviMlyv5tq1A2xKIp+tSG3S9wzpHog9PBWyXt2gLcW1
+	CQdRg2aF9/hfi9Fro9rxzegutp3F721KCxTSyY7IDrR8BBZupXUXCupSkL8+fDJUM3E5CkTQ2zy
+	Rw=
+X-Google-Smtp-Source: AGHT+IFd0IBXWuEdGOhm7twVEuVVeXrCJeSSfyPPVVRSnIfvsIYsCagShfS8Dim8onIIcZk3OA5wVQ==
+X-Received: by 2002:a05:600c:8b4b:b0:45d:5c71:769a with SMTP id 5b1f17b1804b1-47d7f0a198cmr35749595e9.26.1767707781226;
+        Tue, 06 Jan 2026 05:56:21 -0800 (PST)
+Message-ID: <def115ab-2900-4f67-a2db-3d10375a5644@suse.com>
+Date: Tue, 6 Jan 2026 14:56:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 6/6] vPCI/DomU: really no ext-caps without extended config
- space
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-References: <05bc9acd-3054-4c5a-be87-cfd8d7bfa0f8@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/5] x86: assorted time handling adjustments
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,35 +117,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <05bc9acd-3054-4c5a-be87-cfd8d7bfa0f8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Whether to emulate accesses to the first 32 bits of extended config space
-as read-as-zero or read-as-all-ones depends on whether a device actually
-has extended config space. If it doesn't, read-as-zero isn't correct; not
-getting this right may confuse functions like Linux 6.19-rc's
-pci_ext_cfg_is_aliased().
+The first patch aims at addressing a recent bug report, but may also point
+out further more or less related issues. The other patches do some tidying
+found desirable while doing the investigation.
 
-Fixes: a845b50c12f3 ("vpci/header: Emulate extended capability list for dom0")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+1: time: deal with negative deltas in get_s_time_fixed()
+2: 
+3: 
+4: 
+5: 
 
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -830,9 +830,14 @@ static int vpci_init_ext_capability_list
-     unsigned int pos = PCI_CFG_SPACE_SIZE;
- 
-     if ( !is_hardware_domain(pdev->domain) )
-+    {
-+        if ( !pdev->ext_cfg )
-+            return 0;
-+
-         /* Extended capabilities read as zero, write ignore for DomU */
-         return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-                                  pos, 4, (void *)0);
-+    }
- 
-     do
-     {
-
+Jan
 
