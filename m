@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60D2CF78F6
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 10:38:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1195944.1513821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 303C8CF79DD
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 10:49:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1195959.1513831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd3Vl-0002Rp-GZ; Tue, 06 Jan 2026 09:37:57 +0000
+	id 1vd3go-0004GY-I2; Tue, 06 Jan 2026 09:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1195944.1513821; Tue, 06 Jan 2026 09:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 1195959.1513831; Tue, 06 Jan 2026 09:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd3Vl-0002PB-DK; Tue, 06 Jan 2026 09:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 1195944;
- Tue, 06 Jan 2026 09:37:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A8PS=7L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vd3Vk-00024N-Ov
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 09:37:56 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 609d1fa4-eae3-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 10:37:54 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-b728a43e410so135348366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 01:37:54 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a4d31e7sm182307666b.42.2026.01.06.01.37.53
+	id 1vd3go-0004E2-FP; Tue, 06 Jan 2026 09:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 1195959;
+ Tue, 06 Jan 2026 09:49:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vd3gn-0004Dw-0f
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 09:49:21 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f872b88f-eae4-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 10:49:19 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-432755545fcso416052f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 01:49:19 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd5df9c5sm3483453f8f.22.2026.01.06.01.49.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 01:37:53 -0800 (PST)
+ Tue, 06 Jan 2026 01:49:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,182 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 609d1fa4-eae3-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: f872b88f-eae4-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767692274; x=1768297074; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lxL8KR51DQ0oQopH+6Hbg+17A0zcRfk1vzTAao2LITM=;
-        b=Ix7/Xgxh05Y0srr8BgPmNcOWICb3DUgmEq4Nyz4i8J4q7rUoL/MQqpa+BGSv9aoBFP
-         CgnOW87mYl+yHFJUYEsWvKIW9fz+O+r6nben1QBrxdVWrYIpU9C/K7arAKg31eVYvn5Z
-         StrjSM8BMA5BuyJRrCFytN208czRm57dlOGMLr5NrLAcMZQ7ailA6zSPP/nLuyZIM8PD
-         4VDk74SF+pzGPzPBtfK69bHIS2oUbBx68Rhes5M74g8g9qqcZ5EmPZU29NjcGx+M6vTv
-         N9mmVJXQWBLD43ISIjee28NC6HR2TVrin1RQjMSjRwFYvDAO0qVPEZ5veV2g48CuuDfi
-         JGxg==
+        d=suse.com; s=google; t=1767692958; x=1768297758; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+vMmsVSuC+yn89Hk8vSUEwtja6nNc0uUwda/2UTby9w=;
+        b=GWNwIp8V3WloyDNIRUpfn8zjWA81tICVx3OB0tH663TZwrHZUYIHP7MJC5F4cURApx
+         4I62oseX357HJRdPZiEo9Y5LNYA7G8GPwaqlmgvrvJqpvs96o3CjnC1z9XlDJ/okWaPp
+         nDhVnCkcpse8Q9IxNxPtKqvLbhDly12zMfCLj892FAF3rAKOBVqZqX4TWkBBvCAndxf1
+         +odDErQtzhpyUFuYAwiQltiRnKE9bktSZUIH2ICZwHtfYJjTHTwy4qYdyjFRsFS/3XMT
+         /obFZ9QEHJLl2HYbaddVGii27ScyXPjS7X9KuEouYDWl8XGEg6VxAqBn9dkfQFpcnWza
+         21dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767692274; x=1768297074;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lxL8KR51DQ0oQopH+6Hbg+17A0zcRfk1vzTAao2LITM=;
-        b=evidT/STiMJelsTkpHGVmCdzRSoWqMZsd+HnGK40dMRoupMzZbTMSaQtE0lBDvbzh6
-         pq3q5JB78ZNT3WVfTI9NxPBipP819yjvnhHhEqFepkqajcSP6laETn/9aWT5xuRTqElD
-         jW7KPoqg5sYbpFXFumgDVNrHMbPy6xsnN6uSDLoAwhz6Bc8DErV/SS70fovU/k+hDBku
-         G4KATLoT5emys397M8zoJZ6ERZRcc/UVmFVPGKWj/PbEksbPFtyJKZHZcuR6T7w4/yiG
-         p4mn4Ls+Yz/gGtWMCwxWKT4d1ZQnc1qA49ZOnwEl9bhz4zpNsl81K1wZXjGWuT+gSZgU
-         krFw==
-X-Forwarded-Encrypted: i=1; AJvYcCWx/riF+rvr9xLvAJ8MPmkZRd3WfSc/nHDT90cyPcCFsPAcf0mRNHG8NeF8T+Fejie2v9PiswZqMJ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwgtK2pPk1+hX2p3K/afUGut3Rhgkhsf0EqIuk1lR+L7zQ2e3z5
-	vwlodxyug9iUSxiIqfn4bCb8rZFP45E9weH3zsFmLTjzGJPwcBAtq/s1
-X-Gm-Gg: AY/fxX75nIKaU6RVlPwr/dB6jnDKQdhX5vMxxXQxN/uilQNY/f5JJNtzww85tWO6FOX
-	BxsACG6Sxb9YjFf/twxMNsqOuG1Frw0qtmG4BH8hO0NPXgqW6/mJm4omxdgzkvtjEGTX0ktWq8i
-	qT29EISDCyu2tnZRgjhn2mhdvDMADafMfe20XIGABYAsrvSkUoESfUuqlRXPe+gq9DW2a16HNlt
-	taXS3LYOYPiMdYVxkbSmDNLSsYbQNXRQ/f3yfgtCQIjYeXucFEa5exWEgp4XS5PhVIm0Wjn8Gfx
-	7ohwWGuYenA169GZI8iRJ8DxB9Ba1ayYnODwpIO4ZbSd3GBvZrqnrA5P9oByWO77ypsoVt1VD33
-	hIuv2i2AhYGa505xReuyqXxnn8MSjwDwC0K9DWhRUcj2BhoXAqywySAaD1fpE3SObbDXYhjaxIG
-	WtTSlm2n/A+9p65aPWkEKUmhaXzJAFT9R9lX1JMKHq3NZiVmvQ7GIAMG15Ny3/EiQ=
-X-Google-Smtp-Source: AGHT+IHy7gB7FInof//tCEI+P/oCC7nIrId1JGSsJUOGQYF+fyUl78GcF9XI/ZSqUr2uiDm8vrCGjA==
-X-Received: by 2002:a17:907:3f96:b0:b83:3770:a0e4 with SMTP id a640c23a62f3a-b8426be68f7mr249627266b.34.1767692274213;
-        Tue, 06 Jan 2026 01:37:54 -0800 (PST)
-Message-ID: <10a38a49-c19a-4bca-8616-1490c3ef6a57@gmail.com>
-Date: Tue, 6 Jan 2026 10:37:53 +0100
+        d=1e100.net; s=20230601; t=1767692958; x=1768297758;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+vMmsVSuC+yn89Hk8vSUEwtja6nNc0uUwda/2UTby9w=;
+        b=klDTt2YdgQ8nmeeqaOZS+hmWwD9tYwxWiAqbeYWPGItdu9D4T4rNMDoQ4vvtUB6/mz
+         8TLOxTV+OIyCgqGk0dgvtnLEtiDEeCu9racpbYM8eJMBFG28XpSvld1Bui61TTWAG4GQ
+         M0UYi3QYkRi1JSdKXRUpjoEivXvkO+05qGHdMotIHGv0gVQm1PSiD3gtEMG1H9DSWaVA
+         Tn4fOqnBX2MQvnVrwBLtkxmj8uhbthEaBnpDCZuKnk+1zEu/g78iNOEoBi22VLNc6/Af
+         tlf8LYCYP9igx99Jd4LP2SfGr2LbtbmyOp22llo85HIw8yHuJacqiUDpsEWDgPTEg7r5
+         XnHw==
+X-Forwarded-Encrypted: i=1; AJvYcCUwNRIXJ6+CVqjMkmDIs80Y1III5QB5K55iU8ytnURpPUEk3gO1VIFYrfjj4OBLfrKcLL2jL6d3MFw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxjv5FjUda3LQko1zX7HIurvBOjEBowpGbrSWuaZ5IWm0dPRXDK
+	tSJGPc0bBaylH1e5Werr8NxQpFBjDx76cMXGd2SbIqh37dia9pUEiOHBQ2DHHYm36g==
+X-Gm-Gg: AY/fxX4AMrmqkyEAMh9e/JupHSr2xHdJ729vLFPzJyroC6h091w+XHRu/dR9uUOufJg
+	wPossrW1wfldTEb/r1AD0VaL2yf390p8MGLinfZ8+SBbgjDMk1BVeLnA0LZ5shhQknAqLNuSqQJ
+	paI4+kibUmRK5nXvnyOGvdHFi4KEJcYKfqTH/aXQ9XkdA6xWqOCsok8NYFdYI+nuAI8+5uY5hzj
+	kvncVba79dHC9IRa8u9iKkWvxuBsp4WKIDD6wp0RFVE421Xo764Umsp3TO+Zd9kuobyVRKbKJde
+	1b8MksOQlHKpdMpIej+7ZtWwqG2y4yO88I761WK7ZWi3Dyv+NhTMYMWkwWZl2ZJBM0mpRBbafrC
+	WD3mKenD/7eCn3lgx67TZ3DNkRAohqZkskmdKwglPadLfi6mY+TQrOPs8jkQOm0f5KNhnSzdEnH
+	yVVyhrEiL/wjjigjAdCXYEbuqVe9Obl3wKTbeRSP+5ukrxZf88VjhKKjWC3UXRU1OWYkkpm43ef
+	YwerJoWt8CdiQ==
+X-Google-Smtp-Source: AGHT+IFC2tpwjRtu/k6J7abAHD2okAAossK0/k1+oXSVftAygmXOCe4lUlkwgjKh4eiv/SMhfjQiyQ==
+X-Received: by 2002:a05:6000:40ce:b0:430:f718:2388 with SMTP id ffacd0b85a97d-432bca2c3efmr2606539f8f.8.1767692958475;
+        Tue, 06 Jan 2026 01:49:18 -0800 (PST)
+Message-ID: <19ae296c-5ea0-46ce-9107-8d212c065257@suse.com>
+Date: Tue, 6 Jan 2026 10:49:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Drop xenoprofile support
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20260105195717.601500-1-andrew.cooper3@citrix.com>
- <724e78ef-b6ed-40db-a5c0-bd6473b6fe16@gmail.com>
- <8561e1dd-492b-4d51-bf10-0a4523c941a8@suse.com>
+Subject: Re: [PATCH 1/2] x86/cpu-policy: enable build of fuzzing harness by
+ default
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <4a8f06b9-8210-487f-9dd7-e0221e2df9db@suse.com>
+ <c3fcc1a5-6479-400b-b65d-35d7d7233b4a@suse.com>
+ <5d45bb91-4ef5-48ec-b1fd-4f186f46c0ad@suse.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8561e1dd-492b-4d51-bf10-0a4523c941a8@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5d45bb91-4ef5-48ec-b1fd-4f186f46c0ad@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On 1/6/26 9:53 AM, Jan Beulich wrote:
-> On 06.01.2026 09:43, Oleksii Kurochko wrote:
->> On 1/5/26 8:57 PM, Andrew Cooper wrote:
->>> The most recent xenoprof change was 300ef0cb4fde ("x86: Add Xenoprofile
->>> support for AMD Family16h") in 2013, despite there being 42 changes worth of
->>> other cleanup/rearranging since then.
->>>
->>> Oprofile themselves dropped Xen support in commit 0c142c3a096d ("Remove
->>> opcontrol and the GUI and processor models dependent on it") in 2014, as part
->>> of releasing version 1.0 and switching over to using operf based on the Linux
->>> perf_event subsystem.  Linux's version of this patch was merged in commit
->>> 24880bef417f ("Merge tag 'oprofile-removal-5.12'") in 2021.
->>>
->>> Drop xenoprof and all supporting infrastructure, including the hypercall, the
->>> XSM hook and flask vectors which lose their only caller, and even shrinks
->>> struct domain by one pointer which wasn't properly excluded in
->>> !CONFIG_XENOPROF builds.
->>>
->>> Retain the public xenoprof.h header as it is ABI, but note that the
->>> functionality is removed.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>> CC: Michal Orzel <michal.orzel@amd.com>
->>> CC: Jan Beulich <jbeulich@suse.com>
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>
->>> Despite appearing to be architecture neutral, the internals of Xenoprof were
->>> entirely x86-specific.  Another curiosity is that only the VMX MSR hooks
->>> called passive_domain_do_{rd,wr}msr(), and I can't see how this was correct
->>> for SVM.
->>>
->>> The real reason for finally getting around to this is the number of MISRA
->>> violations reported by the eclair-x86_64-allcode job that I don't feel like
->>> fixing.
->>> ---
->>>    CHANGELOG.md                            |   3 +
->>>    docs/misc/xen-command-line.pandoc       |   6 -
->>>    tools/flask/policy/modules/dom0.te      |   2 -
->>>    xen/arch/x86/Makefile                   |   1 -
->>>    xen/arch/x86/cpu/vpmu_amd.c             |   7 -
->>>    xen/arch/x86/cpu/vpmu_intel.c           |   6 -
->>>    xen/arch/x86/hvm/svm/entry.S            |   1 -
->>>    xen/arch/x86/hvm/svm/svm.c              |   2 -
->>>    xen/arch/x86/hvm/vmx/vmx.c              |   9 -
->>>    xen/arch/x86/include/asm/xenoprof.h     |  95 ---
->>>    xen/arch/x86/oprofile/Makefile          |   6 -
->>>    xen/arch/x86/oprofile/backtrace.c       | 145 ----
->>>    xen/arch/x86/oprofile/nmi_int.c         | 485 ------------
->>>    xen/arch/x86/oprofile/op_counter.h      |  41 -
->>>    xen/arch/x86/oprofile/op_model_athlon.c | 547 -------------
->>>    xen/arch/x86/oprofile/op_model_p4.c     | 721 -----------------
->>>    xen/arch/x86/oprofile/op_model_ppro.c   | 348 ---------
->>>    xen/arch/x86/oprofile/op_x86_model.h    |  58 --
->>>    xen/arch/x86/oprofile/xenoprof.c        | 106 ---
->>>    xen/arch/x86/traps.c                    |   4 -
->>>    xen/common/Kconfig                      |  11 -
->>>    xen/common/Makefile                     |   1 -
->>>    xen/common/compat/xenoprof.c            |  42 -
->>>    xen/common/domain.c                     |   6 -
->>>    xen/common/xenoprof.c                   | 977 ------------------------
->>>    xen/include/Makefile                    |   1 -
->>>    xen/include/hypercall-defs.c            |   6 -
->>>    xen/include/public/xen.h                |   2 +-
->>>    xen/include/public/xenoprof.h           |   2 +-
->>>    xen/include/xen/sched.h                 |   3 -
->>>    xen/include/xen/xenoprof.h              |  49 --
->>>    xen/include/xsm/dummy.h                 |   7 -
->>>    xen/include/xsm/xsm.h                   |   7 -
->>>    xen/xsm/dummy.c                         |   2 -
->>>    xen/xsm/flask/hooks.c                   |  35 -
->>>    xen/xsm/flask/policy/access_vectors     |   4 -
->>>    36 files changed, 5 insertions(+), 3743 deletions(-)
->>>    delete mode 100644 xen/arch/x86/include/asm/xenoprof.h
->>>    delete mode 100644 xen/arch/x86/oprofile/Makefile
->>>    delete mode 100644 xen/arch/x86/oprofile/backtrace.c
->>>    delete mode 100644 xen/arch/x86/oprofile/nmi_int.c
->>>    delete mode 100644 xen/arch/x86/oprofile/op_counter.h
->>>    delete mode 100644 xen/arch/x86/oprofile/op_model_athlon.c
->>>    delete mode 100644 xen/arch/x86/oprofile/op_model_p4.c
->>>    delete mode 100644 xen/arch/x86/oprofile/op_model_ppro.c
->>>    delete mode 100644 xen/arch/x86/oprofile/op_x86_model.h
->>>    delete mode 100644 xen/arch/x86/oprofile/xenoprof.c
->>>    delete mode 100644 xen/common/compat/xenoprof.c
->>>    delete mode 100644 xen/common/xenoprof.c
->>>    delete mode 100644 xen/include/xen/xenoprof.h
->>>
->>> diff --git a/CHANGELOG.md b/CHANGELOG.md
->>> index 3aaf5986231c..1663f6878ef2 100644
->>> --- a/CHANGELOG.md
->>> +++ b/CHANGELOG.md
->>> @@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>>       - The cpuid_mask_* command line options for legacy AMD CPUs.  These were
->>>         deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
->>>         2011 onwards.
->>> +   - Xenoprofile support.  Oprofile themselves removed support for Xen in 2014
->>> +     prior to the version 1.0 release, and there has been no development since
->>> +     before then in Xen.
->> LGTM:
->> Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> # CHANGELOG.md
+On 06.01.2026 10:36, Jan Beulich wrote:
+> On 22.12.2025 17:53, Jan Beulich wrote:
+>> ... on x86, to make sure its bit-rotting can be limited at least a little.
 >>
->> Nit: It is necessary to drop the extra space before "  Oprofile themselves...".
-> Why would that be? See the other bullet point in context, which also uses a
-> two blanks after the inner full stop. This is deliberate.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/tools/fuzz/Makefile
+>> +++ b/tools/fuzz/Makefile
+>> @@ -4,6 +4,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+>>  SUBDIRS-y :=
+>>  SUBDIRS-y += libelf
+>>  SUBDIRS-y += x86_instruction_emulator
+>> +SUBDIRS-$(CONFIG_X86_64) += cpu-policy
+>>  
+>>  .PHONY: all clean distclean install uninstall
+>>  all clean distclean install uninstall: %: subdirs-%
+>>
+> 
+> As it turns out this causes build failures on Ubuntu (and only there, and only
+> with gcc, which I don't understand):
+> 
+> afl-policy-fuzzer.c: In function 'main':
+> afl-policy-fuzzer.c:153:9: error: ignoring return value of 'fread', declared with attribute warn_unused_result [-Werror=unused-result]
+>          fread(cp, sizeof(*cp), 1, fp);
+>          ^
+> cc1: all warnings being treated as errors
+> 
+> Given how the code uses calloc() up front I don't really see why evaluating
+> the return value would actually be meaningful here, so I'm inclined to add a
+> cast to void (provided that would make a difference, which I have yet to
+> check). Opinions?
 
-I just missed that a similar case was mentioned above. If this is deliberate,
-then I’m fine with it. It’s just not obvious (at least, for me) where it’s
-acceptable and where it isn’t to have extra spaces.
+Simply casting doesn't work. Hence what I'm intending to do is
 
-~ Oleksii
+--- a/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
++++ b/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
+@@ -133,6 +133,7 @@ int main(int argc, char **argv)
+ #endif
+     {
+         struct cpu_policy *cp = NULL;
++        size_t size;
+ 
+         if ( fp != stdin )
+         {
+@@ -150,9 +151,9 @@ int main(int argc, char **argv)
+         if ( !cp )
+             goto skip;
+ 
+-        fread(cp, sizeof(*cp), 1, fp);
++        size = fread(cp, sizeof(*cp), 1, fp);
+ 
+-        if ( !feof(fp) )
++        if ( !size || !feof(fp) )
+             goto skip;
+ 
+         check_policy(cp);
 
+along with amending the description:
+
+"Since on Ubuntu fread()'s return value needs evaluating, adjust the code
+ there to also skip the test when there's no data at all."
+
+May I keep your ack with that adjustment?
+
+Jan
 
