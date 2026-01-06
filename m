@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C326CF8F4C
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 16:05:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196264.1514135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A70ECF9184
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 16:33:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196281.1514144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd8cs-0006oD-Fl; Tue, 06 Jan 2026 15:05:38 +0000
+	id 1vd93b-0002Ps-HE; Tue, 06 Jan 2026 15:33:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196264.1514135; Tue, 06 Jan 2026 15:05:38 +0000
+Received: by outflank-mailman (output) from mailman id 1196281.1514144; Tue, 06 Jan 2026 15:33:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd8cs-0006l6-Cf; Tue, 06 Jan 2026 15:05:38 +0000
-Received: by outflank-mailman (input) for mailman id 1196264;
- Tue, 06 Jan 2026 15:05:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A8PS=7L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vd8cq-0006l0-4d
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 15:05:36 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26f0a724-eb11-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 16:05:35 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-b79f8f7ea43so218921866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 07:05:35 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a2338cbsm245955266b.14.2026.01.06.07.05.33
+	id 1vd93b-0002OQ-ER; Tue, 06 Jan 2026 15:33:15 +0000
+Received: by outflank-mailman (input) for mailman id 1196281;
+ Tue, 06 Jan 2026 15:33:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vd93a-0002OK-6C
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 15:33:14 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 022fde68-eb15-11f0-9ccf-f158ae23cfc8;
+ Tue, 06 Jan 2026 16:33:11 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-47d1d8a49f5so7465735e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 07:33:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd0dabcbsm4690205f8f.7.2026.01.06.07.33.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 07:05:33 -0800 (PST)
+ Tue, 06 Jan 2026 07:33:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26f0a724-eb11-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 022fde68-eb15-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767711934; x=1768316734; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GNJ13SsOIzHp4IQ6BEQpZefQKZX3cYAvERa/uKn8OKo=;
-        b=bGgzn+JrFR74n89yK9jo0QCsnWPXS8T5YjGutBq+QRr9AWS65qSqfCpGNtN4q4m/WP
-         AGcKiGcBB5x93P28OthqpNA43+/qIi6aZrH1SbzZItwgHVefxwbET5KvYvAs+8Uy5X36
-         I+HckOQkB4WQZOL/igsqc9w1CBBc5Dq+/u2gwK8ORUYqLERDo7EAEWAkoPCRRMO/otyG
-         81guLGx3rgDTt57pNNzziHvCh5DPHUz+/gnWpcPh8tsWBVVPjBFPB5dk0Zgqj6RyE3Zs
-         p7vYJTe1t1d3QomF7OaJyUPgri7L3b9qbDgq/wkgfwXT4Y1mvyhwEIotRmLQseo9ygtq
-         ZsZw==
+        d=suse.com; s=google; t=1767713591; x=1768318391; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IlMszOJoLmP4nNIOLEdUOg2zQbNBuJx9LdtT9pdYzgY=;
+        b=WnT3ULP+FQXvCVaKqbN2/tsp8etWKt3KbREqM615iy+IyQ5i0moB31qtQ/+C2j7sP/
+         TA8oSXhU7mzNc5TfqV9BZRRVSJgD6TGkjewMA3Vk+8sfOlYdXRshjJ0WV4W3/VA4T9cQ
+         /sdy2xjZ26qAsTSvdBLBN3zjVeIM0vcPGzM7+wp+RJ26Rgxw8aTfd/jxU77VUUKVI+UE
+         UZ67cPXrma3qbQB3isQfpqowMJ47o1TgbZp7vlXQc/FYNBIzTDYxqfrZ6LLc4S4SRfXu
+         Wo549xDXShoYxB3COMK9nZ+9/pmYbyO7XZc90ll1zwxhXfwSkdQjsSSFLrZSdN78JPKX
+         X+wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767711934; x=1768316734;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GNJ13SsOIzHp4IQ6BEQpZefQKZX3cYAvERa/uKn8OKo=;
-        b=aJ/S7duWVyWmhbUIV/wzOBIJ+enm6qST/EJeUrf1TUfy1Wy3RwRHSQOsKw3iOjsirt
-         DSuk4qX0yOIznOFgXEncOvVpPu5IdvpnJs+cR932nyhEBRbUrjDipavU/dJ6pIqud/6V
-         kbaVbkf7NjlGs6SyP3lNneW64qGvokVIuVVemdARP5OjSGGYASVgNihci5pfAUnviKvM
-         LunJzUmF7MDF8LSTTA+GW8jrpQqStDczokM5BiXc3Zefc1+oL4/e2Lnrh6mX8LKpOShE
-         dm6mm6dpY9grurE4GU1aCQsAt2SWvILPeYD05Z5XKLVx+orXfCYsuL4lmpdvYsaNMUvr
-         O+/g==
-X-Forwarded-Encrypted: i=1; AJvYcCXxyLpZdLISScQqC1GVo4zX+YooK6/D3AAuBKXU3Zu0uECKY9rIBBGpNvOkJzvm8KHxqTKXnKLnjIo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxqydur47YXC75Y5exHfwckCWSw0qJ3flXAh8ZNmctzhh0uoPnr
-	x52Hnr7AkgkSxtRaO5CCVXCYzEIzmLSazmqknLCoW5Hc14h+fDeRMbPa
-X-Gm-Gg: AY/fxX7rbTl+eA6hFH0XZiXHAboD73fItZ37akv5ES9vlpe/9nQUde1G/AEpbiHadlp
-	ZcOokwfwNg0V0CJlppCs5Kq1gh6axRPnQaACxLjf7fywJlylgKJrGW8yfKgk97+W+j6MBNDM8ze
-	FruaUJU8XOwCf2LXI4rS3s/vQRmD5cZBkEH5KWyjp0nRJQT8pnasJ33w1jBIxuBHec31DqmDMZf
-	P20ZBf7Flupy1ai41ddp7VLD9B6NztNx9M/ct0J1NppZVKW4aW88e0emFtTs087pEW20+ENH1tN
-	/f7CzsSK+q1NC0rNwtSGWiBNqLPAmzrkFo+xxeNUcV3lNAfn/7Qq3Pjf1Jm+Zg9lzFEQz/UVeZp
-	MvM0U0Yrtqmh36kIYnN9Zr10UCVDZM0Nlypt2DMgK0xueEj/dT+/2LjojyTfQtxtRyP6emn9PQV
-	KlNcbsM9V2VuuiuYuEs5h4BqVRYzDptWI+eDeP/FNXs+U6iXML7E7MhQM+ISVk+Bs=
-X-Google-Smtp-Source: AGHT+IGYK+WEoPRAHxOHnIIb0CLeLLcg3Iy48zqa02RkIG3yyrBgQUm8cFy9189dwJHSQag4jpBTAg==
-X-Received: by 2002:a17:907:989:b0:b83:972a:cb85 with SMTP id a640c23a62f3a-b8426a684e8mr370184466b.21.1767711934020;
-        Tue, 06 Jan 2026 07:05:34 -0800 (PST)
-Message-ID: <839c06a2-dbd2-44c5-abe6-905a1f3ffefd@gmail.com>
-Date: Tue, 6 Jan 2026 16:05:32 +0100
+        d=1e100.net; s=20230601; t=1767713591; x=1768318391;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IlMszOJoLmP4nNIOLEdUOg2zQbNBuJx9LdtT9pdYzgY=;
+        b=dYEwjKpJcgyqIr/+GkVNDTKxNxNGrGKdJ1XxpgUft5+P3xRq/UTc1+7Woq2aEOMMmq
+         tq9G1+74/ql/8uObH0zHYWy9dxMHJeKnq0MWgGHne8VkCQnOQq4yZ2Gf+bbqLkoHQJIf
+         rNCdTwJSCd25VfX4Pu+chQlT0FGciNFDJBzGGgleu/NIEFN6Q2IAI8JPlh4ZjOgpLeOp
+         OqEDmeW506vXmc7gv1tZoJby/8UDcLVZgXB0i2TPLaJ950Q7voif8NrcYWr9LJIf+GK0
+         BT/lkxXzvsQ5iZsyf+0AN4od4Zj2lzKhk3RHK10LDiG/TkRRlS5DX/oQTFMFKr1fdyUD
+         rUlA==
+X-Forwarded-Encrypted: i=1; AJvYcCWAN7Hxkxy2D/78Nn3hxqJqoD37+DENNeLovwkUr3f8W70zz9rr2rAKucOT6EZMwXmF2ntxTD+VMsk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywamp0D5+qhf4pajiZD8npY68RpE8VMvNW1js6aMCj3hN4celaN
+	SH951Y11DNY0xhtROZ7zPJdJiJEFIeHq4xkIoN1Vyx/1efL4XxPjtNsg8dwoNz5jXw==
+X-Gm-Gg: AY/fxX512/C7V2qTfPPgCtPe4E4aNDGsRqRcd1usfP8OERcjpcbUW7aTrkOclHezQ/j
+	Zy5Ov+9ua6j8Tr4+6fWtYDRV6g0WjzrUP0on0cfuZcaeGJnkAgDt/kwny5bGw4xuETRsq2/KhtU
+	hmgMeuD+BVrFrfV4zr1hatPSn+NlGy0b59qLgNWSu5nrWmRkRIIrh679Cakr5kkssk02PjNSWYp
+	U4wtSGLgeZMOWamBaSMwBV8b1Jf32tbmx7xePwzxgYyThzvbFDl2ZqRnpA8tmAThfRAPuPAFInP
+	zLD0Eif1YKlnjYSNEj8jsTb3Ab++JlXyo4ISZfBOQdRA4LD+IO5wj6GmUED1ONlgzgejTmSw4rq
+	hcUyw91IyMHaf9wEmRTQTvIlKjRDiace8VAq3JVMSlF4U+iQnnurZgxk3630cpE2XwCf8BZfQ7m
+	Y8HjVqxbulOLlSON3ijEfAnSpNodZhNYBQqOA2disJxmBOMg8OQRGCdxire6qNYX0N31FwBv6JR
+	WI=
+X-Google-Smtp-Source: AGHT+IGw1f1o35O60ZXy7DP1J5u9az+naxK7h0/Jma2lXGXGVpy3PfIhCDJlfvDZnKIklqHZAFAHLg==
+X-Received: by 2002:a05:600c:8b6c:b0:45d:d97c:236c with SMTP id 5b1f17b1804b1-47d7f0929b5mr38685485e9.21.1767713590680;
+        Tue, 06 Jan 2026 07:33:10 -0800 (PST)
+Message-ID: <e8a1fc9c-6715-4ac7-acee-754ec29283fe@suse.com>
+Date: Tue, 6 Jan 2026 16:33:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 01/15] xen/riscv: introduce struct arch_vcpu
-To: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -102,155 +103,125 @@ References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
  <41b7b388-6c10-4cbe-a4af-a25baba64e2a@suse.com>
  <89629a0d-de6e-46e2-8517-a4b2fdd52183@gmail.com>
  <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
+ <839c06a2-dbd2-44c5-abe6-905a1f3ffefd@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <839c06a2-dbd2-44c5-abe6-905a1f3ffefd@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 1/6/26 3:26 PM, Jan Beulich wrote:
-> On 06.01.2026 15:19, Oleksii Kurochko wrote:
->> On 1/5/26 5:58 PM, Jan Beulich wrote:
->>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>> Introduce structure with VCPU's registers which describes its state.
+On 06.01.2026 16:05, Oleksii Kurochko wrote:
+> On 1/6/26 3:26 PM, Jan Beulich wrote:
+>> On 06.01.2026 15:19, Oleksii Kurochko wrote:
+>>> On 1/5/26 5:58 PM, Jan Beulich wrote:
+>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>>>>> Introduce structure with VCPU's registers which describes its state.
+>>>>>
+>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>> Since none of this is being used for the time being, I think the description
+>>>> wants to be a little less terse. Coming from the x86 (rather then the Arm)
+>>>> side, I find the arrangements irritating. And even when comparing to Arm, ...
 >>>>
->>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> Since none of this is being used for the time being, I think the description
->>> wants to be a little less terse. Coming from the x86 (rather then the Arm)
->>> side, I find the arrangements irritating. And even when comparing to Arm, ...
+>>>>> --- a/xen/arch/riscv/include/asm/domain.h
+>>>>> +++ b/xen/arch/riscv/include/asm/domain.h
+>>>>> @@ -22,9 +22,63 @@ struct hvm_domain
+>>>>>    struct arch_vcpu_io {
+>>>>>    };
+>>>>>    
+>>>>> -struct arch_vcpu {
+>>>>> +struct arch_vcpu
+>>>>> +{
+>>>>>        struct vcpu_vmid vmid;
+>>>>> -};
+>>>>> +
+>>>>> +    /* Xen's state: Callee-saved registers and tp, gp, ra */
+>>>> ... I don't think the following structure describes "Xen's state". On Arm
+>>>> it's guest controlled register values which are being saved afaict. I
+>>>> would then expect the same to become the case for RISC-V.
+>>> I think this is not fully correct, because guest-controlled registers on
+>>> Arm are allocated on the stack [1][2].
+>> I'll admit that I should have said "possibly guest-controlled". Callee-
+>> saved registers may or may not be used in functions, and if one isn't
+>> used throughout the call-stack reaching __context_switch(), it would
+>> still hold whatever the guest had put there.
+> 
+> But the guest doesn't put there nothing, only Xen does that and it is a reason
+> why I am trying to call it Xen state. Guest works only with what is stored in
+> struct cpu_info->guest_cpu_user_regs.* ...
+> 
+>>> Regarding|xen_saved_context| (or|saved_context| on Arm, which I used as a base),
+>>> I think|xen_saved_context| is a slightly better name. Looking at how the
+>>> |saved_context| structure is used on Arm [3], it can be concluded that
+>>> |__context_switch()| switches only Xen’s internal context. What actually happens is
+>>> that|__context_switch()| is called while running on the previous vCPU’s stack
+>>> and returns on the next vCPU’s stack. Therefore, it is necessary to have
+>>> the correct register values stored in the|saved_context| structure in order
+>>> to continue Xen’s execution when it later returns to the previous stack.
+>> For this and ...
+>>
+>>> Probably I need to introduce|__context_switch()| in this patch series for RISC-V
+>>> now; I hope this will clarify things better. At the moment, it looks like [4].
 >>>
->>>> --- a/xen/arch/riscv/include/asm/domain.h
->>>> +++ b/xen/arch/riscv/include/asm/domain.h
->>>> @@ -22,9 +22,63 @@ struct hvm_domain
->>>>    struct arch_vcpu_io {
->>>>    };
->>>>    
->>>> -struct arch_vcpu {
->>>> +struct arch_vcpu
->>>> +{
->>>>        struct vcpu_vmid vmid;
->>>> -};
->>>> +
->>>> +    /* Xen's state: Callee-saved registers and tp, gp, ra */
->>> ... I don't think the following structure describes "Xen's state". On Arm
->>> it's guest controlled register values which are being saved afaict. I
->>> would then expect the same to become the case for RISC-V.
->> I think this is not fully correct, because guest-controlled registers on
->> Arm are allocated on the stack [1][2].
-> I'll admit that I should have said "possibly guest-controlled". Callee-
-> saved registers may or may not be used in functions, and if one isn't
-> used throughout the call-stack reaching __context_switch(), it would
-> still hold whatever the guest had put there.
+>>> [1] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/include/asm/arm64/processor.h#L14
+>>> [2] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/domain.c#L547
+>>>
+>>> [3] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/arm64/entry.S#L650
+>>>
+>>> [4] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/entry.S?ref_type=heads#L153
+>>>
+>>>>> +    struct
+>>>>> +    {
+>>>>> +        register_t s0;
+>>>>> +        register_t s1;
+>>>>> +        register_t s2;
+>>>>> +        register_t s3;
+>>>>> +        register_t s4;
+>>>>> +        register_t s5;
+>>>>> +        register_t s6;
+>>>>> +        register_t s7;
+>>>>> +        register_t s8;
+>>>>> +        register_t s9;
+>>>>> +        register_t s10;
+>>>>> +        register_t s11;
+>>>>> +
+>>>>> +        register_t sp;
+>>>>> +        register_t gp;
+>>>>> +
+>>>>> +        /* ra is used to jump to guest when creating new vcpu */
+>>>>> +        register_t ra;
+>>>>> +    } xen_saved_context;
+>>>> The xen_ prefix here also doesn't exist in Arm code.
+>>> I think it should be added for Arm too. I can send a patch.
+>> ... this, to reword my comment: What value does the xen_ prefix add?
+> 
+> ... because guest doesn't access saved_context and as I mentioned above
+> guest has "access" only to struct cpu_info->guest_cpu_user_regs.*.
 
-But the guest doesn't put there nothing, only Xen does that and it is a reason
-why I am trying to call it Xen state. Guest works only with what is stored in
-struct cpu_info->guest_cpu_user_regs.* ...
+The guest has no access to anything in the hypervisor. That said, seeing
+that Andrew had asked for this, so be it then (albeit I remain unconvinced).
 
-
->
->> Regarding|xen_saved_context| (or|saved_context| on Arm, which I used as a base),
->> I think|xen_saved_context| is a slightly better name. Looking at how the
->> |saved_context| structure is used on Arm [3], it can be concluded that
->> |__context_switch()| switches only Xen’s internal context. What actually happens is
->> that|__context_switch()| is called while running on the previous vCPU’s stack
->> and returns on the next vCPU’s stack. Therefore, it is necessary to have
->> the correct register values stored in the|saved_context| structure in order
->> to continue Xen’s execution when it later returns to the previous stack.
-> For this and ...
->
->> Probably I need to introduce|__context_switch()| in this patch series for RISC-V
->> now; I hope this will clarify things better. At the moment, it looks like [4].
->>
->> [1] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/include/asm/arm64/processor.h#L14
->> [2] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/domain.c#L547
->>
->> [3] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/arm64/entry.S#L650
->>
->> [4] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/entry.S?ref_type=heads#L153
->>
->>>> +    struct
->>>> +    {
->>>> +        register_t s0;
->>>> +        register_t s1;
->>>> +        register_t s2;
->>>> +        register_t s3;
->>>> +        register_t s4;
->>>> +        register_t s5;
->>>> +        register_t s6;
->>>> +        register_t s7;
->>>> +        register_t s8;
->>>> +        register_t s9;
->>>> +        register_t s10;
->>>> +        register_t s11;
->>>> +
->>>> +        register_t sp;
->>>> +        register_t gp;
->>>> +
->>>> +        /* ra is used to jump to guest when creating new vcpu */
->>>> +        register_t ra;
->>>> +    } xen_saved_context;
->>> The xen_ prefix here also doesn't exist in Arm code.
->> I think it should be added for Arm too. I can send a patch.
-> ... this, to reword my comment: What value does the xen_ prefix add?
-
-... because guest doesn't access saved_context and as I mentioned above
-guest has "access" only to struct cpu_info->guest_cpu_user_regs.*.
-
->
->>> Nor is there a
->>> similar, partly potentially misleading comment on "pc" there
->>> comparable to the one that you added for "ra". ("Potentially
->>> misleading" because what is being described is, aiui, not the only
->>> and not even the main purpose of the field.)
->> Yes, the purpose of|ra| here is not just to jump to the new vCPU code
->> (|continue_new_vcpu()|). It is used that way only the first time;
->> afterwards,|ra| will simply point to the next instruction after the
->> call to|__context_switch()| in|context_switch()| [5].
->>
->> [5] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/domain.c?ref_type=heads#L463
->>
->>>> +    /* CSRs */
->>>> +    register_t hstatus;
->>>> +    register_t hedeleg;
->>>> +    register_t hideleg;
->>>> +    register_t hvip;
->>>> +    register_t hip;
->>>> +    register_t hie;
->>>> +    register_t hgeie;
->>>> +    register_t henvcfg;
->>>> +    register_t hcounteren;
->>>> +    register_t htimedelta;
->>>> +    register_t htval;
->>>> +    register_t htinst;
->>>> +    register_t hstateen0;
->>>> +#ifdef CONFIG_RISCV_32
->>>> +    register_t henvcfgh;
->>>> +    register_t htimedeltah;
->>>> +#endif
->>>> +
->>>> +    /* VCSRs */
->>>> +    register_t vsstatus;
->>>> +    register_t vsip;
->>>> +    register_t vsie;
->>>> +    register_t vstvec;
->>>> +    register_t vsscratch;
->>>> +    register_t vscause;
->>>> +    register_t vstval;
->>>> +    register_t vsatp;
->>>> +    register_t vsepc;
->>>> +}  __cacheline_aligned;
->>> Why this attribute?
->> As arch_vcpu structure is accessed pretty often I thought it would
->> be nice to have it cache-aligned so some accesses would be faster
->> and something like false sharing won't happen.
-> I think you would want to prove that this actually makes a difference.
-> I notice Arm has such an attribute (and maybe indeed you merely copied
-> it), but x86 doesn't.
-
-I haven't measured, but I saw that Arm has and it was my explanation to
-myself to put it for RISC-V too.
-
-~ Oleksii
-
+Jan
 
