@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34209CF8C5F
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 15:27:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196240.1514113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE856CF8EFA
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 16:01:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196250.1514124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd81W-0000aw-Ho; Tue, 06 Jan 2026 14:27:02 +0000
+	id 1vd8Xb-0006AL-Pk; Tue, 06 Jan 2026 15:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196240.1514113; Tue, 06 Jan 2026 14:27:02 +0000
+Received: by outflank-mailman (output) from mailman id 1196250.1514124; Tue, 06 Jan 2026 15:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd81W-0000YU-FH; Tue, 06 Jan 2026 14:27:02 +0000
-Received: by outflank-mailman (input) for mailman id 1196240;
- Tue, 06 Jan 2026 14:27:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd81V-0000YO-8A
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 14:27:01 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c30e81a5-eb0b-11f0-b15e-2bf370ae4941;
- Tue, 06 Jan 2026 15:26:59 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso11652865e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 06:26:59 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d7fb4c451sm20761295e9.5.2026.01.06.06.26.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 06:26:58 -0800 (PST)
+	id 1vd8Xb-00068R-MN; Tue, 06 Jan 2026 15:00:11 +0000
+Received: by outflank-mailman (input) for mailman id 1196250;
+ Tue, 06 Jan 2026 15:00:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=heAF=7L=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vd8Xa-00068L-Ey
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 15:00:10 +0000
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170110009.outbound.protection.outlook.com
+ [2a01:111:f403:c111::9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6303c89f-eb10-11f0-9ccf-f158ae23cfc8;
+ Tue, 06 Jan 2026 16:00:07 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA3PR03MB7346.namprd03.prod.outlook.com (2603:10b6:806:382::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.14; Tue, 6 Jan
+ 2026 15:00:03 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9478.005; Tue, 6 Jan 2026
+ 15:00:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,229 +47,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c30e81a5-eb0b-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767709619; x=1768314419; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XBhMQhGjjHpc1gSwBSjL22wDqF6Zt+gMzS49c7NEUgI=;
-        b=fOomjP4xsfgWtSad+/KbgBdOKnkMlUm1co3JLqFtqrHEqH7By1AKvwdFDbo9vWSUTJ
-         1RQ9nT/Ui+CGGCZxW/7xjrJLxrX0uPMpI6U/9WIzn/TtygL8dMqu3V5c3o+mcuiJQLHs
-         Y4SdzLsbqREBjwe8SDkm2Whc6U9IdjFzc7rcaRJ21GIPrf78SCKlKqB7j1b21hQxLqHl
-         UsjUTbePYJDynjOR9ZiHhUovazHpNIhKUbjE3zFFSK7G/e2XqsDMZ7Xespru6g99G99N
-         vWeTKG/ascm8jm3wGiWVtf1QsJ5wfKINlMyTxsdUbtdWPfXq1oSEMDncT927rzI0Wz1p
-         SxWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767709619; x=1768314419;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XBhMQhGjjHpc1gSwBSjL22wDqF6Zt+gMzS49c7NEUgI=;
-        b=rqfFlbd9GoaPXpqX1+dJf+jaYkPKlPNW4sRfF1cEMsFYi4QVToj/ZUIJFMBBHMsU8l
-         6VAf47PYUpA5C6fjFr9BEq/2+Q3dpQuZBLWIngFjq4QIkEv5F8nI9YMtlBv+VLrq3X6e
-         Q1DDuOr67HuipQTRdJkb3yTfWSXixeCcpNpk+VR/rvpQ87TqOHAI6Z/B42fsN/Z9A+Eg
-         1bg6PZqa+tfAG5tY5fmK8bHq0repWE84uVEHyKSwaHHvKe/nOMcXPR5agpcS9AVS+c9E
-         IWAoK0cftqLAXlcf4UAPWrfmV3k1+TXB8RkL+9UH8rlXZ1pLh3fVUXE/XU8KHW700+m8
-         AS3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWMIYi+IXzpWDtAcoW0DNLRS9YGhBdtEwvBYMwsOAJ6ppf5HnMB20aasB9g8ZAnlkG1yrhVM01ijiY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yze98B5M8MY4S0HOjZU8Roy4nFQCKER8+p1re399iv4ADMXfp+n
-	/SwnDjWUy2Cb+nF/cmwXVQl1LfQB7nGQ08pkUQN103O6+kk3d+57EmTjokdpJhTRrA==
-X-Gm-Gg: AY/fxX524wfgsKNpqlN2j+WqQWqPIURLEfQ0cIuxOG1LJYzZysL+ZjQZma+OiEb7+lY
-	2C67UC5YXpJh95Gyopdi0st6TuXtrwwGYABO3ahfAWqH4fxfX4tL0FnKRCPRqNHqm147oPEUC9y
-	PzC9pykL/yf0WAKA+B7khVG4WV5wL8WpSViKBsArZ2zomb/NXwGviqB5KSkrvQa+RZ2sQAct0Pf
-	EjhX1l4MjByMyBO0MOaA8o+znGBYUK5uD0Tm8jcZ2313cnrzl6wPN/MXTZTORNwqe3dCTHuVzOv
-	v60x/fOtus8JuVKoMIOLzg8tEzZvd8MX4iXtuWQeyXvt4AKYcfceRX0wAKEw7W5l3woWJjHk8I6
-	Xj+1tZNOw1S70xHMWkf3url2wm8HxvAjhaSZm044GetQmygBtAWhRykeYtqSO3h92fLc3tSbZ4H
-	9M4/oK7nFihY1x34I0uLtPYc+nZgDIaOkRnSWJUYYbSoJed6FeR5imhk/7tYxsRgQIMEGkILpTq
-	r8=
-X-Google-Smtp-Source: AGHT+IFeruKI6obClXDY0ylLJ/PyJv1B+rtSUo6HuhDyw9oohvpIgH5yNzEwilzDTvoaG2aHONUrTg==
-X-Received: by 2002:a05:600c:8485:b0:479:1ac2:f9b8 with SMTP id 5b1f17b1804b1-47d7f0975e8mr38719265e9.21.1767709619292;
-        Tue, 06 Jan 2026 06:26:59 -0800 (PST)
-Message-ID: <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
-Date: Tue, 6 Jan 2026 15:26:57 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 6303c89f-eb10-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LlCkHsDCZ1gA4YlawX/vvNFoAsFdU98LfmFd2oMX1uLZR1s1hu/DouR4xan8E863aWR0eWZgUxy7cUoG9jSeTIThxsMX4NblOEKc+maWD7TBi2Y7APPAbQaRaXRmPfTbACSmd0EPILvlKS3INMaej35oy04oUIbHZplHHYGbqF8NmZ7QJaUmxVOtRB66Zq4CdKueZ/OM0arvgV766hBXCGYAmPP2+hFZt14j6JV6vHKvBqX1pTzcoPobagtyjYqcc0v3zSnm1ZkQj8Athe4Ijmgi+aLgLhcO9nlV0rJ17ikmKMH9zjZy+DGgX0/u6rlDGfv4RsWwnYEGXWM8SF/UFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FZfdYqZJGarK96C9DX+uTvdfguavdEJn0EYcuxDnZBo=;
+ b=OvbEZIATjJOeXB1Eio5hAWiECjO7VZhawUO9eSi0B3rmFsScwdWX2Zh82fr1T8oaqENzrcLxghT2uuYxWUcBCaj6APizdADz2T/WCbutg9arwjmSHq3e8ZgNp6wioGWwkx2O3WAWggJksJVVXY6Dd+tuhNxQokoDlBFmwgZrlaGuBOqqhj8Pfi+uoY3z4CdTW43KxYP7atsTgEzrbNvSqkGiBCmVP3YDMDyPqW3C2xMs2FiQIg6XJZ88vfC6lxTRRapsW9qevG9lln5vR+ddAL72plt5j9ae/doVgO/Tw6GjmrUP2Na6IcV6wADL2u5+u+0lnCxNdPTPDtpBmD9zjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FZfdYqZJGarK96C9DX+uTvdfguavdEJn0EYcuxDnZBo=;
+ b=wQgOwNl/calrlcjfkHr+uC497mC3zzRfpF8Nkrmn11pFcIN4DrwGxgWDQ+XCYIXDYNfWdg2gfmftDRQq3a6Kdo8HSRys/qV8hQFzl7FHCMybBfbh+CUG1MrlNJfZ9KP5+yYATtIze2IX5fcPWxov/Fm+9b5tJOFJKJX0xjQLkFE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <0d3aed3a-a32a-4234-b8db-ab1181a86afc@citrix.com>
+Date: Tue, 6 Jan 2026 14:59:59 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/15] xen/riscv: introduce struct arch_vcpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+ <connojdavis@gmail.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 01/15] xen/riscv: introduce struct arch_vcpu
+To: Jan Beulich <jbeulich@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
  <3b531dff3755da010664111cf7d936ccba7c1f5d.1766595589.git.oleksii.kurochko@gmail.com>
  <41b7b388-6c10-4cbe-a4af-a25baba64e2a@suse.com>
  <89629a0d-de6e-46e2-8517-a4b2fdd52183@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <89629a0d-de6e-46e2-8517-a4b2fdd52183@gmail.com>
+ <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <2253f28f-07af-46db-9116-e9b5427953a9@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0019.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::21) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA3PR03MB7346:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72b40d46-a470-47c0-1049-08de4d344550
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?akZvOVBFOU8vK3N3aitodmJFSFNzT3Y4TFNJSzVCVDdiYmxLSEV1ZWx1dXQr?=
+ =?utf-8?B?dytoRjBZcGMwU3FjY3lxakhtTDB0UVZjOEZQMWhGS1lnSy9KaW5iZVFpdEtU?=
+ =?utf-8?B?elRoMlR4MmlHOHl6WGkwUmxaVnJoUFVLMFU4d2V4V2Qwc1J5RmdGZk9nWDhH?=
+ =?utf-8?B?aUdrajBIOEkwNnFXVE5vSlBrNGNqeFQxZm91Vmt6OXJQQ0dlNEtoUHl1RjJS?=
+ =?utf-8?B?SFhpQ2J2Vk1IbWxrRGpXbmZIV2YyM21vNSttY1hMekczeEIvTi9GOHRlS0ky?=
+ =?utf-8?B?ZVZUVUFpOVFGNk9nUUNFQXRkMHZ2TmZSN0JvckpEUVhkMC83eW56MGVOZU0x?=
+ =?utf-8?B?Uy95MGZhMTBaSjh6cFVDRW1tRU9wOGdKMHAweE9oNENUSVpoMWdQdURPY3N4?=
+ =?utf-8?B?cnRBSjduU0FIdTl3NndmbzhuWm1pUVo0cUFsdXkrNCsvRUFmY1Zoc3UwK1F4?=
+ =?utf-8?B?T21wK0VjL3JLS3pzNGVwZGRSS0FFbm5QbUtoY3FURzJUOC95eHp0eVVnd2FN?=
+ =?utf-8?B?Ym12R1YwR3JBeXcwd1REelRvUGdQa3ZweUhVM09yN1hmZWZzczZSWmthSHNS?=
+ =?utf-8?B?NTZkMHRpUW1IRTBVKzN4N2NrNTRMN2dtYk1yNERwNERSU3oyVHFRUmRuZWJT?=
+ =?utf-8?B?YTNMd2ZyZ0d6djhpNWhUQU9aMUxucGV3Qk1qTEZLZCsyTmJPZ0RGREE3eStn?=
+ =?utf-8?B?cEh4bk1COXpoYkV6enMwd0dxNmNTME41dmJlUkR6ZC9JbGNPYWQrSmZNNk1M?=
+ =?utf-8?B?U2R0OVhwYU4xdlpwMTk4K3Z4NnJxZXovaWp2MTZmcTVCbjlEQ2s2bTVQUDF3?=
+ =?utf-8?B?K1dFMXNXTC9KWUhaUklwQUtockUraFUvaThvMFpzQmJ4eVBSekhrVDhUZ2dt?=
+ =?utf-8?B?dmQzOXh1TURtNVBadXBYTG5vQUIzUno2T2doZDR2aG9KbnZUQjhwZ1N2OUNK?=
+ =?utf-8?B?clpvMXhJc2ZNOW1FbEFSUDh0cVpEZ3ZwRUE4bWRJNDJBZG9xOU1BaGVmbG5N?=
+ =?utf-8?B?S1hKc0I0NFV4cWQ3dzdyTFo3M3VzQW9HSUFubjdhOS9ZZWZmWWRmNGlQekVs?=
+ =?utf-8?B?UVAvMGM3WmRsUlVUbXNicWNxOGxWSWl5NElMRllmME5UcCsvcjJTRWN5QjdS?=
+ =?utf-8?B?QWE1NW1PSkVodjAxSG5pVXBYUlJQTDFkK0tkWm5DUFJWYS9JczFuR0tjSnl1?=
+ =?utf-8?B?MC9sbmZTb1dkTTlUZy85eG5WVjM3bWxFOVpBUFVaS0x1cUFGRFZBT3k1cGhB?=
+ =?utf-8?B?TzliQWRPMnpuMDRBUEFWQ2psakNnZDZ1MksrNG5McmxGYXkwVlFpUm5OZ1NQ?=
+ =?utf-8?B?cUFFaXowdjcvYUNtSXpYME4yR0dCR001VU53a1o4SlpnVTFOUHdhanhuK1dy?=
+ =?utf-8?B?RWtzazgyakpNdE11QjdQRVZkM0FWTU55ZE4yZjMrTDdmR2s2Q2kxLzY4MXNW?=
+ =?utf-8?B?RUptUmNzL2pycmllWHRyYkJwUXVPSXhSNEE3SVlaaWxXMmFZbVNZZkxlbW1P?=
+ =?utf-8?B?b3RlUmdFTG9FejdON1M2UzhQZmgyWktvNGtJdjg3VEtzQ1czMjhKa1dUNm9x?=
+ =?utf-8?B?UEFadWcxeUg1M1J5cmZBcFYyN2FCdzNqZDZRQVd5ZUJUZEZ1L0oyOGNqNHEz?=
+ =?utf-8?B?Vk5GS2xRNVp5YW0rSW93WmIxRENjdnZEQktpS2hrUmdpL1cxUXdKYlJrak94?=
+ =?utf-8?B?R1EvWXZ1VTJ3WndYaVJ2QTUweWljY1ZITEFYZThUMTBZUWJGN0JTNE5mNThz?=
+ =?utf-8?B?R0pySjBoekU4SmNqclJpZkRDdVVzRGZ3RDYwZU04bXZrdHdsbUhQdUdDUE9a?=
+ =?utf-8?B?Qm8vV251bHNUT2oxSC9sNVRTUmQxd3ZqTm5NR0tJMFhYQXl1amRCM2RJWkVr?=
+ =?utf-8?B?RWZ1Y244RVo4a3ZEQ0M2UWhkb3J5eHBwNm1WR1JyYm1vK01JZHA3a2RJd2lH?=
+ =?utf-8?Q?X4CbKyqTWdSf1SB68LDjtDC87MJfiktm?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V1Z6MWNQSWhUZFdIT0VlTlNMTzVjUVU0OVB6b0ZEWnp3b21rOWI0TWV5cFZE?=
+ =?utf-8?B?RlRNU0hVSEhrYWVucVdWK1NaVXh3T3YvUFc0cEt2VC9RcTVZdzkwRklxU1RV?=
+ =?utf-8?B?Ungva3BuU2NkeFFaeVFDa0pWaWMxenhYbGJBMTkrYklYTHEvdkV3SWtFNGcz?=
+ =?utf-8?B?SVVuMmxyRm1TS2t3bGZpK1V5dWVhRm5DYVgraGc1VGZMQU96clRzSHMyRkZY?=
+ =?utf-8?B?ZDVKYVJWU0lVdGEySCtWZGU5YWp4T1RTZGk0U0dIekR1VVZ4ZnhJMWpISEhH?=
+ =?utf-8?B?Q1VtaWZEdWl0aVBYNm5uM3gyTGhGN1VwaURzTXRVWG82VHQ2WUsxZE52Q3BH?=
+ =?utf-8?B?V2pGVnErQm9jdDd6QVh5WG4vNjY4anFhNDNiRXZpbnhGQUc4VmtCaHlraVE2?=
+ =?utf-8?B?cHhBWm1aRmpQWkMxOXh5bkxJRWFiYno3Ync0TUczSHhPUlFVNUpYbndYS3l4?=
+ =?utf-8?B?bzdsVFZBd2srTEh1emFRSEVyVjlVSFJBSys2MnpWTjA4SHhKcUtsYkxFR05S?=
+ =?utf-8?B?ZTVPUmdNQ1NxcXNiLzVvWnlKc0t5K3hnSXhQZW5Ob3lqbEtYYnZLSGQ2cnhP?=
+ =?utf-8?B?RWV5NVNZemZudFhLMWFpYWFEbFlqMzhPT3Q4ZTEvcFdkNmxxTkpIbVgrRUFS?=
+ =?utf-8?B?NjlwYnJvVjZLUTlkNmRHQWk3NmVCd1c2eE1wa2JMUGJ1VlBtMGpEazlKeGNS?=
+ =?utf-8?B?LzhDVDk4ajdNOTJQMkZzQmxLN3FNNTBVSXpabVNtU0xDazd5TkRrbU1Kd2pQ?=
+ =?utf-8?B?MlM4TG02MHZhY0poNHRKaU1ZeFRENkw3azNQaGY0cTR0MUdsbGdVL3dyODhL?=
+ =?utf-8?B?b0R4cFJHNlFKRTFHbzJ2eERjOXhNakNzdXFrVUhGMVhmblJUYU1KVnBSb2w1?=
+ =?utf-8?B?alY1S3dqYndqd2o4RzJFNHR2R3FQSFF5MVpoQ0dpRmRQU1Zxc2p0d0NiRi9W?=
+ =?utf-8?B?dy85Zy8ySUFtZWk4KzdNQitlM0RtQWJiRG4rajFuTDVyY3h2U2ltcXhEeDd2?=
+ =?utf-8?B?bFR1YmliYVdPbmJzWUNNWTBRUXJHdEdxRmZlOEcyejYwUEQ2SXgzTXBGalRT?=
+ =?utf-8?B?d0pkZThZNG03NU1lenIxV3VVSS9YZW1GVEYwY1RjY3pLdUQxRG5HWmV3WjUv?=
+ =?utf-8?B?ZUExTlVRSHgya2dQZG1NRW85MDJlcnR0UG5EYXozdFhKRGlpc041M3RydVFv?=
+ =?utf-8?B?WFpzTVV4ZmZNSmxBMDdSZmNFMnpocHhVMlVpSk9EY2UzcE9Ia0gvbEg2NXk2?=
+ =?utf-8?B?S2ppdXRSeHUra1lRdG9Sd1d6emNVNnpDa2N6TDRwOXhUSmJFTndrcXplb0lw?=
+ =?utf-8?B?OHkrSnlNazRxRTBpbmZkSTVMVG4rSW1EbENoandHczBzalBpYXV5cVQ1cDZI?=
+ =?utf-8?B?REhoSkpKSGhTZXNoTWw2emFrZm1zelJmTFBsRCtFSFRnS1lFSm9iYVgweDMx?=
+ =?utf-8?B?WXgvRkhjVWpEYVBvakRqNVQ3NG9jMk9iaDdENkNnM0QrY1c2ZHkreHg4VXg1?=
+ =?utf-8?B?WkRTejgrWGl4TmZQY2MvRGtodWF1TkI1bDF4bDZ6emtzMUZRTXZnMlQyT0hH?=
+ =?utf-8?B?OWR0MmhHVFRPYkU3TEhlc3ZOcHVnRnBueXFZM2JjdDhrT1R0TXJ5bHhDWnNM?=
+ =?utf-8?B?MFltWXhGczJ3OFhYWWU4T0pjL24rRVZOSUx4aE5KS09XY3BJamt1UlpkanhZ?=
+ =?utf-8?B?SjdTVHJ5WVdzMmhEMnVSQjZDV3lBRk5VdmNmaEh5OWNXdEQrRlR5WGo0SmQ2?=
+ =?utf-8?B?MzRYRFRscStVRHowSmxTdkx3blUwb1d5YWEvQ05kREx4TmIvcmxqUVdYT1dT?=
+ =?utf-8?B?dU9xeGVVQWxEQzlid25xSHFyUE1SSWpjT3NaYy9abEhkdXMxTlB2ZW93RVRY?=
+ =?utf-8?B?T0V4UktXdnZZaU1YWENjTDliWkx2VnpBYWEvSzg4MG5LZU9mbVU2alBPbVg2?=
+ =?utf-8?B?T25TUXZ5S1RGeU91YjN0dldzbno0LzJlYS9SZ2JZd0pQaktMQ3ljOVFZeUNs?=
+ =?utf-8?B?L1E5UVBaNm9mZUhVaEhYM1gwRkJoMEFnaEFUUmxPMHJyNkV0YkRiUXlrdWEz?=
+ =?utf-8?B?NW5vWVdldnIrMXpKTnk5ZFFNYXlKMHBjRjVQZ3NlSHRQYnkydTdqT3kwYml0?=
+ =?utf-8?B?RnlRaUFpNUNhYk83M1RtTzZsbU5SL054bk4rQis5MkJwREFnMlVGc1oweHJ0?=
+ =?utf-8?B?VkZ2RHlxYXRZVndDQ3l4MmxGRTMrM2hRdElSUEM5dzR5OVlUWjNpS092ZmpD?=
+ =?utf-8?B?N21NMFFrK0grTForM1Frby9RRmdQNjhQeG5sY2pQZ24vV3BGUkQyc3BFa1Iz?=
+ =?utf-8?B?ZkRmckVIUzIyRU5xRTJBMjZPY00zcHJ4THBKS2Z5NU1DeFVwSWdGQ2txL0xm?=
+ =?utf-8?Q?0/sM5uBP1io1kzIg=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72b40d46-a470-47c0-1049-08de4d344550
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 15:00:03.0461
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ajw4gVt+XYRSqTUioDQYLeq2SJWEwdeWOXazODWjJYVrztqyuu5p5e8Krz70BH/zXHVBvacne3H20+bTi8uqNzJhZfQlP0xNv2YdtAtmBn0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7346
 
-On 06.01.2026 15:19, Oleksii Kurochko wrote:
-> On 1/5/26 5:58 PM, Jan Beulich wrote:
->> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>> Introduce structure with VCPU's registers which describes its state.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> Since none of this is being used for the time being, I think the description
->> wants to be a little less terse. Coming from the x86 (rather then the Arm)
->> side, I find the arrangements irritating. And even when comparing to Arm, ...
->>
->>> --- a/xen/arch/riscv/include/asm/domain.h
->>> +++ b/xen/arch/riscv/include/asm/domain.h
->>> @@ -22,9 +22,63 @@ struct hvm_domain
->>>   struct arch_vcpu_io {
->>>   };
->>>   
->>> -struct arch_vcpu {
->>> +struct arch_vcpu
->>> +{
->>>       struct vcpu_vmid vmid;
->>> -};
->>> +
->>> +    /* Xen's state: Callee-saved registers and tp, gp, ra */
->> ... I don't think the following structure describes "Xen's state". On Arm
->> it's guest controlled register values which are being saved afaict. I
->> would then expect the same to become the case for RISC-V.
-> 
-> I think this is not fully correct, because guest-controlled registers on
-> Arm are allocated on the stack [1][2].
+On 06/01/2026 2:26 pm, Jan Beulich wrote:
+> On 06.01.2026 15:19, Oleksii Kurochko wrote:
+>>>> +    struct
+>>>> +    {
+>>>> +        register_t s0;
+>>>> +        register_t s1;
+>>>> +        register_t s2;
+>>>> +        register_t s3;
+>>>> +        register_t s4;
+>>>> +        register_t s5;
+>>>> +        register_t s6;
+>>>> +        register_t s7;
+>>>> +        register_t s8;
+>>>> +        register_t s9;
+>>>> +        register_t s10;
+>>>> +        register_t s11;
+>>>> +
+>>>> +        register_t sp;
+>>>> +        register_t gp;
+>>>> +
+>>>> +        /* ra is used to jump to guest when creating new vcpu */
+>>>> +        register_t ra;
+>>>> +    } xen_saved_context;
+>>> The xen_ prefix here also doesn't exist in Arm code.
+>> I think it should be added for Arm too. I can send a patch.
+> ... this, to reword my comment: What value does the xen_ prefix add?
 
-I'll admit that I should have said "possibly guest-controlled". Callee-
-saved registers may or may not be used in functions, and if one isn't
-used throughout the call-stack reaching __context_switch(), it would
-still hold whatever the guest had put there.
+This was my recommendation after reverse engineering how ARM worked to
+explain it to Oleksii.  But I also thought I said to write a real
+comment too.
 
-> Regarding|xen_saved_context| (or|saved_context| on Arm, which I used as a base),
-> I think|xen_saved_context| is a slightly better name. Looking at how the
-> |saved_context| structure is used on Arm [3], it can be concluded that
-> |__context_switch()| switches only Xen’s internal context. What actually happens is
-> that|__context_switch()| is called while running on the previous vCPU’s stack
-> and returns on the next vCPU’s stack. Therefore, it is necessary to have
-> the correct register values stored in the|saved_context| structure in order
-> to continue Xen’s execution when it later returns to the previous stack.
+This is arbitrary *Xen* state, not guest state like you'd expect to find
+in struct vcpu.  The guest GPR state is at the base of the vCPU stack.
 
-For this and ...
+I suggested that this property be made clearer for the benefit of anyone
+trying to decipher the context switching logic.
 
-> Probably I need to introduce|__context_switch()| in this patch series for RISC-V
-> now; I hope this will clarify things better. At the moment, it looks like [4].
-> 
-> [1] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/include/asm/arm64/processor.h#L14
-> [2] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/domain.c#L547
-> 
-> [3] https://elixir.bootlin.com/xen/v4.21.0/source/xen/arch/arm/arm64/entry.S#L650
-> 
-> [4] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/entry.S?ref_type=heads#L153
-> 
->>
->>> +    struct
->>> +    {
->>> +        register_t s0;
->>> +        register_t s1;
->>> +        register_t s2;
->>> +        register_t s3;
->>> +        register_t s4;
->>> +        register_t s5;
->>> +        register_t s6;
->>> +        register_t s7;
->>> +        register_t s8;
->>> +        register_t s9;
->>> +        register_t s10;
->>> +        register_t s11;
->>> +
->>> +        register_t sp;
->>> +        register_t gp;
->>> +
->>> +        /* ra is used to jump to guest when creating new vcpu */
->>> +        register_t ra;
->>> +    } xen_saved_context;
->> The xen_ prefix here also doesn't exist in Arm code.
-> 
-> I think it should be added for Arm too. I can send a patch.
-
-... this, to reword my comment: What value does the xen_ prefix add?
-
->> Nor is there a
->> similar, partly potentially misleading comment on "pc" there
->> comparable to the one that you added for "ra". ("Potentially
->> misleading" because what is being described is, aiui, not the only
->> and not even the main purpose of the field.)
-> 
-> Yes, the purpose of|ra| here is not just to jump to the new vCPU code
-> (|continue_new_vcpu()|). It is used that way only the first time;
-> afterwards,|ra| will simply point to the next instruction after the
-> call to|__context_switch()| in|context_switch()| [5].
-> 
-> [5] https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/domain.c?ref_type=heads#L463
-> 
->>
->>> +    /* CSRs */
->>> +    register_t hstatus;
->>> +    register_t hedeleg;
->>> +    register_t hideleg;
->>> +    register_t hvip;
->>> +    register_t hip;
->>> +    register_t hie;
->>> +    register_t hgeie;
->>> +    register_t henvcfg;
->>> +    register_t hcounteren;
->>> +    register_t htimedelta;
->>> +    register_t htval;
->>> +    register_t htinst;
->>> +    register_t hstateen0;
->>> +#ifdef CONFIG_RISCV_32
->>> +    register_t henvcfgh;
->>> +    register_t htimedeltah;
->>> +#endif
->>> +
->>> +    /* VCSRs */
->>> +    register_t vsstatus;
->>> +    register_t vsip;
->>> +    register_t vsie;
->>> +    register_t vstvec;
->>> +    register_t vsscratch;
->>> +    register_t vscause;
->>> +    register_t vstval;
->>> +    register_t vsatp;
->>> +    register_t vsepc;
->>> +}  __cacheline_aligned;
->> Why this attribute?
-> 
-> As arch_vcpu structure is accessed pretty often I thought it would
-> be nice to have it cache-aligned so some accesses would be faster
-> and something like false sharing won't happen.
-
-I think you would want to prove that this actually makes a difference.
-I notice Arm has such an attribute (and maybe indeed you merely copied
-it), but x86 doesn't.
-
-Jan
+~Andrew
 
