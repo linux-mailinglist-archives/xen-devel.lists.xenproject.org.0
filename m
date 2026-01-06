@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29B4ACF897F
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 14:49:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196111.1513988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD01BCF8A3C
+	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 14:58:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196149.1514027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7R6-0005xV-5s; Tue, 06 Jan 2026 13:49:24 +0000
+	id 1vd7ZY-0000jw-N2; Tue, 06 Jan 2026 13:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196111.1513988; Tue, 06 Jan 2026 13:49:24 +0000
+Received: by outflank-mailman (output) from mailman id 1196149.1514027; Tue, 06 Jan 2026 13:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vd7R6-0005vN-2L; Tue, 06 Jan 2026 13:49:24 +0000
-Received: by outflank-mailman (input) for mailman id 1196111;
- Tue, 06 Jan 2026 13:49:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vd7ZY-0000hT-Jc; Tue, 06 Jan 2026 13:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 1196149;
+ Tue, 06 Jan 2026 13:58:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vd7R4-0004Q3-Fv
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 13:49:22 +0000
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [2a00:1450:4864:20::442])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e9ebcc9-eb06-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 14:49:17 +0100 (CET)
-Received: by mail-wr1-x442.google.com with SMTP id
- ffacd0b85a97d-4308d81fdf6so477272f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 05:49:17 -0800 (PST)
+ id 1vd7RZ-0004MT-DD
+ for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 13:49:53 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 937f2561-eb06-11f0-b15e-2bf370ae4941;
+ Tue, 06 Jan 2026 14:49:52 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47d3ba3a4deso6092685e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 05:49:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e199bsm4624650f8f.16.2026.01.06.05.49.16
+ 5b1f17b1804b1-47d7f69e13bsm43099975e9.7.2026.01.06.05.49.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Jan 2026 05:49:16 -0800 (PST)
+ Tue, 06 Jan 2026 05:49:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e9ebcc9-eb06-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 937f2561-eb06-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767707357; x=1768312157; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767707392; x=1768312192; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VALIeZIxI2UW6d8eRGujCTMwXTGh4om+pwgD9mOB0J8=;
-        b=frlJ7Gu0egdILkXe7RuWMHpv3tKqQmRWdcxQC83nbUmMmpZIpa2m8xL5qDerAYmUcV
-         gIjeMn4VrDEzP2qqNK45FkIz2nV5y0fjdMuJ+GT+BM+677C03Q0DElAtgAa4k+tQQwKU
-         5PxjT7+qnJdqLhJJoeCw8dedQzN8mHzq972scgHulvjtcYUfxXChsLuwGqVU54CXFE8f
-         G8W2rZwTr8jOuy7qNRpAO59v9WC9W0AAqeGyKmIbBjHD4axF7Stx/kqQpBr9pg5aB3fL
-         qXTpdIQHJuuSSYpnzcpz0CYqp1OD1C28Mqh2PiF2qIt5jHpngD/7E4abPi1LjICXnfXj
-         18jw==
+        bh=2cfIXKgHYTFCKsrX1bFpAF8sQFG6ytaJSHI//BPGSL8=;
+        b=HgCtGjAIicX+vNFSnc8f4jIhsV7yovP/PhlrweB0mNJBeSixojNOdvr6NTsPpZTZUR
+         3eCSMBjmZTBH5uFQ84qnd0aJSF2iiDOgXxeQAMqylPbMbBdn+sIIEgzknwcBf72jlj3h
+         BIeE8osIDuY12KKkSl7LyI0Nzg/zGZ8LFIWVZhUTOwDsS8XPEzytxvKPwU+oQkCao3Fg
+         rZ2yM9MrSgiDHZz5itam+IaDd+mFxRzdVFMW4yNDDVNE4B10YNQz8epEY13jnhNLHXhL
+         53jFpr3T8wvQdtwhnKOh+BI3O1iNy9Wyl5TDbA3U9HR3xKbL4Yp2NM4g+WZwY14Mb8Fm
+         Vqeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767707357; x=1768312157;
+        d=1e100.net; s=20230601; t=1767707392; x=1768312192;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VALIeZIxI2UW6d8eRGujCTMwXTGh4om+pwgD9mOB0J8=;
-        b=v5ux7GZohfbOikVvJPLcxralaOo6SkldnC+OQ1Iv1mbH1lUTVI1NTTjjvMMfrVYAlK
-         CjF5vsnN80y9Cr44yBTew30lhauxq3UZEbls0mWOPPjcPmJiY+dY7P9IhJap11FuYNRr
-         ewGSHozeYeUKT27OWihfIAbAvnZAb596jv25D94OZNC6iAiNW8eIJAIcZGS1E7hrb0c3
-         s6L2naJO76DMt64DbKrnT5Trb//ApyYQVNXY6rAt0vGqkcQNnpc2VmEfUpEb+ld6exnv
-         wgNN5Jj4HnS5tD/xnYTbZSf5GJm91jvCnPCYKgtNiSYkzU3s/GfymCW+URmLFnXi6Nj0
-         fgjw==
-X-Gm-Message-State: AOJu0Yx6ctWXOfD2h5Tv4VFh0xYnFphQ5VXQWymaKQQ3rdZOxMHGL4DD
-	7TJItIN9exKWcZGMlxtjAEs1H8/vsygkaP2+DEPTt5IEmrs/+11ihQC7yBlX1DzJFQ8Q7CLbN75
-	HUoso+Q==
-X-Gm-Gg: AY/fxX4WwE5SZ4DiCV7T8qnG9/WM/sQwP7s2M1s6u+Sg7nKlvWcsOX89/3SkT8wLeVA
-	y19U+Ob4MPnCZRk1uRDoD2bNHzXaBqmBpnIvDGkV8u8Dtz7gu/IptxUr4AwBIU5rZFKyq1hLE0F
-	gEoEtKLEjC6fYQ2ylB0onWBfTMChyyp43P2jYg5OOJ32O6mgCubZrKsDETDit99DxtLyYYmbImk
-	txX2edSlwYS8sBfg62m2pj+K8+hJJtYXNg4HqjKyLUkzy7x8ZxEJAYvK0bFaYwk4uT6NCskxoPD
-	QYM/rFhyD59rfr3nZuIyE93+kZb+HeoT5eFqxfIgeGpPKNvqXn99HhaMogUgLNl10z6aW1lkmwz
-	LM00lF6D6NEQ/PShBGDxAr7j0EqoXJ8oSXpqz/03cgIlPplTHNVtXu95wF+klgbFXZ/Ph1KRDik
-	qylhz9a0IzajZWjSR4Sd4Ja0wetimS9EfpI89MWIIlCOWPuCwMiQGed+65Ecwr7J8iPWRH/k7zD
-	7pIbC2JhjuSuQ==
-X-Google-Smtp-Source: AGHT+IGQOlE1EGqvWFA9ndk3JdUEMv0/a8kKS8pTHu3PVfhb0xLjW9bG6MmEKyZoadHrRqGom2yCgA==
-X-Received: by 2002:a05:6000:40dc:b0:430:f325:435e with SMTP id ffacd0b85a97d-432bca2b787mr3565273f8f.16.1767707357020;
-        Tue, 06 Jan 2026 05:49:17 -0800 (PST)
-Message-ID: <594cc7a9-710c-4863-b46f-f5e6bc0247de@suse.com>
-Date: Tue, 6 Jan 2026 14:49:15 +0100
+        bh=2cfIXKgHYTFCKsrX1bFpAF8sQFG6ytaJSHI//BPGSL8=;
+        b=FMY9GBP7C0ts8itM2xB4MMuNIHQ5zH0gqaUoIsu41iUvy1RWPwS6c3zqWIoDdtiT9N
+         Bl4NqhwdbAIAES+VdfJ7iByFMJ+cp2zF3Vpdh+e3ApbckNSkNBRMZoBTEiuQpqQdib4M
+         N287IFTAcYh9tLKBfNayOlGNpRXTqDfql7ObX7H+rTtyovOmnwH3h6OtxVrw8R1Zq2qp
+         HXV7lvieYzdY8vJ9/BM90r83D3k73vbOwKuB3NCcoMJzJGuOzC+IREZ6MOGApGoBNYP6
+         /vnH3uutv046BnM4f1FPmbNLwMYcSqM4pGTZG6joS7jyreS9exApBWaBCdqdocbUEAK9
+         bUGg==
+X-Gm-Message-State: AOJu0YxKXFswTGOJkRc22VEqpeFo7udM9xn6NbBmujmR9qWckkiQuttA
+	YqMFJ2g6mUI72hTQ2dVzE/tAsSkWltGtDK48ePsQgvnz8AR8V1VutgAMsJOVCglSwBw2CwMUp10
+	33GA=
+X-Gm-Gg: AY/fxX6NDM/7f23vfSTsXAUhGe2SfsEfIo83puKfDhJE0fkWZy7ejBue6NQiDhlmMp9
+	5kNmH4Na+3PH0Yow8BlNnIY5QeXzvvRS3h+u0jzgVAIb0mZSieXr53QWIC7rgRuvflbrFn2DeuN
+	EOj4p9DPtHaaPOcLKzKNYmYE2JtnTHbp/tgE/Pg78sZC/sdYnlMeZaHdDqC+vePwYbzU+w/Ut/K
+	wx6X8ZZDp8xJsNCnOXiDDEDrbdZWByuUg3+Pq7SL9JFfHzQ2vyoRFmiGcnl02e+pDkuiaTrcX9o
+	hayjVn8HaZAYbedGO799j8ZAMfKUzg64U9OYfzAtkoDaFt3YD6beyoF4FY7THlb8jBa9qusTlIP
+	yqi68PffjXasjWdskXiNaZsoQnnVuTr8VQ9VHcAVq5v6mffVFNXaPNbZukZt8auHVv2ovyA8fUm
+	nqT/uXqEuMpIVnEvlpF7TP8aFUas1bZtcOzYZp1we1POgxovh9ezjX13pbvkOJroYLWfRztan/V
+	k0=
+X-Google-Smtp-Source: AGHT+IExk9a4kJflf5MXqX0+A74y+swup+hf1gx6iK7W3f/9V+3U0r2+q1yX0qkByPjLKAKoVBZhgA==
+X-Received: by 2002:a05:600c:620c:b0:477:54cd:200a with SMTP id 5b1f17b1804b1-47d7f066c8emr33236895e9.6.1767707392064;
+        Tue, 06 Jan 2026 05:49:52 -0800 (PST)
+Message-ID: <e2c5f47a-9f57-4bac-99ad-71e3163cb0ea@suse.com>
+Date: Tue, 6 Jan 2026 14:49:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/6] PCI: pass pdev to pci_find_{,next_}ext_capability()
+Subject: [PATCH 5/6] PCI: don't look for ext-caps when there's no extended cfg
+ space
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -126,213 +127,31 @@ In-Reply-To: <05bc9acd-3054-4c5a-be87-cfd8d7bfa0f8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This is in preparation of using attributes recorded for devices.
-Additionally locating (extended) capabilities of non-devices (e.g. phantom
-functions) makes no sense.
+Avoid interpreting as extended capabilities what may be about anything. In
+doing so, vPCI then also won't mis-interpret data from beyond base config
+space anymore.
 
-While there also eliminate open-coding of PCI_CFG_SPACE_SIZE in adjacent
-code.
-
+Fixes: 3b35911d709e ("Enable pci mmcfg and ATS for x86_64")
+Fixes: a845b50c12f3 ("vpci/header: Emulate extended capability list for dom0")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Because of the multiple prereq changes, despite the Fixes: tags I'm not
+quite sure whether to backport this. (I'm leaning towards "no".)
 
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -676,7 +676,7 @@ static uint64_t read_pci_mem_bar(const s
-         unsigned int pos;
-         uint16_t ctrl, num_vf, offset, stride;
- 
--        pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
-+        pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_SRIOV);
-         ctrl = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_CTRL);
-         num_vf = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_NUM_VF);
-         offset = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_VF_OFFSET);
---- a/xen/drivers/passthrough/ats.c
-+++ b/xen/drivers/passthrough/ats.c
-@@ -26,7 +26,7 @@ int enable_ats_device(struct pci_dev *pd
-     u32 value;
-     int pos;
- 
--    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
-+    pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ATS);
-     BUG_ON(!pos);
- 
-     if ( iommu_verbose )
---- a/xen/drivers/passthrough/ats.h
-+++ b/xen/drivers/passthrough/ats.h
-@@ -32,7 +32,7 @@ static inline int pci_ats_enabled(const
-     u32 value;
-     int pos;
- 
--    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
-+    pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ATS);
-     BUG_ON(!pos);
- 
-     value = pci_conf_read16(pdev->sbdf, pos + ATS_REG_CTL);
-@@ -45,7 +45,7 @@ static inline int pci_ats_device(const s
-     if ( !ats_enabled )
-         return 0;
- 
--    return pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
-+    return pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ATS);
- }
- 
- #endif /* DRIVERS__PASSTHROUGH__ATS_H */
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -641,7 +641,7 @@ static void pci_enable_acs(struct pci_de
-     if ( !is_iommu_enabled(pdev->domain) )
-         return;
- 
--    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ACS);
-+    pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ACS);
-     if (!pos)
-         return;
- 
-@@ -787,8 +787,7 @@ int pci_add_device(u16 seg, u8 bus, u8 d
- 
-     if ( !pdev->info.is_virtfn && !pdev->physfn.vf_rlen[0] )
-     {
--        unsigned int pos = pci_find_ext_capability(pdev->sbdf,
--                                                   PCI_EXT_CAP_ID_SRIOV);
-+        unsigned int pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_SRIOV);
-         uint16_t ctrl = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_CTRL);
- 
-         if ( !pos )
---- a/xen/drivers/passthrough/vtd/x86/ats.c
-+++ b/xen/drivers/passthrough/vtd/x86/ats.c
-@@ -62,7 +62,7 @@ int ats_device(const struct pci_dev *pde
-         return 0;
- 
-     ats_drhd = find_ats_dev_drhd(drhd->iommu);
--    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
-+    pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ATS);
- 
-     if ( pos && (ats_drhd == NULL) )
-     {
---- a/xen/drivers/passthrough/vtd/quirks.c
-+++ b/xen/drivers/passthrough/vtd/quirks.c
-@@ -531,10 +531,10 @@ void pci_vtd_quirk(const struct pci_dev
-     /* Sandybridge-EP (Romley) */
-     case 0x3c00: /* host bridge */
-     case 0x3c01 ... 0x3c0b: /* root ports */
--        pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ERR);
-+        pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_ERR);
-         if ( !pos )
-         {
--            pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_VNDR);
-+            pos = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_VNDR);
-             while ( pos )
-             {
-                 val = pci_conf_read32(pdev->sbdf, pos + PCI_VNDR_HEADER);
-@@ -543,7 +543,7 @@ void pci_vtd_quirk(const struct pci_dev
-                     pos += PCI_VNDR_HEADER;
-                     break;
-                 }
--                pos = pci_find_next_ext_capability(pdev->sbdf, pos,
-+                pos = pci_find_next_ext_capability(pdev, pos,
-                                                    PCI_EXT_CAP_ID_VNDR);
-             }
-             ff = 0;
 --- a/xen/drivers/pci/pci.c
 +++ b/xen/drivers/pci/pci.c
-@@ -89,9 +89,10 @@ unsigned int pci_find_next_cap(pci_sbdf_
-  * within the device's PCI configuration space or 0 if the device does
-  * not support it.
-  */
--unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap)
-+unsigned int pci_find_ext_capability(const struct pci_dev *pdev,
-+                                     unsigned int cap)
- {
--    return pci_find_next_ext_capability(sbdf, 0, cap);
-+    return pci_find_next_ext_capability(pdev, 0, cap);
- }
- 
- /**
-@@ -104,14 +105,15 @@ unsigned int pci_find_ext_capability(pci
-  * within the device's PCI configuration space or 0 if the device does
-  * not support it.
-  */
--unsigned int pci_find_next_ext_capability(pci_sbdf_t sbdf, unsigned int start,
-+unsigned int pci_find_next_ext_capability(const struct pci_dev *pdev,
-+                                          unsigned int start,
-                                           unsigned int cap)
- {
-     u32 header;
+@@ -113,6 +113,12 @@ unsigned int pci_find_next_ext_capabilit
      int ttl = 480; /* 3840 bytes, minimum 8 bytes per capability */
--    unsigned int pos = max(start, 0x100U);
-+    unsigned int pos = max(start, PCI_CFG_SPACE_SIZE + 0U);
+     unsigned int pos = max(start, PCI_CFG_SPACE_SIZE + 0U);
  
--    header = pci_conf_read32(sbdf, pos);
-+    header = pci_conf_read32(pdev->sbdf, pos);
++    if ( !pdev->ext_cfg )
++    {
++        ASSERT(!start);
++        return 0;
++    }
++
+     header = pci_conf_read32(pdev->sbdf, pos);
  
      /*
-      * If we have no capabilities, this is indicated by cap ID,
-@@ -125,9 +127,9 @@ unsigned int pci_find_next_ext_capabilit
-         if ( PCI_EXT_CAP_ID(header) == cap && pos != start )
-             return pos;
-         pos = PCI_EXT_CAP_NEXT(header);
--        if ( pos < 0x100 )
-+        if ( pos < PCI_CFG_SPACE_SIZE )
-             break;
--        header = pci_conf_read32(sbdf, pos);
-+        header = pci_conf_read32(pdev->sbdf, pos);
-     }
-     return 0;
- }
---- a/xen/drivers/vpci/rebar.c
-+++ b/xen/drivers/vpci/rebar.c
-@@ -53,7 +53,7 @@ static int cf_check init_rebar(struct pc
- {
-     uint32_t ctrl;
-     unsigned int nbars;
--    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-+    unsigned int rebar_offset = pci_find_ext_capability(pdev,
-                                                         PCI_EXT_CAP_ID_REBAR);
- 
-     if ( !rebar_offset )
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -196,7 +196,7 @@ static struct vpci_register *vpci_get_pr
- static int vpci_ext_capability_hide(
-     const struct pci_dev *pdev, unsigned int cap)
- {
--    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
-+    const unsigned int offset = pci_find_ext_capability(pdev, cap);
-     struct vpci_register *r, *prev_r;
-     struct vpci *vpci = pdev->vpci;
-     uint32_t header, pre_header;
-@@ -264,7 +264,7 @@ static int vpci_init_capabilities(struct
-         if ( !is_ext )
-             pos = pci_find_cap_offset(pdev->sbdf, cap);
-         else if ( is_hardware_domain(pdev->domain) )
--            pos = pci_find_ext_capability(pdev->sbdf, cap);
-+            pos = pci_find_ext_capability(pdev, cap);
- 
-         if ( !pos )
-             continue;
-@@ -333,7 +333,7 @@ void vpci_deassign_device(struct pci_dev
-         if ( !capability->is_ext )
-             pos = pci_find_cap_offset(pdev->sbdf, cap);
-         else if ( is_hardware_domain(pdev->domain) )
--            pos = pci_find_ext_capability(pdev->sbdf, cap);
-+            pos = pci_find_ext_capability(pdev, cap);
-         if ( pos )
-         {
-             int rc = capability->cleanup(pdev, false);
---- a/xen/include/xen/pci.h
-+++ b/xen/include/xen/pci.h
-@@ -263,8 +263,10 @@ unsigned int pci_find_next_cap_ttl(pci_s
-                                    unsigned int *ttl);
- unsigned int pci_find_next_cap(pci_sbdf_t sbdf, unsigned int pos,
-                                unsigned int cap);
--unsigned int pci_find_ext_capability(pci_sbdf_t sbdf, unsigned int cap);
--unsigned int pci_find_next_ext_capability(pci_sbdf_t sbdf, unsigned int start,
-+unsigned int pci_find_ext_capability(const struct pci_dev *pdev,
-+                                     unsigned int cap);
-+unsigned int pci_find_next_ext_capability(const struct pci_dev *pdev,
-+                                          unsigned int start,
-                                           unsigned int cap);
- const char *parse_pci(const char *s, unsigned int *seg_p, unsigned int *bus_p,
-                       unsigned int *dev_p, unsigned int *func_p);
 
 
