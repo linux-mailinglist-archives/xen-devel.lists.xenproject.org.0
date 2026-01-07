@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C112ACFE328
-	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 15:12:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196722.1514461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F297ECFE389
+	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 15:16:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196733.1514471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdUGE-0003G6-PV; Wed, 07 Jan 2026 14:11:42 +0000
+	id 1vdUKL-0003pZ-8e; Wed, 07 Jan 2026 14:15:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196722.1514461; Wed, 07 Jan 2026 14:11:42 +0000
+Received: by outflank-mailman (output) from mailman id 1196733.1514471; Wed, 07 Jan 2026 14:15:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdUGE-0003De-Mq; Wed, 07 Jan 2026 14:11:42 +0000
-Received: by outflank-mailman (input) for mailman id 1196722;
- Wed, 07 Jan 2026 14:11:41 +0000
+	id 1vdUKL-0003mZ-5t; Wed, 07 Jan 2026 14:15:57 +0000
+Received: by outflank-mailman (input) for mailman id 1196733;
+ Wed, 07 Jan 2026 14:15:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AUe7=7M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdUGD-0003DW-K0
- for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 14:11:41 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vdUKK-0003mT-A2
+ for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 14:15:56 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8ff43fb-ebd2-11f0-b15e-2bf370ae4941;
- Wed, 07 Jan 2026 15:11:39 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4775e891b5eso10048255e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 06:11:39 -0800 (PST)
+ id 613075e2-ebd3-11f0-b15e-2bf370ae4941;
+ Wed, 07 Jan 2026 15:15:55 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-42b3d7c1321so1256620f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 06:15:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d87167832sm13687545e9.7.2026.01.07.06.11.38
+ ffacd0b85a97d-432bd0e180csm10399322f8f.10.2026.01.07.06.15.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Jan 2026 06:11:38 -0800 (PST)
+ Wed, 07 Jan 2026 06:15:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8ff43fb-ebd2-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 613075e2-ebd3-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767795099; x=1768399899; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ypGd9Yz2mBlv45UcH36jOo23VuYex6K+KrlBsHB222c=;
-        b=F51dyi726ifoqslEwwB3bVlduwKk+kh8pNZGOM3Jz9kbKXPU0XFGaJLkKVhuOvvF43
-         EvGrOI1eJ/zwZ7cmlPqeRTnYa8L2z9E/h41wIIi6V3PgoxxC2wU+Z9n7AFPVDd4WG2+D
-         gVgJYRSbTr6H6j44JefgwEs1UJfMNrMCxoGQj847t0NzU4OFKBB1k2rLs/cwggF0p7zo
-         eTvWe3l5V5Mb5a0pFV7vfZ0/zkh0GNJCd0rYoVgjOULCB3vG6H2srPqi/M0j3huBls95
-         zVSZjTSCPEO7tZBm3PIDoAyW2wh7Jcz8unvlHq9dISL+u0o0ryEUAW6g/8VNuHxLBu3B
-         xb+Q==
+        d=suse.com; s=google; t=1767795354; x=1768400154; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=inh0jSeo2mIZtxJK0EUO10bXoajZTBl2mmwHlqUuR1Y=;
+        b=dYpg2sV0g8wwMD4Kr6qjWRzMWebI6hU/IyWxHNp19XY/1jvEY/L6T6y8lvUlMVwoRk
+         VtkW2UThO0awi9PUxQMtWDazcklwmQwegVs5GLSzwM80jRSBlhUGSoYeJT3y/NYvVp3s
+         Yb6O6pvCE6+cE25ZNAHONHddgXgaG6uEOWp5g9P82npC+r3f2kdFO15pCx2VGFFUgppT
+         yyQCZDAlNTKT4l3I0DGf1RFFX7IZIShpPdnxya4aVOEr0EneWFuiCUfdMARC3dgFvfgu
+         CPtSA1Li9pkhWlS03bWES2zubLTyi1uP4hq0xRgI0ELwDqEmyBeqLeYOza4dGTwGy1a7
+         vJYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767795099; x=1768399899;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20230601; t=1767795354; x=1768400154;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ypGd9Yz2mBlv45UcH36jOo23VuYex6K+KrlBsHB222c=;
-        b=XZ0KSxGFdAdqwHlGKLOl4HvXkxDR2xxSw5/pO0vqwjbGc0bNYgxkdYaBKWEMI3G39a
-         9IfuIvl/pGk0rCN+H1CV7qsXwnpEKIaHNp3wc7k/PDzcTDns4oNqzuatnJbf3iazRz6a
-         66rxRT9X6WO4n5wwTrh6yygeYqAgZ0RBL9y9UQbc9n2UhsgsZd0iIwz7yGKlwpTMUIec
-         F9g7k3+00aItUSl22qR03dAQ2CPWoxD0/trV4mUxkIpEhVb1xQjTPWIRYONXmI7PkGfz
-         qf4aMD/hSCGRkUX3VdGujAoKs/lvsUKP59N1G8BsfRsDDIjJmlHxHSBnrjkiisQcBtJM
-         dw+A==
-X-Gm-Message-State: AOJu0YwkgwkcopZZcIn+eiB1DkBVpVlD3tf8WfEe83YSB/fPohv31cFo
-	utHEuAoSa5sQkMNoLqE33e7PTUmZAT+rF4vn0jR/YRHSY/Pjgzi7L/ibP197ZH8GBXsHHLSz81p
-	dqJQ=
-X-Gm-Gg: AY/fxX4u6tVN/UOOy+Nw6SpY71iGrpwZlzP7ZOr+PfY3kTZBNLWiptbWZkQdcBCTJv6
-	SBQvOLGR0IeTjPtHPi68/Ws0jjShvnyXzEDkSPUWfP6D2pdKJlCqycFGKPSQnhbfC5ZdVftsUzE
-	BnbHwR1BbKiWr4atQ1m0RijEFQkSlbjdRZ396fl5Jm8yOdJbvG8PQU5LXpb0ejOpeTW3FD/7Ue4
-	mCHZZyIsL9YRCngA2pJM1ceXXOeGZ3HmG8WYTMc71osww/Y3DkbiLgqLevuaiPJo0I9rkiv+fFT
-	QgrzcYMcap335KvxdhJfMaw6x6wSmx8B3RrhMsdwHSKeoRbREtQGqLYcEYoktxIuETkH3Qjwbz6
-	l/5iSVsyxIGjSU6msIaG0s+sL5EJKnaehBmeGA3XuNZfLJS2KhFUWOhqy857KSmL+hhncas6u7t
-	g1RANwPbPNNjRhintRpPE7zJuvRpnJnApbOTDWuM6S9t4AF5/mFU0FZk9Ow+IUvy15E3ZL5ygNu
-	Xws6kej66oyng==
-X-Google-Smtp-Source: AGHT+IEdZqCNBgtszHwJM8ODdWo62CUx8G8aX8owGhlsnlqWQawi+6BqAnTgaJDVETr1utJqg2Wr3A==
-X-Received: by 2002:a05:600c:1392:b0:477:6d96:b3c8 with SMTP id 5b1f17b1804b1-47d84b34673mr32171905e9.23.1767795099069;
-        Wed, 07 Jan 2026 06:11:39 -0800 (PST)
-Message-ID: <239a5d80-c0af-410b-a053-5fa84273aecd@suse.com>
-Date: Wed, 7 Jan 2026 15:11:37 +0100
+        bh=inh0jSeo2mIZtxJK0EUO10bXoajZTBl2mmwHlqUuR1Y=;
+        b=kn9ms6z0Zkudf79vNzevlL1U5vx2HVOoglUTinCT+x9XSF2MNWZOnVaJ5viwcJ/4LC
+         zSpPjIaudUpoPrmNVSPqOBy5mld1GqOwt70P5zgMH9codREO0SDBI+I8vKs1JypLaM0z
+         8msa6aAuWwhwNKmmnYKqp99ofSnohGRr3/DNDi5EbbsgjGuIhoXVBGfOZwGGJWgpCmCX
+         cvf2pahGyME5rI+Ii/0jNH+DG6o5frUk9Wy7HjJmda+SZLno1SFC4fPrg56w3CIdf8QD
+         Te4XUTnjY5zaBIx5SvyGaimImJrxONk1buejBwph9XZK8DQroj+fOPasKB+QyVqxUwQd
+         gD/g==
+X-Gm-Message-State: AOJu0YwzhZQaA/LfNMW3/f6c8fHYNGRxuc4JFnJNwx/RHC4czu3cmvMw
+	C4PRn25kR6TB84EeArbGV1nBZHcgWu9/EMS+BuSE5C07KQN14oJNjurPV/2if7z69O5c5uWtLCx
+	UcBE=
+X-Gm-Gg: AY/fxX6JQWInT8U1KflLP0AlkLEvXVyzLDXMvQN+GB5MFoTmZNme30NcR+4Tf6PC4LK
+	7Ikysn9Ts8DEnPO99A6i64yt4zs2vIsYjJxAYQu5Avri2pi62eChcie4hz8NTdEzrt2ZxcQ+Ove
+	x5iTyiBTM96EzlOLuapvm2bzdeZFqcYv1eww7QzLPP+3gJuCM0lnEp52uoMi0yQxVWzbVD01HTi
+	jUIbrWZjfqOJx9KeIfARJsNWqJ6l8kfouZ2ysKiwfxdxjTnEnCHP1gngBpvmCGaONjB7mvAVIP8
+	r6rJe7IXmErwklFU4KLvXy/s+WOYK1o2fPm9OVdZR7yBkWolEiNonjkfpVV9TETqB0Wg+2Dm34H
+	FVbz9nocJ/77rcrGHBBoahhWEYhk7HNSnhKrg9+E0Pz0qeK5a0X67GzTWrgQHu+W5xVWV9fRWyb
+	zM3+00LFp8wig3IT/L5alJbP9Rvp45mhgotfnLJWXLpQ0akdTmMd1tJ/YS9NnJbzw946npil+lk
+	jA=
+X-Google-Smtp-Source: AGHT+IHFY6DctEC5XrtlpeUdmBMfhXfAZetMaxV1iXewE5awWQcTXS9A+oTQojXsQaizn8E8IUs3Xg==
+X-Received: by 2002:a05:6000:2305:b0:430:f7ae:af3e with SMTP id ffacd0b85a97d-432c3798309mr3350400f8f.32.1767795354548;
+        Wed, 07 Jan 2026 06:15:54 -0800 (PST)
+Message-ID: <4bd68e41-e665-4992-9d3c-0086bb5195ef@suse.com>
+Date: Wed, 7 Jan 2026 15:15:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/2] x86/cpu-policy: librarify copy-in/-out
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86: guard synthetic feature and bug enumerators
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,257 +120,8 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While adding new enumerators one may overlook the (rare) need to bump
-X86_NR_{SYNTH,BUG}. Guard against that happening by adding respective
-checking. The use of BUILD_BUG_ON_ZERO(), however, entails a number of
-other changes, as the expansion may not appear in the assembly produced.
-Furthermore inputs to file-scope asm() are only supported in gcc15 (or
-newer).
+1: move CPU policy library code
+2: split out copy-in/-out functions
 
-No difference in generated code (debug info, however, grows quite a bit).
-
-An implication from the changes is that users of the alternatives patching
-macros may not use unnamed asm() input operands anymore, as the "injected"
-new operands would break numbering expectations.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Fix shim build. Use named label operand in pdx.h.
-
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -70,12 +70,12 @@ extern void alternative_instructions(voi
-                     alt_repl_len(n2)) "-" alt_orig_len)
- 
- #define ALTINSTR_ENTRY(feature, num)                                    \
--        " .if (" STR(feature & ~ALT_FLAG_NOT) ") >= " STR(NCAPINTS * 32) "\n" \
-+        " .if (%c" #feature " & " STR(~ALT_FLAG_NOT) ") >= " STR(NCAPINTS * 32) "\n" \
-         " .error \"alternative feature outside of featureset range\"\n" \
-         " .endif\n"                                                     \
-         " .long .LXEN%=_orig_s - .\n"             /* label           */ \
-         " .long " alt_repl_s(num)" - .\n"         /* new instruction */ \
--        " .word " STR(feature) "\n"               /* feature bit     */ \
-+        " .word %c" #feature "\n"                 /* feature bit     */ \
-         " .byte " alt_orig_len "\n"               /* source len      */ \
-         " .byte " alt_repl_len(num) "\n"          /* replacement len */ \
-         " .byte " alt_pad_len "\n"                /* padding len     */ \
-@@ -127,14 +127,14 @@ extern void alternative_instructions(voi
-  */
- #define alternative(oldinstr, newinstr, feature)                        \
-     asm_inline volatile (                                               \
--        ALTERNATIVE(oldinstr, newinstr, feature)                        \
--        ::: "memory" )
-+        ALTERNATIVE(oldinstr, newinstr, [feat])                         \
-+        :: [feat] "i" (feature) : "memory" )
- 
- #define alternative_2(oldinstr, newinstr1, feature1, newinstr2, feature2) \
-     asm_inline volatile (                                               \
--        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
--                      newinstr2, feature2)                              \
--        ::: "memory" )
-+        ALTERNATIVE_2(oldinstr, newinstr1, [feat1],                     \
-+                      newinstr2, [feat2])                               \
-+        ::  [feat1] "i" (feature1), [feat2] "i" (feature2) : "memory" )
- 
- /*
-  * Alternative inline assembly with input.
-@@ -148,14 +148,14 @@ extern void alternative_instructions(voi
-  */
- #define alternative_input(oldinstr, newinstr, feature, input...)        \
-     asm_inline volatile (                                               \
--        ALTERNATIVE(oldinstr, newinstr, feature)                        \
--        :: input )
-+        ALTERNATIVE(oldinstr, newinstr, [feat])                         \
-+        :: [feat] "i" (feature), ## input  )
- 
- /* Like alternative_input, but with a single output argument */
- #define alternative_io(oldinstr, newinstr, feature, output, input...)   \
-     asm_inline volatile (                                               \
--        ALTERNATIVE(oldinstr, newinstr, feature)                        \
--        : output : input )
-+        ALTERNATIVE(oldinstr, newinstr, [feat])                         \
-+        : output : [feat] "i" (feature), ## input )
- 
- /*
-  * This is similar to alternative_io. But it has two features and
-@@ -168,9 +168,9 @@ extern void alternative_instructions(voi
- #define alternative_io_2(oldinstr, newinstr1, feature1, newinstr2,      \
-                          feature2, output, input...)                    \
-     asm_inline volatile (                                               \
--        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
--                      newinstr2, feature2)                              \
--        : output : input )
-+        ALTERNATIVE_2(oldinstr, newinstr1, [feat1],                     \
-+                      newinstr2, [feat2])                               \
-+        : output : [feat1] "i" (feature1), [feat2] "i" (feature2), ## input )
- 
- /* Use this macro(s) if you need more than one output parameter. */
- #define ASM_OUTPUT2(a...) a
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -6,9 +6,16 @@
- /* Number of capability words covered by the featureset words. */
- #define FSCAPINTS FEATURESET_NR_ENTRIES
- 
-+#if !defined(__ASSEMBLER__) && __GNUC__ >= 15
-+#include <xen/macros.h>
-+#define X86_CHECK_FEAT_NR(x, n) BUILD_BUG_ON_ZERO((x) / 32 >= X86_NR_ ## n)
-+#else
-+#define X86_CHECK_FEAT_NR(x, n) 0
-+#endif
-+
- /* Synthetic words follow the featureset words. */
- #define X86_NR_SYNTH 2
--#define X86_SYNTH(x) (FSCAPINTS * 32 + (x))
-+#define X86_SYNTH(x) (FSCAPINTS * 32 + (x) + X86_CHECK_FEAT_NR(x, SYNTH))
- 
- /* Synthetic features */
- XEN_CPUFEATURE(CONSTANT_TSC,      X86_SYNTH( 0)) /* TSC ticks at a constant rate */
-@@ -47,7 +54,8 @@ XEN_CPUFEATURE(XEN_REP_MOVSB,     X86_SY
- 
- /* Bug words follow the synthetic words. */
- #define X86_NR_BUG 1
--#define X86_BUG(x) ((FSCAPINTS + X86_NR_SYNTH) * 32 + (x))
-+#define X86_BUG(x) ((FSCAPINTS + X86_NR_SYNTH) * 32 + (x) + \
-+                    X86_CHECK_FEAT_NR(x, BUG))
- 
- #define X86_BUG_FPU_PTRS          X86_BUG( 0) /* (F)X{SAVE,RSTOR} doesn't save/restore FOP/FIP/FDP. */
- #define X86_BUG_NULL_SEG          X86_BUG( 1) /* NULL-ing a selector preserves the base and limit. */
---- a/xen/arch/x86/include/asm/cpufeatureset.h
-+++ b/xen/arch/x86/include/asm/cpufeatureset.h
-@@ -12,8 +12,13 @@ enum {
- };
- #undef XEN_CPUFEATURE
- 
-+#if __GNUC__ >= 15
-+#define XEN_CPUFEATURE(name, value) asm (".equ X86_FEATURE_" #name ", %c0" \
-+                                         :: "i" (X86_FEATURE_##name));
-+#else
- #define XEN_CPUFEATURE(name, value) asm (".equ X86_FEATURE_" #name ", " \
-                                          __stringify(value));
-+#endif
- #include <public/arch-x86/cpufeatureset.h>
- #include <asm/cpufeatures.h>
- 
---- a/xen/arch/x86/include/asm/guest/xen-hcall.h
-+++ b/xen/arch/x86/include/asm/guest/xen-hcall.h
-@@ -31,11 +31,13 @@
-         long res, tmp__;                                                \
-         asm volatile (                                                  \
-             ALTERNATIVE_2("call early_hypercall",                       \
--                          "vmmcall", ALT_NOT(X86_FEATURE_USE_VMCALL),   \
--                          "vmcall", X86_FEATURE_USE_VMCALL)             \
-+                          "vmmcall", [vmmcall],                         \
-+                          "vmcall", [vmcall])                           \
-             : "=a" (res), "=D" (tmp__) ASM_CALL_CONSTRAINT              \
-             : "0" (hcall),                                              \
--              "1" ((long)(a1))                                          \
-+              "1" ((long)(a1)),                                         \
-+              [vmmcall] "i" (ALT_NOT(X86_FEATURE_USE_VMCALL)),          \
-+              [vmcall] "i" (X86_FEATURE_USE_VMCALL)                     \
-             : "memory" );                                               \
-         (type)res;                                                      \
-     })
-@@ -45,12 +47,14 @@
-         long res, tmp__;                                                \
-         asm volatile (                                                  \
-             ALTERNATIVE_2("call early_hypercall",                       \
--                          "vmmcall", ALT_NOT(X86_FEATURE_USE_VMCALL),   \
--                          "vmcall", X86_FEATURE_USE_VMCALL)             \
-+                          "vmmcall", [vmmcall],                         \
-+                          "vmcall", [vmcall])                           \
-             : "=a" (res), "=D" (tmp__), "=S" (tmp__)                    \
-               ASM_CALL_CONSTRAINT                                       \
-             : "0" (hcall),                                              \
--              "1" ((long)(a1)), "2" ((long)(a2))                        \
-+              "1" ((long)(a1)), "2" ((long)(a2)),                       \
-+              [vmmcall] "i" (ALT_NOT(X86_FEATURE_USE_VMCALL)),          \
-+              [vmcall] "i" (X86_FEATURE_USE_VMCALL)                     \
-             : "memory" );                                               \
-         (type)res;                                                      \
-     })
-@@ -60,12 +64,14 @@
-         long res, tmp__;                                                \
-         asm volatile (                                                  \
-             ALTERNATIVE_2("call early_hypercall",                       \
--                          "vmmcall", ALT_NOT(X86_FEATURE_USE_VMCALL),   \
--                          "vmcall", X86_FEATURE_USE_VMCALL)             \
-+                          "vmmcall", [vmmcall],                         \
-+                          "vmcall", [vmcall])                           \
-             : "=a" (res), "=D" (tmp__), "=S" (tmp__), "=d" (tmp__)      \
-               ASM_CALL_CONSTRAINT                                       \
-             : "0" (hcall),                                              \
--              "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3))      \
-+              "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3)),     \
-+              [vmmcall] "i" (ALT_NOT(X86_FEATURE_USE_VMCALL)),          \
-+              [vmcall] "i" (X86_FEATURE_USE_VMCALL)                     \
-             : "memory" );                                               \
-         (type)res;                                                      \
-     })
-@@ -76,13 +82,15 @@
-         register long _a4 asm ("r10") = ((long)(a4));                   \
-         asm volatile (                                                  \
-             ALTERNATIVE_2("call early_hypercall",                       \
--                          "vmmcall", ALT_NOT(X86_FEATURE_USE_VMCALL),   \
--                          "vmcall", X86_FEATURE_USE_VMCALL)             \
-+                          "vmmcall", [vmmcall],                         \
-+                          "vmcall", [vmcall])                           \
-             : "=a" (res), "=D" (tmp__), "=S" (tmp__), "=d" (tmp__),     \
-               "=&r" (tmp__) ASM_CALL_CONSTRAINT                         \
-             : "0" (hcall),                                              \
-               "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3)),     \
--              "4" (_a4)                                                 \
-+              "4" (_a4),                                                \
-+              [vmmcall] "i" (ALT_NOT(X86_FEATURE_USE_VMCALL)),          \
-+              [vmcall] "i" (X86_FEATURE_USE_VMCALL)                     \
-             : "memory" );                                               \
-         (type)res;                                                      \
-     })
---- a/xen/arch/x86/include/asm/pdx.h
-+++ b/xen/arch/x86/include/asm/pdx.h
-@@ -13,9 +13,9 @@
-     asm_inline goto (                               \
-         ALTERNATIVE(                                \
-             "",                                     \
--            "jmp %l0",                              \
--            ALT_NOT(X86_FEATURE_PDX_COMPRESSION))   \
--        : : : : label )
-+            "jmp %l[" #label "]",                   \
-+            [feat])                                 \
-+        : : [feat] "i" (ALT_NOT(X86_FEATURE_PDX_COMPRESSION)) : : label )
- 
- static inline unsigned long pfn_to_pdx(unsigned long pfn)
- {
---- a/xen/arch/x86/include/asm/spec_ctrl.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl.h
-@@ -73,7 +73,7 @@ static always_inline void spec_ctrl_new_
- 
-     /* (ab)use alternative_input() to specify clobbers. */
-     alternative_input("", "DO_OVERWRITE_RSB xu=%=", X86_BUG_IBPB_NO_RET,
--                      : "rax", "rcx");
-+                      "i" (0) : "rax", "rcx");
- }
- 
- extern int8_t opt_ibpb_ctxt_switch;
-@@ -163,7 +163,7 @@ static always_inline void __spec_ctrl_en
-      * (ab)use alternative_input() to specify clobbers.
-      */
-     alternative_input("", "DO_OVERWRITE_RSB xu=%=", X86_FEATURE_SC_RSB_IDLE,
--                      : "rax", "rcx");
-+                      "i" (0) : "rax", "rcx");
- }
- 
- /* WARNING! `ret`, `call *`, `jmp *` not safe after this call. */
---- a/xen/arch/x86/include/asm/tsc.h
-+++ b/xen/arch/x86/include/asm/tsc.h
-@@ -29,8 +29,7 @@ static inline uint64_t rdtsc_ordered(voi
-     alternative_io_2("lfence; rdtsc",
-                      "mfence; rdtsc", X86_FEATURE_MFENCE_RDTSC,
-                      "rdtscp",        X86_FEATURE_RDTSCP,
--                     ASM_OUTPUT2("=a" (low), "=d" (high), "=c" (aux)),
--                     /* no inputs */);
-+                     ASM_OUTPUT2("=a" (low), "=d" (high), "=c" (aux)));
- 
-     return (high << 32) | low;
- }
+Jan
 
