@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB761CFB49A
-	for <lists+xen-devel@lfdr.de>; Tue, 06 Jan 2026 23:48:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196503.1514303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7BECFC525
+	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 08:23:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196516.1514313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdFpl-0001Qd-GK; Tue, 06 Jan 2026 22:47:25 +0000
+	id 1vdNsT-0000RZ-KI; Wed, 07 Jan 2026 07:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196503.1514303; Tue, 06 Jan 2026 22:47:25 +0000
+Received: by outflank-mailman (output) from mailman id 1196516.1514313; Wed, 07 Jan 2026 07:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdFpl-0001Oa-DZ; Tue, 06 Jan 2026 22:47:25 +0000
-Received: by outflank-mailman (input) for mailman id 1196503;
- Tue, 06 Jan 2026 22:47:24 +0000
+	id 1vdNsT-0000P0-He; Wed, 07 Jan 2026 07:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 1196516;
+ Wed, 07 Jan 2026 07:22:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D/Hg=7L=bounce.vates.tech=bounce-md_30504962.695d90f6.v1-b1553eb1c00644bcbb88f64e577effc2@srs-se1.protection.inumbo.net>)
- id 1vdFpk-0001OU-0J
- for xen-devel@lists.xenproject.org; Tue, 06 Jan 2026 22:47:24 +0000
-Received: from mail132-4.atl131.mandrillapp.com
- (mail132-4.atl131.mandrillapp.com [198.2.132.4])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AUe7=7M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vdNsS-0000Ou-IG
+ for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 07:22:44 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a89646d3-eb51-11f0-9ccf-f158ae23cfc8;
- Tue, 06 Jan 2026 23:47:21 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-4.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4dm5s26ZP0zlfgFc
- for <xen-devel@lists.xenproject.org>; Tue,  6 Jan 2026 22:47:18 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- b1553eb1c00644bcbb88f64e577effc2; Tue, 06 Jan 2026 22:47:18 +0000
+ id a6e393c9-eb99-11f0-9ccf-f158ae23cfc8;
+ Wed, 07 Jan 2026 08:22:41 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-47775fb6c56so14829935e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Jan 2026 23:22:41 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47d7f668e03sm84261615e9.14.2026.01.06.23.22.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Jan 2026 23:22:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,125 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a89646d3-eb51-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1767739638; x=1768009638;
-	bh=uG9dkpcyxG9XGIOrcqOgWZEBQUboGOvOW5SQQsgO9JQ=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=rHQHdgx9W+Z7otwHoGXl8Lpr17UVSjNVNTXuPiW7JX2QyW/lhbnwhmEbtfgxzr9g2
-	 jUF/QjdJDutsY9VgIVwnMcgjw8uGW3n/fKsxNEpoxWbvp58naXQV9FRxxXbKrxYw6n
-	 K26Gc5/IOOWzue4lX6llR/FQcd/1cabMeTDjqLfsQFNimcx2LTBCTwbZImmFl0gjD3
-	 m0cOKuVUUWB8B5hRkKvBhvwK6EaN5UN2Tnrfjbq1GqgFxrp0RrP/Cf9Y2SJY7G+zC4
-	 BCc+8CTrVw0d22TWucgrjAs2FbWTSLpsDWIdPBueBQ5uGKg5I0QD6b8b6u9TXOUbrA
-	 KDVBJstAWCZrA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1767739638; x=1768000138; i=teddy.astie@vates.tech;
-	bh=uG9dkpcyxG9XGIOrcqOgWZEBQUboGOvOW5SQQsgO9JQ=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=jm3DRF6W4/YL0lwx/YN9qQu4XjpIMo7Zy9i3LZpzEp18mXM3GC+GKDg1Wc1cW29Ru
-	 UkirsBkBF2K2b6jaR658iI7fGXyUymDnwYw6sMmw1dBPOy/uqCd5oz8oQ+W8qBL8su
-	 bvmI2MhofW2a30Fn7RkIHsRUTxhTZf2pRcJZgTFOeB2KIlOWz6fg1+jQ7S003xLVVf
-	 ovt8UliGWkwiB5vUp/q0BccZ7mFOJPIinROBgu/dg4nt40DzfiYH9gQmRb+8ZejtdZ
-	 Wfl9r6Zap8qshad9I3pPIyFg2Vc7EUBbMVsWHu6h91HCU+Vvs+Z6dMV0E0PlmkLk0B
-	 ao3KHrpltAqnw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20xen/virtio:=20Don't=20use=20grant-dma-ops=20when=20running=20as=20Dom0?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1767739637478
-Message-Id: <0b168d85-443c-4f38-92f8-8c008b2f8b82@vates.tech>
-To: "=?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?=" <jgross@suse.com>, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: "Stefano Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, "Boris Ostrovsky" <boris.ostrovsky@oracle.com>
-References: <6698564dd2270a9f7377b78ebfb20cb425cabbe8.1767720955.git.teddy.astie@vates.tech> <995f7ac8-0a8b-43d9-9cc7-63622ec52ca1@suse.com>
-In-Reply-To: <995f7ac8-0a8b-43d9-9cc7-63622ec52ca1@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b1553eb1c00644bcbb88f64e577effc2?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260106:md
-Date: Tue, 06 Jan 2026 22:47:18 +0000
+X-Inumbo-ID: a6e393c9-eb99-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1767770561; x=1768375361; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=w08qEzxsXeIfY5MglmTbkHuO1YUY66tXMm2UAY5+WNo=;
+        b=K1Yx9HnqDyIvCapQh15UF280shxXQraVzgxm/8NhokmxP9Zcudm5gZL6ySzAwl84E2
+         4IzW1ZyYmJjOtWEvOynZkfyBCVeYytEVTVDfmr4A/zCZXEMyPcEZaqErkqMCoHdt2S5/
+         1tkWJHZw3xux3pKmZSQ9EvfcGfeMMmWL9q7T/5UUckS9kzB+pXUC2T+sjokjOcHff1Oz
+         bvz/G++C6vZ1U1/cHKPJEAKTVUpkT/AKWRmJcGVhXeE6IxB2PC9F54zFIjS6tpmMHQuo
+         IPHg6wBmXyqGBB+G86sSkyreP9TSw8jGurSMvQvoTJSyYjdA8wV4QHae8Ccv1jpdvhEU
+         qdhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767770561; x=1768375361;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w08qEzxsXeIfY5MglmTbkHuO1YUY66tXMm2UAY5+WNo=;
+        b=a0sKcdK0W+eTBHK/tsUKfbbGDuEgBkILkz1DBH31RBc/vBUA86Kb9WVdzrqBOvG4cU
+         ZmAL5oe8j47OUac+aUoK0xWpv6fnyFDcL0mzFJGsklH4zNWP5kdr/86B0VdHDlY8yPhS
+         fRZ4ADhL05WeJYRay7zhi5YH8G2yoq9nth2Y30wA87Eeg4Uky4ieZMtSzYaJVTmdQYUO
+         tzPnAt197G4LpX6JUNqKCugyE29by+bQ8V0I6KWJERYQYVZ6+P7lgT7map+axclFk4ou
+         TssaLn6Jzqrr1NgbO5BItcdM5tE/QmEYgiXOiGq891gFCy88ZzXZZjx6nDFTYFNyA/3O
+         yDtw==
+X-Forwarded-Encrypted: i=1; AJvYcCULHRFRIfGo+tDEE8m4j1V7N+18sLstAW92+61lA0QzI8iofGAOCIAveAboW+DToQ+YRD8n8mCxFI0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YziQgkmEeoOxLT3TYlfJ5di+el0YfQl35YZL9TtG7xsJBYRJ2l1
+	oV/9/FqCFQvtcT0JaSWzxdFaPf4MWOXnAHQMfgytpAgnexKOuQBvKTxCnVOHMJv40w==
+X-Gm-Gg: AY/fxX6XAZZP8VPLng383hD9mOJZjrsaiK0yeVMSytCbuMY4RIXbNrq0JBOgnKLpUqY
+	RnCqxh/LUqKjvud8LFpRjH+Cq08f8zuqgn2/UylUSAYzsKUDexJgWMr4N5tcFhINlgGq/64KUhh
+	8jh35am5JcRjuyyQDpAefmAiXUZin/egbpz7zTXXGftnqPLZkLzUixlAOIq1gKyg+r/ZdtH/elG
+	gulgE+qjdF8nABeXWmFPhHqqkSEJIV6AOMjrP2tgn6qkbhUILNXbJHIQTTQq7wMZjO/l39s7y1y
+	QzipLE7+W0775mjm01SagD1eGazM2LqUDWXekAxbKQ9NqgSZwK0cti3KIbALv+mX8Ja6FBgsomW
+	vOQ8dH78b1OZS2CmilIFNgmF5lJ3qtPWZwFQ9uHqb2ASxHW5v0ONH2WrvqxPQDDyTswlexLl5wF
+	XQDtyFg6wjorZTTWATHGdhpVsymRbwA52NHwkK4gkzS/d+x00TJDiMu5uMMYQfMobEWqqJtDaEI
+	hk=
+X-Google-Smtp-Source: AGHT+IH7gEioYd9qII0cUkDG7O8KvpP9xIJ8Cc7v2Nnrn8FDhntJUIb6c1XICzM2+VOf7NRFSjwzVw==
+X-Received: by 2002:a05:600c:4ed4:b0:477:9986:5e6b with SMTP id 5b1f17b1804b1-47d84b41b53mr13884935e9.28.1767770560672;
+        Tue, 06 Jan 2026 23:22:40 -0800 (PST)
+Message-ID: <0ebbc19a-724c-4e2f-89ce-58325342c4b5@suse.com>
+Date: Wed, 7 Jan 2026 08:22:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.21 v2] x86/AMD: avoid REP MOVSB for Zen3/4
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Andrew Cooper <andrew.cooper@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <8ecbf8b7-91fe-4f9e-9542-7ec22b6a47bb@suse.com>
+ <693449f18cc4480ea2cb2161a9361354@DM4PR03MB7015.namprd03.prod.outlook.com>
+ <98855b1c-2cda-467e-8b88-ff24e7862b61@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <98855b1c-2cda-467e-8b88-ff24e7862b61@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 06/01/2026 =C3=A0 20:06, J=C3=BCrgen Gro=C3=9F a =C3=A9crit=C2=A0:
-> On 06.01.26 18:36, Teddy Astie wrote:
->> Dom0 inherit devices from the machine and is usually in PV mode.
->> If we are running in a virtual that has virtio devices, these devices
->> would be considered as using grants with Dom0 as backend, while being
->> the said Dom0 itself, while we want to use these devices like regular
->> PCI devices.
->>
->> Fix this by preventing grant-dma-ops from being used when running as Dom=
-0
->> (initial domain). We still keep the device-tree logic as-is.
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> Fixes: 61367688f1fb0 ("xen/virtio: enable grant based virtio on x86")
->> ---
->> CC: Juergen Gross <jgross@suse.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>
->>
->> =C2=A0 drivers/xen/grant-dma-ops.c | 3 ++-
->> =C2=A0 1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
->> index 14077d23f2a1..c2603e700178 100644
->> --- a/drivers/xen/grant-dma-ops.c
->> +++ b/drivers/xen/grant-dma-ops.c
->> @@ -366,7 +366,8 @@ static int xen_grant_init_backend_domid(struct 
->> device *dev,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (np) {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D xen_dt_gr=
-ant_init_backend_domid(dev, np, backend_domid);
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 of_node_put(np);
->> -=C2=A0=C2=A0=C2=A0 } else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT)=
- || 
->> xen_pv_domain()) {
->> +=C2=A0=C2=A0=C2=A0 } else if (!xen_initial_domain() &&
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (IS_ENABLE=
-D(CONFIG_XEN_VIRTIO_FORCE_GRANT) || 
->> xen_pv_domain())) {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_info(dev, "Us=
-ing dom0 as backend\n");
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *backend_domid =
-=3D 0;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D 0;
+On 06.01.2026 22:07, Andrew Cooper wrote:
+> On 13/10/2025 2:06 pm, Jan Beulich wrote:
+>> Along with Zen2 (which doesn't expose ERMS), both families reportedly
+>> suffer from sub-optimal aliasing detection when deciding whether REP MOVSB
+>> can actually be carried out the accelerated way. Therefore we want to
+>> avoid its use in the common case of memcpy(); copy_page_hot() is fine, as
+>> its two pointers are always going to be having the same low 5 bits.
 > 
-> Please make this controllable, e.g. via a boot parameter.
+> I think this could be a bit clearer.  How about this:
 > 
-> It is completely valid to have a virtio device in dom0 with the backend i=
-n
-> a domU. You'll need grants in this case.
+> ---8<---
+> Zen2 (which doesn't expose ERMS) through Zen4 have sub-optimal aliasing
+> detection for REP MOVS, and fall back to a unit-at-a-time loop when the
+> two pointers have differing bottom 5 bits.  While both forms are
+> affected, this makes REP MOVSB 8 times slower than REP MOVSQ.
 > 
-Due to
- > *backend_domid =3D 0
-
-Dom0 would always be the backend, unless we introduce a new boot 
-parameter to select which domain will be the backend.
-
-There is also another issue, as in the xen_initial_domain() case, all 
-PCI devices come from hardware. So no virtio-pci device can't come from 
-another domain as Linux would pick up pcifront devices only if we are 
-not a Dom0 (!xen_initial_domain()).
-
+> memcpy() has a high likelihood of encountering this slowpath, so avoid
+> using REP MOVSB.  This undoes the ERMS optimisation added in commit
+> d6397bd0e11c which turns out to be an anti-optimisation on these
+> microarchitectures.
 > 
-> Juergen
+> However, retain the use of ERMS-based REP MOVSB in other cases such as
+> copy_page_hot() where there parameter alignment is known to avoid the
+> slowpath.
+> ---8<---
+> 
+> ?
 
-Teddy
+Fine with me; changed. Do I take this as an okay-to-commit?
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
