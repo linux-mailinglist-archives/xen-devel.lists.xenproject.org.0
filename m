@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11303CFFB2C
-	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 20:20:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197163.1514789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15902CFFE71
+	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 21:03:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197192.1514800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdZ4A-0005Y6-UA; Wed, 07 Jan 2026 19:19:34 +0000
+	id 1vdZjl-0003AG-0g; Wed, 07 Jan 2026 20:02:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197163.1514789; Wed, 07 Jan 2026 19:19:34 +0000
+Received: by outflank-mailman (output) from mailman id 1197192.1514800; Wed, 07 Jan 2026 20:02:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdZ4A-0005VU-RF; Wed, 07 Jan 2026 19:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 1197163;
- Wed, 07 Jan 2026 19:19:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vdZjk-00038n-Tt; Wed, 07 Jan 2026 20:02:32 +0000
+Received: by outflank-mailman (input) for mailman id 1197192;
+ Wed, 07 Jan 2026 20:02:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gj8w=7M=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vdZ49-0005VM-8R
- for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 19:19:33 +0000
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca59b63a-ebfd-11f0-b15e-2bf370ae4941;
- Wed, 07 Jan 2026 20:19:31 +0100 (CET)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfhigh.phl.internal (Postfix) with ESMTP id B9FBF14000FC;
- Wed,  7 Jan 2026 14:19:29 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Wed, 07 Jan 2026 14:19:29 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Jan 2026 14:19:28 -0500 (EST)
+ <SRS0=xjqK=7M=proton.me=milky_way_303030@srs-se1.protection.inumbo.net>)
+ id 1vdZjh-00038h-Ip
+ for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 20:02:31 +0000
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c9a57512-ec03-11f0-9ccf-f158ae23cfc8;
+ Wed, 07 Jan 2026 21:02:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +36,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca59b63a-ebfd-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1767813569;
-	 x=1767899969; bh=rjlyU6n6NQN+n4tpxvCX19FpLU8GV94niAV2v1LdhJ0=; b=
-	bVAhzkicWTvAzPlKCKTAGL8zUdj2kqPhoPNBpPMBo0cjEzk8LzzK4lJkbBp9TygV
-	/8dJPKu6fF9BrEAvwF245vCUzqV2ro8Rs1fETPodkMtlVyoGpukiCTRG02QfKp4h
-	sK845QKJVpDu0G/zGK/8qOuQOr12rQFeLEKE9BolemaFla8Dwp0iIA1vcmTETx+d
-	WZy3Y6qepcWOS+P5BYcuvNkJNG8tfPGrVI4Tky+tNA1PZZ5irJsZESqAKlAbpdU3
-	UCDcaaPRvlAucA0BL0aXYuZUp65Ub1D96Lgwxg0OJcKVbKGhDyE9iSi5e/Zt+NeR
-	Wee+CMvHFkde8VsWp1PV0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1767813569; x=1767899969; bh=rjlyU6n6NQN+n4tpxvCX19FpLU8GV94niAV
-	2v1LdhJ0=; b=a/v3gxW7rxsXkS5BzWw+HTsx8S48pmxKtZVKkKnjmsoGr72i7YB
-	TZuX0/2CX2OBwjDILkvljjshVrKKtuXIfB9TY0uuIxn4PweIE1GCl8h5wjOBlU8v
-	oAH/Q/LjC1UjsN2nGuxpDfNphJcNtVqP8/sSpR64ooGnfgQP9G12FeKM0y9ioqop
-	Xn192c9C6JkiI4/Vh8lCHjGOnaWkvXHTX1k5Il2Gt4U66YOFjzU7OPBay/doNacS
-	aaSRQuakRMCuQRXz7DwYbi1vgLJrqSpGusO8iVyFrOsL4PinJGCut64hNHfol5Ob
-	ILtbWMVlnRSRGK9qUXyIXRqO1gzPbQgx2tQ==
-X-ME-Sender: <xms:wbFeaZFNiW0_hcO56mg-7c4bKOWcJWP7jDdtz8mMzIPGjdswkqYvhQ>
-    <xme:wbFeaVUNAaIwsCgwWVGDYrPqCIDWCgRw4Nceq7GOpsQeSb_ffuZlPWV9FeHqHtrAX
-    BnE2IBTSxg-gcQZQdX6W5yAYL2iGEoCDi9SGEHtrRraO4DfHI0>
-X-ME-Received: <xmr:wbFeaQIZs1qPbaJslfPsgcaCMr9xAxn4FlEtPQVme7E_-WtyPekWOpWtRsA4J57Tf4dwkULadEYWSjcgOcorAsUnrfVUlBEv6Z8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddutdefkeelucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
-    mhdprhgtphhtthhopehjrghnughrhihukhesghhmrghilhdrtghomhdprhgtphhtthhope
-    hmihhlkhihpgifrgihpgeftdeftdeftdesphhrohhtohhnrdhmvgdprhgtphhtthhopeig
-    vghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:wbFead9_sSkMZJR3Irxo97K89JsV1E-8xBHI7nQkOwx0sCoX_ScbBg>
-    <xmx:wbFeabIBSypwATP9gkXhwO_xNlad91rmbrDj8rzt8_CfnHPAigPFRA>
-    <xmx:wbFeaanyI6BkYCGGAakXtbRqtVrh_UTtsIWR8u2B432iuWPgl-WU4Q>
-    <xmx:wbFeaXM7CUVQD_CXcmiRQ6ijuKnL26FDoUca_xdQqUDlVFVHuhbMaw>
-    <xmx:wbFeaUZESkB_3kmlNSlMQGu92vaU9oR4tO-pIt1IEH_Ma-4XESoInn2l>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 7 Jan 2026 20:19:26 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jason Andryuk <jandryuk@gmail.com>, Milky <milky_way_303030@proton.me>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: c9a57512-ec03-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1767816144; x=1768075344;
+	bh=x/Ic/i0CEktQ5Yo7F7Ko7SDsLFKzmOEy8wDcpfg0JUE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EHjdW1vJwtSWFPJ9XrJ1iCZoX3hnNoz99Vnw2y5lPxJKy4rVE10h6oadO8/eihtgr
+	 iutPv86Ra2WBYqZMFaflctqAnnwvKkkC2NCz9wbvyv0IO+oohNhDQYoIaNAOUsMVln
+	 aGbJInb30rbnV1jwnCZxFYieO5YWL38Fx+mVsJsug7kuricV3pcoSVuSzZDDAZqyOb
+	 Xu/zd6kFbT/Hlrq519BxIU4FeaTq1Cht4KImcXPWeDSr6ZEEt6VyN3CXKbVkvyLYYy
+	 +i+pVy7lETKq1bDNb/uy8E58/gtYtEKmafjSHxDrc09583S//yHjCIbREgaoVedSN/
+	 W3KHgZu0e/xUA==
+Date: Wed, 07 Jan 2026 20:02:19 +0000
+To: Jason Andryuk <jandryuk@gmail.com>
+From: Milky <milky_way_303030@proton.me>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Subject: Re: Cpufreq drivers not working on T480S
-Message-ID: <aV6xvhqjX1sOrXb1@mail-itl>
-References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
- <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com>
- <NqFx_tXl0Zmx2ft7YVNGodkDcUFK7nA8KWUQMjOmD0y4T5W3-sTcGxCt7ViSRObUeJog3069xTY0ODZIG5hrX-Th2MvE95dSze13MGQ2tOY=@proton.me>
- <CAKf6xpvtF_cE7vMb9JfsVLkYH1XRXZG3nj+QO_72-zKJ3Cxh9w@mail.gmail.com>
- <DkXw78UBxXYCLNKCoThGPM1kde5JwARo3NhWtlBBrrFtLFVTnwNlwDlZYzuNlSdAs9XzE0aDPqgt9dri9YKJULULBXwJLEcEgbLOgzkVSVU=@proton.me>
- <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
- <6f02aca2-eaca-48b8-a2f3-4afff42ad264@suse.com>
+Message-ID: <unRhWiUKUGc3G4yBmJJ2Pc0JOSbM4HC0b-fTBaf1f0RYJEi_aIHV3-il1EafrSE9c77-tZNUV386xdg3UANDdeonG_zecEVq7HrG2COheJ8=@proton.me>
+In-Reply-To: <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
+References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me> <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com> <NqFx_tXl0Zmx2ft7YVNGodkDcUFK7nA8KWUQMjOmD0y4T5W3-sTcGxCt7ViSRObUeJog3069xTY0ODZIG5hrX-Th2MvE95dSze13MGQ2tOY=@proton.me> <CAKf6xpvtF_cE7vMb9JfsVLkYH1XRXZG3nj+QO_72-zKJ3Cxh9w@mail.gmail.com> <DkXw78UBxXYCLNKCoThGPM1kde5JwARo3NhWtlBBrrFtLFVTnwNlwDlZYzuNlSdAs9XzE0aDPqgt9dri9YKJULULBXwJLEcEgbLOgzkVSVU=@proton.me> <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
+Feedback-ID: 171106842:user:proton
+X-Pm-Message-ID: 725be580148ccd17904489e21fd4fbbb99e08fa5
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="2HGh07lK15T6GBLf"
-Content-Disposition: inline
-In-Reply-To: <6f02aca2-eaca-48b8-a2f3-4afff42ad264@suse.com>
-
-
---2HGh07lK15T6GBLf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 7 Jan 2026 20:19:26 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jason Andryuk <jandryuk@gmail.com>, Milky <milky_way_303030@proton.me>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Cpufreq drivers not working on T480S
 
-On Tue, Jan 06, 2026 at 09:25:14AM +0100, Jan Beulich wrote:
-> On 06.01.2026 02:03, Jason Andryuk wrote:
-> > no-hwp failed to disable HWP.  But if there is no ACPI CPU data, it
-> > wouldn't work either.
+
+On Tuesday, January 6th, 2026 at 1:06 AM, Jason Andryuk <jandryuk@gmail.com=
+> wrote:
+
+> > As suggested, I added the debug parameters to the dom0 kernel. Before o=
+r
+> > after `modprobe xen-acpi-processor dyndbg=3D=3Dpmf`, there is no useful
+> > debug information that I could find, apart from the
+> > `xen_acpi_processor:get_max_acpi_id` message as seen below.
+> >=20
+> > ```
+> > # sudo dmesg | grep xen.acpi
+> > [ 2.282851] Kernel command line: placeholder root=3D/dev/mapper/qubes_d=
+om0-root ro rd.luks.uuid=3D<...> rd.lvm.lv=3Dqubes_dom0/root rd.lvm.lv=3Dqu=
+bes_dom0/swap plymouth.ignore-serial-consoles 6.6.77-1.qubes.fc37.x86_64 x8=
+6_64 rhgb loglevel=3D9 "dyndbg=3Dmodule xen_acpi_processor +p" "xen_acpi_pr=
+ocessor.dyndbg=3Dfunc * +p" rd.qubes.hide_all_usb
+> > [ 5.224092] xen_acpi_processor: Max ACPI ID: 6
 >=20
-> There isn't any "no-hwp" option that we would recognize, is there? Iirc H=
-WP
-> isn't enabled by default, so simply not saying "cpufreq=3Dhwp" should dis=
-able
-> the driver? (I already found the original report confusing in this regard,
-> hence why I preferred to not reply so far. I wonder if there are local
-> patches in use.)
+>=20
+> You successfully turned on dyndbg to get that output, but there is no
+> further output. This makes me think something else is wrong and
+> xen-acpi-processor doesn't upload anything.
+>=20
+> The call here https://elixir.bootlin.com/linux/v6.18.2/source/drivers/xen=
+/xen-acpi-processor.c#L557
+> to
+> https://elixir.bootlin.com/linux/v6.18.2/source/drivers/acpi/processor_pe=
+rflib.c#L421
+> goes into some acpi code. Maybe there are other messages in dmesg
+> around the same time? Maybe you'd have to turn on more debugging to
+> get them.
 
-Qubes has a patch enabling HWP by default on supported platforms.
+I'm dumping below a few more entries from the same dmesg log.=20
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+```
+[    5.175506] xen:xen_evtchn: Event-channel device installed
+[    5.208487] xen_pciback: backend is vpci
+[    5.215060] xen_acpi_processor: Max ACPI ID: 6
+[    5.721955] pciback 0000:00:14.0: xen_pciback: seizing device
+[    5.722265] xen: registering gsi 16 triggering 0 polarity 1
+[    5.722288] Already setup the GSI :16
+[    5.723125] pciback 0000:00:1f.6: xen_pciback: seizing device
+[    5.723389] xen: registering gsi 16 triggering 0 polarity 1
+[    5.723408] Already setup the GSI :16
+[    5.829865] pciback 0000:02:00.0: xen_pciback: seizing device
+[    5.832192] xen: registering gsi 18 triggering 0 polarity 1
+[    5.832214] Already setup the GSI :18
+[    7.476065] nvme nvme0: pci function 0000:03:00.0
+[    7.476438] xen: registering gsi 16 triggering 0 polarity 1
+[    7.476459] Already setup the GSI :16
+[    7.486102] nvme nvme0: 4/0/0 default/read/poll queues
+[    7.489856]  nvme0n1: p1 p2
+[    8.877791] xen: registering gsi 16 triggering 0 polarity 1
+[    8.877823] Already setup the GSI :16
+[    8.877910] i915 0000:00:02.0: [drm] Found KABYLAKE (device ID 5917) dis=
+play version 9.00 stepping C0
+```
 
---2HGh07lK15T6GBLf
-Content-Type: application/pgp-signature; name=signature.asc
+> You could de-compile the ACPI tables and see if they have CPU info.
+> Something like:
+> mkdir acpi-tables
+> cd acpi-tables
+> cp /sys/firmware/acpi/tables/* .
+> iasl -d *
+> grep -r -e _PCT -e _PPC -e _PSS *.dsl
+>=20
+> That could help confirm the tables are missing.
 
------BEGIN PGP SIGNATURE-----
+Unfortunately it would appear so. Grepping doesn't return any results.=20
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmlesb8ACgkQ24/THMrX
-1yzl+ggAhQ+BeDiQz/Pds/RTCcpAv/R4Lq+fwTa/ahy0ZN8kODVZ+PHo+IcJ/67s
-Q2tBIuf/EZFIQkzpOYd9LiPAfTNpX7nES8XW8kgq1uMwQvKj6EpuxTzjXrcIftH7
-0NQC3nxzeFnWaBaorPibyk+9pRaaABLFGHS3W/LSVXykp1XzzsjdEQS+BPDHquLl
-g5nj9ELS2yGcGnInompHuUJZXTkWbDMcKKvE5gOLmBlq44XhvwE49xKluCjcYlSR
-bn6NfN/ta20b7sOudE7MLZWnodvXw4u1icPbcZTsFtXM3064TTGAlmCciPbijz51
-+doT1KpfKox+xhZ0f+aeLA67W12zgA==
-=g0tv
------END PGP SIGNATURE-----
+The same is also true under Debian Live; does it mean that frequency scalin=
+g, since it seems to be working under Debian Live, doesn't always rely on t=
+his?
 
---2HGh07lK15T6GBLf--
+I'm currently trying to find someone else with a librebooted T480S to check=
+ their ACPI tables, since I'm wondering if I botched my libreboot build.
+
 
