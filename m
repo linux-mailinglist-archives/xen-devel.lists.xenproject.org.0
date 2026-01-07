@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72B3CFEE41
-	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 17:33:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196927.1514657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D1B1CFEE82
+	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 17:37:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196987.1514680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdWTF-0003Nw-QW; Wed, 07 Jan 2026 16:33:17 +0000
+	id 1vdWXN-0005RD-Ky; Wed, 07 Jan 2026 16:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196927.1514657; Wed, 07 Jan 2026 16:33:17 +0000
+Received: by outflank-mailman (output) from mailman id 1196987.1514680; Wed, 07 Jan 2026 16:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdWTF-0003Ky-Hu; Wed, 07 Jan 2026 16:33:17 +0000
-Received: by outflank-mailman (input) for mailman id 1196927;
- Wed, 07 Jan 2026 16:33:15 +0000
+	id 1vdWXN-0005Pm-ID; Wed, 07 Jan 2026 16:37:33 +0000
+Received: by outflank-mailman (input) for mailman id 1196987;
+ Wed, 07 Jan 2026 16:37:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ufZv=7M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vdWTD-00033L-NB
- for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 16:33:15 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1vdWUC-00033L-6o
+ for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 16:34:16 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90712ea5-ebe6-11f0-b15e-2bf370ae4941;
- Wed, 07 Jan 2026 17:33:14 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b7cee045187so187259266b.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 08:33:14 -0800 (PST)
+ id b4632b82-ebe6-11f0-b15e-2bf370ae4941;
+ Wed, 07 Jan 2026 17:34:15 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b7355f6ef12so431929466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 08:34:15 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a27c755sm561592366b.18.2026.01.07.08.33.12
+ a640c23a62f3a-b842a4cfd97sm531309766b.36.2026.01.07.08.34.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jan 2026 08:33:13 -0800 (PST)
+ Wed, 07 Jan 2026 08:34:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,219 +45,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90712ea5-ebe6-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: b4632b82-ebe6-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767803594; x=1768408394; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iJZSiko2nJXPL9NTYScplDvXQDw7YOhI5gws96iyp7k=;
-        b=PkAuaMwbCy0RkUAXTRC6ctxGPGqmknfHiMA5XjWrj7+NAEiO1NJ4b91K+SpWTC9Rzi
-         R7EOqWZzChQAASZ0EIa7mM+jitJLWiMhL6XHXr5Yjz6uiQMzK7nfi3W4lgE3hKld4HuI
-         /dmIVXrU0cpCG6GEVNU7tIbYFGSyGD9gar5q6mg8s0hqaF4tHRdZ7k84NpQ/R58W7bJ2
-         6OvqkacQeMlJpEdLCUXiBuazDpJvqtcom12gL0y7ap5UVWvmPBP0F/buC6bqUx6LzMhl
-         HAKxWP2O44G5SndqcPZB0OY6JODnaaI2raT4Vksefz1IN+iTeq1Urh2+oxiuNeoauD3b
-         Ulqw==
+        d=gmail.com; s=20230601; t=1767803654; x=1768408454; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=j0do4wU9XAoJGGnLPFw9NPAw9NeZhVzIfXdHI5e2mqY=;
+        b=XFxE+JWp8F0JxVepRe5zD0WlVuYQYYg8siaFppNMDeMF7IKmBYE3Vw6Ay5KK8MX8bo
+         hJ3Wg4QWFIMi9DKmf7+CH3nBWj22A+Q+CvuDfdx4idaGyc8pUumKA3/3agudJP8c5RWV
+         Bkhzj9QN+4EbGQbhX3tpisrz0Lx18OmVQRtGb8eCgRs3Qb2SMlbMbrbPXi+SaRz90TzF
+         PaRv6tJ7njzNXIYcQPez9Tiw3aipYg8AyFGpbObKIQkO2wmQcJeG6W1ASObTuDzEXFyV
+         gIR8L2/Knn+qogYBm1ViNHDvx0PNZlVxi65M0viAEoEUDvUbx7KXV4hqJlm7dc1TdHCb
+         9sEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767803594; x=1768408394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iJZSiko2nJXPL9NTYScplDvXQDw7YOhI5gws96iyp7k=;
-        b=ZqhkbAzVuOYPJ4dNHDvCf3Mv0sRyuGaCL+bHWtLkJy9+J7W7pnxcRrA0p9gPP62hMs
-         FBlr1+Np6BbP2eEDW//kEBWfYECTm9E+etE8zaVcPfRvRTD2GsohkEuFbbvRN2R/k+08
-         ceqfYYd4o0hkOtpPq3H+ZFw/lsD+5Tz7GG6NkIxa6HH9yHOT8L7gDnwcP3Fj1DcsqObW
-         bi1KMRk7nwAw96TfXbQoPaw62SqwB+9rFM9/tuocqLONcImkvMpu2UKlBjxizW0K11JR
-         /5pYyflxy4qEXTrEQ5xdki89Klnhs5yOskpTuqN7Ee58v2L2zq0qNrkfiYdTFMkTza+x
-         14zA==
-X-Gm-Message-State: AOJu0Yy/Vw6XX24vFjGJAyhiGppaZIzF283XLVcYN6N5BfCKB2inz8Pd
-	0qawihlialuQhwOlb3EzJVh37tZA636GLxVRF3Y2tMprO6Xw8mJscamR7xLw9Q==
-X-Gm-Gg: AY/fxX7SMuiDKlPcPy8glDQ5GaxgiSv60QdykyjIMDQ11oF26NtzvRTOulzT/Di6QIC
-	g4gO5OCym+or+9UvzhjaLKm+PFY7uFkKPSgfkZOZ+G5oRFdbu1iaD8f3/xX3UxrbvoiUBNxBs2X
-	hQ9fRZksUV3Wj+2whPf47obDcYe5zTCcYIdblTht1i8mWVMTg9yRdYiF84XrWrmzfQN2dwkXnpD
-	4nB/+vK0LS8F9+FzpRpsk3qQw03GN7jUg3A+VZeJzRUllD4M88JpiWXNzLTGEwxGTgVKNuxdnUQ
-	JKaS0CN61yAVNILQ32XMdDLX0gMWrNmoVcPT07DCtgSY3RiSlZfS64sOkiGBQjbtYxYfEimuhXU
-	Qc/F+lRL8NmIvxlaIYCO+9LjKXdDMF9Qdj/I6VvYC5UeKXCXEC3WZjIQ+F1Zq6/+IDaoJ3AWdxN
-	5IPtWIWiWHz6HAn0Kf5zkHJiS24Qy2Iov/cxuVixZTtV/aFdHYD34vMA==
-X-Google-Smtp-Source: AGHT+IFAf70CmWuElP0VndkfJS2nwryxIUulDqOwebDXN3eOOcbTXkoz+7h3WjTTEfmRkEVpSZ6W+Q==
-X-Received: by 2002:a17:906:4fd1:b0:b80:40ea:1d65 with SMTP id a640c23a62f3a-b8444fd5896mr388290566b.31.1767803593768;
-        Wed, 07 Jan 2026 08:33:13 -0800 (PST)
+        d=1e100.net; s=20230601; t=1767803654; x=1768408454;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j0do4wU9XAoJGGnLPFw9NPAw9NeZhVzIfXdHI5e2mqY=;
+        b=N53AJNW0xJ7xUQvFIc3p9j8i+FPqRTEbRqpnnbQPmscB1jGmz8sernu24pYonuWDLl
+         qA4eKOP/ZGuLL/sbjDRIp7T+53lzNwmPQBMrxcYugKs2BPFTF73Pq1AoK2mIAKlUbnE6
+         4TKkapI/r0o4HkSJv/lI9gzNE8Wb/HEalsDpMkcVAxZOeNYTKm1eJSGGxd8IEMB1OfRi
+         ACFBXTXK2Jbj3FSF6X4Z5eoZaAFYdXctyuI0U1oEKVq6ukl9xLTmXam4i6UQdyX3EROB
+         0ooYFbv0ZW4tyFgDaw7esBwAN76fSRaBR/gfrfBlF9UBxZTLvqftpidytrugfP8DFWav
+         cOEg==
+X-Gm-Message-State: AOJu0YxR+5dC1RpE9xMTNcvb6MwoKymAw2irNZ56WeUQ+nipaG6JmbRm
+	nG5i+16CvuQlmZGcveSwYCK6/3UQeV4lwQFxqkqNg/NXJZy1dL/Iwixhu4+tyw==
+X-Gm-Gg: AY/fxX74eRqTQ5S7QrMFvJ5pVGcIkr5NH5gicXUwWA+xNuJqCLJ0E4nGv78id0qXDm+
+	Edbkqyd2ANX1BphjMFHWpIi3uDCa1WQYZ2iwvYa5SRKludsE5GU77T7OwZk9GmpLbccHEQYn4XJ
+	RrWhV0ooMiELpHnHQh6luHfiCrt5U75Zw5sCOX+8Oiuf41m6XPvb+zIw8YUm1D7Hg4ZNOOL0vsC
+	LYZPmyZ3xD8QEhAPIbcYLCoPB39LhUIZiJzV3WdU/YntURtrETwpt2xJkUQmHAD+niPYbk12I5O
+	Ld32h2nXlanFaOfuDQXnvIsLA3C0bvHqysSMxcTaVyN8dqT9g5+9xdRJQGQ7gMmCzRyGJFpUNBt
+	YjQBOX48Ha6es6GdUDXhPYzTI98MfnqtbzCadolemvRTLCYHVFErpjRv1MCVrtRMWyZP6NXO5KS
+	OEp798l+X/w542wn+8EnndSZuILErYhkO/EjRc7VIRHnc7ulW7nbhmAuPikRMVwQoh
+X-Google-Smtp-Source: AGHT+IGTQNpEB2UwZwEuxMVMqHBoasEhnCwPI96dDmnCa/v0k8qb6hQy0agIRqMVqWuLLGrXCJx9dA==
+X-Received: by 2002:a17:907:7283:b0:b83:1327:5f88 with SMTP id a640c23a62f3a-b84451da312mr317379666b.16.1767803654204;
+        Wed, 07 Jan 2026 08:34:14 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v9 3/3] xen/riscv: update p2m_set_entry() to free unused metadata pages
-Date: Wed,  7 Jan 2026 17:32:59 +0100
-Message-ID: <842b192c9f3cadc948a194de4789c16deafc32cb.1767803451.git.oleksii.kurochko@gmail.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Yann Dirson <yann.dirson@vates.tech>,
+	Yann Sionneau <yann.sionneau@vates.tech>
+Subject: [PATCH v2] acpi/arm: relax MADT GICC entry length check to support newer ACPI revisions
+Date: Wed,  7 Jan 2026 17:34:02 +0100
+Message-ID: <3850c51d41b1ab67a453ca70c0a44172185274f6.1767694781.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1767803451.git.oleksii.kurochko@gmail.com>
-References: <cover.1767803451.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce tracking of metadata page entries usage and if all of them are
-p2m_invalid then free them.
+Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
+The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
+match the known values, which leads to:
+  GICv3: No valid GICC entries exist.
+as observed on the AmpereOne platform.
 
-Intermediate P2M page tables are allocated with MEMF_no_owner, so we are free
-to repurpose struct page_info fields for them. Since page_info.u.* is not
-used for such pages, introduce a used_entries counter in struct page_info
-to track how many metadata entries are in use for a given intermediate P2M
-page table.
+To fix this, import the logic from Linux commit 9eb1c92b47c7:
+  The BAD_MADT_GICC_ENTRY check is a little too strict because
+  it rejects MADT entries that don't match the currently known
+  lengths. We should remove this restriction to avoid problems
+  if the table length changes. Future code which might depend on
+  additional fields should be written to validate those fields
+  before using them, rather than trying to globally check
+  known MADT version lengths.
 
-The counter is updated in p2m_set_type() when metadata entries transition
-between p2m_invalid and a valid external type. When the last metadata entry
-is cleared (used_entries == 0), the associated metadata page is freed and
-returned to the P2M pool.
+  Link: https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
+  Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
+  [lorenzo.pieralisi@arm.com: added MADT macro comments]
+  Signed-off-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+  Acked-by: Sudeep Holla <sudeep.holla@arm.com>
+  Cc: Will Deacon <will.deacon@arm.com>
+  Cc: Catalin Marinas <catalin.marinas@arm.com>
+  Cc: Al Stone <ahs3@redhat.com>
+  Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+  Signed-off-by: Will Deacon <will.deacon@arm.com>
 
-Refactor metadata page freeing into a new helper, p2m_free_metadata_page(),
-as the same logic is needed both when tearing down a P2M table and when
-all metadata entries become p2m_invalid in p2m_set_type(). As part of this
-refactoring, move the declaration of p2m_free_page() earlier to satisfy the
-new helper.
+As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
+used. As we rewrite the MADT for hwdom, reuse the host GICC header length
+instead of ACPI_MADT_GICC_LENGTH.
 
-Additionally, implement page_set_tlbflush_timestamp() for RISC-V instead of
-BUGing, as it is invoked when returning memory to the domheap.
+[1] https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
+Reported-By: Yann Dirson <yann.dirson@vates.tech>
+Co-developed-by: Yann Sionneau <yann.sionneau@vates.tech>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Changes in v5:
- - Nothing changed. Only rebase.
----
-Changes in v4:
- - Move implementation of alloc_domain_struct() and free_domain_struct()
-   ahead of alloc_vcpu_struct().
----
-Changes in v3:
- - Move alloc_domain_struct() and free_domain_struct() to not have
-   forward declaration.
- - Add Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>.
+I ran CI tests where it made sense for this patch, as I don’t see any CI job
+that builds Xen with CONFIG_ACPI=y:
+  https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2229673951
+
+I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
+AmpereOne platform.
 ---
 Changes in v2:
- - New patch.
+ - Update the commit message:
+   - Use more characters for commit ID.
+   - Drop 'import from'.
+ - Add Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>.
+ - Make the local variables host_gicc const in  gic_get_hwdom_madt_size().
+   (header variable isn't const as container_of() will discard 'const' qualifier
+   and so compilation error will occur).
+ - Return 0 instead of panic() in gic_get_hwdom_madt_size().
 ---
- xen/arch/riscv/include/asm/flushtlb.h |  2 +-
- xen/arch/riscv/include/asm/mm.h       | 12 ++++++++++
- xen/arch/riscv/p2m.c                  | 32 +++++++++++++++++++++------
- 3 files changed, 38 insertions(+), 8 deletions(-)
+ xen/arch/arm/acpi/domain_build.c |  6 ++++++
+ xen/arch/arm/gic-v2.c            |  3 ++-
+ xen/arch/arm/gic-v3.c            |  3 ++-
+ xen/arch/arm/gic.c               | 12 +++++++++++-
+ xen/arch/arm/include/asm/acpi.h  | 21 +++++++++++++++------
+ 5 files changed, 36 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
-index ab32311568ac..4f64f9757058 100644
---- a/xen/arch/riscv/include/asm/flushtlb.h
-+++ b/xen/arch/riscv/include/asm/flushtlb.h
-@@ -38,7 +38,7 @@ static inline void tlbflush_filter(cpumask_t *mask, uint32_t page_timestamp) {}
+diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+index 1c3555d814cc..959698d13ac3 100644
+--- a/xen/arch/arm/acpi/domain_build.c
++++ b/xen/arch/arm/acpi/domain_build.c
+@@ -458,6 +458,12 @@ static int __init estimate_acpi_efi_size(struct domain *d,
+     acpi_size += ROUNDUP(sizeof(struct acpi_table_stao), 8);
  
- static inline void page_set_tlbflush_timestamp(struct page_info *page)
- {
--    BUG_ON("unimplemented");
-+    page->tlbflush_timestamp = tlbflush_current_time();
- }
- 
- static inline void arch_flush_tlb_mask(const cpumask_t *mask)
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 48162f5d65cd..a005d0247a6f 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -113,6 +113,18 @@ struct page_info
-             unsigned long type_info;
-         } inuse;
- 
-+        /* Page is used as an intermediate P2M page table: count_info == 0 */
-+        struct {
-+            /*
-+            * Tracks the number of used entries in the metadata page table.
-+            *
-+            * If used_entries == 0, then `page_info.v.md.pg` can be freed and
-+            * returned to the P2M pool.
-+            */
-+            unsigned long used_entries;
-+        } md;
-+
-+
-         /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
-         union {
-             struct {
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index c40ea483a7cd..0abeb374c110 100644
---- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -51,6 +51,18 @@ static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
-     .name = "Bare",
- };
- 
-+static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
-+
-+static inline void p2m_free_metadata_page(struct p2m_domain *p2m,
-+                                          struct page_info **md_pg)
-+{
-+    if ( *md_pg )
+     madt_size = gic_get_hwdom_madt_size(d);
++    if ( !madt_size )
 +    {
-+        p2m_free_page(p2m, *md_pg);
-+        *md_pg = NULL;
++        printk("Unable to get hwdom MADT size\n");
++        return -EINVAL;
 +    }
-+}
 +
- unsigned char get_max_supported_mode(void)
- {
-     return max_gstage_mode.mode;
-@@ -448,16 +460,27 @@ static void p2m_set_type(pte_t *pte, p2m_type_t t,
+     acpi_size += ROUNDUP(madt_size, 8);
  
-     if ( t >= p2m_first_external )
+     addr = acpi_os_get_root_pointer();
+diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+index b23e72a3d05d..aae6a7bf3076 100644
+--- a/xen/arch/arm/gic-v2.c
++++ b/xen/arch/arm/gic-v2.c
+@@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
+     host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+                              header);
+ 
+-    size = ACPI_MADT_GICC_LENGTH;
++    size = host_gicc->header.length;
++
+     /* Add Generic Interrupt */
+     for ( i = 0; i < d->max_vcpus; i++ )
      {
-+        if ( metadata[ctx->index].type == p2m_invalid )
-+            ctx->pt_page->u.md.used_entries++;
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index bc07f97c16ab..75b89efad462 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
+ 
+     host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+                              header);
+-    size = ACPI_MADT_GICC_LENGTH;
++    size = host_gicc->header.length;
 +
-         metadata[ctx->index].type = t;
- 
-         t = p2m_ext_storage;
-     }
-     else if ( metadata )
-+    {
-+        if ( metadata[ctx->index].type != p2m_invalid )
-+            ctx->pt_page->u.md.used_entries--;
-+
-         metadata[ctx->index].type = p2m_invalid;
-+    }
- 
-     pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
- 
-     unmap_domain_page(metadata);
-+
-+    if ( *md_pg && !ctx->pt_page->u.md.used_entries )
-+        p2m_free_metadata_page(ctx->p2m, md_pg);
- }
- 
- /*
-@@ -624,18 +647,13 @@ static pte_t page_to_p2m_table(const struct page_info *page)
-     return p2m_pte_from_mfn(page_to_mfn(page), p2m_invalid, NULL);
- }
- 
--static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
--
- /*
-  * Free page table's page and metadata page linked to page table's page.
-  */
- static void p2m_free_table(struct p2m_domain *p2m, struct page_info *tbl_pg)
+     for ( i = 0; i < d->max_vcpus; i++ )
+     {
+         gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
+diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+index ee75258fc3c3..e22feb46f5d4 100644
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -418,8 +418,18 @@ unsigned long gic_get_hwdom_madt_size(const struct domain *d)
  {
--    if ( tbl_pg->v.md.pg )
--    {
--        p2m_free_page(p2m, tbl_pg->v.md.pg);
--        tbl_pg->v.md.pg = NULL;
--    }
-+    p2m_free_metadata_page(p2m, &tbl_pg->v.md.pg);
-+
-     p2m_free_page(p2m, tbl_pg);
- }
+     unsigned long madt_size;
  
++    struct acpi_subtable_header *header;
++    const struct acpi_madt_generic_interrupt *host_gicc;
++
++    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
++    if ( !header )
++        return 0;
++
++    host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
++                             header);
++
+     madt_size = sizeof(struct acpi_table_madt)
+-                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
++                + host_gicc->header.length * d->max_vcpus
+                 + sizeof(struct acpi_madt_generic_distributor)
+                 + gic_hw_ops->get_hwdom_extra_madt_size(d);
+ 
+diff --git a/xen/arch/arm/include/asm/acpi.h b/xen/arch/arm/include/asm/acpi.h
+index 13756dd341b4..30bc446d1f75 100644
+--- a/xen/arch/arm/include/asm/acpi.h
++++ b/xen/arch/arm/include/asm/acpi.h
+@@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
+  */
+ paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
+ 
+-/* Macros for consistency checks of the GICC subtable of MADT */
+-#define ACPI_MADT_GICC_LENGTH	\
+-    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
++/*
++ * MADT GICC minimum length refers to the MADT GICC structure table length as
++ * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
++ *
++ * The efficiency_class member was added to the
++ * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
++ * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
++ * is therefore used to delimit the MADT GICC structure minimum length
++ * appropriately.
++ */
++#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
++    struct acpi_madt_generic_interrupt, efficiency_class)
+ 
+-#define BAD_MADT_GICC_ENTRY(entry, end)						\
+-    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
+-     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
++#define BAD_MADT_GICC_ENTRY(entry, end) \
++    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
++    (unsigned long)(entry) + (entry)->header.length > (end))
+ 
+ #ifdef CONFIG_ACPI
+ extern bool acpi_disabled;
 -- 
 2.52.0
 
