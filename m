@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9A1CFC7DA
-	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 09:03:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1196559.1514344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9796CFCAAE
+	for <lists+xen-devel@lfdr.de>; Wed, 07 Jan 2026 09:47:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1196573.1514354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdOVN-0007Gx-Oc; Wed, 07 Jan 2026 08:02:57 +0000
+	id 1vdPBY-0003yy-Nc; Wed, 07 Jan 2026 08:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1196559.1514344; Wed, 07 Jan 2026 08:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 1196573.1514354; Wed, 07 Jan 2026 08:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdOVN-0007FP-Kq; Wed, 07 Jan 2026 08:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 1196559;
- Wed, 07 Jan 2026 08:02:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vdPBY-0003xE-KZ; Wed, 07 Jan 2026 08:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 1196573;
+ Wed, 07 Jan 2026 08:46:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AUe7=7M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdOVM-0007FI-BG
- for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 08:02:56 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 459ce70e-eb9f-11f0-b15e-2bf370ae4941;
- Wed, 07 Jan 2026 09:02:55 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-42fb2314f52so844361f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 00:02:55 -0800 (PST)
+ id 1vdPBW-0003x8-OA
+ for xen-devel@lists.xenproject.org; Wed, 07 Jan 2026 08:46:30 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 535c11de-eba5-11f0-9ccf-f158ae23cfc8;
+ Wed, 07 Jan 2026 09:46:15 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-47d63594f7eso10854175e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Jan 2026 00:46:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e16f4sm9144302f8f.11.2026.01.07.00.02.53
+ 5b1f17b1804b1-47d8384646fsm50965975e9.15.2026.01.07.00.46.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Jan 2026 00:02:54 -0800 (PST)
+ Wed, 07 Jan 2026 00:46:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 459ce70e-eb9f-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 535c11de-eba5-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767772974; x=1768377774; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767775574; x=1768380374; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zsypaM5Uq+N9ETzIqEmeMHTI8+kHzqO5OjLxgZDUHFI=;
-        b=RpDKZ90sC+lHqyasyXbYIGVn29WMZMe5NY6Gg9eD34+wrBcsqxniSCMCUy3rsjZ9mQ
-         e+lC0fKd7YyvjaEH7E+5IbhCYngvPh4wtMnfXpO+r71o3BI4QKLJ1Zx56JFr530m6Cu8
-         a6jdN5yhZ/v64s1v2TG1FW26ncQHM+EFOQX1nMeZbrFrmxR42tQZuDDsvlTRRdvS6kWM
-         ORxqcmSZwBWpoqhwO+w+AJ24V5nlhk2GL0fvuF1mztUIGfnhgSei4HdHOMXSZJkUy407
-         cunjH20vC7aURYLZ7lycCS2Y44d+w9pigUkUwR9KRegmEM7DK6uPVjfc5jZf94yZ2oRR
-         9Kmg==
+        bh=zAVbi728WuF7QBuMeLZiS48gck7F1ciPMFRLqn+3jLk=;
+        b=FQQ1/KgeWQ2xj2NEsJAsJvSguumtKljKIvmbIHUq99BFZ3cIiOwKrXqy04tx/2tppD
+         RMfz5KrtRaB0vVjQkFAYyG58KJjOjnWBE4V/3G3Qw36LOQTkrEi1tImLHDBDeoqOqsuJ
+         2DsBkVgFdeEWROTX53f6ZY/C0ecqBDWkhXVtSr1NqgiwH+DnMg3Yyf/JSqQT2mpXtlpv
+         aJ88Kan1RzOSAdLOHhHvwxD1bzaiAV6mUlJO/Miv0tiKQ7hJuPyAaTBjeAUoS8Cpkaz4
+         N23MN9rwBTiAAVXD57bPGshvThdNcGfPg8xAbb/KPQBoBbqCTKRtosigbXkG+h81i5Ty
+         5a2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767772974; x=1768377774;
+        d=1e100.net; s=20230601; t=1767775574; x=1768380374;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zsypaM5Uq+N9ETzIqEmeMHTI8+kHzqO5OjLxgZDUHFI=;
-        b=YeCsB0i8vYC91UCIFgNrbQq/t111iGg9JE/Iixg+0qCZIHvhS+AmK8kLZgdgsO1KO4
-         h7ifs/iuLoc4enqZPGEDkcy47mG59UQPk2u1yEwLNm2m7ycxhglh/ZDxGFo0RJMGRkVq
-         yD9An4fdNAa13TGRFpEqwkoe4d9iTBfnVqA72emtbhn8BeOIXGhFB8R+f5AmPbGUb/bs
-         iwZzHoX+2iPnqI2BzPMFsIiDd2KpmKASPV6I43+ILGnSFfGnQxIHt/QEh0Oo3re3Fczy
-         wELy0iNRSujoQ/nLAkWMCi4uho812Lb6ieofsNQbSZKmxWcAyHtvdOgHNCgVW2jfJEos
-         OW0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVotAvav3hGizPUzn35YbI2k4221s907tTA8Gf9xtFrN8O6emmUh5VBNUIxxOt5ne0/73rimbkOy1U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxcEMqjzeacXHAVs57wC7e9NM5zzueufbLrYi1ACIr3VgVvVyEt
-	gp58j73nRf3PSP5Qa2ILA7WWg+ZhMQTw+P4d4uju8EFPJUlEA+FVTSSOWGv5OA629w==
-X-Gm-Gg: AY/fxX4Vf5Mnv+7Z9+qxsrNuNEsPUgmEj6PJk+LoITWKhcqaSm0NRt98SuEmPhM5MFv
-	2E/+ZNXtLqEOypkQQQYZ+SHTzmpOfa4gRkiDXWSukFKBl6a/hEpqueJrOTBS2L6wZPpEcNEWTyc
-	O8dV7w6HFvZ2TH/Ec+i9x+0bXdnk0zPsfaGq/P2+rPm7dv1h4RqJRPJ8ISDPGUq77v+z3QcWQUZ
-	gICY2O5pY8cktp5TGiBuLFuTALLTOorIJ7I6wNqGtS5x/+Mlji6jhjc/U21wYLCz80mOteSrV8u
-	Imb8kIyNXHeqGuBDnqQC3frrfjFtYOeeWB6KOIvIUbbKYrIG0MHvj8KTYn3udHj/00CfmFnDBnM
-	bbcdZJtuB/12Ri/gq1bn1NuEW0Y0jQDYtKAOi53dF5T2rJqCM9nfhX+G8ijlbrboTzlMKaJKVmH
-	FvOeF6pfUWdIjFrL4nQ90L6I2r0erzA1/N6zhI0qzlmjZ8K8aQjY3Zu2kDZIEPjNNDMjjFiZHtP
-	+g=
-X-Google-Smtp-Source: AGHT+IGDZ0fia1crls+ZyKobc1ypIDPxF84oxQxtD4mmUWc+2YjOH3HnDg6Q5/pT6uTTN6caUVuNIA==
-X-Received: by 2002:a05:6000:24c4:b0:430:f68f:ee82 with SMTP id ffacd0b85a97d-432c37a6fafmr2081220f8f.54.1767772974516;
-        Wed, 07 Jan 2026 00:02:54 -0800 (PST)
-Message-ID: <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com>
-Date: Wed, 7 Jan 2026 09:02:53 +0100
+        bh=zAVbi728WuF7QBuMeLZiS48gck7F1ciPMFRLqn+3jLk=;
+        b=CDw7zVCgivyQ7Xy7b7Lh8Qo+HxXMRegK42c8DzLxpyPeHKaO8nTyA46zw96y0O5cq9
+         xoT0tfEF07NSqMoR1SgYQcokZDU7osGLjiXWoCovSZY+IV6VwufE2zpZP7PGaiK/dHxK
+         Jdz0+hbQhbF6xR06bvAY7kH4xjUPJjW1QBqnqOWxrasdkWaWoN/pm0Yeihbq6k52lGcb
+         fDLk0wH9scNHRbwYBBzya8xydwfPTEVuhkeZLYqwZ/K6Zj3CPmkau4LHQaCAFY52IrFT
+         R6Wjre5rux9ZiTfI1l2eDooh+HeY1YN6OMenZnKfvEuARJzUbIxWWj8+0PWSFRYE2qbQ
+         xhxA==
+X-Forwarded-Encrypted: i=1; AJvYcCXPgAcixq3XjWir08MPyMJeUqTbx6pejxhQQH6qvQRHr3Rq2UbGbnUpjRnVRDr4So7nHsr0jTq8Kt0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNsqpqKuL0E6HVsZ9n88xjL82SxsUiYqx/2sJuy0Vlj58tKMb9
+	i8XtQrUqwYlXjPAlyC3ERtQQbe+e8WXbKZtzWdHJzvXOCDFsCS/5Qvaw28/xE11BSw==
+X-Gm-Gg: AY/fxX6WBiXthMK95yQWFzc7mIcHpJ8lRWjuq3q29V0odWN879gGzyoEzzB46tDI8qM
+	61xC1Ks/6AGiqoZ16135EGfjmwXoWoGfvVSXG8gErQpVf6q6mRWAlYxg7i5lktZqwvIp5M6/cox
+	Sun52IDyCG5SS8jnVrDoeUNdT3WNV+Agy/CbRPSU7CLfzGb9r7xR+rTRn/2ieA6ykPkTs62SEG/
+	o/v7TJFaQzU6VVFJF236lwj2nUOXbXE7jWErvZYCTigfY6xCfvA+XpAy/hF3Mr/zJ10ACtaEMtC
+	Df44AEkehfJP5ZIctqkrINAICbZA/AwdtcUJUa29f9ogHARQ9TN7asQR3fNsU3ACpJglFdBVeaD
+	fw4cyIwX05g9unnf3Foo0NjvK7fTPSP3MD1CXAPFL+b/BLJjFjNFo5fiSyNTVkGuqb1zc3KPSGC
+	X6Xr/k2s1w53V5RrHLwGOYE//HQGjJ2zcLlFza9pHZ2bpefKsO0pvzh03iT5pSFlHXFyYU9y2uv
+	HFyEs+Ijpg5pg==
+X-Google-Smtp-Source: AGHT+IGq4J7r5weGwOCqe3LFFQpjnwuwFOqWHoNVZsv1J76WUXsJk08j08085mNsc/nRT2y/gZYhEg==
+X-Received: by 2002:a05:600c:4447:b0:477:3e0b:c0e3 with SMTP id 5b1f17b1804b1-47d84b3b8b9mr17239285e9.32.1767775574450;
+        Wed, 07 Jan 2026 00:46:14 -0800 (PST)
+Message-ID: <dc24a8ea-9041-4097-bbe2-459c668e9e64@suse.com>
+Date: Wed, 7 Jan 2026 09:46:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
- get_s_time_fixed()
-To: =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
- <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+Subject: Re: [PATCH v1 03/15] xen/riscv: implement vcpu_csr_init()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <bf617d77bb9e75bbd2930614bb86ff83b80adcfc.1766595589.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,50 +125,116 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+In-Reply-To: <bf617d77bb9e75bbd2930614bb86ff83b80adcfc.1766595589.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.01.2026 21:10, Антон Марков wrote:
-> Hi, I'm not sure about the other places. In hvm_load_cpu_ctxt 
-> (xen/arch/x86/hvm/hvm.c ), it was easy to catch because 
-> process_pending_softirqs is frequently called there, which in turn 
-> processes softirqs from the timer (where the timestamp is updated). 
-> After I fixed sync_tsc in hvm_load_cpu_ctxt, the problem stopped 
-> reproducing under no load. However, when the number of vCPUs is 4 times 
-> greater than the number of CPUs (under heavy load), the problem rarely 
-> reoccurs (mostly during snapshot restores during 
-> process_pending_softirqs calls), and this is no longer a simple case. If 
-> get_s_time_fixed can indeed be interrupted during execution after 
-> rdtsc_ordered, then the current fix is ​​insufficient. It's necessary to 
-> atomically copy "t->stamp" to the stack using local_irq_disable and 
-> local_irq_enable (as in local_time_calibration), and then work with the 
-> copy, confident in its lifetime and immutability. But until 
-> get_s_time_fixed is proven to be interruptible, this is premature, so 
-> your fix is ​​sufficient. I think I need more information and testing to 
-> say more.
+On 24.12.2025 18:03, Oleksii Kurochko wrote:
+> Implement function to initialize VCPU's CSR registers to delegate handling
+> of some traps to VS-mode ( guest ), enable vstimecmp for VS-mode, and
+> allow some AIA-related register (thier vs* copies ) for VS-mode.
 
-While the cpu_calibration per-CPU variable is updated from IRQ context,
-the cpu_time one isn't. Hence t->stamp's contents cannot change behind
-the back of get_s_time_fixed(). I wonder whether ...
+The henvcfg setting isn't covered here at all, unless I'm failing to make the
+respective association. Nor is the setting of SMSTATEEN0_HSENVCFG in hstateen0.
 
-> Regarding the other scale_delta calls, if they include values 
-​​> calculated from externally saved tsc values ​​that could have become 
-> stale during the process_pending_softirqs call, this definitely needs to 
-> be fixed.
+Overall it feels like the description here is too terse anyway, as the bits
+set (or not) are a pretty crucial thing for running guests. Then again maybe
+this is just me, for not being a RISC-V person ...
 
-... another similar issue (possibly one not included in the set of
-remarks I have in the patch, as none of those look related to what you
-describe) might be causing the remaining, more rare problems you say you
-see. That set of remarks is actually a result of me going over all other
-scale_delta() calls, but of course I may have got the analysis wrong.
+> --- a/xen/arch/riscv/domain.c
+> +++ b/xen/arch/riscv/domain.c
+> @@ -3,6 +3,67 @@
+>  #include <xen/mm.h>
+>  #include <xen/sched.h>
+>  
+> +#include <asm/cpufeature.h>
+> +#include <asm/csr.h>
+> +#include <asm/riscv_encoding.h>
+> +
+> +static void vcpu_csr_init(struct vcpu *v)
+> +{
+> +    unsigned long hedeleg, hideleg, hstatus;
+> +
+> +    hedeleg = 0;
+> +    hedeleg |= (1U << CAUSE_MISALIGNED_FETCH);
+> +    hedeleg |= (1U << CAUSE_FETCH_ACCESS);
+> +    hedeleg |= (1U << CAUSE_ILLEGAL_INSTRUCTION);
+> +    hedeleg |= (1U << CAUSE_MISALIGNED_LOAD);
+> +    hedeleg |= (1U << CAUSE_LOAD_ACCESS);
+> +    hedeleg |= (1U << CAUSE_MISALIGNED_STORE);
+> +    hedeleg |= (1U << CAUSE_STORE_ACCESS);
+> +    hedeleg |= (1U << CAUSE_BREAKPOINT);
+> +    hedeleg |= (1U << CAUSE_USER_ECALL);
+> +    hedeleg |= (1U << CAUSE_FETCH_PAGE_FAULT);
+> +    hedeleg |= (1U << CAUSE_LOAD_PAGE_FAULT);
+> +    hedeleg |= (1U << CAUSE_STORE_PAGE_FAULT);
+> +    v->arch.hedeleg = hedeleg;
 
-As to using 4 times as many vCPU-s as there are pCPU-s (and then heavy
-load) - while I don't think we have a support statement for such upstream
-(when probably we should), iirc for our (SUSE's) products we would
-consider that unsupported. Just fyi.
+Wouldn't you better start from setting all of the non-reserved bits, to then
+clear the few that you mean to not delegate? Then again I'm not quite sure
+whether the set of CAUSE_* in the header file is actually complete: MCAUSE
+also can hold the values 16, 18, and 19. (Otoh you have CAUSE_MACHINE_ECALL,
+which I don't think can ever be observed outside of M-mode.)
 
-Also, btw, please don't top-post.
+Also, while it may seem to not matter much, sorting the above by their numeric
+values would ease comparison against the full set.
+
+> +    hstatus = HSTATUS_SPV | HSTATUS_SPVP;
+> +    v->arch.hstatus = hstatus;
+
+Why would these (or in fact any) bits need setting here? Isn't hstatus written
+upon exit from guest context?
+
+> +    hideleg = MIP_VSTIP |  MIP_VSEIP | MIP_VSSIP;
+> +    v->arch.hideleg = hideleg;
+
+Again I think having MIP_VSTIP in the middle (to establish numeric sorting)
+would be slightly better.
+
+Also there's a stray blank after the first |.
+
+> +    /*
+> +     * VS should access only the time counter directly.
+> +     * Everything else should trap.
+> +     */
+> +    v->arch.hcounteren |= HCOUNTEREN_TM;
+
+Why are this and ...
+
+> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svpbmt) )
+> +        v->arch.henvcfg |= ENVCFG_PBMTE;
+
+... this using |= but the earlier ones simply = ? Unless there is a specific
+reason, consistency is likely preferable.
+
+> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
+> +    {
+> +        /*
+> +         * If the hypervisor extension is implemented, the same three bitsare
+> +         * defined also in hypervisor CSR hstateen0 but concern only the state
+> +         * potentially accessible to a virtual machine executing in privilege
+> +         * modes VS and VU:
+> +         *      bit 60 CSRs siselect and sireg (really vsiselect and vsireg)
+> +         *      bit 59 CSRs siph and sieh (RV32 only) and stopi (really vsiph,
+> +         *             vsieh, and vstopi)
+> +         *      bit 58 all state of IMSIC guest interrupt files, including CSR
+> +         *             stopei (really vstopei)
+> +         * If one of these bits is zero in hstateen0, and the same bit is one
+> +         * in mstateen0, then an attempt to access the corresponding state from
+> +         * VS or VU-mode raises a virtual instruction exception.
+> +        */
+> +        v->arch.hstateen0 = SMSTATEEN0_AIA | SMSTATEEN0_IMSIC | SMSTATEEN0_SVSLCT;
+
+What is SVSLCT? Bit 60 is named CSRIND in the spec I'm looking at, and the
+commentary above looks to confirm this.
+
+Also, wouldn't you better keep internal state in line with what hardware
+actually supports? CSRIND may be read-only-zero in the real register, in
+which case having the bit set in the "cached" copy can be misleading.
+(This may similarly apply to at least hedeleg and hideleg, btw.)
+
+As to consistency: Further up you use local helper variables (for imo no real
+reason), when here you don't. Instead this line ends up being too long.
 
 Jan
 
