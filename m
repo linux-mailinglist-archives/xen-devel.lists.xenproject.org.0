@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8703AD0460C
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 17:29:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197826.1515232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4CDD048BF
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 17:51:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197849.1515241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdssv-0005nb-E0; Thu, 08 Jan 2026 16:29:17 +0000
+	id 1vdtDu-0001AY-28; Thu, 08 Jan 2026 16:50:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197826.1515232; Thu, 08 Jan 2026 16:29:17 +0000
+Received: by outflank-mailman (output) from mailman id 1197849.1515241; Thu, 08 Jan 2026 16:50:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdssv-0005kU-BF; Thu, 08 Jan 2026 16:29:17 +0000
-Received: by outflank-mailman (input) for mailman id 1197826;
- Thu, 08 Jan 2026 16:29:16 +0000
+	id 1vdtDt-000191-UW; Thu, 08 Jan 2026 16:50:57 +0000
+Received: by outflank-mailman (input) for mailman id 1197849;
+ Thu, 08 Jan 2026 16:50:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AIqS=7N=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vdssu-0005kO-Bh
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 16:29:16 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a623472-ecaf-11f0-9ccf-f158ae23cfc8;
- Thu, 08 Jan 2026 17:29:13 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH2PR03MB5287.namprd03.prod.outlook.com (2603:10b6:610:9e::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Thu, 8 Jan
- 2026 16:29:10 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9499.003; Thu, 8 Jan 2026
- 16:29:09 +0000
+ <SRS0=6BE0=7N=bounce.vates.tech=bounce-md_30504962.695fe06b.v1-88b4e5ae6d504fd791c0d9c8375d1a50@srs-se1.protection.inumbo.net>)
+ id 1vdtDs-00018v-Hi
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 16:50:56 +0000
+Received: from mail8.us4.mandrillapp.com (mail8.us4.mandrillapp.com
+ [205.201.136.8]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3183e0b3-ecb2-11f0-9ccf-f158ae23cfc8;
+ Thu, 08 Jan 2026 17:50:53 +0100 (CET)
+Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail8.us4.mandrillapp.com (Mailchimp) with ESMTP id 4dn9rq6vzbz2K1rpT
+ for <xen-devel@lists.xenproject.org>; Thu,  8 Jan 2026 16:50:51 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 88b4e5ae6d504fd791c0d9c8375d1a50; Thu, 08 Jan 2026 16:50:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,142 +41,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a623472-ecaf-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lIR6qQVvOsK+mmVdq4qj1/QEcTVM2ATTzJP5LASEb1wikZ2HlQP3lmj90+IdZ1Ck9TDSZRxkXqsr6pkwPk8GThReR8xKd0s0PCs0b5PvWkUUf7UZ38wpREGeBsLtXeWQxDr9hkxaKqH9O4a1Vvhxg+8IbGQcI3MiYkPoTl0pATkg9KQ5hkizKFuVXp0QGz0B47RkyaSkCvKX3iq96SXJZXaQwgwdE6O1rG9K3dJMuMLqYOmuwF2LlWXT/3yuaEEVNQEZKc1ii4sYwTKTepnY3PwvdllewBeqoDCV25Cel2GLRbU+R3aa+pbop6/NSX7cx8FHEVmhM40OEafswc6DCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QK0XbmDjaJB9EdLs8Wl6IsRLrpv8moOY+/3MSf71hj8=;
- b=F8Y6kkyOnihQCLKx6qqjtkLCMKkGm8IbCm8vyEgG8LcWoM7/VQP93GQsiwU9e2QKeQzh4mHfVD0lULvKHZTUydLMmLhJCCnuNxNtXSGZm0oVVBJzZytfLYJeVU0jQQ/MH7+q21Ic23zpTFxxl4/iPjkEF9PnplE/2FYInRXa5r2pRtDaT3Hykz+vxmFUO97eQbqBPlQPMi+mns+j8GhoutrsjjlLA3q43tgcSQk2e4hLPEsD1o5F9q4KfXiY/TeMuZc5u4swjlR3GTK1pF7filY7mFTi6nFQjkHwktF6zbFJoB0ir6YoxL90zsnPX8ZFf6HsNg7OHOQUD6+LsUxxGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QK0XbmDjaJB9EdLs8Wl6IsRLrpv8moOY+/3MSf71hj8=;
- b=OXgV8wJsVh8fSDYRKuP44ZpCgVl+3A2739j49nr47cX7Am7GttYCpKppybtOsLtO35N2dKJE5Q962ZJYczsLNvfwxeociSLxfWMSzr05i4hxt3L7LDaRm6OXZREenbdN/2orJXbj3bxP8w0iggrmwpaaMmPF/40sMFgbVe64F8o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 8 Jan 2026 17:29:05 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] CI: switch KBL console into polling mode
-Message-ID: <aV_bUYAOG7xO4uJR@Mac.lan>
-References: <20251208153519.1198226-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251208153519.1198226-1-marmarek@invisiblethingslab.com>
-X-ClientProxiedBy: PA7P264CA0202.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:36d::15) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 3183e0b3-ecb2-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1767891052; x=1768161052;
+	bh=7kSvgUZqq9JTtIB6SajetgP7V7nPzBwjE5AJMGZLkWE=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=l2EzbbAKnVCnT5X/nosRmCQO1n2jzAhVKdlCVOmaBhbel7DncXRcDBzi5jurkLvfJ
+	 TemQYYxISDLbDs4S2QG2XF21K3IHOaOHNLM+lQ5Xwqq6k+GXSu4qm4IN0ewtoiSY7i
+	 2kffvqBiYTsCF2tPZN7Md24/rnDHDZEF5aFgLWltaS/wJ4AsdyX7QBA7dSSA5d81pc
+	 Pwtx85d2EM4mxR9tMh/Ks3pPC/d2Sdi4Kfes3DfzYpOSnpbY7HvMLC781PPIspYvlM
+	 AlklGZdhkGlXazzlvQL0oiHXfmCUEhvSqxrM1Gux8EAdJut9FjrWta7TbsO9le7fdT
+	 1PNog47QDs4yQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1767891052; x=1768151552; i=teddy.astie@vates.tech;
+	bh=7kSvgUZqq9JTtIB6SajetgP7V7nPzBwjE5AJMGZLkWE=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=RYa3d/lfAOiIYkNR3lvTfojOZQMgjaWIKEasREHtIMARu6lsaOep58aATYoHILw2C
+	 pKg62iaWEzcvHgx186VSn3bK+KlK5dpQu9BS0fk4HUyKOIOzkfcl0zXUzIiItEO5ow
+	 6eIyQWEs3DavfwsMdvBEcKqb71dRCExVRWzPJMmyKjUNneSUEdvn4FsoDBnZOs8aEV
+	 NAp5/WifaIeTnitSTOxc1/6C9cbFvlq0Ea35VEp+ACGh2coObzZNNKMIUSv6gpy/dV
+	 bsfri85zESm3gimI4jIroZZ3WUVfcB99NIPc25gYYSAfjrEhihRJrlxWhHqJ+3Zk7w
+	 BBJv/03avSulQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH]=20pvh:=20Introduce=20SIF=5FHVM=5FGHCB=20for=20SEV-ES/SNP=20guests?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1767891049478
+Message-Id: <0c9c1dbb-28e1-479b-a680-e99150b3f0da@vates.tech>
+To: xen-devel@lists.xenproject.org
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+In-Reply-To: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.88b4e5ae6d504fd791c0d9c8375d1a50?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260108:md
+Date: Thu, 08 Jan 2026 16:50:51 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH2PR03MB5287:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9223ed8-7a39-4167-3e87-08de4ed30d1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SnYzNGJiYk5OcktndE80SGZSekMrTGwzM2x6ZDVyczBJM0tKZE9FelZFVlNW?=
- =?utf-8?B?Qjcxc05CeVozWGVKc3luRmQ2QU8xUGlidFVQanlldEJHanRJRUZ6QTFiL0xL?=
- =?utf-8?B?MW1EdkVJSGhJdytNN09CZTUyNmRiNWFGTWlzQUI5LzhsZ0E3SGh5M3lxSzk1?=
- =?utf-8?B?SEtBc3pQK1ZVdU1VdDlUeWlDMUkxaW9ySGQ3OXZWN200bk1qbmFFdkRUNlVx?=
- =?utf-8?B?aU4xbXpaRThUdUQxdUpFSklPSVoxZFlzQ1luQTR2clhYM3Q1VEV6RTRMMjZW?=
- =?utf-8?B?THQyZTRaWmpRVCtIV1ppdmZVVG5qVSt4OXh3ZGF5MGp4U08zVTByeVRHTnVn?=
- =?utf-8?B?aHJrejVVOUM5Z1ppZG93N1NveHQ2K2JmeGNYYS91RlA0MUtBRCs4cWRvUGg4?=
- =?utf-8?B?WHUzeHlQUkhRUTUrbzBhemszendFQWFNRjNCdWpaSjRxZTc3bG1JNDJCUk1h?=
- =?utf-8?B?WEYwWnMxalRxUVdFbHc3Q0twcWpHbi9QYlh4blFnNW9jRDJselBmODVQUG85?=
- =?utf-8?B?OFhpaGJXSC9mcUJCaENodHJPSkdoUDV2dE5rbjlYdVdMdmVUZ3dNZmJ1UzI2?=
- =?utf-8?B?R3g1eGRVTXdBTEd4ZVl4MUZ5VzdkSEFDWnRQVGFqUEZodFZoTEJ1Vy9PbnJU?=
- =?utf-8?B?eVhyWEJmYW94ZGpMY0ZhQmhUNUZGdWdZSTZKb1BIQ2lYbjYwNTcxN091K2k3?=
- =?utf-8?B?VHBINlhScGZDWHlhb1pzd3Vpaml1aW1zMFdmR0tSN0pmWFkzU3V5aU1PZU1S?=
- =?utf-8?B?YnZFaVhEL3BDVHRjVkNJZG5aR1dVMzJ6eEU2S2txenV3THVwelFzSnhRVXJH?=
- =?utf-8?B?SVVJTGw4OExkS1NPMDNRN29CZEdZVTFxQS9BSnNmS2VDTkxib1VkU21RUzB0?=
- =?utf-8?B?WTJOU3Y2VE8xYytMVWdMVkVDU0d1RWNpdEVQN3g0N1Z1MnpJcW5zaUwvZTFG?=
- =?utf-8?B?NGNRdVBOVk52dU9uTVRGcS82d1RDZnZlNEdLbFVJZXlaRXViTGhZR0ppbU9O?=
- =?utf-8?B?Z1hVaWErMUF4QVJkdmszVEdCdCtFOEdoVjdsMVRYd2Z6UU1xR3k5Wm4vc0h4?=
- =?utf-8?B?aW1LNWx5S1k0NjhoQStiV1hwVnI3NkEwSVJmcGo2cjZhbTM3Uml6OWtYa1Vr?=
- =?utf-8?B?cGlNM3p5dDZqMTdUOC95azJtYzQ5V3VxNEZtZllxR0taQk9qdE1YSm1iWnFU?=
- =?utf-8?B?Sm9mRzlGVGRjODlZOTl2Z0N0b29qVHVGS2MxVmw4S0lpbUtuSWRVQW9zRzZp?=
- =?utf-8?B?blExTndrVW40S1VPdUhSM1lKdEtkK2doVDhMbTl0MEdqM3NidzBSeFNObDJw?=
- =?utf-8?B?VDlnd3A5MmZWZ2hNRm1IRnBNbUF2OEZ1aFU0UFlQT2VlU2dxdS9XTjZ6NndY?=
- =?utf-8?B?NkNUMGVnMGNTTTg1dXhZYURxVjZFS1ArWUVLSGY0WTNaZ0FZM1BEOXVNN3A5?=
- =?utf-8?B?a3dneW5hREh6ZXppNDFsTitGT2lueUZFZ3RMRkNCck1rRCtsMUtVeUZ0QkR6?=
- =?utf-8?B?KzBzU1VvdkpMVlM3Z0xGL2V4Nno4cUZMdm1xR0FmaHhsbTdpSDlWUW14M1Zp?=
- =?utf-8?B?cmU5VERSSjVmWnZDL2NMaGxUT1pTNUpzS0hnOFIyUk42Rk9HanhFU2hJdG00?=
- =?utf-8?B?L3lINHlxVXZNWUFvbGZSKzlLY2lCM0loODF2MlpyaURhNFBEaDFNbXExQWJs?=
- =?utf-8?B?ZHF6ZDBPREdkVWx6Ni9Wb2dzdWQrS1ZsK3FLd25lSW41TTUzY2pmS1lKaU1U?=
- =?utf-8?B?ZTEwMVZHSlZzQ2UrVEU5NURZbGx3WVppSmxUMG43d1JzZ2diNnh6UktKQ21G?=
- =?utf-8?B?VzdHTWxNMnhTUm1hNDliRlZwdjFQRHh0SzUyYkZGMWJaSEh5QlZZdkRnaWFE?=
- =?utf-8?B?Wkt2cEVqSUNMc0RTK0pwd1NYUWplMTEvL2E3UGlNcVRUaUlkU0JBa0FmSlcr?=
- =?utf-8?Q?AWl5Frf+7eMjilt6GTS1FVO9McyzYcVF?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFBZWXZ0RnovYll3UXZiNzV3M2hNcXIzRnZobkRUeUJRaDJuay82WHNuSzVL?=
- =?utf-8?B?cHc2d09MNHh3T2FGbVRkNjFTVUhlTFZKdzlDMFdPK0pSY1FpYnBBa1RzQnB0?=
- =?utf-8?B?Tlk0emsxem5XQlovZW5zbXFhd2hNTDZJVWFSSU42TTF0MmpxK1ltMHQ4Q2Ni?=
- =?utf-8?B?QkhJRGYxdE11ZU5mejI0Y2s3MFhPNW1IY2xWYkliZ0dBS1gza3J5cnFPMVAz?=
- =?utf-8?B?MDZFbHgvSHpadHF6VjBhQzFPQTdPUnNIK0kvdWRvTkNmdEJVNTFYN0g5dTBh?=
- =?utf-8?B?R1N1SWZlQXNIZ3o3TmUvWjJkTUpUUWRaWnF6MWUvOStBSlhjV1YxTEYrSnJz?=
- =?utf-8?B?QnBOQXVXckFVV0Ivd1g5QlF1TU43SHVBMlN6enY1UDBZaDA3WEp5OCtjZnpn?=
- =?utf-8?B?RU5FWmV2SUxQZlI2MEdtT1NYZ0s1aElYMk5PUXdweWIyVHQ5LzBnUUxoZGFm?=
- =?utf-8?B?WFhTeitYYkUxK3B5S3dwRFFsbWJTSU1JMlp2ME01V1dkREZ4NzJwZFZLVVBV?=
- =?utf-8?B?djNLSDhNamZnNjNLOXhMaTdhS1lYTC9wM2VKeHNyWHZnTUtwK3luQ0xwVkhP?=
- =?utf-8?B?azZPNkNXSG9oT1BwYS9xSlZ3N3VQOFJrZlREVEN5TlBpKzVTK3Zma1J1bWhD?=
- =?utf-8?B?c0crbUY0Zys1Y1gzZ0lHbG1nYmd3Y3NTbUxoVXA3VFRTb3BsMkJTbVZVTS9h?=
- =?utf-8?B?blNLY0JzMW1jeTFBVlFtWjloTFVBSmdNMldpV1Axamo4YnBsclN2aGN1TTRJ?=
- =?utf-8?B?NmlIQm1iOWZOUkM5Rk1OOVhwa3d2Y1BvTXAwWTNOa3RBN2J4SXMwa0x3NzBG?=
- =?utf-8?B?SDNLVGQwbHhZWmNEVVYycVg2TDI4OVFoYjZaVElrVmJUdmtQNy9FOCtZeFRq?=
- =?utf-8?B?ZGhLd0RKc1hCMVVqcThhRGUveUNkaDVjV2hTaUxNaWxzZzdySVBrRDVOdHN1?=
- =?utf-8?B?cDF1cTUwTFFtWVNVVEtvWWNWMWdvRkxzck51WnU3MVozSzQyVnNlcEdpb2lV?=
- =?utf-8?B?OUhkWlE5RmVIdXVMdjhMVFJvWWdqYUdSZ1NYSW5rNmxheGxmQlRIRjFJcDQ0?=
- =?utf-8?B?RWF3aWN5bWxRa2dLcm55aUwrbjQ0eS9kdXhNOEt3TTErZG5ZUVIyaEZzcmlq?=
- =?utf-8?B?K2tYY3Eyd2t4QkgrZmYvT3pmT29IK3kvYTNpcHBtNlUwZUlDTStWNGRpVG9w?=
- =?utf-8?B?U1hqQ294MHFXOVVtOHh4bDluQ2VzUmEwWUJwU2RoRW5SMlkrRU9tdXpWOEMz?=
- =?utf-8?B?bDl2ZEltNE13eDAyajN2OGRVQUx3R0t4eDBlTlJuWjRuTGxlanFGdVhVVWhD?=
- =?utf-8?B?UGhqSlhFYXFOZjdMdkRhZjF3T3ErWmF2OFY4S3UrWmsrb3JEV29XNnZFUm5Y?=
- =?utf-8?B?WTRaYm5TZU1iTVZTWXJYc1BiaHBqNFVLOUlob0FyRjZqUTVob1kxeWxrOUV2?=
- =?utf-8?B?c2o2NWEyZ0loWUJZQVZHLzV6Q2J6L3NVNFlLMFZRVHE0U2dJWGZBbmxsZnFE?=
- =?utf-8?B?bUh2UGNvY09nTk5hdCsxSnk5eHNaTUdIcHN0Tk9TcnZUdzF2TGE1T1ZFZzRS?=
- =?utf-8?B?ckU2NzV3ZksxL3g2SG5jbnBvR1ZKZEZadDJ1THFoV0FKNnVVTk1oVHM2Qzkw?=
- =?utf-8?B?WUM5NVpnbngyeTNPK2treHVObmRKVjNraXBrRm5HOEsyWExsa3B6S1JBVjRD?=
- =?utf-8?B?QWZaU09RaG5YV3hQYThGcmx4WVpYaUJqeklHR252bk53SmxBR0NvYWlldUcr?=
- =?utf-8?B?K3h2a1VyNEczQjFtelFwR0hiNXJ2c1dDNlF6U09IWEVxU2JLOWgvaFZUYTFj?=
- =?utf-8?B?MFdjQ0poeEc1NXU0cmRpNFl5MStPaFkvYWIwekpDRmNXM2RsT1RTYUZRVFdL?=
- =?utf-8?B?bC9QNXlEZ2dhWVhPWFlLejQ5dmpIUXZOY2pEVHg1NXhNWk5OVlpOM3FSY3lU?=
- =?utf-8?B?QkxCb0pLL1RzdGM1cXhiNVB5ZStqN2RXV2JWRXQzVVR2Q29EbWNEMWdCL2s0?=
- =?utf-8?B?aHFCZllmQUp4Ulo5QUdiSENWY2xwTi9CQ3BZN0xyc3ZEWlcxcjN2d3pFSk84?=
- =?utf-8?B?WWxXTUhEYVE5TVpCOFd6c3N5RTFUQ1NHVDZDK3FpUCtFQ3d6K0IrU0NxNHU0?=
- =?utf-8?B?Qy9tU3lSWmhmRWIzUFNyemNncFpJNW42K0RidGVoa3lPSGRQOVB4WFE5R0F6?=
- =?utf-8?B?OEk3SlpHUzRUUTB3aUI3QVM4QldqS3BIWEw2WG5UdTI0SDQ5Wm1NVFRHN0Qr?=
- =?utf-8?B?alV2STNmVmNkKzVNZjNYSTBsN0drQUFjc1VSYlFYZnVnbVNDUDZsSU91SU13?=
- =?utf-8?B?ZVR3Sk9McXJDRFk1MDhibzNiOFE5WU9uSEFqczBkUnN1QVdGV2tjZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9223ed8-7a39-4167-3e87-08de4ed30d1e
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 16:29:09.9119
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vJkKUkXZdrSneFPKTjnqH9mhwEM7cHqS9OcA+MwCXUkcLFkITRs/UIcfWlBgkHuiTlonLZmS7XvJPjbITSz3rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5287
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 08, 2025 at 04:35:13PM +0100, Marek Marczykowski-Górecki wrote:
-> In an attempt to debug/workaround occasional console freeze, switch it
-> to polling mode. If that helps, it will narrow down the search.
+Le 28/12/2025 =C3=A0 13:54, Teddy Astie a =C3=A9crit=C2=A0:
+> Under SEV, the pagetables needs to be post-processed to add the C-bit
+> (to make the mapping encrypted). The guest is expected to query the C-bit
+> through CPUID. However, under SEV-ES and SEV-SNP modes, this instruction
+> now triggers #VC instead. The guest would need to setup a IDT very early
+> and instead use the early-GHCB protocol to emulate CPUID, which is
+> complicated.
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Alternatively, we can signal to the guest that it is a SEV-ES/SNP through
+> start_info structure, which is visible to the guest early on. All SEV-ES/=
+SNP
+> guests have the GHCB MSR available, which can be trivially [1] used to ge=
+t the
+> C-bit and proceed with the initialization avoiding CPUID instruction.
+> 
+> We integrate that to the PVH ABI and expect all SEV-enabled domain builde=
+rs
+> to honor this flag for simplifying the PVH entry point logic of guests.
+> 
+> [1] Initial GHCB MSR value contains the C-bit. The guest can trivially re=
+ad this
+> MSR and skip CPUID logic.
+> 
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> Actually, C-bit itself cannot be a part of ABI as it is hardware-dependan=
+t
+> (and even firmware configuration dependant).
+> ---
+>   docs/misc/pvh.pandoc     | 5 +++++
+>   xen/include/public/xen.h | 2 ++
+>   2 files changed, 7 insertions(+)
+> 
+> diff --git a/docs/misc/pvh.pandoc b/docs/misc/pvh.pandoc
+> index 3e18789d36..6453ee21eb 100644
+> --- a/docs/misc/pvh.pandoc
+> +++ b/docs/misc/pvh.pandoc
+> @@ -44,6 +44,11 @@ using HVMPARAMS, just like it's done on HVM guests.
+>   The setup of the hypercall page is also performed in the same way
+>   as HVM guests, using the hypervisor cpuid leaves and msr ranges.
+>   
+> +## SEV-ES/SNP guests ##
+> +
+> +The domain builder must set `SIF_HVM_GHCB` in start_info if the guest us=
+es
+> +SEV-ES or SEV-SNP technologies; i.e requires the use of GHCB protocol.
+> +
+>   ## AP startup ##
+>   
+>   AP startup can be performed using hypercalls or the local APIC if prese=
+nt.
+> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+> index 7f15204c38..9b84df573b 100644
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
+>   #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
+>   #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a virt. m=
+apped */
+>                                      /* P->M making the 3 level tree obso=
+lete? */
+> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest that re=
+quires */
+> +                                   /* use of GHCB. */
+>   #define SIF_PM_MASK       (0xFF<<8) /* reserve 1 byte for xen-pm option=
+s */
+>   
+>   /*
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+As requested, here is how it could be used for Linux (the patch also 
+contains plain SEV support).
 
-Thanks, Roger.
+We check here for SEV-ES with
+
+mov 8(%ebx), %edx (start_info->flags)
+bt $5, %edx       (SIF_HVM_GHCB)
+
+If checked, we then read GHCB MSR and extract C-bit from it and skip the 
+CPUID checks.
+---
+Subject: [RFC PATCH] pvh: Add SEV/SEV-ES support for PVH boot
+
+When running as a SEV guest with PVH entrypoint, we need
+to fixup the page tables to add the C-bit. Otherwise, the
+transition to long mode fails as the pagetables are invalid
+under SEV.
+
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+  arch/x86/platform/pvh/head.S | 74 ++++++++++++++++++++++++++++++++++++
+  include/xen/interface/xen.h  |  2 +
+  2 files changed, 76 insertions(+)
+
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index 1d78e5631bb8..2b4d58350346 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -91,6 +91,64 @@ SYM_CODE_START(pvh_start_xen)
+
+  =09leal rva(early_stack_end)(%ebp), %esp
+
++#ifdef CONFIG_AMD_MEM_ENCRYPT
++=09/* Check SIF_HVM_GHCB flag in start_info informing us on SEV-ES/SNP */
++=09mov 8(%ebx), %edx
++=09bt $5, %edx
++=09jnc .no_ghcb
++
++=09/* Get C-bit through GHCB MSR. */
++=09movl $MSR_AMD64_SEV_ES_GHCB, %ecx
++=09rdmsr
++=09/* C-bit is in EAX[31:24] */
++=09shr $24, %eax
++=09mov %eax, %ebx
++=09jmp .sev_prepare_pgt
++
++.no_ghcb:
++=09/* Check CPUID highest leaf */
++=09mov $0x80000000, %eax
++=09cpuid
++=09cmp $0x8000001f, %eax
++=09jb .skip_sev_prepare_pgt
++
++=09/* Check for SEV support */
++=09mov $0x8000001f, %eax
++=09cpuid
++=09bt $1, %eax
++=09jnc .skip_sev_prepare_pgt
++
++.sev_prepare_pgt:
++=09/* Check if SEV is enabled */
++=09mov $MSR_AMD64_SEV, %ecx
++=09rdmsr
++=09bt $MSR_AMD64_SEV_ENABLED_BIT, %eax
++=09jnc .skip_sev_prepare_pgt
++
++=09mov %ebx, %ecx
++=09and $0x3f, %ecx /* Get C-bit position */
++=09sub $0x20, %ecx
++=09mov $1, %eax
++=09shl %cl, %eax
++
++=09leal rva(pvh_init_top_pgt)(%ebp), %esi
++=09call set_pgtable_cbit
++
++=09leal rva(pvh_level3_ident_pgt)(%ebp), %esi
++=09call set_pgtable_cbit
++
++=09leal rva(pvh_level3_kernel_pgt)(%ebp), %esi
++=09call set_pgtable_cbit
++
++=09leal rva(pvh_level2_ident_pgt)(%ebp), %esi
++=09call set_pgtable_cbit
++
++=09leal rva(pvh_level2_kernel_pgt)(%ebp), %esi
++=09call set_pgtable_cbit
++
++.skip_sev_prepare_pgt:
++#endif
++
+  =09/* Enable PAE mode. */
+  =09mov %cr4, %eax
+  =09orl $X86_CR4_PAE, %eax
+@@ -223,6 +281,22 @@ SYM_CODE_START(pvh_start_xen)
+  #endif
+  SYM_CODE_END(pvh_start_xen)
+
++#ifdef CONFIG_AMD_MEM_ENCRYPT
++SYM_FUNC_START_LOCAL(set_pgtable_cbit)
++=09.code32
++=09mov $512, %ecx
++=09xor %edx, %edx
++.L2:
++=09testl $_PAGE_PRESENT, 0(%esi,%edx,8)
++=09jz .L3
++=09or %eax, 4(%esi,%edx,8)
++.L3:
++=09inc %edx
++=09loop .L2
++=09RET
++SYM_FUNC_END(set_pgtable_cbit)
++#endif
++
+  =09.section ".init.data","aw"
+  =09.balign 8
+  SYM_DATA_START_LOCAL(gdt)
+diff --git a/include/xen/interface/xen.h b/include/xen/interface/xen.h
+index 0ca23eca2a9c..c1a4e3dca0a3 100644
+--- a/include/xen/interface/xen.h
++++ b/include/xen/interface/xen.h
+@@ -654,6 +654,8 @@ struct start_info {
+  #define SIF_MOD_START_PFN   (1<<3)  /* Is mod_start a PFN? */
+  #define SIF_VIRT_P2M_4TOOLS (1<<4)  /* Do Xen tools understand a virt. 
+mapped */
+  =09=09=09=09    /* P->M making the 3 level tree obsolete? */
++#define SIF_HVM_GHCB        (1<<5)  /* Domain is SEV-ES/SNP guest so 
+require */
++                                    /* use of GHCB protocol. */
+  #define SIF_PM_MASK       (0xFF<<8) /* reserve 1 byte for xen-pm 
+options */
+
+  /*
+-- 
+2.52.0
+
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
