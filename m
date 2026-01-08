@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88939D01F7A
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 10:56:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197487.1515008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A09D01FC2
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 10:59:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197500.1515018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdmkf-0000hH-SH; Thu, 08 Jan 2026 09:56:21 +0000
+	id 1vdmn5-0001M9-7N; Thu, 08 Jan 2026 09:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197487.1515008; Thu, 08 Jan 2026 09:56:21 +0000
+Received: by outflank-mailman (output) from mailman id 1197500.1515018; Thu, 08 Jan 2026 09:58:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdmkf-0000fM-Oq; Thu, 08 Jan 2026 09:56:21 +0000
-Received: by outflank-mailman (input) for mailman id 1197487;
- Thu, 08 Jan 2026 09:56:19 +0000
+	id 1vdmn5-0001Kh-4d; Thu, 08 Jan 2026 09:58:51 +0000
+Received: by outflank-mailman (input) for mailman id 1197500;
+ Thu, 08 Jan 2026 09:58:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NAJ/=7N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdmkd-0000fE-TJ
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 09:56:19 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1vdmn4-0001KW-I0
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 09:58:50 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46837529-ec78-11f0-9ccf-f158ae23cfc8;
- Thu, 08 Jan 2026 10:56:17 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-43246af170aso963144f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 01:56:17 -0800 (PST)
+ id a0bd8d67-ec78-11f0-9ccf-f158ae23cfc8;
+ Thu, 08 Jan 2026 10:58:48 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4779cb0a33fso32144125e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 01:58:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5edd51sm15337048f8f.29.2026.01.08.01.56.16
+ ffacd0b85a97d-432bd0e19bfsm15350612f8f.18.2026.01.08.01.58.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jan 2026 01:56:16 -0800 (PST)
+ Thu, 08 Jan 2026 01:58:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46837529-ec78-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: a0bd8d67-ec78-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767866177; x=1768470977; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767866328; x=1768471128; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hqOFAR/5dSs+X6gblmJlD6usFQ5OMVq3F3YVCBe0U44=;
-        b=PdWn4McXcF7JOexjxTVZ7B4O5Ui39E7K8swpE+urFlSRbNg6BOopQR6dVOlXTH/gDs
-         kH/FYDIOZx+F7KBgA2M5LD288Cp/Hfy/T8WrnsjIkTBoaRny9F0cI3k/gbhNFitBtXsu
-         1K3Q8VwoP4LPK1QQLQHiVUvd9PM1yoll3kfBZZwM4AZxHqn8aBV8CYnW1l01GQSwO3/t
-         3hwbldaAzNvbczGFQetoY2E5Irj5RCEVY9FMershvKdqiVKfn/vqtCU9LGPW2lnoAArI
-         lzfXGI478fRmKWHxRl3SA6BfKWZwkzYnwAOBlffNM5susdI5Ej49jyCpUn0Sv0w0k/cR
-         WiSQ==
+        bh=kipGxDhK+7m0yJSSlSzqufQNYHallH725i1cxTFrfOk=;
+        b=bERl+6+RDvTW1t6xwdiv8wcnX3Iz1FsX7ieeN9354ARDk0sKGwwZdU+BlEftc88YLQ
+         cC/B8R9RsHOK4jCWPCwurk/2wV02TKt66KCvpTrkwG1+2SIqcmTWW4M+Y2/y4NdevSdD
+         SN4sSpH2sNpizo8Kk2HxprJEH6ClAqZHS4wnh45IxRqwTLBRwY/b2adx+NJ9/coM7b4D
+         bn5BqU24r0LuQ0lMMRJUmH3YFEFB/BRvfew2BfQvthzZxX6FeeU5EWIMaQxq2UTwGw/K
+         Bnr6zLzHjQTp/v0CC6SKlV7s+KxNP3XYsUtqVuFfsTR5CuA0qskn/qrQho6Nj9cKH54R
+         u/Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767866177; x=1768470977;
+        d=1e100.net; s=20230601; t=1767866328; x=1768471128;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hqOFAR/5dSs+X6gblmJlD6usFQ5OMVq3F3YVCBe0U44=;
-        b=cXITmUt8dmAdZcdRrGfUO3XDnbVpuS9sulOWUs9/6lMrHMPJ13VY9H1AhHqfgFsX9e
-         Hx68JpsPSv6XsbMlMPBpXTFpWSKKhc/UOkhaaSuFjL4bwsRHobhbBRV7IkQZtWefDujl
-         8PSRupxOol3cKobz2ut0tvlj2ljfERpSEBbpaXRk++sg7KGo3PQmLN9SjbwUGdN6Prh2
-         htQ1hxNwCze6MAQpemK8UADYZxsSRuNZ5XAcKxeDRo2EpNe0XmqNU+rOZg4bk7c2KyxP
-         cvdRMC2ss1BNgKW1gofbgNHbvXBI6gSMTYgbV90hOhHQtgtNyt/t7WMtLHpxAjh6/QaB
-         msIw==
-X-Forwarded-Encrypted: i=1; AJvYcCWxitkLTloKKBEZL6z3VPnfkjNPmFNGeMMG1I0Dq348o+uASTrEge7z4CraNXR8VefaQbQu95snByI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjSpNuhrTkixZO6+ZCpydMQYXuoUf0wcEgX2JImVlXweFjyW9o
-	MpPGdqFEBK5vgEwoZijE5HjWvcybpWEOn0M5/Lg3jIZ2UzkPUBIdK69zkctNwQIhlg==
-X-Gm-Gg: AY/fxX7hh2Rx/xpFTebnupARtv3s99BNj40UyBvpMLALcuyipKsljX6yuFU2cjSPbB5
-	rigKSjOkAZ0ZL6RW6PnNPYDilYhCpmi/WAJXVZ8LbcG45ExqRjYprCsFiTnx+hhtluy5dq1ksBL
-	oi/sfF6BCPfyNFwUr4/5K7GCnDtKMeebrRYNVUSjAs0Vk5LBzNI0SdJ3lwFMQro9rDXBdI0Y4av
-	ebltIJ9QTz4l7K8vRvkYuS+3buVmZafFHooHTZJSQ0IvyEwsznzWgO4p4/nuCtIgIWoYaWpISNM
-	NDJR2VzOHsBzqqNotrzfGFZt29BeqsUXqvBfkBjr6hro2yld/+k2sil6HSCAp6LO/9g15cZ66Ze
-	KaeMpzzs9ze4BwNTsqfhhrFgWz0oB3Yq8hcDDFYjRJC6VCryTx2uqWvlC9CdNgnIU41TcwS9TL4
-	mJh+4JgI13DV+WhovvkMO6M98yIN1/cjfq1V/ABDxBhBRHVw83zG5M88Lu4imbgasb9IBbBqPKj
-	os=
-X-Google-Smtp-Source: AGHT+IHzmjkKaAO/grGEadXL71Tyj4dev7esVW0hvuQna5AKqnwwcwvLFW0OAvoecmRwC3U0JYLLuA==
-X-Received: by 2002:a5d:5d87:0:b0:431:de5:93c7 with SMTP id ffacd0b85a97d-432bcf9a0ffmr13486297f8f.2.1767866176745;
-        Thu, 08 Jan 2026 01:56:16 -0800 (PST)
-Message-ID: <a461e3fd-8fb9-4868-97f6-8c242a69bb94@suse.com>
-Date: Thu, 8 Jan 2026 10:56:15 +0100
+        bh=kipGxDhK+7m0yJSSlSzqufQNYHallH725i1cxTFrfOk=;
+        b=cPdU49Qc1DB3O2MBBUpDvenup1yZsGrAyKZVhtKmJYQxcfALaJPEhs9EnusfeYkk3T
+         BTpgpLyFZ9cMqdaOjCqfb/P1Z2u0EnQ8fKC+N4cRgPN+EoTA6utxxbhQmFrTAtorJbnc
+         TZcKJG0Lf/Pw3yZlsylqKkrr7HcX+nMkclAzZ7HYhaY49794iebaIBjBUVOP8wJjdxaQ
+         almVpDre4KtdXdpVlGYQrlYx2y8qgE1g/SdozyX4X5vQrpL136YL6PL5ZWLkWtfQsR5d
+         aa60ZjEtOCP4j9OfHXUPtiNiLY14kITUmbac52dDLKr5OVjOGeIEaiBU0pnKJ2Z+1wIr
+         gA0g==
+X-Forwarded-Encrypted: i=1; AJvYcCWvh80ryw137m7PfXaSUydeTWVB0zWf0YqQyShgK4UGewxNI36iRf+KxlS8M7jXJXX8x6C8Hv+7yXQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxd/2GJgCz+1FYw1IbEt+xX9PV1wyVMWK08Jz6qlCN4plsRC0tZ
+	eNVQ+MDENqGExrFUp1UuBDb4dpNgCDdC5AYjcVNk4RdDgdDro0TJNCSwGr+xRREzyw==
+X-Gm-Gg: AY/fxX6C+BmOBKDXUOZ3uAmPZ3iAuCnY7RtgAYPBvnx1MUnTeEBRsGctuUV8b9PJxTF
+	JE988i7gyyuolAHO0m43qGub8F9YXMlDZJrpk6QkxUnXjl98OJazK4I9NhS9x6VQG8gtAkyH69y
+	SJAUpjS69+94TWNPtIwr0K8kpmysDmP1RHtQAksPTi867HqGOD3hEVlQ50Cx2g/DFwKukzh4tmN
+	Rbb1zjgI5c2ByacoVakRFsHFa2z/MLS6tmOUa8Pr6ekVRRKCsctpoUBTSKbmYJY55lEHKzHjL6T
+	xp5eY7ShkYBkYCEFALXYmdJivlIz8RzU2OjCEXxp13P5yN08mX36qL8MSPPKRC6dCc99ovA8h7a
+	GJC/iHqih88AmxxVThktNS44odXv7+EZTOiEt4nJHJSdBDW8Oynf9Mtiw1vBjx2vBQjrRDBYEXs
+	KfK+pfmBzt5hrk6iDjcbZ5pVGcwXWiCq+ZkbfPfM2IkiX9JeuNIJq+s2tHtTS15grDHSDUDtxOy
+	24=
+X-Google-Smtp-Source: AGHT+IHn/+51v/BzMLL2SOPkQmk+LUGGpF8jEe7crtpFGfWaIZINsl2wgrzkSiLuGvO7CxJIt48gAg==
+X-Received: by 2002:a05:600c:c0c7:b0:477:c478:46d7 with SMTP id 5b1f17b1804b1-47d84b33bd7mr62400565e9.22.1767866328107;
+        Thu, 08 Jan 2026 01:58:48 -0800 (PST)
+Message-ID: <b9c0a9dc-27e0-49eb-add7-492274ff2ada@suse.com>
+Date: Thu, 8 Jan 2026 10:58:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] x86/pci: Prefer using mmcfg for accessing
- configuration space
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v9 1/3] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1767804090.git.teddy.astie@vates.tech>
- <27c85c2cded576b3d5253c6e182e24341201c3ea.1767804090.git.teddy.astie@vates.tech>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1767803451.git.oleksii.kurochko@gmail.com>
+ <b82d2ada57475e226cbe23cb626bf4549dc6aad6.1767803451.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,37 +125,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <27c85c2cded576b3d5253c6e182e24341201c3ea.1767804090.git.teddy.astie@vates.tech>
+In-Reply-To: <b82d2ada57475e226cbe23cb626bf4549dc6aad6.1767803451.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.01.2026 17:54, Teddy Astie wrote:
-> Current logic prefer using CFC/CF8 and fallbacks on mmcfg when accessing
->> 255 registers or a non-zero segment. Change the logic to always rely
-
-(Minor: Many mail programs, like mine, will mistake a > in the first column
-as being reply quoting.)
-
-> on mmcfg unless it is not available to avoid locking on pci_config_lock
-> if possible.
+On 07.01.2026 17:32, Oleksii Kurochko wrote:
+> Introduce helper functions for safely querying the P2M (physical-to-machine)
+> mapping:
+>  - add p2m_read_lock(), p2m_read_unlock(), and p2m_is_locked() for managing
+>    P2M lock state.
+>  - Implement p2m_get_entry() to retrieve mapping details for a given GFN,
+>    including MFN, page order, and validity.
+>  - Introduce p2m_get_page_from_gfn() to convert a GFN into a page_info
+>    pointer, acquiring a reference to the page if valid.
+>  - Introduce get_page().
 > 
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> Are there x86 platforms where MMCFG is the only way to access PCI configuration space ?
+> Implementations are based on Arm's functions with some minor modifications:
+> - p2m_get_entry():
+>   - Reverse traversal of page tables, as RISC-V uses the opposite level
+>     numbering compared to Arm.
+>   - Removed the return of p2m_access_t from p2m_get_entry() since
+>     mem_access_settings is not introduced for RISC-V.
+>   - Updated BUILD_BUG_ON() to check using the level 0 mask, which corresponds
+>     to Arm's THIRD_MASK.
+>   - Replaced open-coded bit shifts with the BIT() macro.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-If there were, how would that fact be communicated?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/x86_64/pci.c
-> +++ b/xen/arch/x86/x86_64/pci.c
-> @@ -14,62 +14,56 @@
->  uint8_t pci_conf_read8(pci_sbdf_t sbdf, unsigned int reg)
->  {
->      uint32_t value;
-> +    int ret = pci_mmcfg_read(sbdf.seg, sbdf.bus, sbdf.devfn, reg, 1, &value);
-
-Along the lines of what in particular Roger said in reply to the cover letter,
-I'm unconvinced we want to slow down (even if just minimally) things by
-unconditionally making this call (and similar ones below).
-
-Jan
 
