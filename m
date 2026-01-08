@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 300CED0200D
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 11:03:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197522.1515038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9186D021D0
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 11:29:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197544.1515048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdmrK-0003Xo-1F; Thu, 08 Jan 2026 10:03:14 +0000
+	id 1vdnG6-0006lc-Ur; Thu, 08 Jan 2026 10:28:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197522.1515038; Thu, 08 Jan 2026 10:03:14 +0000
+Received: by outflank-mailman (output) from mailman id 1197544.1515048; Thu, 08 Jan 2026 10:28:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdmrJ-0003VU-Uf; Thu, 08 Jan 2026 10:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 1197522;
- Thu, 08 Jan 2026 10:03:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vdnG6-0006jw-R7; Thu, 08 Jan 2026 10:28:50 +0000
+Received: by outflank-mailman (input) for mailman id 1197544;
+ Thu, 08 Jan 2026 10:28:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NAJ/=7N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdmrI-0003VN-7x
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 10:03:12 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c629173-ec79-11f0-9ccf-f158ae23cfc8;
- Thu, 08 Jan 2026 11:03:09 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-42fb4eeb482so1621922f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 02:03:09 -0800 (PST)
+ id 1vdnG5-0006ja-L4
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 10:28:49 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1b55c1b-ec7c-11f0-b15e-2bf370ae4941;
+ Thu, 08 Jan 2026 11:28:48 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42fb5810d39so1654947f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 02:28:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0dacdcsm15340831f8f.1.2026.01.08.02.03.08
+ ffacd0b85a97d-432bd0daa84sm15450699f8f.2.2026.01.08.02.28.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jan 2026 02:03:08 -0800 (PST)
+ Thu, 08 Jan 2026 02:28:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c629173-ec79-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: d1b55c1b-ec7c-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767866589; x=1768471389; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767868128; x=1768472928; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UNuYZwH8h1q2oNnu9s/lOsrMvN1+lGYi2F0HOhczA7A=;
-        b=OwQJZO5SU0W0VIQgwBgc20l7jduy/rNYfIUExQgRnhD6d4FYHBKAJPEWd7W2YDs7jv
-         msAjZuSIIBPk5QF1TVzwo7DnzxVjbJtzo+O6ADUoibTT3XNvP+QZ0nyvtyBGk6G3SycK
-         waRJ/H8ezit5Yah1T6sj3zxa9PYFCgbbM4pyAFXvP7uA0TFaTU8OIUjqCkzXCJA8gQRI
-         9REa4LVwmfhvlDAeQ9R5fQt52Isc997ZM7OUKYVFDe/WR8p0BDsY7XOMeZx7p0s7P4cp
-         00n6tuRraZefpAnFiRqsSbCmFf+ywKhKZPX0+KqCp9E4RNMt8Iebsat8QUjvFJq9NQVd
-         fgUQ==
+        bh=zNup6adGZkuCQuKzXd+xhAU69SGktIrsd4oRrCyU8M8=;
+        b=Zv9OglEcC47QR8ZiixddAmg/TUMg6EcAKM3xpmlWcbErqb/1/WQGDQEy4TOVb+S5P1
+         Mx+t8H0PzGGeRx/5RiVYp7CnPyw60FwJUuwaBvV7ik6NyvE2xE5pfUfMt+MNUa9ZCTzI
+         QCtud1MT90KjtKhQp6ng3SHtOXsUNdRRpIaMODFCmBZNJ5Pek2BRmNaL1nlHQ0YALh65
+         tIdYYIi4JJJxNACPYM80PbZFdSzaI+FqUHmaOzHZJIbtedLxnCxVyh1t3a76t7W6L1qK
+         KZqO9j/XPJZaPvtQLQOBtZ33FqOHhx+zCwGapoQLaJHRpX51I+c2hUQD60YQpUiCWBkg
+         YSGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767866589; x=1768471389;
+        d=1e100.net; s=20230601; t=1767868128; x=1768472928;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UNuYZwH8h1q2oNnu9s/lOsrMvN1+lGYi2F0HOhczA7A=;
-        b=Q9/cNd3xaBJgmuXkC9xY4enQ21mx2SrjDz5jFmwbtgaYh6S/3z1nCqAWR7li8oVFIv
-         2MrlYgk0k5FQZxkJxQkWJVIH5HejCiDSvEg7zXK+PLuodLWBHjbhx7PQ3GYkKfuR/cuD
-         NvWBTwZN6yCVAdFlv9DFLRtOvIMLnTPObsvhaVAjrccyz/miWu53hmruYN27JrcUl3NS
-         Oe4WraDlO9QlIyY0waJY5DWv323J+/EjfssuXGn7zFm87Jk7NL9N0wlHkrC0SfBwoMxe
-         wnDAc5n+P1X0Zdz3dz548GNznl/gy468tixbQqUNbcXh4gQ7IWBapIrqvxOR0CTd6Wuy
-         2JtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWB4Mzp2DBvMdgZoEuqfUNZncLUMdQFxOUkQz4s2nm9kZWUDiZzAj2bnzYdUkIp+0bw+3O4duYGGLI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyvv/GpBEeCJlFADlGGk0RXJTw9GDOYTM2sz26jsOpDfgIgL+XV
-	ur2ml0FD/OrIjOCb+wUThv5VxV57+CG0XVcoK7NW8/lij11W66YTQkp6r0tdvAyCcQ==
-X-Gm-Gg: AY/fxX7dJ1zm2ZGsHzz5mvLjHVmKG5fF0xoYcXgCppJ1/0U5SxIJ0v1r+Yp1/ErzLUu
-	10+UdrRY/ScPNrkAuRY22UfoNKbg4MdUpoTrp8lD1fmkDJFOs19ew3qpF1hy0l/pAW+bAFvcD0W
-	7FefEMsvSurpypmU39GaREDLUqZC2IIWnRRxYY8YiHs8VjFDTyz1osM2T33G1wuXdk/NltV+cQ4
-	RS3ooUgthvTTvdsjTit6pO49ZpQVz6xorJ2Nh6O8Rxh2VT3wPNRlTOCyHoYVkDv0MlgcZtQQsyw
-	XDmJd1V2J8xtR6LzEYDZ4z8LTMhI+vwn7GPHjXrmYvPPlCYChaMEalOU06yPeAz4CDf/i4eLneX
-	tS6GJckq+VwkgJfZr60fZchwKNDG+tLhXdXfYQiwOHZfQvmjrRA+2/8KUHYpp3ujjwW4sy8Lkxy
-	OoYweGiF4sI45fMVOK1SokAWJv9mEEzqYY8Ubsnw1g9FZJKabUzgad9VpkQ6rXCpGUVajrPM/GU
-	uY=
-X-Google-Smtp-Source: AGHT+IF19+UlFIfLWMBAwdJbzaux+pSkOxVIZ19BXeVovwd6a9WoQqxCrV5qu8mEAzIJ+Oxe2xjiyQ==
-X-Received: by 2002:a5d:5f88:0:b0:431:5ac:1ea with SMTP id ffacd0b85a97d-432c375b0d2mr7867102f8f.39.1767866589124;
-        Thu, 08 Jan 2026 02:03:09 -0800 (PST)
-Message-ID: <8fc2afae-ea14-4221-9fa7-ffb35e34b56c@suse.com>
-Date: Thu, 8 Jan 2026 11:03:07 +0100
+        bh=zNup6adGZkuCQuKzXd+xhAU69SGktIrsd4oRrCyU8M8=;
+        b=i5nDARy5MDdU9NfXkDQmVS0sv2Jy5j+c6FsVCYdU5f1SlJ138FUx2UAbJM6kmueMS7
+         xW5J8FSKqZUGpe57KPd+zKZQfjXMbrcz4uQNYkh3fqRpVCXMc6M6q22L4o3UWm35oZye
+         CGqP+ts/SY+h0ZSU4DkT7XsJLp+v1HQfhKwxUtsYKqIWPfQtriTja98O0IR4R3o+NtOQ
+         qF4VektkloG8E2Wbk3jbFrKiljhxcaMhRheEG/zyKnRFpe+j22UW3BZvqw38s9QD3O4c
+         pVIoOMNKbLcpfwKaJJfiuX32xmEop/tLKVqLC4CywAgIsGl3jZODDd55ryEwZvzCNgf9
+         epGA==
+X-Forwarded-Encrypted: i=1; AJvYcCWYY3pFrPLbC/55Ljb3ptlaCbufYrxE9qpfcVfoGgOFX49h2SUYmETDuPRJamb1R8AAo+VTF4KvtlE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwgY8rrl4suBpSxacdXshmlTO6cP3WCgLj3lVeggSAZ4wpU7ycv
+	FD5yDRFKdPMhCG/QyuZ1WNo0xC0MkVBdZnpEZUEg/2HZw3lHw4U7RigZSP2C+diL0g==
+X-Gm-Gg: AY/fxX7X0CoyC4bWm/GfUjLgKpLYuKzCylgbFdkh/v1+Omy5gP1SyNlr8s3cxAU8BdR
+	LRRuc0Fry8x/R/f9MCTgmU1WORRoYrrMW0ZiRsJeIRyBKqkOjYX3JnJprFo2shC2BLY2IG1uXD/
+	GeeaH5yQUPHyxBxQ8wM4PEYBH6N8zPStycaWOzvlLnEcHPKoSzl3ardRzIeFPREMY8AyFuxy1C7
+	C9muy5tROPEGaidsvh+PisdXKY7iPDX4JkSQZEkkhZG9YCWMm7Iet8VYmnbAiDf7axCI5c6Ok5n
+	vIx4tOmhpnA1xLg6qTxPJoDXHB+0X8O074zQ230+8RBVajgStMYOshZlID50lHxGyLkp0mwXoaW
+	aWDvcz7pSWVTm/hAV2MJLKhX4IyB37KW6BxovnsaLQSfeABAc9IrICuawOG+5Ofzf0Uh8xWopmR
+	YH3CKUOiu7r4ksRlst8Q3gmusA6ckLX+i/H+0c9ND3ABXWPP6dzWVC1IVMLGPApCRgrCq6rkekg
+	bpVYO1+r/jBIQ==
+X-Google-Smtp-Source: AGHT+IH241JPlrZpjbda0iiIDWOKjPYiM3PYgLFjJAemZquoBsXJDu5G/ikuzNdZyJGl488iPkF3mw==
+X-Received: by 2002:a05:6000:40df:b0:430:f742:fbc7 with SMTP id ffacd0b85a97d-432c36328c5mr7024918f8f.14.1767868128142;
+        Thu, 08 Jan 2026 02:28:48 -0800 (PST)
+Message-ID: <f8808dd1-d571-49ea-8739-ed06dd6c79d1@suse.com>
+Date: Thu, 8 Jan 2026 11:28:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] xen/riscv: introduce metadata table to store P2M
- type
+Subject: Re: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and
+ vtimer_expired()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1767803451.git.oleksii.kurochko@gmail.com>
- <6e5008eb873efa97e9e6174165633c50f52294e0.1767803451.git.oleksii.kurochko@gmail.com>
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,41 +126,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6e5008eb873efa97e9e6174165633c50f52294e0.1767803451.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.01.2026 17:32, Oleksii Kurochko wrote:
-> RISC-V's PTE has only two available bits that can be used to store the P2M
-> type. This is insufficient to represent all the current RISC-V P2M types.
-> Therefore, some P2M types must be stored outside the PTE bits.
-> 
-> To address this, a metadata table is introduced to store P2M types that
-> cannot fit in the PTE itself. Not all P2M types are stored in the
-> metadata table—only those that require it.
-> 
-> The metadata table is linked to the intermediate page table via the
-> `struct page_info`'s v.md.metadata field of the corresponding intermediate
-> page.
-> Such pages are allocated with MEMF_no_owner, which allows us to use
-> the v field for the purpose of storing the metadata table.
-> 
-> To simplify the allocation and linking of intermediate and metadata page
-> tables, `p2m_{alloc,free}_table()` functions are implemented.
-> 
-> These changes impact `p2m_split_superpage()`, since when a superpage is
-> split, it is necessary to update the metadata table of the new
-> intermediate page table — if the entry being split has its P2M type set
-> to `p2m_ext_storage` in its `P2M_TYPES` bits. In addition to updating
-> the metadata of the new intermediate page table, the corresponding entry
-> in the metadata for the original superpage is invalidated.
-> 
-> Also, update p2m_{get,set}_type to work with P2M types which don't fit
-> into PTE bits.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 24.12.2025 18:03, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/vtimer.h
+> +++ b/xen/arch/riscv/include/asm/vtimer.h
+> @@ -22,4 +22,6 @@ void vcpu_timer_destroy(struct vcpu *v);
+>  
+>  int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config);
+>  
+> +void vtimer_set_timer(struct vtimer *t, const uint64_t ticks);
+> +
+>  #endif /* ASM__RISCV__VTIMER_H */
+> diff --git a/xen/arch/riscv/vtimer.c b/xen/arch/riscv/vtimer.c
+> index 5ba533690bc2..99a0c5986f1d 100644
+> --- a/xen/arch/riscv/vtimer.c
+> +++ b/xen/arch/riscv/vtimer.c
+> @@ -1,6 +1,8 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+>  
+> +#include <xen/domain.h>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Is this really needed, when ...
 
+>  #include <xen/sched.h>
+
+... this is already there?
+
+> +#include <xen/time.h>
+
+Don't you mean xen/timer.h here?
+
+> @@ -15,7 +17,9 @@ int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config)
+>  
+>  static void vtimer_expired(void *data)
+>  {
+> -    panic("%s: TBD\n", __func__);
+> +    struct vtimer *t = data;
+
+Pointer-to-const please.
+
+> @@ -37,3 +41,27 @@ void vcpu_timer_destroy(struct vcpu *v)
+>  
+>      kill_timer(&v->arch.vtimer.timer);
+>  }
+> +
+> +void vtimer_set_timer(struct vtimer *t, const uint64_t ticks)
+> +{
+> +    s_time_t expires = ticks_to_ns(ticks - boot_clock_cycles);
+
+boot_clock_cycles is known to just Xen. If the guest provided input is an
+absolute value, how would that work across migration? Doesn't there need
+to be a guest-specific bias instead?
+
+> +    vcpu_unset_interrupt(t->v, IRQ_VS_TIMER);
+> +
+> +    /*
+> +     * According to the RISC-V sbi spec:
+> +     *   If the supervisor wishes to clear the timer interrupt without
+> +     *   scheduling the next timer event, it can either request a timer
+> +     *   interrupt infinitely far into the future (i.e., (uint64_t)-1),
+> +     *   or it can instead mask the timer interrupt by clearing sie.STIE CSR
+> +     *   bit.
+> +     */
+
+And SBI is the only way to set the expiry value? No CSR access? (Question
+also concerns the unconditional vcpu_unset_interrupt() above.)
+
+> +    if ( ticks == ((uint64_t)~0ULL) )
+
+Nit: With the cast you won't need the ULL suffix.
+
+> +    {
+> +        stop_timer(&t->timer);
+> +
+> +        return;
+> +    }
+> +
+> +    set_timer(&t->timer, expires);
+
+See the handling of VCPUOP_set_singleshot_timer for what you may want to
+do if the expiry asked for is (perhaps just very slightly) into the past.
+There you'll also find a use of migrate_timer(), which you will want to
+at least consider using here as well.
+
+Jan
 
