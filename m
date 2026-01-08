@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA602D01920
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 09:25:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197369.1514918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E34F8D019BA
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 09:42:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197381.1514928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdlKF-00022p-TS; Thu, 08 Jan 2026 08:24:59 +0000
+	id 1vdlac-0004rI-4F; Thu, 08 Jan 2026 08:41:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197369.1514918; Thu, 08 Jan 2026 08:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 1197381.1514928; Thu, 08 Jan 2026 08:41:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdlKF-00021O-QJ; Thu, 08 Jan 2026 08:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 1197369;
- Thu, 08 Jan 2026 08:24:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vdlac-0004oe-1L; Thu, 08 Jan 2026 08:41:54 +0000
+Received: by outflank-mailman (input) for mailman id 1197381;
+ Thu, 08 Jan 2026 08:41:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NAJ/=7N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdlKE-00021I-LE
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 08:24:58 +0000
+ id 1vdlab-0004oY-5g
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 08:41:53 +0000
 Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
  [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81be3124-ec6b-11f0-9ccf-f158ae23cfc8;
- Thu, 08 Jan 2026 09:24:53 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0e407e8-ec6d-11f0-b15e-2bf370ae4941;
+ Thu, 08 Jan 2026 09:41:51 +0100 (CET)
 Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-477619f8ae5so23072475e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 00:24:53 -0800 (PST)
+ 5b1f17b1804b1-47bdbc90dcaso21209635e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 00:41:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e6784sm14638093f8f.19.2026.01.08.00.24.52
+ 5b1f17b1804b1-47d7f6ef868sm138402175e9.11.2026.01.08.00.41.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jan 2026 00:24:52 -0800 (PST)
+ Thu, 08 Jan 2026 00:41:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81be3124-ec6b-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: e0e407e8-ec6d-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767860693; x=1768465493; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767861711; x=1768466511; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LK4SUJLgNmI6mwIC4gB+nan6RaJdNdwyeWcgaJDMTDc=;
-        b=JxzO6MY8AJhNdE78FvI3jKLXvCQNou7FLVsEu4R9zgp986TMd53ssWFgzq5+aPTmoD
-         ZjvqT/qovoGHyeLkzHCHp8ZQAef2P7UOSjanbgSpXQSLLtBxSFTcL+XtbPUpR5C3ELdw
-         ZRLM2PtYs7itjovjofAqhvpfI1NlbjF1rI2eMBxhuNA8bcDWZ2AxB5Bs2EugVEPH1nX9
-         UT8w/w2WhdRdv23BH6InvEpILCQOTGQo50wefwldwseHbvpZHNb2pvCUEu8bcKzZooI7
-         i15BKvBUB9BVJWc7ZOL/w+f4DCkjMn9mjqUIcyCcnrbaq+rhFyHj2/nktqOUT7JYZXI2
-         MDXA==
+        bh=FSd53XP5/GHgnvJv/b++KvdNlJAFLhPHwT5yv/HRIU4=;
+        b=PtTzlXDaHBIXFfciCst2cL10JWRnd26Oh/xLo6G5BLplcbjszbhBoaR9PJ4nlSUzwt
+         ijh2NToeegTvZ2b4YulsI97J11vY5mUkZn49Ox4DhjJn8yiBeppstFbKM/y8KQ1we/b1
+         H4T5GJukOnOtG3mjUlSSmNEYcipomCzup1Hu1BHhIY+WETy6F0fgKtK/A453AedRhVCy
+         AcaJuskq/UokT/pcnW7DSlo9Tex5+SxMQcxtmDhWZJZgK5tXnvtce442TozDnElctDHa
+         sgEN5ZdiiJTqYy8jnMQE9vfWTQmWpntesbAQkzl7LSqz7C9fWLXn4SJj3iQIFFQwfUGY
+         qLMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767860693; x=1768465493;
+        d=1e100.net; s=20230601; t=1767861711; x=1768466511;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LK4SUJLgNmI6mwIC4gB+nan6RaJdNdwyeWcgaJDMTDc=;
-        b=aTtFG6kFB28tIAYM8lC5WdmzSBRGYOX0L4sBtUrzq2V0b+6La9FM/H+g0eSOjy/XLb
-         J442KO5d/uiJN3fbRAuB4GsrqFsu7+qf3S9WMaFvWPI4uT5RnKDrNALQfkD1H/nAP6ut
-         rO0ocqfhFsQLxHlfwmoCZ/i1p1wcYNhxF86kuo5rna4EGB3AMXPDIOtWeijMGNIrxlsG
-         1onKy5ZZoNITkgWHbzp/rjhaYo+7LL9HWxvCoxrlrLZj45k69SqpSNNdMm1bWKDD6r7J
-         sQlxLl4Wgw946dFIVhi4OVXGd37X69PaV/EVXN+exaN5KkBNt5dLelPFtdhusZoZtmLo
-         axUA==
-X-Forwarded-Encrypted: i=1; AJvYcCVYHX3jR//bXcskdOgJ49W4N22VKzpe354jT5W0FfYP0+/tOpDlQ4i/3rXsc4mSbXx8XEIYeEstj8c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yze+r8c7jEQcu1iuTQ0dbdCQAIJG6jCRYa2LsnkqCvYDA70VCxP
-	e+u9h95Ack0AlVLKvTFTceTQXFpPYOOYMiLWHovchnjXd5dz1jXWqrnONY4IQbqp3Q==
-X-Gm-Gg: AY/fxX5BhsFFNk6tnf7hIDpkHvYYqDDot9NkjIiV/9+3GBTUA/MIfBk8sKuk9SrmG3Q
-	+REhCjFTuLwBJK2YEZlO6vWSNU6iXUHh69ZrZCDSchHLa07YFRmEeuAUhn6yDVBsN11MNmEb9ga
-	Jy3AJ8+DIU/Q+sEM1PgOFA7X5G68A4uj7pPgGep44HKRMo79+A6H/u9Je+vk9ajickoFOqaZCe7
-	LXbXRY8OFw+oLBoBCqNJo1EbxZd8JJD0wmz+CwDMXJxoBA2OdYcC72MB/aQLpjBVhxLNumBaO2M
-	sToWLJVjw6rN0yoCP6VBGmQm8fQSbUPhHA2BWcRIms/imWTw2UEDkHqQYN8qZQ3DWUQD027AqWJ
-	kVLlYQAzluO6Sh3iZAXgOfGoHGxbgJycPcpB14hvato9ZIarnoRCPBgyhkTXBSfCUQoD5Qs95xv
-	3zkSfqHSALZlVSeA823Rt90gi1M+dWFUz/iwFjJ30HuNmDqNLm+ITNBhvmsw6i5AxXLVk3xv+Gx
-	Ws=
-X-Google-Smtp-Source: AGHT+IHoblTzJCRaWBApVfWBfl6ljgVp36tsrxRsODhVbnXGaaV+JMBrG6LYgYBA3JHwa0Oc8IG68A==
-X-Received: by 2002:a05:600c:4713:b0:477:1bb6:17de with SMTP id 5b1f17b1804b1-47d84b5b43dmr69733295e9.30.1767860692653;
-        Thu, 08 Jan 2026 00:24:52 -0800 (PST)
-Message-ID: <f6468868-5814-44ff-aeab-20bffb064ae8@suse.com>
-Date: Thu, 8 Jan 2026 09:24:51 +0100
+        bh=FSd53XP5/GHgnvJv/b++KvdNlJAFLhPHwT5yv/HRIU4=;
+        b=h8clScdkcVPtQSmc0kfqnstRbyv2hfixKUNG/8aJbJiHVHbR5xt3IcOPZYcov5yKsw
+         HKSg8N+Cp/Ud06vE/mIBuJ8Ro9gid3La5RQrflrGatqyEBugBF1J2QuLaRSGUlllMQM3
+         Lhx0EZbDxZRRh5nlmEPLUf9Yr7tlCmNEohEzN4vc7DiecmSvz5wlkYPBB4YQ55F4JW/d
+         XMtUewvTlFyAk713jgytrbrFdQIj8mPt1feXb5xpV6ePYA3nTnUl00io8yzrd/yAWary
+         UE4pFBTMceZsLSRAfymtV5GSz11S7N91UPTtSyOyAup23u5MlayP9hC6gC3j9sAP+9mW
+         txww==
+X-Forwarded-Encrypted: i=1; AJvYcCXQGpduDqHFg8YKQC+Yogo/JdknC6/43Jyc6HTKONf6kvEs1nJYq4wAu/VnwN6SfvcKYcGx3LFhkg4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxyKkyQvMR6JhUdI61Nk1tVQYAgocCSHhvPiMJsk/oYppz1edRa
+	tFN2jl6PPiteP2jdMgjBMuuqiNUQwAmUMiJkjif2lzPdJn3g6h6dQG9lSq/fPO7jUg==
+X-Gm-Gg: AY/fxX4nqUb4ZVfpT2QUKKDMjf3fguTCaK3Cqg1I0/pOuzT+GBi8eIkN7as0WhwRgqM
+	44qyaRONcqB0CbNI0UP7AjrA3w4FsVhg97zLUZycbDUNwp9Ixfua3vDvys+LHRX2Jk2zsKFekr+
+	0Zi60cTE+p77QBDcOUg5Yq1uESAljulQZGvRKQvYlMXj0WbCebn5qZnb/MmtzdZzNsU8pWCT4uI
+	SSs3qWaX8sC68Yd9/NNMupX3MFpLFKMahyH1bUxXlmd6aYcaNNSVasMhdt7OJFuJ2kiZmya/N8Y
+	Hr8xJ+kFSpleGjFLY/51nk49VWLFYx9L8pMrSbc5c7hSmwKakE1hK5GBTg2QXHjYI0QFPHXlyFu
+	APzu9kW5q+5IXy26TKZAMtdJaaVyjEdZMbnJs/osdLEyP927HCq/yHOgwyLl51HiwnEUkdanvMM
+	26vGQPCp8s1rtzFo3Skhcx22z7shpznBbJOoUEm2yJEatKS5F3fuyNE1XDA4S1NfPlbVLJ61mhF
+	Tc51F3C6vZkXA==
+X-Google-Smtp-Source: AGHT+IFEU2JsLKz49gL8f/AAUcx2SSczNni/oNGM3pZULGHjcrqCu1fYiRZjMXg0XnVvUQJKzUZdCw==
+X-Received: by 2002:a05:600c:83c9:b0:47b:e2a9:2bd9 with SMTP id 5b1f17b1804b1-47d84b3b719mr72281925e9.31.1767861711227;
+        Thu, 08 Jan 2026 00:41:51 -0800 (PST)
+Message-ID: <6ac0b4d8-3762-427e-a856-be9118e90dc0@suse.com>
+Date: Thu, 8 Jan 2026 09:41:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/mm: move adjustment of claimed pages counters on
- allocation
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260107175605.56617-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v2] acpi/arm: relax MADT GICC entry length check to
+ support newer ACPI revisions
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Yann Dirson <yann.dirson@vates.tech>,
+ Yann Sionneau <yann.sionneau@vates.tech>, xen-devel@lists.xenproject.org
+References: <3850c51d41b1ab67a453ca70c0a44172185274f6.1767694781.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,129 +124,99 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260107175605.56617-1-roger.pau@citrix.com>
+In-Reply-To: <3850c51d41b1ab67a453ca70c0a44172185274f6.1767694781.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.01.2026 18:56, Roger Pau Monne wrote:
-> The current logic splits the update of the amount of available memory in
-> the system (total_avail_pages) and pending claims into two separately
-> locked regions.  This leads to a window between counters adjustments where
-> the result of total_avail_pages - outstanding_claims doesn't reflect the
-> real amount of free memory available, and can return a negative value due
-> to total_avail_pages having been updated ahead of outstanding_claims.
+On 07.01.2026 17:34, Oleksii Kurochko wrote:
+> Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
+> The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
+> match the known values, which leads to:
+>   GICv3: No valid GICC entries exist.
+> as observed on the AmpereOne platform.
 > 
-> Fix by adjusting outstanding_claims and d->outstanding_pages in the same
-> place where total_avail_pages is updated.  Note that accesses to
-> d->outstanding_pages is protected by the global heap_lock, just like
-> total_avail_pages or outstanding_claims.  Add a comment to the field
-> declaration, and also adjust the comment at the top of
-> domain_set_outstanding_pages() to be clearer in that regard.
+> To fix this, import the logic from Linux commit 9eb1c92b47c7:
+>   The BAD_MADT_GICC_ENTRY check is a little too strict because
+>   it rejects MADT entries that don't match the currently known
+>   lengths. We should remove this restriction to avoid problems
+>   if the table length changes. Future code which might depend on
+>   additional fields should be written to validate those fields
+>   before using them, rather than trying to globally check
+>   known MADT version lengths.
 > 
-> Note that failures in assign_pages() causes the claimed amount that has
-> been allocated to be lost, as the amount is not added back to the domain
-> quota once pages are freed.  Given the intended usage of claims is limited
-> to initial physmap populate, and the current failure paths in
-> assign_pages() would lead to the domain being destroyed anyway, don't
-> add extra logic to recover the claimed amount on failure - it's just adding
-> complexity for no real benefit.
+>   Link: https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
+>   Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
+>   [lorenzo.pieralisi@arm.com: added MADT macro comments]
+>   Signed-off-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+>   Acked-by: Sudeep Holla <sudeep.holla@arm.com>
+>   Cc: Will Deacon <will.deacon@arm.com>
+>   Cc: Catalin Marinas <catalin.marinas@arm.com>
+>   Cc: Al Stone <ahs3@redhat.com>
+>   Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+>   Signed-off-by: Will Deacon <will.deacon@arm.com>
 > 
-> Fixes: 65c9792df600 ("mmu: Introduce XENMEM_claim_pages (subop of memory ops)")
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
+> used. As we rewrite the MADT for hwdom, reuse the host GICC header length
+> instead of ACPI_MADT_GICC_LENGTH.
+> 
+> [1] https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
+> 
+> Reported-By: Yann Dirson <yann.dirson@vates.tech>
+> Co-developed-by: Yann Sionneau <yann.sionneau@vates.tech>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > ---
-> Changes since v2:
->  - Revert back to the approach in v1.
+> I ran CI tests where it made sense for this patch, as I don’t see any CI job
+> that builds Xen with CONFIG_ACPI=y:
+>   https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2229673951
+> 
+> I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
+> AmpereOne platform.
+> ---
+> Changes in v2:
+>  - Update the commit message:
+>    - Use more characters for commit ID.
+>    - Drop 'import from'.
+>  - Add Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>.
 
-You didn't fully go back to v1. While ...
+Was this a legitimate thing to do, considering ...
 
-> @@ -548,9 +524,10 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
->      unsigned long claim, avail_pages;
->  
->      /*
-> -     * take the domain's page_alloc_lock, else all d->tot_page adjustments
-> -     * must always take the global heap_lock rather than only in the much
-> -     * rarer case that d->outstanding_pages is non-zero
-> +     * Two locks are needed here:
-> +     *  - d->page_alloc_lock: protects accesses to d->{tot,max,extra}_pages.
-> +     *  - heap_lock: protects accesses to d->outstanding_pages, total_avail_pages
-> +     *    and outstanding_claims.
->       */
->      nrspin_lock(&d->page_alloc_lock);
->      spin_lock(&heap_lock);
+>  - Make the local variables host_gicc const in  gic_get_hwdom_madt_size().
+>    (header variable isn't const as container_of() will discard 'const' qualifier
+>    and so compilation error will occur).
+>  - Return 0 instead of panic() in gic_get_hwdom_madt_size().
 
-... the comment improvement is of course okay to keep, ...
+... all of these (plus leaving partly unaddressed a comment from Julien)?
 
-> @@ -999,7 +976,7 @@ static struct page_info *alloc_heap_pages(
+> --- a/xen/arch/arm/gic.c
+> +++ b/xen/arch/arm/gic.c
+> @@ -418,8 +418,18 @@ unsigned long gic_get_hwdom_madt_size(const struct domain *d)
 >  {
->      nodeid_t node;
->      unsigned int i, buddy_order, zone, first_dirty;
-> -    unsigned long request = 1UL << order;
-> +    unsigned int request = 1UL << order;
-
-... this I'm less certain about (and if it was to be kept, it should also
-become 1U). For one, this bounds check:
-
-    if ( (outstanding_claims + request > total_avail_pages) &&
-
-ends up still being okay (perhaps except on Arm32, but the wrapping issue
-there is pre-existing, albeit possibly benign due to other constraints),
-but just because outstanding_claims is "long" (and it's unclear to me why
-it isn't "unsigned long").
-
-And then, what exactly is it that you want the more narrow type for (the
-description says nothing in that regard)? The other relevant uses of the
-variable are
-
-    avail[node][zone] -= request;
-    total_avail_pages -= request;
-
-where both avail[][] and total_avail_pages are (unsigned) long (again
-unclear to me why for total_avail_pages it's plain long).
-
-Oh, wait, it is ...
-
-> @@ -1071,6 +1050,30 @@ static struct page_info *alloc_heap_pages(
->      total_avail_pages -= request;
->      ASSERT(total_avail_pages >= 0);
+>      unsigned long madt_size;
 >  
-> +    if ( d && d->outstanding_pages && !(memflags & MEMF_no_refcount) )
-> +    {
-> +        /*
-> +         * Adjust claims in the same locked region where total_avail_pages is
-> +         * adjusted, not doing so would lead to a window where the amount of
-> +         * free memory (avail - claimed) would be incorrect.
-> +         *
-> +         * Note that by adjusting the claimed amount here it's possible for
-> +         * pages to fail to be assigned to the claiming domain while already
-> +         * having been subtracted from d->outstanding_pages.  Such claimed
-> +         * amount is then lost, as the pages that fail to be assigned to the
-> +         * domain are freed without replenishing the claim.  This is fine given
-> +         * claims are only to be used during physmap population as part of
-> +         * domain build, and any failure in assign_pages() there will result in
-> +         * the domain being destroyed before creation is finished.  Losing part
-> +         * of the claim makes no difference.
-> +         */
-> +        unsigned int outstanding = min(d->outstanding_pages, request);
+> +    struct acpi_subtable_header *header;
 
-... the desire to avoid use of min_t() here which wants "request" to be
-"unsigned int". At some point we'll want to change the struct domain fields
-to unsigned long anyway, at which point the above would need adjustment. It's
-well possible that such an adjustment would end up being to then use min_t().
-Imo we'd be better off using e.g.
+Why is there a blank line left between declarations? In unusual situations (very
+many variables, for example) that may be okay, but otherwise the first blank line
+generally wants to separate decls from statements.
 
-        unsigned int outstanding = min(d->outstanding_pages + 0UL, request);
+Also Julien asked for this to be const. You claimed a compile error would occur
+if you do, but afaict that's only because ...
 
-or even
+> +    const struct acpi_madt_generic_interrupt *host_gicc;
+> +
+> +    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
+> +    if ( !header )
+> +        return 0;
+> +
+> +    host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+> +                             header);
 
-        typeof(d->outstanding_pages) outstanding =
-            min(d->outstanding_pages + 0UL, request);
+... you don't use const properly here as well.
 
-right away. In the latter case the decl wouldn't even need touching when the
-struct domain fields are promoted.
-
-> +        BUG_ON(outstanding > d->outstanding_pages);
-
-Unlike in v1, where the min() was different, this is now dead code.
+Finally (possibly not for this patch, but mentioning since originally it was
+pointed out as an option) the function imo wants to become __init anyway, for
+(as said by Julien) its only caller being so.
 
 Jan
 
