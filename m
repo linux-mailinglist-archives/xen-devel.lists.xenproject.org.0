@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5765ED01C8E
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 10:17:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197416.1514948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 594C2D01C9D
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 10:18:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197423.1514958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdm8b-00016X-V6; Thu, 08 Jan 2026 09:17:01 +0000
+	id 1vdm9w-0001em-7N; Thu, 08 Jan 2026 09:18:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197416.1514948; Thu, 08 Jan 2026 09:17:01 +0000
+Received: by outflank-mailman (output) from mailman id 1197423.1514958; Thu, 08 Jan 2026 09:18:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdm8b-00015i-RB; Thu, 08 Jan 2026 09:17:01 +0000
-Received: by outflank-mailman (input) for mailman id 1197416;
- Thu, 08 Jan 2026 09:17:00 +0000
+	id 1vdm9w-0001dL-4c; Thu, 08 Jan 2026 09:18:24 +0000
+Received: by outflank-mailman (input) for mailman id 1197423;
+ Thu, 08 Jan 2026 09:18:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NAJ/=7N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vdm8Z-00015c-UW
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 09:17:00 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1vdm9u-0001d7-4s
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 09:18:22 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7ce5755-ec72-11f0-9ccf-f158ae23cfc8;
- Thu, 08 Jan 2026 10:16:57 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so20417045e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 01:16:57 -0800 (PST)
+ id f930ea0c-ec72-11f0-9ccf-f158ae23cfc8;
+ Thu, 08 Jan 2026 10:18:20 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47d182a8c6cso18766975e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 01:18:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0dacc5sm14743651f8f.5.2026.01.08.01.16.56
+ ffacd0b85a97d-432bd5df96asm15021038f8f.28.2026.01.08.01.18.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jan 2026 01:16:56 -0800 (PST)
+ Thu, 08 Jan 2026 01:18:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7ce5755-ec72-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: f930ea0c-ec72-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767863817; x=1768468617; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767863899; x=1768468699; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5bSZg6G2K02HYMv6dTp6lcuQv6mC9nXI1R3vXW4BMuo=;
-        b=VO6hbUe+KGfHt+JD0ngIRgnUh8n4P0rEjXw+K+vpW7a4YX05mXKwGFBrOnuc9+/OOP
-         I2rGa/wsqYhrkMwtcl7oL7a8i/UV/NmoRC/hXb8XphVA2KJLl6eRDnqucuavfb52vsF0
-         SuKhPsRHV8toV+j32hxjbJDhlvPiauhoThBtycjhA+/FBx8rJLFFYxkLvA3grHTxq3vA
-         BtAIM73jquhh/bfFXlqhNntE+zlrFbTiszZXk0OrY28eFOFzW46n+KhnA+ZoYX0z9f5A
-         wle+6F5n/XOa5lUOdx0oEgDYvcFmcyQlsoI9PqgWlh5e8zMa98Eny5uhcxN+PU8PKpFW
-         DOYg==
+        bh=cu1PGF32gmkV7RT1BXwHaG+B74JdS50BdFXB9uA8is8=;
+        b=WZuL3oVkmSYRX8ZtxQ0o7dpahz2Rz0X7RvPDvsEp69zn/28PITJqmaqojeXW2k+/XY
+         qRFMm1jR5uiNHj0gUVlav5+nyCfyKszMvBreqvDL+MIwH66MvwfgDPtbBrCZ795LTbAF
+         MQ6up9ZwlyyXL01RSPk4453MgO/hXhvqhkAj8XeaHZ3AJTrKM14HTadA6WXBGSel+H/d
+         5iXxA3zi+9RBTNRRV+0GTS9teNSYxLS+WS2yNjcHS/nJYWNqTYPcksBNKppMDoDwSIj8
+         tu/AD/nMYCfTpfsXrtP0xzgq58AtGW/AFZ9qm9NpU3dQhciRgmop5WB+9YPgATjQp9y/
+         XuXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767863817; x=1768468617;
+        d=1e100.net; s=20230601; t=1767863899; x=1768468699;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5bSZg6G2K02HYMv6dTp6lcuQv6mC9nXI1R3vXW4BMuo=;
-        b=TCqwuFc57vGgswmiTKxC+EmilhiR9lHMKrSIlR99ug03cMZQvi8JLOVzXpx4gRbv5R
-         N/O3bXRxxqg6aPQ2m6WOx8ZlQi8pUil8WGV9bawUHEvQh+KUTK0D3+ipBQ/9eu8dCFQR
-         lVNE92hTAhKX0/JONlMx2X7Z5SvQZGlMbvywc1ZizvYskYWII6HOpRjf09Gfdcw8KVwN
-         hChihvGYW09f2U2WcKExYAWbz2rjdgwfUagSivVf2M1OumtZ9Ap0dfIgmNAMtj2Bf2FN
-         ptlXJm4vH5kWUoM2pY0ZHapg0y1qtQvhub9Dq1LXjVRtDZSVFab//ea+JDNhYyxOn4lK
-         XNvQ==
-X-Gm-Message-State: AOJu0Yy52ge2ms2kOgp/zJfZf7dbDSBY6K5as/w44ZpafPcECvWvRp3G
-	VQNAtb7a+VLYllSmWcP9YWMsZVf7ds6HmVON8t2CdeL4o3rHxPseXR2T5WlBxkqr2AJnLWJszh7
-	37hM=
-X-Gm-Gg: AY/fxX761g8Hbl+tWcTc1PYjvZzTampeulmF2ouL53OCpwiPbZKyzTG5Hs8XpmrS0Lm
-	yDbYeI0okPJElJROJtlug+NUgD3LFqEnWqOkLNdgFO5bjXfoMXfIOaQBAiS1B0G+Pzlh7rBOKHC
-	60dOI6vpfzuszMG2YtqnDeQBPING78twH00CjKQRa0Q5carz/fAnMkXO4zdR+oXwKcBJWpiIvZH
-	3o4pRra+FOTHdGknQzXI74pfz2Rm6oMPnt+Aqtc1MbqrSshuHoe5EaJjtGWo+CJKs+pchDKP/Sk
-	Jg8uhuu5LJJTJXRhIu8BcJVOj7b72Dwl8do2QBAcT04/2Ry/jlNLAritB2eKbY0T7H5CYxK2Rit
-	a7ejcF1QrNmIfSyrFu+WTGn5EJIAsO15HjSfVRZc3A1hFhMuPH3CySCTZEuJEUa5LxdE43iCROh
-	MkCgZnISQ9Gkz1NKFYnSvjsLpvxiC+5CK6yEmx3f31zROUYeFFP0auLKLwwUc4uvnkiwbDW2fZf
-	IM=
-X-Google-Smtp-Source: AGHT+IGWPstROHVuTt2BfhH/vFV12wJ7cCQwG+Fd26st5lAZjRHQZeSCKzCw8Eutdp1d10bnQ/YYjw==
-X-Received: by 2002:a05:600c:3b19:b0:45d:d97c:236c with SMTP id 5b1f17b1804b1-47d84b3b645mr67097935e9.21.1767863816633;
-        Thu, 08 Jan 2026 01:16:56 -0800 (PST)
-Message-ID: <6b0fc1a8-fdee-40dd-b3c6-262c33607715@suse.com>
-Date: Thu, 8 Jan 2026 10:16:55 +0100
+        bh=cu1PGF32gmkV7RT1BXwHaG+B74JdS50BdFXB9uA8is8=;
+        b=PBIo/lsvpn1zXRnK254xFl+BzeCJLhKtThte+kZFz6i9IJoLhapK0YQcfoXp1Qm2u4
+         /UJmOUxS44SYMmBGeX6hk5qA3jJuCKQLxcR4a65ATLO8rpFNfou4ED0VoOd2M/ukqtsr
+         1cq6ZMrqmGcpnCjo2XkVYjiVH2cC/JltfDTSQNM6g43PMS18Ef42Xtch/2Z7+6JS4q2e
+         SWN/xK8yhHlWJodKIMBwP2DtgxCzpOldd4UfERouaLyBoRuxQdUPY7Ba2I7p4z9jgA70
+         vDYGI3e85aXh/Ap/84THSkyCQGO/X/af4sDkUN2jRRNl5tUZnI1lmcRacS77tBuVOfRJ
+         RMJg==
+X-Gm-Message-State: AOJu0Yz2NLM/MVSxEvIAdJeMQnk3VEPNe5di6u3dR5tA/PVixdoyhksK
+	OUoMictKAUfzAWU5CHpUU/a1T4k2reXJ/hh7cM4alMOnFcMpVm/1XuEWOwzMiOuK9y54c/avz5D
+	ew3s=
+X-Gm-Gg: AY/fxX4MZeM1irbtiXJLUwvlHKzVOyFlkXURDSREi4y0e/ChKVL8CrAPS/HMUF5aI3P
+	zBVd+AsBzj69lWraS98nieZZhFavLUac6dn7SuHBv7/aOF7qqrb43FYwDDYnjvysqw0HFiNkBW+
+	6dGvWzfZjOoaMjp55jmTBkCfR7ABvqzQzHfDhFbBsZfNUCo0hEnNcJofJZyW9USmSa+wqDmGiZ7
+	aTz10I5LZi18xp9JnF8L0DLguG0VvAWilVqGbgegM+YTR10i6S1EKz/1/K69eBvCqBSp/sy7GjU
+	J0zGA5FPDUE3O/BhqBtmVKm+98IvXAqGu7d9oWZN5KVVS4z41UsLscl/ziZV0W3R48ghKvJb/BL
+	L/mzS8GTYsAI3WtwNaOlxgkTHpIOQhtQtjnBdsI/IUVzZCCO0fyzCvgT4U1ASbGb4cQMxqhI/pC
+	bm7GnJXlKvXe3Bv2BXiyzZy7AbN4SuM6RI5Lx01NmwfG0//dZc2WqwcxaUWdPqAIUKKQa2im2u8
+	Yc=
+X-Google-Smtp-Source: AGHT+IHJD3lCt8ZDY178uKqW+KbDElvciEk0ONRA8CIPi4sr46p+mSspEaKgPwE+/vvdu3s/CG0tiw==
+X-Received: by 2002:a5d:5d13:0:b0:431:9f1:e4c8 with SMTP id ffacd0b85a97d-432c377c652mr6645515f8f.17.1767863899454;
+        Thu, 08 Jan 2026 01:18:19 -0800 (PST)
+Message-ID: <875df90d-1d3a-416b-a958-3d3a31144f85@suse.com>
+Date: Thu, 8 Jan 2026 10:18:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Daniel Smith <dpsmith@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/PVH: mark pvh_setup_mmcfg() __init
+Subject: [PATCH] flask: fix gcov build with gcc14+
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,22 +119,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Its sole caller is, and the wrong annotation would cause a build failure
-(non-empty .text) if the compiler chose to not inline the function when at
-the same time LATE_HWDOM=y.
+Gcc's "threading" of conditionals can lead to undue warnings, as reported
+in e.g. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116519 (no matter
+that the overall situation is different there). While my gcc15 complains
+("buf[2] may be used uninitialized in this function") about only two of
+the three instances (not about the one in type_read()), adjust all three
+to be on the safe side.
 
-Fixes: be52cb139f57a ("x86/mmcfg: add handlers for the PVH Dom0 MMCFG areas")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+While auditing uses of next_entry(), I noticed POLICYDB_VERSION_ROLETRANS
+dependent ones in policydb_read(): How come the 4th slot isn't used at all
+there (not even checked for being e.g. zero, i.e. holding no useful data)?
+Then again other instances can be found where data is read but outright
+ignored.
 
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -1310,7 +1310,7 @@ static int __init pvh_setup_acpi(struct
-     return 0;
- }
+--- a/xen/xsm/flask/ss/policydb.c
++++ b/xen/xsm/flask/ss/policydb.c
+@@ -1271,7 +1271,10 @@ static int cf_check role_read(struct pol
+     if ( ver >= POLICYDB_VERSION_BOUNDARY )
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 3);
+     else
++    {
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 2);
++        buf[2] = cpu_to_le32(0); /* gcc14 onwards */
++    }
  
--static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
-+static void __init pvh_setup_mmcfg(struct domain *d)
- {
-     unsigned int i;
-     int rc;
+     if ( rc < 0 )
+         goto bad;
+@@ -1342,7 +1345,10 @@ static int cf_check type_read(struct pol
+     if ( ver >= POLICYDB_VERSION_BOUNDARY )
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 4);
+     else
++    {
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 3);
++        buf[3] = cpu_to_le32(0); /* gcc14 onwards */
++    }
+ 
+     if ( rc < 0 )
+         goto bad;
+@@ -1436,7 +1442,10 @@ static int cf_check user_read(struct pol
+     if ( ver >= POLICYDB_VERSION_BOUNDARY )
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 3);
+     else
++    {
+         rc = next_entry(buf, fp, sizeof(buf[0]) * 2);
++        buf[2] = cpu_to_le32(0); /* gcc14 onwards */
++    }
+ 
+     if ( rc < 0 )
+         goto bad;
 
