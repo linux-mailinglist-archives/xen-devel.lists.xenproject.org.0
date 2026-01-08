@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF692D0284C
-	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 13:01:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1197622.1515104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01C0D0292C
+	for <lists+xen-devel@lfdr.de>; Thu, 08 Jan 2026 13:20:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1197640.1515115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdohX-0003gs-9D; Thu, 08 Jan 2026 12:01:15 +0000
+	id 1vdozN-0005Xh-Oe; Thu, 08 Jan 2026 12:19:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1197622.1515104; Thu, 08 Jan 2026 12:01:15 +0000
+Received: by outflank-mailman (output) from mailman id 1197640.1515115; Thu, 08 Jan 2026 12:19:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vdohX-0003dl-6H; Thu, 08 Jan 2026 12:01:15 +0000
-Received: by outflank-mailman (input) for mailman id 1197622;
- Thu, 08 Jan 2026 12:01:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vdohV-0003de-4J
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 12:01:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vdohU-00Eym4-2W
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 12:01:13 +0000
-Received: from mail-vk1-f173.google.com ([209.85.221.173])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1vdohU-00Dx91-37
- for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 12:01:12 +0000
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-563497c549cso1185580e0c.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jan 2026 04:01:12 -0800 (PST)
+	id 1vdozN-0005Vx-Lg; Thu, 08 Jan 2026 12:19:41 +0000
+Received: by outflank-mailman (input) for mailman id 1197640;
+ Thu, 08 Jan 2026 12:19:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FNBb=7N=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vdozM-0005Vr-BO
+ for xen-devel@lists.xenproject.org; Thu, 08 Jan 2026 12:19:40 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c8197a3-ec8c-11f0-9ccf-f158ae23cfc8;
+ Thu, 08 Jan 2026 13:19:37 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.phl.internal (Postfix) with ESMTP id 90758EC0176;
+ Thu,  8 Jan 2026 07:19:36 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Thu, 08 Jan 2026 07:19:36 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Jan 2026 07:19:35 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,105 +44,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
-	From:MIME-Version; bh=FlhLzpNBstRsxucMILxjs6BP+12x/tGiPqPKf+WmCIc=; b=HW2g075
-	XPWWqCyNDdGqGW3Nf0g9EiIrL+jG6bCij2QIfXV1eJYOawnkxhyHt7CVRxpzKPH+XbrdA9k0AQmSP
-	yMjaef2LGOO2Qam0i3RMrbzuuvlzWITIxbqXxndoKAy8NkjYSqd5EvvG4eQfh/G0ojBpai52mXABR
-	mueZuOAb0U=;
-X-Forwarded-Encrypted: i=1; AJvYcCUCFaI+FcyJq8MkVIul/3y9UtvTA5KA2hYNIimwieRx3A4wyt9V7ahhIkPqziZL+mXdx0PECJ/LSD0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKymeyJUR6d7UwwJHxAIzPriJEMQWVDguFjZXQW1X4UlY0CgC8
-	C0RVYxY/VllyTCLkDj+q5kq15H7rMiiT6jyYHqiW9BvNx2ZlgttwHKRuk5gUP27IDNo/a0VZRX5
-	w97Qf39VDORbeDiV8lh/nM27L6Nj8fek=
-X-Google-Smtp-Source: AGHT+IEM1TKg/HMXA0/cxC/dhQ811GQ9NFtnttIPBoFW5uPVxwVclIXlCHkllLgTlpaNduKhfgJXnTa0XK6FjepdwK0=
-X-Received: by 2002:a05:6122:17aa:b0:557:cbc5:ce0f with SMTP id
- 71dfb90a1353d-56347e8ed8amr1856528e0c.8.1767873672102; Thu, 08 Jan 2026
- 04:01:12 -0800 (PST)
+X-Inumbo-ID: 4c8197a3-ec8c-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1767874776;
+	 x=1767961176; bh=ZyBT7EGpn1HgIDscg0sa9ORaZILVZhvzoAc7cA+rbQE=; b=
+	lcmfO8s+/mbpfLRg3FaY/C/FWr1r4juUEcpbfpn3PqghR0vt3DC+ZWxa0Z7Wqelr
+	jgqJvm6NWAQvBxDTLvB49C6qtQzvg0FBgGu45bLFj4jCSGiBhpGiwNXyLWqtKQM1
+	Y+mgxqApqIzKuTXeG3Z/p6/xXBEnpAth2A/znokPaaNMdpn8Zq9tDaXlrMzwzZjD
+	GL5BO7zL+PyttMeF+pzTE4AwUxiLTpHdaYOW9ldEFY7HKfNGxZzWILf3TRzaVL3X
+	EsY5ExR0LOWypAbgY+zPYsOgPtDyFSyyy+Q7FWBJCtLZYfe99UAb+tGhIyhZaWOV
+	va6dtqO404ZeFRUH7VV0AA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1767874776; x=1767961176; bh=ZyBT7EGpn1HgIDscg0sa9ORaZILVZhvzoAc
+	7cA+rbQE=; b=eZlugFkanKdJ1/F4ZcTmYxMBvEjQgpNoQ5VHeJfG+Fu0+4HVwN1
+	bjrSDl8Vd0Z/zg5dDmG5GGXur7HyceZN+BqYLyy2SCtC66hcmG8J3aR5zHQhAhJ9
+	+OobBdZ8rXzG7yvddeHxxF1sqIk2buPB2lwtbwComPBttW1rt1GDS4/rcEykAP9l
+	QDEcLcpxineGdoi7fTRToQriDP9nLTlPDf6mVPg/5zGJDKJmQIYfGapDAMQ2R9H2
+	pLAlGYJG4T8to86foBLGDxEIcnPB2h0x/Xo8Qmc6nAUBPPez5sqhy0qGnpqoMCd9
+	DjiJgtOFQHFVRgvaE5QKVzex+CBGF6JmD0A==
+X-ME-Sender: <xms:2KBfaZekKsGKUjr0PCOHcL2LKeQ9q8aa5PCtBKF9Luc0fi1_2GQoeQ>
+    <xme:2KBfaeN-ap8dn5XvNzL-roLYZ0EuhUjy-_5L0zBJvWXEOZCI0KwVZtxOsV5Q-7Yfp
+    WmxlRlJMkI8OY2CPyvaiyo7HDymuZ8-QvUXkuNh0lcFNJHsWzE>
+X-ME-Received: <xmr:2KBfaXgGhs-La2wI2LNiyZ1XYyctAHFcqjIu_bRIyhwcwBqJVcoYt_FE6mmNZYH8znrD9cCsZtwFmJ42vNsQ2QZOh2LOvrjb9a8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddutdehleefucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
+    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
+    mhdprhgtphhtthhopehjrghnughrhihukhesghhmrghilhdrtghomhdprhgtphhtthhope
+    hmihhlkhihpgifrgihpgeftdeftdeftdesphhrohhtohhnrdhmvgdprhgtphhtthhopeig
+    vghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+X-ME-Proxy: <xmx:2KBfaR2foKUB4A532x9NntdUYbV_TGL19XW0_aq4WGODRTEnylL0Tw>
+    <xmx:2KBfaRgDVVZmWCPwdPC5zA0pn_pWULDGraTaXfGWfOD2lDfzmB5Z8A>
+    <xmx:2KBfaRcvsBtfj-Siw5K5IDqIqLnjqTZVp8WxDiGxhH8mu2Bk2BCzqg>
+    <xmx:2KBfaUnKcfddcmuVczQI1eFltGXzvmgMrmJR68u8CjAtwd7B1XXu8g>
+    <xmx:2KBfaSpT4Gb_oGhTviA0-zXg4moZkG4enc9S9QsYW36gN1k0YDexfbVN>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 8 Jan 2026 13:19:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>, Milky <milky_way_303030@proton.me>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Cpufreq drivers not working on T480S
+Message-ID: <aV-g1UGaa6q9XMn9@mail-itl>
+References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
+ <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com>
+ <NqFx_tXl0Zmx2ft7YVNGodkDcUFK7nA8KWUQMjOmD0y4T5W3-sTcGxCt7ViSRObUeJog3069xTY0ODZIG5hrX-Th2MvE95dSze13MGQ2tOY=@proton.me>
+ <CAKf6xpvtF_cE7vMb9JfsVLkYH1XRXZG3nj+QO_72-zKJ3Cxh9w@mail.gmail.com>
+ <DkXw78UBxXYCLNKCoThGPM1kde5JwARo3NhWtlBBrrFtLFVTnwNlwDlZYzuNlSdAs9XzE0aDPqgt9dri9YKJULULBXwJLEcEgbLOgzkVSVU=@proton.me>
+ <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
+ <6f02aca2-eaca-48b8-a2f3-4afff42ad264@suse.com>
+ <aV6xvhqjX1sOrXb1@mail-itl>
+ <1822f42f-9fbe-4de5-bc0b-f6e776b28ed5@suse.com>
 MIME-Version: 1.0
-From: Cody Zuschlag <cody.zuschlag@xenproject.org>
-Date: Thu, 8 Jan 2026 13:00:00 +0100
-X-Gmail-Original-Message-ID: <CAJbE=KzqW5jTusFytW9yK5c2Ps791YYJKohHrVPRENKUEJ+O8w@mail.gmail.com>
-X-Gm-Features: AQt7F2qvu1M01nXcX-hnp-zEFrCVKsF18n6skVx0Bidaw4CwzNa5rJCu9j4x3A8
-Message-ID: <CAJbE=KzqW5jTusFytW9yK5c2Ps791YYJKohHrVPRENKUEJ+O8w@mail.gmail.com>
-Subject: [ANNOUNCE] Xen Spring Meetup details & CFP
-To: xen-announce@lists.xenprojet.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000003bcb460647df2a73"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="SANc0ADrC06CE80K"
+Content-Disposition: inline
+In-Reply-To: <1822f42f-9fbe-4de5-bc0b-f6e776b28ed5@suse.com>
 
---0000000000003bcb460647df2a73
-Content-Type: text/plain; charset="UTF-8"
+
+--SANc0ADrC06CE80K
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 8 Jan 2026 13:19:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>, Milky <milky_way_303030@proton.me>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Cpufreq drivers not working on T480S
 
- Hello Xen community =F0=9F=91=8B
+On Thu, Jan 08, 2026 at 08:32:37AM +0100, Jan Beulich wrote:
+> On 07.01.2026 20:19, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Tue, Jan 06, 2026 at 09:25:14AM +0100, Jan Beulich wrote:
+> >> On 06.01.2026 02:03, Jason Andryuk wrote:
+> >>> no-hwp failed to disable HWP.  But if there is no ACPI CPU data, it
+> >>> wouldn't work either.
+> >>
+> >> There isn't any "no-hwp" option that we would recognize, is there? Iir=
+c HWP
+> >> isn't enabled by default, so simply not saying "cpufreq=3Dhwp" should =
+disable
+> >> the driver? (I already found the original report confusing in this reg=
+ard,
+> >> hence why I preferred to not reply so far. I wonder if there are local
+> >> patches in use.)
+> >=20
+> > Qubes has a patch enabling HWP by default on supported platforms.
+>=20
+> In which case can you please tell the reporter how to properly disable us=
+e of
+> the driver? Iirc the to-be-expected "cpufreq=3Dxen" was already tried, wi=
+th no
+> effect.
 
-We=E2=80=99re happy to share that the *Xen Spring Meetup 2026* will take pl=
-ace
-on *April
-2-3, 2026* in *Grenoble, France =F0=9F=87=AB=F0=9F=87=B7, hosted at Univers=
-it=C3=A9 Grenoble Alpes.*
+Looking at the code, it should be cpufreq=3Dxen,no-hwp (so ",", not ":").
 
-This is a two-day, in-person community event focused on technical exchange,
-real-world experience, and open discussion across the Xen ecosystem.
-Whether you=E2=80=99re developing Xen, running it in production or research=
-, or
-exploring new areas like embedded, safety-critical, or automotive use
-cases, we=E2=80=99d love to have you there.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--SANc0ADrC06CE80K
+Content-Type: application/pgp-signature; name=signature.asc
 
-*=F0=9F=8E=A4 The Call for Proposals is now open.*We=E2=80=99re looking for=
- technical,
-experience-driven talks. This is not a sales or marketing event.
+-----BEGIN PGP SIGNATURE-----
 
-What to do now:
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmlfoNUACgkQ24/THMrX
+1yxGNAf+O8S4HAC65hcGGKfUqrsah3uN8RNTxi/El0XR8ePgCC+W8c1oyPYdzUKS
+Meob/upA3yY4XHY/EQmBFq8Z3jDnpbDqG9nsXp6EurodXIj/zuVvJL8JFzONl4Rf
+ZF9xleZphfgJuk2oFsYOyfZyUnxd0P7qoCncplxb/KevOh9sFIidvGlM3qYKrs/V
+5sL3SL4tC3odaGCdeVDbG/QFVc5fRnctofjybGNQR5TBaR9DbOTvSE6QYxnSUr2n
+4A4MlNbDtExgIzLq0cjRqo2w9e2e75jXmmxT2F+eBnVDn98v5+tEytXtfLB9nLaO
+oKMX3ZehlzdTB2HYkv9uf1NMQ9t7pA==
+=9kVF
+-----END PGP SIGNATURE-----
 
-   - =F0=9F=93=85 Save the date and block your calendar
-   - =F0=9F=8E=99=EF=B8=8F Submit a talk
-   - =F0=9F=91=A5 Share this with others in the Xen community who should be=
- involved
-
-
-Event details and CFP:
-=F0=9F=91=89 https://xenproject.org/resources/spring-meetup-2026/
-
-More updates coming soon! We=E2=80=99re really looking forward to bringing =
-the
-community together in Grenoble next spring =F0=9F=90=BC =F0=9F=A5=90
-
-Cody Zuschlag
-Xen Project - Community Manager
-
---0000000000003bcb460647df2a73
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>
-
-
-
-
-
-Hello Xen community =F0=9F=91=8B<br><br>We=E2=80=99re happy to share that t=
-he <b>Xen Spring Meetup 2026</b> will take place on <b>April 2-3, 2026</b> =
-in <b>Grenoble, France =F0=9F=87=AB=F0=9F=87=B7, hosted at Universit=C3=A9 =
-Grenoble Alpes.</b><br><br>This is a two-day, in-person community event foc=
-used on technical exchange, real-world experience, and open discussion acro=
-ss the Xen ecosystem. Whether you=E2=80=99re developing Xen, running it in =
-production or research, or exploring new areas like embedded, safety-critic=
-al, or automotive use cases, we=E2=80=99d love to have you there.<br><br><b=
->=F0=9F=8E=A4 The Call for Proposals is now open.<br></b>We=E2=80=99re look=
-ing for technical, experience-driven talks. This is not a sales or marketin=
-g event.<br><br>What to do now:<br><ul><li>=F0=9F=93=85 Save the date and b=
-lock your calendar</li><li>=F0=9F=8E=99=EF=B8=8F=C2=A0Submit a talk</li><li=
->=F0=9F=91=A5 Share this with others in the Xen community who should be inv=
-olved</li></ul><br>Event details and CFP:<br>=F0=9F=91=89 <a href=3D"https:=
-//xenproject.org/resources/spring-meetup-2026/">https://xenproject.org/reso=
-urces/spring-meetup-2026/</a><br><br>More updates coming soon! We=E2=80=99r=
-e really looking forward to bringing the community together in Grenoble nex=
-t spring =F0=9F=90=BC=C2=A0=F0=9F=A5=90</div><div><br><p class=3D"gmail-p1"=
-><img src=3D"https://ci3.googleusercontent.com/mail-sig/AIorK4x5nkRDCOFJDJA=
-v9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJUrl12"></p></di=
-v><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_s=
-ignature"><div dir=3D"ltr"><div>Cody Zuschlag</div><div>Xen Project - Commu=
-nity Manager</div></div></div></div></div>
-
---0000000000003bcb460647df2a73--
+--SANc0ADrC06CE80K--
 
