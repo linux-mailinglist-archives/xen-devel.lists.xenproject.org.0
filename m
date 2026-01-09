@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 232B4D0ABD4
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 15:50:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198926.1515706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 295C9D0AC8E
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 16:04:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198944.1515716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veDoj-0008Kp-SQ; Fri, 09 Jan 2026 14:50:21 +0000
+	id 1veE20-0001lQ-3h; Fri, 09 Jan 2026 15:04:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198926.1515706; Fri, 09 Jan 2026 14:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 1198944.1515716; Fri, 09 Jan 2026 15:04:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veDoj-0008Ij-Pt; Fri, 09 Jan 2026 14:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 1198926;
- Fri, 09 Jan 2026 14:50:20 +0000
+	id 1veE20-0001jb-0u; Fri, 09 Jan 2026 15:04:04 +0000
+Received: by outflank-mailman (input) for mailman id 1198944;
+ Fri, 09 Jan 2026 15:04:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SGSf=7O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1veDoi-0008Id-UB
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 14:50:20 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ (envelope-from <SRS0=NHcl=7O=kernel.org=david@srs-se1.protection.inumbo.net>)
+ id 1veE1y-0001jV-Pc
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 15:04:02 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83d703cc-ed6a-11f0-9ccf-f158ae23cfc8;
- Fri, 09 Jan 2026 15:50:18 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-4327790c4e9so2192305f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 06:50:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0dacdcsm22809504f8f.1.2026.01.09.06.50.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 06:50:17 -0800 (PST)
+ id 6d00f8a9-ed6c-11f0-9ccf-f158ae23cfc8;
+ Fri, 09 Jan 2026 16:04:00 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F23D41AAF;
+ Fri,  9 Jan 2026 15:03:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B859DC4CEF1;
+ Fri,  9 Jan 2026 15:03:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +41,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83d703cc-ed6a-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767970218; x=1768575018; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9cy2chGiAyYIggTragQXQxt+EIWxHkStfsPg6ed+OJw=;
-        b=Sp8Veq7HnTAyAX9OTxwvyZenLLdfJDZr7NMIfiGXErKbh6mZmvDp37Aqn+PftWseBs
-         kGe6EvMJeLl4ibemDi6b2FxkLXtTuAtOwCfh8J94ocLVrn4hU5H9nwY5/609O0VshEtk
-         iT48jmzhJlArBKRfW2gIa355/4VdB7tm0hgUiZc27Q9IYPDxIMl/8FnUs/JM/aCzGWIp
-         z/ukQ11Fm6Z74sZR7e8ntAhaFEhDHTdq1bUD8zcDa7g9xrdHFA/gb5MQd/rnWtfDpFWX
-         PMmnDZlYRyOLGiE+q6pQJE5n29lSFIx1FwkZn6Tk0RY0FSWqd7PgiYB6dc4iNyKCXgzm
-         O3Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767970218; x=1768575018;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9cy2chGiAyYIggTragQXQxt+EIWxHkStfsPg6ed+OJw=;
-        b=uasyb9GnheKf5rMQvmsTzlFGLAa59ph/wwTRE7R9+/N44xmYzv/0dHMqKOqQjfamxC
-         KXzGdBlobfY4MGfSUfQs6yFhTOCnklq1vn/Zdi8QTI+y8/dq75pnx+hj42GRMoivb7Rn
-         z/b16VixkILJP203Rp4IPkxUYp5NRTnhVUjgRTQo4Ct3/+oRTeeWHXKUJmPNj7v6cw+D
-         fZV+SzgFftEg1TSXVBXFNGU4mRQNiK+QHzSSLojusuUCz2CTU+3p24DRo/BLmcei87kb
-         KBwACTJ62V6ADy63X/9SIZ4MhLXKXoAUvdwPMm3rMJUP34r5vPg3bpO6ACYHGL8STAL0
-         kE1g==
-X-Forwarded-Encrypted: i=1; AJvYcCV7VCzAUggZSvSHNhC/q/xD73D8BAlGFwkQjjC+pvmMPwNYd8ORTRx1qdD67WHjBHD6e2Oygbs08A0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+lUk1FyWrN29pkHnNZVIyofsQLXLcXaRLxOM5l/ak4mvOqUls
-	4uyN3huDo3jDGKLfMEnSkf/N1trjkfztHeQY6qOspPU/MiZWgDqhEV8hStQi87b8bA==
-X-Gm-Gg: AY/fxX663yeyOiputOQk8++QdSOF99C7G4YldItCFATLWie6midZV0aayE0J13VsTK/
-	tA9/sUtPEO/DVjeE+Ap91Vq3Nxz7jnlGOWQpZVDunU4QGL/xNNOJpYOnYEuy7bOQIldbpUfvl3e
-	RjQ5a4IIWwHyhj6nwAOS6nceKWdH43xQs+XbkQh5E2sWiKFRw/axaQbVriuMiqtivmkEpsGJows
-	ChfsQacijynKwIvAsXpm/ufIFAWpgvcnMHTQIkDI5PKBDGGhaQKDkoAZVtzWG1y/aSH/rsYUBRP
-	gamf168GO04Sc51dRweSXtoCF7yMk85ezhruwD2YtHFplmYyRrhAseWaXXKTIDatlM139YKxCtX
-	zoNNd10LV+YBnRreeLWIl3qBK5zGcihoYjylIelUmKqPo3i/7eBkiaV/WSgImpr6CLWr2SOIyW2
-	9+RDgrW/PejeP++ar9E4CyBvY8lcjjumsZg4jM0CGQ7dLPuU8K1A2bmGCuW/IbdoU7HXOEIycOu
-	jM=
-X-Google-Smtp-Source: AGHT+IF5HFPZEYq9rDjfXNCZ/JpLSa3X1xHn+Px8GTwboA7pK+xzhHmB1wRTAoX66BFRuLbmBLxDFA==
-X-Received: by 2002:a05:6000:4008:b0:431:53:1f49 with SMTP id ffacd0b85a97d-432c374f461mr13445922f8f.41.1767970217649;
-        Fri, 09 Jan 2026 06:50:17 -0800 (PST)
-Message-ID: <2cf49422-99e5-44de-ba5c-3b0c54eb13fd@suse.com>
-Date: Fri, 9 Jan 2026 15:50:15 +0100
+X-Inumbo-ID: 6d00f8a9-ed6c-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767971038;
+	bh=9LFMVxyFsOw43Q6k6Eff0i7Pwixa+RzRx4DsbI5AqD4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Uu2xDZmK3PKrblsrsZL8LIcmnB0lca1ztGkSrwKnR3k1T+w3GGUw72vEWmRnJLC84
+	 04PN8WJ3tZU0qJxzKPXK/jIY9eHM/FkWJFfqFlKmAMwFCu8bAOMnLGGisVhDa+VPC1
+	 Hkm58qx6FwRjuIwh2iTdkxqN5OiOQDU6WIuS4LlqAy4eDc3QabNZxuLBa/iS/+tV6V
+	 fS5P07RUWs0rl3AKweG2OOOgL7ak053o/aoA2ECEjLInVqvpv88XZvchTU2IlUt4fg
+	 Y4VqP9kXVaCjmME3a4NjLke27874qGSfQHgAkzTpVnrAxfNYoR24aDyxZOKRFuYlCS
+	 Zo9TfPAXHUzMg==
+Message-ID: <0c72913e-9708-4675-a421-06ed82b7802a@kernel.org>
+Date: Fri, 9 Jan 2026 16:03:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/mm: add a NUMA node parameter to
- scrub_free_pages()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260108175536.82153-1-roger.pau@citrix.com>
- <20260108175536.82153-2-roger.pau@citrix.com>
- <a8d09b82-3013-4476-b358-08b5fdc14cf1@suse.com> <aWEU2jKO12e5TYtz@Mac.lan>
+Subject: Re: [PATCH v6 05/14] mm: clarify lazy_mmu sleeping constraints
+To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ David Woodhouse <dwmw2@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Jann Horn <jannh@google.com>,
+ Juergen Gross <jgross@suse.com>, "Liam R. Howlett"
+ <Liam.Howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org
+References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
+ <20251215150323.2218608-6-kevin.brodsky@arm.com>
+From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aWEU2jKO12e5TYtz@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+In-Reply-To: <20251215150323.2218608-6-kevin.brodsky@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 09.01.2026 15:46, Roger Pau Monné wrote:
-> On Fri, Jan 09, 2026 at 11:22:39AM +0100, Jan Beulich wrote:
->> On 08.01.2026 18:55, Roger Pau Monne wrote:
->>> Such parameter allow requesting to scrub memory only from the specified
->>> node.  If there's no memory to scrub from the requested node the function
->>> returns false.  If the node is already being scrubbed from a different CPU
->>> the function returns true so the caller can differentiate whether there's
->>> still pending work to do.
->>
->> I'm really trying to understand both patches together, and peeking ahead I
->> don't understand the above, which looks to describe ...
->>
->>> --- a/xen/common/page_alloc.c
->>> +++ b/xen/common/page_alloc.c
->>> @@ -1339,16 +1339,27 @@ static void cf_check scrub_continue(void *data)
->>>      }
->>>  }
->>>  
->>> -bool scrub_free_pages(void)
->>> +bool scrub_free_pages(nodeid_t node)
->>>  {
->>>      struct page_info *pg;
->>>      unsigned int zone;
->>>      unsigned int cpu = smp_processor_id();
->>>      bool preempt = false;
->>> -    nodeid_t node;
->>>      unsigned int cnt = 0;
->>>  
->>> -    node = node_to_scrub(true);
->>> +    if ( node != NUMA_NO_NODE )
->>> +    {
->>> +        if ( !node_need_scrub[node] )
->>> +            /* Nothing to scrub. */
->>> +            return false;
->>> +
->>> +        if ( node_test_and_set(node, node_scrubbing) )
->>> +            /* Another CPU is scrubbing it. */
->>> +            return true;
->>
->> ... these two return-s. My problem being that patch 2 doesn't use the
->> return value (while existing callers don't take this path). Is this then
->> "just in case" for now (and making the meaning of the return values
->> somewhat inconsistent for the function as a whole)?
+On 12/15/25 16:03, Kevin Brodsky wrote:
+> The lazy MMU mode documentation makes clear that an implementation
+> should not assume that preemption is disabled or any lock is held
+> upon entry to the mode; however it says nothing about what code
+> using the lazy MMU interface should expect.
 > 
-> I've added those so that the function return values are consistent,
-> even if not consumed right now, it would make no sense for the return
-> values to have different meaning when the node parameter is !=
-> NUMA_NO_NODE.  Or at least that was my impression.
+> In practice sleeping is forbidden (for generic code) while the lazy
+> MMU mode is active: say it explicitly.
 > 
-> In fact an earlier version of patch 2 did consume those values.  I've
-> moved to a different approach, but I think it's good to keep the
-> return values consistent regardless of the input parameters.
+> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> ---
+>   include/linux/pgtable.h | 14 +++++++++-----
+>   1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 652f287c1ef6..1abc4a1c3d72 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -225,11 +225,15 @@ static inline int pmd_dirty(pmd_t pmd)
+>    * up to date.
+>    *
+>    * In the general case, no lock is guaranteed to be held between entry and exit
+> - * of the lazy mode. So the implementation must assume preemption may be enabled
+> - * and cpu migration is possible; it must take steps to be robust against this.
+> - * (In practice, for user PTE updates, the appropriate page table lock(s) are
+> - * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
+> - * and the mode cannot be used in interrupt context.
+> + * of the lazy mode. (In practice, for user PTE updates, the appropriate page
+> + * table lock(s) are held, but for kernel PTE updates, no lock is held).
+> + * The implementation must therefore assume preemption may be enabled upon
+> + * entry to the mode and cpu migration is possible; it must take steps to be
+> + * robust against this. An implementation may handle this by disabling
+> + * preemption, as a consequence generic code may not sleep while the lazy MMU
+> + * mode is active.
+> + *
+> + * Nesting is not permitted and the mode cannot be used in interrupt context.
+>    */
+>   #ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
+>   static inline void arch_enter_lazy_mmu_mode(void) {}
 
-My point was though: The present "true" return doesn't mean "Another CPU
-is scrubbing it." Instead it means "More work to do" aiui. That's similar
-in a way, but not identical.
+Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 
-Jan
+-- 
+Cheers
+
+David
 
