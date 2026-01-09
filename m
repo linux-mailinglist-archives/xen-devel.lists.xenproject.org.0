@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8FAD087A8
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 11:16:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198509.1515428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7876D08855
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 11:23:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198519.1515438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9X3-0001Vg-C4; Fri, 09 Jan 2026 10:15:49 +0000
+	id 1ve9dl-00037I-0I; Fri, 09 Jan 2026 10:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198509.1515428; Fri, 09 Jan 2026 10:15:49 +0000
+Received: by outflank-mailman (output) from mailman id 1198519.1515438; Fri, 09 Jan 2026 10:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9X3-0001SZ-7C; Fri, 09 Jan 2026 10:15:49 +0000
-Received: by outflank-mailman (input) for mailman id 1198509;
- Fri, 09 Jan 2026 10:15:47 +0000
+	id 1ve9dk-00035F-Sj; Fri, 09 Jan 2026 10:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 1198519;
+ Fri, 09 Jan 2026 10:22:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SGSf=7O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ve9X1-0001ST-LG
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 10:15:47 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1ve9dj-000359-Mv
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 10:22:43 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 29b9bb4b-ed44-11f0-b15e-2bf370ae4941;
- Fri, 09 Jan 2026 11:15:46 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47bdbc90dcaso29996405e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 02:15:46 -0800 (PST)
+ id 2170e00c-ed45-11f0-b15e-2bf370ae4941;
+ Fri, 09 Jan 2026 11:22:42 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-432d2c7dd52so1105874f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 02:22:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d7f69e13bsm199378305e9.7.2026.01.09.02.15.45
+ ffacd0b85a97d-432bd5feaf8sm21674096f8f.39.2026.01.09.02.22.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 02:15:45 -0800 (PST)
+ Fri, 09 Jan 2026 02:22:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29b9bb4b-ed44-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 2170e00c-ed45-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767953746; x=1768558546; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767954161; x=1768558961; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fVA1rSjWi6G/rtKUq1UxoQ/RhvkAp5WPuA1D7/JzIaE=;
-        b=ICY9NjVDAUt7Ysx1bRwBhWViKkjJ7MphJbt1ftDGz+xtCD6bpjXIPgmOKjbhUs2Kou
-         VNxpAQN+Pati+4ioRNuZkl2uT89V7VJ7a5ydo6h3tiSm2Y4Vl0T4PSAOZCOqJdAMCODB
-         r47d+Vqi1cACN/CcAZW4Mv77R6EhCnilKtOi+eVBjtFn0GOr/TdS3Kx2raJ/YyI252nz
-         DZ/Wmqt24xcUOmMTh0vV5B+6XZKtbd5ex/pqPs6spjwkfVJsvR3d8D4S6/QQmqpAl1eK
-         eSX43+gZbC22bhCP4o7PcC2z/wjtpCVGTeTQD72BmIriDpzryVXgGWK/cNYRrVSqLJEs
-         zw7g==
+        bh=lsCqmuzqktYxl6WeQXdwoJ8q3loePMtShd3yE+Se1Bs=;
+        b=aWL47M4qngho0b/1+xZptQuXlmpmZ8wUdXzw50VxPMQ3w7Rlu2z5+9/sKNqDi4OC+G
+         2M5XlyHcJljCuY2RuIkLzjMtI6iWc1yGVDtg4pSImyI+xDdGsbzd5i9G88AKpIqrefvw
+         yZPASfne7OKZTDIg38m5Hu7HAaZ7oV+3zRnTqmdO6V135XZaOXIzH/9KBONlxw/XBEVw
+         HWzeKpisAkyBH9+rF1rjWqi8dzuxpNYf/a+HOPuoBa/3GlT7adNCp1XnMwGitfTlPxIL
+         dt949hk2wlZLlxjSLeSu7psFBMhRp8AoDFg+EoRw7bgUXO5DMbS6IZcszOV/+CWtLHAS
+         JIWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767953746; x=1768558546;
+        d=1e100.net; s=20230601; t=1767954161; x=1768558961;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fVA1rSjWi6G/rtKUq1UxoQ/RhvkAp5WPuA1D7/JzIaE=;
-        b=qOHJahVols6AY1mkWDjqfs/rOBVYiDSHS6IxMJnWx5LwUvUybtwgW4Oa+y3ztbU8tc
-         6piZpZl1xO2E6kB6EF4FyNDCLrTp6Xj/Gpx0iUiu13GJIGYFBi2rbTXRMBPFyRuxplvl
-         CREGqtbpiR+0k5907OTkH893LV2I4C508IAmPi8tTUFwICdzu2+LFQa4JqgesVQVOGMq
-         Q0PgZKThBPEC0WqSDCsG7iRez0tzRNfAOklaq9jDrPKuKkcnNA1cGfCuItnztxymlrLy
-         6jGp6RZifndh5ZDxxw0XQROom+Xm4BUQMpKx5zP6mHcsZn1F/D2Z0Zwh7StU0HOHUwgt
-         QMwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVtKfrZO4AFi+H4R00545mLrvPHw849Pdx+mGOgIMBk0nUCbu0Pa3myAGccnDMDlwxV+iSDJqTdRbw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFVmKIMNyz+KoqsN0u6wnFvcpyNTvC/HkYzTUUMx/+C1LK+Y+Z
-	ziArpbN5/C1Rd1QmxlgQkzxFSV2Df6GT90l+7My+s+lsO5IzBFFhjgZcYdAPgUimpg==
-X-Gm-Gg: AY/fxX6IDAzb0Iy5hz33vxqotxMa+sScKfWLwLpKkaht4VISLBBAN8v7TCNXVqOK6Zx
-	wp3eOarZgIvD4ni4StkXQb8oz73Ovz+zJ9WiNX/VS96QwBDWXEFlG7RiLtwahp+fEwqQ1UhI/SX
-	Mbw74Q6mncnjkcpN8K7IZ5OFPY+EQH1H1ioEgm8v9JzG7XXS6a0TQTOYrMOiuQ/rIQIGhp/JUuV
-	JXMnUkHsOAUhQ3VXaVDC9sCAVQisDw/lVcV3AYMXJF9tap7JKJaICdoCEgdgzFFt/sD7UObJwy8
-	YypRFf9dZPAfMKm1h9EA6vIRQs3XAFVT6iwlfu+71dU0p943PioXzzt0JRD6IOxbBIklXjlrqer
-	AOhge0eWkivZPCdT4uj67viu/KoI5WE9Omr0QFVsvg+ftvwF30k4OG0S8eeuvc0iquLzLn919xZ
-	99pK/Nrue1jJAV07QCTIRkxY7WL3qejZIQIqarNkVe6+d+84T1We0ArpclCBuypk0mvOa0rfpnw
-	fY=
-X-Google-Smtp-Source: AGHT+IGDC8CwfQT98zCZ9dybrpHU6ESX1vFIzYFnEyuxySWQjOlcUqBAx3ihqos2dn9/mJZlK8SXRw==
-X-Received: by 2002:a05:600c:468e:b0:477:a1a2:d829 with SMTP id 5b1f17b1804b1-47d84b1862cmr114836235e9.13.1767953745690;
-        Fri, 09 Jan 2026 02:15:45 -0800 (PST)
-Message-ID: <6b4c352b-f4fd-4b81-84ac-41b7d3e04f92@suse.com>
-Date: Fri, 9 Jan 2026 11:15:43 +0100
+        bh=lsCqmuzqktYxl6WeQXdwoJ8q3loePMtShd3yE+Se1Bs=;
+        b=I6Vb4AJIcNBN5XWxZ5/aBhyOKj8cbIbZ0eJjdDH01YxiaJP1Ww3rVO/PJmTBSiA0ss
+         HctX5VzaRxA9XphPvDAtxj23vTTTEOGzgsupo9CWFQuU6ARC+BGc53kh7trqb3YhixrV
+         ebfAEkynT+HWPmLzDsYqlMbGoIoPOKiipYVA4lVL9yljzKZaQ0XbSb1AfetjyoTIecCU
+         5WTlnMwmmd7ICE1m7+EPObEUpu4b/O34orbp4QEGd+I1InjQD3W0WvwKe5uDqIRXTMON
+         8DlTI7TKP5arB5TWSD1RcWg9WgeG4qc7kxKI5V0Y2qAZLvd2bsKMaZK8fO+UR3n8yQ7W
+         GEhg==
+X-Forwarded-Encrypted: i=1; AJvYcCUtu/6rYEVRfZjplQ4i1GteOGZ4oAa2HwE6jmwZZPBuKWbkn6KQO48gGGQuVO18gHMiIoHk2YPvdX4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyuTZ61aFHukRI1Q/ODU6/3ZI0/t2MWt2j9fSjEE4AcuG+mx7GT
+	OHMf4IZ+T9jCjqStebu0++Wol3fUBv268yVjcXfpGlMuMNGhpwvVxAe83KNSuIpvPA==
+X-Gm-Gg: AY/fxX5LI32cvPM9vTKfJBbhHUzWn2Xkxj4HuQchFM+xIGWjqFiBXY+8aAeCRafZ6Oo
+	sSSKKnZb6Pxw1gL+BDzipIPJ/dYe/fBtoLUvzylS1GQTARzUTtLLE5C8ZLxR8ri1Elzs918yWTr
+	XmTh6+jTXSp5u2FmdhX2/PuxQrurIPtoIg2intRAyb+cFU53L5sR8XFYkvkKxYszZ5LHeAREkko
+	AQ2gCrbzmWy6wOCGWDiEIjU2Ek1iM6Jk3pJLfgDe9oLEy0DVyuK2AoIUcmOg+6B6+8NZ5C2cE80
+	eLyqgS0NvP2GW6NVzUyg9hdk0pVEHZKxm0Cknw5eDuJYVhxQT2uTS5NHqtOXom+t9UVKsmtYOWI
+	D5RMoFLQCyukE/qkxvEZN36GQFTrZPwqA58grAjuRBIrKuV2Zv0H/0dOmrFIZ6A0RGj6lW9RJVA
+	fj+KSxE0mq0ISCdpyaA8B9xTUi/LyUod9X38fUB4z+HRLkip6dnzUp1LZGuyJk+MiJbQXHtEkoq
+	nU=
+X-Google-Smtp-Source: AGHT+IEDWjj5W7I7H/yMMgwr4pePoGQeLQ1B4bXcP3lo+7E9p9gJLPEVketVHnd5GBpLmVmnyEwnIw==
+X-Received: by 2002:a05:6000:2584:b0:432:5bf9:cf22 with SMTP id ffacd0b85a97d-432c3760f0amr10665727f8f.3.1767954161301;
+        Fri, 09 Jan 2026 02:22:41 -0800 (PST)
+Message-ID: <a8d09b82-3013-4476-b358-08b5fdc14cf1@suse.com>
+Date: Fri, 9 Jan 2026 11:22:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] xen/mm: limit in-place scrubbing
+Subject: Re: [PATCH 1/2] xen/mm: add a NUMA node parameter to
+ scrub_free_pages()
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -98,6 +99,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <20260108175536.82153-1-roger.pau@citrix.com>
+ <20260108175536.82153-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,40 +125,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260108175536.82153-1-roger.pau@citrix.com>
+In-Reply-To: <20260108175536.82153-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.01.2026 18:55, Roger Pau Monne wrote:
-> In XenServer we have seen the watchdog occasionally triggering during
-> domain creation if 1GB pages are scrubbed in-place during physmap
-> population.
+> Such parameter allow requesting to scrub memory only from the specified
+> node.  If there's no memory to scrub from the requested node the function
+> returns false.  If the node is already being scrubbed from a different CPU
+> the function returns true so the caller can differentiate whether there's
+> still pending work to do.
 
-That's pretty extreme - writing to 1Gb of memory can't really take over 5s,
-can it? Is there lock contention involved? Or is this when very many CPUs
-try to do the same in parallel?
+I'm really trying to understand both patches together, and peeking ahead I
+don't understand the above, which looks to describe ...
+
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1339,16 +1339,27 @@ static void cf_check scrub_continue(void *data)
+>      }
+>  }
+>  
+> -bool scrub_free_pages(void)
+> +bool scrub_free_pages(nodeid_t node)
+>  {
+>      struct page_info *pg;
+>      unsigned int zone;
+>      unsigned int cpu = smp_processor_id();
+>      bool preempt = false;
+> -    nodeid_t node;
+>      unsigned int cnt = 0;
+>  
+> -    node = node_to_scrub(true);
+> +    if ( node != NUMA_NO_NODE )
+> +    {
+> +        if ( !node_need_scrub[node] )
+> +            /* Nothing to scrub. */
+> +            return false;
+> +
+> +        if ( node_test_and_set(node, node_scrubbing) )
+> +            /* Another CPU is scrubbing it. */
+> +            return true;
+
+... these two return-s. My problem being that patch 2 doesn't use the
+return value (while existing callers don't take this path). Is this then
+"just in case" for now (and making the meaning of the return values
+somewhat inconsistent for the function as a whole)?
 
 Jan
-
->  The following series attempt to mitigate this by limiting
-> the in-place scrubbing during allocation to 2M pages, but it has some
-> drawbacks, see the post-commit remarks in patch 2.
-> 
-> I'm hopping someone might have a better idea, or we converge we can't do
-> better than this for the time being.
-> 
-> Thanks, Roger.
-> 
-> Roger Pau Monne (2):
->   xen/mm: add a NUMA node parameter to scrub_free_pages()
->   xen/mm: limit non-scrubbed allocations to a specific order
-> 
->  xen/arch/arm/domain.c   |  2 +-
->  xen/arch/x86/domain.c   |  2 +-
->  xen/common/memory.c     | 12 +++++++++
->  xen/common/page_alloc.c | 54 +++++++++++++++++++++++++++++++++++++----
->  xen/include/xen/mm.h    | 12 ++++++++-
->  5 files changed, 74 insertions(+), 8 deletions(-)
-> 
-
 
