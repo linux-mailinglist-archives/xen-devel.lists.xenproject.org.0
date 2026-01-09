@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D18A1D07C04
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 09:17:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198407.1515377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E62D07FD3
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 09:53:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198427.1515387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve7fW-00022V-TP; Fri, 09 Jan 2026 08:16:26 +0000
+	id 1ve8El-0006yw-Lt; Fri, 09 Jan 2026 08:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198407.1515377; Fri, 09 Jan 2026 08:16:26 +0000
+Received: by outflank-mailman (output) from mailman id 1198427.1515387; Fri, 09 Jan 2026 08:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve7fW-00020j-QH; Fri, 09 Jan 2026 08:16:26 +0000
-Received: by outflank-mailman (input) for mailman id 1198407;
- Fri, 09 Jan 2026 08:16:25 +0000
+	id 1ve8El-0006wY-IY; Fri, 09 Jan 2026 08:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 1198427;
+ Fri, 09 Jan 2026 08:52:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SGSf=7O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ve7fV-00020d-Ah
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 08:16:25 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1ve8Ej-0006wP-PI
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 08:52:49 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b4512a8-ed33-11f0-9ccf-f158ae23cfc8;
- Fri, 09 Jan 2026 09:16:22 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477ba2c1ca2so43211075e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 00:16:21 -0800 (PST)
+ id 91d1d11e-ed38-11f0-9ccf-f158ae23cfc8;
+ Fri, 09 Jan 2026 09:52:47 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-42fbc544b09so2897247f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 00:52:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5df8besm20162733f8f.26.2026.01.09.00.16.20
+ ffacd0b85a97d-432bd5fe67csm21025888f8f.40.2026.01.09.00.52.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 00:16:20 -0800 (PST)
+ Fri, 09 Jan 2026 00:52:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b4512a8-ed33-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 91d1d11e-ed38-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767946581; x=1768551381; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767948766; x=1768553566; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gCFlP9fxNsC6ga/seMa0KvAYvbrh+d170swkw77Is9k=;
-        b=Ln73PTAKWlLjJEaPtjsbp23J6EbekVa/MLqe/mKUOLWUzWsvfcczgFwUk4+vzZX+AH
-         z7ovwi/0B9DXu8p8o7JUYqW5IjGR9mHf9OJr5G6IeqG25O+liJV8ZH0YaTjmZfojBTBH
-         eJLTb3jHAWeYN9Yw29xyqgAcO/Tkv/0GAGwX8xtI0b385fEZViFcwSqM5x1Q1G6f6c+8
-         jupSmFv8b86ZhcFMQNNkz9wSD5yjNxhTZ6z5ZGHR1aXJXbOLxAVWA2B4LoJzi4vzhTVJ
-         kvKnANuumMpelFr99v3QN8GifKkAXmPxtDHoMNYqsItgl4JPwJml4YV9qZDByIjdySkw
-         w3Zg==
+        bh=4wuBoEC8pXbkWBD/bTl21VJ5ojFsTXdX4usyEM4A20c=;
+        b=GSEfpoNWKNIv5fpl20X/kFk+zeUWZxHN1nibzJcbVRuwPS8eyQnsAE27g4IEJqMcbY
+         XHDAjGPwkZ9tzbvjRQiC7aluCtjGGVsbcGkXPxPfCXugI/CFyZrutn0E4VSzPYHOvzJy
+         nxch/wFtgLDmd+30ukDfjaIbOUvyTDK1G5+/tMVoBRTtrhOunUXOzumx6dh6rjSn9uVP
+         dnGhHAh5mFXvfF06GflHjCPS2FtB654WPVG2LV7uspkz0WPMECjL32GhJg1hAHCFQx3u
+         c/RnJyb+W4oGOxQhWpCsYC0Br6iUdWjaTOpAzVzcaQstccy0vi9WjUssQyRgJY6+MxRO
+         RC7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767946581; x=1768551381;
+        d=1e100.net; s=20230601; t=1767948766; x=1768553566;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gCFlP9fxNsC6ga/seMa0KvAYvbrh+d170swkw77Is9k=;
-        b=Oo8PmGCpQUh53sLZGG6leWmvcvZI3w8+AEFBD9EhjcLuAQADqeBxH1UVIpBPAABqTC
-         wtpN820usuO47Foo2YQ6RRcaFtzKsDOQkH+2Kqy+0iqwVKeUzTWWlPP1yvwgA/hHuqNx
-         A3aV+3vo1SAu8CSBHiIl+madp9FakRCT4aQmz/btXbCu7HoxVSR/AlQhrW9838uzPJrl
-         kamVpuqdJOKkrO8TvIWqKyEfLkww+x/qEYcJ3hDQ3GaAJowtSYXhxC6CoXjvqkNU3AYP
-         jM0ord1lVf9A1SR6w/DzppeRPtTCqYtn9tOgqLBbKOmCRcEqY2lEdqD9psUIUpbKI3/6
-         RXcA==
-X-Forwarded-Encrypted: i=1; AJvYcCXooRmC1biQX58KWgh1JdDFVGpIObWOoVpCvJuzfoOHQD9Dn76iaZoK5sh7tfoksLjAc7XyvMCx0PU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwN/NCCf6S1GJvB8cTyhjujmUZlE9Nx00bQn9hVJLzWDx+p/He0
-	JaKobA5zvZ1enrcI1bISKL6crZKsd+DR56bgIz8z4GBdEbgVNSlMFiMboqT7lMH4nA==
-X-Gm-Gg: AY/fxX6ixYsRyJUU6B33x56fgDiK9/z9NFmJuWS94ecOU02GRH5j5sqz76FdAWteWkx
-	ZbNrXT2M/JQByNIu/uxvWIpw8O7kH+hGRnYkfEyWG49By5I7sKHbCVyk99/m6V943xOG3RcrdoP
-	mHE7ls9i5vU9ieXhu2gniuy7tTBMPa9fzjVqDqwEzj2Lc3r+OKt+eX038tHvR6GYG20Pl8vsHmH
-	v2t3lio/IwKDlOJ8n6fcbExCnfNPm0RYgdDVVlzLO/lMLcNFYnkqV49k2dIVQFz2cJ5qHzni5gk
-	vhpE6g9pnnmKeZYtWpemj6+lT9W+mGomWequD9twMMsetmQLuKNoJmDRENQy1T3PZ4w1y0qed1X
-	Cm61XSZivgJrhpRLEAFotM8Mcn+A0WPD2VPIv7qHomAblP0/4tr+J3MA2N0iWdnVDVuKr0enpm1
-	BSTCYLp1aOJGzm6md2VOkrYqWqOpYSf78emhBG4n8NNWT15+cjFZVgTBB0eVjRw1gKEvUxCjtUo
-	CM=
-X-Google-Smtp-Source: AGHT+IEL4L4x7/t3H1GGEhQLBpg2cBvQB+rN2QANV32ZXrdm8ehS8907Eg6MJ1BAzVNOoVyDjy5fCA==
-X-Received: by 2002:a05:6000:2891:b0:432:8651:4070 with SMTP id ffacd0b85a97d-432c3760e09mr10702350f8f.10.1767946580945;
-        Fri, 09 Jan 2026 00:16:20 -0800 (PST)
-Message-ID: <336b1b84-7c03-44a8-b9d4-9652f0797886@suse.com>
-Date: Fri, 9 Jan 2026 09:16:19 +0100
+        bh=4wuBoEC8pXbkWBD/bTl21VJ5ojFsTXdX4usyEM4A20c=;
+        b=JVB1iuRelmc3PL+E/Xsu1M3ZC2z06XNHfeNm6NSVIbCE6Eec7OZHhXGBEw6fMBFEa6
+         SvWqvYai/wzJ3YV16f3H9o9oLGq2UOWldXr9F8RcwgWYgHKrEF1DRxqfajtND4FHyWgK
+         jPXX8SQmbKGAsZ/FC3VC6BEevGbmy7eoRZZlzVDNcFidnTRhz+FWkwZxKXfYEcouFjyX
+         9ElM5CvEiN/bq1DmXOXrhYPcxM6bDXyc5HlxYFhaah0P8qwReb1BX0AUF0t5C1y7qgkQ
+         JtCoRkacJnQMzuiZCXbfw67UVHAWBKDFfkqgqEj5DF1n17/Q35AK3L311TuiBparExP6
+         UfIw==
+X-Forwarded-Encrypted: i=1; AJvYcCXNjivb5rqZNra+P5el9JtXW16AnReg7YoZHkQmU/EgojVKHSwRaMPRT04/N9cC9hp4ujzxjaNQosg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3VB+muER1jtmFc13NjuRbTwGv+hfd8eF+E28e3G5wim2DPQO0
+	1sHByk4k9huL032DFvkO0/7Q/kGmnOo/BqHF8E0QEtpsGLhXsdmTb7rf8xfRY6x3bA==
+X-Gm-Gg: AY/fxX5UAbYYoh8jgJDfDQaQN2c2aMvarX2TpjoZ5j8tZBHfxKHR+hvvgM0FIPJPqRL
+	OcyydF4Rqs1M13nxOKctHGIG4tF+VvV0YZIm2tpQ6pz3b8Zpz+uy+CTNg+1MosQfilV3M+cSydR
+	/j8ObLJGubhZc1ZsjEt9xmUGDzNqt2wC4DMOTe/9NvqDkjaCc5JkfSgI1C5Tcp20FsVuqzZhvg0
+	l8S1TEyEdd8OzbgJ7P0vwH4a/sY7sp6oRcpIomClluUvwKTfmVJjhZOZ6isrs8vGniTFp6py/0G
+	xLXTJFzloZxHUf+9HKXWigUYZCiENMrVm5q00g13uU/aQE03sDe/RSlcYD30cK/qlSWZaRC8B/t
+	arXfLfnQiIOm4EtafjPMjSFdMLTJ8So4iSqYwF97PeeF42T2Reh7v2Br9hfdKBUnezvz1QD00JY
+	Lc3hInmFp8b+HeBlnFYdN6Qm1D9a7FAEkdVlt254p7yX0feHW5cHu0T82CMfAnWeC+Fa7o/JnF/
+	cI=
+X-Google-Smtp-Source: AGHT+IHnckDLl2ILoLgj0ZXykIDzrlo0YJP0Cx1XFakkgE9fl0GgWFFe+sqw+AQSLcftmxv+Glbg1Q==
+X-Received: by 2002:a05:6000:22c5:b0:431:8bf:f081 with SMTP id ffacd0b85a97d-432c3790cf7mr11062673f8f.23.1767948766300;
+        Fri, 09 Jan 2026 00:52:46 -0800 (PST)
+Message-ID: <1a70284e-de5a-4e5b-9641-12be48a311f4@suse.com>
+Date: Fri, 9 Jan 2026 09:52:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/xstate: Rework XSAVE/XRSTOR given a newer
- toolchain baseline
+Subject: Re: [PATCH v2] x86: guard synthetic feature and bug enumerators
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20251230135427.188440-1-andrew.cooper3@citrix.com>
- <20251230135427.188440-3-andrew.cooper3@citrix.com>
- <4b051e1f-0d99-4637-b433-bade93e67e0a@suse.com>
- <e34ecbe6-5b74-451f-8540-037966f1be21@citrix.com>
- <6062efac-8285-4062-926f-dc3ece871654@suse.com>
- <91a64181-212b-4515-9e2e-82b3eb4b4364@citrix.com>
+ Jason Andryuk <jason.andryuk@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <239a5d80-c0af-410b-a053-5fa84273aecd@suse.com>
+ <feb1e200-e852-4c51-b993-ee078f4e6beb@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,110 +121,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <91a64181-212b-4515-9e2e-82b3eb4b4364@citrix.com>
+In-Reply-To: <feb1e200-e852-4c51-b993-ee078f4e6beb@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08.01.2026 22:08, Andrew Cooper wrote:
-> On 06/01/2026 7:59 am, Jan Beulich wrote:
->>>>> @@ -489,17 +484,17 @@ void xrstor(struct vcpu *v, uint64_t mask)
->>>>>              ptr->xsave_hdr.xcomp_bv = 0;
->>>>>          }
->>>>>          memset(ptr->xsave_hdr.reserved, 0, sizeof(ptr->xsave_hdr.reserved));
->>>>> -        continue;
->>>>> +        goto retry;
->>>>>  
->>>>>      case 2: /* Stage 2: Reset all state. */
->>>>>          ptr->fpu_sse.mxcsr = MXCSR_DEFAULT;
->>>>>          ptr->xsave_hdr.xstate_bv = 0;
->>>>>          ptr->xsave_hdr.xcomp_bv = v->arch.xcr0_accum & XSTATE_XSAVES_ONLY
->>>>>              ? XSTATE_COMPACTION_ENABLED : 0;
->>>>> -        continue;
->>>>> -    }
->>>>> +        goto retry;
->>>>>  
->>>>> -        domain_crash(current->domain);
->>>>> +    default: /* Stage 3: Nothing else to do. */
->>>>> +        domain_crash(v->domain, "Uncorrectable XRSTOR fault\n");
->>>>>          return;
->>>> There's an unexplained change here as to which domain is being crashed.
->>>> You switch to crashing the subject domain, yet if that's not also the
->>>> requester, it isn't "guilty" in causing the observed fault.
->>> So dom0 should be crashed because there bad data in the migration stream?
->> Well, I'm not saying the behavior needs to stay like this, or that's it's
->> the best of all possible options. But in principle Dom0 could sanitize the
->> migration stream before passing it to Xen. So it is still first and foremost
->> Dom0 which is to blame.
+On 08.01.2026 19:12, Andrew Cooper wrote:
+> On 07/01/2026 2:11 pm, Jan Beulich wrote:
+>> While adding new enumerators one may overlook the (rare) need to bump
+>> X86_NR_{SYNTH,BUG}. Guard against that happening by adding respective
+>> checking. The use of BUILD_BUG_ON_ZERO(), however, entails a number of
+>> other changes, as the expansion may not appear in the assembly produced.
+>> Furthermore inputs to file-scope asm() are only supported in gcc15 (or
+>> newer).
+>>
+>> No difference in generated code (debug info, however, grows quite a bit).
+>>
+>> An implication from the changes is that users of the alternatives patching
+>> macros may not use unnamed asm() input operands anymore, as the "injected"
+>> new operands would break numbering expectations.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> v2: Fix shim build. Use named label operand in pdx.h.
 > 
-> BNDCFGU contains a pointer which, for PV context, needs access_ok(), not
-> just a regular canonical check.  Most supervisor states are in a similar
-> position.
+> I'm pretty sure that will be rejected by Eclair as a Rule R20.12
+> violation (using a parameter as a regular value, and stringised), and is
+> a blocking rule.
 
-Yes, so exposing them to PV would require extra care. Note that MPX isn't
-exposed to PV.
+I don't think so - see the difference between the non-compliant and the
+compliant examples in the spec. The label passed here isn't subject to
+further macro expansion.
 
-> Just because Xen has managed to get away without such checks (by not yet
-> supporting a state where it matters), I don't agree that its safe to
-> trust dom0 to do this.
+> But more generally...  I see why you want a guard rail here, I can't
+> help feeling that the cure is worse than the poison.
 
-Yet the guest itself can't have got in place a non-canonical value, can it?
-Its attempts to load it into hardware would have faulted. So it's still
-not the target domain which is to be blamed for a fault resulting from
-XRSTOR encountering bogus pointers.
+That's a fair position to take, albeit I don't really agree.
 
-> For this case, it's v's xstate buffer which cannot be loaded, so it's v
-> which cannot be context switched into, and must be crashed.  More below.
+> Updating every alternative is very invasive, and this in particular
 
-Well, yes, as said - that's one possible way of treating things. My main
-request is not so much to undo the change, but to properly justify it in
-the description. (Or maybe that really wants to be a separate change, in
-particular if you wanted the changed behavior to also be backported.)
+Well, luckily it's far from all, but mainly those which use the upper-
+case macros directly. Plus the two "(ab)uses" in asm/spec_ctrl.h. The
+change in asm/tsc.h is actually in our favor, I would say.
 
->>> v is always curr.
->> Not quite - see xstate_set_init().
+>> --- a/xen/arch/x86/include/asm/spec_ctrl.h
+>> +++ b/xen/arch/x86/include/asm/spec_ctrl.h
+>> @@ -73,7 +73,7 @@ static always_inline void spec_ctrl_new_
+>>  
+>>      /* (ab)use alternative_input() to specify clobbers. */
+>>      alternative_input("", "DO_OVERWRITE_RSB xu=%=", X86_BUG_IBPB_NO_RET,
+>> -                      : "rax", "rcx");
+>> +                      "i" (0) : "rax", "rcx");
+>>  }
 > 
-> Also more below.
+> without even an explanation of why, is an immediate red flag.
+
+Honestly, to me the "(ab)use" in the comment is enough of an explanation.
+Plus, really, the end result now looks more "normal" than before (in no
+longer having comma and colon next to each other).
+
+Would adding /* dummy */ after the seemingly stray input satisfy your
+request for "an explanation"? Else what exactly would you expect?
+
+> Could we not split X86_SYNTH()/BUG() to take a leaf/bit pair, similar to
+> how we express regular features as a*32+b?
 > 
->> And for some of the callers of
->> hvm_update_guest_cr() I also don't think they always act on current. In
->> particular hvm_vcpu_reset_state() never does, I suppose (not the least
->> because of the vcpu_pause() in its sole caller).
-> 
-> We discussed the need to not be remotely poking register state like
-> that.  But I don't see where the connection is between
-> hvm_update_guest_cr() and xsave()/xrstor().
+> That would at least make it more obvious than currently when a new leaf
+> is needed, and contained it to a single header.
 
-At the example of svm_update_guest_cr(): It calls svm_fpu_enter(), which
-in turn calls vcpu_restore_fpu_lazy(). But yes, that's explicitly only
-when v == current. I fear I didn't look closely enough when writing the
-earlier reply, sorry.
+I'm pretty sure we could, but such a split would be largely artificial.
+Hence why I discarded that option very early, the more that - as you say -
+it still would only serve as a hint, without enforcing anything. In
+particular I could easily see me using the next "major" index, but still
+forgetting that X86_NR_{SYNTH,BUG} would also need bumping. (What might
+help a little is if the two really moved to the end of their blocks, so
+they would be more likely to be spotted when adding something to the end.
 
-> Tangent: hvm_vcpu_reset_state() is terribly named as it's attempting to
-> put the vCPU into the INIT state, not the #RESET set.
-> 
-> But it only operates on the xstate header in memory while the target is
-> de-scheduled.  It's not using XSAVE/XRSTOR to load the results into
-> registers as far as I can tell.
-
-Iirc I mentioned hvm_vcpu_reset_state() because it calls
-hvm_update_guest_cr() several times.
-
->>>   XRSTOR can't be used correctly outside of the subject context,
->> Then are you suggesting e.g. xstate_set_init() is buggy?
-> 
-> No, but it switches into enough of v's context to function.  Really its
-> neither current nor remote context.
-> 
-> But, it's single caller is adjust_bnd() in the emulator so it's always
-> actually current context with a no-op on xcr0.
-
-That's its single present caller. Who knows what else we might need it for.
-It would better be operating correctly in the more general case.
-
-> As said on Matrix, I think it's going to be necessary to remove MPX to
-> continue the XSAVE cleanup.
-
-Possibly, yes.
+Bottom line: I'd prefer if we would stick to actually doing the checking
+(or yet better derive X86_NR_{SYNTH,BUG} from the uses of
+X86_{SYNTH,BUG}() [1]). I'm not particularly happy with the way the checking
+is done right now, so I'm all ears towards improvement suggestions.
 
 Jan
+
+[1] Some initial idea: Have
+
+XEN_CPUFEATURE(SYNTH_1ST_UNUSED, X86_SYNTH(...)) /* Must stay last. */
+
+#define X86_NR_SYNTH ((X86_FEATURE_SYNTH_1ST_UNUSED - 1) / 32 - FSCAPINTS)
+
 
