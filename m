@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A92D0A73B
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 14:39:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198827.1515646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB042D0A7B9
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 14:48:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198840.1515657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veChw-0003x8-RZ; Fri, 09 Jan 2026 13:39:16 +0000
+	id 1veCpy-0005iM-Kk; Fri, 09 Jan 2026 13:47:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198827.1515646; Fri, 09 Jan 2026 13:39:16 +0000
+Received: by outflank-mailman (output) from mailman id 1198840.1515657; Fri, 09 Jan 2026 13:47:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veChw-0003vj-OK; Fri, 09 Jan 2026 13:39:16 +0000
-Received: by outflank-mailman (input) for mailman id 1198827;
- Fri, 09 Jan 2026 13:39:14 +0000
+	id 1veCpy-0005fj-Gq; Fri, 09 Jan 2026 13:47:34 +0000
+Received: by outflank-mailman (input) for mailman id 1198840;
+ Fri, 09 Jan 2026 13:47:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sCgZ=7O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1veChu-0003vd-Hk
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 13:39:14 +0000
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c001::2])
+ <SRS0=JTJE=7O=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1veCpx-0005eH-6A
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 13:47:33 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93794438-ed60-11f0-b15e-2bf370ae4941;
- Fri, 09 Jan 2026 14:39:11 +0100 (CET)
-Received: from SA9PR13CA0024.namprd13.prod.outlook.com (2603:10b6:806:21::29)
- by LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Fri, 9 Jan
- 2026 13:39:03 +0000
-Received: from SA2PEPF00003F68.namprd04.prod.outlook.com
- (2603:10b6:806:21:cafe::3e) by SA9PR13CA0024.outlook.office365.com
- (2603:10b6:806:21::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.0 via Frontend Transport; Fri, 9
- Jan 2026 13:38:59 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003F68.mail.protection.outlook.com (10.167.248.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 13:39:03 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 07:39:02 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 05:39:02 -0800
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 9 Jan 2026 07:39:01 -0600
+ id be70e011-ed61-11f0-b15e-2bf370ae4941;
+ Fri, 09 Jan 2026 14:47:31 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 216514EE3C11;
+ Fri,  9 Jan 2026 14:47:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,119 +40,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93794438-ed60-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WBYAN1Fsfe3VEv88xux4NKI5UKRsJZ/rgfafmTdpsu0CWFFI4zErVjczexGZl6NXgjFqGhVK40wSCgASVWfUtB/vcnf7Vg2UNoChAI4vg+51VUarHfUAtqvX8tQE1mjPzPhPsUZsbvxt7DALosmvLHu1hVpH+f7p4kpNM/e+VOxC9EkWxu1JgbehSUcyaV4Q5yO3KyQEhYldR7ls7+zrl8f7iMYsMFHmKEgOncXjX3cnepLaFDf77oD+ejSsqPVEjrdaqjHOGur/WuO73tVpepr2QL3uSmSUIt+n5VnF6ldiHWRnjbWJcSwwJJwl4PsSAE6JW2PiGNNXJRjpFsK1DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/97QvYe2/F0Hn9azJhZ1OEYQhRSgO+YRIB7L6Spx60c=;
- b=emAnK1MgCGVJnkqGfgKWdhxhF7E7iivgjCB9l0bgGHGmGxhZk4plDfRkM05AXvG2g3kiBmijIWNa0CUtr4gVjOKxQcfeEHo0iQGmY1RWV5YHwYfuO8qlYBj7lCsD+cgbPYDgqDCsOh6MdDCP6lJwhBbDp20Hny3xGYRuDJr/VJgzd8BJj8o+JG96HpnLUCuD9Za4E66fWWxalKVkxb66VvyjGGj+PHXcO+JxapCLBP+4wXI6+rVMWcjbkBJEPhkcDLo6MrhjxNWCqWbk4LdcOsYxYTcb+wdUER1JZpTQjx5n+jMUOwEsx3S47J7uJ4mk1XP4Xzh4Nzzxlx0PefOmsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/97QvYe2/F0Hn9azJhZ1OEYQhRSgO+YRIB7L6Spx60c=;
- b=qEA+PNf1oOW13a6uOoGlu/1ndU4EUA/SLqXgRBIp0rQ8V83YIx5LukXbZXivSCnAxDctYowgmRABBPRGE1DTZsBO5GEFCLfpgOUSQ5bycItJVAlgg9rovNYx1htWF8clcWGFgHY46g1tEJnUcNUtYdsKAbsY0I+8CGCyeVFqvPw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <09de85de-5d49-4dec-bb9a-db7afa22a858@amd.com>
-Date: Fri, 9 Jan 2026 14:39:00 +0100
+X-Inumbo-ID: be70e011-ed61-11f0-b15e-2bf370ae4941
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1767966450;
+	b=0zjHDCjrRtxvZoRQweEQBTwrfH1OdmsJBONZI4neZfm7G8iWkqRir4utSl2m89/yCT8Q
+	 3lOV7sSk/mqaCk+RQw0xqDPzn0A11Jnrkogn0ZLFjH+7ud5rhIq7BpdICVb1KUAKo5nZt
+	 CF/GPZb7asY9WF1Y4LhnuV51+T9ghnsjosy3NNDfhyvjPWBYcc1Lrt5FDTK9Bj8ZapqAR
+	 GbxGT5yGrreQnYdD77myUmXsRSy1/Fywq24u0D50DoFk9LU2E80AS9xdFc4ZxpJp/kxoA
+	 kncL/r5eT4R3FNUKhfgwm5HLHGw/Eyk8Gp4UCpG52NyBt60nLBpr2/IvQ84uVwdGcVz0p
+	 I3MYURPk4DbbtSDEHOo+aly77cq6twvygt1vCJrLv6UrdppeZRmvCX9z8xfJjyUWMjgc2
+	 qJGZ+Wk/OaAUR21QdSBOCUl/3melupWdEIkx021Q1Zgn01PCugkmWabVOHL6TWPbhXcWb
+	 MD8cHrtL2V3YsLUA2DvPntbY+OSU/ZkSvr4g0iMs2/nrbztyTi8btoDJWEzaB6o4zibW3
+	 Tw4D9ZTR+iKIbC4urCIJ/8IXTE/qFGLsE2A/zNP3ub14FAcysL3exae4oUQtPPLFL4als
+	 mDoC97QxL9YylHOWwH8MaDdUx/hb6Et+cMYk1ZfTbPsm3Qmh6fk35GmE3F2Tio0=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1767966450;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=43uGOl9QcAOHv+wuK+FTtpUjHIexCK/0igWh8XWoB48=;
+	b=U3x6diUhVX3RQXpoW49Mt6Ix+wYy4cZcqoyZEiDXQ3W/t+jyA5TpJDINFGiqE5Ad/SCV
+	 J+Qjvc/XKkMcZ4UvglsIT65rHicQwFNZm9uLs5zCZkRXDgEoqpTz11yJwYTmqwye2g1hN
+	 qySwBlkBCgc7pDrxzRlpN4OhFPvQFHUoskHGX2bRTciM6hgIZPHiTgmO79e46wKzJyzHi
+	 dbt5534UNW6FfTebj2BGFuoYviXh26J/mij7PBaxA6WPxsndLo7jkcrA8AxKin3tyLiOw
+	 SqCoMIsZAW4OER2sV48yLxZwkfqfdd2ieWmvJjxPJWbFPEWwtIRrIsTsrQUoQMV2YafsO
+	 qpZB6A1vH2f5urjHylG4qCtc10SCYT9soRVqkO+eRg0+hijl6JzK+x8M3LGS0RxBYdMOO
+	 cZt4/sRVIIOnOCkarlQtGMQlgyGGiak3OXy9J00YNi+SNdyZRZJc2Q0UofZ9KlFAs//rt
+	 FdltMJKXVkE0ETpIXEReSEE93CM6+0DdxUxAXQGo8Co8IvDcCZ4ZW+dwMr+c9l52RLkPd
+	 cAHrP7lw+kiGqyw/yBZ+Q/sBHdBvrT0ll4LrMMnQB6tmZbEgNsEvSe0ivtJRQhO7L0v9c
+	 3Jv+rCYNAuKhrQaAVgAUlzkbfrzWU9FIUVvCCiGMuqb+9oIG3DcnJhC1ujYibAk=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Date: Fri, 09 Jan 2026 14:47:30 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, "consulting @ bugseng . com"
+ <consulting@bugseng.com>
 Subject: Re: [PATCH] MISRA: Extend the R3.1 deviation for URLs to include
  git://
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, "consulting @ bugseng . com"
-	<consulting@bugseng.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <20260109131807.860397-1-andrew.cooper3@citrix.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
 In-Reply-To: <20260109131807.860397-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F68:EE_|LV3PR12MB9167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6598d673-169d-4594-ec4f-08de4f84741e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NVB2c1Jqa1JBVkhZZzhhWnV5MWxLZHIwN21aWFVLS0VjQVlHNnRjS2w4SkdU?=
- =?utf-8?B?K01PRHkvTFhoWlk1dCtzdnpCMU5hVFlWU0pDajBrQWhJbEF2ZjRjcVBvdDVL?=
- =?utf-8?B?L3crM2pvV3lzMk9hQXc0WlhINHBRaDQ1MmtVNlVyTWFlTnB5dVZRMUNQdkYr?=
- =?utf-8?B?dkphdWlzOVk1OGlyYkdZR3JDNkZDZzdtcERQODB4eEp1aVh6N053QWtEdGpE?=
- =?utf-8?B?VG10S3g3MUNkVnlBNE1JZkZoaUJVdXpEN0V4UmVadHJOZWFUT2M4SGYyZ0tJ?=
- =?utf-8?B?ZWNwMzg4N042ZWs3TzFIREFwNXdUakF4WTg4aC9XcDdzd21XdjhGdmxHYjJX?=
- =?utf-8?B?SlhBQjJPcFJIeHdaamk2L3psQnpmRWEvQW5laVE3SXJkcmJVN3p3YllSaTNX?=
- =?utf-8?B?VHZ1aFEvbmRkMndZR0xKSW5DQ04vM0QzVGUySWxtMDlnQ080bG9wZnVtQVZp?=
- =?utf-8?B?S3ZPR3ZnV1dBY2VWY1RqZ2s1QkJ2UzZlZTF0LzJsWFdUalRjVWl4QUVGazBG?=
- =?utf-8?B?Mm8yV1MrWlJrTnllc3g1VTR2YXAvKzQ4KzJQeEtUbWVBMzJrYnlhRmF4SlFu?=
- =?utf-8?B?N2NnRU8vcm16bSs1WGZrZFpIT1oxMUFMQTJ4Z1N0c21kNnluemNVWDM0Nzdp?=
- =?utf-8?B?dHl1dXEzMmhZWDQ2czRQMkowYnRhbCswdkJlR3h1RDBjWGRxSWpZOEtTVWpM?=
- =?utf-8?B?K3dqWjU5dmlXQ0QxeGxtVjZwK3owWkcyK3drbFNCc3VFT1p5bkJhK3NGbUdo?=
- =?utf-8?B?QXlBbFlKbEtlUzdETVZKbnBiRnVNRzNKUXQzSEIveUVKUFA3Um9UTFh3b0tt?=
- =?utf-8?B?MDllbnBNZkVOR0xUbGVoaVlIQUdWV0lqSVo1elRhWlBzaTJpbE9XU3haelhp?=
- =?utf-8?B?QitjWjJtNzlhMVNuQTg1MVpyYUVCbG5RcUVCZllxRzdVZ3dhc2JGeHd5NlRN?=
- =?utf-8?B?bnR3WWFRb1JZRzZJVDZEOHZ1dGJHU0s5Nmpadm14WTAyU1MrVk1wSmxFc1lP?=
- =?utf-8?B?UC9ZYVE1ZE5yZnpyMk5yRXhLQlBSWTgraktSWHJqdXlQZmdGekczcEhkYld4?=
- =?utf-8?B?aHRrZDNOMTM3VU4vQUhzOHFBMm9jc1JITzNtOVZZL2dqVTlKU0xmMStWektv?=
- =?utf-8?B?b1Z0RnBWREZXZjZEaGNUNlNjYmpzekN4bXgrMGNGV3BYQ2pjVkgrUGliUDlF?=
- =?utf-8?B?MXBISUlkM1lIYk9vdUFKSHJ3L3hEOHFaTHhmOHBIdVJ5MHRnUDlNZ2dZUCt2?=
- =?utf-8?B?QWVQMlQrZjhkWWtjazJkNDh2bzdJTm9tZTNqMnQxUUI1SnFCWjgvdlRkamdI?=
- =?utf-8?B?LzhkV2E2Q3J0WVVDbWJuZzlzT0F6aFpmYnVVb3QrOVVWa0Zzd3NlRHVweWR4?=
- =?utf-8?B?dkhoQkd2YmZUb1dEekhDM3hpZUFiZDJzbHludDhnMmtOZGdEdEtIWjFLSCtl?=
- =?utf-8?B?KzlWUWJaK2VpbDFCVlBlKzErSTVIcE4yQksrS2taWmpTekdwdDdzZGVCckMr?=
- =?utf-8?B?M2hvR2dnb3JWcWY5R05sQWdQOS92QUxsRnl0VDVMMXg4NDNqV2U0MnNxSXJX?=
- =?utf-8?B?eXBvQ2NlZVRLS0gxNy96LzA4dDR3ZXJVUjVJNi9rR0NkWE91bkpHY0NDZThX?=
- =?utf-8?B?UFNoNVFtRnBaM0pGTEJGZFRhNmxIU1RjQ2JKREhONEsrNHhsWmIzL0Z0MGhZ?=
- =?utf-8?B?Z2tTRDVVZTVrZzloMlV2Q0JJZXFVWDN5bm5uVUxudGg2bXF0NDB6MzBGN0FP?=
- =?utf-8?B?NU15em9VcXNJNEZKZUNyYkhOOElEa1FPeHc3ajFqSW9yQWtlenVEL2VLQXhz?=
- =?utf-8?B?Z2JpdExnR1hCZlBxbnpBdkM4NHBzV2R0NmlTS2xRblFzaGYwcDRhOTB2dG5E?=
- =?utf-8?B?ZnFYWDQ4djVpSktnNTg4QzVXaWc3c1l6Mk5tVTRyRksyYVBjVUFEakgxRW5I?=
- =?utf-8?B?d016TUw2WWVBZlNiRTJYWnVuRlZ6MUtKc1VQZXhxcndZU2J4dzZhZEZoN2ll?=
- =?utf-8?B?TVUrR1Rwc0oyR1JlYTZKalQ5VVpNKzM0T29Kdmh2d0QxdDYyc1VsY1gvbjJo?=
- =?utf-8?B?R0tBU0RCWjRSVU9LQjB2T081NWY2ZXA2Y2xjdXZuNjVNV3FsZ3lxWlJja0RJ?=
- =?utf-8?Q?utd0=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 13:39:03.5040
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6598d673-169d-4594-ec4f-08de4f84741e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F68.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
+References: <20260109131807.860397-1-andrew.cooper3@citrix.com>
+Message-ID: <3708b916520ba100cbf931d632c990b1@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-
-
-On 09/01/2026 14:18, Andrew Cooper wrote:
-> xen/drivers/passthrough/arm/ipmmu-vmsa.c contains a git:// URL in a block
-> comment.  This is also not an example of commented out code, so shouldn't be
+On 2026-01-09 14:18, Andrew Cooper wrote:
+> xen/drivers/passthrough/arm/ipmmu-vmsa.c contains a git:// URL in a 
+> block
+> comment.  This is also not an example of commented out code, so 
+> shouldn't be
 > considered a R3.1 violation.
 > 
 > Extend the regex to include git://, and swap hyperlink for URL in the
 > associated documentation to be more precise.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Acked-by: Michal Orzel <michal.orzel@amd.com>
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-~Michal
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> 
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2252341951
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++--
+>  docs/misra/deviations.rst                        | 4 ++--
+>  docs/misra/rules.rst                             | 2 +-
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
+> b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index 7dee4a488d45..30c323906924 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -58,9 +58,9 @@ removed by the compiler, the resulting slowdown is 
+> negligible."
+>  # Series 3.
+>  #
+> 
+> --doc_begin="Comments starting with '/*' and containing hyperlinks are 
+> safe as
+> +-doc_begin="Comments starting with '/*' and containing URLs are safe 
+> as
+>  they are not instances of commented-out code."
+> --config=MC3A2.R3.1,reports+={safe, 
+> "first_area(text(^.*https?://.*$))"}
+> +-config=MC3A2.R3.1,reports+={safe, 
+> "first_area(text(^.*(https?|git)://.*$))"}
+>  -doc_end
+> 
+>  #
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 0d90f5886e7e..17c21537f286 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -117,8 +117,8 @@ Deviations related to MISRA C:2012 Rules:
+>       - Tagged as `deliberate` for ECLAIR.
+> 
+>     * - R3.1
+> -     - Comments starting with '/\*' and containing hyperlinks are safe 
+> as they
+> -       are not instances of commented-out code.
+> +     - Comments starting with '/\*' and containing URLs are safe as 
+> they are
+> +       not instances of commented-out code.
+>       - Tagged as `safe` for ECLAIR.
+> 
+>     * - R5.3
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 4e9425188742..b3e929307d51 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -143,7 +143,7 @@ maintainers if you want to suggest a change.
+>       - Required
+>       - The character sequences /* and // shall not be used within a
+>         comment
+> -     - Comments containing hyperlinks inside C-style block comments 
+> are safe
+> +     - Comments containing URLs inside C-style block comments are safe
+> 
+>     * - `Rule 3.2 
+> <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_03_02.c>`_
+>       - Required
 
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
