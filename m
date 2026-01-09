@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3A0D0B33A
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 17:23:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1199014.1515770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D207ED0B6C2
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 17:58:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1199057.1515808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veFGX-00054r-74; Fri, 09 Jan 2026 16:23:09 +0000
+	id 1veFnv-00015w-0t; Fri, 09 Jan 2026 16:57:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1199014.1515770; Fri, 09 Jan 2026 16:23:09 +0000
+Received: by outflank-mailman (output) from mailman id 1199057.1515808; Fri, 09 Jan 2026 16:57:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veFGX-000533-4J; Fri, 09 Jan 2026 16:23:09 +0000
-Received: by outflank-mailman (input) for mailman id 1199014;
- Fri, 09 Jan 2026 16:23:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1veFnu-00013T-U7; Fri, 09 Jan 2026 16:57:38 +0000
+Received: by outflank-mailman (input) for mailman id 1199057;
+ Fri, 09 Jan 2026 16:57:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dhKM=7O=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1veFGW-00052x-7g
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 16:23:08 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ac27f48-ed77-11f0-b15e-2bf370ae4941;
- Fri, 09 Jan 2026 17:23:06 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-64b7318f1b0so6189015a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 08:23:06 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6507b8c4454sm10870768a12.3.2026.01.09.08.23.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 08:23:05 -0800 (PST)
+ <SRS0=R5y2=7O=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1veFnt-0000yu-T8
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 16:57:38 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4aed26d2-ed7c-11f0-9ccf-f158ae23cfc8;
+ Fri, 09 Jan 2026 17:57:35 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1767977839225707.6571521088505;
+ Fri, 9 Jan 2026 08:57:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,247 +38,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac27f48-ed77-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767975786; x=1768580586; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8SP4g6xKEmy1Piy8k2hQRTNGClSTpFc8kS3x04C1uek=;
-        b=fuktFrBeSQWnAhbkcZ+T8F/Z9aeMVScOHctMOQrMD1TSQA+D5lx/j+9RajItl069Az
-         se9W3/pz4dUTzMNHcr/Rw1v7xBde8tiWRlDceNl8u+cGZos2s6VySLh1lSAf8emaH3wl
-         mnP1PccQugqMFdM69v4z3wZqwwdF6uXhTECAo/lhittWMqFDW2gQkkpVQWrKUx8n3Mnc
-         g69bQrHWJT9IwNGgXMUCFaWk8mFG/AeSfT2sZbu8H8DM5w3gGGKOt6c9hCRAF00nvMK5
-         0XR4ruuMVUj2kkLpthmGdgh/uKtwfmIwK/Ttw+VJVjAq6MX7vf3m9TarxND9MKblWWZT
-         xgWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767975786; x=1768580586;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8SP4g6xKEmy1Piy8k2hQRTNGClSTpFc8kS3x04C1uek=;
-        b=Apg29w5843PzgiimL77bRSsv24/jcghinOM1Smioi/Hyp//FA7hwiBozfGbu4YcyWl
-         rniywoUzlb6z6B29XASg0IqveF5O9ZfbHpbdbNEocm2UsCZpzRbXXGrEoL6HMyvSzLgE
-         3C+qpV3kAti8i/qerm+nlKbEspfGwNKWEbSltIz2IfMWWd1B5wByKTC/yORld0vsxpCv
-         Qu+ZK/3x0MDQsER1PB2UuYcDr+4IW9k9gNtKE2gBMdBda73O+iCgN+Ej+qa4cZQJYMy3
-         CTGDjTS93hG+01Ds67HvOhoctVwB0hxO99xAmlQDEKh9fMpSaCcsvPj1xFykG82XSSqh
-         0vLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUBvX7RD5glvjp9njFepbeEZF5RFlybkyo5sdEJSPAUJGAEdF72GxvN/qMBEkTD8o/H9eN8bUizBHM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydkH+TVwXT7ZXAxa5hM7gT8qeQHd+JUiC4Dr7RsH+vrqxDZoOS
-	Q9qYMwMoKfphR0YEek7A4/L9JKXR/Ln1qKvV0psgUgnHxXInMDyz2uAP
-X-Gm-Gg: AY/fxX7aiO/U6LlCN1PXBPck4b3665Bx+BbGltodAN5sq+Lm80bmicKaw2w3ciAeeyN
-	ceJRNpPErzgP6NyAoonBXX6Mlhip6OBVBXCERO/kWmAqrTiyJxnEUKmubZKU0zSs8KjRo8L1oXz
-	MV6j53lW31ZNb6rWsa3rkZo+ATOJOznc24UvhRUrsGP9YEVL3WZFAQVVdc2o8TbM9J4l2NaeVTI
-	CLY/G5VQTAJsmtT7s9OdFlE5zqAU5jjIRzDuqII9J0DioalfJv4TQy8ZMIK7EZJdUPGOQO0M+X0
-	iMJGXEtj6uzfgK6IgdwfrN6lUiuvwQeudpxsd/WmRQwggggTIkDHtC30xdrrYfLG4F2ZnJCaZnz
-	i9H36gFnGbuhOYZt6S3bMEwxGwovyCjfEH9aMaSvzeleMLVxC4oquZj94maZ5gHlVcdj6v59AXN
-	Hv0CXOJW9h/v+OPckxiGnOQX5t8V4847xvV1b1AZ4fLtnlxE05XykERfpU2YsmL8A=
-X-Google-Smtp-Source: AGHT+IGRHZk1LG8FKDOR1B7Q/+EHi7FTpi8oRnpe4hOVE1phkaG/lxcsXYSV32JC7d3F4VlnSJzpqw==
-X-Received: by 2002:a05:6402:1453:b0:650:2820:38bd with SMTP id 4fb4d7f45d1cf-65097de5b35mr10311835a12.11.1767975785826;
-        Fri, 09 Jan 2026 08:23:05 -0800 (PST)
-Message-ID: <ed65056b-c88e-4e94-83a7-8954d6689172@gmail.com>
-Date: Fri, 9 Jan 2026 17:23:04 +0100
+X-Inumbo-ID: 4aed26d2-ed7c-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1767977843; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NrvQZ+WEsNu3od5jRs8K+Y25SXxrndtw+ZWhW11HsPZrx/s9uwXx7lItsm/ivCsnOMqwf20df60MbQn2HxB+TpGP61/Fyz2gbuT4jYK8qXTRKSDpMtgjx9MavZ3Djm+Khzz7T9UoVeZywRy3xlaJrbENBn4K2R0iCZKIefTigq4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1767977843; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FqrQZsDWWC9rsLw4KZMTRKa+EtTjkMhOkcSh5eOTJVM=; 
+	b=lV0wtzf6RQ7rQTRyqqb++1fclfwWuk47dkY1CqQErMStK7x7HcpHLgzvJa8JoYbs6TDLSaEYCuatW5Ll1Ft3f23BERG08mOVuT3zZEzDYzcY7a7eKOHTAVfbSj4h9SksP53VddCTmlzB0r0DzgYoEK1haARL7+oaA7ocZSllEw0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1767977843;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=FqrQZsDWWC9rsLw4KZMTRKa+EtTjkMhOkcSh5eOTJVM=;
+	b=FyC3G/FzSx0tWtm9MY+oteMphH3eYzYbdsr0uavrEtVOy0Qv1D+8zKxn3BPomTd9
+	hedci016IDf9zaIbTM3hjNvJMt0hxwZz/0A1sBzF6Ljfe9YQmR3hLDrlO3jheXDRNnY
+	jxcFYGoufvkurgRoUDu0Y45yQsQcNWE9mgpr0lXs=
+Message-ID: <789062cc-d2e2-4aa5-b70a-384d5fa34a71@apertussolutions.com>
+Date: Fri, 9 Jan 2026 11:57:15 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v3] acpi/arm: relax MADT GICC entry length check to
- support newer ACPI revisions
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Yann Dirson <yann.dirson@vates.tech>,
- Yann Sionneau <yann.sionneau@vates.tech>, xen-devel@lists.xenproject.org
-References: <a2234959527a420f8736b2789118326b2d3ee35e.1767950420.git.oleksii.kurochko@gmail.com>
- <ad51f470-fd08-41bd-bb0d-7058b1f18ff0@suse.com>
+Subject: Re: [PATCH] xen: Drop xenoprofile support
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20260105195717.601500-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-In-Reply-To: <ad51f470-fd08-41bd-bb0d-7058b1f18ff0@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20260105195717.601500-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
 
-On 1/9/26 11:03 AM, Jan Beulich wrote:
-> On 09.01.2026 10:27, Oleksii Kurochko wrote:
->> Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
->> The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
->> match the known values, which leads to:
->>    GICv3: No valid GICC entries exist.
->> as observed on the AmpereOne platform.
->>
->> To fix this, import the logic from Linux commit 9eb1c92b47c7:
->>    The BAD_MADT_GICC_ENTRY check is a little too strict because
->>    it rejects MADT entries that don't match the currently known
->>    lengths. We should remove this restriction to avoid problems
->>    if the table length changes. Future code which might depend on
->>    additional fields should be written to validate those fields
->>    before using them, rather than trying to globally check
->>    known MADT version lengths.
->>
->>    Link:https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
->>    Signed-off-by: Jeremy Linton<jeremy.linton@arm.com>
->>    [lorenzo.pieralisi@arm.com: added MADT macro comments]
->>    Signed-off-by: Lorenzo Pieralisi<lorenzo.pieralisi@arm.com>
->>    Acked-by: Sudeep Holla<sudeep.holla@arm.com>
->>    Cc: Will Deacon<will.deacon@arm.com>
->>    Cc: Catalin Marinas<catalin.marinas@arm.com>
->>    Cc: Al Stone<ahs3@redhat.com>
->>    Cc: "Rafael J. Wysocki"<rjw@rjwysocki.net>
->>    Signed-off-by: Will Deacon<will.deacon@arm.com>
->>
->> As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
->> used. As we rewrite the MADT for hwdom, reuse the host GICC header length
->> instead of ACPI_MADT_GICC_LENGTH.
->>
->> Mark gic_get_hwdom_madt_size() as __init since its only caller is also
->> __init.
->>
->> [1]https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
->>
->> Reported-By: Yann Dirson<yann.dirson@vates.tech>
->> Co-developed-by: Yann Sionneau<yann.sionneau@vates.tech>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->> I ran CI tests where it made sense for this patch, as I don’t see any CI job
->> that builds Xen with CONFIG_ACPI=y:
->>    https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2252409762
->>
->> I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
->> AmpereOne platform.
->> ---
->>   xen/arch/arm/acpi/domain_build.c |  6 ++++++
->>   xen/arch/arm/gic-v2.c            |  3 ++-
->>   xen/arch/arm/gic-v3.c            |  3 ++-
->>   xen/arch/arm/gic.c               | 13 +++++++++++--
->>   xen/arch/arm/include/asm/acpi.h  | 21 +++++++++++++++------
->>   5 files changed, 36 insertions(+), 10 deletions(-)
->>
->> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
->> index 1c3555d814cc..959698d13ac3 100644
->> --- a/xen/arch/arm/acpi/domain_build.c
->> +++ b/xen/arch/arm/acpi/domain_build.c
->> @@ -458,6 +458,12 @@ static int __init estimate_acpi_efi_size(struct domain *d,
->>       acpi_size += ROUNDUP(sizeof(struct acpi_table_stao), 8);
->>   
->>       madt_size = gic_get_hwdom_madt_size(d);
->> +    if ( !madt_size )
->> +    {
->> +        printk("Unable to get hwdom MADT size\n");
->> +        return -EINVAL;
->> +    }
->> +
->>       acpi_size += ROUNDUP(madt_size, 8);
->>   
->>       addr = acpi_os_get_root_pointer();
->> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
->> index b23e72a3d05d..aae6a7bf3076 100644
->> --- a/xen/arch/arm/gic-v2.c
->> +++ b/xen/arch/arm/gic-v2.c
->> @@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
->>       host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->>                                header);
->>   
->> -    size = ACPI_MADT_GICC_LENGTH;
->> +    size = host_gicc->header.length;
->> +
->>       /* Add Generic Interrupt */
->>       for ( i = 0; i < d->max_vcpus; i++ )
->>       {
->> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
->> index bc07f97c16ab..75b89efad462 100644
->> --- a/xen/arch/arm/gic-v3.c
->> +++ b/xen/arch/arm/gic-v3.c
->> @@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
->>   
->>       host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->>                                header);
->> -    size = ACPI_MADT_GICC_LENGTH;
->> +    size = host_gicc->header.length;
->> +
->>       for ( i = 0; i < d->max_vcpus; i++ )
->>       {
->>           gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
->> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
->> index ee75258fc3c3..e4fcfd60205d 100644
->> --- a/xen/arch/arm/gic.c
->> +++ b/xen/arch/arm/gic.c
->> @@ -414,12 +414,21 @@ int gic_make_hwdom_madt(const struct domain *d, u32 offset)
->>       return gic_hw_ops->make_hwdom_madt(d, offset);
->>   }
->>   
->> -unsigned long gic_get_hwdom_madt_size(const struct domain *d)
->> +unsigned long __init gic_get_hwdom_madt_size(const struct domain *d)
->>   {
->>       unsigned long madt_size;
->> +    const struct acpi_subtable_header *header;
->> +    const struct acpi_madt_generic_interrupt *host_gicc;
->> +
->> +    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
->> +    if ( !header )
->> +        return 0;
->> +
->> +    host_gicc = container_of(header, const struct acpi_madt_generic_interrupt,
->> +                             header);
->>   
->>       madt_size = sizeof(struct acpi_table_madt)
->> -                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
->> +                + host_gicc->header.length * d->max_vcpus
-> Just to double-check: All entries are strictly required to be of the same
-> length? (Related question further down.)
 
-If I understood the ACPI spec correctly, then yes, it should be the same length,
-as|GICC->length| is defined as a well defined constant value (82 in ACPI 6.6):
-  https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
+On 1/5/26 2:57 PM, Andrew Cooper wrote:
+> The most recent xenoprof change was 300ef0cb4fde ("x86: Add Xenoprofile
+> support for AMD Family16h") in 2013, despite there being 42 changes worth of
+> other cleanup/rearranging since then.
+> 
+> Oprofile themselves dropped Xen support in commit 0c142c3a096d ("Remove
+> opcontrol and the GUI and processor models dependent on it") in 2014, as part
+> of releasing version 1.0 and switching over to using operf based on the Linux
+> perf_event subsystem.  Linux's version of this patch was merged in commit
+> 24880bef417f ("Merge tag 'oprofile-removal-5.12'") in 2021.
+> 
+> Drop xenoprof and all supporting infrastructure, including the hypercall, the
+> XSM hook and flask vectors which lose their only caller, and even shrinks
+> struct domain by one pointer which wasn't properly excluded in
+> !CONFIG_XENOPROF builds.
+> 
+> Retain the public xenoprof.h header as it is ABI, but note that the
+> functionality is removed.there's also a patch of 
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> Despite appearing to be architecture neutral, the internals of Xenoprof were
+> entirely x86-specific.  Another curiosity is that only the VMX MSR hooks
+> called passive_domain_do_{rd,wr}msr(), and I can't see how this was correct
+> for SVM.
+> 
+> The real reason for finally getting around to this is the number of MISRA
+> violations reported by the eclair-x86_64-allcode job that I don't feel like
+> fixing.
+> ---
+>   CHANGELOG.md                            |   3 +
+>   docs/misc/xen-command-line.pandoc       |   6 -
+>   tools/flask/policy/modules/dom0.te      |   2 -
+>   xen/arch/x86/Makefile                   |   1 -
+>   xen/arch/x86/cpu/vpmu_amd.c             |   7 -
+>   xen/arch/x86/cpu/vpmu_intel.c           |   6 -
+>   xen/arch/x86/hvm/svm/entry.S            |   1 -
+>   xen/arch/x86/hvm/svm/svm.c              |   2 -
+>   xen/arch/x86/hvm/vmx/vmx.c              |   9 -
+>   xen/arch/x86/include/asm/xenoprof.h     |  95 ---
+>   xen/arch/x86/oprofile/Makefile          |   6 -
+>   xen/arch/x86/oprofile/backtrace.c       | 145 ----
+>   xen/arch/x86/oprofile/nmi_int.c         | 485 ------------
+>   xen/arch/x86/oprofile/op_counter.h      |  41 -
+>   xen/arch/x86/oprofile/op_model_athlon.c | 547 -------------
+>   xen/arch/x86/oprofile/op_model_p4.c     | 721 -----------------
+>   xen/arch/x86/oprofile/op_model_ppro.c   | 348 ---------
+>   xen/arch/x86/oprofile/op_x86_model.h    |  58 --
+>   xen/arch/x86/oprofile/xenoprof.c        | 106 ---
+>   xen/arch/x86/traps.c                    |   4 -
+>   xen/common/Kconfig                      |  11 -
+>   xen/common/Makefile                     |   1 -
+>   xen/common/compat/xenoprof.c            |  42 -
+>   xen/common/domain.c                     |   6 -
+>   xen/common/xenoprof.c                   | 977 ------------------------
+>   xen/include/Makefile                    |   1 -
+>   xen/include/hypercall-defs.c            |   6 -
+>   xen/include/public/xen.h                |   2 +-
+>   xen/include/public/xenoprof.h           |   2 +-
+>   xen/include/xen/sched.h                 |   3 -
+>   xen/include/xen/xenoprof.h              |  49 --
+>   xen/include/xsm/dummy.h                 |   7 -
+>   xen/include/xsm/xsm.h                   |   7 -
+>   xen/xsm/dummy.c                         |   2 -
+>   xen/xsm/flask/hooks.c                   |  35 -
+>   xen/xsm/flask/policy/access_vectors     |   4 -
+>   36 files changed, 5 insertions(+), 3743 deletions(-)
+>   delete mode 100644 xen/arch/x86/include/asm/xenoprof.h
+>   delete mode 100644 xen/arch/x86/oprofile/Makefile
+>   delete mode 100644 xen/arch/x86/oprofile/backtrace.c
+>   delete mode 100644 xen/arch/x86/oprofile/nmi_int.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_counter.h
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_athlon.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_p4.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_model_ppro.c
+>   delete mode 100644 xen/arch/x86/oprofile/op_x86_model.h
+>   delete mode 100644 xen/arch/x86/oprofile/xenoprof.c
+>   delete mode 100644 xen/common/compat/xenoprof.c
+>   delete mode 100644 xen/common/xenoprof.c
+>   delete mode 100644 xen/include/xen/xenoprof.h
+> 
 
->> --- a/xen/arch/arm/include/asm/acpi.h
->> +++ b/xen/arch/arm/include/asm/acpi.h
->> @@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
->>    */
->>   paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
->>   
->> -/* Macros for consistency checks of the GICC subtable of MADT */
->> -#define ACPI_MADT_GICC_LENGTH	\
->> -    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
-> Given this, ...
->
->> +/*
->> + * MADT GICC minimum length refers to the MADT GICC structure table length as
->> + * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
->> + *
->> + * The efficiency_class member was added to the
->> + * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
->> + * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
->> + * is therefore used to delimit the MADT GICC structure minimum length
->> + * appropriately.
->> + */
->> +#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
->> +    struct acpi_madt_generic_interrupt, efficiency_class)
->>   
->> -#define BAD_MADT_GICC_ENTRY(entry, end)						\
->> -    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
->> -     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
->> +#define BAD_MADT_GICC_ENTRY(entry, end) \
->> +    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
->> +    (unsigned long)(entry) + (entry)->header.length > (end))
-> ... is 76 a valid length when the FADT revision is 6 or higher? And 80 is a
-> valid length for 6.5 or higher?
+<snip/>
 
-I'm not ACPI expert but my understanding that it isn't "very valid" values as I mentioned
-above GICC->length is defined as a constant value. But the idea here is to provide
-forward compatibility so only minumum MADT GICC length is checked and as mentioned
-here [1] by one of ACPI for Arm64 maintainer:
- > - (acpi_gbl_FADT.header.revision < 6 ? 76 : 80) > +#define 
-ACPI_MADT_GICC_MIN_LENGTH ACPI_OFFSET( \ > + struct 
-acpi_madt_generic_interrupt, efficiency_class) >
-   > This makes it 76 always which is fine, just that the first user of
-   > efficiency_class should check for the length before accessing it.
-   > No user of efficiency_class yet, so I am fine with this change.
+> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+> index e801dbcdbaef..b8fd7aeedd9e 100644
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -278,13 +278,6 @@ static XSM_INLINE int cf_check xsm_console_io(
+>       return xsm_default_action(XSM_PRIV, d, NULL);
+>   }
+>   
+> -static XSM_INLINE int cf_check xsm_profile(
+> -    XSM_DEFAULT_ARG struct domain *d, int op)
+> -{
+> -    XSM_ASSERT_ACTION(XSM_HOOK);
+> -    return xsm_default_action(action, d, NULL);
+> -}
+> -
+>   static XSM_INLINE int cf_check xsm_kexec(XSM_DEFAULT_VOID)
+>   {
+>       XSM_ASSERT_ACTION(XSM_PRIV);
+> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+> index 2d831d774541..cc32a6c09104 100644
+> --- a/xen/include/xsm/xsm.h
+> +++ b/xen/include/xsm/xsm.h
+> @@ -101,8 +101,6 @@ struct xsm_ops {
+>   
+>       int (*console_io)(struct domain *d, int cmd);
+>   
+> -    int (*profile)(struct domain *d, int op);
+> -
+>       int (*kexec)(void);
+>       int (*schedop_shutdown)(struct domain *d1, struct domain *d2);
+>   
+> @@ -450,11 +448,6 @@ static inline int xsm_console_io(xsm_default_t def, struct domain *d, int cmd)
+>       return alternative_call(xsm_ops.console_io, d, cmd);
+>   }
+>   
+> -static inline int xsm_profile(xsm_default_t def, struct domain *d, int op)
+> -{
+> -    return alternative_call(xsm_ops.profile, d, op);
+> -}
+> -
+>   static inline int xsm_kexec(xsm_default_t def)
+>   {
+>       return alternative_call(xsm_ops.kexec);
+> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+> index 96dc82ac2e29..244ef557528b 100644
+> --- a/xen/xsm/dummy.c
+> +++ b/xen/xsm/dummy.c
+> @@ -61,8 +61,6 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+>   
+>       .console_io                    = xsm_console_io,
+>   
+> -    .profile                       = xsm_profile,
+> -
+>       .kexec                         = xsm_kexec,
+>       .schedop_shutdown              = xsm_schedop_shutdown,
+>   
+> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+> index 9f3915617cc8..b250b2706535 100644
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -19,7 +19,6 @@
+>   #include <xen/cpumask.h>
+>   #include <xen/errno.h>
+>   #include <xen/guest_access.h>
+> -#include <xen/xenoprof.h>
+>   #include <xen/iommu.h>
+>   #ifdef CONFIG_HAS_PCI_MSI
+>   #include <asm/msi.h>
+> @@ -512,38 +511,6 @@ static int cf_check flask_console_io(struct domain *d, int cmd)
+>       return domain_has_xen(d, perm);
+>   }
+>   
+> -static int cf_check flask_profile(struct domain *d, int op)
+> -{
+> -    uint32_t perm;
+> -
+> -    switch ( op )
+> -    {
+> -    case XENOPROF_init:
+> -    case XENOPROF_enable_virq:
+> -    case XENOPROF_disable_virq:
+> -    case XENOPROF_get_buffer:
+> -        perm = XEN__NONPRIVPROFILE;
+> -        break;
+> -    case XENOPROF_reset_active_list:
+> -    case XENOPROF_reset_passive_list:
+> -    case XENOPROF_set_active:
+> -    case XENOPROF_set_passive:
+> -    case XENOPROF_reserve_counters:
+> -    case XENOPROF_counter:
+> -    case XENOPROF_setup_events:
+> -    case XENOPROF_start:
+> -    case XENOPROF_stop:
+> -    case XENOPROF_release_counters:
+> -    case XENOPROF_shutdown:
+> -        perm = XEN__PRIVPROFILE;
+> -        break;
+> -    default:
+> -        return avc_unknown_permission("xenoprof op", op);
+> -    }
+> -
+> -    return domain_has_xen(d, perm);
+> -}
+> -
+>   static int cf_check flask_kexec(void)
+>   {
+>       return domain_has_xen(current->domain, XEN__KEXEC);
+> @@ -1930,8 +1897,6 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>   
+>       .console_io = flask_console_io,
+>   
+> -    .profile = flask_profile,
+> -
+>       .kexec = flask_kexec,
+>       .schedop_shutdown = flask_schedop_shutdown,
+>   
+> diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
+> index 51a1577a66c7..ce907d50a45e 100644
+> --- a/xen/xsm/flask/policy/access_vectors
+> +++ b/xen/xsm/flask/policy/access_vectors
+> @@ -38,10 +38,6 @@ class xen
+>       readapic
+>   # PHYSDEVOP_apic_write
+>       writeapic
+> -# Most XENOPROF_*
+> -    privprofile
+> -# XENOPROF_{init,enable_virq,disable_virq,get_buffer}
+> -    nonprivprofile
+>   # kexec hypercall
+>       kexec
+>   # XENPF_firmware_info, XENPF_efi_runtime_call
+> 
+> base-commit: c36ddba28e314e9350f4024972023b52e34ec73e
 
-And I think the same is true for ACPI 6.3 which adds spe_interrupt and ACPI 6.5
-trbe_interrupt.
 
-[1]https://lore.kernel.org/all/20181015092919.GA1778@e107155-lin/
-
-~ Oleksii
+Acked-By: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 
