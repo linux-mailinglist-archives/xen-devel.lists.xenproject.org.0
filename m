@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B081D08671
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 11:03:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198493.1515418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8FAD087A8
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 11:16:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198509.1515428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9Kz-0008Dy-5m; Fri, 09 Jan 2026 10:03:21 +0000
+	id 1ve9X3-0001Vg-C4; Fri, 09 Jan 2026 10:15:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198493.1515418; Fri, 09 Jan 2026 10:03:21 +0000
+Received: by outflank-mailman (output) from mailman id 1198509.1515428; Fri, 09 Jan 2026 10:15:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9Kz-0008Aq-1l; Fri, 09 Jan 2026 10:03:21 +0000
-Received: by outflank-mailman (input) for mailman id 1198493;
- Fri, 09 Jan 2026 10:03:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ve9X3-0001SZ-7C; Fri, 09 Jan 2026 10:15:49 +0000
+Received: by outflank-mailman (input) for mailman id 1198509;
+ Fri, 09 Jan 2026 10:15:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SGSf=7O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ve9Kx-0008Ak-RI
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 10:03:19 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b284b65-ed42-11f0-9ccf-f158ae23cfc8;
- Fri, 09 Jan 2026 11:03:17 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-477770019e4so32554795e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 02:03:17 -0800 (PST)
+ id 1ve9X1-0001ST-LG
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 10:15:47 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29b9bb4b-ed44-11f0-b15e-2bf370ae4941;
+ Fri, 09 Jan 2026 11:15:46 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47bdbc90dcaso29996405e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 02:15:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e199bsm21506916f8f.16.2026.01.09.02.03.15
+ 5b1f17b1804b1-47d7f69e13bsm199378305e9.7.2026.01.09.02.15.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 02:03:16 -0800 (PST)
+ Fri, 09 Jan 2026 02:15:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b284b65-ed42-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 29b9bb4b-ed44-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1767952996; x=1768557796; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1767953746; x=1768558546; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hha75O21d8a+w1Gr3ybwi7NRwnG6uoExBE7tw9FLn4E=;
-        b=AinxTMRjZBywWZQB4kw8/O8J+ciiFa00k47zeykN8wdpTraEWQI8NSk0IBhctnZRe/
-         Cee6b6kYRu1Bwrr08Dw2cqI21C4m6R8MqE0tCyrqxJmcOkEPBOB83+cRX7ed7z+o0ikA
-         SPqFe8cozOzgl9dDdiP2UXqunrzHOVdBHF3D2vb71nNLIHNjzPxP6u60QhNFlX6aGUUL
-         CI18ow4sN/TT5yaGMoGKKFhmdALhPebFmbmcGQYiQdaavmxlDuAAm/ZWxJ/cDhjGsi55
-         Kc129dy6W1nV3yWEiTu6YK6s1XmO7a4WNnbLZzr5p+R6sBwtjyGYXRxRtPjn6i2Sbphg
-         INyw==
+        bh=fVA1rSjWi6G/rtKUq1UxoQ/RhvkAp5WPuA1D7/JzIaE=;
+        b=ICY9NjVDAUt7Ysx1bRwBhWViKkjJ7MphJbt1ftDGz+xtCD6bpjXIPgmOKjbhUs2Kou
+         VNxpAQN+Pati+4ioRNuZkl2uT89V7VJ7a5ydo6h3tiSm2Y4Vl0T4PSAOZCOqJdAMCODB
+         r47d+Vqi1cACN/CcAZW4Mv77R6EhCnilKtOi+eVBjtFn0GOr/TdS3Kx2raJ/YyI252nz
+         DZ/Wmqt24xcUOmMTh0vV5B+6XZKtbd5ex/pqPs6spjwkfVJsvR3d8D4S6/QQmqpAl1eK
+         eSX43+gZbC22bhCP4o7PcC2z/wjtpCVGTeTQD72BmIriDpzryVXgGWK/cNYRrVSqLJEs
+         zw7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767952996; x=1768557796;
+        d=1e100.net; s=20230601; t=1767953746; x=1768558546;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hha75O21d8a+w1Gr3ybwi7NRwnG6uoExBE7tw9FLn4E=;
-        b=ppzK7bE0gNYATgfdgENDM/OTCBFS72L6MqOsacx9wmVa/x8yIrE73ZexIhGzQZxSon
-         Vbd4V3L/IkU8iDInt4aXVTSb412f1z1dn38rUbji8Gh+lppbo2NyZ5sGvbEBiG2h4577
-         aUYkcKa/eK2nHJOy9usuYZjcLdGBrF/AH7xdijeCo8qpWMsx6dzAoEBxqZAUBlN1W43n
-         2x1ZzR8qpM67aa26X8PHQRU+ih3D1d1SN/cpGtiNEVX+E4vT351j4V3AoKKmlONvRgxv
-         ciiaYdGIAaSMr4dIsxqM23ebWgPWfspeZb+Uun5s+QNAAo+vxCiukP5vua0V6dRhBByd
-         BDGg==
-X-Forwarded-Encrypted: i=1; AJvYcCV70Mf7jbNSHcc4lmveeO0eEQW7InqTth/9hkAk3vtnvd5H9DxsOp/HsernBcC95BibszH6QXGLo04=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3sqsX5Jsn3d1Ju3Q05Mbr7oxdQd5UqEcKqiPnweva+vBRmeAU
-	N4+G5d6ZYvuyRmliSdrHSZzadFDFK9U9rmwq+IIsHFOsVOekLTBtcXOMkYmqvrVdQg==
-X-Gm-Gg: AY/fxX4YOgaW3gkBq9QsvplRb33TlmAvzSCO6mgVh/t6IP1s2jiiugjo6UxUIPpjNnV
-	GZkOACUc9OqXBsKybJwi35QImaTiHKrwrjhqtK5wyvbfY5gWuRX88IhlF1ICybLUEovAYAhGLER
-	kSuDjEC0gSWCgAlIcq9XTM4RvCqQaSgTO6eqtzviJ2iJ0XsbE5TTq/C6l1io/Hlad6rhr8k5xOS
-	RBVv0nKOWIuS0/ZBhtVpopd6xAxzNTpzhwDX57/ArPNwQXCEQs4l4c7zPXznXVXWtetQq0pQegg
-	9qrmCE1+bR5se83sVbLQJa2uGuFWxgENWtfw/rFpFQcFEoCEz29j5YC8/b8N5y1ckc7L5IyCDex
-	6/Tvpq9R8eFerfTS6JJudRX9ifJ150pbyTm4R4mql6FpoyaUsd4IShpWfyaaUnJwaf3rKzVPoJQ
-	0Mktv7+wJ8XR5gHU9H2nsjYrEU22DfNWpgfZhfY9NNxkLUP/IGFKUL9EGNPORSAe8Vfp2esnUDr
-	vI=
-X-Google-Smtp-Source: AGHT+IEpwj5fQrQnvbTvdERlbeJu0fXZH0Gh2BFfVTYlURRhWQtFo45LGXgLG+ZS2dCUpaM1mVUu1w==
-X-Received: by 2002:a05:6000:2209:b0:432:5bf9:cf26 with SMTP id ffacd0b85a97d-432c3761019mr11997411f8f.13.1767952996400;
-        Fri, 09 Jan 2026 02:03:16 -0800 (PST)
-Message-ID: <ad51f470-fd08-41bd-bb0d-7058b1f18ff0@suse.com>
-Date: Fri, 9 Jan 2026 11:03:14 +0100
+        bh=fVA1rSjWi6G/rtKUq1UxoQ/RhvkAp5WPuA1D7/JzIaE=;
+        b=qOHJahVols6AY1mkWDjqfs/rOBVYiDSHS6IxMJnWx5LwUvUybtwgW4Oa+y3ztbU8tc
+         6piZpZl1xO2E6kB6EF4FyNDCLrTp6Xj/Gpx0iUiu13GJIGYFBi2rbTXRMBPFyRuxplvl
+         CREGqtbpiR+0k5907OTkH893LV2I4C508IAmPi8tTUFwICdzu2+LFQa4JqgesVQVOGMq
+         Q0PgZKThBPEC0WqSDCsG7iRez0tzRNfAOklaq9jDrPKuKkcnNA1cGfCuItnztxymlrLy
+         6jGp6RZifndh5ZDxxw0XQROom+Xm4BUQMpKx5zP6mHcsZn1F/D2Z0Zwh7StU0HOHUwgt
+         QMwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVtKfrZO4AFi+H4R00545mLrvPHw849Pdx+mGOgIMBk0nUCbu0Pa3myAGccnDMDlwxV+iSDJqTdRbw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFVmKIMNyz+KoqsN0u6wnFvcpyNTvC/HkYzTUUMx/+C1LK+Y+Z
+	ziArpbN5/C1Rd1QmxlgQkzxFSV2Df6GT90l+7My+s+lsO5IzBFFhjgZcYdAPgUimpg==
+X-Gm-Gg: AY/fxX6IDAzb0Iy5hz33vxqotxMa+sScKfWLwLpKkaht4VISLBBAN8v7TCNXVqOK6Zx
+	wp3eOarZgIvD4ni4StkXQb8oz73Ovz+zJ9WiNX/VS96QwBDWXEFlG7RiLtwahp+fEwqQ1UhI/SX
+	Mbw74Q6mncnjkcpN8K7IZ5OFPY+EQH1H1ioEgm8v9JzG7XXS6a0TQTOYrMOiuQ/rIQIGhp/JUuV
+	JXMnUkHsOAUhQ3VXaVDC9sCAVQisDw/lVcV3AYMXJF9tap7JKJaICdoCEgdgzFFt/sD7UObJwy8
+	YypRFf9dZPAfMKm1h9EA6vIRQs3XAFVT6iwlfu+71dU0p943PioXzzt0JRD6IOxbBIklXjlrqer
+	AOhge0eWkivZPCdT4uj67viu/KoI5WE9Omr0QFVsvg+ftvwF30k4OG0S8eeuvc0iquLzLn919xZ
+	99pK/Nrue1jJAV07QCTIRkxY7WL3qejZIQIqarNkVe6+d+84T1We0ArpclCBuypk0mvOa0rfpnw
+	fY=
+X-Google-Smtp-Source: AGHT+IGDC8CwfQT98zCZ9dybrpHU6ESX1vFIzYFnEyuxySWQjOlcUqBAx3ihqos2dn9/mJZlK8SXRw==
+X-Received: by 2002:a05:600c:468e:b0:477:a1a2:d829 with SMTP id 5b1f17b1804b1-47d84b1862cmr114836235e9.13.1767953745690;
+        Fri, 09 Jan 2026 02:15:45 -0800 (PST)
+Message-ID: <6b4c352b-f4fd-4b81-84ac-41b7d3e04f92@suse.com>
+Date: Fri, 9 Jan 2026 11:15:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] acpi/arm: relax MADT GICC entry length check to
- support newer ACPI revisions
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 0/2] xen/mm: limit in-place scrubbing
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Yann Dirson <yann.dirson@vates.tech>,
- Yann Sionneau <yann.sionneau@vates.tech>, xen-devel@lists.xenproject.org
-References: <a2234959527a420f8736b2789118326b2d3ee35e.1767950420.git.oleksii.kurochko@gmail.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260108175536.82153-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,172 +123,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a2234959527a420f8736b2789118326b2d3ee35e.1767950420.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20260108175536.82153-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.01.2026 10:27, Oleksii Kurochko wrote:
-> Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
-> The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
-> match the known values, which leads to:
->   GICv3: No valid GICC entries exist.
-> as observed on the AmpereOne platform.
-> 
-> To fix this, import the logic from Linux commit 9eb1c92b47c7:
->   The BAD_MADT_GICC_ENTRY check is a little too strict because
->   it rejects MADT entries that don't match the currently known
->   lengths. We should remove this restriction to avoid problems
->   if the table length changes. Future code which might depend on
->   additional fields should be written to validate those fields
->   before using them, rather than trying to globally check
->   known MADT version lengths.
-> 
->   Link: https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
->   Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
->   [lorenzo.pieralisi@arm.com: added MADT macro comments]
->   Signed-off-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
->   Acked-by: Sudeep Holla <sudeep.holla@arm.com>
->   Cc: Will Deacon <will.deacon@arm.com>
->   Cc: Catalin Marinas <catalin.marinas@arm.com>
->   Cc: Al Stone <ahs3@redhat.com>
->   Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>
->   Signed-off-by: Will Deacon <will.deacon@arm.com>
-> 
-> As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
-> used. As we rewrite the MADT for hwdom, reuse the host GICC header length
-> instead of ACPI_MADT_GICC_LENGTH.
-> 
-> Mark gic_get_hwdom_madt_size() as __init since its only caller is also
-> __init.
-> 
-> [1] https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
-> 
-> Reported-By: Yann Dirson <yann.dirson@vates.tech>
-> Co-developed-by: Yann Sionneau <yann.sionneau@vates.tech>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> I ran CI tests where it made sense for this patch, as I don’t see any CI job
-> that builds Xen with CONFIG_ACPI=y:
->   https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2252409762
-> 
-> I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
-> AmpereOne platform.
-> ---
->  xen/arch/arm/acpi/domain_build.c |  6 ++++++
->  xen/arch/arm/gic-v2.c            |  3 ++-
->  xen/arch/arm/gic-v3.c            |  3 ++-
->  xen/arch/arm/gic.c               | 13 +++++++++++--
->  xen/arch/arm/include/asm/acpi.h  | 21 +++++++++++++++------
->  5 files changed, 36 insertions(+), 10 deletions(-)
-> 
-> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
-> index 1c3555d814cc..959698d13ac3 100644
-> --- a/xen/arch/arm/acpi/domain_build.c
-> +++ b/xen/arch/arm/acpi/domain_build.c
-> @@ -458,6 +458,12 @@ static int __init estimate_acpi_efi_size(struct domain *d,
->      acpi_size += ROUNDUP(sizeof(struct acpi_table_stao), 8);
->  
->      madt_size = gic_get_hwdom_madt_size(d);
-> +    if ( !madt_size )
-> +    {
-> +        printk("Unable to get hwdom MADT size\n");
-> +        return -EINVAL;
-> +    }
-> +
->      acpi_size += ROUNDUP(madt_size, 8);
->  
->      addr = acpi_os_get_root_pointer();
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index b23e72a3d05d..aae6a7bf3076 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
->      host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->                               header);
->  
-> -    size = ACPI_MADT_GICC_LENGTH;
-> +    size = host_gicc->header.length;
-> +
->      /* Add Generic Interrupt */
->      for ( i = 0; i < d->max_vcpus; i++ )
->      {
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index bc07f97c16ab..75b89efad462 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
->  
->      host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
->                               header);
-> -    size = ACPI_MADT_GICC_LENGTH;
-> +    size = host_gicc->header.length;
-> +
->      for ( i = 0; i < d->max_vcpus; i++ )
->      {
->          gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
-> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> index ee75258fc3c3..e4fcfd60205d 100644
-> --- a/xen/arch/arm/gic.c
-> +++ b/xen/arch/arm/gic.c
-> @@ -414,12 +414,21 @@ int gic_make_hwdom_madt(const struct domain *d, u32 offset)
->      return gic_hw_ops->make_hwdom_madt(d, offset);
->  }
->  
-> -unsigned long gic_get_hwdom_madt_size(const struct domain *d)
-> +unsigned long __init gic_get_hwdom_madt_size(const struct domain *d)
->  {
->      unsigned long madt_size;
-> +    const struct acpi_subtable_header *header;
-> +    const struct acpi_madt_generic_interrupt *host_gicc;
-> +
-> +    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
-> +    if ( !header )
-> +        return 0;
-> +
-> +    host_gicc = container_of(header, const struct acpi_madt_generic_interrupt,
-> +                             header);
->  
->      madt_size = sizeof(struct acpi_table_madt)
-> -                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
-> +                + host_gicc->header.length * d->max_vcpus
+On 08.01.2026 18:55, Roger Pau Monne wrote:
+> In XenServer we have seen the watchdog occasionally triggering during
+> domain creation if 1GB pages are scrubbed in-place during physmap
+> population.
 
-Just to double-check: All entries are strictly required to be of the same
-length? (Related question further down.)
-
-> --- a/xen/arch/arm/include/asm/acpi.h
-> +++ b/xen/arch/arm/include/asm/acpi.h
-> @@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
->   */
->  paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
->  
-> -/* Macros for consistency checks of the GICC subtable of MADT */
-> -#define ACPI_MADT_GICC_LENGTH	\
-> -    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
-
-Given this, ...
-
-> +/*
-> + * MADT GICC minimum length refers to the MADT GICC structure table length as
-> + * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
-> + *
-> + * The efficiency_class member was added to the
-> + * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
-> + * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
-> + * is therefore used to delimit the MADT GICC structure minimum length
-> + * appropriately.
-> + */
-> +#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
-> +    struct acpi_madt_generic_interrupt, efficiency_class)
->  
-> -#define BAD_MADT_GICC_ENTRY(entry, end)						\
-> -    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
-> -     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
-> +#define BAD_MADT_GICC_ENTRY(entry, end) \
-> +    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
-> +    (unsigned long)(entry) + (entry)->header.length > (end))
-
-... is 76 a valid length when the FADT revision is 6 or higher? And 80 is a
-valid length for 6.5 or higher?
+That's pretty extreme - writing to 1Gb of memory can't really take over 5s,
+can it? Is there lock contention involved? Or is this when very many CPUs
+try to do the same in parallel?
 
 Jan
+
+>  The following series attempt to mitigate this by limiting
+> the in-place scrubbing during allocation to 2M pages, but it has some
+> drawbacks, see the post-commit remarks in patch 2.
+> 
+> I'm hopping someone might have a better idea, or we converge we can't do
+> better than this for the time being.
+> 
+> Thanks, Roger.
+> 
+> Roger Pau Monne (2):
+>   xen/mm: add a NUMA node parameter to scrub_free_pages()
+>   xen/mm: limit non-scrubbed allocations to a specific order
+> 
+>  xen/arch/arm/domain.c   |  2 +-
+>  xen/arch/x86/domain.c   |  2 +-
+>  xen/common/memory.c     | 12 +++++++++
+>  xen/common/page_alloc.c | 54 +++++++++++++++++++++++++++++++++++++----
+>  xen/include/xen/mm.h    | 12 ++++++++-
+>  5 files changed, 74 insertions(+), 8 deletions(-)
+> 
+
 
