@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 305D8D08928
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 11:32:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198537.1515456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF81D08DBF
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 12:20:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198572.1515466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9my-0005GL-1T; Fri, 09 Jan 2026 10:32:16 +0000
+	id 1veAWj-0002AV-Iq; Fri, 09 Jan 2026 11:19:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198537.1515456; Fri, 09 Jan 2026 10:32:16 +0000
+Received: by outflank-mailman (output) from mailman id 1198572.1515466; Fri, 09 Jan 2026 11:19:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ve9mx-0005Eg-Uk; Fri, 09 Jan 2026 10:32:15 +0000
-Received: by outflank-mailman (input) for mailman id 1198537;
- Fri, 09 Jan 2026 10:32:14 +0000
+	id 1veAWj-00028V-Fe; Fri, 09 Jan 2026 11:19:33 +0000
+Received: by outflank-mailman (input) for mailman id 1198572;
+ Fri, 09 Jan 2026 11:19:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M89a=7O=bounce.vates.tech=bounce-md_30504962.6960d91e.v1-0fd3b5e820884520bf223a4b27250d9e@srs-se1.protection.inumbo.net>)
- id 1ve9mw-0005Ea-EX
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 10:32:14 +0000
-Received: from mail137-3.atl71.mandrillapp.com
- (mail137-3.atl71.mandrillapp.com [198.2.137.3])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SGSf=7O=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1veAWh-00028P-MY
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 11:19:31 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6db0d167-ed46-11f0-9ccf-f158ae23cfc8;
- Fri, 09 Jan 2026 11:32:00 +0100 (CET)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4dndPB1ttczBsTlVl
- for <xen-devel@lists.xenproject.org>; Fri,  9 Jan 2026 10:31:58 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 0fd3b5e820884520bf223a4b27250d9e; Fri, 09 Jan 2026 10:31:58 +0000
+ id 10124b94-ed4d-11f0-9ccf-f158ae23cfc8;
+ Fri, 09 Jan 2026 12:19:28 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-477ba2c1ca2so45150265e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 03:19:28 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd0e180csm21370659f8f.10.2026.01.09.03.19.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jan 2026 03:19:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,222 +45,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6db0d167-ed46-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1767954718; x=1768224718;
-	bh=YIknYhztqWSVrk+mnswzaptf+MwJWbjnKORblGlN2So=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=OxaK69xviHFfu93+1g+Q2m2Tn2BC8vadHMjEYU09t0yBZV52ALNLqbqqRUpsp79VR
-	 F4DyuDykzRL6iiz7mgVw3SiaUZReBgMmdp3oDFgV7nOyyE/a9tnQKLbrdqJEehtYIs
-	 aJLd+ux5ZUpHuF7at8kH8Yit9Fw8X3UB7WZO4pzOzsK3KYjFKZ27/soCtJMoasr1i6
-	 P23xu9JI8fyGbaOaAZDhVdNBiuHSBGTxIKPjvCr4MA3GH3ZBT/jzfjTICtkkXbnI6c
-	 q/S61OqYYp39YRvTbyNcYmEyxjTrcYSM4M7AnX+w1VqgLRN6SqjTiQAecf78NuO7XQ
-	 7EewIHIf1dAIA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1767954718; x=1768215218; i=teddy.astie@vates.tech;
-	bh=YIknYhztqWSVrk+mnswzaptf+MwJWbjnKORblGlN2So=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=oVnm9F0NeuEoPTYj6hwfh6JAGM6VJAkavTDsGDNlNjPt4dOpBKqF+T8EABGeVLgYu
-	 T0kDf+4z4+XssYrllHpWMVUXMq+ut2eqxHAr+6IrVi1oaXAQL4TL01SxxAnb8gmk+n
-	 jIFSJYOK6x6EtW4i26MXYDyaQGh7eASA/onjYJBzoUv7mPZvvo4M8vdUAmzq4uiLuJ
-	 6Rq6KOy7x9i6oTO6jrfBRUq8wGGB8ciE8logqZ5+xALUP/J519CsGd+f/8Iqnxx1tW
-	 jJB6KOhIRJI8QiqLkSZiVQH/Dl2O+m3Dq602/UFuaI9hT8551vYjEPWuuOthqRZO9U
-	 o6Krl7u177Llg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH]=20pvh:=20Introduce=20SIF=5FHVM=5FGHCB=20for=20SEV-ES/SNP=20guests?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1767954716857
-Message-Id: <ca59701c-6c3e-4e9a-84b5-1a31037fa611@vates.tech>
-To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>
-References: <3b6f5146287d3402a09836b7cf876d4f8dc9eee1.1766889890.git.teddy.astie@vates.tech> <0c9c1dbb-28e1-479b-a680-e99150b3f0da@vates.tech> <aV_s6ySoXU-G7Gno@Mac.lan> <f45ff7f7-aa71-4ddb-85ce-eadb1dfdb07f@vates.tech> <aWDC_UDsHkXoKu44@Mac.lan>
-In-Reply-To: <aWDC_UDsHkXoKu44@Mac.lan>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0fd3b5e820884520bf223a4b27250d9e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260109:md
-Date: Fri, 09 Jan 2026 10:31:58 +0000
+X-Inumbo-ID: 10124b94-ed4d-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1767957568; x=1768562368; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=z5Kg0iZz2V5+JGG8wyvq+zNrYx/Z3iemfLBzPnVlScA=;
+        b=Sx/DSJXNjkMxB8QLY+Ub8vYUS39fvLV+7zkRoJ71Z51Lw5Q9U6QyqILgpzClk5umdA
+         Ezx70GJEINufwPV0ITljPGwapO14XNCdmpfv821/qfKGOXapsvUCovS4is18zqJxUgwP
+         NwSv3G4GALePjWGHmd0hOeYjK0yOdkLUOxUbWRv9NejoFqNu4eoPPJp2w7+uCKJhJKNf
+         EwZTZy8OBVNKkkP8+PURI32+zSE/9aRBtFI7UJ22SYA2yBj70M+GVVprjCivhi2/x5CO
+         vLe4T0ZwFZ4i4X9hHWxZ4LSOsI1VnzgIbUl9YbOX7jiETcMW+hQWY31x6hjh2yEH2Iud
+         sUEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767957568; x=1768562368;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z5Kg0iZz2V5+JGG8wyvq+zNrYx/Z3iemfLBzPnVlScA=;
+        b=fN5IMNTgPL6RPdjH65d6DrE8u7VQDJm1M7WnxguwnjObNcKw52iLBNy0LpahnEhVJ7
+         q1zcsLEeKw0Q2n7YdhSE3QcgnzrnKpBNhzgcl1SJk7erkWmcNSwRDp1cF4gfqJXRnhm2
+         iBrsRarTTBbEsUkLG06FNfBLbM+mXfkyWTybq59pyUmgT4dNoHzEd7lMwIN7mvuRiuvR
+         SRXLcKk/rII64fF4hkFUzickjwEzA8txIUpjkIN16BLlm/9uFfnaay5a59pFvpDYOXk5
+         celipnPZTpYQdQ65NoQJ9+JJ3ruhoilMhYKO1StiXblHbDm6reGbFYDqB0V+50IIJED6
+         cCHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUZtgoaTvdOH8rVn3U6KSPauKGznWNTB8OPhz3tRD3SDxErUIW2molXm0bf9PjVl84zBrbkn1vdOYk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyx7F0AvnVqIBFaA2VONEB2R+db+oxnU9nHHGSPQhntVmh9la/a
+	zb4DXR7UYhse6MpcegPxPCCNoA3aXlIoj20vR/rZM8Q0L7wN7WWE09CD4cdjmnt9uw==
+X-Gm-Gg: AY/fxX76js+vpuEgw4ere4n3U7CdkD+GVOTwIt4f+i4RoZoZO4ko6ABBQS4xAdzLg7P
+	JIrmXmxXUrq5ASFzxbAzMPk7Wmkmkg/hoYQfBFMqnCb7yNPTYxvX4SHM7H7+WGYqu4NQweitFkd
+	0L/WmnO+BywBEeNQ5R8RCbis3Gbs2pZ3isx5d2RmMZkKofjBiKxJdYfwhdqvS5kztgQSjjpKzBI
+	oS+vNKuZ4PbkWfJihiqh7kA+6BKux56j4T1WCDjIzEWdtAz2m1DlgUvikA8hkZOtUOMIyzKXzBB
+	1OpAXLKZZ+96LgW5wuAUuyg4C1HDNuwsHuScOkXjnPefjncb4Re5Qyc5I7qNyu4euCCaGRBHF0T
+	L817iUmmZEQhic9Asx59MwBiKr1a7JlVoVKP3bay/9z5HroWoL9Fm68OK1ZT+wds6jizBOzhu1Q
+	2/Ggvw44PGVviozPSbxth/MfAUkl4in6zMmVj6nfatSsmwU/jMReaS88V9P/UCQgxGWZd9FEFmu
+	to=
+X-Google-Smtp-Source: AGHT+IEdKuuOO7zAhzWM3sTT3CilzFXkWQ52lXtmErcQ5bONUWcJIJXU2/escThixxSUWm4SBFoAPA==
+X-Received: by 2002:a05:600c:4f53:b0:477:7991:5d1e with SMTP id 5b1f17b1804b1-47d84b3860fmr92418665e9.25.1767957568115;
+        Fri, 09 Jan 2026 03:19:28 -0800 (PST)
+Message-ID: <b547676c-ff2e-4a56-b3b4-2b2da167e2f1@suse.com>
+Date: Fri, 9 Jan 2026 12:19:26 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] xen/mm: limit non-scrubbed allocations to a specific
+ order
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260108175536.82153-1-roger.pau@citrix.com>
+ <20260108175536.82153-3-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260108175536.82153-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le 09/01/2026 =C3=A0 09:59, Roger Pau Monn=C3=A9 a =C3=A9crit=C2=A0:
-> On Thu, Jan 08, 2026 at 07:12:48PM +0000, Teddy Astie wrote:
->> Le 08/01/2026 =C3=A0 18:46, Roger Pau Monn=C3=A9 a =C3=A9crit=C2=A0:
->>> On Thu, Jan 08, 2026 at 04:50:51PM +0000, Teddy Astie wrote:
->>>> Le 28/12/2025 =C3=A0 13:54, Teddy Astie a =C3=A9crit=C2=A0:
->>>>> Under SEV, the pagetables needs to be post-processed to add the C-bit
->>>>> (to make the mapping encrypted). The guest is expected to query the C=
--bit
->>>>> through CPUID. However, under SEV-ES and SEV-SNP modes, this instruct=
-ion
->>>>> now triggers #VC instead. The guest would need to setup a IDT very ea=
-rly
->>>>> and instead use the early-GHCB protocol to emulate CPUID, which is
->>>>> complicated.
->>>
->>> Possibly a stupid question, but how is this information expected to
->>> be propagated to the guest when there's a guest firmware and
->>> bootloader in use?
->>>
->>> How is OVMF and/or grub propagating this information between
->>> themselves and to Linux?
->>>
->>
->> When booting Linux with SEV+UEFI, at least during the UEFI services, the
->> UEFI firmware transparently handles #VC for the rest to allow it to
->> perform CPUID operation.
->> (with SEV-SNP CPUID page exposed with a specific UEFI mecanism)
+On 08.01.2026 18:55, Roger Pau Monne wrote:
+> The current model of falling back to allocate unscrubbed pages and scrub
+> them in place at allocation time risks triggering the watchdog:
 > 
-> Hm, that's going to be cumbersome when using hvmloader in this
-> scenario, as it makes extensive use of CPUID and hence would need to
-> setup it's own #VC handler ahead of making use of CPUID.
+> Watchdog timer detects that CPU55 is stuck!
+> ----[ Xen-4.17.5-21  x86_64  debug=n  Not tainted ]----
+> CPU:    55
+> RIP:    e008:[<ffff82d040204c4a>] clear_page_sse2+0x1a/0x30
+> RFLAGS: 0000000000000202   CONTEXT: hypervisor (d0v12)
+> [...]
+> Xen call trace:
+>    [<ffff82d040204c4a>] R clear_page_sse2+0x1a/0x30
+>    [<ffff82d04022a121>] S clear_domain_page+0x11/0x20
+>    [<ffff82d04022c170>] S common/page_alloc.c#alloc_heap_pages+0x400/0x5a0
+>    [<ffff82d04022d4a7>] S alloc_domheap_pages+0x67/0x180
+>    [<ffff82d040226f9f>] S common/memory.c#populate_physmap+0x22f/0x3b0
+>    [<ffff82d040228ec8>] S do_memory_op+0x728/0x1970
 > 
-> Or we must instead get rid of hvmloader.
+> The maximum allocation order on x86 is limited to 18, that means allocating
+> and scrubbing possibly 1G worth of memory in 4K chunks.
 > 
-
-For plain SEV, hvmloader would need to run with paging (PAE or 4-level) 
-to properly handle encryption bit. But would also need Xen to handle 
-MMIO instructions (which has some quirks due to being in encrypted memory).
-
-For SEV-ES, #VC handler + GHCB is not only required for CPUID, but also 
-for VMMCALL, MMIO, some MSR accesses, ...
-
-It would be easier to not use hvmloader, especially since only UEFI 
-supports SEV and guests would still need to support (Xen-specific) SEV 
-bits to begin with.
-
->> So overall, this proposal is only meaningful for PVH booting, everything
->> that comes after can be handled differently.
->>
->>> Are they relying on the CPUID discovery logic mentioned above, or
->>> there's some shadow infra used by KVM for example to already convey
->>> it?
->>>
->>
->> OVMF at its startup relies on #VC for emulating CPUID.
->> It then relies on GHCB MSR for getting SEV info/C-bit (but only with
->> SEV-ES). And under SEV-SNP, it uses "CPUID page" instead of GHCB
->> (PAGE_TYPE_CPUID in SEV-SNP firmware ABI specification).
->>
->> This is because SEV/GHCB specification recommends using CPUID page under
->> SEV-SNP (even though the same protocol as SEV-ES still works; but is
->> discouraged).
+> Start by limiting dirty allocations to CONFIG_DOMU_MAX_ORDER, which is
+> currently set to 2M chunks.  However such limitation might cause
+> fragmentation in HVM p2m population during domain creation.  To prevent
+> that introduce some extra logic in populate_physmap() that fallback to
+> preemptive page-scrubbing if the requested allocation cannot be fulfilled
+> and there's scrubbing work to do.  This approach is less fair than the
+> current one, but allows preemptive page scrubbing in the context of
+> populate_physmap() to attempt to ensure unnecessary page-shattering.
 > 
-> In a previous reply to Jan you mention that Linux already has such
-> handlers, but just for the decompressing code (and hence not reachable
-> from the PVH entry point, that's already decompressed code).  Would it
-> be possible to share the handlers with the PVH entry point?
+> Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> I'm not particularly happy with this approach, as it doesn't guarantee
+> progress for the callers.  IOW: a caller might do a lot of scrubbing, just
+> to get it's pages stolen by a different concurrent thread doing
+> allocations.  However I'm not sure there's a better solution than resorting
+> to 2M allocations if there's not enough free memory that is scrubbed.
 > 
+> I'm having trouble seeing where we could temporary store page(s) allocated
+> that need to be scrubbed before being assigned to the domain, in a way that
+> can be used by continuations, and that would allow Xen to keep track of
+> them in case the operation is never finished.  IOW: we would need to
+> account for cleanup of such temporary stash of pages in case the domain
+> never completes the hypercall, or is destroyed midway.
 
-Maybe, Linux already does this for few parts of SEV code (e.g 
-arch/x86/coco/sev/vc-shared.c being also included in 
-arch/x86/boot/compressed/sev-handle-vc.c).
+How about stealing a bit from the range above MEMOP_EXTENT_SHIFT to
+indicate that state, with the actual page (and order plus scrub progress)
+recorded in the target struct domain? Actually, maybe such an indicator
+isn't needed at all: If the next invocation (continuation or not) finds
+an in-progress allocation, it could simply use that rather than doing a
+real allocation. (What to do if this isn't a continuation is less clear:
+We could fail such requests [likely not an option unless we can reliably
+tell original requests from continuations], or split the allocation if
+the request is smaller, or free the allocation to then take the normal
+path.) All of which of course only for "foreign" requests.
 
-Everything we would need appears to be contained in 
-arch/x86/boot/compressed/mem_encrypt.S.
+If the hypercall is never continued, we could refuse to unpause the
+domain (with the allocation then freed normally when the domain gets
+destroyed).
 
->> In GHCB Version 2 (SEV-SNP)
->>> The hypervisor may supply the encryption bit position using the SEV Inf=
-ormation MSR protocol,
->>> but the guest should use the CPUID information supplied in the CPUID Pa=
-ge to determine the
->>> encryption bit position.
->>
->> But its location is unfortunately undefined in this specification and in
->> the OVMF case, hardcoded in firmware metadata.
->>
->>> Adding Xen side-channels when there's an architectural defined way to
->>> obtain the information is a duplication of interfaces, and could lead
->>> to issues in the long run.  We can not possibly be adding all vendor
->>> SEV options to SIF_ flags just because they are cumbersome to fetch.
->>> I know this is just one right now, but we don't know whether more of
->>> those CPUID options would be needed at the start of day in the future.
->>>
->>
->> That exists for SEV-ES and SEV-SNP (even though complicated) but for
->> SEV-SNP, it would relies on discouraged mecanisms (GHCB CPUID Request).
->>
->> AFAIU, this flag is enough for setting up long mode and GHCB which is
->> what matters. There are some additional structures (e.g secret page and
->> CPUID page) which could in the future be eventually exposed as PVH
->> modules; which would be hopefully less intrusive.
-> 
-> If my understating is correct, this is not needed for the initial
-> implementation of SEV (when hypervisor doesn't implement ES or SNP
-> guests can use CPUID), and hence it might be best to wait for the
-> basic SEV implementation to be in the hypervisor before jumping into
-> ES or SNP details?
-> 
+As another alternative, how about returning unscrubbed pages altogether
+when it's during domain creation, requiring the tool stack to do the
+scrubbing (potentially allowing it to skip some of it when pages are
+fully initialized anyway, much like we do for Dom0 iirc)?
 
-Correct; CPUID is handled normally when not running with SEV-ES/SNP.
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -279,6 +279,18 @@ static void populate_physmap(struct memop_args *a)
+>  
+>                  if ( unlikely(!page) )
+>                  {
+> +                    nodeid_t node = MEMF_get_node(a->memflags);
+> +
+> +                    if ( memory_scrub_pending(node) ||
+> +                         (node != NUMA_NO_NODE &&
+> +                          !(a->memflags & MEMF_exact_node) &&
+> +                          memory_scrub_pending(node = NUMA_NO_NODE)) )
+> +                    {
+> +                        scrub_free_pages(node);
+> +                        a->preempted = 1;
+> +                        goto out;
+> +                    }
 
-> AFAICT (from your Linux entry point patch) you end up needing both the
-> CPUID and the GHCB ways of detecting SEV support, so one doesn't
-> preclude the other.
-> 
+At least for order 0 requests there's no point in trying this. With the
+current logic, actually for orders up to MAX_DIRTY_ORDER.
 
-Both are needed if we want to support both SEV-ES and no-ES cases; but 
-if only SEV-ES+ is wanted, the CPUID path would never be taken with this 
-approach.
+Further, from a general interface perspective, wouldn't we need to do the
+same for at least XENMEM_increase_reservation?
 
->> --
->>
->> Some specialized boot process for SEV-SNP (e.g the one used
->> COCONUT-SVSM) relies on IGVM [1] with custom memory layouts, initial
->> pagetables, and so on.
->>
->> [1] https://github.com/microsoft/igvm
->>
->>>>>     ## AP startup ##
->>>>>     
->>>>>     AP startup can be performed using hypercalls or the local APIC if=
- present.
->>>>> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
->>>>> index 7f15204c38..9b84df573b 100644
->>>>> --- a/xen/include/public/xen.h
->>>>> +++ b/xen/include/public/xen.h
->>>>> @@ -890,6 +890,8 @@ typedef struct start_info start_info_t;
->>>>>     #define SIF_MOD_START_PFN (1<<3)  /* Is mod_start a PFN? */
->>>>>     #define SIF_VIRT_P2M_4TOOLS (1<<4) /* Do Xen tools understand a v=
-irt. mapped */
->>>>>                                        /* P->M making the 3 level tre=
-e obsolete? */
->>>>> +#define SIF_HVM_GHCB      (1<<5)   /* Domain is SEV-ES/SNP guest tha=
-t requires */
->>>>> +                                   /* use of GHCB. */
->>>
->>> A concern I have with this is that we are adding vendor-specific
->>> terminology to what should otherwise be a vendor-agnostic interface.
->>>
->>> There's already a fair amount of arch-specific information encoded in
->>> there, so maybe not that much of a big deal.
-> 
-> If we end up getting this bit, I think it needs to be clear it's a
-> vendor specific feature: SIF_AMD_SEV_GHCB or similar would be better
-> IMO.
-> 
+> @@ -1115,7 +1139,16 @@ static struct page_info *alloc_heap_pages(
+>              if ( test_and_clear_bit(_PGC_need_scrub, &pg[i].count_info) )
+>              {
+>                  if ( !(memflags & MEMF_no_scrub) )
+> +                {
+>                      scrub_one_page(&pg[i], cold);
+> +                    /*
+> +                     * Use SYS_STATE_smp_boot explicitly; ahead of that state
+> +                     * interrupts are disabled.
+> +                     */
+> +                    if ( system_state == SYS_STATE_smp_boot &&
+> +                         !(dirty_cnt & 0xff) )
+> +                        process_pending_softirqs();
+> +                }
+>  
+>                  dirty_cnt++;
+>              }
 
-I was thinking in case another vendor (non-AMD) implements this 
-interface, but the MSR already has AMD_SEV in its name; so I'm ok using 
-something like SIF_AMD_SEV_GHCB.
+Yet an alternative consideration: When "cold" is true, couldn't we call
+process_pending_softirqs() like you do here ( >= SYS_STATE_smp_boot then
+of course), without any of the other changes? Of course that's worse
+than a proper continuation, especially from the calling domain's pov.
 
-> Thanks, Roger.
-> 
+> @@ -223,6 +224,14 @@ struct npfec {
+>  #else
+>  #define MAX_ORDER 20 /* 2^20 contiguous pages */
+>  #endif
+> +
+> +/* Max order when scrubbing pages at allocation time.  */
+> +#ifdef CONFIG_DOMU_MAX_ORDER
+> +# define MAX_DIRTY_ORDER CONFIG_DOMU_MAX_ORDER
+> +#else
+> +# define MAX_DIRTY_ORDER 9
+> +#endif
 
+Using CONFIG_DOMU_MAX_ORDER rather than the command line overridable
+domu_max_order means people couldn't even restore original behavior.
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
