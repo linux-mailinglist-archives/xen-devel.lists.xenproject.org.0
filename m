@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3030BD0A558
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 14:16:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198752.1515587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47813D0A573
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 14:17:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198764.1515597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veCME-00068e-Ur; Fri, 09 Jan 2026 13:16:50 +0000
+	id 1veCMh-0006kJ-8I; Fri, 09 Jan 2026 13:17:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198752.1515587; Fri, 09 Jan 2026 13:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 1198764.1515597; Fri, 09 Jan 2026 13:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veCME-00065K-RW; Fri, 09 Jan 2026 13:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 1198752;
- Fri, 09 Jan 2026 13:16:49 +0000
+	id 1veCMh-0006i2-36; Fri, 09 Jan 2026 13:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 1198764;
+ Fri, 09 Jan 2026 13:17:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QfgE=7O=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1veCMD-00064g-2E
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 13:16:49 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=sCgZ=7O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1veCMf-00064g-FG
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 13:17:17 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72d3c20c-ed5d-11f0-b15e-2bf370ae4941;
- Fri, 09 Jan 2026 14:16:46 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-430f9ffd4e8so1460918f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 09 Jan 2026 05:16:46 -0800 (PST)
-Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
- [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0dacdcsm22423033f8f.1.2026.01.09.05.16.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Jan 2026 05:16:45 -0800 (PST)
+ id 84b3824c-ed5d-11f0-b15e-2bf370ae4941;
+ Fri, 09 Jan 2026 14:17:16 +0100 (CET)
+Received: from CH0PR04CA0056.namprd04.prod.outlook.com (2603:10b6:610:77::31)
+ by IA0PPF12042BF6F.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Fri, 9 Jan
+ 2026 13:17:11 +0000
+Received: from DS3PEPF000099D9.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::9f) by CH0PR04CA0056.outlook.office365.com
+ (2603:10b6:610:77::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.5 via Frontend Transport; Fri, 9
+ Jan 2026 13:17:11 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099D9.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 13:17:11 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
+ 2026 07:17:11 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
+ 2026 05:17:11 -0800
+Received: from [10.252.147.171] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 9 Jan 2026 05:17:08 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +63,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72d3c20c-ed5d-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1767964605; x=1768569405; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5VfkchlJ/9TrBejggw+pB6naFdzYvQ/o4hvcC4styY0=;
-        b=H4theXJjxuwEqTgBtuZMlKlhHlT1v8+0IsioPuG7Bvf3GU7y24y5sx5szCUP0s7OwC
-         ZqgP/KEATzSihA2wDNYQlqkI15bjFCehBDmDd+3mAqnHcpaKM3Z7i6tb0NgL3ygr4Ty5
-         iO/kTldmvYSILGPQ2YeBk8cNgZYfEv8+Gi0ro=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767964605; x=1768569405;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5VfkchlJ/9TrBejggw+pB6naFdzYvQ/o4hvcC4styY0=;
-        b=KooV2i5p66dslnW27MFpxlutKl1ZL8v3vkGqnmYidESPNtkUPusWjL0HFNlTwzclCt
-         FBIEp7dfu2JExqvSpDURtwtcKI1Xc9RfYI0q4zb1leLKSyEZBvoq1wDkdoVHuKlESxvb
-         eSo9CXe+zjnKylykecsgWsbm8xW/+p+wOJOUg/7d8skLsVtQwGt8UgU8rOeNbXBX7Ulm
-         9TRQhUiBIY0VWLLXKlVxI+UT5U0irpd1uKyLKhDo7DNbZFXblge8ymQTiLT2Zu+GnszQ
-         3bgrmDH+2S1oOvCpmAOjjv1nbvZxvB7HMX3plAkLkBlPbLrN1okAihYn362J8VroCWXC
-         MVaQ==
-X-Gm-Message-State: AOJu0YwitiX3zxXxw/CSvaaoZYjvU6BiVM9esM9xKYHLKFNyOOD+XaAi
-	AwNBFNyMiGnYUu7unK1CYuQbCpjEKWQ9VEIjI9TqfAQALhsru8lPycsNdJrgIsBX+gIYwHQ504k
-	MzG62
-X-Gm-Gg: AY/fxX75tmfhLEPrbuKl7fQqZj8J31B8JrkM63LCMh/rEuYxYMG7TyMLyZ3O49aKtoH
-	7BLd4t8yIXMyxCREBF/U7aRUsDjEyG+N/SSTN19X+qd5fy2/6VSGTME5dQtB9oCDLE87PGQ+VFs
-	c3D4MzxXrWSNDyWRvTs0Sx75Moc+C3qqqpErbX+PAteThM5BOZLof3ljty7P3WwIrlWpJCEQw6K
-	6cFB95bUZXtM50e45EEt5+3962pwFhDUmYnndWvrSWy1vzhufykYcxk+LTL2oJ198fHSo1Lsa4T
-	pCO8q+SXC8GOPf9AhkXERo0EG9XBTc01gNJULqtHtw8gz68ApR7+ntE4x6xT5tue7gZsNPqnlJD
-	N+bioP+XYPgHxN5GmlpqxRTASctKgaoENeLzQpSIwRQfW+bSyPvJmNkgasNmpWkXORuzid+KBza
-	6HsQr+xL5/DL2+kWbtMvZeH2Dorua6wHHXr/pdDYZEkRrarbYaZguPxd6UMQmhKA==
-X-Google-Smtp-Source: AGHT+IFNv1UR8MFvAUVKR1eJ1Q1ff206ybolzcabnGhpA5DKWETAsojYJXQukJ8a5/JxYdlI1eO+WQ==
-X-Received: by 2002:a05:6000:2c0f:b0:430:fca5:7353 with SMTP id ffacd0b85a97d-432bcfa1031mr17037740f8f.8.1767964605471;
-        Fri, 09 Jan 2026 05:16:45 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH] xen/gen_hypercall: Leave a breadcrumb in xen-hypercall-defs.h
-Date: Fri,  9 Jan 2026 13:16:43 +0000
-Message-Id: <20260109131643.859509-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 84b3824c-ed5d-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bd/3U2e5NZXTp4a79zwf1Ev2TzQN6g1ZqB/vlKjWADUqoCaD/TYBj6OCqv0qGEUDsyYHljc2SZ+JWyttW3RO1TTJzlcbNi7++K1puwSKY8Bhbig/T/Qc1w7+2HAU1eMfcasHbJe29xyF/3BkZL4I4h/ZUeZNjdl/D3GTQrhdNHykZ8zd+1Gk3/Nfo3MTGeNZmqZ74KfG+O4h9+e6l3Wu2zyUxqVTGe9dRO97q5ppD431bYfM18V3V6Hhnaz3xDWSvW81eSD69Oq7G2roBqBZpNeKEQ6UsPpMrOYTsg9CRX5HonOBTCTx8TUTMCwXJ748fmq9aWJZ3hTUgoWEw3zQaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PXzj5snBkHhZomySM8tnBeVK9MbSz5xlbWA1TLEawqs=;
+ b=uf34DKLDmtxDCcEgOlwQdXL3IvNgdrjiciCjS/iW4W3dtz8f9ggTelkitMJ3tO5HqdIzyPI8MgA0Ip/l3i/XqFH1b+WsFnqTEqSpc9fpadEVRKruTkKJgPoKSS2yU97+wimNjTdzMnVrbWYP3fBBuhH53L08B8vGwQz+XqFpYMo5MA9iQT/Po1IK705IjdYMj/UwCwgGNWJZugorXk2avvN+Gl2GC8OKJNsQPBqufFIQyCaqEN52XsQiphm2aafV74iX3NlBvL4s/s3F/GmcEJVGgGoEqXF8uR0R0qZOa/DUtyMQh6TVogpKVTTFtTp43ca2Ym0bGyKpHiknD4tppA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PXzj5snBkHhZomySM8tnBeVK9MbSz5xlbWA1TLEawqs=;
+ b=Hto/FGQd3DZ76hHswATxL+7FPtUk3naQAgKtiFEeKuNlRJotn1jJhNKKvnGXqtOp5fChTd+IDPrevLebZQyS5AzDdX5quEFGGO0U7tcGCocJKcNVA2qncfeB4oJfzFjFV9m1IuyLA9dMM73MWIfX+IgBiceO6CWRcaWDwpDy9AA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <4b2e9f4c-ce8e-4090-afd5-45af183b9497@amd.com>
+Date: Fri, 9 Jan 2026 14:17:03 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] xen: move alloc/free_vcpu_struct() to common code
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
+ Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Timothy Pearson <tpearson@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>, Connor Davis
+	<connojdavis@gmail.com>
+References: <cover.1767803084.git.oleksii.kurochko@gmail.com>
+ <fa8d4daa1ebb1b27dd9dd56f671bde2aa7beb58a.1767803084.git.oleksii.kurochko@gmail.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <fa8d4daa1ebb1b27dd9dd56f671bde2aa7beb58a.1767803084.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D9:EE_|IA0PPF12042BF6F:EE_
+X-MS-Office365-Filtering-Correlation-Id: f711b839-d560-4e4c-72cf-08de4f81661a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700013|1800799024|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SHlHN0djMXBZWHlpZU1saGJEdVpLM2hrNitWaTlvZGcwV0k2Qm5NRUpQdTlL?=
+ =?utf-8?B?SUNiQlR5eW9oZ3NmVWVsTG1XOTdIQkc1ampvUllwNUJIWTNsbm1YdldWdzVG?=
+ =?utf-8?B?YzV3cWFaUlFhLytuRFFJWkVmWlNWSUJlWGszMmx3d0VGSWxkZ1JlQWJ3TW1V?=
+ =?utf-8?B?ZXc5L2ZBeFBhdk1DWU5CRE05Mis5bVlzZm1DQUFabFFrU1BFckxmdWtuUFBJ?=
+ =?utf-8?B?SnA5VHlmZjZEYnVFNjNtM0N1dnQ5V004OWlZV1hiWEw4QzVmcjdIK2lOeGRD?=
+ =?utf-8?B?S2VmTmV0dERzWEYxWFg0MmM1cVB3UFpaVURUajJJUlRoZmxQVnhScm9GL2ZL?=
+ =?utf-8?B?UFFNYzM2UTEwRk5aZ1NXaG1IclBBTkhDVmRwZUZoaHVieXdzWU9uZ1dsdE1t?=
+ =?utf-8?B?dHN6UFVoSDdhdXhJQ2ovZ2l5Y0Q0Sm1aNno4S3pTRkpSUDFJcXAzeVA1Szcy?=
+ =?utf-8?B?eGJyZTA5NDZYa21rNmw1SkJPYllHdjgzNEkzYnpZSElmWVAwdENsQ0RqUmJr?=
+ =?utf-8?B?N1JEdzVxSzZXTzEvU2duTStIQ0UwOU04Q1BHV3h0N1BjVERnaHYyZkRjYTJu?=
+ =?utf-8?B?QUNoQnd5ZjJWZFVPOUFKTmFHYXlXQkZDLzlwN09rUlE4Y09pZlFaNWdDQ2p5?=
+ =?utf-8?B?Zm5PTEpVbHBualRhVFU4VmxzNDFGQ2JkakpNcHNEU1RYZm90SmJkMHJJd1gx?=
+ =?utf-8?B?ZGRncVdpeHhkOFVjK2grWCt6Z0lpckx3M3d5K1AySmlOdjE2WSs4SGltL2Qw?=
+ =?utf-8?B?QmZKL1FEM0IrUW4wWFFuU3p2WHh2aDJTVmcrK3lXTWxvMzM0T3ZHWDRoU0ZX?=
+ =?utf-8?B?YmsxYzVGZGJNcXNBTFdadm1yZ0h1SW5aM3FNZzN6dU5xQkhXSnJkWE5QMEVo?=
+ =?utf-8?B?YmEvQWR2Mmd6NHp5NUhLeFdVem1zenJZVGZIOTJ4NnplT1FiMXF5Qklid0Jh?=
+ =?utf-8?B?algxb2MxQ1U0RXpFVGhqejB1RkZhL2hNaEt4STJXdkJqUUFzQkV4M2RMTGNy?=
+ =?utf-8?B?bXQ5R1MvSC9FS1pRd01BMmZwcGIwdm82YzArWlBHb3F3eHlqQWNwZ09IREZI?=
+ =?utf-8?B?ZFhEdFFzeE1wYVNNNlBjcE84UnFKK0JyZU50S0pseExpbWl4Z1N6MTZ4cGFZ?=
+ =?utf-8?B?ZGZqbTlzYm1OWEkxNDc4MFlFY3BlS1dtV0Q3ODFhL245aFByMnJwRUpsUjcv?=
+ =?utf-8?B?Tk1Zd1F2ZlpRTzQ1RjRNcE5LcER1M0VDbno4c0FMQWJlZzhZSFFTZDhMY0J4?=
+ =?utf-8?B?UWdacC9XMiswL2tjaFlRNEt6SjVQcDJxeVREV3FYK0txUTVWaVpHdHZDTzJV?=
+ =?utf-8?B?aVl2RGExTnFLQ0JUcDI3VFR0UTJWbDhTamZFeGFva2RNTVpVWnBZaElidnA1?=
+ =?utf-8?B?SFdKT0J6THBCc3pMTldEUzBGTkx5c3hxSkhhVlliM3FGNmpUSGVnQ1c5VmlH?=
+ =?utf-8?B?MlYvZHBNQkREZ0xvR1lEQk9EZldTMVV1bU5jMEsrb01UeW1WZjJ5VlhVYTh3?=
+ =?utf-8?B?Uyt0Mjk0MWwwOHdvRERmajAyTXlWNlhmZUZmTWNESkMzZnJQU2wyTE84M1hD?=
+ =?utf-8?B?UE03Y2pIUngxWmxoOVBlRmpGRzFTazk3RTlpOHVBZnppUXkyZWlhaUthNVRh?=
+ =?utf-8?B?Q0grOElFcENtcUxoT0FKMTJzdE5XbkVNUlRRQWsvZlNLQmdFcmRvemdHcm9o?=
+ =?utf-8?B?aUF1NG5zU3NUcGhoRW03aTFtNWMzL0t2QytrV3gxQVJHSXZWc0VUVDNNNWlp?=
+ =?utf-8?B?bUtlUzFwL1dIRlBHZFRQNUp3WS9ObFhoT0JCQjF6c2xPd3Y2ZDMwQ09zRW5O?=
+ =?utf-8?B?T1VyQkF6OVRpZ2lSY1hDUjJGZUNiZ3RlaGFCVXAxRVlsTGErYjhnWVpHQUw5?=
+ =?utf-8?B?anFnWGcwckRDYWhkcm45OVRCMVZ4QXVUbE9BZWhaRGNyZzJTK3R3MVMydTFX?=
+ =?utf-8?B?c282WGdKcUtCRVRvMzRXbTJEbitEd2NaV3p4RHdmMWNIVm94Qm4zMm5ORHJQ?=
+ =?utf-8?B?VEZsdUNxalQwNkp2SmwyMmo3bmJFWFczQ3NlOGFScndKcDRIKytsVVBKV2dr?=
+ =?utf-8?B?ZURpYU91ZWdYalAxbWR6ZTJXTkJCQnR2UXVkU3V0NUpoUERMNEs5RUt4dWlw?=
+ =?utf-8?Q?NlsE=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700013)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 13:17:11.4834
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f711b839-d560-4e4c-72cf-08de4f81661a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099D9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF12042BF6F
 
-When Cscope-ing through Xen, one occasionally finds themselves in
-xen-hypercall-defs.h and needing to find the originating file.
 
-This is substantially magic, and even reading the Makefile that produces
-xen-hypercall-defs.h is of little help if you're not aware of of the %.i : %.c
-pattern rule, and that the header is generated from a .c file in practice.
 
-No functional change.
+On 07/01/2026 17:28, Oleksii Kurochko wrote:
+> alloc_vcpu_struct() and free_vcpu_struct() contain little
+> architecture-specific logic and are suitable for sharing across
+> architectures. Move both helpers to common code.
+> 
+> To support the remaining architectural differences, introduce
+> arch_vcpu_struct_memflags(), allowing architectures to override the
+> memory flags passed to alloc_xenheap_pages(). This is currently needed
+> by x86, which may require MEMF_bits(32) for HVM guests using shadow
+> paging.
+> 
+> The ARM implementation of alloc/free_vcpu_struct() is removed and
+> replaced by the common version. Stub implementations are also dropped
+> from PPC and RISC-V.
+> 
+> Now that the size of struct vcpu for Arm64 is smaller than PAGE_SIZE,
+> MAX_PAGES_PER_VCPU is no longer needed and is removed.
+> 
+> Finally, make alloc_vcpu_struct() and free_vcpu_struct() static to
+> common/domain.c, as they are no longer used outside common code.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+In case you need Arm tag here:
+Acked-by: Michal Orzel <michal.orzel@amd.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Juergen Gross <jgross@suse.com>
----
- xen/scripts/gen_hypercall.awk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/scripts/gen_hypercall.awk b/xen/scripts/gen_hypercall.awk
-index b544fe1c4df7..c137f8fc4e6d 100644
---- a/xen/scripts/gen_hypercall.awk
-+++ b/xen/scripts/gen_hypercall.awk
-@@ -4,7 +4,7 @@
- BEGIN {
-     printf("#ifndef XEN_HYPERCALL_DEFS_H\n");
-     printf("#define XEN_HYPERCALL_DEFS_H\n\n");
--    printf("/* Generated file, do not edit! */\n\n");
-+    printf("/* Automatically generated from xen/include/hypercall-defs.c - do not edit! */\n\n");
-     e = 0;
-     n = 0;
-     p = 0;
--- 
-2.39.5
+~Michal
 
 
