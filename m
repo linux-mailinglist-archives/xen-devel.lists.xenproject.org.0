@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295C9D0AC8E
-	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 16:04:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1198944.1515716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B27D0ACE0
+	for <lists+xen-devel@lfdr.de>; Fri, 09 Jan 2026 16:08:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1198951.1515726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veE20-0001lQ-3h; Fri, 09 Jan 2026 15:04:04 +0000
+	id 1veE63-0002SK-I0; Fri, 09 Jan 2026 15:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1198944.1515716; Fri, 09 Jan 2026 15:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 1198951.1515726; Fri, 09 Jan 2026 15:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1veE20-0001jb-0u; Fri, 09 Jan 2026 15:04:04 +0000
-Received: by outflank-mailman (input) for mailman id 1198944;
- Fri, 09 Jan 2026 15:04:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1veE63-0002Qh-FR; Fri, 09 Jan 2026 15:08:15 +0000
+Received: by outflank-mailman (input) for mailman id 1198951;
+ Fri, 09 Jan 2026 15:08:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NHcl=7O=kernel.org=david@srs-se1.protection.inumbo.net>)
- id 1veE1y-0001jV-Pc
- for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 15:04:02 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d00f8a9-ed6c-11f0-9ccf-f158ae23cfc8;
- Fri, 09 Jan 2026 16:04:00 +0100 (CET)
+ id 1veE62-0002Qb-5y
+ for xen-devel@lists.xenproject.org; Fri, 09 Jan 2026 15:08:14 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 035222f7-ed6d-11f0-b15e-2bf370ae4941;
+ Fri, 09 Jan 2026 16:08:12 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1F23D41AAF;
- Fri,  9 Jan 2026 15:03:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B859DC4CEF1;
- Fri,  9 Jan 2026 15:03:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CEBC42AC6;
+ Fri,  9 Jan 2026 15:08:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1067FC4CEF1;
+ Fri,  9 Jan 2026 15:07:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,22 +42,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d00f8a9-ed6c-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 035222f7-ed6d-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1767971038;
-	bh=9LFMVxyFsOw43Q6k6Eff0i7Pwixa+RzRx4DsbI5AqD4=;
+	s=k20201202; t=1767971290;
+	bh=3Z8L26dcTskZ3ZdCQN0iSI+dIODX6q9MdBtGUwgu/Fc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Uu2xDZmK3PKrblsrsZL8LIcmnB0lca1ztGkSrwKnR3k1T+w3GGUw72vEWmRnJLC84
-	 04PN8WJ3tZU0qJxzKPXK/jIY9eHM/FkWJFfqFlKmAMwFCu8bAOMnLGGisVhDa+VPC1
-	 Hkm58qx6FwRjuIwh2iTdkxqN5OiOQDU6WIuS4LlqAy4eDc3QabNZxuLBa/iS/+tV6V
-	 fS5P07RUWs0rl3AKweG2OOOgL7ak053o/aoA2ECEjLInVqvpv88XZvchTU2IlUt4fg
-	 Y4VqP9kXVaCjmME3a4NjLke27874qGSfQHgAkzTpVnrAxfNYoR24aDyxZOKRFuYlCS
-	 Zo9TfPAXHUzMg==
-Message-ID: <0c72913e-9708-4675-a421-06ed82b7802a@kernel.org>
-Date: Fri, 9 Jan 2026 16:03:45 +0100
+	b=D5A49i8XZ+WWgc3yo8WpoToMpiFiiYIORsD5kdhtfLHgOWLJ+teHa3YKmPfqvZQto
+	 EOjbH06xY/Y2D1tuKVkl4Bn9mfBj2pRUINZJHsmiBlwwDKMfmgPNBdydHY/WcoODaP
+	 hXTbfv9bYAipERXqMFeW7thazUf0MBtEe10dcKDUEhB49l5TpS6DuQJGLnLWIPw35L
+	 /A7EpMCyhB3OpiWJ4xcCGJauiqHLzHAPYo90gEXDJEGp6mJ/mQ/yOKD0hyaBuAIhmW
+	 2g9u3gE5rzMBGVklkmAIGwRJV3u8nzhfd1IwpNssclwPUhgU0okSyNsciYIOrvSviH
+	 Q73z6sh0NFzwA==
+Message-ID: <1e123306-0efe-457f-953b-d4a27ce6bc60@kernel.org>
+Date: Fri, 9 Jan 2026 16:07:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/14] mm: clarify lazy_mmu sleeping constraints
+Subject: Re: [PATCH v6 14/14] mm: Add basic tests for lazy_mmu
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andreas Larsson <andreas@gaisler.com>,
@@ -84,7 +85,7 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
  xen-devel@lists.xenproject.org, x86@kernel.org
 References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
- <20251215150323.2218608-6-kevin.brodsky@arm.com>
+ <20251215150323.2218608-15-kevin.brodsky@arm.com>
 From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -130,49 +131,141 @@ Autocrypt: addr=david@kernel.org; keydata=
  cFAM8nBWrEmNU2vvIGJzjJ/NVYYIY0TgOc5bS9wh6jKHL2+chrfDW5neLJjY2x3snF8q7U9G
  EIbBfNHDlOV8SyhEjtX0DyKxQKioTYPOHcW9gdV5fhSz5tEv+ipqt4kIgWqBgzK8ePtDTqRM
  qZq457g1/SXSoSQi4jN+gsneqvlTJdzaEu1bJP0iv6ViVf15+qHuY5iojCz8fa0=
-In-Reply-To: <20251215150323.2218608-6-kevin.brodsky@arm.com>
+In-Reply-To: <20251215150323.2218608-15-kevin.brodsky@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 12/15/25 16:03, Kevin Brodsky wrote:
-> The lazy MMU mode documentation makes clear that an implementation
-> should not assume that preemption is disabled or any lock is held
-> upon entry to the mode; however it says nothing about what code
-> using the lazy MMU interface should expect.
-> 
-> In practice sleeping is forbidden (for generic code) while the lazy
-> MMU mode is active: say it explicitly.
+> Add basic KUnit tests for the generic aspects of the lazy MMU mode:
+> ensure that it appears active when it should, depending on how
+> enable/disable and pause/resume pairs are nested.
 > 
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->   include/linux/pgtable.h | 14 +++++++++-----
->   1 file changed, 9 insertions(+), 5 deletions(-)
+>   mm/Kconfig                     | 12 ++++++
+>   mm/Makefile                    |  1 +
+>   mm/tests/lazy_mmu_mode_kunit.c | 71 ++++++++++++++++++++++++++++++++++
+>   3 files changed, 84 insertions(+)
+>   create mode 100644 mm/tests/lazy_mmu_mode_kunit.c
 > 
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 652f287c1ef6..1abc4a1c3d72 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -225,11 +225,15 @@ static inline int pmd_dirty(pmd_t pmd)
->    * up to date.
->    *
->    * In the general case, no lock is guaranteed to be held between entry and exit
-> - * of the lazy mode. So the implementation must assume preemption may be enabled
-> - * and cpu migration is possible; it must take steps to be robust against this.
-> - * (In practice, for user PTE updates, the appropriate page table lock(s) are
-> - * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
-> - * and the mode cannot be used in interrupt context.
-> + * of the lazy mode. (In practice, for user PTE updates, the appropriate page
-> + * table lock(s) are held, but for kernel PTE updates, no lock is held).
-> + * The implementation must therefore assume preemption may be enabled upon
-> + * entry to the mode and cpu migration is possible; it must take steps to be
-> + * robust against this. An implementation may handle this by disabling
-> + * preemption, as a consequence generic code may not sleep while the lazy MMU
-> + * mode is active.
-> + *
-> + * Nesting is not permitted and the mode cannot be used in interrupt context.
->    */
->   #ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
->   static inline void arch_enter_lazy_mmu_mode(void) {}
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 62073bd61544..ac48deb44884 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -1471,6 +1471,18 @@ config ARCH_HAS_LAZY_MMU_MODE
+>   	  MMU-related architectural state to be deferred until the mode is
+>   	  exited. See <linux/pgtable.h> for details.
+>   
+> +config LAZY_MMU_MODE_KUNIT_TEST
+> +	tristate "KUnit tests for the lazy MMU mode" if !KUNIT_ALL_TESTS
+> +	depends on ARCH_HAS_LAZY_MMU_MODE
+> +	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Enable this option to check that the lazy MMU mode interface behaves
+> +	  as expected. Only tests for the generic interface are included (not
+> +	  architecture-specific behaviours).
+> +
+> +	  If unsure, say N.
+> +
+>   source "mm/damon/Kconfig"
+>   
+>   endmenu
+> diff --git a/mm/Makefile b/mm/Makefile
+> index 2d0570a16e5b..9175f8cc6565 100644
+> --- a/mm/Makefile
+> +++ b/mm/Makefile
+> @@ -147,3 +147,4 @@ obj-$(CONFIG_SHRINKER_DEBUG) += shrinker_debug.o
+>   obj-$(CONFIG_EXECMEM) += execmem.o
+>   obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
+>   obj-$(CONFIG_PT_RECLAIM) += pt_reclaim.o
+> +obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
+> diff --git a/mm/tests/lazy_mmu_mode_kunit.c b/mm/tests/lazy_mmu_mode_kunit.c
+> new file mode 100644
+> index 000000000000..2720eb995714
+> --- /dev/null
+> +++ b/mm/tests/lazy_mmu_mode_kunit.c
+> @@ -0,0 +1,71 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +#include <kunit/test.h>
+> +#include <linux/pgtable.h>
+> +
+> +static void expect_not_active(struct kunit *test)
+> +{
+> +	KUNIT_EXPECT_FALSE(test, is_lazy_mmu_mode_active());
+> +}
+> +
+> +static void expect_active(struct kunit *test)
+> +{
+> +	KUNIT_EXPECT_TRUE(test, is_lazy_mmu_mode_active());
+> +}
+> +
+> +static void lazy_mmu_mode_active(struct kunit *test)
+> +{
+> +	expect_not_active(test);
+> +
+> +	lazy_mmu_mode_enable();
+> +	expect_active(test);
+> +
+> +	{
+> +		/* Nested section */
+> +		lazy_mmu_mode_enable();
+> +		expect_active(test);
+> +
+> +		lazy_mmu_mode_disable();
+> +		expect_active(test);
+> +	}
+> +
+> +	{
+> +		/* Paused section */
+> +		lazy_mmu_mode_pause();
+> +		expect_not_active(test);
+> +
+> +		{
+> +			/* No effect (paused) */
+> +			lazy_mmu_mode_enable();
+> +			expect_not_active(test);
+> +
+> +			lazy_mmu_mode_disable();
+> +			expect_not_active(test);
+> +
+> +			lazy_mmu_mode_pause();
+> +			expect_not_active(test);
+> +
+> +			lazy_mmu_mode_resume();
+> +			expect_not_active(test);
+> +		}
+> +
+> +		lazy_mmu_mode_resume();
+> +		expect_active(test);
+> +	}
+> +
+> +	lazy_mmu_mode_disable();
+> +	expect_not_active(test);
+> +}
+> +
+> +static struct kunit_case lazy_mmu_mode_test_cases[] = {
+> +	KUNIT_CASE(lazy_mmu_mode_active),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite lazy_mmu_mode_test_suite = {
+> +	.name = "lazy_mmu_mode",
+> +	.test_cases = lazy_mmu_mode_test_cases,
+> +};
+> +kunit_test_suite(lazy_mmu_mode_test_suite);
+> +
+> +MODULE_DESCRIPTION("Tests for the lazy MMU mode");
+> +MODULE_LICENSE("GPL");
+
+
+Very nice test :)
+
+I think I prefer the EXPORT_SYMBOL_IF_KUNIT over disabling the test for 
+PPC and over making lazy_mmu_mode_enable() non-inlined functions with an 
+exported symbol.
+
+With the EXPORT_SYMBOL_IF_KUNIT stuff added
 
 Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 
