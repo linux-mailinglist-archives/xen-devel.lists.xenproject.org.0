@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC824D0E10C
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Jan 2026 05:12:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1199670.1515924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA505D0E68A
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Jan 2026 09:45:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1199739.1515935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vemo8-0005PH-Ez; Sun, 11 Jan 2026 04:12:04 +0000
+	id 1ver3p-0007Ck-5J; Sun, 11 Jan 2026 08:44:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1199670.1515924; Sun, 11 Jan 2026 04:12:04 +0000
+Received: by outflank-mailman (output) from mailman id 1199739.1515935; Sun, 11 Jan 2026 08:44:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vemo8-0005NR-B0; Sun, 11 Jan 2026 04:12:04 +0000
-Received: by outflank-mailman (input) for mailman id 1199670;
- Sun, 11 Jan 2026 04:12:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1vemo6-00056N-G8
- for xen-devel@lists.xenproject.org; Sun, 11 Jan 2026 04:12:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1vemo5-001xpY-21;
- Sun, 11 Jan 2026 04:12:01 +0000
-Received: from [19.12.91.86] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1vemo5-000Y6K-2F;
- Sun, 11 Jan 2026 04:12:01 +0000
+	id 1ver3p-00079f-1b; Sun, 11 Jan 2026 08:44:33 +0000
+Received: by outflank-mailman (input) for mailman id 1199739;
+ Sun, 11 Jan 2026 08:44:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QKt0=7Q=proton.me=milky_way_303030@srs-se1.protection.inumbo.net>)
+ id 1ver3m-00079X-AE
+ for xen-devel@lists.xenproject.org; Sun, 11 Jan 2026 08:44:31 +0000
+Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch
+ [109.224.244.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcd28f24-eec9-11f0-b15e-2bf370ae4941;
+ Sun, 11 Jan 2026 09:44:27 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,384 +36,261 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From;
-	bh=foxDb3geIou8JW8wuomGx2/i1qOo8eC7hBk0Ml/97QE=; b=U7mKRMHeM/Nu8OcpI71xY6D1sK
-	hjbmlC8XouXkW3q6JlNMFecLWP/1Shj1wCzHf8W96hWwTr/UfrST5S8ZnlBpPvoX1YlZWsboOjPvL
-	Oo7nhKw8JxSZ3zRpEvwY1Rwko1nmaJ0VecAjWog1NXw2PHlSU0u0Vwz/XD9vJemkrKKk=;
-From: dmukhin@xen.org
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech,
-	jbeulich@suse.com,
-	julien@xen.org,
-	michal.orzel@amd.com,
-	roger.pau@citrix.com,
-	sstabellini@kernel.org,
-	dmukhin@ford.com
-Subject: [PATCH v2 4/4] tests: use unit test fragment in vPCI test
-Date: Sat, 10 Jan 2026 20:11:45 -0800
-Message-ID: <20260111041145.553673-5-dmukhin@ford.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260111041145.553673-1-dmukhin@ford.com>
-References: <20260111041145.553673-1-dmukhin@ford.com>
+X-Inumbo-ID: bcd28f24-eec9-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1768121066; x=1768380266;
+	bh=sevsMZJLYMUqtxnrgORxu7J5MIpUODntARyXXjPMWlw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VTBYt5Gh4H1qJVAU8V3AdsemGp3UCx71qthh+QaR8dJYUCcEmu37sucpe4A1fHsUf
+	 abV+CKhnv7Mslzx+ox1ie+EohccuAg2qWzgQIsEyQt5uWkPB/t3oSGDpXj1XhxfnkW
+	 HsCqtkJTFAmM8sYpUhqZKCyzjLZIT2D51kikeP+dNlTi1lnC5Zx1oHrHbR8u6npEHW
+	 ZHaCjSPBbZNnhn308E9fg3fDZYu2HAmyeg6TJON5ml/EU6Lr3XLhOb/qaJ7b5g+MEL
+	 xYjUNeoXNH2INmc3X+jvsgSqzEPHLXnPUejn/gefiPMm5Xk+1hJRSs7/jjQgnMrDWJ
+	 wa62kLGRzuJ3g==
+Date: Sun, 11 Jan 2026 08:44:22 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: Milky <milky_way_303030@proton.me>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: Cpufreq drivers not working on T480S
+Message-ID: <qo8wx-b_cpRuzol0X0mW_NHY1mu3tOBCzMvy5Y_8IASOkmy1oxPdJWdbrndDL63d5lMbw1FDMkI9gCSH9BS2UFWiuyjhycfqWpJWueeHq2E=@proton.me>
+In-Reply-To: <7dbd26d1-0d9a-454f-90d8-5a7f3d8e12da@suse.com>
+References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me> <CAKf6xpsN_RnY2dHnXKj_-UySf1z0auye2qy=KHOEhcBbZ1un9A@mail.gmail.com> <NqFx_tXl0Zmx2ft7YVNGodkDcUFK7nA8KWUQMjOmD0y4T5W3-sTcGxCt7ViSRObUeJog3069xTY0ODZIG5hrX-Th2MvE95dSze13MGQ2tOY=@proton.me> <CAKf6xpvtF_cE7vMb9JfsVLkYH1XRXZG3nj+QO_72-zKJ3Cxh9w@mail.gmail.com> <DkXw78UBxXYCLNKCoThGPM1kde5JwARo3NhWtlBBrrFtLFVTnwNlwDlZYzuNlSdAs9XzE0aDPqgt9dri9YKJULULBXwJLEcEgbLOgzkVSVU=@proton.me> <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com> <unRhWiUKUGc3G4yBmJJ2Pc0JOSbM4HC0b-fTBaf1f0RYJEi_aIHV3-il1EafrSE9c77-tZNUV386xdg3UANDdeonG_zecEVq7HrG2COheJ8=@proton.me> <7dbd26d1-0d9a-454f-90d8-5a7f3d8e12da@suse.com>
+Feedback-ID: 171106842:user:proton
+X-Pm-Message-ID: d1e2ba194983e9292fa5991c3edc236d5e3bcb41
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Denis Mukhin <dmukhin@ford.com> 
+On Thursday, January 8th, 2026 at 7:46 AM, Jan Beulich <jbeulich@suse.com> =
+wrote:
 
-Use the new make fragment to generate test harness code for
-the vPCI unit test.
+> > The same is also true under Debian Live; does it mean that frequency sc=
+aling, since it seems to be working under Debian Live, doesn't always rely =
+on this?
+>=20
+>=20
+> Yes, that's possible afaik. Which driver is in use there?
 
-Add new prepare-harness target to tests/Rules.mk as an optional step for
-setting up mocked environment for building a test.
+`/sys/devices/system/cpu/cpu0/scaling_driver` shows `intel_pstate`; confirm=
+ed also using `dmesg`, which shows Intel P-state initialisation and HWP bei=
+ng enabled.
 
-Fix hypervisor headers used to compile vpci.c against host environment
-where necessary.
+> > Maybe also with Xen's command line try cpufreq=3Dxen:no-hwp to disable
+> > HWP and see if the regular ACPI cpufreq driver works better
 
-Fixup emul.h by adding missing mocks to account for new unit test infra.
+Following from Marek's message elsewhwere in the thread, I now tried adding=
+ in grub the correct Xen flag to disable HWP on Qubes: `cpufreq=3Dxen,no-hw=
+p`. I am pasting below the output of `xl dmesg`. It seems it no longer repo=
+rts HWP being enabled. However, `xenpm get-cpufreq-para` still says "failed=
+ to get cpufreq parameter", `xenpm get-cpufreq-states` returns nothing.
 
-Update .gitignore to exclude generated test build-time dependencies.
 
-Not a functional change.
-
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v1:
-- new patch
----
- tools/tests/Rules.mk        |  5 +++-
- tools/tests/vpci/.gitignore |  2 ++
- tools/tests/vpci/Makefile   | 52 ++++++++++++-------------------------
- tools/tests/vpci/emul.h     | 50 +++++++++++++----------------------
- tools/tests/vpci/main.c     |  2 --
- xen/include/xen/irq.h       |  2 ++
- xen/include/xen/list.h      |  2 ++
- xen/include/xen/numa.h      |  2 ++
- xen/include/xen/pci.h       |  2 ++
- xen/include/xen/pfn.h       |  2 ++
- xen/include/xen/spinlock.h  |  2 ++
- xen/include/xen/types.h     |  4 +++
- 12 files changed, 56 insertions(+), 71 deletions(-)
- create mode 100644 tools/tests/vpci/.gitignore
-
-diff --git a/tools/tests/Rules.mk b/tools/tests/Rules.mk
-index daa9e69301e4..26f3d00b5fb9 100644
---- a/tools/tests/Rules.mk
-+++ b/tools/tests/Rules.mk
-@@ -11,13 +11,16 @@ $(shell sed -n \
-     's/^[ \t]*# *include[ \t]*[<"]\([^">]*\)[">].*/\1/p' $(1) 2>/dev/null)
- endef
- 
-+.PHONY: prepare-harness
-+prepare-harness:
-+
- # Generate mock environment by replicating header file hierarchy;
- # each header file will point to a harness header.
- #
- # $1 target
- # $2 list of test harnesses
- define emit-harness-nested-rule
--$(1): $(2)
-+$(1): prepare-harness $(2)
- 	set -e; \
- 	mkdir -p $$(@D); \
- 	for i in $(2); do [ -e $$@ ] || ln -s $$$$i $$@; done
-diff --git a/tools/tests/vpci/.gitignore b/tools/tests/vpci/.gitignore
-new file mode 100644
-index 000000000000..d66c2cd56be6
---- /dev/null
-+++ b/tools/tests/vpci/.gitignore
-@@ -0,0 +1,2 @@
-+/generated
-+test-vpci
-diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
-index 97359ff67f86..695a275675f8 100644
---- a/tools/tests/vpci/Makefile
-+++ b/tools/tests/vpci/Makefile
-@@ -1,43 +1,23 @@
--XEN_ROOT=$(CURDIR)/../../..
--include $(XEN_ROOT)/tools/Rules.mk
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Unit tests for vPCI.
-+#
- 
--TARGET := test_vpci
-+TESTS := test-vpci
- 
--.PHONY: all
--all: $(TARGET)
-+XEN_ROOT = $(CURDIR)/../../..
-+CFLAGS += -DCONFIG_HAS_VPCI
- 
--.PHONY: run
--run: $(TARGET)
--ifeq ($(CC),$(HOSTCC))
--	./$(TARGET)
--else
--	$(warning HOSTCC != CC, will not run test)
--endif
-+include $(XEN_ROOT)/tools/tests/Rules.mk
- 
--$(TARGET): vpci.c vpci.h list.h main.c emul.h
--	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-+# Do not mock xen/vpci.h header for the test
-+prepare-harness:
-+	set -e; mkdir -p $(CURDIR)/generated/xen; \
-+	ln -sf $(XEN_ROOT)/xen/include/xen/vpci.h $(CURDIR)/generated/xen
- 
--.PHONY: clean
--clean:
--	rm -rf $(TARGET) *.o *~ vpci.h vpci.c list.h
-+CFLAGS += -I $(XEN_ROOT)/xen/include/
- 
--.PHONY: distclean
--distclean: clean
-+$(eval $(call vpath-with-harness-deps,vpci.c,$(XEN_ROOT)/xen/drivers/vpci/,emul.h))
- 
--.PHONY: install
--install: all
--	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
--	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC)/tests
--
--.PHONY: uninstall
--uninstall:
--	$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/$(TARGET)
--
--vpci.c: $(XEN_ROOT)/xen/drivers/vpci/vpci.c
--	# Remove includes and add the test harness header
--	sed -e '/#include/d' -e '1s/^/#include "emul.h"/' <$< >$@
--
--list.h: $(XEN_ROOT)/xen/include/xen/list.h
--vpci.h: $(XEN_ROOT)/xen/include/xen/vpci.h
--list.h vpci.h:
--	sed -e '/#include/d' <$< >$@
-+test-vpci: vpci.o main.o
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-index dd048cffbf9d..979e86e2692e 100644
---- a/tools/tests/vpci/emul.h
-+++ b/tools/tests/vpci/emul.h
-@@ -34,8 +34,16 @@
- #define ASSERT(x) assert(x)
- #define __must_check __attribute__((__warn_unused_result__))
- #define cf_check
-+#define always_inline inline
- 
--#include "list.h"
-+typedef int64_t s_time_t;
-+typedef uint8_t nodeid_t;
-+typedef uint8_t u8;
-+typedef uint16_t u16;
-+typedef uint32_t u32;
-+typedef uint64_t u64;
-+
-+#include <xen/list.h>
- 
- typedef bool rwlock_t;
- 
-@@ -43,10 +51,6 @@ struct domain {
-     rwlock_t pci_lock;
- };
- 
--struct pci_dev {
--    struct vpci *vpci;
--};
--
- struct vcpu
- {
-     struct domain *domain;
-@@ -57,35 +61,17 @@ extern const struct pci_dev test_pdev;
- 
- typedef bool spinlock_t;
- #define spin_lock_init(l) (*(l) = false)
--#define spin_lock(l) (*(l) = true)
--#define spin_unlock(l) (*(l) = false)
--#define read_lock(l) (*(l) = true)
--#define read_unlock(l) (*(l) = false)
--#define write_lock(l) (*(l) = true)
--#define write_unlock(l) (*(l) = false)
-+#define spin_lock(l) (assert(!*(l)), *(l) = true)
-+#define spin_unlock(l) (assert(*(l)), *(l) = false)
-+#define read_lock(l) (assert(!*(l)), *(l) = true)
-+#define read_unlock(l) (assert(*(l)), *(l) = false)
-+#define write_lock(l) (assert(!*(l)), *(l) = true)
-+#define write_unlock(l) (assert(*(l)), *(l) = false)
- 
--typedef union {
--    uint32_t sbdf;
--    struct {
--        union {
--            uint16_t bdf;
--            struct {
--                union {
--                    struct {
--                        uint8_t func : 3,
--                                dev  : 5;
--                    };
--                    uint8_t     extfunc;
--                };
--                uint8_t         bus;
--            };
--        };
--        uint16_t                seg;
--    };
--} pci_sbdf_t;
-+#define lock_evaluate_nospec(l) (l)
-+#define block_lock_speculation()
- 
--#define CONFIG_HAS_VPCI
--#include "vpci.h"
-+#include <xen/vpci.h>
- 
- #define __hwdom_init
- 
-diff --git a/tools/tests/vpci/main.c b/tools/tests/vpci/main.c
-index 2ef8d4e03f1d..3753417e866d 100644
---- a/tools/tests/vpci/main.c
-+++ b/tools/tests/vpci/main.c
-@@ -189,8 +189,6 @@ main(int argc, char **argv)
-     uint32_t r24 = 0;
-     uint8_t r28, r30;
-     struct mask_data r32;
--    unsigned int i;
--    int rc;
- 
-     INIT_LIST_HEAD(&vpci.handlers);
-     spin_lock_init(&vpci.lock);
-diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
-index 6071b00f621e..f7fa1d0fa29b 100644
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -1,5 +1,6 @@
- #ifndef __XEN_IRQ_H__
- #define __XEN_IRQ_H__
-+#ifdef __XEN__
- 
- #include <xen/cpumask.h>
- #include <xen/rcupdate.h>
-@@ -208,4 +209,5 @@ unsigned int arch_hwdom_irqs(const struct domain *d);
- void arch_evtchn_bind_pirq(struct domain *d, int pirq);
- #endif
- 
-+#endif /* __XEN__ */
- #endif /* __XEN_IRQ_H__ */
-diff --git a/xen/include/xen/list.h b/xen/include/xen/list.h
-index 98d8482daba1..06d2fa3aed15 100644
---- a/xen/include/xen/list.h
-+++ b/xen/include/xen/list.h
-@@ -7,8 +7,10 @@
- #ifndef __XEN_LIST_H__
- #define __XEN_LIST_H__
- 
-+#ifdef __XEN__
- #include <xen/bug.h>
- #include <asm/system.h>
-+#endif
- 
- /*
-  * These are non-NULL pointers that will result in faults under normal
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index f6c1f27ca105..80d60fd49178 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -1,5 +1,6 @@
- #ifndef _XEN_NUMA_H
- #define _XEN_NUMA_H
-+#ifdef __XEN__
- 
- #include <xen/mm-frame.h>
- 
-@@ -152,4 +153,5 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
- 
- #define page_to_nid(pg) mfn_to_nid(page_to_mfn(pg))
- 
-+#endif /* __XEN__ */
- #endif /* _XEN_NUMA_H */
-diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
-index 130c2a8c1a65..f5965a68ae33 100644
---- a/xen/include/xen/pci.h
-+++ b/xen/include/xen/pci.h
-@@ -14,7 +14,9 @@
- #include <xen/numa.h>
- #include <xen/pci_regs.h>
- #include <xen/pfn.h>
-+#ifdef __XEN__
- #include <asm/device.h>
-+#endif
- 
- /*
-  * The PCI interface treats multi-function devices as independent
-diff --git a/xen/include/xen/pfn.h b/xen/include/xen/pfn.h
-index 1ca9b095e0df..98ff669d7def 100644
---- a/xen/include/xen/pfn.h
-+++ b/xen/include/xen/pfn.h
-@@ -1,7 +1,9 @@
- #ifndef __XEN_PFN_H__
- #define __XEN_PFN_H__
- 
-+#ifdef __XEN__
- #include <xen/page-size.h>
-+#endif
- 
- #define PFN_DOWN(x)   ((x) >> PAGE_SHIFT)
- #define PFN_UP(x)     (((x) + PAGE_SIZE-1) >> PAGE_SHIFT)
-diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-index ca9d8c7ec0a1..ad5094c4eb92 100644
---- a/xen/include/xen/spinlock.h
-+++ b/xen/include/xen/spinlock.h
-@@ -1,5 +1,6 @@
- #ifndef __SPINLOCK_H__
- #define __SPINLOCK_H__
-+#ifdef __XEN__
- 
- #include <xen/nospec.h>
- #include <xen/time.h>
-@@ -360,4 +361,5 @@ static always_inline void nrspin_lock_irq(rspinlock_t *l)
- #define nrspin_unlock_irqrestore(l, f) _nrspin_unlock_irqrestore(l, f)
- #define nrspin_unlock_irq(l)           _nrspin_unlock_irq(l)
- 
-+#endif /* __XEN__ */
- #endif /* __SPINLOCK_H__ */
-diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
-index 73ddccbbd5dc..e5d702b48ac0 100644
---- a/xen/include/xen/types.h
-+++ b/xen/include/xen/types.h
-@@ -4,6 +4,7 @@
- #include <xen/stdbool.h>
- #include <xen/stdint.h>
- 
-+#ifdef __XEN__
- /* Linux inherited types which are being phased out */
- typedef uint8_t u8;
- typedef uint16_t u16;
-@@ -15,6 +16,7 @@ typedef uint64_t u64;
- typedef __SIZE_TYPE__ size_t;
- 
- typedef signed long ssize_t;
-+#endif /* __XEN__ */
- 
- typedef __PTRDIFF_TYPE__ ptrdiff_t;
- typedef __UINTPTR_TYPE__ uintptr_t;
-@@ -33,6 +35,7 @@ typedef __UINTPTR_TYPE__ uintptr_t;
- #define NULL ((void*)0)
- #endif
- 
-+#ifdef __XEN__
- #define INT8_MIN        (-127-1)
- #define INT16_MIN       (-32767-1)
- #define INT32_MIN       (-2147483647-1)
-@@ -52,6 +55,7 @@ typedef __UINTPTR_TYPE__ uintptr_t;
- #define LONG_MAX        ((long)(~0UL>>1))
- #define LONG_MIN        (-LONG_MAX - 1)
- #define ULONG_MAX       (~0UL)
-+#endif /* __XEN__ */
- 
- typedef uint16_t __le16;
- typedef uint16_t __be16;
--- 
-2.52.0
+```
+(XEN) Built-in command line: ept=3Dexec-sp spec-ctrl=3Dunpriv-mmio
+ Xen 4.17.5
+(XEN) Xen version 4.17.5 (mockbuild@[unknown]) (gcc (GCC) 12.3.1 20230508 (=
+Red Hat 12.3.1-1)) debug=3Dn Fri Aug 22 16:12:56 CEST 2025
+(XEN) Latest ChangeSet:=20
+(XEN) build-id: d2dd0684651dcc833d35869ad2259cb6f0ba1d19
+(XEN) Bootloader: GRUB 2.13
+(XEN) Command line: placeholder cpufreq=3Dxen,no-hwp,verbose loglvl=3Dall d=
+om0_mem=3Dmin:1024M dom0_mem=3Dmax:4096M ucode=3Dscan smt=3Doff gnttab_max_=
+frames=3D2048 gnttab_max_maptrack_frames=3D4096 no-real-mode edd=3Doff
+(XEN) Xen image load base address: 0x79200000
+(XEN) Video information:
+(XEN)  VGA is text mode 80x25, font 8x16
+(XEN) Disc information:
+(XEN)  Found 0 MBR signatures
+(XEN)  Found 0 EDD information structures
+(XEN) CPU Vendor: Intel, Family 6 (0x6), Model 142 (0x8e), Stepping 10 (raw=
+ 000806ea)
+(XEN) Multiboot-e820 RAM map:
+(XEN)  [0000000000000000, 0000000000000fff] (reserved)
+(XEN)  [0000000000001000, 000000000009ffff] (usable)
+(XEN)  [00000000000a0000, 00000000000fffff] (reserved)
+(XEN)  [0000000000100000, 000000007aa06fff] (usable)
+(XEN)  [000000007aa07000, 000000007fffffff] (reserved)
+(XEN)  [00000000e0000000, 00000000efffffff] (reserved)
+(XEN)  [00000000fd000000, 00000000fe00ffff] (reserved)
+(XEN)  [00000000fed10000, 00000000fed19fff] (reserved)
+(XEN)  [00000000fed80000, 00000000fed84fff] (reserved)
+(XEN)  [00000000fed90000, 00000000fed91fff] (reserved)
+(XEN)  [0000000100000000, 0000000a7fffffff] (usable)
+(XEN) ACPI: RSDP 000F6010, 0024 (r2 COREv4)
+(XEN) ACPI: XSDT 7AA0F0E0, 0064 (r1 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: FACP 7AA13020, 0114 (r6 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: DSDT 7AA0F280, 3D98 (r2 COREv4 COREBOOT 20110725 INTL 20241212)
+(XEN) ACPI: FACS 7AA0F240, 0040
+(XEN) ACPI: SSDT 7AA13140, 08EA (r2 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: MCFG 7AA13A30, 003C (r1 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: LPIT 7AA13A70, 0094 (r0 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: APIC 7AA13B10, 0072 (r3 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: SPCR 7AA13B90, 0058 (r4 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: DMAR 7AA13BF0, 0088 (r1 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) ACPI: HPET 7AA13C80, 0038 (r1 COREv4 COREBOOT        0 CORE 20241212)
+(XEN) System RAM: 40873MB (41854616kB)
+(XEN) No NUMA configuration found
+(XEN) Faking a node at 0000000000000000-0000000a80000000
+(XEN) Domain heap initialised
+(XEN) SMBIOS 3.0 present.
+(XEN) Using APIC driver default
+(XEN) ACPI: PM-Timer IO Port: 0x1808 (24 bits)
+(XEN) ACPI: v5 SLEEP INFO: control[0:0], status[0:0]
+(XEN) ACPI: SLEEP INFO: pm1x_cnt[1:1804,1:0], pm1x_evt[1:1800,1:0]
+(XEN) ACPI:             wakeup_vec[7aa0f24c], vec_size[20]
+(XEN) ACPI: Local APIC address 0xfee00000
+(XEN) ACPI: IOAPIC (id[0x00] address[0xfec00000] gsi_base[0])
+(XEN) IOAPIC[0]: apic_id 0, version 32, address 0xfec00000, GSI 0-119
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+(XEN) ACPI: IRQ0 used by override.
+(XEN) ACPI: IRQ2 used by override.
+(XEN) ACPI: IRQ9 used by override.
+(XEN) ACPI: HPET id: 0x8086a701 base: 0xfed00000
+(XEN) PCI: MCFG configuration 0: base e0000000 segment 0000 buses 00 - ff
+(XEN) PCI: MCFG area at e0000000 reserved in E820
+(XEN) PCI: Using MCFG for segment 0000 bus 00-ff
+(XEN) Using ACPI (MADT) for SMP configuration information
+(XEN) SMP: Allowing 4 CPUs (0 hotplug CPUs)
+(XEN) IRQ limits: 120 GSI, 840 MSI/MSI-X
+(XEN) Switched to APIC driver x2apic_mixed
+(XEN) BSP microcode revision: 0x000000f6
+(XEN) FIRMWARE BUG: CPU 06-8e-0a, ucode 0x000000f6: RTM_ALWAYS_ABORT vs RTM=
+ mismatch
+(XEN) CPU0: TSC: ratio: 150 / 2
+(XEN) CPU0: bus: 100 MHz base: 1800 MHz max: 3400 MHz
+(XEN) CPU0: 400 ... 1800 MHz
+(XEN) xstate: size: 0x440 and states: 0x1f
+(XEN) CPU0: Intel machine check reporting enabled
+(XEN) Speculative mitigation facilities:
+(XEN)   Hardware hints: RSBA RFDS_NO
+(XEN)   Hardware features: IBPB IBRS STIBP SSBD L1D_FLUSH MD_CLEAR SRBDS_CT=
+RL GDS_CTRL
+(XEN)   Compiled-in support: INDIRECT_THUNK RETURN_THUNK HARDEN_ARRAY HARDE=
+N_BRANCH HARDEN_GUEST_ACCESS HARDEN_LOCK
+(XEN)   Xen settings: BTI-Thunk: JMP, SPEC_CTRL: IBRS+ STIBP+ SSBD-, Other:=
+ SRB_LOCK+ IBPB-ctxt L1D_FLUSH VERW BRANCH_HARDEN
+(XEN)   L1TF: believed vulnerable, maxphysaddr L1D 46, CPUID 39, Safe addre=
+ss 8000000000
+(XEN)   Support for HVM VMs: MSR_SPEC_CTRL MSR_VIRT_SPEC_CTRL RSB EAGER_FPU
+(XEN)   Support for PV VMs: MSR_SPEC_CTRL EAGER_FPU VERW
+(XEN)   XPTI (64-bit PV only): Dom0 enabled, DomU enabled (with PCID)
+(XEN)   PV L1TF shadowing: Dom0 disabled, DomU enabled
+(XEN) Using scheduler: SMP Credit Scheduler rev2 (credit2)
+(XEN) Initializing Credit2 scheduler
+(XEN)  load_precision_shift: 18
+(XEN)  load_window_shift: 30
+(XEN)  underload_balance_tolerance: 0
+(XEN)  overload_balance_tolerance: -3
+(XEN)  runqueues arrangement: socket
+(XEN)  cap enforcement granularity: 10ms
+(XEN) load tracking window length 1073741824 ns
+(XEN) Disabling HPET for being unreliable
+(XEN) Platform timer is 3.580MHz ACPI PM Timer
+(XEN) Detected 1799.991 MHz processor.
+(XEN) Freed 1024kB unused BSS memory
+(XEN) alt table ffff82d04042bf70 -> ffff82d04043b3f2
+(XEN) cpu0: spurious 8259A interrupt: IRQ7
+(XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB
+(XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB
+(XEN) Intel VT-d Snoop Control not enabled.
+(XEN) Intel VT-d Dom0 DMA Passthrough not enabled.
+(XEN) Intel VT-d Queued Invalidation enabled.
+(XEN) Intel VT-d Interrupt Remapping enabled.
+(XEN) Intel VT-d Posted Interrupt not enabled.
+(XEN) Intel VT-d Shared EPT tables enabled.
+(XEN) I/O virtualisation enabled
+(XEN)  - Dom0 mode: Relaxed
+(XEN) Interrupt remapping enabled
+(XEN) nr_sockets: 1
+(XEN) Enabled directed EOI with ioapic_ack_old on!
+(XEN) Enabling APIC mode.  Using 1 I/O APICs
+(XEN) ENABLING IO-APIC IRQs
+(XEN)  -> Using old ACK method
+(XEN) ..TIMER: vector=3D0xF0 apic1=3D0 pin1=3D2 apic2=3D0 pin2=3D0
+(XEN) TSC deadline timer enabled
+(XEN) Allocated console ring of 32 KiB.
+(XEN) HWP: 1 notify: 1 act-window: 1 energy-perf: 1 pkg-level: 0 peci: 0
+(XEN) HWP: Hardware Duty Cycling (HDC) supported, enabled
+(XEN) HWP: HW_FEEDBACK not supported
+(XEN) mwait-idle: MWAIT substates: 0x11142120
+(XEN) mwait-idle: v0.4.1 model 0x8e
+(XEN) mwait-idle: lapic_timer_reliable_states 0xffffffff
+(XEN) VMX: Supported advanced features:
+(XEN)  - APIC MMIO access virtualisation
+(XEN)  - APIC TPR shadow
+(XEN)  - Extended Page Tables (EPT)
+(XEN)  - Virtual-Processor Identifiers (VPID)
+(XEN)  - Virtual NMI
+(XEN)  - MSR direct-access bitmap
+(XEN)  - Unrestricted Guest
+(XEN)  - VM Functions
+(XEN)  - Virtualisation Exceptions
+(XEN)  - Page Modification Logging
+(XEN) HVM: ASIDs enabled.
+(XEN) HVM: VMX enabled
+(XEN) HVM: Hardware Assisted Paging (HAP) detected
+(XEN) HVM: HAP page sizes: 4kB, 2MB, 1GB
+(XEN) alt table ffff82d04042bf70 -> ffff82d04043b3f2
+(XEN) Brought up 4 CPUs
+(XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+(XEN) Initializing Credit2 scheduler
+(XEN)  load_precision_shift: 18
+(XEN)  load_window_shift: 30
+(XEN)  underload_balance_tolerance: 0
+(XEN)  overload_balance_tolerance: -3
+(XEN)  runqueues arrangement: socket
+(XEN)  cap enforcement granularity: 10ms
+(XEN) load tracking window length 1073741824 ns
+(XEN) Adding cpu 0 to runqueue 0
+(XEN)  First cpu on runqueue, activating
+(XEN) Adding cpu 1 to runqueue 0
+(XEN) Adding cpu 2 to runqueue 1
+(XEN)  First cpu on runqueue, activating
+(XEN) Adding cpu 3 to runqueue 1
+(XEN) mcheck_poll: Machine check polling timer started.
+(XEN) NX (Execute Disable) protection active
+(XEN) d0 has maximum 744 PIRQs
+(XEN) *** Building a PV Dom0 ***
+(XEN)  Xen  kernel: 64-bit, lsb
+(XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x200000 -> 0x3c00000
+(XEN) PHYSICAL MEMORY ARRANGEMENT:
+(XEN)  Dom0 alloc.:   0000000a58000000->0000000a5c000000 (1022144 pages to =
+be allocated)
+(XEN)  Init. ramdisk: 0000000a7d8c0000->0000000a7ffff5b7
+(XEN) VIRTUAL MEMORY ARRANGEMENT:
+(XEN)  Loaded kernel: ffffffff80200000->ffffffff83c00000
+(XEN)  Phys-Mach map: 0000008000000000->0000008000800000
+(XEN)  Start info:    ffffffff83c00000->ffffffff83c004b8
+(XEN)  Page tables:   ffffffff83c01000->ffffffff83c24000
+(XEN)  Boot stack:    ffffffff83c24000->ffffffff83c25000
+(XEN)  TOTAL:         ffffffff80000000->ffffffff84000000
+(XEN)  ENTRY ADDRESS: ffffffff82b0de00
+(XEN) Dom0 has maximum 4 VCPUs
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: All
+(XEN) Guest Loglevel: Nothing (Rate-limited: Errors and warnings)
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) Freed 668kB init memory
+(XEN) PCI add device 0000:00:00.0
+(XEN) PCI add device 0000:00:02.0
+(XEN) PCI add device 0000:00:04.0
+(XEN) PCI add device 0000:00:14.0
+(XEN) PCI add device 0000:00:14.2
+(XEN) PCI add device 0000:00:1c.0
+(XEN) PCI add device 0000:00:1c.6
+(XEN) PCI add device 0000:00:1d.0
+(XEN) PCI add device 0000:00:1f.0
+(XEN) PCI add device 0000:00:1f.2
+(XEN) PCI add device 0000:00:1f.3
+(XEN) PCI add device 0000:00:1f.6
+(XEN) PCI add device 0000:02:00.0
+(XEN) PCI add device 0000:03:00.0
+(XEN) PCI add device 0000:00:1f.1
+(XEN) PCI remove device 0000:00:1f.1
+```
 
 
