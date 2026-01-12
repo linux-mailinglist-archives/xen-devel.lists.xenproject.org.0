@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7B9D131F7
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:29:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200361.1516299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 053D9D133F2
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:44:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200385.1516325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIuV-0001f1-H1; Mon, 12 Jan 2026 14:28:47 +0000
+	id 1vfJ92-00054l-1u; Mon, 12 Jan 2026 14:43:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200361.1516299; Mon, 12 Jan 2026 14:28:47 +0000
+Received: by outflank-mailman (output) from mailman id 1200385.1516325; Mon, 12 Jan 2026 14:43:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIuV-0001dk-E6; Mon, 12 Jan 2026 14:28:47 +0000
-Received: by outflank-mailman (input) for mailman id 1200361;
- Mon, 12 Jan 2026 14:28:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfJ91-00053K-UG; Mon, 12 Jan 2026 14:43:47 +0000
+Received: by outflank-mailman (input) for mailman id 1200385;
+ Mon, 12 Jan 2026 14:43:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfIuT-0001dc-CZ
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:28:45 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff874636-efc2-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 15:28:44 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-430f5ecaa08so3057331f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:28:44 -0800 (PST)
+ id 1vfJ90-0004yQ-Rc
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:43:46 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18250a8d-efc5-11f0-9ccf-f158ae23cfc8;
+ Mon, 12 Jan 2026 15:43:44 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-47795f6f5c0so39837245e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:43:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0daa78sm39459517f8f.6.2026.01.12.06.28.42
+ 5b1f17b1804b1-47d8718b995sm129101615e9.14.2026.01.12.06.43.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 06:28:42 -0800 (PST)
+ Mon, 12 Jan 2026 06:43:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff874636-efc2-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 18250a8d-efc5-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768228123; x=1768832923; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768229024; x=1768833824; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w58LwGC29cXmcYaQei+vF9ga2UmuyamuAiGBm8q72Go=;
-        b=SiD5KG6q9eH+4o3/k42Jqfffmf+HyWeDTtvcbEt2KD1a0wNQ43vriIVAqZcDzWZxN9
-         YKbd4C9sUNkL5504Po8x5cydWfFaaEfVSVLuDIIZoMWQNaz76lf3A1ngfhoiicjBVuq6
-         ZBC2Fqe8d2JqdvU+0lDJPVCxzPeIli3G2iBdXX95uEbJ1vOVSPHhbitBcGhVzbHG4tVe
-         HJMwktFg+cK0oczO1B9exfhkf5wHzAkY2qdVJr4Z/yFQjJ74fuEAITf3CybBEb89ISn4
-         sPNgDHn8MD3VvwmNmrqzVlQMeiuevXrkhjiAksovrVwGKkvY6zG1+AGq0D7shCv4jvV1
-         j1fw==
+        bh=atW9LGhWmyL1Patznkx1C39oW9O64HaBTlrMK3pFtOs=;
+        b=NttQIZazrGqmf4RdpOJhJOh+qr7iIKJjm9jfBpGTvs0mWZ8FWMZoUeBRAkjRpurRHF
+         zOLftkLeAw++BEfc6smYvWfltVquSk32XcMd5GQN6vptrAIIaRRjYpPj71wTbsRVFpYO
+         wBaRRux/uYsK1ovc1Y5MLrRJK+elVwk+dKWoCRIk3fkIw1UjKDqgaEVlre+6opKzczXC
+         udVaHKoxVvNKPH/uYr6yktmz5q6VxUQnZdCVoht7RIDIDeO6htnJjFFWZppFb0mSsIfZ
+         pge0t9LhZcAoVim/TgWkqWHpHR7No+Xq3oDXRCMZQo+GAeb5jFF2HeidQU2x8nlbr+kT
+         WftQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768228123; x=1768832923;
+        d=1e100.net; s=20230601; t=1768229024; x=1768833824;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w58LwGC29cXmcYaQei+vF9ga2UmuyamuAiGBm8q72Go=;
-        b=YJS3Y33xUe7dP0mDXVqsoH/EEKECL3bgaZImiFTUDA64PYdVyPrwKdAu5716qn5tKe
-         PdRjIJVaFWMZzUZiJSiuzsNTE9G4qgkq7zHx/TEh/isj7ZtFaSYCYbapoK11B8kWdfJ+
-         gNGfdKDnkL7RNJahC17Ifjt3su0nzmYA5/O8qK2t+sEWYddYTGGwMKdeejc6PiypX7Yl
-         tpE+X7FYgC9T5My1hECePDPsXpDGP8wqPT7lBJtNSl1AGELQW4VDl1rqLO4C3zmc9xYm
-         jKW+9ULb5Y07N1tK7vPVSVtVaLGxWYPtfqL4zrywbTXm5htPTAXLgn0bkh5B8E7yC718
-         5LBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVn7f1hgMJv6KSqC3Jv4Yk0mCeJFwO5YfE+fUzcTXWNahoR5Y6r3zW2EFngvcgQcrv5WdAdXKFRcIo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywi7rWcHNEdjqX8+9Yh5YzEs7vz4JvZZ3tjWYPG2Nog/l+P5ctJ
-	ERJmJbsL9WT+HE1zF29OHOIJDeus+zCmRL8inplIGDOogZmd9ktc8zhMtLB/3CA9Ig==
-X-Gm-Gg: AY/fxX5g/wFw0lYsFzCS/Rry6ePp3JTgiWzz2Zh5n7Ur5sStkkplz2f6LZeUXDPggjw
-	fi/zZYGDUw9HhauqZOid9xsL7suXeywcHQ6ZT/LO4cjOkAB/QVVM5oPmIWmZEvlKE0MF3rmLEBy
-	UuPoiRuppUsRMs5zT6mhy/AqhUtm7yQgnpSdb52v9hIF7QyLRYJ5Tg3dO8OxjXSb9Is5T7vpeOO
-	DWL40ZXMyGNUn9VKGvJuIXlf64UQOEWvWcoTqihFuPZl9pkSwXtqWpIo9ZZjIiIDPx4kMHtlgvR
-	P1n3R+Ub3nH3rDO6FApmPaowhqB+ugG7fBsuz+4ZaAV6TpELeYJUSzYp+cVVn60EpXRt9W/AAwh
-	7LSJFrkP8tTEwOQk0vmvFU4KJbMLnGvPtPtevjzr3cLhluwar5TirjLH635IH86FGGmEPAQm0TG
-	HAH4wgd7zkJCrrovged4jidYUDFNHtH5gQqkPE/VYxJnlc7uGvG6N91z2Anxd8zQCzar5c3qnsL
-	vnW73bKcnWH1Q==
-X-Google-Smtp-Source: AGHT+IHMYxVqy0QBLvkUWPVhbOSnofZ3KRZAC5rwj0zS/EJLJK1PTWAW5xZJ4P0AK1k+i3RGlab96Q==
-X-Received: by 2002:a5d:5888:0:b0:42f:edb6:3642 with SMTP id ffacd0b85a97d-432c37767acmr22696655f8f.60.1768228123300;
-        Mon, 12 Jan 2026 06:28:43 -0800 (PST)
-Message-ID: <f1beef63-1995-4e8d-bbdb-3be406ac414c@suse.com>
-Date: Mon, 12 Jan 2026 15:28:43 +0100
+        bh=atW9LGhWmyL1Patznkx1C39oW9O64HaBTlrMK3pFtOs=;
+        b=QorhLWyZQ0cJE6ykm0XZJBsoOJ6LTar9b0f5eLN02G1w4OF3IPmljnDRe5y1/ZyP/s
+         3abc1O2T4qigdQ9RnY37LYpYMJDzWQWWlSLZHlJzI6+mOSxqWvx7ggXih0EBl8kHBTPM
+         w3nMCQCvGVQw9k6Ginu2lAugVQFDGjsYREtC0p9bzYAXxQILE2cIQLgSgREhrBlHavFV
+         3MhkS9G97aHb7L+TmrFqFo1BKxPUDvp7Qf0fB6b1ZPuxHSgh3N720Oq7xK8vivoSFbyJ
+         9Yxg9pKEQK3kOm42TMpc6HA05/pWmS6tjkqrsU3yjRiXkcSgGAK36W2KGX98Fz3BbQoP
+         teTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWVNigoNP5LgZ+qD90WTKSQ0iql/kmbE9DZ9cI5cIs8z/YRJcnjFV/ql2VQKA7WZS1o9waeFUMrQYw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywql8p7t2xAYt/ZoFwad1G/gqG/KlrKDjGhcJlSDzZQIvMVIGNv
+	hKDXHPZWVoeSs1SHQNk8pyJgh+PkYUlvh0vT/hPRwo38fUP2+4bb+K4eltBVB1vQpc0IcKjfL67
+	x4SA=
+X-Gm-Gg: AY/fxX4eO/H0YWqW5GG+JRbM9QBmvzJeDpGswTsvJ8qu7bKXkbSVUtUHhP7AR2Yw/Tw
+	1k4r/m629VEX+rfA26Q38Gz8ByIWMoMLhJd3nIxQ/nMQEK9hy2PB6LBz52wS1Oqk8d5xiAKbuNB
+	ldlofA1y6RcNTDBlDzQnqSpJ//L50KUhVahkkIMYDAb9idNWG/eLXeqvK5VgS1HpV9r5+qnR49I
+	ifPgh/rD+/abj5W21ZAM+M+R0/96qcUdnhibJWE2uX+VWgnffkIhQsHQdW4qayzTYN5fb+8z8Dq
+	KkHXZAjcezu4LKsICcFtH64UYexRtmLhqxrfW1JmbW/l4MfiC1RQCSdcNvvQuv923+6vVLlNZLL
+	2Xmg5MH4FsgSK462RPwXyGvbYfruoZ6UB3xoe1zS7qWih+xfhP2iKBB7oFYmArxybK4KX/htYcD
+	B1lL+60uPlJxu8uuLuB6tXfvwp0MPWfx97LE8VL53F7KDC6Od0E2qQifTQ2gv4keZ/mudaQ4oV6
+	H8=
+X-Google-Smtp-Source: AGHT+IFhWdynesM+Fy6pkBus/1i6OYxUu6I5nDsyDupGfu7+QDMTRxB7ly0ldVyyTJRmYcXIdmIrbw==
+X-Received: by 2002:a05:600c:3114:b0:456:1a69:94fa with SMTP id 5b1f17b1804b1-47d84b2d27amr199995395e9.13.1768229023547;
+        Mon, 12 Jan 2026 06:43:43 -0800 (PST)
+Message-ID: <2a903c72-633d-4c91-938b-443628ac37cd@suse.com>
+Date: Mon, 12 Jan 2026 15:43:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/15] xen/riscv: implement vcpu_csr_init()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH] x86: Add Kconfig option to use a 32bit TLB clock on debug
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <bf617d77bb9e75bbd2930614bb86ff83b80adcfc.1766595589.git.oleksii.kurochko@gmail.com>
- <dc24a8ea-9041-4097-bbe2-459c668e9e64@suse.com>
- <7ba4bcfe-59d3-43f3-adb4-207424dc1713@gmail.com>
+References: <20260112140851.55590-1-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,32 +121,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7ba4bcfe-59d3-43f3-adb4-207424dc1713@gmail.com>
+In-Reply-To: <20260112140851.55590-1-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.01.2026 13:59, Oleksii Kurochko wrote:
-> On 1/7/26 9:46 AM, Jan Beulich wrote:
->> Also, wouldn't you better keep internal state in line with what hardware
->> actually supports? CSRIND may be read-only-zero in the real register, in
->> which case having the bit set in the "cached" copy can be misleading.
+On 12.01.2026 15:08, Alejandro Vallejo wrote:
+> Debug builds stress the wrapping logic of the TLB clock by narrowing it
+> down to 10 bits. This is inconvenient to test real time workloads on
+> such builds.
 > 
-> [...]
+> Add Kconfig option to be able to selectively use the non-stressed
+> behaviour on debug.
 > 
->> (This may similarly apply to at least hedeleg and hideleg, btw.)
-> 
-> Regarding the previous bits, I can understand that it would be an issue:
-> if SSAIA isn’t supported, then it is incorrect to update the corresponding
-> bits of|hstateen0|.
-> 
-> However, I’m not really sure I understand what the issue is with|h{i,e}deleg|.
-> All writable bits there don’t depend on hardware support. Am I missing something?
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-My reading of the doc was that any of the bits can be r/o 0, with - yes -
-no dependencies on particular extensions. In which case you'd need to do
-the delegation in software. For which it might be helpful to know what
-the two registers are actually set to in hardware (i.e. the cached values
-wanting to match the real ones).
+Hmm, yes, why not. However, ...
+
+> --- a/xen/arch/x86/flushtlb.c
+> +++ b/xen/arch/x86/flushtlb.c
+> @@ -20,11 +20,7 @@
+>  #include <asm/spec_ctrl.h>
+>  
+>  /* Debug builds: Wrap frequently to stress-test the wrap logic. */
+> -#ifdef NDEBUG
+> -#define WRAP_MASK (0xFFFFFFFFU)
+> -#else
+> -#define WRAP_MASK (0x000003FFU)
+> -#endif
+> +#define WRAP_MASK (IS_ENABLED(CONFIG_DEBUG_TLB_CLK) ? 0x3FFU : UINT32_MAX)
+
+... the comment then will want updating as well, I'd say. It doesn't go
+terribly stale this way, but at least slightly. I'd suggest to minimally
+drop "builds".
 
 Jan
 
