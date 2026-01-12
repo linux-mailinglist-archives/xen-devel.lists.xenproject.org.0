@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C24CD1347C
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:48:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200434.1516356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5813CD13500
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:52:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200453.1516366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfJDB-0006GK-Np; Mon, 12 Jan 2026 14:48:05 +0000
+	id 1vfJGw-0007s5-Bk; Mon, 12 Jan 2026 14:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200434.1516356; Mon, 12 Jan 2026 14:48:05 +0000
+Received: by outflank-mailman (output) from mailman id 1200453.1516366; Mon, 12 Jan 2026 14:51:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfJDB-0006E6-Ke; Mon, 12 Jan 2026 14:48:05 +0000
-Received: by outflank-mailman (input) for mailman id 1200434;
- Mon, 12 Jan 2026 14:48:04 +0000
+	id 1vfJGw-0007qb-7z; Mon, 12 Jan 2026 14:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 1200453;
+ Mon, 12 Jan 2026 14:51:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j+ET=7R=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vfJDA-0006Dx-36
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:48:04 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
+ <SRS0=qvYd=7R=gmail.com=akmarkov45@srs-se1.protection.inumbo.net>)
+ id 1vfJGu-0007qG-Kd
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:51:56 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1d5ae88-efc5-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 15:48:03 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by BY5PR03MB5202.namprd03.prod.outlook.com (2603:10b6:a03:220::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Mon, 12 Jan
- 2026 14:47:58 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9499.005; Mon, 12 Jan 2026
- 14:47:55 +0000
+ id 3c15c848-efc6-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 15:51:54 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-2a09757004cso59574805ad.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:51:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,172 +40,421 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1d5ae88-efc5-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BRx83vtypfDKFsufgxAvyKJ4lB3sS+Fe4P1DXIhor0lPO3UMbPXlxXA/6piwM2Hd2NhFjk5wfKkSyP01aTUlHkIAUMyNYnBUXUJwkhfElqnxksJto0b71IXyjeDRTy5mCevlkLXZuEs3fuelXwVHmwnOx6xagc/fUbmfqSv/OGQLfZTuertK+8WgsFEG6WFvXJVF1xy92KAC+6s6g8vMm5t2XT8u4cFOdZuK3EZWMK7uIPoPJ+HKirLvDq2viDALg8opYIk5ASsz1DB3ijy+mKdkk+Rirok3KmQCbReI/q8Zix5FUgQuSpVgLvnbVfYcMgzMU1zqBor4KufICNrByQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HYoH2pENNa1CA/KKc3Q5DHGXVD+RjMLMytystKpY/m8=;
- b=quwS/2iSq50QaoJhwUsaNL+xUCvhbtsUT6KayfXulJrMhqKdKIQtIi26djgFXcBQ4eoCTU4XtgQEPohk3HDzXbEWV292YioXUCpAYy6it6UChM4gr9eTIa9B+ZkA1PHo4tbB387NSQhLFQmtdkcsjlexRKdfFMETPJeBfP8Nrz0Umsvgm9pvcrlJ47OY5zhRQqP5IyjpS9vOrTkLGX3b0IqMYVgIPAHcySPccDSWle2wP6UeSzCMZMnPxMo+znHURnnkJQOo+X7LeEY0EuQ2QSdlAFWH9+tWFs/BTpSD9th7dyx7pLmhqqrL7duUE6RQl+MT7ghKARdDGN9Yev1cqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HYoH2pENNa1CA/KKc3Q5DHGXVD+RjMLMytystKpY/m8=;
- b=hXfjYuhqX6z7/z2DeGit+4mbRyXbkysdt/lzyf3plw2gRAGx9b/WZeIS6DPWHJ9mEu8xro6fHl8qEZXyc6kMT78vSnUrc105dry5mz+sA/9eskM8mwNvSUQpXgi2upY52GbMGDCw1vHMRs//cdbWpvMcX83+XTVwRTv7LGnVtJI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <05372ffc-c1b6-4d65-a13b-cd28de6248b5@citrix.com>
-Date: Mon, 12 Jan 2026 14:47:52 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86: Add Kconfig option to use a 32bit TLB clock on debug
-To: Jan Beulich <jbeulich@suse.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-References: <20260112140851.55590-1-alejandro.garciavallejo@amd.com>
- <2a903c72-633d-4c91-938b-443628ac37cd@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <2a903c72-633d-4c91-938b-443628ac37cd@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0287.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:38f::15) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: 3c15c848-efc6-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768229513; x=1768834313; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=JmF2/VLCbeIWUuEssKcguK7EHciUZv8vmpc8vZUr/Ic=;
+        b=NtGjqcc79bD4b58ybLzM9N+++6u/xUO9q0dc/+Vt1xqgeKUWg7BmWesxxs/UVDou4T
+         VPZjk63aKLoDXBxT5MAEInOLbezSWZ5pLUCQXSaVPTChuI7cahOQQnnl10+jAAG3Ij+2
+         hWBzBI4x0fC+43a4G65h/6LV8TJZwb9zjlSbCrZsj6IYd4jqTK22wbKpuy43jxyvTAtx
+         ux6FnGZ7xHgR5J4tW4cpNl18HMQpTR3xfqf1H/EMiqDS7755SJNKFegLmREao6Vf4q6L
+         tSjMceA6CDOZ83Ftm739lRbIRzkRNZLT7i1+d74f/YF4itTXeWKNiAFMbleSQZfYz3Zr
+         hj6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768229513; x=1768834313;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JmF2/VLCbeIWUuEssKcguK7EHciUZv8vmpc8vZUr/Ic=;
+        b=Me8W8IwKHjqQvUrfEst69d20eNQSA1zvynSaO/QSuyFD8D1TnJX+fnArY2Mdx3K3Il
+         HkmQenSlCcowsBNJMNNjZKQeZ5TXGd4e/eNWHWPDj8xbe5oTWTIIG6KY+dDCAJmCE5Zp
+         1bz1Rkvpb46TlYxj5OABksXql3XE4yWcJyfh6VY27/6hPGEhyPQMvUKLG2o1pz+xnA7R
+         qzWarSvYRJOXvpcF6ar0QUKZK8sf9g/yXReT4e0SS22bXQwT2Bw6K2QkSzUAs7lwnI9Z
+         RYZzzwi7oGhlwKAi2XmWURitEPhihUh2NmBqRXf3HaURigMk3d75o7gNmv6ZqOnYpDoE
+         cqGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUYRa8eBcEjZ+K2wGm8mg9hRhfmMDJtAbeyFnD2Vs2XG5jYFgAvlt9rvgeycWk3lu7HPr0wJncRAGA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUG665GjHkF4jGLstH/Ilen1N39qU30wmz4A6+4zl0x4bXyEFa
+	9x6qZYirR09SasQX9pmFQsAY6Bl2HQ8SZaaqfpbYS+3CKuNROvD1kYdJS/bGpgxoEip9k2xzZC0
+	d0M+stKPpfDOpmPGTOYWRI7ZG+wN0oWI=
+X-Gm-Gg: AY/fxX4V6tTnol//xU58hwNxOwStAjqHqySp1Ml24jDWiNveM43rxfQhhTdE/dVWQ61
+	dLRu3yb6TXrB8+uycj4PzwuWuugJqiakN/n+OsfSTSy1aRWw9vR7/h2m0HHWxDz6yfLcXgeBEKK
+	30iikNsmBHrOxMJy+v2aBOMSTc0cHf2XHFibfZid8zzffQ7E29Px39jPYxqB8jQmDO8ddpVCqCa
+	Ylw9KhqusHqFcoTGpWcSdO3YUPwkS4pcIBPg4eTBU6vNEY+b0u1rLrGJrchm8AVzN6Cghp8
+X-Google-Smtp-Source: AGHT+IFC7KL+ECw6y2Nk7292WpJiWEApxRMGhTWyIXVRzo/9co/nor4bGNKz7DfwEMe5BXBVuUoZYkQp03/0nVWwdJ0=
+X-Received: by 2002:a17:903:4765:b0:2a0:c1be:f436 with SMTP id
+ d9443c01a7336-2a3ee4bfe10mr182051565ad.59.1768229513048; Mon, 12 Jan 2026
+ 06:51:53 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|BY5PR03MB5202:EE_
-X-MS-Office365-Filtering-Correlation-Id: eea220ce-6ce5-4680-75bd-08de51e991f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UEFPQ0hnd3VWWG10cnRFSnd0MURWYkNWdWVkRWgzNysybXdMNVp6K01KanNF?=
- =?utf-8?B?WkxNUEdpbFZua2F1S1BpYU52clZSTTZhVHVoYVBwWGZmVmZhNnQ0UzJoa0ZN?=
- =?utf-8?B?SGU4MjhvOUgyaHVlNHdYZ2JzT3RISlVBalMrL0o2MmlhY2JZcVZuTzloeDBS?=
- =?utf-8?B?WUUwMGsvMjdBd09rZ1Q5SENtYWI1VnVORVB6SnFPc3BkdmxBdFVnSDZzbG9X?=
- =?utf-8?B?aEtzZWM2dzJyYzh4Y1RUdjE0cUZ3S3dqbGtkb3BqcmRESVRVTGdTY2xETit2?=
- =?utf-8?B?OE5kOVA3aDRoZStFTnBPUGVEellIOFFMQ1FTUGpZVSswb2QvRjN1d2RzOWJ0?=
- =?utf-8?B?THgyajVzQ3dqU3B4RlY0Nk10WmNVNlBBc1p4SHg4UDFFaTI4RVJTam5tdGJx?=
- =?utf-8?B?Y0hFbUtRTE5TcUFXc1hFZlRJRlNSTmNsRG0rQmpGVm5TTTlnaEhVMk5nU3Vq?=
- =?utf-8?B?cWpPZmdnWDE0L2E4S2dTczhZcG56Tk51cG1TQ0t4MlduVHZDZjFwWEg5eDdy?=
- =?utf-8?B?STl4cDFNWUhpckd6Y2xtcGZhVFlXZW5RODlaSkFzVlNmZ0dEVmN5RU5FZDRR?=
- =?utf-8?B?dyt1Q1NmWkNxeHFSS1NabStvMzl5Y2xWSXVvUi9QYVhId0Vwem1qWVc1S3pv?=
- =?utf-8?B?Vy9Zd1JUK0dPb2x3eDdkRzBOSldtenVRcVl6MFRBNzZuam9IL2xiZ0V0Rm1p?=
- =?utf-8?B?NzVqR3BIN2FWcE9tdE5sUEdKakNlZUgrclc0SjZ2L3RCR0ZCdXBQcEVhWXBU?=
- =?utf-8?B?anY2ZmNBakVNSjVVTkJCSUh1V1BVU2VWUXdDaFFJVkpLU1hoaE1NOWZyT0N6?=
- =?utf-8?B?NmMxdkErK1RKb3dYUVcrcXBzNnovY05qUzE3YkhSL3UxODRBSGZ0VGdvNTBs?=
- =?utf-8?B?bzIyY1EvWWpxWG5Jd2hVZlNNSWU5Tk9uLzUyUmdtUGtpVGpTeXc3eURYdDV5?=
- =?utf-8?B?cU4rbUNrMVNEVVVhT1drVzAxNUJqbmZ2TlhnSWZDUjZ6a29kWHB4SHlQcXNE?=
- =?utf-8?B?RUxyT3Jjak5EbHIrRWpiUHIxYlhTcjZ3YnlUNm9nODRPeUdjMVpldEhCTmVu?=
- =?utf-8?B?QXhtUVRqNE9kMjd3YVZtV1NIWmFFLzFLczNsaFVsemZuUmYwenlneGUxMGcy?=
- =?utf-8?B?cG9IYmYxaHJTc2Q4UFpyd0lEemZwVFYxRTJXNllNYUtxekxXV1N4NDhpMUpT?=
- =?utf-8?B?RHNiZVp3L3dTWHlCSTEzeVpPVGRNOVcxZ0VhR0dhK2ZoQS9WRkNvc2oyelhK?=
- =?utf-8?B?bEd6U2N5Mk5TUTZkQ1RSSE5JaUVsZk1YVGR0SjZ2T2xCR1djbDR0SndNbkFE?=
- =?utf-8?B?cXN2dFdKZTg5YXUzTkl2MEx5bDlnUnhRaEh1UWZ4S3pUb3FRK2V0cGU0ayto?=
- =?utf-8?B?RG1PVktBYXZ2eGZORzhaNG8rcEQzWUQ5cC9BYnZZcFc3Q0M2Qi9ON3E5Qk5m?=
- =?utf-8?B?ejg2YnFMbDZ3TDRwdjBZUDdBaXJKTDBoWS9sU0VhVC9FazBzTTRLKzllUllm?=
- =?utf-8?B?L3I3c1k4MExTMGU4cVdmdzRIV2ZYMnJiNzh0VUM3Z1p0WFZWUVUzSkZka2h4?=
- =?utf-8?B?WFZCYnFmZ0VsZzJhUlRwL3hOVFVmVnNSNFIwSnU4ZDVxTUpxUEhlTVM1T0ZJ?=
- =?utf-8?B?WVM2VWFRTUNCZU42ZS8wYnNPS1VRNUMyTFEwQ1dNak9YeWl5RzY4SEh0OUNY?=
- =?utf-8?B?WTNrYU9ldEdUZCtNVEx0ZjJsR2Y5c0xlaTNiU3g3VnAzODZLaW5veFRKUGdz?=
- =?utf-8?B?WHYyMEN6SkZZZ0xVUU1KTGN4R1dpV2JoVi9nWkV3VHltTzF5UXE4dTJoTHNB?=
- =?utf-8?B?ODFDUzdyOFpMdnhQN0VVQlhlbFpVL3k0RW8wYmRmSzJpYkk3b1FCRmhHcnA0?=
- =?utf-8?B?dEM0VWwxQkE0THhrRHA1OXFEQ0k2dXNlMmVqbUZoMlU3eXFWbmhSUm5jbGQw?=
- =?utf-8?Q?zVFg5a0BhbDxOnTZz4vEyny9oyv/L5dw?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkdDTUEzc0pGRG5qdFBJRnpkSGQ4dFF4K3F4UUVyVUptVnE2a2xvY2lKNis4?=
- =?utf-8?B?NmlCWUxDVmhUUVY0b1hTTXE1RTBLelpCMU1LNGVVTElMQS81eHkySDFRdFRK?=
- =?utf-8?B?L0Vib0JNbFU1YWg3c1JGT1FCQUpid040eTU2NHNjbHhsVHFpZ1VtZEt1T3ZI?=
- =?utf-8?B?L2ZZdnlJdWUzTWo1Nks1Q2RwV1FXaTlERTBldkR4cE40dEZjRlhqM1k3TTVq?=
- =?utf-8?B?SWZUelZzZ0dHNG1YNDRCRExDZ291SmdpUURsbmIzWkt6VnhrNjRRdVZuTERr?=
- =?utf-8?B?UnZ2SGdtSlFqOGlCTUh6VUYxMWlHSS9PNTh5UGhwaVEwTzVNWUJJNmVSbzJP?=
- =?utf-8?B?cUtZeDlKdlNGQTdlZDYrRDU2ajlTZHpIU2tmV2w3amsrWlBrT2dRVURoSEVa?=
- =?utf-8?B?cE03VUxWOHlpOGRXZUh4V2t6T1VRc2laMXU4NzZXWGV1bjEyWWJRMEFoRnFl?=
- =?utf-8?B?QUdRdWxlaXZ5OW1Gazc2cmc2cDBHVTloQ2I1NkFFN21UVlo3ZUEvOHBGYUJU?=
- =?utf-8?B?c2VyanBOWlBqcUlMeWZlS2h3Vm5oL1hOMU5XUTUrU2lwdVBvMHdjZm1XV2pk?=
- =?utf-8?B?R2l4cXZQcktyME5JSnN3VG9Cekp6dG5aMC8vK1pGM1grNzc1M0RQZnBZWkdL?=
- =?utf-8?B?NlVjeElXV2s2Sit2dEhFbmpoTGNiR1g2VXhqK3dBdjVJTGJ5a2hNWGNtVktq?=
- =?utf-8?B?U015ZTI3cjVoOE5DNnpHSUlhbEIzS2w0bDlablRqQlFyYmRuMHJsOW5HNm8r?=
- =?utf-8?B?Y3R1OXlTOWRIWU5QYVJHck1UWE9UTkVGRjRhbkZ6eXBZSjNROUdySm45TEty?=
- =?utf-8?B?RW9GZ0dlV045MFhCd01DZi9OS3JpUk5RY3dLYzhIaUtoR1JSNFVaSmdXUVFl?=
- =?utf-8?B?UW4zd0FtVDNnV291Wmx1UjdnMnFQSGZkbXZoUXFlcFBML2ZSdHFqZE5vTXRP?=
- =?utf-8?B?S3F4RktMOWV6NjVnTkZKWUdlZ24vWU1DdVp3aFFVTDFEdUhwQWRUSVgvdGox?=
- =?utf-8?B?WHIzM3JISWJEeHBVZ1VGcTVzb3NFQWdSU1JqTkdMQzh5a0VTVk95empCTlFP?=
- =?utf-8?B?cUlyd2JZOWNGMmpMWnhRcVRCNE9uSDJiVU9SY3dPL0VieXpXSXhyckcrbUtr?=
- =?utf-8?B?QWpURXBSd0xGWGtSSEZVaHZWamUvbFM5WVk0OXg1OEEwcGR5ZmkySWdXSlNM?=
- =?utf-8?B?R0pmY3R5SHZUMWVVU3VQN2xrS0xSaWxqVk1zN2hIMUxsdW1ubTU1QkFteE9o?=
- =?utf-8?B?ZisxQ0hCa0gzeHlzdGkrVkV2VFhqbG1rRU9JSmo0UGNrR3NmMkcvdmRGcWpK?=
- =?utf-8?B?N1ZkanZ5NTVCZzUyRUZPMHVueHhmMmU3cWZUaVNBcStvQmFDeTY0d1JSV0d4?=
- =?utf-8?B?b0dRb21BcUhNNXUwNjdQTFdZeUZkMVYxSW9QNU5tUnV4QUlrOEU1Z05QcVRa?=
- =?utf-8?B?SXB4cEdMY2VQeEVHZ0RGSFpYWHlnM2J0dnprWDZmcmdpbEZjbVMyVVo3Z0I1?=
- =?utf-8?B?dHpQQkt6SlAwTEJ0ZmpnRDloNmlkYnVlRFdrNWpWMUdsY0FXUUZtbFU2aUxz?=
- =?utf-8?B?Njl2bFZ5N1dIVnlHYkw1RTB2dlBPb05MVm4zdEVGVXV3b001Y01FdXRYdWs2?=
- =?utf-8?B?dFhNb0dMZmxQN0l3eTM5b010b3lNMnpWWjVheUNkMnlObVFxMG1sS3VpNzJp?=
- =?utf-8?B?MG52VkxrNS8wRHZleXRGbGFVNEVnY1BXT0p4MmZyYmd4Mm16SEx3c1gwOU1J?=
- =?utf-8?B?aHBWc1QzR0FOeG94eDRKT1ZKdkorbmc5MDllcGFTM1ZqSmN0OU40MVdYamhP?=
- =?utf-8?B?dXU4YzlLV3RYRUVzckc0T1RpZFlKRFRtMk5oMGFMbnlmbHBLS2Z0czNOd1Jk?=
- =?utf-8?B?ZEpEOGp1UFlHREtyUjNXQURDRWZNOE5MWCtNanJBdloxTjhrU0t0YTh3dlNV?=
- =?utf-8?B?aVE2eDI3cVhUZmZ1M3RDMkNLWG5XVUNhdTNoWnQ1N1lLeFc0Y2c2ODN2OWF3?=
- =?utf-8?B?Uk9ONE9Qc2xwODNYMnRLTGF2Q3l4V29jdWYyOER0RUZvcVdrZTlmRE44eU5n?=
- =?utf-8?B?dURrbE9qVjYvRzZiZUhsL3JiQUF6TUhUdDNUbWVLZlNrbllKYlk5bXdDQmZq?=
- =?utf-8?B?OFhZczhicjdEQmQ0ODcyaUd0emxrZ1Q4VTgyNWQyandYNityVkIyRUMyZExs?=
- =?utf-8?B?SUFZRW1uZVZjTFptcm1lSGdMeEhrZGljUVprbVQya1JrR0V3eUVNcWd4anAy?=
- =?utf-8?B?UWkzd0gxYnpxNVhWcWdGZ2ZBcXYvTkVoVkVEUksxa01hNzZWMndrQno0V1BS?=
- =?utf-8?B?UnpWRHZIeWd3cnQrQXZURDMwN01IQnpmcXI4T3I1a3U5b3g1K24wdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eea220ce-6ce5-4680-75bd-08de51e991f2
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 14:47:55.2776
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HT2COtQRpugvmsH7i4oIrnu9yuRhkgCOkQCKBgA5smPNr9YNfJE3woSHFMz6Ae/vNjYBADtO+mXsiNpi0CUqM1whSbOYA0u1BuT2aHEajvg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5202
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+ <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com> <CACQYvN-fiATs2dtdboYxCreF8kF5RsgoH-zgWtQ59iVNOT_wVg@mail.gmail.com>
+ <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
+ <4b03cf36-d2d8-420c-82df-55d6a9ac9d68@suse.com> <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
+ <6ea436ce-6ecb-47f8-8d8a-98b0badeb14e@suse.com>
+In-Reply-To: <6ea436ce-6ecb-47f8-8d8a-98b0badeb14e@suse.com>
+From: Anton Markov <akmarkov45@gmail.com>
+Date: Mon, 12 Jan 2026 17:51:41 +0300
+X-Gm-Features: AZwV_QjrZzprkref4W33SGy92BuWGFTGnuSlxk-PPYr9r2I2N5wiARzzC-sGrC8
+Message-ID: <CACQYvN_dZxXmvhBd8pZ41Kws_n_TXcwp5mMQ=H0Vu89Px8M+PA@mail.gmail.com>
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in get_s_time_fixed()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, 
+	xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000001b5d70648320431"
 
-On 12/01/2026 2:43 pm, Jan Beulich wrote:
-> On 12.01.2026 15:08, Alejandro Vallejo wrote:
->> Debug builds stress the wrapping logic of the TLB clock by narrowing it
->> down to 10 bits. This is inconvenient to test real time workloads on
->> such builds.
->>
->> Add Kconfig option to be able to selectively use the non-stressed
->> behaviour on debug.
->>
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> Hmm, yes, why not. However, ...
+--00000000000001b5d70648320431
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
 >
->> --- a/xen/arch/x86/flushtlb.c
->> +++ b/xen/arch/x86/flushtlb.c
->> @@ -20,11 +20,7 @@
->>  #include <asm/spec_ctrl.h>
->>  
->>  /* Debug builds: Wrap frequently to stress-test the wrap logic. */
->> -#ifdef NDEBUG
->> -#define WRAP_MASK (0xFFFFFFFFU)
->> -#else
->> -#define WRAP_MASK (0x000003FFU)
->> -#endif
->> +#define WRAP_MASK (IS_ENABLED(CONFIG_DEBUG_TLB_CLK) ? 0x3FFU : UINT32_MAX)
-> ... the comment then will want updating as well, I'd say. It doesn't go
-> terribly stale this way, but at least slightly. I'd suggest to minimally
-> drop "builds".
+> Perhaps, yet it still makes dealing with things more difficult.
 
-I'm suggest just dropping WRAP_MASK.
+Sorry. I just spent too much time on this bug to stay in my mind.
 
-We've done this locally in the XenServer patchqueue since 2011 or so due
-to the overhead, and I don't think it's interesting enough to warrant a
-separate option.
+That's if IPIs are sent sequentially. In the most common case, they aren't,
+> though - we use the all-but-self shorthand.
 
-~Andrew
+Actually, even if IPIs are sent sequentially, I can't see where you spot
+> this effect: Both callers of time_calibration_rendezvous_tail() signal al=
+l
+> secondary CPUs to continue at the same time. Hence they'll all execute
+> time_calibration_rendezvous_tail() in parallel.
+
+In parallel, but with a slight delay.
+
+Are they? I fear I don't know which part of the code you're talking about.
+
+In the function "time_calibration" (xen/arch/x86/time.c) Sorry, I don't
+take into account that you don't stay in context, being distracted by other
+threads.
+
+One of the reasons we (iirc) don't do that is that since the scaling factor
+> is also slightly imprecise, we'd prefer to avoid scaling very big values.
+> IOW by changing as you suggest we'd trade one accumulating error for
+> another.
+
+As I wrote above, there will be an error when using scale_delta, but it
+won't accumulate between calls to time_calibration_rendezvous_tail. In the
+current version, the old error (ipi lag + rounding error) persists due to
+the use of the old local_stime in the get_s_time_fixed function, and it's
+added to the new error and accumulates with each call.
+If
+
+c->local_stime =3D get_s_time_fixed(old_tsc ?: new_tsc);
+
+replaced with:
+
+c->local_stime =3D scale_delta(old_tsc ?: new_tsc);
+
+Then we'll only be dealing with the error due to the current ipi lag and
+rough rounding, within a single call.
+
+If I understand you correctly, you fixed the rough rounding of scale_delta
+by reducing the values using get_s_time_fixed . But the problem is, that
+didn't help. The error now accumulates gradually because we're relying on
+old calculations. Furthermore, while the old rounding error was limited,
+now the error accumulates infinitely, albeit very slowly. If this is so,
+then the solution to the problem becomes less obvious.
+
+Roughly speaking, my servers start to go crazy after a week of continuous
+operation, as the time lag between cores reaches 1 millisecond or more.
+
+On Mon, Jan 12, 2026 at 5:13=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+
+> On 12.01.2026 13:49, Anton Markov wrote:
+> >> Btw, your prior response was too hard to properly read, due to excess
+> blank
+> >> lines with at the same time squashed leading blanks. Together with you=
+r
+> >> apparent inability to avoid top-posting, I think you really want to
+> adjust
+> >> your mail program's configuration.
+> >
+> > I suggest we skip the discussion of formatting and the number of spaces
+> in
+> > messages and instead focus on the topic of the thread. I have a very
+> > difficult time troubleshooting difficult-to-reproduce bugs, and the fac=
+t
+> > that their descriptions are difficult to read due to the number of spac=
+es
+> > is probably the least of the difficulties.
+>
+> Perhaps, yet it still makes dealing with things more difficult.
+>
+> > That invocation of get_s_time_fixed() reduces to scale_delta() (without
+> >> further rdtsc_ordered()), as non-zero at_tsc is passed in all cases. I=
+OW
+> >> it's not quite clear to me what change you are suggesting (that would
+> >> actually make a functional difference).
+> >
+> > Replacing get_s_time_fixed with scale_delta will remove the calculation
+> > dependency on the previous local_stime value, which accumulates lag
+> between
+> > cores. This is because: rdtsc_ordered is not called synchronously on th=
+e
+> > cores, but by the difference offset by the ipi speed. Therefore, we get=
+:
+> >
+> > core0: current_rdtsc;
+> > core1: current_rdtsc + ipi speed;
+> > coreN: current_rdtsc + ipi speed * N;
+>
+> That's if IPIs are sent sequentially. In the most common case, they aren'=
+t,
+> though - we use the all-but-self shorthand.
+>
+> Actually, even if IPIs are sent sequentially, I can't see where you spot
+> this effect: Both callers of time_calibration_rendezvous_tail() signal al=
+l
+> secondary CPUs to continue at the same time. Hence they'll all execute
+> time_calibration_rendezvous_tail() in parallel.
+>
+> > Since ipi values are sent alternately in a loop to core0,
+>
+> Are they? I fear I don't know which part of the code you're talking about=
+.
+>
+> > in the version
+> > with get_s_time_fixed, we get the following local_stime calculation
+> format.
+> >
+> > coreN: local_stime =3D local_stime + scale_delta((current_rdtsc +
+> (ipi_speed
+> > * N)) =E2=80=93 local_rdtsc);
+>
+> One of the reasons we (iirc) don't do that is that since the scaling fact=
+or
+> is also slightly imprecise, we'd prefer to avoid scaling very big values.
+> IOW by changing as you suggest we'd trade one accumulating error for
+> another.
+>
+> Jan
+>
+> > This means the time on each core will differ by ipi_speed * N. And sinc=
+e
+> > we're using the values of the previous local_stime, the difference will
+> > accumulate because the previous local_stime was also offset. In the
+> version
+> > with scale_delta, we get:
+> >
+> > coreN: local_stime =3D scale_delta(current_rdtsc + (ipi_speed * N));
+> >
+> > This means there will still be a difference, but it won't accumulate, a=
+nd
+> > the offsets will remain within normal limits.
+> >
+> > If it's still unclear: If your local_stime in get_s_time_fixed is offse=
+t
+> > relative to other cores, then the fact that rdtsc_ordered and local_tsc
+> are
+> > not offset doesn't change anything, since you're using the delta relati=
+ve
+> > to local_stime.
+> >
+> > core0_local_stime + (rdtsc_ordered() - local_tsc) !=3D core1_local_stim=
+e +
+> > (rdtsc_ordered() - local_tsc); // Even if rdtsc_ordered() and local_tsc
+> are
+> > equal across cores.
+> >
+> > On 96-core configurations, up to a millisecond of latency can accumulat=
+e
+> in
+> > local_stime over a week of operation, and this is a significant
+> > difference. This
+> > is due to the fact that I use cpufreq=3Dxen:performance max_cstate=3D1 =
+,
+> > meaning that in my configuration, local_stime is never overwritten by
+> > master_stime.
+> >
+> > Thanks.
+>
+
+--00000000000001b5d70648320431
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">Perhaps, yet it still makes dealing with things more difficult.<=
+/blockquote><div>Sorry. I just spent too much time on this bug to stay in m=
+y mind.=C2=A0</div><div><br></div></div><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
+ding-left:1ex">That&#39;s if IPIs are sent sequentially. In the most common=
+ case, they aren&#39;t,<br>though - we use the all-but-self shorthand.</blo=
+ckquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">Actually, even if=
+ IPIs are sent sequentially, I can&#39;t see where you spot<br>this effect:=
+ Both callers of time_calibration_rendezvous_tail() signal all<br>secondary=
+ CPUs to continue at the same time. Hence they&#39;ll all execute<br>time_c=
+alibration_rendezvous_tail() in parallel.</blockquote><div>In parallel, but=
+ with a slight delay.</div><div><br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">Are they? I fear I don&#39;t know which part of the code y=
+ou&#39;re talking about.</blockquote><div>In the function &quot;time_calibr=
+ation&quot; (xen/arch/x86/time.c) Sorry, I don&#39;t take into account that=
+ you don&#39;t stay in context, being distracted by other threads.</div><di=
+v><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">One of the re=
+asons we (iirc) don&#39;t do that is that since the scaling factor<br>is al=
+so slightly imprecise, we&#39;d prefer to avoid scaling very big values.<br=
+>IOW by changing as you suggest we&#39;d trade one accumulating error for<b=
+r>another.</blockquote><div><span class=3D"gmail-jCAhz gmail-ChMk0b"><span =
+class=3D"gmail-ryNqvb">As I wrote above, there will be an error when using =
+scale_delta, but it won&#39;t accumulate between calls to time_calibration_=
+rendezvous_tail.</span></span><span class=3D"gmail-jCAhz gmail-ChMk0b"><spa=
+n class=3D"gmail-ryNqvb">
+
+In the current version, the old error (ipi lag + rounding error) persists d=
+ue to the use of the old local_stime in the get_s_time_fixed function, and =
+it&#39;s added to the new error and accumulates with each call.</span></spa=
+n></div><div><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-=
+ryNqvb">If</span></span></div><div><span class=3D"gmail-jCAhz gmail-ChMk0b"=
+><span class=3D"gmail-ryNqvb"><br></span></span></div><div><span class=3D"g=
+mail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">c-&gt;local_stime =3D=
+ get_s_time_fixed(old_tsc ?: new_tsc);</span></span></div><div><span class=
+=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb"><br></span></spa=
+n></div><div><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-=
+ryNqvb">replaced with:</span></span></div><div><span class=3D"gmail-jCAhz g=
+mail-ChMk0b"><span class=3D"gmail-ryNqvb"><br></span></span></div><div><spa=
+n class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">c-&gt;loc=
+al_stime =3D scale_delta(old_tsc ?: new_tsc);</span></span></div><div><span=
+ class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb"><br></span=
+></span></div><div><span class=3D"gmail-jCAhz"><span class=3D"gmail-ryNqvb"=
+>Then we&#39;ll only be dealing with the error due to the current ipi lag a=
+nd rough rounding, within a single call.</span></span></div><div><span clas=
+s=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb"><br></span></sp=
+an></div><div><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail=
+-ryNqvb">If I understand you correctly, you fixed the rough rounding of sca=
+le_delta by reducing the values using get_s_time_fixed .</span></span> <spa=
+n class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">But the p=
+roblem is, that didn&#39;t help.</span></span> <span class=3D"gmail-jCAhz g=
+mail-ChMk0b"><span class=3D"gmail-ryNqvb">The error now accumulates gradual=
+ly because we&#39;re relying on old calculations.</span></span> <span class=
+=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">Furthermore, whi=
+le the old rounding error was limited, now the error accumulates infinitely=
+, albeit very slowly.=C2=A0</span></span>If this is so, then the solution t=
+o the problem becomes less obvious.</div><div><span class=3D"gmail-jCAhz gm=
+ail-ChMk0b"><span class=3D"gmail-ryNqvb"><br></span></span></div><div><span=
+ class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">Roughly sp=
+eaking, my servers start to go crazy after a week of continuous operation, =
+as the time lag between cores reaches 1 millisecond or more.</span></span>=
+=C2=A0</div><div>=C2=A0</div><div class=3D"gmail_quote gmail_quote_containe=
+r"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jan 12, 2026 at 5:13=E2=80=
+=AFPM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.co=
+m</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>On 12.01.2026 13:49, Anton Markov wrote:<br>
+&gt;&gt; Btw, your prior response was too hard to properly read, due to exc=
+ess blank<br>
+&gt;&gt; lines with at the same time squashed leading blanks. Together with=
+ your<br>
+&gt;&gt; apparent inability to avoid top-posting, I think you really want t=
+o adjust<br>
+&gt;&gt; your mail program&#39;s configuration.<br>
+&gt; <br>
+&gt; I suggest we skip the discussion of formatting and the number of space=
+s in<br>
+&gt; messages and instead focus on the topic of the thread. I have a very<b=
+r>
+&gt; difficult time troubleshooting difficult-to-reproduce bugs, and the fa=
+ct<br>
+&gt; that their descriptions are difficult to read due to the number of spa=
+ces<br>
+&gt; is probably the least of the difficulties.<br>
+<br>
+Perhaps, yet it still makes dealing with things more difficult.<br>
+<br>
+&gt; That invocation of get_s_time_fixed() reduces to scale_delta() (withou=
+t<br>
+&gt;&gt; further rdtsc_ordered()), as non-zero at_tsc is passed in all case=
+s. IOW<br>
+&gt;&gt; it&#39;s not quite clear to me what change you are suggesting (tha=
+t would<br>
+&gt;&gt; actually make a functional difference).<br>
+&gt; <br>
+&gt; Replacing get_s_time_fixed with scale_delta will remove the calculatio=
+n<br>
+&gt; dependency on the previous local_stime value, which accumulates lag be=
+tween<br>
+&gt; cores. This is because: rdtsc_ordered is not called synchronously on t=
+he<br>
+&gt; cores, but by the difference offset by the ipi speed. Therefore, we ge=
+t:<br>
+&gt; <br>
+&gt; core0: current_rdtsc;<br>
+&gt; core1: current_rdtsc + ipi speed;<br>
+&gt; coreN: current_rdtsc + ipi speed * N;<br>
+<br>
+That&#39;s if IPIs are sent sequentially. In the most common case, they are=
+n&#39;t,<br>
+though - we use the all-but-self shorthand.<br>
+<br>
+Actually, even if IPIs are sent sequentially, I can&#39;t see where you spo=
+t<br>
+this effect: Both callers of time_calibration_rendezvous_tail() signal all<=
+br>
+secondary CPUs to continue at the same time. Hence they&#39;ll all execute<=
+br>
+time_calibration_rendezvous_tail() in parallel.<br>
+<br>
+&gt; Since ipi values are sent alternately in a loop to core0,<br>
+<br>
+Are they? I fear I don&#39;t know which part of the code you&#39;re talking=
+ about.<br>
+<br>
+&gt; in the version<br>
+&gt; with get_s_time_fixed, we get the following local_stime calculation fo=
+rmat.<br>
+&gt; <br>
+&gt; coreN: local_stime =3D local_stime + scale_delta((current_rdtsc + (ipi=
+_speed<br>
+&gt; * N)) =E2=80=93 local_rdtsc);<br>
+<br>
+One of the reasons we (iirc) don&#39;t do that is that since the scaling fa=
+ctor<br>
+is also slightly imprecise, we&#39;d prefer to avoid scaling very big value=
+s.<br>
+IOW by changing as you suggest we&#39;d trade one accumulating error for<br=
+>
+another.<br>
+<br>
+Jan<br>
+<br>
+&gt; This means the time on each core will differ by ipi_speed * N. And sin=
+ce<br>
+&gt; we&#39;re using the values of the previous local_stime, the difference=
+ will<br>
+&gt; accumulate because the previous local_stime was also offset. In the ve=
+rsion<br>
+&gt; with scale_delta, we get:<br>
+&gt; <br>
+&gt; coreN: local_stime =3D scale_delta(current_rdtsc + (ipi_speed * N));<b=
+r>
+&gt; <br>
+&gt; This means there will still be a difference, but it won&#39;t accumula=
+te, and<br>
+&gt; the offsets will remain within normal limits.<br>
+&gt; <br>
+&gt; If it&#39;s still unclear: If your local_stime in get_s_time_fixed is =
+offset<br>
+&gt; relative to other cores, then the fact that rdtsc_ordered and local_ts=
+c are<br>
+&gt; not offset doesn&#39;t change anything, since you&#39;re using the del=
+ta relative<br>
+&gt; to local_stime.<br>
+&gt; <br>
+&gt; core0_local_stime + (rdtsc_ordered() - local_tsc) !=3D core1_local_sti=
+me +<br>
+&gt; (rdtsc_ordered() - local_tsc); // Even if rdtsc_ordered() and local_ts=
+c are<br>
+&gt; equal across cores.<br>
+&gt; <br>
+&gt; On 96-core configurations, up to a millisecond of latency can accumula=
+te in<br>
+&gt; local_stime over a week of operation, and this is a significant<br>
+&gt; difference. This<br>
+&gt; is due to the fact that I use cpufreq=3Dxen:performance max_cstate=3D1=
+ ,<br>
+&gt; meaning that in my configuration, local_stime is never overwritten by<=
+br>
+&gt; master_stime.<br>
+&gt; <br>
+&gt; Thanks.<br>
+</blockquote></div></div>
+
+--00000000000001b5d70648320431--
 
