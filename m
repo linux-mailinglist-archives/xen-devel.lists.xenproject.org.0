@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E940FD11BB1
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:09:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1199933.1515963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B265D11CBD
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:19:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1199943.1515973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfErb-0002yU-BW; Mon, 12 Jan 2026 10:09:31 +0000
+	id 1vfF1H-0004fk-8D; Mon, 12 Jan 2026 10:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1199933.1515963; Mon, 12 Jan 2026 10:09:31 +0000
+Received: by outflank-mailman (output) from mailman id 1199943.1515973; Mon, 12 Jan 2026 10:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfErb-0002xH-8o; Mon, 12 Jan 2026 10:09:31 +0000
-Received: by outflank-mailman (input) for mailman id 1199933;
- Mon, 12 Jan 2026 10:09:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfErZ-0002xB-QC
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:09:29 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c53f3176-ef9e-11f0-9ccf-f158ae23cfc8;
- Mon, 12 Jan 2026 11:09:24 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-42fb4eeb482so3477016f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 02:09:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e16f4sm38680118f8f.11.2026.01.12.02.09.23
+	id 1vfF1H-0004de-5b; Mon, 12 Jan 2026 10:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 1199943;
+ Mon, 12 Jan 2026 10:19:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g/6n=7R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vfF1F-0004dY-LZ
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:19:29 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c8c50e2-efa0-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 11:19:28 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-64b9d01e473so10316433a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 02:19:27 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6507bf6648fsm17204943a12.28.2026.01.12.02.19.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 02:09:23 -0800 (PST)
+ Mon, 12 Jan 2026 02:19:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,193 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c53f3176-ef9e-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 2c8c50e2-efa0-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768212564; x=1768817364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RyUWjuReO2HT3zEu/zgDiLMwqzTVZVcSD9+UUhBsXOw=;
-        b=Poq2hMBq/PfSaEC9gJB70fZfsb/jOrz7s0em8vmVr0u3SHcxbh1soCq5GkUM8SsiW6
-         3DvrzJNb9AbcbWqE+6wB9yx9yPVDVrpTx+YB8W+JLuCipSlQkPNyAUm+OXpcMBLxbJxQ
-         kTqRPApWI4maf01MQ94WFEISng+/S5RRc7y9keR7UR8sfql1onoJi3agxJq4G4doLzbK
-         j5VC7F3UjpfKwfjcVXLeIghvWTUpaSqQzTSmjmfqux5abLRAkw6ao84n8+7hRSygNz+0
-         pyOawfOGo88ywWUc0a1uUNsN3k0HEFeVPQc/pjM6gKqmJ7K94L0PdxRKwmpaS3y7OmEb
-         Vr7w==
+        d=gmail.com; s=20230601; t=1768213166; x=1768817966; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=S8cNnMgGRzbmVNuAN76xJOWMAaiFOowG5vdLwJVgWDI=;
+        b=HxMQodqxmMPozQoKt0HSHzCjlcN7Z8cNVc2ZlSGV37b81DeVArBvcF1rA4JG9omtpC
+         oHiff9vpCvRlYPOOLZntnQPwt6uaZ4JA+Y+k+ifhuqBQlQiFL+b+mvssoYPo02IPJOv5
+         nX6U5/otS7A9RgqQpwxD5gp2Vq1oHBhpGAx1GpVMlqBJr/fF8PUJnAbAduhFbe93TKnJ
+         tMOEUJfUocC/zgBpNDwvxaYgcVWgkvk/sy9pqGPPLsoDKBReo7b2CUrYlrasTec6PcuQ
+         ogjqenmexIXptz3sUGCDtnKLVwVp15G5dU0R2AhBN8niaqFtzYfK6nS/U/pJtywgwWBI
+         BVJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768212564; x=1768817364;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RyUWjuReO2HT3zEu/zgDiLMwqzTVZVcSD9+UUhBsXOw=;
-        b=NkEad/e7qFkc5VwajxTGbCjaN3tg38SzmZbcs8ItkvkTkPwXiBAMJ2DaFVQzz404vx
-         ntj+Afos3Lpszm7rVIv4KqM/OiB5y8wUgZKGN5nv78yX5s/PsJ0YGLf0H6Z1OgTA95qv
-         NSc9C4kvJqzufbKCMpBwTQ+f5KBBfsoVfjAHIymA/aJy7PVjCHunJorPu29Ws8YTamfj
-         2J4xY+EoHbxgH/V2zqLNmaiF0lx9MHEePLJrtp4SBGlqbb/8WU1j63sERzezYTdPkUV2
-         kapz9OtwFJsJNAeV051xVtlqVfvKBObuvpMRs7l3Ps2vYgqI5LRHXX3U5SFDBsAlcw/V
-         XNZg==
-X-Gm-Message-State: AOJu0Yz0ut0NL14W3FR1ecCKYzPdXiZohXcSkQq7w7HGuRLMsb/Fg4+P
-	n7Zit9xYHcRwzNVP1WjGOXXzHJgjfyyLjxMp2EY4vrXGXeqyngTxyPwBsjL4R1LGOw==
-X-Gm-Gg: AY/fxX7380dv9Ko8V+/4mS9eGZPQz8F+9+vCXST4QokxIl2ro80rLjZYKVQHwYNawl4
-	NcFcHyK9AK2Gzj9rvlJxVKhmPyR1lvov43WIO6bnrR1yzT94/lsO57FX+/uryKfYzHtPJY6s1MY
-	EU34YvdUaL2fNxHsVXbfpdQpyaVE4s+Ba3DzqAWf10ST02cHMqO/RY23pkwY7oqqun6Gi3HX6S7
-	paD1p3fxfUH93mMW6sBUyxMrNGMndpFVjZoA8NHPRY16qT7w5QeXEGWfQAhcauaNmllgxqE+2cT
-	n9ZdZMQyF+4m+OhcU3hI4/mDIaHUvqxBkmIPiUsZDXZVlnLex+sn6LsQGfAr+ZTm7aauWvUKulc
-	SL5BicM1OiUA8UZTIlAKrnxaKNxceojWZEz4oqssrTLs7lilgp24hhjbwo8Wcc4uwbOIV/3Q3kr
-	vXwwOuo4WaOVBfgblAvGbSmLWusheI1Os3qmM5C5P0pLfIM6J+MZhP7gN9XSLouMbicl3ojeJEH
-	qM=
-X-Google-Smtp-Source: AGHT+IGs/FOAMa8Kt6DANF8r7+CzagRCuMnNn3oAAs7Ac712feB4rHr5MRbvOl4vfdEdf1n3FdEM9A==
-X-Received: by 2002:a05:600c:c8a:b0:479:3a88:de5e with SMTP id 5b1f17b1804b1-47d84b4a079mr179227465e9.37.1768212563643;
-        Mon, 12 Jan 2026 02:09:23 -0800 (PST)
-Message-ID: <f42d65a1-09ad-4745-af10-62a1fff4d2a0@suse.com>
-Date: Mon, 12 Jan 2026 11:09:23 +0100
+        d=1e100.net; s=20230601; t=1768213166; x=1768817966;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=S8cNnMgGRzbmVNuAN76xJOWMAaiFOowG5vdLwJVgWDI=;
+        b=QlzNK+udgoo7aX5241QpgLGM4Jwty9PE7/qLAV3cEFjyrLmUlggqi3szL/Jg9wJrgT
+         PyyY462uDjwtRw47Msx25BL+XnqZkKEfkOqyliQA/BQ1+4KOBOB5+HFDmlzNHX746phS
+         aSclGC1eiBQZ/v5jeu+TNtUma/Zmy4M7ZZlzD1lDpjKSt4uw1XhsFk6cECK84j5vn6pp
+         vT0kMHwfriLMxiXBeoQ8GQ9LTjuucsPGFPY24InjmFC/Ot57/9IChyCi/NWcAEcjq4dd
+         gbt51UFCbHLP5WT9MP+FY5RQqUXleTj+JxoLrZBhMKJnVGhSRRR1UIZ3l3LLcqfzkvgL
+         AZ3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXxiRe+tweP6phupre9PR3ixfD6p/Addyfq55CRetPVdUp+vTiNYeGrFEwohJcdL/jxagOq6VrTDDQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHhp1Ipv+JC1r+LnkbXQDT2spO6bhbrMGrV/Gfy+pHUfyxt/PD
+	crrSTs9gkSx4rfs848Qfhr+paGHBcMbx2DC8XgEt8+h/iQufOfbGeOCG
+X-Gm-Gg: AY/fxX6fgM4FZ1jdxg7OoRp36MPKoCasqB6PChZ2Quu0AXH261j924k3E6HUW6Nd3Jt
+	NxvxPtfrr79W/Ia6HllgSiYQ98p0KzhkeLEXJ74o7Mp/A6HDxsNNz+q2AR2Kn0NBKkcHfuTDNVr
+	qOt65pZYFdk4WwtnYH1mjRz/BREb0rGFio76mjKnB5L0vZjFoflQQvNexdU6FKBNovKizPgu48F
+	K3krrbsbMbAXno/5N0LRdMhghkBNyXv4boyaCMu+rjKApXACYAt6itf+434c4XiWMLddDRMdKj5
+	H/yG52bAMhWt2IR4JHw/GrIdhVKPipIJCW/lmlI7Sm7CbyC5BgGJYm8U0/j5l/UaEb45kSyQyie
+	aTeM0VbRdxePZyxlJVXZLN0VVZumR902/4nZSuhx5bAc+MrB7k5mk9xQaCOL5YLjvF7DPpG/WFe
+	o+Z+OyqRYt3o6ScS/3otjT+V75S9PqPaWBbhXuFL/UqCS6ukLDl7L1pnM9IQ5oHak=
+X-Google-Smtp-Source: AGHT+IEzblSRHenzGT1D9WFy+qk/RZC7irbon66oklI20cDD0wMf79Z+kqfuGQ6uaxvhlxQMS8Wvlw==
+X-Received: by 2002:a05:6402:524c:b0:647:9380:103c with SMTP id 4fb4d7f45d1cf-65097df5672mr17321412a12.13.1768213166248;
+        Mon, 12 Jan 2026 02:19:26 -0800 (PST)
+Message-ID: <c0b36217-9620-46c3-8bb1-f21afefe72e1@gmail.com>
+Date: Mon, 12 Jan 2026 11:19:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH] console/consoleio: account for xen serial input
- focus during write
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 02/15] xen/riscv: implement
+ arch_vcpu_{create,destroy}()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <20251204233211.980862-1-grygorii_strashko@epam.com>
- <alpine.DEB.2.22.394.2601091435130.992863@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <be49a360ad584edf5fd9891e5f4534a2c2586048.1766595589.git.oleksii.kurochko@gmail.com>
+ <2e7ab738-6b5d-4ac4-a46b-1eef1cd09fb1@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2601091435130.992863@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 09.01.2026 23:35, Stefano Stabellini wrote:
-> I independently wrote this patch which also supports console reads.
-> Sorry about the mixed messages.
-> 
-> ---
-> 
-> 
-> xen/console: handle multiple domains using console_io hypercalls
-> 
-> Allow multiple dom0less domains to use the console_io hypercalls to
-> print to the console. Handle them in a similar way to vpl011: only the
-> domain which has focus can read from the console. All domains can write
-> to the console but the ones without focus have a prefix. In this case
-> the prefix is applied by using guest_printk instead of printk or
-> console_puts which is what the original code was already doing.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
->  xen/drivers/char/console.c | 22 +++++++++++++++++++++-
->  1 file changed, 21 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index dcc31170f2..826bee3848 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -729,6 +729,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->      unsigned int flags = opt_console_to_ring
->                           ? CONSOLE_ALL : CONSOLE_DEFAULT;
->      struct domain *cd = current->domain;
-> +    struct domain *input;
->  
->      while ( count > 0 )
->      {
-> @@ -741,17 +742,26 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->          if ( copy_from_guest(kbuf, buffer, kcount) )
->              return -EFAULT;
->  
-> -        if ( is_hardware_domain(cd) )
-> +        input = console_get_domain();
-> +        if (input && cd == input)
-
-Nit: Style (losing blanks).
-
->          {
-> +            if ( cd->pbuf_idx )
-> +            {
-> +                cd->pbuf[cd->pbuf_idx] = '\0';
-> +                console_send(cd->pbuf, cd->pbuf_idx + 1, flags);
-> +                cd->pbuf_idx = 0;
-> +            }
-
-What is pbuf_idx? I can't find any such field in present staging. With that it
-is also unclear what is actually being done here.
-
-In any event I don't think you want to print/send the trailing nul char that
-you insert. With that (and with console_send() taking the length anyway) it's
-further unclear why the nul needs inserting in the first place (and thus, as
-it looks, risking a buffer overrun).
-
-> @@ -793,6 +803,7 @@ long do_console_io(
->  {
->      long rc;
->      unsigned int idx, len;
-> +    struct domain *d;
->  
->      rc = xsm_console_io(XSM_OTHER, current->domain, cmd);
->      if ( rc )
-> @@ -813,6 +824,13 @@ long do_console_io(
->          if ( count > INT_MAX )
->              break;
->  
-> +        d = console_get_domain();
-> +        if ( d != current->domain )
-> +        {
-> +            console_put_domain(d);
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2e7ab738-6b5d-4ac4-a46b-1eef1cd09fb1@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 1/6/26 4:56 PM, Jan Beulich wrote:
+> (some or even all of the comments may also apply to present Arm code)
+>
+> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/domain.c
+>> @@ -0,0 +1,56 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#include <xen/mm.h>
+>> +#include <xen/sched.h>
+>> +
+>> +static void continue_new_vcpu(struct vcpu *prev)
+>> +{
+>> +    BUG_ON("unimplemented\n");
+>> +}
+>> +
+>> +int arch_vcpu_create(struct vcpu *v)
+>> +{
+>> +    int rc = 0;
+>> +
+>> +    BUILD_BUG_ON(sizeof(struct cpu_info) > STACK_SIZE);
+> I fear you're in trouble also when == or when only a few bytes are left on
+> the stack. IOW I'm unconvinced that this is a useful check to have.
+>
+>> +    v->arch.stack = alloc_xenheap_pages(STACK_ORDER, MEMF_node(vcpu_to_node(v)));
+>> +    if ( !v->arch.stack )
+>> +        return -ENOMEM;
+> You don't really need contiguous memory, do you? In which case why not
+> vmalloc()? This would then also use the larger domheap.
 
-> +            return 0;
-> +        }
-> +
->          rc = 0;
->          while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
->          {
-> @@ -824,12 +842,14 @@ long do_console_io(
->                  len = count - rc;
->              if ( copy_to_guest_offset(buffer, rc, &serial_rx_ring[idx], len) )
->              {
-> +                console_put_domain(d);
->                  rc = -EFAULT;
->                  break;
->              }
->              rc += len;
->              serial_rx_cons += len;
->          }
-> +        console_put_domain(d);
->          break;
->      default:
->          rc = -ENOSYS;
+There is really no need for contiguous memory, and|vmalloc()| could be used.
+I expect that|vmalloc()| is more expensive and may make hardware prefetching less
+effective, with more TLB pressure since it allocates 4 KB pages.
+However, the latter two points do not really matter in this case, as only a
+single 4 KB page is allocated, so we are unlikely to see any performance issues.
 
-Hmm, this looks insufficient to me. Unconsumed input at the point focus switches
-should not blindly go to the next domain. It was intended for what was the focus
-at the time of typing.
+>
+>> +    v->arch.cpu_info = (struct cpu_info *)(v->arch.stack
+>> +                                           + STACK_SIZE
+>> +                                           - sizeof(struct cpu_info));
+> Why the cast?
 
-Jan
+Just for readability, from compiler point of view it could be just dropped.
+
+>
+>> +    memset(v->arch.cpu_info, 0, sizeof(*v->arch.cpu_info));
+>> +
+>> +    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
+>> +    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
+>> +
+>> +    printk("Create vCPU with sp=%#lx, pc=%#lx, cpu_info(%#lx)\n",
+>> +           v->arch.xen_saved_context.sp, v->arch.xen_saved_context.ra,
+>> +           (unsigned long)v->arch.cpu_info);
+> Please don't, as this is going to get pretty noisy. (And if this wanted
+> keeping, use %p for pointers rather than casting to unsigned long.)
+
+I didn’t consider the case where a large number of vCPUs are created, as
+I have only tested with 2 vCPUs. However, if the number of vCPUs is large,
+this could indeed get quite noisy.
+I will keep these lines of code in downstream for debugging purposes and
+drop them from upstream version of this patch.
+
+>> --- a/xen/arch/riscv/include/asm/current.h
+>> +++ b/xen/arch/riscv/include/asm/current.h
+>> @@ -21,6 +21,12 @@ struct pcpu_info {
+>>   /* tp points to one of these */
+>>   extern struct pcpu_info pcpu_info[NR_CPUS];
+>>   
+>> +/* Per-VCPU state that lives at the top of the stack */
+>> +struct cpu_info {
+>> +    /* This should be the first member. */
+>> +    struct cpu_user_regs guest_cpu_user_regs;
+>> +};
+> You may want to enforce what the comment says by way of a BUILD_BUG_ON().
+
+Makes sense, I will add:
+   BUILD_BUG_ON(offsetof(struct cpu_info, guest_cpu_user_regs) != 0);
+in|arch_vcpu_create()|, somewhere around the initialization of|v->arch.cpu_info = ... . |I noticed that there is no|BUILD_BUG_ON()| variant that can be used outside
+of a function, or does such a variant exist and I’m just missing it? Or there
+is no such sense at all for such variant?
+
+>
+>> --- a/xen/arch/riscv/include/asm/domain.h
+>> +++ b/xen/arch/riscv/include/asm/domain.h
+>> @@ -49,6 +49,9 @@ struct arch_vcpu
+>>           register_t ra;
+>>       } xen_saved_context;
+>>   
+>> +    struct cpu_info *cpu_info;
+>> +    void *stack;
+> Do you really need both fields, when one is derived from the other?
+
+No, I don't need. I think we can just keep cpu_info and it would be 
+enough. Thanks. ~ Oleksii
+
 
