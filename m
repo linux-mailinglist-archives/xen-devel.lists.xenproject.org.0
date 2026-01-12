@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D68D1247E
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 12:25:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200119.1516124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F773D125D7
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 12:45:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200136.1516134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfG2T-0004hX-9O; Mon, 12 Jan 2026 11:24:49 +0000
+	id 1vfGMK-00085D-0J; Mon, 12 Jan 2026 11:45:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200119.1516124; Mon, 12 Jan 2026 11:24:49 +0000
+Received: by outflank-mailman (output) from mailman id 1200136.1516134; Mon, 12 Jan 2026 11:45:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfG2T-0004et-5p; Mon, 12 Jan 2026 11:24:49 +0000
-Received: by outflank-mailman (input) for mailman id 1200119;
- Mon, 12 Jan 2026 11:24:48 +0000
+	id 1vfGMJ-00082f-U1; Mon, 12 Jan 2026 11:45:19 +0000
+Received: by outflank-mailman (input) for mailman id 1200136;
+ Mon, 12 Jan 2026 11:45:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfG2S-0004en-7h
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 11:24:48 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vfGMH-00082Z-UK
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 11:45:18 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ce0658f-efa9-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 12:24:46 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47795f6f5c0so38135825e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 03:24:46 -0800 (PST)
+ id 296f8990-efac-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 12:45:16 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-43284ed32a0so3158429f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 03:45:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d8715b5d9sm133081265e9.5.2026.01.12.03.24.45
+ ffacd0b85a97d-432bd0dadcfsm37687906f8f.3.2026.01.12.03.45.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 03:24:45 -0800 (PST)
+ Mon, 12 Jan 2026 03:45:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ce0658f-efa9-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 296f8990-efac-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768217086; x=1768821886; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768218315; x=1768823115; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JPecrGbU0W+UNpV7R2wFfYgDjoCPL04H5/Dm0sZMGO4=;
-        b=egH43rmLcpAuWR2g6VI1MMRDRajEFpt9ohZm4I/If6SQu3jZMWgNCcZKUqFvffwmcg
-         1QWmoy/KVScbL7F8zO4E5UyH+Io8dNQ0R1O7Bf4Y3qIr93g1K8Qs7/Nh64Wplv7iHaLB
-         IqCAPH3H9zlCzLDH2yXuAykfcrnMb1b7bnemWbffyp4sHhv7oaSFF7vH2etWtHO2jgk5
-         SelpO4E+rK+sO4738ueW8AvYDqBmF/5I4kH6r8/xa9O7NkMqh10W/oC75AcK3B/ZDp4e
-         nyXrfKTCxyVpL9EaPC/FzBh/UcGfOahGNlx/7Ag5Kwg9d6ycoKfbivv3E/VwECIT95tB
-         lzYw==
+        bh=DP/rj83J9h2HGMzSIS2/JNlabRM3uvkqd3D0lsJPkOM=;
+        b=fQzLYYI+g61ripbEUnaqSO91pWYzGaXXSwA2T3xexB9PKbL3ko8AWTbaxMw3F3NwFp
+         LVX0hRbok1rUufyVMKu0SLOX0ojH0H5beyaNUxQdi+aVPDhIAOCXIl+U2LkALuIUSUiQ
+         3GULi6J6uSxykKHvnIlIWnGS8bwKGF7uf+xKy/5mZsS6nMcgQTCG4Q6q6BXCucZAzmge
+         mHiuxjpJZNXSpGv5eyMULdZgmvfv0aPTetXDcQXR+40ZdV0GIT9DJK1XObfgCZWhuo2z
+         P9pa4st9WxaV4EWPAGCQhhwXACukM4ilGkeRgaHc95JzSnojEx1w2/+AlrLCAYV0yHot
+         mdWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768217086; x=1768821886;
+        d=1e100.net; s=20230601; t=1768218315; x=1768823115;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JPecrGbU0W+UNpV7R2wFfYgDjoCPL04H5/Dm0sZMGO4=;
-        b=VGik+JEXv9h3d1ZrEXkwqSdRS21jVN998+rMkWBfrycE4RieTtnJ9U/6dcfs0kku11
-         ol13p9WSC+RnQ6IhS6lGTHl89OvEtJZaUESxfM0QEJwRbU6X6ehEjeHzfirYlx8zN8n4
-         0qgCu/remPAw7b4wqR/PnKnZDplyKlpqaVlgGJ/gD+rLOaFWIVe14cKb8UmWJdAOlGcZ
-         X1fyv1nvehSCyherxcWNvG76rxQU6O8S/81rOANfNFfHKJRtJ//hORxutCh12DYetB6P
-         XW7Ms2UIGcjJtDmgD9MfGlfxc30ZEtqjW2yQcHHYUxHc34QvpDLKVi4QyJ7Z0B6C00la
-         pYWA==
-X-Forwarded-Encrypted: i=1; AJvYcCUOOBETez89K+fT4w/fo5gVREPCMN6wgy1z7DU+/XbKlAt6VVPkzwAGFhHYbMIict+0gLIX2l6dpGs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwU62+pezodPwiQYCZmdOjGoiDsl3W7JtvlMqG8XMyfU4XTHJ33
-	cH0yA6DStIRwLFLQs65ZdidOwq7RafXxbW9KKfDzOUVL7oYTk8bwgZkYVDGXpRRx0Q==
-X-Gm-Gg: AY/fxX4Dq3Im+MfFd1UG8SOkGonK5F6fn6o4WbC8riD7nr98vJLv5Xs3F7t/pT6y13s
-	mIPXK1ZIGPahFtjdZnXOFNvPfWSgMzBZAe7/dILTcOv1amF+lp1GWDCsNLETUNzmheihp8gktXx
-	00oPRSJ3qMQoJStan/v38yRv+EonysQ+C/S5A38SINlmIrMVYOTIrELyhpS5WnzZ5TW09QSMkYe
-	Z2LE7mQsLoDapgkIQ/PT6J43pKei1+Jwqs6O+AMy+PdV6FfdFnUxblyvsUCRxgGfcpy2XXqsMwc
-	AES/UrKlhYzsHF6nJGBIumoTO0lDrsh1bfnPRBSFoS5neHKdhZzkihK0OcdwPKmYCrG1wQC4+yE
-	wdHeddQyh4wflLtXGauGInbmGFu9k60MU8FMbQPvJDP7f6/mK30Xi4IFgoeik2k6PRhEJHSIW33
-	0Sk7ythyPvyrpK6RPETAnnDRiyqVd6bu9B78qDj40umtLddVWYoteMkwJi/IfMSvA2IG2gU1AP+
-	0Q=
-X-Google-Smtp-Source: AGHT+IH432z5H5gsj5zkDnT/1Jxoo9DGAL4oQA+m//LxTQ/HmvyZq+/OZMUKDD/tPCZskt+2vVCi5w==
-X-Received: by 2002:a05:600c:a314:b0:479:3876:22a8 with SMTP id 5b1f17b1804b1-47d84b2d285mr181768245e9.16.1768217086164;
-        Mon, 12 Jan 2026 03:24:46 -0800 (PST)
-Message-ID: <f0dcc4e7-3053-4386-a162-579ecf68240f@suse.com>
-Date: Mon, 12 Jan 2026 12:24:46 +0100
+        bh=DP/rj83J9h2HGMzSIS2/JNlabRM3uvkqd3D0lsJPkOM=;
+        b=fEbv+KfNtOihYFkcNp+W+TgssOEH4WUjUOwver5RRr0/j7LicUOYJygjm5awcMOYf6
+         wQjUBH78cGUvcczphpRFIFVr6XzLyYkg0688ivG1WAzbiU97VCm0O5X+iRrkF4hlMMam
+         M8+iFtWJCYVZzvhS7KNRscY86HWHao7e0I0MU7vaVd7+1I8c562vV2vZyAiMD+A8BVPG
+         Aww+7zokCjUp0Fhgj14CYClwZ1pvrDaJGTkbuMgMDlVrK1qrV/0BAOen9xc05G/by22D
+         Wg/NY/9v/AAsbjcQu/WFz9tDbxbUMgnjyErzmsnst1PgqgSqsFX6ArhSMuXqTwpbgvOz
+         GEDg==
+X-Forwarded-Encrypted: i=1; AJvYcCUD5EIzfrmcktrnJkeETLxsWSxlTG3UACuxsK4xRgDFBj9WcML/E91HhRkoRLeS+6T5OZsRbSBVsyw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzYq9QA/gNCq0neyPqxNbP+5gJa0xspRmfi8uL5m+VvGVB4OY8c
+	omh46P/9OpmmXFZBLPCa8wscBicTr1ADuEFH9btNwLFnaLReAXVjF0BVDEk/I2uvOQ==
+X-Gm-Gg: AY/fxX7GrjvcFmoS4zSOAr7WzxDeWhQLSbGCnDeMNsVXxn8Njgdw+jsf4lUFQGSxUWr
+	JRfXQYWt5uEhqPTRHCACDhJHnoBIDmC/1Zm9XUUfnGaknRV1WtHSQKlVQ63wP7K3lmRxr+4Is6p
+	0MaPqlyK+vOutVtpmy74Cp6caJO0gXdmE9sQCp7F5SEHc0hh3qAUFDlKMDECaKWx6T2sQ0xURSF
+	hRr3TTkQr0OtUcSpJvLSZZeMSXqSRAuHCQgT9d7x5zpt2NR5zI+Hj26w0xNUmywX2cLgu8kwzQO
+	2gZ8UTp5EeXwm6JcRCGfnQF/JRCnhQwOMTqYlEBC0FiEorQdnOoyUvMbD171nGbeCkD65s3kW4H
+	NNNMDxLDiXXGtb0YUM6klKI6Vs1/J1/oWBFyPX3BUtLOE/l4/lHK4qJqhb1gYcj1ZTf6s6Wdx2v
+	ZvDRarov71rYGjcYnxwdzkigegUTEUnIljtxUjCfOWncGLlusKQgCBwc5/uLerCoNspD8BVUiVz
+	3eSwV8z0i1zZg==
+X-Google-Smtp-Source: AGHT+IGAoUaHw0ZQUpxudaCqdGTnx81wymlEijFVngf0f7NPihpWhmduuNh3HpkvGip/WwJfIxcQWA==
+X-Received: by 2002:a5d:64e7:0:b0:432:5c43:53 with SMTP id ffacd0b85a97d-432c374f248mr17967581f8f.36.1768218315092;
+        Mon, 12 Jan 2026 03:45:15 -0800 (PST)
+Message-ID: <4b03cf36-d2d8-420c-82df-55d6a9ac9d68@suse.com>
+Date: Mon, 12 Jan 2026 12:45:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/altp2m: altp2m_get_effective_entry() should honor
- ap2m->default_access
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Tamas K Lengyel <tamas@tklengyel.com>,
- =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-References: <dbab519006501b3971fa913310a06755a14c4548.1767982955.git.w1benny@gmail.com>
- <ec57461b-dde6-413d-a825-3538f46a1209@suse.com>
- <1916d0a7-ff9a-49f1-8564-2767226fca9c@citrix.com>
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+To: Anton Markov <akmarkov45@gmail.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
+ <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+ <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com>
+ <CACQYvN-fiATs2dtdboYxCreF8kF5RsgoH-zgWtQ59iVNOT_wVg@mail.gmail.com>
+ <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,60 +125,477 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1916d0a7-ff9a-49f1-8564-2767226fca9c@citrix.com>
+In-Reply-To: <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.01.2026 12:18, Andrew Cooper wrote:
-> On 12/01/2026 11:09 am, Jan Beulich wrote:
->> On 09.01.2026 19:28, Petr Beneš wrote:
->>> From: Petr Beneš <w1benny@gmail.com>
->>>
->>> Commit 7e5b662 fixed p2m_altp2m_get_or_propagate() to use the altp2m's
->>> default_access when propagating entries from the host p2m. However, the same
->>> fix was not applied to altp2m_get_effective_entry(), which has the same issue.
->>>
->>> When altp2m_get_effective_entry() prepopulates a superpage from the host
->>> p2m, it incorrectly uses the host p2m's access permissions instead of
->>> the altp2m's default_access. This causes problems when the superpage is
->>> later split (e.g., when setting mem_access on a specific 4K page): all
->>> 512 entries inherit the host p2m's access rights instead of the altp2m's
->>> default_access.
->>>
->>> This issue became apparent after commit 50baf2d, which causes the host p2m
->>> to use superpages more frequently. Before that commit, the host p2m
->>> typically had 4K entries after VM restore, so the prepopulate branch was
->>> rarely taken.
->>>
->>> Symptoms include memory-access events firing for unexpected pages when
->>> using VMI tools with altp2m, particularly after VM resume.
->>> The issue can be worked around by booting with "hap_1gb=0 hap_2mb=0".
->>>
->>> Fixes: 7e5b662 ("x86/altp2m: p2m_altp2m_get_or_propagate() should honor ap2m->default_access")
->> You didn't even Cc Tamas, who I think once again will need to ack this.
->> Already with the referenced change I didn't quite understand the
->> reasoning.
->>
->> However, two formal points: Please use 12-digit hashes, as demanded by
->> sending-patches.pandoc. Plus I don't think Fixes: is quite right here.
->> That earlier change of yours didn't mean to do more than it did, by its
->> title and description. We relatively recently introduced Amends:, which
->> may be a suitable fit here.
-> 
-> I beg your pardon?  Fixes are and Amends are synonyms.
+On 12.01.2026 11:31, Anton Markov wrote:
+> Bit rounding isn't the main issue; the difference in ipi delivery to the
+> cores accumulates due to the ordering. Replacing get_s_time_fixed with
+> scale_delta in time_calibration_rendezvous_tail should be sufficient. This
+> configuration won't accumulate errors, but bit rounding can still cause a
+> significant difference from calibration to calibration, but it's not as
+> significant.
 
-This is news to me. To me a "fix" addresses a bug in the referenced commit.
-Whereas making a related change which isn't strictly a bugfix to the
-referenced earlier change is what Amends: was introduced for. If both were
-synonyms, why would you not have objected to the introduction of Amends:?
+That invocation of get_s_time_fixed() reduces to scale_delta() (without
+further rdtsc_ordered()), as non-zero at_tsc is passed in all cases. IOW
+it's not quite clear to me what change you are suggesting (that would
+actually make a functional difference).
 
->  You cannot use
-> them like this, and you absolutely cannot expect contributors to know
-> your personal interpretation of the words.
-
-"My personal interpretation of the words" has become the community's with
-the committing of the change introducing Amends:. And I think I can expect
-contributors to read sending-patches.pandoc?
+Btw, your prior response was too hard to properly read, due to excess blank
+lines with at the same time squashed leading blanks. Together with your
+apparent inability to avoid top-posting, I think you really want to adjust
+your mail program's configuration.
 
 Jan
+
+> On Fri, Jan 9, 2026 at 7:11 PM Anton Markov <akmarkov45@gmail.com> wrote:
+> 
+>> You're right. These aren't interrupts in get_s_time_fixed, but rather a
+>> cumulative error in the sequence due to integer rounding. I added logging
+>> of the current local_stime to local_time_calibration and noticed that the
+>> timestamp between cores is gradually increasing. If the server has been
+>> running for weeks, this could be a very large value.
+>>
+>>
+>> ```
+>>
+>> @@ -1732,6 +1753,8 @@ static void cf_check local_time_calibration(void)
+>>
+>> if ( boot_cpu_has(X86_FEATURE_CONSTANT_TSC) )
+>>
+>> {
+>>
+>> /* Atomically read cpu_calibration struct and write cpu_time struct. */
+>>
+>> + printk("update stime on time calibrate %d, %lu -> %lu (%lu, %lu)\n",
+>> smp_processor_id(), t->stamp.local_stime, c->local_stime,
+>>
+>> + t->last_seen_ns, t->last_seen_tsc);
+>>
+>> local_irq_disable();
+>>
+>> t->stamp = *c;
+>>
+>> local_irq_enable();
+>>
+>> ```
+>>
+>>
+>> 2 hours of work:
+>>
+>>
+>> ```
+>>
+>> (XEN) update stime on time calibrate 0, 8564145820102 -> 8565145861597
+>> (8565145862216, 0)
+>>
+>> (XEN) update stime on time calibrate 1, 8564145820129 -> 8565145861609
+>> (8565145863957, 0)
+>>
+>> (XEN) update stime on time calibrate 3, 8564145819996 -> 8565145861491
+>> (8565145864800, 0)
+>>
+>> (XEN) update stime on time calibrate 2, 8564145820099 -> 8565145861609
+>> (8565145865372, 0)
+>>
+>>
+>> 8565145861609 - 8565145861491 = 115 * 3 (3.00 GHz) = 345 lag
+>>
+>> ```
+>>
+>>
+>> 6 hours of work:
+>>
+>> ```
+>>
+>> (XEN) update stime on time calibrate 0, 22914730829200 -> 22915730869993
+>> (22915730870665, 0)
+>>
+>> (XEN) update stime on time calibrate 1, 22914730829073 -> 22915730869889
+>> (22915730870693, 0)
+>>
+>> (XEN) update stime on time calibrate 2, 22914730829052 -> 22915730869841
+>> (22915730872231, 0)
+>>
+>> (XEN) update stime on time calibrate 3, 22914730828892 -> 22915730869696
+>> (22915730872096, 0)
+>>
+>>
+>> 22915730869993 - 22915730869696 = 297 * 3 (3.00 GHz) = 891 lag
+>>
+>> ```
+>>
+>>
+>> Clarification, according to my xen settings:
+>>
+>> ```
+>>
+>> ucode=scan dom0_mem=53923M,max:53923M dom0_max_vcpus=4-96 dom0_vcpus_pin=0
+>> force-ept=1 ept=no-ad,no-pml hap_1gb=0 hap_2mb=0 altp2m=1
+>> hpet=legacy-replacement smt=1 spec-ctrl=no gnttab_max_frames=512
+>> cpufreq=xen:performance max_cstate=1 sched=credit sched-gran=cpu apicv=0
+>> sched_credit_tslice_ms=5 sched_ratelimit_us=500
+>>
+>> ```
+>>
+>>
+>> Processors I tested on:
+>>
+>>
+>> ```
+>>
+>> Intel(R) Core(TM) i5-3330 CPU @ 3.00GHz
+>>
+>>
+>> Flags: fpu de tsc msr pae mce cx8 apic sep mca cmov pat clflush acpi mmx
+>> fxsr sse sse2 ss ht syscall nx rdtscp lm constant_tsc rep_good nopl
+>> nonstop_tsc cpuid tsc_known_freq pni pclmulqdq monitor est ssse3 cx16
+>> sse4_1 sse4_2 popcnt aes xsave avx f16c hypervisor lahf_lm cpuid_fault
+>> fsgsbase erms xsaveopt arch_capabilities
+>>
+>> ```
+>>
+>> ```
+>>
+>> Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz x2 (NUMA)
+>>
+>>
+>> Flags: fpu de tsc msr pae mce cx8 apic sep mca cmov pat clflush acpi mmx
+>> fxsr sse sse2 ss ht syscall nx rdtscp lm constant_tsc rep_good nopl
+>> nonstop_tsc cpuid tsc_known_freq pni pclmulqdq monitor est ssse3 fma cx16
+>> sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm
+>> 3dnowprefetch cpuid_fault ibpb fsgsbase bmi1 avx2 bmi2 erms rtm avx512f
+>> avx512dq rdseed adx avx512ifma clflushopt clwb avx512cd sha_ni avx512bw
+>> avx512vl xsaveopt xsavec xgetbv1 avx512vbmi avx512_vbmi2 gfni vaes
+>> vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm md_clear
+>> arch_capabilities
+>>
+>> ```
+>>
+>>
+>> Next I moved the code to r3 to speed up playback:
+>>
+>>
+>> ```
+>>
+>> #include <stdint.h>
+>>
+>> #include <stdio.h>
+>>
+>>
+>> static __inline__ unsigned long long rdtsc(void)
+>>
+>> {
+>>
+>> unsigned hi, lo;
+>>
+>> __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+>>
+>> return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
+>>
+>> }
+>>
+>>
+>> #define MILLISECS(_ms) ((int64_t)((_ms) * 1000000ULL))
+>>
+>>
+>> struct cpu_time_stamp {
+>>
+>> uint64_t local_tsc;
+>>
+>> int64_t local_stime;
+>>
+>> int64_t master_stime;
+>>
+>> };
+>>
+>>
+>> struct time_scale {
+>>
+>> int shift;
+>>
+>> uint32_t mul_frac;
+>>
+>> };
+>>
+>>
+>>
+>> static inline uint32_t div_frac(uint32_t dividend, uint32_t divisor)
+>>
+>> {
+>>
+>> uint32_t quotient, remainder;
+>>
+>> asm (
+>>
+>> "divl %4"
+>>
+>> : "=a" (quotient), "=d" (remainder)
+>>
+>> : "0" (0), "1" (dividend), "r" (divisor) );
+>>
+>> return quotient;
+>>
+>> }
+>>
+>>
+>>
+>> void set_time_scale(struct time_scale *ts, uint64_t ticks_per_sec)
+>>
+>> {
+>>
+>> uint64_t tps64 = ticks_per_sec;
+>>
+>> uint32_t tps32;
+>>
+>> int shift = 0;
+>>
+>>
+>> while ( tps64 > (MILLISECS(1000)*2) )
+>>
+>> {
+>>
+>> tps64 >>= 1;
+>>
+>> shift--;
+>>
+>> }
+>>
+>>
+>> tps32 = (uint32_t)tps64;
+>>
+>> while ( tps32 <= (uint32_t)MILLISECS(1000) )
+>>
+>> {
+>>
+>> tps32 <<= 1;
+>>
+>> shift++;
+>>
+>> }
+>>
+>>
+>> ts->mul_frac = div_frac(MILLISECS(1000), tps32);
+>>
+>> ts->shift = shift;
+>>
+>> }
+>>
+>>
+>>
+>> uint64_t scale_delta(uint64_t delta, const struct time_scale *scale)
+>>
+>> {
+>>
+>> uint64_t product;
+>>
+>>
+>> if ( scale->shift < 0 )
+>>
+>> delta >>= -scale->shift;
+>>
+>> else
+>>
+>> delta <<= scale->shift;
+>>
+>>
+>> asm (
+>>
+>> "mulq %2 ; shrd $32,%1,%0"
+>>
+>> : "=a" (product), "=d" (delta)
+>>
+>> : "rm" (delta), "0" ((uint64_t)scale->mul_frac) );
+>>
+>>
+>> return product;
+>>
+>> }
+>>
+>>
+>> #define _TS_MUL_FRAC_IDENTITY 0x80000000UL
+>>
+>>
+>> static inline struct time_scale scale_reciprocal(struct time_scale scale)
+>>
+>> {
+>>
+>> struct time_scale reciprocal;
+>>
+>> uint32_t dividend;
+>>
+>>
+>> dividend = _TS_MUL_FRAC_IDENTITY;
+>>
+>> reciprocal.shift = 1 - scale.shift;
+>>
+>> while ( dividend >= scale.mul_frac )
+>>
+>> {
+>>
+>> dividend >>= 1;
+>>
+>> reciprocal.shift++;
+>>
+>> }
+>>
+>>
+>> asm (
+>>
+>> "divl %4"
+>>
+>> : "=a" (reciprocal.mul_frac), "=d" (dividend)
+>>
+>> : "0" (0), "1" (dividend), "r" (scale.mul_frac) );
+>>
+>>
+>> return reciprocal;
+>>
+>> }
+>>
+>>
+>>
+>> int64_t get_s_time_fixed(const struct cpu_time_stamp *t, const struct
+>> time_scale *ts, uint64_t at_tsc)
+>>
+>> {
+>>
+>> uint64_t tsc, delta;
+>>
+>>
+>> if ( at_tsc )
+>>
+>> tsc = at_tsc;
+>>
+>> else
+>>
+>> tsc = rdtsc();
+>>
+>> delta = tsc - t->local_tsc;
+>>
+>> return t->local_stime + scale_delta(delta, ts);
+>>
+>> }
+>>
+>>
+>> int main() {
+>>
+>>
+>> struct cpu_time_stamp ct;
+>>
+>> struct time_scale ts;
+>>
+>> struct time_scale back;
+>>
+>>
+>> uint64_t start = rdtsc();
+>>
+>>
+>> set_time_scale(&ts, 3000000000);
+>>
+>> back = scale_reciprocal(ts);
+>>
+>>
+>> ct.local_tsc = start;
+>>
+>> ct.local_stime = scale_delta(start, &ts);
+>>
+>>
+>> while (1) {
+>>
+>> uint64_t new_tsc = rdtsc();
+>>
+>> ct.local_stime = get_s_time_fixed(&ct, &ts, new_tsc);
+>>
+>> ct.local_tsc = new_tsc;
+>>
+>>
+>> uint64_t tmp_tsc = rdtsc();
+>>
+>> printf("%lu %lu\n", tmp_tsc, scale_delta(get_s_time_fixed(&ct, &ts,
+>> tmp_tsc), &back));
+>>
+>> }
+>>
+>>
+>> return 0;
+>>
+>> }
+>>
+>> ```
+>>
+>>
+>> It's enough to run the loop for 10-20 seconds to see the problem.
+>> scale_delta rounds the least significant bits during calculation, which
+>> causes the error to accumulate, at different rates on different cores,
+>> depending on the least significant bits at the time of calibration.
+>>
+>>
+>> Now let's talk about why dwm reacts this way. When a snapshot is reversed,
+>> last_guest_time in hvm_get_guest_time_fixed is set to 0, which doesn't
+>> prevent time from flowing backwards. This means that cache_tsc_offset in
+>> hvm_get_guest_tsc_fixed may be configured correctly on one physical core,
+>> but due to shedding on a physical core with a lagging tsc, the guest may
+>> occasionally see a tsc value lower than it saw before the snapshot was
+>> reversed. If this happens to the dwm code, it terminates with an error.
+>>
+>>
+>> A quick solution to this problem might be to save the last_seen_tsc
+>> parameter in a snapshot for each core, followed by validation.
+>>
+>>
+>> The correct solution is to remove the rounding of the least significant
+>> bits from the sequence.
+>>
+>> On Wed, Jan 7, 2026 at 11:02 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>>> On 06.01.2026 21:10, Антон Марков wrote:
+>>>> Hi, I'm not sure about the other places. In hvm_load_cpu_ctxt
+>>>> (xen/arch/x86/hvm/hvm.c ), it was easy to catch because
+>>>> process_pending_softirqs is frequently called there, which in turn
+>>>> processes softirqs from the timer (where the timestamp is updated).
+>>>> After I fixed sync_tsc in hvm_load_cpu_ctxt, the problem stopped
+>>>> reproducing under no load. However, when the number of vCPUs is 4 times
+>>>> greater than the number of CPUs (under heavy load), the problem rarely
+>>>> reoccurs (mostly during snapshot restores during
+>>>> process_pending_softirqs calls), and this is no longer a simple case.
+>>> If
+>>>> get_s_time_fixed can indeed be interrupted during execution after
+>>>> rdtsc_ordered, then the current fix is insufficient. It's necessary to
+>>>> atomically copy "t->stamp" to the stack using local_irq_disable and
+>>>> local_irq_enable (as in local_time_calibration), and then work with the
+>>>> copy, confident in its lifetime and immutability. But until
+>>>> get_s_time_fixed is proven to be interruptible, this is premature, so
+>>>> your fix is sufficient. I think I need more information and testing to
+>>>> say more.
+>>>
+>>> While the cpu_calibration per-CPU variable is updated from IRQ context,
+>>> the cpu_time one isn't. Hence t->stamp's contents cannot change behind
+>>> the back of get_s_time_fixed(). I wonder whether ...
+>>>
+>>>> Regarding the other scale_delta calls, if they include values
+>>>> calculated from externally saved tsc values that could have become
+>>>> stale during the process_pending_softirqs call, this definitely needs
+>>> to
+>>>> be fixed.
+>>>
+>>> ... another similar issue (possibly one not included in the set of
+>>> remarks I have in the patch, as none of those look related to what you
+>>> describe) might be causing the remaining, more rare problems you say you
+>>> see. That set of remarks is actually a result of me going over all other
+>>> scale_delta() calls, but of course I may have got the analysis wrong.
+>>>
+>>> As to using 4 times as many vCPU-s as there are pCPU-s (and then heavy
+>>> load) - while I don't think we have a support statement for such upstream
+>>> (when probably we should), iirc for our (SUSE's) products we would
+>>> consider that unsupported. Just fyi.
+>>>
+>>> Also, btw, please don't top-post.
+>>>
+>>> Jan
+>>>
+>>
+> 
+
 
