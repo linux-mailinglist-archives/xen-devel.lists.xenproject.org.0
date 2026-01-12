@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D78AD12014
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:48:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200036.1516054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04F00D12038
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:50:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200049.1516063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfFTO-00048Q-6T; Mon, 12 Jan 2026 10:48:34 +0000
+	id 1vfFUZ-0004ii-JC; Mon, 12 Jan 2026 10:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200036.1516054; Mon, 12 Jan 2026 10:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 1200049.1516063; Mon, 12 Jan 2026 10:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfFTO-00045U-3f; Mon, 12 Jan 2026 10:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 1200036;
- Mon, 12 Jan 2026 10:48:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfFUZ-0004gk-GY; Mon, 12 Jan 2026 10:49:47 +0000
+Received: by outflank-mailman (input) for mailman id 1200049;
+ Mon, 12 Jan 2026 10:49:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pUjb=7R=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vfFTM-00045G-AB
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:48:32 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c0b1412-efa4-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 11:48:31 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 734B8336D7;
- Mon, 12 Jan 2026 10:48:30 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 53E6C3EA63;
- Mon, 12 Jan 2026 10:48:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id knaNEn7RZGn/CgAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 12 Jan 2026 10:48:30 +0000
+ (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfFUY-0004ga-2Z
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:49:46 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6739b950-efa4-11f0-9ccf-f158ae23cfc8;
+ Mon, 12 Jan 2026 11:49:43 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-477a2ab455fso57018215e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 02:49:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47d8636e588sm137320895e9.0.2026.01.12.02.49.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jan 2026 02:49:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,248 +45,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c0b1412-efa4-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768214910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RKzCs3EHfscXaf27uIc/6u29nG95jbTHMErvKP3MT5Q=;
-	b=qPeo3UuRHWvz5kAYrbnCNRAfq9cB9P0k6VB4KW7BIXunBYaW1s2rn1iynrAoNmamoMC3Gb
-	GSx5FqPVbg76s7/kcJJ8QnePps69/dXImD2W/ktXhK7OvxpMFNWvgrpcg7Iux/wKf/m2GZ
-	yWN+mmy4poMB5bco2N3yBbdKZB0emCk=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=qPeo3UuR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768214910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RKzCs3EHfscXaf27uIc/6u29nG95jbTHMErvKP3MT5Q=;
-	b=qPeo3UuRHWvz5kAYrbnCNRAfq9cB9P0k6VB4KW7BIXunBYaW1s2rn1iynrAoNmamoMC3Gb
-	GSx5FqPVbg76s7/kcJJ8QnePps69/dXImD2W/ktXhK7OvxpMFNWvgrpcg7Iux/wKf/m2GZ
-	yWN+mmy4poMB5bco2N3yBbdKZB0emCk=
-Message-ID: <20e1bbdf-da94-48ed-84d0-7050436c3b6e@suse.com>
-Date: Mon, 12 Jan 2026 11:48:29 +0100
+X-Inumbo-ID: 6739b950-efa4-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768214983; x=1768819783; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=nLQganLMBoeE7/Xz9tgB4N14tSzNp/xN8SUtKQ8gP0I=;
+        b=ZA1xqmtHOLSAPKSl49Xz/VBm3lkTvWuJwx+vvVa8Fcuyk3ORGeoJsNuld43IcqMGIN
+         BX7kafcPc2gCXXISepMEAhotbwjA090KQaJJyK3dWHw88BejEbhuT4O3sz76O4BP20no
+         jWjiTYp7kXQ3xQkYgwNonDa2Iz/kPAhV9xUOYa2NG1jPYV6e2LXUx1zHS8Ln/UCxamAX
+         lb4iAJxPFOAqLrEkXl2fzJa5KlYLIdZgV6IhxuqNWpdiTUs2rQXIq1pwmOjbHCtmPIq5
+         NuDGdRmfgHvd0s2GxYVuVksoywGWS/xgU+41MV72W+OwW55Xftit60SZ+sG1Z49oufyU
+         v+Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768214983; x=1768819783;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nLQganLMBoeE7/Xz9tgB4N14tSzNp/xN8SUtKQ8gP0I=;
+        b=NcN0bY0PIKkTZV2DtBITGpjs3nPoAvBUdkK5Ab5jrnJv4/yraWLJm8mw1BhRjFdvu8
+         dX69L07X8HyZAHMC5hJmHTfOl+ePe7wq0MLYEwdT75Ym1bzqO+VPFl7g12jnG1nWMl7s
+         7Ae9OXOrvvcfVdJVOxE7KNWFopCMMgxPd5hzUi7NYJAsJcMrS9PB2hujSNmB+yBzP+uc
+         kdwhPEwSQwxTG7/sSez1E8VuFiK++S9G9qtgQLKzxe5motOxUXs3zOfJmB7HiN5igTll
+         U0l4vgMA8XYOVcsPHTqV6bAdt8MFEY2Ey92KqAPSQmhekB7ecZcNZnVIJL4isoAMUGKR
+         Cqyg==
+X-Forwarded-Encrypted: i=1; AJvYcCVQfW5hdjF90BZnXqjHMUdh/G5VwcdRZi6O9On7dgvQvdQQwcRKDKB0I/igYM1ExAROL5BcHgxQiSQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywssuqd1TiR3QQzyDz9Ln7r5kt4TmkQAPG8T+uwdPGGaaNw623t
+	OrZK9u2WSSaP4uj/hwzf/N8iS10uvN0FMBx+DTo0hcHPB0fNitQtK8S/VRZ9czXrFA==
+X-Gm-Gg: AY/fxX6lto29VvKZpqYTAr4G0X36Gbwbgj10s9k2l2vTFsoDYIE6o9Lrd2s56C332uU
+	6Wf31ChbksVCZ5uB0FWzYET2+82qQ5t6mq7fglz/f/5lr7PETHb3r6F6d5pmFuG6SuLYWs/JNUb
+	T6zLyIpykDQ8zDxE8iocy57zyfSr7zPoohIPH8WZf/gNeky/1HH2B3/N8omEQSHYTcpMMaJl9Jx
+	JrFc3TjaxGC/6ymuQ7xWHlblXsGaYbhxYFpjuTwsLaOkOqgUKAK2MGn7QhqosTZ+REJ97H49x8L
+	1XCX85ynQGB8qvYljpyUWkxXigo2+XAhyLkYzUgVtmdAv3QROsmUkZGgOWxzHpUzkewuwXCIoVf
+	sXefLezGaCRvsy4wRxjC9Stpqohpb5zV/FIXg5GRUVNSDHKCHbSkFeUMSQSjWtRiKYafEHG44/m
+	NwjWu3ppKWLbXtyUidw25WcC0QOqsz1kgDy46lbiuLZpLZxk+84td1ifGNdflUxJSbTXFCYVQa8
+	bk=
+X-Google-Smtp-Source: AGHT+IFRyxlk85ePILke1/Z9tzh7zoD0dvnHhNOhnYsrxWGHGY0mZBQOzPnpj0tD3qRzwuoxbndseg==
+X-Received: by 2002:a05:600c:1f13:b0:47d:3ead:7440 with SMTP id 5b1f17b1804b1-47d84b3b772mr198537255e9.32.1768214982872;
+        Mon, 12 Jan 2026 02:49:42 -0800 (PST)
+Message-ID: <9eda3a84-2a29-416d-80d6-ea0e5c9b4bb5@suse.com>
+Date: Mon, 12 Jan 2026 11:49:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: introduce xen_console_io option
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2601091515310.992863@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v3] acpi/arm: relax MADT GICC entry length check to
+ support newer ACPI revisions
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Yann Dirson <yann.dirson@vates.tech>,
+ Yann Sionneau <yann.sionneau@vates.tech>, xen-devel@lists.xenproject.org
+References: <a2234959527a420f8736b2789118326b2d3ee35e.1767950420.git.oleksii.kurochko@gmail.com>
+ <ad51f470-fd08-41bd-bb0d-7058b1f18ff0@suse.com>
+ <ed65056b-c88e-4e94-83a7-8954d6689172@gmail.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <alpine.DEB.2.22.394.2601091515310.992863@ubuntu-linux-20-04-desktop>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------PGQlewguDXdt21TBRvFJvcjw"
-X-Spam-Score: -5.41
-X-Spamd-Result: default: False [-5.41 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid]
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 734B8336D7
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ed65056b-c88e-4e94-83a7-8954d6689172@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------PGQlewguDXdt21TBRvFJvcjw
-Content-Type: multipart/mixed; boundary="------------9wlGni05LTNQe0IgfptKbKsi";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org
-Message-ID: <20e1bbdf-da94-48ed-84d0-7050436c3b6e@suse.com>
-Subject: Re: [PATCH] xen: introduce xen_console_io option
-References: <alpine.DEB.2.22.394.2601091515310.992863@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2601091515310.992863@ubuntu-linux-20-04-desktop>
+On 09.01.2026 17:23, Oleksii Kurochko wrote:
+> 
+> On 1/9/26 11:03 AM, Jan Beulich wrote:
+>> On 09.01.2026 10:27, Oleksii Kurochko wrote:
+>>> Newer ACPI revisions define the MADT GICC entry with Length = 82 bytes [1].
+>>> The current BAD_MADT_GICC_ENTRY() check rejects entries whose length does not
+>>> match the known values, which leads to:
+>>>    GICv3: No valid GICC entries exist.
+>>> as observed on the AmpereOne platform.
+>>>
+>>> To fix this, import the logic from Linux commit 9eb1c92b47c7:
+>>>    The BAD_MADT_GICC_ENTRY check is a little too strict because
+>>>    it rejects MADT entries that don't match the currently known
+>>>    lengths. We should remove this restriction to avoid problems
+>>>    if the table length changes. Future code which might depend on
+>>>    additional fields should be written to validate those fields
+>>>    before using them, rather than trying to globally check
+>>>    known MADT version lengths.
+>>>
+>>>    Link:https://lkml.kernel.org/r/20181012192937.3819951-1-jeremy.linton@arm.com
+>>>    Signed-off-by: Jeremy Linton<jeremy.linton@arm.com>
+>>>    [lorenzo.pieralisi@arm.com: added MADT macro comments]
+>>>    Signed-off-by: Lorenzo Pieralisi<lorenzo.pieralisi@arm.com>
+>>>    Acked-by: Sudeep Holla<sudeep.holla@arm.com>
+>>>    Cc: Will Deacon<will.deacon@arm.com>
+>>>    Cc: Catalin Marinas<catalin.marinas@arm.com>
+>>>    Cc: Al Stone<ahs3@redhat.com>
+>>>    Cc: "Rafael J. Wysocki"<rjw@rjwysocki.net>
+>>>    Signed-off-by: Will Deacon<will.deacon@arm.com>
+>>>
+>>> As ACPI_MADT_GICC_LENGTH is dropped, update the functions where it is
+>>> used. As we rewrite the MADT for hwdom, reuse the host GICC header length
+>>> instead of ACPI_MADT_GICC_LENGTH.
+>>>
+>>> Mark gic_get_hwdom_madt_size() as __init since its only caller is also
+>>> __init.
+>>>
+>>> [1]https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
+>>>
+>>> Reported-By: Yann Dirson<yann.dirson@vates.tech>
+>>> Co-developed-by: Yann Sionneau<yann.sionneau@vates.tech>
+>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>> ---
+>>> I ran CI tests where it made sense for this patch, as I don’t see any CI job
+>>> that builds Xen with CONFIG_ACPI=y:
+>>>    https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2252409762
+>>>
+>>> I also built Xen manually with CONFIG_ACPI=y enabled and tested it on the
+>>> AmpereOne platform.
+>>> ---
+>>>   xen/arch/arm/acpi/domain_build.c |  6 ++++++
+>>>   xen/arch/arm/gic-v2.c            |  3 ++-
+>>>   xen/arch/arm/gic-v3.c            |  3 ++-
+>>>   xen/arch/arm/gic.c               | 13 +++++++++++--
+>>>   xen/arch/arm/include/asm/acpi.h  | 21 +++++++++++++++------
+>>>   5 files changed, 36 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+>>> index 1c3555d814cc..959698d13ac3 100644
+>>> --- a/xen/arch/arm/acpi/domain_build.c
+>>> +++ b/xen/arch/arm/acpi/domain_build.c
+>>> @@ -458,6 +458,12 @@ static int __init estimate_acpi_efi_size(struct domain *d,
+>>>       acpi_size += ROUNDUP(sizeof(struct acpi_table_stao), 8);
+>>>   
+>>>       madt_size = gic_get_hwdom_madt_size(d);
+>>> +    if ( !madt_size )
+>>> +    {
+>>> +        printk("Unable to get hwdom MADT size\n");
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>>       acpi_size += ROUNDUP(madt_size, 8);
+>>>   
+>>>       addr = acpi_os_get_root_pointer();
+>>> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+>>> index b23e72a3d05d..aae6a7bf3076 100644
+>>> --- a/xen/arch/arm/gic-v2.c
+>>> +++ b/xen/arch/arm/gic-v2.c
+>>> @@ -1121,7 +1121,8 @@ static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
+>>>       host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+>>>                                header);
+>>>   
+>>> -    size = ACPI_MADT_GICC_LENGTH;
+>>> +    size = host_gicc->header.length;
+>>> +
+>>>       /* Add Generic Interrupt */
+>>>       for ( i = 0; i < d->max_vcpus; i++ )
+>>>       {
+>>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+>>> index bc07f97c16ab..75b89efad462 100644
+>>> --- a/xen/arch/arm/gic-v3.c
+>>> +++ b/xen/arch/arm/gic-v3.c
+>>> @@ -1672,7 +1672,8 @@ static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
+>>>   
+>>>       host_gicc = container_of(header, struct acpi_madt_generic_interrupt,
+>>>                                header);
+>>> -    size = ACPI_MADT_GICC_LENGTH;
+>>> +    size = host_gicc->header.length;
+>>> +
+>>>       for ( i = 0; i < d->max_vcpus; i++ )
+>>>       {
+>>>           gicc = (struct acpi_madt_generic_interrupt *)(base_ptr + table_len);
+>>> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+>>> index ee75258fc3c3..e4fcfd60205d 100644
+>>> --- a/xen/arch/arm/gic.c
+>>> +++ b/xen/arch/arm/gic.c
+>>> @@ -414,12 +414,21 @@ int gic_make_hwdom_madt(const struct domain *d, u32 offset)
+>>>       return gic_hw_ops->make_hwdom_madt(d, offset);
+>>>   }
+>>>   
+>>> -unsigned long gic_get_hwdom_madt_size(const struct domain *d)
+>>> +unsigned long __init gic_get_hwdom_madt_size(const struct domain *d)
+>>>   {
+>>>       unsigned long madt_size;
+>>> +    const struct acpi_subtable_header *header;
+>>> +    const struct acpi_madt_generic_interrupt *host_gicc;
+>>> +
+>>> +    header = acpi_table_get_entry_madt(ACPI_MADT_TYPE_GENERIC_INTERRUPT, 0);
+>>> +    if ( !header )
+>>> +        return 0;
+>>> +
+>>> +    host_gicc = container_of(header, const struct acpi_madt_generic_interrupt,
+>>> +                             header);
+>>>   
+>>>       madt_size = sizeof(struct acpi_table_madt)
+>>> -                + ACPI_MADT_GICC_LENGTH * d->max_vcpus
+>>> +                + host_gicc->header.length * d->max_vcpus
+>> Just to double-check: All entries are strictly required to be of the same
+>> length? (Related question further down.)
+> 
+> If I understood the ACPI spec correctly, then yes, it should be the same length,
+> as|GICC->length| is defined as a well defined constant value (82 in ACPI 6.6):
+>   https://uefi.org/specs/ACPI/6.6/05_ACPI_Software_Programming_Model.html#gic-cpu-interface-gicc-structure
 
---------------9wlGni05LTNQe0IgfptKbKsi
-Content-Type: multipart/mixed; boundary="------------oja8Yxxh93BJdDnSK4Gr4k6e"
+It's not entirely explicit there, but my reading would concur. Then ...
 
---------------oja8Yxxh93BJdDnSK4Gr4k6e
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>>> --- a/xen/arch/arm/include/asm/acpi.h
+>>> +++ b/xen/arch/arm/include/asm/acpi.h
+>>> @@ -53,13 +53,22 @@ void acpi_smp_init_cpus(void);
+>>>    */
+>>>   paddr_t acpi_get_table_offset(struct membank tbl_add[], EFI_MEM_RES index);
+>>>   
+>>> -/* Macros for consistency checks of the GICC subtable of MADT */
+>>> -#define ACPI_MADT_GICC_LENGTH	\
+>>> -    (acpi_gbl_FADT.header.revision < 6 ? 76 : 80)
+>> Given this, ...
+>>
+>>> +/*
+>>> + * MADT GICC minimum length refers to the MADT GICC structure table length as
+>>> + * defined in the earliest ACPI version supported on arm64, ie ACPI 5.1.
+>>> + *
+>>> + * The efficiency_class member was added to the
+>>> + * struct acpi_madt_generic_interrupt to represent the MADT GICC structure
+>>> + * "Processor Power Efficiency Class" field, added in ACPI 6.0 whose offset
+>>> + * is therefore used to delimit the MADT GICC structure minimum length
+>>> + * appropriately.
+>>> + */
+>>> +#define ACPI_MADT_GICC_MIN_LENGTH   ACPI_OFFSET( \
+>>> +    struct acpi_madt_generic_interrupt, efficiency_class)
+>>>   
+>>> -#define BAD_MADT_GICC_ENTRY(entry, end)						\
+>>> -    (!(entry) || (unsigned long)(entry) + sizeof(*(entry)) > (end) ||	\
+>>> -     (entry)->header.length != ACPI_MADT_GICC_LENGTH)
+>>> +#define BAD_MADT_GICC_ENTRY(entry, end) \
+>>> +    (!(entry) || (entry)->header.length < ACPI_MADT_GICC_MIN_LENGTH || \
+>>> +    (unsigned long)(entry) + (entry)->header.length > (end))
+>> ... is 76 a valid length when the FADT revision is 6 or higher? And 80 is a
+>> valid length for 6.5 or higher?
+> 
+> I'm not ACPI expert but my understanding that it isn't "very valid" values as I mentioned
+> above GICC->length is defined as a constant value. But the idea here is to provide
+> forward compatibility so only minumum MADT GICC length is checked and as mentioned
+> here [1] by one of ACPI for Arm64 maintainer:
+>  > - (acpi_gbl_FADT.header.revision < 6 ? 76 : 80) > +#define 
+> ACPI_MADT_GICC_MIN_LENGTH ACPI_OFFSET( \ > + struct 
+> acpi_madt_generic_interrupt, efficiency_class) >
+>    > This makes it 76 always which is fine, just that the first user of
+>    > efficiency_class should check for the length before accessing it.
+>    > No user of efficiency_class yet, so I am fine with this change.
+> 
+> And I think the same is true for ACPI 6.3 which adds spe_interrupt and ACPI 6.5
+> trbe_interrupt.
 
-T24gMTAuMDEuMjYgMDA6MTgsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gWGVuIGNh
-biBzdXBwb3J0IGNvbnNvbGVfaW8gaHlwZXJjYWxscyBmb3IgYW55IGRvbWFpbnMsIG5vdCBq
-dXN0IGRvbTAsDQo+IGRlcGVuZGluZyBvbiBERUJVRyBhbmQgWFNNIHBvbGljaWVzLiBUaGVz
-ZSBoeXBlcmNhbGxzIGNhbiBiZSB2ZXJ5IHVzZWZ1bA0KPiBmb3IgZGV2ZWxvcG1lbnQgYW5k
-IGRlYnVnZ2luZy4NCj4gDQo+IEludHJvZHVjZSBhIGtlcm5lbCBjb21tYW5kIGxpbmUgb3B0
-aW9uIHhlbl9jb25zb2xlX2lvIHRvIGVuYWJsZSB0aGUNCj4gdXNhZ2Ugb2YgY29uc29sZV9p
-byBoeXBlcmNhbGxzIGZvciBhbnkgZG9tYWluIHVwb24gcmVxdWVzdC4gV2hlbg0KPiB4ZW5f
-Y29uc29sZV9pbyBpcyBub3Qgc3BlY2lmaWVkLCB0aGUgY3VycmVudCBiZWhhdmlvciBpcyBy
-ZXRhaW5lZC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3Rl
-ZmFuby5zdGFiZWxsaW5pQGFtZC5jb20+DQo+IC0tLQ0KPiAgIC4uLi9hZG1pbi1ndWlkZS9r
-ZXJuZWwtcGFyYW1ldGVycy50eHQgICAgICAgICB8ICA1ICsrKw0KPiAgIGRyaXZlcnMvdHR5
-L2h2Yy9odmNfeGVuLmMgICAgICAgICAgICAgICAgICAgICB8IDMzICsrKysrKysrKysrKysr
-KystLS0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
-b25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9r
-ZXJuZWwtcGFyYW1ldGVycy50eHQgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2tlcm5l
-bC1wYXJhbWV0ZXJzLnR4dA0KPiBpbmRleCBlODg1MDVlOTQ1ZDUyLi45NTNkM2Y1OTdmMDA3
-IDEwMDY0NA0KPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2tlcm5lbC1wYXJh
-bWV0ZXJzLnR4dA0KPiArKysgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2tlcm5lbC1w
-YXJhbWV0ZXJzLnR4dA0KPiBAQCAtNzYyMCw2ICs3NjIwLDExIEBADQo+ICAgCQkJc2F2ZS9y
-ZXN0b3JlL21pZ3JhdGlvbiBtdXN0IGJlIGVuYWJsZWQgdG8gaGFuZGxlIGxhcmdlcg0KPiAg
-IAkJCWRvbWFpbnMuDQo+ICAgDQo+ICsJeGVuX2NvbnNvbGVfaW8JW1hFTixFQVJMWV0NCj4g
-KwkJCUJvb2xlYW4gb3B0aW9uIHRvIGVuYWJsZS9kaXNhYmxlIHRoZSB1c2FnZSBvZiB0aGUg
-WGVuDQo+ICsJCQljb25zb2xlX2lvIGh5cGVyY2FsbHMgdG8gcmVhZCBhbmQgd3JpdGUgdG8g
-dGhlIGNvbnNvbGUuDQo+ICsJCQlNb3N0bHkgdXNlZnVsIGZvciBkZWJ1Z2dpbmcgYW5kIGRl
-dmVsb3BtZW50Lg0KPiArDQo+ICAgCXhlbl9lbXVsX3VucGx1Zz0JCVtIVyxYODYsWEVOLEVB
-UkxZXQ0KPiAgIAkJCVVucGx1ZyBYZW4gZW11bGF0ZWQgZGV2aWNlcw0KPiAgIAkJCUZvcm1h
-dDogW3VucGx1ZzAsXVt1bnBsdWcxXQ0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90dHkvaHZj
-L2h2Y194ZW4uYyBiL2RyaXZlcnMvdHR5L2h2Yy9odmNfeGVuLmMNCj4gaW5kZXggMzg4YTcx
-YWZkNmVmZS4uMjk5YjA4YzkwYmFiMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy90dHkvaHZj
-L2h2Y194ZW4uYw0KPiArKysgYi9kcml2ZXJzL3R0eS9odmMvaHZjX3hlbi5jDQo+IEBAIC01
-MSw2ICs1MSwyOCBAQCBzdGF0aWMgREVGSU5FX1NQSU5MT0NLKHhlbmNvbnNfbG9jayk7DQo+
-ICAgDQo+ICAgLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovDQo+ICAgDQo+ICtzdGF0aWMgYm9vbCB4ZW5f
-Y29uc29sZV9pbyA9IGZhbHNlOw0KPiArc3RhdGljIGludCBfX2luaXRkYXRhIG9wdF9jb25z
-b2xlX2lvID0gLTE7DQo+ICsNCj4gK3N0YXRpYyBpbnQgX19pbml0IHBhcnNlX3hlbl9jb25z
-b2xlX2lvKGNoYXIgKmFyZykNCj4gK3sNCj4gKwlpZiAoIWFyZykNCj4gKwkJcmV0dXJuIC1F
-SU5WQUw7DQo+ICsNCj4gKwlpZiAoc3RyY21wKGFyZywgIm9mZiIpID09IDAgfHwNCj4gKwkg
-ICAgc3RyY21wKGFyZywgImRpc2FibGVkIikgPT0gMCB8fA0KPiArCSAgICBzdHJjbXAoYXJn
-LCAiMCIpID09IDApIHsNCj4gKwkJb3B0X2NvbnNvbGVfaW8gPSAwOw0KPiArCX0NCj4gKwll
-bHNlIGlmIChzdHJjbXAoYXJnLCAib24iKSA9PSAwIHx8DQo+ICsJCSBzdHJjbXAoYXJnLCAi
-ZW5hYmxlZCIpID09IDAgfHwNCj4gKwkJIHN0cmNtcChhcmcsICIxIikgPT0gMCkgew0KPiAr
-CQlvcHRfY29uc29sZV9pbyA9IDE7DQo+ICsJfQ0KDQpJJ2QgcHJlZmVyIHVzZSBvZiBrc3Ry
-dG9ib29sKCkgaW5zdGVhZCBvZiBvcGVuLWNvZGluZyBzb21ldGhpbmcgc2ltaWxhci4NCg0K
-DQpKdWVyZ2VuDQo=
---------------oja8Yxxh93BJdDnSK4Gr4k6e
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+... imo precise checks for the version dependent length should be done.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Jan
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> [1]https://lore.kernel.org/all/20181015092919.GA1778@e107155-lin/
+> 
+> ~ Oleksii
+> 
 
---------------oja8Yxxh93BJdDnSK4Gr4k6e--
-
---------------9wlGni05LTNQe0IgfptKbKsi--
-
---------------PGQlewguDXdt21TBRvFJvcjw
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmlk0X0FAwAAAAAACgkQsN6d1ii/Ey+Q
-lgf/Vvy1tljOBN2IxBYLvT+I+2bYLm4rhr1X30l0o+CA6u+ouNyi1ajWjp34J1hbMqYq5IhGz6vz
-Pj2C4wjiMeiEU+IBVvBsinc/iAEsFHexYQ3PvUjf9SPpYLHey51OiSTSDn5Oby2772i/ngiYHRFT
-z/1WNAaDuvlVxUWV20Yg7SoBZ+8MrfT7CNiCtkFO4ZAzKzTxWzIybCeoRi/q8zScnEcNfig39TkN
-M+0pjEMnT11Vf/RiMbnX76oykaZ5/E+jlZogKd1vP3BeX1wmAF6ePup9rkYmoST/s9JO/pEAkCUM
-86CM/tG5uMmsLAgUJXLTrSd/72FrMejTlBebv9ddvQ==
-=CS5j
------END PGP SIGNATURE-----
-
---------------PGQlewguDXdt21TBRvFJvcjw--
 
