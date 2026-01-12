@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4845D13D3D
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 16:54:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200629.1516496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81AA8D13D5B
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 16:56:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200652.1516515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfKFB-0006KO-OK; Mon, 12 Jan 2026 15:54:13 +0000
+	id 1vfKHT-0007QS-Ea; Mon, 12 Jan 2026 15:56:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200629.1516496; Mon, 12 Jan 2026 15:54:13 +0000
+Received: by outflank-mailman (output) from mailman id 1200652.1516515; Mon, 12 Jan 2026 15:56:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfKFB-0006Ig-Lh; Mon, 12 Jan 2026 15:54:13 +0000
-Received: by outflank-mailman (input) for mailman id 1200629;
- Mon, 12 Jan 2026 15:54:12 +0000
+	id 1vfKHT-0007Nv-Bj; Mon, 12 Jan 2026 15:56:35 +0000
+Received: by outflank-mailman (input) for mailman id 1200652;
+ Mon, 12 Jan 2026 15:56:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfKFA-0006IZ-1g
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 15:54:12 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1vfKHS-0007Np-PG
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 15:56:34 +0000
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [2a00:1450:4864:20::341])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef1b6b91-efce-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 16:54:10 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-477ba2c1ca2so72210835e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 07:54:10 -0800 (PST)
+ id 4460b892-efcf-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 16:56:33 +0100 (CET)
+Received: by mail-wm1-x341.google.com with SMTP id
+ 5b1f17b1804b1-47d5e021a53so48413005e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 07:56:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432d286cdecsm25599921f8f.7.2026.01.12.07.54.09
+ 5b1f17b1804b1-47d7f410c6csm373463475e9.1.2026.01.12.07.56.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 07:54:09 -0800 (PST)
+ Mon, 12 Jan 2026 07:56:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef1b6b91-efce-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 4460b892-efcf-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768233250; x=1768838050; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768233393; x=1768838193; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OI2oT5If4p3Fzj5mygStk/l4C9+d9IsfmYyxvoHmGNw=;
-        b=bLBlvFJjU6dcQ3FK8gsok0HYFQorGZe0QU8YqeNEOka5DhsO9LUoE181FH5zimXcIA
-         drNSLfjvDJ2YqRUaF6XziLofcfu2DOejVGJ/8wZ+0OBGLmMcTlMFws1urowRdyv5SUQn
-         LQsTY3Av9TD1D3qMsrgLIcA+GMfcxUhn9h4CiyquYnldmfLD5sLo2GHsxnMGFxMam+eL
-         KtpulA2bSTUyzVvzO1bFtkLneEwuXo4xfs3Pb1BFGu7fcwH9yuQ0HxhEoqt5/gRQJLP3
-         eh0IOnlxq2aep8HataUMV0gx09Ny4otG04+rUl3z4QmtUH4VfBv6lWZ+eOPnslP+BSrN
-         xRHA==
+        bh=ewxnBaxkEZmaU9gpOowpu+m6pnznGAAv/rdTc8xpueI=;
+        b=eAdoYSMtUWveAnrM249JUkdFmoorKfT0qbM/EIhCHsFaQ+Zci5k+bcCs2SBizYw1KR
+         MkULkRmMm5J+Sh1L2bGS8HNSeJZoz3TmwmYuTjD1UP9GNsv31Og2ehAT3sZC2Mxq4F3F
+         njdoxG8Wni2i63MQIrksXrVD9Vp3DAKXMtPG5iq6AZd4lQsCABLrxTloSo3Base+x5oS
+         WmVgqn2CCAdT/+i3fdHfLtFHja/UVGcJJ2ZkGy5masqEDvMW4d05dsS837oFmFPgBa4D
+         2/IL19cgqGyG42+TzgAVqJHqSkqwuRpZdQFxRBnw/zejykohfvZZ7TIVIBf97yF6+UYG
+         dTmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768233250; x=1768838050;
+        d=1e100.net; s=20230601; t=1768233393; x=1768838193;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OI2oT5If4p3Fzj5mygStk/l4C9+d9IsfmYyxvoHmGNw=;
-        b=Dn0PsWQ8qnm7uTL64LBa7lttZcQAlv2tkeFhWJvT8RhijUeuy4eAOGGW8vrYsMiuIC
-         s3HLoV52YttArxTbk3e16WIrtEGby871x9COvCVJRucpNJ/Ana4Bu/d66Jyl0lZFS+MH
-         oS5jjp+olXMy59huvQukEABu5sUZ+VvEcq4vQU9B7qNZCxz3DhVw3ec+pZke5RPEbg/j
-         lJi4WhGlZFWCktANxKylpxGY+lsHa1FhoLnTMexRKHck9mIyWSUjTxfb5+O02gx9/FQ4
-         2taHz+JLCXSw+kG3v08U+NSK4CmQeBDhoNClpxRbSfSt+KB+DBGvgO+J4O3SG8rU4gWy
-         azHw==
-X-Forwarded-Encrypted: i=1; AJvYcCU7DUOF59U0/qvh2nGEyREpMxPybeX/v7MmGlNAwX9qOASQD0zkFZPD8M/w20A6eQkV817EiAyZIHQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxqeg8r5Yn2M7iRsQKu8GSs5yPYk+BOnn1EiF9x3BSsBxvZNpAF
-	m9116mTiXGX8xNRzUkmHpayWpDM5FsqbskjT7XtTRrqyt0o7vzvr6tBXmLLc6rtCEA==
-X-Gm-Gg: AY/fxX5eVK34w1JGI00KsfQom0cR1k/CQBK0z5y2VUdkaBGlq5PmWgf6ujMqG10pT5A
-	O+TxdoVu1+ANgviPRzmT9MzNlsVdrXZHCLaxkMbZBVHaTFeJ+9OkCdIcGQwHhyFc525Tx55sUfX
-	XXLoOrRFoB4fcDSwftX4d9PfRw2meGgagS5q/YS1VkkadCHwI3EviBLxuyK4urCQaq5a7etB7/F
-	m2wak6ue+B6LMYCfvFGH1PqRHqdsaYX7GJWIorPVaIBG4CrXCxSlIijXsNFekr5nq6UBno8a1vn
-	CsrPnHyA2s7uug5vfY56+I56LITy5dwY/Lif3BdF4svJi10qDUyTGbOL3lKmnPjtWbQp0zYjZ+p
-	Xl9wuK5NewwBjQ9UfmZ4SCOI+L8ihaf3FN00KrOpLXRTojoZteGke3DIxProQMCm2ryCMrA3XsU
-	uAM4Lk0HmH9aeOsgw4myV13ShpXSm8Z/mOJzbsPwuOs4uQ3d699A+8ZeBGtMgzq16S9NqtXgzfT
-	Ic=
-X-Google-Smtp-Source: AGHT+IHXzMZAx2KYU922PSm7rsAkuOAnOO+mOurxfNz9YH6YXM3rP5FVQxBzWPx+d/eeNtRC//wJxw==
-X-Received: by 2002:a05:600c:a48:b0:477:9eb8:97d2 with SMTP id 5b1f17b1804b1-47d84b08652mr217833285e9.8.1768233249768;
-        Mon, 12 Jan 2026 07:54:09 -0800 (PST)
-Message-ID: <30dbd0b0-2a2b-4064-b39c-4dfa438af15b@suse.com>
-Date: Mon, 12 Jan 2026 16:54:09 +0100
+        bh=ewxnBaxkEZmaU9gpOowpu+m6pnznGAAv/rdTc8xpueI=;
+        b=rlMkHG0H5I7Le5ooGpUYprTdQk6uwdzOWP2Q3OSzPNJxkn9lsdiMvYEbaYxBl5wPpZ
+         0Ai53rrryXulYoos/pqmP+MI3e/g/cGs5cNc3tb8iGRjPvQQlkUsQtoDl9nOmrGs4YEZ
+         lEgYiyGmktGumAfiXSdY1zLqcQgkWD7oK9tl6EjUeAu8B0/HOP9gfamMJgKyIpAiozOr
+         9bp3rloXi05uNqKGvDuYIQ38LkU4nhFLUmKuU0q3TXoBgsWFOYueiO0dM4FQ6k3xRphk
+         KKEeaGnvx190eauPA5+drHSGN8y/sy5SSCeJRHtBU4JewBmIyi05/fYA72bgECZQbiFH
+         bvqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWWVMQG/91m/enrByxp8JT9PlWfq2Kl7oKe+ntJ4Qm3DiVezUePkJ//wQcBN1wtzdjQp9yX4HyveJ4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywr3UT/4fVCYwGwyL56LvN62vLn8+Nq1CSi8vIBvHCBqAd0izNz
+	9HtGWqm5SwRWTwoYWfegDfQjZPjWmrE519vFAPDnkIxAER6wJfq4Tem+C4yiALXa0g==
+X-Gm-Gg: AY/fxX7lHmpqED98gj9AXXUujiY0B6Vto173UTPy1LCne8IYKZVBRjna8y5G+TugGyR
+	NBvf8CvtxcNwK0qhjii8UUkp5eoDXnYyNsZ8/39f1b94VLUJMMu+6oGiVzNfLURcxEwRgR4mXyu
+	18b1Il85gtKJ4mjuWpdghCABZD+uPL7XqPZBcGPewWVLKn5RsInTJyYIzKpb6xZZyIWaQfMFMRA
+	aaJOg1iYJKQq7ZwbNeG1P5meLNAFGf5MdwLixY0KACKswTIA8qmIYbWGb7PNcxZtiHvjBXNA++F
+	csmPkUwBeP8wMzsLiol7FSfodzXN1LPyWgnCqINaESwNbgsdXdvqw8jfLSZBbtbmR3AVJmE0A/A
+	DLStHeCJVNomV61kum5r/F6Nyg1rKX+7Kke3bRTBt3CaNrvQzAP4V/c8V1I56ZEgemm/erGmo3x
+	Ok9a1CaWN4xfoG5nRfw6GXt90jauItXRYEl8jaKQ627lWwM852nQenW/PF4cUsgaUzeOwM7j5Bq
+	uw=
+X-Google-Smtp-Source: AGHT+IHw4mmlempgE0Yw/AObsToSevvBL5AY5mh/Y8veom4AvJIVCtMY/ZI3qCnJhfYZtok8GR4gEw==
+X-Received: by 2002:a05:600c:470c:b0:477:7a78:3016 with SMTP id 5b1f17b1804b1-47d84b0a5bemr201540245e9.8.1768233392826;
+        Mon, 12 Jan 2026 07:56:32 -0800 (PST)
+Message-ID: <7cbda859-4257-499e-86e0-a0d001fd49c9@suse.com>
+Date: Mon, 12 Jan 2026 16:56:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/15] xen/riscv: implement vcpu_csr_init()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v6 1/5] xen/domctl: extend XEN_DOMCTL_assign_device to
+ handle not only iommu
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <bf617d77bb9e75bbd2930614bb86ff83b80adcfc.1766595589.git.oleksii.kurochko@gmail.com>
- <dc24a8ea-9041-4097-bbe2-459c668e9e64@suse.com>
- <7ba4bcfe-59d3-43f3-adb4-207424dc1713@gmail.com>
- <f1beef63-1995-4e8d-bbdb-3be406ac414c@suse.com>
- <988ba581-5503-45d4-a621-18cdc3b14cab@gmail.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1761998077.git.oleksii_moisieiev@epam.com>
+ <b0a72660d58608c80e7408eb8df32ec369d4e45b.1761998077.git.oleksii_moisieiev@epam.com>
+ <9598b2e2-7df8-40c5-82cb-c097121af763@suse.com>
+ <5d8f55a6-7182-4e9d-a139-96fddb9450f8@epam.com>
+ <98f5e8f0-070c-4be5-9baf-46278de8093d@suse.com>
+ <99586f5c-d76b-4cbe-9fbd-c87e86bb236a@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,72 +132,120 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <988ba581-5503-45d4-a621-18cdc3b14cab@gmail.com>
+In-Reply-To: <99586f5c-d76b-4cbe-9fbd-c87e86bb236a@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.01.2026 16:46, Oleksii Kurochko wrote:
-> On 1/12/26 3:28 PM, Jan Beulich wrote:
->> On 12.01.2026 13:59, Oleksii Kurochko wrote:
->>> On 1/7/26 9:46 AM, Jan Beulich wrote:
->>>> Also, wouldn't you better keep internal state in line with what hardware
->>>> actually supports? CSRIND may be read-only-zero in the real register, in
->>>> which case having the bit set in the "cached" copy can be misleading.
->>> [...]
+On 12.01.2026 16:54, Oleksii Moisieiev wrote:
+> 
+> 
+> On 12/01/2026 17:40, Jan Beulich wrote:
+>> On 12.01.2026 16:16, Oleksii Moisieiev wrote:
+>>> On 06/11/2025 12:09, Jan Beulich wrote:
+>>>> On 01.11.2025 12:56, Oleksii Moisieiev wrote:
+>>>>> @@ -827,7 +828,32 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>>>>        case XEN_DOMCTL_test_assign_device:
+>>>>>        case XEN_DOMCTL_deassign_device:
+>>>>>        case XEN_DOMCTL_get_device_group:
+>>>>> +        int ret1;
+>>>>> +
+>>>>> +        /*
+>>>>> +         * Add chained handling of assigned DT devices to support
+>>>>> +         * access-controller functionality through SCI framework, so
+>>>>> +         * DT device assign request can be passed to FW for processing and
+>>>>> +         * enabling VM access to requested device.
+>>>>> +         * The access-controller DT device processing is chained before IOMMU
+>>>>> +         * processing preserving return code and expected to be executed for
+>>>>> +         * any DT device regardless if DT device is protected by IOMMU or
+>>>>> +         * not (or IOMMU is disabled).
+>>>>> +         */
+>>>>> +        ret1 = sci_do_domctl(op, d, u_domctl);
+>>>> Why would this not be the initializer of the new variable? (I also don't think
+>>>> that we've decided to permit variable declarations at other than the top of
+>>>> scopes or within e.g. a for() loop control construct.)
+>>>>
+>>> +
+>>>>>            ret = iommu_do_domctl(op, d, u_domctl);
+>>>>> +        if ( ret < 0 )
+>>>>> +            return ret;
+>>>> Why would you invoke both in all cases? If sci_do_domctl() handled the request,
+>>>> there isn't any point in also invoking iommu_do_domctl(), is there? Or else is
+>>>> there maybe some crucial aspect missing from the description (or not explicit
+>>>> enough there for a non-SCI person like me)?
+>>>>
+>>>> Also this doesn't look to fit the description saying "The SCI access-controller
+>>>> DT device processing is chained after IOMMU processing ..."
+>>>>
+>>> We call both because SCI and IOMMU cover different concerns and a DT
+>>> device may need
+>>> both: SCI for FW-mediated access control (power/clocks/reset) and IOMMU
+>>> for DMA isolation.
+>>> SCI returning success does not mean the IOMMU work is redundant.
+>> Can the comment then please be updated to properly call out this dual
+>> requirement?
+> Yes, for sure.
+>>> - sci_do_domctl() returns -ENXIO when it has nothing to do (non-DT, no
+>>> mediator, mediator lacks assign hook).
+>>> That is the “not handled by SCI” sentinel; in that case the code
+>>> proceeds to IOMMU normally.
+>>> -  When sci_do_domctl() succeeds (0), the device may still require IOMMU
+>>> programming
+>>> (e.g., DT device has an iommus property). Skipping iommu_do_domctl()
+>>> would leave DMA isolation unprogrammed.
 >>>
->>>> (This may similarly apply to at least hedeleg and hideleg, btw.)
->>> Regarding the previous bits, I can understand that it would be an issue:
->>> if SSAIA isn’t supported, then it is incorrect to update the corresponding
->>> bits of|hstateen0|.
+>>> The final if (ret1 != -ENXIO) ret = ret1; ensures that if both paths ran
+>>> and IOMMU succeeded,
+>>> an SCI failure is still reported to the caller.
 >>>
->>> However, I’m not really sure I understand what the issue is with|h{i,e}deleg|.
->>> All writable bits there don’t depend on hardware support. Am I missing something?
->> My reading of the doc was that any of the bits can be r/o 0, with - yes -
->> no dependencies on particular extensions.
-> 
-> Just to be sure that I get your idea correctly.
-> 
-> Based on the priv. spec:
->    Each bit of hedeleg shall be either writable or read-only zero. Many bits of
->    hedeleg are required specifically to be writable or zero, as enumerated in
->    Table 29.
-> 
-> Now let’s take hedeleg.bit1, which is marked as writable according to Table 29.
-> Your point is that even though hedeleg.bit1 is defined as writable, it could still
-> be read-only zero, right?
-> 
-> In general, I agree with that. It is possible that M-mode software decides, for
-> some reason (for example, because the implementation does not support delegation
-> of bit1 to a lower mode), not to delegate medeleg.bit1 to HS-mode. In that case,
-> hedeleg.bit1 would always be read-only zero.
-> 
->>   In which case you'd need to do
->> the delegation in software. For which it might be helpful to know what
->> the two registers are actually set to in hardware (i.e. the cached values
->> wanting to match the real ones).
-> 
-> Does it make sense then to have the following
->    	...
-> 	v->arch.hedeleg = hedeleg;
->    	vcpu->arch.hedeleg = csr_read(CSR_HEDELEG);
-> in arch_vcpu_create()?
+>>> Device-tree examples to illustrate the dual roles:
+>>> 1. Access-controlled DT device (not necessarily IOMMU-protected):
+>>>
+>>> i2c3: i2c@e6508000 {
+>>>       compatible = "renesas,rcar-gen3-i2c";
+>>>       reg = <0 0xe6508000 0 0x40>;
+>>>       power-domains = <&scmi_pd 5>;      // FW-managed power domain
+>>>       clocks = <&scmi_clk 12>;
+>>>       clock-names = "fck";
+>>>       access-controllers = <&scmi_xen 0>;
+>>>       // no iommus property: SCI may need to authorize/power this device;
+>>> IOMMU has nothing to do
+>>> };
+>>>
+>>> 2. IOMMU-protected DT device that still may need SCI mediation:
+>>> vpu: video@e6ef0000 {
+>>>       compatible = "renesas,rcar-vpu";
+>>>       reg = <0 0xe6ef0000 0 0x10000>;
+>>>       iommus = <&ipmmu 0 0>;             // needs IOMMU mapping for DMA
+>>> isolation
+>>>       power-domains = <&scmi_pd 7>;      // FW-managed power/clock/reset
+>>>       clocks = <&scmi_clk 34>;
+>>>       access-controllers = <&scmi_xen 0>;
+>>>       clock-names = "vpu";
+>>> };
+>>>>> --- a/xen/drivers/passthrough/device_tree.c
+>>>>> +++ b/xen/drivers/passthrough/device_tree.c
+>>>>> @@ -379,6 +379,12 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+>>>>>                break;
+>>>>>            }
+>>>>>    
+>>>>> +        if ( !dt_device_is_protected(dev) )
+>>>>> +        {
+>>>>> +            ret = 0;
+>>>>> +            break;
+>>>>> +        }
+>>>>> +
+>>>>>            ret = iommu_assign_dt_device(d, dev);
+>>>>>    
+>>>>>            if ( ret )
+>>>> How are DT and PCI different in this regard?
+>>> Please find examples above.
+>> Sorry, but I can't spot anything PCI-ish in the examples above. Then again I
+>> also no longer recall why I compared with PCI here. Oh, perhaps because the
+>> PCI side isn't being modified at all.
+>>
+> Correct, pci code wasn't touched by these changes.
 
-The above makes no sense to me, with or without s/vcpu/v/.
-
-> Or I can just add the comment that it will be sync-ed with the corresponding
-> hardware CSR later as ,actually, there is some h{i,e}deleg synchronization
-> happening during context_switch() (this code is at the moment in downstream),
-> because restore_csr_regs() is executed and re-reads CSR_H{I,E}DELEG:
->    static void restore_csr_regs(struct vcpu *vcpu)
->    {
->        csr_write(CSR_HEDELEG, vcpu->arch.hedeleg);
->        csr_write(CSR_HIDELEG, vcpu->arch.hideleg);
->        ...
-> As a result, vcpu->arch.h{I,E}deleg is kept in sync with the corresponding
-> hardware CSR.
-
-No, the r/o bits will continue to be out-of-sync between the hw register and
-the struct arch_vcpu field.
+Yet my question boils down to "why", not "whether".
 
 Jan
 
