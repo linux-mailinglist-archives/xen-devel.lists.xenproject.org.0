@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F25BD13030
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:09:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200315.1516280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60D3D13079
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:13:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200348.1516290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIbZ-0006cJ-Kr; Mon, 12 Jan 2026 14:09:13 +0000
+	id 1vfIfP-0008Fi-9u; Mon, 12 Jan 2026 14:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200315.1516280; Mon, 12 Jan 2026 14:09:13 +0000
+Received: by outflank-mailman (output) from mailman id 1200348.1516290; Mon, 12 Jan 2026 14:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIbZ-0006Zz-HX; Mon, 12 Jan 2026 14:09:13 +0000
-Received: by outflank-mailman (input) for mailman id 1200315;
- Mon, 12 Jan 2026 14:09:12 +0000
+	id 1vfIfP-0008DU-6W; Mon, 12 Jan 2026 14:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 1200348;
+ Mon, 12 Jan 2026 14:13:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h1UP=7R=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vfIbY-0006Ze-ET
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:09:12 +0000
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170130001.outbound.protection.outlook.com
- [2a01:111:f403:c10c::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfIfN-0008Ct-9W
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:13:09 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43a1d22a-efc0-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 15:09:10 +0100 (CET)
-Received: from MN2PR11CA0014.namprd11.prod.outlook.com (2603:10b6:208:23b::19)
- by IA0PPFAF4999BF6.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::be0) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Mon, 12 Jan
- 2026 14:09:06 +0000
-Received: from BL02EPF00021F68.namprd02.prod.outlook.com
- (2603:10b6:208:23b:cafe::9a) by MN2PR11CA0014.outlook.office365.com
- (2603:10b6:208:23b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.7 via Frontend Transport; Mon,
- 12 Jan 2026 14:08:36 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Mon, 12 Jan 2026 14:09:05 +0000
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 12 Jan
- 2026 08:09:03 -0600
+ id d1716d36-efc0-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 15:13:07 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-47a95efd2ceso56701935e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:13:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47d8718b995sm128589425e9.14.2026.01.12.06.13.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jan 2026 06:13:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,140 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43a1d22a-efc0-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lg5o7Hqbux9j/KCvQ5kgjekaDgyi709z8o9SBGAJyEADr+uElrQcZ12NtbNFYR/19JDmTGJydyjtxkuuj0gWUI/VXGHOVNSMCfDHFa/5OqzFVwywbpSVJZyLITAGwfUwNvndJS8pMFxZenm0sThxb75iTWV37Gx7cyNdKAqGOJkUJKb1wpZCLEv8Ae0GlT+I0ZhA5RFWyBXMG3tKvtHS/PZKQ+frdk0HUFhcHRRVfBx2Ni3y1r+Jljc3/B1eQmONFY2GSBR81eCJfkzRhf7MEFCbpEEnQObVB3zz3fx2SXoRg9bQGeEkp/Yyvh6uAlEeBEnIN+m9TQ9US5VSNxi/hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E3pxIqWYN/jIUsRS+Yl3k11oyQPxieIYHxnURhwQgLs=;
- b=u/ifNzNDWp3Q3nGEcLEoLGDtfAEOWgU5rJl+6r0Bgjz5C4FwIHwbS8Ve8Y0WC1D1lI0//oh9yb2+ZLpTbUkA+mnM8flcQJsV5Vc+r/beD26Z5pw6qSRDZObwQaXjxbZSnB9WuJEPX/+4saGKRmkfijNdpXuzZ2zmlR5nwDGsFICaLC9PufiZ0/BdgPxGczbbHUbpjk+B6vVgfmRL4rfRswSRyrc89TldjcAlIQx77mK1aTRhNnr5VLuuk64+GdMrqNEcY4lt/uKrtSsnyZcpg1JuO3u/9hokaplYOzquH/+w8kp+Sm3ipXvKVZP/wMcw26xYa/4k37Z03sQZKNa8MA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E3pxIqWYN/jIUsRS+Yl3k11oyQPxieIYHxnURhwQgLs=;
- b=k06SBM3V+doJ2WFna3r+NP0PsLX1u7ve8mzSkRDXZaOHwTaUt5h8gY8OL/mdEp9qWIPE9T9nWWA5yyj/vJdAlXjp4FYM5y4LNLvVaH3esh0bU6O/jIfDpm+rfAyns8Zwuq0qpadjruxtMgpEvTw2RmvNkmVIpdo9rm2HR3MpmuY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH] x86: Add Kconfig option to use a 32bit TLB clock on debug
-Date: Mon, 12 Jan 2026 15:08:44 +0100
-Message-ID: <20260112140851.55590-1-alejandro.garciavallejo@amd.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: d1716d36-efc0-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768227187; x=1768831987; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Iu2RZxy2eSFAzQuloT198riRuTgrfD4yqhklsvv3Qfk=;
+        b=KqJj+Y47Uz7AsxpbJRpeMlPS7695e46iYWkyqBFA6ZGZ3BjH/k+OOjVk2TDwussH4z
+         egacukR4iW3fiHV4dMRMCworFW92Kr++vmhb5UtFqwS9mGZTR0lr98QIKTnMLbDxznxQ
+         /nuJ5wDW+2w9/dl/9euSuoK6OrnkqBNFPS1CCQr0hL9cHCQGoTdfYL0z2Vu1/Za+VuGO
+         5AZbHY7QQfM5e7PP9JcFMfDwY2XTYL5k52+wmgsgLBplJePKzncWKwARqkrWcQ2CZU09
+         ReMA4g+JxWYijG5hWVI2YeN8JzBRac9fNinqXttlQvWOowt3ytDxHL8dp7089Zs8nQVV
+         5sPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768227187; x=1768831987;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Iu2RZxy2eSFAzQuloT198riRuTgrfD4yqhklsvv3Qfk=;
+        b=qDzKHX6HyY92shutHOpb7ChB67OOZJIMJdUKNPa9o5TJizCBq9VzCfQDkd9rkBlWwJ
+         bF/99kz1ofujG3JjxVH9z/bwxVoDgRx4AX81RGofLrDX0WvS/ImU9xFeMiu/2A5cZhfT
+         n6BquxVc1hyMpTeNC3gISP8ko4mjkWcFplXWU9nymi7XeHGOFesjkUXIoiMBELZjOnjl
+         ThNnAFGv/JzO2cWSJWxX329OQ2Q1zVCmXH9CArVPHPLNOcAtCtSCDJvnqFhXyROgA7h1
+         sGK1n8fPHVn0fxlfUOE1yR421z6i8vjxy+rTnpVzJByZ0XJHO4e2GEkYF2+lIABaX5Pp
+         GwDA==
+X-Forwarded-Encrypted: i=1; AJvYcCVuHGiMoS8W8KznKSlctsN1mpDcfQL+jKYFj/d9qSsY5KRfoQkqvnFDhb6ya2TjnS1CBRN5qdZqcIQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxH6gAuB6YVuviEQ5vZXfAMLfdPM+8JJMp/TQXy8sUw+LweFhe3
+	Hm6YHxc/LmdQqCvpJpnTPz3Ct2JpoihWpHP4sbs0lqku8ALB9ozYHfRh2iHOXuvErQ==
+X-Gm-Gg: AY/fxX6ZB2DV2/aYgTHN0GQ9b5n/q8eAszkve95LKU4MiMDXc3iiMXPrwHQ/Nymuvs3
+	ir9heLw8nTIhFhkFcAdaVDgmLxtrKHE9L2JM0xfl8RMMwupwFVN+e0+8fKookMq9RWpzv/3PGox
+	UFR4zCiSaWUP0fbFRRQtEZ01bX7x2/hDM74tWROgEKXa/51/q15EI8/B1Ql+EmL9TP+pnE5BM1n
+	Zr1tBwtU0ZTcbl/HkdJmR6h4RWRi81P5WMTGFnGyAAXqeqXGslSdPgWGrzsDjjxfn6yV3N/a9Zs
+	zb2x+NRXUEW4fNzzWIDKM+jwtUc9pgf7Py0QOzFZNNON77vsyEVWirzbApIVBsUrcYVvhb72Vcu
+	zd6T1wh9rj2yj5neVTJeGcOvtTksNUsWinvu5aytc+ud7qehZYsMOLEV8GdgPzAB7Jqelh/I1Us
+	gkrWqnsQ5CRDHFKGsBuyV8wnXbpw2lpGyKpQBS3lOr7W/HsUhO1BTitoSg/dh616iZ25nfhtiBj
+	Ys=
+X-Google-Smtp-Source: AGHT+IHoem9EvRRQ2b/F2IzOHi6BRBLBkW71FjhL9CHoip0Y9UwHKv9sNtAOyKyDd3Jl6gjS3JkTjQ==
+X-Received: by 2002:a05:600c:c0c7:b0:477:c478:46d7 with SMTP id 5b1f17b1804b1-47d84b33bd7mr183359155e9.22.1768227186956;
+        Mon, 12 Jan 2026 06:13:06 -0800 (PST)
+Message-ID: <6ea436ce-6ecb-47f8-8d8a-98b0badeb14e@suse.com>
+Date: Mon, 12 Jan 2026 15:13:07 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+To: Anton Markov <akmarkov45@gmail.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
+ <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
+ <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com>
+ <CACQYvN-fiATs2dtdboYxCreF8kF5RsgoH-zgWtQ59iVNOT_wVg@mail.gmail.com>
+ <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
+ <4b03cf36-d2d8-420c-82df-55d6a9ac9d68@suse.com>
+ <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|IA0PPFAF4999BF6:EE_
-X-MS-Office365-Filtering-Correlation-Id: e87d31a5-6de5-4e84-571b-08de51e42553
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?4lz40WER0M99L8gwkIHu4aA5k5X4gMNKAASuC40HOJwaSjRSUSed64uuhPA9?=
- =?us-ascii?Q?prhk5j+9+2lw4LrlV4QYoDEBhjhzqnvyTt6Lb2LMQE+fA1afq6WqquYeQP5d?=
- =?us-ascii?Q?iVBNdMtUecMmcf5knpJTPuVuyFb3jinE4l2UJixJdZJQvZGKN9DhkKNVtzL4?=
- =?us-ascii?Q?U6b5tq+8Ysz/hXUsndBa4rmtEPbNkuL04nBVj5RufCnHksQXBTrYXz3Y6kiJ?=
- =?us-ascii?Q?1gXVNOCyjMbW32te4iFjOb2GlN25T4U4rlLnhiTQ4asPNEzSiTQi60AtxRIH?=
- =?us-ascii?Q?OP8cJw5rWxURpEIBl84742jQrS3ZBY7ml15JuEEj+BUgEg1eShaDBYi8KxqO?=
- =?us-ascii?Q?+y3lYHdC3JhGN2zcmMERP3jDZ7PV2KO2/DQFM/h1ihdvo6s7e4Yq5XT2btmc?=
- =?us-ascii?Q?b42l92vxrBTmRbI48rTa90GqFcULsSJDHty/675mkTU8tCmCERz843Gxqx/P?=
- =?us-ascii?Q?49EbDptR99v1sxC8hhJQqmfdQCVrJSxlAmamTBL8DLGWiLBL2XC75P56FJuV?=
- =?us-ascii?Q?dEhDHNC1XMloYv8WWiTVHtkmqr1BIpUPIjlzOau58UJp08/KAWNgzE8SayUY?=
- =?us-ascii?Q?d8FnEd0mDysKBGeAi+ZHnVtdBO77UMfhf6OQlGnLyqseeOdVTF3f9IrBIRK1?=
- =?us-ascii?Q?U9ZZ/QkRrNroga8tWBTsuotvCCtWd+/vh17t/ddyL1jIVWnMYV3MxlgDfAUG?=
- =?us-ascii?Q?fChiLlcWbpYxFMaRUlLKUFgmnbGKjPCo05pwRPdGVAj6xwwQx13EbHrHZuDX?=
- =?us-ascii?Q?vp582pcKutJ65NyjAcBeVWtRkTyxSKm81+2niv6iP7s0V7ZYvw5NZ1iG+mH0?=
- =?us-ascii?Q?sNJBjKkUNA6eaYH8+gcqCdLj+rTE8ti6EzGEs0vEl7vPxV4WC21WymXgxLXx?=
- =?us-ascii?Q?Wb/7Ynr+IXiC4TLZfdT07olkA51ZuE2pCDmZOm1koE8LhUmOq+huJjMPuYyN?=
- =?us-ascii?Q?4OXGy1UJlU+5SCeMjkK5Yq4g+ydIIXnsBnWrzMdyYILmpsay5skht91rQAJ1?=
- =?us-ascii?Q?rXudiezFUCRcGKZCfK7mkQqLfbOnzXOkoFo4j1HgvGmjmvBGoLm6OAH02jOJ?=
- =?us-ascii?Q?KyHWvG55pJHVf6BFB9WiRU4mUW3ulaNkPn5iMYzt+djUlvu/QZXzMGJ7OrQm?=
- =?us-ascii?Q?KL0g9UyJhCz42SiYiKVH2a91H6x4c0IOp3COdwLHOi/epi6yUJQlUiOPy4nx?=
- =?us-ascii?Q?HGA5PeqGTWx0qq+wqNnGd1HVP1OA9VXSN3DZX+mGPNjQtQtt9CcHEYZlgV1Y?=
- =?us-ascii?Q?T0Z1AwVIxA9vSYr4qce6ceHJucOAOhvmgxk9DBypoEpzBo+4qeAlf+6fW0ky?=
- =?us-ascii?Q?5I6Pg/zSBcSurJWjNsaFzhLEtNz6FesBYXjfuEBVmncnMXlnU5WPY9RH2P9x?=
- =?us-ascii?Q?qABctdhdtbZ/C0btglX+8/Y+XBgb6uBbdl4/F+pCP8CKkqGHaJ3lY4ZlJ6iQ?=
- =?us-ascii?Q?tyGRfS4MgjMcPlyxPBdhdK7I09XZ2cbiKuBmhxJsQp88aTb69zbV3VIkXDHl?=
- =?us-ascii?Q?Jk+Rse2ca80p2hh9chx/uxMxhJkLBH/ytAcbDeIFinkzlgMoNzC89ncwbqfZ?=
- =?us-ascii?Q?m1LKjc9largGpIJjbMw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 14:09:05.3365
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e87d31a5-6de5-4e84-571b-08de51e42553
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F68.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFAF4999BF6
 
-Debug builds stress the wrapping logic of the TLB clock by narrowing it
-down to 10 bits. This is inconvenient to test real time workloads on
-such builds.
+On 12.01.2026 13:49, Anton Markov wrote:
+>> Btw, your prior response was too hard to properly read, due to excess blank
+>> lines with at the same time squashed leading blanks. Together with your
+>> apparent inability to avoid top-posting, I think you really want to adjust
+>> your mail program's configuration.
+> 
+> I suggest we skip the discussion of formatting and the number of spaces in
+> messages and instead focus on the topic of the thread. I have a very
+> difficult time troubleshooting difficult-to-reproduce bugs, and the fact
+> that their descriptions are difficult to read due to the number of spaces
+> is probably the least of the difficulties.
 
-Add Kconfig option to be able to selectively use the non-stressed
-behaviour on debug.
+Perhaps, yet it still makes dealing with things more difficult.
 
-Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
----
- xen/arch/x86/Kconfig.debug | 8 ++++++++
- xen/arch/x86/flushtlb.c    | 6 +-----
- 2 files changed, 9 insertions(+), 5 deletions(-)
+> That invocation of get_s_time_fixed() reduces to scale_delta() (without
+>> further rdtsc_ordered()), as non-zero at_tsc is passed in all cases. IOW
+>> it's not quite clear to me what change you are suggesting (that would
+>> actually make a functional difference).
+> 
+> Replacing get_s_time_fixed with scale_delta will remove the calculation
+> dependency on the previous local_stime value, which accumulates lag between
+> cores. This is because: rdtsc_ordered is not called synchronously on the
+> cores, but by the difference offset by the ipi speed. Therefore, we get:
+> 
+> core0: current_rdtsc;
+> core1: current_rdtsc + ipi speed;
+> coreN: current_rdtsc + ipi speed * N;
 
-diff --git a/xen/arch/x86/Kconfig.debug b/xen/arch/x86/Kconfig.debug
-index e69de29bb2..ecf5aa4336 100644
---- a/xen/arch/x86/Kconfig.debug
-+++ b/xen/arch/x86/Kconfig.debug
-@@ -0,0 +1,8 @@
-+config DEBUG_TLB_CLK
-+	bool "TLB clock stressing"
-+	default DEBUG
-+	help
-+	  Stress the TLB clock wrapping logic by narrowing down the counter to
-+	  just a few bits. On wrap-around a global TLB shootdown takes place.
-+
-+	  Disable to run real-time workloads more reliably on debug builds.
-diff --git a/xen/arch/x86/flushtlb.c b/xen/arch/x86/flushtlb.c
-index 09e676c151..0d788047c5 100644
---- a/xen/arch/x86/flushtlb.c
-+++ b/xen/arch/x86/flushtlb.c
-@@ -20,11 +20,7 @@
- #include <asm/spec_ctrl.h>
- 
- /* Debug builds: Wrap frequently to stress-test the wrap logic. */
--#ifdef NDEBUG
--#define WRAP_MASK (0xFFFFFFFFU)
--#else
--#define WRAP_MASK (0x000003FFU)
--#endif
-+#define WRAP_MASK (IS_ENABLED(CONFIG_DEBUG_TLB_CLK) ? 0x3FFU : UINT32_MAX)
- 
- #ifndef CONFIG_PV
- # undef X86_CR4_PCIDE
+That's if IPIs are sent sequentially. In the most common case, they aren't,
+though - we use the all-but-self shorthand.
 
-base-commit: 6238c97ea430706cb4a959b1474ad40a57ed1033
--- 
-2.43.0
+Actually, even if IPIs are sent sequentially, I can't see where you spot
+this effect: Both callers of time_calibration_rendezvous_tail() signal all
+secondary CPUs to continue at the same time. Hence they'll all execute
+time_calibration_rendezvous_tail() in parallel.
 
+> Since ipi values are sent alternately in a loop to core0,
+
+Are they? I fear I don't know which part of the code you're talking about.
+
+> in the version
+> with get_s_time_fixed, we get the following local_stime calculation format.
+> 
+> coreN: local_stime = local_stime + scale_delta((current_rdtsc + (ipi_speed
+> * N)) – local_rdtsc);
+
+One of the reasons we (iirc) don't do that is that since the scaling factor
+is also slightly imprecise, we'd prefer to avoid scaling very big values.
+IOW by changing as you suggest we'd trade one accumulating error for
+another.
+
+Jan
+
+> This means the time on each core will differ by ipi_speed * N. And since
+> we're using the values of the previous local_stime, the difference will
+> accumulate because the previous local_stime was also offset. In the version
+> with scale_delta, we get:
+> 
+> coreN: local_stime = scale_delta(current_rdtsc + (ipi_speed * N));
+> 
+> This means there will still be a difference, but it won't accumulate, and
+> the offsets will remain within normal limits.
+> 
+> If it's still unclear: If your local_stime in get_s_time_fixed is offset
+> relative to other cores, then the fact that rdtsc_ordered and local_tsc are
+> not offset doesn't change anything, since you're using the delta relative
+> to local_stime.
+> 
+> core0_local_stime + (rdtsc_ordered() - local_tsc) != core1_local_stime +
+> (rdtsc_ordered() - local_tsc); // Even if rdtsc_ordered() and local_tsc are
+> equal across cores.
+> 
+> On 96-core configurations, up to a millisecond of latency can accumulate in
+> local_stime over a week of operation, and this is a significant
+> difference. This
+> is due to the fact that I use cpufreq=xen:performance max_cstate=1 ,
+> meaning that in my configuration, local_stime is never overwritten by
+> master_stime.
+> 
+> Thanks.
 
