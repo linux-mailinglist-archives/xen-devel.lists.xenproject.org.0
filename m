@@ -2,53 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AF4ED136A2
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 16:03:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200489.1516396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA20BD1384F
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 16:13:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200527.1516415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfJS0-00022g-Sr; Mon, 12 Jan 2026 15:03:24 +0000
+	id 1vfJbB-0004lg-3U; Mon, 12 Jan 2026 15:12:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200489.1516396; Mon, 12 Jan 2026 15:03:24 +0000
+Received: by outflank-mailman (output) from mailman id 1200527.1516415; Mon, 12 Jan 2026 15:12:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfJS0-000200-P5; Mon, 12 Jan 2026 15:03:24 +0000
-Received: by outflank-mailman (input) for mailman id 1200489;
- Mon, 12 Jan 2026 15:03:23 +0000
+	id 1vfJbB-0004kE-0Z; Mon, 12 Jan 2026 15:12:53 +0000
+Received: by outflank-mailman (input) for mailman id 1200527;
+ Mon, 12 Jan 2026 15:12:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h1UP=7R=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vfJRz-0001lb-32
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 15:03:23 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfJbA-0004k8-0P
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 15:12:52 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4d9e88a-efc7-11f0-9ccf-f158ae23cfc8;
- Mon, 12 Jan 2026 16:03:20 +0100 (CET)
-Received: from BL1PR13CA0341.namprd13.prod.outlook.com (2603:10b6:208:2c6::16)
- by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Mon, 12 Jan
- 2026 15:03:16 +0000
-Received: from BL02EPF0001A106.namprd05.prod.outlook.com
- (2603:10b6:208:2c6:cafe::c5) by BL1PR13CA0341.outlook.office365.com
- (2603:10b6:208:2c6::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.4 via Frontend Transport; Mon,
- 12 Jan 2026 15:02:58 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Mon, 12 Jan 2026 15:03:16 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 12 Jan
- 2026 09:03:16 -0600
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 12 Jan
- 2026 07:03:14 -0800
+ id 28669820-efc9-11f0-9ccf-f158ae23cfc8;
+ Mon, 12 Jan 2026 16:12:49 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-42fbad1fa90so5602236f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 07:12:49 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd5df939sm38765247f8f.21.2026.01.12.07.12.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jan 2026 07:12:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,505 +45,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4d9e88a-efc7-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VIOWvf9llHrf7CgvOdcvbewC39l5qyE+5XP3vn/8qku5mGjLxXrSxkOpwtJ7siop2of9eWACBoecvuUhU18rPLPZnkvwaKLn3mjyxPAGDStaTVG0uOVihkEKS4se6a0Bh76WtO/JWCWS4bwCLiNrV9Ygy9vCzcmv/bniObvKRsgdr7WdtnzVaB31paa5LK20kBKBGYKN9zfNi88Sr2oBZLh+HFvX30R+FWcaLhnqohNlotOEjE7iJy/yVaxglC1fdYLBnvtiS31/gK/avNSu7+iqW4kQYAdFSoHXair3EvDTCGG5jOzsx5rBGCoZ6ErjAq3+Z+1EXqgOnClv0yQyfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ybbTcCzVlltRMz1WEtFiCbnEPeRN28eyOOsctOIRu60=;
- b=c7Y8IaeQ79cABvJpdyycDKPxNk3r4WlJChd6YfWdaHiRZy2FT9Q/AQveRbhWvqGaOXDhv3ribkvtuQThVuF7Pti7YSeG78+9Dpp+vT42BZoiFCNtfXmGOgP1JjyhrPSHqY47O+QX5lv6CAEKFEZwSgxlSF+wwxsXmNXcptTq9Jl9RRNW6RrTW4ocKcN8FypVnS3a9d10Yppf4FLFYRLYZQH1GZBhVsQ39xDN3FGolX3b/md7n5yhJ4VOFStz1cbd+Au2yFPruupC28u6h/7ppTqQ/nykaMfC5LVJo66yCQrE5O34/cQjw7qta5whSBQ1axFL5Kwva/cO9K1b0NENoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ybbTcCzVlltRMz1WEtFiCbnEPeRN28eyOOsctOIRu60=;
- b=HGz4s91IENQWxhiKD4G6grahQzeFvaDo28X5/pvkqVKIPuxUP9dh5R/e0ovQkUihSUwRzBYOhyRq30AM837enIVEG8j4iqRYQUc8L3IJfD63EsDErKJyqxGQICpy1rkcocGdRDqD72AZSgy4nVHxIpn1Du6mMjPNkwdCdD0W7hI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Doug Goldstein
-	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P.
- Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 2/2] x86/ucode: Add Kconfig option to remove microcode loading
-Date: Mon, 12 Jan 2026 16:02:56 +0100
-Message-ID: <20260112150259.74535-3-alejandro.garciavallejo@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260112150259.74535-1-alejandro.garciavallejo@amd.com>
-References: <20260112150259.74535-1-alejandro.garciavallejo@amd.com>
+X-Inumbo-ID: 28669820-efc9-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768230769; x=1768835569; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QN91mTdjZK1Ghls/nOSb3R2+DqKlpvdGpHv0sCbsnAU=;
+        b=V1JXWUCtc7lSsWToL5x5V6Msyw3Rcw44QkLz2JzXf0Ka9IGmSGLdrUu0VUqBdDBFSe
+         f7vzUUnmG5RFZNdm96ee6UPSqe1RX/GdstqOVhuPD+scIQpC5QmJMKTVNKPTpiLJr/js
+         a6g4ENsNwE5zc6Rk4q7DlCkYFlDRj2VeCe2NdBSB7lGlsbrHAy0GNn0DPcuK6DpTA4lh
+         nWvu8uu11zJDzcd7INs/ZhzL1yG2LPpzkKvGnzUW0nAS169Lb6vFxD2PlOZdvYLB6POQ
+         nRs+wTXh7BcU15wlaL8WTHSc/QuuxtPfFh8zEKMsesCVdtJG6FZioY/Eu7PV2U7Dp1y0
+         SAlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768230769; x=1768835569;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QN91mTdjZK1Ghls/nOSb3R2+DqKlpvdGpHv0sCbsnAU=;
+        b=LqpNF7vMsh8EtXdKeR35xR37USrTymSyTy4Zs3iIWj997tIhhi69Uxub85Im1qXcp9
+         HuEl/gWqDte2Pl6IAimbxDqLyihI6WcxTVSoKOJx3nLethR2IGE5Rovc49aLVjvo1KIj
+         GHfMZofIA/n5eN44fOK6IVvB4kniMvNwPpL1NGPsCjpnV0v9QYp7HAaNvYymuQfSvcP6
+         i+1CuFVIiSnmy6DuCOui6oUTanzPkDqf8kKtyk/KJKTp8wrQSNp0pJ1d4Mo0OzqLD/Gn
+         MkAvBOHOhKpW1u9gLFJoEdOW8l7uZa3yxGuSwVZNt145oj4cpxMMPUKWxFtuKIfzMBFj
+         S7yg==
+X-Forwarded-Encrypted: i=1; AJvYcCU/Yy9QmMbUL0j0qsCXkiwWa+9zOo8EFsZntl3p1K3RU80lDPWKV6UNLW/VRw90WwTQkbIpm4VF3wI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGPevVpG9tmiqYC6L0mM+VK7DmD0slfXKdl+ND38AqFyrYhdK6
+	Hulx+OLxK0F0bl2ZLuISVgPEL2WaLUkHm5d9WCKk5+DgwIPRSUTWZPavzuC3fHm0WA==
+X-Gm-Gg: AY/fxX7zmeIzbEAU7GitWkVfRBhEmvdH1iJFwXpemwyb+yRkXwJU9xCt5c7wqm6AsE/
+	cK5R1uGsxH++omJFOrH6iRZuTDBn/JBW3sq56RQ+X9LuH7atKl73mhuSQ9/7VZujtSZo7dMZCpR
+	yFCOqElZVnsNZWQ3ql8aYcM5SG+GUrpBpfIrDQ1nhU7yLe2X38ITfluTdLvNYuce3X9sLH7m5fR
+	8dCmPKITlw6riIG4Pk+h1jnIxKB5alDYCrsFeON4V4QelWKrZBt89ZE4eTwxGE0Z8W19syB6mcv
+	pXZpad00+2DHTwf5OOnzeOaUsle32dIfQI1HtYat7r3XApDeCNyGekMucFoP5QJMGyM9WAwGSyn
+	E+Ik+pgFS4gaQ02EF9zE1A0eZsI3aIGv9TgWknV4XHShJSJhZd5VdleamqkWFRQBRXe3cXTRXOi
+	bJ2EFMnhhY6lum/3vOpNfdasLZ279uc66VAwuUMNOkEAHvzk/1z20tsva9Ar0qIQaWuSEMOR9pT
+	2g=
+X-Google-Smtp-Source: AGHT+IF4/92KVn+U24L6KHlLu/MnYpFidyCTPpxgIV5wiztXTZC58FaUH8O48WnsF1KYuGfQU04CWg==
+X-Received: by 2002:a05:6000:1865:b0:432:857d:e42c with SMTP id ffacd0b85a97d-432c37c87famr19821138f8f.34.1768230768780;
+        Mon, 12 Jan 2026 07:12:48 -0800 (PST)
+Message-ID: <de975e5d-4df7-4dee-9edf-400e5287cc82@suse.com>
+Date: Mon, 12 Jan 2026 16:12:48 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|BL1PR12MB5922:EE_
-X-MS-Office365-Filtering-Correlation-Id: c843b0ac-36d2-4fa6-eee0-08de51ebb71e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|7416014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lqEZFPsI9oVRxXBZfIaTS2B/OhXC/POf1rpauSXktFwHPOJRqweYOaFV09D5?=
- =?us-ascii?Q?iq+MkEgEoSq3I6P/1fezj0Y+o3rCHn22HMZxzWFkLQR2gdYayl3OnXeW3b8s?=
- =?us-ascii?Q?MZwYTNopKWo04UyAgN6rzsUnO001x1Zgawl5cbKR6kic2HuTgvUrQK69Ma+o?=
- =?us-ascii?Q?QB5gIu6c3/F3NLvKJ6P425AxTG3MGY4x3Ji6V6SiR0mmHGJe0RX3tPfClvCc?=
- =?us-ascii?Q?mp7Z8oa8ki5FLXWBnIKpty2XNQxL9rAM/lEUsDJDw9QdA1d8rX0jhWcqaAfc?=
- =?us-ascii?Q?kuN/9rk+VIt4KdD5FM8ni+eX3/dLxKG/9kOSiXQzBwbKocipeH7bqA9V+aqX?=
- =?us-ascii?Q?0RcxeOPCrH2uSUpvkIjt4d2nSt7qRoLmypUVElg570SXhWf2onJ0Exwfc/4o?=
- =?us-ascii?Q?naUO4Dz8c0ROZvTf6dqR5Uo7uFgqSOzA4JcSzt9h8qKEUZ3o++EaB5VAr2pP?=
- =?us-ascii?Q?tN1vl+tJzfmPPL8bW1YdP2BzxgNSzTB9dR7u0LgxQ88xxrGFSGvmqvFK9pNg?=
- =?us-ascii?Q?H7VwIwGcuBzdGZI+Kxup/TIxPyL3p+kHJ0rrz6izh0UitsHvcKTt76y+l31I?=
- =?us-ascii?Q?D9tw14HhYLu4Gm1vuOY1pmI0G2G5Lylj3mpUabrAQ6SWqg6kYeRihXaEaoe7?=
- =?us-ascii?Q?z65TcP6KCluWqnhVefgMKlN3W79S4R0qGg/8IyO1K37FyiaGw9N/Wm99mvHY?=
- =?us-ascii?Q?SqNcZGJlzeP4HAI18c3GVI6g7G6rpjUAt69Xv91VLCn8W4eTe69dthP6TtGZ?=
- =?us-ascii?Q?Ugdj+Kx4xKC4WqHE53hn1u5L3yI58HmGwrFssyEiPgLhQvI9srxcVUgUm0bs?=
- =?us-ascii?Q?VxHqYELqzvSBpofxcU9Rvr8e1b0YOnw/BwvzXxhu/rivlGuxi70ldakTYM9t?=
- =?us-ascii?Q?P24OXpYM9EEpwHyW/gBOp1TeGW920Fhu8ndxgEa6u1X00CJvLcL4U3ID1oyy?=
- =?us-ascii?Q?2nEVZD2sO6YyuecddqOaMDnxabXaa3NT6MJZc6g2QUk5MKhEONSnS958SD7N?=
- =?us-ascii?Q?PC2IUoCZhCOAnyv0v8Vvy35EeY8Gmjlf1GPZnLFioQZzlR5GITEChfhCP/xx?=
- =?us-ascii?Q?qnZGEr0mCCapy0R410hoALA1zQT6AHzS6GphWtLmIlpE5exCEnqjnEb/0T2b?=
- =?us-ascii?Q?2qD4APAPpnWYkfayGncRCRvxSy2FNpf9sitIIvcs004r9M+iOM+rFCKUuKUo?=
- =?us-ascii?Q?OHkLqK9U6p/0NELyl6RzrjYmhzTRmxgIV+YBE1JvpDhgrQD6SGhBOHtKLj8W?=
- =?us-ascii?Q?3DBLvVY//MDaUgvnlIUzVB83OfZ6DqFRK5611WwAIXgtCVc2Ic3uJN+SXecN?=
- =?us-ascii?Q?G9XA/bAl+wZl/CzcQmyIDgn2w48uRkNhK5g+TcsN6RSW3LZrDnIYmaJKxgX/?=
- =?us-ascii?Q?Dtf0ypnfRHu8TNYlccmAWx8OA+hDOaLWGf+1A6DgWSvszoDtYqIlDT3AwcSQ?=
- =?us-ascii?Q?DB01wE8l/25axpPvE9i5Kz5ZdBtB4tEFeFoKOGh+8dlgsd/n21B9NSPvG/DQ?=
- =?us-ascii?Q?uVt/1fhPC/HB5M5LAUvfUJyU32UaRC9hOLfHToX61uZqy+BUI4T0DA8MqhxT?=
- =?us-ascii?Q?DMVNvYTNZAYKWhyt2yE=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(7416014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 15:03:16.4164
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c843b0ac-36d2-4fa6-eee0-08de51ebb71e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A106.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 12/15] xen/riscv: introduce sbi_set_timer()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <84cf8fb2331614c6d0cc6e9030571f42bfc6d928.1766595589.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <84cf8fb2331614c6d0cc6e9030571f42bfc6d928.1766595589.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Amend docs to reflect ucode= commands depend on MICROCODE_LOADING
-being set.
+On 24.12.2025 18:03, Oleksii Kurochko wrote:
+> Introduce pointer to function which points to a specific sbi_set_timer()
+> implementation. It is done in this way as different OpenSBI version can
+> have different Extenion ID and/or funcion ID for TIME extension.
+> 
+> sbi_set_time() programs the clock for next event after stime_value
+> time. This function also clears the pending timer interrupt bit.
+> 
+> Introduce extension ID and SBI function ID for TIME extension.
+> 
+> Implement only sbi_set_timer_v02() as there is not to much sense
+> to support earlier version and, at the moment, Xen supports only v02.
 
-While at it, rename UCODE_SCAN_DEFAULT to MICROCODE_SCAN_DEFAULT for
-consistency.
+Besides this somewhat contradicting the use of a function pointer: What
+about the legacy extension's equivalent?
 
-Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
----
-v2:
-  * Rely aggressively on DCE and ifdef/IS_ENABLED rather than file
-    refactoring
-  * Add a note about CONFIG_MICROCODE_LOADING to xen-command-line.pandoc
-  * Rename UCODE to MICROCODE_LOADING
-  * Rename UCODE_SCAN_DEFAULT to MICROCODE_SCAN_DEFAULT in order to avoid
-    having some options with UCODE and some with MICROCODE.
-  * Remove earlycpio.init.o from the build when !CONFIG_MICROCODE_LOADING
----
- automation/gitlab-ci/build.yaml    |  2 +-
- docs/misc/efi.pandoc               |  2 ++
- docs/misc/xen-command-line.pandoc  |  4 ++--
- xen/arch/x86/Kconfig               | 14 +++++++++++++-
- xen/arch/x86/cpu/microcode/amd.c   | 22 +++++++++++++---------
- xen/arch/x86/cpu/microcode/core.c  | 25 ++++++++++++++++++-------
- xen/arch/x86/cpu/microcode/intel.c | 16 +++++++++-------
- xen/arch/x86/efi/efi-boot.h        |  3 ++-
- xen/arch/x86/platform_hypercall.c  |  2 ++
- xen/common/Makefile                |  3 ++-
- 10 files changed, 64 insertions(+), 29 deletions(-)
+> --- a/xen/arch/riscv/include/asm/sbi.h
+> +++ b/xen/arch/riscv/include/asm/sbi.h
+> @@ -33,6 +33,7 @@
+>  
+>  #define SBI_EXT_BASE                    0x10
+>  #define SBI_EXT_RFENCE                  0x52464E43
+> +#define SBI_EXT_TIME                    0x54494D45
+>  
+>  /* SBI function IDs for BASE extension */
+>  #define SBI_EXT_BASE_GET_SPEC_VERSION   0x0
+> @@ -65,6 +66,9 @@
+>  
+>  #define SBI_SPEC_VERSION_DEFAULT 0x1
+>  
+> +/* SBI function IDs for TIME extension */
+> +#define SBI_EXT_TIME_SET_TIMER  0x0
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index a6fc55c2d5..b69bad9202 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -310,7 +310,7 @@ alpine-3.18-gcc-debug:
-       CONFIG_ARGO=y
-       CONFIG_UBSAN=y
-       CONFIG_UBSAN_FATAL=y
--      CONFIG_UCODE_SCAN_DEFAULT=y
-+      CONFIG_MICROCODE_SCAN_DEFAULT=y
-       CONFIG_XHCI=y
- 
- debian-13-x86_64-gcc-debug:
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 11c1ac3346..c3fb1f3a30 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -104,6 +104,8 @@ Specifies an XSM module to load.
- 
- Specifies a CPU microcode blob to load. (x86 only)
- 
-+Only available when Xen is compiled with CONFIG_MICROCODE_LOADING.
-+
- ###`dtb=<filename>`
- 
- Specifies a device tree file to load.  The platform firmware may provide a
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 50d7edb248..866fa2f951 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2748,7 +2748,7 @@ performance.
- ### ucode
- > `= List of [ <integer> | scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
- 
--    Applicability: x86
-+    Applicability: x86 with CONFIG_MICROCODE_LOADING active
-     Default: `scan` is selectable via Kconfig, `nmi,digest-check`
- 
- Controls for CPU microcode loading. For early loading, this parameter can
-@@ -2773,7 +2773,7 @@ microcode in the cpio name space must be:
-   - on AMD  : kernel/x86/microcode/AuthenticAMD.bin
- When using xen.efi, the `ucode=<filename>` config file setting takes
- precedence over `scan`. The default value for `scan` is set with
--`CONFIG_UCODE_SCAN_DEFAULT`.
-+`CONFIG_MICROCODE_SCAN_DEFAULT`.
- 
- 'nmi' determines late loading is performed in NMI handler or just in
- stop_machine context. In NMI handler, even NMIs are blocked, which is
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index c808c989fc..1353ec9a3f 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -331,8 +331,20 @@ config REQUIRE_NX
- 	  was unavailable. However, if enabled, Xen will no longer boot on
- 	  any CPU which is lacking NX support.
- 
--config UCODE_SCAN_DEFAULT
-+config MICROCODE_LOADING
-+	bool "Microcode loading"
-+	default y
-+	help
-+	  Support updating the microcode revision of available CPUs with a newer
-+	  vendor-provided microcode blob. Microcode updates address some classes of
-+	  silicon defects. It's a very common delivery mechanism for fixes or
-+	  workarounds for speculative execution vulnerabilities.
-+
-+	  If unsure, say Y.
-+
-+config MICROCODE_SCAN_DEFAULT
- 	bool "Scan for microcode by default"
-+	depends on MICROCODE_LOADING
- 	help
- 	  During boot, Xen can scan the multiboot images for a CPIO archive
- 	  containing CPU microcode to be loaded, which is Linux's mechanism for
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 71b041c84b..6abdc7813b 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -264,7 +264,7 @@ static bool microcode_fits_cpu(const struct microcode_patch *patch)
-     return equiv.id == patch->processor_rev_id;
- }
- 
--static int cf_check amd_compare(
-+static int cf_check __maybe_unused amd_compare(
-     const struct microcode_patch *old, const struct microcode_patch *new)
- {
-     /* Both patches to compare are supposed to be applicable to local CPU. */
-@@ -310,8 +310,8 @@ static bool check_min_rev(const struct microcode_patch *patch)
-     return this_cpu(cpu_sig).rev >= patch->min_rev;
- }
- 
--static int cf_check apply_microcode(const struct microcode_patch *patch,
--                                    unsigned int flags)
-+static int cf_check __maybe_unused apply_microcode(
-+    const struct microcode_patch *patch, unsigned int flags)
- {
-     int hw_err, result;
-     unsigned int cpu = smp_processor_id();
-@@ -422,7 +422,7 @@ static int scan_equiv_cpu_table(const struct container_equiv_table *et)
-     return -ESRCH;
- }
- 
--static struct microcode_patch *cf_check cpu_request_microcode(
-+static __maybe_unused struct microcode_patch *cf_check cpu_request_microcode(
-     const void *buf, size_t size, bool make_copy)
- {
-     const struct microcode_patch *saved = NULL;
-@@ -557,15 +557,17 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-     return patch;
- }
- 
--static const char __initconst amd_cpio_path[] =
-+static const char __initconst __maybe_unused amd_cpio_path[] =
-     "kernel/x86/microcode/AuthenticAMD.bin";
- 
- static const struct microcode_ops __initconst_cf_clobber amd_ucode_ops = {
--    .cpu_request_microcode            = cpu_request_microcode,
-     .collect_cpu_info                 = collect_cpu_info,
-+#ifdef CONFIG_MICROCODE_LOADING
-+    .cpu_request_microcode            = cpu_request_microcode,
-     .apply_microcode                  = apply_microcode,
-     .compare                          = amd_compare,
-     .cpio_path                        = amd_cpio_path,
-+#endif /* CONFIG_MICROCODE_LOADING */
- };
- 
- void __init ucode_probe_amd(struct microcode_ops *ops)
-@@ -574,7 +576,8 @@ void __init ucode_probe_amd(struct microcode_ops *ops)
-      * The Entrysign vulnerability (SB-7033, CVE-2024-36347) affects Zen1-5
-      * CPUs.  Taint Xen if digest checking is turned off.
-      */
--    if ( boot_cpu_data.family >= 0x17 && boot_cpu_data.family <= 0x1a &&
-+    if ( IS_ENABLED(CONFIG_MICROCODE_LOADING) &&
-+         boot_cpu_data.family >= 0x17 && boot_cpu_data.family <= 0x1a &&
-          !opt_digest_check )
-     {
-         printk(XENLOG_WARNING
-@@ -614,8 +617,9 @@ void __init amd_check_entrysign(void)
-     unsigned int curr_rev;
-     uint8_t fixed_rev;
- 
--    if ( boot_cpu_data.vendor != X86_VENDOR_AMD ||
--         boot_cpu_data.family < 0x17 ||
-+    if ( !IS_ENABLED(CONFIG_MICROCODE_LOADING)  ||
-+         boot_cpu_data.vendor != X86_VENDOR_AMD ||
-+         boot_cpu_data.family < 0x17            ||
-          boot_cpu_data.family > 0x1a )
-         return;
- 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index fe47c3a6c1..aec99834fd 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -44,6 +44,9 @@
- 
- #include "private.h"
- 
-+#define can_apply_microcode(ops) (IS_ENABLED(CONFIG_MICROCODE_LOADING) && \
-+                                  (ops).apply_microcode)
-+
- /*
-  * Before performing a late microcode update on any thread, we
-  * rendezvous all cpus in stop_machine context. The timeout for
-@@ -58,7 +61,7 @@
-  */
- #define MICROCODE_UPDATE_TIMEOUT_US 1000000
- 
--static bool __initdata ucode_mod_forced;
-+static bool __initdata __maybe_unused ucode_mod_forced;
- static unsigned int nr_cores;
- 
- /*
-@@ -101,9 +104,10 @@ static struct microcode_patch *microcode_cache;
-  * location we require that they are not both active together.
-  */
- static int __initdata opt_mod_idx;
--static bool __initdata opt_scan = IS_ENABLED(CONFIG_UCODE_SCAN_DEFAULT);
-+static bool __initdata opt_scan = IS_ENABLED(CONFIG_MICROCODE_SCAN_DEFAULT);
- bool __ro_after_init opt_digest_check = true;
- 
-+#ifdef CONFIG_MICROCODE_LOADING
- /*
-  * Used by the EFI path only, when xen.cfg identifies an explicit microcode
-  * file.  Overrides ucode=<int>|scan on the regular command line.
-@@ -162,6 +166,7 @@ static int __init cf_check parse_ucode(const char *s)
-     return rc;
- }
- custom_param("ucode", parse_ucode);
-+#endif /* CONFIG_MICROCODE_LOADING */
- 
- static struct microcode_ops __ro_after_init ucode_ops;
- 
-@@ -469,7 +474,7 @@ struct ucode_buf {
-     char buffer[];
- };
- 
--static long cf_check ucode_update_hcall_cont(void *data)
-+static long cf_check __maybe_unused ucode_update_hcall_cont(void *data)
- {
-     struct microcode_patch *patch = NULL;
-     int ret, result;
-@@ -613,6 +618,7 @@ static long cf_check ucode_update_hcall_cont(void *data)
-     return ret;
- }
- 
-+#ifdef CONFIG_MICROCODE_LOADING
- int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
-                        unsigned long len, unsigned int flags)
- {
-@@ -622,7 +628,7 @@ int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
-     if ( flags & ~XENPF_UCODE_FORCE )
-         return -EINVAL;
- 
--    if ( !ucode_ops.apply_microcode )
-+    if ( !can_apply_microcode(ucode_ops) )
-         return -EINVAL;
- 
-     buffer = xmalloc_flex_struct(struct ucode_buf, buffer, len);
-@@ -645,6 +651,7 @@ int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
-      */
-     return continue_hypercall_on_cpu(0, ucode_update_hcall_cont, buffer);
- }
-+#endif /* CONFIG_MICROCODE_LOADING */
- 
- /* Load a cached update to current cpu */
- int microcode_update_one(void)
-@@ -658,7 +665,7 @@ int microcode_update_one(void)
-     if ( ucode_ops.collect_cpu_info )
-         alternative_vcall(ucode_ops.collect_cpu_info);
- 
--    if ( !ucode_ops.apply_microcode )
-+    if ( !can_apply_microcode(ucode_ops) )
-         return -EOPNOTSUPP;
- 
-     spin_lock(&microcode_mutex);
-@@ -678,6 +685,7 @@ int microcode_update_one(void)
-  */
- static int __initdata early_mod_idx = -1;
- 
-+#ifdef CONFIG_MICROCODE_LOADING
- static int __init cf_check microcode_init_cache(void)
- {
-     struct boot_info *bi = &xen_boot_info;
-@@ -734,6 +742,7 @@ static int __init cf_check microcode_init_cache(void)
-     return rc;
- }
- presmp_initcall(microcode_init_cache);
-+#endif /* CONFIG_MICROCODE_LOADING */
- 
- /*
-  * There are several tasks:
-@@ -907,10 +916,12 @@ int __init early_microcode_init(struct boot_info *bi)
-      *
-      * Take the hint in either case and ignore the microcode interface.
-      */
--    if ( !ucode_ops.apply_microcode || this_cpu(cpu_sig).rev == ~0 )
-+    if ( !can_apply_microcode(ucode_ops) || this_cpu(cpu_sig).rev == ~0 )
-     {
-         printk(XENLOG_INFO "Microcode loading disabled due to: %s\n",
--               ucode_ops.apply_microcode ? "rev = ~0" : "HW toggle");
-+               !IS_ENABLED(CONFIG_MICROCODE_LOADING) ? "not compiled in" :
-+               ucode_ops.apply_microcode             ? "rev = ~0"        :
-+                                                       "HW toggle");
-         ucode_ops.apply_microcode = NULL;
-         return -ENODEV;
-     }
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index 281993e725..d9895018b4 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -273,7 +273,7 @@ static bool microcode_fits_cpu(const struct microcode_patch *mc)
-     return false;
- }
- 
--static int cf_check intel_compare(
-+static int __maybe_unused cf_check intel_compare(
-     const struct microcode_patch *old, const struct microcode_patch *new)
- {
-     /*
-@@ -286,8 +286,8 @@ static int cf_check intel_compare(
-     return compare_revisions(old->rev, new->rev);
- }
- 
--static int cf_check apply_microcode(const struct microcode_patch *patch,
--                                    unsigned int flags)
-+static int cf_check __maybe_unused apply_microcode(
-+    const struct microcode_patch *patch, unsigned int flags)
- {
-     uint64_t msr_content;
-     unsigned int cpu = smp_processor_id();
-@@ -333,7 +333,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch,
-     return 0;
- }
- 
--static struct microcode_patch *cf_check cpu_request_microcode(
-+static __maybe_unused struct microcode_patch *cf_check cpu_request_microcode(
-     const void *buf, size_t size, bool make_copy)
- {
-     int error = 0;
-@@ -404,21 +404,23 @@ static bool __init can_load_microcode(void)
-     return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
- }
- 
--static const char __initconst intel_cpio_path[] =
-+static const char __initconst __maybe_unused intel_cpio_path[] =
-     "kernel/x86/microcode/GenuineIntel.bin";
- 
- static const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
--    .cpu_request_microcode            = cpu_request_microcode,
-     .collect_cpu_info                 = collect_cpu_info,
-+#ifdef CONFIG_MICROCODE_LOADING
-+    .cpu_request_microcode            = cpu_request_microcode,
-     .apply_microcode                  = apply_microcode,
-     .compare                          = intel_compare,
-     .cpio_path                        = intel_cpio_path,
-+#endif /* CONFIG_MICROCODE_LOADING */
- };
- 
- void __init ucode_probe_intel(struct microcode_ops *ops)
- {
-     *ops = intel_ucode_ops;
- 
--    if ( !can_load_microcode() )
-+    if ( IS_ENABLED(CONFIG_MICROCODE_LOADING) && !can_load_microcode() )
-         ops->apply_microcode = NULL;
- }
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 0194720003..42a2c46b5e 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -295,7 +295,8 @@ static void __init efi_arch_cfg_file_late(const EFI_LOADED_IMAGE *image,
- {
-     union string name;
- 
--    if ( read_section(image, L"ucode", &ucode, NULL) )
-+    if ( !IS_ENABLED(CONFIG_MICROCODE_LOADING) ||
-+         read_section(image, L"ucode", &ucode, NULL) )
-         return;
- 
-     name.s = get_value(&cfg, section, "ucode");
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index 79bb99e0b6..5e83965d21 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -307,6 +307,7 @@ ret_t do_platform_op(
-         break;
-     }
- 
-+#ifdef CONFIG_MICROCODE_LOADING
-     case XENPF_microcode_update:
-     {
-         XEN_GUEST_HANDLE(const_void) data;
-@@ -327,6 +328,7 @@ ret_t do_platform_op(
-                                  op->u.microcode2.flags);
-         break;
-     }
-+#endif /* CONFIG_MICROCODE_LOADING */
- 
-     case XENPF_platform_quirk:
-     {
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 92c97d641e..1e6c92e554 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -65,7 +65,8 @@ obj-y += wait.o
- obj-bin-y += warning.init.o
- obj-y += xmalloc_tlsf.o
- 
--obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo unlz4 unzstd earlycpio,$(n).init.o)
-+obj-bin-$(CONFIG_MICROCODE_LOADING) += earlycpio.init.o
-+obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo unlz4 unzstd,$(n).init.o)
- 
- obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o)
- 
--- 
-2.43.0
+Move up besides the other SBI_EXT_* and use the same amount of padding?
 
+> @@ -138,6 +142,19 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+>  int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+>                                  size_t size, unsigned long vmid);
+>  
+> +/*
+> + * Programs the clock for next event after stime_value time. This function also
+> + * clears the pending timer interrupt bit.
+> + * If the supervisor wishes to clear the timer interrupt without scheduling the
+> + * next timer event, it can either request a timer interrupt infinitely far
+> + * into the future (i.e., (uint64_t)-1), or it can instead mask the timer
+> + * interrupt by clearing sie.STIE CSR bit.
+> + *
+> + * This SBI call returns 0 upon success or an implementation specific negative
+> + * error code.
+> + */
+> +extern int (*sbi_set_timer)(uint64_t stime_value);
+
+Despite the pretty extensive comment, the granularity of the value to be passed
+isn't mentioned.
+
+> --- a/xen/arch/riscv/sbi.c
+> +++ b/xen/arch/riscv/sbi.c
+> @@ -249,6 +249,26 @@ static int (* __ro_after_init sbi_rfence)(unsigned long fid,
+>                                            unsigned long arg4,
+>                                            unsigned long arg5);
+>  
+> +static int cf_check sbi_set_timer_v02(uint64_t stime_value)
+> +{
+> +    struct sbiret ret;
+> +
+> +#ifdef CONFIG_RISCV_64
+> +    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value, 0,
+> +                    0, 0, 0, 0);
+> +#else
+> +    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value,
+> +                    stime_value >> 32, 0, 0, 0, 0);
+> +#endif
+
+How about
+
+    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value,
+#ifdef CONFIG_RISCV_64
+                    0,
+#else
+                    stime_value >> 32,
+#endif
+                    0, 0, 0, 0);
+
+? Granted some may say this looks a little m ore clumsy, but it's surely
+less redundancy.
+
+Also I'd suggest to use CONFIG_RISCV_32 with the #ifdef, as then the "else"
+covers both RV64 and RV128.
+
+> +    if ( ret.error )
+> +        return sbi_err_map_xen_errno(ret.error);
+> +    else
+> +        return 0;
+> +}
+
+While I understand this is being debated, I continue to think that this
+kind of use of if/else isn't very helpful. Function's main return
+statements imo benefit from being unconditional.
+
+Jan
 
