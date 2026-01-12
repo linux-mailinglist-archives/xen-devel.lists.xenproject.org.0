@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60D3D13079
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:13:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200348.1516290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7B9D131F7
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 15:29:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200361.1516299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIfP-0008Fi-9u; Mon, 12 Jan 2026 14:13:11 +0000
+	id 1vfIuV-0001f1-H1; Mon, 12 Jan 2026 14:28:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200348.1516290; Mon, 12 Jan 2026 14:13:11 +0000
+Received: by outflank-mailman (output) from mailman id 1200361.1516299; Mon, 12 Jan 2026 14:28:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfIfP-0008DU-6W; Mon, 12 Jan 2026 14:13:11 +0000
-Received: by outflank-mailman (input) for mailman id 1200348;
- Mon, 12 Jan 2026 14:13:09 +0000
+	id 1vfIuV-0001dk-E6; Mon, 12 Jan 2026 14:28:47 +0000
+Received: by outflank-mailman (input) for mailman id 1200361;
+ Mon, 12 Jan 2026 14:28:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfIfN-0008Ct-9W
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:13:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vfIuT-0001dc-CZ
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 14:28:45 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1716d36-efc0-11f0-b15e-2bf370ae4941;
- Mon, 12 Jan 2026 15:13:07 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47a95efd2ceso56701935e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:13:07 -0800 (PST)
+ id ff874636-efc2-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 15:28:44 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-430f5ecaa08so3057331f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 06:28:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d8718b995sm128589425e9.14.2026.01.12.06.13.06
+ ffacd0b85a97d-432bd0daa78sm39459517f8f.6.2026.01.12.06.28.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 06:13:06 -0800 (PST)
+ Mon, 12 Jan 2026 06:28:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1716d36-efc0-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: ff874636-efc2-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768227187; x=1768831987; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768228123; x=1768832923; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Iu2RZxy2eSFAzQuloT198riRuTgrfD4yqhklsvv3Qfk=;
-        b=KqJj+Y47Uz7AsxpbJRpeMlPS7695e46iYWkyqBFA6ZGZ3BjH/k+OOjVk2TDwussH4z
-         egacukR4iW3fiHV4dMRMCworFW92Kr++vmhb5UtFqwS9mGZTR0lr98QIKTnMLbDxznxQ
-         /nuJ5wDW+2w9/dl/9euSuoK6OrnkqBNFPS1CCQr0hL9cHCQGoTdfYL0z2Vu1/Za+VuGO
-         5AZbHY7QQfM5e7PP9JcFMfDwY2XTYL5k52+wmgsgLBplJePKzncWKwARqkrWcQ2CZU09
-         ReMA4g+JxWYijG5hWVI2YeN8JzBRac9fNinqXttlQvWOowt3ytDxHL8dp7089Zs8nQVV
-         5sPA==
+        bh=w58LwGC29cXmcYaQei+vF9ga2UmuyamuAiGBm8q72Go=;
+        b=SiD5KG6q9eH+4o3/k42Jqfffmf+HyWeDTtvcbEt2KD1a0wNQ43vriIVAqZcDzWZxN9
+         YKbd4C9sUNkL5504Po8x5cydWfFaaEfVSVLuDIIZoMWQNaz76lf3A1ngfhoiicjBVuq6
+         ZBC2Fqe8d2JqdvU+0lDJPVCxzPeIli3G2iBdXX95uEbJ1vOVSPHhbitBcGhVzbHG4tVe
+         HJMwktFg+cK0oczO1B9exfhkf5wHzAkY2qdVJr4Z/yFQjJ74fuEAITf3CybBEb89ISn4
+         sPNgDHn8MD3VvwmNmrqzVlQMeiuevXrkhjiAksovrVwGKkvY6zG1+AGq0D7shCv4jvV1
+         j1fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768227187; x=1768831987;
+        d=1e100.net; s=20230601; t=1768228123; x=1768832923;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Iu2RZxy2eSFAzQuloT198riRuTgrfD4yqhklsvv3Qfk=;
-        b=qDzKHX6HyY92shutHOpb7ChB67OOZJIMJdUKNPa9o5TJizCBq9VzCfQDkd9rkBlWwJ
-         bF/99kz1ofujG3JjxVH9z/bwxVoDgRx4AX81RGofLrDX0WvS/ImU9xFeMiu/2A5cZhfT
-         n6BquxVc1hyMpTeNC3gISP8ko4mjkWcFplXWU9nymi7XeHGOFesjkUXIoiMBELZjOnjl
-         ThNnAFGv/JzO2cWSJWxX329OQ2Q1zVCmXH9CArVPHPLNOcAtCtSCDJvnqFhXyROgA7h1
-         sGK1n8fPHVn0fxlfUOE1yR421z6i8vjxy+rTnpVzJByZ0XJHO4e2GEkYF2+lIABaX5Pp
-         GwDA==
-X-Forwarded-Encrypted: i=1; AJvYcCVuHGiMoS8W8KznKSlctsN1mpDcfQL+jKYFj/d9qSsY5KRfoQkqvnFDhb6ya2TjnS1CBRN5qdZqcIQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxH6gAuB6YVuviEQ5vZXfAMLfdPM+8JJMp/TQXy8sUw+LweFhe3
-	Hm6YHxc/LmdQqCvpJpnTPz3Ct2JpoihWpHP4sbs0lqku8ALB9ozYHfRh2iHOXuvErQ==
-X-Gm-Gg: AY/fxX6ZB2DV2/aYgTHN0GQ9b5n/q8eAszkve95LKU4MiMDXc3iiMXPrwHQ/Nymuvs3
-	ir9heLw8nTIhFhkFcAdaVDgmLxtrKHE9L2JM0xfl8RMMwupwFVN+e0+8fKookMq9RWpzv/3PGox
-	UFR4zCiSaWUP0fbFRRQtEZ01bX7x2/hDM74tWROgEKXa/51/q15EI8/B1Ql+EmL9TP+pnE5BM1n
-	Zr1tBwtU0ZTcbl/HkdJmR6h4RWRi81P5WMTGFnGyAAXqeqXGslSdPgWGrzsDjjxfn6yV3N/a9Zs
-	zb2x+NRXUEW4fNzzWIDKM+jwtUc9pgf7Py0QOzFZNNON77vsyEVWirzbApIVBsUrcYVvhb72Vcu
-	zd6T1wh9rj2yj5neVTJeGcOvtTksNUsWinvu5aytc+ud7qehZYsMOLEV8GdgPzAB7Jqelh/I1Us
-	gkrWqnsQ5CRDHFKGsBuyV8wnXbpw2lpGyKpQBS3lOr7W/HsUhO1BTitoSg/dh616iZ25nfhtiBj
-	Ys=
-X-Google-Smtp-Source: AGHT+IHoem9EvRRQ2b/F2IzOHi6BRBLBkW71FjhL9CHoip0Y9UwHKv9sNtAOyKyDd3Jl6gjS3JkTjQ==
-X-Received: by 2002:a05:600c:c0c7:b0:477:c478:46d7 with SMTP id 5b1f17b1804b1-47d84b33bd7mr183359155e9.22.1768227186956;
-        Mon, 12 Jan 2026 06:13:06 -0800 (PST)
-Message-ID: <6ea436ce-6ecb-47f8-8d8a-98b0badeb14e@suse.com>
-Date: Mon, 12 Jan 2026 15:13:07 +0100
+        bh=w58LwGC29cXmcYaQei+vF9ga2UmuyamuAiGBm8q72Go=;
+        b=YJS3Y33xUe7dP0mDXVqsoH/EEKECL3bgaZImiFTUDA64PYdVyPrwKdAu5716qn5tKe
+         PdRjIJVaFWMZzUZiJSiuzsNTE9G4qgkq7zHx/TEh/isj7ZtFaSYCYbapoK11B8kWdfJ+
+         gNGfdKDnkL7RNJahC17Ifjt3su0nzmYA5/O8qK2t+sEWYddYTGGwMKdeejc6PiypX7Yl
+         tpE+X7FYgC9T5My1hECePDPsXpDGP8wqPT7lBJtNSl1AGELQW4VDl1rqLO4C3zmc9xYm
+         jKW+9ULb5Y07N1tK7vPVSVtVaLGxWYPtfqL4zrywbTXm5htPTAXLgn0bkh5B8E7yC718
+         5LBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVn7f1hgMJv6KSqC3Jv4Yk0mCeJFwO5YfE+fUzcTXWNahoR5Y6r3zW2EFngvcgQcrv5WdAdXKFRcIo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywi7rWcHNEdjqX8+9Yh5YzEs7vz4JvZZ3tjWYPG2Nog/l+P5ctJ
+	ERJmJbsL9WT+HE1zF29OHOIJDeus+zCmRL8inplIGDOogZmd9ktc8zhMtLB/3CA9Ig==
+X-Gm-Gg: AY/fxX5g/wFw0lYsFzCS/Rry6ePp3JTgiWzz2Zh5n7Ur5sStkkplz2f6LZeUXDPggjw
+	fi/zZYGDUw9HhauqZOid9xsL7suXeywcHQ6ZT/LO4cjOkAB/QVVM5oPmIWmZEvlKE0MF3rmLEBy
+	UuPoiRuppUsRMs5zT6mhy/AqhUtm7yQgnpSdb52v9hIF7QyLRYJ5Tg3dO8OxjXSb9Is5T7vpeOO
+	DWL40ZXMyGNUn9VKGvJuIXlf64UQOEWvWcoTqihFuPZl9pkSwXtqWpIo9ZZjIiIDPx4kMHtlgvR
+	P1n3R+Ub3nH3rDO6FApmPaowhqB+ugG7fBsuz+4ZaAV6TpELeYJUSzYp+cVVn60EpXRt9W/AAwh
+	7LSJFrkP8tTEwOQk0vmvFU4KJbMLnGvPtPtevjzr3cLhluwar5TirjLH635IH86FGGmEPAQm0TG
+	HAH4wgd7zkJCrrovged4jidYUDFNHtH5gQqkPE/VYxJnlc7uGvG6N91z2Anxd8zQCzar5c3qnsL
+	vnW73bKcnWH1Q==
+X-Google-Smtp-Source: AGHT+IHMYxVqy0QBLvkUWPVhbOSnofZ3KRZAC5rwj0zS/EJLJK1PTWAW5xZJ4P0AK1k+i3RGlab96Q==
+X-Received: by 2002:a5d:5888:0:b0:42f:edb6:3642 with SMTP id ffacd0b85a97d-432c37767acmr22696655f8f.60.1768228123300;
+        Mon, 12 Jan 2026 06:28:43 -0800 (PST)
+Message-ID: <f1beef63-1995-4e8d-bbdb-3be406ac414c@suse.com>
+Date: Mon, 12 Jan 2026 15:28:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
- get_s_time_fixed()
-To: Anton Markov <akmarkov45@gmail.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
- <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
- <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com>
- <CACQYvN-fiATs2dtdboYxCreF8kF5RsgoH-zgWtQ59iVNOT_wVg@mail.gmail.com>
- <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
- <4b03cf36-d2d8-420c-82df-55d6a9ac9d68@suse.com>
- <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
+Subject: Re: [PATCH v1 03/15] xen/riscv: implement vcpu_csr_init()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <bf617d77bb9e75bbd2930614bb86ff83b80adcfc.1766595589.git.oleksii.kurochko@gmail.com>
+ <dc24a8ea-9041-4097-bbe2-459c668e9e64@suse.com>
+ <7ba4bcfe-59d3-43f3-adb4-207424dc1713@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,88 +127,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
+In-Reply-To: <7ba4bcfe-59d3-43f3-adb4-207424dc1713@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.01.2026 13:49, Anton Markov wrote:
->> Btw, your prior response was too hard to properly read, due to excess blank
->> lines with at the same time squashed leading blanks. Together with your
->> apparent inability to avoid top-posting, I think you really want to adjust
->> your mail program's configuration.
+On 12.01.2026 13:59, Oleksii Kurochko wrote:
+> On 1/7/26 9:46 AM, Jan Beulich wrote:
+>> Also, wouldn't you better keep internal state in line with what hardware
+>> actually supports? CSRIND may be read-only-zero in the real register, in
+>> which case having the bit set in the "cached" copy can be misleading.
 > 
-> I suggest we skip the discussion of formatting and the number of spaces in
-> messages and instead focus on the topic of the thread. I have a very
-> difficult time troubleshooting difficult-to-reproduce bugs, and the fact
-> that their descriptions are difficult to read due to the number of spaces
-> is probably the least of the difficulties.
-
-Perhaps, yet it still makes dealing with things more difficult.
-
-> That invocation of get_s_time_fixed() reduces to scale_delta() (without
->> further rdtsc_ordered()), as non-zero at_tsc is passed in all cases. IOW
->> it's not quite clear to me what change you are suggesting (that would
->> actually make a functional difference).
+> [...]
 > 
-> Replacing get_s_time_fixed with scale_delta will remove the calculation
-> dependency on the previous local_stime value, which accumulates lag between
-> cores. This is because: rdtsc_ordered is not called synchronously on the
-> cores, but by the difference offset by the ipi speed. Therefore, we get:
+>> (This may similarly apply to at least hedeleg and hideleg, btw.)
 > 
-> core0: current_rdtsc;
-> core1: current_rdtsc + ipi speed;
-> coreN: current_rdtsc + ipi speed * N;
-
-That's if IPIs are sent sequentially. In the most common case, they aren't,
-though - we use the all-but-self shorthand.
-
-Actually, even if IPIs are sent sequentially, I can't see where you spot
-this effect: Both callers of time_calibration_rendezvous_tail() signal all
-secondary CPUs to continue at the same time. Hence they'll all execute
-time_calibration_rendezvous_tail() in parallel.
-
-> Since ipi values are sent alternately in a loop to core0,
-
-Are they? I fear I don't know which part of the code you're talking about.
-
-> in the version
-> with get_s_time_fixed, we get the following local_stime calculation format.
+> Regarding the previous bits, I can understand that it would be an issue:
+> if SSAIA isn’t supported, then it is incorrect to update the corresponding
+> bits of|hstateen0|.
 > 
-> coreN: local_stime = local_stime + scale_delta((current_rdtsc + (ipi_speed
-> * N)) – local_rdtsc);
+> However, I’m not really sure I understand what the issue is with|h{i,e}deleg|.
+> All writable bits there don’t depend on hardware support. Am I missing something?
 
-One of the reasons we (iirc) don't do that is that since the scaling factor
-is also slightly imprecise, we'd prefer to avoid scaling very big values.
-IOW by changing as you suggest we'd trade one accumulating error for
-another.
+My reading of the doc was that any of the bits can be r/o 0, with - yes -
+no dependencies on particular extensions. In which case you'd need to do
+the delegation in software. For which it might be helpful to know what
+the two registers are actually set to in hardware (i.e. the cached values
+wanting to match the real ones).
 
 Jan
-
-> This means the time on each core will differ by ipi_speed * N. And since
-> we're using the values of the previous local_stime, the difference will
-> accumulate because the previous local_stime was also offset. In the version
-> with scale_delta, we get:
-> 
-> coreN: local_stime = scale_delta(current_rdtsc + (ipi_speed * N));
-> 
-> This means there will still be a difference, but it won't accumulate, and
-> the offsets will remain within normal limits.
-> 
-> If it's still unclear: If your local_stime in get_s_time_fixed is offset
-> relative to other cores, then the fact that rdtsc_ordered and local_tsc are
-> not offset doesn't change anything, since you're using the delta relative
-> to local_stime.
-> 
-> core0_local_stime + (rdtsc_ordered() - local_tsc) != core1_local_stime +
-> (rdtsc_ordered() - local_tsc); // Even if rdtsc_ordered() and local_tsc are
-> equal across cores.
-> 
-> On 96-core configurations, up to a millisecond of latency can accumulate in
-> local_stime over a week of operation, and this is a significant
-> difference. This
-> is due to the fact that I use cpufreq=xen:performance max_cstate=1 ,
-> meaning that in my configuration, local_stime is never overwritten by
-> master_stime.
-> 
-> Thanks.
 
