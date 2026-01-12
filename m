@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F0B9D11E75
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:33:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1199972.1515994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF4ABD11F1A
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 11:37:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1199983.1516004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfFEl-0007tn-UM; Mon, 12 Jan 2026 10:33:27 +0000
+	id 1vfFIe-00004q-Ct; Mon, 12 Jan 2026 10:37:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1199972.1515994; Mon, 12 Jan 2026 10:33:27 +0000
+Received: by outflank-mailman (output) from mailman id 1199983.1516004; Mon, 12 Jan 2026 10:37:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfFEl-0007rr-QL; Mon, 12 Jan 2026 10:33:27 +0000
-Received: by outflank-mailman (input) for mailman id 1199972;
- Mon, 12 Jan 2026 10:33:26 +0000
+	id 1vfFIe-0008Um-9D; Mon, 12 Jan 2026 10:37:28 +0000
+Received: by outflank-mailman (input) for mailman id 1199983;
+ Mon, 12 Jan 2026 10:37:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nXIy=7R=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
- id 1vfFEk-0007rj-Mw
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:33:26 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 1f590850-efa2-11f0-9ccf-f158ae23cfc8;
- Mon, 12 Jan 2026 11:33:24 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EF30497;
- Mon, 12 Jan 2026 02:33:16 -0800 (PST)
-Received: from [10.57.94.20] (unknown [10.57.94.20])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 791FB3F59E;
- Mon, 12 Jan 2026 02:33:22 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfFIc-0008TO-Nb
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 10:37:26 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aea53b99-efa2-11f0-9ccf-f158ae23cfc8;
+ Mon, 12 Jan 2026 11:37:24 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-432d2c7a8b9so2800242f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 02:37:24 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432dfa6dc4esm16111779f8f.23.2026.01.12.02.37.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jan 2026 02:37:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f590850-efa2-11f0-9ccf-f158ae23cfc8
-Message-ID: <c8cc26e1-248d-4d98-a7ce-d72f4ec4be5a@arm.com>
-Date: Mon, 12 Jan 2026 10:33:21 +0000
+X-Inumbo-ID: aea53b99-efa2-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768214244; x=1768819044; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Nsy5JRy52pNUjoI5qh5aqHNljieCFgusvqeG3TQZs4E=;
+        b=aHGuIS0tz6E34lhnLNKdlliCNjNLXHHcCOgltSjpFC0t8qJGfbaa3f4iQ8ojiFDI9O
+         SrTFfCg5y+YcNXz3jVNSa0OcrWYelya+41OW1fDYeXwEYybqOGvO25osY/fOuUKPkIL1
+         PYAKBvTZsbvkHZfRHKvxIm6dZAutjO2d+vGZJHH840JJUrmNBthj3OWO99XWgD0qTPLB
+         CL9GnTyJDHyUdDj6KtCLDYGzHJ8lUdEuXf+4SSn2HTkUL7/N9wyTe8TC3Av2pvfmRReO
+         Djgq9FXbKS21bX0IhDljPqWC1FdRsTA5TuAWDB41NwPl/CNL3cnW9Th6jcid6JFebgdN
+         R0+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768214244; x=1768819044;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Nsy5JRy52pNUjoI5qh5aqHNljieCFgusvqeG3TQZs4E=;
+        b=jEX9cD37u3KLbP1cem8kPGdZ4eewIkflvcZ0PjrDkvPdfVY6YotwgASsbJXNCdE/4I
+         PEHO2g29ABE1up9OaGIHKAWqKy5hYoYdRKhZTS9hmfVbjbsNzs2mBN9JET2s9pkHZmOv
+         JKHeh4ptQJwkgyG2d6/Mu3FdalrfcKBo2wLyiLrOi0aMpjjzDOI3+5FQAgqfLJe7Xlbh
+         3EnBy0DlhZ0mCsRDN7hgeZbUcao14OYzmpm7m1L4zgw7pdqwuR4Q6j4PyAOOOyx8EDdu
+         JW/NbIuo0DeyzfwCsh2/JYOnauVMY2CQmp79McAkImG8E7swYCvvs2Sze+LbGRajYd6O
+         0O8g==
+X-Forwarded-Encrypted: i=1; AJvYcCUOWjoZlGbbXfIq5QmS/jY3NewRk0WfNqOT20MkzpDZOEnbYbC1z0173aq9lAjyg/Y8urnwQfKYqtk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxO3bYmeDB4+094cPpT2noDklSIHhXv5LgXBZvP5Uc+Xyw6ef42
+	gNRKakITdK58BIWkV9A8d/l/Ys8t4SDLLh+QwefXDqtoiJGCnSryioUOIszG9gsIjA==
+X-Gm-Gg: AY/fxX66MBAtWiB7SflXHTbdG+HCAAMO1v4nNpsX0UxuS6QSOyCvNsQ2tW/zeCsTenb
+	UMIEmwfS+ilpe+zFTtBwBIHeaVcv24CECBKXpPMzEILEFbI8/pRBP0YDvSyVBT/7gfmwW0578Ff
+	C3IdKUVBb66hn20pAnWng8H6O7a2LEoSHhXIyDkJ2fNbl4v64M7jJ2ygcVYX7UMIuvON+1C3Gfh
+	8sBpdF9D2LNpdTs4Zh+08AFIaUZ08nDt8drA9ylKYrAdr0QOxNuhPNSPLtWYFr15ropOTTohHgV
+	tUjAC8pPcU75CmE5SfkKEnITtoyVpoNbxYxh/RsbcHFohc5pmQWnBvthPkIoRwvLynlBj469kaE
+	r0EUsNf0bQtG0dzFjzlzb6FWVKbTHv9CTI4MnkoFXzUZOFSJXPhzAzErmd58wZkoTe7CHl1oBj6
+	nFHCtfp6RrMqQrgioD/EUSlRoAfvJoB6TZDE9aHHRbCuW+DFlEBp4l1PA/0gq/gzfkcGlhWK4j0
+	w4=
+X-Google-Smtp-Source: AGHT+IH4pOuerbgRrBL4gD+bvtxu23H+Anm2q5brzBDifNpuxcOIcnmKbnLQVDH0Pjhhx6swzMj8+A==
+X-Received: by 2002:a05:6000:178f:b0:430:b100:f594 with SMTP id ffacd0b85a97d-432c379b6acmr21873107f8f.50.1768214243770;
+        Mon, 12 Jan 2026 02:37:23 -0800 (PST)
+Message-ID: <9d65a2d6-12b5-481f-a4c3-47829815908d@suse.com>
+Date: Mon, 12 Jan 2026 11:37:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] arm/mpu: Implement vmap functions for MPU
-Content-Language: en-GB
-To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20260105113503.2674777-1-harry.ramsey@arm.com>
- <20260105113503.2674777-3-harry.ramsey@arm.com>
- <40677f79-8e3a-4c0c-876d-d57e9b230eca@amd.com>
-From: Harry Ramsey <harry.ramsey@arm.com>
-In-Reply-To: <40677f79-8e3a-4c0c-876d-d57e9b230eca@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: KEEP Re: [PATCH 2/2] xen: Add CONFIG_GC_SECTIONS
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Victor Lira <victorm.lira@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20251209214728.278949-1-jason.andryuk@amd.com>
+ <20251209214728.278949-3-jason.andryuk@amd.com>
+ <ed620cd5-9630-4987-bd5c-9f69ae2c2609@citrix.com>
+ <43d30e02-f818-4cf2-98c9-4182a2f65f64@amd.com>
+ <13a270cd-b0bd-4565-9158-0e1728aef84e@citrix.com>
+ <7514a67c-d140-43b6-bed0-3467530a086d@suse.com>
+ <fbe63318-b764-46ce-a377-dd4ce7229abe@amd.com>
+ <83eedd0c-dcaf-4e28-ac0f-f4991f053350@suse.com>
+ <1beace12-8364-4808-b817-7705f0dd9d79@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1beace12-8364-4808-b817-7705f0dd9d79@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09/01/2026 14:00, Orzel, Michal wrote:
->
-> On 05/01/2026 12:34, Harry Ramsey wrote:
->> From: Luca Fancellu <luca.fancellu@arm.com>
->>
->> HAS_VMAP is not enabled on MPU systems, but the vmap functions are used
->> in places across common code. In order to keep the existing code and
->> maintain correct functionality, implement the `vmap_contig` and `vunmap`
->> functions for MPU systems.
->>
->> Introduce a helper function `destroy_xen_mapping_containing` to aid with
->> unmapping an entire region when only the start address is known.
->>
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
->> ---
->> v2:
->> - Rename `destroy_entire_xen_mapping` to `destroy_xen_mapping_containing`
->> - Improve code documentation.
->> - Refactor nested code.
->> - Fix ignored rc error code in `destroy_xen_mapping_containing`.
->> ---
->>   xen/arch/arm/include/asm/mpu/mm.h | 10 +++++
->>   xen/arch/arm/mpu/mm.c             | 74 ++++++++++++++++++++++++++-----
->>   xen/arch/arm/mpu/vmap.c           | 14 ++++--
->>   3 files changed, 83 insertions(+), 15 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
->> index e1ded6521d..1b5ffa5b64 100644
->> --- a/xen/arch/arm/include/asm/mpu/mm.h
->> +++ b/xen/arch/arm/include/asm/mpu/mm.h
->> @@ -111,6 +111,16 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags);
->>   int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
->>                              paddr_t limit, uint8_t *index);
->>   
->> +
->> +/*
->> + * Destroys and frees (if reference count is 0) an entire xen mapping on MPU
->> + * systems where only the start address is known.
->> + *
->> + * @param s     Start address of memory region to be destroyed.
->> + * @return:     0 on success, negative on error.
->> + */
->> +int destroy_xen_mapping_containing(paddr_t s);
->> +
->>   #endif /* __ARM_MPU_MM_H__ */
->>   
->>   /*
->> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
->> index 687dec3bc6..207e8d2d91 100644
->> --- a/xen/arch/arm/mpu/mm.c
->> +++ b/xen/arch/arm/mpu/mm.c
->> @@ -290,6 +290,42 @@ static void disable_mpu_region_from_index(uint8_t index)
->>           write_protection_region(&xen_mpumap[index], index);
->>   }
->>   
->> +/*
->> + * Free a xen_mpumap entry given the index. A mpu region is actually disabled
->> + * when the refcount is 0 and the region type is MPUMAP_REGION_FOUND.
->> + *
->> + * @param idx                   Index of the mpumap entry.
->> + * @param region_found_type     MPUMAP_REGION_* value.
->> + * @return                      0 on success, otherwise negative on error.
->> + */
->> +static int xen_mpumap_free_entry(uint8_t idx, int region_found_type)
->> +{
->> +    ASSERT(spin_is_locked(&xen_mpumap_lock));
->> +    ASSERT(idx != INVALID_REGION_IDX);
->> +
->> +    if ( MPUMAP_REGION_OVERLAP == region_found_type )
->> +    {
->> +        printk(XENLOG_ERR "Cannot remove an overlapping region\n");
->> +        return -EINVAL;
->> +    }
->> +
->> +    if ( xen_mpumap[idx].refcount )
->> +    {
->> +        xen_mpumap[idx].refcount -= 1;
->> +        return 0;
->> +    }
->> +
->> +    if ( MPUMAP_REGION_FOUND == region_found_type )
->> +        disable_mpu_region_from_index(idx);
->> +    else
->> +    {
->> +        printk(XENLOG_ERR "Cannot remove a partial region\n");
-> Shouldn't this be moved above refcount checking? Do we expect this function to
-> be called with region_found_type being MPUMAP_REGION_INCLUSIVE?
+On 10.01.2026 00:32, Jason Andryuk wrote:
+> (trimmed the CC list down)
+> 
+> On 2025-12-12 08:22, Jan Beulich wrote:
+>> On 12.12.2025 02:34, Jason Andryuk wrote:
+>>> The alternative is section groups?  I'm trying that, and it kinda works
+>>> sometimes, but .attach_to_group fails when .init.text is involved.
+>>>
+>>> Here's an example that I think would work, I could make it to
+>>> --gc-sectrions:
+>>> group section [    3] `.group' [.text.vpmu_do_msr] contains 5 sections:
+>>>      [Index]    Name
+>>>      [   43]   .text.vpmu_do_msr
+>>>      [   44]   .rela.text.vpmu_do_msr
+>>>      [   45]   .altinstructions..text.vpmu_do_msr
+>>>      [   46]   .rela.altinstructions..text.vpmu_do_msr
+>>>      [   47]   .altinstr_replacement..text.vpmu_do_msr
+>>>
+>>> But I don't make it that far.  Other files blow up with tons of:
+>>> {standard input}:9098: Warning: dwarf line number information for
+>>> .init.text ignored
+>>> and
+>>> {standard input}:50083: Error: leb128 operand is an undefined symbol:
+>>> .LVU4040
+>>>
+>>> Line 9098 of apic.s is .loc below:
+>>> """
+>>>           .section        .init.text
+> 
+> Earlier in the file, there is
+>               .section        .init.text,"ax",@progbits
+> but the later .section .init.text entries don't have the extra string.
+> 
+> tl;dr: If I add "ax",@progbits to all the .init.text entries, the file 
+> assembles.
+> 
+> I opened a bug here: https://sourceware.org/bugzilla/show_bug.cgi?id=33779
 
-This function is expected to be given MPUMAP_REGION_INCLUSIVE and in 
-doing so decrease refcount by 1. If however refcount is already 0, the 
-region can only be freed by calling the entire region bounds. This 
-message is moreso a debug error that our MPU API has been used in an 
-incorrect way, it should not generally occur but I would prefer to keep 
-it for sanity checking.
+And I've replied there. I think gas is working correctly here.
 
-
->
->> +        return -EINVAL;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->>   /*
->>    * Update the entry in the MPU memory region mapping table (xen_mpumap) for the
->>    * given memory range and flags, creating one if none exists.
->> @@ -357,18 +393,7 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
->>               return -EINVAL;
->>           }
->>   
->> -        if ( xen_mpumap[idx].refcount == 0 )
->> -        {
->> -            if ( MPUMAP_REGION_FOUND == rc )
->> -                disable_mpu_region_from_index(idx);
->> -            else
->> -            {
->> -                printk("Cannot remove a partial region\n");
->> -                return -EINVAL;
->> -            }
->> -        }
->> -        else
->> -            xen_mpumap[idx].refcount -= 1;
->> +        return xen_mpumap_free_entry(idx, rc);
->>       }
->>   
->>       return 0;
->> @@ -418,6 +443,31 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->>       return xen_mpumap_update(s, e, 0);
->>   }
->>   
->> +int destroy_xen_mapping_containing(paddr_t s)
->> +{
->> +    int rc;
->> +    uint8_t idx;
->> +
->> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
->> +
->> +    spin_lock(&xen_mpumap_lock);
->> +
->> +    rc = mpumap_contains_region(xen_mpumap, max_mpu_regions, s, s + PAGE_SIZE,
->> +                                &idx);
->> +    if ( rc == MPUMAP_REGION_NOTFOUND )
->> +    {
->> +        printk(XENLOG_ERR "Cannot remove entry that does not exist");
-> Why do we split sanity checking between this and xen_mpumap_free_entry?
-> What are the possible region types that xen_mpumap_free_entry is expected to
-> work with? I thought that it should only be MPUMAP_REGION_FOUND.
-
-I will move the region checks to xen_mpumap_free_entry since we only 
-want xen_mpumap_update_entry and xen_mpumap_free_entry to modify our 
-refcount properties. These functions should then account for all 
-potential values of MPUMAP_REGION_*.
-
-
->
-> ~Michal
-Thanks,
-Harry Ramsey.
+Jan
 
