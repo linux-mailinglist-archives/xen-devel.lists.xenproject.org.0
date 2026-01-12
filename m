@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D94D13F25
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 17:20:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1200714.1516566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F741D13FD6
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jan 2026 17:29:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1200725.1516576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfKeg-000626-4r; Mon, 12 Jan 2026 16:20:34 +0000
+	id 1vfKma-0006uW-Ss; Mon, 12 Jan 2026 16:28:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1200714.1516566; Mon, 12 Jan 2026 16:20:34 +0000
+Received: by outflank-mailman (output) from mailman id 1200725.1516576; Mon, 12 Jan 2026 16:28:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfKeg-00060f-1B; Mon, 12 Jan 2026 16:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 1200714;
- Mon, 12 Jan 2026 16:20:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfKef-00060X-08
- for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 16:20:33 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d134c8d-efd2-11f0-9ccf-f158ae23cfc8;
- Mon, 12 Jan 2026 17:20:30 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4779adb38d3so45473775e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 08:20:30 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd0e180csm38499723f8f.10.2026.01.12.08.20.29
+	id 1vfKma-0006sF-PP; Mon, 12 Jan 2026 16:28:44 +0000
+Received: by outflank-mailman (input) for mailman id 1200725;
+ Mon, 12 Jan 2026 16:28:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g/6n=7R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vfKmZ-0006s9-US
+ for xen-devel@lists.xenproject.org; Mon, 12 Jan 2026 16:28:44 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c23f83f4-efd3-11f0-b15e-2bf370ae4941;
+ Mon, 12 Jan 2026 17:28:42 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-64b9b0b4d5dso13783725a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Jan 2026 08:28:42 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6507bf6d5d4sm18008906a12.32.2026.01.12.08.28.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jan 2026 08:20:29 -0800 (PST)
+ Mon, 12 Jan 2026 08:28:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d134c8d-efd2-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: c23f83f4-efd3-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768234830; x=1768839630; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OwSWM+LVf9aA20YwA1MIlGX5Irhs0FNaE8nTqtAkxek=;
-        b=O96b+jFHGO3fWyLuInwNPfXK9HxUWng78KjtFZ5bivb0u8vA4gU/YgLmGHqeszFxxR
-         Y9csdAuENYXgPLj9cEG0hjpbMKKVSKC/hJi1OgYuOTZhiXSNlNUMR4lxhUlfbNP9GgB/
-         zE51e6r8tWS+Qczid9sFFmnnnpRqbE0cdZYj26YXbxTcoO7rZDm0TT+H0m23DzkDNhno
-         El6yl/nfQ4DRoZ9CWGkiZkNZ7/xBGgJdQ2BolIbN5NAxagylIkJ0NjHuiroEbuzd1sWk
-         E0d57ECaj73aKTpvVS8xVo+lBV96sr48FzNPh7jYBEYLnJaCSBataoVwjb0Et6+o5fJ1
-         jmrQ==
+        d=gmail.com; s=20230601; t=1768235322; x=1768840122; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rE6yV5imzukGfSPD6lBGrgoUU53xvGqUNYJYiiMKies=;
+        b=fzMa+Q5A10Uol5bRpsODSmehEG0uAGOzRFfT9juUVOYCwwJ8r0xKJe9MCj3cI6n8nr
+         HG002rKyFTimecyaFTjJkutaltj8QsGS3HOMgXV3U2kkMmK/QTK9dftd6KrUSFOFx3mr
+         dwg81bguX4zwu+CtRpUjdFTols4leE6xSAbxRhdmRvAvq03a4VpQiD2eDP6K9IELogij
+         KYG5n+ARfQBcHppT/qOZ/jU7cpWv5hQDlo/qoB+qiHcFdCTu/sOe/lHNofXFzECInxwb
+         gY9s6pt/PmjHLZjEuFu7J1xiBMYeePKSw6pQjcmoJ9sYp/vo3RnZdfKzznDKTlyN6tp+
+         y35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768234830; x=1768839630;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OwSWM+LVf9aA20YwA1MIlGX5Irhs0FNaE8nTqtAkxek=;
-        b=I6LF8uijO5DS5rDlKcFl5dFcR3iLqdR6kKmpoP/UDjl/GVx5emeOX/amAFubqsu+FO
-         LBF/IqfSzxTRZvq8pW7ZhYNHRrThzS33gaBO+KMRbI4a5fZH0AuhyXhKzFir1opjRwjU
-         Goo+lw+8goIEFhNGFC+ER7wz3ZoNv2DQG9eQzt0RKgozn65kW8+ViChIHN8GqJR8XGux
-         mqfqcRt5RY7AvT71qRwEXkFl8Z/fAUdAIrKems+s5ZGa7+kizYD8vATBSfCulyXIEsGg
-         gBnY52MfO8KU+pY5LHLRFcmgjCWn+ANVlWkQNtKMB9DG43IneHQq9GlQUnhTmBYAB39r
-         WwGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXAS0QlbiLrFC3sY5WoqTbpcdNdoTSW7Td441ZssWEsAdwMrBB2GLVjZurKlu54gdkFyEnfYiUov/0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPTSqpIBaYhD5EB2LUffscz+0/UDDl1+6Osa7n/VvG51jPf5og
-	2hcNmsoj/75YksgPKpu0whmOYWds81NOuP4SJCIv4mXkDzs/T2FmKfVlzHIpiWZpnw==
-X-Gm-Gg: AY/fxX5NMnFl0CirNG3FmihaoxDmi9VJTHki6frbNL5p64bL9RxAr7ZIA8xbA/k5LH7
-	PqkSs9szw7fjDrO6tHIB4SWGMMqpQSbs8qBHVOW6qaYtRygddHgQM4H6IdF/m6kLPrVWqA6/omr
-	7sEXftpKa+Ku7cEH6y/KDVG7VuuEOGuXdwPvXlIlRMV0cnAkD7ijz+jFRcq2Ay1IpUqNolSTCh/
-	VqEQHPh7/HmSHyql9c/hzyZxqeThkUfNKQIzlFtVC4RhSOqbxpwCSgb/vtqDUuXKWgGUHBNq6y6
-	ru0p9Fj5Nx9XZopngJrs5jRlanF8QaUy4NHyyFwkq3TXQ11sO6gHVTNJemjr2wtWzcQcCGSADMU
-	i3DaIHVwgpMPPn3d87VuD47oEeNerQ4TpNYCzbrquHWpqg9K/J91DraiPcjQnuWmLDmPZa4Opkq
-	J9jRSUaoBmfHShE3jESxvWG9li0DpzyRJAWXPGOWON0KNprcMUxtLXYJqC3vkEk6+6J7N91rJO4
-	gA=
-X-Google-Smtp-Source: AGHT+IEyZ5yNm6NKEk+9HdQWcXylAU8xwJPOWfOUdQkk3QOe23d8NgDCBL0IPn+vJuo80ulwR4k2Ew==
-X-Received: by 2002:a05:600c:4ed4:b0:471:d2f:7987 with SMTP id 5b1f17b1804b1-47d84b40ae5mr214895275e9.26.1768234830161;
-        Mon, 12 Jan 2026 08:20:30 -0800 (PST)
-Message-ID: <aa1aecd5-afdc-421d-8b4a-314aa82a1157@suse.com>
-Date: Mon, 12 Jan 2026 17:20:30 +0100
+        d=1e100.net; s=20230601; t=1768235322; x=1768840122;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rE6yV5imzukGfSPD6lBGrgoUU53xvGqUNYJYiiMKies=;
+        b=iDICxVzt/aRChoUww5Ce5IIqWNkCxgbWjWTDAyBitBtxL4ZCHOS+HlydpbE5CkZCUA
+         h95QC9k29OQKAOWnUSiM1GajD+Pi0/C/IXg4Z+e967/71EmJ1XGyyoZwWLHOLlE6DXmc
+         lOFY82RaipaDgBFUcODVE6MSeXDgQSzOBGyC/t2/KcWOKhWwIV88pXsUiFjFtvO3hpTd
+         bip4bmwZP1yBSMz3CbobQncINhZrwEc7EOpSaUmnZyROZosqSXBlOUokDKyJmW42+X2p
+         qeGtdVk4JLKU4cTdNAVnp9cPpzS4hg+eeNTvz8hT48QXv0PJDEzmhiLTSnRJbYJ5eaLU
+         Byzg==
+X-Forwarded-Encrypted: i=1; AJvYcCXe25XwNmKlo7KLWpJ1aPj/wWeF4UYIejXtSTSsIO27eoOPX2vSJJlo9jje1GJ7m7/mtAJhH6gAd84=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx0VQ14qTIffb+ASn19a4PZnP9n0nfkHZ5ZYrKlh0u87VsJgecz
+	1HVEFQsqG8oUK7cpVXl9cK0KCrkwR1mPn+JmAAe3YyU7m9QujAdEEcUK
+X-Gm-Gg: AY/fxX7nG/fEvSBuVfBIhFdG4B+O2TS4mpS92qQwpKj/3TifTP0z2TumAbfDH8VZZ1y
+	kLvRy29ysIgrQJkMvIDXc4jkPqHxcmW3jcFGoMAWfjc3RaZMzTL5AjHmy/NzI4gN+ZVMNtx7g+i
+	nTLel9w1o16alMeb2fEBkwuHlTWs699rlHbTbgZ1xXtfo7ZuyPiPHEU98y57WYHlmrZkYIX4MXo
+	sROKwMtvGpx/6nasGlNtiMrqhiHr2/2iAGq6DFUpO09DT90lcWSAx3nimKU3a5aAmwPUCx7pW2Z
+	8CjzyY1fd8RA9r3EJ9nL3owZbsb3dHrreDcsCL183HPglmNKgOiYGP3Ae34Pab+2INsJOtY4ske
+	zAGK/w/5P5sg7nvDM4rDVaseBwRBS8tKQnDXE+gcfQfw0hXD4tsJjbHS5E+d7ljD9w7sIwJ4ndA
+	QgL+wxuxz9r3UTHZFRt5sRytzASNpMESTYkmBCIw/p4cIWg84sNOMXpVOTNdCJ6TU=
+X-Google-Smtp-Source: AGHT+IFoAhvsg2/W5nDRaxMO1muF8GQxquWD77duxoXlrb1wnVj6s8wnXEg+WP45cdQTYc9IGQFOFQ==
+X-Received: by 2002:a17:907:e10d:b0:b87:205c:1aa7 with SMTP id a640c23a62f3a-b87205c1d96mr226774466b.44.1768235321702;
+        Mon, 12 Jan 2026 08:28:41 -0800 (PST)
+Message-ID: <131d5d1d-f13c-486a-beac-59f7f7b45606@gmail.com>
+Date: Mon, 12 Jan 2026 17:28:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 15/15] xen/riscv: init tasklet subsystem
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 04/15] xen/riscv: introduce vtimer
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -99,69 +98,143 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <7fd154cda45466ca4bd425bc05d191caccc7d96d.1766595589.git.oleksii.kurochko@gmail.com>
+ <94ffc70d3050e532290126560355dc548161f466.1766595589.git.oleksii.kurochko@gmail.com>
+ <c3f7b30e-0b39-42d0-88b5-6a5d0801e428@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7fd154cda45466ca4bd425bc05d191caccc7d96d.1766595589.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <c3f7b30e-0b39-42d0-88b5-6a5d0801e428@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 24.12.2025 18:03, Oleksii Kurochko wrote:
-> As the tasklet subsystem is now initialized, it is necessary to implement
-> sync_local_execstate(), since it is invoked when something calls
-> tasklet_softirq_action(), which is registered in tasklet_subsys_init().
-> 
-> After introducing sync_local_execstate(), the following linker issue occurs:
->   riscv64-linux-gnu-ld: prelink.o: in function `bitmap_and':
->     /build/xen/./include/xen/bitmap.h:147: undefined reference to
->                                            `sync_vcpu_execstate'
->   riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol
->                         `sync_vcpu_execstate' isn't defined
->   riscv64-linux-gnu-ld: final link failed: bad value
 
-How that when ...
+On 1/7/26 4:21 PM, Jan Beulich wrote:
+> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>> Introduce a virtual timer structure along with functions to initialize
+>> and destroy the virtual timer.
+>>
+>> Add a vtimer_expired() function and implement it as a stub, as the timer
+>> and tasklet subsystems are not functional at this stage.
+> Shouldn't those pieces of infrastructure be made work then first?
 
-> --- a/xen/arch/riscv/stubs.c
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -91,16 +91,6 @@ void continue_running(struct vcpu *same)
->      BUG_ON("unimplemented");
->  }
->  
-> -void sync_local_execstate(void)
-> -{
-> -    BUG_ON("unimplemented");
-> -}
-> -
-> -void sync_vcpu_execstate(struct vcpu *v)
-> -{
-> -    BUG_ON("unimplemented");
-> -}
+It could be an option; it’s just not really critical until a guest is running.
 
-... there was a (stub) implementation? (The code changes look okay, it's just
-that I can't make sense of that part of the description.)
+I actually considered adding this in the current patch series, but decided to
+introduce it later to avoid making the series too large. (On the other hand, it
+would be only one additional patch, IIRC)
 
-Jan
+> I also
+> don't quite understand why the subsystems not being functional prevents
+> the function to be implemented as far as possible. Most if not all
+> functions you need from both subsystems should be available, for living
+> in common code.
+
+I chose the wrong words here; this is not the main (that some subsystems isn't
+fully functional) reason why I’m using a stub here instead of something functional.
+
+Basically, implementing this requires vcpu_kick() and vcpu_set_interrupt(),
+which are introduced later in this patch series.
+
+As an alternative, I could drop vtimer_expired() and the related code from this
+patch and reintroduce them after vcpu_kick() and vcpu_set_interrupt() are
+available.
+
+>
+>> --- a/xen/arch/riscv/include/asm/domain.h
+>> +++ b/xen/arch/riscv/include/asm/domain.h
+>> @@ -8,6 +8,7 @@
+>>   #include <public/hvm/params.h>
+>>   
+>>   #include <asm/p2m.h>
+>> +#include <asm/vtimer.h>
+>>   
+>>   struct vcpu_vmid {
+>>       uint64_t generation;
+>> @@ -52,6 +53,9 @@ struct arch_vcpu
+>>       struct cpu_info *cpu_info;
+>>       void *stack;
+>>   
+>> +    struct vtimer vtimer;
+>> +    bool vtimer_initialized;
+> Assuming the field is really needed (see remark further down), why is this
+> not part of the struct?
+
+Agree, it would be better to have it as a part of struct vtimer if it will
+be used in future.
+
+>
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/include/asm/vtimer.h
+>> @@ -0,0 +1,25 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * (c) 2023-2024 Vates
+>> + */
+>> +
+>> +#ifndef ASM__RISCV__VTIMER_H
+>> +#define ASM__RISCV__VTIMER_H
+>> +
+>> +#include <xen/timer.h>
+>> +
+>> +struct domain;
+>> +struct vcpu;
+> I don't think this one is needed, as long as you have ...
+>
+>> +struct xen_arch_domainconfig;
+>> +
+>> +struct vtimer {
+>> +    struct vcpu *v;
+> ... this. Question is why this is here: You should be able to get hold of the
+> struct vcpu containing a struct vtimer using container_of().
+
+Good point, I haven't thought about that. It could really be done using container_of().
+
+
+>
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/vtimer.c
+>> @@ -0,0 +1,39 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#include <xen/sched.h>
+>> +
+>> +#include <public/xen.h>
+>> +
+>> +#include <asm/vtimer.h>
+>> +
+>> +int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config)
+>> +{
+>> +    /* Nothing to do at the moment */
+>> +
+>> +    return 0;
+>> +}
+> The function has no caller and does nothing - why do we need it?
+
+It will be called later in arch_domain_create().
+
+It will be needed if SSTC extension will be supported but could be dropped now.
+
+>
+>> +static void vtimer_expired(void *data)
+>> +{
+>> +    panic("%s: TBD\n", __func__);
+>> +}
+>> +
+>> +int vcpu_vtimer_init(struct vcpu *v)
+>> +{
+>> +    struct vtimer *t = &v->arch.vtimer;
+>> +
+>> +    t->v = v;
+>> +    init_timer(&t->timer, vtimer_expired, t, v->processor);
+>> +
+>> +    v->arch.vtimer_initialized = true;
+> init_timer() has specific effects (like setting t->function to non-NULL
+> and t->status to other than TIMER_STATUS_invalid). Can't you leverage
+> that instead of having a separate boolean? (Iirc we do so elsewhere.)
+
+Nice, it could be used instead of having vtimer_initialized in struct vtimer.
+
+Thanks.
+
+~ Oleksii
+
 
