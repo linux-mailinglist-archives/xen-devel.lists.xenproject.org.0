@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 671CDD1A6CB
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 17:53:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202198.1517822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668A0D1A7BF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 18:00:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202212.1517832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfhdv-00045x-Uc; Tue, 13 Jan 2026 16:53:19 +0000
+	id 1vfhkS-0005Z8-L0; Tue, 13 Jan 2026 17:00:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202198.1517822; Tue, 13 Jan 2026 16:53:19 +0000
+Received: by outflank-mailman (output) from mailman id 1202212.1517832; Tue, 13 Jan 2026 17:00:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfhdv-00043X-RX; Tue, 13 Jan 2026 16:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 1202198;
- Tue, 13 Jan 2026 16:53:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i8AK=7S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vfhdt-00043K-Td
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 16:53:17 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55db249f-f0a0-11f0-9ccf-f158ae23cfc8;
- Tue, 13 Jan 2026 17:53:07 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-64baaa754c6so11309366a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 08:53:07 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b871e383217sm562886366b.71.2026.01.13.08.53.06
+	id 1vfhkS-0005Vw-G2; Tue, 13 Jan 2026 17:00:04 +0000
+Received: by outflank-mailman (input) for mailman id 1202212;
+ Tue, 13 Jan 2026 17:00:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=thT7=7S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfhkQ-000519-Da
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 17:00:02 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4c338afc-f0a1-11f0-b15e-2bf370ae4941;
+ Tue, 13 Jan 2026 18:00:00 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-477ba2c1ca2so85473955e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 09:00:00 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd5df8besm43390698f8f.26.2026.01.13.08.59.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jan 2026 08:53:06 -0800 (PST)
+ Tue, 13 Jan 2026 09:00:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55db249f-f0a0-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 4c338afc-f0a1-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768323187; x=1768927987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=quR6N57RKz+5wdEK9dYC/7627WTrMtYCBE5SL1cVH24=;
-        b=m9Br7jjYadDQ3hM20Pt7xjdC9nLmuIH4d5sHF+L7aPHtPGqZvx0XGrZ1EAV9tWGfZ6
-         7KNqFf/dnTCYswsBFeu59ewsN5ulQ3AQYmzSCSa7h9wxFwGfPYX3n4QFhDMh6LxMUdhu
-         PXCC82GuVHjHqNJ7CaJHHsWMwoCYDYW5zbBFqsPS8qG2QnXTG1Ag6bqrKmqv6Q+ymYSE
-         Kamgl2QcC/LnyyjBGOFvw12wzsGsOHJyO80dVHPV8t3S21IZBSXHSf9A2oBSJO5LHk8c
-         zXPJ2WO2zVoVIZJFNUV90CrlnA2kZjREIs9S7YXsPLKpc8jDPvYnIn/6eSY6JmqphjGI
-         3hrQ==
+        d=suse.com; s=google; t=1768323600; x=1768928400; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2RqQ7cKiStLcs+aeLKCBkbXvKCLE+Bjd/KLqxO6j+OU=;
+        b=dgqFxfmYjqEBhhX3FCIwX+xW4ASKtyXI+6vSGa4EMKqjaspHI7iK8xt9rymzXBqO0X
+         fzmH7JxHkvoBpKLfpwSLLz6mMmecOXXegD0a41w560YDpMxwuLLGUnxmenDdNAi1GgLY
+         PuZoZapxcEHqcpuix3+Be872pdl5ATKt0rxgM74jGcsK/ldBWdH6C+8JliaLcl+zUJce
+         tx/ckZqgRvLY3yggLGLaW1a7vtga6yIoXf//Hg3Xvn9hZzHGGmy+oiVchmCtOC2SJYRT
+         FD9trYe03hG47dNjPfc7Aco30ZAPU42zy/0+HEsAEwS3YNCx9B6VuQlI3qYoztEfDIZ4
+         bD4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768323187; x=1768927987;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=quR6N57RKz+5wdEK9dYC/7627WTrMtYCBE5SL1cVH24=;
-        b=wPcexVVHDMDg3tHOso7yvT7GEZXehoQ/OpUqJT+k3p9O80UGzWQeO95upv1hhsNq2P
-         B7DmQbRwJ5nIFqeTPbHjxnrLtvOjW7OpFKOrVtgD+PG+xHWIj+8Ok8ecdrXho1D4dCTX
-         EAEBjmTwIgPABP2s91pwI4bQCXxfm6XkyIc2dR890QGEAt9Jj3cBmc7BsQpjO3tJHalj
-         GUiIVe9XIYYhEhYyniMuU863Zexmun/9b2v49TVI9zSM4Rxr3mqJ1GR0IuRYTjltFd8P
-         l+pjO3VDA1XzOLzoWW2MOU7l0++LLfz0fiywZGDT3QqFF6uh/S7OYdxn8CgX6+EPD/Ea
-         hE6w==
-X-Forwarded-Encrypted: i=1; AJvYcCWfl8GKzixw/wTKLOT0DMzsKTJlxWgMdYva5RA95zP9t57C7XeWi4MEoIdM1Y5Z3LhmQeyZrKyOToY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3thzaaWeKd6EtHdF405pXcfy2lVLetGFHc+UvJP9C2Nb2Q36N
-	H0t66NPvmb9ftq0WxWmyQAsj/arxnMBZH5/eKYSxDvBzw7JYWu8ce2aU
-X-Gm-Gg: AY/fxX4FusKnpd3WviXkWpRYwuNWQzuVEdWoaP4iKXIqv7p7Ji7DeD+QGPHsZMWlII9
-	VYL8c9NyB4VXWic7iCJrNH6ks8ZpHxf9oX7aMWfkoELMJ+oPqCSzJKOZ5oWZCycydDw/afsaQy7
-	1khfIAFmeec5B83OP9q5JJZ5q6KMrMrbNMjYoePYRw4FZJPqnimQHnD8uY1SAN71bLTWJAPqq1P
-	+RyuDbFmCt6ss5KMcBZgtXfeB6HddQnjYJ4A2oABKuvpjETwTVHhHFJvHo2/lUoAgdLJdbipP1X
-	Jn6sKnWA+kupM+ReXXN7TfsyJRlEToYOS/a/wK4c8/bCnwsERfQIRlExqpE98rkKKCT3BvnCNce
-	UqakiGDg9Pce9Ylnh+DKy/W1xYhP6SHL61kOFMGYjczCyfbmt0mpNOGSGPkxzKMPgKUQCpfV2ZY
-	QPN2/BqaNMxRFFAtqaT7Bk63TQJYw5k7bpgpvJNyhdXLRXS0ZGRyGHhWWpTeZGh7e8iHsBk6spi
-	A==
-X-Google-Smtp-Source: AGHT+IHuWjVoL7E1svo16dpvYexcmqlADS/kdgWQsDmPmGyT52fboynC+8J2+zVwxSmqZ5Ga2XwSRg==
-X-Received: by 2002:a17:907:780b:b0:b87:1fe8:9534 with SMTP id a640c23a62f3a-b871fe8af72mr429814766b.48.1768323186762;
-        Tue, 13 Jan 2026 08:53:06 -0800 (PST)
-Message-ID: <a77f0dbb-61e1-4372-b0f4-7544cebffca1@gmail.com>
-Date: Tue, 13 Jan 2026 17:53:05 +0100
+        d=1e100.net; s=20230601; t=1768323600; x=1768928400;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2RqQ7cKiStLcs+aeLKCBkbXvKCLE+Bjd/KLqxO6j+OU=;
+        b=At+WqGll6xY6W4PMxikb1OHdrLd6iEi4u2VB7I+5B/7qzYnT7iRz9OwJNHQt2+ydbK
+         h3muZfE+OFazIm+kfzxwukjT97jnfeO2yxfsIwGyJnjjnHx0mVw89q0Vs2EmLDmqcgR7
+         puGHij6wpDOhbXnprCAvAwe8mnzcSFl+3lFP78r2grnzdowy0XP4qLSDphCyKynRi4pK
+         7tWluolEx87bzP7s9IxuWuie42NIyFtY3ndTgy5EIadYu30ayE2XIFES0rzQLxjuGytz
+         AfW2RLLGFUAGUhsjRidICCg5Pg1kH7FKb+JB76ALCgB9UPDFxg6PZenOlsjcUemN2ZpV
+         8s7w==
+X-Forwarded-Encrypted: i=1; AJvYcCX4dXe2sGqQSOXbF6UhnJARt9enAld9kWgtmdEkELYWAzSydGnenbODbxA7un9W+BznCyjmYn9f0Yo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMUsTSLL5ExBqo/UV2BA7hHmMiyYsKuSkTC0jn1tF5BihX6wew
+	lVOD+FbPSU2Tee1E48nMARDZRkFgo7H4sFbHn8EIx2F6Tx/javvLPF0zfYGG7B5YlQ==
+X-Gm-Gg: AY/fxX7/d5ec8dJo+fLkPj0BOsFJk99fW3e6GdC+Lo+gJ0KFrjO2n4/ueYuUk5M8CSw
+	DkZchC0zHA2W8+pulzaYMLcprIhbWGUBF+Gi75Z+uhEy3WxFLiz/AAwhjt/FbcRBvmY0jBWLAKN
+	kyx06/VtZ4Wzx223+RM8Wo1dXk1zhDTI/pcTzvxoG0Jk30n/qFRA+hVMfM5KEgHRNypAXBy4v7Z
+	7Jmzqf+q34wrI/NuxpYVHVdsfWhWFssUkhrAQfal12BXucu5b8EymrTLnRA2gUN4tmlvB2tjWr8
+	4bcwPJ47/OO1qvVfcHOd2DXiJbiKeNH3v9i9oltCR8kGVTiFQwMQGRQ3KrWO9wLCjX+Mv7AvJ4G
+	m0pOaB9lygjMQdUGylQQfGT1T1wJCp4pbE756tWrYzb0QsK7OMw8JMRr4de2YWT352LkRGeo/pW
+	WJqizmK4IPxlAe/16aVsDdpYamL22k5ETnZb+C92KV+rLdvNJKg1A+hp4eFOvGKso0AV461M2Ba
+	7A=
+X-Google-Smtp-Source: AGHT+IGcH3+fYccOertXuX65iRdqrZJYxUV0OqOSY8DKdCV3jL0ELApYOyi4dMJ92HcsDMQLRO9UQQ==
+X-Received: by 2002:a05:600c:4e8a:b0:479:1b0f:dfff with SMTP id 5b1f17b1804b1-47d84b170famr294544805e9.10.1768323600285;
+        Tue, 13 Jan 2026 09:00:00 -0800 (PST)
+Message-ID: <7083266d-6bac-4a8f-96e0-f695c17b1cd7@suse.com>
+Date: Tue, 13 Jan 2026 18:00:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 14/15] xen/riscv: handle hypervisor timer interrupts
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v3 4/4] x86/ucode: Add Kconfig option to remove microcode
+ loading
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <c63eef564d0d350f009e253b24b567488e47eb13.1766595589.git.oleksii.kurochko@gmail.com>
- <c673a353-76e2-4607-beb6-13371abf8550@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20260113122109.62399-1-alejandro.garciavallejo@amd.com>
+ <20260113122109.62399-5-alejandro.garciavallejo@amd.com>
+ <0706617f-fdb8-47c1-94f4-6aa92abd07ec@suse.com>
+ <DFNLDTH4EKQS.1UL1S5Q9OEQ5O@amd.com>
+ <1dab1120-d947-4e5e-bf9d-0dfa5ec35bb0@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <c673a353-76e2-4607-beb6-13371abf8550@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1dab1120-d947-4e5e-bf9d-0dfa5ec35bb0@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 13.01.2026 17:47, Andrew Cooper wrote:
+> On 13/01/2026 4:12 pm, Alejandro Vallejo wrote:
+>>>> --- a/xen/arch/x86/cpu/microcode/intel.c
+>>>> +++ b/xen/arch/x86/cpu/microcode/intel.c
+>>>> @@ -408,17 +408,20 @@ static const char __initconst intel_cpio_path[] =
+>>>>      "kernel/x86/microcode/GenuineIntel.bin";
+>>>>  
+>>>>  static const struct microcode_ops __initconst_cf_clobber intel_ucode_ops = {
+>>>> -    .cpu_request_microcode            = cpu_request_microcode,
+>>>> +    .cpu_request_microcode            = MICROCODE_OP(cpu_request_microcode),
+>>>>      .collect_cpu_info                 = collect_cpu_info,
+>>>> -    .apply_microcode                  = apply_microcode,
+>>>> -    .compare                          = intel_compare,
+>>>> -    .cpio_path                        = intel_cpio_path,
+>>>> +    .apply_microcode                  = MICROCODE_OP(apply_microcode),
+>>>> +    .compare                          = MICROCODE_OP(intel_compare),
+>>>> +    .cpio_path                        = MICROCODE_OP(intel_cpio_path),
+>>>>  };
+>>> While I appreciate the intention with MICROCODE_OP(), I'm not really happy
+>>> with function pointer members left in place just for them to be NULL
+>>> everywhere. What if a call site remains unguarded? With PV guests that
+>>> would be a privilege escalation XSA.
+>> I see where you're coming from, but these are already NULL if microcode
+>> loading is not exposed by the underlying hypervisor (if any), or is blocked by
+>> hardware in Intel, so arguably that worry is orthogonal to this.
+> 
+> Also because they're cf_clobber, the calls are turned into UDs.  We
+> won't follow a function pointer to 0.
 
-On 1/12/26 5:15 PM, Jan Beulich wrote:
-> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->> @@ -108,6 +109,15 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
->>       die();
->>   }
->>   
->> +static void timer_interrupt(unsigned long cause)
->> +{
->> +    /* Disable the timer to avoid more interrupts */
->> +    csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
->> +
->> +    /* Signal the generic timer code to do its work */
->> +    raise_softirq(TIMER_SOFTIRQ);
->> +}
-> Why is "cause" being passed when it's not used?
+Hmm, yes, the alternative patching will guarantee that. That hasn't got
+anything to do with cf_clobber though, I don't think.
 
-Good point. No any sense in it. Even more I think the cause is
-pretty known in such handler, it should be definitely = IRQ_S_TIMER.
-
-I will drop an argument for timer_interrupt().
-
-Thanks.
-
-~ Oleksii
-
+Jan
 
