@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6FBAD1795E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 10:23:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201298.1516956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E93D17A4E
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 10:33:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201308.1516967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfacV-0004Qb-Hn; Tue, 13 Jan 2026 09:23:23 +0000
+	id 1vfall-00066n-CO; Tue, 13 Jan 2026 09:32:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201298.1516956; Tue, 13 Jan 2026 09:23:23 +0000
+Received: by outflank-mailman (output) from mailman id 1201308.1516967; Tue, 13 Jan 2026 09:32:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfacV-0004Ni-F8; Tue, 13 Jan 2026 09:23:23 +0000
-Received: by outflank-mailman (input) for mailman id 1201298;
- Tue, 13 Jan 2026 09:23:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfall-00064P-9N; Tue, 13 Jan 2026 09:32:57 +0000
+Received: by outflank-mailman (input) for mailman id 1201308;
+ Tue, 13 Jan 2026 09:32:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=thT7=7S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfacU-0004Nc-Mr
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 09:23:22 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80ce9336-f061-11f0-b15e-2bf370ae4941;
- Tue, 13 Jan 2026 10:23:21 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47d5e021a53so53856025e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 01:23:21 -0800 (PST)
+ id 1vfalk-00064J-7D
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 09:32:56 +0000
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [2a00:1450:4864:20::342])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d61dc032-f062-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 10:32:54 +0100 (CET)
+Received: by mail-wm1-x342.google.com with SMTP id
+ 5b1f17b1804b1-47775fb6c56so69873765e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 01:32:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432dd78f5a8sm23323552f8f.27.2026.01.13.01.23.20
+ 5b1f17b1804b1-47ed9b3aa99sm12825095e9.0.2026.01.13.01.32.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jan 2026 01:23:20 -0800 (PST)
+ Tue, 13 Jan 2026 01:32:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80ce9336-f061-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: d61dc032-f062-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768296201; x=1768901001; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VtR/nz8wgGMX8gGZMJlyO/c1Tg8Ef9r9iiBmR57GcMo=;
-        b=ZndAboNPTA5jg7dlN9bz0wBgNqRR3EydUvogmdhex1wQotQEEOAI2PdenJ0JmuIH0F
-         EtBqczpnVLE5Ifj7IGD93OAZm68zBUfjt5JZH5FWEjX3eHrfoHGBmSfxiJnB7iaHGPYm
-         leV1QpHmLtm7hZtfSY/IDORADTHKk1afoGkCVpKYLeZDuMYyHJcuMk+aJi0L/OBO/2lx
-         LWbVoIiyE8gW9iZfxOResVQ5/FQ+pxEn+u5RLapsRJrFyaQPJlHkFUQ+JMmoGrGvKnY6
-         jLbxrhQJl7JsFc3wsTyQUiy0NPbB8fpaBSjqtF8BaQSAmDZR1bSmelUHJ5E4IsHYG4v0
-         uM4A==
+        d=suse.com; s=google; t=1768296773; x=1768901573; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Xe98Dtl2+pp2XcPfTk3G1Xuv4ZAGxJ7JxTbli3Z1kWY=;
+        b=XjkFKego4KFEEnlb4pf6rSk/RtmpA+Kt1OhrDH7KRHiLHXkoBEY9kzXOE1aMzj2acQ
+         CenThXUGpUepa+tTfjopuSYiSLgnebWJLIph7LCMbnu1jymfIaOoR0r9YZUf90c7yIbJ
+         l0HCVGQ9X9/r+Fam1m94h1bYnBNpbcXKv1V8eWkQbAid8b3cxdwD9sBPANzY6ClNrf++
+         hUWAsGFtLNEXnuBzeVAKEgXIwcwPPKaA9aM4UpyAtbm/OsJRWcxrL397Z28gg+zVzRwo
+         jZ9YCG3Gi7A1XcMjoYod9PRd/XWm0YpHF8oVcr6Kc+ngs9Hn7OCA59bJpW+h7raXd5iJ
+         Q6wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768296201; x=1768901001;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VtR/nz8wgGMX8gGZMJlyO/c1Tg8Ef9r9iiBmR57GcMo=;
-        b=sA8T9D3cK9+c7BBTC5JDQ9LmuoBX/wliFSW9nH8U7H8OGcnkS5eHPFl+PgvFAwnga3
-         /TRykjnBntiwQel8wIRhqWNjBUFG2Ow//2rFwLdn7WfzbAkBlvhhN+F+/8qR6wjkuk2l
-         Qgof3FHoaNSaZNPSQRjnF14QbtdkgAOJOB6VXdZP8S7932vEHiCz0iMaSmac9XISpeNA
-         yxzF7TC05fs0maZ9gdW/AeRBf7v8yQT2nzqHHMVYUg3z/ZYFNdDmrsQy94Kn6OAd7GDw
-         n07XvrLU/yYJziLYc8m4whIIxN0sOIPiPfJfDo6EJ6wGip67niMf7UnxSAymFqNmDP0E
-         2Ltg==
-X-Gm-Message-State: AOJu0YzIoix353+I1tP7cJlOQUscq7JPMLXkkfB1ZeJBKMlFKw+sbFy4
-	kfXuv0iUNbI3xso/cRI0jjdrnUISz61o6x8sY7BfJRzERtbEglgEeWYSRYPXCIb+fznpVx/0Cfi
-	0Qms=
-X-Gm-Gg: AY/fxX4fgOlIJibmVi3fnnIIO55/NfxyqfwkS3nZilPxkTzIVmbj7Nt243+vLdcivnM
-	f/l6X/odmJ/TtW/FsJD46+DXiqnVxWiSJvh77hPsuBX462rhm0DKOf3XXCcT+LxpDxGUf30iMd4
-	jiOhG5bjgvDiH4LY5tSN1iMsn1bekgzekeEQjJ14ljtVqJaQg4IDYNsMnQGYVFAZG1G7UFbDjRb
-	Nky2pD69l4nNGqyVE8F1RHfHlShhV3mmH6VeQ6mGtl7w6STyHQpnVs669xnWoRbI0HBkzGshU2V
-	zEtST67v9BVnFdolRvyRFRBUpGzaZ1czG+xcFABy1Io8VMyiQXF0ZczteVWshiWCyhNtywXI9GD
-	cDjAZJ9fSI2XRF5GjPIeQYgIA6+s0/rJyfsJJPL8gxl4zup0tzOcdcNlYvig/PeBe2XUteCvjro
-	zd6kMyxdxgIrWUXRu9PEcIwXZLNECbITHZDAMlfiTctzUsv0RS89PXyreAMvjb8VxAIoso2bqwG
-	ss=
-X-Google-Smtp-Source: AGHT+IGHmrU3Z3EtWomp4yvEcbiAt6VhTJS+oJSj3DAMbEuxrhw/F4tPwRKiZt1gh/q1dDg1fe17vA==
-X-Received: by 2002:a05:600c:1991:b0:477:55c9:c3ea with SMTP id 5b1f17b1804b1-47d84b40aa4mr267981935e9.35.1768296200788;
-        Tue, 13 Jan 2026 01:23:20 -0800 (PST)
-Message-ID: <54667383-d1ff-467f-9dfc-95d23aa600cc@suse.com>
-Date: Tue, 13 Jan 2026 10:23:20 +0100
+        d=1e100.net; s=20230601; t=1768296773; x=1768901573;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Xe98Dtl2+pp2XcPfTk3G1Xuv4ZAGxJ7JxTbli3Z1kWY=;
+        b=ms0exi50+sn59jUrCPTdYpzTZstGSQtJuETOjNiUKFKSIF33lrpt12CF7XpvuSZUU0
+         l4sR9cYcYMNbu5L6fvslEI9MxH3f9rtVN9Ldbi6J9PmJZhMNRU5qDl+3eJFZoYpjvxhX
+         0GLvBaSJvvGv/mXwq2ybLDOMDe9grdz7P2JyzNCDGEMKL+ssC70JndtiPX1vUJNpWFIK
+         PxWlQCPRHF2S6xlbmmxwFyYiGJBIcItCzVn1i+QtBG7AEhVTxIssS2xLA8kX1VGiXhg+
+         27SCH3QijiPyvDff5W7uR/cNfBOZfWxTSv5jV1GiB+klfN1I5QJk4LHkofp6xoEndcg+
+         L98A==
+X-Forwarded-Encrypted: i=1; AJvYcCUyh91eKaVRw0JhxNyerFNNF/9qR5INf0iSMP7EfpJm1L4f34HYMmu9utia0txsjEveeNrtHe9Tfus=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyS3h/ypy0ul/kKXJXJ6FnN8CfjmBjr4SHJh6Ll9Ssz8t0/kZo0
+	Ir7J+wzozvP3pbUCFA5X5QswiU6LNHEX+zxU+BraNYIOVL03DUgZW659FQ5Y0yAMMQ==
+X-Gm-Gg: AY/fxX4caqIyq+oLrFPgC6lb8b32qmm3Uc7+U/doZCbdjtvbJ3MlnAsCmY+82vc5y/N
+	kx9no3gBS1wIKkM+d/Oud9FrsJrrDCi8zWNQALwIxwcrNMh+lzrnwTTA+Uh1Rsf9uajbzf9o3LD
+	tgPPA4snM87zabuw05MrE1U+iStAVfVJSscM2mSexW+x12EP7mnFHR0U1gr5tlsnyhl750laOjq
+	I4nkEOVuzHzGNqzlMsUGnYCyL2I7SVqCG7ImJjV9mYyaWyf3QNC41OIYhiuhMZjos2ua8KkgPbL
+	vZgm4RDCXgxJWWchvizU9kwECDIQCT/9upbjvJZ/C4xIUWCf+d0sPDLSWNGRtytjDyBNSAmZKME
+	lGMnMZUicc1eDPmxGF1Nx/gmFiL9jwL2qkpNmEVCMM24OSwaj14Ce3LVvp7GjN3N93dQl+qcNQL
+	fByeQ44HX7DtwBTj4SA8L2W1vW64lrBIQ4il8roIB6cu6eJPn/r+Xhqq4U7dCUJM4dzlQTYu31j
+	7U=
+X-Google-Smtp-Source: AGHT+IEjDCtwbElFR8X6BWvyOthu6ddo5vHBMTT4lsxrhBQJ1eLrbuzbfL40NOge6CKMzxpvw2AgNA==
+X-Received: by 2002:a05:600c:3114:b0:477:76c2:49c9 with SMTP id 5b1f17b1804b1-47d84b18954mr206879575e9.2.1768296773329;
+        Tue, 13 Jan 2026 01:32:53 -0800 (PST)
+Message-ID: <89ee7840-b8a4-4354-8a94-ebe92824bf44@suse.com>
+Date: Tue, 13 Jan 2026 10:32:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] tools: Allow building xen-hptool without
+ CONFIG_MIGRATE
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1768293759.git.mykyta_poturai@epam.com>
+ <76a8969cd7b8bd956605662edcf2ec3c4af3a178.1768293759.git.mykyta_poturai@epam.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/platform: adjust CONFIG_VIDEO usage
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,83 +122,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <76a8969cd7b8bd956605662edcf2ec3c4af3a178.1768293759.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Switch to using IS_ENABLED() in both places, thus in particular making
-sure XENPF_get_dom0_console handling doesn't take the "default" path: The
-behavior better wouldn't differ between VIDEO=y and there not being VGA vs
-VIDEO=n. For this to work, fill_console_start_info() needs to be
-unconditionally declared; extend that to vga_console_info as well.
+On 13.01.2026 09:45, Mykyta Poturai wrote:
+> --- a/tools/misc/Makefile
+> +++ b/tools/misc/Makefile
+> @@ -16,7 +16,6 @@ INSTALL_BIN                    += xencov_split
+>  INSTALL_BIN += $(INSTALL_BIN-y)
+>  
+>  # Everything to be installed in regular sbin/
+> -INSTALL_SBIN-$(CONFIG_MIGRATE) += xen-hptool
+>  INSTALL_SBIN-$(CONFIG_X86)     += xen-hvmcrash
+>  INSTALL_SBIN-$(CONFIG_X86)     += xen-hvmctx
+>  INSTALL_SBIN-$(CONFIG_X86)     += xen-lowmemd
+> @@ -34,6 +33,7 @@ INSTALL_SBIN                   += xenwatchdogd
+>  INSTALL_SBIN                   += xen-access
+>  INSTALL_SBIN                   += xen-livepatch
+>  INSTALL_SBIN                   += xen-diag
+> +INSTALL_SBIN                   += xen-hptool
+>  INSTALL_SBIN += $(INSTALL_SBIN-y)
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I'm not quite certain whether to have Fixes: 11b4ff64841e ("x86/platform:
-protect XENPF_get_dom0_console if CONFIG_VIDEO not set") here. Opinions?
+As per [1] I think the line should be edited in place.
 
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -415,10 +415,9 @@ ret_t do_platform_op(
-         }
-         case XEN_FW_VBEDDC_INFO:
-             ret = -ESRCH;
--#ifdef CONFIG_VIDEO
--            if ( op->u.firmware_info.index != 0 )
--                break;
--            if ( *(u32 *)bootsym(boot_edid_info) == 0x13131313 )
-+            if ( !IS_ENABLED(CONFIG_VIDEO) ||
-+                 op->u.firmware_info.index != 0 ||
-+                 *(uint32_t *)bootsym(boot_edid_info) == 0x13131313 )
-                 break;
- 
-             op->u.firmware_info.u.vbeddc_info.capabilities =
-@@ -434,7 +433,6 @@ ret_t do_platform_op(
-                  copy_to_compat(op->u.firmware_info.u.vbeddc_info.edid,
-                                 bootsym(boot_edid_info), 128) )
-                 ret = -EFAULT;
--#endif
-             break;
-         case XEN_FW_EFI_INFO:
-             ret = efi_get_info(op->u.firmware_info.index,
-@@ -905,20 +903,19 @@ ret_t do_platform_op(
-         break;
-     }
- 
--#ifdef CONFIG_VIDEO
-     case XENPF_get_dom0_console:
-         BUILD_BUG_ON(sizeof(op->u.dom0_console) > sizeof(op->u.pad));
--        ret = sizeof(op->u.dom0_console);
--        if ( !fill_console_start_info(&op->u.dom0_console) )
--        {
--            ret = -ENODEV;
-+
-+        ret = -ENODEV;
-+        if ( !IS_ENABLED(CONFIG_VIDEO) ||
-+             !fill_console_start_info(&op->u.dom0_console) )
-             break;
--        }
-+
-+        ret = sizeof(op->u.dom0_console);
- 
-         if ( copy_field_to_guest(u_xenpf_op, op, u.dom0_console) )
-             ret = -EFAULT;
-         break;
--#endif
- 
-     default:
-         ret = -ENOSYS;
---- a/xen/include/xen/vga.h
-+++ b/xen/include/xen/vga.h
-@@ -11,9 +11,10 @@
- 
- #include <xen/video.h>
- 
--#ifdef CONFIG_VGA
- extern struct xen_vga_console_info vga_console_info;
- int fill_console_start_info(struct dom0_vga_console_info *ci);
-+
-+#ifdef CONFIG_VGA
- void vesa_init(void);
- void vesa_early_init(void);
- void vesa_endboot(bool keep);
+Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2026-01/msg00285.html
 
