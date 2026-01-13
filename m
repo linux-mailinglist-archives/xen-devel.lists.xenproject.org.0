@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAEBCD1A343
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 17:23:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202070.1517726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC93D1A4BD
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 17:34:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202151.1517791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfhB4-0004Eq-3z; Tue, 13 Jan 2026 16:23:30 +0000
+	id 1vfhL0-0008Q3-Te; Tue, 13 Jan 2026 16:33:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202070.1517726; Tue, 13 Jan 2026 16:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 1202151.1517791; Tue, 13 Jan 2026 16:33:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfhB4-0004AF-0R; Tue, 13 Jan 2026 16:23:30 +0000
-Received: by outflank-mailman (input) for mailman id 1202070;
- Tue, 13 Jan 2026 16:23:29 +0000
+	id 1vfhL0-0008Nd-Qx; Tue, 13 Jan 2026 16:33:46 +0000
+Received: by outflank-mailman (input) for mailman id 1202151;
+ Tue, 13 Jan 2026 16:33:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b0e4=7S=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
- id 1vfhB3-0003EQ-5j
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 16:23:29 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 312d5f62-f09c-11f0-b15e-2bf370ae4941;
- Tue, 13 Jan 2026 17:23:28 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC0CC1655;
- Tue, 13 Jan 2026 08:23:20 -0800 (PST)
-Received: from e134099.cambridge.arm.com (e134099.arm.com [10.1.198.34])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 45B953F59E;
- Tue, 13 Jan 2026 08:23:26 -0800 (PST)
+ <SRS0=i8AK=7S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vfhKz-0008NX-IL
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 16:33:45 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0aa63d9-f09d-11f0-b15e-2bf370ae4941;
+ Tue, 13 Jan 2026 17:33:44 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b874c00a39fso96876066b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 08:33:44 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b871b5e60dasm630149866b.63.2026.01.13.08.33.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jan 2026 08:33:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 312d5f62-f09c-11f0-b15e-2bf370ae4941
-From: Harry Ramsey <harry.ramsey@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Luca.Fancellu@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
-	Luca Fancellu <luca.fancellu@arm.com>
-Subject: [PATCH v3 6/6] arm/mpu: Map domain page in AArch64 MPU systems
-Date: Tue, 13 Jan 2026 16:23:09 +0000
-Message-ID: <20260113162309.6766-7-harry.ramsey@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260113162309.6766-1-harry.ramsey@arm.com>
-References: <20260113162309.6766-1-harry.ramsey@arm.com>
+X-Inumbo-ID: a0aa63d9-f09d-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768322024; x=1768926824; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UUlhDfD+5kJ3y3bTAFKu0Qryexyh4VkeiASI0Y9BHnc=;
+        b=kPGESVAcApXehNze1qV6AsXHGrZq6BlSjJ6fzSx3UEJYiFGIrCVRmBs768tdHvIYp0
+         Mf3ToDWKkkY/wo7munPSPma1/TV5YEq4g+wUSp4Ui9RAiLpxLG9VMGR+Kl+4qA/YCszZ
+         ksSvk0W7WwE092/H4QrRawua4qkp8Rche48/oT6mL7IVjlKSUe0/T4Gl7BSg044cGmdK
+         V8eAIawl+dT+DLtaFwrrOcAGDreGo2jqujnCdOdHdyFUziP1AbMYb5Lmowcu1iEI8S7c
+         9T8HEopdnvFBOCVO2InvExU+67VKE/fJ4QJV/AxaxprbC3NrOVbLB4pmBDmiLBTez2Ql
+         2NPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768322024; x=1768926824;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UUlhDfD+5kJ3y3bTAFKu0Qryexyh4VkeiASI0Y9BHnc=;
+        b=D22ATOUSjpPPdZtM6PV/WMJqkSRwmzU1MOOWj7EQYBp4f8OfXnUeZOajRtjgRw97r7
+         MCtj+LpJ/pU6MgSofb6K2O2fzshjfgeFphhFnzaMkFhk/A3BCY3m3MeJMOxMXDFEPCw4
+         9MDV4Env+EZORS1QdJVPFG8pNrsb3L2Fjo9sTN88fiISlZeYCSeksUPyiPYIwEnc7sFt
+         mDrbnQvkMP88f0xHz89vzeKlO2srL7jyPh0gBjmGs7MPQRF4tJ5Lo6TOmk9AZK5OciTM
+         XYBPVcJGVu83ZB0VyTJU/w7ie2A4gbL+m7/Tzj29pX6W3wB4uXIFfXyKDPe0ji2z17pk
+         PiRg==
+X-Forwarded-Encrypted: i=1; AJvYcCVbQogxYWujj5iocr40J0bdkWPYiwOQM/oeySGwh9eB8D0SHBfu40HT5rh2uVQd8QwSEKJdCKWFKks=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzK+5UHioIlfmY9o1rKytDhDjDE/qtqP/qPQao4UCU6eP5dQREn
+	o8Td2grUm/eggWEjpx8PYL5H0qHosW4BqSoUWoSM7eq/sUFJK2XMvZZx
+X-Gm-Gg: AY/fxX4EqcB2u49Qi1fvg8mxLNPorJHxVJZeWRy27jGHBcnpS0gVL12ff2bXofUgWog
+	1ig1MXJiLBq8WAnCKcR7eoplXZMMdIPBW1ddfJPBS98Y6cb0akbnhad3jZULabFc9iDg2Mj1FMw
+	2OQFvmxUy1KqB3hSFNmGji0RiIve5PLFr2uoV8BzPzutc8x8r0xIy8tJENgQ1fpdvHY4kv04I5s
+	Jo2nnhyxxbNDk1OxJk59kbSXWK0yKup3dWqPt/LkdaYaLv1lNdLe8iTwQdFB/i+g/UJBVyXsxwG
+	P3OzTFS2q5osqeB//BDZ+kqsnUr56csNiaosbjpneF3HhnfMd4rOyA2gor8m8z2abEVu0GojwHJ
+	Kt9ueVumu4LQzvsz7G4Nc9KWjRvsob1Q8gZt3ZFkTBrcqKTmfDhJ2DbHcifdanFYd94MlBRgxZ9
+	RAJBXx8KY3LD7Q5DR1MpvVTtZ6QdanJtna6B6ksM/nWo0e6dm5rMfGPrRivJZcGtc=
+X-Google-Smtp-Source: AGHT+IH/G0244y9OuKNun+CMAHAvQ1guMab8G9IMZZ5hsqp4Fvwl3y/XTCXI4nXTJwKMa5VRO86Szw==
+X-Received: by 2002:a17:907:2887:b0:b87:59a8:4c8 with SMTP id a640c23a62f3a-b8759a805b3mr41562966b.5.1768322023537;
+        Tue, 13 Jan 2026 08:33:43 -0800 (PST)
+Message-ID: <5f658f5b-1c22-4bd7-9f25-f89576d5003e@gmail.com>
+Date: Tue, 13 Jan 2026 17:33:42 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 12/15] xen/riscv: introduce sbi_set_timer()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <84cf8fb2331614c6d0cc6e9030571f42bfc6d928.1766595589.git.oleksii.kurochko@gmail.com>
+ <de975e5d-4df7-4dee-9edf-400e5287cc82@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <de975e5d-4df7-4dee-9edf-400e5287cc82@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Penny Zheng <Penny.Zheng@arm.com>
 
-In MPU systems, we implement map_domain_page()/unmap_domain_page()
-through mapping the domain page with a MPU region on demand.
+On 1/12/26 4:12 PM, Jan Beulich wrote:
+> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>> Introduce pointer to function which points to a specific sbi_set_timer()
+>> implementation. It is done in this way as different OpenSBI version can
+>> have different Extenion ID and/or funcion ID for TIME extension.
+>>
+>> sbi_set_time() programs the clock for next event after stime_value
+>> time. This function also clears the pending timer interrupt bit.
+>>
+>> Introduce extension ID and SBI function ID for TIME extension.
+>>
+>> Implement only sbi_set_timer_v02() as there is not to much sense
+>> to support earlier version and, at the moment, Xen supports only v02.
+> Besides this somewhat contradicting the use of a function pointer: What
+> about the legacy extension's equivalent?
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
----
-v3:
-- No changes
-v2:
-- No changes
----
- xen/arch/arm/Kconfig           |  1 +
- xen/arch/arm/mpu/Makefile      |  1 +
- xen/arch/arm/mpu/domain-page.c | 53 ++++++++++++++++++++++++++++++++++
- 3 files changed, 55 insertions(+)
- create mode 100644 xen/arch/arm/mpu/domain-page.c
+I think this is not really needed, and the same implementation can be used for
+both the Legacy and TIME extensions, since the API is identical and the only
+difference is that|sbi_set_timer()| was moved into a separate extension.
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index cf6af68299..baa6c4cf15 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -91,6 +91,7 @@ config MMU
- 
- config MPU
- 	bool "MPU" if UNSUPPORTED
-+	select ARCH_MAP_DOMAIN_PAGE if ARM_64
- 	select STATIC_MEMORY
- 	help
- 	  Memory Protection Unit (MPU). Select if you plan to run Xen on ARMv8-R
-diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-index 4963c8b550..940297af3f 100644
---- a/xen/arch/arm/mpu/Makefile
-+++ b/xen/arch/arm/mpu/Makefile
-@@ -1,5 +1,6 @@
- obj-$(CONFIG_ARM_32) += arm32/
- obj-$(CONFIG_ARM_64) += arm64/
-+obj-$(CONFIG_ARM_64) += domain-page.o
- obj-y += mm.o
- obj-y += p2m.o
- obj-y += setup.init.o
-diff --git a/xen/arch/arm/mpu/domain-page.c b/xen/arch/arm/mpu/domain-page.c
-new file mode 100644
-index 0000000000..1b43bf82a6
---- /dev/null
-+++ b/xen/arch/arm/mpu/domain-page.c
-@@ -0,0 +1,53 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/domain_page.h>
-+#include <xen/mm.h>
-+#include <xen/mm-frame.h>
-+#include <xen/types.h>
-+
-+void *map_domain_page_global(mfn_t mfn)
-+{
-+    BUG_ON("unimplemented");
-+    return NULL;
-+}
-+
-+/* Map a page of domheap memory */
-+void *map_domain_page(mfn_t mfn)
-+{
-+    paddr_t pa = mfn_to_maddr(mfn);
-+
-+    if ( map_pages_to_xen((unsigned long)pa, mfn, 1, PAGE_HYPERVISOR_RW) )
-+        return NULL;
-+
-+    return maddr_to_virt(pa);
-+}
-+
-+/* Release a mapping taken with map_domain_page() */
-+void unmap_domain_page(const void *ptr)
-+{
-+    paddr_t base = virt_to_maddr(ptr);
-+
-+    if ( destroy_xen_mapping_containing(base) )
-+        panic("Failed to unmap domain page\n");
-+}
-+
-+mfn_t domain_page_map_to_mfn(const void *ptr)
-+{
-+    BUG_ON("unimplemented");
-+    return INVALID_MFN;
-+}
-+
-+void unmap_domain_page_global(const void *va)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.43.0
+Since Xen reports to the guest that it supports SBI v0.2, it is up to the guest
+implementation to decide why it is still using|sbi_set_timer()| from the
+Legacy extension instead of the TIME extension.
+
+I think that I can add Legacy extension equivalent but considering that we are
+using OpenSBI v0.2 for which Time extension is available it seems for me it is
+enough to define sbi_set_timer to sbi_set_timer_v02() for now.
+
+>
+>> --- a/xen/arch/riscv/include/asm/sbi.h
+>> +++ b/xen/arch/riscv/include/asm/sbi.h
+>> @@ -33,6 +33,7 @@
+>>   
+>>   #define SBI_EXT_BASE                    0x10
+>>   #define SBI_EXT_RFENCE                  0x52464E43
+>> +#define SBI_EXT_TIME                    0x54494D45
+>>   
+>>   /* SBI function IDs for BASE extension */
+>>   #define SBI_EXT_BASE_GET_SPEC_VERSION   0x0
+>> @@ -65,6 +66,9 @@
+>>   
+>>   #define SBI_SPEC_VERSION_DEFAULT 0x1
+>>   
+>> +/* SBI function IDs for TIME extension */
+>> +#define SBI_EXT_TIME_SET_TIMER  0x0
+> Move up besides the other SBI_EXT_* and use the same amount of padding?
+
+Sure, I will do that.
+
+>
+>> @@ -138,6 +142,19 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+>>   int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+>>                                   size_t size, unsigned long vmid);
+>>   
+>> +/*
+>> + * Programs the clock for next event after stime_value time. This function also
+>> + * clears the pending timer interrupt bit.
+>> + * If the supervisor wishes to clear the timer interrupt without scheduling the
+>> + * next timer event, it can either request a timer interrupt infinitely far
+>> + * into the future (i.e., (uint64_t)-1), or it can instead mask the timer
+>> + * interrupt by clearing sie.STIE CSR bit.
+>> + *
+>> + * This SBI call returns 0 upon success or an implementation specific negative
+>> + * error code.
+>> + */
+>> +extern int (*sbi_set_timer)(uint64_t stime_value);
+> Despite the pretty extensive comment, the granularity of the value to be passed
+> isn't mentioned.
+
+I update the comment with the following then:
+   The stime_value parameter represents absolute time measured in ticks.
+
+
+>
+>> --- a/xen/arch/riscv/sbi.c
+>> +++ b/xen/arch/riscv/sbi.c
+>> @@ -249,6 +249,26 @@ static int (* __ro_after_init sbi_rfence)(unsigned long fid,
+>>                                             unsigned long arg4,
+>>                                             unsigned long arg5);
+>>   
+>> +static int cf_check sbi_set_timer_v02(uint64_t stime_value)
+>> +{
+>> +    struct sbiret ret;
+>> +
+>> +#ifdef CONFIG_RISCV_64
+>> +    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value, 0,
+>> +                    0, 0, 0, 0);
+>> +#else
+>> +    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value,
+>> +                    stime_value >> 32, 0, 0, 0, 0);
+>> +#endif
+> How about
+>
+>      ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value,
+> #ifdef CONFIG_RISCV_64
+>                      0,
+> #else
+>                      stime_value >> 32,
+> #endif
+>                      0, 0, 0, 0);
+>
+> ? Granted some may say this looks a little m ore clumsy, but it's surely
+> less redundancy.
+>
+> Also I'd suggest to use CONFIG_RISCV_32 with the #ifdef, as then the "else"
+> covers both RV64 and RV128.
+
+Makes sense, I will update the function in mentioned way.
+
+>
+>> +    if ( ret.error )
+>> +        return sbi_err_map_xen_errno(ret.error);
+>> +    else
+>> +        return 0;
+>> +}
+> While I understand this is being debated, I continue to think that this
+> kind of use of if/else isn't very helpful. Function's main return
+> statements imo benefit from being unconditional.
+
+Considering what returns sbi_err_map_xen_errno() we can just drop if/else
+and have only:
+   return sbi_err_map_xen_errno(ret.error);
+as if ret.error == SBI_SUCCESS(0) then sbi_err_map_xen_errno() will
+return 0.
+
+Thanks.
+
+~ Oleksii
 
 
