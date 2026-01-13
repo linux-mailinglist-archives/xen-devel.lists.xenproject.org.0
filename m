@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E7D4D18852
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 12:39:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201510.1517132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 230DCD18978
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 12:55:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201523.1517143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfck7-0004ec-Pu; Tue, 13 Jan 2026 11:39:23 +0000
+	id 1vfcyx-0007NP-1E; Tue, 13 Jan 2026 11:54:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201510.1517132; Tue, 13 Jan 2026 11:39:23 +0000
+Received: by outflank-mailman (output) from mailman id 1201523.1517143; Tue, 13 Jan 2026 11:54:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfck7-0004bV-MV; Tue, 13 Jan 2026 11:39:23 +0000
-Received: by outflank-mailman (input) for mailman id 1201510;
- Tue, 13 Jan 2026 11:39:22 +0000
+	id 1vfcyw-0007Kz-TO; Tue, 13 Jan 2026 11:54:42 +0000
+Received: by outflank-mailman (input) for mailman id 1201523;
+ Tue, 13 Jan 2026 11:54:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i8AK=7S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vfck6-0004bP-Ez
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 11:39:22 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ <SRS0=X45d=7S=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vfcyu-0007Kq-HT
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 11:54:40 +0000
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c111::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7fb4dce9-f074-11f0-9ccf-f158ae23cfc8;
- Tue, 13 Jan 2026 12:39:19 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-b872b588774so243786066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 03:39:19 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b870e33259esm697935066b.8.2026.01.13.03.39.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jan 2026 03:39:18 -0800 (PST)
+ id a2c02691-f076-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 12:54:37 +0100 (CET)
+Received: from MN2PR17CA0024.namprd17.prod.outlook.com (2603:10b6:208:15e::37)
+ by LV5PR12MB9804.namprd12.prod.outlook.com (2603:10b6:408:303::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
+ 2026 11:54:33 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:208:15e:cafe::40) by MN2PR17CA0024.outlook.office365.com
+ (2603:10b6:208:15e::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.7 via Frontend Transport; Tue,
+ 13 Jan 2026 11:54:35 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Tue, 13 Jan 2026 11:54:33 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 13 Jan
+ 2026 05:54:33 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 13 Jan
+ 2026 05:54:33 -0600
+Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 13 Jan 2026 05:54:31 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +63,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fb4dce9-f074-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768304359; x=1768909159; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WxW/Bi8YXCerp6fENlNPiTLE6uiSEZIC+yyayAUgB0o=;
-        b=iv2+I4fIWQ0Hxx+ARsa/nX4PO0gi8G1MHG8CDGANlZOtmphVCABcERMF9742FKthbY
-         McL3IkEMpzmJrftyuTUklBVNKemutc/sAbHK9RRMSuumvWW68SHq0UokCNP13ypmA8yH
-         8s6etkM+JMHSLKUFc5UZ33FdhOCKm9CiS8kkSaCzZKyhuJOBZGa7HoOW8wDP5+jT+F7G
-         uqMkdtl8vO4j6sKyTFrUJpOgeQXjUI6V1Ky5kE24clb34KTtINvqTRsILnInvTEpSQhG
-         fLbqjhNZwn2czKS42iWfq55Tmf2iqF0+Da0fl1sO8E3zxarR31tgqYV3UYJKBtKgrs+R
-         KZwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768304359; x=1768909159;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WxW/Bi8YXCerp6fENlNPiTLE6uiSEZIC+yyayAUgB0o=;
-        b=c/G/APdFymOBy1R22LIIdHOsiyNZyuXZeobGucokWgKLWR7KIrLFvaassBdyvOQU3q
-         G5537ocJJrV15aa21yszHd/S2OmwqykwkMxGv3Huv/Yujor4sPG2FNy6aUqN5o+io7GK
-         J78pHrbN/0m3JTDvpRzwjPvZUqrj6tTKNQknjC9iwEWM24FJEdePeoRi3jcn6B6Rhk5d
-         /iLT82LVSr7S/SE6MBboGHWhFRN70DnH53cznlXAiH9r4AF742JFzTLStpy1BSOqps0s
-         rw7JUBbNrANTsWgNcOLBpLuSSnwxZM27TrnAQHVED7tbTEefO/cZJ4x5XmWav/uocnbH
-         OvxA==
-X-Forwarded-Encrypted: i=1; AJvYcCWDxpJvJZaRN0dpPdXhRJNyIx5hGGW+k5xoBAyNzrCcCctKqdpfniMHNiqkBDkx8L+85dqaKii357k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMt7Fa9XZTJAxFBoNzHT5SzCxIVwyXQjcWbK981VGOZslfJ3vz
-	RwSRGW6Rq3mFL4zMRJ/s3CJc0oR+DRPGlPTEyplvX++jvaEXY5IVgVxM
-X-Gm-Gg: AY/fxX7exNUBWYEZQX3ElDh0OzLfcgwEw3FJHSuyadGpbiX8RtmQB5gRhphHSsKqcyR
-	S2LH+zidIg8p9VThGpSWyWQbMrZfrVrdXi0obuYXB2UUQpXdzJ3EDgozTdIwplEgEsPYX0AJ6IL
-	Gl1L1BXkjH3py6U8Ag2UXwveZOSymM2FWm9ZcGeE7iq8BOXrSHprj/mh1VMQF2qAhEpYwSqceMX
-	Wl3+NyII/92ZdMp2zcdX6yJGEp6WcanqBqC2byUlP02uZiRngxWeMDMt7l+FQVNi6upHBAXb03d
-	eyw7jvf9pAtZsrFwM4Xe1mtlgvnkC+ajUXWQak1i8uU2wru8xWgXP73+n3wFDpFQn/ADyt9hOzL
-	FVU4XvzRF++zEFq+KrnGhMivfSJs1q/VS+Dmd/iqkT5NyAGx0Ri90Y33+joAGl0V3F+VjuMWS3e
-	6OClm/zF3Nii37Cf7FcRZr2biEI5XT9KM2b67/ND+0nx52i+EUD/8OfrZPfjWSOjE=
-X-Google-Smtp-Source: AGHT+IEjaL8obUVDyMLgiNW/+NkhGXD9GLLfvYNaESBtQmV+V9SwiJY5sb9NDAFAX8npemETX6PmEw==
-X-Received: by 2002:a17:907:3d88:b0:b87:4bdb:1061 with SMTP id a640c23a62f3a-b874bdb232dmr60506466b.1.1768304359161;
-        Tue, 13 Jan 2026 03:39:19 -0800 (PST)
-Message-ID: <ff6502ab-78b2-49c9-b383-d71a774c0a99@gmail.com>
-Date: Tue, 13 Jan 2026 12:39:17 +0100
+X-Inumbo-ID: a2c02691-f076-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uCaP90a0wJtCnN+o6vkhcnmtBK9T+iv2rR+I5phwrPWULPWru+pug0Np2MQD6Rp7d9HslcMFsVbkbaz8P1D4ghRKFSHsOiLP4p+YNdvnh3rK1TpJeMwD8EBy2FlVLR4tS5w1CUN6PrRK21z6NlCrhpnVo6BSYdQZeV06RwvkpQjPBAFqnRzUoOWy3gaekycjvyhVVp5MWcO90Erqr6KKXjDoQvxQ/ZG+o4XkY7pcOCaBWIe3Y2HqwRCEDLQfDFFvMhdOVXLKmabaf8nph477T5ydeF2d1ej1rBOEfjJzODZ0I6oTGTNAjRPui4Du9rkAxAQDVPe3ivz5qEvrPG68PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nWFwnq/uGaUTjhyQQzwUypW8vL6iA0epU0MrIm4lGiM=;
+ b=ykryeajqrI9xTrhL/VVUTBuMrpBbp/tp1rpofrHVzf2FC19ByLFxvx+rcV8lSA+gXI61mWRjNOY/S4J2KFrJ9c4eFxzmSs5UdUjwv6dIPfFafJfZK4D40OMHROL3L1xyATaArl+IPaNfARx0PV9jLjtu5P9Q1Th+f+kaOcIalBmIPzy4Re5Q0dIMfa5kLx3tSxT+RjAPt324omNBJO33PFzGvRrg9SB6O2xA7yHWL8XqzBkGOzXbMQ9Aub0pzeyrWx48Pkeb5uMIVXptl5m56vVWM2Ot8iipGm4VLVGFmvozEbbP0A2zbys/4YyVpF5rRrV+zEIVrpbch3T38E+2cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nWFwnq/uGaUTjhyQQzwUypW8vL6iA0epU0MrIm4lGiM=;
+ b=QNCh3kQO9HyzE5Pplv21ef+Q5ocym2aMBQy5AAxjha8W5bX82nyMJluBWG9SzYQpzbz/DHChERVFDn/+lKhyeUtCm2++UMC+5QnSJUqhl+1+Fq/slU5xTQWZaE1ttHcqxTNkYrAKGejOvmTNC0JzrZpkQH81oYRt96NIBtIKO3I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <84be01b8-9f13-4adf-8613-8658f46f3260@amd.com>
+Date: Tue, 13 Jan 2026 12:54:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 05/15] xen/riscv: implement stub for
- smp_send_event_check_mask()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <837c863f5995cc4371e82b481211b053656ec7e7.1766595589.git.oleksii.kurochko@gmail.com>
- <319e6162-7a5b-4030-ae9f-a86a48e73605@suse.com>
- <94c0cd09-7aaa-4ae1-913e-57d883916682@gmail.com>
- <b08265c6-6c19-4935-be34-face486bf994@suse.com>
- <92cfc028-cabd-4686-b6b9-7cc047a909c9@gmail.com>
- <2786eab5-ff25-4d8d-b0d1-84a1d2727f9f@suse.com>
+Subject: Re: [PATCH v2 3/6] arm/mpu: Implement free_init_memory for MPU
+ systems
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: Harry Ramsey <Harry.Ramsey@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Penny Zheng <Penny.Zheng@arm.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>, Hari Limaye
+	<Hari.Limaye@arm.com>
+References: <20260105113503.2674777-1-harry.ramsey@arm.com>
+ <20260105113503.2674777-4-harry.ramsey@arm.com>
+ <d6fc338b-60ee-4d30-a69b-9da90059bbd5@amd.com>
+ <BFDE011F-FFA8-411E-9459-595CA5C470F1@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <2786eab5-ff25-4d8d-b0d1-84a1d2727f9f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <BFDE011F-FFA8-411E-9459-595CA5C470F1@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|LV5PR12MB9804:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5894e9f6-1cf0-424a-04f1-08de529a8493
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|7416014|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aXFUNUNmbHFaM0V4SE1wWWtBNUhQbXdQMGJ1dmZIWWw4VjZoRlcvTlRZNmpN?=
+ =?utf-8?B?YitxWThwcVdRQ041K2FSaUc0VzByKzhoTHZyd1Jra0h2TjhnYXpZTzBrbGhN?=
+ =?utf-8?B?Z2hSQVdEYTloQzRPLzAxWlVXeldQK3hTaWt1RlgybGJiVVZtTDdKZ2Y1SGcx?=
+ =?utf-8?B?VWNXQnV0N2JFODY1a1didWZuaStDbmVwTE9McTl3R25nMTlva3FWSjF2OURQ?=
+ =?utf-8?B?MDZzbFRtYjlnbFZZRmZ3dmQ0NExnMDEwR042ZXdabFAzenZmY01xbUVoL1Ur?=
+ =?utf-8?B?TDVJdFgrNVhEZmRxMGF1aWgwSG9weUE1M1ZKMDRneE9haEFYbGlzQlNqNUR1?=
+ =?utf-8?B?RnFrQU11MlhwNjdIdkpQSnFIaDdVdGU5YUNYNHVLMkxQLzdvdVRGNmtoSjRE?=
+ =?utf-8?B?bC9sZndTWFo4RCs4ZEkwZnMxWXZyT1lRM2JLQk9SYkYzeDFtMGh3UEw5Tmpa?=
+ =?utf-8?B?SHZnVGFwaWVHZ2FxaXhIanpucit3TVlmK1N1bTZKWXFXU0taZVlIRktpL0lO?=
+ =?utf-8?B?ckpKblYrVm9GMSthUndEVFkyT25mMW1LcytiUmtqN0kxVHQwbWR6emNGRkNW?=
+ =?utf-8?B?UmRjZjFoNW91L1B0NTIrSER4N0Y1RUdIcHZTdHRpQzd6UXcrbW5EMlE1dnRT?=
+ =?utf-8?B?N0pJVG1ROXdFRGswN2RNM0Q3aGw0Z1N6T1NFNzAwTDZHZHJKM241d0ZCaTRu?=
+ =?utf-8?B?L3ZuUXVoVUpOQytvUWhENXI5SzM2cmVTSGNiZUhMcmpReWVzdkJvZ2IrRVg1?=
+ =?utf-8?B?L2FHY2ZhclBtcDhvZXRSYjkyTjByYVpQN0hYSTJjU2dxaWxvUWQ0RW5mMm9u?=
+ =?utf-8?B?TkxwcHJvYkpSYlFjZ3hXRWtreVIzajF2Yk9ONTVuYzBpUzkrOEpKdEtuTjR6?=
+ =?utf-8?B?anZ2VEFiVGlhWnR0a3JPcVNGYXNxSlVYeEhDb0lOb1VTZ3lORjNPRnkzZUw3?=
+ =?utf-8?B?UVByc3pGaEV6QjcxQWcva1pBZk9zdGFoa2EwSGhIK3lHZE1wNkFCRm9NV09r?=
+ =?utf-8?B?SkRDdlY5b2lHbVFodDlrV0J5RTB0UkVWU2tLWVZSK1J0K2wrcmxWTUZXS0Nm?=
+ =?utf-8?B?QjhvZlMvWFRCUmh4SjRBWWhwdXVIZzhZY0kvYWVVSUVOcnJja1dScWZvaUt1?=
+ =?utf-8?B?WWppSGRrelFmcW03Q2lGMGdFM0VHdjRRNWN1dEJKc3dQczVQWW8zT0NFaGJr?=
+ =?utf-8?B?NmtKM0xwQXVYclZlSVd4UWp4MEJTc01TZVRDOER4OTZwbis0WWJYV092Yk1I?=
+ =?utf-8?B?Y3djcjJGWWRtOTQ3dmwrUmdEeFFsYW5RUlp6TjFvQ1JFRnJGNHVtb01xNDQ4?=
+ =?utf-8?B?SUlGSDNkWnJ4UjdKRlBvR2MwbzU0YWlYcXhtRDBmVzdxQ25xMzVMMzVFaDk0?=
+ =?utf-8?B?cnpFc2ltK0kyZ1VTa29PeGFFQzNXcjZJOHRMYzgzNXJscXVNMkFSUXRyUXZI?=
+ =?utf-8?B?a0QxZ1dVUFUwM3A4d0RGbm9jaUsxTzJJcDJmYVJBWW9qTzFYRFdiQWpzeS9n?=
+ =?utf-8?B?NFpVaTBrdDJaNTdrWXhpOVQyeTFlOXE0MjJ4NGNjak5COXBWcFFzaG1Odmk2?=
+ =?utf-8?B?VlFCNGpkK25HTGgwRTJRVHVPaFFPbEUyZWVhVDlZWHR5a1U1VTQ0RmhXZWw2?=
+ =?utf-8?B?UTVNVytLOEpQditDemdZMTdEemZUd1Btdm9hMnl4Mk5UK0dwY3dlOTFMSUxX?=
+ =?utf-8?B?YnV6cnZWd0RUOVd6RUtiUGhaSUVXVWdOTGpUUUhqd3BGakFJWUpka3NhenNY?=
+ =?utf-8?B?YXdOSEp6SjZlL1VoZUZsZWI5aVVqck9uWENqbXhZOWRqZlJkdy9XUlVDejAx?=
+ =?utf-8?B?VCtaY2Z0dmZTL0JrZjBTRTJqRXVvS0NOYkVCWXFGNUI0R3UvRXFxWGNUd0Nk?=
+ =?utf-8?B?aEswUU9aQ0lpWHZXaUpZbkZyN0pwUUxCQUJLNjNVVUtOeklzY0xkZkFTWi9S?=
+ =?utf-8?B?a3JmU3ZQMnVHM2FnRVFxRmlUVkd3SGJySjdBMTIzV0FjNC9sS0UxcThRd1Np?=
+ =?utf-8?B?bjFrc0huM1BKbFNTaTFzQUowZHdiT1FPaVo3MGpCc3VSbVI0b3dzU3A2MEhm?=
+ =?utf-8?B?MUQ2b0p2RXVQNldVUDNxTnJFeGQ4Q3dJd01BVnV2aUxuNTVNeVhEeVA3eVZv?=
+ =?utf-8?Q?+1Ww=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(7416014)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 11:54:33.5428
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5894e9f6-1cf0-424a-04f1-08de529a8493
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E61.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9804
 
 
-On 1/13/26 11:22 AM, Jan Beulich wrote:
-> On 13.01.2026 10:58, Oleksii Kurochko wrote:
->> On 1/12/26 6:05 PM, Jan Beulich wrote:
->>> On 12.01.2026 17:53, Oleksii Kurochko wrote:
->>>> On 1/7/26 4:47 PM, Jan Beulich wrote:
->>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>>>> @@ -13,3 +14,10 @@
->>>>>>     struct pcpu_info pcpu_info[NR_CPUS] = { [0 ... NR_CPUS - 1] = {
->>>>>>         .processor_id = NR_CPUS,
->>>>>>     }};
->>>>>> +
->>>>>> +void smp_send_event_check_mask(const cpumask_t *mask)
->>>>>> +{
->>>>>> +#if CONFIG_NR_CPUS > 1
->>>>>> +# error "smp_send_event_check_mask() unimplemented"
->>>>>> +#endif
->>>>>> +}
->>>>> CONFIG_NR_CPUS is 64 by default for 64-bit arch-es, from all I can tell, also
->>>>> for RISC-V. And there's no "override" in riscv64_defconfig. How is the above
->>>>> going to work in CI? Then again I must be overlooking something, as the config
->>>>> used in CI has CONFIG_NR_CPUS=1. Just that I can't tell why that is.
->>>> It is 1 because of the defintion of NR_CPUS in KConfig:
->>>> config NR_CPUS
->>>> 	int "Maximum number of CPUs"
->>>> 	range 1 1 if ARM && MPU
->>>> 	range 1 16383
->>>>            .... ( all other range props are condtional and there is no RISC-V in dependency)
->>>> so for RISC-V "range 1 16383" used and CONFIG_NR_CPUS is set to the minimal of this range,
->>>> so it is 1.
->>> I fear I don't follow: Why would the lowest value be picked, rather than the
->>> specified default (which would be 64 for RV64)? That's what I thought the
->>> default values are there (among other purposes).
->> But there is no default for RISC-V for config NR_CPUS:
+
+On 13/01/2026 12:13, Luca Fancellu wrote:
+> Hi Michal,
+> 
+>>>
+>>> -static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
+>>> +static int is_mm_attr_match(pr_t *region, unsigned int attributes)
+>>> {
+>>>     if ( region->prbar.reg.ro != PAGE_RO_MASK(attributes) )
+>>> -    {
+>>> -        printk(XENLOG_WARNING
+>>> -               "Mismatched Access Permission attributes (%#x instead of %#x)\n",
+>>> -               region->prbar.reg.ro, PAGE_RO_MASK(attributes));
+>>> -        return false;
+>>> -    }
+>>> +        return MPU_ATTR_RO_MISMATCH;
+>>>
+>>>     if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
+>>> -    {
+>>> -        printk(XENLOG_WARNING
+>>> -               "Mismatched Execute Never attributes (%#x instead of %#x)\n",
+>>> -               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
+>>> -        return false;
+>>> -    }
+>>> +        return MPU_ATTR_XN_MISMATCH;
+>> Later below you don't seem to differentiate between MPU_ATTR_RO_MISMATCH and
+>> MPU_ATTR_XN_MISMATCH. Therefore I would suggest to keep them as one to simplify
+>> the code.
 >>
->>     config NR_CPUS
->> 	  int "Maximum number of CPUs"
->> 	  range 1 1 if ARM && MPU
->> 	  range 1 16383
->> 	  default "256" if X86
->> 	  default "1" if ARM && MPU
->> 	  default "8" if ARM && RCAR3
->> 	  default "4" if ARM && QEMU
->> 	  default "4" if ARM && MPSOC
->> 	  default "128" if ARM
->> 	  help
->> 	    ...
-> Oh, indeed, that's what I was overlooking.
->
->> So a value from range [1, 16383] is chosen and based on the code of sym_validate_range():
->>           ...
->> 	val = strtoll(sym->curr.val, NULL, base);
->> 	val2 = sym_get_range_val(prop->expr->left.sym, base);
->> 	if (val >= val2) {
->> 		val2 = sym_get_range_val(prop->expr->right.sym, base);
->> 		if (val <= val2)
->> 			return;
->> 	}
->> 	if (sym->type == S_INT)
->> 		sprintf(str, "%lld", val2);
->> 	else
->> 		sprintf(str, "0x%llx", val2);
->>           sym->curr.val = xstrdup(str);
+>>>
+>>>     if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
+>>> -    {
+>>> -        printk(XENLOG_WARNING
+>>> -               "Mismatched Memory Attribute Index (%#x instead of %#x)\n",
+>>> -               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
+>>> -        return false;
+>>> -    }
+>>> +        return MPU_ATTR_AI_MISMATCH;
+>>>
+>>> -    return true;
+>>> +    return 0;
+>>> }
+>>>
+>>> /* Map a frame table to cover physical addresses ps through pe */
+>>> @@ -357,12 +342,45 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>>>     */
+>>>     if ( flags_has_page_present && (rc >= MPUMAP_REGION_FOUND) )
+>>>     {
+>>> -        if ( !is_mm_attr_match(&xen_mpumap[idx], flags) )
+>>> +        int attr_match = is_mm_attr_match(&xen_mpumap[idx], flags);
+>>> +
+>>> +        /* We do not support modifying AI attribute. */
+>>> +        if ( MPU_ATTR_AI_MISMATCH == attr_match )
+>>>         {
+>>> -            printk("Modifying an existing entry is not supported\n");
+>>> +            printk(XENLOG_ERR
+>>> +                   "Modifying memory attribute is not supported\n");
+>>>             return -EINVAL;
+>>>         }
+>>>
+>>> +        /*
+>>> +         * Permissions RO and XN can be changed only by the full region.
+>>> +         * Permissions that match can continue and just increment refcount.
+>>> +         */
+>>> +        if ( MPU_ATTR_RO_MISMATCH == attr_match ||
+>> Enlcose in brackets () || ()
 >>
->> First initialization of val2 it is the left value of the range [1, 16383],so it is 1
->> and val is 0 (I assume so that it is by initialization 0), thereby val2 = 1 will be
->> used as a value for NR_CPUS.
-> But is this behavior documented anywhere?
+>>> +             MPU_ATTR_XN_MISMATCH == attr_match )
+>>> +        {
+>>> +            if ( rc == MPUMAP_REGION_INCLUSIVE )
+>>> +            {
+>>> +                printk(XENLOG_ERR
+>>> +                       "Cannot modify partial region permissions\n");
+>>> +                return -EINVAL;
+>>> +            }
+>>> +
+>>> +            if ( xen_mpumap[idx].refcount != 0 )
+>>> +            {
+>>> +                printk(XENLOG_ERR
+>>> +                       "Cannot modify memory permissions for a region mapped multiple times\n");
+>> Memory permission? Here you are checking for XN/RO.
+> 
+> Right, is it better “memory attributes”?
+Yet in a if() block for MPU_ATTR_AI_MISMATCH == attr_match you already have the
+same message.
 
-I wasn't able to find that and it was a reason why I checked the code.
+~Michal
 
-
->   Wouldn't RISC-V (and PPC) better
-> gain suitable defaults, making explicit what is wanted (for the time being)?
-> E.g.
->
-> config NR_CPUS
-> 	int "Maximum number of CPUs"
-> 	range 1 1 if ARM && MPU
-> 	range 1 16383
-> 	default "256" if X86
-> 	default "1" if !ARM || MPU
-> 	default "8" if RCAR3
-> 	default "4" if QEMU
-> 	default "4" if MPSOC
-> 	default "128"
-
-Maybe, it would be better.
-
-~ Oleksii
+> 
+>>
+>>> +                return -EINVAL;
+>>> +            }
+>>> +
+>>> +            /* Set new permission */
+>>> +            xen_mpumap[idx].prbar.reg.ro = PAGE_RO_MASK(flags);
+>>> +            xen_mpumap[idx].prbar.reg.xn = PAGE_XN_MASK(flags);
+>> Here you always change both, that's why there is no need to provide two separate
+>> macros as I mentioned above.
+> 
+> good point.
+> 
+> Cheers,
+> Luca
+> 
 
 
