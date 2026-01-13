@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 532C9D1BA6A
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 00:06:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202370.1517950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4C9BD1BB05
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 00:23:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202382.1517960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfnSY-0000Js-Pq; Tue, 13 Jan 2026 23:05:58 +0000
+	id 1vfniv-000361-02; Tue, 13 Jan 2026 23:22:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202370.1517950; Tue, 13 Jan 2026 23:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 1202382.1517960; Tue, 13 Jan 2026 23:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfnSY-0000He-N3; Tue, 13 Jan 2026 23:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 1202370;
- Tue, 13 Jan 2026 23:05:58 +0000
+	id 1vfniu-000348-T3; Tue, 13 Jan 2026 23:22:52 +0000
+Received: by outflank-mailman (input) for mailman id 1202382;
+ Tue, 13 Jan 2026 23:22:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wjAJ=7S=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vfnSY-0000HS-1c
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 23:05:58 +0000
+ id 1vfnit-000342-Pd
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 23:22:51 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a691f48-f0d4-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 00:05:56 +0100 (CET)
+ id c64df37c-f0d6-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 00:22:49 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 18D2D60018;
- Tue, 13 Jan 2026 23:05:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B37C116C6;
- Tue, 13 Jan 2026 23:05:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 196676000A;
+ Tue, 13 Jan 2026 23:22:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330B2C116C6;
+ Tue, 13 Jan 2026 23:22:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,124 +41,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a691f48-f0d4-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: c64df37c-f0d6-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768345554;
-	bh=9CN2VHBk5fq1iH+7VGkDZiOjbskB+UkAhrBK78R6cFE=;
+	s=k20201202; t=1768346567;
+	bh=mL/FoDrtK0bhpnitojwJK2Qv3wuQ7upQnsTKciUEp6s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Zx1jwhsdrAlSNJZZAjSyrGjBeoR3INCiL8sLzjv0JitkBn77Ffx0S2yj7CPi7R0Yk
-	 Pr61HiobP0F+VfE3/nObCaWl59fOS4+KZTK9cCLTP01EAyt0jGI0tlhpXmoIczuJn5
-	 yZWMmEfKTaTS3P4hR4j4rWuTEsWaKg1ob/e9e2Bx3QzHkkjtd0OmS1+FRPOcSNRFGB
-	 fEntCK8WDkXCzbsRuLpr07/4JPPHBaKAxb5PgAcutd6xV8NkS+ZhJBzeYgkaTT+hRW
-	 L3COjFBw6M6GoA8GQu7iIxZkOYe2yfMpNb99hHDRT6ZwVCNBcMmOThYRBC6hP3dY+z
-	 5sKWctYe1FJOg==
-Date: Tue, 13 Jan 2026 15:05:52 -0800 (PST)
+	b=InjL+/eX0OT/SjG5rDpFGlAnJ/BggceavHGzLj8KImqEBwEvG3t8g/HbGjZMou2eQ
+	 6aWAc13KpZeSME49YrIJBqfUMpa35BGEynLm6eLndiDa7/XAMA3Xcb+kvu0VPy8GQr
+	 uEOG1t84aGPc6XMS2OTRqAjbBGM9IYCAMVk7aqmRFP4Jps9cutoZJ0lalqlCP5089s
+	 QHQQI8wBERwQ2WZeGdYXPT1B7ToVc/iBLnq8z5Y17kuFsDU5Md/gJILfaRjZuUJewQ
+	 IsEZbLfNR14PeXf7jsh8h00MsjhBKngTKJ1g/ETzwPoARdI0YR3H/DlZ28dys76v+s
+	 5K/fmgspnCrUQ==
+Date: Tue, 13 Jan 2026 15:22:46 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [PATCH v6 4/5] xen/arm: scmi: introduce SCI SCMI SMC multi-agent
- driver
-In-Reply-To: <0e805633-4e68-43b5-8201-81dc5135010a@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2601131455170.992863@ubuntu-linux-20-04-desktop>
-References: <cover.1761998077.git.oleksii_moisieiev@epam.com> <ee195eb3a9b04854a6b108da4275877c9a7bb32c.1761998077.git.oleksii_moisieiev@epam.com> <b46ae649-dab8-4d8a-b216-c61972b2ef3b@epam.com> <0e805633-4e68-43b5-8201-81dc5135010a@epam.com>
+To: Juergen Gross <jgross@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, oleksandr_tyshchenko@epam.com, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen: introduce xen_console_io option
+In-Reply-To: <4f22683f-8fd4-4db6-ac74-83c6f6460924@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2601131521590.992863@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2601121624450.992863@ubuntu-linux-20-04-desktop> <a42c18c8-9bff-4d85-bb7a-4fbb2c43ad00@suse.com> <4f22683f-8fd4-4db6-ac74-83c6f6460924@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1269708819-1768346568=:992863"
 
-On Tue, 13 Jan 2026, Oleksii Moisieiev wrote:
-> >> chosen {
-> >>    ranges;
-> >>    xen,config {
-> > Q: [Stefano] The node name could be xen-config, but it doesn't matter
-> > because we
-> > should check for the compatible string instead (no check on node name).
-> >
-> > We need to add a compatible string here, I would use "xen,scmi":
-> >
-> >     compatible = "xen,scmi";
-> >
-> >
-> > A: [OM] this is a great finding. After looking into hyperlauch code I
-> > see the following implementation:
-> >
-> >
-> > config {
-> >         compatible = "xen,config";
-> >     ...
-> > };
-> >
-> > I was thinking about changing current approach to have the following
-> > format:
-> >
-> > config {
-> >         compatible = "xen,config";
-> >     ...
-> >     scmi_config {
-> >         compatible = "xen,sci"; <-- more generic compatible string
-> > than "xen,scmi"
-> >         scmi-secondary-agents = <
-> >                   0x82000003 &scmi_shm_0 0
-> >                   0x82000004 &scmi_shm_2 2
-> >                   ...>;
-> >                 #scmi-secondary-agents-cells = <3>; <--- optional,
-> > default 3
-> >                 scmi_shm_0 : sram@47ff0000 {
-> >                 compatible = "arm,scmi-shmem";
-> >                 reg = <0x0 0x47ff0000 0x0 0x1000>;
-> >             };
-> >
-> >         scmi_shm_2: sram@47ff2000 {
-> >                     compatible = "arm,scmi-shmem";
-> >                    reg = <0x0 0x47ff2000 0x0 0x1000>;
-> >             };
-> >             scmi_xen: scmi {
-> >                 compatible = "arm,scmi-smc";
-> >                 arm,smc-id = <0x82000002>; <--- Xen manegement agent
-> > smc-id
-> >                 #address-cells = < 1>;
-> >                 #size-cells = < 0>;
-> >                 #access-controller-cells = < 1>;
-> >                 shmem = <&scmi_shm_1>; <--- Xen manegement agent shmem
-> >             };
-> >     };
-> >     ...
-> > };
-> >
-> > and update scmi-multiagent driver to match "xen,sci" compatible and
-> > process all subnodes during probe.
-> > What do you think about this approach?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Yes I think that's better.  To be precise this would be the DT nodes
-hierarchy:
+--8323329-1269708819-1768346568=:992863
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-chosen {
+On Tue, 13 Jan 2026, Juergen Gross wrote:
+> On 13.01.26 08:57, Jürgen Groß wrote:
+> > On 13.01.26 01:24, Stefano Stabellini wrote:
+> > > Xen can support console_io hypercalls for any domains, not just dom0,
+> > > depending on DEBUG and XSM policies. These hypercalls can be very useful
+> > > for development and debugging.
+> > > 
+> > > Introduce a kernel command line option xen_console_io to enable the
+> > > usage of console_io hypercalls for any domain upon request. When
+> > > xen_console_io is not specified, the current behavior is retained.
+> > > 
+> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > Reviewed-by: Juergen Gross <jgross@suse.com>
+> 
+> Sorry, I need to revoke my R-b.
+> 
+> I get:
+> 
+> WARNING: modpost: vmlinux: section mismatch in reference: xen_cons_init+0x0
+> (section: .text) -> opt_console_io (section: .init.data)
+> 
+> I think xen_cons_init() should be __init, too.
 
-    xen {
-        compatible = "xen,hypervisor"; // I would rather use an even more generic compatible string
-        bootargs = ""; // since we are introducing this node we can use it for Xen bootargs
-
-        scmi {
-            compatible = "xen,sci";
-        }
-    };
-
-    domU0@address {
-    };
-
-    domU1@address {
-    };
-};
-
-I would start by adding a patch for
-docs/misc/arm/device-tree/booting.txt to add the new nodes.
+Yes you are right, good catch. I am cross-compiling x86 on ARM and my
+environment is not warning me about it. I made the change.
+--8323329-1269708819-1768346568=:992863--
 
