@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F599D1ADE7
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 19:42:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202296.1517909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D08D1BA1B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 23:49:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202349.1517939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfjKA-0002yt-IH; Tue, 13 Jan 2026 18:41:02 +0000
+	id 1vfnB8-0005sZ-8X; Tue, 13 Jan 2026 22:47:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202296.1517909; Tue, 13 Jan 2026 18:41:02 +0000
+Received: by outflank-mailman (output) from mailman id 1202349.1517939; Tue, 13 Jan 2026 22:47:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfjKA-0002wN-Er; Tue, 13 Jan 2026 18:41:02 +0000
-Received: by outflank-mailman (input) for mailman id 1202296;
- Tue, 13 Jan 2026 18:41:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfnB8-0005qD-5a; Tue, 13 Jan 2026 22:47:58 +0000
+Received: by outflank-mailman (input) for mailman id 1202349;
+ Tue, 13 Jan 2026 22:47:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lb65=7S=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vfjK9-0002wH-7O
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 18:41:01 +0000
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c111::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 672e0b3a-f0af-11f0-b15e-2bf370ae4941;
- Tue, 13 Jan 2026 19:40:59 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH4PR03MB7649.namprd03.prod.outlook.com (2603:10b6:610:23f::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
- 2026 18:40:56 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 18:40:56 +0000
+ <SRS0=wjAJ=7S=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vfnB6-0005q7-4z
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 22:47:56 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4b3f6f5-f0d1-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 23:47:53 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9D09F60018;
+ Tue, 13 Jan 2026 22:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A85FC116C6;
+ Tue, 13 Jan 2026 22:47:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,143 +41,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 672e0b3a-f0af-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rkz7pMsmkDSEal90D29QnCK0znwB3hOUXzPdx8Dxr5hPlPkptrt3KPUvWHQEKX12GKAIMAfY1ylw2VuNiUQA7JtRqU3qnIw2/OXvC5yd6YpsSPrNRL5+AwfhQDn6MA5GPonBzbKGpq1fLVwXNJH+sYLggMEKcoF/K5A27mOmMGFguUuQFugdvJZCcoNu1LdB+CpvDlgzEL1irOK5AufPtCE3j0dgtOn3Losri5+mZ9ty+/7jRnFjQlgH49TvaAPsZzvRiqT6N03zbQcFwE8GW+V0dSArN71UHEEoBP5ZI72lK698x4XA0JcyUSRyT/Ei48oyrGnALXjoMJHKbf7diA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bvmvAcuzt7ZHT14NUqgLWQpOs0IhFoOyX6G+ZVUh7T8=;
- b=fJYIFM8sMxeXGZ5o866oJz20p4Aq5cPGGu5fufXAHuJZ59gykprAhwG2KmDIZY9ePk16ShNMfRjJdsxYtl5iklruN5UAeUN6iGCIoVgrg8ttrSpaInSGU9+XT3dT/EWByuRt4taJv8s2EGzRPbJDgmLzGEfRlsxtnl1HrzGhzXgeo58+cNVcErYy3T79+XAkmslprDO4nIJQ/aTJj//cVEtEm/4gcyNf6OZRPswWu+rCU12vL4kKw+4R/KZ7f7fG9ROy1xuKXW57Wlp2umxq3fv3o6BRheCaG9SIs5BwSppGpW65L5SaYtHs9EtG/N84iHzmnhm2tZ2cq8ZQwLnrUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bvmvAcuzt7ZHT14NUqgLWQpOs0IhFoOyX6G+ZVUh7T8=;
- b=z8M2mkUflwgvcUEWzh/OgtfbgzbrOopWpspLvM7lDw2DKHfPy8X5EU9iM5nkRXbAtDUkjtFWeU4xabw2VHbTkeqKjfNQq/IEZXLTwqhWlAZG8+FEr0aKpbrK0/ztWJa7+4V78EWpU7h4zMu4B2xwrR5PvmjrGB7FZq3rCRQtD8E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 13 Jan 2026 19:40:52 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/5] x86/time: scale_delta() can be static
-Message-ID: <aWaRtNZ2obZ09KYR@Mac.lan>
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <ccaba595-aba4-409e-be36-ea5004cd6484@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ccaba595-aba4-409e-be36-ea5004cd6484@suse.com>
-X-ClientProxiedBy: PR1P264CA0163.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:347::13) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: e4b3f6f5-f0d1-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768344471;
+	bh=tTt6Ten7zQu3KDjN/5ZOWgqcgitbPTpKXEV4joDC6IY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=uNq2i/acM/fxNvpqAePr7NIYrGgV0j1ylhp+KVkdvx0wE3U1GQuCRuJZtkJOE6DnT
+	 WUNM5wQ2FYRexSTmsX2KV35qUmdB3BqOTg+k2UXKs9umFdxesGGC8aiWTRpIS3h8Be
+	 CU8aevbzDkHnjrSJXJKuB5EHiR3BeY/j+gfXiYj00KGv9PNvFpRS9NFQKHeWYzTs74
+	 gVTOUoFnTRozpsGdtyJBLlr49xiTfeHSzPWMdYfDY/kDvkfErE0L/n9k9SdQPXPrzd
+	 FonvDw6A86S7U+Ayf+y+zPUL4q9HEaZ2d9shseb+YPzLZDxetFe0UUVYzIaGKapUcc
+	 kr2rXtw91yvWg==
+Date: Tue, 13 Jan 2026 14:47:48 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Mykola Kvach <xakep.amatop@gmail.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, andrea.bastoni@minervasys.tech, 
+    marco.solieri@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Carlo Nonato <carlo.nonato@minervasys.tech>
+Subject: Re: [BUG] LLC coloring: parse_color_config shorthand/UINT_MAX/partial
+ configs + missing newline
+In-Reply-To: <CAGeoDV_aYQogU+eb-oGt9i2LrBU9Ak1vayh7dLZSmYEihN-deg@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2601131438580.992863@ubuntu-linux-20-04-desktop>
+References: <CAGeoDV_aYQogU+eb-oGt9i2LrBU9Ak1vayh7dLZSmYEihN-deg@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH4PR03MB7649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84faf625-efc1-4e4f-1bbb-08de52d349bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bGUyR0hhcVcwMERlZ0pLOUNGbi92RGpYQnlabGpZVUlhNEVOS09yL3JUdXNC?=
- =?utf-8?B?Wk1ER0Z4cWxBcGdKQmsvN3FmbmRsbG56bFMwVkwwT3RhS3NPSDJNRWJFb0VI?=
- =?utf-8?B?Wk44WTZMc3NRR0FwbGNSYm1wdXJJQlZtRnpaYTFHM1V3MEZLelJQQ3RBdnI3?=
- =?utf-8?B?QXlQUnhoTis0eTlTMVBpS3BDTWE2TURMT2lvY2Yva2dscVd0VDZGblgxYXp5?=
- =?utf-8?B?SG1nMmoxaGMvOUVXSTVuVDlNZVl4QU5QQUNadUYvTzZvV3lpdkFvWnB4bDkr?=
- =?utf-8?B?RU92WWpBdS82bk1LR2ZGOFFKWU5hMUZKd2FHZWxHTG16amZoRmRhc3EvNEVs?=
- =?utf-8?B?SVVVblVmTzAwWlJ6RERpUFpqejk1SDdDazZtWEZrOFdCZG5VR09XL25sUXlU?=
- =?utf-8?B?dmxYaTlhRWZENXh4ODBkcEFxcFdkZnRGZURGU3FnVituenZtNjhzVzd6WnFw?=
- =?utf-8?B?Z2FYbTY2UGdKdCtlbXlYZDRHYXpoM2doUjNZMzAvTElDYmozSGgvQ3N3bnIy?=
- =?utf-8?B?TlgrTlVYaTFqR25ZUUpjY25EalVvcFhLLzJadkVpL3NPSmpkelFrSkYzb1Qr?=
- =?utf-8?B?U2dybm1GRG1zM0NKKzMzZ2tGdjkrOTA4T2N4c1BDcElmUmw4bFNoQTNMUENh?=
- =?utf-8?B?ZjB0Q3Yza1Z0Q1pmaXpITnlRMVpqZVh1MU8wTUw5T1UrSzd5dFpMWWFXVWRP?=
- =?utf-8?B?SkF2TEpUaVlXeFpzN3JucTNkQTRlRjgvcTM2eGVrQ0h5aGkyblVmZlEzRUlo?=
- =?utf-8?B?SkZaQzRVOGJFQmZobE1UZVVCVjBSQTArUWhvR25yd2JkNXdBZlhzZVI4QWdl?=
- =?utf-8?B?Qmg3cjBMZ21sWm1JUUNieWtKa1ZQOUsvMEk1aGpwRWhBaTkyNG53MzgvVEcv?=
- =?utf-8?B?bzFya0h5NTdKMkwxTWNKQ1d1UlNicVFIRGxReTJDTDRVVDFxM3lhR0Voc2pX?=
- =?utf-8?B?LzRzc1AxTXE5aGdKWVhPN3U5SG5kRnpkdzJsTnB5OC9PcEJQTGZXbWJmNXpq?=
- =?utf-8?B?VVJSMHQ5bWhTQ2Vac2RJbUJqSW9KL0djTEhTYXJpelBZbU1ITHZpSjZYZThR?=
- =?utf-8?B?TktQbU1FbjQwOUxrbzM0d0JUaU1iMkNsdXNuUCtyZC8vMVdlbUcydk4ydDhU?=
- =?utf-8?B?ZlZPQW1zcGg2T3RXa1VUcUt3bzB5b3Fya3Bra2w0RUlkM2hhVUJVZnVadlEr?=
- =?utf-8?B?TUkzVTNsK21DRjF2a1NrOGZ3OXVQQ0xzWWQ3ZzkrNGJoenV4NWhFQWJoaTk1?=
- =?utf-8?B?S0VCb0NCZ3pTVTVBR3JWRmJsM3lTb1BDc3g1elE5dTVlUmsvMXlMVUd2M2hU?=
- =?utf-8?B?eUsyckpKZk9nb3Y5ZzZNS1pKWVlxSCtrTHdaYlNlaEpJaERaUGFkcEQwak9t?=
- =?utf-8?B?REJYaXkrOGU2eVMyY0xEVUw3aE5JSnFzSkRFM3FDeVpMNUs2WUkxc3RWenJO?=
- =?utf-8?B?empEeGtPeGRVUFFNWWNHTThZV2JLbTlFRG5MMzlHb3h2azVCdGZEb0Zrc3Mv?=
- =?utf-8?B?bmRFUFp2aWtYUUJGOG9MbGxaekNoQmRld0xVQktKb3dsMXVqNFEzcGxVb1JK?=
- =?utf-8?B?bW5QSFRWdUd2NTdvS2REVUE4Rll1RVdLbW9OcFVLclh4RWRaMHAwVVg4RDl0?=
- =?utf-8?B?NUUwU3BkUUpuNkFKeU9oZzVBZXV4clJFV1dQOTFGWk5sd1RsUGlNUGVGKzdZ?=
- =?utf-8?B?UG1sS21pdTBnbEE2NTFNMEVIYlJyeXdKWnhVcWw4SDNWTVN6ZXlyR0VLYXNY?=
- =?utf-8?B?NkFuV0JyRHRsRy9oVXErWWV0NjhwbCtxOEhiZDNTN1FYdHZDbGloQTZrZEFi?=
- =?utf-8?B?aW1McEcwdnJicUlJN2JWN2VZZ0dGZStOclprbnpnUHd0UG4yV2N0SDkzM0FS?=
- =?utf-8?B?ZjRyYW1nNlV1WlA2REl2N1kvbmFna1gwVm8wQTByM1p2b1ZmN3V4YTJ4QlA4?=
- =?utf-8?Q?7GFUvH98GpE5CoJTqkfqwp0m4AgyUXCd?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RThWV2toNm0waGNVR3NFa2NzU3gvL015dFY3dFZhQWxxNTFlem9pcVJUYVp0?=
- =?utf-8?B?TFVhTTlpZlNtNk5tc2d1Y3RzYlIzWlFyc3pjYnZkdGQxT0MvMnhna1ludjMy?=
- =?utf-8?B?SHM3TzRLVXcrYUdsaEZKZ01aTS8vTnBXSDJzNmgyRzJ4MUlsYXhDRngxbTU3?=
- =?utf-8?B?OFZyTG92Slk0YWhKclFtOWkyTGJVTWtlbGEreDRnY1YxRkRIeEdXYU81VVBh?=
- =?utf-8?B?NlVFelZaN2gwbjgwZDFFbE0za0R4WnpDVU9WenJkU2xaOGFYK2thMXkwMXBs?=
- =?utf-8?B?ZFJnYTVTNHpkSE12WjVKNHAyRGZwYWE3NnB0UXBkWmFiL1Y3Y2hKaExoeW5B?=
- =?utf-8?B?TzdNR3hvZmpSZFViT3pDU2pSMXkwdWh1UTM0RjVYNnFkNFR5ZDFYaFRKVGty?=
- =?utf-8?B?WHVVZkErSUp3UXR5Umt3aXBPU2VkdVV4VXl4aW1Yb2NtUkFFanQ0cWtyZGhu?=
- =?utf-8?B?WUs3RXFUeVhsTThJWXhBMjZpeXpSR05RVlVaOG5rVThmamRZWjBjczRXV1JE?=
- =?utf-8?B?YUFZZ3BrYXhpcGJVanRCTHh2UzRLUllERXNQOFNtSEI3bS9SMlZSeGtNWE5W?=
- =?utf-8?B?ajg0SkEvTHZZYnRzRllCYkdtZ0dyYzkyTDNMVUMxakt4Uy9qaFRaaGxPRHdV?=
- =?utf-8?B?dkE5clpVa0Y3OGwxWC82Q3RidUoyV1FXbXJuMWxHSlJsUEdDNlY1MDJvYmFn?=
- =?utf-8?B?cWc1MjQ5eVpLV28wRHVZT0pqb25KQ2xxODZudVdnYTF2VVhPNGtkeXhTTVd1?=
- =?utf-8?B?cE9rd240TzZUbFlTSGRQWmNIUm9rQWJDVWtMcllENG1wL1dHRlN4TllrcSt4?=
- =?utf-8?B?cmhoTEx4cmhYVmljRUFUaVZCMFI3dmQrUTI0RU1QNzFsRHErZFNXQ3lxbVRI?=
- =?utf-8?B?UHlnZnh1RTBFemRXZUxTOEVBaEdINklLdndXNm1NbFhYVG1NV1lidkNMS1N3?=
- =?utf-8?B?em5NcFVwRnA3UW5Na0xkS1d4S0ZBbHBGa0lVNHkxOXN3YWE2VEQ5ME5pMDZH?=
- =?utf-8?B?bFNXRTlOaUZ0NmtLT01pUTdmRFVad1czQ0xkSHZVOTNIOGRhUUNuUDM5cllw?=
- =?utf-8?B?bng3a3NvemVEYkVEeGpob0o0L1RYS21CeDFsWVZ6bFlmTlNNNEU0Ui96b01p?=
- =?utf-8?B?Vmw3aW5UNW1RWG1JWHF3a1ZiRlljUXBOMFdJdnVjRFZYZWdOMzBYbiswdXRw?=
- =?utf-8?B?MWVXU3V0by9LUXowNytDdnZRZ0FMZEJOQVpZQTZiNVh0WjJLK0JPdUZYakIz?=
- =?utf-8?B?bmN2UE5WbkNCNFJTaHUxRUxCcHQwMEtkaTZ3NlNFZUxBMGJ4SU5RV2psYVZ3?=
- =?utf-8?B?TTBoSUFqb05OaGFuTUpOWE1pMEpIMDJVZll3OEg3RCtvUVI4dE1qRE9CaVh3?=
- =?utf-8?B?cVlmWURNLysrNzVBMHhJZEYveFNMMlAyU3hxWHQwMFJVanZJQkJhcDAxRUNq?=
- =?utf-8?B?dmI1ZmZMZzZ0Q0xRZW5yL3pmbG91cUUrN3pvM2NkL0JIWXdrbk1rT3J3K24r?=
- =?utf-8?B?OFR5NFhXMXArNlpSekZjVGNDRWpiakkvWHMwZWtJRzNYNDRPejV6eXZmVnJ3?=
- =?utf-8?B?RHJrVjlFUCsvbGU3R3Z5WENMZ0xyUHpzMTVLRWpXcEQ2b29wTFc0RXJ4eUZY?=
- =?utf-8?B?T3pEcHM2NGNMcDNGVjk5dlpjZ0kyLzlGSmt2dndHYVZSTDd1Y1N0OGcvUmdq?=
- =?utf-8?B?N09nZHVESmw1dFpmYTIyVWl1OE52RktHUzB6WkFGWHZtUENlWmdYWi9NZWNs?=
- =?utf-8?B?c0duSjJUaHFWRFBEaUFpdjFpQXBDalY4VHl3MVhMaEZ3MTlvNVFtc1FmaTUw?=
- =?utf-8?B?OUhiblNFUzFHQ0NMaHVNcUtjeG83WnBVZ25mcFdwdDUwcWE3ZURvN0VZbEcy?=
- =?utf-8?B?Ty9pcmNTTkw1bWZjV2htUmp2ckhwTm85QTJHYmVSNHZPWklRcHJQVTVPSXEy?=
- =?utf-8?B?Sm9jTDhBY0hhdGw4SjNYazV3WlAzNjg5SktNWkFuVTVzUFNBT08ranhBZVg5?=
- =?utf-8?B?MEp0VUl3N2JId0EvWnYyRWhWa240KzZNU0pFb3RGSzVpWmFHT0RmU3hqQU1R?=
- =?utf-8?B?ekNQOWNQVDFOM3hJQWxpVm0vQVV0ZmkrRHR3WUIyU0tqUEJZUFRnMVYrQlZW?=
- =?utf-8?B?L0pDMXdCVERnNnUxNWRneXQ2dzRSUXR6bUorQVovL2dGdXk0ZzJlWWpxZzlD?=
- =?utf-8?B?MjBpdXI5NkhBaDdIaW9mVVhGUUdweFkzdnZhZEpvSEZhWXgyTkZzdFljWEE5?=
- =?utf-8?B?dkZVbVhvMGdoSXdISVJ4NTdBV0xJUGs0eEVXcVMrRkZiYXpzVmtFTGRTUGZy?=
- =?utf-8?B?eUc2cXZINWlPcHZkNGJPdjRpaWVaRDB6dGh0OXUvSDlqbExpM0F1QT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84faf625-efc1-4e4f-1bbb-08de52d349bc
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 18:40:56.3411
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FTOLa/DSc+p3+/kuPs9J/9UmDoXj3sbTwB9loqPZC1e1FbVOlitAM4W7Zpj5QukpJ8TpG6DTsrhvxTY2sbBCrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7649
+Content-Type: multipart/mixed; boundary="8323329-1412054276-1768344472=:992863"
 
-On Tue, Jan 06, 2026 at 02:58:29PM +0100, Jan Beulich wrote:
-> It's used in time.c alone. Modernize types while there.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1412054276-1768344472=:992863
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+Hi Mykola,
+
+Replies inline below
+
+
+On Tue, 13 Jan 2026, Mykola Kvach wrote:
+> Hi all,
 > 
-> Amends: 5a82d598d2d ("viridian: unify time sources")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> While investigating the Arm cache coloring, I noticed a few issues in
+> parse_color_config() and one minor logging issue in the DT-related changes.
+> 
+> 1) parse_color_config() appears to accept "shorthand" forms not described
+> by the documented grammar
+> 
+> The function documents:
+> COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> RANGE ::= COLOR-COLOR
+> 
+> However, as implemented, inputs starting with a delimiter may be
+> accepted and interpreted as if a leading 0 was present. For example:
+> 
+> ",2-6" -> interpreted as "0,2-6"
+> "-10,2-6" -> interpreted as "0-10,2-6"
+> 
+> The reason is that the parser calls simple_strtoul(s, &s, 0) and then
+> directly checks for '-'/',' at *s. If no digits were consumed, start
+> becomes 0 and s can remain at the delimiter, which then gets treated as
+> a range or separator.
+> 
+> Questions/proposed direction:
+> - Is accepting these shorthand forms intentional? If yes, I think we
+> should document them explicitly (both in the comment above
+> parse_color_config() and in user-visible docs).
+> - If not intentional, we likely want to reject by verifying that at
+> least one digit was consumed for each number before accepting '-'
+> or ','.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Yes, I think it was intentional. I would be happy with adding the
+shorthands to the documentation.
 
-Thanks, Roger.
+
+
+> 2) Potential infinite loop/hang for ranges ending at UINT_MAX
+> 
+> The range expansion loop uses:
+> for (color = start; color <= end; color++)
+> 
+> If end == UINT_MAX, incrementing color wraps back to 0, and
+> (color <= end) remains true, resulting in an infinite loop inside early
+> parsing. The current bounds checks do not prevent
+> (start=UINT_MAX-some_small_number, end=UINT_MAX)
+> from passing.
+
+While that is true, no cache in existence can have even close to
+UINT_MAX colors, and the number of colors are either passed by the user
+(and assumed correct) or detected from the hardware.
+
+While I wouldn't mind hardening the code against bad configurations and
+I welcome a patch for it, we are talking about a patch that would turn a
+crash into an explicit panic or similar. Also see below.
+
+
+> 3) Partial global state on parse error can leak into later init/config use
+> parse_color_config() writes into the provided array and increments
+> *num_colors as it goes. On a parse error it returns -EINVAL, but the
+> partially updated outputs remain.
+> 
+> his is particularly problematic for the cmdline parameters, because the
+> utputs are global and can later be consumed by llc_coloring_init() or
+> dom0_set_llc_colors().
+> 
+> A concrete example is "1,w,3-5":
+> - "1" is parsed and committed
+> - at "w", simple_strtoul() returns 0 and does not advance 's'
+> - the code then treats this as a single color 0, commits it, and breaks
+> out with *s != '\0'
+> - the function returns -EINVAL, but num_colors and the array already
+> contain a partial configuration
+> 
+> In other words, a rejected configuration can still leave xen_num_colors
+> or dom0_num_colors non-zero and the corresponding colors[] partially
+> populated, which risks the feature being initialized/applied with an
+> unintended set of colors.
+> 
+> I think the parser should be fail-closed here. Minimally: reset
+> *num_colors to 0 on any error path (including the final "*s ? -EINVAL"
+> case). Ideally: parse transactionally into a temporary buffer and only
+> commit outputs on full success.
+
+I think we should panic on parsing errors: cache coloring is not a
+feature for beginners that a distro like Debian is going to enable to
+improve the out of the box experience with new users. Cache coloring is
+a sophisticated feature that takes time to learn how to use it
+effectively. If an experience embedded developer is providing an
+erroneous configuration the best we can do it panic so that it becomes
+immediately obvious what they did wrong and they can fix it.
+
+
+> 4) Cosmetic: missing newline in printk in domain_set_llc_colors_from_str()
+> 
+> printk(XENLOG_ERR "Error parsing LLC color configuration");
+> without a trailing '\n'.
+> 
+> I wanted to flag these issues in case you’d like to address them in the
+> next revision/follow-up.
+
+Sure please fix
+--8323329-1412054276-1768344472=:992863--
 
