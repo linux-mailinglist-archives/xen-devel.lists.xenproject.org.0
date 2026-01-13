@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3302D18C28
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 13:36:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201660.1517237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E52DD18DDE
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 13:43:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201675.1517248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdci-0000qO-Gn; Tue, 13 Jan 2026 12:35:48 +0000
+	id 1vfdkG-0002fL-AE; Tue, 13 Jan 2026 12:43:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201660.1517237; Tue, 13 Jan 2026 12:35:48 +0000
+Received: by outflank-mailman (output) from mailman id 1201675.1517248; Tue, 13 Jan 2026 12:43:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdci-0000nb-Cx; Tue, 13 Jan 2026 12:35:48 +0000
-Received: by outflank-mailman (input) for mailman id 1201660;
- Tue, 13 Jan 2026 12:35:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vfdkG-0002cD-6j; Tue, 13 Jan 2026 12:43:36 +0000
+Received: by outflank-mailman (input) for mailman id 1201675;
+ Tue, 13 Jan 2026 12:43:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fjkf=7S=gmail.com=akmarkov45@srs-se1.protection.inumbo.net>)
- id 1vfdch-0000nV-8a
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 12:35:47 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60847301-f07c-11f0-9ccf-f158ae23cfc8;
- Tue, 13 Jan 2026 13:35:44 +0100 (CET)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-2a09d981507so48547365ad.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 04:35:44 -0800 (PST)
+ <SRS0=vMW5=7S=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vfdkE-0002c7-7a
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 12:43:34 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77cd3824-f07d-11f0-b15e-2bf370ae4941;
+ Tue, 13 Jan 2026 13:43:33 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by IA3PR03MB7593.namprd03.prod.outlook.com (2603:10b6:208:50c::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
+ 2026 12:43:29 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
+ 12:43:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,495 +47,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60847301-f07c-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768307743; x=1768912543; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ny3fIW64a8n6LNuRuq9w3JproVg2pbuStVj1bgw/1jY=;
-        b=cXinUNxLUHGjGfHfhw2cEOjIdYlBawMl85hKTJIw08h8w6sU2cRWsEa1asTUAXzMPM
-         N9Z/+8/gFqR3jfi6yYWajF/MbM2JuiLidLb+oBuiaN7emWaUDiHUkVW/T+caS+xlOmWx
-         P+D/TqGdZVGDkWgbc4xFJdWSQrC/LXx6ox9R2aVixvcwpXoyqt2OzhKXDM4VbjIZxaqG
-         dEDJNjYcx2LJDmPdBtiaAK4qDAP6ErmCvykyjISUPxAjIPel0+PsJGgIcXHdq7vwwXz7
-         jIb9j+cPAYOAnTgc+ot1g8vqDqH2LKoegGsK8B+/zgVV+7Dr+vUfjkz+dBB8tMyM8WM2
-         +4iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768307743; x=1768912543;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ny3fIW64a8n6LNuRuq9w3JproVg2pbuStVj1bgw/1jY=;
-        b=a2SmixTS/PynEObdRSJWJ3Psh7mbPJQlIJ0u5MqNM/TYjMxYPJ9f78D3mIc7QkNvG3
-         iew5XkW6xmELhStZ0BtF7jYoJuA1zRhkheiyhG37EUfdVbYcbMcuTlwsieuSMKNPFNZ8
-         D35bqWPjyP3EN+FiIeO+OvmQVkj08QLiinoIjme/SiEkHDCOfLaPtZj4EmPb+po6QMnD
-         xXKtOSlxVX5wpvKaHBnZ2g7rdow97NAx9g/u0OoM+rozUyYKDEEdzqojVBEGtPsJkBtI
-         n8OjWxxkTBZeWedsDncoYtVXsdrrSyIR9tpb6gzm4io+4nj4rvskp3Iypz3yN1dOMTmI
-         DLtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU8vH7gHCsnzSqLPcNHn8sgxMJ+5I9qjK5rhh3nZnpBntPh8s3z8UPp2S7hlVanVXhp/ob6SnoNf/Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz5j0ETuY+RJ4Ad3t/S/M58jyXyyygS7Ga/B3lwlpl2VmdyTsJy
-	mAoGSXqLONsvtwbw2IDaAJskiltwgpKK9kztQyH/ePZVEeG6+MX0uZ5x4DcWHX1+fFsdchpfR4X
-	nrB71ljwZcrXygro/hn73Q973YqtjODQ=
-X-Gm-Gg: AY/fxX6+p8aCTf6QUQOc7f4e9fRwS9Btv5d/k2NlpwspuY7aSGs0d59VMIuvw0ib7r+
-	hb5o8kolxbbpM7lSehwCL558R7kU6FDwImEnGPhYAmw/J+4afF5mdpd6DRl/R3ZdOKevwY5XKxu
-	8I70VQmv6cIzmg7Psw+THPBWA172HszEPjNdJHxzRgAkfwH1hUiq9Am3vqk8OnfUasFFs6JKUxQ
-	p38JZoGDcaqzWIXOyxfKWOvQlTJt5c10kR9qutsEoT2KIFgtQZG3/XnR3kaiDssTkvemjqBtOh8
-	7hrFmh8=
-X-Google-Smtp-Source: AGHT+IECiNf0+0iVPZhsREN4UnvfMdi7iEU51O0n4w27xGEEEwflBKIky7oxFV7+coYJOD9CoMTJ8S4EgfpnJxqlJvk=
-X-Received: by 2002:a17:902:fc84:b0:295:592f:9496 with SMTP id
- d9443c01a7336-2a58b5015afmr23183315ad.20.1768307742594; Tue, 13 Jan 2026
- 04:35:42 -0800 (PST)
+X-Inumbo-ID: 77cd3824-f07d-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qktuLXAkBIctGvWW5OHcdE01eipJj9N/B6KXHRGPs5b1TzrtZUbaxIeCY5AgB8knUDzDpv0jT+cgWVtuqVyy1dUtu8hS3YMNDlpsUluC6jduzoTTurnmzSqE1yukoM053R1xnnskSAdYuXswoDCsopoTUTuSjCG0OCJqdvm9YOAI6rFMSmleZOf82Q1FOngtP3xE/l8eN2u3XqCONN20JESv9h0FFqJnFuNDa9Yw/wSC6nkDj+oiKZzkISsOAECs90ejksvtAR3lALtstAzbHk40g/jxX0ZhqNx+gTLXsm7HvCaHvnWOVwynDBn7mu3mCkTjTrkMskufMPNbVxdD9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=huRGABghhDDApfv3LQIBFoyrw4+2bvl1ZmoOSc6ciyk=;
+ b=R1rIVzkC/hJCss66q9/1X242+5f1GLglH6Da2gQdkUFYU5x6HVErNPet/lu1WiiVpFp94i2KpbxPZcjqk1foT8BZtRvU9MIju+aMPfO2F1/cfTpraku3ZCJo9fC79FPpKJvN+HcCcORyilRi+E52JzY57lnv/arDgNnxfu15pYUE+bQuPtzpuCVjcq6FHkSq2nb9zxEnbMlRn/3mgLH8uccJjvoBWJbhmbhh9j1xigCHTjnjDIWnOmpIfkfnfWbI+ahuxIst7LqObhxGgyxfC22ARMl420i+ZrvmNn322JMqnwX1BQQLIFx4YkYpHrv76h9uxxPFW3XRuQpyq4TaPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=huRGABghhDDApfv3LQIBFoyrw4+2bvl1ZmoOSc6ciyk=;
+ b=GUx4rZtcdKlRPdgZf0aZNM8HUuBuEaLAywAmnEXd1d+0J7nrbr037s/g5XvIMGDsFc8TsfiH52MAOKXrfxmSjvC5DPw/83SLN31mm6peh59RtUgzBC/+hFSTS8YjrKstdv3vQCEXGbnAT5peTgN3p8XweDTazZ039VqfG1t0lh0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <15233b0a-2cad-4263-8e54-3ad17037ad60@citrix.com>
+Date: Tue, 13 Jan 2026 12:43:25 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2] x86: Use 32-bit counter for TLB clock on debug builds
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20260113120959.55156-1-alejandro.garciavallejo@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20260113120959.55156-1-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0462.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1aa::17) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <4a6b6307-9014-4c4c-8c23-3673efa2d1b1@gmail.com>
- <794c382b-3b20-4d2a-ab70-b24d7fdf88ae@suse.com> <CACQYvN-fiATs2dtdboYxCreF8kF5RsgoH-zgWtQ59iVNOT_wVg@mail.gmail.com>
- <CACQYvN_JbPs9TAs4GYO3myVbehwU9Zz_BhQqj1jVT2Sfg30qUQ@mail.gmail.com>
- <4b03cf36-d2d8-420c-82df-55d6a9ac9d68@suse.com> <CACQYvN9cLwXy=rtYgEyTUsqxCYvP0-qFsEW=y8B3Fo9mauNx-g@mail.gmail.com>
- <6ea436ce-6ecb-47f8-8d8a-98b0badeb14e@suse.com> <CACQYvN_dZxXmvhBd8pZ41Kws_n_TXcwp5mMQ=H0Vu89Px8M+PA@mail.gmail.com>
- <b70e2c0e-7e8d-41d8-97da-5b975ad0ed47@suse.com> <CACQYvN8YtN4Q5MSH4i=MPjtOaxmPwr+oOKBSsrpqBq+=xAYhuw@mail.gmail.com>
- <fcf49001-149a-48e4-b2b2-ad1f445b1405@suse.com>
-In-Reply-To: <fcf49001-149a-48e4-b2b2-ad1f445b1405@suse.com>
-From: Anton Markov <akmarkov45@gmail.com>
-Date: Tue, 13 Jan 2026 15:35:31 +0300
-X-Gm-Features: AZwV_Qgzeunb-h-9WuEQeTPRhtsdcHFLBYMj31NUMoR7eJYuWhGK_MX9B6MP7jE
-Message-ID: <CACQYvN-JcSizJx8LhMeyqXW69E4+iYo1s+9cGsZmrdGxaLb8NQ@mail.gmail.com>
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in get_s_time_fixed()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000d9dad50648443a5d"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|IA3PR03MB7593:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6e65028-b6de-4cfd-6634-08de52a15a59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bUdJSm1vNmhMZmJaYjhTZkR0QkpFSU1KZEh4OGY1clR3WFRXV1JtTDVScDls?=
+ =?utf-8?B?WEl6NHFRSzlSQkNsckorZWxHLzloYlNNYWpGWVh3Qk9jelpSTEJmTkRWbHVB?=
+ =?utf-8?B?Y1l6NlhGN21hNzlIMHlOS2JmZ1JWV0FVam9VM1RKTHZwOStzL1hqTlRlTVNx?=
+ =?utf-8?B?aWovc1FZQ1hKODdnTWI0dlEvSENZbDlTY090Ykx1bzZIR1RLQ2xGUGhhd0Zn?=
+ =?utf-8?B?bFZib3FhUk01aEFEYVJjRC90aVhKVjFUTDB4WG9DMHZvNGZteE1lTzBjQU9G?=
+ =?utf-8?B?MDBvQXRMdy9vWDFaaVcyQStaZ2o0R080WmRZK21HUE5uL1Nnejk5a3JZNVFN?=
+ =?utf-8?B?SzN2MURWQ2FOOE5VRG1oODkvUGhyakFUbDBhNm1hcHQ2MlRZQTdMZ0locnYw?=
+ =?utf-8?B?WEJzVFc4eEQ1QUt2M0JWNTJtSTQzelVjK0hMd211SEkvNythSFoxSFFFVW4z?=
+ =?utf-8?B?QWh3aHpIUmJvRFFINW9rOXNmc1VlU1Vtd05GbklMV2kwcjRveTNGS0JxK1ph?=
+ =?utf-8?B?b2FaTzF4QmtUR2F0VkxyUHUzSTVScDZBMmpZT1N0WUFKZkNjNjRUMDBpZ2pt?=
+ =?utf-8?B?ZmUyZ25FdU9FQnFkYStWb05rTFJpMWQyNnBnbFVlUEFEdmoyTTlhZXpIMGFE?=
+ =?utf-8?B?R2c5U3NreVBQTGxrbXdxL0FSRE9wWVhLMjVnODkwK0JiUUllLytHTzVmc3Bi?=
+ =?utf-8?B?alpBaTZoTWRnaFE0WjVaSklndmhtMHBCZExTVUp2VUxOSS9DQ2xscjVQTUYv?=
+ =?utf-8?B?QjJ3NS9XeTRUMENuRVNGQUpJbnRIV2NXeUo0a1UyUWVjNDRHUEJtejB0RWFJ?=
+ =?utf-8?B?VDVQSnY0bStueTRjSGJSOGF2YmhhMFltSmhqYk9YWEZXcm1uWnhxK3NwVmgw?=
+ =?utf-8?B?bmNrWlJwVnBhcGZQMjZJQkZsUlVwUjlKVWFKcEJJUWdCMzRVbmR3WXhVdFlO?=
+ =?utf-8?B?Tlpkc0htTVlwRlpRbHoxaUF6ajJoQXNMN1BBclczMTQxdXlad0lsdlFRZ1BX?=
+ =?utf-8?B?K2ZuZkVhbW13Tm5KSnJKclVVRWxnb3lzVWRRQnhkNUZLZ0NDbW9TejQrVUxo?=
+ =?utf-8?B?VXpXVVcreFg1RVJ2dWhZUmxma1p3emFlYVdJYW9sRVgvTncvY3pkM04zU0xU?=
+ =?utf-8?B?R3lROUdOTzdUbko1RWo0N1NON2ludzkwVmpjb2ZqTGt3OG5QNTV6UUZaakht?=
+ =?utf-8?B?UWJrdUIyUW1VYWZ2VUF1ZDRqMkFqNmlYZzRYRndlOGNvOW16SUxHMlpUUUJH?=
+ =?utf-8?B?VWRTNmFydjkxN1UvVjdmakdkQy9FbWdGUWdKd3JBaEdRTXVjZ3FXZSt5Z1Jq?=
+ =?utf-8?B?b0lJYW9VaXZGckVRdHNtN3diQ1dLZ3VuSlZwTEdCNTl4YmNlM2NxNlI1am1U?=
+ =?utf-8?B?RjhhQnRRRldrckU5T3VQb0NON0YzbzhrTW80akdvanNXMDhVb01HaEpJMWNs?=
+ =?utf-8?B?Yk9zbmNtYUZXMlhzY0JVUzBpNFhjV2FWbTQza09mNGp0VitkSU95MDNwYkd6?=
+ =?utf-8?B?U1UwTjBIOUdsUkZOUU9YQXA3T1ZRSHdzUVh0bytBY1dENDVDL1BKaFFjNWZC?=
+ =?utf-8?B?dnAzUysrTzFsaEUyNXNaVFI5VTJmZUNNT1NST2E1dmpOQk02UHVFT3hsYXdk?=
+ =?utf-8?B?Y2gzbGFFUmhDbHNGZWQ4QS8rYWE3a1Z4ZXAxNCtYTW53THpuMnp6OEtOc1R2?=
+ =?utf-8?B?MlpjRGlrUzJxTVB6cEtuSGNGdlBuS1JhOTJ4dnZsakttTjF6THgvQUIxUnNI?=
+ =?utf-8?B?VUdlNGgvSkNXSzN4aVFqcnZLQ3VGRHBpQ3FrWE5LaDREczZVL2hHOTZHK1lK?=
+ =?utf-8?B?K1FEaTkvTEZKemhMV0U0dHJFLzhZdm5ONWowWWc4TGhOcjhTQlZVWEk3RGtv?=
+ =?utf-8?B?T2FFVmZWYWg3UDNSWFVLb29rcmZqNjgwU1JTczVVTHUyRU95S3NEOFd3cVVx?=
+ =?utf-8?Q?jKmX4LuB6iaVcCQebO6czNYkE3MyHpAH?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZnlENEhiUWpqeEhjaXBJYzNhdTZOSUdYUkNwNFNML0RxRDZlME01K0V5ckVV?=
+ =?utf-8?B?SjFXalJNN2N4MG41cTFKeDcrOVdkZWMwaDBEV2RPY3VyTUFNaGtmOFN3Rkkv?=
+ =?utf-8?B?VEZyUGFzcDY0dllxQTIyOWJoSW11OEdXR1Jub3M5ZkQ3dDhDcnJrVDlKaFFt?=
+ =?utf-8?B?dk9sSjEzVVgzditld3BnNHVYM1FmWUZEL1lGKzIrNTRUMjN0V1N0N3FmUkNv?=
+ =?utf-8?B?TDFzVVg3cnAwOFZod0JBSFRqQlhMcW5qUVlpRWoyNCs4L2ptSUR1eTROb2Fr?=
+ =?utf-8?B?R1hlS2pCVFVtYjdGdTVHUkVsbGYxQ2tkUm94d1ZFOFRTTnBHNmR5T012N3dR?=
+ =?utf-8?B?VDBnMUJEWEZmK0lrQlRkVU55Mm9RelBoQXByWUtlQ0l6d3l1RlQvMk1TakZO?=
+ =?utf-8?B?UzZZelNNMmVONytGR0l4YXZoV1dBcFVRTzhZYUdIbmZFS3NMY2ZEZGNMMlho?=
+ =?utf-8?B?Q1FwYk9SWU9MS3NwT2NrTXhnamJhTHE2em5QTjZWYVgxcy9ZSzVTc2FpY29p?=
+ =?utf-8?B?OWlRbFR6SzFYMTBiTGtVd1lCV2xSSHFrUm1FTDN2Wjk4OFJmbC8xR1RtYllL?=
+ =?utf-8?B?cEo0L3Y1L1RkdFA1OU5qUnhYS21Hb2Z2UHhaNzg2ZVNCWkpUaG5OY1Z3ODlE?=
+ =?utf-8?B?NitjYnpkcHNhdnBPUzF0Z0JhT2NTa3BmR1pvdG9MRDdSMmVVOEFzYWNpendP?=
+ =?utf-8?B?ZGdRa0cyZnI5bUlLaDJIMm5kazJNUDZ1d1FJVlNqMUpCeWRadWs5OFVjUzhG?=
+ =?utf-8?B?RlpibURRZElEYXl2QzhOdGVpVXU4TW9KejFyUlF2RktyZ0o1Tm4zaC9NNTA1?=
+ =?utf-8?B?STNkZzFaVzEzc1NWeC9kcVhvekFRWXE5Zk5ETyt6UWs0RVBEK0lxdkJCaUsv?=
+ =?utf-8?B?ekJFT3M4UkJaRW10VEgwdWZpMldtdjkrajZDczRJZ0pWT2ZQR3lqaDB4cmUz?=
+ =?utf-8?B?eXJUUGhYUGZFT1B2WWNhSTR3aXV6MWJxRUJ0dGdYUjMrWC9SN1lweHBwaG5P?=
+ =?utf-8?B?WlVQelJ6TkJPeHJUMHMzM2NOd2JsWlJLTzArYng3dVpINGtUeEhzektHc3Rp?=
+ =?utf-8?B?czhMRlA5WlMxUCtPdHoydG1oL2UwdGFlY0t3L1dSRlJ2bE94KzFhWW9HSVcx?=
+ =?utf-8?B?VWJUaVZZNEJhaTFTRkpwbWhyWnQvcXJ3cUZMNUhBajNMN1BzV0I4Q2hkNDVa?=
+ =?utf-8?B?T2JYWHlpR21TMFhNbGpzTHdpNExBN2QvMENrWHFSMTVpc0N4V0pyOWdjUklm?=
+ =?utf-8?B?VWE2dk96NXdvT1JSeDBnU01CWE0rQUxNNTdFSWo3Q3pwd3p2YTdjbmJMM2xO?=
+ =?utf-8?B?WWtPSlJ6YWNSTDhIdUd0c2ZlclZwTURvVGU0R3pFRXNXQVNIK1Bic1VrdXhH?=
+ =?utf-8?B?c3RGcU1ITzZFSVMrTnZaRHlOM2ZEeko1NVE0WHZWbUNsQWFHSEJuNXpWNWk1?=
+ =?utf-8?B?S1BGdGxiQjlESHdKaEZJZ05ZSkR1U1FKNkFiTDUwdnVNQVV0OWJjb1A3cXNV?=
+ =?utf-8?B?dnA1UmlGOGJWUUNyenhTb1dDbG9OTDJkdlhjY3ZnSXU3cEN0c044VGkyaHBJ?=
+ =?utf-8?B?WXJ6V1hJNjFHeUNBcW9LY1J1VVYzNlJhZXl5N0JUbkwwa05qbjFHSFlKdUla?=
+ =?utf-8?B?Rk9VVWVsc01tbFZoZXdsbGZJTExvcTZCcEwrK0JVZE1TZitXVTlKUEtMcWpS?=
+ =?utf-8?B?U3pIUGlSMXdKenpNYzdUMVE3cjh0WkhiN3lVYnhUbGtDQXV5NHAvQXcxWlN4?=
+ =?utf-8?B?VlRCdkVPTFJwU0NiTEVKclB5QWJWSERhMUIrYTBzR1NWaEFrSkFheHU3K3FT?=
+ =?utf-8?B?SWVMbGU3Y1lkOXRBd043SmRhR0xnaEtoSlp0dHNwZTJQbTBUYlJRNDU5ejF1?=
+ =?utf-8?B?dEZpS0l1L2tGRFNadVpoekh6cEgvM1NOMWJ6T3JIRW1SRDRjdzlCbHZ3Q1JZ?=
+ =?utf-8?B?ZFdreGpHTlV6WGhiS1Z3cHdNVkNxYURLakYzYm9GS1F1d1Q0QUx5VDJ6cHR2?=
+ =?utf-8?B?Z2dZcGNrMHlQLzNVMUdEN0l0V0w1RWh4bCtldUJIQ2FycDJremIwYVIvUnpj?=
+ =?utf-8?B?WldRajZLWFphQml0Q014Y0tkNzd1M3libE93WUdoUnhOQ0JkN014QzFmcjgv?=
+ =?utf-8?B?R0lZZk44M3d0NGY0M1JERlIzODBkNSs2eUVqT2ZjSzRlUGFPcnE4UndCejV6?=
+ =?utf-8?B?Z2JVdGxNTFRGNjlOU1ZBeHVSMkNGcXdGenpKR1lsVWJsVllUTTFVbFE2RXZl?=
+ =?utf-8?B?Tm4wL3IvOEZ5eHRiSVJiN1ZGQUF2VjlCRm5hRzltbHpCMG5UVGZrSFRZeTQ0?=
+ =?utf-8?B?SWl0ajJ6WjFvbjV4dDh2T3Nsdm5oSVkwWjQvai9ZTldQNVByeXVLQmF2UTVR?=
+ =?utf-8?Q?XJrEucKeE30wwnzs=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6e65028-b6de-4cfd-6634-08de52a15a59
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 12:43:29.4281
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XOYw+sV/UC5En8xOv5yyycNub/nbWkeojWs9aOtuvHoHmBzx4te1WE7EKXv8fJg7TSczApJeBHflwF+sypB7EU5NAmvfcVAaqR6uVAz4jOE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR03MB7593
 
---000000000000d9dad50648443a5d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 13/01/2026 12:09 pm, Alejandro Vallejo wrote:
+> Debug builds traditionally ship with a 10-bit counter for the TLB
+> clock. This forces global TLB shootdowns with high frequency, making
+> debug builds unsuitable for any form of real time testing.
+>
+> Remove this quirk, unifying release and debug under a wide counter.
+>
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-You did read my recurring explanation beyond the IPI sending, didn't you?
-Of course IPI arrival may vary across cores / threads. Yet the term
-"rendezvous" is used because CPUs having received the IPI are then held in
-a waiting loop, until _all_ CPUs have made it there. Then CPU0 indicates to
-all of them simultaneously to move to the next step. There's going to again
-be some variance (especially on NUMA, where the memory write needs to
-propagate to all nodes), but at least within a single node that should be
-pretty low. The main source of variance I would expect there would by
-hyperthreads competing with one another in a single core.
-
-Yes, I saw it. I'm not trying to dispute your understanding of the
-situation. The difference may be small, but it adds up.
-
-Sure, I don't doubt you make those observations. But we're still trying to
-> converge on a theory on what these may be caused by.
->
-I can't tell you exactly what the main cause of the delay is. I can only
-list possible factors:
-1. Rounding error, which varies for each core;
-2. Delay in IPI delivery speed (even at the hardware level, signal
-delivery shouldn't
-happen simultaneously, and some cores may have interrupts disabled);
-3. CPU frequency boost, which allows some cores to execute code faster. On
-modern CPUs, this doesn't affect the TSC frequency, but the problem is that
-the counter will be read at different times.
-4. The initial difference in TSC counter values, which for cores within a
-single CPU should be no more than 100 ns. In the case of NUMA, no more than
-1000 ns;
-I can't speak about percentages; I wasn't involved in CPU development, but
-there are many reasons not to allow cores to compete in sequence increment
-speed.
-
-The log entries aren't in CPU order, and CPUs 1 and 2 actually have
-> identical values on the rhs. That doesn't quite fit what you have said so
-> far. CPU3's value is also lower than CPU0's.
-> While CPU numbers happen to be in sequence here, the rhs values aren't
-> equally
-> ordered.
-> Also really here it is
-> 22915730869696 - 22915730869993 =3D -297 * 3 (3.00 GHz) =3D 891 ahead
-> Similarly here. Yes, the gap increases, yet that's not a lag of CPU3 past
-> CPU0, but exactly the other way around.
-> As per above - no, I don't think I can see that. Or maybe I'm misreading
-> the
-> numbers as well as what you have been saying.
->
-During the first few hours, the situation can be blurred due to possible
-race conditions. After two days, it becomes more or less clear:
-
-254478162020920 (core 0) > 254478162018972 (core 1) > 254478162018429 (core
-2) > 254478162017636 (core 3)
-
-The lower the core number, the more it pulls ahead. It's possible that this
-is indeed related to which core is most heavily loaded (which one activates
-CPU boost more often). In my configuration, the first three cores are
-dedicated to DOM0, and the fourth is reserved for virtual machines. The
-first core ends up being the most heavily loaded due to interrupt handling,
-etc.
-I can also add that after replacing get_s_time_fixed with scale_delta, the
-difference stops accumulating. At this point, it's clear to me that the
-problem is the use of previous last_stime values. The nature of this CPU
-behavior is unlikely to be understood at the software level. Of course, all
-the processors I tested on have the constant_tsc, nonstop_tsc, and
-tsc_known_freq flags.
-
-
-On Tue, Jan 13, 2026 at 2:21=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
-
-> On 12.01.2026 17:41, Anton Markov wrote:
-> >>
-> >> That calls on_selected_cpus(), but send_IPI_mask() may then still
-> resort to
-> >> all-but-self. In that case all IPIs are sent in one go.
-> >
-> > Plus as said, how IPIs are sent doesn't matter for the invocation of
-> >> time_calibration_rendezvous_tail(). They'll all run at the same time,
-> not
-> >> one after the other.
-> >
-> > At the hardware level, no one can guarantee that the processors will
-> > simultaneously respond to the signal and execute your code nanosecond
-> after
-> > you send the ipi. Especially when we're talking about NUMA
-> configurations. I'm
-> > afraid the possible and impossible in the laws of physics is also beyon=
-d
-> > the scope of this thread.
->
-> You did read my recurring explanation beyond the IPI sending, didn't you?
-> Of course IPI arrival may vary across cores / threads. Yet the term
-> "rendezvous" is used because CPUs having received the IPI are then held
-> in a waiting loop, until _all_ CPUs have made it there. Then CPU0
-> indicates to all of them simultaneously to move to the next step. There's
-> going to again be some variance (especially on NUMA, where the memory
-> write needs to propagate to all nodes), but at least within a single node
-> that should be pretty low. The main source of variance I would expect
-> there would by hyperthreads competing with one another in a single core.
->
-> > Since further down you build upon that "IPI lag", I fear we first need =
-to
-> >> settle on this aspect of your theory.
-> >
-> >  I've already provided the delay logs. It's not hard for me to repeat.
->
-> Sure, I don't doubt you make those observations. But we're still trying t=
-o
-> converge on a theory on what these may be caused by.
->
-> >  2 hours of work:
-> >
-> >> (XEN) update stime on time calibrate 0, 8564145820102 -> 8565145861597
-> >> (8565145862216, 0)
-> >> (XEN) update stime on time calibrate 1, 8564145820129 -> 8565145861609
-> >> (8565145863957, 0)
-> >> (XEN) update stime on time calibrate 3, 8564145819996 -> 8565145861491
-> >> (8565145864800, 0)
-> >> (XEN) update stime on time calibrate 2, 8564145820099 -> 8565145861609
-> >> (8565145865372, 0)
-> >>
-> >> 8565145861609 - 8565145861491 =3D 115 * 3 (3.00 GHz) =3D 345 lag
->
-> The log entries aren't in CPU order, and CPUs 1 and 2 actually have
-> identical values on the rhs. That doesn't quite fit what you have said so
-> far. CPU3's value is also lower than CPU0's.
->
-> > 3 hours of work:
-> >
-> >> (XEN) update stime on time calibrate 0, 22914730829200 -> 229157308699=
-93
-> >> (22915730870665, 0)
-> >> (XEN) update stime on time calibrate 1, 22914730829073 -> 229157308698=
-89
-> >> (22915730870693, 0)
-> >> (XEN) update stime on time calibrate 2, 22914730829052 -> 229157308698=
-41
-> >> (22915730872231, 0)
-> >> (XEN) update stime on time calibrate 3, 22914730828892 -> 229157308696=
-96
-> >> (22915730872096, 0)
-> >>
-> >> 22915730869993 - 22915730869696 =3D 297 * 3 (3.00 GHz) =3D 891 lag
->
-> While CPU numbers happen to be in sequence here, the rhs values aren't
-> equally
-> ordered.
->
-> Also really here it is
->
-> 22915730869696 - 22915730869993 =3D -297 * 3 (3.00 GHz) =3D 891 ahead
->
-> > 2-3 day of work:
-> >
-> >> (XEN) update stime on time calibrate 0, 254477161980127 ->
-> 254478162020920
-> >> (254478162021549, 0)
-> >> (XEN) update stime on time calibrate 2, 254477161977638 ->
-> 254478162018429
-> >> (254478162022187, 0)
-> >> (XEN) update stime on time calibrate 1, 254477161978192 ->
-> 254478162018972
-> >> (254478162022776, 0)
-> >> (XEN) update stime on time calibrate 3, 254477161976832 ->
-> 254478162017636
-> >> (254478162021394, 0)
-> >>
-> >> 254478162020920 - 254478162017636 =3D 3284 * 3 (3.00 GHz) =3D 9852 lag
->
-> Similarly here. Yes, the gap increases, yet that's not a lag of CPU3 past
-> CPU0, but exactly the other way around.
->
-> >  As you can see, the core lag is strictly determined by their sequence
-> > number.
->
-> As per above - no, I don't think I can see that. Or maybe I'm misreading
-> the
-> numbers as well as what you have been saying.
->
-> Jan
->
-
---000000000000d9dad50648443a5d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><blockquote class=3D"gmail-moz-quote-pre gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">You did read my recurring explanation beyond the IPI sending, d=
-idn&#39;t you?
-Of course IPI arrival may vary across cores / threads. Yet the term
-&quot;rendezvous&quot; is used because CPUs having received the IPI are the=
-n held
-in a waiting loop, until <span class=3D"gmail-moz-txt-underscore"><span cla=
-ss=3D"gmail-moz-txt-tag">_</span>all<span class=3D"gmail-moz-txt-tag">_</sp=
-an></span> CPUs have made it there. Then CPU0
-indicates to all of them simultaneously to move to the next step. There&#39=
-;s
-going to again be some variance (especially on NUMA, where the memory
-write needs to propagate to all nodes), but at least within a single node
-that should be pretty low. The main source of variance I would expect
-there would by hyperthreads competing with one another in a single core.</b=
-lockquote><div><span class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail=
--jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">Yes, I saw it. I&#39;m no=
-t trying to dispute your understanding of the situation.</span></span> <spa=
-n class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">The diffe=
-rence may be small, but it adds up.</span></span></span></div><div><br></di=
-v><div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
-border-left:1px solid rgb(204,204,204);padding-left:1ex">Sure, I don&#39;t =
-doubt you make those observations. But we&#39;re still trying to<br>
-converge on a theory on what these may be caused by.<span class=3D"gmail-im=
-"></span><br><span class=3D"gmail-im"></span></blockquote><span class=3D"gm=
-ail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=
-=3D"gmail-ryNqvb">I can&#39;t tell you exactly what the main cause of the d=
-elay is.</span></span> <span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=
-=3D"gmail-ryNqvb">I can only list possible factors:</span></span></span></d=
-iv><div><span class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz =
-gmail-ChMk0b"><span class=3D"gmail-ryNqvb">1. Rounding error, which varies =
-for each core;</span></span><span class=3D"gmail-jCAhz gmail-ChMk0b"><span =
-class=3D"gmail-ryNqvb"><br></span></span></span></div><div><span class=3D"g=
-mail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span clas=
-s=3D"gmail-ryNqvb">2. Delay in IPI=C2=A0</span></span></span>delivery<span =
-class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b">=
-<span class=3D"gmail-ryNqvb">=C2=A0speed (even at the hardware level, signa=
-l=C2=A0</span></span></span>delivery<span class=3D"gmail-HwtZe" lang=3D"en"=
-><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">=C2=
-=A0shouldn&#39;t happen simultaneously, and some cores may have interrupts =
-disabled);</span></span><span class=3D"gmail-jCAhz gmail-ChMk0b"><span clas=
-s=3D"gmail-ryNqvb"><br></span></span></span></div><div><span class=3D"gmail=
--HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D=
-"gmail-ryNqvb">3. CPU frequency boost, which allows some cores to execute c=
-ode faster.</span></span> <span class=3D"gmail-jCAhz gmail-ChMk0b"><span cl=
-ass=3D"gmail-ryNqvb">On modern CPUs, this doesn&#39;t affect the TSC freque=
-ncy, but the problem is that the counter will be read at different times.</=
-span></span><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-r=
-yNqvb"><br></span></span></span></div><div><span class=3D"gmail-HwtZe" lang=
-=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqv=
-b">4. The initial difference in TSC counter values, which for cores within =
-a single CPU should be no more than 100 ns.</span></span> <span class=3D"gm=
-ail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">In the case of NUMA, n=
-o more than 1000 ns;</span></span><span class=3D"gmail-jCAhz gmail-ChMk0b">=
-<span class=3D"gmail-ryNqvb"><br></span></span></span></div><div><span clas=
-s=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><spa=
-n class=3D"gmail-ryNqvb">I can&#39;t speak about percentages; I wasn&#39;t =
-involved in CPU development, but there are many reasons not to allow cores =
-to compete in sequence increment speed.</span></span></span></div><div><spa=
-n class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b=
-"><span class=3D"gmail-ryNqvb"><br></span></span></span></div><div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">The log entries aren&#39;t in CPU=
- order, and CPUs 1 and 2 actually have<br>
-identical values on the rhs. That doesn&#39;t quite fit what you have said =
-so<br>
-far. CPU3&#39;s value is also lower than CPU0&#39;s.<span class=3D"gmail-im=
-"></span><br><span class=3D"gmail-im"></span>While CPU numbers happen to be=
- in sequence here, the rhs values aren&#39;t equally<br>
-ordered.<br>
-Also really here it is<br>
-22915730869696 - 22915730869993 =3D -297 * 3 (3.00 GHz) =3D 891 ahead<span =
-class=3D"gmail-im"></span><br><span class=3D"gmail-im"></span>Similarly her=
-e. Yes, the gap increases, yet that&#39;s not a lag of CPU3 past<br>
-CPU0, but exactly the other way around.<span class=3D"gmail-im"></span><br>=
-<span class=3D"gmail-im"></span>As per above - no, I don&#39;t think I can =
-see that. Or maybe I&#39;m misreading the<br>
-numbers as well as what you have been saying.<br></blockquote><span class=
-=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz"><span class=3D"gma=
-il-ryNqvb">During the first few hours, the situation can be blurred due to =
-possible race conditions.</span></span> <span class=3D"gmail-jCAhz gmail-Ch=
-Mk0b"><span class=3D"gmail-ryNqvb">After two days, it becomes more or less =
-clear:</span></span></span></div><div><span class=3D"gmail-HwtZe" lang=3D"e=
-n"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb"><b=
-r></span></span></span></div><div><span class=3D"gmail-HwtZe" lang=3D"en"><=
-span class=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">254478=
-162020920 (core 0) &gt; 254478162018972 (core 1) &gt; 254478162018429 (core=
- 2) &gt; 254478162017636 (core 3)</span></span></span></div><div><span clas=
-s=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><spa=
-n class=3D"gmail-ryNqvb"><br></span></span></span></div><div><span class=3D=
-"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChMk0b"><span cl=
-ass=3D"gmail-ryNqvb">The lower the core number, the more it pulls ahead. It=
-&#39;s possible that this is indeed related to which core is most heavily l=
-oaded (which one activates CPU boost more often).</span></span> <span class=
-=3D"gmail-jCAhz gmail-ChMk0b"><span class=3D"gmail-ryNqvb">In my configurat=
-ion, the first three cores are dedicated to DOM0, and the fourth is reserve=
-d for virtual machines.</span></span> <span class=3D"gmail-jCAhz gmail-ChMk=
-0b"><span class=3D"gmail-ryNqvb">The first core ends up being the most heav=
-ily loaded due to interrupt handling, etc.</span></span></span></div><div><=
-span class=3D"gmail-HwtZe" lang=3D"en"><span class=3D"gmail-jCAhz gmail-ChM=
-k0b"><span class=3D"gmail-ryNqvb">I can also add that after replacing get_s=
-_time_fixed with scale_delta, the difference stops accumulating.</span></sp=
-an> <span class=3D"gmail-jCAhz"><span class=3D"gmail-ryNqvb">At this point,=
- it&#39;s clear to me that the problem is the use of previous last_stime va=
-lues. The nature of this CPU behavior is unlikely to be understood at the s=
-oftware level.</span></span> <span class=3D"gmail-jCAhz"><span class=3D"gma=
-il-ryNqvb">Of course, all the processors I tested on have the constant_tsc,=
- nonstop_tsc, and tsc_known_freq flags.</span></span></span></div><br></div=
-><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" clas=
-s=3D"gmail_attr">On Tue, Jan 13, 2026 at 2:21=E2=80=AFPM Jan Beulich &lt;<a=
- href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">On 12.01.2026 17:41, An=
-ton Markov wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; That calls on_selected_cpus(), but send_IPI_mask() may then still =
-resort to<br>
-&gt;&gt; all-but-self. In that case all IPIs are sent in one go.<br>
-&gt; <br>
-&gt; Plus as said, how IPIs are sent doesn&#39;t matter for the invocation =
-of<br>
-&gt;&gt; time_calibration_rendezvous_tail(). They&#39;ll all run at the sam=
-e time, not<br>
-&gt;&gt; one after the other.<br>
-&gt; <br>
-&gt; At the hardware level, no one can guarantee that the processors will<b=
-r>
-&gt; simultaneously respond to the signal and execute your code nanosecond =
-after<br>
-&gt; you send the ipi. Especially when we&#39;re talking about NUMA configu=
-rations. I&#39;m<br>
-&gt; afraid the possible and impossible in the laws of physics is also beyo=
-nd<br>
-&gt; the scope of this thread.<br>
-<br>
-You did read my recurring explanation beyond the IPI sending, didn&#39;t yo=
-u?<br>
-Of course IPI arrival may vary across cores / threads. Yet the term<br>
-&quot;rendezvous&quot; is used because CPUs having received the IPI are the=
-n held<br>
-in a waiting loop, until _all_ CPUs have made it there. Then CPU0<br>
-indicates to all of them simultaneously to move to the next step. There&#39=
-;s<br>
-going to again be some variance (especially on NUMA, where the memory<br>
-write needs to propagate to all nodes), but at least within a single node<b=
-r>
-that should be pretty low. The main source of variance I would expect<br>
-there would by hyperthreads competing with one another in a single core.<br=
->
-<br>
-&gt; Since further down you build upon that &quot;IPI lag&quot;, I fear we =
-first need to<br>
-&gt;&gt; settle on this aspect of your theory.<br>
-&gt; <br>
-&gt;=C2=A0 I&#39;ve already provided the delay logs. It&#39;s not hard for =
-me to repeat.<br>
-<br>
-Sure, I don&#39;t doubt you make those observations. But we&#39;re still tr=
-ying to<br>
-converge on a theory on what these may be caused by.<br>
-<br>
-&gt;=C2=A0 2 hours of work:<br>
-&gt; <br>
-&gt;&gt; (XEN) update stime on time calibrate 0, 8564145820102 -&gt; 856514=
-5861597<br>
-&gt;&gt; (8565145862216, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 1, 8564145820129 -&gt; 856514=
-5861609<br>
-&gt;&gt; (8565145863957, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 3, 8564145819996 -&gt; 856514=
-5861491<br>
-&gt;&gt; (8565145864800, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 2, 8564145820099 -&gt; 856514=
-5861609<br>
-&gt;&gt; (8565145865372, 0)<br>
-&gt;&gt;<br>
-&gt;&gt; 8565145861609 - 8565145861491 =3D 115 * 3 (3.00 GHz) =3D 345 lag<b=
-r>
-<br>
-The log entries aren&#39;t in CPU order, and CPUs 1 and 2 actually have<br>
-identical values on the rhs. That doesn&#39;t quite fit what you have said =
-so<br>
-far. CPU3&#39;s value is also lower than CPU0&#39;s.<br>
-<br>
-&gt; 3 hours of work:<br>
-&gt; <br>
-&gt;&gt; (XEN) update stime on time calibrate 0, 22914730829200 -&gt; 22915=
-730869993<br>
-&gt;&gt; (22915730870665, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 1, 22914730829073 -&gt; 22915=
-730869889<br>
-&gt;&gt; (22915730870693, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 2, 22914730829052 -&gt; 22915=
-730869841<br>
-&gt;&gt; (22915730872231, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 3, 22914730828892 -&gt; 22915=
-730869696<br>
-&gt;&gt; (22915730872096, 0)<br>
-&gt;&gt;<br>
-&gt;&gt; 22915730869993 - 22915730869696 =3D 297 * 3 (3.00 GHz) =3D 891 lag=
-<br>
-<br>
-While CPU numbers happen to be in sequence here, the rhs values aren&#39;t =
-equally<br>
-ordered.<br>
-<br>
-Also really here it is<br>
-<br>
-22915730869696 - 22915730869993 =3D -297 * 3 (3.00 GHz) =3D 891 ahead<br>
-<br>
-&gt; 2-3 day of work:<br>
-&gt; <br>
-&gt;&gt; (XEN) update stime on time calibrate 0, 254477161980127 -&gt; 2544=
-78162020920<br>
-&gt;&gt; (254478162021549, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 2, 254477161977638 -&gt; 2544=
-78162018429<br>
-&gt;&gt; (254478162022187, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 1, 254477161978192 -&gt; 2544=
-78162018972<br>
-&gt;&gt; (254478162022776, 0)<br>
-&gt;&gt; (XEN) update stime on time calibrate 3, 254477161976832 -&gt; 2544=
-78162017636<br>
-&gt;&gt; (254478162021394, 0)<br>
-&gt;&gt;<br>
-&gt;&gt; 254478162020920 - 254478162017636 =3D 3284 * 3 (3.00 GHz) =3D 9852=
- lag<br>
-<br>
-Similarly here. Yes, the gap increases, yet that&#39;s not a lag of CPU3 pa=
-st<br>
-CPU0, but exactly the other way around.<br>
-<br>
-&gt;=C2=A0 As you can see, the core lag is strictly determined by their seq=
-uence<br>
-&gt; number.<br>
-<br>
-As per above - no, I don&#39;t think I can see that. Or maybe I&#39;m misre=
-ading the<br>
-numbers as well as what you have been saying.<br>
-<br>
-Jan<br>
-</blockquote></div>
-
---000000000000d9dad50648443a5d--
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
