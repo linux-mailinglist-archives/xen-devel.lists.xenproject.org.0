@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078E7D18ECB
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 13:51:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201687.1517257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FBF7D19268
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 14:48:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201710.1517289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdro-0004Lz-1G; Tue, 13 Jan 2026 12:51:24 +0000
+	id 1vfek2-0002Zn-5s; Tue, 13 Jan 2026 13:47:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201687.1517257; Tue, 13 Jan 2026 12:51:24 +0000
+Received: by outflank-mailman (output) from mailman id 1201710.1517289; Tue, 13 Jan 2026 13:47:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdrn-0004KL-US; Tue, 13 Jan 2026 12:51:23 +0000
-Received: by outflank-mailman (input) for mailman id 1201687;
- Tue, 13 Jan 2026 12:51:22 +0000
+	id 1vfek2-0002X1-3G; Tue, 13 Jan 2026 13:47:26 +0000
+Received: by outflank-mailman (input) for mailman id 1201710;
+ Tue, 13 Jan 2026 13:47:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i8AK=7S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vfdrm-0004KC-BP
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 12:51:22 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=wVi9=7S=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vfek1-0002Wv-B7
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 13:47:25 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 898f5082-f07e-11f0-9ccf-f158ae23cfc8;
- Tue, 13 Jan 2026 13:51:11 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-653781de668so591107a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 04:51:11 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8731f0718asm303503166b.67.2026.01.13.04.51.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jan 2026 04:51:10 -0800 (PST)
+ id 6309efba-f086-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 14:47:22 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-42fbc305882so4091402f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 05:47:22 -0800 (PST)
+Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
+ [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd5ee5e3sm44058501f8f.35.2026.01.13.05.47.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jan 2026 05:47:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,322 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 898f5082-f07e-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 6309efba-f086-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768308671; x=1768913471; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rc+00Iz/VNwj12qtx2UFz2wSnCxu9Xw7NrDdCTd38hM=;
-        b=DeJVhnNBnj7OmRpn+QEt9qhrZIG1KO67yLF45dhgIdqG6M6zATQBXIOE4Tu6GSy6fQ
-         mY+hmPU+XeQyL14ERQEmaF9BmIQmE6oLw2Ohfg6KEECie4kvcab85dM4dIerhNoVCKDg
-         76/ZJrYZHJwqr2NNrYXD2ciaB8wdDwpJWcKQuDRVRObVdGmNlEto0v+x3NZJ+x8znUcr
-         JmyDE2JGzMSIHT02QpB/81rq46xFv5+VJC0WWkI3kO7eQwazUdpJFj9Uhr3J7XoaPYlx
-         Y3BKEuEzbm6XicuSMtc6qT++Cn/Qzp3n14tLm2p4No1J88sRNVzQhWLG5U5QOd16KrbR
-         jvOg==
+        d=citrix.com; s=google; t=1768312042; x=1768916842; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YTxMpK8blmmBv4ftj07xwrXcPyB8EDLdkKosz0jgWTo=;
+        b=e/LoCEa2nGUjgYIz6jANKDCmv1rErDu8lEl4ulWN90ECxH7VUjY53rlKVGJtnQcwZc
+         BKdqQeZd9BgDZkfco0WLqBEFIWd1RBa5GQp2bFkmaM567GdtCVSIHwzMbhU/J54ZRPgW
+         Pce8jJNTCQu/8wiAbc2J5qYhssHb8jYMb5enM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768308671; x=1768913471;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rc+00Iz/VNwj12qtx2UFz2wSnCxu9Xw7NrDdCTd38hM=;
-        b=nlEZTlnknZkqQhtYn/1hBLc4E8r/+JDyLazbKObedQ2QqbRdmf63zSf5xDegW7fCa3
-         AhSrdAELaD0pQoeIQ2LKSv25Ht1vECjVoD4FU5MIdI800dV5amH3rlwEWCMF11ALmyut
-         UkM4GKZKBvwHCTBW7hBJBWyCu36svmsBgNOYf7nNdEpupZOp4kPEJBHz7dUPU9D9Cq6U
-         YaE0nKz4CmR78qnGwC6NUAau3bRwW57d43/woa1bN1LJjtkN3WpA9xe9AOhVPGdAV+lI
-         k7F620QMsRIR15sNDWolk5fZ80bJCcfA/XL5JZR9a+rj3RXkGv/ZZtwx6pg/Xw1mcIn0
-         MRPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWngFdc70rNXFRR0IChNhGhgNOTZDACjPGvnqVChMDmI12wp4/2dVxIC4cXqD0NpXH8jCGvv64hZx0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8+yZqmLeVbQ7LAxuUPo9c1//UIeGLPquU1otYyTs7fajxJRfp
-	b9M2b0/156up/VTnHt6jSnIekMdvDKDfsWQdkmLlQ0rrgduAPDelb7Z9
-X-Gm-Gg: AY/fxX7xrqdiYgdoNhBj8GIdfAJPkJyFsKMCk660EPWEXHF6wcy2rMJdqd5Ddj7BGka
-	27uVW8l9SUIgeYlnhRQm4ypVKqSBotKww7p9OyKLoWFhJcCK6VwOKTY2O9nPsl0IXQfs+zEBxxx
-	+ldCK/YGnoaCNAgjenE1RKaKrf+QNWDEj+T/TceWLskdm+y/PK6E6NiNzNeho7QDgqCsk574KeP
-	DhUIfRHVaxuPgNMK2IZTLH7UvPxleiD0y4p2FgSBQ2EoE1by+BYLFZxcbbaDuBZA9i7/lMssas0
-	5clz/7PFM2J3YSG2g9bZbyEDLhxw4X1/0IFw/fkUQKwmn2/xrWjTP5i2TUbsarJDNzLxNA84+sU
-	ehsj+iVDiqqzOSztPOXDQeIWPrPlp1MmX01SbCauoMLOimGxhK1Hk11Vw7DqJkl33w+c7QQ6Gwm
-	r7iw7wEI6s4WxydLHF7ilnQoDaMumYHwOrnJXZ3PCORgy20d3pzlg/0hVe7muuqnA=
-X-Google-Smtp-Source: AGHT+IHncNc7a6dHmmle2NYf3jdUgD++hEj21S6BYblCjzvDgJdMqacZXYG0KQa4v42TaZpHeL3wlw==
-X-Received: by 2002:a17:907:a4a:b0:b7c:e320:5228 with SMTP id a640c23a62f3a-b84451bf352mr1919554766b.22.1768308670414;
-        Tue, 13 Jan 2026 04:51:10 -0800 (PST)
-Message-ID: <f707899a-3200-4467-a827-2195351f1226@gmail.com>
-Date: Tue, 13 Jan 2026 13:51:09 +0100
+        d=1e100.net; s=20230601; t=1768312042; x=1768916842;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YTxMpK8blmmBv4ftj07xwrXcPyB8EDLdkKosz0jgWTo=;
+        b=H8isO6aZheZGYP/L6bMtiR7YSuoEeq9v5JUsDeHW8bnVNP4ZGLj/MPaM68rWfionm8
+         1aHDRCYod6MUQBD4utTOaf3b0nhLZJ6pMDbbcOAkX+Ei1c0IfamVKuI82jyJXkHj5uPY
+         b3kqa5KiPJmVm/Tro9ly4jKBonU/rsvT3AkK7gxugN6yXM2WwzGuWVBtwZVq3GQfnBlZ
+         /OqdG0Rjcti7xSgx+V8L1mRLr2+lyShAlhPvW6mHSkOmpK3YDjh4AKiZq1xdg7Nau714
+         4Jify3wJqLZIoby1+NKRxlQhHoPhuof/EoPF4TF4r7R6Xr3LZMhKsA7WF/6U5wwgah/B
+         ntkA==
+X-Gm-Message-State: AOJu0YxxUQa6aWyflep1b3Ty5MaS2u3KbO5y/EQ0e2+7NTXpqc7VTXRS
+	G4XU2KJp5ONJlTvWZI4NMIdVYS6BcKa84VJz2Sxo2gYlJ/bomrgwQoOY5MRqFpVoxp0C+DZJdQk
+	omYJr
+X-Gm-Gg: AY/fxX60x6Y58QPJvX91Knk/iWOC0lbS+RJcD+UPXaDkFzVkma////IIB/xMjcXWejw
+	VJnflS3A8X4O+TQOPyv7k9+kI6lcutyj6+JkF6NKO7uREbaJU2arznnMOY1mhBDulq7XZ9Az4Ls
+	/1DKE5uwEpQu1rIJRsRCqaV7/fq9oRSelWf1uQSORjh7tRaexzryBF8OoGtVAhhHpbVK5uFjFT4
+	ZqHO/h69T403R9OvFy5zEBpdXxBHNvLZ6Cme8mvZZENAlKqyMPh84p9Xr4W5b9XR8QghhbNTJF6
+	3lpRI1vdi+E4tSioKiNYCe2XIHIaaOGXyzgOoNHHcBqk7pGCV9/ZjSOJ/XZqSIGK/2LzryXJcCR
+	pjUXNgnb4Q19ZloidMZY0wiu4iWvlZMo86ys5CWnfPB1riWFRzhz/E+5+LyFja4B+VrGcmGRRs0
+	xvSgLet5aRcZyLPxtvAnL/lIP3eC0MTZWqB/4UvRnAwDQIE3f/wYah2vrS8IzH/mhqnb46nZeY
+X-Google-Smtp-Source: AGHT+IHApcp1nxuWpmQGXYgRHTGzSofPbLDAbGRb2yHGwShyLvgxCXeyRnTfcU+5U64i5YXxvrIl7w==
+X-Received: by 2002:a5d:64e6:0:b0:432:851d:3676 with SMTP id ffacd0b85a97d-432c3774267mr28006416f8f.57.1768312041503;
+        Tue, 13 Jan 2026 05:47:21 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/cpu-policy: Filter out OS{XSAVE,PKE} in calculate_raw_cpu_policy()
+Date: Tue, 13 Jan 2026 13:47:19 +0000
+Message-Id: <20260113134719.1047476-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
- interrupts, part 1
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
- <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+They're dynamic too, and don't have named fields because no (other) logic in
+Xen ought to operate on them.  In particular, OSPKE being visible depending on
+whether we're in HVM or PV vCPU context when scanning.
 
-On 1/7/26 5:28 PM, Jan Beulich wrote:
-> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->> This patch is based on Linux kernel 6.16.0.
->>
->> Introduce a lockless mechanism for tracking pending vCPU interrupts using
->> atomic bit operations. The design follows a multi-producer, single-consumer
->> model where the consumer is the vCPU itself.
->>
->> Two bitmaps are added:
->>   - irqs_pending — represents interrupts currently pending
->>   - irqs_pending_mask — represents bits that have changed in irqs_pending
->>
->> Introduce vcpu_(un)set_interrupt() to mark an interrupt in irqs_pending{_mask}
->> bitmap(s) to notify vCPU that it has or no an interrupt.
-> It's not becoming clear how these are going to be used. It's also not clear
-> to me whether you really need to record these in software: Aren't there
-> (virtual) registers where they would be more naturally tracked, much like
-> hardware would do?
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-Guest (virtual) registers are not used to inject interrupts on RISC-V; for that
-purpose, the HVIP register is provided. Even without considering HVIP, using guest
-(virtual) registers has a downside: if a bit in hideleg is zero, the corresponding
-bit in VSIP is read-only zero. During a context_switch(), when CSRs are saved,
-this means we would not obtain correct values, since some VSIP bits may read as
-zero during csr_read().
+More fallout from XenServer's rescan capability, this time running with a PVH
+dom0.  OSXSAVE was accounted for before by being force-enabled, and is wrong,
+hence the adjustment here too.
 
-In fact, this is one of the reasons why we want to track interrupts to be
-injected separately. For example, a vtimer may expire while the vCPU is running
-on a different pCPU, so we update vCPU->hvip while the vCPU is active elsewhere.
-When the vCPU is later switched in during a context_switch(), we would lose the
-fact that vCPU->hvip.vtimer was set to 1, because the CSR save function will do:
-   vCPU->hvip = csr_read(CSR_HVIP);
-and the pending interrupt state would be overwritten.
+The othe two fields Intel list as dynamic are AESKLE (which we don't have
+infrsatructure for yet), and SYSCALL (based on %cs.l) which I have no interest
+in treating like a generally variable bit.
+---
+ xen/arch/x86/cpu-policy.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
->
-> Furthermore, since you're dealing with two bitmaps, there's no full
-> atomicity here anyway. The bitmaps are each dealt with atomically, but
-> the overall update isn't atomic. Whether that's going to be okay can only
-> be told when also seeing the producer side.
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 372d11f2ff20..5273fe0ae435 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -345,9 +345,13 @@ void calculate_raw_cpu_policy(void)
+     ASSERT(p->x86_vendor == boot_cpu_data.vendor);
+ 
+     /*
+-     * Clear the truly dynamic fields.  These vary with the in-context XCR0
+-     * and MSR_XSS, and aren't interesting fields in the raw policy.
++     * Clear the truly dynamic fields.
++     *
++     * - The OS* bits are forwards from CR4.
++     * - The xstate fields are calculated from XCR0 and MSR_XSS.
+      */
++    p->basic.raw[1].c &= ~cpufeat_mask(X86_FEATURE_OSXSAVE);
++    p->feat.raw[0].c  &= ~cpufeat_mask(X86_FEATURE_OSPKE);
+     p->xstate.raw[0].b = 0;
+     p->xstate.raw[1].b = 0;
+ 
 
-You're correct that the two-bitmap update isn't fully atomic, but this design
-is intentional. Here [1], other  is the part 2 of introduction of pending vCPU interrupts
-and as it requires more stuff to introduce (for example, [2]) I decided not to
-introduce it now with some stubs and introduce it when all will be ready for it.
-
-If a producer is interrupted between updating the two bitmaps the worst case is:
-vCPU might process stale state for one cycle, this is resolved on the next flush when
-the mask indicates the bit changed. No interrupt is permanently lost or spuriously
-generated.
-
-[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/31022d515789a032fd994f9ca90965db089dbbd5
-void vcpu_flush_interrupts(struct vcpu *v)
-{
-register_t *hvip = &v->arch.hvip;
-
-unsigned long mask, val;
-
-if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
-{
-mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
-val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
-
-*hvip &= ~mask;
-*hvip |= val;
-}
-
-/* Flush AIA high interrupts */
-vcpu_aia_flush_interrupts(v);
-
-vcpu_update_hvip(v);
-}
-
-
-void vcpu_sync_interrupts(struct vcpu *v)
-{
-unsigned long hvip;
-
-/* Read current HVIP and VSIE CSRs */
-v->arch.vsie = csr_read(CSR_VSIE);
-
-/* Sync-up HVIP.VSSIP bit changes does by Guest */
-hvip = csr_read(CSR_HVIP);
-if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
-{
-if ( hvip & BIT(IRQ_VS_SOFT, UL) )
-{
-if ( !test_and_set_bit(IRQ_VS_SOFT,
-&v->arch.irqs_pending_mask) )
-set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
-}
-else
-{
-if ( !test_and_set_bit(IRQ_VS_SOFT,
-&v->arch.irqs_pending_mask) )
-clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
-}
-}
-
-/* Sync-up AIA high interrupts */
-vcpu_aia_sync_interrupts(v);
-
-/* Sync-up timer CSRs */
-vtimer_sync(v);
-}
-
-
-[2] https://gitlab.com/xen-project/people/olkur/xen/-/commit/1c06b8b1d1eadfe009a4d6b1a1902fac64d080e9
-
->
->> --- a/xen/arch/riscv/domain.c
->> +++ b/xen/arch/riscv/domain.c
->> @@ -5,9 +5,11 @@
->>   #include <xen/sched.h>
->>   #include <xen/smp.h>
->>   
->> +#include <asm/bitops.h>
->>   #include <asm/cpufeature.h>
->>   #include <asm/csr.h>
->>   #include <asm/riscv_encoding.h>
->> +#include <asm/system.h>
->>   #include <asm/vtimer.h>
->>   
->>   static void vcpu_csr_init(struct vcpu *v)
->> @@ -100,6 +102,9 @@ int arch_vcpu_create(struct vcpu *v)
->>       if ( is_idle_vcpu(v) )
->>           return rc;
->>   
->> +    bitmap_zero(v->arch.irqs_pending, RISCV_VCPU_NR_IRQS);
->> +    bitmap_zero(v->arch.irqs_pending_mask, RISCV_VCPU_NR_IRQS);
-> This is pointless, as struct vcpu starts out all zero.
->
->> @@ -135,3 +140,45 @@ void vcpu_kick(struct vcpu *v)
->>           smp_send_event_check_mask(cpumask_of(v->processor));
->>       }
->>   }
->> +
->> +int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq)
->> +{
->> +    /*
->> +     * We only allow VS-mode software, timer, and external
->> +     * interrupts when irq is one of the local interrupts
->> +     * defined by RISC-V privilege specification.
->> +     */
->> +    if ( irq < IRQ_LOCAL_MAX &&
-> What use is this? In particular this allows an incoming irq with a huge
-> number to ...
->
->> +         irq != IRQ_VS_SOFT &&
->> +         irq != IRQ_VS_TIMER &&
->> +         irq != IRQ_VS_EXT )
->> +        return -EINVAL;
->> +
->> +    set_bit(irq, v->arch.irqs_pending);
->> +    smp_mb__before_atomic();
->> +    set_bit(irq, v->arch.irqs_pending_mask);
-> ... overrun both bitmaps.
-
-Agree, it would be better just to drop "irq < IRQ_LOCAL_MAX &&".
-
->
->> --- a/xen/arch/riscv/include/asm/domain.h
->> +++ b/xen/arch/riscv/include/asm/domain.h
->> @@ -85,6 +85,22 @@ struct arch_vcpu
->>       register_t vstval;
->>       register_t vsatp;
->>       register_t vsepc;
->> +
->> +    /*
->> +     * VCPU interrupts
->> +     *
->> +     * We have a lockless approach for tracking pending VCPU interrupts
->> +     * implemented using atomic bitops. The irqs_pending bitmap represent
->> +     * pending interrupts whereas irqs_pending_mask represent bits changed
->> +     * in irqs_pending.
-> And hence a set immediately followed by an unset is then indistinguishable
-> from just an unset (or the other way around).
-
-I think it is distinguishable with the combination of irqs_pending_mask.
-
->   This may not be a problem, but
-> if it isn't, I think this needs explaining. Much like it is unclear why the
-> "changed" state needs tracking in the first place.
-
-It is needed to track which bits are changed, irqs_pending only represents
-the current state of pending interrupts.CPU might want to react to changes
-rather than the absolute state.
-
-Example:
-  - If CPU 0 sets an interrupt, CPU 1 needs to notice “something changed”
-    to inject it into the VCPU.
-  - If CPU 0 sets and then clears the bit before CPU 1 reads it,
-    irqs_pending alone shows 0, the transition is lost.
-By maintaining irqs_pending_mask, you can detect “this bit changed
-recently,” even if the final state is 0.
-
-Also, having irqs_pending_mask allows to flush interrupts without lock:
-if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
-{
-mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
-val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
-
-*hvip &= ~mask;
-*hvip |= val;
-}
-Without it I assume that we should have spinlcok around access to irqs_pending.
-
-
->
->> Our approach is modeled around multiple producer
->> +     * and single consumer problem where the consumer is the VCPU itself.
->> +     *
->> +     * DECLARE_BITMAP() is needed here to support 64 vCPU local interrupts
->> +     * on RV32 host.
->> +     */
->> +#define RISCV_VCPU_NR_IRQS 64
->> +    DECLARE_BITMAP(irqs_pending, RISCV_VCPU_NR_IRQS);
->> +    DECLARE_BITMAP(irqs_pending_mask, RISCV_VCPU_NR_IRQS);
->>   }  __cacheline_aligned;
->>   
->>   struct paging_domain {
->> @@ -123,6 +139,9 @@ static inline void update_guest_memory_policy(struct vcpu *v,
->>   
->>   static inline void arch_vcpu_block(struct vcpu *v) {}
->>   
->> +int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq);
->> +int vcpu_unset_interrupt(struct vcpu *v, const unsigned int irq);
-> Why the const-s?
-
-As irq number isn't going to be changed inside these functions.
-
->
->> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
->> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
->> @@ -91,6 +91,7 @@
->>   #define IRQ_M_EXT			11
->>   #define IRQ_S_GEXT			12
->>   #define IRQ_PMU_OVF			13
->> +#define IRQ_LOCAL_MAX		(IRQ_PMU_OVF + 1)
-> MAX together with "+ 1" looks wrong. What is 14 (which, when MAX is 14,
-> must be a valid interrupt)? Or if 14 isn't a valid interrupt, please use
-> NR or NUM.
-
-I didn’t fully understand your idea. Are you suggesting having|IRQ_LOCAL_NR|?
-That sounds unclear, as it’s not obvious what it would represent.
-Using|MAX_HART| seems better, since it represents the maximum number allowed
-for a local interrupt. Any IRQ below that value is considered local, while
-values above it are implementation-specific interrupts.
-
-> Also, nit: Padding doesn't match with the earlier #define-s (even if in the
-> quoted text it appears otherwise).
-
-Thanks.
-
-~ Oleksii
+base-commit: 6d1180b1499145fcb8f3099c1ab4b7305aba2ed4
+prerequisite-patch-id: c5070338424f36d973c1b0fb9f6419682c48ee03
+-- 
+2.39.5
 
 
