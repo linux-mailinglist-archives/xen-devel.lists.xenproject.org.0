@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E93D17A4E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 10:33:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201308.1516967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EA5CD17CEF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 10:57:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201324.1516982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfall-00066n-CO; Tue, 13 Jan 2026 09:32:57 +0000
+	id 1vfb8d-0000qO-7d; Tue, 13 Jan 2026 09:56:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201308.1516967; Tue, 13 Jan 2026 09:32:57 +0000
+Received: by outflank-mailman (output) from mailman id 1201324.1516982; Tue, 13 Jan 2026 09:56:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfall-00064P-9N; Tue, 13 Jan 2026 09:32:57 +0000
-Received: by outflank-mailman (input) for mailman id 1201308;
- Tue, 13 Jan 2026 09:32:56 +0000
+	id 1vfb8d-0000nf-4o; Tue, 13 Jan 2026 09:56:35 +0000
+Received: by outflank-mailman (input) for mailman id 1201324;
+ Tue, 13 Jan 2026 09:56:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=thT7=7S=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfalk-00064J-7D
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 09:32:56 +0000
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [2a00:1450:4864:20::342])
+ id 1vfb8b-0000nZ-Ap
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 09:56:33 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d61dc032-f062-11f0-9ccf-f158ae23cfc8;
- Tue, 13 Jan 2026 10:32:54 +0100 (CET)
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-47775fb6c56so69873765e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 01:32:54 -0800 (PST)
+ id 228a69c1-f066-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 10:56:30 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-430f2ee2f00so4212251f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 01:56:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ed9b3aa99sm12825095e9.0.2026.01.13.01.32.52
+ ffacd0b85a97d-432bd0e1adbsm43770271f8f.17.2026.01.13.01.56.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jan 2026 01:32:53 -0800 (PST)
+ Tue, 13 Jan 2026 01:56:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d61dc032-f062-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 228a69c1-f066-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768296773; x=1768901573; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768298190; x=1768902990; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xe98Dtl2+pp2XcPfTk3G1Xuv4ZAGxJ7JxTbli3Z1kWY=;
-        b=XjkFKego4KFEEnlb4pf6rSk/RtmpA+Kt1OhrDH7KRHiLHXkoBEY9kzXOE1aMzj2acQ
-         CenThXUGpUepa+tTfjopuSYiSLgnebWJLIph7LCMbnu1jymfIaOoR0r9YZUf90c7yIbJ
-         l0HCVGQ9X9/r+Fam1m94h1bYnBNpbcXKv1V8eWkQbAid8b3cxdwD9sBPANzY6ClNrf++
-         hUWAsGFtLNEXnuBzeVAKEgXIwcwPPKaA9aM4UpyAtbm/OsJRWcxrL397Z28gg+zVzRwo
-         jZ9YCG3Gi7A1XcMjoYod9PRd/XWm0YpHF8oVcr6Kc+ngs9Hn7OCA59bJpW+h7raXd5iJ
-         Q6wQ==
+        bh=uV6nfva8JBAZ5PG8F0nf4vcX0Xle/KSnoVk9aMOcdBs=;
+        b=E9p+rGS6Dcnjy4jbKSa6QKNZy7IZMXPl4eFP8bCB17wkLxz/GFAhI++FVDHqiB2RE6
+         JEYMnL4VEubUk9aP1fPuea/oJggyJS7cnNHBRsMf8/4NMld4Q58b/ExjfZTSZnjdmUhh
+         LDkIjn40mGrHh8oSzTnxP73FBCD/7mT61mc2LHAxocFdgTYOjy1e2+utACuolbnEzUVA
+         SCa8xbTxy9kMtziVFy+uhwcebn8e3Y4OtF0tCKabGInS+cSZRVBMucuNNkVfiz2zdBjt
+         1yKYLK2gpm2JvDfC2n0+Y0i1eD3346AzFV3o48QCKLletDWkOblCEplhsxaXxcL5lVia
+         nMUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768296773; x=1768901573;
+        d=1e100.net; s=20230601; t=1768298190; x=1768902990;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xe98Dtl2+pp2XcPfTk3G1Xuv4ZAGxJ7JxTbli3Z1kWY=;
-        b=ms0exi50+sn59jUrCPTdYpzTZstGSQtJuETOjNiUKFKSIF33lrpt12CF7XpvuSZUU0
-         l4sR9cYcYMNbu5L6fvslEI9MxH3f9rtVN9Ldbi6J9PmJZhMNRU5qDl+3eJFZoYpjvxhX
-         0GLvBaSJvvGv/mXwq2ybLDOMDe9grdz7P2JyzNCDGEMKL+ssC70JndtiPX1vUJNpWFIK
-         PxWlQCPRHF2S6xlbmmxwFyYiGJBIcItCzVn1i+QtBG7AEhVTxIssS2xLA8kX1VGiXhg+
-         27SCH3QijiPyvDff5W7uR/cNfBOZfWxTSv5jV1GiB+klfN1I5QJk4LHkofp6xoEndcg+
-         L98A==
-X-Forwarded-Encrypted: i=1; AJvYcCUyh91eKaVRw0JhxNyerFNNF/9qR5INf0iSMP7EfpJm1L4f34HYMmu9utia0txsjEveeNrtHe9Tfus=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyS3h/ypy0ul/kKXJXJ6FnN8CfjmBjr4SHJh6Ll9Ssz8t0/kZo0
-	Ir7J+wzozvP3pbUCFA5X5QswiU6LNHEX+zxU+BraNYIOVL03DUgZW659FQ5Y0yAMMQ==
-X-Gm-Gg: AY/fxX4caqIyq+oLrFPgC6lb8b32qmm3Uc7+U/doZCbdjtvbJ3MlnAsCmY+82vc5y/N
-	kx9no3gBS1wIKkM+d/Oud9FrsJrrDCi8zWNQALwIxwcrNMh+lzrnwTTA+Uh1Rsf9uajbzf9o3LD
-	tgPPA4snM87zabuw05MrE1U+iStAVfVJSscM2mSexW+x12EP7mnFHR0U1gr5tlsnyhl750laOjq
-	I4nkEOVuzHzGNqzlMsUGnYCyL2I7SVqCG7ImJjV9mYyaWyf3QNC41OIYhiuhMZjos2ua8KkgPbL
-	vZgm4RDCXgxJWWchvizU9kwECDIQCT/9upbjvJZ/C4xIUWCf+d0sPDLSWNGRtytjDyBNSAmZKME
-	lGMnMZUicc1eDPmxGF1Nx/gmFiL9jwL2qkpNmEVCMM24OSwaj14Ce3LVvp7GjN3N93dQl+qcNQL
-	fByeQ44HX7DtwBTj4SA8L2W1vW64lrBIQ4il8roIB6cu6eJPn/r+Xhqq4U7dCUJM4dzlQTYu31j
-	7U=
-X-Google-Smtp-Source: AGHT+IEjDCtwbElFR8X6BWvyOthu6ddo5vHBMTT4lsxrhBQJ1eLrbuzbfL40NOge6CKMzxpvw2AgNA==
-X-Received: by 2002:a05:600c:3114:b0:477:76c2:49c9 with SMTP id 5b1f17b1804b1-47d84b18954mr206879575e9.2.1768296773329;
-        Tue, 13 Jan 2026 01:32:53 -0800 (PST)
-Message-ID: <89ee7840-b8a4-4354-8a94-ebe92824bf44@suse.com>
-Date: Tue, 13 Jan 2026 10:32:53 +0100
+        bh=uV6nfva8JBAZ5PG8F0nf4vcX0Xle/KSnoVk9aMOcdBs=;
+        b=Btr4iw8RhUa33e0/d9DL/K3Emx/T+Y/zab84L+8j2b09q6C6so/43LMXKqpR9sZM5R
+         9dTgH/wa/WGUS5gh5mxauy/6z3z7N7sAN2F0Jbj8zUvpT5uYW+V1SVbPGvXumQWqRnE5
+         O7+UYConfceuz9jgc5Z20CBPDBRB/jeLP9Yc+sPEKYX9KS5+a9OLzD4Tcrk+iIUe7G6V
+         crQ+DQHblMltXzs21QSbgjaLsG8qH0sxwwY7z3FvS+2N+DiTFs5elEXzagvt7cW5P+Cb
+         JAftDfZPib1RkvmQyGPkLsDkX+CWsLkPd8iYE0Mv/2Tnne7oiWJEt5f+MK/jXrSg5oxz
+         9EMw==
+X-Forwarded-Encrypted: i=1; AJvYcCXHsHL/bdzAJExJ0Cz9Y8WTqW30qvc8QDnxtQKwUd9EP1+gUvg1ciOHXgmdcfpcNHpQd3SKPp4b6vw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzcnkdoVFar1oV/1e4mO/dVOye2gKN2idgfuVu871DI2I9rj20v
+	EMJsjKPAAfATisysx46PW5fO2/FDOLC9v6n1Wjw752Yv6b91T3j8A8T5UIMP7etoSA==
+X-Gm-Gg: AY/fxX6rckoWkanAKEAAEwyBquqHxA9j7E9j6EUllKz1hi81q5lIB20FJGZW81p4d5A
+	r+7/xxoEyNs77iuXBpGcRmASDFht7Eee1ikGFkRxIqSJLxx+o0S4F9+u9VdzPvzlAqHHL2+otrv
+	qAxPVGnipp3/Akti2QYuNcpD/jt3nLLkQozloN8mTVFiQ7jJmKbjbgj1Y63bVSd7Epc3CfvZgTZ
+	bQry4nSYkjrqPhrXTH3zF6fxau1r/baitUmesMUoDw1rwlJSL4RrLY9gsjorCFaQdQZhS5dj53Z
+	9l2SrkaizbW+UWQLgkUiSLMC0Gz6wHWegoNDUJcRni1w3Tn7Al3cDpOKDKj/Jad0NGWSk2nQ7QL
+	mrIi5MoZmlugibFBFjud+RPQ5k+4cVY/gUEkgsoLF6wHOpZiHd97c776VmGkPGPDhqSmQTf1k6O
+	OoTwzLIXJcwuQaAD0jOt4RoiCsQwJ0efnU60j6n2KyXdyp2VG/J8L3NTCZ9XGalyqCIfkX0aKtd
+	ko=
+X-Google-Smtp-Source: AGHT+IGh+2aY6/6oggXGNFiDMYVlrWtHoR9yuEh//1hJB9Ds8atlJjYtdn4Ez/WDsriILji5VlbB/g==
+X-Received: by 2002:a05:6000:420a:b0:431:266:d132 with SMTP id ffacd0b85a97d-432c37a505bmr28735653f8f.46.1768298189927;
+        Tue, 13 Jan 2026 01:56:29 -0800 (PST)
+Message-ID: <3376e95d-8da5-4bc8-893f-4f9c84404a32@suse.com>
+Date: Tue, 13 Jan 2026 10:56:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/5] tools: Allow building xen-hptool without
- CONFIG_MIGRATE
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1768293759.git.mykyta_poturai@epam.com>
- <76a8969cd7b8bd956605662edcf2ec3c4af3a178.1768293759.git.mykyta_poturai@epam.com>
+Subject: Re: [PATCH v2] xen/console: handle multiple domains using console_io
+ hypercalls
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: grygorii_strashko@epam.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601121728380.992863@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,31 +123,123 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <76a8969cd7b8bd956605662edcf2ec3c4af3a178.1768293759.git.mykyta_poturai@epam.com>
+In-Reply-To: <alpine.DEB.2.22.394.2601121728380.992863@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.01.2026 09:45, Mykyta Poturai wrote:
-> --- a/tools/misc/Makefile
-> +++ b/tools/misc/Makefile
-> @@ -16,7 +16,6 @@ INSTALL_BIN                    += xencov_split
->  INSTALL_BIN += $(INSTALL_BIN-y)
+On 13.01.2026 02:30, Stefano Stabellini wrote:
+> Allow multiple dom0less domains to use the console_io hypercalls to
+> print to the console. Handle them in a similar way to vpl011: only the
+> domain which has focus can read from the console. All domains can write
+> to the console but the ones without focus have a prefix. In this case
+> the prefix is applied by using guest_printk instead of printk or
+> console_puts which is what the original code was already doing.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> Changes in v2:
+> - fix code style
+> - pbuf_idx/idx after ada53067083e
+> - don't add extra \0
+> - clear input on console switch
+> ---
+>  xen/drivers/char/console.c | 25 ++++++++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 2bdb4d5fb4..6c7a6592c5 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -576,6 +576,8 @@ static void console_switch_input(void)
+>              rcu_unlock_domain(d);
 >  
->  # Everything to be installed in regular sbin/
-> -INSTALL_SBIN-$(CONFIG_MIGRATE) += xen-hptool
->  INSTALL_SBIN-$(CONFIG_X86)     += xen-hvmcrash
->  INSTALL_SBIN-$(CONFIG_X86)     += xen-hvmctx
->  INSTALL_SBIN-$(CONFIG_X86)     += xen-lowmemd
-> @@ -34,6 +33,7 @@ INSTALL_SBIN                   += xenwatchdogd
->  INSTALL_SBIN                   += xen-access
->  INSTALL_SBIN                   += xen-livepatch
->  INSTALL_SBIN                   += xen-diag
-> +INSTALL_SBIN                   += xen-hptool
->  INSTALL_SBIN += $(INSTALL_SBIN-y)
+>              console_rx = next_rx;
+> +            /* don't let the next dom read the previous dom's unread data */
 
-As per [1] I think the line should be edited in place.
+Nit: Comment style.
+
+> +            serial_rx_cons = serial_rx_prod;
+>              printk("*** Serial input to DOM%u", domid);
+
+Imo the flushing of input needs to come after the printk(), as it's only
+then that the user gets confirmation of the change.
+
+As to flushing (rather than storing) leftover input: That's strictly an
+improvement over v1, but imo unhelpful. I may not be willing to ack this
+(still need to think about it some more), but at the very least this
+somewhat odd behavior needs calling out (and perhaps also justifying) in
+the description.
+
+Further, did you think through the interaction with a racing
+CONSOLEIO_read? Right now that's the only place where serial_rx_cons is
+updated, and hence there was no issue with there being multiple reads
+of the variable (perhaps unless a domain issued racing CONSOLEIO_read).
+That changes now. I can't convince myself (yet) that's entirely safe,
+and hence if it is that also wants discussing in the description.
+
+> @@ -730,6 +732,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>      unsigned int flags = opt_console_to_ring
+>                           ? CONSOLE_ALL : CONSOLE_DEFAULT;
+>      struct domain *cd = current->domain;
+> +    struct domain *input;
+>  
+>      while ( count > 0 )
+>      {
+> @@ -742,18 +745,28 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>          if ( copy_from_guest(kbuf, buffer, kcount) )
+>              return -EFAULT;
+>  
+> -        if ( is_hardware_domain(cd) )
+> +        input = console_get_domain();
+> +        if ( input && cd == input )
+>          {
+> +            struct domain_console *cons = cd->console;
+> +
+> +            if ( cons->idx )
+> +            {
+> +                console_send(cons->buf, cons->idx, flags);
+> +                cons->idx = 0;
+> +            }
+
+I probably should have said so on v1 already: What is this about? There's
+no comment and nothing in the description that I could associate with this
+code.
+
+And then - is this safe without holding cons->lock?
+
+> @@ -815,6 +829,13 @@ long do_console_io(
+>          if ( count > INT_MAX )
+>              break;
+>  
+> +        d = console_get_domain();
+> +        if ( d != current->domain )
+> +        {
+> +            console_put_domain(d);
+> +            return 0;
+> +        }
+
+As of here d == current domain. Why are you holding onto ...
+
+>          rc = 0;
+>          while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
+>          {
+> @@ -826,12 +847,14 @@ long do_console_io(
+>                  len = count - rc;
+>              if ( copy_to_guest_offset(buffer, rc, &serial_rx_ring[idx], len) )
+>              {
+> +                console_put_domain(d);
+>                  rc = -EFAULT;
+>                  break;
+>              }
+>              rc += len;
+>              serial_rx_cons += len;
+>          }
+> +        console_put_domain(d);
+>          break;
+
+... the domain for this long (requiring multiple console_put_domain()
+invocations)? The current domain can't go away under your feet. Hence imo
+a single (early) call will do.
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2026-01/msg00285.html
 
