@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A7AD19AF8
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 16:01:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201885.1517520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0539D19BCB
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 16:09:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201903.1517529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vffsl-0002aq-V4; Tue, 13 Jan 2026 15:00:31 +0000
+	id 1vfg0z-0003SB-PQ; Tue, 13 Jan 2026 15:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201885.1517520; Tue, 13 Jan 2026 15:00:31 +0000
+Received: by outflank-mailman (output) from mailman id 1201903.1517529; Tue, 13 Jan 2026 15:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vffsl-0002YJ-RW; Tue, 13 Jan 2026 15:00:31 +0000
-Received: by outflank-mailman (input) for mailman id 1201885;
- Tue, 13 Jan 2026 15:00:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfg0z-0003QD-Mm; Tue, 13 Jan 2026 15:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 1201903;
+ Tue, 13 Jan 2026 15:09:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YaIX=7S=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vffsk-0002YD-HK
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 15:00:30 +0000
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazlp17011000f.outbound.protection.outlook.com
- [2a01:111:f403:c100::f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98a9ee53-f090-11f0-b15e-2bf370ae4941;
- Tue, 13 Jan 2026 16:00:28 +0100 (CET)
-Received: from BYAPR08CA0066.namprd08.prod.outlook.com (2603:10b6:a03:117::43)
- by DS0PR12MB8480.namprd12.prod.outlook.com (2603:10b6:8:159::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=vMW5=7S=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vfg0x-0003Q7-Vl
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 15:09:00 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7ee8454-f091-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 16:08:57 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by LV9PR03MB8440.namprd03.prod.outlook.com (2603:10b6:408:377::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
- 2026 15:00:17 +0000
-Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
- (2603:10b6:a03:117:cafe::4a) by BYAPR08CA0066.outlook.office365.com
- (2603:10b6:a03:117::43) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Tue,
- 13 Jan 2026 15:00:15 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Tue, 13 Jan 2026 15:00:14 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 13 Jan
- 2026 09:00:12 -0600
+ 2026 15:08:53 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
+ 15:08:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,238 +47,314 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98a9ee53-f090-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: c7ee8454-f091-11f0-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F4jycobY8y6LaBFgHeH26s54NNyfRAGIcfySfjcPHlx2fplaNNoaeW9jZFd2jN4EqzHlV1DuHW3qah+NkCjjHh2mEk+N5rESfRbCgwtq16BHJpWhMiXmlY4802qaFGf36kR+2MoMmHlpYQS/9YSCFGREAsfpKXgUHnbBqpsPMfQnr/OBxtqK+Fih+a3kAyVCoKBqt9mcugDR8+heji3EezxQwSO1658gDNCOliSpIlQ407tAorKp9Xn5meYRJlraPT/JQG1XNRn2y3rC/gJJEhICRKDwXQGtoo/voeXQHiar5m8/raJqfbhxqKaKR5DCShnCcIjt/MIL1ZfFMVlzRw==
+ b=lgUJex87QsX2qpzJooBkB7xxKpKr9TZDXuTbzSUWLNEiOCT131Lbv6STmrbk0VUSnR9WLDhph1mV9NDaGvpLdBCXkPp1MKW4lVbwxC73Dh/tfcGJ2li61M/CiCrrvarPgjSExEEx/y43DCZsLeZ7ina2a8aSGpfKp648Ndodk7lxkbxGzdRMlTrDOqmWNqWUBoOeee9JZYaFhcoSGdgJ8+P+Ros3qPn7EJAnbGno+wv/JBXAcKkHRyklKoiu4wG0qCiUmsk4K+/K4SnhfiwNeu1OJZViODyq1Lb5/dir4fkbFGItC7K8e4SQ9LO3xc4LkwQ7YLTptOerTCxzPU+nJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6QD+IhtFWiEwGJgIssVsWbrtrgcjCh4UTtw73d/oNM4=;
- b=GLmceAb93sgFDNgtQv9XZn+foTNBZ/X8HYRINzlw1JOBAWgby99EI1mbvAYgNMF30Bl0EVdoWM3Z6HaY7LjADP37hXFCtgl3OSOVmclW7wWnJNT/DT7wKBLGAIM3HEBsIhBaBzBJZHwNAil7uqV0vM8ULVOb5lQ+VgVo4eEo/eAGmAGYAoA+3LJKtcI990Tvfs/cgLzFCOS5mugt6VWihAPSbrMXIk6QNuUzwkui7RUnFcL7BMY0kxgRm6Gk1TER45gvoQnjkEgt8/F+Xv+YVCQ2jzGs41DGS8bMFPrlobptAl4xgGwb8mjIM01VI+d31b1HidHUQvWN3iBO6TyLug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=HMDPfp7rSO2Fl2qHgPd3JWOZBGjaTGgH7mazWOQEVE4=;
+ b=N+FRfslUr0wRTsV2EqH+oR4WYv+j9g+ggCdrVvQBNW7DFpAMYTGI8WrtokufQLe2a1HoXcunPcmkgvss1fTxv3dyxQx1KnEru8E8YFnroVrdXZm2kQeQTP1293HM4ikvtUAo+yiDgGy1dtyOJG+8p2Ajqd+nG0aFg4aRXUL+PVanoOTB2zvBS5HtbSQk/QrMd0Plad9zFaBIPKM92L8In3qeF3cQaHR/2Dk2XDxlx73i8Q3Qp8rOcjDrfQsU6JJ4VgeZm/fKKJ8sFS9rYaD/5xHMJN2Zm7bvq9Ezx7fE0Hkw/DSmhSeg8E89ek+eHJX21aKEvZQmxlYhsRh4fP7Kkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6QD+IhtFWiEwGJgIssVsWbrtrgcjCh4UTtw73d/oNM4=;
- b=ZyeVYW1nj4tX4wyXFRzCl49qgu8+H6Vw9QsanBPkzQKFCatLnNi9Sl9AFiTSbECTNWksTss+rthFEZKLHheLuzf/qZ7pGwNnEhbIWEU67IJQKfoMYHZPIxmfZ2GdYsEgHLntcF0n11HdfAnGM5qQDIFOJyBf3S4s3XYdjEmS9p8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 13 Jan 2026 16:00:06 +0100
-Message-ID: <DFNJUME4L1XB.3AUTF02P2QZ9T@amd.com>
-Subject: Re: [PATCH v3 3/4] earlycpio: lib-ify earlycpio.c
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
-	<michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-X-Mailer: aerc 0.20.1
+ bh=HMDPfp7rSO2Fl2qHgPd3JWOZBGjaTGgH7mazWOQEVE4=;
+ b=u5nYlCGZVgUvcXOEBX7dfCZGw6ZvDRkCD4UibTSuoaxPdwjL2WA9bKNwsKkttVQ3r/ihPFf9LiTCvZe+KXpcxhtK1ooRZN+QGSOm4og8EFdTAdZDQVzU/zZNvLbXorOKmO5+jKQOZam3z2afY4VGP7T/ieMJS2FVc7Aj+tk78GY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <4353bfa1-6fb6-4755-a922-d0330e61fb4c@citrix.com>
+Date: Tue, 13 Jan 2026 15:08:49 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v3 4/4] x86/ucode: Add Kconfig option to remove microcode
+ loading
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ xen-devel@lists.xenproject.org
 References: <20260113122109.62399-1-alejandro.garciavallejo@amd.com>
- <20260113122109.62399-4-alejandro.garciavallejo@amd.com>
- <b28be78e-2d26-4d9d-8288-7130a64deb5d@citrix.com>
-In-Reply-To: <b28be78e-2d26-4d9d-8288-7130a64deb5d@citrix.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+ <20260113122109.62399-5-alejandro.garciavallejo@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20260113122109.62399-5-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0119.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::6) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|DS0PR12MB8480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7af95650-4268-479d-9144-08de52b47559
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|LV9PR03MB8440:EE_
+X-MS-Office365-Filtering-Correlation-Id: df12d1fa-ee0c-4111-f2ac-08de52b5aa71
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SWx0R1hMakVvWC9CZDJzTnZtRVVGcUMvTkhQRmtrWXkyNnAvQ0M1blQyRWor?=
- =?utf-8?B?eVN1bTg2bXp1OWdXUHMwNUlPMEtwMVFBVXRSKzBKeFNjaW9VT2luRVhodnI5?=
- =?utf-8?B?VUNWekFvRzhZVkpocEFEZmFTd2FHeTRKaFEvL3IwNWV2TTNwRG85T203NmdU?=
- =?utf-8?B?dTkxYTRic21lczdwTTNNcUdITWJqYmltK0pYK1lQV2hOY3d0OE5pNFR0L0tX?=
- =?utf-8?B?WjJQUXFxYVl2aFJKekZJQ0JUR0hFdHRqdWV2aDVQc1kwN0k4V0UzOWNndlVH?=
- =?utf-8?B?VEFBZjJyRFhlZEpKYVhCd0w3Ni9ublp6bzRRTVdIaUVFY1dnbkp6Nk9IbmJr?=
- =?utf-8?B?VE1oTDdmcDNqdmR1V0JyVkRHTXE1ZnM4T01FcDFic0xUZTY1amF2SDZxVUk2?=
- =?utf-8?B?RE5SbU0zeVZPZWtkTXlndVRtVDkzcERHS1dIckFKZlo1L3Y1N1ZTVGZZVUE4?=
- =?utf-8?B?YTlOZlV5ZC9mUmgvTGFIY0hTbGR0Z1FQMEJMUC8vSHU3aXlpc1I4dTN0dGxW?=
- =?utf-8?B?QkwvZnNOcmlBU0RXY3R0Qm9RWUpwcitlcFBTMEZqMHAwSDg4cjBtUWJwb0Ry?=
- =?utf-8?B?UjhOaDhaaGg0Vkg3UzZMUytLemxncDFyeGRlYWFNVWFzdnJqd2RhQ0hYSCtM?=
- =?utf-8?B?SEJqdG5lNFptbW5TWjNHVHVFOGFYQnZ3YXdrWm5MRm8zQVpXaXlONjEvU0p5?=
- =?utf-8?B?cUZKZVFZWjVJRFRIdy9pcCsrSURUcG1PaVRQYUFaa0t2alNLb081bk1pVGVY?=
- =?utf-8?B?enZvbjk2cEJhY2tBN2E5MHd0aFZZL0JTb2FTR0Rab1MyYVcxWEIvT3RmYXRp?=
- =?utf-8?B?VGxSQnZTQkJHcWh6N1JaeXlnWHpKTUZIQ0MvakJ1NXJxUTlKY29xSEpFRVhP?=
- =?utf-8?B?Y1BMOXYyTmVPcjJEZkNjR25CbEpEQUpveEpHdXBFREZZcU95UW9Pb3daS2pE?=
- =?utf-8?B?djFCQzdBOWJRSEhpUHY1NE9DeE9NZlp0OXBqWTZNTnRhNkNKVUUrVGl1NktH?=
- =?utf-8?B?U1BDYUt4UXNVTDRYRHdUVWFweVJ5ZkhjVXZkbTd5Tk91czdQM1JadjZSQXN3?=
- =?utf-8?B?amQ3b3hxT1ppWWQ0TjN5MGRWR212NElaYmN5VysxQ2xWY1FjR0kyZS9XMlNa?=
- =?utf-8?B?ekk2UnA3R2g0eVJhQkMvQnplRTBHdHBMWmVlMnBPbnZ6Qm1jOVNRVnZNWk5s?=
- =?utf-8?B?cEtNYzlBclk2R01Tbm0yelZ5b1NlVTE3M3RvRjloWWMwSEFCbzlGVVdSOHFR?=
- =?utf-8?B?c0NTNjJxbXp5bmlYL29VbTYxRTJHSE9ZM3F0WmNpVzYva2ZOTHpWTHgrem9q?=
- =?utf-8?B?WEVwME1DOXl2cVhabkl6NWxtZWRyUDIzTWJxRVZlUldBdi92TVJ0L0M1OXlE?=
- =?utf-8?B?L1hBN3VNUDlzbm1GczM4K3RERlQycXJpeEd5QnFBMUVXdDVtYmc4NnIyM3RI?=
- =?utf-8?B?MTFsSDBvVFR6Z0F5aWhmT2ZzQk91WUlMTzc3L29jSitZdnlKQnl1RkhGdFJm?=
- =?utf-8?B?VjNrd0F1Y013VHVqa0lVRm5wVFhpSkRnM3NMYU9YMFBFWTRWS2xMLzZIUnRw?=
- =?utf-8?B?TDZ2QXNONjQyUVZjT2swdWVCWllkcjR6V2pwaWxacy9LZEttNFFTTEMrSWpO?=
- =?utf-8?B?VGk4eExhZUNFRTZza3g5VjdYMHpTSHdVWVNsQlVwdDdUb1YvTmZGRjcyQjdk?=
- =?utf-8?B?aGI3dTVFWXlTd3BOZTZCdjNHcDJsUkxHcXZOM2w5MVR3Z3NRZFJzN29NV2NE?=
- =?utf-8?B?ejdmTVpybWsyUEp5TXJCWFcxdS9LcG5tZTFUM1NsbGRrd3RXeXp2VzZuWmhC?=
- =?utf-8?B?aVlackV5R0xMQWExQnpvdnI5STVYQ1ZpWTZsRHNvb3lqdWpFOVRCYStZcU1s?=
- =?utf-8?B?Q0F3TWlKc2RqQnNYd0NNMWFzeTBUV01JVVFMdGpNU2xUTHA2V2RnZjY0WTNu?=
- =?utf-8?B?MDB6NUE0SnpRS3Z2Z2sxUDBlT0QrYVVnMDBpTm1VK05WV3lsZVVnQWROb0lk?=
- =?utf-8?B?RXJPVzgycVVCNnF0N3FaVm95YjVTV3lXSVc1RFplNmw0Qk1yWUZUa05IL0tZ?=
- =?utf-8?B?NTArNkhHL2dZNWZzVW5ZemtxKzF4R0VGeUQyNUJLcTNsU0dmeVlSYXNMREtH?=
- =?utf-8?Q?e3Fg=3D?=
+	=?utf-8?B?eXBWRnA0UGpqeWJuSU80b3doalZlYmJzR2pxdmRQSTJiUlBGQlFIZXpHeXhQ?=
+ =?utf-8?B?K2RzMUhPVHFYSzlnczQyUU5LTjhiWHFSWTJiTUp6VW1DblpuK3lnOVl3RGRU?=
+ =?utf-8?B?SlZpeDB3dnVkK0llK2JFeEh1QnhiL21DNC9xSlk1NE8zVmJsN1ZpVzVpalBW?=
+ =?utf-8?B?emZMb2JNZEtQaENOc1dSL1MzYStvTUtOcW5KMTl2SFFibzJtRUk4Zy8zS0NY?=
+ =?utf-8?B?TitHOFdNWjN5Zy9rQnhnaUpOWnRTY3VmSTlzMllmWVFDNXp3clMrQjFPRm85?=
+ =?utf-8?B?VnFKbkp0bVlaaS8zOHM0R3pVOXZlQVRmM0Vzdk9ZVGhLRVpOcWZZZDhyQTJS?=
+ =?utf-8?B?eHRFYkdCRTBwVGF0ZjM0bnNJRFJFaXB5K0UzRnp4TE9ELzNxdncwTUdiRXpE?=
+ =?utf-8?B?SjB0SEtyMDFXVWRmeWdES3p0WWl6TS9SMmw1VEdUbXN1QlJsa1JMa040NFNT?=
+ =?utf-8?B?WWptbzRHY3ZVa0FxYXVNbnBaM1E4ZmY0SFF2OG01RmRibUU0T0ZkeE1QV0FT?=
+ =?utf-8?B?WG1ZbVJIM2NNT3RuOUdxTlJ6WDgwSGhiNlgzb3lkOFMwWGFEUUhKNHNla1hm?=
+ =?utf-8?B?SG11NzZCTm95L1diSFhXQzAxY3MxTE1LSDJJOTJJcGRkN3RaU2JFc3E4QnNQ?=
+ =?utf-8?B?S0t6eUQxQlpVbjVXT01YZzI1bG4xTTMzMzlTSDZwT1F4THp5TkRhSzJWMGxH?=
+ =?utf-8?B?TjFmOFVVQVVkUERXSlB5dWFYeVlsQjM3ZXZBRlluZEVoWW84bCsxYU9GRldN?=
+ =?utf-8?B?SE92MWV2Rk10THBPTVBOOHRudWoveTFhTHNvSEprQTk5U0NGVkpGM00rTlIz?=
+ =?utf-8?B?bWZyN0ZEdldGSC8yMU12bU51c3BUR1RlNFRtNGw2YTdNNkpRRmtVbkF3ZHJv?=
+ =?utf-8?B?Z0E1aFhvWnNoSCsvc2ZSZ2dkUkd1bS9qMHdoSzMvWFEwZE1kZ1IxZHZTV1ZC?=
+ =?utf-8?B?emwraWQ0bGQvZ1VWTzFWY3dkcVdpZWdYaWFmSHEyUTRxWjd2bldMemxLUDdR?=
+ =?utf-8?B?ajVCNGlXMUFBSlErSWhDNndQV3VaNUcvdWxuMEZ6V3dscHRLNkt0b2kyYjdn?=
+ =?utf-8?B?VzRPZHdhVitITmU1VFYwN1poWjlaejd3cHQ5ZDZCYjlVUnhla2x3OFpRc0dM?=
+ =?utf-8?B?a0pjRm4zS1VmOUhWMDBLcjl1TlM1eHhFdFAwVko1OE5oRkk3dmk4ZnJuQzF6?=
+ =?utf-8?B?VnozUzg5U1NLNUNMYjFRV1lzcmtDUlBNdjJJUHYyMXNGSldZbXk5ZnRFRkNG?=
+ =?utf-8?B?Qk1saER5Y2NXNE5ibVdFdk9VcGFjeEt0WXdkOWhOVG1pVitmU3MxK3ZNRG9X?=
+ =?utf-8?B?dUJIQnNGbGliQ200MEFVOTRCaXQ5MUtLTTJ2S0VkL1dKSGlzcXZtY3JxbTFj?=
+ =?utf-8?B?UUV6WmtVMzJuRk1aemZLRTVUak54MmpCYUwreWFjOW5VUm5lYVBnOERYM2V5?=
+ =?utf-8?B?SmJVMzAxbzdjMS8zeUFldEE5enQ1RWwxeFh5NGUvU2FkNlRMY21rdklLbmxX?=
+ =?utf-8?B?cUxwV1VMVCs3Y0dPVStRYWxiNSsvT3c3VUZpZjQ0SXpsZHB4cFpXZXJvaksw?=
+ =?utf-8?B?MTNoQ3Zsd3h4K2pEQmQwNDdoVFRTaFRTcjNBRXNXV2RoMVZQcmxvUEg2eEc2?=
+ =?utf-8?B?Qm5wbVB5bENBUmJkT3dBVnNrdGVYR21zdG5kTXB1UzE4WUdKREd4MEhxSElD?=
+ =?utf-8?B?bDRZVXRzTk5Dc1dPN0ZjVmJkakprRnhudytZQUNadFZseXBRRVU3T2V2Qkt4?=
+ =?utf-8?B?bzJHTTVRTmQzbzhCM3JFU0duWExQUEw1cEtFbzRBeERuc1ZVUG5pSE95cTlY?=
+ =?utf-8?B?ejR2MzA4VENtUDVjdFM5MkJVQlJUVmRvSjM4TUVxRllkb2lYclNDN0Frcm1Z?=
+ =?utf-8?B?Z2hoNzVGd2VxZWt3ZlJVL0tRWUFkZEdYN1c5Z2t0ODEwR2RBTG55elFYaXNj?=
+ =?utf-8?Q?RZc1Rpn5Puqfz880CNFeBEWhgntZ4RAN?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 15:00:14.8805
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TzdvUTNpM0NoSWY2TE1kZzR1MnBBcnZ4aEtJZkRyM0RQS0pJbW1aL1F5eU1T?=
+ =?utf-8?B?bHcyLzYxbXhxNVdqNG9vY1VQd1ZLZVVzd2FXVFZNa2dXdDl2dXlDamliT3dx?=
+ =?utf-8?B?YVQrQzZDM3J2TmVDeDYwT2dYTGZOcFpWRGJydW9ocFVpMnhIMmRPalhkUFNZ?=
+ =?utf-8?B?cGRsaWNHNXljV3M2RDMwTkk3VlBvd2tlRHI0czBHTDA1NGNlb0RyK21VYUhR?=
+ =?utf-8?B?blNXdURHOGNDRHVZNnB5c3hYNXhpZGpyL3hSTnpzeVcvTFYvckViUmxDNURy?=
+ =?utf-8?B?eGVoSU5wR3FmeUs1UjJFb1pOQW5wMjVLTkVKREhzbXNqODJFaCt3dnVjZFRJ?=
+ =?utf-8?B?aGl0YVcySG1MbXg0dFJWRjhYOFBWN1lQeDdzMmhBUUdkdmhCMGU5RVVOZXI4?=
+ =?utf-8?B?Rlp5SkIyb0luU0pGWkRsQVdPcVNVbVU3K1AxeEJXTU9KV1JvcTZCRk05UlM4?=
+ =?utf-8?B?eW5UNDluOThjSU93S3lLdVRTbHlaOVZoL0FRS0NERTEyazVKdGI2T1l3Wnlt?=
+ =?utf-8?B?ekZTWmx4UW1DY01IeGFaLzczZm5qYjdxUzQzMVZZU0J1am91blZLL1ZBQkVJ?=
+ =?utf-8?B?L3YxaG0zY3BPS1QzZllzRFRTa2VhYTJtdVJuTVlTRUd5OVZ2ZkVGbHpNNFpX?=
+ =?utf-8?B?ZldRNDdPbzVNL3BCS1V2UE1QWjRaQUlDSW5GWWRYdTJPOW1jTUNKam1NZFow?=
+ =?utf-8?B?TUY2YUNMODA1TXZDbTlmU09ZN2pPdnNIdWh3NHo0VEdkemREcnhFL0gvUzMw?=
+ =?utf-8?B?c2RFMEIwV1k0RG1qcHhNS3BsSDNoWDZvaFhBMWw5S3JnM3dKRXFKOHg2bjIr?=
+ =?utf-8?B?K3hUS2ZrTXdrR1NoWkNkRzJuRlBUZkVCQ3Fud3ZsbEFiek01ZktiU3RkMmhl?=
+ =?utf-8?B?K2lCM09KTjcxSk9IbFhkMVdFdXlmQ3hzSXZjKzM5bi9GbmZ6OHFhTTd3NmVY?=
+ =?utf-8?B?RVhlem1ycS9YQ2N2di8zYTNFSXJkdDAzTWhnYThyOHUwRjdrQzZVSTlOeUFl?=
+ =?utf-8?B?RWlNOWtrN0FUY28xVjR3S0hRTnplTkRrR01CVWxzTE4xZVJJUUhCYUNqbms0?=
+ =?utf-8?B?eE55NGkzWjV3SjZaYVA1bWR5Wk12SnZkS0pmWE1pUnorbXQ4c29oSnZOSlZy?=
+ =?utf-8?B?MGNxUWk1R1RodWFCZ2tCTWpGR0w4aStmdUZVMS9pQ3krc2d3ZnFHQ2twRm15?=
+ =?utf-8?B?ZXRvaUU4U20wcXBnUVpzSHJJeU1udDJIOVRtcWxXYzRXbExwMkRwNFlBVlJN?=
+ =?utf-8?B?dHltT2dRMXk2RGN4Ris5Nm9aVTVqRTlDWGVoTncxbmZnZTFEdnNHVUlSY3R1?=
+ =?utf-8?B?VERLWDM0WkUyTjdHODZyQitVK3FBdzQ0MDh1UnN0SEpOUWltUjg4cnNlNDBn?=
+ =?utf-8?B?WWU5dkc1WEdBb05IY0htZnJmekg1b0tCL01zYVlyWU1ZMUlKWDVON2Z4bmVQ?=
+ =?utf-8?B?NzNGN2xPY1pib1Y5ODU1eWFGSnZxeHVhV1ZHSWxjVTBVQTZxWmNpQlMvTUhL?=
+ =?utf-8?B?WkRTWnMwaGVXQW9YdldjME9tWkdjWkNkaERTOEhiQ1FyWm5pN3pPejVHMEVW?=
+ =?utf-8?B?dXB1THhERFY5Z0Z1MVorNDlmdjR3Y1FuZGE2dDZaSVVkT083R29nMGIzejhm?=
+ =?utf-8?B?TytJdHdFemFjZFJPMUVqNFdxMnppeTd1UW44dmg1UmdaWk4zVXgyOWw4eWxt?=
+ =?utf-8?B?UEl0RnRzRGJhQzNYUTg4RVg1a05xWitTaGxTUWI1WUhzYVF2aGYwanRXd3Zn?=
+ =?utf-8?B?TktWL3RYci81YndkcHpTMTQ2UWVDNERtNFo2TkhUQzBtdjJ3NnplODVqWlZx?=
+ =?utf-8?B?Y0dJYkEvYnFYSSsxeEh4bU1zRHRlWHRub0dmMlBUUUV4M1pLK05vem1WUXJE?=
+ =?utf-8?B?MnYxS0ZkUDRoU3BEcXVpS1RobDdHMVV5a3loTlVUWlJ3bkhmM29yUktBYTJX?=
+ =?utf-8?B?VDh0cmZEWHgrNXBlNFN6dGlYbTVjSjhBalFoaXU1MVU2K1ZqSTd0aHJ2WDE4?=
+ =?utf-8?B?MmdibHNHMDk0YXptUklyODZhcWg0LzRJbDlsQUJwdXg2eG5iaG1sbzVITWI4?=
+ =?utf-8?B?dU5BdUdGenVPeG83YnZYT0RKbWYzZ1dpYThVa1cwY1kzRFNiem9sNVp2M3hs?=
+ =?utf-8?B?d3JaOENObGliYUJvVHFrL3R0L0hVV0k2TzIweFdJWU83eG9GcG82OEh6SElN?=
+ =?utf-8?B?Vld2bE1wTDk5V255M0VDQWo0c2pTLzRPYWpMZ1pBVWV6MVpudTBSY0FFMWN5?=
+ =?utf-8?B?ZFdxbmR4ZjJJK0Vxc1Q2MDFJVGpQRVRPbm5PUlRlVFdESmM3N2pVd0hnMEtQ?=
+ =?utf-8?B?MmRPUGlEZWdtV1lhYWIrKzhJUUxUdnI0L2pmYUY1Z29nV2lZeWtndz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df12d1fa-ee0c-4111-f2ac-08de52b5aa71
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 15:08:53.6253
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7af95650-4268-479d-9144-08de52b47559
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8480
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9ZdehVhL8pNfXX31EpuI9pu+DqdIOOVcy/IGM44bC+OaGXT+/B6Lq353Bbn0q86+RPQ7vF7nGGeDU4lkpDvTCTA8LuLVr3oS9IJv1QlMovY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR03MB8440
 
-On Tue Jan 13, 2026 at 3:24 PM CET, Andrew Cooper wrote:
-> On 13/01/2026 12:21 pm, Alejandro Vallejo wrote:
->> It's only used for microcode loading on x86. By lib-ifying it we can mak=
-e
->> it go away automatically when microcode loading becomes an optional
->> feature in follow-up patches.
->>
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> ---
->> v3:
->>   * New patch. Subsumes earlier conditionalisation of earlycpio.c on
->>     CONFIG_MICROCODE_LOADING.
->> ---
->>  docs/misra/exclude-list.json    | 8 ++++----
->>  xen/common/Makefile             | 2 +-
->>  xen/lib/Makefile                | 1 +
->>  xen/{common =3D> lib}/earlycpio.c | 0
->>  4 files changed, 6 insertions(+), 5 deletions(-)
->>  rename xen/{common =3D> lib}/earlycpio.c (100%)
->>
->> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
->> index 388397dd3b..2b874dfd3b 100644
->> --- a/docs/misra/exclude-list.json
->> +++ b/docs/misra/exclude-list.json
->> @@ -121,10 +121,6 @@
->>              "rel_path": "common/bunzip2.c",
->>              "comment": "Imported from Linux, ignore for now"
->>          },
->> -        {
->> -            "rel_path": "common/earlycpio.c",
->> -            "comment": "Imported from Linux, ignore for now"
->> -        },
->>          {
->>              "rel_path": "common/gzip/*",
->>              "comment": "Imported from Linux, ignore for now"
->> @@ -225,6 +221,10 @@
->>              "rel_path": "include/xen/decompress.h",
->>              "comment": "Imported from Linux, ignore for now"
->>          },
->> +        {
->> +            "rel_path": "lib/earlycpio.c",
->> +            "comment": "Imported from Linux, ignore for now"
->> +        },
->>          {
->>              "rel_path": "lib/find-next-bit.c",
->>              "comment": "Imported from Linux, ignore for now"
+On 13/01/2026 12:21 pm, Alejandro Vallejo wrote:
+> Amend docs to reflect ucode= command/stanza depend on MICROCODE_LOADING
+> being set.
 >
-> Honestly, I think this needs simply dropping.=C2=A0 "ignore for now" isn'=
-t
-> going to cut it with any competent evaluators.
+> The new MICROCODE_OP() is a conditional setter for the microcode_ops
+> struct. By using IS_ENABLED() there ratehr than ifdef we allow DCE to
 
-That would depend on justifications and such. But regardless clearing the
-exclusion list is a different matter aside from removing microcode loading.
+rather
 
+> remove all statics no longer used when microcode loading is disabled
+> without tagging them with __maybe_unused.
 >
-> By libryfing it, it's no longer part of the AMD target build, but it
-> does want covering by *-allcode.
->
-> Given that you noticed it for v2, I presume there's something in the
-> file that Eclair doesn't like?
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-I didn't run Eclair on it. It's ignored as part of common, and the build
-fails in CI if the file in common is absent. That's how I noticed it.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> with a couple
+more minor points, all of which I can fix on commit.
 
-I'd rather not gate this particular change on earlycpio playing ball with
-Eclair.
+AFAICT, this can be reordered with the earlycpuio patch 3 ?
 
->
->> diff --git a/xen/common/Makefile b/xen/common/Makefile
->> index 92c97d641e..4fc0c15088 100644
->> --- a/xen/common/Makefile
->> +++ b/xen/common/Makefile
->> @@ -65,7 +65,7 @@ obj-y +=3D wait.o
->>  obj-bin-y +=3D warning.init.o
->>  obj-y +=3D xmalloc_tlsf.o
->> =20
->> -obj-bin-$(CONFIG_X86) +=3D $(foreach n,decompress bunzip2 unxz unlzma l=
-zo unlzo unlz4 unzstd earlycpio,$(n).init.o)
->> +obj-bin-$(CONFIG_X86) +=3D $(foreach n,decompress bunzip2 unxz unlzma l=
-zo unlzo unlz4 unzstd,$(n).init.o)
->> =20
->>  obj-$(CONFIG_COMPAT) +=3D $(addprefix compat/,domain.o memory.o multica=
-ll.o xlat.o)
->> =20
->> diff --git a/xen/lib/Makefile b/xen/lib/Makefile
->> index efca830d92..60cfda4dfc 100644
->> --- a/xen/lib/Makefile
->> +++ b/xen/lib/Makefile
->> @@ -3,6 +3,7 @@ obj-$(CONFIG_X86) +=3D x86/
->>  lib-y +=3D bsearch.o
->>  lib-y +=3D ctors.o
->>  lib-y +=3D ctype.o
->> +lib-y +=3D earlycpio.o
->>  lib-y +=3D find-next-bit.o
->>  lib-y +=3D generic-ffsl.o
->>  lib-y +=3D generic-flsl.o
->> diff --git a/xen/common/earlycpio.c b/xen/lib/earlycpio.c
->> similarity index 100%
->> rename from xen/common/earlycpio.c
->> rename to xen/lib/earlycpio.c
->
-> What's wrong with .init here?=C2=A0 There's only a single string which wi=
-ll
-> end up unmerged so I'm not worried on this side of things, but we now
-> have series doing safety things getting tangled with .init and I want to
-> get it fixed.
+> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+> index 11c1ac3346..c3fb1f3a30 100644
+> --- a/docs/misc/efi.pandoc
+> +++ b/docs/misc/efi.pandoc
+> @@ -104,6 +104,8 @@ Specifies an XSM module to load.
+>  
+>  Specifies a CPU microcode blob to load. (x86 only)
+>  
+> +Only available when Xen is compiled with CONFIG_MICROCODE_LOADING.
 
-.init.o doesn't work with lib-y; only obj-y, obj-bin-y and extra-y. See bel=
-ow:
+enabled.
 
-  $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y +=3D -DINIT=
-_SECTIONS_ONLY
+> +
+>  ###`dtb=<filename>`
+>  
+>  Specifies a device tree file to load.  The platform firmware may provide a
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 15f7a315a4..866fa2f951 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2748,7 +2748,7 @@ performance.
+>  ### ucode
+>  > `= List of [ <integer> | scan=<bool>, nmi=<bool>, digest-check=<bool> ]`
+>  
+> -    Applicability: x86
+> +    Applicability: x86 with CONFIG_MICROCODE_LOADING active
+>      Default: `scan` is selectable via Kconfig, `nmi,digest-check`
 
-  [snip]
+This isn't actually how we provide such information.  It's usually a
+sentence in the first paragraph.
 
-  non-init-objects =3D $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra=
--y))
+diff --git a/docs/misc/xen-command-line.pandoc
+b/docs/misc/xen-command-line.pandoc
+index 50d7edb2488e..5b6ff94f441a 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2751,9 +2751,10 @@ performance.
+     Applicability: x86
+     Default: `scan` is selectable via Kconfig, `nmi,digest-check`
+ 
+-Controls for CPU microcode loading. For early loading, this parameter can
+-specify how and where to find the microcode update blob. For late loading,
+-this parameter specifies if the update happens within a NMI handler.
++Controls for CPU microcode loading, available when
+`CONFIG_MICROCODE_LOADING`
++is enabled.  For early loading, this parameter can specify how and where to
++find the microcode update blob. For late loading, this parameter
+specifies if
++the update happens within a NMI handler.
+ 
+ 'integer' specifies the CPU microcode update blob module index. When
+positive,
+ this specifies the n-th module (in the GrUB entry, zero based) to be used
 
-  [snip]
 
-  $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): $(obj)/%.init.o: $(o=
-bj)/%.o FORCE
-  	$(call if_changed,obj_init_o)
+which is the re-wrapped version of inserting ', available when
+`CONFIG_MICROCODE_LOADING` is enabled'.
 
-That's just what I eyeballed. There might be more hidden elsewhere.
+> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+> index 71b041c84b..86706a21a6 100644
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -561,11 +561,11 @@ static const char __initconst amd_cpio_path[] =
+>      "kernel/x86/microcode/AuthenticAMD.bin";
+>  
+>  static const struct microcode_ops __initconst_cf_clobber amd_ucode_ops = {
+> -    .cpu_request_microcode            = cpu_request_microcode,
+> +    .cpu_request_microcode            = MICROCODE_OP(cpu_request_microcode),
+>      .collect_cpu_info                 = collect_cpu_info,
+> -    .apply_microcode                  = apply_microcode,
+> -    .compare                          = amd_compare,
+> -    .cpio_path                        = amd_cpio_path,
+> +    .apply_microcode                  = MICROCODE_OP(apply_microcode),
+> +    .compare                          = MICROCODE_OP(amd_compare),
+> +    .cpio_path                        = MICROCODE_OP(amd_cpio_path),
+>  };
 
-It might want fixing, specially if something like libfdt is to turn into
-a library. But it's just not relevant for this particular change where the
-single contained function is already __init.
+Reordering cpu_request_microcode and collect_cpu_info like before makes
+this easier to read.
 
-Cheers,
-Alejandro
+> diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+> index e6c965dc99..1167b79db1 100644
+> --- a/xen/arch/x86/cpu/microcode/private.h
+> +++ b/xen/arch/x86/cpu/microcode/private.h
+> @@ -93,4 +93,6 @@ void ucode_probe_intel(struct microcode_ops *ops);
+>  static inline void ucode_probe_intel(struct microcode_ops *ops) {}
+>  #endif
+>  
+> +#define MICROCODE_OP(x) (IS_ENABLED(CONFIG_MICROCODE_LOADING) ? (x) : NULL)
+> +
+
+This wants /* Aids dead-code elimination of the static hooks */
+
+and wants to be up beside struct microcode_ops.
+
+> diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
+> index 79bb99e0b6..a55060e662 100644
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -309,22 +309,30 @@ ret_t do_platform_op(
+>  
+>      case XENPF_microcode_update:
+>      {
+> -        XEN_GUEST_HANDLE(const_void) data;
+> +        ret = -EOPNOTSUPP;
+> +        if ( IS_ENABLED(CONFIG_MICROCODE_LOADING) )
+> +        {
+> +            XEN_GUEST_HANDLE(const_void) data;
+>  
+> -        guest_from_compat_handle(data, op->u.microcode.data);
+> +            guest_from_compat_handle(data, op->u.microcode.data);
+> +            ret = ucode_update_hcall(data, op->u.microcode.length, 0);
+> +        }
+>  
+> -        ret = ucode_update_hcall(data, op->u.microcode.length, 0);
+>          break;
+>      }
+>  
+>      case XENPF_microcode_update2:
+>      {
+> -        XEN_GUEST_HANDLE(const_void) data;
+> +        ret = -EOPNOTSUPP;
+> +        if ( IS_ENABLED(CONFIG_MICROCODE_LOADING) )
+> +        {
+> +            XEN_GUEST_HANDLE(const_void) data;
+>  
+> -        guest_from_compat_handle(data, op->u.microcode2.data);
+> +            guest_from_compat_handle(data, op->u.microcode2.data);
+> +            ret = ucode_update_hcall(data, op->u.microcode2.length,
+> +                                     op->u.microcode2.flags);
+> +        }
+>  
+> -        ret = ucode_update_hcall(data, op->u.microcode2.length,
+> -                                 op->u.microcode2.flags);
+>          break;
+>      }
+>  
+
+
+Both these hunks will be smaller as:
+
+    ret = -EOPNOTSUPP;
+    if ( !IS_ENABLED(CONFIG_MICROCODE_LOADING) )
+        break;
+
+and that's the preferred style too.
+
+Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and I
+can fix all of these con commit.
+
+AFAICT, this can be reordered with the earlycpio patch 3 ?
+
+~Andrew
 
