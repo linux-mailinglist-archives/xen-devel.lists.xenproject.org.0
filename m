@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E52DD18DDE
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 13:43:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1201675.1517248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078E7D18ECB
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Jan 2026 13:51:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1201687.1517257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdkG-0002fL-AE; Tue, 13 Jan 2026 12:43:36 +0000
+	id 1vfdro-0004Lz-1G; Tue, 13 Jan 2026 12:51:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1201675.1517248; Tue, 13 Jan 2026 12:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 1201687.1517257; Tue, 13 Jan 2026 12:51:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfdkG-0002cD-6j; Tue, 13 Jan 2026 12:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 1201675;
- Tue, 13 Jan 2026 12:43:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfdrn-0004KL-US; Tue, 13 Jan 2026 12:51:23 +0000
+Received: by outflank-mailman (input) for mailman id 1201687;
+ Tue, 13 Jan 2026 12:51:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vMW5=7S=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vfdkE-0002c7-7a
- for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 12:43:34 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77cd3824-f07d-11f0-b15e-2bf370ae4941;
- Tue, 13 Jan 2026 13:43:33 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by IA3PR03MB7593.namprd03.prod.outlook.com (2603:10b6:208:50c::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
- 2026 12:43:29 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 12:43:29 +0000
+ <SRS0=i8AK=7S=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vfdrm-0004KC-BP
+ for xen-devel@lists.xenproject.org; Tue, 13 Jan 2026 12:51:22 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 898f5082-f07e-11f0-9ccf-f158ae23cfc8;
+ Tue, 13 Jan 2026 13:51:11 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-653781de668so591107a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 04:51:11 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8731f0718asm303503166b.67.2026.01.13.04.51.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jan 2026 04:51:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,146 +45,322 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77cd3824-f07d-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qktuLXAkBIctGvWW5OHcdE01eipJj9N/B6KXHRGPs5b1TzrtZUbaxIeCY5AgB8knUDzDpv0jT+cgWVtuqVyy1dUtu8hS3YMNDlpsUluC6jduzoTTurnmzSqE1yukoM053R1xnnskSAdYuXswoDCsopoTUTuSjCG0OCJqdvm9YOAI6rFMSmleZOf82Q1FOngtP3xE/l8eN2u3XqCONN20JESv9h0FFqJnFuNDa9Yw/wSC6nkDj+oiKZzkISsOAECs90ejksvtAR3lALtstAzbHk40g/jxX0ZhqNx+gTLXsm7HvCaHvnWOVwynDBn7mu3mCkTjTrkMskufMPNbVxdD9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=huRGABghhDDApfv3LQIBFoyrw4+2bvl1ZmoOSc6ciyk=;
- b=R1rIVzkC/hJCss66q9/1X242+5f1GLglH6Da2gQdkUFYU5x6HVErNPet/lu1WiiVpFp94i2KpbxPZcjqk1foT8BZtRvU9MIju+aMPfO2F1/cfTpraku3ZCJo9fC79FPpKJvN+HcCcORyilRi+E52JzY57lnv/arDgNnxfu15pYUE+bQuPtzpuCVjcq6FHkSq2nb9zxEnbMlRn/3mgLH8uccJjvoBWJbhmbhh9j1xigCHTjnjDIWnOmpIfkfnfWbI+ahuxIst7LqObhxGgyxfC22ARMl420i+ZrvmNn322JMqnwX1BQQLIFx4YkYpHrv76h9uxxPFW3XRuQpyq4TaPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huRGABghhDDApfv3LQIBFoyrw4+2bvl1ZmoOSc6ciyk=;
- b=GUx4rZtcdKlRPdgZf0aZNM8HUuBuEaLAywAmnEXd1d+0J7nrbr037s/g5XvIMGDsFc8TsfiH52MAOKXrfxmSjvC5DPw/83SLN31mm6peh59RtUgzBC/+hFSTS8YjrKstdv3vQCEXGbnAT5peTgN3p8XweDTazZ039VqfG1t0lh0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <15233b0a-2cad-4263-8e54-3ad17037ad60@citrix.com>
-Date: Tue, 13 Jan 2026 12:43:25 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2] x86: Use 32-bit counter for TLB clock on debug builds
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20260113120959.55156-1-alejandro.garciavallejo@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260113120959.55156-1-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0462.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1aa::17) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: 898f5082-f07e-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768308671; x=1768913471; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rc+00Iz/VNwj12qtx2UFz2wSnCxu9Xw7NrDdCTd38hM=;
+        b=DeJVhnNBnj7OmRpn+QEt9qhrZIG1KO67yLF45dhgIdqG6M6zATQBXIOE4Tu6GSy6fQ
+         mY+hmPU+XeQyL14ERQEmaF9BmIQmE6oLw2Ohfg6KEECie4kvcab85dM4dIerhNoVCKDg
+         76/ZJrYZHJwqr2NNrYXD2ciaB8wdDwpJWcKQuDRVRObVdGmNlEto0v+x3NZJ+x8znUcr
+         JmyDE2JGzMSIHT02QpB/81rq46xFv5+VJC0WWkI3kO7eQwazUdpJFj9Uhr3J7XoaPYlx
+         Y3BKEuEzbm6XicuSMtc6qT++Cn/Qzp3n14tLm2p4No1J88sRNVzQhWLG5U5QOd16KrbR
+         jvOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768308671; x=1768913471;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rc+00Iz/VNwj12qtx2UFz2wSnCxu9Xw7NrDdCTd38hM=;
+        b=nlEZTlnknZkqQhtYn/1hBLc4E8r/+JDyLazbKObedQ2QqbRdmf63zSf5xDegW7fCa3
+         AhSrdAELaD0pQoeIQ2LKSv25Ht1vECjVoD4FU5MIdI800dV5amH3rlwEWCMF11ALmyut
+         UkM4GKZKBvwHCTBW7hBJBWyCu36svmsBgNOYf7nNdEpupZOp4kPEJBHz7dUPU9D9Cq6U
+         YaE0nKz4CmR78qnGwC6NUAau3bRwW57d43/woa1bN1LJjtkN3WpA9xe9AOhVPGdAV+lI
+         k7F620QMsRIR15sNDWolk5fZ80bJCcfA/XL5JZR9a+rj3RXkGv/ZZtwx6pg/Xw1mcIn0
+         MRPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWngFdc70rNXFRR0IChNhGhgNOTZDACjPGvnqVChMDmI12wp4/2dVxIC4cXqD0NpXH8jCGvv64hZx0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8+yZqmLeVbQ7LAxuUPo9c1//UIeGLPquU1otYyTs7fajxJRfp
+	b9M2b0/156up/VTnHt6jSnIekMdvDKDfsWQdkmLlQ0rrgduAPDelb7Z9
+X-Gm-Gg: AY/fxX7xrqdiYgdoNhBj8GIdfAJPkJyFsKMCk660EPWEXHF6wcy2rMJdqd5Ddj7BGka
+	27uVW8l9SUIgeYlnhRQm4ypVKqSBotKww7p9OyKLoWFhJcCK6VwOKTY2O9nPsl0IXQfs+zEBxxx
+	+ldCK/YGnoaCNAgjenE1RKaKrf+QNWDEj+T/TceWLskdm+y/PK6E6NiNzNeho7QDgqCsk574KeP
+	DhUIfRHVaxuPgNMK2IZTLH7UvPxleiD0y4p2FgSBQ2EoE1by+BYLFZxcbbaDuBZA9i7/lMssas0
+	5clz/7PFM2J3YSG2g9bZbyEDLhxw4X1/0IFw/fkUQKwmn2/xrWjTP5i2TUbsarJDNzLxNA84+sU
+	ehsj+iVDiqqzOSztPOXDQeIWPrPlp1MmX01SbCauoMLOimGxhK1Hk11Vw7DqJkl33w+c7QQ6Gwm
+	r7iw7wEI6s4WxydLHF7ilnQoDaMumYHwOrnJXZ3PCORgy20d3pzlg/0hVe7muuqnA=
+X-Google-Smtp-Source: AGHT+IHncNc7a6dHmmle2NYf3jdUgD++hEj21S6BYblCjzvDgJdMqacZXYG0KQa4v42TaZpHeL3wlw==
+X-Received: by 2002:a17:907:a4a:b0:b7c:e320:5228 with SMTP id a640c23a62f3a-b84451bf352mr1919554766b.22.1768308670414;
+        Tue, 13 Jan 2026 04:51:10 -0800 (PST)
+Message-ID: <f707899a-3200-4467-a827-2195351f1226@gmail.com>
+Date: Tue, 13 Jan 2026 13:51:09 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|IA3PR03MB7593:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6e65028-b6de-4cfd-6634-08de52a15a59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bUdJSm1vNmhMZmJaYjhTZkR0QkpFSU1KZEh4OGY1clR3WFRXV1JtTDVScDls?=
- =?utf-8?B?WEl6NHFRSzlSQkNsckorZWxHLzloYlNNYWpGWVh3Qk9jelpSTEJmTkRWbHVB?=
- =?utf-8?B?Y1l6NlhGN21hNzlIMHlOS2JmZ1JWV0FVam9VM1RKTHZwOStzL1hqTlRlTVNx?=
- =?utf-8?B?aWovc1FZQ1hKODdnTWI0dlEvSENZbDlTY090Ykx1bzZIR1RLQ2xGUGhhd0Zn?=
- =?utf-8?B?bFZib3FhUk01aEFEYVJjRC90aVhKVjFUTDB4WG9DMHZvNGZteE1lTzBjQU9G?=
- =?utf-8?B?MDBvQXRMdy9vWDFaaVcyQStaZ2o0R080WmRZK21HUE5uL1Nnejk5a3JZNVFN?=
- =?utf-8?B?SzN2MURWQ2FOOE5VRG1oODkvUGhyakFUbDBhNm1hcHQ2MlRZQTdMZ0locnYw?=
- =?utf-8?B?WEJzVFc4eEQ1QUt2M0JWNTJtSTQzelVjK0hMd211SEkvNythSFoxSFFFVW4z?=
- =?utf-8?B?QWh3aHpIUmJvRFFINW9rOXNmc1VlU1Vtd05GbklMV2kwcjRveTNGS0JxK1ph?=
- =?utf-8?B?b2FaTzF4QmtUR2F0VkxyUHUzSTVScDZBMmpZT1N0WUFKZkNjNjRUMDBpZ2pt?=
- =?utf-8?B?ZmUyZ25FdU9FQnFkYStWb05rTFJpMWQyNnBnbFVlUEFEdmoyTTlhZXpIMGFE?=
- =?utf-8?B?R2c5U3NreVBQTGxrbXdxL0FSRE9wWVhLMjVnODkwK0JiUUllLytHTzVmc3Bi?=
- =?utf-8?B?alpBaTZoTWRnaFE0WjVaSklndmhtMHBCZExTVUp2VUxOSS9DQ2xscjVQTUYv?=
- =?utf-8?B?QjJ3NS9XeTRUMENuRVNGQUpJbnRIV2NXeUo0a1UyUWVjNDRHUEJtejB0RWFJ?=
- =?utf-8?B?VDVQSnY0bStueTRjSGJSOGF2YmhhMFltSmhqYk9YWEZXcm1uWnhxK3NwVmgw?=
- =?utf-8?B?bmNrWlJwVnBhcGZQMjZJQkZsUlVwUjlKVWFKcEJJUWdCMzRVbmR3WXhVdFlO?=
- =?utf-8?B?Tlpkc0htTVlwRlpRbHoxaUF6ajJoQXNMN1BBclczMTQxdXlad0lsdlFRZ1BX?=
- =?utf-8?B?K2ZuZkVhbW13Tm5KSnJKclVVRWxnb3lzVWRRQnhkNUZLZ0NDbW9TejQrVUxo?=
- =?utf-8?B?VXpXVVcreFg1RVJ2dWhZUmxma1p3emFlYVdJYW9sRVgvTncvY3pkM04zU0xU?=
- =?utf-8?B?R3lROUdOTzdUbko1RWo0N1NON2ludzkwVmpjb2ZqTGt3OG5QNTV6UUZaakht?=
- =?utf-8?B?UWJrdUIyUW1VYWZ2VUF1ZDRqMkFqNmlYZzRYRndlOGNvOW16SUxHMlpUUUJH?=
- =?utf-8?B?VWRTNmFydjkxN1UvVjdmakdkQy9FbWdGUWdKd3JBaEdRTXVjZ3FXZSt5Z1Jq?=
- =?utf-8?B?b0lJYW9VaXZGckVRdHNtN3diQ1dLZ3VuSlZwTEdCNTl4YmNlM2NxNlI1am1U?=
- =?utf-8?B?RjhhQnRRRldrckU5T3VQb0NON0YzbzhrTW80akdvanNXMDhVb01HaEpJMWNs?=
- =?utf-8?B?Yk9zbmNtYUZXMlhzY0JVUzBpNFhjV2FWbTQza09mNGp0VitkSU95MDNwYkd6?=
- =?utf-8?B?U1UwTjBIOUdsUkZOUU9YQXA3T1ZRSHdzUVh0bytBY1dENDVDL1BKaFFjNWZC?=
- =?utf-8?B?dnAzUysrTzFsaEUyNXNaVFI5VTJmZUNNT1NST2E1dmpOQk02UHVFT3hsYXdk?=
- =?utf-8?B?Y2gzbGFFUmhDbHNGZWQ4QS8rYWE3a1Z4ZXAxNCtYTW53THpuMnp6OEtOc1R2?=
- =?utf-8?B?MlpjRGlrUzJxTVB6cEtuSGNGdlBuS1JhOTJ4dnZsakttTjF6THgvQUIxUnNI?=
- =?utf-8?B?VUdlNGgvSkNXSzN4aVFqcnZLQ3VGRHBpQ3FrWE5LaDREczZVL2hHOTZHK1lK?=
- =?utf-8?B?K1FEaTkvTEZKemhMV0U0dHJFLzhZdm5ONWowWWc4TGhOcjhTQlZVWEk3RGtv?=
- =?utf-8?B?T2FFVmZWYWg3UDNSWFVLb29rcmZqNjgwU1JTczVVTHUyRU95S3NEOFd3cVVx?=
- =?utf-8?Q?jKmX4LuB6iaVcCQebO6czNYkE3MyHpAH?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZnlENEhiUWpqeEhjaXBJYzNhdTZOSUdYUkNwNFNML0RxRDZlME01K0V5ckVV?=
- =?utf-8?B?SjFXalJNN2N4MG41cTFKeDcrOVdkZWMwaDBEV2RPY3VyTUFNaGtmOFN3Rkkv?=
- =?utf-8?B?VEZyUGFzcDY0dllxQTIyOWJoSW11OEdXR1Jub3M5ZkQ3dDhDcnJrVDlKaFFt?=
- =?utf-8?B?dk9sSjEzVVgzditld3BnNHVYM1FmWUZEL1lGKzIrNTRUMjN0V1N0N3FmUkNv?=
- =?utf-8?B?TDFzVVg3cnAwOFZod0JBSFRqQlhMcW5qUVlpRWoyNCs4L2ptSUR1eTROb2Fr?=
- =?utf-8?B?R1hlS2pCVFVtYjdGdTVHUkVsbGYxQ2tkUm94d1ZFOFRTTnBHNmR5T012N3dR?=
- =?utf-8?B?VDBnMUJEWEZmK0lrQlRkVU55Mm9RelBoQXByWUtlQ0l6d3l1RlQvMk1TakZO?=
- =?utf-8?B?UzZZelNNMmVONytGR0l4YXZoV1dBcFVRTzhZYUdIbmZFS3NMY2ZEZGNMMlho?=
- =?utf-8?B?Q1FwYk9SWU9MS3NwT2NrTXhnamJhTHE2em5QTjZWYVgxcy9ZSzVTc2FpY29p?=
- =?utf-8?B?OWlRbFR6SzFYMTBiTGtVd1lCV2xSSHFrUm1FTDN2Wjk4OFJmbC8xR1RtYllL?=
- =?utf-8?B?cEo0L3Y1L1RkdFA1OU5qUnhYS21Hb2Z2UHhaNzg2ZVNCWkpUaG5OY1Z3ODlE?=
- =?utf-8?B?NitjYnpkcHNhdnBPUzF0Z0JhT2NTa3BmR1pvdG9MRDdSMmVVOEFzYWNpendP?=
- =?utf-8?B?ZGdRa0cyZnI5bUlLaDJIMm5kazJNUDZ1d1FJVlNqMUpCeWRadWs5OFVjUzhG?=
- =?utf-8?B?RlpibURRZElEYXl2QzhOdGVpVXU4TW9KejFyUlF2RktyZ0o1Tm4zaC9NNTA1?=
- =?utf-8?B?STNkZzFaVzEzc1NWeC9kcVhvekFRWXE5Zk5ETyt6UWs0RVBEK0lxdkJCaUsv?=
- =?utf-8?B?ekJFT3M4UkJaRW10VEgwdWZpMldtdjkrajZDczRJZ0pWT2ZQR3lqaDB4cmUz?=
- =?utf-8?B?eXJUUGhYUGZFT1B2WWNhSTR3aXV6MWJxRUJ0dGdYUjMrWC9SN1lweHBwaG5P?=
- =?utf-8?B?WlVQelJ6TkJPeHJUMHMzM2NOd2JsWlJLTzArYng3dVpINGtUeEhzektHc3Rp?=
- =?utf-8?B?czhMRlA5WlMxUCtPdHoydG1oL2UwdGFlY0t3L1dSRlJ2bE94KzFhWW9HSVcx?=
- =?utf-8?B?VWJUaVZZNEJhaTFTRkpwbWhyWnQvcXJ3cUZMNUhBajNMN1BzV0I4Q2hkNDVa?=
- =?utf-8?B?T2JYWHlpR21TMFhNbGpzTHdpNExBN2QvMENrWHFSMTVpc0N4V0pyOWdjUklm?=
- =?utf-8?B?VWE2dk96NXdvT1JSeDBnU01CWE0rQUxNNTdFSWo3Q3pwd3p2YTdjbmJMM2xO?=
- =?utf-8?B?WWtPSlJ6YWNSTDhIdUd0c2ZlclZwTURvVGU0R3pFRXNXQVNIK1Bic1VrdXhH?=
- =?utf-8?B?c3RGcU1ITzZFSVMrTnZaRHlOM2ZEeko1NVE0WHZWbUNsQWFHSEJuNXpWNWk1?=
- =?utf-8?B?S1BGdGxiQjlESHdKaEZJZ05ZSkR1U1FKNkFiTDUwdnVNQVV0OWJjb1A3cXNV?=
- =?utf-8?B?dnA1UmlGOGJWUUNyenhTb1dDbG9OTDJkdlhjY3ZnSXU3cEN0c044VGkyaHBJ?=
- =?utf-8?B?WXJ6V1hJNjFHeUNBcW9LY1J1VVYzNlJhZXl5N0JUbkwwa05qbjFHSFlKdUla?=
- =?utf-8?B?Rk9VVWVsc01tbFZoZXdsbGZJTExvcTZCcEwrK0JVZE1TZitXVTlKUEtMcWpS?=
- =?utf-8?B?U3pIUGlSMXdKenpNYzdUMVE3cjh0WkhiN3lVYnhUbGtDQXV5NHAvQXcxWlN4?=
- =?utf-8?B?VlRCdkVPTFJwU0NiTEVKclB5QWJWSERhMUIrYTBzR1NWaEFrSkFheHU3K3FT?=
- =?utf-8?B?SWVMbGU3Y1lkOXRBd043SmRhR0xnaEtoSlp0dHNwZTJQbTBUYlJRNDU5ejF1?=
- =?utf-8?B?dEZpS0l1L2tGRFNadVpoekh6cEgvM1NOMWJ6T3JIRW1SRDRjdzlCbHZ3Q1JZ?=
- =?utf-8?B?ZFdreGpHTlV6WGhiS1Z3cHdNVkNxYURLakYzYm9GS1F1d1Q0QUx5VDJ6cHR2?=
- =?utf-8?B?Z2dZcGNrMHlQLzNVMUdEN0l0V0w1RWh4bCtldUJIQ2FycDJremIwYVIvUnpj?=
- =?utf-8?B?WldRajZLWFphQml0Q014Y0tkNzd1M3libE93WUdoUnhOQ0JkN014QzFmcjgv?=
- =?utf-8?B?R0lZZk44M3d0NGY0M1JERlIzODBkNSs2eUVqT2ZjSzRlUGFPcnE4UndCejV6?=
- =?utf-8?B?Z2JVdGxNTFRGNjlOU1ZBeHVSMkNGcXdGenpKR1lsVWJsVllUTTFVbFE2RXZl?=
- =?utf-8?B?Tm4wL3IvOEZ5eHRiSVJiN1ZGQUF2VjlCRm5hRzltbHpCMG5UVGZrSFRZeTQ0?=
- =?utf-8?B?SWl0ajJ6WjFvbjV4dDh2T3Nsdm5oSVkwWjQvai9ZTldQNVByeXVLQmF2UTVR?=
- =?utf-8?Q?XJrEucKeE30wwnzs=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6e65028-b6de-4cfd-6634-08de52a15a59
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 12:43:29.4281
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XOYw+sV/UC5En8xOv5yyycNub/nbWkeojWs9aOtuvHoHmBzx4te1WE7EKXv8fJg7TSczApJeBHflwF+sypB7EU5NAmvfcVAaqR6uVAz4jOE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR03MB7593
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
+ <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 13/01/2026 12:09 pm, Alejandro Vallejo wrote:
-> Debug builds traditionally ship with a 10-bit counter for the TLB
-> clock. This forces global TLB shootdowns with high frequency, making
-> debug builds unsuitable for any form of real time testing.
->
-> Remove this quirk, unifying release and debug under a wide counter.
->
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 1/7/26 5:28 PM, Jan Beulich wrote:
+> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>> This patch is based on Linux kernel 6.16.0.
+>>
+>> Introduce a lockless mechanism for tracking pending vCPU interrupts using
+>> atomic bit operations. The design follows a multi-producer, single-consumer
+>> model where the consumer is the vCPU itself.
+>>
+>> Two bitmaps are added:
+>>   - irqs_pending — represents interrupts currently pending
+>>   - irqs_pending_mask — represents bits that have changed in irqs_pending
+>>
+>> Introduce vcpu_(un)set_interrupt() to mark an interrupt in irqs_pending{_mask}
+>> bitmap(s) to notify vCPU that it has or no an interrupt.
+> It's not becoming clear how these are going to be used. It's also not clear
+> to me whether you really need to record these in software: Aren't there
+> (virtual) registers where they would be more naturally tracked, much like
+> hardware would do?
+
+Guest (virtual) registers are not used to inject interrupts on RISC-V; for that
+purpose, the HVIP register is provided. Even without considering HVIP, using guest
+(virtual) registers has a downside: if a bit in hideleg is zero, the corresponding
+bit in VSIP is read-only zero. During a context_switch(), when CSRs are saved,
+this means we would not obtain correct values, since some VSIP bits may read as
+zero during csr_read().
+
+In fact, this is one of the reasons why we want to track interrupts to be
+injected separately. For example, a vtimer may expire while the vCPU is running
+on a different pCPU, so we update vCPU->hvip while the vCPU is active elsewhere.
+When the vCPU is later switched in during a context_switch(), we would lose the
+fact that vCPU->hvip.vtimer was set to 1, because the CSR save function will do:
+   vCPU->hvip = csr_read(CSR_HVIP);
+and the pending interrupt state would be overwritten.
+
+>
+> Furthermore, since you're dealing with two bitmaps, there's no full
+> atomicity here anyway. The bitmaps are each dealt with atomically, but
+> the overall update isn't atomic. Whether that's going to be okay can only
+> be told when also seeing the producer side.
+
+You're correct that the two-bitmap update isn't fully atomic, but this design
+is intentional. Here [1], other  is the part 2 of introduction of pending vCPU interrupts
+and as it requires more stuff to introduce (for example, [2]) I decided not to
+introduce it now with some stubs and introduce it when all will be ready for it.
+
+If a producer is interrupted between updating the two bitmaps the worst case is:
+vCPU might process stale state for one cycle, this is resolved on the next flush when
+the mask indicates the bit changed. No interrupt is permanently lost or spuriously
+generated.
+
+[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/31022d515789a032fd994f9ca90965db089dbbd5
+void vcpu_flush_interrupts(struct vcpu *v)
+{
+register_t *hvip = &v->arch.hvip;
+
+unsigned long mask, val;
+
+if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
+{
+mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
+val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
+
+*hvip &= ~mask;
+*hvip |= val;
+}
+
+/* Flush AIA high interrupts */
+vcpu_aia_flush_interrupts(v);
+
+vcpu_update_hvip(v);
+}
+
+
+void vcpu_sync_interrupts(struct vcpu *v)
+{
+unsigned long hvip;
+
+/* Read current HVIP and VSIE CSRs */
+v->arch.vsie = csr_read(CSR_VSIE);
+
+/* Sync-up HVIP.VSSIP bit changes does by Guest */
+hvip = csr_read(CSR_HVIP);
+if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
+{
+if ( hvip & BIT(IRQ_VS_SOFT, UL) )
+{
+if ( !test_and_set_bit(IRQ_VS_SOFT,
+&v->arch.irqs_pending_mask) )
+set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+}
+else
+{
+if ( !test_and_set_bit(IRQ_VS_SOFT,
+&v->arch.irqs_pending_mask) )
+clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+}
+}
+
+/* Sync-up AIA high interrupts */
+vcpu_aia_sync_interrupts(v);
+
+/* Sync-up timer CSRs */
+vtimer_sync(v);
+}
+
+
+[2] https://gitlab.com/xen-project/people/olkur/xen/-/commit/1c06b8b1d1eadfe009a4d6b1a1902fac64d080e9
+
+>
+>> --- a/xen/arch/riscv/domain.c
+>> +++ b/xen/arch/riscv/domain.c
+>> @@ -5,9 +5,11 @@
+>>   #include <xen/sched.h>
+>>   #include <xen/smp.h>
+>>   
+>> +#include <asm/bitops.h>
+>>   #include <asm/cpufeature.h>
+>>   #include <asm/csr.h>
+>>   #include <asm/riscv_encoding.h>
+>> +#include <asm/system.h>
+>>   #include <asm/vtimer.h>
+>>   
+>>   static void vcpu_csr_init(struct vcpu *v)
+>> @@ -100,6 +102,9 @@ int arch_vcpu_create(struct vcpu *v)
+>>       if ( is_idle_vcpu(v) )
+>>           return rc;
+>>   
+>> +    bitmap_zero(v->arch.irqs_pending, RISCV_VCPU_NR_IRQS);
+>> +    bitmap_zero(v->arch.irqs_pending_mask, RISCV_VCPU_NR_IRQS);
+> This is pointless, as struct vcpu starts out all zero.
+>
+>> @@ -135,3 +140,45 @@ void vcpu_kick(struct vcpu *v)
+>>           smp_send_event_check_mask(cpumask_of(v->processor));
+>>       }
+>>   }
+>> +
+>> +int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq)
+>> +{
+>> +    /*
+>> +     * We only allow VS-mode software, timer, and external
+>> +     * interrupts when irq is one of the local interrupts
+>> +     * defined by RISC-V privilege specification.
+>> +     */
+>> +    if ( irq < IRQ_LOCAL_MAX &&
+> What use is this? In particular this allows an incoming irq with a huge
+> number to ...
+>
+>> +         irq != IRQ_VS_SOFT &&
+>> +         irq != IRQ_VS_TIMER &&
+>> +         irq != IRQ_VS_EXT )
+>> +        return -EINVAL;
+>> +
+>> +    set_bit(irq, v->arch.irqs_pending);
+>> +    smp_mb__before_atomic();
+>> +    set_bit(irq, v->arch.irqs_pending_mask);
+> ... overrun both bitmaps.
+
+Agree, it would be better just to drop "irq < IRQ_LOCAL_MAX &&".
+
+>
+>> --- a/xen/arch/riscv/include/asm/domain.h
+>> +++ b/xen/arch/riscv/include/asm/domain.h
+>> @@ -85,6 +85,22 @@ struct arch_vcpu
+>>       register_t vstval;
+>>       register_t vsatp;
+>>       register_t vsepc;
+>> +
+>> +    /*
+>> +     * VCPU interrupts
+>> +     *
+>> +     * We have a lockless approach for tracking pending VCPU interrupts
+>> +     * implemented using atomic bitops. The irqs_pending bitmap represent
+>> +     * pending interrupts whereas irqs_pending_mask represent bits changed
+>> +     * in irqs_pending.
+> And hence a set immediately followed by an unset is then indistinguishable
+> from just an unset (or the other way around).
+
+I think it is distinguishable with the combination of irqs_pending_mask.
+
+>   This may not be a problem, but
+> if it isn't, I think this needs explaining. Much like it is unclear why the
+> "changed" state needs tracking in the first place.
+
+It is needed to track which bits are changed, irqs_pending only represents
+the current state of pending interrupts.CPU might want to react to changes
+rather than the absolute state.
+
+Example:
+  - If CPU 0 sets an interrupt, CPU 1 needs to notice “something changed”
+    to inject it into the VCPU.
+  - If CPU 0 sets and then clears the bit before CPU 1 reads it,
+    irqs_pending alone shows 0, the transition is lost.
+By maintaining irqs_pending_mask, you can detect “this bit changed
+recently,” even if the final state is 0.
+
+Also, having irqs_pending_mask allows to flush interrupts without lock:
+if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
+{
+mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
+val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
+
+*hvip &= ~mask;
+*hvip |= val;
+}
+Without it I assume that we should have spinlcok around access to irqs_pending.
+
+
+>
+>> Our approach is modeled around multiple producer
+>> +     * and single consumer problem where the consumer is the VCPU itself.
+>> +     *
+>> +     * DECLARE_BITMAP() is needed here to support 64 vCPU local interrupts
+>> +     * on RV32 host.
+>> +     */
+>> +#define RISCV_VCPU_NR_IRQS 64
+>> +    DECLARE_BITMAP(irqs_pending, RISCV_VCPU_NR_IRQS);
+>> +    DECLARE_BITMAP(irqs_pending_mask, RISCV_VCPU_NR_IRQS);
+>>   }  __cacheline_aligned;
+>>   
+>>   struct paging_domain {
+>> @@ -123,6 +139,9 @@ static inline void update_guest_memory_policy(struct vcpu *v,
+>>   
+>>   static inline void arch_vcpu_block(struct vcpu *v) {}
+>>   
+>> +int vcpu_set_interrupt(struct vcpu *v, const unsigned int irq);
+>> +int vcpu_unset_interrupt(struct vcpu *v, const unsigned int irq);
+> Why the const-s?
+
+As irq number isn't going to be changed inside these functions.
+
+>
+>> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
+>> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+>> @@ -91,6 +91,7 @@
+>>   #define IRQ_M_EXT			11
+>>   #define IRQ_S_GEXT			12
+>>   #define IRQ_PMU_OVF			13
+>> +#define IRQ_LOCAL_MAX		(IRQ_PMU_OVF + 1)
+> MAX together with "+ 1" looks wrong. What is 14 (which, when MAX is 14,
+> must be a valid interrupt)? Or if 14 isn't a valid interrupt, please use
+> NR or NUM.
+
+I didn’t fully understand your idea. Are you suggesting having|IRQ_LOCAL_NR|?
+That sounds unclear, as it’s not obvious what it would represent.
+Using|MAX_HART| seems better, since it represents the maximum number allowed
+for a local interrupt. Any IRQ below that value is considered local, while
+values above it are implementation-specific interrupts.
+
+> Also, nit: Padding doesn't match with the earlier #define-s (even if in the
+> quoted text it appears otherwise).
+
+Thanks.
+
+~ Oleksii
+
 
