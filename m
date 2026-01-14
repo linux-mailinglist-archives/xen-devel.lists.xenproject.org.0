@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21860D1D3BF
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 09:49:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202679.1518133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95BF6D1D51C
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 10:01:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202691.1518143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwYo-0001ue-DG; Wed, 14 Jan 2026 08:49:02 +0000
+	id 1vfwk8-0004Xp-8S; Wed, 14 Jan 2026 09:00:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202679.1518133; Wed, 14 Jan 2026 08:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 1202691.1518143; Wed, 14 Jan 2026 09:00:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwYo-0001t8-9u; Wed, 14 Jan 2026 08:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 1202679;
- Wed, 14 Jan 2026 08:49:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfwk8-0004Vn-5G; Wed, 14 Jan 2026 09:00:44 +0000
+Received: by outflank-mailman (input) for mailman id 1202691;
+ Wed, 14 Jan 2026 09:00:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfwYn-0001qy-AX
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 08:49:01 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id deb7c1b7-f125-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 09:49:00 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-477a219dbcaso66606335e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 00:49:00 -0800 (PST)
+ id 1vfwk7-0004Vf-5E
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 09:00:43 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 80498447-f127-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 10:00:40 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47ee807a4c5so577485e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 01:00:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee54b90d5sm17229895e9.2.2026.01.14.00.48.58
+ 5b1f17b1804b1-47ee119aa2asm17561945e9.4.2026.01.14.01.00.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 00:48:59 -0800 (PST)
+ Wed, 14 Jan 2026 01:00:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: deb7c1b7-f125-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 80498447-f127-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768380540; x=1768985340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768381240; x=1768986040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xiGVfVIHdprF755XGvSlBfxNYTkiMWZtddiwyb5XCgA=;
-        b=NeG/+/TX33LwlFgHGRBgAg3IJdN8W7jsvMrMwLvcIUiVasF7jqJTFa+2pkp4vuv/vZ
-         gmh6zXI/ymht8zUr2BJgfgcOdCQ+XZOjc7UjiDGc8UM9XPKfvsRhIyG66Uj/EKkpxZP0
-         ItXlMbrv0jFucaBXGvlr9CGfIfxcqJZcDp+qIpqfUxrHr9vNiuRGzgGFJuBT8PfACG3l
-         en91lqBvv4MIWkiNTjVBHLEdmbY0mndWg8dnu2UDrKQTfvGDYUUnTwzymYiuTa6yhIJL
-         7eWMQx4h/aX3QlixxP6lyxQuxTGGPfXoyULygCZLvTRKLQyLoQqk1OLVYHheWqNQVd58
-         UJtQ==
+        bh=Nsj4f9BO02MSbzEoDwR8oHG/4h/Z1+gxsOv7EcLp5PQ=;
+        b=DQXnbYP45nK5qYTTjajk+FYgnE1G2I/IOxcYh4lPwcYmfWCbu1RfGJYPdouGPhhyqN
+         O/5OBPZT/nV/eRnsB3TXqdofpAUmkGPiuRMGBnGa1VW5ag/1m3nvml9kgWDqBtrjuRAG
+         OpeFwhegzA2clnMdK/q9JrDNfwT0NwpUrXE0hVexUVZbng9vRxPeyHPa55bpDl9gtIWd
+         ICr4q7/XeLgbvqsGcAQmiVJzfk7DsCWMFvz6mEK1szxv5WFwYrR24yR7TpPcGysvfL7y
+         MqkZEByS9J/FHbhZi5o2UzTGeGIWQSDLLWPfaUAnQQ3NxR4TXqatvdq8h1bQcGufdTQk
+         HdaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768380540; x=1768985340;
+        d=1e100.net; s=20230601; t=1768381240; x=1768986040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xiGVfVIHdprF755XGvSlBfxNYTkiMWZtddiwyb5XCgA=;
-        b=YUHErZPVdUiWr/mGgosqeJ/U6mkEwloAamjm7gjP5sZdUhjfSCmgO+cu5y6pGQh1yC
-         f5GlbVzxefEH5jYIttlPUtjEbGTffSvniQTXVGcJ+pjgSrsEhVfHQR3hyAVBVHHys65f
-         FUQJTHmrjuhKyFAh5FovP6PmmpkRdFxR1N1k+zWfF5V/8tXQOcfvpSXctuPrrdJl+P/u
-         RWG5M/NKritdj3i4LHAD+Q3T+jF7O9mjT+IY91uJxnnQ8mG45jHAuxc6LENueSc1juU9
-         PWZXh82SD6f/2PpomPkKBZ0eDjFSGfHz4W+QdU9JZnf8YCE9rN2BbPB81/EzedVIFMJI
-         Ylug==
-X-Forwarded-Encrypted: i=1; AJvYcCVaHUw9hjGk/Dl5kr+mwsY2SYLornx5fYs4oZ9YgCswANmXdPiVTHYo4wkpiAQ0b66G4+3dqCensG0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzcr0HEVInBTP+YBJ5bhjBHr7B7AvZgYnG06uVAmxp6+5IOnN5D
-	WLvDKCeZ5Dcqd9UmJ+NBgADHkGHcQqZpCwsAGkO7urlvjBn7dEC3ElyxWqksuC+r1Q==
-X-Gm-Gg: AY/fxX6+hr4fBlvoBq3rKRvQ0bh1SUlAEmOEbLIn+e0ghRXH8YPOF1/c0dM9Yxs/AvJ
-	9Z4e6M6HsvKSBZ3GREv6MOEgzcBfXOTUsFpGlhr5kIp94i1NA7t7khjmcVaLvSWnabnzI3hTo61
-	8fSx4gTHDJwjQQW635jQdlIEz4qeXKCSNYAwnCUshGu4JpSXXNieO1Szs4pGFvyp0WP1mDmxIOD
-	UyZ5+/6O1nPbQh7r0q0/0nkdeBSvUREaExdnx5kIRmtUd5Yjd2KrPePubnP6krkGv4IpwMo2iqn
-	b99bszhSFrJQkX8WvhuruvyFqozpk59umsAD+ijPfKMu1Azu9obgpTAk1MG6JlPuQMdwdpXhDGI
-	/+/EfD+lFBSC1ZcKXP+wLeRsSszv1blTu7MCYwg9MZCKTuQYPKh+mMTid8gDrt7bGz2xMdA5yr1
-	RfoOfhscLqLvkVbv6g7s+P9n2N3jT7sxZR/JN6WZMGXMhTlfdzWQo+DMVdpmgMkSU43zVqmQUsM
-	+c=
-X-Received: by 2002:a05:600c:4751:b0:47e:e20e:bbbe with SMTP id 5b1f17b1804b1-47ee4827277mr11826695e9.25.1768380539565;
-        Wed, 14 Jan 2026 00:48:59 -0800 (PST)
-Message-ID: <b535344e-1f27-4d5c-85aa-1529868f85fc@suse.com>
-Date: Wed, 14 Jan 2026 09:48:59 +0100
+        bh=Nsj4f9BO02MSbzEoDwR8oHG/4h/Z1+gxsOv7EcLp5PQ=;
+        b=oimxr+KFj0vprEn0Fjjz47jzG2IB1Fx8wlwQ8rUv4jrtotZn5e5zyPrJ1skH+n2DT2
+         iLsKhvvgdEjPD+3PbK2Eu+Pa6uR9D5++WiLqex7shDLM9m7B2Qq4HGZFXKA/CAjWGiwR
+         LI2JIit61AUU610VmgxJ6wiA5/D9WZLg6ZHVcuD6wS2mTYZXjqCO9vtfpAYpYbIqiCoA
+         eFxq47NlBM34+gxyD/Q1AUjDmIA6rrQ9v/6V9aDfl6vVlmayMBV0C+QgOh2GjYpmcAXW
+         2zt32Cdxyh2ujHgVCaQvazzCqpbYtVS63f9MnTAtj/qLf5FLpoz+NuRJdX0W33FD81Kf
+         mKfA==
+X-Forwarded-Encrypted: i=1; AJvYcCVJtySwDiporrUbaSEZknbHvfaJrDjMIzJ81XFDZvtzzanyuooavt560jjVpf7Z1/IDW+GMS9DsNcU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwSrtjAqaKIjzyMLPi7DjJS2KRGgSvvarXyH+LSMjQ3J/9bS9zn
+	E2anmVHT1SlH42LhPqe5K4sXjXrphpYtIKDsWC9awuwdXPD+LH83Zz43DWd6/Pv01w==
+X-Gm-Gg: AY/fxX4joMOdjr8+rs+696Lv2k+tQXePMRb+m3dxFB/F3ibLtsLSft8QPh9+uVLsh8c
+	RjC07zq5BTnztzRxzBV2CBKC3K2ccXpEEa+d5vftDnUQIvazs1RlIXgTdrdEKVs+82G24dBgsXC
+	CYZBUZLbHD4NzLOjesvuHX0nMvgKK/E9rj8N8YUL6mgfdt63mA1Q/Q/za5lPyyvQluC7JOxpVBl
+	5cTZCY/zHBMhKAAOeqRSFswoPJ9k5/1urNP68mdpRRioUC9XEWOAg4rje3QyGFSkAdCR4MzvW9Z
+	76rn+9p0b+WLt2fLVyS9iUtN9mW56Uajd8/6CP3Mi8D/MxmvVD6YBvb8GNjNfzdvNcu64nd8gpk
+	4z6PNzKfvspYIIY/gNeF0WeUOF0lUKNAtgwvIHwENNEobi/hN8iCBxPXEfbbuzC9EofUP/9s0Vm
+	hhY+D1nZaf9JMHHyUF9DKHC4D1/ehu4/2zz862fweal79rB6NC6cDXd4tA72V4GkNCg4nZq48vF
+	5Q=
+X-Received: by 2002:a05:600c:34cd:b0:479:2a3c:f31a with SMTP id 5b1f17b1804b1-47ee32e94acmr23193615e9.1.1768381240170;
+        Wed, 14 Jan 2026 01:00:40 -0800 (PST)
+Message-ID: <b6e70c51-5068-4877-b9bc-5328592eba50@suse.com>
+Date: Wed, 14 Jan 2026 10:00:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/mm: limit non-scrubbed allocations to a specific
- order
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 09/15] xen/riscv: add vtimer_{save,restore}()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260108175536.82153-1-roger.pau@citrix.com>
- <20260108175536.82153-3-roger.pau@citrix.com>
- <b547676c-ff2e-4a56-b3b4-2b2da167e2f1@suse.com> <aWZQLL997K3MTQY4@Mac.lan>
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <c553efa44f384dcb9a49684c586a762b2a1444c9.1766595589.git.oleksii.kurochko@gmail.com>
+ <9d02934b-d448-4ec0-af0d-b4ee9a918e03@suse.com>
+ <1acea58d-79f5-4fca-bd6a-1eaca72093f3@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,123 +126,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aWZQLL997K3MTQY4@Mac.lan>
+In-Reply-To: <1acea58d-79f5-4fca-bd6a-1eaca72093f3@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.01.2026 15:01, Roger Pau Monné wrote:
-> On Fri, Jan 09, 2026 at 12:19:26PM +0100, Jan Beulich wrote:
->> On 08.01.2026 18:55, Roger Pau Monne wrote:
->>> The current model of falling back to allocate unscrubbed pages and scrub
->>> them in place at allocation time risks triggering the watchdog:
->>>
->>> Watchdog timer detects that CPU55 is stuck!
->>> ----[ Xen-4.17.5-21  x86_64  debug=n  Not tainted ]----
->>> CPU:    55
->>> RIP:    e008:[<ffff82d040204c4a>] clear_page_sse2+0x1a/0x30
->>> RFLAGS: 0000000000000202   CONTEXT: hypervisor (d0v12)
->>> [...]
->>> Xen call trace:
->>>    [<ffff82d040204c4a>] R clear_page_sse2+0x1a/0x30
->>>    [<ffff82d04022a121>] S clear_domain_page+0x11/0x20
->>>    [<ffff82d04022c170>] S common/page_alloc.c#alloc_heap_pages+0x400/0x5a0
->>>    [<ffff82d04022d4a7>] S alloc_domheap_pages+0x67/0x180
->>>    [<ffff82d040226f9f>] S common/memory.c#populate_physmap+0x22f/0x3b0
->>>    [<ffff82d040228ec8>] S do_memory_op+0x728/0x1970
->>>
->>> The maximum allocation order on x86 is limited to 18, that means allocating
->>> and scrubbing possibly 1G worth of memory in 4K chunks.
->>>
->>> Start by limiting dirty allocations to CONFIG_DOMU_MAX_ORDER, which is
->>> currently set to 2M chunks.  However such limitation might cause
->>> fragmentation in HVM p2m population during domain creation.  To prevent
->>> that introduce some extra logic in populate_physmap() that fallback to
->>> preemptive page-scrubbing if the requested allocation cannot be fulfilled
->>> and there's scrubbing work to do.  This approach is less fair than the
->>> current one, but allows preemptive page scrubbing in the context of
->>> populate_physmap() to attempt to ensure unnecessary page-shattering.
->>>
->>> Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> I'm not particularly happy with this approach, as it doesn't guarantee
->>> progress for the callers.  IOW: a caller might do a lot of scrubbing, just
->>> to get it's pages stolen by a different concurrent thread doing
->>> allocations.  However I'm not sure there's a better solution than resorting
->>> to 2M allocations if there's not enough free memory that is scrubbed.
->>>
->>> I'm having trouble seeing where we could temporary store page(s) allocated
->>> that need to be scrubbed before being assigned to the domain, in a way that
->>> can be used by continuations, and that would allow Xen to keep track of
->>> them in case the operation is never finished.  IOW: we would need to
->>> account for cleanup of such temporary stash of pages in case the domain
->>> never completes the hypercall, or is destroyed midway.
->>
->> How about stealing a bit from the range above MEMOP_EXTENT_SHIFT to
->> indicate that state, with the actual page (and order plus scrub progress)
->> recorded in the target struct domain? Actually, maybe such an indicator
->> isn't needed at all: If the next invocation (continuation or not) finds
->> an in-progress allocation, it could simply use that rather than doing a
->> real allocation. (What to do if this isn't a continuation is less clear:
->> We could fail such requests [likely not an option unless we can reliably
->> tell original requests from continuations], or split the allocation if
->> the request is smaller, or free the allocation to then take the normal
->> path.) All of which of course only for "foreign" requests.
->>
->> If the hypercall is never continued, we could refuse to unpause the
->> domain (with the allocation then freed normally when the domain gets
->> destroyed).
+On 13.01.2026 16:32, Oleksii Kurochko wrote:
+> On 1/8/26 11:43 AM, Jan Beulich wrote:
+>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>>> vtimer uses internal Xen timer: initialize it on the pcpu the vcpu is
+>>> running on, rather than the processor that it's creating the vcpu.
+>> This doesn't look to describe anything this patch does.
 > 
-> I have done something along this lines, introduced a couple of
-> stashing variables in the domain struct and stored the progress of
-> scrubbing in there.
-> 
->> As another alternative, how about returning unscrubbed pages altogether
->> when it's during domain creation, requiring the tool stack to do the
->> scrubbing (potentially allowing it to skip some of it when pages are
->> fully initialized anyway, much like we do for Dom0 iirc)?
-> 
-> It's going to be difficult for the toolstack to figure out which pages
-> need to be scrubbed, we would need a way to tell it the unscrubbed
-> regions in a domain physmap?
+> Hm, and why not?
 
-My thinking here was that the toolstack would have to assume everything
-is unscrubbed, and it could avoid scrubbing only those pages which it
-knows it fully fills with some data.
+Because this patch doesn't initialize any timer. The only timer-related
+call I see is one to migrate_timer().
 
->>> --- a/xen/common/memory.c
->>> +++ b/xen/common/memory.c
->>> @@ -279,6 +279,18 @@ static void populate_physmap(struct memop_args *a)
->>>  
->>>                  if ( unlikely(!page) )
->>>                  {
->>> +                    nodeid_t node = MEMF_get_node(a->memflags);
->>> +
->>> +                    if ( memory_scrub_pending(node) ||
->>> +                         (node != NUMA_NO_NODE &&
->>> +                          !(a->memflags & MEMF_exact_node) &&
->>> +                          memory_scrub_pending(node = NUMA_NO_NODE)) )
->>> +                    {
->>> +                        scrub_free_pages(node);
->>> +                        a->preempted = 1;
->>> +                        goto out;
->>> +                    }
->>
->> At least for order 0 requests there's no point in trying this. With the
->> current logic, actually for orders up to MAX_DIRTY_ORDER.
+> In vcpu_vtimer_init() we're initializing timer (it was incorrect to use
+> "internal Xen timer" though) on CPU is stored in vcpu->processor by calling
+> init_timier().
 > 
-> Yes, otherwise we might force the CPU to do some scrubbing work when
-> it won't satisfy it's allocation request anyway.
-> 
->> Further, from a general interface perspective, wouldn't we need to do the
->> same for at least XENMEM_increase_reservation?
-> 
-> Possibly yes.  TBH I would also be fine with strictly limiting
-> XENMEM_increase_reservation to 2M order extents, even for the control
-> domain.  The physmap population is the only that actually requires
-> bigger extents.
+> I will update this part then to:
+>   Initialize the timer contained in|struct vtimer| by calling|init_timer()|.
 
-Hmm, that's an option, yes, but an ABI-changing one.
+But you don't call that function. (Nor is this, btw, a useful sentence
+to have in a patch description. May I suggest that you read a fair number
+of in particular Andrew's or Roger's patch descriptions, to get a feel
+for what wants saying and what doesn't need to be said? In the case above:
+How else could you plausibly initialize that timer? Hence the latter part
+of the sentence is largely meaningless. Plus - is leaving the field
+uninitialized a plausible option? IOW you're merely stating the obvious
+anyway. Sadly, and I'm sorry to have to say that, this carries through
+many of your patch descriptions: You mechanically state what is being
+done, when really the thinking behind what you're doing and, often,
+further plans would be relevant to call out.)
 
 Jan
 
