@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74272D1D5E3
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 10:07:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202704.1518152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35F61D1D6AD
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 10:13:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202713.1518163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwqr-0005E6-Tz; Wed, 14 Jan 2026 09:07:41 +0000
+	id 1vfwwK-0006jh-D3; Wed, 14 Jan 2026 09:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202704.1518152; Wed, 14 Jan 2026 09:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 1202713.1518163; Wed, 14 Jan 2026 09:13:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwqr-0005Bj-Qm; Wed, 14 Jan 2026 09:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 1202704;
- Wed, 14 Jan 2026 09:07:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vfwwK-0006iC-99; Wed, 14 Jan 2026 09:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 1202713;
+ Wed, 14 Jan 2026 09:13:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfwqp-0005Bd-VB
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 09:07:39 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 762af735-f128-11f0-9ccf-f158ae23cfc8;
- Wed, 14 Jan 2026 10:07:33 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47ee807a4c5so640365e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 01:07:33 -0800 (PST)
+ id 1vfwwI-0006i6-75
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 09:13:18 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 42de27dd-f129-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 10:13:16 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42fbc305914so5932470f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 01:13:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee563ce3csm17095275e9.14.2026.01.14.01.07.32
+ ffacd0b85a97d-432bd5ede7esm50138989f8f.32.2026.01.14.01.13.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 01:07:32 -0800 (PST)
+ Wed, 14 Jan 2026 01:13:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 762af735-f128-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 42de27dd-f129-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768381653; x=1768986453; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768381996; x=1768986796; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SoSh1mihD7JKrbP5TTbUqHPy+briKFo4CJwVUJOJJSs=;
-        b=ESWZ2Q2i5wiw7d1uLbJzJxSF2sukZX1cacTUI3IbGj24/E3yAozOa7lwPmlJzYlZeQ
-         Fw7WvbowOJFZEYVs9NjwIM3AOISytiL6K8fVVKlYZlpzaAYc9hsCc+xyUpYbdbkedTaI
-         OcR7zeUa0WTs0CuJfmbPiWT42ukDhEQEJ9mA46BLEo67iBA0YIyOaTCX9W4sg1k2kLjM
-         f6mugrpJonZnpf5wpq09/+hT9B0QpgWn+neujE8ga/NgzMqvVuDVOPgKu4lnC1rsBf1e
-         zbgIA+Vn4JKhiKeX6jyGey/3GUp2bI70yRj60Lavd/F3hjHEpHZBhjnrYSyLYucmV4C3
-         PClQ==
+        bh=B3EQylQ1WYMGuc6F6IY2qJmyNzD/0oNfuOw6DywxSJQ=;
+        b=SlE/ykxI9bviA7ktFHp5WsGOrf0d94ekijlUz0oMXQ0Khyet0MtlhpsziNvXXBBNwa
+         bdCBka8wcPlZatjjFxY4ZjjsM+HUM6tGmDLATT5ceHJwBhQU9mWpmNTVgE5SRALaYzlU
+         j8ARs/bP1YX/8fYNJeDdXuCEdy9cADtb8JIpaiZ2QrRFzn99I8lOdgslpvzErBzFWk4l
+         qgUnP1RedocG8kMV8wpdnNDWA9Zgm0T8EyhTUwNRuaWyKUGLsTwWCpNvMhLIk4qx5Xts
+         fjCvNKpEqaWh0leiSbV1gmHFie1SFzZalmhsQAZpeeuGt/YOC9i0ybMyKVTsMuJ/w7oq
+         1p+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768381653; x=1768986453;
+        d=1e100.net; s=20230601; t=1768381996; x=1768986796;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SoSh1mihD7JKrbP5TTbUqHPy+briKFo4CJwVUJOJJSs=;
-        b=j5PMdx2qy1dk3jtDnMnWKdQHAGXh83LSQmh+kLeJXwLfup0zSMKDUwyq/t8/6WAMOD
-         Bs4nQGV2tVM64HXd02rMt7JYONjFALxgNSWRWK5WIrk85CMIsT/hdilTsjB76+P2h8jt
-         /lRaARPWHD44R1qsFUAfnmptSckCcUJIiSJd7fzWypmf+VhUrFmK4xoQDtZevBuyelP1
-         7sCK6R7l7c04NsPE1bPY8D5jbUnODI6NBkvirfbMudMExuSJ59x9GfwIG19EJ1rXxQYF
-         3vz9dh4bF9idMSK8FUMjcpzMz9/FTD10gpYDbg5oQ21bkOcUVZX8sYl2IywmfuQ7wYJK
-         78AQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUlUo8gkI8/VRkv2JhAPtEBrj6vBTivM0SaVMz611hOfw454SvTIOrOKeRATaMt+wcSyy/w0jRS1Go=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZfEaInnr9YLpWDr9g4dcYlFKIuVxtDJ2QFdYnKRaWjLchntKj
-	mqE/p+ujXbQ91yKbzVt8PCXfW8fi3aXXt3FS/5kuowP2pXuXLniUpS3pn99xgdGeIA==
-X-Gm-Gg: AY/fxX5gvj7pNEkjRTemXmwKtBOVL43+ERMmyM3bpZW3MeZweP/mVPGIbDB+XgjkbWC
-	Z0PRGMtEzEUQl7NS4jiuLqNm2TKf7E4cy9Vsn0aD5HYmUQqvyNjADV4AC/TCJxBKx2py+MH+cll
-	zaKEh7PMn9G1oLKAi8lf06xzu+ULC1XxGxrjjaCS5K2IaKBTzYrbd5bcpOum7Ub9nduZLEk0yqi
-	r9Pu45stKryBJZAEKB9/KBgn2lkt7huBcRDcMVjE10f2yqeYvepfWTBdQy6MxyNzKyfMM1xd811
-	AMqGR8bFMzu8q4TZXKVX4zKxnn/KeDygWAL5sqsLT6PskuyWFXsBY5MRKIMRFmuWbqyjuaElKrH
-	l73Lvr6iEGEUcuv5vW+SYP+KHF4nDkDSmFNEgs2PlXhVxc0hbPeiIIlZiC0+vU4N/ybXN8dqeSi
-	55PbDDd3eJuD+RrJEZSgEGfmS3xE9kpiNnwizS+suS/BJQ/nfcNPsosEtj3q99M7hrEGexsEJu7
-	a4=
-X-Received: by 2002:a05:600c:a46:b0:47a:975b:e3e6 with SMTP id 5b1f17b1804b1-47ee3371a0amr22137465e9.18.1768381652752;
-        Wed, 14 Jan 2026 01:07:32 -0800 (PST)
-Message-ID: <d0f8a1eb-6aaf-482e-8e86-4435265764fa@suse.com>
-Date: Wed, 14 Jan 2026 10:07:32 +0100
+        bh=B3EQylQ1WYMGuc6F6IY2qJmyNzD/0oNfuOw6DywxSJQ=;
+        b=QqWQz5XyiFstkDObGWGoyyYJu0+yP3f4/YFr5Zn76pF9+LqE+3h4UbQnvCIz/hpRlB
+         iFdDFTB31KI//RAZ+VXmyZLi/7Mp0VkcWg/R1bWWQIdTFoQdubLyhy/eux//cnOwfSXT
+         sDXdAn2wrY961hUbCIStDp6dBl+eTujuCjuAPMVp2UijHQOMFCeuF0OfVLf8Wzh9QyUZ
+         q9SeZX3xZhn/w5Har1h/cnRte+gQwgQ1epzz5wwiXkicuqIV4PLVnIpoTX2QQjKyopcZ
+         Ww4ojqpTlixOu0Z0jC5dBIjFlzcNWEI8AK/GxyZDhGe73FssBAQkfRPwFyVq4PEMORSc
+         jSEQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXU/KWUJpWUpM61tdSyPMTUdRlR7MidrLBWwqFGdZoJAfh0BinnyqjE6p53dcbvI8rvLdTE+1IJmak=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyS2KZaSfI8slrrqMH7n9yve1Q1bfbsp/mOMDH11KTJcMeNHtt
+	Xt5L3ienWIbqlpL9tgoX/QhZlUYTITz0argDlPSLWJlgIyZ3iuKYJAkxVAHxV8C41A==
+X-Gm-Gg: AY/fxX42WiznpZzUHq4jiCQd601EcYeErG61iCoEsDTKk3tlu94N38/NrcpeUWMrq46
+	nLie2VHC84JYCHzJeV3ixAgC6q6St69G6awFAWCOEkqZMxOO5pnxOc9aVBGcYTNra8aKGK6gh4x
+	BZ0wb1qBYufbp11dBJ6tqK7c0SNEKcr8c1o+gAPYkL8GtHJU0cp2TjWykOW7mO7StQYwhGnr248
+	Cata3aaSgIOL1Zqu+kmnz8D9Do8ACZpGH2V3veCM1EcmMz63FsWzsp10kgbxhG8QHo8B/3m/7EP
+	PBlBjEschp8F8w/RT5Nlls58LjWS9M6XbaIXU2YlUMwzkpM8e2Y2YE6wnzr+gWSRzlcgJCh9ru5
+	D0Wi+bRByDM4bnsZwaba5j4t2Srhe37Fdp91Q16xL/VJk4BK4V6McfQVCAdCLpKR1/JJvJrB3rY
+	7Ziav6fmjyH3X+WPI48LfJS35IetWLu2Qqu3RmyVVJV3a1nkgu6Q2vrxm8uO+HGqrLuD5Uw2c1K
+	jFyxIg/70e7LA==
+X-Received: by 2002:a05:6000:2013:b0:430:f5ed:83fc with SMTP id ffacd0b85a97d-4342c4f4d5fmr2077263f8f.11.1768381996178;
+        Wed, 14 Jan 2026 01:13:16 -0800 (PST)
+Message-ID: <f2241dec-a115-41b9-a249-6c5a69114809@suse.com>
+Date: Wed, 14 Jan 2026 10:13:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 12/15] xen/riscv: introduce sbi_set_timer()
+Subject: Re: [PATCH v1 13/15] xen/riscv: implement reprogram_timer() using SBI
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,9 +98,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <84cf8fb2331614c6d0cc6e9030571f42bfc6d928.1766595589.git.oleksii.kurochko@gmail.com>
- <de975e5d-4df7-4dee-9edf-400e5287cc82@suse.com>
- <5f658f5b-1c22-4bd7-9f25-f89576d5003e@gmail.com>
+ <43249171def325c49541ebdac141fe99d159b60f.1766595589.git.oleksii.kurochko@gmail.com>
+ <f14c8b3d-66ce-4ea7-bf50-591a4a48345a@suse.com>
+ <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,44 +126,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5f658f5b-1c22-4bd7-9f25-f89576d5003e@gmail.com>
+In-Reply-To: <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.01.2026 17:33, Oleksii Kurochko wrote:
-> On 1/12/26 4:12 PM, Jan Beulich wrote:
+On 13.01.2026 17:50, Oleksii Kurochko wrote:
+> On 1/12/26 4:24 PM, Jan Beulich wrote:
 >> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>> Introduce pointer to function which points to a specific sbi_set_timer()
->>> implementation. It is done in this way as different OpenSBI version can
->>> have different Extenion ID and/or funcion ID for TIME extension.
->>>
->>> sbi_set_time() programs the clock for next event after stime_value
->>> time. This function also clears the pending timer interrupt bit.
->>>
->>> Introduce extension ID and SBI function ID for TIME extension.
->>>
->>> Implement only sbi_set_timer_v02() as there is not to much sense
->>> to support earlier version and, at the moment, Xen supports only v02.
->> Besides this somewhat contradicting the use of a function pointer: What
->> about the legacy extension's equivalent?
+>>> @@ -39,6 +43,33 @@ static void __init preinit_dt_xen_time(void)
+>>>       cpu_khz = rate / 1000;
+>>>   }
+>>>   
+>>> +int reprogram_timer(s_time_t timeout)
+>>> +{
+>>> +    uint64_t deadline, now;
+>>> +    int rc;
+>>> +
+>>> +    if ( timeout == 0 )
+>>> +    {
+>>> +        /* Disable timers */
+>>> +        csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
+>>> +
+>>> +        return 1;
+>>> +    }
+>>> +
+>>> +    deadline = ns_to_ticks(timeout) + boot_clock_cycles;
+>>> +    now = get_cycles();
+>>> +    if ( deadline <= now )
+>>> +        return 0;
+>>> +
+>>> +    /* Enable timer */
+>>> +    csr_set(CSR_SIE, BIT(IRQ_S_TIMER, UL));
+>> Still learning RISC-V, so question for my understanding: Even if the timeout
+>> is short enough to expire before the one SIE bit will be set, the interrupt
+>> will still occur (effectively immediately)? (Else the bit may need setting
+>> first.)
 > 
-> I think this is not really needed, and the same implementation can be used for
-> both the Legacy and TIME extensions, since the API is identical and the only
-> difference is that|sbi_set_timer()| was moved into a separate extension.
+> The interrupt will become pending first (when mtime >= mtimecmp or
+> mtime >= CSR_STIMECMP in case of SSTC) and then fire immediately once
+> |SIE.STIE |(and global|SIE|) are enabled.
 > 
-> Since Xen reports to the guest that it supports SBI v0.2, it is up to the guest
-> implementation to decide why it is still using|sbi_set_timer()| from the
-> Legacy extension instead of the TIME extension.
+>>
+>>> +    if ( (rc = sbi_set_timer(deadline)) )
+>>> +        panic("%s: timer wasn't set because: %d\n", __func__, rc);
+>> Hmm, if this function ends up being used from any guest accessible path (e.g.
+>> a hypercall), such panic()-ing better shouldn't be there.
 > 
-> I think that I can add Legacy extension equivalent but considering that we are
-> using OpenSBI v0.2 for which Time extension is available it seems for me it is
-> enough to define sbi_set_timer to sbi_set_timer_v02() for now.
+> I don't have such use cases now and I don't expect that guest should use
+> this function.
 
-Feels like here you're negating what just before you wrote in reply to 10/15.
-IOW - I'm now sufficiently confused. (Just consider if you ran Xen itself as
-a guest of the very same Xen. From what you said for 10/15, it would end up
-not seeing the TIME extension as available, hence would need a fallback to
-the Legacy one.)
+How do you envision supporting e.g. VCPUOP_set_singleshot_timer without
+involving this function?
 
 Jan
 
