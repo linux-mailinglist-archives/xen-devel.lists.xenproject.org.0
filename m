@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5644D1ED50
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 13:41:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203022.1518364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4270D1EE58
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 13:50:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203036.1518373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg0BS-0001sH-BK; Wed, 14 Jan 2026 12:41:10 +0000
+	id 1vg0KJ-0003Ve-6a; Wed, 14 Jan 2026 12:50:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203022.1518364; Wed, 14 Jan 2026 12:41:10 +0000
+Received: by outflank-mailman (output) from mailman id 1203036.1518373; Wed, 14 Jan 2026 12:50:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg0BS-0001pD-84; Wed, 14 Jan 2026 12:41:10 +0000
-Received: by outflank-mailman (input) for mailman id 1203022;
- Wed, 14 Jan 2026 12:41:08 +0000
+	id 1vg0KJ-0003TS-2Q; Wed, 14 Jan 2026 12:50:19 +0000
+Received: by outflank-mailman (input) for mailman id 1203036;
+ Wed, 14 Jan 2026 12:50:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=16zh=7T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vg0BQ-0001p7-TJ
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 12:41:08 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ <SRS0=rX2Z=7T=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vg0KH-0003TM-Ro
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 12:50:18 +0000
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c107::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b6897d3-f146-11f0-9ccf-f158ae23cfc8;
- Wed, 14 Jan 2026 13:41:06 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-b86f69bbe60so501586766b.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 04:41:06 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8724197145sm760383566b.11.2026.01.14.04.41.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 04:41:05 -0800 (PST)
+ id 8cb00419-f147-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 13:50:06 +0100 (CET)
+Received: from BN9PR03CA0582.namprd03.prod.outlook.com (2603:10b6:408:10d::17)
+ by DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Wed, 14 Jan
+ 2026 12:50:02 +0000
+Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
+ (2603:10b6:408:10d:cafe::da) by BN9PR03CA0582.outlook.office365.com
+ (2603:10b6:408:10d::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.7 via Frontend Transport; Wed,
+ 14 Jan 2026 12:49:46 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.0 via Frontend Transport; Wed, 14 Jan 2026 12:50:02 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 14 Jan
+ 2026 06:50:02 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 14 Jan
+ 2026 06:50:01 -0600
+Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 14 Jan 2026 06:49:59 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +63,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b6897d3-f146-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768394466; x=1768999266; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ueYzrlq5f6o6Qg9JN81RVR2RMsGpdW8chZWBb2RnORY=;
-        b=g0zxI1gHsKlg0vOoRBvMbNuzS5uxZ7ryR4bdESWo8eMbY0MIzEBuwho5MXTr6vknj3
-         7dBZbvbv8HupBd86e6dyFb3FEkkHszp1XpmEB8MTNK56jiRzJLQXQ/yNZfEYVPQkQoXh
-         XdGHJm6dvRAmYpdEiWdDF+fot0v95xfsXTh9XxWh09AbD85cm4JgUcdl78mQVmCawbw6
-         X73WnSkug/QGZzjBnty+ZMwKPWyteihwjJ11dlqhZ6+insw4QPUWqguxjNRwmCRCDowl
-         uNO7vlHF1gfLO16IcRamIsl5N2J0DecSdbzUUEX+1cxXnzcA3CRo3seLcg54dWIeDzTc
-         +Rsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768394466; x=1768999266;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ueYzrlq5f6o6Qg9JN81RVR2RMsGpdW8chZWBb2RnORY=;
-        b=sF+C7q0b50pgSzhwIKqRLIV3FuRCTsy7qS9vIXXWglF5CEtOGnMashjINFqmbQkY7w
-         rP9Zi2l5aVv18r07a8JCPBfB83AHyMz/Ya48q9KsJQPHK3o8FAfLRQx54fgWmsCMQ58E
-         4AD+kvywhitx/x9Yo/Shpminc3jP6yUhE1VPDpZpk/OiX7RAPMEXZTFYoAAyFhxEkXBC
-         Ga9wxEBJA5ndboeJmTiIEjmhEJOAYtDtaQcY8uQTOe79GkKok0TQ7Fe6dFA/5Lo8cYAO
-         Tnfb08c9C8jp8IvaHYhokkdnMcuWzRQmhEtQOJB4vkWyNbo/N++qjZImcMUi8wBivTcO
-         GJCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUwvSdeYFLb7UwZlmMT0cy3VG95viJP7Xn1hVEiYpYCrfE4eACLKxxvKxExNDgqQrGeT5vCNuouYEA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWZQscIYWiUNyi20K2SQ/Goy3ikf7gw38IyJKInjEM/PtC31Gr
-	/ofp51iX4bcX2QxilY++aZf7nyaLU+oNCSkL2Vcd6xI8XOHlMFnZpMt9
-X-Gm-Gg: AY/fxX7qb4fvs5TlRDNYndL301W06qD+mXq8Ye+bba2Y2PT9uTewWXVq6RSfe4zm0Ke
-	WNnqU2CzjhBCuxGy6U3dJYl5Scsomc+NwfZEtr17+TMLTLkNzd0RxUjft8ixcgauyOjaGzmfWg1
-	cHxLKyrP0kUe8QBdgACM/JMchRD4/jH0wizwAJ9gjXiYZanUQ79AM8ytRsQ/di62m2Wo4dobDpC
-	FnTHLfdTofV3076N9kvi9ugQ+oBzW/qGTIRKQGAEhqORmLMBftqgdUTZf8onpVQo6hsfjVE9T6N
-	5oOykTL2fufkQlSx0P80+stSQdFvm/A2dhRiJOCzJ8p4nfR5b3+DkMgoM/7jqVLQMkxs41q1vev
-	8nwMlgY+KzcfkNqEImq0g9ugDrgE05G+W4ksgc0V34vEf+WvwvS8zCITcgDw8eTE52K1FxO4phB
-	8YZwmvHWUpulMxVSPJg4U/W55bmXoHf9ERd+Z7BZmWqj50IhxW1nD39JWQdT2yUtk=
-X-Received: by 2002:a17:907:2da8:b0:b87:2b61:b03e with SMTP id a640c23a62f3a-b8761021a6amr212998966b.14.1768394465673;
-        Wed, 14 Jan 2026 04:41:05 -0800 (PST)
-Message-ID: <f4ffcd85-6091-47e0-8c02-e3e5a8ca1354@gmail.com>
-Date: Wed, 14 Jan 2026 13:41:04 +0100
+X-Inumbo-ID: 8cb00419-f147-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RGH4hCyb8Z7XDZog/aQ2ULMDpi08Gif9SepZR56lY3H31jDAxFyUGm1OJUrefNvlCjQZU0hCMcwATDTB7ZcuKs/hALjZQRdh0Rd8uriR+VnfIkx5VH+E7AVi1b2apcg/+foxLxJhDktJpbbqgQAc21oPjmBEjCJGvVswNubm1AiVguqpd72tcmqBQlphHUtZ12j4pbILtYKHVwAgj3RdX7ZDs9ZNaYJLIAMzr/jEN/X/+vWOuw9bYQMpizjQXhuJkF11kQoLAzknlwjODm9y7aDQRY1C67q1ubbVkh89KVqCkveno9lkX1ycwQzLxUBAdDFPPCnnfFauvG5fO8DpEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0zZ9bo2AxtsZsclXePPyt8sA012nTA58g7aY6KPLgbc=;
+ b=IiP/T8a3DBEK7holLn0IVKZNKMODt3FiyT8vm2WOWUkCFaU6NaAhK49r1R3nkkkE/BYUOur6rrVBO2lHIJSWGs7x2P7qAh7hz4DRMROfwoO7hQJc9UOSkW9sy7kWDz/4bh8h/ZCvHeTh3QrgG9viUQIIt0v5Vf6zmYW2ujjfNaNuuE+hCefMftRaSncvfgwxOBJyz3jvT3wykd5b1hdhYfg0yXUkpX2gqOeUV6Cv5ECFANer+V4w2MfN1x+Q132mEy7NSN3nUGjb/zcYNVBRST7fYYvKgcqmryglJ4SFzkKrYLegW7OQZPVmyJEDjP6WjANltrwve1Ep1YjdBrEtmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0zZ9bo2AxtsZsclXePPyt8sA012nTA58g7aY6KPLgbc=;
+ b=UvlAKitZ+p40Miygwv8v1p6diHjcUFC6+GbHSX4e+pRB0QF0B8WH0RmBggDlT/Mcafe1LBKB3+qCmZJfVZ8SiEjuqX9z3jyoPSyPPplO2IVwXjaUoa1T84xFwPVNe34f1xiN4rOOKs8aLYNJ7vHM1HHIp6LORJ3Rf9VzmyFSscw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <9051c577-503f-487c-b180-36a4197e9bea@amd.com>
+Date: Wed, 14 Jan 2026 13:49:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/15] xen/riscv: implement reprogram_timer() using SBI
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <43249171def325c49541ebdac141fe99d159b60f.1766595589.git.oleksii.kurochko@gmail.com>
- <f14c8b3d-66ce-4ea7-bf50-591a4a48345a@suse.com>
- <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
- <f2241dec-a115-41b9-a249-6c5a69114809@suse.com>
- <a7757fd0-7b23-451d-93f7-043cfbb6e684@gmail.com>
- <c6b2f360-5ec5-4299-9eb0-de88bf9f9ad9@suse.com>
- <4141bb71-7aef-4287-aefd-92009977294f@gmail.com>
- <c29d03ec-e83f-4594-9ef6-fcc7b99a318b@suse.com>
+Subject: Re: [PATCH v3 3/6] arm/mpu: Implement free_init_memory for MPU
+ systems
+To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, Penny Zheng <Penny.Zheng@arm.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>, Hari Limaye
+	<hari.limaye@arm.com>
+References: <20260113162309.6766-1-harry.ramsey@arm.com>
+ <20260113162309.6766-4-harry.ramsey@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <c29d03ec-e83f-4594-9ef6-fcc7b99a318b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20260113162309.6766-4-harry.ramsey@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-
-
-On 1/14/26 12:17 PM, Jan Beulich wrote:
-> On 14.01.2026 11:33, Oleksii Kurochko wrote:
->> On 1/14/26 10:53 AM, Jan Beulich wrote:
->>> On 14.01.2026 10:41, Oleksii Kurochko wrote:
->>>> On 1/14/26 10:13 AM, Jan Beulich wrote:
->>>>> On 13.01.2026 17:50, Oleksii Kurochko wrote:
->>>>>> On 1/12/26 4:24 PM, Jan Beulich wrote:
->>>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>>>>>> @@ -39,6 +43,33 @@ static void __init preinit_dt_xen_time(void)
->>>>>>>>          cpu_khz = rate / 1000;
->>>>>>>>      }
->>>>>>>>      
->>>>>>>> +int reprogram_timer(s_time_t timeout)
->>>>>>>> +{
->>>>>>>> +    uint64_t deadline, now;
->>>>>>>> +    int rc;
->>>>>>>> +
->>>>>>>> +    if ( timeout == 0 )
->>>>>>>> +    {
->>>>>>>> +        /* Disable timers */
->>>>>>>> +        csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
->>>>>>>> +
->>>>>>>> +        return 1;
->>>>>>>> +    }
->>>>>>>> +
->>>>>>>> +    deadline = ns_to_ticks(timeout) + boot_clock_cycles;
->>>>>>>> +    now = get_cycles();
->>>>>>>> +    if ( deadline <= now )
->>>>>>>> +        return 0;
->>>>>>>> +
->>>>>>>> +    /* Enable timer */
->>>>>>>> +    csr_set(CSR_SIE, BIT(IRQ_S_TIMER, UL));
->>>>>>> Still learning RISC-V, so question for my understanding: Even if the timeout
->>>>>>> is short enough to expire before the one SIE bit will be set, the interrupt
->>>>>>> will still occur (effectively immediately)? (Else the bit may need setting
->>>>>>> first.)
->>>>>> The interrupt will become pending first (when mtime >= mtimecmp or
->>>>>> mtime >= CSR_STIMECMP in case of SSTC) and then fire immediately once
->>>>>> |SIE.STIE |(and global|SIE|) are enabled.
->>>>>>
->>>>>>>> +    if ( (rc = sbi_set_timer(deadline)) )
->>>>>>>> +        panic("%s: timer wasn't set because: %d\n", __func__, rc);
->>>>>>> Hmm, if this function ends up being used from any guest accessible path (e.g.
->>>>>>> a hypercall), such panic()-ing better shouldn't be there.
->>>>>> I don't have such use cases now and I don't expect that guest should use
->>>>>> this function.
->>>>> How do you envision supporting e.g. VCPUOP_set_singleshot_timer without
->>>>> involving this function?
->>>> Looking at what is in common code for VCPUOP_set_singleshot_timer, it doesn't
->>>> use reprogram_timer(), it is just activate/deactivate timer.
->>> And how would that work without, eventually, using reprogram_timer()? While not
->>> directly on a hypercall path, the use can still be guest-induced.
->> Of course, eventually|reprogram_timer()| will be used. I incorrectly thought
->> that we were talking about its direct use on the hypercall path.
->>
->> I am not really sure what we should do in the case when rc != 0. Looking at the
->> OpenSBI call, it always returns 0, except when sbi_set_timer() is not supported,
->> in which case it returns -SBI_ENOTSUPP. With such a return value, I think it would
->> be acceptable to call domain_crash(current->domain).
-> How is current->domain related to a failure in reprogram_timer()?
-
-Agree, it isn't, a failure could happen during a ran of any domain.
-
->
->> On the other hand, if some
->> other negative error code is returned, it might be better to return 0 and simply
->> allow the timer programming to be retried later.
->> However, if we look at the comments for other architectures, the meaning of a
->> return value of 0 from this function is:
->>    Returns 1 on success; 0 if the timeout is too soon or is in the past.
->> In that case, it becomes difficult to distinguish whether 0 was returned due to
->> an error or because the timeout was too soon or already in the past.
-> Well, your problem is that neither Arm nor x86 can actually fail. Hence
-> calling code isn't presently prepared for that. With panic() (and hence
-> also BUG()) and domain_crash() ruled out, maybe generic infrastructure
-> needs touching first (in a different way than making the function's return
-> type "bool")?
-
-I think making the function's return still is fine and it is only question to
-arch-specific reprogram_timer() what to do when an error happens.
-
-Still doesn't clear to me what should be a reaction on failure of
-reprogram_timer().
-Considering that SBI spec doesn't specify a list of possible errors and now
-the only possible error is -ENOSUPP it seems to me it is fine
-to have panic() as we don't have any other mechanism to set a timer
-except SBI call (except the case SSTC is supported then we can use just
-supervisor timer register directly without SBI call).
-
-~ Oleksii
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|DS0PR12MB8245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 044a32a6-f7a5-4527-4e69-08de536b6f06
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|82310400026|376014|36860700013|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aUtPNFVkMThtQTk1SUNMekJrMHloWUlnc3VlTzVxRHRNYWI2eUl4MmJQSjRr?=
+ =?utf-8?B?L0hKdGFXSVdoWFJzR2lsVXNVY2s5OGZiTk5VM05JSldwTnFkKzV3TFRCeDA3?=
+ =?utf-8?B?Y3Q4ZVVQaTI3ZlRLVWVXejVzS3RjcVFkNzBWL0ZUcVRJODVSQmZKVGFnSUp4?=
+ =?utf-8?B?YWprMnBzQi8rczVVKzBKRmNDdytQbnNpYVhwWnRHdWJVVXNEZEpWTWhNNjNo?=
+ =?utf-8?B?aFYveDBVcE1GQWtuZFUwU2tMUlBkbjFMTXhzU3RpSWV5Q1pVd3JiLzJpYkpC?=
+ =?utf-8?B?WXNJZG1TNTJBd2hTcDhGKytVQkl0ZU9KcGFrcmRiY2hScHdpYWpaMUZDbHlj?=
+ =?utf-8?B?aEp5NVkwcE5KU1YyNEF6ck5NMjNpYjZ2UjhHbU1QSXhxL1BjeDJxb0NmT3Nr?=
+ =?utf-8?B?OVlWT1kwVy9DYWdIMEhqT0paWXo4SldOTGg1dC9OMlR6bHU2LzJJbFkrMmpX?=
+ =?utf-8?B?L1kvQU1ZNlA1YUJlTjRka3JzVEdqN0JOVnVkUSt1blRhelRFZnUzUXdHQXlO?=
+ =?utf-8?B?dDQwb21nRWhHZDlmeGhZNFRna1FUSGlYVGMyc1IrQm15NG9nZ0RUMk0wUWwx?=
+ =?utf-8?B?L3gvd2tjeTJzNHdqeDI4TXR6cUpDMUl3NGdYeGZjekwrUmdEVmh3bzhCaG1G?=
+ =?utf-8?B?eGxwcUdNS1I1dnU4VlZXQ3lWYUpGYm0wYlg4dTJpYjBtZzlmYml5VkY0NE5O?=
+ =?utf-8?B?Vmhoemx5VUxubEhOOVBuaEtvcit6MlRVUi9PSWZYbjJVMlo3cUZBaUJZbWIx?=
+ =?utf-8?B?THVDeWhFRkxSV012dWtISFNSUU1HS2p0N1RCRXp5cHhnbDJZMEpMSUpiRk5x?=
+ =?utf-8?B?MlRPS1pQcWdsUGVERVkvWDZseDMwdkFrTi9HQjBNRDJQclBCRlpjdWJHV3pL?=
+ =?utf-8?B?T2VkUWd5VXJHaE50azRwcnl0aEdtYTB0SUFMQURHOFlhb0lreUtGbzlrK0lP?=
+ =?utf-8?B?czFVeFREVXJtdlhWemx4ZW5xV0tsaVlHc1Q2KzhXTUVsSUtwUHBCSzlEUlhl?=
+ =?utf-8?B?N0lJMURDbmlyTFRnczA0ajhjbjFwWGt2QXIvSlR2bWxrdElpTEFPWW5jV3p6?=
+ =?utf-8?B?Z2FlT2w0Qy9sek51Q2JobXhWY2FweHZNS3lzSXRDWXEzZXFmYjAzRGtzV1Fn?=
+ =?utf-8?B?aWNGaHNVWGR6R0hGOXQ0MW9HYVd3WHVjSHg2d0t6ZHBiVy95NCtQdnhmZ0gy?=
+ =?utf-8?B?YjZjZTQ5R3FMWGdkNTE2UGxRY2pUTVFjN3ZrUVRwWElKT2Y5WTNJUVQ0V2NJ?=
+ =?utf-8?B?QWE2RkVZazJJTjN4TUxIY1pvWllkUkVJaEdQWVE2Y1JjZ3lKa25iNDhVY0k0?=
+ =?utf-8?B?TUxuUWFtNDNPcFQvV3h0V3kwd3lxdExnYUxzRU4rcFdOS0ZhbmZzbEF2UWRW?=
+ =?utf-8?B?ZTBjbFFEVE9WWnNCT2I2Y2hPbHROYkd2aUF5bjc2V2ZaL2kzcXo4anQ2WFZw?=
+ =?utf-8?B?aU9acXBlYi91YWlpSmZaSkZqSVNCK0JKMG1nY2ZxMXV5REtzaDVwQ0d4b2dw?=
+ =?utf-8?B?WXhCK21IREY1dzZKbGFobDErYnA4NUNWNUNvNWkxaWRITDJpUnJId2g0Z1VT?=
+ =?utf-8?B?VkVFM0VFNXMzMFVtejFlOHBpaUFpYnEwbFNsdW5BeDRZU1hob0F6VXJWR203?=
+ =?utf-8?B?eHR4Y1hmQkVJVzYvanVSUEQ2dFdlNTVGZEttclYxdTk4TGFtQ2hIN1NUbFgw?=
+ =?utf-8?B?dS9QbnhSVC81aitVbnlCa3lKTmNPOHVWQUI4anAxdSsxNnVSRjUzSXdsSEF4?=
+ =?utf-8?B?UkplT0wxZWJyWHNLOVJCa0RFb2hIT001WmcyZ0UvUW1aOHRkcW9SQXlQWGtK?=
+ =?utf-8?B?SXl1Rmd4a1hzTXIrNXVtUkVLMGN6UnAyNXlwdm5nUE5DWEZoa3ppTGN2aHR4?=
+ =?utf-8?B?SHIrOHRRb3J5a29sOFBqSkNJZlhud3l5OGFsQTNDTTcvTU5OZElMYkowdi9q?=
+ =?utf-8?B?ZkZaOUU5SFJZZENHTlhXUE5nMnAwOE13Q1JhaWNnZ2lTOU1QRkhGK0FrZG03?=
+ =?utf-8?B?eUlBWHQ3ZFJIcGJzUTBvQjVQNDhkZURBY1FPVG5aWmhqc0VLWDVsQmtFSks2?=
+ =?utf-8?B?ajJ2ODMzeDhMMEVvdFdhYU41UFFHMHIweTJOTm5uOGVHUFpJeFNuc1JyQjhu?=
+ =?utf-8?B?QXFvNW1jT3J2MlRSTWZjbkR0b0VaWUFVNmxJRjNsc0FQa1RVUkx5VTFSMkth?=
+ =?utf-8?B?WUxjRC9pWXJhd3U4TlFOcEEzS2FzVjkxUk1HWFlPUG9zMDNIQ2pmQUJpMnNh?=
+ =?utf-8?B?SDQ4TDNyNTlpdlU0VHI2QjJnVXBnPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(376014)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 12:50:02.2095
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 044a32a6-f7a5-4527-4e69-08de536b6f06
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B373.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8245
 
 
 
+On 13/01/2026 17:23, Harry Ramsey wrote:
+> From: Penny Zheng <Penny.Zheng@arm.com>
+> 
+> Implement the function `free_init_memory` for MPU systems. In order to
+> support this, the function `modify_xen_mappings` is implemented.
+> 
+> On MPU systems, we map the init text and init data sections using
+> separate MPU memory regions. Therefore these are removed separately in
+> `free_init_memory`.
+> 
+> Additionally remove warning messages from `is_mm_attr_match` as some
+> attributes can now be updated by `xen_mpumap_update_entry`.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> ---
+> v3:
+> - Refactor MPU_ATTR_* defines
+> v2:
+> - Refactor `is_mm_attr_match` to return logical values regarding the
+>   attribute mismatch.
+> - Improve code documentation.
+> ---
+>  xen/arch/arm/include/asm/setup.h |   2 +
+>  xen/arch/arm/mpu/mm.c            | 119 +++++++++++++++++++++++--------
+>  2 files changed, 93 insertions(+), 28 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 1eaf13bd66..005cf7be59 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -65,6 +65,8 @@ int map_irq_to_domain(struct domain *d, unsigned int irq,
+>  int map_range_to_domain(const struct dt_device_node *dev,
+>                          uint64_t addr, uint64_t len, void *data);
+> 
+> +extern const char __init_data_begin[], __bss_start[], __bss_end[];
+> +
+>  struct init_info
+>  {
+>      /* Pointer to the stack, used by head.S when entering in C */
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index 14a988ea0c..5633c1c4c5 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -15,6 +15,9 @@
+>  #include <asm/setup.h>
+>  #include <asm/sysregs.h>
+> 
+> +#define MPU_ATTR_XN_RO_MISMATCH     -1
+> +#define MPU_ATTR_AI_MISMATCH        -2
+> +
+>  struct page_info *frame_table;
+> 
+>  /* Maximum number of supported MPU memory regions by the EL2 MPU. */
+> @@ -171,33 +174,16 @@ int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
+>      return MPUMAP_REGION_NOTFOUND;
+>  }
+> 
+> -static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
+> +static int is_mm_attr_match(pr_t *region, unsigned int attributes)
+>  {
+> -    if ( region->prbar.reg.ro != PAGE_RO_MASK(attributes) )
+> -    {
+> -        printk(XENLOG_WARNING
+> -               "Mismatched Access Permission attributes (%#x instead of %#x)\n",
+> -               region->prbar.reg.ro, PAGE_RO_MASK(attributes));
+> -        return false;
+> -    }
+> -
+> -    if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
+> -    {
+> -        printk(XENLOG_WARNING
+> -               "Mismatched Execute Never attributes (%#x instead of %#x)\n",
+> -               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
+> -        return false;
+> -    }
+> +    if ( (region->prbar.reg.xn != PAGE_XN_MASK(attributes)) ||
+> +         (region->prbar.reg.ro != PAGE_RO_MASK(attributes)) )
+> +        return MPU_ATTR_XN_RO_MISMATCH;
+> 
+>      if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
+> -    {
+> -        printk(XENLOG_WARNING
+> -               "Mismatched Memory Attribute Index (%#x instead of %#x)\n",
+> -               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
+> -        return false;
+> -    }
+> +        return MPU_ATTR_AI_MISMATCH;
+> 
+> -    return true;
+> +    return 0;
+>  }
+> 
+>  /* Map a frame table to cover physical addresses ps through pe */
+> @@ -358,12 +344,44 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>      */
+>      if ( flags_has_page_present && (rc >= MPUMAP_REGION_FOUND) )
+>      {
+> -        if ( !is_mm_attr_match(&xen_mpumap[idx], flags) )
+> +        int attr_match = is_mm_attr_match(&xen_mpumap[idx], flags);
+> +
+> +        /* We do not support modifying AI attribute. */
+> +        if ( MPU_ATTR_AI_MISMATCH == attr_match )
+>          {
+> -            printk("Modifying an existing entry is not supported\n");
+> +            printk(XENLOG_ERR
+> +                   "Modifying memory attribute is not supported\n");
+Because this message is the same as the one a bit lower I would suggest to do
+s/memory/AI/ here...
+
+>              return -EINVAL;
+>          }
+> 
+> +        /*
+> +         * Attributes RO and XN can be changed only by the full region.
+> +         * Attributes that match can continue and just increment refcount.
+> +         */
+> +        if ( MPU_ATTR_XN_RO_MISMATCH == attr_match )
+> +        {
+> +            if ( rc == MPUMAP_REGION_INCLUSIVE )
+> +            {
+> +                printk(XENLOG_ERR
+> +                       "Cannot modify partial region attributes\n");
+> +                return -EINVAL;
+> +            }
+> +
+> +            if ( xen_mpumap[idx].refcount != 0 )
+> +            {
+> +                printk(XENLOG_ERR
+> +                       "Cannot modify memory attributes for a region mapped multiple times\n");
+and s/memory/RO,XN/ here.
+
+> +                return -EINVAL;
+> +            }
+> +
+> +            /* Set new attributes */
+> +            xen_mpumap[idx].prbar.reg.ro = PAGE_RO_MASK(flags);
+> +            xen_mpumap[idx].prbar.reg.xn = PAGE_XN_MASK(flags);
+> +
+> +            write_protection_region(&xen_mpumap[idx], idx);
+> +            return 0;
+> +        }
+> +
+>          /* Check for overflow of refcount before incrementing.  */
+>          if ( xen_mpumap[idx].refcount == 0xFF )
+>          {
+> @@ -514,8 +532,7 @@ void __init setup_mm_helper(void)
+> 
+>  int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+>  {
+> -    BUG_ON("unimplemented");
+> -    return -EINVAL;
+> +    return xen_mpumap_update(s, e, nf);
+>  }
+> 
+>  void dump_hyp_walk(vaddr_t addr)
+> @@ -526,7 +543,53 @@ void dump_hyp_walk(vaddr_t addr)
+>  /* Release all __init and __initdata ranges to be reused */
+>  void free_init_memory(void)
+>  {
+> -    BUG_ON("unimplemented");
+> +    unsigned long inittext_end = (unsigned long)__init_data_begin;
+> +    unsigned long len = __init_end - __init_begin;
+> +    uint8_t idx;
+> +    int rc;
+> +
+> +    /* Modify inittext region to be read/write instead of read/execute. */
+> +    rc = modify_xen_mappings((unsigned long)__init_begin, inittext_end,
+> +                             PAGE_HYPERVISOR_RW);
+> +    if ( rc )
+> +        panic("Unable to map RW the init text section (rc = %d)\n", rc);
+> +
+> +    /*
+> +     * From now on, init will not be used for execution anymore,
+> +     * so nuke the instruction cache to remove entries related to init.
+> +     */
+> +    invalidate_icache_local();
+> +
+> +    /*
+> +     * The initdata region already has read/write attributes so it can just be
+> +     * zeroed out.
+> +     */
+> +    memset(__init_begin, 0, len);
+> +
+> +    rc = destroy_xen_mappings((unsigned long)__init_begin, inittext_end);
+> +    if ( rc )
+> +        panic("Unable to remove init text section (rc = %d)\n", rc);
+> +
+> +    /*
+> +     * The initdata and bss sections are mapped using a single MPU region, so
+> +     * modify the start of this region to remove the initdata section.
+> +     */
+> +    spin_lock(&xen_mpumap_lock);
+> +
+> +    rc = mpumap_contains_region(xen_mpumap, max_mpu_regions,
+> +                                (unsigned long)__init_data_begin,
+> +                                (unsigned long)__bss_end,
+NIT: I'm thinking if it would not make sense to add some sanity checks in the
+future to make sure the layout is as expected. For example, what if a new
+section appeared between __init_end and __bss_start in the future?
+
+For this patch with the printk adjustments:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
 
 
