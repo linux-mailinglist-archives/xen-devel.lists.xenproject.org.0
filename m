@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15ADD1E60F
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 12:26:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202945.1518333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0306D1E6B4
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 12:33:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202966.1518342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfz0j-0007Oe-DJ; Wed, 14 Jan 2026 11:26:01 +0000
+	id 1vfz7n-0000kB-5e; Wed, 14 Jan 2026 11:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202945.1518333; Wed, 14 Jan 2026 11:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 1202966.1518342; Wed, 14 Jan 2026 11:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfz0j-0007M4-9u; Wed, 14 Jan 2026 11:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 1202945;
- Wed, 14 Jan 2026 11:25:59 +0000
+	id 1vfz7n-0000hp-37; Wed, 14 Jan 2026 11:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 1202966;
+ Wed, 14 Jan 2026 11:33:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rX2Z=7T=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vfz0h-0007Ly-G6
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 11:25:59 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfz7l-0000hU-78
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 11:33:17 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb54256c-f13b-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 12:25:57 +0100 (CET)
-Received: from MN2PR04CA0028.namprd04.prod.outlook.com (2603:10b6:208:d4::41)
- by CH3PR12MB8726.namprd12.prod.outlook.com (2603:10b6:610:17b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Wed, 14 Jan
- 2026 11:25:53 +0000
-Received: from BL6PEPF0001AB50.namprd04.prod.outlook.com
- (2603:10b6:208:d4:cafe::d6) by MN2PR04CA0028.outlook.office365.com
- (2603:10b6:208:d4::41) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Wed,
- 14 Jan 2026 11:25:53 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB50.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Wed, 14 Jan 2026 11:25:52 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 14 Jan
- 2026 05:25:52 -0600
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 14 Jan 2026 03:25:51 -0800
+ id d1533ed6-f13c-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 12:33:16 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4779aa4f928so86354375e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 03:33:16 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd0e16d2sm51118032f8f.13.2026.01.14.03.33.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Jan 2026 03:33:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,191 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb54256c-f13b-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tqfp4aZ6f80qZlRPyRTidwLiioDSDVYWaWcF5jYZ7UzlGhEBAc351XwXMmWVM9IWu1yPC0QCCBCStwwuLCHwedu7IKf/LkFFe7XVMmA2HCXi0mtdLvuEwzzcWd3mSSxTY+gIanO+zPE34JO3/fle13UH+Lc59ioGiDlEB71DsJjdCob/Z5ACgxPHORkP6HXG7mZAxk6ugqCNZ5feNIak2UkCxtLcPsisU4yvyFl331FlEqX8/ADIoQqPrHyu1k76t03X83D2LaUWrCmgpZvnBIiHyQkvQqCBivk+3c7hoO/zqyJtZ3N3zJFy1D73uXF3wGMFbRbhMTRnMwiV75x/Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P/I1xLNmBu1i03Tz1A4fr50Wly53NzflHq4T1dLHXAs=;
- b=p3lv0ASrxYubIND7bNk/aoK6MkV3S8DqQS8gS2VIEWh2xCsuF6VTfB1MCFo3aI4I36eQZ0sxCB0q1i6yfKICxW+xSlqrb1eXlw5qGaU5E56n7PRiD5GYASh1XMsRnsSdH0bjnceJsw/uKBX5h8AS3Je+ToZvgLvqTGYRmUk+LDCGPN1Og7fjEFqq9W/B5sOYQEvzJ3uV7zldgDMeO5TnUb7ke3wT/Jxv9gUwOA5xxvux5dxjdUnFq5RHZFEWLUPy+UFaaKH77VTFtbzKgoBIcAJoYVGNV4ChA2iclFM5l1fxrfENpUo0orR1KxcgTPE3mHoH7ojjdSyBDI07i62+Kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P/I1xLNmBu1i03Tz1A4fr50Wly53NzflHq4T1dLHXAs=;
- b=xYA3GaTFqgRXXf09yVHEVmlP/X7+oiD/4YxyYyrZH0l2pi4sNXKcJrTB/jwLwH94fPudBqzevMiYDOwUtDD1yH9M0eFNjnh3FYlJHSsfj2btZ3+0546kiUbxIglEObPWjROE32V9fIYU9I2gKiyFsPODrfHuyanxcQ9NU4tNHys=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <d4d17b63-1f1a-4853-9249-9dda894d7e1d@amd.com>
-Date: Wed, 14 Jan 2026 12:25:45 +0100
+X-Inumbo-ID: d1533ed6-f13c-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768390396; x=1768995196; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BajQDAKIgQ5gDjKtFsgRWf/pFzpGJIzi2y6k/uBcInE=;
+        b=Kp04JN81c40zLsCtZfeSiPAKPdciNDt9v9VeO4ZU4qKd1n1KBpRAN7AirVmhg72jfM
+         ummQATZ4+D83xJa4Wf1mLt1M7WINLdvtCW5pWLbFtEYe3iBC7SX02lRInwY01Gk0T8se
+         j6kF/iYGTTO4EJhpUD5CRSFAOS0dXBTu874H1U36A6XzrxTrpgNnUV6eqLrmvmhm4TLk
+         GsKqJP3qtyL6dLQf1dvguweHnv6J/MZ0J/mI/1KvlMhG1bY1s2XqfDgFaGAE5SSkYCYt
+         B8hjzJo7+hzmqrE+iZ5zXIMHoknzFVq0YS9bAwWQD9PGsIbHWEzYtmbuRkfORmMkB1hn
+         z3hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768390396; x=1768995196;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BajQDAKIgQ5gDjKtFsgRWf/pFzpGJIzi2y6k/uBcInE=;
+        b=wscLVuRakr6pjzFkz+qB9Mwv+6rTnPAzR2PprCU7C5mp6NF7ljRdM6nbztbEl+L6pm
+         CZXWS352/GyqhsGVhc1M5PS6cSwuN+5+P75FyEW8IB9ZaVwj9PHLsr8Pzr64fQrwtbrQ
+         3+mXuMieTMYJvdGhndTXG13fYMlweyoHBGSRBf7wM+1bb1uvNJx2tkj83hunWihNFOan
+         xuriF/71lb1b5Ms6mFgYPN+xEwRpMHtLLiQrZAcgLjCm1mm570YjnxSTokC2TtlNsvl+
+         zbvotFfXCcLiQEUbJygczW9uDgKg7xb6Eehrdf27RfkOOH1fhOTiWCCJrCIde1i9+ANF
+         rQjg==
+X-Gm-Message-State: AOJu0YzT5PgLK/KNuiJE60qI7IS26sh2tudCvJ4OyXWKCK9e7Ow9vkV7
+	TbVVj3NNBdW8jrOuX8c79xPs5aYxDNJBRspZAIg+K5dc45GZ//iO2gACGNvyUj8IIoRMMdRi4G4
+	wd5Q=
+X-Gm-Gg: AY/fxX6u82y2HjTOZH5QzBAN+yVuYCCtbJ5LI5AJHaHIEydO/dGUYPwZlSOujcWl+8P
+	z2TXRD0nyOeI46kd0XdzoVMuHxH0imolZ611rLviFSnQ+G98RY1RE47kn+GdmI42WgWe/AEos8X
+	foGiUZxQv12eqwsgbCaj+8SoBGUSajMjw3vZVTM9L7vmc8SuN5IBCBO99REwDaSzOa8ZQoY+NMP
+	Ux3VOhgp+QzWhz4FMkvLs5lxhsJVipmlvEDZX4j/SRhdDz4ENENEVi7mPA9IwNemn0gmXE+/QB2
+	fpoKBDt8+7XXIG2idbYo5LhA7nZf5NoX9ezqySvhOIEBCH26V3yMt/W5ywmyAM71gwTBTMXaJBZ
+	xEOuLv93tqh/2t1PdHvOhcngTSjfycZ8hui5d6Ioj/uCrH/Y+rd7lyPLxCvurjp8PUKFcvNCqAB
+	RuXZ90hi+jJPN37eYa92Po/PZPQKVoX/CJ2oeCU0ELRyViyFqNfKgaUCyU2LT1wsW5q0V3skDqJ
+	4I=
+X-Received: by 2002:a05:6000:200d:b0:432:5b81:483 with SMTP id ffacd0b85a97d-4342c501318mr2508314f8f.24.1768390395541;
+        Wed, 14 Jan 2026 03:33:15 -0800 (PST)
+Message-ID: <1caed635-3d9b-47ed-b8fb-d6c391293059@suse.com>
+Date: Wed, 14 Jan 2026 12:33:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] arm/mpu: Implement vmap functions for MPU
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Harry Ramsey <Harry.Ramsey@arm.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20260113162309.6766-1-harry.ramsey@arm.com>
- <20260113162309.6766-3-harry.ramsey@arm.com>
- <1cb6fc36-fd16-499b-a616-4d321ae83572@amd.com>
- <E5F825CB-0EBB-4AFD-959D-AF5B7D0D2CAC@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <E5F825CB-0EBB-4AFD-959D-AF5B7D0D2CAC@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB50:EE_|CH3PR12MB8726:EE_
-X-MS-Office365-Filtering-Correlation-Id: 146ad908-1bff-4b1d-928e-08de535fad5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UTNaR3FsNDY0YTRkMmtXeEw0aVFRTXNHaVhFQTllK3luU2JCVTJhUENES1R0?=
- =?utf-8?B?VFNXUnd2d0FnZ2YxdWF6R2NaQm5MTUJrR0p4MzVJSCtIRUFXQjFiTmJ6eDdG?=
- =?utf-8?B?NEF6ZlpDNHNrdmN6ZVZYUTlkMVVKR1E1SmwwY2YvdWQ3QmNyMEtpYzh1STZW?=
- =?utf-8?B?Y1dDM0FhVjgrd1ZMdTdhKzZtbUlCMTZ5MDl6aUdZZTB5YW5OOHdPWFc2UHJU?=
- =?utf-8?B?VXU5ZGcvNE9uYmwyOGNJaG4wM2IrSjkzL2hreDBmOVVqbnZRZDdBQmNzUGN0?=
- =?utf-8?B?ZHhqdnBNUXM2UkRZNXhTYW8rdEJwOUhObDlubFFZdEEzbG8ySGJ4QmEya1gx?=
- =?utf-8?B?T2JzZDdPdzFjM1N0L3RhSjIzN0M3emJ4OVo1cklqTTF2SXBwbVI0aVFZOVBE?=
- =?utf-8?B?Mko5MXMwdUhuMEtHQ3h4d2lWM1E0bi9rZHJYY01mbHJ1aVJzZFNqaVdSNitI?=
- =?utf-8?B?ODhFRUpwU2hYSUJmWXU4cEN5ZzJSUFlRZVJhazNwZ3VHRlIyTW5PVjN6c3p5?=
- =?utf-8?B?Z0IzZVdKa3pPek1oMkVwU3JSRVFSLzNnZGhRZXg2VmRmZlhndmxkY05leU9Y?=
- =?utf-8?B?ZnZYNnNJczVwM1ZhdEpyVU9UVHhnWThleXMwTkptN3lBSU9uSUVwWksxT2pX?=
- =?utf-8?B?VXZxZEVXRUdBSTVjWGxSejluelZnN1oxYklCa3BFTkc5QTFRczhVUEhkN0JS?=
- =?utf-8?B?T3hTM2F5NEpYQkJxOTYzTmdzNExMT3hjQ0IzV2NCejBLd3VJalZnMEMyS0ta?=
- =?utf-8?B?TFU4Q1pBT3MvbHp5RjNLVXBkcHo4ekc2ZWFwcy8yRzJheXhNTG92dmVkVHdv?=
- =?utf-8?B?aXZkb3FVa1VxeTRBRlNLQWFsOEhwM1BqOUQ2Ni9qczlIMzJzamRMUVBVcVhZ?=
- =?utf-8?B?MExTZ0dZN01aOGVQWnZtZnVXMG5QNkNhQjQvcVdxaVhaVWxPR2tXRDJlMDZX?=
- =?utf-8?B?NzdDajRoR0t0aXg0OWtwNmxIdjhmVXJHR0h4SEpMdDRJRG4xVTFxN0lKRGdo?=
- =?utf-8?B?Ti9nYzljYkZ3Y2FqMFEvdnp1ZlN1WFpNWFptL2N5NE1MQWtNZ3ZhMTFyZFlr?=
- =?utf-8?B?MjhTc1RvSkowdW5pVlRpdVcwZHhrZmNtL3dzOWpJVXZoTDVCVFliWld2T0pl?=
- =?utf-8?B?VU96Zkl4dU8zYTI5Sm9obkljZHN5RkRyOHUvZHd4L1RJdkFFeEkzRnpXZ1M5?=
- =?utf-8?B?dTF3RjhLQWJrbHRaT1M5aGRDOTc3aVd1RWpqWVYzZTdzYktBM29jRVNmWXRp?=
- =?utf-8?B?M3pJY3l5Q2JjUGdBNDRHZkdVcUlLSCs3U3Ftak9GMm9hQVlhR0VWZDN5WmZG?=
- =?utf-8?B?N0VZWVlxSXRwQzMweElXcXdwamIyeFBoV2k1Y055bDJHL3VpNGEyYVFFMTVR?=
- =?utf-8?B?cURNeHJtWERUVnhzbkcwSGdvWGN4MU90VHlzK2NXempyS0FibjdobEJUS242?=
- =?utf-8?B?ODQrRDZ0bzNmQzRnTTd3VGZ2bnlkd2N0emdFazRNNlhERC9nSEVCTkx4amxK?=
- =?utf-8?B?ZktXVENvYkYxdlRJVXh3NGRlZHJ0bVNKNkdFRmRCVHM3Zng0SlBpcnNHdFNM?=
- =?utf-8?B?VGwwanhGeG41VnhRVFpoTjNPVVUya1Q0ZjJ3ZURHNmhZdVpMSExtZVpmMnUz?=
- =?utf-8?B?QjlDQjQ3a3hQWVI2RlZVSlU4UEtoVHlVSnRhdDBSUnFDUzRmNGwvcnNmK2N6?=
- =?utf-8?B?YlJTbDYzblJlMDJrU2E4RWF1RmUycUl4OHdUbmxSTW05K0lzREZOVHlXK0tX?=
- =?utf-8?B?VXZ6NjQ0OEc3VDAxMGlOc1BVNHEyTVhmdnNKSEQ3TUVNS2d1bXFRc1doMGF0?=
- =?utf-8?B?Y251Rll0a3M5RGNsN0tVb3ZDVlFMY0Nsd24rZFk2YXFVbXlOQ3EvRkNXKzJr?=
- =?utf-8?B?OHlMaUhjOVdrM3lGWnJ1RENxUWI1anNtTE5VMzFBWkZDcFBHTnhxWllwaHZl?=
- =?utf-8?B?MTk0R3lESmVjVExwRlduZXNrRmE1ZFcxRlM4RFpFVCtuVldmU2xzRzVhaGVm?=
- =?utf-8?B?OUxUUEFRbzVUYmJ5WVEyQXdEV3NJcWxkYThKMGJiL2V6bVJrcGhlWW5sTEYr?=
- =?utf-8?B?YU9lUy9Ra0h1dXg2K2RKVmFvRTlkOUtHSklRcmNla25wWW5DdTc3c255YU9W?=
- =?utf-8?B?S1pDQyswK0x3OHNHdDNrV0lQUStNbGJrZlpseWxIM3AyTHRZU0N1T1J5S3hS?=
- =?utf-8?B?dFE5aUxxQkZGeVJTckVCaW1uMk14UWptaExpdnp4VldSaVJQUkhIeFprNDlv?=
- =?utf-8?B?TDdROVljbkVnZXpoaUdOVWFJcjd3PT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 11:25:52.8150
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 146ad908-1bff-4b1d-928e-08de535fad5a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB50.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8726
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] kconfig: adjust NR_CPUS defaults
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Discussion of a RISC-V change revealed that for PPC and RISC-V we don't
+really set any default, but rather rely on internals of kconfig picking
+the lowest of the permitted values in such a case. Let's make this
+explicit, requiring architectures that mean to permit SMP by default to
+explicitly record some sensible value here.
 
+Leverage the adjustment to the "1" case to simplify all subsequent ones.
 
-On 14/01/2026 12:07, Luca Fancellu wrote:
-> Hi Michal,
-> 
->>>
->>> +/*
->>> + * Free a xen_mpumap entry given the index. A mpu region is actually disabled
->>> + * when the refcount is 0 and the region type is MPUMAP_REGION_FOUND.
->>> + *
->>> + * @param idx                   Index of the mpumap entry.
->>> + * @param region_found_type     MPUMAP_REGION_* value.
->>> + * @return                      0 on success, otherwise negative on error.
->>> + */
->>> +static int xen_mpumap_free_entry(uint8_t idx, int region_found_type)
->>> +{
->>> +    ASSERT(spin_is_locked(&xen_mpumap_lock));
->>> +    ASSERT(idx != INVALID_REGION_IDX);
->>> +    ASSERT(MPUMAP_REGION_OVERLAP != region_found_type);
->>> +
->>> +    if ( MPUMAP_REGION_NOTFOUND == region_found_type )
->>> +    {
->>> +        printk(XENLOG_ERR "Cannot remove entry that does not exist\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    if ( xen_mpumap[idx].refcount )
->>> +    {
->>> +        xen_mpumap[idx].refcount -= 1;
->>> +        return 0;
->>> +    }
->>> +
->>> +    if ( MPUMAP_REGION_FOUND == region_found_type )
->>> +        disable_mpu_region_from_index(idx);
->>> +    else
->>> +    {
->>> +        printk(XENLOG_ERR "Cannot remove a partial region\n");
->>> +        return -EINVAL;
->>> +    }
->> NIT: Try to limit the number of if/else blocks to make the code read better.
->> Here you could do the following to remove one else:
->>    if ( MPUMAP_REGION_FOUND != region_found_type )
->>    {
->>        printk(XENLOG_ERR "Cannot remove a partial region\n");
->>        return -EINVAL;
->>    }
->>
->>    disable_mpu_region_from_index(idx);
->>
->>    return 0;
-> 
-> Makes sense, while we are there, shall we have also a comment above that check, something like this:
-> 
-> /*
->  * If we reached this point, the region is due to be destroyed, as a safety
->  * check we need to ensure the API is called with the exact region, to prevent
->  * destroying a region using a partial memory range.
->  */
-> 
-> What do you think? Otherwise someone in the future might think it’s ok to move this check
-> together with the other on top.
-I'm not sure. I can read this from code but if you think it will be beneficial,
-I have no objections.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+For not-yet-SMP-capable ports we might go even further and use
 
-> 
->>>
->>>
->>> void vunmap(const void *va)
->>> {
->>> -    BUG_ON("unimplemented");
->>> +    paddr_t base = virt_to_maddr(va);
->>> +
->>> +    if ( destroy_xen_mapping_containing(base) )
->>> +        panic("Failed to vunmap region\n");
->>> }
->> Looking at this series as a whole, at the end we will end up with
->> vmap_contig/vunmap to contain the same implementation as map_domain_page and
->> alike from the last patch. Shouldn't we define ones using the others?
-> 
-> We can do it, the only thing is that if vunmap fails, we will get a less specific error message,
-> if you are ok with that we will do the change.
-In the MMU case you won't get any info, so I think it's ok.
+ 	range 1 1 if !X86 && (!ARM || MPU)
 
-~Michal
+at the top. Thoughts? (I've not done this right away as it is liable to
+get unwieldy when we have a larger number of SMP-capable ports.)
 
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -9,11 +9,11 @@ config NR_CPUS
+ 	range 1 1 if ARM && MPU
+ 	range 1 16383
+ 	default "256" if X86
+-	default "1" if ARM && MPU
+-	default "8" if ARM && RCAR3
+-	default "4" if ARM && QEMU
+-	default "4" if ARM && MPSOC
+-	default "128" if ARM
++	default "1" if !ARM || MPU
++	default "8" if RCAR3
++	default "4" if QEMU
++	default "4" if MPSOC
++	default "128"
+ 	help
+ 	  Controls the build-time size of various arrays and bitmaps
+ 	  associated with multiple-cpu management.  It is the upper bound of
 
