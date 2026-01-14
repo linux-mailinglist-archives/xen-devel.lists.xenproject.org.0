@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87D77D1F1DD
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 14:43:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203091.1518383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC10BD1F1EC
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 14:43:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203099.1518392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg18l-0001VT-W1; Wed, 14 Jan 2026 13:42:27 +0000
+	id 1vg19p-0001xR-8V; Wed, 14 Jan 2026 13:43:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203091.1518383; Wed, 14 Jan 2026 13:42:27 +0000
+Received: by outflank-mailman (output) from mailman id 1203099.1518392; Wed, 14 Jan 2026 13:43:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg18l-0001TH-Sw; Wed, 14 Jan 2026 13:42:27 +0000
-Received: by outflank-mailman (input) for mailman id 1203091;
- Wed, 14 Jan 2026 13:42:25 +0000
+	id 1vg19p-0001w0-5v; Wed, 14 Jan 2026 13:43:33 +0000
+Received: by outflank-mailman (input) for mailman id 1203099;
+ Wed, 14 Jan 2026 13:43:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vg18j-0001TB-SV
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 13:42:25 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vg19o-0001vr-0C
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 13:43:32 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db574848-f14e-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 14:42:24 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-47775fb6cb4so48148505e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 05:42:24 -0800 (PST)
+ id 03153e08-f14f-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 14:43:30 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-47ee807a4c5so2789935e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 05:43:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee27cf06bsm21671155e9.4.2026.01.14.05.42.23
+ 5b1f17b1804b1-47ee117e607sm23269505e9.3.2026.01.14.05.43.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 05:42:23 -0800 (PST)
+ Wed, 14 Jan 2026 05:43:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db574848-f14e-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 03153e08-f14f-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768398144; x=1769002944; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=nUWllKMPpy9udsf1yQ3TeWLTtx1XYb7DE5BROOZsni8=;
-        b=dF984FPDY3pfvvIdl73+fWrRH6532CDoTxA3i8NTG+oPa8Ey8dcVA/pO3CXunREGcF
-         nMIRa/0D/PPHRbj5n9FJq03Bxo+AamQvnNPr0AxKDuSp0HhzImJuZiDO/YFPCOUv1xZj
-         bicaZLFw5runPqstTLGinPxZK7ms2gxCLAGC5Lujj1As7rSqInrUuKwTTKbz66BK9/L1
-         v1HkMXI8bRrW5NOb4T5+8iJtJHKOEvuxC+5QQhFAGbhGib4/BK7BufGL7gLs6FtJB3Cj
-         zkXtk+MSJC9Rr6aV9tFYkYnwMePTyAd8ti2A7O1JCjLAb54so1WX+gO49BW3Yjl/k7/K
-         e+Xg==
+        d=suse.com; s=google; t=1768398210; x=1769003010; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jUEWqlGQFbFZZkXGuB5GSbnLbTvfhpgjhZFwTESoBRI=;
+        b=bJMQHrZXMo/qTUu3fkeOwajH7CGznh9rPvgT+6MQ2fevO4EKkv/eMzVw+2AuRrVgA0
+         fUfHhXoCnBq1BBEgbNTBls5Mqvx2pynu1qcx9hVVfmRC8R35PloZ5aSFP6QEjvmnJsMr
+         Mi1wlcS5xoKtXfAObzH4J755hcqpvJL28txkukxp7MbaNc7ptzvjYqlmhkZMdQzaFwC6
+         xEZH0Ts2Gyx1nIuy56/+HpPO7kIKLAHxfNsn+gpk/RQOOZFJ21Nx4PksxGucSbl0LFWe
+         SD4tDjmc6pDXNzgrPIDP+o93KRewV5V9M11n86JLn163tXonQcWe7lwSScGeD+CSkbC6
+         a0YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768398144; x=1769002944;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nUWllKMPpy9udsf1yQ3TeWLTtx1XYb7DE5BROOZsni8=;
-        b=i9svyeyng/1QzJft8tNPId9I9e9Bp04CasGx/9ZLfkPqsDPlulc32OBGV84Z9V0oVT
-         oQdP2rvhKMpkA7PIOESatqmx3mVcOiyrUqaw6lUU7UFtIWmb50jD17NQDmASnEymlt8x
-         76Wp6r0yXqDVNoUQ6rcOR1hZfkdw+8YXfurZg+luQyeceK+rpyhmVB6MTwVdVb45z4Ae
-         s9S6r6HfJBGhA2yB/BOwQZ+r6DHNMJ8hKk/av1YiBjuw4Z2eSpD0GvGVqNCsX9/ppWxe
-         ZLHo6k8x/+186TcbDZ/126m9IR3L+0aTD5PxGK2ISHDN3mqaovb80v2ZMKOPpgklrLIu
-         LlBw==
-X-Gm-Message-State: AOJu0Yw7GswVKRXb/o5CHoHOONu/Qa61ZoKSt7wMF4CbcSIR9fNl4fE/
-	/4lm8DOhw+Oj3SHW/YXhElhsAFXVwKDs811XOlfucR2XSTxCr9SkL5ncBa82X1EpTjiS/tXHLd5
-	ZIMU=
-X-Gm-Gg: AY/fxX6cDxOAEOCBfL4n0bBBU37kKQDvZ69OsbKmJScoLA7IhPM/SPUKFF+i/AUA66L
-	tkvoum5t91YIgJPrcKEbYGtjR7FnIHtq2GgjrEg8bmUo5Hbi0JkdiYY1CfBiwo4OlJs27AjOBPZ
-	G7vETHVN4arxxHyJLtV1hOuvuLWdU9ZyDuINvJxsKmpm9i+NGuY0pZYRvysD2NohYthqcbQP/Yd
-	eQSbwF2BN8XiAjcXD/DDkLPYzbw6+jAWgc5aoQE7LWQxJkQMTzI79SpXQNDcI/uwJozPjKwrsBS
-	gkfujSPGNy1V93eX2dfmFDOL4Hl5sEEy24gRgmf3GPuW4Hh3sizJcPw/uUyHINzWIbyPEoESW2t
-	at4UIOKFj7K7ScnRe2Vmba5GP8MYH9ze2kSjaSOHT3XVDGno5oy/yRwqPiLQxIxnhpTi5359hj5
-	o4p9m0mJZooLqq/vcTBG9at11wWmrk4X6wDlG/Bj1/3mpK1ZhAd8Hl78cNzFqBGpUMto1h4Y6cp
-	cY=
-X-Received: by 2002:a05:600c:4ed0:b0:47a:8cce:2940 with SMTP id 5b1f17b1804b1-47ee33454b6mr33160745e9.14.1768398143676;
-        Wed, 14 Jan 2026 05:42:23 -0800 (PST)
-Message-ID: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com>
-Date: Wed, 14 Jan 2026 14:42:23 +0100
+        d=1e100.net; s=20230601; t=1768398210; x=1769003010;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jUEWqlGQFbFZZkXGuB5GSbnLbTvfhpgjhZFwTESoBRI=;
+        b=KycN0IE5WfGWHucpt9syrl6U+3gKMTlahy8UsivchgXx3/tGQBTdI0l399XRqtvVLs
+         kgXr25vi7oaQxsl/Lb7irjvcHBscVPxoDmmhIuBrCQCkuIKaj1jc1jl8nl81ILbUC1gH
+         eH2oCtXnOIW3hIqUnrMftRAcYee0A9+k5GQjq+5ZJKFXvDwFT+K6Xv3c77DeONCieaOZ
+         yqvLayxWAEpNpVTAUr+L0eaA7xIqBrDy5OI5ukvrp3Z0oy/XI5d3CkLn50l2HzTY0FgQ
+         IhjqzWXOfTfoQHHpTHosL3OQnA4vZmSjRsD8n8eMzCypxzfQYv7U44HTeVPJHbDeWLnZ
+         EyLA==
+X-Gm-Message-State: AOJu0Yzj8mrOZ0RVbN1Yg/0oWyVejQxkDSg8TDXBVvJxxKQbH8CTItfV
+	MTWo4fQkSXlN3SIFnxsbYaPLlBoaSj/Kbl3utzCrwcwKrbzV2U+3rEhHJL+yIjRG8+c10o/Houe
+	2Y0Y=
+X-Gm-Gg: AY/fxX6a4/oyS5in0SWDKKBmzPpNpjxWs3TScMhKMnC1mV4fsuHJJbLoQ7bOBaeu6nr
+	25t0EcGpTs8PqUffZ+A4/ywwD1DJncPA7dvw+Yp7Uih05xw5b0KX2NRR96nBGagvh4tHKVvJh26
+	Pa7FsDiFUxv9hNlYgM16eRwNTJeAe1XlqRzzkuSv8JTIcVk65tPnO2gNxyjxzpENmYfYIFBojGq
+	hHK58cRUq1/eUb0yX9D/BDkoh5nd900Jzk5it/kPBM3Ihxhhdue33VArXrXZxffDgJbvzW/vPWN
+	n4TjBdpM2NnN+fcl8MRCNNYkOUiq7Px+4XiUOLFvL3NbK8mSjT5A+gqMojo1D7oLIQ72Xiim8EJ
+	+wIIC7bpAxDo6lWOx97FBeXbB1H0HsdB1PHBqf5dsY1PRK90TwcIFvyUsWTFHXphn0AT9et9+gX
+	LQQaibMoORVoZgUrIrVmyk5Z3NpqxWHjgIA4wWLxEjCAGWDboUxR5XkCDcGYHyXFyN5qhvPAyjX
+	J4=
+X-Received: by 2002:a05:600c:1549:b0:47e:e946:3a72 with SMTP id 5b1f17b1804b1-47ee9816cafmr1874905e9.27.1768398210367;
+        Wed, 14 Jan 2026 05:43:30 -0800 (PST)
+Message-ID: <bc01618c-149c-4a70-996e-5364655b4ab5@suse.com>
+Date: Wed, 14 Jan 2026 14:43:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3 1/6] x86/cpu-policy: define bits of leaf 6
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 0/6] x86: CPUID leaf 6 consolidation
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,18 +119,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Integrate this leaf with CPU policy handling, to leverage the host policy
-when feature bits need evaluating.
+... as far as we presently use them in the codebase.
 
-1: cpu-policy: define bits of leaf 6
-2: replace APERRMPERF synthetic feature bit
-3: rename ARAT feature flag
-4: Intel: use host CPU policy for ARAT checking
-5: cpufreq: use host CPU policy for Turbo checking
-6: cpufreq: use host CPU policy in HWP driver
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Or should we make both parts proper featureset elements? At least
+APERFMPERF could likely be made visible to guests (in principle).
+---
+v3: Use SDM-conforming names. (Sorry Jason, had to drop you R-b once
+    again.)
+v2: Use bool and unions.
 
-Jan
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -121,7 +121,46 @@ struct cpu_policy
+             uint64_t :64, :64; /* Leaf 0x3 - PSN. */
+             uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
+             uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
+-            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
++
++            /* Leaf 0x6 - Therm/Perf. */
++            union {
++                uint32_t _6a;
++                struct {
++                    bool :1,
++                        turbo_boost:1,
++                        arat:1,
++                        :1,
++                        :1,
++                        :1,
++                        :1,
++                        hwp:1,
++                        hwp_interrupt:1,
++                        hwp_activity_window:1,
++                        hwp_epp:1,
++                        hwp_request_pkg:1,
++                        :1,
++                        hdc:1,
++                        :1,
++                        :1,
++                        hwp_peci_override:1,
++                        :1,
++                        :1,
++                        hw_feedback:1;
++                };
++            };
++            union {
++                uint32_t _6b;
++            };
++            union {
++                uint32_t _6c;
++                struct {
++                    bool hw_feedback_cap:1;
++                };
++            };
++            union {
++                uint32_t _6d;
++            };
++
+             uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
+             uint64_t :64, :64; /* Leaf 0x8 - rsvd */
+             uint64_t :64, :64; /* Leaf 0x9 - DCA */
+
 
