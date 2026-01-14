@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35F61D1D6AD
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 10:13:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202713.1518163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4948ED1D6EB
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 10:15:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202727.1518172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwwK-0006jh-D3; Wed, 14 Jan 2026 09:13:20 +0000
+	id 1vfwy1-0007Kx-PE; Wed, 14 Jan 2026 09:15:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202713.1518163; Wed, 14 Jan 2026 09:13:20 +0000
+Received: by outflank-mailman (output) from mailman id 1202727.1518172; Wed, 14 Jan 2026 09:15:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwwK-0006iC-99; Wed, 14 Jan 2026 09:13:20 +0000
-Received: by outflank-mailman (input) for mailman id 1202713;
- Wed, 14 Jan 2026 09:13:18 +0000
+	id 1vfwy1-0007J1-Mh; Wed, 14 Jan 2026 09:15:05 +0000
+Received: by outflank-mailman (input) for mailman id 1202727;
+ Wed, 14 Jan 2026 09:15:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vfwwI-0006i6-75
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 09:13:18 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1vfwy0-0007Hh-8Q
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 09:15:04 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42de27dd-f129-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 10:13:16 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-42fbc305914so5932470f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 01:13:16 -0800 (PST)
+ id 8253e589-f129-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 10:15:03 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-430f57cd471so4270661f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 01:15:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5ede7esm50138989f8f.32.2026.01.14.01.13.15
+ ffacd0b85a97d-432bd5ff0b2sm48837377f8f.42.2026.01.14.01.15.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 01:13:15 -0800 (PST)
+ Wed, 14 Jan 2026 01:15:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42de27dd-f129-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 8253e589-f129-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768381996; x=1768986796; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768382103; x=1768986903; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B3EQylQ1WYMGuc6F6IY2qJmyNzD/0oNfuOw6DywxSJQ=;
-        b=SlE/ykxI9bviA7ktFHp5WsGOrf0d94ekijlUz0oMXQ0Khyet0MtlhpsziNvXXBBNwa
-         bdCBka8wcPlZatjjFxY4ZjjsM+HUM6tGmDLATT5ceHJwBhQU9mWpmNTVgE5SRALaYzlU
-         j8ARs/bP1YX/8fYNJeDdXuCEdy9cADtb8JIpaiZ2QrRFzn99I8lOdgslpvzErBzFWk4l
-         qgUnP1RedocG8kMV8wpdnNDWA9Zgm0T8EyhTUwNRuaWyKUGLsTwWCpNvMhLIk4qx5Xts
-         fjCvNKpEqaWh0leiSbV1gmHFie1SFzZalmhsQAZpeeuGt/YOC9i0ybMyKVTsMuJ/w7oq
-         1p+Q==
+        bh=XJCW3cD4Xjf4eA6qkgzI7CBKKgWBwQbe4IxF6FsR/d4=;
+        b=MjJ+HrtWdZrBGgderOq3QOUQx+pzlzNz226IsEWLyRwXYpAs8oZ6YR2AdazKMTuF7T
+         8uwya0GNal08fLPHrCodZYeTI1XhFbGqmfrG7vrvBOwTMSyicF6QUbXsCQW0aC8xQ/6p
+         7NKGVW8lZPnbPJxJdeiI1Cxax5N2bD0EhUVk1asbRMlGVDbrWVyC9OEGB3CTmF1sBAgj
+         XUvDpTz061m+B8r/ORKvMHb2B8ZZids1rxR1zXNlGnzmxfp80z8n2XxZAlpn5JuKnImj
+         iRFNk/yO+n5iki8maiBKXK2k06GfxOilGx3bDYGWZujXqvi7znCfYInY5Wun8bHCpS0Q
+         QIWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768381996; x=1768986796;
+        d=1e100.net; s=20230601; t=1768382103; x=1768986903;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B3EQylQ1WYMGuc6F6IY2qJmyNzD/0oNfuOw6DywxSJQ=;
-        b=QqWQz5XyiFstkDObGWGoyyYJu0+yP3f4/YFr5Zn76pF9+LqE+3h4UbQnvCIz/hpRlB
-         iFdDFTB31KI//RAZ+VXmyZLi/7Mp0VkcWg/R1bWWQIdTFoQdubLyhy/eux//cnOwfSXT
-         sDXdAn2wrY961hUbCIStDp6dBl+eTujuCjuAPMVp2UijHQOMFCeuF0OfVLf8Wzh9QyUZ
-         q9SeZX3xZhn/w5Har1h/cnRte+gQwgQ1epzz5wwiXkicuqIV4PLVnIpoTX2QQjKyopcZ
-         Ww4ojqpTlixOu0Z0jC5dBIjFlzcNWEI8AK/GxyZDhGe73FssBAQkfRPwFyVq4PEMORSc
-         jSEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXU/KWUJpWUpM61tdSyPMTUdRlR7MidrLBWwqFGdZoJAfh0BinnyqjE6p53dcbvI8rvLdTE+1IJmak=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyS2KZaSfI8slrrqMH7n9yve1Q1bfbsp/mOMDH11KTJcMeNHtt
-	Xt5L3ienWIbqlpL9tgoX/QhZlUYTITz0argDlPSLWJlgIyZ3iuKYJAkxVAHxV8C41A==
-X-Gm-Gg: AY/fxX42WiznpZzUHq4jiCQd601EcYeErG61iCoEsDTKk3tlu94N38/NrcpeUWMrq46
-	nLie2VHC84JYCHzJeV3ixAgC6q6St69G6awFAWCOEkqZMxOO5pnxOc9aVBGcYTNra8aKGK6gh4x
-	BZ0wb1qBYufbp11dBJ6tqK7c0SNEKcr8c1o+gAPYkL8GtHJU0cp2TjWykOW7mO7StQYwhGnr248
-	Cata3aaSgIOL1Zqu+kmnz8D9Do8ACZpGH2V3veCM1EcmMz63FsWzsp10kgbxhG8QHo8B/3m/7EP
-	PBlBjEschp8F8w/RT5Nlls58LjWS9M6XbaIXU2YlUMwzkpM8e2Y2YE6wnzr+gWSRzlcgJCh9ru5
-	D0Wi+bRByDM4bnsZwaba5j4t2Srhe37Fdp91Q16xL/VJk4BK4V6McfQVCAdCLpKR1/JJvJrB3rY
-	7Ziav6fmjyH3X+WPI48LfJS35IetWLu2Qqu3RmyVVJV3a1nkgu6Q2vrxm8uO+HGqrLuD5Uw2c1K
-	jFyxIg/70e7LA==
-X-Received: by 2002:a05:6000:2013:b0:430:f5ed:83fc with SMTP id ffacd0b85a97d-4342c4f4d5fmr2077263f8f.11.1768381996178;
-        Wed, 14 Jan 2026 01:13:16 -0800 (PST)
-Message-ID: <f2241dec-a115-41b9-a249-6c5a69114809@suse.com>
-Date: Wed, 14 Jan 2026 10:13:15 +0100
+        bh=XJCW3cD4Xjf4eA6qkgzI7CBKKgWBwQbe4IxF6FsR/d4=;
+        b=BCDpc9hXQUPfRQxxYCNrBkGJSymG8SA1t8EV/WSMLlxlEK3ecsuUjY+eWAWZ3vTJ0K
+         7rsBouBz5LIfKs2y4T7Mv49XcwE8KSKa7LFCgbZXFFsf43sLuPpVgxe1MZwvBHIUT2ee
+         zVzPsGxNh5V2hgDlC0MIAdRzV6tvl0BzDTzq+MPbWjNF6ew7SustXrNpmzHv7yBOEmfN
+         Ua4OuwavOk53NfpDn5hoMfdLq9vjup6yOCBTetSFaqjhgTyU6ihlICGgyKYhXyqL2zOy
+         JvjQl4+kzRXsxEhbgbd5cubtOm+BlBSXRDmRwY06CqlF60yi5dk8JXXhv61mulBaye9B
+         IZ7g==
+X-Forwarded-Encrypted: i=1; AJvYcCWDbasm49Q7s8GpjKRXXj3B0JMVXk71F738rqQGENFMlcpxEAT7p+6UTPkPe3273K67KNTeVLVjHkQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxfEz0WhfK4yBkF/cD/E0fdHA1rejnP4z7LvyWzYJru9WHtTwQP
+	nr7oAQCWKVVGR7oem5yi+30f+uaRJKOueSq3tnGahNGdkldvd3xz3bYrzoKELFToSA==
+X-Gm-Gg: AY/fxX5TmgSiObJvAprcbM+YKrKC2EJf3NHN7nzl5Eww/wlESD2Ig8iAjOmOGlHgJQK
+	tzRYdxvKrXUR/vNjMTT7phRe0uzUIust837STPh6ovqZBYYh5j5v2qsaqY4EmKKQRr7iZmNIe3f
+	RpVSRl99c/mODC1NYeedckymdPIQs3aGSQ0CjaApI/flQIhvOSTiWBgcH1S6f13MgUZMgB/MuGJ
+	3nD4toz3knlq0XfZUxv9PP/tWJQWd1CrZeP5/mj0bQVKSJECnBv+43d527siL5mUEx+nRFE/5S7
+	989RPQk6D0kLXLBwMimGaSvdhb3OeF9EsmPjAexC9+YJflaYeOmpucG3WayUQatfF+Xns2WO5Ij
+	Pc2qjnJ0gzwBNV8fJA50SCkUcKj5hecEk1hdOjJRLBVpM9cPw6X31zvCbndFewKTh0xVcF4Gz5Y
+	DWeMHIUWMVfYeEO9TJWfxkTlrz2uwH9w6Cn8k+qDetfvdCgwOh+RLZfs6rbTnm7Iz1AJ1qGGn2W
+	61umiiXuTNd9w==
+X-Received: by 2002:a05:6000:604:b0:430:f1ae:c7a9 with SMTP id ffacd0b85a97d-4342c4fee33mr1795475f8f.22.1768382102658;
+        Wed, 14 Jan 2026 01:15:02 -0800 (PST)
+Message-ID: <81b78b76-39e8-4a12-b392-ee62d426fcc5@suse.com>
+Date: Wed, 14 Jan 2026 10:15:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/15] xen/riscv: implement reprogram_timer() using SBI
+Subject: Re: [PATCH v1 15/15] xen/riscv: init tasklet subsystem
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,9 +98,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <43249171def325c49541ebdac141fe99d159b60f.1766595589.git.oleksii.kurochko@gmail.com>
- <f14c8b3d-66ce-4ea7-bf50-591a4a48345a@suse.com>
- <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
+ <7fd154cda45466ca4bd425bc05d191caccc7d96d.1766595589.git.oleksii.kurochko@gmail.com>
+ <aa1aecd5-afdc-421d-8b4a-314aa82a1157@suse.com>
+ <7511b588-8699-49a9-99d0-0cb94f0fac76@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,57 +126,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
+In-Reply-To: <7511b588-8699-49a9-99d0-0cb94f0fac76@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.01.2026 17:50, Oleksii Kurochko wrote:
-> On 1/12/26 4:24 PM, Jan Beulich wrote:
+On 13.01.2026 18:03, Oleksii Kurochko wrote:
+> 
+> On 1/12/26 5:20 PM, Jan Beulich wrote:
 >> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>> @@ -39,6 +43,33 @@ static void __init preinit_dt_xen_time(void)
->>>       cpu_khz = rate / 1000;
+>>> As the tasklet subsystem is now initialized, it is necessary to implement
+>>> sync_local_execstate(), since it is invoked when something calls
+>>> tasklet_softirq_action(), which is registered in tasklet_subsys_init().
+>>>
+>>> After introducing sync_local_execstate(), the following linker issue occurs:
+>>>    riscv64-linux-gnu-ld: prelink.o: in function `bitmap_and':
+>>>      /build/xen/./include/xen/bitmap.h:147: undefined reference to
+>>>                                             `sync_vcpu_execstate'
+>>>    riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol
+>>>                          `sync_vcpu_execstate' isn't defined
+>>>    riscv64-linux-gnu-ld: final link failed: bad value
+>> How that when ...
+>>
+>>> --- a/xen/arch/riscv/stubs.c
+>>> +++ b/xen/arch/riscv/stubs.c
+>>> @@ -91,16 +91,6 @@ void continue_running(struct vcpu *same)
+>>>       BUG_ON("unimplemented");
 >>>   }
 >>>   
->>> +int reprogram_timer(s_time_t timeout)
->>> +{
->>> +    uint64_t deadline, now;
->>> +    int rc;
->>> +
->>> +    if ( timeout == 0 )
->>> +    {
->>> +        /* Disable timers */
->>> +        csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
->>> +
->>> +        return 1;
->>> +    }
->>> +
->>> +    deadline = ns_to_ticks(timeout) + boot_clock_cycles;
->>> +    now = get_cycles();
->>> +    if ( deadline <= now )
->>> +        return 0;
->>> +
->>> +    /* Enable timer */
->>> +    csr_set(CSR_SIE, BIT(IRQ_S_TIMER, UL));
->> Still learning RISC-V, so question for my understanding: Even if the timeout
->> is short enough to expire before the one SIE bit will be set, the interrupt
->> will still occur (effectively immediately)? (Else the bit may need setting
->> first.)
+>>> -void sync_local_execstate(void)
+>>> -{
+>>> -    BUG_ON("unimplemented");
+>>> -}
+>>> -
+>>> -void sync_vcpu_execstate(struct vcpu *v)
+>>> -{
+>>> -    BUG_ON("unimplemented");
+>>> -}
+>> ... there was a (stub) implementation? (The code changes look okay, it's just
+>> that I can't make sense of that part of the description.)
 > 
-> The interrupt will become pending first (when mtime >= mtimecmp or
-> mtime >= CSR_STIMECMP in case of SSTC) and then fire immediately once
-> |SIE.STIE |(and global|SIE|) are enabled.
+> I haven’t investigated this further. I wanted to look into it now, but I can’t
+> reproduce the issue anymore. I reverted|sync_vcpu_execstate()| to a stub and no
+> longer see the problem.
 > 
->>
->>> +    if ( (rc = sbi_set_timer(deadline)) )
->>> +        panic("%s: timer wasn't set because: %d\n", __func__, rc);
->> Hmm, if this function ends up being used from any guest accessible path (e.g.
->> a hypercall), such panic()-ing better shouldn't be there.
-> 
-> I don't have such use cases now and I don't expect that guest should use
-> this function.
+> I will move the introduction of|sync_vcpu_execstate()|. It doesn’t seem to be
+> really needed at the moment, but since it is already introduced and there are no
+> specific comments against it, I think it can be added as a separate patch in this
+> series.
 
-How do you envision supporting e.g. VCPUOP_set_singleshot_timer without
-involving this function?
+Just to mention: Moving it right here looks to make sense to me. It's just that
+the description of the change was irritating.
 
 Jan
 
