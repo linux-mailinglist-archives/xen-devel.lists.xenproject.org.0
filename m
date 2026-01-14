@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DC4ED1CD3D
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 08:28:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202570.1518080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38BF8D1CECB
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 08:44:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202589.1518090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfvIH-00069i-RW; Wed, 14 Jan 2026 07:27:53 +0000
+	id 1vfvXv-0000SR-4f; Wed, 14 Jan 2026 07:44:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202570.1518080; Wed, 14 Jan 2026 07:27:53 +0000
+Received: by outflank-mailman (output) from mailman id 1202589.1518090; Wed, 14 Jan 2026 07:44:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfvIH-00066e-OQ; Wed, 14 Jan 2026 07:27:53 +0000
-Received: by outflank-mailman (input) for mailman id 1202570;
- Wed, 14 Jan 2026 07:27:51 +0000
+	id 1vfvXv-0000QF-1O; Wed, 14 Jan 2026 07:44:03 +0000
+Received: by outflank-mailman (input) for mailman id 1202589;
+ Wed, 14 Jan 2026 07:44:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EFsb=7T=gaisler.com=andreas@srs-se1.protection.inumbo.net>)
- id 1vfvIF-00066R-Nz
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 07:27:51 +0000
-Received: from smtp-out3.simply.com (smtp-out3.simply.com [94.231.106.210])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=J70X=7T=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vfvXs-0000Q9-MV
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 07:44:00 +0000
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [2a00:1450:4864:20::541])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 878a97b9-f11a-11f0-9ccf-f158ae23cfc8;
- Wed, 14 Jan 2026 08:27:49 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by smtp.simply.com (Simply.com) with ESMTP id 4drd4P0pSdz1DR2x;
- Wed, 14 Jan 2026 08:27:49 +0100 (CET)
-Received: from [192.168.0.25] (h-98-128-223-123.NA.cust.bahnhof.se
- [98.128.223.123])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtp.simply.com (Simply.com) with ESMTPSA id 4drd4M6G39z1DDdR;
- Wed, 14 Jan 2026 08:27:47 +0100 (CET)
+ id c8d900d5-f11c-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 08:43:58 +0100 (CET)
+Received: by mail-ed1-x541.google.com with SMTP id
+ 4fb4d7f45d1cf-652fdd043f9so3247667a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Jan 2026 23:43:58 -0800 (PST)
+Received: from ?IPV6:2a00:12d0:af5b:2f01:96c4:9745:9e8c:b1e8?
+ (2a00-12d0-af5b-2f01-96c4-9745-9e8c-b1e8.ip.tng.de.
+ [2a00:12d0:af5b:2f01:96c4:9745:9e8c:b1e8])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6507b8c4454sm22377242a12.3.2026.01.13.23.43.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jan 2026 23:43:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,253 +47,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878a97b9-f11a-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
-	s=simplycom2; t=1768375668;
-	bh=JoLWp43HOYjwRJyNJsc67cs6D8z3kCKzn/0ykuDh8HA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U/MxLTb8zVdLMDfDaOBJbtayShpVqfmLzNsYBnvb64wtspGFMsgZTsrPC3wOoIaLu
-	 kywwgDewFftKwA6/dELQHSxQdr6U4eCgbU5b2Xv1hnprAYzD6M28R5fasXD6TsgefO
-	 KmidDVQEATQE2TP78neAQZVbaqPpTu5dP9dDpFmN85FmL+ftYaO/Rrjcs0ASbXQD2y
-	 W24XwIYxbWV0LDjwKC7UzmRqMIEpZwEprXedMxQaZGak44dCLvtMH16KyfU1yvIpsR
-	 AKhv2uLMHt2sI3Gcd+z9fbTl4EjeW/ZFS3inFDmkwr/j1qOMllDjqxmUZAxnM2akcS
-	 wSePWEQv/mSSw==
-Message-ID: <45e4a43d-8996-4296-9df9-d5f2a8efcefd@gaisler.com>
-Date: Wed, 14 Jan 2026 08:27:47 +0100
+X-Inumbo-ID: c8d900d5-f11c-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768376637; x=1768981437; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=nZBcekoOmtM0omaCckBMLaoIquuqBm2yb/TA/kpHHdw=;
+        b=Dhoxr6BWv6/RKH4J/oGe8osD4nhaadfQjsxR0rHJsHydc1q4hjgE9teO/e2wGRo6yK
+         EFI0tfjfvIr9Vwl34zhdx/X6DU2uCR09Fy4mC9PUMj+I9r9SqwBNaXXmguSNg/1BCcNv
+         DGWaXNXNQYPLp9H3CyBDbj1SRDyfhIIJnH0CcIsK1tvwRcrDJh3SHrEIqqW9adDeOScW
+         vbRH9IlyUJUx1VezQpQmR0gfj9z8KQspkzYJbTOD9RvP6j81kbPtV+PzgJchkFkFaUYT
+         jp2UUU6IzS/DEEuaHncEeipCNpkBgqR3yRAwq7LrWe5wSmpJX/6A98DXUuZI1/ZuF9Kn
+         OePg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768376637; x=1768981437;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nZBcekoOmtM0omaCckBMLaoIquuqBm2yb/TA/kpHHdw=;
+        b=l17LbABMvoXEwBWRCWXvGkwqGGkVSbEC/vu93FPbmGZUaoszya3cjEUYLuhPUgBC4n
+         AJWqabkgPyRMjB5Oq96ZYZlgEAONtZcP+sdMkVuCHujXrch4nrE8sQZdjra/FAehHHDS
+         hppKB/YuIgausHj61BIApC7qlPVeFpZQmTZcUsszRVjVkFTVoUKyZaE38GQnCb0VYC+4
+         0h17acCe78yrH7EbWKJL9Ji50YlwgyoTMjxvaLrbGnw3JqIJ3EQwcZYw86A724jcyBsk
+         fmNKp9vB3KbSukXhetm/+NZeUUGQqNgpTZEnozqP5+xZvOQWswLixY0V+uqs2GAvHwHv
+         0Thw==
+X-Forwarded-Encrypted: i=1; AJvYcCW61RGoRorAtFZ1jIHdSykgIAUxTWNLKYgdHaIOXBCufuVTsSek4TZYGtnxkMvLh+X44cKt166m4mU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNpIQfBsLkqZ6T51hIfkyKJZVYtnxOvOymV2h1AKhqMnc4q5Bi
+	hzEvez7W9u9PJ/h6eFLlgdjSbK2CPdI/gtwdSK6DK1E7uh3obd3/Ko0gvTODlstCQKI1N1bBGmX
+	ACPzP8+vBwQ==
+X-Gm-Gg: AY/fxX62GZXqaFhYezdyS9rXIHCzim9WdeLs4+9/hkf01Ng4EpsascD95P2x7Lgj/IM
+	myyEn4sf/QnEX2WbT2JLBW9imRr9HNHO9Psbpl5a2cWgtulWYiNAefx4W8uY3EXg/qeM8ga6D7b
+	WItgHAklRA1Xm2g97JcQx0ePT8y0eo9fXT13XLHuA2EFDh/RdCrKvWhW+CY464u1Q2hfsFLU4QN
+	xGEEXFChZYU/SEGoFKyUUnfNL6HkgseCheTHQHbojlR9AXa4BoQuNLKRXjtqqn4iVS56RTKCfGh
+	ogQw4AXSHzqYaku1RvZs14nott7vxAa1f3XE1QTLyGd5XO+p4yJEBZiACWAjgVLpdAJ3JbDAuhp
+	ywyT+yhUdKxt3xFG84ursKGvcnl3xYPScnIwl8wcpPpxW5zIrL2YG2JOkxCHA0M31kFagy0PXQc
+	XVqsxJDxvJ89QhgNf2RxRYbRWrOrZ8QZCdj5TnQUfbcOTTSNHg1nsxfgCfbWkZkybx3Jm74Ha0N
+	fgcNEmxxjcNW8K7W3iRiH1SPlxsM9oNB+xQgTY=
+X-Received: by 2002:a05:6402:278e:b0:64b:3f56:55c9 with SMTP id 4fb4d7f45d1cf-653ee1b06f9mr906340a12.26.1768376637459;
+        Tue, 13 Jan 2026 23:43:57 -0800 (PST)
+Message-ID: <4a572d26-a58c-4119-b8b2-006e4e1eea89@suse.com>
+Date: Wed, 14 Jan 2026 08:43:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/14] mm: introduce CONFIG_ARCH_HAS_LAZY_MMU_MODE
-To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, David Woodhouse <dwmw2@infradead.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- Jann Horn <jannh@google.com>, Juergen Gross <jgross@suse.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
- Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org
-References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
- <20251215150323.2218608-7-kevin.brodsky@arm.com>
+Subject: Re: [PATCH XEN] tools: Update files examples PV&PVH with pygrub.
+To: Alexandre GRIVEAUX <agriveaux@deutnet.info>,
+ xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+References: <aWV5U1hgOYqDBIk2@deutnet.info>
+ <a2331e66-24ac-412f-bed5-66d9920f4efc@suse.com>
+ <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
 Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20251215150323.2218608-7-kevin.brodsky@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------A0DlLc8TqXrk8i0VLuch07h4"
 
-On 2025-12-15 16:03, Kevin Brodsky wrote:
-> Architectures currently opt in for implementing lazy_mmu helpers by
-> defining __HAVE_ARCH_ENTER_LAZY_MMU_MODE.
-> 
-> In preparation for introducing a generic lazy_mmu layer that will
-> require storage in task_struct, let's switch to a cleaner approach:
-> instead of defining a macro, select a CONFIG option.
-> 
-> This patch introduces CONFIG_ARCH_HAS_LAZY_MMU_MODE and has each
-> arch select it when it implements lazy_mmu helpers.
-> __HAVE_ARCH_ENTER_LAZY_MMU_MODE is removed and <linux/pgtable.h>
-> relies on the new CONFIG instead.
-> 
-> On x86, lazy_mmu helpers are only implemented if PARAVIRT_XXL is
-> selected. This creates some complications in arch/x86/boot/, because
-> a few files manually undefine PARAVIRT* options. As a result
-> <asm/paravirt.h> does not define the lazy_mmu helpers, but this
-> breaks the build as <linux/pgtable.h> only defines them if
-> !CONFIG_ARCH_HAS_LAZY_MMU_MODE. There does not seem to be a clean
-> way out of this - let's just undefine that new CONFIG too.
-> 
-> Acked-by: David Hildenbrand <david@redhat.com>
-> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-> Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> ---
->  arch/arm64/Kconfig                                 | 1 +
->  arch/arm64/include/asm/pgtable.h                   | 1 -
->  arch/powerpc/include/asm/book3s/64/tlbflush-hash.h | 2 --
->  arch/powerpc/platforms/Kconfig.cputype             | 1 +
->  arch/sparc/Kconfig                                 | 1 +
->  arch/sparc/include/asm/tlbflush_64.h               | 2 --
->  arch/x86/Kconfig                                   | 1 +
->  arch/x86/boot/compressed/misc.h                    | 1 +
->  arch/x86/boot/startup/sme.c                        | 1 +
->  arch/x86/include/asm/paravirt.h                    | 1 -
->  include/linux/pgtable.h                            | 2 +-
->  mm/Kconfig                                         | 7 +++++++
->  12 files changed, 14 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 93173f0a09c7..3fb4603c0e16 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -35,6 +35,7 @@ config ARM64
->  	select ARCH_HAS_KCOV
->  	select ARCH_HAS_KERNEL_FPU_SUPPORT if KERNEL_MODE_NEON
->  	select ARCH_HAS_KEEPINITRD
-> +	select ARCH_HAS_LAZY_MMU_MODE
->  	select ARCH_HAS_MEMBARRIER_SYNC_CORE
->  	select ARCH_HAS_MEM_ENCRYPT
->  	select ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 64d5f1d9cce9..f7d66c261347 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -80,7 +80,6 @@ static inline void queue_pte_barriers(void)
->  	}
->  }
->  
-> -#define  __HAVE_ARCH_ENTER_LAZY_MMU_MODE
->  static inline void arch_enter_lazy_mmu_mode(void)
->  {
->  	/*
-> diff --git a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> index 2d45f57df169..565c1b7c3eae 100644
-> --- a/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> +++ b/arch/powerpc/include/asm/book3s/64/tlbflush-hash.h
-> @@ -24,8 +24,6 @@ DECLARE_PER_CPU(struct ppc64_tlb_batch, ppc64_tlb_batch);
->  
->  extern void __flush_tlb_pending(struct ppc64_tlb_batch *batch);
->  
-> -#define __HAVE_ARCH_ENTER_LAZY_MMU_MODE
-> -
->  static inline void arch_enter_lazy_mmu_mode(void)
->  {
->  	struct ppc64_tlb_batch *batch;
-> diff --git a/arch/powerpc/platforms/Kconfig.cputype b/arch/powerpc/platforms/Kconfig.cputype
-> index 4c321a8ea896..f399917c17bd 100644
-> --- a/arch/powerpc/platforms/Kconfig.cputype
-> +++ b/arch/powerpc/platforms/Kconfig.cputype
-> @@ -93,6 +93,7 @@ config PPC_BOOK3S_64
->  	select IRQ_WORK
->  	select PPC_64S_HASH_MMU if !PPC_RADIX_MMU
->  	select KASAN_VMALLOC if KASAN
-> +	select ARCH_HAS_LAZY_MMU_MODE
->  
->  config PPC_BOOK3E_64
->  	bool "Embedded processors"
-> diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
-> index a630d373e645..2bad14744ca4 100644
-> --- a/arch/sparc/Kconfig
-> +++ b/arch/sparc/Kconfig
-> @@ -112,6 +112,7 @@ config SPARC64
->  	select NEED_PER_CPU_PAGE_FIRST_CHUNK
->  	select ARCH_SUPPORTS_SCHED_SMT if SMP
->  	select ARCH_SUPPORTS_SCHED_MC  if SMP
-> +	select ARCH_HAS_LAZY_MMU_MODE
->  
->  config ARCH_PROC_KCORE_TEXT
->  	def_bool y
-> diff --git a/arch/sparc/include/asm/tlbflush_64.h b/arch/sparc/include/asm/tlbflush_64.h
-> index 925bb5d7a4e1..4e1036728e2f 100644
-> --- a/arch/sparc/include/asm/tlbflush_64.h
-> +++ b/arch/sparc/include/asm/tlbflush_64.h
-> @@ -39,8 +39,6 @@ static inline void flush_tlb_range(struct vm_area_struct *vma,
->  
->  void flush_tlb_kernel_range(unsigned long start, unsigned long end);
->  
-> -#define __HAVE_ARCH_ENTER_LAZY_MMU_MODE
-> -
->  void flush_tlb_pending(void);
->  void arch_enter_lazy_mmu_mode(void);
->  void arch_flush_lazy_mmu_mode(void);
-> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-> index 80527299f859..2427a66cb0fe 100644
-> --- a/arch/x86/Kconfig
-> +++ b/arch/x86/Kconfig
-> @@ -808,6 +808,7 @@ config PARAVIRT
->  config PARAVIRT_XXL
->  	bool
->  	depends on X86_64
-> +	select ARCH_HAS_LAZY_MMU_MODE
->  
->  config PARAVIRT_DEBUG
->  	bool "paravirt-ops debugging"
-> diff --git a/arch/x86/boot/compressed/misc.h b/arch/x86/boot/compressed/misc.h
-> index fd855e32c9b9..4f86c5903e03 100644
-> --- a/arch/x86/boot/compressed/misc.h
-> +++ b/arch/x86/boot/compressed/misc.h
-> @@ -11,6 +11,7 @@
->  #undef CONFIG_PARAVIRT
->  #undef CONFIG_PARAVIRT_XXL
->  #undef CONFIG_PARAVIRT_SPINLOCKS
-> +#undef CONFIG_ARCH_HAS_LAZY_MMU_MODE
->  #undef CONFIG_KASAN
->  #undef CONFIG_KASAN_GENERIC
->  
-> diff --git a/arch/x86/boot/startup/sme.c b/arch/x86/boot/startup/sme.c
-> index e7ea65f3f1d6..b76a7c95dfe1 100644
-> --- a/arch/x86/boot/startup/sme.c
-> +++ b/arch/x86/boot/startup/sme.c
-> @@ -24,6 +24,7 @@
->  #undef CONFIG_PARAVIRT
->  #undef CONFIG_PARAVIRT_XXL
->  #undef CONFIG_PARAVIRT_SPINLOCKS
-> +#undef CONFIG_ARCH_HAS_LAZY_MMU_MODE
->  
->  /*
->   * This code runs before CPU feature bits are set. By default, the
-> diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-> index b5e59a7ba0d0..13f9cd31c8f8 100644
-> --- a/arch/x86/include/asm/paravirt.h
-> +++ b/arch/x86/include/asm/paravirt.h
-> @@ -526,7 +526,6 @@ static inline void arch_end_context_switch(struct task_struct *next)
->  	PVOP_VCALL1(cpu.end_context_switch, next);
->  }
->  
-> -#define  __HAVE_ARCH_ENTER_LAZY_MMU_MODE
->  static inline void arch_enter_lazy_mmu_mode(void)
->  {
->  	PVOP_VCALL0(mmu.lazy_mode.enter);
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 1abc4a1c3d72..d46d86959bd6 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -235,7 +235,7 @@ static inline int pmd_dirty(pmd_t pmd)
->   *
->   * Nesting is not permitted and the mode cannot be used in interrupt context.
->   */
-> -#ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
-> +#ifndef CONFIG_ARCH_HAS_LAZY_MMU_MODE
->  static inline void arch_enter_lazy_mmu_mode(void) {}
->  static inline void arch_leave_lazy_mmu_mode(void) {}
->  static inline void arch_flush_lazy_mmu_mode(void) {}
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index bd0ea5454af8..62073bd61544 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1464,6 +1464,13 @@ config PT_RECLAIM
->  config FIND_NORMAL_PAGE
->  	def_bool n
->  
-> +config ARCH_HAS_LAZY_MMU_MODE
-> +	bool
-> +	help
-> +	  The architecture uses the lazy MMU mode. This allows changes to
-> +	  MMU-related architectural state to be deferred until the mode is
-> +	  exited. See <linux/pgtable.h> for details.
-> +
->  source "mm/damon/Kconfig"
->  
->  endmenu
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------A0DlLc8TqXrk8i0VLuch07h4
+Content-Type: multipart/mixed; boundary="------------yMmA46rM5fOCVXy6dq1hREsv";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Alexandre GRIVEAUX <agriveaux@deutnet.info>,
+ xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+Message-ID: <4a572d26-a58c-4119-b8b2-006e4e1eea89@suse.com>
+Subject: Re: [PATCH XEN] tools: Update files examples PV&PVH with pygrub.
+References: <aWV5U1hgOYqDBIk2@deutnet.info>
+ <a2331e66-24ac-412f-bed5-66d9920f4efc@suse.com>
+ <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
+In-Reply-To: <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
 
-Acked-by: Andreas Larsson <andreas@gaisler.com> # sparc
+--------------yMmA46rM5fOCVXy6dq1hREsv
+Content-Type: multipart/mixed; boundary="------------qc1mysV7e0pTh740olARuGJa"
 
-Cheers,
-Andreas
+--------------qc1mysV7e0pTh740olARuGJa
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
+T24gMTQuMDEuMjYgMDg6MjYsIEFsZXhhbmRyZSBHUklWRUFVWCB3cm90ZToNCj4gTGUgMTMv
+MDEvMjAyNiDDoCAwNzoxNSwgSnVlcmdlbiBHcm9zcyBhIMOpY3JpdMKgOg0KPj4gT24gMTIu
+MDEuMjYgMjM6NDQsIEFsZXhhbmRyZSBHUklWRUFVWCB3cm90ZToNCj4+PiBVcGRhdGUgZmls
+ZXMgZXhlbXBsZXMgUFYmUFZIIGZvciBub24gZGlyZWN0IGtlcm5lbCBib290IHdpdGggcHln
+cnViLg0KPj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZHJlIEdSSVZFQVVYIDxhZ3Jp
+dmVhdXhAZGV1dG5ldC5pbmZvPg0KPj4+IC0tLQ0KPj4+IMKgIHRvb2xzL2V4YW1wbGVzL3hs
+ZXhhbXBsZS5wdmhsaW51eCB8IDMgKysrDQo+Pj4gwqAgdG9vbHMvZXhhbXBsZXMveGxleGFt
+cGxlLnB2bGludXjCoCB8IDMgKysrDQo+Pj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2Vy
+dGlvbnMoKykNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS90b29scy9leGFtcGxlcy94bGV4YW1w
+bGUucHZobGludXggYi90b29scy9leGFtcGxlcy8gDQo+Pj4geGxleGFtcGxlLnB2aGxpbnV4
+DQo+Pj4gaW5kZXggMTgzMDViODBhZi4uMmJkZDQzYzJjNSAxMDA2NDQNCj4+PiAtLS0gYS90
+b29scy9leGFtcGxlcy94bGV4YW1wbGUucHZobGludXgNCj4+PiArKysgYi90b29scy9leGFt
+cGxlcy94bGV4YW1wbGUucHZobGludXgNCj4+PiBAQCAtMjUsNiArMjUsOSBAQCBrZXJuZWwg
+PSAiL2Jvb3Qvdm1saW51eiINCj4+PiDCoCAjIEtlcm5lbCBjb21tYW5kIGxpbmUgb3B0aW9u
+cw0KPj4+IMKgIGV4dHJhID0gInJvb3Q9L2Rldi94dmRhMSINCj4+PiDCoCArIyBFbmFibGUg
+dG8gdXNlIGEgZ3J1YjIgZW11bGF0aW9uIGluc2lkZSBndWVzdCBpbnN0ZWFkIG9mIGRpcmVj
+dCBrZXJuZWwgYm9vdC4NCj4+DQo+PiBJIGRvbid0IHRoaW5rIHRoaXMgaXMgY29ycmVjdC4N
+Cj4+DQo+PiBweWdydWIgaXMgcnVubmluZyBpbiBkb20wLCBub3QgaW4gdGhlIGd1ZXN0Lg0K
+Pj4NCj4+DQo+PiBKdWVyZ2VuDQo+IA0KPiBIZWxsbywNCj4gDQo+IA0KPiBJIGRvZXNuJ3Qg
+dW5kZXJzdGFuZCB5b3VyIHJlcGx5LCB5ZXMgcHlncnViIGlzIHJ1bm5pbmcgb24gdGhlIERv
+bTAsIGFuZCB0aGlzIA0KPiBnb2FsIGlzIHRvIGJlaGF2ZSBsaWtlIHRoZXJlIGlzIGEgZ3J1
+YjIgb24gdGhlIERvbVUuDQoNClllcy4gVGhpcyBpcyB3aHkgSSBkb24ndCBsaWtlIHRoZSB3
+b3JkaW5nICJpbnNpZGUgZ3Vlc3QiLCB3aGljaCBpcyBqdXN0IG5vdA0KdHJ1ZS4NCg0KUGxl
+YXNlIGJlIGF3YXJlIHRoYXQgd2UgYXJlIHRyeWluZyB0byBwaGFzZSBvdXQgcHlncnViLCBh
+cyBpdCB3aWRlbnMgdGhlDQphdHRhY2sgc3VyZmFjZSBvZiBkb20wIGZyb20gYSBndWVzdC4g
+cHlncnViIG5lZWRzIHRvIGxvb2sgaW50byBndWVzdA0KY29udHJvbGxlZCBmaWxlIHN5c3Rl
+bXMsIHNvIGFueSBidWcgaW4gdGhlIHJlbGF0ZWQgY29kZSAoZS5nLiBmYWlsdXJlIHRvDQpo
+YW5kbGUgYSBjb3JydXB0ZWQgb3IgbWFsaWNpb3VzbHkgbW9kaWZpZWQgZmlsZSBzeXN0ZW0p
+IG1pZ2h0IHJlc3VsdCBpbg0Kc2VjdXJpdHkgaXNzdWVzIGxpa2UgY29kZSBpbmplY3Rpb24u
+DQoNClNvIEknbSBvbiB0aGUgZWRnZSB3aGV0aGVyIHdlIHJlYWxseSBzaG91bGQgbWFrZSBp
+dCBlYXNpZXIgdG8gdXNlIHB5Z3J1Yi4NCg0KDQpKdWVyZ2VuDQo=
+--------------qc1mysV7e0pTh740olARuGJa
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------qc1mysV7e0pTh740olARuGJa--
+
+--------------yMmA46rM5fOCVXy6dq1hREsv--
+
+--------------A0DlLc8TqXrk8i0VLuch07h4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmlnSTwFAwAAAAAACgkQsN6d1ii/Ey9N
+1AgAnrRcwgQrvWr2yn21BhZe+XA+55AJR+ANVCiK0ixnREg01Vc1VLblNpM1MsqSLH1iHIBVp+XJ
+twVRoLKrd8qSsjnNfnxLlK85YtTrBRrysbzjAQNYAlnazfAUFVvzcHjOzYHiAkgJQDCMZsyyydSD
+Kp/uGLaS8cz5ZW4dlR0Yt2Cz0PLvi5gVD6jjuh7MFZRHnkoC8C6qg69BLx4kJNWwVk06AZXxa3Lv
+LDFY4U27ODc/xekNF+y9DBigdhJwvdEIpfiGLpJZeeNuRhQsJ4SLEthMqgMB4vOEqgXOoCn3arTw
+2u1yM7qo8zURj8w2QAIrbH6KHWdgvv7V18Itv9KoJA==
+=EI1V
+-----END PGP SIGNATURE-----
+
+--------------A0DlLc8TqXrk8i0VLuch07h4--
 
