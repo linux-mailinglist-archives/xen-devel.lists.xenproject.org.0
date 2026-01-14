@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B36D22140
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 03:01:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204054.1518912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBE00D228BF
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 07:25:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203823.1518923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgCfq-0002Kh-V6; Thu, 15 Jan 2026 02:01:22 +0000
+	id 1vgGm3-00086j-H3; Thu, 15 Jan 2026 06:24:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204054.1518912; Thu, 15 Jan 2026 02:01:22 +0000
+Received: by outflank-mailman (output) from mailman id 1203823.1518923; Thu, 15 Jan 2026 06:24:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgCfq-0002I5-SK; Thu, 15 Jan 2026 02:01:22 +0000
-Received: by outflank-mailman (input) for mailman id 1204054;
- Thu, 15 Jan 2026 02:01:21 +0000
+	id 1vgGm3-00083c-Cv; Thu, 15 Jan 2026 06:24:03 +0000
+Received: by outflank-mailman (input) for mailman id 1203823;
+ Wed, 14 Jan 2026 20:31:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xZ5x=7U=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vgCfp-0002Hr-Az
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 02:01:21 +0000
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c107::3])
+ <SRS0=AAzU=7T=oasis-open.org=kelly.cullinane@srs-se1.protection.inumbo.net>)
+ id 1vg7WU-0000yJ-C2
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 20:31:22 +0000
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [2607:f8b0:4864:20::72d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14705527-f1b6-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 03:01:19 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by LV3PR03MB7585.namprd03.prod.outlook.com (2603:10b6:408:28c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Thu, 15 Jan
- 2026 02:01:15 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9499.005; Thu, 15 Jan 2026
- 02:01:15 +0000
+ id fa8fbc09-f187-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 21:31:18 +0100 (CET)
+Received: by mail-qk1-x72d.google.com with SMTP id
+ af79cd13be357-8c530866cf0so19845985a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 12:31:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,216 +40,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14705527-f1b6-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UKJFU2ziGrVjaEkA8pRqoHZE4UMiwwprb0RDUqWoQSPqCghkEvKb6829VasSJuvWRXVdpj1Mqclr6ylyF/u4S6zuYo0e0OkiR76udhlHXeIvrGcNzkbGOk8cWbIfh5QUL5qVvAETT/sdM/R5jHcr7o2KA/0j5I8T184UnwLWFMNutmeQWgostnrjqaq0sD8BlpdyFctSbqzoajleGiftbPeF3xvTwIoR/GiZREPP54BTKgmqrVDQe3zxv2GG5qdBomDlyXgZ3lPs3BANedXelzegJTX5KvVzk7ZNaCp8DAJdd2InrDHi9kdlFkt7/WmhswQcsMNx+5AIGl5smbHqww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AP3ozEoHItsDE7xlRQ632Iews+ktvhqzJRFlIiG1kfo=;
- b=pG6MlVLRaYa5kqLAYMT6xLdGkRUnDvU95ITR2znz2WsuR2emn/RQnWBgMQ/ZVRYwUZGh9QtEfk3aYqu8U9OEy+gujENnnTZ8HSNMPu2HDjoFBiDiUvhhvkio4Np8ABOJK1D325s9Jiq6A60mOWHd9ZI4V9rGn8khtmOR6UjbPnKt/fU5bL2WiIqO+MxXtd0CzaFjE5EqJHtJysu7onw4Dv/8YZXD6vcnNlImCMx5C795aPHseHuOIc9tggao9fgYlFec+HuQN1MOncX38ybcSJFfULnxmR2LBtKrnetg/x3b7bBWeTVxD8pfXoY7FLjawsLGESdKnix1fqXztjG/0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AP3ozEoHItsDE7xlRQ632Iews+ktvhqzJRFlIiG1kfo=;
- b=LDEZqmq4GSBX8D4oyPz6lWir+IFykkxwK1iLSuyXPRkpmMNG0lCh07g3u59DXRgD4DUcQDfD7o1pppeB7nLENztqdtcO1kYnPRPHX/f6Nsnr125+x9TqGTQ99lgezWHjG9Z9USZdQuP2ZcvDiNBSnlJrKLto2bj/bckwyaRNm0w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <95e0e0fb-2978-4c87-b723-fb7c30f36883@citrix.com>
-Date: Thu, 15 Jan 2026 02:01:12 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alejandro Vallejo <Alejandro.GarciaVallejo@amd.com>
-Subject: Re: [XEN PATCH v1 1/1] x86/vlapic: match broadcasts for logical
- destination mode
-To: Victor Lira <victorm.lira@amd.com>, xen-devel@lists.xenproject.org
-References: <20260114235548.626696-1-victorm.lira@amd.com>
- <20260114235548.626696-2-victorm.lira@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260114235548.626696-2-victorm.lira@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0614.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:314::15) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: fa8fbc09-f187-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oasis-open-org.20230601.gappssmtp.com; s=20230601; t=1768422677; x=1769027477; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2fYIETUaxvUJwN836Uu55NyXtFf/1P28/mpSnbMK4bA=;
+        b=iMaUW4Oi7JbHLzbQtRYFJT5lPeAzfernodteg7jeetrFd4UQ8b8baRoklKtvurqQ0I
+         Dr1+Z6X/eQsy1gVZqi6OfV/kDqCi4D/MnMWH9BVegSd6U13BAt+VyZ0Vj1UdqwusHFXB
+         pbyK9HGMu6mol6UwHEbyiaApI79SyIaEtZtuzewdqSxjus+VuplNljOYEe28IWO5KWvn
+         yGU/UwVUb6nE1wGtutQfxhaSR8J/xadRN9qR2UByQnTLq9SRQbjGGYvupN0tOiI80RIP
+         EIFXi5Sdu+Tm1L6U9TI/PZzC3eaZLU6eFNVQoxkmkQOL0Tb6qPgTuwdFlPZ5hrcq/kio
+         mWLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768422677; x=1769027477;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2fYIETUaxvUJwN836Uu55NyXtFf/1P28/mpSnbMK4bA=;
+        b=RwBTQ9P7PryT9hBJ4pRg0RyD0oOHL3ex4DRxloi9E/mXtDMS82tWBpc3+HOsFKhpw+
+         xvHKS0ZExuyi5gyDCUmwVaMOaObCGv1ikhXgjowARfWHxMIzwGESqBTOPrF9iMxYef2s
+         yhOHQW/QsFkjqaOk4JDwHBC9SCSobHZktjh8A23fRFRP2TTdhQrtTQj+SsNotVvbuvhg
+         XM0cJYYNEfBtvs+orx9ob9wynJP1lw6pxV5k2aaH6JzzLHdI/dUVxA4hrcdmhcrirZoC
+         /r76+M1qZtt2xGsUOCG+p+kmkbDMyD5mXSf7IDsA6uD73C9pnW1n5fRt+1dvRJu18Vwz
+         /uag==
+X-Forwarded-Encrypted: i=1; AJvYcCUAIsJn6037FGu5zqPsUSTWP0x8yQ2GLoeBMwsEY3xhqE4OyPvousNfZ+kdn9FNP2ypi7BgfFB5Dgs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yye3Xc60ucJnyBM87jvg+Vp0tCaSnHOzRN5vIN4luaSvglAA9OL
+	p2iMkCQ4usx8ChjedWadnfsqiiqfOEtKGQ08mCddWx5cuFhOTMF7YEL2UF3COzGLMwi54m4N9dP
+	KEKO9pihqawBJs/xRz9hinl3JPUNDHv3NLKHdtrB7YuOkrMFSGCEl
+X-Gm-Gg: AY/fxX5Y6W9CfOa0mLeurVpiFBJgT5+cVokcWAx03Yj5jmhQ/BtY8HpPpINYEvHff+b
+	8GsrQ43Jh6D8z6XCuEBEn4uWMCTP4VwnbLD4RHBB65OCNpVbFyq2VypsSjlFq/dCX5iajq3tmDi
+	vvHSc00vyw6nCvujkXEO2s/bwJPjFrXtBom7jbTNQq+wL4zldYWi90PsYThyNi+kF3/kvr5mXvA
+	9DcKVeHzBxaz9jOmDqA2wvBAw1kPdC9j7znhlxscOheBVNg3W2ZO5BfF4r6oH/Zum10ba+HGVOa
+	5bBPUBrpLf1xfhTmqqC0HGGHBzOAY4lmCRuo8fWaNqfNIad57bPSzoh1B+TZRRRyfOkZr9U=
+X-Received: by 2002:a05:620a:29ce:b0:8bb:9f02:489e with SMTP id
+ af79cd13be357-8c52fbcf15dmr558224785a.74.1768422676863; Wed, 14 Jan 2026
+ 12:31:16 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|LV3PR03MB7585:EE_
-X-MS-Office365-Filtering-Correlation-Id: daf1c36f-afed-4779-81fe-08de53d9f75e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bVdycXd4L1o1aXplRVR6RUNFWGdENU0yc3R2aGJ2U2JJY2UzNkhGeUlZU295?=
- =?utf-8?B?d2hqNnV0LzBqN0dBeUZTKzZtbEN5d0NxZFlQM3RRdFA3QTZqaVJqQ3RSa01T?=
- =?utf-8?B?ZWhhQ2JmbUhGblNyM3N3NVhoWElQS2RYaVlDRHJ0ek4yZ2JmMWlIblp0T2Ji?=
- =?utf-8?B?dmZobmhJTnRGTFZTdVlvUVU1NkhNMW0rZ2g0b3o3a2xEaWJLRTh1SjdFWEl4?=
- =?utf-8?B?V0UvQXFnenRoejlHWlZ3Mk5sVXhoUFhxOVp6ejQwRE41RmpheUt0NFRZVE9Q?=
- =?utf-8?B?QXE0aDlLUWRLVzJTOXVRUFdZWlROS0oyaE5XdWpGRmx3RGhXZ2ZUOGF0RDh6?=
- =?utf-8?B?MWRERUtmd1lnaHJuTnRySlltRkxrVTB5NjdRZWo0eHpuUjgyVnMvcCtZMWVJ?=
- =?utf-8?B?b1hIZFJ3VnUreVJ2aTA0aksweE12ZS9WQWxvZU1qQTk1eHBPUlQzbHZHWVpG?=
- =?utf-8?B?cGdrOVh6NkRxVXMvdWNpdjRKZ3Jvbzd3OFdKY3ErVmtOTXYwY2c3TFVNb1d4?=
- =?utf-8?B?cEdFYjY1eEMvR0d4NlVWQ1Z0YkpoQXZRd1pvbytLZldtTWdmb1dGd1g0eGdN?=
- =?utf-8?B?K0l5bmJqTkRRMzk4b29HU0I4VmFtaGJJdjR2MU5YVEZWTzQyWUgxdXY5YjNk?=
- =?utf-8?B?azh3NmFOK0tiMGtaaXg4aVlodkVCdUJBOFliQ0trRmxKT3kwTnh6cTBuRDU4?=
- =?utf-8?B?ZkRKd0hhS0t0V28vcGN0dkI3T2kzODJqOG1LWUhhY3p6SmQwQktJZnlvWkJx?=
- =?utf-8?B?TlIyQmw0RGRHUWdtM3M1Yk14aE0wdXo3a0pGTkt4aFdDdVZoYmRxODBjV1Js?=
- =?utf-8?B?di83eExFeDVCVHovUG9obWhVK05hZlFVQzFJZzFHaDZIN25UZ3hWb3A4TkhW?=
- =?utf-8?B?cjhxWnM3SGk3am43RWRXcFgwY1F2UUpPV2lwM3VmS05CRFU5QnRDOC9qaVhR?=
- =?utf-8?B?YmRFZEVBRlBWZHVrNU5UNktEU3UvNlZ6ZHNVYkpvUnJDUGlOaDk5d0xTTEEx?=
- =?utf-8?B?YlJTV3h2eGJQV2hLOWk4L0xpSkV0TS9iTG9TV3A5cnprb0dSZkNlT2F0V1E4?=
- =?utf-8?B?Y0pwMFRpQXJwM0RxdEJHVStHNmgwVzlnZTZuTWFRT2dyazlMTVZCbFF5Mllr?=
- =?utf-8?B?Q2dVODR1UmhkQUxRVnk0V2dVSjBQdGp0Nk9nRVo3aXdmaWF5ZUovcFNMTi93?=
- =?utf-8?B?Zzg1VldJZk9oaERJTVVUcTRHZHY3ZktDUzVGWHVPZVdPZUtuOEFyTlpxVEtj?=
- =?utf-8?B?NzgrWldwUDVTZ1RDSzNKSUtGUXhxMmREMUJXUnlpdXM1QzgvcDJjUGxneVZI?=
- =?utf-8?B?UVlUU3lMQXFjZWZnV0huZndOQ3BCbm5GczBjc1FURUJBWi9TaFNYRDEwb0FI?=
- =?utf-8?B?N2YxUDJOY2VoR3JpNDhGV3NnUWFMTUpEa253RlpjbDdoNTdxOE9DYjJUaWV0?=
- =?utf-8?B?NEVPVnAwdE42NHcra1VkTFpvWmdzUzZtTVd5L005bCtFZWhlV2xHaTVyak01?=
- =?utf-8?B?MDdWZ1NOREREOGloR09mVmNHcTRjMUVOa0xlM25oMFZ2dnUyZkNQR1FzK2wx?=
- =?utf-8?B?SzNVMnBrQXd1cFE2ZWZ6bXN3emJzbS9VcU5kcEd6UzhxWHpMMHZ2QjIrWk9n?=
- =?utf-8?B?TXVlNnBqeHFreWRYR3V5bTI2R3NzL1BONmhIbzdoMjdhSVhIcmJwY0UvcHpz?=
- =?utf-8?B?R29aWFVHejUzcURQbkR2US8rR1BKV05NbTFXSFV1Ti9OVXlqWW5MRnBidGlH?=
- =?utf-8?B?MVNFeHozY2xUQnpxM3VFb3FXbHl2UStIUytjaW4wMVlCVXhkY0t2dEE1RmtV?=
- =?utf-8?B?MzRiQWlCTytnUVFDWjRkTTNUVTZhNnljOTR3VmRZUHZhajBvaktoZkVGVXJl?=
- =?utf-8?B?UlpzVm1HNit6T2ZnKzhEUGpXV215NWpVb3g5OEJiazZiYzV6NkZkaVhhSHow?=
- =?utf-8?B?VGpSckkranZMOWhwek02MDFGVnJaVmVSVWR3c3VHd0tNTmxNVTV0dUtURERN?=
- =?utf-8?B?V0VuMWZEOGFXcGZDaUM5UGQwY0IyVmlBQkszaFFORkNqazhUNS9sSTFhcER3?=
- =?utf-8?B?MXpQVUJWSDhDSmNUbmRqNTI2bm5VV0hvYlJYcTNIcEwzSkp6YVRyRUdqTjdK?=
- =?utf-8?Q?yJQQ=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VTFvVXVUVktrMTM0QXRHbGNzYjgyOGRUVXdwaUdQQUtGQTNaMVpmc1paK3dn?=
- =?utf-8?B?YkZqclhMQzRITTFQNmtQWDFjZllIb0pPSmVWamE2Y2ZpelZFR1MwM01RWEJj?=
- =?utf-8?B?RnhvZDFtckxxSWJKYVBwSGZsUkt2N2YrMHhZeU9Hb0p3MHNvTFpJWmpLemVl?=
- =?utf-8?B?b2hsb28xZmtrbWhBck1WVWRIbzhVc01ucTlndzFKMXZtTTRqdCtxMW9sa3Va?=
- =?utf-8?B?ZmVnUlk2ck5OOVFQK1llRURxRnErMm8rUVhHTkhjdy9MTUVKZ1gvNHcyaHFq?=
- =?utf-8?B?eDhhK3BRT1IrcDRndDJmL0RCMEg3WlJGZlhPWjRUQVRBRzYzTFZCQWhWK21O?=
- =?utf-8?B?aGR2R3hvT0VCS3UwempBN0NPeUUvTEp2R3FieSt3SzdNZCtqZE5TVnhVRW1M?=
- =?utf-8?B?U3NIZlB0d1NrMndmRElXaSt2QTFCZk1DV3ZCc296bTdtM0R2S21lUVdoUkp2?=
- =?utf-8?B?YkgxbXZxRUhjejRBWVovb29vUTlFd3dlNSt4THhoYVlDS1FlSGp5S1NhVE10?=
- =?utf-8?B?VDNUZ1cvZ3NGUDZ4WGhwLzRWZXYzK0ZQeXR0YXVmTDhLREgyZ2dPbmdIM1lv?=
- =?utf-8?B?M1lYSGpNZjRUNFAzUkMrdEoxb3hyQ2V1dDNWN0lwbDVVR1ozcUZFRUpyNU84?=
- =?utf-8?B?Smd0dzB6Ylg3aWRxaDdrTmJ1L2JUS1N0YjUwVk84MWZtMEF6MmdpKy9FRGFp?=
- =?utf-8?B?YnA2VENTS0FBQ0JaWHlyWGtNS1gzY3NNVS9IV0p3OThnRkRvbzdnZ090VVVQ?=
- =?utf-8?B?MThOUFM2bllGSlNqek9CR1hiSGtVaUgwV1Blby9ya2lWQnNweXZCanRXYUtT?=
- =?utf-8?B?dmRmay8rUWZUdGdFU2RXaExqeDBTRjRqbUNYSTRXZ3luRTRCTUJmaVV1N1hN?=
- =?utf-8?B?R3k3LzgrWFM1UktzNmNHQzVKYWdqM3hxZDBmK05Tb1pPUTZmT1FtNUJhUG1F?=
- =?utf-8?B?TnJYNmQwMDhrZXFLNGNRdHhsQlRQSmRVL2pDWUdRSnRZU0gyYytwQWF1T3lG?=
- =?utf-8?B?WVMzV3doVmJIS3VyU28vc09yNjlQbEMwQTVYaUhuaDNJSFFJMmx0YU9QcEpa?=
- =?utf-8?B?d3dpK2VZSkdJT2kxdE1TNHltajQ2dnFBL21VajFkcWhRTzZGTVVtV0xVVHFu?=
- =?utf-8?B?cGQ5d1hEN1c5d0V3c21kZzV3L1RpSTIwVTk2S08zNklpMkRISlJHWm5MQ095?=
- =?utf-8?B?UFFqUngwYjdLNVM1bnZia29RK2o2am1hZUtlTFIydXVxSHNwU3hZU0pyYmcv?=
- =?utf-8?B?UFlwQnJFSk04TkxnVDdWOGhMZlE1TElJNGdSQ09McHB0M0IyMWd1MEQrNkhF?=
- =?utf-8?B?QmV3RHpjSWRuUW42V1UybEhYRUU4UUpnVmUxazBPNkJiMS9ZeXVZemg0R1Zn?=
- =?utf-8?B?MXVybDB2UzZxYWNtemc3b3I1dTB5Rnd5cjFZRFBUYktPUDJFejFEeGVvZmtY?=
- =?utf-8?B?N2dxUlFyK3pla0diNmxjenBzS0hKdXJiWDJJc0lxZEIrQTVUbVoyVU1wbUpw?=
- =?utf-8?B?MWFzd0QzRzcwa0I1NkhadklrUEtkVUo5RlFselVEK3RIenprNHZqaTk0OWdx?=
- =?utf-8?B?WXpOTTVPVEh3MTYrSTVyRWpqd3RnMDdSU2pmTi8xWWxjYjE3WFR6aElsK2wv?=
- =?utf-8?B?V2VZcE1WYUw3Y1V4QVBROUUzZzBPMkNaUTNzOHBMa3FnbG9UZEFLYjAzeEFu?=
- =?utf-8?B?eVM4SjhJa1BWZEpOWnRHdlhqRG96R3VqYVJ4bUlWNUtsM2d6N0NLWUZkRi9k?=
- =?utf-8?B?WTVzQmhFUGVlU2dleS9OUGVRVURONGR5THc3UitFT3EvS005dTk5NXY5RVVj?=
- =?utf-8?B?MDZ0cXBBLzFINE9WVUE4cDcvejZqUDljd2orS2s2ajRwRGxWK0dQelpmWHZZ?=
- =?utf-8?B?WnFneWZBRWhDWW5FQzB5RWxqang1eWN6YWNFRGwyMFFFNU9pTWNqME02NmlJ?=
- =?utf-8?B?OXFHUGNnQ1dIV0I1ZVROV1gyL0NnRUtTMjRtSFJoQlZWK1EyRVZKcEVZQmZF?=
- =?utf-8?B?LzZ4WUZWQnJiTElodnA3ZlNJREVaOHJWZVpvV0tuK0s1TDcvTXhsS1VBV1dD?=
- =?utf-8?B?TnY0RU56ZHdNTjQwL0V3S0FLTlhTSWN6d2dqRW9NVmxhbTdnU2V2eVVjd0lR?=
- =?utf-8?B?TU92cmRUdDRhSWp4UThnWG1RNW5kMGpycVBHWjhKb1o0UndHUVU4bGdBT2xU?=
- =?utf-8?B?bWhsS09DUUhYSW9FQ3RqaDlKWVI2RFBuTkxmbEZGSWRQaFhrSlZ3di8zSWxP?=
- =?utf-8?B?SnBsV2h6OXpLdnpmWlZ5d2NlOEtCRk5YaEU0RTk3K1RDb0pNZ3hrT09sdTY3?=
- =?utf-8?B?WmpWSFdxSW5QR0czaXd4YWRGYW1NZjdXellzL0w3QnFsb3lxeVBIQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: daf1c36f-afed-4779-81fe-08de53d9f75e
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 02:01:15.7264
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G7bVYO1C112iiQAQHBuNdziblycoSraKYwyOLF+RiEie8QvFq4QobWkJZcpI7pK9uF20sPabP3ocTvofUUuxmUXxpw24QULOANiF0Q5mOu8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7585
+References: <CAAiF602+5JxVHEfZo-JaQ8rT3_E-ZLOw6unSpCY8Y_Fd3YJWmA@mail.gmail.com>
+In-Reply-To: <CAAiF602+5JxVHEfZo-JaQ8rT3_E-ZLOw6unSpCY8Y_Fd3YJWmA@mail.gmail.com>
+From: Kelly Cullinane <kelly.cullinane@oasis-open.org>
+Date: Wed, 14 Jan 2026 15:30:39 -0500
+X-Gm-Features: AZwV_QiCqCxANNz1udCuWC7xOZO9m8PtoTX-mt0_iIp4ME__ZtZZBHdr7BoO8PI
+Message-ID: <CAAiF603Jc=DbVM3YPc8TGWXbtNEtdxwQkorLqYgVWMY_1wbw6g@mail.gmail.com>
+Subject: Fwd: Invitation to comment on VIRTIO v1.4 CSD01
+To: undisclosed-recipients:;
+Content-Type: multipart/alternative; boundary="00000000000077ac2606485efdac"
 
-On 14/01/2026 11:55 pm, Victor Lira wrote:
-> amd64 vol 3
-> 16.6.1: "In both the flat model and the cluster model, if the
-> destination field = FFh, the interrupt is accepted by all local APICs."
-> 16.14: "A DEST value of FFFF_FFFFh in the ICR is used to broadcast
-> IPIs to all local APICs."
->
-> intel 64 vol 3
-> 12.6.2.2: "Broadcast to all local APICs is achieved by setting all
-> destination bits to one."
-> 12.12.9: "A destination ID value of FFFF_FFFFH is used
-> for broadcast of interrupts in both logical destination and physical
-> destination modes."
+--00000000000077ac2606485efdac
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The formatting here really needs some work.
-
->
-> The specs say 0xFFFFFFFF/0xFF should be a broadcast to all APICs in
-> logical destination mode but it is matched only for cluster 0xFFFF/0xFF
-> (or as flat mode in xAPIC).
->
-> Add a check in vlapic_match_dest similar to what is done for physical
-> destination mode.
->
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
-> ---
->  xen/arch/x86/hvm/vlapic.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index 79697487ba..1208cd21f0 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -248,7 +248,8 @@ bool vlapic_match_dest(
->      {
->      case APIC_DEST_NOSHORT:
->          if ( dest_mode )
-> -            return vlapic_match_logical_addr(target, dest);
-> +            return (dest == _VLAPIC_ID(target, 0xffffffffU)) ||
-> +                   vlapic_match_logical_addr(target, dest);
->          return (dest == _VLAPIC_ID(target, 0xffffffffU)) ||
->                 (dest == VLAPIC_ID(target));
-
-The SDM/APM quotes are clear, but I think this logic has more bugs than
-just this.
-
-First, you've got a common expression that the compiler cannot optimise
-because of the function calls hidden in VLAPIC_ID().  The appropriate
-rearrangement would be:
-
-    case APIC_DEST_NOSHORT:
-        return (dest == _VLAPIC_ID(target, 0xffffffffU) ||
-                dest_mode ? vlapic_match_logical_addr(target, dest)
-                          : dest == VLAPIC_ID(target));
+---------- Forwarded message ---------
+From: Kelly Cullinane <kelly.cullinane@oasis-open.org>
+Date: Wed, Jan 14, 2026 at 3:28=E2=80=AFPM
+Subject: Invitation to comment on VIRTIO v1.4 CSD01
+To: <virtio-dev@lists.linux.dev>, <OASIS-virtio@connectedcommunity.org>, <
+virtio-comment@lists.linux.dev>
 
 
-However, the first clause looking for the broadcast ID is surely wrong.
-
-Surely it needs checking against the source LAPIC, not the target. 
-Whether 0xff or 0xffffffff is the broadcast address depends on the xAPIC
-vs x2APIC mode of the sending LAPIC only, and it's surely buggy to fail
-to match targets just because they're in the opposite mode.  So, I think
-the correct code is:
-
-    case APIC_DEST_NOSHORT:
-        return (dest == _VLAPIC_ID(source, 0xffffffffU) ||
-                dest_mode ? vlapic_match_logical_addr(target, dest)
-                          : dest == VLAPIC_ID(target));
+OASIS members and other interested parties,
 
 
-Thoughts?
+OASIS and the VIRTIO TC are pleased to announce that VIRTIO v1.4 CSD01 is
+now available for public review and comment.
 
-Given this bug, I expect the OSes which use fully broadcast interrupts
-tend to do using shorthands, not the broadcast destination.
 
-~Andrew
+VIRTIO TC aims to enhance the performance of virtual devices by
+standardizing key features of the VIRTIO (Virtual I/O) Device Specification=
+.
+
+
+Virtual I/O Device (VIRTIO) Version 1.4
+
+Committee Specification Draft 01 / Public Review Draft 01
+
+09 December 2025
+
+
+TEX:
+https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd01.=
+html
+(Authoritative)
+
+HTML:
+https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd01.=
+html
+
+PDF:
+https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd01.=
+pdf
+
+
+The ZIP containing the complete files of this release is found in the
+directory:
+
+https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd01.=
+zip
+
+
+How to Provide Feedback
+
+
+OASIS and the VIRTIO TC value your feedback. We solicit input from
+developers, users and
+
+others, whether OASIS members or not, for the sake of improving the
+interoperability and quality of its technical work.
+
+
+The public review is now open and ends Friday, February 13 2026 at 23:59
+UTC.
+
+
+Comments may be submitted to the project=E2=80=99s comment mailing list at
+virtio-comment@lists.linux.dev. You can subscribe to the list by sending an
+email to
+
+virtio-comment+subscribe@lists.linux.dev.
+
+
+All comments submitted to OASIS are subject to the OASIS Feedback License,
+which ensures that the feedback you provide carries the same obligations at
+least as the obligations of the TC members. In connection with this public
+review, we call your attention to the OASIS IPR Policy
+<https://www.oasis-open.org/policies-guidelines/ipr/> applicable especially
+to the work of this technical committee. All members of the TC should be
+familiar with this document, which may create obligations regarding the
+disclosure and availability of a member's patent, copyright, trademark and
+license rights that read on an approved OASIS specification.
+
+
+OASIS invites any persons who know of any such claims to disclose these if
+they may be essential to the implementation of the above specification, so
+that notice of them may be posted to the notice page for this TC's work.
+
+
+Additional information about the specification and the VIRTIO TC can be
+found at the TC=E2=80=99s public home page located here.
+<https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=
+=3Db3f5efa5-0e12-4320-873b-018dc7d3f25c>
+
+--00000000000077ac2606485efdac
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br><div class=3D"gmail_quote gmail_quote_container"><=
+div dir=3D"ltr" class=3D"gmail_attr">---------- Forwarded message ---------=
+<br>From: <strong class=3D"gmail_sendername" dir=3D"auto">Kelly Cullinane</=
+strong> <span dir=3D"auto">&lt;<a href=3D"mailto:kelly.cullinane@oasis-open=
+.org">kelly.cullinane@oasis-open.org</a>&gt;</span><br>Date: Wed, Jan 14, 2=
+026 at 3:28=E2=80=AFPM<br>Subject: Invitation to comment on VIRTIO v1.4 CSD=
+01<br>To:  &lt;<a href=3D"mailto:virtio-dev@lists.linux.dev">virtio-dev@lis=
+ts.linux.dev</a>&gt;,  &lt;<a href=3D"mailto:OASIS-virtio@connectedcommunit=
+y.org">OASIS-virtio@connectedcommunity.org</a>&gt;,  &lt;<a href=3D"mailto:=
+virtio-comment@lists.linux.dev">virtio-comment@lists.linux.dev</a>&gt;<br><=
+/div><br><br><div dir=3D"ltr"><span id=3D"m_246052869587821151gmail-docs-in=
+ternal-guid-f6a972b0-7fff-ad21-49fe-70c594d02e18"><p dir=3D"ltr" style=3D"l=
+ine-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:=
+11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transpa=
+rent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:=
+none;vertical-align:baseline;white-space:pre-wrap">OASIS members and other =
+interested parties,=C2=A0</span></p><p dir=3D"ltr" style=3D"line-height:1.3=
+8;margin-top:0pt;margin-bottom:0pt"><b style=3D"font-weight:normal" id=3D"m=
+_246052869587821151gmail-docs-internal-guid-525989c3-7fff-0844-0483-60dd162=
+6f22d"><br></b></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;=
+margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-ser=
+if;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style=
+:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;wh=
+ite-space:pre-wrap">OASIS and the VIRTIO TC are pleased to announce that VI=
+RTIO v1.4 CSD01 is now available for public review and comment.=C2=A0</span=
+></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:=
+0pt"><b style=3D"font-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"li=
+ne-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:1=
+1pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transpar=
+ent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:n=
+one;vertical-align:baseline;white-space:pre-wrap">VIRTIO TC aims to </span>=
+<span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(41,41,=
+41);background-color:transparent;font-weight:400;font-style:normal;font-var=
+iant:normal;text-decoration:none;vertical-align:baseline;white-space:pre-wr=
+ap">enhance the performance of virtual devices by standardizing key feature=
+s of the VIRTIO (Virtual I/O) Device Specification.</span></p><p dir=3D"ltr=
+" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><b style=3D"f=
+ont-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"line-height:1.38;mar=
+gin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Ar=
+ial,sans-serif;color:rgb(34,34,34);background-color:rgb(255,255,255);font-w=
+eight:700;font-style:normal;font-variant:normal;text-decoration:none;vertic=
+al-align:baseline;white-space:pre-wrap">Virtual I/O Device (VIRTIO) Version=
+ 1.4</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;marg=
+in-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;c=
+olor:rgb(34,34,34);background-color:rgb(255,255,255);font-weight:400;font-s=
+tyle:normal;font-variant:normal;text-decoration:none;vertical-align:baselin=
+e;white-space:pre-wrap">Committee Specification Draft 01 / Public Review Dr=
+aft 01</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;ma=
+rgin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif=
+;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:n=
+ormal;font-variant:normal;text-decoration:none;vertical-align:baseline;whit=
+e-space:pre-wrap">09 December 2025</span></p><p dir=3D"ltr" style=3D"line-h=
+eight:1.38;margin-top:0pt;margin-bottom:0pt"><b style=3D"font-weight:normal=
+"><br></b></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margi=
+n-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;co=
+lor:rgb(0,0,0);background-color:transparent;font-weight:400;font-style:norm=
+al;font-variant:normal;text-decoration:none;vertical-align:baseline;white-s=
+pace:pre-wrap">TEX: </span><a href=3D"https://docs.oasis-open.org/virtio/vi=
+rtio/v1.4/csprd01/virtio-v1.4-csprd01.html" style=3D"text-decoration:none" =
+target=3D"_blank"><span style=3D"font-size:11pt;font-family:Arial,sans-seri=
+f;color:rgb(17,85,204);background-color:transparent;font-weight:400;font-st=
+yle:normal;font-variant:normal;text-decoration:underline;vertical-align:bas=
+eline;white-space:pre-wrap">https://docs.oasis-open.org/virtio/virtio/v1.4/=
+csprd01/virtio-v1.4-csprd01.html</span></a><span style=3D"font-size:11pt;fo=
+nt-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transparent;fo=
+nt-weight:400;font-style:normal;font-variant:normal;text-decoration:none;ve=
+rtical-align:baseline;white-space:pre-wrap"> (Authoritative)</span></p><p d=
+ir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><spa=
+n style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);bac=
+kground-color:transparent;font-weight:400;font-style:normal;font-variant:no=
+rmal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">HTM=
+L: </span><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01=
+/virtio-v1.4-csprd01.html" style=3D"text-decoration:none" target=3D"_blank"=
+><span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(17,85=
+,204);background-color:transparent;font-weight:400;font-style:normal;font-v=
+ariant:normal;text-decoration:underline;vertical-align:baseline;white-space=
+:pre-wrap">https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1=
+.4-csprd01.html</span></a></p><p dir=3D"ltr" style=3D"line-height:1.38;marg=
+in-top:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Ari=
+al,sans-serif;color:rgb(0,0,0);background-color:transparent;font-weight:400=
+;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:=
+baseline;white-space:pre-wrap">PDF: </span><a href=3D"https://docs.oasis-op=
+en.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd01.pdf" style=3D"text-de=
+coration:none" target=3D"_blank"><span style=3D"font-size:11pt;font-family:=
+Arial,sans-serif;color:rgb(17,85,204);background-color:transparent;font-wei=
+ght:400;font-style:normal;font-variant:normal;text-decoration:underline;ver=
+tical-align:baseline;white-space:pre-wrap">https://docs.oasis-open.org/virt=
+io/virtio/v1.4/csprd01/virtio-v1.4-csprd01.pdf</span></a></p><p dir=3D"ltr"=
+ style=3D"line-height:1.2;background-color:rgb(255,255,255);margin-top:0pt;=
+margin-bottom:0pt"><br></p><p dir=3D"ltr" style=3D"line-height:1.2;backgrou=
+nd-color:rgb(255,255,255);margin-top:0pt;margin-bottom:0pt"><span style=3D"=
+font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-col=
+or:transparent;font-weight:400;font-style:normal;font-variant:normal;text-d=
+ecoration:none;vertical-align:baseline;white-space:pre-wrap">The ZIP contai=
+ning the complete files of this release is found in the directory:</span></=
+p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt=
+"><a href=3D"https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-=
+v1.4-csprd01.zip" style=3D"text-decoration:none" target=3D"_blank"><span st=
+yle=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(17,85,204);bac=
+kground-color:transparent;font-weight:400;font-style:normal;font-variant:no=
+rmal;text-decoration:underline;vertical-align:baseline;white-space:pre-wrap=
+">https://docs.oasis-open.org/virtio/virtio/v1.4/csprd01/virtio-v1.4-csprd0=
+1.zip</span></a></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt=
+;margin-bottom:0pt"><b style=3D"font-weight:normal"><br></b></p><p dir=3D"l=
+tr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=
+=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background=
+-color:transparent;font-weight:700;font-style:normal;font-variant:normal;te=
+xt-decoration:none;vertical-align:baseline;white-space:pre-wrap">How to Pro=
+vide Feedback</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top=
+:0pt;margin-bottom:0pt"><b style=3D"font-weight:normal"><br></b></p><p dir=
+=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span =
+style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);backg=
+round-color:transparent;font-weight:400;font-style:normal;font-variant:norm=
+al;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">OASIS=
+ and the VIRTIO TC value your feedback. We solicit input from developers, u=
+sers and=C2=A0</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-to=
+p:0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial,sa=
+ns-serif;color:rgb(0,0,0);background-color:transparent;font-weight:400;font=
+-style:normal;font-variant:normal;text-decoration:none;vertical-align:basel=
+ine;white-space:pre-wrap">others, whether OASIS members or not, for the sak=
+e of improving the interoperability and quality of its technical work.</spa=
+n></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom=
+:0pt"><b style=3D"font-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"l=
+ine-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"font-size:=
+11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:transpa=
+rent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:=
+none;vertical-align:baseline;white-space:pre-wrap">The public review is now=
+ open</span><span style=3D"font-size:11pt;font-family:Arial,sans-serif;colo=
+r:rgb(0,0,0);background-color:transparent;font-weight:700;font-style:normal=
+;font-variant:normal;text-decoration:none;vertical-align:baseline;white-spa=
+ce:pre-wrap"> </span><span style=3D"font-size:11pt;font-family:Arial,sans-s=
+erif;color:rgb(0,0,0);background-color:transparent;font-weight:400;font-sty=
+le:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;=
+white-space:pre-wrap">and ends </span><span style=3D"font-size:11pt;font-fa=
+mily:Arial,sans-serif;color:rgb(0,0,0);background-color:transparent;font-we=
+ight:700;font-style:normal;font-variant:normal;text-decoration:none;vertica=
+l-align:baseline;white-space:pre-wrap">Friday, February 13 2026 at 23:59 UT=
+C.</span></p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin=
+-bottom:0pt"><b style=3D"font-weight:normal"><br></b></p><p dir=3D"ltr" sty=
+le=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=3D"fon=
+t-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background-color:=
+transparent;font-weight:400;font-style:normal;font-variant:normal;text-deco=
+ration:none;vertical-align:baseline;white-space:pre-wrap">Comments may be s=
+ubmitted to the project=E2=80=99s comment mailing list at </span><a href=3D=
+"mailto:virtio-comment@lists.linux.dev" style=3D"text-decoration:none" targ=
+et=3D"_blank"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;co=
+lor:rgb(17,85,204);background-color:rgb(255,255,255);font-weight:400;font-s=
+tyle:normal;font-variant:normal;text-decoration:none;vertical-align:baselin=
+e;white-space:pre-wrap">virtio-comment@lists.linux.dev</span></a><span styl=
+e=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(34,34,34);backgr=
+ound-color:rgb(255,255,255);font-weight:400;font-style:normal;font-variant:=
+normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap">.=
+ You can subscribe to the list by sending an email to</span></p><p dir=3D"l=
+tr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><span style=
+=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(17,85,204);backgr=
+ound-color:rgb(255,255,255);font-weight:400;font-style:normal;font-variant:=
+normal;text-decoration:none;vertical-align:baseline;white-space:pre-wrap"><=
+a href=3D"mailto:virtio-comment%2Bsubscribe@lists.linux.dev" target=3D"_bla=
+nk">virtio-comment+subscribe@lists.linux.dev</a>.</span></p><p dir=3D"ltr" =
+style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><b style=3D"fon=
+t-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"line-height:1.656;back=
+ground-color:rgb(255,255,255);margin-top:0pt;margin-bottom:0pt"><span style=
+=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);background=
+-color:transparent;font-weight:400;font-style:normal;font-variant:normal;te=
+xt-decoration:none;vertical-align:baseline;white-space:pre-wrap">All commen=
+ts submitted to OASIS are subject to the OASIS Feedback License, which ensu=
+res that the feedback you provide carries the same obligations at least as =
+the obligations of the TC members. In connection with this public review, w=
+e call your attention to the </span><a href=3D"https://www.oasis-open.org/p=
+olicies-guidelines/ipr/" style=3D"text-decoration:none" target=3D"_blank"><=
+span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(17,85,2=
+04);background-color:transparent;font-weight:400;font-style:normal;font-var=
+iant:normal;text-decoration:underline;vertical-align:baseline;white-space:p=
+re-wrap">OASIS IPR Policy</span></a><span style=3D"font-size:11pt;font-fami=
+ly:Arial,sans-serif;color:rgb(0,0,0);background-color:transparent;font-weig=
+ht:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-=
+align:baseline;white-space:pre-wrap"> applicable especially to the work of =
+this technical committee. All members of the TC should be familiar with thi=
+s document, which may create obligations regarding the disclosure and avail=
+ability of a member&#39;s patent, copyright, trademark and license rights t=
+hat read on an approved OASIS specification.=C2=A0</span></p><p dir=3D"ltr"=
+ style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0pt"><b style=3D"fo=
+nt-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"line-height:1.656;bac=
+kground-color:rgb(255,255,255);margin-top:0pt;margin-bottom:0pt"><span styl=
+e=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb(0,0,0);backgroun=
+d-color:transparent;font-weight:400;font-style:normal;font-variant:normal;t=
+ext-decoration:none;vertical-align:baseline;white-space:pre-wrap">OASIS inv=
+ites any persons who know of any such claims to disclose these if they may =
+be essential to the implementation of the above specification, so that noti=
+ce of them may be posted to the notice page for this TC&#39;s work.</span><=
+/p><p dir=3D"ltr" style=3D"line-height:1.38;margin-top:0pt;margin-bottom:0p=
+t"><b style=3D"font-weight:normal"><br></b></p><p dir=3D"ltr" style=3D"line=
+-height:1.656;background-color:rgb(255,255,255);margin-top:0pt;margin-botto=
+m:0pt"><span style=3D"font-size:11pt;font-family:Arial,sans-serif;color:rgb=
+(0,0,0);background-color:transparent;font-weight:400;font-style:normal;font=
+-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pr=
+e-wrap">Additional information about the specification and the VIRTIO TC ca=
+n be found at the </span><a href=3D"https://groups.oasis-open.org/communiti=
+es/tc-community-home2?CommunityKey=3Db3f5efa5-0e12-4320-873b-018dc7d3f25c" =
+style=3D"text-decoration:none" target=3D"_blank"><span style=3D"font-size:1=
+1pt;font-family:Arial,sans-serif;color:rgb(17,85,204);background-color:tran=
+sparent;font-weight:400;font-style:normal;font-variant:normal;text-decorati=
+on:underline;vertical-align:baseline;white-space:pre-wrap">TC=E2=80=99s pub=
+lic home page located here.</span></a></p><p dir=3D"ltr" style=3D"line-heig=
+ht:1.38;margin-top:0pt;margin-bottom:0pt"><br><br></p></span></div>
+</div></div>
+
+--00000000000077ac2606485efdac--
 
