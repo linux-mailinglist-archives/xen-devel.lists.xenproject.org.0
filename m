@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0ECD1D2D5
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 09:42:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202658.1518122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21860D1D3BF
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 09:49:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202679.1518133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwRj-0001CC-Ig; Wed, 14 Jan 2026 08:41:43 +0000
+	id 1vfwYo-0001ue-DG; Wed, 14 Jan 2026 08:49:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202658.1518122; Wed, 14 Jan 2026 08:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 1202679.1518133; Wed, 14 Jan 2026 08:49:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfwRj-0001AA-G2; Wed, 14 Jan 2026 08:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 1202658;
- Wed, 14 Jan 2026 08:41:42 +0000
+	id 1vfwYo-0001t8-9u; Wed, 14 Jan 2026 08:49:02 +0000
+Received: by outflank-mailman (input) for mailman id 1202679;
+ Wed, 14 Jan 2026 08:49:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J70X=7T=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vfwRi-0001A1-M8
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 08:41:42 +0000
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
- [2a00:1450:4864:20::641])
+ (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vfwYn-0001qy-AX
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 08:49:01 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d923ac98-f124-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 09:41:41 +0100 (CET)
-Received: by mail-ej1-x641.google.com with SMTP id
- a640c23a62f3a-b8710c9cddbso478908766b.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 00:41:41 -0800 (PST)
-Received: from ?IPV6:2a00:12d0:af5b:2f01:96c4:9745:9e8c:b1e8?
- (2a00-12d0-af5b-2f01-96c4-9745-9e8c-b1e8.ip.tng.de.
- [2a00:12d0:af5b:2f01:96c4:9745:9e8c:b1e8])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a4d1c6csm2375170066b.39.2026.01.14.00.41.40
+ id deb7c1b7-f125-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 09:49:00 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-477a219dbcaso66606335e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 00:49:00 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47ee54b90d5sm17229895e9.2.2026.01.14.00.48.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 00:41:40 -0800 (PST)
+ Wed, 14 Jan 2026 00:48:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,230 +45,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d923ac98-f124-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: deb7c1b7-f125-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768380101; x=1768984901; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=W5sYEAQcytupTs7Jv1BpsPPTMRJDcWNCQ1gZ3pmgRN0=;
-        b=f771ML+InmeIS3OOZKkdCpjRzhoPzVxdZrf+a92FX28fhlxuYctJaEzWU8OLVoWkPO
-         CPNTXLNr0LsbOBKvLvYKsEgRaSkcDC2fPBL6uxdpcCZrUy5bbnIfmB44ftoCKimv9Npf
-         /RCdK1chjKEkHqx8X+heUUN7psdwa5I84btz/kJFClIEYKoCV+iZIijCb+OvT5tcp0uB
-         lvl2uFWGfch5aeX5mBIMhLIdvTbFcdpI19u5r9NH2/EOdCK2qe49hwyoHfmrwydhFZIq
-         DKpHxwvXvY9XLph67F8Yco/2zX7cUaCJ2olvNx62h9o7zd+fDZKQG6bCSZbFqXzBXgzr
-         KUQA==
+        d=suse.com; s=google; t=1768380540; x=1768985340; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xiGVfVIHdprF755XGvSlBfxNYTkiMWZtddiwyb5XCgA=;
+        b=NeG/+/TX33LwlFgHGRBgAg3IJdN8W7jsvMrMwLvcIUiVasF7jqJTFa+2pkp4vuv/vZ
+         gmh6zXI/ymht8zUr2BJgfgcOdCQ+XZOjc7UjiDGc8UM9XPKfvsRhIyG66Uj/EKkpxZP0
+         ItXlMbrv0jFucaBXGvlr9CGfIfxcqJZcDp+qIpqfUxrHr9vNiuRGzgGFJuBT8PfACG3l
+         en91lqBvv4MIWkiNTjVBHLEdmbY0mndWg8dnu2UDrKQTfvGDYUUnTwzymYiuTa6yhIJL
+         7eWMQx4h/aX3QlixxP6lyxQuxTGGPfXoyULygCZLvTRKLQyLoQqk1OLVYHheWqNQVd58
+         UJtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768380101; x=1768984901;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W5sYEAQcytupTs7Jv1BpsPPTMRJDcWNCQ1gZ3pmgRN0=;
-        b=XJNDOnfMokJeCZiSPLJ+6t6F7WFirzjyweVu0Qcz5Y3tjacXptTVASL77y2ZNBNRsL
-         aJ60zWkerdPeAUjICI0GImstRY/xcKJaSPuuOYva7F2yZVmTpuYG9n/YSa67+bOXoAsH
-         j56Z+Rj24lNm34lhiMgUsSdA6+eAEiSZN0jOCda4fAfCrrotfsFdAVNF0snnxSUxuJME
-         1LhL7O0cMAFTroV1qholMvnKezx4HkohfOCAMWHmE0qWAsDlhi9DkJk1Ii4SJgw5AeZ0
-         NiVJ/tuAzzG645o9y2H3qWBeSLXwRrzRbgiCGGwiydwWQNxEm5mVvjoW6IBCv2dnlNTf
-         DOfw==
-X-Forwarded-Encrypted: i=1; AJvYcCVmj3GNRrru9xjCXySXLSdZ8d7NPQv+fwz4y1iW5tX4spWx8WYRuYAqenlLGQmHWA2YdG+p681uc9Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz90FV05//IPOOK6jxQMxW/0xm4DT6a/74S5V/T+vk9uzAhcDyv
-	9Xy895B7K3Dogpf/wdMbeTdnB8gLWZGU1xIgBKfffwQOwoIq408Xuoiq+aEdr7gAQi4=
-X-Gm-Gg: AY/fxX6IBcnhPNiMZMq+rV8PSC/QP0V5R0Si1ilXQ+GUi2e9B6W+PBDzX/M+I/1hVHl
-	FKQLBHoJsTDlT/U81OvPcIL7qVZh9xgb8VLiY5zxuwM8rf0phT9JnmlyAwrpHZ+5+XOnsxCxnkV
-	lLUYSNL85YTtX0O3dh8l+IgSM/X7vjSJpTYpumie27a5pGQgYh0v6f9c8PzS+o+4mWeVKnbyYpY
-	NAtNxvN+8skbWE2B5QVzrjHHFVplZO+PzHpsxAHF20hj3vSnVelnAzqlzlLg5ju8LhdTv39ibZC
-	kaXoveCE+++UTIWs1DFuINRKaEYnx6WOherPsUlH6j+z704cuF6OrEs5/vljc562XPMj8Dv5Kec
-	/r7eR9kr8zBYtw2O7hr5hQUVhqZW7EqKbMWATY8QbmZ6/AgUOZ0A3AfLNRt9YB7sPXAgFUTQfkB
-	jWjwRlWEZ5exxGvNcR7C4yUyYcF03Yt7ZMvVyays9Mo4QdV1jwRWVJZe2jtlk5uCDWnv2dAVOKR
-	mfnfSfBxrn6C1JPOKH7K+CaFlE2/q7AHgdEjRc=
-X-Received: by 2002:a17:907:747:b0:b87:2bd6:6bc3 with SMTP id a640c23a62f3a-b87613e0446mr166418666b.61.1768380100731;
-        Wed, 14 Jan 2026 00:41:40 -0800 (PST)
-Message-ID: <1d06919f-841f-44e4-b53f-af575e9dd2b1@suse.com>
-Date: Wed, 14 Jan 2026 09:41:39 +0100
+        d=1e100.net; s=20230601; t=1768380540; x=1768985340;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xiGVfVIHdprF755XGvSlBfxNYTkiMWZtddiwyb5XCgA=;
+        b=YUHErZPVdUiWr/mGgosqeJ/U6mkEwloAamjm7gjP5sZdUhjfSCmgO+cu5y6pGQh1yC
+         f5GlbVzxefEH5jYIttlPUtjEbGTffSvniQTXVGcJ+pjgSrsEhVfHQR3hyAVBVHHys65f
+         FUQJTHmrjuhKyFAh5FovP6PmmpkRdFxR1N1k+zWfF5V/8tXQOcfvpSXctuPrrdJl+P/u
+         RWG5M/NKritdj3i4LHAD+Q3T+jF7O9mjT+IY91uJxnnQ8mG45jHAuxc6LENueSc1juU9
+         PWZXh82SD6f/2PpomPkKBZ0eDjFSGfHz4W+QdU9JZnf8YCE9rN2BbPB81/EzedVIFMJI
+         Ylug==
+X-Forwarded-Encrypted: i=1; AJvYcCVaHUw9hjGk/Dl5kr+mwsY2SYLornx5fYs4oZ9YgCswANmXdPiVTHYo4wkpiAQ0b66G4+3dqCensG0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzcr0HEVInBTP+YBJ5bhjBHr7B7AvZgYnG06uVAmxp6+5IOnN5D
+	WLvDKCeZ5Dcqd9UmJ+NBgADHkGHcQqZpCwsAGkO7urlvjBn7dEC3ElyxWqksuC+r1Q==
+X-Gm-Gg: AY/fxX6+hr4fBlvoBq3rKRvQ0bh1SUlAEmOEbLIn+e0ghRXH8YPOF1/c0dM9Yxs/AvJ
+	9Z4e6M6HsvKSBZ3GREv6MOEgzcBfXOTUsFpGlhr5kIp94i1NA7t7khjmcVaLvSWnabnzI3hTo61
+	8fSx4gTHDJwjQQW635jQdlIEz4qeXKCSNYAwnCUshGu4JpSXXNieO1Szs4pGFvyp0WP1mDmxIOD
+	UyZ5+/6O1nPbQh7r0q0/0nkdeBSvUREaExdnx5kIRmtUd5Yjd2KrPePubnP6krkGv4IpwMo2iqn
+	b99bszhSFrJQkX8WvhuruvyFqozpk59umsAD+ijPfKMu1Azu9obgpTAk1MG6JlPuQMdwdpXhDGI
+	/+/EfD+lFBSC1ZcKXP+wLeRsSszv1blTu7MCYwg9MZCKTuQYPKh+mMTid8gDrt7bGz2xMdA5yr1
+	RfoOfhscLqLvkVbv6g7s+P9n2N3jT7sxZR/JN6WZMGXMhTlfdzWQo+DMVdpmgMkSU43zVqmQUsM
+	+c=
+X-Received: by 2002:a05:600c:4751:b0:47e:e20e:bbbe with SMTP id 5b1f17b1804b1-47ee4827277mr11826695e9.25.1768380539565;
+        Wed, 14 Jan 2026 00:48:59 -0800 (PST)
+Message-ID: <b535344e-1f27-4d5c-85aa-1529868f85fc@suse.com>
+Date: Wed, 14 Jan 2026 09:48:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH XEN] tools: Update files examples PV&PVH with pygrub.
-To: Alexandre GRIVEAUX <agriveaux@deutnet.info>,
- xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-References: <aWV5U1hgOYqDBIk2@deutnet.info>
- <a2331e66-24ac-412f-bed5-66d9920f4efc@suse.com>
- <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
- <4a572d26-a58c-4119-b8b2-006e4e1eea89@suse.com>
- <a7eb74e9-d5c1-4000-a4a1-d0a09a4fb192@deutnet.info>
+Subject: Re: [PATCH 2/2] xen/mm: limit non-scrubbed allocations to a specific
+ order
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260108175536.82153-1-roger.pau@citrix.com>
+ <20260108175536.82153-3-roger.pau@citrix.com>
+ <b547676c-ff2e-4a56-b3b4-2b2da167e2f1@suse.com> <aWZQLL997K3MTQY4@Mac.lan>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <a7eb74e9-d5c1-4000-a4a1-d0a09a4fb192@deutnet.info>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------e4uLFezTWl5w89CAkdBazpRt"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aWZQLL997K3MTQY4@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------e4uLFezTWl5w89CAkdBazpRt
-Content-Type: multipart/mixed; boundary="------------CotXC5dkT0jy2ULllYVqsI1P";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Alexandre GRIVEAUX <agriveaux@deutnet.info>,
- xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-Message-ID: <1d06919f-841f-44e4-b53f-af575e9dd2b1@suse.com>
-Subject: Re: [PATCH XEN] tools: Update files examples PV&PVH with pygrub.
-References: <aWV5U1hgOYqDBIk2@deutnet.info>
- <a2331e66-24ac-412f-bed5-66d9920f4efc@suse.com>
- <3e937fc7-62bb-404c-9b1b-c4172404bf35@deutnet.info>
- <4a572d26-a58c-4119-b8b2-006e4e1eea89@suse.com>
- <a7eb74e9-d5c1-4000-a4a1-d0a09a4fb192@deutnet.info>
-In-Reply-To: <a7eb74e9-d5c1-4000-a4a1-d0a09a4fb192@deutnet.info>
+On 13.01.2026 15:01, Roger Pau Monné wrote:
+> On Fri, Jan 09, 2026 at 12:19:26PM +0100, Jan Beulich wrote:
+>> On 08.01.2026 18:55, Roger Pau Monne wrote:
+>>> The current model of falling back to allocate unscrubbed pages and scrub
+>>> them in place at allocation time risks triggering the watchdog:
+>>>
+>>> Watchdog timer detects that CPU55 is stuck!
+>>> ----[ Xen-4.17.5-21  x86_64  debug=n  Not tainted ]----
+>>> CPU:    55
+>>> RIP:    e008:[<ffff82d040204c4a>] clear_page_sse2+0x1a/0x30
+>>> RFLAGS: 0000000000000202   CONTEXT: hypervisor (d0v12)
+>>> [...]
+>>> Xen call trace:
+>>>    [<ffff82d040204c4a>] R clear_page_sse2+0x1a/0x30
+>>>    [<ffff82d04022a121>] S clear_domain_page+0x11/0x20
+>>>    [<ffff82d04022c170>] S common/page_alloc.c#alloc_heap_pages+0x400/0x5a0
+>>>    [<ffff82d04022d4a7>] S alloc_domheap_pages+0x67/0x180
+>>>    [<ffff82d040226f9f>] S common/memory.c#populate_physmap+0x22f/0x3b0
+>>>    [<ffff82d040228ec8>] S do_memory_op+0x728/0x1970
+>>>
+>>> The maximum allocation order on x86 is limited to 18, that means allocating
+>>> and scrubbing possibly 1G worth of memory in 4K chunks.
+>>>
+>>> Start by limiting dirty allocations to CONFIG_DOMU_MAX_ORDER, which is
+>>> currently set to 2M chunks.  However such limitation might cause
+>>> fragmentation in HVM p2m population during domain creation.  To prevent
+>>> that introduce some extra logic in populate_physmap() that fallback to
+>>> preemptive page-scrubbing if the requested allocation cannot be fulfilled
+>>> and there's scrubbing work to do.  This approach is less fair than the
+>>> current one, but allows preemptive page scrubbing in the context of
+>>> populate_physmap() to attempt to ensure unnecessary page-shattering.
+>>>
+>>> Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> I'm not particularly happy with this approach, as it doesn't guarantee
+>>> progress for the callers.  IOW: a caller might do a lot of scrubbing, just
+>>> to get it's pages stolen by a different concurrent thread doing
+>>> allocations.  However I'm not sure there's a better solution than resorting
+>>> to 2M allocations if there's not enough free memory that is scrubbed.
+>>>
+>>> I'm having trouble seeing where we could temporary store page(s) allocated
+>>> that need to be scrubbed before being assigned to the domain, in a way that
+>>> can be used by continuations, and that would allow Xen to keep track of
+>>> them in case the operation is never finished.  IOW: we would need to
+>>> account for cleanup of such temporary stash of pages in case the domain
+>>> never completes the hypercall, or is destroyed midway.
+>>
+>> How about stealing a bit from the range above MEMOP_EXTENT_SHIFT to
+>> indicate that state, with the actual page (and order plus scrub progress)
+>> recorded in the target struct domain? Actually, maybe such an indicator
+>> isn't needed at all: If the next invocation (continuation or not) finds
+>> an in-progress allocation, it could simply use that rather than doing a
+>> real allocation. (What to do if this isn't a continuation is less clear:
+>> We could fail such requests [likely not an option unless we can reliably
+>> tell original requests from continuations], or split the allocation if
+>> the request is smaller, or free the allocation to then take the normal
+>> path.) All of which of course only for "foreign" requests.
+>>
+>> If the hypercall is never continued, we could refuse to unpause the
+>> domain (with the allocation then freed normally when the domain gets
+>> destroyed).
+> 
+> I have done something along this lines, introduced a couple of
+> stashing variables in the domain struct and stored the progress of
+> scrubbing in there.
+> 
+>> As another alternative, how about returning unscrubbed pages altogether
+>> when it's during domain creation, requiring the tool stack to do the
+>> scrubbing (potentially allowing it to skip some of it when pages are
+>> fully initialized anyway, much like we do for Dom0 iirc)?
+> 
+> It's going to be difficult for the toolstack to figure out which pages
+> need to be scrubbed, we would need a way to tell it the unscrubbed
+> regions in a domain physmap?
 
---------------CotXC5dkT0jy2ULllYVqsI1P
-Content-Type: multipart/mixed; boundary="------------jo0OnpC40im3zESi56uw3K29"
+My thinking here was that the toolstack would have to assume everything
+is unscrubbed, and it could avoid scrubbing only those pages which it
+knows it fully fills with some data.
 
---------------jo0OnpC40im3zESi56uw3K29
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>>> --- a/xen/common/memory.c
+>>> +++ b/xen/common/memory.c
+>>> @@ -279,6 +279,18 @@ static void populate_physmap(struct memop_args *a)
+>>>  
+>>>                  if ( unlikely(!page) )
+>>>                  {
+>>> +                    nodeid_t node = MEMF_get_node(a->memflags);
+>>> +
+>>> +                    if ( memory_scrub_pending(node) ||
+>>> +                         (node != NUMA_NO_NODE &&
+>>> +                          !(a->memflags & MEMF_exact_node) &&
+>>> +                          memory_scrub_pending(node = NUMA_NO_NODE)) )
+>>> +                    {
+>>> +                        scrub_free_pages(node);
+>>> +                        a->preempted = 1;
+>>> +                        goto out;
+>>> +                    }
+>>
+>> At least for order 0 requests there's no point in trying this. With the
+>> current logic, actually for orders up to MAX_DIRTY_ORDER.
+> 
+> Yes, otherwise we might force the CPU to do some scrubbing work when
+> it won't satisfy it's allocation request anyway.
+> 
+>> Further, from a general interface perspective, wouldn't we need to do the
+>> same for at least XENMEM_increase_reservation?
+> 
+> Possibly yes.  TBH I would also be fine with strictly limiting
+> XENMEM_increase_reservation to 2M order extents, even for the control
+> domain.  The physmap population is the only that actually requires
+> bigger extents.
 
-T24gMTQuMDEuMjYgMDk6MjAsIEFsZXhhbmRyZSBHUklWRUFVWCB3cm90ZToNCj4gTGUgMTQv
-MDEvMjAyNiDDoCAwODo0MywgSsO8cmdlbiBHcm/DnyBhIMOpY3JpdMKgOg0KPj4gWWVzLiBU
-aGlzIGlzIHdoeSBJIGRvbid0IGxpa2UgdGhlIHdvcmRpbmcgImluc2lkZSBndWVzdCIsIHdo
-aWNoIGlzIGp1c3Qgbm90DQo+PiB0cnVlLg0KPiANCj4gQmVmb3JlIHdhc3RpbmcgbW9yZSB0
-aW1lIGZvciB0aGF0IHNpZGUsIHRoZXJlIGlzIGNocm9vdCB3aXRoIGJpbmQtbW91bnQgb2Yg
-RG9tVSBGUy4NCj4gDQo+IFJlcGhyYXNpbmcgbGlrZSB0aGlzIHNob3VsZCBiZSBtb3JlIHRo
-YW4gZW5vdWdoOg0KPiANCj4gIyBFbmFibGUgdG8gdXNlIGEgZ3J1YjIgZW11bGF0aW9uIGJv
-b3QgaW5zdGVhZCBvZiBkaXJlY3Qga2VybmVsIGJvb3QuDQo+IA0KPj4NCj4+IFBsZWFzZSBi
-ZSBhd2FyZSB0aGF0IHdlIGFyZSB0cnlpbmcgdG8gcGhhc2Ugb3V0IHB5Z3J1YiwgYXMgaXQg
-d2lkZW5zIHRoZQ0KPj4gYXR0YWNrIHN1cmZhY2Ugb2YgZG9tMCBmcm9tIGEgZ3Vlc3QuIHB5
-Z3J1YiBuZWVkcyB0byBsb29rIGludG8gZ3Vlc3QNCj4+IGNvbnRyb2xsZWQgZmlsZSBzeXN0
-ZW1zLCBzbyBhbnkgYnVnIGluIHRoZSByZWxhdGVkIGNvZGUgKGUuZy4gZmFpbHVyZSB0bw0K
-Pj4gaGFuZGxlIGEgY29ycnVwdGVkIG9yIG1hbGljaW91c2x5IG1vZGlmaWVkIGZpbGUgc3lz
-dGVtKSBtaWdodCByZXN1bHQgaW4NCj4+IHNlY3VyaXR5IGlzc3VlcyBsaWtlIGNvZGUgaW5q
-ZWN0aW9uLg0KPiANCj4gRWZmZWN0aXZlbHksIGlmIHB5Z3J1YiBpcyBvbiB2ZXJnZSBvZiBi
-ZWluZyBwaGFzZWQgb3V0LCB0aGVyZSBpcyBub3QgbmVlZCBmb3IgDQo+IHRoaXMgcGF0Y2gu
-Li4NCg0KOi0pDQoNCj4gQnV0IGNvdWxkIHlvdSBwb2ludCBtZSB0byB0aGUgZGlzY3Vzc2lv
-biBvZiBhbHRlcm5hdGl2ZXMgPyBBcyBweWdydWIgYWxsb3cgYSANCj4gbW9yZSBlYXN5IG1h
-bmFnZW1lbnQuLi4NCg0KT2gsIHRoZSBmdW4gb2Ygc2VsZWN0aW5nIHRoZSBncnViIHZhcmlh
-bnQuIDotKQ0KDQpUaGVyZSBhcmU6DQoNCi0gcHlncnViIGFzIGRpc2N1c3NlZCBhbHJlYWR5
-DQoNCi0gZ3J1Yi1wdiAoMzItIGFuZCA2NC1iaXQpIGFuZCBncnViLXB2aDogb2ZmaWNpYWwg
-Zmxhdm9ycyBvZiBncnViMiBmb3IgUFYgYW5kDQogICBQVkggZ3Vlc3RzLCBzZWxlY3RlZCBi
-eSBzcGVjaWZ5aW5nIHRoZW0gYXMgdGhlIGtlcm5lbCB0byBib290LCBydW5uaW5nIGluDQog
-ICBkb21VIGNvbnRleHQNCg0KLSBwdmdydWIgKDMyLSBhbmQgNjQtYml0KTogbGVnYWN5IGdy
-dWIgMC45NyB2YXJpYW50cyBiYXNlZCBvbiBNaW5pLU9TIGZvciBQVg0KICAgZ3Vlc3RzLCBz
-ZWxlY3RlZCBieSBzcGVjaWZ5aW5nIHRoZW0gYXMgdGhlIGtlcm5lbCB0byBib290LCBydW5u
-aW5nIGluIGRvbVUNCiAgIGNvbnRleHQNCg0KPiANCj4gU2hvdWxkIHRoaXMgYmUgbm90ZWQg
-dG8gdGhlIHdpa2kgPw0KDQpZZXMuIERvY3VtZW50YXRpb24gc2hvdWxkIHJlYWxseSBiZSBl
-bmhhbmNlZC4NCg0KPj4gU28gSSdtIG9uIHRoZSBlZGdlIHdoZXRoZXIgd2UgcmVhbGx5IHNo
-b3VsZCBtYWtlIGl0IGVhc2llciB0byB1c2UgcHlncnViLg0KPiBMZWdpdCwgU2hvdWxkIHBh
-dGNoIHN1YmplY3QgbmVlZCB0byBiZSBbUkZDIFBBVENIXSA/DQoNCk5vLCBJIGRvbid0IHRo
-aW5rIHNvLiBPdGhlcnMgbWlnaHQgaGF2ZSBvdGhlciBvcGluaW9ucyB0aGFuIG1lIHJlZ2Fy
-ZGluZyBweWdydWIuDQoNCkp1ZXJnZW4NCg==
---------------jo0OnpC40im3zESi56uw3K29
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hmm, that's an option, yes, but an ABI-changing one.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------jo0OnpC40im3zESi56uw3K29--
-
---------------CotXC5dkT0jy2ULllYVqsI1P--
-
---------------e4uLFezTWl5w89CAkdBazpRt
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmlnVsQFAwAAAAAACgkQsN6d1ii/Ey/u
-Zgf9GfXsouSO1LhzX86dNGpTCSGik3bmgjPxHsB/ojPHx8N08WP+Pg7ZOlkTyp3h7Y0bVTvzMgiC
-VjSukXu0gbuULkPlr9yXD5H2sWC+ZfiqIVb/OxNgA/Mt+OW60SAZbHG0vyw6dK/kcH+vYpQ3w1+f
-j+T71RJ8z9xqrSuuN9QoUEvzLuzthBbWylRbIJ5TlNQE+k8g3J4UCb54D2yfRIUyx2xqNksqQMG7
-6mFQoyecJhnaymRiP9RvQAPLGjRka2VYmyy7zoUJmiQ9nCewDcEGaY1buPVCb9kQFFEHI8PACLLf
-as0XEXKG6OZP2sed0HmJa4vaxM64rVhe5/RCCDqppQ==
-=3T+m
------END PGP SIGNATURE-----
-
---------------e4uLFezTWl5w89CAkdBazpRt--
+Jan
 
