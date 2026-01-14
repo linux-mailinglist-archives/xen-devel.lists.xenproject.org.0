@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20B73D1CCBF
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 08:20:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1202517.1518049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC9DD1CCCE
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 08:21:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1202527.1518059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfvAs-0004Oz-MM; Wed, 14 Jan 2026 07:20:14 +0000
+	id 1vfvBt-0004w4-V2; Wed, 14 Jan 2026 07:21:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1202517.1518049; Wed, 14 Jan 2026 07:20:14 +0000
+Received: by outflank-mailman (output) from mailman id 1202527.1518059; Wed, 14 Jan 2026 07:21:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vfvAs-0004NK-JS; Wed, 14 Jan 2026 07:20:14 +0000
-Received: by outflank-mailman (input) for mailman id 1202517;
- Wed, 14 Jan 2026 07:20:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vfvBt-0004tt-SV; Wed, 14 Jan 2026 07:21:17 +0000
+Received: by outflank-mailman (input) for mailman id 1202527;
+ Wed, 14 Jan 2026 07:21:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EFsb=7T=gaisler.com=andreas@srs-se1.protection.inumbo.net>)
- id 1vfvAr-0004F6-I8
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 07:20:13 +0000
+ id 1vfvBs-0004tk-Vb
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 07:21:16 +0000
 Received: from smtp-out3.simply.com (smtp-out3.simply.com [94.231.106.210])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 769c2a52-f119-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 08:20:11 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c2c0307-f119-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 08:21:14 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by smtp.simply.com (Simply.com) with ESMTP id 4drcvb0mT6z1DR2b;
- Wed, 14 Jan 2026 08:20:11 +0100 (CET)
+ by smtp.simply.com (Simply.com) with ESMTP id 4drcwp38sWz1DR2b;
+ Wed, 14 Jan 2026 08:21:14 +0100 (CET)
 Received: from [192.168.0.25] (h-98-128-223-123.NA.cust.bahnhof.se
  [98.128.223.123])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (Client did not present a certificate)
- by smtp.simply.com (Simply.com) with ESMTPSA id 4drcvY6Y97z1DDXQ;
- Wed, 14 Jan 2026 08:20:09 +0100 (CET)
+ by smtp.simply.com (Simply.com) with ESMTPSA id 4drcwm54NNz1DDXY;
+ Wed, 14 Jan 2026 08:21:12 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,22 +46,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 769c2a52-f119-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 9c2c0307-f119-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
-	s=simplycom2; t=1768375210;
-	bh=+bsSYT5Z1t0Ue69EheEHF7hxKttSFoeDbi3ynLX/3AM=;
+	s=simplycom2; t=1768375274;
+	bh=USGtV3+n93v8pp6pT/3Zgm6YGfywpo0PJVEBtkCCeSQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=W0aE3JG9goSHRurW/f80QzESeYLCdz+1cCdlJriVIGX/Ex1LcwRgyEotsO+y02khS
-	 FhemM5xiIXD5RYq2dB6AZqI2t8TT/4xXbpur4a/f7pRBb3H2S+LkwN0GSy2rANeE1D
-	 Pgsg4O//8AASht2KWtGRQK2AaPGI5F2sOEAbuLOqCRbtqk7ar1sH1X9impRapmfR68
-	 JsDB2vJ2shh93AI3xLEc371Bwxp3owy1ZLilXgIqaDVXYrndrwpqo9JHNNqgET7dzy
-	 tcIDzuCYYnQoxRAZrybVgK7ezKJw0EEplTcQoXefOAkjkbsbESP4Cja7daHOaHwUWK
-	 nlNb1c20WwN1w==
-Message-ID: <6c0a9851-9ec9-4a49-9d77-171f36a78448@gaisler.com>
-Date: Wed, 14 Jan 2026 08:20:09 +0100
+	b=GLYRdRw6BcVYpXpDzS8ZqYhxtT7bZEqyt6FuYL8Og+uuX6KmBzkodf4AAzTgQK8Vj
+	 6QbBYuy/EUx3fCM7vga1p7zdd9seT9SSuJ28fck7TvCAs/Gwc0UpWogq+FDfeMLhxP
+	 Q9tIWi9KAy3JY7vvXnVldebdrOSI6/xQmw6aZqkHZJU9FXjDY0poTHU/LzOD1ekgYF
+	 2nFh0u8d2uWVggyereuQ0MAq07iXxOjlDmJmNDlViRxcJ4I2srsAz+uaxP1y7echmT
+	 rgWILKmtxf/xBcRfC4IBmOKjPaCa/8zHfl4NRJCZIC9TqeetLFcYzLPvsXlK9du/pk
+	 oxIYdU3UlZQgw==
+Message-ID: <544172e4-cdf7-4789-8cad-4dc3c498e497@gaisler.com>
+Date: Wed, 14 Jan 2026 08:21:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/14] sparc/mm: implement arch_flush_lazy_mmu_mode()
+Subject: Re: [PATCH v6 12/14] sparc/mm: replace batch->active with
+ is_lazy_mmu_mode_active()
 To: Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -87,73 +88,82 @@ Cc: linux-kernel@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
  Vlastimil Babka <vbabka@suse.cz>, Will Deacon <will@kernel.org>,
  Yeoreum Yun <yeoreum.yun@arm.com>, linux-arm-kernel@lists.infradead.org,
  linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>
 References: <20251215150323.2218608-1-kevin.brodsky@arm.com>
- <20251215150323.2218608-5-kevin.brodsky@arm.com>
+ <20251215150323.2218608-13-kevin.brodsky@arm.com>
 Content-Language: en-US
 From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20251215150323.2218608-5-kevin.brodsky@arm.com>
+In-Reply-To: <20251215150323.2218608-13-kevin.brodsky@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 2025-12-15 16:03, Kevin Brodsky wrote:
-> Upcoming changes to the lazy_mmu API will cause
-> arch_flush_lazy_mmu_mode() to be called when leaving a nested
-> lazy_mmu section.
+> A per-CPU batch struct is activated when entering lazy MMU mode; its
+> lifetime is the same as the lazy MMU section (it is deactivated when
+> leaving the mode). Preemption is disabled in that interval to ensure
+> that the per-CPU reference remains valid.
 > 
-> Move the relevant logic from arch_leave_lazy_mmu_mode() to
-> arch_flush_lazy_mmu_mode() and have the former call the latter.
+> The generic lazy_mmu layer now tracks whether a task is in lazy MMU
+> mode. We can therefore use the generic helper
+> is_lazy_mmu_mode_active() to tell whether a batch struct is active
+> instead of tracking it explicitly.
 > 
-> Note: the additional this_cpu_ptr() call on the
-> arch_leave_lazy_mmu_mode() path will be removed in a subsequent
-> patch.
-> 
-> Acked-by: David Hildenbrand <david@redhat.com>
+> Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 > Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 > ---
->  arch/sparc/include/asm/tlbflush_64.h | 2 +-
->  arch/sparc/mm/tlb.c                  | 9 ++++++++-
->  2 files changed, 9 insertions(+), 2 deletions(-)
+>  arch/sparc/include/asm/tlbflush_64.h | 1 -
+>  arch/sparc/mm/tlb.c                  | 9 +--------
+>  2 files changed, 1 insertion(+), 9 deletions(-)
 > 
 > diff --git a/arch/sparc/include/asm/tlbflush_64.h b/arch/sparc/include/asm/tlbflush_64.h
-> index 8b8cdaa69272..925bb5d7a4e1 100644
+> index 4e1036728e2f..6133306ba59a 100644
 > --- a/arch/sparc/include/asm/tlbflush_64.h
 > +++ b/arch/sparc/include/asm/tlbflush_64.h
-> @@ -43,8 +43,8 @@ void flush_tlb_kernel_range(unsigned long start, unsigned long end);
+> @@ -12,7 +12,6 @@ struct tlb_batch {
+>  	unsigned int hugepage_shift;
+>  	struct mm_struct *mm;
+>  	unsigned long tlb_nr;
+> -	unsigned long active;
+>  	unsigned long vaddrs[TLB_BATCH_NR];
+>  };
 >  
->  void flush_tlb_pending(void);
->  void arch_enter_lazy_mmu_mode(void);
-> +void arch_flush_lazy_mmu_mode(void);
->  void arch_leave_lazy_mmu_mode(void);
-> -#define arch_flush_lazy_mmu_mode()      do {} while (0)
->  
->  /* Local cpu only.  */
->  void __flush_tlb_all(void);
 > diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index a35ddcca5e76..7b5dfcdb1243 100644
+> index 7b5dfcdb1243..3a852071d260 100644
 > --- a/arch/sparc/mm/tlb.c
 > +++ b/arch/sparc/mm/tlb.c
-> @@ -59,12 +59,19 @@ void arch_enter_lazy_mmu_mode(void)
->  	tb->active = 1;
+> @@ -52,11 +52,7 @@ void flush_tlb_pending(void)
+>  
+>  void arch_enter_lazy_mmu_mode(void)
+>  {
+> -	struct tlb_batch *tb;
+> -
+>  	preempt_disable();
+> -	tb = this_cpu_ptr(&tlb_batch);
+> -	tb->active = 1;
 >  }
 >  
-> -void arch_leave_lazy_mmu_mode(void)
-> +void arch_flush_lazy_mmu_mode(void)
->  {
->  	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
+>  void arch_flush_lazy_mmu_mode(void)
+> @@ -69,10 +65,7 @@ void arch_flush_lazy_mmu_mode(void)
 >  
->  	if (tb->tlb_nr)
->  		flush_tlb_pending();
-> +}
-> +
-> +void arch_leave_lazy_mmu_mode(void)
-> +{
-> +	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
-> +
-> +	arch_flush_lazy_mmu_mode();
->  	tb->active = 0;
+>  void arch_leave_lazy_mmu_mode(void)
+>  {
+> -	struct tlb_batch *tb = this_cpu_ptr(&tlb_batch);
+> -
+>  	arch_flush_lazy_mmu_mode();
+> -	tb->active = 0;
 >  	preempt_enable();
 >  }
+>  
+> @@ -93,7 +86,7 @@ static void tlb_batch_add_one(struct mm_struct *mm, unsigned long vaddr,
+>  		nr = 0;
+>  	}
+>  
+> -	if (!tb->active) {
+> +	if (!is_lazy_mmu_mode_active()) {
+>  		flush_tsb_user_page(mm, vaddr, hugepage_shift);
+>  		global_flush_tlb_page(mm, vaddr);
+>  		goto out;
 
 Acked-by: Andreas Larsson <andreas@gaisler.com>
 
