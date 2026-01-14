@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E743D1F90D
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 15:57:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203305.1518543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1DB1D1F99E
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 16:05:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203321.1518552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg2J0-0001rv-F9; Wed, 14 Jan 2026 14:57:06 +0000
+	id 1vg2QE-0003XF-4d; Wed, 14 Jan 2026 15:04:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203305.1518543; Wed, 14 Jan 2026 14:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 1203321.1518552; Wed, 14 Jan 2026 15:04:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg2J0-0001pS-BX; Wed, 14 Jan 2026 14:57:06 +0000
-Received: by outflank-mailman (input) for mailman id 1203305;
- Wed, 14 Jan 2026 14:57:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vg2QE-0003VH-1s; Wed, 14 Jan 2026 15:04:34 +0000
+Received: by outflank-mailman (input) for mailman id 1203321;
+ Wed, 14 Jan 2026 15:04:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vg2Iy-0001ot-LC
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 14:57:04 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 492eb651-f159-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 15:57:03 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-47ee937ecf2so2339455e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 06:57:03 -0800 (PST)
+ id 1vg2QC-0003VB-58
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 15:04:32 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 535838c3-f15a-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 16:04:29 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-47ee301a06aso9366935e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 07:04:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-432bd5df9afsm53541486f8f.24.2026.01.14.06.57.01
+ 5b1f17b1804b1-47ee55d42f0sm33962085e9.7.2026.01.14.07.04.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 06:57:02 -0800 (PST)
+ Wed, 14 Jan 2026 07:04:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 492eb651-f159-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 535838c3-f15a-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768402623; x=1769007423; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768403069; x=1769007869; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b+DD+G3OdKM2V2MVTBspeY6HuZPJY/nZDtUKjPKR3uI=;
-        b=PtUZncYP0CY9lYaKBQDS1LKM8DrPduwpbCu2UZrbIJZiEtjjpFPkuDTn4/dM3TGACw
-         9M8AmFzl9/z/v+/2pd/uditXjGtK3MCKxXgR6AX1Ps5OBrzzeFT/4cYWkn2xeB/d2rf4
-         dk759rQkQ+2fY+jc6vyMiyyp0YTlU88JMyN8I5pPnc+/iMdpilve9pJmsBYnVkUuCnI9
-         Cal7irPkcpkOFD2u7IE6WSnXvgsiimJBELAl5Mfwo9R7DrnHxqp45mmR4wGG0LvBfggg
-         uQtDVTQIN5lL/ZuRZ7wcsuWGRWMORsj1PK3u45XwsjmqRzFPrjEH1jsjS0IZB9ztG40d
-         tZiQ==
+        bh=Uw1mdVhhOFU9PBjxjNps+Ylka8ITQP/5h7t9ihrOMrY=;
+        b=MFknnajAP/i9UiKUvYaWqcQcQ84vl4/BNkjSfTxTdn6SxV8qwM85H4OtgdpVe6D32i
+         ee7J3eulIUzL7YwQS6OsB2mOJ+dUATPk0OhxyMG2u/lgDvaIvCxYgrhs0IOvkvGqPekG
+         W8RlTgFVq6NxllVlXFuNLxQoZ7IQ2F1o2daaf6gVZ07IGIYK65LOWRrFNiua1VywsFe+
+         Mm85jOPsRm/0FkwmErdLr86jkEdTo6YNgoOwYuIQmjSC2oOvn9l/V4R+Xkf7cIbdHD5M
+         GFkLQRMYbI8IZc23NkQyx0Y89wFE/ZgVY9CEIUJvuNKVwzHMYim3CTRYkQW3jFE3MVSa
+         gPyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768402623; x=1769007423;
+        d=1e100.net; s=20230601; t=1768403069; x=1769007869;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b+DD+G3OdKM2V2MVTBspeY6HuZPJY/nZDtUKjPKR3uI=;
-        b=uzV5QR62NQqBWzinmdkgTr+n7QCzwN8NZlkmXCvmCSUhGNFOUri2rt8j+s3VaMD2nI
-         s7ripkMQCQeCbUDtG62xIoKC90okBoa8ZowhA/YRHQrF0b5Yzmyr/uQmB9e3NwqwhMok
-         DmiQVyt/BusmriKN1FLAAnST3onocFxa616AhGgUhMu4RhVW/Kniea9BCM1z2GfDmnBe
-         6Qh///yujXB6i6Hg2xDKeMYsm4MkLJMnx+xB6Ey8ctOqZ77V+sZqqjrLaAFhPnZdKCW/
-         BHf2otPyOGjsKWVzY++pZUVIuWlK7Q7VPKOdLGNT+qf6tGkB0uXIzwdyuLqmewDefWJw
-         1Cgg==
-X-Forwarded-Encrypted: i=1; AJvYcCWakFWixZk1VCbax9yiXCIFnvzkPsq3PexWSRDD+VuTUTa61TSgK84NLhuq90m5D+CiZPWlR/F8n+A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPbKuJ4GBa3TD4g20DgotCCP2oGL/kzLlRAU0tURdzJ9bq+TkT
-	EABf++9cZuMU8Jc4OreW8uU/OHJw35zQNzf+v3pNWJiNQTw3Ue0szFfNHBg2CR7uWQ==
-X-Gm-Gg: AY/fxX7HC2QwitxdmwWVXzzoTsKnUQ40ikuzbHouhJwp7pc7DOUCX/NfWS5cAPw+3E6
-	JvYlZPHffpKh+kjzG7Pzy5/jy98gwrvSCQQ4YZ7ucGk93sisnJ+yw/qCIXPH/XyJPS6iqdZ/zLA
-	rW0y0FnyGWtakowjv+ULaPhBnZsE+KkWdsUUOc9Z+9wN8hgpv5YKJ5jlEeV/c8/vspOJ8ZvVVSy
-	pCCNJOkpYkL7nGL5Z9q5I74HBP67qdOlvFI/Z4KAHidwvKsGaPyVbg+bzjgDMBei+yuc8wzaBO6
-	Jvgpb8l9wFb4QnavsiA7VTE8a+/WWGfdavLNL7S1980El+BvWc47boAbvelgfZkq8CCGAGSC8wQ
-	siyXcO+Cit3PTLnl5FjD677c9gktk+H6ZUkcy7F2pZlOHnbB6WOVFP19OAKe6yRRn6MgAmNFfpL
-	8y4rlCg2GmZVahY/OQmseddTbGeTj5e0GGagoJaj7zBX0XrUkTiiMMhdYvHqpk2uMIrYQvdlYSM
-	CPvyhdbqheusA==
-X-Received: by 2002:a05:600c:5701:b0:47a:8383:f2b2 with SMTP id 5b1f17b1804b1-47ed7c4ebe3mr64087655e9.17.1768402622658;
-        Wed, 14 Jan 2026 06:57:02 -0800 (PST)
-Message-ID: <62c22b34-cbad-40f2-a367-ba5fd8d11b51@suse.com>
-Date: Wed, 14 Jan 2026 15:57:01 +0100
+        bh=Uw1mdVhhOFU9PBjxjNps+Ylka8ITQP/5h7t9ihrOMrY=;
+        b=rBleo4uoKhOlJ2uv9mbM//vEJsyXDwTEz1tAHJqOiPmrP0cczhHNo5z26nC7cNQQB+
+         03J4WOETnKIvBLI/4ZwKdWqOui8dr5/6kLruKMYeiJUfhYyApOfCwZAy8eR4VRnmvR3u
+         4UhD5zKICvLI/c7pFsHJN+Ql3PtrHr/5GpkniSXyPkxTgwn3t3dmlw4FHAVH7F8ap/Ce
+         IV0CRD+RR3h/15wV2FrTtCMr7DlHeEeilajHkt9VHw41G7nyhV/MGdcgNdrBR/U7r1zl
+         fnzV6WM2VKt/8ic/hwIMgD/vUS2LzUFSUPW83Nx2cqkqg3gvffzn6Lr6n13ebW/qjcdG
+         AS5w==
+X-Forwarded-Encrypted: i=1; AJvYcCU5lD3ZWg2f9Kwm0/3+Dr+1d+9eYLLNjIT+mE+6ShAYUq6mSgjHmlR8iPM0mLqJvvHSO7y6ZkFbUnA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1kDC0ilimIeyfM1IDBDxAEKog4FazNvDXtY9CM0nYKLYVkKCQ
+	gdaP3PTpmkp/mzNE5tFHI6CiUPf6j1pgYYtqCvp/4swlSjW4CTzETEtxT0jDP6kdwA==
+X-Gm-Gg: AY/fxX49yid7kuy3nfyjPGq0H3wL8iQKJNiVqmZzocGpbexINa3TcQtpW520yzz77xi
+	bAiSrMwQxTC+YYA75pMpCWzqri3we253zBvgYt0Al8m+A+A1XqOAbOFzGdtD9DJiCcHvsVYAuWX
+	/z6igliKB/xKX3s8pEZfxqgHjH4WWXZJ2xPLIxq/W8B1Hgb9wqIbs33K/YnqihK/H0KT7uwPqHf
+	YYPvLLyAqVl80Ou6T5La3GAOTpSkrxzYxxGWzpUOKKaTV7dVETQRFNDyH/3aKyav5gR3E5uPj5d
+	D/zy2VXSv0k4RXBrD5gxfd+4Jye9IlFpbargbLfkapV+Zsy2rmq1axRaf6n/ieVZ6xLqxHvg6u8
+	9tgw/kBPUiSBPMA0irdkCno3CpodA9aVLPsM8DwSFnO1ypMafxaopxr6PabT+UJB9Ud5rpJ6rEO
+	43f5PLujk0YLjX5fhkqeDhHBUYmWGJgWAvev3I3RmNxMEIRPWFpAHF3TxkXdUZbiJDEcd5File6
+	WU=
+X-Received: by 2002:a05:600c:6992:b0:479:3a86:dc1a with SMTP id 5b1f17b1804b1-47ee33aa21amr33171555e9.36.1768403069176;
+        Wed, 14 Jan 2026 07:04:29 -0800 (PST)
+Message-ID: <922c5809-8070-4ff4-9caf-d953c4ac0c2b@suse.com>
+Date: Wed, 14 Jan 2026 16:04:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and
- vtimer_expired()
+Subject: Re: [PATCH v1 13/15] xen/riscv: implement reprogram_timer() using SBI
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,11 +98,15 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
- <f8808dd1-d571-49ea-8739-ed06dd6c79d1@suse.com>
- <4e18e4fc-de62-44fc-8ea0-517f6c7ef47f@gmail.com>
- <f7a47af4-6523-4d92-9beb-0daf639f2f36@suse.com>
- <b0131e35-3c1b-4e42-9f80-07d246a5df69@gmail.com>
+ <43249171def325c49541ebdac141fe99d159b60f.1766595589.git.oleksii.kurochko@gmail.com>
+ <f14c8b3d-66ce-4ea7-bf50-591a4a48345a@suse.com>
+ <90e7fc60-09cc-4b61-ab0a-80037f8ecaf8@gmail.com>
+ <f2241dec-a115-41b9-a249-6c5a69114809@suse.com>
+ <a7757fd0-7b23-451d-93f7-043cfbb6e684@gmail.com>
+ <c6b2f360-5ec5-4299-9eb0-de88bf9f9ad9@suse.com>
+ <4141bb71-7aef-4287-aefd-92009977294f@gmail.com>
+ <c29d03ec-e83f-4594-9ef6-fcc7b99a318b@suse.com>
+ <f4ffcd85-6091-47e0-8c02-e3e5a8ca1354@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,81 +132,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0131e35-3c1b-4e42-9f80-07d246a5df69@gmail.com>
+In-Reply-To: <f4ffcd85-6091-47e0-8c02-e3e5a8ca1354@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.01.2026 13:27, Oleksii Kurochko wrote:
-> On 1/13/26 4:12 PM, Jan Beulich wrote:
->> On 13.01.2026 15:44, Oleksii Kurochko wrote:
->>> On 1/8/26 11:28 AM, Jan Beulich wrote:
->>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
-> Therefore, there is no real need to intercept accesses to these registers.
-
-With this ...
-
->> you'd also need to synchronize both paths, I suppose.
+On 14.01.2026 13:41, Oleksii Kurochko wrote:
+> On 1/14/26 12:17 PM, Jan Beulich wrote:
+>> On 14.01.2026 11:33, Oleksii Kurochko wrote:
+>>> On the other hand, if some
+>>> other negative error code is returned, it might be better to return 0 and simply
+>>> allow the timer programming to be retried later.
+>>> However, if we look at the comments for other architectures, the meaning of a
+>>> return value of 0 from this function is:
+>>>    Returns 1 on success; 0 if the timeout is too soon or is in the past.
+>>> In that case, it becomes difficult to distinguish whether 0 was returned due to
+>>> an error or because the timeout was too soon or already in the past.
+>> Well, your problem is that neither Arm nor x86 can actually fail. Hence
+>> calling code isn't presently prepared for that. With panic() (and hence
+>> also BUG()) and domain_crash() ruled out, maybe generic infrastructure
+>> needs touching first (in a different way than making the function's return
+>> type "bool")?
 > 
-> I didn't get you what is needed to be synchronized. Could you please explain?
-
-... there's nothing to synchronize.
-
->>>>> +    {
->>>>> +        stop_timer(&t->timer);
->>>>> +
->>>>> +        return;
->>>>> +    }
->>>>> +
->>>>> +    set_timer(&t->timer, expires);
->>>> See the handling of VCPUOP_set_singleshot_timer for what you may want to
->>>> do if the expiry asked for is (perhaps just very slightly) into the past.
->>> I got an idea why we want to check if "expires" already expired, but ...
->>>
->>>> There you'll also find a use of migrate_timer(), which you will want to
->>>> at least consider using here as well.
->>> ... I don't get why we want to migrate timer before set_timer() here.
->>> Could you please explain that?
->> Didn't I see you use migrate_timer() in other patches (making me assume
->> you understand)? Having the timer tied to the pCPU where the vCPU runs
->> means the signalling to that vCPU will (commonly) be cheaper.
+> I think making the function's return still is fine and it is only question to
+> arch-specific reprogram_timer() what to do when an error happens.
 > 
-> I thought that migrate_timer() is needed only when a vCPU changes the pCPU
-> it is running on to ensure that it is running on correct pCPU after migrations,
-> hotplug events, or scheduling changes. That is why I placed it in
-> vtimer_restore(), as there is no guarantee that the vCPU will run on the
-> same pCPU it was running on previously.
-> 
-> So that is why ...
-> 
->> Whether
->> that actually matters depends on what vtimer_expired() will eventually
->> contain. Hence why I said "consider using".
-> 
-> ... I didn't get why I might need vtimer_expired() in vtimer_set_timer()
-> before set_timer().
-> 
-> vtimer_expired() will only notify the vCPU that a timer interrupt has
-> occurred by setting bit in irqs_pending bitmap which then will be synced
-> with vcpu->hvip, but I still do not understand whether migrate_timer()
-> is needed before calling set_timer() here.
+> Still doesn't clear to me what should be a reaction on failure of
+> reprogram_timer().
+> Considering that SBI spec doesn't specify a list of possible errors and now
+> the only possible error is -ENOSUPP it seems to me it is fine
+> to have panic() as we don't have any other mechanism to set a timer
+> except SBI call
 
-Just to repeat - it's not needed. It may be wanted.
+panic() (or BUG_ON()) is pretty drastic a measure when possibly the system
+could be kept alive. If is pretty certain that future SBI timer calls also
+aren't going to work, then I'd agree that panic()ing might be appropriate.
+If otoh a subsequent call might work, a less heavyweight action would seem
+preferable. (Welcome to the funs of relying on lower-level software.)
 
-> Considering that vtimer_set_timer() is called from the vCPU while it is
-> running on the current pCPU, and assuming no pCPU rescheduling has
-> occurred for this vCPU, we are already on the correct pCPU.
-> If pCPU rescheduling for the vCPU did occur, then migrate_timer() would
-> have been called in context_switch(),
+> (except the case SSTC is supported then we can use just
+> supervisor timer register directly without SBI call).
 
-Even if the timer wasn't active?
+So maybe a good first step would be to use that extension if available?
+Might even think about requiring it for the time being ...
 
 Jan
-
-> and at the point where
-> vtimer_set_timer() is invoked, we would already be running on the
-> correct pCPU.
-> 
-> ~ Oleksii
-> 
-
 
