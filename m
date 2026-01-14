@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF68D20D26
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 19:30:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203676.1518772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F744D20D2E
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 19:30:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203678.1518792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg5cz-0006gf-5J; Wed, 14 Jan 2026 18:29:57 +0000
+	id 1vg5d2-0007G8-2n; Wed, 14 Jan 2026 18:30:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203676.1518772; Wed, 14 Jan 2026 18:29:57 +0000
+Received: by outflank-mailman (output) from mailman id 1203678.1518792; Wed, 14 Jan 2026 18:30:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg5cy-0006c5-Ta; Wed, 14 Jan 2026 18:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 1203676;
- Wed, 14 Jan 2026 18:29:56 +0000
+	id 1vg5d1-0007Cm-T9; Wed, 14 Jan 2026 18:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 1203678;
+ Wed, 14 Jan 2026 18:29:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/j1I=7T=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1vg5cx-0005zq-R9
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 18:29:55 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
+ id 1vg5cz-0005zq-Rl
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 18:29:57 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0531865b-f177-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 19:29:54 +0100 (CET)
+ id 05e73332-f177-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 19:29:55 +0100 (CET)
 Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
- by AS2PR03MB9465.eurprd03.prod.outlook.com (2603:10a6:20b:59e::21)
+ by AS8PR03MB6997.eurprd03.prod.outlook.com (2603:10a6:20b:295::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Wed, 14 Jan
- 2026 18:29:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Wed, 14 Jan
+ 2026 18:29:50 +0000
 Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
  ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
  ([fe80::f12d:7394:bbe3:dfc%5]) with mapi id 15.20.9520.005; Wed, 14 Jan 2026
- 18:29:49 +0000
+ 18:29:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,21 +47,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0531865b-f177-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 05e73332-f177-11f0-b15e-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mCIC6pJOhQZjdJ3Q9pk4DPPXVVu/7u73GWHaoTl3K8JOhkKs6JNUcC/dH1rJ3entwQAbEmS1EV3meEfJawko3VFyU4ZustXGYx+Jkd6YfMyPG7in2tgh7rpGcB6mS/A9ZtLTlJi+ZIv9V61kLhtQFK/gLQ6zjEUDRvbz5RxPnLbxD9AFWLSn4p/PSlHTKk/R7VIgKXE2uG0OoDuFaCJKi06JgCLsYccA6DlS+TURKTkeF9ESnRJHJKyaoNGl9eTTZwTw0yxdv9uChDwJTJBRBlyMa1DlfHwFFs+MRsYLlgCrhXZUYGryg309psvGP2aXBFiEJe6aiIYecnHt7N37dg==
+ b=aarwzvupmXeB5EUFvrj4Qnnu32uXHXhKzs2+llj/sUQ88V2Pj+fzHSzg6tL0YEDkJXuBz+Mij/6fHSpSd7nYoSdiHh3JyWn2VHqzACfPsUAYClMMEinP1ZrxO1FoCYmwkJ6sMZ8fcovLh8CWrBdLzEqrGyKYJnJPRruGH1wiy8Jufe9tV0B3kaIR0fLMulFVD0+R2/1OjheESoslm2f9hKJXIxzR7TQbjfSdG1NRxOgCeO5NLh/ChmZ6/ktHeutYqFHpAxcPpbp4z+lTmsS6Gjkj2oGbKpwTNcbq8PiwB+Um9eKQ8iP+08gZUmE5YW+tUPS+xohyowh5Fb32xeOlkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YBJ28+wEFMkWxPquD6NRuZ/oMYSkhs3ZtZEPQWhlYnU=;
- b=FMH1bLksSnd6M60ABwuk1wxpYkkfbA1aSvp3DMcBV/9nyMfy3rIpMtMBZdwQB5e2OAixl17yhiLgSAbrV7CsUUM41GcdTOAxsZti2JIBj2NHjrKJdlc0QyaeDEU3+qyVDgLR77NsP78ML9LcTeXy+x5pwmv3GkIXDSfT1Inu/dsCyi2RFpTLSOo9IF+ZdOrcuLUyq3blymCsoqojN8B1grlhsQrzikDdObAfn1YeI/0OseU4DSmZ6RLCBdLYAa5oac9cs80CS4f750SDzha24afGJDf5+9pO/pa7g9aQnjbzzuxIy3W2Agw4k0FTPpKLQscdM+PIf+BzFHy6eDehHA==
+ bh=KUbfJ09ajEh6RKCW3zuVvy+KnBTsoSV1Fb+FIC+7Rhk=;
+ b=dcgzkQUgD5rGx2292NY0FxRWgMSYeH5eaZ/8g7qrl8Li4JynSO4kysZmeB8tFUBkrneb3Vq8EFVSDAd8GYOac1e/QFZiFik4WL59QFWcdftw9/ftoDop1gcB+hy2KOcliI6gqH5K8bcZDVNa80UadCxE2prdc7/sWbo9hQOGPOcnmgtuEkQiesQ3dRokl9c6HdoAg9c4yXru41j4enSldlqEgfLMj9Ce0AZKgRf/zurEfBgeIOg7uEucJI5dhMCgQNZwlzh/PtgvMAdT7/s316JQdHqVYiPtvkeiYziTo0gglhWXikTRqRJZd8ULP5NiERxPfLeaVtIh0eqYiqN5mA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YBJ28+wEFMkWxPquD6NRuZ/oMYSkhs3ZtZEPQWhlYnU=;
- b=EywkCCfHbVmSP6bmF/8KJUU6ruWqX0BnFQ5dYbNK02tw5qlQxmghOKOxHl2DxPSsckX3Vr65uF2G76tngm8a1rBvC0mxXgCokNQcF3Zw4GJUkDcdCRkZrQ+arwnZkYwqQc6Fm92mFjg78UM5PfRafJ4gIo3EZ2iQKM7WfR358UlnOIo4BB8oJEwYopQ4IvHoVYBoMJ7DKY4hYaMHpCYKHI16cZBtpuV+pFSgPoTCfaik++EnAFRo9bCw6DHXnQAuBehR82RYfqNy6fSBl1HHbtkrBp8GQ7m9XocB/sAwt2acqoNgq3AvUb3a6SMF/5CsiTfdbRq+Gx3L5/eLPFBZng==
+ bh=KUbfJ09ajEh6RKCW3zuVvy+KnBTsoSV1Fb+FIC+7Rhk=;
+ b=nzvuebu0pO14f0e7xRl8hrRVzYJsey1ZH29pNkMhVijjomE9owkkRCTYd8vcB924D970W4VnNwMMVWMSKA4d4sE7kb2dZj3+sWP6ekmkpL6v/8H6WFkFkpRnqdOXtScUkhR3+bw2tLYdAeKmybwZcp8z6OsnCMcS94unjHBl0jOGz7ahDT8rZEJCuK5fuXvLs5dHVqe3004Qx1YqY2APCxNsE3my3cxwahyf/EXfHmptXllzul6xYLrfkPKmKYsctkOe7R9MsI/TeO+r+nfbEzb3aGN/wXjrCm7bsK7X9RfT+RXQCdTuCuk4BKsvhuaQhelNyEYsbxNUSk5j24ng7w==
 From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
@@ -72,12 +72,13 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
 	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
 	<grygorii_strashko@epam.com>
-Subject: [PATCH v7 3/5] lib/arm: Add I/O memory copy helpers
-Thread-Topic: [PATCH v7 3/5] lib/arm: Add I/O memory copy helpers
-Thread-Index: AQHchYPD+fwQGyuKXEKqeHI8xFGbqA==
-Date: Wed, 14 Jan 2026 18:29:48 +0000
+Subject: [PATCH v7 5/5] docs: arm: add SCI SCMI SMC multi-agent driver docs
+Thread-Topic: [PATCH v7 5/5] docs: arm: add SCI SCMI SMC multi-agent driver
+ docs
+Thread-Index: AQHchYPEwdMU0byXVUqET+ZDFFsuOA==
+Date: Wed, 14 Jan 2026 18:29:49 +0000
 Message-ID:
- <d166348530b9229673e1a6e3b29ff4ee9123ab2f.1768415200.git.oleksii_moisieiev@epam.com>
+ <de5964d76261f391f3db877e16e345bfe395dedf.1768415200.git.oleksii_moisieiev@epam.com>
 References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
 In-Reply-To: <cover.1768415200.git.oleksii_moisieiev@epam.com>
 Accept-Language: en-US
@@ -87,354 +88,703 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AS2PR03MB9465:EE_
-x-ms-office365-filtering-correlation-id: c39b417c-e9a6-4348-42d0-08de539ae6c1
+x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AS8PR03MB6997:EE_
+x-ms-office365-filtering-correlation-id: 595a4d2d-2275-4b53-4eaf-08de539ae74b
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021;
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?5AKzwDTcQJ/AkSr3keE+L4GK4PdHHVllc4DXfH+cFgoTe7+s9jlXTafF/s?=
- =?iso-8859-1?Q?sOstg7jGk/AJpH6/iS6oYrNC2wtvDENcQ1NLkU+6b8DwZgZ9xpWq9mtY42?=
- =?iso-8859-1?Q?523qsDtrRsm3um6KjmXaWYdrblK0Z2sVHO4aJgVksO4NGVrWrg+/sA414g?=
- =?iso-8859-1?Q?d1i1Mrm0NmFn0eO/7s1JAPvJoDuneL/74aSLAq51fr2vx42Dt7blPuk4ya?=
- =?iso-8859-1?Q?UMFHn+lFr/O8Ufd2ISJNOKQhCavhmlO140tB1qdb6NTyb/Bom6mvtBpxyQ?=
- =?iso-8859-1?Q?nMdcizXM4aJZ+1gtVkWBitP/yUcH8um4qSP7CBPbk5F1BznwF0kDGvArwb?=
- =?iso-8859-1?Q?28FJ+pSP740k6eTVFt+Gd9UqVwgoNs2EpuB/qCJE0WbDIM2qrQ3PuIQeMW?=
- =?iso-8859-1?Q?FOWUdJoqtgYeNCih1Mq/y/Ap+VnKuBy7OesGZpHqMPPGxbLGb9BNdYok9Y?=
- =?iso-8859-1?Q?LC/izhDiAcsp3bs0k2CRftoE2LSxKDMsjiZpG062zTPSyNPfwc+M0UTypH?=
- =?iso-8859-1?Q?D9prOAByOLBwOlSd2at2VEm5uyhOCazGOMyc8GutCOlUTr60Ug2QcwzDqb?=
- =?iso-8859-1?Q?SYwnhuUHPFUOtmPOKwR0FasGQQPOm0rvDQ+kzlAGPvS0n4qGcuJ2wo+yTV?=
- =?iso-8859-1?Q?QG8TRcKuCr2gvjGDxuqSL/3mXe4V3C/5wpOrJCGOA/UITGAoWnh/+4jGg2?=
- =?iso-8859-1?Q?ibiqh9taFwFXwVbqnuagvnDNGjrpD39eVrMN91OY/HcUcRRRkPxqBLRLyg?=
- =?iso-8859-1?Q?ebOyovjh4wDLszvMOOCNsNZjp/+m52IXiF27WKCfPXPVM2o8ratHI8QcKh?=
- =?iso-8859-1?Q?o4HjSZu+a6D2is31w0pct8hfL6kAjb5jLOUpH9oUbXTmmLkjnkK74u7z62?=
- =?iso-8859-1?Q?s/VvOHdUftzL0AJ74XyIkRLc0SjspzcyPTna8VaFa4S0sTNKaSh3W9JSwl?=
- =?iso-8859-1?Q?KaI399LGA+fqHkH12/qFWG0i/vtQMio8CxCj+scjzt7h8X7Lqpj9pxBeDf?=
- =?iso-8859-1?Q?VSVWQKvN/NEhB+l0f7jbrYAd7mAlvrVvabwjFhQkxOCDth2n83dS9bfLjD?=
- =?iso-8859-1?Q?DKPKuA6rmKBi37n7FoJ2vxTBqfuxc/EetmWKGyBvt9hdH03JrNSdYw2kei?=
- =?iso-8859-1?Q?U8QvrCubRnXL4wazwa9w81RE2iXpm5LjI5hqpXRHnux5MxzcJMnX8nrrLN?=
- =?iso-8859-1?Q?Hsw/oTyjeJ8+JgloDK1LZydmjXF4rdyMwDpC4uOnKf//wylDDWe8jDNb91?=
- =?iso-8859-1?Q?L52Jxz7lYPRUS+iysms1pGNSgG6gAHOYQ44AfMyFl4pcd7oCXGT8UBpHgV?=
- =?iso-8859-1?Q?imL1FCfs8gX1OGiKtotcAp7HHk4iduMF0VksU9JE7/g92T8mk0/7snD554?=
- =?iso-8859-1?Q?f0gKf9np//c4ABiZyYIPa2d1Uo1IbtQqwrq4ShcNqD6rUVoj+Ktpfd10OI?=
- =?iso-8859-1?Q?dPEKVbv1b1M1sZnZ9PIeRxO8paobOL19+nMOuPEYbQUchdMc9fZo2/vQqv?=
- =?iso-8859-1?Q?gWL6Z8xT+XagGQAx9Up4bmoxeZmtAM7a/flJLw7vaFqJxQcgTS1XDWobcD?=
- =?iso-8859-1?Q?3uTS0dHp94JszE+OOVOnNwvel8a3mdYwL2bho/Gjpp/Vrs3SQOBFOJihdV?=
- =?iso-8859-1?Q?4+oy1Mkz/m7enb4UdHTj1/NjNsJwllMkAEmcs6XHAtvgkOamjzZSsJKojk?=
- =?iso-8859-1?Q?07Qhn2K3AjAjMdInBww=3D?=
+ =?iso-8859-1?Q?vawYf8/qwe3T21BUwNxD731Td0ca7HPXkSR3OWGkPss+t/jvrJJNgTFRhO?=
+ =?iso-8859-1?Q?90vRtXtEWrC5NfULQayQ34a+7+0iQwcJCF01vhAN4F2TDm7aTopjNh4qX+?=
+ =?iso-8859-1?Q?xRmcHi3frUNXSOEtKPaWDjH3JVzmSWKcw7h72uG/EmTyLmuUftNEREVdqr?=
+ =?iso-8859-1?Q?2mldiqGYRTkIgLA7FNY/85nLxa6KptVYkhGB3SSeEDhMFkpuoKZoazCWSd?=
+ =?iso-8859-1?Q?sYxFlKi5P4KvqxPrwwOvAYuPYEaH3r90bFnlnxNe/uaizy14I2hm/Dvjvy?=
+ =?iso-8859-1?Q?idHsc7C9Khqna3K7XL9m/x/dYY0fR/DaPO9fcwpqPn03t1AqTFypljrDHR?=
+ =?iso-8859-1?Q?BcKazdh7CKRFMbKe6QptZszcESZE2BK6ZZCq/rsI/IEp+Ds7eXRlULrkUo?=
+ =?iso-8859-1?Q?XBdololFrJA8ri8LM/NOvBHl34MwzbVlOWfP4FRrD2l6381hTODhGVsM/e?=
+ =?iso-8859-1?Q?/UWAIpwqRzVjYqeWoS4gAfpCGiLyY10Llnzxqhg7AEGvvQR/Jf1yEWV49e?=
+ =?iso-8859-1?Q?dY6/YbBtMfj8kktANF2A/oKR4gcC2WILZidw5orcuqOeLY3gzGxX4Hca2M?=
+ =?iso-8859-1?Q?1i+aSvsohCnNizJllJirCTPIxqLB66SNGKS2HFVQVuIj+YWk5IXoi7Vm8u?=
+ =?iso-8859-1?Q?IGey/GBkR+TwcMeK7zZwtQ05udLyF7iBAOIbtp4oxs1O3S8FMmIett1nIo?=
+ =?iso-8859-1?Q?aZ34W6M9c+3xd7vE3TZzfFMe4FO1tVAkdE6VmZKAa7pS95jkCuw4s66cDU?=
+ =?iso-8859-1?Q?ZklvDsz/2hOJoiAmPuKm9e+nythjCbv80ORymMXiFGqMrPqt+MZUzXFzm1?=
+ =?iso-8859-1?Q?XeCKdPqjsM715C19hTCFYMEiFdSZ3QR+sLrGBQElFjxBS2wvA27s/9GgSL?=
+ =?iso-8859-1?Q?FU14iCk+aRnJUYzFb5UdIoTK4t1SZJlDAlMFPoZSSaX+wfjMjJ/XlBMoHu?=
+ =?iso-8859-1?Q?eEwIE4KQ/oJk/19VqquLff7Eaj2CCMJ8jhzb+iLpIRDVA2zbGLwkWfTfWe?=
+ =?iso-8859-1?Q?r1OH8oueofFFuAqcZeLlPKfZWtunu+X0H606FDLqUEAFaXWr72jynrh+qL?=
+ =?iso-8859-1?Q?4nAFfta9v+sXsrNj6fzN4mpBCn0tMUgweRMG3iq5Y1rVekw0lCArl1Jb7J?=
+ =?iso-8859-1?Q?j6UhdNtI0LFLP6s/TMXNynCD0FlxxULtXvUvyuPiL0Fvm3Bz4wCZ23o+0S?=
+ =?iso-8859-1?Q?AY4vNQWlhDs7DgiNY+7c7PeTx3TriZUdj+Yj/QLci2yj9sbNstEXZqXrXC?=
+ =?iso-8859-1?Q?qNX9xCvWp4XorsF3jfKvEpvdCVOSYemNXdHWEVSM/+FEyzn3x/ssRzawR0?=
+ =?iso-8859-1?Q?hSND1Igv0+uj7ihRDi5yydU2XwEAiyeboLgmphmhkCCFUdHYCSSQVfNstw?=
+ =?iso-8859-1?Q?wAyvfn+H6OoUrULTEKc0ZtqmyLt1ejY0dnEA39P3n+/VzLsFnlcm9JEMjh?=
+ =?iso-8859-1?Q?biOym6MjWuIdF15AEK7GHvRjUMUBnoqWdUUQcppK+5NTse8FEmmBWjU8SA?=
+ =?iso-8859-1?Q?549T1CqOMnR0qGwYgobC4wabxRWRfOqaezGCALqVX078BahK7CfBAAehmn?=
+ =?iso-8859-1?Q?Ivl/B35sD58rinNvi7xb8/N1IPqm/wiGe2PVIVLuYk6Ze+ugKH6NEqTcqL?=
+ =?iso-8859-1?Q?SVja23hXZ8MDCYan+RcmTAXKXXmMwf5/4pxT3A90vXPqBC7cJNxQPo37ws?=
+ =?iso-8859-1?Q?1MTdns2fzXm6fsozWiI=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?EPOOcGaW6UgXikcbSa+MaGZyuyg75DrkWLwoyeDGomVr7GTBqZOfIRtNRG?=
- =?iso-8859-1?Q?EcFUOvm3lGCXhESYNq0FFgvgx+3TUoT06IrcL4nxneyp+gtHgecTbED97/?=
- =?iso-8859-1?Q?rhPkhl3x4A4bx5KlMSI2GJLjMJJY/PgvCBHaDXiuUomhGFVw0c4wUEzBiQ?=
- =?iso-8859-1?Q?5PyF07yReNr4A3tj6to7OgqV/ylixqxkEWI5xkwemOnJdAjanBU2+lX/wo?=
- =?iso-8859-1?Q?XJYXFuR20v+38neLxCjInC2dhwOavd1UODZ+3JTc56nlBRndFcezKx6Bat?=
- =?iso-8859-1?Q?JWN9Dp82Otc0SReCtM3KZCtbeJzmx/Jy2yceMhb/mPHHlnPLICqgpMxlPr?=
- =?iso-8859-1?Q?oFax0A4KD+LYEWbtobSB9ilIN+tcK8Yz88Jmz5mHhGtRvIOZPUQF7ubIJt?=
- =?iso-8859-1?Q?lpoca02sVNvLewaGwwPzYLZHZJLTGBK2GMJUEEZf7IL8AkxxetqFKNd67s?=
- =?iso-8859-1?Q?CRROz5fdhnh6OYBMOczhhhMO1XchyhfELyFf8jB6sGsbL1yXHvSdrKTsf9?=
- =?iso-8859-1?Q?URwy1ivyvD08f/h24La7LNuK2NYar7QoLplpMBn4xTVYVSBiHqbmFP3SkW?=
- =?iso-8859-1?Q?wPEwzNYkIhStAqZ3tgL9FiRSXTcfG1XGhQVFTgw438f1bQDOITyIUdAHRx?=
- =?iso-8859-1?Q?Ht/Pw+B+Txfdm/9IxhBBZGxam3AjsTDeSyBvmuT/CIlnzc0pvRQBPgQXEm?=
- =?iso-8859-1?Q?ljMRhkw3GvLKrPE9bqSTLeuzHMTMCRg0cUX1UF7RXulZmN4hJNEjDtfAFi?=
- =?iso-8859-1?Q?YfjZSxX6S9V1d4rO8e+P6mktOkzgj9uurRfi9DbPU4OPSNpIHbKV0+K48m?=
- =?iso-8859-1?Q?pBj/vJh7+ce+/mv6v6nreavLprC1eGvW/n84CSHK/caaZ+7qfmIP5OoEwV?=
- =?iso-8859-1?Q?fc/AI9kSHKFoeL7mQVvNP4GFJtzMoeZdpCfFAuCTJsDUZrUXL4Tgbk9n6y?=
- =?iso-8859-1?Q?xFIwrLnFVlbo5jn0x2Fo21KNL5w5cLmrv6I4RB1XOyU7xq125MeKwdSWXC?=
- =?iso-8859-1?Q?/BSHJETnnCWvgNSll493Y93mDZJkxgQEEanKPQMOqH5mg8gjkTL0TWlZyL?=
- =?iso-8859-1?Q?94eogkEkls6doFPiVPQigUyhXlDqWy3R0CHvLypGQzWjcmdL7TyjZHvoIF?=
- =?iso-8859-1?Q?N32OATdjRZ4zfpzHfFLGOqpI/2SAKQGAp5/FHWVD2T7de9mv0vPycL/QcC?=
- =?iso-8859-1?Q?sOdNZhLpc0evj4zelvx4Uubmniu0NElwF9zhDAZtqtQPzqwnPmb824qeQz?=
- =?iso-8859-1?Q?0pfiVlzpGRBfcDXUF0yOH2LkRnIjVOlLvWR5cSiP25rbWs1TMr73FMpVnh?=
- =?iso-8859-1?Q?N0wT6rZPbAvN6Xz+fSHxyGNzXUCmdKgzXVZQM/TV6/bCjYLrKZlYY6fCiK?=
- =?iso-8859-1?Q?Ew231ivTBiUA1zThwXH6jsssUF+a85nSdHUTLxL+91/f7rUjFtP/ABkKct?=
- =?iso-8859-1?Q?9jZhDl46OlfqrwPpiNHkNwkdFIDX654424026z4QBTAjDSohyhdL9cad2f?=
- =?iso-8859-1?Q?c+U+mu06grkK8LS25P3AmgY4TKJgjhvfIDlmxA9wk3JYbeflrdfs4yGtiH?=
- =?iso-8859-1?Q?zmcgBYu3I26QL1Qgm88DLof++iEk4ww9OOyJWghw1+pHAn6bBJpmvUPJhS?=
- =?iso-8859-1?Q?LBOTVK+rWb5rg7gh4CgriDCFKQXPS1K6gqMxPwG67eQpXxbRD6TWKgSiAH?=
- =?iso-8859-1?Q?4lCEfVTqoAX+rjps+7HGfCLQ48DlgVWdj/yjDkewD9FY6m6p9v/qt3slfi?=
- =?iso-8859-1?Q?9nNZQlsrux5ncd+8oQAkgXrys4aZwrSB4US2XNLGch1ab7BglZiw2FK2Qv?=
- =?iso-8859-1?Q?nwYoIuPO1IWWbJRmHhyjKWlN8UXPGhM=3D?=
+ =?iso-8859-1?Q?3jXObwkRLBqYP/nJz2i/moQGU3AMeXZmsdbBFZ+XEMk1RF6x5EnySuanJc?=
+ =?iso-8859-1?Q?bZfM6kLy87JFbDfl7Hp2I2e2LgyUw6SP9rvpELEHuChWvS3O3KXtztReMd?=
+ =?iso-8859-1?Q?JxYyVY0rzkt4OlJnVP3jgmUCjzdQnIzy8OAqD/DNc60264TgecahYMyY6P?=
+ =?iso-8859-1?Q?zDAshbu21LPVyvgkzHVICW84fLAeUol5yOA10R1V9aKuQUUH4HxmU/vml6?=
+ =?iso-8859-1?Q?Y1pdMft0ev8vL/6b/QgM8rqj1U0xUdYkESs0UDnLOyeaHiyO6qI4OHcfN0?=
+ =?iso-8859-1?Q?x9CheNh8F6JD6GEW9asHkLnlp8qrOIYFEttPSsrjNDhPWGoLKlsYwRgiiD?=
+ =?iso-8859-1?Q?waODZEWz67oHALP3RM+uXAXoUKjuUzasP2BlPccpCmN8FtuVcL+Pzgjszw?=
+ =?iso-8859-1?Q?i/5tclLEvcNPHYvbrbHLeiJpxlqFAL0PLEtIHvzNmZqTfuTBvioeFlRJWN?=
+ =?iso-8859-1?Q?revuOdaOl6+NcxJuw1BGr2INPmIOoAcSpso4Kd1OGN+zYGmx6V3R4lpT1d?=
+ =?iso-8859-1?Q?UTcEAmsGXaAd2EyeLwK+/4oKLzFbdgR8VNTA4cj+jBbIlVNUrTsKoA4/Uk?=
+ =?iso-8859-1?Q?QAPUVwJdun224qa6bYmd1Dtc9WfTS1P0WrI44ModgSOVV6+ToPgEVaIl1F?=
+ =?iso-8859-1?Q?fZqBkcelrQIqM9SN8Rz2hNIeyhD2p9VfY0qncFGsVG+6sUgc9nmkiLWOv3?=
+ =?iso-8859-1?Q?nmr8N2JVzOLj/RCqr4WBDYphYJBGVGBJyln5vqaHV0Csh4thRniHBNVqaJ?=
+ =?iso-8859-1?Q?2sT0WkRbmBrS8WFvg8Pp6NGERH/eHI9WWuLspLFrom2jgGcex1dq4zFYQT?=
+ =?iso-8859-1?Q?xTdl2a+YlSdYey2E/YQpdqzg8qXkwmZxA2LyCMwToz7l+du0aFBPlzZcvx?=
+ =?iso-8859-1?Q?OXuMNGo0UoUvo2y2K9MiqCe+lajpXCWQNRekQLAtXya2FLkpAWJ4JT23+x?=
+ =?iso-8859-1?Q?N1LEY13W9vQuefg4oBZsCvxbN8J+wzKPuD6eMZS/+9iWfcLNi2o1ZWwgYZ?=
+ =?iso-8859-1?Q?t9PZ3CTneBrC1swUyhs1f068VhDm8w13y6YASBnfxFs7tx7p98IjGcfqOU?=
+ =?iso-8859-1?Q?k/9SqEd+Qks/2jXHZnjpymeoF81Y5zEiYQxmtMtJNVGHES/yZZWLUiAzIE?=
+ =?iso-8859-1?Q?VoC/c8ElY9XGEf2+lcDvLJRC7jXxkBBbkWdqB5C30+SR65VsJ8CBXw6EWT?=
+ =?iso-8859-1?Q?y2MA5DmkYclgCJYq5fMin9jGe+6g2gC0gXcpJP7SHAkuHLG4TcMyG6xVju?=
+ =?iso-8859-1?Q?XUf6/dSX8OWn/tfXOUCASjzarvarC5Gsx6l8eaGT6CtsaCkzGy4h3/NVAs?=
+ =?iso-8859-1?Q?RwsQ+ZokxhEs4VITTdaNCKeWTeFoj7JXezVQGEZ33nlvu99IyZLKx6y8w8?=
+ =?iso-8859-1?Q?FPrY+/mjn0/kmhKCqiIsDsavzKw8HklV13yD1Er9kIXjFdDUPXwStInFuz?=
+ =?iso-8859-1?Q?eN4Vx7XQLhhMyePfI20YZfqu3ShV/TtqirNPnv1f/R2rqXEHGwaYi39D4T?=
+ =?iso-8859-1?Q?NDZlomsHiWvcC08VHzXMEoLUROlHWcVmrnq0NKCsUXchGJcHO6iMuBBReN?=
+ =?iso-8859-1?Q?jOhma9GtGHvAh4ziFeax3DKuR+FnQ0r0YJaCd1GHgtGscdP3a3QH9n8rq0?=
+ =?iso-8859-1?Q?qsUqZax4m5RnELYo4wcpZ141ghhh1zP9nBwJwKEt99hd3aQe6cCvGZttZB?=
+ =?iso-8859-1?Q?yS8bmvCUgZJDFnBnwCfrQogR2cezObjLmh9+pej61RGaBsJelB9NHT0yQF?=
+ =?iso-8859-1?Q?qiXgw+XrBm4JV7dWCEqXKusfQuBhRPWyKc1Z3GFTQ33yjVXLSDkA9/2lz7?=
+ =?iso-8859-1?Q?czZvkqYDtCEty7oEqQ9Lh+c6GSaGoXI=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c39b417c-e9a6-4348-42d0-08de539ae6c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jan 2026 18:29:48.7771
+X-MS-Exchange-CrossTenant-Network-Message-Id: 595a4d2d-2275-4b53-4eaf-08de539ae74b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jan 2026 18:29:49.6758
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OTLPb0LVgZAkIEkj+GCN51nB+8KC4NrXbim3IeJ6FPtPuFgaNGeSRyXP6HA7uWBz0p+3+4RzhVibe0i8RRvmiTV/TRE9idjSh5l6kct3w5E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9465
+X-MS-Exchange-CrossTenant-userprincipalname: HBMFYxess5eKQQr9H6O9E60Qppv4BkNPZMpDWtAxWWt4JXrCEBZUtUuID++zIkgKRS86XY42ooI3mmRC2PkGCiIVXPzS9lQEfy/Lvi0egDs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6997
 
-This commit introduces two helper functions, `memcpy_fromio` and
-`memcpy_toio`, to provide a robust mechanism for copying data between
-standard memory and memory-mapped I/O (MMIO) space for the ARM
-architecture.
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-These helpers handle alignment safely by using byte accesses for any
-leading/trailing unaligned bytes and 32-bit raw accesses for the aligned
-bulk transfer. Using `__raw_readb/__raw_readl` and
-`__raw_writeb/__raw_writel` avoids unintended endianness conversion while
-remaining safe across ARM32/ARM64 devices that only support 32-bit
-accesses.
+Add SCI SCMI SMC multi-agent driver documentation.
+It includes a detailed description of the SCMI multi-agent driver.
+This document explains the driver's functionality, configuration,
+and the compilation process. The Xen SCMI multi-agent driver is
+designed to provide SCMI access to system resources from different
+domains.
 
-The interface lives in the generic header so other architectures can
-provide their own implementations (as macros or functions). The ARM
-implementation is split into separate compilation units and added to the
-architecture-specific lib Makefile.
-
+Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 ---
 
 Changes in v7:
-- x86 guidance: removed the speculative note; header now just says
-  each arch supplies its own implementation or macro.
-- name spacing: dropped the double-underscore; the helpers are now
-  memcpy_fromio / memcpy_toio. The header also explicitly allows an
-  arch to define these as macros before including it.
-- updated io.c to keep 32-bit transfers safe on arm32
-- moved to __raw_read*/__raw_write* accessors to avoid endianness conversio=
-n.
-- split the helpers into separate compilation units
+- update documentation in section of the xen_scmi configuration which
+is matched by "xen,sci" compatible instead of the direct path.
 
 Changes in v6:
-- sorted objs in Makefile alhabetically
-- added newline at the end of Makefile
-- used uint{N}_t intead of u{N}
-- add comment about why 32 bit IO operations were used
-- updated cast opertaions to avoid dropping constness which is wrong
-- move function definitions to generic place so the could be reused by
-other arch
-- add SPDX tag to io.c
+- remove all HVC mentions from the multi-agent doc
+- update sci-agent-id parameter description in the documentation
+- add missing Sign-of
+- minor fixes across the document
 
 Changes in v5:
-- move memcpy_toio/fromio to the generic place
+- rework multi-agent driver to leave Host Device-tree unmodified
 
- xen/include/xen/lib/io.h    | 65 +++++++++++++++++++++++++++++++++++++
- xen/lib/Makefile            |  1 +
- xen/lib/arm/Makefile        |  1 +
- xen/lib/arm/memcpy_fromio.c | 48 +++++++++++++++++++++++++++
- xen/lib/arm/memcpy_toio.c   | 48 +++++++++++++++++++++++++++
- 5 files changed, 163 insertions(+)
- create mode 100644 xen/include/xen/lib/io.h
- create mode 100644 xen/lib/arm/Makefile
- create mode 100644 xen/lib/arm/memcpy_fromio.c
- create mode 100644 xen/lib/arm/memcpy_toio.c
+ .../arm/firmware/arm-scmi.rst                 | 341 ++++++++++++++++++
+ docs/misc/arm/device-tree/booting.txt         | 123 ++++---
+ 2 files changed, 412 insertions(+), 52 deletions(-)
 
-diff --git a/xen/include/xen/lib/io.h b/xen/include/xen/lib/io.h
-new file mode 100644
-index 0000000000..cd2b6680d5
---- /dev/null
-+++ b/xen/include/xen/lib/io.h
-@@ -0,0 +1,65 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Generic I/O memory copy function prototypes.
-+ *
-+ * These functions provide low-level implementation for copying data betwe=
-en
-+ * regular memory and I/O memory regions. Each architecture must provide i=
-ts
-+ * own implementation based on the specific requirements of the architectu=
-re's
-+ * memory model and I/O access patterns. An architecture may supply these =
-as
-+ * functions or as macros in its own headers before including this file.
-+ *
-+ * Architecture-specific implementations:
-+ * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+ * Each architecture should implement these functions in xen/lib/<arch>/io=
-.c
-+ * (or define them as macros) based on their hardware requirements. See
-+ * xen/lib/arm/io.c for an example using explicit I/O accessors.
-+ */
-+
-+#ifndef _XEN_LIB_IO_H
-+#define _XEN_LIB_IO_H
-+
-+#include <xen/types.h>
-+
-+/*
-+ * memcpy_fromio - Copy data from I/O memory space to regular memory
-+ * @to: Destination buffer in regular memory
-+ * @from: Source address in I/O memory space (must be marked __iomem)
-+ * @count: Number of bytes to copy
-+ *
-+ * This function handles copying from memory-mapped I/O regions using
-+ * architecture-appropriate I/O accessor functions. It ensures proper:
-+ * - Memory ordering and barriers
-+ * - Alignment requirements
-+ * - Hardware-specific access semantics
-+ *
-+ * Each architecture provides its own implementation that may:
-+ * - Use special I/O accessor functions (ARM: readl_relaxed, readb_relaxed=
-)
-+ * - Implement alignment handling for devices requiring specific access si=
-zes
-+ * - Add memory barriers to ensure ordering with other I/O operations
-+ * - Or simply map to memcpy() if the architecture allows direct I/O acces=
-s
-+ */
-+extern void memcpy_fromio(void *to, const volatile void __iomem *from,
-+                          size_t count);
-+
-+/*
-+ * memcpy_toio - Copy data from regular memory to I/O memory space
-+ * @to: Destination address in I/O memory space (must be marked __iomem)
-+ * @from: Source buffer in regular memory
-+ * @count: Number of bytes to copy
-+ *
-+ * This function handles copying to memory-mapped I/O regions using
-+ * architecture-appropriate I/O accessor functions. It ensures proper:
-+ * - Memory ordering and barriers
-+ * - Alignment requirements
-+ * - Hardware-specific access semantics
-+ *
-+ * Each architecture provides its own implementation that may:
-+ * - Use special I/O accessor functions (ARM: writel_relaxed, writeb_relax=
-ed)
-+ * - Implement alignment handling for devices requiring specific access si=
-zes
-+ * - Add memory barriers to ensure ordering with other I/O operations
-+ * - Or simply map to memcpy() if the architecture allows direct I/O acces=
-s
-+ */
-+extern void memcpy_toio(volatile void __iomem *to, const void *from,
-+                        size_t count);
-+
-+#endif /* _XEN_LIB_IO_H */
-diff --git a/xen/lib/Makefile b/xen/lib/Makefile
-index 5ccb1e5241..6bb0491d89 100644
---- a/xen/lib/Makefile
-+++ b/xen/lib/Makefile
-@@ -1,3 +1,4 @@
-+obj-$(CONFIG_ARM) +=3D arm/
- obj-$(CONFIG_X86) +=3D x86/
+diff --git a/docs/hypervisor-guide/arm/firmware/arm-scmi.rst b/docs/hypervi=
+sor-guide/arm/firmware/arm-scmi.rst
+index d9698f4e4b..630965fef3 100644
+--- a/docs/hypervisor-guide/arm/firmware/arm-scmi.rst
++++ b/docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+@@ -36,6 +36,8 @@ The below sections describe SCMI support options availabl=
+e for Xen.
 =20
- lib-y +=3D bsearch.o
-diff --git a/xen/lib/arm/Makefile b/xen/lib/arm/Makefile
-new file mode 100644
-index 0000000000..0bb1a825ce
---- /dev/null
-+++ b/xen/lib/arm/Makefile
-@@ -0,0 +1 @@
-+obj-y +=3D memcpy_fromio.o memcpy_toio.o
-diff --git a/xen/lib/arm/memcpy_fromio.c b/xen/lib/arm/memcpy_fromio.c
-new file mode 100644
-index 0000000000..342a28cb49
---- /dev/null
-+++ b/xen/lib/arm/memcpy_fromio.c
-@@ -0,0 +1,48 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#include <asm/io.h>
-+#include <xen/lib/io.h>
+ | [1] `Arm SCMI <https://developer.arm.com/documentation/den0056/latest/>`=
+_
+ | [2] `System Control and Management Interface (SCMI) bindings <https://we=
+b.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documenta=
+tion/devicetree/bindings/firmware/arm,scmi.yaml>`_
++| [3] `Generic Domain Access Controllers bindings <https://web.git.kernel.=
+org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetr=
+ee/bindings/access-controllers/access-controllers.yaml>`_
 +
-+/*
-+ * Use 32-bit raw IO operations for portability across ARM32/ARM64 where
-+ * 64-bit accessors may not be atomic and some devices only support 32-bit
-+ * aligned accesses.
-+ */
+=20
+ Simple SCMI over SMC calls forwarding driver (EL3)
+ ------------------------------------------------------
+@@ -189,3 +191,342 @@ except explicitly enabling SCMI with "arm_sci" xl.cfg=
+ option.
+     ->        xen,reg =3D <0x0 0x47ff0000 0x0 0x1000 0x0 0x22001000>;
+     ->        xen,force-assign-without-iommu;
+       };
 +
-+void memcpy_fromio(void *to, const volatile void __iomem *from,
-+		   size_t count)
-+{
-+	while ( count && (!IS_ALIGNED((unsigned long)from, 4) ||
-+			  !IS_ALIGNED((unsigned long)to, 4)) )
-+	{
-+		*(uint8_t *)to =3D __raw_readb(from);
-+		from++;
-+		to++;
-+		count--;
-+	}
++SCMI SMC multi-agent driver (EL3)
++-------------------------------------
 +
-+	while ( count >=3D 4 )
-+	{
-+		*(uint32_t *)to =3D __raw_readl(from);
-+		from +=3D 4;
-+		to +=3D 4;
-+		count -=3D 4;
-+	}
++The SCMI SMC multi-agent driver enables support for ARM EL3 Trusted Firmwa=
+re-A (TF-A) which
++provides SCMI interface with multi-agent support, as shown below.
 +
-+	while ( count )
-+	{
-+		*(uint8_t *)to =3D __raw_readb(from);
-+		from++;
-+		to++;
-+		count--;
-+	}
-+}
++::
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 8
-+ * tab-width: 8
-+ * indent-tabs-mode: t
-+ * End:
-+ */
-diff --git a/xen/lib/arm/memcpy_toio.c b/xen/lib/arm/memcpy_toio.c
-new file mode 100644
-index 0000000000..e543c49124
---- /dev/null
-+++ b/xen/lib/arm/memcpy_toio.c
-@@ -0,0 +1,48 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#include <asm/io.h>
-+#include <xen/lib/io.h>
++      +-----------------------------------------+
++      |                                         |
++      | EL3 TF-A SCMI                           |
++      +-------+--+-------+--+-------+--+-------++
++      |shmem1 |  |shmem0 |  |shmem2 |  |shmemX |
++      +-----+-+  +---+---+  +--+----+  +---+---+
++    smc-id1 |        |         |           |
++    agent1  |        |         |           |
++      +-----v--------+---------+-----------+----+
++      |              |         |           |    |
++      |              |         |           |    |
++      +--------------+---------+-----------+----+
++             smc-id0 |  smc-id2|    smc-idX|
++             agent0  |  agent2 |    agentX |
++                     |         |           |
++                +----v---+  +--v-----+  +--v-----+
++                |        |  |        |  |        |
++                | Dom0   |  | Dom1   |  | DomX   |
++                |        |  |        |  |        |
++                |        |  |        |  |        |
++                +--------+  +--------+  +--------+
 +
-+/*
-+ * Use 32-bit raw IO operations for portability across ARM32/ARM64 where
-+ * 64-bit accessors may not be atomic and some devices only support 32-bit
-+ * aligned accesses.
-+ */
++The EL3 SCMI multi-agent firmware is expected to provide SCMI SMC shared-m=
+emory transport
++for every Agent in the system. The SCMI Agent transport channel defined by=
+ pair:
 +
-+void memcpy_toio(volatile void __iomem *to, const void *from,
-+	       size_t count)
-+{
-+	while ( count && (!IS_ALIGNED((unsigned long)to, 4) ||
-+			  !IS_ALIGNED((unsigned long)from, 4)) )
-+	{
-+		__raw_writeb(*(const uint8_t *)from, to);
-+		from++;
-+		to++;
-+		count--;
-+	}
++- smc-id: SMC function id used for Doorbell
++- shmem: shared memory for messages transfer, **Xen page aligned**.
++  Shared memory is mapped with the following flags: MT_DEVICE_nGnRE and _P=
+AGE_DEVICE, indicating that this
++  memory is mapped as device memory.
 +
-+	while ( count >=3D 4 )
-+	{
-+		__raw_writel(*(const uint32_t *)from, to);
-+		from +=3D 4;
-+		to +=3D 4;
-+		count -=3D 4;
-+	}
++The following SCMI Agents are expected to be defined by SCMI FW to enable =
+SCMI multi-agent functionality
++under Xen:
 +
-+	while ( count )
-+	{
-+		__raw_writeb(*(const uint8_t *)from, to);
-+		from++;
-+		to++;
-+		count--;
-+	}
-+}
++- Xen management agent: trusted agents that accesses to the Base Protocol =
+commands to configure
++  agent specific permissions
++- OSPM VM agents: non-trusted agent, one for each Guest domain which is  a=
+llowed direct HW access.
++  At least one OSPM VM agent has to be provided by FW if HW is handled onl=
+y by Dom0 or Driver Domain.
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 8
-+ * tab-width: 8
-+ * indent-tabs-mode: t
-+ * End:
-+ */
++The EL3 SCMI FW is expected to implement following Base protocol messages:
++
++- BASE_DISCOVER_AGENT (optional if agent_id was provided)
++- BASE_RESET_AGENT_CONFIGURATION (optional)
++- BASE_SET_DEVICE_PERMISSIONS (optional)
++
++The number of supported SCMI agents and their transport specifications are=
+ SCMI FW implementation
++specific.
++
++Compiling with multi-agent support
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++To build with the SCMI SMC multi-agent driver support, enable Kconfig opti=
+on:
++
++::
++
++    CONFIG_SCMI_SMC_MA
++
++
++Driver functionality
++^^^^^^^^^^^^^^^^^^^^
++
++The SCI SCMI SMC multi-agent driver implements following functionality:
++
++- The driver is initialized based on the ``xen,config`` node under ``chose=
+n``
++  (only one SCMI interface is supported), which describes the Xen manageme=
+nt
++  agent SCMI interface.
++
++.. code-block:: dts
++
++    scmi_shm_1: sram@47ff1000 {
++              compatible =3D "arm,scmi-shmem";
++              reg =3D <0x0 0x47ff1000 0x0 0x1000>;
++    };
++    scmi_xen: scmi {
++            compatible =3D "arm,scmi-smc";
++            arm,smc-id =3D <0x82000002>; <--- Xen management agent smc-id
++            #address-cells =3D < 1>;
++            #size-cells =3D < 0>;
++            #access-controller-cells =3D < 1>;
++            shmem =3D <&scmi_shm_1>; <--- Xen management agent shmem
++    };
++
++- The driver obtains Xen specific SCMI Agent's configuration from the Host=
+ DT, probes Agents and
++  builds SCMI Agents list. The Agents configuration is taken from "scmi-se=
+condary-agents"
++  property where first item is "arm,smc-id", second - "arm,scmi-shmem" pha=
+ndle and third is
++  optional "agent_id":
++
++.. code-block:: dts
++
++    chosen {
++      ranges; <--- set default ranges so address can be translated when pa=
+rsing scmi_shm node
++      xen,config {
++        ranges; <--- set default ranges so address can be translated when =
+parsing scmi_shm node
++        scmi-secondary-agents =3D <
++                      0x82000003 &scmi_shm_0 0
++                      0x82000004 &scmi_shm_2 2
++                      0x82000005 &scmi_shm_3 3
++                      0x82000006 &scmi_shm_4 4>;
++        #scmi-secondary-agents-cells =3D <3>; <--- optional, default 3
++
++        scmi_shm_0 : sram@47ff0000 {
++            compatible =3D "arm,scmi-shmem";
++            reg =3D <0x0 0x47ff0000 0x0 0x1000>;
++        };
++
++        scmi_shm_2: sram@47ff2000 {
++                compatible =3D "arm,scmi-shmem";
++                reg =3D <0x0 0x47ff2000 0x0 0x1000>;
++        };
++        scmi_shm_3: sram@47ff3000 {
++                compatible =3D "arm,scmi-shmem";
++                reg =3D <0x0 0x47ff3000 0x0 0x1000>;
++        };
++        scmi_shm_4: sram@47ff4000 {
++                compatible =3D "arm,scmi-shmem";
++                reg =3D <0x0 0x47ff4000 0x0 0x1000>;
++        };
++
++        // Xen SCMI management channel
++        scmi_shm_1: sram@47ff1000 {
++                compatible =3D "arm,scmi-shmem";
++                reg =3D <0x0 0x47ff1000 0x0 0x1000>;
++        };
++
++        scmi_xen: scmi {
++            compatible =3D "arm,scmi-smc";
++            arm,smc-id =3D <0x82000002>; <--- Xen management agent smc-id
++            #address-cells =3D < 1>;
++            #size-cells =3D < 0>;
++            #access-controller-cells =3D < 1>;
++            shmem =3D <&scmi_shm_1>; <--- Xen management agent shmem
++        };
++      };
++    };
++
++    /{
++        // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI ena=
+bled for it
++        scmi_shm: sram@47ff1000 {
++                compatible =3D "arm,scmi-shmem";
++                reg =3D <0x0 0x47ff1000 0x0 0x1000>;
++        };
++
++        firmware {
++            scmi: scmi {
++                compatible =3D "arm,scmi-smc";
++                arm,smc-id =3D <0x82000003>; <--- Host OSPM agent smc-id
++                #address-cells =3D < 1>;
++                #size-cells =3D < 0>;
++                shmem =3D <&scmi_shm>; <--- Host OSPM agent shmem
++
++                protocol@X{
++                };
++            };
++        };
++    };
++
++  This approach allows defining multiple SCMI Agents by adding Xen-specifi=
+c properties under
++  the ``/chosen`` node to the Host Device Tree, leaving the main part unch=
+anged. The Host DT
++  SCMI channel will be passed to Dom0.
++
++  The Xen management agent is described as a ``scmi_xen`` node under the `=
+`/chosen`` node, which
++  is used by Xen to control other SCMI Agents in the system.
++
++  All secondary agents' configurations are provided in the ``scmi-secondar=
+y-agents`` property with
++  an optional ``agent_id`` field.
++
++  The ``agent_id`` from the ``scmi-secondary-agents`` property is used to =
+identify the agent in the
++  system and can be omitted by setting ``#scmi-secondary-agents-cells =3D =
+<2>``, so the Secondary
++  Agents configuration will look like this:
++
++... code-block:: dts
++
++    chosen {
++      xen,config {
++        scmi-secondary-agents =3D <
++                      0x82000003 &scmi_shm_0
++                      0x82000004 &scmi_shm_2
++                      0x82000005 &scmi_shm_3
++                      0x82000006 &scmi_shm_4>;
++        #scmi-secondary-agents-cells =3D <2>;
++      };
++    }
++
++  In this case, Xen will use the ``SCMI_BASE_DISCOVER_AGENT`` call to disc=
+over the ``agent_id``
++  for each secondary agent. Providing the ``agent_id`` in the ``scmi-secon=
+dary-agents`` property
++  allows skipping the discovery call, which is useful when the secondary a=
+gent's shared memory is
++  not accessible by Xen or when boot time is important because it allows s=
+kipping the agent
++  discovery procedure.
++
++.. note::
++
++    Note that Xen is the only one entry in the system which need to know a=
+bout SCMI multi-agent support.
++
++- The driver implements the SCI subsystem interface required for configuri=
+ng and enabling SCMI
++  functionality for Dom0/hwdom and Guest domains. To enable SCMI functiona=
+lity for guest domain
++  it has to be configured with unique supported SCMI Agent_id and use corr=
+esponding SCMI SMC
++  shared-memory transport ``[smc-id, shmem]`` defined for this SCMI Agent_=
+id.
++
++- Once Xen domain is configured it can communicate with EL3 SCMI FW:
++
++  - zero-copy, the guest domain puts/gets SCMI message in/from shmem;
++  - the guest triggers SMC exception with agent "smc-id" (doorbell);
++  - the Xen driver catches exception, do checks and synchronously forwards=
+ it to EL3 FW.
++
++- the Xen driver sends BASE_RESET_AGENT_CONFIGURATION message to Xen manag=
+ement agent channel on
++  domain destroy event. This allows to reset resources used by domain and =
+so implement use-case
++  like domain reboot.
++
++
++Configure SCMI for Dom0
++^^^^^^^^^^^^^^^^^^^^^^^
++The **"dom0=3Dsci-agent-id=3D<dom0_agent_id>"** parameter in the Xen comma=
+nd line is used to enable
++SCMI functionality for Dom0. If not provided, SCMI will be disabled for Do=
+m0 and all SCMI nodes
++removed from Dom0 DT.
++
++Example: **dom0=3Dsci-agent-id=3D0** to enable SCMI with agent ID 0 for Do=
+m0.
++
++Xen utilizes Host DT SCMI node to configure Dom0 SCMI Agent so the device-=
+tree remains unchanged
++except for the Xen specific properties under ``/chosen`` node. If Xen devi=
+ce-tree doesn't include
++``/firmware/scmi`` node or it's disabled, the Dom0 SCMI Agent will not be =
+configured.
++
++.. note::
++
++    The **sci-agent-id** value should match the ``func_id`` and ``shmem`` =
+in the ``/firmware/scmi`` node
++    to set the correct Dom0 SCMI Agent.
++
++Configure SCMI for for guest domain with toolstack
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++* In domain's xl.cfg file add **"arm_sci"** option as below
++
++::
++
++    arm_sci =3D "type=3Dscmi_smc_multiagent,agent_id=3D2"
++
++* In domain's xl.cfg file enable access to the "arm,scmi-shmem" which shou=
+ld correspond
++  assigned "agent_id" for the domain, for example:
++
++::
++
++    iomem =3D [
++        "47ff2,1@22001",
++    ]
++
++.. note:: It's up to the user to select guest IPA for mapping SCMI shared-=
+memory.
++
++* Add SCMI nodes to the Driver domain partial device tree as in the below =
+example.
++  The "arm,smc-id" should correspond assigned agent_id for the domain:
++
++.. code::
++
++    passthrough {
++       scmi_shm_0: sram@22001000 {
++           compatible =3D "arm,scmi-shmem";
++           reg =3D <0x0 0x22001000 0x0 0x1000>;
++       };
++
++       firmware {
++            compatible =3D "simple-bus";
++                scmi: scmi {
++                    compatible =3D "arm,scmi-smc";
++                    arm,smc-id =3D <0x82000004>;
++                    shmem =3D <&scmi_shm_0>;
++                    ...
++                }
++        }
++    }
++
++**Device specific access control**
++
++The XEN SCMI SMC multi-agent driver performs "access-controller" provider =
+function in case
++EL3 SCMI FW implements SCMI "4.2.1.1 Device specific access control" and p=
+rovides the
++BASE_SET_DEVICE_PERMISSIONS command to configure the devices that an agent=
+s have access to.
++The Host DT SCMI node should have "#access-controller-cells=3D<1>" propert=
+y and DT devices should
++be bound to the SCMI node using Access Controllers bindings [3].
++
++For example:
++
++.. code-block:: dts
++
++    &i2c1 {
++            access-controllers =3D <&scmi 0>;
++    };
++
++Use domain's xl.cfg file **"dtdev"** property to assign SCMI devices from =
+toolstack to the guest:
++
++::
++
++    dtdev =3D [
++        "/soc/i2c@e6508000",
++    ]
++
++.. note::
++
++    xl.cfg:"dtdev" need contain all nodes which are under SCMI management =
+(not only those which are
++    behind IOMMU) and passed-through to the guest domain.
++
++Configure SCMI for predefined domains (dom0less)
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++* add "xen,sci_type" and "xen,sci-agent-id" properties for required DomU (=
+"xen,domain") node
++
++::
++
++    xen,sci_type=3D"scmi_smc_multiagent"
++    xen,sci-agent-id=3D2
++
++* add scmi nodes to the Driver domain partial device tree the same way as =
+above (toolstack case) and
++  enable access to the "arm,scmi-shmem" according to the dom0less document=
+ation. For example:
++
++.. code-block:: dts
++
++      scmi_shm_0: sram@22001000 {
++            compatible =3D "arm,scmi-shmem";
++            reg =3D <0x00 0x22001000 0x00 0x1000>;
++    ->        xen,reg =3D <0x0 0x47ff0000 0x0 0x1000 0x0 0x22001000>;
++    ->        xen,force-assign-without-iommu;
++      };
++
++* For SCMI device access control configure pass-through devices in the gue=
+st partial DT according to
++  the dom0less documentation and ensure that devices SCMI management has "=
+xen,path" property set:
++
++.. code-block:: dts
++
++		i2c@e6508000 {
++            ...
++			reg =3D <0x00 0xe6508000 0x00 0x1000>;
++    ->        xen,path =3D "/soc/i2c@e6508000"
++    ->        xen,reg =3D <0x0 0xe6508000 0x0 0x1000 0x0 0xe6508000>;
++    ->        xen,force-assign-without-iommu;
++        };
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-t=
+ree/booting.txt
+index 6fd7e4a16b..76eda1b756 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -844,9 +844,12 @@ SCMI SMC multi-agent support
+=20
+ For enabling the ARM SCMI SMC multi-agent support (enabled by CONFIG_SCMI_=
+SMC_MA)
+ the Xen specific SCMI Agent's configuration shall be provided in the Host =
+DT
+-according to the SCMI compliant EL3 Firmware specification with
+-ARM SMC/HVC transport using property "scmi-secondary-agents" placed in "xe=
+n,config"
+-node under "chosen" node:
++according to the SCMI compliant EL3 Firmware specification with ARM SMC/HV=
+C
++transport. The SCMI configuration must live under the Xen SCMI container
++"xen,sci" beneath "/chosen" (for example "/chosen/xen/xen_scmi_config/scmi=
+"). The
++Xen SCMI mediator will bind only to the "arm,scmi-smc" node that is a chil=
+d of
++this "xen,sci" container; any other "arm,scmi-smc" nodes (for example unde=
+r
++"/firmware") are ignored to avoid stealing the host's SCMI OSPM instance.
+=20
+ - scmi-secondary-agents
+=20
+@@ -859,47 +862,53 @@ node under "chosen" node:
+=20
+ As an example:
+=20
+-/{
+-chosen {
+-    xen,config {
+-        scmi_shm_0 : sram@47ff0000 {
+-            compatible =3D "arm,scmi-shmem";
+-            reg =3D <0x0 0x47ff0000 0x0 0x1000>;
+-        };
+-        // Xen SCMI management channel
+-        scmi_shm_1: sram@47ff1000 {
+-                compatible =3D "arm,scmi-shmem";
+-                reg =3D <0x0 0x47ff1000 0x0 0x1000>;
+-        };
+-        scmi_shm_2: sram@47ff2000 {
+-                compatible =3D "arm,scmi-shmem";
+-                reg =3D <0x0 0x47ff2000 0x0 0x1000>;
+-        };
+-        scmi_shm_3: sram@47ff3000 {
+-                compatible =3D "arm,scmi-shmem";
+-                reg =3D <0x0 0x47ff3000 0x0 0x1000>;
+-        };
+-        scmi_shm_3: sram@47ff4000 {
+-                compatible =3D "arm,scmi-shmem";
+-                reg =3D <0x0 0x47ff4000 0x0 0x1000>;
+-        };
+-        scmi-secondary-agents =3D <
+-            0x82000002 &scmi_shm_0 0
+-            0x82000004 &scmi_shm_2 2
+-            0x82000005 &scmi_shm_3 3
+-            0x82000006 &scmi_shm_4 4>;
+-            #scmi-secondary-agents-cells =3D <3>;
+-        };
+-
+-        scmi_xen: scmi {
+-            compatible =3D "arm,scmi-smc";
+-            arm,smc-id =3D <0x82000002>; <--- Xen management agent smc-id
+-            #address-cells =3D < 1>;
+-            #size-cells =3D < 0>;
+-            #access-controller-cells =3D < 1>;
+-            shmem =3D <&scmi_shm_1>; <--- Xen management agent shmem
++/ {
++    chosen {
++        xen {
++            ranges;
++            xen_scmi_config {
++                compatible =3D "xen,sci";
++                #address-cells =3D <2>;
++                #size-cells =3D <2>;
++                ranges;
++
++                scmi_shm_0: sram@47ff0000 {
++                    compatible =3D "arm,scmi-shmem";
++                    reg =3D <0x0 0x47ff0000 0x0 0x1000>;
++                };
++
++                /* Xen SCMI management channel */
++                scmi_shm_1: sram@47ff1000 {
++                    compatible =3D "arm,scmi-shmem";
++                    reg =3D <0x0 0x47ff1000 0x0 0x1000>;
++                };
++
++                scmi_shm_2: sram@47ff2000 {
++                    compatible =3D "arm,scmi-shmem";
++                    reg =3D <0x0 0x47ff2000 0x0 0x1000>;
++                };
++
++                scmi_shm_3: sram@47ff3000 {
++                    compatible =3D "arm,scmi-shmem";
++                    reg =3D <0x0 0x47ff3000 0x0 0x1000>;
++                };
++
++                scmi-secondary-agents =3D <
++                    0x82000002 &scmi_shm_0 0
++                    0x82000004 &scmi_shm_2 2
++                    0x82000005 &scmi_shm_3 3>; <--- func_id, shmem, agent_=
+id
++                #scmi-secondary-agents-cells =3D <3>;
++
++                scmi_xen: scmi {
++                    compatible =3D "arm,scmi-smc";
++                    arm,smc-id =3D <0x82000002>; <--- Xen management agent=
+ func_id
++                    #address-cells =3D <1>;
++                    #size-cells =3D <0>;
++                    #access-controller-cells =3D <1>;
++                    shmem =3D <&scmi_shm_1>; <--- Xen management agent shm=
+em
++                };
++            };
+         };
+-
+     };
+ };
+=20
+@@ -915,15 +924,25 @@ chosen {
+=20
+ Example:
+=20
+-/{
+-chosen {
+-    xen,config {
+-        scmi-secondary-agents =3D <
+-            0x82000003 &scmi_shm_1
+-            0x82000004 &scmi_shm_2
+-            0x82000005 &scmi_shm_3
+-            0x82000006 &scmi_shm_4>;
+-            #scmi-secondary-agents-cells =3D <2>;
++/ {
++    chosen {
++        xen {
++            ranges;
++            xen_scmi_config {
++                compatible =3D "xen,sci";
++                #address-cells =3D <2>;
++                #size-cells =3D <2>;
++                ranges;
++
++                /* Shared memory nodes as in the previous example */
++
++                scmi-secondary-agents =3D <
++                    0x82000003 &scmi_shm_1
++                    0x82000004 &scmi_shm_2
++                    0x82000005 &scmi_shm_3
++                    0x82000006 &scmi_shm_4>;
++                #scmi-secondary-agents-cells =3D <2>;
++            };
+         };
+     };
+ };
 --=20
 2.34.1
 
