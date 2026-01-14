@@ -2,34 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153A2D207D3
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 18:17:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203559.1518702 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DD3D20A2D
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 18:50:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203595.1518713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg4UU-0001rT-9W; Wed, 14 Jan 2026 17:17:06 +0000
+	id 1vg4zx-0007H7-Nt; Wed, 14 Jan 2026 17:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203559.1518702; Wed, 14 Jan 2026 17:17:06 +0000
+Received: by outflank-mailman (output) from mailman id 1203595.1518713; Wed, 14 Jan 2026 17:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg4UU-0001pK-6y; Wed, 14 Jan 2026 17:17:06 +0000
-Received: by outflank-mailman (input) for mailman id 1203559;
- Wed, 14 Jan 2026 17:17:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vg4zx-0007E6-L6; Wed, 14 Jan 2026 17:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 1203595;
+ Wed, 14 Jan 2026 17:49:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YX40=7T=bounce.vates.tech=bounce-md_30504962.6967cf8c.v1-6bc1d91f2ac44b928af0eb62b499c31e@srs-se1.protection.inumbo.net>)
- id 1vg4US-0001pB-I6
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 17:17:04 +0000
-Received: from mail8.us4.mandrillapp.com (mail8.us4.mandrillapp.com
- [205.201.136.8]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6ca92e3-f16c-11f0-9ccf-f158ae23cfc8;
- Wed, 14 Jan 2026 18:17:01 +0100 (CET)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail8.us4.mandrillapp.com (Mailchimp) with ESMTP id 4drt8D3MFRz2K1tTg
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 17:17:00 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 6bc1d91f2ac44b928af0eb62b499c31e; Wed, 14 Jan 2026 17:17:00 +0000
+ <SRS0=47rf=7T=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vg4zx-0007Dy-1D
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 17:49:37 +0000
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c111::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 632e7e3b-f171-11f0-b15e-2bf370ae4941;
+ Wed, 14 Jan 2026 18:49:35 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by DS0PR03MB7774.namprd03.prod.outlook.com (2603:10b6:8:1f9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Wed, 14 Jan
+ 2026 17:49:30 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9520.005; Wed, 14 Jan 2026
+ 17:49:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,222 +47,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6ca92e3-f16c-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1768411020; x=1768681020;
-	bh=ssK4S1O4CZOfa9aiSQFG1racQJohBaF98Mq2e+oFXfI=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ow46H8VQFboFwyVDqjUGUhL2Fcz7FN2+uurDiKx9WeNyTqWzebFoncgAKgAr5GFSf
-	 Cai31WxECA5MAdd9INIfOmNw3parYgFSvEhqk54SpQa27U0dZu1L1T0/4C3+l9D4Rt
-	 o9+l90ax/tfjERaxMkrHmvOwzfSUNvz1BsLx70GRtP2l/JnCmOI+PMTSa3eST+7FkZ
-	 GgahVcFIpDtxSBlY7DQZmODvetW5z3fVmILsuGM5pjLMMzbuk50kCU2yUl2V0Y8Ajn
-	 K5dhp5hcfFJUSvrHTxvPbX/wfYz4wlByY7mhZDMLLH35Qh0nEW7iz1ThXCVvw9UJlY
-	 wahtCdK2vwY7A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1768411020; x=1768671520; i=teddy.astie@vates.tech;
-	bh=ssK4S1O4CZOfa9aiSQFG1racQJohBaF98Mq2e+oFXfI=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=F1uxkTg16V5LY753wTvBQI6nua3ZB04oQuAgMsrwCnJRB9f1ZTu5grejozCOVt8DN
-	 QZ3f4+ctLxI/4FsGHyyEnWJkjT7iDrWZ239soVHPZhDAJTTJ24VNaA3KSlpwFVOrdb
-	 hQaBPt3sWV3GKQPl/RnGR7l8adIJNpAztnwtcUbFYlTAjkA7uJ6Q/bVmUL0gvOZA0A
-	 cHidg0ZMsCUHHSMJwY0+GMIsN4Vu2MvMDz7OGYdVeU8oFXcqh4EPIKK9SnKyX0ywm3
-	 mVfInEOFIUlREywJ0lL346k83JPlpV9uOEN5NDMH1QAhbs2fVTgpSu1wVsrUg/8NoL
-	 NLSpIMuGrICRw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=206/6]=20x86/cpufreq:=20use=20host=20CPU=20policy=20in=20HWP=20driver?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1768411017689
-Message-Id: <c8be8841-2746-46bc-9ca4-f728af9bc8fa@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com> <7d52c0cf-c097-4c32-9af6-5044727c3ef8@suse.com>
-In-Reply-To: <7d52c0cf-c097-4c32-9af6-5044727c3ef8@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6bc1d91f2ac44b928af0eb62b499c31e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260114:md
-Date: Wed, 14 Jan 2026 17:17:00 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: 632e7e3b-f171-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TDmHelmiWweNUJbqt36DUNe5GpZjq0zUNCkF2R/zSWeOXS60zWn+EI+rsRbgi14Q90fVsLSx4pKoEo3yqA/7eKsX3P/2qM/GAd3YAdkABw+CEOLg6D1QRTsM2ljQ8Tn66Jjh91PVugfgxaOuoii/V9eUnxha8eEzSlcdOj1N+bPXd8qt2V+6Oyz9hfG+BCavohbwzcQZF+COK/k155zDeq460XNRoY0xy1omkhz/mMPVefAiGKcnGa/oxP1BRRo9gllK69/6QRG5IV5Kw1LU841rZwzgrYN8vHoU8NUSHgWvUMDMZNpauvWJefPKFKzp+t3IRLLvph41eppgdGasOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aFzcPAKGUAvK2cxgErxT80xhhcqjeqxpEU7KH9F/ZmY=;
+ b=V5aDr2kqWnfj5NvmnbZxybS2SN84hedoQ/gpUEIoHFs+FJb/sFhOSUgSR7Hb2Bt1EeeBFwoVKf93F7TbNJF/33gcRtzQrzzRjkZCSCLGY5asiPlXR3Nj+/VzT2nfsyScMYtjMaYkC04ZHLcJNGyvzLl/ECCQAorP0Pm+UEl1I1YsHut1cZ94KY1SvTYfsaNFZAwUKfgdmmGySMfmqcOkppw1EMGnDCdY7ZpjmjD50WdklCVC8RthrgVAaBzuiI8xftYLQYdKKNwyEl62BO69eOQaqoFLSYgIBTpMpKD2u3X/WWQumi+EiyEn1PQiQeSLLVOf5ty67JrS494By/gtBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aFzcPAKGUAvK2cxgErxT80xhhcqjeqxpEU7KH9F/ZmY=;
+ b=N3Z5Izb3hSKStLbgB0cB1khxL24ndIic/OkrRc4ZUPsWbJ5uyUrAyH/+foKkf0/Qw7GxGHG4Eh9IlNrznEN0+qPdod34wAXb+lDL94yVZPUsfYOrXxjLu+NRl+iP0WNw6G5er0hY/dswieDlQI/dhbd5V77Qx5BRAxiNPft2+w8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 14 Jan 2026 18:49:26 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+Message-ID: <aWfXJk90Sh7B-qi7@Mac.lan>
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com>
+X-ClientProxiedBy: PA7P264CA0228.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:372::10) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS0PR03MB7774:EE_
+X-MS-Office365-Filtering-Correlation-Id: c772f90e-eb85-4e49-cd79-08de539544cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VHVDWWJKNnB5ZlBoS1UrT3grOUE4WWVHN244aWN3Nk1LMTNFSmVQWWVoWTRS?=
+ =?utf-8?B?YU5USWlYZVpWL1lQZkdKV2FOMUpyc25DMnVhUVJ4L1A5aHBhSUV5WTYwWXpn?=
+ =?utf-8?B?UndKakZlRWdGVUZUcU5JODZuZ3VKc2YxVnJQVUlPdXNKNU1RRXFNYkYzMlVs?=
+ =?utf-8?B?dzBWZWRGN2ljaXVUcGRabzNwUE4rcEVCaEVLdDdoaGFENmlTcWNSb3orZWwx?=
+ =?utf-8?B?USsxZGVlNS9LU0htTWltUFBRWjNWZmNoa3pNNnphZTh5UXpVYTA3a0xuUzVR?=
+ =?utf-8?B?T0dtdThBZzZzYU9JL1FhbC9INmxPZlhVSDhVSkpqY0ExZ2UyTE1rWkFDNkg5?=
+ =?utf-8?B?SllEVzBTNERGN3VUN29majJHK0k3VFQySmU1NG5oK0VWZURaTm5keUlseEkx?=
+ =?utf-8?B?bU5zQ1NNRjhtQTZVRFA5OURTeXZGUDgvaldCbmdGcFlpeXdxc3Q5ZGxrQkFZ?=
+ =?utf-8?B?b1FNeENiU1BMMzZJN21CWkRDR2pLOTJBNEN6M3phZUpKbVVYMjN0TUR0UWNz?=
+ =?utf-8?B?VVpjREJvaTM2azVjdGRkc3dHZ0dVQ1JQWWVoQzcxa0hGakdEWG9RMEZiN0pL?=
+ =?utf-8?B?V1VvZkxqVGJ3YXMza2hrSG9xRGVsQXFPUlVFbzFpa1Fnd1gzSmU3bE5Dc25v?=
+ =?utf-8?B?MERYN3FWcXZqTkZPRThUTkZFMDNEVS9EVmc1dDE2QmZWUlp0Z1FTS2xEbXl4?=
+ =?utf-8?B?TmtJY1AzcHJ6TVlMaFQ1SHBHcVN0QmlGY0FLanptL1pwWEJ4T0oxMCtlVCtD?=
+ =?utf-8?B?cjhLcEY3Z3MwRTRGK2JUR2lLdU5mbTYydVUxd3U4RlVyMk9vck90QlVoTjRt?=
+ =?utf-8?B?RWxaR2sveHRsTmJrTTJCeGVHcjREbHhOMEZCanZxNHQrQ1N3b25pS3QybVZC?=
+ =?utf-8?B?eUZBRHlrTmp6emZ5REo3UW5MdUt2MEdMZHNOYUozZlorRnM5ek4vUkFUT2Vr?=
+ =?utf-8?B?OFl4NG1pdjBadjZPMUR2Mkx5dGY5QjFtN2lodUdNMWNML1hSQUs3bDYrRk43?=
+ =?utf-8?B?empQT1RnN0pacEc1eXc0OXR3eUtKWlNoWEU5WnY4K2d0a2hwV1FnL2dxMFRH?=
+ =?utf-8?B?WTdkZEMvdFdZeTUwU3ovUFFvZXdpcXR5WDNzdWVYeDM0WEdxUDF3M3E4SXBm?=
+ =?utf-8?B?ZEJIWVMrVUk5ZUdDaHMyREk0ekNBRG91M1NXZi9yR05CVE5kU05NdktiR3dW?=
+ =?utf-8?B?NFpIZmpnMW42OWtucmhkUXlSVDgzQ3crNVNJcVZ5QmRuN3NJcnFDb3VJU0M4?=
+ =?utf-8?B?dmxaRHd6Yk1OMFVGdmdMOWJadURqRUovcXc5UTVaSDd6L0VlZDE4aXYxbFJv?=
+ =?utf-8?B?MjBZSjBmeHFQWUs1RngvenI4UGIxQXRTcEV2RzJBWFAvMFYyUjVPa0EwdlFQ?=
+ =?utf-8?B?eGZVcU1WWWZzN013aDcxYjhSVFlSVjRsUDFKeERwN2NmcklqMmJDU1hnZERk?=
+ =?utf-8?B?SE1BWHlTZTFJK3k2UmxGcmJ5VFRvajYzRkhoSGo1aSsyclE0aFhLY0JlbkJM?=
+ =?utf-8?B?Ni83TWMzODFYaEo4aEV0RHNNMFlvK1FHVTZtK0RCbWMrSWNjNXh3MnlVdlg1?=
+ =?utf-8?B?bG5LMkJJMEZqR1hyZ3pnWDVNSW9TMDF0UjFRcGdhZlgrS0poRlFnaE9IV0Jn?=
+ =?utf-8?B?R3NzM2xVSHBxa09tVTlPY2RPZlAwZU5Nby9PdXM5UFdDU1orZStWQmJ3Y3lw?=
+ =?utf-8?B?NHkyQTRhQUdoZlVQdkMyMVlGWkdINDBudHV5RGMrMldwQlh0a2Q4d2pDaXdL?=
+ =?utf-8?B?N2VqaEJBUmdoTXhnOXRpbE9BZ3dkazFCRitCOHZicGRocEVXVTc1a3loM29R?=
+ =?utf-8?B?bThKYW5kOG9wOHl5dTh4OW9zZ3BEa09MNlptZDZteVZJaUt5Tks4Vlh1Tyti?=
+ =?utf-8?B?Q0N5ZXVycTNSa3lRTStLUU9VMThIZ3BvVUxHbmY5aFN2bVFuNVFrMGp4Vnh3?=
+ =?utf-8?B?ZWFXWFhRYkxwM0xZL09xb0lJNmxUNnkyb2VaNmxIanNwNW55cVprUjd0eWFt?=
+ =?utf-8?B?NDViNHl3QU9iK2hoUDRsZ29Vc0FSOUd6cjRPeU5lcnU3dnZua0VhV3NsUzhE?=
+ =?utf-8?B?NWtoWENTWDlFQlVUc2lxa2xBcGJNVVZkVngyeEpzTC9oSHZQZzhqZTV4bENl?=
+ =?utf-8?Q?2M+Y=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFNHUmQ2dGZYeDBxT3R4QnNTWTZQVTVlSU4wdGJpMWZ4dUZLSkJNR2sxQUxq?=
+ =?utf-8?B?L2I0N29aRitqVDdvWXp6RWZPZWZEUi85TUVSUkgyQ3BOb05yTXZPTWxQS013?=
+ =?utf-8?B?WXFGYUYzR1VSVU9KM1pYOHp2S0IxYzFrRy9FUWxnOXhRck5EYTd6ZmlpK09P?=
+ =?utf-8?B?Q253NnpUd3YxZER3RGFFZ2pkbCtFZkYzbDJHOHpuWWFwUE02ZHhUbm93THhC?=
+ =?utf-8?B?Y1llTThyanhmRkpNMDJKODFzT2daTUphWXl3ak93TmRrcllBWWpoR24xUGQ4?=
+ =?utf-8?B?eFJqU2FvcWk5c0JHTEdmamJuUUdSNkNtbTlnTmE2K1lzQ1ZRamdVVW54dUNa?=
+ =?utf-8?B?U05qZEk3cWc0VlVIelFTOEQ1SDdVYVZXMjJVeDRqeVhCWnFmRjlwTWUvWE5K?=
+ =?utf-8?B?bjdHN05QMC9rbUwySTd2Smgzb3lQaHBUZEUzUG9MK2lEaTBrQi9wa2tMUGo2?=
+ =?utf-8?B?dW9Xb3RNY3pteC8rNEZwUU4wTGlNWHB1cE5TUVJFSXdqbUhFeFE1U0dPQlpx?=
+ =?utf-8?B?TDJkRVE3QVR3d2dVREZQN3dOSjJRWGNGcTl6Qjc3WUdlM2VQTktpRkl3ODFW?=
+ =?utf-8?B?ckRpa3p3RkZIMitKQmZSOTYyODdMNXFvd25VV0MxMEZWTzVheXBCVXJxZ21m?=
+ =?utf-8?B?MjVSWEpQaUxNNDdSOE5OTTZnenZjYjRGaFFrcmpXRDdDbjBTR3pkcE14UGEr?=
+ =?utf-8?B?V25jNHhWejJScm9oOWFSeEdYeTFieHlNNzVQeDhUcEQ4ZWZ6SGFRNXFxMUVZ?=
+ =?utf-8?B?UzluS1dJMDhScFhkT1RyZWt3RllkclptVHlma282dDd3RFNlVmJiVEhEMmlx?=
+ =?utf-8?B?QzZJaHhrc2VoYVNZM0ZpSjduOXF6V2s2ekYvRi9WNEFSSGRPUDhUejZva1Ez?=
+ =?utf-8?B?NDJnN2gzRTF3cnAxSVFlcEp1VXh6OEk2eWhsSmcvbGkzcngwb0llZVBCOHg5?=
+ =?utf-8?B?UzlMYjRFKytwS2RDdXFob1pTK1BZb0tHeGp4WmdsUUhSd2p3UWxHNWorS3hF?=
+ =?utf-8?B?M1FvTUllUzJ6RWs0SGFzdUtqN2lzcndzc25oRmwwM2MyTnhOb1V2d29xdUtS?=
+ =?utf-8?B?allvZzFlMUFXZWVPU3RTYlB3NThjMFp0bVhrNkxxTUNZL0ViUndVanlYOGdQ?=
+ =?utf-8?B?NzBjY2xzMWpkWE5hN3NWYkJLbE5NZ1YrbHRPNWtYWlIycW9TOXRaMUd0TUQ4?=
+ =?utf-8?B?MTUrVFJLa05oNDd4VmVaSWxLbHRsOGlEeGRKU1dJYjBTVTBVL3FSMllLQ3dw?=
+ =?utf-8?B?aHJVSDV4VHhRbTd6bnVuUGJReG9HMkI5Z0hYUkdXWGlJb05SQ0hxSGhGT1dY?=
+ =?utf-8?B?d1JGYVpKQ3ozeHJ4dzZFWUtWMkZxZlphY09DN0ZONi9Vd21TditqZlVVSHlk?=
+ =?utf-8?B?blIwdjdoR1kvMEJJVmcvbVBmakh3ZGlaUmovZDgzOUpjQW4rWUtWK3RUZy82?=
+ =?utf-8?B?WXBXak94YWk2ejJBbVQyaDd0bld6ME0wWXVJbWFlL3Z4WXdBbFdPem4rZWJk?=
+ =?utf-8?B?UEhPWVNpVGZYejJDb3VWRFFCb0NreW56VTg3dHdrRlhRR0R5c3QzK2J4UXRC?=
+ =?utf-8?B?eHgrdDNDMVYyQ3IrL0RIZEJ5WDQ1VjY1OGtSVXJDWTRCakhxZHE4MC9lWUE3?=
+ =?utf-8?B?aVFaSmQrblV4d2haMS9DMjJCVjFOL0l0SEV4aDdMd0ZKNFBPbmNWbXVtUmZU?=
+ =?utf-8?B?c1hxOUVNeFREa1RJcHpubjRPQUJxd01XNTNheUNWZCtLTStyc0hxeVY1R0dP?=
+ =?utf-8?B?TzMzcS9wd0lraXhJM2JuOXhvV1NSWTN2NVJ2YVBGYnJhSlR0VWJ1T3V3MGtV?=
+ =?utf-8?B?cWxGb2s0NFdkOVdZVHFYK1kyNlJoZWJnNTRsNEhKbGp1NFhZYkkzR3J0Rjh3?=
+ =?utf-8?B?R2hiSmFRMWxqTHFxaUdtMVg2UW5oT295Qm9iRk1GeTZUVCttc2c0dTV6cEo4?=
+ =?utf-8?B?Sk9ZNnBJazV3dWVySytOaG42dmdid0Z2U2dGNVE2MGc0cHB4VitLYjVwLzNm?=
+ =?utf-8?B?QTVBaEdXclU3Y2htcVhTZ0VuOExDV214NmF6TnlnMTQyRS9ITWduRU96NC9N?=
+ =?utf-8?B?M1dxYklWdFFLbG1TWHI3bXdDSWNxNUU3cEY5VVYzTElPaFJDWWV0VEMyUkph?=
+ =?utf-8?B?NGZVSVFHTE13UC9rOStOMVdxQlJGN3hQY3ZlQXNPYS9WNnJQMUxubVZmV0N2?=
+ =?utf-8?B?OTdkNmNXcEx3aVZWaU0yaXY4bWJjRFNJZFhxSzhDWEZMVWx6Si9OSGMvLzRl?=
+ =?utf-8?B?SEpkSnF1MXI0ay80YVo2Z1hOVlBmK2g4d1gyRlpEYVRtSmVPdUZSYURCNEJ6?=
+ =?utf-8?B?K1lvN2VQb1FMeTBPM1hMdGdySEVVZmJ3VHVrMklQL1ZNTUo0a1UyQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c772f90e-eb85-4e49-cd79-08de539544cc
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 17:49:30.4683
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZhNBJ4cjUpikblgJn0kHYFdjOXZ7AZDPBV31UQ1EZ1kH6gyooRrHVkB70WI99eU6XhFyXEazEQIaHRtbZ7mSGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB7774
 
-Le 14/01/2026 =C3=A0 14:47, Jan Beulich a =C3=A9crit=C2=A0:
-> There's no need to invoke CPUID yet another time. This way two of the
-> static booleans can also go away.
+On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
+> Callers may pass in TSC values from before the local TSC stamp was last
+> updated (this would in particular be the case when the TSC was latched, a
+> time rendezvous occurs, and the latched value is used only afterwards).
+> scale_delta(), otoh, deals with unsigned values, and hence would treat
+> negative incoming deltas as huge positive values, yielding entirely bogus
+> return values.
 > 
+> Fixes: 88e64cb785c1 ("x86/HVM: use fixed TSC value when saving or restoring domain")
+> Reported-by: Антон Марков <akmarkov45@gmail.com>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v3: Undo some line wrapping. Correct padding in asm/cpufeature.h. Re-base
->      over naming changes.
-> v2: Introduce cpu_has_*.
+> An alternative might be to have scale_delta() deal with signed deltas, yet
+> that seemed more risky to me.
+
+I won't go that route, the caller can figure out the signedness of the
+result as needed.
+
+> There could likely be more Fixes: tags; the one used is the oldest
+> applicable one, from what I can tell.
 > 
-> --- a/xen/arch/x86/acpi/cpufreq/hwp.c
-> +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
-> @@ -18,9 +18,6 @@
->   
->   static bool __ro_after_init hwp_in_use;
->   
-> -static bool __ro_after_init feature_hwp_notification;
-> -static bool __ro_after_init feature_hwp_activity_window;
-> -
->   static bool __read_mostly feature_hdc;
->   
->   static bool __ro_after_init opt_cpufreq_hdc =3D true;
-> @@ -165,8 +162,6 @@ bool hwp_active(void)
->   
->   static bool __init hwp_available(void)
->   {
-> -    unsigned int eax;
-> -
->       if ( boot_cpu_data.cpuid_level < CPUID_PM_LEAF )
->       {
->           hwp_verbose("cpuid_level (%#x) lacks HWP support\n",
-> @@ -183,29 +178,22 @@ static bool __init hwp_available(void)
->           return false;
->       }
->   
-> -    eax =3D cpuid_eax(CPUID_PM_LEAF);
-> -
->       hwp_verbose("%d notify: %d act-window: %d energy-perf: %d pkg-level=
-: %d peci: %d\n",
-> -                !!(eax & CPUID6_EAX_HWP),
-> -                !!(eax & CPUID6_EAX_HWP_NOTIFICATION),
-> -                !!(eax & CPUID6_EAX_HWP_ACTIVITY_WINDOW),
-> -                !!(eax & CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE),
-> -                !!(eax & CPUID6_EAX_HWP_PACKAGE_LEVEL_REQUEST),
-> -                !!(eax & CPUID6_EAX_HWP_PECI));
-> +                cpu_has_hwp, cpu_has_hwp_interrupt,
-> +                cpu_has_hwp_activity_window, cpu_has_hwp_epp,
-> +                cpu_has_hwp_request_pkg, cpu_has_hwp_peci_override);
->   
-> -    if ( !(eax & CPUID6_EAX_HWP) )
-> +    if ( !cpu_has_hwp )
->           return false;
->   
-> -    if ( !(eax & CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE) )
-> +    if ( !cpu_has_hwp_epp )
->       {
->           hwp_verbose("disabled: No energy/performance preference availab=
-le");
->   
->           return false;
->       }
->   
-> -    feature_hwp_notification    =3D eax & CPUID6_EAX_HWP_NOTIFICATION;
-> -    feature_hwp_activity_window =3D eax & CPUID6_EAX_HWP_ACTIVITY_WINDOW=
-;
-> -    feature_hdc                 =3D eax & CPUID6_EAX_HDC;
-> +    feature_hdc =3D cpu_has_hdc;
->   
->       hwp_verbose("Hardware Duty Cycling (HDC) %ssupported%s\n",
->                   feature_hdc ? "" : "not ",
-> @@ -213,7 +201,7 @@ static bool __init hwp_available(void)
->                               : "");
->   
->       hwp_verbose("HW_FEEDBACK %ssupported\n",
-> -                (eax & CPUID6_EAX_HW_FEEDBACK) ? "" : "not ");
-> +                cpu_has_hw_feedback ? "" : "not ");
->   
->       hwp_in_use =3D true;
->   
-> @@ -226,7 +214,7 @@ static int cf_check hwp_cpufreq_verify(s
->   {
->       struct hwp_drv_data *data =3D per_cpu(hwp_drv_data, policy->cpu);
->   
-> -    if ( !feature_hwp_activity_window && data->activity_window )
-> +    if ( !cpu_has_hwp_activity_window && data->activity_window )
->       {
->           hwp_verbose("HWP activity window not supported\n");
->   
-> @@ -268,7 +256,7 @@ static int cf_check hwp_cpufreq_target(s
->       hwp_req.max_perf =3D data->maximum;
->       hwp_req.desired =3D data->desired;
->       hwp_req.energy_perf =3D data->energy_perf;
-> -    if ( feature_hwp_activity_window )
-> +    if ( cpu_has_hwp_activity_window )
->           hwp_req.activity_window =3D data->activity_window;
->   
->       if ( hwp_req.raw =3D=3D data->curr_req.raw )
-> @@ -365,7 +353,7 @@ static void cf_check hwp_init_msrs(void
->       }
->   
->       /* Ensure we don't generate interrupts */
-> -    if ( feature_hwp_notification )
-> +    if ( cpu_has_hwp_interrupt )
->           wrmsr_safe(MSR_HWP_INTERRUPT, 0);
->   
->       if ( !(val & PM_ENABLE_HWP_ENABLE) )
-> @@ -537,7 +525,7 @@ int get_hwp_para(unsigned int cpu,
->           return -ENODATA;
->   
->       cppc_para->features         =3D
-> -        (feature_hwp_activity_window ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW :=
- 0);
-> +        (cpu_has_hwp_activity_window ? XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW :=
- 0);
->       cppc_para->lowest           =3D data->hw.lowest;
->       cppc_para->lowest_nonlinear =3D data->hw.most_efficient;
->       cppc_para->nominal          =3D data->hw.guaranteed;
-> @@ -585,7 +573,7 @@ int set_hwp_para(struct cpufreq_policy *
->   
->       /* Clear out activity window if lacking HW supported. */
->       if ( (set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW) &&
-> -         !feature_hwp_activity_window )
-> +         !cpu_has_hwp_activity_window )
->       {
->           set_cppc->set_params &=3D ~XEN_SYSCTL_CPPC_SET_ACT_WINDOW;
->           cleared_act_window =3D true;
-> --- a/xen/arch/x86/include/asm/cpufeature.h
-> +++ b/xen/arch/x86/include/asm/cpufeature.h
-> @@ -115,14 +115,6 @@ static inline bool boot_cpu_has(unsigned
->   }
->   
->   #define CPUID_PM_LEAF                                6
-> -#define CPUID6_EAX_HWP                               BIT(7, U)
-> -#define CPUID6_EAX_HWP_NOTIFICATION                  BIT(8, U)
-> -#define CPUID6_EAX_HWP_ACTIVITY_WINDOW               BIT(9, U)
-> -#define CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE BIT(10, U)
-> -#define CPUID6_EAX_HWP_PACKAGE_LEVEL_REQUEST         BIT(11, U)
-> -#define CPUID6_EAX_HDC                               BIT(13, U)
-> -#define CPUID6_EAX_HWP_PECI                          BIT(16, U)
-> -#define CPUID6_EAX_HW_FEEDBACK                       BIT(19, U)
->   
->   /* CPUID level 0x00000001.edx */
->   #define cpu_has_fpu             1
-> @@ -179,6 +171,14 @@ static inline bool boot_cpu_has(unsigned
->   /* CPUID level 0x00000006.eax */
->   #define cpu_has_turbo_boost     host_cpu_policy.basic.turbo_boost
->   #define cpu_has_arat            host_cpu_policy.basic.arat
-> +#define cpu_has_hwp             host_cpu_policy.basic.hwp
-> +#define cpu_has_hwp_interrupt   host_cpu_policy.basic.hwp_interrupt
-> +#define cpu_has_hwp_activity_window host_cpu_policy.basic.hwp_activity_w=
-indow
-> +#define cpu_has_hwp_epp         host_cpu_policy.basic.hwp_epp
-> +#define cpu_has_hwp_request_pkg host_cpu_policy.basic.hwp_request_pkg
-> +#define cpu_has_hdc             host_cpu_policy.basic.hdc
-> +#define cpu_has_hwp_peci_override host_cpu_policy.basic.hwp_peci_overrid=
-e
-> +#define cpu_has_hw_feedback     host_cpu_policy.basic.hw_feedback
->   
->   /* CPUID level 0x00000006.ecx */
->   #define cpu_has_hw_feedback_cap host_cpu_policy.basic.hw_feedback_cap
-> 
-> 
+> A similar issue looks to exist in read_xen_timer() and its read_cycle()
+> helper, if we're scheduled out (and beck in) between reading of the TSC
+> and calculation of the delta (involving ->tsc_timestamp). Am I
+> overlooking anything there?
 
-Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+If we are scheduled out in the middle, and the ->tsc_timestamp is
+updated, ->version would also be bumped, and hence the loop will be
+restarted.  I don't think there's an issue there.
 
+> stime2tsc() guards against negative deltas by using 0 instead; I'm not
+> quite sure that's correct either.
 
---
-Teddy Astie | Vates XCP-ng Developer
+Hm, we should likely do the same for stime2tsc() that you do for
+get_s_time_fixed().  Given the current callers I think we might be
+safe, but it's a risk.
 
-XCP-ng & Xen Orchestra - Vates solutions
+> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+> comment towards the TSC being "sane", but is that correct? Due to
+> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+> calling tsc_ticks2ns()?
 
-web: https://vates.tech
+amd_check_erratum_1474() runs after early_time_init(), which would
+have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
+initcall to that regard:
 
+/*
+ * Must be executed after early_time_init() for tsc_ticks2ns() to have been
+ * calibrated.  That prevents us doing the check in init_amd().
+ */
+presmp_initcall(amd_check_erratum_1474);
 
+> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+> whether we shouldn't subtract boot_tsc_stamp.
+
+I would expect tsc_get_info() to also get called exclusively after
+early_time_init()?
+
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+>          tsc = at_tsc;
+>      else
+>          tsc = rdtsc_ordered();
+> -    delta = tsc - t->stamp.local_tsc;
+> -    return t->stamp.local_stime + scale_delta(delta, &t->tsc_scale);
+> +
+> +    if ( tsc >= t->stamp.local_tsc )
+
+Should we hint the compiler this is the likely path?
+
+> +        delta = scale_delta(tsc - t->stamp.local_tsc, &t->tsc_scale);
+> +    else
+> +        delta = -scale_delta(t->stamp.local_tsc - tsc, &t->tsc_scale);
+> +
+> +    return t->stamp.local_stime + delta;
+
+LGTM:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+However I see Anton still has concerns that this patch doesn't fully
+fix the issue he reported, and I'm afraid I don't really understand
+what's going on.  I will have to take a more detailed look at the
+thread, or possibly attempt to reproduce myself.
+
+Thanks, Roger.
 
