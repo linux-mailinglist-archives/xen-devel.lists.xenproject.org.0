@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A201BD205D5
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 17:56:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203518.1518683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D946FD206E7
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 18:10:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203539.1518693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg49z-00066S-BL; Wed, 14 Jan 2026 16:55:55 +0000
+	id 1vg4Nh-0000nf-Gi; Wed, 14 Jan 2026 17:10:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203518.1518683; Wed, 14 Jan 2026 16:55:55 +0000
+Received: by outflank-mailman (output) from mailman id 1203539.1518693; Wed, 14 Jan 2026 17:10:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg49z-00063i-7t; Wed, 14 Jan 2026 16:55:55 +0000
-Received: by outflank-mailman (input) for mailman id 1203518;
- Wed, 14 Jan 2026 16:55:53 +0000
+	id 1vg4Nh-0000lN-CT; Wed, 14 Jan 2026 17:10:05 +0000
+Received: by outflank-mailman (input) for mailman id 1203539;
+ Wed, 14 Jan 2026 17:10:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=68im=7T=bounce.vates.tech=bounce-md_30504962.6967ca95.v1-02bd80d5a333410e889d0141c49c3aa1@srs-se1.protection.inumbo.net>)
- id 1vg49x-00063X-GO
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 16:55:53 +0000
-Received: from mail8.us4.mandrillapp.com (mail8.us4.mandrillapp.com
- [205.201.136.8]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1320245-f169-11f0-9ccf-f158ae23cfc8;
- Wed, 14 Jan 2026 17:55:50 +0100 (CET)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail8.us4.mandrillapp.com (Mailchimp) with ESMTP id 4drsgn1xfWz2K1t5s
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 16:55:49 +0000 (GMT)
+ <SRS0=sOi4=7T=bounce.vates.tech=bounce-md_30504962.6967cde7.v1-22e83d2fdafe47ea8a73999fd20286d2@srs-se1.protection.inumbo.net>)
+ id 1vg4Nf-0000Oo-Qm
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 17:10:03 +0000
+Received: from mail137-3.atl71.mandrillapp.com
+ (mail137-3.atl71.mandrillapp.com [198.2.137.3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dbecfe61-f16b-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 18:10:01 +0100 (CET)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4drt072T2NzBsTrDT
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 17:09:59 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 02bd80d5a333410e889d0141c49c3aa1; Wed, 14 Jan 2026 16:55:49 +0000
+ 22e83d2fdafe47ea8a73999fd20286d2; Wed, 14 Jan 2026 17:09:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +42,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1320245-f169-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: dbecfe61-f16b-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1768409749; x=1768679749;
-	bh=AtllGZ6Y5k1iiyLVhr3ycRE0CdV4k59zMR6/1UbZufw=;
+	s=mte1; t=1768410599; x=1768680599;
+	bh=OlWfxkxEDTn9r7Dg1MqxsBD1qeD0E59fmqNxesqwYdQ=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=avDyeIzZBGanAw0ZMGdIsnRFGvPczryJXwcjaqFmOjRrl4jdv2a/3eIyJk6eCzCrY
-	 9sKmkTjn5P/eh6VFNvPjzLJF2LEFISW/qCye33ENrZ4UxsTMy/7bfvumv7Y+HbAeck
-	 rFV+p7ahIGKBsAXfEI8il5lh+Tll+rUrxrcKXM3v0MyytTpYgvHb3TnqHg5poEEJaG
-	 adip1HABYOyjlMM9WeNXjO6mDuIOboPjnpbKvkbTirLUSXLHeMhW/3yXghFqSxy7Er
-	 lCuW3ZS44H+JIjmDtTb61aVPzBNQfa5JtTfrJEfIpf1vdlOvVQc9A8crGgWp7A6TDY
-	 fmRnBiW3/JgzQ==
+	b=mrVDFdGQWNRH4LbfB9uM3RGylbtpH72+whpT1QxkuLKqB8hO4h7k5oxYpG7+owHas
+	 +U5JpVfdqN924sD9CQ93FnbPxD3j4qbYSIwgy29T4ICzXoLzscgxvxRcUZe+X41v3y
+	 te2ZLcbyJ3ePXHA/80kSB/S+yj4IJXfxhEbtC0OjymrMOXYFVrD+lhe+iXxzCP0PN/
+	 eeNov6az7tU/JqrnwSF27POpy5KHH0MYmh1Jssv5cxY3wWX59NvgJmS+kTWOYbCHz2
+	 wu688ohQ4XSgtVhCfnx4ODrDlRSvYvghH7eW46PdlJ8eaH3U7cc2y0M3vkqptkaY4x
+	 s2F37Y4SrPrRw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1768409749; x=1768670249; i=teddy.astie@vates.tech;
-	bh=AtllGZ6Y5k1iiyLVhr3ycRE0CdV4k59zMR6/1UbZufw=;
+	t=1768410599; x=1768671099; i=teddy.astie@vates.tech;
+	bh=OlWfxkxEDTn9r7Dg1MqxsBD1qeD0E59fmqNxesqwYdQ=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=W0JoNf1P8J/Yo8tOCmgzY49aJ67VbMDX/fRU95NolSCcxo91BEUZN+x0EcEejKfvM
-	 JSPbZit2kp0RH0NY4yPAPrOFmAKi+c72PLk5D15Io3Fq8gbRcGuKYaqwg6E30Fyn7Z
-	 sJ687OxWE9c5nvjx20YahJ/YQL4ae6ep/yLABLVKlJHRJBEhXVBaI+364LMoxXXZ/Q
-	 B+ZypJiQ0Ep7WLmpn9wFIYuSCVSwA/elTVWdoW+Aag+0EoV4Wr8J3HrpNgF54YqYqD
-	 rV+WwSXQhthWFbBEyQNhlWnxP6i0eZnLqQFKZwJcSAnaW2zuxnqIIKL8I85IRBgGR9
-	 rPRaLksQjrjmw==
+	b=U3uqaLS4Fleosyb01l4TXH4NeELlFIIxezfzgcxLO8jrSfdZGuGqKkntuH03FOuqV
+	 5GBUftl3N/Fr9hsqnE4DXigNUvSrFLbXa3gaC6HWzwbExCHEVbtwyMlz4WJmBpc3xR
+	 Z6+KRsW+8gApNR7hqxlajZHCyAsZ3t5dgabTnILxJigR1dPZJoyZYw4tbRf21yQOti
+	 u/RK4tNdMqDJEuutxNWwW4feO0zgnqjePzxhQncrE/cIs3kYR703gkYIHMMXSuDxxu
+	 iitY3ChT3q6AabBRPQa7c4mHJW/123MOP3jASBU1wupabDralPDSK8kqwsCRWXTity
+	 IL++Bls9WyZvQ==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=201/6]=20x86/cpu-policy:=20define=20bits=20of=20leaf=206?=
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3=202/6]=20x86:=20replace=20APERFMPERF=20synthetic=20feature=20bit?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1768409748287
-Message-Id: <28910a0e-c6f3-41dd-9a0b-8289218562a0@vates.tech>
+X-Bm-Transport-Timestamp: 1768410598136
+Message-Id: <5607a1c2-a3ab-48d9-a9c4-10d6b1ceaffe@vates.tech>
 To: "Jan Beulich" <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com> <bc01618c-149c-4a70-996e-5364655b4ab5@suse.com>
-In-Reply-To: <bc01618c-149c-4a70-996e-5364655b4ab5@suse.com>
+References: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com> <29eb0997-bf74-4cde-ba7b-6977223c3829@suse.com>
+In-Reply-To: <29eb0997-bf74-4cde-ba7b-6977223c3829@suse.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.02bd80d5a333410e889d0141c49c3aa1?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.22e83d2fdafe47ea8a73999fd20286d2?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260114:md
-Date: Wed, 14 Jan 2026 16:55:49 +0000
+Date: Wed, 14 Jan 2026 17:09:59 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 Le 14/01/2026 =C3=A0 14:45, Jan Beulich a =C3=A9crit=C2=A0:
-> ... as far as we presently use them in the codebase.
+> Use the respective host CPU policy bit instead. This has the (tolerable,
+> as we generally assume symmetry anyway) effect of using the BSP's
+> (unleveled) setting, rather than the result of leveling (as is done by
+> identify_cpu() on boot_cpu_data, rendering the variable name somewhat
+> misleading).
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 > ---
-> Or should we make both parts proper featureset elements? At least
-> APERFMPERF could likely be made visible to guests (in principle).
+> The leveling of boot_cpu_data is problematic anyway, as that way features
+> can in principle disappear post-boot (as CPUs are being brought online;
+> just that we don't think anymore that we really support physical CPU
+> hotplug).
+
+I think in the vast majority of cases, hotplugged CPUs are of same model 
+or very similar; so shouldn't diverge too much in term of features.
+Otherwise, it's pretty much impossible to guarantee anything unless we 
+have per-socket cpu datas.
+
 > ---
-> v3: Use SDM-conforming names. (Sorry Jason, had to drop you R-b once
->      again.)
-> v2: Use bool and unions.
+> v3: Re-base over naming changes.
+> v2: Extend description.
 > 
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -121,7 +121,46 @@ struct cpu_policy
->               uint64_t :64, :64; /* Leaf 0x3 - PSN. */
->               uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
->               uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
-> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
+> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> @@ -80,7 +80,7 @@ unsigned int get_measured_perf(unsigned
+>           return 0;
+>   
+>       policy =3D per_cpu(cpufreq_cpu_policy, cpu);
+> -    if ( !policy || !cpu_has_aperfmperf )
+> +    if ( !policy || !cpu_has_hw_feedback_cap )
+>           return 0;
+>   
+>       switch (flag)
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -523,10 +523,6 @@ static void generic_identify(struct cpui
+>   =09if ( cpu_has(c, X86_FEATURE_CLFLUSH) )
+>   =09=09c->x86_clflush_size =3D ((ebx >> 8) & 0xff) * 8;
+>   
+> -=09if ( (c->cpuid_level >=3D CPUID_PM_LEAF) &&
+> -=09     (cpuid_ecx(CPUID_PM_LEAF) & CPUID6_ECX_APERFMPERF_CAPABILITY) )
+> -=09=09__set_bit(X86_FEATURE_APERFMPERF, c->x86_capability);
+> -
+>   =09/* AMD-defined flags: level 0x80000001 */
+>   =09if (c->extended_cpuid_level >=3D 0x80000001)
+>   =09=09cpuid(0x80000001, &tmp, &tmp,
+> --- a/xen/arch/x86/include/asm/cpufeature.h
+> +++ b/xen/arch/x86/include/asm/cpufeature.h
+> @@ -11,7 +11,9 @@
+>   #include <xen/macros.h>
+>   
+>   #ifndef __ASSEMBLER__
+> +#include <asm/cpu-policy.h>
+>   #include <asm/cpuid.h>
+> +#include <xen/lib/x86/cpu-policy.h>
+>   #else
+>   #include <asm/cpufeatureset.h>
+>   #endif
+> @@ -121,7 +123,6 @@ static inline bool boot_cpu_has(unsigned
+>   #define CPUID6_EAX_HDC                               BIT(13, U)
+>   #define CPUID6_EAX_HWP_PECI                          BIT(16, U)
+>   #define CPUID6_EAX_HW_FEEDBACK                       BIT(19, U)
+> -#define CPUID6_ECX_APERFMPERF_CAPABILITY             BIT(0, U)
+>   
+>   /* CPUID level 0x00000001.edx */
+>   #define cpu_has_fpu             1
+> @@ -175,6 +176,9 @@ static inline bool boot_cpu_has(unsigned
+>   #define cpu_has_fma4            boot_cpu_has(X86_FEATURE_FMA4)
+>   #define cpu_has_tbm             boot_cpu_has(X86_FEATURE_TBM)
+>   
+> +/* CPUID level 0x00000006.ecx */
+> +#define cpu_has_hw_feedback_cap host_cpu_policy.basic.hw_feedback_cap
 > +
-> +            /* Leaf 0x6 - Therm/Perf. */
-> +            union {
-> +                uint32_t _6a;
-> +                struct {
-> +                    bool :1,
-> +                        turbo_boost:1,
-> +                        arat:1,
-> +                        :1,
-> +                        :1,
-> +                        :1,
-> +                        :1,
-> +                        hwp:1,
-> +                        hwp_interrupt:1,
-> +                        hwp_activity_window:1,
-> +                        hwp_epp:1,
-> +                        hwp_request_pkg:1,
-> +                        :1,
-> +                        hdc:1,
-> +                        :1,
-> +                        :1,
-> +                        hwp_peci_override:1,
-> +                        :1,
-> +                        :1,
-> +                        hw_feedback:1;
-> +                };
-> +            };
-> +            union {
-> +                uint32_t _6b;
-> +            };
-> +            union {
-> +                uint32_t _6c;
-> +                struct {
-> +                    bool hw_feedback_cap:1;
-> +                };
-> +            };
-> +            union {
-> +                uint32_t _6d;
-> +            };
-> +
-
-While I'm ok for the a and c unions, I'm not convinced by the b and d 
-ones (union with just a single uint32_t in it) as it's quite verbose and 
-inconsistent with the rest of the cpu_policy structure.
-
->               uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
->               uint64_t :64, :64; /* Leaf 0x8 - rsvd */
->               uint64_t :64, :64; /* Leaf 0x9 - DCA */
+>   /* CPUID level 0x0000000D:1.eax */
+>   #define cpu_has_xsaveopt        boot_cpu_has(X86_FEATURE_XSAVEOPT)
+>   #define cpu_has_xsavec          boot_cpu_has(X86_FEATURE_XSAVEC)
+> @@ -292,7 +296,6 @@ static inline bool boot_cpu_has(unsigned
+>   /* Synthesized. */
+>   #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
+>   #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING=
+)
+> -#define cpu_has_aperfmperf      boot_cpu_has(X86_FEATURE_APERFMPERF)
+>   #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
+>   #define cpu_has_xen_shstk       (IS_ENABLED(CONFIG_XEN_SHSTK) && \
+>                                    boot_cpu_has(X86_FEATURE_XEN_SHSTK))
+> --- a/xen/arch/x86/include/asm/cpufeatures.h
+> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+> @@ -19,7 +19,7 @@ XEN_CPUFEATURE(TSC_RELIABLE,      X86_SY
+>   XEN_CPUFEATURE(XTOPOLOGY,         X86_SYNTH( 5)) /* cpu topology enum e=
+xtensions */
+>   XEN_CPUFEATURE(CPUID_FAULTING,    X86_SYNTH( 6)) /* cpuid faulting */
+>   XEN_CPUFEATURE(XEN_FRED,          X86_SYNTH( 7)) /* Xen uses FRED */
+> -XEN_CPUFEATURE(APERFMPERF,        X86_SYNTH( 8)) /* APERFMPERF */
+> +/* Bit 8 unused */
+>   XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes=
+ RDTSC */
+>   XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by X=
+en itself */
+>   XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by X=
+en itself */
 > 
 > 
 
