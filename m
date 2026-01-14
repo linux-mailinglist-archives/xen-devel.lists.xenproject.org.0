@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC65D1F294
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 14:47:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1203141.1518443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7534D1F243
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Jan 2026 14:45:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1203126.1518422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg1DV-0004iP-Nt; Wed, 14 Jan 2026 13:47:21 +0000
+	id 1vg1Bp-0003aE-64; Wed, 14 Jan 2026 13:45:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1203141.1518443; Wed, 14 Jan 2026 13:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 1203126.1518422; Wed, 14 Jan 2026 13:45:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vg1DV-0004f1-Kg; Wed, 14 Jan 2026 13:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 1203141;
- Wed, 14 Jan 2026 13:47:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vg1Bp-0003YE-3O; Wed, 14 Jan 2026 13:45:37 +0000
+Received: by outflank-mailman (input) for mailman id 1203126;
+ Wed, 14 Jan 2026 13:45:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81wl=7T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vg1BV-0001vr-Qe
- for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 13:45:17 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42529160-f14f-11f0-b15e-2bf370ae4941;
- Wed, 14 Jan 2026 14:45:16 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-47ee301a06aso8479145e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 05:45:17 -0800 (PST)
+ id 1vg1Bn-0003Y4-TB
+ for xen-devel@lists.xenproject.org; Wed, 14 Jan 2026 13:45:35 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c6afde3-f14f-11f0-9ccf-f158ae23cfc8;
+ Wed, 14 Jan 2026 14:45:33 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-47ee4539adfso7440755e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 05:45:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee119aa2asm22125615e9.4.2026.01.14.05.45.16
+ 5b1f17b1804b1-47ee2814548sm20222905e9.9.2026.01.14.05.45.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 05:45:16 -0800 (PST)
+ Wed, 14 Jan 2026 05:45:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42529160-f14f-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 4c6afde3-f14f-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768398316; x=1769003116; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768398333; x=1769003133; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ShrMN6y1f3Pp4MjOmW8owsNUITc4IfDLUGq6mur2Md0=;
-        b=WRUsMAEQ24+uZq5stpEjAJLj4Zy4PImKVyFloe2w+43veGxlyNenK/iSAylovGiztr
-         bQfQMF1FQ1ESONm+7Hn0vFkgHZG6iD6v03p2ZDY52rKd1ytrBi0D/5Upb89Bvtd71dLF
-         FrfFNjjgBjymGWwRB9gktmEmsz3oeTr++t1m2+hn1BuxMsR5Xv2R8B2Su4YV/fmw2YGv
-         TBoLPddK1++nTiNN1k6iUkDbNaLcW3d+t9r5ySSD1P+301P+I98AkudIe0HrZlE4dYVw
-         EPuD6ZIPLoFG776DmWwkgKI3zvt1TraES2dgtSA+CtuJO/6aocSZEkMKLbDj3TetCC7M
-         i38g==
+        bh=yMOMn2HwlqhXC4/C9EIMmJoujrYjFnjM4Ioz872BrNM=;
+        b=FehmLS4bUEtjgH9gNEodwVnD+ZwOuik0nbgU3RVWgNwpRgerkEW0YOwdSfA6iiv8+1
+         aqkjB8HO+yjB5v6t/gA0CbmCmkgHGZ9ssxIvoHm6UlT8lVKwI4MdUSjg/rQ9ZASGznHv
+         C+iLRM+CdhJzEx98YFtU+VFRExSnUSmeO0lOkagBTGzuEFaJXubqsMgrtuVhI5zhZC/T
+         Kbo8GP6bvNummto1+Eu+5q9kpyfZvhVe6NJJYMqUP/iaeBBpxBY1URnRcejHNB+bwwP3
+         S94aTwj17Pzb6Yw+0eNbI0VjPyQmvhdM5CZohEuugrWzocZkQb2U95GqzqpyP78GIEw1
+         LEzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768398316; x=1769003116;
+        d=1e100.net; s=20230601; t=1768398333; x=1769003133;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ShrMN6y1f3Pp4MjOmW8owsNUITc4IfDLUGq6mur2Md0=;
-        b=cuF5XHnd7accBGArKNilQg7yLKfVywetaaIaTuKkLTsTHSPY6GW81b7HcZG2mHML5G
-         CQSLBPko4FYLxdmF6Wrz87gXWolNe526Tt0FkLK/2IjflRIu2G9XEcbjb96y07BM1EBj
-         xxRA2o5QuVWh7cWIh9+wSIb25CbR93W3acw5MK/4wFvDPKW4Ap/QgpSzCPbl+TO4fvmM
-         EvMdVfDV5Dp4eTQtTNpvnrmw/Hl/4oHB1Q2WGANAIKz97kzKxOPn0T3m8mWVD49qEbnQ
-         rqEPWG7bpxX/bZz/aN/F7xN7vGpAPpl/fpqR1ss1atIx+QPa2TXaDnpqFinJnI3mVhM4
-         g9jw==
-X-Gm-Message-State: AOJu0Ywq1TtT7bOYMtZWnG59qLrRCuA45VC8FX8LNXu31PYJxnqB+LhB
-	aJrt9Qm4qknZZvrNACNRpokVUi4bYMvhFVN2R1HOL2XSMJbQ3ISYvX/xmaT1qkXGo5TFOB0ZBlZ
-	dA6Q=
-X-Gm-Gg: AY/fxX69gz/xiLn/G8uenB/Nn2jIsSNEn+pZUFpqCAv2EhlrVssrS3aEL1GIDunzhzs
-	V3XE+nuNPFVmkx0TlhtrGlGPN07QIFfHVGUIjcWZ1PFxqgUDXypNblpz1b3is58/QLzf+rkEG0G
-	ZHk8cvlnjF16SL1tLhclY6tb2oJn2N7ljAW6BNEoWb/MOOtWAPz8n5moRsSaUAfpelzshLJCHHP
-	IcfgZQZputUBma98ldtQF+oGT2xhZgKrFAqI1BYBsd5Vs18XIIrGr87gArDKB4ATDwTFDcIYkbz
-	MCnSuOIkqHDLogoYyUi3Df43C4t+dLIbi2apLO2Xe6HrQRmW2VlRxAVjtamH4agqR+9FeobZ1d6
-	89dVf1OZcSbswEGsjmNHwkhSIw72R0+LMSHKdgmX1l2ev+i7pcuIAAsZcELzTAkbaFT7E4qeChL
-	u/NLpRUo6OyX47QtB1cbd98p9kowWKsiuzRUhbWQdZvojzamf2v3wlRjxAKGKxdOye/b0Ek5yJp
-	xdpE9PIwVjxng==
-X-Received: by 2002:a05:600c:c8d:b0:46e:59bd:f7d3 with SMTP id 5b1f17b1804b1-47ee33768c9mr30700245e9.20.1768398316425;
-        Wed, 14 Jan 2026 05:45:16 -0800 (PST)
-Message-ID: <cbd64113-621a-409a-ab05-f593999e67a9@suse.com>
-Date: Wed, 14 Jan 2026 14:45:16 +0100
+        bh=yMOMn2HwlqhXC4/C9EIMmJoujrYjFnjM4Ioz872BrNM=;
+        b=gsMewopM9RjPpZdCwgg7R/rFc+jFlETyejkA6ixQ3MBgoxS7uD/EGfuaq7HOjt9W3Y
+         B7R5YMQf7lrIf/WAq9bUbGw+0l76zATIxbnnjyO4a/4xS2NT99RYpYbihevctgeobAOx
+         jyKIsoXP22LbLga+V4/7HIwjfW7DJS5jOuzykLOccW4VUfjnOXnwYUwnliypGpruYyJp
+         gYbVsfU5hvSF8hMC8f7zHgccElqBemPXbSCgnO5Hu4tsuKLxpi77ljJ0mtSerl5NVo3A
+         T6YcGFSGMWZFENVcpL38JPsp1k+4jkafyGcXKpSJlGUtqJAvLynhQLPbR/7l6x/RgwPy
+         e/mw==
+X-Gm-Message-State: AOJu0YxNKEI3c9uXJxoCKkUras1r7YodqfASyH+UIujMJBEm/htXhhJt
+	nzLcVYjBrrBHLul2X8hyrqFWn2Np0Mofwdmx1XJMEDk2MEPS40UDxPT2ubIkEu9uWROgUnHNbOP
+	Pgug=
+X-Gm-Gg: AY/fxX4HeQxukKLnbSwZs4CW3PKQpvGCr5kmnqzW/ZrK7QxGE7rsRxd7iA9ZDf0o8/1
+	IxoH5FIM4hzi3aseNfAywhmgCF2aDuFpKipHmB6EM3TCg1EeufMz6kBaIWMtYFTNShSIcS0u4Ca
+	HFrKr7cNHoO8rMcz3ElD6rcTwhr2Hmwaz757hrydjt3ikGpY/zYGlucXUiVzC+prxuC4YK0xug1
+	ob6WQsKpl9nrz57gYwZ2Hym8JGE3Dp5Hv5VakMmArqJhAdBpD23Z+eWzXcYLDbEP12Dx8gNKsZ9
+	blcC7L/0bQ4o17X9m4aMGvWjfsVGro4/gOGqYCr2VQPkN0I/LGIg5VorkP3cuLg47e7ZCvwFY+o
+	0J7knpH2Y5hCuo5C3WFoyGie0oE5ucUNsl9L+uqahpJ5FRVvedWj6kBMquiZ+bW4CVTP25VgfQ0
+	z4JkkB7AxFXqj6+Iwlz+JDe1bSY7YdMWpdDVd6DQzpxdlXn4iJ2Bu6IK3N8AykWzbF6qYB6twli
+	j8/AR2ZtUJHaw==
+X-Received: by 2002:a05:600c:a51:b0:477:7bca:8b34 with SMTP id 5b1f17b1804b1-47ee32e5cd3mr34451775e9.6.1768398333076;
+        Wed, 14 Jan 2026 05:45:33 -0800 (PST)
+Message-ID: <a92b07f9-5775-4197-a470-5393e9e8a580@suse.com>
+Date: Wed, 14 Jan 2026 14:45:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 4/6] x86/Intel: use host CPU policy for ARAT checking
+Subject: [PATCH v3 5/6] x86/cpufreq: use host CPU policy for Turbo checking
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,81 +122,45 @@ In-Reply-To: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-There's no need to invoke CPUID yet another time. However, as the host CPU
-policy is set up only shortly after init_intel() ran on the BSP, defer the
-logic to a pre-SMP initcall. This can't be (a new) one in cpu/intel.c
-though, as that's linked after acpi/cpu_idle.c (which is where we already
-need the feature set). Since opt_arat is local to the cpu/ subtree,
-introduce a new Intel-specific helper to hold the code needed.
-
-Further, as we assume symmetry anyway, use setup_force_cpu_cap() and hence
-limit the checking to the boot CPU.
+There's no need to invoke CPUID yet another time - we assume symmetry
+anyway. With symmetry assumed, logging per-CPU also isn't very useful.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
----
-The need to move where cpu_has_arat is checked would go away if we did
-away with opt_arat (as mentioned in the previous patch), and hence could
-use cpu_has_arat directly where right now XEN_ARAT is checked.
 ---
 v3: Re-base over naming changes.
 
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -1666,6 +1666,9 @@ static int __init cf_check cpuidle_presm
+--- a/xen/arch/x86/acpi/cpufreq/acpi.c
++++ b/xen/arch/x86/acpi/cpufreq/acpi.c
+@@ -220,14 +220,11 @@ static unsigned int cf_check get_cur_fre
+ 
+ void intel_feature_detect(struct cpufreq_policy *policy)
  {
-     void *cpu = (void *)(long)smp_processor_id();
+-    unsigned int eax;
+-
+-    eax = cpuid_eax(6);
+-    if (eax & 0x2) {
++    if ( cpu_has_turbo_boost )
++    {
+         policy->turbo = CPUFREQ_TURBO_ENABLED;
+-        if (cpufreq_verbose)
+-            printk(XENLOG_INFO "CPU%u: Turbo Mode detected and enabled\n",
+-                   smp_processor_id());
++        if ( cpufreq_verbose )
++            printk_once(XENLOG_INFO "Turbo Mode detected and enabled\n");
+     }
+ }
  
-+    if ( boot_cpu_data.vendor == X86_VENDOR_INTEL )
-+        intel_init_arat();
-+
-     if ( !xen_cpuidle )
-         return 0;
- 
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -665,10 +665,6 @@ static void cf_check init_intel(struct c
- 		__set_bit(X86_FEATURE_NONSTOP_TSC, c->x86_capability);
- 		__set_bit(X86_FEATURE_TSC_RELIABLE, c->x86_capability);
- 	}
--	if ( opt_arat &&
--	     ( c->cpuid_level >= 0x00000006 ) &&
--	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
--		__set_bit(X86_FEATURE_XEN_ARAT, c->x86_capability);
- 
- 	if ((opt_cpu_info && !(c->apicid & (c->x86_num_siblings - 1))) ||
- 	    c == &boot_cpu_data )
-@@ -693,3 +689,9 @@ const struct cpu_dev __initconst_cf_clob
- 	.c_early_init	= early_init_intel,
- 	.c_init		= init_intel,
- };
-+
-+void __init intel_init_arat(void)
-+{
-+    if ( opt_arat && cpu_has_arat )
-+        setup_force_cpu_cap(X86_FEATURE_XEN_ARAT);
-+}
 --- a/xen/arch/x86/include/asm/cpufeature.h
 +++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -176,6 +176,9 @@ static inline bool boot_cpu_has(unsigned
- #define cpu_has_fma4            boot_cpu_has(X86_FEATURE_FMA4)
+@@ -177,6 +177,7 @@ static inline bool boot_cpu_has(unsigned
  #define cpu_has_tbm             boot_cpu_has(X86_FEATURE_TBM)
  
-+/* CPUID level 0x00000006.eax */
-+#define cpu_has_arat            host_cpu_policy.basic.arat
-+
+ /* CPUID level 0x00000006.eax */
++#define cpu_has_turbo_boost     host_cpu_policy.basic.turbo_boost
+ #define cpu_has_arat            host_cpu_policy.basic.arat
+ 
  /* CPUID level 0x00000006.ecx */
- #define cpu_has_hw_feedback_cap host_cpu_policy.basic.hw_feedback_cap
- 
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -102,6 +102,7 @@ extern void setup_force_cpu_cap(unsigned
- extern bool is_forced_cpu_cap(unsigned int cap);
- extern void print_cpu_info(unsigned int cpu);
- extern void init_intel_cacheinfo(struct cpuinfo_x86 *c);
-+extern void intel_init_arat(void);
- 
- #define cpu_to_core(_cpu)   (cpu_data[_cpu].cpu_core_id)
- #define cpu_to_socket(_cpu) (cpu_data[_cpu].phys_proc_id)
 
 
