@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DA47D239B5
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:37:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204543.1519201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D301FD23931
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:33:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204526.1519181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJnE-0003y3-Vc; Thu, 15 Jan 2026 09:37:28 +0000
+	id 1vgJja-000307-8C; Thu, 15 Jan 2026 09:33:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204543.1519201; Thu, 15 Jan 2026 09:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 1204526.1519181; Thu, 15 Jan 2026 09:33:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJnE-0003vp-Rc; Thu, 15 Jan 2026 09:37:28 +0000
-Received: by outflank-mailman (input) for mailman id 1204543;
- Thu, 15 Jan 2026 09:37:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vgJgT-0007JZ-VF
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:30:29 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d49c5a28-f1f4-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 10:30:29 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-6505cac9879so1079101a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:30:29 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b876b6865desm369905966b.12.2026.01.15.01.30.27
+	id 1vgJja-0002yD-4i; Thu, 15 Jan 2026 09:33:42 +0000
+Received: by outflank-mailman (input) for mailman id 1204526;
+ Thu, 15 Jan 2026 09:33:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vgJjY-0002y7-UC
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:33:40 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 459a920f-f1f5-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 10:33:38 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4801c314c84so1417895e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:33:38 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-434af6fca57sm4532916f8f.42.2026.01.15.01.33.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:30:27 -0800 (PST)
+ Thu, 15 Jan 2026 01:33:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d49c5a28-f1f4-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 459a920f-f1f5-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768469428; x=1769074228; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=T7lH+Zu9fWG8FmlF6j1ldxjuSpIosPg1695HWnwC8qg=;
-        b=NaaTHTgiRKgY6EA9HxbTDNfAgIR6hHtWLmLyv0lRz6tRJJypHausRf+jq50fVZ7gHA
-         P9xWXpLlEHfrc/G5Sinzp6GrqukiSpPvuJzjtt1cxDRYn5094/Xhc/Dd8hE5pTBHfATC
-         /E0ueVWpcINxs4erHSpAjz1jv007He1+UwbRZsQVA5y1TEnG47YhSkQ4iUIsZcr5MEpu
-         4+ghVdVeLYj6FKoEE4hvvegr3G/maNGNui++b0RHtl4MHJ7yw3BrUtjUD1wsJ94Ozk5h
-         Sd9MJcrXUWxjSjkWgLrAoAvczgU7ok4QJNSfxEyfK5my3nybWHD7hBO1cg2DRVwVlfkv
-         XQtw==
+        d=suse.com; s=google; t=1768469618; x=1769074418; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/99ddwQSI5EW2LBegFhid5W2imJC03ePbUzWYJ3u+OI=;
+        b=UzrEXd6CtkKZ0unA+60rrEsP0xg6K5nojVePl4vqIsM9QDe46k5nv/XWrlDyv2EA3B
+         +Pdz2Hq8ZnXVM1EPs0YM0T9q1jegYi7OF3ZEBG3PpLODv1cBysqEtSRnksF8Pw4ctBEm
+         szsQ23oDmEkgluZrTZ31pAZvjgVXg6SD0239kF4h6t1cYplEI4M0RPQES/GNVUBSzooO
+         VZxNBALQ01L+sWBbbtOWXP1lFoDUz8AkGqpehg9DiNsqA0UeaAEICcwhxjQZt0lEIPyb
+         gjzI65d8+WyoxHyi7Ipyy5Bw8Gz2uy6a4dADhcja+phBEj+kLgn0jodyd/ZE+eUPF1vT
+         W4wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768469428; x=1769074228;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=T7lH+Zu9fWG8FmlF6j1ldxjuSpIosPg1695HWnwC8qg=;
-        b=f2WuwoaR3PStnc+PPGL0Ki5T2yMvP5O1SiBXJ3Dh4sf5lDipasxjW21Adr3TKppJAY
-         +FwwfMvKHd6vg5mLZZn+vk4DnA4mL+TQm7yPQfjnkNtqcH9vNBTzZfzLUFme5mCjIzzi
-         yViQ7rakaCmgz7kaQm+YBunMlBeASRsbevM+l0tbPiLAaJ+vT9wSW79Hu/zwFfHUEA8N
-         v2whenZtNOsWFGYsDeTxvYPlNt3B+BiRTcKlc/1zseH/7O3HPNTwMG+QEhJlsgosODcT
-         vpSTQ20DMAT7ylrgadwtoidCNsK6i/ZZSRnQkJNNvLEy3YZhvuMhLoQ0gcqzXAl60F66
-         3b6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUabwvkavFN50YKOtACGaMagH6GFswf1pWPfaRYPr6a4UdMuZjFbW313wH66Q+6pASa6RI+98Iz8AI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoJefSnwbrzn1ydTDFMVXwGaT0BlMRSQ7o3JMKEyPzNaqhtRJ3
-	MyjrgoybMfiZYdvLN3UaEBENgdlUU291n7/dcBQ6EX4CN3RGZoCduIbL
-X-Gm-Gg: AY/fxX4tLDtpzuzvGd7RS6sToJrJHKASotxwp+M1OydxjvtlmiZU3B9OFvdso7/+H7X
-	O4ih+u+wQQjGJlGqmPAZ4mQV+aM7Uak+WyDiXhXJmR/FFkDgY5QqFNwI5dIiwWxPPv/lH7TlV+M
-	6/97W98hjW4b3BeDDRBWZu6SfDVy64cH5HZX1E80NdxN66Bzeovfi9svYWqTN/lzk1tBUeyflRq
-	3lRKoDCqcP4L8+XxC3YrNEdyaGu1WrBq78Q17TZwfSy3BU7/zXGdbSHNEphcHvIdN45aMDlIqat
-	Dr2m0uIybokDw711z0Ikd77fXP/HMn2FI3OxLIz8EXWaC0Pg0efg5ApJO68IwXPSG92Nu5smdaj
-	iVxeLMdL4+hXcuvN0erS1AjYROpTA8fEp1PHPrCO8nIazcPjmY6vyMO5z1RVEB/7Pg5bYc5ZdCP
-	49Op+EY6DXnluT5MpdzLmEYEB44Qt5I9yagtLhuPE98P/TqCQortxSqEPbZY/lyCM=
-X-Received: by 2002:a17:907:6d27:b0:b83:3716:cd52 with SMTP id a640c23a62f3a-b87676a6a4bmr421703266b.24.1768469428162;
-        Thu, 15 Jan 2026 01:30:28 -0800 (PST)
-Message-ID: <477dfa23-7b64-4e2b-9896-9af389e33ceb@gmail.com>
-Date: Thu, 15 Jan 2026 10:30:26 +0100
+        d=1e100.net; s=20230601; t=1768469618; x=1769074418;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/99ddwQSI5EW2LBegFhid5W2imJC03ePbUzWYJ3u+OI=;
+        b=Rn/xWB5bMthTJf1NudzkfBRDOXykBppT7eNQQ1WaK97ywdPkVgER1CJriu9ldd729g
+         Y8QceKJ8Oe6pufCGKjyjNpnxi+iejBt50rEtG+sxinulsWL0HBd8UEjD8hyiBmPHy1Oo
+         hDuszCLJ5IoK3e+fvn82qQ5j6qnelWkC/XW++G+eY1nOC/ILxMkIyl/araupvjHL5Q4W
+         GkMqyAj0jKdVM9Opf/NW56GXwCKZeYjHLy0iATqcC4zKOeLgsT88FEEu0co5p7BUJ55v
+         AMDE2u8iJeUyJ5N+D5ACTae3BvWeEkkaR7rJbCZir2gtCKXHKaCb0Yn+NeA3K8FTURoR
+         peVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUaaMTq7CSfgkfby/ABBC/cqTA2jss608jMwZgziCsoinF7OLd3Uz7C3EPJUdQo5wpGOL6zanoG0Gs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHE0GSPFBkYH0M8pgLNWdRkQt0bJ8DdnL4ke0hg5+d4+bzGSuv
+	jiSghi3jnQOQiav2dqVhO2ymglWYWGFYLPIW+G3T/MKac54iUIHakH1VO4BqJJgBXg==
+X-Gm-Gg: AY/fxX7K/eBgd7jZ6I0sZVk6VYqel84mRw00DEXdeLKIMMaR4qhX7fLUOSlk4+LHSyO
+	YyVXqtNqsqoWWRfNxQr2+3lqZP9SaZgb/iV8LlRjeYaxXmsi4XQl76ZlLj+3AODPS5jUjFPpzJn
+	XDOJiRxGsn80yE487mJxQqZx8LYNHSqZGZG2qHJfYG4JX2pb1RHBj+1TD4VG5zIPogGTBzU9N/D
+	D++dbcwfbk7paliGJ1DfZswUH3xhQ97GMhlYiN72CbGJOtNpn+yFBda1R1sMz0YOVNObe0kX9L7
+	XeKOXQ7hCyDWHIT2HW9nOGx7YPzHlXOuea6uTeygdJZKlMt1iyqbPD0/ruK4rNWsZwU84EX8VLC
+	aTwUfaV7znipWlAbbSmuUOc7ryFp05G3ZA0sdSlqwF0HLDLvtXzUz6xF0cnfYqxXtZCZE3eWYXL
+	jAG7LMeHjX0Rs5I/JMWiuT1S9aJqafvSg2+NOSeigToMkZzHFfIQhZ2940mlhab+PQKd7ZBTHRB
+	H8=
+X-Received: by 2002:a05:600c:8217:b0:477:7bd2:693f with SMTP id 5b1f17b1804b1-47ee3317131mr61238015e9.6.1768469618114;
+        Thu, 15 Jan 2026 01:33:38 -0800 (PST)
+Message-ID: <29c2d1dc-23fb-403e-bb03-d8c2f32424e6@suse.com>
+Date: Thu, 15 Jan 2026 10:33:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and
- vtimer_expired()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v7 4/5] xen/arm: scmi: introduce SCI SCMI SMC multi-agent
+ driver
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
- <f8808dd1-d571-49ea-8739-ed06dd6c79d1@suse.com>
- <4e18e4fc-de62-44fc-8ea0-517f6c7ef47f@gmail.com>
- <f7a47af4-6523-4d92-9beb-0daf639f2f36@suse.com>
- <b0131e35-3c1b-4e42-9f80-07d246a5df69@gmail.com>
- <62c22b34-cbad-40f2-a367-ba5fd8d11b51@suse.com>
- <5c6eff93-0db7-4382-8365-6b32b17f5f4d@gmail.com>
- <8fa84e68-72b6-4578-9c3b-70d85d268c53@suse.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
+ <ee4995bf385f0ec691151fb797e14acdb5419c6b.1768415200.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8fa84e68-72b6-4578-9c3b-70d85d268c53@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ee4995bf385f0ec691151fb797e14acdb5419c6b.1768415200.git.oleksii_moisieiev@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 14.01.2026 19:29, Oleksii Moisieiev wrote:
+> @@ -1107,6 +1115,15 @@ affinities to prefer but be not limited to the specified node(s).
+>  
+>  Pin dom0 vcpus to their respective pcpus
+>  
+> +### scmi-smc-passthrough (ARM)
+> +> `= <boolean>`
+> +
+> +The option is available when `CONFIG_SCMI_SMC` is compiled in, and allows to
+> +enable SCMI SMC single agent interface for any, but only one guest domain,
+> +which serves as Driver domain. The SCMI will be disabled for Dom0/hwdom and
+> +SCMI nodes removed from Dom0/hwdom device tree.
+> +(for example, thin Dom0 with Driver domain use-case).
+> +
+>  ### dtuart (ARM)
+>  > `= path [:options]`
 
-On 1/15/26 8:52 AM, Jan Beulich wrote:
-> On 14.01.2026 16:59, Oleksii Kurochko wrote:
->> On 1/14/26 3:57 PM, Jan Beulich wrote:
->>> On 14.01.2026 13:27, Oleksii Kurochko wrote:
->>>> On 1/13/26 4:12 PM, Jan Beulich wrote:
->>>>> On 13.01.2026 15:44, Oleksii Kurochko wrote:
->>>>>> On 1/8/26 11:28 AM, Jan Beulich wrote:
->>>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>>>>>> +    {
->>>>>>>> +        stop_timer(&t->timer);
->>>>>>>> +
->>>>>>>> +        return;
->>>>>>>> +    }
->>>>>>>> +
->>>>>>>> +    set_timer(&t->timer, expires);
->>>>>>> See the handling of VCPUOP_set_singleshot_timer for what you may want to
->>>>>>> do if the expiry asked for is (perhaps just very slightly) into the past.
->>>>>> I got an idea why we want to check if "expires" already expired, but ...
->>>>>>
->>>>>>> There you'll also find a use of migrate_timer(), which you will want to
->>>>>>> at least consider using here as well.
->>>>>> ... I don't get why we want to migrate timer before set_timer() here.
->>>>>> Could you please explain that?
->>>>> Didn't I see you use migrate_timer() in other patches (making me assume
->>>>> you understand)? Having the timer tied to the pCPU where the vCPU runs
->>>>> means the signalling to that vCPU will (commonly) be cheaper.
->>>> I thought that migrate_timer() is needed only when a vCPU changes the pCPU
->>>> it is running on to ensure that it is running on correct pCPU after migrations,
->>>> hotplug events, or scheduling changes. That is why I placed it in
->>>> vtimer_restore(), as there is no guarantee that the vCPU will run on the
->>>> same pCPU it was running on previously.
->>>>
->>>> So that is why ...
->>>>
->>>>> Whether
->>>>> that actually matters depends on what vtimer_expired() will eventually
->>>>> contain. Hence why I said "consider using".
->>>> ... I didn't get why I might need vtimer_expired() in vtimer_set_timer()
->>>> before set_timer().
->>>>
->>>> vtimer_expired() will only notify the vCPU that a timer interrupt has
->>>> occurred by setting bit in irqs_pending bitmap which then will be synced
->>>> with vcpu->hvip, but I still do not understand whether migrate_timer()
->>>> is needed before calling set_timer() here.
->>> Just to repeat - it's not needed. It may be wanted.
->>>
->>>> Considering that vtimer_set_timer() is called from the vCPU while it is
->>>> running on the current pCPU, and assuming no pCPU rescheduling has
->>>> occurred for this vCPU, we are already on the correct pCPU.
->>>> If pCPU rescheduling for the vCPU did occur, then migrate_timer() would
->>>> have been called in context_switch(),
->>> Even if the timer wasn't active?
->> Yes, migrate_timer() is called unconditionally in vtimer_restore() called
->> from context_switch(). migrate_timer() will activate the timer.
-> Which is wrong?
+I appreciate missing doc for a pre-existing cmdline option to be introduced,
+but: Why here (in two ways)? First, why in this patch, without it even being
+mentioned in the description? And why in the middle of options starting with
+'d', when the entire file means to be sorted?
 
-I don't know, based on the comment above migrate_timer():
-   /* Migrate a timer to a different CPU. The timer may be currently active. */
-
-it doesn't mention that it shouldn't be called if the timer wasn't active.
-All around other cases where migrate_timer() is used I don't see also that
-anyone checks if a timer is active or not.
-
-~ Oleksii
-
+Jan
 
