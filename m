@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57034D22E3A
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 08:39:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204188.1518931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C027FD22F27
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 08:51:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204204.1518942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgHwV-0008KD-L1; Thu, 15 Jan 2026 07:38:55 +0000
+	id 1vgI8m-0002XI-Qs; Thu, 15 Jan 2026 07:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204188.1518931; Thu, 15 Jan 2026 07:38:55 +0000
+Received: by outflank-mailman (output) from mailman id 1204204.1518942; Thu, 15 Jan 2026 07:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgHwV-0008Hd-IK; Thu, 15 Jan 2026 07:38:55 +0000
-Received: by outflank-mailman (input) for mailman id 1204188;
- Thu, 15 Jan 2026 07:38:54 +0000
+	id 1vgI8m-0002Up-Nf; Thu, 15 Jan 2026 07:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 1204204;
+ Thu, 15 Jan 2026 07:51:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgHwU-0008HX-FU
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 07:38:54 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1vgI8k-0002Uj-SU
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 07:51:34 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a4c567d-f1e5-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 08:38:48 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-42fbc544b09so447860f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 23:38:47 -0800 (PST)
+ id 01ea0311-f1e7-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 08:51:32 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-47edffe5540so6006195e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 23:51:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6fc8fbsm4006807f8f.39.2026.01.14.23.38.46
+ ffacd0b85a97d-434af64a778sm4159493f8f.3.2026.01.14.23.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 23:38:46 -0800 (PST)
+ Wed, 14 Jan 2026 23:51:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a4c567d-f1e5-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 01ea0311-f1e7-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768462727; x=1769067527; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768463491; x=1769068291; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hw9nExakTAdhSF2n0j1ihoVsEt+bIL6JKWS08PbtWYw=;
-        b=cmdrJcZlUCQyGBFFND06/aTjlXZOC7SOG0G+VBzbbi2GKncreJWeQtK6Sr/fLLhTzk
-         ozZTW34oQaHblDmdfg7g8JbUt4MT1mIxfs3b0kQSsYrH+tW5811EEtNfzySmjLhiRXax
-         IPhJg37SSby2GSDt93LYw9gCGs59/YthTbwJnfJWfr912XKF3MII8Mr8ReeRgIX/q9zs
-         g5j5sZvCbJlU+s8nS7Ru6DcFBUPjvhqOrjc4FUx0hifROLn+54MengVQQdjqC8gUg/JR
-         sIpxfbTv2kOymtVjY5T79UpBKd6T8/cow3M0iEN+Oq4huFv7yfEgODWuLkRUrsb2atrO
-         68dQ==
+        bh=FYN3QVD9ORfEN4a1Uwdps8CyfvMKZ8/di2f6UPpXfL4=;
+        b=YgZ3fl9XGWxU3RAeifYKo7KMZfy7e/7H5C1DTtqyF7E8RlLO7zj3CRYpkcaQcQiKSb
+         sex1jfMm9b92ROWD/i5hEh2RNzVwGFEoi7RpTUtlsb9IS72gJXYAFmrGffjUUn39G6nQ
+         CjwHwI91ydyXjzHVeBtBMVlGfVBKH3Op7YCd9kmKc5BvD6QNOw7OpVGp9io8ou71gDe5
+         +AG5QerPtSrFDaQiUSmL3TnAFX8AOdwgw+QQCddwyRRSNh3F1Ma6hzElYUTJXyIcMcIU
+         sk1hFlEDkH9fYND4j2nzjlHyOANlqQKgaykIoIX1L0XpriPFI6G3Xiea+yEmj9spSojD
+         XBOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768462727; x=1769067527;
+        d=1e100.net; s=20230601; t=1768463491; x=1769068291;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hw9nExakTAdhSF2n0j1ihoVsEt+bIL6JKWS08PbtWYw=;
-        b=onyFq6F2RqiIil9OoCCTLGXppwdyxdhoxbhM6N6g3smeeVbHM9SHH9uWE0BEIH6Dqq
-         6KPDWWgEu6Nu51xaStme3uRmQa3twOW/+fuMCh7f/cIbqzCmnpq29GQk3KoW4X/Sl92G
-         HL+G+Tp3FUzPT+w8Kd0YEITNn//xTGH47P8SUZ37LCVTJntT/9zkmeXLdF6GlnsGUBIu
-         XO9B/r9vI556rhWt6vAi2mJqq+97kxetAn8y+qs3R80OJWYPXzaYuRrg3Ss/KFf7+mUB
-         lhvi94L5sfQAQNszCm9iQq4F9f7PjgYz5W+CNS6X8lLteEjsQd9m2slgr+18DQIPBW0+
-         MslQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXMRN/nKacaTwf5Sr6+rJH677QLW80AW0pY+Fsyxpb4+3iXf8fq8CRl41Q5+HaDkYzVP6HDiHAkg+o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKyr7KzpkT1dh1XRf3zNx+VMbLOwoleElhSI/3DC7el8rbRhtu
-	h9UnAi89htONnCyz6ntxw/v0z6iKViBqWYv/lbgNI8P+zyKnvyrmdL/+643tXHNOpA==
-X-Gm-Gg: AY/fxX6BTf0AIFUe3mJ62a6Z4VlNLVEYyHbbfQrrnD13oTXGQlpsEf5yuMDBfVR+xbG
-	Riw2tfxFlZmT1ujkGZeZoWNOg0srmwRP0ZTEUaFN0Qj21Rixz0O68UXuMqMlEbejRheaxjBYrY0
-	HTP26mZ7JukmTF+6nhtGusoYVo0p6+gq0w/g5WiHJwLtEDCn++qv/fCDHhHzXr442qHTbGMH94a
-	1M4aEfUudf+rz2RHhSX0GCNeZDuCNdDSmBqdwg/4MH+9Da4fUsGIkntfSHWv/sepjLAjGhjEihi
-	Y3mcYGUcN2op9gWQbAGV2+n9G8vwH+1Mlc7up0867zWRwZmB9Y5A9el8ZfA2mcj/AVKx2UwwDWN
-	+4ddQeGDEAoglLW2mTzaoBKqV+9/2qATR8Nx8sTOtSvA9NTNHK7f0UhVXJrEPrJg0gizVhIB119
-	GgeJw2ptIAlH0FGYTZL1aW/RuK1EiQuDTrFeMHydSONvBwCyeu/SCzujAicQP2+A7Ib79VuvIzC
-	mg=
-X-Received: by 2002:a05:6000:2010:b0:431:344:5a2d with SMTP id ffacd0b85a97d-4342c543b74mr5852965f8f.41.1768462727052;
-        Wed, 14 Jan 2026 23:38:47 -0800 (PST)
-Message-ID: <c3667666-c1b8-4fd6-a1ef-3bf67d61844c@suse.com>
-Date: Thu, 15 Jan 2026 08:38:46 +0100
+        bh=FYN3QVD9ORfEN4a1Uwdps8CyfvMKZ8/di2f6UPpXfL4=;
+        b=BvijmB4FQZxz2vXo2U4X9fFJER/7RgiWmzkoZnUOwXNimYVA9jyuNB0IlMvkgjJFvo
+         UYn2KMO8s8JOwS6cSemUVI9xpGY8PvpL64614iGqn4PC/QlNCZwJm2yPdM4G55kHxS/o
+         ezF8eKyrlKNE7dXwo2bav4ZWZ8h29krq0f8N+sEbGnZU779AIQBOELupH+Yqxa5KXPdy
+         SZ9xvW9eHrlmrfhNDn93Jokx66RGIs0zr/MdAAbRVU9xyqLZzOgeEowz9i7hee+FQkeZ
+         xCoW/bUKlU0Gec5yRihsykHPWM7Qd8ILbqEvbf9/24duzdCpjjMaLHMYgCo9Ea/0LBbH
+         l45g==
+X-Gm-Message-State: AOJu0YzoLAJnPTTBUI7OvrYudctxrjXJG6+/cC0VRw+5N6fVencScYUk
+	rwshWLNlIvHdCsZ17bFzjLt/UDDkCZnZqWIMtbwqOaY6goSyX9m5YyxeEKmnvyIeqw==
+X-Gm-Gg: AY/fxX7n5ID5tbh4iK2o0B2mFFGQEAXR+X32FmCSOlWfzLQbU/LsbakkeE0gKpxnEGl
+	Xs3RbMLzGgIWQpBh5LliXKnC2jCRgLYww28ouoO2ZAi2lPnDqL/XxV2cfG7LsH6tID0LelbxDDR
+	8EopToUW8SBuEvMpHZbfkTqITMpdNQ8xUc+buasZ+/3ynllXwTnSnvLQDwyrGgIaJm02etFzzSj
+	TRdSYWnGKGXRR1rLAmsx3VhHYQ5wk/qrLDYqFfMQ/4V8t3T+sW4P/YDF1A0To2GO3vN3fyyBvJA
+	6aC4qkqFP5JhwRzzkD9oDIJ6+b70y3k0UEI5V/l8tLIff2EILTRFaGubtdcV9kPM5fcgeCfGGlO
+	Idj/Uyy2p8G4Zqoc1Ae4Od2bK61M3vHJnmbq29qAYV4UW6SO1UiLjJMgP/v4m7PuLHTFcd6a4Dc
+	fSNHaYRhI+TNtcmubgMyDhH9HeDjLfOCMHW+2Nq3KZMrZi0fHWAfL/wtSc9Tej5GA73n9EcfAtQ
+	+Y=
+X-Received: by 2002:a05:600c:818c:b0:47e:e2ec:9960 with SMTP id 5b1f17b1804b1-47ee339ba32mr55279325e9.35.1768463491575;
+        Wed, 14 Jan 2026 23:51:31 -0800 (PST)
+Message-ID: <98b1ba19-40d3-4f36-9723-2773580df3e3@suse.com>
+Date: Thu, 15 Jan 2026 08:51:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] x86/cpu-policy: define bits of leaf 6
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <4d3a3576-2d3c-42ec-8551-18f1f0982e17@suse.com>
- <bc01618c-149c-4a70-996e-5364655b4ab5@suse.com>
- <28910a0e-c6f3-41dd-9a0b-8289218562a0@vates.tech>
+Subject: Re: Cpufreq drivers not working on T480S
+To: Milky <milky_way_303030@proton.me>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
+ <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
+ <unRhWiUKUGc3G4yBmJJ2Pc0JOSbM4HC0b-fTBaf1f0RYJEi_aIHV3-il1EafrSE9c77-tZNUV386xdg3UANDdeonG_zecEVq7HrG2COheJ8=@proton.me>
+ <7dbd26d1-0d9a-454f-90d8-5a7f3d8e12da@suse.com>
+ <qo8wx-b_cpRuzol0X0mW_NHY1mu3tOBCzMvy5Y_8IASOkmy1oxPdJWdbrndDL63d5lMbw1FDMkI9gCSH9BS2UFWiuyjhycfqWpJWueeHq2E=@proton.me>
+ <8a2125c7-c5ec-4be1-a7a5-61b2936cc90f@suse.com>
+ <rhr8suTtSGv9hTwateK8Tx8Cm9xetzvaOsOIzexIaY-VaPyxsgzA3K0pYTeyyrKFtkc5gHJ3SrJ0I5VKjGsxBKdQm-QKPRVF_bugbAHM9uI=@proton.me>
+ <FEKky8EG7uaCBf24_kJ7c8fNFwXgajV7RH98tbwxsty3gGkFcMJuI4plVzNAVqiLYKWFGwCUo6HsOFKD_abqWU9wZtxgTNXPJz8w7vv-PYI=@proton.me>
+ <c713530f-5f54-44e0-9f45-8df8329c7aef@suse.com>
+ <f7_mi42KcNcLkQfNwAwz-wjxWoXv_gbqEKrmEeFp43XDrFgoWBrSAP2doOzxvIUUM21AAXV3duZB_gZT03x5S8iT6WmU6A24H32vOu40iIc=@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,88 +126,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <28910a0e-c6f3-41dd-9a0b-8289218562a0@vates.tech>
+In-Reply-To: <f7_mi42KcNcLkQfNwAwz-wjxWoXv_gbqEKrmEeFp43XDrFgoWBrSAP2doOzxvIUUM21AAXV3duZB_gZT03x5S8iT6WmU6A24H32vOu40iIc=@proton.me>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.01.2026 17:55, Teddy Astie wrote:
-> Le 14/01/2026 à 14:45, Jan Beulich a écrit :
->> ... as far as we presently use them in the codebase.
+On 15.01.2026 00:42, Milky wrote:
+> On Wednesday, January 14th, 2026 at 11:12 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 14.01.2026 11:58, Milky wrote:
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Or should we make both parts proper featureset elements? At least
->> APERFMPERF could likely be made visible to guests (in principle).
->> ---
->> v3: Use SDM-conforming names. (Sorry Jason, had to drop you R-b once
->>      again.)
->> v2: Use bool and unions.
+>>> Just wanted to update this thread to say that now another T480 user (the T480 is a very similar model to my T480S) using the release builds of libreboot (as of 26.01 RC1) also has the entries missing from the ACPI tables. That discussion was here https://codeberg.org/libreboot/lbmk/issues/394. So this confirms that I'm running a standard libreboot, rather than a bad build.
+>>>
+>>> Do you think there is any way to avoid the underclocking issue with Xen on such devices/firmware?
 >>
->> --- a/xen/include/xen/lib/x86/cpu-policy.h
->> +++ b/xen/include/xen/lib/x86/cpu-policy.h
->> @@ -121,7 +121,46 @@ struct cpu_policy
->>               uint64_t :64, :64; /* Leaf 0x3 - PSN. */
->>               uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
->>               uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
->> -            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
->> +
->> +            /* Leaf 0x6 - Therm/Perf. */
->> +            union {
->> +                uint32_t _6a;
->> +                struct {
->> +                    bool :1,
->> +                        turbo_boost:1,
->> +                        arat:1,
->> +                        :1,
->> +                        :1,
->> +                        :1,
->> +                        :1,
->> +                        hwp:1,
->> +                        hwp_interrupt:1,
->> +                        hwp_activity_window:1,
->> +                        hwp_epp:1,
->> +                        hwp_request_pkg:1,
->> +                        :1,
->> +                        hdc:1,
->> +                        :1,
->> +                        :1,
->> +                        hwp_peci_override:1,
->> +                        :1,
->> +                        :1,
->> +                        hw_feedback:1;
->> +                };
->> +            };
->> +            union {
->> +                uint32_t _6b;
->> +            };
->> +            union {
->> +                uint32_t _6c;
->> +                struct {
->> +                    bool hw_feedback_cap:1;
->> +                };
->> +            };
->> +            union {
->> +                uint32_t _6d;
->> +            };
->> +
+>>
+>> In principle there is, but in the absence of ACPI data that means holding model-
+>> specific data in Xen. Which iirc is what the intel-pstate driver in Linux does
+>> (using ACPI info nowadays only as "auxiliary" data). But I may be wrong there,
+>> as it has been a long time since I last looked at that driver.
 > 
-> While I'm ok for the a and c unions, I'm not convinced by the b and d 
-> ones (union with just a single uint32_t in it) as it's quite verbose and 
-> inconsistent with the rest of the cpu_policy structure.
+> In that case, would you say this is settled now? Would it make sense to report back to the QubesOS community that librebooted T480/S will run underclocked, due to the missing data in ACPI tables and lack of native support in Xen? This information is important, as the device is only barely usable.
 
-Indeed for them I wasn't quite certain. I could drop the union wrapping
-for now (until individual fields appear), yet then I'd again be on the
-edge: Use
-
-            uint32_t _6b;
-
-or
-
-            uint32_t :32;
-
-? Both have their pros and cons. Hence why I went with consistent layout
-for all 4 fields. If there was a clear majority preference for either of
-the above, I'd be fine to switch.
+What to suggest to the Qubes community needs to be discussed there, I think.
 
 Jan
 
