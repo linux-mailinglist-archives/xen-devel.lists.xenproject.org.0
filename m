@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3341AD2459F
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 13:00:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204950.1519452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 388E7D24611
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 13:04:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204965.1519462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgM15-0003U9-OM; Thu, 15 Jan 2026 11:59:55 +0000
+	id 1vgM5P-00056T-E8; Thu, 15 Jan 2026 12:04:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204950.1519452; Thu, 15 Jan 2026 11:59:55 +0000
+Received: by outflank-mailman (output) from mailman id 1204965.1519462; Thu, 15 Jan 2026 12:04:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgM15-0003Rl-LE; Thu, 15 Jan 2026 11:59:55 +0000
-Received: by outflank-mailman (input) for mailman id 1204950;
- Thu, 15 Jan 2026 11:59:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vgM5P-00053i-Ar; Thu, 15 Jan 2026 12:04:23 +0000
+Received: by outflank-mailman (input) for mailman id 1204965;
+ Thu, 15 Jan 2026 12:04:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgM14-0003Rf-4H
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 11:59:54 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b32d0744-f209-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 12:59:52 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-432d256c2a9so815123f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 03:59:52 -0800 (PST)
+ id 1vgM5N-00053c-VN
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 12:04:21 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52548c3d-f20a-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 13:04:19 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-430fbb6012bso568318f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 04:04:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6535ddsm5494514f8f.15.2026.01.15.03.59.51
+ ffacd0b85a97d-434af64a65bsm5589978f8f.7.2026.01.15.04.04.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 03:59:51 -0800 (PST)
+ Thu, 15 Jan 2026 04:04:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b32d0744-f209-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 52548c3d-f20a-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768478392; x=1769083192; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mURageZvhTtiW+61SxASMO6hw1Ff0KysHUSzTfh1Ww4=;
-        b=Nlxn6Ewj7nYi+AiHUaHWYTKwpb8o5qXEsCj7GoDwG1rKfzZLbkHkjQFkqW6QTl8+kw
-         2kO5BnxHutVwAL+rJWmX0YA2KnGdnUnQASxQYZtU5gCTlsNq8Xqkc5cbJ4gFMmI29guf
-         RxiH8kF3vJynFJ8FUEokLqYnwZbkjVXZl068LbPy89oekxpgQGC9BY71ftmAORQBbgMk
-         iVCiDs+SQcI3wq7eCn4KtHGvCVaD6rsxt3JzHdjrlwDWvKi+fmsuYnjhJO6tgQ7Ga1XN
-         Dp54gNQHI/PhM2lv1FFw2BUFWdT8g/rjaRau3ajeeIa275nujYmckaRsyHBhm8BgQUi/
-         h9/A==
+        d=suse.com; s=google; t=1768478659; x=1769083459; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=es4pAXIiZJcaSHieisvPWWIhTRVmg+2omFF/nirmX0A=;
+        b=EkNJqd+J8wUvWn859GfWndPkkTLS7goYYy6Up0CkVA3nSCzBsrrSfNqSkG7z6cYymA
+         Ppufgp2bHI12DXZf0gPLydBJsUvlnea/cGV4c5YOec1ZdlLAMV8QDkBshe4ScFB7SXRN
+         pGt5H5HMdi4xAU0xxeKKB9wvjK/Wj7ltrZeXyUZBLyKhBgStMxvpe3N0T6odR9kDH9zk
+         uBq9bA+G4QMJ5wiUDJUWO234Rh8kKfvInw30Orm2cUB8jVhg4wy6nFd3rUCS9L+mfSZP
+         IKmOLWYhNjfi1R+ZeXfu2pJUIjbnTQtQ7yiCxjmkLemjGs+g1cxW3LRlYU8kEZSVcHE3
+         Xwsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768478392; x=1769083192;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1768478659; x=1769083459;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mURageZvhTtiW+61SxASMO6hw1Ff0KysHUSzTfh1Ww4=;
-        b=cY4+mf5VL0Rcr4bW/i2ZW3bN4Vapsb2Vzj08HCe9JXndmJ4s38NRBqzmuk73sHriYi
-         Ym6qaQGVmSiAaTCqlZuGDIt21+jDBtXaG1kEQuvHkadFX/EiRP3vRqKWIzQ9pvVZsDn2
-         dMDcOmJoCrm+cfp31tBtjCkfBP01BcrrUZS1+a7mvi1cCcDxyTbrGqgacC6gckVI9QzQ
-         tYwy+o+RfHCARQgqbnq0Eorki7ToDOREwMJBAhwJ4mSAarKB8hJEN8sw+lUvEpNUZjok
-         S8mbckkk5dx6KVVbCG2rmLgtZ3dvieEv4CvrPzfPZeGls1bPr8ExD+c89XJLX0oI0+K8
-         zpIA==
-X-Forwarded-Encrypted: i=1; AJvYcCULnBS/n5NEb/Fbz6Agm4BP+ykIEZC7OXtxbAAC5nfPNMnXomyP/5JMspSV6cI88NRzAUDAYnZph48=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4C++BfVPI+bKA9lbwetj3F/b571KXTnXuk/P1m06TJ3cZiRG2
-	5d6Xh57nrOgebA/TI39QFaFdPw7Lbo97Af/XH4kp3MZfaZfsgZXitJFYXMIlxDAX1A==
-X-Gm-Gg: AY/fxX6Ja5RWJwf6F1nOP4fUEipLn7hYR+rj2hO49FkZ+tsNGqhGLRSqz9FZbiDzPIj
-	N6dD+uks3q1boq3hTTQD3DQTLhXMvUkNBj34Q3cVbBavl4Z3JLyLAymPMWIkujeRDzG4KqMYdSR
-	4H5Yc60xzlL9xMdZhii+NK6JuLd00SziHR2zMGapsErx+ig3hWnHZ1NxM8MZrvINjWf/PUiYLjS
-	WXY57pq/G9qZ1AWhUEQ2ogHWpvlXB8WaPoE6are9TRGKR/2w5o/Xt38zBw2HS/9w1lHRUc1ZyEX
-	vdqqQg5BfdL8BjfzixIrsgon4E8pcxONJ3BzusZIE0rZ0uQ/OVjdvmC4Hie/iyxr+BlGsC7Sh7F
-	PzZcaBd3zR9Ng0AxEWsqLwYUWuQiB9Tsn3SYuYfqcSB4PvW/+f5j9WmBhl8uk/K+5qodSS9f3Kh
-	bdTIyVmPdnqxyCJ71sQh+NGO0kAhdGrjfn8u7u41JkVjkYpJ586DUf728JwsAzKe7q1leZx0Mal
-	H4BFKyLBvz5Ag==
-X-Received: by 2002:a05:6000:4027:b0:432:86e1:bd38 with SMTP id ffacd0b85a97d-4342c5483b1mr7136421f8f.39.1768478391764;
-        Thu, 15 Jan 2026 03:59:51 -0800 (PST)
-Message-ID: <8539bed5-280f-4dcc-a63d-4c0ee3b7cff7@suse.com>
-Date: Thu, 15 Jan 2026 12:59:50 +0100
+        bh=es4pAXIiZJcaSHieisvPWWIhTRVmg+2omFF/nirmX0A=;
+        b=uT3CCzq5malZ03+bwHkEn33AVf0aJRiTGBu7TbLHKQYdtrnduHerZr8wPvL6uDZvMD
+         PwC2dxw7nCQ/3V1y0DNgAHmy4Xt3gIBidRZNDL/5A0lz3EUP0iC9ZdeB+0FWpSuB1bcO
+         ryFlW8bTN72ZpsOYstMyKhcOBerGPuXr2kOrMAqcOMs3xmoupHckMinkr0afNS85l9+q
+         Ql00PBsqm4ykU7vk8Tqqq7IpFqphS6vjY0BEZ+LqYO3k1IWN5ro2BRlWeNiVT9XDE8U7
+         5g/bzFpEMb6p39eWZ7xc7rQb0cSR4+i612+goSY+oq+R9pvwbeewjIadeEPBkwe20gvg
+         exDA==
+X-Gm-Message-State: AOJu0YwzRRHm9sUsxPjN3SlTATpSwLQoyT/IHTX1Y75jQHIwNjvTjsbA
+	WfjHgcHXYiw8M/QsAfKtX4rG+EvVxciMSQxXh9F3npXD48ZKe6XorcpmoJ1dgExYcw==
+X-Gm-Gg: AY/fxX5rU/avnlsWZE0ishTLp3ZvaiTzZZMtkC9cn94JBN4nW2WtTWaXaM5NmIgcZbs
+	EiQ3IpcPLeSWgSLHizHzDUMU2KCfF6w3uzN/lVRAf+UnC0g67PNdSFCPyw+i+OeB+YDk/zUUdD8
+	uTGkrOtzZy9EsphveulaTIJy0jHoHwF7OPCQSD5d48dC6aHieCFLftSfOhMiCJ3+EQGjoFpBTwQ
+	S5xN5xfaQTPlLm7GKI/wMLvlV/JZnBWY2VW1rYol6yRM+z+cElJ78Wq2wlGuWp+t6zXEJrE2puD
+	q/TkDuyNoH1Mg6/sfJ7AQNfmDW2AB+pYPFbH6bQMIhSP3bQpBbWBacHDEtJCRKbJO04QBx8UoQO
+	lQrbC/hVqhDXCeEcOEBnZgjWI75DOpG6vfP+J1gAFLm2vCEVCkAPqtdadlMPU9ENgj+Wu0T9MSr
+	sZ+0wBWoU0o/8r0RFKhn7p0A3J7wVocObc1Zbs49dGi1pFgolkGiZqdhfl1J7kCWKxg6ejlKgnc
+	dU=
+X-Received: by 2002:a05:6000:1867:b0:430:f449:5f17 with SMTP id ffacd0b85a97d-4342c569a14mr7689406f8f.42.1768478658864;
+        Thu, 15 Jan 2026 04:04:18 -0800 (PST)
+Message-ID: <cedf6fab-90ea-4d04-8410-a816926d2673@suse.com>
+Date: Thu, 15 Jan 2026 13:04:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/5] lib/arm: Add I/O memory copy helpers
-From: Jan Beulich <jbeulich@suse.com>
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
- <d166348530b9229673e1a6e3b29ff4ee9123ab2f.1768415200.git.oleksii_moisieiev@epam.com>
- <bf3e38f1-d88a-445a-b55b-a13d401dba80@suse.com>
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
+ <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com> <aWikMGJKa3VPQQzi@Mac.lan>
+ <49507100-faa9-4480-a534-e4bab6cecc5b@suse.com> <aWjUEsp0dHsbjhyn@Mac.lan>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -127,94 +122,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bf3e38f1-d88a-445a-b55b-a13d401dba80@suse.com>
+In-Reply-To: <aWjUEsp0dHsbjhyn@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.01.2026 10:26, Jan Beulich wrote:
-> On 14.01.2026 19:29, Oleksii Moisieiev wrote:
->> --- /dev/null
->> +++ b/xen/lib/arm/memcpy_fromio.c
->> @@ -0,0 +1,48 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +#include <asm/io.h>
->> +#include <xen/lib/io.h>
->> +
->> +/*
->> + * Use 32-bit raw IO operations for portability across ARM32/ARM64 where
->> + * 64-bit accessors may not be atomic and some devices only support 32-bit
->> + * aligned accesses.
->> + */
->> +
->> +void memcpy_fromio(void *to, const volatile void __iomem *from,
->> +		   size_t count)
->> +{
->> +	while ( count && (!IS_ALIGNED((unsigned long)from, 4) ||
->> +			  !IS_ALIGNED((unsigned long)to, 4)) )
+On 15.01.2026 12:48, Roger Pau Monné wrote:
+> On Thu, Jan 15, 2026 at 11:38:10AM +0100, Jan Beulich wrote:
+>> On 15.01.2026 09:24, Roger Pau Monné wrote:
+>>> On Thu, Jan 15, 2026 at 09:00:07AM +0100, Jan Beulich wrote:
+>>>> On 14.01.2026 18:49, Roger Pau Monné wrote:
+>>>>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
+>>>>>> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+>>>>>> comment towards the TSC being "sane", but is that correct? Due to
+>>>>>> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+>>>>>> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+>>>>>> calling tsc_ticks2ns()?
+>>>>>
+>>>>> amd_check_erratum_1474() runs after early_time_init(), which would
+>>>>> have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
+>>>>> initcall to that regard:
+>>>>>
+>>>>> /*
+>>>>>  * Must be executed after early_time_init() for tsc_ticks2ns() to have been
+>>>>>  * calibrated.  That prevents us doing the check in init_amd().
+>>>>>  */
+>>>>> presmp_initcall(amd_check_erratum_1474);
+>>>>
+>>>> Hmm, I should have written "Due to e.g. TSC_ADJUST". Firmware may also
+>>>> have played other games with MSR_TSC.
+>>>
+>>> For amd_check_erratum_1474() we don't want to subtract boot_tsc_stamp,
+>>> otherwise when kexec'ed we won't be accounting properly for the time
+>>> since host startup, as subtracting boot_tsc_stamp would remove any
+>>> time consumed by a previously run OS.
+>>
+>> For both this and ...
+>>
+>>>>>> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+>>>>>> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+>>>>>> whether we shouldn't subtract boot_tsc_stamp.
+>>>>>
+>>>>> I would expect tsc_get_info() to also get called exclusively after
+>>>>> early_time_init()?
+>>>>
+>>>> Same here then (obviously).
+>>>
+>>> For tsc_get_info() I think you are worried that the TSC might
+>>> overflow, and hence the calculation in scale_delta() would then be
+>>> skewed.  We must have other instances of this pattern however, what
+>>> about get_s_time_fixed(), I think it would also be affected?
+>>>
+>>> Or maybe I'm not understanding the concern.  Given the proposed
+>>> scale_delta() logic, it won't be possible to distinguish rdtsc
+>>> overflowing from a value in the past.
+>>
+>> ... this, my main point really is that scale_delta() (as its name says),
+>> and hence also tsc_ticks2ns(), shouldn't be used on absolute counts, but
+>> only deltas. (Yes, an absolute count can be viewed as delta from 0, but
+>> that's correct only if we know the TSC started counting from 0 and was
+>> never adjusted by some bias.)
 > 
-> Nit: Xen style indentation (no hard tabs) please throughout.
-> 
->> +	{
->> +		*(uint8_t *)to = __raw_readb(from);
->> +		from++;
->> +		to++;
->> +		count--;
->> +	}
->> +
->> +	while ( count >= 4 )
->> +	{
->> +		*(uint32_t *)to = __raw_readl(from);
->> +		from += 4;
->> +		to += 4;
->> +		count -= 4;
->> +	}
->> +
->> +	while ( count )
->> +	{
->> +		*(uint8_t *)to = __raw_readb(from);
->> +		from++;
->> +		to++;
->> +		count--;
->> +	}
->> +}
-> 
-> Barrier requirements on Arm aren't quite clear to me here: Is it really correct
-> to use __raw_read{b,w,l}() here, rather than read{b,w,l}()? If it was, wouldn't
-> a barrier then be needed at the end of the function?
+> Well amd_check_erratum_1474() does want the delta from 0 to the
+> current TSC, because that's the best? way to see when C6 needs to be
+> disabled.  Otherwise we just straight disable C6 on boot on affected
+> systems.
 
-Thinking about it, as the order of MMIO accesses needs to be guaranteed
-(unless you have extra information about the area's properties, like it
-being a video frame buffer), I'm pretty sure now that read{b,w,l}() needs
-using here. In fact the comment in the header says that it would handle
-"Memory ordering and barriers" when it doesn't look as if it did.
-
-Note how Linux looks to have grown multiple flavors: Besides
-memcpy_fromio() I can also spot at least fb_memcpy_fromio() and
-sdio_memcpy_fromio().
-
-> And then, if it was read{b,w,l}() that is to be used here, what about all of
-> this would then still be Arm-specific? Hmm, I guess the IS_ALIGNED() on "to" is,
-> but that's Arm32-specific, with Arm64 not needing it? Plus then it's again not
-> exactly Arm-specific, but specific to all architectures where misaligned
-> accesses may fault.
-
-There's a bigger issue here, with access granularity (despite the header
-claiming "Implement alignment handling for devices requiring specific
-access sizes"). MMIO can behave in interesting ways. The header comment
-says nothing as to restrictions, i.e. when these functions may not be
-used. Yet consider a device registers of which must be accessed in 32-bit
-chunks. As long as the other pointer is suitably aligned, all would be
-fine. But you handle the case where it isn't, and hence that case then
-also needs to function correctly. At the same time accesses to a devices
-requiring 16- or 64bit granularity wouldn't work at all, which for
-required 8-bit granularity it would again only work partly.
-
-How much of the above requires code adjustments and how much should be
-dealt with by updating commentary I don't know, as I know nothing about
-your particular use case, nor about possible future ones.
-
-Also note that the header comment still references the ..._relaxed()
-functions, when then implementation doesn't use those anymore.
+I think that may be necessary when we don't know what was done to the TSC
+before we took control of the system.
 
 Jan
 
