@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55C8D23E64
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:19:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204699.1519302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E46D23E79
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:20:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204707.1519311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKS9-0007cl-4E; Thu, 15 Jan 2026 10:19:45 +0000
+	id 1vgKSl-0000dC-Aj; Thu, 15 Jan 2026 10:20:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204699.1519302; Thu, 15 Jan 2026 10:19:45 +0000
+Received: by outflank-mailman (output) from mailman id 1204707.1519311; Thu, 15 Jan 2026 10:20:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKS9-0007b9-0W; Thu, 15 Jan 2026 10:19:45 +0000
-Received: by outflank-mailman (input) for mailman id 1204699;
- Thu, 15 Jan 2026 10:19:43 +0000
+	id 1vgKSl-0000aq-7c; Thu, 15 Jan 2026 10:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 1204707;
+ Thu, 15 Jan 2026 10:20:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KgiG=7U=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vgKS7-0007b3-IH
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:19:43 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ <SRS0=qpf+=7U=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vgKSj-0007b3-Fn
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:20:21 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5084e64-f1fb-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 11:19:42 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-382fd45a1feso6573351fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:19:42 -0800 (PST)
+ id cb5764ca-f1fb-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 11:20:20 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 0437E4EE75B7;
+ Thu, 15 Jan 2026 11:20:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,134 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5084e64-f1fb-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768472382; x=1769077182; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bZVmO8N0UZYu/o2t/bIFeKiY6ewosWiZISEU6KWNQIw=;
-        b=WVK1BXr68fCteuJrRVTcC8X28KRBa/uRznKVp4A7D8BveUpC+Z55Vgn5rSlBzD216T
-         /4C4ZGxyeBecBLzWs3KFt1/AWRGBC6fjfzfZAHye0pouURoR7EYlb8RSBzfH72BmaO3X
-         cvLStHtuc2tsjrwJGrL0HCcW3+9o5FZyzH+C/b45MwO11id05chgoWy+3opQtO82EmGO
-         KmaO7Cq/FnUhjpXzD1bfBEpJXqBI6ELVtEDxK7ffO93AHNad7bCRORMxBYaXJlnPrOKP
-         OC1y0eG2xfXykeAcmb4oFiFcgZeNcUz9kGOKLswlqdWdJuxdBtXF1xCX4XALibCE7eMg
-         E3FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768472382; x=1769077182;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bZVmO8N0UZYu/o2t/bIFeKiY6ewosWiZISEU6KWNQIw=;
-        b=vwPB2iAr2ggXcR87wQv42KVjlUWJPbB23ugX2NXvOCBddqmPOFz5/bdCpu733N1Gp4
-         87f/146TM6I68BAkKu9pD9mpAJgzMy+Gf43nyVWOLc+cUdg25OTgZOySMbb/VnPbk9Ry
-         6kcbpcf66JO6OxZEJvtY2peoFzm/Y2BTLxw1aSpL8astUklsOAcfqLkC6i12gUmOUUzv
-         DZAhHRIgGYwYVPwG6x5lFpR8nAg3XVBQANkVuywdfrSBiRkTlcN3M0vph1/AH3cBPaE5
-         XZON18H08m4RzAToBe0Hl2X/xOjxASVxf3KMGdr0Ym1tBhi5f0caEbcrEzJYT7jIWXlP
-         +3CA==
-X-Forwarded-Encrypted: i=1; AJvYcCWY/d6kw9Aiv8Aesr49EJAzTqV/1rQPnkSGhuZkxX7PKdmpxt4lCQvW4BIBxZ8XbXFQmhZDX/DS2pM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzfC3qzLFwNlIt6LmqKKTEmPmh41ISeXLBQYPAlxEfLlcU9VF7o
-	RMJ1GyE6tT71ZriLVxElCxREfJ9dVon0MMi/LvzYTMkZMUSvaoTYq+Pzqx1QFHBRf8mj7oVJ8wG
-	zuuOTeqiJZAsdF5DztT/cUtRg+HLw53M=
-X-Gm-Gg: AY/fxX61mN16hMZj4DqGOShjPOsNbGxfBDOfELY25RO43A1FRM2HhDXDD60/jBOfzHf
-	LXq/JBmvwJaeQylyHpY2VIdrpAOwii4GwQk9sjk1RdKt7W2Gz9qA8P9KsGmrxJNGion3C3R260G
-	JhgTYscsOyjyGfFL/rCFjnkeAJsItfwYhineUHt2IfScNExibEUo8XV96c2/89RTUejZZwvDcNN
-	nnZP+T6KpTA0qOr64NQ/plc/fYic/TuNl8Bt22cTcppZmHTDRMrFqPkxr89AivH7wcNmcp7hOrh
-	DawEqZjsniaOuDsUkDE6FdT1
-X-Received: by 2002:a2e:b88d:0:b0:382:f9c6:ba68 with SMTP id
- 38308e7fff4ca-3836ee0044cmr7611511fa.0.1768472381818; Thu, 15 Jan 2026
- 02:19:41 -0800 (PST)
+X-Inumbo-ID: cb5764ca-f1fb-11f0-b15e-2bf370ae4941
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1768472419;
+	b=0mGEsviCTbWlTn4WtRtz6ZUjfkjA+M06fgi2UMLfSsRyoAZbKmwRQdCdV1SMtPx8X9Ak
+	 XRS0fUjdimDjPcKnJx5nymP/Tuu9DopmzSlXeP25JdmlELYysLqInz36KC+ArK0f0abzw
+	 0+vJEw4rtaudrEoHtsmyYt8UzIYQedg0jp7Zrqhx3vGUshCrD7CFfIi6wTs7uSspQSZh0
+	 BVcCz1hKLS5tbUJo/K9wYy8B6RaQJpgZeeODEwfD62SJIN4w9ZH1eTeLWj0+Z8HA8ljLc
+	 gf6V7qVzlZEbMluko2mmIjcXPuBHHLgovTzTl5s91d3HQ9O1wjO7xUZim1arSvhGjt+hp
+	 yK4ko9NC74SXEZOBIpHT5o1OP/hSaf7w3+NmUK1+M5GA4qxl9+XjrlRl/vHqOtdBiDoLw
+	 8QT/8rRF7Z5EWTYpsUXPoV+pN6QKlxsj6B9GWslFbWhZNCG8qGB+TMH3JJL6JyXQNyr/t
+	 FGLpQ3i7SVRsaFiCsrjIdAqnsF60Ylp3xH6ugnS4XZ0ux/wLJWZUTdaOTopC67kgdb+HH
+	 4RO1ConPDKL8WGDcYulNccst/tzrd6FKl405R6eX49/uiXi7WIpbgY1iV1rFND2cWDtQl
+	 wFxiqSYSi5hOBQ77xc9FYVdtm9eIJ3pUXhCSYD/NZREb59L3SincOzpk0Nbv9TQ=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1768472419;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KnZWE/vN7WeQU73j9OaHH+BojkCuakSF/uLVTudYhn0=;
+	b=3bgOhu7Ph01dRdQxpdMgUNqORM0609FxToNqmyN5ixQuhBUartQXy5g3isPf1ghxyXwE
+	 OFlURCEBalwvtIIhQS2z9doa5BvvtEB0ZYAsK97GZ3LU3xWsda+6G3zsBdN7Z8vL4aA04
+	 qy1AxAs67xow5c10QDPZKP77pwIwF8Aw6i0dpylSk22G/Py75skVHUmjAHwgM1FDsnsXG
+	 2ke2mClh2wYowB8FJCoQnXDMMKVqf4Iv8H3A+8DUMAE/TgZzIDkoW4Gf68dCmZx6g/J6/
+	 aOzV69T1E4UTw28vLAd42FoGP5mfotw3WwXJrHAeJQNLpkqdepAtOZpnkKC+atFMYy2K6
+	 H8Qln3ZUU3GadKjgyadb2+j3T2eNPyDiyZRysZLyxOorISn0VJOy3ManomgOJhDferR57
+	 MVYyJDqqEB4Hho1CXjhHCc3A4Xes7TSnvxtxy7QVzLTEK71FA8yS1yJuArv3gU/R8GQV4
+	 1qPl0l5YzhYvbXhI4EDFUX5vhRKnVpIdnNPk/GrFOCWJhngmmnsq1sEDP2SyoY60N7Oq7
+	 VCBLskBNQKa46sKANTp6ytUJiLbxAYR54ap6p19bXA1Dy+un8Vl1pWwipXtrHPQHyUTt+
+	 Xt3KC6+KLSW5XC3s/KgUNKe/81nR/2TcAFy4vSlBSinwwqlhnm/bVGxT8p70wNg=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 MIME-Version: 1.0
-References: <cover.1765472890.git.mykola_kvach@epam.com> <66fffded45f39599c62a1e4dad83c34f9de51d7d.1765472890.git.mykola_kvach@epam.com>
- <5bfbdbc6-c1ea-4aa6-acf0-1516b226f3c2@suse.com>
-In-Reply-To: <5bfbdbc6-c1ea-4aa6-acf0-1516b226f3c2@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Thu, 15 Jan 2026 12:19:30 +0200
-X-Gm-Features: AZwV_Qgt-1wOFbpC4qdZWzyD2qoK2Irfj7GqqXCWRcz4FktmgBTycqaQL1kkwck
-Message-ID: <CAGeoDV8PDwmFMY-mfESUJjBokgRHDg+bT4BPqMNK3hMnWROjkQ@mail.gmail.com>
-Subject: Re: [PATCH v7 12/12] xen/arm: Add support for system suspend
- triggered by control domain
+Date: Thu, 15 Jan 2026 11:20:19 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Rahul Singh <rahul.singh@arm.com>, Saeed Nowshadi <saeed.nowshadi@xilinx.com>, 
-	Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [XEN PATCH] x86/mce: use offsetof to determine section offset
+In-Reply-To: <2012453e-d09f-4da0-bdfc-8487cef278ef@suse.com>
+References: <350bd19ec4b0b190911d748df6ec92c626e7151a.1768415160.git.nicola.vetrini@bugseng.com>
+ <87de17df-0aed-4ce1-b556-f93a381b66d3@amd.com>
+ <a351802f6e1dff22f79cc7dbfd848aac@bugseng.com>
+ <2012453e-d09f-4da0-bdfc-8487cef278ef@suse.com>
+Message-ID: <1d15798d2e416764aa81d6120bbaf7a0@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
-
-On Mon, Dec 15, 2025 at 1:49=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 11.12.2025 19:43, Mykola Kvach wrote:
-> > --- a/xen/common/Kconfig
-> > +++ b/xen/common/Kconfig
-> > @@ -137,6 +137,11 @@ config HAS_EX_TABLE
-> >  config HAS_FAST_MULTIPLY
-> >       bool
-> >
-> > +config HAS_HWDOM_SHUTDOWN_ON_SUSPEND
-> > +     bool
-> > +     default y
-> > +     depends on !ARM_64 || !SYSTEM_SUSPEND
->
-> As written, this would want to be "def_bool y". However, I think I indica=
-ted
-
-OK, I=E2=80=99ll switch this to def_bool.
-
-> previously that imo it would be nice if we could stop adding more "depend=
-s on"
-> referencing particular architectures. Instead "select" or "imply" from
-> xen/arch/<arch>/Kconfig appears more desirable to use in such cases. That=
- way
-> each arch can control what it wants without needing to touch common code.
->
-> As an aside, in the context of PV_SHIM_EXCLUSIVE it was also said several
-> times that negative dependencies aren't very nice to have. Here we have n=
-o
-> prompt, so the "allyesconfig" concern doesn't apply, but I still thought =
-I'd
-> mention this.
-
-I used the common-level dependency only to avoid adding selects in every
-other arch Kconfig, as the only exception I need is
-    ARM_64 && SYSTEM_SUSPEND.
-
-If you still prefer keeping all arch-specific handling under
-xen/arch/<arch>/Kconfig, I can rework it accordingly.
-
->
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -1324,6 +1324,11 @@ void __domain_crash(struct domain *d)
-> >      domain_shutdown(d, SHUTDOWN_crash);
-> >  }
-> >
-> > +static inline bool need_hwdom_shutdown(uint8_t reason)
->
-> Personally I think "want" would better express things, but I don't really
-> mind "need".
-
-I'll change it to "want".
-
->
-> > +{
-> > +    return IS_ENABLED(CONFIG_HAS_HWDOM_SHUTDOWN_ON_SUSPEND) ||
-> > +           reason !=3D SHUTDOWN_suspend;
-> > +}
->
-> Seeing this in use, I wonder if HAS_ is really suitable here.
-
-What name would you consider more suitable here?
-
-Best regards,
-Mykola
-
->
+On 2026-01-15 11:17, Jan Beulich wrote:
+> On 14.01.2026 21:56, Nicola Vetrini wrote:
+>> On 2026-01-14 21:40, Jason Andryuk wrote:
+>>> On 2026-01-14 13:27, Nicola Vetrini wrote:
+>>>> --- a/xen/arch/x86/cpu/mcheck/mce-apei.c
+>>>> +++ b/xen/arch/x86/cpu/mcheck/mce-apei.c
+>>>> @@ -74,7 +74,8 @@ int apei_write_mce(struct mce *m)
+>>>>   	rcd.hdr.record_id = cper_next_record_id();
+>>>>   	rcd.hdr.flags = CPER_HW_ERROR_FLAGS_PREVERR;
+>>>>   -	rcd.sec_hdr.section_offset = (void *)&rcd.mce - (void *)&rcd;
+>>>> +	rcd.sec_hdr.section_offset = offsetof(struct cper_mce_record, mce) 
+>>>> -
+>>>> +		                     offsetof(struct cper_mce_record, hdr);
+>>> 
+>>> "= offsetof(struct cper_mce_record, mce);" should be sufficient since
+>>> the offset of hdr is 0?
+>> 
+>> Yeah, makes sense. Given that the struct layout is coming from the 
+>> UEFI
+>> spec it's not likely to change either.
+> 
+> It's okay either way, but I'm happy to adjust to the simpler form while
+> committing (I'd slightly prefer that, precisely for being simpler, and 
+> it
+> being close to what was there originally):
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> (ftaod: either way).
+> 
 > Jan
+
+Thanks
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
