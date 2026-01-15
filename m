@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4C3D2505C
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 15:46:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1205234.1519594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1B1D250E8
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 15:50:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1205249.1519603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgOcH-0004ng-1Z; Thu, 15 Jan 2026 14:46:29 +0000
+	id 1vgOgG-0006Nm-H8; Thu, 15 Jan 2026 14:50:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1205234.1519594; Thu, 15 Jan 2026 14:46:29 +0000
+Received: by outflank-mailman (output) from mailman id 1205249.1519603; Thu, 15 Jan 2026 14:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgOcG-0004lf-UU; Thu, 15 Jan 2026 14:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 1205234;
- Thu, 15 Jan 2026 14:46:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vgOgG-0006LD-EI; Thu, 15 Jan 2026 14:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 1205249;
+ Thu, 15 Jan 2026 14:50:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s7ks=7U=yandex-team.ru=vsementsov@srs-se1.protection.inumbo.net>)
- id 1vgOcE-0004lZ-CV
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 14:46:27 +0000
-Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net
- [178.154.239.200]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4751a25-f220-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 15:46:20 +0100 (CET)
-Received: from mail-nwsmtp-smtp-corp-main-66.iva.yp-c.yandex.net
- (mail-nwsmtp-smtp-corp-main-66.iva.yp-c.yandex.net
- [IPv6:2a02:6b8:c0c:bca6:0:640:3d05:0])
- by forwardcorp1d.mail.yandex.net (Yandex) with ESMTPS id BF22180868;
- Thu, 15 Jan 2026 17:46:19 +0300 (MSK)
-Received: from vsementsov-lin (unknown [2a02:6bf:8080:b8d::1:8])
- by mail-nwsmtp-smtp-corp-main-66.iva.yp-c.yandex.net (smtpcorp/Yandex) with
- ESMTPSA id 8kWwj30BHuQ0-HTKyN28y; Thu, 15 Jan 2026 17:46:19 +0300
+ <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vgOgF-0006L7-Rz
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 14:50:35 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8be149a4-f221-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 15:50:34 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b86ed375d37so134970566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 06:50:34 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b842a27cc6bsm2814906366b.23.2026.01.15.06.50.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Jan 2026 06:50:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,179 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4751a25-f220-11f0-9ccf-f158ae23cfc8
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1768488379;
-	bh=Sog4NysrTRQOFCDxSu8OumRUjUeggtRZWWoGKeJhXK8=;
-	h=Cc:Message-ID:References:Date:In-Reply-To:Subject:To:From;
-	b=Zo+ReVQSp0H9DsSsqmLA+kMJOcr4AtKNgy8qGN6uamZ5F60AS1SURE/HMjegdE7G4
-	 DB2Toh+3/Sb3jvZfPaDpL7JoYQK7j+MdBtSnPNoL8MLi9NDS63hPW8aFwJrGS0P5c6
-	 svuGmV/obDwfYA8kobs7ivPGRb9Ky/dYNlaHLiGg=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-66.iva.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-To: marcandre.lureau@redhat.com
-Cc: pbonzini@redhat.com,
-	qemu-devel@nongnu.org,
-	vsementsov@yandex-team.ru,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH v3 08/10] chardev: introduce .chr_get_pty_name() handler
-Date: Thu, 15 Jan 2026 17:46:02 +0300
-Message-ID: <20260115144606.233252-9-vsementsov@yandex-team.ru>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260115144606.233252-1-vsementsov@yandex-team.ru>
-References: <20260115144606.233252-1-vsementsov@yandex-team.ru>
+X-Inumbo-ID: 8be149a4-f221-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768488634; x=1769093434; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=16eX45xSUfz4pCxpxfVOREW80XWq4NETUSWgOvDD4hY=;
+        b=WpnWo/QuD5ul7ZoTeH3Uup5k6wC8u+Jeu4Mi6inAI9ayOWH1Bg2Xjrbd6Z9y2CjN/5
+         4Jhk+oc0PjpYviDlwG3vhMnb5NsrNdiYLfyr8uQmyH9cbUKddjOARUJGwEKvnNfu1IeP
+         zYmfJW9+BLrccqRMrStbI9qbelor8hwIiANYGhqmZq+IiAOFDDRV8ikRehANK8PvPdOg
+         vm3GYunHHirfJAvxzziBLOI5N/X4HUMIojmseQs0o/tzuNX6mkiVjKeIyZK181mNRsNQ
+         SQ4i6oEiRNuhD3C+D1CYi3B7nvhmuW6WW7Oyr/mjGk0t0mwbYaFEPUUukiEdTLw9P0F1
+         H3gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768488634; x=1769093434;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=16eX45xSUfz4pCxpxfVOREW80XWq4NETUSWgOvDD4hY=;
+        b=VDELMopaOp5eQC1cYrg/sMZUAwpV4eIZ/g5t5Q25FLTN8LaqMXePPSSEY9//cRF7vZ
+         OKxypg1MMhnX5mvEE11TyJBmvmqAuzPjQ9cCWwT7HK3x2sGp/UNCDXeNCjFNPFh0wjxD
+         ovefhndQOonUuZlHK2jCyUz2eJMhyau+Q3Q8jhjTblDZBAhpCGS9N58/H+C4oDRjOMWP
+         mmClDEdTQXj9nHNO2fukw2dOxOdI5V1EEGeYc+kh4wLIUxASlrOMqdDFVIhGK6NWRhuN
+         vsEM/meNKCUf9BuT3iTzfS5AV0f7ka0bqCS/6I6t4TyEHpFGu2caTUucDTVklV8GjTKg
+         Wa/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVvV1y21ubHoLHth96GoAcaHlQnhEnByMmSQmTAQy/Ak0/nZYsc50+HWO1pbWMIp84SNT+H1LclhY8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWTReXhV2MrgMBKj96au00zYKEDij3fWjQhxWwbsaQ16/x4Utx
+	iY/mEjTjxv5alhcboQJ7JfEMo6o3L/HiiYUJ4QlzbRtm86mLIKi618G0
+X-Gm-Gg: AY/fxX5F6heCTvqqxIp3QrbM+NSVl3WKmRZPe72MS2OehANKCjceIbzDbgtIVDyxoHK
+	7D0PlQ1NqUJfi1aGAUeKoq2jFihZpqbpMFsebAp+E4YoXuV5HV7KuObH04k7zbOe7FDquay2jnL
+	SDQ5FCVh3UdaIERumGs6l3Yo3fKlgK1oBgaur3HdVKhjuqJdB+/1/pimPd0e+DUYKJjS4lb91P4
+	pOVxJtVRd+XKxmWllGFX6P/SgPHPqE6bQnqYh2UnWB9u3BaUxJS0L5T8AdCLZv5ylAFNpv92G2X
+	lTWhEM26LbqFRDWn9c3ts+QIFXewI+xsHHDxIWCqp0aNzQDSGfMh7bJZmE33aXCm8DRaBrrMeg8
+	J4LcxaG0kA7l75tPQexlo9OOniEfahiA2p9mb8JSn0448I0b9kj9rxGaYNinX7Z/EH5ManYPtnf
+	rXEWZKOYLodRCHtNEJhDosUI/VNoSAF1MbB+ycG+2q+kbpDqvgQSMAZQavY4JDSTc=
+X-Received: by 2002:a17:907:75c7:b0:b87:6f58:a848 with SMTP id a640c23a62f3a-b876f58b96cmr300906766b.51.1768488633420;
+        Thu, 15 Jan 2026 06:50:33 -0800 (PST)
+Message-ID: <4e94f7f5-2cf2-4695-873b-5d269f10ddac@gmail.com>
+Date: Thu, 15 Jan 2026 15:50:32 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/riscv: dump CSRs on unexpected traps
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260115125601.70834-1-oleksii.kurochko@gmail.com>
+ <8377bdc2-d92d-4c3f-893b-19c842cad3a7@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <8377bdc2-d92d-4c3f-893b-19c842cad3a7@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently we do two wrong things:
 
-1. Abuse s->filename to get pty_name from it
+On 1/15/26 2:12 PM, Jan Beulich wrote:
+> On 15.01.2026 13:56, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/traps.c
+>> +++ b/xen/arch/riscv/traps.c
+>> @@ -17,6 +17,10 @@
+>>   #include <asm/traps.h>
+>>   #include <asm/vsbi.h>
+>>   
+>> +#define print_csr(csr) do { \
+>> +    printk("\t" #csr ": %#02lx\n", csr_read(csr)); \
+> Why the 02 in the format? If you wanted to align things, you'd use %016lx. (I
+> also don't think the 0x prefixes are overly useful in such dumping, but others
+> may disagree.) As an aside, the width of 2 would be fully consumed by your use
+> of #, except for zero which would (oddly) be printed as 00 afaict.
 
-2. Violate layering with help of CHARDEV_IS_PTY()
+I used before 0x%02lx and after switch to %# don't think that 02 would fully consumed
+by #.
 
-Let's get rid of both, and introduce correct way to get pty name in
-generic code, if available.
+I am okay to use just %lx.
 
-Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
----
- chardev/char-pty.c     |  7 +++++++
- chardev/char.c         | 19 +++++++++++++------
- hw/char/xen_console.c  |  7 ++++---
- include/chardev/char.h |  7 +++++--
- 4 files changed, 29 insertions(+), 11 deletions(-)
+>
+>> +} while ( 0 )
+> Why the do/while wrapping, btw?
 
-diff --git a/chardev/char-pty.c b/chardev/char-pty.c
-index a582aa7bc7..047aade09e 100644
---- a/chardev/char-pty.c
-+++ b/chardev/char-pty.c
-@@ -387,6 +387,12 @@ static void pty_chr_parse(QemuOpts *opts, ChardevBackend *backend, Error **errp)
-     pty->path = g_strdup(path);
- }
- 
-+static char *pty_chr_get_pty_name(Chardev *chr)
-+{
-+    PtyChardev *s = PTY_CHARDEV(chr);
-+    return g_strdup(s->pty_name);
-+}
-+
- static void char_pty_class_init(ObjectClass *oc, const void *data)
- {
-     ChardevClass *cc = CHARDEV_CLASS(oc);
-@@ -396,6 +402,7 @@ static void char_pty_class_init(ObjectClass *oc, const void *data)
-     cc->chr_write = pty_chr_write;
-     cc->chr_update_read_handler = pty_chr_update_read_handler;
-     cc->chr_add_watch = pty_chr_add_watch;
-+    cc->chr_get_pty_name = pty_chr_get_pty_name;
- }
- 
- static const TypeInfo char_pty_type_info = {
-diff --git a/chardev/char.c b/chardev/char.c
-index 44bfed3627..0dc792b88f 100644
---- a/chardev/char.c
-+++ b/chardev/char.c
-@@ -1090,9 +1090,7 @@ ChardevReturn *qmp_chardev_add(const char *id, ChardevBackend *backend,
-     }
- 
-     ret = g_new0(ChardevReturn, 1);
--    if (CHARDEV_IS_PTY(chr)) {
--        ret->pty = g_strdup(chr->filename + 4);
--    }
-+    ret->pty = qemu_chr_get_pty_name(chr);
- 
-     return ret;
- 
-@@ -1101,6 +1099,17 @@ err:
-     return NULL;
- }
- 
-+char *qemu_chr_get_pty_name(Chardev *chr)
-+{
-+    ChardevClass *cc = CHARDEV_GET_CLASS(chr);
-+
-+    if (cc->chr_get_pty_name) {
-+        return cc->chr_get_pty_name(chr);
-+    }
-+
-+    return NULL;
-+}
-+
- ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
-                                   Error **errp)
- {
-@@ -1192,9 +1201,7 @@ ChardevReturn *qmp_chardev_change(const char *id, ChardevBackend *backend,
-     object_unref(OBJECT(chr_new));
- 
-     ret = g_new0(ChardevReturn, 1);
--    if (CHARDEV_IS_PTY(chr_new)) {
--        ret->pty = g_strdup(chr_new->filename + 4);
--    }
-+    ret->pty = qemu_chr_get_pty_name(chr_new);
- 
-     return ret;
- }
-diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index 8ee098d9ad..bdeb76dc87 100644
---- a/hw/char/xen_console.c
-+++ b/hw/char/xen_console.c
-@@ -418,6 +418,7 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
-     XenConsole *con = XEN_CONSOLE_DEVICE(xendev);
-     Chardev *cs = qemu_chr_fe_get_driver(&con->chr);
-     unsigned int u;
-+    g_autofree char *pty_name = NULL;
- 
-     if (!cs) {
-         error_setg(errp, "no backing character device");
-@@ -450,9 +451,9 @@ static void xen_console_realize(XenDevice *xendev, Error **errp)
- 
-     trace_xen_console_realize(con->dev, object_get_typename(OBJECT(cs)));
- 
--    if (CHARDEV_IS_PTY(cs)) {
--        /* Strip the leading 'pty:' */
--        xen_device_frontend_printf(xendev, "tty", "%s", cs->filename + 4);
-+    pty_name = qemu_chr_get_pty_name(cs);
-+    if (pty_name) {
-+        xen_device_frontend_printf(xendev, "tty", "%s", pty_name);
-     }
- 
-     /* No normal PV driver initialization for the primary console under Xen */
-diff --git a/include/chardev/char.h b/include/chardev/char.h
-index e1bf97222b..ada5529fa6 100644
---- a/include/chardev/char.h
-+++ b/include/chardev/char.h
-@@ -247,8 +247,6 @@ OBJECT_DECLARE_TYPE(Chardev, ChardevClass, CHARDEV)
- 
- #define CHARDEV_IS_RINGBUF(chr) \
-     object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_RINGBUF)
--#define CHARDEV_IS_PTY(chr) \
--    object_dynamic_cast(OBJECT(chr), TYPE_CHARDEV_PTY)
- 
- struct ChardevClass {
-     ObjectClass parent_class;
-@@ -308,6 +306,9 @@ struct ChardevClass {
-     void (*chr_be_event)(Chardev *s, QEMUChrEvent event);
- 
-     void (*chr_listener_cleanup)(Chardev *chr);
-+
-+    /* return PTY name if available */
-+    char *(*chr_get_pty_name)(Chardev *s);
- };
- 
- Chardev *qemu_chardev_new(const char *id, const char *typename,
-@@ -322,4 +323,6 @@ GSource *qemu_chr_timeout_add_ms(Chardev *chr, guint ms,
- void suspend_mux_open(void);
- void resume_mux_open(void);
- 
-+char *qemu_chr_get_pty_name(Chardev *chr);
-+
- #endif
--- 
-2.52.0
+Added it automatically, there is no really to have it here. I'll drop.
+
+
+>
+>> @@ -99,12 +103,63 @@ static const char *decode_cause(unsigned long cause)
+>>       return decode_trap_cause(cause);
+>>   }
+>>   
+>> +static void dump_csrs(unsigned long cause)
+>> +{
+>> +    unsigned long hstatus;
+>> +    bool gva;
+>> +
+>> +    printk("\nDumping CSRs...\n");
+>> +
+>> +    printk("Supervisor CSRs\n");
+>> +    print_csr(CSR_STVEC);
+>> +    print_csr(CSR_SATP);
+>> +    print_csr(CSR_SEPC);
+>> +
+>> +    hstatus = csr_read(CSR_HSTATUS);
+>> +    gva = !!(hstatus & HSTATUS_GVA);
+> No need for !! when the lhs type is bool. Question is whether gva is useful
+> to have as a local in the first place, when ...
+>
+>> +    printk("\tCSR_STVAL: %#02lx%s\n", csr_read(CSR_STVAL),
+>> +           gva ? ", (guest virtual address)" : "");
+> ...  this it's sole use (you don't use where you could further down).
+
+Agree, with such usage there is no really necessity for it.
+
+>
+>> +    printk("\tCSR_SCAUSE: %#02lx\n", cause);
+>> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+>> +    print_csr(CSR_SSTATUS);
+>> +
+>> +    printk("\nVirtual Supervisor CSRs\n");
+>> +    print_csr(CSR_VSTVEC);
+>> +    print_csr(CSR_VSATP);
+>> +    print_csr(CSR_VSEPC);
+>> +    print_csr(CSR_VSTVAL);
+>> +    cause = csr_read(CSR_VSCAUSE);
+>> +    printk("\tCSR_VSCAUSE: %#02lx\n", cause);
+>> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+>> +    print_csr(CSR_VSSTATUS);
+> Everything below I understand wants dumping, but for much of the above
+> that's less clear to me. Why would guest's values be relevant when we
+> have a hypervisor problem?
+
+It could be useful when we jump to guest, something wasn't configured
+correctly and so lets say an illegal instruction in guest happen and
+so it would be useful to at least understand what is this instruction
+based on VSEPC or VSTVAL.
+
+All others probaly there is no need to have printed, I don't remember
+that I used them during debug.
+
+
+>
+>> +    printk("\nHypervisor CSRs\n");
+>> +
+>> +    print_csr(CSR_HSTATUS);
+> Above you special-case VSCAUSE, but here you re-read HSTATUS.
+
+Because above I re-used 'cause' then for decode_cause().
+
+>
+>> +    printk("\t\thstatus.VTSR=%d\n", !!(hstatus & HSTATUS_VTSR));
+>> +    printk("\t\thstatus.VTVM=%d\n", !!(hstatus & HSTATUS_VTVM));
+>> +    printk("\t\thstatus.HU=%d\n", !!(hstatus & HSTATUS_HU));
+>> +    printk("\t\thstatus.SPVP=%d\n", !!(hstatus & HSTATUS_SPVP));
+>> +    printk("\t\thstatus.SPV=%d\n", !!(hstatus & HSTATUS_SPV));
+>> +    printk("\t\thstatus.GVA=%d\n", !!(hstatus & HSTATUS_GVA));
+> Might these better be put on a single line, e.g. in the form
+>
+>    [VTSR SPVP SPV]
+>
+> i.e. enumerating the (interesting) set bits textually?
+
+Agree, visually it would be better.
+
+>
+>> +    print_csr(CSR_HGATP);
+>> +    print_csr(CSR_HTVAL);
+>> +    print_csr(CSR_HTINST);
+>> +    print_csr(CSR_HEDELEG);
+>> +    print_csr(CSR_HIDELEG);
+>> +    print_csr(CSR_HSTATEEN0);
+>> +}
+>> +
+>>   static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>>   {
+>>       unsigned long cause = csr_read(CSR_SCAUSE);
+>>   
+>>       printk("Unhandled exception: %s\n", decode_cause(cause));
+>>   
+>> +    dump_csrs(cause);
+>> +
+>>       die();
+>>   }
+> Apart from CSRs, how about also dumping GPRs?
+
+Maybe, it is a good idea and it would be nice to add them.
+
+I just almost never needed them for debugging so I am not printing
+them.
+
+~ Oleksii
 
 
