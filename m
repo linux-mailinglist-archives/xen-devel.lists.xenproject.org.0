@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F4DD23AD3
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:45:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204589.1519222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62822D23B63
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:51:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204605.1519232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJvE-0006eQ-VE; Thu, 15 Jan 2026 09:45:44 +0000
+	id 1vgK0P-0000JY-KW; Thu, 15 Jan 2026 09:51:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204589.1519222; Thu, 15 Jan 2026 09:45:44 +0000
+Received: by outflank-mailman (output) from mailman id 1204605.1519232; Thu, 15 Jan 2026 09:51:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJvE-0006cI-Rb; Thu, 15 Jan 2026 09:45:44 +0000
-Received: by outflank-mailman (input) for mailman id 1204589;
- Thu, 15 Jan 2026 09:45:44 +0000
+	id 1vgK0P-0000HG-HJ; Thu, 15 Jan 2026 09:51:05 +0000
+Received: by outflank-mailman (input) for mailman id 1204605;
+ Thu, 15 Jan 2026 09:51:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgJvE-0006bP-6j
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:45:44 +0000
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [2a00:1450:4864:20::344])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/TfB=7U=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1vgK0N-0000H8-OA
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:51:03 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f59c244a-f1f6-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 10:45:43 +0100 (CET)
-Received: by mail-wm1-x344.google.com with SMTP id
- 5b1f17b1804b1-47ee974e230so6051465e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:45:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af64a671sm4799221f8f.9.2026.01.15.01.45.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:45:42 -0800 (PST)
+ id b3c898c2-f1f7-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 10:51:02 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-4327555464cso367518f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:51:02 -0800 (PST)
+Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
+ [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-434af64a650sm4874422f8f.4.2026.01.15.01.51.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jan 2026 01:51:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f59c244a-f1f6-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: b3c898c2-f1f7-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768470343; x=1769075143; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZjyOOHkIsXSvDmYZrojhSZYTaRaQBRh49A/U5Mb4dGU=;
-        b=d6JVzC5L2bnp2VyR49T7UEvpIKa3/Zj1LJRxw+0DbLDLikFYIUe6JAQ/jscqmsEsqb
-         ySzbiBeWXOShilqTHBPZJd+6gG/2xp0XJKvKD8iH/IgSV5WNlI44oSPj/H/hPESQD6K2
-         /7zBIjS3nwbE80f3avqSZts3GpLMFoUdg7gtLIiC5A5H0xS5lcwGL0lH/TD9sZP/IjgH
-         zpER+wOXTU9caF1yf6J/3PPPcUz9et/cxbhTH/nEFUiipEECEZcDwGavckCYy42mtoSo
-         hYr6QjyRUPWRzS3YhjnqJPx5wrFSHeH2Y+UjX0d165tVRfkNknY4v40J5tFAd+yRlYYe
-         8N+A==
+        d=citrix.com; s=google; t=1768470662; x=1769075462; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UJRL9dWZYYSFhfbfgxjey3dNtDOXM5WXHk14eiGhqrU=;
+        b=ZwrFxAwn8DelPCuJfDrdaeiWA5Y8E2Cb4WVRcJNgPpg+iZmPGG4iPFjMmS4TdAY70u
+         mzk4PDh4I3Z7plsY4qjUZmiU/kSu4Lx+cLicQEGNPvhXaXRiaCaCkKcYsl64asWCh6+q
+         lbcfY0gPsvs0S8UJd8VwmCO53YDAQjy+vsZBs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768470343; x=1769075143;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1768470662; x=1769075462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZjyOOHkIsXSvDmYZrojhSZYTaRaQBRh49A/U5Mb4dGU=;
-        b=PBI/sanSS5w1vlQSKlpSAUDopSs+dfp0oPSE+qnAXQ79ZHprPUX8dcOPsn9BXIvqUj
-         PnAtI66wpjk+jdNm3gNkjNAgx+NvrzcgC+v+ugV/H4bR0ALiMmzUICVfDbXGY23sq1FZ
-         z1hFC6iCe5sCtC58SoFe8n6flIQYPfhXweRFaS0NEU/CaNw9aKzrd3ElIG80fHT2yZOo
-         iQ71N1/UFU5F85Kg1iUXfozDbLfbUE8eTpcvssqhEFfjPxJHrM+Bic8DIRCWARoIH5cp
-         aZ/DyjMqkMkWUlbXZwXaLiJlcdX0bVvSrf+4hHamCMN3i/EYW6uR3i/77sRfclzMLPTG
-         wAbg==
-X-Forwarded-Encrypted: i=1; AJvYcCXU/yTGb9CwKHcIg8D3z2oP3FyHrr2TpQtXlrXMiZWK6QPbJ7aFjzB6VVY+7LWLMrVBGdJXeAn3RrA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy0IqXcl/efi3IqQiX/iuLP2145G6JHb/p2Ez1EcL3e21CzOGq+
-	TnMl3VgAtNU3zCj2RZGeiC95BFuBxpsMQ/NfIjndILWGtJxDypFKPGXV2Xr2IP3bZQ==
-X-Gm-Gg: AY/fxX7DZKuN8PE9PkgzWkR2wseJalPQqzD+GM7YmmxbZ6evPFTHFThLj3oSuR/Mk3H
-	iVO3EWdADy96vtcydcWmBHRdRdK15gBfxqoAf/HaE5CrvJaoHZvRvYBfTGcoDfRWV45YHtLsF2I
-	8a3uu2xz2wT61O8XQAptVCNPMjG1R3/xMcEVHCDVHNozq4UUcny5I64LYlQ7/Iwwo00UKdW6PUO
-	kv6fRS9OGOSG3D3s1Ebez2PWajf7LoG7ZlTKMkTV68yNDigl7FGvLmR3qz1tyzH7kogqn12Jycg
-	JLxweCy7jIH+KEsYyZzhMNwv3IHuEyWNEjIxZTIyKoipc4Yb6HFRMHTOSAzTQ/9jT9WNXOZW8qC
-	OvzfDg7Ca7oIf+da+HuRysjyYIXtjCgi4c+xTRsURf+fz4jkUAOOnhjmq4so5XBWnXStaV2EdoU
-	qcfYiTjOAwMIuGT8zqkWwnbjNSWheHbOGPnwKfbFYqfUnhs/6U5d9KPljdH8W3gLGY05xSi0Ope
-	9A=
-X-Received: by 2002:a05:600c:458e:b0:47a:7fdd:2906 with SMTP id 5b1f17b1804b1-47ee32fd0aemr52993405e9.12.1768470342813;
-        Thu, 15 Jan 2026 01:45:42 -0800 (PST)
-Message-ID: <3b9c018a-aceb-4015-963c-e8854dd50efa@suse.com>
-Date: Thu, 15 Jan 2026 10:45:41 +0100
+        bh=UJRL9dWZYYSFhfbfgxjey3dNtDOXM5WXHk14eiGhqrU=;
+        b=J5qq8tSCOzAHu/o3qoIN2qwm3XLuwp6aS8f4RJ9f1DdHNNuZMP00pFjWGcXeQpX8Pm
+         fR2wQlhcF4pCjO4Ysaw/pH12JkEz4g24BRxCrgqvBM3jKJl9kjmNPdWrJ5hxEjmVzQJX
+         JIaNJEh/7uuyn5H8nzQBtE4iC32edqhvxerjHf9ianeBAPuNBW0BoBOcnpZwJUsEYQaS
+         jQQu8ZEV0yMMZG2BZK3LvAgYHgADsijPErnzwiglJ+B4zRbGWRDO7rgEZDiUV/FN2ylr
+         nw11fHjbTnAUJdlBWfD7Zm76a74rg083YFUt4oIAfwI6Ig6KQTf2wJBv/2vADdwdvDf2
+         bxgg==
+X-Gm-Message-State: AOJu0YxdlyQamLMyfCHCDzv7jPeL8KslCHE6cm1aIahUx2QvQ+o83N80
+	s/TuwSlZwAuoon5/+danIWMScQgtKQc5hrsgXHKD2kE3R7RRFYvzcP5EsAnbQkBJN8B5LiCVT1I
+	GTHsL
+X-Gm-Gg: AY/fxX5wXLBtNwT/eSTGmfG4x2PIoLPv9Gwge+Rugfqj1dMmrnHBrqORY79AbuDEDq9
+	1aFzjbqBulANs7fhHmtGaWIac/fzYRLvZFz4y5rL0MaFutGaKx5f0pLAiIr1y95aiquJWYBA/PA
+	CaP3q3poK6ZIgHslS7jNNbYkbsqVraKwwwFy2gw/Rc8es2itOIIIyEmesPPZ0RSS+Y5XyhsySWy
+	U/jPrBTr59QrokcpG414e1zhzzqV8ozUEuO7mQ1rNcKFM26PW25NXqXSiDgNZDA+YrfH47q0lqi
+	RFvP097MKRB1Tvwk+5jy33guJX4jptITTuEoKEXmZDNODRSTCSzE2IMjZMaBy9hrY+5Qi8t52LG
+	7nC9uZfTXcqJXhEOxvXjetINxfU6Ho5Srr8FFF3QyyPUpoX7HZgJ23G8JKflwosLBEKcu59JPdG
+	9FUJMzhbmwVzyv9m5dXH6dSp4bg8p9DbQmc1WD0T094BdxE94ZC5d5VCtMB3fDXg==
+X-Received: by 2002:a05:6000:1865:b0:431:8f8:7f1e with SMTP id ffacd0b85a97d-4342c548320mr7052654f8f.48.1768470661630;
+        Thu, 15 Jan 2026 01:51:01 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/time: Drop unused parameter from soft_rdtsc()
+Date: Thu, 15 Jan 2026 09:50:47 +0000
+Message-Id: <20260115095047.1201825-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/6] consolidate vm event subsystem
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- jason.andryuk@amd.com
-References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260115092841.2651224-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.01.2026 10:28, Penny Zheng wrote:
-> This patch serie originates from "Disable domctl-op via CONFIG_MGMT_HYPERCALLS"
-> [1], and focuses on consolidating vm event subsystem (i.e. VM_EVENT), and its
-> derived features, like memory paging, etc.
-> 
-> [1] https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg200843.html
-> ---
-> Happy 2026!
-> Sorry for the late response to this patch serie and the domctl one.
-> v4 is just doing a rebase on the latest staging, and one comment fix.
-> I still need 2 acks for commit "xen/p2m: move xenmem_access_to_p2m_access() to
-> common p2m.c" and "xen/mem_access: wrap memory access when VM_EVENT=n".
+Fixes: a6ed4543222a ("x86/time: pv_soft_rdtsc() is PV-only")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/pv/emul-priv-op.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Is this true? I'm under the impression that strictly speaking every one of
-the patches needs Tamas'es ack.
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index c970e16152f4..bf3c92d9ee29 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -874,8 +874,7 @@ static uint64_t guest_efer(const struct domain *d)
+     return val;
+ }
+ 
+-static uint64_t soft_rdtsc(
+-    const struct vcpu *v, const struct cpu_user_regs *regs)
++static uint64_t soft_rdtsc(const struct vcpu *v)
+ {
+     s_time_t old, new, now = get_s_time();
+     struct domain *d = v->domain;
+@@ -934,7 +933,7 @@ static int cf_check read_msr(
+         return X86EMUL_OKAY;
+ 
+     case MSR_IA32_TSC:
+-        *val = currd->arch.vtsc ? soft_rdtsc(curr, ctxt->regs) : rdtsc();
++        *val = currd->arch.vtsc ? soft_rdtsc(curr) : rdtsc();
+         return X86EMUL_OKAY;
+ 
+     case MSR_EFER:
+-- 
+2.39.5
 
-Jan
 
