@@ -2,56 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CA31D25456
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 16:21:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1205332.1519633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4DED253C9
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 16:17:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1205291.1519614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgPAL-0003M4-B8; Thu, 15 Jan 2026 15:21:41 +0000
+	id 1vgP62-0001C7-He; Thu, 15 Jan 2026 15:17:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1205332.1519633; Thu, 15 Jan 2026 15:21:41 +0000
+Received: by outflank-mailman (output) from mailman id 1205291.1519614; Thu, 15 Jan 2026 15:17:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgPAL-0003KM-8V; Thu, 15 Jan 2026 15:21:41 +0000
-Received: by outflank-mailman (input) for mailman id 1205332;
- Thu, 15 Jan 2026 15:21:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vgP62-00019l-Ej; Thu, 15 Jan 2026 15:17:14 +0000
+Received: by outflank-mailman (input) for mailman id 1205291;
+ Thu, 15 Jan 2026 15:17:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jd1q=7U=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vgPAJ-000379-NW
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 15:21:39 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2dc7fe0-f225-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 16:21:38 +0100 (CET)
-Received: from BN9P223CA0004.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::9)
- by LV9PR12MB9808.namprd12.prod.outlook.com (2603:10b6:408:2e7::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Thu, 15 Jan
- 2026 15:21:34 +0000
-Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:408:10b:cafe::cf) by BN9P223CA0004.outlook.office365.com
- (2603:10b6:408:10b::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Thu,
- 15 Jan 2026 15:21:20 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Thu, 15 Jan 2026 15:21:33 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 15 Jan
- 2026 09:21:33 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 15 Jan
- 2026 07:21:33 -0800
-Received: from [172.28.136.14] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 15 Jan 2026 07:21:32 -0800
+ <SRS0=rpt9=7U=bounce.vates.tech=bounce-md_30504962.696904f1.v1-cc88d528486c4ba3b4af9c7aaf14be2a@srs-se1.protection.inumbo.net>)
+ id 1vgP61-00019f-9H
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 15:17:13 +0000
+Received: from mail14.wdc04.mandrillapp.com (mail14.wdc04.mandrillapp.com
+ [205.201.139.14]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40a15334-f225-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 16:17:06 +0100 (CET)
+Received: from pmta16.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail14.wdc04.mandrillapp.com (Mailchimp) with ESMTP id 4dsRRP2W5Zz8XRwLR
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 15:17:05 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ cc88d528486c4ba3b4af9c7aaf14be2a; Thu, 15 Jan 2026 15:17:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,121 +41,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2dc7fe0-f225-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QzBZ8iQPP5BLvfZpeDGUQkjTpS6k3tyr6xQZTQSdmsANmRyHvLw7lJ5RDNO+j8v2hzf2rQEBTG0/wXTrHBAQzqmny4/0cWhoAMiFTdub8/uez9+RX0/oih0FkeR5l58wj0FuRg1ZZX2ArUcX6fHrNU8Zy/UyZWQamxo/P3HUBwDLKQkT/EOSklLSm88Oa9qe6rgi0TrRP/kPx54AVWxVNZzQ3AM8VOlK1tQ/Lt9HTHdWAAHKNtC8nARpnKPr4A+Q2BD+MVAooXENCsl9lDilyTpmrMJqV+WaUBWHBrwW0AM1VVzHLNH4Jyta52jyCghhX0tAU5rHkm+qNXKXpkEjSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eunTBxQUoCuFapaUeyOHSujr8tPvlHJRrRm31BHHiLU=;
- b=rk5RLGKna8I5jCMHYY78CmCBNG0BGZXqp2wLcfZMEZnjHXDRM9Ruy8qxJC+4BPkCfAVHzQ56Q6E5GEkuHj9YWhX0OILSRQKbevv9UC1Z5fA58DfjnzL79+HkZv2QKtH3UEfovaCh+L/Ow1V9+HImPXH7A/ZhJWq5nKO3DdOgZ+BK6IuFcuHUc8d55WEwwsElh6VRrHD2s2u5WK6XQJls5vSGxwK8RNeJYaU9JgBVY/J/RG6svQNFLswyuTT3yuo5dZsKH7Zy/iLatcW4pQIJVwz5WY7PkuJ+OKgdzhWCWm08GCZo39k90mv2x2xNjx8cq8z1K4xkB9QH07mQz8TtDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eunTBxQUoCuFapaUeyOHSujr8tPvlHJRrRm31BHHiLU=;
- b=o+Aqj6bhxPWQQUVZew+RBymS0+MTwouO1IQJKwUl/gfBd9/yOONg1stFr6o+KJRlTl1ChkhtyP/P8x6nkQR7q5h/QTi7UEBY787j2TtMY1J8Q85J+TxDTViXPMPOkoUATgVlOUZ6Lr0nWAcGwqq26kszq1Ysl9skh/Gr0pVJHtE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <84943630-0f68-4097-a5a4-4aba17c0fb86@amd.com>
-Date: Thu, 15 Jan 2026 10:09:00 -0500
+X-Inumbo-ID: 40a15334-f225-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1768490225; x=1768760225;
+	bh=E4u2qur7qFOqEXURQqrbQx6Ra8vsG2nE9Sz9kh4hOSQ=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=kxbSX9UIvzX0Nbna5a+R+b6UE1bLk1Ffez+ROzGGxkLnO2yzWNoawy+Um6PgC4Q/H
+	 ZTVT+n9UAeFWumA5fbphYi0oleWhk6DzdKm+Fp4g/wMjzv13Ls2sR3QV88eE8a5HH2
+	 cV8fSULVjdFFNkB9F52qVjiUd0COj4JGIdSCj16atss00AhP0T7599RoX8BF01H0O+
+	 UE8AUbqIzQLSqpdhzDmOxWjnHpjYb8hYf/SG3SW2BMeEjMPj9FWCtYI2ealZOGl41J
+	 lO30T7cf0e9BKIrZrlp2PbokROv2SyZ47Jnh4oj5rYqCgDYuM38CywiUctFmF+MGtU
+	 Nnva2MJdtgGTA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1768490225; x=1768750725; i=julian.vetter@vates.tech;
+	bh=E4u2qur7qFOqEXURQqrbQx6Ra8vsG2nE9Sz9kh4hOSQ=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=HbS7nfScM3qXoSz7E1wNpMx2rgzPnlNKNSibgG6QN2uSVUtuNkNKvMaQo53dSHnXu
+	 kHJXsTyp/Oz263SUQKmFiwJuG15xe3Q78VUV9PQZieeEJZea2i9Zb9n/1g+/4Rz3sI
+	 dVcoXVAIEWtP2RCUGgoM4FoTmNXZNNL/+z8dWOc74Ph4ndnx5d0PuQV1TGUfS/6uyZ
+	 5gM6GwYlFUvCuelkWEaoOkNMULVeJd22E3JT7xDGEU1Lit13kMQW9XGyWj07NVQwRa
+	 k4mDKCpsjWwM6fT6q/lefTP2zGu4w0VVaT/BXiOXNLKsBuCZc1cRa+FPsnm3l1QjdL
+	 vvGW8+U6ekVBw==
+From: "Julian Vetter" <julian.vetter@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20xen:=20Move=20NX=20handling=20to=20a=20dedicated=20place?=
+X-Mailer: git-send-email 2.51.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1768490223908
+To: xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, "Julian Vetter" <julian.vetter@vates.tech>
+Message-Id: <20260115151658.3725784-1-julian.vetter@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.cc88d528486c4ba3b4af9c7aaf14be2a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260115:md
+Date: Thu, 15 Jan 2026 15:17:05 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/6] xen/mem_access: wrap memory access when VM_EVENT=n
-To: Penny Zheng <Penny.Zheng@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Tamas K Lengyel <tamas@tklengyel.com>, "Alexandru
- Isaila" <aisaila@bitdefender.com>, Petre Pircalabu
-	<ppircalabu@bitdefender.com>
-References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
- <20260115092841.2651224-6-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20260115092841.2651224-6-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|LV9PR12MB9808:EE_
-X-MS-Office365-Filtering-Correlation-Id: df4d648f-03c6-46d6-7c97-08de5449c48a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WHVJZ0RLa1RIdDN4VTZpN1N3ZitGUGNtN3M4ckg3UG4vaUdkUklxakRZNFhu?=
- =?utf-8?B?Rml2N1gzSXlVYXRHaEtnZWJHRGY3MG5xVEx5MVZIOFhsZWh0KzVsNHVzT2VO?=
- =?utf-8?B?ZmZHbXVhaEUweWtsVk93K2NVVkQvNkJQdkRGWklBbTI4aTkyV2N6U2ppYlBa?=
- =?utf-8?B?YWJtZUV6MFpDMkNta3lwNEF3WTkvdWFjZzNkRGhtVUpxUE9xYWc4Y3gvdWJq?=
- =?utf-8?B?QWRkOGxhS0lmSVF5MGZsdjd0VUdYWnJTNnhyZUNIQ21WNTl1aGgzV3IzSTV0?=
- =?utf-8?B?TDNIbVBMZ1F4M0JlZTFpYjRHYkllMG9Vc0tzNmFnSWs4a1JVVGRVb0RWdmll?=
- =?utf-8?B?VnplWUIvRS9SVHJtM3AvMXd1LysvbG5sZklYTXhrSm1IOWMzM2Y3V0s2endz?=
- =?utf-8?B?Y3V4UEMxV3pacFNBd0ZRYzU5cWh3YkNScmkzQzRKT2M0bkV3a0lxQjMwd3gv?=
- =?utf-8?B?N0lSZE95aTQ1b0VwSjFYd1RzQi91NXRYSGZlSWgrUEJDUmNPeTI0QjRHY3JG?=
- =?utf-8?B?ZFg1S0VUWkxGMzNEc2IyM2FicDBxK1FnbUo3UmlnejdWZkR1ditBQ2tzNGp3?=
- =?utf-8?B?THVxVjZJbXUyVnByMXRPUGtodGJPaVZ1cXJCNkIwVjdHYjZKaXdOWm1sTnJs?=
- =?utf-8?B?RW5FcjRLOFA3SEw3TEpGeXhWYy9jdS80aTBwdFlEN0lTYmc3ZlVjN1V6WWhS?=
- =?utf-8?B?S0psMFJMd1lrZzk5WnRjYjVSaGxQSGZqVnoxZ3RpaEpCYkEwVEdJc0lIQVAv?=
- =?utf-8?B?YzUvRC80bFpTeEVuU0Rma3plVlN1emFjQWpXR2NCdU9wWXcxSjdkQ3V2dEFE?=
- =?utf-8?B?amIwY2VQMnpHNldNREdTS0ExemNEVVNlaGd2Q0FwZm56U3l0QVBhQkJyNEM2?=
- =?utf-8?B?Tk0wSkpyUkdNNXJ2bFlTTTlPMC83U0plUlJHcUhlWVVTY2U0NGdRSVpkdTN2?=
- =?utf-8?B?a3lhRGlsNHEyNXlKNXIwd0FHODVDMXRZY1FuKzVkeHNHY28vendQQjJ0VWZx?=
- =?utf-8?B?bFdCRWJTZ2o1VDRicmxZZFZXL01zc2kzS0tEa3dPTlJHMFY2OTJ3SEh1TE9M?=
- =?utf-8?B?M1puQjRNUUloaHV1ZHZFeGp4czMwSjlydHhCZ0U2VGNYNUNiOFFPVDBZVHlG?=
- =?utf-8?B?RXpqVEcwbVM5UEpNUWNJQlAxVEZLaHZkOGQ4enhteVpXbk9IZXJWMkNxNVJ5?=
- =?utf-8?B?YmJhVjVnYnVqeVMrQlk1Q0RIZnpneFFqWVZVU1hBeVB0YmdrZ0lFMStrRlk5?=
- =?utf-8?B?UU9JNjJjZmMvL2RrT1Ezd1drN0FtVFdmV01iVldsb3FxMEszNTBiSENoZGsx?=
- =?utf-8?B?ZU9TMVhoVERGYWYwdEl6eDBOZElvZ3ppNVVZSm85SENRcnk2elo2cmVCeVcw?=
- =?utf-8?B?enNnZzdjbjArWUY5TWRmNnhBS3RiT1hKdGRTZCtEOFBjQ2xwbEJybnl5cVh0?=
- =?utf-8?B?d0l5MUZubVY5R1FBRXJTUHYxcUhxL3BuT2wrT1oxQXNhb3UyYS9mc0RscERP?=
- =?utf-8?B?eW8wamN3WXdyUjlSVDF0YmN5cjFuL1hVeG9jSGpBRUh1UnRac2RMc0lJemxG?=
- =?utf-8?B?Ui9xdmg2RDZRaEtIVm5ORytDb2h5aTU4NG16bjVCR0duSHVxcmx6YWFhZUR5?=
- =?utf-8?B?ejR5YUYrWDRXV1lUdVczbHpoQUROZXVsRW9FaGdzZWNaTjRYYWd3YzdZeHcw?=
- =?utf-8?B?azNkMWU1VDBXcG84aHRMSTB2cTFMLzRxdjdCOGc2eUd1QzF3ZG9VeUVKNUc3?=
- =?utf-8?B?VWRVSWhybGdINC81S1BsVjFvaUNDeHJtOGhZd2d6MENhd3FKcG5GSm9tcFFt?=
- =?utf-8?B?bkRFbjNSdTZmMFo3T2RJZUE4T1ZOcGFsdHF4YmV1Nm0zWFVhaGQrVGpHbU42?=
- =?utf-8?B?WnA5WkF0R29MWnBwcjd0NWgrZGlFUWlDVEVLRGJXakZING9wcFh1Q2I4TWxW?=
- =?utf-8?B?azllallnMVhjc2tvbzVTMUNURVhMem1nelJwMVV3TVlWeFVKVWowNDMxMVM1?=
- =?utf-8?B?VURvYlNIOHdRYVdlSkRnN0x3RE5sVTg2bUJLbWZwcFUvSTM4dlJXKytTWnJI?=
- =?utf-8?B?cSs0NVROcnRwdmZ2SUdON0kzc202dXpmMlBtdU10Q2Y2Q0ZIMDBUYVc4VVZ2?=
- =?utf-8?B?ZWJWeFNFOHlLVHNQbTk4S0t3eThwU21TV2ZrUzhjVHZYKzEwUVF6djIwZkd1?=
- =?utf-8?B?UFBqWU9kR0l3YjUzYjJucUVWeitrY1p4c3hkSkE3b1B0d21lS2ZEcWxoMVJG?=
- =?utf-8?B?SDZ3OGdybjdEd0VqRWRRVSt6WjBnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 15:21:33.9505
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df4d648f-03c6-46d6-7c97-08de5449c48a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB74.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9808
 
-On 2026-01-15 04:28, Penny Zheng wrote:
-> Feature memory access is based on vm event subsystem, and it could be disabled
-> in the future. So a few switch-blocks in do_altp2m_op() need
-> vm_event_is_enabled() condition check to pass compilation when ALTP2M=y and
-> VM_EVENT=n(, hence MEM_ACCESS=n), like HVMOP_altp2m_set_mem_access, etc.
-> Function p2m_mem_access_check() still needs stub when VM_EVENT=n to
-> pass compilation.
-> Although local variable "req_ptr" still remains NULL throughout its lifetime,
-> with the change of NULL assignment, we will face runtime undefined error only
-> when CONFIG_USBAN is on. So we strengthen the condition check via adding
-> vm_event_is_enabled() for the special case.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+Currently the CONFIG_REQUIRE_NX prevents booting XEN, if NX is disabled
+in the BIOS. AMD doesn't have a software-accessible MSR to re-enable it,
+so there is nothing we can do. The system is going to die anyway. But on
+Intel NX might just be hidden via IA32_MISC_ENABLE.XD_DISABLE. But the
+function to re-enable it is called after the check + panic in
+efi_arch_cpu. So, this patch removes the early check and moves the
+entire NX handling into a dedicated place.
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
+---
+ xen/arch/x86/boot/head.S         | 56 --------------------------------
+ xen/arch/x86/boot/trampoline.S   |  5 ++-
+ xen/arch/x86/cpu/intel.c         |  4 ---
+ xen/arch/x86/efi/efi-boot.h      | 12 -------
+ xen/arch/x86/include/asm/setup.h |  2 ++
+ xen/arch/x86/setup.c             | 46 ++++++++++++++++++++++++++
+ 6 files changed, 50 insertions(+), 75 deletions(-)
+
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 77bb7a9e21..7fb7fb1351 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -133,7 +133,6 @@ multiboot2_header:
+ .Lbad_ldr_nbs: .asciz "ERR: Bootloader shutdown EFI x64 boot services!"
+ .Lbad_efi_msg: .asciz "ERR: EFI IA-32 platforms are not supported!"
+ .Lbag_alg_msg: .asciz "ERR: Xen must be loaded at a 2Mb boundary!"
+-.Lno_nx_msg:   .asciz "ERR: Not an NX-capable CPU!"
+ 
+         .section .init.data, "aw", @progbits
+         .subsection 1 /* Put data here after the page tables (in x86_64.S). */
+@@ -165,11 +164,6 @@ early_error: /* Here to improve the disassembly. */
+ .Lnot_aligned:
+         mov     $sym_offs(.Lbag_alg_msg), %ecx
+         jmp     .Lget_vtb
+-#ifdef CONFIG_REQUIRE_NX
+-.Lno_nx:
+-        mov     $sym_offs(.Lno_nx_msg), %ecx
+-        jmp     .Lget_vtb
+-#endif
+ .Lmb2_no_bs:
+         /*
+          * Ditto. Additionally, here there is a chance that Xen was started
+@@ -547,56 +541,6 @@ trampoline_setup:
+         bt      $cpufeat_bit(X86_FEATURE_LM),%edx
+         jnc     .Lbad_cpu
+ 
+-        /*
+-         * Check for NX
+-         *   - If Xen was compiled requiring it simply assert it's
+-         *     supported. The trampoline already has the right constant.
+-         *   - Otherwise, update the trampoline EFER mask accordingly.
+-         */
+-        bt      $cpufeat_bit(X86_FEATURE_NX), %edx
+-        jc     .Lgot_nx
+-
+-        /*
+-         * NX appears to be unsupported, but it might be hidden.
+-         *
+-         * The feature is part of the AMD64 spec, but the very first Intel
+-         * 64bit CPUs lacked the feature, and thereafter there was a
+-         * firmware knob to disable the feature. Undo the disable if
+-         * possible.
+-         *
+-         * All 64bit Intel CPUs support this MSR. If virtualised, expect
+-         * the hypervisor to either emulate the MSR or give us NX.
+-         */
+-        xor     %eax, %eax
+-        cpuid
+-        cmp     $X86_VENDOR_INTEL_EBX, %ebx
+-        jnz     .Lno_nx
+-        cmp     $X86_VENDOR_INTEL_EDX, %edx
+-        jnz     .Lno_nx
+-        cmp     $X86_VENDOR_INTEL_ECX, %ecx
+-        jnz     .Lno_nx
+-
+-        /* Clear the XD_DISABLE bit */
+-        mov     $MSR_IA32_MISC_ENABLE, %ecx
+-        rdmsr
+-        btr     $2, %edx
+-        jnc     .Lno_nx
+-        wrmsr
+-        orb     $MSR_IA32_MISC_ENABLE_XD_DISABLE >> 32, 4 + sym_esi(trampoline_misc_enable_off)
+-
+-        /* Check again for NX */
+-        mov     $0x80000001, %eax
+-        cpuid
+-        bt      $cpufeat_bit(X86_FEATURE_NX), %edx
+-        jnc     .Lno_nx
+-
+-.Lgot_nx:
+-#ifndef CONFIG_REQUIRE_NX
+-        /* Adjust EFER given that NX is present */
+-        orb     $EFER_NXE >> 8, 1 + sym_esi(trampoline_efer)
+-.Lno_nx:
+-#endif
+-
+         /* Stash TSC to calculate a good approximation of time-since-boot */
+         rdtsc
+         mov     %eax,     sym_esi(boot_tsc_stamp)
+diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
+index a92e399fbe..8e8d50cbdf 100644
+--- a/xen/arch/x86/boot/trampoline.S
++++ b/xen/arch/x86/boot/trampoline.S
+@@ -144,10 +144,9 @@ gdt_48:
+ GLOBAL(trampoline_misc_enable_off)
+         .quad   0
+ 
+-/* EFER OR-mask for boot paths.  SCE conditional on PV support, NX added when available. */
++/* EFER OR-mask for boot paths.  SCE conditional on PV support. */
+ GLOBAL(trampoline_efer)
+-        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
+-                (EFER_NXE * IS_ENABLED(CONFIG_REQUIRE_NX))
++        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV))
+ 
+ GLOBAL(trampoline_xen_phys_start)
+         .long   0
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index b76797cb9a..e8cf51e853 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -351,10 +351,6 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
+ 	if (c->x86 == 15 && c->x86_cache_alignment == 64)
+ 		c->x86_cache_alignment = 128;
+ 
+-	if (c == &boot_cpu_data &&
+-	    bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
+-		printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
+-
+ 	intel_unlock_cpuid_leaves(c);
+ 
+ 	/* CPUID workaround for Intel 0F33/0F34 CPU */
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 0194720003..8dfd549f12 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -748,18 +748,6 @@ static void __init efi_arch_cpu(void)
+     if ( (eax >> 16) == 0x8000 && eax > 0x80000000U )
+     {
+         caps[FEATURESET_e1d] = cpuid_edx(0x80000001U);
+-
+-        /*
+-         * This check purposefully doesn't use cpu_has_nx because
+-         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
+-         * with CONFIG_REQUIRE_NX
+-         */
+-        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
+-             !boot_cpu_has(X86_FEATURE_NX) )
+-            blexit(L"This build of Xen requires NX support");
+-
+-        if ( cpu_has_nx )
+-            trampoline_efer |= EFER_NXE;
+     }
+ }
+ 
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index b01e83a8ed..16f53725ca 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -70,4 +70,6 @@ extern bool opt_dom0_msr_relaxed;
+ 
+ #define max_init_domid (0)
+ 
++void nx_init(void);
++
+ #endif
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 27c63d1d97..608720b717 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1119,6 +1119,50 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+     return d;
+ }
+ 
++void __init nx_init(void)
++{
++    uint64_t misc_enable;
++    uint32_t eax, ebx, ecx, edx;
++
++    if ( !boot_cpu_has(X86_FEATURE_NX) )
++    {
++        /* Intel: try to unhide NX by clearing XD_DISABLE */
++        cpuid(0, &eax, &ebx, &ecx, &edx);
++        if ( ebx == X86_VENDOR_INTEL_EBX &&
++             ecx == X86_VENDOR_INTEL_ECX &&
++             edx == X86_VENDOR_INTEL_EDX )
++        {
++            rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
++            if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
++            {
++                misc_enable &= ~MSR_IA32_MISC_ENABLE_XD_DISABLE;
++                wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
++
++                /* Re-read CPUID after having cleared XD_DISABLE */
++                boot_cpu_data.x86_capability[FEATURESET_e1d] = cpuid_edx(0x80000001U);
++
++                /* Adjust misc_enable_off for secondary startup and wakeup code */
++                bootsym(trampoline_misc_enable_off) |= MSR_IA32_MISC_ENABLE_XD_DISABLE;
++                printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
++            }
++        }
++        /* AMD: nothing we can do - NX must be enabled in BIOS */
++    }
++
++    /* Enable EFER.NXE only if NX is available */
++    if ( boot_cpu_has(X86_FEATURE_NX) )
++    {
++        if ( !(read_efer() & EFER_NXE) )
++            write_efer(read_efer() | EFER_NXE);
++
++        /* Adjust trampoline_efer for secondary startup and wakeup code */
++        bootsym(trampoline_efer) |= EFER_NXE;
++    }
++
++    if ( IS_ENABLED(CONFIG_REQUIRE_NX) && !boot_cpu_has(X86_FEATURE_NX) )
++        panic("This build of Xen requires NX support\n");
++}
++
+ /* How much of the directmap is prebuilt at compile time. */
+ #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+ 
+@@ -1159,6 +1203,8 @@ void asmlinkage __init noreturn __start_xen(void)
+     rdmsrl(MSR_EFER, this_cpu(efer));
+     asm volatile ( "mov %%cr4,%0" : "=r" (info->cr4) );
+ 
++    nx_init();
++
+     /* Enable NMIs.  Our loader (e.g. Tboot) may have left them disabled. */
+     enable_nmis();
+ 
+-- 
+2.51.0
+
+
+
+--
+Julian Vetter | Vates Hypervisor & Kernel Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
