@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFF0ED235CC
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:10:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204394.1519071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54098D2360B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:14:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204410.1519081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJMy-0002va-JD; Thu, 15 Jan 2026 09:10:20 +0000
+	id 1vgJQi-0003Y6-7H; Thu, 15 Jan 2026 09:14:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204394.1519071; Thu, 15 Jan 2026 09:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 1204410.1519081; Thu, 15 Jan 2026 09:14:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJMy-0002tL-GY; Thu, 15 Jan 2026 09:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 1204394;
- Thu, 15 Jan 2026 09:10:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgJMw-0002tF-Gv
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:10:18 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 023c4947-f1f2-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 10:10:17 +0100 (CET)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-432dc56951eso435706f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:10:17 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af64a778sm4621712f8f.3.2026.01.15.01.10.14
+	id 1vgJQi-0003WD-4H; Thu, 15 Jan 2026 09:14:12 +0000
+Received: by outflank-mailman (input) for mailman id 1204410;
+ Thu, 15 Jan 2026 09:14:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vgJQg-0003W7-KM
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:14:10 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a0d1079-f1f2-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 10:14:05 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b8718187eb6so98817966b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:14:05 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b86ebfd007fsm1539531366b.31.2026.01.15.01.14.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:10:14 -0800 (PST)
+ Thu, 15 Jan 2026 01:14:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,202 +45,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 023c4947-f1f2-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 8a0d1079-f1f2-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768468216; x=1769073016; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XNiFNKSA8ewzq3AITTPzSNiSva1DLVUpQFCVeULNOW8=;
-        b=egpEiVyq9LqMlY755hMogonncjd0RFHRaTg1LRDXpVxAPV7irH/vuqGp6XeIKduMck
-         fQi1w9n3Ro5zb1CCNU8sxAmcuoKKF6hVpDJhP7iBEZWMkSCXqI5rpK+u/KZf/S2DGPRC
-         7HAKYnWFnOgo7OF0HKkFujJY3Qrrr154ervYyDdhEqMax4dCVbxpazmAtqePOD1ESxxp
-         Tp9l3B5+gL45TbJrnH1a+P531Ndzxh+CXmxALzNyEgeySKahEr8BfuZ99Tank+vIRW17
-         fAHccPJVncqUvwd/oxAewWH5c7RUvlkTWbSLQ8I43aQzkB79PQHFefap8PuCoA3pTet3
-         ratw==
+        d=gmail.com; s=20230601; t=1768468444; x=1769073244; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZqUg99QjD548h0aCZ23XVdeCBRhKMsL9njyo8YPDMSw=;
+        b=i4zQKjlxyDgq2aRsY5AoCJf/XnZt/T+n/nbC8v8dZgnwWtk+v6UVdZY31zX/h2K2+s
+         OH2jWzXcGt58thB1vlkwlM2WK6s2BElxfsuomKehDLmTY+b1aIHM9o46Te9AU1CMkT1b
+         +DwCw0gV+KCgboiEu5eSBBVtnFemhiPNiNTsYuItVCuLrZ81ITEyeCf1lGbnGrsgfVBe
+         DOcs01CeG7lza76vHJlUJPLWYEnhkU47DR38IU50vNTUCmSryo4yZcEyKTQkheur93df
+         jFNtZOAR22+aPi+TV8xjSm6hm5SZF9sIpXVefBg0f0g7OUAE7qfO3Qd3b1nWl2CmdHbU
+         8mAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768468216; x=1769073016;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XNiFNKSA8ewzq3AITTPzSNiSva1DLVUpQFCVeULNOW8=;
-        b=LABgNAfVpE/5yLxBnc+ZcFc+9lxqVbxmPw8/cuFNk+NkBxgBGO9Jxg07Id389tr0w2
-         RoIYZILuHrmgpSoPLWuynUY7zR0ZPhAT+CEHW5MfkiVikUc5aQWrx/WGbE8fF4vHH9VL
-         xEbeKA8ho4q+Vu+Wmu4V4ok+XvtwelJlPo888xGIXTz5/yBY1ukdsWStfcMUPN7uwjQ1
-         SdVqWdA//X6Up27f2uKxL0I4Pxy18EMZ+gw/8VOdCSpIvSL36/l8i+0Glxg73sRVKC87
-         vxuOlhuilnxyXhwvjtb5Hp0i+3tvmF3+H8d1qeQiSvV49Mj0+qo8Ue4Z1BGfDNF0uVk/
-         1HLg==
-X-Forwarded-Encrypted: i=1; AJvYcCVkVipWa/cgfxQBJtLxhY4Vf+9t43b+nDFjS09ez2Dsd9b8ItAcGal+F8JRYQ0sUgiV0QfZnIbadQ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzy+wnUe8St2ZxJ6UdNVERq2htl9xDHRrPYeoMjkeuyexr3sUCC
-	aLkaIlFuFfm14E85TCJZsLlb82zxypsGuLTtteZtNAE69aJx1axP6HX5CdtCqW33pw==
-X-Gm-Gg: AY/fxX4TxzwkUbta1huHBefGAYwyElio3HU408EI6XK6zoZt4XODaT54lhLucYGAtr+
-	XzVfwfsDtfJohvNbc8cee3XI0f6csDmT43WIeVLhWEF1L+Ui4Oaje30ZlokY/s0GohoeV9abg6c
-	BwIkC+H+5HIoelyTz6UJ8Swfvn4uqLG1qhQnqQw4JpZDGrv8/uCMutOREz4jC59eaR8sRB6Z0hs
-	S7Q8nH3ofDyzIYFV83AlDinmsE8D1Ds31PIjkCjmZmBYyC6V8HH7UvJ27+UMxBqEewawxvIuRXl
-	DHQB7jo2Kp9iz+u1aHFVWVyrVJLsy35WLxztbVa6TF2rxSdNLVcv97PRNkdbA9YUBjl51KE2zwT
-	2a8ayfyHwkQvX7LBlsd/Tz9X8Nzu/e3FJibY1qJ6Cs/CaBhcbB4HfU83893QkOHK70uied9q+dg
-	lGXudWj3GPpdOmK7VKbSZ2Md3Fb8ij8bLPVLN+3HAAcl/EaqGuRPtkRpQdUlnpMqSLz4Ypp66CZ
-	lA=
-X-Received: by 2002:a05:6000:200d:b0:432:c0e6:cfda with SMTP id ffacd0b85a97d-4342c4ee790mr6053937f8f.7.1768468215033;
-        Thu, 15 Jan 2026 01:10:15 -0800 (PST)
-Message-ID: <86fe1ba2-2775-441f-9ea2-47de5f0375aa@suse.com>
-Date: Thu, 15 Jan 2026 10:10:13 +0100
+        d=1e100.net; s=20230601; t=1768468444; x=1769073244;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZqUg99QjD548h0aCZ23XVdeCBRhKMsL9njyo8YPDMSw=;
+        b=reKyLXDE+KVoiOijYqTNHxw3dtqzP6GodsLLn87oBjoz59CYNukxAgJfXLok0zlc7O
+         AGkCpag1EW0gpz0mTy8nEOxWIIcn04gEa+pCKnqI2RQ5XZTffoV5tBLA6pFkDOmOanRG
+         JbNPAZHRgsEUiDmoKeDrJR1ThgsnH/cPj2Qs4cbxDHRkMI44gdF5E1LDuSJLlyJcNFyG
+         6LDz+0+uqKF1WxkWH97wKSBAE9O8x/rofTcXzIN1+ZLq/8g3J2y0laD7s2i4WHHVkAYk
+         g72ONzu9P35bxOvWjTGBVBkSGoCJXI4qMVUZ+MvGibSb/wxvWKLiGJ18A7hM0Kz/UeZX
+         aj+w==
+X-Forwarded-Encrypted: i=1; AJvYcCVLY4uHiB7qFkOylURNVqCfqoyH88qdaHoIPA9ZFiIvMY1BaWuUbHR/9UjMe6DGZt7Ot5g5xU/pkE4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbVb/FdmUb7TfJGRIU0AoyvoXv9AgEOoOl3xrhb9RYu8TQtbed
+	6aDDhgXQK7WJm2bMXWw0drLNWsc69/fheuhyt8WrAiwm2p+//+1Fjvrd
+X-Gm-Gg: AY/fxX4FXgrRGIH5xih/El2RKdU5UZ8FSHgZqIKZ+1IsYY1voS9YNxwoofso/NpUAcM
+	A2AE8wRyGfhjU/89pTyDlo/ZCPGQg54sn3LjPI3HoWOxOzHcmyqqvro8m9td5sb95HvataRYy13
+	r1SCViFwu7vr4dmEcOcOslxRkbTYiSW5p/PAgR3Ff/pXQOQvveoRf9M2U2E6hj9jkJJjQsYVLPG
+	uf+WjGHOZr4vSm9FrQ9lFxCSt8V0of27dyy16Yp+f4rtDUmPx3WdUZVK6Xut/URRBz05EifXQrS
+	8vVkIxMsu/PzoiK1p0fj/RXGiQwWQeb47af/pwYsynxQIIkuksoiCBVfitjIPr9MuXURNZEuejy
+	IMg3w8iRilFADpLosBLEforBayNaAPXLkh8kXoZWw4X4qi3StEybfI0SlbkzeKpKOtJlC1YYg6W
+	mQnn56YaQJP4TMWUFICAZXvTlBSTiJd7XCeG9DHRWuBxm5I5shOFxOUi7f4fL3bxk=
+X-Received: by 2002:a17:907:3e26:b0:b87:20eb:a66d with SMTP id a640c23a62f3a-b8761431e0amr382469466b.65.1768468443975;
+        Thu, 15 Jan 2026 01:14:03 -0800 (PST)
+Message-ID: <b6d9eb9d-24a1-4d11-aa74-c76fd96a2c96@gmail.com>
+Date: Thu, 15 Jan 2026 10:14:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/5] xen/domctl: extend XEN_DOMCTL_assign_device to
- handle not only iommu
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
- <837eab835a75e7f668c5a49074991b2fcba56156.1768415200.git.oleksii_moisieiev@epam.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
+ <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
+ <f707899a-3200-4467-a827-2195351f1226@gmail.com>
+ <dd10f076-cf91-426d-b2c0-2fa3056fb54f@suse.com>
+ <7a90cc1b-b053-4b9f-91f1-d32064b1ec29@gmail.com>
+ <c0d5104b-52ec-484e-ac40-8901ae298fa8@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <837eab835a75e7f668c5a49074991b2fcba56156.1768415200.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <c0d5104b-52ec-484e-ac40-8901ae298fa8@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 14.01.2026 19:29, Oleksii Moisieiev wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-Nit on the patch title: "not only iommu" can mean pretty much anything. Imo
-SCI should somehow appear in the title.
+On 1/14/26 4:56 PM, Jan Beulich wrote:
+> On 14.01.2026 16:39, Oleksii Kurochko wrote:
+>> On 1/13/26 2:54 PM, Jan Beulich wrote:
+>>> On 13.01.2026 13:51, Oleksii Kurochko wrote:
+>>>> On 1/7/26 5:28 PM, Jan Beulich wrote:
+>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>>>>>> --- a/xen/arch/riscv/include/asm/domain.h
+>>>>>> +++ b/xen/arch/riscv/include/asm/domain.h
+>>>>>> @@ -85,6 +85,22 @@ struct arch_vcpu
+>>>>>>         register_t vstval;
+>>>>>>         register_t vsatp;
+>>>>>>         register_t vsepc;
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * VCPU interrupts
+>>>>>> +     *
+>>>>>> +     * We have a lockless approach for tracking pending VCPU interrupts
+>>>>>> +     * implemented using atomic bitops. The irqs_pending bitmap represent
+>>>>>> +     * pending interrupts whereas irqs_pending_mask represent bits changed
+>>>>>> +     * in irqs_pending.
+>>>>> And hence a set immediately followed by an unset is then indistinguishable
+>>>>> from just an unset (or the other way around).
+>>>> I think it is distinguishable with the combination of irqs_pending_mask.
+>>> No. The set mask bit tells you that there was a change. But irqs_pending[]
+>>> records only the most recent set / clear.
+>>>
+>>>>>     This may not be a problem, but
+>>>>> if it isn't, I think this needs explaining. Much like it is unclear why the
+>>>>> "changed" state needs tracking in the first place.
+>>>> It is needed to track which bits are changed, irqs_pending only represents
+>>>> the current state of pending interrupts.CPU might want to react to changes
+>>>> rather than the absolute state.
+>>>>
+>>>> Example:
+>>>>     - If CPU 0 sets an interrupt, CPU 1 needs to notice “something changed”
+>>>>       to inject it into the VCPU.
+>>>>     - If CPU 0 sets and then clears the bit before CPU 1 reads it,
+>>>>       irqs_pending alone shows 0, the transition is lost.
+>>> The fact there was any number of transitions is recorded in _mask[], yes,
+>>> but "the transition" was still lost if we consider the "set" in your
+>>> example in isolation. And it's not quite clear to me what's interesting
+>>> about a 0 -> 0 transition. (On x86, such a lost 0 -> 1 transition, i.e.
+>>> one followed directly by a 1 -> 0 one, would result in a "spurious
+>>> interrupt": There would be an indication that there was a lost interrupt
+>>> without there being a way to know which one it was.)
+>> IIUC, in this reply you are talking about when the contents written to the
+>> irq_pending and irqs_pending_mask bitmaps are flushed to the hardware
+>> registers.
+>>
+>> Originally, I understood your question to be about the case where
+>> vcpu_set_interrupt() is called and then vcpu_unset_interrupt() is called.
+> I was actually asking in more abstract terms. And I was assuming there
+> would be pretty direct ways for the guest to have vcpu_{,un}set_interrupt()
+> invoked. Looks like ...
+>
+>> I am trying to understand whether such a scenario is possible.
+>>
+>> Let’s take the vtimer as an example. vcpu_set_interrupt(t->v, IRQ_VS_TIMER)
+>> is not called again until vcpu_unset_interrupt(t->v, IRQ_VS_TIMER) and
+>> set_timer() are called in vtimer_set_timer().
+>>
+>> The opposite situation is not possible: it cannot happen that
+>> vcpu_set_interrupt(t->v, IRQ_VS_TIMER) is called and then immediately
+>> vcpu_unset_interrupt(t->v, IRQ_VS_TIMER) is called, because
+>> vcpu_unset_interrupt() and set_timer() are only invoked when the guest
+>> has handled the timer interrupt and requested a new one.
+>>
+>> So if no interrupt flush is happening, the vcpu_set_interrupt() →
+>> vcpu_unset_interrupt() sequence will only update the irq_pending and
+>> irqs_pending_mask bitmaps, without touching the hardware registers,
+>> so no spurious interrupt will occur. And if an interrupt flush does
+>> happen, it is not possible to have a 1 -> 0 transition due to the call
+>> sequence I mentioned in the last two paragraphs above.
+> ... that wasn't a correct assumption. (Partly attributed to the patch
+> series leaving out a number of relevant things, which makes it hard to
+> guess what else is left out.)
 
-> Add chained handling of assigned DT devices to support access-controller
-> functionality through SCI framework, so a DT device assign request can be
-> passed to firmware for processing and enabling VM access to the requested
-> device (for example, device power management through SCMI).
-> 
-> The SCI access-controller DT device processing is called before the IOMMU
-> path. It runs for any DT-described device (protected or not, and even when
-> the IOMMU is disabled). The IOMMU path remains unchanged for PCI devices;
-> only the DT path is relaxed to permit non-IOMMU devices.
-> 
-> This lets xl.cfg:"dtdev" list both IOMMU-protected and non-protected DT
-> devices:
-> 
-> dtdev = [
->     "/soc/video@e6ef0000", <- IOMMU protected device
->     "/soc/i2c@e6508000", <- not IOMMU protected device
-> ]
-> 
-> The change is done in two parts:
-> 1) call sci_do_domctl() in do_domctl() before IOMMU processing and propagate
-> its error if it fails while the IOMMU path succeeds (unhandled cases return
-> -ENXIO and are ignored);
-> 2) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
-> not fail if DT device is not protected by IOMMU. iommu_do_pci_domctl
-> doesn't need to be updated because iommu_do_domctl first tries
-> iommu_do_pci_domctl (when CONFIG_HAS_PCI) and falls back to
-> iommu_do_dt_domctl only if PCI returns -ENODEV.
+Then it makes sense to introduce second part of pending interrupts tracking
+as part of this patch series in the next version.
 
-Given how the line above ends early, you likely want to have a paragraph
-(empty line) past here, to aid the reader?
+Or for now not introduce tracking of pending vCPU interrupts and implement
+vtimer expired handler as:
+	csr_set(CSR_HVIP, IRQ_VS_TIMER);
+	vcpu->hvip = csr_read(CSR_HVIP);
 
-> The new dt_device_is_protected() bypass in iommu_do_dt_domctl only
-> applies to DT-described devices; SCI parameters are carried via DT nodes.
-> PCI devices handled by iommu_do_pci_domctl do not carry DT/SCI
-> metadata in this path, so there is no notion of “SCI parameters on a
-> non-IOMMU-protected PCI device” for it to interpret or to skip. The
-> PCI path should continue to report errors if assignment cannot be
-> performed by the IOMMU layer.
 
-It's less clear here, as ...
+>>>> By maintaining irqs_pending_mask, you can detect “this bit changed
+>>>> recently,” even if the final state is 0.
+>>>>
+>>>> Also, having irqs_pending_mask allows to flush interrupts without lock:
+>>>> if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
+>>>> {
+>>>> mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
+>>>> val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
+>>>>
+>>>> *hvip &= ~mask;
+>>>> *hvip |= val;
+>>>> }
+>>>> Without it I assume that we should have spinlcok around access to irqs_pending.
+>>> Ah yes, this would indeed be a benefit. Just that it's not quite clear to
+>>> me:
+>>>
+>>>       *hvip |= xchg(&v->arch.irqs_pending[0], 0UL);
+>>>
+>>> wouldn't require a lock either
+>> Because vCPU's hvip (which is stored on the stack) can't be changed concurrently
+>> and it's almost the one place in the code where vCPU->hvip is changed. Another
+>> place it is save_csrs() during context switch but it can't be called in parallel
+>> with the vcpu_sync_interrupts() (look below).
+>>
+>>> . What may be confusing me is that you put
+>>> things as if it was normal to see 1 -> 0 transitions from (virtual)
+>>> hardware, when I (with my x86 background) would expect 1 -> 0 transitions
+>>> to only occur due to software actions (End Of Interrupt), unless - see
+>>> above - something malfunctioned and an interrupt was lost. That (the 1 ->
+>>> 0 transitions) could be (guest) writes to SVIP, for example.
+>>>
+>>> Talking of which - do you really mean HVIP in the code you provided, not
+>>> VSVIP? So far I my understanding was that HVIP would be recording the
+>>> interrupts the hypervisor itself has pending (and needs to service).
+>> HVIP is correct to use here, HVIP is used to indicate virtual interrupts
+>> intended for VS-mode. And I think you confused HVIP with the HIP register
+>> which supplements the standard supervisor-level SIP register to indicate
+>> pending virtual supervisor (VS-level) interrupts and hypervisor-specific
+>> interrupts.
+>>
+>> If a guest will do "That (the 1 -> 0 transitions) could be (guest) writes
+>> to SVIP, for example." then the correspondent HVIP (and HIP as usually
+>> they are aliasis of HVIP) bits will be updated. And that is why we need
+>> vcpu_sync_interrupts() I've mentioned in one of replies and sync VSSIP:
+>> +void vcpu_sync_interrupts(struct vcpu *v)
+>> +{
+>> +    unsigned long hvip;
+>> +
+>> +    /* Read current HVIP and VSIE CSRs */
+>> +    v->arch.vsie = csr_read(CSR_VSIE);
+>> +
+>> +    /* Sync-up HVIP.VSSIP bit changes does by Guest */
+>> +    hvip = csr_read(CSR_HVIP);
+>> +    if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
+>> +    {
+>> +        if ( hvip & BIT(IRQ_VS_SOFT, UL) )
+>> +        {
+>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>> +                                   &v->arch.irqs_pending_mask) )
+>> +                set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>> +        }
+>> +        else
+>> +        {
+>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>> +                                   &v->arch.irqs_pending_mask) )
+>> +                clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>> +        }
+>> +    }
+> I fear I don't understand this at all. Why would the guest having set a
+> pending bit not result in the IRQ to be marked pending?
 
-> So we should leave iommu_do_pci_domctl unchanged; the SCI/DT-specific
-> relaxations belong only in the DT path.
+Maybe it is wrong assumption but based on the spec:
+   Bits sip.SSIP and sie.SSIE are the interrupt-pending and interrupt-enable
+   bits  for supervisor-level software interrupts. If implemented, SSIP is
+   writable in sip and may also be set to 1 by a platform-specific interrupt
+   controller.
+and:
+   Interprocessor interrupts are sent to other harts by implementation-specific
+   means, which will ultimately cause the SSIP bit to be set in the recipient
+   hart’s sip register.
 
-... this still looks to pertain to the earlier paragraph. Perhaps that
-sentence should start on the earlier line?
+Meaning that sending an IPI to self by writing 1 to sip.SSIP is
+well-defined. The same should be true of vsip.SSIP while in VS mode.
 
-A more general nit: Please try to be consistent with line wrapping.
-Don't go past 75 chars, but at the same time use available line length
-instead of wrapping a sentence early.
+And so in this case if SSIP handling was delegated by hypervisor to guest by
+setting hedeleg[2] = 1 we won't have an interrupt in hypervsor, and so nothing
+will set a pending bit in bitmap or update hvip register from hypervisor.
 
-Also please be consistent with adding () after function names.
+( All bits except SSIP in the sip register are read-only. )
 
-> @@ -827,7 +830,37 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_test_assign_device:
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
-> +        if ( IS_ENABLED(CONFIG_ARM) )
-> +        {
-> +            /*
-> +             * Add chained handling of assigned DT devices to support
 
-Why "Add"? The comment should be describing what the code does, not what is
-being changed by this patch.
+>   You can't know
+> whether that guest write happened before or after you last touched
+> .irqs_pending{,mask}[]?
 
-> +             * access-controller functionality through SCI framework, so
-> +             * DT device assign request can be passed to FW for processing and
-> +             * enabling VM access to requested device.
-> +             * The access-controller DT device processing is called before IOMMU
-> +             * processing preserving return code and expected to be executed for
-> +             * any DT device regardless if DT device is protected by IOMMU or
-> +             * not (or IOMMU is disabled).
-> +             */
+Yes, I think you are right.
 
-Is there perhaps one (or more) comma(s) missing here? One after "processing",
-and maybe another one after "code". Assuming of course I infer correctly what
-is intended to be said.
+On the other hand, if we are in hypervisor when vcpu_sync_interrupts() is
+called it means that pCPU on which vCPU is ran and for which
+vcpu_sync_interrupts() is called now executes some hypervisor things, so
+guest won't able to update VSIP.SSIP for this pCPU. So nothing else will
+change VSIP.SSIP and so h/w HVIP won't be changed by something and it is
+okay to sync .irqs_pending{,mask} with what h/w in its HVIP.
 
-> +            ret1 = sci_do_domctl(op, d, u_domctl);
-> +            if ( ret1 < 0 )
-> +                return ret1;
+~ Oleksii
 
-This leaves ret1 >= 0 for the code further down. Then ...
-
-> +        }
-> +        else
-> +            ret1 = -ENXIO;
-> +
->          ret = iommu_do_domctl(op, d, u_domctl);
-> +        if ( ret < 0 )
-> +            return ret;
-> +
-> +        /*
-> +         * If IOMMU processing was successful, check for SCI processing return
-> +         * code and if it was failed then overwrite the return code to propagate
-> +         * SCI failure back to caller.
-> +         */
-> +        if ( ret1 != -ENXIO )
-> +            ret = ret1;
-
-..., with ret being 0 when we make it here, what use is this? I don't think
-we can or should be returning positive values?
-
-Nit for the comment: Drop the latter "was".
-
-Jan
+> Yet that pair of bit arrays is supposed to be
+> tracking the most recent update (according to how I understood earlier
+> explanations of yours).
+>
+> As an aside - the !test_and_set_bit() can be pulled out, to the outermost
+> if().
 
