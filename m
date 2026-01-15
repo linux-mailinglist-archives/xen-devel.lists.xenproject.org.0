@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1932D239AF
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:37:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204541.1519192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06ECCD23AA5
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:44:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204579.1519212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJn9-0003ea-PT; Thu, 15 Jan 2026 09:37:23 +0000
+	id 1vgJtZ-0006A6-Jm; Thu, 15 Jan 2026 09:44:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204541.1519192; Thu, 15 Jan 2026 09:37:23 +0000
+Received: by outflank-mailman (output) from mailman id 1204579.1519212; Thu, 15 Jan 2026 09:44:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJn9-0003cH-Lp; Thu, 15 Jan 2026 09:37:23 +0000
-Received: by outflank-mailman (input) for mailman id 1204541;
- Thu, 15 Jan 2026 09:37:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vgJtZ-00067W-Gy; Thu, 15 Jan 2026 09:44:01 +0000
+Received: by outflank-mailman (input) for mailman id 1204579;
+ Thu, 15 Jan 2026 09:44:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgJn8-0003as-A7
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:37:22 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c971b441-f1f5-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 10:37:20 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-430f3ef2d37so530494f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:37:20 -0800 (PST)
+ id 1vgJtX-00067Q-Vv
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:43:59 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b218b89b-f1f6-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 10:43:50 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-42fbc305552so600082f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 01:43:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6b2c76sm4739552f8f.26.2026.01.15.01.37.18
+ ffacd0b85a97d-434af6fc8dcsm4810165f8f.40.2026.01.15.01.43.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 01:37:18 -0800 (PST)
+ Thu, 15 Jan 2026 01:43:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c971b441-f1f5-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: b218b89b-f1f6-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768469839; x=1769074639; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768470229; x=1769075029; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/+tVhBx5vAnKgWDp6CS4Wex3Nh93uNmjlZLHEUL/zTY=;
-        b=C1SgRQ3NAQnNgFgs2IbSNwtnUqZiYEylMBHuFbbFp5hc0pmPrJnvNjCr8f3JF/n7Di
-         lHaQQh50RvZrzZp9C4X7OYydHf6bX2TbAh6OiVFpbyBW4oGSjy1RdO2r4/JEXIUsOgZY
-         uYqCrdWdn9NB8ftavlyu9K56uEn35066WDmpZ0PpS6yz0MVXTez3Z9p6Ffy0kpMrrDjB
-         BUWyI/1fIbJ6awMz8dm+tNrKJNGPK1zMK9d6i2KyiWk0jQUFXjYjK22dLAx0jejEh9Hq
-         aezEu4p3j3AFAxhbiYgeGJ/lupYeuidPH9zySa3Hy3SQlZ1J9puGu8jhgrblKKWX3akC
-         mmzw==
+        bh=ym6iT70Yab7br6NcL95LFB2EK7PsN+GafLw66limSd0=;
+        b=WeulC2/yOGP1S7c5z1TsxzfwaPmYrV0DADFR//m5ZKq6efPTKkJsgW8R8UTm2D3ZvI
+         JfCwdcUddpWhUHl+sn2jvoeTIjXj0RbI376wKzwK5K7fCXkitoa4CT6dsVDPvdp/NEYC
+         hH5l+nD/jW2MdoaXTUeZ8c7heT0AmgLa9MlXtdrrM7+28meZwd0nymZHX5U7ct3EOo/K
+         tr/vcgCr/dMw7Yb7V2SxhkOyPPyhgiX8g3aEmtaxD9+uFmoIW/Xy9NL70vYBt5Nb9ynu
+         Ycxi10b6+KUtD2ZXEzhFlnqZu+Bz3MHgj4ga/KEMFW+eqIVPM6RkKoR14FMkJUFlanBy
+         U5Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768469839; x=1769074639;
+        d=1e100.net; s=20230601; t=1768470230; x=1769075030;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/+tVhBx5vAnKgWDp6CS4Wex3Nh93uNmjlZLHEUL/zTY=;
-        b=juoS11t/Z7bpEnwzMC3zxLaV8N824oXcYGbM+DrpmNxIygeTnQ0m0mJVy32FCMFSSv
-         RRIMBgmzw8M0Q6b9ZFwcqC2wbnJZU7njUSv/jtWEErw7eSM7ySN7t8lFO7KWeJNPPEH0
-         iPD6YntV4LtAShQd3O+5hlcriy+kpjXRSL4alKQnR387vaKE+OJwt0dDp+KBME0rsIyA
-         Xfy44Y6O32OdhRF0rE6tJvPRM/eR/0MOAtnhVJV/e5WSkfiidFcY2uhLA/WvxemYvhhh
-         0Wj3bmVp6EaCiQgdU1S7LqJwAoQ3JVIlhQEFB9kHoD2tAaPA6Kxrv8rq12PcDq5emZdc
-         p4Vg==
-X-Forwarded-Encrypted: i=1; AJvYcCXCIZrsfoRjyfHvycTfcMxU9ZKCPYHEOX5nYBldFt8SRH4kaPzXEo+ek/ZeHbAUhfyD3rO/Wj6jd/M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMvzZh0AyCOcGD4AG9WREu52DXGgdnArZZz4o5lY99ZRCDVrg2
-	RKJl0Iv0zFYXImT48rh3NxB5+4FxBVsQVDhUZ/VW0kqgvFeMYRZ2fFfbFjdGY5ebYA==
-X-Gm-Gg: AY/fxX5biyA57hyHCZ/damO/WEd0c7y/HgdYB/hhbUBUTdeP2yyg+XR1INLy+uRfZ4o
-	bfN4uE6E3jRnUwbiz0RC5bIa9mpP6R7ceML4z7JgcJJumW+a3XtuSEt6gqJZaP0aFjqdF5xo38/
-	1V4uIFuKivTvOqn912FnOqYP0gpUgymlbU8vBLBSQeuvx9sQU5uo6vbQ4+YZBYIcFgmfz0FfrHb
-	veYbbHL2xugMBZmDf6Zt/J2RNojPKBNI4Xh54BywvkB3dWJii+ii2ZkokDLAo1Rk3Gpag1W+iFL
-	wDr5dl2gfiiY2fh8j2w2Gn30WqbBZsVHpenGkmVWd7jms4gdkV7O9XZC+JJ6RlkmKqvsYfjUwCt
-	90fpqj4DpLNyRyPzhqwP9nNSGYFnZDzejoaNLTKGhnWLJ8ioI4HGWfjfKeSBvsZjxFeA3xFx/Fi
-	VQN1gHFre1+cDsLQH6zBvPjtzXiTvWTyBk12yykwot70oEmQ/9E8PpiePYGDAeINYxjOWpyXjDm
-	oMkZ9w7au6fyA==
-X-Received: by 2002:a05:6000:40dd:b0:42b:2dfd:5350 with SMTP id ffacd0b85a97d-4342c570dffmr7850209f8f.56.1768469839292;
-        Thu, 15 Jan 2026 01:37:19 -0800 (PST)
-Message-ID: <7d67f3a8-eec3-4942-ba4d-88e7ca35e201@suse.com>
-Date: Thu, 15 Jan 2026 10:37:18 +0100
+        bh=ym6iT70Yab7br6NcL95LFB2EK7PsN+GafLw66limSd0=;
+        b=ke6a3QphFyvnGNNLI059S6hzCD9QV54Nr64dyABNzvqQ2AJfERrJ+QAovmLRGAExjA
+         Ml+dNG9lXAo920WetBJh1lMBnJvDEbzz7iKeRYHIqQ9k9HA7zJonpb4GNpFIlnDAgSTG
+         x4UGLv6iM+Mzr0e/XhA9yLbs3/QnfsZLxPKqxpOnh3MUehFahIlJ2kzImWe/nNik3qU2
+         fgJtbunxAVkEtMKf/1kxGnFn/55B5NxvLxHhgjcYjxu0BTk4NdyXSw7F7pki/CO+/K3v
+         HYzNGeRAd6Ub/QE2nrXVn83K4tLXBPlZTua3stiZdfXGTPNcqO+Fd19i3oL/CtFmD0bf
+         YXog==
+X-Forwarded-Encrypted: i=1; AJvYcCVSaABLQ7Evk6gpwGrpMPp/64HU8/JIeJwVGhxuv1fmDr6lFGxwpBE3ZtuEar50Bg67596Dfv0VDY4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxpltcDfY+bnIzuNVUg27cjwBtJ5T9hU47wq4ts9n+eVlfGoGC1
+	4kT5T201O1i4GR8JBTMPdRAuTQ+AKlKhnVtFcQTaLtZ07AdyCDGddT43C98X9J+ZOA==
+X-Gm-Gg: AY/fxX6nBPjTjSjpIsuIdXFipbyH+iNEMMOGaNWRVw+K2OfyvE+99phMZ5mpPVEb8IV
+	nEgFkH5sN+2pK8r4t6vugPF18zslK7WHkiNpcOjs1DtBjrhIOXLxIg9sRwvid1b0SzMNm+b8QtK
+	5zbYAXz+yhUy1+fn3DFYXpzRXcip4FcUkBswmwMKSBrumHJS1PI3yZzfWG3xBJJWEO2jsvagWmN
+	BqnpXnXGBgLnt9iueL7YlDo4TEfiNtUy8IAzYR90lUUnKXATKZf9dWWtuzqW8XtbRHJ7utX5zVq
+	PdhrtN3I0IZO4lpVCNE/13DMrEu+BMAzxA5cSLNYh79hNb/GjgoXhrsAcy69orYoyKqHwNIQBRv
+	w0O9TwBYzF8UbiSYFigoDwnUt9CzLuYxy9D4HNRzAeekaJ6JdYm2CF8n7G3ewlKSwls+i4RKExV
+	mkTJX5QWKi7pvM+yo3+sNFublBjbu2hm0Y/5rlZc92ACpM8HXIF3jRYmOdlVh6BYG7GvvOKGV25
+	GTl7y7PMozOYA==
+X-Received: by 2002:a05:6000:4301:b0:431:6ba:38ac with SMTP id ffacd0b85a97d-4342c3f0fcemr6936879f8f.4.1768470229637;
+        Thu, 15 Jan 2026 01:43:49 -0800 (PST)
+Message-ID: <a3983e24-1664-45c0-ac62-020d08539336@suse.com>
+Date: Thu, 15 Jan 2026 10:43:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/6] xen/x86: move declaration from mem_access.h to
- altp2m.h
-To: Penny Zheng <Penny.Zheng@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v4 6/6] xen/vm_event: consolidate CONFIG_VM_EVENT
+To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
  Alexandru Isaila <aisaila@bitdefender.com>,
  Petre Pircalabu <ppircalabu@bitdefender.com>,
  xen-devel@lists.xenproject.org, jason.andryuk@amd.com
 References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
- <20260115092841.2651224-2-Penny.Zheng@amd.com>
+ <20260115092841.2651224-7-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,32 +126,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260115092841.2651224-2-Penny.Zheng@amd.com>
+In-Reply-To: <20260115092841.2651224-7-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.01.2026 10:28, Penny Zheng wrote:
-> Memory access and ALTP2M are two seperate features, and each could be
-> controlled via VM_EVENT or ALTP2M. In order to avoid implicit declaration
-> when ALTP2M=y and VM_EVENT=n on compiling hvm.o/altp2m.o, we move declaration
-> of the following functions from <asm/mem_access.h> to <asm/altp2m.h>:
-> - p2m_set_suppress_ve
-> - p2m_set_suppress_ve_multi
-> - p2m_get_suppress_ve
-> Potential error on altp2m.c also breaks Misra Rule 8.4.
+> File hvm/vm_event.c and x86/vm_event.c are the extend to vm_event handling
+> routines, and its compilation shall be guarded by CONFIG_VM_EVENT too.
+> 
+> Although CONFIG_VM_EVENT is right now forcibly enabled on x86 via
+> MEM_ACCESS_ALWAYS_ON, we could disable it through disabling
+> CONFIG_MGMT_HYPERCALLS later. So we remove MEM_ACCESS_ALWAYS_ON and
+> make VM_EVENT=y on default only on x86 to retain the same.
+> 
+> The following functions are developed on the basis of vm event framework, or
+> only invoked by vm_event.c, so they all shall be wrapped with CONFIG_VM_EVENT
+> (otherwise they will become unreachable and
+> violate Misra rule 2.1 when VM_EVENT=n):
+> - hvm_toggle_singlestep
+> - hvm_fast_singlestep
+> - hvm_emulate_one_vm_event
+>     - hvmemul_write{,cmpxchg,rep_ins,rep_outs,rep_movs,rep_stos,read_io,write_io}_discard
+> And Function vm_event_check_ring() needs stub to pass compilation when
+> VM_EVENT=n.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 > Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 > ---
->  xen/arch/x86/include/asm/altp2m.h     | 10 ++++++++++
->  xen/arch/x86/include/asm/mem_access.h | 10 ----------
->  2 files changed, 10 insertions(+), 10 deletions(-)
+> As the last commit, plz be commited either in the last, or shall be commited
+> together with prereq commit 8d708e98ad, 8b4147009f, dbfccb5918, ae931f63a0,
+> 37ec0e2b75.
 
-Tamas - can we please get an ack here? I guess I'll time out on waiting for
-one in a day or two.
-
-Penny - may I remind you that it is on you to chase missing acks?
+What do these hashes refer to? Also (assuming these might be the hashes of the
+commits in your private tree), as I'm pretty sure I said before, committing a
+series in-order is the default thing to happen. It's patches that are
+independent of earlier ones which may want to call out that fact, for them to
+possibly go in early.
 
 Jan
 
