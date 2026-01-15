@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9BECD24A9A
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 14:06:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1205081.1519528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29159D24AF8
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 14:12:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1205100.1519553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgN2u-0007FG-Pm; Thu, 15 Jan 2026 13:05:52 +0000
+	id 1vgN9C-0000h1-Mw; Thu, 15 Jan 2026 13:12:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1205081.1519528; Thu, 15 Jan 2026 13:05:52 +0000
+Received: by outflank-mailman (output) from mailman id 1205100.1519553; Thu, 15 Jan 2026 13:12:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgN2u-0007Cm-MD; Thu, 15 Jan 2026 13:05:52 +0000
-Received: by outflank-mailman (input) for mailman id 1205081;
- Thu, 15 Jan 2026 13:05:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cICa=7U=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vgN2t-0007Cg-39
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 13:05:51 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e975e7bd-f212-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 14:05:50 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by LV3PR03MB7777.namprd03.prod.outlook.com (2603:10b6:408:28c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Thu, 15 Jan
- 2026 13:05:46 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9520.005; Thu, 15 Jan 2026
- 13:05:46 +0000
+	id 1vgN9C-0000e9-Jh; Thu, 15 Jan 2026 13:12:22 +0000
+Received: by outflank-mailman (input) for mailman id 1205100;
+ Thu, 15 Jan 2026 13:12:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vgN9B-0000e3-Gm
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 13:12:21 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d13f7710-f213-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 14:12:17 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-430f5ecaa08so461571f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 05:12:17 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-434af6d909fsm5979825f8f.31.2026.01.15.05.12.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Jan 2026 05:12:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,206 +45,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e975e7bd-f212-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eO7NRBuk9Qevn/5dSw+Dnxw6pzaOdUvuTtgtKDff7xxZm2tgNu7+WrXXdnmAKZb9NnQxzXkTw2MyKd2NmJB3cgnwtH5WNMy0rcuN1+i8oTfLh3devEOo4SsR3TX7U3T+6zWZTIX2yJZc2+tgz/U7sv4AgrgrpZ8L5nbUXzyTTDCh2rJBOwNQVWgKyQnXgcSjL2wMZKMaO4HiNRRPUNjnR0JeRRYRtaT0O/6TFU0Qw+5uuG18IV9z5OqSQ359ODh46QV7rUVKdqMvgjtgp01r3UtaWh6YTs0yrkoOgvnJSixHYJAW5gSAH+rJ1aFStzywDTqmmqM58/D6M87Gq1nrxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lpV821/MNKcxrhFf1YrO3uDU67SP6H8I+lFrszztmZY=;
- b=KhiJzMuU48OPIpQCcvfOnWi85e8mf4oDlcsMQynkihu9+bIG6R304K9Qb1NaY4yzMDb9xkQAlOiSMmLcA7I8LYSSLvuyA2AhTfZMAdkjBCpkTQ7v7t6kexJEoC5EI+GHC2NNnclBm1B0+YHv7dHwxPMj1ShGP948WOrWXUjcTlLi9Q18FfX5/ZS0tEoO0pofXmpNj+6Fs+aAZfi07Ulk+qoXwu3O2+BfzV7HaGyToIE8w73h59crfTajYTByDPp0Si8PZObR0Xz2LakoQ90MlwHrYkTBlbAd+oWT3STWmnVGd5iIi86p+eLC2z+xi7tttaQazZc4+nChPNS1Nhp3Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lpV821/MNKcxrhFf1YrO3uDU67SP6H8I+lFrszztmZY=;
- b=MjDLN+VlPqccfwkPkTTU0kMdB9V2Dt5595H59YbXzMLTPAmE67vgdGLXl6LKm03lMvjl0+iNZklqNR9TfKbI3ptTIJ5MwcahnoCtw3qXUdVnjgtH75zU7bEnbS/nFv60FHYahyl4Wgfd3hCIeO8rFjlO9DNvssItD1YB/iCeJUI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 15 Jan 2026 14:05:42 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen/mm: limit non-scrubbed allocations to a specific
- order
-Message-ID: <aWjmJrWV4VoCOGVF@Mac.lan>
-References: <20260108175536.82153-1-roger.pau@citrix.com>
- <20260108175536.82153-3-roger.pau@citrix.com>
- <b547676c-ff2e-4a56-b3b4-2b2da167e2f1@suse.com>
- <aWZQLL997K3MTQY4@Mac.lan>
- <b535344e-1f27-4d5c-85aa-1529868f85fc@suse.com>
- <aWjGDy3ixLRTpZbF@Mac.lan>
- <14560e88-bbd5-48e1-848e-e53a3237d16b@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <14560e88-bbd5-48e1-848e-e53a3237d16b@suse.com>
-X-ClientProxiedBy: PAZP264CA0080.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:1fa::11) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: d13f7710-f213-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1768482737; x=1769087537; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=LFm/I4196HgVQNwV0YmL4WM1x1A8fO4rt2IHhLxqcjs=;
+        b=LuJ877eQHKGAmPR6+lNXH697xYSUMmSAM6gprkotfYAq+bKA245KAPoN/O+RpHko0w
+         TO4OtRVozJIcAJ3FJoRmujS0Ymhpp9XnsbT89pDzYUlbm6Rpmd8j/3N/+AGtTpy+gRK1
+         fbNUPJmQpw8k9/5NaFR8dcU8skGapx+N2TOcefdH3X8RVgC/MFKaQj5zUsU03EFysM+h
+         /jfenxVGfivdA0sucur7RVnTHXg3iJrAy4/+GPrkVOULHfBMNSBIu1pxX25qmt6JdGWA
+         wv/+1HU2MdH8Ukzx712dU39lrFD7Va8yfqQ5NOKzFetkJscWNVeLGTSpgpPmqluwZSb3
+         W97w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768482737; x=1769087537;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LFm/I4196HgVQNwV0YmL4WM1x1A8fO4rt2IHhLxqcjs=;
+        b=oXIukQnVWj+Uyagzewsr7J8jA44GEjGk2/uQTeOWj9kPpTY63j2bRr/m2LCweLjIZQ
+         tE1m2cS4db52PsXBG6rVkjPxxQczvTaZif78NRp9HaGt5yUdQXio3o/J8taUtJpWPbsR
+         PcLwQRuazsxsdFD+ORYGtC6YZFRovm523S4VMKGjYxBEnEDmP26nNBTsby7jjb1j3TmM
+         H77tKc4Mvnz3jnFUA5T+9xR8t+TbqyUFJ4iAXM/5LGFPL1hMwQo9DTd/AW7p0MWIOe0S
+         k6qdrCZk9RxKYXcdUpIpqB/rEg7wAsxDgbLZemM6Y0t5c/jLJz6pzHlJuOWu+c4TttPr
+         8BDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU22nWZntnkQkRwnCfczQ1Rt4dqs30r6uVH//04giKjeyQ6ZTkVJjc7nk5tbuB3eSJVGZ2ma5XtNIw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxc6z0xDYE9i4lbjfcCUTJp5mwrKl1MEbngyBRfyvSg0Phq6Uak
+	9/FYqBcnKGsT64S759pK0egeh8qEwvwffBJHSB9QkXRpxIy9sf54wfpDYllEQhsHyQ==
+X-Gm-Gg: AY/fxX6uXV0MEEXdnmjJg2vVfOvir+oYmXvB1SMeXRqC8a+wSB5VWEv/uMqhclzsPiN
+	YSfMYXelvGz3lEIAH88KU62XoiuFTwDN7z3JwkBEuoqoVTbNeC8xRyqeYBfYKGboFFJ0Y422H9U
+	G7ydqHf4aogvsm63tRUbPMGCdV115VgeoXW6pa+4ZM1lVkr6FGszZW06CoF3QUzxTh/Ty6LkrXz
+	3mW2TyY35SAKdD9/eDTMwkWt0RV0CVuzeq034THLEjOeB6t2APyHFyiM9QBbLAJWyK8safkVqj0
+	p2Z98e01nNUMhsEVMXZBcn9O3adp7QT/bxp4/ZWk9UbonmSYm9nW1UUNj8d2tJzP2hnGPsbIL9V
+	lC7mo9Tdisvd1bJJP5XaOtECPhRFuoC4i8IBRsFi0LzkRXqPFqtSUyly4LfSXj3rxyyWgcS5+mi
+	C00nNEiGYo81WJPWAKD2lDKYpPZsT276FWnVcw8NyIC0SO7/kzvob9aAojgj/Q1PRIbAKS07jq0
+	co=
+X-Received: by 2002:a5d:6d46:0:b0:430:fced:902 with SMTP id ffacd0b85a97d-4342c5039d8mr6429935f8f.26.1768482737282;
+        Thu, 15 Jan 2026 05:12:17 -0800 (PST)
+Message-ID: <8377bdc2-d92d-4c3f-893b-19c842cad3a7@suse.com>
+Date: Thu, 15 Jan 2026 14:12:15 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|LV3PR03MB7777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7619dd5c-834e-48bf-8d83-08de5436cbf9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RjdMcDllZWh1MDltdFphQzhTdzRTRVFuajR3U2hOcGlUMlk3ek5rbXJRQXZI?=
- =?utf-8?B?Ykg5Y0loWWZrN0FLOUE5SFF4UmtKUTZibE95c3JZOHo5c3JmdVBxSUM4S3ZC?=
- =?utf-8?B?U2FnVmpiT2NPMjNFMVBWSkdiL0xsQ2lVVXVNMmVtQUVLdHYxSC80eit3MGUv?=
- =?utf-8?B?b0xvS2FpVGNQOWJxRDZkcnk0R0pGQUVFbVA1K0VvWm52Z1JzcitBdDh0aFZI?=
- =?utf-8?B?RVNyRnl3VjRTRVZRcXFnckRyVDNoSlZFQVhWd0pLT0VjdDY4ZXZHak5aZEIz?=
- =?utf-8?B?bFJDN3NoWERUZWlCZDlGWE9LSEUvdmxrSW9aSmxZVnphYUZDQXNlb29MYUtI?=
- =?utf-8?B?aWxRaFRFZGZDYi9zQzFnT3hGdDBxZUcrTFU4ZTF1ZlJIdGlJa0VhWXg5emQx?=
- =?utf-8?B?MkRYZWxiWFIvZE9YMTFzQlhUZDJzaGtUVTNUM3VaanBDWnpQY1dIeVU0Rytp?=
- =?utf-8?B?cjNIaWtjckM0QUdzbXl6TG5Yc1JPalRCVmFzMmFTQTJTcTRLeWpYL2xYSkVF?=
- =?utf-8?B?NSsxVGNscnordVNRa2FyN0RFRTVkSTJGbkMxTTQzQzVEK2lXY011cEhPM296?=
- =?utf-8?B?R2ZENTZxeWZpR1hNR2Z1ZlBWMTB3d0Z1RHZhQXRCbEIwOW1lSllNblI5ZW4w?=
- =?utf-8?B?MHNJVVZqT2hScEtNSXUrNXZCcDcyckZTK0M3R3hNWkJWYzI1Q1E2WU5YUEhm?=
- =?utf-8?B?SUI3QUk0RlZoZExtZXNhVXBqUUlTNWNWZG5KdjdwcWNtQjEvUGNiN2o1ZVVT?=
- =?utf-8?B?Qm9ieHVtTHlaemJPUGhwL3BMcUJyaXM1UTlUUkpQS09WNDFxSGdwQWdhM294?=
- =?utf-8?B?NVhYVUVRM2NrSGxqR3B3eVIyT3Z4aDNWSHJwM3R3WDR5Mm1tZEwxenVvMVM1?=
- =?utf-8?B?cXgrT1BzT3lIN2FnQzdRUGl2YjRVWURxMjRSL2hHNkdFR0hST1ozYXQ1OFp3?=
- =?utf-8?B?OVM5OXc3WlA5MUhPNUxrOWhUajJFTys5ZFByU0hTMlFxM3VNN3NXdGQ2Smdn?=
- =?utf-8?B?bi9raVhNVWFnZEtlN25pV3J0MzdYbVkvZWR6S1oyVThPaFhVUmlVc3dDM3V5?=
- =?utf-8?B?NVN2Wjl0ZC9nWEU5T0pNdTAyTWxOdy95dXlsRmZqNnpvekhpdzRHU3lzZ0hw?=
- =?utf-8?B?NlBvU3RFWTBDZWhLQWR6WjNkVmYwTEI4U21na3RZRjJrN0hlSWlWaWVDVkhk?=
- =?utf-8?B?Um1TSFBYK245bjJ1elJWU0crODlEWFRKQUZZKzY3S2VQOGhTeFd2cDJ0a0sr?=
- =?utf-8?B?RUxGYlIvUTY1Sk1IeHVnN3A0ajFmZGV6NmFxQ3VHYVhYQ3hGT0JDYXdSSnBp?=
- =?utf-8?B?bkJRay9BTEFpeGxELzFweUVQK3hVeGEvb0M3Ty9XK3lxRGJ0NktkTlJBeDJw?=
- =?utf-8?B?aFNzUDFjSURHU3BjSEtTL3I2R1VCcGc5N1ExTWxaQjY3SWNnb0w5bEIzdVQ4?=
- =?utf-8?B?bmtwdzZvVEhVcjBnZzZHZktERU45OEVDLzg1TVlsN1V5d0phTkw5L3ZVSUE5?=
- =?utf-8?B?bHdlZjdJOVFXOGtqeW1pZ0Zvajk2WjVvVlJlU1g5R0Z4V3IrWGdRdVNISWRI?=
- =?utf-8?B?d1VoM2dCbU4vOGRTUFc1T1ZPRk1vYkorZDBOb3luNi9NQmoyLzF6YkxYWmlP?=
- =?utf-8?B?eU0rVzRJL25peEdVRUYveHZlNlU1cWQySUxyNDNTQ1BkRm0yVzZZVGYvMnVo?=
- =?utf-8?B?aWlwenNnTjlidGljVjhkT1FsZXF3dWk0ZnZDUTIrR1lOb3RUVGhqNHFXNVoz?=
- =?utf-8?B?RlVqQVJIdTJlMkhxaVA2Z2IwQTFZYzFOYmk0R1ducWVuM0hlUE41LzFIOC8w?=
- =?utf-8?B?Z3NTbHM3a0J2OWQvRVR2Q3NPbVp2REN2TGFKZnFVeWRIMzBrdklma3U1dUpt?=
- =?utf-8?B?cmFTZ2hDRWZYdk1OK1VWZVpMRHB5c2ZyNHAvdHhraXZGc0VZV09LVWV6MHFw?=
- =?utf-8?B?T0hyU3R3d2h4ZnIraFNtOWNQN3hWQ0JRbk5qcDByL2pZTEh2S0dYd2hNbFhw?=
- =?utf-8?B?MmtwcFRieHZHQnZWVVhjL3VpanpNWjhNWTRHVjlycDVFeVdhUXlwbExQaWpC?=
- =?utf-8?B?Wisyb1hLNVBEOEVXbldJNUZtWU54WlNhaTVUNmVzQTJnNWRUYVppdHJjOGU4?=
- =?utf-8?Q?AwNM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?STdRdTB1djJUOFhIV3g3NTNhdUJWVVNHRHhJdldGdWZlUzlrRlF5TGdGWmpX?=
- =?utf-8?B?UEMxUWlHTHo3T2xya2w0cW1LNzZYYmdwRUZXRUowa2hJNEs4U2RUaVlscnU1?=
- =?utf-8?B?am5xOHZPWnhlbkVhOHovcDRQdVhhK1VFZG4zT0tRYTNJQ3FNdmtIcUQ3TXIw?=
- =?utf-8?B?TE41QjE3Wm5XTi9Zd2E3TU9xeTZtaWFpS0Y2QWZiWUhMT3F1VXBjUXBrOTc0?=
- =?utf-8?B?a2FoVEt4MkJITGQ2aHlTREtrNm93azFDYWo2MlB1ZHFuQzU5RXIvYllwT0l2?=
- =?utf-8?B?a21YZjhZMU04QURtUHZjc0ZIOHgyOE93RVZDMzBScGxidHpScFVzQ2lIdUdz?=
- =?utf-8?B?WGtNK1RickxMV2UxZUZZZWp1aEZyYlVJSmJPaDVpZVFYSFJ2bGV6VitsNHlO?=
- =?utf-8?B?M3BiUzVhRjBFRys5bkZVS0tGSVNyT0pUS3VHcG5MUDlKNnJJbHYrbllTRFhF?=
- =?utf-8?B?YUlzWW9ZcTY1cWRaZFlpeEdUcFJzR3o1MTNoWnhGOEwyaGw1NkJ0V25sazc5?=
- =?utf-8?B?THZ0dElCUlVEWlNyaHN1d3RaNHVDUDl4UjIrUFYvNUlvMXNmRjRSNkpBVGEw?=
- =?utf-8?B?b3hGRXB4T0E1Y3RTM3F1RzZkaFBjTUlxa0h1L3liRWlJOWRzb3U4YmgvYWFn?=
- =?utf-8?B?OUcwM3RoU1crTE51bGszVm01NEtyWTR5cUI5L3BMNklSL0h1dkdGYk8vY2Uz?=
- =?utf-8?B?YnBCMVVSd0NhUzlIWTFpWmNVK1VqN1VuRXZjb2Y5UUpMOGRGQmxYNmQ5T1pj?=
- =?utf-8?B?WnNzUUVJb01TRm5ERyt0QzB0bXBNejdXMTlZUlYzUkVvYWFOZ1c3QzRtSXhX?=
- =?utf-8?B?KzNuVWpIMnVKaHF1RGsxQ0tqNjl5RWpWY3hpa0dxWjZpenQzRkk2VFhQTGxP?=
- =?utf-8?B?VFppcmxZVHRIMHdwaXlYbzlUQ21mUWhLKzU0cEVaN3pUVG9kcStJbjhKWi90?=
- =?utf-8?B?M3VwbGlFRGFXZ1ExQ3A0dWNkdUMycUpuU0pCZnUvV1orQnhjM21ueWJFR1ZX?=
- =?utf-8?B?bG5TWnRVRE1sd1BJL1hUYjA0SkpyTzVDdjJPK0RFZHlkUlNQbDFtZGg0akpH?=
- =?utf-8?B?b3h0VnhBY1lSYTBMUWJDZjM0L1czYXhXMTNIaDlZQ0lkbzJqcDc1Tm4xNyt0?=
- =?utf-8?B?VnluNy9kaFdTMFRCTE83b1lDbmpFWUkxejhidEQ2c0NCRWI2eXViRVZwUk1N?=
- =?utf-8?B?RzUrcHJrcTJuek1xTGlKK1c5QkhKeC8vbE1TV2g4ZlJsV1IzOC9iMU1WU2JD?=
- =?utf-8?B?dXJYNmUrYXd5M3BOQUFtdTVITE9GcHVvNlJpbTMrYjUrTUFFSkNkWWRkYTJu?=
- =?utf-8?B?MVVtR2VFeE82ci9NaFFQZlkrZUFNWUhkMnhVYWJPYk5BZVdNNDY2VGwraUUw?=
- =?utf-8?B?QW5Jako3NUJ5bklCNkxiNW92cDlXaTFEaVBoVWJ0em9Ob3B4aHJmeTlIeU1p?=
- =?utf-8?B?bjZJQ2hhZ2pyUnNTb1phQlM0RHNHTU1ldkE5WFpFMHlIRm5wclRkcGNvWU5z?=
- =?utf-8?B?WFpVSjhZT00xdWVmYjJ3VWNOVXdPS29LeWdjdk93aE5NSkF4cy9YWEtUSTcw?=
- =?utf-8?B?NnBXcUJUWnBDZFh6b3JMNDc1dzJYM1JTY3pibk9yTWpqL1FtcVM3bmkrT1Jr?=
- =?utf-8?B?VE9XYjM2NEkydUpFc2J5OEl2KzRlVmQ5alN5bmUwelF1RDNwWjg2ZFM2SjJW?=
- =?utf-8?B?OGJYdVd2aTBReG5ESEx2YSs1MlJyWVpjN25nSjFTS2M2VzFuVHhMejJXK1VS?=
- =?utf-8?B?SWpmUFhqL244YmdnalErQmNrWkNoZk42SGFkS2MySmZSSWRJRkRDWS8yYnhn?=
- =?utf-8?B?NUsvNjB3YmlGR1IvWHhBUzNsMTdoWHZiSUhvV0xZOVRGYmF5c1A0ZUg3YXNO?=
- =?utf-8?B?U0VxUmVBYWtoc3BCNTBubUpjN2RLMmMwSkVkTGRSNktkS2NLZ2FLRjBRM2FB?=
- =?utf-8?B?dk5PUGh3Z2h0TDZBeVFualpqVGhxQlB5VHJOYTVmWm1CMW44R0pMM2s1a2xT?=
- =?utf-8?B?Q0dCV2IzaS9XSkNKeE5leVhXMnl2c2NRSFNJUWQrbXIxckY3dlZEN0VLY0FN?=
- =?utf-8?B?UllDOFErdm5PaTlUNmJ4NTZ0OEZkcytnM21UdWZYVGZaWFlLSURVUnlLOTJQ?=
- =?utf-8?B?TWxZcU5RditVTzdRMURBL1Vyc1pKTkUxdkVBY1VSWGZsZVdaNlF1OUQvNjh3?=
- =?utf-8?B?Q1JSRVNhUHF6VCtFWmdPMk1WRGhST3pUUjVMVGdraGdiS2p3R29Tb3Q4N3JO?=
- =?utf-8?B?YytpRFkxamZrQ25ka2FqQzhyYjdXSm44aG4xazQ0VnhqeFZIQU41bDl3NFZZ?=
- =?utf-8?B?ZldlN1dubEE2WitLemkyTVZEYzVVYmZxb3R3MzE4Y2w5SGZhZUV6Zz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7619dd5c-834e-48bf-8d83-08de5436cbf9
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 13:05:46.2869
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Cwpg4j1qxtuvC3lZN6XskPuhKZSP3d82xlFojfxYz26QlwC5KH8IpeATsBTz8q3SE3eudO01yFU0a/Y+pf7lQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7777
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/riscv: dump CSRs on unexpected traps
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260115125601.70834-1-oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260115125601.70834-1-oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 15, 2026 at 11:56:16AM +0100, Jan Beulich wrote:
-> On 15.01.2026 11:48, Roger Pau Monné wrote:
-> > On Wed, Jan 14, 2026 at 09:48:59AM +0100, Jan Beulich wrote:
-> >> On 13.01.2026 15:01, Roger Pau Monné wrote:
-> >>> On Fri, Jan 09, 2026 at 12:19:26PM +0100, Jan Beulich wrote:
-> >>>> On 08.01.2026 18:55, Roger Pau Monne wrote:
-> >>>>> --- a/xen/common/memory.c
-> >>>>> +++ b/xen/common/memory.c
-> >>>>> @@ -279,6 +279,18 @@ static void populate_physmap(struct memop_args *a)
-> >>>>>  
-> >>>>>                  if ( unlikely(!page) )
-> >>>>>                  {
-> >>>>> +                    nodeid_t node = MEMF_get_node(a->memflags);
-> >>>>> +
-> >>>>> +                    if ( memory_scrub_pending(node) ||
-> >>>>> +                         (node != NUMA_NO_NODE &&
-> >>>>> +                          !(a->memflags & MEMF_exact_node) &&
-> >>>>> +                          memory_scrub_pending(node = NUMA_NO_NODE)) )
-> >>>>> +                    {
-> >>>>> +                        scrub_free_pages(node);
-> >>>>> +                        a->preempted = 1;
-> >>>>> +                        goto out;
-> >>>>> +                    }
-> >>>>
-> >>>> At least for order 0 requests there's no point in trying this. With the
-> >>>> current logic, actually for orders up to MAX_DIRTY_ORDER.
-> >>>
-> >>> Yes, otherwise we might force the CPU to do some scrubbing work when
-> >>> it won't satisfy it's allocation request anyway.
-> >>>
-> >>>> Further, from a general interface perspective, wouldn't we need to do the
-> >>>> same for at least XENMEM_increase_reservation?
-> >>>
-> >>> Possibly yes.  TBH I would also be fine with strictly limiting
-> >>> XENMEM_increase_reservation to 2M order extents, even for the control
-> >>> domain.  The physmap population is the only that actually requires
-> >>> bigger extents.
-> >>
-> >> Hmm, that's an option, yes, but an ABI-changing one.
-> > 
-> > I don't think it changes the ABI: Xen has always reserved the right to
-> > block high order allocations.  See for example how max_order() has
-> > different limits depending on the domain permissions, and I would not
-> > consider those limits part of the ABI, they can be changed from the
-> > command line.
-> 
-> When the limits were introduced, we were aware this is an ABI change, albeit
-> a necessary one. You have a point however as to the command line control that
-> there now is.
+On 15.01.2026 13:56, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/traps.c
+> +++ b/xen/arch/riscv/traps.c
+> @@ -17,6 +17,10 @@
+>  #include <asm/traps.h>
+>  #include <asm/vsbi.h>
+>  
+> +#define print_csr(csr) do { \
+> +    printk("\t" #csr ": %#02lx\n", csr_read(csr)); \
 
-In addition to what I've said above: the limit that I've introduced in
-v2 only affects dirty allocations that require scrubbing.  If the
-requested order is available and scrubbed the limit won't be enforced.
-So the ABI is not changed in that regard, only unscrubbed pages past
-a certain order are considered as not free.
+Why the 02 in the format? If you wanted to align things, you'd use %016lx. (I
+also don't think the 0x prefixes are overly useful in such dumping, but others
+may disagree.) As an aside, the width of 2 would be fully consumed by your use
+of #, except for zero which would (oddly) be printed as 00 afaict.
 
-It's possibly best to move the conversation to the v2 proposal and
-discuss the limit there.
+> +} while ( 0 )
 
-Thanks, Roger.
+Why the do/while wrapping, btw?
+
+> @@ -99,12 +103,63 @@ static const char *decode_cause(unsigned long cause)
+>      return decode_trap_cause(cause);
+>  }
+>  
+> +static void dump_csrs(unsigned long cause)
+> +{
+> +    unsigned long hstatus;
+> +    bool gva;
+> +
+> +    printk("\nDumping CSRs...\n");
+> +
+> +    printk("Supervisor CSRs\n");
+> +    print_csr(CSR_STVEC);
+> +    print_csr(CSR_SATP);
+> +    print_csr(CSR_SEPC);
+> +
+> +    hstatus = csr_read(CSR_HSTATUS);
+> +    gva = !!(hstatus & HSTATUS_GVA);
+
+No need for !! when the lhs type is bool. Question is whether gva is useful
+to have as a local in the first place, when ...
+
+> +    printk("\tCSR_STVAL: %#02lx%s\n", csr_read(CSR_STVAL),
+> +           gva ? ", (guest virtual address)" : "");
+
+...  this it's sole use (you don't use where you could further down).
+
+> +    printk("\tCSR_SCAUSE: %#02lx\n", cause);
+> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+> +    print_csr(CSR_SSTATUS);
+> +
+> +    printk("\nVirtual Supervisor CSRs\n");
+> +    print_csr(CSR_VSTVEC);
+> +    print_csr(CSR_VSATP);
+> +    print_csr(CSR_VSEPC);
+> +    print_csr(CSR_VSTVAL);
+> +    cause = csr_read(CSR_VSCAUSE);
+> +    printk("\tCSR_VSCAUSE: %#02lx\n", cause);
+> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+> +    print_csr(CSR_VSSTATUS);
+
+Everything below I understand wants dumping, but for much of the above
+that's less clear to me. Why would guest's values be relevant when we
+have a hypervisor problem?
+
+> +    printk("\nHypervisor CSRs\n");
+> +
+> +    print_csr(CSR_HSTATUS);
+
+Above you special-case VSCAUSE, but here you re-read HSTATUS.
+
+> +    printk("\t\thstatus.VTSR=%d\n", !!(hstatus & HSTATUS_VTSR));
+> +    printk("\t\thstatus.VTVM=%d\n", !!(hstatus & HSTATUS_VTVM));
+> +    printk("\t\thstatus.HU=%d\n", !!(hstatus & HSTATUS_HU));
+> +    printk("\t\thstatus.SPVP=%d\n", !!(hstatus & HSTATUS_SPVP));
+> +    printk("\t\thstatus.SPV=%d\n", !!(hstatus & HSTATUS_SPV));
+> +    printk("\t\thstatus.GVA=%d\n", !!(hstatus & HSTATUS_GVA));
+
+Might these better be put on a single line, e.g. in the form
+
+  [VTSR SPVP SPV]
+
+i.e. enumerating the (interesting) set bits textually?
+
+> +    print_csr(CSR_HGATP);
+> +    print_csr(CSR_HTVAL);
+> +    print_csr(CSR_HTINST);
+> +    print_csr(CSR_HEDELEG);
+> +    print_csr(CSR_HIDELEG);
+> +    print_csr(CSR_HSTATEEN0);
+> +}
+> +
+>  static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>  {
+>      unsigned long cause = csr_read(CSR_SCAUSE);
+>  
+>      printk("Unhandled exception: %s\n", decode_cause(cause));
+>  
+> +    dump_csrs(cause);
+> +
+>      die();
+>  }
+
+Apart from CSRs, how about also dumping GPRs?
+
+Jan
 
