@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE8FD2407E
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:55:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204797.1519361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C293DD24084
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:56:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204805.1519372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgL0r-0007Sn-Un; Thu, 15 Jan 2026 10:55:37 +0000
+	id 1vgL1Z-0007wG-7k; Thu, 15 Jan 2026 10:56:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204797.1519361; Thu, 15 Jan 2026 10:55:37 +0000
+Received: by outflank-mailman (output) from mailman id 1204805.1519372; Thu, 15 Jan 2026 10:56:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgL0r-0007Qx-Ra; Thu, 15 Jan 2026 10:55:37 +0000
-Received: by outflank-mailman (input) for mailman id 1204797;
- Thu, 15 Jan 2026 10:55:37 +0000
+	id 1vgL1Z-0007tu-44; Thu, 15 Jan 2026 10:56:21 +0000
+Received: by outflank-mailman (input) for mailman id 1204805;
+ Thu, 15 Jan 2026 10:56:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vgL0r-0007Qr-0c
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:55:37 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vgL1X-0007Qr-RE
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:56:19 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b76ddba5-f200-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 11:55:35 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-65089cebdb4so1170495a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:55:34 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654120840dfsm2230564a12.27.2026.01.15.02.55.32
+ id d1f0ee4d-f200-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 11:56:18 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-47ee807a4c5so5576765e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:56:18 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47ee2a5e48asm39939555e9.20.2026.01.15.02.56.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 02:55:33 -0800 (PST)
+ Thu, 15 Jan 2026 02:56:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b76ddba5-f200-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: d1f0ee4d-f200-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768474533; x=1769079333; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=C12moZQp1Jlz4eDJh1Ln6w399/SbVfOuWsYDoQk6hyY=;
-        b=QzB0SOu7v+NHkBmbLht6NcNwggRDG28OZ1J7WfAuRetDpi0zEv5xxNAAVp8LXoMNsX
-         Pw4bz/Mq7ORknKzYdhrSdCMOw0uS7HYW5jtrZtgXZgS47zU8//NKHRi+4FV7DBVyB1De
-         TXLh98+zYVlv8Kyn+XwVWco1OzSD6exNro+NEWwX08IrNdmieDg/R1hnavhL7yvNECXO
-         BCu2EJYfWLkFnJIBGVJPi1Dqm5HOgpetqagJoADWGcYzVuFwHFEzHdM1sFFJG1jqkHwG
-         oy5bZqma0H83ZEiekfBTXDv5V5CbSijwVALzojzDHoyrzHJ2hCzbONiwFkTx+UTFgzIJ
-         YolA==
+        d=suse.com; s=google; t=1768474578; x=1769079378; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Za7Gq1jYLlWSX1PBmn/AuaZtv3+lx9trnFsAxr1SdSQ=;
+        b=FvInh05UWvVVs80LXXUxKx4IbbIeOXRVKYItkLpnrki7s4mwAwetgnDmhMfSPFFOy0
+         yIjysvQUGo+NUFWgukj9Dl+lqBSuNS41q0rl7kNRiZAd84r1fAdFoBRscQ+3lLA2P1ci
+         Bd8EqrfOCdnd4fU0Y5jSATVtXUB+5QM4aqe0OE+Tifg2EbOdcpZxGknxAd3rHQI6MCBk
+         U8xtaGI9siKRvfmLoD5MWl4tO/1Wvozl4fXCNmipvP6x4QFymvgQJ55RbjX2dF/VLRj3
+         oQfYOdNNhr42K/L4JkP9RCj9EyJgXBP59OEnKKUaJrKVWLdIJXky16JFtSzZLZ8+Dm60
+         BqOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768474533; x=1769079333;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=C12moZQp1Jlz4eDJh1Ln6w399/SbVfOuWsYDoQk6hyY=;
-        b=XgqIfgHlmmhmZsNpIY/2l6pAkHbRHa8jUK5fw0JAgpOFquVaqLNWNZgAET1ofdt0yn
-         aUjsEzycowaR+tfBeGdRUhYI2fvO1ABXA5n1stu9aP31k8eTKLoVxWeDRskTWAjfByjB
-         jZxUoxFzlkaR1LinwTayzLFTDeLmj3Qb7pylvedoH6HP/aSko9tRZbAJGDwPTamM11UA
-         zfT4Qp1GBKoW3/FkFxrPzoQOpoEho4/S8dhgs5CCqqXHYp25dgEmbLkwPK2Vv3v3TB0i
-         B/pJa6R5FACvD4Uvfl1uc9n28CwSAvKbEeSlFEFAVznE7m4btIyyz3JZ995GX288/16F
-         Auyw==
-X-Forwarded-Encrypted: i=1; AJvYcCVxd9WgTkKb2x6KKNxf515pS/IKWfLOyc1Bm85A6+zfDzzSZrrn7KMdOaGMeulcBKvtOLYthQrZiEA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYUdnBLBE30C1WWR2mobG3jteXftTHjcBt6kd+jCnq4lLrGoOZ
-	wvw/M4Y0wuXia5ZSg/jDD1DTocmaG/pqBq8TrR/caoQBLTiqyx1+Z8hC
-X-Gm-Gg: AY/fxX6hAw35dPauAemdmj0h9MtWxmK8pRbGRUlR911x+64vRR30HNM7IE2VUevxiwr
-	HPR8i6MEA/2pkblbS3P4EoO+PKWi1muA9wHydc9QuGX+uCy31+vmnPa+HzOM8FxR9aTYiYJ3eL1
-	niTUlFRwORn4n6rELZ95f00+EJIPeF3fq5Z0upc1T+amDjjJ9Xb6pdhx6h+JfxhHEM/Xk1UAqkh
-	naB66oKniVjotccfLO/22u3fvBQPCksmCOitz2T/h3crUXL/lpRvIJs8QAFMokyBenj1BnHq5sq
-	5+uOKA6iWUq1339IybtbrNxmTxaEl0nq9sJRejV2srfds9UBQ8cPsk26jx0NYS5bF/7S5TYgy3B
-	HAfYMFjzEHNEQiAkMok8q/rvQGBMWJ18lpKw8xpNw5MQBd/hfMsaBkWEthlY5yfM6YN3dLQ8lMe
-	mHDrAnNSFVcAmm7C2JjMs6Y53DSTYneoNom44Ne1ZEvx6jnT1jo/vpohJ/1sWACKJggmNosiCsc
-	w==
-X-Received: by 2002:aa7:c50e:0:b0:650:8a2c:43de with SMTP id 4fb4d7f45d1cf-653ec4744f0mr3393130a12.29.1768474533311;
-        Thu, 15 Jan 2026 02:55:33 -0800 (PST)
-Message-ID: <a80a50c0-eefc-4ee3-8d49-145698d45297@gmail.com>
-Date: Thu, 15 Jan 2026 11:55:32 +0100
+        d=1e100.net; s=20230601; t=1768474578; x=1769079378;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Za7Gq1jYLlWSX1PBmn/AuaZtv3+lx9trnFsAxr1SdSQ=;
+        b=L09Y0qa1kf2CopJahePebMcrDp1dAKj8rS4uELDFb+cpuuZYkmwVM3aO+0R2B+IsNE
+         MU/7wVXg/dNLiQTnigrW7asuyzucaVFfX0IMqFcR3jibAEyrYbOlsmdQTmCZJk7wfzFs
+         2dqsKorF4eIgEUXI+KNtTSf0a94mSaabZ0X91zjiJcvN7Uli6N3K/HfgHCpyt3hL5k8i
+         fhdLkRsShxGD9yO1QTRTtZiL6v0bro/xxLYOv/CoJ+pceo5Hc+hHvDEvguvYbCpZAEVT
+         uwVN5gWuE13clIWc1aawiA4QGODVM8zNFaa21Z5ZrGv7UXbcRc23rw9nQCq85yDu3IE9
+         0klw==
+X-Forwarded-Encrypted: i=1; AJvYcCU+I7yG9GMpgoxX0bng8Wq4831k5XQPOANewOswGLBP2RHWRi657QzVKwnLJaeyJrmdXyFazl9h0iQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYV18zgRx4VjKdB/0D1I7yoAh5+ZYSl/Te/vW+8sgetJz062Qo
+	9PvopYtLrdqegI9UerQBkWEiclrPY2AWFLGk3w1iZ3Ji3C140LqAEU7mcdFhOJmvOw==
+X-Gm-Gg: AY/fxX5Xe/oGTjVqmLXGJjuZ/6WYzQzylYRMi2ACUirNg+7hF+A51jgE6fnBXsa4h19
+	iWTvscyW4xxoWAyanYv5SRkmGZJv3AUjSgtMY+/aAG1Bj8ncxjfFqzRDa8Q7+wXCpljCEKJv7Z5
+	sWDMsJQsTRCiq4tG/cIvV9E7oRQkAieGQHAPM/GlKd3hgzFv06zkzl8CPv1PJoGwxjOWnCQYxKO
+	s3sHFuSpLFpSZDr4BASZeZRQx0wRAg8VUOMz90ZX2DOr0+PkWCkO7fevZkHmEnVoWQSt7oqJpSD
+	2lkXPZtDn5XVo+j2gzZZcUibVdo8msE8pydc7D8WuHZFZDyUMLBN9WPs53n9D7QJs0H2UJ9t7al
+	y9UZPJDQ1ZOXNKZEnwyG+PlDYfUYKRZzzcVJUW0BwyfkRTFODEmTdLByRzMdquH8MVnpj8lNxYG
+	g49AbfqfITrRlGAoIcghp6AcD4vNe9CsDCfvnq990Kjn/otxYKKw7medU0SsViNmSsqLeZlNakT
+	xNiqrFaHPlHog==
+X-Received: by 2002:a05:600c:528b:b0:480:1d16:2538 with SMTP id 5b1f17b1804b1-4801d162823mr2914125e9.23.1768474577990;
+        Thu, 15 Jan 2026 02:56:17 -0800 (PST)
+Message-ID: <14560e88-bbd5-48e1-848e-e53a3237d16b@suse.com>
+Date: Thu, 15 Jan 2026 11:56:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
- interrupts, part 1
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 2/2] xen/mm: limit non-scrubbed allocations to a specific
+ order
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
- <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
- <f707899a-3200-4467-a827-2195351f1226@gmail.com>
- <dd10f076-cf91-426d-b2c0-2fa3056fb54f@suse.com>
- <7a90cc1b-b053-4b9f-91f1-d32064b1ec29@gmail.com>
- <c0d5104b-52ec-484e-ac40-8901ae298fa8@suse.com>
- <b6d9eb9d-24a1-4d11-aa74-c76fd96a2c96@gmail.com>
- <fc3d92fe-e04e-48df-a0ed-c74b3bb7d3ba@suse.com>
+References: <20260108175536.82153-1-roger.pau@citrix.com>
+ <20260108175536.82153-3-roger.pau@citrix.com>
+ <b547676c-ff2e-4a56-b3b4-2b2da167e2f1@suse.com> <aWZQLL997K3MTQY4@Mac.lan>
+ <b535344e-1f27-4d5c-85aa-1529868f85fc@suse.com> <aWjGDy3ixLRTpZbF@Mac.lan>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <fc3d92fe-e04e-48df-a0ed-c74b3bb7d3ba@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aWjGDy3ixLRTpZbF@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 1/15/26 10:52 AM, Jan Beulich wrote:
-> On 15.01.2026 10:14, Oleksii Kurochko wrote:
->> On 1/14/26 4:56 PM, Jan Beulich wrote:
->>> On 14.01.2026 16:39, Oleksii Kurochko wrote:
->>>> On 1/13/26 2:54 PM, Jan Beulich wrote:
->>>>> On 13.01.2026 13:51, Oleksii Kurochko wrote:
->>>>>> On 1/7/26 5:28 PM, Jan Beulich wrote:
->>>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>>>> By maintaining irqs_pending_mask, you can detect “this bit changed
->>>>>> recently,” even if the final state is 0.
->>>>>>
->>>>>> Also, having irqs_pending_mask allows to flush interrupts without lock:
->>>>>> if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
->>>>>> {
->>>>>> mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
->>>>>> val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
->>>>>>
->>>>>> *hvip &= ~mask;
->>>>>> *hvip |= val;
->>>>>> }
->>>>>> Without it I assume that we should have spinlcok around access to irqs_pending.
->>>>> Ah yes, this would indeed be a benefit. Just that it's not quite clear to
->>>>> me:
->>>>>
->>>>>        *hvip |= xchg(&v->arch.irqs_pending[0], 0UL);
->>>>>
->>>>> wouldn't require a lock either
->>>> Because vCPU's hvip (which is stored on the stack) can't be changed concurrently
->>>> and it's almost the one place in the code where vCPU->hvip is changed. Another
->>>> place it is save_csrs() during context switch but it can't be called in parallel
->>>> with the vcpu_sync_interrupts() (look below).
+On 15.01.2026 11:48, Roger Pau Monné wrote:
+> On Wed, Jan 14, 2026 at 09:48:59AM +0100, Jan Beulich wrote:
+>> On 13.01.2026 15:01, Roger Pau Monné wrote:
+>>> On Fri, Jan 09, 2026 at 12:19:26PM +0100, Jan Beulich wrote:
+>>>> On 08.01.2026 18:55, Roger Pau Monne wrote:
+>>>>> --- a/xen/common/memory.c
+>>>>> +++ b/xen/common/memory.c
+>>>>> @@ -279,6 +279,18 @@ static void populate_physmap(struct memop_args *a)
+>>>>>  
+>>>>>                  if ( unlikely(!page) )
+>>>>>                  {
+>>>>> +                    nodeid_t node = MEMF_get_node(a->memflags);
+>>>>> +
+>>>>> +                    if ( memory_scrub_pending(node) ||
+>>>>> +                         (node != NUMA_NO_NODE &&
+>>>>> +                          !(a->memflags & MEMF_exact_node) &&
+>>>>> +                          memory_scrub_pending(node = NUMA_NO_NODE)) )
+>>>>> +                    {
+>>>>> +                        scrub_free_pages(node);
+>>>>> +                        a->preempted = 1;
+>>>>> +                        goto out;
+>>>>> +                    }
 >>>>
->>>>> . What may be confusing me is that you put
->>>>> things as if it was normal to see 1 -> 0 transitions from (virtual)
->>>>> hardware, when I (with my x86 background) would expect 1 -> 0 transitions
->>>>> to only occur due to software actions (End Of Interrupt), unless - see
->>>>> above - something malfunctioned and an interrupt was lost. That (the 1 ->
->>>>> 0 transitions) could be (guest) writes to SVIP, for example.
->>>>>
->>>>> Talking of which - do you really mean HVIP in the code you provided, not
->>>>> VSVIP? So far I my understanding was that HVIP would be recording the
->>>>> interrupts the hypervisor itself has pending (and needs to service).
->>>> HVIP is correct to use here, HVIP is used to indicate virtual interrupts
->>>> intended for VS-mode. And I think you confused HVIP with the HIP register
->>>> which supplements the standard supervisor-level SIP register to indicate
->>>> pending virtual supervisor (VS-level) interrupts and hypervisor-specific
->>>> interrupts.
->>>>
->>>> If a guest will do "That (the 1 -> 0 transitions) could be (guest) writes
->>>> to SVIP, for example." then the correspondent HVIP (and HIP as usually
->>>> they are aliasis of HVIP) bits will be updated. And that is why we need
->>>> vcpu_sync_interrupts() I've mentioned in one of replies and sync VSSIP:
->>>> +void vcpu_sync_interrupts(struct vcpu *v)
->>>> +{
->>>> +    unsigned long hvip;
->>>> +
->>>> +    /* Read current HVIP and VSIE CSRs */
->>>> +    v->arch.vsie = csr_read(CSR_VSIE);
->>>> +
->>>> +    /* Sync-up HVIP.VSSIP bit changes does by Guest */
->>>> +    hvip = csr_read(CSR_HVIP);
->>>> +    if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
->>>> +    {
->>>> +        if ( hvip & BIT(IRQ_VS_SOFT, UL) )
->>>> +        {
->>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
->>>> +                                   &v->arch.irqs_pending_mask) )
->>>> +                set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
->>>> +        }
->>>> +        else
->>>> +        {
->>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
->>>> +                                   &v->arch.irqs_pending_mask) )
->>>> +                clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
->>>> +        }
->>>> +    }
->>> I fear I don't understand this at all. Why would the guest having set a
->>> pending bit not result in the IRQ to be marked pending?
->> Maybe it is wrong assumption but based on the spec:
->>     Bits sip.SSIP and sie.SSIE are the interrupt-pending and interrupt-enable
->>     bits  for supervisor-level software interrupts. If implemented, SSIP is
->>     writable in sip and may also be set to 1 by a platform-specific interrupt
->>     controller.
->> and:
->>     Interprocessor interrupts are sent to other harts by implementation-specific
->>     means, which will ultimately cause the SSIP bit to be set in the recipient
->>     hart’s sip register.
+>>>> At least for order 0 requests there's no point in trying this. With the
+>>>> current logic, actually for orders up to MAX_DIRTY_ORDER.
+>>>
+>>> Yes, otherwise we might force the CPU to do some scrubbing work when
+>>> it won't satisfy it's allocation request anyway.
+>>>
+>>>> Further, from a general interface perspective, wouldn't we need to do the
+>>>> same for at least XENMEM_increase_reservation?
+>>>
+>>> Possibly yes.  TBH I would also be fine with strictly limiting
+>>> XENMEM_increase_reservation to 2M order extents, even for the control
+>>> domain.  The physmap population is the only that actually requires
+>>> bigger extents.
 >>
->> Meaning that sending an IPI to self by writing 1 to sip.SSIP is
->> well-defined. The same should be true of vsip.SSIP while in VS mode.
-> I can't read that out of the text above. To the contrary, "will ultimately cause
-> the SSIP bit to be set" suggests to me that the bit is not to be set by writing
-> the CSR. Things still may work like this for self-IPI, but that wouldn't follow
-> from the quotation above.
+>> Hmm, that's an option, yes, but an ABI-changing one.
+> 
+> I don't think it changes the ABI: Xen has always reserved the right to
+> block high order allocations.  See for example how max_order() has
+> different limits depending on the domain permissions, and I would not
+> consider those limits part of the ABI, they can be changed from the
+> command line.
 
-Why not that wouldn't follow from the quotation above?
+When the limits were introduced, we were aware this is an ABI change, albeit
+a necessary one. You have a point however as to the command line control that
+there now is.
 
-The first quotation tells that we can do self-IPI so VSSIP.SSIP will set to 1
-what we could miss SSIP bit if won't explicitly try to read h/w HVIP (or VSSIP,
-or whatever other alias of the SSIP bit) and sync with what we have cached
-in hypervisor.
-
-The second quotation tells that if another CPU send IPI to CPUx then CPUx.SIP will
-have SSIP bit set to 1 and again hypervisor won't know that without explicit
-reading of HVIP (or VSSIP, or whatever other alias of the SSIP bit).
-
-
->
->>>    You can't know
->>> whether that guest write happened before or after you last touched
->>> .irqs_pending{,mask}[]?
->> Yes, I think you are right.
->>
->> On the other hand, if we are in hypervisor when vcpu_sync_interrupts() is
->> called it means that pCPU on which vCPU is ran and for which
->> vcpu_sync_interrupts() is called now executes some hypervisor things, so
->> guest won't able to update VSIP.SSIP for this pCPU. So nothing else will
->> change VSIP.SSIP and so h/w HVIP won't be changed by something and it is
->> okay to sync .irqs_pending{,mask} with what h/w in its HVIP.
-> That is, vcpu_sync_interrupts() is called on every entry to the hypervisor?
-> Not just during context switch?
-
-It is called each time before exit from the hypervisor to a guest.
-
-~ Oleksii
-
+Jan
 
