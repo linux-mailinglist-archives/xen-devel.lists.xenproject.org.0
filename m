@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 388ABD23C65
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:01:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204652.1519272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A2BD23C53
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:00:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204637.1519262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKAS-00040D-7V; Thu, 15 Jan 2026 10:01:28 +0000
+	id 1vgK9H-0003R6-RP; Thu, 15 Jan 2026 10:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204652.1519272; Thu, 15 Jan 2026 10:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 1204637.1519262; Thu, 15 Jan 2026 10:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKAS-0003xV-4c; Thu, 15 Jan 2026 10:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 1204652;
- Thu, 15 Jan 2026 10:01:27 +0000
+	id 1vgK9H-0003PA-Ne; Thu, 15 Jan 2026 10:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 1204637;
+ Thu, 15 Jan 2026 10:00:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KgiG=7U=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vgKAR-0003P4-9i
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:01:27 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1vgK9F-0003P4-OG
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:00:13 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27c6e6fc-f1f9-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 11:01:26 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-37fd6e91990so6606301fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:01:26 -0800 (PST)
+ id fba62c1c-f1f8-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 11:00:12 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-59b6a987346so681728e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:00:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,127 +40,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27c6e6fc-f1f9-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: fba62c1c-f1f8-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768471286; x=1769076086; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1768471212; x=1769076012; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/NUq6ZuohHWwa1bqjnFzQy2W23gyUBmH+kKcLMdDFmA=;
-        b=ITxaynnU1T4dTGqIzAr9EwK7f28wPO1+gNqk81v+rqmbKQKhGD4KZ9g1MHoxrjwoG5
-         KtJuuq1JsZI6vOnvVR6fFQ6KN59h5ADiL3ZzbUZOqRHNvO8md2tKHrAxOect5u8bRjNa
-         uHJE3tlZdVANG3FYjsZU3zl6Dh9mK5ASxNAYy0yBUQsB8S2giJBgZUD1775EX7MF6a1z
-         g0Dqx8yzNSXmvnH1w2Q1yH4/X/QA0BBL+MloM047t7Vj4ggOu1mxqVSqaFrSy7PYQynh
-         YwAmUpWj78KvnvaX1o7aX9h4zFIyV/L66iMpsrvE7pbECUsAlWcb/HoutqnCN+r/Ac5G
-         2CKw==
+        bh=hiE3X3RbLbN/YrjFYwPkJWRyZnCD12aqK2eKPDZSpvo=;
+        b=kkPlVRPjAO5DRco6X/nA7+HO7bUGCSg0t7vCh/LD83hlB7YtLlc+RsvrsCYqxDy5lA
+         k6PtzP2HkgMyIbpvaRPCIYuk0/MOmifn0BtTnXe0pcETzr3CDBpOYodInu0SMsRgdxQ2
+         IYc7d0RxCvgEE50sWFbilOasqb9jvBriamrt/RrKVSQYEbkZRxohNFswatY6qgUXDUv5
+         1nvxR9bGBAc89nD1P1vwLQBDLdFGXw27yN5bOtapJX6jI1n0U1ZqY6kywzKW1mpwfoO1
+         W5sVsRSi65IL6fv2jhzcYxkrCdqy1SICGJHWGA6993OnbMvpqDQew5vjvEl9b21RLb+Z
+         6OsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768471286; x=1769076086;
+        d=1e100.net; s=20230601; t=1768471212; x=1769076012;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=/NUq6ZuohHWwa1bqjnFzQy2W23gyUBmH+kKcLMdDFmA=;
-        b=ja2JgHgyyVDLr7SvperoUUxXpPjVDX4RQg8WZwoRTsEjAeCh3a+0T6tWX9zRoxQhuK
-         Dje8qXDZBEtIZGFKDQtX4K7BOj10dxY6D+e5ki3J9Mdt2XRKzBmtlwyn171J842M757Y
-         nEnwv7DZxL5Hlphs8/1ZiOqOwi4eQuuzpYAsytNsypxOQSzH6DUAVQmkRPngn7Zz8QLO
-         DXWH8TKnBG1gZt72RxZYrTvUO9Ceorpf8kwF/ihC+jlGmYTfNOD841S4H4tvJ90dFxI5
-         lZJYBowL7fRok2L4QoLofvDn3C/oaPEtkmfyhdd0Hv4jKFW4pDtHoWe9J+SywYs96eT8
-         qH9w==
-X-Forwarded-Encrypted: i=1; AJvYcCVvxwBdPm7vUDbvg6bn+d0V8b/uYiRZ5aEHvlTcX5zL0dLCSKSl/uOItxwZ9oKkclyZ466geJGrSqw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyz3POxJeHQx2+RwV0cakunsd59EJ4w7zD8MFZG+VixJc5+u4Z4
-	Sx4fnPDimjOEkY7KLSz8bNaA6ecs/cBx27Zejd5QOHLh5F2Im0k0m9Xf6tGW62LdR/hgeTEoY19
-	GFDrbOMpAOu0yh28S0+PBQ+K5BlrzpwM=
-X-Gm-Gg: AY/fxX5TOMd8+0LLpwk9TS8wxuTZTeyFQd7I6GpX0hufWLSgGFj7tfDJsvIczlHsdNU
-	6x8Vdx9fJLd3umHjVzeOfWyMMdAKI9mi0MCMA/shYurjKLTIvEBgooyuKAdnnNy7memFpRZ/B7g
-	RzKu5ivgkABpCXK3tAYv99DhhYoAaPwHZDEZOr1QXIbbP7UgDVUGMTFxQBZaajVOxZXmRWi+NW5
-	jBxqdela6B6DIxVoAo4YYug5jy3enPiAUizACJYjV+gcDOOKyFQ0cTanpG3aHeB2JFKXmblWqxU
-	7HB2JQcevX/ctkFDjTuRZatS
-X-Received: by 2002:a2e:be28:0:b0:372:8e26:a4d4 with SMTP id
- 38308e7fff4ca-383608260dfmr17319671fa.42.1768471285606; Thu, 15 Jan 2026
- 02:01:25 -0800 (PST)
+        bh=hiE3X3RbLbN/YrjFYwPkJWRyZnCD12aqK2eKPDZSpvo=;
+        b=NG7zjceJyYaBM/XNG0tsnshYsF9G1+7qDE8EhbyHSYbWhmLLyV843PwUCj3W6+KtY5
+         /AWp41AORdsvuyiCaXBso295ekAKuhJZcJbPyHO1IRod+vxi7hUZOWt6SINTQbnNWElw
+         BhROyCfjEqVnqURBpEYO9xamOyxMxrNDYr+Ff8BZbX424fk9g1AE3PqAIsFzMTRBqEue
+         sy1JNlPGdQl+1oTbWMT26ZW/lgo23W9EubYVOCuv5jXf3KptEhhNGO5SzNZ9fyriJ7BL
+         gt/kM/H5QEGix/7Qht9QZFUOuuJcpRLUdeUDO5h1HgJXqRijyMJjvtHsVS+TrMHTZWee
+         x2DA==
+X-Gm-Message-State: AOJu0Yw0oqOCqiM3xe6eaOuyxwgoiZ1Bx2cmWEHwjvZqtkc8XTo6M8N2
+	del+tiDfWXDGCbR/H0vldymN2bBzQJirjEt5Ypm4nui+3viF3Xdi/y8yt+rZHKE5+ABUI/FWFKA
+	0Y7nK1phc2p07w7oSF1gAZTTQDyTU1FM=
+X-Gm-Gg: AY/fxX5/tTsLBqZ1gvkuQN+skNZA0PH3ht5CSYla1GACWCYysS7U85kXJf+IYpKSaCk
+	pmWscvukfi0rX6mt+ezolzGCyJqdZIVOAZQsnQwWiaHGVIrjDizPPCpI9PYYHZk4S6DUbmSFd2i
+	fgZ4tFGO5pkmcWkpVk31q4tnAinjZuaaeGt2gcvQuzGixrN6EXcL069DMq8jkljYAm56VnGNrZO
+	5cQE7PH/DIV7Dca4joAL+nHbpM2iWMdH7T92B12lHcMNURNjGw/h57FbFOJmuQapQiTxYC/xQYT
+	NkJsucm90iuzH88+JDudgYzR
+X-Received: by 2002:a05:6512:138d:b0:59b:9ae0:d94f with SMTP id
+ 2adb3069b0e04-59ba0f626a8mr2013102e87.14.1768471211604; Thu, 15 Jan 2026
+ 02:00:11 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1765472890.git.mykola_kvach@epam.com> <2fade2b96128053fbe3ed59f1d5e3444b32b96c3.1765472890.git.mykola_kvach@epam.com>
- <59fc7f4c-b3f9-4a5e-b438-7989c4cd7c02@suse.com>
-In-Reply-To: <59fc7f4c-b3f9-4a5e-b438-7989c4cd7c02@suse.com>
+References: <cover.1765472890.git.mykola_kvach@epam.com> <fe8b4d92a8dfd7b4c40429d10233637a339ae8e6.1765472890.git.mykola_kvach@epam.com>
+ <75823cb4-c14c-4a4a-b523-e131c820a4d3@xen.org>
+In-Reply-To: <75823cb4-c14c-4a4a-b523-e131c820a4d3@xen.org>
 From: Mykola Kvach <xakep.amatop@gmail.com>
 Date: Thu, 15 Jan 2026 12:00:00 +0200
-X-Gm-Features: AZwV_Qjkeref5iCREf7ie5Selhq0tqavbcVGGwCNSuylaxNVrC_iBERfc4grQN8
-Message-ID: <CAGeoDV9LSSk9joqp=YuRtfMr9afixeep0B5Nu+Y11YQXM8zu_w@mail.gmail.com>
-Subject: Re: [PATCH v7 04/12] xen/arm: gic-v3: add ITS suspend/resume support
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+X-Gm-Features: AZwV_QhsvrHWdgLHGqpfHSYTlC0Pumq3lobF2mT1E0OMzT10MFZ59gIyE9-WhTk
+Message-ID: <CAGeoDV_beuoKuvdXpXsKv_RaNV0fsj0pHQcmQ+iPbsK4h4W6-w@mail.gmail.com>
+Subject: Re: [PATCH v7 02/12] xen/arm: gic-v2: Implement GIC suspend/resume functions
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
 	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
+	Saeed Nowshadi <saeed.nowshadi@xilinx.com>, Mykyta Poturai <mykyta_poturai@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+Hi Julien,
 
-Thank you for the review.
+Thanks for the review.
 
-On Mon, Dec 15, 2025 at 1:39=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+On Fri, Dec 26, 2025 at 2:29=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
+:
 >
-> On 11.12.2025 19:43, Mykola Kvach wrote:
-> > --- a/xen/include/xen/list.h
-> > +++ b/xen/include/xen/list.h
-> > @@ -535,6 +535,20 @@ static inline void list_splice_init(struct list_he=
-ad *list,
-> >           &(pos)->member !=3D (head);                                  =
-      \
-> >           (pos) =3D list_entry((pos)->member.next, typeof(*(pos)), memb=
-er))
+> Hi Mykola,
+>
+> On 11/12/2025 18:43, Mykola Kvach wrote:
+> > diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> > index b23e72a3d0..0b2f7b3862 100644
+> > --- a/xen/arch/arm/gic-v2.c
+> > +++ b/xen/arch/arm/gic-v2.c
+> > @@ -1098,6 +1098,123 @@ static int gicv2_iomem_deny_access(struct domai=
+n *d)
+> >       return iomem_deny_access(d, mfn, mfn + nr);
+> >   }
 > >
-> > +/**
-> > + * list_for_each_entry_continue_reverse - iterate backwards from the g=
-iven point
-> > + * @pos:    the type * to use as a loop cursor.
-> > + * @head:   the head for your list.
-> > + * @member: the name of the list_head within the struct.
-> > + *
-> > + * Start to iterate over list of given type backwards, continuing afte=
-r
-> > + * the current position.
-> > + */
-> > +#define list_for_each_entry_continue_reverse(pos, head, member)       =
-    \
-> > +    for ((pos) =3D list_entry((pos)->member.prev, typeof(*(pos)), memb=
-er);  \
-> > +         &(pos)->member !=3D (head);                                  =
-      \
-> > +         (pos) =3D list_entry((pos)->member.prev, typeof(*(pos)), memb=
-er))
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
 > > +
-> >  /**
-> >   * list_for_each_entry_from - iterate over list of given type from the
-> >   *                            current point
+> > +/* This struct represent block of 32 IRQs */
+> > +struct irq_block {
+> > +    uint32_t icfgr[2]; /* 2 registers of 16 IRQs each */
+> > +    uint32_t ipriorityr[8];
+> > +    uint32_t isenabler;
+> > +    uint32_t isactiver;
+> > +    uint32_t itargetsr[8];
+> > +};
+> > +
+> > +/* GICv2 registers to be saved/restored on system suspend/resume */
+> > +struct gicv2_context {
+> > +    /* GICC context */
+>  > +    struct cpu_ctx {> +        uint32_t ctlr;
+> > +        uint32_t pmr;
+> > +        uint32_t bpr;
+> > +    } cpu;
+> > +
+> > +    /* GICD context */
+> > +    struct dist_ctx {
+> > +        uint32_t ctlr;
+> > +        struct irq_block *irqs;
 >
-> While not said so anywhere, I understand this is taken from Linux. Maybe =
-we
-> should indeed take it verbatim (as far as possible, i.e. without the use =
-of
-> list_entry_is_head() which we don't have yet), but I'd like to point out
-> that in the comment "continuing after the current position" is ambiguous.
-> In list order, what is meant is "before the current position"; "after" is
-> correct only when considering iteration direction. Personally I would muc=
-h
-> prefer if this was disambiguated.
+> To confirm my understanding, this will also include the PPIs, SGIs for
+> the boot CPU, am I correct? If so, I would suggest to add a comment.
 
-Got it. I=E2=80=99ll disambiguate the wording while keeping it close to the
-Linux text, e.g.:
+Yes, correct. I=E2=80=99ll add a comment to make it explicit that this incl=
+udes
+SGIs/PPIs for the boot CPU.
 
-=E2=80=9CStart to iterate over list of given type backwards, continuing wit=
-h the
-entry preceding the current position (i.e. starting from pos->member.prev).=
-=E2=80=9D
+>
+> > +    } dist;
+> > +};
+> > +
+> > +static struct gicv2_context gic_ctx;
+> > +
+> > +static int gicv2_suspend(void)
+> > +{
+> > +    unsigned int i, blocks =3D DIV_ROUND_UP(gicv2_info.nr_lines, 32);
+> > +
+> > +    /* Save GICC configuration */
+> > +    gic_ctx.cpu.ctlr =3D readl_gicc(GICC_CTLR);
+> > +    gic_ctx.cpu.pmr =3D readl_gicc(GICC_PMR);
+> > +    gic_ctx.cpu.bpr =3D readl_gicc(GICC_BPR);
+> > +
+> > +    /* Save GICD configuration */
+> > +    gic_ctx.dist.ctlr =3D readl_gicd(GICD_CTLR);
+>
+> Do we want to disable the GIC distributor and CPU interface on suspend?
+
+I think we should quiesce the CPU interface after saving state,
+but not disable the distributor globally.
+
+I still prefer not to disable GICD globally for safety on platforms
+where the wake request is routed from the GIC to the PMU/SCP (e.g. via
+nIRQOUT/nFIQOUT). So I=E2=80=99d quiesce GICC, keep GICD enabled.
+
+Are you OK with this approach?
+
+>
+> > +
+> > +    for ( i =3D 0; i < blocks; i++ )
+> > +    {
+> > +        struct irq_block *irqs =3D gic_ctx.dist.irqs + i;
+> > +        size_t j, off =3D i * sizeof(irqs->isenabler);
+> > +
+> > +        irqs->isenabler =3D readl_gicd(GICD_ISENABLER + off);
+> > +        irqs->isactiver =3D readl_gicd(GICD_ISACTIVER + off);
+> > +
+> > +        off =3D i * sizeof(irqs->ipriorityr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->ipriorityr); j++ )
+> > +        {
+> > +            irqs->ipriorityr[j] =3D readl_gicd(GICD_IPRIORITYR + off +=
+ j * 4);
+> > +            irqs->itargetsr[j] =3D readl_gicd(GICD_ITARGETSR + off + j=
+ * 4);
+> > +        }
+> > +
+> > +        off =3D i * sizeof(irqs->icfgr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->icfgr); j++ )
+> > +            irqs->icfgr[j] =3D readl_gicd(GICD_ICFGR + off + j * 4);
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static void gicv2_resume(void)
+> > +{
+> > +    unsigned int i, blocks =3D DIV_ROUND_UP(gicv2_info.nr_lines, 32);
+> > +
+> > +    gicv2_cpu_disable();
+>  > +    /* Disable distributor */> +    writel_gicd(0, GICD_CTLR);
+>  > +> +    for ( i =3D 0; i < blocks; i++ )
+> > +    {
+> > +        struct irq_block *irqs =3D gic_ctx.dist.irqs + i;
+> > +        size_t j, off =3D i * sizeof(irqs->isenabler);
+> > +
+> > +        writel_gicd(0xffffffffU, GICD_ICENABLER + off);
+>
+> NIT: Can we use GENMASK? This will make easier to confirm we have the
+> correct number of bits.
+
+Sure, I'll change it to GENMASK
 
 Best regards,
 Mykola
 
 
-
 >
-> Jan
+> [...]
+>
+> Cheers,
+>
+> --
+> Julien Grall
+>
 
