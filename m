@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7840D23F93
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:38:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204749.1519331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7705DD23FE1
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:43:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204760.1519341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKk3-0003Yp-1A; Thu, 15 Jan 2026 10:38:15 +0000
+	id 1vgKpA-00054J-JG; Thu, 15 Jan 2026 10:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204749.1519331; Thu, 15 Jan 2026 10:38:15 +0000
+Received: by outflank-mailman (output) from mailman id 1204760.1519341; Thu, 15 Jan 2026 10:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKk2-0003Vt-Ub; Thu, 15 Jan 2026 10:38:14 +0000
-Received: by outflank-mailman (input) for mailman id 1204749;
- Thu, 15 Jan 2026 10:38:13 +0000
+	id 1vgKpA-00051f-GY; Thu, 15 Jan 2026 10:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 1204760;
+ Thu, 15 Jan 2026 10:43:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgKk1-0003Vn-SI
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:38:13 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vgKp9-00051Z-23
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:43:31 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a8626a4-f1fe-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 11:38:12 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-477619f8ae5so5238945e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:38:12 -0800 (PST)
+ id 07965b41-f1ff-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 11:43:29 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-47ee301a06aso7111215e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:43:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47f4b26764fsm39979865e9.12.2026.01.15.02.38.10
+ 5b1f17b1804b1-47ee27cf06bsm43696195e9.4.2026.01.15.02.43.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 02:38:11 -0800 (PST)
+ Thu, 15 Jan 2026 02:43:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a8626a4-f1fe-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 07965b41-f1ff-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768473492; x=1769078292; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+aCDT4mV4mNDqWKbUUKkjVLJcR2an8L/53Ch3xJ+6o4=;
-        b=X0Xr8+NuW3kTsZuC6hd01EEnU6u2LR1kPa8z7Hhm8JYWF921tekCxUFTOAteny5ihg
-         vD9HxYz81lkef+qxfOszMJ2N1Kc/Z54Kh8hrf0dRMefWCit0Sa/zmXHcL2vgls3T6VMk
-         ZN0gk3BI/JsUEP9wjagWlh8ABGlwqC2iYnqpIxFz9Pf7A06lm7mgBDT4Vhs/yf17gGyq
-         YjzqtptdPfcqLaxfhtrECvQN+PmdxEmh5oXhRqykuOGe6w5hBeH+B7BpHBQDr9NP9/eQ
-         JRRchOg7oCbNJt/GgMXuLSt0ARI+IfNmkmkM7lDZCamJy2xqkxuKJ9f/UOtHIH5NOVNJ
-         7dWg==
+        d=suse.com; s=google; t=1768473809; x=1769078609; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y+JDD4/9/4R79/PBe0tl0vMxBf7RNoPd/Wz2k8GBJck=;
+        b=HPB+ESbfC0a8gqBZAw4BMw1Wq53O25KRFuIKbGtbFXA5q3gWiVKTSiCxToZAIM36hP
+         lvKCxQ8enUovlSkUQdEwDiYWrcPx9qoSierfHHQexkfuWOFmlBgc1DSKg1xBHZNbQOG1
+         VVhM0U1aALNnM38JvTU7QD5w9myLY6JDqwXdRwiXGwjXI1mfkd/Kx8oTFygpOt7yq377
+         jmKwx+LldPgkFVqPt3Y3SczhPwJyQf16WoxmN1lcPirL9VOtnl5VfjfhvXzGS9HGJ6DO
+         JMVvyA1/8NowNTaWsb7rr2QZORuwf+jumMf0y/joROSeeZ6VZI3uGQyd8AOAmFDwdkMd
+         P2qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768473492; x=1769078292;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1768473809; x=1769078609;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+aCDT4mV4mNDqWKbUUKkjVLJcR2an8L/53Ch3xJ+6o4=;
-        b=bFdvFdl0uYaG2sDD/q+EUvL4BDqlj/vumcnfTJkyBkQ6+fWgsI9vM/vljC5vWAB3Aq
-         xDdEHEC+0GmRtWCJ2UtIcDlalqw8meOuvW/w6mfhCr8TIOxjrw/SpvxMdgaCU+3mJWA+
-         AlBUZ0cTxAQBZxbqPNTCKCdyq58ACVdgZCM4CAkaw4r+oNM4D9p/BlgelFSwOcBExks7
-         fLw3MEVTipeJPqEKF9iNCHGeF3qEkvmWk8zvazUIbqJn4W/XhmK7BZ9KefvxgtqpYLuY
-         qYSrr+wyMLiknlpDyq5xuFhhELC8XOPZVPJI0ddWHJv8uQemJ33NV6XSBl6w5HE9WUaB
-         08WQ==
-X-Gm-Message-State: AOJu0Yyr7tXSSqGMwArbZF7ejap6VE72ZZw6wnNRWIXV/CzZBtu4DhbI
-	NeUpaveU5NN3NtTxdnPoqZTedXsUwHGfJMtOMPjhngWi3qG2fJvvI8kesgFm3x8iVhqom2/l/rY
-	tZYI=
-X-Gm-Gg: AY/fxX4Kmv3MW5ZtnwFuu9b9BWpoLGh97+5Q9SnQ69KzdbVN6lV6K7dSISCakM7fV6R
-	q6wB1YOKu2Xor429iOHjQARhnNXRKb/5G3T49nvbaigh+OlYp7bOSS4WCigiIaf060aWUjg2aP+
-	MU6zJcHVkDA04t5ApFRdLaa4+X2joPfAIhBT6GVwGvYaq9VJJG1jJ5AuxGh1b689xxy60SS2qm1
-	FJwn4MkJbQnt/aETN3EQh3Dn3MH1ZTRXxcdCKg5b9/1kdI+IC0dYbT1yA8AXfiyhnzL6FU0nfIQ
-	run4N2fYradAK+IyDOJmTMgYx0lRBo/62F6LQ9GpysDrpKy87F65HoLVCtyTVT29ud+3oNNegOi
-	Ry4uL7FJPJiUZCjma+HVLnu8uLA2GsfJ33qiIuFEPeCTQlPbJ7SZSXuMw3eIRhbQyjQDlcjZFc7
-	GFbpvpTPxRcARTlN5V+C7CcZDXHRG/nIMaC/t4NdVQwyotGfnabJN3AQ0ogeNTIZR2PWVzqjsgB
-	vc=
-X-Received: by 2002:a05:600c:46d5:b0:479:3a89:121d with SMTP id 5b1f17b1804b1-47ee33b2f95mr67097845e9.36.1768473491850;
-        Thu, 15 Jan 2026 02:38:11 -0800 (PST)
-Message-ID: <49507100-faa9-4480-a534-e4bab6cecc5b@suse.com>
-Date: Thu, 15 Jan 2026 11:38:10 +0100
+        bh=y+JDD4/9/4R79/PBe0tl0vMxBf7RNoPd/Wz2k8GBJck=;
+        b=kT93sM0UTZ10APNIstDd7/VGwdKkb3tErD4YadVbcntJRYJDm3xPHCp9lA9RJQ34OE
+         DGf8LbSDS4fH9GPpFbpxt/9HX6jb0VvJDFZyMjTx+Pi/TwqegGSi//qEM//Wnl2kzDuK
+         LTTGZbLmXiAfZrl6nNyz30U0iDcWOALdTR6dosBMmwnrJhwzzZLpzkUNUnNKR4b1GWvQ
+         rFUA2eydkEL9abSuVlHHG8x7Sn3KB61h06iv9qhRKNRgpTYWXcHRO9OhuZZBKL+IjLjv
+         gOTPJli46d3QDC6FX0Bp786OrQmfpp75mK1+avLMn6w2bB9GOm9P5nF+waFgnNmWKlSK
+         dyNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVZZxOGqyxaKamV2AsVhfTTpuafLDoIR1i3n/AU3c8i6c2lkFiXNHRslwzsjAkzRLQgrp74AwdHTzc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9t5ymD5f/aI96e+Ax+hc9MupKGNvsWAB+fjiZbDV5OoY97ZnB
+	xk4RhN3Q6rUse9JTK0em+MbEsBYlnQpjXHQGpG4opdOpFp7rHIlU9xaSLuxl6EmZ3g==
+X-Gm-Gg: AY/fxX718ByNaIUTjt72OUYK6Fkll8DcvNnjGlaaTo6JcL6LNwMpA2fMqZTtifFEHlP
+	wr/CnkLUfxCiHtfVR878ccX8eIw3QtvAaX4aMelIEu86p/X72bLDFYmCBs/1CyhH6wkqTKexG8P
+	Wx5E5T42VRyoBSlWQTCMK0CZMLPSex/OruuHwG6WXIizxBiRFrxvDxrdfusHeafLA8UvpeTePx2
+	gYsrQhnql+ZdOO9d5H11It7HZuQyajCeH6sOURVq4YCAOT1t6sovl/jm5TByln67pOSHoluAXWc
+	Yywp9p/H1rrLN/qnfH83YmOyUGc7IT7f8pF0a0MUZh5XgPGWl8pyWWm90nfWw9DzoE90Nrl10e3
+	Ur5Dsir6R3Kowb6Il7Nt35wV1oGSMf2XInBZWx849u8+J5gwZMZnmkot2EGMGUFE1H47C71ztB7
+	AUY97rg78MR7jBruvtKVNhh9ZcRgXbqJGW1iVQGbD/kD2LE0MWXI9X5mSedAc8SwjN9qNMsIayF
+	NA=
+X-Received: by 2002:a05:600c:34c3:b0:480:1a3a:5ce6 with SMTP id 5b1f17b1804b1-4801a3a5f92mr15979515e9.14.1768473808970;
+        Thu, 15 Jan 2026 02:43:28 -0800 (PST)
+Message-ID: <5d4aec52-03af-4de6-9625-b972ffb5e5b7@suse.com>
+Date: Thu, 15 Jan 2026 11:43:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
- get_s_time_fixed()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
- <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com> <aWikMGJKa3VPQQzi@Mac.lan>
-Content-Language: en-US
+Subject: Re: [PATCH 1/6] PCI: determine whether a device has extended config
+ space
 From: Jan Beulich <jbeulich@suse.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <05bc9acd-3054-4c5a-be87-cfd8d7bfa0f8@suse.com>
+ <52eb1293-b5d4-4f7a-b53b-285e4dd274a5@suse.com>
+ <cf24b83d-517f-4cd8-b7c0-94f60738dc50@amd.com>
+ <e573cbe5-858c-4a7e-953b-f371c174125c@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,63 +126,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aWikMGJKa3VPQQzi@Mac.lan>
+In-Reply-To: <e573cbe5-858c-4a7e-953b-f371c174125c@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.01.2026 09:24, Roger Pau Monné wrote:
-> On Thu, Jan 15, 2026 at 09:00:07AM +0100, Jan Beulich wrote:
->> On 14.01.2026 18:49, Roger Pau Monné wrote:
->>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
->>>> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
->>>> comment towards the TSC being "sane", but is that correct? Due to
->>>> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
->>>> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
->>>> calling tsc_ticks2ns()?
->>>
->>> amd_check_erratum_1474() runs after early_time_init(), which would
->>> have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
->>> initcall to that regard:
->>>
->>> /*
->>>  * Must be executed after early_time_init() for tsc_ticks2ns() to have been
->>>  * calibrated.  That prevents us doing the check in init_amd().
->>>  */
->>> presmp_initcall(amd_check_erratum_1474);
+On 13.01.2026 11:46, Jan Beulich wrote:
+> On 12.01.2026 22:07, Stewart Hildebrand wrote:
+>> On 1/6/26 08:47, Jan Beulich wrote:
+>>> @@ -420,6 +467,19 @@ static struct pci_dev *alloc_pdev(struct
+>>>              break;
+>>>      }
+>>>  
+>>> +    if ( pdev->ext_cfg &&
+>>> +         /*
+>>> +          * Regular PCI devices have 256 bytes, but PCI-X 2 and PCI Express
+>>> +          * devices have 4096 bytes.  Even if the device is capable, that
+>>> +          * doesn't mean we can access it.  Maybe we don't have a way to
+>>> +          * generate extended config space accesses, or the device is behind a
+>>> +          * reverse Express bridge.  So we try reading the dword at
+>>> +          * PCI_CFG_SPACE_SIZE which must either be 0 or a valid extended
+>>> +          * capability header.
+>>> +          */
+>>> +         pci_conf_read32(pdev->sbdf, PCI_CFG_SPACE_SIZE) == 0xffffffffU )
+>>> +        pdev->ext_cfg = false;
 >>
->> Hmm, I should have written "Due to e.g. TSC_ADJUST". Firmware may also
->> have played other games with MSR_TSC.
-> 
-> For amd_check_erratum_1474() we don't want to subtract boot_tsc_stamp,
-> otherwise when kexec'ed we won't be accounting properly for the time
-> since host startup, as subtracting boot_tsc_stamp would remove any
-> time consumed by a previously run OS.
-
-For both this and ...
-
->>>> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
->>>> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
->>>> whether we shouldn't subtract boot_tsc_stamp.
->>>
->>> I would expect tsc_get_info() to also get called exclusively after
->>> early_time_init()?
+>> I'm using a machine where
+>> xen/arch/x86/x86_64/mmconfig-shared.c:is_mmconf_reserved() will initially return
+>> false during Xen boot:
 >>
->> Same here then (obviously).
+>> (XEN) PCI: MCFG configuration 0: base f0000000 segment 0000 buses 00 - 3f
+>> (XEN) PCI: Not using MCFG for segment 0000 bus 00-3f
+>>
+>> Then, during dom0 boot, dom0 will call PHYSDEVOP_pci_mmcfg_reserved, after which
+>> MCFG becomes enabled in Xen:
+>>
+>> (XEN) PCI: Using MCFG for segment 0000 bus 00-3f
+>>
+>> On such machines where mmcfg/ECAM is initially disabled, this will effectively
+>> set ->ext_cfg to false for all devices discovered at Xen boot.
+>>
+>> I'm not really sure if I have any good suggestions, but perhaps we could add a
+>> macro or small function that returns something like
+>>    ( pdev->ext_cfg && pci_conf_read32(pdev->sbdf, PCI_CFG_SPACE_SIZE) != 0xffffffffU )
+>> to allow this checking to happen dynamically (but this still wouldn't handle the
+>> aliasing quirk). Maybe re-run the ext_cfg detection logic at the end of
+>> PHYSDEVOP_pci_mmcfg_reserved?
+>>
+>> Regardless, I'd be happy to provide my R-b without this addressed, but I am
+>> curious if others think this as an issue?
 > 
-> For tsc_get_info() I think you are worried that the TSC might
-> overflow, and hence the calculation in scale_delta() would then be
-> skewed.  We must have other instances of this pattern however, what
-> about get_s_time_fixed(), I think it would also be affected?
-> 
-> Or maybe I'm not understanding the concern.  Given the proposed
-> scale_delta() logic, it won't be possible to distinguish rdtsc
-> overflowing from a value in the past.
+> Hmm, no, I forgot to consider that case (which in principle I'm well aware of).
+> Will need to fix in v2.
 
-... this, my main point really is that scale_delta() (as its name says),
-and hence also tsc_ticks2ns(), shouldn't be used on absolute counts, but
-only deltas. (Yes, an absolute count can be viewed as delta from 0, but
-that's correct only if we know the TSC started counting from 0 and was
-never adjusted by some bias.)
+My reply yesterday was actually not quite sufficient. On a system like yours,
+isn't it the case that PVH Dom0 then also doesn't work quite right (yet), due
+to parts of vPCI depending on extended config space accesses now? All of what
+we presently do during boot, and which requires extended config space access,
+would need re-doing once extended config space access becomes available (or
+goes away) for a (sub)set of devices.
 
 Jan
 
