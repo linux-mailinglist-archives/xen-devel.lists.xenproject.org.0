@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A1B1D250E8
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 15:50:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1205249.1519603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 589E7D25440
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 16:21:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1205323.1519624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgOgG-0006Nm-H8; Thu, 15 Jan 2026 14:50:36 +0000
+	id 1vgP9j-0002tK-4u; Thu, 15 Jan 2026 15:21:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1205249.1519603; Thu, 15 Jan 2026 14:50:36 +0000
+Received: by outflank-mailman (output) from mailman id 1205323.1519624; Thu, 15 Jan 2026 15:21:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgOgG-0006LD-EI; Thu, 15 Jan 2026 14:50:36 +0000
-Received: by outflank-mailman (input) for mailman id 1205249;
- Thu, 15 Jan 2026 14:50:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vgP9j-0002qy-1D; Thu, 15 Jan 2026 15:21:03 +0000
+Received: by outflank-mailman (input) for mailman id 1205323;
+ Thu, 15 Jan 2026 15:21:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vgOgF-0006L7-Rz
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 14:50:35 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8be149a4-f221-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 15:50:34 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b86ed375d37so134970566b.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 06:50:34 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a27cc6bsm2814906366b.23.2026.01.15.06.50.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 06:50:32 -0800 (PST)
+ <SRS0=Jd1q=7U=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1vgP9h-0002qd-6A
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 15:21:01 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c9c36978-f225-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 16:20:56 +0100 (CET)
+Received: from BL0PR05CA0017.namprd05.prod.outlook.com (2603:10b6:208:91::27)
+ by DS7PR12MB9525.namprd12.prod.outlook.com (2603:10b6:8:251::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Thu, 15 Jan
+ 2026 15:20:52 +0000
+Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
+ (2603:10b6:208:91:cafe::17) by BL0PR05CA0017.outlook.office365.com
+ (2603:10b6:208:91::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.2 via Frontend Transport; Thu,
+ 15 Jan 2026 15:20:47 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.4 via Frontend Transport; Thu, 15 Jan 2026 15:20:49 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 15 Jan
+ 2026 09:20:49 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 Jan
+ 2026 09:20:48 -0600
+Received: from [172.28.136.14] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 15 Jan 2026 07:20:47 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,197 +63,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8be149a4-f221-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768488634; x=1769093434; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=16eX45xSUfz4pCxpxfVOREW80XWq4NETUSWgOvDD4hY=;
-        b=WpnWo/QuD5ul7ZoTeH3Uup5k6wC8u+Jeu4Mi6inAI9ayOWH1Bg2Xjrbd6Z9y2CjN/5
-         4Jhk+oc0PjpYviDlwG3vhMnb5NsrNdiYLfyr8uQmyH9cbUKddjOARUJGwEKvnNfu1IeP
-         zYmfJW9+BLrccqRMrStbI9qbelor8hwIiANYGhqmZq+IiAOFDDRV8ikRehANK8PvPdOg
-         vm3GYunHHirfJAvxzziBLOI5N/X4HUMIojmseQs0o/tzuNX6mkiVjKeIyZK181mNRsNQ
-         SQ4i6oEiRNuhD3C+D1CYi3B7nvhmuW6WW7Oyr/mjGk0t0mwbYaFEPUUukiEdTLw9P0F1
-         H3gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768488634; x=1769093434;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=16eX45xSUfz4pCxpxfVOREW80XWq4NETUSWgOvDD4hY=;
-        b=VDELMopaOp5eQC1cYrg/sMZUAwpV4eIZ/g5t5Q25FLTN8LaqMXePPSSEY9//cRF7vZ
-         OKxypg1MMhnX5mvEE11TyJBmvmqAuzPjQ9cCWwT7HK3x2sGp/UNCDXeNCjFNPFh0wjxD
-         ovefhndQOonUuZlHK2jCyUz2eJMhyau+Q3Q8jhjTblDZBAhpCGS9N58/H+C4oDRjOMWP
-         mmClDEdTQXj9nHNO2fukw2dOxOdI5V1EEGeYc+kh4wLIUxASlrOMqdDFVIhGK6NWRhuN
-         vsEM/meNKCUf9BuT3iTzfS5AV0f7ka0bqCS/6I6t4TyEHpFGu2caTUucDTVklV8GjTKg
-         Wa/g==
-X-Forwarded-Encrypted: i=1; AJvYcCVvV1y21ubHoLHth96GoAcaHlQnhEnByMmSQmTAQy/Ak0/nZYsc50+HWO1pbWMIp84SNT+H1LclhY8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWTReXhV2MrgMBKj96au00zYKEDij3fWjQhxWwbsaQ16/x4Utx
-	iY/mEjTjxv5alhcboQJ7JfEMo6o3L/HiiYUJ4QlzbRtm86mLIKi618G0
-X-Gm-Gg: AY/fxX5F6heCTvqqxIp3QrbM+NSVl3WKmRZPe72MS2OehANKCjceIbzDbgtIVDyxoHK
-	7D0PlQ1NqUJfi1aGAUeKoq2jFihZpqbpMFsebAp+E4YoXuV5HV7KuObH04k7zbOe7FDquay2jnL
-	SDQ5FCVh3UdaIERumGs6l3Yo3fKlgK1oBgaur3HdVKhjuqJdB+/1/pimPd0e+DUYKJjS4lb91P4
-	pOVxJtVRd+XKxmWllGFX6P/SgPHPqE6bQnqYh2UnWB9u3BaUxJS0L5T8AdCLZv5ylAFNpv92G2X
-	lTWhEM26LbqFRDWn9c3ts+QIFXewI+xsHHDxIWCqp0aNzQDSGfMh7bJZmE33aXCm8DRaBrrMeg8
-	J4LcxaG0kA7l75tPQexlo9OOniEfahiA2p9mb8JSn0448I0b9kj9rxGaYNinX7Z/EH5ManYPtnf
-	rXEWZKOYLodRCHtNEJhDosUI/VNoSAF1MbB+ycG+2q+kbpDqvgQSMAZQavY4JDSTc=
-X-Received: by 2002:a17:907:75c7:b0:b87:6f58:a848 with SMTP id a640c23a62f3a-b876f58b96cmr300906766b.51.1768488633420;
-        Thu, 15 Jan 2026 06:50:33 -0800 (PST)
-Message-ID: <4e94f7f5-2cf2-4695-873b-5d269f10ddac@gmail.com>
-Date: Thu, 15 Jan 2026 15:50:32 +0100
+X-Inumbo-ID: c9c36978-f225-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p3/aiv0CjILA943Oe+m+0rNs994WoeGGaaNTid+VM8aIBfXGVknLop+NqX64UFDIrEAzF3tf7LU7L8MHkyHOE1E1AMTbyKYfrYP4zb1pyhotQrgDoMfKBDKA5d+oL06Sxj0nL1tIyGffvj8PzSIL1oJ5zzapKjPnG9E5BASdU2yWM3iDdlgU6U4/Zoc/QZXm8AZgAA1WU6FsoBsI4djPlLUCFjUgnnIY58TZRWSvfW5l6H+U/F3a8Cc1LZb2A1wb1bEY9+AjGEYsmDBPozddBb4xGMcCnriDoDZxyRrvocwCwTC24dj4Va+topPblikGxACJa1rSmBbotgEtGzMyVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AT0YncTFlrxicix8PIWQyUS6zwBdKYeczTKCyPIeycY=;
+ b=hoFVyBm1FjIgvLf8HGFLtbAX2KgHlMakLrFNOO6zgZXV3Y8d08yJPWBGkLSblt+h3JAqZXAzcvjw0N84+lUwMo2SoSoiskV4vI8FdgOlPyENY+oLApexrVNVjYxdbVDc5fvq5GwR7XaKdAat/c9dB+JH0b5NuHVw9vXLR+x7iH7EMV51QjkK2L3+PE9Ha3Qt+ydRml1/kXo+fAQMwIzZfoB2157oBDNRZajKGtDthFyXB4u84jHrOhrCQvmg+bgN3eGESKYovKTVd/ESpwa4Fj3bEAT3eZhR0Ejm+obno6jc4xU1MWe/DY1yxt/zod2WQzoosrjROgqPvpHmVmBy+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AT0YncTFlrxicix8PIWQyUS6zwBdKYeczTKCyPIeycY=;
+ b=Who3EB/c0i2hsDukJzlNYArfcRQ3rbgpFQC9XVPRaCsX3pZ+gHP88EAsa3JE9PoA7ur8Og1OxCZX7qgU6MD54N44JEnGQs5CbdMyQGTFfAnWkwWQxrLPm14NSv4zWm18mSGSHfnHMj5/JZnFNyvowSKIfIOXkUmsb7G6QNdg20Y=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <f346d915-5da3-4a4a-9314-24af17f92718@amd.com>
+Date: Thu, 15 Jan 2026 10:08:15 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/riscv: dump CSRs on unexpected traps
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260115125601.70834-1-oleksii.kurochko@gmail.com>
- <8377bdc2-d92d-4c3f-893b-19c842cad3a7@suse.com>
+Subject: Re: [PATCH v4 4/6] xen/p2m: move xenmem_access_to_p2m_access() to
+ common p2m.c
+To: Penny Zheng <Penny.Zheng@amd.com>, <xen-devel@lists.xenproject.org>
+CC: <ray.huang@amd.com>, Tamas K Lengyel <tamas@tklengyel.com>, "Alexandru
+ Isaila" <aisaila@bitdefender.com>, Petre Pircalabu
+	<ppircalabu@bitdefender.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Michal
+ Orzel" <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
+ <20260115092841.2651224-5-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8377bdc2-d92d-4c3f-893b-19c842cad3a7@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20260115092841.2651224-5-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|DS7PR12MB9525:EE_
+X-MS-Office365-Filtering-Correlation-Id: aed075ec-8b50-4dde-5986-08de5449aa0a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|7416014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?M1A1V05sNVZqVDJVRVFUZ3BjQ3UzNnZJOTIvcC84Z2xFWHZqQUNWYy9pNEpk?=
+ =?utf-8?B?bjRHaHZ2aEU4TXVRZWFRMnlVUWlYSjNadTQzWHBHVWhSeTZmT0hkUEVnVmhz?=
+ =?utf-8?B?OEdJejIrUDM4UU95OUNPZ2ZWcmhUdURTajlBU3RVWDNjWWFHaCtLTGJVdXVM?=
+ =?utf-8?B?MDdFVFh0TlZHdWRheHFCMmxYN1FHOTJCSFowUnE4bmxxTlRZLzdHSVdZNkQy?=
+ =?utf-8?B?OWU2c3dLT2Rqd2hqZE9jWUpZQWlUa2U4ZWNpTElaZFNUTU9IZ0tvTUd6WmNr?=
+ =?utf-8?B?VHRHTWV1MlR3OUJtdzJJMFdJZ0tFNEJBUU10NXlZM20yTlFaMlNWU1BBSXkx?=
+ =?utf-8?B?R2NpRVowWHRaREN3elZTdE1nNXBIeFVMdTJYelpwUDlIRVUzcmxmUTZ0cEF3?=
+ =?utf-8?B?RGUwWDBrMTIxUXUwcFVNVmlURVlBTHRKbVVCd2UzWFFVWjhUais2Z3dRNkg5?=
+ =?utf-8?B?UDZnVUF1WUkydFBSVGptZGFYVmhwV1hsWmlBNTltUUNMUjJNV3hPTVA0cFFV?=
+ =?utf-8?B?dFFyalp6Uk11Mi9BN2hPSm1HSlZ0bThxS1F0VHE2RHkwcTZ2LzNlQ2p5N1hL?=
+ =?utf-8?B?bVNnRmdVb1p6TmQ5dGpaU0FiSXM2VjFmcDdXMldQOEwzaXc3T3lSYllINzNN?=
+ =?utf-8?B?M1VXNmVuck1yeUdKODNEeDVlbUFIUnJMOThpR1FZQVI4SlNkUWJRbzRLMFhI?=
+ =?utf-8?B?b1dPa0k5bGN0NUU3akhoSDByb2U4dm95U0czbVNmTEJHa05EQWtnVUl3bWx4?=
+ =?utf-8?B?SDh4LzNnb2J6OUtva0ptWk1aWW1JNm1leE9xSmViSG9kZFFxbjBiczVZRXor?=
+ =?utf-8?B?RFJWaXRrZS96bG1vTCt6WUNTZDVnK1g0cXo3eC9SbEJYdmhvV3g5Rzd1R3hl?=
+ =?utf-8?B?RkZaZjFtNWd4R1VES2wvdWJCVklXSHdpVlU5UndzMUZkMWNOZ2JFaHpwQjY2?=
+ =?utf-8?B?UFJDb0xtK2FZcE9mOFRNWDdqSi85cVVtdFR1WG5DZmZPVFl2RDNMVGpLTUk3?=
+ =?utf-8?B?RWhTUy9JMWRXSit5OXEzQ2NKOXpFOXF2QUZKOHhtdVI3WW9CQjlGb0xoTjRo?=
+ =?utf-8?B?RzA5ZTI1VWY5UWt5R2xQNENjZGtueXRuSk9hbnYrTUlNNWFzaHhQelFaOE42?=
+ =?utf-8?B?VUtrQWNkSE5iSHNkQ1hwK1BqK1BXY2xHWEtUU2dSdERXV2xwSmZnSXN4NFVE?=
+ =?utf-8?B?Zk4rbDcwOUFRelU2U0U3SEk0bWsrSGF1SEVVUGZ4SGNJcTY4WmJ3THVmTC9x?=
+ =?utf-8?B?bE8wT2JVb0RrTTZmT2hrQWlVOFQrMVlyUnNHL3Q0d3hZbFR3ZGtCSVIyVlR6?=
+ =?utf-8?B?cGp6dGVNMDh5TXlyanptV2dTNzVZYnVqS1hqc2Y3d0VRNGhzRTlLdFYzUVFI?=
+ =?utf-8?B?ZnNXS09KcGJNc0htdGZFb1VYUFRLZkpBYkV3OEJLcHNlYjhMTnFiS09MS2Ro?=
+ =?utf-8?B?VFNnOU00UlRFN3h6SkNpbHZaNUk1K3Q4RFJMdGdTOHpLcXVxWU53YUJwWUpl?=
+ =?utf-8?B?VTZDd2xCQ3F5MXNqMEZlRlZEckRUVWdnc2NHRUVLbmZWV0VJZjB5bjAwaWdy?=
+ =?utf-8?B?SjJrMURrVDI3RGtQZFM3bDlObHZ3elRBUEdUUVNnY0U5TjhUcWNJY1NwU3I5?=
+ =?utf-8?B?SDBiUzVYV3ZUSTVnQ0dpZnRqUUIzekRqbVg3QXZ5RVpLZXFSY3NYNms0ZjVV?=
+ =?utf-8?B?YjVqaURPQU9PckV1NC9nN3o4cWRnemhQUHdZaDIxU0Q4aVRHMG9hS255S01Y?=
+ =?utf-8?B?ZVVzcklhMWhiaStYYmNUaXRjcm0xNUc4Z280M0VkOHJzV0dOdU9ORDdaVzB1?=
+ =?utf-8?B?TWZSMkVQOVhsSlk2eHdQNG02cUZ0UnNBSUxXYXBtUnFHalFEY3kwQWUxYzlP?=
+ =?utf-8?B?eldIRHdSV1l1VVBnSGF3bGdKZmI1WFc5M1BNM3RKVk80NXRuVmJqSWxvVXRm?=
+ =?utf-8?B?OTNRaXBZTjdpNHYwTW1sVmpyeHpZVmpmcm80ZTRYcEdUOEpiN0RwSEtibGxI?=
+ =?utf-8?B?aWhDdW1rUEpZSUI3VlhuS2YySWM0M1lXR1ZCaVZEcU5WQzhGK29uQXEzb2dQ?=
+ =?utf-8?B?d3cyeVorTlNkWTVkYS9EMnVQMW9mMnJUcC9HTlBZbUIvbkVaeFN6WlRnZTY1?=
+ =?utf-8?B?aGhBVm5XaTRYb1BiSFlaQVRieUlNTGdJYUdWeXZvWTB5QmREeFlnMlFrSFky?=
+ =?utf-8?B?ZFV5cnprTUFZMFBlNUZkaEx0TDNOMGoxZ3JTUlIwMmd6WTBlL2NMSnczMVV4?=
+ =?utf-8?B?QXRGZmpNT2lXZGdyTlNHMDRsU3N3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(7416014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 15:20:49.4881
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aed075ec-8b50-4dde-5986-08de5449aa0a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB75.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9525
 
+On 2026-01-15 04:28, Penny Zheng wrote:
+> Memory access and ALTP2M are two seperate features, while both depending on
+> helper xenmem_access_to_p2m_access(). So it betters lives in common p2m.c,
+> other than mem_access.c which will be compiled out when VM_EVENT=n && ALTP2M=y.
+> Guard xenmem_access_to_p2m_access() with VM_EVENT || ALTP2M, otherwise it
+> will become unreachable when both VM_EVENT=n and ALTP2M=n, and hence
+> violating Misra rule 2.1
+> We also need to move declaration from mem_access.h to p2m-common.h
+> An extra blank line is inserted after each case-block to correct coding
+> style at the same time.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-On 1/15/26 2:12 PM, Jan Beulich wrote:
-> On 15.01.2026 13:56, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/traps.c
->> +++ b/xen/arch/riscv/traps.c
->> @@ -17,6 +17,10 @@
->>   #include <asm/traps.h>
->>   #include <asm/vsbi.h>
->>   
->> +#define print_csr(csr) do { \
->> +    printk("\t" #csr ": %#02lx\n", csr_read(csr)); \
-> Why the 02 in the format? If you wanted to align things, you'd use %016lx. (I
-> also don't think the 0x prefixes are overly useful in such dumping, but others
-> may disagree.) As an aside, the width of 2 would be fully consumed by your use
-> of #, except for zero which would (oddly) be printed as 00 afaict.
-
-I used before 0x%02lx and after switch to %# don't think that 02 would fully consumed
-by #.
-
-I am okay to use just %lx.
-
->
->> +} while ( 0 )
-> Why the do/while wrapping, btw?
-
-Added it automatically, there is no really to have it here. I'll drop.
-
-
->
->> @@ -99,12 +103,63 @@ static const char *decode_cause(unsigned long cause)
->>       return decode_trap_cause(cause);
->>   }
->>   
->> +static void dump_csrs(unsigned long cause)
->> +{
->> +    unsigned long hstatus;
->> +    bool gva;
->> +
->> +    printk("\nDumping CSRs...\n");
->> +
->> +    printk("Supervisor CSRs\n");
->> +    print_csr(CSR_STVEC);
->> +    print_csr(CSR_SATP);
->> +    print_csr(CSR_SEPC);
->> +
->> +    hstatus = csr_read(CSR_HSTATUS);
->> +    gva = !!(hstatus & HSTATUS_GVA);
-> No need for !! when the lhs type is bool. Question is whether gva is useful
-> to have as a local in the first place, when ...
->
->> +    printk("\tCSR_STVAL: %#02lx%s\n", csr_read(CSR_STVAL),
->> +           gva ? ", (guest virtual address)" : "");
-> ...  this it's sole use (you don't use where you could further down).
-
-Agree, with such usage there is no really necessity for it.
-
->
->> +    printk("\tCSR_SCAUSE: %#02lx\n", cause);
->> +    printk("\t\tDescription: %s\n", decode_cause(cause));
->> +    print_csr(CSR_SSTATUS);
->> +
->> +    printk("\nVirtual Supervisor CSRs\n");
->> +    print_csr(CSR_VSTVEC);
->> +    print_csr(CSR_VSATP);
->> +    print_csr(CSR_VSEPC);
->> +    print_csr(CSR_VSTVAL);
->> +    cause = csr_read(CSR_VSCAUSE);
->> +    printk("\tCSR_VSCAUSE: %#02lx\n", cause);
->> +    printk("\t\tDescription: %s\n", decode_cause(cause));
->> +    print_csr(CSR_VSSTATUS);
-> Everything below I understand wants dumping, but for much of the above
-> that's less clear to me. Why would guest's values be relevant when we
-> have a hypervisor problem?
-
-It could be useful when we jump to guest, something wasn't configured
-correctly and so lets say an illegal instruction in guest happen and
-so it would be useful to at least understand what is this instruction
-based on VSEPC or VSTVAL.
-
-All others probaly there is no need to have printed, I don't remember
-that I used them during debug.
-
-
->
->> +    printk("\nHypervisor CSRs\n");
->> +
->> +    print_csr(CSR_HSTATUS);
-> Above you special-case VSCAUSE, but here you re-read HSTATUS.
-
-Because above I re-used 'cause' then for decode_cause().
-
->
->> +    printk("\t\thstatus.VTSR=%d\n", !!(hstatus & HSTATUS_VTSR));
->> +    printk("\t\thstatus.VTVM=%d\n", !!(hstatus & HSTATUS_VTVM));
->> +    printk("\t\thstatus.HU=%d\n", !!(hstatus & HSTATUS_HU));
->> +    printk("\t\thstatus.SPVP=%d\n", !!(hstatus & HSTATUS_SPVP));
->> +    printk("\t\thstatus.SPV=%d\n", !!(hstatus & HSTATUS_SPV));
->> +    printk("\t\thstatus.GVA=%d\n", !!(hstatus & HSTATUS_GVA));
-> Might these better be put on a single line, e.g. in the form
->
->    [VTSR SPVP SPV]
->
-> i.e. enumerating the (interesting) set bits textually?
-
-Agree, visually it would be better.
-
->
->> +    print_csr(CSR_HGATP);
->> +    print_csr(CSR_HTVAL);
->> +    print_csr(CSR_HTINST);
->> +    print_csr(CSR_HEDELEG);
->> +    print_csr(CSR_HIDELEG);
->> +    print_csr(CSR_HSTATEEN0);
->> +}
->> +
->>   static void do_unexpected_trap(const struct cpu_user_regs *regs)
->>   {
->>       unsigned long cause = csr_read(CSR_SCAUSE);
->>   
->>       printk("Unhandled exception: %s\n", decode_cause(cause));
->>   
->> +    dump_csrs(cause);
->> +
->>       die();
->>   }
-> Apart from CSRs, how about also dumping GPRs?
-
-Maybe, it is a good idea and it would be nice to add them.
-
-I just almost never needed them for debugging so I am not printing
-them.
-
-~ Oleksii
-
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
