@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8649D241F7
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 12:19:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204859.1519419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C62CD24470
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 12:46:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204921.1519432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgLO0-0004MI-3X; Thu, 15 Jan 2026 11:19:32 +0000
+	id 1vgLni-0000vf-98; Thu, 15 Jan 2026 11:46:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204859.1519419; Thu, 15 Jan 2026 11:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 1204921.1519432; Thu, 15 Jan 2026 11:46:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgLNz-0004ER-VM; Thu, 15 Jan 2026 11:19:31 +0000
-Received: by outflank-mailman (input) for mailman id 1204859;
- Thu, 15 Jan 2026 11:19:31 +0000
+	id 1vgLni-0000uD-5E; Thu, 15 Jan 2026 11:46:06 +0000
+Received: by outflank-mailman (input) for mailman id 1204921;
+ Thu, 15 Jan 2026 11:46:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cICa=7U=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vgLNz-0003bC-54
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 11:19:31 +0000
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazlp170120007.outbound.protection.outlook.com
- [2a01:111:f403:c101::7])
+ <SRS0=ba0k=7U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vgLng-0000u7-Lb
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 11:46:04 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f2361ce-f204-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 12:19:29 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by LV3PR03MB7431.namprd03.prod.outlook.com (2603:10b6:408:194::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Thu, 15 Jan
- 2026 11:19:17 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9520.005; Thu, 15 Jan 2026
- 11:19:17 +0000
+ id c4e2aac8-f207-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 12:46:03 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-b8712507269so124652966b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 03:46:03 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b86ebfd08b2sm1611040666b.25.2026.01.15.03.46.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Jan 2026 03:46:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,230 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f2361ce-f204-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RpLNlcoW4ZS/4PZdX86LFV4SElXBvYn6qZyvpbWap/HT0iG/p4VXsDO5JqcxRInLmZximCMpxDuB9JW8O6Hzks3boKV83inZMmJwI2xhcJCE2H81xOLZCxJf9iWs0RRPCPByy11seBucIPDz/2MIptMHp/WNNLWNCzQ04DbGrXt2X9yVodimHSKxOrA/M4OfxhjmnmObXISDzbFzr/dZKmKBcwJ/0JISn+FhX9hXhZgvHT/saZFiZrqyiMohebuCd2KrNXHa57ZZc9i89V2RHrigzPVByU0FK4N0wefTJdihMAxKy7II4+0491CmikWPdYW04vO8bKUVMY9OS6SxYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qYRYoLFH/OVP5b6Hea05RAtPOi9OmM1ZzKogWwOxcy8=;
- b=sraHMv1h8XjJ0TMXDeyzLdU0YFF2FGreysT32lKNpbJ7cO2wux/HrLt3pAXu3ii2CzqoXaaUymLCFIxrnd0Dvnd+r1bRqGOIGxQ6YVEFDTUaLl/7aNfv57sa12YXf1H7LW+ITqXPsaNTWPD0MKu3MZpRC7EfwaDN6e911/BzKreLh8QCM6ezTXyhaHhvIpgvI35zU1stm4UGr/VyhzzqHngKob0b4t3mZOeWTCrfBIWKPp+fgDygWVmJuQHwi0yNiLcyGMfd3UvGewPzUQ/6Ob7OeWzZRBhcTGzjLuNCGYmWx2YIV7hRs+UTxERwrAd6wpowRi4IuHOdtvD+N0Cw6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qYRYoLFH/OVP5b6Hea05RAtPOi9OmM1ZzKogWwOxcy8=;
- b=arjkhKQS4bbdHaQYk9pWVhf+tZcdB5E+v1doX47iWoT1jNeuAVAVlMCZWF0kEDEE1lKKireneNb7ROI50Ung1z+9UdEPlIVDeLw46aOLrrh6Fgqft/M2RJLjNyLqotbN3kdvHX2jtlb/v8zQnPfGyoqhLoXsblNDWO4w1AZBatI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 3/3] xen/mm: limit non-scrubbed allocations to a specific order
-Date: Thu, 15 Jan 2026 12:18:04 +0100
-Message-ID: <20260115111804.40199-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260115111804.40199-1-roger.pau@citrix.com>
-References: <20260115111804.40199-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0160.namprd03.prod.outlook.com
- (2603:10b6:208:32f::25) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: c4e2aac8-f207-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1768477562; x=1769082362; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cBDntRF5odkNRAOPBPSdTMmWZ0IZJrCgtKbD4q2DrxI=;
+        b=kM5QvSLlSF0ggntnkvxiB0u9Or4WD0O2p5BLO8dY47Z5bvC76xqATlk/OfjlvTRpLg
+         NOefgnEq/RIswXj9yGW7kT4R6vZOMj0I7ID4FyDUEvf7SGSH8Ck/LzFPP9zLdnLvbdlJ
+         E2eU2bCjDC9Vj1S1VlH4QPVx/zbHTuh8d8DZWMLh5YWH0li27ntBO2HZCsYeR0JMxF4Y
+         XOC5WkmEZ21Sq+LUPqHy8u67zIZyRQyHxpGMjWZhIIbd/ok+3aPjug3FYxO7dOyLjTdI
+         HZyw2f6gqc2L8Hy2CNMy18rbAG0aOzmksyPUnAnjvmjvCaaEJpuEYBEO+0yFamPjOxbv
+         5jIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1768477562; x=1769082362;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cBDntRF5odkNRAOPBPSdTMmWZ0IZJrCgtKbD4q2DrxI=;
+        b=oXEYVvkYK9eIMRKPe2DG2bJy9hueG1Im7o6y+WqPBVRJnTn9oMgpzdiZutOK7sWP+k
+         66aAJGYSvhHuAi1NS/qKx/qkSHxfPBaZ7Aa/nwp/lrAa9Ep45sEwOrLOx3BqxKJz12N1
+         dMNZYaV+Qg3VyPay1VZh7xYnOHx1qu1rcmutgAT2/pKPHNtit0UAG9jlwWzxzg1DJT3y
+         7oPyTp4QFzNSQ4APfjGTVmaenwrviq89t/Xuop2gqLT0PfJPNc4pZw8aiYgJHK+G0X4D
+         YG21qZcJ/VZrQb0MBJMrGf03NsfWbeUjsQW2siw77TZIWx3WCxymGhP1S9aRVFCFdyOB
+         GP5w==
+X-Forwarded-Encrypted: i=1; AJvYcCU0+JmpOO5tytjTDIn8Y0jVLx1mRft9Gx2wmhsh2qHKxwhZM+9f0SuqeDSeLZ9/wA8cp3iYNPKJL3k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmPg24rJqsrEniV2dKZb1kIjyV+YMlaw9ntNHRhsoa1MiNHNJ3
+	cOdp1EaRa+yiXU7xQhgoChJY/m3YIjtAyPHAU7x6y2Rx2cr9aePjsIiz
+X-Gm-Gg: AY/fxX76d6uR9edZVHlGdr3nEZJd/DSueddUWECE6oKRnfWFHZjwTLuyR7LCamtdOJ7
+	Sq7N+K5bGuqqBVF+0bstdasA8z/p5755k0U2qmii1Z/Ued095dI7L/XVipdqVBfBNDQHO/aC1Xu
+	UbJrE6DOLP/0Zh3LUv+E5QLxUOcVyk11kN4Maa1TLAOst/RuDHdZxIHap9Bl8HqdQP4s2JtL1cX
+	7ARCLLuY5MfjtPimhaHxehbGd8j9kzDrMGcaMFR8dnO4NDUDc5718s4pc/0QuoTRcSZCAG8M1Yb
+	KyiBOLn2hMU1U4IV6GBt7rhG8M8KRTYnorvaucJn3RzpNBVeybJIXib1XLzRfdFOO3x6j+EtaiE
+	JtELE7n/vnDQ/lZRjy2sKJOXtl7q81n7sXNGAVIX5w5BqG1aBkChHRW4RwVH26Vvr8mHj+YUvgb
+	jT6ek9Ia17XRREjXNXsaVpo0yUHIJuUxrmy3ODj3e3h32RLRq/dGESRlpEFVC1E0A=
+X-Received: by 2002:a17:907:80b:b0:b86:f3d2:efae with SMTP id a640c23a62f3a-b87612a489bmr535889666b.35.1768477562273;
+        Thu, 15 Jan 2026 03:46:02 -0800 (PST)
+Message-ID: <fed7075c-4c1f-4aa5-ad29-c5fba0442b47@gmail.com>
+Date: Thu, 15 Jan 2026 12:46:00 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|LV3PR03MB7431:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c766822-244e-43d2-0faa-08de5427ebff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WkxabVFJQXRJeG1WTmtaUHltcE9aa2ZnaklYU3cwK3crU1Z3TjJUd2I0Z3l1?=
- =?utf-8?B?WVNqQjJuVVp4WmNjWnZhVDBiakE1emJpdXNhTnUxb1F4dkNuSHhsY21KN3p3?=
- =?utf-8?B?eGpHK2p2TWxhbitqNzdNa2FGZUk4WDE4L1pQNTZNTXhHTGp3cGp4MGlmZGdj?=
- =?utf-8?B?Z29BZ1pIK2FobmlnOWN3dm92WlZ1TjNkdnZSSW13cGE0L2o0VlBwcUk3Yk05?=
- =?utf-8?B?Z093aTN4WHA3dkJUNnNwNFk3cnlpWDZqZ05BbTFwUlZOajBjdmlWOUU1NGV0?=
- =?utf-8?B?Y0ZCaXVnVC9nTTErUUx5em5JTEdnaE5YRWpYRGYxQXJuNnA2QlIyUG4vZVg2?=
- =?utf-8?B?TEpwbkE4a2g4R1RSbkMzRkUvVU1LNGRGdmxJWFdLNExVc2tSMUw5UytSY1hO?=
- =?utf-8?B?NUhNY2tHUWNucW9pY0VHN3NvRzRVc21LMzg0K29SYzB4WGNkaHo1alFGMjJN?=
- =?utf-8?B?d1ZJSEgraXNGUTdFM3VUdDFsNHE3akFZbGYySXd3UkQ1ZUlURGpHM0RLUE1s?=
- =?utf-8?B?R0k1M29sMzE0eHB4T3lCc1VhUG1uRHZIbzJWUDh6ZmE5WFQ3VEQ0ZmpGNHpi?=
- =?utf-8?B?M3RMcUNzQ083WFhoNXZRQ2V6TXFibFBwRDRZVlFZZldVTWp3aU9WdStQTkF1?=
- =?utf-8?B?RmlyQzhDWXhOZXZFaFNoaFM0R09Dekx3WnhJaVhBTWZIZStrMXNGdkMrbmpI?=
- =?utf-8?B?eE12dGM5cnhWQkJuQnZFOUVvcFAzdHlOeE9IcGtpTW9sRjd1dDBiUUowZmpv?=
- =?utf-8?B?eE5tQ0hoR1dROTNoanJ5RFQrTkd4L05ac2dDVDk0R1p0NEozSDgxcU51TUhq?=
- =?utf-8?B?STd2UmVyMlQzdkJySVBKNVdINS9wU3lVcDZLVk9nT1l5SWtXRjduc2dYVDE4?=
- =?utf-8?B?dzVVbDdlZ0RQRWowN2RiZHM3WTNUYUdudTlTcXdTV1lFYVdtd25BMnp4aDZu?=
- =?utf-8?B?RTZ2RnNtQlJVQ0xUVjZxMUl3bllITEZzcGR3cDNWaFFTeVRVRVZPZWhzUzc2?=
- =?utf-8?B?ak5Fa2FKWXJVZ1hIOEZkNmdvVTdMMkI2eEZkeGN2WFFGQWxQclVSZ1ZTcTg0?=
- =?utf-8?B?dWgzeWxkQ0hkSzZxOEx6Uzh2ZVhISUhmZGVNMHpOek1ZZzloR3ZUVzV6am1u?=
- =?utf-8?B?YklXalRGSTQvZEIyTExNSVlLRDM3ZmoyZDVDZ1JKc3FrSDIyNHNaTlhCbVQw?=
- =?utf-8?B?RUpQVkREaG9TTm1vaHNnUVM3STNHd0pmYjFvSGxyYlJpaDhmZjlrZkh0bTht?=
- =?utf-8?B?NElPTy9PQ3ZvLzlaMUdpYmlrTHVvUm83VVdQTGduS05oa052RXlWZFZMY3ZE?=
- =?utf-8?B?SzlPUXFUQUg1UXBsVnZNcDE0alRlMWRJTnRZN1F0bVZVM2w5TUZSMUdWdTVH?=
- =?utf-8?B?d0xYdGJCdGRzSlgzVmFIYmlkODBiL2cwQVpoVEtQY2c2MEVXUzJBQ25sWkV5?=
- =?utf-8?B?OFA0SG9iUHJoTFF5V2hOTmh0bWl6cmpzckJFM0pnQ0JEYU9SYTZtWVBnYkx6?=
- =?utf-8?B?dS8vOWVRZElGUWYwa2NKTDhoY1BWblVUZlBId0N3S0lSQ0puYnFhcDFISjJs?=
- =?utf-8?B?ZzNpRDR0dWo2TEs4cUM0VVdMWGtOUjdBNklQRmJ4RkhxT1BueW5XOGFCMVQ4?=
- =?utf-8?B?c0hEc3plOEszUk1Vamk3b2cwYmhFWWE5SGIrTHNmSzVHcExQbVIyUC8zUWxX?=
- =?utf-8?B?c1ExZXVlMXZJM0hxbkR5VWJCV1d0L3JPWTJUMjhlL1dOZGxOTlIrVFBUekx4?=
- =?utf-8?B?WnNKOTJZa0JSdWg4U1dVZ2JPamhRdzkyVjhXTTlNWVVWcVhEMDJqRzdKamNQ?=
- =?utf-8?B?bmZyeDhKSFhlL3hrU01vMzBwWHp6WWRyTmdYUm9qbTZoOWp2TllnT1lNKzBp?=
- =?utf-8?B?dFVvb2VIcGVnZGsyLzZzdXc0Wmcxb0dxNytTUVdlaE1EVCtKeUIzaEJ0TURO?=
- =?utf-8?B?L2xya1V2ZHRkcFN5VitWejBScjRhOHBjNGYzTForelJ4dnhnZk84QnJqTzhR?=
- =?utf-8?B?WnBVQXJ5MXBEZzh0U3g5N2hqZi9uYXU0UUo1ZzFZMlRYeGdsLzd1SzF6N1lm?=
- =?utf-8?B?bi9Wcll3QlZSL3VLYUN3SitocXlCNk9OdXVmcVJlaldmRG5YV3BxYW5heHNs?=
- =?utf-8?Q?tveM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cU80ZzRKdzIwRTlrdlF4VEdJQkdkM0s0Q0t6bFNsYVlwS3F3cngwRVhIbUh4?=
- =?utf-8?B?cXE3cjZKaXcvY1Y4dmxpVXdFcHlXT2xYM2dLeVVJUG94ckJFT0dUajFhcU5x?=
- =?utf-8?B?RU5HbUJid28rYy9DdnRtVjFiNy9KSk5xNjUzZGlQbk8xN2VwbENkWlQxNTdP?=
- =?utf-8?B?REhhVUE0c0FaOXhTdDZSbDVOUlVqSG83MWdpeER2ZmJWUVB6ZTNXZndBVkh2?=
- =?utf-8?B?RkJFS2JRRE5mR1dIMWhtSTVRUXVWMEo3cmhUaGNuSVZXLzJzYjlLblFzUjRU?=
- =?utf-8?B?S0dMcUhXQjBoVGI5bVZtUzlYQU05Zm9QN1J5VEVkcTcxNXZPaEpPTjlZVFBN?=
- =?utf-8?B?L25TZGoxekRyOC9XYlRQZUUzVEJ2OEd6cEVMQjdJWDU3OTQ1a3Q4bTR3aE5O?=
- =?utf-8?B?TVF5cnpPNTFmMG5Id0xLNGNLOCtvY00yQ1BvTVcyV0NPWkdGeW1sSUUraklH?=
- =?utf-8?B?ZGlURTM2b09yVElEekZpQ1Bna2VQRGt1SW84RXV6V29ucWdNYWwwYmRRaVRU?=
- =?utf-8?B?dGJhRWxXM3Z0djFTbzdXellCT1BXdGJPSEtBWDgxaDBydWpmdFM0QWxLNktl?=
- =?utf-8?B?QkNJTDdlZXpVZUZqdmdvUFdaMEdic1NiS1B6cFpJRVpaajdzQ1lOZHVFKzNn?=
- =?utf-8?B?T1VVYXZnaG5MWitwU3RVLzdCNVhQTHp5eFZwMTBqRlVWYVltVFlEOVh4dDI2?=
- =?utf-8?B?N0FrY0FSYXhLVlYrM21jaUkrcDliSVErNVBpQWRxSU1ZRTdlak9TMHh6a3dP?=
- =?utf-8?B?d2FJUG05RDNmeXJ4L1RJdFFPQytOVDB5SUlaOWgxWWpjd2tQVjA2d3drZ29j?=
- =?utf-8?B?ek5oUjVheU1sN2ZYSEZ3SWZ0SGwwMEtqWlpPOFpKNzNFUXArMFRMSHNxNjJi?=
- =?utf-8?B?Tlp2NDZsSGtlS0R4QS9adHJoNklxR0RRN0t6cWlSY3VVRzM2ZXFqRXBDbHk4?=
- =?utf-8?B?Y0FydHpaWklTbUtvWC9SYVZETVkrVDZvMXRhN0hKM2lydC8vQWJGdFJVNWxX?=
- =?utf-8?B?Tmx1VDB5WHZmS0RLYVE0OTJzRURWOWlVMHBNZHQ4UjBraGJNN2R3K0JtVFBq?=
- =?utf-8?B?SndwTWFwcy8vSWs2UmF4T2MwSlovUm9HelVIUnI3VjdlOXhQbzcyV0cySnJQ?=
- =?utf-8?B?NGhYYUVRNzRqSjM4OWQ4ZHF4R1FYTmJtajJrekpnQk5PZTA1clFFc2NIc0JV?=
- =?utf-8?B?NUZjR3czUXF1RSttbUFRcURRNmNRank1UkpFMm5sMStXZmJwa0VRQ1pad0Uy?=
- =?utf-8?B?Q2pUN2JyVDlhS0c5V29hQ3JsVEVtamxsNmlzcEZHcTZHSFFKQlFGQjhzSWhT?=
- =?utf-8?B?bENOVGNrT0VGcStuZk9kMC9zQ3F1UXVSbWdLdGRsYllNZmtqZHhPTzhIUzli?=
- =?utf-8?B?VWhTUCtnTnBnaXJkMEVNRXp4SVhObGh0RG1RL3ljejJhWVp3aHEvMzJreDcy?=
- =?utf-8?B?VnlpTDBXYzRkdk03bjNOR1padkM0UWRkaTBkWnBndExWNE1YMGkrVHdBZC9J?=
- =?utf-8?B?UTBEZm5pSmVxNWxpdDRGZ3BCS0lLNktiRkF6dTRlMjd2UUxzazhMdVRydlAy?=
- =?utf-8?B?VDl5TkpaNnppaC9VRndNekdVbUQySkdhdGV2YnFHTXU1ZXU3dXA1dS9lZFB6?=
- =?utf-8?B?QUxDSDVmL3FjdXplSFMyanpidUZhcVRWOWZQRDBYTU5LVFVKSUlIdDhIMVJ3?=
- =?utf-8?B?RHBBcGFoQ0RNVkJqMmpUdGpEby9xeTAybzhIRU5xcHJkenplemM2ZGVCMjk2?=
- =?utf-8?B?NGJkcFdwS2hDd0lRY0pBVEhqemUvZmVqaHZWU0hCempDb2gvOWUzc3JqV0JG?=
- =?utf-8?B?bDk1TFJlTzNEd1B2ZWdyMC9PNHcxUFZsaU9VMlR5Y081UVk2MkNHVWgwMjZP?=
- =?utf-8?B?TktUTHVtdnFiNG03V0kxck1EeGl2L2l2MDZKVUFYc0lCNFZ6NTlhdnh1NHps?=
- =?utf-8?B?VmxzOGRGY0VmWFZEWk9uN2dsQ0JUQWR5ckN1MDQ2QzN5bFFvRS9QVlZJTStU?=
- =?utf-8?B?TFZvOHZWc0t2cjczdXhtb3NZK0RyMGhmeU02TzJObEt1eStBeitLNHRkRy9j?=
- =?utf-8?B?ckY0LzFSL2FjVzIwc0JoMHY5RFZtZGVrSmkyUWFTMVdwSGl1ZjJ4aFdycmdW?=
- =?utf-8?B?ZGVaekN1Mk5JQmxFckVDVStHR3hGWUd3OXhGT3c2Qnd1dzVqaUI0Ym9NcktI?=
- =?utf-8?B?UXQvSDcyekE0NnZDdjVVdGtMNDVKUWRyVDRrMVRaS2cvVld1YXJEb3RPbG1B?=
- =?utf-8?B?YmhuSGpuc0NuVlA0d0VhZFhuNFJ1djhxZ2U1WWpueFE1MTcxWnc3TjZjNU9z?=
- =?utf-8?B?aWMvSWRqdnVIdCtFVlpuUUdJalc5NU9rYTFuSGdieGVnUUJxTkExUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c766822-244e-43d2-0faa-08de5427ebff
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 11:19:17.4639
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J7bUeytQMKGfayYO+GtGefv2lU2m8PotS+zopPiep/Qq/CaqL3/icEpJplAark2nUvx5RmaClqxVzeefUMCu7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7431
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
+ <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
+ <f707899a-3200-4467-a827-2195351f1226@gmail.com>
+ <dd10f076-cf91-426d-b2c0-2fa3056fb54f@suse.com>
+ <7a90cc1b-b053-4b9f-91f1-d32064b1ec29@gmail.com>
+ <c0d5104b-52ec-484e-ac40-8901ae298fa8@suse.com>
+ <b6d9eb9d-24a1-4d11-aa74-c76fd96a2c96@gmail.com>
+ <fc3d92fe-e04e-48df-a0ed-c74b3bb7d3ba@suse.com>
+ <a80a50c0-eefc-4ee3-8d49-145698d45297@gmail.com>
+ <ffbedb0f-f992-45b1-aa7a-a2f7e5f2b1e4@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <ffbedb0f-f992-45b1-aa7a-a2f7e5f2b1e4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The current logic allows for up to 1G pages to be scrubbed in place, which
-can cause the watchdog to trigger in practice.  Reduce the limit for
-in-place scrubbed allocations to a newly introduced define:
-CONFIG_DIRTY_MAX_ORDER.  This currently defaults to CONFIG_DOMU_MAX_ORDER
-on all architectures.  Also introduce a command line option to set the
-value.
 
-Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Split from previous patch.
- - Introduce a command line option to set the limit.
----
- docs/misc/xen-command-line.pandoc |  9 +++++++++
- xen/common/page_alloc.c           | 23 ++++++++++++++++++++++-
- 2 files changed, 31 insertions(+), 1 deletion(-)
+On 1/15/26 11:59 AM, Jan Beulich wrote:
+> On 15.01.2026 11:55, Oleksii Kurochko wrote:
+>> On 1/15/26 10:52 AM, Jan Beulich wrote:
+>>> On 15.01.2026 10:14, Oleksii Kurochko wrote:
+>>>> On 1/14/26 4:56 PM, Jan Beulich wrote:
+>>>>> On 14.01.2026 16:39, Oleksii Kurochko wrote:
+>>>>>> If a guest will do "That (the 1 -> 0 transitions) could be (guest) writes
+>>>>>> to SVIP, for example." then the correspondent HVIP (and HIP as usually
+>>>>>> they are aliasis of HVIP) bits will be updated. And that is why we need
+>>>>>> vcpu_sync_interrupts() I've mentioned in one of replies and sync VSSIP:
+>>>>>> +void vcpu_sync_interrupts(struct vcpu *v)
+>>>>>> +{
+>>>>>> +    unsigned long hvip;
+>>>>>> +
+>>>>>> +    /* Read current HVIP and VSIE CSRs */
+>>>>>> +    v->arch.vsie = csr_read(CSR_VSIE);
+>>>>>> +
+>>>>>> +    /* Sync-up HVIP.VSSIP bit changes does by Guest */
+>>>>>> +    hvip = csr_read(CSR_HVIP);
+>>>>>> +    if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
+>>>>>> +    {
+>>>>>> +        if ( hvip & BIT(IRQ_VS_SOFT, UL) )
+>>>>>> +        {
+>>>>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>>>>>> +                                   &v->arch.irqs_pending_mask) )
+>>>>>> +                set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>>>>>> +        }
+>>>>>> +        else
+>>>>>> +        {
+>>>>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>>>>>> +                                   &v->arch.irqs_pending_mask) )
+>>>>>> +                clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>>>>>> +        }
+>>>>>> +    }
+>>>>> I fear I don't understand this at all. Why would the guest having set a
+>>>>> pending bit not result in the IRQ to be marked pending?
+>>>> Maybe it is wrong assumption but based on the spec:
+>>>>      Bits sip.SSIP and sie.SSIE are the interrupt-pending and interrupt-enable
+>>>>      bits  for supervisor-level software interrupts. If implemented, SSIP is
+>>>>      writable in sip and may also be set to 1 by a platform-specific interrupt
+>>>>      controller.
+>>>> and:
+>>>>      Interprocessor interrupts are sent to other harts by implementation-specific
+>>>>      means, which will ultimately cause the SSIP bit to be set in the recipient
+>>>>      hart’s sip register.
+>>>>
+>>>> Meaning that sending an IPI to self by writing 1 to sip.SSIP is
+>>>> well-defined. The same should be true of vsip.SSIP while in VS mode.
+>>> I can't read that out of the text above. To the contrary, "will ultimately cause
+>>> the SSIP bit to be set" suggests to me that the bit is not to be set by writing
+>>> the CSR. Things still may work like this for self-IPI, but that wouldn't follow
+>>> from the quotation above.
+>> Why not that wouldn't follow from the quotation above?
+>>
+>> The first quotation tells that we can do self-IPI so VSSIP.SSIP will set to 1
+>> what we could miss SSIP bit if won't explicitly try to read h/w HVIP (or VSSIP,
+>> or whatever other alias of the SSIP bit) and sync with what we have cached
+>> in hypervisor.
+> The bit being writable doesn't imply that it being written with 1 would also
+> trigger an interruption. If that's indeed the behavior, it surely is being
+> said elsewhere.
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 50d7edb2488e..65b4dfc826b5 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1822,6 +1822,15 @@ Specify the deepest C-state CPUs are permitted to be placed in, and
- optionally the maximum sub C-state to be used used.  The latter only applies
- to the highest permitted C-state.
- 
-+### max-order-dirty
-+> `= <integer>`
-+
-+Specify the maximum allocation order allowed when scrubbing allocated pages
-+in-place.  The allocation is non-preemptive, and hence the value must be keep
-+low enough to avoid hogging the CPU for too long.
-+
-+Defaults to `CONFIG_DIRTY_MAX_ORDER` or if unset to `CONFIG_DOMU_MAX_ORDER`.
-+
- ### max_gsi_irqs (x86)
- > `= <integer>`
- 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index c9e82fd7ab62..728b4d6c9861 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -267,6 +267,13 @@ static PAGE_LIST_HEAD(page_offlined_list);
- /* Broken page list, protected by heap_lock. */
- static PAGE_LIST_HEAD(page_broken_list);
- 
-+/* Maximum order allowed for allocations with MEMF_no_scrub. */
-+#ifndef CONFIG_DIRTY_MAX_ORDER
-+# define CONFIG_DIRTY_MAX_ORDER CONFIG_DOMU_MAX_ORDER
-+#endif
-+static unsigned int __ro_after_init dirty_max_order = CONFIG_DIRTY_MAX_ORDER;
-+integer_param("max-order-dirty", dirty_max_order);
-+
- /*************************
-  * BOOT-TIME ALLOCATOR
-  */
-@@ -1008,7 +1015,13 @@ static struct page_info *alloc_heap_pages(
- 
-     pg = get_free_buddy(zone_lo, zone_hi, order, memflags, d);
-     /* Try getting a dirty buddy if we couldn't get a clean one. */
--    if ( !pg && !(memflags & MEMF_no_scrub) )
-+    if ( !pg && !(memflags & MEMF_no_scrub) &&
-+         /*
-+          * Allow any order unscrubbed allocations during boot time, we
-+          * compensate by processing softirqs in the scrubbing loop below once
-+          * irqs are enabled.
-+          */
-+         (order <= dirty_max_order || system_state < SYS_STATE_active) )
-         pg = get_free_buddy(zone_lo, zone_hi, order,
-                             memflags | MEMF_no_scrub, d);
-     if ( !pg )
-@@ -1117,6 +1130,14 @@ static struct page_info *alloc_heap_pages(
-                     scrub_one_page(&pg[i], cold);
- 
-                 dirty_cnt++;
-+
-+                /*
-+                 * Use SYS_STATE_smp_boot explicitly; ahead of that state
-+                 * interrupts are disabled.
-+                 */
-+                if ( system_state == SYS_STATE_smp_boot &&
-+                     !(dirty_cnt & 0xff) )
-+                    process_pending_softirqs();
-             }
-             else
-                 check_one_page(&pg[i]);
--- 
-2.51.0
+According to the spec it will trap to S-mode (VS-mode in our context) if both of
+the following are true: (a) either the current privilege mode is S and the SIE
+bit in the sstatus register is set, or the current privilege mode has less
+privilege than S-mode; and (b) bit i is set in both sip and sie.
+
+Even without a triggering an interrupt I think it we can still lose set bit in
+VSSIP register (if Im not mistaken something). If we won't do a sync of cached
+hvip and h/w hvip then it could lead to the issue we lost a real SSIP bit value.
+For example, guest before entering hypervisor set VSSIP.SSIP to 1 what
+means what means that hip.VSSIP will be also set to 1 as:
+   When bit 2 of hideleg is zero, vsip.SSIP and vsie.SSIE are read-only zeros.
+   Else, vsip.SSIP and vsie.SSIE are aliases of hip.VSSIP and hie.VSSIE.
+And so hvip.SSIP will be set to 1 as:
+   Bits hip.VSSIP and hie.VSSIE are the interrupt-pending and interrupt-enable
+   bits for VS-level software interrupts. VSSIP in hip is an alias (writable)
+   of the same bit in hvip.
+And then if we don't sync cached hvip with h/w hvip, it could lead to then
+when we will put cached hvip (which has .VSSIP set to 0) overwrite h/w hvip.VSSIP
+which was set to 1.
+
+~ Oleksii
+
 
 
