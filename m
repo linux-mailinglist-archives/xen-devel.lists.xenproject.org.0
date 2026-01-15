@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 388E7D24611
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 13:04:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204965.1519462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86977D2463B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 13:10:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204977.1519472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgM5P-00056T-E8; Thu, 15 Jan 2026 12:04:23 +0000
+	id 1vgMAl-0005tB-0t; Thu, 15 Jan 2026 12:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204965.1519462; Thu, 15 Jan 2026 12:04:23 +0000
+Received: by outflank-mailman (output) from mailman id 1204977.1519472; Thu, 15 Jan 2026 12:09:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgM5P-00053i-Ar; Thu, 15 Jan 2026 12:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 1204965;
- Thu, 15 Jan 2026 12:04:22 +0000
+	id 1vgMAk-0005qf-Tf; Thu, 15 Jan 2026 12:09:54 +0000
+Received: by outflank-mailman (input) for mailman id 1204977;
+ Thu, 15 Jan 2026 12:09:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgM5N-00053c-VN
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 12:04:21 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1vgMAj-0005qZ-E1
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 12:09:53 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52548c3d-f20a-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 13:04:19 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-430fbb6012bso568318f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 04:04:19 -0800 (PST)
+ id 17857f66-f20b-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 13:09:50 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-432d2c7dd52so691789f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 04:09:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af64a65bsm5589978f8f.7.2026.01.15.04.04.18
+ ffacd0b85a97d-434af6fca57sm5340612f8f.42.2026.01.15.04.09.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 04:04:18 -0800 (PST)
+ Thu, 15 Jan 2026 04:09:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52548c3d-f20a-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 17857f66-f20b-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768478659; x=1769083459; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768478990; x=1769083790; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=es4pAXIiZJcaSHieisvPWWIhTRVmg+2omFF/nirmX0A=;
-        b=EkNJqd+J8wUvWn859GfWndPkkTLS7goYYy6Up0CkVA3nSCzBsrrSfNqSkG7z6cYymA
-         Ppufgp2bHI12DXZf0gPLydBJsUvlnea/cGV4c5YOec1ZdlLAMV8QDkBshe4ScFB7SXRN
-         pGt5H5HMdi4xAU0xxeKKB9wvjK/Wj7ltrZeXyUZBLyKhBgStMxvpe3N0T6odR9kDH9zk
-         uBq9bA+G4QMJ5wiUDJUWO234Rh8kKfvInw30Orm2cUB8jVhg4wy6nFd3rUCS9L+mfSZP
-         IKmOLWYhNjfi1R+ZeXfu2pJUIjbnTQtQ7yiCxjmkLemjGs+g1cxW3LRlYU8kEZSVcHE3
-         Xwsw==
+        bh=fVNLL7Ed0X6HGAu6P4eo0tISqnJrZlBVXmfFsuNGwik=;
+        b=U+q4wKE4BL+XJ5gWyBwwAWPTruV2cnIbQxvLFNPfOcvBie19H3xW+rkjCJgzeiNT8p
+         Te0Z2vJlK62/Nr8eE93qyZZlqdY7qFOt0PdhIo7zHWLX6HQDoDIKDYrz81jbAri8b2AD
+         K31uKFlhYmNkHEzOBrgo6Xt4f1/RhJxly7T/JFUCvSZos/7XCMPo6gQO3MfeIMlLqdRK
+         xuomeLEEhjRtvjt44xJL6Qmcz7RlvcAvQGT3dRuGbMuMP80WfXKQp8rup0psmmRWBBSU
+         nBIYFwdbxAvRRxDgk0z9nHc8RHtDSq0feg6+VuqCBp5vfF5gibVHFARkX0dKQfsPaocy
+         Mx9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768478659; x=1769083459;
+        d=1e100.net; s=20230601; t=1768478990; x=1769083790;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=es4pAXIiZJcaSHieisvPWWIhTRVmg+2omFF/nirmX0A=;
-        b=uT3CCzq5malZ03+bwHkEn33AVf0aJRiTGBu7TbLHKQYdtrnduHerZr8wPvL6uDZvMD
-         PwC2dxw7nCQ/3V1y0DNgAHmy4Xt3gIBidRZNDL/5A0lz3EUP0iC9ZdeB+0FWpSuB1bcO
-         ryFlW8bTN72ZpsOYstMyKhcOBerGPuXr2kOrMAqcOMs3xmoupHckMinkr0afNS85l9+q
-         Ql00PBsqm4ykU7vk8Tqqq7IpFqphS6vjY0BEZ+LqYO3k1IWN5ro2BRlWeNiVT9XDE8U7
-         5g/bzFpEMb6p39eWZ7xc7rQb0cSR4+i612+goSY+oq+R9pvwbeewjIadeEPBkwe20gvg
-         exDA==
-X-Gm-Message-State: AOJu0YwzRRHm9sUsxPjN3SlTATpSwLQoyT/IHTX1Y75jQHIwNjvTjsbA
-	WfjHgcHXYiw8M/QsAfKtX4rG+EvVxciMSQxXh9F3npXD48ZKe6XorcpmoJ1dgExYcw==
-X-Gm-Gg: AY/fxX5rU/avnlsWZE0ishTLp3ZvaiTzZZMtkC9cn94JBN4nW2WtTWaXaM5NmIgcZbs
-	EiQ3IpcPLeSWgSLHizHzDUMU2KCfF6w3uzN/lVRAf+UnC0g67PNdSFCPyw+i+OeB+YDk/zUUdD8
-	uTGkrOtzZy9EsphveulaTIJy0jHoHwF7OPCQSD5d48dC6aHieCFLftSfOhMiCJ3+EQGjoFpBTwQ
-	S5xN5xfaQTPlLm7GKI/wMLvlV/JZnBWY2VW1rYol6yRM+z+cElJ78Wq2wlGuWp+t6zXEJrE2puD
-	q/TkDuyNoH1Mg6/sfJ7AQNfmDW2AB+pYPFbH6bQMIhSP3bQpBbWBacHDEtJCRKbJO04QBx8UoQO
-	lQrbC/hVqhDXCeEcOEBnZgjWI75DOpG6vfP+J1gAFLm2vCEVCkAPqtdadlMPU9ENgj+Wu0T9MSr
-	sZ+0wBWoU0o/8r0RFKhn7p0A3J7wVocObc1Zbs49dGi1pFgolkGiZqdhfl1J7kCWKxg6ejlKgnc
-	dU=
-X-Received: by 2002:a05:6000:1867:b0:430:f449:5f17 with SMTP id ffacd0b85a97d-4342c569a14mr7689406f8f.42.1768478658864;
-        Thu, 15 Jan 2026 04:04:18 -0800 (PST)
-Message-ID: <cedf6fab-90ea-4d04-8410-a816926d2673@suse.com>
-Date: Thu, 15 Jan 2026 13:04:18 +0100
+        bh=fVNLL7Ed0X6HGAu6P4eo0tISqnJrZlBVXmfFsuNGwik=;
+        b=WlWfwvJU2azF1gTDgy4OAKncKJ9BrK3x1SKpzWB2q1JDVu3NeS6dhyZ+TUth1XfGPC
+         fHYbhWnkxJ2wMrbCIBUVg63UG71EprlM0UbHLWc6OAytAIwOHpmSBhkEgnkX556hlCmb
+         eUQj0fiyq11DNAo2GpT0P4LRGVG/ol3Pc0DW/rpI7THhxcTj/GzTowaP9WFCiHwq5vjs
+         mxaE/Uu5DzvMBr3oO3sCmku0/l/OijeMQOERkibpowg4vh5ZTHoSdwC3msm/ukKU2yKu
+         XPoqDEURvTEIdHZWb/CQRChR3DYz7TTg6WrvO8LpvA50i4It4wKbWtl/udLV7Js8M5Zd
+         nb4g==
+X-Forwarded-Encrypted: i=1; AJvYcCXqSUh8kOWSvqMgfV44WLsD+j8x8kixBuIZ8hYR0fX+mLPzOObd2hUbE+lu8uK0JFn/kHNOT9sRJkg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yximp+MVSXJhhvFWlM/HZjqoiKCf+grqDbggN3dUGnOg58VmCtY
+	nuTGzof0Dx5WHJ/cUw9MSkPdBXRQzj9crhU8ACV9WP8uICqx/3xuWFrhQRxyaaF+9w==
+X-Gm-Gg: AY/fxX6YG/mP+2mWJkfVZoQqPHetMQjcYnsKJlkmXazBkzhulq7LQKqVK2azOxx2GR9
+	Eyo5Axn+OtsiSeW5IQUWfqeSudRBu0OhXtj5UnphWMEun6MJxfR9w6C7yPA9CwfLaJzEBoS1rje
+	nPFPlsAlqN7a+oSxTqK5443yF9bDR2QIYyZkfA3zN1Rx10CCujSpjvTnpR5rQrmjZ3L49jvHS+a
+	Lih+oRzLuDT+6QoFuP9HrE5qUVXonbB2dNzS3zTLk9fcrz7OujgC129NkQezE8j1+Ps/FJuDitj
+	P35eBllU6L3M3qiqcDQ3eRCaCKPuSouScRqhbUNSd9d+wMYq93UAD1ltbWryqbtN+907f3TgNSK
+	CAPcW/qfj8DoFPuvSa5oZC8XY7PJLqlGjI1/GS3jfAgTPyzw7B8UjboKzlmDLtt4Sbq9spSikkf
+	igYDVg3mZT+nERzjF3sz28IuX3S6o0bDRd5ikhSTxoVBl/uWz9BdpdWgnfrf0U4uJtQrJQud2GZ
+	nM=
+X-Received: by 2002:a05:6000:2403:b0:42c:b8fd:21b3 with SMTP id ffacd0b85a97d-4342c574ca2mr7777111f8f.57.1768478989667;
+        Thu, 15 Jan 2026 04:09:49 -0800 (PST)
+Message-ID: <caae4d06-fc26-4f96-8029-2747fea52d3b@suse.com>
+Date: Thu, 15 Jan 2026 13:09:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
- get_s_time_fixed()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Subject: Re: [PATCH v1 07/15] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
- <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com> <aWikMGJKa3VPQQzi@Mac.lan>
- <49507100-faa9-4480-a534-e4bab6cecc5b@suse.com> <aWjUEsp0dHsbjhyn@Mac.lan>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <c6bd40a9a40ae3194bcfcf90b9a71d4c190ab7f6.1766595589.git.oleksii.kurochko@gmail.com>
+ <cdefd959-5700-4cdc-8563-d4954be1e91e@suse.com>
+ <f707899a-3200-4467-a827-2195351f1226@gmail.com>
+ <dd10f076-cf91-426d-b2c0-2fa3056fb54f@suse.com>
+ <7a90cc1b-b053-4b9f-91f1-d32064b1ec29@gmail.com>
+ <c0d5104b-52ec-484e-ac40-8901ae298fa8@suse.com>
+ <b6d9eb9d-24a1-4d11-aa74-c76fd96a2c96@gmail.com>
+ <fc3d92fe-e04e-48df-a0ed-c74b3bb7d3ba@suse.com>
+ <a80a50c0-eefc-4ee3-8d49-145698d45297@gmail.com>
+ <ffbedb0f-f992-45b1-aa7a-a2f7e5f2b1e4@suse.com>
+ <fed7075c-4c1f-4aa5-ad29-c5fba0442b47@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,73 +135,89 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aWjUEsp0dHsbjhyn@Mac.lan>
+In-Reply-To: <fed7075c-4c1f-4aa5-ad29-c5fba0442b47@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.01.2026 12:48, Roger Pau Monné wrote:
-> On Thu, Jan 15, 2026 at 11:38:10AM +0100, Jan Beulich wrote:
->> On 15.01.2026 09:24, Roger Pau Monné wrote:
->>> On Thu, Jan 15, 2026 at 09:00:07AM +0100, Jan Beulich wrote:
->>>> On 14.01.2026 18:49, Roger Pau Monné wrote:
->>>>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
->>>>>> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
->>>>>> comment towards the TSC being "sane", but is that correct? Due to
->>>>>> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
->>>>>> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
->>>>>> calling tsc_ticks2ns()?
->>>>>
->>>>> amd_check_erratum_1474() runs after early_time_init(), which would
->>>>> have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
->>>>> initcall to that regard:
->>>>>
->>>>> /*
->>>>>  * Must be executed after early_time_init() for tsc_ticks2ns() to have been
->>>>>  * calibrated.  That prevents us doing the check in init_amd().
->>>>>  */
->>>>> presmp_initcall(amd_check_erratum_1474);
->>>>
->>>> Hmm, I should have written "Due to e.g. TSC_ADJUST". Firmware may also
->>>> have played other games with MSR_TSC.
->>>
->>> For amd_check_erratum_1474() we don't want to subtract boot_tsc_stamp,
->>> otherwise when kexec'ed we won't be accounting properly for the time
->>> since host startup, as subtracting boot_tsc_stamp would remove any
->>> time consumed by a previously run OS.
->>
->> For both this and ...
->>
->>>>>> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
->>>>>> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
->>>>>> whether we shouldn't subtract boot_tsc_stamp.
->>>>>
->>>>> I would expect tsc_get_info() to also get called exclusively after
->>>>> early_time_init()?
->>>>
->>>> Same here then (obviously).
->>>
->>> For tsc_get_info() I think you are worried that the TSC might
->>> overflow, and hence the calculation in scale_delta() would then be
->>> skewed.  We must have other instances of this pattern however, what
->>> about get_s_time_fixed(), I think it would also be affected?
->>>
->>> Or maybe I'm not understanding the concern.  Given the proposed
->>> scale_delta() logic, it won't be possible to distinguish rdtsc
->>> overflowing from a value in the past.
->>
->> ... this, my main point really is that scale_delta() (as its name says),
->> and hence also tsc_ticks2ns(), shouldn't be used on absolute counts, but
->> only deltas. (Yes, an absolute count can be viewed as delta from 0, but
->> that's correct only if we know the TSC started counting from 0 and was
->> never adjusted by some bias.)
+On 15.01.2026 12:46, Oleksii Kurochko wrote:
 > 
-> Well amd_check_erratum_1474() does want the delta from 0 to the
-> current TSC, because that's the best? way to see when C6 needs to be
-> disabled.  Otherwise we just straight disable C6 on boot on affected
-> systems.
+> On 1/15/26 11:59 AM, Jan Beulich wrote:
+>> On 15.01.2026 11:55, Oleksii Kurochko wrote:
+>>> On 1/15/26 10:52 AM, Jan Beulich wrote:
+>>>> On 15.01.2026 10:14, Oleksii Kurochko wrote:
+>>>>> On 1/14/26 4:56 PM, Jan Beulich wrote:
+>>>>>> On 14.01.2026 16:39, Oleksii Kurochko wrote:
+>>>>>>> If a guest will do "That (the 1 -> 0 transitions) could be (guest) writes
+>>>>>>> to SVIP, for example." then the correspondent HVIP (and HIP as usually
+>>>>>>> they are aliasis of HVIP) bits will be updated. And that is why we need
+>>>>>>> vcpu_sync_interrupts() I've mentioned in one of replies and sync VSSIP:
+>>>>>>> +void vcpu_sync_interrupts(struct vcpu *v)
+>>>>>>> +{
+>>>>>>> +    unsigned long hvip;
+>>>>>>> +
+>>>>>>> +    /* Read current HVIP and VSIE CSRs */
+>>>>>>> +    v->arch.vsie = csr_read(CSR_VSIE);
+>>>>>>> +
+>>>>>>> +    /* Sync-up HVIP.VSSIP bit changes does by Guest */
+>>>>>>> +    hvip = csr_read(CSR_HVIP);
+>>>>>>> +    if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) )
+>>>>>>> +    {
+>>>>>>> +        if ( hvip & BIT(IRQ_VS_SOFT, UL) )
+>>>>>>> +        {
+>>>>>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>>>>>>> +                                   &v->arch.irqs_pending_mask) )
+>>>>>>> +                set_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>>>>>>> +        }
+>>>>>>> +        else
+>>>>>>> +        {
+>>>>>>> +            if ( !test_and_set_bit(IRQ_VS_SOFT,
+>>>>>>> +                                   &v->arch.irqs_pending_mask) )
+>>>>>>> +                clear_bit(IRQ_VS_SOFT, &v->arch.irqs_pending);
+>>>>>>> +        }
+>>>>>>> +    }
+>>>>>> I fear I don't understand this at all. Why would the guest having set a
+>>>>>> pending bit not result in the IRQ to be marked pending?
+>>>>> Maybe it is wrong assumption but based on the spec:
+>>>>>      Bits sip.SSIP and sie.SSIE are the interrupt-pending and interrupt-enable
+>>>>>      bits  for supervisor-level software interrupts. If implemented, SSIP is
+>>>>>      writable in sip and may also be set to 1 by a platform-specific interrupt
+>>>>>      controller.
+>>>>> and:
+>>>>>      Interprocessor interrupts are sent to other harts by implementation-specific
+>>>>>      means, which will ultimately cause the SSIP bit to be set in the recipient
+>>>>>      hart’s sip register.
+>>>>>
+>>>>> Meaning that sending an IPI to self by writing 1 to sip.SSIP is
+>>>>> well-defined. The same should be true of vsip.SSIP while in VS mode.
+>>>> I can't read that out of the text above. To the contrary, "will ultimately cause
+>>>> the SSIP bit to be set" suggests to me that the bit is not to be set by writing
+>>>> the CSR. Things still may work like this for self-IPI, but that wouldn't follow
+>>>> from the quotation above.
+>>> Why not that wouldn't follow from the quotation above?
+>>>
+>>> The first quotation tells that we can do self-IPI so VSSIP.SSIP will set to 1
+>>> what we could miss SSIP bit if won't explicitly try to read h/w HVIP (or VSSIP,
+>>> or whatever other alias of the SSIP bit) and sync with what we have cached
+>>> in hypervisor.
+>> The bit being writable doesn't imply that it being written with 1 would also
+>> trigger an interruption. If that's indeed the behavior, it surely is being
+>> said elsewhere.
+> 
+> According to the spec it will trap to S-mode (VS-mode in our context) if both of
+> the following are true: (a) either the current privilege mode is S and the SIE
+> bit in the sstatus register is set, or the current privilege mode has less
+> privilege than S-mode; and (b) bit i is set in both sip and sie.
 
-I think that may be necessary when we don't know what was done to the TSC
-before we took control of the system.
+That's still not it. Here is the relevant quote:
+
+"These conditions for an interrupt trap to occur must be evaluated in a bounded
+ amount of time from when an interrupt becomes, or ceases to be, pending in sip,
+ and must also be evaluated immediately following the execution of an SRET
+ instruction or an explicit write to a CSR on which these interrupt trap
+ conditions expressly depend (including sip, sie and sstatus)."
+
+Note in particular the "explicit write to a CSR". (Sorry, I did read that before,
+but I didn't memorize it. Else I wouldn't have asked the original question.)
 
 Jan
 
