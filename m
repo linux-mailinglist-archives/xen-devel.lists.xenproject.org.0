@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C027FD22F27
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 08:51:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204204.1518942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C498D22F33
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 08:52:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204212.1518952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgI8m-0002XI-Qs; Thu, 15 Jan 2026 07:51:36 +0000
+	id 1vgI9N-0002yD-37; Thu, 15 Jan 2026 07:52:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204204.1518942; Thu, 15 Jan 2026 07:51:36 +0000
+Received: by outflank-mailman (output) from mailman id 1204212.1518952; Thu, 15 Jan 2026 07:52:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgI8m-0002Up-Nf; Thu, 15 Jan 2026 07:51:36 +0000
-Received: by outflank-mailman (input) for mailman id 1204204;
- Thu, 15 Jan 2026 07:51:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vgI9N-0002vA-09; Thu, 15 Jan 2026 07:52:13 +0000
+Received: by outflank-mailman (input) for mailman id 1204212;
+ Thu, 15 Jan 2026 07:52:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgI8k-0002Uj-SU
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 07:51:34 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01ea0311-f1e7-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 08:51:32 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-47edffe5540so6006195e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 23:51:32 -0800 (PST)
+ id 1vgI9L-0002l1-Ad
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 07:52:11 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18a8f5c3-f1e7-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 08:52:10 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-432d2c7dd52so463058f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 23:52:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af64a778sm4159493f8f.3.2026.01.14.23.51.31
+ ffacd0b85a97d-434af6b29cfsm4233532f8f.27.2026.01.14.23.52.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 23:51:31 -0800 (PST)
+ Wed, 14 Jan 2026 23:52:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01ea0311-f1e7-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 18a8f5c3-f1e7-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768463491; x=1769068291; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768463530; x=1769068330; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FYN3QVD9ORfEN4a1Uwdps8CyfvMKZ8/di2f6UPpXfL4=;
-        b=YgZ3fl9XGWxU3RAeifYKo7KMZfy7e/7H5C1DTtqyF7E8RlLO7zj3CRYpkcaQcQiKSb
-         sex1jfMm9b92ROWD/i5hEh2RNzVwGFEoi7RpTUtlsb9IS72gJXYAFmrGffjUUn39G6nQ
-         CjwHwI91ydyXjzHVeBtBMVlGfVBKH3Op7YCd9kmKc5BvD6QNOw7OpVGp9io8ou71gDe5
-         +AG5QerPtSrFDaQiUSmL3TnAFX8AOdwgw+QQCddwyRRSNh3F1Ma6hzElYUTJXyIcMcIU
-         sk1hFlEDkH9fYND4j2nzjlHyOANlqQKgaykIoIX1L0XpriPFI6G3Xiea+yEmj9spSojD
-         XBOg==
+        bh=G04VNH9mM5QJYcfrwDmtk2vbND5eL1Ze1p1mnEyfR7g=;
+        b=DVH0HbHJ/uwSgWAxwbxD81cIkyzLMbUvysMiQVdHJ5BC0Dp+5xifZ2kun/kJ9D/krJ
+         C2Dsqcb/JAy4F5cssteN5HzTNNqlVsaosdaB/AmVXv0wVBTP2+fhN4ioXYK+Yp7Y+qO6
+         dEmhWfBEDWTs5rsg3ga+yGC1/2B5Kz1sYZQeDe9vMShGfQXYFCLo5QFFozRHa7yA+TrF
+         2zT5ha8XB0fWM/EfM3Af7QjVKiBkZTn9Pq48wS2hYrT4hBNqzJijtvabE01n91mYzApV
+         d4PQc8qPnJheWNQqjHYTTZancOVgiRhuaeGEtz7Un57Z6IVJh6SLKIUt+NQoP/xwLzMc
+         ZFYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768463491; x=1769068291;
+        d=1e100.net; s=20230601; t=1768463530; x=1769068330;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FYN3QVD9ORfEN4a1Uwdps8CyfvMKZ8/di2f6UPpXfL4=;
-        b=BvijmB4FQZxz2vXo2U4X9fFJER/7RgiWmzkoZnUOwXNimYVA9jyuNB0IlMvkgjJFvo
-         UYn2KMO8s8JOwS6cSemUVI9xpGY8PvpL64614iGqn4PC/QlNCZwJm2yPdM4G55kHxS/o
-         ezF8eKyrlKNE7dXwo2bav4ZWZ8h29krq0f8N+sEbGnZU779AIQBOELupH+Yqxa5KXPdy
-         SZ9xvW9eHrlmrfhNDn93Jokx66RGIs0zr/MdAAbRVU9xyqLZzOgeEowz9i7hee+FQkeZ
-         xCoW/bUKlU0Gec5yRihsykHPWM7Qd8ILbqEvbf9/24duzdCpjjMaLHMYgCo9Ea/0LBbH
-         l45g==
-X-Gm-Message-State: AOJu0YzoLAJnPTTBUI7OvrYudctxrjXJG6+/cC0VRw+5N6fVencScYUk
-	rwshWLNlIvHdCsZ17bFzjLt/UDDkCZnZqWIMtbwqOaY6goSyX9m5YyxeEKmnvyIeqw==
-X-Gm-Gg: AY/fxX7n5ID5tbh4iK2o0B2mFFGQEAXR+X32FmCSOlWfzLQbU/LsbakkeE0gKpxnEGl
-	Xs3RbMLzGgIWQpBh5LliXKnC2jCRgLYww28ouoO2ZAi2lPnDqL/XxV2cfG7LsH6tID0LelbxDDR
-	8EopToUW8SBuEvMpHZbfkTqITMpdNQ8xUc+buasZ+/3ynllXwTnSnvLQDwyrGgIaJm02etFzzSj
-	TRdSYWnGKGXRR1rLAmsx3VhHYQ5wk/qrLDYqFfMQ/4V8t3T+sW4P/YDF1A0To2GO3vN3fyyBvJA
-	6aC4qkqFP5JhwRzzkD9oDIJ6+b70y3k0UEI5V/l8tLIff2EILTRFaGubtdcV9kPM5fcgeCfGGlO
-	Idj/Uyy2p8G4Zqoc1Ae4Od2bK61M3vHJnmbq29qAYV4UW6SO1UiLjJMgP/v4m7PuLHTFcd6a4Dc
-	fSNHaYRhI+TNtcmubgMyDhH9HeDjLfOCMHW+2Nq3KZMrZi0fHWAfL/wtSc9Tej5GA73n9EcfAtQ
-	+Y=
-X-Received: by 2002:a05:600c:818c:b0:47e:e2ec:9960 with SMTP id 5b1f17b1804b1-47ee339ba32mr55279325e9.35.1768463491575;
-        Wed, 14 Jan 2026 23:51:31 -0800 (PST)
-Message-ID: <98b1ba19-40d3-4f36-9723-2773580df3e3@suse.com>
-Date: Thu, 15 Jan 2026 08:51:30 +0100
+        bh=G04VNH9mM5QJYcfrwDmtk2vbND5eL1Ze1p1mnEyfR7g=;
+        b=ZWyBw6zYg9MPBRlIYtDpd4dRORSmpc3/0u0ij/fdwvtsnaekG6DSiSAXjF0ydX36zK
+         +AJDytNFDJVDldrAs6opw4HlnQ62QgOcoeETr0r1apL8eYDmBRB3Kty3aTp7u4cwriVG
+         sNgdft1aorltvTjuV+OL0s6MxobeWQiNAK4gzBKNtNWK6VmJgyyvIxZ3eVqponTohvR3
+         LXSrUPcbu6Mo6cWs0mzhjv2TUcXJVGJ+rhdsBZnzUlgZ7WiERqap30kd+YdC9/fYrsHF
+         0Osfi/tO+8pTZIIj2lbc71C0EELBpfbfNEsw5JZxVTRptvtnGPoMcQ3LtAs5rdLSU+sO
+         oYNw==
+X-Forwarded-Encrypted: i=1; AJvYcCXy0UUtJIWNT66KvDczrjwFAiL9AAq036Phuf5gTpvuCuHC1ftolJqb2nEUSpNdJCrd7ti/xvJ5boE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPR+7/1mnhxcGmlOZf1D+ucm4HXtNUFWV5zy7TjgyKmpp+XTE0
+	ut+3Cnn2We1nb0X1iWdv5O8hUNqFlO7JhRF2kC/FduLkTI4uJtjyw8dYwLjA/aH9Zg==
+X-Gm-Gg: AY/fxX5ekP9ojbZQhwNV/XWMIwgJASYFxdHezalNocOWzzGUUUzsUt2vCAA29HYN4Ug
+	UkgqLP1+Vb58OhqxZe4AKkLD9xsU+dX2alZ69je3eE0nRTUBHSffWUJxrLIlucnA47ByWq5Momf
+	E6RT+0XWpJeRZBDGyG0dpWOl+idVGPKIQlPul943v3Pqrlcl1uYda6wz1FxSEa3eArnpOXrbiO7
+	R61sR7p8hpx5wauzMxygMJS+vbuJerMb4CZEGBEliyH34aj1pi5iWg6PxMlTwIjqORGPoFDwpQf
+	+vUk5ljFAb+vqs29zuAEpALdMtILtGyVzZ/kmPZR77EDcjKQIPebUA8eLNO5S2jWwbs7eEJmMFI
+	vG/SkfAzu1aGFn/3fig+0PRpF6h03fRFc8+a5ulS7gYxxHpM4Di9JeLiS2Ic5sbxHnPanQpoWqv
+	uT1qYeoFtRntBSH0f+R5kkXqATW1Wji7jDwsqGSb/bWtkpbAd7f//IfpEjVIiRm0eH7PwdyyLAD
+	x8=
+X-Received: by 2002:a5d:5d83:0:b0:432:5bf9:cf22 with SMTP id ffacd0b85a97d-4342c4f4c89mr5829537f8f.3.1768463529727;
+        Wed, 14 Jan 2026 23:52:09 -0800 (PST)
+Message-ID: <8fa84e68-72b6-4578-9c3b-70d85d268c53@suse.com>
+Date: Thu, 15 Jan 2026 08:52:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Cpufreq drivers not working on T480S
-To: Milky <milky_way_303030@proton.me>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jason Andryuk <jandryuk@gmail.com>
-References: <dg8zeLW4X3RWRJt-1jas5pAqHft5GbxYxS5mNwc4ONE8tDEruL1-5a_e-vQu1RdOUWsMXxKe_Igcewy2zcbnOfkaGVG7y6hXLcLd78HI1po=@proton.me>
- <CAKf6xptg+0KrsjrmLD1iZFuT411S+7Pz9-HSX8L-KwQFR8o3Nw@mail.gmail.com>
- <unRhWiUKUGc3G4yBmJJ2Pc0JOSbM4HC0b-fTBaf1f0RYJEi_aIHV3-il1EafrSE9c77-tZNUV386xdg3UANDdeonG_zecEVq7HrG2COheJ8=@proton.me>
- <7dbd26d1-0d9a-454f-90d8-5a7f3d8e12da@suse.com>
- <qo8wx-b_cpRuzol0X0mW_NHY1mu3tOBCzMvy5Y_8IASOkmy1oxPdJWdbrndDL63d5lMbw1FDMkI9gCSH9BS2UFWiuyjhycfqWpJWueeHq2E=@proton.me>
- <8a2125c7-c5ec-4be1-a7a5-61b2936cc90f@suse.com>
- <rhr8suTtSGv9hTwateK8Tx8Cm9xetzvaOsOIzexIaY-VaPyxsgzA3K0pYTeyyrKFtkc5gHJ3SrJ0I5VKjGsxBKdQm-QKPRVF_bugbAHM9uI=@proton.me>
- <FEKky8EG7uaCBf24_kJ7c8fNFwXgajV7RH98tbwxsty3gGkFcMJuI4plVzNAVqiLYKWFGwCUo6HsOFKD_abqWU9wZtxgTNXPJz8w7vv-PYI=@proton.me>
- <c713530f-5f54-44e0-9f45-8df8329c7aef@suse.com>
- <f7_mi42KcNcLkQfNwAwz-wjxWoXv_gbqEKrmEeFp43XDrFgoWBrSAP2doOzxvIUUM21AAXV3duZB_gZT03x5S8iT6WmU6A24H32vOu40iIc=@proton.me>
+Subject: Re: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and
+ vtimer_expired()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+ <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
+ <f8808dd1-d571-49ea-8739-ed06dd6c79d1@suse.com>
+ <4e18e4fc-de62-44fc-8ea0-517f6c7ef47f@gmail.com>
+ <f7a47af4-6523-4d92-9beb-0daf639f2f36@suse.com>
+ <b0131e35-3c1b-4e42-9f80-07d246a5df69@gmail.com>
+ <62c22b34-cbad-40f2-a367-ba5fd8d11b51@suse.com>
+ <5c6eff93-0db7-4382-8365-6b32b17f5f4d@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,27 +131,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f7_mi42KcNcLkQfNwAwz-wjxWoXv_gbqEKrmEeFp43XDrFgoWBrSAP2doOzxvIUUM21AAXV3duZB_gZT03x5S8iT6WmU6A24H32vOu40iIc=@proton.me>
+In-Reply-To: <5c6eff93-0db7-4382-8365-6b32b17f5f4d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.01.2026 00:42, Milky wrote:
-> On Wednesday, January 14th, 2026 at 11:12 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> On 14.01.2026 11:58, Milky wrote:
->>
->>> Just wanted to update this thread to say that now another T480 user (the T480 is a very similar model to my T480S) using the release builds of libreboot (as of 26.01 RC1) also has the entries missing from the ACPI tables. That discussion was here https://codeberg.org/libreboot/lbmk/issues/394. So this confirms that I'm running a standard libreboot, rather than a bad build.
->>>
->>> Do you think there is any way to avoid the underclocking issue with Xen on such devices/firmware?
->>
->>
->> In principle there is, but in the absence of ACPI data that means holding model-
->> specific data in Xen. Which iirc is what the intel-pstate driver in Linux does
->> (using ACPI info nowadays only as "auxiliary" data). But I may be wrong there,
->> as it has been a long time since I last looked at that driver.
+On 14.01.2026 16:59, Oleksii Kurochko wrote:
 > 
-> In that case, would you say this is settled now? Would it make sense to report back to the QubesOS community that librebooted T480/S will run underclocked, due to the missing data in ACPI tables and lack of native support in Xen? This information is important, as the device is only barely usable.
+> On 1/14/26 3:57 PM, Jan Beulich wrote:
+>> On 14.01.2026 13:27, Oleksii Kurochko wrote:
+>>> On 1/13/26 4:12 PM, Jan Beulich wrote:
+>>>> On 13.01.2026 15:44, Oleksii Kurochko wrote:
+>>>>> On 1/8/26 11:28 AM, Jan Beulich wrote:
+>>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>>>>>>> +    {
+>>>>>>> +        stop_timer(&t->timer);
+>>>>>>> +
+>>>>>>> +        return;
+>>>>>>> +    }
+>>>>>>> +
+>>>>>>> +    set_timer(&t->timer, expires);
+>>>>>> See the handling of VCPUOP_set_singleshot_timer for what you may want to
+>>>>>> do if the expiry asked for is (perhaps just very slightly) into the past.
+>>>>> I got an idea why we want to check if "expires" already expired, but ...
+>>>>>
+>>>>>> There you'll also find a use of migrate_timer(), which you will want to
+>>>>>> at least consider using here as well.
+>>>>> ... I don't get why we want to migrate timer before set_timer() here.
+>>>>> Could you please explain that?
+>>>> Didn't I see you use migrate_timer() in other patches (making me assume
+>>>> you understand)? Having the timer tied to the pCPU where the vCPU runs
+>>>> means the signalling to that vCPU will (commonly) be cheaper.
+>>> I thought that migrate_timer() is needed only when a vCPU changes the pCPU
+>>> it is running on to ensure that it is running on correct pCPU after migrations,
+>>> hotplug events, or scheduling changes. That is why I placed it in
+>>> vtimer_restore(), as there is no guarantee that the vCPU will run on the
+>>> same pCPU it was running on previously.
+>>>
+>>> So that is why ...
+>>>
+>>>> Whether
+>>>> that actually matters depends on what vtimer_expired() will eventually
+>>>> contain. Hence why I said "consider using".
+>>> ... I didn't get why I might need vtimer_expired() in vtimer_set_timer()
+>>> before set_timer().
+>>>
+>>> vtimer_expired() will only notify the vCPU that a timer interrupt has
+>>> occurred by setting bit in irqs_pending bitmap which then will be synced
+>>> with vcpu->hvip, but I still do not understand whether migrate_timer()
+>>> is needed before calling set_timer() here.
+>> Just to repeat - it's not needed. It may be wanted.
+>>
+>>> Considering that vtimer_set_timer() is called from the vCPU while it is
+>>> running on the current pCPU, and assuming no pCPU rescheduling has
+>>> occurred for this vCPU, we are already on the correct pCPU.
+>>> If pCPU rescheduling for the vCPU did occur, then migrate_timer() would
+>>> have been called in context_switch(),
+>> Even if the timer wasn't active?
+> 
+> Yes, migrate_timer() is called unconditionally in vtimer_restore() called
+> from context_switch(). migrate_timer() will activate the timer.
 
-What to suggest to the Qubes community needs to be discussed there, I think.
+Which is wrong?
 
 Jan
 
