@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C498D22F33
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 08:52:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204212.1518952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F94D22FA8
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 09:00:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204236.1518962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgI9N-0002yD-37; Thu, 15 Jan 2026 07:52:13 +0000
+	id 1vgIH8-0005BP-A1; Thu, 15 Jan 2026 08:00:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204212.1518952; Thu, 15 Jan 2026 07:52:13 +0000
+Received: by outflank-mailman (output) from mailman id 1204236.1518962; Thu, 15 Jan 2026 08:00:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgI9N-0002vA-09; Thu, 15 Jan 2026 07:52:13 +0000
-Received: by outflank-mailman (input) for mailman id 1204212;
- Thu, 15 Jan 2026 07:52:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vgIH8-00059z-5c; Thu, 15 Jan 2026 08:00:14 +0000
+Received: by outflank-mailman (input) for mailman id 1204236;
+ Thu, 15 Jan 2026 08:00:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgI9L-0002l1-Ad
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 07:52:11 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18a8f5c3-f1e7-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 08:52:10 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-432d2c7dd52so463058f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Jan 2026 23:52:10 -0800 (PST)
+ id 1vgIH6-00059s-BB
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 08:00:12 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 36a8f0f2-f1e8-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 09:00:10 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-43277900fb4so735553f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 00:00:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6b29cfsm4233532f8f.27.2026.01.14.23.52.09
+ ffacd0b85a97d-434af6b296asm4202111f8f.24.2026.01.15.00.00.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 23:52:09 -0800 (PST)
+ Thu, 15 Jan 2026 00:00:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18a8f5c3-f1e7-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 36a8f0f2-f1e8-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768463530; x=1769068330; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768464009; x=1769068809; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G04VNH9mM5QJYcfrwDmtk2vbND5eL1Ze1p1mnEyfR7g=;
-        b=DVH0HbHJ/uwSgWAxwbxD81cIkyzLMbUvysMiQVdHJ5BC0Dp+5xifZ2kun/kJ9D/krJ
-         C2Dsqcb/JAy4F5cssteN5HzTNNqlVsaosdaB/AmVXv0wVBTP2+fhN4ioXYK+Yp7Y+qO6
-         dEmhWfBEDWTs5rsg3ga+yGC1/2B5Kz1sYZQeDe9vMShGfQXYFCLo5QFFozRHa7yA+TrF
-         2zT5ha8XB0fWM/EfM3Af7QjVKiBkZTn9Pq48wS2hYrT4hBNqzJijtvabE01n91mYzApV
-         d4PQc8qPnJheWNQqjHYTTZancOVgiRhuaeGEtz7Un57Z6IVJh6SLKIUt+NQoP/xwLzMc
-         ZFYw==
+        bh=TiR68iTUJJECnVuKxLPU5y1gLJwzsBQYkPUS2tRwLPo=;
+        b=RWrVLUB1qHS9S/HW+QmPKbz84sfIDyKSw9kxIHJ8Y33MGelpt1jW0yY698wiNrLs6+
+         +goU5M9Z5YuHvl7aZ0JSxSZX7Y2qx7weLpF9FVb2WB/CTI1rbKw6dAORZ2IaulkOR7gB
+         w369YPEpsxjq8Wy29v3sZtGveUQcuzy7N6U7oJTGBFTsgY/yCv6pDTD9uceD6MPgIxU2
+         /0mjkmP8vTS/PJo2im8/3ydOUChB9RgUOy5MitfyBn0vJjozA/W5v0Ozh3+IfXD4xr/m
+         I8pkifQgjHRuURbxDuRpc+NmLXOVBXKF7YIrSzXRZGhpPkMeB2p9cpS7RtacJkXFj+ic
+         iX5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768463530; x=1769068330;
+        d=1e100.net; s=20230601; t=1768464009; x=1769068809;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G04VNH9mM5QJYcfrwDmtk2vbND5eL1Ze1p1mnEyfR7g=;
-        b=ZWyBw6zYg9MPBRlIYtDpd4dRORSmpc3/0u0ij/fdwvtsnaekG6DSiSAXjF0ydX36zK
-         +AJDytNFDJVDldrAs6opw4HlnQ62QgOcoeETr0r1apL8eYDmBRB3Kty3aTp7u4cwriVG
-         sNgdft1aorltvTjuV+OL0s6MxobeWQiNAK4gzBKNtNWK6VmJgyyvIxZ3eVqponTohvR3
-         LXSrUPcbu6Mo6cWs0mzhjv2TUcXJVGJ+rhdsBZnzUlgZ7WiERqap30kd+YdC9/fYrsHF
-         0Osfi/tO+8pTZIIj2lbc71C0EELBpfbfNEsw5JZxVTRptvtnGPoMcQ3LtAs5rdLSU+sO
-         oYNw==
-X-Forwarded-Encrypted: i=1; AJvYcCXy0UUtJIWNT66KvDczrjwFAiL9AAq036Phuf5gTpvuCuHC1ftolJqb2nEUSpNdJCrd7ti/xvJ5boE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPR+7/1mnhxcGmlOZf1D+ucm4HXtNUFWV5zy7TjgyKmpp+XTE0
-	ut+3Cnn2We1nb0X1iWdv5O8hUNqFlO7JhRF2kC/FduLkTI4uJtjyw8dYwLjA/aH9Zg==
-X-Gm-Gg: AY/fxX5ekP9ojbZQhwNV/XWMIwgJASYFxdHezalNocOWzzGUUUzsUt2vCAA29HYN4Ug
-	UkgqLP1+Vb58OhqxZe4AKkLD9xsU+dX2alZ69je3eE0nRTUBHSffWUJxrLIlucnA47ByWq5Momf
-	E6RT+0XWpJeRZBDGyG0dpWOl+idVGPKIQlPul943v3Pqrlcl1uYda6wz1FxSEa3eArnpOXrbiO7
-	R61sR7p8hpx5wauzMxygMJS+vbuJerMb4CZEGBEliyH34aj1pi5iWg6PxMlTwIjqORGPoFDwpQf
-	+vUk5ljFAb+vqs29zuAEpALdMtILtGyVzZ/kmPZR77EDcjKQIPebUA8eLNO5S2jWwbs7eEJmMFI
-	vG/SkfAzu1aGFn/3fig+0PRpF6h03fRFc8+a5ulS7gYxxHpM4Di9JeLiS2Ic5sbxHnPanQpoWqv
-	uT1qYeoFtRntBSH0f+R5kkXqATW1Wji7jDwsqGSb/bWtkpbAd7f//IfpEjVIiRm0eH7PwdyyLAD
-	x8=
-X-Received: by 2002:a5d:5d83:0:b0:432:5bf9:cf22 with SMTP id ffacd0b85a97d-4342c4f4c89mr5829537f8f.3.1768463529727;
-        Wed, 14 Jan 2026 23:52:09 -0800 (PST)
-Message-ID: <8fa84e68-72b6-4578-9c3b-70d85d268c53@suse.com>
-Date: Thu, 15 Jan 2026 08:52:08 +0100
+        bh=TiR68iTUJJECnVuKxLPU5y1gLJwzsBQYkPUS2tRwLPo=;
+        b=qpLaW32GHsknaC01gKdWoGngLcn84vBDh51GZyuF7ItpwAMHxVd1u5p4O8TQOecByE
+         5mzvoJvGUXJ8u6JNDB/Q89+e50Ok86SXptEK2r+SER2wnkbIVHzXeufROwiGfnB8rEQA
+         X6jSiKB2KAm1xx+7H80ABp/t6eFzw5qUILVHHPBrVS4AuTAnLDGJADiUa0X5jq7DjD/A
+         6Xw4LuHvzicxtXtkMJWaI/2SSRmjUMqMXBBqaVqkPW5/JjVOBUaMiJ/WNLR1tu/JDdb+
+         AiLD3jW8OQn+VCJdEpjhJq59HSxP/pMPuzrzPNXL1MFuTXtNKzpE8l9Itr1xwOMhgnQv
+         anEg==
+X-Gm-Message-State: AOJu0YwwSL+773ET0G+s7keSw/+tuDnHPKk1h5af/u4+BBET2wjcl3aB
+	hd+q9uzh3I5Vc/ACTWLxF5sVJIHcA4noPpFArQV/kwIyUrzXX7dfRGQ3RbV05KdMaA==
+X-Gm-Gg: AY/fxX7NCexnuiFxXjPjJaE2nt+B5a9XM3Bw7t8QamfyT3SjRUzsEXMoDgA/lgbrMpT
+	YJT7kNBRc/EMFIhLMNoN7h2GaSTxe46JedoA+cdFajlbL48jSuEvQqlIy435nUfTXHMRyj8GxbR
+	IHBS0omVPuG14O6B86xiZYkipcqrojxeed542cqpWCKmyBajhwZn3bTdLQbGQo1ln+gxO+RI6lD
+	fAZGPB4d1oJIiPIHc0UtN4LPMB3e5GfTyWHiR9THihokOmQrJ9yDm0CehgeALmeAnu6uTdRq2Jk
+	JihC86P0qTtFDqbfzkCoJ2ShEBhBTW5s6DAYbDnPAsq/Vw5n+6B89OE42PzSdk6lmGvfrLPY/+z
+	U3bOA6/sWjh8lIUcUeE41Tmk2YrJ7teVLJm99DXEtXntznxThF3gzG5TK6LXNXkfewMtA6l6qsA
+	h8q1+B3IZ1amjzyTryUleD3c+9MMLGE9oPnol65hwY5SI/uZe5HlDnYd7FnyNblTdBXufktWQf1
+	b4=
+X-Received: by 2002:a05:6000:1869:b0:431:397:4c2b with SMTP id ffacd0b85a97d-434d75629d7mr2804968f8f.11.1768464009252;
+        Thu, 15 Jan 2026 00:00:09 -0800 (PST)
+Message-ID: <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com>
+Date: Thu, 15 Jan 2026 09:00:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/15] xen/riscv: introduce vtimer_set_timer() and
- vtimer_expired()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
- <8cd3efa488b3da2a6751c92d20bbfeb87b3ba39a.1766595589.git.oleksii.kurochko@gmail.com>
- <f8808dd1-d571-49ea-8739-ed06dd6c79d1@suse.com>
- <4e18e4fc-de62-44fc-8ea0-517f6c7ef47f@gmail.com>
- <f7a47af4-6523-4d92-9beb-0daf639f2f36@suse.com>
- <b0131e35-3c1b-4e42-9f80-07d246a5df69@gmail.com>
- <62c22b34-cbad-40f2-a367-ba5fd8d11b51@suse.com>
- <5c6eff93-0db7-4382-8365-6b32b17f5f4d@gmail.com>
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,67 +120,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5c6eff93-0db7-4382-8365-6b32b17f5f4d@gmail.com>
+In-Reply-To: <aWfXJk90Sh7B-qi7@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.01.2026 16:59, Oleksii Kurochko wrote:
+On 14.01.2026 18:49, Roger Pau Monné wrote:
+> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
+>> A similar issue looks to exist in read_xen_timer() and its read_cycle()
+>> helper, if we're scheduled out (and beck in) between reading of the TSC
+>> and calculation of the delta (involving ->tsc_timestamp). Am I
+>> overlooking anything there?
 > 
-> On 1/14/26 3:57 PM, Jan Beulich wrote:
->> On 14.01.2026 13:27, Oleksii Kurochko wrote:
->>> On 1/13/26 4:12 PM, Jan Beulich wrote:
->>>> On 13.01.2026 15:44, Oleksii Kurochko wrote:
->>>>> On 1/8/26 11:28 AM, Jan Beulich wrote:
->>>>>> On 24.12.2025 18:03, Oleksii Kurochko wrote:
->>>>>>> +    {
->>>>>>> +        stop_timer(&t->timer);
->>>>>>> +
->>>>>>> +        return;
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    set_timer(&t->timer, expires);
->>>>>> See the handling of VCPUOP_set_singleshot_timer for what you may want to
->>>>>> do if the expiry asked for is (perhaps just very slightly) into the past.
->>>>> I got an idea why we want to check if "expires" already expired, but ...
->>>>>
->>>>>> There you'll also find a use of migrate_timer(), which you will want to
->>>>>> at least consider using here as well.
->>>>> ... I don't get why we want to migrate timer before set_timer() here.
->>>>> Could you please explain that?
->>>> Didn't I see you use migrate_timer() in other patches (making me assume
->>>> you understand)? Having the timer tied to the pCPU where the vCPU runs
->>>> means the signalling to that vCPU will (commonly) be cheaper.
->>> I thought that migrate_timer() is needed only when a vCPU changes the pCPU
->>> it is running on to ensure that it is running on correct pCPU after migrations,
->>> hotplug events, or scheduling changes. That is why I placed it in
->>> vtimer_restore(), as there is no guarantee that the vCPU will run on the
->>> same pCPU it was running on previously.
->>>
->>> So that is why ...
->>>
->>>> Whether
->>>> that actually matters depends on what vtimer_expired() will eventually
->>>> contain. Hence why I said "consider using".
->>> ... I didn't get why I might need vtimer_expired() in vtimer_set_timer()
->>> before set_timer().
->>>
->>> vtimer_expired() will only notify the vCPU that a timer interrupt has
->>> occurred by setting bit in irqs_pending bitmap which then will be synced
->>> with vcpu->hvip, but I still do not understand whether migrate_timer()
->>> is needed before calling set_timer() here.
->> Just to repeat - it's not needed. It may be wanted.
->>
->>> Considering that vtimer_set_timer() is called from the vCPU while it is
->>> running on the current pCPU, and assuming no pCPU rescheduling has
->>> occurred for this vCPU, we are already on the correct pCPU.
->>> If pCPU rescheduling for the vCPU did occur, then migrate_timer() would
->>> have been called in context_switch(),
->> Even if the timer wasn't active?
-> 
-> Yes, migrate_timer() is called unconditionally in vtimer_restore() called
-> from context_switch(). migrate_timer() will activate the timer.
+> If we are scheduled out in the middle, and the ->tsc_timestamp is
+> updated, ->version would also be bumped, and hence the loop will be
+> restarted.  I don't think there's an issue there.
 
-Which is wrong?
+Oh, indeed - I was too focused on the read_cycle() alone. That may go
+wrong, but as you say the result then simply won't be used.
+
+>> stime2tsc() guards against negative deltas by using 0 instead; I'm not
+>> quite sure that's correct either.
+> 
+> Hm, we should likely do the same for stime2tsc() that you do for
+> get_s_time_fixed().  Given the current callers I think we might be
+> safe, but it's a risk.
+
+Will do then.
+
+>> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+>> comment towards the TSC being "sane", but is that correct? Due to
+>> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+>> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+>> calling tsc_ticks2ns()?
+> 
+> amd_check_erratum_1474() runs after early_time_init(), which would
+> have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
+> initcall to that regard:
+> 
+> /*
+>  * Must be executed after early_time_init() for tsc_ticks2ns() to have been
+>  * calibrated.  That prevents us doing the check in init_amd().
+>  */
+> presmp_initcall(amd_check_erratum_1474);
+
+Hmm, I should have written "Due to e.g. TSC_ADJUST". Firmware may also
+have played other games with MSR_TSC.
+
+>> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+>> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+>> whether we shouldn't subtract boot_tsc_stamp.
+> 
+> I would expect tsc_get_info() to also get called exclusively after
+> early_time_init()?
+
+Same here then (obviously).
+
+>> --- a/xen/arch/x86/time.c
+>> +++ b/xen/arch/x86/time.c
+>> @@ -1649,8 +1649,13 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+>>          tsc = at_tsc;
+>>      else
+>>          tsc = rdtsc_ordered();
+>> -    delta = tsc - t->stamp.local_tsc;
+>> -    return t->stamp.local_stime + scale_delta(delta, &t->tsc_scale);
+>> +
+>> +    if ( tsc >= t->stamp.local_tsc )
+> 
+> Should we hint the compiler this is the likely path?
+
+I was wondering too, but was erring on the side of "no" primarily because
+of Andrew's general preference towards no likely(). I'd be happy to add it
+here.
+
+>> +        delta = scale_delta(tsc - t->stamp.local_tsc, &t->tsc_scale);
+>> +    else
+>> +        delta = -scale_delta(t->stamp.local_tsc - tsc, &t->tsc_scale);
+>> +
+>> +    return t->stamp.local_stime + delta;
+> 
+> LGTM:
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+> However I see Anton still has concerns that this patch doesn't fully
+> fix the issue he reported, and I'm afraid I don't really understand
+> what's going on.  I will have to take a more detailed look at the
+> thread, or possibly attempt to reproduce myself.
+
+Largely the same here.
 
 Jan
 
