@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7701CD23F51
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:34:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204738.1519321 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7840D23F93
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 11:38:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204749.1519331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKfg-0002g9-HX; Thu, 15 Jan 2026 10:33:44 +0000
+	id 1vgKk3-0003Yp-1A; Thu, 15 Jan 2026 10:38:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204738.1519321; Thu, 15 Jan 2026 10:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 1204749.1519331; Thu, 15 Jan 2026 10:38:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgKfg-0002dz-Ei; Thu, 15 Jan 2026 10:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 1204738;
- Thu, 15 Jan 2026 10:33:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vgKk2-0003Vt-Ub; Thu, 15 Jan 2026 10:38:14 +0000
+Received: by outflank-mailman (input) for mailman id 1204749;
+ Thu, 15 Jan 2026 10:38:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgKff-0002df-LX
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:33:43 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8c7ccd7-f1fd-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 11:33:41 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-47fedb7c68dso3928495e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:33:41 -0800 (PST)
+ id 1vgKk1-0003Vn-SI
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 10:38:13 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a8626a4-f1fe-11f0-b15e-2bf370ae4941;
+ Thu, 15 Jan 2026 11:38:12 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-477619f8ae5so5238945e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 02:38:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6e1698sm5298158f8f.37.2026.01.15.02.33.38
+ 5b1f17b1804b1-47f4b26764fsm39979865e9.12.2026.01.15.02.38.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 02:33:39 -0800 (PST)
+ Thu, 15 Jan 2026 02:38:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8c7ccd7-f1fd-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 4a8626a4-f1fe-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768473220; x=1769078020; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768473492; x=1769078292; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h3U14mP0O4cySah4Cpl1bg8vD/ITlMdvA+VdD6zfWxg=;
-        b=gyzrUUQzfOCDKOHNeH5Fez93swY9xO7msn8qwyqlAHp6MKdzFO6wDE5nnuVhB6yA1B
-         55NPmNjgcGwoCI+k5HVlqPPplS1o8+RgEaKUCeaLOxqaKR72wACNdVmXvyBX2cuaJs63
-         e4BhFVPYG5PfgXKknLMA9yTmWg7kpzPItmDr7GHXmsKPT56KcboNlDFlssh5EfNCCRvX
-         2NTKaT+lJzOdBuScvQYoWCW5qrADb9X4xEvNnCjnYNvdIUsWbYwBcgx4vK/9foaOwmbX
-         AIH7jiOcSLYzMf6Df6YKCkEFXrZC1fkC0i56wKqSNegnzSYOtsW3GobYyOd5PgJkttw4
-         m1ZA==
+        bh=+aCDT4mV4mNDqWKbUUKkjVLJcR2an8L/53Ch3xJ+6o4=;
+        b=X0Xr8+NuW3kTsZuC6hd01EEnU6u2LR1kPa8z7Hhm8JYWF921tekCxUFTOAteny5ihg
+         vD9HxYz81lkef+qxfOszMJ2N1Kc/Z54Kh8hrf0dRMefWCit0Sa/zmXHcL2vgls3T6VMk
+         ZN0gk3BI/JsUEP9wjagWlh8ABGlwqC2iYnqpIxFz9Pf7A06lm7mgBDT4Vhs/yf17gGyq
+         YjzqtptdPfcqLaxfhtrECvQN+PmdxEmh5oXhRqykuOGe6w5hBeH+B7BpHBQDr9NP9/eQ
+         JRRchOg7oCbNJt/GgMXuLSt0ARI+IfNmkmkM7lDZCamJy2xqkxuKJ9f/UOtHIH5NOVNJ
+         7dWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768473220; x=1769078020;
+        d=1e100.net; s=20230601; t=1768473492; x=1769078292;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h3U14mP0O4cySah4Cpl1bg8vD/ITlMdvA+VdD6zfWxg=;
-        b=XaE4uOJdNKtMU9gHuXUdY7yJQv45cxaZZQggWFEx11PuqVDpcLGLUzJ4Y+nziUq4gK
-         16Tk+5Cm/Jp9tk2q2itr7scmO+rvqgRhiQCWqkDpqHKZry7AqFY7AhO7tlHhvOlpipqq
-         gUOjhYAQKRIHClSAIS8CpJu4q/0sov3WoRyZw7v11zDgQ6a8oDaOT4BpqS/RMIvyZKk6
-         CHO2XeyqcJSD2pWW/5sbYbs9xKhhZzq4uaOfHEFcxV9L4Z6ZmT57fwT1lapUFmZRInwd
-         VUA0PrFEDIa9uzZrh75tladPn/SojkVn2nHgowZkYwX0JohIgDzez7b8MyErRr8OBnr7
-         umNw==
-X-Forwarded-Encrypted: i=1; AJvYcCU+BX2qFwQ9sW81Eye40n5/eiO828Czx4Sfi29C4rnvJc1vFFKpoo9TgtNFoZwHzH1NKVdbuBw0R1M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAkinCfV2xmUfmYHffJN8uyKHqHDuWjXpRpBP0bE1u6lj+SHlx
-	pJUxuHyqALOaAQWMzWoJk2VURG+Ybi+ob3+Pw5gEkkPJZR/3iWPsSmS2zpW2ILFPnw==
-X-Gm-Gg: AY/fxX4SkI/tCAvtNllWviDt5ZtbsC2QhMXzcMp5gSgOKqfZZGhnqsQMjkI2vBZLMNl
-	tfs9iclCyPQDLR3LAVHELRbw0jy6TdelGHzkGpSMLDBUB2Lo5jSe7bPP854hR0G3dPMFARd31Vc
-	CQebdnmuBd175o1PrEYlRh9PhtSB3vMY5NZMS1CbSubmQi1IcFLY4IYaybRfoRo9T5mwvHqOeYZ
-	qljko9c5Z9Ng26F7L81JdO1XR073XlKfHHsp8vPpRt9PjqpSv49L6KhyK/wa8xmyPNK0sRP2to5
-	HAuKHJTZ71Utb7p4b4EOpJUO/3Y/anl4XoIXftekAKZzuUjCamwwLxSyCHac85XUSibI3gbEVOK
-	LD61hKoZkaZf28k2ml+n+i0OhnZbSZ0un67dEggNZSHLKe7woMmdGzMQT5YAa3A5x68JfFa/VdB
-	IgEOeFZm3KBwi/SAqg83/EtEQiNvsvMnAYW6hP50zZWQk9mCSlV+9to7atD5/T7fFFQUc2bsQE5
-	/4=
-X-Received: by 2002:a05:6000:3110:b0:430:fc3a:fbce with SMTP id ffacd0b85a97d-4342c4fef6dmr7592012f8f.15.1768473220380;
-        Thu, 15 Jan 2026 02:33:40 -0800 (PST)
-Message-ID: <2a0571c2-5c1c-4b03-9f31-1aa283f24e42@suse.com>
-Date: Thu, 15 Jan 2026 11:33:38 +0100
+        bh=+aCDT4mV4mNDqWKbUUKkjVLJcR2an8L/53Ch3xJ+6o4=;
+        b=bFdvFdl0uYaG2sDD/q+EUvL4BDqlj/vumcnfTJkyBkQ6+fWgsI9vM/vljC5vWAB3Aq
+         xDdEHEC+0GmRtWCJ2UtIcDlalqw8meOuvW/w6mfhCr8TIOxjrw/SpvxMdgaCU+3mJWA+
+         AlBUZ0cTxAQBZxbqPNTCKCdyq58ACVdgZCM4CAkaw4r+oNM4D9p/BlgelFSwOcBExks7
+         fLw3MEVTipeJPqEKF9iNCHGeF3qEkvmWk8zvazUIbqJn4W/XhmK7BZ9KefvxgtqpYLuY
+         qYSrr+wyMLiknlpDyq5xuFhhELC8XOPZVPJI0ddWHJv8uQemJ33NV6XSBl6w5HE9WUaB
+         08WQ==
+X-Gm-Message-State: AOJu0Yyr7tXSSqGMwArbZF7ejap6VE72ZZw6wnNRWIXV/CzZBtu4DhbI
+	NeUpaveU5NN3NtTxdnPoqZTedXsUwHGfJMtOMPjhngWi3qG2fJvvI8kesgFm3x8iVhqom2/l/rY
+	tZYI=
+X-Gm-Gg: AY/fxX4Kmv3MW5ZtnwFuu9b9BWpoLGh97+5Q9SnQ69KzdbVN6lV6K7dSISCakM7fV6R
+	q6wB1YOKu2Xor429iOHjQARhnNXRKb/5G3T49nvbaigh+OlYp7bOSS4WCigiIaf060aWUjg2aP+
+	MU6zJcHVkDA04t5ApFRdLaa4+X2joPfAIhBT6GVwGvYaq9VJJG1jJ5AuxGh1b689xxy60SS2qm1
+	FJwn4MkJbQnt/aETN3EQh3Dn3MH1ZTRXxcdCKg5b9/1kdI+IC0dYbT1yA8AXfiyhnzL6FU0nfIQ
+	run4N2fYradAK+IyDOJmTMgYx0lRBo/62F6LQ9GpysDrpKy87F65HoLVCtyTVT29ud+3oNNegOi
+	Ry4uL7FJPJiUZCjma+HVLnu8uLA2GsfJ33qiIuFEPeCTQlPbJ7SZSXuMw3eIRhbQyjQDlcjZFc7
+	GFbpvpTPxRcARTlN5V+C7CcZDXHRG/nIMaC/t4NdVQwyotGfnabJN3AQ0ogeNTIZR2PWVzqjsgB
+	vc=
+X-Received: by 2002:a05:600c:46d5:b0:479:3a89:121d with SMTP id 5b1f17b1804b1-47ee33b2f95mr67097845e9.36.1768473491850;
+        Thu, 15 Jan 2026 02:38:11 -0800 (PST)
+Message-ID: <49507100-faa9-4480-a534-e4bab6cecc5b@suse.com>
+Date: Thu, 15 Jan 2026 11:38:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 12/12] xen/arm: Add support for system suspend
- triggered by control domain
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
+ get_s_time_fixed()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Rahul Singh <rahul.singh@arm.com>, Saeed Nowshadi
- <saeed.nowshadi@xilinx.com>, Mykyta Poturai <mykyta_poturai@epam.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1765472890.git.mykola_kvach@epam.com>
- <66fffded45f39599c62a1e4dad83c34f9de51d7d.1765472890.git.mykola_kvach@epam.com>
- <5bfbdbc6-c1ea-4aa6-acf0-1516b226f3c2@suse.com>
- <CAGeoDV8PDwmFMY-mfESUJjBokgRHDg+bT4BPqMNK3hMnWROjkQ@mail.gmail.com>
+ =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
+References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
+ <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
+ <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com> <aWikMGJKa3VPQQzi@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,78 +122,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAGeoDV8PDwmFMY-mfESUJjBokgRHDg+bT4BPqMNK3hMnWROjkQ@mail.gmail.com>
+In-Reply-To: <aWikMGJKa3VPQQzi@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.01.2026 11:19, Mykola Kvach wrote:
-> On Mon, Dec 15, 2025 at 1:49 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 11.12.2025 19:43, Mykola Kvach wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -137,6 +137,11 @@ config HAS_EX_TABLE
->>>  config HAS_FAST_MULTIPLY
->>>       bool
+On 15.01.2026 09:24, Roger Pau Monné wrote:
+> On Thu, Jan 15, 2026 at 09:00:07AM +0100, Jan Beulich wrote:
+>> On 14.01.2026 18:49, Roger Pau Monné wrote:
+>>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
+>>>> amd_check_erratum_1474() (next to its call to tsc_ticks2ns()) has a
+>>>> comment towards the TSC being "sane", but is that correct? Due to
+>>>> TSC_ADJUST, rdtsc() may well return a huge value (and the TSC would then
+>>>> wrap through 0 at some point). Shouldn't we subtract boot_tsc_stamp before
+>>>> calling tsc_ticks2ns()?
 >>>
->>> +config HAS_HWDOM_SHUTDOWN_ON_SUSPEND
->>> +     bool
->>> +     default y
->>> +     depends on !ARM_64 || !SYSTEM_SUSPEND
->>
->> As written, this would want to be "def_bool y". However, I think I indicated
-> 
-> OK, I’ll switch this to def_bool.
-> 
->> previously that imo it would be nice if we could stop adding more "depends on"
->> referencing particular architectures. Instead "select" or "imply" from
->> xen/arch/<arch>/Kconfig appears more desirable to use in such cases. That way
->> each arch can control what it wants without needing to touch common code.
->>
->> As an aside, in the context of PV_SHIM_EXCLUSIVE it was also said several
->> times that negative dependencies aren't very nice to have. Here we have no
->> prompt, so the "allyesconfig" concern doesn't apply, but I still thought I'd
->> mention this.
-> 
-> I used the common-level dependency only to avoid adding selects in every
-> other arch Kconfig, as the only exception I need is
->     ARM_64 && SYSTEM_SUSPEND.
-> 
-> If you still prefer keeping all arch-specific handling under
-> xen/arch/<arch>/Kconfig, I can rework it accordingly.
-
-Imo there are two options: Do as you suggest, but with an option not starting
-HAS_*. Or use HAS_ with per-arch selects (which I think I'd prefer).
-
-To limit the number of selects needed, perhaps the sense of the option may
-want inverting? Otoh I don't think we know yet what RISC-V and PPC are going
-to want?
-
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -1324,6 +1324,11 @@ void __domain_crash(struct domain *d)
->>>      domain_shutdown(d, SHUTDOWN_crash);
->>>  }
+>>> amd_check_erratum_1474() runs after early_time_init(), which would
+>>> have cleared any TSC_ADJUST offset AFAICT.  There's a note in the
+>>> initcall to that regard:
 >>>
->>> +static inline bool need_hwdom_shutdown(uint8_t reason)
+>>> /*
+>>>  * Must be executed after early_time_init() for tsc_ticks2ns() to have been
+>>>  * calibrated.  That prevents us doing the check in init_amd().
+>>>  */
+>>> presmp_initcall(amd_check_erratum_1474);
 >>
->> Personally I think "want" would better express things, but I don't really
->> mind "need".
+>> Hmm, I should have written "Due to e.g. TSC_ADJUST". Firmware may also
+>> have played other games with MSR_TSC.
 > 
-> I'll change it to "want".
-> 
->>
->>> +{
->>> +    return IS_ENABLED(CONFIG_HAS_HWDOM_SHUTDOWN_ON_SUSPEND) ||
->>> +           reason != SHUTDOWN_suspend;
->>> +}
->>
->> Seeing this in use, I wonder if HAS_ is really suitable here.
-> 
-> What name would you consider more suitable here?
+> For amd_check_erratum_1474() we don't want to subtract boot_tsc_stamp,
+> otherwise when kexec'ed we won't be accounting properly for the time
+> since host startup, as subtracting boot_tsc_stamp would remove any
+> time consumed by a previously run OS.
 
-As per above, HAS_ dropped would be an option. Yet that goes against my
-preference above. Maybe HAS_ really is okay-ish here, despite what I said
-earlier.
+For both this and ...
+
+>>>> A similar issue looks to exist in tsc_get_info(), again when rdtsc()
+>>>> possibly returns a huge value due to TSC_ADJUST. Once again I wonder
+>>>> whether we shouldn't subtract boot_tsc_stamp.
+>>>
+>>> I would expect tsc_get_info() to also get called exclusively after
+>>> early_time_init()?
+>>
+>> Same here then (obviously).
+> 
+> For tsc_get_info() I think you are worried that the TSC might
+> overflow, and hence the calculation in scale_delta() would then be
+> skewed.  We must have other instances of this pattern however, what
+> about get_s_time_fixed(), I think it would also be affected?
+> 
+> Or maybe I'm not understanding the concern.  Given the proposed
+> scale_delta() logic, it won't be possible to distinguish rdtsc
+> overflowing from a value in the past.
+
+... this, my main point really is that scale_delta() (as its name says),
+and hence also tsc_ticks2ns(), shouldn't be used on absolute counts, but
+only deltas. (Yes, an absolute count can be viewed as delta from 0, but
+that's correct only if we know the TSC started counting from 0 and was
+never adjusted by some bias.)
 
 Jan
 
