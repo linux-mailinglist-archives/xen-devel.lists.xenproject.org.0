@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B59DD234F1
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 09:58:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1204347.1519041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E91ECD23537
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 10:02:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1204361.1519052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJAk-0007M7-4q; Thu, 15 Jan 2026 08:57:42 +0000
+	id 1vgJEv-0000av-KT; Thu, 15 Jan 2026 09:02:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1204347.1519041; Thu, 15 Jan 2026 08:57:42 +0000
+Received: by outflank-mailman (output) from mailman id 1204361.1519052; Thu, 15 Jan 2026 09:02:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgJAk-0007Jb-2E; Thu, 15 Jan 2026 08:57:42 +0000
-Received: by outflank-mailman (input) for mailman id 1204347;
- Thu, 15 Jan 2026 08:57:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vgJEv-0000Yd-HQ; Thu, 15 Jan 2026 09:02:01 +0000
+Received: by outflank-mailman (input) for mailman id 1204361;
+ Thu, 15 Jan 2026 09:02:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6aKL=7U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vgJ3c-000403-15
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 08:50:20 +0000
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [2a00:1450:4864:20::441])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37a27cb4-f1ef-11f0-b15e-2bf370ae4941;
- Thu, 15 Jan 2026 09:50:18 +0100 (CET)
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-42fb4eeb482so356336f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 00:50:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af65363dsm4629743f8f.13.2026.01.15.00.50.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Jan 2026 00:50:17 -0800 (PST)
+ (envelope-from <dmukhin@xen.org>) id 1vgJEu-0000YX-8Q
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 09:02:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1vgJEm-004jDg-0a;
+ Thu, 15 Jan 2026 09:01:51 +0000
+Received: from [19.12.91.86] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <dmukhin@xen.org>) id 1vgJEl-004KR1-1L;
+ Thu, 15 Jan 2026 09:01:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +39,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37a27cb4-f1ef-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768467018; x=1769071818; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BA1cwIy+rA5vpcOl7abVGxW1SXxqAKXIBu7i3jjTacg=;
-        b=ab5MibXRyCACmbgRfToYHtGKxrjFhgjhGByNG3KWoLZ2WO8zh1qIBtUzmJMdw0izpX
-         T7YbX9kLziJZvHKVCrLAplOgvNp9GyIYBvdRGoL1eIBdsXCSKVA4bxlDpy0MK03YqC7v
-         kMmdK7g6zXNFCnVhJH7a5NAeFMNx4EELIwqNQHIJSpgazUbrxSMyntG89Nq+EWMlmIRj
-         +7bzQd10oV+RCpHDB5+67vgB8g+c4c2QIFCnnONNAzNjV7ZvpIRMdftHEnMbFKXRzr+W
-         DOYTEm3kKDAnxxlfrr01g9qccc2k2fTab5lw9mTe3EMSP+EVsmESuYECoEG2q2UmyiXp
-         j1sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768467018; x=1769071818;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BA1cwIy+rA5vpcOl7abVGxW1SXxqAKXIBu7i3jjTacg=;
-        b=QlFCINDdnwHlVub2j+NDyF/yx3LouL0P8U7WMqaDm++lKZx654YnvHZl2QsjDHYkfY
-         u62D6DbqivYRRTp8ccrCtKip9wegpA6uTEf7jS23i3N4odZy0gxvc0b8+eHii6XrMkGx
-         huKrNud/OL7Jvej2UgfWyQnzuVbyEIIRs5On7xe9ymbM/PdbLCDgZilHkQNBLvGMU8uH
-         zcfjjaPsDrGiV67SjxmzQGafYT9nWs92jpD8XQjktFgJtZfilrIa784EohjnrXitBFmN
-         iXuNFCC9oJJ/aZLGQt8SRzvlI1pslRbh7uMx/LtFIKi2VPvd39WPju8/ltJx3G23gmrj
-         5/bA==
-X-Gm-Message-State: AOJu0YyxiozV2W7aBvhqvS6YFdGhXFtg0EYOH8J+XkZGWPTbz/IOKP8B
-	c1c+6dKdD+NGR/GLXAkvCFEzfS0awRDroBqnHexcA9EwigrC3AmN6JhT1T/Uh4JwaQ==
-X-Gm-Gg: AY/fxX5OMj0elobTl/VnmJT3g3SyaoEP+c7YZLiIm/pBdesqChGYs1Jf1LZbkcFjHhL
-	4++a16Ut75p4zmPzo5Yx0srBrXDlFDIzrR5nUvlCYTp1qjn7Z9kKP6dpQidg067OljlnvpRNFn7
-	9Oos2aSnyoZlEQto0Xm0Xx43y3Ta8vazYiSWAkLc7S7PAdnrgCHdYy5LS6vBnkxvid9fChSNxET
-	RkCqU9NpaMBXcMDht4qfu0EQAX8Rk8gj1UVOyUwJ3wjM1ydaK0DsvFI2JHeHaK0oQ5N1K+tMq81
-	883yDak5OjEh/8RfqedqOGFnMlA8JMm8hYLWqtPC02VQ/2Y9vmytHD2MlHt6ZDyAHaEqbgkvQRo
-	ZuYGmciYLJ5KAI1LepCccXIQapCIZHqVxdZzp2c9Ut+SYzAiiTbIiNYDor7slCJVKY5m+kHMeZz
-	T7cgDK6nuwCbRtzWY4UjgdR6yxhwdt+BoLC/oCd44hcQ7deI4xHQ+6U2Qfud8e3emrhbByr3Xzx
-	lIkSPjJauappQ==
-X-Received: by 2002:a05:6000:238a:b0:430:ff81:2965 with SMTP id ffacd0b85a97d-4342c55e401mr6465371f8f.49.1768467017703;
-        Thu, 15 Jan 2026 00:50:17 -0800 (PST)
-Message-ID: <99412152-015a-4056-8f85-c2c74cf1076c@suse.com>
-Date: Thu, 15 Jan 2026 09:50:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+	:Subject:Cc:To:Date:From; bh=GGMrPRFB+xHLzHgb8fqcJuD0KTFzCPZv4Y+fcJ5KC+A=; b=
+	GlkDmHWZ7m+QsQbWjbF7AUUXt0YYgSGtJVpQd4l4MOw+1vy+h1WJmmKLpA0l/AZXa3E9jtxwWPoQ9
+	rbPsK4mmfgiDRZrLw4tBHDVQRJScY3Q0H8K7f02nz9ENeWbEON4P3zpEshOLgudSTsquZSU+sK/eP
+	q1cICu1dHGzaf+WK8=;
+From: dmukhin@xen.org
+Date: Thu, 15 Jan 2026 01:01:50 -0800
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+	dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/4] tests: fixup domid make fragment
+Message-ID: <aWis/n2yse0A59+A@kraken>
+References: <20260111041145.553673-1-dmukhin@ford.com>
+ <20260111041145.553673-2-dmukhin@ford.com>
+ <2badbc33-f78c-47d9-acef-9383a5aa3387@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/5] xen/domctl: extend XEN_DOMCTL_assign_device to
- handle not only iommu
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
- <837eab835a75e7f668c5a49074991b2fcba56156.1768415200.git.oleksii_moisieiev@epam.com>
- <alpine.DEB.2.22.394.2601141612110.8589@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2601141612110.8589@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2badbc33-f78c-47d9-acef-9383a5aa3387@suse.com>
 
-On 15.01.2026 01:15, Stefano Stabellini wrote:
-> On Wed, 14 Jan 2026, Oleksii Moisieiev wrote:
->> @@ -827,7 +830,37 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->>      case XEN_DOMCTL_test_assign_device:
->>      case XEN_DOMCTL_deassign_device:
->>      case XEN_DOMCTL_get_device_group:
->> +        if ( IS_ENABLED(CONFIG_ARM) )
+On Mon, Jan 12, 2026 at 12:16:46PM +0100, Jan Beulich wrote:
+> On 11.01.2026 05:11, dmukhin@xen.org wrote:
+> > From: Denis Mukhin <dmukhin@ford.com> 
+> > 
+> > There can be multiple test harnesses per one test target (e.g. harness.h
+> > and harness2.h). Account for that by further parametrizing existing
+> > emit-harness-nested-rule().
 > 
-> I skipped the last round of review so if this is addressing a comment
-> from Jan I am OK with this as is.
+> Multiple harnesses within a single dir imo likely would share headers, but
+> use different .c files. Also, why would dependencies on headers need
+> recording at all? The Makefile includes $(DEPS_INCLUDE), so all dependency
+> concerns should be covered (or else the generic machinery would need
+> fixing). Imo all of this wants simplifying (dropping?) rather than further
+> complicating.
+
+Whoops, I forgot to drop that multi-harness stuff.
+Thanks!
+
 > 
-> However, I would check directly on CONFIG_ARM_SCI.
-
-+1
-
-Jan
+> Jan
 
