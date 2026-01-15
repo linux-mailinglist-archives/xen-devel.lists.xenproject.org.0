@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B91F4D25A09
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 17:11:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1205500.1519736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF34D25C3E
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Jan 2026 17:33:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1205536.1519749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgPwY-0007Gt-9l; Thu, 15 Jan 2026 16:11:30 +0000
+	id 1vgQGx-000226-V3; Thu, 15 Jan 2026 16:32:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1205500.1519736; Thu, 15 Jan 2026 16:11:30 +0000
+Received: by outflank-mailman (output) from mailman id 1205536.1519749; Thu, 15 Jan 2026 16:32:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgPwY-0007FE-6z; Thu, 15 Jan 2026 16:11:30 +0000
-Received: by outflank-mailman (input) for mailman id 1205500;
- Thu, 15 Jan 2026 16:11:28 +0000
+	id 1vgQGx-000202-SP; Thu, 15 Jan 2026 16:32:35 +0000
+Received: by outflank-mailman (input) for mailman id 1205536;
+ Thu, 15 Jan 2026 16:32:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sH18=7U=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1vgPwW-0007F5-Aj
- for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 16:11:28 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JCSy=7U=bounce.vates.tech=bounce-md_30504962.6969169a.v1-9f7b2055ceaf426ca865a44bdff1f793@srs-se1.protection.inumbo.net>)
+ id 1vgQGw-0001zw-H8
+ for xen-devel@lists.xenproject.org; Thu, 15 Jan 2026 16:32:34 +0000
+Received: from mail187-33.suw11.mandrillapp.com
+ (mail187-33.suw11.mandrillapp.com [198.2.187.33])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d389db73-f22c-11f0-9ccf-f158ae23cfc8;
- Thu, 15 Jan 2026 17:11:20 +0100 (CET)
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2026 08:11:19 -0800
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa007.jf.intel.com with ESMTP; 15 Jan 2026 08:11:14 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vgPwF-00000000IBQ-0m18;
- Thu, 15 Jan 2026 16:11:11 +0000
+ id c7c1abec-f22f-11f0-9ccf-f158ae23cfc8;
+ Thu, 15 Jan 2026 17:32:28 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dsT6M09z8zBsTlVw
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Jan 2026 16:32:27 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 9f7b2055ceaf426ca865a44bdff1f793; Thu, 15 Jan 2026 16:32:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,124 +43,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d389db73-f22c-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1768493481; x=1800029481;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gFIoEC1f1qlzIUpk/6FrkLxr7vkPH7lbau/8uT3TPbk=;
-  b=Ai//pSkzXrHAyhBvqUxZfQzZvPfO2GIxCTtGQuAOM4+y7v4ZW2VFmB64
-   GL59F1+3KBpv0hIEDiVt5xCHRjpzFTtavQ4Iurf5BpoBnQU7SdK4bfM+n
-   5Di7/zS+q4RJXY8KWG7Sjn6O3aHr/XPlF4LSzOdBvYTB4L8igQLwxBsJE
-   PTE3BycLp55RxeQlcKyRjrDjNVI6suEYiohcD7CCxXzBVN4oqGPbFHD9h
-   5uKpgdhBc6oulQBAsOzE5USZe/BzJ2TWK4dwvJe4ahSJTnwVIjQ1iBYnd
-   RYv9ElzfFxrGL75NGyaYfs4SDqS9JhTqqEKmRtpefHr7wZW+YZeh0LIDi
-   Q==;
-X-CSE-ConnectionGUID: P2S7flEKRmesLbaS43dFCQ==
-X-CSE-MsgGUID: AETCUT9KQRupmjY6Z1DepA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11672"; a="69701548"
-X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; 
-   d="scan'208";a="69701548"
-X-CSE-ConnectionGUID: T0RnRcTxRsGGrhE5Yp0D6g==
-X-CSE-MsgGUID: 0Lh0zAVbQ2yEnGpU34emxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; 
-   d="scan'208";a="205020917"
-Date: Fri, 16 Jan 2026 00:10:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, virtualization@lists.linux.dev, kvm@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 1/5] x86/paravirt: Replace io_delay() hook with a bool
-Message-ID: <202601152321.kJ6D4yKM-lkp@intel.com>
-References: <20260115084849.31502-2-jgross@suse.com>
+X-Inumbo-ID: c7c1abec-f22f-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1768494747; x=1768764747;
+	bh=9twe24x1zX+FLh6t5OJMyT3WR+NCn2bdCavyVwLMpfw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=sD+lXiiuSX1xmQ0NQ+9EKZNmfG7tDBfm7klxPHh1/ifTCHlq+RMTWUstmIYdJhCtE
+	 IP9uSfFcCRxgJ7JazzJB4X58Wi7cevH2E5Qyk6LGPw2hL+6wzdMiFqPjdT23QcQzPd
+	 tyZ3s+kdlKwvdWHJwSfdKABFPtu4tAniERS+xdl9MyQlnR1CZD3iC463uytWfD+F08
+	 FYCmp62pjLndK4RRQFQDagD/fW0Bwq/wR/rF9ynW/smjDocaow1YdcIxfYGAWgnHVb
+	 7ckBp3EJNrvqHmjXDJznnsiok8zCotLSPJRqPBjg2uacYYNc5pU7QwxABr2hAN4jen
+	 RRBfn453ZPaBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1768494747; x=1768755247; i=teddy.astie@vates.tech;
+	bh=9twe24x1zX+FLh6t5OJMyT3WR+NCn2bdCavyVwLMpfw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=XJtk69ronuHWiHSiehBsxk+F5b4hdC4QkmrQIA92WEGUckhhy/7J+v7JiRzjQi+pL
+	 wZ0pZdgcLPGvm7mZKEFp67uKpmfA8tAZ/yk0NYXnES0KA2KFTtv8Lnz3iswPySKaFJ
+	 opvguRTUDgw4ro6d6VLHf0DCU/lEh3XHqf/Xf4uDtxD/xH5IksH4hWxllvshhDeJKR
+	 2Fi94FKrQ7FrG9NRsw77z0gGwSyd6VgFoaeQ3P7NNdqlK5NugKxAqLxiTME8zIWY79
+	 VUa0CqhlcMmWHMlbgK8mD5IG1hL3K1QBzlHDtRF/9u98EETOPBF4M1ckpaV7te0UId
+	 1P4lgKihVUeXA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xen:=20Move=20NX=20handling=20to=20a=20dedicated=20place?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1768494745417
+Message-Id: <ed39c6b4-a9e7-4ef3-a185-27533be55e96@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julian Vetter" <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
+References: <20260115151658.3725784-1-julian.vetter@vates.tech> <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com>
+In-Reply-To: <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.9f7b2055ceaf426ca865a44bdff1f793?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260115:md
+Date: Thu, 15 Jan 2026 16:32:26 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260115084849.31502-2-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Juergen,
+Le 15/01/2026 =C3=A0 16:50, Andrew Cooper a =C3=A9crit=C2=A0:
+> On 15/01/2026 3:17 pm, Julian Vetter wrote:
+>> Currently the CONFIG_REQUIRE_NX prevents booting XEN, if NX is disabled
+>> in the BIOS. AMD doesn't have a software-accessible MSR to re-enable it,
+>> so there is nothing we can do. The system is going to die anyway. But on
+>> Intel NX might just be hidden via IA32_MISC_ENABLE.XD_DISABLE. But the
+>> function to re-enable it is called after the check + panic in
+>> efi_arch_cpu. So, this patch removes the early check and moves the
+>> entire NX handling into a dedicated place.
+>>
+>> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
+> 
+> Sorry I didn't get around to doing the prep work I promised.
+> 
+> This is going along the right lines, but there are a few complexities sti=
+ll.
+> 
+> Also you'll want to split the patch into a series.=C2=A0 More on that whe=
+n
+> we've sorted out a few other details.
+> 
+>> diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoli=
+ne.S
+>> index a92e399fbe..8e8d50cbdf 100644
+>> --- a/xen/arch/x86/boot/trampoline.S
+>> +++ b/xen/arch/x86/boot/trampoline.S
+>> @@ -144,10 +144,9 @@ gdt_48:
+>>   GLOBAL(trampoline_misc_enable_off)
+>>           .quad   0
+>>   
+>> -/* EFER OR-mask for boot paths.  SCE conditional on PV support, NX adde=
+d when available. */
+>> +/* EFER OR-mask for boot paths.  SCE conditional on PV support. */
+> 
+> The comment wants to stay as-was.=C2=A0 NX does get added when available.
+> 
+>>   GLOBAL(trampoline_efer)
+>> -        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
+>> -                (EFER_NXE * IS_ENABLED(CONFIG_REQUIRE_NX))
+>> +        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV))
+>>   
+>>   GLOBAL(trampoline_xen_phys_start)
+>>           .long   0
+>> diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm=
+/setup.h
+>> index b01e83a8ed..16f53725ca 100644
+>> --- a/xen/arch/x86/include/asm/setup.h
+>> +++ b/xen/arch/x86/include/asm/setup.h
+>> @@ -70,4 +70,6 @@ extern bool opt_dom0_msr_relaxed;
+>>   
+>>   #define max_init_domid (0)
+>>   
+>> +void nx_init(void);
+>> +
+>>   #endif
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 27c63d1d97..608720b717 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1119,6 +1119,50 @@ static struct domain *__init create_dom0(struct b=
+oot_info *bi)
+>>       return d;
+>>   }
+>>   
+>> +void __init nx_init(void)
+> 
+> This should be static if it's only used in a single file.=C2=A0 However, =
+see
+> later for doing it a bit differently.
+> 
+>> +{
+>> +    uint64_t misc_enable;
+>> +    uint32_t eax, ebx, ecx, edx;
+>> +
+>> +    if ( !boot_cpu_has(X86_FEATURE_NX) )
+>> +    {
+>> +        /* Intel: try to unhide NX by clearing XD_DISABLE */
+>> +        cpuid(0, &eax, &ebx, &ecx, &edx);
+>> +        if ( ebx =3D=3D X86_VENDOR_INTEL_EBX &&
+>> +             ecx =3D=3D X86_VENDOR_INTEL_ECX &&
+>> +             edx =3D=3D X86_VENDOR_INTEL_EDX )
+>> +        {
+>> +            rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>> +            if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
+>> +            {
+>> +                misc_enable &=3D ~MSR_IA32_MISC_ENABLE_XD_DISABLE;
+>> +                wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>> +
+>> +                /* Re-read CPUID after having cleared XD_DISABLE */
+>> +                boot_cpu_data.x86_capability[FEATURESET_e1d] =3D cpuid_=
+edx(0x80000001U);
+>> +
+>> +                /* Adjust misc_enable_off for secondary startup and wak=
+eup code */
+>> +                bootsym(trampoline_misc_enable_off) |=3D MSR_IA32_MISC_=
+ENABLE_XD_DISABLE;
+>> +                printk(KERN_INFO "re-enabled NX (Execute Disable) prote=
+ction\n");
+>> +            }
+>> +        }
+>> +        /* AMD: nothing we can do - NX must be enabled in BIOS */
+> 
+> The BIOS is only hiding the CPUID bit.=C2=A0 It's not blocking the use of=
+ NX.
+> 
+> You want to do a wrmsr_safe() trying to set EFER.NXE, and if it
+> succeeds, set the NX bit in MSR_K8_EXT_FEATURE_MASK to "unhide" it in
+> regular CPUID.=C2=A0 This is a little more tricky to arrange because it n=
+eeds
+> doing on each CPU, not just the BSP.
+> 
 
-kernel test robot noticed the following build errors:
+I see this MSR in the BKDG (bit 20 is NX). Are these bits stable across 
+the AMD CPU generations ?
 
-[auto build test ERROR on tip/master]
-[also build test ERROR on next-20260115]
-[cannot apply to kvm/queue kvm/next tip/x86/core kvm/linux-next tip/auto-latest linus/master v6.19-rc5]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> +    }
+>> +
+>> +    /* Enable EFER.NXE only if NX is available */
+>> +    if ( boot_cpu_has(X86_FEATURE_NX) )
+>> +    {
+>> +        if ( !(read_efer() & EFER_NXE) )
+>> +            write_efer(read_efer() | EFER_NXE);
+>> +
+>> +        /* Adjust trampoline_efer for secondary startup and wakeup code=
+ */
+>> +        bootsym(trampoline_efer) |=3D EFER_NXE;
+>> +    }
+>> +
+>> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) && !boot_cpu_has(X86_FEATURE_NX)=
+ )
+>> +        panic("This build of Xen requires NX support\n");
+>> +}
+>> +
+>>   /* How much of the directmap is prebuilt at compile time. */
+>>   #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+>>   
+>> @@ -1159,6 +1203,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>       rdmsrl(MSR_EFER, this_cpu(efer));
+>>       asm volatile ( "mov %%cr4,%0" : "=3Dr" (info->cr4) );
+>>   
+>> +    nx_init();
+>> +
+>>       /* Enable NMIs.  Our loader (e.g. Tboot) may have left them disabl=
+ed. */
+>>       enable_nmis();
+>>   
+> 
+> This is too early, as can be seen by the need to make a cpuid() call
+> rather than using boot_cpu_data.
+> 
+> The cleanup I wanted to do was to create/rework early_cpu_init() to get
+> things in a better order, so the panic() could go at the end here.=C2=A0 =
+The
+> current split we've got of early/regular CPU init was inherited from
+> Linux and can be collapsed substantially.
+> 
+> The intel "unlocking" wants to move back into early_init_intel(), along
+> with intel_unlock_cpuid_leaves().=C2=A0 (This is where it used to live be=
+fore
+> REQUIRE_NX was added).
+> 
+> The AMD side probe wants to live in early_amd_init()=C2=A0 (not that ther=
+e is
+> one right now), but the re-enabling of the NX bit in CPUID needs to also
+> be in amd_init() so it gets applied to APs too.
+> 
+> Does this make sense?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Juergen-Gross/x86-paravirt-Replace-io_delay-hook-with-a-bool/20260115-165320
-base:   tip/master
-patch link:    https://lore.kernel.org/r/20260115084849.31502-2-jgross%40suse.com
-patch subject: [PATCH v3 1/5] x86/paravirt: Replace io_delay() hook with a bool
-config: x86_64-randconfig-006-20260115 (https://download.01.org/0day-ci/archive/20260115/202601152321.kJ6D4yKM-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260115/202601152321.kJ6D4yKM-lkp@intel.com/reproduce)
+Sounds good to me, I suppose there is no use of NX before this ?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601152321.kJ6D4yKM-lkp@intel.com/
+> 
+> ~Andrew
+> 
 
-All errors (new ones prefixed by >>):
-
-   arch/x86/kernel/tboot.c: In function 'tboot_shutdown':
->> arch/x86/kernel/tboot.c:255:17: error: implicit declaration of function 'halt' [-Werror=implicit-function-declaration]
-     255 |                 halt();
-         |                 ^~~~
-   cc1: some warnings being treated as errors
+Teddy
 
 
-vim +/halt +255 arch/x86/kernel/tboot.c
+--
+Teddy Astie | Vates XCP-ng Developer
 
-58c41d28259c24 H. Peter Anvin 2009-08-14  225  
-3162534069597e Joseph Cihula  2009-06-30  226  void tboot_shutdown(u32 shutdown_type)
-3162534069597e Joseph Cihula  2009-06-30  227  {
-3162534069597e Joseph Cihula  2009-06-30  228  	void (*shutdown)(void);
-3162534069597e Joseph Cihula  2009-06-30  229  
-3162534069597e Joseph Cihula  2009-06-30  230  	if (!tboot_enabled())
-3162534069597e Joseph Cihula  2009-06-30  231  		return;
-3162534069597e Joseph Cihula  2009-06-30  232  
-11520e5e7c1855 Linus Torvalds 2012-12-15  233  	/*
-11520e5e7c1855 Linus Torvalds 2012-12-15  234  	 * if we're being called before the 1:1 mapping is set up then just
-11520e5e7c1855 Linus Torvalds 2012-12-15  235  	 * return and let the normal shutdown happen; this should only be
-11520e5e7c1855 Linus Torvalds 2012-12-15  236  	 * due to very early panic()
-11520e5e7c1855 Linus Torvalds 2012-12-15  237  	 */
-11520e5e7c1855 Linus Torvalds 2012-12-15  238  	if (!tboot_pg_dir)
-11520e5e7c1855 Linus Torvalds 2012-12-15  239  		return;
-11520e5e7c1855 Linus Torvalds 2012-12-15  240  
-3162534069597e Joseph Cihula  2009-06-30  241  	/* if this is S3 then set regions to MAC */
-3162534069597e Joseph Cihula  2009-06-30  242  	if (shutdown_type == TB_SHUTDOWN_S3)
-58c41d28259c24 H. Peter Anvin 2009-08-14  243  		if (tboot_setup_sleep())
-58c41d28259c24 H. Peter Anvin 2009-08-14  244  			return;
-3162534069597e Joseph Cihula  2009-06-30  245  
-3162534069597e Joseph Cihula  2009-06-30  246  	tboot->shutdown_type = shutdown_type;
-3162534069597e Joseph Cihula  2009-06-30  247  
-3162534069597e Joseph Cihula  2009-06-30  248  	switch_to_tboot_pt();
-3162534069597e Joseph Cihula  2009-06-30  249  
-3162534069597e Joseph Cihula  2009-06-30  250  	shutdown = (void(*)(void))(unsigned long)tboot->shutdown_entry;
-3162534069597e Joseph Cihula  2009-06-30  251  	shutdown();
-3162534069597e Joseph Cihula  2009-06-30  252  
-3162534069597e Joseph Cihula  2009-06-30  253  	/* should not reach here */
-3162534069597e Joseph Cihula  2009-06-30  254  	while (1)
-3162534069597e Joseph Cihula  2009-06-30 @255  		halt();
-3162534069597e Joseph Cihula  2009-06-30  256  }
-3162534069597e Joseph Cihula  2009-06-30  257  
+XCP-ng & Xen Orchestra - Vates solutions
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+web: https://vates.tech
+
+
 
