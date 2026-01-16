@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397BBD2D67D
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Jan 2026 08:44:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1206264.1519930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EB6D2F9B5
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Jan 2026 11:33:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1206391.1519995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgeVf-0006zU-13; Fri, 16 Jan 2026 07:44:43 +0000
+	id 1vgh82-0002dx-7N; Fri, 16 Jan 2026 10:32:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1206264.1519930; Fri, 16 Jan 2026 07:44:43 +0000
+Received: by outflank-mailman (output) from mailman id 1206391.1519995; Fri, 16 Jan 2026 10:32:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vgeVe-0006xx-UM; Fri, 16 Jan 2026 07:44:42 +0000
-Received: by outflank-mailman (input) for mailman id 1206264;
- Fri, 16 Jan 2026 07:44:42 +0000
+	id 1vgh82-0002bV-4h; Fri, 16 Jan 2026 10:32:30 +0000
+Received: by outflank-mailman (input) for mailman id 1206391;
+ Fri, 16 Jan 2026 10:32:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XdZn=7V=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1vgeVe-0006xr-4s
- for xen-devel@lists.xenproject.org; Fri, 16 Jan 2026 07:44:42 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
+ <SRS0=g7++=7V=bounce.vates.tech=bounce-md_30504962.696a13b9.v1-dc61bcb81ca541428aef09e9b6c10ee6@srs-se1.protection.inumbo.net>)
+ id 1vgh80-0002bO-TB
+ for xen-devel@lists.xenproject.org; Fri, 16 Jan 2026 10:32:29 +0000
+Received: from mail187-33.suw11.mandrillapp.com
+ (mail187-33.suw11.mandrillapp.com [198.2.187.33])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36ee59fc-f2af-11f0-b15e-2bf370ae4941;
- Fri, 16 Jan 2026 08:44:40 +0100 (CET)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- SN7PR12MB8792.namprd12.prod.outlook.com (2603:10b6:806:341::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Fri, 16 Jan
- 2026 07:44:37 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::6d8e:2499:8a0a:7eb2]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::6d8e:2499:8a0a:7eb2%2]) with mapi id 15.20.9520.005; Fri, 16 Jan 2026
- 07:44:37 +0000
+ id a6bfe935-f2c6-11f0-b15e-2bf370ae4941;
+ Fri, 16 Jan 2026 11:32:27 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dsx4T5BMZzBsVCKp
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Jan 2026 10:32:25 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ dc61bcb81ca541428aef09e9b6c10ee6; Fri, 16 Jan 2026 10:32:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,282 +43,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36ee59fc-f2af-11f0-b15e-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f3QCkdot+IMRDqd5PQhJUq7IIOMDQ/Vd68CzeQoeXoWjibOuxnZMsyxL7yzYbrp6r8gi6bIv8OJK9PEQTKtGS3sd0b/BXDSzSqS+taYUznfi4LwNnbxQQRVAPuAgScnwcJAdjTTWGxweEF1RfRes3w9HcTsEwsFE0RGrzVbJy2ADkPxPvM7nsLGD9a4cEn1aNY90v4AKGJLIieHAeQJnfJ4oP8KTRrio/p3mye7R/uPKLS/owwzzC4OYU6ZUEWm66xYBALzkqBCc02jNfi5Dj8g9BeJKmEpuapXCduR1t+692Pm3O3TQgUye+Y3D5Sxud20UbDvodZBgOa2BqLbSvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O0qMULjR5iUcnvMlfl+mMRmygHqA3d8qIBtZu1FHGgg=;
- b=xRYW1N0qBdLfnKgtxYMeS/iNF7Q+sAZk+qQ/4Obv886pMeZpvo5w8h2UwZqNvJ0qi6dtzXgHUUDFKnCq6NMXGCIiieuCTAtVDoORFDx3hRVInEKQvpFt1x4D9ui5n3bSAlnBotDG0/iQXB33H6mXIlloCS2zgvf12ocPAcbYeyTvVBgthJojhB0TixZWJd6DLTLq0WnVcmxbG3y1GtN6Lsgd1MOLyshZHHTqNe3MgxmWYtXI9PE9DW+6NJk0caWzI0bpapz3MLOgTxLVtgGXHaCifdZW5yZmmCXm30ed/Ys1F49W0J5Rz95KQ/6gn0B6nyt7MwFN4itdHasBUK1ySg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O0qMULjR5iUcnvMlfl+mMRmygHqA3d8qIBtZu1FHGgg=;
- b=nb/cq53KBKW2C4zInejNn6iqokhkV8Xxnmg6SuMo6VPg7qXpWgPTpnpnxWI3ueKG7PpqFmArYIAuuDSnJ71SqDXDoy2Iquu3BgFIYFB2IRHMLUEHeJyIt4NIGOJ9mRP2qb1A5rtG32UOnMk7EITWbJb/y361IRDBYkqf/tSSDEI=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Tamas K
- Lengyel <tamas@tklengyel.com>
-Subject: RE: [PATCH v4 5/6] xen/mem_access: wrap memory access when VM_EVENT=n
-Thread-Topic: [PATCH v4 5/6] xen/mem_access: wrap memory access when
- VM_EVENT=n
-Thread-Index: AQHchgFz7GhZy9MFSkqKuUrhU5ZbzrVUa57Q
-Date: Fri, 16 Jan 2026 07:44:37 +0000
-Message-ID:
- <DM4PR12MB845165677B332BBE0C2B9DCFE18DA@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
- <20260115092841.2651224-6-Penny.Zheng@amd.com>
-In-Reply-To: <20260115092841.2651224-6-Penny.Zheng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-01-16T07:44:24.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|SN7PR12MB8792:EE_
-x-ms-office365-filtering-correlation-id: e454ba37-e391-41dd-a8c4-08de54d3194e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|7053199007;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?WYF+35spRsgV/l7VWihpVWlkdKF28CHVX0Txq7fph0vaPn2dylUcGAbmqj?=
- =?iso-8859-1?Q?+U+z7jDEAqMhvPAxakU2LBO5bYPYn10BnTRlCWzTF0rl/dw7JfKvg5vtpB?=
- =?iso-8859-1?Q?ZSCGJiOhxd4qPBVpuDM1LBkz/tDCyIjjXfbCdQ4BkJfLVx2dNGbDoaVWcz?=
- =?iso-8859-1?Q?UvqBnXBf4gE3qBK/ZVEvy254/tZmsvhw7V4EfdJG/L04vgGLmCahsRpZ9z?=
- =?iso-8859-1?Q?Gb3suiR3IAloEyeWAkEjOlOjNhXsrfceLhD3wjW80jZNMhEvW3T4mKg3Ev?=
- =?iso-8859-1?Q?HhTjOhUpAotREd2Cld1jyrRxtbOl8Iz0h8ygqYTsD3pLZWt/L7k6Fj+5cs?=
- =?iso-8859-1?Q?+kYsg7Bc9Qd94Ay0exkVLa/XFuvbpNEW8wWGwse+Vs/8qGrDTYgwVtgzDj?=
- =?iso-8859-1?Q?9naeMqbMynDiRSLetdewUKz+Y00uBHRysW3hPB0E5JFyUOMagH2iWdBt4y?=
- =?iso-8859-1?Q?rasiWHF9jLyLS+RzYPvYlZNwpajJIkQou8IcHYYgEmauEt08aJYLGH312Y?=
- =?iso-8859-1?Q?KxD8QvHcE7HIrKgxcHF4NdU8f6BExKlv1dDNwmQmsR8NqGfeuvw4F+goBy?=
- =?iso-8859-1?Q?UBD8sUdqKkK8K9Q8sU8Jr3jds5L+UHHe6s7bgh+MO1ASnOR7y1E4DSVH51?=
- =?iso-8859-1?Q?rlo0xiknYWaugwDy8TxyC4hFU4s2YzMNvHrnYcqJDaAs3gJkzAxK+ihP3m?=
- =?iso-8859-1?Q?BKG3nL9fPJVqBr1eohyhl6rKDNqn3e7YU6OwyQmG+9jqtd1lsP/xMCSife?=
- =?iso-8859-1?Q?mPL8K7ju/9/kaflaIpqopPpvW9KXXL2IMsxhzgRQWB/wR0KwMVQB2NZg9G?=
- =?iso-8859-1?Q?mezjOmaP3A1ru0I8Paut9AI2OpZVkF47TubB6iguv+SwUQGBJEFOO09syV?=
- =?iso-8859-1?Q?0ZnXM470wMLjKRljAF7eAe3nXYg10DzKHRkU46E+sbMS8Hq1MwSo3hgaKd?=
- =?iso-8859-1?Q?+qxV2zWMoEXtmZ4z5LC+aJrQiIWuT/+wq2vBrgUGPEg86qkpME2QEwoH6Q?=
- =?iso-8859-1?Q?ie//fbphOo0s/OrFwncMBXelwTa6I5baP6cZivMpsHtwc95tJR/GAAg3CZ?=
- =?iso-8859-1?Q?Tf9MXXIfHIMORo08cEiIjlIyNFrd+KsM9wLjHokhnJN19C9NrTJAAHS68k?=
- =?iso-8859-1?Q?V1T47Gwazx/y5hyZJrjsl2EKcN9wNyOKoZjARD3CDRSjss2RbQClhPwve9?=
- =?iso-8859-1?Q?w777h9wmt1BrpDk0PcjS/FFvDaR68Xhh+Vci0RdOMne+IPZY+xDlP5ePlm?=
- =?iso-8859-1?Q?CVc11oGFNWl14n2HoKKSmvgwXvRnUlod0P7I/fiDoLadBZltifYgen2GUN?=
- =?iso-8859-1?Q?eE18Pi4Y1b3Z5Gvd31nOL6fXeKwbeqFWEwXKJ9dPbO0sUQhRRMQJs5IYye?=
- =?iso-8859-1?Q?MJ76Qejrf8Etganj/IVa4+svigJrmZk5opxUdEcYeqKpKw2//dYjsw7IgL?=
- =?iso-8859-1?Q?xcBs8rCD+8KQdGDamyQQ0NKZPVFioSrJT9k10BholN3JMmANcWGf50xTly?=
- =?iso-8859-1?Q?CahJJcsI8olXO5FdeT0+dVbnBEBYEPq9lBfDHiTMKp0ZylwERyxFSd1i+O?=
- =?iso-8859-1?Q?vXrSiu+NcLXH77CgfrDYn9xhKUXtqNcjCPNMdhR5sVDfcwaJuYhFssEw41?=
- =?iso-8859-1?Q?aKGf7XtsUnMOFiq3H1/oLOQfchMgy9D/TMdbWalnH/kGKbH6Tg+iSRN+87?=
- =?iso-8859-1?Q?lfryCLgHnn+25W/+sQU=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?2El+j3KA4f1InO1XGt9T1BaUOceDKbGFlUCAK7WmztQHddXtXYHRiYoUHo?=
- =?iso-8859-1?Q?K0DMdNp9DAGrg6rTq8ZCQb47X1UXUu3ZIFIOnBmMx56cC4wmmlYpleavHf?=
- =?iso-8859-1?Q?sDUz8NDMR+kufdNXJcW7awX9qAQ0qZo8gZCGNIzX05Nj6r08olEQwSozFc?=
- =?iso-8859-1?Q?zDOYzGia7e5VXkJ5gkNLLGL+J036xyxDGpMieEE7Z0k+2X9V2w7Xhnd6GO?=
- =?iso-8859-1?Q?C7yn0iH0eOnP6xkdxfAD0j16MJcD5OfPrsc7cH1GC+dqS+6TiFWJE5RJKB?=
- =?iso-8859-1?Q?Oy9i3wZEpxGYx68niwYGs0oe3bFuQsFlqHcMkyFT1b0ar8G3jsRFjNo/K2?=
- =?iso-8859-1?Q?pYKYLjn0G5pdFjOwCn2mTUBf7bV+pVGPcp8o9Kn+y3B4Fx7P2XoMXAlWDk?=
- =?iso-8859-1?Q?8tqfD/UMmuOFtvFSnVV8PUCQjlt/ini9qbTghdrBRU2Lm7TjLhPb7/zzSz?=
- =?iso-8859-1?Q?QET7Z2r8sTqHev09zzH8E3mAeJriKHV2CGHOFZV1SQBXlIuxEBtkVFGceT?=
- =?iso-8859-1?Q?Mx+7K/BN/RJt6o+ErcsoTONBXAgkDxRrQlYsBdpPUDSFpS08+rQsRC5VZv?=
- =?iso-8859-1?Q?0ON6cedgh89G6hzJGQVwxKL0QlJi2Hrqs2uw9RkFeOMTSYhJ8oRV0LvVmg?=
- =?iso-8859-1?Q?pcnikzLCWIS+fzEc/waYjaxlm1+JK9ioOD/b2yA4LvFeHvWyhrCJcrj/Zs?=
- =?iso-8859-1?Q?vAwOnH+B61GeUlXCpxN9cSCLQWynFWfCHicUXt57NphBm78vsvTOpri1yB?=
- =?iso-8859-1?Q?zFcw+tW9x4Ttn9NDBTLC8et5LlNE/HMwAGArELawm/lz05EcNyk8MX53Br?=
- =?iso-8859-1?Q?dK8XqPV7cEmDPohdQP1lc/ugbgeFtUWK8US9bpPDp52aDsr3UQWedJKAbY?=
- =?iso-8859-1?Q?XKaRbr6KP54GV3pYk0RT5gOYG+gN3EHmW/kHpH8/TgibI1QGDFF146OWfz?=
- =?iso-8859-1?Q?DpW7MtYVf6I/qs5lAyuKuY/lFVOm0V0vqYmv6fUfaCZ/8gkVSHeDpTZ5JL?=
- =?iso-8859-1?Q?PEZGa9iViM7jtKTBFKOmunyA6o25S94UD4amSp9Ge1+dqbLVpPE/NhQCeq?=
- =?iso-8859-1?Q?EhGTwtnCfurw8UgX6LOIJV0danPlz40Pa/f/ArOQ+swB5EOOU+lw+4egK9?=
- =?iso-8859-1?Q?n20OgMqmYj6dO6eNRtEdrg708LyWmtLITwwWXpqnO4KBw+8qa2npABuO1f?=
- =?iso-8859-1?Q?pf+6BLjV4cj4hYTdKXi/1WO3gkRsCYY0jdKxtNn9N7xyckebWAka2sx2ZX?=
- =?iso-8859-1?Q?7n9HC63X/hMxJYBbe+KRvrmDOcADBC1rhLx4skqR36gVzOWah3MQDXc3rE?=
- =?iso-8859-1?Q?WmV+UBHOa2Z93KFer3Yfy4IT0bV5x8A/XHlVoPmt/bSVyoDkrVBTkojDEN?=
- =?iso-8859-1?Q?z/lDZjl42880PfvwGrDuVWXc0dScDzzi4pBm/iEd+JO0rsyM9MHUj5Bl+i?=
- =?iso-8859-1?Q?lbnl9Q+rxb267qs/z8wfhRPtl2uvtayekx8YO2zhrMbJek205nzwKNyVKs?=
- =?iso-8859-1?Q?bkofkRBagQOse0wOa3AZHv6wmS1WWRjpH+bcWJjezqPFH2ULEvKJcKeCEv?=
- =?iso-8859-1?Q?AaRdRGF4/S+nJZNOl+QttITeEB6t4eqIz1kyyDb2A2+lMaBgQ7vpzcwRfN?=
- =?iso-8859-1?Q?TGgBseKOFLEvAjio2nHf//PXrSNMWmEzTDa0ytYWLDLiIf3OjXRAJ3VCEN?=
- =?iso-8859-1?Q?fgUCuckbTvQglFn7jEcXCVOR5pmAfCeiL1Pbj1gTjQshQrd9O44671IdA/?=
- =?iso-8859-1?Q?X+KhmcYCyyJlCVZOOLwj2iepknVMojmMzSAlVx1tMajAfU?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: a6bfe935-f2c6-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1768559545; x=1768829545;
+	bh=sToY2ZIn3wQPkHhsh7FyPZGR9xNobzoQklK0nB2Hxnk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=FC6a5MsNrQHcAo5r4r8zKtMC7riDdgLLuSgI3OjFoDBxNtDp7r90j3GaHsz5quHmw
+	 rtI5Oqkm1801OTJy3sbcKjqXTfLeyHu1EixsHQbQe16uC5ikO6mezC2ovRScmtGb9J
+	 NsGbd76tDe/8+kRMR8/OoOANNM6g+2baCDdqJEeWLEEe9KOL4/Z4ZmnMOTmCmTvlfE
+	 4H/TFCND9uRvH1qsB582Ag4lvNmXso1Cchey2fvbAh5x1KLJWSTFHqM+cZE31gUBrl
+	 fXKwFxQuGQqYZQOlAj5vwha4+05l+VKW0MW4Kpwh4P/BUAvHAh/uAI5u7KQoy5qDCR
+	 iXVFE3OpVaPDw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1768559545; x=1768820045; i=teddy.astie@vates.tech;
+	bh=sToY2ZIn3wQPkHhsh7FyPZGR9xNobzoQklK0nB2Hxnk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=zDiB1lKZfA8BSsIP9qZNYSLVmN8rJKqUAEAx43npyL1iUAYyRF3xFfBqLSUBw/KDi
+	 gyWhLt+TZhB6JFeN9lk8EBDIhvvvy4bLXt7jNx9ZrplcIPNgkuEVt3vTBwFUT//AnT
+	 BoU1UMxBYZWcyDk1HO2LmQY5QkHAMDbv3uhB9QZOKY7TaeD86dGBA9jcq0ZLox6Owu
+	 2/SYOZbVaVHxMFhFr9CPpBpSevFvmNWrrVAQsY4f3laHlDLVDSMZmczfnkaFUG4xb9
+	 SKUC2r551xD2O/CREIGJqPGW8qwdKj/cPs/gdV+wdRloIi8DMo/zPQ1Rxm9a/kO2Gy
+	 T5/Z+ZFlPCMkw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v5=202/2]=20xenpm:=20Add=20get-intel-temp=20subcommand?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1768559544976
+Message-Id: <b0fc5eee-65fc-4bd6-8092-d21808d71d38@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Anthony PERARD" <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <7dfa012b734f3c769da88f0f1c989d07b724bdaa.1768235932.git.teddy.astie@vates.tech> <7ae6ca6f93e81cb0b5a71db90913dc3f67e6b763.1768235932.git.teddy.astie@vates.tech> <664b6639-732d-4e43-8323-47333b0d8e4c@suse.com>
+In-Reply-To: <664b6639-732d-4e43-8323-47333b0d8e4c@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.dc61bcb81ca541428aef09e9b6c10ee6?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260116:md
+Date: Fri, 16 Jan 2026 10:32:25 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e454ba37-e391-41dd-a8c4-08de54d3194e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jan 2026 07:44:37.2395
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vIa7ZPcrYP25LGsVzUvbR+iw/2t1Cj9RUZGXTza5Jn1UWYsUr6RrWLjZPbsMp5Kz4mkX7ubTt2LL9a2GsaDgig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8792
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-[Public]
+Le 14/01/2026 =C3=A0 10:27, Jan Beulich a =C3=A9crit=C2=A0:
+> On 12.01.2026 17:47, Teddy Astie wrote:
+>> @@ -1354,6 +1358,115 @@ void enable_turbo_mode(int argc, char *argv[])
+>>                   errno, strerror(errno));
+>>   }
+>>   
+>> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package=
+, int *temp)
+>> +{
+>> +    xc_resource_entry_t entries[] =3D {
+>> +        { .idx =3D package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_=
+STATUS },
+>> +        { .idx =3D MSR_TEMPERATURE_TARGET },
+>> +    };
+>> +    struct xc_resource_op ops =3D {
+>> +        .cpu =3D cpu,
+>> +        .entries =3D entries,
+>> +        .nr_entries =3D ARRAY_SIZE(entries),
+>> +    };
+>> +    int tjmax;
+>> +
+>> +    int ret =3D xc_resource_op(xch, 1, &ops);
+>> +
+>> +    switch ( ret )
+>> +    {
+>> +    case -1:
+>> +        /* xc_resource_op returns -1 in out of memory scenarios */
+>> +        return -ENOMEM;
+> 
+> Assuming xc_resource_op() is well-behaved in this regard, why not return =
+errno
+> here? Or yet better stick to -1, leaving it to the caller to consume errn=
+o? And
+> then ...
+> 
+>> +    case 0:
+>> +        /* This CPU isn't online or can't query this MSR */
+>> +        return -ENODATA;
+> 
+> ... set errno here and return -1? With this normalized here, ...
+> 
+>> +    case 1:
+>> +    {
+>> +        /*
+>> +         * The CPU doesn't support MSR_TEMPERATURE_TARGET, we assume it=
+'s 100
+>> +         * which is correct aside a few selected Atom CPUs. Check Linux
+>> +         * kernel's coretemp.c for more information.
+>> +         */
+>> +        static bool has_reported_once =3D false;
+>> +
+>> +        if ( !has_reported_once )
+>> +        {
+>> +            fprintf(stderr, "MSR_TEMPERATURE_TARGET is not supported, a=
+ssume "
+>> +                            "tjmax =3D 100, readings may be incorrect.\=
+n");
+>> +            has_reported_once =3D true;
+>> +        }
+>> +
+>> +        tjmax =3D 100;
+>> +        break;
+>> +    }
+>> +
+>> +    case 2:
+>> +        tjmax =3D (entries[1].val >> 16) & 0xff;
+>> +        break;
+>> +
+>> +    default:
+>> +        if ( ret > 0 )
+>> +        {
+>> +            fprintf(stderr, "Got unexpected xc_resource_op return value=
+: %d",
+>> +                    ret);
+>> +            return -EINVAL;
+>> +        }
+>> +        return ret;
+>> +    }
+>> +
+>> +    *temp =3D tjmax - ((entries[0].val >> 16) & 0xff);
+>> +    return 0;
+>> +}
+>> +
+>> +static void get_intel_temp(int argc, char *argv[])
+>> +{
+>> +    int temp =3D -1, cpu =3D -1;
+>> +    unsigned int socket;
+>> +    bool has_data =3D false;
+>> +
+>> +    if ( argc > 0 )
+>> +        parse_cpuid(argv[0], &cpu);
+>> +
+>> +    if ( cpu !=3D -1 )
+>> +    {
+>> +        if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
+>> +            printf("CPU%d: %d=C2=B0C\n", cpu, temp);
+>> +        else
+>> +            printf("No data\n");
+> 
+> ... you can then use perror() here (and perhaps elsewhere). Right now the
+> distinct non-zero return values of fetch_dts_temp() are of no interest to
+> any of the callers.
+> 
+> Jan
+> 
 
-Hi, Tamas
+I did some changes in that regard, and unified the code style for the 
+socket and core parts.
 
-May I ask a review on this commit?
+diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+index d20a213c71..de490b6507 100644
+--- a/tools/misc/xenpm.c
++++ b/tools/misc/xenpm.c
+@@ -1377,11 +1377,13 @@ static int fetch_dts_temp(xc_interface *xch, 
+uint32_t cpu, bool package, int *te
+      {
+      case -1:
+          /* xc_resource_op returns -1 in out of memory scenarios */
+-        return -ENOMEM;
++        errno =3D -ENOMEM;
++        return -1;
 
-Many thanks,
-Penny Zheng
+      case 0:
+          /* This CPU isn't online or can't query this MSR */
+-        return -ENODATA;
++        errno =3D -ENODATA;
++        return -1;
 
-> -----Original Message-----
-> From: Penny, Zheng <penny.zheng@amd.com>
-> Sent: Thursday, January 15, 2026 5:29 PM
-> To: xen-devel@lists.xenproject.org; Andryuk, Jason <Jason.Andryuk@amd.com=
->
-> Cc: Huang, Ray <Ray.Huang@amd.com>; Penny, Zheng
-> <penny.zheng@amd.com>; Jan Beulich <jbeulich@suse.com>; Andrew Cooper
-> <andrew.cooper3@citrix.com>; Roger Pau Monn=E9 <roger.pau@citrix.com>; Ta=
-mas
-> K Lengyel <tamas@tklengyel.com>; Alexandru Isaila <aisaila@bitdefender.co=
-m>;
-> Petre Pircalabu <ppircalabu@bitdefender.com>
-> Subject: [PATCH v4 5/6] xen/mem_access: wrap memory access when
-> VM_EVENT=3Dn
->
-> Feature memory access is based on vm event subsystem, and it could be dis=
-abled
-> in the future. So a few switch-blocks in do_altp2m_op() need
-> vm_event_is_enabled() condition check to pass compilation when ALTP2M=3Dy=
- and
-> VM_EVENT=3Dn(, hence MEM_ACCESS=3Dn), like
-> HVMOP_altp2m_set_mem_access, etc.
-> Function p2m_mem_access_check() still needs stub when VM_EVENT=3Dn to pas=
-s
-> compilation.
-> Although local variable "req_ptr" still remains NULL throughout its lifet=
-ime, with the
-> change of NULL assignment, we will face runtime undefined error only when
-> CONFIG_USBAN is on. So we strengthen the condition check via adding
-> vm_event_is_enabled() for the special case.
->
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v1 -> v3:
-> - a comment next to the excessive condition
-> - use vm_event_is_enabled() instead
-> - avoid heavy churn by using the inverted condition plus break
-> ---
-> v3 - v4:
-> - refine comment
-> ---
->  xen/arch/x86/hvm/hvm.c                | 26 +++++++++++++++++++++++++-
->  xen/arch/x86/include/asm/mem_access.h | 10 ++++++++++
->  2 files changed, 35 insertions(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c index
-> 07e54890d9..b34cd29629 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -52,6 +52,7 @@
->  #include <asm/i387.h>
->  #include <asm/mc146818rtc.h>
->  #include <asm/mce.h>
-> +#include <asm/mem_access.h>
->  #include <asm/monitor.h>
->  #include <asm/msr.h>
->  #include <asm/mtrr.h>
-> @@ -2082,7 +2083,12 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigne=
-d
-> long gla,  #endif
->      }
->
-> -    if ( req_ptr )
-> +    /*
-> +     * req_ptr being constant NULL when !CONFIG_VM_EVENT,
-> CONFIG_UBSAN=3Dy
-> +     * builds have been observed to still hit undefined-ness at runtime.
-> +     * Hence do a seemingly redundant vm_event_is_enabled() check here.
-> +     */
-> +    if ( req_ptr && vm_event_is_enabled(curr) )
->      {
->          if ( monitor_traps(curr, sync, req_ptr) < 0 )
->              rc =3D 0;
-> @@ -4804,6 +4810,12 @@ static int do_altp2m_op(
->          break;
->
->      case HVMOP_altp2m_set_mem_access:
-> +        if ( !vm_event_is_enabled(current) )
-> +        {
-> +            rc =3D -EOPNOTSUPP;
-> +            break;
-> +        }
-> +
->          if ( a.u.mem_access.pad )
->              rc =3D -EINVAL;
->          else
-> @@ -4813,6 +4825,12 @@ static int do_altp2m_op(
->          break;
->
->      case HVMOP_altp2m_set_mem_access_multi:
-> +        if ( !vm_event_is_enabled(current) )
-> +        {
-> +            rc =3D -EOPNOTSUPP;
-> +            break;
-> +        }
-> +
->          if ( a.u.set_mem_access_multi.pad ||
->               a.u.set_mem_access_multi.opaque > a.u.set_mem_access_multi.=
-nr )
->          {
-> @@ -4844,6 +4862,12 @@ static int do_altp2m_op(
->          break;
->
->      case HVMOP_altp2m_get_mem_access:
-> +        if ( !vm_event_is_enabled(current) )
-> +        {
-> +            rc =3D -EOPNOTSUPP;
-> +            break;
-> +        }
-> +
->          if ( a.u.mem_access.pad )
->              rc =3D -EINVAL;
->          else
-> diff --git a/xen/arch/x86/include/asm/mem_access.h
-> b/xen/arch/x86/include/asm/mem_access.h
-> index 257ed33de1..790bed81e8 100644
-> --- a/xen/arch/x86/include/asm/mem_access.h
-> +++ b/xen/arch/x86/include/asm/mem_access.h
-> @@ -14,6 +14,7 @@
->  #ifndef __ASM_X86_MEM_ACCESS_H__
->  #define __ASM_X86_MEM_ACCESS_H__
->
-> +#ifdef CONFIG_VM_EVENT
->  /*
->   * Setup vm_event request based on the access (gla is -1ull if not avail=
-able).
->   * Handles the rw2rx conversion. Boolean return value indicates if event=
- type @@ -
-> 25,6 +26,15 @@  bool p2m_mem_access_check(paddr_t gpa, unsigned long gla,
->                            struct npfec npfec,
->                            struct vm_event_st **req_ptr);
-> +#else
-> +static inline bool p2m_mem_access_check(paddr_t gpa, unsigned long gla,
-> +                                        struct npfec npfec,
-> +                                        struct vm_event_st **req_ptr) {
-> +    *req_ptr =3D NULL;
-> +    return false;
-> +}
-> +#endif /* CONFIG_VM_EVENT */
->
->  /* Check for emulation and mark vcpu for skipping one instruction
->   * upon rescheduling if required. */
-> --
-> 2.34.1
+      case 1:
+      {
+@@ -1410,11 +1412,12 @@ static int fetch_dts_temp(xc_interface *xch, 
+uint32_t cpu, bool package, int *te
+      default:
+          if ( ret > 0 )
+          {
+-            fprintf(stderr, "Got unexpected xc_resource_op return 
+value: %d",
+-                    ret);
+-            return -EINVAL;
++            fprintf(stderr, "Got unexpected xc_resource_op return 
+value: %d", ret);
++            errno =3D -EINVAL;
+          }
+-        return ret;
++        else
++            errno =3D ret;
++        return -1;
+      }
+
+      *temp =3D tjmax - ((entries[0].val >> 16) & 0xff);
+@@ -1435,7 +1438,11 @@ static void get_intel_temp(int argc, char *argv[])
+          if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
+              printf("CPU%d: %d=C2=B0C\n", cpu, temp);
+          else
++        {
++            fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
++                    errno, strerror(errno));
+              printf("No data\n");
++        }
+          return;
+      }
+
+@@ -1443,11 +1450,16 @@ static void get_intel_temp(int argc, char *argv[])
+      for ( socket =3D 0, cpu =3D 0; cpu < max_cpu_nr;
+            socket++, cpu +=3D physinfo.cores_per_socket * 
+physinfo.threads_per_core )
+      {
+-        if ( !fetch_dts_temp(xc_handle, cpu, true, &temp) )
++        if ( fetch_dts_temp(xc_handle, cpu, true, &temp) )
+          {
+-            has_data =3D true;
+-            printf("Package%u: %d=C2=B0C\n", socket, temp);
++            fprintf(stderr,
++                    "[Package%u] Unable to fetch temperature (%d - %s)\n",
++                    cpu, errno, strerror(errno));
++            continue;
+          }
++
++        has_data =3D true;
++        printf("Package%u: %d=C2=B0C\n", socket, temp);
+      }
+
+      if ( has_data )
+@@ -1457,7 +1469,11 @@ static void get_intel_temp(int argc, char *argv[])
+      for ( cpu =3D 0; cpu < max_cpu_nr; cpu +=3D physinfo.threads_per_core=
+ )
+      {
+          if ( fetch_dts_temp(xc_handle, cpu, false, &temp) )
++        {
++            fprintf(stderr, "[CPU%d] Unable to fetch temperature (%d - 
+%s)\n",
++                    cpu, errno, strerror(errno));
+              continue;
++        }
+
+          has_data =3D true;
+          printf("CPU%d: %d=C2=B0C\n", cpu, temp);
+
+It can be quite verbose on the stderr side, but at least report errors.
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
