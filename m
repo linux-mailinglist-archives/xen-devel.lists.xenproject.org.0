@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C14D3A1B4
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 09:34:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208020.1520246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96584D3A214
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 09:51:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208031.1520256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhkiA-000482-Ge; Mon, 19 Jan 2026 08:34:10 +0000
+	id 1vhkyR-00073b-R8; Mon, 19 Jan 2026 08:50:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208020.1520246; Mon, 19 Jan 2026 08:34:10 +0000
+Received: by outflank-mailman (output) from mailman id 1208031.1520256; Mon, 19 Jan 2026 08:50:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhkiA-00045X-DQ; Mon, 19 Jan 2026 08:34:10 +0000
-Received: by outflank-mailman (input) for mailman id 1208020;
- Mon, 19 Jan 2026 08:34:09 +0000
+	id 1vhkyR-00071E-Nc; Mon, 19 Jan 2026 08:50:59 +0000
+Received: by outflank-mailman (input) for mailman id 1208031;
+ Mon, 19 Jan 2026 08:50:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5NKf=7Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vhki9-00045R-LD
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 08:34:09 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vhkyQ-000715-N0
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 08:50:58 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9efcc39e-f511-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 09:34:08 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4801d98cf39so15812795e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 00:34:07 -0800 (PST)
+ id f84dc2e1-f513-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 09:50:57 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-47edffe5540so35598625e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 00:50:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e9d8ba8sm78309355e9.3.2026.01.19.00.34.06
+ 5b1f17b1804b1-47f429071a2sm235389895e9.11.2026.01.19.00.50.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 00:34:06 -0800 (PST)
+ Mon, 19 Jan 2026 00:50:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9efcc39e-f511-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: f84dc2e1-f513-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768811647; x=1769416447; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768812656; x=1769417456; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tkuiGBZS0YjW31rqeXS35kc3lMmLmi0YtGHC4cZOsJc=;
-        b=YtsaEsBxWw2XygfYfg4uJkBCQM2JiLUT3YwDQtJcGa1HTeo1U7cJbF/SCkootIwrZK
-         xEiD2NWg5LgTz7KeD/Gi1VNbp/tEbAjA8rEic/uPs/ispWBWTdiY2reVmFhlxRLuzdpK
-         WbPHnfslm87uorI/0BWbCE5b9OEiVI4tsT2uk+axvIyXXPKa15in993f4ig97KV6LX4e
-         nXq+X6DzWd+y0KpjnHMAnuBfqAbPHX2yaLiq4ZrvTRMVSNg4leUuKciSWp4l4kCEPD9f
-         zjEdmtuQ1RT3n8ejWluCr4MgOMJv/20y4wDnc7V9sqpcbrWx3aKqyw0Vp6/yr0DGfVLy
-         Jo3A==
+        bh=ptll9SHWVZupN3kNFevmi2rV+p8ZUoLcqAweBYKdp9E=;
+        b=WZMiichWdEwUcWMW9QgAKN9tJqoGyLuynYUYUjqRoVX1ymU8U0az/M+fKnOFY3/RDa
+         sFKU7K0HL6nfTIqAStpSwQMg+eeR+yfh/rX8lSDtoezfdiSDoW/n4YDhG6m0/6xW7O1Y
+         c+ZgDAD9ZfaFQ1BVV2/6ug8t9Vccw1ft5+rN/hq/D5ywssMQFK1SKnWGhR5V/3u8LCsD
+         60+9hkXtY0estrfBC7MgOTwVjlVLt6rzmni59TZbem1UpyTKoPdT3IqSMc0h7JvA4KDz
+         jl6R2Y4geBkdr9PCNvMMWqimMZvBbJcE0aB8aQpn6XQwLV5u5uYVo0oEUHDayr/JYTPE
+         mJOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768811647; x=1769416447;
+        d=1e100.net; s=20230601; t=1768812656; x=1769417456;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tkuiGBZS0YjW31rqeXS35kc3lMmLmi0YtGHC4cZOsJc=;
-        b=md2/qoYXh6aCy4cjymfpiuFXIcEn3dhRpF84sL/uMSr1jwaWugQVfGmYse9ojG1I/f
-         OidI02p9BuPYaJji4vw6U0uDKh+hl26vw0UPnRqMO4bLLjM8dPvyzi1Ax8ygMDFWLUxq
-         j6KKsJp0O2KKu07BVDsvv1uGDWJhbeGufWDaHXtlzjHLEmWWveqC8UUiiq2kTMNtrN1h
-         XL7JPHYo37CRu4//uVEAjnScogdrfQ4tVQlT/v9Wgu9O67+4XpsVZWWAkX+ILk697M36
-         ctPc1Xl7oNhN+qWr0DaqqGl9XSGMEekJqTzojs6XvtAqT6E42l/RCDs2cgUs/1Hdwl0N
-         GCnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXsXEyhCYk7nQoOu/31vWy3WYBYpOw7WBDOMlcJKoMi0/lwOsSmnLUw/shwo8oNE6bYaGwstRkZ1vw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+TtrXh3Dtt8HjPzEcC/HXlb/A8OO6vn2naBtBf2yoe+c3s7d0
-	t9k5tDeI2PCSobtcn/uRw7m62DGFb61AVddWNM+6t7Hwez+/XfVmkSqDRkJMXqt99w==
-X-Gm-Gg: AY/fxX6hSVjJNlOf4dy0OWLiuM62uhw+Xaxxy9XFH+BwLWSILmdvdqv97egp970AUmJ
-	2HPWJHHgHyDcvog/Z/KU+9fnJMxk3yQ9ftuZBPOBB8X9Yyb/x3aQHTbhnjLyv5WDyqnQIygzmQ4
-	yEz0sLtaOdmTP9y2OkF8nUbUEGjn9lAxMYX3+zsKu4sOThhdbvoyVCdDQzkOY2vTHbXmyAbwAZe
-	Nq0oyNmP8WHfXH97xsUg9Df/t+D7ka3KbniuANNHB4RO27R1F2NCeUqjwueZ0ENfOLyrAzrFyzw
-	vAV1i8Re8eQWOWq5m8lTl5nfpcBDgYYRdnbAnNROtNejPUFR8P81xmaAawJhGIDWypymzFgvmxR
-	6TRBKxv5HuMA3dMsiybxW2brUIehcMZh/Oj3R6apnGRWHveVqMENgZvUf2xBjdJUcVs5FNnK+De
-	B300/x9keC2UbUjb9Tm7WOEMpKngQjFC3vT4Ci4fFcQCK30g9oNbWX4DB+UkZLLxMs3F+kI2RZ2
-	cQ=
-X-Received: by 2002:a05:600c:4e92:b0:475:de14:db1e with SMTP id 5b1f17b1804b1-4801eb0426fmr127326205e9.24.1768811647317;
-        Mon, 19 Jan 2026 00:34:07 -0800 (PST)
-Message-ID: <843ba134-099c-49a1-8561-5e364b630bc8@suse.com>
-Date: Mon, 19 Jan 2026 09:34:08 +0100
+        bh=ptll9SHWVZupN3kNFevmi2rV+p8ZUoLcqAweBYKdp9E=;
+        b=GAkbSnuwmnKF5ytKJNXrpk9qDAty6B8cOmYJ25dcm9s+j7bU0f4IdoaCPJBPhVYZV6
+         PXXVJ30/95F0rnEJsYsl1T2iwjoXPpDpgGle1zt6w+3S/X16WlxnfTRK5KrQ53Ccclqu
+         ZCE/31wOB6viqZvXlpC4BhcJZjTDoEREnLuLepjZgaOOs1WgFpIJT95zzqQy/wxn1yPr
+         WoDDGHPNdKVJBOS0E09e6Au66KUwDKBckhQfX8/i+odql7rY7hY/Vtd64VDlsUlTq/Ad
+         2IUPHKc7VnpB4+89xKppuKcnBiP+jfJhmCQSSPArZX1XUe3N6UQ3JFzEnPGLWbVIJvDp
+         cmkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWI65cGt+CmRlrrZR/zFpslsTEfOVYL8nGQH5tO0vyeqVj14lErrVXlP8/LxFfN2fNG7SaF3CtpXXY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YysirlPvC+nV5TE/+dxKPHwfGweNezl8GOy5VdzT8GYJJFuMiXe
+	zYder21ntUvNNXQad17EXD0XyWnKlZt1FETetbwglYaMSo+7vmGtUOlQHLRwxCrakA==
+X-Gm-Gg: AY/fxX62iiADT8bstw/MOOm+MBW7iV0Wf+FejvfcGJ0Taq1FJP4ar085HINCGsdZG+q
+	eblBXNk5mDKD58zc1KCSwdGuKtU7Px90/sTLaiER5Nl5n7jxct24EPVHHRCLOmHiCEoNV+MRjLc
+	87fepOziP1g4dbr4t58NdSWO//hEwrsr1FZMcbvz+JdIcZhs0DupQtfksgASl2U0bL83OTuWhA1
+	fzilk/t5SAUu/+CeSFMVpggdBsj0Qx4YjklBjDcghvruoOdLwYynd3HT59YH57b+G6ahGFW2djP
+	eh7et6Sqb9FYIAsgSdOvpJkNbYHrK5xYReYaFkooGJaqVv1G0pKaWubEKeJaGfTqtlYdz9Yz/fJ
+	kkecZe2JzPkg8gVjF/PmqsH1BDa377fvKFMmO7ZyNy04nJ5V9+HWaN/jmJFgHvVBlouKaofjmW9
+	IbJHD7UAnjzcUL8AYQLLZpojZefF8Ij2CwehwVCZ7WnF5KvUvtZGIEPfcb5PFTmHRQU4GZqGcMr
+	14=
+X-Received: by 2002:a05:600c:138a:b0:477:1af2:f40a with SMTP id 5b1f17b1804b1-4801e33c066mr158758235e9.17.1768812656132;
+        Mon, 19 Jan 2026 00:50:56 -0800 (PST)
+Message-ID: <e456a747-40c6-47e8-95b3-992a3900e571@suse.com>
+Date: Mon, 19 Jan 2026 09:50:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: dump GPRS and CSRs on unexpected traps
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
+Subject: Re: [PATCH v4 4/6] xen/p2m: move xenmem_access_to_p2m_access() to
+ common p2m.c
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <f6f7ec863e92ade433f23ae0061391d2ef731f41.1768579139.git.oleksii.kurochko@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ jason.andryuk@amd.com
+References: <20260115092841.2651224-1-Penny.Zheng@amd.com>
+ <20260115092841.2651224-5-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,114 +127,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f6f7ec863e92ade433f23ae0061391d2ef731f41.1768579139.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20260115092841.2651224-5-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.01.2026 17:16, Oleksii Kurochko wrote:
-> Provide more context on the exception state when an unexpected
-> exception occurs by dumping various Supervisor, Virtual Supervisor
-> and Hypervisor CSRs, and GPRs pertaining to the trap.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v2
->  - Address coments about print_csr() macros and dump_csrs().
->  - Add dumping of GPRs pertaining to the trap.
-> ---
->  xen/arch/riscv/traps.c | 82 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 82 insertions(+)
-> 
-> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-> index e9c967786312..4e0df698552f 100644
-> --- a/xen/arch/riscv/traps.c
-> +++ b/xen/arch/riscv/traps.c
-> @@ -17,6 +17,13 @@
->  #include <asm/traps.h>
->  #include <asm/vsbi.h>
->  
-> +#define print_csr(csr) \
-> +    printk("\t" #csr ": %016lx\n", csr_read(csr));
-
-This prints the CSR_ prefix of the internally used constants. Is this useful
-(rather than extra clutter)? Unlike for the GPRs this also prints the register
-names in upper case. That may be fine, or may not be. The values printed also
-won't align, which may make reading more difficult.
-
-> +#define print_gprs(regs, reg1, reg2) \
-> +    printk("\t%-7s: %016lx %-7s: %016lx\n", \
-> +           #reg1, (regs)->reg1, #reg2, (regs)->reg2)
-
-Yes, two per line is certainly helpful. Why not also for some of the CSRs.
-
-> @@ -99,12 +106,87 @@ static const char *decode_cause(unsigned long cause)
->      return decode_trap_cause(cause);
+On 15.01.2026 10:28, Penny Zheng wrote:
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -2203,6 +2203,46 @@ void p2m_log_dirty_range(struct domain *d, unsigned long begin_pfn,
+>      guest_flush_tlb_mask(d, d->dirty_cpumask);
 >  }
 >  
-> +static void dump_general_regs(const struct cpu_user_regs *regs)
+> +#if defined(CONFIG_VM_EVENT) || defined(CONFIG_ALTP2M)
+> +bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+> +                                 xenmem_access_t xaccess,
+> +                                 p2m_access_t *paccess)
 > +{
-> +    printk("\nDumping GPRs...\n");
-
-Register names alone will be meaningful enough? Be mindful of serial line
-bandwidth as well as screen resolution.
-
-> +    print_gprs(regs, ra, sp);
-> +    print_gprs(regs, gp, tp);
-> +    print_gprs(regs, t0, t1);
-> +    print_gprs(regs, t2, s0);
-> +    print_gprs(regs, s1, a0);
-> +    print_gprs(regs, a1, a2);
-> +    print_gprs(regs, a3, a4);
-> +    print_gprs(regs, a5, a6);
-> +    print_gprs(regs, a7, s2);
-> +    print_gprs(regs, s3, s4);
-> +    print_gprs(regs, s5, s6);
-> +    print_gprs(regs, s7, s8);
-> +    print_gprs(regs, s9, s10);
-> +    print_gprs(regs, s11, t3);
-> +    print_gprs(regs, t4, t5);
-> +    print_gprs(regs, t6, sepc);
-> +    print_gprs(regs, sstatus, hstatus);
-
-The last three aren't GPRs. Why would they be logged here? (All three also
-being logged in dump_csrs() would further require some disambiguation in
-the output, for people to not need to go look at the source code every
-time.)
-
+> +    static const p2m_access_t memaccess[] = {
+> +#define ACCESS(ac) [XENMEM_access_##ac] = p2m_access_##ac
+> +        ACCESS(n),
+> +        ACCESS(r),
+> +        ACCESS(w),
+> +        ACCESS(rw),
+> +        ACCESS(x),
+> +        ACCESS(rx),
+> +        ACCESS(wx),
+> +        ACCESS(rwx),
+> +        ACCESS(rx2rw),
+> +        ACCESS(n2rwx),
+> +        ACCESS(r_pw),
+> +#undef ACCESS
+> +    };
+> +
+> +    switch ( xaccess )
+> +    {
+> +    case 0 ... ARRAY_SIZE(memaccess) - 1:
+> +        xaccess = array_index_nospec(xaccess, ARRAY_SIZE(memaccess));
+> +        *paccess = memaccess[xaccess];
+> +        break;
+> +
+> +    case XENMEM_access_default:
+> +        *paccess = p2m->default_access;
+> +        break;
+> +
+> +    default:
+> +        return false;
+> +    }
+> +
+> +    return true;
 > +}
+> +#endif /* VM_EVENT || ALTP2M */
 > +
-> +static void dump_csrs(unsigned long cause)
-> +{
-> +    unsigned long hstatus;
-> +
-> +    printk("\nDumping CSRs...\n");
-> +
-> +    printk("Supervisor CSRs\n");
-> +    print_csr(CSR_STVEC);
-> +    print_csr(CSR_SATP);
-> +    print_csr(CSR_SEPC);
-> +
-> +    hstatus = csr_read(CSR_HSTATUS);
-> +
-> +    printk("\tCSR_STVAL: %016lx%s\n", csr_read(CSR_STVAL),
-> +           (hstatus & HSTATUS_GVA) ? ", (guest virtual address)" : "");
-> +
-> +    printk("\tCSR_SCAUSE: %016lx\n", cause);
-> +    printk("\t\tDescription: %s\n", decode_cause(cause));
-> +    print_csr(CSR_SSTATUS);
-> +
-> +    printk("\nVirtual Supervisor CSRs\n");
-> +    print_csr(CSR_VSTVEC);
-> +    print_csr(CSR_VSATP);
-> +    print_csr(CSR_VSEPC);
-> +    print_csr(CSR_VSTVAL);
-> +    cause = csr_read(CSR_VSCAUSE);
-> +    printk("\tCSR_VSCAUSE: %016lx\n", cause);
-> +    printk("\t\tDescription: %s\n", decode_cause(cause));
-> +    print_csr(CSR_VSSTATUS);
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/include/xen/mem_access.h b/xen/include/xen/mem_access.h
+> index 4de651038d..8e7d9ea2e3 100644
+> --- a/xen/include/xen/mem_access.h
+> +++ b/xen/include/xen/mem_access.h
+> @@ -73,11 +73,6 @@ typedef enum {
+>      /* NOTE: Assumed to be only 4 bits right now on x86. */
+>  } p2m_access_t;
+>  
+> -struct p2m_domain;
+> -bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+> -                                 xenmem_access_t xaccess,
+> -                                 p2m_access_t *paccess);
+> -
+>  /*
+>   * Set access type for a region of gfns.
+>   * If gfn == INVALID_GFN, sets the default access type.
+> diff --git a/xen/include/xen/p2m-common.h b/xen/include/xen/p2m-common.h
+> index f0bd9a6b98..bd4169caee 100644
+> --- a/xen/include/xen/p2m-common.h
+> +++ b/xen/include/xen/p2m-common.h
+> @@ -43,5 +43,8 @@ int __must_check check_get_page_from_gfn(struct domain *d, gfn_t gfn,
+>                                           bool readonly, p2m_type_t *p2mt_p,
+>                                           struct page_info **page_p);
+>  
+> +bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+> +                                 xenmem_access_t xaccess,
+> +                                 p2m_access_t *paccess);
 
-As before, imo justification is wanted (in the description) for logging
-VS* values.
+CI says "no" on both PPC and RISC-V. I wouldn't be surprised of build issues
+on Arm or x86 either, seeing that p2m-common.h doesn't (and shouldn't) include
+xen/mem_access.h. It's arch/<arch>/include/asm/p2m.h which is responsible for
+the inclusion ahead of including p2m-common.h. Question though is: If this is
+an x86-only function, why was its decl put in xen/mem_access.h rather than
+x86'es asm/mem_access.h. I'll try that before giving up and handing this back
+to you, but may I stress again that you please properly test your changes? It
+is not the responsibility of the committer to deal with such fallout.
 
 Jan
 
