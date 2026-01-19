@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B6CD3A0FF
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 09:10:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208004.1520236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C14D3A1B4
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 09:34:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208020.1520246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhkKo-00005y-IW; Mon, 19 Jan 2026 08:10:02 +0000
+	id 1vhkiA-000482-Ge; Mon, 19 Jan 2026 08:34:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208004.1520236; Mon, 19 Jan 2026 08:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 1208020.1520246; Mon, 19 Jan 2026 08:34:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhkKo-0008UO-Er; Mon, 19 Jan 2026 08:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 1208004;
- Mon, 19 Jan 2026 08:10:00 +0000
+	id 1vhkiA-00045X-DQ; Mon, 19 Jan 2026 08:34:10 +0000
+Received: by outflank-mailman (input) for mailman id 1208020;
+ Mon, 19 Jan 2026 08:34:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5NKf=7Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vhkKm-0008Mc-Dh
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 08:10:00 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1vhki9-00045R-LD
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 08:34:09 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ef04f9c-f50e-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 09:09:58 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47fedb7c68dso26058075e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 00:09:58 -0800 (PST)
+ id 9efcc39e-f511-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 09:34:08 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4801d98cf39so15812795e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 00:34:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e8d90b3sm183498265e9.15.2026.01.19.00.09.57
+ 5b1f17b1804b1-4801e9d8ba8sm78309355e9.3.2026.01.19.00.34.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 00:09:57 -0800 (PST)
+ Mon, 19 Jan 2026 00:34:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ef04f9c-f50e-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 9efcc39e-f511-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768810198; x=1769414998; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768811647; x=1769416447; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QoHB5wvizaAWl1D7bMe7q23T+DHS/1w+EkPraaCrKpw=;
-        b=VZDrI9E/jmC3JapNybqwJch8oCOl0Kqi6d7E5EbuCxaSBuFMsOx9WESaEfJDO7Dvju
-         PRKDxLcszNRFmmcYQ1ftAB6coa/sn2eFdPAb/BlmSuEDxYdtZF0qQdCbMZfymbyFSxpP
-         PrlE3HpaP4qv+hACYOVq3cv2RTyRu0vBgdbveDysIZ9ITFRoblZMaw/xu2tBjlU2v5ZZ
-         EMAel3Sx3lMR5K1RBlqpCyDvRJRz8QJmDI7UD5htXjEmv+MaB9a6w3NIDywl8TJskE07
-         7yooyyeJj54w3cY7smOV4reFdaZ0VcFyXgdQJdStbFlw8yeN9msgClBxwVbiaR06/pOl
-         hnXw==
+        bh=tkuiGBZS0YjW31rqeXS35kc3lMmLmi0YtGHC4cZOsJc=;
+        b=YtsaEsBxWw2XygfYfg4uJkBCQM2JiLUT3YwDQtJcGa1HTeo1U7cJbF/SCkootIwrZK
+         xEiD2NWg5LgTz7KeD/Gi1VNbp/tEbAjA8rEic/uPs/ispWBWTdiY2reVmFhlxRLuzdpK
+         WbPHnfslm87uorI/0BWbCE5b9OEiVI4tsT2uk+axvIyXXPKa15in993f4ig97KV6LX4e
+         nXq+X6DzWd+y0KpjnHMAnuBfqAbPHX2yaLiq4ZrvTRMVSNg4leUuKciSWp4l4kCEPD9f
+         zjEdmtuQ1RT3n8ejWluCr4MgOMJv/20y4wDnc7V9sqpcbrWx3aKqyw0Vp6/yr0DGfVLy
+         Jo3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768810198; x=1769414998;
+        d=1e100.net; s=20230601; t=1768811647; x=1769416447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QoHB5wvizaAWl1D7bMe7q23T+DHS/1w+EkPraaCrKpw=;
-        b=tpJZ7hbq4zW9Xz79/ad9hWjICJ6Lp8TMULFMkpoysWA7L1FgAYRvdudozB2zwTBuTY
-         QkLmvhwxbuIN2XZJjrNG1F+Jg9EK2gVyFwVvAPj1wKk1SvxyqamgpI8EkiJpko+LB/8H
-         5kcnWHHxsFOXpaYYF4dFFlK4BgDL+0Whiw6OD60nKJ43YNGvwTPv3kFMGwyx4W1Pen2Z
-         Y4m5ixQvTdWIyO9YMdPsh8Ntq0IqQAMIEm+zkNAO2vkawud5EV4SmqVKMIs0VMEee87S
-         NNJbOgGMW3jPXSuwq1QogxCt3Lf6BX0YSe+d107yi6lXiE8jQzIqlbv7fnytOaTIrapi
-         fe3w==
-X-Gm-Message-State: AOJu0YwwLyNnOkdeXT/H8tULcJWMETY+rnprnnPe1urHDV3ezAEAZD8k
-	1BTJMcLXX0JjSP++xIDXts2Ap3mJfJCY6fgx+yfh3anBD5lq9jp3HVU2XKSQnxOvXw==
-X-Gm-Gg: AY/fxX63b4RxDqSAZVSOF4p9wQSJmeRoOmUbf8H2ne7gEv0aDUtDzNSzBl2oZo7Hwcp
-	0VKMszcGtn56orX7uIeIFrqD8eBnEj0nUHG6nQPxNoW0pNwtI5aZh+c1sY8V/R7tzzSLAjey8wk
-	zlbAAPpaDh+EDydgWKFVstFxGZHVMyYzgActUdnG8KX68+TX9r/yVEivq05GfSL1KbzSzNcQulp
-	dlzCyETegFMz0/ev9FAhGAaE6BiaVYjWxdPrFsUJQvm0uz4QlqBGVliHDQl1hW2ma9ebESMoQCm
-	8eccyHrywZTMLdAsKmQrKF6JSgQo9CzrN+gF1zjdvEVWTIDWK/IxC+Uqu9sb+By0jZbGQc/rfdw
-	GuVgNasWqqr/Iy/bIoq/J9kwdUlFijMa2wEWAudx1fXjgTOLDCwk8ftcODtjtTZ0O4QhIjcXdoi
-	3+rD10LSCou9aOOekByu/RzJmCRy67T8v9Vy2/NyLt1SDMPJZEsYBvIPvaM4qyyFSj6inEW8vC8
-	Ts=
-X-Received: by 2002:a05:600c:4e43:b0:477:73e9:dbe7 with SMTP id 5b1f17b1804b1-4801e358875mr128177165e9.35.1768810197714;
-        Mon, 19 Jan 2026 00:09:57 -0800 (PST)
-Message-ID: <1c6152e0-fbb5-4dd1-b8e8-6610251df9c1@suse.com>
-Date: Mon, 19 Jan 2026 09:09:59 +0100
+        bh=tkuiGBZS0YjW31rqeXS35kc3lMmLmi0YtGHC4cZOsJc=;
+        b=md2/qoYXh6aCy4cjymfpiuFXIcEn3dhRpF84sL/uMSr1jwaWugQVfGmYse9ojG1I/f
+         OidI02p9BuPYaJji4vw6U0uDKh+hl26vw0UPnRqMO4bLLjM8dPvyzi1Ax8ygMDFWLUxq
+         j6KKsJp0O2KKu07BVDsvv1uGDWJhbeGufWDaHXtlzjHLEmWWveqC8UUiiq2kTMNtrN1h
+         XL7JPHYo37CRu4//uVEAjnScogdrfQ4tVQlT/v9Wgu9O67+4XpsVZWWAkX+ILk697M36
+         ctPc1Xl7oNhN+qWr0DaqqGl9XSGMEekJqTzojs6XvtAqT6E42l/RCDs2cgUs/1Hdwl0N
+         GCnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXsXEyhCYk7nQoOu/31vWy3WYBYpOw7WBDOMlcJKoMi0/lwOsSmnLUw/shwo8oNE6bYaGwstRkZ1vw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+TtrXh3Dtt8HjPzEcC/HXlb/A8OO6vn2naBtBf2yoe+c3s7d0
+	t9k5tDeI2PCSobtcn/uRw7m62DGFb61AVddWNM+6t7Hwez+/XfVmkSqDRkJMXqt99w==
+X-Gm-Gg: AY/fxX6hSVjJNlOf4dy0OWLiuM62uhw+Xaxxy9XFH+BwLWSILmdvdqv97egp970AUmJ
+	2HPWJHHgHyDcvog/Z/KU+9fnJMxk3yQ9ftuZBPOBB8X9Yyb/x3aQHTbhnjLyv5WDyqnQIygzmQ4
+	yEz0sLtaOdmTP9y2OkF8nUbUEGjn9lAxMYX3+zsKu4sOThhdbvoyVCdDQzkOY2vTHbXmyAbwAZe
+	Nq0oyNmP8WHfXH97xsUg9Df/t+D7ka3KbniuANNHB4RO27R1F2NCeUqjwueZ0ENfOLyrAzrFyzw
+	vAV1i8Re8eQWOWq5m8lTl5nfpcBDgYYRdnbAnNROtNejPUFR8P81xmaAawJhGIDWypymzFgvmxR
+	6TRBKxv5HuMA3dMsiybxW2brUIehcMZh/Oj3R6apnGRWHveVqMENgZvUf2xBjdJUcVs5FNnK+De
+	B300/x9keC2UbUjb9Tm7WOEMpKngQjFC3vT4Ci4fFcQCK30g9oNbWX4DB+UkZLLxMs3F+kI2RZ2
+	cQ=
+X-Received: by 2002:a05:600c:4e92:b0:475:de14:db1e with SMTP id 5b1f17b1804b1-4801eb0426fmr127326205e9.24.1768811647317;
+        Mon, 19 Jan 2026 00:34:07 -0800 (PST)
+Message-ID: <843ba134-099c-49a1-8561-5e364b630bc8@suse.com>
+Date: Mon, 19 Jan 2026 09:34:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/console: handle multiple domains using console_io
- hypercalls
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, grygorii_strashko@epam.com,
+Subject: Re: [PATCH v2] xen/riscv: dump GPRS and CSRs on unexpected traps
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
- andrew.cooper3@citrix.com
-References: <alpine.DEB.2.22.394.2601131638350.6279@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2601161307120.72558@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <f6f7ec863e92ade433f23ae0061391d2ef731f41.1768579139.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,36 +124,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2601161307120.72558@ubuntu-linux-20-04-desktop>
+In-Reply-To: <f6f7ec863e92ade433f23ae0061391d2ef731f41.1768579139.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.01.2026 22:07, Stefano Stabellini wrote:
-> On Tue, 13 Jan 2026, Stefano Stabellini wrote:
->> Allow multiple dom0less domains to use the console_io hypercalls to
->> print to the console. Handle them in a similar way to vpl011: only the
->> domain which has focus can read from the console. All domains can write
->> to the console but the ones without focus have a prefix. In this case
->> the prefix is applied by using guest_printk instead of printk or
->> console_puts which is what the original code was already doing.
->>
->> When switching focus using Ctrl-AAA, discard any unread data in the
->> input buffer. Input is read quickly and the user would be aware of it
->> being slow or stuck as they use Ctrl-AAA to switch focus domain.
->> In that situation, it is to be expected that the unread input is lost.
->>
->> The domain writes are buffered when the domain is not in focus. Push out
->> the buffer when the domain enters focus.
->>
->> Add the console_lock around serial_rx_cons modifications to protect it
->> against concurrent writes to it.
->>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+On 16.01.2026 17:16, Oleksii Kurochko wrote:
+> Provide more context on the exception state when an unexpected
+> exception occurs by dumping various Supervisor, Virtual Supervisor
+> and Hypervisor CSRs, and GPRs pertaining to the trap.
 > 
-> Ping?
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in v2
+>  - Address coments about print_csr() macros and dump_csrs().
+>  - Add dumping of GPRs pertaining to the trap.
+> ---
+>  xen/arch/riscv/traps.c | 82 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+> 
+> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
+> index e9c967786312..4e0df698552f 100644
+> --- a/xen/arch/riscv/traps.c
+> +++ b/xen/arch/riscv/traps.c
+> @@ -17,6 +17,13 @@
+>  #include <asm/traps.h>
+>  #include <asm/vsbi.h>
+>  
+> +#define print_csr(csr) \
+> +    printk("\t" #csr ": %016lx\n", csr_read(csr));
 
-I'm sorry to ask, but doesn't this come a little early? (I for one simply
-haven't found time yet to look at the v3 of this.)
+This prints the CSR_ prefix of the internally used constants. Is this useful
+(rather than extra clutter)? Unlike for the GPRs this also prints the register
+names in upper case. That may be fine, or may not be. The values printed also
+won't align, which may make reading more difficult.
+
+> +#define print_gprs(regs, reg1, reg2) \
+> +    printk("\t%-7s: %016lx %-7s: %016lx\n", \
+> +           #reg1, (regs)->reg1, #reg2, (regs)->reg2)
+
+Yes, two per line is certainly helpful. Why not also for some of the CSRs.
+
+> @@ -99,12 +106,87 @@ static const char *decode_cause(unsigned long cause)
+>      return decode_trap_cause(cause);
+>  }
+>  
+> +static void dump_general_regs(const struct cpu_user_regs *regs)
+> +{
+> +    printk("\nDumping GPRs...\n");
+
+Register names alone will be meaningful enough? Be mindful of serial line
+bandwidth as well as screen resolution.
+
+> +    print_gprs(regs, ra, sp);
+> +    print_gprs(regs, gp, tp);
+> +    print_gprs(regs, t0, t1);
+> +    print_gprs(regs, t2, s0);
+> +    print_gprs(regs, s1, a0);
+> +    print_gprs(regs, a1, a2);
+> +    print_gprs(regs, a3, a4);
+> +    print_gprs(regs, a5, a6);
+> +    print_gprs(regs, a7, s2);
+> +    print_gprs(regs, s3, s4);
+> +    print_gprs(regs, s5, s6);
+> +    print_gprs(regs, s7, s8);
+> +    print_gprs(regs, s9, s10);
+> +    print_gprs(regs, s11, t3);
+> +    print_gprs(regs, t4, t5);
+> +    print_gprs(regs, t6, sepc);
+> +    print_gprs(regs, sstatus, hstatus);
+
+The last three aren't GPRs. Why would they be logged here? (All three also
+being logged in dump_csrs() would further require some disambiguation in
+the output, for people to not need to go look at the source code every
+time.)
+
+> +}
+> +
+> +static void dump_csrs(unsigned long cause)
+> +{
+> +    unsigned long hstatus;
+> +
+> +    printk("\nDumping CSRs...\n");
+> +
+> +    printk("Supervisor CSRs\n");
+> +    print_csr(CSR_STVEC);
+> +    print_csr(CSR_SATP);
+> +    print_csr(CSR_SEPC);
+> +
+> +    hstatus = csr_read(CSR_HSTATUS);
+> +
+> +    printk("\tCSR_STVAL: %016lx%s\n", csr_read(CSR_STVAL),
+> +           (hstatus & HSTATUS_GVA) ? ", (guest virtual address)" : "");
+> +
+> +    printk("\tCSR_SCAUSE: %016lx\n", cause);
+> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+> +    print_csr(CSR_SSTATUS);
+> +
+> +    printk("\nVirtual Supervisor CSRs\n");
+> +    print_csr(CSR_VSTVEC);
+> +    print_csr(CSR_VSATP);
+> +    print_csr(CSR_VSEPC);
+> +    print_csr(CSR_VSTVAL);
+> +    cause = csr_read(CSR_VSCAUSE);
+> +    printk("\tCSR_VSCAUSE: %016lx\n", cause);
+> +    printk("\t\tDescription: %s\n", decode_cause(cause));
+> +    print_csr(CSR_VSSTATUS);
+
+As before, imo justification is wanted (in the description) for logging
+VS* values.
 
 Jan
 
