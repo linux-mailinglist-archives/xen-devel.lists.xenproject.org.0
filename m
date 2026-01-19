@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA0BD39FD0
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 08:31:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1207977.1520216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E1ADD3A0FD
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 09:08:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1207994.1520225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhji6-0002BB-6t; Mon, 19 Jan 2026 07:30:02 +0000
+	id 1vhkIX-0007pQ-5f; Mon, 19 Jan 2026 08:07:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1207977.1520216; Mon, 19 Jan 2026 07:30:02 +0000
+Received: by outflank-mailman (output) from mailman id 1207994.1520225; Mon, 19 Jan 2026 08:07:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhji6-00027s-3A; Mon, 19 Jan 2026 07:30:02 +0000
-Received: by outflank-mailman (input) for mailman id 1207977;
- Mon, 19 Jan 2026 07:30:01 +0000
+	id 1vhkIX-0007mx-2W; Mon, 19 Jan 2026 08:07:41 +0000
+Received: by outflank-mailman (input) for mailman id 1207994;
+ Mon, 19 Jan 2026 08:07:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5NKf=7Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vhji4-00027m-SD
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 07:30:00 +0000
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [2a00:1450:4864:20::341])
+ id 1vhkIV-0007mq-QI
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 08:07:39 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a856e7e4-f508-11f0-9ccf-f158ae23cfc8;
- Mon, 19 Jan 2026 08:29:58 +0100 (CET)
-Received: by mail-wm1-x341.google.com with SMTP id
- 5b1f17b1804b1-47f5c2283b6so25271065e9.1
- for <xen-devel@lists.xenproject.org>; Sun, 18 Jan 2026 23:29:58 -0800 (PST)
+ id eac8a6a2-f50d-11f0-9ccf-f158ae23cfc8;
+ Mon, 19 Jan 2026 09:07:37 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-430f57cd471so1983106f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 00:07:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e9ac373sm79472765e9.1.2026.01.18.23.29.56
+ ffacd0b85a97d-43569921dedsm21454318f8f.9.2026.01.19.00.07.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 Jan 2026 23:29:57 -0800 (PST)
+ Mon, 19 Jan 2026 00:07:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a856e7e4-f508-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: eac8a6a2-f50d-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768807797; x=1769412597; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768810056; x=1769414856; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vFYKlFrylLExJQVZ6G2P+N9Oy2TYCgyjtxuyeF5sSNY=;
-        b=Pwfel6DWWjTQ2cSdsGNby/g2qJyQlFmgRl1OyVTc/Oc/aV5JVREI1wEKqcFcckKIc8
-         Z+7HvxfZQGVyJqLvm+6wO6YrGn4vE0rNunnFZa3v8duat+H5KyPDQv67FRno2CZBlbq9
-         FLfm813HZMv/vIizWGfGJx/+j0dRXzHHjVgZHMQBks4WsTHhXt265EBaRu9enapOfCph
-         nocAZYGrBgc4Slp+eMz72pytD9RK4UKfwnZRSygCNxstg8hN/xd3+EqHO2Szt/F78rnC
-         ZxomGBJ00YtfOegb7rOK7Yip9EeZ6OmmlCRVfAITB4pv/OgHnhUAPHYs892aIi51dYww
-         RRuQ==
+        bh=biZYjY4em3mzByOcXAuDU9PPHceEnfFUhiLm0j561zQ=;
+        b=Wvp7ef+CNMJTNDiKx/4NdLCAHjT5jpTD+OVynXWXBUVixdsgaH8SCs96wExV38Z/q3
+         cmBfmijtUoK3e6YfLei2csuhYX2WZn+4NOoB/56u4yj31pDtTg+C4LMP8ptg6byVvns+
+         6sKwrSd19ndLJEoRdnCJkgh49549Z0tYRhpStL3O+EpT/uTRr35n/2GozPtRiSxvunk1
+         dZAQRjR0GIISkIuumt7968SkJ5j4rzb6+cqFjxnuNffaq9tgwJsFfQ4xB5ygjGAY7C9v
+         7j4W9X5XNVI1p0wrxAgbtX62VC+3oVrIAb5EM9KzeCQwwBg3rM0DRw18wR1OEw8aZRi1
+         QTgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768807797; x=1769412597;
+        d=1e100.net; s=20230601; t=1768810056; x=1769414856;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vFYKlFrylLExJQVZ6G2P+N9Oy2TYCgyjtxuyeF5sSNY=;
-        b=YfX4M8BvLSn8ywA6Jqzg228A2RCY7ejvv9ZBgdz+yRtTXBN1Gg2kFHkCyFi+wSEpOa
-         cU2BmDKlWRXkJMxuK71Tp5sSXA4uNsOTtvSu7tVoK7j5U5xF0ra2x/6QJk10eRnfqWvg
-         Dr+TcHlw+TvWEah16Kz8VKUCCDsqok2sP+IKrkYh9DFR3dAa1JlAGWo61uocjazHqnsa
-         byrumMI732EIWc2jk0szenaafQpKm75phw5fqvIbRa7gbhBLqyucwbjhprwaUAyfkUGz
-         L32nTyiY1a/XTZo6eCqG9II2O+BUipdRTemkjlusAW6MvgkEPxbb2v/TxM+IHQtECTZf
-         iR7A==
-X-Forwarded-Encrypted: i=1; AJvYcCUEKwvY7xsn6+3BFCmAd/KefbKh3Rrnn0C9IJ3AlwBVT/P+B8f1jp/xXxCgMD8KLVFwDOxNKj183OQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzy0yEpJDzcFCCRyvMWsgxmmeWdBniUXvI/f7kQT80s8b1oGfhd
-	b69uKT3Lm+dqIzbDalyBv8XD81LSFa0hyM9fRrxKbwJHb/oXfg6uQhlNYRM4ivnKjw==
-X-Gm-Gg: AY/fxX49mrZqlpYIdIWXAPi+Er/Nq7otPlOO25rg0Ny3XiotKScwTXZRfExaX3nwy+x
-	0DleLFTTnHE0FPpT0LNduZ/ruM+QPfStwAiunJHi0H9suoSlhnfAUOn0hNWeVfp1FmuZ4dYSjYo
-	a16EaXAd1q0Jp7D5IGBvc4lLLooNQHrMgHoOHCwEAi4ZJmAj88OR/bTwJtfRVjf9qhScgLngAa+
-	XByx+B7WBYxnx/koTEe238uxJjdpmbBpAa1ZoTn20vycCsONKOwrWbxoghcA4e/M1IBLDu2+a0K
-	ObBZt4eyrmuiyq8okKYvv+8ogUB4qcP5cEmrHNCxiTO1tvmza4tSb6Ylwx+Q2209D119IkQANZr
-	eANzPsufuLl4oGtiVRTcjO9qCYoAahi2VYwmUsNMcVzmeiqI/57p3m1Q4BdNtHniwcG65AXqh3J
-	h4nJSUJG5VsYLNSAfHjJ1gbygHQb24/v7Rj5kIrfAXY2e2QblWf4GX9X0EhiVNl3c52V/OVgY8A
-	vM=
-X-Received: by 2002:a05:600c:4ed3:b0:47e:e91d:73c0 with SMTP id 5b1f17b1804b1-4801e3397d6mr120127135e9.19.1768807797510;
-        Sun, 18 Jan 2026 23:29:57 -0800 (PST)
-Message-ID: <6f275030-a3c2-4710-952e-56c3226b5a8b@suse.com>
-Date: Mon, 19 Jan 2026 08:29:58 +0100
+        bh=biZYjY4em3mzByOcXAuDU9PPHceEnfFUhiLm0j561zQ=;
+        b=fXayZnLO46wdohjhqWemTjul/mWBFWMWcOUk3xlerSi90ayaLRLcDRO/aguLFsyuh9
+         Nj5yrpeX4IAYdVUoBD5kvkko5PRke/5ZcI7QDbigA9jk6uAS9a2GO6nTZ2HKq2dL+66q
+         fYEQ0ACFVeN6HtmrShqX9VEMhVR7vtFqINWCPIG0HB49oxCUMjAkrHBU6T+dY336kHBu
+         fLUqQ1gGUX4bVvzNBRY3rqK/px3POyPwcuNWYLJpvsw+Xie6j5oHvKIaLne5kRg4MyP/
+         kFQqhDK2KscFxpV6/ocz0Cr735UNMIYK/d36nH9HHBaYMVjwXz4W7ysTRL5SXPT0T63t
+         T4rg==
+X-Forwarded-Encrypted: i=1; AJvYcCV3CzBc/A02O11jm9TvRWb9JNzUsL5GlwFkSFQfMSxreZZo9hD+IYi9f8TPeI/WICCiIPqT840o4fI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymNXQXG/dM94CKMvX7l+7VHp0vt3GIF0OjWjCxGhzaJeUC0wyg
+	jIgkLTrvcBwBQFv9OMgTnPkKLJSjAeuxdmQ0CcRd/4L3TtUZ1Qek8zv9wY6BGurhIA==
+X-Gm-Gg: AZuq6aKtOKKea9x+KLGGSYQJSlTX071HpDdruqDWHj8YFYQg/ibBx6bo/Ne3vrO5mES
+	csx26ue1SBwheNNCWWo4pAYuaBRcgMTdppsqXh+DN0rViIttvO9GemRthzSHFVntgBfRVukMre4
+	Sodg7/xD/epDpeYl8ciLxvDz5K8Bci+dyIWzRuqVUpNJTrV9cn5S3aFJPuH+kw/V8DiPnFv3tFR
+	6Ar57rxUsEmWryrxnvCI++usBLj1iPgMAoWLnuREDQsFB9Dqe9TbBrPlTPITWgG4t+vYv4ioY2j
+	Kz+h9C7MrpawPPKqmC168WqDyqvttQ5WEkMXdSvL2ZO5FlL81pwPcL/FwChWhYcwPnRQz93yoJO
+	Nd+mckQJlUdc5gq7CN3BybWlzDzcDdYA9nD5ToeowgfxwGfUjabkkxetcOA5NLPTqyCoFRg22kh
+	DfZtd2EOwrAnroUj+wzpzPwFaYKtch1+BMCm+CBXdTEr8ncqHBkSCLVMoR7NL9Xp8sPXqaMJJLz
+	VA=
+X-Received: by 2002:a05:6000:40e0:b0:435:693b:cbdd with SMTP id ffacd0b85a97d-4356a03033bmr12946363f8f.28.1768810056335;
+        Mon, 19 Jan 2026 00:07:36 -0800 (PST)
+Message-ID: <326ce1df-7e3a-4ba2-8530-98cd74994ee7@suse.com>
+Date: Mon, 19 Jan 2026 09:07:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] INSTALL: remove unsupported XEN_CONFIG_EXPERT from
- documentation
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: dmukhin@xen.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20260116030842.415583-2-dmukhin@ford.com>
- <09c0007b-3cac-469a-83a0-726c1be149da@suse.com>
- <alpine.DEB.2.22.394.2601161239510.72558@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v7 4/5] xen/arm: scmi: introduce SCI SCMI SMC multi-agent
+ driver
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1768415200.git.oleksii_moisieiev@epam.com>
+ <ee4995bf385f0ec691151fb797e14acdb5419c6b.1768415200.git.oleksii_moisieiev@epam.com>
+ <29c2d1dc-23fb-403e-bb03-d8c2f32424e6@suse.com>
+ <a5d6caa8-d49f-4fce-a27f-d9097a8447ef@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,49 +129,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2601161239510.72558@ubuntu-linux-20-04-desktop>
+In-Reply-To: <a5d6caa8-d49f-4fce-a27f-d9097a8447ef@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.01.2026 21:47, Stefano Stabellini wrote:
-> On Fri, 16 Jan 2026, Jan Beulich wrote:
->> On 16.01.2026 04:08, dmukhin@xen.org wrote:
->>> --- a/INSTALL
->>> +++ b/INSTALL
->>> @@ -33,11 +33,11 @@ small subset of the options.  Attempts to change other options will be
->>>  silently overridden.  The only way to find which configuration options
->>>  are available is to run `make menuconfig' or the like.
->>
->> I fear this earlier paragraph needs editing as well, which will then
->> make more clear that ...
->>
->>> -You can counter-override this behaviour by setting XEN_CONFIG_EXPERT=y
->>> -in your environment.  However, doing this is not supported and the
->>> -resulting configurations do not receive security support.  If you set
->>> -this variable there is nothing stopping you setting dangerously
->>> -experimental combinations of features - not even any warnings.
->>> +This behavior can be overridden by enabling "Configure EXPERT features"
->>> +in Kconfig (CONFIG_EXPERT).
->>
->> ... this may not be quite adequate.
->>
+On 16.01.2026 17:48, Oleksii Moisieiev wrote:
 > 
-> I am not sure how you would like to change the earlier paragraph or this
-> paragraph. I gave it a try and removed both paragraphs, replacing it
-> with this:
 > 
-> """
-> Only a subset of options is supported or security-supported by Xen
-> Project. You can explore all available options, including unsupported
-> ones and those recommended only for expert users, by using `make
-> menuconfig` and enabling `CONFIG_UNSUPPORTED` and/or `CONFIG_EXPERT`.
-> However, enabling these options is not supported, and configurations
-> resulting from them do not receive security support.
-> """
+> On 15/01/2026 11:33, Jan Beulich wrote:
+>> On 14.01.2026 19:29, Oleksii Moisieiev wrote:
+>>> @@ -1107,6 +1115,15 @@ affinities to prefer but be not limited to the specified node(s).
+>>>   
+>>>   Pin dom0 vcpus to their respective pcpus
+>>>   
+>>> +### scmi-smc-passthrough (ARM)
+>>> +> `= <boolean>`
+>>> +
+>>> +The option is available when `CONFIG_SCMI_SMC` is compiled in, and allows to
+>>> +enable SCMI SMC single agent interface for any, but only one guest domain,
+>>> +which serves as Driver domain. The SCMI will be disabled for Dom0/hwdom and
+>>> +SCMI nodes removed from Dom0/hwdom device tree.
+>>> +(for example, thin Dom0 with Driver domain use-case).
+>>> +
+>>>   ### dtuart (ARM)
+>>>   > `= path [:options]`
+>> I appreciate missing doc for a pre-existing cmdline option to be introduced,
+>> but: Why here (in two ways)? First, why in this patch, without it even being
+>> mentioned in the description? And why in the middle of options starting with
+>> 'd', when the entire file means to be sorted?
 > 
-> What do you think?
+> Thank you for pointing that out.
+> I will add the following note to the commit description:
+> 
+> "
+> Additionally, this patch adds documentation for the pre-existing
+> scmi-smc-passthrough command line option, which was previously
+> undocumented.
+> "
+> Does this look good to you?
 
-This would be fine with me.
+Sure.
 
 Jan
 
