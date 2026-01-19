@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57778D3B5C1
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 19:27:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208250.1520461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1884BD3B5C0
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 19:27:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208251.1520472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhtxZ-0006C7-LA; Mon, 19 Jan 2026 18:26:41 +0000
+	id 1vhtxj-0006QG-09; Mon, 19 Jan 2026 18:26:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208250.1520461; Mon, 19 Jan 2026 18:26:41 +0000
+Received: by outflank-mailman (output) from mailman id 1208251.1520472; Mon, 19 Jan 2026 18:26:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhtxZ-00069O-IH; Mon, 19 Jan 2026 18:26:41 +0000
-Received: by outflank-mailman (input) for mailman id 1208250;
- Mon, 19 Jan 2026 18:26:39 +0000
+	id 1vhtxi-0006Ol-TE; Mon, 19 Jan 2026 18:26:50 +0000
+Received: by outflank-mailman (input) for mailman id 1208251;
+ Mon, 19 Jan 2026 18:26:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iFEF=7Y=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vhtxX-00069I-EK
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 18:26:39 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ id 1vhtxh-00069I-44
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 18:26:49 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6376c756-f564-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 19:26:36 +0100 (CET)
+ id 6a4b5054-f564-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 19:26:47 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CDD235BCCE;
- Mon, 19 Jan 2026 18:26:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7F8025BCCF;
+ Mon, 19 Jan 2026 18:26:47 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 266903EA63;
- Mon, 19 Jan 2026 18:26:35 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0E353EA63;
+ Mon, 19 Jan 2026 18:26:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 1xrIB1t3bmmpaAAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 19 Jan 2026 18:26:35 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bQUXOWZ3bmlDaQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 19 Jan 2026 18:26:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,29 +53,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6376c756-f564-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 6a4b5054-f564-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768847195; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=es6/9iazupCDI6/7lXEp32/GJOPok2cUpRLmpWvKLkM=;
-	b=adGq2lDw/ziTP/sy6wRsMUsI9ByF14hQ6d0dKFUjC3IKDHScmmeOQqchV3ghgQzs6QqArp
-	7Rq6Rh1gvW5LvZjxrzfFc2chPq5Ak1+BhW51vLfvoPWnTdC1j+0l05Ln6G2pjOcrIqPmr7
-	oNCARBaKZXFCT2zf+k1qE+41DTi8lMs=
+	t=1768847207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AptIhJVLc4BAPjc93uyYDO0mqV71EtV4n2ofFaZETBA=;
+	b=MHdJ4bZvPaLDXUUOQ3i7gfZ7SaV5KwjmoaFwAn84TqAqysh6unnWea6ggMSDJ/PpHkvkjo
+	I0bcsilVrid3zIhgY/mNdw68yalgrA6NjTLwct4FKvMxS8yXswniUi2Aw805dPA794XFJp
+	PwpYIqSNVMu84lONkQNyMxjfHxIq6NE=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=adGq2lDw
+	dkim=pass header.d=suse.com header.s=susede1 header.b=MHdJ4bZv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768847195; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=es6/9iazupCDI6/7lXEp32/GJOPok2cUpRLmpWvKLkM=;
-	b=adGq2lDw/ziTP/sy6wRsMUsI9ByF14hQ6d0dKFUjC3IKDHScmmeOQqchV3ghgQzs6QqArp
-	7Rq6Rh1gvW5LvZjxrzfFc2chPq5Ak1+BhW51vLfvoPWnTdC1j+0l05Ln6G2pjOcrIqPmr7
-	oNCARBaKZXFCT2zf+k1qE+41DTi8lMs=
+	t=1768847207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AptIhJVLc4BAPjc93uyYDO0mqV71EtV4n2ofFaZETBA=;
+	b=MHdJ4bZvPaLDXUUOQ3i7gfZ7SaV5KwjmoaFwAn84TqAqysh6unnWea6ggMSDJ/PpHkvkjo
+	I0bcsilVrid3zIhgY/mNdw68yalgrA6NjTLwct4FKvMxS8yXswniUi2Aw805dPA794XFJp
+	PwpYIqSNVMu84lONkQNyMxjfHxIq6NE=
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
 	x86@kernel.org,
 	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-block@vger.kernel.org
+	kvm@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -87,13 +91,13 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Vitaly Kuznetsov <vkuznets@redhat.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Denis Efremov <efremov@linux.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH v4 0/6] x86: Cleanups around slow_down_io()
-Date: Mon, 19 Jan 2026 19:26:26 +0100
-Message-ID: <20260119182632.596369-1-jgross@suse.com>
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v4 2/6] x86/paravirt: Replace io_delay() hook with a bool
+Date: Mon, 19 Jan 2026 19:26:28 +0100
+Message-ID: <20260119182632.596369-3-jgross@suse.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119182632.596369-1-jgross@suse.com>
+References: <20260119182632.596369-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-3.01 / 50.00];
@@ -105,80 +109,234 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[suse.com:dkim,suse.com:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	FROM_HAS_DN(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	RCVD_COUNT_TWO(0.00)[2];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.com:+]
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email]
 X-Spam-Flag: NO
 X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: CDD235BCCE
+X-Rspamd-Queue-Id: 7F8025BCCF
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spam-Level: 
 
-While looking at paravirt cleanups I stumbled over slow_down_io() and
-the related REALLY_SLOW_IO define.
+The io_delay() paravirt hook is in no way performance critical and all
+users setting it to a different function than native_io_delay() are
+using an empty function as replacement.
 
-Do several cleanups, resulting in a deletion of REALLY_SLOW_IO and the
-io_delay() paravirt function hook.
+This enables to replace the hook with a bool indicating whether
+native_io_delay() should be called.
 
-Patch 4 is removing the config options for selecting the default delay
-mechanism and sets the default to "no delay". This is in preparation of
-removing the io_delay() functionality completely, as suggested by Ingo
-Molnar.
-
-Patch 5 is adding an additional config option allowing to avoid
-building io_delay.c (default is still to build it).
-
-Changes in V2:
-- patches 2 and 3 of V1 have been applied
-- new patches 4 and 5
-
-Changes in V3:
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V3:
 - rebase to tip/master kernel branch
-
-Changes in V4:
-- add patch 1 as prereq patch to the series
-
-Juergen Gross (6):
-  x86/irqflags: Fix build failure
-  x86/paravirt: Replace io_delay() hook with a bool
-  block/floppy: Don't use REALLY_SLOW_IO for delays
-  x86/io: Remove REALLY_SLOW_IO handling
-  x86/io_delay: Switch io_delay() default mechanism to "none"
-  x86/io_delay: Add config option for controlling build of io_delay.
-
- arch/x86/Kconfig                      |  8 +++
- arch/x86/Kconfig.debug                | 30 ----------
- arch/x86/include/asm/floppy.h         | 31 ++++++++--
- arch/x86/include/asm/io.h             | 19 ++++---
- arch/x86/include/asm/irqflags.h       |  6 +-
- arch/x86/include/asm/paravirt-base.h  |  6 ++
- arch/x86/include/asm/paravirt.h       | 11 ----
- arch/x86/include/asm/paravirt_types.h |  2 -
- arch/x86/kernel/Makefile              |  3 +-
+---
+ arch/x86/include/asm/io.h             |  9 ++++++---
+ arch/x86/include/asm/paravirt-base.h  |  6 ++++++
+ arch/x86/include/asm/paravirt.h       | 11 -----------
+ arch/x86/include/asm/paravirt_types.h |  2 --
  arch/x86/kernel/cpu/vmware.c          |  2 +-
- arch/x86/kernel/io_delay.c            | 81 +--------------------------
- arch/x86/kernel/kvm.c                 |  8 +--
- arch/x86/kernel/paravirt.c            |  3 +-
- arch/x86/kernel/setup.c               |  4 +-
- arch/x86/xen/enlighten_pv.c           |  6 +-
- drivers/block/floppy.c                |  2 -
- 16 files changed, 63 insertions(+), 159 deletions(-)
+ arch/x86/kernel/kvm.c                 |  8 +-------
+ arch/x86/kernel/paravirt.c            |  3 +--
+ arch/x86/xen/enlighten_pv.c           |  6 +-----
+ 8 files changed, 16 insertions(+), 31 deletions(-)
 
+diff --git a/arch/x86/include/asm/io.h b/arch/x86/include/asm/io.h
+index ca309a3227c7..8a9292ce7d2d 100644
+--- a/arch/x86/include/asm/io.h
++++ b/arch/x86/include/asm/io.h
+@@ -243,11 +243,16 @@ extern int io_delay_type;
+ extern void io_delay_init(void);
+ 
+ #if defined(CONFIG_PARAVIRT)
+-#include <asm/paravirt.h>
++#include <asm/paravirt-base.h>
+ #else
++#define call_io_delay() true
++#endif
+ 
+ static inline void slow_down_io(void)
+ {
++	if (!call_io_delay())
++		return;
++
+ 	native_io_delay();
+ #ifdef REALLY_SLOW_IO
+ 	native_io_delay();
+@@ -256,8 +261,6 @@ static inline void slow_down_io(void)
+ #endif
+ }
+ 
+-#endif
+-
+ #define BUILDIO(bwl, type)						\
+ static inline void out##bwl##_p(type value, u16 port)			\
+ {									\
+diff --git a/arch/x86/include/asm/paravirt-base.h b/arch/x86/include/asm/paravirt-base.h
+index 982a0b93bc76..3b9e7772d196 100644
+--- a/arch/x86/include/asm/paravirt-base.h
++++ b/arch/x86/include/asm/paravirt-base.h
+@@ -15,6 +15,8 @@ struct pv_info {
+ #ifdef CONFIG_PARAVIRT_XXL
+ 	u16 extra_user_64bit_cs;  /* __USER_CS if none */
+ #endif
++	bool io_delay;
++
+ 	const char *name;
+ };
+ 
+@@ -26,6 +28,10 @@ u64 _paravirt_ident_64(u64);
+ #endif
+ #define paravirt_nop	((void *)nop_func)
+ 
++#ifdef CONFIG_PARAVIRT
++#define call_io_delay() pv_info.io_delay
++#endif
++
+ #ifdef CONFIG_PARAVIRT_SPINLOCKS
+ void paravirt_set_cap(void);
+ #else
+diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
+index b21072af731d..f4885bd98a18 100644
+--- a/arch/x86/include/asm/paravirt.h
++++ b/arch/x86/include/asm/paravirt.h
+@@ -19,17 +19,6 @@
+ #include <linux/cpumask.h>
+ #include <asm/frame.h>
+ 
+-/* The paravirtualized I/O functions */
+-static inline void slow_down_io(void)
+-{
+-	PVOP_VCALL0(pv_ops, cpu.io_delay);
+-#ifdef REALLY_SLOW_IO
+-	PVOP_VCALL0(pv_ops, cpu.io_delay);
+-	PVOP_VCALL0(pv_ops, cpu.io_delay);
+-	PVOP_VCALL0(pv_ops, cpu.io_delay);
+-#endif
+-}
+-
+ void native_flush_tlb_local(void);
+ void native_flush_tlb_global(void);
+ void native_flush_tlb_one_user(unsigned long addr);
+diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
+index 7ccd41628d36..3946d0f69921 100644
+--- a/arch/x86/include/asm/paravirt_types.h
++++ b/arch/x86/include/asm/paravirt_types.h
+@@ -30,8 +30,6 @@ struct pv_lazy_ops {
+ 
+ struct pv_cpu_ops {
+ 	/* hooks for various privileged instructions */
+-	void (*io_delay)(void);
+-
+ #ifdef CONFIG_PARAVIRT_XXL
+ 	unsigned long (*get_debugreg)(int regno);
+ 	void (*set_debugreg)(int regno, unsigned long value);
+diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+index a3e6936839b1..eee0d1a48802 100644
+--- a/arch/x86/kernel/cpu/vmware.c
++++ b/arch/x86/kernel/cpu/vmware.c
+@@ -339,7 +339,7 @@ arch_initcall(activate_jump_labels);
+ static void __init vmware_paravirt_ops_setup(void)
+ {
+ 	pv_info.name = "VMware hypervisor";
+-	pv_ops.cpu.io_delay = paravirt_nop;
++	pv_info.io_delay = false;
+ 
+ 	if (vmware_tsc_khz == 0)
+ 		return;
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 26ab6f8e36df..911950c9110c 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -75,12 +75,6 @@ DEFINE_PER_CPU_DECRYPTED(struct kvm_steal_time, steal_time) __aligned(64) __visi
+ static int has_steal_clock = 0;
+ 
+ static int has_guest_poll = 0;
+-/*
+- * No need for any "IO delay" on KVM
+- */
+-static void kvm_io_delay(void)
+-{
+-}
+ 
+ #define KVM_TASK_SLEEP_HASHBITS 8
+ #define KVM_TASK_SLEEP_HASHSIZE (1<<KVM_TASK_SLEEP_HASHBITS)
+@@ -327,7 +321,7 @@ static void __init paravirt_ops_setup(void)
+ 	pv_info.name = "KVM";
+ 
+ 	if (kvm_para_has_feature(KVM_FEATURE_NOP_IO_DELAY))
+-		pv_ops.cpu.io_delay = kvm_io_delay;
++		pv_info.io_delay = false;
+ 
+ #ifdef CONFIG_X86_IO_APIC
+ 	no_timer_check = 1;
+diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
+index a6ed52cae003..792fa96b3233 100644
+--- a/arch/x86/kernel/paravirt.c
++++ b/arch/x86/kernel/paravirt.c
+@@ -94,6 +94,7 @@ struct pv_info pv_info = {
+ #ifdef CONFIG_PARAVIRT_XXL
+ 	.extra_user_64bit_cs = __USER_CS,
+ #endif
++	.io_delay = true,
+ };
+ 
+ /* 64-bit pagetable entries */
+@@ -101,8 +102,6 @@ struct pv_info pv_info = {
+ 
+ struct paravirt_patch_template pv_ops = {
+ 	/* Cpu ops. */
+-	.cpu.io_delay		= native_io_delay,
+-
+ #ifdef CONFIG_PARAVIRT_XXL
+ 	.cpu.cpuid		= native_cpuid,
+ 	.cpu.get_debugreg	= pv_native_get_debugreg,
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 8a19a88190ee..9c9695f5d158 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1046,10 +1046,6 @@ static void xen_update_io_bitmap(void)
+ }
+ #endif
+ 
+-static void xen_io_delay(void)
+-{
+-}
+-
+ static DEFINE_PER_CPU(unsigned long, xen_cr0_value);
+ 
+ static unsigned long xen_read_cr0(void)
+@@ -1209,6 +1205,7 @@ void __init xen_setup_vcpu_info_placement(void)
+ 
+ static const struct pv_info xen_info __initconst = {
+ 	.extra_user_64bit_cs = FLAT_USER_CS64,
++	.io_delay = false,
+ 	.name = "Xen",
+ };
+ 
+@@ -1392,7 +1389,6 @@ asmlinkage __visible void __init xen_start_kernel(struct start_info *si)
+ 	pv_ops.cpu.invalidate_io_bitmap = xen_invalidate_io_bitmap;
+ 	pv_ops.cpu.update_io_bitmap = xen_update_io_bitmap;
+ #endif
+-	pv_ops.cpu.io_delay = xen_io_delay;
+ 	pv_ops.cpu.start_context_switch = xen_start_context_switch;
+ 	pv_ops.cpu.end_context_switch = xen_end_context_switch;
+ 
 -- 
 2.52.0
 
