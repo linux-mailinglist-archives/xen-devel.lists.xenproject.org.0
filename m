@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78DDD3A526
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 11:35:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208063.1520300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31F9D3A5B3
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 11:50:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208079.1520310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhmaO-0003C3-D3; Mon, 19 Jan 2026 10:34:16 +0000
+	id 1vhmqD-0005ze-PW; Mon, 19 Jan 2026 10:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208063.1520300; Mon, 19 Jan 2026 10:34:16 +0000
+Received: by outflank-mailman (output) from mailman id 1208079.1520310; Mon, 19 Jan 2026 10:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhmaO-00039P-9k; Mon, 19 Jan 2026 10:34:16 +0000
-Received: by outflank-mailman (input) for mailman id 1208063;
- Mon, 19 Jan 2026 10:34:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vhmqD-0005yD-Mt; Mon, 19 Jan 2026 10:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 1208079;
+ Mon, 19 Jan 2026 10:50:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pLLO=7Y=bounce.vates.tech=bounce-md_30504962.696e08a1.v1-3d347223db944c539b4fc967bdb4378a@srs-se1.protection.inumbo.net>)
- id 1vhmaM-00039J-FI
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 10:34:14 +0000
-Received: from mail187-33.suw11.mandrillapp.com
- (mail187-33.suw11.mandrillapp.com [198.2.187.33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64204b92-f522-11f0-9ccf-f158ae23cfc8;
- Mon, 19 Jan 2026 11:34:11 +0100 (CET)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4dvmz56DZ6zBsTwYK
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 10:34:09 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 3d347223db944c539b4fc967bdb4378a; Mon, 19 Jan 2026 10:34:09 +0000
+ <SRS0=cxiA=7Y=arm.com=harry.ramsey@srs-se1.protection.inumbo.net>)
+ id 1vhmqC-0005y7-9Z
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 10:50:36 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id adef8295-f524-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 11:50:33 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 396D91517;
+ Mon, 19 Jan 2026 02:50:26 -0800 (PST)
+Received: from e134099.cambridge.arm.com (e134099.arm.com [10.1.198.34])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E8603F632;
+ Mon, 19 Jan 2026 02:50:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,248 +42,412 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64204b92-f522-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1768818849; x=1769088849;
-	bh=vn3Wli3BNWKqrV+U6eVpSMGef8+BZt16wPe0+g/asaM=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=JOH+0kfEomGOk5Gkh9mYJ14Gn/C8qyi6c8WBYubbYS6mjAIZjN3RQh6Z19FtjPvvj
-	 MmQYJlsavcjr6QCzfOu42eJDh1vfyh4QZEBSmkofagUAP5rwt25cb6iW72rLNave8l
-	 GYhm0o20Lai6bKiCY7QCiL7UWbgIP3I2IoIDXI94SaEmH/n6wMLwHoMshk0KtRA99y
-	 0u1gWBXfwu0iGXixsSXyLzkDjEwYZU0pN2t5goVGoAHe6b7eEY9PMzpUTKaU/+3jD5
-	 q9q/bzCqX/+OaxbA7K6KXhbQY6STKsXv6nO34X/931A47XpLlb7ysZk4vrC+DzsZuQ
-	 oQrHmXi6IHvEw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1768818849; x=1769079349; i=julian.vetter@vates.tech;
-	bh=vn3Wli3BNWKqrV+U6eVpSMGef8+BZt16wPe0+g/asaM=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=fMJttFIOTcXnQY2CMosBzovW4JD1YzSu7nlbMO+WgcLgfhpgBr484IKRNriYkNYRc
-	 0xOMlRzg0mzgu1CH1cTbYE7n8T3Qxg+m89ymo0rNhm5oiqttYrQG5lIYd4DeN5EL0P
-	 ItnqyPwNZ558qufY0WNhgdiMNd9UwKTtDk4LE6vsoTz7qwDKGYDmVGt3JsZqHnpjnw
-	 7uHu+i9r/Snm+oT46pEniKoXjDoPDYGvsfqMbSCq8yGj2sTtVTLqUwO9mDymfiLhQk
-	 Vm90Ai5WuCkDSskeDC+2exYC7G1+LVaAMCX9PfiDpvsLrUfhPc/0f5fRAgMV/XTxby
-	 Td+9rIY29BLVg==
-From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20xen:=20Move=20NX=20handling=20to=20a=20dedicated=20place?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1768818848319
-Message-Id: <c4c2c376-ab6b-4bb3-9ede-091f791c1427@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, "Jan Beulich" <jbeulich@suse.com>
-References: <20260115151658.3725784-1-julian.vetter@vates.tech> <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com>
-In-Reply-To: <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3d347223db944c539b4fc967bdb4378a?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260119:md
-Date: Mon, 19 Jan 2026 10:34:09 +0000
+X-Inumbo-ID: adef8295-f524-11f0-b15e-2bf370ae4941
+From: Harry Ramsey <harry.ramsey@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Luca.Fancellu@arm.com,
+	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Penny Zheng <penny.zheng@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
+	Luca Fancellu <luca.fancellu@arm.com>,
+	Hari Limaye <hari.limaye@arm.com>
+Subject: [PATCH] arm/mpu: implement setup_virt_paging for MPU system
+Date: Mon, 19 Jan 2026 10:50:22 +0000
+Message-ID: <20260119105022.3616126-1-harry.ramsey@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 1/15/26 4:50 PM, Andrew Cooper wrote:
-> On 15/01/2026 3:17 pm, Julian Vetter wrote:
->> Currently the CONFIG_REQUIRE_NX prevents booting XEN, if NX is disabled
->> in the BIOS. AMD doesn't have a software-accessible MSR to re-enable it,
->> so there is nothing we can do. The system is going to die anyway. But on
->> Intel NX might just be hidden via IA32_MISC_ENABLE.XD_DISABLE. But the
->> function to re-enable it is called after the check + panic in
->> efi_arch_cpu. So, this patch removes the early check and moves the
->> entire NX handling into a dedicated place.
->>
->> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
-> 
-> Sorry I didn't get around to doing the prep work I promised.
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-No problem, I assumed you were quiet busy so I looked into it.
+For MMU system, setup_virt_paging is used to configure stage 2 address
+translation regime, like IPA bits, VMID allocator set up, etc.
+Some could be inherited in MPU system, like VMID allocator set up, etc.
 
-> 
-> This is going along the right lines, but there are a few complexities sti=
-ll.
+For MPU system, we could have the following memory translation regime:
+- PMSAv8-64 at both EL1/EL0 and EL2
+- VMSAv8-64 at EL1/EL0 and PMSAv8-64 at EL2
+The default option will be the second, unless the platform could not support,
+which could be checked against MSA_frac bit in Memory Model Feature Register 0(
+ID_AA64MMFR0_EL1).
 
-Thank you for the feedback.
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Wei Chen <wei.chen@arm.com>
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+---
+ xen/arch/arm/arm64/mpu/p2m.c             | 90 +++++++++++++++++++++++-
+ xen/arch/arm/include/asm/arm32/mpu.h     |  2 +
+ xen/arch/arm/include/asm/arm64/mpu.h     |  2 +
+ xen/arch/arm/include/asm/arm64/sysregs.h |  5 ++
+ xen/arch/arm/include/asm/cpufeature.h    |  7 ++
+ xen/arch/arm/include/asm/mpu.h           |  7 +-
+ xen/arch/arm/include/asm/mpu/p2m.h       | 12 ++++
+ xen/arch/arm/include/asm/p2m.h           |  5 ++
+ xen/arch/arm/include/asm/processor.h     | 13 ++++
+ xen/arch/arm/mpu/p2m.c                   | 71 ++++++++++++++++++-
+ 10 files changed, 209 insertions(+), 5 deletions(-)
 
-> 
-> Also you'll want to split the patch into a series.=C2=A0 More on that whe=
-n
-> we've sorted out a few other details.
-
-Yes, I will do that once everything is sorted out.
-
-> 
->> diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoli=
-ne.S
->> index a92e399fbe..8e8d50cbdf 100644
->> --- a/xen/arch/x86/boot/trampoline.S
->> +++ b/xen/arch/x86/boot/trampoline.S
->> @@ -144,10 +144,9 @@ gdt_48:
->>   GLOBAL(trampoline_misc_enable_off)
->>           .quad   0
->>   
->> -/* EFER OR-mask for boot paths.  SCE conditional on PV support, NX adde=
-d when available. */
->> +/* EFER OR-mask for boot paths.  SCE conditional on PV support. */
-> 
-> The comment wants to stay as-was.=C2=A0 NX does get added when available.
-> 
->>   GLOBAL(trampoline_efer)
->> -        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
->> -                (EFER_NXE * IS_ENABLED(CONFIG_REQUIRE_NX))
->> +        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV))
->>   
->>   GLOBAL(trampoline_xen_phys_start)
->>           .long   0
->> diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm=
-/setup.h
->> index b01e83a8ed..16f53725ca 100644
->> --- a/xen/arch/x86/include/asm/setup.h
->> +++ b/xen/arch/x86/include/asm/setup.h
->> @@ -70,4 +70,6 @@ extern bool opt_dom0_msr_relaxed;
->>   
->>   #define max_init_domid (0)
->>   
->> +void nx_init(void);
->> +
->>   #endif
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index 27c63d1d97..608720b717 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1119,6 +1119,50 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
->>       return d;
->>   }
->>   
->> +void __init nx_init(void)
-> 
-> This should be static if it's only used in a single file.=C2=A0 However, =
-see
-> later for doing it a bit differently.
-> 
->> +{
->> +    uint64_t misc_enable;
->> +    uint32_t eax, ebx, ecx, edx;
->> +
->> +    if ( !boot_cpu_has(X86_FEATURE_NX) )
->> +    {
->> +        /* Intel: try to unhide NX by clearing XD_DISABLE */
->> +        cpuid(0, &eax, &ebx, &ecx, &edx);
->> +        if ( ebx =3D=3D X86_VENDOR_INTEL_EBX &&
->> +             ecx =3D=3D X86_VENDOR_INTEL_ECX &&
->> +             edx =3D=3D X86_VENDOR_INTEL_EDX )
->> +        {
->> +            rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
->> +            if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
->> +            {
->> +                misc_enable &=3D ~MSR_IA32_MISC_ENABLE_XD_DISABLE;
->> +                wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
->> +
->> +                /* Re-read CPUID after having cleared XD_DISABLE */
->> +                boot_cpu_data.x86_capability[FEATURESET_e1d] =3D cpuid_=
-edx(0x80000001U);
->> +
->> +                /* Adjust misc_enable_off for secondary startup and wak=
-eup code */
->> +                bootsym(trampoline_misc_enable_off) |=3D MSR_IA32_MISC_=
-ENABLE_XD_DISABLE;
->> +                printk(KERN_INFO "re-enabled NX (Execute Disable) prote=
-ction\n");
->> +            }
->> +        }
->> +        /* AMD: nothing we can do - NX must be enabled in BIOS */
-> 
-> The BIOS is only hiding the CPUID bit.=C2=A0 It's not blocking the use of=
- NX.
-
-Yes, you're right.
-> 
-> You want to do a wrmsr_safe() trying to set EFER.NXE, and if it
-> succeeds, set the NX bit in MSR_K8_EXT_FEATURE_MASK to "unhide" it in
-> regular CPUID.=C2=A0 This is a little more tricky to arrange because it n=
-eeds
-> doing on each CPU, not just the BSP.
-
-Ok, yes, I have modified the AMD side to use MSR_K8_EXT_FEATURE_MASK to 
-"unhide" it.
-
-> 
->> +    }
->> +
->> +    /* Enable EFER.NXE only if NX is available */
->> +    if ( boot_cpu_has(X86_FEATURE_NX) )
->> +    {
->> +        if ( !(read_efer() & EFER_NXE) )
->> +            write_efer(read_efer() | EFER_NXE);
->> +
->> +        /* Adjust trampoline_efer for secondary startup and wakeup code=
- */
->> +        bootsym(trampoline_efer) |=3D EFER_NXE;
->> +    }
->> +
->> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) && !boot_cpu_has(X86_FEATURE_NX)=
- )
->> +        panic("This build of Xen requires NX support\n");
->> +}
->> +
->>   /* How much of the directmap is prebuilt at compile time. */
->>   #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
->>   
->> @@ -1159,6 +1203,8 @@ void asmlinkage __init noreturn __start_xen(void)
->>       rdmsrl(MSR_EFER, this_cpu(efer));
->>       asm volatile ( "mov %%cr4,%0" : "=3Dr" (info->cr4) );
->>   
->> +    nx_init();
->> +
->>       /* Enable NMIs.  Our loader (e.g. Tboot) may have left them disabl=
-ed. */
->>       enable_nmis();
->>   
-> 
-> This is too early, as can be seen by the need to make a cpuid() call
-> rather than using boot_cpu_data.
-> 
-> The cleanup I wanted to do was to create/rework early_cpu_init() to get
-> things in a better order, so the panic() could go at the end here.=C2=A0 =
-The
-> current split we've got of early/regular CPU init was inherited from
-> Linux and can be collapsed substantially.
-
-I have tried to add the logic into the early_init_{intel,amd}() 
-functions. But it seems this is already too late in the boot chain. This 
-is why I put into an extra function which is called earlier. Because it 
-seems there are already pages with PAGE_NX being used on the way to 
-early_init_{intel,amd}(). Because when I put my code into 
-early_init_intel I get a fault and a reboot. What do you suggest?
-
-> 
-> The intel "unlocking" wants to move back into early_init_intel(), along
-> with intel_unlock_cpuid_leaves().=C2=A0 (This is where it used to live be=
-fore
-> REQUIRE_NX was added).
-> 
-> The AMD side probe wants to live in early_amd_init()=C2=A0 (not that ther=
-e is
-> one right now), but the re-enabling of the NX bit in CPUID needs to also
-> be in amd_init() so it gets applied to APs too.
-> 
-> Does this make sense?
-> 
-> ~Andrew
-> 
-
-
-
---
-Julian Vetter | Vates Hypervisor & Kernel Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
+index b6d8b2777b..13b633d9fe 100644
+--- a/xen/arch/arm/arm64/mpu/p2m.c
++++ b/xen/arch/arm/arm64/mpu/p2m.c
+@@ -2,11 +2,99 @@
+ 
+ #include <xen/bug.h>
+ #include <xen/init.h>
++#include <xen/warning.h>
+ #include <asm/p2m.h>
+ 
+ void __init setup_virt_paging(void)
+ {
+-    BUG_ON("unimplemented");
++    uint64_t vtcr_el2 = 0, vstcr_el2 = 0;
++    bool p2m_vmsa = true;
++
++    /* PA size */
++    const unsigned int pa_range_info[] = { 32, 36, 40, 42, 44, 48, 52, 0, /* Invalid */ };
++
++    /*
++     * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
++     * with IPA bits == PA bits, compare against "pabits".
++     */
++    if ( pa_range_info[system_cpuinfo.mm64.pa_range] < p2m_ipa_bits )
++        p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range];
++
++    /*
++     * Clear VTCR_EL2.NSA bit to configure non-secure stage 2 translation output
++     * address space to access the Secure PA space.
++     */
++    vtcr_el2 &= NSA_SEL2;
++
++    /*
++     * The MSA and MSA_frac fields in the ID_AA64MMFR0_EL1 register identify the
++     * memory system configurations supported at EL1. In Armv8-R AArch64, the
++     * only permitted value for ID_AA64MMFR0_EL1.MSA is 0b1111.
++     */
++    if ( system_cpuinfo.mm64.msa != MM64_MSA_PMSA_SUPPORT )
++        goto fault;
++
++    /* Permitted values for ID_AA64MMFR0_EL1.MSA_frac are 0b0001 and 0b0010. */
++    if ( system_cpuinfo.mm64.msa_frac == MM64_MSA_FRAC_NONE_SUPPORT )
++        goto fault;
++
++    /*
++     * When ID_AA64MMFR0_EL1.MSA_frac is 0b0010 the stage 1 EL1&0 translation
++     * regime supports both PMSAv8-64 and VMSAv8-64.
++     */
++    if ( system_cpuinfo.mm64.msa_frac != MM64_MSA_FRAC_VMSA_SUPPORT )
++    {
++        p2m_vmsa = false;
++        warning_add("Be aware of that there is no support for VMSAv8-64 at EL1 on this platform\n");
++    }
++
++    /*
++     * If PE supports both PMSAv8-64 and VMSAv8-64 at EL1, then VTCR_EL2.MSA
++     * determines the memory system architecture enabled at stage 1 of the
++     * Secure EL1&0 translation regime.
++     *
++     * Normally, we set the initial VTCR_EL2.MSA value VMSAv8-64 support,
++     * unless this platform only supports PMSAv8-64.
++     */
++    if ( !p2m_vmsa )
++        vtcr_el2 &= VTCR_MSA_PMSA;
++    else
++        vtcr_el2 |= VTCR_MSA_VMSA;
++
++    /*
++     * cpuinfo sanitization makes sure we support 16bits VMID only if all cores
++     * are supporting it.
++     */
++    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
++        max_vmid = MAX_VMID_16_BIT;
++
++    /* Set the VS bit only if 16 bit VMID is supported. */
++    if ( MAX_VMID == MAX_VMID_16_BIT )
++        vtcr_el2 |= VTCR_VS;
++
++    p2m_vmid_allocator_init();
++
++    WRITE_SYSREG(vtcr_el2, VTCR_EL2);
++
++    /*
++     * VSTCR_EL2.SA defines secure stage 2 translation output address space.
++     * To make sure that all stage 2 translations for the Secure PA space access
++     * the Secure PA space, we keep SA bit as 0.
++     *
++     * VSTCR_EL2.SC is NS check enable bit. To make sure that Stage 2 NS
++     * configuration is checked against stage 1 NS configuration in EL1&0
++     * translation regime for the given address, and generates a fault if they
++     * are different, we set SC bit 1.
++     */
++    vstcr_el2 = 1 << VSTCR_EL2_RES1_SHIFT;
++    vstcr_el2 &= VSTCR_EL2_SA;
++    vstcr_el2 |= VSTCR_EL2_SC;
++    WRITE_SYSREG(vstcr_el2, VSTCR_EL2);
++
++    return;
++
++ fault:
++    panic("Hardware with no PMSAv8-64 support in any translation regime\n");
+ }
+ 
+ /*
+diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+index 2cf0f8cbac..d565230f84 100644
+--- a/xen/arch/arm/include/asm/arm32/mpu.h
++++ b/xen/arch/arm/include/asm/arm32/mpu.h
+@@ -11,6 +11,8 @@
+  */
+ #define MPU_REGION_RES0       0x0
+ 
++#define VSCTLR_VMID_SHIFT     16
++
+ /* Hypervisor Protection Region Base Address Register */
+ typedef union {
+     struct {
+diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+index 4f694190a8..8b86a03fee 100644
+--- a/xen/arch/arm/include/asm/arm64/mpu.h
++++ b/xen/arch/arm/include/asm/arm64/mpu.h
+@@ -7,6 +7,8 @@
+ 
+ #define MPU_REGION_RES0        (0xFFFFULL << 48)
+ 
++#define VSCTLR_VMID_SHIFT      48
++
+ /* Protection Region Base Address Register */
+ typedef union {
+     struct __packed {
+diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+index 19d409d3eb..4ed8ac0440 100644
+--- a/xen/arch/arm/include/asm/arm64/sysregs.h
++++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+@@ -462,6 +462,11 @@
+ #define ZCR_ELx_LEN_SIZE             9
+ #define ZCR_ELx_LEN_MASK             0x1ff
+ 
++/* Virtualization Secure Translation Control Register */
++#define VSTCR_EL2_RES1_SHIFT         31
++#define VSTCR_EL2_SA                 ~(_AC(0x1,UL)<<30)
++#define VSTCR_EL2_SC                 (_AC(0x1,UL)<<20)
++
+ #ifdef CONFIG_MPU
+ /*
+  * The Armv8-R AArch64 architecture always executes code in Secure
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index 13353c8e1a..677cb2b96d 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -248,6 +248,12 @@ struct cpuinfo_arm {
+             unsigned long tgranule_16K:4;
+             unsigned long tgranule_64K:4;
+             unsigned long tgranule_4K:4;
++#if !defined(CONFIG_MMU)
++            unsigned long __res:16;
++            unsigned long msa:4;
++            unsigned long msa_frac:4;
++            unsigned long __res0:8;
++#else
+             unsigned long tgranule_16k_2:4;
+             unsigned long tgranule_64k_2:4;
+             unsigned long tgranule_4k_2:4;
+@@ -255,6 +261,7 @@ struct cpuinfo_arm {
+             unsigned long __res0:8;
+             unsigned long fgt:4;
+             unsigned long ecv:4;
++#endif
+ 
+             /* MMFR1 */
+             unsigned long hafdbs:4;
+diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+index 72fa5b00b8..55011e3d96 100644
+--- a/xen/arch/arm/include/asm/mpu.h
++++ b/xen/arch/arm/include/asm/mpu.h
+@@ -87,7 +87,12 @@ static inline bool region_is_valid(const pr_t *pr)
+     return pr->prlar.reg.en;
+ }
+ 
+-#endif /* __ASSEMBLER__ */
++static inline register_t generate_vsctlr(uint16_t vmid)
++{
++    return ((register_t)vmid << VSCTLR_VMID_SHIFT);
++}
++
++#endif /* __ASSEMBLY__ */
+ 
+ #endif /* __ARM_MPU_H__ */
+ 
+diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
+index e46d9e757a..d165585d4e 100644
+--- a/xen/arch/arm/include/asm/mpu/p2m.h
++++ b/xen/arch/arm/include/asm/mpu/p2m.h
+@@ -5,6 +5,18 @@
+ 
+ struct p2m_domain;
+ 
++/*
++ * The architecture allows at most 255 EL2 MPU memory regions. The size of the
++ * MPU structure entry (pr_t) is 32 Bytes on AArch64 (requiring two 4KB pages)
++ * and 16 bytes on AArch32 (requiring one 4KB page).
++ */
++#ifdef CONFIG_ARM_64
++#define P2M_ROOT_ORDER 1
++#else
++#define P2M_ROOT_ORDER 0
++#endif
++
++/* Not used on MPU system */
+ static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
+ 
+ static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 010ce8c9eb..3dd0a5887e 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -48,8 +48,13 @@ struct p2m_domain {
+     /* Current VMID in use */
+     uint16_t vmid;
+ 
++#if defined(CONFIG_MMU)
+     /* Current Translation Table Base Register for the p2m */
+     uint64_t vttbr;
++#else
++    /* Current Virtualization System Control Register for the p2m */
++    register_t vsctlr;
++#endif
+ 
+     /* Highest guest frame that's ever been mapped in the p2m */
+     gfn_t max_mapped_gfn;
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index 1a48c9ff3b..0a47ca8294 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -403,6 +403,12 @@
+ 
+ #define VTCR_RES1       (_AC(1,UL)<<31)
+ 
++#if !defined(CONFIG_MMU) && defined(CONFIG_ARM_64)
++#define VTCR_MSA_VMSA   (_AC(0x1,UL)<<31)
++#define VTCR_MSA_PMSA   ~(_AC(0x1,UL)<<31)
++#define NSA_SEL2        ~(_AC(0x1,UL)<<30)
++#endif
++
+ /* HCPTR Hyp. Coprocessor Trap Register */
+ #define HCPTR_TAM       ((_AC(1,U)<<30))
+ #define HCPTR_TTA       ((_AC(1,U)<<20))        /* Trap trace registers */
+@@ -464,6 +470,13 @@
+ #define MM64_VMID_16_BITS_SUPPORT   0x2
+ #endif
+ 
++#if !defined(CONFIG_MMU) && defined(CONFIG_ARM_64)
++#define MM64_MSA_PMSA_SUPPORT       0xf
++#define MM64_MSA_FRAC_NONE_SUPPORT  0x0
++#define MM64_MSA_FRAC_PMSA_SUPPORT  0x1
++#define MM64_MSA_FRAC_VMSA_SUPPORT  0x2
++#endif
++
+ #ifndef __ASSEMBLER__
+ 
+ extern register_t __cpu_logical_map[];
+diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
+index f7fb58ab6a..1598f9ab64 100644
+--- a/xen/arch/arm/mpu/p2m.c
++++ b/xen/arch/arm/mpu/p2m.c
+@@ -28,10 +28,62 @@ void p2m_dump_info(struct domain *d)
+     BUG_ON("unimplemented");
+ }
+ 
++static int __init p2m_alloc_table(struct domain *d)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    pr_t* p2m_map;
++
++    p2m_map = alloc_xenheap_pages(P2M_ROOT_ORDER, 0);
++    if ( !p2m_map )
++    {
++        printk(XENLOG_G_ERR "DOM%pd: p2m: unable to allocate P2M MPU mapping table\n", d);
++        return -ENOMEM;
++    }
++    clear_page(p2m_map);
++
++    p2m->root = virt_to_page((const void *)p2m_map);
++
++    return 0;
++}
++
+ int p2m_init(struct domain *d)
+ {
+-    BUG_ON("unimplemented");
+-    return -EINVAL;
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int rc = 0;
++    unsigned int cpu;
++
++    rwlock_init(&p2m->lock);
++
++    p2m->vmid = INVALID_VMID;
++    p2m->max_mapped_gfn = _gfn(0);
++    p2m->lowest_mapped_gfn = _gfn(ULONG_MAX);
++
++    p2m->default_access = p2m_access_rwx;
++    /* mem_access is NOT supported in MPU system. */
++    p2m->mem_access_enabled = false;
++
++    /* Ensure that the type chosen is large enough for MAX_VIRT_CPUS. */
++    BUILD_BUG_ON((1 << (sizeof(p2m->last_vcpu_ran[0]) * 8)) < MAX_VIRT_CPUS);
++
++    for_each_possible_cpu(cpu)
++       p2m->last_vcpu_ran[cpu] = INVALID_VCPU_ID;
++
++    /*
++     * "Trivial" initialization is now complete. Set the backpointer so that
++     * p2m_teardown() and related functions know to do something.
++     */
++    p2m->domain = d;
++
++    rc = p2m_alloc_vmid(d);
++    if ( rc )
++        return rc;
++    p2m->vsctlr = generate_vsctlr(p2m->vmid);
++
++    rc = p2m_alloc_table(d);
++    if ( rc )
++        return rc;
++
++    return rc;
+ }
+ 
+ void p2m_save_state(struct vcpu *p)
+@@ -46,7 +98,20 @@ void p2m_restore_state(struct vcpu *n)
+ 
+ void p2m_final_teardown(struct domain *d)
+ {
+-    BUG_ON("unimplemented");
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++    /* p2m not actually initialized */
++    if ( !p2m->domain )
++        return;
++
++    if ( p2m->root )
++        free_xenheap_pages(p2m->root, P2M_ROOT_ORDER);
++
++    p2m->root = NULL;
++
++    p2m_free_vmid(d);
++
++    p2m->domain = NULL;
+ }
+ 
+ bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
+-- 
+2.43.0
 
 
