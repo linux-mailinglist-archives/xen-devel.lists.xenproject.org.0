@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C21FAD39552
-	for <lists+xen-devel@lfdr.de>; Sun, 18 Jan 2026 14:34:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1207813.1520206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AA0BD39FD0
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 08:31:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1207977.1520216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhSuw-0004Zm-Hz; Sun, 18 Jan 2026 13:34:10 +0000
+	id 1vhji6-0002BB-6t; Mon, 19 Jan 2026 07:30:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1207813.1520206; Sun, 18 Jan 2026 13:34:10 +0000
+Received: by outflank-mailman (output) from mailman id 1207977.1520216; Mon, 19 Jan 2026 07:30:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhSuw-0004YC-Eg; Sun, 18 Jan 2026 13:34:10 +0000
-Received: by outflank-mailman (input) for mailman id 1207813;
- Sun, 18 Jan 2026 13:34:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lTiv=7X=gmail.com=haseebashraf091@srs-se1.protection.inumbo.net>)
- id 1vhSuv-0004Go-3D
- for xen-devel@lists.xenproject.org; Sun, 18 Jan 2026 13:34:09 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d942f59-f472-11f0-b15e-2bf370ae4941;
- Sun, 18 Jan 2026 14:34:08 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b87693c981fso603418766b.1
- for <xen-devel@lists.xenproject.org>; Sun, 18 Jan 2026 05:34:08 -0800 (PST)
-Received: from PKL-HASEEBA-LT.. ([39.37.230.99])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65452cdab55sm7683163a12.10.2026.01.18.05.34.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 05:34:06 -0800 (PST)
+	id 1vhji6-00027s-3A; Mon, 19 Jan 2026 07:30:02 +0000
+Received: by outflank-mailman (input) for mailman id 1207977;
+ Mon, 19 Jan 2026 07:30:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5NKf=7Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vhji4-00027m-SD
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 07:30:00 +0000
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [2a00:1450:4864:20::341])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a856e7e4-f508-11f0-9ccf-f158ae23cfc8;
+ Mon, 19 Jan 2026 08:29:58 +0100 (CET)
+Received: by mail-wm1-x341.google.com with SMTP id
+ 5b1f17b1804b1-47f5c2283b6so25271065e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 18 Jan 2026 23:29:58 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4801e9ac373sm79472765e9.1.2026.01.18.23.29.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 18 Jan 2026 23:29:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,253 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d942f59-f472-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: a856e7e4-f508-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768743247; x=1769348047; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MPopwKkyNB/YxawSKEN75nDXwr6v2rb4f3Mwy9XTqs4=;
-        b=TLLRLzwpZBMbs4Pi3ntS7kEG/W0q9sgqq2S5dlduZip5THOLP/WJSBbAgZaDtqNNH3
-         G3x9VDhFlsE7UlZ6aa0zupOJH51ZUfzS3PYb4uI6fpQW+e7KcnWP3J3DFrXIQ6Kj3UEz
-         6YFJtq6tt7O2QRMTgE3pniK0LALictVQRWGkMLWkxjAxtMhwPSZqQ4tnknDvP2AZRpJs
-         siAW4yvrMNhXtd0APyyqD1Nb4bv103HT6fYCKIyXrTk8Kc+QxTwsWBayropGZaGCcW9B
-         jWwTth9m7IpXdqFZJZAYVX7pcV86Aed0WpARBWq7yKXxU6OfaPVbHX+gfx2laXPFVl7Q
-         Th7Q==
+        d=suse.com; s=google; t=1768807797; x=1769412597; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vFYKlFrylLExJQVZ6G2P+N9Oy2TYCgyjtxuyeF5sSNY=;
+        b=Pwfel6DWWjTQ2cSdsGNby/g2qJyQlFmgRl1OyVTc/Oc/aV5JVREI1wEKqcFcckKIc8
+         Z+7HvxfZQGVyJqLvm+6wO6YrGn4vE0rNunnFZa3v8duat+H5KyPDQv67FRno2CZBlbq9
+         FLfm813HZMv/vIizWGfGJx/+j0dRXzHHjVgZHMQBks4WsTHhXt265EBaRu9enapOfCph
+         nocAZYGrBgc4Slp+eMz72pytD9RK4UKfwnZRSygCNxstg8hN/xd3+EqHO2Szt/F78rnC
+         ZxomGBJ00YtfOegb7rOK7Yip9EeZ6OmmlCRVfAITB4pv/OgHnhUAPHYs892aIi51dYww
+         RRuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768743247; x=1769348047;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MPopwKkyNB/YxawSKEN75nDXwr6v2rb4f3Mwy9XTqs4=;
-        b=fx81sk2IZKQ1bRImz2BhSgnksf0mt2pKpA73lHRjyG006/sMoSIA1LUrKxx/Lf+2Hj
-         R9zxp5Np+cqjv3F9VzJvH2w6QcHDgav8bZbmYvmaffGl1omqqHuqbZ3ZoGb0JArFPJsS
-         te3GqlLktLUKPLkWa3ynWZmXddQPU3ngV30a9a3ja+Ckxhztrdl/gYEATV0IoMfiMlGz
-         +DShOnNlwevy+mM8Xw9EiXNvwHxGRzlNY+keotWVptZDOjFsakepJ9yE6LwoP3OMqRSK
-         Db3Uh7w1TF5y/tAq/6230y+wkJ+trlAHBjJbw4i+JlpxtguMDhp806CnwVFX9+iywacP
-         zPgQ==
-X-Gm-Message-State: AOJu0YxP0ttHPaWOHOpBvgLMefHG3Tp+MpWLXLlYgPIOYaYwLVKNKSta
-	P/Sn6v3v2UKVugrPZQnfMWe8mUhsL5EswvoD1ixitpI96AHUiTOdlZ0uq+BKQQ==
-X-Gm-Gg: AY/fxX756sXDc2PLhL+w2DsWsqcpfhDnjC9IoxmrNvArK8sUZzA9ry3gvQCc0eLwh37
-	wQ71pkuyFSgf2Q9iG2dxVxVYWMzLxjuyc6IBk7pIqrgEaRR+C5tZpQVP8P8+0hzA7omRgeM1qph
-	4xaowlbcora4T7Ax1EhMTnSwf1SEHd17hJmhL0JFwoMUvpowGPeZaaZrLRnsNm63ZbQIGUXlnH2
-	l8MvrgQtnxtQXBuzenPFfjHs62mB+eyOrYwk8tz5B6RYY2W7poVyF1yFDq/YLMgA3NPR2gQeg7W
-	CegV7okDHVVjJcQg8LquEKXJAxfEp+MNCYQHEut/JoO7WVhogrYOPnpnJ0I/DvPxbt+h9tKYVRp
-	tTh2nQCH3hSkGleDQkMUl1gq/SaxS4WQGYJtXpr7N5Heak1WX7HOMvaGMSgQBN1hf3zgz2lMc+j
-	5hRhK/OFx5z/6mHYXrgVK5JkDeM0nDMj72VnJscJXTre2TNmnBCg==
-X-Received: by 2002:a17:907:3c96:b0:b75:7b39:88bc with SMTP id a640c23a62f3a-b8792fee117mr817891566b.58.1768743246925;
-        Sun, 18 Jan 2026 05:34:06 -0800 (PST)
-From: Haseeb Ashraf <haseebashraf091@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Haseeb Ashraf <haseeb.ashraf@siemens.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH v3 3/3] xen/arm32: add CPU capability for IPA-based TLBI
-Date: Sun, 18 Jan 2026 18:33:29 +0500
-Message-ID: <68ad0721305814f6d7081223df4039b71627ae1f.1765197209.git.haseeb.ashraf@siemens.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1765197209.git.haseeb.ashraf@siemens.com>
-References: <cover.1765197209.git.haseeb.ashraf@siemens.com>
+        d=1e100.net; s=20230601; t=1768807797; x=1769412597;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vFYKlFrylLExJQVZ6G2P+N9Oy2TYCgyjtxuyeF5sSNY=;
+        b=YfX4M8BvLSn8ywA6Jqzg228A2RCY7ejvv9ZBgdz+yRtTXBN1Gg2kFHkCyFi+wSEpOa
+         cU2BmDKlWRXkJMxuK71Tp5sSXA4uNsOTtvSu7tVoK7j5U5xF0ra2x/6QJk10eRnfqWvg
+         Dr+TcHlw+TvWEah16Kz8VKUCCDsqok2sP+IKrkYh9DFR3dAa1JlAGWo61uocjazHqnsa
+         byrumMI732EIWc2jk0szenaafQpKm75phw5fqvIbRa7gbhBLqyucwbjhprwaUAyfkUGz
+         L32nTyiY1a/XTZo6eCqG9II2O+BUipdRTemkjlusAW6MvgkEPxbb2v/TxM+IHQtECTZf
+         iR7A==
+X-Forwarded-Encrypted: i=1; AJvYcCUEKwvY7xsn6+3BFCmAd/KefbKh3Rrnn0C9IJ3AlwBVT/P+B8f1jp/xXxCgMD8KLVFwDOxNKj183OQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzy0yEpJDzcFCCRyvMWsgxmmeWdBniUXvI/f7kQT80s8b1oGfhd
+	b69uKT3Lm+dqIzbDalyBv8XD81LSFa0hyM9fRrxKbwJHb/oXfg6uQhlNYRM4ivnKjw==
+X-Gm-Gg: AY/fxX49mrZqlpYIdIWXAPi+Er/Nq7otPlOO25rg0Ny3XiotKScwTXZRfExaX3nwy+x
+	0DleLFTTnHE0FPpT0LNduZ/ruM+QPfStwAiunJHi0H9suoSlhnfAUOn0hNWeVfp1FmuZ4dYSjYo
+	a16EaXAd1q0Jp7D5IGBvc4lLLooNQHrMgHoOHCwEAi4ZJmAj88OR/bTwJtfRVjf9qhScgLngAa+
+	XByx+B7WBYxnx/koTEe238uxJjdpmbBpAa1ZoTn20vycCsONKOwrWbxoghcA4e/M1IBLDu2+a0K
+	ObBZt4eyrmuiyq8okKYvv+8ogUB4qcP5cEmrHNCxiTO1tvmza4tSb6Ylwx+Q2209D119IkQANZr
+	eANzPsufuLl4oGtiVRTcjO9qCYoAahi2VYwmUsNMcVzmeiqI/57p3m1Q4BdNtHniwcG65AXqh3J
+	h4nJSUJG5VsYLNSAfHjJ1gbygHQb24/v7Rj5kIrfAXY2e2QblWf4GX9X0EhiVNl3c52V/OVgY8A
+	vM=
+X-Received: by 2002:a05:600c:4ed3:b0:47e:e91d:73c0 with SMTP id 5b1f17b1804b1-4801e3397d6mr120127135e9.19.1768807797510;
+        Sun, 18 Jan 2026 23:29:57 -0800 (PST)
+Message-ID: <6f275030-a3c2-4710-952e-56c3226b5a8b@suse.com>
+Date: Mon, 19 Jan 2026 08:29:58 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] INSTALL: remove unsupported XEN_CONFIG_EXPERT from
+ documentation
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: dmukhin@xen.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20260116030842.415583-2-dmukhin@ford.com>
+ <09c0007b-3cac-469a-83a0-726c1be149da@suse.com>
+ <alpine.DEB.2.22.394.2601161239510.72558@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2601161239510.72558@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Haseeb Ashraf <haseeb.ashraf@siemens.com>
+On 16.01.2026 21:47, Stefano Stabellini wrote:
+> On Fri, 16 Jan 2026, Jan Beulich wrote:
+>> On 16.01.2026 04:08, dmukhin@xen.org wrote:
+>>> --- a/INSTALL
+>>> +++ b/INSTALL
+>>> @@ -33,11 +33,11 @@ small subset of the options.  Attempts to change other options will be
+>>>  silently overridden.  The only way to find which configuration options
+>>>  are available is to run `make menuconfig' or the like.
+>>
+>> I fear this earlier paragraph needs editing as well, which will then
+>> make more clear that ...
+>>
+>>> -You can counter-override this behaviour by setting XEN_CONFIG_EXPERT=y
+>>> -in your environment.  However, doing this is not supported and the
+>>> -resulting configurations do not receive security support.  If you set
+>>> -this variable there is nothing stopping you setting dangerously
+>>> -experimental combinations of features - not even any warnings.
+>>> +This behavior can be overridden by enabling "Configure EXPERT features"
+>>> +in Kconfig (CONFIG_EXPERT).
+>>
+>> ... this may not be quite adequate.
+>>
+> 
+> I am not sure how you would like to change the earlier paragraph or this
+> paragraph. I gave it a try and removed both paragraphs, replacing it
+> with this:
+> 
+> """
+> Only a subset of options is supported or security-supported by Xen
+> Project. You can explore all available options, including unsupported
+> ones and those recommended only for expert users, by using `make
+> menuconfig` and enabling `CONFIG_UNSUPPORTED` and/or `CONFIG_EXPERT`.
+> However, enabling these options is not supported, and configurations
+> resulting from them do not receive security support.
+> """
+> 
+> What do you think?
 
-This feature is available since armv8 and can be used to perform
-IPA-based TLBI for arm32. XENMEM_remove_from_physmap performs this
-invalidation in each hypercall so this code path will be optimized,
-instead of performing a TLBIALL each time in presence of nTLBPA.
+This would be fine with me.
 
-Suggested-by: Julien Grall <julien@xen.org>
-Signed-off-by: Haseeb Ashraf <haseeb.ashraf@siemens.com>
-
-Changes in v3:
-- There are no functional changes in this version. There are minor
-  code updates and comment updates as per the feedback on v2.
-- The cpregs are defined in order as per Coprocessor-> CRn-> Opcode 1
-  -> CRm-> Opcode 2.
-- Added comment to explain why IPA-based TLBI is added only in
-  presence of FEAT_nTLBPA.
-- Replaced `goto default_tlbi` with if...else.
-- Removed extra definitions of MM32_UNITLB_* macros which were not
-  being used.
-
-Changes in v2:
-- This commit is implemented in v2 as per the feedback to implement
-  IPA-based TLBI for Arm32 in addition to Arm64.
----
- xen/arch/arm/cpufeature.c                 | 12 +++++++
- xen/arch/arm/include/asm/arm32/flushtlb.h | 42 ++++++++++++++++++++---
- xen/arch/arm/include/asm/cpregs.h         |  4 +++
- xen/arch/arm/include/asm/cpufeature.h     | 15 ++++----
- xen/arch/arm/include/asm/processor.h      |  3 ++
- 5 files changed, 65 insertions(+), 11 deletions(-)
-
-diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-index 9fa1c45869..d18c6449c6 100644
---- a/xen/arch/arm/cpufeature.c
-+++ b/xen/arch/arm/cpufeature.c
-@@ -18,6 +18,11 @@ DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
- struct cpuinfo_arm __read_mostly domain_cpuinfo;
- 
- #ifdef CONFIG_ARM_32
-+static bool has_tlb_ipa_instruction(const struct arm_cpu_capabilities *entry)
-+{
-+    return system_cpuinfo.mm32.unitlb == MM32_UNITLB_BY_IPA;
-+}
-+
- static bool has_ntlbpa(const struct arm_cpu_capabilities *entry)
- {
-     return system_cpuinfo.mm32.ntlbpa == MM32_NTLBPA_SUPPORT_IMP;
-@@ -37,6 +42,13 @@ static bool has_sb_instruction(const struct arm_cpu_capabilities *entry)
- #endif
- 
- static const struct arm_cpu_capabilities arm_features[] = {
-+#ifdef CONFIG_ARM_32
-+    {
-+        .desc = "IPA-based TLB Invalidation",
-+        .capability = ARM32_HAS_TLB_IPA,
-+        .matches = has_tlb_ipa_instruction,
-+    },
-+#endif
- #if defined(CONFIG_ARM_32) || defined(CONFIG_ARM_64)
-     {
-         .desc = "Intermediate caching of translation table walks (nTLBPA)",
-diff --git a/xen/arch/arm/include/asm/arm32/flushtlb.h b/xen/arch/arm/include/asm/arm32/flushtlb.h
-index 7cff042508..3e6f86f6d2 100644
---- a/xen/arch/arm/include/asm/arm32/flushtlb.h
-+++ b/xen/arch/arm/include/asm/arm32/flushtlb.h
-@@ -1,6 +1,8 @@
- #ifndef __ASM_ARM_ARM32_FLUSHTLB_H__
- #define __ASM_ARM_ARM32_FLUSHTLB_H__
- 
-+#include <xen/sizes.h> /* For SZ_* macros. */
-+
- /*
-  * Every invalidation operation use the following patterns:
-  *
-@@ -104,12 +106,42 @@ static inline void flush_guest_tlb_range_ipa(paddr_t ipa,
-                                              unsigned long size)
- {
-     /*
--     * Following can invalidate both stage-1 and stage-2 TLBs depending upon
--     * the execution mode.
--     *
--     * See ARMv8 (DDI 0487L.b): G5-11698 Table G5-23.
-+     * IPA-based TLBI is used only in presence of nTLBPA, otherwise, stage-1
-+     * invalidation would still be required and there is no separate TLBI for
-+     * stage-1 on Arm32. So in absence of nTLBPA, it is pointless to flush by
-+     * IPA.
-      */
--    flush_guest_tlb();
-+    if ( cpus_have_const_cap(ARM_HAS_NTLBPA) &&
-+         cpus_have_const_cap(ARM32_HAS_TLB_IPA) )
-+    {
-+        /*
-+         * If IPA range is too big (empirically found to be 256M), then
-+         * fallback to full TLB flush
-+         */
-+        if ( size > SZ_256M )
-+            /*
-+             * Following can invalidate both stage-1 and stage-2 TLBs depending
-+             * upon the execution mode.
-+             *
-+             * See ARMv8 (DDI 0487L.b): G5-11698 Table G5-23.
-+             */
-+            flush_guest_tlb();
-+        else
-+        {
-+            paddr_t end = ipa + size;
-+
-+            dsb(ishst); /* Ensure prior page-tables updates have completed */
-+            while ( ipa < end )
-+            {
-+                /* Flush stage-2 TLBs for ipa address. */
-+                asm volatile(STORE_CP32(0, TLBIIPAS2IS)
-+                             : : "r" (ipa >> PAGE_SHIFT) : "memory");
-+                ipa += PAGE_SIZE;
-+            }
-+            dsb(ish);
-+            isb();
-+        }
-+    }
- }
- 
- #endif /* __ASM_ARM_ARM32_FLUSHTLB_H__ */
-diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-index a7503a190f..51f091dace 100644
---- a/xen/arch/arm/include/asm/cpregs.h
-+++ b/xen/arch/arm/include/asm/cpregs.h
-@@ -223,9 +223,13 @@
- #define TLBIMVA         p15,0,c8,c7,1   /* invalidate unified TLB entry by MVA */
- #define TLBIASID        p15,0,c8,c7,2   /* invalid unified TLB by ASID match */
- #define TLBIMVAA        p15,0,c8,c7,3   /* invalidate unified TLB entries by MVA all ASID */
-+#define TLBIIPAS2IS     p15,4,c8,c0,1   /* Invalidate unified TLB entry for stage 2 by IPA inner shareable */
-+#define TLBIIPAS2LIS    p15,4,c8,c0,5   /* Invalidate unified TLB entry for stage 2 last level by IPA inner shareable */
- #define TLBIALLHIS      p15,4,c8,c3,0   /* Invalidate Entire Hyp. Unified TLB inner shareable */
- #define TLBIMVAHIS      p15,4,c8,c3,1   /* Invalidate Unified Hyp. TLB by MVA inner shareable */
- #define TLBIALLNSNHIS   p15,4,c8,c3,4   /* Invalidate Entire Non-Secure Non-Hyp. Unified TLB inner shareable */
-+#define TLBIIPAS2       p15,4,c8,c4,1   /* Invalidate unified TLB entry for stage 2 by IPA */
-+#define TLBIIPAS2L      p15,4,c8,c4,5   /* Invalidate unified TLB entry for stage 2 last level by IPA */
- #define TLBIALLH        p15,4,c8,c7,0   /* Invalidate Entire Hyp. Unified TLB */
- #define TLBIMVAH        p15,4,c8,c7,1   /* Invalidate Unified Hyp. TLB by MVA */
- #define TLBIALLNSNH     p15,4,c8,c7,4   /* Invalidate Entire Non-Secure Non-Hyp. Unified TLB */
-diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
-index 9f796ed4c1..07f1d770b3 100644
---- a/xen/arch/arm/include/asm/cpufeature.h
-+++ b/xen/arch/arm/include/asm/cpufeature.h
-@@ -77,8 +77,9 @@
- #define ARM_HAS_SB 16
- #define ARM64_WORKAROUND_1508412 17
- #define ARM_HAS_NTLBPA 18
-+#define ARM32_HAS_TLB_IPA 19
- 
--#define ARM_NCAPS           19
-+#define ARM_NCAPS           20
- 
- #ifndef __ASSEMBLER__
- 
-@@ -440,15 +441,17 @@ struct cpuinfo_arm {
-             /* MMFR1 */
-             unsigned long __res1:32;
-             /* MMFR2 */
--            unsigned long __res2:32;
-+            unsigned long __res2:16;
-+            unsigned long unitlb:4;
-+            unsigned long __res3:12;
-             /* MMFR3 */
--            unsigned long __res3:32;
--            /* MMFR4 */
-             unsigned long __res4:32;
-+            /* MMFR4 */
-+            unsigned long __res5:32;
-             /* MMFR5 */
--            unsigned long __res5:4;
-+            unsigned long __res6:4;
-             unsigned long ntlbpa:4;
--            unsigned long __res6:24;
-+            unsigned long __res7:24;
-         };
-     } mm32;
- 
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index 85f3b643a0..eda39566e1 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -460,6 +460,9 @@
- #define FSRL_STATUS_DEBUG       (_AC(0x22,UL)<<0)
- 
- #ifdef CONFIG_ARM_32
-+#define MM32_UNITLB_NI              0x0
-+#define MM32_UNITLB_BY_IPA          0x6
-+
- #define MM32_NTLBPA_SUPPORT_NI      0x0
- #define MM32_NTLBPA_SUPPORT_IMP     0x1
- #endif
--- 
-2.43.0
-
+Jan
 
