@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48A8D3B927
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 22:13:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208323.1520512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A375D3BA54
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 23:03:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208335.1520522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhwY3-0002ks-9O; Mon, 19 Jan 2026 21:12:31 +0000
+	id 1vhxL9-0000V0-Qm; Mon, 19 Jan 2026 22:03:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208323.1520512; Mon, 19 Jan 2026 21:12:31 +0000
+Received: by outflank-mailman (output) from mailman id 1208335.1520522; Mon, 19 Jan 2026 22:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhwY3-0002jR-5b; Mon, 19 Jan 2026 21:12:31 +0000
-Received: by outflank-mailman (input) for mailman id 1208323;
- Mon, 19 Jan 2026 21:12:29 +0000
+	id 1vhxL9-0000SY-NA; Mon, 19 Jan 2026 22:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 1208335;
+ Mon, 19 Jan 2026 22:03:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIhq=7Y=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vhwY1-0002jK-IA
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 21:12:29 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ <SRS0=lQub=7Y=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1vhxL8-0000SS-A2
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 22:03:14 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d80f75d-f57b-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 22:12:27 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 74FFA40D9A;
- Mon, 19 Jan 2026 21:12:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1441C116C6;
- Mon, 19 Jan 2026 21:12:22 +0000 (UTC)
+ id a422390a-f582-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 23:03:10 +0100 (CET)
+Received: from SJ0P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::27)
+ by DM6PR12MB4219.namprd12.prod.outlook.com (2603:10b6:5:217::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
+ 2026 22:03:05 +0000
+Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::f9) by SJ0P220CA0017.outlook.office365.com
+ (2603:10b6:a03:41b::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.11 via Frontend Transport; Mon,
+ 19 Jan 2026 22:02:53 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.4 via Frontend Transport; Mon, 19 Jan 2026 22:03:04 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 19 Jan
+ 2026 16:03:04 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 19 Jan
+ 2026 16:03:04 -0600
+Received: from [172.29.134.248] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 19 Jan 2026 14:03:02 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,380 +63,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d80f75d-f57b-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768857144;
-	bh=gIUQKTb4qgDQbXOcb9pJA2xwBrcDdOEamvxwJ41a2ec=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Nhzjk9mbbru6Xsqy1Zs/EAFgxxKt4A9Cy1fDKiwnjVq5+5N/gpBfcrh4DPuXP7Oze
-	 HLNxJ+MI9GhmwfcAELqI3a0X9xdzBBnfN14zU3ieB6ZPXE0mtn2xTIyqU38Ka5PikR
-	 BH8Y7sEMiBGFezcUshpP/lKeB1Ns2r87TBu1bRHdPM72TmlLgW6aejeWr/uY14hCcQ
-	 OIWLlEZjkly6a0XLnWOEkEaOjhRlUcV4f8+qMuTHpRw+M8TYg2MPUwTdYRGXYUCnuF
-	 W7HvkAZCdMXR0F5IXdtkfdKiJKLmHzFaSMo07p8fIDlzhw2e9ciuokXIs+9k70pH2E
-	 xW7yvBHbk9GVw==
-Date: Mon, 19 Jan 2026 13:12:21 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [PATCH v7 4/5] xen/arm: scmi: introduce SCI SCMI SMC multi-agent
- driver
-In-Reply-To: <5177397f-d596-40b3-9207-f0de63a24ee6@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2601191311410.7192@ubuntu-linux-20-04-desktop>
-References: <cover.1768415200.git.oleksii_moisieiev@epam.com> <ee4995bf385f0ec691151fb797e14acdb5419c6b.1768415200.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2601141639070.72558@ubuntu-linux-20-04-desktop> <ed981ced-d5e5-45df-b424-cfc9866e993f@epam.com>
- <alpine.DEB.2.22.394.2601161220250.72558@ubuntu-linux-20-04-desktop> <5177397f-d596-40b3-9207-f0de63a24ee6@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: a422390a-f582-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y67QIV6tFf/FymduX6Z5CeTCFS7fV5k26NfqV9DFegQyFbNb3x0rchAa5ahAod49QDZMj03hrn0uIX3JShAuLjoE/bPpC15beLo/+wcY3h6sVVKfJ5cctDlI99wRR2gven0AcdkCyfaL9dw5WI/MYJjv0RMiVQnQ4km8WIV62Q0dei2/28EWMEySXgU8DsSxlAOlSa1W79KVvO4Ae2inFAp2bCVxiPUqDXyVt//rd69UbNaO5HbnDbWcN1W0ZGP/f3CzZLPDUsac3yZ+JhLSqUHHN8ZI/5vigTqlx3+oR4uFwDQC4xkHud1G++5XtysD/Py6zqWEFjz+F0aj+nV21g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4TfQEhyGuQ3DbXSnJe7w1JkgRDIIZ3s+IHEZQm2/ERI=;
+ b=PCRAaW/JuND1ZGIpDpQzymVCMfxSk/odkFvpnXLySXqSwF2XJWEmJiNP1dpSVe39zmcx7fHqkHdcK7znL62ZdWk7WvfjogE6yvVPNf4KqisrspIKvnTrUk7pZtQx0wKiobgjufRg0svvk9aVsGwg4u8yIaSnXXl7uFRBbuHkwqRIfDeVJsFiY/ioLIE8vIC7t7wOmbCHaYxhnL3s/1rQ/Y03jt1ySTG2SJCkI0Z1eFt2ZDQJD3cUZU5JHt4jJzuVX/UOBa0+aHz6meHyB9k2yGG1JtVDM73jcUIJbrSwn5Zfmi0e2lL1abpBwVG0piSXkkhvilM+5bJU9qLXDEXMoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4TfQEhyGuQ3DbXSnJe7w1JkgRDIIZ3s+IHEZQm2/ERI=;
+ b=EpNlyW2iX2kPSxnAwalfaDNitzgcyEfkOGdo0vHrjjhvzetdXwCRtD7fiwJQev8IjEoZlSPI/Os5VLp6XklbMPj3pJD2Vn0qUC2Pif5YPtDinbrShkw7A/fhFaKglculLc2zKmrTqTqWbxl8n+0D52C+vfrY69ddgyAuMOAxc0I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <d4ed01a1-edc2-4bb4-bf99-302351267f77@amd.com>
+Date: Mon, 19 Jan 2026 17:02:57 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] PCI: handle PCI->PCIe bridges as well in
+ alloc_pdev()
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <58091dc1-7bda-4536-8200-2d0a5679d4d1@suse.com>
+ <f2dbd694-5e20-4560-9933-12cd98b23e20@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <f2dbd694-5e20-4560-9933-12cd98b23e20@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|DM6PR12MB4219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40fbe1db-fccc-4c2f-cb22-08de57a68583
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?R2Y2am9vQkhPVGhqcTYxZlRyd0lDMDdQSEdEanp0N2kyVTF3ZTNiRlhudG4r?=
+ =?utf-8?B?Q3VzMnlvZzVYcVVYTmFialhSSnFZSVF1b0RLazRMUCtzcU55aDRzdmIrS3BP?=
+ =?utf-8?B?cmZvaGdhQ3k4dFo4RHlqZmYvenY4bW9WTy9FMTFmN3VGOE5rRGNoakFQNFBN?=
+ =?utf-8?B?VzNqYTZCUzFpbVF5ZnlYa2lsVDV5NFdxbUN1QmRnclhWZSs3LzFST1FmbExX?=
+ =?utf-8?B?U3B6QllHNEN6elliTHJCUVgrOHFTbnJkZERXalovak1iSFhyYVB4TXh5eDJV?=
+ =?utf-8?B?Q0RXa1FLY3M1UlZWZWl2dmEvNTVqUU1PV2xWb1RObXh3UTY1RmRHSEVQSzEr?=
+ =?utf-8?B?VnFzL09hNkNmTElOMS90eXlvZ3NXN2J2SVVrQWo5clBVcWNpYWl2NTRrMTJ6?=
+ =?utf-8?B?L1dIMHBDbmh2OGZkdWRqZ29pZGc3WWZZWDhzM2RGREo2RE01aDJMQmtrd3NV?=
+ =?utf-8?B?djkvY0ExZkNab0Z1dmtGOStqQUVwNXloZFlINkd3QUdLTWxGT05VTTdBcVRZ?=
+ =?utf-8?B?TjRONjhQZUZJRC9wMXI0SElzT0Y4aEtqRVF1aFNKb0pEd1g2WFVZT1YvOFRk?=
+ =?utf-8?B?LzYwek5oMkdnVFRVdUVUZ3AzVU9jUDh2akZ4RjNUazh2VU9KU2taaWlDd1d2?=
+ =?utf-8?B?UWFKM0dQVzBsT055cHp5MngxdWxSU2JjZDk4cGpucHg1cWlvOHBqb2dKZlFC?=
+ =?utf-8?B?T0NKdXl6ZXVhZjR2dHI2N0YwenU1cUcwV1hMTzlHMzEzQXFmbktZd1JLZnI0?=
+ =?utf-8?B?bnJsTHF1MjV0RzFQaTRyUXNXeGpNWWw1dG1sQW9WeUREY21SNmRKSHBmS1Rl?=
+ =?utf-8?B?U09idUYwdktQSXNoMGFWdTErWnk1VnRpYjhNcmtCdGJ5dnNVRHFjSG5nVUt5?=
+ =?utf-8?B?VEhHemFmemJaem82NDNLTXdSZVFuSnFrN0R4VFlQWmhhQzdOTG9pVERmNXFm?=
+ =?utf-8?B?Rzh3YU9VSHg5V2N1cC93QXYxNUFLZkVOOVpqN1NEQ3pBUWdXY0RoQ0pkOHBl?=
+ =?utf-8?B?MGYzVjdvNm0wdXBJWlplRUZYOG15RWlUMWxxSXh4MHRHN0NZNWJnVkVXT0M5?=
+ =?utf-8?B?dkJNa2l6VHkyY2xzaCtNMGJod2xXRnlSVTkzWXIzcmZ4UHVEemo5ZitmcVlM?=
+ =?utf-8?B?MThLbEl2OWRzZXFyUjI4T0ZmOUJkQ1ZCTTNZeG1hS24wTUNrKzlxVEtrWUIw?=
+ =?utf-8?B?aE5HVWhWd3ZmNktmZzhjeldHdFRIaCtoZmhMUStLVWd3WHFyUmJhQVprUSta?=
+ =?utf-8?B?R1AxMnBJaTFkZHJYTVc3aEZzRkgrSjI4cXBXTmZsVkgvanVuR1RBOWlKYUlO?=
+ =?utf-8?B?NTBFczNVQkoyaDZRS05xb0xrQXNsclBhMno1dUR1Vnpxa21EN21HSTk2V1Zq?=
+ =?utf-8?B?cXNpMXNEUENLTnpJSWd3YXpsc1d3ekord29QSDk2KzdyWTVpL3FJVzlkbzlS?=
+ =?utf-8?B?R1VrN0hYeHhqWURocGV0eFc1ZWpLOGI3T2pXRlY5QzJzSDhEL3MzVW5nNVVZ?=
+ =?utf-8?B?M052QXVLL0NiR2Q4eGs4UGhxWnlyUnVSREQzdk5GS25PTzVKR05hdmlYSlVL?=
+ =?utf-8?B?NkQ1aUZtNFZIZ0RDaG5qVitVWHc3Tnd0UXF4UzFHaDlObHJER0pCQVUxdUNB?=
+ =?utf-8?B?bGFZLzFUZnJJQmJwVS9wM2RBVVlWelQ0cFBITTQ5WldGSklXL0lvcDZTR3hW?=
+ =?utf-8?B?Wk9vQXFmYjVhZUhHU0FXTjFuSnl4RlNVK2cvSmhpODZNS3ZqWEdnWG9DNzNa?=
+ =?utf-8?B?dEEwdHBURGs4MEx3c2xNMUg3V3NiY3lmdkF4b3AySkc1bEN4TVhxeEE3eU8w?=
+ =?utf-8?B?RXg1TmZJMVFDSHNjM1htZnFxQkRmTzZIUTRlVmF6Nkp1STl4a0ZCemZVQXdD?=
+ =?utf-8?B?V0c3ODlzbTJxU0MzYk54dVVRY1ZiL3hPZGprNmQyZTBtemxQMUFiQjEvd0ZE?=
+ =?utf-8?B?NE1lUUNZSDVsYXBFT2R6OTRhOTZJL00vbjlkRi9XZEFWdFdiZFdQbTJ5ajA5?=
+ =?utf-8?B?QnVPTmJaZlpodloxNFFEQk1VQ3N4UTZrTGdwVVFKNmVFOER0NURxc1M5eXhp?=
+ =?utf-8?B?YThRVkxnaHlTVVU2YXhJOC9VS29KSyt2ajBzeDdHVUcxMXV4QkNmRG5GQ3Fi?=
+ =?utf-8?B?RTdPTHNndnN2NmFHd0g5V2lzV0huN25RSTJjb2V5cDZTTmFCMjdvUWg3c0hl?=
+ =?utf-8?B?R2dOaEhOVGFHdTlld0svQmhDOWJTa2J0K0N3N0NXUUdJUmd1aGRjQjhYT0w4?=
+ =?utf-8?B?eExmZmxOUEdPWDdjdDBhMXdLcEhRPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 22:03:04.8693
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40fbe1db-fccc-4c2f-cb22-08de57a68583
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001E9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4219
 
-On Mon, 19 Jan 2026, Oleksii Moisieiev wrote:
-> On 16/01/2026 23:21, Stefano Stabellini wrote:
-> > On Fri, 16 Jan 2026, Oleksii Moisieiev wrote:
-> >> Hi Stefano,
-> >> Please see below.
-> >>
-> >> On 15/01/2026 03:14, Stefano Stabellini wrote:
-> >>> Hi Oleksii,
-> >>>
-> >>> I am fine with the goals and the strategy to achieve the goals but there
-> >>> are some finer details that don't make sense to me. I apologize if I am
-> >>> asking the same questions you have already answered as some time as
-> >>> passed from the last interaction.
-> >>>
-> >>>
-> >>> On Wed, 14 Jan 2026, Oleksii Moisieiev wrote:
-> >>>> This patch introduces SCI driver to support for ARM EL3 Trusted Firmware-A
-> >>>> (TF-A) which provides SCMI interface with multi-agent support, as shown
-> >>>> below.
-> >>>>
-> >>>>     +-----------------------------------------+
-> >>>>     |                                         |
-> >>>>     | EL3 TF-A SCMI                           |
-> >>>>     +-------+--+-------+--+-------+--+-------++
-> >>>>     |shmem1 |  |shmem0 |  |shmem2 |  |shmemX |
-> >>>>     +-----+-+  +---+---+  +--+----+  +---+---+
-> >>>> smc-id1 |        |         |           |
-> >>>> agent1  |        |         |           |
-> >>>>     +-----v--------+---------+-----------+----+
-> >>>>     |              |         |           |    |
-> >>>>     |              |         |           |    |
-> >>>>     +--------------+---------+-----------+----+
-> >>>>            smc-id0 |  smc-id2|    smc-idX|
-> >>>>            agent0  |  agent2 |    agentX |
-> >>>>                    |         |           |
-> >>>>               +----v---+  +--v-----+  +--v-----+
-> >>>>               |        |  |        |  |        |
-> >>>>               | Dom0   |  | Dom1   |  | DomX   |
-> >>>>               |        |  |        |  |        |
-> >>>>               |        |  |        |  |        |
-> >>>>               +--------+  +--------+  +--------+
-> >>>>
-> >>>> The EL3 SCMI multi-agent firmware is expected to provide SCMI SMC shared
-> >>>> memory transport for every Agent in the system.
-> >>>>
-> >>>> The SCMI Agent transport channel defined by pair:
-> >>>>    - smc-id: SMC id used for Doorbell
-> >>>>    - shmem: shared memory for messages transfer, Xen page
-> >>>>    aligned. Shared memort is mapped with the following flags:
-> >>>>    MT_DEVICE_nGnRE.
-> >>>>
-> >>>> The follwoing SCMI Agents are expected to be defined by SCMI FW to enable SCMI
-> >>>> multi-agent functionality under Xen:
-> >>>> - Xen management agent: trusted agents that accesses to the Base Protocol
-> >>>> commands to configure agent specific permissions
-> >>>> - OSPM VM agents: non-trusted agent, one for each Guest domain which is
-> >>>>     allowed direct HW access. At least one OSPM VM agent has to be provided
-> >>>>     by FW if HW is handled only by Dom0 or Driver Domain.
-> >>>>
-> >>>> The EL3 SCMI FW is expected to implement following Base protocol messages:
-> >>>> - BASE_DISCOVER_AGENT (optional if agent_id was provided)
-> >>>> - BASE_RESET_AGENT_CONFIGURATION (optional)
-> >>>> - BASE_SET_DEVICE_PERMISSIONS (optional)
-> >>>>
-> >>>> The SCI SCMI SMC multi-agent driver implements following
-> >>>> functionality:
-> >>>> - The driver is initialized from the Xen SCMI container ``xen_scmi_config``
-> >>>>     (compatible ``xen,sci``) placed under ``/chosen/xen``. Only the
-> >>>>     ``arm,scmi-smc`` node that is a child of this container will bind to Xen;
-> >>>>     other SCMI nodes (for example under ``/firmware``) are ignored to avoid
-> >>>>     stealing the host OSPM instance.
-> >>>>
-> >>>> scmi_shm_1: sram@47ff1000 {
-> >>>>             compatible = "arm,scmi-shmem";
-> >>>>             reg = <0x0 0x47ff1000 0x0 0x1000>;
-> >>>> };
-> >>>> scmi_xen: scmi {
-> >>>>           compatible = "arm,scmi-smc";
-> >>>>           arm,smc-id = <0x82000003>; <--- Xen management agent smc-id
-> >>>>           #address-cells = < 1>;
-> >>>>           #size-cells = < 0>;
-> >>>>           #access-controller-cells = < 1>;
-> >>>>           shmem = <&scmi_shm_1>; <--- Xen management agent shmem
-> >>>> };
-> >>>>
-> >>>> - The driver obtains Xen specific SCMI Agent's configuration from the
-> >>>>     Host DT, probes Agents and builds SCMI Agents list. The Agents
-> >>>>     configuration is taken from "scmi-secondary-agents" property where
-> >>>>     first item is "arm,smc-id", second - "arm,scmi-shmem" phandle and
-> >>>>     third is optional "agent_id":
-> >>>>
-> >>>> / {
-> >>>>     chosen {
-> >>>>       xen {
-> >>>>         ranges;
-> >>>>         xen_scmi_config {
-> >>>>           compatible = "xen,sci";
-> >>>>           #address-cells = <2>;
-> >>>>           #size-cells = <2>;
-> >>>>           ranges;
-> >>>>
-> >>>>           scmi_shm_0: sram@47ff0000 {
-> >>>>             compatible = "arm,scmi-shmem";
-> >>>>             reg = <0x0 0x47ff0000 0x0 0x1000>;
-> >>>>           };
-> >>>>
-> >>>>           /* Xen SCMI management channel */
-> >>>>           scmi_shm_1: sram@47ff1000 {
-> >>>>             compatible = "arm,scmi-shmem";
-> >>>>             reg = <0x0 0x47ff1000 0x0 0x1000>;
-> >>>>           };
-> >>>>
-> >>>>           scmi_shm_2: sram@47ff2000 {
-> >>>>             compatible = "arm,scmi-shmem";
-> >>>>             reg = <0x0 0x47ff2000 0x0 0x1000>;
-> >>>>           };
-> >>>>
-> >>>>           scmi_shm_3: sram@47ff3000 {
-> >>>>             compatible = "arm,scmi-shmem";
-> >>>>             reg = <0x0 0x47ff3000 0x0 0x1000>;
-> >>>>           };
-> >>>>
-> >>>>           scmi-secondary-agents = <
-> >>>>             0x82000002 &scmi_shm_0 0
-> >>> 0x82000002 is the same func_id as...
-> >>>
-> >>>
-> >>>>             0x82000004 &scmi_shm_2 2
-> >>>>             0x82000005 &scmi_shm_3 3>; <--- func_id, shmem, agent_id
-> >>>>           #scmi-secondary-agents-cells = <3>;
-> >>>>
-> >>>>           scmi_xen: scmi {
-> >>>>             compatible = "arm,scmi-smc";
-> >>>>             arm,smc-id = <0x82000002>; <--- Xen management agent func_id
-> >>> as the one used for Xen. This cannot be right?
-> >>>
-> >> That's right. Here should be 0x82000003.
-> >>>>             #address-cells = <1>;
-> >>>>             #size-cells = <0>;
-> >>>>             #access-controller-cells = <1>;
-> >>>>             shmem = <&scmi_shm_1>; <--- Xen management agent shmem
-> >>>>           };
-> >>>>         };
-> >>>>       };
-> >>>>     };
-> >>>> };
-> >>>>
-> >>>> / {
-> >>>>       /*
-> >>>>        * Host SCMI OSPM channel - provided to the Dom0 as is if SCMI
-> >>>>        * enabled for it, ignored by Xen multi-agent mediator
-> >>>>        */
-> >>>>       scmi_shm: sram@47ff0000 {
-> >>>>               compatible = "arm,scmi-shmem";
-> >>>>               reg = <0x0 0x47ff0000 0x0 0x1000>;
-> >>>>       };
-> >>> this is the same as &scmi_shm_0 which I guess is intended?
-> >>>
-> >> it is. to match Host DT.
-> >>>>       firmware {
-> >>>>         scmi: scmi {
-> >>>>           compatible = "arm,scmi-smc";
-> >>>>           arm,smc-id = <0x82000002>; <--- Host OSPM agent smc-id
-> >>> but this again is the same smc-id meant to be used by Xen.
-> >>>
-> >>> If 0x82000002 is the privileged interface, then it is OK for Xen and
-> >>> also baremetal Linux to use it, but Linux Dom0 should not be using it?
-> >>> Or is the smc-id interchangeable and not necessarily tied to the
-> >>> agent-id?
-> >>>
-> >>> I think either way this detail should be clarified in the docs. Speaking
-> >>> of docs, the next patch introducing the doc is not up-to-date with this
-> >>> patch.
-> >>>
-> >> In my current configuration, I have the following setup:
-> >>
-> >> The Xen privileged interface operates through func_id 0x82000003.
-> >> func_id 0x82000002 is used for Domain-0, in order to keep the Device
-> >> Tree (DT) consistent between Xen and bare-metal configurations.
-> >> I am unsure how best to document this, since the implementation does
-> >> not strictly require this specific configuration and allows flexibility
-> >> for the
-> >> end user. My intention is to provide an example configuration in the DT
-> >> examples that is most likely to be used as a reference for real-world
-> >> setups.
-> > Yes, I am aligned with that
-> >
-> >
-> >> At this stage, I believe the most appropriate approach is to include a note
-> >> in the documentation stating that the examples illustrate a configuration
-> >> that aligns well with the Xen architecture, but other configurations are
-> >> possible depending on user requirements.
-> > Yes. The important detail is to explain that the same configuration
-> > works for both Linux baremetal and Linux Dom0. In the Linux Dom0 case,
-> > the privileged SCMI connection differs from the one of Linux Dom0 and it
-> > is the one used by Xen.
-> >
-> > Baremetal Linux: func_id 0x82000002, scmi-shmem 0x47ff0000
-> > Dom0 Linux: func_id 0x82000002, scmi-shmem 0x47ff0000
-> > Xen: func_id 0x82000003, scmi-shmem 0x47ff1000
-> >
-> > This works because, I am guessing, the privileged SCMI connection is not
-> > tied to func_id 0x82000002, scmi-shmem 0x47ff0000.
-> >
-> > The problem occurs when there can be only one privileged SCMI connection
-> > and it is tied to func_id 0x82000002, scmi-shmem 0x47ff0000 which is the
-> > one described in the Host DT. In which case, Linux Dom0 ends up with the
-> > privileged connection, not Xen.
-> >
-> > I think we should explain why this problem does not occur.
-> >
-> >
-> >>>>           #address-cells = < 1>;
-> >>>>           #size-cells = < 0>;
-> >>>>           shmem = <&scmi_shm>; <--- Host OSPM agent shmem
-> >>>>
-> >>>>           protocol@X{
-> >>>>           };
-> >>>>         };
-> >>>>      };
-> >>>> };
-> >>>>
-> >>>> This approach allows defining multiple SCMI Agents by adding
-> >>>> Xen-specific properties under the ``/chosen`` node to the Host Device
-> >>>> Tree, leaving the main part unchanged. The Host DT SCMI channel will
-> >>>> be passed to Dom0.
-> >>>>
-> >>>> The Xen management agent is described as a ``scmi_xen`` node under the
-> >>>> ``xen,sci`` comaptible node, which is used by Xen to control other
-> >>>> SCMI Agents in the system.
-> >>>>
-> >>>> All secondary agents' configurations are provided in the
-> >>>> ``scmi-secondary-agents`` property with an optional ``agent_id`` field.
-> >>>>
-> >>>> The ``agent_id`` from the ``scmi-secondary-agents`` property is used
-> >>>> to identify the agent in the system and can be omitted by setting
-> >>>> ``#scmi-secondary-agents-cells = <2>``, so the Secondary Agents
-> >>>> configuration will look like this:
-> >>>>
-> >>>> / {
-> >>>>     chosen {
-> >>>>       xen {
-> >>>>         xen_scmi_config {
-> >>>>           compatible = "xen,sci";
-> >>>>           #address-cells = <2>;
-> >>>>           #size-cells = <2>;
-> >>>>           ranges;
-> >>>>
-> >>>>           /* Shared memory nodes as defined earlier */
-> >>>>
-> >>>>           scmi-secondary-agents = <
-> >>>>             0x82000003 &scmi_shm_0
-> >>>>             0x82000004 &scmi_shm_2
-> >>>>             0x82000005 &scmi_shm_3
-> >>>>             0x82000006 &scmi_shm_4>;
-> >>>>           #scmi-secondary-agents-cells = <2>;
-> >>>>         };
-> >>>>       };
-> >>>>     };
-> >>>> }
-> >>>>
-> >>>> In this case, Xen will use the ``SCMI_BASE_DISCOVER_AGENT`` call to
-> >>>> discover the ``agent_id`` for each secondary agent. Providing the
-> >>>> ``agent_id`` in the ``scmi-secondary-agents`` property allows skipping
-> >>>> the discovery call, which is useful when the secondary agent's shared
-> >>>> memory is not accessible by Xen or when boot time is important because
-> >>>> it allows skipping the agent discovery procedure.
-> >>>>
-> >>>>     Note that Xen is the only one entry in the system which need to know
-> >>>>     about SCMI multi-agent support.
-> >>>>
-> >>>> - It implements the SCI subsystem interface required for configuring and
-> >>>> enabling SCMI functionality for Dom0/hwdom and Guest domains. To enable
-> >>>> SCMI functionality for domain it has to be configured with unique supported
-> >>>> SCMI Agent_id and use corresponding SCMI SMC shared memory transport
-> >>>> [smc-id, shmem] defined for this SCMI Agent_id.
-> >>>> - Once Xen domain is configured it can communicate with EL3 SCMI FW:
-> >>>>     -- zero-copy, the guest domain puts SCMI message in shmem;
-> >>>>     -- the guest triggers SMC exception with smc-id (doorbell);
-> >>>>     -- the Xen driver catches exception, do checks and synchronously forwards
-> >>>>     it to EL3 FW.
-> >>>> - the Xen driver sends BASE_RESET_AGENT_CONFIGURATION message to Xen
-> >>>>     management agent channel on domain destroy event. This allows to reset
-> >>>>     resources used by domain and so implement use-case like domain reboot.
-> >>>>
-> >>>> Dom0 Enable SCMI SMC:
-> >>>>    - pass dom0_scmi_agent_id=<agent_id> in Xen command line. if not provided
-> >>>>      SCMI will be disabled for Dom0 and all SCMI nodes removed from Dom0 DT.
-> >>>>      The driver updates Dom0 DT SCMI node "arm,smc-id" value and fix up shmem
-> >>>>      node according to assigned agent_id.
-> >>> Given that everything else, the entire configuration, is based on device
-> >>> tree, I think it makes sense to also configure this via device tree
-> >>> instead of a command line.
-> >>>
-> >>> This could be another parameter under xen_scmi_config. What do you
-> >>> think?
-> >>>
-> >> The ``dom0_scmi_agent_id`` parameter was introduced to keep the Dom0
-> >> configuration separate from the xen_scmi_config node, which is intended
-> >> specifically for Xen SCMI configuration. In my opinion, adding Dom0-specific
-> >> configuration to xen_scmi_config would mix the purposes of the node and
-> >> reduce clarity.
-> >>
-> >> Additionally, the ``dom0_scmi_agent_id`` parameter is similar to the
-> >> ``agent_id`` parameter used for arm_sci in xl.cfg. This approach ensures
-> >> that
-> >> the Dom0 configuration is as consistent as possible with the
-> >> configuration for
-> >> other domains.
-> >>
-> >> Overall, I believe this makes the configuration less confusing, as it allows
-> >> us to set similar parameters for both Dom0 and other domains in a clear
-> >> and organized manner.
-> > We are heading in a direction where Dom0 has its own separate domain
-> > node similarly to other Dom0less domains. Many of these changes have
-> > already been committed as part of Hardware Domain / Control Domain
-> > separation work by Jason.
-> >
-> > In a world where Dom0, like other DomUs, has its own configuration node
-> > and also Dom0 can be split between Hardware Domain and Control Domain,
-> > it doesn't make sense to use Dom0 command line options anymore. It is
-> > already possible to assign Dom0 "powers" to a dom0less domain for
-> > example.
-> >
-> > I can see it is worth discussing command line options for dom0 in
-> > situations where Device Tree might not be present (datacenter
-> > configuration on ACPI system) but in this case where Device Tree changes
-> > are required, I think it doesn't make sense to add Dom0 command line
-> > options as they are less flexible and a duplicate of other options we
-> > must have anyway.
-> That makes sense to me. Since we are moving to the Dom0 Device Tree
-> configuration,
-> I can move ``dom0_scmi_agent_id`` inside the ``xen,sci`` node and rename
-> it as the
-> ``agent_id`` property.
+On 1/19/26 09:46, Jan Beulich wrote:
+> It's not clear why the enumerator was omitted, as these clearly shouldn't
+> take the "default" path (issuing a warning). Handle them the same as
+> legacy and PCIe->PCI bridges.
 > 
-> Would you recommend dropping the ``dom0_scmi_agent_id`` command line
-> parameter
-> entirely, or should I keep it as a backup option?
+> Fixes: e7e08d86ad2f ("IOMMU/PCI: consolidate pdev_type() and cache its result for a given device")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I would drop the command line parameter entirely
+Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
