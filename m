@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB65D3AF05
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 16:31:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208210.1520432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60581D3B030
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 17:14:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208222.1520441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhrDH-0001YW-V3; Mon, 19 Jan 2026 15:30:43 +0000
+	id 1vhrsi-0007CM-0I; Mon, 19 Jan 2026 16:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208210.1520432; Mon, 19 Jan 2026 15:30:43 +0000
+Received: by outflank-mailman (output) from mailman id 1208222.1520441; Mon, 19 Jan 2026 16:13:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhrDH-0001X5-SI; Mon, 19 Jan 2026 15:30:43 +0000
-Received: by outflank-mailman (input) for mailman id 1208210;
- Mon, 19 Jan 2026 15:30:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vhrsh-0007Ay-SG; Mon, 19 Jan 2026 16:13:31 +0000
+Received: by outflank-mailman (input) for mailman id 1208222;
+ Mon, 19 Jan 2026 16:13:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5NKf=7Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vhrDG-0001Wz-Ic
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 15:30:42 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d023418d-f54b-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 16:30:41 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-47ee3da7447so27758325e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 07:30:41 -0800 (PST)
+ id 1vhrsg-0007As-E8
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 16:13:30 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c83ff6a7-f551-11f0-9ccf-f158ae23cfc8;
+ Mon, 19 Jan 2026 17:13:25 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4801ea9bafdso10396775e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 08:13:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e8d90b3sm203362415e9.15.2026.01.19.07.30.40
+ 5b1f17b1804b1-47f428bb0b5sm255812685e9.8.2026.01.19.08.13.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 07:30:40 -0800 (PST)
+ Mon, 19 Jan 2026 08:13:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d023418d-f54b-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: c83ff6a7-f551-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768836641; x=1769441441; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5FG0MWqsc1Mq5LhFOHZaTMZeQ28n5VfcT6LtJkTUwtQ=;
-        b=gitpqHDHjnd4YXwsOeDDEoCZPz3IslmYydQ27sk9JJ+A4iWy8lGAfdL2BYTYVQO1x0
-         mFU4KGqtHCJ/aVTNEE9msdfsZ1Av0pffn+FCRVwotejCtr+WZQh0dPtudfDueAWDJkNW
-         rBhyaxGsBQCQJbUgGUQeF8fRpN1GBe3bwylfglAAO78peJtNQ94bAfjf/pYtpR6wlt3t
-         puJ4elqNPsqB3J+EI0hhx8c0CpPuVDycckm0WCvIrN7ysspIh+COhi/cPgvs5mV66kVE
-         AX0S6iYRqG3wnrPG7xp2Q2HBXuWtZDd37BFMCId0ZFGUUIqldM07OhftjktZSlIJnHSi
-         Higg==
+        d=suse.com; s=google; t=1768839204; x=1769444004; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=l+vUXsm6d9ywAGLhahwKO78cqkqQuhm3E6TBu40z0KA=;
+        b=dhHXq9Ty4wsFgsxbwZZSXBhBGnPVRMKzp6Knsw+E7s/nQk2830ZqWe+qIGHVRcRI3d
+         IjGfDkM7EGyWSPbu8Pm4tz0GjEpA4P8FCgZ0kcdDSbFg4z5BLdoNKybx3hIolScYzisN
+         J0Fpnrkzp1aaL73sZPm7JGomXoua0vPIk1hl79VTjAXb0s3LTKkjHGekGyP7gb1Iymsb
+         Wi56e0LKSFP57oc7/d9MW3e6d7UjLfHbEvmg3rqQ0XjEl+U+hEqJGJUdiWJMTiVRp3Ll
+         EHjoxWxk1g9E0KW9fMq5fiTvYCqPRpX8/zLUuZzMB/wa77akAu2rXR96doJvXBVy+T2j
+         SzSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768836641; x=1769441441;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5FG0MWqsc1Mq5LhFOHZaTMZeQ28n5VfcT6LtJkTUwtQ=;
-        b=HyJuu+6FDiZQ0g+RTX5aaitVnYbu0pZ5VOs6jcvlwp1Jrigiqsij4rfbFupHdE8Xxp
-         QUerpr19TtncUZR7N5HJvT69/OLFe0XS9+vwEg0aeoiQvUFkXKD3Es83MhokS7tdBy+w
-         gCAWaLrCKUqS+jXQrNiQevFzi8qAbxRvJ80Xn6LW62yqm6iLeBEHW52D5Gtq5YmGszbV
-         BiWvKHqt8Z1QiSP/yeev2r4fKKB0lG1ZoypEgDlLyKIN9ncIVyQuYi22R+DeOtYymmQ7
-         R/YeP7dgbHiNqQOjYbYH3I3OCnRbjsT/Y686X4hyxJWj+Q9KMP00WSZEaulcIkZO7nJr
-         YPvg==
-X-Gm-Message-State: AOJu0YzyuqWTaOMPtPFpPLW50KkcP3v2PbImoFenU+oFDj4IMq4Qnn90
-	13q7G0HO03fyZSh+6mDHshtRk6fDFDq8Hhp5K2ciTAVIwYbCfsL/zDcxQROpb57JC7fGihETDvv
-	s2x8=
-X-Gm-Gg: AY/fxX66X9C4fxISyuDygPbJrfy5Lm0mU7+NKj/p21cEUloAlfIjDOxbxzqWg7574RW
-	HOyq0I9JF3+0NBpQuYEhPgVnFL6VtrD+s2/tn/fFnCZiZTTMpu5qaFVZMduJJtvnUeY0J5qgxGc
-	UnuvSsYuNxrVhCj4qJbyXiPHvarQ0Ug3VZ/7Y52fn9AJBUCwXMC9Cz4biYKnwfZ/iFyUfcF+7mW
-	1H4YF77DcvWLprW83lfgJdJZz7WCuIaKjK7U3OPBUuNfagV+mxHf7++QJLsBQHCGNO0vrLGggE9
-	MEGttJIYSrDQH9XsedccqG5ECqivbP2VDETR0uWCMDlc5yyZMB8FyITHQ2bPM9wEoZspcoOvaGi
-	/CbHpgr4IGILgtjSGTETT8TIUX0Y8VKL8+zEzyRFp780NZQu4IDH9C8wyZS9j8kY1IuePWm9JMH
-	IM3rx0WHoXsS93AYhEn54+e+1Ku6+jmOzrnVLJBwNpvYdEQEJYh3U7qjgqUBTESjPbWYhB++/L4
-	qQ=
-X-Received: by 2002:a05:600c:35c6:b0:477:93f7:bbc5 with SMTP id 5b1f17b1804b1-4801e2fdf57mr160486475e9.10.1768836640616;
-        Mon, 19 Jan 2026 07:30:40 -0800 (PST)
-Message-ID: <70fe3986-ad89-4b42-b158-7e7b2b24ec1e@suse.com>
-Date: Mon, 19 Jan 2026 16:30:42 +0100
+        d=1e100.net; s=20230601; t=1768839204; x=1769444004;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=l+vUXsm6d9ywAGLhahwKO78cqkqQuhm3E6TBu40z0KA=;
+        b=SNSdRDUYeqFuNcyonBsyA0oL0Cyz2LB8pLT3noBUVA0k319EXCeHZyZjplCJQ2qHzu
+         H3t9r8lVtn20QQ1l+PTxSQLMNmtoY9ryMwb95BoEJMnBfE5/503WVNOnzGhYV37+fM6e
+         Td8rlfvw/hiPJNQsDfIDKCTHa4iYC8dhIp6Vx3GK66aBX/tfhMgXKQg/ku30uIavF+3y
+         g5fZGahK3IXHMX9aA7E1RocLsGK/6EKeM4bqSSCGc6xPWqn3yLYhkWFam6daDrC5fr2H
+         50nfTHrecAMA3Rn/1pxggyKLUCiwNZ3eULnKLNiIJy0oRkVFIsQICH1BkvpedyZbnx7e
+         LQKg==
+X-Forwarded-Encrypted: i=1; AJvYcCV6JBJk7VqlLCttUTlIlugUgaGr1oYnLmUxsEa1kStndqW+7i1YkjCRMBvgKE3cwAhVqI303AijfMQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgPJbUtg4rQzzQgRxxLclhJ4SMfyNOzSMNpsiKwFT+bCa1Ggsj
+	MxfIQH6po0FZI1zprv7tXlup4jFWEUoxmF717Hzto6Ux5fAOLdGGjGYOyivqbX20Uw==
+X-Gm-Gg: AY/fxX7z9K/+bnTaxM/tjRpKSRA0P2FKXiS+gSOYVuqjIBvZrwv4xu9E9cPvjXgg79F
+	CqoeolKDai9esfzbb90F4IiNJcEl9RCtjzCQYnNlzC/uQ5bVdESGM1+rMzNMqwvFQ/jOywsG2On
+	3zQaNrxNLe64NNwI1ZE2g/r/A4Xf9QnElmSAtRsPBo2w0I4VEWA500ddTf6vN+xSI0HURvPaYyA
+	FjmKyxVTZgIx87TOahh3lj3e7qFGRSAExgr1LXxm+oxCywQACq8jNa0kC/gn7gBTlIoVPF9kKUu
+	fJ5gkdOK0xGNugLJnbNcp/MlxS5oQ+a1bb/G+gYg/1TOkP/Y9fe9Z9HxCbCh8K7vSjwFTLt3G4I
+	B7c6Fg7SkYsbcByNT/BNT9scLV1e3FVBMuRipHwoJkchJPOdbiiV2e45gE6XPXMuBE8hXZEgeni
+	V+FGbsCdo0rW0iNpogRXigx42aASH5OTWqhMZCByjQMbkiNjLUxOiwJNCjnYqCJKWKd7aa9iglZ
+	Ss=
+X-Received: by 2002:a05:600d:6413:10b0:480:1e40:3d2 with SMTP id 5b1f17b1804b1-4801e400518mr116115895e9.29.1768839204388;
+        Mon, 19 Jan 2026 08:13:24 -0800 (PST)
+Message-ID: <858d73b3-2feb-419f-bf3b-9a264e9f9af8@suse.com>
+Date: Mon, 19 Jan 2026 17:13:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 3/3] xen/mm: limit non-scrubbed allocations to a
+ specific order
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260115111804.40199-1-roger.pau@citrix.com>
+ <20260115111804.40199-4-roger.pau@citrix.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: calculate number of synthetic feature and bug
- enumerators
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,53 +122,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260115111804.40199-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Rather than spelling out their amounts (requiring updates when multiples
-of 32 are crossed), introduce a sentinel each and calculate the two
-numbers from those.
+On 15.01.2026 12:18, Roger Pau Monne wrote:
+> The current logic allows for up to 1G pages to be scrubbed in place, which
+> can cause the watchdog to trigger in practice.  Reduce the limit for
+> in-place scrubbed allocations to a newly introduced define:
+> CONFIG_DIRTY_MAX_ORDER.  This currently defaults to CONFIG_DOMU_MAX_ORDER
+> on all architectures.  Also introduce a command line option to set the
+> value.
+> 
+> Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - Split from previous patch.
+>  - Introduce a command line option to set the limit.
+> ---
+>  docs/misc/xen-command-line.pandoc |  9 +++++++++
+>  xen/common/page_alloc.c           | 23 ++++++++++++++++++++++-
+>  2 files changed, 31 insertions(+), 1 deletion(-)
 
-No difference in generated code, albeit debug info size grows quite a bit.
+If you confine the change to page_alloc.c, won't this mean that patch 2's
+passing of MEMF_no_scrub will then also be bounded (in which case the need
+for patch 2 would largely disappear)?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-This is an alternative to "x86: guard synthetic feature and bug
-enumerators", bulding upon the expectation that when adding to the end of
-either list people will notice the sentinel and not forget to update it.
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1822,6 +1822,15 @@ Specify the deepest C-state CPUs are permitted to be placed in, and
+>  optionally the maximum sub C-state to be used used.  The latter only applies
+>  to the highest permitted C-state.
+>  
+> +### max-order-dirty
+> +> `= <integer>`
+> +
+> +Specify the maximum allocation order allowed when scrubbing allocated pages
+> +in-place.  The allocation is non-preemptive, and hence the value must be keep
+> +low enough to avoid hogging the CPU for too long.
+> +
+> +Defaults to `CONFIG_DIRTY_MAX_ORDER` or if unset to `CONFIG_DOMU_MAX_ORDER`.
 
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -7,7 +7,6 @@
- #define FSCAPINTS FEATURESET_NR_ENTRIES
- 
- /* Synthetic words follow the featureset words. */
--#define X86_NR_SYNTH 2
- #define X86_SYNTH(x) (FSCAPINTS * 32 + (x))
- 
- /* Synthetic features */
-@@ -44,9 +43,11 @@ XEN_CPUFEATURE(IBPB_ENTRY_HVM,    X86_SY
- XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCALL */
- XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* PDX compression */
- XEN_CPUFEATURE(XEN_REP_MOVSB,     X86_SYNTH(32)) /* REP MOVSB used for memcpy() */
-+XEN_CPUFEATURE(nr,                X86_SYNTH(33)) /* Number of synthetic features */
-+
-+#define X86_NR_SYNTH DIV_ROUND_UP(X86_FEATURE_nr - FSCAPINTS * 32, 32)
- 
- /* Bug words follow the synthetic words. */
--#define X86_NR_BUG 1
- #define X86_BUG(x) ((FSCAPINTS + X86_NR_SYNTH) * 32 + (x))
- 
- #define X86_BUG_FPU_PTRS          X86_BUG( 0) /* (F)X{SAVE,RSTOR} doesn't save/restore FOP/FIP/FDP. */
-@@ -64,5 +65,10 @@ XEN_CPUFEATURE(XEN_REP_MOVSB,     X86_SY
- #define X86_SPEC_BHB_LOOPS        X86_BUG(20) /* Use clear_bhb_loops for BHI mitigation.*/
- #define X86_SPEC_BHB_LOOPS_LONG   X86_BUG(21) /* Upgrade clear_bhb_loops to the "long" sequence. */
- 
-+#define X86_BUG_nr                X86_BUG(22) /* Number of bug identifiers */
-+
-+#define X86_NR_BUG DIV_ROUND_UP(X86_BUG_nr - (FSCAPINTS + X86_NR_SYNTH) * 32, \
-+                                32)
-+
- /* Total number of capability words, inc synth and bug words. */
- #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit words worth of info */
+This may end up misleading, as - despite their names - these aren't really
+Kconfig settings that people could easily control in their builds.
+
+>  ### max_gsi_irqs (x86)
+>  > `= <integer>`
+
+I also wonder whether your addition wouldn't more naturally go a litter
+further down, by assuming / implying that the sorting used largely ignores
+separator characters (underscore vs dash here).
+
+Jan
 
