@@ -2,46 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1884BD3B5C0
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 19:27:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208251.1520472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A88FDD3B68D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Jan 2026 20:02:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208279.1520483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhtxj-0006QG-09; Mon, 19 Jan 2026 18:26:51 +0000
+	id 1vhuVM-0003T0-Iw; Mon, 19 Jan 2026 19:01:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208251.1520472; Mon, 19 Jan 2026 18:26:50 +0000
+Received: by outflank-mailman (output) from mailman id 1208279.1520483; Mon, 19 Jan 2026 19:01:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vhtxi-0006Ol-TE; Mon, 19 Jan 2026 18:26:50 +0000
-Received: by outflank-mailman (input) for mailman id 1208251;
- Mon, 19 Jan 2026 18:26:49 +0000
+	id 1vhuVM-0003Py-FM; Mon, 19 Jan 2026 19:01:36 +0000
+Received: by outflank-mailman (input) for mailman id 1208279;
+ Mon, 19 Jan 2026 19:01:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iFEF=7Y=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vhtxh-00069I-44
- for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 18:26:49 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9b5m=7Y=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vhuVK-0003Ps-UV
+ for xen-devel@lists.xenproject.org; Mon, 19 Jan 2026 19:01:35 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a4b5054-f564-11f0-b15e-2bf370ae4941;
- Mon, 19 Jan 2026 19:26:47 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7F8025BCCF;
- Mon, 19 Jan 2026 18:26:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F0E353EA63;
- Mon, 19 Jan 2026 18:26:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bQUXOWZ3bmlDaQAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 19 Jan 2026 18:26:46 +0000
+ id 447dfa29-f569-11f0-b15e-2bf370ae4941;
+ Mon, 19 Jan 2026 20:01:33 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by CO1PR03MB7913.namprd03.prod.outlook.com (2603:10b6:303:274::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.11; Mon, 19 Jan
+ 2026 19:01:29 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9520.011; Mon, 19 Jan 2026
+ 19:01:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,291 +47,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a4b5054-f564-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768847207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AptIhJVLc4BAPjc93uyYDO0mqV71EtV4n2ofFaZETBA=;
-	b=MHdJ4bZvPaLDXUUOQ3i7gfZ7SaV5KwjmoaFwAn84TqAqysh6unnWea6ggMSDJ/PpHkvkjo
-	I0bcsilVrid3zIhgY/mNdw68yalgrA6NjTLwct4FKvMxS8yXswniUi2Aw805dPA794XFJp
-	PwpYIqSNVMu84lONkQNyMxjfHxIq6NE=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=MHdJ4bZv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1768847207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AptIhJVLc4BAPjc93uyYDO0mqV71EtV4n2ofFaZETBA=;
-	b=MHdJ4bZvPaLDXUUOQ3i7gfZ7SaV5KwjmoaFwAn84TqAqysh6unnWea6ggMSDJ/PpHkvkjo
-	I0bcsilVrid3zIhgY/mNdw68yalgrA6NjTLwct4FKvMxS8yXswniUi2Aw805dPA794XFJp
-	PwpYIqSNVMu84lONkQNyMxjfHxIq6NE=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v4 2/6] x86/paravirt: Replace io_delay() hook with a bool
-Date: Mon, 19 Jan 2026 19:26:28 +0100
-Message-ID: <20260119182632.596369-3-jgross@suse.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260119182632.596369-1-jgross@suse.com>
-References: <20260119182632.596369-1-jgross@suse.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 447dfa29-f569-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wjvNUzh63bPr6qKCa1Zh2IEACo2095t0wxE7iiWRTJFTGez+kYaYyNjaY8Q9mKRgweTpuYkWZe0mDvKC8GvmZe6PEhhygBIC7MnWrzcn75nwfsP5abLaKjkgdxUrDcPTZH4tUXxdA0yk7f0S0y4TkqlNs3WiWU4zER9WutHNksJt7Hd71EIamL1ZpOvv5aLSncDBgyMjZdH4VWV2kpk0snWyUYWjAoOzYnAYyv7855D/8cezqSlRHtZenfdD47fcvzZ34sbICAUY6q/7gYq+zABhVkLUTBM5ZN8ZP0gsRWXnbvJeUiUF+hGt08WjA0U0IpXw+2TvtK5hOwn1hqLY4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p6NSuYkMmYDfkae9kO2qKhlwOe6zic4bnQPFknOnPpg=;
+ b=qng1AIywYYTRbViS+Vz0sZRqFZs+b/tlztvinTIPt6LlobSWkgNDYMrOJOd5EZIR93/GG9VpZ4VvspH+uQ7Bdd99pu0X3dZ7Vn1glZ1VLD6nGrwo/KfiXj5dV6Wafa3bZsTnSZwX/XT3+NUZMhPtrwUzuF1x8zbEAyY9frKxK4PHhQAud4TvDO4SIykcAToMyV83nI1SXmPgOlnboAT0uvQZjfahIKELXedLtil/zxl5XWeWQf/a5AUJt1cLTcKdJHQ1WpfZlsu+1nUK4Mdo2blEBtHNtGUSHD/0gJwMaDtGsCVm+pqfjHMB9eK/f2ZUrf1qIbQk/dnvRaTAynlVwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p6NSuYkMmYDfkae9kO2qKhlwOe6zic4bnQPFknOnPpg=;
+ b=GhqNlV0EFA+d2MQ2dm11OSiy1HxzBMWsBCxWDg9zJ2/O9m3EtfYc20gDwznxBZ/oHCwXJBdOaIcWYR7nfNvDPGKUbxQJG/OGH8PD78c1Rbg/S4kGeNsUMg/qzpZGL67PBKpOSK4CUbbKHAAVMxoH1p8JTGHStiSsuCP88pPOvXo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <335949fc-059e-477c-9b2b-ddcd2f144300@citrix.com>
+Date: Mon, 19 Jan 2026 19:01:25 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] xen: Move NX handling to a dedicated place
+To: Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260115151658.3725784-1-julian.vetter@vates.tech>
+ <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com>
+ <c4c2c376-ab6b-4bb3-9ede-091f791c1427@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <c4c2c376-ab6b-4bb3-9ede-091f791c1427@vates.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	RCVD_COUNT_TWO(0.00)[2];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 7F8025BCCF
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Level: 
+X-ClientProxiedBy: LO4P123CA0679.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:351::12) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|CO1PR03MB7913:EE_
+X-MS-Office365-Filtering-Correlation-Id: fac5c2bd-a62b-4b88-5376-08de578d26bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aUN3UFIyampHTzg0S0lYMGZ1Z2N3M3YzSDViK0hiZFVQMFVhRWNyZUthUzRS?=
+ =?utf-8?B?enBMZlpDL2w3eWtsRlFQMUw4Mm91ZFl5QUdCMThZTVJ1SzhFeDBQWnFTTk1Z?=
+ =?utf-8?B?RDJuWnVDRVJzeTloK0FVN2pYalY2OVJYZzVNSHlpZDhFbGV1ZjU5UXlYbkxk?=
+ =?utf-8?B?K2xHSWluSGoyUlMzcEU5SGtPdlJoczR5ZEZGVEtMTVpsQTV0MTZFc0lCa3Vq?=
+ =?utf-8?B?QW1MK1A4L2o2bHc5d0F1ODBDT0VERGJ1dTFCbDFNRHgxYWRmWSs2Z2xOU2RU?=
+ =?utf-8?B?cjdyY0pUdXBxWXRFczZkQ3B1elMrQVpKczQ5MEkxRWNsRm5PbHdjcnBxU2N2?=
+ =?utf-8?B?SVVXMnV1ZzBleDVKQTVqNjZWRkM2VEhoN1pPN1NHMmhXVTVCYXNib0haSXpy?=
+ =?utf-8?B?MjFmOGFtREs1dFdvcy9kRlRQQlpGSE1CL2ZqTmgybkFiNE1vajJCRlc2d2xU?=
+ =?utf-8?B?bEhMeFIzTUZ0aTBhc1dkS3pKbEpCcmFFSHVxT014S3I1aVFNVlZ3R002dnBm?=
+ =?utf-8?B?OVREY0ZPRFlOQmdjSi9Pd255SGVJR0NWeDNIZDZFbklLcmM2Z21PN1BCeGlC?=
+ =?utf-8?B?S1BIWE10WmlyWUtNbDF1bXZnVnNiZWtKakdXbVF6empHaE01UWJGcEVFM3Q1?=
+ =?utf-8?B?TTJJeGIrRk9mSzl6RERPeW9JWVdIb1RuR3Z5blRGb0RxV1RPNGNQdGF4M09l?=
+ =?utf-8?B?dkJjODN0bE43OCtXeDQydG1LMG5jak1zUWxQcDRvVk5ydC8xV0hmTFp3aVRO?=
+ =?utf-8?B?MG1nMVV0RmhzNlMxMlNWeEh3Kzl1VFo0dkVTZzlzTkFLRG5hTURTV3FOd0c1?=
+ =?utf-8?B?K1pybzhJVWc0WnQ1MEdUdWdHZEJaaFFUbXhEQ2VkU0F0UjJyZUd4VzZQZXU1?=
+ =?utf-8?B?WjB4WVZYUjZzeUhjYjNscWtDRG1Td0FzdFlDblAyNjNxcXk4bmdiZWVrZ1Jr?=
+ =?utf-8?B?UTBMMzFaRk9Ua1JsOGlkcHZ1MHJ6OHM5b01WUHJmclppNDUrRGF6Tk05U1lo?=
+ =?utf-8?B?d0hqNXppSmR4WmN3dzNkSUkxWW93Rm8wR1hPeWFLL1V5dVJYclNybE5nbncz?=
+ =?utf-8?B?cUVNUmE1NHQ1T1gvMnZNZkRjT0djT25zcWI2Q2daT1hmSmlQWVc2cUNDa054?=
+ =?utf-8?B?K0VKT1h1eVNlazhwZUFmY3pSaWF1akJEL2s3TXBBY1Z0U2xWNTBSNzBQOGwz?=
+ =?utf-8?B?SHRvV01obE4rdmxLNmhOYTdTcHIvOU04L2FPNk1GMndqZmY3bHRPSDNXTUVP?=
+ =?utf-8?B?cjJ3Ry9sNjFYV2lmRHRJR3hKWFVQM05mbVVBeE9SNm5CeW5PdFZjaEsxRWlD?=
+ =?utf-8?B?QnBpL2htWnJsMWJ4c200SWdFVHJwMXMwN3RUVnUxbVFmcU5yb1F1N2Q2RHdl?=
+ =?utf-8?B?SERzd3dWQVNCaVMwWE5MdVdOTE5QTEk3UU1HajBQdGowYnFhbHJKb2lQeFhQ?=
+ =?utf-8?B?TlNmTGxWLzd2UDhvQi9FTXVsSVpGelpmSzdoMUdjMnlTb2ZPL09naS9Pbks3?=
+ =?utf-8?B?Sm5IVlltVWhtN2JQWGpiZ1dwams5VkdPMk94REQ2RGFQVHdTMWwxL3VGS2NK?=
+ =?utf-8?B?T2xYNlh5ZW1tYmJpUkdBL0U0dms2c1grYWRKRjNFYlc2Z3dpQzhoNkwyeDRt?=
+ =?utf-8?B?SE01ZHo2ZmZnWmhyT3NpY1hNM3IxKzJTVyswYy85WG1ydS9ZT3krZ1MwS1VH?=
+ =?utf-8?B?Q2luNkNBNjM2dWk1WXd1cXJ5OHRpeEdOUDBoNU1BT0dXZnM0Sm1tY3pKS2Rm?=
+ =?utf-8?B?dUZ0V1J3OStiQ3pUREFwNmN5aXA4TUR0endTSkljRVBFYmZydTlZQkNyNjVP?=
+ =?utf-8?B?UzlIWlRwdTlUdzV1T2d4Z0JWRE9ncGdnczhKRWlZZHVPZE41ckNWREtIM21k?=
+ =?utf-8?B?OVRPT0ZxeUtkSy9KdGtnVjFGZVpNbVRURElLTWlHM2d3SHFrN2hrNGE5UkJK?=
+ =?utf-8?B?RVZHdGQvSk1zazBOSmw4a1N4ZkljVURmZ21DNzZMc3E2TVJkSlBsK3ZNMHd2?=
+ =?utf-8?B?clRmWnZyMXNCTWlNWEExWWFaMldEYlFiVUlUV0RwMkVWSnpWdE5TS3dlTEh1?=
+ =?utf-8?B?YThmcXBRSCtvOXMvaGJOSEJzTFo3amV3Q1QvV2VGbU81T09FbXgvTGc5NCtp?=
+ =?utf-8?Q?xEgg=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K1ZjY2xmZHZiaUZIbFhXSlBYZnVCTmErczhtcFBIWWdNN3E3am5USWtjZVFj?=
+ =?utf-8?B?d0lObE1UM3g1cm9NWXU5NmVzMmdTMzZGY0w2U1U0WUNodlY3bEhRYWNTWktN?=
+ =?utf-8?B?aGJsWVA3ZDZlT1hsdU9JUDdlQ1NDSHBNUDBUYkZwaFVoVlBCMndYdHhhNlF0?=
+ =?utf-8?B?bDVTdzZQWVJDS2VkZmdHKzJOS1JSQ1Rmd0dNMGtSUVlqM2F0S2ZtcWVaV241?=
+ =?utf-8?B?SDhLbDFJR2I4NkROMktRZ2ZIVzdyUEJZVTZpdDB0Nnp4Z3NaZGtDeWJkSEsw?=
+ =?utf-8?B?VXRYOVpaMXBKUUZ0dUNrTTA2dlRJNTFUWEdpL21iRWRLMG1ldXZiNWRXUmNp?=
+ =?utf-8?B?UEttdUVSS0J1U0ExMzVRb1F4MlFSdXhUaW5aNGVzOGd3dTFyTWlmbFdYSHBO?=
+ =?utf-8?B?eklHS3d6dDhlTzZRdzhCWkhLaTRoUUlIOUxpNzlYd3k4K3hmTnFVejhJR2hv?=
+ =?utf-8?B?aEtCLytnd2QwbXhPaHc2RkFnRVhVaTluSXhSZmlJRkNlWTNjU0wwSy9yYUtr?=
+ =?utf-8?B?bERHd3U5R0JGU0JRdXF1TmRKcERwc25jNDQ4ckNxTWFHRGhwbDNjMVFYYnhC?=
+ =?utf-8?B?MXA3cTdVUU94MGJkQmtLWkxCWlpkZUgveHVqY0RGRGxpckdwaDBCM25qQkZS?=
+ =?utf-8?B?K1pLNTlFb2dpNWtCRnJLN2ZhSXZEZko0aGVPQlNUTUkrSERZdStMenJkR3d6?=
+ =?utf-8?B?ZTdoMVR6UXdXQzBRUkFmRDFtNmhjMHozMEY3b2hWS3AyWHg4YVJTMjNIc1lO?=
+ =?utf-8?B?Yy9nUmpJMUpvOEFCS2pJNnB3ZHhwWXFEM2FoWHhPempyRDdjaTA4blBaR1Uz?=
+ =?utf-8?B?UnlOd2JMajNTZDUxZVltcjV5bGpLNnhrZHYwTXQ5ckZaQ3FVYThmYjNEZkNL?=
+ =?utf-8?B?Y0lsSVVFZ29aOUZzbUdzdUZ5enBvWXJWSjVOa2x1RzBUZWZla3hwbjR2dFRn?=
+ =?utf-8?B?Z1VjbS9BT3l1dDljZVFEck1TcFdFTEx5Wk1NN0F5Rkh2Z3VYNDYzNTRmV0lo?=
+ =?utf-8?B?emduaWUrNWxiaEpyOVRkQUZYUFltUDVaYmEzcm9heGo0WVY3MTFFN01vRVIw?=
+ =?utf-8?B?YWUvQ2tsZTNSUWlpS1RuRFhWS2F5RUE1azVJeC81UUFkZFVGYlo1SGZvWXJX?=
+ =?utf-8?B?Z1dDeDQ4eG1uTUEwRDN4OXFpcjdxK2wzeHpmM2NBRUkrL0R6clFTcFBzMy9T?=
+ =?utf-8?B?Z25LWXdESVJsd2Nla2ZuZnJjbnhjK0IwUkJpaUVaR2VSL0hOT256SUFyR05h?=
+ =?utf-8?B?bURQbXEwdDRleStoZGw3VmZvUWRsUTZBZ1EwZktPL1lVSEhoRStadmNKTThs?=
+ =?utf-8?B?TGJEOWhBeHhLTy9RaFUyREtsSHdQVHFyWndkR3A2cGlFaVVONytvdjNER0ZC?=
+ =?utf-8?B?b3Q3bDdBM1lmaHhhSExEcWlJbzZrQ0s2cXgvcmE1VTA5Q25VK2l2UXVFWGVo?=
+ =?utf-8?B?Uks0MTQ5UmJSNWFJUzZuQkpLSUNicmRLNjgwYm9tQzFSbkxXdDhmMUMwd25m?=
+ =?utf-8?B?Q3VkejFvclJBK0Rqdk9sdGdRSm54eUdOaWg0K2VmS3NQRWR6SWtJdWpFb3hz?=
+ =?utf-8?B?R21UNTVKbE8vVFRUVURzTjYwQU1NZ2NRUmgycUNXSm1wbzN3c2VNY0F6RThE?=
+ =?utf-8?B?RXJwd1ZpV01ZYzJBZE5USTRITktGR3VEYjhrSkYvMzM1VjhxTEdVYkUrN2Ur?=
+ =?utf-8?B?R1RwVHoxZy9VSGNwempRZkh6OG9sRVc1ajFITldFLzZlWW5TK0UwdmVkNmZB?=
+ =?utf-8?B?QlBjTm0zVjFnWUJENjU5bTBNc0NmNDNwbHgzY2lLV1N1V3pJSm5URG1qTG5m?=
+ =?utf-8?B?Nk1NaUZGZTZBaGZ1RE9VUDFhblRSdEc1dS9pR2RZdWdMSy93ZEoyZlVDcldo?=
+ =?utf-8?B?SXlsOU9nV240M0ozeUFXZ0k2dUVDQnJBL1M3WW05eGxpenlhSTBvcWxiVmFG?=
+ =?utf-8?B?K2V3bmx1b1kzNkYrQzRORFhGQmpXc0xiZFBpY1BzNWYxTy9ReWdKRXFvam42?=
+ =?utf-8?B?WGZMYk5pOHpHVnUzajFqWFpQc1U1bGhJY2FKTzlDOXZUZFp5Tm55cjVCamRM?=
+ =?utf-8?B?LzJxK1owU1phQWM0ZHNZOWZhSG45VXlQeW9MNG5wZzIwdmVrc3pKYjg1aWdw?=
+ =?utf-8?B?cjcxMVhHSnNCaW9TTjFoL0kzT0xIMUdJNmhXMEplMHFReG40QkVsL2Z2MThk?=
+ =?utf-8?B?ckcwUXNJQ0w2b2RBRWEydTJXTWRoL2NTSUtJN3FLWmhoUW4zTHplNzFKcXh1?=
+ =?utf-8?B?Ui9iVkhYWHhkNnNXV0tJVE16L3AzZEVFZXc3LzVpSlVRMkNxZ1dqMkREWGp6?=
+ =?utf-8?B?RXZIV2JHczV6ZkFoM2IzVjc2SDRPcTBiRURNcXJWcGw3L0pmNFRxZz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fac5c2bd-a62b-4b88-5376-08de578d26bf
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 19:01:28.5931
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ysi/vySjY/aZ5Xh3sOjD60NjptyK2Mg0Z4vkebsw4OkFem97QmC8OceZd2jJB+Pde4bBTXnNgN8Y1apIRCCPiPnwoEOK+GJBik/bRw0JlU0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB7913
 
-The io_delay() paravirt hook is in no way performance critical and all
-users setting it to a different function than native_io_delay() are
-using an empty function as replacement.
+On 19/01/2026 10:34 am, Julian Vetter wrote:
+> On 1/15/26 4:50 PM, Andrew Cooper wrote:
+>> On 15/01/2026 3:17 pm, Julian Vetter wrote:
+>>> +{
+>>> +    uint64_t misc_enable;
+>>> +    uint32_t eax, ebx, ecx, edx;
+>>> +
+>>> +    if ( !boot_cpu_has(X86_FEATURE_NX) )
+>>> +    {
+>>> +        /* Intel: try to unhide NX by clearing XD_DISABLE */
+>>> +        cpuid(0, &eax, &ebx, &ecx, &edx);
+>>> +        if ( ebx == X86_VENDOR_INTEL_EBX &&
+>>> +             ecx == X86_VENDOR_INTEL_ECX &&
+>>> +             edx == X86_VENDOR_INTEL_EDX )
+>>> +        {
+>>> +            rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>>> +            if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
+>>> +            {
+>>> +                misc_enable &= ~MSR_IA32_MISC_ENABLE_XD_DISABLE;
+>>> +                wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>>> +
+>>> +                /* Re-read CPUID after having cleared XD_DISABLE */
+>>> +                boot_cpu_data.x86_capability[FEATURESET_e1d] = cpuid_edx(0x80000001U);
+>>> +
+>>> +                /* Adjust misc_enable_off for secondary startup and wakeup code */
+>>> +                bootsym(trampoline_misc_enable_off) |= MSR_IA32_MISC_ENABLE_XD_DISABLE;
+>>> +                printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
+>>> +            }
+>>> +        }
+>>> +        /* AMD: nothing we can do - NX must be enabled in BIOS */
+>> The BIOS is only hiding the CPUID bit.  It's not blocking the use of NX.
+> Yes, you're right.
+>> You want to do a wrmsr_safe() trying to set EFER.NXE, and if it
+>> succeeds, set the NX bit in MSR_K8_EXT_FEATURE_MASK to "unhide" it in
+>> regular CPUID.  This is a little more tricky to arrange because it needs
+>> doing on each CPU, not just the BSP.
+> Ok, yes, I have modified the AMD side to use MSR_K8_EXT_FEATURE_MASK to 
+> "unhide" it.
 
-This enables to replace the hook with a bool indicating whether
-native_io_delay() should be called.
+Great.  And contrary to the other thread, this really must modify the
+mask MSRs rather than use setup_force_cpu_cap(), because we still need
+it to be visible to PV guest kernels which can't see Xen's choice of
+setup_force_cpu_cap().
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V3:
-- rebase to tip/master kernel branch
----
- arch/x86/include/asm/io.h             |  9 ++++++---
- arch/x86/include/asm/paravirt-base.h  |  6 ++++++
- arch/x86/include/asm/paravirt.h       | 11 -----------
- arch/x86/include/asm/paravirt_types.h |  2 --
- arch/x86/kernel/cpu/vmware.c          |  2 +-
- arch/x86/kernel/kvm.c                 |  8 +-------
- arch/x86/kernel/paravirt.c            |  3 +--
- arch/x86/xen/enlighten_pv.c           |  6 +-----
- 8 files changed, 16 insertions(+), 31 deletions(-)
+>
+>>> +    }
+>>> +
+>>> +    /* Enable EFER.NXE only if NX is available */
+>>> +    if ( boot_cpu_has(X86_FEATURE_NX) )
+>>> +    {
+>>> +        if ( !(read_efer() & EFER_NXE) )
+>>> +            write_efer(read_efer() | EFER_NXE);
+>>> +
+>>> +        /* Adjust trampoline_efer for secondary startup and wakeup code */
+>>> +        bootsym(trampoline_efer) |= EFER_NXE;
+>>> +    }
+>>> +
+>>> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) && !boot_cpu_has(X86_FEATURE_NX) )
+>>> +        panic("This build of Xen requires NX support\n");
+>>> +}
+>>> +
+>>>   /* How much of the directmap is prebuilt at compile time. */
+>>>   #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+>>>   
+>>> @@ -1159,6 +1203,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>       rdmsrl(MSR_EFER, this_cpu(efer));
+>>>       asm volatile ( "mov %%cr4,%0" : "=r" (info->cr4) );
+>>>   
+>>> +    nx_init();
+>>> +
+>>>       /* Enable NMIs.  Our loader (e.g. Tboot) may have left them disabled. */
+>>>       enable_nmis();
+>>>   
+>> This is too early, as can be seen by the need to make a cpuid() call
+>> rather than using boot_cpu_data.
+>>
+>> The cleanup I wanted to do was to create/rework early_cpu_init() to get
+>> things in a better order, so the panic() could go at the end here.  The
+>> current split we've got of early/regular CPU init was inherited from
+>> Linux and can be collapsed substantially.
+> I have tried to add the logic into the early_init_{intel,amd}() 
+> functions. But it seems this is already too late in the boot chain. This 
+> is why I put into an extra function which is called earlier. Because it 
+> seems there are already pages with PAGE_NX being used on the way to 
+> early_init_{intel,amd}(). Because when I put my code into 
+> early_init_intel I get a fault and a reboot. What do you suggest?
 
-diff --git a/arch/x86/include/asm/io.h b/arch/x86/include/asm/io.h
-index ca309a3227c7..8a9292ce7d2d 100644
---- a/arch/x86/include/asm/io.h
-+++ b/arch/x86/include/asm/io.h
-@@ -243,11 +243,16 @@ extern int io_delay_type;
- extern void io_delay_init(void);
- 
- #if defined(CONFIG_PARAVIRT)
--#include <asm/paravirt.h>
-+#include <asm/paravirt-base.h>
- #else
-+#define call_io_delay() true
-+#endif
- 
- static inline void slow_down_io(void)
- {
-+	if (!call_io_delay())
-+		return;
-+
- 	native_io_delay();
- #ifdef REALLY_SLOW_IO
- 	native_io_delay();
-@@ -256,8 +261,6 @@ static inline void slow_down_io(void)
- #endif
- }
- 
--#endif
--
- #define BUILDIO(bwl, type)						\
- static inline void out##bwl##_p(type value, u16 port)			\
- {									\
-diff --git a/arch/x86/include/asm/paravirt-base.h b/arch/x86/include/asm/paravirt-base.h
-index 982a0b93bc76..3b9e7772d196 100644
---- a/arch/x86/include/asm/paravirt-base.h
-+++ b/arch/x86/include/asm/paravirt-base.h
-@@ -15,6 +15,8 @@ struct pv_info {
- #ifdef CONFIG_PARAVIRT_XXL
- 	u16 extra_user_64bit_cs;  /* __USER_CS if none */
- #endif
-+	bool io_delay;
-+
- 	const char *name;
- };
- 
-@@ -26,6 +28,10 @@ u64 _paravirt_ident_64(u64);
- #endif
- #define paravirt_nop	((void *)nop_func)
- 
-+#ifdef CONFIG_PARAVIRT
-+#define call_io_delay() pv_info.io_delay
-+#endif
-+
- #ifdef CONFIG_PARAVIRT_SPINLOCKS
- void paravirt_set_cap(void);
- #else
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index b21072af731d..f4885bd98a18 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -19,17 +19,6 @@
- #include <linux/cpumask.h>
- #include <asm/frame.h>
- 
--/* The paravirtualized I/O functions */
--static inline void slow_down_io(void)
--{
--	PVOP_VCALL0(pv_ops, cpu.io_delay);
--#ifdef REALLY_SLOW_IO
--	PVOP_VCALL0(pv_ops, cpu.io_delay);
--	PVOP_VCALL0(pv_ops, cpu.io_delay);
--	PVOP_VCALL0(pv_ops, cpu.io_delay);
--#endif
--}
--
- void native_flush_tlb_local(void);
- void native_flush_tlb_global(void);
- void native_flush_tlb_one_user(unsigned long addr);
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 7ccd41628d36..3946d0f69921 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -30,8 +30,6 @@ struct pv_lazy_ops {
- 
- struct pv_cpu_ops {
- 	/* hooks for various privileged instructions */
--	void (*io_delay)(void);
--
- #ifdef CONFIG_PARAVIRT_XXL
- 	unsigned long (*get_debugreg)(int regno);
- 	void (*set_debugreg)(int regno, unsigned long value);
-diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index a3e6936839b1..eee0d1a48802 100644
---- a/arch/x86/kernel/cpu/vmware.c
-+++ b/arch/x86/kernel/cpu/vmware.c
-@@ -339,7 +339,7 @@ arch_initcall(activate_jump_labels);
- static void __init vmware_paravirt_ops_setup(void)
- {
- 	pv_info.name = "VMware hypervisor";
--	pv_ops.cpu.io_delay = paravirt_nop;
-+	pv_info.io_delay = false;
- 
- 	if (vmware_tsc_khz == 0)
- 		return;
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 26ab6f8e36df..911950c9110c 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -75,12 +75,6 @@ DEFINE_PER_CPU_DECRYPTED(struct kvm_steal_time, steal_time) __aligned(64) __visi
- static int has_steal_clock = 0;
- 
- static int has_guest_poll = 0;
--/*
-- * No need for any "IO delay" on KVM
-- */
--static void kvm_io_delay(void)
--{
--}
- 
- #define KVM_TASK_SLEEP_HASHBITS 8
- #define KVM_TASK_SLEEP_HASHSIZE (1<<KVM_TASK_SLEEP_HASHBITS)
-@@ -327,7 +321,7 @@ static void __init paravirt_ops_setup(void)
- 	pv_info.name = "KVM";
- 
- 	if (kvm_para_has_feature(KVM_FEATURE_NOP_IO_DELAY))
--		pv_ops.cpu.io_delay = kvm_io_delay;
-+		pv_info.io_delay = false;
- 
- #ifdef CONFIG_X86_IO_APIC
- 	no_timer_check = 1;
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index a6ed52cae003..792fa96b3233 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -94,6 +94,7 @@ struct pv_info pv_info = {
- #ifdef CONFIG_PARAVIRT_XXL
- 	.extra_user_64bit_cs = __USER_CS,
- #endif
-+	.io_delay = true,
- };
- 
- /* 64-bit pagetable entries */
-@@ -101,8 +102,6 @@ struct pv_info pv_info = {
- 
- struct paravirt_patch_template pv_ops = {
- 	/* Cpu ops. */
--	.cpu.io_delay		= native_io_delay,
--
- #ifdef CONFIG_PARAVIRT_XXL
- 	.cpu.cpuid		= native_cpuid,
- 	.cpu.get_debugreg	= pv_native_get_debugreg,
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 8a19a88190ee..9c9695f5d158 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1046,10 +1046,6 @@ static void xen_update_io_bitmap(void)
- }
- #endif
- 
--static void xen_io_delay(void)
--{
--}
--
- static DEFINE_PER_CPU(unsigned long, xen_cr0_value);
- 
- static unsigned long xen_read_cr0(void)
-@@ -1209,6 +1205,7 @@ void __init xen_setup_vcpu_info_placement(void)
- 
- static const struct pv_info xen_info __initconst = {
- 	.extra_user_64bit_cs = FLAT_USER_CS64,
-+	.io_delay = false,
- 	.name = "Xen",
- };
- 
-@@ -1392,7 +1389,6 @@ asmlinkage __visible void __init xen_start_kernel(struct start_info *si)
- 	pv_ops.cpu.invalidate_io_bitmap = xen_invalidate_io_bitmap;
- 	pv_ops.cpu.update_io_bitmap = xen_update_io_bitmap;
- #endif
--	pv_ops.cpu.io_delay = xen_io_delay;
- 	pv_ops.cpu.start_context_switch = xen_start_context_switch;
- 	pv_ops.cpu.end_context_switch = xen_end_context_switch;
- 
--- 
-2.52.0
+Have you got the backtrace available?
 
+It's probably easiest if I prototype the split I'd like to see, and you
+integrate with that.
+
+~Andrew
 
