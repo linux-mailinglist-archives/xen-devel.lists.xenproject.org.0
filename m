@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9140FD3C290
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 09:51:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208466.1520613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B22A3D3C376
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 10:29:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208486.1520650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi7S0-0003bt-QC; Tue, 20 Jan 2026 08:51:00 +0000
+	id 1vi82n-0007st-Rf; Tue, 20 Jan 2026 09:29:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208466.1520613; Tue, 20 Jan 2026 08:51:00 +0000
+Received: by outflank-mailman (output) from mailman id 1208486.1520650; Tue, 20 Jan 2026 09:29:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi7S0-0003Yz-N2; Tue, 20 Jan 2026 08:51:00 +0000
-Received: by outflank-mailman (input) for mailman id 1208466;
- Tue, 20 Jan 2026 08:50:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vi82n-0007rO-OR; Tue, 20 Jan 2026 09:29:01 +0000
+Received: by outflank-mailman (input) for mailman id 1208486;
+ Tue, 20 Jan 2026 09:29:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vi7Ry-0003Yl-P4
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 08:50:58 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2269bb87-f5dd-11f0-b15e-2bf370ae4941;
- Tue, 20 Jan 2026 09:50:56 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47ee937ecf2so36450645e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 00:50:56 -0800 (PST)
+ id 1vi82m-0007rI-Uz
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 09:29:00 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 728a3a81-f5e2-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 10:28:58 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-47ee3a63300so48348455e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 01:28:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47f428b954esm291555515e9.7.2026.01.20.00.50.55
+ ffacd0b85a97d-4358e24cef3sm3250356f8f.0.2026.01.20.01.28.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jan 2026 00:50:55 -0800 (PST)
+ Tue, 20 Jan 2026 01:28:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2269bb87-f5dd-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 728a3a81-f5e2-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768899056; x=1769503856; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768901338; x=1769506138; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tvR8P1qhYUxOgFhUpo6UQFFziOLcP+abKFopPZ8Y4lA=;
-        b=I+b7Uea8A3+d7PWrXw0NR4+per94K6se/+S+wCrHt7BnKMMlx0mbsVla4vL/wvqOlU
-         ep6qFotVXTGh3x4cnTUIc67AUgLb+b/Ll+EbypYIxP2/bqlts4WPyhDLrt3M51arG1iZ
-         5PtZTvGjBbzp5vUMFI10PxUmGtAuOQG8X/iy1qQsvvWGijBoA0rL8K2S/rJ5lkKf6vsR
-         Qkt7YYLSlaSxcahMRMki1kmJb7+Q/asag0u4s8xCfJqETviqaYJTXmOVrShkl636uhUt
-         yKoji64C1rc1qRJmIFIrtOGntut8MJ9Zya1QKEoAn3WALr+/DNLlA+d5hPxppyRyLc+G
-         XhYQ==
+        bh=z8qtmLeEYJkg0E+FGU0YcIS6Kp7zsO5AEUqj66EA7/Y=;
+        b=CIh83e62ta4p5xABIRLVLmiKEZkCiH4F5iSUxUhJZrlEtyKTCHZOMelRK+xqhw87Qi
+         tjeb42PqrG8rs6lIYOqsyS9dhCJUqNcq43cNyIX5TkUcnvUhoGSMOie1SEymvcMGkouf
+         2vW2jldKl0aPsT7gWZcZZZnw6L+EV7PMdRDf8+8seNb6wrsFMkEnAKosVflLzKzN84KL
+         yRUPYq4psGI7HYWfB7+2733YhtHyMhDOp5Gmfm97nhGulSc8+bcmMERC2Y2c47sVkMbx
+         AytT082yEteFuBKr2uT0qLqNUx2mhTA4pvjaTHQJTJt4ls/Vtwh2qYBjS0qBwMKJF9rq
+         xhdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768899056; x=1769503856;
+        d=1e100.net; s=20230601; t=1768901338; x=1769506138;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tvR8P1qhYUxOgFhUpo6UQFFziOLcP+abKFopPZ8Y4lA=;
-        b=vvyW/D3wA6FDDubuS/oDTrAmMr0X3fGdEVgdx0rvrCmfsFueroVURA31rNRv78ab5E
-         yYGvVOY7bmLJDlzkHUiprifmc09KzWmq1vWQ7Ftne0AXgrMDMzAUeUavSpiH0u7JBc3K
-         3W1V1WCKk91x7SB6TUNrZZj40eAcPIdkApvUEjm7pHkuXP9uxLdTCCbYUJKjQRcNpeyV
-         AYlt3KNcU5S6hFCSsZcliZngjlPv3+ztuuY65KoUeX09GTJCqzDejtoc/0wng8fo4uc6
-         8A++rlde88A0ia8QGZ8LXBCi3ymUC4zdLhX6EvVv/iHoHgObSwxzBsJUGRb8Z3aJIypS
-         INxg==
-X-Gm-Message-State: AOJu0YyM2I56TqoH8GcZpY/2I2+mWQ+VyPpRlYMIov7RjZ6/9JK5NJOQ
-	DVb/Ymm6D4zsOf7wzP0rbn6TPSQSkeh8w504cWXSyYEdBbNJ27ExIj9F3wZH59I3CA==
-X-Gm-Gg: AY/fxX65kSWPrqvUi61lMzSTiZFV0k3Be2VgmBi5GmkH56cAefb/Kd6pj0kQMsxz3M/
-	BKFlRaTwD8leiTV3IIyNvX9cWIKIeUM9+fTjipPtSnjbchrRJ+TXfRcfhIP+2BBr8KB4VqVAoT4
-	mnQaZkL5e9bAk+me/zjXYdfbrwfu2P6jgGY1JKj940rp/jB7NIRRphQeDOj91Jv87sUjUw0/bWb
-	XmBjJ0VBjWBIBCNe1g6u35BlzI9Wh/g0ODu/Y40Li2klx4p/Uks03bH4EvBq95QdxynFo5xEzPe
-	XIWLs++QXRJuC6vElurOnKcY+3fS49TIojDA7XyiJnd6fe744VJ2eMcnoWRR54WJX1xBYxaYuRU
-	ABQ0Zs1LCEG/oqRN0b9sCbDmFb3Zql1zzrEt0yX+kEcWwQ1gLa+7k7AvRvCkJhPWI09O1IZgEfD
-	82HuE0qJG4A4eKFCm1hiDf3xB1Ehp28dI0Mn7aakv+IXvVakh6tVOb5mKCqT3K1e1wD7kCPOpky
-	VM=
-X-Received: by 2002:a05:600c:8184:b0:475:d9de:952e with SMTP id 5b1f17b1804b1-4801e530d08mr171832985e9.1.1768899055809;
-        Tue, 20 Jan 2026 00:50:55 -0800 (PST)
-Message-ID: <380f4d96-4612-4369-8ade-8e9739929135@suse.com>
-Date: Tue, 20 Jan 2026 09:50:54 +0100
+        bh=z8qtmLeEYJkg0E+FGU0YcIS6Kp7zsO5AEUqj66EA7/Y=;
+        b=DPnaYSkXJV+HvDX0+i7Sv1UjSVclvOAHgGtsM4oboleizAyseJROzzrXYXlYIh1oGk
+         XTlzGT803Uvm4vowNWIfSjgxGBITWx+73jmRSyIlasGz75zCbenVU1nmO4IhDICbBmyV
+         cfeCjcg2G/2he3N5B7nq4bjc5m1kjBd6GNUb4qS/5vthMdHZenQ+eggBRxBHpeDpkB8E
+         ZXcmtTdF/nqJJmJ1YDjs93rVTBb0mtLHb1LszUqT/ERPnlPcpHjchc+XvZDV6A3K6VW4
+         8p/bhokjltUQ2FtiGQD8/JgKhj5+JL2jvIsmqWLsoZnQo/Wrr3kFA+h9cvvajLs8ELKg
+         L6RA==
+X-Gm-Message-State: AOJu0YwhKvgBZsEI7wiBOtOr+r4UIILZknMzjo/JwG3aFKA8xHyvT0Lr
+	aOK4Fg/jU/JpQJcB+ku2k/KHLzzMlRd6NU69UmQ/QopnSr4yNCR56N/DdvBnx7jnHw==
+X-Gm-Gg: AZuq6aI6dU1+TAHwXJz/9edZ87IjFMY1nblVERfFGzjLP9pTNntXuL0DRqHXAWDQ/1Y
+	bush6vEx2qEvHLwAW1Zl77+XiXwO6k9qaDfJT9aIMrPBiCsmVWT5T7OB41qv1FB57xtQsNzowrk
+	9USOl3Gude1NgRpANzfXfFpeTNqcCswelI7qyTExwLpiXpmlq0TgL4m3IBnDe/Neot5jqqMgpkh
+	NvGTZlW7IOS5+hWhw6WNCTD1SdY/GJmGqju9XfTHxEDVGAuTAX167gR/8Z+i0aa6J1Z+pqvOzYI
+	n4bban3Gam8UIFjCySracBhgesIeYgzc2YmHtKPUoiyFHWlkUBHcbU4um1oraFSJiTx+l9XqLWg
+	RfDEHSPB6yrvNMl/nicyiTrnVrcyhoVQFyjKCSovue0GwQG0Jb+wuJ8C0calEVbjZYToC7yMJrt
+	bMYRn3OzWlg3Dk2d0RoiaKqaQoB7Zi6RGLr+JgdbbhfUE+3R7AqqjlqBURPsO0cOU7LtVD4vYo2
+	HPuWI7cwwd0Eg==
+X-Received: by 2002:a05:6000:200b:b0:431:35a:4a7d with SMTP id ffacd0b85a97d-4358ff6f98bmr1831452f8f.58.1768901337694;
+        Tue, 20 Jan 2026 01:28:57 -0800 (PST)
+Message-ID: <069c49f7-5150-47bc-885a-593970ffc113@suse.com>
+Date: Tue, 20 Jan 2026 10:28:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
@@ -97,6 +97,7 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
  <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
  <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com>
+ <380f4d96-4612-4369-8ade-8e9739929135@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,35 +122,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com>
+In-Reply-To: <380f4d96-4612-4369-8ade-8e9739929135@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.01.2026 09:00, Jan Beulich wrote:
-> On 14.01.2026 18:49, Roger Pau Monné wrote:
->> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
->>> stime2tsc() guards against negative deltas by using 0 instead; I'm not
->>> quite sure that's correct either.
+On 20.01.2026 09:50, Jan Beulich wrote:
+> On 15.01.2026 09:00, Jan Beulich wrote:
+>> On 14.01.2026 18:49, Roger Pau Monné wrote:
+>>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
+>>>> stime2tsc() guards against negative deltas by using 0 instead; I'm not
+>>>> quite sure that's correct either.
+>>>
+>>> Hm, we should likely do the same for stime2tsc() that you do for
+>>> get_s_time_fixed().  Given the current callers I think we might be
+>>> safe, but it's a risk.
 >>
->> Hm, we should likely do the same for stime2tsc() that you do for
->> get_s_time_fixed().  Given the current callers I think we might be
->> safe, but it's a risk.
+>> Will do then.
 > 
-> Will do then.
+> While doing so, I came to wonder if there isn't a reason for this "capping".
+> In local_time_calibration() we also have
+> 
+>     /* Local time warps forward if it lags behind master time. */
+>     if ( curr.local_stime < curr.master_stime )
+>         curr.local_stime = curr.master_stime;
+> 
+> Which for the use of stime2tsc() in cstate_restore_tsc() might mean that
+> indeed there is a worry of the delta being negative, and the desire to
+> "warp forward" in that case.
 
-While doing so, I came to wonder if there isn't a reason for this "capping".
-In local_time_calibration() we also have
+Proposed new function implementation (easier to look at than the diff):
 
-    /* Local time warps forward if it lags behind master time. */
-    if ( curr.local_stime < curr.master_stime )
-        curr.local_stime = curr.master_stime;
+uint64_t stime2tsc(s_time_t stime)
+{
+    const struct cpu_time *t = &this_cpu(cpu_time);
+    s_time_t stime_delta = stime - t->stamp.local_stime;
+    int64_t delta = 0;
 
-Which for the use of stime2tsc() in cstate_restore_tsc() might mean that
-indeed there is a worry of the delta being negative, and the desire to
-"warp forward" in that case.
+    /*
+     * While for reprogram_timer() the capping at 0 isn't relevant (the returned
+     * value is likely in the past anyway then, by the time it is used), for
+     * cstate_restore_tsc() it is meaningful: We need to avoid moving the TSC
+     * backwards (relative to when it may last have been read).
+     */
+    if ( stime_delta > 0 )
+    {
+        struct time_scale sys_to_tsc = scale_reciprocal(t->tsc_scale);
 
-Whereas for the other use in reprogram_timer() capping at 0 isn't overly
-useful. By the time the value is used, it is likely in the past anyway.
+        delta = scale_delta(stime_delta, &sys_to_tsc);
+    }
+
+    return t->stamp.local_tsc + delta;
+}
 
 Jan
 
