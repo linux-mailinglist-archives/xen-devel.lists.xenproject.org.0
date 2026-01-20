@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C68D3C0BC
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 08:42:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208419.1520582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E5BDD3C0C4
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 08:45:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208433.1520592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi6NF-0001e1-3w; Tue, 20 Jan 2026 07:42:01 +0000
+	id 1vi6Q3-0002Fr-KQ; Tue, 20 Jan 2026 07:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208419.1520582; Tue, 20 Jan 2026 07:42:01 +0000
+Received: by outflank-mailman (output) from mailman id 1208433.1520592; Tue, 20 Jan 2026 07:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi6NF-0001bs-0P; Tue, 20 Jan 2026 07:42:01 +0000
-Received: by outflank-mailman (input) for mailman id 1208419;
- Tue, 20 Jan 2026 07:41:59 +0000
+	id 1vi6Q3-0002EG-GW; Tue, 20 Jan 2026 07:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 1208433;
+ Tue, 20 Jan 2026 07:44:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vi6ND-0001bm-Df
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 07:41:59 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vi6Q2-0002EA-OG
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 07:44:54 +0000
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [2a00:1450:4864:20::442])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d11f784-f5d3-11f0-9ccf-f158ae23cfc8;
- Tue, 20 Jan 2026 08:41:53 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47ee9817a35so27805625e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 23:41:53 -0800 (PST)
+ id e7b66342-f5d3-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 08:44:52 +0100 (CET)
+Received: by mail-wr1-x442.google.com with SMTP id
+ ffacd0b85a97d-432d256c2e6so4264783f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 23:44:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43569998240sm27228205f8f.43.2026.01.19.23.41.52
+ ffacd0b85a97d-43569922032sm29098015f8f.8.2026.01.19.23.44.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 23:41:52 -0800 (PST)
+ Mon, 19 Jan 2026 23:44:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d11f784-f5d3-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: e7b66342-f5d3-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768894913; x=1769499713; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768895092; x=1769499892; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qpGZ4Zl02J19k/6EyNTEK+2X721BxWTLFU42awna7YE=;
-        b=JH8F52JwqQsWgINXobJ78cPe+46Td/FVP3Shy2zCRc4rzrUQo9DDabCmQkR8GlI+/L
-         QkzQpwFtup9keIE73k4ADhWlfWTm5GqFqrAJ52P9v/kX67KGS+c04DybLzYJUsRXsa6q
-         jyJw+jMIXRZCCcLWrpWvKELKDie41I1fgnGxwqF0hIJ13JjuyGxmV6WB7NAyCWYWXaEO
-         HT0+tFpqnP5VP90soIRxsTRItaZ2g7seXDs81dQfdNJS+yOkXMH12rvON5Tuj3/+yEyA
-         5w+wLH5bA0ZSqq+IPU4djOx3b4xRBaObicLJDKqYvISRCJq/KeZDB0xRCN0QL8wjw4iB
-         bzKA==
+        bh=PzVQEOmqsd/5MICjHZcd3xDgzx/ha6IBOhbYlgwGARI=;
+        b=RiGZCrp4cjlSkXsudwyHBOmICPfNA97w84ptsk+NmWDQQid2WSzPDGkI6/ywxXhc8c
+         ZVfXw4Gw44PCeNmZWafERSIxjX04Mm1GyoFgonDY6h1vv2HguG5AjILo90B5afC/7jPw
+         9eCkqS5JsAIfQUbpwMMLPFayKBOfjzfmYATHpp6H8933/vcTviWHUWpCBzZcAVpm9YvH
+         xoUCUFz9B88clOQZ7ms3roJzll9Immv/KF37StXrSTIC2mFJXToqKHyjTuLoI1yoYsMz
+         RDhAs+6uuCNGIRlEASQP2An0m0PXa7cTT9A05+gd5CRXoCAxBMhdQ8dsMmly1C6kqite
+         7Rzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768894913; x=1769499713;
+        d=1e100.net; s=20230601; t=1768895092; x=1769499892;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qpGZ4Zl02J19k/6EyNTEK+2X721BxWTLFU42awna7YE=;
-        b=WAW8vukOcx2yvs/y+TRr5rdz+e39g4VJu5GmNJ2D+xhahVwxCako0BLfssr/4Ay3Ng
-         6mgHzF+7/uXGX9URYCztu8Oy/ncM18c3/dK0JnsxRv6KnBHELpZB0DFyvumQ+54Vw+55
-         JflHALM0SV5ExwVeBIOsXlSfQuLaAl8xNhbzbHSoQczHEUcAXWKVdU56fJ/VqMuTvXmY
-         G8awRapcanmgFDFbvwCk2P2LSrT6Mgy6aPpAq5z0zhJjuQyzI9q1dauSa4u9T5ZnWRAH
-         p6VUDsY9K9qsoXNWEXmncSP1uYNGWP9SfF+bQRfHT0zQ98m+QP+JNx7ptiU/ya0Ye8Ov
-         cQ9w==
-X-Forwarded-Encrypted: i=1; AJvYcCWCuQo+5KvjTqonHVk/cIBY6zOCZpoka8qieoxMrfzCB9Nb0pMju+pUXo7vtFgPOYb0xUJMICzitn0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyn/fzlB6ba/2XwEjb8CBn5W15I2G9NLy2LZ9QETvDC4oMAhLXM
-	nJtNwksCXemEChw918OqT4JDE0W4OckK2zPhPfI+Q0oCSUo5jqaCY6PNX3W3kWQDHA==
-X-Gm-Gg: AY/fxX64iRsZWEvVThnlkXZ88ylFLRoY+nQyWTyZ78/LL9q70hxqVueJs7RpWFipdDu
-	bBTLNtCMY7tbLhJ0p/RPHXA6YqYd7W9rxGn/f6FKMiLaEoM7IgcguAz+tZrE1OPpa7KTHRW5bCz
-	AJYjWGVz2IfpktQncLzNPJiuhN15TuMqstQj1yMOu6+FLXsXs52jhEwFXY5/PFE8jmnqgEMNgvI
-	ivIXoymKqa/vLvs7YfagHiTpcWENmTA97Q6yDBS8vNkqKArQsIUiBON59eTcvCklJGG14ybz7x2
-	A5M1PLhqpbG5CS7QZdj2GHZsBgajbywJkabexVqP5U7aFzIJPvKQzV+LZpK+/Y8DGES4CSwMaIO
-	sRmv9kkrVBuFeFYvvpP529RHLG8KYPC9SzwnwDbScQ0cMU3sqFOBHKJiZRSkZdIcq8Bw2PJ8hZK
-	R9kxU8kZ8Id5NSW/ETVRS+r6+tuBMjjzhBFFK0TTa4YQhMBSV3S0WIvZY3uc9NSPIdpMr4bokkq
-	UE=
-X-Received: by 2002:a05:600c:6388:b0:477:9a28:b0a4 with SMTP id 5b1f17b1804b1-4803e713cc2mr12693765e9.0.1768894912997;
-        Mon, 19 Jan 2026 23:41:52 -0800 (PST)
-Message-ID: <32d0a9a2-89df-4e20-8f7a-0f069cbff11f@suse.com>
-Date: Tue, 20 Jan 2026 08:41:51 +0100
+        bh=PzVQEOmqsd/5MICjHZcd3xDgzx/ha6IBOhbYlgwGARI=;
+        b=DZ9CC0NCfO6djM95j2I3MDUnB+/eJGox3e/O54OGOBrex3qcX2CpCHWr99outoEsm4
+         Z5cfWNIf9sWoaSjFPkV+wmiCZgBSua1ih2Z3NM3f8exL5MYHdT4SnYSEVyPNnGiiZALR
+         u36xcjcrJt25esZJrWXd/zWnwTlltKFALYq1PTdliDMg/xisnufgyGHUzvo020zVEUuR
+         1QpiMl6afaZKyvrgDOUeyafhm9ffqPrX1hrq+J74vTEPD/tuR4o+6lRMYEL2NYeQkjcl
+         P07JzQs9BAdquymBggaTk95uHMFVuuX48dNTQuYBSGJMCZrzviXVfzMICh5euUbGI50f
+         3A2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVQQoFPe/jPqK8sRgRpdh649wFPHMJqifMHAPfp9wCMdn0VpSIgwCixo8AwW16IikY6sJe9S9xL3DI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVSOMasx3nwe0kn6WhhP5L5oqAu7jkW+0x2z6OItgjWDsX85O7
+	FB3x1pW/Us9J298bbhv0PsJwvfpCdhDfEMd7Iqt9CPnK0QqypBJcrWEluO+i31Xq+A==
+X-Gm-Gg: AZuq6aIHsoMBUvguAS6f0uBUolHVb8gNfFqDJNin8DEj3C9P+bc3OfLyQHGQ8V/jNjh
+	xmpanmF3IOVrp0VGPoAQjtHcegBfTSGPDOF1VhIsufDkM3+LR37S/OMe0mh0zcIrEDx5T2xocRw
+	PaCBXSZxc5iw0QBRQKL17WqB6X1O9TnqZ2oUPfmRy14/6qggMdgoWME1epD85wkbIvsJ/XgfEMg
+	yvBGpaEVDM1rxnXWTK43+KilJJPSYoOyo5FEprUI/xd4QZImJjHHSjMD/XB3jAqvS5LSYp/Gtgs
+	dpymoG4BmO7+FLjcDO/Ve8FT20EorGWWEysdKs+0Eg1rAfPdAFbgpGBhOV4EAmHGVp0ghPdQqI8
+	u+SZLSaMF6qcCMTt87s4i6B5tN0qN4BWtXXuYuDwQplGnwQOQkVR0I2dsgRaCvNDBX2UUOkdn0D
+	JMn76DpDipyaWdjq6bEdXwHlje4DSFqtuChIHEde3raSDosizcaJf1IrNgjC8Nqg2n9s5F4ntl3
+	nr9snrogMalBA==
+X-Received: by 2002:a05:6000:2303:b0:431:3a5:d9b8 with SMTP id ffacd0b85a97d-4358ff31af2mr1391230f8f.52.1768895091892;
+        Mon, 19 Jan 2026 23:44:51 -0800 (PST)
+Message-ID: <d8f28714-f406-4b2c-ba75-babd728c0b00@suse.com>
+Date: Tue, 20 Jan 2026 08:44:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/console: handle multiple domains using console_io
- hypercalls
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: grygorii_strashko@epam.com, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
- andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2601131638350.6279@ubuntu-linux-20-04-desktop>
- <63c35c5e-577b-4346-b600-03808306177f@suse.com>
- <alpine.DEB.2.22.394.2601191522450.7192@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v3] INSTALL: remove unsupported XEN_CONFIG_EXPERT from
+ documentation
+To: dmukhin@xen.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20260120071654.640873-3-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,50 +120,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2601191522450.7192@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20260120071654.640873-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.01.2026 00:23, Stefano Stabellini wrote:
-> On Mon, 19 Jan 2026, Jan Beulich wrote:
->> On 14.01.2026 01:39, Stefano Stabellini wrote:
->>> @@ -815,6 +831,11 @@ long do_console_io(
->>>          if ( count > INT_MAX )
->>>              break;
->>>  
->>> +        d = console_get_domain();
->>> +        console_put_domain(d);
->>> +        if ( d != current->domain )
->>> +            return 0;
->>
->> This isn't atomic (as in: in a suitably locked region) with ...
->>
->>> @@ -830,7 +851,10 @@ long do_console_io(
->>>                  break;
->>>              }
->>>              rc += len;
->>> -            serial_rx_cons += len;
->>> +            nrspin_lock_irq(&console_lock);
->>> +            if ( serial_rx_cons != serial_rx_prod )
->>> +                serial_rx_cons += len;
->>> +            nrspin_unlock_irq(&console_lock);
->>>          }
->>>          break;
->>
->> ... this. If the focus domain changes after the check in the earlier hunk,
->> I think you need to also return with no input here. Or you need to acquire
->> the lock earlier (and then similarly in console_switch_input()), albeit
->> that would then mean holding it across a copy-to-guest. Which technically
->> is perhaps not a problem, but it leaves an uneasy feeling.
+On 20.01.2026 08:16, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> I thought about it when writing this patch and I had the same feeling as
-> you. However, especially considering the other feedback, I don't see
-> another viable solution.
+> Remove XEN_CONFIG_EXPERT explanation and also correct information in
+> the entire "Xen Hypervisor" section.
+> 
+> Amends: 37339ba9ef46 ("automation: Remove XEN_CONFIG_EXPERT leftovers")
+> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Taking just the logic here, an option might be to re-check the focus domain
-once holding the lock, and discard the most recent chunk of input from what
-would go back to the caller if the focus changed. But that would come with
-its own new complexities.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+preferably with ...
+
+> --- a/INSTALL
+> +++ b/INSTALL
+> @@ -25,19 +25,12 @@ Xen Hypervisor
+>  Xen itself is configured via a `kconfig' system borrowed from Linux.
+>  See https://www.kernel.org/doc/html/v5.4/kbuild/.
+>  
+> -Note that unlike with Linux, and contrary to that document, you cannot
+> -look at Kconfig files, or the default or generated config files etc.,
+> -to find available configuration options.  This is because it is only
+> -supported (and security supported) by the Xen Project, to change a
+> -small subset of the options.  Attempts to change other options will be
+> -silently overridden.  The only way to find which configuration options
+> -are available is to run `make menuconfig' or the like.
+> -
+> -You can counter-override this behaviour by setting XEN_CONFIG_EXPERT=y
+> -in your environment.  However, doing this is not supported and the
+> -resulting configurations do not receive security support.  If you set
+> -this variable there is nothing stopping you setting dangerously
+> -experimental combinations of features - not even any warnings.
+> +Only a subset of options is supported or security-supported by Xen
+> +Project. You can explore all available options, including unsupported
+> +ones and those recommended only for expert users, by using `make
+
+"..., e.g. by using ..."
+
+> +menuconfig` and enabling `CONFIG_UNSUPPORTED` and/or `CONFIG_EXPERT`.
+> +However, enabling these options is not supported, and configurations
+> +resulting from them do not receive security support.
+>  
+>  Options recognized by configure
+>  ===============================
 
 Jan
 
