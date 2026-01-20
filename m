@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92D9FD3C4FB
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 11:21:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208613.1520761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2CA6D3C50B
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 11:23:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208624.1520769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi8qo-0003pj-Vg; Tue, 20 Jan 2026 10:20:42 +0000
+	id 1vi8tY-0004Lv-Be; Tue, 20 Jan 2026 10:23:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208613.1520761; Tue, 20 Jan 2026 10:20:42 +0000
+Received: by outflank-mailman (output) from mailman id 1208624.1520769; Tue, 20 Jan 2026 10:23:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi8qo-0003mc-S7; Tue, 20 Jan 2026 10:20:42 +0000
-Received: by outflank-mailman (input) for mailman id 1208613;
- Tue, 20 Jan 2026 10:20:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vi8tY-0004JH-8I; Tue, 20 Jan 2026 10:23:32 +0000
+Received: by outflank-mailman (input) for mailman id 1208624;
+ Tue, 20 Jan 2026 10:23:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vi8qn-0003mW-Qk
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 10:20:41 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aaea433b-f5e9-11f0-9ccf-f158ae23cfc8;
- Tue, 20 Jan 2026 11:20:39 +0100 (CET)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-4359108fd24so224012f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 02:20:39 -0800 (PST)
+ id 1vi8tX-0004JB-CW
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 10:23:31 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10b2b6df-f5ea-11f0-b15e-2bf370ae4941;
+ Tue, 20 Jan 2026 11:23:30 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-4359249bbacso164742f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 02:23:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4356996cecasm26637728f8f.26.2026.01.20.02.20.38
+ ffacd0b85a97d-4356996cf58sm29265883f8f.22.2026.01.20.02.23.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jan 2026 02:20:38 -0800 (PST)
+ Tue, 20 Jan 2026 02:23:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aaea433b-f5e9-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 10b2b6df-f5ea-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768904439; x=1769509239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768904609; x=1769509409; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AN6keBRBFgFoSLwk493Km5NqSYoTijt1jG98JbtbNLY=;
-        b=fzKpyJWGLVKBx3oH2bFCmMr2cIBIojApUc2U9JFjgvmv3iBdMERx1dJ8AiTWOqXV52
-         HiaEXeR1vZbf3xr/ISt/vx1Op1MOPAvc3aJvvvq7Wdu/P1UY57PR1Qec3WHfYmSIgJIW
-         FhrEPorlXEMDuuHfnx1p8NqiMAze0rXogoQyKb4pQM9cIkudxkDF4YC/ctT/BWJhGeB0
-         l+lXNHllw+13V2JnsOryiQExYew7IZk3Y1j+oXyDFVOqHikxT1CvQrwt+DnGCbmm6jEJ
-         9ptt92OiWf1eJVIvuNDFGeIcE8pZwskeCkReZDnXZU0Q+mIwvn52hvVWju3WoE2zM8WR
-         lwdQ==
+        bh=XWwNE4XQpYgK53ZJ0W2IGDAxdWbROmXWumqVJ7C/+34=;
+        b=VpbpTd1xBs4hU8muvei3k+cSLv543n2jyWKJwcRlrRnbL1vHNkP7s2cj9fa/CoxVdi
+         hm3VOyxNry5kA/KzA/WupHDQVJyE1h2QWYXFpaN8EnmJBPsY8lrvwBBZUdU7pwEZyC8+
+         qnANNjZE9f9o1thyNbWzoEcSCq7CFmCGHLxuFFDO7ZKr+OJwwTzKEayUFeW/RAzy7hTG
+         Iryg3x06QYUEGOmcDSwXmBWbX2pWCXpx54jivMwcT1arVLnIAPE2EOcipgNKjrVS0Atb
+         cf916ZUdFvnhkA9RKfbRqLVN+Lsig4oFREk89/e39lHkzvtTiTyfiMavqiHv4brn3SXg
+         cceQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768904439; x=1769509239;
+        d=1e100.net; s=20230601; t=1768904609; x=1769509409;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AN6keBRBFgFoSLwk493Km5NqSYoTijt1jG98JbtbNLY=;
-        b=aLP2NUKgHSIOwmAKbF8OcuauTLJdPa/rlU0pUIzXirS/BOQzCj5/0nBfwTbmVgWGtu
-         o8xCZ0/48MptJSnNUXxNGlCpjB/6S+bQsSKSQ2/EAmNwxVwh4fn8y22G4fd8h6iiFmvK
-         swAOx6+osr4LDMVv6uI18ZXl11zAsLboRi09ZLgyPIv5rcC+lDfgpw+sGjkgcMdsGR8l
-         a9EzcYAmnRCAdSTOc15h8ZFc7PnHSaKnYUJmU86S39niTA/2dhik86+8X77QiDh6ZOhZ
-         ICfASnfqzN2oOZE7CA6lAbZzENPuzwjhV5AZnyzHs2/p65qlHTcK/c+sROBJP0DBF6LX
-         oQGw==
-X-Forwarded-Encrypted: i=1; AJvYcCVkmCOzcmJJdDKRvgSHS2OtyVVqlzAW8QKCaD10VtFdudAvFIQkif/K4N/GVB5Iqz3HCkBzeUGorI8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxqh6cY+hKW42Gc/XCk+aRh2c3UKPSwu9e3vJjX9StTstWbOIdc
-	o4H98l2B5hOYriBxtH5TmvD4m34khZ03zdkGFyOi8GDCKCUbLKjGEfarDcqZbEXytw==
-X-Gm-Gg: AZuq6aJKS6JNhUl+cuIVKttQpJNjotT1vzUD8wYPD50H7ghCe34dbse98AVjKVmi/xp
-	I3wRgWEn5St27kkGGAurljqZq8isCLBalUr2I+kEAHmBp8t0HGvanPH7GSchA4Rjjh92BCudM8w
-	kzrbZJOLlEidQGGSm6u8M0j6VHb3wgCrJiDedOziQLemqnSAc3ybdMuT/VozYZbPEdFBZUd59hQ
-	zTKZ0NcrhqZxSz7gU8TYOHaYIJNOcFfj/q4bdqCtXgHMDKQJdwX2AgMuDg7aWHywBHsMWxCT3Mp
-	g8HLtwoQME4wQWVEkA7tNW9KWvLRolrqBpxZhTWqB7WDae31uOvyaVlCTYzacCKFM2iPUeI8Feh
-	TiJjiZ0Tydi2IT+ILMvv2kxhT/stokVjh86Vh1fSoJH0WYKOvoZFNGgN//rLU2KsUj54hi/DpmK
-	mYbY4id5RZc53/gE8GZBFeOiAtjFtnxMad7wRiz66iMdC/viqa4q8bvhvid/4CGvHO73aJq6GeS
-	qQ=
-X-Received: by 2002:a05:6000:25c7:b0:430:fc3a:fbce with SMTP id ffacd0b85a97d-435699941abmr19821551f8f.15.1768904438820;
-        Tue, 20 Jan 2026 02:20:38 -0800 (PST)
-Message-ID: <d5620135-5e91-4223-a0ba-c6876fb8702f@suse.com>
-Date: Tue, 20 Jan 2026 11:20:37 +0100
+        bh=XWwNE4XQpYgK53ZJ0W2IGDAxdWbROmXWumqVJ7C/+34=;
+        b=DKgHouXrO/AChSXpxriuaZ0nl3cpYSwfNw8OBTLfVGNfWBeFKHys3EF5OMk/H2ByRy
+         jEaKOmGJNn4lm36kWG8wY9J1SaggkfXnStrbQx33pHQvKLvkQIbyfHfY+sDIuK60kQRr
+         w8XUpwaOeW3G/teoz5mQMwHiWdFXMzTEAY4WZzFCM0mi47ZdXnyh72oC8C+qhPVSGMFI
+         t1mKAWWaBQvKpCHpYTcSb5SyFLwz5rkWraShDeTzRtrbNv7XtWVGcC0HIKlpSGzY5jUB
+         iqx1s85eDbDIHZDtsdQQwIz3b+Vb9wtSs6hTeZ4xDRWb8wH37JvLcC8kJXiEo8hvZVev
+         ZmZA==
+X-Forwarded-Encrypted: i=1; AJvYcCWWSCczoda/wyIsoV1NR24R3UfXZbexPUbOWlZJevqQGvMhbWVpqAS3gP6efDCvH6CLDop15tVr/pc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzf3JdcRXcYXKpRGvPdIv5N177bglnuNtwjn3ZpNgPWhuz6nx7E
+	tnMLn7LC3MG0EoPjFxySXQ0oJ2NuiptVpUMif/wjGUb2pMj5/0kbZBXs1zoaSoW42g==
+X-Gm-Gg: AZuq6aJal7A2WHgms9d+ASLBFzs1J/7oiMITYVvZGTllmVUXXSB80Ykc3Ff0NSXgM/D
+	DmZnFiVNNObeNSM+6U4TR6CDpG4toOyoaON8hqDtnZNWwiZyvXUwPSLM4DJy3daHmjq2fLUMOjp
+	9ZSOogAnzuYVqnW/ZAaLCOxb4/PzVcra1y8dpBIYKoPpc0CMDZ8LNzP2o5YbHyuMHgdVJxzvKBB
+	qTDzwTFmk1x1DckmmnODAsqe2PrVg4SJniF8ZH7oha6jfFgMtSBnFjcYDxyqMz0hFJlUvPmrwVA
+	GiA7UiOvUoDh+pzv0q4avbkQFiAQNCvhrUgKUqbgtCQxJvpFPnc5HrJslhlLOPtQuaCISMLpBkV
+	K+OThdMQClys92SSocvIPH0shbGzhsFxJliXb4WFoObTDpu3SzsKG1oGUhbPk+g1iO29oBf8JND
+	b8hrGTQ+WfXyIxI05Z7orf3d/9hGBo5DWHy4LsdxUkovyEir6u4r02mxdokmxRL408zMLHEsCJE
+	GA=
+X-Received: by 2002:a05:6000:2210:b0:435:9606:e78c with SMTP id ffacd0b85a97d-4359606f13emr193961f8f.14.1768904609462;
+        Tue, 20 Jan 2026 02:23:29 -0800 (PST)
+Message-ID: <b2a3f79e-8e8a-4dea-aaf0-4f506c3b880b@suse.com>
+Date: Tue, 20 Jan 2026 11:23:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] Add Kconfig option to remove microcode loading
- support
+Subject: Re: [PATCH v4 2/5] xen: Allow lib-y targets to also be .init.o
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Doug Goldstein <cardoe@cardoe.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20260120093852.2380-1-alejandro.garciavallejo@amd.com>
+ <20260120093852.2380-3-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,50 +122,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260120093852.2380-1-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260120093852.2380-3-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 20.01.2026 10:38, Alejandro Vallejo wrote:
-> The only dependency here is patch 2 going in before patch 3. Everything else
-> can be freely rearranged.
+> There's some assumptions as to which targets may be init-only. But
+> there's little reason to preclude libraries from being init-only.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-Is this correct? Didn't you say (confirming what I observed elsewhere a little
-while back) that there's a complaint when a file listed in the exclusions doesn't
-exist anymore (which may have been cppcheck, not Eclair, but still breaking CI)?
-IOW can patch 4 really be separate from patch 3? Or, if its description was to
-be trusted, wouldn't it need to go ahead of what is now patch 3?
-
-> Cheers,
-> Alejandro
-> 
-> Alejandro Vallejo (5):
->   x86/ucode: Add Kconfig option to remove microcode loading
->   xen: Allow lib-y targets to also be .init.o
->   earlycpio: lib-ify earlycpio.c
->   docs/misra: Remove earlycpio.c from the Eclair exclusion list.
->   automation: Disable ucode loading on AMD's analysis run
-> 
->  automation/gitlab-ci/analyze.yaml      |  1 +
->  docs/admin-guide/microcode-loading.rst |  2 ++
->  docs/misc/efi.pandoc                   |  2 ++
->  docs/misc/xen-command-line.pandoc      |  7 ++++---
->  docs/misra/exclude-list.json           |  4 ----
->  xen/Rules.mk                           | 10 +++++-----
->  xen/arch/x86/Kconfig                   | 14 ++++++++++++++
->  xen/arch/x86/cpu/microcode/amd.c       | 16 +++++++++-------
->  xen/arch/x86/cpu/microcode/core.c      | 15 ++++++++++++---
->  xen/arch/x86/cpu/microcode/intel.c     | 11 +++++++----
->  xen/arch/x86/cpu/microcode/private.h   |  3 +++
->  xen/arch/x86/efi/efi-boot.h            |  3 ++-
->  xen/arch/x86/platform_hypercall.c      | 10 ++++++++--
->  xen/common/Makefile                    |  2 +-
->  xen/lib/Makefile                       |  1 +
->  xen/{common => lib}/earlycpio.c        |  0
->  16 files changed, 71 insertions(+), 30 deletions(-)
->  rename xen/{common => lib}/earlycpio.c (100%)
-> 
-> 
-> base-commit: 7b3e1b4e848d34c9a5b6634009959a7b9dd42104
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
