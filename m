@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4CekEiK0b2nHMAAAu9opvQ
+	id wGDjI0W0b2nHMAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:10 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:45 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0062D48200
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208918.1521047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 496A9482D3
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208927.1521058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viBlB-0005yw-UF; Tue, 20 Jan 2026 13:27:05 +0000
+	id 1viBnM-0006sD-Au; Tue, 20 Jan 2026 13:29:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208918.1521047; Tue, 20 Jan 2026 13:27:05 +0000
+Received: by outflank-mailman (output) from mailman id 1208927.1521058; Tue, 20 Jan 2026 13:29:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viBlB-0005wj-Rf; Tue, 20 Jan 2026 13:27:05 +0000
-Received: by outflank-mailman (input) for mailman id 1208918;
- Tue, 20 Jan 2026 13:27:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1viBnM-0006po-6Q; Tue, 20 Jan 2026 13:29:20 +0000
+Received: by outflank-mailman (input) for mailman id 1208927;
+ Tue, 20 Jan 2026 13:29:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viBlB-0005wd-04
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 13:27:05 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b53c0346-f603-11f0-b15e-2bf370ae4941;
- Tue, 20 Jan 2026 14:27:03 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47ee3a63300so50799205e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 05:27:03 -0800 (PST)
+ id 1viBnK-0006pi-M8
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 13:29:18 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 045a74aa-f604-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 14:29:16 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47d6a1f08bbso19136125e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 05:29:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e8c05c3sm242097895e9.11.2026.01.20.05.27.02
+ 5b1f17b1804b1-47f4289b7aasm309353185e9.2.2026.01.20.05.29.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jan 2026 05:27:02 -0800 (PST)
+ Tue, 20 Jan 2026 05:29:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b53c0346-f603-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 045a74aa-f604-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768915623; x=1769520423; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768915756; x=1769520556; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ro5fZMz1QFlYEX9GcN9zu5ztXhQFBw1ixLnJ/d8V9y8=;
-        b=ayVep8E1LCVrhz/yc++D/Vb5/ccHESOqr5rvt7qA7LAGjLKbaBZQtFVffk42OOYetj
-         BjKc6WyoQP0uJbGJRVohUrWkcPQtoO2ivRScPjnoYwySlZ1fcfMS9Eg+m3XLWwD3FgHQ
-         /nJGxYhnw+JTDkVYkmcxz4PN0evNNJmgiHgk6EcKsPWpLMykZQeL2roA59d4Bh4WM+gH
-         3/aLD8Ozi0h1g9dpzlgURZZnkXbrVXv6j/OwbWNPJlByeP50QKwb/geJIWuUX/92X1Jn
-         7IbNR8wXYUgylimJljTQL+Z9Loc6/8vyDK2GOF5UbeaEKYHxbLzCRhUXNAOFWA/QoB+k
-         1vXw==
+        bh=T0/E/8/PFiDDA3wDagPkrKF0rtZHrQpHDuwXfKVvmKE=;
+        b=XVTD0cSrMfZQc02xbBTaROejPv5zaildzGkbh6g51sCeLNwhMV0S8r5yanpMtHQdKC
+         hRFax9oAnPKZ2gtQDyKUr/HNvYCVQh6b76KezeDM14SvxJ4FNTSvJr2zKBFfQXnH1aDT
+         HcqsX8ETtgHXPphpQXP6fiHimYvbbbZnXgjYLKlkz6vqi6UYaXL2YArKXrLyDB6FHrkS
+         d+vqfiW/0TFnk7gqh/fFzxSugSx/rBnyitaXzkZ40N0IZCDVqV0i/RXP8+01SMHc9oCz
+         Y+h9Og8P3BOKEvQFF8SK/T/gPCuYF6k4/BJEh5obHJlkVQh/Ruf82dXyf0xFIbYLmgBb
+         G9TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768915623; x=1769520423;
+        d=1e100.net; s=20230601; t=1768915756; x=1769520556;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ro5fZMz1QFlYEX9GcN9zu5ztXhQFBw1ixLnJ/d8V9y8=;
-        b=Cx3X6J2cW+rfbG1M9holE+JZ5Tad6X4gp7LiALyENCR9hK/oufRbBl3Uq4lyJ4lbn+
-         eOV7i+sA5QilfKK+L6Yxe2mjRtUcJX9dJlO7sv5VmuEPV5PIIfYW50gDptHWtNcHAfk4
-         i5WyDgG0Aa0/FCXptqRTKfIQra0MNn7RnmBmLgC3RUgZ9rnzqHQV1+mTr+67PlyFENYw
-         DhxziXn0VOjQbiJOnymhVFJkMvgCNm2vXk41KOCKDAwmyhkeijl03zHNNuOUQ/IQ/a5o
-         D+S9y/rbqQyccc3/ynmULzqzaSg47dFd7YJkQ/p2q/3/gS65+zByUPU2/8ChzaV/WvNN
-         k74Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXTe5pJt1SC+9QG/cjSHQ3ehEApWrCo8JII3ePTkMJZtoYkC0MrSQCQIqJSVAbNrfikcC3jlYeJQuM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8BAVdMnr5itBJLDNUVJbGEV8iX1uFkDeRXKkMXWWEZslZL5xe
-	sP5YUwGyWVq6Go1/wxIggg2ckqJBShrVpA7m777vFLgk/6UIx8EPQhRkrjmdE/mmZg==
-X-Gm-Gg: AY/fxX6z1OtNTuofqhsoD938/uXO+tslY7WnFFnlpRc4CCGNOJarZwLghpRiFm/0eUq
-	SrAZRW3bQcBOHIm0DqV2EU+HEn57exhU1h/5oC4XfW24TYqnzhLM26JbN+3odMwW3G05vBT2RmG
-	zdqO0ggqqQFE2CJ4FQxwPJiNbzgE1UsQKhapqEcXXkmzwDbzfSMCEUD8ZDyvPgkFxuyjqz2FxeK
-	7WNBzaenlZ4izeYOic3LNRGKgzm5Zty9d96CJMGTcQ9s8DZIHzb5LKo2p9OvxqU1kceGp0wos31
-	wXmcew9QUDyPZD9ZYw29Cy7jQ9O48Y+D6CfJJg0WtX14DHlo8ezSDuwjbK09Yb2FB0jowO6QOF6
-	mykDJKp9DqQ44IaYR3NoIqPDT1nTpvqyqbPZ+4Nq6KdwGkzuJJl9WADdi4jxfXH7WhfqBqAwie6
-	ayjzSFuNEt4q4GeRLn2WJzafaQwuCq2jd7bvjHEADZNWy0cBHQh7u5G7BW4jN+cBXqaO3/7cvhf
-	HQ=
-X-Received: by 2002:a05:600c:4ecd:b0:477:6e02:54a5 with SMTP id 5b1f17b1804b1-4803e7e7c57mr22395545e9.18.1768915623054;
-        Tue, 20 Jan 2026 05:27:03 -0800 (PST)
-Message-ID: <00f36b33-65d5-4681-84d5-e1b2cbd8830d@suse.com>
-Date: Tue, 20 Jan 2026 14:27:01 +0100
+        bh=T0/E/8/PFiDDA3wDagPkrKF0rtZHrQpHDuwXfKVvmKE=;
+        b=AiT3DZFZaI1GRE/1AGRaRBN6M0/aW7ziPsDSlbsfo0A+nAiWHN7O4LL7yOW4ecyhh1
+         lsAEFwsG7/XdYPM5k6HYcNtV+njc+coC+SY9EI1BYRAQGLmcFYGRQUAtD7BA0Pkw6UXv
+         pgcQeUMhCabvw5N5w/bM5ORHmqmXy/lX+u7IAoTv7V8j9wLBZzMhGKRz6ghSobLgoo/d
+         tMOlIHAevTgo6DU12dpN7+rq9aQmw5BsWMWh195R3klPa8UbccWQfjqYB8chDkVWKoiI
+         +E/bzNX3lAeOdOpK6q+nXosWud5h+lmSpOfxs9bf8Kxzmv7MU/FpMQgAFDCYuNzun5AO
+         sHig==
+X-Forwarded-Encrypted: i=1; AJvYcCV8JZxbPFIAn1mOOVk6I9+G6zH/nBBlCo0Q+nudJ6WqH9u1m6U6/rjE+/K124cJASNpeXQGbXrHZZE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz2Ku0+ZiXqvQ6iYvMNdFqIW5qxUMr0Pn1oDkWy5QDyWEUX6cwb
+	wXlemO6C4fXhBA7Fbqzl2xGfjHUqSnkvjCTwO8QjIhJchCN8g0cDkpS9cCHBfj4Esg==
+X-Gm-Gg: AY/fxX6sObP5ZFprF6cYEg4QCuzSgBdfnecHCEi7y9lp9uZ+KpYmjH7yhsZO3inipqH
+	BORrFBwmKJEUmNa57jgQXNoA+YjcKtneKKK6wOaz17/p1Jd+3CqVn2T4/jhRsg4mSKLaoZmTnJP
+	MAVlSl3AejI9va8sCAbB05wrB/ZxuGV0C0zgTMJSPVj5djRWCeatHSdbJSR9Ik1Y/+sNtUf/eXV
+	2/Z9eUw6DhnxRVlWtGRUfPkZXM7EpLhEBWAgrFxaOG9knYdpW6lEDC6R+rFmYLTsUzNI8zJYHWv
+	WxOqCM3cYCcdurW4EoZHsbp/WXpfGGtJulD8/SHndfwwHqYpzlrxltPuTirzdcUdb4KkWUe749W
+	PX7riGZ013C843jbSBQnxVgn+erN+cVXvfyuVumrZsIwpnpks82RA0GyUAJwYfUmwFUCvMW6F0T
+	pxkhKA+dhrnY26x8V7qUrKL+S7MDsz5u5HGDT/PW2Ruc18w8L9BdY8fw4HMYr72BOYXcB3ZrNoA
+	J0=
+X-Received: by 2002:a05:600c:35c3:b0:47a:81b7:9a20 with SMTP id 5b1f17b1804b1-4801eac0617mr193173915e9.9.1768915755735;
+        Tue, 20 Jan 2026 05:29:15 -0800 (PST)
+Message-ID: <fb53b679-701f-4028-a75c-c4d153b80619@suse.com>
+Date: Tue, 20 Jan 2026 14:29:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] x86/svm: Intercept Bus Locks for HVM guests
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+ xen-devel@lists.xenproject.org
 References: <20260120095353.2778-1-alejandro.garciavallejo@amd.com>
  <20260120095353.2778-3-alejandro.garciavallejo@amd.com>
- <5a4aa1d9-dafb-453c-bd4c-8da860519f01@citrix.com>
+ <5c554703-f7e6-4625-be07-4fc607b2c4b5@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,7 +129,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5a4aa1d9-dafb-453c-bd4c-8da860519f01@citrix.com>
+In-Reply-To: <5c554703-f7e6-4625-be07-4fc607b2c4b5@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-1.19 / 15.00];
@@ -137,67 +139,65 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:sstabellini@kernel.org,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0062D48200
+X-Rspamd-Queue-Id: 496A9482D3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.01.2026 14:18, Andrew Cooper wrote:
-> On 20/01/2026 9:53 am, Alejandro Vallejo wrote:
+On 20.01.2026 14:11, Teddy Astie wrote:
+> Le 20/01/2026 à 10:56, Alejandro Vallejo a écrit :
 >> --- a/xen/arch/x86/hvm/svm/vmcb.c
 >> +++ b/xen/arch/x86/hvm/svm/vmcb.c
 >> @@ -66,6 +66,12 @@ static int construct_vmcb(struct vcpu *v)
->>          GENERAL2_INTERCEPT_XSETBV      | GENERAL2_INTERCEPT_ICEBP       |
->>          GENERAL2_INTERCEPT_RDPRU;
->>  
+>>           GENERAL2_INTERCEPT_XSETBV      | GENERAL2_INTERCEPT_ICEBP       |
+>>           GENERAL2_INTERCEPT_RDPRU;
+>>   
 >> +    if ( cpu_has_bus_lock_thresh )
 >> +    {
 >> +        vmcb->_general3_intercepts = GENERAL3_INTERCEPT_BUS_LOCK_THRESH;
-> 
-> |=
-> 
 >> +        vmcb->bus_lock_thresh = 1; /* trigger immediately */
+>> +    }
+>> +
+>>       /* Intercept all debug-register writes. */
+>>       vmcb->_dr_intercepts = ~0u;
+>>   
 > 
-> Really?  The APM states:
+> According to APM,
 > 
-> On processors that support Bus Lock Threshold (indicated by CPUID
-> Fn8000_000A_EDX[29] BusLockThreshold=1), the VMCB provides a Bus Lock
-> Threshold enable bit and an unsigned 16-bit Bus Lock Threshold count. On
-> VMRUN, this value is loaded into an internal count register. Before the
-> processor executes a bus lock in the guest, it checks the value of this
-> register. If the value is greater than 0, the processor executes the bus
-> lock successfully and decrements the count. If the value is 0, the bus
-> lock is not executed and a #VMEXIT to the VMM is taken.
+> INTERCEPT_BUS_LOCK_THRESH does
+>  > Intercept bus lock operations when Bus Lock Threshold Counter is 0
 > 
-> So according to the APM, setting the count to 1 will permit one bus lock
-> then exit (fault style) immediately before the next.  This also says
-> that a count of 0 is a legal state.
+> I assume that when set to 0, we intercept all bus locks, so if set to 1, 
+> every 2 bus lock (since we first go from 1 to 0, then at 0 we intercept 
+> the next one) ?
+> 
+> I think we want that to be tunable, as intercepting all bus locks may be 
+> too extreme we probably want to intercept every few ones instead.
 
-But then you'd livelock the guest as soon as it uses a bus lock. Are you
-suggesting to set to 1 in response to a bus lock exit, and keep at 0 at
-all other times?
+Otoh bus locks (as opposed to cache locks) would better be rare, or else
+perhaps such a guest deserves some extra slowing down?
 
 Jan
 
