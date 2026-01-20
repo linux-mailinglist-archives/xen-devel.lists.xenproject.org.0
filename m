@@ -2,39 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GJnKFfWzb2nHMAAAu9opvQ
+	id uIudBTS8b2kOMQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:25 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 18:32:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE4534814E
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209210.1521307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67484489AE
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 18:32:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209235.1521322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viEFv-0008G3-5N; Tue, 20 Jan 2026 16:06:59 +0000
+	id 1viFZz-0002Z6-IX; Tue, 20 Jan 2026 17:31:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209210.1521307; Tue, 20 Jan 2026 16:06:59 +0000
+Received: by outflank-mailman (output) from mailman id 1209235.1521322; Tue, 20 Jan 2026 17:31:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viEFv-0008Dq-2m; Tue, 20 Jan 2026 16:06:59 +0000
-Received: by outflank-mailman (input) for mailman id 1209210;
- Tue, 20 Jan 2026 16:06:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1viFZz-0002Vz-Eq; Tue, 20 Jan 2026 17:31:47 +0000
+Received: by outflank-mailman (input) for mailman id 1209235;
+ Tue, 20 Jan 2026 17:31:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fSiv=7Z=bounce.vates.tech=bounce-md_30504962.696fa81e.v1-fea1a1dc604b4b15bf4e24531857cda3@srs-se1.protection.inumbo.net>)
- id 1viEFt-0008Dk-R2
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 16:06:57 +0000
-Received: from mail14.wdc04.mandrillapp.com (mail14.wdc04.mandrillapp.com
- [205.201.139.14]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a7b181d-f61a-11f0-b15e-2bf370ae4941;
- Tue, 20 Jan 2026 17:06:56 +0100 (CET)
-Received: from pmta16.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail14.wdc04.mandrillapp.com (Mailchimp) with ESMTP id 4dwXJZ4gL6z8XTp13
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 16:06:54 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- fea1a1dc604b4b15bf4e24531857cda3; Tue, 20 Jan 2026 16:06:54 +0000
+ <SRS0=5h37=7Z=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1viFZx-0002Vt-RE
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 17:31:45 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e271ebd4-f625-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 18:31:43 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by MN2PR03MB5294.namprd03.prod.outlook.com (2603:10b6:208:1e2::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Tue, 20 Jan
+ 2026 17:31:40 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9520.005; Tue, 20 Jan 2026
+ 17:31:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,223 +52,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a7b181d-f61a-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1768925214; x=1769195214;
-	bh=Lcb43l5hrinde7Pn53T0xofB3DStwPFHexX0oDp/UEg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ZNw+9e0T0sofKw2UIi6eta+w0uRgC+uuMtcExneenqkYJKHLW+K2KgHxsSVVdJC3Z
-	 nSe62xUYdEpan8ObqID6TUPplufGby+YSiD9tKNjAvEIh7E61xsaMeJeqptgcsafmS
-	 +w5Rvst9AUAcm34TJALyik58BmsCa+Rs+Bwjq2sZFYN4jKLZ7tHx27GSw4mAOgUpJL
-	 1hokSpGFDEuXCA/bPs5DdR+qQQoOhN48iEbaSt9sADTri4eV9FGtd4z7Ui7f8AtlR2
-	 88cQxB314uNZtwCYAKqv8lLJaKyRHBokit2QIkKeZJeQl/17LY9M3xBof+Xp4h/QAk
-	 /VqdHxsqrsa9w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1768925214; x=1769185714; i=ngoc-tu.dinh@vates.tech;
-	bh=Lcb43l5hrinde7Pn53T0xofB3DStwPFHexX0oDp/UEg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=J3dGOx+S/M1A02IC4YtdtJpkEOHnz29dCBT9L1r47fXfg09pwanSmk0isgLaArenI
-	 8+lFT54FZuof4/ryCn9XWp8umfGgjNbYRj/Dq1cC/4MmTfAJG8pxAjp1y0KivZLNuy
-	 qAxItyK0Z9SBFAfxOjSW1SXh/t4AUJcifA34+0+egqYvp7krZLONnU8T8spRtEANFh
-	 /o+CTJoXB2KNCbLfsEUmFm0yIRqU2R+xPlDbEKFGRZLKPJtnvfn97FZS8OlDl3/vGO
-	 Mj2h2tuiLM3zR0tYuVUOTepeY+PNZ3tdg9S546kcJKTRqFlS1EBohymhZz0JZeAnxK
-	 iIUi+toOd0QPQ==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20xen:=20Expose=20time=5Foffset=20in=20struct=20arch=5Fshared=5Finfo?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1768925212872
-Message-Id: <a13594d1-17df-4f45-aebc-b9978f898d8a@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
-References: <20260120095657.237-1-ngoc-tu.dinh@vates.tech> <3213454a-38cd-4e5d-8a30-853e37f70c18@suse.com> <cff32c5b-a085-468a-be26-a858244b228d@vates.tech> <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com> <9df8cf47-d3ec-474e-b1c8-7978e55627d6@vates.tech> <da3811f5-d5cb-4a53-87ad-e29b2cdaadf6@suse.com>
-In-Reply-To: <da3811f5-d5cb-4a53-87ad-e29b2cdaadf6@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fea1a1dc604b4b15bf4e24531857cda3?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260120:md
-Date: Tue, 20 Jan 2026 16:06:54 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: e271ebd4-f625-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SiwU7vWb5dHqETTcdOhStW23viFY7x6IXLeUlTTNDFbLL8j5a/hevFtKL9ejYQgFxlsGnWTVyHHN4C6fsDW8W6klYzLcrOlBuGXwr9frwW0T+eo8Ak2ap5Lp9gpK7m6vUaQYPunNcE0vV+wjZpm7+BmMKQxQxDubE6hhlelQk25aeeYWRs6nbs9Mfj/bJJ9dnbgEgOm/mIZqfcvmPJSL1hAWl8MIAfHC6o8koz/p4p+4vvLpiVzSQEOo0H+Au1oiCXKHsBW6seD9A9f/ytwaQgsY477uDkDii63wz8ry3ZfN2holeH9sokfmxfO2zATCSvTL0vRB86dQx0sEjEmrWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YewgtYiC5iSiwIqlkS8dxSZPEdP7HnCbd7VakS5urhg=;
+ b=h+JrEd12ZkU96leoK2HdxOlvE3DJVRME0XVX/d5LyYBiU3lioCR+5OZM09GCf/3OmCdpXU6kCQyY9NdWGEk5n0HpQOcKsJ2HxjpGZFkpN7r3YVo2SQ1XDvd0dmlHvw/sywtzjoLVyd1AChntlymFL78bFARw7yLRy+MIfXLx6WXF8LYUw5zaCYVBpCOSO22fB5mXsG70sE7Mbp0WaZqsswsINpXqPX110ChFvFVZD/rmRtmN91ubLjqMyhkRsRnihwXzG+alBYRvbKYfHpKq5ZGEReF9fLAfuz8qIJxVz97HKAx5wWahetlznDj1IO8EQqXUDiiTgCcPwowzAzh1+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YewgtYiC5iSiwIqlkS8dxSZPEdP7HnCbd7VakS5urhg=;
+ b=Zfr0d6gTBHRBcLpxrmK1p5kOtArD/S2qdyUq4B4ioeDifkX0DU0FjfxtLiitB4jJclSAiuj3PBXLHffcWVzj5WYAKdkAuVRlLvIhbYLmTDI/aJ9Bm6XY8TwN6aeMI8WiEQVkKjFhMPAhTnL8rhGuTiSv59Chj6/zN3ChVJu24f8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 20 Jan 2026 18:31:31 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [RESEND PATCH v12 1/3] vpci/rebar: Implement cleanup function
+ for Rebar
+Message-ID: <aW-786Ou6N3oZy99@Mac.lan>
+References: <20251208081815.3105930-1-Jiqian.Chen@amd.com>
+ <20251208081815.3105930-2-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251208081815.3105930-2-Jiqian.Chen@amd.com>
+X-ClientProxiedBy: MA3P292CA0058.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:48::7) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MN2PR03MB5294:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b7bb7fe-3353-4255-6aaa-08de5849c565
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UHUwZm0wd0hXVzJQN3dsU0RZWnE2OUFaajlka3hMMmpnWktVZ3NBTHRZUVI4?=
+ =?utf-8?B?eC9hc2ZLMXVPdndlM1hTdHVoNGp2SXR4WjBYTzNHeFl2OE5CR1UyZmd1RHFZ?=
+ =?utf-8?B?K2NkSWNwRlBpcDEwQyszZnplUzNybmdQUDNST3FyczR5Y2xrUVNma2JZVTg5?=
+ =?utf-8?B?Qm8yU2tjajMxUCtNblVBTHM1RWsxMXd0S204U3kyV1l0TVA3ckczT3JkajJZ?=
+ =?utf-8?B?b09LbGJYeFdSRGtYQnBHb3FaSWY0ZG5jSHh6c25YbEVsM2lodWNnZTVvTktV?=
+ =?utf-8?B?cmJUMHRiZTFBOVpCUWJyejhoNzRKbFg0UEhUTGdnK3dKdXdleHV1RGhaS29X?=
+ =?utf-8?B?QkxJMytGSkNLcXlXRnB5L0tkSERubkNBSWdnSVFWN2c5UUJ1OGs1aGFsU2dM?=
+ =?utf-8?B?b0hmVnY0Y2ZuK1MvZHZCejZoUTE2U0RKN0cvTnV5U1NvV1hpVE1YdnhqR0xT?=
+ =?utf-8?B?aDZBL1YxUnBEZGh0NmFMYTBrR0FaeEl6NEZRTXJjNUNEaDZaRXhOUythWTlC?=
+ =?utf-8?B?VjJkZnl2RnJhdVJQVzhkQVRIUjNzRTNYU3BrTXNXcnFVVTl6UXFlWWR2YkQv?=
+ =?utf-8?B?SXZVSUIrMitGM2RvUi9TNTFNamxDZ3VITWptMjZKY3FJL1UzTC9JT0kybXpu?=
+ =?utf-8?B?YVZKYmFHSG1pRUFlc3ByQmtxWklPb3NrZTJNTTc3TXR0Qi9NejNEbVZIcTVn?=
+ =?utf-8?B?cVBGaHVPN2EyR2JlOWxucFNPbTVweVBjSnpUelk4alNpUlcrMjdWSHJKTFA4?=
+ =?utf-8?B?MU5nVmVYazBUekhpRjFRWTFqVHd5bjJPWkZkdXJ4cVUwUEozbTBoTENMc3RV?=
+ =?utf-8?B?NnN1ajAzbkhqRXhmRVdPdkNHRFNoa3Q5TDNLVnFYZzVCUWRxT3lEMW5YNDBx?=
+ =?utf-8?B?RllBbnJvdkpTYlRncnJwZEtpZDVFcUdvV0lDL0c1blpKYnk4cGRRWEpxd2J1?=
+ =?utf-8?B?ems4dTFzRSt1S2d2T3VFVW9CbmdYVWRNNHF0QTdaWW1pb3A1emZ1UUFkSEcr?=
+ =?utf-8?B?Tldrb0Z6anpGZERsR2J4Vko0TzkwRjNud3JXSUVCQlRzdG14bFBEWnorUTh4?=
+ =?utf-8?B?UTYxUnNsRG40TmVVSklzMHVWeURaYm1EaWJhVEM0a3Fsd2xZME5PbENhc2N4?=
+ =?utf-8?B?bmxabk5sSVByTjlyeTNqeldnZjdUdjBtZXZxN2ZQaE1kS1RaRHN3NTdoRFNj?=
+ =?utf-8?B?aVlPNGxRQU9VbUliaVcvSHI5amkvNFVCYzV1dE16UE9CQkYyQTB0M0dzdGFS?=
+ =?utf-8?B?ZU9DWnRBNURmV0dLank1OHZVanl4VnNUbWxWWDJTb2N2bUdNQmhpaCtxRDg4?=
+ =?utf-8?B?Q3ZCQ0twK2V4dko1L281c1RnSERteG4wUnNGQnB4QzR1NkZJN3lYR2FNdFVK?=
+ =?utf-8?B?Rlh5OHA2aUxqSGVJOVByVzlVY3plYWlaeUt0blZaVVpvaGFmWGRqM3pMcW9R?=
+ =?utf-8?B?MSt4YStjT1BUR1F5SlNxS0NkNXBGY3RXN1NYSHZFVHNNZS9xUlhlVnJIcFkr?=
+ =?utf-8?B?NElma21La2JES2lEMy9teFBKdjVsTFl2LzBnWDJ5eEdVSHh0aXRxaVJoLzI0?=
+ =?utf-8?B?MlJWZ1Z6NElHNk94U1lPbmc2aGN5WllVTnVmTDhpNWdWS2I1bzhRdTVtdEJ6?=
+ =?utf-8?B?b0szdGtoRVd4T0F2V2cwTjZLTzdBNGhUajN5N2VPckI0ZVB5OTRLcXhWU09i?=
+ =?utf-8?B?aE9HTk9LaHhzNFRFNUltZ0NBY2ZNQWQzVk5RNGJ6WDR2LyszVUNEbllxSG9Y?=
+ =?utf-8?B?WC9FOUM2ZFh4UkFSRDJCS3dXaHdWb01tRTBQN1NBc2NsaU4vR3g4UFRHUmtR?=
+ =?utf-8?B?RzdudGZnY05FaW9QSGdOU3Voa1U3c2lZVElORmNMUUQ3UGpDV0ZEbWFhdFNU?=
+ =?utf-8?B?S3c1UHgvUktxZHpyNGI3R1IzTUljZ0dDQStEUFlqNlNBSXFGQkptc3lWRkRu?=
+ =?utf-8?B?NGlBNkEyNzZCT1l6N0ZiQkNJT3ZLakhGU1liOUhWbysray9CVkM4S2daeDBM?=
+ =?utf-8?B?NGx4ZmtyVVk4eWtQdkVMQXZNRytCUmxzVTdJbU9ncWJRNVhhYVE3TTdIYmlQ?=
+ =?utf-8?B?QzBiUnMzOSs2Y1hLcUlHeHc4ZXdhaGtxYnBPWmtaSkdkblViY3ZKQVdNVzhI?=
+ =?utf-8?Q?WQtw=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SmF6WjZXT0VOUmx5WExzMlhsN1lCbUJyc0k5aERSMlF6VmdvT1RaRXNaU3dY?=
+ =?utf-8?B?TVVwM3lGMVBxQVRaTEdIVkJSQ0orRjR1ZjhIMG5CamVDUGpEQ1JYWURkUnlx?=
+ =?utf-8?B?dENSOFlTVFZVVFowZ3hkalN6cVpIcXNHME5OS3NpdWxNdU03V1AxWWxKSGhD?=
+ =?utf-8?B?N2xFd2VCMGpFbVVZSWlMaUtUV0hydmE3YjhxZHgycEMyN0hWdVVxK0ozOU9N?=
+ =?utf-8?B?ZEhYUFBkc01PYzJvTG0wRkE2dEFVSlVLQXR2OFJSRi9JM0VxWEZ0TTF3bDZX?=
+ =?utf-8?B?VyswZjdFUHE2ZU82VS9GRnE5NktQSTdoSXN3ZVMwdkZEbGVUVHNydVJ4Rm9k?=
+ =?utf-8?B?K003WWdIRnRWMlhwZ2JxYWpXOU1TaEcvQ1lmTURtY1NtMjF2WjhVYkw5K2FQ?=
+ =?utf-8?B?aThBbXQzRk9aWUE0RmFmaEpVVGhYYlFWNWdWRk1uQlY1ckRqMjhsWjczb25h?=
+ =?utf-8?B?aHYwOVFpMVhQd212SWRScFZaNS9rRGszanVZcnNkLzNMT25zRWRsUGNiRkRa?=
+ =?utf-8?B?N0NEY3B0Z2h4djd4cEEvcE4xelNMa281K1IvbDFTeWJobC9hTVRncWpXMDlp?=
+ =?utf-8?B?c0ZKZTFXMTZ3NllqL2hQQm9PSmllc1BGK2tKRk1GUmFGV3hhN2hSaktHdXIv?=
+ =?utf-8?B?NkhxS21sOG91QW85NHgvdVdqQ2RaYVFaNE9YaGFzYnRudmgvV3h4L3QzN2pR?=
+ =?utf-8?B?TTNzaHlIMk94SGtBS2ZEbzNINC9UK2xvSmgyZzlRcG1HYXdubXZFL2pSa1dw?=
+ =?utf-8?B?UlUwZmh1TzhyZVhXbXZnVzBUUHFaK1ZRcG1JS0xKMnZtRXd4UkJITEZ5VFZC?=
+ =?utf-8?B?MzJ3ZUVJeVlSUmJJeDROa2ZhMVVCQXRHVy8wTWlBWDlYeTFwSHk3aFBmdmFS?=
+ =?utf-8?B?TURJTkh2djRUYzE4Nyt3OUpBZ29YdEJ0Z3l2VEc4bHZrM3JiT0tVQ0dtdmdK?=
+ =?utf-8?B?WWs4Q3hJZ3VucTgyOGs2eHV6ZTdDbDlNV2Z4TkJ3NERPbEUyOTVwcmlzSkJT?=
+ =?utf-8?B?ODZHVk5sQUVWajRsbHYzWUlaQ25sb1RlRXc1QVdJMkFUTFVVZFd4WG1nQ2dT?=
+ =?utf-8?B?TGQ1dGxDdFpJSjlJOHBKb0hFb2J3bTJ2ckIrbm1lZ1IvM1JwaHM4bDBmWXUv?=
+ =?utf-8?B?U2VCL2lIZ01HNHdoODBFZnpWaHcyMGlHd1o5a0lpRUJqbFZvWjZFdUo0cXB5?=
+ =?utf-8?B?aklGOHE3NFV2TFZTWmluVlByQ0tiQVdmMmxOZlpySkVRNks4bnlxNEVRWVgz?=
+ =?utf-8?B?bEtYM1BmVEp5TUM0MkM4Rnh6R0h4d2l4c1dMVUpQS20vRHBDYTNIYkRGT2la?=
+ =?utf-8?B?NlBXWGh2UGMzaXZlb1RYMFl2MWRmeVVZaDhYT1pXT2FPL29vSE5DSmk3dXdC?=
+ =?utf-8?B?eERmcUo2UjQwY05LUWQzQ0RNZ05FUFFJcWRGUW5HenlvMGEwSWdPdm5KQ3k0?=
+ =?utf-8?B?ODFZaTFWcForRFFUckJSc29QZjFza2c2eFIvbzJieHlNMWJpbWdXaUhjQzVE?=
+ =?utf-8?B?QzUwM0gzc1lSZlFiMUxLWWowbHA2V0VYdmNXZDU4akRpcm9jNHpsbkxpbnFr?=
+ =?utf-8?B?VDF4M3l0VSs5QWVvWWcwMm9VQys4WkFqMWNZaHhIbkl1ZFNDczRQVStRQVIr?=
+ =?utf-8?B?THc2dVdxQ1BhdWdnUU54SmZtTnVlNXc2RWJvSTV1MFpaeGxYOUNmOWJnbm1n?=
+ =?utf-8?B?TTI1UCtockRKYzNGTXE4enZIR0h2TXlkSUVZU0xCM2MwUjJNS1diV1FpWFpP?=
+ =?utf-8?B?R3RCSDRLbVBJMzV5TTVzQU1VMTQ1UWx5OUc3UzlqZEFpZ1Bwc3E0YUhvK2lw?=
+ =?utf-8?B?YllUWVJqQ1oxWVZhdjR0RjJVMXl4bHdxZVBVZUVhK0U4ZUVVSkVQWXVkZkNv?=
+ =?utf-8?B?QkxmZDVWRm1TSHYyTU9PdjlKSlpzOXM2c2NzRkZaMnRBNmZBK21KY0FWemxB?=
+ =?utf-8?B?WGRtcjk3VmlrWG1NRDZQT3haTXlFWWUwQ01aK2drUk91WjJwQ0REVmZVTE90?=
+ =?utf-8?B?UFZ5a2VoYzJyMHZqQ1VyaGtXbldDbktQQ0tJWXFjdHoxenlxU2dCaUwxcmR0?=
+ =?utf-8?B?QVVkd3J4eWxaMW5VYmN3b29janMyK3NQVnhXSS9PR1ZBYzNlZGkxZVp4WW1U?=
+ =?utf-8?B?RXFpeFQzQ0hOTU9CR1ZJL2hsRTBBNXdadE5MNEFDR243ZjZzUVY4dXNFU2ta?=
+ =?utf-8?B?VGlGaTQvY2x5VXZlTktGT1gxMkhTaSs3alR4dXpZY1VLNmorbUtiY2NrYUxB?=
+ =?utf-8?B?Q1Z1NzBFTVYzWHNUK0Q0RnQxZmJHV0hIRytOTWdmenRNdmd1RXI1V3E0UExU?=
+ =?utf-8?B?cGFFV3cwY3UxbU5scldXYUdaQjFZSC83aDJHc0YycWtyVkdCWm5KUT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b7bb7fe-3353-4255-6aaa-08de5849c565
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 17:31:40.2003
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B39ri5+LZjsOGulJUX+D/a8nX3CeVy7hRkanch20/EQbj3jSnll63JBYe+3mlYKkTJxLA0yRpVw/skvIVHGZEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5294
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_SENDER(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,vates.tech:dkim,vates.tech:mid,vates.tech:url,mandrillapp.com:dkim];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:Jiqian.Chen@amd.com,m:xen-devel@lists.xenproject.org,m:ray.huang@amd.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,citrix.com:dkim,amd.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: DE4534814E
+X-Rspamd-Queue-Id: 67484489AE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20/01/2026 16:39, Jan Beulich wrote:
-> On 20.01.2026 16:27, Tu Dinh wrote:
->> On 20/01/2026 13:42, Jan Beulich wrote:
->>> On 20.01.2026 13:12, Tu Dinh wrote:
->>>> On 20/01/2026 11:35, Jan Beulich wrote:
->>>>> On 20.01.2026 10:57, Tu Dinh wrote:
->>>>>> time_offset is currently always added to wc_sec. This means that without
->>>>>> the actual value of time_offset, guests have no way of knowing what's
->>>>>> the actual host clock. Once the guest clock drifts beyond 1 second,
->>>>>> updates to the guest RTC would themselves change time_offset and make it
->>>>>> impossible to resync guest time to host time.
->>>>>
->>>>> Despite my earlier comments this part of the description looks unchanged.
->>>>> I still don't see why host time (or in fact about any host property) should
->>>>> be exposed to guests.
->>>>
->>>> I've answered this question in a followup reply from November, which
->>>> I'll reproduce here:
->>>
->>> I did read your reply, yet nothing of it appeared here as additional
->>> justification.
->>
->> Is the new description OK for you?
+On Mon, Dec 08, 2025 at 04:18:13PM +0800, Jiqian Chen wrote:
+> When Rebar initialization fails, vPCI hides the capability, but
+> removing handlers and datas won't be performed until the device is
+> deassigned. So, implement Rebar cleanup hook that will be called to
+> cleanup Rebar related handlers and free it's associated data when
+> initialization fails.
 > 
-> Which new description? So far I only saw your responses to my questions, not
-> an updated patch description.
-> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-Maybe my last email wasn't clear, it was in the part marked "Follow up", 
-reproduced below:
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Xen currently does not expose the host's wall clock time in shared_info. 
-This means while shared_info can be used as an alternative to the 
-emulated RTC, it can't be used to keep the virtual wall clock in sync. 
-Expose the time_offset value in struct shared_info in order to allow 
-guests to synchronize their own wall clock to that of the host.
-
-This is needed because on Windows guests, the PV drivers don't control 
-the timing of RTC updates, as this is done by the kernel itself 
-periodically. If the guest's internal clock deviates from the RTC (e.g. 
-after resuming from suspend), a RTC write would cause time_offset to 
-deviate from the supposed value (timezone offset) and thus cause the RTC 
-to become incorrect.
-
-Provide a new feature bit XENFEAT_shared_info_time_offset for this
-functionality.
-
->>> Plus I fear I don't view any of this a basis to suggest
->>> to expose some host property to guests.
->>
->> The only host property being exposed would be the UTC wallclock as kept
->> track by the host (as is specified by XENPF_settime). This information
->> (wallclock from an external reference) is necessary for guest timesync,
->> whereas an RTC which guests can update by themselves simply cannot be
->> used for this purpose.
-> 
-> What the guest can do to its (virtual) RTC is no different from what an OS
-> running bare metal can do to the real RTC. Running on bare metal, you also
-> don't have any other reference (without using e.g. NTP).
-> 
-
-Since shared_info is a paravirtualized interface that's not meant to 
-replicate real hardware, I don't think it needs to be bound to the 
-functionalities of bare-metal RTC; for once, the host already provides 
-guests with high-precision wallclock more than what the emulated RTC 
-offer (via vcpu_time_info_t). Adding precision sync is also valuable for 
-VMs using this interface.
-
->>>>>> Since there's no way to add more fields to struct shared_info, the
->>>>>> addition has to be done through struct arch_shared_info instead. Add two
->>>>>> fields in arch_shared_info representing time_offset's low and high
->>>>>> 32-bit halves.
->>>>>
->>>>> Again, despite my earlier question, reasoning of why two halves rather than
->>>>> a (signed) 64-bit value isn't supplied here.
->>>>
->>>> This was also in my last email:
->>>>
->>>> Both are just for easy consumption of the time offset on 32-bit guests.
->>>
->>> I don't buy this. I should probably have replied to this effect when
->>> you first wrote it. {,u}int64_t is hardly a hurdle anymore there. Nor
->>> would I expect any halfway up-to-date 32-bit guest to manage time as
->>> a 32-bit quantity anymore.
->>>
->>>> Unsigned is particularly because these are only parts of an int64_t (and
->>>> therefore have no signedness themselves) and I prefer to let the
->>>> conversion happen after reading the two fields.
->>>
->>> There may be benefits to this, yes, but imo they want to be spelled out,
->>> rather than left vague.
->>>
->>>> (Follow up: Also, the alignment of int64_t differs between GCC and MSVC
->>>> compilers. Using int64_t here would change the alignment of struct
->>>> arch_shared_info)
->>>
->>> Does it? For which target and in which way? This would, after all, render
->>> other uses of {,u}int64_t in the public headers problematic as well.
->>
->> For the x86 32-bit target, the Windows ABI uses 8-byte alignment for
->> (u)int64_t as opposed to 4-byte for the System V ABI [1].
-> 
-> Oh, right, I should have recalled this. Iirc there was an unwritten assumption
-> that for Windows the public headers may need some massaging.
-> 
->> Most of the
->> other uses of 64-bit integers look to be manually aligned and/or using
->> (u)int64_aligned_t (I haven't looked at them all). I can switch
->> time_offset to int64_aligned_t and avoid the issues above.
-> 
-> Except that int64_aligned_t can be used in __XEN_TOOLS__ guarded areas only,
-> for not being possible to make available with plain C89 / C99. So here we're
-> working out a reason why the field may indeed better be split. Albeit as
-> said, other areas of the public headers use {,u}int64_t as well, so maybe
-> this still would only be a pretty weak reason (and you could make sure the
-> field is properly padded for the x86-32 case).
-> 
-
-I see, I didn't realize that int64_aligned_t is for __XEN_TOOLS__ only.
-
- > and you could make sure the field is properly padded for the x86-32 case
-
-This would not be possible either, as using int64_t would increase the 
-alignment of arch_shared_info to 8 on MSVC. Since wc_sec_hi is not 
-defined on x86-32, shared_info->arch is on a 4-byte offset (modulo 8), 
-and so its layout would be broken on this compiler if int64_t were to be 
-used.
-
-> Jan
-
-
-
---
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks, Roger.
 
