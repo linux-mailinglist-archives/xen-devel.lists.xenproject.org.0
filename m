@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5BDD3C0C4
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 08:45:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208433.1520592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D97AD3C0DF
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 08:50:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208446.1520602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi6Q3-0002Fr-KQ; Tue, 20 Jan 2026 07:44:55 +0000
+	id 1vi6VD-0003wj-51; Tue, 20 Jan 2026 07:50:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208433.1520592; Tue, 20 Jan 2026 07:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 1208446.1520602; Tue, 20 Jan 2026 07:50:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi6Q3-0002EG-GW; Tue, 20 Jan 2026 07:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 1208433;
- Tue, 20 Jan 2026 07:44:54 +0000
+	id 1vi6VD-0003ui-2K; Tue, 20 Jan 2026 07:50:15 +0000
+Received: by outflank-mailman (input) for mailman id 1208446;
+ Tue, 20 Jan 2026 07:50:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vi6Q2-0002EA-OG
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 07:44:54 +0000
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [2a00:1450:4864:20::442])
+ id 1vi6VC-0003uc-Et
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 07:50:14 +0000
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [2a00:1450:4864:20::344])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7b66342-f5d3-11f0-9ccf-f158ae23cfc8;
- Tue, 20 Jan 2026 08:44:52 +0100 (CET)
-Received: by mail-wr1-x442.google.com with SMTP id
- ffacd0b85a97d-432d256c2e6so4264783f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 23:44:52 -0800 (PST)
+ id a6594d72-f5d4-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 08:50:12 +0100 (CET)
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-4801eb2c0a5so31409125e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Jan 2026 23:50:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43569922032sm29098015f8f.8.2026.01.19.23.44.51
+ ffacd0b85a97d-43569921da2sm27829302f8f.1.2026.01.19.23.50.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 23:44:51 -0800 (PST)
+ Mon, 19 Jan 2026 23:50:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7b66342-f5d3-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: a6594d72-f5d4-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768895092; x=1769499892; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1768895412; x=1769500212; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PzVQEOmqsd/5MICjHZcd3xDgzx/ha6IBOhbYlgwGARI=;
-        b=RiGZCrp4cjlSkXsudwyHBOmICPfNA97w84ptsk+NmWDQQid2WSzPDGkI6/ywxXhc8c
-         ZVfXw4Gw44PCeNmZWafERSIxjX04Mm1GyoFgonDY6h1vv2HguG5AjILo90B5afC/7jPw
-         9eCkqS5JsAIfQUbpwMMLPFayKBOfjzfmYATHpp6H8933/vcTviWHUWpCBzZcAVpm9YvH
-         xoUCUFz9B88clOQZ7ms3roJzll9Immv/KF37StXrSTIC2mFJXToqKHyjTuLoI1yoYsMz
-         RDhAs+6uuCNGIRlEASQP2An0m0PXa7cTT9A05+gd5CRXoCAxBMhdQ8dsMmly1C6kqite
-         7Rzw==
+        bh=Uo//KNX2NUE9m72eGstqyYNgDqAe3xJiyhPzdd7xWPw=;
+        b=MwQOMMBEqeOz5r2778q9G/Gb9ve9EykhxCbNf4HsG5tSHQqCoQzeB0kj4l/XszUsvE
+         tePXvFmzyPBtOKzBfp2rQ2RyhFq4jdI6T6STLGfQ9lHZSgwSZWK3gRhBUZs3iEJD7o7e
+         VBmQ3w6xf3Z0DTtoNNWILzq91xVf3dCbWXSI8Cx3F4ZIUlk1fes7hnBSxB62h6jMfDa/
+         tVzrbk+nIzvtHj24aPuR+8jBsb3mBEQve92Z/DvJXMND5bDj14dCMOG1mm/T8IlY1fel
+         WbD9oAmkCU1bYtaxxk2vCrj/blk4bhaZpGN9wNHcH6wd0QjYqHmInoZk7CNO6KQy84aN
+         TRoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768895092; x=1769499892;
+        d=1e100.net; s=20230601; t=1768895412; x=1769500212;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PzVQEOmqsd/5MICjHZcd3xDgzx/ha6IBOhbYlgwGARI=;
-        b=DZ9CC0NCfO6djM95j2I3MDUnB+/eJGox3e/O54OGOBrex3qcX2CpCHWr99outoEsm4
-         Z5cfWNIf9sWoaSjFPkV+wmiCZgBSua1ih2Z3NM3f8exL5MYHdT4SnYSEVyPNnGiiZALR
-         u36xcjcrJt25esZJrWXd/zWnwTlltKFALYq1PTdliDMg/xisnufgyGHUzvo020zVEUuR
-         1QpiMl6afaZKyvrgDOUeyafhm9ffqPrX1hrq+J74vTEPD/tuR4o+6lRMYEL2NYeQkjcl
-         P07JzQs9BAdquymBggaTk95uHMFVuuX48dNTQuYBSGJMCZrzviXVfzMICh5euUbGI50f
-         3A2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVQQoFPe/jPqK8sRgRpdh649wFPHMJqifMHAPfp9wCMdn0VpSIgwCixo8AwW16IikY6sJe9S9xL3DI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVSOMasx3nwe0kn6WhhP5L5oqAu7jkW+0x2z6OItgjWDsX85O7
-	FB3x1pW/Us9J298bbhv0PsJwvfpCdhDfEMd7Iqt9CPnK0QqypBJcrWEluO+i31Xq+A==
-X-Gm-Gg: AZuq6aIHsoMBUvguAS6f0uBUolHVb8gNfFqDJNin8DEj3C9P+bc3OfLyQHGQ8V/jNjh
-	xmpanmF3IOVrp0VGPoAQjtHcegBfTSGPDOF1VhIsufDkM3+LR37S/OMe0mh0zcIrEDx5T2xocRw
-	PaCBXSZxc5iw0QBRQKL17WqB6X1O9TnqZ2oUPfmRy14/6qggMdgoWME1epD85wkbIvsJ/XgfEMg
-	yvBGpaEVDM1rxnXWTK43+KilJJPSYoOyo5FEprUI/xd4QZImJjHHSjMD/XB3jAqvS5LSYp/Gtgs
-	dpymoG4BmO7+FLjcDO/Ve8FT20EorGWWEysdKs+0Eg1rAfPdAFbgpGBhOV4EAmHGVp0ghPdQqI8
-	u+SZLSaMF6qcCMTt87s4i6B5tN0qN4BWtXXuYuDwQplGnwQOQkVR0I2dsgRaCvNDBX2UUOkdn0D
-	JMn76DpDipyaWdjq6bEdXwHlje4DSFqtuChIHEde3raSDosizcaJf1IrNgjC8Nqg2n9s5F4ntl3
-	nr9snrogMalBA==
-X-Received: by 2002:a05:6000:2303:b0:431:3a5:d9b8 with SMTP id ffacd0b85a97d-4358ff31af2mr1391230f8f.52.1768895091892;
-        Mon, 19 Jan 2026 23:44:51 -0800 (PST)
-Message-ID: <d8f28714-f406-4b2c-ba75-babd728c0b00@suse.com>
-Date: Tue, 20 Jan 2026 08:44:50 +0100
+        bh=Uo//KNX2NUE9m72eGstqyYNgDqAe3xJiyhPzdd7xWPw=;
+        b=JAAsAT1A65QEYaLCImDiExorGvghgHtQfEO40ypOCG0Ju3I2qXTrLNnFHSP6j+W38Y
+         d8uF5guLVijlnA3CORuNTl6JjDZN5+fidsPAZvKy5IVvth7BAAynj9P/LnFMAoyKiepI
+         J7sxSrDgwoSONOx86PAVHz6xMWe1EjcxVo+F63YKFgT+DAfbjKOkRJhy3FsqT9aDq38J
+         O0E73WJgDLgegC7gWRdIyQuzn/PtdtDQPtmcEnkULagypdCF1A1lRTtHOflyNvkgYGwp
+         QTDt4r/0yUePY8FCGIJ2K+hp7R794DePl4uddQ4RmkNnBmVLBpoaM7q3q7NXFgTYQgiM
+         FmSA==
+X-Forwarded-Encrypted: i=1; AJvYcCVUopPmH6dmHg81g/k6qxcSfLKM3x3GDyCx1EmKcN5el4Oj4I3nWxpMkvgQQlsObkOhzpfKPoVslFs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwXjpdrUkldTzWJzBKAqE7USQXt+8N+FrSOXseX3ViCpbCWrEMr
+	1XLUMGARMTYwzNH3cDpKtHABlNd/g3o/vxuhkEXmavKTcrYrMNeSVgBcFTfjoOOMXw==
+X-Gm-Gg: AY/fxX73TjJDPLy6aC+yBzQ15u0mwCkIvCIyrbiqn8PCwekNyCHA3FoUJ9a26ZeR7EY
+	D/3zc7gMguNv1DB6eY+t/I6K0CgeRnbR/79LiAkBNA9MlwXtxTKt66KcSkU5qW5XyChfnFB+QPo
+	OF4UxxUSPkPuFgzncjidezeZm2nIbLu0UFEQ511V5KW9/QImIk8QL3lvaDjguh8ptnLDjiM2Eh9
+	7+N/4J2j2jBD6L7Q1+1/Ffra65qg0Yc83rCVc8qpnk8XRXuSCgLtiwpAKhQqPfnUUvDu5CBu2Pv
+	9VQRmOPIua2GiAji8X0+PyXJTVE+4PYBWhvE29XIlU7Dpw6GzHCDkbN2hv9w39mpiLzVuhGW68f
+	m4qGEiN7XxqgQq1yARl1GoY+LPDv0OAdKkgXGSMwHOig3W2Ciu++jHc5eTRm7TpbLHGYrjDL5VT
+	bHMFtIJ2LuWVtDGr62r6x4+sCZXk8uJLO1MusUPpgToLdOUni3AbUMQcoBGcDUJUVAAwCoG9MaG
+	jY=
+X-Received: by 2002:a05:600c:8b8c:b0:46f:c55a:5a8d with SMTP id 5b1f17b1804b1-4801e2efd61mr172869635e9.4.1768895411867;
+        Mon, 19 Jan 2026 23:50:11 -0800 (PST)
+Message-ID: <14a32e1f-c5ca-4d1c-b54b-c565184bd6e7@suse.com>
+Date: Tue, 20 Jan 2026 08:50:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] INSTALL: remove unsupported XEN_CONFIG_EXPERT from
- documentation
-To: dmukhin@xen.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20260120071654.640873-3-dmukhin@ford.com>
+Subject: Re: [PATCH] x86/intel: Drop more cpuid_mask_* infrastructure
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260119193901.1354905-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,54 +118,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260120071654.640873-3-dmukhin@ford.com>
+In-Reply-To: <20260119193901.1354905-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.01.2026 08:16, dmukhin@xen.org wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+On 19.01.2026 20:39, Andrew Cooper wrote:
+> Despite removing references from the documentation, the Intel parts of CPUID
+> Masking were accidentally left behind and still active.
 > 
-> Remove XEN_CONFIG_EXPERT explanation and also correct information in
-> the entire "Xen Hypervisor" section.
+> Intel CPUID Masking is even more niche than AMD masking, as the MSRs only
+> exist between Nehalem and SandyBridge, being fully replaced with CPUID
+> Faulting from IvyBridge onwards.
 > 
-> Amends: 37339ba9ef46 ("automation: Remove XEN_CONFIG_EXPERT leftovers")
-> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Fixes: 317051c2f032 ("x86/amd: Drop the cpuid_mask_* command line options")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-preferably with ...
 
-> --- a/INSTALL
-> +++ b/INSTALL
-> @@ -25,19 +25,12 @@ Xen Hypervisor
->  Xen itself is configured via a `kconfig' system borrowed from Linux.
->  See https://www.kernel.org/doc/html/v5.4/kbuild/.
->  
-> -Note that unlike with Linux, and contrary to that document, you cannot
-> -look at Kconfig files, or the default or generated config files etc.,
-> -to find available configuration options.  This is because it is only
-> -supported (and security supported) by the Xen Project, to change a
-> -small subset of the options.  Attempts to change other options will be
-> -silently overridden.  The only way to find which configuration options
-> -are available is to run `make menuconfig' or the like.
-> -
-> -You can counter-override this behaviour by setting XEN_CONFIG_EXPERT=y
-> -in your environment.  However, doing this is not supported and the
-> -resulting configurations do not receive security support.  If you set
-> -this variable there is nothing stopping you setting dangerously
-> -experimental combinations of features - not even any warnings.
-> +Only a subset of options is supported or security-supported by Xen
-> +Project. You can explore all available options, including unsupported
-> +ones and those recommended only for expert users, by using `make
-
-"..., e.g. by using ..."
-
-> +menuconfig` and enabling `CONFIG_UNSUPPORTED` and/or `CONFIG_EXPERT`.
-> +However, enabling these options is not supported, and configurations
-> +resulting from them do not receive security support.
->  
->  Options recognized by configure
->  ===============================
+Yet I think you also want to edit the CHANGELOG.md entry the other commit put
+in place, to not have that remain AMD-only?
 
 Jan
 
