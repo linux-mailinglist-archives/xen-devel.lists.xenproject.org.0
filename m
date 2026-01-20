@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qA6LO/mzb2nHMAAAu9opvQ
+	id +Mb8JQG0b2nHMAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:30 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772DE4816B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209114.1521228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21232481A0
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:57:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209121.1521237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viDcJ-0006jo-El; Tue, 20 Jan 2026 15:26:03 +0000
+	id 1viDeL-0007OF-PN; Tue, 20 Jan 2026 15:28:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209114.1521228; Tue, 20 Jan 2026 15:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 1209121.1521237; Tue, 20 Jan 2026 15:28:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viDcJ-0006iN-Az; Tue, 20 Jan 2026 15:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 1209114;
- Tue, 20 Jan 2026 15:26:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1viDeL-0007MR-Mk; Tue, 20 Jan 2026 15:28:09 +0000
+Received: by outflank-mailman (input) for mailman id 1209121;
+ Tue, 20 Jan 2026 15:28:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RfLJ=7Z=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1viDcI-0006i9-Sp
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 15:26:02 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 532fbb5f-f614-11f0-b15e-2bf370ae4941;
- Tue, 20 Jan 2026 16:26:00 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 201EE4EE0750;
- Tue, 20 Jan 2026 16:25:59 +0100 (CET)
+ <SRS0=eRHx=7Z=bounce.vates.tech=bounce-md_30504962.696f9efd.v1-1547d01774b0433ab9b06053565abfce@srs-se1.protection.inumbo.net>)
+ id 1viDeK-0007MF-C2
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 15:28:08 +0000
+Received: from mail14.wdc04.mandrillapp.com (mail14.wdc04.mandrillapp.com
+ [205.201.139.14]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 994665e8-f614-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 16:27:58 +0100 (CET)
+Received: from pmta16.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail14.wdc04.mandrillapp.com (Mailchimp) with ESMTP id 4dwWRd2xwTz8XRwk8
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 15:27:57 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 1547d01774b0433ab9b06053565abfce; Tue, 20 Jan 2026 15:27:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +46,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 532fbb5f-f614-11f0-b15e-2bf370ae4941
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1768922759;
-	b=QXXljVw3Ko32xeaD7dLhUbUFYt1hLvmB3kAbizDrsgd/5U5iB0Ebm2/lCpFGNBK51Nk7
-	 OEHp7vkhFp5XP1uATZuhg24+VdjaO7OjjiQzEkuozVU7SpVw44PoE4XyopHrP7GtjqSgj
-	 MVSONRym29ETU2GnJ5KruaeR+f6vq9YkLam4gLqXLTgGr3yBYJvGxdFd4lIDcawQ/RPL+
-	 JK9bkA2PM6NfZcfH5yP8PA4wa9lLj/h/C994OCC77jEBQNv5ybhhyUWts2kbBIQq1o+MP
-	 0vJGEPon+nq+CqYOyMSWDWR4exZYOAzuR7sjCdQuj2dzztT4dd5NIeTe23MSGal6ZbYs/
-	 oDTHoaEQREpfa3zPmPLxh8a1IzprqGlDBm828gt1zSzt23qTo9FlPkB92a0l2qqeLqhay
-	 J8ac5dL3Z2RG4yfEld6wkenbtyvAo++HvkhZvsDsh0bKN6a1SRzBbrmivaw8XtADXs5q7
-	 Lk0kecCBpR6a1b2UcGSWsv/hkLUFP2IJ4V3DwQe8TfYNAA8COs3n85RVtI4XJqqIunFH0
-	 XAbXxO8pDDMmjaVaoxXFZkj5R10AN5ASqyIvYsaPUjWGKd9f0oE/Z47WkIV3p8+r79aQm
-	 Upe5S6YPe+fPUH0dFETdS5LJzxxC31NsPtajGU0Lqe6sJBXRKoAyxTAQPfyU0o8=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1768922759;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1X2fBUsSdCnu5gLNKdnwWlqRGMJT3adt2MdAjjk/8v4=;
-	b=wVJYO5UD2qGmfqzQmLJwlrav/KjWokxvbIyxNKTXyabowpNu5diNoyZuCX18VSm2jV4I
-	 RQkYl+vpu/ZBO4V1Rv5iEEVCR5xMJ8GWG4kJBOM6ibhh7tS9pOlDe2tZpJKY3QeauaJmp
-	 GPaGD4j/S5MjnGMTX2Z54Nbd+AHNY7eclIHw2+1ksDwFw9VyFlh8DGnRqq+ehAwOFl2wG
-	 8x6vY72dwcq9wQAFZ3eBh85oHQ6q/dq8oEGrRrEoLech5qTrrJcIPfLFUuXvoYXNRG3uf
-	 ZR+rk17i27gvyX9CQ75NOAPpNwYF6toqxWqoC2rZ+3TKTwB7EZ+zOC8ys+Tgbdj3BRwM1
-	 raQN1s75ptSO3s4wU7mBnM0wlBMrn4/wXOTlE1eqxWWYjognT2pxi2l7lJ1OdzjBKAGNX
-	 Kgn+g5o5xc6jGvTmm22QDgf2NM1LOVFqLaQ+dIEWVOmIutX8Wihwtk1ugUtli5tpyNJO8
-	 RQdzC8nKpsqXivVonQNxHwfZ5fbHOIQBBT9w6y0QJWBm8cXQW2la/zcC4zkp89JdDZmMY
-	 7IKo9lS/xyp+d8geMbCTUUrUM/2WbKEZiE+BGtrNDM1JnUsIuodNIUQVesduEUpiChSxR
-	 bFgzQajC8ZulNuIHjugyBYH7mOm3ktdgOlOOIftJkKq80QoTDMSW54BpMDp7gPI=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+X-Inumbo-ID: 994665e8-f614-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1768922877; x=1769192877;
+	bh=PKhCAAD87VzD+4z95CXnWFWiEpmifOzout8OQHxo4rw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=VUOQew70N9S1Rzjtzu0zy1tX+Z7RPGy9ygVb+mTnouIONTF4IIJMDH0uz4vJEBDQt
+	 JTENXMNCWl7SgZLRCaiewhcFdOABDXKoJ6ljvqcTf/KAz38LseZE3EN2w9xhqK/R15
+	 SlbwESkdFkEw3aFFbsTB9EVK/NbGXVkAzO3R/ddMVwNCwaKAaP/wX1GeUycvd0MnXi
+	 nyPWJQne7FPN8RY2kop2wSJ7OPGOp6u7Ks4zZMGdZ8oVd6f9tBEb5r/77ft1QI603R
+	 8LUYOsvWWWxj1s8AcuSgCisiOvLlmNyKocJQ5QRd5TCRBcoiq1mh802u/3vYGngBxm
+	 0AbeN+eYp6fwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1768922877; x=1769183377; i=ngoc-tu.dinh@vates.tech;
+	bh=PKhCAAD87VzD+4z95CXnWFWiEpmifOzout8OQHxo4rw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=xs7w+B6m7Wwubhguafks/+/8BEO/IeVOmdKBCXmencwFD2QAWCNRnggOKjYv1qr+I
+	 NzLX1q+ExcrScK//pRjudGuP9hjRuZq1RllfAIMZW7uOPaNPd+rPt5hy1hV9zin2fl
+	 mGqe7gcBP/Hz/Z8usAWJ6VNHzyy23T+I/hseRBDymRzAxEI1NCGnItonD2eBp7PHbi
+	 V4E0V/wBSU/x1yd0y6cj5aLWF3qxTalK4NLVwMXi4UNQsjoWUYUgPiflcWsiKweYTl
+	 MtVdCwYmL6dl+6UwAacww0uq8JlwVh0GbT+1ttr7ChTPzXH06HNiUG1k9drH+Kz045
+	 hjSWnrrm5u9Pg==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20xen:=20Expose=20time=5Foffset=20in=20struct=20arch=5Fshared=5Finfo?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1768922875712
+Message-Id: <9df8cf47-d3ec-474e-b1c8-7978e55627d6@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
+References: <20260120095657.237-1-ngoc-tu.dinh@vates.tech> <3213454a-38cd-4e5d-8a30-853e37f70c18@suse.com> <cff32c5b-a085-468a-be26-a858244b228d@vates.tech> <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com>
+In-Reply-To: <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.1547d01774b0433ab9b06053565abfce?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260120:md
+Date: Tue, 20 Jan 2026 15:27:57 +0000
 MIME-Version: 1.0
-Date: Tue, 20 Jan 2026 16:25:59 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jbeulich
- <jbeulich@suse.com>, xen-devel@lists.xenproject.org, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH v4 4/5] docs/misra: Remove earlycpio.c from the Eclair
- exclusion list.
-In-Reply-To: <d07d6040-cc6b-4634-b4ac-041bb903d6fa@citrix.com>
-References: <20260120093852.2380-1-alejandro.garciavallejo@amd.com>
- <20260120093852.2380-5-alejandro.garciavallejo@amd.com>
- <1d374226e3f91ab3bbc05c3354c8f8fe@bugseng.com>
- <DFTDPKJN6EHE.3LH3Z9WEO0AGW@amd.com>
- <bd95ae24c9b9767467938dcd42a93a6d@bugseng.com>
- <DFTE7R78R78U.2T09MMJU7F0CF@amd.com> <DFTELY2QHKPN.P7317UWE8QZR@amd.com>
- <0a6eca6eb344e9829ed9e0b381f26e95@bugseng.com>
- <d07d6040-cc6b-4634-b4ac-041bb903d6fa@citrix.com>
-Message-ID: <a5a217974ec7c6c0aa96610bbbe48dd5@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-1.39 / 15.00];
-	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[bugseng.com : SPF not aligned (relaxed), No valid DKIM,none];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:alejandro.garciavallejo@amd.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel-bounces@lists.xenproject.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7];
-	FORGED_SENDER(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ORG_HEADER(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:url,lists.xenproject.org:rdns,lists.xenproject.org:helo,mandrillapp.com:dkim];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	R_DKIM_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,linkedin.com:url,xenproject.org:url]
-X-Rspamd-Queue-Id: 772DE4816B
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 21232481A0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2026-01-20 16:14, Andrew Cooper wrote:
-> On 20/01/2026 2:20 pm, Nicola Vetrini wrote:
->> On 2026-01-20 13:09, Alejandro Vallejo wrote:
->>> On Tue Jan 20, 2026 at 12:51 PM CET, Alejandro Vallejo wrote:
->>>> On Tue Jan 20, 2026 at 12:41 PM CET, Nicola Vetrini wrote:
->>>>> On 2026-01-20 12:27, Alejandro Vallejo wrote:
->>>>>> On Tue Jan 20, 2026 at 12:21 PM CET, Nicola Vetrini wrote:
->>>>>>> On 2026-01-20 10:38, Alejandro Vallejo wrote:
->>>>>>>> It's clean.
->>>>>>>> 
->>>>>>>> Signed-off-by: Alejandro Vallejo 
->>>>>>>> <alejandro.garciavallejo@amd.com>
->>>>>>>> ---
->>>>>>>>  docs/misra/exclude-list.json | 4 ----
->>>>>>>>  1 file changed, 4 deletions(-)
->>>>>>>> 
->>>>>>> 
->>>>>>> Hi. Do you have a link to a pipeline?
->>>>>> 
->>>>>> In the cover letter. I only run it on allcode.
->>>>>> 
->>>>> 
->>>>> I see. I can spot these additional violations from earlycpio.c. It
->>>>> does
->>>>> not result in a failure, but only because x86_64-allcode has also
->>>>> other
->>>>> non-clean guidelines and is thus allowed to fail. Ideally in some
->>>>> copious free time I'd send a patch to create a subset of clean
->>>>> guidelines for the *-allcode analysis that is failing, so that the
->>>>> "allow_fail: true" can be removed.
->>>>> 
->>>>> https://eclair-analysis-logs.xenproject.org/fs/space/verdesse0/XEN.ecdf/xen-project/people/agvallejo/xen/ECLAIR_normal/ucode-disable_v4/X86_64/12771570090/PROJECT.ecd;/by_main_file/xen/lib/earlycpio.c.html
->>>>> 
->>>> 
->>>> The web interface doesn't allow to search?! Sigh... thanks for the
->>>> pointer.
->>> 
->>> It's your usual mess of miscasting, enum-as-int, etc.
->>> 
->>> Would you rather keep the exclusion and deal with it later or let it
->>> pile up?
->>> I just don't have the time to go into it myself.
->>> 
->> 
->> Well, including more stuff in the scan doesn't hurt and it's only a
->> handful of reports that could be fixed, but the maintainers will have
->> the final say. This file is not really inside my area as a reviewer,
->> but if it helps:
->> 
->> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> 
+On 20/01/2026 13:42, Jan Beulich wrote:
+> On 20.01.2026 13:12, Tu Dinh wrote:
+>> On 20/01/2026 11:35, Jan Beulich wrote:
+>>> On 20.01.2026 10:57, Tu Dinh wrote:
+>>>> time_offset is currently always added to wc_sec. This means that without
+>>>> the actual value of time_offset, guests have no way of knowing what's
+>>>> the actual host clock. Once the guest clock drifts beyond 1 second,
+>>>> updates to the guest RTC would themselves change time_offset and make it
+>>>> impossible to resync guest time to host time.
+>>>
+>>> Despite my earlier comments this part of the description looks unchanged.
+>>> I still don't see why host time (or in fact about any host property) should
+>>> be exposed to guests.
+>>
+>> I've answered this question in a followup reply from November, which
+>> I'll reproduce here:
 > 
-> I'm not seeing anything in that report that's on the clean and blocking
-> list.  But to double check, I've started
-> 
-> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2274001675
-> 
-> which is this patch in isolation to see if anything shows up in the
-> *-amd runs.
+> I did read your reply, yet nothing of it appeared here as additional
+> justification.
+
+Is the new description OK for you?
+
+> Plus I fear I don't view any of this a basis to suggest
+> to expose some host property to guests.
 > 
 
-https://eclair-analysis-logs.xenproject.org/fs/space/verdesse0/XEN.ecdf/xen-project/people/agvallejo/xen/ECLAIR_normal/ucode-disable_v4/X86_64/12771570090/PROJECT.ecd;/by_main_file/xen/lib/earlycpio.c.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":1,"children":[{"enabled":true,"negated":false,"kind":0,"domain":"clean","inputs":[{"enabled":true,"text":"added"}]},{"enabled":true,"negated":true,"kind":0,"domain":"kind","inputs":[{"enabled":true,"text":"caution"}]}]}}}
+The only host property being exposed would be the UTC wallclock as kept 
+track by the host (as is specified by XENPF_settime). This information 
+(wallclock from an external reference) is necessary for guest timesync, 
+whereas an RTC which guests can update by themselves simply cannot be 
+used for this purpose.
 
-Looks ugly, but it's a direct view into the clean:added selection: 
-R10.2, R20.7, R7.1 in short.
+Also, IMO Xen is the right place for adding proper timekeeping to the 
+guest, as it's aware of both the "true" time as tracked by the host's 
+hardware and the guest's TSC values (used for virtual clock 
+calculations. Similar functionalities are provided by other hypervisors 
+(KVM ptpclock, Hyper-V).
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+>>>> Since there's no way to add more fields to struct shared_info, the
+>>>> addition has to be done through struct arch_shared_info instead. Add two
+>>>> fields in arch_shared_info representing time_offset's low and high
+>>>> 32-bit halves.
+>>>
+>>> Again, despite my earlier question, reasoning of why two halves rather than
+>>> a (signed) 64-bit value isn't supplied here.
+>>
+>> This was also in my last email:
+>>
+>> Both are just for easy consumption of the time offset on 32-bit guests.
+> 
+> I don't buy this. I should probably have replied to this effect when
+> you first wrote it. {,u}int64_t is hardly a hurdle anymore there. Nor
+> would I expect any halfway up-to-date 32-bit guest to manage time as
+> a 32-bit quantity anymore.
+> 
+>> Unsigned is particularly because these are only parts of an int64_t (and
+>> therefore have no signedness themselves) and I prefer to let the
+>> conversion happen after reading the two fields.
+> 
+> There may be benefits to this, yes, but imo they want to be spelled out,
+> rather than left vague.
+> 
+>> (Follow up: Also, the alignment of int64_t differs between GCC and MSVC
+>> compilers. Using int64_t here would change the alignment of struct
+>> arch_shared_info)
+> 
+> Does it? For which target and in which way? This would, after all, render
+> other uses of {,u}int64_t in the public headers problematic as well.
+> 
+
+For the x86 32-bit target, the Windows ABI uses 8-byte alignment for 
+(u)int64_t as opposed to 4-byte for the System V ABI [1]. Most of the 
+other uses of 64-bit integers look to be manually aligned and/or using 
+(u)int64_aligned_t (I haven't looked at them all). I can switch 
+time_offset to int64_aligned_t and avoid the issues above.
+
+[1] https://godbolt.org/z/x8o8K51Kv
+
+> Jan
+
+
+
+--
+Ngoc Tu Dinh | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
