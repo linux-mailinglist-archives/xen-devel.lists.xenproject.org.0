@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B22A3D3C376
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 10:29:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208486.1520650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3C1D3C3CB
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 10:39:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208500.1520659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi82n-0007st-Rf; Tue, 20 Jan 2026 09:29:01 +0000
+	id 1vi8D4-0001Ar-T3; Tue, 20 Jan 2026 09:39:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208486.1520650; Tue, 20 Jan 2026 09:29:01 +0000
+Received: by outflank-mailman (output) from mailman id 1208500.1520659; Tue, 20 Jan 2026 09:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vi82n-0007rO-OR; Tue, 20 Jan 2026 09:29:01 +0000
-Received: by outflank-mailman (input) for mailman id 1208486;
- Tue, 20 Jan 2026 09:29:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EVnc=7Z=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vi82m-0007rI-Uz
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 09:29:00 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 728a3a81-f5e2-11f0-9ccf-f158ae23cfc8;
- Tue, 20 Jan 2026 10:28:58 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47ee3a63300so48348455e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 Jan 2026 01:28:58 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4358e24cef3sm3250356f8f.0.2026.01.20.01.28.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Jan 2026 01:28:57 -0800 (PST)
+	id 1vi8D4-00018l-QA; Tue, 20 Jan 2026 09:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 1208500;
+ Tue, 20 Jan 2026 09:39:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fwra=7Z=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vi8D3-00018d-K2
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 09:39:37 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee14f73b-f5e3-11f0-b15e-2bf370ae4941;
+ Tue, 20 Jan 2026 10:39:35 +0100 (CET)
+Received: from SA1PR04CA0024.namprd04.prod.outlook.com (2603:10b6:806:2ce::28)
+ by DM4PR12MB5938.namprd12.prod.outlook.com (2603:10b6:8:69::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.12; Tue, 20 Jan 2026 09:39:30 +0000
+Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
+ (2603:10b6:806:2ce:cafe::26) by SA1PR04CA0024.outlook.office365.com
+ (2603:10b6:806:2ce::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Tue,
+ 20 Jan 2026 09:39:30 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.4 via Frontend Transport; Tue, 20 Jan 2026 09:39:29 +0000
+Received: from xcbagarciav01.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 20 Jan
+ 2026 03:39:26 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +56,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 728a3a81-f5e2-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768901338; x=1769506138; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=z8qtmLeEYJkg0E+FGU0YcIS6Kp7zsO5AEUqj66EA7/Y=;
-        b=CIh83e62ta4p5xABIRLVLmiKEZkCiH4F5iSUxUhJZrlEtyKTCHZOMelRK+xqhw87Qi
-         tjeb42PqrG8rs6lIYOqsyS9dhCJUqNcq43cNyIX5TkUcnvUhoGSMOie1SEymvcMGkouf
-         2vW2jldKl0aPsT7gWZcZZZnw6L+EV7PMdRDf8+8seNb6wrsFMkEnAKosVflLzKzN84KL
-         yRUPYq4psGI7HYWfB7+2733YhtHyMhDOp5Gmfm97nhGulSc8+bcmMERC2Y2c47sVkMbx
-         AytT082yEteFuBKr2uT0qLqNUx2mhTA4pvjaTHQJTJt4ls/Vtwh2qYBjS0qBwMKJF9rq
-         xhdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768901338; x=1769506138;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z8qtmLeEYJkg0E+FGU0YcIS6Kp7zsO5AEUqj66EA7/Y=;
-        b=DPnaYSkXJV+HvDX0+i7Sv1UjSVclvOAHgGtsM4oboleizAyseJROzzrXYXlYIh1oGk
-         XTlzGT803Uvm4vowNWIfSjgxGBITWx+73jmRSyIlasGz75zCbenVU1nmO4IhDICbBmyV
-         cfeCjcg2G/2he3N5B7nq4bjc5m1kjBd6GNUb4qS/5vthMdHZenQ+eggBRxBHpeDpkB8E
-         ZXcmtTdF/nqJJmJ1YDjs93rVTBb0mtLHb1LszUqT/ERPnlPcpHjchc+XvZDV6A3K6VW4
-         8p/bhokjltUQ2FtiGQD8/JgKhj5+JL2jvIsmqWLsoZnQo/Wrr3kFA+h9cvvajLs8ELKg
-         L6RA==
-X-Gm-Message-State: AOJu0YwhKvgBZsEI7wiBOtOr+r4UIILZknMzjo/JwG3aFKA8xHyvT0Lr
-	aOK4Fg/jU/JpQJcB+ku2k/KHLzzMlRd6NU69UmQ/QopnSr4yNCR56N/DdvBnx7jnHw==
-X-Gm-Gg: AZuq6aI6dU1+TAHwXJz/9edZ87IjFMY1nblVERfFGzjLP9pTNntXuL0DRqHXAWDQ/1Y
-	bush6vEx2qEvHLwAW1Zl77+XiXwO6k9qaDfJT9aIMrPBiCsmVWT5T7OB41qv1FB57xtQsNzowrk
-	9USOl3Gude1NgRpANzfXfFpeTNqcCswelI7qyTExwLpiXpmlq0TgL4m3IBnDe/Neot5jqqMgpkh
-	NvGTZlW7IOS5+hWhw6WNCTD1SdY/GJmGqju9XfTHxEDVGAuTAX167gR/8Z+i0aa6J1Z+pqvOzYI
-	n4bban3Gam8UIFjCySracBhgesIeYgzc2YmHtKPUoiyFHWlkUBHcbU4um1oraFSJiTx+l9XqLWg
-	RfDEHSPB6yrvNMl/nicyiTrnVrcyhoVQFyjKCSovue0GwQG0Jb+wuJ8C0calEVbjZYToC7yMJrt
-	bMYRn3OzWlg3Dk2d0RoiaKqaQoB7Zi6RGLr+JgdbbhfUE+3R7AqqjlqBURPsO0cOU7LtVD4vYo2
-	HPuWI7cwwd0Eg==
-X-Received: by 2002:a05:6000:200b:b0:431:35a:4a7d with SMTP id ffacd0b85a97d-4358ff6f98bmr1831452f8f.58.1768901337694;
-        Tue, 20 Jan 2026 01:28:57 -0800 (PST)
-Message-ID: <069c49f7-5150-47bc-885a-593970ffc113@suse.com>
-Date: Tue, 20 Jan 2026 10:28:56 +0100
+X-Inumbo-ID: ee14f73b-f5e3-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NY2A7IxOtkKgA3Hn1goGUiv468LLtofv+O0IGtneZ8Ut4PUtSCnE05EhiHrbR60QOpOSrEEiuEZmvdQVRh/sPUUwTN+uBni8Nwabr4pOQ2Q7r/65Zhtl/0tpieBNbNFKkDLzGCuIsLVFgliy3uU/OP+i8W+aI7AdBHPhdIwSqoV0qjwsl25QKKt2+ZnMxf+Uvsl6KXCvbFgQqGae03F/QRlnZnxgbemYCsRVPaMEjkvD++ixDj2grh7qJlQ9Q/tPSS8FxElTofSyEDPj8gU/beRC/lkYxzvJf7gYINFHhmMZVkvzcWvHIyKSu2l9LSYn6pyj4vDOwHRqaBK46I5VpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gTHEOSo1GinnsF6MJncYbd12zNvRUUcGZTNdnJimhAk=;
+ b=DnJdIO+1tSFQvZ1sdJGwNSF2z3Q30peUNsNGyog9I/Ob6TSvy5xixiJEEySCCRROYJRaQ5AbFiPifv/SeBpy0jcNRVZNEVrU4NkjXG23ZxNSr8B4pjxwVlnLmOmLZY9iIzy2yIDrSFDPF9YysjzvQhpWAhFJENVIzf+Gh0NA521V/YphTEt1p0uzjoyG3KsdDheXGU1NupL7dOTvgSqnanLy3IR+VFuqBSkeGJc9WplYg4IVwyHlSMQhjeomnGEy1FoPgrid/i62/fDTJ+Sca6mNkB5YekizgfDQc7Xdwzh0+ZXzPzqpJclO9YbghaRpUyDp1MLSI+E7+r+//aomRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gTHEOSo1GinnsF6MJncYbd12zNvRUUcGZTNdnJimhAk=;
+ b=FPtPtRcfL7NQNgjfK1gy37kcN01zli9wEvN1V+9V3yM4iEZIsrDpnMkQ1EHVzC/vvC3xZdmHufU2kWXHNUutqzWZ7qv5SPyKynk0BxN7D3/WN8fh5cvn6Rb8siVXd5lefJ4n7K2K1fYOMR0xRhx4h7dRnMJhXFgFPTn6OCiv8yo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Daniel
+ P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v4 0/4] Add Kconfig option to remove microcode loading support
+Date: Tue, 20 Jan 2026 10:38:45 +0100
+Message-ID: <20260120093852.2380-1-alejandro.garciavallejo@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86/time: deal with negative deltas in
- get_s_time_fixed()
-From: Jan Beulich <jbeulich@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?B?0JDQvdGC0L7QvSDQnNCw0YDQutC+0LI=?= <akmarkov45@gmail.com>
-References: <66a53368-9c33-436c-858e-2b2d25ae84b7@suse.com>
- <1f539879-3083-41d5-a2c5-c63c9161f0bf@suse.com> <aWfXJk90Sh7B-qi7@Mac.lan>
- <e9205e59-fb1d-429e-877d-28aa8cb950ca@suse.com>
- <380f4d96-4612-4369-8ade-8e9739929135@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <380f4d96-4612-4369-8ade-8e9739929135@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|DM4PR12MB5938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 536b3562-30a4-4616-693f-08de5807cf1d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700013|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?u67qK3bVuUqqvIHaTJLlqrL5t6zdpZJ5nEpnO5sMkPwK5ne40KSJItvS+niE?=
+ =?us-ascii?Q?ZGSnfjLXAHV7opQHU1MFDR9LWTxLBaPBulP7rbk0JH1rAMLAFzMKbyANwR/h?=
+ =?us-ascii?Q?g71sB/y3p/84zEad+w3JYrhTZus33YRSpB7QetikquDKpeNiFSxRYR5bGo7a?=
+ =?us-ascii?Q?uxEYTsQxZgabNBznjZyiZy78mz1IEh98bNZsk2Hgrfs1nC8RLpJ1vtvnfcsL?=
+ =?us-ascii?Q?hBX7ikIEBckcKVur4BB7vubAU4NLUY8wFrKrxeDqNsW3v7BuZL1kzWsWhRyh?=
+ =?us-ascii?Q?3+8kBi3YEahKDoXYJ4yZL/MI7tdV4nJhaMPR+nfsf6h2mKT73uBBwuLUPKEN?=
+ =?us-ascii?Q?Fsr7nJ0ZAEbm2mtdS3TMMuv6bkmn5ik9h7APJHaW6C2SAEfTOBwVhL78jWm7?=
+ =?us-ascii?Q?vvmVjAi4natWjHmvoR8O0DhuIbMejETLfuN9LUgR7Idt4NF4mi3ntafYS4eo?=
+ =?us-ascii?Q?ogBkvSj5V4yyEdrxGIdI173eeGD67yQmMinroi5Fa9wo7LHYaxWsEAuQcxuK?=
+ =?us-ascii?Q?VAlodH4eC81zFAofq6oq2UoKZnJ/+H4Hp1dxty39h52mK8PriwPmZ4nHEncy?=
+ =?us-ascii?Q?+6GVDqcnJwHhKWciCXsSQSIlFjmf+1V1l6grZZlAj2InnDtbXaweFNrtxbSI?=
+ =?us-ascii?Q?fayG2sPEtATXWiTMKuAI3o6sY3lgDjcaSNp3HhOJdVuqkW0a3VoMnDP4OhZ0?=
+ =?us-ascii?Q?Wqzqqas85xtm+3LM/0/1a6KxQSvxm2GZ8jRceEPWvIWac2Wh3kcljqyz4lHT?=
+ =?us-ascii?Q?uGqVmk0xDxZMqEemUckAq4j8/4XS0+F0LgfO0kav2rSGQ1qE05JA2g1CVri/?=
+ =?us-ascii?Q?f6v569n4Dfzi/yXioy1bG9OEXxLz4KpZQ800oWuNW+eoNs4Q1LeLsYKh9uHN?=
+ =?us-ascii?Q?zqpOW/pdKM/lsNIOi6QrjFLFXJS/KbrVAxuMRjr+5GaAcO6WV3+5OJdg18FM?=
+ =?us-ascii?Q?TXocRWS69W29itjLBCw0A4RET/dUM5YcmUN+nEgtBl3jRSTp+aZPXL7hmcAq?=
+ =?us-ascii?Q?N0IGURZRl6Jyau59XcBFSQ4/cad1y6uZYE+AdpfcRsZkow2OwOkcVJDHHI8X?=
+ =?us-ascii?Q?g4S6zSIf/RiPnlmIBRLrO2ySiDODvVIHLjzZbsfDiIl1NlA7XyWDHEMoWoUg?=
+ =?us-ascii?Q?wttRGJz9/B2xolTFhB1CF+M9dT0vrTTltVuNPZ5JKeECQfPO1mrYK8NoyQMz?=
+ =?us-ascii?Q?U/QW1Fe5V90c71+RvzYs/BquCBtAUEPvI6V3txqP9IIl9D52vwBXYwwBqE4s?=
+ =?us-ascii?Q?XemDrSEb66tCPtp8G/DPgYA4+lmz4ZXJwPdAEBRrE+UxPlXoraO6SdvO7TsZ?=
+ =?us-ascii?Q?7Od7ewzXUBZ4Y+MKl/KYo9drFAcIM1YSyXfvdI+iMElqYNxrOl8T7HbBLHwc?=
+ =?us-ascii?Q?uz+hcMPot5zf8Q92fZYWLuSSYMndrY9Qh1drtQouNPw7OseVegW4x/6hSYmd?=
+ =?us-ascii?Q?XaeLVWRePdC5rWsOX7EAStai4rEIEIYdD4VviO0TQg2ICujJP9FfudgSDZRC?=
+ =?us-ascii?Q?c2g9Ylux7t8YHwzBzV6RvbHI0dTEWPqiTyxOnWfFTIGMuPzBU31r2nFiFiS3?=
+ =?us-ascii?Q?9r1GDSwuaXT+STtJqHSx4UGetH+X+eMUuqQ/KtbtXTRWwdr6kcpkhsFCZyX9?=
+ =?us-ascii?Q?jBptBLinZH4m6IkYfpGY36jfFE6mYSMAP9dbxDRpz6kQxjdchuZ1T69lAAlW?=
+ =?us-ascii?Q?ZdgTVg=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700013)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 09:39:29.5423
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 536b3562-30a4-4616-693f-08de5807cf1d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5938
 
-On 20.01.2026 09:50, Jan Beulich wrote:
-> On 15.01.2026 09:00, Jan Beulich wrote:
->> On 14.01.2026 18:49, Roger Pau Monné wrote:
->>> On Tue, Jan 06, 2026 at 02:58:11PM +0100, Jan Beulich wrote:
->>>> stime2tsc() guards against negative deltas by using 0 instead; I'm not
->>>> quite sure that's correct either.
->>>
->>> Hm, we should likely do the same for stime2tsc() that you do for
->>> get_s_time_fixed().  Given the current callers I think we might be
->>> safe, but it's a risk.
->>
->> Will do then.
-> 
-> While doing so, I came to wonder if there isn't a reason for this "capping".
-> In local_time_calibration() we also have
-> 
->     /* Local time warps forward if it lags behind master time. */
->     if ( curr.local_stime < curr.master_stime )
->         curr.local_stime = curr.master_stime;
-> 
-> Which for the use of stime2tsc() in cstate_restore_tsc() might mean that
-> indeed there is a worry of the delta being negative, and the desire to
-> "warp forward" in that case.
+Hi,
 
-Proposed new function implementation (easier to look at than the diff):
+v1: https://lore.kernel.org/xen-devel/20251112162219.226075-1-alejandro.garciavallejo@amd.com/
+v2: https://lore.kernel.org/xen-devel/20260112150259.74535-1-alejandro.garciavallejo@amd.com/
+v3: https://lore.kernel.org/xen-devel/20260113122109.62399-1-alejandro.garciavallejo@amd.com/
+pipeline (red, but see below):
+    https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines/2272127547
 
-uint64_t stime2tsc(s_time_t stime)
-{
-    const struct cpu_time *t = &this_cpu(cpu_time);
-    s_time_t stime_delta = stime - t->stamp.local_stime;
-    int64_t delta = 0;
+Pipeline failures are on ARM builds, so clearly unrelated to this. Also has
+an eclair run on allcode that shows no new failures in earlycpio.c.
 
-    /*
-     * While for reprogram_timer() the capping at 0 isn't relevant (the returned
-     * value is likely in the past anyway then, by the time it is used), for
-     * cstate_restore_tsc() it is meaningful: We need to avoid moving the TSC
-     * backwards (relative to when it may last have been read).
-     */
-    if ( stime_delta > 0 )
-    {
-        struct time_scale sys_to_tsc = scale_reciprocal(t->tsc_scale);
+The only dependency here is patch 2 going in before patch 3. Everything else
+can be freely rearranged.
 
-        delta = scale_delta(stime_delta, &sys_to_tsc);
-    }
+Cheers,
+Alejandro
 
-    return t->stamp.local_tsc + delta;
-}
+Alejandro Vallejo (5):
+  x86/ucode: Add Kconfig option to remove microcode loading
+  xen: Allow lib-y targets to also be .init.o
+  earlycpio: lib-ify earlycpio.c
+  docs/misra: Remove earlycpio.c from the Eclair exclusion list.
+  automation: Disable ucode loading on AMD's analysis run
 
-Jan
+ automation/gitlab-ci/analyze.yaml      |  1 +
+ docs/admin-guide/microcode-loading.rst |  2 ++
+ docs/misc/efi.pandoc                   |  2 ++
+ docs/misc/xen-command-line.pandoc      |  7 ++++---
+ docs/misra/exclude-list.json           |  4 ----
+ xen/Rules.mk                           | 10 +++++-----
+ xen/arch/x86/Kconfig                   | 14 ++++++++++++++
+ xen/arch/x86/cpu/microcode/amd.c       | 16 +++++++++-------
+ xen/arch/x86/cpu/microcode/core.c      | 15 ++++++++++++---
+ xen/arch/x86/cpu/microcode/intel.c     | 11 +++++++----
+ xen/arch/x86/cpu/microcode/private.h   |  3 +++
+ xen/arch/x86/efi/efi-boot.h            |  3 ++-
+ xen/arch/x86/platform_hypercall.c      | 10 ++++++++--
+ xen/common/Makefile                    |  2 +-
+ xen/lib/Makefile                       |  1 +
+ xen/{common => lib}/earlycpio.c        |  0
+ 16 files changed, 71 insertions(+), 30 deletions(-)
+ rename xen/{common => lib}/earlycpio.c (100%)
+
+
+base-commit: 7b3e1b4e848d34c9a5b6634009959a7b9dd42104
+-- 
+2.43.0
+
 
