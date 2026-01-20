@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gKYSCDa0b2nHMAAAu9opvQ
+	id uPw/FS+0b2nHMAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:30 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168794827C
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1208833.1520967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC8C48240
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Jan 2026 17:58:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1208842.1520978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viApm-000374-71; Tue, 20 Jan 2026 12:27:46 +0000
+	id 1viAvg-0004gp-QI; Tue, 20 Jan 2026 12:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1208833.1520967; Tue, 20 Jan 2026 12:27:46 +0000
+Received: by outflank-mailman (output) from mailman id 1208842.1520978; Tue, 20 Jan 2026 12:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viApm-00034f-3o; Tue, 20 Jan 2026 12:27:46 +0000
-Received: by outflank-mailman (input) for mailman id 1208833;
- Tue, 20 Jan 2026 12:27:44 +0000
+	id 1viAvg-0004ei-NT; Tue, 20 Jan 2026 12:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 1208842;
+ Tue, 20 Jan 2026 12:33:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=JoV/=7Z=kernel.org=will@srs-se1.protection.inumbo.net>)
- id 1viApk-00034Z-40
- for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 12:27:44 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1viAve-0004eb-N8
+ for xen-devel@lists.xenproject.org; Tue, 20 Jan 2026 12:33:50 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 698df239-f5fb-11f0-9ccf-f158ae23cfc8;
- Tue, 20 Jan 2026 13:27:41 +0100 (CET)
+ id 43fecaeb-f5fc-11f0-9ccf-f158ae23cfc8;
+ Tue, 20 Jan 2026 13:33:48 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D94D66011F;
- Tue, 20 Jan 2026 12:27:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6533FC19423;
- Tue, 20 Jan 2026 12:27:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5099943FA3;
+ Tue, 20 Jan 2026 12:33:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001ABC16AAE;
+ Tue, 20 Jan 2026 12:33:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,18 +47,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 698df239-f5fb-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 43fecaeb-f5fc-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768912059;
-	bh=b7Mbdz/B6k9B79H7XOHyXFan5oK4QyoZB2R8RyLKnA0=;
+	s=k20201202; t=1768912426;
+	bh=Y0bXJFrIMQu42HkX8sO2hSl2uRvMmAIUm4N1kYYXYbg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qyvATZaSrEe49sh1pTLv223SMZUXupyJ7AEH8b7OsfHEeQacfJO00Zf/WzAHWL9E4
-	 YdtXc3YZVh9NSGcUhAD2bQvcACJ5PrjSRas0X6y7UOImj3QPKnx5QP1rSKYrFh5Mts
-	 ukTURbyHiw+A+Kz5Vf26qHNwrORw2S4F45MPwEjPavVEHNIxp5dnd7uk7o0/DPXX7+
-	 g73KWaKHxGDsX8vefv3wZzROajBumN3ybV4NMn2T3AnSa9jpAw36eCJjIuqT/JPkF0
-	 Dt5GgYa0z7KnbSSkgeEZDb889qUkR918KJJZNX1gKKxnazEduQBZ+Q4614JxO2KCTn
-	 WhoIppH/1oyUw==
-Date: Tue, 20 Jan 2026 12:27:33 +0000
+	b=TxGZV8yxxs7f9OIOe/76/YrYaqjVeBTLmNJdeq9rZnYXtQBKVVFzF9G+vZXhnfGlh
+	 vT9CZ7egfF2YJDaVzTZCoXW7WvjE6P9hHlULJeQGsNLJOVQ6GN8ql7pboCjgU4WGCe
+	 Vt8ME1f66ylY9a+GCkoyhnoJhXrb39PCRzYGGNaz54bIGYkZiF1bgZi24H9uytWylw
+	 9Pa1LQ5sYMXUi5RHj69gPO6rv2NvuLMgE69i3zkNmc//4jIPBEZz5BqT8SQXYiPd6j
+	 m+4BX8yGRcFm1xNp3e9O6KxgephbObAfu5q0mTQt6b0ny660NNsJKm//uUu92158VD
+	 Rk2ttoJ8XgDvA==
+Date: Tue, 20 Jan 2026 12:33:39 +0000
 From: Will Deacon <will@kernel.org>
 To: Barry Song <21cnbao@gmail.com>
 Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
@@ -70,14 +71,14 @@ Cc: catalin.marinas@arm.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Tangquan Zheng <zhengtangquan@oppo.com>
-Subject: Re: [PATCH v2 1/8] arm64: Provide dcache_by_myline_op_nosync helper
-Message-ID: <aW90tXGtLVC0mKWP@willie-the-truck>
+Subject: Re: [PATCH v2 3/8] arm64: Provide dcache_inval_poc_nosync helper
+Message-ID: <aW92I_sn9VqDPLKz@willie-the-truck>
 References: <20251226225254.46197-1-21cnbao@gmail.com>
- <20251226225254.46197-2-21cnbao@gmail.com>
+ <20251226225254.46197-4-21cnbao@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251226225254.46197-2-21cnbao@gmail.com>
+In-Reply-To: <20251226225254.46197-4-21cnbao@gmail.com>
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	MID_RHS_NOT_FQDN(0.50)[];
@@ -95,7 +96,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oppo.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,arm.com:email,samsung.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,arm.com:email,samsung.com:email,oppo.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -109,17 +110,16 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 168794827C
+X-Rspamd-Queue-Id: 2EC8C48240
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sat, Dec 27, 2025 at 11:52:41AM +1300, Barry Song wrote:
+On Sat, Dec 27, 2025 at 11:52:43AM +1300, Barry Song wrote:
 > From: Barry Song <baohua@kernel.org>
 > 
-> dcache_by_myline_op ensures completion of the data cache operations for a
-> region, while dcache_by_myline_op_nosync only issues them without waiting.
-> This enables deferred synchronization so completion for multiple regions
-> can be handled together later.
+> dcache_inval_poc_nosync does not wait for the data cache invalidation to
+> complete. Later, we defer the synchronization so we can wait for all SG
+> entries together.
 > 
 > Cc: Leon Romanovsky <leon@kernel.org>
 > Cc: Catalin Marinas <catalin.marinas@arm.com>
@@ -135,62 +135,85 @@ On Sat, Dec 27, 2025 at 11:52:41AM +1300, Barry Song wrote:
 > Cc: Tangquan Zheng <zhengtangquan@oppo.com>
 > Signed-off-by: Barry Song <baohua@kernel.org>
 > ---
->  arch/arm64/include/asm/assembler.h  | 24 +++++++++++++++++++-----
->  arch/arm64/kernel/relocate_kernel.S |  3 ++-
->  2 files changed, 21 insertions(+), 6 deletions(-)
+>  arch/arm64/include/asm/cacheflush.h |  1 +
+>  arch/arm64/mm/cache.S               | 42 +++++++++++++++++++++--------
+>  2 files changed, 32 insertions(+), 11 deletions(-)
 > 
-> diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
-> index f0ca7196f6fa..b408ed61866f 100644
-> --- a/arch/arm64/include/asm/assembler.h
-> +++ b/arch/arm64/include/asm/assembler.h
-> @@ -371,14 +371,13 @@ alternative_endif
->   * [start, end) with dcache line size explicitly provided.
->   *
->   * 	op:		operation passed to dc instruction
-> - * 	domain:		domain used in dsb instruction
->   * 	start:          starting virtual address of the region
->   * 	end:            end virtual address of the region
->   *	linesz:		dcache line size
->   * 	fixup:		optional label to branch to on user fault
->   * 	Corrupts:       start, end, tmp
->   */
-> -	.macro dcache_by_myline_op op, domain, start, end, linesz, tmp, fixup
-> +	.macro raw_dcache_by_myline_op op, start, end, linesz, tmp, fixup
->  	sub	\tmp, \linesz, #1
->  	bic	\start, \start, \tmp
->  .Ldcache_op\@:
-> @@ -402,14 +401,13 @@ alternative_endif
->  	add	\start, \start, \linesz
->  	cmp	\start, \end
->  	b.lo	.Ldcache_op\@
-> -	dsb	\domain
-
-Naming nit, but I'd prefer this to be dcache_by_myline_op_nosync() for
-consistency with the other macros that you're adding. The 'raw' prefix
-is used by raw_dcache_line_size() to indicate that we're getting the
-value from the underlying hardware register.
-
+> diff --git a/arch/arm64/include/asm/cacheflush.h b/arch/arm64/include/asm/cacheflush.h
+> index 9b6d0a62cf3d..382b4ac3734d 100644
+> --- a/arch/arm64/include/asm/cacheflush.h
+> +++ b/arch/arm64/include/asm/cacheflush.h
+> @@ -74,6 +74,7 @@ extern void icache_inval_pou(unsigned long start, unsigned long end);
+>  extern void dcache_clean_inval_poc(unsigned long start, unsigned long end);
+>  extern void dcache_inval_poc(unsigned long start, unsigned long end);
+>  extern void dcache_clean_poc(unsigned long start, unsigned long end);
+> +extern void dcache_inval_poc_nosync(unsigned long start, unsigned long end);
+>  extern void dcache_clean_poc_nosync(unsigned long start, unsigned long end);
+>  extern void dcache_clean_pop(unsigned long start, unsigned long end);
+>  extern void dcache_clean_pou(unsigned long start, unsigned long end);
+> diff --git a/arch/arm64/mm/cache.S b/arch/arm64/mm/cache.S
+> index 4a7c7e03785d..99a093d3aecb 100644
+> --- a/arch/arm64/mm/cache.S
+> +++ b/arch/arm64/mm/cache.S
+> @@ -132,17 +132,7 @@ alternative_else_nop_endif
+>  	ret
+>  SYM_FUNC_END(dcache_clean_pou)
 >  
->  	_cond_uaccess_extable .Ldcache_op\@, \fixup
->  	.endm
+> -/*
+> - *	dcache_inval_poc(start, end)
+> - *
+> - * 	Ensure that any D-cache lines for the interval [start, end)
+> - * 	are invalidated. Any partial lines at the ends of the interval are
+> - *	also cleaned to PoC to prevent data loss.
+> - *
+> - *	- start   - kernel start address of region
+> - *	- end     - kernel end address of region
+> - */
+> -SYM_FUNC_START(__pi_dcache_inval_poc)
+> +.macro raw_dcache_inval_poc_macro
+>  	dcache_line_size x2, x3
+>  	sub	x3, x2, #1
+>  	tst	x1, x3				// end cache line aligned?
+> @@ -158,11 +148,41 @@ SYM_FUNC_START(__pi_dcache_inval_poc)
+>  3:	add	x0, x0, x2
+>  	cmp	x0, x1
+>  	b.lo	2b
+> +.endm
+> +
+> +/*
+> + *	dcache_inval_poc(start, end)
+> + *
+> + * 	Ensure that any D-cache lines for the interval [start, end)
+> + * 	are invalidated. Any partial lines at the ends of the interval are
+> + *	also cleaned to PoC to prevent data loss.
+> + *
+> + *	- start   - kernel start address of region
+> + *	- end     - kernel end address of region
+> + */
+> +SYM_FUNC_START(__pi_dcache_inval_poc)
+> +	raw_dcache_inval_poc_macro
+>  	dsb	sy
+>  	ret
+>  SYM_FUNC_END(__pi_dcache_inval_poc)
+>  SYM_FUNC_ALIAS(dcache_inval_poc, __pi_dcache_inval_poc)
 >  
->  /*
->   * Macro to perform a data cache maintenance for the interval
-> - * [start, end)
-> + * [start, end) and wait for completion
->   *
->   * 	op:		operation passed to dc instruction
->   * 	domain:		domain used in dsb instruction
-> @@ -420,7 +418,23 @@ alternative_endif
->   */
->  	.macro dcache_by_line_op op, domain, start, end, tmp1, tmp2, fixup
->  	dcache_line_size \tmp1, \tmp2
-> -	dcache_by_myline_op \op, \domain, \start, \end, \tmp1, \tmp2, \fixup
-> +	raw_dcache_by_myline_op \op, \start, \end, \tmp1, \tmp2, \fixup
-> +	dsb \domain
-> +	.endm
+> +/*
+> + *	dcache_inval_poc_nosync(start, end)
+> + *
+> + * 	Issue the instructions of D-cache lines for the interval [start, end)
+> + * 	for invalidation. Not necessarily cleaned to PoC till an explicit dsb
+> + *	sy is issued later
+> + *
+> + *	- start   - kernel start address of region
+> + *	- end     - kernel end address of region
+> + */
+> +SYM_FUNC_START(__pi_dcache_inval_poc_nosync)
+> +	raw_dcache_inval_poc_macro
+> +	ret
 
-This could just be dcache_by_line_op_nosync() + dsb.
+Sorry, similar naming nit to the other patch. Let's have the macro use
+the 'nosync' suffix instead of the 'raw' prefix. You can chuck some
+underscores at it if you want to keep the name of this function the same.
 
 Will
 
