@@ -2,43 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0BU+GJeacGlyYgAAu9opvQ
+	id SCEGHW+bcGlyYgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 10:21:27 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 10:25:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B6354454
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 10:21:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209497.1521481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B365154511
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 10:25:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209510.1521490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viUOm-0008Ah-Mw; Wed, 21 Jan 2026 09:21:12 +0000
+	id 1viUSF-0000K0-5X; Wed, 21 Jan 2026 09:24:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209497.1521481; Wed, 21 Jan 2026 09:21:12 +0000
+Received: by outflank-mailman (output) from mailman id 1209510.1521490; Wed, 21 Jan 2026 09:24:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viUOm-00089G-Ju; Wed, 21 Jan 2026 09:21:12 +0000
-Received: by outflank-mailman (input) for mailman id 1209497;
- Wed, 21 Jan 2026 09:21:11 +0000
+	id 1viUSF-0000Gs-2h; Wed, 21 Jan 2026 09:24:47 +0000
+Received: by outflank-mailman (input) for mailman id 1209510;
+ Wed, 21 Jan 2026 09:24:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dypz=72=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viUOl-000899-Ix
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 09:21:11 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fb2Z=72=bounce.vates.tech=bounce-md_30504962.69709b59.v1-21f11a052a8b4be2bb0127288a1f1759@srs-se1.protection.inumbo.net>)
+ id 1viUSC-0000G0-Sq
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 09:24:45 +0000
+Received: from mail187-33.suw11.mandrillapp.com
+ (mail187-33.suw11.mandrillapp.com [198.2.187.33])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85f596f5-f6aa-11f0-b15e-2bf370ae4941;
- Wed, 21 Jan 2026 10:21:10 +0100 (CET)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-4327790c4e9so3815840f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 01:21:10 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435996540cesm4270963f8f.43.2026.01.21.01.21.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 01:21:09 -0800 (PST)
+ id 047a298b-f6ab-11f0-b15e-2bf370ae4941;
+ Wed, 21 Jan 2026 10:24:43 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dwzL14QVxzBsTlVv
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 09:24:41 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 21f11a052a8b4be2bb0127288a1f1759; Wed, 21 Jan 2026 09:24:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,136 +48,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85f596f5-f6aa-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1768987270; x=1769592070; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vfjQgxm4n9abxdeNdftR2RZkYcKEtwary1CnpBEn1Ys=;
-        b=TeEv5akJ7xudRW3KEX/bAiQGNgwdWJJfReJSZM7YbBdebgoR0qqDoPwy+CplDuG6Kr
-         6tCNLzU7pq4STXGLNdX8SE2Jhinmximb/dNMyUOsXrYTntyhjXPqMTw04RTVJ92QdOA4
-         IVCxvD5g9vLUIICIQEZ86B3f1gax8td4zfkHqFXJYlQSjZXAODe6/4VTazGmXrpYEdhI
-         55gmWrsuqav2NC9xkyux1vKFiRn5Nncx1cIVOrdmG/NkJfUqa9xXGiRyjkgbJsAcqrPP
-         z8ZDeGCsHblDXB0pIjr9yHUQ4BYG+jTFAI4q3vTS09QF1gHdBQZaoQy5RpG7f+ihOYSH
-         HLQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768987270; x=1769592070;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vfjQgxm4n9abxdeNdftR2RZkYcKEtwary1CnpBEn1Ys=;
-        b=fA/cZaFTWSU1+j2RWi1Qbp9ZwxRw94SgbvCEj8D0VefemO8h+7rXAHe7nCg1Fdfkez
-         6A8iBkmDpl3V7thGJ0i6IshrBqIllrCb1PUKSe3Rrbm+2qrc0gkva0RLEVZwBrcJi+5b
-         go4VDTMZ90ORn0HFKVWSbQlVzpQT2HX/O2FxC/s2mEWcTgYc8ECXd78s6TMM7lHlujqr
-         xhuEu5GfWlGOv5mym5ypyC1hAxUr1JYpHwOfr9Z6l4z4tOZ2lIsydgHkUJA0IJ1Pipeo
-         EDR/0Zhw8cVEucVZa100YNCtygoYVC9XtTtPcYApTYHHwV5ZF2tbmXqT/YO8bs3qYILx
-         6uDw==
-X-Forwarded-Encrypted: i=1; AJvYcCXorIe4KHGGIQ6feoySJD2v1zTVYdJmRtAv04BPnJIQ7Xv2S16ksl5pIcuD65Cc5LFlk+c8K/UgdRk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxf8mB3pQ/5Y7FPogW4pJwbTRizhgcsGV3kMqZJwhuJvpWowm0P
-	eEi8haU2ZleSAgWW3ZubKzQsBwwsvoYId6hbsuBWBlR3nlMrOfIVs6UHeKg72U/hzw==
-X-Gm-Gg: AZuq6aKE2dyBU0ss5O8VA9R1cRJNhseu9CZf+6Z1PacXI/tVYZYN96vKCDXYel+qbQJ
-	8Jn3g8qR1IpRNJ3As8oAlb1YD0qjSYL6wL+pCHNNY5dqxLj/k9CnXqzHUWUsjmLxmr0EbULHCEn
-	EbDFUhjdoti4LzmqoQ2l9fx3uC/vnUsQ5F1nwj/OEw1TZpUB/kszb1rEvK8c2b8KLl3EPtvJoQX
-	WZ2R3Jy9JlHMiQkYTDJWeBHvKNf+BI1Y3OfaB2dXWSKXSz6XntDCCcsXCzpOwS9yBArH1R5o9cv
-	nt9Cj00zLfSDT8bhKLcFwCXoh0uXEgygaRfPHZcuf4ITE+bWA7z899TbxMVZynOr2Kh9+hJm3oI
-	6Bx4HMX/3aSQG2E4sX3SpI5XjcgdycU/zaeelfSmpn3a+YELlfMyW2DW7kl5mrHRbh54seki2NY
-	MKja4X241yhIbiR0cBDMdO/1wW0BHp7cX3dt/gYHSgeFe47Kcs70HpSC8JOzTYFL1wLAOjajGGl
-	k8=
-X-Received: by 2002:a05:6000:1aca:b0:435:a135:7776 with SMTP id ffacd0b85a97d-435a1357a1emr1158004f8f.61.1768987269660;
-        Wed, 21 Jan 2026 01:21:09 -0800 (PST)
-Message-ID: <7cb0a7c3-7f00-4bf7-8d2d-88e46d9f23cb@suse.com>
-Date: Wed, 21 Jan 2026 10:21:07 +0100
+X-Inumbo-ID: 047a298b-f6ab-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1768987481; x=1769257481;
+	bh=cv2SMcAX98AyU28O0Hlj/72KU32pmfoNEhIbQqbLB/c=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=iY2yhbGae7poL6oTiVZZ7bzdD4pgQxblAWjitavkeRTekyaIArnzx2ftuAk6HLbJw
+	 Mhdj/OC1lzJRt4YETYG/kLXWxfidOyIVn3yvlW/DmsodFOjx7uwdOU1VLlyx3AdODR
+	 Fi0i17V66tSfKh/LMON9ZQlFl7fj9B21ilbk7wOEMDEVdeUumBtxlK5/UuJ57xw6Rk
+	 4KBzUYLVOH9TxBhseDGPhRIhH8qeMkKzHQr0vPGRbTpsS5uyGbupODT0CJtxf+eZig
+	 iourTPnCyfrZwCQk97RP3WJlYaLxe4DNpTUencgPNglIBZ6xhY0MpPSAV0UxEh9e2r
+	 LNcJIiUJQdkpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1768987481; x=1769247981; i=teddy.astie@vates.tech;
+	bh=cv2SMcAX98AyU28O0Hlj/72KU32pmfoNEhIbQqbLB/c=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=XU6OOZFT4s5SMR3iHsGA5GpEcN5dm2pbdYSgvrKkM7+bYo3Df7EWEXLDlr1E/XCO6
+	 VLrSJkWWznWLXG1AhsqIg65w6v1qLk6vZNdm0VF4htRG5CcQ4TWBRz/BhYtRHqwVpZ
+	 dSbi6KjazJa9v4p0P9AR+TPKrdXW348Lqkkvo/dPWQvBUeK7cZsO3KkDd0I93XBFr6
+	 KDNS2Bb+f+crQ2ZeaY/WXhl/AwzoSmc1Ka95QwCtnRqfdM/mecX4JaB5aVVbsJkRLe
+	 5q6qArkWWrHVLtIXKFvu1aMnGnuvRDVCg95NwhmjpYYY4/da84bxkE5Wo17zk4cVW1
+	 CMvLEEykpY+Vw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PING][RFC=20PATCH=20v2]=20x86/hvm:=20Allow=20pre-enabling=20x2apic=20mode=20on=20BSP?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1768987480338
+Message-Id: <33b95315-1c7c-4be7-872f-27e8b16efb5a@vates.tech>
+To: xen-devel@lists.xenproject.org
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Alejandro Vallejo" <alejandro.garciavallejo@amd.com>, "Grygorii Strashko" <grygorii_strashko@epam.com>
+References: <0cb4d1f91212a65baf924ed0ef825d8adb4b5423.1762958551.git.teddy.astie@vates.tech>
+In-Reply-To: <0cb4d1f91212a65baf924ed0ef825d8adb4b5423.1762958551.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.21f11a052a8b4be2bb0127288a1f1759?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260121:md
+Date: Wed, 21 Jan 2026 09:24:41 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] INSTALL: remove unsupported XEN_CONFIG_EXPERT from
- documentation
-To: dmukhin@xen.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20260120185904.979992-2-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260120185904.979992-2-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,suse.com:mid,suse.com:dkim];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@xen.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:alejandro.garciavallejo@amd.com,m:grygorii_strashko@epam.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,citrix.com:email,mandrillapp.com:dkim];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A7B6354454
+X-Rspamd-Queue-Id: B365154511
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.01.2026 19:59, dmukhin@xen.org wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+Le 12/11/2025 =C3=A0 15:51, Teddy Astie a =C3=A9crit=C2=A0:
+> Introduce a new option to start the BSP vCPU in x2APIC mode instead
+> of xAPIC mode. Expose this in xl through a new "x2apic_mode" option.
 > 
-> Remove XEN_CONFIG_EXPERT explanation and also correct information in
-> the entire "Xen Hypervisor" section.
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> Cc: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> Amends: 37339ba9ef46 ("automation: Remove XEN_CONFIG_EXPERT leftovers")
-> Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Later on, we could consider with this option to use x2APIC ACPI
+> tables instead of xAPIC ones.
+> 
+> There is also some room into introducing a new Kconfig option to
+> only support x2apic mode, which would change how the "Xen default"
+> would behave.
+> 
+> changed in v2:
+>   - only pre-enable instead of forcing
+>   - use domain builder to pre-enable instead of introducing a new domain =
+creation flag
+> 
+> v1:
+> - https://lore.kernel.org/xen-devel/d498a50f6187b362ac5da3c6a7a7c348f35dc=
+4b3.1761761288.git.teddy.astie@vates.tech/
 > ---
-> Changes since v3:
-> - text correction suggested by Jan
-> - Link to v3: https://lore.kernel.org/xen-devel/20260120071654.640873-3-dmukhin@ford.com/
-> ---
->  INSTALL | 19 ++++++-------------
->  1 file changed, 6 insertions(+), 13 deletions(-)
+>   docs/man/xl.cfg.5.pod.in         | 16 ++++++++++++
+>   tools/include/libxl.h            |  8 ++++++
+>   tools/include/xenguest.h         |  4 +++
+>   tools/libs/guest/xg_dom_x86.c    | 42 ++++++++++++++++++++++++++++++++
+>   tools/libs/light/libxl_types.idl |  1 +
+>   tools/libs/light/libxl_x86.c     |  4 +++
+>   tools/xl/xl_parse.c              | 11 +++++++++
+>   7 files changed, 86 insertions(+)
+> 
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index ad1553c5e9..0f7a89fe92 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -3198,6 +3198,22 @@ option.
+>   
+>   If using this option is necessary to fix an issue, please report a bug.
+>   
+> +=3Ditem B<x2apic_mode=3D"MODE">
+> +
+> +Sets the x2apic mode of the domain. The valid values are as follows:
+> +
+> +=3Dover 4
+> +
+> +=3Ditem B<"default">
+> +
+> +Use default Xen LAPIC behavior.
+> +
+> +=3Ditem B<"pre_enable">
+> +
+> +Initially enable x2apic for the BSP of the domain.
+> +
+> +=3Dback
+> +
+>   =3Dback
+>   
+>   =3Dhead1 SEE ALSO
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index bc35e412da..9850e8aa41 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -1537,6 +1537,14 @@ void libxl_mac_copy(libxl_ctx *ctx, libxl_mac *dst=
+, const libxl_mac *src);
+>    */
+>   #define LIBXL_HAVE_XEN_PLATFORM_PCI_BAR_UC
+>   
+> +/*
+> + * LIBXL_HAVE_X2APIC_PREENABLE
+> + *
+> + * libxl_domain_build_info contains a boolean 'arch_x86.x2apic_preenable=
+' field
+> + * to initially set the BSP LAPIC in x2APIC mode.
+> + */
+> +#define LIBXL_HAVE_X2APIC_PREENABLE
+> +
+>   typedef char **libxl_string_list;
+>   void libxl_string_list_dispose(libxl_string_list *sl);
+>   int libxl_string_list_length(const libxl_string_list *sl);
+> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+> index c88958faa9..408a0c77e8 100644
+> --- a/tools/include/xenguest.h
+> +++ b/tools/include/xenguest.h
+> @@ -223,6 +223,10 @@ struct xc_dom_image {
+>       /* If unset disables the setup of the IOREQ pages. */
+>       bool device_model;
+>   
+> +#if defined(__i386__) || defined(__x86_64__)
+> +    bool preenable_x2apic; /* 1 makes x2APIC enabled initially, 0 keeps =
+default Xen behavior */
+> +#endif
+> +
+>       /* BIOS/Firmware passed to HVMLOADER */
+>       struct xc_hvm_firmware_module system_firmware_module;
+>   
+> diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.=
+c
+> index a82b481a12..43ada5a6ac 100644
+> --- a/tools/libs/guest/xg_dom_x86.c
+> +++ b/tools/libs/guest/xg_dom_x86.c
+> @@ -58,6 +58,9 @@
+>   #define MTRR_TYPE_WRBACK     6
+>   #define MTRR_DEF_TYPE_ENABLE (1u << 11)
+>   
+> +#define APIC_BASE_EXTD   (1UL << 10)
+> +#define APIC_BASE_ENABLE (1UL << 11)
+> +
+>   #define SPECIALPAGE_PAGING   0
+>   #define SPECIALPAGE_ACCESS   1
+>   #define SPECIALPAGE_SHARING  2
+> @@ -1131,6 +1134,45 @@ static int vcpu_hvm(struct xc_dom_image *dom)
+>           }
+>       }
+>   
+> +    if ( dom->preenable_x2apic )
+> +    {
+> +        struct {
+> +            struct hvm_save_descriptor header_d;
+> +            HVM_SAVE_TYPE(HEADER) header;
+> +            struct hvm_save_descriptor lapic_d;
+> +            HVM_SAVE_TYPE(LAPIC) lapic;
+> +            struct hvm_save_descriptor end_d;
+> +            HVM_SAVE_TYPE(END) end;
+> +        } lapic =3D {
+> +            .header_d =3D bsp_ctx.header_d,
+> +            .header =3D bsp_ctx.header,
+> +            .lapic_d.typecode =3D HVM_SAVE_CODE(LAPIC),
+> +            .lapic_d.length =3D HVM_SAVE_LENGTH(LAPIC),
+> +            .end_d =3D bsp_ctx.end_d,
+> +            .end =3D bsp_ctx.end,
+> +        };
+> +        const HVM_SAVE_TYPE(LAPIC) *lapic_record =3D
+> +            hvm_get_save_record(full_ctx, HVM_SAVE_CODE(LAPIC), 0);
+> +
+> +        if ( !lapic_record )
+> +        {
+> +            xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
+> +                         "%s: unable to get LAPIC save record", __func__=
+);
+> +            goto out;
+> +        }
+> +
+> +        memcpy(&lapic.lapic, lapic_record, sizeof(lapic.lapic));
+> +
+> +        lapic.lapic.apic_base_msr |=3D APIC_BASE_ENABLE | APIC_BASE_EXTD=
+;
+> +
+> +        rc =3D xc_domain_hvm_setcontext(dom->xch, dom->guest_domid,
+> +                                      (uint8_t *)&lapic, sizeof(lapic));
+> +
+> +        if ( rc !=3D 0 )
+> +            xc_dom_panic(dom->xch, XC_INTERNAL_ERROR,
+> +                         "%s: SETHVMCONTEXT failed (rc=3D%d)", __func__,=
+ rc);
+> +    }
+> +
+>       /*
+>        * Loading the BSP context should be done in the last call to setco=
+ntext,
+>        * since each setcontext call will put all vCPUs down.
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
+pes.idl
+> index d64a573ff3..9fdf89d88b 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -738,6 +738,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
+",[
+>                                  ("arm_sci", libxl_arm_sci),
+>                                 ])),
+>       ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+> +                               ("x2apic_preenable", libxl_defbool)
+>                                 ])),
+>       # Alternate p2m is not bound to any architecture or guest type, as =
+it is
+>       # supported by x86 HVM and ARM support is planned.
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index 60d4e8661c..f9725f069a 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -555,6 +555,9 @@ int libxl__arch_domain_init_hw_description(libxl__gc =
+*gc,
+>                                              libxl__domain_build_state *s=
+tate,
+>                                              struct xc_dom_image *dom)
+>   {
+> +    if (libxl_defbool_val(d_config->b_info.arch_x86.x2apic_preenable))
+> +        dom->preenable_x2apic =3D true;
+> +
+>       return 0;
+>   }
+>   
+> @@ -818,6 +821,7 @@ int libxl__arch_domain_build_info_setdefault(libxl__g=
+c *gc,
+>   {
+>       libxl_defbool_setdefault(&b_info->acpi, true);
+>       libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
+> +    libxl_defbool_setdefault(&b_info->arch_x86.x2apic_preenable, false);
+>       libxl_defbool_setdefault(&b_info->trap_unmapped_accesses, false);
+>   
+>       if (b_info->type =3D=3D LIBXL_DOMAIN_TYPE_HVM) {
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index af86d3186d..92bf9d2ad5 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -3040,6 +3040,17 @@ skip_usbdev:
+>                       "WARNING: msr_relaxed will be removed in future ver=
+sions.\n"
+>                       "If it fixes an issue you are having please report =
+to "
+>                       "xen-devel@lists.xenproject.org.\n");
+> +
+> +    if (!xlu_cfg_get_string(config, "x2apic_mode", &buf, 1)) {
+> +        if (!strcmp(buf, "pre_enable"))
+> +            libxl_defbool_set(&b_info->arch_x86.x2apic_preenable, true);
+> +        else if (!strcmp(buf, "default"))
+> +            libxl_defbool_set(&b_info->arch_x86.x2apic_preenable, false)=
+;
+> +        else {
+> +            fprintf(stderr, "Unknown x2apic mode \"%s\" specified\n", bu=
+f);
+> +            exit(EXIT_FAILURE);
+> +        }
+> +    }
+>   
+>       xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
+>   
 
-Yet sadly the A-b was now lost. No need to re-submit just for this, though.
+I haven't received a feedback on this. Aside the eventual future use of 
+x2APIC ACPI tables, are there objections for this patch ?
 
-Jan
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
