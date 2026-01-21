@@ -2,36 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QGBPM3HRcGkOaAAAu9opvQ
+	id IKyPK/PTcGkOaAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:15:29 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:26:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 426775769E
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:15:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209749.1521663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D9757802
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:26:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209763.1521685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viY35-0002x4-PZ; Wed, 21 Jan 2026 13:15:03 +0000
+	id 1viYDU-0004ot-RK; Wed, 21 Jan 2026 13:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209749.1521663; Wed, 21 Jan 2026 13:15:03 +0000
+Received: by outflank-mailman (output) from mailman id 1209763.1521685; Wed, 21 Jan 2026 13:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viY35-0002vC-MH; Wed, 21 Jan 2026 13:15:03 +0000
-Received: by outflank-mailman (input) for mailman id 1209749;
- Wed, 21 Jan 2026 13:15:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1viYDU-0004m7-OJ; Wed, 21 Jan 2026 13:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 1209763;
+ Wed, 21 Jan 2026 13:25:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5jI=72=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1viY34-0002v5-5o
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:15:02 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ec5a011-f6cb-11f0-9ccf-f158ae23cfc8;
- Wed, 21 Jan 2026 14:14:58 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1769001292609701.0291516613988;
- Wed, 21 Jan 2026 05:14:52 -0800 (PST)
+ <SRS0=c8Gd=72=bounce.vates.tech=bounce-md_30504962.6970d3d0.v1-ec6f7ea80c0c48b891d46cce46e4e117@srs-se1.protection.inumbo.net>)
+ id 1viYDS-0004m1-OZ
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:25:47 +0000
+Received: from mail187-33.suw11.mandrillapp.com
+ (mail187-33.suw11.mandrillapp.com [198.2.187.33])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac5b29bc-f6cc-11f0-b15e-2bf370ae4941;
+ Wed, 21 Jan 2026 14:25:38 +0100 (CET)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4dx4h02gRNzBsTwB1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 13:25:36 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ ec6f7ea80c0c48b891d46cce46e4e117; Wed, 21 Jan 2026 13:25:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,216 +48,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ec5a011-f6cb-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1769001295; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=M2yZL+1bpzKrs0V2Fz/Y16XnbdlmdquZ4u5jQF3ieN4G3gguEzobiZrG+OOi4es8K3UYPz4QsJZi7WO77B0U5MYAXjeIrhuQ/FxEqslqxlIAuql04UfxmWASCnhBtQGFyc7e4FMkumO5V4uMqDDizzMGlC63xBCn0hNrVFdL6mU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1769001295; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=uns7QSNwfZ2z5ZOIiY2IgtVjluIMmOQ+/lgCVL/SR2s=; 
-	b=PHiKR95QYygf4n9MGF4LTShg5fT2SY31QGxkEpfJITFDtJswzjGRxDZVKG0cSVoSEaLIUOPWEJjgiGDeTpocArdV/dqL34RLXSwaut3OIPncsXAPyanY+lPc4DMRSpi64S/10NkMutrHd48/qd42SZev42/DheZnCrl/wNMF0JU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769001295;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:References:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
-	bh=uns7QSNwfZ2z5ZOIiY2IgtVjluIMmOQ+/lgCVL/SR2s=;
-	b=f7feDF8b0178TjdrJ9Muxy8OhkGxf+vCon8SaHPSEGh8iVuQH42mFa0E5m1gDSRz
-	6kizpSHtxUt/5k/6guj5xVsBOdIAZC4NGEt2N4mMX8si4pnPkH3K6hVIy10NDrq5bi0
-	Ly6oJIqzMWxohkDMZfrnyIsHgRLNC8wbjTez/kKU=
-Date: Wed, 21 Jan 2026 07:14:50 -0600
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Ping: [PATCH] flask: fix gcov build with gcc14+
-User-Agent: Thunderbird for Android
-In-Reply-To: <0e188989-9190-4f3b-9c45-f4e3d460daca@suse.com>
-References: <875df90d-1d3a-416b-a958-3d3a31144f85@suse.com> <0e188989-9190-4f3b-9c45-f4e3d460daca@suse.com>
-Message-ID: <DD50FA01-2162-4009-8D60-9F6D0DAD3C35@apertussolutions.com>
+X-Inumbo-ID: ac5b29bc-f6cc-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1769001936; x=1769271936;
+	bh=mxXHzAiccdxttWHerv55pkGSDXmpXkI6NpSj/Q4Ei8M=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ApWmXe1UpmYlF3Q60CTZdKxwK/JVZPftSbCYl5QZ3fhDxRFOZa6hnDc8JnClOf0h5
+	 DnA7KnBJze5YGAb0GsWZXIZmyzlfJ+I4wEVxjwZZEfLmKsr/dx20wiyjbMbrCjSImR
+	 BuLTkLq69VZLg4hfKI21sbx3VrVbraqA1F3opU+zOiw48HLFUObtKkIl6gL1HiCvkh
+	 L+WPhO/DlaahwNqOEVv/FMwp+Fh3au8FTN2p/XJEfid5pcbrZZ/WK0yHGCqdUgOvUP
+	 sS6nE1TR52xbtH2Osbpr28g5CStCwARcmHtJ65WkWhbBN0qt5wV8Ce9JGHl7qb7IFc
+	 GJ36ieQW50h/A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1769001936; x=1769262436; i=ngoc-tu.dinh@vates.tech;
+	bh=mxXHzAiccdxttWHerv55pkGSDXmpXkI6NpSj/Q4Ei8M=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=yj77X/q6ZgWI7+5EbJZAfoGim9u3pSw3XOLTyd+7UM387u9zk2XU0+QBIr1xhL2Ap
+	 V8RbSXoBt0YOKzHXNdn5DPLjmUM1f0Zk9OZTu141TH2Xo7DV+hD7NSRULH6BfjqQbB
+	 snVKir+HSE1eRSAZIwusro567IRKV4aK/F6HQ/t62ffa0KpeH1GRU5cfWPI39rGCH7
+	 Q+svy1akkAjVhCYLhLPBHqkM8YruYTssG+N3p+hrOESUNXBoBvGf0skBvEsg1JWRF2
+	 OYlKSrVlECdaqhJg9TGuUXW4uihmjIw71wp4OxD7qjj2+aTHoxsxSweXnXC0hWsm5R
+	 pUyUPv6jNFRxQ==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20xen:=20Expose=20time=5Foffset=20in=20struct=20arch=5Fshared=5Finfo?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1769001934525
+Message-Id: <6ed580a8-92a9-4e50-9c40-d38db3e3f94c@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
+References: <20260120095657.237-1-ngoc-tu.dinh@vates.tech> <3213454a-38cd-4e5d-8a30-853e37f70c18@suse.com> <cff32c5b-a085-468a-be26-a858244b228d@vates.tech> <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com> <9df8cf47-d3ec-474e-b1c8-7978e55627d6@vates.tech> <da3811f5-d5cb-4a53-87ad-e29b2cdaadf6@suse.com> <a13594d1-17df-4f45-aebc-b9978f898d8a@vates.tech> <637ad4a0-bc8f-4e75-8906-643f28f94a2b@suse.com> <3bde98b0-5563-4e17-bcc5-c622863d3b07@vates.tech> <169c3509-b2fe-4a5f-8184-0aa9c089ccce@suse.com>
+In-Reply-To: <169c3509-b2fe-4a5f-8184-0aa9c089ccce@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ec6f7ea80c0c48b891d46cce46e4e117?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260121:md
+Date: Wed, 21 Jan 2026 13:25:36 +0000
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary=----MLLG3S4YYFTXRL55FX0UXOCNVBH9PH
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-Spamd-Result: default: False [-1.68 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
-	XM_UA_NO_VERSION(0.01)[];
+	BAD_REP_POLICIES(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RCPT_COUNT_TWO(0.00)[2];
-	DMARC_NA(0.00)[apertussolutions.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:email,gnu.org:url];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 426775769E
+	RCPT_COUNT_SEVEN(0.00)[10];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 14D9757802
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-------MLLG3S4YYFTXRL55FX0UXOCNVBH9PH
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On 21/01/2026 14:06, Jan Beulich wrote:
+> On 21.01.2026 14:02, Tu Dinh wrote:
+>> Hello,
+>>
+>> On 21/01/2026 10:17, Jan Beulich wrote:
+>>> On 20.01.2026 17:06, Tu Dinh wrote:
+>>>> On 20/01/2026 16:39, Jan Beulich wrote:
+>>>>> On 20.01.2026 16:27, Tu Dinh wrote:
+>>>>>> On 20/01/2026 13:42, Jan Beulich wrote:
+>>>>>>> On 20.01.2026 13:12, Tu Dinh wrote:
+>>>>>>>> On 20/01/2026 11:35, Jan Beulich wrote:
+>>>>>>>>> On 20.01.2026 10:57, Tu Dinh wrote:
+>>>>>>>>>> time_offset is currently always added to wc_sec. This means that without
+>>>>>>>>>> the actual value of time_offset, guests have no way of knowing what's
+>>>>>>>>>> the actual host clock. Once the guest clock drifts beyond 1 second,
+>>>>>>>>>> updates to the guest RTC would themselves change time_offset and make it
+>>>>>>>>>> impossible to resync guest time to host time.
+>>>>>>>>>
+>>>>>>>>> Despite my earlier comments this part of the description looks unchanged.
+>>>>>>>>> I still don't see why host time (or in fact about any host property) should
+>>>>>>>>> be exposed to guests.
+>>>>>>>>
+>>>>>>>> I've answered this question in a followup reply from November, which
+>>>>>>>> I'll reproduce here:
+>>>>>>>
+>>>>>>> I did read your reply, yet nothing of it appeared here as additional
+>>>>>>> justification.
+>>>>>>
+>>>>>> Is the new description OK for you?
+>>>>>
+>>>>> Which new description? So far I only saw your responses to my questions, not
+>>>>> an updated patch description.
+>>>>>
+>>>>
+>>>> Maybe my last email wasn't clear, it was in the part marked "Follow up",
+>>>> reproduced below:
+>>>>
+>>>> Xen currently does not expose the host's wall clock time in shared_info.
+>>>> This means while shared_info can be used as an alternative to the
+>>>> emulated RTC, it can't be used to keep the virtual wall clock in sync.
+>>>> Expose the time_offset value in struct shared_info in order to allow
+>>>> guests to synchronize their own wall clock to that of the host.
+>>>>
+>>>> This is needed because on Windows guests, the PV drivers don't control
+>>>> the timing of RTC updates, as this is done by the kernel itself
+>>>> periodically. If the guest's internal clock deviates from the RTC (e.g.
+>>>> after resuming from suspend), a RTC write would cause time_offset to
+>>>> deviate from the supposed value (timezone offset) and thus cause the RTC
+>>>> to become incorrect.
+>>>
+>>> What I still can't extract from this is why Windows running bare-metal is
+>>> fine but Windows running on Xen's vRTC isn't. If there's a problem with
+>>> our vRTC, shouldn't that be addressed there?
+>>>
+>>
+>> In this case, it's not because the vRTC emulation was wrong, but rather
+>> because Windows's internal wallclock is not Xen-aware
+> 
+> And it shouldn't need to be.
+> 
+>> and needs to be
+>> synchronized after some Xen-specific events. So it's more of an
+>> accommodation for Windows guests.
+>>
+>> Also, Windows timekeeping integrates closely with its internal time
+>> service, which assumes a NTP-like interface (and thus an external time
+>> reference). The current way of time synchronization in the Windows PV
+>> drivers doesn't work well in this model, which is why I'm looking for a
+>> way to get the external time reference from Xen.
+> 
+> Are you suggesting then that plain Windows is fine, but Windows with the
+> PV drivers isn't? That would look to be an issue with the PV drivers then,
+> wouldn't it?
+> 
 
-Jan,=20
+No, it just means that Windows running on Xen without PV drivers is not 
+fine, and the PV drivers currently need this feature in order to 
+correctly sync the guest time. This new functionality will be used in 
+the Windows PV drivers if it were to be merged.
 
-Apologies, I've been on travel for the last two weeks and I wasn't comfort=
-able acking this with just a read of the diff=2E The thing that bothers me =
-that I want to understand better is why only after the else does it worry a=
-bout null terminated=2E Additionally, stepping back, a casual reader of the=
- code is going to wonder why only after some reads into the buffer does it =
-need a null while others do not=2E I think most people would find that as a=
- red flag that an underlying issue is getting papers papered over=2E I will=
- be back from travel this weekend and I will sit down and review with more =
-context=2E=20
+> Jan
 
-V/r,
-DPS=20
 
-On January 19, 2026 8:50:02 AM CST, Jan Beulich <jbeulich@suse=2Ecom> wrot=
-e:
->Daniel,
->
->On 08=2E01=2E2026 10:18, Jan Beulich wrote:
->> Gcc's "threading" of conditionals can lead to undue warnings, as report=
-ed
->> in e=2Eg=2E https://gcc=2Egnu=2Eorg/bugzilla/show_bug=2Ecgi?id=3D116519=
- (no matter
->> that the overall situation is different there)=2E While my gcc15 compla=
-ins
->> ("buf[2] may be used uninitialized in this function") about only two of
->> the three instances (not about the one in type_read()), adjust all thre=
-e
->> to be on the safe side=2E
->>=20
->> Signed-off-by: Jan Beulich <jbeulich@suse=2Ecom>
->
->any chance of an ack (or otherwise)?
->
->Thanks, Jan
->
->> ---
->> While auditing uses of next_entry(), I noticed POLICYDB_VERSION_ROLETRA=
-NS
->> dependent ones in policydb_read(): How come the 4th slot isn't used at =
-all
->> there (not even checked for being e=2Eg=2E zero, i=2Ee=2E holding no us=
-eful data)?
->> Then again other instances can be found where data is read but outright
->> ignored=2E
->>=20
->> --- a/xen/xsm/flask/ss/policydb=2Ec
->> +++ b/xen/xsm/flask/ss/policydb=2Ec
->> @@ -1271,7 +1271,10 @@ static int cf_check role_read(struct pol
->>      if ( ver >=3D POLICYDB_VERSION_BOUNDARY )
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 3);
->>      else
->> +    {
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 2);
->> +        buf[2] =3D cpu_to_le32(0); /* gcc14 onwards */
->> +    }
->> =20
->>      if ( rc < 0 )
->>          goto bad;
->> @@ -1342,7 +1345,10 @@ static int cf_check type_read(struct pol
->>      if ( ver >=3D POLICYDB_VERSION_BOUNDARY )
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 4);
->>      else
->> +    {
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 3);
->> +        buf[3] =3D cpu_to_le32(0); /* gcc14 onwards */
->> +    }
->> =20
->>      if ( rc < 0 )
->>          goto bad;
->> @@ -1436,7 +1442,10 @@ static int cf_check user_read(struct pol
->>      if ( ver >=3D POLICYDB_VERSION_BOUNDARY )
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 3);
->>      else
->> +    {
->>          rc =3D next_entry(buf, fp, sizeof(buf[0]) * 2);
->> +        buf[2] =3D cpu_to_le32(0); /* gcc14 onwards */
->> +    }
->> =20
->>      if ( rc < 0 )
->>          goto bad;
->
 
-------MLLG3S4YYFTXRL55FX0UXOCNVBH9PH
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+--
+Ngoc Tu Dinh | Vates XCP-ng Developer
 
-<html><head></head><body><div dir=3D"auto">Jan, <br><br>Apologies, I've bee=
-n on travel for the last two weeks and I wasn't comfortable acking this wit=
-h just a read of the diff=2E The thing that bothers me that I want to under=
-stand better is why only after the else does it worry about null terminated=
-=2E Additionally, stepping back, a casual reader of the code is going to wo=
-nder why only after some reads into the buffer does it need a null while ot=
-hers do not=2E I think most people would find that as a red flag that an un=
-derlying issue is getting papers papered over=2E I will be back from travel=
- this weekend and I will sit down and review with more context=2E <br><br>V=
-/r,<br>DPS </div><br><br><div class=3D"gmail_quote"><div dir=3D"auto">On Ja=
-nuary 19, 2026 8:50:02 AM CST, Jan Beulich &lt;jbeulich@suse=2Ecom&gt; wrot=
-e:</div><blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0=2E=
-8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<pre class=3D"k9mail"><div dir=3D"auto">Daniel,<br><br>On 08=2E01=2E2026 1=
-0:18, Jan Beulich wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin: 0pt 0pt 1ex 0=2E8ex; border-left: 1px solid #729fcf; padding-le=
-ft: 1ex;"><div dir=3D"auto">Gcc's "threading" of conditionals can lead to u=
-ndue warnings, as reported<br>in e=2Eg=2E <a href=3D"https://gcc=2Egnu=2Eor=
-g/bugzilla/show_bug=2Ecgi?id=3D116519">https://gcc=2Egnu=2Eorg/bugzilla/sho=
-w_bug=2Ecgi?id=3D116519</a> (no matter<br>that the overall situation is dif=
-ferent there)=2E While my gcc15 complains<br>("buf[2] may be used uninitial=
-ized in this function") about only two of<br>the three instances (not about=
- the one in type_read()), adjust all three<br>to be on the safe side=2E<br>=
-<br>Signed-off-by: Jan Beulich &lt;jbeulich@suse=2Ecom&gt;<br></div></block=
-quote><div dir=3D"auto"><br>any chance of an ack (or otherwise)?<br><br>Tha=
-nks, Jan<br><br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0p=
-t 0pt 1ex 0=2E8ex; border-left: 1px solid #729fcf; padding-left: 1ex;"><div=
- dir=3D"auto"><hr>While auditing uses of next_entry(), I noticed POLICYDB_V=
-ERSION_ROLETRANS<br>dependent ones in policydb_read(): How come the 4th slo=
-t isn't used at all<br>there (not even checked for being e=2Eg=2E zero, i=
-=2Ee=2E holding no useful data)?<br>Then again other instances can be found=
- where data is read but outright<br>ignored=2E<br><br>--- a/xen/xsm/flask/s=
-s/policydb=2Ec<br>+++ b/xen/xsm/flask/ss/policydb=2Ec<br>@@ -1271,7 +1271,1=
-0 @@ static int cf_check role_read(struct pol<br>     if ( ver &gt;=3D POLI=
-CYDB_VERSION_BOUNDARY )<br>         rc =3D next_entry(buf, fp, sizeof(buf[0=
-]) * 3);<br>     else<br>+    {<br>         rc =3D next_entry(buf, fp, size=
-of(buf[0]) * 2);<br>+        buf[2] =3D cpu_to_le32(0); /* gcc14 onwards */=
-<br>+    }<br> <br>     if ( rc &lt; 0 )<br>         goto bad;<br>@@ -1342,=
-7 +1345,10 @@ static int cf_check type_read(struct pol<br>     if ( ver &gt=
-;=3D POLICYDB_VERSION_BOUNDARY )<br>         rc =3D next_entry(buf, fp, siz=
-eof(buf[0]) * 4);<br>     else<br>+    {<br>         rc =3D next_entry(buf,=
- fp, sizeof(buf[0]) * 3);<br>+        buf[3] =3D cpu_to_le32(0); /* gcc14 o=
-nwards */<br>+    }<br> <br>     if ( rc &lt; 0 )<br>         goto bad;<br>=
-@@ -1436,7 +1442,10 @@ static int cf_check user_read(struct pol<br>     if =
-( ver &gt;=3D POLICYDB_VERSION_BOUNDARY )<br>         rc =3D next_entry(buf=
-, fp, sizeof(buf[0]) * 3);<br>     else<br>+    {<br>         rc =3D next_e=
-ntry(buf, fp, sizeof(buf[0]) * 2);<br>+        buf[2] =3D cpu_to_le32(0); /=
-* gcc14 onwards */<br>+    }<br> <br>     if ( rc &lt; 0 )<br>         goto=
- bad;<br></div></blockquote><div dir=3D"auto"><br></div></pre></blockquote>=
-</div></body></html>
-------MLLG3S4YYFTXRL55FX0UXOCNVBH9PH--
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
