@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cChXM/UYcGkEVwAAu9opvQ
+	id AEPwJpwccGkEVwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 01:08:21 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 01:23:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31D2D4E4F4
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 01:08:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209368.1521401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785564E77A
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 01:23:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209389.1521410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viLkh-0000Io-WC; Wed, 21 Jan 2026 00:07:16 +0000
+	id 1viM0X-000336-EO; Wed, 21 Jan 2026 00:23:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209368.1521401; Wed, 21 Jan 2026 00:07:15 +0000
+Received: by outflank-mailman (output) from mailman id 1209389.1521410; Wed, 21 Jan 2026 00:23:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viLkh-0000Gi-Ru; Wed, 21 Jan 2026 00:07:15 +0000
-Received: by outflank-mailman (input) for mailman id 1209368;
- Wed, 21 Jan 2026 00:07:14 +0000
+	id 1viM0X-00030Z-BZ; Wed, 21 Jan 2026 00:23:37 +0000
+Received: by outflank-mailman (input) for mailman id 1209389;
+ Wed, 21 Jan 2026 00:23:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5F9=72=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1viLkg-0000GX-5W
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 00:07:14 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ <SRS0=ocOU=72=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
+ id 1viM0W-00030T-3C
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 00:23:36 +0000
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20a::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 213132a8-f65d-11f0-b15e-2bf370ae4941;
- Wed, 21 Jan 2026 01:07:10 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D1EC4088D;
- Wed, 21 Jan 2026 00:07:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F533C16AAE;
- Wed, 21 Jan 2026 00:07:07 +0000 (UTC)
+ id 6bf5e4ca-f65f-11f0-b15e-2bf370ae4941;
+ Wed, 21 Jan 2026 01:23:34 +0100 (CET)
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ (2603:10a6:150:16a::21) by AS8PR03MB8692.eurprd03.prod.outlook.com
+ (2603:10a6:20b:561::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Wed, 21 Jan
+ 2026 00:23:31 +0000
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e%7]) with mapi id 15.20.9520.012; Wed, 21 Jan 2026
+ 00:23:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,392 +52,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 213132a8-f65d-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768954029;
-	bh=L0X3vSYqtAqnjQdqjelUxd34olRrSKja0RM8RlVgAME=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=g6NOfqVCeAuDfsrPoPgEywU1x340Xk8SKqgmiSyGq7ny6hKQ1lUBvoOSPwtiDb68e
-	 FW2arWXs0Vmn9A4ZOOsD2IXQLyS1hju7qRc4xyDHObfRrNWwoeDMShyzAcCmwFOj63
-	 Q2hAUdMUAsH92HT8uaOdf35GD1OHagdmDh1UVHPvqW0CP2VT9q005Ftf9Cf8q1erAV
-	 0RxctcDpX//DHdK+5Pp5xCgWSE4qsBo+6ZOCwW41IEbUFUjsZWkNBEEmBSp2/uiC3N
-	 2FQ08ng9AsuziLcWB+4ZzW/AQiGPgfdtsANKY6RQ6d6NBql97JJLLyWMx7FLZghOfV
-	 Bo2hJ7/6RtxDA==
-Date: Tue, 20 Jan 2026 16:07:06 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+X-Inumbo-ID: 6bf5e4ca-f65f-11f0-b15e-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zHleMKmTI4G4/DCNuTSKk5SZYySChP5TtjuG7fJggejwqW1A4DSWFSqBWQjTl4vVBk40b0IdGNph2+6iKEKJ8/+uC86bmLBFeBHZygZVi7XZQJd1jLP99ABWW2gyx/Apo0HykTHD46xlm2RCaGEhQPYeVBsABBLCS59XRMgMO2BSytMSM6ozup0ROibgmul8JUk92dpX00vyS3vE3aV6tDgSJY/oomhaEeFVdWqx3eH0kO04SvEszDbeRAnk3YgvD5KKPeyWjG+1M0bZxpX08eBv8dbItcKwUdLaULjTkrLPyfxUOv+c3m9AFty2pH5bir9lqG2qaWhh45xKcJnlIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pz6fcZmmXaisVHNt9FM7kTrs2YMShlGtjjiiWGKLvVw=;
+ b=yx9Y2i3G6EHX1/v3MhAMPrC0hecaFYf9qsPgZS2+eTXGgs8ABkGtHw/OKlxoI9bFisKtyGy8xQzj984lX2M2Sg1f2fzYPH6fKjWnHbFDZXs0ObSTwrkuQRDvIC/ZdNUNuOda3G1prFifFUDU1fJgUqevPGD6zez7DaZhmKZhFthPcMV32M1KOKBz6Qt7wSZR9EUCiD6m1Lgi3t5wTzNgXU+2WaNtKODIn7xZ36P46x7L9JLGg7BiF8ooV/FikoZ9bajHJfR1jptfKg5H+Y4TmqiVbVYl4PO1upUB68rJehFX0JX5TluWQysGPql1byIog3NqITgYPkGVolrrbkmhQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pz6fcZmmXaisVHNt9FM7kTrs2YMShlGtjjiiWGKLvVw=;
+ b=Y8+SctKjEUX9JOGjDbgiIwH3ao57FtrdzPLQns9yIhf48Aqohiyxe1l1b9+WH8H4S0Wo6vkMtyKx5CJ1GXv4sOihJta21HYztyvS6qAWUKUxFtEGaJAljbMbokOwnTvliYtlxc1X9CP4ovf5zvda1hWTcXLWvHfndrGFmIQjYgXUCGwlf8v7FW5gabFiuY9Az9lCAIxWFUBKO8mATecqd5LPg2CfadRHT5Yh9MDybwi3cT8ZcSlSKVJmiuZ7PHbhU0o1pER9n7HFXwBEPaughlr1biWyKI7bwQCyqJoyvYAfo4IguN3qBvOlHXwYo7x487mzocRVjCmfZohKZzT/PA==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, grygorii_strashko@epam.com, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>, 
-    andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3] xen/console: handle multiple domains using console_io
- hypercalls
-In-Reply-To: <32d0a9a2-89df-4e20-8f7a-0f069cbff11f@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2601201601070.7192@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2601131638350.6279@ubuntu-linux-20-04-desktop> <63c35c5e-577b-4346-b600-03808306177f@suse.com> <alpine.DEB.2.22.394.2601191522450.7192@ubuntu-linux-20-04-desktop> <32d0a9a2-89df-4e20-8f7a-0f069cbff11f@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>, Michal Orzel
+	<michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Connor
+ Davis <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [Arm] Re: [PATCH v1 11/15] xen/riscv: introduce ns_to_ticks()
+Thread-Topic: [Arm] Re: [PATCH v1 11/15] xen/riscv: introduce ns_to_ticks()
+Thread-Index: AQHcdPdXiMhfHHwKbka54SohlbcU+g==
+Date: Wed, 21 Jan 2026 00:23:31 +0000
+Message-ID: <87bjin6cgd.fsf@epam.com>
+References: <cover.1766595589.git.oleksii.kurochko@gmail.com>
+	<e4e36ed2d02b760c925014db986041b82fd9b943.1766595589.git.oleksii.kurochko@gmail.com>
+	<369eb1d7-864e-4432-9729-57786d0c191f@suse.com>
+In-Reply-To: <369eb1d7-864e-4432-9729-57786d0c191f@suse.com> (Jan Beulich's
+	message of "Mon, 12 Jan 2026 15:59:13 +0100")
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|AS8PR03MB8692:EE_
+x-ms-office365-filtering-correlation-id: 3355b6b1-e7d0-4c1c-f916-08de58834e66
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|42112799006|366016|1800799024|38070700021;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?EEgiTyWNDHrgYrDzQWXvcGFUHXW2XGNxPm470mYnnGwoMltgF0SgX9DyiV?=
+ =?iso-8859-1?Q?wzn2vDt8ZwwKhXt22tu9Jc1haSgS3pZq5igs8CKepg/YnwsQ5EVYVrspAR?=
+ =?iso-8859-1?Q?icwMgrEJXmzma28lGEKd76q4+tKEPT+qtUWxnBDqc2CyHL2cYEk/tV+kGW?=
+ =?iso-8859-1?Q?Xwmy/pEGHBPC3c/JVmxt16bgL/CGQNcMmPEllxr5o0wf4f26TXOX9RM4Eq?=
+ =?iso-8859-1?Q?igPPT8KSU8lA5/dxTylZ9OGNPWeXCcLa4jhSlS4yiozkziGm/lv8G1gNq3?=
+ =?iso-8859-1?Q?/cdFpvgSucqBYgnosvoZ8a0o5KQcOwdIociLxnIcAofdWFrVVnWPahaHoa?=
+ =?iso-8859-1?Q?sMQ4OyasKKfCInBIr6aRihPNvzalxUrnnd9JoTW0DD8qf4SqmdMOlStpYY?=
+ =?iso-8859-1?Q?pE85GS7/QDIDoX7OU1PW6tDQrl89v78nGHP7+Q7JMYMfKTnxvM3uuPCAnS?=
+ =?iso-8859-1?Q?O7Oe8IoEfWYj51mVavzMW7SCk41pGSgxfJ5TljKi8a8ESWRUXX+rA7p2ob?=
+ =?iso-8859-1?Q?f1dIlmA5ZiayScrJsBKospiMzJAs7UyPPzgDPHe4EsJFRtfhSHeKCY3YMs?=
+ =?iso-8859-1?Q?UuPn5t25WAjfIF7LHzB4QVyjEidt+O/e5VXBylwa7VQjKcSql7NvjygTgJ?=
+ =?iso-8859-1?Q?ND1ydknsLUIJvVzXbqg5jM/m9ZB7937QRelaMRs+X/ZsjsfaT5ZPgMkO09?=
+ =?iso-8859-1?Q?+2Akd6tHbzpp9dhznhJEtiM3lIhmBy0DgDg9JUcZs0AXBLsM+dT8tQqJpM?=
+ =?iso-8859-1?Q?lCqNt0sQ9W8hEqk3oKniNE5AMJjeauot6zYDfA9GSKaJRQq5CUlu3ksemK?=
+ =?iso-8859-1?Q?oSgLl3FFfRRfMd7xx6QEAlSRCvkPP3MjGwJAzMQo4VeArCLLNnU/hK8NQd?=
+ =?iso-8859-1?Q?fWxHZx3jQVdBBjJIOcQJ5mmiK9YytxqSpJoHvFp1UX70oxn5CvL4u0RJC/?=
+ =?iso-8859-1?Q?s8CFAxF4gCmwe0eB96nstGvSoNHhBZO/plSTpx9o1I2YVl+Hnk2AzcB7OR?=
+ =?iso-8859-1?Q?pTkLQIkrW1KrNzagNAcJVLXTtcB9NFFBLYgpinDDsseFH6RiSBtp6xcdEx?=
+ =?iso-8859-1?Q?R5utzC6Dhkc7QySqm2lxij9RHlDFS+9kwwUSVAhFpATbjAdHYWCIPh/Y21?=
+ =?iso-8859-1?Q?U14d0WM8WqgWz5kVPfdeSnhq4kh9/f5CSJk0AtU48l4l3xkkeLcevk05S+?=
+ =?iso-8859-1?Q?2K4F5EgyMMaYry3dlV4AIJzqtEN7EqD1jXZ9SZv+WlMf7VTlTzWCCG3nmh?=
+ =?iso-8859-1?Q?hDLDCC8Mly7bsosh4tgUh/Ut5dc3IkaqAGsR1C9FYn4kGla7k+evgS4y9h?=
+ =?iso-8859-1?Q?iTjlJXloJqcQI6vuQjIHDJBsCDfCyDwU/57IPiD8EQsHmEy8nB7keoFYzJ?=
+ =?iso-8859-1?Q?TaWibjCOVeAqON9pwZ2VHLhLJjKnoWcsgdxAc++X348pqPIJOFAgubCbtR?=
+ =?iso-8859-1?Q?EhvMG9qfCky2j8RphZvUFlgFPx5caXvzPYHTiLUub4iEvWlb1WkttBkxYe?=
+ =?iso-8859-1?Q?vp31G5SoORJC0iI3OGAs7cEAdkHRaUbITA2Nj5s5m7wPJ4CLDSWa4AiBN3?=
+ =?iso-8859-1?Q?bRXVPFsyYu6QExc2JZnt+8sNDb7TJIoTUzbdmtHt6kL+mhcaI3/e6plvFT?=
+ =?iso-8859-1?Q?I9inNIa6I0cWQVy9lv2/1vQhboLmagKQXlFfUkz5KEBfbBgKPSrT8SO8fo?=
+ =?iso-8859-1?Q?oNtN5SmcDNnzLL7GyaY=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(42112799006)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?+5jrbJgW4tcXlVUe9dUIF+ygKfe9x+VK5cCT1o0hup5h3R55bl/94pf1nS?=
+ =?iso-8859-1?Q?1q1yS8i/m1k5Pzx4xDy/QbiaxW80C/FbygqjtmZ1Ls2BRs98Ym5/R/U115?=
+ =?iso-8859-1?Q?MFNc8DweOdzLmsT3pYUtWut+0AxhgpAGILgr816FZr1v8O0u7XLzTjLwE1?=
+ =?iso-8859-1?Q?fsoPYVYhLS8b29gMaFIvabDKPmLtk7WrbWli925qPwUDnWD+mwsJfy2QGM?=
+ =?iso-8859-1?Q?NwE9Rky9xPgweCorept3kWcinZPLFOSLr6p6sbVbE/twRf0RXqufTO1+Yz?=
+ =?iso-8859-1?Q?ue8gUm1JvO0A5hBLT2E128qKNy1rSSDTG5+7fQYW4ehtrykwxTNOf2Y2dg?=
+ =?iso-8859-1?Q?I+Od6KPIA2fmj5X5SDF5DxS0bxIMknsJB3vtxKxFFOlw3HNLSl5Z42hPXp?=
+ =?iso-8859-1?Q?3MZIojkpac4k0rBC84eFRuRWS4wMPzsCwT9w91j0uwVoNLUWkMAT8bsFcR?=
+ =?iso-8859-1?Q?kcjLDRL8QNyu2UksSCkBcowBl71ZeeLfZYosoKjLzxySRkXsKaf+QsFxU7?=
+ =?iso-8859-1?Q?lQvURU97k9Y0dheSA9E+u0FZnm1f02m7Jeb8W8Nd6ZtxD4eZD0/asE3hgh?=
+ =?iso-8859-1?Q?dEM2gtAQWJ2CUX+OadJAnLyKD/g7D3zSxR/YWFM4WmUvDll6L5pTmfLaxI?=
+ =?iso-8859-1?Q?LQY2pwPLyyK79/B+nUJIZLg37LaDTP41P1dhm4Cg/DKSbOnR9/BfIAvHMx?=
+ =?iso-8859-1?Q?gyreCPIJbQl18zVG65H3F2/T9KOS3bWQLQqbiXPta9PG0Zi/HNRu1A3UX9?=
+ =?iso-8859-1?Q?1hH6rRJk8tmBVbugzuU+Kxk4gajxzl7Y7JVQCNo4GNY0whWol0uGv+KbCw?=
+ =?iso-8859-1?Q?WOu/Q8NqrWcQeEsgMyIS8bSNWf+AT52d8+VUGmh5yWY+vfjotl8fTak1li?=
+ =?iso-8859-1?Q?kCVdIaeET0QpyCx18C5yN9JqRUc+FpPj4W2gXbd/hn4TSvq8duLMc8tGLj?=
+ =?iso-8859-1?Q?elWT5wiQe+pFKcbTnDIqdJmNAuAeppkLaXmpeT/80FSKDSaG8piCrm3Z2t?=
+ =?iso-8859-1?Q?dDU+iq6t9JuqRkm/NKtusIjHR/iHWINcdADOjQoLgdQHwhv/FOE3Sybtbd?=
+ =?iso-8859-1?Q?yhWzZUhOB6z7lpM5SW0y6jRB3tD+aKMT5GKJn5u+r1dIpsvw3qBr2Qo/9u?=
+ =?iso-8859-1?Q?g3IPnfQczUSFT4+vGph/uCbA0C4HhRXudW5jwu+QWleZQz7cOfnSCZ4bHU?=
+ =?iso-8859-1?Q?6E+ZvYVu7SKXaToqEEJM+t5CTmaxROdoNRdbevtYsAfmXciVJp6aoZWje8?=
+ =?iso-8859-1?Q?G6BCHyxmdXIU4HE8+JgGTizQ/IxX3E42qq5GYsnFvRW3EwXNXpCt6sn3Ma?=
+ =?iso-8859-1?Q?Dw1/NGzDcbHW3wO2lKsWTR4+HwO7PHPX/qHsegG1ChtynZnFsQwcV00vAB?=
+ =?iso-8859-1?Q?CBC89aRHuMxse4/OamUZ9endiYnl/LxmNreCZPmc0FHCmYmvrqdaByyFi5?=
+ =?iso-8859-1?Q?SR9HzgnS9Ut51pUXLFsigIzIwP+tjRAnLUgoT9L0UuaXzyPRu1xeP1cfV3?=
+ =?iso-8859-1?Q?SA5ZTb2XbDnfLCkejegzbKsPKMGBhtz09hYFkNdB1LPh3Bsr34Kehp3Nch?=
+ =?iso-8859-1?Q?xAsFYTBEiuap6kGM6ac60Lcuphu+Di07toeADdPjc2pdoNwDoW8UFGcVIm?=
+ =?iso-8859-1?Q?Kd9gImREXYEasVKEXcHpcBIFB2WoWX6qqrVEFpHZXfOicBQmyEm3VCs1vz?=
+ =?iso-8859-1?Q?RyeWGAAev/lpSppsTQLT96C2d4BviWTs4EkZBnujsX9/R8lvyVZ+GxibnB?=
+ =?iso-8859-1?Q?Nu0dkH0yGRwtlRCh06vLMT/0O77sX1D9/hA4n0zbJaEvN3KdvXuDqNjqg3?=
+ =?iso-8859-1?Q?imaOshW2DlZM4IoF+QN8qHJgmdG1GDs=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1619268939-1768953762=:7192"
-Content-ID: <alpine.DEB.2.22.394.2601201602440.7192@ubuntu-linux-20-04-desktop>
-X-Spamd-Result: default: False [0.41 / 15.00];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3355b6b1-e7d0-4c1c-f916-08de58834e66
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jan 2026 00:23:31.2464
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rB/Carb+TEC0vUrasIH1Tvk1GqHtx3XA9HfNkvNCManbmcQrCTvxJvgsxcUGvLEDVD1VwrhJ4+5aQHrlSBv/gZBN3EE8i15LJ4ZQ6ltQGzI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB8692
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-diff];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+];
-	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	HAS_ATTACHMENT(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,amd.com,xen.org,kernel.org,wdc.com,citrix.com,vates.tech,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[Volodymyr_Babchuk@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Volodymyr_Babchuk@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[epam.com:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 31D2D4E4F4
+X-Rspamd-Queue-Id: 785564E77A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Jan,
 
---8323329-1619268939-1768953762=:7192
-Content-Type: text/plain; CHARSET=US-ASCII
-Content-ID: <alpine.DEB.2.22.394.2601201602441.7192@ubuntu-linux-20-04-desktop>
+Jan Beulich <jbeulich@suse.com> writes:
 
-On Tue, 20 Jan 2026, Jan Beulich wrote:
-> On 20.01.2026 00:23, Stefano Stabellini wrote:
-> > On Mon, 19 Jan 2026, Jan Beulich wrote:
-> >> On 14.01.2026 01:39, Stefano Stabellini wrote:
-> >>> @@ -815,6 +831,11 @@ long do_console_io(
-> >>>          if ( count > INT_MAX )
-> >>>              break;
-> >>>  
-> >>> +        d = console_get_domain();
-> >>> +        console_put_domain(d);
-> >>> +        if ( d != current->domain )
-> >>> +            return 0;
-> >>
-> >> This isn't atomic (as in: in a suitably locked region) with ...
-> >>
-> >>> @@ -830,7 +851,10 @@ long do_console_io(
-> >>>                  break;
-> >>>              }
-> >>>              rc += len;
-> >>> -            serial_rx_cons += len;
-> >>> +            nrspin_lock_irq(&console_lock);
-> >>> +            if ( serial_rx_cons != serial_rx_prod )
-> >>> +                serial_rx_cons += len;
-> >>> +            nrspin_unlock_irq(&console_lock);
-> >>>          }
-> >>>          break;
-> >>
-> >> ... this. If the focus domain changes after the check in the earlier hunk,
-> >> I think you need to also return with no input here. Or you need to acquire
-> >> the lock earlier (and then similarly in console_switch_input()), albeit
-> >> that would then mean holding it across a copy-to-guest. Which technically
-> >> is perhaps not a problem, but it leaves an uneasy feeling.
-> > 
-> > I thought about it when writing this patch and I had the same feeling as
-> > you. However, especially considering the other feedback, I don't see
-> > another viable solution.
-> 
-> Taking just the logic here, an option might be to re-check the focus domain
-> once holding the lock, and discard the most recent chunk of input from what
-> would go back to the caller if the focus changed. But that would come with
-> its own new complexities.
+> On 24.12.2025 18:03, Oleksii Kurochko wrote:
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>>  xen/arch/riscv/include/asm/time.h | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>
+> Looks okay and read to go in as is (no dependencies on earlier patches af=
+aics),
+> but:
+>
+>> --- a/xen/arch/riscv/include/asm/time.h
+>> +++ b/xen/arch/riscv/include/asm/time.h
+>> @@ -29,6 +29,11 @@ static inline s_time_t ticks_to_ns(uint64_t ticks)
+>>      return muldiv64(ticks, MILLISECS(1), cpu_khz);
+>>  }
+>> =20
+>> +static inline uint64_t ns_to_ticks(s_time_t ns)
+>> +{
+>> +    return muldiv64(ns, cpu_khz, MILLISECS(1));
+>> +}
+>
+> It's hard to see what's arch-dependent about this or ticks_to_ns(). They'=
+re
+> similar but not identical to Arm's version, and I actually wonder why tha=
+t
+> difference exists. Questions to Arm people:
+> 1) Why are they out-of-line functions there?
 
-I attempted to make changes on top of v4 so that copy_to_guest_offset is
-not called with the lock held.
+That's interesting question. According to git blame this is how it was
+introduced in 2012 and after that no one touched this part. Original
+patch had cntfrq defined as `static`, this explains why these functions
+were declared out-of-line.
 
-I did introduce a focus domain check in the CONSOLEIO_read while loop,
-but didn't discard input because now the focus domain is only changed
-with the console_lock held and also the while loop is executed with the
-console_lock held (except for copy_to_guest_offset) so as far as I can
-tell it shouldn't be possible that a domain is reading someone else's
-input data.
+> 2) Why the involvement of the constant 1000 there? 1000 * cpu_khz can
+>    actually overflow in 32 bits. The forms above aren't prone to such an
+>    issue.
 
+Patch "xen: move XEN_SYSCTL_physinfo, XEN_SYSCTL_numainfo and
+XEN_SYSCTL_topologyinfo to common code" (096578b4e48) changed hz to
+khz. This added that 1000 multiplication. Also this patch removed
+`static` qualifier from the counter variable.
 
+Anyways, latest ARM ARM suggests that timer frequency should be fixed at
+1GHz, which is shy of 32-bit overflow. So most new platforms will be
+fine. And older platforms had much lower frequencies.
 
->From 71de8ddd0ce31090362115a3d54d1ebe161c229f Mon Sep 17 00:00:00 2001
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-Date: Fri, 16 Jan 2026 13:07:43 -0800
-Subject: [PATCH v5] xen/console: handle multiple domains using console_io
- hypercalls
+> If the delta isn't justified, I think we'd better put RISC-V's functions =
+in
+> common code (xen/time.h). They're not presently needed by x86, but as
+> inline functions they also shouldn't do any harm.
 
-Allow multiple dom0less domains to use the console_io hypercalls to
-print to the console. Handle them in a similar way to vpl011: only the
-domain which has focus can read from the console. All domains can write
-to the console but the ones without focus have a prefix. In this case
-the prefix is applied by using guest_printk instead of printk or
-console_puts which is what the original code was already doing.
+I'm mere reviewer, but I agree that proposed approach is better and more
+resilient.
 
-When switching focus using Ctrl-AAA, discard any unread data in the
-input buffer. Input is read quickly and the user would be aware of it
-being slow or stuck as they use Ctrl-AAA to switch focus domain.
-In that situation, it is to be expected that the unread input is lost.
-
-The domain writes are buffered when the domain is not in focus. Push out
-the buffer when the domain enters focus.
-
-Add the console_lock around serial_rx_prod and serial_rx_cons
-modifications to protect it against concurrent writes to it. Also
-protect against changes of domain with focus while reading from the
-serial.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
- xen/drivers/char/console.c | 56 ++++++++++++++++++++++++++++++++------
- 1 file changed, 47 insertions(+), 9 deletions(-)
-
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 7b176da71a..5c621b39bd 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -521,6 +521,8 @@ struct domain *console_get_domain(void)
- {
-     struct domain *d;
- 
-+    nrspin_lock_irq(&console_lock);
-+
-     if ( console_rx == 0 )
-             return NULL;
- 
-@@ -540,6 +542,8 @@ void console_put_domain(struct domain *d)
- {
-     if ( d )
-         rcu_unlock_domain(d);
-+
-+    nrspin_unlock_irq(&console_lock);
- }
- 
- static void console_switch_input(void)
-@@ -574,8 +578,12 @@ static void console_switch_input(void)
-             if ( !d->console.input_allowed )
-                 continue;
- 
--            console_rx = next_rx;
-             printk("*** Serial input to DOM%u", domid);
-+            nrspin_lock_irq(&console_lock);
-+            console_rx = next_rx;
-+            /* Don't let the next dom read the previous dom's unread data. */
-+            serial_rx_cons = serial_rx_prod;
-+            nrspin_unlock_irq(&console_lock);
-             break;
-         }
-     }
-@@ -596,8 +604,19 @@ static void __serial_rx(char c)
- 
-     d = console_get_domain();
-     if ( !d )
-+    {
-+        console_put_domain(d);
-         return;
-+    }
- 
-+#ifdef CONFIG_SBSA_VUART_CONSOLE
-+    /* Prioritize vpl011 if enabled for this domain */
-+    if ( d->arch.vpl011.base_addr )
-+    {
-+        /* Deliver input to the emulated UART. */
-+        rc = vpl011_rx_char_xen(d, c);
-+    } else
-+#endif
-     if ( is_hardware_domain(d) || IS_ENABLED(CONFIG_DOM0LESS_BOOT) )
-     {
-         /*
-@@ -613,11 +632,6 @@ static void __serial_rx(char c)
-          */
-         send_guest_domain_virq(d, VIRQ_CONSOLE);
-     }
--#ifdef CONFIG_SBSA_VUART_CONSOLE
--    else
--        /* Deliver input to the emulated UART. */
--        rc = vpl011_rx_char_xen(d, c);
--#endif
- 
-     if ( consoled_is_enabled() )
-         /* Deliver input to the PV shim console. */
-@@ -729,6 +743,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-     unsigned int flags = opt_console_to_ring
-                          ? CONSOLE_ALL : CONSOLE_DEFAULT;
-     struct domain *cd = current->domain;
-+    struct domain *input;
- 
-     while ( count > 0 )
-     {
-@@ -741,17 +756,23 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-         if ( copy_from_guest(kbuf, buffer, kcount) )
-             return -EFAULT;
- 
--        if ( is_hardware_domain(cd) )
-+        input = console_get_domain();
-+        if ( input && cd == input )
-         {
-+            if ( cd->pbuf_idx )
-+            {
-+                console_send(cd->pbuf, cd->pbuf_idx, flags);
-+                cd->pbuf_idx = 0;
-+            }
-             /* Use direct console output as it could be interactive */
--            nrspin_lock_irq(&console_lock);
-             console_send(kbuf, kcount, flags);
--            nrspin_unlock_irq(&console_lock);
-+            console_put_domain(input);
-         }
-         else
-         {
-             char *kin = kbuf, *kout = kbuf, c;
- 
-+            console_put_domain(input);
-             /* Strip non-printable characters */
-             do
-             {
-@@ -793,6 +814,7 @@ long do_console_io(
- {
-     long rc;
-     unsigned int idx, len;
-+    struct domain *d;
- 
-     rc = xsm_console_io(XSM_OTHER, current->domain, cmd);
-     if ( rc )
-@@ -813,6 +835,13 @@ long do_console_io(
-         if ( count > INT_MAX )
-             break;
- 
-+        d = console_get_domain();
-+        if ( d != current->domain )
-+        {
-+            console_put_domain(d);
-+            return 0;
-+        }
-+
-         rc = 0;
-         while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
-         {
-@@ -822,14 +851,23 @@ long do_console_io(
-                 len = SERIAL_RX_SIZE - idx;
-             if ( (rc + len) > count )
-                 len = count - rc;
-+
-+            console_put_domain(d);
-             if ( copy_to_guest_offset(buffer, rc, &serial_rx_ring[idx], len) )
-             {
-                 rc = -EFAULT;
-                 break;
-             }
-+            d = console_get_domain();
-+            if ( d != current->domain )
-+            {
-+                console_put_domain(d);
-+                break;
-+            }
-             rc += len;
-             serial_rx_cons += len;
-         }
-+        console_put_domain(d);
-         break;
-     default:
-         rc = -ENOSYS;
--- 
-2.25.1
---8323329-1619268939-1768953762=:7192
-Content-Type: text/x-diff; NAME=incremental.patch
-Content-Transfer-Encoding: BASE64
-Content-ID: <alpine.DEB.2.22.394.2601201602420.7192@ubuntu-linux-20-04-desktop>
-Content-Description: 
-Content-Disposition: ATTACHMENT; FILENAME=incremental.patch
-
-ZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL2NoYXIvY29uc29sZS5jIGIveGVu
-L2RyaXZlcnMvY2hhci9jb25zb2xlLmMNCmluZGV4IGFjZmM0OWQ1NTguLjVj
-NjIxYjM5YmQgMTAwNjQ0DQotLS0gYS94ZW4vZHJpdmVycy9jaGFyL2NvbnNv
-bGUuYw0KKysrIGIveGVuL2RyaXZlcnMvY2hhci9jb25zb2xlLmMNCkBAIC01
-MjEsNiArNTIxLDggQEAgc3RydWN0IGRvbWFpbiAqY29uc29sZV9nZXRfZG9t
-YWluKHZvaWQpDQogew0KICAgICBzdHJ1Y3QgZG9tYWluICpkOw0KIA0KKyAg
-ICBucnNwaW5fbG9ja19pcnEoJmNvbnNvbGVfbG9jayk7DQorDQogICAgIGlm
-ICggY29uc29sZV9yeCA9PSAwICkNCiAgICAgICAgICAgICByZXR1cm4gTlVM
-TDsNCiANCkBAIC01NDAsNiArNTQyLDggQEAgdm9pZCBjb25zb2xlX3B1dF9k
-b21haW4oc3RydWN0IGRvbWFpbiAqZCkNCiB7DQogICAgIGlmICggZCApDQog
-ICAgICAgICByY3VfdW5sb2NrX2RvbWFpbihkKTsNCisNCisgICAgbnJzcGlu
-X3VubG9ja19pcnEoJmNvbnNvbGVfbG9jayk7DQogfQ0KIA0KIHN0YXRpYyB2
-b2lkIGNvbnNvbGVfc3dpdGNoX2lucHV0KHZvaWQpDQpAQCAtNTk4LDExICs2
-MDIsMTAgQEAgc3RhdGljIHZvaWQgX19zZXJpYWxfcngoY2hhciBjKQ0KICAg
-ICBpZiAoIGNvbnNvbGVfcnggPT0gMCApDQogICAgICAgICByZXR1cm4gaGFu
-ZGxlX2tleXByZXNzKGMsIGZhbHNlKTsNCiANCi0gICAgbnJzcGluX2xvY2tf
-aXJxKCZjb25zb2xlX2xvY2spOw0KICAgICBkID0gY29uc29sZV9nZXRfZG9t
-YWluKCk7DQogICAgIGlmICggIWQgKQ0KICAgICB7DQotICAgICAgICBucnNw
-aW5fdW5sb2NrX2lycSgmY29uc29sZV9sb2NrKTsNCisgICAgICAgIGNvbnNv
-bGVfcHV0X2RvbWFpbihkKTsNCiAgICAgICAgIHJldHVybjsNCiAgICAgfQ0K
-IA0KQEAgLTY0MCw3ICs2NDMsNiBAQCBzdGF0aWMgdm9pZCBfX3NlcmlhbF9y
-eChjaGFyIGMpDQogICAgICAgICAgICAgICAgICAgICAgcmMpOw0KIA0KICAg
-ICBjb25zb2xlX3B1dF9kb21haW4oZCk7DQotICAgIG5yc3Bpbl91bmxvY2tf
-aXJxKCZjb25zb2xlX2xvY2spOw0KIH0NCiANCiBzdGF0aWMgdm9pZCBjZl9j
-aGVjayBzZXJpYWxfcngoY2hhciBjKQ0KQEAgLTc1NCw3ICs3NTYsNiBAQCBz
-dGF0aWMgbG9uZyBndWVzdF9jb25zb2xlX3dyaXRlKFhFTl9HVUVTVF9IQU5E
-TEVfUEFSQU0oY2hhcikgYnVmZmVyLA0KICAgICAgICAgaWYgKCBjb3B5X2Zy
-b21fZ3Vlc3Qoa2J1ZiwgYnVmZmVyLCBrY291bnQpICkNCiAgICAgICAgICAg
-ICByZXR1cm4gLUVGQVVMVDsNCiANCi0gICAgICAgIG5yc3Bpbl9sb2NrX2ly
-cSgmY29uc29sZV9sb2NrKTsNCiAgICAgICAgIGlucHV0ID0gY29uc29sZV9n
-ZXRfZG9tYWluKCk7DQogICAgICAgICBpZiAoIGlucHV0ICYmIGNkID09IGlu
-cHV0ICkNCiAgICAgICAgIHsNCkBAIC03NjYsMTQgKzc2NywxMiBAQCBzdGF0
-aWMgbG9uZyBndWVzdF9jb25zb2xlX3dyaXRlKFhFTl9HVUVTVF9IQU5ETEVf
-UEFSQU0oY2hhcikgYnVmZmVyLA0KICAgICAgICAgICAgIC8qIFVzZSBkaXJl
-Y3QgY29uc29sZSBvdXRwdXQgYXMgaXQgY291bGQgYmUgaW50ZXJhY3RpdmUg
-Ki8NCiAgICAgICAgICAgICBjb25zb2xlX3NlbmQoa2J1Ziwga2NvdW50LCBm
-bGFncyk7DQogICAgICAgICAgICAgY29uc29sZV9wdXRfZG9tYWluKGlucHV0
-KTsNCi0gICAgICAgICAgICBucnNwaW5fdW5sb2NrX2lycSgmY29uc29sZV9s
-b2NrKTsNCiAgICAgICAgIH0NCiAgICAgICAgIGVsc2UNCiAgICAgICAgIHsN
-CiAgICAgICAgICAgICBjaGFyICpraW4gPSBrYnVmLCAqa291dCA9IGtidWYs
-IGM7DQogDQogICAgICAgICAgICAgY29uc29sZV9wdXRfZG9tYWluKGlucHV0
-KTsNCi0gICAgICAgICAgICBucnNwaW5fdW5sb2NrX2lycSgmY29uc29sZV9s
-b2NrKTsNCiAgICAgICAgICAgICAvKiBTdHJpcCBub24tcHJpbnRhYmxlIGNo
-YXJhY3RlcnMgKi8NCiAgICAgICAgICAgICBkbw0KICAgICAgICAgICAgIHsN
-CkBAIC04MzYsMTIgKzgzNSwxMCBAQCBsb25nIGRvX2NvbnNvbGVfaW8oDQog
-ICAgICAgICBpZiAoIGNvdW50ID4gSU5UX01BWCApDQogICAgICAgICAgICAg
-YnJlYWs7DQogDQotICAgICAgICBucnNwaW5fbG9ja19pcnEoJmNvbnNvbGVf
-bG9jayk7DQogICAgICAgICBkID0gY29uc29sZV9nZXRfZG9tYWluKCk7DQog
-ICAgICAgICBpZiAoIGQgIT0gY3VycmVudC0+ZG9tYWluICkNCiAgICAgICAg
-IHsNCiAgICAgICAgICAgICBjb25zb2xlX3B1dF9kb21haW4oZCk7DQotICAg
-ICAgICAgICAgbnJzcGluX3VubG9ja19pcnEoJmNvbnNvbGVfbG9jayk7DQog
-ICAgICAgICAgICAgcmV0dXJuIDA7DQogICAgICAgICB9DQogDQpAQCAtODU0
-LDE4ICs4NTEsMjMgQEAgbG9uZyBkb19jb25zb2xlX2lvKA0KICAgICAgICAg
-ICAgICAgICBsZW4gPSBTRVJJQUxfUlhfU0laRSAtIGlkeDsNCiAgICAgICAg
-ICAgICBpZiAoIChyYyArIGxlbikgPiBjb3VudCApDQogICAgICAgICAgICAg
-ICAgIGxlbiA9IGNvdW50IC0gcmM7DQorDQorICAgICAgICAgICAgY29uc29s
-ZV9wdXRfZG9tYWluKGQpOw0KICAgICAgICAgICAgIGlmICggY29weV90b19n
-dWVzdF9vZmZzZXQoYnVmZmVyLCByYywgJnNlcmlhbF9yeF9yaW5nW2lkeF0s
-IGxlbikgKQ0KICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgcmMg
-PSAtRUZBVUxUOw0KKyAgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAg
-ICAgICB9DQorICAgICAgICAgICAgZCA9IGNvbnNvbGVfZ2V0X2RvbWFpbigp
-Ow0KKyAgICAgICAgICAgIGlmICggZCAhPSBjdXJyZW50LT5kb21haW4gKQ0K
-KyAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgY29uc29sZV9wdXRf
-ZG9tYWluKGQpOw0KLSAgICAgICAgICAgICAgICBucnNwaW5fdW5sb2NrX2ly
-cSgmY29uc29sZV9sb2NrKTsNCiAgICAgICAgICAgICAgICAgYnJlYWs7DQog
-ICAgICAgICAgICAgfQ0KICAgICAgICAgICAgIHJjICs9IGxlbjsNCiAgICAg
-ICAgICAgICBzZXJpYWxfcnhfY29ucyArPSBsZW47DQogICAgICAgICB9DQog
-ICAgICAgICBjb25zb2xlX3B1dF9kb21haW4oZCk7DQotICAgICAgICBucnNw
-aW5fdW5sb2NrX2lycSgmY29uc29sZV9sb2NrKTsNCiAgICAgICAgIGJyZWFr
-Ow0KICAgICBkZWZhdWx0Og0KICAgICAgICAgcmMgPSAtRU5PU1lTOw0K
-
---8323329-1619268939-1768953762=:7192--
+--=20
+WBR, Volodymyr=
 
