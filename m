@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sBiHFGjPcGkOaAAAu9opvQ
+	id WCM6BLfPcGkOaAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:06:48 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:08:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B613757503
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:06:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209719.1521643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 707605754D
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:08:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209731.1521652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viXuv-0000f3-MQ; Wed, 21 Jan 2026 13:06:37 +0000
+	id 1viXwA-0001I8-WA; Wed, 21 Jan 2026 13:07:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209719.1521643; Wed, 21 Jan 2026 13:06:37 +0000
+Received: by outflank-mailman (output) from mailman id 1209731.1521652; Wed, 21 Jan 2026 13:07:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viXuv-0000ct-JD; Wed, 21 Jan 2026 13:06:37 +0000
-Received: by outflank-mailman (input) for mailman id 1209719;
- Wed, 21 Jan 2026 13:06:36 +0000
+	id 1viXwA-0001Gh-Sv; Wed, 21 Jan 2026 13:07:54 +0000
+Received: by outflank-mailman (input) for mailman id 1209731;
+ Wed, 21 Jan 2026 13:07:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dypz=72=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viXuu-0000cn-Kp
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:06:36 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1viXw9-0001Gb-Go
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:07:53 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 012f1942-f6ca-11f0-9ccf-f158ae23cfc8;
- Wed, 21 Jan 2026 14:06:31 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-47edd6111b4so62638845e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 05:06:31 -0800 (PST)
+ id 308802a1-f6ca-11f0-9ccf-f158ae23cfc8;
+ Wed, 21 Jan 2026 14:07:50 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-47ee974e230so52086725e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 05:07:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4801e8caceesm308018595e9.13.2026.01.21.05.06.29
+ 5b1f17b1804b1-47f4289b83csm364497775e9.3.2026.01.21.05.07.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 05:06:30 -0800 (PST)
+ Wed, 21 Jan 2026 05:07:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,68 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 012f1942-f6ca-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 308802a1-f6ca-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769000791; x=1769605591; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769000871; x=1769605671; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uwKgYVO7Zu6VftyCo1VUWHNj5/MR7CPIRmVZ475YIwY=;
-        b=LlUae3S3PTjBqFM2B6ggVv0FncOwlamWXkIg0sKfBb6OmATLHy6/ruj7dDL+TvZ2R2
-         DqT5R4bKuCWZ5uWwACFlz6+KLM1Ip23M6KtxrpgGpZVC1WUCJdbaDOEmbEi520xdhfqS
-         J5sECN3HXVu12x/N+gCBmX9msjAnicKVU7rWvoyZhWqO8x6wp730/9CS6ODp4pQ4iSXy
-         fXM2OzKwpfEHd1SSkf+kO9o3jF5AMvVyENHzgLM5o8kOzSvVjklSVBEEm0X/jYlLU/db
-         Slt4SIzGLL5EXzEhBYFguar5m1GpNJ2ou8+wn1v9OfjGv5jG80EbyT1cSFTkTxY6HcBA
-         SILQ==
+        bh=RC3aKYFO0y6kmE9cbciU8IYBTDsNgRQzMZKRAHRzV84=;
+        b=JAIPNLvFumVQQa5oi0o756JeeYdhu5vCCUUPqcUtzxtt0LEolxpThVPRdOoWYytK9I
+         IpxGkYBfeW3M0iiHhKIF8A3++hlHBbelXL9p8CxIcp345dl5o7jnZ2TsXmaGFfhK6tfz
+         PWdlEeXnWKA6P3JhqOH/tqIAVr52lV3whuXhdLWksm0C/gQlJnQoILISOBw/MJyLHRhM
+         99+N62bTiXtQJNJjUCnVNgQeitIeA8t+RU+sOIHa0XZEq7yssUZdDi/OfN/0Q4nnAf54
+         jwG81+UsL8YFwUUf8Nf6xBrZici2hpJBlEEmIs06gRj5amIqnUn+QHUVzsnzgASmvBS/
+         Sf0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769000791; x=1769605591;
+        d=1e100.net; s=20230601; t=1769000871; x=1769605671;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uwKgYVO7Zu6VftyCo1VUWHNj5/MR7CPIRmVZ475YIwY=;
-        b=QuRGGrAGsjk3+pF0LKbVG9NY7Q6YkADTV+R30k6V8JArlfZLSUP4UXyYzThzHWQ4Id
-         kQbfAUjgkTFFkORYyTvLncd1nDRbZ0014KGqNsVKtoFqHfOcDfWSjDa4whjGZRKsDv5N
-         GZ30B/pma5EFOHeY2PW+f/5vQvdSEm8BswSEiWlJKYKT7lV6YpzXMyeaSZ7iBY7OdcV2
-         DbOR6BVhmR89WQKcFO88CeeI/bkQf6sBufMMea+u8d8CJQlIHac5sioTjrJHk8LiuLw9
-         DTPV+Qr7sAy2Z/BFy598YYqpBF/7qRPSfILLDAqi3u6mSsvLISzm0cMCL5yp7HLBVKwr
-         XjdQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUtO+Eq6CRYZliATpU3BCwY7LUDnOFiykpaVTINndBMAQY+aOjrF3reuzyN45w8r1ZLZPX0M1I7Abw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzl/Ezj/v6lMQqJOVpJHwKIOBRPTpYoHl9kkkbdMeh2/1zpkaf+
-	wLnMh8gRYKVLgBpxJBqkWdpknF3DyIdu51OFiYzaB0tefnIqSVSeGKKVV3RuYzseyA==
-X-Gm-Gg: AZuq6aIrjfpNxP46shOkpFeLxDoUHGiuGpPOOPopfXsmZSGCFg3eJ8goyeuZamwTqPb
-	mBZxXhaNuEbV6wgPgPKTM/KlB4kpC2n5aHq2/bhJ5cfutAIj4xs4vPObzzvtGqtyuKhm7+N8kt5
-	/6jvYyVyhK01vKfMLlDZBTIpvSqxd1pqVGviSot5DvAvXfRSOwGUSfcs5fMqpyIynv+7cFb08is
-	FHLhGHUNqiQrdK/2+Atd0h+1XBzzwiVyCw6jr9GMMn8F6X5azbLV5gVbmn8cq9NTvH49r5AkOnc
-	lT8eGUt+kgWVSi64nzO47icVU4UkfezNlOuqjllyNX6sXQPlzRdPMJ1Fzu7z9OjbvpGZNw9XfqM
-	4wQbN/s4Uka+KoFGFqhI7GugzW1uGe7YLoCMfv7G792fOSKNOf4ep28nJaKw7RjrMlBZPtAvr+T
-	AMZ0VLnyHNLwF4n5im3RkqvmUE/eMsjK/1w5XIFQV2MFTpUhu8aCy2Q62bA7cSvA3RgizQJRZHK
-	wY=
-X-Received: by 2002:a05:600c:458c:b0:47d:6856:9bd9 with SMTP id 5b1f17b1804b1-4801e3342bamr187365965e9.23.1769000790611;
-        Wed, 21 Jan 2026 05:06:30 -0800 (PST)
-Message-ID: <169c3509-b2fe-4a5f-8184-0aa9c089ccce@suse.com>
-Date: Wed, 21 Jan 2026 14:06:28 +0100
+        bh=RC3aKYFO0y6kmE9cbciU8IYBTDsNgRQzMZKRAHRzV84=;
+        b=hvVZZgRPAxyfRn7pnrRomIC/daIXpqnLnk37rmzaxDOPw2BHWkAuDCnegobek3fJxy
+         LWBYMyVClD16BWgyM5xeb818EgDKBT9DRDmjtCk0Pgs7H+34sMfcP2ZtRQJk2Ws5YT2+
+         V1+r7UYCIvIdTZEdRuSJWrXjWqZK7ACzl1bDftcUQy2Oq62f5WN0su4sHFpJA+2vCCmP
+         zlP0A2wN7xC8Sm+mtE76aBOHPCBL+sWpiTSdV/3r+rndeVNfKjirUqyvY58u3bi0LNck
+         gqM63a/KWGp+zJhIqIKLyZ5c1hH6gOPWGeJgx1jqOkGc1wmLBjsC8HZJJeJQ6kZu7ryP
+         CnZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWF+sYNz2jTkPbmIrX2lsVi4TB5Z3znodbyngtzDkMtqPFIxJ1W1Y1xRe5srORKIkj/V6btY99US7E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7cd1tO4j7Eej8mvSv9ARfIrHuL1UUkXGRCm7aR3iIxHIWguYh
+	fyUoDaFsAi+r51hVRpig1+Mze3nat9tIGVbqxSY/qwNnOAEd/ReGK+gzRQSLsOwkKw==
+X-Gm-Gg: AZuq6aKLdAerEg4MINzOuzu3c2cQ2M5LN4ORWCZP2zMGhf9Ljk16pnkMZmSnWQCxhRS
+	WkL3uzZDyD34BdDmiTdrgx0RwKo4KBq3HtzKeU0ZvMruMBYhlY8p2aZkJEjhNcc21uFElifmHHa
+	7KMRKU2ZXKHF/u8UPl7iad/B0ikA4LC41NYpUcSym4ppE+En/n4th6r/SQK1lv2FpDVII6L2FAZ
+	2pzpNDtmMmKIzUGlxU1D6FQpIRGcB2/LYyZjh+z9RfM+R1uKI4npfyG7OwWeXQ8zkY/SQvBIsnk
+	vN4RNUYw8/bmh57W1QaxkccVohho3GGyzDwyKuqVpcaZdnB12u4QMEQeB2FRfak5EUWhKrO3Ry8
+	fF495lIU/gFfJRS3kcGNfYmwurfZmEWESykBew8EZhhVqYIaJg8DH4pdPloDYOaZ49CSSLie68g
+	oYF+OU12E0ko1Xhm27XNRtq1erJOhcvOZFS1pzOOvQWBZmgRgvKVY/nVrNVTmKLAfswiGxLA3c7
+	FM=
+X-Received: by 2002:a05:600c:4fcb:b0:47a:7fd0:9eea with SMTP id 5b1f17b1804b1-4803e79b85fmr77553605e9.3.1769000870547;
+        Wed, 21 Jan 2026 05:07:50 -0800 (PST)
+Message-ID: <8d627df5-5de5-49bd-ad15-abe2bad486f7@suse.com>
+Date: Wed, 21 Jan 2026 14:07:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Expose time_offset in struct arch_shared_info
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 1/2] x86/svm: Add infrastructure for Bus Lock Threshold
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20260120095657.237-1-ngoc-tu.dinh@vates.tech>
- <3213454a-38cd-4e5d-8a30-853e37f70c18@suse.com>
- <cff32c5b-a085-468a-be26-a858244b228d@vates.tech>
- <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com>
- <9df8cf47-d3ec-474e-b1c8-7978e55627d6@vates.tech>
- <da3811f5-d5cb-4a53-87ad-e29b2cdaadf6@suse.com>
- <a13594d1-17df-4f45-aebc-b9978f898d8a@vates.tech>
- <637ad4a0-bc8f-4e75-8906-643f28f94a2b@suse.com>
- <3bde98b0-5563-4e17-bcc5-c622863d3b07@vates.tech>
+ Jason Andryuk <jason.andryuk@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <20260120095353.2778-1-alejandro.garciavallejo@amd.com>
+ <20260120095353.2778-2-alejandro.garciavallejo@amd.com>
+ <9097240c-a892-41e8-a686-b89d84d0c03f@vates.tech>
+ <dd7404b4-7f31-4189-937a-0278eb54bb2a@suse.com>
+ <DFU9WAGCWK27.1UYPR2JSWZHKF@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,9 +130,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3bde98b0-5563-4e17-bcc5-c622863d3b07@vates.tech>
+In-Reply-To: <DFU9WAGCWK27.1UYPR2JSWZHKF@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -149,8 +142,8 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ngoc-tu.dinh@vates.tech,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
@@ -166,86 +159,36 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: B613757503
+X-Rspamd-Queue-Id: 707605754D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 21.01.2026 14:02, Tu Dinh wrote:
-> Hello,
-> 
-> On 21/01/2026 10:17, Jan Beulich wrote:
->> On 20.01.2026 17:06, Tu Dinh wrote:
->>> On 20/01/2026 16:39, Jan Beulich wrote:
->>>> On 20.01.2026 16:27, Tu Dinh wrote:
->>>>> On 20/01/2026 13:42, Jan Beulich wrote:
->>>>>> On 20.01.2026 13:12, Tu Dinh wrote:
->>>>>>> On 20/01/2026 11:35, Jan Beulich wrote:
->>>>>>>> On 20.01.2026 10:57, Tu Dinh wrote:
->>>>>>>>> time_offset is currently always added to wc_sec. This means that without
->>>>>>>>> the actual value of time_offset, guests have no way of knowing what's
->>>>>>>>> the actual host clock. Once the guest clock drifts beyond 1 second,
->>>>>>>>> updates to the guest RTC would themselves change time_offset and make it
->>>>>>>>> impossible to resync guest time to host time.
->>>>>>>>
->>>>>>>> Despite my earlier comments this part of the description looks unchanged.
->>>>>>>> I still don't see why host time (or in fact about any host property) should
->>>>>>>> be exposed to guests.
->>>>>>>
->>>>>>> I've answered this question in a followup reply from November, which
->>>>>>> I'll reproduce here:
->>>>>>
->>>>>> I did read your reply, yet nothing of it appeared here as additional
->>>>>> justification.
->>>>>
->>>>> Is the new description OK for you?
->>>>
->>>> Which new description? So far I only saw your responses to my questions, not
->>>> an updated patch description.
->>>>
+On 21.01.2026 13:40, Alejandro Vallejo wrote:
+> On Tue Jan 20, 2026 at 2:30 PM CET, Jan Beulich wrote:
+>> On 20.01.2026 14:19, Teddy Astie wrote:
+>>> Le 20/01/2026 à 10:56, Alejandro Vallejo a écrit :
+>>>> --- a/xen/arch/x86/hvm/svm/vmcb.h
+>>>> +++ b/xen/arch/x86/hvm/svm/vmcb.h
+>>>> @@ -65,6 +65,11 @@ enum GenericIntercept2bits
+>>>>       GENERAL2_INTERCEPT_RDPRU   = 1 << 14,
+>>>>   };
+>>>>   
+>>>> +/* general 2 intercepts */
 >>>
->>> Maybe my last email wasn't clear, it was in the part marked "Follow up",
->>> reproduced below:
->>>
->>> Xen currently does not expose the host's wall clock time in shared_info.
->>> This means while shared_info can be used as an alternative to the
->>> emulated RTC, it can't be used to keep the virtual wall clock in sync.
->>> Expose the time_offset value in struct shared_info in order to allow
->>> guests to synchronize their own wall clock to that of the host.
->>>
->>> This is needed because on Windows guests, the PV drivers don't control
->>> the timing of RTC updates, as this is done by the kernel itself
->>> periodically. If the guest's internal clock deviates from the RTC (e.g.
->>> after resuming from suspend), a RTC write would cause time_offset to
->>> deviate from the supposed value (timezone offset) and thus cause the RTC
->>> to become incorrect.
+>>> nit, you want to says general 3 intercepts
 >>
->> What I still can't extract from this is why Windows running bare-metal is
->> fine but Windows running on Xen's vRTC isn't. If there's a problem with
->> our vRTC, shouldn't that be addressed there?
->>
+>> And then, further nit, also get comment style right.
 > 
-> In this case, it's not because the vRTC emulation was wrong, but rather 
-> because Windows's internal wallclock is not Xen-aware
+> What do you mean by comment style? it's a /* ... */ oneliner that matches
+> what the other general intercepts say. What am I missing?
 
-And it shouldn't need to be.
+Quote from ./CODING_STYLE:
 
-> and needs to be 
-> synchronized after some Xen-specific events. So it's more of an 
-> accommodation for Windows guests.
-> 
-> Also, Windows timekeeping integrates closely with its internal time 
-> service, which assumes a NTP-like interface (and thus an external time 
-> reference). The current way of time synchronization in the Windows PV 
-> drivers doesn't work well in this model, which is why I'm looking for a 
-> way to get the external time reference from Xen.
-
-Are you suggesting then that plain Windows is fine, but Windows with the
-PV drivers isn't? That would look to be an issue with the PV drivers then,
-wouldn't it?
+"Multi-word comments should begin with a capital letter."
 
 Jan
 
