@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0KdnG4LXcGkOaAAAu9opvQ
+	id cI3YM7/XcGkOaAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:41:22 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:42:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD7457A77
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:41:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209786.1521705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 400E757A9C
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:42:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209800.1521714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viYSD-00087y-BY; Wed, 21 Jan 2026 13:41:01 +0000
+	id 1viYTN-0000Eu-Ox; Wed, 21 Jan 2026 13:42:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209786.1521705; Wed, 21 Jan 2026 13:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 1209800.1521714; Wed, 21 Jan 2026 13:42:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viYSD-00084r-7p; Wed, 21 Jan 2026 13:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 1209786;
- Wed, 21 Jan 2026 13:41:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1viYTN-0000CA-MH; Wed, 21 Jan 2026 13:42:13 +0000
+Received: by outflank-mailman (input) for mailman id 1209800;
+ Wed, 21 Jan 2026 13:42:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dypz=72=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viYSC-00084l-JZ
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:41:00 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0d1657f-f6ce-11f0-9ccf-f158ae23cfc8;
- Wed, 21 Jan 2026 14:40:57 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso8553265e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 05:40:58 -0800 (PST)
+ id 1viYTM-0000C1-Qi
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:42:12 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc90b268-f6ce-11f0-b15e-2bf370ae4941;
+ Wed, 21 Jan 2026 14:42:11 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-42fbc305914so5363453f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 05:42:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4356997e6cdsm38148531f8f.31.2026.01.21.05.40.56
+ ffacd0b85a97d-43569921facsm35233789f8f.5.2026.01.21.05.42.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 05:40:57 -0800 (PST)
+ Wed, 21 Jan 2026 05:42:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0d1657f-f6ce-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: fc90b268-f6ce-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769002857; x=1769607657; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769002930; x=1769607730; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FIHjcHzlX+JKkZyWGPWJkD7XCPOEBDcAXVZ3w2QFXKI=;
-        b=C7eqYl/1z27ocDUBbB1T/hnqUTmAQvfGHHUw7abW3nD8fb/7ol7CbWo8j5Cn8CsU8A
-         MGMTmZpEVlSQyItV2+X22xI1F6pzx/5lPgvBlFAaez7TV64L2CH6wKJWxiMMKDX0+l1g
-         0aiy/9rS6Wg5zqYbumCTRGPgVRVkBQ/sTqsQpYUevV6ZSOOdLawIngwKNTKpwX4zqiYR
-         rpKYd5L+snK+H1OOQ2LNXHY0Y011OXRQegyjb2ZuZKcz3+CboFvK2/4dJwNxGsVGRelI
-         q02+1Yivu82zfd3m5hF1HxCNecshVIKIuG7OVEhLgKAE+QSRwjnuf4nLL7HU+ozoWtdE
-         NY8A==
+        bh=cs5bIakwvvdAUWgATm5aIb+v+sRloirld+uTq/fbZLM=;
+        b=A0H4LPkouQUMxDrR2z47aVg3jLDeHicZTlWHhSwhX9y2LOR1m6xz2OugGaz2vkInEP
+         yTVjFW+1LX4NSU6E2WGOo1o/zfOIP0Rt4+KTZgUHqWOtBDn8NL/7dWD2j0yK8TJ2HlnS
+         qPmnm49Fvav0JcalZfu6W7xYzGrGSs1tBrLJlqXqQ+9ZAd0Nz5Vj9gfrws0IyyIqMzZZ
+         yPGQc+qSWykeDbj9WgKIlINZcb54WgHkjyrEAxB+GXhZDGgkTbV3T3gLJ+SEbenxjtDK
+         JQHK0xCbU664crU60ydZd72RxNSc00QHUAVjEhekxK3/6I98RTWuZFOJzOdDdJwtohPw
+         cxeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769002857; x=1769607657;
+        d=1e100.net; s=20230601; t=1769002930; x=1769607730;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FIHjcHzlX+JKkZyWGPWJkD7XCPOEBDcAXVZ3w2QFXKI=;
-        b=EcQnX/n5exuGngNxf9Qm6OMhvutKwZUm1bTZOL3dPjmlkTYx3qCUh3SBBIQuhHIstD
-         tePZFxVwYKzqyZbq/Ah2opnwZhHkjCl5d8EUSn3aX2LUlU6if1EPFgCY835vY1McauHH
-         FakrC03c3woXzYXN2LLZmk69G3w5zwC+feVdCqoZVYafVoF+U3cyL19imuZcCOZphQ5O
-         0lPn2SI5H+SfpROvo7UohKsgt+x0d7IiIgg0LSW6Oc6OZTsZjTnB7Z1Sm1YWQr26+yJN
-         qLtlAbJ3W6XYK3i/0Q/Ks3aXzSqxv4pvU2DoxzQ8B9BqMouZZ+5FttTrkNzaQApK8iF9
-         gsfA==
-X-Forwarded-Encrypted: i=1; AJvYcCU8+0XQfw+HJrgd66PzMJvZjBzMkLy3f6pSBF2RQk9HbqiF/jjZ42nGjp56F/9ENBTrlFx4cxgC6rk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZpJRh/61t1Aq7UfxEOdDVcDskJjbRQ1iIq8LXJKgNKGyJcpm1
-	K5RfvLaQXZBgLK3vga/hiWH+FmlnesWvOAU6E12xlr2Kd9d7T3Q60Ic7O+vMWg+ZqQ==
-X-Gm-Gg: AZuq6aLAxYEOoQtcExxx1KkZajwSqxmi1QutX6dZTORG3Luzk6f9nors9oKJmoMlfHU
-	EDfJcCskdsuqfoKBDSul6LK7ESu5zXiret+qtIliRIG72WyU2I2aHxFkJhkthCL1o4JXOd8BOtJ
-	1SN+n+4GKGqyX9w6ObLLLG0yF6aBlxjWPshql8vEQzmbMcxYNxvsT4iyviHHu3mqEswPlPYmHMt
-	DY9ssZH0dgYujWXPelytEka0s53K2pe6mYdLZWRPgeGMxdTmZ1GTu9UbS4ww2aNCaRF4ZWc8iu+
-	hJHYwA6rxCZBY6PU2hQ6IwAq9taJSEdg7LEbOXCGEh1lRUJCCUfHYQsENhs0hsiizoLNUxuYI0x
-	k2mFskQHLX33vFDC1SIgzAGzI2f4862bUdhHGTnW3MflgSw4dB8xMc0I9d4vtPOdlsGK2D5F/hz
-	jwQZkzBWbKZngkjMoigUGMgF7TqsBnv87XJ9qAtvZ2YSedKi3+LxylMfM62NrvVieKkoXtOjUNj
-	7pNbROhs0DwAA==
-X-Received: by 2002:a05:600c:3e08:b0:480:1c1c:47d6 with SMTP id 5b1f17b1804b1-4801e53c069mr224552965e9.6.1769002857453;
-        Wed, 21 Jan 2026 05:40:57 -0800 (PST)
-Message-ID: <2dc8f5e0-5fa3-4165-88bd-be4246989817@suse.com>
-Date: Wed, 21 Jan 2026 14:40:55 +0100
+        bh=cs5bIakwvvdAUWgATm5aIb+v+sRloirld+uTq/fbZLM=;
+        b=SO/iyRXXuDt7tMPNtH1sJkck+Lr6rC2UNBuBJNVhnzqiQCkBU4XuuiJQSwe103Nnxk
+         /kkNmSWH+OSRO6ui6M0jRiq5mqmgjUfAKIUHC3R2IToR1E6mIgo0H1WRmTUzLGEZYPnp
+         5qhPJe/YExQ4iAjmqI8cQSp7Ttaf5KOJm4pWQsbpx8AJGoUGc5+BBGjd4hoBa+yuFUez
+         kGQEtgQSon8o5ruV2u7f4xU+izMgijZK/qW8qB/Lhr7bR0dRGTz0Txi2VR2aLrcXb9bs
+         NQS9ZaqnzpvQ1tmEtweHibfYsPudtXzEJ/YHTnNG3h+VI6DF6iNdiXOZQZ1CEpaeierz
+         15Lw==
+X-Forwarded-Encrypted: i=1; AJvYcCU73MewJWgkeSYtGnZkxf9LNW0Rwxs9MfuhzpPC/dg27EeGtnx5Rm9Nx7ufoNDjylqbD0h7Ky4ap5Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyTf7p+fP6bcXv4poJc7GAqomlz5c0r409GACIN9yMX1owu/u9u
+	dAimXvKkta4Ce0utoluqAI9JXWDluTnc9fGf00WCezeCqHY2EwxJa3lag6PcuTV9FA==
+X-Gm-Gg: AZuq6aI7M+9HePpNPsUh9kjB+p/SffByxkRwGTtTkvm1RPG0mofaoUpe4mp93NUy28h
+	X37TtNkaHJRuXPUYRBFBsOsN8MWajFqvROxSeIek6+Q/HUMqXlBU7pBudM32DupyhD9Qd5w6G+5
+	S3tvnhPW1mhY67W3h3Kq/kBN/PWTs7uGnwEcWzU47hPPN6+kNfYkKeE+VpPgEtY1RO8hwyacd41
+	tHZYIO1NBy+BGoR4lU07zu598+e8aoI+k3mzcrg3jNZCYdqj/qcw3lceFJYXxkdN6Z+EHNkZ70r
+	mWsCo01M4AFpzVy1kW9kayihDRfoy2xX5uK43Ye01iArKpT7pmbxvKUQp0zpbs/jxHRKRwnLKgO
+	tte6uRgrt1+W4Dyo1UTLjRoYaavFfnWYvmy52dp1/jesZbYTUwYBiu3f3IS5LKU47WP3jrINxBV
+	zjICwrIwU0YTklqiXRtD1HWMlZ9ER0Kmof3jZ2J3tzPnoChGqkO8IF14t3jvWrqQyHxthBCGlgO
+	XM=
+X-Received: by 2002:a05:6000:208a:b0:430:fd0f:2910 with SMTP id ffacd0b85a97d-4358fed868dmr9707003f8f.26.1769002930333;
+        Wed, 21 Jan 2026 05:42:10 -0800 (PST)
+Message-ID: <a5389c57-d924-47e2-a76a-baef4d8ef690@suse.com>
+Date: Wed, 21 Jan 2026 14:42:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/amd: Fold another DE_CFG edit into
- amd_init_de_cfg()
+Subject: Re: [PATCH 2/3] x86/amd: Exclude K8 RevD and earlier from levelling
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20251202105710.1472927-1-andrew.cooper3@citrix.com>
- <20251202105710.1472927-2-andrew.cooper3@citrix.com>
- <55f40e49-027b-4162-94f0-54573fb1abc0@suse.com>
- <a7b124a6-6d92-4713-89e5-f608de7ec45a@citrix.com>
+ <20251202105710.1472927-3-andrew.cooper3@citrix.com>
+ <7d019929-24df-4523-9817-6c17017c2320@suse.com>
+ <4762dc23-cf30-43b0-ae19-fceabea5d8c3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,12 +126,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a7b124a6-6d92-4713-89e5-f608de7ec45a@citrix.com>
+In-Reply-To: <4762dc23-cf30-43b0-ae19-fceabea5d8c3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -143,10 +142,10 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:email,suse.com:dkim,suse.com:mid];
 	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -160,103 +159,30 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: CBD7457A77
+X-Rspamd-Queue-Id: 400E757A9C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 21.01.2026 12:46, Andrew Cooper wrote:
-> On 08/12/2025 9:17 am, Jan Beulich wrote:
+On 21.01.2026 12:52, Andrew Cooper wrote:
+> On 08/12/2025 9:25 am, Jan Beulich wrote:
 >> On 02.12.2025 11:57, Andrew Cooper wrote:
->>> Fam12h processors aren't SMT-capable so there are no race condition worries
->>> with this path.  Nevertheless, group it together with the other DE_CFG
->>> modifications.
->> With this, ...
->>
->>> Fixes: d0c75dc4c028 ("x86/amd: Fix race editing DE_CFG")
->> ... isn't this more like Amends:? Aiui this wouldn't need backporting.
+>>> Between RevD and RevE silicon, the feature MSRs moved location.  This property
+>>> is highlighted by the suggested workaround for Erratum #110 which gives the
+>>> two different MSRs for the extended feature leaf.
+>>>
+>>> The other feature MSRs are not given and while they're easy enough to figure
+>>> out I don't have any K8's to test the result with.
+>> I can see where you're coming from, but shouldn't we then first document those
+>> extremely old models as unsupported in SUPPORT.md?
 > 
-> This does want backporting.
+> Not especially, no.
 > 
-> d0c75dc4c028 explains how it's buggy to have multiple pieces of logic
-> writing to DE_CFG, and here's yet another one.
-> 
-> It's only a latent bug because Fam12 doesn't have CMT/SMT, and this
-> property is not discussed, meaning that the logic as-is comes across as
-> unsafe.
+> There are Intel CPUs with no levelling capabilities at all, that have no
+> (non)support statement.  The levelling on most AMD CPUs is incomplete too.
 
-Hmm, this last part again leaves me with the impression that backport isn't
-strictly needed. (We often don't when addressing only a latent issue.)
+Hmm, true.
 
->>> --- a/xen/arch/x86/cpu/amd.c
->>> +++ b/xen/arch/x86/cpu/amd.c
->>> @@ -920,6 +920,13 @@ void amd_init_de_cfg(const struct cpuinfo_x86 *c)
->>>      if ( zenbleed_use_chickenbit() )
->>>          new |= (1 << 9);
->>>  
->>> +    /*
->>> +     * Erratum #665, doc 44739.  Integer divide instructions may cause
->>> +     * unpredictable behaviour.
->>> +     */
->>> +    if ( c->family == 0x12 )
->>> +        new |= 1U << 31;
->>> +
->>>      /* Avoid reading DE_CFG if we don't intend to change anything. */
->>>      if ( !new )
->>>          return;
->>> @@ -1201,15 +1208,6 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
->>>  					    smp_processor_id());
->>>  			wrmsrl(MSR_AMD64_LS_CFG, value | (1 << 15));
->>>  		}
->>> -	} else if (c->x86 == 0x12) {
->>> -		rdmsrl(MSR_AMD64_DE_CFG, value);
->>> -		if (!(value & (1U << 31))) {
->>> -			if (c == &boot_cpu_data || opt_cpu_info)
->>> -				printk_once(XENLOG_WARNING
->>> -					    "CPU%u: Applying workaround for erratum 665\n",
->>> -					    smp_processor_id());
->>> -			wrmsrl(MSR_AMD64_DE_CFG, value | (1U << 31));
->>> -		}
->>>  	}
->> Are you deliberately getting rid of the log message?
-> 
-> Yes, it's basically line noise.
-> 
-> Most errata like this are not handled at all, and this is not overly
-> noteworthy.  If it were at debug level then maybe, but certainly not at
-> warning. 
-> 
-> Fam12h were rare in the first place and are museum pieces these days.
-> 
->> And I assume it is deliberate that the adjustment no longer is done when we're
->> running virtualized ourselves?
-> 
-> Of course.  It's pointless, and a readback would show that the write had
-> had no effect.
-> 
->>
->> Both imo want making explicit in the description.
-> 
-> I've updated the commit message to:
-> 
-> x86/amd: Fold another DE_CFG edit into amd_init_de_cfg()
->     
-> As amd_init_de_cfg() states, it's only safe for there to be one location
-> writing to DE_CFG.  This happens to be a latent bug rather than a real one
-> because Fam12h CPUs aren't SMT-capable.  Nevertheless, group it together
-> with
-> the other DE_CFG modifications.
->     
-> This removes a printk() which is not noteworthy, and skips the adjustment
-> entirely under virt, where the attempted write wouldn't have stuck anyway.
-> 
-> Fixes: d0c75dc4c028 ("x86/amd: Fix race editing DE_CFG")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Thanks, this reads good to me:
 Acked-by: Jan Beulich <jbeulich@suse.com>
-
-I'd like to understand the backporting (or not) aspect, though, in order to
-properly know whether to pick this up once you put it in.
 
 Jan
 
