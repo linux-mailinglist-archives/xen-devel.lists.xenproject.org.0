@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0NfDNBz5cGmgbAAAu9opvQ
+	id aKrmOIv8cGmgbAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 17:04:44 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 17:19:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 347CE59A53
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 17:04:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209989.1521851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523E559C98
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 17:19:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1210002.1521861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viagx-0008GB-OV; Wed, 21 Jan 2026 16:04:23 +0000
+	id 1viav6-0001hL-Tk; Wed, 21 Jan 2026 16:19:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209989.1521851; Wed, 21 Jan 2026 16:04:23 +0000
+Received: by outflank-mailman (output) from mailman id 1210002.1521861; Wed, 21 Jan 2026 16:19:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viagx-0008DI-Lc; Wed, 21 Jan 2026 16:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 1209989;
- Wed, 21 Jan 2026 16:04:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D6Gw=72=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1viagw-0008DC-88
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 16:04:22 +0000
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c112::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d641adef-f6e2-11f0-9ccf-f158ae23cfc8;
- Wed, 21 Jan 2026 17:04:19 +0100 (CET)
-Received: from CH5P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::21)
- by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
- 2026 16:04:12 +0000
-Received: from CH2PEPF00000149.namprd02.prod.outlook.com
- (2603:10b6:610:1f3:cafe::cb) by CH5P223CA0016.outlook.office365.com
- (2603:10b6:610:1f3::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
- 21 Jan 2026 16:04:10 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000149.mail.protection.outlook.com (10.167.244.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Wed, 21 Jan 2026 16:04:12 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 21 Jan
- 2026 10:04:08 -0600
+	id 1viav6-0001ft-R1; Wed, 21 Jan 2026 16:19:00 +0000
+Received: by outflank-mailman (input) for mailman id 1210002;
+ Wed, 21 Jan 2026 16:18:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dypz=72=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1viav5-0001fn-32
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 16:18:59 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3614264-f6e4-11f0-b15e-2bf370ae4941;
+ Wed, 21 Jan 2026 17:18:57 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47edd6111b4so343695e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 08:18:57 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47f4b2755absm484644635e9.15.2026.01.21.08.18.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jan 2026 08:18:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,256 +50,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d641adef-f6e2-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UrpsPhY7QmaH09+jujG50Xrz5PlD45ozhcUva6jgNwdp0hRLc84lmIIMlT8DKv+UnSl2Kkd+j6ugIlm/bNg5tNIcyFofKuHC3BtxT7WdeXYETcZkH6UgnRC4zGFXQMpxxuCy9OUDZemIWqA9lPrL2pUnfpeIDgzHVVhjMPdjcAF/1ouYvJY6tCEaRC1l98OScM5qdHLyNTIkkcEbOV+AfQukGE1fxZzARB7NjhqrPP/6dpe1iP4rP5/0PTCFvRZ3qL9SfWhyYO7ZVDmz99I0CutwRLF0fH08M2JZ6IoyY5dGZx+HcnbFavy5VeP7Gf0lNVZdnn9QuTpPZ0WHD/KM4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=78r8h8ctwyWiwA+WDjonPYBlUeIDTZEOTkJ7K9cXGZI=;
- b=ovPLFmoEt7W2/HETdXe7d25FdBcjoLEK1y3jpDXWWfrT0cG0hA3c74bv7skYmFthN6eqHlabqs1F0XYpdUxVI1kuCZeAMY1+8gAtuuGo6cPtuXzXkjETnS0zGhzW9r76l4+S8dVC7wCVmVWsUOkhHvUIM/d/a/sRA8/ougK8uWT11DhslC929CPykDL0nZMCE/DwMA8al67hby4XuPpeFIkzmrKaNvcCbs9TK2Fv5t07tZRr1mMPYJ3PgfOaShAX3awTFVsxaMpmWZjmySRWs8RCv4AvMBiQDuGCvtEQcT8zB9qAWt3HtcTw5Nutg+eMqjztgCyPsMeaD7kLR6Ku0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=78r8h8ctwyWiwA+WDjonPYBlUeIDTZEOTkJ7K9cXGZI=;
- b=kFCb1hZUfn6Xow5t5Vgg1mWoL/obeQWMwLRbuYsY8CDEKmFQEUoVCC7E4Q5XSCtpUtfel5bAnJed7Y2EDjk88MkN7m5t40h8bIAANxqJPYerHyHWxhlDrIAMzPDOfb+yAHBnl+AEDfv38c6tYGiTd6/6hF5cwOME8JJhVbZ/hEs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: e3614264-f6e4-11f0-b15e-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1769012337; x=1769617137; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OP0CG/u1l6e0yIA6ogjxbsWgPalv04WrU/mmRvS/0xk=;
+        b=HOassdZrXbr/fxhYneBYM89f+vx0c36SFMSpLcS8fFNoBqIZAAKWvlk50LOK519lFM
+         R8oPvrTU4qi23lifMhZKaRk20d6fwVfAKQ8fZF35/ki0yW6Ln3Em+aI0ZTubDR2U98V/
+         aFwZZdBMxqp1QOkqEUj8XmdX33gr0GVKuaQ0HNytzpt3vGj9vskwO2S0CIeQWXyGeJTU
+         gpwghAJvcpDS6yAAUG9mn9+5o7baOCpO/EfZn8IaHAFiBHlBPkqp6EFWlakAPZgF25b5
+         nzrmuJ8F4ZDSZydooRLhdZUw57g3Mtf5Xmb23PzGPjWbbuqbBnPXTjpmj174nEBXdFQN
+         uvPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769012337; x=1769617137;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OP0CG/u1l6e0yIA6ogjxbsWgPalv04WrU/mmRvS/0xk=;
+        b=WjOB8hWu5xq40PMEsmrN/WBdxh3gAKXZSQHYjkXaWB/Jc7NMLHdxkgGxjZ3Wpa0XIs
+         KPODZMLLp/F7tVJGyBtQPCOD5X3sDeFF3CUMqcW9ReudYUPujYD1CEiLl0Ty2pCnHQD6
+         FsI/0CCvBC27T12F63MtQW98m+rTTbEHN1BswTTy0z4naBK+Y0iXNkulOSQGEXU1Xc3M
+         hteocSDShPqV5uGypR9O3IECJEPXBMxQP9qHWGoIuH7ZQBvUYruRdc/11QS/hhRahjI4
+         mN0W0U5yla1AFAmF34Lanbz8q6H1uBfipLNFjPfai3iDHzxRNvl9fXZZqnJEwp6DWXgz
+         oVaw==
+X-Forwarded-Encrypted: i=1; AJvYcCXWi8/sGcreypb0Sw1LZ4yEI6IOl7pxcovSYxubBgyrz2jQ2kGOtca1wlY2xth+bz+0IAht+RXkNHs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyElLl9P4jt7PgYI3xENq2bXrsEZq85Bt6RDisWavB/yC1EYB1b
+	1UoSG0aC0sl/BUEkik2A6Y7+4/HWFijHAOHYpX4yjv6gKfJACTO57FdnGIxw/xApCQ==
+X-Gm-Gg: AZuq6aLPM+Fqsn7Ubt1r+BBaqtn/jxvWttNRKC60/0b+2wFADzulMBsTMDBbPVyCLKr
+	d8nXP9bh3ONQfc80oIVaOq32nP24Z/VgaXExYfnoI9ivIPCbzOM+12egXd3uN0+bcwJyHPocqgX
+	8eVBddYhwKzYLxlPXbONzEVa8zoXzljlbGRvwKA5Dj+ejHWhJqTNFmqqYzxKZUC/10pSTJLbAlP
+	dJ52DG5GruaI078zwsqIPsOQ3PnidWwXRgRd8eyNjr3qX8CRr0lHngEi7BovoBmZDFm1KCVlApw
+	4Dk/bzUz2TSvOufXMzc6C7fCN9CzeRLk1PiXeIzoxcUDdQYeWhiifJJd5+5h2GnNBQp4hCgCbku
+	Dk9sL8kOGo4VT6r3J3Bnah1C3k7NwO2vpZCEj4G0n0q6Mm/2g/FS7gmVjox0aASTCMkZ1Rhs96B
+	B+ad+fakdRIsULanJoFINtroQRYy1l/qwfbfAA7TtvQkAPUaTtRHBNVQDKlct8Gc7VbCvO1hV8m
+	Qw=
+X-Received: by 2002:a05:600c:1991:b0:47d:6140:3284 with SMTP id 5b1f17b1804b1-4801e34b5a7mr217830685e9.37.1769012337137;
+        Wed, 21 Jan 2026 08:18:57 -0800 (PST)
+Message-ID: <873867dc-79d8-4ed3-94f7-1c7823db7957@suse.com>
+Date: Wed, 21 Jan 2026 17:18:54 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 21 Jan 2026 17:04:06 +0100
-Message-ID: <DFUE7ZHTJAWY.3GAAA7OQAMTQX@amd.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v2 2/3] x86/svm: Intercept Bus Locks for HVM guests
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20260121142857.39069-1-alejandro.garciavallejo@amd.com>
- <20260121142857.39069-3-alejandro.garciavallejo@amd.com>
- <7fbc3acf-b878-4a82-bc08-89b91fb9aca6@citrix.com>
-In-Reply-To: <7fbc3acf-b878-4a82-bc08-89b91fb9aca6@citrix.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000149:EE_|CH3PR12MB7641:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d01eb6b-d7d8-40ba-81e0-08de5906b7cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UVk5TEl4VGR2bGRrTytHVHFpUU85K3dKekxIZzUzbm1JRXZiTmhmQUpEdmdF?=
- =?utf-8?B?aEFudXFrTElqeGFUN0JmVTVtU3MyUXJjVE1SUk1IRXI1STJOdS9vTjRZNkpJ?=
- =?utf-8?B?N0NXeWJjSVl6aDlvR2R4TjltcVE0elNVVXNkK2p1d1NzTWNMZDRxRnBSSXMz?=
- =?utf-8?B?ZmtKTzQwc2tjSW1tcVN3TUxmRmt3VU9MbkxlZ0I1cTZ3cW5vMnNjeXhWWElk?=
- =?utf-8?B?RXR5Mm96Mm15Mk95UmVrREM5VDUwR1hrUHNEUVlZQzRiS3RPdjZVUzNCcUw4?=
- =?utf-8?B?NWhwY2pMVUJ3TjkzNFpYZmExZ2FmeUxZVFVNbzFGc1h2dnQ2T0hqaitUZlBy?=
- =?utf-8?B?NThRN2ErcXoveWpya3dHNzFObzVCd1RzMmwxaFJsVGhFeENtOVQwczVaWTQ0?=
- =?utf-8?B?eHA4NTE2dE12WU9VSU9weDNQa1BNeXZBcEZ1OHFUaU44T2RLVHN3djdSK0tx?=
- =?utf-8?B?K2Q5QjMrMS9GbHBBNGRHdFBXaXd4bk0reFVRREROSkxFUnR4MUJpNnBWVzZa?=
- =?utf-8?B?dEhoT1k2WS93SFdrblNGVERMeG03WEhIbWRxdC9YNzcxOGN2QXR0Z1N2RklU?=
- =?utf-8?B?WHc4Tmt3UHhJZzRpVjlvZitBWDRJQmEyNmN0RDNlVTkyTlkya3VQeGRYZit4?=
- =?utf-8?B?bDFmUDFzMytMZkdyT2xEcElhako1RUx5MUsySnU1ZkU5V2ovWnR4Vkd1NkNy?=
- =?utf-8?B?WFlWOEI5Tjc1dmM0V0RlSW8zZXAyL25yMHRFTzY0VTl4djBueEtxSnptYitU?=
- =?utf-8?B?OXd2MzJ6VzZxbXk1N3VqNGl0UXJ2eWhGT2dkdkI4REdrSStsSjhtckR5bFdu?=
- =?utf-8?B?N2Z0R0QyaXQ4Y0I2a2NmajhKSDcvR20xcEJ5L05SNnM4RktEM2FRc0dOY2U3?=
- =?utf-8?B?eG41UHVEaVJOSS9CM1Bxc05Yc0xMV0hOclg2dE5hb2lQTkY2WjhlSkttZVNl?=
- =?utf-8?B?Q094NzR2WkIxK0VGdW5Wc1BpSUYyaFEzKzMrSWF2VTlCTUE5TTVBWmU1d0Z4?=
- =?utf-8?B?eHBySHJhRzZjZE1jcHJhM0YwbE8xSUNtZ21DNzFXUk9iNmp6KzdtMk1PRnRS?=
- =?utf-8?B?S1VhSmZmUUNXbmdnZGhzMVowcGl0OUNhaS9kMFRIcksweUZvR1NiTFRTUXVE?=
- =?utf-8?B?NjdvTnZ0LzlHdmMrb1Z6MU8wdTNSamVNWlJjZW4zaG5MTElBMWdjQlZkd0Uz?=
- =?utf-8?B?N2llbllOb2Z4ZExXN1p0Mm9Ta2hBbkoyTkxndXEvUFBQZlFnQzArNzhjNTVT?=
- =?utf-8?B?Y0w3NzB4NHVuMWYxM296VkIrOVdaZkJyZmFoSHRpR1hVOEhTOFI2K2RqTXQ0?=
- =?utf-8?B?OWovYWxvNW00Y3NxL0VleXArbkdvTlJjT0FvN3FKSEN5SkV5N2JCY1k0RUtD?=
- =?utf-8?B?QTBwRjRCdFJVeDA2eDhxSS9KQmdGRWRWMjJoU1VkUnZkMk1ybnFVcHFvNFR3?=
- =?utf-8?B?RWFtbEFSSE4yalFjYVR6SG5BOFc0YVpMNC8xYmd5S0ZYV2g4RFdzeEhTbWt3?=
- =?utf-8?B?VHZncDhKZ0RPYWM0RTR1OThxMFRaRGx5R3NxSTVkUk50MmNhcWg4YzdKaGZz?=
- =?utf-8?B?SS9NZ0F6RlM0dkliZW1IazUzMWNsMno2RS8rVDBXbmZRQ0lTTC9EeEcvZlZl?=
- =?utf-8?B?eldUTHVJRzFPZDZPUFRTWlpBLzYrcVhmOGlVR0JNODhnNmZKcERzSmgrUTI5?=
- =?utf-8?B?aDZqUjUrSFp3dVVJaE5QaVc0QzlWL1ZTYUU1NEl3S1NNNU9HUmIrU0JWTDZu?=
- =?utf-8?B?dWtuZnh4RXNNYnBwNkpzVGFSK0NiSjYvSGtUVmFBS2w1cGlZZ1lOQ2F2WFZC?=
- =?utf-8?B?K2pPWTRRakJLejBnVkhqRW5wUDRYajUya3J6WGtoQmFsWDdISXl0YmVtdHE1?=
- =?utf-8?B?cnB1QlBmZzhZRVhVdlVqT0NuSVRMQnR2eHFVdEFoa1lONnlQRFRlclJ2bFcv?=
- =?utf-8?B?V0JUWUZsQzJVQlhYTTd2dHU3RUlldGFqQUkyUGFMU0szVnp0ZVNvNmMvQjk4?=
- =?utf-8?B?VzBGYWw5L0hhZCtZNkQ4R1k3RFdrV291WUswNzk5ZnJHazVkYkFGWUhIb2pk?=
- =?utf-8?B?ZllhU2tEc2Y3OUNJVGNFaFBGMW1wVlVPMFNud3FqL0lLY2tac1k3WUVjb3Qz?=
- =?utf-8?B?MmtBaWY0QmZqRjBDaTg2MnpNRTJCUkMrMzYyRjl4OGI3SHY1bGVYSGJ5MEh4?=
- =?utf-8?B?c2I3aUh6bDVCQTNYNXVsS0o2YThDTURwRFdGMmN0cUNxZ0U4dXNERUVoZWdF?=
- =?utf-8?B?b2hEbXNVUlJtU2R3T3BEeEdTL2ZnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 16:04:12.0963
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d01eb6b-d7d8-40ba-81e0-08de5906b7cc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000149.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen/console: handle multiple domains using console_io
+ hypercalls
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: grygorii_strashko@epam.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, Victor Lira <victorm.lira@amd.com>,
+ andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601131638350.6279@ubuntu-linux-20-04-desktop>
+ <63c35c5e-577b-4346-b600-03808306177f@suse.com>
+ <alpine.DEB.2.22.394.2601191522450.7192@ubuntu-linux-20-04-desktop>
+ <32d0a9a2-89df-4e20-8f7a-0f069cbff11f@suse.com>
+ <alpine.DEB.2.22.394.2601201601070.7192@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2601201601070.7192@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 347CE59A53
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 523E559C98
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed Jan 21, 2026 at 4:35 PM CET, Andrew Cooper wrote:
-> On 21/01/2026 2:28 pm, Alejandro Vallejo wrote:
->> Configure the Bus Lock intercept when supported by the host.
->
-> "which is available on Zen4 and later".
->
-> (I think ?)
+On 21.01.2026 01:07, Stefano Stabellini wrote:
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -521,6 +521,8 @@ struct domain *console_get_domain(void)
+>  {
+>      struct domain *d;
+>  
+> +    nrspin_lock_irq(&console_lock);
+> +
+>      if ( console_rx == 0 )
+>              return NULL;
+>  
+> @@ -540,6 +542,8 @@ void console_put_domain(struct domain *d)
+>  {
+>      if ( d )
+>          rcu_unlock_domain(d);
+> +
+> +    nrspin_unlock_irq(&console_lock);
+>  }
 
-I don't mind the addition, but does it really matter for the purposes of th=
-e
-commit message?
+Hmm, I'd much prefer if we could avoid this. The functions aren't even
+static, and new uses could easily appear. Such a locking model, even
+disabling IRQs, feels pretty dangerous. (If it was to be kept, prominent
+comments would need adding imo. However, for now I'm not going to make
+any effort to verify this is actually safe, on the assumption that this
+will go away again.)
 
->
->
->> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
->> index 5d23603fc1..abda5a9063 100644
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -2524,6 +2524,7 @@ const struct hvm_function_table * __init start_svm=
-(void)
->>      P(cpu_has_tsc_ratio, "TSC Rate MSR");
->>      P(cpu_has_svm_sss, "NPT Supervisor Shadow Stack");
->>      P(cpu_has_svm_spec_ctrl, "MSR_SPEC_CTRL virtualisation");
->> +    P(cpu_has_svm_bus_lock, "BusLock-Intercept Filter");
->
-> "Bus Lock Filter".=C2=A0 The Intercept part isn't terribly useful.
+> @@ -596,8 +604,19 @@ static void __serial_rx(char c)
+>  
+>      d = console_get_domain();
+>      if ( !d )
+> +    {
+> +        console_put_domain(d);
+>          return;
+> +    }
+>  
+> +#ifdef CONFIG_SBSA_VUART_CONSOLE
+> +    /* Prioritize vpl011 if enabled for this domain */
+> +    if ( d->arch.vpl011.base_addr )
+> +    {
+> +        /* Deliver input to the emulated UART. */
+> +        rc = vpl011_rx_char_xen(d, c);
+> +    } else
 
-sure
+Nit: Style.
 
->
->>  #undef P
->> =20
->>      if ( !printed )
->> @@ -3087,6 +3088,11 @@ void asmlinkage svm_vmexit_handler(void)
->>          break;
->>      }
->> =20
->> +    case VMEXIT_BUS_LOCK:
->> +        perfc_incr(buslock);
->> +        vmcb->bus_lock_count =3D 1;
->> +        break;
->
-> This needs an explanation of the behaviour.
->
-> /* This is a fault and blocked the Bus Lock inducing action.=C2=A0 We're =
-only
-> interested in rate limiting the guest, so credit it one "lock" in order
-> to re-execute the instruction. */
+> +#endif
+>      if ( is_hardware_domain(d) || IS_ENABLED(CONFIG_DOM0LESS_BOOT) )
+>      {
+>          /*
+> @@ -613,11 +632,6 @@ static void __serial_rx(char c)
+>           */
+>          send_guest_domain_virq(d, VIRQ_CONSOLE);
+>      }
+> -#ifdef CONFIG_SBSA_VUART_CONSOLE
+> -    else
+> -        /* Deliver input to the emulated UART. */
+> -        rc = vpl011_rx_char_xen(d, c);
+> -#endif
 
-fair
+I don't understand this movement, and iirc it also wasn't there in v3.
+There's no explanation in the description, unless I'm overlooking the
+crucial few words.
 
->
->> +
->>      default:
->>      unexpected_exit_type:
->>          gprintk(XENLOG_ERR, "Unexpected vmexit: reason %#"PRIx64", "
->> diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
->> index cbee10d046..15223a693e 100644
->> --- a/xen/arch/x86/hvm/svm/vmcb.c
->> +++ b/xen/arch/x86/hvm/svm/vmcb.c
->> @@ -66,6 +66,9 @@ static int construct_vmcb(struct vcpu *v)
->>          GENERAL2_INTERCEPT_XSETBV      | GENERAL2_INTERCEPT_ICEBP      =
- |
->>          GENERAL2_INTERCEPT_RDPRU;
->> =20
->> +    if ( cpu_has_svm_bus_lock )
->> +        vmcb->_general3_intercepts |=3D GENERAL3_INTERCEPT_BUS_LOCK;
->> +
->
-> This wants a justification for why it's unconditional.=C2=A0 Something li=
-ke:
->
-> /* Well behaved logic shouldn't ever Bus Lock, but we care about rate
-> limiting buggy/malicious cases. */
->
->
->>      /* Intercept all debug-register writes. */
->>      vmcb->_dr_intercepts =3D ~0u;
->> =20
->> diff --git a/xen/arch/x86/hvm/svm/vmcb.h b/xen/arch/x86/hvm/svm/vmcb.h
->> index 231f9b1b06..68cf5eaf0b 100644
->> --- a/xen/arch/x86/hvm/svm/vmcb.h
->> +++ b/xen/arch/x86/hvm/svm/vmcb.h
->> @@ -68,7 +68,7 @@ enum GenericIntercept2bits
->>  /* general 3 intercepts */
->>  enum GenericIntercept3bits
->>  {
->> -    GENERAL3_INTERCEPT_BUS_LOCK_THRESH =3D 1 << 5,
->> +    GENERAL3_INTERCEPT_BUS_LOCK =3D 1 << 5,
->>  };
->> =20
->>  /* control register intercepts */
->> @@ -497,7 +497,7 @@ struct vmcb_struct {
->>      u8  guest_ins_len;          /* offset 0xD0 */
->>      u8  guest_ins[15];          /* offset 0xD1 */
->>      u64 res10a[8];              /* offset 0xE0 */
->> -    u16 bus_lock_thresh;        /* offset 0x120 */
->> +    u16 bus_lock_count;         /* offset 0x120 */
->>      u16 res10b[3];              /* offset 0x122 */
->>      u64 res10c[91];             /* offset 0x128 pad to save area */
->> =20
->
-> Both of these hunks want moving into the prior patch, which resolves one
-> of my concerns there.
+> @@ -741,17 +756,23 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>          if ( copy_from_guest(kbuf, buffer, kcount) )
+>              return -EFAULT;
+>  
+> -        if ( is_hardware_domain(cd) )
+> +        input = console_get_domain();
+> +        if ( input && cd == input )
+>          {
+> +            if ( cd->pbuf_idx )
+> +            {
+> +                console_send(cd->pbuf, cd->pbuf_idx, flags);
+> +                cd->pbuf_idx = 0;
+> +            }
+>              /* Use direct console output as it could be interactive */
+> -            nrspin_lock_irq(&console_lock);
+>              console_send(kbuf, kcount, flags);
+> -            nrspin_unlock_irq(&console_lock);
+> +            console_put_domain(input);
+>          }
+>          else
+>          {
+>              char *kin = kbuf, *kout = kbuf, c;
+>  
+> +            console_put_domain(input);
+>              /* Strip non-printable characters */
+>              do
+>              {
 
-Damn it. Needless to say, this not where I meant them to be.
+The folding of locking into console_{get,put}_domain() again results in overly
+long windows where the "put" is still outstanding. As said before, the current
+domain can't go away behind your back.
 
->
-> All can be fixed on commit.
+> @@ -813,6 +835,13 @@ long do_console_io(
+>          if ( count > INT_MAX )
+>              break;
+>  
+> +        d = console_get_domain();
+> +        if ( d != current->domain )
+> +        {
+> +            console_put_domain(d);
+> +            return 0;
+> +        }
+> +
+>          rc = 0;
+>          while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
+>          {
+> @@ -822,14 +851,23 @@ long do_console_io(
+>                  len = SERIAL_RX_SIZE - idx;
+>              if ( (rc + len) > count )
+>                  len = count - rc;
+> +
+> +            console_put_domain(d);
+>              if ( copy_to_guest_offset(buffer, rc, &serial_rx_ring[idx], len) )
+>              {
+>                  rc = -EFAULT;
+>                  break;
+>              }
+> +            d = console_get_domain();
+> +            if ( d != current->domain )
+> +            {
+> +                console_put_domain(d);
+> +                break;
+> +            }
+>              rc += len;
+>              serial_rx_cons += len;
+>          }
+> +        console_put_domain(d);
+>          break;
 
-thanks.
+This is pretty horrible, don't you agree? Demonstrated by the fact that you
+look to have encoded a double put: The 2nd to last one conflicts with the
+one right after the loop. Whereas the earlier "break" has no reference at
+all, but still takes the path with the "put" right after the loop. At the
+same time it also looks wrong to simply drop that last "put".
 
->
-> ~Andrew
-
-Cheers,
-alejandro
+Jan
 
