@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IKyPK/PTcGkOaAAAu9opvQ
+	id yLuvIU3WcGkOaAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:26:11 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:36:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D9757802
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:26:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1209763.1521685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D24B657980
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Jan 2026 14:36:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1209776.1521695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viYDU-0004ot-RK; Wed, 21 Jan 2026 13:25:48 +0000
+	id 1viYNA-0006UQ-MH; Wed, 21 Jan 2026 13:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1209763.1521685; Wed, 21 Jan 2026 13:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 1209776.1521695; Wed, 21 Jan 2026 13:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viYDU-0004m7-OJ; Wed, 21 Jan 2026 13:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 1209763;
- Wed, 21 Jan 2026 13:25:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c8Gd=72=bounce.vates.tech=bounce-md_30504962.6970d3d0.v1-ec6f7ea80c0c48b891d46cce46e4e117@srs-se1.protection.inumbo.net>)
- id 1viYDS-0004m1-OZ
- for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:25:47 +0000
-Received: from mail187-33.suw11.mandrillapp.com
- (mail187-33.suw11.mandrillapp.com [198.2.187.33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac5b29bc-f6cc-11f0-b15e-2bf370ae4941;
- Wed, 21 Jan 2026 14:25:38 +0100 (CET)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-33.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4dx4h02gRNzBsTwB1
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 13:25:36 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- ec6f7ea80c0c48b891d46cce46e4e117; Wed, 21 Jan 2026 13:25:36 +0000
+	id 1viYNA-0006SK-J2; Wed, 21 Jan 2026 13:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 1209776;
+ Wed, 21 Jan 2026 13:35:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dypz=72=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1viYN8-0006SE-Tf
+ for xen-devel@lists.xenproject.org; Wed, 21 Jan 2026 13:35:46 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15ce69a8-f6ce-11f0-9ccf-f158ae23cfc8;
+ Wed, 21 Jan 2026 14:35:44 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-47ee76e8656so78433375e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 05:35:44 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-480424b18cesm22965855e9.4.2026.01.21.05.35.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jan 2026 05:35:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,175 +50,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac5b29bc-f6cc-11f0-b15e-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1769001936; x=1769271936;
-	bh=mxXHzAiccdxttWHerv55pkGSDXmpXkI6NpSj/Q4Ei8M=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ApWmXe1UpmYlF3Q60CTZdKxwK/JVZPftSbCYl5QZ3fhDxRFOZa6hnDc8JnClOf0h5
-	 DnA7KnBJze5YGAb0GsWZXIZmyzlfJ+I4wEVxjwZZEfLmKsr/dx20wiyjbMbrCjSImR
-	 BuLTkLq69VZLg4hfKI21sbx3VrVbraqA1F3opU+zOiw48HLFUObtKkIl6gL1HiCvkh
-	 L+WPhO/DlaahwNqOEVv/FMwp+Fh3au8FTN2p/XJEfid5pcbrZZ/WK0yHGCqdUgOvUP
-	 sS6nE1TR52xbtH2Osbpr28g5CStCwARcmHtJ65WkWhbBN0qt5wV8Ce9JGHl7qb7IFc
-	 GJ36ieQW50h/A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1769001936; x=1769262436; i=ngoc-tu.dinh@vates.tech;
-	bh=mxXHzAiccdxttWHerv55pkGSDXmpXkI6NpSj/Q4Ei8M=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=yj77X/q6ZgWI7+5EbJZAfoGim9u3pSw3XOLTyd+7UM387u9zk2XU0+QBIr1xhL2Ap
-	 V8RbSXoBt0YOKzHXNdn5DPLjmUM1f0Zk9OZTu141TH2Xo7DV+hD7NSRULH6BfjqQbB
-	 snVKir+HSE1eRSAZIwusro567IRKV4aK/F6HQ/t62ffa0KpeH1GRU5cfWPI39rGCH7
-	 Q+svy1akkAjVhCYLhLPBHqkM8YruYTssG+N3p+hrOESUNXBoBvGf0skBvEsg1JWRF2
-	 OYlKSrVlECdaqhJg9TGuUXW4uihmjIw71wp4OxD7qjj2+aTHoxsxSweXnXC0hWsm5R
-	 pUyUPv6jNFRxQ==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20xen:=20Expose=20time=5Foffset=20in=20struct=20arch=5Fshared=5Finfo?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1769001934525
-Message-Id: <6ed580a8-92a9-4e50-9c40-d38db3e3f94c@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
-References: <20260120095657.237-1-ngoc-tu.dinh@vates.tech> <3213454a-38cd-4e5d-8a30-853e37f70c18@suse.com> <cff32c5b-a085-468a-be26-a858244b228d@vates.tech> <7a61a16c-93d7-4cc2-bc47-11e236cf83fb@suse.com> <9df8cf47-d3ec-474e-b1c8-7978e55627d6@vates.tech> <da3811f5-d5cb-4a53-87ad-e29b2cdaadf6@suse.com> <a13594d1-17df-4f45-aebc-b9978f898d8a@vates.tech> <637ad4a0-bc8f-4e75-8906-643f28f94a2b@suse.com> <3bde98b0-5563-4e17-bcc5-c622863d3b07@vates.tech> <169c3509-b2fe-4a5f-8184-0aa9c089ccce@suse.com>
-In-Reply-To: <169c3509-b2fe-4a5f-8184-0aa9c089ccce@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ec6f7ea80c0c48b891d46cce46e4e117?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260121:md
-Date: Wed, 21 Jan 2026 13:25:36 +0000
+X-Inumbo-ID: 15ce69a8-f6ce-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1769002544; x=1769607344; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yQovsb7SCNmMa5eCw3inpi109iAlgBpcsjpnhwrrQAk=;
+        b=bG/xsU2StOraR6lI0GsaHnEFsIrlAu9y48OK2v0G8G/poO3aUodlk+V8xa2Ho116Gs
+         ruTfBqjjTbmpv9LtB4aAGMmZ2EaBraVqSYLcTqm/SojS7CqMQsxS3k3BTi4gwN96XViR
+         LxiU5niCp5yJ/zoJjtVmgYvL14R/Ull81Kc/hsTwvYdDdc8aHisAzSPxkMnk7v2fYOWp
+         Hm8s5pGmTtLU0/7t1TNfVfidD4+JXKovT82tY6ZM2gQrT6xB7bPH9kaCEg/lR8bMUy0g
+         lO/EHEjt76g+O7/pLgws5vU74nLPFfslNznpxA4/r7yOpK/ptxSCvOM9NEf978ue4Chp
+         SzKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769002544; x=1769607344;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yQovsb7SCNmMa5eCw3inpi109iAlgBpcsjpnhwrrQAk=;
+        b=ND10IhlEqoH3qY+b88xtV5d1MVdUeR44ZlIrPZPVxe4vp5Zrk8r5uz2Dku1d26psgL
+         2RDGHTdQPoG+f4WpJWqlucFOBstQVJGe7MCba/qk3vopdwk8jS0fSuldT5x9BxFA6IKF
+         bGGdAstaHhSRvhYB4ZVTAMiHfRWSpI+UO2i8kR1P+OZAAG3JuK83BLiKup0ebrsLLSt7
+         nJrYZKCFHRBjLBecSiu0MRU9M0GpafSKIsrDWNAswyzncbmvjT6G1Vx33BqDnZGssH7n
+         dFUWs8h4zZ28XH+8JjP0D5Vgb1t2u6shNxcBvNJ7xGBNSk5T2e897hkjX4gyb6/iuYqY
+         7EgA==
+X-Gm-Message-State: AOJu0YzeaeYBFDlxPPrhgq/n++5hFi1M9SgM7kykXJoDPkQllk8v4SB1
+	j/u71UbRGMiEIi3U9UhiUYPHo5e8xLBwYw6OnfZJEEZ/YkF8M5oTkOxu/W0hvqZKqXDNFg3DdwZ
+	w9bkKrQ==
+X-Gm-Gg: AZuq6aIv8Ykc5j+aACbAyyXEG5zUva1zyOlvODnQevpitk6NsFLbQzCMPTEIYDbyP61
+	sqToO10NJ7lT1aO34DRSJzAV6cEf9fe1ohdY6aq0xqy5UY9noEjJpYikqOsTXaATfo1a/O/c4aP
+	d43O3u5Zsa0vR1TdYyAb46jtbiOoylX7+2wzM3uiMlVjed/oD1oYm6jeRQ4u5WSdC2N6amys0uC
+	UrwUOrH3y0HmXgkWp0HinUndq1Wvr4EyvM1Enm+146PfC7SCwyQtHfV8IpREVAyhoBDlRZ5Lyyg
+	0r0ZCXSrWcaFz9xwKJ3tjQQpqdcWLhQ17EtnXwvsEbltHv51zgzsKgKUUGZQykvqJ+8TJzoOVHY
+	HFkqQ7h2X8tatZW+OlT6ATfFZf1fpzhqBJKfmXn1nQoEodg/QEiMgQUlBlLpmK6yWtssYyCEYTA
+	8rFqmvsqUF2QR/3+lLgPamxmbCPyKmHfzIalFLwBImXLRYGb4DlwlLN62/WN0CCgfbABNFVPKKm
+	Xw=
+X-Received: by 2002:a05:600c:3f0f:b0:47e:e076:c7a2 with SMTP id 5b1f17b1804b1-4803e7a2d74mr85355355e9.15.1769002543654;
+        Wed, 21 Jan 2026 05:35:43 -0800 (PST)
+Message-ID: <f9b04a4a-4ed5-40d7-a852-9a30db179c18@suse.com>
+Date: Wed, 21 Jan 2026 14:35:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: Ping: [PATCH] flask: fix gcov build with gcc14+
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <875df90d-1d3a-416b-a958-3d3a31144f85@suse.com>
+ <0e188989-9190-4f3b-9c45-f4e3d460daca@suse.com>
+ <DD50FA01-2162-4009-8D60-9F6D0DAD3C35@apertussolutions.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DD50FA01-2162-4009-8D60-9F6D0DAD3C35@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	FORGED_RECIPIENTS(0.00)[m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,gnu.org:url];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 14D9757802
+X-Rspamd-Queue-Id: D24B657980
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 21/01/2026 14:06, Jan Beulich wrote:
-> On 21.01.2026 14:02, Tu Dinh wrote:
->> Hello,
+On 21.01.2026 14:14, Daniel P. Smith wrote:
+> Apologies, I've been on travel for the last two weeks and I wasn't comfortable acking this with just a read of the diff. The thing that bothers me that I want to understand better is why only after the else does it worry about null terminated. Additionally, stepping back, a casual reader of the code is going to wonder why only after some reads into the buffer does it need a null while others do not.
+
+I'm curious to know of an example or two which you refer to here, as ...
+
+> I think most people would find that as a red flag that an underlying issue is getting papers papered over. I will be back from travel this weekend and I will sit down and review with more context. 
+> 
+> V/r,
+> DPS 
+> 
+> On January 19, 2026 8:50:02 AM CST, Jan Beulich <jbeulich@suse.com> wrote:
+>> Daniel,
 >>
->> On 21/01/2026 10:17, Jan Beulich wrote:
->>> On 20.01.2026 17:06, Tu Dinh wrote:
->>>> On 20/01/2026 16:39, Jan Beulich wrote:
->>>>> On 20.01.2026 16:27, Tu Dinh wrote:
->>>>>> On 20/01/2026 13:42, Jan Beulich wrote:
->>>>>>> On 20.01.2026 13:12, Tu Dinh wrote:
->>>>>>>> On 20/01/2026 11:35, Jan Beulich wrote:
->>>>>>>>> On 20.01.2026 10:57, Tu Dinh wrote:
->>>>>>>>>> time_offset is currently always added to wc_sec. This means that without
->>>>>>>>>> the actual value of time_offset, guests have no way of knowing what's
->>>>>>>>>> the actual host clock. Once the guest clock drifts beyond 1 second,
->>>>>>>>>> updates to the guest RTC would themselves change time_offset and make it
->>>>>>>>>> impossible to resync guest time to host time.
->>>>>>>>>
->>>>>>>>> Despite my earlier comments this part of the description looks unchanged.
->>>>>>>>> I still don't see why host time (or in fact about any host property) should
->>>>>>>>> be exposed to guests.
->>>>>>>>
->>>>>>>> I've answered this question in a followup reply from November, which
->>>>>>>> I'll reproduce here:
->>>>>>>
->>>>>>> I did read your reply, yet nothing of it appeared here as additional
->>>>>>> justification.
->>>>>>
->>>>>> Is the new description OK for you?
->>>>>
->>>>> Which new description? So far I only saw your responses to my questions, not
->>>>> an updated patch description.
->>>>>
->>>>
->>>> Maybe my last email wasn't clear, it was in the part marked "Follow up",
->>>> reproduced below:
->>>>
->>>> Xen currently does not expose the host's wall clock time in shared_info.
->>>> This means while shared_info can be used as an alternative to the
->>>> emulated RTC, it can't be used to keep the virtual wall clock in sync.
->>>> Expose the time_offset value in struct shared_info in order to allow
->>>> guests to synchronize their own wall clock to that of the host.
->>>>
->>>> This is needed because on Windows guests, the PV drivers don't control
->>>> the timing of RTC updates, as this is done by the kernel itself
->>>> periodically. If the guest's internal clock deviates from the RTC (e.g.
->>>> after resuming from suspend), a RTC write would cause time_offset to
->>>> deviate from the supposed value (timezone offset) and thus cause the RTC
->>>> to become incorrect.
->>>
->>> What I still can't extract from this is why Windows running bare-metal is
->>> fine but Windows running on Xen's vRTC isn't. If there's a problem with
->>> our vRTC, shouldn't that be addressed there?
->>>
->>
->> In this case, it's not because the vRTC emulation was wrong, but rather
->> because Windows's internal wallclock is not Xen-aware
-> 
-> And it shouldn't need to be.
-> 
->> and needs to be
->> synchronized after some Xen-specific events. So it's more of an
->> accommodation for Windows guests.
->>
->> Also, Windows timekeeping integrates closely with its internal time
->> service, which assumes a NTP-like interface (and thus an external time
->> reference). The current way of time synchronization in the Windows PV
->> drivers doesn't work well in this model, which is why I'm looking for a
->> way to get the external time reference from Xen.
-> 
-> Are you suggesting then that plain Windows is fine, but Windows with the
-> PV drivers isn't? That would look to be an issue with the PV drivers then,
-> wouldn't it?
-> 
+>> On 08.01.2026 10:18, Jan Beulich wrote:
+>>> Gcc's "threading" of conditionals can lead to undue warnings, as reported
+>>> in e.g. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116519 (no matter
+>>> that the overall situation is different there). While my gcc15 complains
+>>> ("buf[2] may be used uninitialized in this function") about only two of
+>>> the three instances (not about the one in type_read()), adjust all three
+>>> to be on the safe side.
 
-No, it just means that Windows running on Xen without PV drivers is not 
-fine, and the PV drivers currently need this feature in order to 
-correctly sync the guest time. This new functionality will be used in 
-the Windows PV drivers if it were to be merged.
+... I've already extended the change to cover all three similar patterns, no
+matter that only two triggered a warning.
 
-> Jan
-
-
-
---
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
