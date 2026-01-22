@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qNm1HWRXcmkpiwAAu9opvQ
+	id SFnNHaZXcmkpiwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 17:59:16 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 18:00:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FC116A8B7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 17:59:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211542.1523088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 241FE6A91D
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 18:00:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211577.1523099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viy1V-0002qu-EV; Thu, 22 Jan 2026 16:59:09 +0000
+	id 1viy2X-0004mO-Mi; Thu, 22 Jan 2026 17:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211542.1523088; Thu, 22 Jan 2026 16:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 1211577.1523099; Thu, 22 Jan 2026 17:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viy1V-0002oL-Bi; Thu, 22 Jan 2026 16:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 1211542;
- Thu, 22 Jan 2026 16:59:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1viy2X-0004k9-Jh; Thu, 22 Jan 2026 17:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 1211577;
+ Thu, 22 Jan 2026 17:00:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcaL=73=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vixqj-0007Id-NY
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 16:48:01 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b2afd50-f7b2-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 17:47:58 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-b86ed375d37so142095166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 08:47:58 -0800 (PST)
+ id 1vixqn-0007Ij-52
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 16:48:05 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bd9100b-f7b2-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 17:47:59 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-b8842e5a2a1so115010166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 08:47:59 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b879513e951sm1686014966b.7.2026.01.22.08.47.56
+ a640c23a62f3a-b879513e951sm1686014966b.7.2026.01.22.08.47.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jan 2026 08:47:56 -0800 (PST)
+ Thu, 22 Jan 2026 08:47:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b2afd50-f7b2-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 1bd9100b-f7b2-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769100477; x=1769705277; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1769100478; x=1769705278; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dcpUeXukHvpe2V8ajAwhudISERtpAWc83oml7NTTtzQ=;
-        b=FrOljl7VtmHeX3Mr3lRguhO6SiLEoduNjNLKWcrngyVMRLxijP6gQJuo7sRa2WTTqZ
-         NVK49joXFKzOEIC4/xoYH0v4xrqXaxXRvtzDIM06Jno8gX7uAj9nV38GTOTgzKY9z3E1
-         Oioq2WrKh0sNPDCTbbMa066VkFYfXKtuUepf324XucmUHpI/B55aWu/Go/pj6FzJnUvJ
-         sAr5zR166DCJVpUp2JYUS4e/LzSydgKkdvqYEFYL2GO2mRX80mr9eDAoZowjgDgfNXzx
-         6Gg19MS7vmz39f8njfdTRmVeCb9+6exp6crWUw5oIqjFUCMfukAFT5fc4p24O/zdUTjK
-         szzg==
+        bh=KZA8ihisriROMO2vLm1yqQjETNpKnWgnKN9uanVzkRc=;
+        b=aJ88qnAjcU9/TFsl0BVagsFiu/yKfXwVrWIV5Cc8TNUlkJPICwLSgHHKSk12fupVz4
+         zz1N5BKosEX3p01vjZaBvf7bJVWp0NZqEE75SOk7o5/otBl1XNlrME4nw5Ji+f8nSvH5
+         UJsuYGkdDVwnBVhLL0RQZO1uVNLhShwGapLZiqf5c4+2DThwnUVmxF+YSev1zvBXGkQy
+         wQcDyGrhReFQ15WOxEeREYvS6IqrDWcd0rn0tZTPulnIX3wn5mE8kpiwis/b+gLb0E/S
+         SzMjA2xNI3yabvvvREQEj5U/24S6mQKEsWHmZ3+pZGVr7efag8pGMPFVXOxaisSYL+qo
+         nczg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769100477; x=1769705277;
+        d=1e100.net; s=20230601; t=1769100478; x=1769705278;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=dcpUeXukHvpe2V8ajAwhudISERtpAWc83oml7NTTtzQ=;
-        b=ErE/rtaikJrJEzQsTa7I3FDtPADv4WjzETVrXv2TfpXNINizcw8Sqi0M7dSqE3vk1J
-         gGi3bYb1GB5AyZJzeCK49TLa3zd1SIeoi0KS5L9CVKbaycZdOiaSY2GSO+ZV9aO4/ZCl
-         XYF+wlTBkgpNPu71FEMY5Wug5+FFQTaWyC2oOtxA2ZDCjLToHuvJcu/QrBxT84ktOa4k
-         yxa1ic9YEAbAOxiuubUeA1dv98Hd+ESNStAIi9EFS5klN/OrKS7FK/qR266hn1XP16+w
-         Xv94KjyaFGyw2iHaxdKcbGmqxNKiE6m/8wJErE638V4lo6oILNd612Ce3X6nJZQ/fEWi
-         v1hQ==
-X-Gm-Message-State: AOJu0YwehBmuUk10gpOlZzECWhn3EBL+OQZTdnyPY3BfuUj7u3safAV6
-	E5AMwyp/rwLnymzWsObdHA5pb9IlamSUe92VLKJlr6x1Vuxn3lfEEF8hAXHwmw==
-X-Gm-Gg: AZuq6aJ8J3uy0dySaEVXIlCIEkWXI2t5ozLanitVN6VZiaPbtYdh+8CX9Z8458YnRH6
-	hiOs3dwqLCh9+iq+5EnBLKVeEXv5oBk9P41Badx6MPKZJlja6QPEn5H170LqviWSjxaRfGlkRpl
-	1qFfa1XsND9kG3m3yhnQzxIGxI0sYOSipsmT9XMkc8c86PYqIdURMc+Cm23Vx4v1Fs+RzZD6C4Y
-	4PdstDK/Hi+D7/taqpBaog5dFMtfcypLeBI5+4lhw+vH40DbGJaM7F957Lh3aYUIpMenUMNpYch
-	HPsPeYyma98H2M8O1CpQwEaNhhaHgOsq9rgjCp7tYncS1/qFNkbA5uZT+S6Ijc0MqEt7LGXHTBi
-	72ZcGZnNb/oRxB+nNs0DjiWhCQnirmThxwfSj+gwbhx0E3Gw9osMWDrZbgPFIfzh7URbUFCZy3+
-	Skuu3FZ3HPbAfhLMw4K580sJ3OQIRJBOAWzuoBaJPqtvBNSChEN07GJg==
-X-Received: by 2002:a17:907:3f8d:b0:b7a:2ba7:197e with SMTP id a640c23a62f3a-b8800449ffdmr703667866b.29.1769100477230;
-        Thu, 22 Jan 2026 08:47:57 -0800 (PST)
+        bh=KZA8ihisriROMO2vLm1yqQjETNpKnWgnKN9uanVzkRc=;
+        b=o0zQcqXvTt51qEL82S5Mh3EOn8x5/KuP6bx4qJptw/c2GnW31r2FAdjYsOJNJEY9ka
+         cDghZfRsFdFT5TW4XolCO+Kg+41DdZb8H6nL56M057drRs9VB/Et7qcDfuczGTn//tcJ
+         d2UDCQilJL/AOckZHAFPeOtDiSrYXyCKaOSflCL40nWsvv5CFr8ALu269QbSYNRduVrN
+         fW/vwyjGneLdRNac5aN4Wo2g9woHr2uQl5IdZM8/Vpd77EOy85b1gH6++6Nt6H+tp5S/
+         1S/ydyc8k7A93T0ylm2sBvonbqhRot6jV8KSQL+kHkOxqpjdC2LOe+0HPAdPzquGj/KN
+         7pSA==
+X-Gm-Message-State: AOJu0YwjnBUABx5VZLu883FougsdWlGcKnpidxEBARb9BpgGBXa6hZ3g
+	4ifUVZfG0rNUhSCgyprX8NE8lf5VU93pROg4UqGvnoEAcvulsIKDB69BMLcbDg==
+X-Gm-Gg: AZuq6aLNYu9ixBVRsPuspUkIASzQyM1dObG7HDVMrc7gofsq3Oe2Hde1ROmCz2uQUwm
+	+9+RUaxLReUHYnv4FJa7AuabIJ+gBRJY6I4bpOgcJNgult6HK86QKzQFu0gAaXtlS0hEA8EZCf4
+	Dl0fcH7Pn8fTy7xNr6Lu18l4mxlxfygqmVb1Ii/6LCi0AMZPSPcnZqiojM/lZPcap6biF+SLndF
+	vaOlSiBLT5KsfR79N87HEmLQVgVqDztPJQRpHRl8i1ivsK7XYtvCObPiCXEA7Zx5PtsCSzU5gPY
+	Ma76zj4uO8M4z2Np7X3EvH0HLANfACyC45pfpXvfnSIDFpuZRyloYvGbRI0ZL64Of3K7EVeeqnZ
+	shMQMGvgZSK0aCPbyp+xi4bF8jV/ypQuGNoKRfda4r1eyUaKT6RK0zH8wToKeIPffiPewniatd2
+	/8ga/N9N1diE24l5viwneK0k9bhWwAThA1C7X4M+/sMisAHmXqsLozNg==
+X-Received: by 2002:a17:907:84e:b0:b73:667e:bb29 with SMTP id a640c23a62f3a-b8792d3be61mr1668682466b.8.1769100478306;
+        Thu, 22 Jan 2026 08:47:58 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -99,9 +99,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Romain Caritey <Romain.Caritey@microchip.com>
-Subject: [PATCH v2 15/16] xen/riscv: init tasklet subsystem
-Date: Thu, 22 Jan 2026 17:47:30 +0100
-Message-ID: <36c05146c82f20f7760ec7f1de9700a2f1c698d8.1769099885.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 16/16] xen/riscv: implement sync_vcpu_execstate()
+Date: Thu, 22 Jan 2026 17:47:31 +0100
+Message-ID: <eb254f5a49d01712f9b3745e420dd37a4a9ba0bc.1769099885.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1769099883.git.oleksii.kurochko@gmail.com>
 References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
@@ -143,73 +143,63 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5FC116A8B7
+X-Rspamd-Queue-Id: 241FE6A91D
 X-Rspamd-Action: no action
 
-As the tasklet subsystem is now initialized, it is necessary to implement
-sync_local_execstate(), since it is invoked when something calls
-tasklet_softirq_action(), which is registered in tasklet_subsys_init().
+The scheduler may call this function to force synchronization of given
+vCPU's state. Although RISC-V does not support lazy context switching,
+a full memory barrier is still required to order observation of the
+saved context correctly.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - Update the commit message.
- - Move implementation of sync_vcpu_execstate() to separate commit
-   as it doesn't connect to tasklet subsystem.
+ - New patch.
 ---
- xen/arch/riscv/domain.c | 5 +++++
- xen/arch/riscv/setup.c  | 3 +++
- xen/arch/riscv/stubs.c  | 5 -----
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ xen/arch/riscv/domain.c | 18 ++++++++++++++++++
+ xen/arch/riscv/stubs.c  |  5 -----
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 13ac384c4b76..1458902aff82 100644
+index 1458902aff82..48ba7584acaa 100644
 --- a/xen/arch/riscv/domain.c
 +++ b/xen/arch/riscv/domain.c
-@@ -254,3 +254,8 @@ void vcpu_kick(struct vcpu *v)
-         smp_send_event_check_mask(cpumask_of(v->processor));
-     }
+@@ -259,3 +259,21 @@ void sync_local_execstate(void)
+ {
+     /* Nothing to do -- no lazy switching */
  }
 +
-+void sync_local_execstate(void)
++void sync_vcpu_execstate(struct vcpu *v)
 +{
-+    /* Nothing to do -- no lazy switching */
++    /*
++     * We don't support lazy switching.
++     *
++     * However the context may have been saved from a remote pCPU so we
++     * need a barrier to ensure it is observed before continuing.
++     *
++     * Per vcpu_context_saved(), the context can be observed when
++     * v->is_running is false (the caller should check it before calling
++     * this function).
++     *
++     * Note this is a full barrier to also prevent update of the context
++     * to happen before it was observed.
++     */
++    smp_mb();
 +}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 9b4835960d20..e8dbd55ce79e 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -12,6 +12,7 @@
- #include <xen/serial.h>
- #include <xen/shutdown.h>
- #include <xen/smp.h>
-+#include <xen/tasklet.h>
- #include <xen/timer.h>
- #include <xen/vmap.h>
- #include <xen/xvmalloc.h>
-@@ -133,6 +134,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-         panic("Booting using ACPI isn't supported\n");
-     }
- 
-+    tasklet_subsys_init();
-+
-     init_IRQ();
- 
-     riscv_fill_hwcap();
 diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index cb7546558b8e..c912d46f1e42 100644
+index c912d46f1e42..26434166acc6 100644
 --- a/xen/arch/riscv/stubs.c
 +++ b/xen/arch/riscv/stubs.c
 @@ -91,11 +91,6 @@ void continue_running(struct vcpu *same)
      BUG_ON("unimplemented");
  }
  
--void sync_local_execstate(void)
+-void sync_vcpu_execstate(struct vcpu *v)
 -{
 -    BUG_ON("unimplemented");
 -}
 -
- void sync_vcpu_execstate(struct vcpu *v)
+ void startup_cpu_idle_loop(void)
  {
      BUG_ON("unimplemented");
 -- 
