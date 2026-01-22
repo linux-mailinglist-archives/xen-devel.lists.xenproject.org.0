@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4DWnH8b8cWmvZwAAu9opvQ
+	id mM8pN2z9cWmvZwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 11:32:38 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 11:35:24 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E68D0654BD
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 11:32:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1210741.1522361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DE3F6550E
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 11:35:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1210755.1522371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viryo-0005U6-TC; Thu, 22 Jan 2026 10:31:58 +0000
+	id 1vis1x-00061R-AH; Thu, 22 Jan 2026 10:35:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1210741.1522361; Thu, 22 Jan 2026 10:31:58 +0000
+Received: by outflank-mailman (output) from mailman id 1210755.1522371; Thu, 22 Jan 2026 10:35:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viryo-0005Rr-Q8; Thu, 22 Jan 2026 10:31:58 +0000
-Received: by outflank-mailman (input) for mailman id 1210741;
- Thu, 22 Jan 2026 10:31:57 +0000
+	id 1vis1x-000600-67; Thu, 22 Jan 2026 10:35:13 +0000
+Received: by outflank-mailman (input) for mailman id 1210755;
+ Thu, 22 Jan 2026 10:35:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viryn-0005Rl-S5
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 10:31:57 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vis1v-0005zu-Bm
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 10:35:11 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92752df8-f77d-11f0-9ccf-f158ae23cfc8;
- Thu, 22 Jan 2026 11:31:55 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47d59da3d81so12720875e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 02:31:55 -0800 (PST)
+ id 0629426b-f77e-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 11:35:09 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-43246af170aso504333f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 02:35:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48046fb7eaasm59070595e9.0.2026.01.22.02.31.53
+ ffacd0b85a97d-43595e0a6fasm15676442f8f.10.2026.01.22.02.35.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jan 2026 02:31:54 -0800 (PST)
+ Thu, 22 Jan 2026 02:35:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,54 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92752df8-f77d-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0629426b-f77e-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769077914; x=1769682714; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769078108; x=1769682908; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dtaKnWYlt8TU2qsWm/+dzT/V8/xGYzGeC9aAYJAeiwY=;
-        b=e6EzjLlfFHnW7ow2CgtI8XVsgJcrXyuA3Tg/vWqMuGmx//06qqMHdKg6ePzLS/003T
-         KJdR1xHxDhnnxSz/kKKIJ2iU3MnIqHtIbjAXZJu7afT0+7UuhOGSD6cVFXqJoP79rT4/
-         I6xJb4qj81rQG+rLnllwbl2Lr/vDn5C65A3lYqJQmeDoze0xgNfsuGDNBgbsZlz0Bppp
-         DQkBQ4BVY0w93S2rDBS8u3iMBWnZ+i4eS23Us22zaMYpHZcdZubO/5+tKJioHc8I/xr/
-         8Phhta6LQ6gC+zOqM4Uxjxg/OREH0doA9qC2+Ey1aST0pOOZ5Sga8UeMbODWEWOLDcqc
-         ZZBw==
+        bh=9W697KmD3NrZjlIy5dYmKifNka1kkrawLJNHvYhEe3U=;
+        b=M9bouvtzjpuksnQ0+UEkO+qscruyNes3WOmsHuEUtPLnlcKfMDRw2GH+7obBGsdzcK
+         Galc1baJy65fhZ4yHTtlCocjn674TnbJN/0mTjvn6pdTrmbu3X1jPmDZnyBu7hqgtRU0
+         ENDi9SKsUW0vOldKkIZMvJ3pSYx5lkkcl7wSgMpc4PvOOOEuDhSw7MMCOPxUjkmB/zTB
+         OqHKbEPYY874sWE3KbJOfbMb73SnqsfXQiN3JGtfupHFuYNbNUiV9HUNabUX5OgLNMsS
+         yfyVI82SjRoFa0jYPT1sJgkMmv6U6xdv0AcdkLDAxVGi1bd4wkosusENGOgZFaVuAEfy
+         M4Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769077914; x=1769682714;
+        d=1e100.net; s=20230601; t=1769078108; x=1769682908;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dtaKnWYlt8TU2qsWm/+dzT/V8/xGYzGeC9aAYJAeiwY=;
-        b=AOKjCPi5vsir5dECvThFBJOqDKm45PCW3zmhC3johmUYwis1rQ7453GPOJZlUuwbUu
-         EOMWd4EmojhzYzmjffhqT5K+zZdi+gYbxLfRIzJqsflTzIbxRyvUdd2re6d5CJC1FvkI
-         krSpHuSdkbC0EQVEafS4wNQMlox6dHh8MGkwaZm+diu/agjRkq0JFfxnyfVJ+mESIFFZ
-         JZiGIfikiM00iG84kPVBSqPd1yAi7AMCcXNSaEMkegncjSpVI+VOAhWytPIfLQ0qVyUt
-         4RLx1/AygQfBpr3lDfj61RBVXZCORlNVw0FWe0gQNsbZ4YQ5rhNS+5hxDldneWQcktAb
-         8OaQ==
-X-Gm-Message-State: AOJu0YyPUQeW5ZslkXFF24bTHLTNRkMqf9gnk62GZbqRhdDRZFkPp+9v
-	PBrp6czbdCqcOpQiLwPrjMct7kUFOBYXCoFwUgC9uBb2uVzTf2K3uUGzqmpYQmBcng==
-X-Gm-Gg: AZuq6aJblEm+h6A8p5N8Nxs580j1J6yabyeG1YZPmAuZFhBBTnlIxWFX8ucf+jbAICe
-	GAdigDdRrGQpo1hFqUmZmZ58UkxhQWcUzZWQChlVLLIMVgVdbfVfPa1dnuJAoDD5s0zGgwQNZuA
-	B0+2aGqLQ/xfh9vIUCW8Hk3iq5x/VFwgBlNuDZtfBIppQw/mQMrreAlAWzf8NznBQidmFgjEPiY
-	fF6LP6O3/fSQzpUf2cvbQU0YpbepyNgB3Xl0bSbyXtjWimbmf/4HBGSYlrZyXHPrB6f5ZQ0+gGl
-	DwwS1BegcfxL7xa686515EH+9Cd8zW6EVppHBPkvG1xx7d4m0bDjlXupzHwka8P6soIXiTisH/8
-	GYi+2NubyAoiyk/yKhimmT6EVdkfT3o3s2+njyUUGAUZ/Tj7o4ojLbZpC3JYYnwyjd04p+o2qU9
-	r2Cg7wsqoVphGOq1Wlcj7lFLcZrr6W//JcQq1b9sio7rmnyKKzZBcXsTW/2nBeENZRoVAxYmm60
-	Rc=
-X-Received: by 2002:a05:600c:1906:b0:479:13e9:3d64 with SMTP id 5b1f17b1804b1-4804709ab9cmr42986685e9.15.1769077914398;
-        Thu, 22 Jan 2026 02:31:54 -0800 (PST)
-Message-ID: <cafc144d-5c75-49c1-9231-a854389382dc@suse.com>
-Date: Thu, 22 Jan 2026 11:31:52 +0100
+        bh=9W697KmD3NrZjlIy5dYmKifNka1kkrawLJNHvYhEe3U=;
+        b=kfA8FGEVmttpxAJWf8YUoaf59Qat//5DukX3Xd065Ycl2c47DFRIQEO4LJ+3HK03IT
+         iiGERNio11hZf2avok8euUrbVQm/sn2wqYp1rwhVcZhKnDXzFzdfiqM8xBVnD+WAEiYC
+         SxXLWhe8fk7Fot2xh7E3d+aNCqh40rz22TadD944ousbpoSm1YMZgaZRHeg0Iz8kancu
+         Vw9nxBuEozjO4l/um86U8X1CqWN6LQQ08lcPMTUIiJzABnQ6BQuoNaSHkaTxF9MJyoEY
+         nnWN7vt1h2yvEJqp+JMfGf/kf3o5mXuKR07xFCI8oILOvzGpWN8TH12p/2573sUJZiLF
+         0N1w==
+X-Gm-Message-State: AOJu0YwN21RUm/8uEFIdKdnVvp1Af3xcGAzZIR6SGoOP0lBZAmSRuTLj
+	46jMiPpGA/sLTvQwOMeg77ztp0SbDEwQPdKEEaXwLM9ha9EBSxJBdcYlALcmFiQhi170kSbUM4d
+	jpPA=
+X-Gm-Gg: AZuq6aIvSFwWuazTEPnXZKRsKMYvvwymsWJsYMLVVbDZTT1/sV5dQhvR9YlodlaAsbe
+	rCMhhq5AvCrwNMXnjSdSGkDwLH5hPRGez6DZOACkYWvMRP4aX+bTXj+J0t3MEAKQV0ZOcfGmyiI
+	Z5v0AJh4oYmQz8M+SL9Y4oPxgzPhm+quaNjLAZS0Spm0Sl9W5bQqHfdNebS+2XXrwY6KIJWrJy6
+	1fh9TKltN+hP8mvPaLW/TgWSyO4z5V0jr+o3D04Zz89L6W1PNrfM6M0IvdLddzI2N9EBmN6VM0Y
+	UXFnbjr+Vu/J3WB3G47zPdatJf0bDTEpwY7Ef0yVblPHjRmucVVcjq0PY3mqLyL3ECOkEe0zX9e
+	FXvow+yOkiIlgqIk5/i+hCZeupqn7cRQtpd0RcAnI4Im4zCSyYzyxkeLHxv4WK63K5C15muHdoa
+	Y6ZqSUKQDk78qDkJZkEQDmjLbWYHGjJ0aOCcSz7bE9UGSW+5n71Ep/140BwKvQ94dq/QoxAUPBa
+	EY=
+X-Received: by 2002:a5d:5d0e:0:b0:435:953e:5897 with SMTP id ffacd0b85a97d-435a5fe530emr4442812f8f.25.1769078108497;
+        Thu, 22 Jan 2026 02:35:08 -0800 (PST)
+Message-ID: <72bff85d-9771-4998-bc80-1efe2d453e6e@suse.com>
+Date: Thu, 22 Jan 2026 11:35:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] x86/HPET: move legacy tick IRQ count adjustment
+Subject: Re: [PATCH v4 8/8] x86/HPET: don't arbitrarily cap delta in
+ reprogram_hpet_evt_channel()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 References: <57f34114-54b7-483d-8ac0-e9fa49df959f@suse.com>
- <f8ccb446-44e5-4939-91f7-ac17f660f56d@suse.com> <aXHkvZaxl5E0QL0F@Mac.lan>
+ <37cdba83-9bf8-493a-9a7b-5ec11c32159a@suse.com> <aXH6rwF7pJbPpxOV@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,14 +125,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aXHkvZaxl5E0QL0F@Mac.lan>
+In-Reply-To: <aXH6rwF7pJbPpxOV@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -138,15 +140,15 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -158,65 +160,28 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E68D0654BD
+X-Rspamd-Queue-Id: 8DE3F6550E
 X-Rspamd-Action: no action
 
-On 22.01.2026 09:50, Roger Pau Monné wrote:
-> On Mon, Nov 17, 2025 at 03:37:45PM +0100, Jan Beulich wrote:
->> If already we play with the IRQ count, we should do so only if we actually
->> "consume" the interrupt; normal timer IRQs should not have any adjustment
->> done.
->>
->> Fixes: 353533232730 ("cpuidle: fix the menu governor to enhance IO performance")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> _Why_ we do these adjustments (also elsewhere) I don't really know.
-> 
-> I think I have an idea of what's going on here.  This accounting is
-> used by the idle governor to decide when to go idle.  On Linux (where
-> the code is imported from) the governor took into account the inflight
-> IO request state.  However that's not available to Xen and instead
-> they decided to mimic the tracking of the IO activity by counting
-> interrupts.  I bet then realized the timer interrupt would "skew"
-> those results and make it look like there's IO activity when the
-> system is otherwise mostly idle.
-
-Hmm, yes, that sounds pretty plausible. Except for one aspect: Why would
-it be I/O that the governor would care about? It wants to judge by the
-system being busy, and timer interrupts generally are an indication of
-busyness. Just not broadcast ones. Hence ...
-
->> --- a/xen/arch/x86/hpet.c
->> +++ b/xen/arch/x86/hpet.c
->> @@ -808,13 +808,13 @@ int hpet_broadcast_is_available(void)
+On 22.01.2026 11:23, Roger Pau Monné wrote:
+> On Mon, Nov 17, 2025 at 03:40:08PM +0100, Jan Beulich wrote:
+>> @@ -162,10 +161,15 @@ static int reprogram_hpet_evt_channel(
 >>  
->>  int hpet_legacy_irq_tick(void)
->>  {
->> -    this_cpu(irq_count)--;
-> 
-> I think you want to pull this decrease into timer_interrupt() itself,
-> so it does the decrease unconditionally of whether the interrupt is a
-> legacy HPET one or from the PIT?
-
-... I think moving to timer_interrupt() would actually be wrong.
-
-> By gating the decrease on the interrupt having been originated from
-> the HPET you completely avoid the decrease in the PIT case AFAICT.
-> 
->> -
->>      if ( !hpet_events ||
->>           (hpet_events->flags & (HPET_EVT_DISABLE|HPET_EVT_LEGACY)) !=
->>           HPET_EVT_LEGACY )
->>          return 0;
+>>      ch->next_event = expire;
 >>  
->> +    this_cpu(irq_count)--;
+>> -    delta = min_t(int64_t, delta, MAX_DELTA_NS);
+>>      delta = max_t(int64_t, delta, MIN_DELTA_NS);
+>>      delta = ns2ticks(delta, ch->shift, ch->mult);
+>>  
+>> +    if ( delta > UINT32_MAX )
+>> +    {
+>> +        hpet_write32(hpet_read32(HPET_COUNTER), HPET_Tn_CMP(ch->idx));
 > 
-> Also in hpet_interrupt_handler() we might consider only doing the
-> decrease after we ensure it's not a spurious interrupt?  We don't seem
-> to decrease irq_count for spurious interrupts elsewhere.
+> Should Xen disable interrupts around this call to avoid unexpected
+> latency between the counter read and the comparator write?
 
-Even a spurious interrupt is only an idle management auxiliary one (i.e.
-really an artifact thereof). It doesn't hint at the system being busy.
+Such latency could then still arise, due NMI or SMI. What's your underlying
+concern here?
 
 Jan
 
