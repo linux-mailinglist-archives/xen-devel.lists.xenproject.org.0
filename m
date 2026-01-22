@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gP2/CKgxcmmadwAAu9opvQ
+	id qLskNs0xcmmadwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:16 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A96DD67CC2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211121.1522651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC8F67D07
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211130.1522661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivVf-0003uW-5W; Thu, 22 Jan 2026 14:18:07 +0000
+	id 1vivWA-0004UU-Ct; Thu, 22 Jan 2026 14:18:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211121.1522651; Thu, 22 Jan 2026 14:18:07 +0000
+Received: by outflank-mailman (output) from mailman id 1211130.1522661; Thu, 22 Jan 2026 14:18:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivVf-0003rs-2I; Thu, 22 Jan 2026 14:18:07 +0000
-Received: by outflank-mailman (input) for mailman id 1211121;
- Thu, 22 Jan 2026 14:18:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wELS=73=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
- id 1vivVe-0003rk-2X
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:18:06 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a1614f5-f79d-11f0-9ccf-f158ae23cfc8;
- Thu, 22 Jan 2026 15:18:03 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-435903c4040so701735f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 06:18:03 -0800 (PST)
-Received: from fedora ([193.77.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43596090493sm17670486f8f.25.2026.01.22.06.18.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jan 2026 06:18:02 -0800 (PST)
+	id 1vivWA-0004S1-9Z; Thu, 22 Jan 2026 14:18:38 +0000
+Received: by outflank-mailman (input) for mailman id 1211130;
+ Thu, 22 Jan 2026 14:18:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Lo+0=73=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vivW9-00049z-Gw
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:18:37 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d814ce1-f79d-11f0-b15e-2bf370ae4941;
+ Thu, 22 Jan 2026 15:18:36 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 6A3034EE3C11;
+ Thu, 22 Jan 2026 15:18:35 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,137 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a1614f5-f79d-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769091483; x=1769696283; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=q+pquAPCPEsXczBKivIRW/RcYCaQ4i6RQW605EButWU=;
-        b=ZtkhO0gb2nGuL5hV6Ps5HLxdEdnf/Zli1dzFPRImaXpXReJJnG4sMdDIuCXZ4N2UJC
-         0IQPJQ2MVsjpfVV46WtRiJxnU6T1umV5QWkhZso40RcNfBRa+FgtMS+1zbfH/Z282ekP
-         NB8qJWDNGoAUxa5L2MVWksZB51oSfszgYxKaCH4YOpz+Jk3VxNUgaP4Of6WG6XSoisw/
-         2HJ7snN16qPzCXeBBfnbsCURLN4dXHdFhcEJG5AtUtnH5wrGi0BYEBF4LrwBmwpEO9Tm
-         sou9sPd4DkCuSRwo6quFfKDcBk3Yq6g4KqS82PAb2JCokXDVlODnylNXIY06PFueYhVk
-         3VQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769091483; x=1769696283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q+pquAPCPEsXczBKivIRW/RcYCaQ4i6RQW605EButWU=;
-        b=c8EKVO2wpyZWbz4VJbuhFDc1sScxJGoITomrl4uEIlt4oUJfaWYVuVqsmyZ2NZ1E2E
-         5AQA2h6wsOVJR/kgxg6EbkxpFGhH0pf/e+hq9dFPyC+BcZRViIOnK/qOKVHtoeXZ6ndj
-         lHFACn/EswWxGKRglkc9uXtsuEpsBIkq47fmQwewxFr+vG5dv51uDc2cDXHrqacsEmH2
-         BOp10xXNXpZroiRDaJMtBNWcjnIepI1fCI/J+oDTGd5KAXD8fd8To7b1EvJRtx9vx7yi
-         LgY/T4Cv/DmMi4oil+rB5dJiRPtwtThSkivuHGnfo0dIdkcyndsMPhli9VlKCjhcn0/L
-         h7GQ==
-X-Gm-Message-State: AOJu0Yw26ZVnA9t7xawJ7iHc3b8Lr8CnR5j45j9KvxlPNZGnTKgPhtQB
-	3y1wWLt4Fzh2bFV/glvnZ2lMwUffxyCaVdW46hoWEt9bkv7wP6BAB+0CMkMO09KR
-X-Gm-Gg: AZuq6aI4+dG3BChu0nTe6gFYV+IRkyvY8kpNlOzgFy+pUAQduVSyVsb2OppIq/DP8dm
-	XuqRu5aaT2SMYo4+4WPZodkeLh2fm0qYbIjIXpVwWMfT9ybNOjAttTYeqeEvHI72DTkWyMzoJii
-	tOAPLHrYpE8tol1OVBZB8pOMC0LONSk00aFU3bpAOfGdpOX2uwM9Hux9ixcoVtnJV2LaCjYhiBv
-	GO02Z0wRZ/X7JGXuS1udHTEwQGWWW0ZxGHFW0Oz/IKGRwM2xbr0p2BwJ/FxBxFf5CGX22GnXn/v
-	YwaTdFy7MPzSjDYPMIM8EcHTcORLsrSN0DKpmbNNddbHEUmsKpunEqVo7c0JUFaxVVk/zAhdFTn
-	OT+Ztx7wjOVu1lDGNRAC/EfjAaw6bjGIA4tyVMUgPFbbnpBdfsK1aDtMW50vcUH9IDiJaIOjbnv
-	glk2AmnWlcK/HAJFp1JGE9trso7DIILubO86zLZ8epPceduL4ZQiCZ2g==
-X-Received: by 2002:a05:6000:240c:b0:430:fd60:93fb with SMTP id ffacd0b85a97d-4356a053cbamr34015845f8f.32.1769091482500;
-        Thu, 22 Jan 2026 06:18:02 -0800 (PST)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Uros Bizjak <ubizjak@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH] xen/mcelog: simplify MCE_GETCLEAR_FLAGS using xchg()
-Date: Thu, 22 Jan 2026 15:17:07 +0100
-Message-ID: <20260122141754.116129-1-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.52.0
+X-Inumbo-ID: 3d814ce1-f79d-11f0-b15e-2bf370ae4941
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1769091515;
+	b=U6c53olXA5TCoCcp5wu3MuNKA69TufPb4JyVyYSBJynx0unGkzIL4OePIRVc92ldLHb+
+	 yEwkGs7+u9J6YygRtasAEBkjx3rJoW55bXnY4Bx88YYMAYvc4+T2dH7afIV9MERb6LTgg
+	 gFEgTmfm/K+8KuFCSyNrb5vvygt2PSnu0FBfRlavBcH1s4onYFtvOJnOait4nGhlZGxGg
+	 TzXMXvZFSO2gTYK1iUWOAZYy9t15/gmUjWDhwKbhWbJ93WBLvm1gHK5dBHJ5prUcAHn9j
+	 qIYgYOYnOnyiHXe1FcvAp6IYmBkolyh+ugWq93R56kMN3horRAFe4ZcvP/euU6sKPMQGz
+	 VJBHPSrK42p3LNiixi1takbDUhOYMgcUIAi2/U8Y+99pG41gdAYQVA+4mQCrxJFFB4680
+	 2PEdHTZygMZGDKTK4YOj6XWlQr6CX9/3iE3W7/YgsiNhPmOc/uyRhnh3INSY55idJhGvX
+	 p7lk4kYmzXMuVHRxGfmPR2/mQ8fgoOTaGUmThuNkQBp1lbJzpc6GxYuAaA6LKiBfPuI5F
+	 qbkk5HMsc9rWBUcy/00pEqvtkIX5FZ4nVCr6Zy/jRQOT1YGEgbSUdkXpY+LxvUN6epT06
+	 ICdqA7cTBgsaBLSXrLOcrVsFWqZo7MmW+Y0COtIdeeumKsKzxPHlp/wk58EKiio=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1769091515;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rZgi7txDtcK8WRlhPaJZ0sQJZAUgCPUk3UvQylM6vao=;
+	b=SMYusmknzl05yyYV7I5elQxIv3SNtdZIbbwLjY6M1hV3GGkk5puwcoWVQUgOT7l4tEiT
+	 UBqmuRGI9GRIznHHguyu6suhQsWrhAwNMlAnt+crqLWM+5vQdXtETqaI0N3ZCI29+1Apy
+	 ZCtImZjcr/bTXXtQ0yQKbQTZvaQYJaAnHJdxMbgvSrXb72Mf7eI3dEOTyQC+fCSsfLcXe
+	 aTSZECrMgocFfy8mLtGEsA2FjZjCdzlMRtYItdxJdb0s5tdCY9GScPa1bhwcmK/IIcKTW
+	 /7qYayMToYNn5TXqX/twgaIKpS5khsHOW9cW+LMuNYX1+rZnyCPg93f0xrXnhnJY9ZPWB
+	 ENKaGp45LVmzMlvT5P8m1ZKntWG/zC13pN/ZV3Fx8QFwUh3+090fkTXCq34P7+hP5Bw9G
+	 FWwU2loql8YIfhB5kuRi8DMIAeFoIfabqtR1MGCZlCnr/WWox2jbGftKosQjQLNF9RqCt
+	 UOJkaSm+hcUTgKYprRwHahqEDebY9RbN889sezIxkiT1K3Jqn2Kcx3aANIEC45951KMi/
+	 vv2JX4dAI6uHqCF/IFPMe6C1UQikOClukzuCb+iuaki2BlWHPCMLx3CqW4fs5ff7OpR0W
+	 yOvXV+YHty4BdM798SbhkKZw2zVczSSk2L7PrE+CCNKkXA1LG+Q0mspErRar6/4=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 MIME-Version: 1.0
+Date: Thu, 22 Jan 2026 15:18:35 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo
+ <alejandro.garciavallejo@amd.com>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 2/2] earlycpio: lib-ify earlycpio.c
+In-Reply-To: <947a4230-4a1e-4178-b7f0-ae5618f4303d@citrix.com>
+References: <20260121154757.44350-1-alejandro.garciavallejo@amd.com>
+ <20260121154757.44350-3-alejandro.garciavallejo@amd.com>
+ <5948da25-0b4d-48a5-983f-0fc9424774b3@suse.com>
+ <947a4230-4a1e-4178-b7f0-ae5618f4303d@citrix.com>
+Message-ID: <02004b6ee5ddb57f4b834163a955d29b@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [-1.39 / 15.00];
+	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
+	DMARC_POLICY_SOFTFAIL(0.10)[bugseng.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[ubizjak@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:ubizjak@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:alejandro.garciavallejo@amd.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ubizjak@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[gmail.com,suse.com,kernel.org,epam.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A96DD67CC2
+	MISSING_XM_UA(0.00)[];
+	R_DKIM_NA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 7FC8F67D07
 X-Rspamd-Action: no action
 
-The MCE_GETCLEAR_FLAGS ioctl retrieves xen_mcelog.flags while
-atomically clearing it. This was previously implemented using a
-cmpxchg() loop.
+On 2026-01-22 13:50, Andrew Cooper wrote:
+> On 22/01/2026 8:27 am, Jan Beulich wrote:
+>> On 21.01.2026 16:47, Alejandro Vallejo wrote:
+>>> --- a/docs/misra/exclude-list.json
+>>> +++ b/docs/misra/exclude-list.json
+>>> @@ -121,10 +121,6 @@
+>>>              "rel_path": "common/bunzip2.c",
+>>>              "comment": "Imported from Linux, ignore for now"
+>>>          },
+>>> -        {
+>>> -            "rel_path": "common/earlycpio.c",
+>>> -            "comment": "Imported from Linux, ignore for now"
+>>> -        },
+>>>          {
+>>>              "rel_path": "common/gzip/*",
+>>>              "comment": "Imported from Linux, ignore for now"
+>> Judging from Andrew's
+>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2277362625
+>> this doesn't quite work. As I had expected, since the file is compiled
+>> unconditionally now in its new location, some violations are now also
+>> unconditionally reported. (Some, checked for at linking time only, may 
+>> not
+>> be reported anymore for the *-amd analysis jobs.)
+> 
+> Yeah, in hindsight this seems obvious, given that we're compiling then
+> discarding.
+> 
+> There are two options:
+> 
+> 1. Use an earlier form which adds the new location to the exclude list 
+> (Still needs to be in this patch for bisectibility.)
+> 2. Fix up the violations first (only 6 in total)
+> 
+> Two of the violations look easy to fix, two need the deviation for 
+> octal
+> numbers, but two essentially-char violations look to be hard.  The 
+> logic
+> is doing ASCII manipulation in what I would consider to be the
+> appropriate/canonical way, but Eclair does not like the mixture of ints
+> and character literals.
+> 
+> I dislike option 1, but as (contrary to my expectations) this is
+> interfering with the *-amd build, I'll tolerate it.
+> 
 
-Replace the cmpxchg() loop with a single xchg(), which provides the
-same atomic get-and-clear semantics, avoids retry spinning under
-contention, and simplifies the code.
+I agree that Solution 1 is the easiest to implement. An alternative 
+could be to fix the regressions for R7.1 and R20.7 (they're trivial) 
+regardless and add casts to sidestep MISRA for R10.2.
 
-The code on x86_64 improves from:
-
-    186:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx
-    18c:	89 d0                	mov    %edx,%eax
-    18e:	f0 0f b1 0d 00 00 00 	lock cmpxchg %ecx,0x0(%rip)
-    195:	00
-    196:	39 c2                	cmp    %eax,%edx
-    198:	75 ec                	jne    186 <...>
-
-to just:
-
-    186:	87 05 00 00 00 00    	xchg   %eax,0x0(%rip)
-
-No functional change intended.
-
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- drivers/xen/mcelog.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/xen/mcelog.c b/drivers/xen/mcelog.c
-index 4f65b641c054..abe658c73b7b 100644
---- a/drivers/xen/mcelog.c
-+++ b/drivers/xen/mcelog.c
-@@ -165,9 +165,7 @@ static long xen_mce_chrdev_ioctl(struct file *f, unsigned int cmd,
- 	case MCE_GETCLEAR_FLAGS: {
- 		unsigned flags;
- 
--		do {
--			flags = xen_mcelog.flags;
--		} while (cmpxchg(&xen_mcelog.flags, flags, 0) != flags);
-+		flags = xchg(&xen_mcelog.flags, 0);
- 
- 		return put_user(flags, p);
- 	}
 -- 
-2.52.0
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
