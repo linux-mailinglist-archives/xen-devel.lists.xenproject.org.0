@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MIrfOD4xcmmadwAAu9opvQ
+	id gP2/CKgxcmmadwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:16:30 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:16 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 082B967C87
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:16:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211110.1522640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A96DD67CC2
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211121.1522651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivTt-0003J4-Qc; Thu, 22 Jan 2026 14:16:17 +0000
+	id 1vivVf-0003uW-5W; Thu, 22 Jan 2026 14:18:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211110.1522640; Thu, 22 Jan 2026 14:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 1211121.1522651; Thu, 22 Jan 2026 14:18:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivTt-0003GU-Nx; Thu, 22 Jan 2026 14:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 1211110;
- Thu, 22 Jan 2026 14:16:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qG0Y=73=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1vivTq-0003GO-Ox
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:16:16 +0000
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com
- [115.124.28.101]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e493f5e5-f79c-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 15:16:10 +0100 (CET)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.gD836R0_1769091362 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 22 Jan 2026 22:16:03 +0800
+	id 1vivVf-0003rs-2I; Thu, 22 Jan 2026 14:18:07 +0000
+Received: by outflank-mailman (input) for mailman id 1211121;
+ Thu, 22 Jan 2026 14:18:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wELS=73=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
+ id 1vivVe-0003rk-2X
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:18:06 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2a1614f5-f79d-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 15:18:03 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-435903c4040so701735f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 06:18:03 -0800 (PST)
+Received: from fedora ([193.77.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43596090493sm17670486f8f.25.2026.01.22.06.18.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jan 2026 06:18:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,134 +49,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e493f5e5-f79c-11f0-b15e-2bf370ae4941
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=antgroup.com; s=default;
-	t=1769091366; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ZypD3Y1+lQi6OI5xAxzyvlb7R9txghHEaqtepZwmpfE=;
-	b=ETPh++TXfeNnyFkI0PhEMjUylGYe+NgDAMJv2l+hMOsgK0uOoPbWUe0llf7W5rfMciDV1cXQ3qWDtNA+cZcyZF30famleGI2zdk4L9FD/C2OLI5SzXxmiE1pWfE2AlE6Z0gyAZyUZJfslYUMyIKrxQH8pHLL23SmWJu/AFjIKQA=
-From: Hou Wenlong <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
+X-Inumbo-ID: 2a1614f5-f79d-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769091483; x=1769696283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=q+pquAPCPEsXczBKivIRW/RcYCaQ4i6RQW605EButWU=;
+        b=ZtkhO0gb2nGuL5hV6Ps5HLxdEdnf/Zli1dzFPRImaXpXReJJnG4sMdDIuCXZ4N2UJC
+         0IQPJQ2MVsjpfVV46WtRiJxnU6T1umV5QWkhZso40RcNfBRa+FgtMS+1zbfH/Z282ekP
+         NB8qJWDNGoAUxa5L2MVWksZB51oSfszgYxKaCH4YOpz+Jk3VxNUgaP4Of6WG6XSoisw/
+         2HJ7snN16qPzCXeBBfnbsCURLN4dXHdFhcEJG5AtUtnH5wrGi0BYEBF4LrwBmwpEO9Tm
+         sou9sPd4DkCuSRwo6quFfKDcBk3Yq6g4KqS82PAb2JCokXDVlODnylNXIY06PFueYhVk
+         3VQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769091483; x=1769696283;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q+pquAPCPEsXczBKivIRW/RcYCaQ4i6RQW605EButWU=;
+        b=c8EKVO2wpyZWbz4VJbuhFDc1sScxJGoITomrl4uEIlt4oUJfaWYVuVqsmyZ2NZ1E2E
+         5AQA2h6wsOVJR/kgxg6EbkxpFGhH0pf/e+hq9dFPyC+BcZRViIOnK/qOKVHtoeXZ6ndj
+         lHFACn/EswWxGKRglkc9uXtsuEpsBIkq47fmQwewxFr+vG5dv51uDc2cDXHrqacsEmH2
+         BOp10xXNXpZroiRDaJMtBNWcjnIepI1fCI/J+oDTGd5KAXD8fd8To7b1EvJRtx9vx7yi
+         LgY/T4Cv/DmMi4oil+rB5dJiRPtwtThSkivuHGnfo0dIdkcyndsMPhli9VlKCjhcn0/L
+         h7GQ==
+X-Gm-Message-State: AOJu0Yw26ZVnA9t7xawJ7iHc3b8Lr8CnR5j45j9KvxlPNZGnTKgPhtQB
+	3y1wWLt4Fzh2bFV/glvnZ2lMwUffxyCaVdW46hoWEt9bkv7wP6BAB+0CMkMO09KR
+X-Gm-Gg: AZuq6aI4+dG3BChu0nTe6gFYV+IRkyvY8kpNlOzgFy+pUAQduVSyVsb2OppIq/DP8dm
+	XuqRu5aaT2SMYo4+4WPZodkeLh2fm0qYbIjIXpVwWMfT9ybNOjAttTYeqeEvHI72DTkWyMzoJii
+	tOAPLHrYpE8tol1OVBZB8pOMC0LONSk00aFU3bpAOfGdpOX2uwM9Hux9ixcoVtnJV2LaCjYhiBv
+	GO02Z0wRZ/X7JGXuS1udHTEwQGWWW0ZxGHFW0Oz/IKGRwM2xbr0p2BwJ/FxBxFf5CGX22GnXn/v
+	YwaTdFy7MPzSjDYPMIM8EcHTcORLsrSN0DKpmbNNddbHEUmsKpunEqVo7c0JUFaxVVk/zAhdFTn
+	OT+Ztx7wjOVu1lDGNRAC/EfjAaw6bjGIA4tyVMUgPFbbnpBdfsK1aDtMW50vcUH9IDiJaIOjbnv
+	glk2AmnWlcK/HAJFp1JGE9trso7DIILubO86zLZ8epPceduL4ZQiCZ2g==
+X-Received: by 2002:a05:6000:240c:b0:430:fd60:93fb with SMTP id ffacd0b85a97d-4356a053cbamr34015845f8f.32.1769091482500;
+        Thu, 22 Jan 2026 06:18:02 -0800 (PST)
+From: Uros Bizjak <ubizjak@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Uros Bizjak <ubizjak@gmail.com>,
 	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Li Chen <chenl311@chinatelecom.cn>,
-	Brian Gerst <brgerst@gmail.com>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Patryk Wlazlyn <patryk.wlazlyn@linux.intel.com>,
-	Eric Dumazet <edumazet@google.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 1/2] x86/smp: Move the static call update for 'smp_ops' into smp_prepare_boot_cpu()
-Date: Thu, 22 Jan 2026 22:15:43 +0800
-Message-Id: <b5e3f1d674af21c1592eab3ce8cc7dc93f9a7dad.1769090885.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH] xen/mcelog: simplify MCE_GETCLEAR_FLAGS using xchg()
+Date: Thu, 22 Jan 2026 15:17:07 +0100
+Message-ID: <20260122141754.116129-1-ubizjak@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[antgroup.com,quarantine];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[antgroup.com:s=default];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[ubizjak@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:ubizjak@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:houwenlong.hwl@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:peterz@infradead.org,m:rafael.j.wysocki@intel.com,m:kprateek.nayak@amd.com,m:chenl311@chinatelecom.cn,m:brgerst@gmail.com,m:sohil.mehta@intel.com,m:tim.c.chen@linux.intel.com,m:patryk.wlazlyn@linux.intel.com,m:edumazet@google.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,oracle.com,infradead.org,intel.com,amd.com,chinatelecom.cn,gmail.com,google.com,lists.xenproject.org];
-	DKIM_TRACE(0.00)[antgroup.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ubizjak@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[gmail.com,suse.com,kernel.org,epam.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 082B967C87
+	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: A96DD67CC2
 X-Rspamd-Action: no action
 
-The commit 1f60230cdc63 ("x86/smp: Use static_call for
-arch_send_call_function_ipi()") changed to use a static call for
-arch_send_call_function_ipi(), which causes two problems:
+The MCE_GETCLEAR_FLAGS ioctl retrieves xen_mcelog.flags while
+atomically clearing it. This was previously implemented using a
+cmpxchg() loop.
 
-First, the KVM guest also changes 'smp_ops.send_call_func_ipi' when the
-PV sched yield feature is available. However, the missing
-static_call_update() breaks the PV sched yield feature.
+Replace the cmpxchg() loop with a single xchg(), which provides the
+same atomic get-and-clear semantics, avoids retry spinning under
+contention, and simplifies the code.
 
-Additionally, xen_smp_init() is called before static_call_init() during
-the booting of the XENPV guest, which triggers a warning in
-__static_call_update().
+The code on x86_64 improves from:
 
-To simplify, move the static call update for 'smp_ops' into
-smp_prepare_boot_cpu() to address these two problems together.
+    186:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx
+    18c:	89 d0                	mov    %edx,%eax
+    18e:	f0 0f b1 0d 00 00 00 	lock cmpxchg %ecx,0x0(%rip)
+    195:	00
+    196:	39 c2                	cmp    %eax,%edx
+    198:	75 ec                	jne    186 <...>
 
-Fixes: 1f60230cdc63 ("x86/smp: Use static_call for arch_send_call_function_ipi()")
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+to just:
+
+    186:	87 05 00 00 00 00    	xchg   %eax,0x0(%rip)
+
+No functional change intended.
+
+Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
-I'm not sure if the XEN part is okay or not. I think there should be no
-IPI before smp_prepare_boot_cpu(), and even if there is, it's okay for
-the KVM guest to use the native version before smp_prepare_boot_cpu().
----
- arch/x86/kernel/smpboot.c | 1 +
- arch/x86/xen/smp_hvm.c    | 1 -
- arch/x86/xen/smp_pv.c     | 1 -
- 3 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/xen/mcelog.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index 5cd6950ab672..84b8a4163ddb 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -1088,6 +1088,7 @@ void __init smp_prepare_cpus_common(void)
+diff --git a/drivers/xen/mcelog.c b/drivers/xen/mcelog.c
+index 4f65b641c054..abe658c73b7b 100644
+--- a/drivers/xen/mcelog.c
++++ b/drivers/xen/mcelog.c
+@@ -165,9 +165,7 @@ static long xen_mce_chrdev_ioctl(struct file *f, unsigned int cmd,
+ 	case MCE_GETCLEAR_FLAGS: {
+ 		unsigned flags;
  
- void __init smp_prepare_boot_cpu(void)
- {
-+	x86_smp_ops_static_call_update();
- 	smp_ops.smp_prepare_boot_cpu();
- }
+-		do {
+-			flags = xen_mcelog.flags;
+-		} while (cmpxchg(&xen_mcelog.flags, flags, 0) != flags);
++		flags = xchg(&xen_mcelog.flags, 0);
  
-diff --git a/arch/x86/xen/smp_hvm.c b/arch/x86/xen/smp_hvm.c
-index 5ea0f53e4ea3..485c1d8804f7 100644
---- a/arch/x86/xen/smp_hvm.c
-+++ b/arch/x86/xen/smp_hvm.c
-@@ -85,5 +85,4 @@ void __init xen_hvm_smp_init(void)
- 	smp_ops.smp_send_reschedule = xen_smp_send_reschedule;
- 	smp_ops.send_call_func_ipi = xen_smp_send_call_function_ipi;
- 	smp_ops.send_call_func_single_ipi = xen_smp_send_call_function_single_ipi;
--	x86_smp_ops_static_call_update();
- }
-diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-index 72a334b32c32..c40f326f0c3a 100644
---- a/arch/x86/xen/smp_pv.c
-+++ b/arch/x86/xen/smp_pv.c
-@@ -441,7 +441,6 @@ static const struct smp_ops xen_smp_ops __initconst = {
- void __init xen_smp_init(void)
- {
- 	smp_ops = xen_smp_ops;
--	x86_smp_ops_static_call_update();
- 
- 	/* Avoid searching for BIOS MP tables */
- 	x86_init.mpparse.find_mptable		= x86_init_noop;
+ 		return put_user(flags, p);
+ 	}
 -- 
-2.31.1
+2.52.0
 
 
