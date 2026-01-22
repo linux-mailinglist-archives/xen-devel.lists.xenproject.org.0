@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ENH5M5kycmmadwAAu9opvQ
+	id UH5DFpcycmmadwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:22:17 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:22:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8814767DD2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:22:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211155.1522682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC59967DCB
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:22:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211156.1522687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivZR-0006cF-6H; Thu, 22 Jan 2026 14:22:01 +0000
+	id 1vivZR-0006ef-CB; Thu, 22 Jan 2026 14:22:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211155.1522682; Thu, 22 Jan 2026 14:22:01 +0000
+Received: by outflank-mailman (output) from mailman id 1211156.1522687; Thu, 22 Jan 2026 14:22:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivZR-0006Ze-0z; Thu, 22 Jan 2026 14:22:01 +0000
-Received: by outflank-mailman (input) for mailman id 1211155;
+	id 1vivZR-0006cC-7V; Thu, 22 Jan 2026 14:22:01 +0000
+Received: by outflank-mailman (input) for mailman id 1211156;
  Thu, 22 Jan 2026 14:21:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vivZP-0006ZC-30
+ id 1vivZP-0006ZI-Pf
  for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:21:59 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b50f3f7b-f79d-11f0-9ccf-f158ae23cfc8;
- Thu, 22 Jan 2026 15:21:56 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47eddddcdcfso6118685e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 06:21:56 -0800 (PST)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b5e3d227-f79d-11f0-b15e-2bf370ae4941;
+ Thu, 22 Jan 2026 15:21:58 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4801d24d91bso10981425e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 06:21:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4804704b712sm68649175e9.8.2026.01.22.06.21.55
+ 5b1f17b1804b1-4804704b712sm68649175e9.8.2026.01.22.06.21.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jan 2026 06:21:55 -0800 (PST)
+ Thu, 22 Jan 2026 06:21:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,46 +50,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b50f3f7b-f79d-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: b5e3d227-f79d-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769091716; x=1769696516; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769091718; x=1769696518; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
         bh=KWBtxKj07s4HLwGJTh9AK3keI4THEAKode/ZcAbQeyE=;
-        b=QprBXNybt+jmnR21NTXQH2PYEQBk5EoeU+CGc5pJ544DoF5ek9ISjEjw2y4MhUpfxr
-         DlcgQZUg0YLhNntYEjWSw1NmMc4+vcBAger0362/tte5w2jmW7/VxTGwNsB6ZsseJ1i2
-         0ILMAcNjipHHQqb4OoU9wM2EYFc7n0fi+Pe5Yqgy4nxYO4/brIzHbV5r8f+QvEJyRdCu
-         2pur9uYyZi8ZU7qL+EJrHJNl3xaZEBufdnk3j7JfhMUYsJdUmcSgQTQInvmGlDk7/rVK
-         mbJi3tgQhZxZTk5PAlH3EEK8uOy2jHhjnnEoZtB1kq8TV3ZnUUyMKlZiqbk7wLsCVQ7A
-         YYlg==
+        b=Qrqni8+dwRr+VhF2fN/ihloAr9hAL54AOIIB5WgxwGLtYbfMgny60JhMq0VYTgPqgN
+         mldeyAB4ecNX8uCaHzy5Qr+Y1gnyCVs5oz6mcR6p4c9GDAL5NkmjsyFmi/qv4ptzzbYQ
+         ki1JXSZESdjYnn597WQG5fWkcwbY+3VJGB9jCOYTF8GidHxuot0eUjvxYixgGn9jpvGh
+         2x+xPb6KP5zsm24Eac0kk6uuVdaIwLJjG/h6MUnkaStyu94mbN0Huwgx5WTgD+xalOEm
+         c/26Vm5g6FnHnK6+lhtlvgxxoK+3QGMubAzwMwsRbUzy6z8PyDTpJcYduiYOUQjX9pzI
+         KYCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769091716; x=1769696516;
+        d=1e100.net; s=20230601; t=1769091718; x=1769696518;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
         bh=KWBtxKj07s4HLwGJTh9AK3keI4THEAKode/ZcAbQeyE=;
-        b=q/O1HJMlOTUJzOCOQ0AI+JS3/PLHcdYzNX5TIdMBxz5U1IHsPtVKL9DR31J4Fr/ekK
-         SyF8ReCyG1ObDJzpIBDR0OqxesqtpmaBKODtXv7AML+0VIRQ9GR9CQ5GfKQET67e2TDk
-         UtlK+rA7Nds3+ozNf0zd6MPzJ5OG7mLOLVauP0/GXNmGrmSh1aEqUhAMRPALU9YBaxOI
-         +XbyxW1OLKwB7cxJUD8ugAnOj5ICTsF3ZvqDR2NLLBVF+MgHgw7N0LZSab0f237oOIl5
-         keAw+0WmD8KAKt4sX92EuWVbGwinJibezQW9986isSQeHphWYf4SSvillgpR5MyDJg9+
-         VKOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUtP4u//IsY8j2RluJmsm37HK1bDumufdYTJkefKlncxanfwGLawF+3fTllbWUyeE0wApLIuvgX3iA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxDZErms5Il2Bm2EdcVvCuBJ02YC8ZKjE+AMM+O0k+DV8T++V7p
-	2eAusGk3JJU95lBymwJXQqRst4jfSj4Tqmk6THNgNuO+ybUgjFfSGh6nIYhvod4/VA==
-X-Gm-Gg: AZuq6aKv8/yvMVhTwX/QNwPWFXEoYMXHw3lzH5fcORqaDamIkjQN810AjFgcrCprDpf
-	ikFw880Rms6bb4E9nBzthnE5JgZQNTsAaB+bhubrim72Se6+f8hcX+Dy5z5VhFxGKbEKWF8rwx/
-	P1NFFeyq0H2tdXOWxZ9vbIL2cfXGBQKuMWv7ogMrijKEohLewbS67vPXlXOcl91l0aIOStpTBvC
-	yP1U5AHlBQQ49Yh+it3j44c5TrdBy1uxAd5KeFqsHg7O5LeSEta3SBUHhEcwR5o9OHQkjYzfU24
-	U6aKtery74eFj8PCeq4LfTUkn5fgV312MEy+s0S39uHBI/z0T0K/X2S72kBZ+rXo4qjoElCigRA
-	dylwIILCa7ixw7BrhvptuUAYF6uHx6pSOL43q0nR35sx5FrgxxpwUzEzwARQ4krQkaRABMziPJ8
-	Vb2XyGEUgCuU9LaHTNrA+5ltI/QYI9taYWLbscJXLaQWt3annP9Ta1ir4GkNDG0FS0ThbsXLItc
-	/PPSKugKGKRqg==
-X-Received: by 2002:a05:600c:1552:b0:47e:e946:3a72 with SMTP id 5b1f17b1804b1-4801eb0e021mr302727105e9.27.1769091716256;
-        Thu, 22 Jan 2026 06:21:56 -0800 (PST)
-Message-ID: <60e77689-7fed-432d-ab8d-621690e6a323@suse.com>
+        b=wWvbBPFFrazDGK5ZMkNuFZtexqMP8PjezqA3iYvvXkSIa9NEshWWJQkYFXHNH+aDN0
+         1qT8UMetJzaQeE/7lTTaHY/0Hj7uCGi61iQh9m8Gw0z7+A0UIg+4nt7hdmFsROvWyNRl
+         KxjGSUmn3W6FtPYO+LH+SO2Gb12RWmSZV5xOX7IYriCKFU45xGONZSKwfM8GwBDSrAzr
+         60Ok+uImtuBCzyarf9hjiP5s7LuicHLqCX9WEmkjB9M6lkwDGsGDO6gBP6HgQ6lp12e8
+         s/ujgvDu42/SnRSOl38OGsUL2Y+fBr14UJqet5jR5R5t5dxPdYNxnMGb9rh0c+YDew0T
+         d0cQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUmTeRAFh/9r3Rg+mkWndhNaj9sGuy11gjBQsmGPocWEEapd8X5Z7OVD3FlWH7Dn2gaI0OiFnTqDjY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyDmZwd9LuAaHUKfyYW0a+CqaGhP2GHNVJEcqVH+aRBcxGOWx9V
+	KAa0ZfGKuVXhl1o2KlqEHpyweZn4RAllYixaFTlVyYDGk5msLR3kyCUcj0wl8VMiKjRc+WL2VZr
+	Wlf4=
+X-Gm-Gg: AZuq6aKTAryTDHqGTsvhl5z8cYqlX819t983NUpZjQAir1WJUj7PLyBmni2YBX+YODD
+	hwrrcrzfjJr0B9SCmQ7IYNNJvxgh6M8nRnkjppHdewx7RUXpopHGQMMpwGuhPs9M4XfHXmz7h80
+	964on38cjQ9bQH5uyHN0ExpPTIngmVpQHYoIYodzY2IViyR3IU9jNawUmB6T+ksyXmVH89l98/W
+	wWeQAbGLZabh34RDR0KRgeiYazHkuXdkvVCcDCAqYbdOHyT2I5jiqlPG0I6Lyuwk967eHMrq7gG
+	fNvr3LXx9/m4Ye6WqhRddPzzSK2Svjda5mfwIjIvRH7xHtIjyEPkDhQ+Q7GoaZ+OBmaa/rB2fNd
+	dxqJUY3WBOXqOm7gfCdai0YcVj4ISte8qdnMt/RhogpBXslXUoNPy08EnkrkX0pXTCuTZWfVCoF
+	xYOZgsYOdbIpsu2swaXYxpjRAvg0s2zIiYW4BYMbs/EguvHgjcS42rhFlUfRZ+0iTzS+qtJI6h0
+	rc=
+X-Received: by 2002:a05:600c:1990:b0:480:3b26:82c3 with SMTP id 5b1f17b1804b1-4803e7e819dmr135375095e9.20.1769091717597;
+        Thu, 22 Jan 2026 06:21:57 -0800 (PST)
+Message-ID: <17b237ae-d3c8-4491-8eb5-6ebb4a25a8fc@suse.com>
 Date: Thu, 22 Jan 2026 15:21:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
@@ -132,7 +133,7 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -140,10 +141,10 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:ubizjak@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
@@ -159,7 +160,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 8814767DD2
+X-Rspamd-Queue-Id: BC59967DCB
 X-Rspamd-Action: no action
 
 On 22.01.2026 15:17, Uros Bizjak wrote:
