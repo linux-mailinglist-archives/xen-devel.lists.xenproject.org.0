@@ -2,43 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8GWWLKwhcmmPdQAAu9opvQ
+	id UONTFMUqcmmadwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 14:10:04 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 14:48:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271346712C
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 14:10:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211010.1522571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FBF767803
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 14:48:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211038.1522581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viuRa-0007vS-Q0; Thu, 22 Jan 2026 13:09:50 +0000
+	id 1viv2k-0004yB-Hq; Thu, 22 Jan 2026 13:48:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211010.1522571; Thu, 22 Jan 2026 13:09:50 +0000
+Received: by outflank-mailman (output) from mailman id 1211038.1522581; Thu, 22 Jan 2026 13:48:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1viuRa-0007tB-Mj; Thu, 22 Jan 2026 13:09:50 +0000
-Received: by outflank-mailman (input) for mailman id 1211010;
- Thu, 22 Jan 2026 13:09:49 +0000
+	id 1viv2k-0004vt-EI; Thu, 22 Jan 2026 13:48:14 +0000
+Received: by outflank-mailman (input) for mailman id 1211038;
+ Thu, 22 Jan 2026 13:48:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1viuRZ-0007t5-Hj
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 13:09:49 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FI3N=73=bounce.vates.tech=bounce-md_30504962.69722a98.v1-60ebe441a5b84f7b906ad5121b15d0da@srs-se1.protection.inumbo.net>)
+ id 1viv2i-0004vn-FT
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 13:48:12 +0000
+Received: from mail186-9.suw21.mandrillapp.com
+ (mail186-9.suw21.mandrillapp.com [198.2.186.9])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a04c2676-f793-11f0-9ccf-f158ae23cfc8;
- Thu, 22 Jan 2026 14:09:47 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47ee4338e01so5862295e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 05:09:47 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43569921facsm42863280f8f.5.2026.01.22.05.09.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Jan 2026 05:09:46 -0800 (PST)
+ id fc47dae6-f798-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 14:48:09 +0100 (CET)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-9.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4dxj7X1X9FzK5vkCS
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 13:48:08 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 60ebe441a5b84f7b906ad5121b15d0da; Thu, 22 Jan 2026 13:48:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,172 +47,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a04c2676-f793-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769087386; x=1769692186; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7OSGJaWFTQVWZfE69s8ozooWMhYaLI9iwnCjkHUWTpQ=;
-        b=S/0M2GXVI08Wo7Ul/LkAgLXsgzdF8dV1yVmvyXE3lAz4TKZUD1swhbQP+n9ZF0s36d
-         cLYDZHkn0uWm4vAVWm7ieBd64hlDJ0i8c7B7DGSiKzwmfierNTPRv88EsUu2SG16bGGN
-         Q7QXUBIVMh8G622QHmXNA3XEcZ1xIR+h0Txznt9MV4cotTmaDXU91PupxdoNU3w8aifo
-         RmD5tc8goa5ehroVj+Sy8opLSv2PhU53dr5C0eEcxfCjht2FYp06dhBSsEsNoKdpEJAF
-         v/cixIW9+qnldGrpW3SSeZwZZcFS6UilGWulCR6B2UvCns8DWDdF/cRwRaIOqj054uax
-         Urnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769087386; x=1769692186;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7OSGJaWFTQVWZfE69s8ozooWMhYaLI9iwnCjkHUWTpQ=;
-        b=cYWf9WLAWFk1rGq9QHPoxUN0rk1WP5m3Qj2C0AbhwWxmRdvk6pZo5eEaLt/T9cGrA/
-         D+DE8isYE+eFhAUZk5C7H87Sn4vwsATM25T8bp+IJBdtb988wzLgYihGEiiWVIsxpivY
-         R9Nc7Um2ln0icDZZEA0RoFSyQ2bCls+dxK417V3YupQi97oUG0yAEfqWwKOERbPZAyAl
-         8qZXYHpEO+jlnF8861Yxabyedte6IXY9YAGqW0ENI4TPwUP/rQiu73SKU0iIgQMcjn1o
-         v+sI/sAgf8KEWL/khmVK0qp6ybW2Bu9u9FL6rTrtO2Di8qfzKpVIBORK2IS9z82OapBc
-         jmwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXXLR0UpGEkXYivud7jozGQn7SR6k1LPaAENqJWmgeMjGSjUZpfGltZgyebHDvWgEnLkjLhuAw+NZ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6J5IbG7Zz/IU0dEjalVnXZiYVufoOu3Xdq7SRG9Au+vwMVn66
-	2PEfBKyHLPyTnPa7NzmZmzOVAwfNqAE4GZ+MlzOL6+zBjcUt6CWQr6sBbjbdVQ/zIQ==
-X-Gm-Gg: AZuq6aIleeCaaTTAgFhzSmUBU03Uk8ZkWxNBXzJIkoYV9dnognc1775oDL7fv0Hvc2W
-	f5RhIKrJFoyGECWzMnU9DumHlpMEQ73XUwYy2K+FMlAoKwOW0UAiCGzj8+0kKAtCT6YA1MbV1tp
-	1PO2rZUK+OSmTpg65ghR9DoQRT7sQyi30m4elnBtfESrHPdldWf6dImTy+aieuq2vviJW3K56Gu
-	kJDR2+5XtQHg/B6/y0G0X2ACKX9kB6SmMa4llT38YzumBQPjgE9WxqcM7B3puHwq4KabkGl7WDU
-	oPJVfsFHC+FQnQMmAkNJXtkv9mRaldG1Pl9UdHpJpsjUz63wcPH+FfM4aIMqWSXXe+oYH1pmLlT
-	nO5mmX+xBzvldyqwyIYcaaD8WTGEmcyRnsaYurqDDd7UmuPJwiuqTwGgUipnZR0XJrF4kvJp7hZ
-	7EH8JzYpyLwqGx1h/8Wvazl2CQVX57qMGWaoa57ok+SpLJzXXJuln69DQZrUDFWamzwFypEYEE8
-	ts=
-X-Received: by 2002:a05:6000:2406:b0:430:8583:d189 with SMTP id ffacd0b85a97d-4356a051afbmr34449511f8f.39.1769087386472;
-        Thu, 22 Jan 2026 05:09:46 -0800 (PST)
-Message-ID: <7a90ab94-3eb0-4d3f-8128-210baed60e3c@suse.com>
-Date: Thu, 22 Jan 2026 14:09:43 +0100
+X-Inumbo-ID: fc47dae6-f798-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1769089688; x=1769359688;
+	bh=hTDH/bCW4NxcGMHCphf3VXFB1sPxgz5d+CFEu1tvX44=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=p/O7GpaCI4Wp5r3cz+6BNdcMlpvIDIAxsziyasfFelyFn8gVx8hZF+69+Tw6zKhxR
+	 63hTCHwlu2NQBja7kbVHrjSfE0+bmi9Oa6sCKPc7A+IJOgCquUs93S5CwhY3Kul8pM
+	 cXWx1XNG8A+Uei+bywhlrMT99ixBu0qZwhBNLXosVUhkEaXLx3tRgCjgqselZzmjqc
+	 MMzbgOITGmhOeeOwdmurbQAaT7UY5moDyS0vWa33Jpp45WC93pESNQbDVFQRyvsV1y
+	 V7jrDzFia8dlSGyJp7b/Ov+7Bs7VkGLGj3yRjOiBEx3eSUaDtszQeayELgOQr8z54y
+	 WXrusHfCnkLiA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1769089688; x=1769350188; i=julian.vetter@vates.tech;
+	bh=hTDH/bCW4NxcGMHCphf3VXFB1sPxgz5d+CFEu1tvX44=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=gDQEOgXGqk9Hbw02Ilaf4Xg08WF3WFUdika+tOR5ESBC+s6ZTbchDw3pkdWK/Zc0W
+	 P9Ro2Bv/c/YRgi43VvcSDfT+sS7ezMRdov5A/cxvHMcsXoXp5bjAjo6dIxqRuN0zbu
+	 jeRa2xqLxyxYkoxB7Q0b6G39ZLZr+uIB3ptXV0ACv7jQEOg/4eTJWomEvH4jNwvBKH
+	 GnanaUchFrksN4dXfv844IFMNHNHeRSuQmPOguIcCss1WzruQyu2niKxfFyz/ygsPd
+	 rrOCLOnIuLELA4XlKb7MpXk+0ILDXeDJx2PsoQJECzir4Wx+ub+JKSYNT4oBwoUWJk
+	 f4+lzUuQVaOUg==
+From: "Julian Vetter" <julian.vetter@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xen:=20Move=20NX=20handling=20to=20a=20dedicated=20place?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1769089686711
+Message-Id: <4a38c2ae-dc60-4fed-b30e-81a02b657e92@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, "Jan Beulich" <jbeulich@suse.com>
+References: <20260115151658.3725784-1-julian.vetter@vates.tech> <69b511db-654d-46b3-aca3-3f37f30d3473@citrix.com> <c4c2c376-ab6b-4bb3-9ede-091f791c1427@vates.tech> <335949fc-059e-477c-9b2b-ddcd2f144300@citrix.com>
+In-Reply-To: <335949fc-059e-477c-9b2b-ddcd2f144300@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.60ebe441a5b84f7b906ad5121b15d0da?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260122:md
+Date: Thu, 22 Jan 2026 13:48:08 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/mm: limit non-scrubbed allocations to a
- specific order
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260115111804.40199-1-roger.pau@citrix.com>
- <20260115111804.40199-4-roger.pau@citrix.com>
- <858d73b3-2feb-419f-bf3b-9a264e9f9af8@suse.com>
- <97127b23-4e4c-4b06-a8bb-b1dad31bf0b0@suse.com> <aXIgscqjXmCUqsQn@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aXIgscqjXmCUqsQn@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 271346712C
+X-Rspamd-Queue-Id: 7FBF767803
 X-Rspamd-Action: no action
 
-On 22.01.2026 14:05, Roger Pau Monné wrote:
-> On Tue, Jan 20, 2026 at 08:25:49AM +0100, Jan Beulich wrote:
->> On 19.01.2026 17:13, Jan Beulich wrote:
->>> On 15.01.2026 12:18, Roger Pau Monne wrote:
->>>> The current logic allows for up to 1G pages to be scrubbed in place, which
->>>> can cause the watchdog to trigger in practice.  Reduce the limit for
->>>> in-place scrubbed allocations to a newly introduced define:
->>>> CONFIG_DIRTY_MAX_ORDER.  This currently defaults to CONFIG_DOMU_MAX_ORDER
->>>> on all architectures.  Also introduce a command line option to set the
->>>> value.
->>>>
->>>> Fixes: 74d2e11ccfd2 ("mm: Scrub pages in alloc_heap_pages() if needed")
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> ---
->>>> Changes since v1:
->>>>  - Split from previous patch.
->>>>  - Introduce a command line option to set the limit.
->>>> ---
->>>>  docs/misc/xen-command-line.pandoc |  9 +++++++++
->>>>  xen/common/page_alloc.c           | 23 ++++++++++++++++++++++-
->>>>  2 files changed, 31 insertions(+), 1 deletion(-)
+On 1/19/26 20:01, Andrew Cooper wrote:
+> On 19/01/2026 10:34 am, Julian Vetter wrote:
+>> On 1/15/26 4:50 PM, Andrew Cooper wrote:
+>>> On 15/01/2026 3:17 pm, Julian Vetter wrote:
+>>>> +{
+>>>> +    uint64_t misc_enable;
+>>>> +    uint32_t eax, ebx, ecx, edx;
+>>>> +
+>>>> +    if ( !boot_cpu_has(X86_FEATURE_NX) )
+>>>> +    {
+>>>> +        /* Intel: try to unhide NX by clearing XD_DISABLE */
+>>>> +        cpuid(0, &eax, &ebx, &ecx, &edx);
+>>>> +        if ( ebx =3D=3D X86_VENDOR_INTEL_EBX &&
+>>>> +             ecx =3D=3D X86_VENDOR_INTEL_ECX &&
+>>>> +             edx =3D=3D X86_VENDOR_INTEL_EDX )
+>>>> +        {
+>>>> +            rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>>>> +            if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
+>>>> +            {
+>>>> +                misc_enable &=3D ~MSR_IA32_MISC_ENABLE_XD_DISABLE;
+>>>> +                wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
+>>>> +
+>>>> +                /* Re-read CPUID after having cleared XD_DISABLE */
+>>>> +                boot_cpu_data.x86_capability[FEATURESET_e1d] =3D cpui=
+d_edx(0x80000001U);
+>>>> +
+>>>> +                /* Adjust misc_enable_off for secondary startup and w=
+akeup code */
+>>>> +                bootsym(trampoline_misc_enable_off) |=3D MSR_IA32_MIS=
+C_ENABLE_XD_DISABLE;
+>>>> +                printk(KERN_INFO "re-enabled NX (Execute Disable) pro=
+tection\n");
+>>>> +            }
+>>>> +        }
+>>>> +        /* AMD: nothing we can do - NX must be enabled in BIOS */
+>>> The BIOS is only hiding the CPUID bit.=C2=A0 It's not blocking the use =
+of NX.
+>> Yes, you're right.
+>>> You want to do a wrmsr_safe() trying to set EFER.NXE, and if it
+>>> succeeds, set the NX bit in MSR_K8_EXT_FEATURE_MASK to "unhide" it in
+>>> regular CPUID.=C2=A0 This is a little more tricky to arrange because it=
+ needs
+>>> doing on each CPU, not just the BSP.
+>> Ok, yes, I have modified the AMD side to use MSR_K8_EXT_FEATURE_MASK to
+>> "unhide" it.
+> 
+> Great.=C2=A0 And contrary to the other thread, this really must modify th=
+e
+> mask MSRs rather than use setup_force_cpu_cap(), because we still need
+> it to be visible to PV guest kernels which can't see Xen's choice of
+> setup_force_cpu_cap().
+> 
+>>
+>>>> +    }
+>>>> +
+>>>> +    /* Enable EFER.NXE only if NX is available */
+>>>> +    if ( boot_cpu_has(X86_FEATURE_NX) )
+>>>> +    {
+>>>> +        if ( !(read_efer() & EFER_NXE) )
+>>>> +            write_efer(read_efer() | EFER_NXE);
+>>>> +
+>>>> +        /* Adjust trampoline_efer for secondary startup and wakeup co=
+de */
+>>>> +        bootsym(trampoline_efer) |=3D EFER_NXE;
+>>>> +    }
+>>>> +
+>>>> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) && !boot_cpu_has(X86_FEATURE_N=
+X) )
+>>>> +        panic("This build of Xen requires NX support\n");
+>>>> +}
+>>>> +
+>>>>    /* How much of the directmap is prebuilt at compile time. */
+>>>>    #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+>>>>    
+>>>> @@ -1159,6 +1203,8 @@ void asmlinkage __init noreturn __start_xen(void=
+)
+>>>>        rdmsrl(MSR_EFER, this_cpu(efer));
+>>>>        asm volatile ( "mov %%cr4,%0" : "=3Dr" (info->cr4) );
+>>>>    
+>>>> +    nx_init();
+>>>> +
+>>>>        /* Enable NMIs.  Our loader (e.g. Tboot) may have left them dis=
+abled. */
+>>>>        enable_nmis();
+>>>>    
+>>> This is too early, as can be seen by the need to make a cpuid() call
+>>> rather than using boot_cpu_data.
 >>>
->>> If you confine the change to page_alloc.c, won't this mean that patch 2's
->>> passing of MEMF_no_scrub will then also be bounded (in which case the need
->>> for patch 2 would largely disappear)?
->>
->> This was rubbish, sorry. Besides my being thick-headed I can only attribute
->> this to the double negation in !(memflags & MEMF_no_scrub).
->>
->> I have another concern, though: You effectively undermine ptdom_max_order,
->> which is even more of a problem as that would also affect Dom0's ability to
->> obtain larger contiguous I/O buffers. Perhaps DIRTY_MAX_ORDER ought to
->> default to PTDOM_MAX_ORDER (if HAS_PASSTHROUGH)?
+>>> The cleanup I wanted to do was to create/rework early_cpu_init() to get
+>>> things in a better order, so the panic() could go at the end here.=C2=
+=A0 The
+>>> current split we've got of early/regular CPU init was inherited from
+>>> Linux and can be collapsed substantially.
+>> I have tried to add the logic into the early_init_{intel,amd}()
+>> functions. But it seems this is already too late in the boot chain. This
+>> is why I put into an extra function which is called earlier. Because it
+>> seems there are already pages with PAGE_NX being used on the way to
+>> early_init_{intel,amd}(). Because when I put my code into
+>> early_init_intel I get a fault and a reboot. What do you suggest?
 > 
-> OK, yes, I can default to PTDOM_MAX_ORDER instead of DOMU_MAX_ORDER.
-> 
->> Yet then command line
->> options may also need tying together, such that people using
->> "memop-max-order=" to alter (increase) ptdom_max_order won't need to
->> additionally use "max-order-dirty="? At which point maybe the new option
->> shouldn't be a standalone one, but be added to "memop-max-order=" (despite
->> it being effected in alloc_heap_pages())?
-> 
-> I had concerns about adding it to "memop-max-order=" because it's effect
-> is not limited to "issued by the various kinds of domain", this is an
-> option that affects all allocations.  I could try expanding the option
-> description to reflect that, but I wasn't sure whether it would lead
-> to confusion (as all options there are per-domain currently).
+> Have you got the backtrace available?
 
-Hmm, fair point. Let's keep it separate then.
+Yes. Here it is. Although I saw before when enabling 
+'CONFIG_MICROCODE_LOADING' it faults even earlier, somewhere in 
+'find_cpio_data()', but with the same EC =3D 0x0009 (Protection violation, 
+Reserved bit violation).
 
-Jan
+Xen 4.22-unstable
+(XEN) Xen version 4.22-unstable (julian@work) (gcc (Debian 15.2.0-12) 
+15.2.0) debug=3Dy Thu Jan 22 14:28:58 CET 2026
+(XEN) Latest ChangeSet: Tue Jan 13 16:50:12 2026 +0100 git:ce886ef641
+(XEN) build-id: 2e72a4b08fca3ae0f0ed9af0dd3a5de947a966d0
+(XEN) CPU Vendor: Intel, Family 6 (0x6), Model 55 (0x37), Stepping 8 
+(raw 00030678)
+(XEN) BSP microcode revision: 0x00000836
+(XEN) Bootloader: GRUB 2.12
+(XEN) Command line: dom0_mem=3D1232M,max:1232M watchdog ucode=3Dscan 
+dom0_max_vcpus=3D1-1 com1=3D115200,8n1 console=3Dcom1
+(XEN) Xen image load base address: 0xb5800000
+(XEN) Video information:
+(XEN)  VGA is graphics mode 800x600, 32 bpp
+(XEN) Disc information:
+(XEN)  Found 0 MBR signatures
+(XEN)  Found 1 EDD information structures
+(XEN) EFI RAM map:
+(XEN)  [0000000000000000, 000000000003efff] (usable)
+(XEN)  [000000000003f000, 000000000003ffff] (ACPI NVS)
+(XEN)  [0000000000040000, 000000000009ffff] (usable)
+(XEN)  [0000000000100000, 000000001effffff] (usable)
+(XEN)  [000000001f000000, 000000001f0fffff] (reserved)
+(XEN)  [000000001f100000, 000000001fffffff] (usable)
+(XEN)  [0000000020000000, 00000000200fffff] (reserved)
+(XEN)  [0000000020100000, 00000000b9377fff] (usable)
+(XEN)  [00000000b9378000, 00000000b93a7fff] (reserved)
+(XEN)  [00000000b93a8000, 00000000b94bdfff] (usable)
+(XEN)  [00000000b94be000, 00000000b98d6fff] (ACPI NVS)
+(XEN)  [00000000b98d7000, 00000000b9bb0fff] (reserved)
+(XEN)  [00000000b9bb1000, 00000000b9bb1fff] (usable)
+(XEN)  [00000000b9bb2000, 00000000b9bf3fff] (reserved)
+(XEN)  [00000000b9bf4000, 00000000b9d6dfff] (usable)
+(XEN)  [00000000b9d6e000, 00000000b9ff9fff] (reserved)
+(XEN)  [00000000b9ffa000, 00000000b9ffffff] (usable)
+(XEN)  [00000000e00f8000, 00000000e00f8fff] (reserved)
+(XEN)  [00000000fed01000, 00000000fed01fff] (reserved)
+(XEN)  [00000000fed08000, 00000000fed08fff] (reserved)
+(XEN)  [00000000ffb00000, 00000000ffffffff] (reserved)
+(XEN)  [0000000100000000, 000000013fffffff] (usable)
+(XEN) Early fatal page fault at e008:ffff82d0403b38e0 
+(cr2=3D0000000001100202, ec=3D0009)
+(XEN) ----[ Xen-4.22-unstable  x86_64  debug=3Dy  Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d0403b38e0>] memcmp+0x20/0x46
+(XEN) RFLAGS: 0000000000010002   CONTEXT: hypervisor
+(XEN) rax: 0000000000000000   rbx: 0000000001100000   rcx: 0000000000000000
+(XEN) rdx: 0000000000000004   rsi: ffff82d0404a0d23   rdi: 0000000001100202
+(XEN) rbp: ffff82d040497d88   rsp: ffff82d040497d78   r8:  0000000000000016
+(XEN) r9:  ffff82d04061a180   r10: ffff82d04061a188   r11: 0000000000000010
+(XEN) r12: 0000000001100000   r13: 0000000000000001   r14: ffff82d0404d2b80
+(XEN) r15: ffff82d040462750   cr0: 0000000080050033   cr4: 00000000000000a0
+(XEN) cr3: 00000000b5d0e000   cr2: 0000000001100202
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d0403b38e0> (memcmp+0x20/0x46):
+(XEN)  0f 1f 84 00 00 00 00 00 <0f> b6 04 0f 44 0f b6 04 0e 44 29 c0 75 
+13 48 83
+(XEN) Xen stack trace from rsp=3Dffff82d040497d78:
+(XEN)    ffff82d040483f79 0000000000696630 ffff82d040497db0 ffff82d040483fd=
+2
+(XEN)    0000000000696630 ffff82d040200000 0000000000000001 ffff82d040497ef=
+8
+(XEN)    ffff82d04047c4ac 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    ffff82d04062c6d8 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000140000 0000000000000000 000000000000000=
+1
+(XEN)    0000000000000000 0000000000000000 ffff82d040497f08 ffff82d0404d2b8=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000800000000 000000010000006e 000000000000000=
+3
+(XEN)    00000000000002f8 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000099f30ba0 0000000099feeda7 0000000000000000 ffff82d040497ff=
+f
+(XEN)    00000000b9cf3920 ffff82d0402043e8 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000e01000000000 0000000000000000 000000000000000=
+0
+(XEN)    00000000000000a0 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN) Xen call trace:
+(XEN)    [<ffff82d0403b38e0>] R memcmp+0x20/0x46
+(XEN)    [<ffff82d040483f79>] S arch/x86/bzimage.c#bzimage_check+0x2e/0x73
+(XEN)    [<ffff82d040483fd2>] F bzimage_headroom+0x14/0xa5
+(XEN)    [<ffff82d04047c4ac>] F __start_xen+0x908/0x2452
+(XEN)    [<ffff82d0402043e8>] F __high_start+0xb8/0xc0
+(XEN)
+(XEN) Pagetable walk from 0000000001100202:
+(XEN)  L4[0x000] =3D 00000000b5c9d063 ffffffffffffffff
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) FATAL TRAP: vec 14, #PF[0009] IN INTERRUPT CONTEXT
+(XEN) ****************************************
+
+
+> 
+> It's probably easiest if I prototype the split I'd like to see, and you
+> integrate with that.
+> 
+> ~Andrew
+
+
+
+--
+Julian Vetter | Vates Hypervisor & Kernel Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
