@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GJ48MArXcWk+MgAAu9opvQ
+	id YPV3Gd3XcWk+MgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:51:38 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:55:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E1D62AA7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:51:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1210432.1522101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0915762B20
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:55:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1210444.1522112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vipTI-0004KH-Al; Thu, 22 Jan 2026 07:51:16 +0000
+	id 1vipWq-0004wg-Sr; Thu, 22 Jan 2026 07:54:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1210432.1522101; Thu, 22 Jan 2026 07:51:16 +0000
+Received: by outflank-mailman (output) from mailman id 1210444.1522112; Thu, 22 Jan 2026 07:54:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vipTI-0004He-7O; Thu, 22 Jan 2026 07:51:16 +0000
-Received: by outflank-mailman (input) for mailman id 1210432;
- Thu, 22 Jan 2026 07:51:14 +0000
+	id 1vipWq-0004th-Pk; Thu, 22 Jan 2026 07:54:56 +0000
+Received: by outflank-mailman (input) for mailman id 1210444;
+ Thu, 22 Jan 2026 07:54:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vipTG-0004HY-LH
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 07:51:14 +0000
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [2a00:1450:4864:20::341])
+ id 1vipWp-0004tI-2K
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 07:54:55 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f6b7512-f767-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 08:51:13 +0100 (CET)
-Received: by mail-wm1-x341.google.com with SMTP id
- 5b1f17b1804b1-47d63594f7eso5397245e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 23:51:13 -0800 (PST)
+ id a2f173f4-f767-11f0-b15e-2bf370ae4941;
+ Thu, 22 Jan 2026 08:54:53 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-42fed090e5fso398628f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 23:54:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-480470287c3sm48570075e9.3.2026.01.21.23.51.11
+ ffacd0b85a97d-43569921df9sm43894070f8f.3.2026.01.21.23.54.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 23:51:12 -0800 (PST)
+ Wed, 21 Jan 2026 23:54:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,63 +50,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f6b7512-f767-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: a2f173f4-f767-11f0-b15e-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769068272; x=1769673072; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769068493; x=1769673293; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SyJeTi7i/D3MREEF/w/xuHxWikcUo5WC7W0cCWWhhxI=;
-        b=FVvvwnNGTL9XOYdptjJW5PcyLVJV1XXABXBLeSEjKMidYa+yOeQUEL4Lf7k9c9OnBZ
-         euPjUSt3U6OLDqEY6iqumjqxB1A3BEYXdhwnegjXJBtexkM9xrZYDjIsX4dbTNOWW7Kj
-         dj+cm57l5f3n25uAtOVUYP6lfPsu6SPSp5LIOdWkZ36xLh/qx4H8YXDw01FEriAinydQ
-         zf1wSlRq3XraDgNZkLngl5p+dmAm018zBcOkYjNTsrDqaqzWUn6x4h5VWCT+UFH2UdaQ
-         L9fN9vZFWqGWzbibBKK5Ddqy/H7OjXq/MLDViPKDGfBqBi+8n5e+dBlcxvjs68RuBNQv
-         ZcRQ==
+        bh=uy+/25C8wIOG9YLs0RH4n9xE0hTdhTudv1wLOOGooe8=;
+        b=WB7Y6E60D68Q5YuuHyX/cMqOdXSspUxMnSbsqbZtzKVL/H4tKPamu644zr4lDxLbCz
+         4ZroHlANr+Prf2j4zIw+2Ov5rzH6S/e6wiw8EgQjMUnOM0vrlr+VzZQohFzfk5IMMlkD
+         1danedkAieN3lSChPNqcqv+cSdgDq1B4vjlGvW95lcgoOpNbWXe4hah7Z+M7EE9+9z2y
+         lzyIRWSPnzAcJ1qrvgQDGV+uagoRHlojOghhV4tj7+9bUA+rrAXbNYzQ2YoAIwiF/vpk
+         s1956GNUt4wT1ZV+hegW13X0PReYD+fU/tfYg7Y7zXRnseJ4DHxYxzUxCF66sMqDG3kh
+         J1Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769068272; x=1769673072;
+        d=1e100.net; s=20230601; t=1769068493; x=1769673293;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SyJeTi7i/D3MREEF/w/xuHxWikcUo5WC7W0cCWWhhxI=;
-        b=syhSmbQbH2/0G1bNZK94+aKpPlws4WAadaFCxKCjiuvMY+BzdvdRzOu8apNli6AtqT
-         Kxps65csrE3Dc/18I8KUpIoz/eYN54Ggq6naYQ6s5BzrkLG95Vlr6axwOfEmJo557e/A
-         M13+CKoG/5ZrwpdX/dO0/sGA0Op2yiipOZxeMpY4IuTyqhjPrDSL5Mn0miH/ee5kAhvT
-         onpSA1/AF4TNCUAJ0NsRlZw7WL0xhbpsJwa4Xgipot7YtX60bibNGGpCW9PrHHe9U4jL
-         Oj/HM3IoFPSW+ZfZioetsY3JbksRbyeaBLFp6XaxEniJCI9hguIduiE4NYf0o0DvHCGl
-         YqlA==
-X-Forwarded-Encrypted: i=1; AJvYcCUX8vgEmJ4PyjH8+uD3eyZ4CMjiJcaUS1wjdAIOZh1ZDS8nLSYs7xBXlE/30ig42opFfmq9RjAgBaA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2U7ljkWwGPJMT2BsbI6NlmwR+C6qUBGcPOXwyLiSwS/VQ3jeh
-	e4cME8A87/MjHG3NHUFbY44DzdSFH1BbevJldNsAjxX/Zqqu+eKLY6FSfiNqyvSVJg==
-X-Gm-Gg: AZuq6aLyQKmrlFhyuW3mDtXI1Yi5zIXgXbZ8vULF0iDjbugP+npZVZXj/WycyfgWgaP
-	40qnvpFyyVHGW7rsJGHGLXMJRwGabv8F3Zk1hL+tvKbvUcji6LJoxIS0KO14Q1tCymqkpAgd4dD
-	X+fZ3LMyGHZpZ00JsYC0BpZqnL/iq1VmjQE4/F8OLSn8cYf85tLhCLEAZPufjqCqvqJprWQIdNV
-	4a2sVi6O+0WBAreK3wLRqsGJ32d5wfR4L6hvIIkLeV407iC0wxp+ghhxAd87mgomo7gupSi/M6A
-	K84NdxBMd8BAbsdTSDNoCbviPLeX7e7uJ6rJrRsp4O9Y7aBSNcpPBkLD1Z2wAbuReJKoRR1bmrA
-	y/9AIs2sTrgnyj+MCp6n+5EptaUx2Yo7+WHeX9CJvfFYYjHZeC8lPCpuZuAusjF+l0nMOahMDeH
-	CobTfZ5xwitdag1rPYGtG2Fsv+Epz4sIecnWlrrsTVw9a72SqOO6589vckB71WnVZRs8G1puVqA
-	DgUMagBhWtpzg==
-X-Received: by 2002:a05:600c:1387:b0:47a:935f:618e with SMTP id 5b1f17b1804b1-4801e30ba55mr320222835e9.15.1769068272498;
-        Wed, 21 Jan 2026 23:51:12 -0800 (PST)
-Message-ID: <114d2326-112b-41ea-8c32-12b785f8e7a0@suse.com>
-Date: Thu, 22 Jan 2026 08:51:10 +0100
+        bh=uy+/25C8wIOG9YLs0RH4n9xE0hTdhTudv1wLOOGooe8=;
+        b=rqGBucgq0OIMZ+XBcD1cOL7cjmU/L3Rwyt3DxF5h+9MPgdzZTHnC79XhajXZwxVdya
+         dT/3aUZZuD65eZjLC5e8S7rhFmlx2qVqohXd3pQB8FzAfUydXxQKRtlwarGJGdz7X5dG
+         9uzaBvyq2IZAQRQS2eJFBh51nIqY3cyJUNcOXPsztXQeBCEPPvCVW483bKf9BQbbN86i
+         U1tHdGtrPvXVvyUF2K++QlmUNK7J4t9OMoiQRFAF03JiGlJvrCA5O98S3W/Zvi2X8zMG
+         nqmirFWr8OwOrfSRmCP73/xdiKN4pz5uV8ki9x7Ud7lkYEW1CIclydYj+wJ0sEkG1w4D
+         MqpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX4yKHbUs/EHiFDwXjFPTGrBLE6F+zKkCg61HBxdKR8wDMi8o8FQU7HQKhjyXkCz3LXJixC4WZTYZc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwY3su/qtRrtr22YjA2ZHMYsEvInFXDIYkuFTDU//FPUgqfGzTL
+	8uVbi69CwUgaYzOIF7jypB5fLYc9dtJN2/W8ZZc5F63WR2i6vjGpwL8UyW3CxNNKng==
+X-Gm-Gg: AZuq6aKj+PDyNhpnzsYVHvNz3c4nJj3SH50hBShuCjOPGW2qhlEtm7Il/atoY+mwuA5
+	+NTemviNjXGjKcUJBPggW3775S4pY4up1C7PCVnNHxkHfXBjV3YQKDnXJjA4uRoClXCEGZu68V2
+	4pHowYo1jG+Er+u5wRUjV5qppZT5GEy3J6gI4A8BhsxsM7h7S6j1hPOYUGN4Go4cJOkdzpi2VZ8
+	5dK5KY8IA1czBi8LvkanMtmv9s3z3v600c3i80px2sRG97pP1LKYHc3z+M8PkD6fvsI7cBeUzvh
+	YE6K9O76W4GhOJg9pbjI0mx2+lNwcQ3G7Rau1dq1iw8dVy5B9EJm2gLN9D9H3K+dNzHAxrVzbtU
+	jw+/CKyF5C9iVoErxbahd8jNHI2fV//JUetWcimpw8DLzLp30ek2CSMjCkV15P4efEW56xTHHmi
+	rvieaYDsUAR1NOPfocncxVaLBdsJuWRtD3Zj7FTpp6vplM4hqQLur/2Db2pIQtQc8YRcuPlZmOd
+	jkz0WJTPnp6og==
+X-Received: by 2002:a05:6000:3105:b0:435:985c:48f8 with SMTP id ffacd0b85a97d-435985c49b9mr10065607f8f.45.1769068493178;
+        Wed, 21 Jan 2026 23:54:53 -0800 (PST)
+Message-ID: <8f1fce9a-fc2b-48ce-8c50-2c18fe82e399@suse.com>
+Date: Thu, 22 Jan 2026 08:54:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/5] xen/domctl: chain SCI handling before IOMMU in
- assign_device domctl
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1769020872.git.oleksii_moisieiev@epam.com>
- <8482f823e945060d1a36469f14f94aa6251e3f71.1769020872.git.oleksii_moisieiev@epam.com>
+Subject: Re: [PATCH] x86/svm: Adjust VMCB comments
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260121174314.1465759-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,128 +124,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8482f823e945060d1a36469f14f94aa6251e3f71.1769020872.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <20260121174314.1465759-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:bertrand.marquis@arm.com,m:jgross@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:grygorii_strashko@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
-	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 36E1D62AA7
+X-Rspamd-Queue-Id: 0915762B20
 X-Rspamd-Action: no action
 
-On 21.01.2026 19:43, Oleksii Moisieiev wrote:
-> --- a/xen/arch/arm/firmware/sci.c
-> +++ b/xen/arch/arm/firmware/sci.c
-> @@ -126,6 +126,41 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
->      return 0;
->  }
->  
-> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> +{
-> +    struct dt_device_node *dev;
-> +    int ret = 0;
-> +
-> +    switch ( domctl->cmd )
-> +    {
-> +    case XEN_DOMCTL_assign_device:
-> +        ret = -ENXIO;
-> +        if ( domctl->u.assign_device.dev != XEN_DOMCTL_DEV_DT )
-> +            break;
-> +
-> +        if ( !cur_mediator )
-> +            break;
-> +
-> +        if ( !cur_mediator->assign_dt_device )
-> +            break;
-> +
-> +        ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
-> +                                    domctl->u.assign_device.u.dt.size, &dev);
-> +        if ( ret )
-> +            return ret;
-> +
-> +        ret = sci_assign_dt_device(d, dev);
-> +
-> +        break;
-> +    default:
+On 21.01.2026 18:43, Andrew Cooper wrote:
+> The Intercept comments provide no value whatsoever.  For the VMCB, label the
+> Control area and State Save area, which are the names given by the APM.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Nit: Blank line above here please.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> @@ -274,7 +277,7 @@ static bool is_stable_domctl(uint32_t cmd)
->  
->  long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->  {
-> -    long ret = 0;
-> +    long ret = 0, ret1 = 0;
-
-This initializer isn't really needed, with ...
-
-> @@ -833,7 +836,28 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_test_assign_device:
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
-> +        /*
-> +         * Chain SCI DT handling ahead of the IOMMU path so an SCI mediator
-> +         * can authorise access-controlled DT devices. Unhandled cases report
-> +         * -ENXIO, which is ignored.
-> +         */
-> +        ret1 = -ENXIO;
-
-... this, is it? In fact, why not use -ENXIO as initializer?
-
-> +    #if IS_ENABLED(CONFIG_ARM_SCI)
-> +        ret1 = sci_do_domctl(op, d, u_domctl);
-> +    #endif
-
-Why the indentation of the pre-processor directives? At the very least the #-es
-want to be in the first column, but I see no reason for the indentation at all.
-
->          ret = iommu_do_domctl(op, d, u_domctl);
-> +        if ( ret < 0 )
-> +            return ret;
-
-You can't simply return here, as we may be holding an RCU lock on the domain.
-
-> +        /*
-> +         * If IOMMU processing was successful, check for SCI processing return
-> +         * code and if it failed then overwrite the return code to propagate
-> +         * SCI failure back to caller.
-> +         */
-> +        if ( ret1 != -ENXIO && ret1 < 0 )
-> +            ret = ret1;
-
-So if IOMMU processing was successful and because of SCI you return an error
-here, why would the IOMMU part not need undoing? Or to ask differently, if
-SCI said "no", why even try the IOMMU operation?
-
-Jan
 
