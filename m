@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CEQCByHQcWnSMQAAu9opvQ
+	id gPBTCfHUcWk+MgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:22:09 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:42:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8131B6279B
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:22:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1210409.1522080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88AB0629BB
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 08:42:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1210423.1522091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vip0w-0008Lz-UT; Thu, 22 Jan 2026 07:21:58 +0000
+	id 1vipKZ-0002dx-Gc; Thu, 22 Jan 2026 07:42:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1210409.1522080; Thu, 22 Jan 2026 07:21:58 +0000
+Received: by outflank-mailman (output) from mailman id 1210423.1522091; Thu, 22 Jan 2026 07:42:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vip0w-0008JN-Rp; Thu, 22 Jan 2026 07:21:58 +0000
-Received: by outflank-mailman (input) for mailman id 1210409;
- Thu, 22 Jan 2026 07:21:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vipKZ-0002cv-DI; Thu, 22 Jan 2026 07:42:15 +0000
+Received: by outflank-mailman (input) for mailman id 1210423;
+ Thu, 22 Jan 2026 07:42:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vip0v-0008JH-Nt
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 07:21:57 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08681493-f763-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 08:21:56 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-432d2c7dd52so609140f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 23:21:56 -0800 (PST)
+ id 1vipKX-0002cp-SC
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 07:42:13 +0000
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [2a00:1450:4864:20::342])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc38d6d1-f765-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 08:42:10 +0100 (CET)
+Received: by mail-wm1-x342.google.com with SMTP id
+ 5b1f17b1804b1-47edd9024b1so4758705e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Jan 2026 23:42:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435924ae723sm15983260f8f.41.2026.01.21.23.21.54
+ 5b1f17b1804b1-480470474cbsm46588095e9.8.2026.01.21.23.42.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 23:21:55 -0800 (PST)
+ Wed, 21 Jan 2026 23:42:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08681493-f763-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: dc38d6d1-f765-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769066516; x=1769671316; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769067730; x=1769672530; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1f/8vCASIfL1ZKsOCXvbw+kI5xMaZrYATdc8FjFcukc=;
-        b=f4EcEzOupaLskxB+6WU21bQS+1Q5E/7G0MuWqJRbZwWTcSQ9AkByXgucL1xYekFMqB
-         oBSQFLfPbHUBCXNJDbLXqV4YirfloNO8Pje4UGKe4gtjCeOzxLyZyrwRi1gmIbFVLAem
-         szlWGfICUFC0T0t/5GuaJU3gbdmFGC25XBNWMk/u5VWhh6AqzqIkglbAAET2d3agwnVL
-         +ud861kDqwMDpC1o/cnh/aAYyKJjRkQ7KvC7TEsPkdkQBJkmJprl/34YQkZs+4yf84/a
-         8+HdzT1x1cVH5kMZTML11I/h1dIxtEkiFhWUiRpYpfXAD66rMwpzepQnM63RWJuL29nR
-         aXdw==
+        bh=3E5sqRuBQgolxN7FI5gsTKtcwWCuLAPbpvFnWDfRTUE=;
+        b=UY4udsxmaBGNbhY7GdxR7HM4/bKLp339jJfR3DDEoSwLiTRJV3yKAcbZIa12ICP10X
+         fRJdlUK7TClT1giSmAoKPN10/+SUaWkxY8VqlLZb5cVAcUk/vaqCCm97pihK34hsmQL3
+         JE1iPhMYx/7p3x/0EbRcA6ZMfOhqPYHovLoLvPKekDBJ25ZDUSGdaFyPahxtPTAvGhYt
+         2D8NAqXX7kjNFhpbNmV3jk65JnjiFOBZA8TAD08eppAQtIzZ05fFWfc+o72hLmfWI/Cx
+         h7s5UyL1WUg70q1PNNtdOAuCgKqJjg9NKxe5rvZ89//PxLhHUOTwWnL1nC5I/R97N8Rr
+         sqIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769066516; x=1769671316;
+        d=1e100.net; s=20230601; t=1769067730; x=1769672530;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1f/8vCASIfL1ZKsOCXvbw+kI5xMaZrYATdc8FjFcukc=;
-        b=gViB6hCLE+6tDvnA/yEDZetedkHeGZDmfXYi/VMgMA9PRpKmsdU4yypyVd44SkJ8qS
-         9cYugyO5XykYckhZjrd/fcigrt5c/LvOHPH6osRoxiwqDg/nhiGw2M/eqHbEuyDeRIDw
-         Yj8j6cypdgapcJYA+SKiYTjkjpId6wqT2d3t/yOV9wq5rAnXNUywUnDQ7IFb0n9uBFzJ
-         SSig9OXax46Jj7v9zW/fYOUyFm6W2McN5/pLN1J+//6elS48plZ/+ZVT0brJ44hXfRaH
-         p82I/pOUffC1FHbWVqQ6H+/J8ezUQBzz2MtjjqsP4ijb+H7U/qnmHLn/ERAENpGzkga/
-         5DSA==
-X-Forwarded-Encrypted: i=1; AJvYcCXYkYRr0XrIfvhwBQI4T8VxcyeDw9QA4eqB1F5+IjtGWand0+jXtQ8GuapIzuaSDFT2nb/t0SyPuy4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWahHNIBMmWAOWTpWRx0vMSzAq0uQhO33WkVqFe/sifKxzEYKd
-	3Q9YTTqlTAS83L1VTT2pEYa0KxeEttURUy58uwnRJTx2CYnVf/Dk5EqgGp+3j5fekg==
-X-Gm-Gg: AZuq6aK0nBWTWpCa9ToAf+DNN9uIpDEAt5MNI+UjN8pydXGW5pqWfioErzPPjlQ32HB
-	MAb1fKJ9004TPqsvzD+yvLzHhVVFTj4VSLqPFltN63zKKIz7l9iaEEeoozMrSj2LhIby82uppZn
-	xnU6AybVx60nOKhyUdtH2jXwyC3DxaR+xHsi7n5BkUR65zhjQmEi8RrDdKgsm89ASYylDYI06sN
-	DerLKyMXIWG0YFX4WflHS1h7HkabJMoeYwGBC2j2rfWa/VyKa0ebiiM/nRCzD3YhOmaDWSqvXyQ
-	UBSFwmgSooskbPJxeNcvh+KtZThK1r6ngiwdstURddv7t0CFw0B4U5leypR/ZH8OOT0VRtsaOUI
-	myMBZUWvMZy5SqC5V7Sm3toR2dwMfm4FNYDk80R+hxYSt09M2sYv6Oc+MNxqVyjUN0U6VmTIAoK
-	i1Lleo8afOx4d6nRI5XJDucvBA7r/qKgmORqLwVJpxEJQcnUFo9D1wPWFnmyQIo4IahHiy+6s6h
-	aF6YKkcW3+3tw==
-X-Received: by 2002:a05:6000:25c5:b0:431:104:6daf with SMTP id ffacd0b85a97d-4358ff39880mr13942566f8f.54.1769066516020;
-        Wed, 21 Jan 2026 23:21:56 -0800 (PST)
-Message-ID: <093938c2-58fa-4f8b-a05d-19bec67c5eb9@suse.com>
-Date: Thu, 22 Jan 2026 08:21:53 +0100
+        bh=3E5sqRuBQgolxN7FI5gsTKtcwWCuLAPbpvFnWDfRTUE=;
+        b=lijF8l0RPfIYKl7z4HfLJkf+kQl3+MTqLO5S1K7czZqFUykcHM1Qm01vPEgi18M86u
+         KOspzadaOJvQiddUkpT4OHQA0PIIIKYjzaQjhbk3Uk0/K/PPHCMRpM/FrtHiPdkxeDQM
+         waxBOjrOv9rItSa9bW2TopGiwfv4Fx4K8iUknxJ+EemPjzbT22nwprl9bzxFAKnweHIj
+         MNTjx373eRaIJp1wbrH/R7ri0z6BKujPiDr2QviYtpIjeh8hLmDAx5ChaVd1P5ucqH24
+         +V9kt3g85fCe9XolhzAR6NLk8NRC1E/hiOXe131z3PBUp28H2B3pLxjOdRlkkDVcKNjd
+         RDhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXzLKEfO7qViGf4KlZHreKg79S5oG3mJ7F46IQ5ZwhqzO1BvNDUVTsEX9od5EQt+zJ6gRSk2CNsQh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwvnF+xBRUJFwGC1jTxS0VbgZfO8vwyABTx+jHC2JaQkR5M0lku
+	SVk+7hjkfNkPYJ5ES/6mEUI0EZdE0Da6SikOrrErj/Wgsj1Fc8FqSZTPe6Tq9qq/Ow==
+X-Gm-Gg: AZuq6aIEQTQ/2kjBRvi2zdi6/DloahgTxMdBGllRzC2r/qJogbqbbZuOG8HzGFYzIt5
+	fBh0vNIisJRVv0/xMBsumpEXq6qOCBYRNPyol0tDXt0anNQ3rBqE5Bvpn09Onr818PJjJrcxWP+
+	oALHZsJqx95vcLY33GPLmUBl9BRSL729xjgQHo8+W9yd0NMXhaCk4VBOEwbwBr7gI3m2qecrog9
+	pzIHSxScD8tYAlUd3ZL2mw61/PnSwy+D/usI/GgPehUWmsAUsVDAJj9m3BraB0iLFGIpI0INdB5
+	/qcLl2CT6Kd3frvnlbDazMokAJ4zIqZUDsoAZkFsO5gjy7K9rilPCMHjn48HirrpTCmLxhS7iOf
+	CnEPUm8xTv3PHFHTBNp8nmGY2eFw1FB6ah9XAIN5uNdmcgcML2xnOn1IHSf66qoKOE/jg+RxqNt
+	b27P2S/Oh3iQfEF0+4XiN8BUew/9iNswGMhJ0KEp/CHaLoG0wwTH50PWIwVF0pPohjtH87c0VFH
+	JM=
+X-Received: by 2002:a05:600c:3107:b0:477:561f:6fc8 with SMTP id 5b1f17b1804b1-4801eab9e76mr257829385e9.5.1769067730120;
+        Wed, 21 Jan 2026 23:42:10 -0800 (PST)
+Message-ID: <313181b8-d204-4073-9726-1009644ccf8b@suse.com>
+Date: Thu, 22 Jan 2026 08:42:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/5] xen/arm: scmi: introduce SCI SCMI SMC multi-agent
- driver
+Subject: Re: [PATCH v8 3/5] lib/arm: Add I/O memory copy helpers
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -106,7 +105,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1769020872.git.oleksii_moisieiev@epam.com>
- <f5157ccb30cb1fe32ed9c59963490afd7fc1bb85.1769020872.git.oleksii_moisieiev@epam.com>
+ <07fded74c7bc375a4e77596866072b65a546f8e6.1769020872.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,13 +131,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f5157ccb30cb1fe32ed9c59963490afd7fc1bb85.1769020872.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <07fded74c7bc375a4e77596866072b65a546f8e6.1769020872.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -146,13 +145,13 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:bertrand.marquis@arm.com,m:jgross@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:grygorii_strashko@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORWARDED(0.00)[mailman];
 	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
@@ -167,28 +166,120 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 8131B6279B
+X-Rspamd-Queue-Id: 88AB0629BB
 X-Rspamd-Action: no action
 
 On 21.01.2026 19:43, Oleksii Moisieiev wrote:
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -530,6 +530,10 @@ R:	Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->  S:	Supported
->  F:	xen/arch/arm/firmware/sci.c
->  F:	xen/arch/arm/include/asm/firmware/sci.h
-> +F:	xen/arch/arm/firmware/scmi-smc-multiagent.c
-> +F:	xen/arch/arm/firmware/scmi-shmem.c
-> +F:	xen/arch/arm/firmware/scmi-shmem.h
-> +F:	xen/arch/arm/firmware/scmi-proto.h
+> This commit introduces two helper functions, `memcpy-fromio` and
+> `memcpy-toio`, to provide a robust mechanism for copying data between
+> standard memory and memory-mapped I/O (MMIO) space for the ARM
+> architecture.
 
-Two nits: For one, alphabetically sorted please. And then, why not go with a
-single line:
+No helpers of this name are being introduced, as what's spelled out above aren't
+even identifiers. Also instead of the quoting we've been trying to uniformly
+identify functions in descriptions by adding parentheses: memcpy_fromio(). Plus,
+nit: Please don't use "This commit ..." or alike in descriptions.
 
-F:	xen/arch/arm/firmware/scmi-*.[ch]
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -10,6 +10,7 @@ endif
+>  obj-y += firmware/
+>  obj-$(CONFIG_TEE) += tee/
+>  obj-$(CONFIG_HAS_VPCI) += vpci.o
+> +obj-y += lib/
 
-?
+Yes, sorting in this section was already screwed. But why make the problem worse?
+
+> --- a/xen/arch/arm/arch.mk
+> +++ b/xen/arch/arm/arch.mk
+> @@ -2,6 +2,7 @@
+>  # arm-specific definitions
+>  
+>  ARCH_LIBS-y += arch/arm/$(ARCH)/lib/lib.a
+> +ALL_LIBS-y += arch/arm/lib/lib.a
+
+Conceivable generic helpers of the same names could be introduced. In that case
+this choice of yours would lead to them being used, instead of the Arm ones. IOW
+I think you want to add to ARCH_LIBS here.
+
+> --- /dev/null
+> +++ b/xen/arch/arm/lib/memcpy-fromio.c
+> @@ -0,0 +1,48 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#include <asm/io.h>
+> +#include <xen/lib/io.h>
+
+Preferably the other way around, and with a blank line between them. (But see below
+as to the header being generic; if it wasn't, this remark wouldn't apply anymore.)
+
+> --- /dev/null
+> +++ b/xen/include/xen/lib/io.h
+> @@ -0,0 +1,71 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Generic I/O memory copy function prototypes.
+> + *
+> + * These functions provide low-level implementation for copying data between
+> + * regular memory and I/O memory regions. Each architecture must provide its
+> + * own implementation based on the specific requirements of the architecture's
+> + * memory model and I/O access patterns. An architecture may supply these as
+> + * functions or as macros in its own headers before including this file.
+> + *
+> + * Architecture-specific implementations:
+> + * =====================================
+> + * Each architecture should implement these functions in xen/lib/<arch>/io.c
+> + * (or define them as macros) based on their hardware requirements. See
+> + * xen/lib/arm/io.c for an example using explicit I/O accessors.
+> + */
+
+The file name referenced is unhelpful and actually wrong for the Arm functions
+you add here.
+
+> +#ifndef _XEN_LIB_IO_H
+> +#define _XEN_LIB_IO_H
+> +
+> +#include <xen/types.h>
+> +
+> +/*
+> + * memcpy_fromio - Copy data from I/O memory space to regular memory
+> + * @to: Destination buffer in regular memory
+> + * @from: Source address in I/O memory space (must be marked __iomem)
+> + * @count: Number of bytes to copy
+> + *
+> + * This function handles copying from memory-mapped I/O regions using
+> + * architecture-appropriate I/O accessor functions (e.g. readb/readl on Arm)
+> + * that already impose the required ordering for device accesses. Typical
+> + * implementations may:
+> + * - Handle leading/trailing unaligned bytes with 8-bit accesses
+
+This is either imprecise, or the implementation is wrong: From context, this
+ought to be talking solely of the MMIO side of the operation. Yet if src and
+dst are misaligned with one another, you'd do the entire operation in 8-bit
+chunks. For devices requiring aligned 32-bit accesses that won't work at all.
+
+> + * - Use the widest safe aligned access size supported by the target (often
+> + *   32-bit on Arm where 64-bit MMIO may not be atomic)
+> + * - Rely on MMIO accessors to provide the needed barriers
+> + *
+> + * Limitations:
+> + * - Only suitable for devices that tolerate 8-bit and 32-bit accesses; it is
+> + *   not valid for devices that require strictly 16-bit or 64-bit access sizes.
+> + * - Callers must ensure the target MMIO region is mapped with appropriate
+> + *   device attributes.
+> + */
+
+The description is now valid for the Arm implementation you supply, but the
+header we're in is a generic one. Imo, generic constraints should be reduced
+as much as possible, like dealing with leading / trailing sub-32-bit items
+by doing at most one 8-bit access followed by at most one 16-bit one (the
+other way around for the trailing part). Or else the header should be Arm-
+only as well (more strict constraints on Arm would make these functions
+potentially unusable from generic code, after all).
+
+Along these lines, "device attributes" is Arm terminology, aiui.
+
+Also, if indeed a generic header, why xen/lib/io.h and not xen/io.h (which
+already exists)?
 
 Jan
-
 
