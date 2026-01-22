@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qLskNs0xcmmadwAAu9opvQ
+	id GBjnM/AxcmmadwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:53 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:19:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC8F67D07
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:18:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211130.1522661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCCE67D49
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 15:19:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1211142.1522671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivWA-0004UU-Ct; Thu, 22 Jan 2026 14:18:38 +0000
+	id 1vivWp-00054U-NN; Thu, 22 Jan 2026 14:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211130.1522661; Thu, 22 Jan 2026 14:18:38 +0000
+Received: by outflank-mailman (output) from mailman id 1211142.1522671; Thu, 22 Jan 2026 14:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vivWA-0004S1-9Z; Thu, 22 Jan 2026 14:18:38 +0000
-Received: by outflank-mailman (input) for mailman id 1211130;
- Thu, 22 Jan 2026 14:18:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lo+0=73=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vivW9-00049z-Gw
- for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:18:37 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d814ce1-f79d-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 15:18:36 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 6A3034EE3C11;
- Thu, 22 Jan 2026 15:18:35 +0100 (CET)
+	id 1vivWp-00052m-KC; Thu, 22 Jan 2026 14:19:19 +0000
+Received: by outflank-mailman (input) for mailman id 1211142;
+ Thu, 22 Jan 2026 14:19:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Jsu=73=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vivWn-0004qM-Rq
+ for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 14:19:17 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 55373f6f-f79d-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 15:19:16 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-43284ed32a0so674895f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 06:19:16 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4356996dadbsm44443000f8f.21.2026.01.22.06.19.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Jan 2026 06:19:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +50,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d814ce1-f79d-11f0-b15e-2bf370ae4941
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1769091515;
-	b=U6c53olXA5TCoCcp5wu3MuNKA69TufPb4JyVyYSBJynx0unGkzIL4OePIRVc92ldLHb+
-	 yEwkGs7+u9J6YygRtasAEBkjx3rJoW55bXnY4Bx88YYMAYvc4+T2dH7afIV9MERb6LTgg
-	 gFEgTmfm/K+8KuFCSyNrb5vvygt2PSnu0FBfRlavBcH1s4onYFtvOJnOait4nGhlZGxGg
-	 TzXMXvZFSO2gTYK1iUWOAZYy9t15/gmUjWDhwKbhWbJ93WBLvm1gHK5dBHJ5prUcAHn9j
-	 qIYgYOYnOnyiHXe1FcvAp6IYmBkolyh+ugWq93R56kMN3horRAFe4ZcvP/euU6sKPMQGz
-	 VJBHPSrK42p3LNiixi1takbDUhOYMgcUIAi2/U8Y+99pG41gdAYQVA+4mQCrxJFFB4680
-	 2PEdHTZygMZGDKTK4YOj6XWlQr6CX9/3iE3W7/YgsiNhPmOc/uyRhnh3INSY55idJhGvX
-	 p7lk4kYmzXMuVHRxGfmPR2/mQ8fgoOTaGUmThuNkQBp1lbJzpc6GxYuAaA6LKiBfPuI5F
-	 qbkk5HMsc9rWBUcy/00pEqvtkIX5FZ4nVCr6Zy/jRQOT1YGEgbSUdkXpY+LxvUN6epT06
-	 ICdqA7cTBgsaBLSXrLOcrVsFWqZo7MmW+Y0COtIdeeumKsKzxPHlp/wk58EKiio=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1769091515;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rZgi7txDtcK8WRlhPaJZ0sQJZAUgCPUk3UvQylM6vao=;
-	b=SMYusmknzl05yyYV7I5elQxIv3SNtdZIbbwLjY6M1hV3GGkk5puwcoWVQUgOT7l4tEiT
-	 UBqmuRGI9GRIznHHguyu6suhQsWrhAwNMlAnt+crqLWM+5vQdXtETqaI0N3ZCI29+1Apy
-	 ZCtImZjcr/bTXXtQ0yQKbQTZvaQYJaAnHJdxMbgvSrXb72Mf7eI3dEOTyQC+fCSsfLcXe
-	 aTSZECrMgocFfy8mLtGEsA2FjZjCdzlMRtYItdxJdb0s5tdCY9GScPa1bhwcmK/IIcKTW
-	 /7qYayMToYNn5TXqX/twgaIKpS5khsHOW9cW+LMuNYX1+rZnyCPg93f0xrXnhnJY9ZPWB
-	 ENKaGp45LVmzMlvT5P8m1ZKntWG/zC13pN/ZV3Fx8QFwUh3+090fkTXCq34P7+hP5Bw9G
-	 FWwU2loql8YIfhB5kuRi8DMIAeFoIfabqtR1MGCZlCnr/WWox2jbGftKosQjQLNF9RqCt
-	 UOJkaSm+hcUTgKYprRwHahqEDebY9RbN889sezIxkiT1K3Jqn2Kcx3aANIEC45951KMi/
-	 vv2JX4dAI6uHqCF/IFPMe6C1UQikOClukzuCb+iuaki2BlWHPCMLx3CqW4fs5ff7OpR0W
-	 yOvXV+YHty4BdM798SbhkKZw2zVczSSk2L7PrE+CCNKkXA1LG+Q0mspErRar6/4=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+X-Inumbo-ID: 55373f6f-f79d-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1769091555; x=1769696355; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3V4F2HUnuMCGUe57Is6YggIZWzIe5UpHKoR6Mo845WI=;
+        b=ZmPFw+nUucpuLXEBcr6P1GVQjL3PzAqM4efFUNu49gMvZqhDvnNbohxdJQ5fhcV1Cp
+         CvWa9XP384Fxr7ZpPQIooTpaZSZ+n3lPHvm8pW+t+P6K2ADdYum3AwWSzRiChEhYsCpK
+         BV7AQ8eARtK81jzPVkgm1xab9vrB4Hfc1FXl+BVrcFz+7ZY2NGzE2xORg6/A3gE4XbXU
+         OaWsQmJMABlbl9Ym69RVKXDcQiElVcUQd/zLhSsrU52U+t4VB1prthD4CUvLIqxC5o4j
+         izeVzX6uvFRDuKIclmyS5SAlJUjOR4pT9Jx/NWy13qWKSvK1uhFjpBXkkM3me64b9tFg
+         5snQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769091555; x=1769696355;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3V4F2HUnuMCGUe57Is6YggIZWzIe5UpHKoR6Mo845WI=;
+        b=TDl4bUz4hnt59k1az3f3vvltKObfJYlx9XIlPR/H3l5Y9Qyn+BstHhdkYQL1y0DsmK
+         mP1dV5U+aGXnYehqBnfWuGJ2Aiaa73v1IP2k60XNrMYIZH5TkR0ji6r4T+Uhq6gTOWR8
+         Skx6S9LhiNMaht6CtHAzhJArtMyadlevm79lODuT9/6vA8r/rbebayf7UcWedcytAPLN
+         XnP6cGRzyLMja48tforEq5O7c+ynojM+SHFJr8q+nCqo6NaT7Gl/cQVx7q/krgvXOfQb
+         jmHr9CEWDWKuaLtPibQ/CTpJRDHUOv21ow9hlUrTEQ/ubiRgwbn18vDZIVq+8rQLKCv7
+         WIzw==
+X-Forwarded-Encrypted: i=1; AJvYcCXyIXnyp1+LHMY0HB1tJYlVqNfftW8Ji9OiZQRDot31d7YTLlW3OwpdXMitp2Jk3qFZFSnyFgYMKlE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxP0wawHdzzQKcFHGfjksVWhfaOlQpzoyT9nL3HIB9AQr7/bwd8
+	VitpRorHvQ8oq3d9Qf6xoCOXsnc1qc80GyLUJ4Kat3IBIJpUhaVME1c3oY3B2MuNzA==
+X-Gm-Gg: AZuq6aIj43B5Y+uxVFiOaqDfC66Y9IbK1TlegAZrBZPzalC85c0XSbaL5Ph2fEpphYT
+	+tKRPAiRUbr08AmqjWfYFwWx+UsBs+tJ5HFc49Rjk2b7QweqynbytomBOVZxNCKlJ4mMKRjjAnz
+	6YQaNQ2nVsf4NfXj7bQLd7/WeJo/LjkKqqtLYxpKN9xPIAqktxMt8PuAK5aANTZz9VvaOg6q46W
+	5Lbt3b2aAYQuc3jkwtH9scReJZULtGuxR3069T5FPWepvf8eKoT5PldPHig6gJLcX6nyZlLZvzn
+	0w21qCGPJRYxirvk08lhpcjgC4lqDGSGi6moCEjyYrfR4p7s0ZkhDw/xtuygVpppO51pu3ZfcHK
+	BkGMQMTaHF7/I4cs4OEXy1kcEXEpRAtKG0J6pdMZEtaE0at80H9e9bq3vKrNJISRBgGqASNVe0S
+	9uqBQXh5KYHBPb8QbCztsNnklIhljkVifsMfwajo/TA5yPOUvgl7ZORKSgXINNoFgAHxftZVnVY
+	FQ=
+X-Received: by 2002:a05:6000:4287:b0:432:84ef:756c with SMTP id ffacd0b85a97d-43569bc7422mr30253138f8f.50.1769091555547;
+        Thu, 22 Jan 2026 06:19:15 -0800 (PST)
+Message-ID: <c4819093-ae7f-4606-8a7c-dc5afefe3cfa@suse.com>
+Date: Thu, 22 Jan 2026 15:19:12 +0100
 MIME-Version: 1.0
-Date: Thu, 22 Jan 2026 15:18:35 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo
- <alejandro.garciavallejo@amd.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 2/2] earlycpio: lib-ify earlycpio.c
-In-Reply-To: <947a4230-4a1e-4178-b7f0-ae5618f4303d@citrix.com>
-References: <20260121154757.44350-1-alejandro.garciavallejo@amd.com>
- <20260121154757.44350-3-alejandro.garciavallejo@amd.com>
- <5948da25-0b4d-48a5-983f-0fc9424774b3@suse.com>
- <947a4230-4a1e-4178-b7f0-ae5618f4303d@citrix.com>
-Message-ID: <02004b6ee5ddb57f4b834163a955d29b@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: remove Alexandru Isaila and Petre Pircalabu
+ as vm_event reviewers
+To: =?UTF-8?Q?Mihai_Don=C8=9Bu?= <mdontu@bitdefender.com>
+Cc: alexandru.isaila@gmail.com, petrepircalabu@yahoo.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <43ab3051082a2f9a0291752ace7104738c1156fb.1769089923.git.mdontu@bitdefender.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <43ab3051082a2f9a0291752ace7104738c1156fb.1769089923.git.mdontu@bitdefender.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.39 / 15.00];
-	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[bugseng.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:alejandro.garciavallejo@amd.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:mdontu@bitdefender.com,m:alexandru.isaila@gmail.com,m:petrepircalabu@yahoo.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:alexandruisaila@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[gmail.com,yahoo.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MISSING_XM_UA(0.00)[];
-	R_DKIM_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 7FC8F67D07
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 5CCCE67D49
 X-Rspamd-Action: no action
 
-On 2026-01-22 13:50, Andrew Cooper wrote:
-> On 22/01/2026 8:27 am, Jan Beulich wrote:
->> On 21.01.2026 16:47, Alejandro Vallejo wrote:
->>> --- a/docs/misra/exclude-list.json
->>> +++ b/docs/misra/exclude-list.json
->>> @@ -121,10 +121,6 @@
->>>              "rel_path": "common/bunzip2.c",
->>>              "comment": "Imported from Linux, ignore for now"
->>>          },
->>> -        {
->>> -            "rel_path": "common/earlycpio.c",
->>> -            "comment": "Imported from Linux, ignore for now"
->>> -        },
->>>          {
->>>              "rel_path": "common/gzip/*",
->>>              "comment": "Imported from Linux, ignore for now"
->> Judging from Andrew's
->> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2277362625
->> this doesn't quite work. As I had expected, since the file is compiled
->> unconditionally now in its new location, some violations are now also
->> unconditionally reported. (Some, checked for at linking time only, may 
->> not
->> be reported anymore for the *-amd analysis jobs.)
+On 22.01.2026 15:11, Mihai Donțu wrote:
+> Alexandru and Petre are no longer with Bitdefender.
 > 
-> Yeah, in hindsight this seems obvious, given that we're compiling then
-> discarding.
-> 
-> There are two options:
-> 
-> 1. Use an earlier form which adds the new location to the exclude list 
-> (Still needs to be in this patch for bisectibility.)
-> 2. Fix up the violations first (only 6 in total)
-> 
-> Two of the violations look easy to fix, two need the deviation for 
-> octal
-> numbers, but two essentially-char violations look to be hard.  The 
-> logic
-> is doing ASCII manipulation in what I would consider to be the
-> appropriate/canonical way, but Eclair does not like the mixture of ints
-> and character literals.
-> 
-> I dislike option 1, but as (contrary to my expectations) this is
-> interfering with the *-amd build, I'll tolerate it.
-> 
+> Signed-off-by: Mihai Donțu <mdontu@bitdefender.com>
 
-I agree that Solution 1 is the easiest to implement. An alternative 
-could be to fix the regressions for R7.1 and R20.7 (they're trivial) 
-regardless and add casts to sidestep MISRA for R10.2.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+I did observe their email addresses bouncing, and just earlier today I had
+fired off an email to Razvan, trying to figure out their status.
+
+Jan
 
