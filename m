@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uObLIb9UcmkIiwAAu9opvQ
+	id QHZmDcBUcmkJiwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 17:47:59 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 17:48:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CC656A3F1
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB346A3F9
 	for <lists+xen-devel@lfdr.de>; Thu, 22 Jan 2026 17:47:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1211344.1522879 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1211346.1522893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vixqU-0007Lg-0k; Thu, 22 Jan 2026 16:47:46 +0000
+	id 1vixqV-0007Yz-Hz; Thu, 22 Jan 2026 16:47:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1211344.1522879; Thu, 22 Jan 2026 16:47:45 +0000
+Received: by outflank-mailman (output) from mailman id 1211346.1522893; Thu, 22 Jan 2026 16:47:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vixqT-0007Iu-UF; Thu, 22 Jan 2026 16:47:45 +0000
-Received: by outflank-mailman (input) for mailman id 1211344;
+	id 1vixqV-0007Ww-AZ; Thu, 22 Jan 2026 16:47:47 +0000
+Received: by outflank-mailman (input) for mailman id 1211346;
  Thu, 22 Jan 2026 16:47:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcaL=73=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vixqT-0007Id-21
+ id 1vixqT-0007Ij-JI
  for xen-devel@lists.xenproject.org; Thu, 22 Jan 2026 16:47:45 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1194e987-f7b2-11f0-b15e-2bf370ae4941;
- Thu, 22 Jan 2026 17:47:42 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b87003e998bso401411466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 08:47:42 -0800 (PST)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 123f9bb3-f7b2-11f0-9ccf-f158ae23cfc8;
+ Thu, 22 Jan 2026 17:47:43 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-652fdd043f9so2075721a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Jan 2026 08:47:43 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b879513e951sm1686014966b.7.2026.01.22.08.47.40
+ a640c23a62f3a-b879513e951sm1686014966b.7.2026.01.22.08.47.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jan 2026 08:47:40 -0800 (PST)
+ Thu, 22 Jan 2026 08:47:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1194e987-f7b2-11f0-b15e-2bf370ae4941
+X-Inumbo-ID: 123f9bb3-f7b2-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769100461; x=1769705261; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1769100462; x=1769705262; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tIURivnVVNz+Sg90MgEK4c9c+A2jqXCTv9hUdU686As=;
-        b=WQhqzsRpWji3kJNWGbP3Rhp1SgAbH4gHXfNhHHofUvRtZPvI1zdSXBroVAFNq8W31Q
-         PxQ/irR7Yy24poddgqj2VeWl0nZ/HKLHhGfMj+WHP1vII7bxHLfnP9kVnb49KweLLDas
-         COIz+i15MNruyRkiyFmE5WAfPyXozxPFZle9tFH0SkOMi1GfHaDAp5IP/MWPaOHoNTAD
-         Wf6ZtwDWck9yy0n4vJtxDsYNd7elaQ1XHeMPb6KoOH7MoJrrrnVX2PfQ6K7BbD824Omy
-         uOUFc3Xw3RTfsXI5/Hx17VE812u1NxhWzSFlPJDfRwS6nZ/TXnIDmWrY9wOWa3L66OUZ
-         xwDA==
+        bh=Xs+SAk+ck32r+yVPkjsZQLd/gIzJLULQhlXaIyvjgE4=;
+        b=irLUHRdrFHl4hUrYUNLBQvgcZvUHl/W6AhVMuC+92akbisiP7xieXVhHbHPqbGAopM
+         0XK9bCgoIZq0PRT4o5xchKmCKQXXwwTN8Pu7YhjtnD9c85D47LDPtZ+SB/E5n1LXSG8E
+         /LLcpPwvw7pVp8NfNM91VM/TCYrCqyJt34+aN0AxJcOcmklEqDzho6rm27nVYfDsN3qg
+         3Cqt8/2z24elMWbi+1F4lyQFi1g65Uf8JtD+seRZBQ1CaglqBkV+ntSbfVD9CCsyctk5
+         NGwLapD54aGL21E6bPkfH9XnJOEfmnNdSOtu9uq3hWB0vYPBV4vinxHGzpc/8w6oeXQu
+         6R0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769100461; x=1769705261;
+        d=1e100.net; s=20230601; t=1769100462; x=1769705262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=tIURivnVVNz+Sg90MgEK4c9c+A2jqXCTv9hUdU686As=;
-        b=sx9m6J93ggmO7CMyfMJTb4zoCAFN0EYOsZwioqY7wX6xKT8E5kLFRlO/GLNgmJ0lf8
-         mkPWHn11bpki6iD0hlOHzL4MLDCjy9+6a51RxmlmZdkWMs7ixuNmcu1cOQVIhJWOBV2c
-         Ng+SB1Hud+r17Xm7/NBgFaN7VTzUHcFA/aLI2PMmX+P6T5oX360SjcHGSkXM1Lu3qJCa
-         ZGDdDSznLGQ2iU2OzSQn+B+4hHmunptejn4jkG5sHAwWVWVn97z67utwWYyhOBxyfCXS
-         CDh9UGFkUCQ6hv5cW+MqOIXA0Bf8hKijSHflZs/UgcU5NXRuJvZRj5/HBkB6uWd9Ae/p
-         FFWw==
-X-Gm-Message-State: AOJu0YwsAkESGxsS/KjenWwCHM0bZYskbGN7FKNhA3PY/rKZxS8rHlIE
-	L4mYrVcPpR1VvQWq4f+wAzJAluXdB5+tmmgtGTLis/0gsgCT7Dgh9Cd1lmui2g==
-X-Gm-Gg: AZuq6aI6rbwsaQiXB3mJipuJPCvLKPXjnxUXcXXwzESIvGOb5lLQ+nFXAEYcTzpe8bT
-	E+MSQYd0niVilNgLzeTLdgJmQ2PD6HuinHOsS53iRYuVSPJ9bZjvPjKJGVJRUgGfeC4eUts9hEQ
-	n9doz0s37Bw/dB0nO0c10tzt65oUCzbTw99GzCmf4fJcpawfERU9yu+QU9C1/8CMEdS5itCeoGO
-	rATDzSf8xhmn4nr/7J1u1if1DsGIZQfkE4Iugb0FVDrfTMnQqZSCfLVrLFyuO36sRGXeAlqnHxZ
-	r2WyvIN8t+TrCryIiFZDtBGUHMW+WuVbV7KeYu5KG/NczfqF6PShV8eVkiFwIMSZ62XwOYhuL6z
-	gzrGeHpkaHZUvF6kT1atGNWDAP+QPwPi/2W929+jnwPhjGhozSSpjNiqJOHuwvlJ/aVYshkiM/H
-	zOE5Aqm7BXn2Q6PvGqDaQUleWq5mFF4cA2VQgaVFCniH+2Ja98HZ/h9A==
-X-Received: by 2002:a17:907:7251:b0:b79:eba9:83b4 with SMTP id a640c23a62f3a-b885a262ce4mr3468666b.6.1769100461100;
-        Thu, 22 Jan 2026 08:47:41 -0800 (PST)
+        bh=Xs+SAk+ck32r+yVPkjsZQLd/gIzJLULQhlXaIyvjgE4=;
+        b=dtIJVq21uX872/HMxE9g+UMMcB/NHVgWxZ+EPai7+74Vm89EIFULXxVrFuVZBgaRHc
+         Gr4jMAXFsLniLycSJHgcXZJpCEKgVDwLX7alRCExl/+Qc8yn73p6v6OGfNo4HlYaj+dK
+         a99RlOeT619dGas4Yvd1y7NIvLmTKQpDGxgKRjxrzzONZLcEhQ2SqcD/z6jQXKa6TjMe
+         Bxj9K3YbbXbxv2OAGTqIC65LEINSqrkH53YXHqSpd0BqXgO6+sFQOaPSpCxPtB3ZzDCS
+         Z/3C78fuBmAhZuZsnfmA16Zm4xh9vMYlRiKJJWbsiPoJcc6c4fMUTQFC8ZgVIXIVysFG
+         SefA==
+X-Gm-Message-State: AOJu0YzJGNthqEhoOd230vNQzaXw4VLVMqTSHL+Vzr5VYD2Rggp/dUmD
+	SPHqaoWf7e4/uFeYVbBmqJ5alyBmj0IzsvclibRU+1IxgyLZWnnEObWXmJzMEw==
+X-Gm-Gg: AZuq6aLag382gogFX7hOA+u1MfDAKPmqsBXczLow8HmUTilL42uMMgxzNKNJ/bnEY1/
+	xFdyu/DVab6UNOiA1PwvkKE0btcxhCrHdn22vAQUXuYiSnBwgPCoNu9bwmuKdtXDoAk3+r1++VW
+	okTwYJeTbBWsifDVDLsL8tHvv5qQ8RXn9hdQwypoHpvzR97TpFKzKjDe0/mrenS3q1VcSRQLCSF
+	ayzoxrzPevc+81oO4Q+Mbc+7iIhCvnOhOInt2CGm7mq+7HjxYHyX3tqwONyqVFxBNPd8XPMMKcq
+	b/R8WlHhlB6TJmzDN+OOOd2O8PbJKGXzyxLIvx3Goq6Okuq8lLWvjJOgower/xFIWhnpBbzsM4T
+	i6pnoJzQ/O8mPbBBO2MBC1yACXPgoH9DovftnLnQ9bMApjXeSm4o1Hf4cCNxqvMYLLUm62Oaljx
+	kUPuHGYahtDL8dzok9imAaJfBJJDa553anUP3ngs3QSK1mgGSAr88hkA==
+X-Received: by 2002:a17:907:26c8:b0:b7c:e320:5228 with SMTP id a640c23a62f3a-b8792e0e967mr1833140566b.22.1769100462166;
+        Thu, 22 Jan 2026 08:47:42 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -99,165 +99,232 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Romain Caritey <Romain.Caritey@microchip.com>
-Subject: [PATCH v2 01/16] xen/riscv: introduce struct arch_vcpu
-Date: Thu, 22 Jan 2026 17:47:16 +0100
-Message-ID: <ef706b474a23cb24a7bc119f8206e9df527b7287.1769099885.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 02/16] xen/riscv: implement arch_vcpu_{create,destroy}()
+Date: Thu, 22 Jan 2026 17:47:17 +0100
+Message-ID: <08b582179ebc4241140000972d89209c84c90fa4.1769099885.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1769099883.git.oleksii.kurochko@gmail.com>
 References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
+X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RCPT_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org,microchip.com];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org,microchip.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3CC656A3F1
+X-Rspamd-Queue-Id: DBB346A3F9
 X-Rspamd-Action: no action
 
-Introdce struct arch_vcpu to hold RISC-V vCPU-specific state.
+Introduce architecture-specific functions to create and destroy VCPUs.
+Note that arch_vcpu_create() currently returns -EOPNOTSUPP, as the virtual
+timer and interrupt controller are not yet implemented.
 
-The structure contains:
-  - Guest-visible CSR state, used to save and restore vCPU execution
-    state across context switches. hstatus isn't added here as it is
-    already part of cpu_user_regs struct.
-  - Callee-saved registers used to preserve Xen’s own execution context
-    when switching between vCPU stacks.
+As part of this change, add continue_new_vcpu(), which will be used after
+the first context_switch() of a new vCPU. Since this functionality is not
+yet implemented, continue_new_vcpu() is currently provided as a stub.
 
-It is going to be used in the following way (pseudocode):
-  context_switch(prev_vcpu, next_vcpu):
-    ...
+Update the STACK_SIZE definition and introduce STACK_ORDER (to align with
+other architectures) for allocating the vCPU stack.
 
-    /* Switch from previous stack to the next stack. */
-    __context_switch(prev_vcpu, next_vcpu);
-
-    ...
-    schedule_tail(prev_vcpu):
-       Save and restore vCPU's CSRs.
-
-The Xen-saved context allows __context_switch() to switch execution
-from the previous vCPU’s stack to the next vCPU’s stack and later resume
-execution on the original stack when switching back.
-
-During vCPU creation, the Xen-saved context is going to be initialized
-with:
-  - SP pointing to the newly allocated vCPU stack
-  - RA pointing to a helper that performs final vCPU setup before
-    transferring control to the guest
-After the first execution of __context_switch(), RA naturally points to
-the instruction following the call site, and the remaining callee-saved
-registers contain the Xen register state at the time of the switch.
+Introduce struct cpu_info to store per-vCPU state that lives at the top
+of the vCPU's stack.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - Drop hstatus from struct arch_vcpu as it is stored in struct cpu_user_regs
-   which will be stored on top of vCPU's stack.
- - Drop the comment above ra in xen_saved_context struct as it is potentially
-   misleading.
+ - Drop BUILD_BUG_ON() in arch_vcpu_create() as a check isn't very useful.
+ - Use vzalloc() instead of alloc_xenheap_page() to use the larger domheap to
+   allocate vCPU's stack.
+ - Drop printk() inside arch_vcpu_create() to not have potential big noise
+   in console as it could be that an amount of vCPUs is pretty big.
+ - Use XVFREE() instead of free_xenheap_pages() as vCPU's stack allocation
+   happens with a usage of vzalloc() now.
+ - Drop stack field as it is enough to have only cpu_info as stack pointer
+   could be calculated based on cpu_info.
+ - Drop cast when v.arch.cpu_info is inialized as it is not necessary
+        to have it.
+ - Drop memset() for arch.cpu_info() as it is enough to have vzalloc().
 ---
- xen/arch/riscv/include/asm/domain.h | 57 ++++++++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 2 deletions(-)
+ xen/arch/riscv/Makefile              |  1 +
+ xen/arch/riscv/domain.c              | 59 ++++++++++++++++++++++++++++
+ xen/arch/riscv/include/asm/config.h  |  3 +-
+ xen/arch/riscv/include/asm/current.h |  6 +++
+ xen/arch/riscv/include/asm/domain.h  |  2 +
+ xen/arch/riscv/stubs.c               | 10 -----
+ 6 files changed, 70 insertions(+), 11 deletions(-)
+ create mode 100644 xen/arch/riscv/domain.c
 
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index 316e7c6c8448..0d9b4c4b525e 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -22,9 +22,62 @@ struct hvm_domain
- struct arch_vcpu_io {
- };
- 
--struct arch_vcpu {
-+struct arch_vcpu
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 87c1148b0010..8863d4b15605 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -1,5 +1,6 @@
+ obj-y += aplic.o
+ obj-y += cpufeature.o
++obj-y += domain.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += entry.o
+ obj-y += imsic.o
+diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+new file mode 100644
+index 000000000000..9c546267881b
+--- /dev/null
++++ b/xen/arch/riscv/domain.c
+@@ -0,0 +1,59 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/init.h>
++#include <xen/mm.h>
++#include <xen/sched.h>
++#include <xen/vmap.h>
++
++static void continue_new_vcpu(struct vcpu *prev)
 +{
-     struct vcpu_vmid vmid;
--};
++    BUG_ON("unimplemented\n");
++}
++
++static void __init __maybe_unused build_assertions(void)
++{
++    /*
++     * Enforce the requirement documented in struct cpu_info that
++     * guest_cpu_user_regs must be the first field.
++     */
++    BUILD_BUG_ON(offsetof(struct cpu_info, guest_cpu_user_regs) != 0);
++}
++
++int arch_vcpu_create(struct vcpu *v)
++{
++    int rc = 0;
++    void *stack = vzalloc(STACK_SIZE);
++
++    if ( !stack )
++        return -ENOMEM;
++
++    v->arch.cpu_info = stack + STACK_SIZE - sizeof(struct cpu_info);
++    memset(v->arch.cpu_info, 0, sizeof(*v->arch.cpu_info));
++
++    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
++    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
++
++    /* Idle VCPUs don't need the rest of this setup */
++    if ( is_idle_vcpu(v) )
++        return rc;
 +
 +    /*
-+     * Callee saved registers for Xen's state deep in the callframe used to
-+     * switch from prev's stack to the next's stack during context switch.
++     * As the vtimer and interrupt controller (IC) are not yet implemented,
++     * return an error.
++     *
++     * TODO: Drop this once the vtimer and IC are implemented.
 +     */
-+    struct
-+    {
-+        register_t s0;
-+        register_t s1;
-+        register_t s2;
-+        register_t s3;
-+        register_t s4;
-+        register_t s5;
-+        register_t s6;
-+        register_t s7;
-+        register_t s8;
-+        register_t s9;
-+        register_t s10;
-+        register_t s11;
-+        register_t sp;
-+        register_t gp;
-+        register_t ra;
-+    } xen_saved_context;
++    rc = -EOPNOTSUPP;
++    goto fail;
 +
-+    /* CSRs */
-+    register_t hedeleg;
-+    register_t hideleg;
-+    register_t hvip;
-+    register_t hip;
-+    register_t hie;
-+    register_t hgeie;
-+    register_t henvcfg;
-+    register_t hcounteren;
-+    register_t htimedelta;
-+    register_t htval;
-+    register_t htinst;
-+    register_t hstateen0;
-+#ifdef CONFIG_RISCV_32
-+    register_t henvcfgh;
-+    register_t htimedeltah;
-+#endif
++    return rc;
 +
-+    /* VCSRs */
-+    register_t vsstatus;
-+    register_t vsip;
-+    register_t vsie;
-+    register_t vstvec;
-+    register_t vsscratch;
-+    register_t vscause;
-+    register_t vstval;
-+    register_t vsatp;
-+    register_t vsepc;
-+}  __cacheline_aligned;
++ fail:
++    arch_vcpu_destroy(v);
++    return rc;
++}
++
++void arch_vcpu_destroy(struct vcpu *v)
++{
++    vfree((char *)v->arch.cpu_info + sizeof(struct cpu_info));
++}
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 1e08d3bf78be..86a95df018b5 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -143,7 +143,8 @@
  
- struct paging_domain {
-     spinlock_t lock;
+ #define SMP_CACHE_BYTES (1 << 6)
+ 
+-#define STACK_SIZE PAGE_SIZE
++#define STACK_ORDER 3
++#define STACK_SIZE (PAGE_SIZE << STACK_ORDER)
+ 
+ #define IDENT_AREA_SIZE 64
+ 
+diff --git a/xen/arch/riscv/include/asm/current.h b/xen/arch/riscv/include/asm/current.h
+index 0c3ea70c2ec8..58c9f1506b7c 100644
+--- a/xen/arch/riscv/include/asm/current.h
++++ b/xen/arch/riscv/include/asm/current.h
+@@ -21,6 +21,12 @@ struct pcpu_info {
+ /* tp points to one of these */
+ extern struct pcpu_info pcpu_info[NR_CPUS];
+ 
++/* Per-VCPU state that lives at the top of the stack */
++struct cpu_info {
++    /* This should be the first member. */
++    struct cpu_user_regs guest_cpu_user_regs;
++};
++
+ #define set_processor_id(id)    do { \
+     tp->processor_id = (id);         \
+ } while (0)
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index 0d9b4c4b525e..ec7786c76199 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -49,6 +49,8 @@ struct arch_vcpu
+         register_t ra;
+     } xen_saved_context;
+ 
++    struct cpu_info *cpu_info;
++
+     /* CSRs */
+     register_t hedeleg;
+     register_t hideleg;
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index 29bdb65afbdf..9e30a9a3b50b 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -121,16 +121,6 @@ void dump_pageframe_info(struct domain *d)
+     BUG_ON("unimplemented");
+ }
+ 
+-int arch_vcpu_create(struct vcpu *v)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+-void arch_vcpu_destroy(struct vcpu *v)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void vcpu_switch_to_aarch64_mode(struct vcpu *v)
+ {
+     BUG_ON("unimplemented");
 -- 
 2.52.0
 
