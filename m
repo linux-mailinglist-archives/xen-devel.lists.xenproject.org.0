@@ -2,57 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id e6BlKOT3c2lJ0gAAu9opvQ
+	id ULlPAeb6c2mf0gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jan 2026 23:36:20 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jan 2026 23:49:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFBDB7B323
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Jan 2026 23:36:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1212597.1523638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E66E7B3F9
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Jan 2026 23:49:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1212610.1523647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vjPl3-0004Pt-Dk; Fri, 23 Jan 2026 22:36:01 +0000
+	id 1vjPxR-0006GU-Hs; Fri, 23 Jan 2026 22:48:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1212597.1523638; Fri, 23 Jan 2026 22:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 1212610.1523647; Fri, 23 Jan 2026 22:48:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vjPl3-0004Mj-9Q; Fri, 23 Jan 2026 22:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 1212597;
- Fri, 23 Jan 2026 22:35:59 +0000
+	id 1vjPxR-0006Ew-FD; Fri, 23 Jan 2026 22:48:49 +0000
+Received: by outflank-mailman (input) for mailman id 1212610;
+ Fri, 23 Jan 2026 22:48:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zLor=74=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1vjPl1-0004Md-F1
- for xen-devel@lists.xenproject.org; Fri, 23 Jan 2026 22:35:59 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
+ id 1vjPxQ-0006E4-5H
+ for xen-devel@lists.xenproject.org; Fri, 23 Jan 2026 22:48:48 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e23e5aab-f8ab-11f0-b15f-2bf370ae4941;
- Fri, 23 Jan 2026 23:35:57 +0100 (CET)
-Received: from PH5P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::8)
- by DM3PR12MB9327.namprd12.prod.outlook.com (2603:10b6:0:42::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
- 2026 22:35:52 +0000
-Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:510:34a:cafe::8) by PH5P220CA0001.outlook.office365.com
- (2603:10b6:510:34a::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Fri,
- 23 Jan 2026 22:36:08 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ id ac4d684c-f8ad-11f0-b15f-2bf370ae4941;
+ Fri, 23 Jan 2026 23:48:46 +0100 (CET)
+Received: from SN7PR04CA0008.namprd04.prod.outlook.com (2603:10b6:806:f2::13)
+ by MW4PR12MB7119.namprd12.prod.outlook.com (2603:10b6:303:220::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.10; Fri, 23 Jan
+ 2026 22:48:41 +0000
+Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
+ (2603:10b6:806:f2:cafe::ca) by SN7PR04CA0008.outlook.office365.com
+ (2603:10b6:806:f2::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.10 via Frontend Transport; Fri,
+ 23 Jan 2026 22:48:16 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 22:35:51 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 23 Jan
- 2026 16:35:50 -0600
-Received: from [172.26.188.28] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 23 Jan 2026 16:35:50 -0600
+ 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 22:48:40 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 23 Jan
+ 2026 16:48:40 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 23 Jan
+ 2026 16:48:39 -0600
+Received: from [172.26.188.28] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 23 Jan 2026 14:48:39 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,104 +68,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e23e5aab-f8ab-11f0-b15f-2bf370ae4941
+X-Inumbo-ID: ac4d684c-f8ad-11f0-b15f-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e5fLhBonaVAK9O9IrI8jnorQ8wO5MYwkq5E5x06xvM7msH3jTMtI8hUNNyuBsqiuG7YMje/H43ZmCLT0lE9JFqEB+aTzxLSNeltzb7AXm+sbPtZpZfHwn+I8ws+roJjBBekjf5XRGnBQctkaMbbjVvLZlsBLkQOEC3XxJhXf1kdnL7OK1SZg/eLGVcy5f7N+YZfxkg6NDeFh4e+RqaKJJdqyPx+XPctnH+0dJsNx46P38zfTMqPt2sFlr4niKyaPZgX61ssrVGYDIdhms5uCo5MOTjUejkOJpKu6+vYsbXFSM1ppPR0Q4PqKPys7ipkjeOMqZQUITj2xabBhcYxfrg==
+ b=xLZnwzI5/vS3iVjxpSS+CztygGl7aohWFoffmnxpUjetvL68TquAPiz+p+sDabZwSUcZrpaFstp8/9HCZiL3QD0DjVtYXPvXb7i7bFkih30nCnehFaVG00eoI2dw559VrG5qWyJyzEXL/hxPplkVemxC5WoTjOXCk1RuqGLciNGL8Vi3FW1YIllA7/YGdpv8f8itCT9LuSMF1hphq4B2cUdEhC3FA4q5pDpNnEMBepDf3JyURoIyG+6Il2TK9Tw+Oa0x0+I10AhEk15uwxDffxO6VZ8703mXGmX5QeN+7IXYrWStpVPWbyPZ/UO3LtKvBmtRywJnBH1Lbe1Ss5tJZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GgmufgnGgUDOr6k/GE5Xoz17xtg6jzpb8FjFlHU/IJ0=;
- b=Sm3xjO59nJETe31eY/x/I0gVgwfgvR87kYowU280h93ZR39IzWv49Q/0jTEexWa5/8rOiq7htrsYmdRHuOXpF2KVBYY4mKoOywcc+tMhZ7bVb/9fLee2qyBTKXPeKUXRACCHFUvATyFQokd1qssLZp5QJTLceBmbw+LyKtXDbG1H9u1PrMhDy6a+YJnqpFmzkiTTr378qUmvnBFSWIJ3t1drBth71g1iVEOs5Em1frBN84LfcYf1kJY+Hsz9qgPo/ra92BYaYbIaxB6vWKm53vdaYxclfWX97wYQ1vqYAuK5hptosgtMGfyVPQukY8vHKv9fHfJHC3WwpbyPmn/EcA==
+ bh=h8G9XEEUnGfL50viJ1aN/Y+zx4YjlpJ49njkZ496xes=;
+ b=Engh9nCKaeavcxO+/TdGenmQBZiz8iL5CtZgzUJwHGO92oLv5t61jpv+AeVYrbmngm7H7G9LA5XprvTu33f2X1MckPhlaLkiOP1zCYL5JJKKnmUfIHJo3lzj7bwh+8jTaXkj50NOFsChSydlJ1OdeB3kSaSYCCsjQPuh2BL5tTgvzqAb8iNcRgRRSvTXhW+Mx6MliIsHOFEw5qMzzztyR5CWUKZ/IQinrYMohi3rPddkIjBlmIOX4bsDwmwBHc8NYacGN4jkI0nrPpkdkwA8Gb8m6Pgj+vXd65iiuL9VeNwtH/mTzZLIy0im4JPv6hhCskTlWVspKkHYdXBz6h9OWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GgmufgnGgUDOr6k/GE5Xoz17xtg6jzpb8FjFlHU/IJ0=;
- b=Keu5GSVoj93NktbF/93FeFRmX3NKGFT4dzjyAoFtxdx4K7n8aOnYozPkhSrb5/xHgNGF4C0mb9WsR/d2tw7qGIrydPxBI0qlKbSqkGbTclZ/dvAtSxIiqCJHhjiNykTK/0fzdNqprfOykIhjMfSDP7NEynoIJ1z8dUxSthk9Kqk=
+ bh=h8G9XEEUnGfL50viJ1aN/Y+zx4YjlpJ49njkZ496xes=;
+ b=h/bvATl80uuo1sv0+ZQ2MBnUuzYwXD0LMDuxwmMRlp0NAuidLvvrVGJJYFiqoDEbmUcLEbAWtMrtQczdsLU+Fh9iPLoCKBcTpUPrrHYIFaRnRldLKYJneGMR7HyGxsVq/CqYwUcg/lH7j5w5S/YwwYeqyhq5ThGBGS83IIK3M8Q=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <26ef0e68-efca-4b9a-a210-76b5426da130@amd.com>
-Date: Fri, 23 Jan 2026 17:35:49 -0500
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <601a1280-6d06-4b12-a89f-9d205a36f4e4@amd.com>
+Date: Fri, 23 Jan 2026 17:48:38 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] cpufreq/hwp: move driver data into policy
+Subject: Re: [PATCH 1/5] cpufreq: eliminate cpufreq_drv_data[]
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
 	<xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <ac56e199-7c03-4e97-8238-91d23b0391e2@suse.com>
- <8441ada5-e2ed-4d79-822c-ecf1ce3c9484@suse.com>
+ <d242f611-b91e-4cfa-b4d6-bebf11b282df@suse.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <8441ada5-e2ed-4d79-822c-ecf1ce3c9484@suse.com>
+In-Reply-To: <d242f611-b91e-4cfa-b4d6-bebf11b282df@suse.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|DM3PR12MB9327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c80c7e4-5e57-4921-9bd8-08de5acfc337
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|MW4PR12MB7119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03d80831-d984-4e2d-7876-08de5ad18dae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013|7053199007;
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RnBpN0xuZTlmOUtTREs4UElWMkxtK3pTMTBrVENJRWltaldMRjFmdnRtUUN4?=
- =?utf-8?B?dFhyTGJRT09kMnh5QldsMlRXZ0p2bkYyaWl2NFplN2M5RDZPK1FvLzJRdTRy?=
- =?utf-8?B?T2psaTlxcjVqSFd3bU9lWW0wcTQ3bmRsL1pvd3JKNERiNjJJczJHZVhjQ2Jt?=
- =?utf-8?B?cEpZWXpibWhycm13OWowNzFVNm1ka1VydnByVXRRMmlIVkUrS0pQVWFWbGJW?=
- =?utf-8?B?cXExMkxIbE8weVlwK2x1cUZWN2tvSlVxUExFSW9NR29OWkU3a0Y2cmdLbGVG?=
- =?utf-8?B?NVhSN1pWd1JPOVZuaVBGc284TktZc29lUk1KZTE5N0xsWkNEQzNEak1aT0lW?=
- =?utf-8?B?MWVCQkNKNmJMS21laklnNmJRZG1YSFBRVnNuWENidSszbEYyT2tPMG1lKzhP?=
- =?utf-8?B?Y3dYdnZoUVBGUS9SSWhXZE9vUHB4MFQyMlJ4SWdtYnhXR3VqTnFSaHNidEtI?=
- =?utf-8?B?TDNNZld3ZUhtcjFjQnhJcFp3Rm1uSXJ2TnNBNm16N2NFenVyb2pzUkIwTEk2?=
- =?utf-8?B?VDJtYjJnQzhGaHVpMW4relF2TGdiVjhObWFzd2ZVd0JVdTZZUHIxNE5xYUlq?=
- =?utf-8?B?SXZFZFRzMDZINThleVk3Yk1YQTZlbTFaMFRsTUdIbE15NXdxT2kwbHN6TWg2?=
- =?utf-8?B?SDZmTXVZWkI5RXRtZlp6OHFIUUsrekNOYjV6dTRxeXMvcFROWkgwdFlQdmdZ?=
- =?utf-8?B?WFRNeFpGTnR2aHBKMm5aZS9OM1YzVWtiU1F1a1hDRk81NEpZLzFtcHFlanFn?=
- =?utf-8?B?N1JSenBYbURqN1l6SHk1YkhxQXRTQVZiVExLUVpHYWpFVXJkM29BV3lMYXNZ?=
- =?utf-8?B?R2x0SHhULzI2WFhnUDNBd0FNd3RuVnhKUDJLWUJRWGROTHpzZXIrM0hEK1FK?=
- =?utf-8?B?VWE2NmNVaWVDQ0p6ZS96YmltYmQ5dThTVjlyam9xWlEzK29rclZVcm9HSzI0?=
- =?utf-8?B?TGl3K2wvdERzZDZmQkswYU1zMUYxWkwyZTZxaVR3Yk96YnFMZ2laN2lJYWhX?=
- =?utf-8?B?dmgwMTB6QmEyaFBhN1pJOTlMdDFVbmJucDRZV0NlM1oyRXJQSmtCK0kwOFpQ?=
- =?utf-8?B?L1paOTgrVVpvSGhadGJBU1FpOWJzMHI2TXgvMFVmN2liN0tLTzh1OEg4OHpY?=
- =?utf-8?B?cWdxc21QQVNFM0lvS2F1V2VNRE85T3MxZ3lhd0FqazJUWjVEU0VHM0dSZXdv?=
- =?utf-8?B?UWJtcitJdU85b3lyNEhTd1VZZUhJU3A0dWVDTXBvNTJKcjZyK3VteXZjZmV3?=
- =?utf-8?B?OFpxM0lwYnVheCtoRDdrVDlVRzNlNmRUSWhCQmdpZEk5amJabytoRHJyRk1C?=
- =?utf-8?B?SGk5YmhSK2Z5UXk4QnZ2NUpDd0xnVWNhWk5EQnFSU1g0eDJTdC82bVV1NldN?=
- =?utf-8?B?YjZudzZrakovYk9JL1NBTkR5c0pvSjRwR2s1dnErQVpZTFNTMmdJYSt3cVkw?=
- =?utf-8?B?bUlwdG5RUTN6dDNLQ1BHWndVVWZWck9SWGdOd1hKSlNZQTk2aC9pdmowY2xG?=
- =?utf-8?B?ZlZUaXRTc0tqakFFUFJ2Um1tU3B3RzVPTEszWmFvTGJ6VEZ5c0pWM0kweTFn?=
- =?utf-8?B?RkNGdEpTQjJaMHVjTEtWOVloT2g5bUdVTHRTK3NQVjBwUVpuR2RTRjV2WWdk?=
- =?utf-8?B?NzBYNzlSWXplL216TmhCY1pxMW1tYS9DQTU1QlgwNWNvOFFTU2lpN0I5RkNL?=
- =?utf-8?B?Z2IvTk1oTWV6OFdiTVREa1BFVmZNZkdLZ2NhdjhVNS95bnIzdGRSU1RxR2xM?=
- =?utf-8?B?QzRBVFprL1l4UFY1L2N0cjFNdUlKUDlPbVpRSGlBMjZyaXN6ZlFCUTJMbGpV?=
- =?utf-8?B?S2FKVlM2RDFDZzZHSk9hNEIxRzRXaW8yTXNVc0VVWS9WY3R0bnRXVmtwcDZP?=
- =?utf-8?B?NGFST3ZiQlJiSkkwbUtGNmt1UzRmSEZPRjlRdTdoQXh6VVlaNEFwMUZRd0JG?=
- =?utf-8?B?L0pOL2o5cXNHRm94MjBhTFVvUmRSOEZaSFFteXlNdXVXOEdpU08rOVNvZDkx?=
- =?utf-8?B?cGtEM1JYR2dzMWQyUUhQbUlrMzdheGdFY2Z6cFJ5TVRscG5tR3p0SHQ1d01O?=
- =?utf-8?B?ZDVqNDVxWWdZb2hMTC83YzZmL0dmZzIrNS95a0tXWU1kd2t5TTQrZFRSNjF4?=
- =?utf-8?B?Q2VkVDZaWXArOFlpQXVwa2FhMS9raU1XTmV1SWszY2tGS0U0eTZRMWswdWJV?=
- =?utf-8?B?S1pLUTNxWXBiWXF3dDBOWnJBdEg0MXZQSXU4VUwzaENiTFpvN1NJRHFnMXZ2?=
- =?utf-8?B?Uy9idU5WeS8rRjdMWlh2eWUzS0dRPT0=?=
+	=?utf-8?B?cmpoaVo5YUFBVEVMSDRsTEROd1Z5OEhtbFRSUHRHWTdYODFzbHVHcnhUenFx?=
+ =?utf-8?B?Vkhkby9jZjRONzEra24rRzBjMFBtT1REQktyeEtvTDhLUUJLWUFob0gvT3lE?=
+ =?utf-8?B?OVJDaTByYWp1WEF1dEQxNG5XTFhDU3hEdm05U2xBbjlVL0YzamE1UjNYMXEv?=
+ =?utf-8?B?WlFGanB1ekt4enFsdjcvZVpkTFE2K3kzZlA0bCtoUjkwY0JHTzMyUDFpSmta?=
+ =?utf-8?B?Y0xYRy9IbE9VMXNyZEQycFBDVUtmYTIxRFNXUlROTlNBdjlTbDc2elE5bmNv?=
+ =?utf-8?B?THN4cEUzR1FBVXlBZ1NqcUUxeUxRdkZEMzJwSG9ITmpwVnN3Rm5lT0ZMOXl5?=
+ =?utf-8?B?K1hhek9ibmoxZ2JRdC9adTQwU2V6UEdWMzZ4NGZReGZSdGlmVXpVLy90UDlW?=
+ =?utf-8?B?bWwrdURweHNhYmpldHJMeExBSDN1SFY2S2dsdEF0ZUhFUGN0NGRiYlI3cUc3?=
+ =?utf-8?B?ck0yVyttRTJVMWFTUHZLRUkySWgwakp4S1h0OFRxQVZ5em42QnJLVkJNVnMr?=
+ =?utf-8?B?UzVuTmY1QStkSXRScGxMd2kyVzlXbUx3blBpeGI2dFU2OHQ3SjlyNlZYNmVK?=
+ =?utf-8?B?YllYQ1lmN2dBNDVCdGdqcEFWWGdkTWpYTXdVajluS3BkRytFRzFNNnkrc0Ro?=
+ =?utf-8?B?emd2blo2eFdpYWFCWklsWkpMUXIrVmtJK2U5Z1dKY3ZndDV1K3R5QlFQU0xq?=
+ =?utf-8?B?eDJBeFd1eUpheXU5NDA0OUZYVXRmbDFaQkpxaEhLYnhBSC9nazBmSzRoT3pr?=
+ =?utf-8?B?c3dNR0RJZDRuZHp5M0U2WEg2QXFFVU8vK0IzeWxXa1hscjViOXppM0FRNG5B?=
+ =?utf-8?B?TnpIbGx4RjAwV29PTUoxUk9VeDNqaXp5dUIyc2ZTcG5WOGFEcGtZMHpSNFJl?=
+ =?utf-8?B?aEtBL0VDbWlsTHFYajlDS05kR09Mb1kxZEh3RTVuVWZFSTlJQ3F6NTIwWmVl?=
+ =?utf-8?B?Vk1jbUJpK29mUHozbzFGZTQrL2hEVC8vaFJ2VkdhYjRqeHAramJ6NnI3cS8r?=
+ =?utf-8?B?cFN1dGwyVUlHajhIdjBUUDdVOGFVeTlSVkxWbmN5bmpGcWlwb2pBemZXa3Qw?=
+ =?utf-8?B?NlErRXVSN1QzUEs0eDVRSUU5TC9KZVo4YXRyZGl6dTRwWVBBTEd4RTI2bGNF?=
+ =?utf-8?B?MkNQanQ0RklqcHBMNTRvdWFGTWhESzI3NHFvYmZXQTJ1NFVmRDhKT25pV2Rt?=
+ =?utf-8?B?Z1Y3TC9xZVNqUndnUHBoeDZiSHJWSU9GRHBkcUVxZmZCc0ZUVEdtd0c4TUl3?=
+ =?utf-8?B?dFQ5U3g5MFBUT0VmalpYMjducURTZlkzNkswNkszSldWc2pOZ0I3OW9RdVhq?=
+ =?utf-8?B?NVNjV2hxRGF5d2FHTTg5bFVTZUlvTG9LS2lTUVI1OEtKYko0N1ZYek8wZjVN?=
+ =?utf-8?B?VWE2VHlEMnRGc1JEVUhWYi9HZXprK28zYVM4UUpGZkNwc0FuOTNqNzZwUng2?=
+ =?utf-8?B?SzEwamFFb1JMYlVWSEhVbG1sTnR1MXNFQlM4R29GSlhObkFsMngvTzlqd3VJ?=
+ =?utf-8?B?ak96YlhuLzRhMnNCeXhtT0V2b1dLZzJCQUtvZXRZN0R4Q08zeS9JZU1zaTNI?=
+ =?utf-8?B?aExmVmw4Y2NNYTdSZERMYnBINTJTcmUwRlhuMTNQdkRoa09YN2lIVFZKTFhk?=
+ =?utf-8?B?dEtIc0tzRytKOEJoUm9oUVJRZ05tTXFMRTJUT0FVZ1o0NXBEaGlIaGkwT3Vx?=
+ =?utf-8?B?bkFaYVAzYTBPbXRLN2JtWlpiMlh0aDFWNHlCYTZXZGMranJnelpPRlBPL2Fr?=
+ =?utf-8?B?Vkhrb3pndCtZdUFNMDN3Rmx3STc0ZkdtdFZERU9FMjNYZXBRd1VpdnBDL3FY?=
+ =?utf-8?B?UXZBbUpab1JaNmtDV0Z3amNhVzY1WWRVazh5VlljTFlkUExKR2NHZzdiclJn?=
+ =?utf-8?B?bVl4NTNQczlBMXp1WENqVGR5YnNONFBYa25tRDZNbGI2QmNZdzZlZGkwazB5?=
+ =?utf-8?B?ZXZ6TGN6d1UzSGczMVhUek5rV3VVemxEN2VOcEswK2crRFl5eWtzbjd4NDVo?=
+ =?utf-8?B?ZmNmbThiVlNvY2U0L3UvaVBQRmhveE9MYWhmRDU4a1E5b1pJRWsydEtPOU8y?=
+ =?utf-8?B?WFg5TzJnMU4raTNtRVZwQ0wwSkE5blNmeVVpTG5PbDB4YmVYRldYNnRXb0xH?=
+ =?utf-8?B?YVgzdGVBUHNkWXRja1FPUTNjbnRLQXlyYm1mYzA5WWNiWTZlUW03WnhqOWp5?=
+ =?utf-8?B?dTZhK0dSbzN2bHRLL1MzZ1NraTlmS0VuZXNISnZWeWZkUi9TclMwcWlMb3RN?=
+ =?utf-8?B?TXhSdGQ0azVwL0xBNHY0SlQ1ZnJBPT0=?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 22:35:51.2501
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 22:48:40.4257
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c80c7e4-5e57-4921-9bd8-08de5acfc337
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03d80831-d984-4e2d-7876-08de5ad18dae
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C7.namprd03.prod.outlook.com
+	SA2PEPF00003F64.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9327
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7119
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -180,61 +186,32 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	DKIM_TRACE(0.00)[amd.com:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-0.694];
+	NEURAL_HAM(-0.00)[-0.706];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: EFBDB7B323
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 3E66E7B3F9
 X-Rspamd-Action: no action
 
 On 2026-01-22 04:42, Jan Beulich wrote:
-> Share space with the ACPI and powernow drivers, avoiding a separate
-> allocation for each CPU. Except for get_hwp_para() all use sites already
-> have the policy available, and this one function can simply be brought
-> closer to its sibling set_hwp_para().
-
-Minor, but maybe 's/function/function's signature/'.  The original 
-phrasing made me think it was code movement.
-
-> 
-> This then also eliminates the concern over hwp_cpufreq_cpu_init() being
-> called for all CPUs
-
-We expect hwp_cpufreq_cpu_init() to be called for each CPU, so I am 
-confused by this statement.  The data...
-
- >, or a CPU going offline that's recorded in> policy->cpu (which would 
-result in accesses of per-CPU data of offline
-> CPUs).
+> Possibly many slots of it may be unused (all of them when the HWP or CPPC
+> drivers are in use), as it's always strictly associated with the CPU
+> recorded in a policy (irrespective of that CPU intermediately being taken
+> offline). It is shared by all CPUs sharing a policy. We could therefore
+> put the respective pointers in struct cpufreq_policy, but even that level
+> of indirection is pointless. Embed the driver data structure directly in
+> the policy one.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> hwp_cpufreq_target() still requires policy->cpu to be online, though.
-> 
-> --- a/xen/arch/x86/acpi/cpufreq/hwp.c
-> +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
 
-> -static DEFINE_PER_CPU_READ_MOSTLY(struct hwp_drv_data *, hwp_drv_data);
-
-... here is tracked and filled per-CPU.
-
-Do we need cpufreq_add_cpu() to force hw_all = 1 for HWP (and maybe 
-AMD-CPPC) to ensure that policy is allocated per-CPU?
-
-Are we implicitly relying on shared_type == CPUFREQ_SHARED_TYPE_HW to do 
-that for us?
-
-The code here is okay, fwiw.
-
-Thanks,
-Jason
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
