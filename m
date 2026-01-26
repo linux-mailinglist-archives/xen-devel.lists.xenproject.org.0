@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kBufLQBkd2lefAEAu9opvQ
+	id EEM1J8Vtd2nCfQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 13:54:24 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:05 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4488880A
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 13:54:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213697.1524156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4395988E69
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213711.1524188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkM61-0006Gs-MB; Mon, 26 Jan 2026 12:53:33 +0000
+	id 1vkMkc-0003Gh-Tz; Mon, 26 Jan 2026 13:35:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213697.1524156; Mon, 26 Jan 2026 12:53:33 +0000
+Received: by outflank-mailman (output) from mailman id 1213711.1524188; Mon, 26 Jan 2026 13:35:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkM61-0006Ei-JV; Mon, 26 Jan 2026 12:53:33 +0000
-Received: by outflank-mailman (input) for mailman id 1213697;
- Mon, 26 Jan 2026 12:53:33 +0000
+	id 1vkMkc-0003Da-Qx; Mon, 26 Jan 2026 13:35:30 +0000
+Received: by outflank-mailman (input) for mailman id 1213711;
+ Mon, 26 Jan 2026 13:35:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fT7M=77=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vkM60-0006Ec-V9
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 12:53:32 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0434b4b0-fab6-11f0-b15f-2bf370ae4941;
- Mon, 26 Jan 2026 13:53:31 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-47ee07570deso34381845e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 04:53:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4804d3ac45bsm105533585e9.0.2026.01.26.04.53.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Jan 2026 04:53:30 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ygru=77=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
+ id 1vkMkb-0003DU-6V
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 13:35:29 +0000
+Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com
+ [115.124.28.100]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dac7d4c8-fabb-11f0-b15f-2bf370ae4941;
+ Mon, 26 Jan 2026 14:35:21 +0100 (CET)
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.gGHqk0X_1769434515 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 26 Jan 2026 21:35:16 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,206 +44,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0434b4b0-fab6-11f0-b15f-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769432010; x=1770036810; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6dfNLf+Mng9Xxc2Z1v5rxAG2bJG15U5JQJu59tUp/Uk=;
-        b=bnIC+FqFu3aBbKFW+VQVox4B4SLlPLVj3sNCW+CsgkiedVy34rN+4vGLPuvgZhgvag
-         5qaCBR2PV60EY80yvEV6+5uNflc1SPhoo62jfsi/gRSbKjj+yaFcy7P/DHVLzTFqg2Wm
-         iEKLaWiN2jSq3NRWTsneUoBQ7s/4UPEXDrqyqqn2hjyBbNhlFtlWbrbJGZTOEo/kTYpw
-         ewdNPztcL3rYwhVyvJW1rXRYiFwNo0SrzEdXndrHpPQKF4G11Mhv1hbimxffraYj1nha
-         ol9Mijs/55IQjvndyynUWRv6nFUhBKLhtV6oXshHslFDUW3UtQiEk/hNLkdwWd7uevW4
-         9BPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769432010; x=1770036810;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6dfNLf+Mng9Xxc2Z1v5rxAG2bJG15U5JQJu59tUp/Uk=;
-        b=SAPYevmBElYA7ocacdBuXEnNdN3oFFXaHGcjArZDaWL6Ad5D68k+Ckf94TBt7mStMv
-         y2Tmqacu8ETv1Hg8NeRsuMSU2S2QFF09ufVnDMxCr7uv8YkjpVi2moikSOleV6kzVcgN
-         DmjWRO1XZ4c0JceeNNai7mQ2R2NNYJqlcOq+cNAsEqMkPxsoQ7vgE1Q4AClC+oy8xvWd
-         oqtaXvs1MxckuOUI9AXLBVZ+PcX4VmapQbjOYubmcieGDktBYVteCSQR9MfYLeLlaM9n
-         Zu99EK7at1E5omZieyuDyc+CbX4XS8qPpDs7XtkupB+nhrJlXcx31vHhgz+ImoomuUgB
-         gJcw==
-X-Forwarded-Encrypted: i=1; AJvYcCXxp+7iNcQIOrNjwbA8dHwrrfpzSoP/sYo7+6Po8t67jp1OjBnR5WmdXIjfGECXZfPBB5APmB7og5M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFJ57MpxxuetQkxlIe+AJcX2ZMG6Jgw/PSF0XMKdVLKfvj3QC0
-	ZvGvjm4vFg8JJEOWRQOomnB7buEKcGN8w060hV+6oya/MYK6u3QP4KAsnGVezW2G4Q==
-X-Gm-Gg: AZuq6aLnj2NW9pC7RpHvR7J3JrQMF5FS/kR5YG0q1YwFlEC0f0FfSm1KJPJgFP34hAn
-	z4PSd2HH2t3qlyeNNnJU9Hn44///CDWXEzOld+xWUfTAvOB9iMqtrlmzAVEW+Vm6IMqRt+QlMRD
-	C5k1JERA4ftrighiLp2rRBQw5d0zHGC5Y1NKFZ4G3Sn1tCzWdAv/rjUJQTQwB33NEpY20FrBhQW
-	SHFIy5XA/q3xR0lt56Qd+4oeUiTNgxUSVJWyYyOafhxAJNX1vYrAawhJuX4w5FzpqziqYTq7hXl
-	eaPN2ktvPBqNV4qG/6VqlKaGJi0Ll9XouQcS87RlG56Wyq/2O2u5/nxy5Xfo3owt3hLRPFW+3PY
-	6M9p6HqSbsZ+lswCpeWtcp+nWI5HBWsNqtlpIlU7rn8Xfumx8vOWOHzKV+Tnd5Ll1CvQhpmY70z
-	pIJrTOlogydOgaJPYUji7zwZdbQBRc3CTcRmJjUCB3RFP9JSuG7V2ksNP3T/kHXuIWEu3HZocHU
-	VMet1ufhRZNDw==
-X-Received: by 2002:a05:600c:470e:b0:459:db7b:988e with SMTP id 5b1f17b1804b1-4805ce3fc24mr67358625e9.13.1769432010519;
-        Mon, 26 Jan 2026 04:53:30 -0800 (PST)
-Message-ID: <784293fc-f8f2-45da-b9dc-169fec5b9ddb@suse.com>
-Date: Mon, 26 Jan 2026 13:53:30 +0100
+X-Inumbo-ID: dac7d4c8-fabb-11f0-b15f-2bf370ae4941
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=antgroup.com; s=default;
+	t=1769434518; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=EUFZPihEfz/fncyKdMh9AsZHIUnCljxK4T+gNK+kZwk=;
+	b=gMwNPKSRoWPqvorcUyrIHEplhefn4xaX3686NBbqfptrokbf3WECTxggZ86GW2v1jn2GfbkOxRA2Fzcb7jSHpJM9dnpE0GNcsHyunGg40IO3qg6H3O6fjd9eyhbjoWqjT+Dz4irJkfBsmAH2tRVmiXk1G+aZ0ufu1OpmFKdqWNk=
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
+To: linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <jiangshan.ljs@antgroup.com>,
+	Hou Wenlong <houwenlong.hwl@antgroup.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Brian Gerst <brgerst@gmail.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Graf <graf@amazon.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Huth <thuth@redhat.com>,
+	Uros Bizjak <ubizjak@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	"Xin Li (Intel)" <xin@zytor.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	xen-devel@lists.xenproject.org
+Subject: [RFC PATCH 0/5] x86/boot: Allow to perform randomization for uncompressed kernel image
+Date: Mon, 26 Jan 2026 21:33:50 +0800
+Message-Id: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/16] xen/riscv: introduce struct arch_vcpu
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
- <ef706b474a23cb24a7bc119f8206e9df527b7287.1769099885.git.oleksii.kurochko@gmail.com>
- <e4801098-4525-40a7-91e2-7ffeb7a6d859@suse.com>
- <20f2bf2c-9b28-4a60-ad35-9640f5d3dfad@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20f2bf2c-9b28-4a60-ad35-9640f5d3dfad@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[antgroup.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[antgroup.com:s=default];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FREEMAIL_CC(0.00)[antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,oracle.com,weissschuh.net,gmail.com,linux-foundation.org,amazon.com,roeck-us.net,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[riscv-non-isa.github.io:url,suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:jiangshan.ljs@antgroup.com,m:houwenlong.hwl@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:ardb@kernel.org,m:nathan@kernel.org,m:masahiroy@kernel.org,m:vkuznets@redhat.com,m:linux@weissschuh.net,m:brgerst@gmail.com,m:jpoimboe@kernel.org,m:akpm@linux-foundation.org,m:graf@amazon.com,m:joel.granados@kernel.org,m:thuth@redhat.com,m:ubizjak@gmail.com,m:kas@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:linux@roeck-us.net,m:xin@zytor.com,m:ilpo.jarvinen@linux.intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[29];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[antgroup.com:mid,antgroup.com:dkim];
+	FROM_NEQ_ENVFROM(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[antgroup.com:+];
+	NEURAL_HAM(-0.00)[-0.899];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1C4488880A
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 4395988E69
 X-Rspamd-Action: no action
 
-On 26.01.2026 13:30, Oleksii Kurochko wrote:
-> On 1/26/26 12:41 PM, Jan Beulich wrote:
->> On 22.01.2026 17:47, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/domain.h
->>> +++ b/xen/arch/riscv/include/asm/domain.h
->>> @@ -22,9 +22,62 @@ struct hvm_domain
->>>   struct arch_vcpu_io {
->>>   };
->>>   
->>> -struct arch_vcpu {
->>> +struct arch_vcpu
->>> +{
->>>       struct vcpu_vmid vmid;
->>> -};
->>> +
->>> +    /*
->>> +     * Callee saved registers for Xen's state deep in the callframe used to
->>> +     * switch from prev's stack to the next's stack during context switch.
->>> +     */
->> What is "deep in the callframe" intended to convey? I'm in particular wondering
->> about ...
->>
->>> +    struct
->>> +    {
->>> +        register_t s0;
->>> +        register_t s1;
->>> +        register_t s2;
->>> +        register_t s3;
->>> +        register_t s4;
->>> +        register_t s5;
->>> +        register_t s6;
->>> +        register_t s7;
->>> +        register_t s8;
->>> +        register_t s9;
->>> +        register_t s10;
->>> +        register_t s11;
->>> +        register_t sp;
->>> +        register_t gp;
->>> +        register_t ra;
->> ... sp and ra, which presumably don't live anywhere "deep"?
-> 
-> context_switch() is invoked relatively deep in the call stack, so the stack
-> pointer in use when context_switch() executes can also be considered to be
-> deep in the call frame. The same applies to RA: after the first
-> __context_switch() call, RA will point to the next instruction within
-> context_switch().
+Hi all,
 
-While writing, did you maybe notice that "deep" can have two entirely distinct
-meanings here? It could be "far from where the stack starts when we enter the
-hypervisor" or "far from present top of stack".
+This RFC patch series introduces relocatable uncompressed kernel image,
+which is allowed to perform kerenl image virtual address randomization
+in 64-bit booting entry instead of decompression phase.
 
-> I can update the comment and drop the wording about being “deep in the call
-> frame” to avoid confusion. In that case it would simply read:
-> 
-> +    /*
-> +     * Callee saved registers for Xen's state used to
-> +     * switch from prev's stack to the next's stack during context switch.
-> +     */
+- Background
 
-Yes please.
+Currently, kernel image virtual address randomization is only performed
+during the decompression phase. However, in certain scenarios, such as
+secure container environments (e.g., Kata Containers), to speed up the
+boot process, the system may boot directly from an uncompressed kernel
+image. In such cases, virtual address randomization cannot be executed.
+Although the security enhancement provided by KASLR is limited, there is
+still a potential demand to allow uncompressed kernel images to perform
+virtual address randomization (for example, future support for x86 PIE).
 
->> Also, what about tp? The 't' in there isn't the same as that in "t0", "t1", etc.
-> 
-> tp stores pcpu_info[] and it isn't expected to be changed during (or between) function
-> calls.
+- Approaches
 
-Oh, right, I forgot about that aspect. However, the more that you reference ...
+Currently, the x86 kernel uses static compilation, but it retains
+relocation information through the '--emit-relocs' option, which is then
+simplified into a relocation table using 'relocs' tool. To enable
+virtual address randomization for uncompressed kernel images, relocation
+information is required, and there are several possible approaches:
 
-> In this structure we are dealing only with registers which should be saved according
-> to RISC-V ABI convention:
->   [1] https://riscv-non-isa.github.io/riscv-elf-psabi-doc/#_integer_register_convention
-> The exception is for RA (as it is also used to jump to continue_to_new_vcpu() when vcpu is scheduled
-> first time). During a review of the [1], I think that GP could be dropped as it shouldn't
-> be preserved across calls.
+1) Who will perform the randomization:
 
-... this - why would gp then need saving? That ought to be stable across Xen as
-well (or not be used at all)?
+VMM: The VMM reads vmlinux.relocs after loading vmlinux to perform
+randomization. This would require additional modifications to the VMM,
+and vmlinux.relocs needs to be packaged when shipping.
 
-Jan
+Kernel: The kernel performs randomization itself at the kernel
+entry point, requiring no modifications to the VMM.
+
+2) relocation information format:
+
+vmlinux.relocs: It only contains the necessary relocation entries and is
+simplified, making it small enough. However, it is a format defined
+within the kernel that was previously used only internally and is not
+part of the ABI.
+
+rela.* sections: It is the standard ELF ABI, but
+it contains RIP-relative relocation entries, which are more common in
+kernel, causing the kernel image to be larger.
+
+- Implementation
+
+The final implementation of this plan extends the 'relocs' tool to allow
+the insertion of relocation information into a reserved section of the
+kernel (referencing the MIPS implementation). This enables the reading
+of that information and subsequent execution of relocations when booting
+directly from an uncompressed kernel. Currently, this implementation is
+only available for 64-bit and has been tested with both PVH entry
+booting and standard 64-bit Linux entry. And the default reserve size is
+1MB for now, which is enough for defconfig.
+
+- TODO
+
+Clean up the decompression KASLR code to allow it to be shared with the
+booting phase.
+
+
+Thanks!
+
+Hou Wenlong (5):
+  x86/relocs: Cleanup cmdline options
+  x86/relocs: Insert relocations into input file
+  x86: Allow to build relocatable uncompressed kernel binary
+  x86/boot: Perform virtual address relocation in kernel entry
+  x86/boot: Use '.data.relocs' section for performing relocations during
+    decompression
+
+ arch/x86/Kconfig                  |  20 ++++++
+ arch/x86/Makefile.postlink        |  33 +++++++++
+ arch/x86/boot/compressed/Makefile |   6 +-
+ arch/x86/boot/compressed/misc.c   |   8 +++
+ arch/x86/boot/startup/Makefile    |   1 +
+ arch/x86/boot/startup/kaslr.c     | 116 ++++++++++++++++++++++++++++++
+ arch/x86/include/asm/setup.h      |   1 +
+ arch/x86/kernel/head_64.S         |   7 ++
+ arch/x86/kernel/vmlinux.lds.S     |  20 ++++++
+ arch/x86/lib/cmdline.c            |   6 ++
+ arch/x86/lib/kaslr.c              |   5 ++
+ arch/x86/platform/pvh/head.S      |  15 +++-
+ arch/x86/tools/relocs.c           |  64 ++++++++++++++---
+ arch/x86/tools/relocs.h           |  15 ++--
+ arch/x86/tools/relocs_common.c    |  24 ++++---
+ 15 files changed, 309 insertions(+), 32 deletions(-)
+ create mode 100644 arch/x86/Makefile.postlink
+ create mode 100644 arch/x86/boot/startup/kaslr.c
+
+--
+2.31.1
+
 
