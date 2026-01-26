@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEhvLlKqd2lAkAEAu9opvQ
+	id CFCUGFSqd2lAkAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:26 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 704948BC8D
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213837.1524351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 111758BCA8
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213839.1524372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQmm-00069D-GM; Mon, 26 Jan 2026 17:54:00 +0000
+	id 1vkQmo-0006fT-UL; Mon, 26 Jan 2026 17:54:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213837.1524351; Mon, 26 Jan 2026 17:54:00 +0000
+Received: by outflank-mailman (output) from mailman id 1213839.1524372; Mon, 26 Jan 2026 17:54:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQmm-00060p-8e; Mon, 26 Jan 2026 17:54:00 +0000
-Received: by outflank-mailman (input) for mailman id 1213837;
- Mon, 26 Jan 2026 17:53:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vkQmo-0006Wp-CA; Mon, 26 Jan 2026 17:54:02 +0000
+Received: by outflank-mailman (input) for mailman id 1213839;
+ Mon, 26 Jan 2026 17:53:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0tkY=77=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vkQmk-0004HW-JI
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:53:58 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fca4bec7-fadf-11f0-b15f-2bf370ae4941;
- Mon, 26 Jan 2026 18:53:57 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4801c2fae63so38026495e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 09:53:57 -0800 (PST)
+ id 1vkQml-0004HX-RH
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:53:59 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd21385e-fadf-11f0-9ccf-f158ae23cfc8;
+ Mon, 26 Jan 2026 18:53:58 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4801c1ad878so53448725e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 09:53:58 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.53.55
+ 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.53.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jan 2026 09:53:55 -0800 (PST)
+ Mon, 26 Jan 2026 09:53:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,40 +50,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fca4bec7-fadf-11f0-b15f-2bf370ae4941
+X-Inumbo-ID: fd21385e-fadf-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1769450036; x=1770054836; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1769450037; x=1770054837; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RD+FwnuL4ppUz8uo27Is5O2Ip6Cil9yXt9VnPw3KiRc=;
-        b=h7SiuRzmtZ9Vs7j62Bb6eY7ASK6ZT4/X1HAL7DNQrjbf7hWfeGATHcNHfIrVNUXzjr
-         pysAKjj+SuyQu6K6sMM3/Ec3ZCTEgjeouWMa8uslrFS2KeCLxNfPx8vDZdU86MUp0OBH
-         wQ8XuW0wbk7t0eLf/riqTHzZ/PB7Vb7wcWXMg=
+        bh=DXHoMP2m1S668fp9KXBejADon30ms3RX1/2RyOl2CwM=;
+        b=WuQQ57ZEGI+gtoEiAaalhftBAy7Ivd9p3IShdzs65a0YwgV4vZwM939Fkw8IDDyDKx
+         RZB6zbkUqc94dB1hcu77FZo0gwAvGLTB/i8QHCJzT/xtI4I4Ni6KgKY2YDHCGZgzwSC2
+         EkAjB8jFEu4dBHzgAzxYwmh0/n8jvbYr685o4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769450036; x=1770054836;
+        d=1e100.net; s=20230601; t=1769450037; x=1770054837;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RD+FwnuL4ppUz8uo27Is5O2Ip6Cil9yXt9VnPw3KiRc=;
-        b=CwJZ1UQ+IOdC7/8eA1I/vjMLwY2PactN9dQgbbcnbiYU2ytzXp50NUh/gBmEjqTfna
-         0enRpuqLBKLu9+VtHzYQgCZvagqdEOuR2ztAe9nVEY0BCBqWCVGtuYHvxMpbI8icLdgW
-         PXy9MguL7Jlzyg8Gjn+7a9d2vKSeh+R6rZ23Fqk1hX246go/71r6WY6XsPJdqStDG6NC
-         y9dXIdLbLo9VJxEQ6OozUyAHK4KG8nFS8zRFQchcVBKgE+D908MiwlYrMaf2jAYeZPii
-         NP811SS2Q6WeI8CeSyGtvSj4Ye/0658D8o7c/lNVfhzasoT8JGKbFQp/RSjgEnvdYLov
-         +7bg==
-X-Gm-Message-State: AOJu0YzkiWi2q7X7Ng9kjeRW9BVnEcwpQBbm6vdUi3uJ3SHsZSeA+tYW
-	VV8yKvTe5mSU61kqVVQG2YaZ9N39xhTirHIovqC/Swk5qeXZmC5oGTlZCLe53+ZaQmABbmxcFzL
-	bI8A0
-X-Gm-Gg: AZuq6aLzFdCcbAP85XxgZfBZMZhHuGOuj7/4k/EqxljhiTutOHBmobJMsl2o7VzTSwm
-	sNaSwQuPf+dbnwYwAEV7BONXQFbk/GSPmmbLjArfEXWwe6j3MPQNjDACzIc8GMudN+//Y4+xSvX
-	XdrmfMyUFYT6HCEqT7zr6MRZ0olwT2x/4VWxcz8kjaDvW/kkbOn2OQpJQkLLLi8WXHsaH5bWwt2
-	tAV3Wckv8HDvPZIq3CJLQWMVN8t+nrKTteHfgYjaC5TBvm8SdkCGardPc+Mr6m4V45wWNUL3GtS
-	GGBm8YdS3Gx00sylXh7tYBg67Ul7+jVlo5MSEQb1DD1jn31EYVuwz8EfGH2ZpZD8Mh1GwkvmB2b
-	YyfKUybEd0gslR0XIlVYfhGG75KoPR/lscCASQeCcy5i7XIPlsyx57N7gflQ3GFmflK33FwDEjs
-	+KbARgCdrtP5EzmWuzm/whzSrrGF4FzM+yh9TK7mo5H7BWNXUZcpDg0vGKv9frDw==
-X-Received: by 2002:a05:600c:4fd6:b0:480:1d0b:2d15 with SMTP id 5b1f17b1804b1-4805cf63e02mr86010055e9.27.1769450035873;
-        Mon, 26 Jan 2026 09:53:55 -0800 (PST)
+        bh=DXHoMP2m1S668fp9KXBejADon30ms3RX1/2RyOl2CwM=;
+        b=ZVekbiz02nGMJca2TRH2nUfX+YKVDe227yVCzdPORt4tCEgYJh/06LI9yO0HtWsGkr
+         tgLqe7nWcDBWUxM+X1b6YCzI+8Qd4b7w1cGJ5j/bwYQNzMOgwcYQkZV6DHfqWYeV52ng
+         869jsfVaB5ekASlUxutib6Lo1hh+lywKFEYkzDRPpQqPmuc0cePsY3w/TOiXUmnT8twe
+         dzwRUP9kTAZP9xdAVjaRcTSr/jwghZEAa7AUCdp1gl+NHr1pL64qRsmlhJSbl1KZcJC6
+         Om5VhtoRvbRzS4I4A/RMA/w5BcPZhs90IoAkhhZ5nQbv1TxXkKN8mCRRhabveUX8imTk
+         UsFg==
+X-Gm-Message-State: AOJu0Yy0DuIZhwfurOMA1NDSzK5bpXwrOgJdBfUSgf1BO74M2YUugnwU
+	cRyUyE9O7/8xuzUHEHAAXW+MC1DXnzWsN0xsoz2PnBdj4MD4hUk1MaO1F/gJdL7dBPr/6Z7aWjw
+	GJ+xG
+X-Gm-Gg: AZuq6aLIvFLlUER7duZOKDm5woiEijXcWUEYCeYlftby026ryEg6W+jpMo9Ux2G90+k
+	ZmT6lrRFVaXoe8rv3n6IRViq1N9NGu8QwUa1ir0z0B3KuDgMNfE5zwS2yc8WoCAfSi5k9fjK6IM
+	GRm/Aory82vL1lIGR3Mt+2lkT2A6Z9x4xP+dlQnFvzK7JfhH/GI7f1rPn2KRje587+trjkIVHjh
+	G0u0jlbkbH14jemr3z7vmjTpTzEs1bguXNnoUaMUBGajR3zUUVPo2n3YSYy5Mrh8U7FnHUghlfo
+	anOUt8n07rgjpc45CY6QsL5ptKA5TPTX73MOXoOBXoJ8BxnzD5XV3bdMEO1cVtbGyfT4vFLuHxR
+	6Kw7nPQRAzV6fd9UiZhAWHYCv0Bt2rHAZuZ1C4hyt9tc+WjJF0skZ37IMLGWtsXzq8FZ85nrQkK
+	3rrEbb1QC0CflF/h/Pn+87hZQujZ6XQcYN5pGXizX822Tv8RT4TN2pHPuHtmDi7A==
+X-Received: by 2002:a05:600c:c4a5:b0:477:9cdb:e32e with SMTP id 5b1f17b1804b1-4805ce4e578mr91498405e9.9.1769450036624;
+        Mon, 26 Jan 2026 09:53:56 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -91,9 +91,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Julian Vetter <julian.vetter@vates.tech>,
 	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH 09/16] x86/intel: Always check MSR_MISC_ENABLE on all CPUs
-Date: Mon, 26 Jan 2026 17:53:38 +0000
-Message-Id: <20260126175345.2078371-10-andrew.cooper3@citrix.com>
+Subject: [PATCH 10/16] x86/amd: Always probe and configure the masking MSRs
+Date: Mon, 26 Jan 2026 17:53:39 +0000
+Message-Id: <20260126175345.2078371-11-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
 References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
@@ -132,20 +132,15 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 704948BC8D
+X-Rspamd-Queue-Id: 111758BCA8
 X-Rspamd-Action: no action
 
-Currently, the BSP only leaves instructions for the APs to adjust
-MSR_MISC_ENABLE if the BSP is found to need adjustments.  Particularly if
-XD_DISABLE is needed on an AP but not the BSP, the system will triple fault
-with no information provided to the user.
+This allows the infrastructure to reused for system-wide quirk/errata
+adjustments.
 
-Rework the BSP and trampoline logic to always read MISC_ENABLE, and clear
-CPUID_LIMIT and XD_DISABLE if either are set.
-
-Repurpose intel_unlock_cpuid_leaves() to be intel_check_misc_enable() and make
-it static in common.c.  Replace trampoline_misc_enable_off with the smaller
-trampoline_check_misc_enable.
+Replace the call to ctxt_switch_levelling() with amd_ctxt_switch_masking()
+instead.  The CPUID Faulting aspect is not interesting at this point in boot,
+and we want to explicitly propagate the masking MSR defaults into APs.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -153,262 +148,86 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Julian Vetter <julian.vetter@vates.tech>
 CC: Teddy Astie <teddy.astie@vates.tech>
-
-This temporarily removes the printk() noting the reactivation of XD because
-the earlier BSP code has already done it, but that logic is about to be
-removed.
 ---
- xen/arch/x86/boot/head.S              |  1 -
- xen/arch/x86/boot/trampoline.S        | 29 ++++++++++--------
- xen/arch/x86/boot/wakeup.S            | 27 ++++++++++-------
- xen/arch/x86/cpu/common.c             | 43 ++++++++++++++++++++++++++-
- xen/arch/x86/cpu/cpu.h                |  2 --
- xen/arch/x86/cpu/intel.c              | 19 ------------
- xen/arch/x86/include/asm/trampoline.h |  7 +++--
- 7 files changed, 79 insertions(+), 49 deletions(-)
+ xen/arch/x86/cpu/amd.c   | 15 +++++++++++----
+ xen/arch/x86/cpu/cpu.h   |  1 +
+ xen/arch/x86/cpu/hygon.c |  2 +-
+ 3 files changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 77bb7a9e2191..4022f8639478 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -582,7 +582,6 @@ trampoline_setup:
-         btr     $2, %edx
-         jnc     .Lno_nx
-         wrmsr
--        orb     $MSR_IA32_MISC_ENABLE_XD_DISABLE >> 32, 4 + sym_esi(trampoline_misc_enable_off)
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 36fea2e0a299..e8daf7415bb0 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -162,7 +162,7 @@ static void __init noinline probe_masking_msrs(void)
+  * parameter of NULL is used to context switch to the default host state (by
+  * the cpu bringup-code, crash path, etc).
+  */
+-static void cf_check amd_ctxt_switch_masking(const struct vcpu *next)
++void cf_check amd_ctxt_switch_masking(const struct vcpu *next)
+ {
+ 	struct cpuidmasks *these_masks = &this_cpu(cpuidmasks);
+ 	const struct domain *nextd = next ? next->domain : NULL;
+@@ -242,9 +242,12 @@ static void __init amd_init_levelling(void)
+ 	    boot_cpu_has(X86_FEATURE_CPUID_USER_DIS)) {
+ 		expected_levelling_cap |= LCAP_faulting;
+ 		levelling_caps |= LCAP_faulting;
+-		return;
+ 	}
  
-         /* Check again for NX */
-         mov     $0x80000001, %eax
-diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
-index a92e399fbe0e..2b4552096fd7 100644
---- a/xen/arch/x86/boot/trampoline.S
-+++ b/xen/arch/x86/boot/trampoline.S
-@@ -77,17 +77,22 @@ trampoline_protmode_entry:
-         mov     %eax,%cr3
++	/*
++	 * Always probe for the MSRs too.  We reuse the infrastruture for
++	 * quirks/errata/etc during boot.
++	 */
+ 	probe_masking_msrs();
  
-         /* Adjust IA32_MISC_ENABLE if needed (for NX enabling below). */
--        mov     bootsym_rel(trampoline_misc_enable_off,4,%esi)
--        mov     bootsym_rel(trampoline_misc_enable_off+4,4,%edi)
--        mov     %esi,%eax
--        or      %edi,%eax
--        jz      1f
-+        cmpb    $1, bootsym_rel(trampoline_check_misc_enable, 5)
-+        jne     1f
-+
-         mov     $MSR_IA32_MISC_ENABLE,%ecx
-         rdmsr
--        not     %esi
--        not     %edi
--        and     %esi,%eax
--        and     %edi,%edx
-+
-+        xor     %edi, %edi
-+        btr     $22 /* ilog2(MSR_IA32_MISC_ENABLE_LIMIT_CPUID) */, %eax
-+        adc     %edi, %edi
-+
-+        btr     $34 /* ilog2(MSR_IA32_MISC_ENABLE_XD_DISABLE) */ - 32, %edx
-+        adc     %edi, %edi
-+
-+        /* No bits need clearing?  Nothing to do */
-+        jz      1f
-+
-         wrmsr
- 1:
-         /* Set up PAT before enabling paging. */
-@@ -141,9 +146,6 @@ gdt_48:
-         .long   trampoline_gdt + BOOT_PSEUDORM_DS + 2 - .
-         .popsection
+ 	if ((levelling_caps & LCAP_1cd) == LCAP_1cd) {
+@@ -299,7 +302,7 @@ static void __init amd_init_levelling(void)
+ 		       (uint32_t)cpuidmask_defaults._6c);
+ 	}
  
--GLOBAL(trampoline_misc_enable_off)
--        .quad   0
--
- /* EFER OR-mask for boot paths.  SCE conditional on PV support, NX added when available. */
- GLOBAL(trampoline_efer)
-         .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
-@@ -155,6 +157,9 @@ GLOBAL(trampoline_xen_phys_start)
- GLOBAL(trampoline_cpu_started)
-         .byte   0
- 
-+GLOBAL(trampoline_check_misc_enable)
-+        .byte   0
-+
- LABEL(trampoline_perm_end, 0)
- 
- /* From here on early boot only. */
-diff --git a/xen/arch/x86/boot/wakeup.S b/xen/arch/x86/boot/wakeup.S
-index 654e97005ff4..aced8153bafa 100644
---- a/xen/arch/x86/boot/wakeup.S
-+++ b/xen/arch/x86/boot/wakeup.S
-@@ -126,18 +126,23 @@ wakeup_32:
-         add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
-         mov     %eax,%cr3
- 
--        /* Reapply IA32_MISC_ENABLE modifications from early_init_intel(). */
--        mov     bootsym_rel(trampoline_misc_enable_off, 4, %esi)
--        mov     bootsym_rel(trampoline_misc_enable_off + 4, 4, %edi)
--        mov     %esi, %eax
--        or      %edi, %eax
--        jz      1f
--        mov     $MSR_IA32_MISC_ENABLE, %ecx
-+        /* Adjust IA32_MISC_ENABLE if needed (for NX enabling below). */
-+        cmpb    $1, bootsym_rel(trampoline_check_misc_enable, 5)
-+        jne     1f
-+
-+        mov     $MSR_IA32_MISC_ENABLE,%ecx
-         rdmsr
--        not     %esi
--        not     %edi
--        and     %esi, %eax
--        and     %edi, %edx
-+
-+        xor     %edi, %edi
-+        btr     $22 /* ilog2(MSR_IA32_MISC_ENABLE_LIMIT_CPUID) */, %eax
-+        adc     %edi, %edi
-+
-+        btr     $34 /* ilog2(MSR_IA32_MISC_ENABLE_XD_DISABLE) */ - 32, %edx
-+        adc     %edi, %edi
-+
-+        /* No bits need clearing?  Nothing to do */
-+        jz      1f
-+
-         wrmsr
- 1:
-         /* Set up PAT before enabling paging. */
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index d70f9cf87dc8..0249bb4bf2dc 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -19,6 +19,7 @@
- #include <asm/random.h>
- #include <asm/setup.h>
- #include <asm/shstk.h>
-+#include <asm/trampoline.h>
- #include <asm/xstate.h>
- 
- #include <public/sysctl.h>
-@@ -307,6 +308,46 @@ static inline u32 phys_pkg_id(u32 cpuid_apic, int index_msb)
- 	return _phys_pkg_id(get_apic_id(), index_msb);
+-	if (levelling_caps)
++	if (levelling_caps && !(levelling_caps & LCAP_faulting))
+ 		ctxt_switch_masking = amd_ctxt_switch_masking;
  }
  
-+/*
-+ * Disable restrictions in MSR_MISC_ENABLE.  These are often available as
-+ * firmware settings for backwards compatibility.  Called prior to cpuid_level
-+ * being acted upon, as it may need unlimiting.
-+ */
-+static void __init intel_check_misc_enable(struct cpuinfo_x86 *c)
-+{
-+    uint64_t misc_enable, disable = (MSR_IA32_MISC_ENABLE_LIMIT_CPUID |
-+                                     MSR_IA32_MISC_ENABLE_XD_DISABLE);
-+
-+    /* Instruct the trampoline to perform the same check too. */
-+    bootsym(trampoline_check_misc_enable) = true;
-+
-+    misc_enable = rdmsr(MSR_IA32_MISC_ENABLE);
-+
-+    if ( (misc_enable & disable) == 0 )
-+        return; /* Nothing to do */
-+
-+    wrmsr(MSR_IA32_MISC_ENABLE, misc_enable & ~disable);
-+
-+    /*
-+     * When the P4 Nocona introduced the Structured Cache information, it was
-+     * discovered that WinNT crashed on encountering a CPUID Leaf 4.  Intel
-+     * worked around this by introducing an ability to limit the maximum
-+     * reported leaf to 2 (PSN, leaf 3 had already been removed by this time).
-+     */
-+    if ( misc_enable & MSR_IA32_MISC_ENABLE_LIMIT_CPUID )
-+    {
-+        c->cpuid_level = cpuid_eax(0);
-+        printk(XENLOG_INFO "revised cpuid level: %u\n", c->cpuid_level);
-+    }
-+
-+    /*
-+     * When Intel added XD support originally, it was recommended to be off by
-+     * default because of stability problems in WinXP SP2.
-+     */
-+    if ( misc_enable & MSR_IA32_MISC_ENABLE_XD_DISABLE )
-+        printk(XENLOG_INFO "re-enabled NX (Execute Disable) protection\n");
-+}
-+
- /* Do minimum CPU detection early.
-    Fields really needed: vendor, cpuid_level, family, model, mask, cache alignment.
-    The others are not touched to avoid unwanted side effects.
-@@ -327,7 +368,7 @@ void __init early_cpu_init(bool verbose)
+@@ -1015,7 +1018,11 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+ 	u32 l, h;
+ 	uint64_t value;
  
- 	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
- 	switch (c->x86_vendor) {
--	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
-+	case X86_VENDOR_INTEL:    intel_check_misc_enable(c);
- 				  actual_cpu = intel_cpu_dev;    break;
- 	case X86_VENDOR_AMD:      actual_cpu = amd_cpu_dev;      break;
- 	case X86_VENDOR_CENTAUR:  actual_cpu = centaur_cpu_dev;  break;
+-	ctxt_switch_levelling(NULL);
++	/*
++	 * Reuse amd_ctxt_switch_masking() explicitly.  This propagates
++	 * quirk/errata adjustments made duing early_init_amd() into the APs.
++	 */
++	amd_ctxt_switch_masking(NULL);
+ 
+ 	amd_init_de_cfg(c);
+ 
 diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
-index 0fc6370edb13..d2d37d1d5eec 100644
+index d2d37d1d5eec..cd93e51755af 100644
 --- a/xen/arch/x86/cpu/cpu.h
 +++ b/xen/arch/x86/cpu/cpu.h
-@@ -27,6 +27,4 @@ void amd_init_ssbd(const struct cpuinfo_x86 *c);
- void amd_init_spectral_chicken(void);
- void detect_zen2_null_seg_behaviour(void);
+@@ -20,6 +20,7 @@ extern void detect_ht(struct cpuinfo_x86 *c);
+ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
  
--void intel_unlock_cpuid_leaves(struct cpuinfo_x86 *c);
--
- #endif /* X86_CPU_H */
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 2aeeb2f5bf55..b1dd06d92f60 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -309,22 +309,6 @@ static void __init intel_init_levelling(void)
- 		ctxt_switch_masking = intel_ctxt_switch_masking;
- }
- 
--/* Unmask CPUID levels if masked. */
--void __init intel_unlock_cpuid_leaves(struct cpuinfo_x86 *c)
--{
--	uint64_t misc_enable, disable;
--
--	rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
--
--	disable = misc_enable & MSR_IA32_MISC_ENABLE_LIMIT_CPUID;
--	if (disable) {
--		wrmsrl(MSR_IA32_MISC_ENABLE, misc_enable & ~disable);
--		bootsym(trampoline_misc_enable_off) |= disable;
--		c->cpuid_level = cpuid_eax(0);
--		printk(KERN_INFO "revised cpuid level: %u\n", c->cpuid_level);
--	}
--}
--
- /*
-  * Errata BA80, AAK120, AAM108, AAO67, BD59, AAY54: Rapid Core C3/C6 Transition
-  * May Cause Unpredictable System Behavior
-@@ -392,9 +376,6 @@ static void __init probe_mwait_errata(void)
- 
- static void __init cf_check early_init_intel(void)
+ void cf_check early_init_amd(void);
++void cf_check amd_ctxt_switch_masking(const struct vcpu *next);
+ void amd_log_freq(const struct cpuinfo_x86 *c);
+ void amd_init_de_cfg(const struct cpuinfo_x86 *c);
+ void amd_init_lfence_dispatch(void);
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index bb1624882499..3a04efef5028 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -32,7 +32,7 @@ static void cf_check init_hygon(struct cpuinfo_x86 *c)
  {
--    if ( bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE )
--        printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
--
-     check_memory_type_self_snoop_errata();
+ 	unsigned long long value;
  
-     /*
-diff --git a/xen/arch/x86/include/asm/trampoline.h b/xen/arch/x86/include/asm/trampoline.h
-index deed2679d9d5..893bbe54f325 100644
---- a/xen/arch/x86/include/asm/trampoline.h
-+++ b/xen/arch/x86/include/asm/trampoline.h
-@@ -153,10 +153,11 @@ extern uint8_t trampoline_cpu_started;
- extern uint32_t trampoline_efer;
+-	ctxt_switch_levelling(NULL);
++	amd_ctxt_switch_masking(NULL);
  
- /*
-- * When nonzero, clear the specified bits in MSR_MISC_ENABLE.  This is
-- * necessary to clobber XD_DISABLE before trying to set MSR_EFER.NXE.
-+ * Instruction from the BSP to APs that MSR_MISC_ENABLE is available and
-+ * should be checked to remove limitations.  This is necessary to clobber
-+ * XD_DISABLE before trying to set MSR_EFER.NXE.
-  */
--extern uint64_t trampoline_misc_enable_off;
-+extern bool trampoline_check_misc_enable;
+ 	amd_init_de_cfg(c);
  
- /* Quirks about video mode-setting on S3 resume. */
- extern uint8_t video_flags;
 -- 
 2.39.5
 
