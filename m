@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EEM1J8Vtd2nCfQEAu9opvQ
+	id +DacOdVtd2nCfQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:05 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4395988E69
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213711.1524188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E3188E7F
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213720.1524196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkMkc-0003Gh-Tz; Mon, 26 Jan 2026 13:35:30 +0000
+	id 1vkMlK-0003kD-9J; Mon, 26 Jan 2026 13:36:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213711.1524188; Mon, 26 Jan 2026 13:35:30 +0000
+Received: by outflank-mailman (output) from mailman id 1213720.1524196; Mon, 26 Jan 2026 13:36:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkMkc-0003Da-Qx; Mon, 26 Jan 2026 13:35:30 +0000
-Received: by outflank-mailman (input) for mailman id 1213711;
- Mon, 26 Jan 2026 13:35:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vkMlK-0003i4-6S; Mon, 26 Jan 2026 13:36:14 +0000
+Received: by outflank-mailman (input) for mailman id 1213720;
+ Mon, 26 Jan 2026 13:36:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ygru=77=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1vkMkb-0003DU-6V
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 13:35:29 +0000
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com
- [115.124.28.100]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dac7d4c8-fabb-11f0-b15f-2bf370ae4941;
- Mon, 26 Jan 2026 14:35:21 +0100 (CET)
+ id 1vkMlI-0003VU-GW
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 13:36:12 +0000
+Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com
+ [115.124.28.52]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6e9401c-fabb-11f0-9ccf-f158ae23cfc8;
+ Mon, 26 Jan 2026 14:36:08 +0100 (CET)
 Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.gGHqk0X_1769434515 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 26 Jan 2026 21:35:16 +0800
+ fp:SMTPD_---.gGID1nH_1769434562 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 26 Jan 2026 21:36:03 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,12 +44,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dac7d4c8-fabb-11f0-b15f-2bf370ae4941
+X-Inumbo-ID: f6e9401c-fabb-11f0-9ccf-f158ae23cfc8
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=antgroup.com; s=default;
-	t=1769434518; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=EUFZPihEfz/fncyKdMh9AsZHIUnCljxK4T+gNK+kZwk=;
-	b=gMwNPKSRoWPqvorcUyrIHEplhefn4xaX3686NBbqfptrokbf3WECTxggZ86GW2v1jn2GfbkOxRA2Fzcb7jSHpJM9dnpE0GNcsHyunGg40IO3qg6H3O6fjd9eyhbjoWqjT+Dz4irJkfBsmAH2tRVmiXk1G+aZ0ufu1OpmFKdqWNk=
+	t=1769434565; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=VyKxMTwvBHUzyW1uTW736L2GPVuIiSygzDpiTrPhWW8=;
+	b=Iwk6WT3ax7dZYFr2LpsKXdh+MDYo1dBQLcy/P/FOeFykpsga67y6uySmOjRlnTDyxmC5lxmjJSk/2Od51rVv7fUPF2giChSQbtzJt+N+5JIjJ2zPy9rZ7s6aD0D94AWHj38LoqVTvtjXuabu+x5A7SK1gnAnPP6TJdlH2ci3P0c=
 From: Hou Wenlong <houwenlong.hwl@antgroup.com>
 To: linux-kernel@vger.kernel.org
 Cc: Lai Jiangshan <jiangshan.ljs@antgroup.com>,
@@ -63,27 +63,24 @@ Cc: Lai Jiangshan <jiangshan.ljs@antgroup.com>,
 	Juergen Gross <jgross@suse.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Brian Gerst <brgerst@gmail.com>,
 	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Alexander Graf <graf@amazon.com>,
 	Joel Granados <joel.granados@kernel.org>,
 	Thomas Huth <thuth@redhat.com>,
 	Uros Bizjak <ubizjak@gmail.com>,
+	Brian Gerst <brgerst@gmail.com>,
 	Kiryl Shutsemau <kas@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Guenter Roeck <linux@roeck-us.net>,
 	"Xin Li (Intel)" <xin@zytor.com>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	xen-devel@lists.xenproject.org
-Subject: [RFC PATCH 0/5] x86/boot: Allow to perform randomization for uncompressed kernel image
-Date: Mon, 26 Jan 2026 21:33:50 +0800
-Message-Id: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
+Subject: [RFC PATCH 4/5] x86/boot: Perform virtual address relocation in kernel entry
+Date: Mon, 26 Jan 2026 21:33:54 +0800
+Message-Id: <d9e65f4707b28b107c352bd4bc311db7a8ea738b.1769434279.git.houwenlong.hwl@antgroup.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
+References: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
@@ -92,127 +89,309 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[antgroup.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[antgroup.com:s=default];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,oracle.com,weissschuh.net,gmail.com,linux-foundation.org,amazon.com,roeck-us.net,lists.xenproject.org];
+	FREEMAIL_CC(0.00)[antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,oracle.com,linux-foundation.org,amazon.com,gmail.com,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:jiangshan.ljs@antgroup.com,m:houwenlong.hwl@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:ardb@kernel.org,m:nathan@kernel.org,m:masahiroy@kernel.org,m:vkuznets@redhat.com,m:linux@weissschuh.net,m:brgerst@gmail.com,m:jpoimboe@kernel.org,m:akpm@linux-foundation.org,m:graf@amazon.com,m:joel.granados@kernel.org,m:thuth@redhat.com,m:ubizjak@gmail.com,m:kas@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:linux@roeck-us.net,m:xin@zytor.com,m:ilpo.jarvinen@linux.intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:jiangshan.ljs@antgroup.com,m:houwenlong.hwl@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:ardb@kernel.org,m:jpoimboe@kernel.org,m:nathan@kernel.org,m:akpm@linux-foundation.org,m:graf@amazon.com,m:joel.granados@kernel.org,m:thuth@redhat.com,m:ubizjak@gmail.com,m:brgerst@gmail.com,m:kas@kernel.org,m:xin@zytor.com,m:ilpo.jarvinen@linux.intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[29];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[antgroup.com:mid,antgroup.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[antgroup.com:email,antgroup.com:dkim,antgroup.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[antgroup.com:+];
-	NEURAL_HAM(-0.00)[-0.899];
+	NEURAL_HAM(-0.00)[-0.877];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 4395988E69
+X-Rspamd-Queue-Id: 95E3188E7F
 X-Rspamd-Action: no action
 
-Hi all,
+Perform virtual address relocation for the uncompressed kernel during
+booting, which is similar to the relocation during decompression.
 
-This RFC patch series introduces relocatable uncompressed kernel image,
-which is allowed to perform kerenl image virtual address randomization
-in 64-bit booting entry instead of decompression phase.
-
-- Background
-
-Currently, kernel image virtual address randomization is only performed
-during the decompression phase. However, in certain scenarios, such as
-secure container environments (e.g., Kata Containers), to speed up the
-boot process, the system may boot directly from an uncompressed kernel
-image. In such cases, virtual address randomization cannot be executed.
-Although the security enhancement provided by KASLR is limited, there is
-still a potential demand to allow uncompressed kernel images to perform
-virtual address randomization (for example, future support for x86 PIE).
-
-- Approaches
-
-Currently, the x86 kernel uses static compilation, but it retains
-relocation information through the '--emit-relocs' option, which is then
-simplified into a relocation table using 'relocs' tool. To enable
-virtual address randomization for uncompressed kernel images, relocation
-information is required, and there are several possible approaches:
-
-1) Who will perform the randomization:
-
-VMM: The VMM reads vmlinux.relocs after loading vmlinux to perform
-randomization. This would require additional modifications to the VMM,
-and vmlinux.relocs needs to be packaged when shipping.
-
-Kernel: The kernel performs randomization itself at the kernel
-entry point, requiring no modifications to the VMM.
-
-2) relocation information format:
-
-vmlinux.relocs: It only contains the necessary relocation entries and is
-simplified, making it small enough. However, it is a format defined
-within the kernel that was previously used only internally and is not
-part of the ABI.
-
-rela.* sections: It is the standard ELF ABI, but
-it contains RIP-relative relocation entries, which are more common in
-kernel, causing the kernel image to be larger.
-
-- Implementation
-
-The final implementation of this plan extends the 'relocs' tool to allow
-the insertion of relocation information into a reserved section of the
-kernel (referencing the MIPS implementation). This enables the reading
-of that information and subsequent execution of relocations when booting
-directly from an uncompressed kernel. Currently, this implementation is
-only available for 64-bit and has been tested with both PVH entry
-booting and standard 64-bit Linux entry. And the default reserve size is
-1MB for now, which is enough for defconfig.
-
-- TODO
-
-Clean up the decompression KASLR code to allow it to be shared with the
-booting phase.
-
-
-Thanks!
-
-Hou Wenlong (5):
-  x86/relocs: Cleanup cmdline options
-  x86/relocs: Insert relocations into input file
-  x86: Allow to build relocatable uncompressed kernel binary
-  x86/boot: Perform virtual address relocation in kernel entry
-  x86/boot: Use '.data.relocs' section for performing relocations during
-    decompression
-
- arch/x86/Kconfig                  |  20 ++++++
- arch/x86/Makefile.postlink        |  33 +++++++++
- arch/x86/boot/compressed/Makefile |   6 +-
- arch/x86/boot/compressed/misc.c   |   8 +++
- arch/x86/boot/startup/Makefile    |   1 +
- arch/x86/boot/startup/kaslr.c     | 116 ++++++++++++++++++++++++++++++
- arch/x86/include/asm/setup.h      |   1 +
- arch/x86/kernel/head_64.S         |   7 ++
- arch/x86/kernel/vmlinux.lds.S     |  20 ++++++
- arch/x86/lib/cmdline.c            |   6 ++
- arch/x86/lib/kaslr.c              |   5 ++
- arch/x86/platform/pvh/head.S      |  15 +++-
- arch/x86/tools/relocs.c           |  64 ++++++++++++++---
- arch/x86/tools/relocs.h           |  15 ++--
- arch/x86/tools/relocs_common.c    |  24 ++++---
- 15 files changed, 309 insertions(+), 32 deletions(-)
- create mode 100644 arch/x86/Makefile.postlink
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+---
+ arch/x86/boot/startup/Makefile |   1 +
+ arch/x86/boot/startup/kaslr.c  | 116 +++++++++++++++++++++++++++++++++
+ arch/x86/include/asm/setup.h   |   1 +
+ arch/x86/kernel/head_64.S      |   7 ++
+ arch/x86/lib/cmdline.c         |   6 ++
+ arch/x86/lib/kaslr.c           |   5 ++
+ arch/x86/platform/pvh/head.S   |  15 ++++-
+ 7 files changed, 148 insertions(+), 3 deletions(-)
  create mode 100644 arch/x86/boot/startup/kaslr.c
 
---
+diff --git a/arch/x86/boot/startup/Makefile b/arch/x86/boot/startup/Makefile
+index 5e499cfb29b5..eeaefa4e25fb 100644
+--- a/arch/x86/boot/startup/Makefile
++++ b/arch/x86/boot/startup/Makefile
+@@ -20,6 +20,7 @@ KCOV_INSTRUMENT	:= n
+ 
+ obj-$(CONFIG_X86_64)		+= gdt_idt.o map_kernel.o
+ obj-$(CONFIG_AMD_MEM_ENCRYPT)	+= sme.o sev-startup.o
++obj-$(CONFIG_RELOCATABLE_UNCOMPRESSED_KERNEL) += kaslr.o
+ pi-objs				:= $(patsubst %.o,$(obj)/%.o,$(obj-y))
+ 
+ lib-$(CONFIG_X86_64)		+= la57toggle.o
+diff --git a/arch/x86/boot/startup/kaslr.c b/arch/x86/boot/startup/kaslr.c
+new file mode 100644
+index 000000000000..fb07c31e21b3
+--- /dev/null
++++ b/arch/x86/boot/startup/kaslr.c
+@@ -0,0 +1,116 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/init.h>
++#include <linux/types.h>
++
++/* A hack to avoid non-static declaration for kaslr_get_random_long(). */
++#define _ASM_KASLR_H_
++#include <asm/sections.h>
++#include <asm/bootparam.h>
++#include <asm/cpuid/api.h>
++
++extern char __relocation_end[];
++
++static struct boot_params *boot_params_ptr __initdata;
++
++static inline void debug_putstr(const char *str)
++{
++}
++
++static inline bool has_cpuflag(int flag)
++{
++	u32 reg = 0;
++	u32 level = native_cpuid_eax(0x0);
++
++	if (level >= 0x00000001) {
++		if (flag == X86_FEATURE_RDRAND)
++			reg = native_cpuid_edx(0x1);
++		else if (flag == X86_FEATURE_TSC)
++			reg = native_cpuid_ecx(0x1);
++	}
++
++	return test_bit(flag & 31, (unsigned long *)&reg);
++}
++
++static unsigned long __init rotate_xor(unsigned long hash, const void *area,
++				       size_t size)
++{
++	size_t i;
++	unsigned long *ptr = (unsigned long *)area;
++
++	for (i = 0; i < size / sizeof(hash); i++) {
++		/* Rotate by odd number of bits and XOR. */
++		hash = (hash << ((sizeof(hash) * 8) - 7)) | (hash >> 7);
++		hash ^= ptr[i];
++	}
++
++	return hash;
++}
++
++/* Attempt to create a simple but unpredictable starting entropy. */
++static unsigned long get_boot_seed(void)
++{
++	unsigned long hash = 0;
++
++	hash = rotate_xor(hash, boot_params_ptr, sizeof(*boot_params_ptr));
++
++	return hash;
++}
++
++#define KASLR_COMPRESSED_BOOT
++#define KASLR_FUNC_PREFIX static __init
++#include "../../lib/kaslr.c"
++
++/* A hack to avoid non-static declaration for cmdline_find_option_bool(). */
++#define _ASM_X86_CMDLINE_H
++#undef CONFIG_CMDLINE_BOOL
++#define builtin_cmdline NULL
++#define CMDLINE_FUNC_PREFIX static __maybe_unused __init
++#include "../../lib/cmdline.c"
++
++static unsigned long __init find_random_virt_addr(unsigned long minimum,
++						  unsigned long image_size)
++{
++	unsigned long slots, random_addr;
++
++	/*
++	 * There are how many CONFIG_PHYSICAL_ALIGN-sized slots
++	 * that can hold image_size within the range of minimum to
++	 * KERNEL_IMAGE_SIZE?
++	 */
++	slots = 1 + (KERNEL_IMAGE_SIZE - minimum - image_size) / CONFIG_PHYSICAL_ALIGN;
++
++	random_addr = kaslr_get_random_long("Virtual") % slots;
++
++	return random_addr * CONFIG_PHYSICAL_ALIGN + minimum;
++}
++
++void __init __relocate_kernel(unsigned long p2v_offset, struct boot_params *bp)
++{
++	int *reloc = (int *)rip_rel_ptr(__relocation_end);
++	unsigned long image_size = rip_rel_ptr(_end) - rip_rel_ptr(_text);
++	unsigned long ptr, virt_addr, delta;
++	unsigned long cmd_line_ptr;
++
++	/* If relocation has occurred during decompression, simply skip it. */
++	if (bp->hdr.loadflags & KASLR_FLAG)
++		return;
++
++	cmd_line_ptr = bp->hdr.cmd_line_ptr | ((u64)bp->ext_cmd_line_ptr << 32);
++	if (cmdline_find_option_bool((char *)cmd_line_ptr, "nokaslr"))
++		return;
++
++	boot_params_ptr = bp;
++	virt_addr = find_random_virt_addr(LOAD_PHYSICAL_ADDR, image_size);
++	delta = virt_addr - LOAD_PHYSICAL_ADDR;
++
++	for (reloc--; *reloc; reloc--) {
++		ptr = (unsigned long)(*reloc + p2v_offset);
++		*(uint32_t *)ptr += delta;
++	}
++
++	for (reloc--; *reloc; reloc--) {
++		ptr = (unsigned long)(*reloc + p2v_offset);
++		*(uint64_t *)ptr += delta;
++	}
++}
+diff --git a/arch/x86/include/asm/setup.h b/arch/x86/include/asm/setup.h
+index 914eb32581c7..86a715a255a5 100644
+--- a/arch/x86/include/asm/setup.h
++++ b/arch/x86/include/asm/setup.h
+@@ -56,6 +56,7 @@ extern void startup_64_load_idt(void *vc_handler);
+ extern void __pi_startup_64_load_idt(void *vc_handler);
+ extern void early_setup_idt(void);
+ extern void __init do_early_exception(struct pt_regs *regs, int trapnr);
++extern void __init __relocate_kernel(unsigned long p2v_offset, struct boot_params *bp);
+ 
+ #ifdef CONFIG_X86_INTEL_MID
+ extern void x86_intel_mid_early_setup(void);
+diff --git a/arch/x86/kernel/head_64.S b/arch/x86/kernel/head_64.S
+index 21816b48537c..868d8fdd59df 100644
+--- a/arch/x86/kernel/head_64.S
++++ b/arch/x86/kernel/head_64.S
+@@ -97,6 +97,13 @@ SYM_CODE_START_NOALIGN(startup_64)
+ 	/* Sanitize CPU configuration */
+ 	call verify_cpu
+ 
++#ifdef CONFIG_RELOCATABLE_UNCOMPRESSED_KERNEL
++	leaq	common_startup_64(%rip), %rdi
++	subq	.Lcommon_startup_64(%rip), %rdi
++	movq	%r15, %rsi
++	call	__pi___relocate_kernel
++#endif
++
+ 	/*
+ 	 * Derive the kernel's physical-to-virtual offset from the physical and
+ 	 * virtual addresses of common_startup_64().
+diff --git a/arch/x86/lib/cmdline.c b/arch/x86/lib/cmdline.c
+index c65cd5550454..07c4398b9e67 100644
+--- a/arch/x86/lib/cmdline.c
++++ b/arch/x86/lib/cmdline.c
+@@ -11,6 +11,10 @@
+ #include <asm/cmdline.h>
+ #include <asm/bug.h>
+ 
++#ifndef CMDLINE_FUNC_PREFIX
++#define CMDLINE_FUNC_PREFIX
++#endif
++
+ static inline int myisspace(u8 c)
+ {
+ 	return c <= ' ';	/* Close enough approximation */
+@@ -205,6 +209,7 @@ __cmdline_find_option(const char *cmdline, int max_cmdline_size,
+ 	return len;
+ }
+ 
++CMDLINE_FUNC_PREFIX
+ int cmdline_find_option_bool(const char *cmdline, const char *option)
+ {
+ 	int ret;
+@@ -219,6 +224,7 @@ int cmdline_find_option_bool(const char *cmdline, const char *option)
+ 	return ret;
+ }
+ 
++CMDLINE_FUNC_PREFIX
+ int cmdline_find_option(const char *cmdline, const char *option, char *buffer,
+ 			int bufsize)
+ {
+diff --git a/arch/x86/lib/kaslr.c b/arch/x86/lib/kaslr.c
+index 8c7cd115b484..711a19729e20 100644
+--- a/arch/x86/lib/kaslr.c
++++ b/arch/x86/lib/kaslr.c
+@@ -13,6 +13,10 @@
+ #include <asm/e820/api.h>
+ #include <asm/shared/io.h>
+ 
++#ifndef KASLR_FUNC_PREFIX
++#define KASLR_FUNC_PREFIX
++#endif
++
+ /*
+  * When built for the regular kernel, several functions need to be stubbed out
+  * or changed to their regular kernel equivalent.
+@@ -46,6 +50,7 @@ static inline u16 i8254(void)
+ 	return timer;
+ }
+ 
++KASLR_FUNC_PREFIX
+ unsigned long kaslr_get_random_long(const char *purpose)
+ {
+ #ifdef CONFIG_X86_64
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index 344030c1a81d..94832930b0a2 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -103,6 +103,17 @@ SYM_CODE_START(pvh_start_xen)
+ 	btsl $_EFER_LME, %eax
+ 	wrmsr
+ 
++	/*
++	 * Fill the identity mapping entries instead of preconstructing them,
++	 * as later relocations in __relocation_kernel() would modify them and
++	 * break the mapping if they are prefilled, due to the generation of
++	 * relocation entries.
++	 */
++	leal rva(pvh_init_top_pgt)(%ebp), %edi
++	addl $(pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC), (%edi)
++	leal rva(pvh_level3_ident_pgt)(%ebp), %edi
++	addl $(pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC), (%edi)
++
+ 	/*
+ 	 * Reuse the non-relocatable symbol emitted for the ELF note to
+ 	 * subtract the build time physical address of pvh_start_xen() from
+@@ -254,7 +265,6 @@ SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
+  * startup_64 transitions to init_top_pgt.
+  */
+ SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
+-	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
+ 	.org    pvh_init_top_pgt + L4_PAGE_OFFSET * 8, 0
+ 	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
+ 	.org    pvh_init_top_pgt + L4_START_KERNEL * 8, 0
+@@ -263,8 +273,7 @@ SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
+ SYM_DATA_END(pvh_init_top_pgt)
+ 
+ SYM_DATA_START_PAGE_ALIGNED(pvh_level3_ident_pgt)
+-	.quad	pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
+-	.fill	511, 8, 0
++	.fill	512, 8, 0
+ SYM_DATA_END(pvh_level3_ident_pgt)
+ SYM_DATA_START_PAGE_ALIGNED(pvh_level2_ident_pgt)
+ 	/*
+-- 
 2.31.1
 
 
