@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EIo5E1Gqd2kZkAEAu9opvQ
+	id bfVgF1Gqd2k8kAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:25 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC06D8BC4A
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213843.1524405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC528BC50
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213844.1524410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQmt-0007Yg-DJ; Mon, 26 Jan 2026 17:54:07 +0000
+	id 1vkQmu-0007mA-8J; Mon, 26 Jan 2026 17:54:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213843.1524405; Mon, 26 Jan 2026 17:54:07 +0000
+Received: by outflank-mailman (output) from mailman id 1213844.1524410; Mon, 26 Jan 2026 17:54:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQms-0007OB-9k; Mon, 26 Jan 2026 17:54:06 +0000
-Received: by outflank-mailman (input) for mailman id 1213843;
- Mon, 26 Jan 2026 17:54:02 +0000
+	id 1vkQmt-0007Wm-Dr; Mon, 26 Jan 2026 17:54:07 +0000
+Received: by outflank-mailman (input) for mailman id 1213844;
+ Mon, 26 Jan 2026 17:54:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0tkY=77=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vkQmo-0004HW-KW
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:54:02 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vkQmp-0004HW-Ks
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:54:03 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fec40fdb-fadf-11f0-b15f-2bf370ae4941;
- Mon, 26 Jan 2026 18:54:00 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4805ef35864so11603905e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 09:54:00 -0800 (PST)
+ id ff44c60d-fadf-11f0-b15f-2bf370ae4941;
+ Mon, 26 Jan 2026 18:54:01 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-47ee9817a35so36683265e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 09:54:01 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.53.59
+ 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.54.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jan 2026 09:53:59 -0800 (PST)
+ Mon, 26 Jan 2026 09:54:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,40 +50,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec40fdb-fadf-11f0-b15f-2bf370ae4941
+X-Inumbo-ID: ff44c60d-fadf-11f0-b15f-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1769450040; x=1770054840; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1769450041; x=1770054841; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oCtWZ5jsIOSUx1eQSxD4nCRKX4JQJ1b+ozb5fk5XF6E=;
-        b=Hxh1cCQHWBqWBiwzUbkftqMBtcyLrl0t8N/iMtZQYEKDxP1e5biIgvFMoxCU6uu0R/
-         TiRYZzV9qOl1xEszYskDPdn4F0X8cDIdVbZi9VMcaeJZ4PNUjNdNOWOg42Vt5kM0XSG+
-         raSdmamK8Vv/XgnBpEwCPeenP7PuaL60CGRlM=
+        bh=AM0AV4MNuYAd316Xwda7bgSZwEFUvVU+olFepXiLw+U=;
+        b=NdKv04Phlgl8+qr4D8xRyxT6YieLWJuAXAXkzoeysG5z/fVBjJ8mkbQRR0UbZ1qpmb
+         c1baY6rfChBrqO5zB3qMpHj+kr/7nsApgDRGTvcWw9XUl2AsE2YTEU76AGp35Ut/8U+f
+         G0cmrqPklJajSZYsubPRVJXUNyHbfQwRWlIvw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769450040; x=1770054840;
+        d=1e100.net; s=20230601; t=1769450041; x=1770054841;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oCtWZ5jsIOSUx1eQSxD4nCRKX4JQJ1b+ozb5fk5XF6E=;
-        b=a0IYXUnbTdaczKnhuzBZ+/vW2uJhSsw95UnDZ3MJ7aAcWgI99J9oHVZz/EJU7rGkCs
-         4o3OKRdn6X4EA/GrPwIY7exEHR8cCrhnCavTV45wKQOP098zF6KZqGmJet9ulOFNMRdB
-         IVZP7EWQgvbpaWklpWSY143KNS6pooKHcdOKp1+f3myW0xUitgvUFEWkaed3WFaiQ7j2
-         hi+fxTaWHPz9e6xHGx2H8iAXfQIibaWk2loRcXIZKVqAvnXvp1nHm1soyv18LilokZfj
-         hwnNBL+pJC7lGFeLzn1DC+L8x9heArEoGS93oPKXW1FYcfNIYvLJbbEoZM+sksI0yJZH
-         RmiA==
-X-Gm-Message-State: AOJu0YyO7D2CfSk88BlTjTIajfKNNauREt71mQtNJvJDgQl6lhHxKedQ
-	dN5TOVkBrrFgiOLc1N2zMO3/laMtLOZuAcjE1fKylU3z3h7BuPTDWptStspca37aYe7Qo11GknB
-	Z4VAb
-X-Gm-Gg: AZuq6aK85J3u/zTw2d4XrPg9pMahaPUojx2hhWFpGgMMP1IDQjPdmKs7DKOjTSgFEwQ
-	h9E9L5vWkdHgU1nDxY7NSXDw3DlZKdyaDxIo1r7Ztj/isOvcDUy2Ii2XDfQg9nNpDtSE7Wd43ma
-	L4nypfBAM1DamRLDTq7WTDCbmpwF1DbmtuaXAOQkyaCaT5JTMCt/Bry8vgCq1iG6cEvRUQt7lYb
-	CYvtUqGK2qiciY8t51gwdANkwi7uwkVEvLDGAeG5/GkqPjSDUgYESwiolbsMPcl/JXWnfqOaTsC
-	5k1JArskuWdVescYuRB2yLpXzQsUcZTHRtiH9n/BAqaRljYj9EEEfJ5eObbxITnzR4YGUJSVRQg
-	qbnkg4SIiY038lFwrQ07KmvHNDUMlGPFr3720HaUKAuxUxIpILgoIhhnX5LBP+KpvrZkodycFMY
-	7KsljQOTEpoh3Q73EhK8HdNkcIz0qYa03saF5klaXCYEn+zuUVfahCe54hRzslcw==
-X-Received: by 2002:a05:600c:b96:b0:480:1e8f:d15f with SMTP id 5b1f17b1804b1-4805cd40a06mr82761325e9.2.1769450039908;
-        Mon, 26 Jan 2026 09:53:59 -0800 (PST)
+        bh=AM0AV4MNuYAd316Xwda7bgSZwEFUvVU+olFepXiLw+U=;
+        b=f7CxMO1MFJJnSWwqB8qoI9rrnzfMa6CYbnKnLXn+gCfvgBaUiJhBsjYvj/RZvAwoeo
+         dWyLP/RZpl/o8607qtbE4YxScsToJlHmMWywHZEryo2RYX1SdTTxoe3yzomESrtuW1E5
+         2OT1cs89kRKRwKYKfKsy2Bj1oyNtOUICo6fjtdoizxaNfupMtVZVeUSoua6l421BE/Cs
+         MV2PY4gnhT1JC8u1uJmE4H+4B2YbOFipJy/yg9Ri25THbyGB6gwsfeQlnpkQB8PR562z
+         VaY1tEhtt3Nqb/ufr3z/Ffb6kLGDbnZ+SbLGV6ueV/8C1A75Zh1gQ9rbVohlSXXSVhs/
+         vTrA==
+X-Gm-Message-State: AOJu0YxQeIo2GoOteneGq/RmJOg2R52f/ufMTm10re3Q9n9K9NylDA6z
+	iNWfX6sMU50pGt1sco24xEDsXUOlO5N8hEJ0IOLbR2nZDhkc1vt825EOnRdpK7ZF58tFYmD8HEs
+	wRcas
+X-Gm-Gg: AZuq6aL6hvXCSY8QncMB3AQ1c3kzsfnUZIUEzVeWgMXHxA/0PUcOKFAMuDJtxcEjjxJ
+	V5ZdS//a0s8O2S2fwAlb6hi9o3rCx176vZRqnJwDAL8l1CZbFE9/zAGkUOzIq07DXtts4VIBKeT
+	gS5sLL63Am69xJCM/bjK8qgJpgdj+aMkvrG2m6u0eD3SrwBxapPCRi+UXufGssfsg0raTclod20
+	3HoeqgYluLIRrmrAIfg9OKz1A/h+WF+8Y+4UoSSEic9ZS3I9O6HtjdtpoysDgFHpfB2wVOiwA7G
+	FQHkiqqtwclQREA8XBuuyKd/7JlFfyAFAvm9xreK3AUY0I7oQttHN3m2KnPys/2+h15MBZN73pt
+	jIhkhCjuAZaH4oMD7qGNyXDlM/wuVojhNlcT354DNZyYthpUZzeghlZZf2PVQYWHix+kp9+MH5N
+	b++wl58JfnS7/wwVQHSxi6yJyoNin6oMJhOmIUPRqmhAKLeFyUteurIJBbjysVAw==
+X-Received: by 2002:a05:600c:358d:b0:47e:e61d:b8d2 with SMTP id 5b1f17b1804b1-4805d0645fcmr91718615e9.27.1769450040383;
+        Mon, 26 Jan 2026 09:54:00 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -91,9 +91,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Julian Vetter <julian.vetter@vates.tech>,
 	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH 15/16] x86/cpu: Clean up use of LCAP_* constants
-Date: Mon, 26 Jan 2026 17:53:44 +0000
-Message-Id: <20260126175345.2078371-16-andrew.cooper3@citrix.com>
+Subject: [PATCH 16/16] x86/cpuid: Drop the include of public/sysctl.h
+Date: Mon, 26 Jan 2026 17:53:45 +0000
+Message-Id: <20260126175345.2078371-17-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
 References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
@@ -132,11 +132,12 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: DC06D8BC4A
+X-Rspamd-Queue-Id: 3EC528BC50
 X-Rspamd-Action: no action
 
-Now that the LCAP_* constants are single bits, we can simplify the expressions
-using them.
+Following the removal of XEN_SYSCTL_get_cpu_levelling_caps, asm/cpuid.h
+doesn't need to include public/sysctl.h, but several other header files were
+picking up their includes transitively through asm/cpuid.h.  Untangle them.
 
 No functional change.
 
@@ -147,117 +148,64 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Julian Vetter <julian.vetter@vates.tech>
 CC: Teddy Astie <teddy.astie@vates.tech>
 ---
- xen/arch/x86/cpu/amd.c | 12 ++++++------
- xen/arch/x86/domain.c  | 10 +++++-----
- 2 files changed, 11 insertions(+), 11 deletions(-)
+ xen/arch/x86/include/asm/cpuid.h      | 2 --
+ xen/arch/x86/include/asm/hvm/hvm.h    | 2 ++
+ xen/arch/x86/include/asm/hvm/vlapic.h | 2 ++
+ xen/arch/x86/include/asm/hvm/vpt.h    | 2 ++
+ 4 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 06646fc1af93..f259a2112a16 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -171,7 +171,7 @@ void cf_check amd_ctxt_switch_masking(const struct vcpu *next)
- 		(nextd && is_pv_domain(nextd) && nextd->arch.pv.cpuidmasks)
- 		? nextd->arch.pv.cpuidmasks : &cpuidmask_defaults;
+diff --git a/xen/arch/x86/include/asm/cpuid.h b/xen/arch/x86/include/asm/cpuid.h
+index c7ee1d54bc7e..774cfdf86894 100644
+--- a/xen/arch/x86/include/asm/cpuid.h
++++ b/xen/arch/x86/include/asm/cpuid.h
+@@ -7,8 +7,6 @@
+ #include <xen/kernel.h>
+ #include <xen/percpu.h>
  
--	if ((levelling_caps & LCAP_1cd) == LCAP_1cd) {
-+	if (levelling_caps & LCAP_1cd) {
- 		uint64_t val = masks->_1cd;
+-#include <public/sysctl.h>
+-
+ extern const uint32_t known_features[FSCAPINTS];
  
- 		/*
-@@ -192,7 +192,7 @@ void cf_check amd_ctxt_switch_masking(const struct vcpu *next)
- #define LAZY(cap, msr, field)						\
- 	({								\
- 		if (unlikely(these_masks->field != masks->field) &&	\
--		    ((levelling_caps & cap) == cap))			\
-+		    (levelling_caps & cap))				\
- 		{							\
- 			wrmsr_amd(msr, masks->field);			\
- 			these_masks->field = masks->field;		\
-@@ -251,7 +251,7 @@ static void __init amd_init_levelling(void)
- 	 */
- 	probe_masking_msrs();
+ /*
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+index af042ae858af..ede685d030bd 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -19,6 +19,8 @@
+ #include <asm/x86_emulate.h>
  
--	if ((levelling_caps & LCAP_1cd) == LCAP_1cd) {
-+	if (levelling_caps & LCAP_1cd) {
- 		uint32_t ecx, edx, tmp;
+ struct pirq; /* needed by pi_update_irte */
++struct hvm_hw_cpu;
++struct xen_domctl_createdomain;
  
- 		cpuid(0x00000001, &tmp, &tmp, &ecx, &edx);
-@@ -264,7 +264,7 @@ static void __init amd_init_levelling(void)
- 		cpuidmask_defaults._1cd = ((uint64_t)ecx << 32) | edx;
- 	}
+ #ifdef CONFIG_HVM_FEP
+ /* Permit use of the Forced Emulation Prefix in HVM guests */
+diff --git a/xen/arch/x86/include/asm/hvm/vlapic.h b/xen/arch/x86/include/asm/hvm/vlapic.h
+index c38855119836..f442dec3d975 100644
+--- a/xen/arch/x86/include/asm/hvm/vlapic.h
++++ b/xen/arch/x86/include/asm/hvm/vlapic.h
+@@ -12,6 +12,8 @@
+ #include <xen/tasklet.h>
+ #include <asm/hvm/vpt.h>
  
--	if ((levelling_caps & LCAP_e1cd) == LCAP_e1cd) {
-+	if (levelling_caps & LCAP_e1cd) {
- 		uint32_t ecx, edx, tmp;
++#include <public/hvm/save.h>
++
+ #define vcpu_vlapic(x)   (&(x)->arch.hvm.vlapic)
+ #define vlapic_vcpu(x)   (container_of((x), struct vcpu, arch.hvm.vlapic))
+ #define const_vlapic_vcpu(x) (container_of((x), const struct vcpu, \
+diff --git a/xen/arch/x86/include/asm/hvm/vpt.h b/xen/arch/x86/include/asm/hvm/vpt.h
+index 0b92b286252d..24f0918280cd 100644
+--- a/xen/arch/x86/include/asm/hvm/vpt.h
++++ b/xen/arch/x86/include/asm/hvm/vpt.h
+@@ -12,6 +12,8 @@
+ #include <xen/list.h>
+ #include <xen/rwlock.h>
  
- 		cpuid(0x80000001, &tmp, &tmp, &ecx, &edx);
-@@ -275,7 +275,7 @@ static void __init amd_init_levelling(void)
- 		cpuidmask_defaults.e1cd = ((uint64_t)ecx << 32) | edx;
- 	}
- 
--	if ((levelling_caps & LCAP_7ab0) == LCAP_7ab0) {
-+	if (levelling_caps & LCAP_7ab0) {
- 		uint32_t eax, ebx, tmp;
- 
- 		cpuid(0x00000007, &eax, &ebx, &tmp, &tmp);
-@@ -283,7 +283,7 @@ static void __init amd_init_levelling(void)
- 		cpuidmask_defaults._7ab0 &= ((uint64_t)eax << 32) | ebx;
- 	}
- 
--	if ((levelling_caps & LCAP_6c) == LCAP_6c) {
-+	if (levelling_caps & LCAP_6c) {
- 		uint32_t ecx = cpuid_ecx(6);
- 
- 		cpuidmask_defaults._6c &= (~0ULL << 32) | ecx;
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index c29a6b0decee..441f99e92088 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -303,7 +303,7 @@ void domain_cpu_policy_changed(struct domain *d)
- 
-     if ( is_pv_domain(d) )
-     {
--        if ( ((levelling_caps & LCAP_1cd) == LCAP_1cd) )
-+        if ( levelling_caps & LCAP_1cd )
-         {
-             uint64_t mask = cpuidmask_defaults._1cd;
-             uint32_t ecx = p->basic._1c;
-@@ -368,7 +368,7 @@ void domain_cpu_policy_changed(struct domain *d)
-             d->arch.pv.cpuidmasks->_1cd = mask;
-         }
- 
--        if ( ((levelling_caps & LCAP_6c) == LCAP_6c) )
-+        if ( levelling_caps & LCAP_6c )
-         {
-             uint64_t mask = cpuidmask_defaults._6c;
- 
-@@ -378,7 +378,7 @@ void domain_cpu_policy_changed(struct domain *d)
-             d->arch.pv.cpuidmasks->_6c = mask;
-         }
- 
--        if ( ((levelling_caps & LCAP_7ab0) == LCAP_7ab0) )
-+        if ( levelling_caps & LCAP_7ab0 )
-         {
-             uint64_t mask = cpuidmask_defaults._7ab0;
- 
-@@ -395,7 +395,7 @@ void domain_cpu_policy_changed(struct domain *d)
-             d->arch.pv.cpuidmasks->_7ab0 = mask;
-         }
- 
--        if ( ((levelling_caps & LCAP_Da1) == LCAP_Da1) )
-+        if ( levelling_caps & LCAP_Da1 )
-         {
-             uint64_t mask = cpuidmask_defaults.Da1;
-             uint32_t eax = p->xstate.Da1;
-@@ -406,7 +406,7 @@ void domain_cpu_policy_changed(struct domain *d)
-             d->arch.pv.cpuidmasks->Da1 = mask;
-         }
- 
--        if ( ((levelling_caps & LCAP_e1cd) == LCAP_e1cd) )
-+        if ( levelling_caps & LCAP_e1cd )
-         {
-             uint64_t mask = cpuidmask_defaults.e1cd;
-             uint32_t ecx = p->extd.e1c;
++#include <public/hvm/save.h>
++
+ /*
+  * Abstract layer of periodic time, one short time.
+  */
 -- 
 2.39.5
 
