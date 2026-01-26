@@ -2,37 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +DacOdVtd2nCfQEAu9opvQ
+	id 0J/CE/J4d2n7ggEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:21 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 15:23:46 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E3188E7F
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 14:36:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213720.1524196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9890589699
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 15:23:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213741.1524207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkMlK-0003kD-9J; Mon, 26 Jan 2026 13:36:14 +0000
+	id 1vkNUG-0001bd-HN; Mon, 26 Jan 2026 14:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213720.1524196; Mon, 26 Jan 2026 13:36:14 +0000
+Received: by outflank-mailman (output) from mailman id 1213741.1524207; Mon, 26 Jan 2026 14:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkMlK-0003i4-6S; Mon, 26 Jan 2026 13:36:14 +0000
-Received: by outflank-mailman (input) for mailman id 1213720;
- Mon, 26 Jan 2026 13:36:12 +0000
+	id 1vkNUG-0001ZQ-EY; Mon, 26 Jan 2026 14:22:40 +0000
+Received: by outflank-mailman (input) for mailman id 1213741;
+ Mon, 26 Jan 2026 14:22:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ygru=77=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1vkMlI-0003VU-GW
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 13:36:12 +0000
-Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com
- [115.124.28.52]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6e9401c-fabb-11f0-9ccf-f158ae23cfc8;
- Mon, 26 Jan 2026 14:36:08 +0100 (CET)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.gGID1nH_1769434562 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 26 Jan 2026 21:36:03 +0800
+ <SRS0=zrcg=77=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vkNUE-0001ZI-Pm
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 14:22:38 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 75fdbb42-fac2-11f0-9ccf-f158ae23cfc8;
+ Mon, 26 Jan 2026 15:22:36 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-47ee3a63300so52139955e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 06:22:36 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48047028928sm494765095e9.2.2026.01.26.06.22.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Jan 2026 06:22:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,354 +50,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6e9401c-fabb-11f0-9ccf-f158ae23cfc8
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=antgroup.com; s=default;
-	t=1769434565; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=VyKxMTwvBHUzyW1uTW736L2GPVuIiSygzDpiTrPhWW8=;
-	b=Iwk6WT3ax7dZYFr2LpsKXdh+MDYo1dBQLcy/P/FOeFykpsga67y6uySmOjRlnTDyxmC5lxmjJSk/2Od51rVv7fUPF2giChSQbtzJt+N+5JIjJ2zPy9rZ7s6aD0D94AWHj38LoqVTvtjXuabu+x5A7SK1gnAnPP6TJdlH2ci3P0c=
-From: Hou Wenlong <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: Lai Jiangshan <jiangshan.ljs@antgroup.com>,
-	Hou Wenlong <houwenlong.hwl@antgroup.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Graf <graf@amazon.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Huth <thuth@redhat.com>,
-	Uros Bizjak <ubizjak@gmail.com>,
-	Brian Gerst <brgerst@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Xin Li (Intel)" <xin@zytor.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	xen-devel@lists.xenproject.org
-Subject: [RFC PATCH 4/5] x86/boot: Perform virtual address relocation in kernel entry
-Date: Mon, 26 Jan 2026 21:33:54 +0800
-Message-Id: <d9e65f4707b28b107c352bd4bc311db7a8ea738b.1769434279.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
-References: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
+X-Inumbo-ID: 75fdbb42-fac2-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769437355; x=1770042155; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xyLIdOBp6AU4BlIShM9uNytZkKTMXaNAPLGwGfwBgZ4=;
+        b=hIaMND1LMflkQP1N2iKUEbsNzwrN5g/iWT++RE6Q0R5YXPv0mcbG1MCodDEypouNFp
+         PoLMV17mH6n9+Sv4uGYh2mu/FaS3ylLydk0/ledryt6T5CLZCsyHrNVDAec/9lTsi9vd
+         3ONL0I5En1HgnKLGY1cKJJKHhyqaa9y7zFIVkqzUDioe6qn2jb/Xvx3WSW5T8Y+F5mXi
+         anJWIF5emeezJu3jDyRzefLN6mXRBmcC6ycVIqXiHVekdPvt1b1O4IKkEL5VnnFURqS1
+         z+qnMl8RI2O+uV3uRMeM7vRNF8EhmvFVgeyCQolv3NWxSqLzgT6DvUE0wfziUBFn4rMU
+         cR5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769437355; x=1770042155;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xyLIdOBp6AU4BlIShM9uNytZkKTMXaNAPLGwGfwBgZ4=;
+        b=WKsiqmJnBca5NEqRUxKij95R5ULMH/HVhjfm7/zb5Ieoe0ej3CGRx8Uu6ukS5/phIL
+         TaA37KDtSQRu5Z9r6CfNgcxbNi2xfxSRWlAFN0eieo0pMCHXIO5eeKbDXfNSGj3Z1IeW
+         r6jH3/grhC8sYJExkNKGUhUaKiWAyIVw3H1oGMRqil0okiclhoP88ujBUlNEzyVs6cdh
+         XBOo9adhTSsxky25At4DNZas+M4eMaNldk8pM904/rKa9X5/w7gXVTBFT71ZuFAsEVV1
+         GHkYVLGMus8l/fcNXR9uH8QH1VHCJDbYECbodIPQvPDtU9vhwZaNCD8z+Jb2fu9KhFN1
+         OEQg==
+X-Forwarded-Encrypted: i=1; AJvYcCXn9hVAd1wvjaLbu08XBEvwbVFBRzELXejYer5g61uE8OR8CrxpKyaktGNQr+HzeA7LKJyjYZAuiYo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwA0FuEKw5ZDb0y3QnrzGuHS+dwN4K7UqWB3xHS6qwaRc8ThPjb
+	iIEQ7gd3PvmP199UTZWkT1s10Isw80SyNyRvrpan+3XFDIBkvssE7tGm
+X-Gm-Gg: AZuq6aJB0sfaDCuQcEpsORTHJUwTW+z0uuYA4FP8LziPRMGQZcGqpcP1oPL2GUM6OAN
+	t89LfIiYOEf20weeGpSd2SfXlc6HLlq6IpsZb1F/9s6R3MEhaLi3Kw/bBbJHJv/p2gSK3N5SrIH
+	q36ddMVJvfuJR8hQ4Hru8/rk/o1QSOTrsidnb57Zijm7Q8Ua9Q52UQIpnY+FFQjrpCNEC8+mNNZ
+	u3sOP5NKrTU8KvtdLXPUA1X+TaPi2gTSS0n0imHAjrupiGZWyNYyjW6ld7Ebl3w2hcP5L7a5Tfp
+	d1uZruBpUp3qKkSmspcvqbPmwHpZmJRLfSrlFjDxXbAh5bRc8VfDVB4soyn2x4bMV/ByMWL91Sz
+	KO9HHw0d9DKjBnVFatyLdZqvmQ+nYU5pzPuoELadDgKKA0sq2mwLhC7olKGlNAQhL2T4xbetz2M
+	ibGQ3MG8NEHpNVckqm3g1PIi219k3TYIKyo2i5u9Ugm/ieW2UFlSkgcw/we6rDxXoFpwc=
+X-Received: by 2002:a05:600c:4f8e:b0:477:b642:9dc1 with SMTP id 5b1f17b1804b1-4805cf669d1mr66585265e9.20.1769437355209;
+        Mon, 26 Jan 2026 06:22:35 -0800 (PST)
+Message-ID: <1a447de4-2083-40e0-9b6a-07df707100eb@gmail.com>
+Date: Mon, 26 Jan 2026 15:22:33 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/16] xen/riscv: introduce struct arch_vcpu
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
+ <ef706b474a23cb24a7bc119f8206e9df527b7287.1769099885.git.oleksii.kurochko@gmail.com>
+ <e4801098-4525-40a7-91e2-7ffeb7a6d859@suse.com>
+ <20f2bf2c-9b28-4a60-ad35-9640f5d3dfad@gmail.com>
+ <784293fc-f8f2-45da-b9dc-169fec5b9ddb@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <784293fc-f8f2-45da-b9dc-169fec5b9ddb@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[antgroup.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[antgroup.com:s=default];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,oracle.com,linux-foundation.org,amazon.com,gmail.com,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:jiangshan.ljs@antgroup.com,m:houwenlong.hwl@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:ardb@kernel.org,m:jpoimboe@kernel.org,m:nathan@kernel.org,m:akpm@linux-foundation.org,m:graf@amazon.com,m:joel.granados@kernel.org,m:thuth@redhat.com,m:ubizjak@gmail.com,m:brgerst@gmail.com,m:kas@kernel.org,m:xin@zytor.com,m:ilpo.jarvinen@linux.intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[antgroup.com:email,antgroup.com:dkim,antgroup.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[antgroup.com:+];
-	NEURAL_HAM(-0.00)[-0.877];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 95E3188E7F
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 9890589699
 X-Rspamd-Action: no action
 
-Perform virtual address relocation for the uncompressed kernel during
-booting, which is similar to the relocation during decompression.
 
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
----
- arch/x86/boot/startup/Makefile |   1 +
- arch/x86/boot/startup/kaslr.c  | 116 +++++++++++++++++++++++++++++++++
- arch/x86/include/asm/setup.h   |   1 +
- arch/x86/kernel/head_64.S      |   7 ++
- arch/x86/lib/cmdline.c         |   6 ++
- arch/x86/lib/kaslr.c           |   5 ++
- arch/x86/platform/pvh/head.S   |  15 ++++-
- 7 files changed, 148 insertions(+), 3 deletions(-)
- create mode 100644 arch/x86/boot/startup/kaslr.c
+On 1/26/26 1:53 PM, Jan Beulich wrote:
+> On 26.01.2026 13:30, Oleksii Kurochko wrote:
+>> On 1/26/26 12:41 PM, Jan Beulich wrote:
+>>> On 22.01.2026 17:47, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/include/asm/domain.h
+>>>> +++ b/xen/arch/riscv/include/asm/domain.h
+>>>> @@ -22,9 +22,62 @@ struct hvm_domain
+>>>>    struct arch_vcpu_io {
+>>>>    };
+>>>>    
+>>>> -struct arch_vcpu {
+>>>> +struct arch_vcpu
+>>>> +{
+>>>>        struct vcpu_vmid vmid;
+>>>> -};
+>>>> +
+>>>> +    /*
+>>>> +     * Callee saved registers for Xen's state deep in the callframe used to
+>>>> +     * switch from prev's stack to the next's stack during context switch.
+>>>> +     */
+>>> What is "deep in the callframe" intended to convey? I'm in particular wondering
+>>> about ...
+>>>
+>>>> +    struct
+>>>> +    {
+>>>> +        register_t s0;
+>>>> +        register_t s1;
+>>>> +        register_t s2;
+>>>> +        register_t s3;
+>>>> +        register_t s4;
+>>>> +        register_t s5;
+>>>> +        register_t s6;
+>>>> +        register_t s7;
+>>>> +        register_t s8;
+>>>> +        register_t s9;
+>>>> +        register_t s10;
+>>>> +        register_t s11;
+>>>> +        register_t sp;
+>>>> +        register_t gp;
+>>>> +        register_t ra;
+>>> ... sp and ra, which presumably don't live anywhere "deep"?
+>> context_switch() is invoked relatively deep in the call stack, so the stack
+>> pointer in use when context_switch() executes can also be considered to be
+>> deep in the call frame. The same applies to RA: after the first
+>> __context_switch() call, RA will point to the next instruction within
+>> context_switch().
+> While writing, did you maybe notice that "deep" can have two entirely distinct
+> meanings here? It could be "far from where the stack starts when we enter the
+> hypervisor" or "far from present top of stack".
 
-diff --git a/arch/x86/boot/startup/Makefile b/arch/x86/boot/startup/Makefile
-index 5e499cfb29b5..eeaefa4e25fb 100644
---- a/arch/x86/boot/startup/Makefile
-+++ b/arch/x86/boot/startup/Makefile
-@@ -20,6 +20,7 @@ KCOV_INSTRUMENT	:= n
- 
- obj-$(CONFIG_X86_64)		+= gdt_idt.o map_kernel.o
- obj-$(CONFIG_AMD_MEM_ENCRYPT)	+= sme.o sev-startup.o
-+obj-$(CONFIG_RELOCATABLE_UNCOMPRESSED_KERNEL) += kaslr.o
- pi-objs				:= $(patsubst %.o,$(obj)/%.o,$(obj-y))
- 
- lib-$(CONFIG_X86_64)		+= la57toggle.o
-diff --git a/arch/x86/boot/startup/kaslr.c b/arch/x86/boot/startup/kaslr.c
-new file mode 100644
-index 000000000000..fb07c31e21b3
---- /dev/null
-+++ b/arch/x86/boot/startup/kaslr.c
-@@ -0,0 +1,116 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/init.h>
-+#include <linux/types.h>
-+
-+/* A hack to avoid non-static declaration for kaslr_get_random_long(). */
-+#define _ASM_KASLR_H_
-+#include <asm/sections.h>
-+#include <asm/bootparam.h>
-+#include <asm/cpuid/api.h>
-+
-+extern char __relocation_end[];
-+
-+static struct boot_params *boot_params_ptr __initdata;
-+
-+static inline void debug_putstr(const char *str)
-+{
-+}
-+
-+static inline bool has_cpuflag(int flag)
-+{
-+	u32 reg = 0;
-+	u32 level = native_cpuid_eax(0x0);
-+
-+	if (level >= 0x00000001) {
-+		if (flag == X86_FEATURE_RDRAND)
-+			reg = native_cpuid_edx(0x1);
-+		else if (flag == X86_FEATURE_TSC)
-+			reg = native_cpuid_ecx(0x1);
-+	}
-+
-+	return test_bit(flag & 31, (unsigned long *)&reg);
-+}
-+
-+static unsigned long __init rotate_xor(unsigned long hash, const void *area,
-+				       size_t size)
-+{
-+	size_t i;
-+	unsigned long *ptr = (unsigned long *)area;
-+
-+	for (i = 0; i < size / sizeof(hash); i++) {
-+		/* Rotate by odd number of bits and XOR. */
-+		hash = (hash << ((sizeof(hash) * 8) - 7)) | (hash >> 7);
-+		hash ^= ptr[i];
-+	}
-+
-+	return hash;
-+}
-+
-+/* Attempt to create a simple but unpredictable starting entropy. */
-+static unsigned long get_boot_seed(void)
-+{
-+	unsigned long hash = 0;
-+
-+	hash = rotate_xor(hash, boot_params_ptr, sizeof(*boot_params_ptr));
-+
-+	return hash;
-+}
-+
-+#define KASLR_COMPRESSED_BOOT
-+#define KASLR_FUNC_PREFIX static __init
-+#include "../../lib/kaslr.c"
-+
-+/* A hack to avoid non-static declaration for cmdline_find_option_bool(). */
-+#define _ASM_X86_CMDLINE_H
-+#undef CONFIG_CMDLINE_BOOL
-+#define builtin_cmdline NULL
-+#define CMDLINE_FUNC_PREFIX static __maybe_unused __init
-+#include "../../lib/cmdline.c"
-+
-+static unsigned long __init find_random_virt_addr(unsigned long minimum,
-+						  unsigned long image_size)
-+{
-+	unsigned long slots, random_addr;
-+
-+	/*
-+	 * There are how many CONFIG_PHYSICAL_ALIGN-sized slots
-+	 * that can hold image_size within the range of minimum to
-+	 * KERNEL_IMAGE_SIZE?
-+	 */
-+	slots = 1 + (KERNEL_IMAGE_SIZE - minimum - image_size) / CONFIG_PHYSICAL_ALIGN;
-+
-+	random_addr = kaslr_get_random_long("Virtual") % slots;
-+
-+	return random_addr * CONFIG_PHYSICAL_ALIGN + minimum;
-+}
-+
-+void __init __relocate_kernel(unsigned long p2v_offset, struct boot_params *bp)
-+{
-+	int *reloc = (int *)rip_rel_ptr(__relocation_end);
-+	unsigned long image_size = rip_rel_ptr(_end) - rip_rel_ptr(_text);
-+	unsigned long ptr, virt_addr, delta;
-+	unsigned long cmd_line_ptr;
-+
-+	/* If relocation has occurred during decompression, simply skip it. */
-+	if (bp->hdr.loadflags & KASLR_FLAG)
-+		return;
-+
-+	cmd_line_ptr = bp->hdr.cmd_line_ptr | ((u64)bp->ext_cmd_line_ptr << 32);
-+	if (cmdline_find_option_bool((char *)cmd_line_ptr, "nokaslr"))
-+		return;
-+
-+	boot_params_ptr = bp;
-+	virt_addr = find_random_virt_addr(LOAD_PHYSICAL_ADDR, image_size);
-+	delta = virt_addr - LOAD_PHYSICAL_ADDR;
-+
-+	for (reloc--; *reloc; reloc--) {
-+		ptr = (unsigned long)(*reloc + p2v_offset);
-+		*(uint32_t *)ptr += delta;
-+	}
-+
-+	for (reloc--; *reloc; reloc--) {
-+		ptr = (unsigned long)(*reloc + p2v_offset);
-+		*(uint64_t *)ptr += delta;
-+	}
-+}
-diff --git a/arch/x86/include/asm/setup.h b/arch/x86/include/asm/setup.h
-index 914eb32581c7..86a715a255a5 100644
---- a/arch/x86/include/asm/setup.h
-+++ b/arch/x86/include/asm/setup.h
-@@ -56,6 +56,7 @@ extern void startup_64_load_idt(void *vc_handler);
- extern void __pi_startup_64_load_idt(void *vc_handler);
- extern void early_setup_idt(void);
- extern void __init do_early_exception(struct pt_regs *regs, int trapnr);
-+extern void __init __relocate_kernel(unsigned long p2v_offset, struct boot_params *bp);
- 
- #ifdef CONFIG_X86_INTEL_MID
- extern void x86_intel_mid_early_setup(void);
-diff --git a/arch/x86/kernel/head_64.S b/arch/x86/kernel/head_64.S
-index 21816b48537c..868d8fdd59df 100644
---- a/arch/x86/kernel/head_64.S
-+++ b/arch/x86/kernel/head_64.S
-@@ -97,6 +97,13 @@ SYM_CODE_START_NOALIGN(startup_64)
- 	/* Sanitize CPU configuration */
- 	call verify_cpu
- 
-+#ifdef CONFIG_RELOCATABLE_UNCOMPRESSED_KERNEL
-+	leaq	common_startup_64(%rip), %rdi
-+	subq	.Lcommon_startup_64(%rip), %rdi
-+	movq	%r15, %rsi
-+	call	__pi___relocate_kernel
-+#endif
-+
- 	/*
- 	 * Derive the kernel's physical-to-virtual offset from the physical and
- 	 * virtual addresses of common_startup_64().
-diff --git a/arch/x86/lib/cmdline.c b/arch/x86/lib/cmdline.c
-index c65cd5550454..07c4398b9e67 100644
---- a/arch/x86/lib/cmdline.c
-+++ b/arch/x86/lib/cmdline.c
-@@ -11,6 +11,10 @@
- #include <asm/cmdline.h>
- #include <asm/bug.h>
- 
-+#ifndef CMDLINE_FUNC_PREFIX
-+#define CMDLINE_FUNC_PREFIX
-+#endif
-+
- static inline int myisspace(u8 c)
- {
- 	return c <= ' ';	/* Close enough approximation */
-@@ -205,6 +209,7 @@ __cmdline_find_option(const char *cmdline, int max_cmdline_size,
- 	return len;
- }
- 
-+CMDLINE_FUNC_PREFIX
- int cmdline_find_option_bool(const char *cmdline, const char *option)
- {
- 	int ret;
-@@ -219,6 +224,7 @@ int cmdline_find_option_bool(const char *cmdline, const char *option)
- 	return ret;
- }
- 
-+CMDLINE_FUNC_PREFIX
- int cmdline_find_option(const char *cmdline, const char *option, char *buffer,
- 			int bufsize)
- {
-diff --git a/arch/x86/lib/kaslr.c b/arch/x86/lib/kaslr.c
-index 8c7cd115b484..711a19729e20 100644
---- a/arch/x86/lib/kaslr.c
-+++ b/arch/x86/lib/kaslr.c
-@@ -13,6 +13,10 @@
- #include <asm/e820/api.h>
- #include <asm/shared/io.h>
- 
-+#ifndef KASLR_FUNC_PREFIX
-+#define KASLR_FUNC_PREFIX
-+#endif
-+
- /*
-  * When built for the regular kernel, several functions need to be stubbed out
-  * or changed to their regular kernel equivalent.
-@@ -46,6 +50,7 @@ static inline u16 i8254(void)
- 	return timer;
- }
- 
-+KASLR_FUNC_PREFIX
- unsigned long kaslr_get_random_long(const char *purpose)
- {
- #ifdef CONFIG_X86_64
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index 344030c1a81d..94832930b0a2 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -103,6 +103,17 @@ SYM_CODE_START(pvh_start_xen)
- 	btsl $_EFER_LME, %eax
- 	wrmsr
- 
-+	/*
-+	 * Fill the identity mapping entries instead of preconstructing them,
-+	 * as later relocations in __relocation_kernel() would modify them and
-+	 * break the mapping if they are prefilled, due to the generation of
-+	 * relocation entries.
-+	 */
-+	leal rva(pvh_init_top_pgt)(%ebp), %edi
-+	addl $(pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC), (%edi)
-+	leal rva(pvh_level3_ident_pgt)(%ebp), %edi
-+	addl $(pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC), (%edi)
-+
- 	/*
- 	 * Reuse the non-relocatable symbol emitted for the ELF note to
- 	 * subtract the build time physical address of pvh_start_xen() from
-@@ -254,7 +265,6 @@ SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
-  * startup_64 transitions to init_top_pgt.
-  */
- SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
--	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
- 	.org    pvh_init_top_pgt + L4_PAGE_OFFSET * 8, 0
- 	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
- 	.org    pvh_init_top_pgt + L4_START_KERNEL * 8, 0
-@@ -263,8 +273,7 @@ SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
- SYM_DATA_END(pvh_init_top_pgt)
- 
- SYM_DATA_START_PAGE_ALIGNED(pvh_level3_ident_pgt)
--	.quad	pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
--	.fill	511, 8, 0
-+	.fill	512, 8, 0
- SYM_DATA_END(pvh_level3_ident_pgt)
- SYM_DATA_START_PAGE_ALIGNED(pvh_level2_ident_pgt)
- 	/*
--- 
-2.31.1
+Yeah, but at time when I was writing the commit I thought only about one meaning
+"far from where the stack starts when we enter the hypervisor".
+
+
+>
+>> I can update the comment and drop the wording about being “deep in the call
+>> frame” to avoid confusion. In that case it would simply read:
+>>
+>> +    /*
+>> +     * Callee saved registers for Xen's state used to
+>> +     * switch from prev's stack to the next's stack during context switch.
+>> +     */
+> Yes please.
+>
+>>> Also, what about tp? The 't' in there isn't the same as that in "t0", "t1", etc.
+>> tp stores pcpu_info[] and it isn't expected to be changed during (or between) function
+>> calls.
+> Oh, right, I forgot about that aspect. However, the more that you reference ...
+>
+>> In this structure we are dealing only with registers which should be saved according
+>> to RISC-V ABI convention:
+>>    [1] https://riscv-non-isa.github.io/riscv-elf-psabi-doc/#_integer_register_convention
+>> The exception is for RA (as it is also used to jump to continue_to_new_vcpu() when vcpu is scheduled
+>> first time). During a review of the [1], I think that GP could be dropped as it shouldn't
+>> be preserved across calls.
+> ... this - why would gp then need saving? That ought to be stable across Xen as
+> well (or not be used at all)?
+
+Totally agree, that why I mentioned in reply that it could (it would be better if
+"must/should" were used) be dropped as it shouldn't be preserved across calls and
+as you also notice that it ought to be stable across Xen as well (or not be used
+at all).
+
+~ Oleksii
 
 
