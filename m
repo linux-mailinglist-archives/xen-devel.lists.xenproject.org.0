@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sF7TNlGqd2lAkAEAu9opvQ
+	id 4CFQNVOqd2k8kAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:25 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:27 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909688BC77
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1213830.1524281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97BCC8BCA1
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 18:54:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1213832.1524299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQmh-0004UV-Gu; Mon, 26 Jan 2026 17:53:55 +0000
+	id 1vkQmi-0004pO-GU; Mon, 26 Jan 2026 17:53:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1213830.1524281; Mon, 26 Jan 2026 17:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 1213832.1524299; Mon, 26 Jan 2026 17:53:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkQmh-0004Qj-9u; Mon, 26 Jan 2026 17:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 1213830;
- Mon, 26 Jan 2026 17:53:53 +0000
+	id 1vkQmi-0004iV-5x; Mon, 26 Jan 2026 17:53:56 +0000
+Received: by outflank-mailman (input) for mailman id 1213832;
+ Mon, 26 Jan 2026 17:53:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0tkY=77=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vkQmf-0004HX-JH
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:53:53 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1vkQmg-0004HX-JQ
+ for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 17:53:54 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f95da1ba-fadf-11f0-9ccf-f158ae23cfc8;
+ id f9452f2f-fadf-11f0-9ccf-f158ae23cfc8;
  Mon, 26 Jan 2026 18:53:51 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47ee301a06aso55313185e9.0
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-47ee3a63300so54601965e9.2
  for <xen-devel@lists.xenproject.org>; Mon, 26 Jan 2026 09:53:51 -0800 (PST)
 Received: from localhost.localdomain (host-92-26-102-188.as13285.net.
  [92.26.102.188]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.53.49
+ 5b1f17b1804b1-48066c10dbasm3896455e9.15.2026.01.26.09.53.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 26 Jan 2026 09:53:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -50,39 +50,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f95da1ba-fadf-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: f9452f2f-fadf-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1769450031; x=1770054831; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FPbCiqCcqf0/NbE9zeJiJem+K34lkoRlbsFPYopIEac=;
-        b=uKXW59LQ+j6pC//HqjWHvCbuP2qjKwXraAW7xOlMuOCZIJrrj3m3FEdcVN/3+o9YML
-         BSRDecAih92Sf8W+IL0CHtXVK3sgxM69+eRPUn3wuIJM4r2nINEp+P8ez7dYUb9daqBz
-         TYgXIPsXZyCbxYD+JkrJ9i+YCyjEKLgSx2RbU=
+        bh=zyRXQCzMht59KNrjuruuDRnKF4fVxlGPuMfpmypUDsw=;
+        b=P0MOH0fmzKdVPVOgODqc0ejXooP6WD/ethCQC5LKp6eElyFAZQ0UI/EKzSsDW/2+6z
+         eX8f8+q+o2bE1yuUPPwJkM3sZaLHTMEnAq6YHHo/0vtwGbmEGgkDOXUVx3HXIHvLOoUX
+         FthmN8rXvAoCUC2yFAlTG0ZYLNJihJIDfHJiw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1769450031; x=1770054831;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FPbCiqCcqf0/NbE9zeJiJem+K34lkoRlbsFPYopIEac=;
-        b=Cqv2cQzygRi/xZdgCjteKk3385jSajPtRHYU+2mwrz1sYp/nzSYtPrrvx0CXhIEFet
-         MgN7DDQjCXBzZmrn3tVvJpmwZjLPSMVTWstjyMDj2N5fr1F5vrEYLJo5a7P7HoJ2//BQ
-         Fah1sLkza91nOUvs8v2K49Tl8Io/u9ebrY/8/awRaBPctC8JwWEhMRCn9WAWmYGktEMt
-         5T0Qn23mrpgdWIt+iW6kj3FFev2tSP0Q958cvbqdSNZ+ZF3e75aZl5LbIll9jkgn6B27
-         DCkML4t0CELVF++e65fyk3b9pTSILF4ftN40sgbbzaOOHiP63YQRbLrXp9Apc/6OU2Qq
-         6Z3Q==
-X-Gm-Message-State: AOJu0YwZ8tfzxiQ0uAaxY0qaN51Q3a+/Eq2Sg527MZu3T7lEMh6sAOfs
-	+coc14dyxS7WxSVlzrvK095l1WwcRvKHauhVuzswCMkVsuNPHgVMMQR6flBtcc05UlmLraqJrBr
-	urReF
-X-Gm-Gg: AZuq6aL3ohplvANNSvzSYoD8NdqTfJvrIw2RtPeonE+Z624sxeX7kIrHjQjCnpPd2v7
-	XUJgryDlnA0n+AuFj5leTYfCu2TBOVEowEgZrxkgCdUZP8j0boGQQEcrUJYLWh5gmjfTeOjaMpD
-	p1EOgiAysmfZLxKRULWwPnW1XXwKkfQEAf4R4AK+yGvtybv6IrwZDyLgznYszTEvsQSEpz9uhZW
-	wf2JEvUbywuqObmNx4zXBtmYBZ9yzwo74RHnwURUTzYQ41i6C5Gigluvyd0cy/pqkYXfI8JQ38x
-	GdP/YbxseLeGndrVeASFYGehZponJgOpJChocO5iiMALq8d81merU2pOzYoLRtLk0+rbqzuc/on
-	T/jZwxRhQPi9BrtWS5WBF3LnbkPfJGKz44IwRgF7hV0LRPkCK2ymAzFalde54zGHditCW34FI31
-	0mVBO4tF2YfV47VgSnGhxHujOkVBsBDOz4CePbwXE2o/0V5fRk/DZ/ZgQV3yq+rA==
-X-Received: by 2002:a05:600c:444c:b0:47e:e779:36e with SMTP id 5b1f17b1804b1-4805cf67274mr86300515e9.19.1769450030306;
+        bh=zyRXQCzMht59KNrjuruuDRnKF4fVxlGPuMfpmypUDsw=;
+        b=aapvZCnwpqhsrkEz8YU7ZSX7HHehnD6B6owZ+QANk9MAgUZ9FXgfxuIujdSBB9ysHY
+         xyiSVH91bF6E6sY1RXd/SeKONsZgrnfFdyrwz+pyqOwyLvOySx9sPWzj278lqfplStJ9
+         y4V5rwDz69ECh1u3nIt0Rr8feQ7JnS/MnDUsWaqj6CDtfyL5L+W1SXtKHRPa1ASGHgKx
+         aLIQo53c47N8iQzrTA/uXYGqYI48h7GtdNnirJZfqKkClXCgwKz17mWliw7PcNe2+ePp
+         xNkZ7ZUnNyT1WaMI/gEJTrkppRfLEH16JKI/L7pxqRCLBgs0LLc3CnCqTBNyC2fUqx+y
+         bZBA==
+X-Gm-Message-State: AOJu0YxYVhYi6WAAY8Rbo1X1xVDMpZP+hFrgYtJusYf8ulpoQH22fbgU
+	dW8uQq6gOfzEeEkUgaiBBpCmOlIOSv5GnLFMsGuaZjRQGCR5W+s9/NjVire6AkyscUr8gEhc0/s
+	Ww18+
+X-Gm-Gg: AZuq6aKnv7W1HkceKpc6d547aoEy/qjLwlPrhVuxfSU2mUbT9Hze1XZW1mgcofTOsYQ
+	DTkyr0zcqqpyL7n6838JbfmBJTq6be5TX/P4w8Z/7VxwIeDl9TYNrBF8vZmCX0DgbL5rr/S5t+n
+	XZPbhP87cs2J3t435g2TX4BsUGhAYDIVuFTmcX7LtIw0xDuoft/YAYdrMeFHJE6j441IFRusj6D
+	J3pm3AFCVHvP4CrRlaFvpEMupyt8kvaI4+j+uggyJ36oIPvH4kuZ0hV1lslpWwKe/TjOCyFpEN8
+	OUpzEl7pnig79VhVGMpDapm7ZgxAuntyyLCHJet3e6W6v7xM7QoDCtK2H2lKsa7AgcAyJi1YC2h
+	8jqoGvCklMETZr8bmuLFNoWxa7ysPF+yI1PFWjgIy6QTR8WIU0RxRgfcYhxrA32c9DJpG48TudU
+	GCJziuGsKJhw+efB4EGnCRZyTG0I/hXLE4rbfhftio7nBOP7PGB+DKKf7W5bZ4RmaAAzWxjWqr
+X-Received: by 2002:a05:600c:1e2a:b0:471:14b1:da13 with SMTP id 5b1f17b1804b1-4805ce4dec1mr81666095e9.14.1769450030839;
         Mon, 26 Jan 2026 09:53:50 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -90,10 +90,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Julian Vetter <julian.vetter@vates.tech>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH 02/16] x86/cpu: Drop cpuid_level adjustment from generic_identify()
-Date: Mon, 26 Jan 2026 17:53:31 +0000
-Message-Id: <20260126175345.2078371-3-andrew.cooper3@citrix.com>
+	Teddy Astie <teddy.astie@vates.tech>,
+	Kevin Lampis <kevin.lampis@citrix.com>
+Subject: [PATCH 03/16] x86/intel: Drop the paddr_bits workaround for P4 Nocona/Prescott CPUs
+Date: Mon, 26 Jan 2026 17:53:32 +0000
+Message-Id: <20260126175345.2078371-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
 References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
@@ -111,104 +112,62 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,citrix.com:dkim,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,m:teddy.astie@vates.tech,m:kevin.lampis@citrix.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 909688BC77
+X-Rspamd-Queue-Id: 97BCC8BCA1
 X-Rspamd-Action: no action
 
-early_cpu_init() calls intel_unlock_cpuid_leaves(), which arranges for the
-boot trampoline to make the adjustment for all APs, meaning the call from
-early_init_intel() is a no-op.  Drop it, allowing intel_unlock_cpuid_leaves()
-to become __init code.
+These are 32bit CPUs only.  64bit support started with model 4 (Prescott-256).
 
-In turn, the adjustments in generic_identify() were a no-op too.  Nothing in
-the c_early_init() hooks modifies the 1c/1d features, so their values in
-c->x86_capability[] are still good from just above.
-
-The ebx variable used to calculate c->x86_clflush_size is still good too, but
-move the logic earlier so it's more obviously correct.
-
-Fixes: fa4d026737a4 ("x86/Intel: unlock CPUID earlier for the BSP")
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Julian Vetter <julian.vetter@vates.tech>
 CC: Teddy Astie <teddy.astie@vates.tech>
----
- xen/arch/x86/cpu/common.c | 10 +---------
- xen/arch/x86/cpu/intel.c  |  4 +---
- 2 files changed, 2 insertions(+), 12 deletions(-)
+CC: Kevin Lampis <kevin.lampis@citrix.com>
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index f8c80db6eb1d..dda0d5d39c92 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -479,6 +479,7 @@ static void generic_identify(struct cpuinfo_x86 *c)
- 	cpuid(1, &eax, &ebx, &ecx, &edx);
- 	c->x86 = get_cpu_family(eax, &c->x86_model, &c->x86_mask);
- 	c->apicid = phys_pkg_id((ebx >> 24) & 0xFF, 0);
-+	c->x86_clflush_size = ((ebx >> 8) & 0xff) * 8;
- 	c->phys_proc_id = c->apicid;
- 
- 	/*
-@@ -502,15 +503,6 @@ static void generic_identify(struct cpuinfo_x86 *c)
- 	if (actual_cpu.c_early_init)
- 		alternative_vcall(actual_cpu.c_early_init, c);
- 
--	/* c_early_init() may have adjusted cpuid levels/features.  Reread. */
--	c->cpuid_level = cpuid_eax(0);
--	cpuid(1, &eax, &ebx,
--	      &c->x86_capability[FEATURESET_1c],
--	      &c->x86_capability[FEATURESET_1d]);
--
--	if ( cpu_has(c, X86_FEATURE_CLFLUSH) )
--		c->x86_clflush_size = ((ebx >> 8) & 0xff) * 8;
--
- 	/* AMD-defined flags: level 0x80000001 */
- 	if (c->extended_cpuid_level >= 0x80000001)
- 		cpuid(0x80000001, &tmp, &tmp,
+This ideally wants backporting to 4.20 along with the rest of the VFM cleanup
+in order to support DMR/NVL, which ends with removing the x86_ prefixed names.
+---
+ xen/arch/x86/cpu/intel.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
 diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 584588e406f2..d585161dd32f 100644
+index d585161dd32f..eec6ee763040 100644
 --- a/xen/arch/x86/cpu/intel.c
 +++ b/xen/arch/x86/cpu/intel.c
-@@ -310,7 +310,7 @@ static void __init noinline intel_init_levelling(void)
- }
- 
- /* Unmask CPUID levels if masked. */
--void intel_unlock_cpuid_leaves(struct cpuinfo_x86 *c)
-+void __init intel_unlock_cpuid_leaves(struct cpuinfo_x86 *c)
- {
- 	uint64_t misc_enable, disable;
- 
-@@ -335,8 +335,6 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
+@@ -335,11 +335,6 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
  	    bootsym(trampoline_misc_enable_off) & MSR_IA32_MISC_ENABLE_XD_DISABLE)
  		printk(KERN_INFO "re-enabled NX (Execute Disable) protection\n");
  
--	intel_unlock_cpuid_leaves(c);
+-	/* CPUID workaround for Intel 0F33/0F34 CPU */
+-	if (boot_cpu_data.x86 == 0xF && boot_cpu_data.x86_model == 3 &&
+-	    (boot_cpu_data.x86_mask == 3 || boot_cpu_data.x86_mask == 4))
+-		paddr_bits = 36;
 -
- 	/* CPUID workaround for Intel 0F33/0F34 CPU */
- 	if (boot_cpu_data.x86 == 0xF && boot_cpu_data.x86_model == 3 &&
- 	    (boot_cpu_data.x86_mask == 3 || boot_cpu_data.x86_mask == 4))
+ 	if (c == &boot_cpu_data) {
+ 		uint64_t misc_enable;
+ 
 -- 
 2.39.5
 
