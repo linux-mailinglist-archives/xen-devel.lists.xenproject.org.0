@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLLTGCTeeGn7tgEAu9opvQ
+	id AM8VFpLeeGnytgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 16:47:48 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 16:49:38 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1A71970B1
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 16:47:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215012.1525268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD2997130
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 16:49:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215024.1525277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vklI5-0002pQ-5R; Tue, 27 Jan 2026 15:47:41 +0000
+	id 1vklJb-0003YW-Iz; Tue, 27 Jan 2026 15:49:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215012.1525268; Tue, 27 Jan 2026 15:47:41 +0000
+Received: by outflank-mailman (output) from mailman id 1215024.1525277; Tue, 27 Jan 2026 15:49:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vklI5-0002nu-2d; Tue, 27 Jan 2026 15:47:41 +0000
-Received: by outflank-mailman (input) for mailman id 1215012;
- Tue, 27 Jan 2026 15:47:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vklJb-0003WI-Fz; Tue, 27 Jan 2026 15:49:15 +0000
+Received: by outflank-mailman (input) for mailman id 1215024;
+ Tue, 27 Jan 2026 15:49:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vklI4-0002nk-1r
- for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 15:47:40 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8156af71-fb97-11f0-9ccf-f158ae23cfc8;
- Tue, 27 Jan 2026 16:47:37 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-43596062728so4174162f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 07:47:37 -0800 (PST)
+ id 1vklJa-0003WA-9U
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 15:49:14 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b9bed607-fb97-11f0-b15f-2bf370ae4941;
+ Tue, 27 Jan 2026 16:49:12 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4806bf39419so3150965e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 07:49:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435b1c02f71sm38946625f8f.6.2026.01.27.07.47.36
+ 5b1f17b1804b1-4806cddffe9sm2756565e9.4.2026.01.27.07.49.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jan 2026 07:47:36 -0800 (PST)
+ Tue, 27 Jan 2026 07:49:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8156af71-fb97-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: b9bed607-fb97-11f0-b15f-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769528857; x=1770133657; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769528952; x=1770133752; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BUnWsKKhYNy12giBBES73rO+qA/Mq2TTcqo9EdJpk+A=;
-        b=UtsncFsPYPLCwcTrVQJEI/XVsqtURUh+uYjE81QGpJxzQIZH2Aua98g5d+rAs7jroM
-         Vo4sHH1BagVmWo7KQmBsR3PIGVxoPpRCkoMEUPd7mcJqLPuAStM9MvxSEMSSHzXj1v9a
-         bpmgYT4+evaYtrtbbhg7lo1627C6MhGqPOz1W44m6WklxZLBoehAqrgpcqDsiNK7fOVp
-         zFrHehncfsGZiEXLLO3oz5aKbkq/S1hkIsf9FTRUBOUB9j27pFxkM4ugw1iHRV9VwXjr
-         hK+BoQHkbTLJVA5AnN1Jty9SCskR56AHowoEmQ8YoU5jhLB5YB3RfzyxIv/t+SXAD7PA
-         STzQ==
+        bh=DjmZHlv3QHj/nQyTJTnkxKCd1txqbYrasXXX6umLMxA=;
+        b=X1jQPrwFolg7EV4YMTawO+EciZaKGmMmYKgjhUeCc5nG3P5GjFw4gtJqg7uIXZVIs6
+         sEzf/ekh/Gp7+lP6z6ewsjU99X4q6j3r3CNuHs0stpaxdECFgOnGVbwt9ykNqi1z5WI4
+         HXct9/uXnURfeYBsCKjWNihpfRvrXh7k6JWf0lDR8Ka1Uc55+V/UCgvFRa/s49lMwDXy
+         t/N2SMkoTR88dFyeOyetmL8Gk891YU7rJ7S3hSCA3PGh2AC97okTD6/Bdfu4knUeRh5o
+         D/sFU/WivmuQ+Rf5DcWeb8sh6zsBl61fGiQmZraa6IgxbmAzlrB20QwA4pGOwHTZFpI4
+         hHCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769528857; x=1770133657;
+        d=1e100.net; s=20230601; t=1769528952; x=1770133752;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BUnWsKKhYNy12giBBES73rO+qA/Mq2TTcqo9EdJpk+A=;
-        b=BHP+ikpd1oGBZLhyUZ7SR+msGyoyewlK58ujwYLUG63sStdKbWncEDLiuhfgTDGvb9
-         J8YoQCLGwLhGjdPV+DtQVgykZSnmDtvWXjdAYXX3hyZGy2xax0REAj3t5oYFgW5yD69n
-         OLkiVguUTawMwl75EMaAEdYLmzz4o3FPrH9tN8Qr9Pj3YNpJ9MbW9G3euqPaADCoIbWl
-         jpDYbBkEjhI4WoHoiL5xOfLz2UA70hVjd709jXxIi3fkcB7+AGAEyuRFaqvu18i/yCz7
-         tdIx0ZBep2KkKmCo70FHBR6mxcsl5ejQqBViu/v1FJTT98cNoawjSEOTHLEKJOume3gq
-         8XKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUO2LmPYIprYe3CJDvyianLP4nfydSrhGQwSRsa9kCzrHQkESsP0JHynnZeztphlWBzAia7GH1ZIX4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwIEsb0ro+ua+mTSQWrMfZ/TeeHbEnd2Wy0RihkW+S4JHExKBvh
-	UeeVqjylMMGIKkdT/dAHETRonbMRL9XOJep05B93Ezk+f0cgR3wA/IJ/OxvtjyXizA==
-X-Gm-Gg: AZuq6aIwnOeNPkVxW8ELu/kdg4qocToT1F1xpYKP9U93Buz5A2h+R4F5sJFZ6XSwcA0
-	cbkWSzDd8tkttQpj5qO04ifdlcg/isHrJDp1hh3AAsHvb0YVLDx+lkARGv9hx0ZrrHfIVFkTKzo
-	tL5E5iAdAkIcn/gS7zHcSQsJJ16LI57op8l4Bi4fxqGUxLynKEoKwiDazM121Jzr3DcxOWrdcMQ
-	504U8FOpD8Bwiryk1GQoUQo/9r6h5Ega/RxFCZcu/g2e/79SkB5ohVS36cSys5hGHQ5909WTtSX
-	D2kdbP+c+U1y73dZso6ItsiQLtUyJj2DcRnHpOrW4VJARyHPiFBrLGnkJzlsAKfLFk8WZScMveG
-	f0fb34/ckzKBbtv4DRqpbZl8rLyFx97EKy01VhHOq3QFkNJQKIMm5q2WSssgrd7aGXMUTwAaTol
-	i+jhPee6TmnfbO6TIvpxj8unSyB8EeeeF6Ucyr+nSGZFAxBXtSCVXBN0wLMn3LZneVqUXodcQor
-	v786Q+78STPqA==
-X-Received: by 2002:a5d:5f45:0:b0:432:5b18:2cc3 with SMTP id ffacd0b85a97d-435dd0a7ab9mr3455569f8f.4.1769528857238;
-        Tue, 27 Jan 2026 07:47:37 -0800 (PST)
-Message-ID: <ff569a92-0291-4053-afac-23a6b34f1640@suse.com>
-Date: Tue, 27 Jan 2026 16:47:35 +0100
+        bh=DjmZHlv3QHj/nQyTJTnkxKCd1txqbYrasXXX6umLMxA=;
+        b=ee2Efnxr0ONwRa52QQyGNASjx2/7W8v1sVayAsZD2LQ1lKkz+5Y7NLa/LmyDXxfSc3
+         TxE6BC/YmEPg4EUlBfSD1nz/kB7F3y2beLJP/oxnXglpQjwqnPGfldKRcLmiZC4Pb+Vk
+         aYzXPQdXVgDQ1cHyVejeyHTulFVSk/FGf8HuMCv8QFNkEDGu7NUZTO/4cxDnDTcp5MGg
+         7e4tw5aS/px9+tz7Cd2BgitIxzpogmctVwZkaUwoOIfp64SNQKYJwT9ap4hZo74guAis
+         GmZoq3TF5/tuBI4myOk+5bfhtRcRopndE6y8yGvigkgu/1fTIFFvFBoCtFKsKUwiXMhn
+         H49g==
+X-Forwarded-Encrypted: i=1; AJvYcCWKO4ZUwhjN4QBNdnfOvZm2yRX052jxi1SmIPGnmo5tF+xxKHqctFIk6xGQ4qvbcYE8szn1bt56fwY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZ1hOlzdyKVf3zNZsRoYoMXKxSESr+YMzfAQSta3AB9xkmSKiD
+	OJ2dpVEpqxqcvhVxVKGENqFYtv61UIkahLO5KjvmHegSSvcVmFnMiYtFdS3JPRkZcA==
+X-Gm-Gg: AZuq6aJfzNPVHpj2EFxMPVWp1pn8FGZTTVvRsN0D0zPDyMJc+8G9XEqPKsvtqhqXTNB
+	9k+nsNp5Teptl/R83v976X4iegygxn/K8qM0n3x8IgeWlNTzrzG1JhGQI62uypMBjMO4MtOjsFT
+	YKz6zpljqRKIJb9S/pG/wAFQVxvQL26jSFN1h3zXILWq5fZrAVJhI3wZbZpF0t0qIhdzhh1X8Yd
+	bdRypxwsIAy5wy8y7h9qtJlDIbghSXggc3qaoQMXFj06u9CYk0MPTBKYpRhCAYqJYMBJAP+8cE3
+	9bP1rauCs1Ps6I/SLUohx8XoerUdgxRgoRvrTlIGG09ovuvZOkDbGqyMbPQV3vZflK2tgWt51xj
+	iIRLnKXASNt+txjna1Vkp9nLnRuJl83UymiffjOeo6/qLn5391Fw64RSr/vOVfcHTpw3pgVTv4s
+	ba/Ef04RZprF1aCUCloMdgqEKXNQLTaNJguMe4I13wGzAmKqlWCs1ajd4VAgO8h42FsaIbfAz1Q
+	f4=
+X-Received: by 2002:a05:600c:4ab0:b0:471:793:e795 with SMTP id 5b1f17b1804b1-48069d46808mr17120035e9.0.1769528951851;
+        Tue, 27 Jan 2026 07:49:11 -0800 (PST)
+Message-ID: <b993fa00-bf6f-490c-be1b-3341d41324a3@suse.com>
+Date: Tue, 27 Jan 2026 16:49:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/16] x86/cpuid: Drop the include of public/sysctl.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julian Vetter <julian.vetter@vates.tech>,
- Teddy Astie <teddy.astie@vates.tech>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
- <20260126175345.2078371-17-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 2/3] xen/mm: allow deferred scrub of physmap populate
+ allocated pages
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260122173857.83860-1-roger.pau@citrix.com>
+ <20260122173857.83860-3-roger.pau@citrix.com>
+ <69a64a89-af3f-47fe-8998-a3ff76e9484e@suse.com> <aXiVeAQFUMQkIK1_@Mac.lan>
+ <f369f85d-6699-44f7-bf3e-589569767e65@suse.com> <aXjTTRvkCiE77uIt@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,9 +129,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260126175345.2078371-17-andrew.cooper3@citrix.com>
+In-Reply-To: <aXjTTRvkCiE77uIt@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -137,42 +140,118 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
-	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: F1A71970B1
+X-Rspamd-Queue-Id: BDD2997130
 X-Rspamd-Action: no action
 
-On 26.01.2026 18:53, Andrew Cooper wrote:
-> Following the removal of XEN_SYSCTL_get_cpu_levelling_caps, asm/cpuid.h
-> doesn't need to include public/sysctl.h, but several other header files were
-> picking up their includes transitively through asm/cpuid.h.  Untangle them.
+On 27.01.2026 16:01, Roger Pau Monné wrote:
+> On Tue, Jan 27, 2026 at 12:06:32PM +0100, Jan Beulich wrote:
+>> On 27.01.2026 11:40, Roger Pau Monné wrote:
+>>> On Mon, Jan 26, 2026 at 12:14:35PM +0100, Jan Beulich wrote:
+>>>> On 22.01.2026 18:38, Roger Pau Monne wrote:
+>>>>> --- a/xen/common/memory.c
+>>>>> +++ b/xen/common/memory.c
+>>>>> @@ -159,6 +159,66 @@ static void increase_reservation(struct memop_args *a)
+>>>>>      a->nr_done = i;
+>>>>>  }
+>>>>>  
+>>>>> +/*
+>>>>> + * Temporary storage for a domain assigned page that's not been fully scrubbed.
+>>>>> + * Stored pages must be domheap ones.
+>>>>> + *
+>>>>> + * The stashed page can be freed at any time by Xen, the caller must pass the
+>>>>> + * order and NUMA node requirement to the fetch function to ensure the
+>>>>> + * currently stashed page matches it's requirements.
+>>>>> + */
+>>>>> +static void stash_allocation(struct domain *d, struct page_info *page,
+>>>>> +                             unsigned int order, unsigned int scrub_index)
+>>>>> +{
+>>>>> +    rspin_lock(&d->page_alloc_lock);
+>>>>> +
+>>>>> +    /*
+>>>>> +     * Drop any stashed allocation to accommodated the current one.  This
+>>>>> +     * interface is designed to be used for single-threaded domain creation.
+>>>>> +     */
+>>>>> +    if ( d->pending_scrub )
+>>>>> +        free_domheap_pages(d->pending_scrub, d->pending_scrub_order);
+>>>>
+>>>> Didn't you indicate you'd move the freeing ...
+>>>>
+>>>>> +    d->pending_scrub_index = scrub_index;
+>>>>> +    d->pending_scrub_order = order;
+>>>>> +    d->pending_scrub = page;
+>>>>> +
+>>>>> +    rspin_unlock(&d->page_alloc_lock);
+>>>>> +}
+>>>>> +
+>>>>> +static struct page_info *get_stashed_allocation(struct domain *d,
+>>>>> +                                                unsigned int order,
+>>>>> +                                                nodeid_t node,
+>>>>> +                                                unsigned int *scrub_index)
+>>>>> +{
+>>>>
+>>>> ... into this function?
+>>>
+>>> I could add freeing to get_stashed_allocation(), but it seems
+>>> pointless, because the freeing in stash_allocation() will have to stay
+>>> to deal with concurrent callers.  Even if a context frees the stashed
+>>> page in get_stashed_allocation() there's no guarantee the field will
+>>> still be free when stash_allocation() is called, as another concurrent
+>>> thread might have stashed a page in the meantime.
+>>
+>> Hmm, yes, yet still ...
+>>
+>>> I think it's best to consistently do it only in stash_allocation(), as
+>>> that's clearer.
+>>
+>> ... no, as (to me) "clearer" is only a secondary criteria here. What I'm
+>> worried of is potentially holding back a 1Gb page when the new request is,
+>> say, a 2Mb one, and then not having enough memory available just because
+>> of that detained huge page.
 > 
-> No functional change.
+> If that's really the case then either the caller is using a broken
+> toolstack that's making bogus populate physmap calls, or the caller is
+> attempting to populate the physmap in parallel and hasn't properly
+> checked whether there's enough free memory in the system.  In the
+> later case the physmap population would end up failing anyway.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> In fact, if stash_allocation() finds the field re-populated despite
+>> get_stashed_allocation() having cleared it, it's not quite clear which
+>> of the two allocations should actually be undone. The other vCPU may be
+>> quicker in retrying, and to avoid ping-pong freeing the new (local)
+>> allocation rather than stashing it might possibly be better. Thoughts?
+> 
+> TBH I didn't give it much thought, as in any case progression when
+> attempting to populate the physmap in parallel will be far from
+> optimal.  If you prefer I can switch to the approach where the freeing
+> of the stashed page is done in get_stashed_allocation() and
+> stash_allocation() instead frees the current one if it find the field
+> is already in use.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I'd prefer that, yes. Of course if others were to agree with your take ...
 
+Jan
 
