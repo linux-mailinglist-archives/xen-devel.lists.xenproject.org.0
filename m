@@ -2,41 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qBJuHQ+peGl9rwEAu9opvQ
+	id sPvnFtiqeGl9rwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 13:01:19 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 13:08:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46E4593F51
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 13:01:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1214320.1524781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3AA940A8
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 13:08:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1214513.1524817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkhkj-0008OT-H9; Tue, 27 Jan 2026 12:01:01 +0000
+	id 1vkhru-00055o-Aj; Tue, 27 Jan 2026 12:08:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1214320.1524781; Tue, 27 Jan 2026 12:01:01 +0000
+Received: by outflank-mailman (output) from mailman id 1214513.1524817; Tue, 27 Jan 2026 12:08:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkhkj-0008FY-74; Tue, 27 Jan 2026 12:01:01 +0000
-Received: by outflank-mailman (input) for mailman id 1214320;
- Tue, 27 Jan 2026 12:00:59 +0000
+	id 1vkhru-00053B-7w; Tue, 27 Jan 2026 12:08:26 +0000
+Received: by outflank-mailman (input) for mailman id 1214513;
+ Tue, 27 Jan 2026 12:08:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SfPo=AA=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1vkhkh-0006UG-ES
- for xen-devel@lists.xen.org; Tue, 27 Jan 2026 12:00:59 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d39415e7-fb77-11f0-9ccf-f158ae23cfc8;
- Tue, 27 Jan 2026 13:00:52 +0100 (CET)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1vkhkW-006B0V-31;
- Tue, 27 Jan 2026 12:00:48 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1vkhkW-004FRp-1q;
- Tue, 27 Jan 2026 12:00:48 +0000
+ <SRS0=bYN8=AA=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
+ id 1vkhmx-0006UG-MF
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 12:03:20 +0000
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com
+ [115.124.28.77]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26648e7d-fb78-11f0-9ccf-f158ae23cfc8;
+ Tue, 27 Jan 2026 13:03:15 +0100 (CET)
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.gHM653l_1769515387 cluster:ay29) by smtp.aliyun-inc.com;
+ Tue, 27 Jan 2026 20:03:07 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,248 +44,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d39415e7-fb77-11f0-9ccf-f158ae23cfc8
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: 26648e7d-fb78-11f0-9ccf-f158ae23cfc8
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=antgroup.com; s=default;
+	t=1769515390; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=sn8DXIXhfm3e8BqkD9qkMhWvqzUnAXhOWhEFAIyf3I8=;
+	b=KWus0VZFPTe95TEOi8PqgJ21hzN4dBGiiujDKgJYxR4gnm76AuSdgHAhtdNhMYaLvR7nyAVp94ZxQPz04pBpbt0wktd838Phz+7XBVB9KdhI1hCQt5e/mspb7u9rANUEEjn4ba/Uzni1Gpbj+6Fx31VNeH3cfENM/outuzTrqpw=
+Date: Tue, 27 Jan 2026 20:03:07 +0800
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org,
+	Lai Jiangshan <jiangshan.ljs@antgroup.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Thomas =?utf-8?B?V2Vp77+9c2NodWg=?= <linux@weissschuh.net>,
+	Brian Gerst <brgerst@gmail.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Graf <graf@amazon.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Huth <thuth@redhat.com>, Uros Bizjak <ubizjak@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	"Xin Li (Intel)" <xin@zytor.com>,
+	Ilpo =?utf-8?Q?J=EF=BF=BDrvinen?= <ilpo.jarvinen@linux.intel.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH 0/5] x86/boot: Allow to perform randomization for
+ uncompressed kernel image
+Message-ID: <20260127120307.GA20714@k08j02272.eu95sqa>
+References: <cover.1769434279.git.houwenlong.hwl@antgroup.com>
+ <7716B334-004D-4CBB-9237-E8AE5CE696CE@zytor.com>
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.510 (Entity 5.510)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 479 v2 (CVE-2026-23553) - x86: incomplete
- IBPB for vCPU isolation
-Message-Id: <E1vkhkW-004FRp-1q@xenbits.xenproject.org>
-Date: Tue, 27 Jan 2026 12:00:48 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7716B334-004D-4CBB-9237-E8AE5CE696CE@zytor.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.49 / 15.00];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[antgroup.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[antgroup.com:s=default];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xenbits.xenproject.org:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,xenproject.org:url];
-	DMARC_NA(0.00)[xen.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-announce@lists.xen.org,m:xen-devel@lists.xen.org,m:xen-users@lists.xen.org,m:oss-security@lists.openwall.com,m:security-team-members@xen.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[raw.githubusercontent.com:url,acm.org:url,antgroup.com:email,antgroup.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:hpa@zytor.com,m:linux-kernel@vger.kernel.org,m:jiangshan.ljs@antgroup.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:ardb@kernel.org,m:nathan@kernel.org,m:masahiroy@kernel.org,m:vkuznets@redhat.com,m:linux@weissschuh.net,m:brgerst@gmail.com,m:jpoimboe@kernel.org,m:akpm@linux-foundation.org,m:graf@amazon.com,m:joel.granados@kernel.org,m:thuth@redhat.com,m:ubizjak@gmail.com,m:kas@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:linux@roeck-us.net,m:xin@zytor.com,m:ilpo.jarvinen@linux.intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[antgroup.com:+];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[houwenlong.hwl@antgroup.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_CC(0.00)[vger.kernel.org,antgroup.com,kernel.org,redhat.com,alien8.de,linux.intel.com,suse.com,oracle.com,weissschuh.net,gmail.com,linux-foundation.org,amazon.com,roeck-us.net,zytor.com,lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.993];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 46E4593F51
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 4D3AA940A8
 X-Rspamd-Action: no action
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+On Mon, Jan 26, 2026 at 11:30:28AM -0800, H. Peter Anvin wrote:
+> On January 26, 2026 5:33:50 AM PST, Hou Wenlong <houwenlong.hwl@antgroup.com> wrote:
+> >Hi all,
+> >
+> >This RFC patch series introduces relocatable uncompressed kernel image,
+> >which is allowed to perform kerenl image virtual address randomization
+> >in 64-bit booting entry instead of decompression phase.
+> >
+> >- Background
+> >
+> >Currently, kernel image virtual address randomization is only performed
+> >during the decompression phase. However, in certain scenarios, such as
+> >secure container environments (e.g., Kata Containers), to speed up the
+> >boot process, the system may boot directly from an uncompressed kernel
+> >image. In such cases, virtual address randomization cannot be executed.
+> >Although the security enhancement provided by KASLR is limited, there is
+> >still a potential demand to allow uncompressed kernel images to perform
+> >virtual address randomization (for example, future support for x86 PIE).
+> >
+> >- Approaches
+> >
+> >Currently, the x86 kernel uses static compilation, but it retains
+> >relocation information through the '--emit-relocs' option, which is then
+> >simplified into a relocation table using 'relocs' tool. To enable
+> >virtual address randomization for uncompressed kernel images, relocation
+> >information is required, and there are several possible approaches:
+> >
+> >1) Who will perform the randomization:
+> >
+> >VMM: The VMM reads vmlinux.relocs after loading vmlinux to perform
+> >randomization. This would require additional modifications to the VMM,
+> >and vmlinux.relocs needs to be packaged when shipping.
+> >
+> >Kernel: The kernel performs randomization itself at the kernel
+> >entry point, requiring no modifications to the VMM.
+> >
+> >2) relocation information format:
+> >
+> >vmlinux.relocs: It only contains the necessary relocation entries and is
+> >simplified, making it small enough. However, it is a format defined
+> >within the kernel that was previously used only internally and is not
+> >part of the ABI.
+> >
+> >rela.* sections: It is the standard ELF ABI, but
+> >it contains RIP-relative relocation entries, which are more common in
+> >kernel, causing the kernel image to be larger.
+> >
+> >- Implementation
+> >
+> >The final implementation of this plan extends the 'relocs' tool to allow
+> >the insertion of relocation information into a reserved section of the
+> >kernel (referencing the MIPS implementation). This enables the reading
+> >of that information and subsequent execution of relocations when booting
+> >directly from an uncompressed kernel. Currently, this implementation is
+> >only available for 64-bit and has been tested with both PVH entry
+> >booting and standard 64-bit Linux entry. And the default reserve size is
+> >1MB for now, which is enough for defconfig.
+> >
+> >- TODO
+> >
+> >Clean up the decompression KASLR code to allow it to be shared with the
+> >booting phase.
+> >
+> >
+> >Thanks!
+> >
+> >Hou Wenlong (5):
+> >  x86/relocs: Cleanup cmdline options
+> >  x86/relocs: Insert relocations into input file
+> >  x86: Allow to build relocatable uncompressed kernel binary
+> >  x86/boot: Perform virtual address relocation in kernel entry
+> >  x86/boot: Use '.data.relocs' section for performing relocations during
+> >    decompression
+> >
+> > arch/x86/Kconfig                  |  20 ++++++
+> > arch/x86/Makefile.postlink        |  33 +++++++++
+> > arch/x86/boot/compressed/Makefile |   6 +-
+> > arch/x86/boot/compressed/misc.c   |   8 +++
+> > arch/x86/boot/startup/Makefile    |   1 +
+> > arch/x86/boot/startup/kaslr.c     | 116 ++++++++++++++++++++++++++++++
+> > arch/x86/include/asm/setup.h      |   1 +
+> > arch/x86/kernel/head_64.S         |   7 ++
+> > arch/x86/kernel/vmlinux.lds.S     |  20 ++++++
+> > arch/x86/lib/cmdline.c            |   6 ++
+> > arch/x86/lib/kaslr.c              |   5 ++
+> > arch/x86/platform/pvh/head.S      |  15 +++-
+> > arch/x86/tools/relocs.c           |  64 ++++++++++++++---
+> > arch/x86/tools/relocs.h           |  15 ++--
+> > arch/x86/tools/relocs_common.c    |  24 ++++---
+> > 15 files changed, 309 insertions(+), 32 deletions(-)
+> > create mode 100644 arch/x86/Makefile.postlink
+> > create mode 100644 arch/x86/boot/startup/kaslr.c
+> >
+> >--
+> >2.31.1
+> >
+> 
+> Hi!
+> 
+> At a very quick glance this seems like a very reasonable thing to me, but since the intent is reduced boot latency (a very worthwhile goal!) do you perhaps have any measurements to show how much improvement we are talking about? That would be really useful. 
+>
+ 
+Hi!
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Uh, sorry that it may not meet your needs. In fact, it will slow down
+when booting directly from an uncompressed kernel. The improvement
+described in the patchset compares booting directly from vmlinux versus
+booting from bzImage when we want to enable KASLR for guests in MicroVM
+scenarios. There is a similar idea in [0], where KASLR randomization is
+implemented on the VMM side. Now we want to implement it directly in the
+guest kernel to reduce modifications to the VMMs. There are some
+measurements in [0]; however, the comparison is between vmlinux and
+bzImage.
 
-            Xen Security Advisory CVE-2026-23553 / XSA-479
-                               version 2
+In my test environment, compared to the original direct kernel booting,
+it would add 2ms for my test configuration [1] based on the Kata
+Containers repository due to the self-relocation phase. Booting from
+bzImage does not affect the boot time, as it simply inserts
+'vmlinux.relocs' into vmlinux, resulting in no change to the total size.
+The decompression time should also not be affected; I didn't notice any
+difference when measuring the decompression().
 
-                x86: incomplete IBPB for vCPU isolation
+[0]: https://dl.acm.org/doi/epdf/10.1145/3492321.3519578
+[1]: https://raw.githubusercontent.com/virt-pvm/misc/refs/heads/main/pvm-guest-6.12.33.config
 
-UPDATES IN VERSION 2
-====================
+Thanks!
 
-Public release.
-
-ISSUE DESCRIPTION
-=================
-
-In the context switch logic Xen attempts to skip an IBPB in the case of
-a vCPU returning to a CPU on which it was the previous vCPU to run.
-While safe for Xen's isolation between vCPUs, this prevents the guest
-kernel correctly isolating between tasks.  Consider:
-
- 1) vCPU runs on CPU A, running task 1.
- 2) vCPU moves to CPU B, idle gets scheduled on A.  Xen skips IBPB.
- 3) On CPU B, guest kernel switches from task 1 to 2, issuing IBPB.
- 4) vCPU moves back to CPU A.  Xen skips IBPB again.
-
-Now, task 2 is running on CPU A with task 1's training still in the BTB.
-
-IMPACT
-======
-
-Guest processes may leverage information leaks to obtain information
-intended to be private to other entities in a guest.
-
-VULNERABLE SYSTEMS
-==================
-
-Xen versions which had the XSA-254 fixes backported are vulnerable.
-Upstream, that is 4.6 and newer.
-
-Only x86 systems are vulnerable.  Arm systems are not vulerable.
-
-Systems vulnerable to SRSO (see XSA-434) with default settings use
-IBPB-on-entry to protect against SRSO.  This is a rather more aggressive
-form of flushing than only on context switch, and is believed to be
-sufficient to avoid the vulnerability.
-
-MITIGATION
-==========
-
-Using "spec-ctrl=ibpb-entry=hvm,ibpb-entry=pv" on the Xen command line
-will activate the SRSO mitigation on non-SRSO-vulnerable hardware, but
-it is a large overhead.
-
-CREDITS
-=======
-
-This issue was discovered by David Kaplan of AMD.
-
-RESOLUTION
-==========
-
-Applying the attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa479.patch           xen-unstable - Xen 4.18.x
-
-$ sha256sum xsa479*
-82369898d0287e69272d0d65fb0e6be5fd0106bda19cedb3c9f6e75688f6fb4b  xsa479.patch
-$
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
-
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
-
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAml4qMMMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZ4TgIAIObkH7IN/btMzEbjNp2aknZ+u2hgP2zu1j00Fwa
-dyEi7Bug9X73vmgzLUWjHDCmvF3uoPl01KIjfh12v7s8dERKaTTxD1fGPOKliziA
-rdZQJSICVTnrNex15aLONHxkJI3oVwo2JAXChBx1a4Zx9k7M6+Kv7o9xYlnQh27N
-he3fmMrxWMCtTjngDgz7YhRonIYvA92wpRVCNklUulx9+oLHXllS8IKyf1rZvNr2
-k2suwC82YG/wG6/vVUxZp45BTt45UC6YtengVRcyq70o9h8y6deSof0MoSuAewj7
-05Z9kXac7pvGJTMTz2dUnHeRelaVU2Ps736vQSGgyJdIJ/c=
-=jCcD
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa479.patch"
-Content-Disposition: attachment; filename="xsa479.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+
-ClN1YmplY3Q6IHg4Ni9zcGVjLWN0cmw6IEZpeCBpbmNvbXBsZXRlIElCUEIg
-Zmx1c2hpbmcgZHVyaW5nIGNvbnRleHQgc3dpdGNoCgpUaGUgcHJldmlvdXMg
-bG9naWMgYXR0ZW1wdGVkIHRvIHNraXAgYW4gSUJQQiBpbiB0aGUgY2FzZSBv
-ZiB2Q1BVIHJldHVybmluZyB0bwphIENQVSBvbiB3aGljaCBpdCB3YXMgdGhl
-IHByZXZpb3VzIHZDUFUgdG8gcnVuLiAgV2hpbGUgc2FmZSBmb3IgWGVuJ3MK
-aXNvbGF0aW9uIGJldHdlZW4gdkNQVXMsIHRoaXMgcHJldmVudHMgdGhlIGd1
-ZXN0IGtlcm5lbCBjb3JyZWN0bHkgaXNvbGF0aW9uCmJldHdlZW4gdGFza3Mu
-ICBDb25zaWRlcjoKCiAxKSB2Q1BVIHJ1bnMgb24gQ1BVIEEsIHJ1bm5pbmcg
-dGFzayAxLgogMikgdkNQVSBtb3ZlcyB0byBDUFUgQiwgaWRsZSBnZXRzIHNj
-aGVkdWxlZCBvbiBBLiAgWGVuIHNraXBzIElCUEIuCiAzKSBPbiBDUFUgQiwg
-Z3Vlc3Qga2VybmVsIHN3aXRjaGVzIGZyb20gdGFzayAxIHRvIDIsIGlzc3Vp
-bmcgSUJQQi4KIDQpIHZDUFUgbW92ZXMgYmFjayB0byBDUFUgQS4gIFhlbiBz
-a2lwcyBJQlBCIGFnYWluLgoKTm93LCB0YXNrIDIgaXMgcnVubmluZyBvbiBD
-UFUgQSB3aXRoIHRhc2sgMSdzIHRyYWluaW5nIHN0aWxsIGluIHRoZSBCVEIu
-CgpEbyB0aGUgZmx1c2ggdW5jb25kaXRpb25hbGx5IHdoZW4gc3dpdGNoaW5n
-IHRvIGEgdkNQVSBkaWZmZXJlbnQgdGhhbiB0aGUKaWRsZSBvbmUuICBOb3Rl
-IHRoZXJlJ3Mgbm8gbmVlZCB0byBleHBsaWNpdGx5IGdhdGUgdGhlIElCUEIg
-dG8gbmV4dCBkb21haW4KIT0gaWRsZSwgYXMgdGhlIGNvbnRleHQgd2hlcmUg
-dGhlIElCUEIgaXMgaXNzdWVkIGlzIHN1YmplY3QgdG8gdGhhdApjb25kaXRp
-b24gYWxyZWFkeSB1bmxlc3MgdGhlIHBDUFUgaXMgZ29pbmcgb2ZmbGluZSwg
-YXQgd2hpY2ggcG9pbnQgd2UgZG9uJ3QKcmVhbGx5IGNhcmUgdG8gaXNzdWUg
-YW4gZXh0cmEgSUJQQi4KCkFsc28gYWRkIGEgY29tbWVudCB3aXRoIHRoZSBy
-ZWFzb25pbmcgd2h5IHRoZSBJQlBCIG5lZWRzIHRvIGJlIGluCmNvbnRleHRf
-c3dpdGNoKCkgcmF0aGVyIHRoYW4gX19jb250ZXh0X3N3aXRjaCgpLgoKVGhp
-cyBpcyBYU0EtNDc5IC8gQ1ZFLTIwMjYtMjM1NTMuCgpGaXhlczogYTJlZDY0
-M2VkNzgzICgieDg2L2N0eHQ6IElzc3VlIGEgc3BlY3VsYXRpb24gYmFycmll
-ciBiZXR3ZWVuIHZjcHUgY29udGV4dHMiKQpSZXBvcnRlZC1ieTogRGF2aWQg
-S2FwbGFuIDxkYXZpZC5rYXBsYW5AYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTog
-Um9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+ClJldmll
-d2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Ci0tLQog
-eGVuL2FyY2gveDg2L2RvbWFpbi5jIHwgMzYgKysrKysrKysrLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRp
-b25zKCspLCAyNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS94ZW4vYXJj
-aC94ODYvZG9tYWluLmMgYi94ZW4vYXJjaC94ODYvZG9tYWluLmMKaW5kZXgg
-YzI5YTZiMGRlY2VlLi5jMWVkZWQzZWI2MDQgMTAwNjQ0Ci0tLSBhL3hlbi9h
-cmNoL3g4Ni9kb21haW4uYworKysgYi94ZW4vYXJjaC94ODYvZG9tYWluLmMK
-QEAgLTIxNzQsMzMgKzIxNzQsMTUgQEAgdm9pZCBjb250ZXh0X3N3aXRjaChz
-dHJ1Y3QgdmNwdSAqcHJldiwgc3RydWN0IHZjcHUgKm5leHQpCiAKICAgICAg
-ICAgY3R4dF9zd2l0Y2hfbGV2ZWxsaW5nKG5leHQpOwogCi0gICAgICAgIGlm
-ICggb3B0X2licGJfY3R4dF9zd2l0Y2ggJiYgIWlzX2lkbGVfZG9tYWluKG5l
-eHRkKSApCi0gICAgICAgIHsKLSAgICAgICAgICAgIHN0YXRpYyBERUZJTkVf
-UEVSX0NQVSh1bnNpZ25lZCBpbnQsIGxhc3QpOwotICAgICAgICAgICAgdW5z
-aWduZWQgaW50ICpsYXN0X2lkID0gJnRoaXNfY3B1KGxhc3QpOwotCi0gICAg
-ICAgICAgICAvKgotICAgICAgICAgICAgICogU3F1YXNoIHRoZSBkb21pZCBh
-bmQgdmNwdSBpZCB0b2dldGhlciBmb3IgY29tcGFyaXNvbgotICAgICAgICAg
-ICAgICogZWZmaWNpZW5jeS4gIFdlIGNvdWxkIGluIHByaW5jaXBsZSBzdGFz
-aCBhbmQgY29tcGFyZSB0aGUgc3RydWN0Ci0gICAgICAgICAgICAgKiB2Y3B1
-IHBvaW50ZXIsIGJ1dCB0aGlzIHJpc2tzIGEgZmFsc2UgYWxpYXMgaWYgYSBk
-b21haW4gaGFzIGRpZWQKLSAgICAgICAgICAgICAqIGFuZCB0aGUgc2FtZSA0
-ayBwYWdlIGdldHMgcmV1c2VkIGZvciBhIG5ldyB2Y3B1LgotICAgICAgICAg
-ICAgICovCi0gICAgICAgICAgICB1bnNpZ25lZCBpbnQgbmV4dF9pZCA9ICgo
-KHVuc2lnbmVkIGludCluZXh0ZC0+ZG9tYWluX2lkIDw8IDE2KSB8Ci0gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodWludDE2X3QpbmV4
-dC0+dmNwdV9pZCk7Ci0gICAgICAgICAgICBCVUlMRF9CVUdfT04oTUFYX1ZJ
-UlRfQ1BVUyA+IDB4ZmZmZik7Ci0KLSAgICAgICAgICAgIC8qCi0gICAgICAg
-ICAgICAgKiBXaGVuIHNjaGVkdWxpbmcgZnJvbSBhIHZjcHUsIHRvIGlkbGUs
-IGFuZCBiYWNrIHRvIHRoZSBzYW1lIHZjcHUKLSAgICAgICAgICAgICAqICh3
-aGljaCBtaWdodCBiZSBjb21tb24gaW4gYSBsaWdodGx5IGxvYWRlZCBzeXN0
-ZW0sIG9yIHdoZW4KLSAgICAgICAgICAgICAqIHVzaW5nIHZjcHUgcGlubmlu
-ZyksIHRoZXJlIGlzIG5vIG5lZWQgdG8gaXNzdWUgSUJQQiwgYXMgd2UgYXJl
-Ci0gICAgICAgICAgICAgKiByZXR1cm5pbmcgdG8gdGhlIHNhbWUgc2VjdXJp
-dHkgY29udGV4dC4KLSAgICAgICAgICAgICAqLwotICAgICAgICAgICAgaWYg
-KCAqbGFzdF9pZCAhPSBuZXh0X2lkICkKLSAgICAgICAgICAgIHsKLSAgICAg
-ICAgICAgICAgICBzcGVjX2N0cmxfbmV3X2d1ZXN0X2NvbnRleHQoKTsKLSAg
-ICAgICAgICAgICAgICAqbGFzdF9pZCA9IG5leHRfaWQ7Ci0gICAgICAgICAg
-ICB9Ci0gICAgICAgIH0KKyAgICAgICAgLyoKKyAgICAgICAgICogSXNzdWUg
-YW4gSUJQQiB3aGVuIHNjaGVkdWxpbmcgYSBkaWZmZXJlbnQgdkNQVSBpZiBy
-ZXF1aXJlZC4KKyAgICAgICAgICoKKyAgICAgICAgICogSUJQQiBjbGVhcnMg
-dGhlIFJTQi9SQVMvUkFQLCBidXQgdGhhdCdzIGZpbmUgYXMgd2UgbGVhdmUg
-dGhpcworICAgICAgICAgKiBmdW5jdGlvbiB2aWEgcmVzZXRfc3RhY2tfYW5k
-X2NhbGxfaW5kKCkgcmF0aGVyIHRoYW4gdmlhIGEgUkVUCisgICAgICAgICAq
-IGluc3RydWN0aW9uLgorICAgICAgICAgKi8KKyAgICAgICAgaWYgKCBvcHRf
-aWJwYl9jdHh0X3N3aXRjaCApCisgICAgICAgICAgICBzcGVjX2N0cmxfbmV3
-X2d1ZXN0X2NvbnRleHQoKTsKIAogICAgICAgICAvKiBVcGRhdGUgdGhlIHRv
-cC1vZi1zdGFjayBibG9jayB3aXRoIHRoZSBuZXcgc3BlY3VsYXRpb24gc2V0
-dGluZ3MuICovCiAgICAgICAgIGluZm8tPnNjZiA9Cg==
-
---=separator--
+> Thanks! 
 
