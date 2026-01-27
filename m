@@ -2,39 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6KPFNTzmd2k9mQEAu9opvQ
+	id mAtFHLo7eGnsowEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 23:10:04 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 05:14:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65FCC8DDB1
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Jan 2026 23:10:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1214040.1524466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE5F8FD28
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 05:14:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1214071.1524476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkUli-0002w1-0x; Mon, 26 Jan 2026 22:09:10 +0000
+	id 1vkaSM-0001st-47; Tue, 27 Jan 2026 04:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1214040.1524466; Mon, 26 Jan 2026 22:09:10 +0000
+Received: by outflank-mailman (output) from mailman id 1214071.1524476; Tue, 27 Jan 2026 04:13:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkUlh-0002uZ-UN; Mon, 26 Jan 2026 22:09:09 +0000
-Received: by outflank-mailman (input) for mailman id 1214040;
- Mon, 26 Jan 2026 22:09:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vkaSL-0001qx-VY; Tue, 27 Jan 2026 04:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 1214071;
+ Tue, 27 Jan 2026 04:13:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dWRf=77=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vkUlg-0002uT-PF
- for xen-devel@lists.xenproject.org; Mon, 26 Jan 2026 22:09:08 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a09832de-fb03-11f0-9ccf-f158ae23cfc8;
- Mon, 26 Jan 2026 23:09:05 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D6CEA60051;
- Mon, 26 Jan 2026 22:09:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D07C116C6;
- Mon, 26 Jan 2026 22:09:02 +0000 (UTC)
+ <SRS0=nq+A=AA=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1vkaSK-0001qp-E7
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 04:13:32 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 864654f6-fb36-11f0-b15f-2bf370ae4941;
+ Tue, 27 Jan 2026 05:13:26 +0100 (CET)
+Received: from DS7PR05CA0079.namprd05.prod.outlook.com (2603:10b6:8:57::9) by
+ CH3PR12MB9395.namprd12.prod.outlook.com (2603:10b6:610:1ce::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Tue, 27 Jan
+ 2026 04:13:20 +0000
+Received: from DS1PEPF00017093.namprd03.prod.outlook.com
+ (2603:10b6:8:57:cafe::7a) by DS7PR05CA0079.outlook.office365.com
+ (2603:10b6:8:57::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Tue,
+ 27 Jan 2026 04:13:16 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Tue, 27 Jan 2026 04:13:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 26 Jan
+ 2026 22:13:20 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 26 Jan
+ 2026 22:13:19 -0600
+Received: from [172.29.134.248] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 26 Jan 2026 22:13:18 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,179 +68,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a09832de-fb03-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1769465343;
-	bh=M8eWJRSt8kxftDMfHh6ZPyDaoVE69N/C4MO0jYVgopM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=t4HsPeqDeyxLusfZPoBEb+vG4PzaNoTAJiqnOD37aSTSoGrshePsHrECZ7/x6pXNr
-	 i/X2IEXL6snUPT27NlyLbrcQ93twU0cIucZlvkJjE5EroOFsEpsm9qgVNEqhPNOyr1
-	 +OBfM0Lz5WFtEZAdyq54uWmCLKyjU7aNb5qFEMcMI3pw4C3YJEAfd56TCFOSta8+SI
-	 wUAAPOgvoVgAWiSz/FFCHaG8IO4JoUzhjEHBEH4PxKVkzOkPj4/ZKyuFyHL/P6GZFo
-	 ozjb8PwY+K8vei1z0tQcPj6b1CsP7hesjnft/83USwIBfeN8YvH0N2y8Pb561N1FQX
-	 k4fgaTQzBsspw==
-Date: Mon, 26 Jan 2026 14:09:01 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dominique Martinet <asmadeus@codewreck.org>
-cc: Stefano Stabellini <stefano.stabellini@amd.com>, 
-    xen-devel@lists.xenproject.org, jgross@suse.com, v9fs@lists.linux.dev, 
-    Eric Van Hensbergen <ericvh@kernel.org>, 
-    Latchesar Ionkov <lucho@ionkov.net>, 
-    Christian Schoenebeck <linux_oss@crudebyte.com>, sstabellini@kernel.org
-Subject: Re: [PATCH] 9p/xen: protect xen_9pfs_front_free against concurrent
- calls
-In-Reply-To: <aXRXbFVmilATqvfO@codewreck.org>
-Message-ID: <alpine.DEB.2.22.394.2601261354410.7192@ubuntu-linux-20-04-desktop>
-References: <20260123184009.1298536-1-stefano.stabellini@amd.com> <aXRXbFVmilATqvfO@codewreck.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 864654f6-fb36-11f0-b15f-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nh/XBHWqd+2EYWkVRa7euWOGO7HOmWnMIeV1ry6EFin7JDGoqQpVz8MGG9dXL8up0RXMhpo96BHGOiQOUUzlRQ/rCVe6DCNU7RuAZDeXqSYmUQ9HPHMLY2dB5+FALZodSPacTMZ7Ayqmmv+VdVvpvDnKkA1XNtG+zrAtJ1mX/GyllJZJOJMU/idzA9G5jUmlGFmRK521W+DpkDkieKiU8RREpcFxIOE4PlXD20wUVnLuOtCM+PAX71ar9aOfpCXSUWvuCcYvNgC9gcuZXyN0Wgbj9zH5JrZHCW9vLVdNKl/5iM/+PcCXwSv/tvE5TQVu7dvRn1Gx1D0YDMI8W+7xlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7ov61H8GFM6LGnpAsfu0E9lm8ujvcYFn91F3JOCrMpQ=;
+ b=s5ys4yJ/aYZMLygnPR3M1fCT+Av5vz/d2F0C6UcTt1/hS22qH/dMyzpLgbk6uW7x/sSw8ohitSl/CnfbvRLq9whyIixlMLSPW53LqDD64H9h3/qPPhuOyPp2Ohq/jVY1xOXglrFpiiXj1u+D7jJJ7fFjDTXnykgd+IwlDFVi2f9r89HSExzUI6P0Atd3TtbFby/fsAPfqtsFenD4My/PCfzRH4AtoyV1NBuSBS6tkP/yaYTEgd+B3THYJISPRnRQdEGdkUHDm1pGS6Lerdtxddm39jRp+jkswWNKMyXkFTtVqYsNznX2/AdwKKy9N1rYlUtLja2yUjNmVXor4M6bjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7ov61H8GFM6LGnpAsfu0E9lm8ujvcYFn91F3JOCrMpQ=;
+ b=dBBdnTRRU47FwcGhtccaGEMkMCCA9u55q9HIjoSJAIrHkdjLhGQ5XKjlNpxyw1eLl9BQOiOrLwF/RONiFqo5czzfy9LcRZO0yDl4SIVrgcIFog7x776pAQTytHg+ew/CktFiVtIHsXqgug20piPCAim04jnhO+TXNuhV0TlSKEI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <b6a4e2cf-e95f-461d-9c6e-34a2f8815d8c@amd.com>
+Date: Mon, 26 Jan 2026 23:13:17 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] PCI: determine whether a device has extended
+ config space
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <58091dc1-7bda-4536-8200-2d0a5679d4d1@suse.com>
+ <edb5eeb2-2cb2-4614-a042-7788fbb345c7@suse.com>
+ <fd509fbb-9dc4-4619-847f-6edd2a1bdb7f@amd.com>
+ <553d1a7a-e465-413f-a60f-32455bbce621@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <553d1a7a-e465-413f-a60f-32455bbce621@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|CH3PR12MB9395:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c2b62bf-e0fd-4daf-0f4a-08de5d5a67eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ajZMMDUxZjRXVDgxQXZsdi95dGVnTERuL0RyMngzenBEeFVPOVRjZlFuSXpj?=
+ =?utf-8?B?YlIzYm9ZWEZoWUdNcVNMaGtraUJ6UjJsQXRwT3g5SlNKdVVQOGFtR2xlNUlX?=
+ =?utf-8?B?NlMrb1dXR1c1VXNDajlsRjlucFFheGlWTDU0MFJZYTdWQXJORVlVeXpFSHV3?=
+ =?utf-8?B?Z2N6MXdBUXlKNGtCWkk4YSt5N0hrS1l2bDM0cFgzU2xuSmRuTUgxaEdlU3Z3?=
+ =?utf-8?B?TEpuMjBjRnRGbFR1Mk5wa25qVzdyNW82T1VFRDIxelNxVWxTbFF2eExZd0h1?=
+ =?utf-8?B?V1h1Sk5rWmlFZFpBTmd0czRzU2pXU0dJVVVIV3VVS0JtZFJpWU9SQ0VQS1Uy?=
+ =?utf-8?B?aDZoY1NIaTkwVms1eXBBd296NEVOVG93S013aHErZHMyZkc5TDhLR0dpWnFr?=
+ =?utf-8?B?ZFdudU14MWxjWFFMaUdORGZxNnZzRHo3Vk5tR1c5NHU0N0w1WGM1TmQ2aTdE?=
+ =?utf-8?B?Szk1c29WcG54TFBMUjdUdm5jVXNPc0FCR3Y0TmpPcGIxaGdNckxYWlZNUzdN?=
+ =?utf-8?B?a3V1U2dqdCtXcDQ3WndvSlhYZStYbUl1bUJ5Z0FDSE1zTTJHN1ZTSjNZT2hw?=
+ =?utf-8?B?RXJrMFZWc0Z5aU5ZSlB4aHhDMGpsaGNYRGMvRkVmRUh6QnBOeW5GY2lqNlJC?=
+ =?utf-8?B?dHBTcy9ud0F1NlJkdzdSeUtDamRpY1Y0dlBTVlNtWWlQbkR2RjVFR2ZpT1VJ?=
+ =?utf-8?B?TnFKUkxvYm9YUUF1TC94UkFmTFlDMHJEa201VU16djljNUNFRndwR0xzbnAx?=
+ =?utf-8?B?WENLcThiSC9NanZIR1pNbTYyVWJCNDJ1ejJFN0pOTFFuMU13VW9DZFZXVlJi?=
+ =?utf-8?B?RlQ5UmdsaU9xZlF4Q2hKcFRsdDhud3ZXaWppV1hoeURMTlpmeDZLUjlRU2Z6?=
+ =?utf-8?B?MU83cjFTWTRnWkxYNWdCeUpmSEdhZkNVNi9BQWNRemJyNHpFclBHeU1URnZW?=
+ =?utf-8?B?bUNvLzlZeDBhM3B4MGY1Y1dVcGIyQW92Z1ZoYnVRamdMelQwNEo2aldpa2xG?=
+ =?utf-8?B?TlhUUlcyRTkwS0k4SGJsazZUNjFveUd3SDdkbzBPSVBGdWFZRFVwU2lJaGo1?=
+ =?utf-8?B?NkNZU094Mys2eDNWbHEwc0VNU09zcFN1bVY5QmJzU09OMGoyLzNtWTZhZ0hS?=
+ =?utf-8?B?ZlR2THVOREZJRlplOHdxWWxBZmRqNWtZZjZNdm5Tb0U3VEZqTFRMZGxQV0VK?=
+ =?utf-8?B?dlJQNmNlNmRyb1ZkR0RBVU9XS2ZLZjBhdEgwVkhMT2xxNFJjM25NNndzajRM?=
+ =?utf-8?B?TGNCY0ttZ2xmN25CS2d4OEozME1PZ3NXbTY1RVhlc01MdThrZzlVR09CMzBI?=
+ =?utf-8?B?UTgrQU5SKzNsNDFkalpuQk5FR3NaMXdzY0Uvbk5ZQkVFZk1qMkJMODFxSUJI?=
+ =?utf-8?B?NjZMS25KdkFPK3d1WWdPWDAzTzRiRkU0cm90OG1uVzVvaktrMklOQVdGL1dE?=
+ =?utf-8?B?VjlrNXVFTzhLaDBzRForUXNDdVNGOFBtRTkxRm1WYmJEQ01iQWRNNlpUMWg3?=
+ =?utf-8?B?SzFmTnRpK25QaEkxUjJTVTA1ZDRaWWRTMkVKekkzYWwrakpYVGE4czFGV21J?=
+ =?utf-8?B?WUtTVFlaajNMb204QnEwYkh2SmoyMUxoWDY1dEhRMHlUaEFuZ01sK2t3a2Zt?=
+ =?utf-8?B?QXc4OTVNY1J3bUlLUlEzcElEUGhQR1VsRUNZbGNObXVNTXVPUGsvKzdzUkIv?=
+ =?utf-8?B?cUhTOGlVQWtBcWNqYmJpN1BUVGNzbVRIdEFDcWFSdHdoY0tOa1ZJejhzV0Ir?=
+ =?utf-8?B?d3Q3cmw4QTJGYjFrakxxM3Bva1JxLzRxOUxoelRiRzI0TmVScEtaTExZaW50?=
+ =?utf-8?B?WlluMTVVeG8wVlVvdVpZWm1EejFoVlpvakxWbHNwYllwOVdQUFRQbElqcnZN?=
+ =?utf-8?B?a0NIeUZFMFBRTDU2RHhScS9KL0x0b09TNU94VHJQTythOHBIY0xoNDBxQjdN?=
+ =?utf-8?B?RGVNL3Zrb1o1RmpDUWVwVENld2FvWXREZ2wwYUlZbmx1SWlCK0lvYkhDYTNj?=
+ =?utf-8?B?dlpYTXJ5cG5FU2pTZGFVWElGM2RtOWZxdHBZdTd2bWFwb291TmtCbW54dWtZ?=
+ =?utf-8?B?UEVlbG9NbEo3bzhsUmptMUlwQ2dIcFNHclNNeXhUSUppQWN0Q0FqdXIvUFJq?=
+ =?utf-8?B?S1pyb0pHMDlETy9FWGcrbkxJd1NUQ0t4U2I1Zm9UVi9FMFVYVjlOSFZ5R2k0?=
+ =?utf-8?B?bVVvSkJqTlh1a3k4a2JEUmpWTUpxNDdNTFE1REpyMDJqK3hVQUNXWVhZWnpa?=
+ =?utf-8?B?eEJvRy9NejNidmExcENrUm9iMVJRPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2026 04:13:20.4298
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2b62bf-e0fd-4daf-0f4a-08de5d5a67eb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9395
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FROM_HAS_DN(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:asmadeus@codewreck.org,m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:v9fs@lists.linux.dev,m:ericvh@kernel.org,m:lucho@ionkov.net,m:linux_oss@crudebyte.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 65FCC8DDB1
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: CAE5F8FD28
 X-Rspamd-Action: no action
 
-On Sat, 24 Jan 2026, Dominique Martinet wrote:
-> Stefano Stabellini wrote on Fri, Jan 23, 2026 at 10:40:09AM -0800:
-> > The xenwatch thread can race with other back-end change notifications
-> > and call xen_9pfs_front_free() twice, hitting the observed general
-> > protection fault due to a double-free. Guard the teardown path so only
-> > one caller can release the front-end state at a time, preventing the
-> > crash.
+On 1/26/26 03:58, Jan Beulich wrote:
+> On 23.01.2026 23:24, Stewart Hildebrand wrote:
+>> On 1/19/26 09:46, Jan Beulich wrote:
+>>> Legacy PCI devices don't have any extended config space. Reading any part
+>>> thereof may return all ones or other arbitrary data, e.g. in some cases
+>>> base config space contents repeatedly.
+>>>
+>>> Logic follows Linux 6.19-rc's pci_cfg_space_size(), albeit leveraging our
+>>> determination of device type; in particular some comments are taken
+>>> verbatim from there.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 > 
-> Thank you, just a couple of nitpicks below
+> Thanks, but see below (as that may change your take on it).
 > 
-> > diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-> > index 280f686f60fbb..8809f3c06ec95 100644
-> > --- a/net/9p/trans_xen.c
-> > +++ b/net/9p/trans_xen.c
-> > @@ -274,11 +274,7 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
-> >  {
-> >  	int i, j;
-> >  
-> > -	write_lock(&xen_9pfs_lock);
-> > -	list_del(&priv->list);
-> > -	write_unlock(&xen_9pfs_lock);
-> > -
-> > -	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
-> > +	for (i = 0; priv->rings != NULL && i < XEN_9PFS_NUM_RINGS; i++) {
+>>> ---
+>>> Should we skip re-evaluation when pci_mmcfg_arch_enable() takes its early
+>>> exit path?
+>>
+>> I don't have a strong opinion here, though I'm leaning toward it's OK as is.
 > 
+> Maybe I need to add more context here. Not short-circuiting means that for
+> a brief moment ->ext_cfg for a device can be wrong - between
+> pci_check_extcfg() clearing it and then setting it again once all checks
+> have passed. As long as only Dom0 is executing at that time, and assuming
+> Dom0 actually issues the notification ahead of itself playing with
+> individual devices covered by it, all is going to be fine. With
+> hyperlaunch, however, DomU-s can't be told "not to fiddle" with devices
+> they've been assigned.
 > 
-> I don't understand this priv->rings != NULL check here;
-> if it's guarding for front_free() called before front_init() then it
-> doesn't need to be checked at every iteration, and if it can change in
-> another thread I don't see why it would be safe.
+> With the yet-to-be-written vPCI counterpart changes the window is actually
+> going to get bigger for DomU-s using vPCI.
+> 
+> For hyperlaunch this is going to be interesting anyway, on systems like
+> the one you mentioned. First, without Dom0 / hwdom, how would we even
+> learn we can use MCFG? And even with hwdom, how would we keep DomU-s from
+> accessing the devices they were passed until ->ext_cfg has obtained its
+> final state for them (and vPCI reached proper state, too)?
+Ah, I see. Thanks for the additional context.
 
-xen_9pfs_front_free() can be reached from the error paths before any
-rings are allocated, so we need to handle a NULL priv->rings but it
-doesn't have to be checked at every iteration. I can move it before the
-for loop as you suggested.
+First of all, to re-answer the original question, it still feels more of a
+nice-to-have optimization than a necessity since we don't have hyperlaunch PCI
+passthrough upstream yet. Of course, skipping re-evaluating ext_cfg would be a
+welcome change if you're up for it. An alternative approach might be to
+implement pci_check_extcfg() such that it only modifies ->ext_cfg if it needs to
+be changed, but again, I don't have an issue with it as is.
 
+With that said, what do you think if we took the stance that ->ext_cfg shouldn't
+be re-evaluated for a pdev while it's assigned to a domU with vPCI? I.e. we
+would return an error from the pci_mmcfg_reserved hypercall in this case.
 
-> 
-> >  		struct xen_9pfs_dataring *ring = &priv->rings[i];
-> >  
-> >  		cancel_work_sync(&ring->work);
-> > @@ -310,9 +306,18 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
-> >  
-> >  static void xen_9pfs_front_remove(struct xenbus_device *dev)
-> >  {
-> > -	struct xen_9pfs_front_priv *priv = dev_get_drvdata(&dev->dev);
-> > +	struct xen_9pfs_front_priv *priv;
-> >  
-> > +	write_lock(&xen_9pfs_lock);
-> > +	priv = dev_get_drvdata(&dev->dev);
-> > +	if (priv == NULL) {
-> > +		write_unlock(&xen_9pfs_lock);
-> > +		return;
-> > +	}
-> >  	dev_set_drvdata(&dev->dev, NULL);
-> > +	list_del_init(&priv->list);
-> 
-> There's nothing wrong with using the del_init() variant here, but it
-> would imply someone else could still access it after the unlock here,
-> which means to me they could still access it after priv is freed in
-> xen_9pfs_front_free().
-> >From your commit message I think the priv == NULL check and
-> dev_set_drvdata() under lock above is enough, can you confirm?
+If I understand things correctly, conceptually speaking, from a system
+perspective, setting up mcfg is something that *should* be done at boot, not
+ad-hoc during runtime. In the hyperlaunch model that I'm envisioning, there will
+also be hardware/control domain separation, and we will want to limit the
+hardware domain's ability to interfere with other domains. So I'd consider
+disabling the mmcfg_reserved hypercall anyway in such a configuration. The
+assumption with this model is that we would not need rely on dom0 to enable mcfg
+the system/platform of choice.
 
-Yes you are right. I can replace list_del_init with list_del if you
-think it is clearer.
+Longer term, if we really think we need to support hyperlaunch while relying on
+a dom0 to initialize mcfg, we could potentially delay assigning pdevs to
+hyperlaunch domUs until ->ext_cfg has been initialized and is not expected to
+change. This would imply implementing hotplug for PVH domUs (also needed for
+"xl pci-attach" with PVH domUs). I wrote some patches in an internal branch to
+expose an emulated bridge with pcie hotplug capability, laying some of the
+groundwork to support this, and I'll plan to eventually send this work upstream.
 
- 
-> > +	write_unlock(&xen_9pfs_lock);
-> > +
-> >  	xen_9pfs_front_free(priv);
-> >  }
-> >  
-> > @@ -387,7 +392,7 @@ static int xen_9pfs_front_init(struct xenbus_device *dev)
-> >  {
-> >  	int ret, i;
-> >  	struct xenbus_transaction xbt;
-> > -	struct xen_9pfs_front_priv *priv = dev_get_drvdata(&dev->dev);
-> > +	struct xen_9pfs_front_priv *priv;
-> >  	char *versions, *v;
-> >  	unsigned int max_rings, max_ring_order, len = 0;
-> >  
-> > @@ -415,6 +420,10 @@ static int xen_9pfs_front_init(struct xenbus_device *dev)
-> >  	if (p9_xen_trans.maxsize > XEN_FLEX_RING_SIZE(max_ring_order))
-> >  		p9_xen_trans.maxsize = XEN_FLEX_RING_SIZE(max_ring_order) / 2;
-> >  
-> > +	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
-> > +	if (!priv)
-> > +		return -ENOMEM;
-> > +	priv->dev = dev;
-> >  	priv->rings = kcalloc(XEN_9PFS_NUM_RINGS, sizeof(*priv->rings),
-> >  			      GFP_KERNEL);
-> >  	if (!priv->rings) {
-> > @@ -473,6 +482,11 @@ static int xen_9pfs_front_init(struct xenbus_device *dev)
-> >  		goto error;
-> >  	}
-> >  
-> > +	write_lock(&xen_9pfs_lock);
-> > +	dev_set_drvdata(&dev->dev, priv);
-> 
-> Honest question: could xen_9pfs_front_init() also be called multiple
-> times as well?
-> (if so this should check for the previous drvdata and free the priv
-> that was just built if it was non-null)
-> 
-> Please ignore this if you think that can't happen, I really don't
-> know.
-
-That should not be possible before freeing priv first:
-xen_9pfs_front_init is only called when the frontend is in the
-XenbusStateInitialising state (see xen_9pfs_front_changed). Once we
-store priv we immediately switch the state to XenbusStateInitialised,
-and there will be no more calls to xen_9pfs_front_init. If the backend
-forces a re-probe, xenbus invokes xen_9pfs_front_remove first, which
-frees priv.
+In the scenario without a dom0, I don't have a good answer at the moment for how
+Xen would learn that mcfg could be used.
 
