@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MNhQJP5+eGkFqQEAu9opvQ
+	id ieQ6GiOCeGmqqgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:01:50 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:15:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0FB91693
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:01:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1214114.1524501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC1E19190D
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:15:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1214125.1524511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkewv-0002I1-Td; Tue, 27 Jan 2026 09:01:25 +0000
+	id 1vkf9x-000444-6G; Tue, 27 Jan 2026 09:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1214114.1524501; Tue, 27 Jan 2026 09:01:25 +0000
+Received: by outflank-mailman (output) from mailman id 1214125.1524511; Tue, 27 Jan 2026 09:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkewv-0002Ga-Qe; Tue, 27 Jan 2026 09:01:25 +0000
-Received: by outflank-mailman (input) for mailman id 1214114;
- Tue, 27 Jan 2026 09:01:24 +0000
+	id 1vkf9x-00041j-2p; Tue, 27 Jan 2026 09:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 1214125;
+ Tue, 27 Jan 2026 09:14:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vkewu-0002GU-Ir
- for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 09:01:24 +0000
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [2a00:1450:4864:20::444])
+ id 1vkf9v-00041d-C1
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 09:14:51 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0d1305b-fb5e-11f0-b15f-2bf370ae4941;
- Tue, 27 Jan 2026 10:01:23 +0100 (CET)
-Received: by mail-wr1-x444.google.com with SMTP id
- ffacd0b85a97d-430f2ee2f00so3152224f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 01:01:23 -0800 (PST)
+ id a1b0e417-fb60-11f0-b15f-2bf370ae4941;
+ Tue, 27 Jan 2026 10:14:49 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-4359108fd24so3171714f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 01:14:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435b1f745e6sm34601403f8f.33.2026.01.27.01.01.21
+ ffacd0b85a97d-435b1e7156dsm37369101f8f.20.2026.01.27.01.14.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jan 2026 01:01:21 -0800 (PST)
+ Tue, 27 Jan 2026 01:14:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,63 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0d1305b-fb5e-11f0-b15f-2bf370ae4941
+X-Inumbo-ID: a1b0e417-fb60-11f0-b15f-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769504482; x=1770109282; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769505289; x=1770110089; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XNZ/H729BLC/Vg4e1NTNI56tNXtO41Rq0IwnCM0Jqys=;
-        b=MWTnjU5dCu6TC4cfTd+TSp6AjyXCwp8wmQUcnncQrJxvnNShWHEznXckOEnvGosq7N
-         csk21kFXpDyD/u5o8ueLF2GD9iR+iy3Dtou3uif/qj1Y6mpZfyI4a6pz1AOxvGXq8o0m
-         nlWwHwrBhIKwdN456uwdr+nsz1qjK52fUpycQoOLdhl45Yj7sVu92rTcgQ0ijdHdHI8N
-         Yq3gcMcHJnKkT9iUa2TGuRaQC6zlnixsRXWSwWp+7/1+/wbrxlTwDCFtu8G5xORk6GD1
-         cQSPALYvUxl5Ur3Knahb7rLs4AXR+FJ9FT9ceavGRt5oIs4rr16scyZG1wJm3vFOMZRI
-         4bxg==
+        bh=70SkXzfz76UseVgNS1JovfLNpfYQLaRtH/QS4N6l5Z0=;
+        b=Pw1X1wsGYDRcNcg9aBbdI55QYT9Hi/TzjSNkM8Xbk0AnN50MNpZyDg5iQdQpxPs95Y
+         MTl3XGEGWCXQ0MLttPQ9FDMPj2rkri8d3LTnZlh4TJFDAR2CT6ItrmlB+dGP8kIQ9Dln
+         3S6vHWpn8D8dMEqjLU7vhWSf98U+C0wzQOBbJ1VEdpY14kdN+ReG2v2fQE+V3owDuSmS
+         75FsVgFuW9/2zEPcDrtBKrEbHt2tLohpz3juLMD4B2NUvQ4KkUo2BASawNnDGBS+T1HL
+         bVUqSgqEtc770tfeQXatmkpMKeFXTz6zBh0IiYeyc5wAiBp4hbGwVKNjRzUC0nJvDzqO
+         UHVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769504482; x=1770109282;
+        d=1e100.net; s=20230601; t=1769505289; x=1770110089;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XNZ/H729BLC/Vg4e1NTNI56tNXtO41Rq0IwnCM0Jqys=;
-        b=IPdWCL6/y/DimHLuuG8KmSbznsZTfXwVvd+i4CIq6WAnmCRBIzDldcdmMyNidObgl3
-         K6JKY4FC+007EaBQveSh0KNYx2b4DvtIhxc9aucvJgQaSlwSZmRBoI4LIlzNq7zQL51f
-         ZIvwpqWR/DuSUk4ThIQRvy373DrYnJryHaYuBkSXcjuh5zmlHrV10uHGwE0fGQfOZ1hj
-         aCzbVzhywypRd78zMNQ5yey0AM8ZsovplQns+XC05zCKDQCwzyt1u5QASdU81+Sr8ShP
-         8xqvw4yzqalpppI9VFTdD2mv5g4A1OXaVwznyu7hjHes2Vtoqs6qS1QaxaPv8oXRSKFD
-         alcQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV6Pxc5czrjukSuj+2K8pgv3wtK3p02TFkDx0ptUF+PQZ7QZqY8JplInEjrQ7+T8naNrSMx4rqkzr4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweOB/EGsIq7DCXoh7J3kqVoiKnUWbvJA9uansFt8Y+dgTxPBcJ
-	uGDTAV04tpX1H2w5THUP3OaBo5Xiu0YVpSgnZiRRUuO09OWXRmemvedhPXvdIL5t8g==
-X-Gm-Gg: AZuq6aIt1cjg+eVdgCAZHZPsLgXHHtpCQWWjNlGb/QwRYrDuyYBghLGPsIRJL7F7AI+
-	Zh9QuTMtFhrgKsRSfMFGPld6SeVdNDejDNhp3U18P6y4bgtsmCrucMzNr9tvsKGJZrWCC3zgfsW
-	oA90rA5ObRv5mIYmv7mZ1EcrRBUHgZ9yMd89GjuOMIaYcqeWw5BSztR8KYGobfmMsTBgk2rObma
-	vr5dy3id6Zpw6TCoTRpxvKMexEEmnIMl8agrgFKcHOQNwm/L+Kz8KR3t6nKvQJOs/le2AIpbl8i
-	6kAhDjGaxzH+88gmp9YTNVts0z2HOL6vJI1ixZZyU9dZHK6UBIQCoFGJ3WaFDJC0C61d/OupiP6
-	LVS26x2qTvV8U0p3ar11Yoh/Em1TZsTAxp8cZawHuYLbcX5jf9xgyYWlqpTiAackqQZ5HsXRZ+r
-	0gwpxG6ZWBJvv5a+1rgZl2oNHX47EBjV0/QdMBchhyPiWmOYEn94J3xjH4CDMWp/KgOUhOdCzrQ
-	xk=
-X-Received: by 2002:a05:6000:22c9:b0:431:8f8:7f24 with SMTP id ffacd0b85a97d-435dd0b8222mr1544977f8f.39.1769504482274;
-        Tue, 27 Jan 2026 01:01:22 -0800 (PST)
-Message-ID: <25b25628-3f99-46b8-94f5-b9c78601fbe0@suse.com>
-Date: Tue, 27 Jan 2026 10:01:20 +0100
+        bh=70SkXzfz76UseVgNS1JovfLNpfYQLaRtH/QS4N6l5Z0=;
+        b=KOjGQWsZMH0JXzlVmtrRhg6vSx+IAzgp8/PFhiAD10DwlLGei5NqiHlxKBNu8r0v31
+         9AatyBXPxsFBuhSEhAnZmaHOTWQJu+xxfOsMxSKcq/MAPzvOKtuZNluVBeVF3j4cl752
+         T9E1t4H6Qu2wjTQI4uft5mw8flemHi6vUWbQ8vc2aQsA3jvM8Hbm+cuJQjrL+zmK15Ow
+         C7gueahVN/IAaU9FEpgG9lon0FQhhWvSh2gDK364Xo2dMyR1m6rmWQwcJ30ZgpTnD034
+         lwe70O5DJJG6ISeXVEDFwyvv3HQvRPniTI73xgwjxMx+C3ZZJZ2kdhKgGcxDHaoY1twX
+         KAaw==
+X-Forwarded-Encrypted: i=1; AJvYcCXbgo3g1S02svwz4WFBOcVK7zXrkSuvvuF0s3N90v0alqAJpOgmm4iO0we6547s/tsfPtOg1CjPIoU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMwJ4iD/roLJYkaXzQC/yApzYbhKMzW5UKDm6ZY9dpuo2z42Ah
+	2Vnlow8Dr4DvL5JdXgDTqD348GW/hvju9dT/rwjIkb9sZ87HASw43mwZ+Bzlzamx9w==
+X-Gm-Gg: AZuq6aJedVCF/wJKYAnCkyVW8+83oLsL/xMReRDHr1amf+coIE1oXH0f6jZFEgkP6uS
+	SqCLdEXgRXNEdH/NvA3sM+tLyiBB+2D1xvFJkUpP48OWEDoFT+cFl+49Tk1cZmYLxpGaagNyavJ
+	L/mCaMDk2FEdUw0l0hLGZu+T+g6wgfBlV0Gcgn7VB3xLQ0ia4ySndOM7gEsqrd+mw6e/Mzq3CO8
+	iZesBgEKdOR3RVG7AgdB783y61gWYaSASmZMhYs+cogEASecqCSJ0wweSDHxChFdqNaISg2eE34
+	65L++f8Vy/Ixp54/KIHRyqrAxltK/vhtvVppdD3uJBSwKW0G/bT0mYxzuyE0b6UBuWIzdc4L2u0
+	NSQ9hZeTnEPpHoyV/InGERDqn5OumxTIkuyQp6V0E5GmrH7vHKEs24Q+IrvmdyEwR0LsamaVKcE
+	kYFjtzy1cEXu1U7yzuxojFv3OUr5IX4cj+cjj3heKzpABhYXCDoXwkOoWJkLDzzN/DHs62qD8VU
+	Sg=
+X-Received: by 2002:a05:6000:2906:b0:432:857d:e425 with SMTP id ffacd0b85a97d-435dd0a40a4mr1286361f8f.30.1769505289153;
+        Tue, 27 Jan 2026 01:14:49 -0800 (PST)
+Message-ID: <cf8f345c-185c-4b6f-aad2-7ac1b67fc018@suse.com>
+Date: Tue, 27 Jan 2026 10:14:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] PCI: determine whether a device has extended
- config space
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v4] xen/riscv: dump GPRs and CSRs on unexpected traps
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <58091dc1-7bda-4536-8200-2d0a5679d4d1@suse.com>
- <edb5eeb2-2cb2-4614-a042-7788fbb345c7@suse.com>
- <fd509fbb-9dc4-4619-847f-6edd2a1bdb7f@amd.com>
- <553d1a7a-e465-413f-a60f-32455bbce621@suse.com>
- <b6a4e2cf-e95f-461d-9c6e-34a2f8815d8c@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <27ab0f8eb6fd6ecef1eeefa4a05e4fe1f43acbbe.1769427484.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,154 +129,125 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b6a4e2cf-e95f-461d-9c6e-34a2f8815d8c@amd.com>
+In-Reply-To: <27ab0f8eb6fd6ecef1eeefa4a05e4fe1f43acbbe.1769427484.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stewart.hildebrand@amd.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid,amd.com:email];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	URIBL_MULTI_FAIL(0.00)[suse.com:server fail,lists.xenproject.org:server fail];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 9F0FB91693
+X-Rspamd-Queue-Id: BC1E19190D
 X-Rspamd-Action: no action
 
-On 27.01.2026 05:13, Stewart Hildebrand wrote:
-> On 1/26/26 03:58, Jan Beulich wrote:
->> On 23.01.2026 23:24, Stewart Hildebrand wrote:
->>> On 1/19/26 09:46, Jan Beulich wrote:
->>>> Legacy PCI devices don't have any extended config space. Reading any part
->>>> thereof may return all ones or other arbitrary data, e.g. in some cases
->>>> base config space contents repeatedly.
->>>>
->>>> Logic follows Linux 6.19-rc's pci_cfg_space_size(), albeit leveraging our
->>>> determination of device type; in particular some comments are taken
->>>> verbatim from there.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>
->> Thanks, but see below (as that may change your take on it).
->>
->>>> ---
->>>> Should we skip re-evaluation when pci_mmcfg_arch_enable() takes its early
->>>> exit path?
->>>
->>> I don't have a strong opinion here, though I'm leaning toward it's OK as is.
->>
->> Maybe I need to add more context here. Not short-circuiting means that for
->> a brief moment ->ext_cfg for a device can be wrong - between
->> pci_check_extcfg() clearing it and then setting it again once all checks
->> have passed. As long as only Dom0 is executing at that time, and assuming
->> Dom0 actually issues the notification ahead of itself playing with
->> individual devices covered by it, all is going to be fine. With
->> hyperlaunch, however, DomU-s can't be told "not to fiddle" with devices
->> they've been assigned.
->>
->> With the yet-to-be-written vPCI counterpart changes the window is actually
->> going to get bigger for DomU-s using vPCI.
->>
->> For hyperlaunch this is going to be interesting anyway, on systems like
->> the one you mentioned. First, without Dom0 / hwdom, how would we even
->> learn we can use MCFG? And even with hwdom, how would we keep DomU-s from
->> accessing the devices they were passed until ->ext_cfg has obtained its
->> final state for them (and vPCI reached proper state, too)?
-> Ah, I see. Thanks for the additional context.
+On 26.01.2026 12:43, Oleksii Kurochko wrote:
+> Provide additional context when an unexpected exception occurs by dumping
+> the relevant Supervisor, Virtual Supervisor (VS), and Hypervisor CSRs,
+> along with the general-purpose registers associated with the trap.
 > 
-> First of all, to re-answer the original question, it still feels more of a
-> nice-to-have optimization than a necessity since we don't have hyperlaunch PCI
-> passthrough upstream yet.
+> Dumping VS-mode CSRs in addition to host CSRs is beneficial when analysing
+> VS-mode traps. VSCAUSE, VSEPC, VSTVAL, and related VS state are required to
+> properly diagnose unexpected guest traps and potential hypervisor
+> misconfiguration.
+> For example, on an illegal-instruction exception the hardware may record
+> the faulting instruction in VSTVAL. If VSTVAL is zero, VSEPC should always
+> be inspected, and can be used together with objdump to identify the
+> faulting instruction. Dumping VSCAUSE is also useful when the guest does
+> not report it, or when the hypervisor redirects a trap to the guest using
+> VSCAUSE, VSTATUS, and VSTVEC, allowing verification that a subsequent trap
+> is not caused by incorrect VS state.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-My fear here is that an aspect like this one may easily be forgotten when
-later doing the actual hyperlaunch work, or when finally making PCI properly
-supported on Arm64 (where then dom0less would be equally affected, unless
-Arm has found a way to avoid the dependency on Dom0's ACPI AML parsing).
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> Of course, skipping re-evaluating ext_cfg would be a
-> welcome change if you're up for it.
+I still have a question though, which can be addressed incrementally.
 
-We can surely keep this as an incremental change to be made. I guess I want
-to give Roger a chance to comment before deciding whether to commit the
-patch here as-is.
+> --- a/xen/arch/riscv/traps.c
+> +++ b/xen/arch/riscv/traps.c
+> @@ -99,12 +99,70 @@ static const char *decode_cause(unsigned long cause)
+>      return decode_trap_cause(cause);
+>  }
+>  
+> +static void dump_general_regs(const struct cpu_user_regs *regs)
+> +{
+> +#define X(regs, name, delim) \
+> +    printk("%-4s: %016lx" delim, #name, (regs)->name)
+> +
+> +    X(regs, ra, " "); X(regs, sp, "\n");
+> +    X(regs, gp, " "); X(regs, tp, "\n");
+> +    X(regs, t0, " "); X(regs, t1, "\n");
+> +    X(regs, t2, " "); X(regs, s0, "\n");
+> +    X(regs, s1, " "); X(regs, a0, "\n");
+> +    X(regs, a1, " "); X(regs, a2, "\n");
+> +    X(regs, a3, " "); X(regs, a4, "\n");
+> +    X(regs, a5, " "); X(regs, a6, "\n");
+> +    X(regs, a7, " "); X(regs, s2, "\n");
+> +    X(regs, s3, " "); X(regs, s4, "\n");
+> +    X(regs, s5, " "); X(regs, s6, "\n");
+> +    X(regs, s7, " "); X(regs, s8, "\n");
+> +    X(regs, s9, " "); X(regs, s10, "\n");
+> +    X(regs, s11, " "); X(regs, t3, "\n");
+> +    X(regs, t4, " "); X(regs, t5, "\n");
+> +    X(regs, t6, " "); X(regs, sepc, "\n");
 
-> An alternative approach might be to
-> implement pci_check_extcfg() such that it only modifies ->ext_cfg if it needs to
-> be changed, but again, I don't have an issue with it as is.
+Does this sepc value differ from ...
 
-That wouldn't help much imo, as there's then still a time window where what
-the field says is wrong relative to what we already have accounted for in
-our MCFG handling.
+> +static void dump_csrs(unsigned long cause)
+> +{
+> +#define X(name, csr, fmt, ...) \
+> +    v = csr_read(csr); \
+> +    printk("%-10s: %016lx" fmt, #name, v, ##__VA_ARGS__)
+> +
+> +    unsigned long v;
+> +
+> +    X(htval, CSR_HTVAL, " ");  X(htinst, CSR_HTINST, "\n");
+> +    X(hedeleg, CSR_HEDELEG, " "); X(hideleg, CSR_HIDELEG, "\n");
+> +    X(hstatus, CSR_HSTATUS, " [%s%s%s%s%s%s ]\n",
+> +      (v & HSTATUS_VTSR) ? " VTSR" : "",
+> +      (v & HSTATUS_VTVM) ? " VTVM" : "",
+> +      (v & HSTATUS_HU)   ? " HU"   : "",
+> +      (v & HSTATUS_SPVP) ? " SPVP" : "",
+> +      (v & HSTATUS_SPV)  ? " SPV"  : "",
+> +      (v & HSTATUS_GVA)  ? " GVA"  : "");
+> +    X(hgatp, CSR_HGATP, "\n");
+> +    X(hstateen0, CSR_HSTATEEN0, "\n");
+> +    X(stvec, CSR_STVEC, " "); X(vstvec, CSR_VSTVEC, "\n");
+> +    X(sepc, CSR_SEPC, " "); X(vsepc, CSR_VSEPC, "\n");
 
-> With that said, what do you think if we took the stance that ->ext_cfg shouldn't
-> be re-evaluated for a pdev while it's assigned to a domU with vPCI? I.e. we
-> would return an error from the pci_mmcfg_reserved hypercall in this case.
-
-I don't like this idea, as it's functionally limiting (if MCFG becomes
-available only later) or functionally wrong (if, for whatever reason, MCFG
-becomes unavailable later).
-
-In no event would I consider returning an error from that hypercall. If
-anything I'd see us ignore it.
-
-> If I understand things correctly, conceptually speaking, from a system
-> perspective, setting up mcfg is something that *should* be done at boot, not
-> ad-hoc during runtime.
-
-Yes, and that concept simply collides with hyperlaunch's plan to launch
-more than just Dom0 right at boot. Dom0 booting is part of the system
-booting, after all.
-
-> In the hyperlaunch model that I'm envisioning, there will
-> also be hardware/control domain separation, and we will want to limit the
-> hardware domain's ability to interfere with other domains. So I'd consider
-> disabling the mmcfg_reserved hypercall anyway in such a configuration. The
-> assumption with this model is that we would not need rely on dom0 to enable mcfg
-> the system/platform of choice.
-
-But you need to work with the hardware you've got. For customized systems
-it certainly is an option to arrange for firmware to suitably report what
-Xen needs to be independent of Dom0. But for general purpose systems this
-won't necessarily fly.
-
-> Longer term, if we really think we need to support hyperlaunch while relying on
-> a dom0 to initialize mcfg, we could potentially delay assigning pdevs to
-> hyperlaunch domUs until ->ext_cfg has been initialized and is not expected to
-> change. This would imply implementing hotplug for PVH domUs (also needed for
-> "xl pci-attach" with PVH domUs). I wrote some patches in an internal branch to
-> expose an emulated bridge with pcie hotplug capability, laying some of the
-> groundwork to support this, and I'll plan to eventually send this work upstream.
-
-Which isn't quite what I understand one of hyperlaunch's goals is (to have all
-domains be statically configured, and hence be in final, usable shape right
-when their booting completes).
+... the one logged here? Nothing changes the register between entry
+into the hypervisor and coming here?
 
 Jan
 
