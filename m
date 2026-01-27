@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kMpFCmJ7eGkFqQEAu9opvQ
+	id MNhQJP5+eGkFqQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 09:46:26 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:01:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6DE913C8
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 09:46:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1214103.1524491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F0FB91693
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 10:01:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1214114.1524501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkehR-0007zV-NC; Tue, 27 Jan 2026 08:45:25 +0000
+	id 1vkewv-0002I1-Td; Tue, 27 Jan 2026 09:01:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1214103.1524491; Tue, 27 Jan 2026 08:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 1214114.1524501; Tue, 27 Jan 2026 09:01:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkehR-0007wR-JZ; Tue, 27 Jan 2026 08:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 1214103;
- Tue, 27 Jan 2026 08:45:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vkewv-0002Ga-Qe; Tue, 27 Jan 2026 09:01:25 +0000
+Received: by outflank-mailman (input) for mailman id 1214114;
+ Tue, 27 Jan 2026 09:01:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vkehQ-0007wL-4t
- for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 08:45:24 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 829e96db-fb5c-11f0-9ccf-f158ae23cfc8;
- Tue, 27 Jan 2026 09:45:19 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-47ee807a4c5so56068155e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 00:45:19 -0800 (PST)
+ id 1vkewu-0002GU-Ir
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 09:01:24 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0d1305b-fb5e-11f0-b15f-2bf370ae4941;
+ Tue, 27 Jan 2026 10:01:23 +0100 (CET)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-430f2ee2f00so3152224f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 01:01:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48066bee30dsm43677975e9.6.2026.01.27.00.45.18
+ ffacd0b85a97d-435b1f745e6sm34601403f8f.33.2026.01.27.01.01.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jan 2026 00:45:18 -0800 (PST)
+ Tue, 27 Jan 2026 01:01:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,59 +50,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 829e96db-fb5c-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: c0d1305b-fb5e-11f0-b15f-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769503519; x=1770108319; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769504482; x=1770109282; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0lunYaDLihrnJO5eAtL6TCuk7qVk3WpMu49PZnkiLU=;
-        b=KWaU/SUZJ3gyMyLJbDlMPAZbe/tTSdL9kg2YJRT9A3uvLPuDLtQXMha1E2MVROSjzo
-         yasnhNovEe2qE1aX1vnm/SCLatyWnYcR6q+C4ZhKN2an3CAOyE6oN+99jlGwEO5C4H+b
-         J/vQ9+ibadYyQ+68X+48mY5lQCscNPe3jC67SValdd+e8e18jf2YJF6abOgmQjHwFmZT
-         gkXMGmvy0Q7ANLSzoH/qRThEhXMYHOiHKht0sYINjh6bSUnBF/Q4/KblDMyRahmmzmoC
-         hjf8dWLWOrPMH5zCnRYag3ljMCtnGjzOUltLEkgAoMQvVolpG1ZPvPjArkzVZ2Y8UQ3J
-         Xegg==
+        bh=XNZ/H729BLC/Vg4e1NTNI56tNXtO41Rq0IwnCM0Jqys=;
+        b=MWTnjU5dCu6TC4cfTd+TSp6AjyXCwp8wmQUcnncQrJxvnNShWHEznXckOEnvGosq7N
+         csk21kFXpDyD/u5o8ueLF2GD9iR+iy3Dtou3uif/qj1Y6mpZfyI4a6pz1AOxvGXq8o0m
+         nlWwHwrBhIKwdN456uwdr+nsz1qjK52fUpycQoOLdhl45Yj7sVu92rTcgQ0ijdHdHI8N
+         Yq3gcMcHJnKkT9iUa2TGuRaQC6zlnixsRXWSwWp+7/1+/wbrxlTwDCFtu8G5xORk6GD1
+         cQSPALYvUxl5Ur3Knahb7rLs4AXR+FJ9FT9ceavGRt5oIs4rr16scyZG1wJm3vFOMZRI
+         4bxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769503519; x=1770108319;
+        d=1e100.net; s=20230601; t=1769504482; x=1770109282;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j0lunYaDLihrnJO5eAtL6TCuk7qVk3WpMu49PZnkiLU=;
-        b=YsY0cAa6q6GGs5GfmN0kc4BEMoeYiq4MpriPVKh39XnHvDUQxvI0SDM6kMKzMpEHcE
-         pymYhTSFbB/0X/QE5Jz/soIsr7TfNVHxaU8xHjh4sBlX4t5dgraEtTrwc9cj+4zaufeR
-         PGrDBvET9iDX1ORewggIUgO/k81cw0op28p+XOXqXvK5QyvjQzdTisEgCTjsr7G1+GHJ
-         Q1yazJ6kK/nNLSLcsBWQCuADx3x1CfYNlqzscPrEOvpnneqy0oMybGVEseDnUl03P1e7
-         bKE0ytzioXJtF9kn+J2TMPhwrcg6fUeVz+meHGkVFDgA9rZLom3jFdU+rcq5zvJoijnu
-         rgJw==
-X-Forwarded-Encrypted: i=1; AJvYcCUd1i9/E+g69d7S+RZnUXbtjlsqdidViqSzeVy4gBoN8FazPNB0IjyLLkLE6azS43n+X/pxFm7pBgE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAS+lGu7MjaoIORQoZ09GZFl5JetQwb6xUe9gqY0BWyqo5Tci/
-	G7B5PAD2WVbtaOg61e6YaHiUHnwbHiuMf9m2AMJeua/GG+IkKf73iv8Y/xxySKbpig==
-X-Gm-Gg: AZuq6aK3KNpCRxHlMX35CGlus75WKNMvsxgrgFW8yTwIsmSIj+wIX5JyHJMYVjnKnHN
-	tC3+nM+sipu7r0l3NPhqb2mTP1cTObAVkqEq0AYtT6B7O1OJYF9LAU/uc37GFcp7/BX+Vtgcfj6
-	Ae0VoWfc1r2abO32ZD6etalaIoWN+DzXQWsN4sboJ3YaSiiNXukzemD1Dn01CNf0ykoFCl27Wmg
-	ZLerPJidF3ZJfdihvLiQq3XSBrwATcljOpmTT11J346tpmYY9GvRrGsOJWYTwVdh2/SVbCg/2Uj
-	grIHID/zQpcJy1u/JQcjI9PKcQN2HoTZa8PVNiHYHhlG0oBaiS5A+3+IbkF3HEwq0uAXQ5i6MZY
-	5ndQ7r6ikM2VcjcZ/F+dG0Z+MEoxyesOrjIXEiT2WCjM2+fMQPRH4TmJtzssqrp5MtQcUE0Fi71
-	01pa1ZbRMDS8PTC82nELly6mDY02zL2Nunw5YUOUGKzzBqzHZHd5j2A3XTdCXZu5Lspc3tS68W1
-	ms=
-X-Received: by 2002:a05:600c:1992:b0:471:14f5:126f with SMTP id 5b1f17b1804b1-48069c74078mr11165435e9.33.1769503519088;
-        Tue, 27 Jan 2026 00:45:19 -0800 (PST)
-Message-ID: <caf342ec-33bf-48ca-90f0-28129a10168a@suse.com>
-Date: Tue, 27 Jan 2026 09:45:17 +0100
+        bh=XNZ/H729BLC/Vg4e1NTNI56tNXtO41Rq0IwnCM0Jqys=;
+        b=IPdWCL6/y/DimHLuuG8KmSbznsZTfXwVvd+i4CIq6WAnmCRBIzDldcdmMyNidObgl3
+         K6JKY4FC+007EaBQveSh0KNYx2b4DvtIhxc9aucvJgQaSlwSZmRBoI4LIlzNq7zQL51f
+         ZIvwpqWR/DuSUk4ThIQRvy373DrYnJryHaYuBkSXcjuh5zmlHrV10uHGwE0fGQfOZ1hj
+         aCzbVzhywypRd78zMNQ5yey0AM8ZsovplQns+XC05zCKDQCwzyt1u5QASdU81+Sr8ShP
+         8xqvw4yzqalpppI9VFTdD2mv5g4A1OXaVwznyu7hjHes2Vtoqs6qS1QaxaPv8oXRSKFD
+         alcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV6Pxc5czrjukSuj+2K8pgv3wtK3p02TFkDx0ptUF+PQZ7QZqY8JplInEjrQ7+T8naNrSMx4rqkzr4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweOB/EGsIq7DCXoh7J3kqVoiKnUWbvJA9uansFt8Y+dgTxPBcJ
+	uGDTAV04tpX1H2w5THUP3OaBo5Xiu0YVpSgnZiRRUuO09OWXRmemvedhPXvdIL5t8g==
+X-Gm-Gg: AZuq6aIt1cjg+eVdgCAZHZPsLgXHHtpCQWWjNlGb/QwRYrDuyYBghLGPsIRJL7F7AI+
+	Zh9QuTMtFhrgKsRSfMFGPld6SeVdNDejDNhp3U18P6y4bgtsmCrucMzNr9tvsKGJZrWCC3zgfsW
+	oA90rA5ObRv5mIYmv7mZ1EcrRBUHgZ9yMd89GjuOMIaYcqeWw5BSztR8KYGobfmMsTBgk2rObma
+	vr5dy3id6Zpw6TCoTRpxvKMexEEmnIMl8agrgFKcHOQNwm/L+Kz8KR3t6nKvQJOs/le2AIpbl8i
+	6kAhDjGaxzH+88gmp9YTNVts0z2HOL6vJI1ixZZyU9dZHK6UBIQCoFGJ3WaFDJC0C61d/OupiP6
+	LVS26x2qTvV8U0p3ar11Yoh/Em1TZsTAxp8cZawHuYLbcX5jf9xgyYWlqpTiAackqQZ5HsXRZ+r
+	0gwpxG6ZWBJvv5a+1rgZl2oNHX47EBjV0/QdMBchhyPiWmOYEn94J3xjH4CDMWp/KgOUhOdCzrQ
+	xk=
+X-Received: by 2002:a05:6000:22c9:b0:431:8f8:7f24 with SMTP id ffacd0b85a97d-435dd0b8222mr1544977f8f.39.1769504482274;
+        Tue, 27 Jan 2026 01:01:22 -0800 (PST)
+Message-ID: <25b25628-3f99-46b8-94f5-b9c78601fbe0@suse.com>
+Date: Tue, 27 Jan 2026 10:01:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] cpufreq/hwp: move driver data into policy
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 2/4] PCI: determine whether a device has extended
+ config space
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ac56e199-7c03-4e97-8238-91d23b0391e2@suse.com>
- <8441ada5-e2ed-4d79-822c-ecf1ce3c9484@suse.com>
- <26ef0e68-efca-4b9a-a210-76b5426da130@amd.com>
- <8bad1a32-d59c-4dba-8c35-b28fcb16f39c@suse.com>
- <3b9a40d3-ecd8-44cf-a310-620ed55abc68@amd.com>
+References: <58091dc1-7bda-4536-8200-2d0a5679d4d1@suse.com>
+ <edb5eeb2-2cb2-4614-a042-7788fbb345c7@suse.com>
+ <fd509fbb-9dc4-4619-847f-6edd2a1bdb7f@amd.com>
+ <553d1a7a-e465-413f-a60f-32455bbce621@suse.com>
+ <b6a4e2cf-e95f-461d-9c6e-34a2f8815d8c@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,83 +132,154 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3b9a40d3-ecd8-44cf-a310-620ed55abc68@amd.com>
+In-Reply-To: <b6a4e2cf-e95f-461d-9c6e-34a2f8815d8c@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:stewart.hildebrand@amd.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid,amd.com:email];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 7E6DE913C8
+X-Rspamd-Queue-Id: 9F0FB91693
 X-Rspamd-Action: no action
 
-On 26.01.2026 21:17, Jason Andryuk wrote:
-> On 2026-01-26 04:08, Jan Beulich wrote:
->> On 23.01.2026 23:35, Jason Andryuk wrote:
->>> On 2026-01-22 04:42, Jan Beulich wrote:
->>>> --- a/xen/arch/x86/acpi/cpufreq/hwp.c
->>>> +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
+On 27.01.2026 05:13, Stewart Hildebrand wrote:
+> On 1/26/26 03:58, Jan Beulich wrote:
+>> On 23.01.2026 23:24, Stewart Hildebrand wrote:
+>>> On 1/19/26 09:46, Jan Beulich wrote:
+>>>> Legacy PCI devices don't have any extended config space. Reading any part
+>>>> thereof may return all ones or other arbitrary data, e.g. in some cases
+>>>> base config space contents repeatedly.
+>>>>
+>>>> Logic follows Linux 6.19-rc's pci_cfg_space_size(), albeit leveraging our
+>>>> determination of device type; in particular some comments are taken
+>>>> verbatim from there.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>>
->>>> -static DEFINE_PER_CPU_READ_MOSTLY(struct hwp_drv_data *, hwp_drv_data);
+>>> Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>
+>> Thanks, but see below (as that may change your take on it).
+>>
+>>>> ---
+>>>> Should we skip re-evaluation when pci_mmcfg_arch_enable() takes its early
+>>>> exit path?
 >>>
->>> ... here is tracked and filled per-CPU.
->>>
->>> Do we need cpufreq_add_cpu() to force hw_all = 1 for HWP (and maybe
->>> AMD-CPPC) to ensure that policy is allocated per-CPU?
+>>> I don't have a strong opinion here, though I'm leaning toward it's OK as is.
 >>
->> ... this being a correct thing to do, hence our code imo would better be
->> resilient to it being different somewhere.
+>> Maybe I need to add more context here. Not short-circuiting means that for
+>> a brief moment ->ext_cfg for a device can be wrong - between
+>> pci_check_extcfg() clearing it and then setting it again once all checks
+>> have passed. As long as only Dom0 is executing at that time, and assuming
+>> Dom0 actually issues the notification ahead of itself playing with
+>> individual devices covered by it, all is going to be fine. With
+>> hyperlaunch, however, DomU-s can't be told "not to fiddle" with devices
+>> they've been assigned.
 >>
->>> Are we implicitly relying on shared_type == CPUFREQ_SHARED_TYPE_HW to do
->>> that for us?
+>> With the yet-to-be-written vPCI counterpart changes the window is actually
+>> going to get bigger for DomU-s using vPCI.
 >>
->> Right now we do, I believe, without - as said above - this being actually
->> mandated by the spec.
+>> For hyperlaunch this is going to be interesting anyway, on systems like
+>> the one you mentioned. First, without Dom0 / hwdom, how would we even
+>> learn we can use MCFG? And even with hwdom, how would we keep DomU-s from
+>> accessing the devices they were passed until ->ext_cfg has obtained its
+>> final state for them (and vPCI reached proper state, too)?
+> Ah, I see. Thanks for the additional context.
 > 
-> HWP doesn't need ACPI data.  I wrote the driver according to the SDM, 
-> which is just MSRs.  It's Xen that needs ACPI data to initialize and use 
-> cpufreq.
+> First of all, to re-answer the original question, it still feels more of a
+> nice-to-have optimization than a necessity since we don't have hyperlaunch PCI
+> passthrough upstream yet.
 
-Maybe we should see about lifting that restriction then? Becoming
-independent of Dom0's xen-acpi-processor driver would be quite a
-meaningful gain, I suppose. See e.g. the thread rooted at
-https://lists.xen.org/archives/html/xen-devel/2025-12/msg01114.html.
+My fear here is that an aspect like this one may easily be forgotten when
+later doing the actual hyperlaunch work, or when finally making PCI properly
+supported on Arm64 (where then dom0less would be equally affected, unless
+Arm has found a way to avoid the dependency on Dom0's ACPI AML parsing).
 
-> Regardless of that, it looks like the checks for cpu_online() and 
-> performance_pminfo[] would constrain CPU accesses, so:
-> 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> Of course, skipping re-evaluating ext_cfg would be a
+> welcome change if you're up for it.
 
-Thanks.
+We can surely keep this as an incremental change to be made. I guess I want
+to give Roger a chance to comment before deciding whether to commit the
+patch here as-is.
+
+> An alternative approach might be to
+> implement pci_check_extcfg() such that it only modifies ->ext_cfg if it needs to
+> be changed, but again, I don't have an issue with it as is.
+
+That wouldn't help much imo, as there's then still a time window where what
+the field says is wrong relative to what we already have accounted for in
+our MCFG handling.
+
+> With that said, what do you think if we took the stance that ->ext_cfg shouldn't
+> be re-evaluated for a pdev while it's assigned to a domU with vPCI? I.e. we
+> would return an error from the pci_mmcfg_reserved hypercall in this case.
+
+I don't like this idea, as it's functionally limiting (if MCFG becomes
+available only later) or functionally wrong (if, for whatever reason, MCFG
+becomes unavailable later).
+
+In no event would I consider returning an error from that hypercall. If
+anything I'd see us ignore it.
+
+> If I understand things correctly, conceptually speaking, from a system
+> perspective, setting up mcfg is something that *should* be done at boot, not
+> ad-hoc during runtime.
+
+Yes, and that concept simply collides with hyperlaunch's plan to launch
+more than just Dom0 right at boot. Dom0 booting is part of the system
+booting, after all.
+
+> In the hyperlaunch model that I'm envisioning, there will
+> also be hardware/control domain separation, and we will want to limit the
+> hardware domain's ability to interfere with other domains. So I'd consider
+> disabling the mmcfg_reserved hypercall anyway in such a configuration. The
+> assumption with this model is that we would not need rely on dom0 to enable mcfg
+> the system/platform of choice.
+
+But you need to work with the hardware you've got. For customized systems
+it certainly is an option to arrange for firmware to suitably report what
+Xen needs to be independent of Dom0. But for general purpose systems this
+won't necessarily fly.
+
+> Longer term, if we really think we need to support hyperlaunch while relying on
+> a dom0 to initialize mcfg, we could potentially delay assigning pdevs to
+> hyperlaunch domUs until ->ext_cfg has been initialized and is not expected to
+> change. This would imply implementing hotplug for PVH domUs (also needed for
+> "xl pci-attach" with PVH domUs). I wrote some patches in an internal branch to
+> expose an emulated bridge with pcie hotplug capability, laying some of the
+> groundwork to support this, and I'll plan to eventually send this work upstream.
+
+Which isn't quite what I understand one of hyperlaunch's goals is (to have all
+domains be statically configured, and hence be in final, usable shape right
+when their booting completes).
 
 Jan
 
