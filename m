@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2PGrAoWgeGn4rQEAu9opvQ
+	id yL2oMAmjeGmGrgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 12:24:53 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 12:35:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD689390E
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 12:24:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1214274.1524644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 326FE93A96
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 12:35:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1214283.1524654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkhAm-0008NA-GM; Tue, 27 Jan 2026 11:23:52 +0000
+	id 1vkhLq-0001fL-E2; Tue, 27 Jan 2026 11:35:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1214274.1524644; Tue, 27 Jan 2026 11:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 1214283.1524654; Tue, 27 Jan 2026 11:35:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkhAm-0008Kp-DZ; Tue, 27 Jan 2026 11:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 1214274;
- Tue, 27 Jan 2026 11:23:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zJkd=AA=bounce.vates.tech=bounce-md_30504962.6978a043.v1-1500cc45b4a045e6b3cdf24bf6141ac0@srs-se1.protection.inumbo.net>)
- id 1vkhAl-0008Kj-9b
- for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 11:23:51 +0000
-Received: from mail137-14.atl71.mandrillapp.com
- (mail137-14.atl71.mandrillapp.com [198.2.137.14])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6613dc9-fb72-11f0-b15f-2bf370ae4941;
- Tue, 27 Jan 2026 12:23:49 +0100 (CET)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-14.atl71.mandrillapp.com (Mailchimp) with ESMTP id
- 4f0jhg4k57z705g77
- for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 11:23:47 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 1500cc45b4a045e6b3cdf24bf6141ac0; Tue, 27 Jan 2026 11:23:47 +0000
+	id 1vkhLq-0001dO-BE; Tue, 27 Jan 2026 11:35:18 +0000
+Received: by outflank-mailman (input) for mailman id 1214283;
+ Tue, 27 Jan 2026 11:35:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vkhLo-0001dI-Sl
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 11:35:16 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f18905d-fb74-11f0-9ccf-f158ae23cfc8;
+ Tue, 27 Jan 2026 12:35:14 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-42fb2314f52so3264054f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Jan 2026 03:35:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-435b1b6e2besm37486363f8f.0.2026.01.27.03.35.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jan 2026 03:35:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,433 +50,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6613dc9-fb72-11f0-b15f-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1769513027; x=1769783027;
-	bh=97vk7AvTfAXGbYHG1iUiB3T8K0vZMfEIat8TRC59kbE=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=PBb2ZjRryBnTtjti84AaTomCex+pDN14mAoeetTQgPAxb5HAs5QPcX30+6EIQFBES
-	 xd6IncQfo3VmIYHKiWzSY6PA+wuHMcGMWCN/2WhIpGdHYMnjg2E9ETQl9NsmWYf9d7
-	 G1hELwEvlg1dhnrp8KPuokdZn068Gm4+NfMq30zJjttSW0WT9DyEyR32Sj+qk0XXx5
-	 Vzu9fc4+OPY1CLwqjTbDx8i7/5VBkUkhj7b8hsA7UpASAc2Bu1A/R7+Og8V9+401bM
-	 ubkaPnd57u+3DwJ2g7bKI1iSVx8doNoZCbkE6+A4g8CWu+3oKDWQWMbyQaXPL7CA5n
-	 onmY3gPhKtQLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1769513027; x=1769773527; i=teddy.astie@vates.tech;
-	bh=97vk7AvTfAXGbYHG1iUiB3T8K0vZMfEIat8TRC59kbE=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=aP+QmXG33b2g1PhmGgl8r65/PZgbCHeRBVhlfMoLjo3sMYPoiPAn8kKe9USD8W31O
-	 pDUYvH//7k8A2/eGd/iZovDrnqL5MewDxPx8yw/JSyjGns4qUDGHeeZrjty+QOufo3
-	 zkcGRDgRmJZnu4+bmCqK9J69UN4uXDb/wYqNagEfro7m2EE89aRoqVQXRDt2WG89hC
-	 5o8uxTkv0c5oz+gHw6HY+DrlKYKN2BiuhjZVy0vGBrQJyVih4GxnR3PGvZBPkgtGAu
-	 I475gqKXe2BCJHftvpMoFtgiLGvOKOvO8sfRFNkeLPWPtxE4ytcsAIQjnfG7J1CWxC
-	 LHFWnLaNqW6VA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=2000/16]=20x86/cpu:=20Cleanup=20for=20NX=20adjustments?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1769513026490
-Message-Id: <92bff6a4-8fb0-4992-8305-8386f480de74@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <JBeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Julian Vetter" <julian.vetter@vates.tech>
-References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.1500cc45b4a045e6b3cdf24bf6141ac0?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260127:md
-Date: Tue, 27 Jan 2026 11:23:47 +0000
+X-Inumbo-ID: 3f18905d-fb74-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1769513714; x=1770118514; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pWigye4U0/0vGD3dyHfCQyYFhV542tvoBDe1W7IDg5o=;
+        b=VjQSq7dqvauchK4UWVq0yEwGR9aVNKLv1xilmq8gtNCHQZquKmVSpYkSwIxyv7E6IR
+         iookmgFwEwtWUwSHbDl5NtlbtX+n9QjGSFy3BeAxWZtEtW+ZnKv5FQEqhyesvw/UUJ0J
+         u1RhB9OiHHtCe/1ooh4nH9o1caYZNrfok0pb0aj/3vB5kJdado3N4cR6oez/Hnl7+JUt
+         fBlgonoFVgBGT/q+hEhoW0iJWHHCe/BM/v26GOwWv0UARAc6EDmu38V/A+ek/tgjWIZ2
+         Y57a/s797FcAyfM93tBTyH/iuoPi6au12zdPT8+lGVhrgJd5ypo707xekreffRbN+AYI
+         ALlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769513714; x=1770118514;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pWigye4U0/0vGD3dyHfCQyYFhV542tvoBDe1W7IDg5o=;
+        b=vKWUATWkzdVvUlF7z66eYCM2pzukDiLynOlbaFNN1/Eos+gjBrzssUO6oioSu13BdH
+         4c2hZwT3jeBMWr5rIobCnz4vqIEAZk9AbKoEVd4me3nTMr7ONyGvharts1y78l8F15G0
+         6AKJ/cyG58sUPfOG0pJdaAgqTKZ1mSQ6/qJjQA+7IgJWhx1v3HKb2TAlB+h/uqZmAlOM
+         L1e3LaDEThgTZGBxbJIbii9Q4Il0oBqgTAqMS5jIg+a87ZX+Vr81s9nyV6T/bPcriyLK
+         FwkD1b33VdNqyGjczmrKJrumTyMc5/Up/cIDkss9oCNiYlO3WV1BzRZM97BahWdf532l
+         PQyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXxBRAqSappVk/QN+18Ck8ETPzLX+YZgytD3YXt+aQEp8kgl4GaK7B/N6zwOnhGNKfIpNM1OZt5Dd0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz8+ZO1yKVgwNQpGVjuyGgHxlXIQxQhDHrPwTghQtsaZW7VvuOr
+	ieO3Wh0NPnHJr6vx13xUy9TOy4rSZvaeYF8FWk3mxnttkqSP+wE2St0golH42dc2ZA==
+X-Gm-Gg: AZuq6aIAC6/reh5jWxZ/4Z1BzbILB1YZpATxNsRkbCiZCixYSwbVAJc3yCb/RwMaSmq
+	H7CQxoOBkG5QuYcAaqV43vc4WeXch6eBe9x0b8AV9MIFf+MDLOVKqdAYhjAo2MGUDIpBnUGq34h
+	hC1+iFpjfhhWF6+3WJgBjm5Drg/3w+bWjbtCCiABL/M4VUWI6qC2BLa6TBDXuFHd/ZFz+bwJR0/
+	Go22Xs2aEmaKp7gsMUx5jskRv6vLoC3fZ88bvMn9JyRL/qALEkeNB94aOtDDhk7yX3jkAsegvUN
+	EsyJ8tcrQRKFEP2wsOQM2GR/3MorRtBUKSmLgH+lhZNxLGLS+YZn+swB5teunILwY7nz4YRPXju
+	9NKIFmIMqpTiQfBmurao4lAF6IJao51aWGyvcu0q9f5BPxUvtQ7ItYKe/eLdkGlz8+oZZMfVsq4
+	2bDBQrL+rOjUXb3aTBPBBuH8TEbSxppsisvNhOs32A7/D27+0/PVMdumvn+mmk8qGTgV0wfHkch
+	qY=
+X-Received: by 2002:a05:6000:61e:b0:435:9ee1:f90d with SMTP id ffacd0b85a97d-435dd02e229mr2168600f8f.10.1769513713674;
+        Tue, 27 Jan 2026 03:35:13 -0800 (PST)
+Message-ID: <52fe1a23-70bf-4282-a41a-7b153fd1f7c9@suse.com>
+Date: Tue, 27 Jan 2026 12:35:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/16] x86/cpu: Fix boot time cache flushing
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julian Vetter <julian.vetter@vates.tech>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
+ <20260126175345.2078371-2-andrew.cooper3@citrix.com>
+ <15978c88-5ea9-4159-951b-27c9fc004756@suse.com>
+ <3ded84f3-505e-40f1-b7d5-f136663af7cd@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3ded84f3-505e-40f1-b7d5-f136663af7cd@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_ALL(0.00)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,gitlab.com:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4CD689390E
+X-Rspamd-Queue-Id: 326FE93A96
 X-Rspamd-Action: no action
 
-Le 26/01/2026 =C3=A0 18:56, Andrew Cooper a =C3=A9crit=C2=A0:
-> I was hoping this to be a patch or two, but it got out of hand...
+On 27.01.2026 12:08, Andrew Cooper wrote:
+> On 27/01/2026 10:37 am, Jan Beulich wrote:
+>> On 26.01.2026 18:53, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/cpu/common.c
+>>> +++ b/xen/arch/x86/cpu/common.c
+>>> @@ -319,8 +319,6 @@ void __init early_cpu_init(bool verbose)
+>>>  	uint64_t val;
+>>>  	u32 eax, ebx, ecx, edx;
+>>>  
+>>> -	c->x86_cache_alignment = 32;
+>>> -
+>>>  	/* Get vendor name */
+>>>  	cpuid(0x00000000, &c->cpuid_level, &ebx, &ecx, &edx);
+>>>  	*(u32 *)&c->x86_vendor_id[0] = ebx;
+>>> @@ -352,6 +350,7 @@ void __init early_cpu_init(bool verbose)
+>>>  	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH)) {
+>>>  		unsigned int size = ((ebx >> 8) & 0xff) * 8;
+>>>  
+>>> +		c->x86_clflush_size = size;
+>>>  		c->x86_cache_alignment = size;
+>> With this change, can't the writing of the field in generic_identify()
+>> go away? CPU_DATA_INIT() in particular doesn't invalidate it.
 > 
-> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/228707889=
-1
-> https://gitlab.com/xen-project/hardware/xen-staging/-/commits/andrew/nx
+> No, it can't.  The value needs setting up on every AP, right now at least.
+
+Are you sure? APs inherit part of the BSP's data (initialize_cpu_data()),
+and reset_cpuinfo() doesn't clear ->x86_clflush_size afaics.
+
+>> Tangentially, "cpuid=no-clflush" didn't have any effect on any of this so
+>> far, and also isn't going to have with the changes you make.
 > 
-> The branch has one extra patch to fake up the firmware settings being set=
- to
-> Gitlab CI, not included in this series.
-> 
-> Julien: This ought to suitable to rebase your cleanup on to.  In the end,=
- I
-> did the AMD adjustment mostly because I needed it to test the correctness=
- of
-> the prior cleanup.
-> 
-> The final 4 patches are tangential cleanup which I've kept out of the pri=
-or
-> work in case we wish to backport it.  Everything prior is relevant to
-> untangling, and mostly for the benefit of the AMD side.
-> 
-> The early patches are hopefully non-controvertial.  Later patches are a l=
-ittle
-> more RFC, and in need of further testing.
-> 
-> Andrew Cooper (16):
->    x86/cpu: Fix boot time cache flushing
->    x86/cpu: Drop cpuid_level adjustment from generic_identify()
->    x86/intel: Drop the paddr_bits workaround for P4 Nocona/Prescott CPUs
->    x86/cpu: Fold generic_identify() into its single caller
->    x86/cpu: Move per-CPU actions out of the vendor early_init() hook
->    x86/cpu: Rework the vendor early_init() hooks to be __init
->    x86/cpu: Call the vendor early_init() hook in early_cpu_init()
->    xen/sysctl: Drop XEN_SYSCTL_get_cpu_levelling_caps
->    x86/intel: Always check MSR_MISC_ENABLE on all CPUs
->    x86/amd: Always probe and configure the masking MSRs
->    x86/amd: Fix re-activation of TopoExt on Fam15h CPUs
->    x86/amd: Probe for NX support and re-activate if possible
->    x86/cpu: Drop NOISY_CAPS
->    x86/cpu: Drop default_init() and default_cpu
->    x86/cpu: Clean up use of LCAP_* constants
->    x86/cpuid: Drop the include of public/sysctl.h
-> 
->   CHANGELOG.md                          |   2 +
->   tools/flask/policy/modules/dom0.te    |   1 -
->   tools/include/xenguest.h              |   1 -
->   tools/libs/guest/xg_cpuid_x86.c       |  14 ---
->   xen/arch/x86/boot/head.S              |   1 -
->   xen/arch/x86/boot/trampoline.S        |  29 +++---
->   xen/arch/x86/boot/wakeup.S            |  27 +++---
->   xen/arch/x86/cpu/amd.c                | 107 ++++++++++++++------
->   xen/arch/x86/cpu/common.c             | 135 +++++++++++++-------------
->   xen/arch/x86/cpu/cpu.h                |   7 +-
->   xen/arch/x86/cpu/hygon.c              |   2 +
->   xen/arch/x86/cpu/intel.c              |  74 ++++----------
->   xen/arch/x86/domain.c                 |  10 +-
->   xen/arch/x86/flushtlb.c               |  19 ++--
->   xen/arch/x86/include/asm/cpuid.h      |  17 ++--
->   xen/arch/x86/include/asm/hvm/hvm.h    |   2 +
->   xen/arch/x86/include/asm/hvm/vlapic.h |   2 +
->   xen/arch/x86/include/asm/hvm/vpt.h    |   2 +
->   xen/arch/x86/include/asm/trampoline.h |   7 +-
->   xen/arch/x86/sysctl.c                 |   6 --
->   xen/include/public/sysctl.h           |  22 +----
->   xen/xsm/flask/hooks.c                 |   4 -
->   xen/xsm/flask/policy/access_vectors   |   2 -
->   23 files changed, 238 insertions(+), 255 deletions(-)
-> 
+> The line immediately out of context above will applies the clear cap
+> mask, so will cause cpuid=no-clflush to take effect.
 
-Tested on a Intel machine with "DEP" disabled, and "Require NX support" 
-disabled, I get a pagefault in hpet code
+This concerns me. With your change, "cpuid=no-clflush" will lead to an
+unconditional panic() then. Whereas previously, with cleared_caps[] being
+applied by identify_cpu() only after generic_identify() has already
+evaluated the CLFLUSH bit, there was no effect at all.
 
-> (XEN) Xen version 4.22-unstable (tsnake41@(none)) (gcc (Alpine 15.2.0) 15=
-.2.0) debug=3Dy Tue Jan 27 12:06:46 CET 2026
-> (XEN) Latest ChangeSet: Mon Jan 26 17:53:45 2026 +0000 git:6491616ddd
-> (XEN) build-id: 035024497a4cadebf9e5a2ded61f63ac
-> (XEN) re-enabled NX (Execute Disable) protection
-> (XEN) CPU Vendor: Intel, Family 6 (0x6), Model 60 (0x3c), Stepping 3 (raw=
- 000306c3)
-> (XEN) BSP microcode revision: 0x0000001a
-> (XEN) microcode: Bad data in container
-> (XEN) Microcode: Parse error -22
-> (XEN) Bootloader: EFI
-> (XEN) Command line: dom0_mem=3D2G iommu=3Dverbose,debug console=3Dcom1 co=
-m1=3D115200,8n1 guest_loglvl=3Dall loglvl=3Dall
-> (XEN) Xen image load base address: 0xc3a00000
-> (XEN) Video information:
-> (XEN)  VGA is graphics mode 1920x1080, 32 bpp
-> (XEN)  VBE/DDC methods: none; EDID transfer time: 0 seconds
-> (XEN) Disc information:
-> (XEN)  Found 0 MBR signatures
-> (XEN)  Found 1 EDD information structures
-> (XEN) EFI RAM map:
-> (XEN)  [0000000000000000, 000000000004efff] (usable)
-> (XEN)  [000000000004f000, 000000000004ffff] (reserved)
-> (XEN)  [0000000000050000, 000000000009dfff] (usable)
-> (XEN)  [000000000009e000, 000000000009ffff] (reserved)
-> (XEN)  [0000000000100000, 00000000c60c3fff] (usable)
-> (XEN)  [00000000c60c4000, 00000000c60cafff] (ACPI NVS)
-> (XEN)  [00000000c60cb000, 00000000c650ffff] (usable)
-> (XEN)  [00000000c6510000, 00000000c68c6fff] (reserved)
-> (XEN)  [00000000c68c7000, 00000000d9867fff] (usable)
-> (XEN)  [00000000d9868000, 00000000d98f1fff] (reserved)
-> (XEN)  [00000000d98f2000, 00000000d991bfff] (ACPI data)
-> (XEN)  [00000000d991c000, 00000000d9a06fff] (ACPI NVS)
-> (XEN)  [00000000d9a07000, 00000000d9ffefff] (reserved)
-> (XEN)  [00000000d9fff000, 00000000d9ffffff] (usable)
-> (XEN)  [00000000dc000000, 00000000de1fffff] (reserved)
-> (XEN)  [00000000f8000000, 00000000fbffffff] (reserved)
-> (XEN)  [00000000fec00000, 00000000fec00fff] (reserved)
-> (XEN)  [00000000fed00000, 00000000fed03fff] (reserved)
-> (XEN)  [00000000fed1c000, 00000000fed1ffff] (reserved)
-> (XEN)  [00000000fee00000, 00000000fee00fff] (reserved)
-> (XEN)  [00000000ff000000, 00000000ffffffff] (reserved)
-> (XEN)  [0000000100000000, 000000041fdfffff] (usable)
-> (XEN) ACPI: RSDP D9901298, 0024 (r2 HPQOEM)
-> (XEN) ACPI: XSDT D99012BC, 00B4 (r1 HPQOEM SLIC-BPC 20170509 AMI     1001=
-3)
-> (XEN) ACPI: FACP D9910018, 010C (r5 HPQOEM SLIC-BPC 20170509 AMI     1001=
-3)
-> (XEN) ACPI: DSDT D99021D0, DE46 (r2 HPQOEM SLIC-BPC        1 INTL 2009111=
-2)
-> (XEN) ACPI: FACS D9A05080, 0040
-> (XEN) ACPI: APIC D9910128, 0072 (r3 HPQOEM SLIC-BPC 20170509 AMI     1001=
-3)
-> (XEN) ACPI: FPDT D99101A0, 0044 (r1 HPQOEM SLIC-BPC 20170509 AMI     1001=
-3)
-> (XEN) ACPI: SSDT D99101E8, 0539 (r1  PmRef  Cpu0Ist     3000 INTL 2012071=
-1)
-> (XEN) ACPI: SSDT D9910728, 0AD8 (r1  PmRef    CpuPm     3000 INTL 2012071=
-1)
-> (XEN) ACPI: SSDT D9911200, 01C7 (r1  PmRef LakeTiny     3000 INTL 2012071=
-1)
-> (XEN) ACPI: MCFG D99113C8, 003C (r1 HPQOEM SLIC-BPC 20170509 MSFT       9=
-7)
-> (XEN) ACPI: HPET D9911408, 0038 (r1 HPQOEM SLIC-BPC 20170509 AMI.        =
-5)
-> (XEN) ACPI: SSDT D9911440, 036D (r1 SataRe SataTabl     1000 INTL 2012071=
-1)
-> (XEN) ACPI: SSDT D99117B0, 348C (r1 SaSsdt  SaSsdt      3000 INTL 2009111=
-2)
-> (XEN) ACPI: SSDT D9914C40, 668F (r1 COMPAQ      WMI        1 MSFT  300000=
-1)
-> (XEN) ACPI: SLIC D991B2D0, 0176 (r1 HPQOEM SLIC-BPC        1             =
-0)
-> (XEN) ACPI: MSDM D991B448, 0055 (r3 HPQOEM SLIC-BPC 20170509 HPQ     1001=
-3)
-> (XEN) ACPI: ASF! D991B4A0, 00A5 (r32 INTEL       HCG        1 TFSM    F42=
-40)
-> (XEN) ACPI: TCPA D991B548, 0032 (r2 APTIO4  NAPAASF        1 MSFT  100001=
-3)
-> (XEN) ACPI: BGRT D991B580, 0038 (r0 HPQOEM SLIC-BPC 20170509 AMI     1001=
-3)
-> (XEN) ACPI: DMAR D991B5B8, 00B8 (r1 INTEL      HSW         1 INTL        =
-1)
-> (XEN) ACPI: WPBT D9901370, 0034 (r1 ABT-NT ABT-WPBT        1 ABTW 2012040=
-2)
-> (XEN) System RAM: 16274MB (16664864kB)
-> (XEN) No NUMA configuration found
-> (XEN) Faking a node at 0000000000000000-000000041fe00000
-> (XEN) Domain heap initialised
-> (XEN) SMBIOS 2.7 present.
-> (XEN) DMI 2.7 present.
-> (XEN) PCI: MCFG configuration 0: base f8000000 segment 0000 buses 00 - 3f
-> (XEN) PCI: MCFG area at f8000000 reserved in E820
-> (XEN) PCI: Using MCFG for segment 0000 bus 00-3f
-> (XEN) [VT-D]Host address width 39
-> (XEN) [VT-D]found ACPI_DMAR_DRHD:
-> (XEN) [VT-D]  dmaru->address =3D fed90000
-> (XEN) [VT-D]drhd->address =3D fed90000 iommu->reg =3D ffff82c000209000
-> (XEN) [VT-D]cap =3D c0000020660462 ecap =3D f0101a
-> (XEN) [VT-D] endpoint: 0000:00:02.0
-> (XEN) [VT-D]found ACPI_DMAR_DRHD:
-> (XEN) [VT-D]  dmaru->address =3D fed91000
-> (XEN) [VT-D]drhd->address =3D fed91000 iommu->reg =3D ffff82c00020b000
-> (XEN) [VT-D]cap =3D d2008020660462 ecap =3D f010da
-> (XEN) [VT-D] IOAPIC: 0000:f0:1f.0
-> (XEN) [VT-D] MSI HPET: 0000:f0:0f.0
-> (XEN) [VT-D]  flags: INCLUDE_ALL
-> (XEN) [VT-D]found ACPI_DMAR_RMRR:
-> (XEN) [VT-D] endpoint: 0000:00:1d.0
-> (XEN) [VT-D] endpoint: 0000:00:1a.0
-> (XEN) [VT-D] endpoint: 0000:00:14.0
-> (XEN) [VT-D]drivers/passthrough/vtd/dmar.c:610:  RMRR: [d9888000,d9894fff=
-]
-> (XEN) [VT-D]found ACPI_DMAR_RMRR:
-> (XEN) [VT-D] endpoint: 0000:00:02.0
-> (XEN) [VT-D]drivers/passthrough/vtd/dmar.c:610:  RMRR: [dc000000,de1fffff=
-]
-> (XEN) Using APIC driver default
-> (XEN) ACPI: PM-Timer IO Port: 0x408 (24 bits)
-> (XEN) ACPI: v5 SLEEP INFO: control[0:0], status[0:0]
-> (XEN) ACPI: SLEEP INFO: pm1x_cnt[1:404,1:0], pm1x_evt[1:400,1:0]
-> (XEN) ACPI: 32/64X FACS address mismatch in FADT - d9a05080/0000000000000=
-000, using 32
-> (XEN) ACPI:             wakeup_vec[d9a0508c], vec_size[20]
-> (XEN) ACPI: Local APIC address 0xfee00000
-> (XEN) ACPI: IOAPIC (id[0x08] address[0xfec00000] gsi_base[0])
-> (XEN) IOAPIC[0]: apic_id 8, version 32, address 0xfec00000, GSI 0-23
-> (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-> (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
-> (XEN) ACPI: IRQ0 used by override.
-> (XEN) ACPI: IRQ2 used by override.
-> (XEN) ACPI: IRQ9 used by override.
-> (XEN) ACPI: HPET id: 0x8086a701 base: 0xfed00000
-> (XEN) ACPI: BGRT: invalidating v1 image at 0xcbc74018
-> (XEN) Using ACPI (MADT) for SMP configuration information
-> (XEN) SMP: Allowing 4 CPUs (0 hotplug CPUs)
-> (XEN) IRQ limits: 24 GSI, 808 MSI/MSI-X
-> (XEN) [VT-D]drivers/passthrough/vtd/qinval.c:520: QI: using 256-entry rin=
-g(s)
-> (XEN) Switched to APIC driver x2apic_mixed
-> (XEN) arch/x86/i8259.c:384: PIC aliasing mask: 1c
-> (XEN) CPU0: 800 ... 3400 MHz
-> (XEN) xstate: size: 0x340 and states: 0x7
-> (XEN) arch/x86/cpu/mcheck/mce_intel.c:773: MCA Capability: firstbank 0, e=
-xtended MCE MSR 0, BCAST, CMCI
-> (XEN) CPU0: Intel machine check reporting enabled
-> (XEN) Speculative mitigation facilities:
-> (XEN)   Hardware hints:
-> (XEN)   Hardware features:
-> (XEN)   Compiled-in support: INDIRECT_THUNK RETURN_THUNK SHADOW_PAGING HA=
-RDEN_ARRAY HARDEN_BRANCH HARDEN_GUEST_ACCESS HARDEN_LOCK
-> (XEN)   Xen settings: BTI-Thunk: RETPOLINE, SPEC_CTRL: No, Other: BRANCH_=
-HARDEN
-> (XEN)   L1TF: believed vulnerable, maxphysaddr L1D 46, CPUID 39, Safe add=
-ress 8000000000
-> (XEN)   Support for HVM VMs: RSB EAGER_FPU
-> (XEN)   Support for PV VMs: EAGER_FPU
-> (XEN)   XPTI (64-bit PV only): Dom0 enabled, DomU enabled (with PCID)
-> (XEN)   PV L1TF shadowing: Dom0 disabled, DomU enabled
-> (XEN) Using scheduler: SMP Credit Scheduler rev2 (credit2)
-> (XEN) Initializing Credit2 scheduler
-> (XEN)  load_precision_shift: 18
-> (XEN)  load_window_shift: 30
-> (XEN)  underload_balance_tolerance: 0
-> (XEN)  overload_balance_tolerance: -3
-> (XEN)  runqueues arrangement: socket
-> (XEN)  cap enforcement granularity: 10ms
-> (XEN) load tracking window length 1073741824 ns
-> (XEN) Using IDT event delivery
-> (XEN) arch/x86/time.c:495: PIT aliasing mask: 10
-> (XEN) ----[ Xen-4.22-unstable  x86_64  debug=3Dy  Not tainted ]----
-> (XEN) CPU:    0
-> (XEN) RIP:    e008:[<ffff82d04064a6f8>] hpet_setup+0x6b/0x120
-> (XEN) RFLAGS: 0000000000010082   CONTEXT: hypervisor
-> (XEN) rax: ffff82cffff3a000   rbx: 0000000000000000   rcx: 00000000000000=
-0c
-> (XEN) rdx: ffff82fffffffffe   rsi: 8000000000000000   rdi: ffff8300c421ff=
-f8
-> (XEN) rbp: ffff82d04065fd28   rsp: ffff82d04065fd18   r8:  00000000000000=
-46
-> (XEN) r9:  ffff82d04092e180   r10: ffff82d04092e188   r11: 00000000000000=
-10
-> (XEN) r12: ffff82d04069c0c0   r13: ffff82d040666530   r14: ffff82d04092f0=
-a8
-> (XEN) r15: ffff82d04069c0d8   cr0: 000000008005003b   cr4: 00000000001506=
-e0
-> (XEN) cr3: 00000000c4222000   cr2: ffff82cffff3a000
-> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
-00
-> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-> (XEN) Xen code around <ffff82d04064a6f8> (hpet_setup+0x6b/0x120):
-> (XEN)  00 a0 f3 ff cf 82 ff ff <8b> 10 84 d2 0f 84 80 00 00 00 a1 04 a0 f=
-3 ff cf
-> (XEN) Xen stack trace from rsp=3Dffff82d04065fd18:
-> (XEN)    ffff82d040666530 ffff82d04092f0a8 ffff82d04065fd48 ffff82d040649=
-63a
-> (XEN)    ffff82d040666530 ffff82d04092f0a8 ffff82d04065fd78 ffff82d040649=
-7c9
-> (XEN)    0000000000000010 ffff82d04069c0c0 ffff82d040666530 ffff82d04092f=
-0a8
-> (XEN)    ffff82d04065fdb8 ffff82d040649fef 0000000000000000 ffff82d04092f=
-1a0
-> (XEN)    ffff82d04092f1a0 ffff82d040808208 0000000000000002 ffff83041a9b8=
-000
-> (XEN)    ffff82d04065ff00 ffff82d0406449d2 ffff82d04069b020 000000041a9c8=
-000
-> (XEN)    ffff82d04069b050 0000000100000000 ffff82d04093ff08 0000000001102=
-000
-> (XEN)    ffff82d040696014 ffff82d04069aff0 000000041dfe5400 0000000000100=
-000
-> (XEN)    0000000000000000 0000050000000000 ffffffff00000163 000000000041f=
-e00
-> (XEN)    0000000000000019 0000000601000000 00000001ffffffff ffff82d04065f=
-f08
-> (XEN)    ffff82d04069b020 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000800000000 0000000100000=
-06e
-> (XEN)    0000000000000003 00000000000002f8 ffff82d040927000 ffff82d040927=
-000
-> (XEN)    ffffffffffffffff 0000000000000000 00000000cbcffe58 0000000000000=
-000
-> (XEN)    00000000c4068acb 00000000c29e2620 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d04064a6f8>] R hpet_setup+0x6b/0x120
-> (XEN)    [<ffff82d04064963a>] F arch/x86/time.#init_hpet+0x30/0x119
-> (XEN)    [<ffff82d0406497c9>] F arch/x86/time.#try_platform_timer+0x17/0x=
-12b
-> (XEN)    [<ffff82d040649fef>] F early_time_init+0x1e7/0x2ec
-> (XEN)    [<ffff82d0406449d2>] F __start_xen+0x1f2e/0x25b1
-> (XEN) 
-> (XEN) Pagetable walk from ffff82cffff3a000:
-> (XEN)  L4[0x105] =3D 00000000c4221063 ffffffffffffffff
-> (XEN)  L3[0x13f] =3D 00000000c421f063 ffffffffffffffff
-> (XEN)  L2[0x1ff] =3D 00000000c432b063 ffffffffffffffff
-> (XEN)  L1[0x13a] =3D 80000000fed00173 ffffffffffffffff
-> (XEN) 
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) FATAL PAGE FAULT
-> (XEN) [error_code=3D0009]
-> (XEN) Faulting linear address: ffff82cffff3a000
-> (XEN) ****************************************
-> (XEN) 
-> (XEN) Reboot in five seconds...
-> (XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
+I don't think this panic()ing is desirable, but as an absolute minimum this
+(drastic) change in behavior would want calling out in the description.
 
-With "require NX", I don't get anything on the serial console, and VGA 
-gives a black screen after loading Xen. I'm not sure what's going on in 
-this case.
+Further, if the panic() was to stay, there's no point having cpu_has_clflush
+evaluate to anything other than constant true anymore.
 
-If "DEP" is enabled in firmware, there are no issues so far.
+Again tangentially (and partly the reason why I overlooked that aspect
+originally): While early_cpu_init() respects cleared_caps[] for leaf 1, it
+doesn't for any of leaf 7's subleaves, nor for ARCH_CAPS.
 
-Teddy
-
-
---
- | Vates
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
