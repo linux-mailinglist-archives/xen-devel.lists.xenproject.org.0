@@ -2,45 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MAScOcHxeGmGuAEAu9opvQ
+	id 4DoxNk37eGlfuQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 18:11:29 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 18:52:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1519843A
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 18:11:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215096.1525350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4FA98A8D
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Jan 2026 18:52:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215120.1525385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkmap-0001fv-FM; Tue, 27 Jan 2026 17:11:07 +0000
+	id 1vknDn-0007kg-Ld; Tue, 27 Jan 2026 17:51:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215096.1525350; Tue, 27 Jan 2026 17:11:07 +0000
+Received: by outflank-mailman (output) from mailman id 1215120.1525385; Tue, 27 Jan 2026 17:51:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vkmap-0001dN-Bf; Tue, 27 Jan 2026 17:11:07 +0000
-Received: by outflank-mailman (input) for mailman id 1215096;
- Tue, 27 Jan 2026 17:11:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vknDn-0007hb-I3; Tue, 27 Jan 2026 17:51:23 +0000
+Received: by outflank-mailman (input) for mailman id 1215120;
+ Tue, 27 Jan 2026 17:51:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nvRA=AA=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vkman-0001dF-Nw
- for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 17:11:05 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 292be341-fba3-11f0-b15f-2bf370ae4941;
- Tue, 27 Jan 2026 18:11:04 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DS0PR03MB7776.namprd03.prod.outlook.com (2603:10b6:8:1f8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Tue, 27 Jan
- 2026 17:11:01 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%4]) with mapi id 15.20.9542.015; Tue, 27 Jan 2026
- 17:11:01 +0000
+ <SRS0=S4F2=AA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1vknDm-0007hU-Bw
+ for xen-devel@lists.xenproject.org; Tue, 27 Jan 2026 17:51:22 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8322f4c-fba8-11f0-9ccf-f158ae23cfc8;
+ Tue, 27 Jan 2026 18:51:19 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1769536265579732.5117684063396;
+ Tue, 27 Jan 2026 09:51:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,208 +43,291 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 292be341-fba3-11f0-b15f-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bF23f3ML7UJ1O0ljyYF5rJV5MAKxs15rPaytagg3X9c1EjYPPYK/9UkYitvB9XZg+IGPX5SsYzwLgVRcbQliYItYJEEpHr6ph4g4yaoF265y+YB/oNOYAvs9ero/esdna9hs5+pY2CuZBvLrvu64o729SlFdmSKRhWjj36T3pIKCQvz1NZuvimch+bi2TRnOe2Jeead+E45UIlHxRz+dM6dA9HJgdUAk/2csDIqa9TQsxSdjTwzU5uqHDaTGpabs/UN/fDKjgWLG8RA9x6mvADp72y4n8xxVZuvhKNEJids5iIHb6zzJ/ikyz15IH7gAa/y/CHddn9oT5T0yC/y9Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=29EKGrTpStd6wnpmTvhslbg04JoVHcF9rqVLaHKnQ6g=;
- b=mDWjGdFCXN2yHP2VA+7xg7JuJf/cy9mjNow77j5zPj0ltRRhDU+8mqIl80OVIRYjHbfYNDJa4dfpWtKRK/0Ww+ss2E/i4rWXdyzl6bYH4ocSdXKIbe7+tnDJ/ZfeHPTeGE0dq3NfXJJXOBWllelXnIbF/rLgF9yJYe5HaWbSNUS+ZTLcpYjYEDCiyV/cEj0/L8TJuaLX9eeNRqw/E5d23xytgxK34cSeqHo0HoGKSQ6mSaQWaC91w7B466ObXJfu/pjV9PyCOwZN8wmrXfdFIXqI7Fm1lIA0/rozt2QvggyBvypXGPT5A5iqw5fyBy2b4ovYUlW5qd0p4QyeYPO5Mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=29EKGrTpStd6wnpmTvhslbg04JoVHcF9rqVLaHKnQ6g=;
- b=oAsqAMJ96NZPfl691inRKsUAEIiv2azzk00kxnA5sCQmpV+NlW36QP3QXITPpGWZpNMmP6EBptrO6vj1aIySsSGXR9IF3Ume7h0HMu+3bGsB5rHokIcQ7oOYHeFYqx7Fx9BH1WcrZG73jbnzFoUY0WTgD24zP5xfcbgOjQYTLP0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <b9202688-5bff-44b3-bb10-24d05520377a@citrix.com>
-Date: Tue, 27 Jan 2026 17:10:57 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen/treewide: More typeof() -> auto conversions
-To: Jan Beulich <jbeulich@suse.com>
-References: <20260127101841.2213758-1-andrew.cooper3@citrix.com>
- <18aee854-2e08-4a45-9df7-1c622136afde@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <18aee854-2e08-4a45-9df7-1c622136afde@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0035.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::22) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: c8322f4c-fba8-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1769536269; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jUfwhqCOEGD87uKQvKdjlo6ohYo1+E2Ohh1nh7InUi7Q092banYqJNfrRAlCvZLLqP1lGNnT4AV0DYk/PoS96R499bGXXvtRFQCi1jyT4JKOBfzkN4vkRMH3FUxbOSbq9adBuiUjh9MmjpM+e+yA79LUrnQJiA6h/+l5i5cfqZ0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1769536269; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OrN+s/CeBkvY6OLF544byRKGHNDaX7CsVaNVPwnDGfc=; 
+	b=OJYlu4dNi/Ul8OKgjDVr0qAZ8Jjt3j6dcLR2C0h+VrNK0/4OB8t6qXo2nhx1wjku2T8axzavKMO0r2oKy3RUiMp1bPcT9TldAJAYsJQE2U7LkYoPgQvw1gJumAwKudonDe/q2/cyvrSp2jdktAp3CgoYPY7qs7qj8OS6iSxWt1I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769536269;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=OrN+s/CeBkvY6OLF544byRKGHNDaX7CsVaNVPwnDGfc=;
+	b=cF5/R/ccxnaHT1T+coJsTSP1WS8dTcoGsy7e1p9ZLCCL9JbHa0WFV/3baNqerSed
+	DgSyO2pf3pRxligYTpq4EFTA9acvcDz2eApkQKfQnyCljcFpIU+8mdoQLnOPE3zY1c1
+	iNbs5UGO9NMNZSEvj32/57DRR0NQexFBNHKq9rgU=
+Message-ID: <41b1096f-e9f9-4e7f-a718-4cc9bce9b0a1@apertussolutions.com>
+Date: Tue, 27 Jan 2026 12:51:05 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS0PR03MB7776:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc942b22-9e86-4f94-2967-08de5dc70bce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TjJWUVByZ2huN2NPZ3MvRmJkQ1c3YWhnb0RtU3RUbitnS1VOTWh3T3NMQnB1?=
- =?utf-8?B?K0U1YkRJK21Dc0ZzV1Rja0NUVDEreU94VytLVUpGYlJtUVZtMW11aWJiM0Mw?=
- =?utf-8?B?RDJvVzdMWkx4UUEvZnpQQVkrZm1wcGw2M2JTb21PNEE3dkpTVDQ5VkNBa1BE?=
- =?utf-8?B?MDhiVWFZQkpzVmJEUTJ5ZUJsWTFlUEFnVG5CN0xEYnJja2FieXk4TE9jWU5T?=
- =?utf-8?B?RmJ0OFp0K055K0gvVHlYYVE2WWZNYnZINHVrMmhNdEpEV2ZBc1paeFNjTXpx?=
- =?utf-8?B?V05xbG1vQlgzT2ZQS0NaSWtLeWplbEN3V2w4R0hHMnEwTTZkNUxvZktidEVS?=
- =?utf-8?B?dUxxSWpSejZTeEZwZU1nMUFGWms5cE8zTkJsZ2FkcEs5cTdibXRPaGlCK2VH?=
- =?utf-8?B?SE55UWFFMzFBY2VOYmJJdzRxZVZUTFhyV3I4TEh2aTlVRHhRUW1GbUN4bHlE?=
- =?utf-8?B?QTJ6TExCWExTOS9rVEFKRHV6M0IvK3UrMExwRTZzMDIydnZUR2xScFZqMncr?=
- =?utf-8?B?d1dsSmF3KzJxbW55N3BzZXV6c0ZGcW9HRlJETk9yb2RuRWFPNis3YVRPYzRh?=
- =?utf-8?B?U01kY1VZcGZXanM2aS9DL0lDWGtyT1VhQWtIYW9BWmU1VnB3UUw2MVE1NEFw?=
- =?utf-8?B?bzQzSjdxQWN4VjZXRFVxWm1DMWRwakRGcC9tcTdBZFU5bUZqb21Wd1JjcjBx?=
- =?utf-8?B?TUJsQWZNZkV4MlZLWExUc1R0SWFtVWhyeFNQclo5bE5OZVRVZ2ZJRDh6MXVn?=
- =?utf-8?B?Vk5PSklZRDNDNjc5R2lxS2hsY2w3R0hMTE9kQmZVZlMxK2NPVGJoanQzQzNF?=
- =?utf-8?B?M2ZKTE1BZ0d3eVNUazZZQTMzV25nQ2R1LzlocUhkeGtMY2JpQU4xZ0JFMzRD?=
- =?utf-8?B?SzBxVkxHYUtvQ1ltQzc0VFJ2aEttdDlmekxWWVR1TWd0M2dsY1Y3K1BKNmtY?=
- =?utf-8?B?S3R0eGphdFBPM1NmbGtmOVZtdi9hSVh6bHF4dmN4cEcyc28wT0NueHV6ckc4?=
- =?utf-8?B?UmhlREZIWHZ5RExmOUVJa0d6aFIxTHZSWEVuZThnVDl4ZWlqeFpGUHQ5V3lw?=
- =?utf-8?B?dENuek5aZWV4SW1HQmdtY2gvd2V3M2pCS0I2U1lGenJlVllHT1UxWTNkVkdh?=
- =?utf-8?B?Q1htcy9za2kxbEkvZTE4dzBPbUdDdzl3LzZ0Umd5YVdlOUovbTZWTmxISTdu?=
- =?utf-8?B?MUpxeSswRHhnSzFWSGYrZ3B4V0lLK1RBR0czYU1aTkQ5RkxLeDdTVDNFWWFH?=
- =?utf-8?B?a0t5eG1weDdFQUpxMCtPSFZXYkQzeHhrWTc0NU40ZStpRERsZjRnTFp2bHUr?=
- =?utf-8?B?VGN0OGszcXlYdS80V0RQWkY4YTcwSkJ2eEc1VzFuUkdDejNHRWx5bFgzWmh3?=
- =?utf-8?B?eUV2WWExenpvU2ZZczNrTDBZTml2U0xaemJCUmVHYjFvVjYvMDYwRWdLeE0v?=
- =?utf-8?B?QVV3QXVjZEYzVjRoLzBaY3d5bThIbU1vcC9qYmgrSjhFN1o2SXNXMVNqc3Ev?=
- =?utf-8?B?WGtFR1NubUhxTGpmTXRKZGExNlpPRUozREpmd3FHbXA5M0lvdzNXenAxdFR6?=
- =?utf-8?B?KzJWMGQxbHJGK1ZwWWg1RVJTTUdEaWVYNGZ1U3JQYWVyVDVvMnRneGVuNUlw?=
- =?utf-8?B?WkZvUHY5VUlMOEM5WDRsekRvM2NwdkRsd1JrbGxhK2VRRHdFZWdSQlBCMjh3?=
- =?utf-8?B?eWt2WFlIOEJVOEl4aG9USkhieWNEZzVXMms3Qnk1bklQeUZtUTVsQ01ocndy?=
- =?utf-8?B?UGRsM014Zk1xZnV4SmVlbHBIN25wWHRSVjJ6OGVERWpFTVk4ODZMYzBLY3ky?=
- =?utf-8?B?aFJyaVZFNVFycTh4WXJ0Z3BEU3VvRGxxYnVlQ0hxOVdEd0tVS3pFcVlOa0Jp?=
- =?utf-8?B?QlpxL1U3ellBSDdnUTlSeTNEUjZsekpNSGk1RUw2Zi9leDZxV1RRTHlOOW96?=
- =?utf-8?B?eExPcm9aVVhCNmxNaGp2VXFndS9aeEp5Y1RkK2hiMGdZd0Z2SXFKa3RyWm5J?=
- =?utf-8?B?WlFDdlhjcW40V1ZBdU5TUkd6elh0ZmZhUGV4SC9kMmxISWV2WlFpL21nVU5v?=
- =?utf-8?B?WHE4cGVrZHVkVUpTbHV1cGFtVmQzTmF3UUpmVnJPS0I4ME04OUtNU0l1Qm1h?=
- =?utf-8?Q?ivx0=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YUVQVkNiMnJhdTlWQWlBZTloQlZROUNuQWlHNnJIanFFb1dUcyt1S2NxNTkw?=
- =?utf-8?B?dFA5dEh5MW1MVmk1bFUzREx2TEREb2piNUFCaEpxeXlJa3UxeGhKQmN2ek1u?=
- =?utf-8?B?ay9xU1laMzZsYkpqWlJWWm55RklGdHRpb0xMZjBCMUVlRUhOakwvSURxNVFJ?=
- =?utf-8?B?VHFlTWtWRDNDNEhxQlF1Wll5TnJ1SmVWUEpiNWM4b0d4dnNZSzhCVHF5S1Jo?=
- =?utf-8?B?Q0ZqRG1zdERicjJ6K3JYaFViZ2YzdHlWNFEzWDFJTllCbWQ2K2FUYW1vVzJT?=
- =?utf-8?B?NndHUGkzVnhOVDlYYnBwSEtjcTN5OW55bkY1MnFEc1NUNXJJRlNzSEh6R0N2?=
- =?utf-8?B?NWlBQmY1WDVwT2xXcFRxWDluVzlPMGkzYTk2QkVnb0s2NVBQRFlLa1orbHEy?=
- =?utf-8?B?d3QvTGNDN0ZqOFYvWDRkK0haZWJ1N3NoaTIxZFIwTUxyWmlDbWtIQzBCL3pi?=
- =?utf-8?B?b1lNNHZIelo2SHNMQTQzWnFZNTJZRmJ6akU4c1lWYkw0bzE3UTFnZGVBdHg5?=
- =?utf-8?B?bWhoanZ3bWNZVUNUa0tYNWoxV1FIK2wrS1hRamI0Uis5OFg4OGYySkpWRzhE?=
- =?utf-8?B?SmtYU1RMTEFJbVhzYWlKYkdQbDJCQnpBOENuVmRxVW43YU1OQzJqWkM5RGdN?=
- =?utf-8?B?VURMWTdiaHNWSTNjOElMNktqWFU5RytpZmVMckxvMWNXT0tnMVFTaGNoL01P?=
- =?utf-8?B?ekN6R0FxL0FtZERHSW9rbERuaWRPSHh4WFExT0tNd3RyNTFNbDR4K2ptaTYr?=
- =?utf-8?B?RG1mVlRuRU9RUEpJQ0t4NG9NRUZNTzNGZjd5WEVSQUtaY1RtM1dkNElDS2RM?=
- =?utf-8?B?MHFCdGFzb3AvclFMcFRycmsrU1d3TGJoMzQ3QTFQS2JmQjRvS3hJbW16VHVx?=
- =?utf-8?B?QTBMdlRTVHdXejdoZ1RuNng5NFNFVVk1L2poZGdhbU5lNU1jc2VVZGZhK2xE?=
- =?utf-8?B?aGZUSmFackZBeVNWNHpRd0xzOHhRRStVZVE0VERaenM0N2FqeGJhYTgvR0lZ?=
- =?utf-8?B?aDRjOFhCbXJIVjdyaXdTdWxDV0JZd1VxNTIyZGg5UmI3dTJaTEY0ZEpUS1Ev?=
- =?utf-8?B?ekdEOEJPS1Z1N1E2MFVVNkVVM0hnbkR0MnVNV3BVU0VkdXZzWlhjdk5HMDhG?=
- =?utf-8?B?bVdOd05FK2ZRUEtleWVOQXBDdWd3ZXpneFdwc2RUU01Kc3c4cktCejZPbFpn?=
- =?utf-8?B?eTZmMUpmWEFlelhyT05VSU1za0dRMGNxbmovMjllUWJxQmZNRzYrdTZVaE5x?=
- =?utf-8?B?ZFVScFZ0Umt6V295a0lwVHk4ZjdDSVFYR2VlRnZMbElXQnY5WEhDT0Zndk13?=
- =?utf-8?B?djR0N1g3a1Y5cGpHOUl4TGhNM2N1L0FSRUZEM3BYb28rMEhGdXQ4dkFTVkdH?=
- =?utf-8?B?TTJHL0J4eVlVZDM4b29KY01zRkZ2QjdsQ3NOdkh4MmRMR21IYTQ1N3Fna3ZN?=
- =?utf-8?B?b1hHN0Jvdmc4RE1Nc25qQVRZMGNCMjVQV2lZcDNrZlBKU3RVWmRKc05SK2dX?=
- =?utf-8?B?dEk0ejhGaUpaNmdmRGc3ME5HVkhTZWRaWTUyREJyVFY0NUpROGtLbFZOUklC?=
- =?utf-8?B?NHQvNE8wSEdjeUtKZDZlRkJYc3FjZTVpd2pCY2Fsb3U4dm9OSDhzdHRoRWZI?=
- =?utf-8?B?bHhXRDBqWXEzTERXM0Uxb050TldkR2daTVVNTENyT2F3czNwYitoNW9JVFpR?=
- =?utf-8?B?Sm5CaFFTaVNTaUE1am9EU0cyM1ZyWlBDb3ppVGdJeTM2TkZRRkthSnk0VXgw?=
- =?utf-8?B?dEIwVjR3UmlDVExOeWVFUVplQ3dLVGMwZ2VYRjFCNEk2aEFIRzJBZWVjNnE3?=
- =?utf-8?B?MmlwdFprSXBNS0FZekFrUGNxb2ZRRG9vcTBSL2xPSEsydlRFVFFpYmFJRTky?=
- =?utf-8?B?bVZqeHNSVnFjMzkwdVFEMzJBWW4xdlY1Y1JTeldtZ2dBQ0lNYkJobTZyVEpU?=
- =?utf-8?B?SnorOEFnNXM3dlRKL2UyNElManFvRkJQVTh1eEZMdXVrc0xJY1pMNVNQVW0x?=
- =?utf-8?B?T25ZYnFxZmU2SU1Ib05yS1ZxSm5nbEZYQVNsSFN0VU8xL1RlTnR0N0R5ejFC?=
- =?utf-8?B?bkticnJPWHNYazBOaEVXSXdlOTdzc1JzSnkzdGVzOERwWEdXak45TWhLS0d4?=
- =?utf-8?B?MFZ3NjdDYWhTbUJUVkNLaW84MEVDUnZ1ZjhZcDNrVjB0ZUxRNStTblNnRnBq?=
- =?utf-8?B?alBXbHhKOW00YkgzVlo4V2FMbTFNanJjSjJkUGc2dVYwL1JMWG52QytmOFlD?=
- =?utf-8?B?ckpPdnhCUitqd1hLckxiaFh2anJOTmlEMVpiL3I0UHZtOXUxbExXUnBacVQ1?=
- =?utf-8?B?Z0pJcXhhM2RXR3RtNnpMZTJvVi8wblJ3aEJtVmpKdjhITWJmcnp5dz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc942b22-9e86-4f94-2967-08de5dc70bce
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2026 17:11:01.2898
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yteQ4dKiKbK4Vcd0ur81h1YQMCVpmiEDvWc4TBGJKAoyShJYgDXp99jGyWIQcZir0WruTKj2vePnV1RO2wGR6EFcoPF7lNANCAbcumA9NiU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB7776
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/16] xen/sysctl: Drop XEN_SYSCTL_get_cpu_levelling_caps
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julian Vetter <julian.vetter@vates.tech>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20260126175345.2078371-1-andrew.cooper3@citrix.com>
+ <20260126175345.2078371-9-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20260126175345.2078371-9-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[changelog.md:url,suse.com:email,apertussolutions.com:email,apertussolutions.com:dkim,apertussolutions.com:mid,keepachangelog.com:url];
 	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	DMARC_NA(0.00)[apertussolutions.com];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:email,citrix.com:dkim,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,citrix.com,vates.tech,gmail.com];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
+	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[apertussolutions.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5A1519843A
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: CA4FA98A8D
 X-Rspamd-Action: no action
 
-On 27/01/2026 5:01 pm, Jan Beulich wrote:
-> On 27.01.2026 11:18, Andrew Cooper wrote:
->> All of these are simple cases of using typeof() to avoid multiple parameter
->> evaluation.  Using auto avoids multiple textural expansion also.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 1/26/26 12:53 PM, Andrew Cooper wrote:
+> This hypercall is an addition of mine from commit 67528a3f0649 ("x86/cpu:
+> Sysctl and common infrastructure for levelling context switching", 2016), but
+> it never got wired into any toolstacks.  In the meantime, how we handle CPUID
+> for guests has evolved substantially.
+> 
+> In order to reuse the AMD levelling infrasturcture for boot time quirks,
+> levelling_caps is going to have to change.  While it's probably safe to expose
+> this difference, it's safer still to make it an internal detail.
+> 
+> When re-plummbing the LCAP_* constants, turn them all into single bits.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Julian Vetter <julian.vetter@vates.tech>
+> CC: Teddy Astie <teddy.astie@vates.tech>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> ---
+>   CHANGELOG.md                        |  2 ++
+>   tools/flask/policy/modules/dom0.te  |  1 -
+>   tools/include/xenguest.h            |  1 -
+>   tools/libs/guest/xg_cpuid_x86.c     | 14 --------------
+>   xen/arch/x86/include/asm/cpuid.h    | 15 ++++++---------
+>   xen/arch/x86/sysctl.c               |  6 ------
+>   xen/include/public/sysctl.h         | 22 +---------------------
+>   xen/xsm/flask/hooks.c               |  4 ----
+>   xen/xsm/flask/policy/access_vectors |  2 --
+>   9 files changed, 9 insertions(+), 58 deletions(-)
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 18f3d10f20d2..425118bc9ae9 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>      - The cpuid_mask_* command line options for legacy CPUs.  These were
+>        deprecated in Xen 4.7 and noted not to work correctly with AMD CPUs from
+>        2011 onwards, nor work at all with Intel CPUs from 2012.
+> +   - The SYSCTL_get_cpu_levelling_caps sysctl.  This is not known to have been
+> +     used by any toolstack.
+>      - Xenoprofile support.  Oprofile themselves removed support for Xen in 2014
+>        prior to the version 1.0 release, and there has been no development since
+>        before then in Xen.
+> diff --git a/tools/flask/policy/modules/dom0.te b/tools/flask/policy/modules/dom0.te
+> index d30edf8be1fb..aae69041a966 100644
+> --- a/tools/flask/policy/modules/dom0.te
+> +++ b/tools/flask/policy/modules/dom0.te
+> @@ -43,7 +43,6 @@ allow dom0_t xen_t:xen2 {
+>   	psr_alloc
+>   	pmu_ctrl
+>   	get_symbol
+> -	get_cpu_levelling_caps
+>   	get_cpu_featureset
+>   	livepatch_op
+>   	coverage_op
+> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+> index 7c3b8b098352..2a277cb7cd61 100644
+> --- a/tools/include/xenguest.h
+> +++ b/tools/include/xenguest.h
+> @@ -822,7 +822,6 @@ int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
+>   bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
+>                                    xc_cpu_policy_t *guest);
+>   
+> -int xc_get_cpu_levelling_caps(xc_interface *xch, uint32_t *caps);
+>   int xc_get_cpu_featureset(xc_interface *xch, uint32_t index,
+>                             uint32_t *nr_features, uint32_t *featureset);
+>   
+> diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
+> index 263a9d4787b6..0db6d77cd801 100644
+> --- a/tools/libs/guest/xg_cpuid_x86.c
+> +++ b/tools/libs/guest/xg_cpuid_x86.c
+> @@ -36,20 +36,6 @@ enum {
+>   #define bitmaskof(idx)      (1u << ((idx) & 31))
+>   #define featureword_of(idx) ((idx) >> 5)
+>   
+> -int xc_get_cpu_levelling_caps(xc_interface *xch, uint32_t *caps)
+> -{
+> -    struct xen_sysctl sysctl = {};
+> -    int ret;
+> -
+> -    sysctl.cmd = XEN_SYSCTL_get_cpu_levelling_caps;
+> -    ret = do_sysctl(xch, &sysctl);
+> -
+> -    if ( !ret )
+> -        *caps = sysctl.u.cpu_levelling_caps.caps;
+> -
+> -    return ret;
+> -}
+> -
+>   int xc_get_cpu_featureset(xc_interface *xch, uint32_t index,
+>                             uint32_t *nr_features, uint32_t *featureset)
+>   {
+> diff --git a/xen/arch/x86/include/asm/cpuid.h b/xen/arch/x86/include/asm/cpuid.h
+> index f1b9e37a42ca..c7ee1d54bc7e 100644
+> --- a/xen/arch/x86/include/asm/cpuid.h
+> +++ b/xen/arch/x86/include/asm/cpuid.h
+> @@ -15,15 +15,12 @@ extern const uint32_t known_features[FSCAPINTS];
+>    * Expected levelling capabilities (given cpuid vendor/family information),
+>    * and levelling capabilities actually available (given MSR probing).
+>    */
+> -#define LCAP_faulting XEN_SYSCTL_CPU_LEVELCAP_faulting
+> -#define LCAP_1cd      (XEN_SYSCTL_CPU_LEVELCAP_ecx |        \
+> -                       XEN_SYSCTL_CPU_LEVELCAP_edx)
+> -#define LCAP_e1cd     (XEN_SYSCTL_CPU_LEVELCAP_extd_ecx |   \
+> -                       XEN_SYSCTL_CPU_LEVELCAP_extd_edx)
+> -#define LCAP_Da1      XEN_SYSCTL_CPU_LEVELCAP_xsave_eax
+> -#define LCAP_6c       XEN_SYSCTL_CPU_LEVELCAP_thermal_ecx
+> -#define LCAP_7ab0     (XEN_SYSCTL_CPU_LEVELCAP_l7s0_eax |   \
+> -                       XEN_SYSCTL_CPU_LEVELCAP_l7s0_ebx)
+> +#define LCAP_faulting (1U <<  0) /* CPUID Faulting       */
+> +#define LCAP_1cd      (1U <<  1) /* 0x00000001.ecx/edx   */
+> +#define LCAP_e1cd     (1U <<  2) /* 0x80000001.ecx/edx   */
+> +#define LCAP_Da1      (1U <<  3) /* 0x0000000D:1.eax     */
+> +#define LCAP_6c       (1U <<  4) /* 0x00000006.ecx       */
+> +#define LCAP_7ab0     (1U <<  5) /* 0x00000007:0.eax/ebx */
+>   extern unsigned int expected_levelling_cap, levelling_caps;
+>   
+>   struct cpuidmasks
+> diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+> index 1b04947516bb..0fbbdd8b280d 100644
+> --- a/xen/arch/x86/sysctl.c
+> +++ b/xen/arch/x86/sysctl.c
+> @@ -289,12 +289,6 @@ long arch_do_sysctl(
+>           break;
+>       }
+>   
+> -    case XEN_SYSCTL_get_cpu_levelling_caps:
+> -        sysctl->u.cpu_levelling_caps.caps = levelling_caps;
+> -        if ( __copy_field_to_guest(u_sysctl, sysctl, u.cpu_levelling_caps.caps) )
+> -            ret = -EFAULT;
+> -        break;
+> -
+>       case XEN_SYSCTL_get_cpu_featureset:
+>       {
+>           static const struct cpu_policy *const policy_table[6] = {
+> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+> index 66c9b65465cc..6b4ec5f7f765 100644
+> --- a/xen/include/public/sysctl.h
+> +++ b/xen/include/public/sysctl.h
+> @@ -932,25 +932,6 @@ struct xen_sysctl_psr_alloc {
+>       } u;
+>   };
+>   
+> -/*
+> - * XEN_SYSCTL_get_cpu_levelling_caps (x86 specific)
+> - *
+> - * Return hardware capabilities concerning masking or faulting of the cpuid
+> - * instruction for PV guests.
+> - */
+> -struct xen_sysctl_cpu_levelling_caps {
+> -#define XEN_SYSCTL_CPU_LEVELCAP_faulting    (1UL <<  0) /* CPUID faulting    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_ecx         (1UL <<  1) /* 0x00000001.ecx    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_edx         (1UL <<  2) /* 0x00000001.edx    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_extd_ecx    (1UL <<  3) /* 0x80000001.ecx    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_extd_edx    (1UL <<  4) /* 0x80000001.edx    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_xsave_eax   (1UL <<  5) /* 0x0000000D:1.eax  */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_thermal_ecx (1UL <<  6) /* 0x00000006.ecx    */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_l7s0_eax    (1UL <<  7) /* 0x00000007:0.eax  */
+> -#define XEN_SYSCTL_CPU_LEVELCAP_l7s0_ebx    (1UL <<  8) /* 0x00000007:0.ebx  */
+> -    uint32_t caps;
+> -};
+> -
+>   /*
+>    * XEN_SYSCTL_get_cpu_featureset (x86 specific)
+>    *
+> @@ -1270,7 +1251,7 @@ struct xen_sysctl {
+>   #define XEN_SYSCTL_pcitopoinfo                   22
+>   #define XEN_SYSCTL_psr_alloc                     23
+>   /* #define XEN_SYSCTL_tmem_op                       24 */
+> -#define XEN_SYSCTL_get_cpu_levelling_caps        25
+> +/* #define XEN_SYSCTL_get_cpu_levelling_caps        25 */
+>   #define XEN_SYSCTL_get_cpu_featureset            26
+>   #define XEN_SYSCTL_livepatch_op                  27
+>   /* #define XEN_SYSCTL_set_parameter              28 */
+> @@ -1300,7 +1281,6 @@ struct xen_sysctl {
+>           struct xen_sysctl_coverage_op       coverage_op;
+>           struct xen_sysctl_psr_cmt_op        psr_cmt_op;
+>           struct xen_sysctl_psr_alloc         psr_alloc;
+> -        struct xen_sysctl_cpu_levelling_caps cpu_levelling_caps;
+>           struct xen_sysctl_cpu_featureset    cpu_featureset;
+>           struct xen_sysctl_livepatch_op      livepatch;
+>   #if defined(__i386__) || defined(__x86_64__)
+> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+> index b250b2706535..28522dcbd271 100644
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -884,10 +884,6 @@ static int cf_check flask_sysctl(int cmd)
+>           return avc_current_has_perm(SECINITSID_XEN, SECCLASS_XEN2,
+>                                       XEN2__PSR_ALLOC, NULL);
+>   
+> -    case XEN_SYSCTL_get_cpu_levelling_caps:
+> -        return avc_current_has_perm(SECINITSID_XEN, SECCLASS_XEN2,
+> -                                    XEN2__GET_CPU_LEVELLING_CAPS, NULL);
+> -
+>       case XEN_SYSCTL_get_cpu_featureset:
+>           return avc_current_has_perm(SECINITSID_XEN, SECCLASS_XEN2,
+>                                       XEN2__GET_CPU_FEATURESET, NULL);
+> diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
+> index ce907d50a45e..bbb9c117ec4a 100644
+> --- a/xen/xsm/flask/policy/access_vectors
+> +++ b/xen/xsm/flask/policy/access_vectors
+> @@ -87,8 +87,6 @@ class xen2
+>       pmu_ctrl
+>   # PMU use (domains, including unprivileged ones, will be using this operation)
+>       pmu_use
+> -# XEN_SYSCTL_get_cpu_levelling_caps
+> -    get_cpu_levelling_caps
+>   # XEN_SYSCTL_get_cpu_featureset
+>       get_cpu_featureset
+>   # XEN_SYSCTL_livepatch_op
 
-Thanks.
-
-While I've got people's attentions, there's a secondary pattern we use
-that's a bit less clear to convert.
-
-    typeof(a) *_ptr_a = &a;
-
-With auto, you're required to write this as:
-
-    auto _ptr_a = &a;
-
-rather than the more-nomal-looking:
-
-    auto *_ptr_a = &a;
-
-
-So far I've only found two examples, and I'm debating leaving them as
-are seeing as auto (in this form) is still a new concept to most.
-
-Thoughts?
-
-~Andrew
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
