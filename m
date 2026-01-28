@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +GXhBmfmeWl60wEAu9opvQ
+	id YHUoB+zoeWkF1AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 11:35:19 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 11:46:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CC79F8AE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 11:35:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215365.1525564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7F59FA56
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 11:46:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215381.1525573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl2t5-0005Zx-4g; Wed, 28 Jan 2026 10:35:03 +0000
+	id 1vl33Q-0007Na-55; Wed, 28 Jan 2026 10:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215365.1525564; Wed, 28 Jan 2026 10:35:03 +0000
+Received: by outflank-mailman (output) from mailman id 1215381.1525573; Wed, 28 Jan 2026 10:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl2t5-0005XN-1G; Wed, 28 Jan 2026 10:35:03 +0000
-Received: by outflank-mailman (input) for mailman id 1215365;
- Wed, 28 Jan 2026 10:35:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y3TT=AB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vl2t3-0005XH-IC
- for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 10:35:01 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff322505-fc34-11f0-b160-2bf370ae4941;
- Wed, 28 Jan 2026 11:35:00 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-4359108fd24so3990999f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Jan 2026 02:35:00 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435e10ee057sm6773824f8f.15.2026.01.28.02.34.58
+	id 1vl33Q-0007LR-1v; Wed, 28 Jan 2026 10:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 1215381;
+ Wed, 28 Jan 2026 10:45:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3VuQ=AB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vl33O-0007LL-9r
+ for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 10:45:42 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76ec1e57-fc36-11f0-9ccf-f158ae23cfc8;
+ Wed, 28 Jan 2026 11:45:30 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-432d28870ddso3593649f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Jan 2026 02:45:30 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-435e131ce70sm6141440f8f.27.2026.01.28.02.45.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jan 2026 02:34:58 -0800 (PST)
+ Wed, 28 Jan 2026 02:45:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,205 +50,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff322505-fc34-11f0-b160-2bf370ae4941
+X-Inumbo-ID: 76ec1e57-fc36-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769596499; x=1770201299; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X6p4KLNtrIoQOZgguwVAKGNaQYwTU5U2QKElDIc3N6E=;
-        b=TvlLnF6Sj3+Iw564eLVe+elc9n/5b6hX9Vt62qnAN0WtPVR+8XY1xOJ/GjJ8zcZWRI
-         23JjLHEOrw6GugsjshBChEIF3ZwT9eVGRKoTsLkOXFD8qJ6xEkUAPFmENwwpMc661McG
-         I/X5xflFKmKFS3EkREW4EHwnZNaAFZvklxf50o0DjZTc6PkvdiZNZw4KfoHsb46JwPGu
-         GxgLPWqfjKH68ypp+dGzJ7WDRNMYEBLH5xrS9w5Q4k2pEQkyRUjYgtmz7ekfweZTpENc
-         o/yW2u7R0jm318eLWoCaZDVNhoBYpMCNrOouZrKH/J8syXHd1JGLGbSVpfYCORXOaeHf
-         dSiQ==
+        d=suse.com; s=google; t=1769597130; x=1770201930; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=W3tiy3ex+9fe2AdesqmsEFYrWFq4W4hy7sYh60ga0Ro=;
+        b=UKgcWiu2we/zzKunRKnjjmfQ0bNRE+1ZFMD13eZ51FXzSIpGdThLcn/MnGMl5SohHk
+         uLmiir5ngU/EAGJkwa02Spgn5Bjit7Jc/3wEAfR1nEB30x3XaCYVhkn8dYgDlqkSKFS/
+         Nva2RzCKjl7068OLjFezW5upGSkrS/2OZLxzIQlFDQx3KaM76VWbtYrhOKhulHkNH3Y9
+         YawmDQyLjc/1PaWhti7Ig1nAw67C94z/XhD6lfOThMAp5w1vsFPO3Pto8vrLJ43HdPOm
+         j9j6naRAvIWhelUuDvziL4W3A4JuTC0qr7RtUPFKimvaV+ZVl1J858lGq+0YnP+XRihR
+         iCGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769596499; x=1770201299;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X6p4KLNtrIoQOZgguwVAKGNaQYwTU5U2QKElDIc3N6E=;
-        b=aPLzqHm7SlCb8kTF+piAi2sGs1hmE8FrR+yyuxaixHkFRi6JO+pejIpHToh6kH/A1T
-         3mXrSBgaihomtJSiGFpSmXdJYGqcMWESdBL/B6dbUdq/hSbOFrnDvwkqxtxdX4oydh6p
-         pY8xUgqtqMlLOunfnobRP++71uKgJ6pvvTqulB1RQgWEdN82SxoJk3mIRNOan1sdykRM
-         K44Smb7Z5iPZ0Eeg/gKM6Rfchqirv3TjSHOej5bsQeYL424LtDa/y52B37u+StGhikmU
-         Jk2FNuvuh+yBRa3ycz3r0TrB3Fhadx4T3ivRx8huucv5RWBwos3ayZTVO9bAq2DOsVGv
-         6h3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWjggS8cIGWl6HIDC9V90FjRw+DfRtQydWYD9VvjkhnbvKoWDZdMfv4iXTZ3vPZTZBEWJqcRU25yHc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/Wnahe5TcMqfUBH5ui/WVcg8gs6/3persHQcNA0Bcs6L6fdse
-	tx/P1LOFqPLDt0aCEuz586hW2KcZWOqpdEK9I1FUZY2OLMkjur6M1SuW
-X-Gm-Gg: AZuq6aKZWKwdCLTBt4hTrvm1ZX7PQY6ou3CS1q1hgi9VOdOTaBx+0sVrET1ArWW46dn
-	6v8boawKzGQ0v4FFSKM7NMDRIjMfSWm4p5isT4eaT8gLu9//JlEmEvRvMLRVGUUk6fbG34Py07+
-	8WkQ7dz110JZ9fXvGuQHWnbl8aViU9HNsV4lb4NoqLZyTefUK5ZKTeh/i9q8ZttrstzlrUTBCVx
-	LhXdR7o9H5KT0Jm8IfkywNmwfXlfQkEN/t1JelwubYntrhDK867hd/vava2lSu94srtQ5q1oRWp
-	4YPgsfbMUkwujgXPLX9dN5MbLksBGKppY5ZPdEm0XYxrMoLiDVUX+aNZ1ZVeOzMxohPEYZnP5Dn
-	/gzrTChgxjcDq1pmb3hKOlTGuxymCOgRTKX10Qt00USthfIjmyAzSnF6r8sEY2wBdWhI6VQKkX5
-	dJXRODycj8We+/rkKkn+deqLGiVouWhg9N0wOhyo9u1QztbAawXfEgr7UjQ4Tj4rk=
-X-Received: by 2002:a05:6000:4022:b0:435:9ce0:f93c with SMTP id ffacd0b85a97d-435dd1c7ab4mr7793448f8f.62.1769596499163;
-        Wed, 28 Jan 2026 02:34:59 -0800 (PST)
-Message-ID: <a2f80fd1-0a6b-4ed4-9d19-bb052fc18228@gmail.com>
-Date: Wed, 28 Jan 2026 11:34:57 +0100
+        d=1e100.net; s=20230601; t=1769597130; x=1770201930;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W3tiy3ex+9fe2AdesqmsEFYrWFq4W4hy7sYh60ga0Ro=;
+        b=pxVFBZt9Hk5rZQX0+C4Y6rBe5f/0NCSTO6U5OlK6FD0v96ss7edG2HxtzaxbEn9p+A
+         ESakWOvWYwRD6Op5BsIqlSnuksx/eNr9xMMAvHjnJFQgZ9kIBzkihxEEM9/weGwGp+lC
+         PfyFKMC3nysBB5OqeQc7osgHJGvyQVGa/5ONmBkD9c6WnOWCWru8PkTHav16mFMr2Yn8
+         yQ2XSVRWMJhYg7uY9LC4pk4KM46zhl2JwidJRX8qsghM1mZte/LmfmB5sVT/uxxRXLHN
+         znZBjOxvU3FaG7ZyQGwhA+M68n8zBa7/owG27SNheXWwkffKN8E8/PAxSlTi0RTdwuv1
+         P7Ng==
+X-Forwarded-Encrypted: i=1; AJvYcCW07SOgR2JL+IX33Wiag+O7zISCbCXoDEhsjfV3HbO5PpKUezVCu0YopD4fo3fZ/HnMb1OqZaZZb6M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLgwhrwxXPOwj1Qecu/nQtNG98rstI5Or/uEbvewDZ9VsyAw1d
+	zvr7bvth3buY0M/QXo78zcJaybh9y4HLZHDC57OpuZtqol+6enS7g4qch8jG6mVx0g==
+X-Gm-Gg: AZuq6aKZUrZDOjHOovad7F1o7zvFKlBKO71pkvGNHDqYkAfByM1V4XfRfq4dFmj3mIG
+	WVqChW4KPjKwf84k+XNcQaTawsUt/1hMSpBwCDl6/9uZTJtn93JkMOshN7IDgXB8GblKi38KyZ4
+	iAYn9g84vmUNd2ZapGxKMJb8J3SvjtWJGCPLHh1rUT7BZ2zpGxzS3F62VACkm1bg9RXo1Uozxd8
+	Kt980mdhUNAhx9jn4IgM7OaaYSoeDpypeK2LRz3JZkcHbhpOxMfqSySp+k1EoD5BGewxUSnkKsi
+	YU2o8jO4doo+gbthXv033rV6Ir+DZGda9nmj0LvHyEp7JGi1nmKRzkmYiWiL9HfiP+R4cmlAyQ1
+	9D8u5be+dgpf4GDdE4JTaEB79Lkw70YtIQKub8v7yt8bVEWOPEEgADHEN7NLIPfnK94B/mHFRYa
+	5k7JfU4s1iWyUa84c8BtGoKp+xguQTu+JNRkQCNnLQm1U7fcc3kC3iqShJM0QMjX4sI++9mfZpS
+	fY=
+X-Received: by 2002:a05:6000:2511:b0:430:fdc8:8be3 with SMTP id ffacd0b85a97d-435dd0a34c9mr7495184f8f.29.1769597129751;
+        Wed, 28 Jan 2026 02:45:29 -0800 (PST)
+Message-ID: <ace6c97f-aeeb-40c9-9c0b-d6ad45fe09d6@suse.com>
+Date: Wed, 28 Jan 2026 11:45:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen/riscv: dump GPRs and CSRs on unexpected traps
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH] CODING_STYLE: Establish a policy with regards to
+ copyright notices
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <27ab0f8eb6fd6ecef1eeefa4a05e4fe1f43acbbe.1769427484.git.oleksii.kurochko@gmail.com>
- <cf8f345c-185c-4b6f-aad2-7ac1b67fc018@suse.com>
- <debe7d0f-b1a5-4f45-a73d-0a84d136f9c0@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260127182403.141459-1-alejandro.garciavallejo@amd.com>
+ <b42af5a5-6237-47d2-9b74-0154ef8c2020@suse.com>
+ <DG03S6HP7OIO.18ACUNFC24X1Y@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <debe7d0f-b1a5-4f45-a73d-0a84d136f9c0@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DG03S6HP7OIO.18ACUNFC24X1Y@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 69CC79F8AE
+X-Rspamd-Queue-Id: 6E7F59FA56
 X-Rspamd-Action: no action
 
+On 28.01.2026 10:09, Alejandro Vallejo wrote:
+> The refinement also applies to the second bullet point, so I can add it as a
+> separate paragraph stating existing notices are to never be modified and only
+> removed with the express consent of the current holder(s).
 
-On 1/27/26 10:27 AM, Jan Beulich wrote:
-> On 27.01.2026 10:14, Jan Beulich wrote:
->> On 26.01.2026 12:43, Oleksii Kurochko wrote:
->>> Provide additional context when an unexpected exception occurs by dumping
->>> the relevant Supervisor, Virtual Supervisor (VS), and Hypervisor CSRs,
->>> along with the general-purpose registers associated with the trap.
->>>
->>> Dumping VS-mode CSRs in addition to host CSRs is beneficial when analysing
->>> VS-mode traps. VSCAUSE, VSEPC, VSTVAL, and related VS state are required to
->>> properly diagnose unexpected guest traps and potential hypervisor
->>> misconfiguration.
->>> For example, on an illegal-instruction exception the hardware may record
->>> the faulting instruction in VSTVAL. If VSTVAL is zero, VSEPC should always
->>> be inspected, and can be used together with objdump to identify the
->>> faulting instruction. Dumping VSCAUSE is also useful when the guest does
->>> not report it, or when the hypervisor redirects a trap to the guest using
->>> VSCAUSE, VSTATUS, and VSTVEC, allowing verification that a subsequent trap
->>> is not caused by incorrect VS state.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
-> Hmm, wait, there's another anomaly:
->
->> I still have a question though, which can be addressed incrementally.
->>
->>> --- a/xen/arch/riscv/traps.c
->>> +++ b/xen/arch/riscv/traps.c
->>> @@ -99,12 +99,70 @@ static const char *decode_cause(unsigned long cause)
->>>       return decode_trap_cause(cause);
->>>   }
->>>   
->>> +static void dump_general_regs(const struct cpu_user_regs *regs)
->>> +{
->>> +#define X(regs, name, delim) \
->>> +    printk("%-4s: %016lx" delim, #name, (regs)->name)
->>> +
->>> +    X(regs, ra, " "); X(regs, sp, "\n");
->>> +    X(regs, gp, " "); X(regs, tp, "\n");
->>> +    X(regs, t0, " "); X(regs, t1, "\n");
->>> +    X(regs, t2, " "); X(regs, s0, "\n");
->>> +    X(regs, s1, " "); X(regs, a0, "\n");
->>> +    X(regs, a1, " "); X(regs, a2, "\n");
->>> +    X(regs, a3, " "); X(regs, a4, "\n");
->>> +    X(regs, a5, " "); X(regs, a6, "\n");
->>> +    X(regs, a7, " "); X(regs, s2, "\n");
->>> +    X(regs, s3, " "); X(regs, s4, "\n");
->>> +    X(regs, s5, " "); X(regs, s6, "\n");
->>> +    X(regs, s7, " "); X(regs, s8, "\n");
->>> +    X(regs, s9, " "); X(regs, s10, "\n");
->>> +    X(regs, s11, " "); X(regs, t3, "\n");
->>> +    X(regs, t4, " "); X(regs, t5, "\n");
->>> +    X(regs, t6, " "); X(regs, sepc, "\n");
->> Does this sepc value differ from ...
->>
->>> +static void dump_csrs(unsigned long cause)
-> What is this function parameter for?
->
->>> +{
->>> +#define X(name, csr, fmt, ...) \
->>> +    v = csr_read(csr); \
->>> +    printk("%-10s: %016lx" fmt, #name, v, ##__VA_ARGS__)
->>> +
->>> +    unsigned long v;
->>> +
->>> +    X(htval, CSR_HTVAL, " ");  X(htinst, CSR_HTINST, "\n");
->>> +    X(hedeleg, CSR_HEDELEG, " "); X(hideleg, CSR_HIDELEG, "\n");
->>> +    X(hstatus, CSR_HSTATUS, " [%s%s%s%s%s%s ]\n",
->>> +      (v & HSTATUS_VTSR) ? " VTSR" : "",
->>> +      (v & HSTATUS_VTVM) ? " VTVM" : "",
->>> +      (v & HSTATUS_HU)   ? " HU"   : "",
->>> +      (v & HSTATUS_SPVP) ? " SPVP" : "",
->>> +      (v & HSTATUS_SPV)  ? " SPV"  : "",
->>> +      (v & HSTATUS_GVA)  ? " GVA"  : "");
->>> +    X(hgatp, CSR_HGATP, "\n");
->>> +    X(hstateen0, CSR_HSTATEEN0, "\n");
->>> +    X(stvec, CSR_STVEC, " "); X(vstvec, CSR_VSTVEC, "\n");
->>> +    X(sepc, CSR_SEPC, " "); X(vsepc, CSR_VSEPC, "\n");
->> ... the one logged here? Nothing changes the register between entry
->> into the hypervisor and coming here?
-> Down below here you have
->
->      X(scause, CSR_SCAUSE, " [%s]\n", decode_cause(v));
->
-> which actually (largely) duplicates what do_unexpected_trap() has already
-> logged.
+That's interesting, as it may be getting increasingly difficult in practice.
+Often you can't get hold of the holder(s), to the degree that - as we're all
+growing older - at some point they may not be there at all anymore. Yet if
+not having such notices is going to be a goal of the project, retaining some
+indefinitely can't be the intention either.
 
-Missed that, then it would be better to remove this duplication and leave
-only printing of CSR_SCAUSE in dump_csrs().
+> Do you have a take for/against moving all existing notices to a separate NOTICES
+> file (a-la Apache). The existing file for them (in httpd) looks like this, so
+> they took the liberty to rewording the banners to be more digestible in single
+> file inclusion.
+> 
+> 	Apache HTTP Server
+> 	Copyright 2026 The Apache Software Foundation.
+> 
+> 	This product includes software developed at
+> 	The Apache Software Foundation (https://www.apache.org/).
+> 
+> 	Portions of this software were developed at the National Center
+> 	for Supercomputing Applications (NCSA) at the University of
+> 	Illinois at Urbana-Champaign.
+> 
+> 	This software contains code derived from the RSA Data Security
+> 	Inc. MD5 Message-Digest Algorithm, including various
+> 	modifications by Spyglass Inc., Carnegie Mellon University, and
+> 	Bell Communications Research, Inc (Bellcore).
+> 
+> 	This software contains code derived from the PCRE library pcreposix.c
+> 	source code, written by Philip Hazel, Copyright 1997-2004
+> 	by the University of Cambridge, England.
+> 
+> It'd blur the scope of existing holders, but code moves and so do their
+> contributions. Keeping a banner on a file after a refactor is just
+> misattribution.
+> 
+> ------------------
+> 
+> In short. There's 1 question in 2 forms I'd like to have an answer to from a
+> core maintainers.
+> 
+> Would you be willing to ack a change along these lines?
+>   1. to a Copyright Notice policy within CODING_STYLE.
 
->   If dump_csrs() gained other uses, the dumping of scause likely is
-> wanted, but then likely no scause value would be available to pass in? So
-> maybe its dumping actually wants to be conditional (and the parameter
-> wants to be a boolean)?
+Likely, once we've agreed on suitable wording.
 
-Good point. Honestly speaking, I don't know if it will be any other usages
-except this one. But to keep things generic I think it is good idea to
-add conditional dumping of scause.
+>   2. to the relegation of existing notices to a NOTICES file in the style of
+>      Apache. Apache in particular mandates the file not be touched unless
+>      absolutely required for legal reasons.
 
-I will update the patch and send new version.
+Very unlikely. While likely I wouldn't veto it, I don't like such moving around
+of things. If we want to get them out of the source files, they should be
+dropped altogether.
 
-Thanks.
-
-~ Oleksii
-
+Jan
 
