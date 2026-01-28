@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uHmICSAmemlk3QEAu9opvQ
+	id 8OwXM3Ynemlk3QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 16:07:12 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 16:12:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1B5A3842
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 16:07:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215777.1525898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2549AA3945
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 16:12:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215786.1525908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl78A-0005QG-52; Wed, 28 Jan 2026 15:06:54 +0000
+	id 1vl7Dh-00076p-Kf; Wed, 28 Jan 2026 15:12:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215777.1525898; Wed, 28 Jan 2026 15:06:54 +0000
+Received: by outflank-mailman (output) from mailman id 1215786.1525908; Wed, 28 Jan 2026 15:12:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl78A-0005Ne-1E; Wed, 28 Jan 2026 15:06:54 +0000
-Received: by outflank-mailman (input) for mailman id 1215777;
- Wed, 28 Jan 2026 15:06:52 +0000
+	id 1vl7Dh-00074L-Ht; Wed, 28 Jan 2026 15:12:37 +0000
+Received: by outflank-mailman (input) for mailman id 1215786;
+ Wed, 28 Jan 2026 15:12:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3VuQ=AB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vl788-0005NY-D6
- for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 15:06:52 +0000
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [2a00:1450:4864:20::342])
+ id 1vl7Df-00074E-RQ
+ for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 15:12:35 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f94c4a2c-fc5a-11f0-b160-2bf370ae4941;
- Wed, 28 Jan 2026 16:06:51 +0100 (CET)
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-480706554beso6946575e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Jan 2026 07:06:51 -0800 (PST)
+ id c5e2d4df-fc5b-11f0-b160-2bf370ae4941;
+ Wed, 28 Jan 2026 16:12:34 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-47ee2715254so36737225e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Jan 2026 07:12:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4806e2d1d64sm1467845e9.13.2026.01.28.07.06.48
+ 5b1f17b1804b1-4806ce56490sm65364435e9.12.2026.01.28.07.12.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jan 2026 07:06:49 -0800 (PST)
+ Wed, 28 Jan 2026 07:12:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,62 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f94c4a2c-fc5a-11f0-b160-2bf370ae4941
+X-Inumbo-ID: c5e2d4df-fc5b-11f0-b160-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769612810; x=1770217610; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769613154; x=1770217954; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jG4sfr+1ldP4fYlgJBRDbUJDlToChRYazDXEqzEqij4=;
-        b=StTQ7lap6Ypr5nc0p2l2FP/1lw/E0LfslZj+88kZPMdlDT+1x+RsQv66rUUVaWmDe4
-         LUi/lY0gHUgDmj+aXnlUa8IyPmDaw97WWhEQriaJniE4xxa1VUsY6r2vE+AYhX5RfSyS
-         HjMwv8U8/1cPzeXQH9mVKU6nZL5TEJ1SAOZZS0f1N3Y/ihaRD4VTCAXAnpV176omXi7r
-         9vT3daLWHhXEWdYXv/wCIqB9AnR4u5EQzaXjOteYqotaKfP9AlHmRkY14/6ItPvlLBbC
-         8phB0FZo00EOpc/XS6r4eysTCG4Op7DA0teMIZeh0ZTSAimwyYnHfE+hY0tpRvadpKs3
-         mWzA==
+        bh=Gqk/3qhGKK2Wg6hpidOyJwFjnch4eVq5JiUVPloTqZc=;
+        b=Zy0KJYui1NcmuqvTE9dsiWOU3EVK6TbdRoNqSBE31E0A478g4dfCk8pIzYKD4RAzCJ
+         xwt/Pxs2/xDyTiqHNERTkC/N79gdDfKea2QWqLlwO1pPCugXNqkyFku/F65pbherzNZe
+         EmPmyhaFUXwtQw1y3U8Cfak+DyHX0Aea/4oJ/aX1+28wfi4wnI6cdANeQk3IixXnSwos
+         sOwoeMb/tXldyuU2XdN/em59TOpJ0PVLXCxRCOl2w3rwdE2gTpOKFIjvr8tm8jMaji+I
+         kv8BDT9oy9J9izIjUyVjCP4KIvi6j9EHpcw5PUxd3NNhSNIFyCyNL0/r+o/YEdi6Eh2z
+         phKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769612810; x=1770217610;
+        d=1e100.net; s=20230601; t=1769613154; x=1770217954;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jG4sfr+1ldP4fYlgJBRDbUJDlToChRYazDXEqzEqij4=;
-        b=okqdPTwjpLyO/MkTiJdHfyITdMNs+UFyfV/SR8arHRA6+dXtqAuuMV/EX3aV41LuGH
-         bBlcCl2zb2ljsO59MIyytfDmofcJfng0pf9wTE3ZI6ETNA6h29Rhm43NBORuU8SDyNgK
-         sM232l71QTHbhOmuwwrDF38fuS225EkdPs4TmGuhloUktBwKdnXTWZo5nSs1WeO83l84
-         InoqbWQlh4Utlx+njXJLn5zByc/QLJAooHg/jbwiJqQmHDcNYoSmacEcOfuLWLhm2iwn
-         NEPvlVobIQSzYmU02OUwsTad6WH8eeMdn+/atjO4VpssozCj2PpE7joDa0tTMPGjZrLk
-         8tRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUGHwAMoa9UYUvSEU90M+g+kllFaCJ/he7PVz/IS/Xa8Szt8Dl/rVUMM4hh3DbtKTix/YKaoKc0PrA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1n8nSTLVZgbXw1EejKThFrxG+gTzITWWLvNbKYYilpVhUQC7a
-	FoQyB20yUUTe41qQJouJZcIxJcFNIB927kJQ13qckmAPk+pmXR2m7EVstRz/GtYj5g==
-X-Gm-Gg: AZuq6aJ1VXvA+TqZohk3VkvvPBz3g6fuGOHIjTwgXPASVQVY6EIoLnzAy3nMgIfNNEZ
-	cQhoXTv5SY1t5h8pPF2qrhw5mG3mLkMJxuZGXIlKrFPBfMoM0NwNtw2vhoQONpoRfD8hJ07gGi3
-	QVyWuKIbEhvLaOnzeolE49yOf+ZnJF6vcBfLfqTvI+7HlMnTkpS/mLdhgLKctcOHdN87nZiqE8D
-	U30XTL/4d772is21ufpOaBQfgE0k2cdsZlS6+JkFl4W2W8ZNiJEQCg78vSurOd98E+RbvnXI9Ws
-	dIShQc0QV96hVbTKweF2aF+/tYdlgQDxKUg/ueb7hG++0U/p5FoFED0oJ7IqzuE7mbmCY8h2IOf
-	F0AqQEkDPEWw1NgfMwxGU16B3N41e/os7uJeRy9BIAU0bQxdBDCsk66XIcoVkyvF+yt1eCi4vhZ
-	mrJVs0z8Y1LHVjGU/ZdGL8qEFORqsa5/BFNNd1T9lDiuaRTYuZYA411ZqJJL/cNmo9ngRWBt8fG
-	rP3hkhLII3aqw==
-X-Received: by 2002:a05:600c:350b:b0:477:9976:9e1a with SMTP id 5b1f17b1804b1-48069c0def9mr72664325e9.6.1769612810163;
-        Wed, 28 Jan 2026 07:06:50 -0800 (PST)
-Message-ID: <0e919562-0e13-4f3c-b09b-156a0822eb53@suse.com>
-Date: Wed, 28 Jan 2026 16:06:44 +0100
+        bh=Gqk/3qhGKK2Wg6hpidOyJwFjnch4eVq5JiUVPloTqZc=;
+        b=heWoWRhfXUv4L+AMni9/zy1NjMBE79L2WZjlPl0aISuKu0t3sw9HfDc71GkZ4LOrFm
+         nMKawVqz+5rbRup5hQ0/1TNoLxaF51o6fFGVN3tSzwoBTXDLhRHtd0IFHknJXv6H3FDR
+         fq+88hxFTgwX8TbB4J9aC8KngoWWb1Wx8ZhXM4jqgPMbsiSx0CMFQ1v6UjbKnu4c4b7V
+         RGh8eMzn5vH1Ay4OJZULV8r76/sUGINGGIG6Dc3fp5kr2uRYRMwc4rtz017U3Dhor2yh
+         nV1qPzPXa9DL1JzEYQjb7WIrkdNl8IlKRXqXNcY+iL2KIRCFc83Oy2d640FfDF9AMZEY
+         aRoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWTY7mKN8eU2b0O2vYWOqeaEoVXULHr7SZC4qhlDXEP5P43+QUVmAZOMtUNJTK7FMmc3JHdY77zuiU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUpFhNYRI/beJopCbuHL5xUzMDP8E55bzrpafyHCZwlxQ+HVTU
+	l+TckPPsAW+DTheM0p/M2zdWzMX/4zgg+FPdlVj44x7VJ59a4DxKwThdZD0qYbbIKw==
+X-Gm-Gg: AZuq6aLZOHZQ4842FO2RfqQ6mFF5WnbQAE6Axo8H1e5oKr+h6MCGm0BHBHZDs2g5XiH
+	Monrzp8bmqqKODRAP0e6M+0NM6CRS2YOf02lA5e8NKB1nSiFL5QtpzOXGlOW9pE9F8PnKw5QrMf
+	K+LjTSAFfGQl970stLOUmMmezWQFNOjpEYEPYUuac+nTPj2WqM/KjDgB/BIFVMW5RPsxDY1glXE
+	FZgN6b4QETdROhgJIqizMkPcdY1eKH2htSeK+3BdNqCTg9M2yr4qejgzcQX3ccrB/Faf7e5S+RZ
+	KFFEZE2+dET4f7g2p9LdY0030hRFZLdNABIZi2XZeWSLPkHn0b7ZnF+xo9C4N/1gCYBHshikRAr
+	5XAMc15fuW2pjVP3F91dfHZXvGrw59gNzM55chitLEjopHCGCcfaWmWweONiYZdKDx61J0ryph2
+	iUfWLWe7+/oXcHqiNicP9DlfdHU5M1A9952Bl0bcyc0AeAFVMVxSfrWBTllbmt3Gx5A48/3geQ4
+	Os=
+X-Received: by 2002:a05:600c:a08c:b0:480:1c53:208b with SMTP id 5b1f17b1804b1-48069c9bbb9mr63070515e9.36.1769613153677;
+        Wed, 28 Jan 2026 07:12:33 -0800 (PST)
+Message-ID: <91c71a0c-4345-4fae-912b-ae7c9d2160e7@suse.com>
+Date: Wed, 28 Jan 2026 16:12:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] common: honor CONFIG_CC_SPLIT_SECTIONS also for
- assembly functions
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a11e692c-2bfe-440d-915b-818b133874c2@suse.com>
- <bd656991-59bf-4435-b6e2-554b9ef4725e@amd.com>
+Subject: Re: [PATCH v7 2/2] xen: enable dom0less guests to use console_io
+ hypercalls
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: grygorii_strashko@epam.com, anthony.perard@vates.tech,
+ michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com,
+ jason.andryuk@amd.com, victorm.lira@amd.com, andrew.cooper3@citrix.com,
+ sstabellini@kernel.org, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601221704110.7192@ubuntu-linux-20-04-desktop>
+ <20260123010640.1194863-2-stefano.stabellini@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,119 +127,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bd656991-59bf-4435-b6e2-554b9ef4725e@amd.com>
+In-Reply-To: <20260123010640.1194863-2-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,xen.org,kernel.org,vates.tech,amd.com,arm.com,epam.com,gmail.com,lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5D1B5A3842
+X-Rspamd-Queue-Id: 2549AA3945
 X-Rspamd-Action: no action
 
-On 28.01.2026 15:35, Jason Andryuk wrote:
-> On 2025-04-01 06:58, Jan Beulich wrote:
->> Leverage the new infrastructure in xen/linkage.h to also switch to per-
->> function sections (when configured), deriving the specific name from the
->> "base" section in use at the time FUNC() is invoked.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Tested-by: Luca Fancellu <luca.fancellu@arm.com> # arm
-> 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+On 23.01.2026 02:06, Stefano Stabellini wrote:
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -829,6 +829,8 @@ static int __init construct_domU(struct kernel_info *kinfo,
+>  
+>      rangeset_destroy(kinfo->xen_reg_assigned);
+>  
+> +    d->console->input_allowed = true;
 
-Thanks, but ...
+Why for all of the domains? Shouldn't this be a per-domain setting?
 
-> Though I have two suggestions below.
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -612,10 +612,18 @@ static void __serial_rx(char c)
+>      if ( !d )
+>          return;
+>  
+> -    if ( is_hardware_domain(d) )
 
-... at least the latter really needs addressing.
+This check is fully lost; shouldn't it be replaced by ...
 
->> --- a/Config.mk
->> +++ b/Config.mk
->> @@ -102,7 +102,7 @@ cc-option = $(shell if $(1) $(2:-Wno-%=-
->>   # Usage: $(call cc-option-add CFLAGS,CC,-march=winchip-c6)
-> 
-> Maybe expand to illustrate extra flags will also be passed 
-> (-DHAVE_AS_SECTNAME_SUBST)?
+> +#ifdef CONFIG_SBSA_VUART_CONSOLE
+> +    /* Prioritize vpl011 if enabled for this domain */
+> +    if ( d->arch.vpl011.base_addr )
+> +    {
+> +        /* Deliver input to the emulated UART. */
+> +        rc = vpl011_rx_char_xen(d, c);
+> +    }
+> +    else
+> +#endif
 
-I'm not sure here, but I can certainly add another example.
+...
 
->> --- a/xen/arch/arm/arm32/head.S
->> +++ b/xen/arch/arm/arm32/head.S
->> @@ -48,6 +48,13 @@
->>   
->>           .section .text.header, "ax", %progbits
->>           .arm
->> +/*
->> + * Code below wants to all live in the section established above.  Annotations
->> + * from xen/linkage.h therefore may not switch sections (honoring
->> + * CONFIG_CC_SPLIT_SECTIONS).  Override the respective macro.
->> + */
->> +#undef SYM_PUSH_SECTION
->> +#define SYM_PUSH_SECTION(name, attr)
-> 
-> I put this through CI and it passed as-is, so it doesn't need to change. 
->   However, included in a different branch with some --gc-sections 
-> experiments, I needed to add SYM_PUSH_SECTION re-definitions like above to:
-> 
-> xen/arch/ppc/ppc64/head.S
-> 
-> or ppc failed the linker script
-> ASSERT(_stext_exceptions == EXCEPTION_VECTORS_START);
+    if ( d->input_allowed )
 
-Yes, and exceptions-asm.S as well, to keep the code in .text.exceptions.
+the latest here (not sure about the vpl011 intentions in this regard)?
 
-> And these:
-> 
-> xen/arch/riscv/riscv64/head.S
-> xen/arch/arm/arm64/mmu/head.S
-> 
-> riscv and arm64 built, but hung when booting in CI tests.
-> 
-> There are also these:
-> xen/arch/arm/arm32/mpu/head.S
-> xen/arch/arm/arm64/mpu/head.S
+>      {
+>          /*
+> -         * Deliver input to the hardware domain buffer, unless it is
+> +         * Deliver input to the focus domain buffer, unless it is
+>           * already full.
+>           */
 
-Yeah, I need to re-scan the tree for all .section directives in *.S files.
-
-This is getting out of hand, I fear, so rather than putting such overrides
-in perhaps dozens of places I shall try to think of some less intrusive
-approach.
-
-I further think I need another prereq change. Right now e.g. PPC64's
-.text.exceptions would collide with the code generated for a hypothetical
-function named exceptions(). I don't like Linux'es .text..* etc very much,
-but unless I can think of anything better we may need to follow that model.
+As said there, imo this change belongs in the earlier patch.
 
 Jan
 
