@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4H2mMmbveWnG1AEAu9opvQ
+	id IBMpIa7veWnG1AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:13:42 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:14:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0130AA01E1
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:13:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215455.1525634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FF8A0216
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:14:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215466.1525654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl3UB-0005fR-IM; Wed, 28 Jan 2026 11:13:23 +0000
+	id 1vl3VW-0006RX-78; Wed, 28 Jan 2026 11:14:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215455.1525634; Wed, 28 Jan 2026 11:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 1215466.1525654; Wed, 28 Jan 2026 11:14:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl3UB-0005d4-F5; Wed, 28 Jan 2026 11:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 1215455;
- Wed, 28 Jan 2026 11:13:21 +0000
+	id 1vl3VW-0006PE-3A; Wed, 28 Jan 2026 11:14:46 +0000
+Received: by outflank-mailman (input) for mailman id 1215466;
+ Wed, 28 Jan 2026 11:14:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pnMD=AB=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vl3U9-0005cy-Mf
- for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 11:13:21 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
+ id 1vl3VU-00069J-Hn
+ for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 11:14:44 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 565b3d35-fc3a-11f0-9ccf-f158ae23cfc8;
- Wed, 28 Jan 2026 12:13:16 +0100 (CET)
-Received: from PH7P220CA0153.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:33b::15)
- by CY1PR12MB9557.namprd12.prod.outlook.com (2603:10b6:930:fe::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 11:13:08 +0000
-Received: from SN1PEPF00036F42.namprd05.prod.outlook.com
- (2603:10b6:510:33b:cafe::3f) by PH7P220CA0153.outlook.office365.com
- (2603:10b6:510:33b::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.8 via Frontend Transport; Wed,
- 28 Jan 2026 11:13:09 +0000
+ id 8a9409e6-fc3a-11f0-9ccf-f158ae23cfc8;
+ Wed, 28 Jan 2026 12:14:42 +0100 (CET)
+Received: from BN0PR04CA0011.namprd04.prod.outlook.com (2603:10b6:408:ee::16)
+ by DM6PR12MB4330.namprd12.prod.outlook.com (2603:10b6:5:21d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.16; Wed, 28 Jan
+ 2026 11:14:35 +0000
+Received: from BN1PEPF00004682.namprd03.prod.outlook.com
+ (2603:10b6:408:ee:cafe::8a) by BN0PR04CA0011.outlook.office365.com
+ (2603:10b6:408:ee::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
+ 28 Jan 2026 11:14:32 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00036F42.mail.protection.outlook.com (10.167.248.26) with Microsoft
+ BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 11:13:08 +0000
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 11:14:34 +0000
 Received: from localhost (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 28 Jan
- 2026 05:13:05 -0600
+ 2026 05:14:31 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,22 +61,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 565b3d35-fc3a-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 8a9409e6-fc3a-11f0-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W61zSwf8DSbazCfu9NMjY52bF5oB/zNx9VN5GbhjH0z5ULTHgm/qqNyQbMr/xAGd/6mzewyoZNrFunpoxMG1BDyLvTZrHZdjUijevA9El8ZrLPcZ/bTGI1tnnZ6cGFTyUfCR5fwrNpmKWcjx2C4roM4C4HKOptVjnGwyVKRGR2rETMrH/k4CjTyX7kLbVZHWlje4sOaVoT+wyw8SMRZmPpK97lZFtGAKYL7Sje6VoODNp+ExL1HDrO6FGjOdsua6rSog1vrJroqqcMEAP5gmvJGQuhdGDXmxngLKCk/uprhFxhLI/sqodXkd9sHl1if2pSLqfpgtHmqQH2Ebm7vMCw==
+ b=eh1wdTRv+p7bqlN7cbGK7V1mOQscwOiLwNoDA10MZSkhqb7S2zCrVuq4aMvjRD2AbbRAk1D6KXcuzxXa8LfmqQ6RbymippEevWU3Znaq83FyWcYN56tTby+109F2H0o15b2CtJSmkBgj8ey2AmZS+wdbxByByNI8ELjbd6LWgpxydr7rYbgwnJ5lHpDsUYenkHI3RwATmhhF1xLmRaQ0C6mlmERpeQ8794WAo5+g3cRoxTjf737zf3VKA1SrCcXznPaiF+EORwBNy1TYbEg3gIvCby58y/ETpIqFld/7CRy3LPmY8tiCDxSZpSxQ408oBh1ttQ3hleJ6et6nUiXbBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eEcL3V16C6/Sgcab/8hRP1Une+UWDuwQ72flmdToY/c=;
- b=UeN6eO/RXD8PaToGX+bfCabR39VdRXJ6TIWmv6cnP+tTnJ4j3sC68+ZqYUnSkP6qxV2lSVZ1aB47q1WIRevoh+EC0oIHfta+gs5Cqx7lNV6/MLVtqJbqwZK8eEfKSbML77uBHZiHZmi0ixZAtHVurL9VSkI5IbfGa3h9T8xnT5Wftr2/pS4dUg9HG4An4zfeqxFaBYNZgOfmnwVG68HmXzJDTuGLrp7oGqaXkW1Hz001H2UWuq7L8ZnsufeS02CA/AbPVIZVUbienHJQce1sEcmMrguD7GrZPKwofmoiRQ7iqAT4OseOMe8ZEq+qktZtxYFRJg5G15dk3iLi4LSOQA==
+ bh=Nmdln9IfYbE3xS7x6S1pNzejttN4bY3xIazqICmNh3g=;
+ b=rBqZblKK3UZLvZ9g3ggq1yW7qbrCgYm+bYc+Ep0pl4nUHxi/ogBhsBwU2AhGqTT/CeJ/J4FyR0Up9zeSyfMAwPHv/wI9/6+3pGMIEUlsiSJTRrdru8CZEHPYsoU7C6LmTCV5IczLhJXcRrGXWMxwnMvgFqqqFbnuGZGLNKCLbIlkLw69hoV8jzAUAt8u52wAEpU7v9DvKFIGwMgt7BkWFB+CVyaZWQwuwrJGAdU6cQSljc1Ji35adC9+JyKQ1NgiHPY1tAsIQumM1hAf/vTGXfAWG1KG4IYr1m1B2yqDsvXbRbp0CxDn8/coaUjcXFIbtvh3R117yYq0WN8fnYhaIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eEcL3V16C6/Sgcab/8hRP1Une+UWDuwQ72flmdToY/c=;
- b=PnlLpwyWlrazHtnuecs6r8iLwjSZ3oUP8jZJOdSuq7tFDKvKmQ/Hvj7xUDqzlUnYpq9UYcyeyIp37fbHhcc7iA5S/4C1TasNN72sQgue8AsAGyJ1sE1ZdFvOzwbrcLMIoMffnpens2+UGvUbQnRIb0NJ4MDGG7V6+0UdPBIRg+c=
+ bh=Nmdln9IfYbE3xS7x6S1pNzejttN4bY3xIazqICmNh3g=;
+ b=J96MmjEE9oaaVflqckcLFSbIF9acLigZ6bK9u89986QasB2Us8OhLj649Wt7KK+MF7MImgLmqTZkfDUHQczjAlSSFsXT3QeW+aGEx3SYPcyIJy6u1u3QAeKoCoHSG+UEm+LwyM+1llx4ur6Ie2xTYoxLi9q+YjLWeJwXeblMLao=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,84 +86,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 28 Jan 2026 12:13:03 +0100
-Message-ID: <DG06EYF3621O.20KGVKPZRDYMC@amd.com>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Date: Wed, 28 Jan 2026 12:14:28 +0100
+Message-ID: <DG06G1H3WX20.3FREYPRRAMSEG@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
 Subject: Re: [RFC PATCH] CODING_STYLE: Establish a policy with regards to
  copyright notices
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 X-Mailer: aerc 0.20.1
 References: <20260127182403.141459-1-alejandro.garciavallejo@amd.com>
- <aXnEdQxyevj-wMuv@Mac.lan> <DG03YWKDDNUC.1622RXX7ZJUW8@amd.com>
- <aXnZsg9mRD_atvt2@Mac.lan> <DG057RNBOT01.25ODFMNGWAZMO@amd.com>
- <aXnlfguNkm_Wuqig@Mac.lan>
-In-Reply-To: <aXnlfguNkm_Wuqig@Mac.lan>
+ <b42af5a5-6237-47d2-9b74-0154ef8c2020@suse.com>
+ <DG03S6HP7OIO.18ACUNFC24X1Y@amd.com>
+ <ace6c97f-aeeb-40c9-9c0b-d6ad45fe09d6@suse.com>
+In-Reply-To: <ace6c97f-aeeb-40c9-9c0b-d6ad45fe09d6@suse.com>
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|CY1PR12MB9557:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3cbad06-a8ba-4b49-f689-08de5e5e37b1
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|DM6PR12MB4330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6382b589-2115-48e6-9d6f-08de5e5e6ae7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|13003099007|7142099003;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aG5wL2hucy95Z2IxNzR3ZGY3OFFaYUJjWVM2R0Yxcnh6Z3NJak43dW9qY1Ex?=
- =?utf-8?B?eWs0ZE1OenN4NGRQUXppd2lVU3FWOEtZblpuNXprRXdpWmxldXkxUEpHcWVm?=
- =?utf-8?B?VGFlR00rb0d3eWY2VlpuN1g0VzZqS1Vhb0ZhSHY1c1FzeU8vVFQ3R3RDYitW?=
- =?utf-8?B?NDNwTzFxVlJWbDJXQ3lTUm9SL2pzUHRjMk1DSGg2RkFaTkpLQlFTNGYrNVRX?=
- =?utf-8?B?M3RTK2NaYUhEcXJUejB3TkViVk45N3BLcy8xM3RzWGhQbXpkQ040UFFCZUxS?=
- =?utf-8?B?S05BaVljY0wyemkwcDB6N0FjMFpWcGVEMUFGREtSK3Z2Zk43VHZLVWpZWms2?=
- =?utf-8?B?VGZuYVluS1U4RXFWdlhBOWtNTHpyYjNXWDl0MnZNNkU2eS9rV3Y0TkFLNHF5?=
- =?utf-8?B?dFpMK0xiOWhpeTVObGZFeURQUXVSQnllMnRBZHlGT0sxb3dGUkNIbDJqT3Z5?=
- =?utf-8?B?emlMMXVUZFpMeVlBZXZUNFd5OGZ3UTgrK1lobTVla2JLbFliZUF4dTBWblRp?=
- =?utf-8?B?YnV3RWtiSTVxRmpsUUVYMnJ1ai9tQkdnUDBrN0pqSzNpUlJ2Nkd6aktuQ3Jy?=
- =?utf-8?B?ZlJsMHpURnZlbnR5ZnBaQTJKV0FFV0Q3ZDdwYzZBanFhMWFXcThTanVYeUls?=
- =?utf-8?B?TGdvdHlEK0IxZ1ZIcFhJcll6dDdTMGs4TEh3eUVqeUluelNLbXdQbDlMbVdZ?=
- =?utf-8?B?WDUzcThTV0kraFNFaUtYSTdiUmdSS0FiMkpreVJPSmZuSWhyQjFsVVJDZWJX?=
- =?utf-8?B?U0xOQVhITEI0L2g0YzRsY2hKVENsTnlnK1gzbzlHenFPSUtqMFhWODNHTE54?=
- =?utf-8?B?bUw3UVJ5bzhsbWtVeHlTcC9RNW1yaXdzU0R0RVVkaUlHbENvS002RThVSkpG?=
- =?utf-8?B?UDkxbHFVWDA3SWxZaVV3ZTBiZHVPYzBLd1NMbWhYOU8vN3FDdjVXWTVDdHpK?=
- =?utf-8?B?R2lmc3N3Q0VPODRQNWQ4M0hINjVWSjEyVWVmZjhSL1l3Y3dseFNWbUNhMWJ6?=
- =?utf-8?B?Y1VPcGNGV2dsL1NrZnQvbG50QUk1bEd0UjF5WW02NURvRTdSTGdJUk1kRnd2?=
- =?utf-8?B?eUM4K0FTM1lLdzRRN3l2bzlKeXYzdDkxZVdvN205cUZwWG9oeWNCYXdVanZn?=
- =?utf-8?B?OXd3ejhsQWJDbm51Qk1PQ0dzUHU1RmIyT0hUT1RkWkhKV1oxbGp0Y0U1OVVr?=
- =?utf-8?B?emQ4NDNQZVhVOXNWV3dKT2pjQzR0MGM4VG5lVkxRR2FRaStGTVY0VmlNSWdn?=
- =?utf-8?B?UnpnMjFsdlZKTWxUVGZ1c3N0aGpMUUh0ZmF4WG9sUEQwOWlBU1FjOTJ3aWFn?=
- =?utf-8?B?QS9YTm9JOUxxS1ptb0cvdjVDYUdwY0RhTUtpMWlXb1g5cDl3TXhEbE4rM1VL?=
- =?utf-8?B?YzJZdWRHaUR2OFdTNU1ld1hjT0dyWVJKRjNITVRRU0lER1YrNlJhUG9Ibldy?=
- =?utf-8?B?bit3TDB5M2U3ZzdoNEk1Z1UrcGp6S0VLZWo4NHZpS0VPNmI5UGpINEpiNmxs?=
- =?utf-8?B?L2FhZEdRd01TakhFWENZRTNVclFtN2hiREhnWUNxdW93UFA3cDR1QWNkaUxQ?=
- =?utf-8?B?blFZaUxQeFhuai96Z25GaEFRMXl0dC9CWG1HZVovNzl1TE9rVzZVWlR3L3Y1?=
- =?utf-8?B?RmRycDF3dW5aeEVpTVZ0WDl3ekhZNnZGUlI2NXlsYS80ZDN2NW83ellkTm9j?=
- =?utf-8?B?bkdGWEt1NDd5VENiVlBJS1RKN21zZXVwbkM3VlFxTWxMVnpWQWdFNUxKckVS?=
- =?utf-8?B?QkdjL05jSzluM2dTTVRnWU9MM0ZNTkJ5ZG1RRk5vd0lXMUhxMFFhRG9hbFo5?=
- =?utf-8?B?THo3bGhkR2xCVFgvcWFjT1BEdWtZTDVPZVJmb3dMZ0ljVXJoUGo3RGF4Z1V4?=
- =?utf-8?B?QWtQZk8za0ZoTGtoemNEUUJLUVBNRHMvSkI5clNyS1NTN0hUbEI1SXBFOEl1?=
- =?utf-8?B?OEVuWGl4bDNxbkFNR0VRczEvQUZob0F3MlVMVFc0R2hHZTE2RTBBa1Q2c0Fs?=
- =?utf-8?B?TndQZ2J3ZmtUc2pLUkhhZjB6Q1lFYk91TWpRK2M4eWU2QTBleHZuMTh0cnpj?=
- =?utf-8?B?VGxBY1g2L05iUkNwNWNKa2taODFUWnM5ZWJQdFRkcEx2MEJRdGJYcDgrSDR4?=
- =?utf-8?B?QWEycmRKNGQ2a3RaSTdZR2dSTmZQZVRXQ0VEdU9qZStXN0VCQnpFQkdHZ3Ew?=
- =?utf-8?Q?XqPdk1HFKsnlsSlaVohGjW0=3D?=
+	=?utf-8?B?UU1WRGoybUtSbnJxVXJ3dVlsRlZ5Zis2UFJ5Y2dNZTRDWWZDcVZBWDZoL3Rw?=
+ =?utf-8?B?S2pqUDhockhLVkVFR25GeS9rZTZNbUdMaTlUVzduUHdNRjdRMUJnaE02cU1T?=
+ =?utf-8?B?a0l0bW9yc1c5SDgwa3BvM0VSZVY0cWZ4aVZYMzZQdWRuUjRsNTJXbXRPeXZv?=
+ =?utf-8?B?dS94RXg3WFNIRndtZVFoc0pqSXR2T2F1eXNQVnlkejZ0K2VnYWl0Z3dPb2Fh?=
+ =?utf-8?B?MHNHcWlVaS9WVXJ1Vk42UUY4Zjd1R0x4NXhBcHFRUGQ5c0pJTVhuUlhkMFlC?=
+ =?utf-8?B?Mmd4Qjg2ODk2RmxSekhQKzFna0c3c3p1emdSUHBVN0VtWHJuVytXTjllNXpW?=
+ =?utf-8?B?eTQ0Z0xJdlRSdmJXSkJyODlqaTZPRmNJRGRkZ0g5WGViL1RuaGk1TUhKVTRt?=
+ =?utf-8?B?anJVYXFEOWN4VEcxUUZ1WmhRT1pTNEJSZjRrNklyekZBV25aWDdnbnVheHRl?=
+ =?utf-8?B?ZVdBMVlTdUdiSE50bTB0U2kraUltckwwc1pOWDlYQ2xrMjQwUVBSalY3b0VJ?=
+ =?utf-8?B?TFFJMEh1Y1FDQlIyeDcra3ZuY3NSYzR1eHkydHNHdndlcjcyNkZ5NWVxU29y?=
+ =?utf-8?B?REl5ZXhLS3B4RU5JRWRSVUlUYnl2bGdUcjREb0JNRVBKYUpCaHVMTlF1d0RS?=
+ =?utf-8?B?ZUJhak9mQXk1a3d0ZEZFWXYwaFpLY2swOFh5d3VoOGJwTXVNSTYvZkQ4TE1S?=
+ =?utf-8?B?aDMzU1ArenBaTDM1b0lHTU5QK2UzNlhuMCtVZ3JNOFBtazkwaUhkendRZXdz?=
+ =?utf-8?B?bGo2TjNEK1dYejVCYllwdEdtT2hwUG9za1NuS0xkT1JQK2VmZzJRK0FtN0hB?=
+ =?utf-8?B?L0c2eks4dFZCcUZoQmhRSG44T2FYaTl6em00VSsvSW5aTEFWaVk0RTViVFQ2?=
+ =?utf-8?B?T2FqYkIwOFBGdldZUlhEaktSV1RoVDRuYUdoaVQ3TzhlVGlWVzRES3FwUWpi?=
+ =?utf-8?B?aW9qL0QyS0QwcUVqRGZ4amY5ek9BSmFKeUZxazV0V2c5Nm1SYjJMYW1UbEdV?=
+ =?utf-8?B?dFdtODFLQzJEcmd4OUNzVW1Rc1VNandCVHNURWVhTUZialU2bk84cS9uWWNq?=
+ =?utf-8?B?MHlpQWw3WTA2aVhPY2N3VFVaQlZLU25keFFCMXpYMkdTSDlmaHJHalJHeUlF?=
+ =?utf-8?B?UHQwU283ZkpPNlFmZlZ2VGFPUlpHdUJydmFPa3BVTWxHN05nS3NJTlk2enFP?=
+ =?utf-8?B?dmtPeDdMUnQ2bDU1Q2M5VGhueWhYVGpKMjR6byttUUs4SWJSbDNMN0NLYUZC?=
+ =?utf-8?B?NFVFWDFBTlJsODk0cmhjc2xya1ZTZWlJbkhoa3FmTTNnbXh6UHNTZFJ5V3VS?=
+ =?utf-8?B?QXk3MWNqbkNKMThBakhkWHkvOGUweEV1THJPU1AyRURKd2hQV1FvTEZzMWha?=
+ =?utf-8?B?eWR2ME95bmpjeUV5SDBpV1lySFhuYjExSHQ1UnlIV3dIdUxZdGtnV0VOSDd6?=
+ =?utf-8?B?bGpXWk9HR0k4c2pNLzJDQWFCRXVSeU5SbnpmMVhMa2Zhc055TjA4UVZ2N0xR?=
+ =?utf-8?B?TjIvOFBUUENiZlV3QWJzY3dUK0M1REp5SytEV0JiNGw3NXJldUVuRVJSS3hD?=
+ =?utf-8?B?eWtwaldLNTNZYkVjei9ja2t2RnU3bU9LWlp2OGx3d3lMai9zK2JFTHFrWmVp?=
+ =?utf-8?B?TmFEZHBJRU5CQ1hiTTVKdXVaQ0xKSlFjYVNTeE5ZT29KNm80THhoRmJLN0tI?=
+ =?utf-8?B?eFJjWkZ6RUdRZmt2cXM2bjBkOE5CTEgraXhucmdYWFN0UTgxSzNvcjhDWEZk?=
+ =?utf-8?B?bVUrcDloV2hNVGJVaE81RjRCcHdmdTgwODNEZ1dWblN5MWY1aDF0UGdDcXF1?=
+ =?utf-8?B?UkVFRjRpK1ZHcFRoREs3NUhIUjdzTTdjOHhzdWkzTWxHRjFrMkxacUovd0Rn?=
+ =?utf-8?B?Uk0rQzdlZzVtSXd1ejJud1p6bGM2dmtVNXFjMFpjL0p4cW45Q0F0NFNLSmFY?=
+ =?utf-8?B?bkFzR3NzeFlRZGY5RVN3cWZNcjFxcHhlcUlGK1htYUhmOEFxUFNNbFdXSVRM?=
+ =?utf-8?B?bVdaY0tCR2ZHejhWY0FGZWdUQWVFL2FHbk83TnVZcUt0VTlDc1UwSHJ6ZXdW?=
+ =?utf-8?B?SGRydExQRytQeUxwMDVNMWpiNGxKSnMzOTJCTjZIQU1Sd3QzZTVDUE9ic1JP?=
+ =?utf-8?B?NGQ4QmUwL0hIM2pIVVYvQmgxM3BFbzFlVjUwMWdWN0NUOE9pOEVxYW1LaVMy?=
+ =?utf-8?B?dWc9PQ==?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(13003099007)(7142099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(13003099007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 11:13:08.7209
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 11:14:34.6211
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3cbad06-a8ba-4b49-f689-08de5e5e37b1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6382b589-2115-48e6-9d6f-08de5e5e6ae7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F42.namprd05.prod.outlook.com
+	BN1PEPF00004682.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9557
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4330
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -175,14 +176,14 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[amd.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,amd.com:dkim,amd.com:mid,llvm.org:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	HAS_XOIP(0.00)[];
@@ -195,278 +196,81 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 0130AA01E1
+X-Rspamd-Queue-Id: 06FF8A0216
 X-Rspamd-Action: no action
 
-On Wed Jan 28, 2026 at 11:31 AM CET, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Jan 28, 2026 at 11:16:39AM +0100, Alejandro Vallejo wrote:
->> On Wed Jan 28, 2026 at 10:41 AM CET, Roger Pau Monn=C3=A9 wrote:
->> > On Wed, Jan 28, 2026 at 10:18:03AM +0100, Alejandro Vallejo wrote:
->> >> Hi,
->> >>=20
->> >> On Wed Jan 28, 2026 at 9:10 AM CET, Roger Pau Monn=C3=A9 wrote:
->> >> > On Tue, Jan 27, 2026 at 07:24:01PM +0100, Alejandro Vallejo wrote:
->> >> >> This patch modifies CODING_STYLE to severely discourage use of cop=
-yright
->> >> >> notices when their presence is not legally mandatory.
->> >> >>=20
->> >> >> Copyright notices are redundant on commit, misleading from the tim=
-e the file
->> >> >> receives contributions from anyone not represented by such notice,=
- and actively
->> >> >> harmful for attribution by the time the original code is long gone=
-. They are
->> >> >> plain wrong when added on code motion.... the list goes on.
->> >> >>=20
->> >> >> All attribution worth keeping is version-controlled through Signed=
--off-by,
->> >> >> Co-authored and the like, DCO and the cumulative contents of git h=
-istory.
->> >> >> License banners have already been superseded by the contents of li=
-censes/ and
->> >> >> SPDX tags.
->> >> >>=20
->> >> >> Other FOSS projects have already moved away from explicit copyrigh=
-t notices
->> >> >> where possible, and severely discourage their use when not.
->> >> >>=20
->> >> >> Apache and LLVM take active issue with copyrighted contributions a=
-nd Chromium
->> >> >> takes issues with copyrighted contributions not attributed to the =
-project. Some
->> >> >> Linux subsystem maintainers already frown upon copyright notices t=
-oo, even if
->> >> >> it hasn't reached the point of being a mandated requirement yet.
->> >> >>=20
->> >> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> >> >> ---
->> >> >> The actual changes are almost verbatim from the LLVM guideline, bu=
-t it's not
->> >> >> exact. Wording can be adjusted as needed. I care about the core of=
- the proposal.
->> >> >> Saying "please, drop the notice" on contributions where it's clear=
-ly not a
->> >> >> legal requirement, or have the contributor state that it is a lega=
-l requirement
->> >> >> and why. For fairness sake for all contributors to the project.
->> >> >>=20
->> >> >> I'd prefer taking the Apache approach for new contributions, but I=
- want
->> >> >> some discussions to happen first.
->> >> >>=20
->> >> >> Thoughts?
->> >> >>=20
->> >> >> Relevant examples:
->> >> >>=20
->> >> >>   - LLVM: They banned copyright notices, unless part of a vendored
->> >> >>     components.
->> >> >>     - Links:
->> >> >>       - https://llvm.org/docs/DeveloperPolicy.html#embedded-copyri=
-ght-or-contributed-by-statements
->> >> >>     - Relevant quote:
->> >> >>         The LLVM project does not accept contributions that includ=
-e
->> >> >>         in-source copyright notices except where such notices are
->> >> >>         part of a larger external project being added as a vendore=
-d
->> >> >>         dependency.
->> >> >>=20
->> >> >>   - Apache: They banned optional copyright notices and relegated
->> >> >>             mandatory notices to a NOTICES file that also contains=
- an
->> >> >>             Apache copyright notice. See links.
->> >> >>     - Links:
->> >> >>        - https://www.apache.org/legal/src-headers.html
->> >> >>        - https://infra.apache.org/licensing-howto.html#mod-notice
->> >> >>     - Relevant quote:
->> >> >>         If the source file is submitted with a copyright notice in=
-cluded
->> >> >>         in it, the copyright owner (or owner's agent) must either:
->> >> >>           * remove such notices, or
->> >> >>           * move them to the NOTICE file associated with each appl=
-icable
->> >> >>             project release, or
->> >> >>           * provide written permission for the ASF to make such re=
-moval
->> >> >>             or relocation of the notices.
->> >> >>=20
->> >> >>   - btrfs: They are highly discouraged.
->> >> >>     - Links:
->> >> >>       - https://lore.kernel.org/20220909101521.GS32411@twin.jikos.=
-cz/
->> >> >>       - https://lwn.net/ml/linux-fsdevel/20221026074145.2be5ca09@g=
-andalf.local.home/
->> >> >>       - https://archive.kernel.org/oldwiki/btrfs.wiki.kernel.org/i=
-ndex.php/Developer's_FAQ.html#Copyright_notices_in_files.2C_SPDX
->> >> >>       - https://lwn.net/Articles/912355/
->> >> >>     - Relevant quote:
->> >> >>       Let's say it's OK for substantial amount of code. What if so=
-mebody
->> >> >>       moves existing code that he did not write to a new file and =
-adds
->> >> >>       a copyright notice? We got stuck there, both sides have diff=
-erent
->> >> >>       answer. I see it at minimum as unfair to the original code a=
-uthors
->> >> >>       if not completely wrong because it could appear as "stealing=
-"
->> >> >>       ownership.
->> >> >>=20
->> >> >> There's more cases of other projects taking similar stances.
->> >> >> ---
->> >> >>  CODING_STYLE | 18 ++++++++++++++++++
->> >> >>  1 file changed, 18 insertions(+)
->> >> >>=20
->> >> >> diff --git a/CODING_STYLE b/CODING_STYLE
->> >> >> index aae5a47ac2..97f80245ed 100644
->> >> >> --- a/CODING_STYLE
->> >> >> +++ b/CODING_STYLE
->> >> >> @@ -24,6 +24,24 @@ license, e.g.:
->> >> >> =20
->> >> >>  See LICENSES/ for a list of licenses and SPDX tags currently used=
-.
->> >> >> =20
->> >> >> +Copyright notices
->> >> >> +-----------------
->> >> >> +
->> >> >> +Copyright for the code in the Xen Project is held by the respecti=
-ve
->> >> >> +contributors. Because you (or your company) retain ownership of t=
-he code you
->> >> >> +contribute, you know it may only be used under the terms of the o=
-pen source
->> >> >> +license you contributed it under: the license for your contributi=
-ons cannot be
->> >> >> +changed in the future without your approval.
->> >> >
->> >> > The usage of such direct language here, by using you to refer to th=
-e
->> >> > reader / contributor, set a different tone from the rest of the
->> >> > document.  Maybe something like:
->> >> >
->> >> > "Copyright for the code in the Xen Project is held by the respectiv=
-e
->> >> > contributors.  The author of the code is the owner of it as stated =
-in
->> >> > the DCO.  The project cannot retroactively change the copyright of
->> >> > contributions, unless explicitly accepted by all authors of the
->> >> > code."
->> >>=20
->> >> Ack for the tone. The particulars of the wording might need tweaking =
-even in
->> >> this version to constraint the scope of "contribution", "the code", a=
-nd so on.
->> >
->> > Yeah, it probably needs even more integration to make sure the terms
->> > used match the rest of the document.  I didn't take much care into
->> > that, as I was writing this in the email reply and didn't have much
->> > context.
->> >
->> >> -----------------
->> >>=20
->> >> I have the same question for you I asked Jan elsewhere.
->> >>=20
->> >> There's 1 question in 2 forms I'd like to have an answer to from a co=
-re
->> >> maintainers.
->> >>=20
->> >> Would you be willing to ack a change along these lines?
->> >>   1. to a Copyright Notice policy within CODING_STYLE.
->> >
->> > I'm fine with that.
->> >
->> >>   2. to the relegation of existing notices to a NOTICES file in the s=
-tyle of
->> >>      Apache. Apache in particular mandates the file not be touched un=
-less
->> >>      absolutely required for legal reasons.
->> >
->> > Hm, that might be more complicated.  I am however not a lawyer, don't
->> > expect the rants below to have any kind of legal base.
->>=20
->> Neither am I, for the public record.
->>=20
->> >
->> > What about the public headers in xen/include/public?  I don't think we
->> > can just remove the copyright notices from those files and place them
->> > in a top level NOTICES file.  Then OSes would copy the headers
->> > without the NOTICES file and end up effectively dropping the original
->> > copyright notices.
->> >
->> > Also, what about people importing files from Xen into different
->> > projects (apart from the public headers)?  If we remove the copyright
->> > notices the imported files won't have them either, and people is not
->> > simply going to pickup the top level Xen NOTICES and import it into
->> > their project?
->> >
->> > How does Apache deal with people importing their code into separate
->> > projects, do they mandate the NOTICES file to also be included as part
->> > of any code import?
->>=20
->> They do. It's part of the Apache license. See point 4.d:
->>=20
->> 	https://www.apache.org/licenses/LICENSE-2.0
->>=20
->> This would require some sort of ammendment to xen/COPYING.
->>=20
->> OTOH, to avoid being a PITA to Linux and others by changing how we do th=
-ings
->> it'd be sensible to keep the existing headers on everything under xen/in=
-clude/
->> public/ for being-a-good-citizen reasons.
->>=20
->> Anyone actively copying an internal file (say, msi.c) would thus be forc=
-ed to
->> also copy NOTICES, but that's a heck of a lot rarer and not much to ask.
+On Wed Jan 28, 2026 at 11:45 AM CET, Jan Beulich wrote:
+> On 28.01.2026 10:09, Alejandro Vallejo wrote:
+>> The refinement also applies to the second bullet point, so I can add it =
+as a
+>> separate paragraph stating existing notices are to never be modified and=
+ only
+>> removed with the express consent of the current holder(s).
 >
-> Possibly a very dummy question, but won't our NOTICES file be fairly
-> big and complex?  If we have to move every single variation of the
-> different copyright headers we currently have in the tree.  We have
-> GPL-2 only, >=3D GPL-2, MIT, LGPL, BSD... Each with a possibly different
-> set of copyright owners.
-
-Any licenses still around as banners we neither need nor want to keep. That=
-'s
-what SPDX tags are for, and why we have them collected under licenses/.
-Irrespective of the copyright amalgamation, licensing is still per file, wi=
-th
-each file having an SPDX line.
-
-But yes, every copyright owner would need a "row". Unless we can contact th=
-em
-and ask for permission for removal.
-
+> That's interesting, as it may be getting increasingly difficult in practi=
+ce.
+> Often you can't get hold of the holder(s), to the degree that - as we're =
+all
+> growing older - at some point they may not be there at all anymore. Yet i=
+f
+> not having such notices is going to be a goal of the project, retaining s=
+ome
+> indefinitely can't be the intention either.
 >
-> Also, would we need to somehow reference which notices go with which
-> files in the tree?  Otherwise we would effectively loose tracking of
-> the specific copyright owners of each file I fear.  Figuring those out
-> would need to be done by going back to the last commit before the
-> copyright notices were removed.
+>> Do you have a take for/against moving all existing notices to a separate=
+ NOTICES
+>> file (a-la Apache). The existing file for them (in httpd) looks like thi=
+s, so
+>> they took the liberty to rewording the banners to be more digestible in =
+single
+>> file inclusion.
+>>=20
+>> 	Apache HTTP Server
+>> 	Copyright 2026 The Apache Software Foundation.
+>>=20
+>> 	This product includes software developed at
+>> 	The Apache Software Foundation (https://www.apache.org/).
+>>=20
+>> 	Portions of this software were developed at the National Center
+>> 	for Supercomputing Applications (NCSA) at the University of
+>> 	Illinois at Urbana-Champaign.
+>>=20
+>> 	This software contains code derived from the RSA Data Security
+>> 	Inc. MD5 Message-Digest Algorithm, including various
+>> 	modifications by Spyglass Inc., Carnegie Mellon University, and
+>> 	Bell Communications Research, Inc (Bellcore).
+>>=20
+>> 	This software contains code derived from the PCRE library pcreposix.c
+>> 	source code, written by Philip Hazel, Copyright 1997-2004
+>> 	by the University of Cambridge, England.
+>>=20
+>> It'd blur the scope of existing holders, but code moves and so do their
+>> contributions. Keeping a banner on a file after a refactor is just
+>> misattribution.
+>>=20
+>> ------------------
+>>=20
+>> In short. There's 1 question in 2 forms I'd like to have an answer to fr=
+om a
+>> core maintainers.
+>>=20
+>> Would you be willing to ack a change along these lines?
+>>   1. to a Copyright Notice policy within CODING_STYLE.
+>
+> Likely, once we've agreed on suitable wording.
+>
+>>   2. to the relegation of existing notices to a NOTICES file in the styl=
+e of
+>>      Apache. Apache in particular mandates the file not be touched unles=
+s
+>>      absolutely required for legal reasons.
+>
+> Very unlikely. While likely I wouldn't veto it, I don't like such moving =
+around
+> of things. If we want to get them out of the source files, they should be
+> dropped altogether.
 
-I don't think so. Apache definitely doesn't do that. They might reference w=
-hich
-file was imported, but that's the extent of it.
-
-At most, I'd consider file+hash-at-its-commit so it doesn't need updating a=
-nd
-it reflects accurately the contribution at hand.
-
-Conversely, when code moves around and files evaporate so do copyright noti=
-ces
-even though the copyrighted contribution is still around. It's not the file
-that's copyrighted, but it's contents.
-
-In any case, the first thing to do is to prevent MORE coming in. This can b=
-e
-a discussion for later when the set of existing notices is more or less fix=
-ed,
-possibly alongside another RFC with how a NOTICE file might look like. It m=
-ay
-very well be too unwieldy, as you suggest, and this discussion be moot.
-
-I'll wait a bit for more answers before sending a non-RFC more carefully wr=
-itten
-version of this.
+Ack to both, thanks for the input!
 
 Cheers,
 Alejandro
