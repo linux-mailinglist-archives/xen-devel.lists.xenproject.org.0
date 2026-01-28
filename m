@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +KUYA9rzeWnT1AEAu9opvQ
+	id eNeYMKn0eWn71AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:32:42 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:36:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C3EA0793
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:32:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215518.1525694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2F6A085D
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 12:36:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215529.1525704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl3mg-000341-9O; Wed, 28 Jan 2026 11:32:30 +0000
+	id 1vl3q3-0003f7-Nw; Wed, 28 Jan 2026 11:35:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215518.1525694; Wed, 28 Jan 2026 11:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 1215529.1525704; Wed, 28 Jan 2026 11:35:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl3mg-000315-6h; Wed, 28 Jan 2026 11:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 1215518;
- Wed, 28 Jan 2026 11:32:29 +0000
+	id 1vl3q3-0003ct-L3; Wed, 28 Jan 2026 11:35:59 +0000
+Received: by outflank-mailman (input) for mailman id 1215529;
+ Wed, 28 Jan 2026 11:35:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pnMD=AB=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vl3mf-00030r-Ej
- for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 11:32:29 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
+ <SRS0=y3TT=AB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vl3q2-0003ch-F6
+ for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 11:35:58 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03b9aebf-fc3d-11f0-9ccf-f158ae23cfc8;
- Wed, 28 Jan 2026 12:32:24 +0100 (CET)
-Received: from DS7PR03CA0214.namprd03.prod.outlook.com (2603:10b6:5:3ba::9) by
- PH7PR12MB5808.namprd12.prod.outlook.com (2603:10b6:510:1d4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.8; Wed, 28 Jan
- 2026 11:32:18 +0000
-Received: from DS2PEPF00003446.namprd04.prod.outlook.com
- (2603:10b6:5:3ba:cafe::e0) by DS7PR03CA0214.outlook.office365.com
- (2603:10b6:5:3ba::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
- 28 Jan 2026 11:32:17 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003446.mail.protection.outlook.com (10.167.17.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 11:32:17 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 28 Jan
- 2026 05:32:15 -0600
+ id 826cd964-fc3d-11f0-9ccf-f158ae23cfc8;
+ Wed, 28 Jan 2026 12:35:56 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4806f80cac9so3151595e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Jan 2026 03:35:56 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48066be7404sm133664015e9.1.2026.01.28.03.35.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Jan 2026 03:35:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,196 +50,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03b9aebf-fc3d-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IazrqRPnNhEHjQYVXtO3ZgB20uAWJKZXyoPnFmsVQ1veUgGNBU1PHn9zFURHFyATI/sZepTat9OI8YJRBSCgZI7jR7C/aMx4kRIucGWdD8Fp2tXnooxKodob7ORcsd6k6nK8lAlrEXVB25LZZNUI5F137Fzg2eLTN1/sWu7Nlu+ZSRYdJSnK+v55wEKavOVDIaVdK6SYUpe8nsKJuSqvYUyIOBzJyDPv0xy8JYTjWlwZTLnouOWqAYIgNkrAd3aJHk7ADm5HPOpyb2PXLZkXr2QyR2PSLOcUKc+HGSV7PVqGXXMBW0/lK/aaPouBACLrgevdgtZQKAeyGFekdxYQxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XXCltb02AeNfG5VaFE9sO7ywtk99X6xghevsjpTHKOo=;
- b=krrMHKeSDE2xqOADr47lYhFCp+6MUh2UewH0wuhbN5F3zGowBl9zycIrYMBuHWVCnBJY/QLinLOAqBs+UqhfAYHHuqHrki322PRiOmSJAfFKme0F3HXvsriIniqe0AUrLZ37TDsq3E36zzMMfrCOTQ0NV3oY6RaVY2DyB7MvyiJjyoBnbvlF+cJHmKAc0wN00udelY/brjN5GipqVEBUm73RoROOSWkKI/ccjnmascHD9gPl2KEZp76v8C/cuKEUFVDlI+sOROhdeMCGPO8lGVjrgBjfSTzURfwukGMYOcnvq0YGhV1YyBK8VRkgQVt3zBxb4O3hddH9TUcWglbY3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XXCltb02AeNfG5VaFE9sO7ywtk99X6xghevsjpTHKOo=;
- b=wLbJ7mH9Bz2bR27wqtEGopBq8OUQZZ094RsiDyHNuEOcbMD8DM0QvdkduQBnGtbT7+Awbw60+4VOEvqDvb0KXEC+IOVZG/MpxCBenVelIZA1VtAk3lNpCq4kgd79kK2C2yWXpmIzIQqufcGEOPnJ1N+MlytDBCa0h5yR+GosSH8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: 826cd964-fc3d-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769600155; x=1770204955; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N8tNrxP8xRikWkij5OzIf+VcucA/6eXFBSGrNAudmoc=;
+        b=dBtIW9RtokETdYi/0ZUDR3kgT6XD9XPacOOvVaA7Cz2WGA+1bki7M1a5s1xcwNIy53
+         Fvdnjq4AuHWF89myut03NMoq32jDRxkNrnnnZ8UWf8+AI5i5ibf6sOObXokT++Yf/Wwk
+         tgLhHbDUIORElyAOAePNJNRNZGCsp6dqhGXmWdpScfAqYAgVeNQdFX7QYhryZjYyt6GA
+         BVLa3RQ06hls0/4r9DmfqceJfmxVk+RgtacqF2mwziIkczUepmWJnIPWtqrCDQuXw/Cq
+         +rWw96pUn5vVwWzIrsx4xtErpdSxXFAhmYVGve8DJjuxPAoltH6jZ7hvIM0QHkLv08Yu
+         RjsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769600155; x=1770204955;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=N8tNrxP8xRikWkij5OzIf+VcucA/6eXFBSGrNAudmoc=;
+        b=GEJLZsZvWVaTXiMpHd9hrmxw4trDoj0NQMvz5yBySepsUzTj8zsocegpSoCoJCO4l/
+         FyFV1vW/yyUkphNIHRahU87iEBsoPhUFKOEhM5vUymXiJZaj4RcdjABrwA2L0mu85iXw
+         U/XejqW+qStHSHmTQpYB4fcM3GR95OydEGGsJOEvW/gFrAj+BJeTtbDzvmzAYL1CqLod
+         wkR4baJ9m8BvFSo24ADNv1OSjNLvAs9/E+h0dO/5c6FJUOJmDO6pdamarhpJK6S3MY19
+         ES4HLf7w+L9h+SvxrFG3UiX+ptjKXbYqnxzVleGFWXjwQS0PrbP3PSLoeC1ou8ZgmlNG
+         2jrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX5xEOF11EZFevgt+MdEpqATLl5I5knpL+sJAnkVmRrVADNw7aiEBSXvgqYr5TdMG31Ly6QMjKOA/g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEdu9hwLiRe/v3UH7kc6FtNx6EwDjYGcViY1Ha0rJqW6sV5Pfo
+	sIonkiXtifzinkleoBZQX9uIuBjhOLvGEG+pVEyyDkDcFmBS5+fUnNkW
+X-Gm-Gg: AZuq6aKDWC5AuslwPKkTFWdEp8MV5dMTnGnWGmjdyHfI8aKKzWcaqa+K0zJZghINUz1
+	ruQpcse0TaMZWsx1madLyobHGNdolFimpV4Ng0fLGGcqrxaJ5LOqNwVFiQ9ZKhRy+P5Gdm9+nYH
+	jzogJM+pmZDhS9+jX7+bsfYHTxikzPg+ExwjHifOLBnV1578Z1LslfT4z+WnrfwVrWu288PYvnR
+	SCvI/84QAwg4dImmeYf+9Ar9piwIBweARFy1MY4kplQ6Wt0vriKeRkYOKVlcHTlI1/n6mVHDX9b
+	2ua/drOzjGOwRmDPSUmKAh5HW35Et6yqVbA8FjhGz0AHz36Qk011RKTDI6N9c6BdXv5c4cdSFRS
+	N5pMspGSTnKlzj4oYyGtX60vDAqbqGffrB/8VLQJx8QBifAVd6E+ZDfsan5KXMAUSWs+xv16SV/
+	UMCo+G3jvx+efydcggSpId4iKXHRWR1gx4WYrBML5w5XS4jLqzTdnjIBa1vR1HRzs=
+X-Received: by 2002:a05:600c:3b1a:b0:45d:dc85:c009 with SMTP id 5b1f17b1804b1-48069c4a171mr57248995e9.10.1769600155385;
+        Wed, 28 Jan 2026 03:35:55 -0800 (PST)
+Message-ID: <fcb1182b-e03c-4c73-8769-5ffe0e2cf485@gmail.com>
+Date: Wed, 28 Jan 2026 12:35:53 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 28 Jan 2026 12:32:13 +0100
-Message-ID: <DG06TMTPTXUR.79SR3GGH8OHW@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [RFC PATCH] CODING_STYLE: Establish a policy with regards to
- copyright notices
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen/riscv: dump GPRs and CSRs on unexpected traps
 To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <20260127182403.141459-1-alejandro.garciavallejo@amd.com>
- <b42af5a5-6237-47d2-9b74-0154ef8c2020@suse.com>
- <DG03S6HP7OIO.18ACUNFC24X1Y@amd.com>
- <ace6c97f-aeeb-40c9-9c0b-d6ad45fe09d6@suse.com>
-In-Reply-To: <ace6c97f-aeeb-40c9-9c0b-d6ad45fe09d6@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003446:EE_|PH7PR12MB5808:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1df70dd-06de-41f6-3cf1-08de5e60e49d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TEoxTXVxUVJQYTIxSnplM1NBM3BmazhrQ01YYURxNGNINE5BTjRHeWV1dm5T?=
- =?utf-8?B?a001T0Njc0IwZGVyRXJ1bHh6b2JHbytKVnp5ZGpVNlU3L2lZVGtaZ3IyNHY3?=
- =?utf-8?B?TG9tMjIrekRPTkJXMS9vTWpuclZTdEJQNUswamJZa1Y4eXU5V3dNM1JwNm1H?=
- =?utf-8?B?amdtQUVRY1BOU3U1SUJqL3JDWk02MmpyVnBTY05sWVY4YTBldE10SS9uMW5K?=
- =?utf-8?B?Z3NHOS9Ec2VpdmJuTmtiNzRJZTFVN09Vd2lYSU9ma2tneVpQNGlnQ294QWww?=
- =?utf-8?B?Wkdvc2pnRjJRR1ZMZlozNktISERXdzdPLzBVc29ScGV0dElKeklIcGxnWmNz?=
- =?utf-8?B?MVErTDVnWEJPdmdIcHZjUXBhVnZnNnlKbWlhOXc2RUJjRDJHTng3K0cxdjZG?=
- =?utf-8?B?V2FveTVWdEdhMUxNWFJablFaM01DblB6ODd4bkxBdUNNTTd5aVNmMmh0d3Fz?=
- =?utf-8?B?T3BkUE1nWlhQaTBnMklVcmMzK25haDNlYzRGVDA3a0UzaWdMWHdTUHBiV3F5?=
- =?utf-8?B?WW5aK1BjY1lwNGlqNGdrcU1lLzJYVW1FaWlxclVmRlU3RXJTcHVKVTBIWjJy?=
- =?utf-8?B?MUdhb1dzSFdtVmxjK2hRRUFjaUZZcWpidGJ1YmNxSjlVZHFXb3NzemoyRGkz?=
- =?utf-8?B?Y2pSWHg1ZVFjQXRJdXZNcmZjdnp1TWFGSTJ6ajVvZjRUQTZHR2trelZrMVVR?=
- =?utf-8?B?eWx6RGd4VlRNMEFhL3crSVlBTHZUYXNHT1dNcU5PenczelA3d1pIM3pFYTJD?=
- =?utf-8?B?VW54VExQL0VEM0hBRWtteDdJYTJsL2xNM2RFZ2dFSXZ5eWsrVTFTTm1WSWFs?=
- =?utf-8?B?cjRMVWlpRnNaUkhIRGd5VnFsSlhPOHR6a2c5aU9UK2t6RWtPTmdZSTVKemJF?=
- =?utf-8?B?aXFGY2ovS2xhOE1iRHlLTHk1N3ZYUXRVSlhTT1JTVWJRWW0wZGFCdnlDWUV6?=
- =?utf-8?B?eXZjSEduUENKUjc3eTMwOGRyRDF3RytIdE5CcjE0SzMzT0hqUzA3aGFFTE1j?=
- =?utf-8?B?Z1NibHJEWDlwTzBTREJMV3EzbUJleDd1d0hpbXNPV1JmM3RWUVBZeDIxRy9N?=
- =?utf-8?B?NVRzRE84VTl4NHV3cm1XN1ZKdGlkTWRrSHZDay9Vdk5zc3R1U0FteVd2cjFx?=
- =?utf-8?B?VFY4eXFWUnZJOXBLQ2RQdWFvNzBnYTRtZEtkaGF2UTRrYklERW9QR01ud1RO?=
- =?utf-8?B?NGo5YjRyMUtCSmN6RCsvY2k0R3dqTWpWenYwbTMxZlBKRDFocEJIdzhGai9l?=
- =?utf-8?B?cXRrSS9Rbk80NG1tNGJJdmhoblhIM2pEQjlweExvdHVjZG9renpabGM5Zlk1?=
- =?utf-8?B?QUdXc3N2MWV6Z3YwaUt3ZUhnYTRGMVZUOGV1dDFrellpbWlsdktjbmF2SU9X?=
- =?utf-8?B?RGNwL3ZndmFvb3pqOWlDV1liYmx6VHlUaTVyYVBDSVhIa0ZEOURMdmdrdEpl?=
- =?utf-8?B?c0xZdmt6UHdBMlQ4MmN6RG5JY05ZV0lKVmZKTlhXM2pjZDJOUVRBL082VTJ4?=
- =?utf-8?B?YjZISXRUdzQ2ME9CNlU1WDFDc2ZsK0R1K1hnNjhMbENMSitDZi9SZVUwTTJj?=
- =?utf-8?B?SW15SWhuZ3drOFZzaStxRlJxU3lpbmdGaEs0Rm5OTnlWZ2VVSTJCVjkyOEtj?=
- =?utf-8?B?SFpUMHFGa1l6THQyY2pwQnR2WjhiOWgwTmdnNVpWa21YZ0lBanZkZGc2Y3BL?=
- =?utf-8?B?cC9yY0RKSFRybUorMnJXRFRGbUEyeWJ0K095RDgyZmpVbVB0Y0RXZi9lMTNi?=
- =?utf-8?B?ZGJxWG9hd0E4dURwVWF6eUJncjZoeGcreVp2Q3FSeEFyak1wd210SHh3c3Zx?=
- =?utf-8?B?T0x0eGVyNDlHQkp1ZHFlM0p4cnh1YXBhRERPRnlXUU5vTGJIaHRsVnRZeHAz?=
- =?utf-8?B?Q1gzblBtVC9uRWlidE1ERWFyUksvdWl3UzhFbFZNdlA1MitxQU96REZpMEpC?=
- =?utf-8?B?Qis2VGhEdUZkd2hUVmlGYk9keGxvbisyTUw2S3hWOElsYTRRWFNWWGFYNHVT?=
- =?utf-8?B?aDRaWkhWY2MzZWNtclNKOThMUEZHSWZkMTgxNWtyODdZamF1ZzBjdGxsRnJD?=
- =?utf-8?B?VlZOVDRBL05PNktmVFkzcGdwdlNVWVE0UE5jcEFRV0ZtblEvUGlEdGtYYThw?=
- =?utf-8?B?d2E3ZTkzY0x0dHlJUzc0M1RZbFYya3JhUTV5VUREZDcxUzlWM1hjb21jRlV0?=
- =?utf-8?B?LzZIQ21FK01ITEpxRGd6ZVBDZ1gyQUJrT0JZb1Q4VGUyR3BOSFRscGtWTEVE?=
- =?utf-8?B?YVRId2tBLzFBYzlrTXRuTUkwNmxRPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 11:32:17.8042
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1df70dd-06de-41f6-3cf1-08de5e60e49d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003446.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5808
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <27ab0f8eb6fd6ecef1eeefa4a05e4fe1f43acbbe.1769427484.git.oleksii.kurochko@gmail.com>
+ <cf8f345c-185c-4b6f-aad2-7ac1b67fc018@suse.com>
+ <debe7d0f-b1a5-4f45-a73d-0a84d136f9c0@suse.com>
+ <a2f80fd1-0a6b-4ed4-9d19-bb052fc18228@gmail.com>
+ <88edf7a2-c5f1-41fd-9ceb-8cc0c345b7e6@gmail.com>
+ <132efa57-bd11-47b9-b3c8-0c09589f70b2@suse.com>
+ <8ec02eba-3271-45ce-8157-0d444ed9da62@gmail.com>
+ <46b4e715-3b4d-457e-885c-2c3b4d9e5165@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <46b4e715-3b4d-457e-885c-2c3b4d9e5165@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	HAS_XOIP(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 63C3EA0793
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 2B2F6A085D
 X-Rspamd-Action: no action
 
-On Wed Jan 28, 2026 at 11:45 AM CET, Jan Beulich wrote:
-> On 28.01.2026 10:09, Alejandro Vallejo wrote:
->> The refinement also applies to the second bullet point, so I can add it =
-as a
->> separate paragraph stating existing notices are to never be modified and=
- only
->> removed with the express consent of the current holder(s).
->
-> That's interesting, as it may be getting increasingly difficult in practi=
-ce.
-> Often you can't get hold of the holder(s), to the degree that - as we're =
-all
-> growing older - at some point they may not be there at all anymore. Yet i=
-f
-> not having such notices is going to be a goal of the project, retaining s=
-ome
-> indefinitely can't be the intention either.
 
-Sorry, I missed this part. Many things are unavoidable non-intentions, I'm
-afraid. A file might have a notice indefinitely, but that doesn't mean the =
-project
-_must_ keep that file indefinitely.
+On 1/28/26 12:27 PM, Jan Beulich wrote:
+> On 28.01.2026 12:22, Oleksii Kurochko wrote:
+>> On 1/28/26 12:08 PM, Jan Beulich wrote:
+>>> On 28.01.2026 12:01, Oleksii Kurochko wrote:
+>>>> On 1/28/26 11:34 AM, Oleksii Kurochko wrote:
+>>>>> On 1/27/26 10:27 AM, Jan Beulich wrote:
+>>>>>> On 27.01.2026 10:14, Jan Beulich wrote:
+>>>>>>> On 26.01.2026 12:43, Oleksii Kurochko wrote:
+>>>>>>>> Provide additional context when an unexpected exception occurs by
+>>>>>>>> dumping
+>>>>>>>> the relevant Supervisor, Virtual Supervisor (VS), and Hypervisor CSRs,
+>>>>>>>> along with the general-purpose registers associated with the trap.
+>>>>>>>>
+>>>>>>>> Dumping VS-mode CSRs in addition to host CSRs is beneficial when
+>>>>>>>> analysing
+>>>>>>>> VS-mode traps. VSCAUSE, VSEPC, VSTVAL, and related VS state are
+>>>>>>>> required to
+>>>>>>>> properly diagnose unexpected guest traps and potential hypervisor
+>>>>>>>> misconfiguration.
+>>>>>>>> For example, on an illegal-instruction exception the hardware may
+>>>>>>>> record
+>>>>>>>> the faulting instruction in VSTVAL. If VSTVAL is zero, VSEPC should
+>>>>>>>> always
+>>>>>>>> be inspected, and can be used together with objdump to identify the
+>>>>>>>> faulting instruction. Dumping VSCAUSE is also useful when the guest
+>>>>>>>> does
+>>>>>>>> not report it, or when the hypervisor redirects a trap to the guest
+>>>>>>>> using
+>>>>>>>> VSCAUSE, VSTATUS, and VSTVEC, allowing verification that a
+>>>>>>>> subsequent trap
+>>>>>>>> is not caused by incorrect VS state.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>>> Hmm, wait, there's another anomaly:
+>>>>>>
+>>>>>>> I still have a question though, which can be addressed incrementally.
+>>>>>>>
+>>>>>>>> --- a/xen/arch/riscv/traps.c
+>>>>>>>> +++ b/xen/arch/riscv/traps.c
+>>>>>>>> @@ -99,12 +99,70 @@ static const char *decode_cause(unsigned long
+>>>>>>>> cause)
+>>>>>>>>         return decode_trap_cause(cause);
+>>>>>>>>     }
+>>>>>>>>     +static void dump_general_regs(const struct cpu_user_regs *regs)
+>>>>>>>> +{
+>>>>>>>> +#define X(regs, name, delim) \
+>>>>>>>> +    printk("%-4s: %016lx" delim, #name, (regs)->name)
+>>>>>>>> +
+>>>>>>>> +    X(regs, ra, " "); X(regs, sp, "\n");
+>>>>>>>> +    X(regs, gp, " "); X(regs, tp, "\n");
+>>>>>>>> +    X(regs, t0, " "); X(regs, t1, "\n");
+>>>>>>>> +    X(regs, t2, " "); X(regs, s0, "\n");
+>>>>>>>> +    X(regs, s1, " "); X(regs, a0, "\n");
+>>>>>>>> +    X(regs, a1, " "); X(regs, a2, "\n");
+>>>>>>>> +    X(regs, a3, " "); X(regs, a4, "\n");
+>>>>>>>> +    X(regs, a5, " "); X(regs, a6, "\n");
+>>>>>>>> +    X(regs, a7, " "); X(regs, s2, "\n");
+>>>>>>>> +    X(regs, s3, " "); X(regs, s4, "\n");
+>>>>>>>> +    X(regs, s5, " "); X(regs, s6, "\n");
+>>>>>>>> +    X(regs, s7, " "); X(regs, s8, "\n");
+>>>>>>>> +    X(regs, s9, " "); X(regs, s10, "\n");
+>>>>>>>> +    X(regs, s11, " "); X(regs, t3, "\n");
+>>>>>>>> +    X(regs, t4, " "); X(regs, t5, "\n");
+>>>>>>>> +    X(regs, t6, " "); X(regs, sepc, "\n");
+>>>>>>> Does this sepc value differ from ...
+>>>>>>>
+>>>>>>>> +static void dump_csrs(unsigned long cause)
+>>>>>> What is this function parameter for?
+>>>>>>
+>>>>>>>> +{
+>>>>>>>> +#define X(name, csr, fmt, ...) \
+>>>>>>>> +    v = csr_read(csr); \
+>>>>>>>> +    printk("%-10s: %016lx" fmt, #name, v, ##__VA_ARGS__)
+>>>>>>>> +
+>>>>>>>> +    unsigned long v;
+>>>>>>>> +
+>>>>>>>> +    X(htval, CSR_HTVAL, " ");  X(htinst, CSR_HTINST, "\n");
+>>>>>>>> +    X(hedeleg, CSR_HEDELEG, " "); X(hideleg, CSR_HIDELEG, "\n");
+>>>>>>>> +    X(hstatus, CSR_HSTATUS, " [%s%s%s%s%s%s ]\n",
+>>>>>>>> +      (v & HSTATUS_VTSR) ? " VTSR" : "",
+>>>>>>>> +      (v & HSTATUS_VTVM) ? " VTVM" : "",
+>>>>>>>> +      (v & HSTATUS_HU)   ? " HU"   : "",
+>>>>>>>> +      (v & HSTATUS_SPVP) ? " SPVP" : "",
+>>>>>>>> +      (v & HSTATUS_SPV)  ? " SPV"  : "",
+>>>>>>>> +      (v & HSTATUS_GVA)  ? " GVA"  : "");
+>>>>>>>> +    X(hgatp, CSR_HGATP, "\n");
+>>>>>>>> +    X(hstateen0, CSR_HSTATEEN0, "\n");
+>>>>>>>> +    X(stvec, CSR_STVEC, " "); X(vstvec, CSR_VSTVEC, "\n");
+>>>>>>>> +    X(sepc, CSR_SEPC, " "); X(vsepc, CSR_VSEPC, "\n");
+>>>>>>> ... the one logged here? Nothing changes the register between entry
+>>>>>>> into the hypervisor and coming here?
+>>>>>> Down below here you have
+>>>>>>
+>>>>>>        X(scause, CSR_SCAUSE, " [%s]\n", decode_cause(v));
+>>>>>>
+>>>>>> which actually (largely) duplicates what do_unexpected_trap() has
+>>>>>> already
+>>>>>> logged.
+>>>>> Missed that, then it would be better to remove this duplication and leave
+>>>>> only printing of CSR_SCAUSE in dump_csrs().
+>>>>>
+>>>>>>     If dump_csrs() gained other uses, the dumping of scause likely is
+>>>>>> wanted, but then likely no scause value would be available to pass
+>>>>>> in? So
+>>>>>> maybe its dumping actually wants to be conditional (and the parameter
+>>>>>> wants to be a boolean)?
+>>>>> Good point. Honestly speaking, I don't know if it will be any other
+>>>>> usages
+>>>>> except this one. But to keep things generic I think it is good idea to
+>>>>> add conditional dumping of scause.
+>>>> As an alternative, we could simply remove the dump_csrs() argument and always
+>>>> print SCAUSE. When running in hypervisor mode, SCAUSE should contain the reason
+>>>> for the trap. Even it is lets say just hypercall and not something faulty, it
+>>>> will contain "Environment call from S-mode" what looks okay to be printed.
+>>>>
+>>>> I tend to prefer this approach slightly. What do you think?
+>>> It means that it'll be logged twice for an unexpected trap. As said, I can
+>>> only recommend to limit the volume of the output in such situations, as
+>>> sometimes all people may be able to get you is screenshots.
+>> It will be logged once, basically, mu suggestion is:
+>>
+>> -static void dump_csrs(unsigned long cause)
+>> +static void dump_csrs(void)
+>>    {
+>>    #define X(name, csr, fmt, ...) \
+>>        v = csr_read(csr); \
+>> @@ -156,11 +156,7 @@ static void dump_csrs(unsigned long cause)
+>>    
+>>    static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>>    {
+>> -    unsigned long cause = csr_read(CSR_SCAUSE);
+>> -
+>> -    printk("Unhandled exception: %s\n", decode_cause(cause));
+>> -
+>> -    dump_csrs(cause);
+>> +    dump_csrs();
+>>        dump_general_regs(regs);
+> And the fact that it was an unhandled exception then isn't logged explicitly
+> anymore? Perhaps dump_csrs() then should have a const char * parameter, which
+> here you would pass "Unhandled exception" for.
 
-I'd definitely prefer to drop them all. Alas, I don't feel confident enough=
- you
-(nor anyone) can legally commit such changes without the holders' approval.
-Unless we were to base the rationale on "the notice is already in git histo=
-ry"
-or some such. At that point it becomes mandatory to ship the full git tree =
-as
-part of a release, which is incompatible with tarball releases. This might
-affect downstreams more than upstream, but it's a consideration nonetheless=
-.
+Yes, it will be lost, I thought it would be enough to see SCAUSE, but agree
+it would a little bit more convenient to have message: "Unhandled exception".
 
-It is true that having some already in, with new ones severely restricted
-creates asymmetry with prior contributions, but I argue this asymmetry alre=
-ady
-exists with banners present for some original contributors, when folks (e.g=
-:
-you) have been heavily modifying those files for well over 10y and not adde=
-d
-their name. And if everyone were to add their name we'd have to scroll hund=
-reds
-of lines on each file before seeing the first #include.
+~ Oleksii
 
-TL;DR: Yes, some banners are bound to stay unless files were fully rewritte=
-n, if
-       anything because their current holder(s) can refuse to have them rem=
-oved
-       or not be available at all.
-
-Cheers,
-Alejandro
 
