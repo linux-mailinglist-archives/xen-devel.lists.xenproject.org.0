@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yGzKN3hMemkp5AEAu9opvQ
+	id 4MSBEJBeemm35QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 18:50:48 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 20:08:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C8AA7377
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 18:50:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1215917.1525977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 973BBA80C6
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Jan 2026 20:07:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1215947.1525988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl9fW-0004BF-Ot; Wed, 28 Jan 2026 17:49:30 +0000
+	id 1vlAsU-0005Ou-0G; Wed, 28 Jan 2026 19:06:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1215917.1525977; Wed, 28 Jan 2026 17:49:30 +0000
+Received: by outflank-mailman (output) from mailman id 1215947.1525988; Wed, 28 Jan 2026 19:06:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vl9fW-00048F-JH; Wed, 28 Jan 2026 17:49:30 +0000
-Received: by outflank-mailman (input) for mailman id 1215917;
- Wed, 28 Jan 2026 17:49:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vlAsT-0005Lx-Tq; Wed, 28 Jan 2026 19:06:57 +0000
+Received: by outflank-mailman (input) for mailman id 1215947;
+ Wed, 28 Jan 2026 19:06:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=m4J3=AB=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vl9fV-000489-Ei
- for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 17:49:29 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b072bdc8-fc71-11f0-b160-2bf370ae4941;
- Wed, 28 Jan 2026 18:49:28 +0100 (CET)
+ id 1vlAsS-0005Lr-Ii
+ for xen-devel@lists.xenproject.org; Wed, 28 Jan 2026 19:06:56 +0000
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170110009.outbound.protection.outlook.com
+ [2a01:111:f403:c111::9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79ea2eaf-fc7c-11f0-9ccf-f158ae23cfc8;
+ Wed, 28 Jan 2026 20:06:41 +0100 (CET)
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB6488.namprd03.prod.outlook.com (2603:10b6:a03:397::12)
+ by PH0PR03MB6367.namprd03.prod.outlook.com (2603:10b6:510:a9::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Wed, 28 Jan
- 2026 17:49:24 +0000
+ 2026 19:06:37 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9564.006; Wed, 28 Jan 2026
- 17:49:24 +0000
+ 19:06:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,143 +52,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b072bdc8-fc71-11f0-b160-2bf370ae4941
+X-Inumbo-ID: 79ea2eaf-fc7c-11f0-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MDaIBalq5F81qjjQMz+p/f1P+6/cqauDt3IH10InZXCb6anO8WSFhGBV9v6YYSCaZOblaSJRjjpyTXhuil/J5dhj2pQXxXRDGv2ZXpYEV688+n9pTaGTm+wkKL+Lfp6JFY3Q3m4srBueo/zetv23nujE5zGWG8XTlbJrV5NhmzB8kCO1PT/0BNRHYr5oCqxpaDLRWpBgQOXoyD4J0AY1pjC94hTZ+61Brpi7YlEC0+GebnkEV2f5zm13FCra14ZO3mFSK1y9RMdjcBkvuSy0Pi1tn2D/ENgLKBeXXtEjT3AiWNbmZqHWeP9krpNlAvqVUsHWFeAV29imiL7wQ1qovg==
+ b=ahL5/JMhe/u0moxpjoJTraJqVSi+k2NK0ZLZea07gzpkoU8suzvyd7XD3k9GeZybloY3CM+TukMEuBlYUQO+LiZNocK6nVKiG5P1kush424GUQ6lAUF5+BLRRhebubfVCzdrxmV7xvfQiR5kLmURYAEs/EVmKCPEe+04VydUmG3LH9TzEDECdJxeXj1q7zUqrzqJzleyGiRaB30MpayonXKlIbP8xqrVl66H2ypxgURNpXjkMAsa4kiR1s1d4U+sm8+f5+tJg8pSTNcF7GhDhzdSNVp0UlYJ36M7gxmTMy5mX4UPp2HbRoOrWgEhXl3FLoejA/mBQpncw8LrBhFpUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XpKW9dbfwCCxuO08czMMhuq8JZ763hOj6WAxtJmoQWE=;
- b=tVUATuH+yukG/XCFDJMbpcQXAtEOOkLgh5Fs7kZIpstygH3k1cOpmwOATaY+JrFjU/AUXccLIKfykr6ycaarngFLqq/4uWwa6LN3hmPlAJh7CySC/gSGJvIedOGlR3np6DY3/aD0cRdLaeAwmJBbJNuhBzR5H3j4whTqmUAZyXU4Mz4xs6ymZ0t7dRvIUyRUXWYpzgqrC5Uyh7LBXw7YW3IzN5JSQ+0ZWEwL52QZ7fdQWA0PnvzuVJ5RrIDF6e0BD3UZHuzQjdTXUNHFHQt1rOabwDYsQianYDO/96/eptPhaid9CovCO+/n1EkcgVDtMUm82lm3QaHSJ++0zR/GMw==
+ bh=uoeTR8czM06YUkBHxd75Edi46eWfXm2/ps5tFJAOOnE=;
+ b=Z2dL/s2QzMQ+CjxEE4k0mmm4tTW9M3SJyBGhdx86PSW/KfdU7NL638FtV0RbwyXjPUMAA1GT4TI+jSnmNbKw2natCKetWflRHxflvJjqFlo1MgUYW88R/bJ4BTRXKZFL9aaK8iUGXRU/bO3wo+HsxDdVu/h9g2WKs2IHfpzD/ME6jBBbnbkA9dE4kzaTGi0EYRNmGrvY5pyu6JoMF6RvGQoTYuPnQlvp3BmGARI9lHUX2gHBoA2u0i4yL4TIS6UdpmXBNL6xoL7BvtrMhselsbQOZ+DWYmNmmxwlhVBrG7hAv4UnRw3eqGK+pvydF0HEnbMX65nS2iHb1GE+4KUZIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XpKW9dbfwCCxuO08czMMhuq8JZ763hOj6WAxtJmoQWE=;
- b=EtM/kxbGwI3V8GJS+icBbXrZtmHwfwqiX8uJ1vMHMpVyCLAF9fFBkxd9h096uebwUbpufXcnE1qJ9H5cJTubg9ekT6mWEbwIX5ZX9NKiRgKXKI3JAx5nUp7XzGU1m8P/11kvQNxZ2NK3XFBTYjiypzTUNVHfffQ9okO9Z4Rq1fU=
+ bh=uoeTR8czM06YUkBHxd75Edi46eWfXm2/ps5tFJAOOnE=;
+ b=b0xL7xgd2NXZB/abSUNs3FpEcjY7XXVPd41sozEimluA5wgU8q1LlTdWkqFhBBpORnYTNxET3lrTGSXJ+rW6jbJTEn6DbmjVpOtG6SF/KiNnHk1efqmwbosWMyOnW7z+etQPRQsveOJqSiKJvtCZJF+FvzGe/7uDtuPHfitzE0A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 28 Jan 2026 18:49:20 +0100
+Date: Wed, 28 Jan 2026 20:06:34 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v2 2/4] PCI: determine whether a device has extended
- config space
-Message-ID: <aXpMIOuRZvX8IyFK@Mac.lan>
-References: <58091dc1-7bda-4536-8200-2d0a5679d4d1@suse.com>
- <edb5eeb2-2cb2-4614-a042-7788fbb345c7@suse.com>
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 2/3] xen/mm: allow deferred scrub of physmap populate
+ allocated pages
+Message-ID: <aXpeOocblPZtJW5Q@Mac.lan>
+References: <20260128120339.47373-1-roger.pau@citrix.com>
+ <20260128120339.47373-3-roger.pau@citrix.com>
+ <6d7b74b6-1bab-427d-aa14-321f4761d9a0@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <edb5eeb2-2cb2-4614-a042-7788fbb345c7@suse.com>
-X-ClientProxiedBy: PA7P264CA0319.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:395::19) To CH7PR03MB7860.namprd03.prod.outlook.com
+In-Reply-To: <6d7b74b6-1bab-427d-aa14-321f4761d9a0@suse.com>
+X-ClientProxiedBy: MR1P264CA0211.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:56::13) To CH7PR03MB7860.namprd03.prod.outlook.com
  (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB6488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 118537f1-1c4d-4371-68c8-08de5e9592be
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH0PR03MB6367:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6dbe9ec-4537-4c93-8bfc-08de5ea05c94
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OFNDMnlCaFdmelgvdjJwQlZqSmJDS0lqSGVuRzFoUjFxdloydDRzY0NPV3h1?=
- =?utf-8?B?NmI0bFhuM1lSeHVrTGZsVWVpTGRzcmV5SHFmdVgxSjh6MXZZZEdHU1FhNTcw?=
- =?utf-8?B?emdiaWR1RlkwbUtUNnBIemhYcmUzWkFIcWJYcllPTHk3anYwWkJITms0cDdk?=
- =?utf-8?B?MUhtWCszNUZqaGR6blBsT2dpcXRCTmlsWldYS2xMN2lGdjJrT2doUHo0OUN6?=
- =?utf-8?B?QXE1RXA3dzJscFQwQ2IrdmcybC94OW1MVFRRdTFweUZWVzFSdGNobkZ5eUZo?=
- =?utf-8?B?NEJhcWtYWWtrUThCOTNLSTQyL2E4MnVLamdROVQyU0VPdkgyUjhWT3l1TUEy?=
- =?utf-8?B?SlRqZzB6UFE0MkZqdVoza01sWjFXanlCc1dySHlZLy9pbGI4bHZQdmswWjl0?=
- =?utf-8?B?SEJHMlZ4T3BRbEVXcndiTnpJUWRKdWtaSjB2ZEZ6OC9INVJQM1lDbmg0dkZF?=
- =?utf-8?B?dFBPaG96czdQby9KYUk0YzBJN1VjTllVK3RWVit5NktqT3NTRE85bmxPRTZU?=
- =?utf-8?B?c2FTNUtVNE84OXNBd0lFWDRacFU0L2dJZ2NTVjRHOUVpZldNMm1jVU5lQnFa?=
- =?utf-8?B?SldiK3Ayc3A2MUd4OWJXUlVPMjNiU3VoZlE4eUNTWUZWWThJQndyWEdxcVpu?=
- =?utf-8?B?RmY2M2d4SytxUkVzcVdmWTJDd2x5L2FGTXlkY0ZjemtSOFU4NHlCNFArWVdU?=
- =?utf-8?B?L1U0cGZmV0o5OGRydTN4dHB1QmhqdThGOVEwWHUvbC9ObFl4d29PQUNEbXQ4?=
- =?utf-8?B?bnJZeldOY2FBSi9nWnZrOExmSXhuSnFtTUVXQVdIRmx1VDNvWGxPQTVTaUhH?=
- =?utf-8?B?OVFHVS9SOGxteTI4QjIrZDBPSytJZ2o5RlNFdk4wdGtWeXlFL0dSZGtpaS9B?=
- =?utf-8?B?akJxY3I4UzZhQ1NzMURQTGc2RmhXbzJ3R2hKNHpoVG5hdzFFanNtbE5IZWo4?=
- =?utf-8?B?Qmt6OUVXT1d5cXd1cCtHVXdiVG5ROVloOWVhVkhPZndnMlRKLzVCTitzSWo2?=
- =?utf-8?B?MmFETHhFak1tdmNNdGkweEYwYU9pTlA3OTFad0ptNVV4OGpqbitQcmV0U0Iy?=
- =?utf-8?B?SHhHRFJSU0oyZDBUZEhoOHBOYnNEWENVRW1VQVpxaTBsR085RHNyN2JnWnNm?=
- =?utf-8?B?QmlCbGdkTG9QUDhQQmc1NjhSdU9qeElOZ2hFcTEzeldlYTgwRFdxRUs1dHov?=
- =?utf-8?B?cU9KU3ZYMDFsSTc1RVJ4ckduZEl5dXVUZFZyY2h0OE1TdDNFb1pPTmIrV3h0?=
- =?utf-8?B?clJIMkFMUmN3MUZMclNMeDFlN2x2Z3hTSjJOYXNFVVU1TlJrREhNbjJ5b1hO?=
- =?utf-8?B?VGdaQXJOT05QdjJLNktZZnBZNXhVYjBSMHdBOEhDZUtVQnoxQ1REdnl2YTFS?=
- =?utf-8?B?SWJ4VHpkRndPbHVnWkNWUE9Yc25tblJPcW1qLzhWTGR2VVVUOERLTnVVOHpW?=
- =?utf-8?B?RkZtRWU0S29tMFhJM2hYMmIxcjRRZjZvaXVoSmVZL0FZVkdOTC9kWCs5aDBP?=
- =?utf-8?B?S1dDMG5tTk5lMHlpM3MzVVF2ZVJBLzJYMC9DT3J5aUpUSlhZSjNyT3lsKzlr?=
- =?utf-8?B?T1NMbVRUWVpNNGNWNitEZ2J6UXFkN2xDOFZpTnJrbXN6emRhSEVsM0tJWDZ1?=
- =?utf-8?B?QWh3YW5zRzhIeXlzRXdHQWtReG1xNmpVRlAvRjVhN3ZFaUtPS3RoMHoyRkVl?=
- =?utf-8?B?Um5nTklUbWtIU1BJRjlDM0FJUUF2bUk2RktFZGRqc25jakxuZXlLaFVIN251?=
- =?utf-8?B?ejhwS3dUc1h5SHU1Vlk2bFF0RVk3b3I3dXdCdUx1VXppMWVpa1BkMUdNUzZs?=
- =?utf-8?B?Skg5UEh2NUZHWDVtcEc0cVIrcWNORU5NMVY4eFZKYm5pWDNQSGE4a2ZtcVRv?=
- =?utf-8?B?WU5SNzdjRnVzOWJwVExqcUxyZmQ2R0IwU3hIL1cveTVJSnhXV3NzRElBdkVG?=
- =?utf-8?B?SUdvcWNsV1hCZTdHOCtTb3Q5cUpGUm5lOUt0QjRkZ25GTG9yL1RCYXpFcVc3?=
- =?utf-8?B?K24wd0cyakRlcXpWcjRDU09pY0VOMytGQ0VsQmZiZFpFUUFrRXA5V0xFd3Jj?=
- =?utf-8?B?Z2pZS1ZneWxGTlhNOGNyR1JBZ2EvVGQyUkZvUXJubkloTXdlVTVYNGsya0JI?=
- =?utf-8?Q?SUfY=3D?=
+	=?utf-8?B?ZkZlSVhZd0o2UXAxQlNRcVRJRHpuRkhoVjhKWVJweVZpWDgxdXFvVzNySTFH?=
+ =?utf-8?B?Vm1HL3JlaDcxTWZNckx1L3FPc3VHZ2FScGJCeDUwWGl5UlNqbUNaUTRhaG5m?=
+ =?utf-8?B?cFRlM0FwTGF1SXNHeklVK0lwWDloR2dKNktQTFBnNy90VWVzYXFzMmQ3REIv?=
+ =?utf-8?B?TmJhMWJrQUxOYzMyZGpYRGF0aTlqSWZqYmVKRk8yakRZR0JnUE52TkZIVkZq?=
+ =?utf-8?B?ZVRwRUdYM2tLQmY5c1psVW1uWGhScDRZR3pLUmhueVdsT2RXL0s0N3d5cEll?=
+ =?utf-8?B?aWloTmhSQ3VTUXRWUGk0QkdZUUZGY0F3RnpQZUx1aHFZVVdzT0pnbEdILyt3?=
+ =?utf-8?B?bWgyTDJ6VCtFOXZMM0Y1Rnp3ZDdHZTJNalArdk5BNXdUZXBOQlROSWxkamRy?=
+ =?utf-8?B?c0Y1WDVETmw0UnZkZ0EzNjFYYXU3NU1aR3pBVVBEdU5rQkdTVTNVMzZUcVAz?=
+ =?utf-8?B?NFo3bUUyNFlkbzhaNXVHVmNLNGNTWHlORmNsbmdaRmRiNGtqaXBmYjdQeStk?=
+ =?utf-8?B?bmtPenl2ZklsdGJqWUswUVZ3eVVvSERDTDAxcXVidlhVbUp1N3BaVnZybTEx?=
+ =?utf-8?B?MDhmVktkUEF2b3hZb2dUNEdqUkpEeDVFVm1NcVI2VmUxVGpqdXcxb1hRSFlF?=
+ =?utf-8?B?QnowT3JsS2tpMjVXejJCOXU3WDF6YlArSU9HWk9LckFJcGNrRmlweUZnQjNT?=
+ =?utf-8?B?ZHpSU0RrM2NuZ2R2K04zb3dRZXhkaUNQVmErVVZnWnpWZWJ3R29rVlJCQUc3?=
+ =?utf-8?B?ZGpBelhDK0oxS0pJZGtteVlDa2dJRzJvRHI2WlRvMjBTeUdQYk5PelR2NkUv?=
+ =?utf-8?B?dy96U2Y3NENwUWtSU2xpZGU1U3plcWtJdTV1SDd2emxSbkl1eEZwclgzeVZr?=
+ =?utf-8?B?ZURrbzVhV2dKODhOcGFnZnBDRG1KTUlJK056dStpQWVvT2E4MFp1WWxtdlE4?=
+ =?utf-8?B?djdGQVVWQTZFU083UkhBcEVmbm9yN0dCL2xwSm1UYWpRY2JMOW04M1l1NjEv?=
+ =?utf-8?B?VmRwUnFkWXhqT1pkM1JPNHVJcmNSeWZzcVZmWEVvRm1uNllzRzV3Q1VkVlA1?=
+ =?utf-8?B?WFByR04xRnpZNTBLTTNqUmE3Wm9XZXdocVIyS1g2Ym9wOVJMQ1lwY0FXNGxH?=
+ =?utf-8?B?SURlZ0ZhZ2Uxc0pvVkh1d3J5TVhHMkxMSUVpcmdvczBxdDljMFJnSFo1TGUv?=
+ =?utf-8?B?aDFqalhjUWFzUmNSTUtMZWtJdXE1VC9NcWNBM21VOWtCQjVBNDJRdEZVNmty?=
+ =?utf-8?B?anRXWUlsSHJvY0plNVpEdFg0VW44VWcyemVoSWhveEVPUDJ1c01wT1dHTnQx?=
+ =?utf-8?B?ZENxUWZpdjd3VFhWTFJpWUd3YWw4M2kvZTUvbUthN3E1TkNPcEYrM2NzVlRT?=
+ =?utf-8?B?QlZxeHFhazVxK2xPRjA0dUx3MkRpTFFwM1hRZktrKzJTck01R3pPazIzNGRR?=
+ =?utf-8?B?dHdxN1RQUUo0ck5IU3ZhbmpQU2pzTWxITERISlVJSEg5bDNIeFUxeUpCZjZ5?=
+ =?utf-8?B?TFdTa3pPUnc1M2lQUGRDK2JPaHJOdHd0OW16anQwZm1CN0JiNStTSUgyMEhm?=
+ =?utf-8?B?S21XL0Zkem91UzliWjlseEJEb1ZibytFU2tCeVpnV1JhaUhsSmtOc0d0SmZn?=
+ =?utf-8?B?Z0czRlBSbUFWeHJ3Q3ZyRVF5NjFtQnR3U3EvaDFmckhvVE9CQ0RFYkxIZzFI?=
+ =?utf-8?B?bHBDNFE2MksyMlh5NXRMZmhraEg4S0JvcWFiNXBXdHNYaVRUckRXS0FacU05?=
+ =?utf-8?B?MDJyMEFUUkRkOTFUK2RqVlE3djlFNU82Z0Fnb3Y1Yk4vUWJGZlF1QlNTZDNE?=
+ =?utf-8?B?NnBCRmQrVW85Nm05eW9CaE1NZ0pEQnk0OTFMY2pYV0lzQ0xUNVBUWlFsdkRB?=
+ =?utf-8?B?dEpWZkdiNStWUzBQQ3lDTjRQRXo5S1EzOGp4MmFlOXp6ZGFRZUFicVVxMkJp?=
+ =?utf-8?B?QTRZMGpBakVldkFQYVZrR0d4TytJckZwZVNLa1JIdDFoZ2NDWXNDQTl0SFdM?=
+ =?utf-8?B?eUphUTFGS0RyLzBQMTJQcVlWUkxUdUl4SUErSXE0RlRWT1ZPUWs3OG12N0Yv?=
+ =?utf-8?B?MEVyZUlxTWIvanJ4MjJ0NXNyVm9DWXhiOW5IQ1EyaTNJTGEra0RJTXgvcWF4?=
+ =?utf-8?Q?B7Cc=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UGl2Qk9qY3puRUlENFFDM1ZzRWpZclJJd0lVYlhTakFSNmtobjVXNzcycmVp?=
- =?utf-8?B?VlArdUxjT0pzb3hoVGVocnJtNHMzajhCbzZWMEJjYUFtK1dhVEFoZE1WajBH?=
- =?utf-8?B?VTJpckFVRUFKZzdXNVlrb3Y1ZjVBZWV2ZmdJRXVSdWU1bjc4YzBhN0E2S1o5?=
- =?utf-8?B?NnBCMU9ZV0JTUllZNWp3MUN0N01yeEhCOXNndXVqZ29USjkyenZWVnMwaTM2?=
- =?utf-8?B?RW1wWjFmYTZ4eWl0Q2hvMzhNLzFFRVB4b3JPMzBVYW1hK2YzSW1ZUkx2LzlC?=
- =?utf-8?B?bGw5V0k4WDZ6dkNxTVNoSFA2SEhNV2tFZklzbDZqcUZ2NTgvV0ZhamFneldE?=
- =?utf-8?B?dnhFMGlFNW9rRHRvWno4S3BrSHYvNUlCNHkwZUkvV2Q4Y2RiQzNEcGVpcGVh?=
- =?utf-8?B?NEt5Sm9jWGZ6ZVA3VHc5c3Q1RmZFM003b3RDM3ROSHJhNmFTbGdOTlJKc1JV?=
- =?utf-8?B?TG5za0xadlBWbnJFWTFuL2s5MFVMVUxia3pEaXNSczZ2bDJ6QXJlUFpsK3pO?=
- =?utf-8?B?Q1RoUTRvemhscG1OQVFkbysvVTkvVzNYdTliYnFOWG5ZMjFkN2xST1JuYlRw?=
- =?utf-8?B?eHIrRG1UV0ZXa0VOZW84bS9icVJ0N0VXM3ZSMnZabXExWGk3SEVONS8ySFZr?=
- =?utf-8?B?di9vTllvTlFlQURhMDlWUEtHeE9ucjB5emE1YXp5SU12MlhOd2FWSGhwWkFP?=
- =?utf-8?B?dys0Rys1S0J4citsTkJ6L1h6dEJNOWloNWNibXBaQ2dpTXVObEFQMG5FMzds?=
- =?utf-8?B?b25JTDZCQTdnOGw5WlFzQW5Pd2RQUkUrT3ZZa2lQMEhIU3dTWTduVEhXMTFi?=
- =?utf-8?B?U3p1ZEZLa0g1eHNQS1NBNGl2RXBta3pTajhwRHozVDhQdGZzVnUyeE1EYXZT?=
- =?utf-8?B?SDRyTnpseXFqVElycGFZZlJIZGFLcm1UWmc2aEcrTHNVVllGdTR2Z1RPQWYv?=
- =?utf-8?B?TER6S2VvQktUazR1SjVmaDRUdFBKZDY5bWJqUU43cnpUc05ETnBwaURqQzZN?=
- =?utf-8?B?bGRWcHNaMUZqNXJ3c0RSNmo4MnhpakpKTzFiRVpOQmtyT0tucVo1VDIyNVdI?=
- =?utf-8?B?VTZUMDM3ZFVmakt3Z290N0N5QlN6RzZGTkErRS9lek5jUFZVcVkrRUZIaCtl?=
- =?utf-8?B?YjdqQWRKTVBoNWpEbkZ3azVJZE1hU3lWYms4MFlnVG1ydmRnTDlxUi9JZG5u?=
- =?utf-8?B?UFJmOURGZ291OGd1Qm5Zanc1c2xBQW5Xc1hmcTFVSDVvUXJqR2lKUUV6OC9G?=
- =?utf-8?B?M25BaklLc3VRV1VUbmJjNE44dmV5SnhHZWZ0TG0zK2xoSENuemZCTjJBWlp2?=
- =?utf-8?B?U2UwZHdaRU1pcTdKUXFqOVBOMnh3MW1HQ2JtaU1ORU45TkNWMjhJdFZBbnZS?=
- =?utf-8?B?WGd5VWZxYmNlNml3NWJ2VFVYM0dtVEhDOXBOUHBva2VHNmczRGdJdlFpK1d2?=
- =?utf-8?B?b0M5ZEd2UG1DZldRWWtwMm1CSXM0Y1dxWGU5RDZ5akJnbFpMc29nWnVRdU5w?=
- =?utf-8?B?OUFTVnQ2YlBzQ0xTZkZIREFHU3V3UnRuQUFDMktzOUdPaU5Mcm9OT0ZmUUhK?=
- =?utf-8?B?SG5DRU9VWndrQStFTVhmY0ZFblBaUE5nRUdNVWpOWjF2cFU3elNkR3RZSTE2?=
- =?utf-8?B?cmhlRGNiSW56Rm4xVlAzR2ZFeDFaY2ptb1p1SzdRNldsNGZEdEgrdkgxTWhR?=
- =?utf-8?B?MjZLcU1Tam55TXJ6R2JYVkNpcWtWQUp4dlVsMU5xQk83dUhlbXl3VEtQM3l5?=
- =?utf-8?B?NXhNakRLQ1gyNXRSaU5ab2hTTmtkQkk0SVRCMVlFdm45ZlQvOVg3WmdIYVN4?=
- =?utf-8?B?cDU4bXlEQndrU2JFbkYycU5BRlVXUGx5bXpEbmVxT2VwRllsajlVR1BLTCtz?=
- =?utf-8?B?YjFEZ2VVQW5hcHBPUXY0amIvM09iZDJkZDQzMnByUklkU3BsekVVS29YVzQr?=
- =?utf-8?B?WlNXbXMxaWNUK0huMjNrR05HcElqeEN4aURyaXZxTmZtd2xkL1VKYTFRWkRj?=
- =?utf-8?B?cTMrcWg2dUN4ekliTzBDWGk2a2s1bzgzVk8vRXBGMW5jcUNWT2hWUURldFBz?=
- =?utf-8?B?M3VkTWxjWmVmR1dJTk5LaTdJNEJjYWduTzBqenN0bXE0U3FIU2xyZjlTYjJE?=
- =?utf-8?B?Q2JwdEh2VnM0UFFkbFVYU21FRkdYN0tJZVlVWG1lSGp2Z1RYTEtEcm5TbmRV?=
- =?utf-8?B?QVR5ekEwQXVpWU9UU0pFWVRqenZiNVVRUWkydGlacjdmYWgzT0k1K0t5Mzcz?=
- =?utf-8?B?NlBqM3NZdTNpMUZBNFpxbXhRMnVibUtObVdjSU9xN1VkZ2FiV1paZkhNYTN5?=
- =?utf-8?B?aVJ5NDBlZ0hPZWFhbFZVQ0tldkhiL2hHZno2WkF4T0tpWmdxVkd2dz09?=
+	=?utf-8?B?SFo3WEpoeEFNcUVzTnRmK2sweVZVTVJBQ0xYRDhQRlJDY1dndzFIN2l1WDhG?=
+ =?utf-8?B?Qm9JaVNHSHY1KzBEOUdZMFNjQ1c4cGVnZHFZdmNXVXBqb0o2aW04TUU2ejJD?=
+ =?utf-8?B?V083bllGUldUYzlKTndBUTlETy8rMTE3QVduODl2NTNYdU9ZQ1d6ZklEWDVQ?=
+ =?utf-8?B?d0pJYkprSG5QbEx6QXBvSmdCNlg5Rys0Nk5FcE5QbnJtR1Z3TmFvS0RJVkF6?=
+ =?utf-8?B?NGtVN1IzYjJJVFdFanBpN2tGS1Z1aCtLY29wZWZaM1pwUXhNYlpodlNkSlYx?=
+ =?utf-8?B?VTNjVllIZmJWRG0xemc3QkJMOHZEeWZrcVdwZ3M4OUxmM2U2SWdTazNBMENj?=
+ =?utf-8?B?RHFVZnN6RTd3T25tYytURmZPNE90b05pTHhUaTNRbkpUL082Q1dKak95STRz?=
+ =?utf-8?B?L3Q1SkNRdXBiTDc2QWhRbFd1am5FNTZSa3o5QkNuVHY1V2ZmRUd4dHUyT0VS?=
+ =?utf-8?B?Ly9xODVuZ0Q2MWttRTRIYnpWTHYxUWc0NEQzblBqZmJ4Uk1aY1V1UTZWcUJN?=
+ =?utf-8?B?TUMyeWw0QWJLQThMNUNaMjV6SXNRand5ZUhubEZNVVBWRFVxc0dHTEt6NnNj?=
+ =?utf-8?B?b2g0aWl0TCtzRTVWbXlEbldnMEhpOGVnSE43cFBoTHdObUtKd2pqUllNSWlN?=
+ =?utf-8?B?RnIrT1JWMjNkanNHTVBielY4RkIrakhralRyaWZ1OUtYZWlOM2lLUElHVERP?=
+ =?utf-8?B?YmVYeUhSWUVmL0wrWjlxOUFYWTBTKzJnZjNUYjZNVWpKcXVVWnU5dVEvOGlG?=
+ =?utf-8?B?eXpFSm41VWZ1azhEeGpxd1FMcW5ZNzMyS2VPbGwxSXppajRrRzJGWDNFZyti?=
+ =?utf-8?B?VWtwUXA5cnRiQTBsV0dRcVdzUHNhNjQwZGNhbm9ndklOYU0wRmE1MkVIREtN?=
+ =?utf-8?B?UEtib3N0Tm0wRXlabzJ4WGtTTUhqbzBYUis5dURsR2NubTJIT3owSXg2VUMx?=
+ =?utf-8?B?L1dpWmxPbHZOYVBZbDFtTHRBZkRqRndXbkZvWGI3YmQ1MlpWZWpqc2h2QUda?=
+ =?utf-8?B?NDNFWnUrTTVwdzhkTzVUdDNWSCtwMVltcFY4YzZ1ajB4Y0xEdWVnd1hlTlE3?=
+ =?utf-8?B?cGQ1cHQ0UmoxNUhKWFFtWUM5dERUeXlIL0JZQnVvQkFEYk1WWHVrRmoySHpM?=
+ =?utf-8?B?MzhHNXRERXE3bDQwdVhDWHQ0OUdPU200TGJkMHcyOS9LRm8yelhuMGZMNGt0?=
+ =?utf-8?B?dWl1TGVCcE1mQWlWeE8weEhaM2hiNy9zbThYOURUWkptUE5hMSsyRkZ5dTJS?=
+ =?utf-8?B?aFFMRXpWVUEyU1RpK0ZuWUhOZ2RoL1VDR01SUmRTQWl4a05rT3JYWGlQbEhs?=
+ =?utf-8?B?T0NxRVRMNHFDdk1DTGRWOXdvTzBtY1hjWFJLdHYzWjdVV0FQb1BzdDJidm0r?=
+ =?utf-8?B?UzFZRzd2Rlpvd2E2VXRiSFNLNGppQ0I0RUYyN3k5SE1YQ1pHQit4a0x6Z3Ja?=
+ =?utf-8?B?OXlvNnRROXIwL1RrVEI4ZWdaQUFPNVlRWnU0Y1hZL0puMTFZVmhRVDJ6WjJv?=
+ =?utf-8?B?eVBuRHRWVnZidFhzSGtrWTFsSW1KbUhjSWlaZjZrcmFKeDhzMmtFWXNQV2xl?=
+ =?utf-8?B?WmU0QUZ2RkFhNTNxK2NwYTZVQ0hKV2xRVnpFalRWLzNKN1BWWG0vZWRMdU5R?=
+ =?utf-8?B?NlMrTE1GQm5RMlB6T3RybThqcWhLV29BYzl2bjFsdFN1djZpVFhZOTBoSC9W?=
+ =?utf-8?B?TGg5eDllLyswOEtWRkR2VEhvOWF4YkNLNDVKclVrMEUzT0Z3aW9RVW5Dd2I5?=
+ =?utf-8?B?SXVTT0NBSlV4aWl5MzdmZjQ1aDloNzEvOXlRM3ROYUdmdUxiekd1eVpITUI0?=
+ =?utf-8?B?Yi93Mm5CTlA1NDRzeEZQaXhzWUF0ZzlVR0hUUmNTbm9xbUZ6S2hwQ1h5RDkw?=
+ =?utf-8?B?UEpUaXZ4RnMvQW9meEgyNjhGK3E2akQ1NTVwZmhSR2dHWmhjZmJ6cHlDbzFT?=
+ =?utf-8?B?c28raktwVlpDdUhsd0lqVWlIbWY0VGYzODhvZjUrMkg5aEVvSGNWem5ocUsz?=
+ =?utf-8?B?UGV0SzJQUFBmbW0xdncrcXAyQ0o2ZG5YNVB1VmRtUXd6aTRnUFdnWWtha1Bv?=
+ =?utf-8?B?Vmp0UUduRFN4UDJpNkVUdHRYcHJSNklla1lweTlxd0tsdFMvMEZ2Wld5NFlo?=
+ =?utf-8?B?NWVEL2hFVHlvcFJzZjY4MEtnd3VUVlp6TkMxbTE2UVRUOStHeWxiWGhLMys5?=
+ =?utf-8?B?bWp0Rko1cGgwdk9xTlRCQWlMeGxJUDBPTmlmUnliZzdReEN1MGwxY3N4K3lU?=
+ =?utf-8?B?RUFML1hnNEJyL1I3WWNTSWluNmcyMG1tZUErU2ltUzJkSWRSVi9DOVpSWENq?=
+ =?utf-8?B?UTBOTXFUMEE3K1FKbGp6QnVvajdwandESHZsTVQzWDQrUklIb3FpQT09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 118537f1-1c4d-4371-68c8-08de5e9592be
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6dbe9ec-4537-4c93-8bfc-08de5ea05c94
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 17:49:24.0465
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 19:06:37.5745
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5FzvzbZrRSmAM1iVNgkGnCrQ9q0XbBOGV7YE7pG26on1AvAI6hnOXMxebu4p18cbozX1ktbFYtolS6mPG7DVjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6488
+X-MS-Exchange-CrossTenant-UserPrincipalName: iou4d4Q5pWp8wXTdtlmglaSrFsJVX3G9zl8+BsUK4nnfMDvwqzyLQgVrCr+q0wNOQq4p30sDlPjIXfkfx2cVrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6367
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -199,234 +198,82 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 29C8AA7377
+X-Rspamd-Queue-Id: 973BBA80C6
 X-Rspamd-Action: no action
 
-On Mon, Jan 19, 2026 at 03:46:55PM +0100, Jan Beulich wrote:
-> Legacy PCI devices don't have any extended config space. Reading any part
-> thereof may return all ones or other arbitrary data, e.g. in some cases
-> base config space contents repeatedly.
+On Wed, Jan 28, 2026 at 03:46:04PM +0100, Jan Beulich wrote:
+> On 28.01.2026 13:03, Roger Pau Monne wrote:
+> > @@ -275,7 +339,18 @@ static void populate_physmap(struct memop_args *a)
+> >              }
+> >              else
+> >              {
+> > -                page = alloc_domheap_pages(d, a->extent_order, a->memflags);
+> > +                unsigned int scrub_start = 0;
+> > +                nodeid_t node =
+> > +                    (a->memflags & MEMF_exact_node) ? MEMF_get_node(a->memflags)
+> > +                                                    : NUMA_NO_NODE;
+> > +
+> > +                page = get_stashed_allocation(d, a->extent_order, node,
+> > +                                              &scrub_start);
+> > +
+> > +                if ( !page )
+> > +                    page = alloc_domheap_pages(d, a->extent_order,
+> > +                        a->memflags | (d->creation_finished ? 0
+> > +                                                            : MEMF_no_scrub));
 > 
-> Logic follows Linux 6.19-rc's pci_cfg_space_size(), albeit leveraging our
-> determination of device type; in particular some comments are taken
-> verbatim from there.
+> I fear there's a more basic issue here that so far we didn't pay attention to:
+> alloc_domheap_pages() is what invokes assign_page(), which in turn resets
+> ->count_info for each of the pages. This reset includes setting PGC_allocated,
+> which ...
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Should we skip re-evaluation when pci_mmcfg_arch_enable() takes its early
-> exit path?
-
-Possibly - we expect no change in that case.  However it would need
-to propagate some extra information into the callers.  I could see
-that as a followup optimization.
-
-> The warning near the bottom of pci_check_extcfg() may be issued multiple
-> times for a single device now. Should we try to avoid that?
-
-Yeah, I've made some comments about that below.  Not sure how common
-those broken bridges are, the comment just mentions two specific
-models.  Adding yet another boolean to track that is cumbersome, and
-what we would like to do is mark the bridge as broken, instead of
-every device behind it.
-
-> Note that no vPCI adjustments are done here, but they're going to be
-> needed: Whatever requires extended capabilities will need re-
-> evaluating / newly establishing / tearing down in case an invocation of
-> PHYSDEVOP_pci_mmcfg_reserved alters global state.
-
-Hm, you probably want to do something similar to re-scanning the
-capability list, but avoid tearing down and re-setting the vPCI header
-logic to prevent unneeded p2m manipulations.  We have no easy way to
-preempt this rescanning from the context of a
-PHYSDEVOP_pci_mmcfg_reserved call.
-
-> Linux also has CONFIG_PCI_QUIRKS, allowing to compile out the slightly
-> risky code (as reads may in principle have side effects). Should we gain
-> such, too?
-
-I would be fine with just a command line to disable the newly added
-behavior in case it causes issues.
-
-> ---
-> v2: Major re-work to also check upon PHYSDEVOP_pci_mmcfg_reserved
->     invocation.
+> > @@ -286,6 +361,30 @@ static void populate_physmap(struct memop_args *a)
+> >                      goto out;
+> >                  }
+> >  
+> > +                if ( !d->creation_finished )
+> > +                {
+> > +                    unsigned int dirty_cnt = 0;
+> > +
+> > +                    /* Check if there's anything to scrub. */
+> > +                    for ( j = scrub_start; j < (1U << a->extent_order); j++ )
+> > +                    {
+> > +                        if ( !test_and_clear_bit(_PGC_need_scrub,
+> > +                                                 &page[j].count_info) )
+> > +                            continue;
 > 
-> --- a/xen/arch/x86/physdev.c
-> +++ b/xen/arch/x86/physdev.c
-> @@ -22,6 +22,8 @@ int physdev_map_pirq(struct domain *d, i
->                       struct msi_info *msi);
->  int physdev_unmap_pirq(struct domain *d, int pirq);
->  
-> +int cf_check physdev_check_pci_extcfg(struct pci_dev *pdev, void *arg);
+> ... means we will now scrub every page in the block, not just those which weren't
+> scrubbed yet, and we end up clearing PGC_allocated. All because of PGC_need_scrub
+> aliasing PGC_allocated. I wonder how this didn't end up screwing any testing you
+> surely will have done. Or maybe I'm completely off here?
 
-I'm not sure why you need the forward declaration here, the function
-(in this patch) is just used after it's already defined.
+Thanks for spotting this!  No, I didn't see any issues.  I don't see
+any check for PGC_allocated in free_domheap_pages(), which could
+explain the lack of failures?
 
-> +
->  #include "x86_64/mmconfig.h"
->  
->  #ifndef COMPAT
-> @@ -160,6 +162,17 @@ int physdev_unmap_pirq(struct domain *d,
->  
->      return ret;
->  }
-> +
-> +int cf_check physdev_check_pci_extcfg(struct pci_dev *pdev, void *arg)
+I will have to allocate with MEMF_no_owner and then do the
+assign_pages() call from populate_physmap() after the scrubbing is
+done.  Maybe that would work.  Memory allocated using MEMF_no_owner
+still consumes the claim pool if a domain parameter is passed to
+alloc_heap_pages().
 
-You can make this static I think?
-
-> +{
-> +    const struct physdev_pci_mmcfg_reserved *info = arg;
-> +
-> +    ASSERT(pdev->seg == info->segment);
-> +    if ( pdev->bus >= info->start_bus && pdev->bus <= info->end_bus )
-> +        pci_check_extcfg(pdev);
-> +
-> +    return 0;
-> +}
->  #endif /* COMPAT */
->  
->  ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> @@ -511,6 +524,11 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_H
->  
->          ret = pci_mmcfg_reserved(info.address, info.segment,
->                                   info.start_bus, info.end_bus, info.flags);
-> +
-> +        if ( !ret )
-> +            ret = pci_segment_iterate(info.segment, physdev_check_pci_extcfg,
-> +                                      &info);
-> +
->          if ( !ret && has_vpci(currd) && (info.flags & XEN_PCI_MMCFG_RESERVED) )
->          {
->              /*
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -422,6 +422,9 @@ static struct pci_dev *alloc_pdev(struct
->      }
->  
->      apply_quirks(pdev);
-> +
-> +    pci_check_extcfg(pdev);
-> +
->      check_pdev(pdev);
->  
->      return pdev;
-> @@ -718,6 +721,11 @@ int pci_add_device(u16 seg, u8 bus, u8 d
->  
->                  list_add(&pdev->vf_list, &pf_pdev->vf_list);
->              }
-> +
-> +            if ( !pdev->ext_cfg )
-> +                printk(XENLOG_WARNING
-> +                       "%pp: VF without extended config space?\n",
-> +                       &pdev->sbdf);
-
-You possibly also want to check that the PF (pf_pdev in this context I
-think) also has ext_cfg == true.
-
->          }
->      }
->  
-> @@ -1041,6 +1049,75 @@ enum pdev_type pdev_type(u16 seg, u8 bus
->      return pos ? DEV_TYPE_PCIe_ENDPOINT : DEV_TYPE_PCI;
->  }
->  
-> +void pci_check_extcfg(struct pci_dev *pdev)
-> +{
-> +    unsigned int pos, sig;
-> +
-> +    pdev->ext_cfg = false;
-
-I think I would prefer if the ext_cfg field is only modified once Xen
-know the correct value to put there.  It would also be nice to detect
-cases where the device has pdev->ext_cfg == true but a new scan makes
-it switch to false.  Which would signal something has likely gone very
-wrong, and we should print a warning.
-
-> +
-> +    switch ( pdev->type )
-> +    {
-> +    case DEV_TYPE_PCIe_ENDPOINT:
-> +    case DEV_TYPE_PCIe_BRIDGE:
-> +    case DEV_TYPE_PCI_HOST_BRIDGE:
-> +    case DEV_TYPE_PCIe2PCI_BRIDGE:
-> +    case DEV_TYPE_PCI2PCIe_BRIDGE:
-> +        break;
-> +
-> +    case DEV_TYPE_LEGACY_PCI_BRIDGE:
-> +    case DEV_TYPE_PCI:
-> +        pos = pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_PCIX);
-> +        if ( !pos ||
-> +             !(pci_conf_read32(pdev->sbdf, pos + PCI_X_STATUS) &
-> +               (PCI_X_STATUS_266MHZ | PCI_X_STATUS_533MHZ)) )
-> +            return;
-> +        break;
-> +
-> +    default:
-> +        return;
-> +    }
-> +
-> +    /*
-> +     * Regular PCI devices have 256 bytes, but PCI-X 2 and PCI Express devices
-> +     * have 4096 bytes.  Even if the device is capable, that doesn't mean we
-> +     * can access it.  Maybe we don't have a way to generate extended config
-> +     * space accesses, or the device is behind a reverse Express bridge.  So
-> +     * we try reading the dword at PCI_CFG_SPACE_SIZE which must either be 0
-> +     * or a valid extended capability header.
-> +     */
-> +    if ( pci_conf_read32(pdev->sbdf, PCI_CFG_SPACE_SIZE) == 0xffffffffU )
-> +        return;
-> +
-> +    /*
-> +     * PCI Express to PCI/PCI-X Bridge Specification, rev 1.0, 4.1.4 says that
-> +     * when forwarding a type1 configuration request the bridge must check
-> +     * that the extended register address field is zero.  The bridge is not
-> +     * permitted to forward the transactions and must handle it as an
-> +     * Unsupported Request.  Some bridges do not follow this rule and simply
-> +     * drop the extended register bits, resulting in the standard config space
-> +     * being aliased, every 256 bytes across the entire configuration space.
-> +     * Test for this condition by comparing the first dword of each potential
-> +     * alias to the vendor/device ID.
-> +     * Known offenders:
-> +     *   ASM1083/1085 PCIe-to-PCI Reversible Bridge (1b21:1080, rev 01 & 03)
-> +     *   AMD/ATI SBx00 PCI to PCI Bridge (1002:4384, rev 40)
-> +     */
-> +    sig = pci_conf_read32(pdev->sbdf, PCI_VENDOR_ID);
-> +    for ( pos = PCI_CFG_SPACE_SIZE;
-> +          pos < PCI_CFG_SPACE_EXP_SIZE; pos += PCI_CFG_SPACE_SIZE )
-> +        if ( pci_conf_read32(pdev->sbdf, pos) != sig )
-> +            break;
-> +
-> +    if ( pos >= PCI_CFG_SPACE_EXP_SIZE )
-> +    {
-> +        printk(XENLOG_WARNING "%pp: extended config space aliases base one\n",
-> +               &pdev->sbdf);
-
-Hm, I think this shouldn't be very common as it seems limited to a
-short list of bridges.  However every device under such bridge would
-be affected and repeatedly print the message.  I wonder whether we
-should make this XENLOG_DEBUG instead, there isn't much the user can
-do to fix it.  More a rant than a request though.
-
-Thanks, Roger.
+Roger.
 
