@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QIPbMwNse2mMEgIAu9opvQ
+	id EE9GDwJpe2lZEgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:17:39 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:04:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C840B0D5F
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:17:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1216513.1526443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A13BB0ABA
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:04:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1216526.1526454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSXj-0004hI-5U; Thu, 29 Jan 2026 13:58:43 +0000
+	id 1vlSdJ-0006K3-NX; Thu, 29 Jan 2026 14:04:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1216513.1526443; Thu, 29 Jan 2026 13:58:43 +0000
+Received: by outflank-mailman (output) from mailman id 1216526.1526454; Thu, 29 Jan 2026 14:04:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSXj-0004f7-2E; Thu, 29 Jan 2026 13:58:43 +0000
-Received: by outflank-mailman (input) for mailman id 1216513;
- Thu, 29 Jan 2026 13:58:41 +0000
+	id 1vlSdJ-0006I4-Kh; Thu, 29 Jan 2026 14:04:29 +0000
+Received: by outflank-mailman (input) for mailman id 1216526;
+ Thu, 29 Jan 2026 14:04:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o8n3=AC=bounce.vates.tech=bounce-md_30504962.697b678c.v1-95a7ad1aa6614e6c9fd97afbcb7e6816@srs-se1.protection.inumbo.net>)
- id 1vlSXh-0004f1-Kx
- for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 13:58:41 +0000
-Received: from mail134-16.atl141.mandrillapp.com
- (mail134-16.atl141.mandrillapp.com [198.2.134.16])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=g1vo=AC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vlSdI-0006Hy-Ha
+ for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 14:04:28 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c175314-fd1a-11f0-9ccf-f158ae23cfc8;
- Thu, 29 Jan 2026 14:58:38 +0100 (CET)
-Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail134-16.atl141.mandrillapp.com (Mailchimp) with ESMTP id
- 4f212N6ZPbzB5pPZY
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 13:58:36 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 95a7ad1aa6614e6c9fd97afbcb7e6816; Thu, 29 Jan 2026 13:58:36 +0000
+ id 6ba8a590-fd1b-11f0-9ccf-f158ae23cfc8;
+ Thu, 29 Jan 2026 15:04:26 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47d6a1f08bbso4768895e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 06:04:26 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48066c37420sm213763255e9.9.2026.01.29.06.04.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Jan 2026 06:04:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,122 +50,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c175314-fd1a-11f0-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1769695116; x=1769965116;
-	bh=nZZKxilMtRL3J+I70azAXAYJ51FgiO9wKoPvoCmQgzM=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=LfiUGTwAIHVsF8yxzGgPcU+x1lpqo6Mz0U0vnHc727Yy6qzd+iUJ+lMy0o08UQc0J
-	 TdcrxZjkgjSu3pXkiPzWP5EVnNZYdLqStZ9NpIUqJ2AbWcjEroVL6EyQz66da0oUZx
-	 2m7kzgEQ+tjiwTp+CeRyKjuc5/3OPRNoKlFa67is29gZmEvsfJTcZPfUtxzMSrQCID
-	 0OSKEzfMZ/yXQBCo8WRYtLZvDM50rzQgubl8S/siNGe4VRaW0KAwRY839NcdRJw9Pb
-	 bX7hljYiDYNWs6KEuQTjJQFrozh0IwteVvUBKJ1auAzOBev1t3YqQ3UxGpQtjpgv+B
-	 tpgeGf478bzhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1769695116; x=1769955616; i=teddy.astie@vates.tech;
-	bh=nZZKxilMtRL3J+I70azAXAYJ51FgiO9wKoPvoCmQgzM=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=J0YvPz2fJIW33V5eKM2AK/4b6ldJFPl+eDxk6tSF1w8ygaDZo48N1+I/etNNBIPjl
-	 bIWObLyDc6qZSu8cDC+/HaM8CD+ikMW08fnRluX3Smq5CncJYRuqUa+lbLt8AuiCoE
-	 spIr3vUXBgbytZEYvY5VGeF50d+fI5h2qWrnpJ+ldu/d7BNTgG2lx/W6bMNNWihaSj
-	 he0y37vEyCfeikWg11VnsAs1M758RgbM01DvBfKRMsFj0eWUf9P4zKcggmcByQsPmT
-	 2TOOr+myjGXghBN+kSPwWOJzBQiZK6JAOaOI6ZXIVQFK0BGMYrnzNJgE2T4XEzz1mY
-	 JjeGmNirx8WXA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH]=20x86:=20Always=20display=20CPU=20vendor=20string?=
-X-Mailer: git-send-email 2.52.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1769695115816
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <8b50a689e549fd174d6c34dadc5df5c65711c615.1769694285.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.95a7ad1aa6614e6c9fd97afbcb7e6816?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260129:md
-Date: Thu, 29 Jan 2026 13:58:36 +0000
+X-Inumbo-ID: 6ba8a590-fd1b-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1769695465; x=1770300265; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=B91HArv1IgJYvUyitHLIbVfLiiwcZ0lg3FwGqPuA+nE=;
+        b=L9YDQJZRWog7hdriUEJdQ8kbPfhBwGRUpN3vyaO3phjGo16e6sgNdXNrLdaRMhFWdN
+         xIArb+qfhOmVAXNiKEdmJJxo4azvkksbxCjLqAXN2BUruxAoaI1wA0VM4O3d/C8fX0d8
+         q3yE4sPqS/AoNecIOJrNryjINVngx500oZCnr0ZIx85BNJSNev8uI5Che1Gq1sofxjaV
+         v4R30AO8eLYxr5OEe9IN/XflODNok0nRos9jktJ3cXWzgmj9RdOtu+Dl0/dZ3g0XsZfb
+         6sF51OGaJUnOTuMBntOQSw96lDf5QxcQfmWtMMPTC5ADbj7xy1LAlAH4qXtoJe6Q0L19
+         rmpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769695465; x=1770300265;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B91HArv1IgJYvUyitHLIbVfLiiwcZ0lg3FwGqPuA+nE=;
+        b=Fugw/9JDS3MD81sI+K1fbOzeM8VQIZaBIdXZ1LHiKL542bW/nO9a8SqE16qk+BkAOK
+         phcoUAOY80RE3F72UTEOh+4BI61wsGS8WlR25Ovlto+GsYBJg46fXlZalBL2hZzZunCS
+         ewLemYPFtFPIAgBVghSY8ORQtTUq9qJ8AXXZVwBfCJwwMIQ5xGqff26ntSJR27wi7swc
+         HEfh0BKoZ+lq+AfBxSPBc+gqGPf1YA1FH8GRMJT0L2XbbR3UnmjQ91cgDyTqfJ1UH69O
+         w3+Qc8EqF86txQWYc2HjdKHpco7Nh20GiuuzRI3Jdk2IzkDOaDAJwgWpI8LOXjF2CcZ8
+         kVEg==
+X-Forwarded-Encrypted: i=1; AJvYcCWofvKyMvgqRW6JGRpiGKEpIkCw20IFunE+NRlCLSqgtF8GhJApvr3RFBtMm8iqxSxgirE95bY+a/I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMVWImjQtyIt+drCCjNNye0ccLucCRENtYetlsi+4Sdfv+viRb
+	hxMtWHFlutK0jNSZp3zhmg4GDtk7TNHezgzU//dLCglQu5cuRo5nm8DEDQmdmHB2Sg==
+X-Gm-Gg: AZuq6aIfXXsNpPI+4OjqE+2DpzvuA1L4o3KmOICpQckQwmSeD+ACkTzWJW1JVd7gH6E
+	UC1XXBPmgqOgt3Yqqzr/XJG1XlIhlQMLm6Bbpk9rTHFuEUTi/2HxDas03VDrGO0z2Re9+ODm3Ek
+	CCM9kedpBRRbr1zCCcKszoyO2EoNL63vMncrRryGtCFlmb3JSxocT7M/gESjcZ9+5b0C/lklpw/
+	458MQ5BzhZTxb/p9+eRHXhYVha9odnlOoD8eST7BRbu6vpNzbeyZXGil93Dq2f1m837p4HiyItd
+	VpVVUOCZgPWJ0CmWH+02SDfQe7byyU2FPIISMrJQz1G6NJzfiYM0v8JXlDwGrWLKmaI5/v0kk+x
+	yH427XlPYFDZFVc8sk4j6Xb0Bwn30xRikSSiWOSyp2taqceTq/KC6lv95VTqHIaIt0Tu8JNDr8t
+	yn1Os7Le82pUxg1X5wkgyjv52EaH2xcO6LCrkJWW7nIOYDzwMp6yxBAD0VNiEnbhaephpynoh9R
+	vM=
+X-Received: by 2002:a05:600c:4e94:b0:480:4b5d:9ec with SMTP id 5b1f17b1804b1-48069cafa29mr122844385e9.33.1769695465600;
+        Thu, 29 Jan 2026 06:04:25 -0800 (PST)
+Message-ID: <87181edd-fc9d-4221-827c-97abc7aaca65@suse.com>
+Date: Thu, 29 Jan 2026 15:04:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86: Always display CPU vendor string
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <8b50a689e549fd174d6c34dadc5df5c65711c615.1769694285.git.teddy.astie@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8b50a689e549fd174d6c34dadc5df5c65711c615.1769694285.git.teddy.astie@vates.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	GREYLIST(0.00)[pass,body];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:dkim,vates.tech:email,vates.tech:url,vates.tech:mid];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	RCPT_COUNT_THREE(0.00)[4];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 9C840B0D5F
+X-Rspamd-Queue-Id: 9A13BB0ABA
 X-Rspamd-Action: no action
 
-While we may not want all the other CPU informations. We likely
-want to keep the CPU string as it's more practical than trying to
-decode it from the family/model/stepping combination.
+On 29.01.2026 14:58, Teddy Astie wrote:
+> While we may not want all the other CPU informations. We likely
+> want to keep the CPU string as it's more practical than trying to
+> decode it from the family/model/stepping combination.
 
-Amends: 35d60c59af28 ("Increase default console ring allocation size and reduce default verbosity")
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
-It would be preferable it such message could be written sooner, e.g right
-after the family/model/stepping one of early_cpu_init() instead of at the
-beginning of smp_prepare_cpus().
+Yet why would we want it logged several hundred times by default, on a
+big enough system? IOW ...
 
- xen/arch/x86/cpu/common.c | 3 ---
- 1 file changed, 3 deletions(-)
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -819,9 +819,6 @@ void print_cpu_info(unsigned int cpu)
+>  	const struct cpuinfo_x86 *c = cpu_data + cpu;
+>  	const char *vendor = NULL;
+>  
+> -	if (!opt_cpu_info)
+> -		return;
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index ebe2baf8b9..831da72cd8 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -819,9 +819,6 @@ void print_cpu_info(unsigned int cpu)
- 	const struct cpuinfo_x86 *c = cpu_data + cpu;
- 	const char *vendor = NULL;
- 
--	if (!opt_cpu_info)
--		return;
--
- 	printk("CPU%u: ", cpu);
- 
- 	vendor = x86_cpuid_vendor_to_str(c->x86_vendor);
--- 
-2.52.0
+... this conditional doesn't want removing, but amending. E.g.
 
+	if (!opt_cpu_info && system_state >= SYS_STATE_smp_boot)
+		return;
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
