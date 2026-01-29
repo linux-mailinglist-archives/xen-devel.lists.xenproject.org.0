@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id b1qyFBSBe2mvFAIAu9opvQ
+	id GEyNCfuCe2mvFAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 16:47:32 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 16:55:39 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF8BB19B2
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 16:47:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1216774.1526710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C8AB1B2C
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 16:55:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1216789.1526719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlUEq-0004ep-Gm; Thu, 29 Jan 2026 15:47:20 +0000
+	id 1vlUML-0006W3-9n; Thu, 29 Jan 2026 15:55:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1216774.1526710; Thu, 29 Jan 2026 15:47:20 +0000
+Received: by outflank-mailman (output) from mailman id 1216789.1526719; Thu, 29 Jan 2026 15:55:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlUEq-0004cr-Cy; Thu, 29 Jan 2026 15:47:20 +0000
-Received: by outflank-mailman (input) for mailman id 1216774;
- Thu, 29 Jan 2026 15:47:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vlUML-0006TR-7A; Thu, 29 Jan 2026 15:55:05 +0000
+Received: by outflank-mailman (input) for mailman id 1216789;
+ Thu, 29 Jan 2026 15:55:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=g1vo=AC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vlUEp-0004cl-J2
- for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 15:47:19 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca0c0eb9-fd29-11f0-9ccf-f158ae23cfc8;
- Thu, 29 Jan 2026 16:47:17 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47ee937ecf2so9509775e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 07:47:17 -0800 (PST)
+ id 1vlUMJ-0006TL-Sx
+ for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 15:55:03 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df1785a4-fd2a-11f0-b160-2bf370ae4941;
+ Thu, 29 Jan 2026 16:55:02 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-47ee07570deso9776065e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 07:55:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4806ce4c3d1sm141106715e9.9.2026.01.29.07.47.16
+ 5b1f17b1804b1-4806cdd79c7sm129615085e9.2.2026.01.29.07.55.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jan 2026 07:47:16 -0800 (PST)
+ Thu, 29 Jan 2026 07:55:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca0c0eb9-fd29-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: df1785a4-fd2a-11f0-b160-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769701637; x=1770306437; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1769702102; x=1770306902; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=faEELfnZlk+DnBUx7Ezay4imuuMlevSLumPBQ7F7zxI=;
-        b=R8k3uJE8RTa1xzIe1K5/va/R6bcUct1MC/hNPh3tWcTKhU9kskqKWDxr8wMuz/yh0n
-         7+lxrJ34NyOEN2IsbG4fy1W/sWZIH7uCNsPFu0Jmbnl5l5forBmUvufIdVc3kZpgR1Js
-         nccq5sAaZDtsNBmxTe72Qt1JvHUm688N8z4gPtpW2WUJKq/ZhWOF3F41lXrv/GlDGB20
-         7eP0we4eo18tquWMVXnTDIRCwXuAUvYHdSl1hW2ZYeeh7RJ4+m+FcMfYpxFk8hjaJTu3
-         LczxspM5yUZep5F1MA1qnEkmcezi8v7mYHfn0Da4e13EKDh/JRUjFdzjzdT0q2iruYnU
-         xlwA==
+        bh=aTYgaIwpD6zQ/VXsCYvzmWGHpgFMVj2e1rILg4BrlM4=;
+        b=BX/eB0zrHAzFmOP/EbldqgtqLV03krJXa1PlPYAPP/57y9/0RDgWjckAfR2i+8iKHA
+         dfTOlVlIyijlo0jyKXohoIGIkMOFCepMbM27BTw8H+rV+0fpq4BKIA2+W9nYtCaNu+oP
+         GhuATF+9v/6ffrKrmRVA5p+ktcJy39GBhme26MRrvwJY641WySCaDfEss9BZ0ebhMLwB
+         LV/6rvV/uyXjK+PpapQBvfCr0/KH1sTShGrucEzFgnSOVMHGJRjfB5vO7+03TPhMV+fs
+         ceaBWx9UVJdISlrEx6bK9+W6oMTzTAAZzPZPnG4tEJ0zcR8QzXLyq3+mOU5baQ6SBLgr
+         hy7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769701637; x=1770306437;
+        d=1e100.net; s=20230601; t=1769702102; x=1770306902;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=faEELfnZlk+DnBUx7Ezay4imuuMlevSLumPBQ7F7zxI=;
-        b=T+UXI8AqCIxKfajzuo8eCw4kL/3c7REfkoeCKtW7Waar2XopPt4OrLBGO0V+d0SlNN
-         gQiP9HXp0VF81R95rDlHLnk1GP9os6EPKkZuwtttnkcO3OT3GD2JiAt4mGbN0/HwUoh7
-         0Ja75L/xarpPfFleKuL5avzLPoYmUTJZcSb5j9zCJ6twPjmrNMe/OYFdOZpXGXuWS8nP
-         GkD3swDxYgUA2ZuLU2oErpvEKTP+f/ikpzgVpQOFepEQC7eqYKoxSYjQNTBlMOruAUNk
-         +3j+cWkx3yJthG1iBBwxeAvF2YRrQZyAaeBLkRSdZtbP3OvDvPNOm854BXAqe6N6fHbN
-         ORXw==
-X-Gm-Message-State: AOJu0YxG7WXagyAUtU/OdOWjdnC3ctm6Fh513etsc/KKA0TeuY3djDFU
-	7372+VEJuwIkgRZjm/vL00309Gs3qL9rPC0UAwSg9YlK1yHL2fPArgKYL+PSKfbUNg==
-X-Gm-Gg: AZuq6aKfI5L5pMQODbQU6xLSV0LK3Sw5BXY5eiiW5PGmOrz4bfVz0qXWMzfxa1hy+OL
-	SGeQlO1Tgx0UHilaVAA7NVKw2RG3Q409GKRBNn2IJJv8lctAI6NNSdAgMpqJRWJi+e4Ht91kgwv
-	LLUV/H/8Lng/EHPrmZdvrKKG7jjdrhwtoBBw9SJyLz6fY/oFtsGT1ldI0iYyjhOboB1vjJQBjPo
-	3WZ9p+lRRk+pvWLZrsyZsldyY0LbVNqGxbWwaPjeZut2uysXrY2FyFNGwRw2unjLHjq7eG9yfJy
-	ikBC04vDMsm9L4DKj2vUfqE1TIu9E19izX2DWTdGQ/YQwNpEnm8tP8b7lUOUYzfEQfCwDZyl93O
-	Piqgu2Qqbn/01TPbwRveCZ/fQSFq/nZa0Or5fDv+TUXGF4P2oJszxNU9WTmc8mv0jiENht+RIwo
-	Z4DBVMxjbsjeqbw4jrZTmTsWjWQGJqzmAOMg7BxcHP1KRtydT9zaplxPo7e/NwBJ3P8v3eGTmAO
-	5M=
-X-Received: by 2002:a05:600c:6489:b0:477:9890:9ab8 with SMTP id 5b1f17b1804b1-4808288f60bmr45605205e9.3.1769701636890;
-        Thu, 29 Jan 2026 07:47:16 -0800 (PST)
-Message-ID: <8132f09b-74b5-41da-a136-dc59c2d79e98@suse.com>
-Date: Thu, 29 Jan 2026 16:47:14 +0100
+        bh=aTYgaIwpD6zQ/VXsCYvzmWGHpgFMVj2e1rILg4BrlM4=;
+        b=aU9AY1C2NWLc36ZN4bSDINE7N+t/TjKcjQ2whv0WEitwT6Vdq1z3Ub5u/ygHOF2Czd
+         DMiKBU5TwUZHhiqnnNkaO7XCGVSkfSAxqMARKRx4j+3M2eMrjnDjCpXqAVP4Z9OYTcc6
+         jLgRiS2vIvfd8t7Cw4WOxzsTy5wV5IGGB4lIiSyIlF3GRHJLlz2TJioxk/ovCKQIAD1+
+         kRdqVQufVYZor5py7c1zTznQoPfWnKM7xmDAYVcRqS3KBwtZAqeYKo0gx5xANMIgOXQa
+         p7518J7lQg34IT1r31afG+aqno8bg+vTUIzrB5en2xQYxgDP0DF1zYSUXKDDf4icOZeY
+         fVvA==
+X-Gm-Message-State: AOJu0Yw9olejqLPlmS7+PLjYQJn/js0VmSfG3L3EaVJaizQEMDlNEiUh
+	B7qv4Z6F9RGFhVT8UCxhNhKcgljqTKMLYAboAZOJyqHady2LHdDrzZJX09WI27FiPA==
+X-Gm-Gg: AZuq6aK6lbhG9ZmFz6jRNyg+myozZ1ExwAa6tIn0BjGWb3z8R7M7pjvlCYodqf9w6WW
+	SjfU01kmxmxjEiPuABrwUx/4FFnzj83ws2FnBblNk6nNtSx2NoFlu1N9qAGPNVotivlhyf0q8Ao
+	oP+iyGvucHHW2rio3eMwI/Yms5gqAub8/bEHAYHvjCPsbvlVXIWmJTDUyUNzDAd5+mZ28NvIgF1
+	cLTHr6RhnMo2oOT242qLEVVveX9bS2viGTBWKMCw9KL+ElCya1UboNSwluClU1PpIXNJXn6GjgE
+	ENDMxrdnb/vVKOA2WFawjkv9bCIIEjI/IqUs1jbPRjIPgxDJYABW37lOghb/43k6MRzZtYiJcZ2
+	nvuPyYH4sqydUl12LyPWscyPXPgPIv3BH4DNidshJuCX/yHxDPt4LcC9rWpEBDz91XkcHd37jEH
+	vsRLWqZ+A89psWPdgo0PSwm/54kZXQU1/ZIK3vJ88d2rGPFUV7DKx9kc4uKjMpEvWhCS4AlBadI
+	MFGASOSq7B/sA==
+X-Received: by 2002:a05:600c:3595:b0:477:a978:3a7b with SMTP id 5b1f17b1804b1-48069c78bdamr129417605e9.22.1769702101820;
+        Thu, 29 Jan 2026 07:55:01 -0800 (PST)
+Message-ID: <45ea72d4-bbc6-49b9-8d29-d18876dd187d@suse.com>
+Date: Thu, 29 Jan 2026 16:54:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] x86/PCI: avoid re-evaluation of extended config
- space accessibility
+Subject: Re: [PATCH v3 6/6] vPCI: re-init extended-capability lists when MMCFG
+ availability changed
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Stewart Hildebrand <stewart.hildebrand@amd.com>
 References: <a67e69b8-c1e9-4448-adbd-17a19dfe13de@suse.com>
- <a0b10d39-daae-4fc0-af42-a3794a96f9f5@suse.com> <aXt9mjFhSLwxrzM9@Mac.lan>
+ <d6f1c261-5af7-4fcd-b95f-af8baa67ba64@suse.com> <aXt_Z4INxG6fgsjx@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,7 +125,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aXt9mjFhSLwxrzM9@Mac.lan>
+In-Reply-To: <aXt_Z4INxG6fgsjx@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
@@ -140,7 +140,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,suse.com:email,suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
@@ -161,55 +161,36 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: ACF8BB19B2
+X-Rspamd-Queue-Id: 85C8AB1B2C
 X-Rspamd-Action: no action
 
-On 29.01.2026 16:32, Roger Pau Monné wrote:
-> On Thu, Jan 29, 2026 at 02:10:01PM +0100, Jan Beulich wrote:
->> When, during boot, we have already correctly determined availability of
->> the MMCFG access method for a given bus range, there's then no need to
->> invoke pci_check_extcfg() again for every of the devices. This in
->> particular avoids ->ext_cfg to transiently indicate the wrong state.
->>
->> Switch to using Xen style on lines being touched and immediately adjacent
->> ones.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
-> One suggestion for a further addition below.
-> 
->> ---
->> v3: New.
->>
->> --- a/xen/arch/x86/physdev.c
->> +++ b/xen/arch/x86/physdev.c
->> @@ -528,6 +528,8 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_H
->>          if ( !ret )
->>              ret = pci_segment_iterate(info.segment, physdev_check_pci_extcfg,
->>                                        &info);
->> +        else if ( ret > 0 ) /* Indication of "no change". */
->> +            ret = 0;
+On 29.01.2026 16:40, Roger Pau Monné wrote:
+> On Thu, Jan 29, 2026 at 02:10:34PM +0100, Jan Beulich wrote:
+>> --- a/xen/drivers/vpci/header.c
+>> +++ b/xen/drivers/vpci/header.c
+>> @@ -869,6 +869,18 @@ static int vpci_init_ext_capability_list
+>>      return 0;
+>>  }
 >>  
->>          if ( !ret && has_vpci(currd) && (info.flags & XEN_PCI_MMCFG_RESERVED) )
+>> +int vpci_reinit_ext_capability_list(const struct pci_dev *pdev)
+>> +{
+>> +    if ( !pdev->vpci )
+>> +        return 0;
+>> +
+>> +    if ( vpci_remove_registers(pdev->vpci, PCI_CFG_SPACE_SIZE,
+>> +                               PCI_CFG_SPACE_EXP_SIZE - PCI_CFG_SPACE_SIZE) )
+>> +        ASSERT_UNREACHABLE();
+>> +
+>> +    return vpci_init_ext_capability_list(pdev);
 > 
-> Maybe it doesn't need to be strictly done here, but now that
-> pci_mmcfg_reserved() signals whether the MMCFG was already registered,
-> could you also restrict the register_vpci_mmcfg_handler() call to ret
-> == 0?
+> Isn't this missing the possible addition or removal of managed
+> extended capabilities?  IOW: on removal of access to the extended
+> space the vPCI managed capabilties that have is_ext == true should
+> call their ->cleanup() hooks, and on discovery of MMCFG access we
+> should call the ->init() hooks?
 
-Possibly; you know vPCI better than I do.
-
-> That will also simplify the logic in register_vpci_mmcfg_handler()
-> since we no longer need to return 0 when the region is already
-> registered, returning -EEXIST should be fine if the caller is
-> adjusted.
-
-I think this then will want to be a separate change, with its own
-justification.
+Now I know why this felt too easy. Yet I wonder: Why is this done in two
+parts in the first place?
 
 Jan
 
