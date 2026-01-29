@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0KKsIXZbe2nXEAIAu9opvQ
+	id SPxJK8Bbe2nXEAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 14:07:02 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 14:08:16 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E0B4B03F8
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 14:07:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1216412.1526364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26CD9B0415
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 14:08:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1216418.1526374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlRij-0002cg-VB; Thu, 29 Jan 2026 13:06:01 +0000
+	id 1vlRkk-0003BM-9y; Thu, 29 Jan 2026 13:08:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1216412.1526364; Thu, 29 Jan 2026 13:06:01 +0000
+Received: by outflank-mailman (output) from mailman id 1216418.1526374; Thu, 29 Jan 2026 13:08:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlRij-0002ax-SA; Thu, 29 Jan 2026 13:06:01 +0000
-Received: by outflank-mailman (input) for mailman id 1216412;
- Thu, 29 Jan 2026 13:06:00 +0000
+	id 1vlRkk-00038o-6T; Thu, 29 Jan 2026 13:08:06 +0000
+Received: by outflank-mailman (input) for mailman id 1216418;
+ Thu, 29 Jan 2026 13:08:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=g1vo=AC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vlRii-0002ar-8H
- for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 13:06:00 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1vlRki-00038i-7g
+ for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 13:08:04 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 409c2d7f-fd13-11f0-9ccf-f158ae23cfc8;
- Thu, 29 Jan 2026 14:05:58 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso8560335e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 05:05:58 -0800 (PST)
+ id 8a81f3b4-fd13-11f0-9ccf-f158ae23cfc8;
+ Thu, 29 Jan 2026 14:08:02 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-48068ed1eccso9000395e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 05:08:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48066c428basm205808615e9.12.2026.01.29.05.05.56
+ 5b1f17b1804b1-481a5d6e186sm3722095e9.9.2026.01.29.05.08.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jan 2026 05:05:57 -0800 (PST)
+ Thu, 29 Jan 2026 05:08:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 409c2d7f-fd13-11f0-9ccf-f158ae23cfc8
+X-Inumbo-ID: 8a81f3b4-fd13-11f0-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769691957; x=1770296757; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=a3i8WqonQMKs9H/sjTYiUDanR10Xxf6OwmqHHveUfvg=;
-        b=O1nZbU+m+d0UHxd9dqnlwlGMajwb1PD/9YGDPAiSPB+lNpREWRO3awTmO8CUL8XL/k
-         x7irybHZl5PuFbdyGQQZUE9lzSwDWKjx3Sdv9AdN+C8E/ZLrB041QBVfPjS9uSUj8F4Z
-         Gaz2sGc+nhtk229OE6N4uiDSSEYbtftD7BV0NpB/gDz1jVA06vyHQI11aslARBI0QBoL
-         Mvv1OFeRxJiBCOisLd+2pSHAscliec2FvhZYqwR0deApL5zg7OucBBO4HENLEjpAG7pX
-         YFDseJg2WbNhY7APT7tevZhnm4eeVG/QOhwvbFGkTy6klQJg7p3WwGLo1Al7N8Uy6s17
-         XHGg==
+        d=suse.com; s=google; t=1769692081; x=1770296881; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ft06fTllGkPgCR7qdGHfeQmVyf+2wXDHmiMWPlYjxps=;
+        b=E8h1b8AhdwNeBSRG7J3UT9shsu/GrVn266wo4jYPeWgqQXpZyoA1iv2xq/nGNuC9Bc
+         K86HnV0xVs7MOz6XIXsVhxD4AUqH87ATB0GLVUtUm74qKc7w06BM/yeeeRsdT+zCO3eB
+         e+1V6n9TUcMiqHM5+Km2jK3F8UHnUkQ1MWccsXpxTYi3+h8LjwP+lT1XNqan7M13SM53
+         jFrFNKDHWdKjQb7oO7yt7E58xuIAShWSBHcbFdHF8GM3PI0oyGVy8PoOMTSnsu7L6pyI
+         GdyNgNi2toREXeZiiZQCWw03CNV0qH+H+cRsOM9qerWifA1l31xpscV32ODqb7NM/lLZ
+         6dcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769691957; x=1770296757;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a3i8WqonQMKs9H/sjTYiUDanR10Xxf6OwmqHHveUfvg=;
-        b=N9ydEdClbHJYlT/Fvd2nnERoBfMhsdeVr++iJZ+FZ/TlyqA2yKTDA08ipVUakOuT20
-         424257EtxvZ25phE1bVBAwcGk8FrepXpCdQNyhbSx+HaUKVNMVgdG5V7UlYtJkT/OHfR
-         RKQLpMfzA531lcPFFZguvLL7MakRF9z7uv5CopfWWD6JCcaI6/QtC/JHI/BfB8H5G/Yv
-         36uBvJgPJsh/xR/oDSnIVL/cW/oDZ6BmtxNJqkb4W8IZ0HMsISavMGKQQ7ylqDl8kr6o
-         HE58UlFCXzL+cgdAKxpTc5LeLoP6pWeZ5pd3s/7cvhP25ednCqEeXAioSiR2HQlCCHZ8
-         6R0g==
-X-Gm-Message-State: AOJu0Yw/Q4h4GKCNAensY1m1IzqaNVjCszDl4hjiHi2NUUhyoeu20rAG
-	9UQrA21uJKUNkTPOMf0v0a0kkgiaNMqMsRRk7FFaBs82u/ZSm0ckRzuXQ/JBKhKuL5x//gi+QU4
-	Ime8=
-X-Gm-Gg: AZuq6aL+Z7Td9Uho1ACPE63UXM+AO1ET/t1OQkAZKTYSYT/YySeJmHenhdX9FV+kb36
-	sMcd5jdKCKdRdjl2kP1s9MpAIbeHbTxJE2AuPsOXtAwWnJbreg7NVMAgNdEfpjvLfpkYGeeU0La
-	34UBoEc8CpCuo8QuI5SHa5soT2enz3P5V8maCOdKH4x4B4jSClo0OmKY2OyGLr70SsnqbItqzjr
-	PHu/tG3O/+k3WiSm2Kixrrs+qNZ3lKbVPQGgtJSk5TkTiuZQGil3dZBJusi4O1Sc84v87xg9lkk
-	9lul7n/bTrQNvwg2FAg0QapOhVo2Rw8FtdL9GfWRAcKftENo702LT8EGfZhur1ig+7izyc7Ru+x
-	4GgTwgIAJKpkiXlBLI2+slWKc0dMSBE78XCZMmIfN2G2PXNVGyMidwQu983LVgPK46qfpKXHDKE
-	Lee8TErhPyh1V4R89gZz0AV3eGql4lIoTc++En4bnZy9P4E1pOUzvJ/tj8MuWCnN5BcfmRThdi3
-	2+4pK58aRflDA==
-X-Received: by 2002:a05:600c:3143:b0:47e:e2b8:66e6 with SMTP id 5b1f17b1804b1-480829b1c51mr41191065e9.14.1769691957349;
-        Thu, 29 Jan 2026 05:05:57 -0800 (PST)
-Message-ID: <a67e69b8-c1e9-4448-adbd-17a19dfe13de@suse.com>
-Date: Thu, 29 Jan 2026 14:05:54 +0100
+        d=1e100.net; s=20230601; t=1769692081; x=1770296881;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ft06fTllGkPgCR7qdGHfeQmVyf+2wXDHmiMWPlYjxps=;
+        b=K3yylhTkVTEEx+1XZhfedD+YDnPWpbvYzBhQFnbfYVLbHpaOr1qQDvrLmmUvJl+fqV
+         2XHJnqbi+rAEs6raHZAgPdq1Dr22zu8pgls7jah2o6oRJ/nZhMRhvdufidCcQkt6EGZp
+         heH2bYAFZMK0lfWfRZXraFg2VrgWBL6mTtU/827UIXmSsvCI5bObPRRa9PhDY4OC96RP
+         adPnSBDQ/YPFnsSBIkczgS3qUxNyn12HYSWWToCxBDEBEMf+B7OaIFMwG3iv9d8KF/XC
+         2bauGoZ0XXcpgKdRnd/hEmejy+WJVePrw7r9EkAY6gRKwO+PCVIDGW0Bw9mOMdsJYQHg
+         +ESA==
+X-Gm-Message-State: AOJu0YzIifHTOA/96NoIX+WIsgijjl2Te+8jtbBN3jSQZ//YDvuyQ/cs
+	66KonbNMWBV9wQLxSus5Cze9ilfqAmnBQyIlk4WM5dHsigFEHMVhZNzAz9CDhnOpmf0odm9KqqL
+	KIDE=
+X-Gm-Gg: AZuq6aKZ/I49eY8Ynf3YJCDzD27zXccS/7AykvRzDmhtqFC7zeqTTl/pUfLkAa6g1mB
+	FSZOHLsw1KqWK3TtbFLl44T8b7f2ZSfZi4K6JxfO+jx/cUgGAsDq9+D1ibrasF7HktJ8sIdwxc7
+	1pjR5PpkjLzURSSfOj2aLUfoJQm84s5BZgmWPPEFUHOiHMcjE1dgOY6IPALlbJ/xfL4E586KdoK
+	hT+WUhL9WL6pWfkk8sZVGHl8z0zQhMdveftChMi1cqeTA7+7aB2oqHWBij+KWFzxWqbJCkHkV+M
+	X4Qet3XbRGo0zQjKHRolvFQlCZSrWYlmRWpPYlLbYJVPVUR8nrRPY45d51/TVkQmYVUYV4u0qk3
+	ydjmeWZAQl508G2eK9R8c/1OLA2xDprXdUcJ2+OMqUq0K6bEnPQkpsDx/yfkA4g6rHt9Q3FEHmg
+	pXjmYOh6RWaHS9kyagGIt7F1QSDUkdyseI0S5ofTbKVfn7eq+74S2dJoV/Gc5SXXpdLgMoSbonu
+	ek=
+X-Received: by 2002:a05:600c:871a:b0:477:93f7:bbc5 with SMTP id 5b1f17b1804b1-4806c00c0aemr101803605e9.10.1769692081362;
+        Thu, 29 Jan 2026 05:08:01 -0800 (PST)
+Message-ID: <cc91851f-02a1-4147-a3e4-f0be7f68bb6a@suse.com>
+Date: Thu, 29 Jan 2026 14:07:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3 1/6] PCI: handle PCI->PCIe bridges as well in free_pdev()
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 0/6] (v)PCI: extended capability handling
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>
+References: <a67e69b8-c1e9-4448-adbd-17a19dfe13de@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -124,54 +126,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a67e69b8-c1e9-4448-adbd-17a19dfe13de@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2E0B4B03F8
+X-Rspamd-Queue-Id: 26CD9B0415
 X-Rspamd-Action: no action
 
-This is a follow-on to 'vPCI: avoid bogus "overlap in extended cap list"
-warnings', addressing further issues noted there.
+Don't know how I managed to overlook the freeing side when adding the case
+to alloc_pdev().
 
-v3: Three new patches and some other re-work. See individual patches.
+Fixes: cd2b9f0b1986 ("PCI: handle PCI->PCIe bridges as well in alloc_pdev()")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v3: New.
+---
+Noticed due to the original patch still applying cleanly, just with an
+offset of a few dozen lines.
 
-1: PCI: handle PCI->PCIe bridges as well in free_pdev()
-2: PCI: determine whether a device has extended config space
-3: PCI: don't look for ext-caps when there's no extended cfg space
-4: vPCI/DomU: really no ext-caps without extended config space
-5: x86/PCI: avoid re-evaluation of extended config space accessibility
-6: vPCI: re-init extended-capability lists when MMCFG availability changed
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -436,6 +436,7 @@ static void free_pdev(struct pci_seg *ps
+         unsigned long flags;
+ 
+         case DEV_TYPE_PCIe2PCI_BRIDGE:
++        case DEV_TYPE_PCI2PCIe_BRIDGE:
+         case DEV_TYPE_LEGACY_PCI_BRIDGE:
+             sec_bus = pci_conf_read8(pdev->sbdf, PCI_SECONDARY_BUS);
+             sub_bus = pci_conf_read8(pdev->sbdf, PCI_SUBORDINATE_BUS);
 
-Jan
 
