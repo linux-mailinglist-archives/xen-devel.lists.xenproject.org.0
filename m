@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YMjILHBue2mMEgIAu9opvQ
+	id EPxsMZVxe2mMEgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:28:00 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:41:25 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF2CB0EFD
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:28:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1216637.1526591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9FAB1121
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:41:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1216664.1526603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSzt-0006Id-Op; Thu, 29 Jan 2026 14:27:49 +0000
+	id 1vlTCj-0001DE-TQ; Thu, 29 Jan 2026 14:41:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1216637.1526591; Thu, 29 Jan 2026 14:27:49 +0000
+Received: by outflank-mailman (output) from mailman id 1216664.1526603; Thu, 29 Jan 2026 14:41:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSzt-0006Gy-LQ; Thu, 29 Jan 2026 14:27:49 +0000
-Received: by outflank-mailman (input) for mailman id 1216637;
- Thu, 29 Jan 2026 14:27:48 +0000
+	id 1vlTCj-0001A4-PD; Thu, 29 Jan 2026 14:41:05 +0000
+Received: by outflank-mailman (input) for mailman id 1216664;
+ Thu, 29 Jan 2026 14:41:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ICVe=AC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1vlSzs-0005x4-0V
- for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 14:27:48 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id acfd4d5f-fd1e-11f0-9ccf-f158ae23cfc8;
- Thu, 29 Jan 2026 15:27:45 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1769696848567136.48743967324322;
- Thu, 29 Jan 2026 06:27:28 -0800 (PST)
+ <SRS0=n1BJ=AC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vlTCh-00019y-RN
+ for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 14:41:03 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 884cf30d-fd20-11f0-9ccf-f158ae23cfc8;
+ Thu, 29 Jan 2026 15:41:01 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4801bc32725so8064525e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 06:41:01 -0800 (PST)
+Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4806ce564f9sm142288155e9.14.2026.01.29.06.40.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jan 2026 06:41:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,138 +50,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acfd4d5f-fd1e-11f0-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1769696852; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RmRZrQhgTnx8pI0Vt/7hDJuJAkvazWPBtKFQWS/Q04u5dda1jYh92a0l/943939Q2Q+XmaWG12jLCZBtrregbmXwiNWeMZ46FF3Fxg0beWjvSRYCkMDtIRzo9R9EyxdPSGAiQVrStY5xkYAkp18QHZB2JgjiuZbohEqdtc7NVX8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1769696852; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Csi40rQ6fKyJbiyM0FXQWkQQah5ioh+4oM6lP9s5imQ=; 
-	b=LQgjpzY6DnPvLX0MNQEJ7kbTqt0x3B6oft645cD4yBkeVoplE3l+jRG+uEI/u6w+iCChC99CebVctB9WIidW1G8Q63tpxvGUPhLbnxghjrZNU2/NNh30c5RPV/TAbcgJiIKXukfwmFaCFRjZtByW0UV9Hdfqe9wC5zhYviPdPZ0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769696852;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Csi40rQ6fKyJbiyM0FXQWkQQah5ioh+4oM6lP9s5imQ=;
-	b=cdonrx28oM4RGm/3ytQKpagvsam3hs3ZEjPCK+z10ymkZzbYCs9FRjjlZdUN32CA
-	1QdfFsP94ULp5bAWTgcOyeGp53pHMCmbBneO8tn3OeC9aFj5r2HGoFr+/sDH9KSEAK9
-	YMG2Z+eLHTQukclzVAGWHJM0ycathaGcM9WMccno=
-Message-ID: <24f75da5-116d-4955-a999-04366ec3146b@apertussolutions.com>
-Date: Thu, 29 Jan 2026 09:27:28 -0500
+X-Inumbo-ID: 884cf30d-fd20-11f0-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1769697661; x=1770302461; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9It+LgUBP+HQMboZ37j1eEcPa8t6CGcqjlQAntYPfIo=;
+        b=fdF7mkXd0S4UhaGoSeraMprWpYxmgb82OLqBdcDeV506EdqhXWQhzwc1PEYiqAFv9j
+         yZrhq6eZmo5ustZAyqwxiBEDqJc/xGipNwJbhSu1JJuowkTBJVbwKvzKdh2x8de1taSq
+         WY8vmMHpHXsGzC37dCNKxR5wWQZrwQkQBto+Hd06RP8hFxH2ZH5iDbI95UjEUW87/pp6
+         0YcI/ql8HZZp3qcWF1Gk2E942T7iD63IMrEPGdu7NG9dEM9bThnNswN2MNBqyQu9fKKj
+         kVsxy63qBbVxbZnxAGQ6hDMdG4brvoIXNur+nwlCn0eYLUp9vh87Z5HCrn/AUlDsESYE
+         P4qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769697661; x=1770302461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9It+LgUBP+HQMboZ37j1eEcPa8t6CGcqjlQAntYPfIo=;
+        b=GY1Hb5UNOZq72DYB3W5oG6+yY4btpHVxAgaURzlvfEhB2q/Fo/VUsoZZGpqt8d3qmf
+         Fw5IyzJi2DNO0Yn9F/YcvLpSSAcg3VpQykGUFqgzf4ogsJiuCqqiA7h9NuQXTIjB64Vo
+         nhzuVDiZqSV0tVoVoQbPemBUTzUpjNCeEPTqWma7sNZf0taNCQcN3aAlcYWqlbVS8dfv
+         cy1wMgrFT33tb20OLsZ80EjMjN9z3kJe7gxnrH5XRmVe+rZQ/iAnlsgZxjbNYHdQ0Lso
+         sOV/IoOkFgt46W6h3UVOhH46NgnB1CzXOyohpWsj4Nqyk3t57HRpMIoE03eJTXundsVP
+         mgkw==
+X-Gm-Message-State: AOJu0YyrnDlRMGsGKi4tsjpIgz6DQw4xoEgsEE+IXHNdwJnB1mITMACG
+	S4I3jhK2LswmPfXfK7IFYYx/5IZNHTmujkYLF5nLsYoVGldlnjODGjADuGEDcA==
+X-Gm-Gg: AZuq6aKAAmZBUOUPh/6odu6rl7kTd/12usV+G99hVkarlryanO2ejEWGbTOKGw1vYfv
+	FbrNNtou5t5CFe+5zwfWstDL20/UFYmVDtUNSTolKxKjSvT+Ky+yYPKMwk2Xsltu0Gz8qsTKhYm
+	cyTH1+f0ULbJjMdtuBGVLeQOWbcX5vX4cZYks0/fcHVEJQrDpXEDCkIX5yZ44kmcRvALLd+17jh
+	N1341ARyrEWGbOT6dyKxmDOCYTV7v7l5bypCGmH0UJ9K5oF/ALO54j3h8wQ7ulRizEFAT2hIG+1
+	feRIQpwyC6K0ooZUGYxvvol84KuqogiTecxI0vh4HpddZcj610VCFBXnXbd7vYYrvX1wcp+rUkR
+	eX/z+92df/CQorwdC5OnKGalJ2GgCzc5z18M25PQ8Gm3gyHnNvv0f2rwOu16iYV7PFkwfnjlnEv
+	TPkISInRFMfeHawHeir290IM8A+v+6JW8bFEsRzGjTG0yyuiTz7fm0+Q==
+X-Received: by 2002:a05:600c:3b96:b0:475:dcbb:7903 with SMTP id 5b1f17b1804b1-48069c37e2dmr126208425e9.9.1769697660684;
+        Thu, 29 Jan 2026 06:41:00 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v1] xen/riscv: route unhandled interrupts to do_unexpected_trap()
+Date: Thu, 29 Jan 2026 15:40:52 +0100
+Message-ID: <f6d0cc1a6d960acf96d0f43813bfe6a62ca9a041.1769697450.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] xen/console: handle multiple domains using
- console_io hypercalls
-To: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
- julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
- victorm.lira@amd.com, andrew.cooper3@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2601221704110.7192@ubuntu-linux-20-04-desktop>
- <20260123010640.1194863-1-stefano.stabellini@amd.com>
- <ebc50459-b6f8-4827-b326-edda5f0f67d7@suse.com>
- <alpine.DEB.2.22.394.2601281807290.2238666@ubuntu-linux-20-04-desktop>
- <2044f927-6d9f-4c7f-9e47-6e4c6dbb2fcd@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <2044f927-6d9f-4c7f-9e47-6e4c6dbb2fcd@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.69 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[apertussolutions.com:mid,apertussolutions.com:dkim];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DMARC_NA(0.00)[apertussolutions.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 3BF2CB0EFD
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 7A9FAB1121
 X-Rspamd-Action: no action
 
-On 1/29/26 3:24 AM, Jan Beulich wrote:
-> On 29.01.2026 03:42, Stefano Stabellini wrote:
->> On Wed, 28 Jan 2026, Jan Beulich wrote:
->>> On 23.01.2026 02:06, Stefano Stabellini wrote:
->>>> @@ -742,17 +758,36 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->>>>           if ( copy_from_guest(kbuf, buffer, kcount) )
->>>>               return -EFAULT;
->>>>   
->>>> -        if ( is_hardware_domain(cd) )
->>>> +        /*
->>>> +         * Take both cons->lock and console_lock:
->>>> +         * - cons->lock protects cons->buf and cons->idx
->>>> +         * - console_lock protects console_send and is_focus_domain
->>>> +         *   checks
->>>> +         *
->>>> +         * The order must be respected. guest_printk takes the
->>>> +         * console_lock so it is important that cons->lock is taken
->>>> +         * first.
->>>> +         */
->>>> +        spin_lock(&cons->lock);
->>>> +        nrspin_lock_irq(&console_lock);
->>>> +        if ( is_focus_domain(cd) )
->>>
->>> Why would any of the domains possibly being permitted to be "focus" suddenly
->>> gain direct access here? Full access in do_console_io() is still prevented by
->>> the XSM check there, afaict. Cc-ing Daniel, as it's not quite clear to me
->>> whether to introduce another XSM check here, whether to check ->is_console
->>> directly, or yet something else.
->>
->> The XSM check still happens first in do_console_io() via
->> xsm_console_io(XSM_OTHER, current->domain, cmd), which validates that
->> the domain has permission to use console_io hypercalls. The focus check
->> is an additional restriction that only allows reading when the domain
->> has focus: it doesn't grant new permissions. Dom0less domains with
->> input_allowed = true are already permitted by XSM policy to use
->> console_io;
-> 
-> Are they? I don't see any XSM or Flask code checking that flag. What the
-> dummy xsm_console_io() checks is ->is_console.
+Currently, an interrupt cause which is not explicitly handled is silently
+ignored, and execution resumes without reporting the fault. This is
+incorrect and do_unexpected_trap() should be called in the case of
+unhandled interrupt.
 
-Unless I am misunderstanding what you are asking here, I don't see why 
-XSM would be concerned with this check. The `is_focus_domain()` 
-conditional is not an access decision but a decision whether write to 
-the console or buffer the write.
+Fixes: a8b85fabf6090 ("xen/riscv: add external interrupt handling for hypervisor mode")
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ xen/arch/riscv/traps.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
+index 84b5ab4142f6..34920f4e5693 100644
+--- a/xen/arch/riscv/traps.c
++++ b/xen/arch/riscv/traps.c
+@@ -196,6 +196,7 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+         {
+             /* Handle interrupt */
+             unsigned long icause = cause & ~CAUSE_IRQ_FLAG;
++            bool intr_handled = true;
+ 
+             switch ( icause )
+             {
+@@ -204,10 +205,12 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+                 break;
+ 
+             default:
++                intr_handled = false;
+                 break;
+             }
+ 
+-            break;
++            if ( intr_handled )
++                break;
+         }
+ 
+         do_unexpected_trap(cpu_regs);
+-- 
+2.52.0
 
-> However, what indeed I didn't pay attention to when writing the original
-> comment is that guest_console_write() has only a single caller,
-> do_console_io(). So there's no concern in this regard here as long as no
-> new caller appears.
-
-
-Correct, the `xsm_console_io()` hook is the access check if the guest is 
-allowed to read/write to the console. Any paths to this function should 
-be guarded by a call to this hook.
-
-v/r,
-dps
 
