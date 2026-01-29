@@ -2,43 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eM7mBLNte2mMEgIAu9opvQ
+	id YMjILHBue2mMEgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:24:51 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:28:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755F3B0E3B
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:24:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1216622.1526572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF2CB0EFD
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Jan 2026 15:28:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1216637.1526591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSwd-0005Nt-32; Thu, 29 Jan 2026 14:24:27 +0000
+	id 1vlSzt-0006Id-Op; Thu, 29 Jan 2026 14:27:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1216622.1526572; Thu, 29 Jan 2026 14:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 1216637.1526591; Thu, 29 Jan 2026 14:27:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vlSwd-0005LX-0E; Thu, 29 Jan 2026 14:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 1216622;
- Thu, 29 Jan 2026 14:24:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=g1vo=AC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vlSwa-0005LI-Mt
- for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 14:24:24 +0000
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [2a00:1450:4864:20::444])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35893b88-fd1e-11f0-b160-2bf370ae4941;
- Thu, 29 Jan 2026 15:24:23 +0100 (CET)
-Received: by mail-wr1-x444.google.com with SMTP id
- ffacd0b85a97d-42fb5810d39so743727f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Jan 2026 06:24:23 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435e1048a54sm14044408f8f.0.2026.01.29.06.24.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jan 2026 06:24:23 -0800 (PST)
+	id 1vlSzt-0006Gy-LQ; Thu, 29 Jan 2026 14:27:49 +0000
+Received: by outflank-mailman (input) for mailman id 1216637;
+ Thu, 29 Jan 2026 14:27:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ICVe=AC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1vlSzs-0005x4-0V
+ for xen-devel@lists.xenproject.org; Thu, 29 Jan 2026 14:27:48 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id acfd4d5f-fd1e-11f0-9ccf-f158ae23cfc8;
+ Thu, 29 Jan 2026 15:27:45 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1769696848567136.48743967324322;
+ Thu, 29 Jan 2026 06:27:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,209 +43,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35893b88-fd1e-11f0-b160-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1769696663; x=1770301463; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yUks7eNetVwpKzfbiYWPmagkxOdBNqngs8+VH2ernxM=;
-        b=LiFx18wlJ+ortDmrcxFy2utVl+KPbgBxy5nL+oyV0ksoAQXYf9iv3wStscX4VlZUEA
-         YQj+kQqME+vJ0nlzDGut8y2AKQCuSpms1NxyVP6GHfsnPyjspQybaR2IDp4HMekaKiCE
-         ee4QmNpwzCT1uGA68+r5mgZAU2ZhSWXsRgrpyp2DqtM0erL4UlFba2lioZi2GujHkFj1
-         cnKbvn0laIyBCmkcpJWRjtYyjw2FpXWiLEyYRkYl0zdR1DgOzYRgnSR3uBFrZGpYhYV1
-         CiKKWjNmnIZXxCiYF1NkZg1Z1v+UwZkswfD9sDqyRfk1kNE2FXOEyY4UmNni8VF8CWzI
-         8uMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769696663; x=1770301463;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yUks7eNetVwpKzfbiYWPmagkxOdBNqngs8+VH2ernxM=;
-        b=MRoFhujW8OeAx4BPMN2c8cGPvMye1G8uyDP6RCjMo5j+VlNL4K4ORdTvtxUa/EGlHT
-         OCOVZFHZ6umYIy7Waje2biwRaWdq0hY2mhujbU1fOub1WOFX62GJ+Rlu/m3NB+iXfBHt
-         SoRWFw0Aqpj3N3Enf/vvoipv2yLE/9tc5gqxhEQUdzVAhsGJ9gA3kQxuvLLoLLPNWOPC
-         mzj/kHX3qSlsnN9JferRecNCQFIA1qT8kThvHj1g6eJiPkJn4YfBgKHlJuCTVsnBOU+P
-         eEU310kcCDQdAA8YxSnszb4qQSoIniF+uDWuprqdWbJHE6orU6qRgUw9VN1zq6ovRTTI
-         sGtw==
-X-Forwarded-Encrypted: i=1; AJvYcCXOPLMHAH5SXi6ptTBI/7doOJyNdUveyZkqLjL943Y0cGyx67XFFXqsUjykLxvRaZSZ1nxlxsEkvx4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxApk9JV7EvBExrsLRbOg9yCeZsU0h65UOv106dT1wAk0CBauG
-	kQ7Z15quvfEchMG6UgCsRhXVGgQums/YhnBKLCG+Mcjo84fbrrbKIjAPC/rBiVOd/g==
-X-Gm-Gg: AZuq6aJb4IpFmmJ+dgrCdaPsq6s2tz8NNpNWpBjEdJvXPfGfHj3Le75xEApCLGvApL5
-	IphELvT48pXF5fm7q+6bLAjhev9yBQ5peYdjUzNcXNPRGohH2sxczfHFP4yqk1lWYxLgS41PCDA
-	e+iYXLPR0+kIod4TVEOLHxmPMy9UoTA2ZVWBjQlc6Bxs7MLObZyGiuiWPGobgKx47hfy1lNAeWG
-	WS2QNxDcMoBP0xHC3UqWNfFBdqJOgaINZU0YDEx834508JyfGnovsnQAHDFC9Yu0Yui3rwRRj1Y
-	m/dKDCyVsqdMjuGn97eevj306kad+PkYNpv5o2nZaPJfeXRaduyZLaU7vAn0fJV34NoZS6zvMPE
-	gqVtj7NIgn8cB0+yJPlsZWw/drlrfe3hUhb6zjrXv5wr6dAbqhDJ1Wb25O8q3lkcPzyTki4x0ER
-	4uJO72/SNTH2LYduZjyromTliCo0/W/YHQvi4nulKDHTkDLIFC1zTJYTk75Bft4hOg+Ma1hWR/h
-	Q4=
-X-Received: by 2002:a05:6000:420b:b0:432:851d:23e2 with SMTP id ffacd0b85a97d-435dd1ccbbamr13027393f8f.49.1769696663291;
-        Thu, 29 Jan 2026 06:24:23 -0800 (PST)
-Message-ID: <bf5b18d0-5905-4f54-90f7-44459f7371f6@suse.com>
-Date: Thu, 29 Jan 2026 15:24:20 +0100
+X-Inumbo-ID: acfd4d5f-fd1e-11f0-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1769696852; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RmRZrQhgTnx8pI0Vt/7hDJuJAkvazWPBtKFQWS/Q04u5dda1jYh92a0l/943939Q2Q+XmaWG12jLCZBtrregbmXwiNWeMZ46FF3Fxg0beWjvSRYCkMDtIRzo9R9EyxdPSGAiQVrStY5xkYAkp18QHZB2JgjiuZbohEqdtc7NVX8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1769696852; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Csi40rQ6fKyJbiyM0FXQWkQQah5ioh+4oM6lP9s5imQ=; 
+	b=LQgjpzY6DnPvLX0MNQEJ7kbTqt0x3B6oft645cD4yBkeVoplE3l+jRG+uEI/u6w+iCChC99CebVctB9WIidW1G8Q63tpxvGUPhLbnxghjrZNU2/NNh30c5RPV/TAbcgJiIKXukfwmFaCFRjZtByW0UV9Hdfqe9wC5zhYviPdPZ0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769696852;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Csi40rQ6fKyJbiyM0FXQWkQQah5ioh+4oM6lP9s5imQ=;
+	b=cdonrx28oM4RGm/3ytQKpagvsam3hs3ZEjPCK+z10ymkZzbYCs9FRjjlZdUN32CA
+	1QdfFsP94ULp5bAWTgcOyeGp53pHMCmbBneO8tn3OeC9aFj5r2HGoFr+/sDH9KSEAK9
+	YMG2Z+eLHTQukclzVAGWHJM0ycathaGcM9WMccno=
+Message-ID: <24f75da5-116d-4955-a999-04366ec3146b@apertussolutions.com>
+Date: Thu, 29 Jan 2026 09:27:28 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/5] xen/domctl: chain SCI handling before IOMMU in
- assign_device domctl
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1769696107.git.oleksii_moisieiev@epam.com>
- <69d32e2440b2ef194b4893e5dd29c2dd9d216a90.1769696107.git.oleksii_moisieiev@epam.com>
+Subject: Re: [PATCH v7 1/2] xen/console: handle multiple domains using
+ console_io hypercalls
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
+ victorm.lira@amd.com, andrew.cooper3@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601221704110.7192@ubuntu-linux-20-04-desktop>
+ <20260123010640.1194863-1-stefano.stabellini@amd.com>
+ <ebc50459-b6f8-4827-b326-edda5f0f67d7@suse.com>
+ <alpine.DEB.2.22.394.2601281807290.2238666@ubuntu-linux-20-04-desktop>
+ <2044f927-6d9f-4c7f-9e47-6e4c6dbb2fcd@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <69d32e2440b2ef194b4893e5dd29c2dd9d216a90.1769696107.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <2044f927-6d9f-4c7f-9e47-6e4c6dbb2fcd@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.69 / 15.00];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:bertrand.marquis@arm.com,m:jgross@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:grygorii_strashko@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,e6ef0000:email,e6508000:email];
-	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[apertussolutions.com:mid,apertussolutions.com:dkim];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DMARC_NA(0.00)[apertussolutions.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[apertussolutions.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 755F3B0E3B
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 3BF2CB0EFD
 X-Rspamd-Action: no action
 
-On 29.01.2026 15:16, Oleksii Moisieiev wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 1/29/26 3:24 AM, Jan Beulich wrote:
+> On 29.01.2026 03:42, Stefano Stabellini wrote:
+>> On Wed, 28 Jan 2026, Jan Beulich wrote:
+>>> On 23.01.2026 02:06, Stefano Stabellini wrote:
+>>>> @@ -742,17 +758,36 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>>>>           if ( copy_from_guest(kbuf, buffer, kcount) )
+>>>>               return -EFAULT;
+>>>>   
+>>>> -        if ( is_hardware_domain(cd) )
+>>>> +        /*
+>>>> +         * Take both cons->lock and console_lock:
+>>>> +         * - cons->lock protects cons->buf and cons->idx
+>>>> +         * - console_lock protects console_send and is_focus_domain
+>>>> +         *   checks
+>>>> +         *
+>>>> +         * The order must be respected. guest_printk takes the
+>>>> +         * console_lock so it is important that cons->lock is taken
+>>>> +         * first.
+>>>> +         */
+>>>> +        spin_lock(&cons->lock);
+>>>> +        nrspin_lock_irq(&console_lock);
+>>>> +        if ( is_focus_domain(cd) )
+>>>
+>>> Why would any of the domains possibly being permitted to be "focus" suddenly
+>>> gain direct access here? Full access in do_console_io() is still prevented by
+>>> the XSM check there, afaict. Cc-ing Daniel, as it's not quite clear to me
+>>> whether to introduce another XSM check here, whether to check ->is_console
+>>> directly, or yet something else.
+>>
+>> The XSM check still happens first in do_console_io() via
+>> xsm_console_io(XSM_OTHER, current->domain, cmd), which validates that
+>> the domain has permission to use console_io hypercalls. The focus check
+>> is an additional restriction that only allows reading when the domain
+>> has focus: it doesn't grant new permissions. Dom0less domains with
+>> input_allowed = true are already permitted by XSM policy to use
+>> console_io;
 > 
-> Add chained handling of assigned DT devices to support access-controller
-> functionality through SCI framework, so a DT device assign request can be
-> passed to firmware for processing and enabling VM access to the requested
-> device (for example, device power management through SCMI).
-> 
-> The SCI access-controller DT device processing is called before the IOMMU
-> path. It runs for any DT-described device (protected or not, and even when
-> the IOMMU is disabled). The IOMMU path remains unchanged for PCI devices;
-> only the DT path is relaxed to permit non-IOMMU devices.
-> 
-> This lets xl.cfg:"dtdev" list both IOMMU-protected and non-protected DT
-> devices:
-> 
-> dtdev = [
->     "/soc/video@e6ef0000", <- IOMMU protected device
->     "/soc/i2c@e6508000", <- not IOMMU protected device
-> ]
-> 
-> The change is done in two parts:
-> 1) call sci_do_domctl() in do_domctl() before IOMMU processing. If
-> sci_do_domctl() reports an error other than -ENXIO, treat it as
-> authoritative and skip the IOMMU path. A return of -ENXIO indicates
-> that SCI did not handle the request and is ignored, allowing the
-> existing IOMMU handling to run unchanged;
-> 2) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
-> not fail if DT device is not protected by IOMMU. iommu_do_pci_domctl
-> doesn't need to be updated because iommu_do_domctl first tries
-> iommu_do_pci_domctl (when CONFIG_HAS_PCI) and falls back to
-> iommu_do_dt_domctl only if PCI returns -ENODEV.
-> 
-> The new dt_device_is_protected() bypass in iommu_do_dt_domctl only
-> applies to DT-described devices; SCI parameters are carried via DT
-> nodes. PCI devices handled by iommu_do_pci_domctl do not carry DT/SCI
-> metadata in this path, so there is no notion of “SCI parameters on a
-> non-IOMMU-protected PCI device” for it to interpret or to skip. The PCI
-> path should continue to report errors if assignment cannot be performed
-> by the IOMMU layer. So we should leave iommu_do_pci_domctl unchanged; the
-> SCI/DT-specific relaxations belong only in the DT path. Also SCI handling
-> only exists when DT is present.
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Are they? I don't see any XSM or Flask code checking that flag. What the
+> dummy xsm_console_io() checks is ->is_console.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-provided you get an Arm person's R-b covering ...
+Unless I am misunderstanding what you are asking here, I don't see why 
+XSM would be concerned with this check. The `is_focus_domain()` 
+conditional is not an access decision but a decision whether write to 
+the console or buffer the write.
 
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -29,6 +29,9 @@
->  #include <xen/xvmalloc.h>
->  
->  #include <asm/current.h>
-> +#ifdef CONFIG_ARM
-> +#include <asm/firmware/sci.h>
-> +#endif
->  #include <asm/irq.h>
->  #include <asm/page.h>
->  #include <asm/p2m.h>
-> @@ -833,6 +836,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_test_assign_device:
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
-> +        /*
-> +         * Chain SCI DT handling ahead of the IOMMU path so an SCI mediator
-> +         * can authorise access-controlled DT devices. Unhandled cases report
-> +         * -ENXIO, which is ignored. Any other SCI error aborts before the
-> +         * IOMMU path runs.
-> +         */
-> +#ifdef CONFIG_ARM_SCI
-> +        ret = sci_do_domctl(op, d, u_domctl);
-> +        if ( ret < 0 && ret != -ENXIO )
-> +            break;
-> +#endif
-> +
->          ret = iommu_do_domctl(op, d, u_domctl);
->          break;
 
-... this change (among anything / everything else). I can't prove its correctness,
-I can only state (by way of the tag) that I see nothing wrong anymore.
+> However, what indeed I didn't pay attention to when writing the original
+> comment is that guest_console_write() has only a single caller,
+> do_console_io(). So there's no concern in this regard here as long as no
+> new caller appears.
 
-Jan
+
+Correct, the `xsm_console_io()` hook is the access check if the guest is 
+allowed to read/write to the console. Any paths to this function should 
+be guarded by a call to this hook.
+
+v/r,
+dps
 
