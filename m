@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aC1fEH/NgGkfBwMAu9opvQ
+	id YG1RMXzNgGl3AgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:55 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:52 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8EBCEC58
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218792.1527665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54827CEC44
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218793.1527679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwZX-000120-Nf; Mon, 02 Feb 2026 16:14:43 +0000
+	id 1vmwZZ-0001Pj-2P; Mon, 02 Feb 2026 16:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218792.1527665; Mon, 02 Feb 2026 16:14:43 +0000
+Received: by outflank-mailman (output) from mailman id 1218793.1527679; Mon, 02 Feb 2026 16:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwZX-0000wu-Iw; Mon, 02 Feb 2026 16:14:43 +0000
-Received: by outflank-mailman (input) for mailman id 1218792;
- Mon, 02 Feb 2026 16:14:42 +0000
+	id 1vmwZY-0001LO-Sp; Mon, 02 Feb 2026 16:14:44 +0000
+Received: by outflank-mailman (input) for mailman id 1218793;
+ Mon, 02 Feb 2026 16:14:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hK3N=AG=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vmwZW-0000fY-0u
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:42 +0000
+ id 1vmwZX-0000fY-0v
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:43 +0000
 Received: from AM0PR83CU005.outbound.protection.outlook.com
  (mail-westeuropeazlp170100001.outbound.protection.outlook.com
  [2a01:111:f403:c201::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46ef0e11-0052-11f1-b161-2bf370ae4941;
+ id 47287423-0052-11f1-b161-2bf370ae4941;
  Mon, 02 Feb 2026 17:14:40 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by AMBPR03MB11643.eurprd03.prod.outlook.com
@@ -52,21 +52,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46ef0e11-0052-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 47287423-0052-11f1-b161-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rsl9kgeKFDFD3tXSNImarwRVVbI+vszCGrZ4lDAluahBocbcPcej7xvSkVCmGijUMr7xhcERkSAx1KXlwEBjnYJtHn6NEEtxO4Il1WRKaEZ/OlZGd/Sctv6n653k90HtS6T8USJSXZBxxq3PHr5S3S8qTlKM/uG/wnXx5JnI5RkLIL/9FLYVpwsSYsrqtY+rt1Ngk2T4Ggd0rDYSMScWRlPt5cl4rPYJxsDK93t+5+pG8mojUly0sCm8nHYhYroMWML76b+2SNkm+yEyTU0b7M0i99SdQn1zRzim4+Uoa/j6RJLYFyX+2iTH4WFZXD6SPh4MshvbraXlfvR+XsgZFA==
+ b=O2irMBLf38WWpd/dgjudEA19VynaRhlINTjNU5Evo9bOMNNgN6n6ZiZYXeyZHgX2OJOGc1sjB2lhL/Tz5xx20vWgNGmSjhQxbN6vAyGdEMogspkHBLa1Efkd6oKvRAh9ooZPy1Gjd7bHGSfAauvePf3cabUFtMt5Nu9kT3kzacdUyqUdfRlJO1OPkf+5htdpwVvZ5E9ArC5QZqXwH7MZGxtNG0rjiYVCW5wM8A6IHwhs33KJv6uxVXv5l50H2bDqJtQOK9yFSN3hQZUYVs4HnBaif3bUgl6ZNYEh0jHJYJnsXYEQxvBEWbQvDsOYBmB0xCpGXRINKABtd6Icyey2ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cyn14mIWWGcKZv+b3gYE9UBwudPA49aWy+Wq/fLyg6o=;
- b=saQrYG8qoY4fb0/E7+47XZA9ELNx6ZOKlYeBVEWmOWre0tsgipXgWvgwr8mHR+yl2LHsnz3o/gI8EMCPB/cJpDSHE9wjKzXfh8EWcRAuQmYdLFX7xvwpO066fjASpiZ8u2FW6TXNAht4BZeep2O+vFYG2Zjo2ygMNRMY1cPM1XzKQe6aKcGn5LKiu2b7yO6R92VdrdbUMiMRBl3ypHRNxVscqjq7y4NMoNUYHHa6fSRp4jElK4IJrjFVmFeg9eoRKORsAuRzfwibbkUvmnTxhtLCU0cIux7cGFaFoxXHO/o/lJKS4E9BcVhqJ/5DdC7OheWitjmmjo+OMkzrWIybqA==
+ bh=iUKC8PxXATJx7SpqIhLHzMIKs4Vp6o1Q57Ysq2ayrD4=;
+ b=QWrZ0E3W7NFk5TD3xtQweDgR+YPYaEc44SiYChevCkYEofNCW8Ls3VPpSiPyPieIBujKMnvDY7n9/FI/xLsy2wMfaGSnoPGBKPVtOUQKGLQtM7bkDtIEaWmG7qTqDHJNT6Ea2K74R65vBFNfxI3L4LDRReJUsn9JKGW4/rT5wtDo/KhR/3RfV1Ldqc4Ee121o+s+iRuPpW+bL1J7oxzN3aifj0DOUYIU3QKhnUFKes989hjH4BBSR25y+39WV04zXWCvpgfPZEEvrkcnvELYBsMIeeKSVT6QFiQjSxNLFz2vSkihyTlOVStJMnSjBYY2Z8Y6IbB4JvwMeihQTn5PFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cyn14mIWWGcKZv+b3gYE9UBwudPA49aWy+Wq/fLyg6o=;
- b=gr9qkSPxrCUROYNj1tgw9PAObXITHw0dpZuVzJR6WfEGaR8TRvX3BJM7DWa/MkerOOaKGm+dkbih2bZFzsflg6z+lglcp2wjIKkQNZendZQ7d7NNDwinq+m5GNCgS5wy3dPRF7irYYiY1EGX9gwjCPI50Oq0U9o1RWqFkpt4/QYrzt+8mu01A7+tG5plkG3IPI2iCBvWBDjnv9QO3yT7jl769PVqyW2le8WPaKmWaE4TlGHUpl/+kMbTAfUSyn+MhTs9iaELZ3QND4oiiU7JrxjcxcuR/TC22ONiO9lYkRrDi4F0tnCEg8gU3srRUz89oiKodzYmcjeo+IFjONzpXg==
+ bh=iUKC8PxXATJx7SpqIhLHzMIKs4Vp6o1Q57Ysq2ayrD4=;
+ b=OybhA8M8XwL8cqibmAw1d+dE2G+U/bjrXcU0UwOx18aNopQIMpaY4GE+A6KdAHhQ7oiuQrzhkZzkeq+W1f8xNkbyO5UHoHKsL8t6hwLAg8SGjJqV33xtdD6HO/EDp4igkNp58GenqStfRP3xfw79DICEiwPBQh5VFktvEy28K/Jpum3oMAlATlWChPpP/ptUX75VPFUOQ4jAZGqCd1RU4/DnXFihWQxJnuSvLWevece4nRRmRfuM5OzBDT7wLrvc/1EfjoAAcM6b00uU7MOo41g+VrSWLU7/+wAiHvxhtlyEU8ebK/JSaIBmXxp5q29giieEhoB6aZsE5mRyA0vOGg==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
@@ -74,13 +74,12 @@ CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
 	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH 02/19] arm/gicv4-its: Add GICv4 ITS command definitions
-Thread-Topic: [RFC PATCH 02/19] arm/gicv4-its: Add GICv4 ITS command
- definitions
-Thread-Index: AQHclF8HDQo3o0DTckGQ45OEXd7MRg==
-Date: Mon, 2 Feb 2026 16:14:37 +0000
+Subject: [RFC PATCH 03/19] arm/its: Export struct its_device
+Thread-Topic: [RFC PATCH 03/19] arm/its: Export struct its_device
+Thread-Index: AQHclF8HcsGkFxai5E6CQapzQPG17A==
+Date: Mon, 2 Feb 2026 16:14:38 +0000
 Message-ID:
- <3eb1cea5fb870e01b86e964caef5ceb9b2a8ed75.1770046465.git.mykyta_poturai@epam.com>
+ <cecdd9e18733c63f36f29c1043b249cf431d8a01.1770046465.git.mykyta_poturai@epam.com>
 References: <cover.1770046465.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1770046465.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -91,88 +90,88 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AMBPR03MB11643:EE_
-x-ms-office365-filtering-correlation-id: 1f013205-25b5-443c-2089-08de627629d6
+x-ms-office365-filtering-correlation-id: 0d63e815-d2ec-4e10-9f97-08de62762a19
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?IIeaBhsaEtF3MEAaRjMlb1KubpcMM/qJmQFphiO+/yFru+/SumvY714aNg?=
- =?iso-8859-1?Q?eHhox9kQP5nsf7ufXeLPHTAtDNRrBTPD1WzHNiXag/W8ZqysE7UvhPAKwd?=
- =?iso-8859-1?Q?4dTuILXb7vp+UHApyaqJO7RennuhwCao65EKvJSE7eEBggsLYCKrnUbxe4?=
- =?iso-8859-1?Q?1Xo6/lt1rNDy/7fU+CMCTl1o8uuSneXg+qF/VN9JeDu8Rb8Qn59jf8fLPv?=
- =?iso-8859-1?Q?y40Ail6PEg+dIYuiUPlY/QAp/olCHU36fSLif4Cx9I8xbZN4UyXkD3QjGY?=
- =?iso-8859-1?Q?9AyZM8aPnDiACB+3I+FpdBsxwvo6MxoLrpbjhC/pXTJe/eNNbnOyN9+VAm?=
- =?iso-8859-1?Q?NGBlJ31opcWD8Fs1YYEmTI6xzJvp9IOUgdmlL6AW7t8rs9PNRgwYGCIvUB?=
- =?iso-8859-1?Q?PEYccPsPaNotQHjgfHnFJRjCUamGN7EfbI3YKobNq0MUvX58A5pC08zGAW?=
- =?iso-8859-1?Q?EbP25q+WS/hq+8Prr/zfUU6fwVkVfvcMnjXCY1E458I0RdWQx8USBZUFbE?=
- =?iso-8859-1?Q?dGmoq3L7h6/T5eW6rezGC2/4LU/AHMjvhlxl6t+8aX5kjgnBzSEHErh/XF?=
- =?iso-8859-1?Q?i7dnvypBdkJjmj2ax7sTexTLwkgkwNYdbeIWXhvuVgEtnuBM7Nrf9/yzzP?=
- =?iso-8859-1?Q?W1GUNw7lFLFhhY5wuQiceSIlX59nRJrG+Tjf3WiSmso7w+Itl+AL34sWE8?=
- =?iso-8859-1?Q?O57Dpx66TmQxmYjvctatCxJjvW6KMZMIUm+alo2z2Bq+Gsubyn3hIBQeT1?=
- =?iso-8859-1?Q?v1X/2242d7L48GtzHWfy1pHHX82h098u/6dJ4bt5qh3LnhfGkfau56kh/t?=
- =?iso-8859-1?Q?/V+SEwm+cMJB4x6H45I2UvdTo9tbAdpiO1/64toQJ8/LOFVf6hVSbZ0WL5?=
- =?iso-8859-1?Q?nQMHil651WHzTtVuD2cUVSsnHk3uVszFnu4nZ93tIs4C4lZjE/RafWuQRQ?=
- =?iso-8859-1?Q?MNr2Knztb+M3WdYSNIgFKhdgPWuwi8a8Bf57mi+tqjRrR+5q5zZITK1tFy?=
- =?iso-8859-1?Q?eF7SkLZpP4Ts6d0Jk6QZnJSmW5uc/ue7+VFiRUcRswoqNAHtpvwm/I2434?=
- =?iso-8859-1?Q?6Vdy1oC47m3YT73iVR94UjGhOJOz2yMmQD+vb3UwAl7dQy5BWjGrgjp7RT?=
- =?iso-8859-1?Q?d+kgIS7mW1LPYYPVNGBwqCJFi++oKsc002cC4HxdQ3f6mXJ/u5d/GjIkTQ?=
- =?iso-8859-1?Q?G+tgIlNruppzUHTZWyPZjccIgTECbeia65MTHiyRKVvhgHURk1TejnmBW2?=
- =?iso-8859-1?Q?RKl7vDNyulZsCDRhX6t4I+ybtGZOrRU1tPumN1rgMPvtBZiGshIuHlXp3D?=
- =?iso-8859-1?Q?+8r/oFPrJQfE07wb8AIGFawQpmfAdnu/OiGGEpTimm59xa06oUsjwlwUun?=
- =?iso-8859-1?Q?iR+HsxJl7lLudg/nGRUOUDmNw6Mkcl27X5MDUe33cEg8Bq0Ah6uTuZAXeB?=
- =?iso-8859-1?Q?Oyoqc102eC7RdcTLM1OLN5nQh4JNsxSru/ToWwfH77RB6ubOZ/Wwi0Iz97?=
- =?iso-8859-1?Q?C3frIgq/OwaTYVUnvvxe/AKKSo7xDvFFD+UcIb6EpLWBVbu1ZWvCounBXq?=
- =?iso-8859-1?Q?46RtM7/9oZRwTvcbVjpXhTBHX98N31Gd7kp/FY2t34nvu1JPCub37MOiOc?=
- =?iso-8859-1?Q?X3vzine0MUcUj3I2aTuXvSBhUiJpuCd4Y6IhdZG/+ZDDL0F17EDOCMtcMT?=
- =?iso-8859-1?Q?gKFQYnYFt1QFgdmW/FU=3D?=
+ =?iso-8859-1?Q?j3x1Euh471pR+ixsPWpURI3ZddfnIAd0QK7LliKvwnBIqtZuN+jaa/4AjY?=
+ =?iso-8859-1?Q?H3FssNo96zOnuvhey5RrnDALFm+X2OCiMiHMsZLSaalaFekqKYjVdeisaP?=
+ =?iso-8859-1?Q?NSjz2aBBfv/f7od4v2xe4xIscIErza80fNeecZ4MbZ/PG/gwCf80PmwRUS?=
+ =?iso-8859-1?Q?kovVhlJ2tZeAOML2MUTQjld7/hwWmK7aRZ+bCD+x+zxW/pDv47aTSySnBa?=
+ =?iso-8859-1?Q?vfZsHCtko5xNXW72pK5zp4udWjvx6GoDHZo3CzcKZtGFT24b0p/L/YOIJw?=
+ =?iso-8859-1?Q?8Cinetcv2pQa1Bb0sf4Ix6P3pRzw8eaUTPiPK5/w/uXJztqnXCrDFirAgW?=
+ =?iso-8859-1?Q?kVOBdIYuqIOUsnSUfUuYCKFne93oelscg9lBSAiBYd3ZHlZYIJzHgqQ6O5?=
+ =?iso-8859-1?Q?T1pvPktc2WGBNfrU9xMos7jL0cs4iyxRdi/N9uxEQc/vBT//KSFtBqV2/R?=
+ =?iso-8859-1?Q?uH4BGRdNPavR9S59Abb0m0OpgqgXfC+8ac70vN3OhPmoXSDXO4iZinGoLI?=
+ =?iso-8859-1?Q?2ZjdHHELwEbx33S9YkSug9jM+BzQEhbd5oFAuEHq+aI5Bll/qBPiETVplh?=
+ =?iso-8859-1?Q?ETCDUGy0GYHpVgNVn3lzkSLT2daPxnj18qpgyki4/fhBlqEJ06286YsVU+?=
+ =?iso-8859-1?Q?Oeg9CNxpuF/ebUma5WNQw4lz6NZerP4iy2xzq4gTUQX8PKHm8hMSboeJ2L?=
+ =?iso-8859-1?Q?8PDDm4HgKzyUJos44esw7+cuWdp6RBsUsW+TAzqkAx3GWUbwCmx1PQu3Dx?=
+ =?iso-8859-1?Q?keCVww6J01/PbNDR6PCXldKUFNzVp/scLPW1M4yUFM4qZ2GYHvNPr+oP8x?=
+ =?iso-8859-1?Q?trTsSedPmPMemJ6X1lpB68cNu+qIIDERtBu+FOfSFPfpEFsUnmkE4+4PH0?=
+ =?iso-8859-1?Q?xhRd5v4ZjMh9bESnVQyqcjkxL6g91r1Zn5rGurG9lpidCsaLfhCJVd8XkR?=
+ =?iso-8859-1?Q?rn/2IxihkQmaB64Brygf6RaAlrECi3+JUz8l7OksAGmNcBwM8lPbbCUznW?=
+ =?iso-8859-1?Q?vC3FAt8vqZDhjb5Q+f525FPTBG6OFbLITCnJGcSlw7N5tUTli61dMtxRuJ?=
+ =?iso-8859-1?Q?vmF5a6AKT9tKrbKRRnqT1m1c+Qi6DClIyAbFosOzDYvKU/F4WzUgEoIbPt?=
+ =?iso-8859-1?Q?Q9Hj/NxziVqsA3G+Rs1J7uzCk48emoBrAZmRXDZmwWEN4aIXiyK3FDOt5Q?=
+ =?iso-8859-1?Q?mbkda8o2Jq60GcKu+G/f8TWSqTmzaJYUymDcmLEItBN5WVg4ERAzde/O5L?=
+ =?iso-8859-1?Q?LOQnPIwY9Dgpl7DNKK5qWxpkdaNa6QwPcLH/p4RDgMKwCvuINjpVbj6uST?=
+ =?iso-8859-1?Q?yaDRE2bdYSf+pIFXUuHZMcKiJ8hTMEbA9W8SkDDhICImxXPBLV3mjLTzoj?=
+ =?iso-8859-1?Q?AdKcJdWjsN1+TqD2Kba6FQAqRrGEYJKJKvwG3T6w602q+krmZf/UfxNZiK?=
+ =?iso-8859-1?Q?TV5A8GjaP9AHVwDTe313F8RL4/J05zvvEwH7COAu4vLA4TZ0rHha5FR1ag?=
+ =?iso-8859-1?Q?yt2MahdJT2kZIiVaUdyYbT1OTTddwwRAB/sSEuxUL5jLZxruQ8JpZYKah0?=
+ =?iso-8859-1?Q?/r7uPPYpdgDtzUPNTnwguAaRyVFEILeTpEI1y5Q1Dx1TxgKXJzZu8oNP8q?=
+ =?iso-8859-1?Q?ZR9rr+J5Ta+NCrRoemqG5T4VZFZ0oxJrIpMBN/wyq7WaoomnpBE9YJDV8s?=
+ =?iso-8859-1?Q?/TaLvBSWhMNyg8wFs24=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?gHpde/Ii6kF52824t8gDEylF7dgA8rSA3gvoEGZMBB9Hv81wCBvWv0hspj?=
- =?iso-8859-1?Q?oQsCxWCRVEA6MqP2/UpLxspjT8H+e+DEA4MtpLV33AN95fMIRhhwBHZUL9?=
- =?iso-8859-1?Q?k5SpQ3tSz+PtAg4mw63/USbsMztQ1VGHhwWx6iUmUfkD4G4SSTKofHS00c?=
- =?iso-8859-1?Q?WsCanFSO4E7IeI0G5l7RlBk+aSEOtES/jIE8VRxnK4KrdK1fB9AlNoXaue?=
- =?iso-8859-1?Q?Cm4NtbpLp6zLSggzRy82X6093ky3lxG3tBiObNnofW0RCvs3HQIqTgj4Fe?=
- =?iso-8859-1?Q?8vVr8HnWYQLzB92eJuAP7+c3Vq9rM2O7WT/1TVg4C1xe1Zaab+J9WZXYSg?=
- =?iso-8859-1?Q?+AHH0RKXFyz7a4j649bs3Feke8ip5KsuSn8f3nofZ3jLFyAwIXT0KU3hTj?=
- =?iso-8859-1?Q?UPirDMuxidjvSgiarDXyMf1Ed1JIsiQt3/QJqRHTQqcEEaX/hkXuu7s2nC?=
- =?iso-8859-1?Q?GxH+VMQD4gy07OUuUpf28PZ/sxcdgslkQoanVYW2CjG2c6LYWEkGQQlNJY?=
- =?iso-8859-1?Q?IiwAf4PWCC59NFXHGsBiwey2GtLLVEUO0QeZdg9SLVi3OwDLWjbdNWwS7b?=
- =?iso-8859-1?Q?TcEv2YEnmIXPz9tpLSPOY+41fayOZUkVYEJNPzJV/rInI2yl6X9klLOLBi?=
- =?iso-8859-1?Q?w23kI2wbKOJCGkv9Va3oid3mo3N9Kp7vg/+ccFPWy4pzF5FiIOlsPnAl8V?=
- =?iso-8859-1?Q?O935yo5uXr9RsS9WTH6URMhHoIKN94aYJtz/nkRS4l65BV1dxJQasHkTy9?=
- =?iso-8859-1?Q?2w0PFCSRemCPerDaeYbtBBxkQkQjuXHGA3Mw7AiQ351vKWgwJLTt3EkVAn?=
- =?iso-8859-1?Q?VVrokAYEDvaEKEuUMixKijMuFdsLIeqBGza1903Ah8Rg8rEbDNikiWKpI+?=
- =?iso-8859-1?Q?c0mmrMoE4865erLyN0lQZUv4JUlDWje2Rz5ljXGf8+hHXg2Mpl4ISECxds?=
- =?iso-8859-1?Q?dbu3B0zy9Xl+VCJsh28CzpuI0CtGs0I8UHKnLnRn/hpEuEcCU6Ov7Fxwf1?=
- =?iso-8859-1?Q?Kxrs+AFlQzqaVUkoV/8C9iSIBrVY0/lSW4Puvg3tsTQzSneYYbLpYJzJU0?=
- =?iso-8859-1?Q?pFkCEXIl3zgNSc0cxbzxOqhsjzrsKjfjnXlZgF+M3zvQmCrfge6lcRRrSf?=
- =?iso-8859-1?Q?DLvbrK19uqD3KPwA/HNCsmZEaZS07OoXN0L/nG/Np+LuWDYo/Wj1XWRoOw?=
- =?iso-8859-1?Q?iroMVGHzKw28Y7xNDOAbR5YrUcWBefo+wbDltP8GIQJTMDEXk8pYnJGMdU?=
- =?iso-8859-1?Q?Jn9ZvYUkyY8SCgsyXLUDIDCEWofNDZXQgdrADuxiCse7BtidnIIPN/NPOQ?=
- =?iso-8859-1?Q?Jk8QjkrvLiS+DTdZ659oGcvLBVd5+zPjPxnDltES8PXW154uc0JKWlhn01?=
- =?iso-8859-1?Q?Vh2LpbIB/xP8f3q9Jozgts+tVGbIylzKg8JmVwLYaLw593yUBRziPNvk1q?=
- =?iso-8859-1?Q?MoijovIKfd0+xiInEKYmlk4uC/paSfUsTstkVeFcDxQvV0fIQ2DrfVueXD?=
- =?iso-8859-1?Q?dGeKriRyf0LhUaSKRJJ+qwvOfpy9EHYyoeEn00nHPKKUCo8JvBMIWxu6Lk?=
- =?iso-8859-1?Q?xPnNMCLksFNalC9HmACmoPYACmYR+qBrXACPPAe6rLymb4hzTmD4YtD0xv?=
- =?iso-8859-1?Q?BFukielRb/CidZ9EXL/tzS3RtcDM+uS3mu50Y6Qgr3cpaBiq77f26tQvDE?=
- =?iso-8859-1?Q?vFFGryvvEPD09RFfX54kSvb354DUPIoEnQICFFQVfH+LtYUEGYuildeKpd?=
- =?iso-8859-1?Q?3CFM6rJ5fSTNbOuTKJVtTDxY47HFGQNMzfuV0mraUTVs2xmBu9Jn+1OFAn?=
- =?iso-8859-1?Q?6c7Bk9Hp9lzFa8onUhnKnMMzXPE0f7g=3D?=
+ =?iso-8859-1?Q?aKdz+449kl414CdQuR/4h2NE5DZL7Ae87FadQs8eq/bwYLj0wECKhkCjm1?=
+ =?iso-8859-1?Q?mDSZFYI01Vf4oQen4y3rP7BVVCEyfRjE9nZKfcNyKH8t3Dz8rwZF7f2vNm?=
+ =?iso-8859-1?Q?OX33tRJZSo6yDjOKTenI/6HOmIZHMl/Cm47g8W+Dh94wZugJFO5GZ3ygsO?=
+ =?iso-8859-1?Q?lEbA+dm++u2621zNhA3inTUibGnyLlRRdyMXuwzsbxDcHvBCAjmRIJIiOq?=
+ =?iso-8859-1?Q?FUmIW34PtYj2vLmLjCgfy2rB5ChuYYxfuEqQZuS2XUtgFUhQn0fY8jgA+s?=
+ =?iso-8859-1?Q?1w+kxfzfTp6pDN0sg+10SpkyJNFoZOj2UDn1QtDk4Po3IpmGpmJ/0pQzEW?=
+ =?iso-8859-1?Q?z9EYI+oRg3cb2yFynRQvyFnqmzd+kvL/1xE+C/Fs050LcCkPufd5SKM+/a?=
+ =?iso-8859-1?Q?Z5kRXgk7xPEDY8vB7gKR4ELbKbOs/3smD5DlxwI7jEvj7F3VadYfG/FI8R?=
+ =?iso-8859-1?Q?/FNjJ8mn7Lxp1ybXRsNStXuiL+xZWLIqCWBwSDQsMeKccrWKPIJs3krWLq?=
+ =?iso-8859-1?Q?QCyo3OBSugRRT538rOlvxWEnXm7X/xFqPJoL7RnO2maatQEakAFljK4r0M?=
+ =?iso-8859-1?Q?LGiKAezmRiwbOmR3d0ZIyG5/7URclYMP6QGUxgDQ4+/jUdPZEQRg5XsLcV?=
+ =?iso-8859-1?Q?+oYKNZ+Kud75ISi+9HisR8yBf3vS5+znoCYJsrWC/sk3FbtivIXalPglij?=
+ =?iso-8859-1?Q?3pBzCqOjluyT+pOC3X+A5bfvhmNhP+WuoepH/uhmCJ93YW36wrIysDnzC4?=
+ =?iso-8859-1?Q?6YVSVaRyFdGHxuMns4oR5fCso5VB/03XqXlGWY3zjZaz+7GxUYNjzkc4fL?=
+ =?iso-8859-1?Q?swxDQ85qAFJklzcGnS/RB7JqnH+33EthDdxcvhWkPSBR/OPcXvSPtY2uX5?=
+ =?iso-8859-1?Q?ZbisBXyc7eK38rN15DQa4Ni5p7o7LThWH/o7NBcK3O6N7CKXWDF0fBPerK?=
+ =?iso-8859-1?Q?VgPPuYQ/wQIV3W3Ol5BvuadkSezFGIK8uhOaJZpnSXekRlBP6XnGdGEOhq?=
+ =?iso-8859-1?Q?IIF9Ce2RCt0mDOFYRvCW89RqIwc+oYdJiyBdtI2cnddxhuQAKT28qW4ybx?=
+ =?iso-8859-1?Q?ornbslOEpDRDjvFTCSJTAve2aA2mwYQo8ZmS/NiXP8FKuQ/1aiLB2alppq?=
+ =?iso-8859-1?Q?cEpj8rmf27gbIexeF58nC7oLQiMpladDIOqbN/wt2BthLkqIUs9DSHBaTh?=
+ =?iso-8859-1?Q?1hoenqfTtwHTmX9tE6hXubvg0/UMBUAi6w7y6vemedoZQtO8oUWIB0JZFX?=
+ =?iso-8859-1?Q?GztRUvXAI8Qt64rX5DT/3sWnLcIGL2b7hiIhGXQ8PCgWHh2VI3x5E7QpVi?=
+ =?iso-8859-1?Q?oAb2lR9oUIlpmm3CD2BHou7KhMN1MRkkdXbxkuQjLDG+kOt1KCDYL/uKxq?=
+ =?iso-8859-1?Q?d6vqa5L/FNmlopAwtNZrhoo1v8WxU01nZcEqm24J/WfeV/47ctkA5hap+1?=
+ =?iso-8859-1?Q?M6tKtEKQrFWKlk0x1gEQ1B7iUO8KeKGozOsRXblCdroGNTX9mBkkkU+xow?=
+ =?iso-8859-1?Q?0mamiQma5+lIFsYvYRZfaC8sQwxjoUs9yoEe0CGI8Jsyz8pf+LMHuFlqJo?=
+ =?iso-8859-1?Q?zkKCWuUsgFmNcOXt6stBl6SCEVR0ZcGV8AUE/K1NYUsG5ebhiDznUH8WaU?=
+ =?iso-8859-1?Q?K8PgEuapefhbiLhJQV/Ua2YVVWPNiReMPdtVQzd9I2q1CVPNaIX3iwUoVw?=
+ =?iso-8859-1?Q?pQez2pz01lBZfl+aOVY+/IVOruk8WTUjm4QA694aq6i27Usxh1SYDxLVTV?=
+ =?iso-8859-1?Q?5i0Rb4ZdhaptLxXUaiJzi8M7xgoAANxbKO1fcnPjpE3i+Yn5wkFHxojj2J?=
+ =?iso-8859-1?Q?UAsQJjXS5UbobSjO5gTFa+QCkPi3+eQ=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f013205-25b5-443c-2089-08de627629d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:38.0305
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d63e815-d2ec-4e10-9f97-08de62762a19
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:38.5061
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: l94HeemlUKN74wbZ7zRgOv2P63enIJQWWs5PnFsaAVV7iwJPGQQHNtu/MrA8tfIQEvNLxj3064HGoWng/IaWKQ==
+X-MS-Exchange-CrossTenant-userprincipalname: 5F71G833OERRta/JCzqHTQNxuHXsP0F/tDRlw9VysD6uy7dySJnn3C9SLXFMkEXw+UhAdLFLYtaGwsUtgjC7LA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR03MB11643
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
@@ -194,7 +193,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:dkim,epam.com:mid,arm.com:email,gnu.org:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:dkim,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -208,65 +207,160 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: AC8EBCEC58
+X-Rspamd-Queue-Id: 54827CEC44
 X-Rspamd-Action: no action
 
-Add definitions for GICv4 specific ITS commands.
+Make struct its_device and its commands sending methods publicly
+available so they can be used by GICv4 implementation.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/include/asm/gic_v4_its.h | 41 +++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
- create mode 100644 xen/arch/arm/include/asm/gic_v4_its.h
+ xen/arch/arm/gic-v3-its.c             | 30 +++++----------------------
+ xen/arch/arm/include/asm/gic_v3_its.h | 29 ++++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 25 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/gic_v4_its.h b/xen/arch/arm/include/a=
-sm/gic_v4_its.h
-new file mode 100644
-index 0000000000..f48eae60ad
---- /dev/null
-+++ b/xen/arch/arm/include/asm/gic_v4_its.h
-@@ -0,0 +1,41 @@
+diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+index 34833166ad..25c07eb861 100644
+--- a/xen/arch/arm/gic-v3-its.c
++++ b/xen/arch/arm/gic-v3-its.c
+@@ -30,26 +30,6 @@
+  */
+ LIST_HEAD(host_its_list);
+=20
+-/*
+- * Describes a device which is using the ITS and is used by a guest.
+- * Since device IDs are per ITS (in contrast to vLPIs, which are per
+- * guest), we have to differentiate between different virtual ITSes.
+- * We use the doorbell address here, since this is a nice architectural
+- * property of MSIs in general and we can easily get to the base address
+- * of the ITS and look that up.
+- */
+-struct its_device {
+-    struct rb_node rbnode;
+-    struct host_its *hw_its;
+-    void *itt_addr;
+-    unsigned int itt_order;
+-    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
+-    uint32_t host_devid;
+-    uint32_t guest_devid;
+-    uint32_t eventids;                  /* Number of event IDs (MSIs) */
+-    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
+ */
+-    struct pending_irq *pend_irqs;      /* One struct per event */
+-};
+=20
+ /*
+  * It is unlikely that a platform implements ITSes with different quirks,
+@@ -155,7 +135,7 @@ bool gicv3_its_host_has_its(void)
+ }
+=20
+ #define BUFPTR_MASK                     GENMASK(19, 5)
+-static int its_send_command(struct host_its *hw_its, const void *its_cmd)
++int its_send_command(struct host_its *hw_its, const void *its_cmd)
+ {
+     /*
+      * The command queue should actually never become full, if it does any=
+way
+@@ -258,7 +238,7 @@ static uint64_t encode_rdbase(struct host_its *hw_its, =
+unsigned int cpu,
+     return reg;
+ }
+=20
+-static int its_send_cmd_sync(struct host_its *its, unsigned int cpu)
++int its_send_cmd_sync(struct host_its *its, unsigned int cpu)
+ {
+     uint64_t cmd[4];
+=20
+@@ -270,7 +250,7 @@ static int its_send_cmd_sync(struct host_its *its, unsi=
+gned int cpu)
+     return its_send_command(its, cmd);
+ }
+=20
+-static int its_send_cmd_mapti(struct host_its *its,
++int its_send_cmd_mapti(struct host_its *its,
+                               uint32_t deviceid, uint32_t eventid,
+                               uint32_t pintid, uint16_t icid)
+ {
+@@ -322,7 +302,7 @@ static int its_send_cmd_mapd(struct host_its *its, uint=
+32_t deviceid,
+     return its_send_command(its, cmd);
+ }
+=20
+-static int its_send_cmd_inv(struct host_its *its,
++int its_send_cmd_inv(struct host_its *its,
+                             uint32_t deviceid, uint32_t eventid)
+ {
+     uint64_t cmd[4];
+@@ -897,7 +877,7 @@ out:
+ }
+=20
+ /* Must be called with the its_device_lock held. */
+-static struct its_device *get_its_device(struct domain *d, paddr_t vdoorbe=
+ll,
++struct its_device *get_its_device(struct domain *d, paddr_t vdoorbell,
+                                          uint32_t vdevid)
+ {
+     struct rb_node *node =3D d->arch.vgic.its_devices.rb_node;
+diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
+sm/gic_v3_its.h
+index fc5a84892c..aa54e9a364 100644
+--- a/xen/arch/arm/include/asm/gic_v3_its.h
++++ b/xen/arch/arm/include/asm/gic_v3_its.h
+@@ -116,6 +116,27 @@
+ /* We allocate LPIs on the hosts in chunks of 32 to reduce handling overhe=
+ad. */
+ #define LPI_BLOCK                       32U
+=20
 +/*
-+ * ARM GICv4 ITS support
-+ *
-+ * Penny Zheng <penny.zheng@arm.com>
-+ * Copyright (c) 2023 ARM Ltd.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; under version 2 of the License.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program; If not, see <http://www.gnu.org/licenses/>.
++ * Describes a device which is using the ITS and is used by a guest.
++ * Since device IDs are per ITS (in contrast to vLPIs, which are per
++ * guest), we have to differentiate between different virtual ITSes.
++ * We use the doorbell address here, since this is a nice architectural
++ * property of MSIs in general and we can easily get to the base address
++ * of the ITS and look that up.
 + */
++struct its_device {
++    struct rb_node rbnode;
++    struct host_its *hw_its;
++    unsigned int itt_order;
++    void *itt_addr;
++    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
++    uint32_t host_devid;
++    uint32_t guest_devid;
++    uint32_t eventids;                  /* Number of event IDs (MSIs) */
++    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
+ */
++    struct pending_irq *pend_irqs;      /* One struct per event */
++};
 +
-+#ifndef __ASM_ARM_GICV4_ITS_H__
-+#define __ASM_ARM_GICV4_ITS_H__
+ /* data structure for each hardware ITS */
+ struct host_its {
+     struct list_head entry;
+@@ -138,6 +159,10 @@ int gicv3_its_setup_collection(unsigned int cpu);
+=20
+ extern struct list_head host_its_list;
+=20
++int its_send_cmd_inv(struct host_its *its, uint32_t deviceid, uint32_t eve=
+ntid);
++int its_send_cmd_clear(struct host_its *its, uint32_t deviceid, uint32_t e=
+ventid);
++int its_send_cmd_mapti(struct host_its *its, uint32_t deviceid,
++                       uint32_t eventid, uint32_t pintid, uint16_t icid);
+ #ifdef CONFIG_ACPI
+ unsigned long gicv3_its_make_hwdom_madt(const struct domain *d,
+                                         void *base_ptr);
+@@ -198,6 +223,10 @@ struct pending_irq *gicv3_assign_guest_event(struct do=
+main *d,
+                                              uint32_t virt_lpi);
+ void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
+                                  uint32_t virt_lpi);
++int its_send_command(struct host_its *hw_its, const void *its_cmd);
 +
-+#define GITS_CMD_VMOVI                   0x21
-+#define GITS_CMD_VMOVP                   0x22
-+#define GITS_CMD_VSGI                    0x23
-+#define GITS_CMD_VSYNC                   0x25
-+#define GITS_CMD_VMAPP                   0x29
-+#define GITS_CMD_VMAPTI                  0x2a
-+#define GITS_CMD_VINVALL                 0x2d
-+#define GITS_CMD_INVDB                   0x2e
-+
-+#endif
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
++struct its_device *get_its_device(struct domain *d, paddr_t vdoorbell,
++                                  uint32_t vdevid);
+=20
+ /* ITS quirks handling. */
+ uint64_t gicv3_its_get_cacheability(void);
 --=20
 2.51.2
 
