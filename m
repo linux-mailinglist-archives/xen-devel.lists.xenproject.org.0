@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YG1RMXzNgGl3AgMAu9opvQ
+	id bedMGX3NgGkfBwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:52 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54827CEC44
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218793.1527679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09066CEC51
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:14:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218794.1527685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwZZ-0001Pj-2P; Mon, 02 Feb 2026 16:14:45 +0000
+	id 1vmwZZ-0001SY-FZ; Mon, 02 Feb 2026 16:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218793.1527679; Mon, 02 Feb 2026 16:14:45 +0000
+Received: by outflank-mailman (output) from mailman id 1218794.1527685; Mon, 02 Feb 2026 16:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwZY-0001LO-Sp; Mon, 02 Feb 2026 16:14:44 +0000
-Received: by outflank-mailman (input) for mailman id 1218793;
- Mon, 02 Feb 2026 16:14:43 +0000
+	id 1vmwZZ-0001Pv-5k; Mon, 02 Feb 2026 16:14:45 +0000
+Received: by outflank-mailman (input) for mailman id 1218794;
+ Mon, 02 Feb 2026 16:14:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hK3N=AG=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vmwZX-0000fY-0v
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:43 +0000
+ id 1vmwZY-0000fY-1Q
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:44 +0000
 Received: from AM0PR83CU005.outbound.protection.outlook.com
  (mail-westeuropeazlp170100001.outbound.protection.outlook.com
  [2a01:111:f403:c201::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47287423-0052-11f1-b161-2bf370ae4941;
- Mon, 02 Feb 2026 17:14:40 +0100 (CET)
+ id 4771892a-0052-11f1-b161-2bf370ae4941;
+ Mon, 02 Feb 2026 17:14:41 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by AMBPR03MB11643.eurprd03.prod.outlook.com
  (2603:10a6:20b:731::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Mon, 2 Feb
- 2026 16:14:38 +0000
+ 2026 16:14:39 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9564.016; Mon, 2 Feb 2026
@@ -52,21 +52,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47287423-0052-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 4771892a-0052-11f1-b161-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O2irMBLf38WWpd/dgjudEA19VynaRhlINTjNU5Evo9bOMNNgN6n6ZiZYXeyZHgX2OJOGc1sjB2lhL/Tz5xx20vWgNGmSjhQxbN6vAyGdEMogspkHBLa1Efkd6oKvRAh9ooZPy1Gjd7bHGSfAauvePf3cabUFtMt5Nu9kT3kzacdUyqUdfRlJO1OPkf+5htdpwVvZ5E9ArC5QZqXwH7MZGxtNG0rjiYVCW5wM8A6IHwhs33KJv6uxVXv5l50H2bDqJtQOK9yFSN3hQZUYVs4HnBaif3bUgl6ZNYEh0jHJYJnsXYEQxvBEWbQvDsOYBmB0xCpGXRINKABtd6Icyey2ZQ==
+ b=FkfBReS2bO5x3YjBb8sJouEd1H704fJBtv5NyxTt2Ww060GltEgRw55PHzKcF8N9UQbonQGcuWmEkw5XpWizgEnTvU3ofdLNEdIADWnQtteat9Rjx2NO9xm/ZPdCIz77FDZauJCzJtfMvYb3hSAHSMMu1csAdiZh56wQW0nT3w4u57rpSBLipOKKu47RYbQGbPifSycKVHQkHfi03bWJCXZRoaAQo4bVbbHlnX1Juvyh++cEPAuJhKC9b2etqVhLVRRmnE/mu+DpukF4O1tLdOfBGJsiiNHphx56BRhnMUmWEwADph/1PubS+sXcqpvF7seufbSGxqzcOZnzUbwRvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iUKC8PxXATJx7SpqIhLHzMIKs4Vp6o1Q57Ysq2ayrD4=;
- b=QWrZ0E3W7NFk5TD3xtQweDgR+YPYaEc44SiYChevCkYEofNCW8Ls3VPpSiPyPieIBujKMnvDY7n9/FI/xLsy2wMfaGSnoPGBKPVtOUQKGLQtM7bkDtIEaWmG7qTqDHJNT6Ea2K74R65vBFNfxI3L4LDRReJUsn9JKGW4/rT5wtDo/KhR/3RfV1Ldqc4Ee121o+s+iRuPpW+bL1J7oxzN3aifj0DOUYIU3QKhnUFKes989hjH4BBSR25y+39WV04zXWCvpgfPZEEvrkcnvELYBsMIeeKSVT6QFiQjSxNLFz2vSkihyTlOVStJMnSjBYY2Z8Y6IbB4JvwMeihQTn5PFw==
+ bh=pUeEU3bbSuS4RygDqfWI+sk2Oq51A0Lc+fee+eE/fIY=;
+ b=PkTG8pYtHmP6qCNyre2QrVBU/6IpjFc3Hy6xGBdRqqfH/OhNKxTAQ9bK3xUeGQmuliDvXH1Lf9OHfT4LUY4ImJkmOvqbbeVlIQ5iQ++vzihuC/JMo7sFvJRWyUwHOc1Jv4WOiRg8EdmVsec3OLN4/lDODgGUZXgAYhlLJM9DgTXTweK9mEyuboCWx0qFI2Ur7X9+YHApuhF2Jwi8I/UYM5TyUTua8juc7OxRG+JVYZ4wN0hxLCXgQGJNE4SEDz4RQ4pnmf3Y+T50somjdP7CPpsZQnao6gesWmG417wPR8bFWGvDDuBp8mkqt0jlY9GXBnsjjMuM2Yj3qkq0kInV1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iUKC8PxXATJx7SpqIhLHzMIKs4Vp6o1Q57Ysq2ayrD4=;
- b=OybhA8M8XwL8cqibmAw1d+dE2G+U/bjrXcU0UwOx18aNopQIMpaY4GE+A6KdAHhQ7oiuQrzhkZzkeq+W1f8xNkbyO5UHoHKsL8t6hwLAg8SGjJqV33xtdD6HO/EDp4igkNp58GenqStfRP3xfw79DICEiwPBQh5VFktvEy28K/Jpum3oMAlATlWChPpP/ptUX75VPFUOQ4jAZGqCd1RU4/DnXFihWQxJnuSvLWevece4nRRmRfuM5OzBDT7wLrvc/1EfjoAAcM6b00uU7MOo41g+VrSWLU7/+wAiHvxhtlyEU8ebK/JSaIBmXxp5q29giieEhoB6aZsE5mRyA0vOGg==
+ bh=pUeEU3bbSuS4RygDqfWI+sk2Oq51A0Lc+fee+eE/fIY=;
+ b=uKpIUWCnr/IfnfmQEzCBCtGFlQhGa2xZeyxI1tqC4pytFkQ3kJW6AlT9qNWC7m48ZyNkFsB3qFB2Y9LbdmTk7AD5R7aGkGam3IpPrVm+gO8q9lO1pIm5MEE+ZK9BzAV0jHIjPTHFD0Zjuakz6uNPMcVSr/GCidJU0a585116uxOkLc+jgw4RYDCTZCdHd0TeE/bRkyll6W5nI8Vl5tKDZXsBFb4NJYnqVZrDcrfG2lXWBJSM2ffHVk8VVsH/+IbQWzYaHnrPcOnhEkSYeVEZIHn71rYFneB0cgrXwGpfIsOTSffmHjuIh1Udekg/LValc3FRUwEil0kcf0clt0X1sA==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
@@ -74,12 +74,12 @@ CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
 	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH 03/19] arm/its: Export struct its_device
-Thread-Topic: [RFC PATCH 03/19] arm/its: Export struct its_device
-Thread-Index: AQHclF8HcsGkFxai5E6CQapzQPG17A==
+Subject: [RFC PATCH 04/19] arm/its: Add vlpi configuration
+Thread-Topic: [RFC PATCH 04/19] arm/its: Add vlpi configuration
+Thread-Index: AQHclF8He0hTGFqEmEaW888dgnQDnw==
 Date: Mon, 2 Feb 2026 16:14:38 +0000
 Message-ID:
- <cecdd9e18733c63f36f29c1043b249cf431d8a01.1770046465.git.mykyta_poturai@epam.com>
+ <76de7174202e96fb907bb2ce1a874063ed9f393e.1770046465.git.mykyta_poturai@epam.com>
 References: <cover.1770046465.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1770046465.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -90,88 +90,88 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AMBPR03MB11643:EE_
-x-ms-office365-filtering-correlation-id: 0d63e815-d2ec-4e10-9f97-08de62762a19
+x-ms-office365-filtering-correlation-id: 48df5614-b3bf-4b5f-7b3e-08de62762a5a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?j3x1Euh471pR+ixsPWpURI3ZddfnIAd0QK7LliKvwnBIqtZuN+jaa/4AjY?=
- =?iso-8859-1?Q?H3FssNo96zOnuvhey5RrnDALFm+X2OCiMiHMsZLSaalaFekqKYjVdeisaP?=
- =?iso-8859-1?Q?NSjz2aBBfv/f7od4v2xe4xIscIErza80fNeecZ4MbZ/PG/gwCf80PmwRUS?=
- =?iso-8859-1?Q?kovVhlJ2tZeAOML2MUTQjld7/hwWmK7aRZ+bCD+x+zxW/pDv47aTSySnBa?=
- =?iso-8859-1?Q?vfZsHCtko5xNXW72pK5zp4udWjvx6GoDHZo3CzcKZtGFT24b0p/L/YOIJw?=
- =?iso-8859-1?Q?8Cinetcv2pQa1Bb0sf4Ix6P3pRzw8eaUTPiPK5/w/uXJztqnXCrDFirAgW?=
- =?iso-8859-1?Q?kVOBdIYuqIOUsnSUfUuYCKFne93oelscg9lBSAiBYd3ZHlZYIJzHgqQ6O5?=
- =?iso-8859-1?Q?T1pvPktc2WGBNfrU9xMos7jL0cs4iyxRdi/N9uxEQc/vBT//KSFtBqV2/R?=
- =?iso-8859-1?Q?uH4BGRdNPavR9S59Abb0m0OpgqgXfC+8ac70vN3OhPmoXSDXO4iZinGoLI?=
- =?iso-8859-1?Q?2ZjdHHELwEbx33S9YkSug9jM+BzQEhbd5oFAuEHq+aI5Bll/qBPiETVplh?=
- =?iso-8859-1?Q?ETCDUGy0GYHpVgNVn3lzkSLT2daPxnj18qpgyki4/fhBlqEJ06286YsVU+?=
- =?iso-8859-1?Q?Oeg9CNxpuF/ebUma5WNQw4lz6NZerP4iy2xzq4gTUQX8PKHm8hMSboeJ2L?=
- =?iso-8859-1?Q?8PDDm4HgKzyUJos44esw7+cuWdp6RBsUsW+TAzqkAx3GWUbwCmx1PQu3Dx?=
- =?iso-8859-1?Q?keCVww6J01/PbNDR6PCXldKUFNzVp/scLPW1M4yUFM4qZ2GYHvNPr+oP8x?=
- =?iso-8859-1?Q?trTsSedPmPMemJ6X1lpB68cNu+qIIDERtBu+FOfSFPfpEFsUnmkE4+4PH0?=
- =?iso-8859-1?Q?xhRd5v4ZjMh9bESnVQyqcjkxL6g91r1Zn5rGurG9lpidCsaLfhCJVd8XkR?=
- =?iso-8859-1?Q?rn/2IxihkQmaB64Brygf6RaAlrECi3+JUz8l7OksAGmNcBwM8lPbbCUznW?=
- =?iso-8859-1?Q?vC3FAt8vqZDhjb5Q+f525FPTBG6OFbLITCnJGcSlw7N5tUTli61dMtxRuJ?=
- =?iso-8859-1?Q?vmF5a6AKT9tKrbKRRnqT1m1c+Qi6DClIyAbFosOzDYvKU/F4WzUgEoIbPt?=
- =?iso-8859-1?Q?Q9Hj/NxziVqsA3G+Rs1J7uzCk48emoBrAZmRXDZmwWEN4aIXiyK3FDOt5Q?=
- =?iso-8859-1?Q?mbkda8o2Jq60GcKu+G/f8TWSqTmzaJYUymDcmLEItBN5WVg4ERAzde/O5L?=
- =?iso-8859-1?Q?LOQnPIwY9Dgpl7DNKK5qWxpkdaNa6QwPcLH/p4RDgMKwCvuINjpVbj6uST?=
- =?iso-8859-1?Q?yaDRE2bdYSf+pIFXUuHZMcKiJ8hTMEbA9W8SkDDhICImxXPBLV3mjLTzoj?=
- =?iso-8859-1?Q?AdKcJdWjsN1+TqD2Kba6FQAqRrGEYJKJKvwG3T6w602q+krmZf/UfxNZiK?=
- =?iso-8859-1?Q?TV5A8GjaP9AHVwDTe313F8RL4/J05zvvEwH7COAu4vLA4TZ0rHha5FR1ag?=
- =?iso-8859-1?Q?yt2MahdJT2kZIiVaUdyYbT1OTTddwwRAB/sSEuxUL5jLZxruQ8JpZYKah0?=
- =?iso-8859-1?Q?/r7uPPYpdgDtzUPNTnwguAaRyVFEILeTpEI1y5Q1Dx1TxgKXJzZu8oNP8q?=
- =?iso-8859-1?Q?ZR9rr+J5Ta+NCrRoemqG5T4VZFZ0oxJrIpMBN/wyq7WaoomnpBE9YJDV8s?=
- =?iso-8859-1?Q?/TaLvBSWhMNyg8wFs24=3D?=
+ =?iso-8859-1?Q?DmRWj+mJyXm1gk+vyXNtGCVIwj+6Y963FfLUaxxuKVe1alH2DZ3qhNqbO4?=
+ =?iso-8859-1?Q?BbVyV2mZuGuFdiDELshJ7LfGzZJJETKv70yD4UjAp//PREe07rVZ4A1skI?=
+ =?iso-8859-1?Q?RJ0yfvOo/JF4LNaCRgYuD4uXYYochWn0YTzrUc6YSxx3EMFrxKtonGHUj9?=
+ =?iso-8859-1?Q?5nonVfwViNV174CMjCBTMhKxM9k0bGtMk27f1V1x6wSVbmAemHAiatzG8w?=
+ =?iso-8859-1?Q?O3jzX58Fj3qDRMSyRhdKYEoYHk458nQp5WrK71rVShJ764pZ5kdfSYEEO5?=
+ =?iso-8859-1?Q?tdPGJVuni48IyBNaxTsLiMPLL7GLgUn5BxSn2iAq0ncbpkhVJUjxXw/gZw?=
+ =?iso-8859-1?Q?fy2rSerxzjIZpsJyn2IimkYLHqfuA38LDacGB/xvVqywgQn1oHHQF1zwiM?=
+ =?iso-8859-1?Q?FbV1kMXNidIPt724PJWik91UPECzrFGXp74SCSDsGBJBPlF8wGIH8dkvJb?=
+ =?iso-8859-1?Q?J4rlHuLJT9RdS+d/68bX4ZiB7hAksnZ6i9gG3uELJUJGWvvKaWe/+Q7cG8?=
+ =?iso-8859-1?Q?y/nkPLos77FlnEg9JzRlMink6ElDEWzrT3g3/um1Ec6Aph4v8HV/SPEdvR?=
+ =?iso-8859-1?Q?NbC6zIS8HqdMhQKFHRgCIeKbBQ+5WMwrarqv3VMC67wBBdBYWWZPd0FEFf?=
+ =?iso-8859-1?Q?uD70eXbGowUbYKTnzlIq73SdMSbp4Os1z9W4zOokJ/PFqkl33GzaGPUOkn?=
+ =?iso-8859-1?Q?YJwumvKTv/xpKEM7sXWbFH6JAQoxjHC391oq+1E6kt2v/QMV8VrOQjLt44?=
+ =?iso-8859-1?Q?H8moUZk4aD0u726DmFghf+oXQBt3ZUELi7s0QOhZ+0cu5KqV+JimKt7Z21?=
+ =?iso-8859-1?Q?nBa+/K411b1R2TklJXR/+M6/aRFYSii4vf64mFDGglq8GsNOO54OmebWeX?=
+ =?iso-8859-1?Q?1SHHt5SaMMfLAYgb9Jk+Sy0TBKuthPBeZWM32tYgvxGNYhZzBM7gJw1KjE?=
+ =?iso-8859-1?Q?sVhyl2fw7j7Keyy927ICQCb6A6kSgGwaekaUxkGRMvatie6B+eiaNfWoD+?=
+ =?iso-8859-1?Q?Oc0sKSTz1c2Evc9k2NppV8/mgS4XsiGTuu769koUTZ4Poscy4eGVo9GCxz?=
+ =?iso-8859-1?Q?hzqS+Ood82lDdrWwfuC1lvLY0EL6+NAVrelKssSeHFxi79r7IMMNtMEE+0?=
+ =?iso-8859-1?Q?TEvXvO6ctwhyw83iM8Mp/bKr/B9y5zR79cLIyUMnbF0L1V7c9FAm+OfTk1?=
+ =?iso-8859-1?Q?6CdtcaEiQlXSRXHIk8vGDQnhr1eyQrN3Jhyr1/LyPhyk4/JIn5K23EpFnB?=
+ =?iso-8859-1?Q?pEr2c2gkYWS062beHA8Iby16YyCpHauZ3v8XtCbwQSkYSjdAfu0On0ja+M?=
+ =?iso-8859-1?Q?wv4h1QJ+YwQgxHYed+pavN0UBAcgBERBj56o+zbBAQhW7mN5CCp8rAvSaG?=
+ =?iso-8859-1?Q?QLjUgcB2tc/g0k0jdxTNWBYWxGixFgY/kp/xBgazYXBpTxkFSNpVxaYOOf?=
+ =?iso-8859-1?Q?HdQaK0TA8J4KQEZozWC8paxDsJlg4xiQI0vXOty0kN8ZFDP07I1w/wF6EU?=
+ =?iso-8859-1?Q?8H5NLj6dENL+DP75r13sjzT6qUQedyVgTyw4/V3oMEe0hIBusMQwOebBwI?=
+ =?iso-8859-1?Q?ijm+XC9To44aboGRyPbiDcpYO75kG+FQSJI5yVREU9o6SjZ34NYF05UQT8?=
+ =?iso-8859-1?Q?M+i2JchcPTItvj961AwR9lOde9kd1wjt/gxViruFc3FsiDLouFNn6kwLAy?=
+ =?iso-8859-1?Q?XgUk46qNZ0Umey90iYg=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?aKdz+449kl414CdQuR/4h2NE5DZL7Ae87FadQs8eq/bwYLj0wECKhkCjm1?=
- =?iso-8859-1?Q?mDSZFYI01Vf4oQen4y3rP7BVVCEyfRjE9nZKfcNyKH8t3Dz8rwZF7f2vNm?=
- =?iso-8859-1?Q?OX33tRJZSo6yDjOKTenI/6HOmIZHMl/Cm47g8W+Dh94wZugJFO5GZ3ygsO?=
- =?iso-8859-1?Q?lEbA+dm++u2621zNhA3inTUibGnyLlRRdyMXuwzsbxDcHvBCAjmRIJIiOq?=
- =?iso-8859-1?Q?FUmIW34PtYj2vLmLjCgfy2rB5ChuYYxfuEqQZuS2XUtgFUhQn0fY8jgA+s?=
- =?iso-8859-1?Q?1w+kxfzfTp6pDN0sg+10SpkyJNFoZOj2UDn1QtDk4Po3IpmGpmJ/0pQzEW?=
- =?iso-8859-1?Q?z9EYI+oRg3cb2yFynRQvyFnqmzd+kvL/1xE+C/Fs050LcCkPufd5SKM+/a?=
- =?iso-8859-1?Q?Z5kRXgk7xPEDY8vB7gKR4ELbKbOs/3smD5DlxwI7jEvj7F3VadYfG/FI8R?=
- =?iso-8859-1?Q?/FNjJ8mn7Lxp1ybXRsNStXuiL+xZWLIqCWBwSDQsMeKccrWKPIJs3krWLq?=
- =?iso-8859-1?Q?QCyo3OBSugRRT538rOlvxWEnXm7X/xFqPJoL7RnO2maatQEakAFljK4r0M?=
- =?iso-8859-1?Q?LGiKAezmRiwbOmR3d0ZIyG5/7URclYMP6QGUxgDQ4+/jUdPZEQRg5XsLcV?=
- =?iso-8859-1?Q?+oYKNZ+Kud75ISi+9HisR8yBf3vS5+znoCYJsrWC/sk3FbtivIXalPglij?=
- =?iso-8859-1?Q?3pBzCqOjluyT+pOC3X+A5bfvhmNhP+WuoepH/uhmCJ93YW36wrIysDnzC4?=
- =?iso-8859-1?Q?6YVSVaRyFdGHxuMns4oR5fCso5VB/03XqXlGWY3zjZaz+7GxUYNjzkc4fL?=
- =?iso-8859-1?Q?swxDQ85qAFJklzcGnS/RB7JqnH+33EthDdxcvhWkPSBR/OPcXvSPtY2uX5?=
- =?iso-8859-1?Q?ZbisBXyc7eK38rN15DQa4Ni5p7o7LThWH/o7NBcK3O6N7CKXWDF0fBPerK?=
- =?iso-8859-1?Q?VgPPuYQ/wQIV3W3Ol5BvuadkSezFGIK8uhOaJZpnSXekRlBP6XnGdGEOhq?=
- =?iso-8859-1?Q?IIF9Ce2RCt0mDOFYRvCW89RqIwc+oYdJiyBdtI2cnddxhuQAKT28qW4ybx?=
- =?iso-8859-1?Q?ornbslOEpDRDjvFTCSJTAve2aA2mwYQo8ZmS/NiXP8FKuQ/1aiLB2alppq?=
- =?iso-8859-1?Q?cEpj8rmf27gbIexeF58nC7oLQiMpladDIOqbN/wt2BthLkqIUs9DSHBaTh?=
- =?iso-8859-1?Q?1hoenqfTtwHTmX9tE6hXubvg0/UMBUAi6w7y6vemedoZQtO8oUWIB0JZFX?=
- =?iso-8859-1?Q?GztRUvXAI8Qt64rX5DT/3sWnLcIGL2b7hiIhGXQ8PCgWHh2VI3x5E7QpVi?=
- =?iso-8859-1?Q?oAb2lR9oUIlpmm3CD2BHou7KhMN1MRkkdXbxkuQjLDG+kOt1KCDYL/uKxq?=
- =?iso-8859-1?Q?d6vqa5L/FNmlopAwtNZrhoo1v8WxU01nZcEqm24J/WfeV/47ctkA5hap+1?=
- =?iso-8859-1?Q?M6tKtEKQrFWKlk0x1gEQ1B7iUO8KeKGozOsRXblCdroGNTX9mBkkkU+xow?=
- =?iso-8859-1?Q?0mamiQma5+lIFsYvYRZfaC8sQwxjoUs9yoEe0CGI8Jsyz8pf+LMHuFlqJo?=
- =?iso-8859-1?Q?zkKCWuUsgFmNcOXt6stBl6SCEVR0ZcGV8AUE/K1NYUsG5ebhiDznUH8WaU?=
- =?iso-8859-1?Q?K8PgEuapefhbiLhJQV/Ua2YVVWPNiReMPdtVQzd9I2q1CVPNaIX3iwUoVw?=
- =?iso-8859-1?Q?pQez2pz01lBZfl+aOVY+/IVOruk8WTUjm4QA694aq6i27Usxh1SYDxLVTV?=
- =?iso-8859-1?Q?5i0Rb4ZdhaptLxXUaiJzi8M7xgoAANxbKO1fcnPjpE3i+Yn5wkFHxojj2J?=
- =?iso-8859-1?Q?UAsQJjXS5UbobSjO5gTFa+QCkPi3+eQ=3D?=
+ =?iso-8859-1?Q?YZTF/XhXQUb/jIbEBpLZ4Zbcri5Cm99NKWj0Keole+CCu6o5MymyzhskUu?=
+ =?iso-8859-1?Q?o3q9Pc4PZL5fCmWX7acFL5Wqyg1AoAEHkgUACBQETehbcM61UWngDBildG?=
+ =?iso-8859-1?Q?7yEW+Dow83PC/qOomvevPVYA6oYmPGIuHX9PJ6+CmvTuZHpcDt+Zypxij2?=
+ =?iso-8859-1?Q?7fQy4By7LLi0EfsR+UXQY5KC74mLNXRAi5tudYXJEjAHLVG1tlrCzCf2y5?=
+ =?iso-8859-1?Q?simhqJN17xvtcLUWs77uPWzB/jLsEkW6qd5T+7WeefjyzfW3KIZij9eOOd?=
+ =?iso-8859-1?Q?4uLSCjn1wRdHVbP6os3ENyQGDhX2Bk2cUWVMk2GQvdGZ5iNSBYqV5uizb0?=
+ =?iso-8859-1?Q?8oNYskOpuTIxGUJq0JN7Y9dHSMV1+tdegZ4hxB9bFNvvjn7kJvidYJdhjz?=
+ =?iso-8859-1?Q?MiUlg9jFX4FN4n4zwi6gZHxT8RmaG1uY0hRx2IwBoMxxJOqY0G+Y8Fcy/+?=
+ =?iso-8859-1?Q?ycgUyp3gdp0Z0cwZO4dJUbMpBc2wbFFSG1s4lFoDzamtUmU9/OWgxF4gtS?=
+ =?iso-8859-1?Q?RdaaPjLqsO7L4CjG9afTOvsy4jUVfnU/Lko3O2C1hSufGx3f4Ed6yyX9Vq?=
+ =?iso-8859-1?Q?3oHRmJ+87bleE0gWA+93BI31BRY4udhRv2DXxurVGUwoP5yoW532F8Xp24?=
+ =?iso-8859-1?Q?dpXGYJ5AXPFTmXm/bnlm4AGKMRkW2qtz2/SR7ce9MCphixk/itnQ6bfSJT?=
+ =?iso-8859-1?Q?mUQakbnM3wPSkP9ilQRFmKpnAFFT2PzKXM97YqGBwYseqaGp+PzsFJp6i3?=
+ =?iso-8859-1?Q?AbzS7hnhxk2FQQQTDtsj++gd+ofbxMWRGOjMZJYsfXpRyC46qal5yv8S0H?=
+ =?iso-8859-1?Q?pj4ibeOq18ee27ZVn5qbRVQ/5m2/H2Rf4nqKJ/MowTRQInmVtfenXQ6kaQ?=
+ =?iso-8859-1?Q?I61/ME22vaGaW6/zc6h0TCEDZ5+kESd9KtNjMtSGAuvCZaNAcn7h/fqQjN?=
+ =?iso-8859-1?Q?gJvASLSuNoUmwgMzu0XxZSEKmrT5mDiZOpNgI+mENdrmgmuoBFpku5D2pq?=
+ =?iso-8859-1?Q?k0+6g/6N02bDdUjPypAmZgblOj8pF9tJH1O3AWsJhEsp0ORu5IEjipbDH3?=
+ =?iso-8859-1?Q?kP2lR40zpnsxZALwtbI6TVpOekaoukrgoLIupptQGQuonlgT8l+Haosagz?=
+ =?iso-8859-1?Q?ri8mBcRphhaa8n9MZY4gHfNkvf6zGmBR4Lb6jxRyl8ZOQPYUz8vcjKvmS4?=
+ =?iso-8859-1?Q?GcsQgNRl2X0PKiCvsyXNJZx6d1DySljbQ/HCK2gKykmtN8gFKvpt+X6SHJ?=
+ =?iso-8859-1?Q?1F24VsNtXwIFdGA/Ptli0uQLB8wLuS5nHNhPK2u4ff79eDfc28B/uEBv13?=
+ =?iso-8859-1?Q?YX4uDbneGl85sGvHeArDPsN6/0h2dcjSHVOTEYiyk8UAdk2562IcIKwW60?=
+ =?iso-8859-1?Q?c2Cg118rIxH+REORSdf0X0/WlqSaXXQB9oESEAsq1yJc3Nh94deVv6z51E?=
+ =?iso-8859-1?Q?53K5YtxS+l7wiBSD2KvXduM5PsMWJ8Il8ZvWVAhVErC4oxtM6YWNMAwIs9?=
+ =?iso-8859-1?Q?bXn4AlCW1riMAKhjYoEgzlljGVZ9+LYWzaurLopawzdquiCKAPsndEY8lH?=
+ =?iso-8859-1?Q?qZjBC3pxWxHRMgm/IxqcHMTFbfWgF8aZRwFCpQf4g2f56zFoNl+HqX0a7j?=
+ =?iso-8859-1?Q?v9CUcks7oWzOtWTq+M83mrYRzq/gmSMsY7C79sPDI0yrPSuvcnfgWa+4hu?=
+ =?iso-8859-1?Q?MnlusjzNyByTwZrIauO3GFLxZGVagc0AMnz/90i00AXwNXw2CPcwNdFKW3?=
+ =?iso-8859-1?Q?psKzuapU7BBsUCwRolkyl62nts78HJ5v30QVTa7ooBbZmzWAo+p5/XWovt?=
+ =?iso-8859-1?Q?JABl6dhR7pInCYJ/8h7OtcxAYr3PbeA=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d63e815-d2ec-4e10-9f97-08de62762a19
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:38.5061
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48df5614-b3bf-4b5f-7b3e-08de62762a5a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:38.9082
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5F71G833OERRta/JCzqHTQNxuHXsP0F/tDRlw9VysD6uy7dySJnn3C9SLXFMkEXw+UhAdLFLYtaGwsUtgjC7LA==
+X-MS-Exchange-CrossTenant-userprincipalname: eYrJ1o6b5X3GGapGp+aJsYzpIjgVgsjSsGfOVltrGr83RUIvHw8FjvMfjXkJRVaea4wInPk+omAQGzwNRlypCg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR03MB11643
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
@@ -193,7 +193,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:dkim,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:dkim,epam.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -207,160 +207,126 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 54827CEC44
+X-Rspamd-Queue-Id: 09066CEC51
 X-Rspamd-Action: no action
 
-Make struct its_device and its commands sending methods publicly
-available so they can be used by GICv4 implementation.
+Add a helper to write LPI configuration entries. Expose lpi_data
+structure in the header to be used in said helper.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/gic-v3-its.c             | 30 +++++----------------------
- xen/arch/arm/include/asm/gic_v3_its.h | 29 ++++++++++++++++++++++++++
- 2 files changed, 34 insertions(+), 25 deletions(-)
+ xen/arch/arm/gic-v3-lpi.c             | 39 +++++++++++----------------
+ xen/arch/arm/include/asm/gic_v3_its.h | 27 +++++++++++++++++++
+ 2 files changed, 43 insertions(+), 23 deletions(-)
 
-diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-index 34833166ad..25c07eb861 100644
---- a/xen/arch/arm/gic-v3-its.c
-+++ b/xen/arch/arm/gic-v3-its.c
-@@ -30,26 +30,6 @@
-  */
- LIST_HEAD(host_its_list);
+diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+index de5052e5cf..c029d5d7a4 100644
+--- a/xen/arch/arm/gic-v3-lpi.c
++++ b/xen/arch/arm/gic-v3-lpi.c
+@@ -46,29 +46,7 @@ union host_lpi {
+ #define LPI_PROPTABLE_NEEDS_FLUSHING    (1U << 0)
 =20
--/*
-- * Describes a device which is using the ITS and is used by a guest.
-- * Since device IDs are per ITS (in contrast to vLPIs, which are per
-- * guest), we have to differentiate between different virtual ITSes.
-- * We use the doorbell address here, since this is a nice architectural
-- * property of MSIs in general and we can easily get to the base address
-- * of the ITS and look that up.
-- */
--struct its_device {
--    struct rb_node rbnode;
--    struct host_its *hw_its;
--    void *itt_addr;
--    unsigned int itt_order;
--    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
--    uint32_t host_devid;
--    uint32_t guest_devid;
--    uint32_t eventids;                  /* Number of event IDs (MSIs) */
--    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
- */
--    struct pending_irq *pend_irqs;      /* One struct per event */
--};
+ /* Global state */
+-static struct {
+-    /* The global LPI property table, shared by all redistributors. */
+-    uint8_t *lpi_property;
+-    /*
+-     * A two-level table to lookup LPIs firing on the host and look up the
+-     * VCPU and virtual LPI number to inject into.
+-     */
+-    union host_lpi **host_lpis;
+-    /*
+-     * Number of physical LPIs the host supports. This is a property of
+-     * the GIC hardware. We depart from the habit of naming these things
+-     * "physical" in Xen, as the GICv3/4 spec uses the term "physical LPI"
+-     * in a different context to differentiate them from "virtual LPIs".
+-     */
+-    unsigned long int max_host_lpi_ids;
+-    /*
+-     * Protects allocation and deallocation of host LPIs and next_free_lpi=
+,
+-     * but not the actual data stored in the host_lpi entry.
+-     */
+-    spinlock_t host_lpis_lock;
+-    uint32_t next_free_lpi;
+-    unsigned int flags;
+-} lpi_data;
++struct __lpi_data lpi_data;
 =20
+ struct lpi_redist_data {
+     paddr_t             redist_addr;
+@@ -492,6 +470,21 @@ static int find_unused_host_lpi(uint32_t start, uint32=
+_t *index)
+     return -1;
+ }
+=20
++void lpi_write_config(uint8_t *prop_table, uint32_t lpi, uint8_t clr,
++                      uint8_t set)
++{
++    u8 *cfg;
++
++    cfg =3D prop_table + lpi - LPI_OFFSET;
++    *cfg &=3D ~clr;
++    *cfg |=3D set | LPI_PROP_RES1;
++
++    /* Make the above write visible to the redistributors. */
++    if ( lpi_data.flags & LPI_PROPTABLE_NEEDS_FLUSHING ) {
++        clean_and_invalidate_dcache_va_range(cfg, sizeof(*cfg));
++    }
++}
++
  /*
-  * It is unlikely that a platform implements ITSes with different quirks,
-@@ -155,7 +135,7 @@ bool gicv3_its_host_has_its(void)
- }
-=20
- #define BUFPTR_MASK                     GENMASK(19, 5)
--static int its_send_command(struct host_its *hw_its, const void *its_cmd)
-+int its_send_command(struct host_its *hw_its, const void *its_cmd)
- {
-     /*
-      * The command queue should actually never become full, if it does any=
-way
-@@ -258,7 +238,7 @@ static uint64_t encode_rdbase(struct host_its *hw_its, =
-unsigned int cpu,
-     return reg;
- }
-=20
--static int its_send_cmd_sync(struct host_its *its, unsigned int cpu)
-+int its_send_cmd_sync(struct host_its *its, unsigned int cpu)
- {
-     uint64_t cmd[4];
-=20
-@@ -270,7 +250,7 @@ static int its_send_cmd_sync(struct host_its *its, unsi=
-gned int cpu)
-     return its_send_command(its, cmd);
- }
-=20
--static int its_send_cmd_mapti(struct host_its *its,
-+int its_send_cmd_mapti(struct host_its *its,
-                               uint32_t deviceid, uint32_t eventid,
-                               uint32_t pintid, uint16_t icid)
- {
-@@ -322,7 +302,7 @@ static int its_send_cmd_mapd(struct host_its *its, uint=
-32_t deviceid,
-     return its_send_command(its, cmd);
- }
-=20
--static int its_send_cmd_inv(struct host_its *its,
-+int its_send_cmd_inv(struct host_its *its,
-                             uint32_t deviceid, uint32_t eventid)
- {
-     uint64_t cmd[4];
-@@ -897,7 +877,7 @@ out:
- }
-=20
- /* Must be called with the its_device_lock held. */
--static struct its_device *get_its_device(struct domain *d, paddr_t vdoorbe=
-ll,
-+struct its_device *get_its_device(struct domain *d, paddr_t vdoorbell,
-                                          uint32_t vdevid)
- {
-     struct rb_node *node =3D d->arch.vgic.its_devices.rb_node;
+  * Allocate a block of 32 LPIs on the given host ITS for device "devid",
+  * starting with "eventid". Put them into the respective ITT by issuing a
 diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
 sm/gic_v3_its.h
-index fc5a84892c..aa54e9a364 100644
+index aa54e9a364..9f0ea9ccb1 100644
 --- a/xen/arch/arm/include/asm/gic_v3_its.h
 +++ b/xen/arch/arm/include/asm/gic_v3_its.h
-@@ -116,6 +116,27 @@
- /* We allocate LPIs on the hosts in chunks of 32 to reduce handling overhe=
-ad. */
- #define LPI_BLOCK                       32U
+@@ -157,6 +157,31 @@ int gicv3_its_setup_collection(unsigned int cpu);
 =20
-+/*
-+ * Describes a device which is using the ITS and is used by a guest.
-+ * Since device IDs are per ITS (in contrast to vLPIs, which are per
-+ * guest), we have to differentiate between different virtual ITSes.
-+ * We use the doorbell address here, since this is a nice architectural
-+ * property of MSIs in general and we can easily get to the base address
-+ * of the ITS and look that up.
-+ */
-+struct its_device {
-+    struct rb_node rbnode;
-+    struct host_its *hw_its;
-+    unsigned int itt_order;
-+    void *itt_addr;
-+    paddr_t guest_doorbell;             /* Identifies the virtual ITS */
-+    uint32_t host_devid;
-+    uint32_t guest_devid;
-+    uint32_t eventids;                  /* Number of event IDs (MSIs) */
-+    uint32_t *host_lpi_blocks;          /* Which LPIs are used on the host=
- */
-+    struct pending_irq *pend_irqs;      /* One struct per event */
+ #ifdef CONFIG_HAS_ITS
+=20
++struct __lpi_data {
++    /* The global LPI property table, shared by all redistributors. */
++    uint8_t *lpi_property;
++    /*
++     * A two-level table to lookup LPIs firing on the host and look up the
++     * VCPU and virtual LPI number to inject into.
++     */
++    union host_lpi **host_lpis;
++    /*
++     * Number of physical LPIs the host supports. This is a property of
++     * the GIC hardware. We depart from the habit of naming these things
++     * "physical" in Xen, as the GICv3/4 spec uses the term "physical LPI"
++     * in a different context to differentiate them from "virtual LPIs".
++     */
++    unsigned long int max_host_lpi_ids;
++    /*
++     * Protects allocation and deallocation of host LPIs and next_free_lpi=
+,
++     * but not the actual data stored in the host_lpi entry.
++     */
++    spinlock_t host_lpis_lock;
++    uint32_t next_free_lpi;
++    unsigned int flags;
 +};
++extern struct __lpi_data lpi_data;
 +
- /* data structure for each hardware ITS */
- struct host_its {
-     struct list_head entry;
-@@ -138,6 +159,10 @@ int gicv3_its_setup_collection(unsigned int cpu);
-=20
  extern struct list_head host_its_list;
 =20
-+int its_send_cmd_inv(struct host_its *its, uint32_t deviceid, uint32_t eve=
+ int its_send_cmd_inv(struct host_its *its, uint32_t deviceid, uint32_t eve=
 ntid);
-+int its_send_cmd_clear(struct host_its *its, uint32_t deviceid, uint32_t e=
-ventid);
-+int its_send_cmd_mapti(struct host_its *its, uint32_t deviceid,
-+                       uint32_t eventid, uint32_t pintid, uint16_t icid);
- #ifdef CONFIG_ACPI
- unsigned long gicv3_its_make_hwdom_madt(const struct domain *d,
-                                         void *base_ptr);
-@@ -198,6 +223,10 @@ struct pending_irq *gicv3_assign_guest_event(struct do=
-main *d,
+@@ -223,6 +248,8 @@ struct pending_irq *gicv3_assign_guest_event(struct dom=
+ain *d,
                                               uint32_t virt_lpi);
  void gicv3_lpi_update_host_entry(uint32_t host_lpi, int domain_id,
                                   uint32_t virt_lpi);
-+int its_send_command(struct host_its *hw_its, const void *its_cmd);
-+
-+struct its_device *get_its_device(struct domain *d, paddr_t vdoorbell,
-+                                  uint32_t vdevid);
++void lpi_write_config(uint8_t *prop_table, uint32_t lpi, uint8_t clr,
++                      uint8_t set);
+ int its_send_command(struct host_its *hw_its, const void *its_cmd);
 =20
- /* ITS quirks handling. */
- uint64_t gicv3_its_get_cacheability(void);
+ struct its_device *get_its_device(struct domain *d, paddr_t vdoorbell,
 --=20
 2.51.2
 
