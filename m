@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CO4sHjzOgGkuBwMAu9opvQ
+	id 0PAnNTfOgGkuBwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:18:04 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:17:59 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2891DCED2A
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:18:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218893.1527784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 665B9CED1C
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 17:17:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218877.1527766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwcd-0007QH-5q; Mon, 02 Feb 2026 16:17:55 +0000
+	id 1vmwcR-0006hK-Fg; Mon, 02 Feb 2026 16:17:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218893.1527784; Mon, 02 Feb 2026 16:17:55 +0000
+Received: by outflank-mailman (output) from mailman id 1218877.1527766; Mon, 02 Feb 2026 16:17:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmwcc-0007KT-Ts; Mon, 02 Feb 2026 16:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 1218893;
- Mon, 02 Feb 2026 16:17:53 +0000
+	id 1vmwcR-0006bo-8f; Mon, 02 Feb 2026 16:17:43 +0000
+Received: by outflank-mailman (input) for mailman id 1218877;
+ Mon, 02 Feb 2026 16:17:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hK3N=AG=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vmwZk-0000fY-3P
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:56 +0000
+ id 1vmwZi-0000fY-2q
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 16:14:54 +0000
 Received: from PA4PR04CU001.outbound.protection.outlook.com
  (mail-francecentralazlp170130007.outbound.protection.outlook.com
  [2a01:111:f403:c20a::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c1ce79a-0052-11f1-b161-2bf370ae4941;
- Mon, 02 Feb 2026 17:14:49 +0100 (CET)
+ id 4b61fbbc-0052-11f1-b161-2bf370ae4941;
+ Mon, 02 Feb 2026 17:14:47 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by VI0PR03MB10299.eurprd03.prod.outlook.com
  (2603:10a6:800:202::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Mon, 2 Feb
- 2026 16:14:45 +0000
+ 2026 16:14:44 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9564.016; Mon, 2 Feb 2026
- 16:14:45 +0000
+ 16:14:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,21 +52,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c1ce79a-0052-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 4b61fbbc-0052-11f1-b161-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZFwqLP8jnAX3vL533jFRxDiixPUBW2I/QRHrFwYd9qqpzalhNpjeYhXYGWrcGmuJUWz+toKCq/mbF2qkz0n9ITyIrZadbY4OTvmG/tNcEu2DQQFgnux7rmSp9yT4S/BOk9HSk8b/Z8ZCwI0DkNLfmTz4OJ5M2+QeF2CANSqZ0BiFw4MZSTAiaEw/lRShgP5RTHym8sfhznHZ3YvkDrzKTdiwMK1dF+JTiU4GwnmBxlawBPH43JwNJaSOd4R/885eh53byFsLjBtObUN4ZKzNEFI6qBwnMgdQDPFGfwlKW8Iugdg4HMCE2EfSUU22xatwPKRxJsgpNtxCsz2dMFPmg==
+ b=G6nuLztQ/wdM36eWAmOnG1il8adpcVEBSaTxxCyQPXRPvvw3S/Rma870p33t8xzNZ74XazSDMObLjDatNjuSKkWCCGDcntzYLpPN2Lf1Hqa0NQEo/p7pRKvGB0kMp4qdv3SStlNkkzN8lfABg4BWN43AXeWy2toarZSw5aEy+sXbwKCWaUhMKK1m3rfnD7x2/UmBw+4KSk0A6fsFdL2o1sWSPvGlrvRfSr30kas0Gf5tBxaJ2jWTDUflSEG5kcC4f31n3+mFONtGjzelGnQz/vqoIqEqbDK+Wtl84zBRVQhv8E9OWnZxSuzfItQ84vq5EMlAi3RggyUL4Sp5uLn2IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xpG0vAG8e6xad23pmIjhAdmaEHtng9kYL4aNQEOXKOI=;
- b=BZVoNtoyCYEZ2o1QinhknwRcqYO5DVx1RuSnTrz8AU53ZxTalm7xpwa9O9qTwI0GO9Uj4U0cPGTqQeggL8P2MH8wtegFkfwdUtsMgoL3gLprdJbvc92z6sWCFNG8GcmOAjL0ff5WA1cKy6F0MCPA2c8XwulLqsnKHEZ65yYTg6lQyoB7onRbq0IXk5a+QbOwUqZ9vmJnf4D3J/z5KI9/MHrJ9MtmVyKcaYLTpaSFwuwNIDOwLqsnmkIMsaRDmiGesVGMbByfUAmHXaJtkq874CcN6SJtzYaoNrviHzOmcy7CWNsHSHdkYb38sf5h4gP2vkB5HUbDPYC3cfihJqwemA==
+ bh=WRSDgXVxXnkwAo7J3b+c0zIiiSWvTsWTE54wMalFVxM=;
+ b=hRmt9VygD8ZUhkssAqlvZWTT3Gb3HQGSXL1xZYeB4eVQqoZHrP9OOGsW8GsIZLb9XC/TOIXwtxRxq+4JNse06TDVPsdqqjRhwTxUIEEC6jEgEI3PCm6GkzviFcNXHbnzCE/Ha7lg5XTqUF2bM90AGnEvuZBW4/AT792IRHhd0gerBfG8IPVX0HoU8w0QtFHSvIKgr6abxEwDMjQTzq09ArJ2yRUoIYJiGwVMriAUi5Vptdh15nIQ5WW7p6GQMuxB3e6BmEBK+OBS0X5xfHGOQu+TzsQlg6kz95aAx3y0YTjCIChERsUzpXqeyQYTBW0s5eMx8KJ9t1GPak3cVACaBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xpG0vAG8e6xad23pmIjhAdmaEHtng9kYL4aNQEOXKOI=;
- b=AfMhSrlBAQv8JZjMCJwSItayuXsdKweoPAMWc7yT6VlTTeZmxzBX8AApmxB0i5IhyoWRzhbfDTS/P6Gm0YOXtdpcSQX7Ow66tDT5Py+wi19e0M/jdrHKcPAnrySX8+mK4xDxXFmrvI5Axms1qTzmhCNT3A3owwIN0plV+GzrzBxPWBeNxD7rG/UENMR+5mHk03ekRRzE3S/E5uF+psga64VMRxwLf4LVR9LPwgysDxd5UF7BybFIr3rrVu6S14LpH5ju90Cj6cVohBY4GorOlycqhWqZXuNLX+crrxWYkZgyyWlO6F390WHJlpMbxIS3TORtUYK4e9rSFe8ZP3lgcQ==
+ bh=WRSDgXVxXnkwAo7J3b+c0zIiiSWvTsWTE54wMalFVxM=;
+ b=Dw6bAghNE+oFGhCYbxVLDwQMODjzMU+o9er5AGY5zKbsWFvhrvAaxmvoQzOlePla9UrVWbLUR+oBM7yZJ3+0BZpjUVdVUH1P/J71leS2mqzfRAO164iPEUZlQjoA2PHryWXR4ClZNkjOAHaTQiJRrWMjHzQS+RypuPqMIEOxeYl7Ybu3IZxBtoLjN1dxB9PKMquXkQ/nnltB0DghLPhIyXNhlzGySTw0l5c0IQXpAPmrIHzVkDwu3rdAEowra6BAtXAt3F88jr01QPTMdd9MoRiiial6b5NwRzikA6kcQ3HMjA+Py1XvzEc/RCXDwP+Z0FmQAEmYjAUvFZjobJPRVg==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
@@ -74,12 +74,12 @@ CC: "xakep.amatop@gmail.com" <xakep.amatop@gmail.com>, Mykyta Poturai
 	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH 16/19] arm/gic: Fix LR group handling for GICv4
-Thread-Topic: [RFC PATCH 16/19] arm/gic: Fix LR group handling for GICv4
-Thread-Index: AQHclF8K603U0XXQOEuJhQnegCFT+Q==
+Subject: [RFC PATCH 14/19] arm/its: VPE affinity changes
+Thread-Topic: [RFC PATCH 14/19] arm/its: VPE affinity changes
+Thread-Index: AQHclF8KLzy5RNi6mUqjbCAyuDg4TA==
 Date: Mon, 2 Feb 2026 16:14:43 +0000
 Message-ID:
- <13bab832bed00832d7597105a33ab2f215e626ce.1770046465.git.mykyta_poturai@epam.com>
+ <7cddaf16eb840dbd1480d7a1d6ddb0cbf0357113.1770046465.git.mykyta_poturai@epam.com>
 References: <cover.1770046465.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1770046465.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -90,88 +90,88 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|VI0PR03MB10299:EE_
-x-ms-office365-filtering-correlation-id: 38f49fc7-6f95-4cff-ec65-08de62762e6d
+x-ms-office365-filtering-correlation-id: 54576a18-9c90-4227-e258-08de62762d49
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700021;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?tNoVKT2OXWSdZGERcPGdG89siIzahz+RyAb6Z9nMupZmYJ3FQ1uGUTq1IK?=
- =?iso-8859-1?Q?u6ecb2X8GJqQKas4TcX1Z80oluwMI6anW1K0iX4pCW6cqndictP7/bmdTB?=
- =?iso-8859-1?Q?2wgluiK2D3gptnbTQbqDiV9A8cLuzJ/v5+O5bbV8/tOwKbCNapuGAuHILb?=
- =?iso-8859-1?Q?/1qrnGv5pJ0/vwGRXGHlmQ6oOlRyv5VZCMW5OCztLi/1EWbgmtAMh5c9Gg?=
- =?iso-8859-1?Q?annsXz7zcpZ3lJxC1m2LRmGkcGw6onJIBRGv/KzgXXtnERAK1SU9YLJbGA?=
- =?iso-8859-1?Q?Mg2LWih5239ejAVtquYopzXUQuMSMjAJgFSqGQjH5fkM0nLKAeqORP/pnJ?=
- =?iso-8859-1?Q?TJQecOPJhxcMTwcGhZPY8WpwRa0AX9eFZ9azaqSOjy5YjL5/rkPtYRhcQI?=
- =?iso-8859-1?Q?CvIod9RT/QL/8kkOu3KQ3hCBI+jStzmliHLZ63sTlkh8InvjUQixKhIk+k?=
- =?iso-8859-1?Q?WBGMBmz/gRsvv+/1KwX98aLZlz7B0nXA4L0juD2Uz/SUIwSL+DOQroZCCS?=
- =?iso-8859-1?Q?d7pHviSSn/qpp0GnF5PWWL+eniCWMzMaP+XlJRh3sJYi/NZJddpW36aQ7A?=
- =?iso-8859-1?Q?l54Oi9tfPnYppMLOgbeNfZCnMgxvdkvkj0lZKJS2uHsG0Hvn9B2UVfy8b0?=
- =?iso-8859-1?Q?quThzHpzZNdfunxAI2+uUVvpil7uWbcWI7b37UEHLibiUY/qvvFuZO5uFE?=
- =?iso-8859-1?Q?723Ew3A0SOc6jH5vlo5rF1/aBZaBjxIf4o1qxUn9JDE+0j/jqSTovuRt6L?=
- =?iso-8859-1?Q?kDjRJGDdR1kFcuX1PB6hWWXYK/fBrKiDtJZomYF42n8cPRCwEew6XYPWSR?=
- =?iso-8859-1?Q?SSgLXr15JTzt/HQprF+oX83EyYQUS+m6wGSHgC7NEWVlQ8Ury2MzjVQ9tM?=
- =?iso-8859-1?Q?D9HLryiFZlbHiVxylUUkXKqxD0/mfcvlGFAkoZCSGktP/YIujnOQNEBTrt?=
- =?iso-8859-1?Q?d8JD3B0g7IleTo0txAHwGL6njHO0evZa9zSzvghOx9nBKeZN42cc3X1+I0?=
- =?iso-8859-1?Q?j9Gvso9TczM/u077E1nmauEWd7nDAPCg5zu8GX2EsxiqQj+aM+PBv9cl1+?=
- =?iso-8859-1?Q?D4Vk+w7uLsW6/W8a9JsLthH7VNSzqi+21MQFBtXfo7TaVcRHqml6fsXQpL?=
- =?iso-8859-1?Q?jHUoDmNGI9Eel2q+s3cYAdleO+PpAMn5eq3OZHCZUrZn5YHhLm1C9OsZFD?=
- =?iso-8859-1?Q?vKC2yqLcQtUP1tb8SonEZKT89VnYyRS/VMw9cRbBR2lZ7k6PLpanTfPOpc?=
- =?iso-8859-1?Q?rI+lo+1vwUxSu+/XcYgRdVW/9AWByHdwFWMWMQefob+fmqgZFp47wDAIag?=
- =?iso-8859-1?Q?V3NnG/0B1KNcArA1IARJJ9VVRczhShcqqwtRJf5X3XnM+vWFxG3o+N1SB0?=
- =?iso-8859-1?Q?YK4htT5m4CaandOg2Mv6C9e8pFiivTNiQ5/fBoQcaGMJ/caglIYQ7p+siJ?=
- =?iso-8859-1?Q?N+u92CMPGslx3t5DMnlmK7C2GqjsQYnoRcWpS3McWHSnW0Guyrw9dsQTdy?=
- =?iso-8859-1?Q?jKjuQVkEteCeeuBDW0i+hWcH86MPrzuCI1XntImn7hfPlF48JY1KLjCjSf?=
- =?iso-8859-1?Q?c1w0JYB5vEa4x+CsChGY69umXjPHeYSBE6gBAvFi3ZB6wlb62Nvbl3J1Xu?=
- =?iso-8859-1?Q?GTWcD/+eKDssfDryXKkKKqnjdYt9CnFoWwHXpCgL8BqbAmdZmFBDO8PmGa?=
- =?iso-8859-1?Q?VX7AehcI1RQ1MddsG2E=3D?=
+ =?iso-8859-1?Q?4jFWzzG0XDEZ+DEq5yoI+gLIV7U6cFLuvvdFrQUL9U4rxzpgJhyfvaTAtH?=
+ =?iso-8859-1?Q?a+v5ZdCmGPG9Qp1jpfGXsYDTjiFoZN0bCaXE8N7nVqqvapQmwanE4fi6Yl?=
+ =?iso-8859-1?Q?Gh1dtgqloS16YyHk2u7UtLkU+fvMQATjJgDvS3LFg73VIV9dNbq+gsCP29?=
+ =?iso-8859-1?Q?kqrqW6JxAupGkYX6c0ILEbwHN/f4lI3vr+tWPu9IvGm0Czn9ehkJ5ErdrU?=
+ =?iso-8859-1?Q?w1390xnbDNHBGjeX2dQbmBFx1T55tpgY1EYOzw9sfw5YqVKufbiW7k4L7G?=
+ =?iso-8859-1?Q?ypdONFT/dag0p2osrqebcelMj77OOCAnT60/0DWFU1TQ9BgYujvKd5FU4l?=
+ =?iso-8859-1?Q?kgisyKCqu0NrX0HJm8Nye97Kqq2I677/dagX5yM9LtY4N9yHkwAFZuxKz2?=
+ =?iso-8859-1?Q?pRpVr9bOUgbkV+MEeMR875LI/dlZIRvWWgif1LAnL5rPB/TURdAOr0qgxE?=
+ =?iso-8859-1?Q?C1p3znSHhIWwphrWzHzdSZXD8wmYSlNdeUYrdSHbMG2GybyGmp39sFfMrn?=
+ =?iso-8859-1?Q?3U5AngpB3WGOtZ4VrN3HtVUPRhWhyCv7bUPcHtmdKXEi7Ihiyiyel9c0Rm?=
+ =?iso-8859-1?Q?XGrRACSxRGIm2s4XdBIKncw65+r+JFz9hpICTjULTB7N5H0W0tKv45XeRi?=
+ =?iso-8859-1?Q?2TwO2yTRLXti3xV/GdWT3COV9R7koxbkt8iGpDZqmrQMQjcI7qN3Rz9TB3?=
+ =?iso-8859-1?Q?sVp9ioAu8CKSN7Q2Sb4hjNkyw/ClOrCpgZcW//4yBgYijY1m4a9VISTNxI?=
+ =?iso-8859-1?Q?IHE9wl/7EEeuL7stGN5kD/QVW2j3RtZq7OvSwToEsj4KPrbxnfQjqUEeeg?=
+ =?iso-8859-1?Q?k3ILBWo4Dg6sQ6tySRDJwTgCztPlRbiZKVXNI48BczpHGVh/4TIHPRN19x?=
+ =?iso-8859-1?Q?cCIRS8vlTAkGkiB2USvmQcX9TKqX+BusSWXrOnShojfvfPtu0dZzLN4AnR?=
+ =?iso-8859-1?Q?l+vSNSbTsVFAkIyBF51Ez4Rs0KIy2FF7VcT4VVEffkeZKgiP/YrUw48jF0?=
+ =?iso-8859-1?Q?LcmQGpNkZM01blSH0z+7WAh2OJbnKTc4/KtRnLwW0tSqhTE92G30Whq4QU?=
+ =?iso-8859-1?Q?NbGJZye5ArrFOMytHMV9l/KXZKMzkq0u0E07stK7A1BoSd9nSFpGEEQ/ei?=
+ =?iso-8859-1?Q?qd2S/bx0JrDE/Prpp0po7b8TG+bw/OSBgmYjirEPrF1ulrM/iWR6+7w5e0?=
+ =?iso-8859-1?Q?0OemqG8cU3j/PRgBhs87w3K3j3lD+IZLIigJNDyGdmawruxgspcjbD/rzt?=
+ =?iso-8859-1?Q?PM04I+RY/JGCj7b8+wZy5i27PPtcx0WGlKeHI6PhQIznkRFls3EbnyeUA4?=
+ =?iso-8859-1?Q?+wlx70JVMJyNPGawknJj9fOH4EUDrS2KCjaDDSoTozbG6HOdN/XRD25jES?=
+ =?iso-8859-1?Q?O6cC/CfuV5vMYVFszYMSCj7S6UJzMlerlY7wTLZwPmsRhDD9XFTghKlK5M?=
+ =?iso-8859-1?Q?7ZuN4QaqzypYit+AiU2u8f3jJoC8iJKf5sei1J3MJbm6ndRlhaX2URgCuI?=
+ =?iso-8859-1?Q?LgibsW+9iuHDvIp0LLaDdJM+6W4BTxQ8SlrRq7dAM9NxboBLIXMM/yx0nI?=
+ =?iso-8859-1?Q?ugji5M05LojtoU/YZq1ZVBhHqCVHYr2JmVOYuS6aOLhsGP06sr71sbZQ6Z?=
+ =?iso-8859-1?Q?aaLcFc8JYRT/k5nKM86tNPyUXHoSLxxpRS6phaijE1LL+sKQsqzD8jcqjH?=
+ =?iso-8859-1?Q?8dGb5rzv3dbDFXg5BNQ=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?UMOEIw0hkmLOTd3dPO2tSa+TMhUEdtTUCnsYqX4m4CItjd+ql5pLFaE47W?=
- =?iso-8859-1?Q?maHTfKeZJ/EJ0UgVGyFdF8Aiclck2z8DyXrxUCRZw+Sf+SraPOudWf6PtG?=
- =?iso-8859-1?Q?1BMzR5fCj9k/FnXOrtJoJCIsjBKWC352Vs9jDCfBTdn2l/vIP4e/KLpz7H?=
- =?iso-8859-1?Q?oBCI3Z7vsDDyApohUA8Xrjs6Z42CepJlxzJIVIRmoliQtabfvx9OkVi+Od?=
- =?iso-8859-1?Q?QhMVQU6XUAE26SVQSX358h39MLJuhw9uJ9vJx+2mbU+VJ+l4D1dE79x5Nu?=
- =?iso-8859-1?Q?U2r2jgOqcMJ65i3mAVireyF3HWeyjNddtzdyQr7/0VZi1aXlCTQPecD3t8?=
- =?iso-8859-1?Q?wIS6WV7V55J2n2CFLrD+eZ4eyr9TVLY8n0kvqPgQhR01RtUfJwT69cYFP9?=
- =?iso-8859-1?Q?QvesR3HySRcQBngddARujvqRU84+fgTyv//GfYZpVz1alEghjWBrhqmQMB?=
- =?iso-8859-1?Q?+shjayZGrTPEpIB9W6ZXAh6LM6gZNId0u4eGf5az9p47L61ZJ14ZTTxb1N?=
- =?iso-8859-1?Q?HdLiLsT2NAlS789/fowVW1ynWUaju+vJ5eErwfFPgpQM+j50mAzxotU2iq?=
- =?iso-8859-1?Q?/3SsC5AnE63gEmdxsw2xQwvq+qUq+Cs+Jc63+AnmfOPpQCXJXsoB+aTxgZ?=
- =?iso-8859-1?Q?LYAJrIPQHYkZKeVRKXoV6ykQONgOsOiMSFyFoJvlb4FxOz7diIr2nSgF1T?=
- =?iso-8859-1?Q?4MmzxDdknM33xWiV/sftEmgmx8XqS695n7b6e//mG2GKCFyeJeT/r8xpxW?=
- =?iso-8859-1?Q?Frugx5H3JBy1VjhpXTmVCqpKOi0HPdnDBW0O+yaUNupPCJs8GfuU0e5G4p?=
- =?iso-8859-1?Q?nAtV7LoFE1zpVSGW27VDTGH/Mym3sMAvWVLg2w5NMxx9ZGsZlPIoGyvcIh?=
- =?iso-8859-1?Q?kB7XfLjdH9IWFJjWS1L2zFm+MjclE9X40EksWzVFP3H7CGRAIRWfyUCXFO?=
- =?iso-8859-1?Q?J6JduhD0Qb00P/7EMEfx4RwyE5L1JEAk3L0oJ3basN+VNjh0sfhcc1+boQ?=
- =?iso-8859-1?Q?IbhqRwTwiy0ixoIzCjGHphKavMuQfZ0J1YNZbZqL1mcmfbLSDYnmISN71p?=
- =?iso-8859-1?Q?5uCOMm69iheMpZmOUW53c7qDevexm4TTC7bXc/H9BIkK+LhNV4mD2nOhpR?=
- =?iso-8859-1?Q?FmG3Qo5eVi87UO9Fbg8qJ0k7xsSeeq/eHO8+L8ymQNsBSBBWNrC/+H5tne?=
- =?iso-8859-1?Q?5NtPYdeNLNZei8jaDJ6gpRxdTE78kmPEyDSGMWo5BMGAv3FI6SbBi2HVrs?=
- =?iso-8859-1?Q?cCHoZbRQyfMQefXylPlTvxe2qqmhujOr7LDzqxzU2FUrbP0pCchvusJsmc?=
- =?iso-8859-1?Q?oFIBqnjshq/IM0N7alMWuzLjbvhtwPB8qWtUAH2hPs7jyJSjSC60qYzxux?=
- =?iso-8859-1?Q?nMudJLunp5QpVmRr5+apwZ6z14wE+EkEOL3enImsFEkzg9uTLo8/bQDKg4?=
- =?iso-8859-1?Q?SzObseb/PzvACvOr+zjmJj6oj8+Jojz5k/nUFcUNxCXykPH8SXAbxiGAdw?=
- =?iso-8859-1?Q?tqs9/YDnlWv2jOy24thUtdelGwm4RadSVKi2OKou6ElPuRnXXXMMBJ6A1K?=
- =?iso-8859-1?Q?7KVLx24TGYKbMvU3KPJxLWFlz2ZUk8da9TElV92ofZRv/l19mn9Sob48mo?=
- =?iso-8859-1?Q?ejKLvJWKXg0WhkrWpqDS4Bys6pOYjTp4A4FtU0h/jdcRSAVchQB0NTHtmR?=
- =?iso-8859-1?Q?F/9uUFjJrzchP0f20zWsV417mydSshLkDSlF7fMW9r94eF3L+QaDOaA1n2?=
- =?iso-8859-1?Q?kShtLb0Y60HSfKXYOX/UBDlJTFpRCSF53i/Dml2vGwmqyBe+R3pOVUWoL9?=
- =?iso-8859-1?Q?SSoYMDO6euhnlw6sQrwF/45ZnxvgefE=3D?=
+ =?iso-8859-1?Q?DRWdAeMp/ZkQscPQ7aTMo3M4jqu95vhwagDWLgKa1oO2jZ9gzZrEV4b10+?=
+ =?iso-8859-1?Q?KTBUL+J6a/e7Pqsul2EZ/O3o+bUkSTiuJQkYedJOSxzGvJ9O6pilcOSgI1?=
+ =?iso-8859-1?Q?mSKyX+sryegL332BIpcrjS5HE5Sts9nK1+wq31Do2YK1XrUSAtk+M3HYg9?=
+ =?iso-8859-1?Q?Mrpnh/gviiCmtG7QIdtwNj6eKG4QjrAdNW45x87TcjL2l0WtWu5+dAf1fu?=
+ =?iso-8859-1?Q?eI3VR0vG+2CfI43tLqbfiEXgQtfrY81LWBAAPAFH14f9v4Sjw/ae30jD2N?=
+ =?iso-8859-1?Q?wZi2dwQVHjh9WjKHRI7ApHmKsluu6eXSCArP+irjVKRtcPDy13M4r9wifG?=
+ =?iso-8859-1?Q?FVJnqDvTpoc7IWqnRE6vb7AHy+YkMwFRt1v8ids69smAbwGh6ktH1bBBsX?=
+ =?iso-8859-1?Q?vG0O5lhr1kg3G3MiNcHW4u2jpw8kg07rdz55jWza6ssi16GitC/If8NdXq?=
+ =?iso-8859-1?Q?6f3DIK6H9H/oqv8XXIcQjyvYucMX7klAa0C0CgB8LQPtHkJAwyepfuI028?=
+ =?iso-8859-1?Q?KHzsInpqvtynFhiz+PmRJiPCPhNHCh30s0blp7O46h+Ujb6YLe5mW3VIAI?=
+ =?iso-8859-1?Q?S8ngKN1gbvpdiuDglyG7jDJlJtCBKGVq1bIbsh4PiF2qyflCbPrLYlQyOY?=
+ =?iso-8859-1?Q?jQjiwciwVDc7F7abNkLzgF9BK2rdJxm7UkYMAb5g1OU3rxKV/qscQQPqmm?=
+ =?iso-8859-1?Q?ZwkthovFFkeqNyBBYzI+W2RRv9IT++jTW9EiGTcmY+liSTWYSqlKSVa3db?=
+ =?iso-8859-1?Q?P1IZ5S/bqrGGv+UGjcvwC9Ulac1sPhrUxg5r7Lzm3WnLkjU1L7HPRbMuc4?=
+ =?iso-8859-1?Q?tfriq7isKRj0RIk76XrXCFdYmbszLDNRFV6B/LEDhZmTBtaCome2bdvg3+?=
+ =?iso-8859-1?Q?9nGoAFtNgdLiD48suTk7w2/RjJVH5ZsB55cgA1snSi2Hm7bksaPpcYtk6j?=
+ =?iso-8859-1?Q?fDD8WIthBtU1QfDqHqhE8oQZcHKdcV5vukMsgYhKnl7bkSPbwImsXzWuB1?=
+ =?iso-8859-1?Q?m/blNKmuxyL5Zf2bGXXuQ0hx8TSzAUoxP7v74Os1ZNJtiJeWnajGJ4wCcm?=
+ =?iso-8859-1?Q?C1SntpcWTou94TXb0/ablrIaoEO9uJwDFajtzup/yRqvIN1fgLPV319Hz4?=
+ =?iso-8859-1?Q?GAf95Jw7iYjyJp7jLNtgNNVP31zNgQi4s+0hYAv0CX0m9T8Bph3OQl+k7+?=
+ =?iso-8859-1?Q?rymgg92QGfvo0KSZ6PCGAAXdpK+sAvaZW3qWlbJw1RElx6K+y5xFhYHvCk?=
+ =?iso-8859-1?Q?BiiYnNw/IJDaE3I/Vtv1n+EQLKEoRVaMszlWfwuFakG7qehEP62i2aPmDM?=
+ =?iso-8859-1?Q?HBGqkr3lfiKLDZLG1VHx3EE0pySP8b+s5iIzNalGF2d5Ik2iW9t/Y3rRH4?=
+ =?iso-8859-1?Q?3QC+rS8kjID6697AAv6huxM3Y+fFhHwuixyPIjLpNv8OvpA4oaK/eXMX2e?=
+ =?iso-8859-1?Q?Zz8rsHPq37kxLK06XYJy8bGhclKBfnK+BvldLxV/iZkvDfkjGghJSXNMEl?=
+ =?iso-8859-1?Q?ZBUTsCnykc/epBuXR0ozg31yD25DfTsk9afX7UvkKv1vnw+olTR4yc4j8P?=
+ =?iso-8859-1?Q?/WP1mEkgWAEQ4Ny0SiXar8weImY/NamjHF+JTtSybkwHm5Rv82UzF8zose?=
+ =?iso-8859-1?Q?3NMRluuwPDpfDw4xaA86AwlwD+BpGheHz6g0AUgB/fB4kLE/mGGOQPdD/3?=
+ =?iso-8859-1?Q?Vi6utzMnuGptoqMXuM4FLDISe3LI4aJiTsJy1hdRs+JdoXddn8RNih+7tu?=
+ =?iso-8859-1?Q?0uwxOqPDXOAD/BcLgO7CTSaN6/IPFD/ke7tvwG+QwuJWmGXrZC56X9iWRt?=
+ =?iso-8859-1?Q?aaGZStZ13/T4YXE4CZunPp0PAWNXNyA=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38f49fc7-6f95-4cff-ec65-08de62762e6d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:43.9878
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54576a18-9c90-4227-e258-08de62762d49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2026 16:14:43.0668
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: A236MjKGG2Pg/MIz8G3Z7Od71MBa6gWYClrUz5yOodliucWrSkFJrLtAAwKrN08z+eFPi2ebWt2TTKeI6zSnAQ==
+X-MS-Exchange-CrossTenant-userprincipalname: Ha2n/UlX+/AS/iMDNbdDPWxS8nRRupBq2fRLIvVcz25V9gg0he+XVGb44rG1omzQfGJCJ9poz6i0Re9uBlBnSg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB10299
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
@@ -207,53 +207,296 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2891DCED2A
+X-Rspamd-Queue-Id: 665B9CED1C
 X-Rspamd-Action: no action
 
-Extend the check to mark interrupts as Group1 for all GIC versions >=3D 3
+When a VCPU is migrated to another PCPU, its VPE affinity must be
+updated. Hook into VPE scheduling to ensure that the VPE to be scheduled
+is located on the correct PCPU, if not, move it with VMOVP command.
+
+VMOVP needs to be issued on all ITSes in the system, and in the same
+order, unlsess single VMOVP capable ITS is used.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/arch/arm/gic-v3.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ xen/arch/arm/gic-v3-its.c             |  55 ++++++++++++++
+ xen/arch/arm/gic-v4-its.c             | 105 ++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/gic_v3_its.h |  12 +++
+ 3 files changed, 172 insertions(+)
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 07736179db..1cb3169b72 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -1366,10 +1366,10 @@ static void gicv3_update_lr(int lr, unsigned int vi=
-rq, uint8_t priority,
-     val =3D  (((uint64_t)state & 0x3) << ICH_LR_STATE_SHIFT);
+diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+index fb1d2709be..be840fbc8f 100644
+--- a/xen/arch/arm/gic-v3-its.c
++++ b/xen/arch/arm/gic-v3-its.c
+@@ -31,6 +31,8 @@
+ LIST_HEAD(host_its_list);
 =20
-     /*
--     * When the guest is GICv3, all guest IRQs are Group 1, as Group0
--     * would result in a FIQ in the guest, which it wouldn't expect
-+     * When the guest is GICv3/GICv4/GICv4.1, all guest IRQs are Group 1, =
-as
-+     * Group0 would result in a FIQ in the guest, which it wouldn't expect
-      */
--    if ( current->domain->arch.vgic.version =3D=3D GIC_V3 )
-+    if ( current->domain->arch.vgic.version >=3D GIC_V3 )
-         val |=3D ICH_LR_GRP1;
 =20
-     val |=3D (uint64_t)priority << ICH_LR_PRIORITY_SHIFT;
-@@ -1455,10 +1455,10 @@ static void gicv3_write_lr(int lr, const struct gic=
-_lr *lr_reg)
-     }
++unsigned long its_list_map;
++
+ unsigned int nvpeid =3D 16;
 =20
-     /*
--     * When the guest is using vGICv3, all the IRQs are Group 1. Group 0
--     * would result in a FIQ, which will not be expected by the guest OS.
-+     * When the guest is using vGICv3/vGICv4/vGICv4.1, all the IRQs are Gr=
-oup 1.
-+     * Group 0 would result in a FIQ, which will not be expected by the gu=
-est OS.
-      */
--    if ( vgic_version =3D=3D GIC_V3 )
-+    if ( vgic_version >=3D GIC_V3 )
-         lrv |=3D ICH_LR_GRP1;
+ /*
+@@ -612,10 +614,47 @@ static int gicv3_disable_its(struct host_its *hw_its)
+     return -ETIMEDOUT;
+ }
 =20
-     gicv3_ich_write_lr(lr, lrv);
++static int __init its_compute_its_list_map(struct host_its *hw_its)
++{
++    int its_number;
++    uint32_t ctlr;
++
++    its_number =3D find_first_zero_bit(&its_list_map, GICv4_ITS_LIST_MAX);
++    if ( its_number >=3D GICv4_ITS_LIST_MAX )
++    {
++        printk(XENLOG_ERR
++               "ITS@%lx: No ITSList entry available!\n", hw_its->addr);
++        return -EINVAL;
++    }
++
++    ctlr =3D readl_relaxed(hw_its->its_base + GITS_CTLR);
++    ctlr &=3D ~GITS_CTLR_ITS_NUMBER;
++    ctlr |=3D its_number << GITS_CTLR_ITS_NUMBER_SHIFT;
++    writel_relaxed(ctlr, hw_its->its_base + GITS_CTLR);
++    ctlr =3D readl_relaxed(hw_its->its_base + GITS_CTLR);
++    if ( (ctlr & GITS_CTLR_ITS_NUMBER) !=3D
++         (its_number << GITS_CTLR_ITS_NUMBER_SHIFT) )
++    {
++        its_number =3D ctlr & GITS_CTLR_ITS_NUMBER;
++        its_number >>=3D GITS_CTLR_ITS_NUMBER_SHIFT;
++    }
++
++    if ( test_and_set_bit(its_number, &its_list_map) )
++    {
++        printk(XENLOG_ERR
++               "ITS@%lx: Duplicate ITSList entry %d\n",
++               hw_its->addr, its_number);
++        return -EINVAL;
++    }
++
++    return its_number;
++}
++
+ static int gicv3_its_init_single_its(struct host_its *hw_its)
+ {
+     uint64_t reg;
+     int i, ret;
++    int its_number;
+=20
+     hw_its->its_base =3D ioremap_nocache(hw_its->addr, hw_its->size);
+     if ( !hw_its->its_base )
+@@ -633,6 +672,22 @@ static int gicv3_its_init_single_its(struct host_its *=
+hw_its)
+     hw_its->itte_size =3D GITS_TYPER_ITT_SIZE(reg);
+     if ( reg & GITS_TYPER_PTA )
+         hw_its->flags |=3D HOST_ITS_USES_PTA;
++    hw_its->is_v4 =3D reg & GITS_TYPER_VLPIS;
++    if ( hw_its->is_v4 )
++    {
++        if ( !(reg & GITS_TYPER_VMOVP) )
++        {
++            its_number =3D its_compute_its_list_map(hw_its);
++            if ( its_number < 0 )
++                return its_number;
++            dprintk(XENLOG_INFO,
++                    "ITS@%lx: Using ITS number %d\n",
++                    hw_its->addr, its_number);
++        }
++        else
++            dprintk(XENLOG_INFO,
++                    "ITS@%lx: Single VMOVP capable\n", hw_its->addr);
++    }
+     spin_lock_init(&hw_its->cmd_lock);
+=20
+     for ( i =3D 0; i < GITS_BASER_NR_REGS; i++ )
+diff --git a/xen/arch/arm/gic-v4-its.c b/xen/arch/arm/gic-v4-its.c
+index 6a550a65b2..175fda7acb 100644
+--- a/xen/arch/arm/gic-v4-its.c
++++ b/xen/arch/arm/gic-v4-its.c
+@@ -36,6 +36,9 @@ static unsigned long *vpeid_mask;
+=20
+ static spinlock_t vpeid_alloc_lock =3D SPIN_LOCK_UNLOCKED;
+=20
++static uint16_t vmovp_seq_num;
++static spinlock_t vmovp_lock =3D SPIN_LOCK_UNLOCKED;
++
+ void __init gicv4_its_vpeid_allocator_init(void)
+ {
+     /* Allocate space for vpeid_mask based on MAX_VPEID */
+@@ -242,6 +245,57 @@ static int __init its_vpe_init(struct its_vpe *vpe)
+     return rc;
+ }
+=20
++static int its_send_cmd_vmovp(struct its_vpe *vpe)
++{
++    uint16_t vpeid =3D vpe->vpe_id;
++    int ret;
++    struct host_its *hw_its;
++
++    if ( !its_list_map )
++    {
++        uint64_t cmd[4];
++
++        hw_its =3D list_first_entry(&host_its_list, struct host_its, entry=
+);
++        cmd[0] =3D GITS_CMD_VMOVP;
++        cmd[1] =3D (uint64_t)vpeid << 32;
++        cmd[2] =3D encode_rdbase(hw_its, vpe->col_idx, 0x0);
++        cmd[3] =3D 0x00;
++
++        return its_send_command(hw_its, cmd);
++    }
++
++    /*
++     * If using the its_list "feature", we need to make sure that all ITSs
++     * receive all VMOVP commands in the same order. The only way
++     * to guarantee this is to make vmovp a serialization point.
++     */
++    spin_lock(&vmovp_lock);
++
++    vmovp_seq_num++;
++
++    /* Emit VMOVPs */
++    list_for_each_entry(hw_its, &host_its_list, entry)
++    {
++        uint64_t cmd[4];
++
++        cmd[0] =3D GITS_CMD_VMOVP | ((uint64_t)vmovp_seq_num << 32);
++        cmd[1] =3D its_list_map | ((uint64_t)vpeid << 32);
++        cmd[2] =3D encode_rdbase(hw_its, vpe->col_idx, 0x0);
++        cmd[3] =3D 0x00;
++
++        ret =3D its_send_command(hw_its, cmd);
++        if ( ret )
++        {
++            spin_unlock(&vmovp_lock);
++            return ret;
++        }
++    }
++
++    spin_unlock(&vmovp_lock);
++
++    return 0;
++}
++
+ static void __init its_vpe_teardown(struct its_vpe *vpe)
+ {
+     unsigned int order;
+@@ -687,6 +741,52 @@ static void its_make_vpe_non_resident(struct its_vpe *=
+vpe, unsigned int cpu)
+     vpe->pending_last =3D val & GICR_VPENDBASER_PendingLast;
+ }
+=20
++static int vpe_to_cpuid_lock(struct its_vpe *vpe, unsigned long *flags)
++{
++    spin_lock_irqsave(&vpe->vpe_lock, *flags);
++    return vpe->col_idx;
++}
++
++static void vpe_to_cpuid_unlock(struct its_vpe *vpe, unsigned long *flags)
++{
++    spin_unlock_irqrestore(&vpe->vpe_lock, *flags);
++}
++
++static int gicv4_vpe_set_affinity(struct vcpu *vcpu)
++{
++    struct its_vpe *vpe =3D vcpu->arch.vgic.its_vpe;
++    unsigned int from, to =3D vcpu->processor;
++    unsigned long flags;
++    int ret =3D 0;
++
++    /*
++     * Changing affinity is mega expensive, so let's be as lazy as
++     * we can and only do it if we really have to. Also, if mapped
++     * into the proxy device, we need to move the doorbell interrupt
++     * to its new location.
++     *
++     * Another thing is that changing the affinity of a vPE affects
++     * *other interrupts* such as all the vLPIs that are routed to
++     * this vPE. This means that we must ensure nobody samples
++     * vpe->col_idx during the update, hence the lock below which
++     * must also be taken on any vLPI handling path that evaluates
++     * vpe->col_idx, such as reg-based vLPI invalidation.
++     */
++    from =3D vpe_to_cpuid_lock(vpe, &flags);
++    if ( from =3D=3D to )
++        goto out;
++
++    vpe->col_idx =3D to;
++
++    ret =3D its_send_cmd_vmovp(vpe);
++    if ( ret )
++        goto out;
++
++ out:
++    vpe_to_cpuid_unlock(vpe, &flags);
++    return ret;
++}
++
+ void vgic_v4_load(struct vcpu *vcpu)
+ {
+     struct its_vpe *vpe =3D vcpu->arch.vgic.its_vpe;
+@@ -695,6 +795,11 @@ void vgic_v4_load(struct vcpu *vcpu)
+     if ( vpe->resident )
+         return;
+=20
++    /*
++     * Before making the VPE resident, make sure the redistributor
++     * corresponding to our current CPU expects us here
++     */
++    WARN_ON(gicv4_vpe_set_affinity(vcpu));
+     its_make_vpe_resident(vpe, vcpu->processor);
+     vpe->resident =3D true;
+ }
+diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/a=
+sm/gic_v3_its.h
+index 411beb81c8..f03a8fad47 100644
+--- a/xen/arch/arm/include/asm/gic_v3_its.h
++++ b/xen/arch/arm/include/asm/gic_v3_its.h
+@@ -43,6 +43,9 @@
+ #define GITS_CTLR_QUIESCENT             BIT(31, UL)
+ #define GITS_CTLR_ENABLE                BIT(0, UL)
+=20
++#define GITS_CTLR_ITS_NUMBER_SHIFT      4
++#define GITS_CTLR_ITS_NUMBER            (0xfUL << GITS_CTLR_ITS_NUMBER_SHI=
+FT)
++
+ #define GITS_TYPER_PTA                  BIT(19, UL)
+ #define GITS_TYPER_DEVIDS_SHIFT         13
+ #define GITS_TYPER_DEVIDS_MASK          (0x1fUL << GITS_TYPER_DEVIDS_SHIFT=
+)
+@@ -60,6 +63,8 @@
+                                                  GITS_TYPER_ITT_SIZE_SHIFT=
+) + 1)
+ #define GITS_TYPER_PHYSICAL             (1U << 0)
+=20
++#define GITS_TYPER_VLPIS                (1UL << 1)
++#define GITS_TYPER_VMOVP                (1UL << 37)
+ #define GITS_BASER_INDIRECT             BIT(62, UL)
+ #define GITS_BASER_INNER_CACHEABILITY_SHIFT        59
+ #define GITS_BASER_TYPE_SHIFT           56
+@@ -118,6 +123,12 @@
+ /* We allocate LPIs on the hosts in chunks of 32 to reduce handling overhe=
+ad. */
+ #define LPI_BLOCK                       32U
+=20
++/*
++ * Maximum number of ITSs when GITS_TYPER.VMOVP =3D=3D 0, using the
++ * ITSList mechanism to perform inter-ITS synchronization.
++ */
++#define GICv4_ITS_LIST_MAX      16
++
+ extern unsigned int nvpeid;
+ /* The maximum number of VPEID bits supported by VLPI commands */
+ #define ITS_MAX_VPEID_BITS      nvpeid
+@@ -214,6 +225,7 @@ struct __lpi_data {
+ extern struct __lpi_data lpi_data;
+=20
+ extern struct list_head host_its_list;
++extern unsigned long its_list_map;
+=20
+ int its_send_cmd_discard(struct host_its *its, struct its_device *dev,
+                          uint32_t eventid);
 --=20
 2.51.2
 
