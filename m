@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IMdSKm0mgWnsEQMAu9opvQ
+	id gDfUCiI2gWmUEwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 23:34:21 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 00:41:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2793D2379
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 23:34:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1219075.1527985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3256D2B29
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 00:41:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1219092.1528035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vn2Tr-0000cL-Cy; Mon, 02 Feb 2026 22:33:15 +0000
+	id 1vn3Ws-0001Nj-Az; Mon, 02 Feb 2026 23:40:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1219075.1527985; Mon, 02 Feb 2026 22:33:15 +0000
+Received: by outflank-mailman (output) from mailman id 1219092.1528035; Mon, 02 Feb 2026 23:40:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vn2Tr-0000a8-9H; Mon, 02 Feb 2026 22:33:15 +0000
-Received: by outflank-mailman (input) for mailman id 1219075;
- Mon, 02 Feb 2026 22:33:14 +0000
+	id 1vn3Ws-0001LQ-6x; Mon, 02 Feb 2026 23:40:26 +0000
+Received: by outflank-mailman (input) for mailman id 1219092;
+ Mon, 02 Feb 2026 23:40:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Gzza=AG=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1vn2Tp-0000Y6-TP
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 22:33:14 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QtZ7=AG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vn3Wq-0001LK-QG
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 23:40:24 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22b22552-0087-11f1-9ccf-f158ae23cfc8;
- Mon, 02 Feb 2026 23:33:04 +0100 (CET)
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2026 14:33:02 -0800
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa008.jf.intel.com with ESMTP; 02 Feb 2026 14:32:27 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vn2T3-00000000g1M-0wih;
- Mon, 02 Feb 2026 22:32:25 +0000
+ id 8919cd28-0090-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Feb 2026 00:40:21 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A6C840DC8;
+ Mon,  2 Feb 2026 23:40:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CAEC116C6;
+ Mon,  2 Feb 2026 23:40:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,212 +46,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22b22552-0087-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1770071585; x=1801607585;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K94Yr5tqFVaHsCYCKnsxMVUvUOkbufB1DVdDJ7sbhdg=;
-  b=Mo7KSeTz/uazX1Pb2AoxFvMLvR960NeRTCHbsSmT3BVyD9BVWaMKAZuf
-   oDT+dLnhSTbJiIeLCuyJyRr/3mYEnH8eN3r4gUHXuWVMRPWXQ8jBpozvu
-   HzJCzivs0+LTIS5SArxVPk5jgA5JKdh9o+Dc/EDDMGzykadoN5MMd2/N1
-   PXdIRSL98zco18tB0bGgzb3K2wE/AJvIlb2p68qTHcPRznwabPcMQh0qs
-   kada6Ec0CllL4k03U9HLZVcAszM2OMZSHnWy5zgxgKkXWMuvkkUsYhyfs
-   m+jNXua27PKVRsWOg7Yb3UKmM6vcpLaNbbTCmJ3BgTiTfV3MDweulAjs+
-   A==;
-X-CSE-ConnectionGUID: 03oaMUEmSP2tkInjVAZE7w==
-X-CSE-MsgGUID: dDRTsuLATRCbX+zBq02bXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11690"; a="82348628"
-X-IronPort-AV: E=Sophos;i="6.21,269,1763452800"; 
-   d="scan'208";a="82348628"
-X-CSE-ConnectionGUID: f0cfM4HPRO+EXrWtBO5R7A==
-X-CSE-MsgGUID: e2M1VSzVScuy0rx2orDXBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,269,1763452800"; 
-   d="scan'208";a="209657809"
-Date: Tue, 3 Feb 2026 06:31:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shashank Balaji <shashank.mahadasyam@sony.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Suresh Siddha <suresh.b.siddha@intel.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux.dev, jailhouse-dev@googlegroups.com,
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Rahul Bukte <rahul.bukte@sony.com>,
-	Shashank Balaji <shashank.mahadasyam@sony.com>,
-	Daniel Palmer <daniel.palmer@sony.com>,
-	Tim Bird <tim.bird@sony.com>
-Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
- expects so
-Message-ID: <202602030600.jFhsJyEC-lkp@intel.com>
-References: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
+X-Inumbo-ID: 8919cd28-0090-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770075619;
+	bh=7o7SfeYG+gMPMtdSkYXK8C7sCYH2mIvH1bLRi5urTCE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rQDlwiDSc1Qkae7/U8YIz8I7YsB2Mr+PMrvTcAaHKl+YItGh5xdgzqTiPKR+uXx2o
+	 9AhZ2jpcPyGFVMBBG2QmZhn2Ip7cU5hPjwulhzZTJMfuwyZ4pFzx+vEZJ48TnUA/p6
+	 Fj3H8c550xx5wohlTLcKt3eUYLCQetaWThRGgX+7GUD1Fgu3Hz2sgfIZQlJJP43YH3
+	 BqQvetezLEhbutxWbFTlaHHrbIN3plfkVvWCKatxaiybM3i4U3qTB4DPKVDowx9Wlm
+	 /yb/OgGQXf/SIXOxTVHIg7PGEkIEYIZpHOiMUHI4J2G1I2jCwJIdzl3vP9QWHHyDec
+	 L/X032BruFYQA==
+Date: Mon, 2 Feb 2026 15:40:16 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: dmukhin@xen.org
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH v1] automation: align XTF qemu parameters across
+ achitectures
+In-Reply-To: <20260202193230.21412-2-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2602021540100.2599007@ubuntu-linux-20-04-desktop>
+References: <20260202193230.21412-2-dmukhin@ford.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
+Content-Type: text/plain; charset=US-ASCII
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[33];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[lkp@intel.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:shashank.mahadasyam@sony.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:llvm@lists.linux.dev,m:oe-kbuild-all@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@xen.org,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dmukhin@ford.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,intel.com:dkim,intel.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: D2793D2379
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: C3256D2B29
 X-Rspamd-Action: no action
 
-Hi Shashank,
+On Mon, 1 Feb 2026, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> It is handy to have 2 CPUs and more RAM for smoke testing a hypervisor
+> change via XTF.
+> 
+> Align x86 QEMU configuration with Arm for XTF tests: 2 CPU and 2G of RAM.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-kernel test robot noticed the following build errors:
+Please provide a link to the successful pipeline. With that:
 
-[auto build test ERROR on 18f7fcd5e69a04df57b563360b88be72471d6b62]
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shashank-Balaji/x86-x2apic-disable-x2apic-on-resume-if-the-kernel-expects-so/20260202-181147
-base:   18f7fcd5e69a04df57b563360b88be72471d6b62
-patch link:    https://lore.kernel.org/r/20260202-x2apic-fix-v1-1-71c8f488a88b%40sony.com
-patch subject: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel expects so
-config: i386-randconfig-001-20260202 (https://download.01.org/0day-ci/archive/20260203/202602030600.jFhsJyEC-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260203/202602030600.jFhsJyEC-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602030600.jFhsJyEC-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> arch/x86/kernel/apic/apic.c:2463:3: error: call to undeclared function '__x2apic_disable'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2463 |                 __x2apic_disable();
-         |                 ^
-   arch/x86/kernel/apic/apic.c:2463:3: note: did you mean '__x2apic_enable'?
-   arch/x86/kernel/apic/apic.c:1896:20: note: '__x2apic_enable' declared here
-    1896 | static inline void __x2apic_enable(void) { }
-         |                    ^
-   1 error generated.
-
-
-vim +/__x2apic_disable +2463 arch/x86/kernel/apic/apic.c
-
-  2435	
-  2436	static void lapic_resume(void *data)
-  2437	{
-  2438		unsigned int l, h;
-  2439		unsigned long flags;
-  2440		int maxlvt;
-  2441	
-  2442		if (!apic_pm_state.active)
-  2443			return;
-  2444	
-  2445		local_irq_save(flags);
-  2446	
-  2447		/*
-  2448		 * IO-APIC and PIC have their own resume routines.
-  2449		 * We just mask them here to make sure the interrupt
-  2450		 * subsystem is completely quiet while we enable x2apic
-  2451		 * and interrupt-remapping.
-  2452		 */
-  2453		mask_ioapic_entries();
-  2454		legacy_pic->mask_all();
-  2455	
-  2456		if (x2apic_mode) {
-  2457			__x2apic_enable();
-  2458		} else {
-  2459			/*
-  2460			 * x2apic may have been re-enabled by the
-  2461			 * firmware on resuming from s2ram
-  2462			 */
-> 2463			__x2apic_disable();
-  2464	
-  2465			/*
-  2466			 * Make sure the APICBASE points to the right address
-  2467			 *
-  2468			 * FIXME! This will be wrong if we ever support suspend on
-  2469			 * SMP! We'll need to do this as part of the CPU restore!
-  2470			 */
-  2471			if (boot_cpu_data.x86 >= 6) {
-  2472				rdmsr(MSR_IA32_APICBASE, l, h);
-  2473				l &= ~MSR_IA32_APICBASE_BASE;
-  2474				l |= MSR_IA32_APICBASE_ENABLE | mp_lapic_addr;
-  2475				wrmsr(MSR_IA32_APICBASE, l, h);
-  2476			}
-  2477		}
-  2478	
-  2479		maxlvt = lapic_get_maxlvt();
-  2480		apic_write(APIC_LVTERR, ERROR_APIC_VECTOR | APIC_LVT_MASKED);
-  2481		apic_write(APIC_ID, apic_pm_state.apic_id);
-  2482		apic_write(APIC_DFR, apic_pm_state.apic_dfr);
-  2483		apic_write(APIC_LDR, apic_pm_state.apic_ldr);
-  2484		apic_write(APIC_TASKPRI, apic_pm_state.apic_taskpri);
-  2485		apic_write(APIC_SPIV, apic_pm_state.apic_spiv);
-  2486		apic_write(APIC_LVT0, apic_pm_state.apic_lvt0);
-  2487		apic_write(APIC_LVT1, apic_pm_state.apic_lvt1);
-  2488	#ifdef CONFIG_X86_THERMAL_VECTOR
-  2489		if (maxlvt >= 5)
-  2490			apic_write(APIC_LVTTHMR, apic_pm_state.apic_thmr);
-  2491	#endif
-  2492	#ifdef CONFIG_X86_MCE_INTEL
-  2493		if (maxlvt >= 6)
-  2494			apic_write(APIC_LVTCMCI, apic_pm_state.apic_cmci);
-  2495	#endif
-  2496		if (maxlvt >= 4)
-  2497			apic_write(APIC_LVTPC, apic_pm_state.apic_lvtpc);
-  2498		apic_write(APIC_LVTT, apic_pm_state.apic_lvtt);
-  2499		apic_write(APIC_TDCR, apic_pm_state.apic_tdcr);
-  2500		apic_write(APIC_TMICT, apic_pm_state.apic_tmict);
-  2501		apic_write(APIC_ESR, 0);
-  2502		apic_read(APIC_ESR);
-  2503		apic_write(APIC_LVTERR, apic_pm_state.apic_lvterr);
-  2504		apic_write(APIC_ESR, 0);
-  2505		apic_read(APIC_ESR);
-  2506	
-  2507		irq_remapping_reenable(x2apic_mode);
-  2508	
-  2509		local_irq_restore(flags);
-  2510	}
-  2511	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ---
+>  automation/scripts/include/xtf-x86-64     | 3 ++-
+>  automation/scripts/include/xtf-x86-64-efi | 3 ++-
+>  2 files changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/scripts/include/xtf-x86-64 b/automation/scripts/include/xtf-x86-64
+> index b1b0cc201efa..186f074bd8eb 100644
+> --- a/automation/scripts/include/xtf-x86-64
+> +++ b/automation/scripts/include/xtf-x86-64
+> @@ -23,7 +23,8 @@ function xtf_arch_setup()
+>          -nographic \
+>          -monitor none \
+>          -serial stdio \
+> -        -m 512 \
+> +        -m 2048 \
+> +        -smp 2 \
+>          -kernel ${XEN_BINARY} \
+>          -initrd ${XTF_BINARY} \
+>          -append \"${XEN_CMDLINE}\" \
+> diff --git a/automation/scripts/include/xtf-x86-64-efi b/automation/scripts/include/xtf-x86-64-efi
+> index 8340c745dbf4..15c6463dcdc5 100644
+> --- a/automation/scripts/include/xtf-x86-64-efi
+> +++ b/automation/scripts/include/xtf-x86-64-efi
+> @@ -49,7 +49,8 @@ EOF
+>          -nographic \
+>          -monitor none \
+>          -serial stdio \
+> -        -m 512 \
+> +        -m 2048 \
+> +        -smp 2 \
+>          -M q35,kernel-irqchip=split \
+>          -drive if=pflash,format=raw,readonly=on,file=${FW_PREFIX}OVMF_CODE${suff}.fd \
+>          -drive if=pflash,format=raw,file=${WORKDIR}/OVMF_VARS${suff}.fd \
+> -- 
+> 2.52.0
+> 
 
