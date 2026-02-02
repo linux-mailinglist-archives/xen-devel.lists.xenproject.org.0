@@ -2,43 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YIhtNtFugGnC8AIAu9opvQ
+	id KHXsByN1gGkV8gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:30:57 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:55 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43315CA251
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:30:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218449.1527193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15268CA598
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218459.1527203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqGN-0006fM-Gv; Mon, 02 Feb 2026 09:30:31 +0000
+	id 1vmqgT-0001YR-RF; Mon, 02 Feb 2026 09:57:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218449.1527193; Mon, 02 Feb 2026 09:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 1218459.1527203; Mon, 02 Feb 2026 09:57:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqGN-0006dB-CI; Mon, 02 Feb 2026 09:30:31 +0000
-Received: by outflank-mailman (input) for mailman id 1218449;
- Mon, 02 Feb 2026 09:30:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Bi8a=AG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vmqGM-0006d5-Mr
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:30:30 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cff76c17-0019-11f1-b161-2bf370ae4941;
- Mon, 02 Feb 2026 10:30:29 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47ee3a63300so46483685e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Feb 2026 01:30:29 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4806cddffc0sm437701485e9.5.2026.02.02.01.30.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Feb 2026 01:30:27 -0800 (PST)
+	id 1vmqgT-0001Vy-My; Mon, 02 Feb 2026 09:57:29 +0000
+Received: by outflank-mailman (input) for mailman id 1218459;
+ Mon, 02 Feb 2026 09:51:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IGL7=AG=sony.com=shashank.mahadasyam@srs-se1.protection.inumbo.net>)
+ id 1vmqb9-0001Il-KV
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:51:59 +0000
+Received: from jpms-ob01.noc.sony.co.jp (jpms-ob01.noc.sony.co.jp
+ [2001:cf8:ace:41::4]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c633f1e7-001c-11f1-9ccf-f158ae23cfc8;
+ Mon, 02 Feb 2026 10:51:45 +0100 (CET)
+Received: from unknown (HELO jpmta-ob1.noc.sony.co.jp)
+ ([IPv6:2001:cf8:0:6e7::6])
+ by jpms-ob01.noc.sony.co.jp with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2026 18:51:37 +0900
+Received: from unknown (HELO [127.0.1.1])
+ ([IPv6:2001:cf8:1:573:0:dddd:6b3e:119e])
+ by jpmta-ob1.noc.sony.co.jp with ESMTP; 02 Feb 2026 18:51:37 +0900
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,211 +48,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cff76c17-0019-11f1-b161-2bf370ae4941
+X-Inumbo-ID: c633f1e7-001c-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770024628; x=1770629428; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=T28K2QmfD4zyIgF8sXByuh95R5TkyNmgYqzdeBXOrwE=;
-        b=gTlynRSt7wqG7P2362x/v1ONhAdcNbM3PeaPWr8jfn3g4n/nQHhDm5+uUC2fsOUBAG
-         2r0VEtWAzKmrB6IS8H9m7T9IF+rBC5MR7niyHptN6s6wtcq0Otej6EQ90Be0pdx9dLQR
-         CokMoqNkeBgxvy/04oauJsHiVlw+NzymyN8ueMfHe6tDScB10Vj4zzaNSN5fkNQmNDX7
-         4c/1pdJeU8vZjyQpOYBPxSnrMICKwuZQx5XDuczTUYiTJfPBh+IOdGEtiiATgFGP+VGf
-         Dv+1D7yZMDgYUGGsNhwmrrtCQsCnqmdeeZ1+iIdGGKzC6+PlAxqyEITHj9UmdDpIFduJ
-         r1aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770024628; x=1770629428;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T28K2QmfD4zyIgF8sXByuh95R5TkyNmgYqzdeBXOrwE=;
-        b=eZLEY9sJDQlI4cfsvltLgspU8mglFyeQ0im0HTv4c+JmCLderMuCfGMNtmogCjJ5Fd
-         V3waQPttZY1gYXvp+ij+L1Si2Jr5NFKBv6IxoaDiW1Fz+dA98qjsLBGKoaVWYJ60X8xa
-         H1KthsILo2L3ZZGr57yQli3OlKKQqpF+5mB9mavekY9BKsJ5PVq9vV5xL5j/8Y3F0o3Y
-         57Hsg5Gfocpq03+Mc51MYrECYiCALEufEtNXTVUWIfbT2yXgpCIeVqK2MVa8NGm529c0
-         dMKHqnjx9YRAWC2KJUHVvb0KlQGbpJvUUCTdrzGgvEGhVlqG3Rs8ug2RlkCER9LypEbD
-         1kSA==
-X-Gm-Message-State: AOJu0YzLENpAbA9OxxwJJVXNMfycdApTNXkflSdwyAbFaT91yHlHyO7f
-	CTU6frYEULyfB3ouZ4er7zbQjRQsWTOAg8AL2td+ltl2cgb0x8d8wl7PJgWWc/G/Jw==
-X-Gm-Gg: AZuq6aIDqFYonzluodyyziwJOwqKlTMixbVABCDKfaTQ9OGv2kErZ7bDtgUs21mjyYD
-	RyINA8L67fwbcSFlswWaHhB6fzOD1+lonzO29qHAKuwAoamM0HFn9RYomu/sc15B3TPiGrhfowp
-	6EE4ozTwoc2kPZH/K1pnNFLS1JABPJOgRKZi56GJYwJG14ZXBwAxHh0pZwsY+PitEFArNym3CDh
-	AyJRNNOg+tROZ80yPsdLgoYfQeptQ+8ByXfukWAaQgfI1GuHkfdk4Z/HmIaaYE2eemxuQddaXld
-	TZ1zw4TtHqyWsxbXDquTWmlmqSi73pXrjWd3PiPbFCxMsRNd3BDXdp7dbe/XDuiCf0D2x3gfn5c
-	GL2JuFP+JKK6u/E/CQc45hvvDwytqdTkAUgVk1nYlLrweYquy6PrKj15EwojBbyzOeT6QAFde9x
-	YR20ZNTH4fkltkTAY4bo12pIQWvd5FsdTjmer0f6Ksjdf1Ys9gDEZhg2g/671+v6a6nbmEkQOWK
-	oM=
-X-Received: by 2002:a05:600c:6814:b0:480:699c:abe9 with SMTP id 5b1f17b1804b1-482db4b21c6mr112875325e9.37.1770024628377;
-        Mon, 02 Feb 2026 01:30:28 -0800 (PST)
-Message-ID: <1bcdd2dd-9b2b-4eb2-a569-e28b03c1e1fb@suse.com>
-Date: Mon, 2 Feb 2026 10:30:29 +0100
+  d=sony.com; s=s1jp; t=1770025905; x=1801561905;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=9aqqCS44lWCHB49Zm7J55r5rkQXnOnuoUWB3fHL0bvM=;
+  b=tWqmpYNVkTwCd5q2PW+AHOynhhM3yHAvejO1MOH2xhnJeXjIgapPj/7Y
+   9ieaJfZh5khD/WXCmcDH0+fMwj2ZyI/xcWreyYrlSyuczdFx3gk2ueIZB
+   zz3SYdKMnbQ/yQ9RpkPlJnuZ1Nohwl7plv3IUHAKEe51xLhX0qpzPzKza
+   TpsWiQFvj0KARrOr9GYduaunh4gh8TsJM2MIeIlM4c5blYDeyGxfvbF59
+   O9pQkskUoXCc+AcYT3QqRCREKIwLXbLx9Xwht9TOavQA71bWvMKkxnluZ
+   rOXoq/PJwF30dDVuXrb6hpkCnj51uKlSCHrvvKc+47I2AAnia9rjxX1Ss
+   Q==;
+X-IronPort-AV: E=Sophos;i="6.21,268,1763391600"; 
+   d="scan'208";a="607384933"
+From: Shashank Balaji <shashank.mahadasyam@sony.com>
+Subject: [PATCH 0/3] x86/x2apic: Fix hang-up of defconfig kernel on resume
+ from s2ram
+Date: Mon, 02 Feb 2026 18:51:01 +0900
+Message-Id: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] x86/PCI: avoid re-evaluation of extended config
- space accessibility
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-References: <a67e69b8-c1e9-4448-adbd-17a19dfe13de@suse.com>
- <a0b10d39-daae-4fc0-af42-a3794a96f9f5@suse.com>
- <b63b0f9e-93cd-4b55-a7c0-f8eab9df1947@suse.com> <aYBq2EoeP_TGv_sK@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aYBq2EoeP_TGv_sK@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIZzgGkC/x2MQQqAIBAAvyJ7TlDBsL4SHXTbai8mCiGIf086z
+ sBMg0KZqcAqGmR6ufATB+hJAN4+XiT5GAxGmVkZpWU1PjHKk6t0Fh3qYDEsCkaQMg39z7a99w8
+ R+TM4XAAAAA==
+X-Change-ID: 20260201-x2apic-fix-85c8c1b5cb90
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Suresh Siddha <suresh.b.siddha@intel.com>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Ajay Kaher <ajay.kaher@broadcom.com>, 
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Ingo Molnar <mingo@elte.hu>, linux-kernel@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
+ jailhouse-dev@googlegroups.com, kvm@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, Rahul Bukte <rahul.bukte@sony.com>, 
+ Shashank Balaji <shashank.mahadasyam@sony.com>, 
+ Daniel Palmer <daniel.palmer@sony.com>, Tim Bird <tim.bird@sony.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2357;
+ i=shashank.mahadasyam@sony.com; h=from:subject:message-id;
+ bh=rciqWe9MknIhKucUK+4wbzClj9FvwHeXsn6kPpt+wM8=;
+ b=owGbwMvMwCU2bX1+URVTXyjjabUkhsyG4hXbtvp/s2L/pXvGSPVq9wtGQUU/0+sZWw9OOKhfs
+ jfkl8CHjlIWBjEuBlkxRZZSpepfe1cELek581oRZg4rE8gQBi5OAZhIlhTD/8DScGFBO6NF8ydO
+ ftFcVXsmfwpX6p0FupNYLebce84rq8zI0Cddbi5zcoJG8MkZzSbn5D/+eMqwb04Pw8ycnOdp7hW
+ XuQA=
+X-Developer-Key: i=shashank.mahadasyam@sony.com; a=openpgp;
+ fpr=75227BFABDA852A48CCCEB2196AF6F727A028E55
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	DMARC_POLICY_ALLOW(-0.50)[sony.com,none];
+	R_DKIM_ALLOW(-0.20)[sony.com:s=s1jp];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:shashank.mahadasyam@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[shashank.mahadasyam@sony.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[sony.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[shashank.mahadasyam@sony.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 43315CA251
+X-Rspamd-Queue-Id: 15268CA598
 X-Rspamd-Action: no action
 
-On 02.02.2026 10:14, Roger Pau Monné wrote:
-> On Mon, Feb 02, 2026 at 09:51:18AM +0100, Jan Beulich wrote:
->> On 29.01.2026 14:10, Jan Beulich wrote:
->>> @@ -160,10 +161,13 @@ int pci_mmcfg_arch_enable(unsigned int i
->>>      return 0;
->>>  }
->>>  
->>> -void pci_mmcfg_arch_disable(unsigned int idx)
->>> +int pci_mmcfg_arch_disable(unsigned int idx)
->>>  {
->>>      const typeof(pci_mmcfg_config[0]) *cfg = pci_mmcfg_virt[idx].cfg;
->>>  
->>> +    if ( !pci_mmcfg_virt[idx].virt )
->>> +        return 1;
->>
->> Afaict this is what causes CI (adl-*) to say no here:
->>
->> (XEN) [    4.132689] PCI: Using MCFG for segment 0000 bus 00-ff
->> (XEN) [    4.132697] ----[ Xen-4.22-unstable  x86_64  debug=y ubsan=y  Not tainted ]----
->> (XEN) [    4.132700] CPU:    12
->> (XEN) [    4.132702] RIP:    e008:[<ffff82d0405779bd>] pci_mmcfg_read+0x19e/0x1c7
->> (XEN) [    4.132708] RFLAGS: 0000000000010286   CONTEXT: hypervisor (d0v0)
->> (XEN) [    4.132711] rax: 0000000000300000   rbx: ffff808000300100   rcx: 0000000000000000
->> (XEN) [    4.132714] rdx: ffff808000300100   rsi: 0000000000000000   rdi: ffff8304959ffcec
->> (XEN) [    4.132716] rbp: ffff8304959ffd18   rsp: ffff8304959ffce8   r8:  0000000000000004
->> (XEN) [    4.132718] r9:  ffff8304959ffd2c   r10: 0000000000000000   r11: 0000000000000000
->> (XEN) [    4.132720] r12: 0000000000000100   r13: 0000000000000004   r14: ffff8304959ffd2c
->> (XEN) [    4.132723] r15: ffff808000000000   cr0: 0000000080050033   cr4: 0000000000b526e0
->> (XEN) [    4.132725] cr3: 0000000492a30000   cr2: ffff808000300100
->> (XEN) [    4.132727] fsb: 0000000000000000   gsb: ffff8881b9a00000   gss: 0000000000000000
->> (XEN) [    4.132729] ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
->> (XEN) [    4.132733] Xen code around <ffff82d0405779bd> (pci_mmcfg_read+0x19e/0x1c7):
->> (XEN) [    4.132734]  48 39 d3 72 ea 4c 01 e3 <8b> 03 89 c3 4d 85 f6 74 0d 41 89 1e b8 00 00 00
->> (XEN) [    4.132744] Xen stack trace from rsp=ffff8304959ffce8:
->> (XEN) [    4.132745]    0000000300000286 ffff830495bd8010 0000000000000003 ffff830495bd8010
->> (XEN) [    4.132749]    ffff8304959ffdd0 ffff82d0405fa7ef ffff8304959ffd30 ffff82d040576877
->> (XEN) [    4.132753]    000000000000000c ffff8304959ffd58 ffff82d04039b81d ffff8304959ffe28
->> (XEN) [    4.132756]    0000000000000003 ffff830495bd8010 ffff8304959ffd80 ffff82d0405fa90b
->> (XEN) [    4.132760]    ffff8304959ffdc8 ffff830495bd8010 ffff830498019650 ffff8304959ffdb8
->> (XEN) [    4.132764]    ffff82d0403983e0 ffff830498019650 ffff8304959ffe28 ffff82d0405fa7ef
->> (XEN) [    4.132767]    0000000000000018 ffffc9004002b900 ffff8304959ffdf8 ffff82d04039feba
->> (XEN) [    4.132771]    ffff82d0405fa7ef ffff8304959ffe28 0000000000000000 ffffc9004002b900
->> (XEN) [    4.132774]    0000000000000000 ffff8304959bb000 ffff8304959ffe78 ffff82d0405ff666
->> (XEN) [    4.132778]    ffff82d0405713b8 00000000ffffffff 00a0fb0081f456e0 ffff8304959b3010
->> (XEN) [    4.132782]    00000000c0000000 00000001ff000000 ffff8304959fff08 0000000000000040
->> (XEN) [    4.132785]    000000ec00000001 ffff8304959fff08 ffff8304959a4000 0000000000000021
->> (XEN) [    4.132789]    0000000000000000 ffffc9004002b900 ffff8304959ffef8 ffff82d0405711b2
->> (XEN) [    4.132792]    0000000000000000 ffff888100456938 ffff8881001470b8 0000000000000018
->> (XEN) [    4.132795]    0000000000000000 ffff8304959ffef8 ffff82d0406213f9 ffff8304959a4000
->> (XEN) [    4.132799]    0000000000000000 ffff8304959a4000 0000000000000000 0000000000000000
->> (XEN) [    4.132802]    ffff8304959fffff 0000000000000000 00007cfb6a6000d7 ffff82d0402012d3
->> (XEN) [    4.132806]    0000000000000000 00000000ffffffff ffff8881001470b8 ffff888100b88900
->> (XEN) [    4.132809]    ffffc9004002b900 ffff8881001470b8 0000000000000283 ffff888100456938
->> (XEN) [    4.132813]    ffff888100065410 0000000000000000 0000000000000021 ffffffff81f7842a
->> (XEN) [    4.132816] Xen call trace:
->> (XEN) [    4.132819]    [<ffff82d0405779bd>] R pci_mmcfg_read+0x19e/0x1c7
->> (XEN) [    4.132822]    [<ffff82d040576877>] F pci_conf_read32+0x55/0x5e
->> (XEN) [    4.132826]    [<ffff82d04039b81d>] F pci_check_extcfg+0xb1/0x13b
->> (XEN) [    4.132831]    [<ffff82d0405fa90b>] F physdev_check_pci_extcfg+0x11c/0x121
->> (XEN) [    4.132833]    [<ffff82d0403983e0>] F drivers/passthrough/pci.c#iterate_all+0xa2/0xe2
->> (XEN) [    4.132836]    [<ffff82d04039feba>] F pci_segment_iterate+0x4e/0x74
->> (XEN) [    4.132839]    [<ffff82d0405ff666>] F do_physdev_op+0x362a/0x4161
->> (XEN) [    4.132842]    [<ffff82d0405711b2>] F pv_hypercall+0x6be/0x838
->> (XEN) [    4.132845]    [<ffff82d0402012d3>] F lstar_enter+0x143/0x148
->> (XEN) [    4.132847] 
->> (XEN) [    4.132848] Pagetable walk from ffff808000300100:
->> (XEN) [    4.132851]  L4[0x101] = 0000000000000000 ffffffffffffffff
->>
->> There is an important comment in pci_mmcfg_arch_disable():
->>
->>     /*
->>      * Don't use destroy_xen_mappings() here, or make sure that at least
->>      * the necessary L4 entries get populated (so that they get properly
->>      * propagated to guest domains' page tables).
->>      */
->>
->> Hence it is wrong to bypass
->>
->>     mcfg_ioremap(cfg, idx, 0);
-> 
-> Hm, I see.  The L4 slot must be unconditionally populated before we
-> clone the idle page-table, otherwise the mappings won't propagate.
-> 
-> What about unconditionally populating the L4 slot in
-> subarch_init_memory()?  That seems less fragile than doing it in
-> pci_mmcfg_arch_disable().
+On resume from s2ram, a defconfig kernel gets into a state where the x2apic
+hardware state and the kernel's perceived state are different.
 
-Less fragile - perhaps. Yet I don't see why we should populate the field if
-we wouldn't ever need it. Of course with violating layering some, we could
-know in subarch_init_memory(), as pci_setup() runs earlier.
+On boot, x2apic is enabled by the firmware, and then the kernel does the
+following (relevant lines from dmesg):
 
-Jan
+	[    0.000381] x2apic: enabled by BIOS, switching to x2apic ops
+	[    0.009939] APIC: Switched APIC routing to: cluster x2apic
+	[    0.095151] x2apic: IRQ remapping doesn't support X2APIC mode
+	[    0.095154] x2apic disabled
+	[    0.095551] APIC: Switched APIC routing to: physical flat
+
+defconfig has CONFIG_IRQ_REMAP=n, which leads to x2apic being disabled,
+because on bare metal, x2apic has an architectural dependence on interrupt
+remapping.
+
+While resuming from s2ram, x2apic is enabled again by the firmware, but
+the kernel continues using the physical flat apic routing. This causes a
+hang-up and no console output.
+
+Patch 1 fixes this in lapic_resume by disabling x2apic when the kernel expects
+it to be disabled.
+Patch 2 enables CONFIG_IRQ_REMAP in defconfig so that defconfig kernels at
+least don't disable x2apic because of a lack of IRQ_REMAP support.
+Patch 3 is a non-functional change renaming x2apic_available to
+x2apic_without_ir_available in struct x86_hyper_init, to better convey
+the semantic.
+
+Signed-off-by: Rahul Bukte <rahul.bukte@sony.com>
+Signed-off-by: Shashank Balaji <shashank.mahadasyam@sony.com>
+---
+Shashank Balaji (3):
+      x86/x2apic: disable x2apic on resume if the kernel expects so
+      x86/defconfig: add CONFIG_IRQ_REMAP
+      x86/virt: rename x2apic_available to x2apic_without_ir_available
+
+ arch/x86/configs/x86_64_defconfig |  1 +
+ arch/x86/include/asm/x86_init.h   |  4 ++--
+ arch/x86/kernel/apic/apic.c       | 10 ++++++++--
+ arch/x86/kernel/cpu/acrn.c        |  2 +-
+ arch/x86/kernel/cpu/bhyve.c       |  2 +-
+ arch/x86/kernel/cpu/mshyperv.c    |  2 +-
+ arch/x86/kernel/cpu/vmware.c      |  2 +-
+ arch/x86/kernel/jailhouse.c       |  2 +-
+ arch/x86/kernel/kvm.c             |  2 +-
+ arch/x86/kernel/x86_init.c        | 12 ++++++------
+ arch/x86/xen/enlighten_hvm.c      |  4 ++--
+ 11 files changed, 25 insertions(+), 18 deletions(-)
+---
+base-commit: 18f7fcd5e69a04df57b563360b88be72471d6b62
+change-id: 20260201-x2apic-fix-85c8c1b5cb90
+
+Best regards,
+-- 
+Shashank Balaji <shashank.mahadasyam@sony.com>
+
 
