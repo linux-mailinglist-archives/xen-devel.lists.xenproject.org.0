@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6LmUBSJ1gGnU8QIAu9opvQ
+	id 4AMhFCR1gGkV8gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:54 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCBCFCA589
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218465.1527220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05B9FCA59F
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218463.1527215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqgU-0001nD-KP; Mon, 02 Feb 2026 09:57:30 +0000
+	id 1vmqgU-0001hS-Cc; Mon, 02 Feb 2026 09:57:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218465.1527220; Mon, 02 Feb 2026 09:57:30 +0000
+Received: by outflank-mailman (output) from mailman id 1218463.1527215; Mon, 02 Feb 2026 09:57:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqgU-0001hX-EV; Mon, 02 Feb 2026 09:57:30 +0000
-Received: by outflank-mailman (input) for mailman id 1218465;
- Mon, 02 Feb 2026 09:52:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vmqgU-0001cy-68; Mon, 02 Feb 2026 09:57:30 +0000
+Received: by outflank-mailman (input) for mailman id 1218463;
+ Mon, 02 Feb 2026 09:52:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IGL7=AG=sony.com=shashank.mahadasyam@srs-se1.protection.inumbo.net>)
- id 1vmqbH-0001Jw-EQ
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:52:07 +0000
+ id 1vmqbE-0001Il-Va
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:52:04 +0000
 Received: from jpms-ob01.noc.sony.co.jp (jpms-ob01.noc.sony.co.jp
- [2001:cf8:ace:41::4]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d14876f9-001c-11f1-b161-2bf370ae4941;
+ [2001:cf8:ace:41::4]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d2cc2a73-001c-11f1-9ccf-f158ae23cfc8;
  Mon, 02 Feb 2026 10:52:02 +0100 (CET)
 Received: from unknown (HELO jpmta-ob1.noc.sony.co.jp)
  ([IPv6:2001:cf8:0:6e7::6])
@@ -48,28 +48,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d14876f9-001c-11f1-b161-2bf370ae4941
+X-Inumbo-ID: d2cc2a73-001c-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=sony.com; s=s1jp; t=1770025922; x=1801561922;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=GI9OPx+uxZW/9+u+5es0pePWKf46Zy6n4IWktANHhfk=;
-  b=e0byH80zs8rrbQ+SG/yAl5pVranguTJiTv2KWDsjEGqSkO0OssSgf3fK
-   xLzgSY2byQDmZEO4/gMmtjRIcIrv2X6uzjUHJw77nRIxKz6zZi3K55kuO
-   38sboMnzWKGwEVC0Zp2KqjPEJLlHec1DN8AtGEPooANNGGJtI6coTmKye
-   5hIKBQTElzNhrXwgQOfvEpHM1OIIwfjdq1yl7+F60z6UYNgiQVOQnwjXj
-   TvdVB5woj9IHUULn1vhdFdW7zWl1CVTL6qjcg2C/PMXGBcbnYXMGpbUti
-   HU5HUQYXh7YyUpPOeZeRJyOI/VdGYcQrYiwlb3Do/Hh/Ox5hYn8ib/1Vc
+  bh=UGbV0HlypAsqDyqCwF4KKZshjhbYqkotn40a85H3Q7U=;
+  b=Fsk8atP8nOli3A/kdU1FTFujNMxydunfy/0QabsYe7jNJhGm6H88rUTl
+   inKAlL/r973SUJg9eT/QLvQ6XUQ5Z1zzVR3WfUx82Bh/+OVteJj5i9c0c
+   i9g8QYmd1M2Fj6GWZ0zQGLNBVz7vA8wVOPX0KiVqO3vhAXRtayG1s6aam
+   JyXxACjk15x5b0CeL9dCyap3V5e5y9+P4V5uVk2lZ9ONogp1rfsnTlbDL
+   nFVA8cTmEmXDW5zHMNTWZ8HLFoZDQMYuHpAsQWRS6QQZHtlDkpL+jif+G
+   i+LoAuD8joUkr/+y1Qm+QfGxsdGCUdd3H8PsWEFMyX0QDGANlaggsztfq
    w==;
 X-IronPort-AV: E=Sophos;i="6.21,268,1763391600"; 
-   d="scan'208";a="607384937"
+   d="scan'208";a="607384938"
 From: Shashank Balaji <shashank.mahadasyam@sony.com>
-Date: Mon, 02 Feb 2026 18:51:03 +0900
-Subject: [PATCH 2/3] x86/defconfig: add CONFIG_IRQ_REMAP
+Date: Mon, 02 Feb 2026 18:51:04 +0900
+Subject: [PATCH 3/3] x86/virt: rename x2apic_available to
+ x2apic_without_ir_available
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260202-x2apic-fix-v1-2-71c8f488a88b@sony.com>
+Message-Id: <20260202-x2apic-fix-v1-3-71c8f488a88b@sony.com>
 References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
 In-Reply-To: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -92,29 +93,29 @@ Cc: Ingo Molnar <mingo@elte.hu>, linux-kernel@vger.kernel.org,
  Shashank Balaji <shashank.mahadasyam@sony.com>, 
  Daniel Palmer <daniel.palmer@sony.com>, Tim Bird <tim.bird@sony.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=897;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8661;
  i=shashank.mahadasyam@sony.com; h=from:subject:message-id;
- bh=WGBqeRf3m3q38dcFfIzoZC7KITAdIHJXG+fCWgOOD40=;
- b=owGbwMvMwCU2bX1+URVTXyjjabUkhsyG4hWJ5ZPesy10dLqdVPT13NLfdzYoem+Z+6FTrppr+
- 3YRUxvJjlIWBjEuBlkxRZZSpepfe1cELek581oRZg4rE8gQBi5OAZiI71yG/3G5dneW7G7keJnx
- 4Wd+z+9zOUtZjcKVjm+qm6rqVBCX9Jnhf+n3kx2OkYsNn+1Qe6/XFrn9pXSWzssdU98b3/BZ2S2
- XyAQA
+ bh=40ywH2ksTo16iKGC5c7aKcdzHSb3M0fEznHdLx5ChZY=;
+ b=owGbwMvMwCU2bX1+URVTXyjjabUkhsyG4pV73BSkW2t+bFj8lP/axHMSXQ/nLg+dcOZBrWq1l
+ IycyNnlHaUsDGJcDLJiiiylStW/9q4IWtJz5rUizBxWJpAhDFycAjAR/UqGn4xiaRxyy02Nn4be
+ 9Xesdnx9Matg+r2d2y7WH5tzzWHmuTSG/4lN6178i2r5JLaG8/tKKYYCxeYn2uGibz7WxSq6yev
+ mMAAA
 X-Developer-Key: i=shashank.mahadasyam@sony.com; a=openpgp;
  fpr=75227BFABDA852A48CCCEB2196AF6F727A028E55
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[sony.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[sony.com:s=s1jp];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:shashank.mahadasyam@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	FORGED_SENDER(0.00)[shashank.mahadasyam@sony.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[31];
 	MIME_TRACE(0.00)[0:+];
@@ -130,32 +131,208 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: BCBCFCA589
+X-Rspamd-Queue-Id: 05B9FCA59F
 X-Rspamd-Action: no action
 
-Interrupt remapping is an architectural dependency of x2apic, which is already
-enabled in the defconfig. Enable CONFIG_IRQ_REMAP so that a defconfig kernel on
-bare metal actually uses x2apic.
+No functional change.
+
+x86_init.hyper.x2apic_available is used only in try_to_enable_x2apic to check if
+x2apic needs to be disabled if interrupt remapping support isn't present. But
+the name x2apic_available doesn't reflect that usage.
+
+This is what x2apic_available is set to for various hypervisors:
+
+	acrn		boot_cpu_has(X86_FEATURE_X2APIC)
+	mshyperv	boot_cpu_has(X86_FEATURE_X2APIC)
+	xen		boot_cpu_has(X86_FEATURE_X2APIC) or false
+	vmware		vmware_legacy_x2apic_available
+	kvm		kvm_cpuid_base() != 0
+	jailhouse	x2apic_enabled()
+	bhyve		true
+	default		false
+
+Bare metal and vmware correctly check if x2apic is available without interrupt
+remapping. The rest of them check if x2apic is enabled/supported, and kvm just
+checks if the kernel is running on kvm. The other hypervisors may have to have
+their checks audited.
+
+Also fix the backwards pr_info message printed on disabling x2apic because of
+lack of irq remapping support.
+
+Compile tested with all the hypervisor guest support enabled.
 
 Co-developed-by: Rahul Bukte <rahul.bukte@sony.com>
 Signed-off-by: Rahul Bukte <rahul.bukte@sony.com>
 Signed-off-by: Shashank Balaji <shashank.mahadasyam@sony.com>
 ---
- arch/x86/configs/x86_64_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/include/asm/x86_init.h |  4 ++--
+ arch/x86/kernel/apic/apic.c     |  4 ++--
+ arch/x86/kernel/cpu/acrn.c      |  2 +-
+ arch/x86/kernel/cpu/bhyve.c     |  2 +-
+ arch/x86/kernel/cpu/mshyperv.c  |  2 +-
+ arch/x86/kernel/cpu/vmware.c    |  2 +-
+ arch/x86/kernel/jailhouse.c     |  2 +-
+ arch/x86/kernel/kvm.c           |  2 +-
+ arch/x86/kernel/x86_init.c      | 12 ++++++------
+ arch/x86/xen/enlighten_hvm.c    |  4 ++--
+ 10 files changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/arch/x86/configs/x86_64_defconfig b/arch/x86/configs/x86_64_defconfig
-index 7d7310cdf8b0..269f7d808be4 100644
---- a/arch/x86/configs/x86_64_defconfig
-+++ b/arch/x86/configs/x86_64_defconfig
-@@ -230,6 +230,7 @@ CONFIG_EEEPC_LAPTOP=y
- CONFIG_AMD_IOMMU=y
- CONFIG_INTEL_IOMMU=y
- # CONFIG_INTEL_IOMMU_DEFAULT_ON is not set
-+CONFIG_IRQ_REMAP=y
- CONFIG_EXT4_FS=y
- CONFIG_EXT4_FS_POSIX_ACL=y
- CONFIG_EXT4_FS_SECURITY=y
+diff --git a/arch/x86/include/asm/x86_init.h b/arch/x86/include/asm/x86_init.h
+index 6c8a6ead84f6..b270d9eed755 100644
+--- a/arch/x86/include/asm/x86_init.h
++++ b/arch/x86/include/asm/x86_init.h
+@@ -116,7 +116,7 @@ struct x86_init_pci {
+  * struct x86_hyper_init - x86 hypervisor init functions
+  * @init_platform:		platform setup
+  * @guest_late_init:		guest late init
+- * @x2apic_available:		X2APIC detection
++ * @x2apic_without_ir_available: is x2apic available without irq remap?
+  * @msi_ext_dest_id:		MSI supports 15-bit APIC IDs
+  * @init_mem_mapping:		setup early mappings during init_mem_mapping()
+  * @init_after_bootmem:		guest init after boot allocator is finished
+@@ -124,7 +124,7 @@ struct x86_init_pci {
+ struct x86_hyper_init {
+ 	void (*init_platform)(void);
+ 	void (*guest_late_init)(void);
+-	bool (*x2apic_available)(void);
++	bool (*x2apic_without_ir_available)(void);
+ 	bool (*msi_ext_dest_id)(void);
+ 	void (*init_mem_mapping)(void);
+ 	void (*init_after_bootmem)(void);
+diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
+index cc64d61f82cf..8820b631f8a2 100644
+--- a/arch/x86/kernel/apic/apic.c
++++ b/arch/x86/kernel/apic/apic.c
+@@ -1836,8 +1836,8 @@ static __init void try_to_enable_x2apic(int remap_mode)
+ 		 * Using X2APIC without IR is not architecturally supported
+ 		 * on bare metal but may be supported in guests.
+ 		 */
+-		if (!x86_init.hyper.x2apic_available()) {
+-			pr_info("x2apic: IRQ remapping doesn't support X2APIC mode\n");
++		if (!x86_init.hyper.x2apic_without_ir_available()) {
++			pr_info("x2apic: Not supported without IRQ remapping\n");
+ 			x2apic_disable();
+ 			return;
+ 		}
+diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
+index 2c5b51aad91a..9204b98d4786 100644
+--- a/arch/x86/kernel/cpu/acrn.c
++++ b/arch/x86/kernel/cpu/acrn.c
+@@ -77,5 +77,5 @@ const __initconst struct hypervisor_x86 x86_hyper_acrn = {
+ 	.detect                 = acrn_detect,
+ 	.type			= X86_HYPER_ACRN,
+ 	.init.init_platform     = acrn_init_platform,
+-	.init.x2apic_available  = acrn_x2apic_available,
++	.init.x2apic_without_ir_available = acrn_x2apic_available,
+ };
+diff --git a/arch/x86/kernel/cpu/bhyve.c b/arch/x86/kernel/cpu/bhyve.c
+index f1a8ca3dd1ed..91a90a7459ce 100644
+--- a/arch/x86/kernel/cpu/bhyve.c
++++ b/arch/x86/kernel/cpu/bhyve.c
+@@ -61,6 +61,6 @@ const struct hypervisor_x86 x86_hyper_bhyve __refconst = {
+ 	.name			= "Bhyve",
+ 	.detect			= bhyve_detect,
+ 	.init.init_platform	= x86_init_noop,
+-	.init.x2apic_available	= bhyve_x2apic_available,
++	.init.x2apic_without_ir_available = bhyve_x2apic_available,
+ 	.init.msi_ext_dest_id	= bhyve_ext_dest_id,
+ };
+diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
+index 579fb2c64cfd..61458855094a 100644
+--- a/arch/x86/kernel/cpu/mshyperv.c
++++ b/arch/x86/kernel/cpu/mshyperv.c
+@@ -760,7 +760,7 @@ const __initconst struct hypervisor_x86 x86_hyper_ms_hyperv = {
+ 	.name			= "Microsoft Hyper-V",
+ 	.detect			= ms_hyperv_platform,
+ 	.type			= X86_HYPER_MS_HYPERV,
+-	.init.x2apic_available	= ms_hyperv_x2apic_available,
++	.init.x2apic_without_ir_available = ms_hyperv_x2apic_available,
+ 	.init.msi_ext_dest_id	= ms_hyperv_msi_ext_dest_id,
+ 	.init.init_platform	= ms_hyperv_init_platform,
+ 	.init.guest_late_init	= ms_hyperv_late_init,
+diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+index cb3f900c46fc..46d325818797 100644
+--- a/arch/x86/kernel/cpu/vmware.c
++++ b/arch/x86/kernel/cpu/vmware.c
+@@ -585,7 +585,7 @@ const __initconst struct hypervisor_x86 x86_hyper_vmware = {
+ 	.detect				= vmware_platform,
+ 	.type				= X86_HYPER_VMWARE,
+ 	.init.init_platform		= vmware_platform_setup,
+-	.init.x2apic_available		= vmware_legacy_x2apic_available,
++	.init.x2apic_without_ir_available = vmware_legacy_x2apic_available,
+ #ifdef CONFIG_AMD_MEM_ENCRYPT
+ 	.runtime.sev_es_hcall_prepare	= vmware_sev_es_hcall_prepare,
+ 	.runtime.sev_es_hcall_finish	= vmware_sev_es_hcall_finish,
+diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
+index 9e9a591a5fec..84a0bbe15989 100644
+--- a/arch/x86/kernel/jailhouse.c
++++ b/arch/x86/kernel/jailhouse.c
+@@ -291,6 +291,6 @@ const struct hypervisor_x86 x86_hyper_jailhouse __refconst = {
+ 	.name			= "Jailhouse",
+ 	.detect			= jailhouse_detect,
+ 	.init.init_platform	= jailhouse_init_platform,
+-	.init.x2apic_available	= jailhouse_x2apic_available,
++	.init.x2apic_without_ir_available = jailhouse_x2apic_available,
+ 	.ignore_nopv		= true,
+ };
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 37dc8465e0f5..709eba87d58e 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -1042,7 +1042,7 @@ const __initconst struct hypervisor_x86 x86_hyper_kvm = {
+ 	.detect				= kvm_detect,
+ 	.type				= X86_HYPER_KVM,
+ 	.init.guest_late_init		= kvm_guest_init,
+-	.init.x2apic_available		= kvm_para_available,
++	.init.x2apic_without_ir_available = kvm_para_available,
+ 	.init.msi_ext_dest_id		= kvm_msi_ext_dest_id,
+ 	.init.init_platform		= kvm_init_platform,
+ #if defined(CONFIG_AMD_MEM_ENCRYPT)
+diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
+index ebefb77c37bb..9ddf8c901ac6 100644
+--- a/arch/x86/kernel/x86_init.c
++++ b/arch/x86/kernel/x86_init.c
+@@ -112,12 +112,12 @@ struct x86_init_ops x86_init __initdata = {
+ 	},
+ 
+ 	.hyper = {
+-		.init_platform		= x86_init_noop,
+-		.guest_late_init	= x86_init_noop,
+-		.x2apic_available	= bool_x86_init_noop,
+-		.msi_ext_dest_id	= bool_x86_init_noop,
+-		.init_mem_mapping	= x86_init_noop,
+-		.init_after_bootmem	= x86_init_noop,
++		.init_platform			= x86_init_noop,
++		.guest_late_init		= x86_init_noop,
++		.x2apic_without_ir_available	= bool_x86_init_noop,
++		.msi_ext_dest_id		= bool_x86_init_noop,
++		.init_mem_mapping		= x86_init_noop,
++		.init_after_bootmem		= x86_init_noop,
+ 	},
+ 
+ 	.acpi = {
+diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+index fe57ff85d004..42f3d21f313d 100644
+--- a/arch/x86/xen/enlighten_hvm.c
++++ b/arch/x86/xen/enlighten_hvm.c
+@@ -311,7 +311,7 @@ static uint32_t __init xen_platform_hvm(void)
+ 		 * detect PVH and panic there.
+ 		 */
+ 		h->init_platform = x86_init_noop;
+-		h->x2apic_available = bool_x86_init_noop;
++		h->x2apic_without_ir_available = bool_x86_init_noop;
+ 		h->init_mem_mapping = x86_init_noop;
+ 		h->init_after_bootmem = x86_init_noop;
+ 		h->guest_late_init = xen_hvm_guest_late_init;
+@@ -325,7 +325,7 @@ struct hypervisor_x86 x86_hyper_xen_hvm __initdata = {
+ 	.detect                 = xen_platform_hvm,
+ 	.type			= X86_HYPER_XEN_HVM,
+ 	.init.init_platform     = xen_hvm_guest_init,
+-	.init.x2apic_available  = xen_x2apic_available,
++	.init.x2apic_without_ir_available = xen_x2apic_available,
+ 	.init.init_mem_mapping	= xen_hvm_init_mem_mapping,
+ 	.init.guest_late_init	= xen_hvm_guest_late_init,
+ 	.init.msi_ext_dest_id   = msi_ext_dest_id,
 
 -- 
 2.43.0
