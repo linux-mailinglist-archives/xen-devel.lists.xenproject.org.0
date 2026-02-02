@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KHXsByN1gGkV8gIAu9opvQ
+	id bFscByJ1gGkV8gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:55 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15268CA598
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218459.1527203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA28CA58A
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 10:57:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218461.1527210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqgT-0001YR-RF; Mon, 02 Feb 2026 09:57:29 +0000
+	id 1vmqgU-0001cd-4T; Mon, 02 Feb 2026 09:57:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218459.1527203; Mon, 02 Feb 2026 09:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 1218461.1527210; Mon, 02 Feb 2026 09:57:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmqgT-0001Vy-My; Mon, 02 Feb 2026 09:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 1218459;
- Mon, 02 Feb 2026 09:51:59 +0000
+	id 1vmqgT-0001YC-Uq; Mon, 02 Feb 2026 09:57:29 +0000
+Received: by outflank-mailman (input) for mailman id 1218461;
+ Mon, 02 Feb 2026 09:52:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IGL7=AG=sony.com=shashank.mahadasyam@srs-se1.protection.inumbo.net>)
- id 1vmqb9-0001Il-KV
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:51:59 +0000
+ id 1vmqbB-0001Il-Vv
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 09:52:01 +0000
 Received: from jpms-ob01.noc.sony.co.jp (jpms-ob01.noc.sony.co.jp
  [2001:cf8:ace:41::4]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c633f1e7-001c-11f1-9ccf-f158ae23cfc8;
- Mon, 02 Feb 2026 10:51:45 +0100 (CET)
+ id d121b1ab-001c-11f1-9ccf-f158ae23cfc8;
+ Mon, 02 Feb 2026 10:51:59 +0100 (CET)
 Received: from unknown (HELO jpmta-ob1.noc.sony.co.jp)
  ([IPv6:2001:cf8:0:6e7::6])
  by jpms-ob01.noc.sony.co.jp with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2026 18:51:37 +0900
+ 02 Feb 2026 18:51:38 +0900
 Received: from unknown (HELO [127.0.1.1])
  ([IPv6:2001:cf8:1:573:0:dddd:6b3e:119e])
- by jpmta-ob1.noc.sony.co.jp with ESMTP; 02 Feb 2026 18:51:37 +0900
+ by jpmta-ob1.noc.sony.co.jp with ESMTP; 02 Feb 2026 18:51:38 +0900
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,33 +48,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c633f1e7-001c-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: d121b1ab-001c-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=sony.com; s=s1jp; t=1770025905; x=1801561905;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=9aqqCS44lWCHB49Zm7J55r5rkQXnOnuoUWB3fHL0bvM=;
-  b=tWqmpYNVkTwCd5q2PW+AHOynhhM3yHAvejO1MOH2xhnJeXjIgapPj/7Y
-   9ieaJfZh5khD/WXCmcDH0+fMwj2ZyI/xcWreyYrlSyuczdFx3gk2ueIZB
-   zz3SYdKMnbQ/yQ9RpkPlJnuZ1Nohwl7plv3IUHAKEe51xLhX0qpzPzKza
-   TpsWiQFvj0KARrOr9GYduaunh4gh8TsJM2MIeIlM4c5blYDeyGxfvbF59
-   O9pQkskUoXCc+AcYT3QqRCREKIwLXbLx9Xwht9TOavQA71bWvMKkxnluZ
-   rOXoq/PJwF30dDVuXrb6hpkCnj51uKlSCHrvvKc+47I2AAnia9rjxX1Ss
-   Q==;
+  d=sony.com; s=s1jp; t=1770025920; x=1801561920;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=4/LXZGnNgY5t+nsrdXbfktyTBcde00tw0WwNVU5EQeQ=;
+  b=nI6A7Ytwa1+zLh8IWECSnhLfuTcw4lqBn+HE9NyTzMST2ejWcv/0885i
+   bTphFfjN08hVCUeoZAOE0EzeJREtl4uhiNSonsGqcqWEDvSz3lSXyl9il
+   kCroDYD+AJfjEwynf9Os7NyNE4mOmUWHbpB8KhpFljpEoQbSqMerrIh04
+   AaQqpxAFGmxeBvSlpT0xL/QFwy8O0wGOZm9RTvk3W33wtQp+XJTOobQCv
+   ez1PLsvIjuQ9BBALQdp0icSXXp7Vu6xil43egXNmHWYY/7WgCtdDnY9fZ
+   l9V+C4CXNxlWqVzJ8EDWE4beYS17MnLNWhTjezCZmv9yyV7GDK60pIxfR
+   g==;
 X-IronPort-AV: E=Sophos;i="6.21,268,1763391600"; 
-   d="scan'208";a="607384933"
+   d="scan'208";a="607384935"
 From: Shashank Balaji <shashank.mahadasyam@sony.com>
-Subject: [PATCH 0/3] x86/x2apic: Fix hang-up of defconfig kernel on resume
- from s2ram
-Date: Mon, 02 Feb 2026 18:51:01 +0900
-Message-Id: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
+Date: Mon, 02 Feb 2026 18:51:02 +0900
+Subject: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
+ expects so
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIZzgGkC/x2MQQqAIBAAvyJ7TlDBsL4SHXTbai8mCiGIf086z
- sBMg0KZqcAqGmR6ufATB+hJAN4+XiT5GAxGmVkZpWU1PjHKk6t0Fh3qYDEsCkaQMg39z7a99w8
- R+TM4XAAAAA==
-X-Change-ID: 20260201-x2apic-fix-85c8c1b5cb90
+Message-Id: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
+References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
+In-Reply-To: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
  x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -96,13 +94,13 @@ Cc: Ingo Molnar <mingo@elte.hu>, linux-kernel@vger.kernel.org,
  Daniel Palmer <daniel.palmer@sony.com>, Tim Bird <tim.bird@sony.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2357;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1476;
  i=shashank.mahadasyam@sony.com; h=from:subject:message-id;
- bh=rciqWe9MknIhKucUK+4wbzClj9FvwHeXsn6kPpt+wM8=;
- b=owGbwMvMwCU2bX1+URVTXyjjabUkhsyG4hXbtvp/s2L/pXvGSPVq9wtGQUU/0+sZWw9OOKhfs
- jfkl8CHjlIWBjEuBlkxRZZSpepfe1cELek581oRZg4rE8gQBi5OAZhIlhTD/8DScGFBO6NF8ydO
- ftFcVXsmfwpX6p0FupNYLebce84rq8zI0Cddbi5zcoJG8MkZzSbn5D/+eMqwb04Pw8ycnOdp7hW
- XuQA=
+ bh=paULGXp6rwtbR4pGaBXqE9RYtLD7iRkEUs2lKCF5e4o=;
+ b=owGbwMvMwCU2bX1+URVTXyjjabUkhsyG4hUGCzw4VzFOfPGnVC7+kcNGzhiLW3NYOT9WyZ0Rv
+ y9psSK2o5SFQYyLQVZMkaVUqfrX3hVBS3rOvFaEmcPKBDKEgYtTACaytoXhv9Nrfese5QfJMkqT
+ Qxp2Whn+q/TjDzf7xqHB/8O9W3/eVob/iW1Xy2aecbmXM6u73+ju1V8pak2+7/wsF/ZYNW4wOtz
+ NCwA=
 X-Developer-Key: i=shashank.mahadasyam@sony.com; a=openpgp;
  fpr=75227BFABDA852A48CCCEB2196AF6F727A028E55
 X-Rspamd-Server: lfdr
@@ -134,63 +132,47 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 15268CA598
+X-Rspamd-Queue-Id: DDA28CA58A
 X-Rspamd-Action: no action
 
-On resume from s2ram, a defconfig kernel gets into a state where the x2apic
-hardware state and the kernel's perceived state are different.
+In lapic_resume, ensure x2apic is actually disabled when the kernel expects it
+to be disabled, i.e. when x2apic_mode = 0.
 
-On boot, x2apic is enabled by the firmware, and then the kernel does the
-following (relevant lines from dmesg):
+x2apic_mode is set to 0 and x2apic is disabled on boot if the kernel doesn't
+support irq remapping or for other reasons. On resume from s2ram
+(/sys/power/mem_sleep = deep), firmware can re-enable x2apic, but the kernel
+continues using the xapic interface because it didn't check to see if someone
+enabled x2apic behind its back, which causes hangs. This situation happens on
+defconfig + bare metal + s2ram, on which this fix has been tested.
 
-	[    0.000381] x2apic: enabled by BIOS, switching to x2apic ops
-	[    0.009939] APIC: Switched APIC routing to: cluster x2apic
-	[    0.095151] x2apic: IRQ remapping doesn't support X2APIC mode
-	[    0.095154] x2apic disabled
-	[    0.095551] APIC: Switched APIC routing to: physical flat
-
-defconfig has CONFIG_IRQ_REMAP=n, which leads to x2apic being disabled,
-because on bare metal, x2apic has an architectural dependence on interrupt
-remapping.
-
-While resuming from s2ram, x2apic is enabled again by the firmware, but
-the kernel continues using the physical flat apic routing. This causes a
-hang-up and no console output.
-
-Patch 1 fixes this in lapic_resume by disabling x2apic when the kernel expects
-it to be disabled.
-Patch 2 enables CONFIG_IRQ_REMAP in defconfig so that defconfig kernels at
-least don't disable x2apic because of a lack of IRQ_REMAP support.
-Patch 3 is a non-functional change renaming x2apic_available to
-x2apic_without_ir_available in struct x86_hyper_init, to better convey
-the semantic.
-
+Fixes: 6e1cb38a2aef ("x64, x2apic/intr-remap: add x2apic support, including enabling interrupt-remapping")
+Cc: stable@vger.kernel.org
+Co-developed-by: Rahul Bukte <rahul.bukte@sony.com>
 Signed-off-by: Rahul Bukte <rahul.bukte@sony.com>
 Signed-off-by: Shashank Balaji <shashank.mahadasyam@sony.com>
 ---
-Shashank Balaji (3):
-      x86/x2apic: disable x2apic on resume if the kernel expects so
-      x86/defconfig: add CONFIG_IRQ_REMAP
-      x86/virt: rename x2apic_available to x2apic_without_ir_available
+ arch/x86/kernel/apic/apic.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- arch/x86/configs/x86_64_defconfig |  1 +
- arch/x86/include/asm/x86_init.h   |  4 ++--
- arch/x86/kernel/apic/apic.c       | 10 ++++++++--
- arch/x86/kernel/cpu/acrn.c        |  2 +-
- arch/x86/kernel/cpu/bhyve.c       |  2 +-
- arch/x86/kernel/cpu/mshyperv.c    |  2 +-
- arch/x86/kernel/cpu/vmware.c      |  2 +-
- arch/x86/kernel/jailhouse.c       |  2 +-
- arch/x86/kernel/kvm.c             |  2 +-
- arch/x86/kernel/x86_init.c        | 12 ++++++------
- arch/x86/xen/enlighten_hvm.c      |  4 ++--
- 11 files changed, 25 insertions(+), 18 deletions(-)
----
-base-commit: 18f7fcd5e69a04df57b563360b88be72471d6b62
-change-id: 20260201-x2apic-fix-85c8c1b5cb90
+diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
+index d93f87f29d03..cc64d61f82cf 100644
+--- a/arch/x86/kernel/apic/apic.c
++++ b/arch/x86/kernel/apic/apic.c
+@@ -2456,6 +2456,12 @@ static void lapic_resume(void *data)
+ 	if (x2apic_mode) {
+ 		__x2apic_enable();
+ 	} else {
++		/*
++		 * x2apic may have been re-enabled by the
++		 * firmware on resuming from s2ram
++		 */
++		__x2apic_disable();
++
+ 		/*
+ 		 * Make sure the APICBASE points to the right address
+ 		 *
 
-Best regards,
 -- 
-Shashank Balaji <shashank.mahadasyam@sony.com>
+2.43.0
 
 
