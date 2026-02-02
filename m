@@ -2,45 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aMGlHD27gGl3AgMAu9opvQ
+	id CLEFAMO8gGl3AgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 15:57:01 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 16:03:31 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B11CDB6B
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 15:57:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1218674.1527519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55DA5CDCF7
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Feb 2026 16:03:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1218682.1527528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmvLs-0000Wq-Lc; Mon, 02 Feb 2026 14:56:32 +0000
+	id 1vmvSO-0002Db-B8; Mon, 02 Feb 2026 15:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1218674.1527519; Mon, 02 Feb 2026 14:56:32 +0000
+Received: by outflank-mailman (output) from mailman id 1218682.1527528; Mon, 02 Feb 2026 15:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vmvLs-0000Tj-IK; Mon, 02 Feb 2026 14:56:32 +0000
-Received: by outflank-mailman (input) for mailman id 1218674;
- Mon, 02 Feb 2026 14:56:30 +0000
+	id 1vmvSO-0002Bq-85; Mon, 02 Feb 2026 15:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 1218682;
+ Mon, 02 Feb 2026 15:03:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uTrP=AG=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vmvLq-0000Td-Mo
- for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 14:56:30 +0000
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c007::2])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Gzza=AG=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1vmvSM-0002Bh-J6
+ for xen-devel@lists.xenproject.org; Mon, 02 Feb 2026 15:03:14 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 593b85ac-0047-11f1-9ccf-f158ae23cfc8;
- Mon, 02 Feb 2026 15:56:27 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by DS1PR03MB7800.namprd03.prod.outlook.com (2603:10b6:8:21e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Mon, 2 Feb
- 2026 14:56:22 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9564.016; Mon, 2 Feb 2026
- 14:56:22 +0000
+ id 478f50c8-0048-11f1-9ccf-f158ae23cfc8;
+ Mon, 02 Feb 2026 16:03:08 +0100 (CET)
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2026 07:03:06 -0800
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 02 Feb 2026 07:03:00 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vmvS4-00000000ffw-49bj;
+ Mon, 02 Feb 2026 15:02:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,186 +49,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 593b85ac-0047-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cV3oaWzdFx92uZ+OzmiVbZdTYQPl/Ps67fnXGh9/utzPV6t6/M1DbRx7eOb2tmUg+AahEo0CXIr5AabLDSYGw1PjT0eSh1aQK0dUxpAvYISgjfKhTHgdJMaPjFdon7ICKfnLciP0bVgTIGAmgWYp/zMgSIFfrlwPdpmzj+3BoVHhKCcx4BAQ525nadOgkL6EjJjzUtRdnR8sbwvl3+FVHCOyakcomhxPsaOV+kihA9hz/9mILf711BompE8KXZmV38elmSEqpv+1I2K+Smpc+R3eE496Pwp03B0nTIFS6inaEdVB6Vd9VWmpj8uhMskJewrQor2TMsznBo1d+N0mfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nz6C5tG4To8W5aMpVWMeIxuUDN6TfPfKJnLwWtdg1Cg=;
- b=tvE82B+2Fy3vE6ncEx//4uLcaK40WelSJ447VJzflGvensRkRHiincpuZMhZ4K3B4OePrISFaiZLzmUuzwkwWIw2SIuXXiRo/PksfJHqxFUpEtcVf8uhsbEuYCYXGuB0s8cfEOQycWSF9in3P2axj78FCRdw95xPkRUeiItQ+eVHg6mNNT9RlQN1ZUdYvnDTZU3gSYUIoMoWZsafQEwrOZbWWHK6EUuvkgwwnYclG5DZog+IDj4bfcyzx2cMkGZASc5AJtDSC4KzDWMrXlxGyhnM0Ib9q92C6TSRGf3AZnRXNbrt2/Uh6gE+TlTkdsTOGjpiH9pjaXlswWuDVbSGoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nz6C5tG4To8W5aMpVWMeIxuUDN6TfPfKJnLwWtdg1Cg=;
- b=rLmb3OjOyn8xx5XdXI2/VDuLXk6FfhVh7fzsqQw6PE8A/F01cZ/bRh0ecOBEcMXgQ/BQv2YH7Qad7Ufjii1ScjSNTrHMTfwqy9GoSW6O/FOo9Fc7bq/sIRyw2lNpwDeisQ/uvortFq3yHBARByqaXndJ286j5/1ocoL74ilIv/o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 2 Feb 2026 15:56:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] PCI/regs: minimal adjustments for Misra rule 7.2
-Message-ID: <aYC7E0947_Np1bL6@Mac.lan>
-References: <f9b84a18-c968-4dfc-8e5b-6c97e7d3a04e@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f9b84a18-c968-4dfc-8e5b-6c97e7d3a04e@suse.com>
-X-ClientProxiedBy: MR1P264CA0202.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:57::19) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 478f50c8-0048-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1770044588; x=1801580588;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=f4jiSWaAUMy80OsaVE6o84JI4KEEK5M17ot8dH2cPts=;
+  b=amKUcJQGy4d7dAO4Cv+CRx7Bb39fi4/YwXfTLqhIpC43OWDztsqd8r6B
+   gfVShaBOXIVMdvnvLE9pENMQknkr4XjGyXAETZyyL7U0prLjF4qABj0yV
+   YE0rOyudXRv80TLpmnAlQZR1jYr0zkvU3TdwgS21JEkWuoRCf5luqk/Fq
+   jB90Lr3iHxjFuZrrNwJp2ggK1oukeR/O19p8Iy6Kb2T6OIkmm5yxGr1WL
+   Tk88iL2gDAlL4oYfmAxhB5xCSCwexP/UGIE1cUH8Y2LhM713isaJy80+s
+   jwqN0LxI0+jFNkFcnUklOVWt7X8LLhYvPyssuH1lMQSpiWKS97qhC5nkw
+   A==;
+X-CSE-ConnectionGUID: Je93ZHC0Tz+CO4NY0upsJg==
+X-CSE-MsgGUID: dCccp1sDQWmH697FmaTPpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11690"; a="71099594"
+X-IronPort-AV: E=Sophos;i="6.21,269,1763452800"; 
+   d="scan'208";a="71099594"
+X-CSE-ConnectionGUID: 1Sm55USrTViCYi6oLwwXlg==
+X-CSE-MsgGUID: ZhozEz8UQCq9wlrljDbqsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,269,1763452800"; 
+   d="scan'208";a="209698373"
+Date: Mon, 2 Feb 2026 23:02:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Shashank Balaji <shashank.mahadasyam@sony.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+	jailhouse-dev@googlegroups.com, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org, Rahul Bukte <rahul.bukte@sony.com>,
+	Shashank Balaji <shashank.mahadasyam@sony.com>,
+	Daniel Palmer <daniel.palmer@sony.com>,
+	Tim Bird <tim.bird@sony.com>
+Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
+ expects so
+Message-ID: <202602022242.iSdFHMDI-lkp@intel.com>
+References: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS1PR03MB7800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 427a8227-e873-4ce1-b679-08de626b3ad7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RWIvblVzdzJpZTRtdHh4K3krRFgvdDZYa01wNk95ZHNoTm14V2lwN1pUckl0?=
- =?utf-8?B?d0NKbW1raVp2em1HdGF5MzVJekdnNnFHWmJvdGhXZWhRc1N6cWFLbnhtaVVj?=
- =?utf-8?B?ZHhnL1lEQlhud3hGMUx2Y2RUK3Z4VHE2V1lQSXFPWHhvMEJORm5iZVVXSDM3?=
- =?utf-8?B?NU1DWnlTTGp1VzVsMGZMZmMxTkh0SXBiakM3ZHVrSkZldktvd0oxR3B3SnBD?=
- =?utf-8?B?VWkvbTU3NHpSS3d1cUptNGtKMDltMDRLQzJrcGorZ0M4cXNqeDExMFNyMExZ?=
- =?utf-8?B?d2NQbWFBUlJLR3Nka3kzeFBxUzRMMEJ5bGxxUzhOcUpLaW9MUVZMTEFIa1BS?=
- =?utf-8?B?WTVwVFRNMjcxRTUrRkp0QWRzQ0ZLS2d5aWY5Mlk3L3ZGNiszSlV4UDhEbnlL?=
- =?utf-8?B?ZGZYRXQrTE8zaEtCUUlKRC9aZkhFRlgxdlNNU25YL3NxYk1pMFlyT0hwZHA1?=
- =?utf-8?B?WnhHbk5RaHBmWVB0N3pFN2dTcFVMbi9zMWZzUlkyeVA4dkdTVkdSeDd2V3ZE?=
- =?utf-8?B?VUJ4dUxzWkh0WE1GWnJza2MwbElnMmtDYzdTbkVJRFlWbjlDY1NoalR4Zlcr?=
- =?utf-8?B?eTFPMitqbjMxWHlxVWJYdEU5Q0xIdnUycmpzcDRwZU10eDJ1U3FIbnUySlJs?=
- =?utf-8?B?aXYrMHRaWmlJMXExdHpwK3pLdGV5QzlVa29RVENnaFpnL3BncmowUVgyTlBz?=
- =?utf-8?B?TE5rRnR2QW1pY1h4YlRXcTI2b25CWjZLcEhhT0NMWU00QTNtOUFadlB2ZkNv?=
- =?utf-8?B?VzUwRkVrWjVlK1poWHBTMlgvWjFpZTlPYkNINTZ2MjN2TU5BeUJkRzFaRDha?=
- =?utf-8?B?b3h0T1d5dXg4KzlaV0l3VjVKSkp5Zk9TNFdtNUxZSzM5a2JuT2ZYR0xuZm4x?=
- =?utf-8?B?aHVNS2lVNkJrdUg5dlFORDB5Q2ttWjlHLy9Qd1V2S20rREFCN21BZ2YrVWhK?=
- =?utf-8?B?VWtuUXFEbjFHYVlJMGdZTkJKZS9EZVdLZ2ZneXNWWHFidEFCSkZyWU1yNXFV?=
- =?utf-8?B?WGJjNGRhQ3ptTmVMYXBzd25ZOTFPdHlCNHRGYWw4aXlVWEVscnBsQ1V3aXdR?=
- =?utf-8?B?dVl4blQzclAvRVEzeEVZY0pQYmxuRUlKSHZSV1FvMFF2VzlEdStQcVNsd2pn?=
- =?utf-8?B?L2FaQmNrdEhhdythU01qeWw0ZlhjY05LU0pvUUVZbkhNazh1cy9WdkJzbDQw?=
- =?utf-8?B?bmtNL2R0Q3RjcDZvRmpHcU01M2RyYllpM1NDUmo4Q3R6L284RXJGTlVXWXFP?=
- =?utf-8?B?cm5pcDB0Q0RuZWdxRlhlRCt6cmYwY1dvRjNqekRFbXhDRE1tSm5lT0Jlc0Ri?=
- =?utf-8?B?VGx3SEdhZ0RwMmN2Q2I1VzRnbWxSbDZzUytJclRCbng1eGo0MVR6dVlwWlY4?=
- =?utf-8?B?VWVpa21nZ0d3d1FXd0tqY1FOWjBZNjZXTlRCWnRZUHlSUWRzWUgrVC9pQTBW?=
- =?utf-8?B?SFBIWWZkWmkrK3lLeWo4bk1pbk1MQUNWdHBqaUhHRHRkR0NoL1FyeXlWNUEx?=
- =?utf-8?B?aEFhOE5wc1k1RDV0NndtN1Ztbzh1VkVXVkg3VDlnTVR2cWpuVWl1Q1FWVUNh?=
- =?utf-8?B?RlpwVkRZQVFMYnpQUWFSMHZua2xuQ0FmckRaM3Z6VzR4NnJxSHFnWWovYUVN?=
- =?utf-8?B?ZmZrVGJ4M2cwYXBwUHlFNTdTd3NoaU5WcVA1NDFvbnZlY0lUVTVrS2h5UmVG?=
- =?utf-8?B?UHllZlhhc0pWT2VTSnViSkZQZVVtbFdLMFJRTFRPeWtPN1R3OVZ6OENBN295?=
- =?utf-8?B?SmtrcEczMVMwRmVkU0oyZUU5ekJkcVBxVzUvUEQ5MjU4cEg2Wjh5U3VqeGQy?=
- =?utf-8?B?UXlXbW9BUGVRTXZzbHRTemNpUkE1K0JmdGx3NS94SzRGbWJNTjgzd01yR0pM?=
- =?utf-8?B?bVlQTmRPNDRsS0QzVjh1M1Vqa2ZLVW9XaGhOcnV6alhBVXBPRkRneVR0VUoz?=
- =?utf-8?B?Tkk3TERrREluRDZBTWI4UDVzVlBYSjFIVU8vdjR5Q0RnUXEwaDJBVFdianpY?=
- =?utf-8?B?V2NUUXZTakQ3Z2YwYTNwNzFLZHZYY3lSeDVWZElFWGtjRTJJOThTaUlhejRY?=
- =?utf-8?B?Y3hsUDJWQkFCY0UxU1U3aU5MdXNLYmV3NlhsWUMySHhBRUpiRUR4S0J2bGtt?=
- =?utf-8?Q?R9As=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emdJL2NUdjFieVJuamFXbVRNY1pWdW9Rczg1R1RVTy96anpEVUNCR2ZQRXFN?=
- =?utf-8?B?T1JzZlM1blJzYUpiamIxeTkwVGlOc0pEbWRTVGdHemFweFlHdHRGcFdKVS9M?=
- =?utf-8?B?UDJZcW5MQ0lYcnRMMm5FMDl5anlwNzZXVGN6WHQ2WUdjRWFaUXVodUNobzVu?=
- =?utf-8?B?QncwT3pyRmI4cUlFTE1PRWJwSzJZb1VaQU9kQXVaek9NTnhySjc3UWMvcTJp?=
- =?utf-8?B?VHBJZzhtWThzaG5VcTRzMXh3NGJ5UTZKK1hsaTRSSUNFejdnOUhpTUl1QzJv?=
- =?utf-8?B?RGd0VTR1NVN0MklTT2RuUFBCVy9uSi9QdWhzOERhaHM2dEF3VjJJdkVHTGVP?=
- =?utf-8?B?Y2pIYUJKUHJLWldaSThqUHcyVytBalNNUVQwTHJzMGhST2FObXJWTE5ZdTBI?=
- =?utf-8?B?ZHIrTnFxLzJQN2Y5UENpMjU0dHRObXZkcVJ1T3lta3hsL3ZxemtpWmc2QXh5?=
- =?utf-8?B?OHhEKzRMK085WG1tWGJHeElBbG90T0NhRXBsZXc0bEVpUE9ZNUZCVjREV1JI?=
- =?utf-8?B?UXAya084NHpnZFR2TDZQWmhPOGRZY3owZzFNdUI3TDhDdHNpa0JyUlRwdmtV?=
- =?utf-8?B?TCtqeEVJU1g5UUQ3Q3puM3dzcUN1ZmNIS0JnM0Z3YWd2bTVIZTZ5MzlhekxJ?=
- =?utf-8?B?L3hJWGhEd1VwSjMrUDVZZXAxTTUxZHZLblRaN1VqRWVuWncvTmZPL01jZnlt?=
- =?utf-8?B?OHFab3J4Z2VnNS9FQ2ZleXhIWDg2akpXSlduRUEyRWdTL3RLaDh6RlZyRkV6?=
- =?utf-8?B?RVFKVzNUUDhGZEVkYitHaFVpUGlIbkRLY2MzVHdjSFNPY2g0V0I1WXlheGVR?=
- =?utf-8?B?WEsrd1B0bUF0R0VWK3ZEdWVjWTlZU1NFS2tCTUcyOVd6K0hDQ0N3NFVKQVdw?=
- =?utf-8?B?Vks2aGNTUzB0RnJSYkRBWkhLOGxLS2FveDV5anhWVzlrY2YxMVFRblhRZUMw?=
- =?utf-8?B?d3VwNVRCV010YitoMXVySldQbzU1NmZwcmVySlYyVjVOSjBQaVE0NWJBV1VY?=
- =?utf-8?B?dFRmUDkzOWpvcC9udzFEM2tDelRNdTVUZnVoaGlPajg5am91ZG9GOUwxTzJJ?=
- =?utf-8?B?Nldzc1pMUlNONjFUZFdyYTBHT0JQd2JhTUZYdG1uTVUvcStwb2d2cCt1UGgz?=
- =?utf-8?B?WUJqNHdIczA0aXJlLy9ublJWT21lZHlFRjYvMWszZ2pjSFByTk5oRXFFQXhz?=
- =?utf-8?B?eFAyNHJsL24rNHV2b21yTDBLQkJtT3FTcDhGV0wrNjI5QUhQOTd4WklmSWNT?=
- =?utf-8?B?VTZpdWR3ajhwOWI1bTIyV2xoUzFDWWFtNmNuT1ZrVTFBNTNZdHpTZTQraERz?=
- =?utf-8?B?N2tXSFdRWHAzYXB2VmtsZXkwOHJwMm41aWx4cVM2NTN4ak9IWFNlbGNKWXVt?=
- =?utf-8?B?amlWMmMwNDJ3WVRWVUFEanVFMi9OQnBPODhIcmE2ZWhSeW5YZXRzL0U4Q3c4?=
- =?utf-8?B?V1QzOHNuV0lDSnRXbTdqMDVXWFMrV24vS3NzNGVualRhN3ZmTkpIdG5xbC9H?=
- =?utf-8?B?Y3lZUldOdDFPOEx5bjFST0M1cHZXTU84dlJJcVpnTDgvTkx5U2xyS2t6ZW5u?=
- =?utf-8?B?Y1ZtZkE1WkdIV3l4bzN6UUNpTGdZVmRQeFc2QkF2ZjJGRGNHYkw1RXlTNFB5?=
- =?utf-8?B?Tm9MM2JCc3pEOFBFNHVVNGVoY2g2TjdyZHdQT1RaNDlqYm1PVzJLakROWXUv?=
- =?utf-8?B?YVRhSlp0L0FCUlhaTDJtNUVtcVE3c3B0UTRFZnFYbmdSUFpkaEdYQVF1Vk1y?=
- =?utf-8?B?OU9ZdWtla1B2cHZML1Vudzd1SGpZbEQxZUM3Y0lYY3VkWnpreCtlL0VyTjVC?=
- =?utf-8?B?c2hmZEwwOUNEVDJTbzBhdk5LYUYxT3pBMXQzRVdITU5QRnhLV3FMdHdWTDlz?=
- =?utf-8?B?SlpTNU1aaVJ4N203QVZFdnR1akN4Um5IQ0k3RE5DWXpEbkgya2V5WjFaRW1V?=
- =?utf-8?B?enVJNk5rZC9NMHFycGgzd09QOGJEYW96ZjUwK0I1MlNMTHMveXhpdXMrWXA3?=
- =?utf-8?B?UEltOHE0bE94QlgwTTgvMEFiekw0QzAxZVFzaWNFb09kNDRTME14cmllWkdz?=
- =?utf-8?B?WCtVcWU1MGFJa3BlaGNmU1ZEWnp5VzdvVmxBT1Q2K2t3dWxYRVFLTHArcm13?=
- =?utf-8?B?SDAvbTRaME41NTJ2OHlZS1hRYkZvN052NUlYeXcxb3pZZC9Va1dRcXZuc2Z6?=
- =?utf-8?B?anZ4NDBvTUZKbUhzZUxyRmlGTGpzMVU3dHRtWTBZV2F3M3hBVHRlUVdQK29C?=
- =?utf-8?B?UU9zWktDM09JQ0U5RWNrREpXU24zZ1kyVzNIb0g1RXBNRDFmS3NRdkNDTnYx?=
- =?utf-8?B?eEgweEpZUUhtMDd6WWVMQnVFUWxzVUhXdjZpajVRWHp3REdkamtCZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 427a8227-e873-4ce1-b679-08de626b3ad7
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2026 14:56:22.4162
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r2JLNZec2KzgOsBH8D1d44NrDL+D7PA/0VIhgTzb7LMt3H3px3igTCVE6CzWtn93OgPDoPsM4x3x8AsLSt04Mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR03MB7800
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,Mac.lan:mid];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[lkp@intel.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:shashank.mahadasyam@sony.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:oe-kbuild-all@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,intel.com:dkim,intel.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: D8B11CDB6B
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 55DA5CDCF7
 X-Rspamd-Action: no action
 
-On Mon, Feb 02, 2026 at 03:43:05PM +0100, Jan Beulich wrote:
-> As was recently noticed with PCI_X_STATUS_533MHZ, leaving presently unused
-> #define-s in non-Misra-compliant shape (7.2 is "A `u' or `U' suffix shall
-> be applied to all integer constants that are represented in an unsigned
-> type") is putting new code actually using any of the constants at risk of
-> then causing Misra scan failures in CI. Adjust those few constants which
-> strictly require a suffix.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Hi Shashank,
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+kernel test robot noticed the following build errors:
 
-Thanks, Roger.
+[auto build test ERROR on 18f7fcd5e69a04df57b563360b88be72471d6b62]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Shashank-Balaji/x86-x2apic-disable-x2apic-on-resume-if-the-kernel-expects-so/20260202-181147
+base:   18f7fcd5e69a04df57b563360b88be72471d6b62
+patch link:    https://lore.kernel.org/r/20260202-x2apic-fix-v1-1-71c8f488a88b%40sony.com
+patch subject: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel expects so
+config: x86_64-buildonly-randconfig-001-20260202 (https://download.01.org/0day-ci/archive/20260202/202602022242.iSdFHMDI-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260202/202602022242.iSdFHMDI-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602022242.iSdFHMDI-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   arch/x86/kernel/apic/apic.c: In function 'lapic_resume':
+>> arch/x86/kernel/apic/apic.c:2463:17: error: implicit declaration of function '__x2apic_disable'; did you mean '__x2apic_enable'? [-Wimplicit-function-declaration]
+    2463 |                 __x2apic_disable();
+         |                 ^~~~~~~~~~~~~~~~
+         |                 __x2apic_enable
+
+
+vim +2463 arch/x86/kernel/apic/apic.c
+
+  2435	
+  2436	static void lapic_resume(void *data)
+  2437	{
+  2438		unsigned int l, h;
+  2439		unsigned long flags;
+  2440		int maxlvt;
+  2441	
+  2442		if (!apic_pm_state.active)
+  2443			return;
+  2444	
+  2445		local_irq_save(flags);
+  2446	
+  2447		/*
+  2448		 * IO-APIC and PIC have their own resume routines.
+  2449		 * We just mask them here to make sure the interrupt
+  2450		 * subsystem is completely quiet while we enable x2apic
+  2451		 * and interrupt-remapping.
+  2452		 */
+  2453		mask_ioapic_entries();
+  2454		legacy_pic->mask_all();
+  2455	
+  2456		if (x2apic_mode) {
+  2457			__x2apic_enable();
+  2458		} else {
+  2459			/*
+  2460			 * x2apic may have been re-enabled by the
+  2461			 * firmware on resuming from s2ram
+  2462			 */
+> 2463			__x2apic_disable();
+  2464	
+  2465			/*
+  2466			 * Make sure the APICBASE points to the right address
+  2467			 *
+  2468			 * FIXME! This will be wrong if we ever support suspend on
+  2469			 * SMP! We'll need to do this as part of the CPU restore!
+  2470			 */
+  2471			if (boot_cpu_data.x86 >= 6) {
+  2472				rdmsr(MSR_IA32_APICBASE, l, h);
+  2473				l &= ~MSR_IA32_APICBASE_BASE;
+  2474				l |= MSR_IA32_APICBASE_ENABLE | mp_lapic_addr;
+  2475				wrmsr(MSR_IA32_APICBASE, l, h);
+  2476			}
+  2477		}
+  2478	
+  2479		maxlvt = lapic_get_maxlvt();
+  2480		apic_write(APIC_LVTERR, ERROR_APIC_VECTOR | APIC_LVT_MASKED);
+  2481		apic_write(APIC_ID, apic_pm_state.apic_id);
+  2482		apic_write(APIC_DFR, apic_pm_state.apic_dfr);
+  2483		apic_write(APIC_LDR, apic_pm_state.apic_ldr);
+  2484		apic_write(APIC_TASKPRI, apic_pm_state.apic_taskpri);
+  2485		apic_write(APIC_SPIV, apic_pm_state.apic_spiv);
+  2486		apic_write(APIC_LVT0, apic_pm_state.apic_lvt0);
+  2487		apic_write(APIC_LVT1, apic_pm_state.apic_lvt1);
+  2488	#ifdef CONFIG_X86_THERMAL_VECTOR
+  2489		if (maxlvt >= 5)
+  2490			apic_write(APIC_LVTTHMR, apic_pm_state.apic_thmr);
+  2491	#endif
+  2492	#ifdef CONFIG_X86_MCE_INTEL
+  2493		if (maxlvt >= 6)
+  2494			apic_write(APIC_LVTCMCI, apic_pm_state.apic_cmci);
+  2495	#endif
+  2496		if (maxlvt >= 4)
+  2497			apic_write(APIC_LVTPC, apic_pm_state.apic_lvtpc);
+  2498		apic_write(APIC_LVTT, apic_pm_state.apic_lvtt);
+  2499		apic_write(APIC_TDCR, apic_pm_state.apic_tdcr);
+  2500		apic_write(APIC_TMICT, apic_pm_state.apic_tmict);
+  2501		apic_write(APIC_ESR, 0);
+  2502		apic_read(APIC_ESR);
+  2503		apic_write(APIC_LVTERR, apic_pm_state.apic_lvterr);
+  2504		apic_write(APIC_ESR, 0);
+  2505		apic_read(APIC_ESR);
+  2506	
+  2507		irq_remapping_reenable(x2apic_mode);
+  2508	
+  2509		local_irq_restore(flags);
+  2510	}
+  2511	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
