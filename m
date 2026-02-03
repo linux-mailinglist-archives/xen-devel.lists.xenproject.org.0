@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ub0sH7o0gmmmQgMAu9opvQ
+	id 2CRpKxo6gmmVQgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 18:47:38 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 19:10:34 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57335DD10B
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 18:47:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1219623.1528515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46488DD5BB
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 19:10:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1219666.1528525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnKUt-0006xh-A2; Tue, 03 Feb 2026 17:47:31 +0000
+	id 1vnKqk-0003M4-2K; Tue, 03 Feb 2026 18:10:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1219623.1528515; Tue, 03 Feb 2026 17:47:31 +0000
+Received: by outflank-mailman (output) from mailman id 1219666.1528525; Tue, 03 Feb 2026 18:10:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnKUt-0006w6-1N; Tue, 03 Feb 2026 17:47:31 +0000
-Received: by outflank-mailman (input) for mailman id 1219623;
- Tue, 03 Feb 2026 17:47:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NbdA=AH=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vnKMg-0000Zt-RN
- for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 17:39:02 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 37c46894-0127-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Feb 2026 18:38:57 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB4B6150C;
- Tue,  3 Feb 2026 09:38:50 -0800 (PST)
-Received: from C3HXLD123V.arm.com (unknown [10.57.54.220])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 399083F632;
- Tue,  3 Feb 2026 09:38:56 -0800 (PST)
+	id 1vnKqj-0003LY-Ur; Tue, 03 Feb 2026 18:10:05 +0000
+Received: by outflank-mailman (input) for mailman id 1219666;
+ Tue, 03 Feb 2026 18:10:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1vnKqi-00030g-8c
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 18:10:04 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1vnKqi-0014eP-1g
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 18:10:04 +0000
+Received: from mail-vk1-f179.google.com ([209.85.221.179])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1vnKqi-00FhnJ-0W
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 18:10:04 +0000
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-560227999d2so2247816e0c.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 10:10:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,238 +47,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37c46894-0127-11f1-9ccf-f158ae23cfc8
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Jens Wiklander <jens.wiklander@linaro.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH 12/12] xen/arm: ffa: Add message parameter diagnostics
-Date: Tue,  3 Feb 2026 18:38:07 +0100
-Message-ID: <209e5474e236737dd13e0f7ff8120b05cdb7eabe.1770115302.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <cover.1770115301.git.bertrand.marquis@arm.com>
-References: <cover.1770115301.git.bertrand.marquis@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:MIME-Version; bh=nfUgb2rr3hKaUs/X3OZNRCZJ1Olxd1VmiOYt/cj9PcY=; b=YUxlg0H
+	U2TKt+s7+CT8gMEKV7aUH/766e3n5FQ+UM4UnxCIwETumtSChOIuvEKDAioDqpOv9vo5M0NFC+JAi
+	F2dC6m478ebYA8whSF9/GLxV8tErUavrRWKLWphlpk+OQMbJ9AYcLs/JL8qEIkAQgXw5NzYXkXw3+
+	tPjg7l5iSI=;
+X-Gm-Message-State: AOJu0YzfncWIwqKYURMdRriYUQTZcihEQoxxRGa8b5un1U2Q5daBSbSS
+	/G+wEVRTGiTH3iUnzB9uCjcAzQMlj73875p14WDQ0AXFmGOTEd/xNB+sjtc2b+PNscrYEUvBCJ7
+	7wp/r8Q78rxQt5kkFnSu5Z7L+DQt7vnM=
+X-Received: by 2002:a05:6122:ca9:b0:539:2a2c:6efe with SMTP id
+ 71dfb90a1353d-566e7fa4f87mr186589e0c.4.1770142203766; Tue, 03 Feb 2026
+ 10:10:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Tue, 3 Feb 2026 19:09:52 +0100
+X-Gmail-Original-Message-ID: <CAJbE=KypsawebDO6dajT_J=H=gOhn_KsLHDFZu0rLaHGk2umAQ@mail.gmail.com>
+X-Gm-Features: AZwV_Qg4oLqnAuzUlf0GsLYDqJ_2TbCHMU3zMqMBZSeO-UH_W_C0ZdD8bvcViyo
+Message-ID: <CAJbE=KypsawebDO6dajT_J=H=gOhn_KsLHDFZu0rLaHGk2umAQ@mail.gmail.com>
+Subject: [ANNOUNCE] Call for agenda items for February 5 Xen Community Call @
+ 16:00 UTC
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000041ee7e0649ef59dc"
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.11 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	URI_COUNT_ODD(1.00)[9];
+	DMARC_POLICY_ALLOW(-0.50)[xenproject.org,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[xenproject.org:s=20200302mail];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[arm.com : SPF not aligned (relaxed), No valid DKIM,none];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:jens.wiklander@linaro.org,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[bertrand.marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,cryptpad.fr:url,worldtimebuddy.com:url];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[xenproject.org:+];
 	FORWARDED(0.00)[mailman];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[bertrand.marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 57335DD10B
+X-Rspamd-Queue-Id: 46488DD5BB
 X-Rspamd-Action: no action
 
-MSG_SEND2 and direct request validation failures are silent, making it
-hard to diagnose invalid IDs, oversized messages, or unsupported
-destination types.
+--00000000000041ee7e0649ef59dc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add debug logs for parameter validation failures:
-- invalid endpoint IDs
-- oversized messages
-- unsupported destination types
-- invalid sender/receiver combinations
-- ratelimit MSG_SEND2 busy failures to avoid log flooding
+Hi everyone,
 
-No functional changes.
+We=E2=80=99re getting ready for February's Xen Project Community Call on Th=
+ursday,
+5 February 2026 at 16:00 UTC (4 pm UK time).
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
- xen/arch/arm/tee/ffa_msg.c | 45 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+We=E2=80=99d love for you to join. Feel free to participate or just observe=
+. This
+call is a great opportunity to see what the community is working on, align
+our various efforts, and share updates. Everyone is welcome!
 
-diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-index 928f269f6c3a..cc273c9a8e80 100644
---- a/xen/arch/arm/tee/ffa_msg.c
-+++ b/xen/arch/arm/tee/ffa_msg.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <xen/const.h>
-+#include <xen/lib.h>
- #include <xen/sizes.h>
- #include <xen/types.h>
- 
-@@ -100,6 +101,7 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-     if ( !ffa_fw_supports_fid(fid) )
-     {
-         ret = FFA_RET_NOT_SUPPORTED;
-+        gdprintk(XENLOG_DEBUG, "ffa: direct req fid %#x not supported\n", fid);
-         goto out;
-     }
- 
-@@ -108,6 +110,9 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-          (src_dst & GENMASK(15,0)) == ffa_get_vm_id(d) )
-     {
-         ret = FFA_RET_INVALID_PARAMETERS;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: direct req invalid src/dst %#x\n",
-+                 (uint32_t)src_dst);
-         goto out;
-     }
- 
-@@ -115,6 +120,9 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-     if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
-     {
-         ret = FFA_RET_NOT_SUPPORTED;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: direct req to non-secure dst %#x\n",
-+                 (uint32_t)(src_dst & GENMASK(15, 0)));
-         goto out;
-     }
- 
-@@ -166,7 +174,12 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
-     /* This is also checking that dest is not src */
-     ret = ffa_endpoint_domain_lookup(dst_id, &dst_d, &dst_ctx);
-     if ( ret )
-+    {
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 lookup failed: dst %#x ret %d\n",
-+                 dst_id, ret);
-         return ret;
-+    }
- 
-     /* This also checks that destination has set a Rx buffer */
-     ret = ffa_rx_acquire(dst_ctx , &rx_buf, &rx_size);
-@@ -199,6 +212,12 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
-     /* receiver rx buffer will be released by the receiver*/
- 
- out_unlock:
-+    if ( ret )
-+    {
-+        if ( ret != FFA_RET_BUSY || printk_ratelimit() )
-+            gdprintk(XENLOG_DEBUG, "ffa: msg_send2 to %#x failed: %d\n",
-+                     dst_id, ret);
-+    }
-     rcu_unlock_domain(dst_d);
-     if ( !ret )
-         ffa_raise_rx_buffer_full(dst_d);
-@@ -226,7 +245,11 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
- 
-     ret = ffa_tx_acquire(src_ctx, &tx_buf, &tx_size);
-     if ( ret != FFA_RET_OK )
-+    {
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 TX acquire failed: %d\n", ret);
-         return ret;
-+    }
- 
-     /* create a copy of the message header */
-     memcpy(&src_msg, tx_buf, sizeof(src_msg));
-@@ -238,6 +261,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-          dst_id == ffa_get_vm_id(src_d) )
-     {
-         ret = FFA_RET_INVALID_PARAMETERS;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 invalid src/dst src %#x dst %#x\n",
-+                 src_id, dst_id);
-         goto out;
-     }
- 
-@@ -246,6 +272,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-         if (src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_1))
-         {
-             ret = FFA_RET_INVALID_PARAMETERS;
-+            gdprintk(XENLOG_DEBUG,
-+                     "ffa: msg_send2 invalid msg_offset %u (v1.1)\n",
-+                     src_msg.msg_offset);
-             goto out;
-         }
-         /* Set uuid to Nil UUID for v1.1 guests */
-@@ -255,6 +284,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-     else if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_2) )
-     {
-         ret = FFA_RET_INVALID_PARAMETERS;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 invalid msg_offset %u (v1.2)\n",
-+                 src_msg.msg_offset);
-         goto out;
-     }
- 
-@@ -263,6 +295,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-             src_msg.msg_size > (tx_size - src_msg.msg_offset) )
-     {
-         ret = FFA_RET_INVALID_PARAMETERS;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 invalid msg_size %u offset %u tx %zu\n",
-+                 src_msg.msg_size, src_msg.msg_offset, tx_size);
-         goto out;
-     }
- 
-@@ -272,6 +307,8 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-         if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
-         {
-             ret = FFA_RET_NOT_SUPPORTED;
-+            gdprintk(XENLOG_DEBUG,
-+                     "ffa: msg_send2 to SP not supported\n");
-             goto out;
-         }
-         /*
-@@ -288,6 +325,8 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
- 
-         ret = ffa_simple_call(FFA_MSG_SEND2,
-                               ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, 0);
-+        if ( ret )
-+            gdprintk(XENLOG_DEBUG, "ffa: msg_send2 to SP failed: %d\n", ret);
-     }
-     else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-     {
-@@ -295,7 +334,11 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
-         ret = ffa_msg_send2_vm(dst_id, tx_buf, &src_msg);
-     }
-     else
-+    {
-         ret = FFA_RET_INVALID_PARAMETERS;
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: msg_send2 to VM disabled (dst %#x)\n", dst_id);
-+    }
- 
- out:
-     ffa_tx_release(src_ctx);
-@@ -311,6 +354,7 @@ void ffa_handle_run(struct cpu_user_regs *regs, uint32_t fid)
-     if ( !ffa_fw_supports_fid(fid) )
-     {
-         ret = FFA_RET_NOT_SUPPORTED;
-+        gdprintk(XENLOG_DEBUG, "ffa: run fid %#x not supported\n", fid);
-         goto out;
-     }
- 
-@@ -322,6 +366,7 @@ void ffa_handle_run(struct cpu_user_regs *regs, uint32_t fid)
-     if ( !FFA_ID_IS_SECURE(dst >> 16) )
-     {
-         ret = FFA_RET_NOT_SUPPORTED;
-+        gdprintk(XENLOG_DEBUG, "ffa: run to non-secure dst %#x\n", dst);
-         goto out;
-     }
- 
--- 
-2.50.1 (Apple Git-155)
+*Preparation:*
 
+   - Add any proposed agenda items or missing action items:
+   https://cryptpad.fr/pad/#/2/pad/edit/tRcgCf32woHY2Yu4V3WJAbIU/
+   - If any action items have been resolved or are no longer relevant, feel
+   free to remove them from the doc. I attempted to clean up the doc, so fe=
+el
+   free to make any adjustments.
+
+
+
+*Call Details:*
+
+   - Date: Thursday, 5 February 2026
+   - Time: 16:00 UTC (agenda begins at 16:05 UTC)
+   - Find your local timezone here
+   <https://www.worldtimebuddy.com/?qm=3D1&lid=3D5368361,2988507,5128581,26=
+43743,100,1850147,6&h=3D2988507&date=3D2026-2-5&sln=3D17-18&hf=3Dundefined&=
+c=3D1196>
+   - Link to Join the Call: https://meet.jit.si/XenProjectCommunityCall
+
+
+We plan to open the meeting room at 16:00 UTC, but to allow time for
+switching between meetings and handling any technical issues, we=E2=80=99ll
+officially start discussing the agenda at 16:05 UTC.
+
+Want to be CC=E2=80=99d on future calls?
+
+Add or remove yourself from our Sign-up Sheet
+<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>.
+
+See you Thursday!
+
+
+Cody Zuschlag
+Xen Project - Community Manager
+
+--00000000000041ee7e0649ef59dc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>Hi everyone,<br><br>We=E2=80=99re getting ready =
+for February&#39;s Xen Project Community Call on Thursday, 5 February 2026 =
+at 16:00 UTC (4 pm UK time).<br><br>We=E2=80=99d love for you to join. Feel=
+ free to participate or just observe. This call is a great opportunity to s=
+ee what the community is working on, align our various efforts, and share u=
+pdates. Everyone is welcome!<br><br><b>Preparation:</b><br><ul><li style=3D=
+"margin-left:15px">Add any proposed agenda items or missing action items: <=
+a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/tRcgCf32woHY2Yu4V3WJAbIU/">h=
+ttps://cryptpad.fr/pad/#/2/pad/edit/tRcgCf32woHY2Yu4V3WJAbIU/</a></li><li s=
+tyle=3D"margin-left:15px">If any action items have been resolved or are no =
+longer relevant, feel free to remove them from the doc. I attempted to clea=
+n up the doc, so feel free to make any adjustments.</li></ul><br><b>Call De=
+tails:<br></b><ul><li style=3D"margin-left:15px">Date: Thursday, 5 February=
+ 2026</li><li style=3D"margin-left:15px">Time: 16:00 UTC (agenda begins at =
+16:05 UTC)</li><li style=3D"margin-left:15px"><a href=3D"https://www.worldt=
+imebuddy.com/?qm=3D1&amp;lid=3D5368361,2988507,5128581,2643743,100,1850147,=
+6&amp;h=3D2988507&amp;date=3D2026-2-5&amp;sln=3D17-18&amp;hf=3Dundefined&am=
+p;c=3D1196" target=3D"_blank">Find your local timezone here</a></li><li sty=
+le=3D"margin-left:15px">Link to Join the Call:=C2=A0<a href=3D"https://meet=
+.jit.si/XenProjectCommunityCall" target=3D"_blank">https://meet.jit.si/XenP=
+rojectCommunityCall</a></li></ul><br></div><div>We plan to open the meeting=
+ room at 16:00 UTC, but to allow time for switching between meetings and ha=
+ndling any technical issues, we=E2=80=99ll officially start discussing the =
+agenda at 16:05 UTC.<br><br>Want to be CC=E2=80=99d on future calls?<br><br=
+>Add or remove yourself from our=C2=A0<a href=3D"https://cryptpad.fr/pad/#/=
+2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" target=3D"_blank">Sign-up Sheet</a>.<=
+br><br>See you Thursday!</div></div><div><br></div><div><div dir=3D"ltr" cl=
+ass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"=
+><img src=3D"https://ci3.googleusercontent.com/mail-sig/AIorK4x5nkRDCOFJDJA=
+v9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJUrl12"><br><div=
+>Cody Zuschlag</div><div>Xen Project - Community Manager</div></div></div><=
+/div></div>
+
+--00000000000041ee7e0649ef59dc--
 
