@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OBXzFLQmgmnPPgMAu9opvQ
+	id uJY3LjgngmnPPgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:47:48 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E9DDC388
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:47:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1219405.1528285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D15DC43D
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1219416.1528295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnJYx-0004Bl-Bf; Tue, 03 Feb 2026 16:47:39 +0000
+	id 1vnJav-0004lo-OS; Tue, 03 Feb 2026 16:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1219405.1528285; Tue, 03 Feb 2026 16:47:39 +0000
+Received: by outflank-mailman (output) from mailman id 1219416.1528295; Tue, 03 Feb 2026 16:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnJYx-00049Q-8N; Tue, 03 Feb 2026 16:47:39 +0000
-Received: by outflank-mailman (input) for mailman id 1219405;
- Tue, 03 Feb 2026 16:47:37 +0000
+	id 1vnJav-0004jT-LF; Tue, 03 Feb 2026 16:49:41 +0000
+Received: by outflank-mailman (input) for mailman id 1219416;
+ Tue, 03 Feb 2026 16:49:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J8X4=AH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnJYv-00049J-NP
- for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 16:47:37 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1vnJau-0004jK-1f
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 16:49:40 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a9fc2aa-0120-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Feb 2026 17:47:35 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-480142406b3so43757985e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 08:47:35 -0800 (PST)
+ id 5394b2a4-0120-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Feb 2026 17:49:38 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-4801bc32725so45340605e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 08:49:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4830511cc93sm85781995e9.2.2026.02.03.08.47.34
+ 5b1f17b1804b1-4830512e61dsm73209105e9.8.2026.02.03.08.49.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Feb 2026 08:47:34 -0800 (PST)
+ Tue, 03 Feb 2026 08:49:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,54 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a9fc2aa-0120-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 5394b2a4-0120-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770137255; x=1770742055; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FsmugQpXeyJIESCQFQ9qrbR5/T8eGHL3QlcINMVsWlk=;
-        b=EwRlr4vrC5VfTmWU1CgBF1gaqJRk/kV/AXy4KuU3pPldZPThyTr2xKIa6ufmlqKwXV
-         9EhVKl8nD1qHYAUCSBIgD4a64ABwsXcvp2EdJFxNdmeM9/4APJU2EdXwy0C2Q//EHgDL
-         WHT1CDtrGzoP85gqBwjayYhAX2/nJCZqZZqluUT5Zl34oScfWa7rW4tDh1NbcZHssJef
-         iZRMj8wsLL+00o7B+U014Nkykw+yOn4yfnTk6/sDwvdfDSl/0gZi0i3L0kZ9vxlLhtul
-         Lks86GtYI/R0dvVZWyal/qOL2xAUaUmG31xRfytiW4S5EzDBOzBVGWiB/kiMQq1xqcZH
-         2MCw==
+        d=suse.com; s=google; t=1770137377; x=1770742177; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hsihNRRAUO9irjyqUmGl+lYbNZkIHXJWPrKLzjEl7yk=;
+        b=d27/gVMW0dgCW5fycMRRMONDxt5VtrUc+jYbcyrvU3GpbWgLvNVJQziC/NIdy4Hkmj
+         XWnKj4hl+HahwnUIoa/tWA1ALHnf04I4EIVAPReRU0y4lpGRmp3CvJsrqF0o8OLARtk7
+         52+S3qeMKmI6fTsk5zkptCQkrq9B1ZFE6rXGvXzSY2QjV035zf5qxJ7VsMScc0NxiNnm
+         Ii2yY3XO8ERDQHCfC5EScMx8dTk0GMPBwAQ3uSeoS8mRH3WirXrUIlV3oO0qkI1wKpbH
+         /MXnJs4oMJRYmTxXGE2nMSpXNk4DRi+G+khHdON5Vh3pqXtpyiW2Rp7Tn1ewnntCw+YJ
+         LZBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770137255; x=1770742055;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FsmugQpXeyJIESCQFQ9qrbR5/T8eGHL3QlcINMVsWlk=;
-        b=Z5sw73hkMoLBfFr9ZP/j9J2rE7YTA6ohVRs0++tQTeWc3gQLtnTUsJjPYyzY8VY5Py
-         DtvTJk6uEourh7sLJuykGjAP7Euid4E2kncj4FZJgMLwoWAQ+b+8dd/LpKTyZafxVyD4
-         f/PM+zOj+qXibl6QrypGHG4tDNpsNT5dq60KYuSOrlRqze1KQ1PYUd2mLFsg5ZQO6Wux
-         FIVzQAyhX5WbADWIi00Myq3NCWV/PWzDcK33Akp8+pmEapsPeYlu86kxNDkaH24WfYfr
-         mNd0e0tWXAhUKAPfAX2DfPSi6/2G5NkLXzkVcYtZyrZPgGig8A7AzWlgZU79jM24EgSN
-         pHyA==
-X-Gm-Message-State: AOJu0YzT3YGf3izaB6uGHsDY7327QBHFYd7mjQmlKLoYGQx8747NM1lZ
-	mYGp65xS75P7QVcK/sdEcfxWxn0l+zQ6KDMd9zE1YkXYnnppyJm9jtCAW8+abxFwOKkpZFAqA5q
-	Pxzo=
-X-Gm-Gg: AZuq6aLt8wZ/ooZ+nzv6vTVGCtt5bFGujsiBtK2DWy7/nTJpfBhb3XmHfFift1U6mmf
-	u2lDwfkQ9PZOMdPyTCFA9QGgodyc85IPjIkU0qMJiJ/xo76CXLKOiWDMJxvdwNXz/YxbXF5Bzek
-	Z+xC+UrA7ZvX/ZdymdlHdOMJhdb0R9RK12ikmjJOz3lvCbAIAdIhrZEUcxkHWh6XWErquOYzg35
-	U4gM/8+pbMwvq8NsgLM4ElbgMr6WUMVj91tHdHUhQ9CpkSuQVQMfJVAJUK5e/w6B+q1lh0ryYfw
-	1K/wvdIWINyVqGDCA4pYJpNupRPopVTosTF108qHO0xDiE8KYS8V4XVGrlIQ2zW9jtxbvhmpXlv
-	pKMKt2zfmSFrm6ZBvBT5XDuYfKp1giCCoJI5JXN7euw6/3NwbQb1OYa4rwDHcnAA6YzbFwgUvHx
-	m3eQr8UppTBxqwHWuCayyJXY7Po/otfBnbMCgrjNikqo9ZYp8HGuMx7QeU2/vvGuDKmePjQNdBN
-	gyRXNMYfIEPyw==
-X-Received: by 2002:a05:600c:c163:b0:480:2521:4d92 with SMTP id 5b1f17b1804b1-4830e988f3amr3463135e9.24.1770137254965;
-        Tue, 03 Feb 2026 08:47:34 -0800 (PST)
-Message-ID: <5149ab32-7d03-4ae5-9af0-e62dd5836329@suse.com>
-Date: Tue, 3 Feb 2026 17:47:33 +0100
+        d=1e100.net; s=20230601; t=1770137377; x=1770742177;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hsihNRRAUO9irjyqUmGl+lYbNZkIHXJWPrKLzjEl7yk=;
+        b=dZlNSU50ABndHyyalHo1vWQEUWWYY4u5Z7KRlWBAB+AWXxtqYPQoaZxmQt/jD8xuOL
+         Beny4Ezg+Iyl4SOhIN/acXDO6pDZUts1/j442PjWALg9TcJCZhXggd35luvsOiGk+/Fl
+         mSTxeRfvyJq+rMRtcj3Yztjy96tNtIIyUesab4OkTu/uCQXqQKCi1EcI8AZDCfzbNZoA
+         21itmqcVww6n9tVgQDs9oITFaH0qYAh6OGM4BTd5bGJHmx2RlmLjsNwPF7x+OiYFeTaH
+         WHj4477H/8PDOPtGk3ggFTXJnV4kvYGk1AnCiyMl/1oyzPf8nBmeY5hjY9pj9UIxhDDf
+         17PA==
+X-Gm-Message-State: AOJu0YzpOllN2h78BuReqjWnxbfdmTgEukkM9eOvO99Ea+1SFFs2KdnU
+	y/ESPQfXCr1qYW5z7LiQE94FiZPHb0CV1pjNBKlMNcftfcw69JDIY+hPKV/1E7VPLh1wP8uhM0E
+	D1PYtRg==
+X-Gm-Gg: AZuq6aIt1W2BXxlURoNO8yUUvZZM8vIifbYBeCpUngMcckJjYLicj7NM0Wg7gsQiljC
+	QJkaYgpyRxQgBxN6+VokPG/ws3f362nR4b3RdI3tz2+sQIwQetMrroPfrB9HYN0H2uGaGpvmtLZ
+	k7QaUJCxPxq4wxq4XTbB5FFtat4JPxIyPClLufNc73Kr10nAyC4vhiPBCeRqzNRjjECR+Ib2suy
+	qmT3lv285oPX18SO4klGvoRsUls0jCVG13uCYwZvNz4isI7YhRsDoN5mxoff1263TDoQgkEr94c
+	7raEKzH2B2JFW/XQ1SemPMu91qZKKyPv4CVAu9CHdy1RuMAdh91LXnRFvjNPM/FLRHvt9xplwaS
+	7aQK0ceBfaIfEbr2w5Vp9ukC/GxLeoQeXDF/MJbDfQWiL6p0Lk0mmjozeoaviqGVZHH0AZAl9HK
+	Yx0P3OYha2wbjJR5oO7vV0HDhqSPD4X6ctY20nBf/HFsIdtGM1mQD6r47BK19xKxE5F1/Zc0gag
+	1HyxThvcLMNTg==
+X-Received: by 2002:a05:600c:1f08:b0:480:6941:d38b with SMTP id 5b1f17b1804b1-4830e991a8emr3540515e9.30.1770137377374;
+        Tue, 03 Feb 2026 08:49:37 -0800 (PST)
+Message-ID: <c6aa40de-11b2-4725-b18c-8a982e43f0f0@suse.com>
+Date: Tue, 3 Feb 2026 17:49:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/3] x86/shadow: unlock P2M slightly earlier in
+ shadow_track_dirty_vram()
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/3] x86/shadow: tidy VRAM tracking a little
+References: <5149ab32-7d03-4ae5-9af0-e62dd5836329@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,13 +124,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5149ab32-7d03-4ae5-9af0-e62dd5836329@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -135,35 +139,54 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[37.24.206.209:received];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 02E9DDC388
+X-Rspamd-Queue-Id: 28D15DC43D
 X-Rspamd-Action: no action
 
-While dealing with Roger's comments on "x86/mm: split struct sh_dirty_vram and
-make results private" I spotted more aspects which may want changing.
+There's no need to call vfree() with the lock still held.
 
-1: unlock P2M slightly earlier in shadow_track_dirty_vram()
-2: VRAM last_dirty tagging
-3: reduce flush_tlb's scope in shadow_track_dirty_vram()
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+In fact for the purposes of the function the P2M lock could really be
+obtained merely in read mode, and it could be dropped immediately in both
+the main "if()" and its "else if()". If only there wasn't the error
+handling after copy_to_guest(): Dropping the paging lock ahead of that
+call, we rely solely on the P2M lock to also guard the changing of
+d->arch.hvm.dirty_vram.sh and what it points to. Question is why dropping
+the paging lock (but continuing to hold the P2M lock) is necessary there
+in the first place.
 
-Jan
+--- a/xen/arch/x86/mm/shadow/hvm.c
++++ b/xen/arch/x86/mm/shadow/hvm.c
+@@ -1219,8 +1219,8 @@ int shadow_track_dirty_vram(struct domai
+         paging_unlock(d);
+         rc = -EFAULT;
+     }
+-    vfree(dirty_bitmap);
+     p2m_unlock(p2m_get_hostp2m(d));
++    vfree(dirty_bitmap);
+     return rc;
+ }
+ 
+
 
