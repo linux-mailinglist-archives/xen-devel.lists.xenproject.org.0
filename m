@@ -2,61 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kKxhGzZkgmkATgMAu9opvQ
+	id SB1HNb1+gmnAVQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 22:10:14 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 00:03:25 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E55DEBF2
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 22:10:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1219710.1528598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C1EFDF85F
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 00:03:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1219733.1528609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnNdw-0000fm-O9; Tue, 03 Feb 2026 21:09:04 +0000
+	id 1vnPPU-0007Q7-En; Tue, 03 Feb 2026 23:02:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1219710.1528598; Tue, 03 Feb 2026 21:09:04 +0000
+Received: by outflank-mailman (output) from mailman id 1219733.1528609; Tue, 03 Feb 2026 23:02:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnNdw-0000dk-LV; Tue, 03 Feb 2026 21:09:04 +0000
-Received: by outflank-mailman (input) for mailman id 1219710;
- Tue, 03 Feb 2026 21:09:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vnPPU-0007Ns-BN; Tue, 03 Feb 2026 23:02:16 +0000
+Received: by outflank-mailman (input) for mailman id 1219733;
+ Tue, 03 Feb 2026 23:02:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uuvN=AH=intel.com=sohil.mehta@srs-se1.protection.inumbo.net>)
- id 1vnNdv-0000de-9y
- for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 21:09:03 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b044540-0144-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Feb 2026 22:08:54 +0100 (CET)
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2026 13:08:52 -0800
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2026 13:08:50 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Tue, 3 Feb 2026 13:08:49 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35 via Frontend Transport; Tue, 3 Feb 2026 13:08:49 -0800
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.24) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Tue, 3 Feb 2026 13:08:48 -0800
-Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
- by SA3PR11MB8024.namprd11.prod.outlook.com (2603:10b6:806:300::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Tue, 3 Feb
- 2026 21:08:43 +0000
-Received: from DS0PR11MB7997.namprd11.prod.outlook.com
- ([fe80::24fa:827f:6c5b:6246]) by DS0PR11MB7997.namprd11.prod.outlook.com
- ([fe80::24fa:827f:6c5b:6246%4]) with mapi id 15.20.9587.010; Tue, 3 Feb 2026
- 21:08:43 +0000
+ <SRS0=0aDa=AH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vnPPS-0007NO-IM
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 23:02:14 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f9781f4-0154-11f1-b161-2bf370ae4941;
+ Wed, 04 Feb 2026 00:02:12 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1B6BF432E0;
+ Tue,  3 Feb 2026 23:02:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E255C116D0;
+ Tue,  3 Feb 2026 23:02:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,236 +47,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b044540-0144-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1770152935; x=1801688935;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qY1T3W5FyVljOdyzSZZJlCwbWMnAtLdxMvJwaQWvtv8=;
-  b=eX9W27d/4IAinXu1+z0yS1hsisZdivGS+k+0xP2NzOFqIIXRfsTY/Ojs
-   nFqNYANawhDSG2K937SqETPWXuqcfgcQy01ASrqamx+fqUs77fHXJS22x
-   o4o/ozs9sIMYSCgVxT5BnTP5A/crcUTPkqGsknhh9TJNsCHQcEmfQRSdc
-   QJEgJNmL3r17Mb643sWq2q4QFsJSdg2EsDDWY83t0mn/1mLFtpWPwZVYm
-   4MGS1OqNUBPmODPhE61bOqqeonYNnKTSn6843Q8oB2dx9sfQtFpFpDPI2
-   u65G0Xk+6+jTfdvJ6i/vX2Gu2Itijj2+j39ZKtCXorX04hVjPXIkaawfC
-   A==;
-X-CSE-ConnectionGUID: I+nnhj8GTECajdZL1SyV6Q==
-X-CSE-MsgGUID: UE2V2SsGR5+XOPycT3zHxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="71233925"
-X-IronPort-AV: E=Sophos;i="6.21,271,1763452800"; 
-   d="scan'208";a="71233925"
-X-CSE-ConnectionGUID: AIu4Bu7bRHmCN8w6PpNQgQ==
-X-CSE-MsgGUID: 1zC3yfojTc6HH6P4vGGrGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,271,1763452800"; 
-   d="scan'208";a="209071141"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wBDzqIUeDTf59gn4wD4SI98TY88DBozbvs4GiraMwQaEb4yJok/ZZrVLxYySn+yae3nX7n4lIGuziA38BDi94Ds08fe6hCSUZfnk5It53TJdNumxqRTW/med9jmVprVS1j9NWLT/FQM4xvQ03uGcUP48eKja/DvY1A4DU4V/oEGMoBz3ZA/fSX1Wgq+LIrRmjOlkgIZl1zb/q8PWbQGekySpwxcvfP8RcLy7PYzIAehQGFzk9bwMfmUPlKJSt/83rdcp57CXIkD1Z/uPfUlgku10jOIGgbegNE2jiCaABw/eR6QwIjZNV7+3/TfotLGmjvczwnxjN8qg5pnOhmC+sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LGlKOzbPKaZ81XQ6QuEHoOFQ+jjciNTqRTj25RwHY50=;
- b=yyKeOqEZNWbc9JAYo9Q3EboS0liQvxZtn9RHS6+a7eto7qCi/Rnbh1eTJtnwtl2V8N1Ob6h60Ae51TJJ5FPQZV109rsgy40Z/KvvhYeFnvvosJH8nUbu6I/g23bh7xG71HIGPlJhoBSfwhw52fM2QSgSh/phOZ0mAzNzg9wkNuRkOgnecqLpXcf09tohx/jeV9ErYiogit/5vAd2/NeYPEf3PY+OLT7qO3dBJRibCP7RA7CyEIP9r8+5mAf7I5xPonF6VBQSephHFXdIAg5RYiEVCqpkMzOnashmlKTYyj7KTyKUpxHVDFn5/rctfKAq3X/BuA9IV40awvj1/Hdmnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Message-ID: <0149c37d-7065-4c72-ab56-4cea1a6c15d0@intel.com>
-Date: Tue, 3 Feb 2026 13:08:39 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
- expects so
-Content-Language: en-US
-To: Shashank Balaji <shashank.mahadasyam@sony.com>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, Suresh Siddha <suresh.b.siddha@intel.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Long Li <longli@microsoft.com>, Ajay Kaher
-	<ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-CC: Ingo Molnar <mingo@elte.hu>, <linux-kernel@vger.kernel.org>,
-	<linux-hyperv@vger.kernel.org>, <virtualization@lists.linux.dev>,
-	<jailhouse-dev@googlegroups.com>, <kvm@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, Rahul Bukte <rahul.bukte@sony.com>, "Daniel
- Palmer" <daniel.palmer@sony.com>, Tim Bird <tim.bird@sony.com>,
-	<stable@vger.kernel.org>
-References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
- <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
-From: Sohil Mehta <sohil.mehta@intel.com>
-In-Reply-To: <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0074.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::19) To DS0PR11MB7997.namprd11.prod.outlook.com
- (2603:10b6:8:125::14)
+X-Inumbo-ID: 5f9781f4-0154-11f1-b161-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770159731;
+	bh=rN1vHEBu5BFuRFQMvN9Xkf1rjI4+tIIdv9j+7zG6JTM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=OXKI8dINgXS4T5/XPa9oQel1PfVxUhGWodHEbSQis2CAQY84xRKbDaTQW0YV+vDeF
+	 bJfWpoIZvnlRiJz/+4uapY6idR7PisITjh83C1kWgALYf6FuAzoVZo8omdgEYE7rOo
+	 CNdosvrKFdIyBukkfQMM3cIu/K2/SVaIt+jAd3pmmLFH06fAkNsbAvjvdPWUPqZJBK
+	 2glrgX1gYgXhf1FYNFi30Hc6T/Sjvk5rKmXNQOj6VBoJENbX4Tb9cacYlkELZ+sJ0U
+	 V6dAmGIAZmuCyEa/j+J4KetJ129QLPhXIc1toQrEO6FLHzaauvkm3M+XLBMtQ9kGzr
+	 hQ/OJBtwUXFJg==
+Date: Tue, 3 Feb 2026 15:02:05 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <stefano.stabellini@amd.com>, 
+    grygorii_strashko@epam.com, anthony.perard@vates.tech, 
+    michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com, 
+    jason.andryuk@amd.com, victorm.lira@amd.com, andrew.cooper3@citrix.com, 
+    sstabellini@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v8 1/2] xen/console: handle multiple domains using
+ console_io hypercalls
+In-Reply-To: <0fc9a80a-8621-4ce4-b2f9-c102e975b05b@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2601291404410.2238666@ubuntu-linux-20-04-desktop> <20260129220858.2371938-1-stefano.stabellini@amd.com> <0fc9a80a-8621-4ce4-b2f9-c102e975b05b@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|SA3PR11MB8024:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3a565a4-48c6-461e-47dd-08de636869a7
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016|921020;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Tk9HQjdXd280MWMyOHBVbHZ3cCtVRENJWmI0YjY1S3RVRFZNOTRhSy9HVHVT?=
- =?utf-8?B?Y0dYdXhXRWZzUG5KK0FFcmJmdDlCVm1qOUNhMUR6bERvY1FONTMvTDFPaERG?=
- =?utf-8?B?OERjaFlUWVZOMmdUUFF6eVZxSjliV0FqZ3J4NW5LNjdWMURFWUlBL3dGZ0cw?=
- =?utf-8?B?ditLMWRRNjQzZ0o2UjZNdm1KQWFkVC9QeE4wa1M5MXhkeEZ2MEIzNHFNSTVq?=
- =?utf-8?B?US95SmRtOCtIMW9nOVdQTVVrOXlQeVhjeEdVdnZDNkdtUGZCdkthSFZNODBx?=
- =?utf-8?B?b1hKSG1mMUxRR2NzZks5ZDFRV1RDNUJYbTVyR3cyUnhncE51ZDFWR3B0Y2s0?=
- =?utf-8?B?T0xLcGJjZXozTkkzeTlacGFZWEI3S3IydjVsMTF4aWxEcm5iZ21paHZncmVF?=
- =?utf-8?B?TDEwNFF3NUtxMjAwNFROOVZyRWhJLytMSDVUbjJlM0NtdzBWaFduOHBucTRH?=
- =?utf-8?B?MXBvRzkxNkcwa2hDTTBZZHZPeTBRR1E0aU4zUmtXWFlZUzcyQmdpUFN1ZlQ3?=
- =?utf-8?B?VkU2ZHZyN2k2UXk2c0lzcCs4UFJZK0dqa2Fldnd5dzdGUTFOaW9idjdlbjdn?=
- =?utf-8?B?ZVh4Z04zYlMyaEp0aHB3RVc0TkN0Z25lNlRyUUtPQjBQV1pSdk5TcVI4b3ZB?=
- =?utf-8?B?cS9qUHllSEZlS0FuOGNteFhvanllSDYwb0FDbHFMcklFU2l3LzNnS3lnZncw?=
- =?utf-8?B?eiszRytLeU1JZG9OWjV5ZGNDY0p4NHJyaFZwaER4angzOTlzbnVXdlVuRkx4?=
- =?utf-8?B?dENEVWdkRmIxa0ZBa2FEUWtScDdtYVdGU2RMcWF5a2ZraXFWTHBWbXEweUxj?=
- =?utf-8?B?ckhpM0gwR1E1b3J2MFFrU1E2cUwxU0VmNXVueTJVWG50b1YzUEtZOURjU2g0?=
- =?utf-8?B?L3FwWFp6VVBYaHgrNmh0MVV0Q0R1WVpkWHdDL3FiTXFQN0ZKb1NQcDJLd1ly?=
- =?utf-8?B?MFNpU0VXbFVhOFZHc3IvdkV2T1J5VmZPK0R2SFFzQjVFSEpOazQybGVTdFFm?=
- =?utf-8?B?Z3BHa0ZQQStkZis1a3ZWL3BPbGY2KzEzLzZhRVlyalhFTldJenVyd3JNSWd2?=
- =?utf-8?B?a0xPRzVFWjlaeTZ3b0tLNlpnNzU2dml0bkZyS1dvRGtMaGdHanAxYU9hRkNU?=
- =?utf-8?B?dGNMb2I0QUxmRER1Mms4aTdYejZmUGI0aFZRNzdUUXpJRUNtUW5iK3hkUzcr?=
- =?utf-8?B?dGtXMERRY0RiVWRhSUJoK2xnb0I4NTNweEdKblBJTzN6bGx1c2Rwcys1UnJl?=
- =?utf-8?B?QndkUEh0bm1DQlo4azExWUc4TFhGamc3dFhCVjM0UVZKaGcvQi9ObGtlNmpP?=
- =?utf-8?B?T1hQdkdmYS9lRndrZTRsOHNHbkRzTjRBeS9FMUFtUm1BYkhPSlBQSzljWDJz?=
- =?utf-8?B?UEhsc3Bub2lPVGpMWjhCLzlxT0p0SmZqNTZKa0lHa2NTbkV4Y3kzNk9PSnBK?=
- =?utf-8?B?RThIWWhTOGJtQU5WbUhCVk5TWFR4eFE0NGVCRmI1UGJweC9wQks5clVxbHVV?=
- =?utf-8?B?eXJVQjFBWlBXdUM4ZjZXU2hRYUNzNXNJUkJIU2hZS2trS3JtS3RzTUVXcDVD?=
- =?utf-8?B?aVhXTnZqRzNxYzlYeUIwTUdNTzhpY0ltVmJiekNreHlDbml5cmRpVklGM1pF?=
- =?utf-8?B?c2NTdDlISUFrNFRBd3M0R2xCeXVDR3AxSm02a3MyVDdJVU9RRUFzTVVKcXRM?=
- =?utf-8?B?Qk1nUEUrL2xMbVlRcW9EdEY5UTN6aU1tWTFQMFJpM2s2WUFNS01NNDAvZWhF?=
- =?utf-8?B?NXp1dDdsRFp0YUowb3RVaW1uL0xrR1UrR0UwWDhhUHIzWmdSYzkxTmVxUWVk?=
- =?utf-8?B?QkEvYXA4MGZUbCswbmJ1eFlYQVhFblM2bnErVHAwamJZOG5US3BTNVRzOTda?=
- =?utf-8?B?WmNEZWhHUmliUVEzRVI3QTVxV3NZeWF2SHJ4UDBjS1BSdXR1Ni9nc1ZId2hX?=
- =?utf-8?B?WEMvaWVkb1AreU05ckc2cHVDQmgxa1V1aFdxOGNlalZLWjM3VTlvUnRTdUFn?=
- =?utf-8?B?N00wOWh1RDdMWitiQ2pKbDRXblJDMHFwSVJUczFCYWM1WmYzb0lWZUJTTXVl?=
- =?utf-8?B?TEFncnpndVhicDVFMTBrUDBqclZUbU5CZmhYcE5CbldxRGowN2JvMzA0b05T?=
- =?utf-8?B?V2p0NU5rNFJ0bW5MK25mMytvdGlSR3NQdDFPVVVPQ25obU85aFF0YkQ2cFps?=
- =?utf-8?B?R1E9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUNhN2JlS0NtVkRpVXRIeTJlTnpOQmRQcDZuWVczaTJOa2NrUEVEZnIzVlZz?=
- =?utf-8?B?UWtSR3krdXJDb0FGc3hFRlFMNXJxaUl6Sk44d3FUN09iRmRrN0VRRlQ2MVNk?=
- =?utf-8?B?UEtEN1EyRmJsL1BHWDQxZFpyc0ZWQThRdTBBeHJCMHFLRTR0Qk5mdkxyWUI2?=
- =?utf-8?B?eEJtdFdYRUJWUzFhaWcvOGdweC8yMHp6UUszRkNySzFRYW1UMXd0dlFPMm5h?=
- =?utf-8?B?TGtLYURua1hmL0t3NGRJR2ZYQ1hGQUs2MTlobzVueTFLUnY3aXFuR1VFZUdZ?=
- =?utf-8?B?VHYveHk2Z2RTSm1SUS9YSzlTeUhBZHYwa21IZGZpMUt2SjYrYUMvM2hDc1J5?=
- =?utf-8?B?c2wveEtVZ3M5ZzVCZTB3M1A5STVzVkRWWXMrRlVpK2EyL1pHelRic0hsUzhy?=
- =?utf-8?B?NVdPRUozZWZvK2hGUTV6dlREOHgvWWhsU1pQWEQzTGZLR3AvdTNIRjl2UWla?=
- =?utf-8?B?OEtwS3NtV1FZeW9HYTZhMjcrTkdtelFBS2JiZGVGM1NRVE8rMXZmb2swelRV?=
- =?utf-8?B?d1owVW9XcDVNRU94V3V3N0o2djc3aytmUXc1WTZQR0ZXWHVqZnJpdFRFU0RQ?=
- =?utf-8?B?R3A2RU9EQnIrRitKRWxGaW1MdTgySjhRTW5yRStoYk12OVVxVWdhZEtNKzNp?=
- =?utf-8?B?MmZtNEx4QldWSitqMWh1VW84Y1FPOEJUVWJPa1g2TXU4VTNBMTgyOWVrZHpp?=
- =?utf-8?B?UXBWemRVOERmazBjeUlLK0xIeFZySEgwelVObFhqNlNzN0pML1JFaGNzMnla?=
- =?utf-8?B?U1YrTUl6cXl6aE5Ibkt4TUY1VkhEaFBJbGM5OEtnMmFmMzNYRURMU1poS2x5?=
- =?utf-8?B?MTRNUit0VFJ1ZlRQYjBQc3JDcmc4Mk12VnZJY3hpS2twekFnZWpUV0hYS1R4?=
- =?utf-8?B?TCtObEExZ3ZLdm1TcHBIRitUUTExRlk0cDdFNHVOVVhjTTRuaXdoREIwaGRK?=
- =?utf-8?B?T1cvRXI5cDZsTy9CYjdpdGJpd1FUb204NkN3eGl6MXFNd3lJc1ZwNjc2U0Qw?=
- =?utf-8?B?QjFvWW5jUEdWRVhhMEdIUC9BaExiYVRRVE5keWVXYmxMU2Z4Z1pPcElZT2dR?=
- =?utf-8?B?bGN6akg5Wm9aWFpRcGg0b3lKSkVhRDZjUkoxN04xcDE1TWNLM2NqVlgwYm9H?=
- =?utf-8?B?OUw3bXZkZ1NndGNwVXZnZ1p0SzdkTktlbDduZnE3ZjVpanRoRU81NVF5cit1?=
- =?utf-8?B?NlVqM1c1aFdiUFJxVzgxdDlLWEQyY2VGKzk4TmVzeEFNVXRWZlhmZVJXd1k2?=
- =?utf-8?B?ZXBaMjVFNHprQ2p2R1ltckxDSEdlN2JiM3UweEpkL2JSN2pOV3JYY1hab0FQ?=
- =?utf-8?B?N1d0ZCthUzFleFV6TUJLcU9PY1BoSVBrdmFpR3ExWUJUdzRmTHJZRUhjL2M0?=
- =?utf-8?B?SXJKMUdoUVJlYXExSjJrc2N3NjNwSFI0TGRuMitYTVZTUytJNVFLNnl6RFM3?=
- =?utf-8?B?RllIN1JpNEVCb1hPQjk5VjJEWS9rMWJGWDJER2ZQUC95SE84NUJOdnFkY2k2?=
- =?utf-8?B?K3I1WGFPREQ5dy9lL0xOUmp2V2F5TEVOTUVNUnQ0U2hQRWhqSGxmR1RMcmdK?=
- =?utf-8?B?bXlUbU4yVVQ0VCtuQU9ucHFsa3paZFUxQW9UYVNZUklFWjhPRTArb1pWdDU1?=
- =?utf-8?B?WXFNWXBMcGJyRG4xYVFhMmNwVDBaaFBnZG9ITzhSeUNYUVdseWJUY0grQTBB?=
- =?utf-8?B?dnZPVUlnVXFVbnJEK3puRVpuTE9CY3M0d0pDZmlEU3R3NEt2L0J6VlJuQm1x?=
- =?utf-8?B?ZExNMVh4aDFreW1LRVIwM0xhNlZHVk5rUkFveGRMZExhbUM1T1RzT0pnSTR2?=
- =?utf-8?B?eld4WlRjWFFWaWZKTEtYNWhzbUZzUmh0NUJGdlh3TmZGNlRXMGZpSldyNnlE?=
- =?utf-8?B?OHI3ZzdsNzV0US9TWXh2NVBRdWFTYnBOdVo1NFFLMVd6VC9GWFZSMUtiV09P?=
- =?utf-8?B?VlVLTnBxMUVwaGphUk53WmxrbC9UNkxzTDZiZ2Z0V2lzc1N6bnFSZDYydVc0?=
- =?utf-8?B?OEl4YjU1eHhJeE1NcnlEMW1hV00vRVRBUFdwVjVMcU9ieGR6MVNYNWFrc2pT?=
- =?utf-8?B?aHoyRnlxN0RDRmdIRmZBK1o2ZVY5a0hWOWgxc2gvWFExUlVlbG93QmhUTmp1?=
- =?utf-8?B?WFlGL0x0RXNFK29FU3FVblRpbmZScGFHSGRiMHRrUEdTR3hWOU4raVVxVWVm?=
- =?utf-8?B?V1ZnM1BTaTZkRWMzWFRpdWU0TmZGYVpHTXFjVjNUWkk2WDNVSVgwQmtMQUlr?=
- =?utf-8?B?T3ZsZThvUjQrYXRyQk51dGhGdDgrMXhxMDd4c3oycWNpK1BvYUY2K0F0VkYx?=
- =?utf-8?B?WFhyR0VsaDBKL1F3Lzd5WVpGMzdOeFM5dWMvL1VMTjVwYU9KWjRDUT09?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3a565a4-48c6-461e-47dd-08de636869a7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2026 21:08:43.5315
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l0GBOo+93wnOaNuqkVvRwziwBDEd8ODdMRtPBWPjn5wCQtBYxfC+ltSVaofvGcz4fE/H1Jwd3l0s+a2XbDSXWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8024
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.18 / 15.00];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
-	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:shashank.mahadasyam@sony.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[intel.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: C5E55DEBF2
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 7C1EFDF85F
 X-Rspamd-Action: no action
 
-> diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-> index d93f87f29d03..cc64d61f82cf 100644
-> --- a/arch/x86/kernel/apic/apic.c
-> +++ b/arch/x86/kernel/apic/apic.c
-> @@ -2456,6 +2456,12 @@ static void lapic_resume(void *data)
->  	if (x2apic_mode) {
->  		__x2apic_enable();
->  	} else {
-> +		/*
-> +		 * x2apic may have been re-enabled by the
-> +		 * firmware on resuming from s2ram
-> +		 */
-> +		__x2apic_disable();
-> +
+On Tue, 3 Feb 2026, Jan Beulich wrote:
+> On 29.01.2026 23:08, Stefano Stabellini wrote:
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -518,11 +518,16 @@ static unsigned int __read_mostly console_rx = 0;
+> >  struct domain *console_get_domain(void)
+> >  {
+> >      struct domain *d;
+> > +    unsigned int rx;
+> >  
+> > -    if ( console_rx == 0 )
+> > +    nrspin_lock(&console_lock);
+> > +    rx = console_rx;
+> > +    nrspin_unlock(&console_lock);
+> 
+> Did you test this in a debug build, and it didn't blow up? The console lock
+> is an IRQ-safe one, so I'd expect check_lock() to complain that you do not
+> disable IRQs here. At the same time I don't think you can rely on IRQs being
+> off upon entry into the function.
+> 
+> Anyway - is locking here really needed? Wouldn't suitable use of ACCESS_ONCE()
+> (also elsewhere) do? (Such a switchover likely could be a separate, prereq
+> patch.)
 
-We should likely only disable x2apic on platforms that support it and
-need the disabling. How about?
-
-...
-} else {
-	/*
-	 *
-	 */
-	if (x2apic_enabled())
-		__x2apic_disable();
-
-I considered if an error message should be printed along with this. But,
-I am not sure if it can really be called a firmware issue. It's probably
-just that newer CPUs might have started defaulting to x2apic on.
-
-Can you specify what platform you are encountering this?
+I created a prereq patch which introduces ACCESS_ONCE everywhere for
+console_rx
 
 
+> Further, if already you add locking on the read sides, what about ...
+> 
+> > @@ -540,6 +545,12 @@ void console_put_domain(struct domain *d)
+> >          rcu_unlock_domain(d);
+> >  }
+> >  
+> > +static bool is_focus_domain(const struct domain *d)
+> > +{
+> > +    ASSERT(rspin_is_locked(&console_lock));
+> > +    return d != NULL && d->domain_id == console_rx - 1;
+> > +}
+> > +
+> >  static void console_switch_input(void)
+> >  {
+> >      unsigned int next_rx = console_rx;
+> 
+> ... this read?
+> 
+> > @@ -555,7 +566,10 @@ static void console_switch_input(void)
+> >  
+> >          if ( next_rx++ >= max_console_rx )
+> >          {
+> > +            nrspin_lock_irq(&console_lock);
+> 
+> As indicated earlier, you can't know IRQ state in anything down the call
+> tree from serial_rx().
+
+I'll switch to the irqsave/restore versions in console_switch_input
+
+
+> 
+> > @@ -742,17 +765,36 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+> >          if ( copy_from_guest(kbuf, buffer, kcount) )
+> >              return -EFAULT;
+> >  
+> > -        if ( is_hardware_domain(cd) )
+> > +        /*
+> > +         * Take both cons->lock and console_lock:
+> > +         * - cons->lock protects cons->buf and cons->idx
+> > +         * - console_lock protects console_send() and is_focus_domain()
+> > +         *   checks
+> > +         *
+> > +         * The order must be respected. guest_printk() takes the
+> > +         * console_lock so it is important that cons->lock is taken
+> > +         * first.
+> > +         */
+> > +        spin_lock(&cons->lock);
+> > +        nrspin_lock_irq(&console_lock);
+> 
+> While guest_printk() does matter here, it taking (down the call tree)
+> console_lock isn't alone relevant. It being called with cons->lock held
+> is, .
+
+I updated the in-code comment
+
+> 
+> > @@ -816,22 +857,39 @@ long do_console_io(
+> >              break;
+> >  
+> >          rc = 0;
+> > +        nrspin_lock_irq(&console_lock);
+> > +        if ( !is_focus_domain(current->domain) )
+> > +            count = 0;
+> >          while ( (serial_rx_cons != serial_rx_prod) && (rc < count) )
+> >          {
+> >              idx = SERIAL_RX_MASK(serial_rx_cons);
+> >              len = serial_rx_prod - serial_rx_cons;
+> > +            nrspin_unlock_irq(&console_lock);
+> 
+> Can we please have blank lines on both sides of this?
+
+sure
+
+> >              if ( (idx + len) > SERIAL_RX_SIZE )
+> >                  len = SERIAL_RX_SIZE - idx;
+> >              if ( (rc + len) > count )
+> >                  len = count - rc;
+> >              if ( copy_to_guest_offset(buffer, rc, &serial_rx_ring[idx], len) )
+> 
+> Have I perhaps talked you into moving the unlock too early? serial_rx_ring[]
+> accesses look like they need to be with the lock still held. Or, to avoid
+> calling copy_to_guest_offset() with the lock held, a local copy would need
+> making.
+
+I introduced a local copy
 
