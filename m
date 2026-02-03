@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aJrHDUEngmnPPgMAu9opvQ
+	id cMtqE2YngmnPPgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:09 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:46 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2778DC44B
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1219421.1528305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCA6DC459
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Feb 2026 17:50:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1219426.1528315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnJbG-0005Cx-05; Tue, 03 Feb 2026 16:50:02 +0000
+	id 1vnJbp-0006dJ-9D; Tue, 03 Feb 2026 16:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1219421.1528305; Tue, 03 Feb 2026 16:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 1219426.1528315; Tue, 03 Feb 2026 16:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnJbF-00059k-Sp; Tue, 03 Feb 2026 16:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 1219421;
- Tue, 03 Feb 2026 16:49:59 +0000
+	id 1vnJbp-0006bf-56; Tue, 03 Feb 2026 16:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 1219426;
+ Tue, 03 Feb 2026 16:50:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J8X4=AH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnJbD-0004jK-Oq
- for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 16:49:59 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1vnJbo-0006bJ-0k
+ for xen-devel@lists.xenproject.org; Tue, 03 Feb 2026 16:50:36 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f6c0bc4-0120-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Feb 2026 17:49:57 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-435a517be33so3521246f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 08:49:57 -0800 (PST)
+ id 74e040b3-0120-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Feb 2026 17:50:33 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4801ea9bafdso26650015e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 08:50:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4360ef9e804sm11082497f8f.41.2026.02.03.08.49.56
+ 5b1f17b1804b1-482dbcf9c3fsm144236995e9.4.2026.02.03.08.50.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Feb 2026 08:49:56 -0800 (PST)
+ Tue, 03 Feb 2026 08:50:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f6c0bc4-0120-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 74e040b3-0120-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770137397; x=1770742197; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770137433; x=1770742233; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jSrVgJ47FbXZI7U0CKTH4UTDBJca7s7Dks5/LglLXeg=;
-        b=UczrCBv7BqVf1fbPOPppPBJ1enWYryDi8T132BjsyGBVeu/HnK85ZIqCcKKD2aonod
-         mjv0/OJBOx8tF/rLlDnYIsJO6XxR+Enp0mZ3TW9J6tOCsxKtegdkTTGFRFgixLVKTSVV
-         GNHuQsGdg44iVuv7qckZS6Dk5GJua/hkHPU47JuCYRI6rU+mvjKAczh1WUIw8YyKBGsy
-         zOKoQwsdR+hojTkdlOMa8e7A7BPfe9xsO18Qiuy5jwqqmy1grq48tsn5C442FQs5kEkh
-         hV/Mp+xDBex9FnaS1/1RkPbx6rDnO7qk15YO7lIDSPSvv9LAtzH0hxEGKWCkzDUc34ZR
-         OYwQ==
+        bh=ArrlHuUWuRHWGJM3SpePVZfqjLgEGNYvg8IJ6jwvR5M=;
+        b=du0Unn1Ossf2Pua17GboRT5/mDmLDThoiLIzjqY1tUUYoZygZXndjEohWhL4zEuqfm
+         +60m3wwsfA+pj9l6ghVAaHy6ayOOqThIXhDa/u0VjsyDOgpW2IIGXHu2XLLT8JYQicFM
+         cNyrIFO86DY8k2ym3mK0VCKyBsrr/bHJlqAaXFo6w5GctJVXWHUo6bfzh7vDOX9cpMBC
+         P6MSvUNaN5oOrew8lTgut4j62VS7Ht3NIH3aDtkwzAB7pgPCKpWEG+YgQxJsNNLlOCuA
+         gHDb71KTrDBTQzml+DHCa7RhVRmQrB0TrcDgxeSs9LtkDmW6ZIrrGgY1XOticaUTUjO4
+         +aug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770137397; x=1770742197;
+        d=1e100.net; s=20230601; t=1770137433; x=1770742233;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jSrVgJ47FbXZI7U0CKTH4UTDBJca7s7Dks5/LglLXeg=;
-        b=Nu76lesIZeEbRiDDdFkkDZtPWJMyF8IQ4LDfmEUcer8HtOz2M3Vg7ZA2g6YvOlOkTS
-         Mk1Udt+n0IGcXvDgs8CzQvvXp47udqgty/Rg3433kbqR8hoUJm7lcpmQx9xYTDcdIJr6
-         829eON7pif51iZDL2YqL+q1+6oQ4wtUTa3510dHY+1+HTDvETbSPiUMoW549LoJHRJNg
-         ulcVxJy70cfPMbFQcvL8yCIoWGbyEQk2ZrdyJN5DiK1bwoFvgLj1IlkRwIDVAuu7IDsR
-         eNWWYEPvtoHxDHM00TTQOLxrrqdkSESs1JgQyRXcbGKEKIJwRSP7RNa/c23UAFsZo2aH
-         4Nzg==
-X-Gm-Message-State: AOJu0YzDXDg+FdgrTP0AOv/3X1uUWiXILWxYDEekWoWmvzEEpZhCcLmZ
-	HpauZiTNTI8xHeh139qnljLaXq/GxqDs5NVHm8j0sdDjt/NohNvxRraDm+sdVgGQe3y1ukRXo4v
-	FcHw=
-X-Gm-Gg: AZuq6aL8hWYSN0HtBIvCdCeww/TTm5um0Nw2LIQO6BuPqEC8xl0L/NLnwPS0/t8uamu
-	ioldUAN/1AuPKws63FfDGOT+HAbXLFmy5cCeDjc6lN80UUaanfAiR4QGsNsXKfcC4j3gx0zwxS/
-	0hu8p3nXHDl7/tLGNctJrv3BY6WClicDnQpF7ZZUJdN0h1dj9OwbC8qesTfurjJBMA3BF2lAzqf
-	ghjnCafJ05qnvXUXBHElGj3/uCO1Pw9yBROCPR/kNh8bBiT0s0cGkFkzRI7de8kVYuLhaNhSSs3
-	C+s366d1fD5SJTCpc+xZODFVJrtwhqKAdQ8VJMp8tvDqRPjXFX4XfhnUKO/lJ2o97icuzeHyOVD
-	MJvVbkTfFN3/TLz2ecChFZYrjNm8jYWRLNlbh9h4ETw5nJhlquiMvLilaWfPCJ2hKnemz+SaIwi
-	WTFkepIOA1VzkbNoIg0DGMHoh6pEAjEpdrezDfMmNzX122AEYAbVU2+0p/1pB3BwLYXblalOCbw
-	I0=
-X-Received: by 2002:a05:6000:290b:b0:436:14fa:a3f3 with SMTP id ffacd0b85a97d-43614faa467mr3339071f8f.21.1770137397143;
-        Tue, 03 Feb 2026 08:49:57 -0800 (PST)
-Message-ID: <8559db88-5f1d-4ced-980c-e71c4e229c7c@suse.com>
-Date: Tue, 3 Feb 2026 17:49:55 +0100
+        bh=ArrlHuUWuRHWGJM3SpePVZfqjLgEGNYvg8IJ6jwvR5M=;
+        b=XXlEv7JLnGp+QwX7wXPQ1C/mt5ACVyK1Xi/pmHxrtoUSriTyb2Q087pHzMxrCFJ6ni
+         U9Aw0J4mNaJqhMR4HD07rfV9I7d9HUetjzg9GeUd5YA0+2JPrkEmfiZBLY/OqiaQ1nQO
+         tiu4euFvZoB0gbcnjqa30tFLIi5BjaKqYspdM7Oqpk5rP16Iekg+gjqWe5V+uRl58MfL
+         EBjJgRPg+J7TtSFq6SGWFm+hK1cnXJsI8obYgNj66L3lp5TQSUN4XQG4XyY+DJO3BYqB
+         lHLOhkTYiekOVxWQz8qga1vczpOwAHccSBnBDVXhhzWNUv9brpCbzK6sgc9DzCBbfH9y
+         AM2g==
+X-Gm-Message-State: AOJu0Yz7G08wz7HFg9FRLWdVkVmK3dPE7hJ6rmt8u5gShTi5E9l8Ftkj
+	/WVckNeIyCsqtGHMid7hTJ+4bs/PEa210RSSO5+MrqMO4dyoE0u71S1z40uAVc+FuV4QVmwVXhu
+	zQD0=
+X-Gm-Gg: AZuq6aIvoPYwF+UoQ7227hwAOJ3XhQM6mzSsk7GXsqUb8b9JuUne7TgtzNKPRtlfP6z
+	ugTgyF93pK0gr4ZFXefdnMaLr342bbeTO1U6tHfpPRd2Ut0+P8GLSPWcEM8j3OusC0LHaqBg7md
+	60GVD56Yw7pY5TqTVB1HYEzg2EWyZ2fbT9cGJZcQmYkW9/o4rFyG2PsnGDfT81NYtcvS6FkYgtR
+	kcevCJTFzu9R5YWhAKeBi6inwJCMz470I+s6FIzkAlHqB9Dgsth2MzoFTppmFVWgYwpz8eGIL2i
+	tcmVU67g9GjjRAu6wKT3xeQbk2p99IR0+l2KI7v4yCVTc18PuoSAI9Gh2lnmLOecJvtAqr/nXa7
+	2n1peE51JTJzo2G4BtGyRRA18tEx8PwKQlyDV90b1mZFXFoZKwvQsy5Z6SNeLZmFLohqZf01Z77
+	YgoqhvFYOGZsSJPuw+zpjWIf0jCS4MrQ3Ar5T3mjP90Lb5qQ3XFo/lht81yOEX2d7l7iSV9Z/CI
+	ss=
+X-Received: by 2002:a05:600c:5295:b0:47f:f952:d207 with SMTP id 5b1f17b1804b1-4830e96adddmr3271045e9.19.1770137433181;
+        Tue, 03 Feb 2026 08:50:33 -0800 (PST)
+Message-ID: <38581c16-e2a0-4f7e-a08a-3517063a27cc@suse.com>
+Date: Tue, 3 Feb 2026 17:50:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/3] x86/shadow: VRAM last_dirty tagging
+Subject: [PATCH 3/3] x86/shadow: reduce flush_tlb's scope in
+ shadow_track_dirty_vram()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -153,90 +154,61 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[37.24.206.209:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[37.24.206.209:received,94.247.172.50:received];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: B2778DC44B
+X-Rspamd-Queue-Id: ADCA6DC459
 X-Rspamd-Action: no action
 
-->last_dirty holding a valid value (one other than -1) is solely an
-indication of the bitmap being entirely clean. (The opposite isn't true,
-because of _sh_propagate() setting the field to a valid value without
-setting a bit in the bitmap.) As a consequence
-- setting the field to a valid value right after having allocated zero-
-  filled space is pointless,
-- copying the the all empty bitmap to the output array is pointless; with
-  the output array also having been allocated zero-filled, not even a
-  memset() is needed there,
-- after restoring bitmap contents when dealing with copy_to_guest() having
-  failed, the field needs setting to a valid value again.
-
-Furthermore invoking NOW() in perhaps many loop iterations of the main
-loop is wasteful, too. Record whether any bit was set, and record a new
-->last_dirty only once, after the loop. Then use the same NOW() value also
-for the subsequent check.
+It's set only in the main "else", so the declaration as well as the sole
+consumer can also move into that more narrow scope. This may in particular
+help with possible future locking changes.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/mm/shadow/hvm.c
 +++ b/xen/arch/x86/mm/shadow/hvm.c
-@@ -1087,18 +1087,18 @@ int shadow_track_dirty_vram(struct domai
-         if ( (dirty_vram->dirty_bitmap = xzalloc_array(uint8_t, dirty_size)) == NULL )
-             goto out_sl1ma;
- 
--        dirty_vram->last_dirty = NOW();
-+        dirty_vram->last_dirty = -1;
- 
-         /* Tell the caller that this time we could not track dirty bits. */
-         rc = -ENODATA;
-     }
--    else if ( dirty_vram->last_dirty == -1 )
--        /* still completely clean, just copy our empty bitmap */
--        memcpy(dirty_bitmap, dirty_vram->dirty_bitmap, dirty_size);
--    else
-+    /* Nothing to do when the bitmap is still completely clean. */
-+    else if ( dirty_vram->last_dirty != -1 )
+@@ -1022,7 +1022,6 @@ int shadow_track_dirty_vram(struct domai
+     int rc = 0;
+     unsigned long end_pfn = begin_pfn + nr_frames;
+     unsigned int dirty_size = DIV_ROUND_UP(nr_frames, BITS_PER_BYTE);
+-    int flush_tlb = 0;
+     unsigned long i;
+     p2m_type_t t;
+     struct sh_dirty_vram *dirty_vram;
+@@ -1097,7 +1096,7 @@ int shadow_track_dirty_vram(struct domai
      {
          mfn_t map_mfn = INVALID_MFN;
          void *map_sl1p = NULL;
-+        bool any_dirty = false;
-+        s_time_t now;
+-        bool any_dirty = false;
++        bool any_dirty = false, flush_tlb = false;
+         s_time_t now;
  
          /* Iterate over VRAM to track dirty bits. */
-         for ( i = 0; i < nr_frames; i++ )
-@@ -1174,16 +1174,20 @@ int shadow_track_dirty_vram(struct domai
-             if ( dirty )
-             {
-                 dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
--                dirty_vram->last_dirty = NOW();
-+                any_dirty = true;
+@@ -1158,7 +1157,7 @@ int shadow_track_dirty_vram(struct domai
+                              * _PAGE_ACCESSED set by another processor.
+                              */
+                             l1e_remove_flags(*sl1e, _PAGE_DIRTY);
+-                            flush_tlb = 1;
++                            flush_tlb = true;
+                         }
+                     }
+                     break;
+@@ -1201,9 +1200,10 @@ int shadow_track_dirty_vram(struct domai
              }
+             dirty_vram->last_dirty = -1;
          }
- 
-+        now = NOW();
-+        if ( any_dirty )
-+            dirty_vram->last_dirty = now;
 +
-         if ( map_sl1p )
-             unmap_domain_page(map_sl1p);
- 
-         memcpy(dirty_bitmap, dirty_vram->dirty_bitmap, dirty_size);
-         memset(dirty_vram->dirty_bitmap, 0, dirty_size);
--        if ( dirty_vram->last_dirty + SECONDS(2) < NOW() )
-+        if ( dirty_vram->last_dirty + SECONDS(2) < now )
-         {
-             /*
-              * Was clean for more than two seconds, try to disable guest
-@@ -1216,6 +1220,7 @@ int shadow_track_dirty_vram(struct domai
-         paging_lock(d);
-         for ( i = 0; i < dirty_size; i++ )
-             dirty_vram->dirty_bitmap[i] |= dirty_bitmap[i];
-+        dirty_vram->last_dirty = NOW();
-         paging_unlock(d);
-         rc = -EFAULT;
++        if ( flush_tlb )
++            guest_flush_tlb_mask(d, d->dirty_cpumask);
      }
+-    if ( flush_tlb )
+-        guest_flush_tlb_mask(d, d->dirty_cpumask);
+     goto out;
+ 
+  out_sl1ma:
 
 
