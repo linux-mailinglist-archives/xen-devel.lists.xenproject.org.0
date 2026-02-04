@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IPtvAXzsgmnqewMAu9opvQ
+	id SBykKf/xgmmWfQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 07:51:40 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:15:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D20DE26E3
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 07:51:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1220046.1528769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1773AE2920
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:15:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1220058.1528780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnWig-0003QW-Ve; Wed, 04 Feb 2026 06:50:34 +0000
+	id 1vnX63-0006hs-Ok; Wed, 04 Feb 2026 07:14:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1220046.1528769; Wed, 04 Feb 2026 06:50:34 +0000
+Received: by outflank-mailman (output) from mailman id 1220058.1528780; Wed, 04 Feb 2026 07:14:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnWig-0003Nx-SJ; Wed, 04 Feb 2026 06:50:34 +0000
-Received: by outflank-mailman (input) for mailman id 1220046;
- Wed, 04 Feb 2026 06:50:34 +0000
+	id 1vnX63-0006em-LS; Wed, 04 Feb 2026 07:14:43 +0000
+Received: by outflank-mailman (input) for mailman id 1220058;
+ Wed, 04 Feb 2026 07:14:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnWif-0003Nr-Uf
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 06:50:33 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1vnX62-0006eg-T9
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 07:14:42 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc795085-0195-11f1-b161-2bf370ae4941;
- Wed, 04 Feb 2026 07:50:31 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4806f80cac9so35430485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 22:50:31 -0800 (PST)
+ id 2c3f8bf9-0199-11f1-b161-2bf370ae4941;
+ Wed, 04 Feb 2026 08:14:41 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-47ff94b46afso5249485e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 23:14:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48310859101sm19825735e9.8.2026.02.03.22.50.29
+ ffacd0b85a97d-43618058473sm4525135f8f.22.2026.02.03.23.14.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Feb 2026 22:50:30 -0800 (PST)
+ Tue, 03 Feb 2026 23:14:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,61 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc795085-0195-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 2c3f8bf9-0199-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770187831; x=1770792631; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770189280; x=1770794080; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TCeKq1nEU8lvHTb7ifcHIk6Jg/vgURV8VPxvCoBXauk=;
-        b=JKFvsPEiR+ZUC8lNdlLqF5Wf3iWrAJBzM5CBfUIPDzbciOIKyyI03RxkvS5be4LLzR
-         21DfUXaUzslzi9j6eVwxA24gJUQjRaWslw2SXMBOdQrKuL0R0ComS3Sq0JzGlJv1iaOS
-         XEyGZ82+bHY3QhWkwcJ64lAEDq3GtnKUFVzwKLkzE/lrgAWLdLnHGwXHphrlyGEPnHPO
-         8+KMxQVDy60epafL2SCM7IMlPDc6gHC12sTLHuN1szRihqvhxSIA8qnPALV/MqNEPGIZ
-         dsLIG8ujdaLd13P6gYOnIrZBTGNhna5C0INhSPBG2iOpVftwE09ulb5sH9EIobSyG5Nt
-         hktw==
+        bh=dL1+4WVFhRC/gocRsASuVZkJUVAVujnW+FddS0cyUbQ=;
+        b=Lf+hobJ7gQKt46LKkI/ILjwvB+Vl1RS4GVuYoZO+MhT/qX3EFyfjPMqv5TEZz3diXX
+         ra3W0dW4nIJH/Bx1BxV+kW+fcIoVcl5Uf+AooDhakWI7NtucwoFh7yi8rLYvwQGUNQVP
+         gnNmnO8O9KpqbKNdrAhihUJtxmhaM0tDCxQbriEZFXVSSpa/xHwP1WWjv9Y5jX9Lt44d
+         dfcFhFVB+EaD9ZS//rDwilYbrk/NV5FmZlKBbYwzwuGcImI0IujVPmuf7R3b6X8PHrSq
+         Wh0D8QXeRBnYE2/5zFOoDmo7+Mty6nLhPDzvIS21c7qFQIVScEb1S/oz6gk551vov9b2
+         n7kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770187831; x=1770792631;
+        d=1e100.net; s=20230601; t=1770189280; x=1770794080;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TCeKq1nEU8lvHTb7ifcHIk6Jg/vgURV8VPxvCoBXauk=;
-        b=TvMNWCrCDH4BDGkLr86TxIaAUkAHoFw8ER+iiRToJMZ6C8W3dRLDXVzMLe6SNo06E9
-         LPf7iM8mjqHh2AY8plgX8073lfX/n5RUFsrMDAG9NfvEBvFF8t0EVmf711tCSunRDm5M
-         Kd29cfh3J9ylPUKEay4dk4rfSR71XCHLHCzeNjt52DsqxIWj79AznbKMac9JbNZuu0vm
-         kLSp8/sWjQ2uW1e+ncJftrPT0b2g7lfvOAx5MEOyUbsFA/sqPBTfBZrmwUMDiV+VEK0f
-         iQ3pmnoL/jywM0/ttSQeZBczIxSADrFbS8ywgehBIMVAaLj5QOk/6eplQYII3gOhUZmP
-         Canw==
-X-Forwarded-Encrypted: i=1; AJvYcCWY7v8kCu/6j2d+iC5cZo0hRLRWdtn88GcPvIuI4D/qPcjE0Er6C9uV0TMy8/prSywUzzX2EIv002k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMU0NKMnhBNABDmqmBH76ceZx4Q+gw1WlyZy+xHhKpjS9QJvj1
-	S2fLhvm48dikcBcZFiulE2LHX0zx4PADCpEt2q4FvZWwyFHAl5cDPkuosO1D1jGv3w==
-X-Gm-Gg: AZuq6aKhZE6i2JOfXq4OyKbYsCSCkcTwNp3tQUREPoNL6OmEGzPJa0hjEK1/RcTUfX7
-	GOPmAqPKKPRAi/wRcw4M6AYg60vCaSizKLdFsRNIdnz3ItXBqEtPlkAO0DDYGZVOpzJF1ri4u/o
-	LfPMnMOUlUjaUZuN827hhx0Xt1IaW9aMTsBUvKKkM8VmFQf8GmbSGAi/20JwZz9M1xaOhUyutM2
-	mnzy8niCKfv4VPoIzwCnnIk+H987g+2Bmfzzq9o/Kr6kSCl8O3JU1C0/77MHQAFBhN6y69YYR3y
-	KbtUDoLJVTgtldeW0fS0+yjEXKvBCTKHsd+e4rh25mRggCWIeh5PSeI801QiOtkr9fajrnp0AYt
-	Zq9xsHR6RqKPFIP/+ATCBP5IZP98c6MwDnAocq57PaLnqvqYWvmRVx7UfJ8Zl/DIY/fUHrkq24h
-	1Ap4igsBNUMlcB3Qd08XXuFz1PzTDpeRXjKx+AEDvWHuFFGkvZUZejjZGqcmBSH/2FMDdvnWAg8
-	rA=
-X-Received: by 2002:a05:600c:1387:b0:477:7b16:5f9f with SMTP id 5b1f17b1804b1-4830e981f8fmr29600305e9.31.1770187831231;
-        Tue, 03 Feb 2026 22:50:31 -0800 (PST)
-Message-ID: <a8ab7bd7-3e17-43e2-bbe1-3503b6eda7ac@suse.com>
-Date: Wed, 4 Feb 2026 07:50:28 +0100
+        bh=dL1+4WVFhRC/gocRsASuVZkJUVAVujnW+FddS0cyUbQ=;
+        b=As7Ck5SnyIynYk/BuuxJgUkii5+66K/tbTalDrEkRzf22/safL9XvRDM8bcuJy6F8s
+         pWExiiaF4MMzxeYlk85hcOxrVDeGfSo93ZeX62KGFABWT2tJyaRsXDLXf4uIg3AsuuuM
+         1O+MG8rwPh/gwP4YFtOsOoI5IsHcPVkQaXbt0jA3I1AYCXJmi576b72eNsQ8JPRn+jym
+         /ZtUH2SaDiRtwkjJrjOT7GnopseMzExuDmFHrf7CZ5ceJWPDRxdou8DzMCdMUs/xoPKA
+         5sNxg0jkpYhRHAoRGx3O0BGr448zLkRddwdvvBj7L1aFMguAzIMXgSlCIZYCH6aOaDTS
+         jO9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUEZSVA7UZHfbOhmqmVhLNc33FXC8mpEUCDZfAqHytNgEUCmeDNdQ3Du0uqmKzTO3hoL1rXDeCXVMM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqjovZ0VDv9gtVtWWUo40oxP+IJ1v7q/wRR5UGzKm0mk/0QJkq
+	xBOh+F0gu/B3gm5B8LoWrggljjhQ+oJlubM+vmOujvvesrMx9V0zpoA4vYwKFynhSA==
+X-Gm-Gg: AZuq6aJ0lE/r89UB4JYCO/Z1gVL+UYR1sszYcC++lllP+UJZjsJewpYN59AofuJ4cF5
+	HJa7CTUZng5W6DYqt4CvyF4IvDIupaLWZg3XYxs7fPo3/NabUn/33nrxB15MgyuEAmPCpofNq0L
+	4qr0J/zJBh6ZqE5bvh3S0LB9yViP//HECDmFcbRT7wk85ZwblgTDFdKxC2bvPM3yoayUQmz2IVy
+	B1rNi5I4gP48CvC5bXD5Va9+XV1YXXSpBWhmkYYfe8vRCxXALeDNnYfSE0B/NBb1rA/nQXaVn1I
+	6oep4ztu3UiV5FMADoy78gHaRrcGPuu0N3MwravVigGtLPRjbDsi14cfU6k9j5kvKewnVG3rRyl
+	trEWuGIna14z9jnmtyrxfZ+Uyzs8+wXmTcq+S8YnhK9j9E+LC8IAvh9DjpuzGVM50WAMP//HE5m
+	9Fx4SnATQCRO7L91qEitS5Toqvua3URbsK7K+JIzoHpGmX7xjRALs2QVzs3pRBZn3eSp1Jtn6bN
+	EM=
+X-Received: by 2002:a05:600c:5493:b0:480:1c1c:47d6 with SMTP id 5b1f17b1804b1-4830eb286f1mr24399425e9.6.1770189280467;
+        Tue, 03 Feb 2026 23:14:40 -0800 (PST)
+Message-ID: <0a437580-a373-4aeb-a153-b3dca0cf2bb7@suse.com>
+Date: Wed, 4 Feb 2026 08:14:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/16] xen/riscv: introduce sbi_set_timer()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
- <2fd4da2ad7c4af2241368edba739b24d0e976552.1769099885.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v8 1/2] xen/console: handle multiple domains using
+ console_io hypercalls
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
+ victorm.lira@amd.com, andrew.cooper3@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601291404410.2238666@ubuntu-linux-20-04-desktop>
+ <20260129220858.2371938-1-stefano.stabellini@amd.com>
+ <0fc9a80a-8621-4ce4-b2f9-c102e975b05b@suse.com>
+ <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,98 +130,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2fd4da2ad7c4af2241368edba739b24d0e976552.1769099885.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5D20DE26E3
+X-Rspamd-Queue-Id: 1773AE2920
 X-Rspamd-Action: no action
 
-On 22.01.2026 17:47, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/sbi.h
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -29,6 +29,10 @@
->  
->  #define SBI_EXT_BASE                    0x10
->  #define SBI_EXT_RFENCE                  0x52464E43
-> +#define SBI_EXT_TIME                    0x54494D45
-> +
-> +/* SBI function IDs for TIME extension */
-> +#define SBI_EXT_TIME_SET_TIMER          0x0
+On 04.02.2026 00:02, Stefano Stabellini wrote:
+> On Tue, 3 Feb 2026, Jan Beulich wrote:
+>> On 29.01.2026 23:08, Stefano Stabellini wrote:
+>>> @@ -555,7 +566,10 @@ static void console_switch_input(void)
+>>>  
+>>>          if ( next_rx++ >= max_console_rx )
+>>>          {
+>>> +            nrspin_lock_irq(&console_lock);
+>>
+>> As indicated earlier, you can't know IRQ state in anything down the call
+>> tree from serial_rx().
+> 
+> I'll switch to the irqsave/restore versions in console_switch_input
 
-Nit: Do you really mean to have the time extension IDs above ...
+I've seen that you already sent v9, but seeing how getting the locking right
+has proven to be difficult, I have two more remarks towards this.
 
->  /* SBI function IDs for BASE extension */
->  #define SBI_EXT_BASE_GET_SPEC_VERSION   0x0
+1) Can the locking additions to existing code please be split out into a
+   separate patch?
 
-... the base extension ones?
-
-> @@ -134,6 +138,20 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
->  int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
->                                  size_t size, unsigned long vmid);
->  
-> +/*
-> + * Programs the clock for next event after stime_value time. This function also
-> + * clears the pending timer interrupt bit.
-> + * If the supervisor wishes to clear the timer interrupt without scheduling the
-> + * next timer event, it can either request a timer interrupt infinitely far
-> + * into the future (i.e., (uint64_t)-1), or it can instead mask the timer
-> + * interrupt by clearing sie.STIE CSR bit.
-> + * The stime_value parameter represents absolute time measured in ticks.
-> + *
-> + * This SBI call returns 0 upon success or an implementation specific negative
-> + * error code.
-> + */
-> +extern int (*sbi_set_timer)(uint64_t stime_value);
-
-__read_mostly or even __ro_after_init?
-
-> @@ -326,6 +358,14 @@ int __init sbi_init(void)
->              sbi_rfence = sbi_rfence_v02;
->              printk("SBI v0.2 RFENCE extension detected\n");
->          }
-> +
-> +        if ( sbi_probe_extension(SBI_EXT_TIME) > 0 )
-> +        {
-> +            sbi_set_timer = sbi_set_timer_v02;
-> +            printk("SBI v0.2 TIME extension detected\n");
-
-Is this really relevant to log especially in release builds? IOW can this at
-least be downgraded to dprintk()?
+2) As all of this is for dom0less only (for now at least), did you consider
+   to make all of these changes dependent upon a new Kconfig option, so to
+   avoid impacting other environments in case issues remain when this has
+   gone in?
 
 Jan
 
