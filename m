@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EDvwD67+gmmagQMAu9opvQ
+	id wJd/Bb3/gmnJgQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 09:09:18 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 09:13:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B393E2EC6
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 09:09:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1220179.1528888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75166E3008
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 09:13:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1220190.1528899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnXwa-0003ar-4q; Wed, 04 Feb 2026 08:09:00 +0000
+	id 1vnY11-00055G-Me; Wed, 04 Feb 2026 08:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1220179.1528888; Wed, 04 Feb 2026 08:09:00 +0000
+Received: by outflank-mailman (output) from mailman id 1220190.1528899; Wed, 04 Feb 2026 08:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnXwa-0003Y3-2A; Wed, 04 Feb 2026 08:09:00 +0000
-Received: by outflank-mailman (input) for mailman id 1220179;
- Wed, 04 Feb 2026 08:08:58 +0000
+	id 1vnY11-00053C-JZ; Wed, 04 Feb 2026 08:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 1220190;
+ Wed, 04 Feb 2026 08:13:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnXwY-0003Xx-LL
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 08:08:58 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vnY0z-000536-Dz
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 08:13:33 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id befd4316-01a0-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Feb 2026 09:08:53 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4806bf39419so3092235e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 00:08:53 -0800 (PST)
+ id 64489c02-01a1-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Feb 2026 09:13:31 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4806f80cac9so35893345e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 00:13:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4831084dd88sm27082455e9.6.2026.02.04.00.08.51
+ 5b1f17b1804b1-4831084dd88sm27331995e9.6.2026.02.04.00.13.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Feb 2026 00:08:52 -0800 (PST)
+ Wed, 04 Feb 2026 00:13:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,66 +50,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: befd4316-01a0-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 64489c02-01a1-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770192533; x=1770797333; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+aJmMLwLhiWWtX5iycDbbfBBWzQlJBoKNaw/NPQdrS0=;
-        b=BJflsnzFPb4jKr+ebl4R5HpK7DGUqhBsHYdA7lYXf518u455QhJI/GTfvllThT8FFC
-         7Epm1fwBeNphhfSRGtFWaaF7peIkCEtB9B8BTtOK0bjIqi4TPf7+n4Gimw/tWidg0AeK
-         BNk5HC44ZXLT3LbOJrOP6JN8HOv38aXnUalYaqqxbR8ndf7HTg4bxzlJ0Elhjv6ICnY3
-         O/o+zKdVM1Sbi1AHRmMyUTN/86XuMS8DI5+QWahzgak+EJp/16MsD295AkhLhRARVCHd
-         cvhu18Fpq+PPwZvMHN9jc2w+oqo/wYKhOQfyZhoFR98yLkHamXn5DHKhmEbEmwcB7NWA
-         JGEg==
+        d=suse.com; s=google; t=1770192810; x=1770797610; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=b3ebmaPAjNzvoE5agTzKt+AxRR5bdLlXUsboEO/6Sfg=;
+        b=PatpX11uYIM/YZzKvelml6WJ8U/rpyKZWRYRE1uvDd+LWRDXhIKYE2UECp45iXMuI2
+         RlxMxhCDNLzXE3b1HBjeYxOBh8+8reaTngceIggtcGubnco/oD6Dp0Nv2hF4uBImKUz1
+         XkqzEcC657Dr6iBNJoLFQ0serLdYdtGicmPD9RL0iuuHOFYmF5IXE1BteGSyssAcPPnG
+         1A4dzJCpQmE1gQ5HBiZR6t2xSdiXkIWDosDyOaLlaFVnv6EUxtWexd44nOSL/cp2h4s+
+         seSreWgRUf0WCGksRyH1K9u3TR6DhoGfDrolT0hubW1z59ldayqxvLG7nkJMqmRcvxrX
+         DOag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770192533; x=1770797333;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1770192810; x=1770797610;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+aJmMLwLhiWWtX5iycDbbfBBWzQlJBoKNaw/NPQdrS0=;
-        b=LiU4lRWRRoVpIhvqkWAD8SYsvI//RA7OYE3zerx0BCftRXnqR8aTlLRDQi9LttG5Xw
-         DOsnl49HN9haRXUQQRqErSG8IsbBXi3ItQWAGQzWtt0hXLNuU0KRDgVj4WBdig0mjkP9
-         vQmptT9nS1qf4tJbJQ5Vdadz1xvS1hbQRi4YZFShshvhVRW+842rrUxMXbzJMkroTbu6
-         QzOC/dXQXf5cNkykpvW2utyUQtVqnQEEQY4L2ATDHk4t+PwbeAjZHOmiAY7QHe/+EvKe
-         DYbLncVPiQstD1xqQkXxFQNTXAyhIg7bQD+6FrStRBXBATSWicBod9+aOJhIjRBTAGEZ
-         iG6A==
-X-Forwarded-Encrypted: i=1; AJvYcCV+HLcJeTTxin7rjEoJ2lnQs3Mok0DR+UsjE4I6X0iPUJoadTlWe0C3CnvBOfKSqACHdFeVoAi11KE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvWpmh+uGRAu+bS7aaxOCS3zYC2rdDfwF2JJfuFkZ5ZFolq4CH
-	bcOlOtOjbCuLETuB+EYkeb2DwPBB3h4D6oSddbnryao9Vg+dgE4nZ1rqmnc5vwFzsw==
-X-Gm-Gg: AZuq6aL9CpDy6/r+0+bCD+TYx5jEINXeF9hZDLr+DYW3fRaC9Q3hhVbnwGlcFX7qx51
-	jE8XnkAt0wqWT4vhpiGzkLK0xiGO/I554j6yCCT9yKp6GvT+C7BWHJpDAocTzFwF4fwepmT3K6o
-	WWoPBIqsFsUeA24FmEkFuWpyNCR8MB6ikN6d8M/sB//N+BzlYezVxNy7+b7ysjvzI3C6Kdi6Sfr
-	DBHLzgVVKyF2H81+1xik3QrLUjzJouofHjjmYF8bB+aNDuSNdZT4UT11vIs/ktzOmjfaJ5KhH0r
-	j7H4E10lkAOZS7t8ru8hLgYcPq+mckZ191w6q/s4G4EXnjVt8ue8sg9X39hFWd6r9tKULHKrBSh
-	1SFZul8CjHdRoyNaqxAEtc4Jiwk0USnwvbXHFFuApMBnTQxWp1SrMK5/23KcZobJSe6acdzWqJx
-	/TQx0YgS0GwwoI4iwRVvN0ZT29n7iFKKdYbv7EL89EyW+c0ipLJswlrzPOhd+hEBa/ipKp55Xyd
-	Ao=
-X-Received: by 2002:a05:600c:8b83:b0:47e:e2b8:66e6 with SMTP id 5b1f17b1804b1-4830eb61890mr22771225e9.14.1770192533229;
-        Wed, 04 Feb 2026 00:08:53 -0800 (PST)
-Message-ID: <bdda8006-6361-4e79-b3ef-19409bf98587@suse.com>
-Date: Wed, 4 Feb 2026 09:08:50 +0100
+        bh=b3ebmaPAjNzvoE5agTzKt+AxRR5bdLlXUsboEO/6Sfg=;
+        b=ddgLkSCwfsDkA0snhJmMxqbmqK46SI+roi+La3F51+YFVpDnrdMov70q7kgQr2I7X9
+         valWFw841o2WRZA7hLH7Tv/lHQdD4yCHpFXG0ws3EdfN5BmTEWcoBAAFlatRm4eZXpYr
+         nPaG4UG2D4Qs0GE7tYdw9kftcdJixMvQNScmpQAjYgybFEzGrgyOaTVqjyhFFhoa5VQC
+         JDzURARkYiyEl+DvBSUcU1XEZUZPUFnT6TNADyARxNM+vDOBVVGnowA6SO5Q63bsk2oX
+         exPUdCfDLwjN2iV5Pjem+aRwkTy/wyKnJVvU30So8q76wQgv5vuyZ9xw5QaIYSok0vEG
+         aOJw==
+X-Forwarded-Encrypted: i=1; AJvYcCWFjJjwHmxCUYE0omcQP6/1EZY0pDGOoiprSld+cTkJMOjInqrov0IGVyJmN5hQqTLi7henFmnfcj0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yww0ymtIXUNMLrZ7O7ontq55AhU87qGI9yHTa6nzOVgvIPKyPR6
+	XygQXhSVkrbuivuSQ/c+zyAyNGp2TMI4fBhuObUYHjgfYqfgcblSANxcAWKy37nuAw==
+X-Gm-Gg: AZuq6aJg5ScIVUkQ1vaxxletCD3xH3TP/vr9K0bBP3FkpImnQnVkihRTLBjPmK6xfgC
+	O3wMZnQ1lYopwIWXgqqe0qyAIhSxiOM4LvPQSrftUYM9dGV54iYFhz7dglvAM9cMdfp4meYtv+F
+	gFelFh/zPUInjr/D4GNns3e1zyQ8x06kqvGffMHyl/dqiP41WoWtMwHDh7CtKeoSEgkBXNLEFQx
+	0aOexbfCEM3Qlz+EVpg7ZvHKnqHyGA6o4fFZDMWVB9xOpJpKRGa2Ct0x15SU2ZSDa71HlNHdCfW
+	47Vj3u+z+P0/NMg0kIfIDxSJ+VfNX4h/S1GwFrBJ1wKMHtGsFQEnpBisW7n+a9McBxK61oi+l2f
+	qugRIp95k3yHStzxteOrar6zkVj1jBHhquEqqKb6GXR2UTFvVhclFW4KByFb7EQPnVUBOnPKbjQ
+	eNfS2d2AktlEubnGRE3WcWbw64vZ5YyZXv8UPm4Y0YC4s0kaej5vm+ocqFVGxWekL5Q3ZMcbVLS
+	ak=
+X-Received: by 2002:a05:600c:34d5:b0:47a:81b7:9a20 with SMTP id 5b1f17b1804b1-4830e930f67mr25456635e9.9.1770192810550;
+        Wed, 04 Feb 2026 00:13:30 -0800 (PST)
+Message-ID: <b5fa18dd-d831-4f32-9b29-ac431e54b7b2@suse.com>
+Date: Wed, 4 Feb 2026 09:13:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 14/24] xen/domctl: wrap pci-subset iommu-related domctl
- op with CONFIG_MGMT_HYPERCALLS
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "grygorii_strashko@epam.com" <grygorii_strashko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Andryuk, Jason" <Jason.Andryuk@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Garcia Vallejo, Alejandro" <Alejandro.GarciaVallejo@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>
-References: <20251121105801.1251262-1-Penny.Zheng@amd.com>
- <20251121105801.1251262-15-Penny.Zheng@amd.com>
- <DM4PR12MB84517CB58BD82B676DD25AE9E198A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Language: en-US
+Subject: Re: [PATCH v2 06/16] xen/time: move ticks<->ns helpers to common code
 From: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
+ <c7afd490ad9cbeb91b2b46b59cba094c7322edfd.1769099885.git.oleksii.kurochko@gmail.com>
+ <2ff79945-f972-49ae-b50a-a7bbff9d4aa9@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -133,92 +133,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84517CB58BD82B676DD25AE9E198A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <2ff79945-f972-49ae-b50a-a7bbff9d4aa9@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:penny.zheng@amd.com,m:Ray.Huang@amd.com,m:grygorii_strashko@epam.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:Jason.Andryuk@amd.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,m:Alejandro.GarciaVallejo@amd.com,m:stefano.stabellini@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,wdc.com,gmail.com,microchip.com,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5B393E2EC6
+X-Rspamd-Queue-Id: 75166E3008
 X-Rspamd-Action: no action
 
-On 04.02.2026 08:50, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Penny, Zheng <penny.zheng@amd.com>
->> Sent: Friday, November 21, 2025 6:58 PM
->>[...]
->> 772,14 +774,16 @@ static const struct iommu_ops __initconst_cf_clobber
->> _iommu_ops = {
->>      .quarantine_init = amd_iommu_quarantine_init,
->>      .add_device = amd_iommu_add_device,
->>      .remove_device = amd_iommu_remove_device,
->> -    .assign_device  = amd_iommu_assign_device,
->>      .teardown = amd_iommu_domain_destroy,
->>      .clear_root_pgtable = amd_iommu_clear_root_pgtable,
->>      .map_page = amd_iommu_map_page,
->>      .unmap_page = amd_iommu_unmap_page,
->>      .iotlb_flush = amd_iommu_flush_iotlb_pages,
->> +#ifdef CONFIG_MGMT_HYPERCALLS
->> +    .assign_device  = amd_iommu_assign_device,
->>      .reassign_device = reassign_device,
->>      .get_device_group_id = amd_iommu_group_id,
->> +#endif
+On 29.01.2026 09:48, Jan Beulich wrote:
+> On 22.01.2026 17:47, Oleksii Kurochko wrote:
+>> ticks_to_ns() and ns_to_ticks() are not architecture-specific, so provide a
+>> common implementation that is more resilient to overflow than the historical
+>> Arm version. This is not a practical issue for Arm, as the latest ARM ARM
+>> that timer frequency should be fixed at 1 GHz and older platforms used much
+>> lower rates, which is shy of 32-bit overflow. As the helpers are declared
+>> as static inline, they should not affect x86, which does not use them.
+>>
+>> On Arm, these helpers were historically implemented as out-of-line functions
+>> because the counter frequency was originally defined as static and unavailable
+>> to headers [1]. Later changes [2] removed this restriction, but the helpers
+>> remained unchanged. Now they can be implemented as static inline without any
+>> issues.
+>>
+>> Centralising the helpers avoids duplication and removes subtle differences
+>> between architectures while keeping the implementation simple.
+>>
+>> Drop redundant <asm/time.h> includes where <xen/time.h> already pulls it in.
+>>
+>> No functional change is intended.
+>>
+>> [1] ddee56dc2994 arm: driver for the generic timer for ARMv7
+>> [2] 096578b4e489 xen: move XEN_SYSCTL_physinfo, XEN_SYSCTL_numainfo and
+>>                       XEN_SYSCTL_topologyinfo to common code
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> Suggested-by: Jan Beulich <jbeulich@suse.com>
 > 
-> FWIS, Alejandro has come up a more clever way to DCE these kinds of op, staying conditionally as callback. Here, I just took this commit as example to show the methodology:
-> ```
->          .assign_device  = IS_ENABLED(CONFIG_MGMT_HYPERCALLS)
->                                         ? amd_iommu_assign_device
->                                         : NULL,
-> ```
-> The compiler has enough visibility to know that static(amd_iommu_assign_device()) is used, and is droppable when MGMT_HYPERCALLS=n. So there is no need to do ifdef-wrapping around these statics now. Later when jason's "--gc-section" patch serie in,  --gc-section will help linker identify them unused when MGMT_HYPERCALLS=n, then remove them automatically.
-
-I fear I don't see why --gc-sections would make a difference when, for static
-functions, the compiler already is in the position of removing the functions.
-
-> If we all agreed to use above methodology to do DCE.
-> Alejandro also recommended that since we will do this assignments in enough places in this patch serie, we probably want something like MAYBE_OP() somewhere in xen/macros.h:
+> Nit: Flip the two (chronological order).
 > 
-> #define MAYBE_OP(c, fn) (IS_ENABLED(c) ? fn : NULL)
-> 
-> I'd like to listen from your opinions on whether I shall do such update for v5, since it is quite a big update
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Well, already there I did raise my concern of leaving around function pointer
-fields in structures which will only ever be NULL. If respective fields are
-removed altogether, there's no risk whatsoever that an accidental use may be
-overlooked - the build would simply fail when making such an attempt. Calls
-through NULL are privilege escalation XSAs when PV guests can somehow
-leverage them, and use of altcall patching would still only downgrade them
-to DoS XSAs.
+Btw, if this got the necessary Arm ack, I think it could also go in ahead of
+all earlier patches in the series?
 
 Jan
 
