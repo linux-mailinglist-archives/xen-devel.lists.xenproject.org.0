@@ -2,37 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8H/3KSWVg2mppgMAu9opvQ
+	id eLXCI8yVg2nYpgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 19:51:17 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 19:54:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8D9EBC32
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 19:51:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1221140.1529473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E5FEBC60
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 19:54:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1221152.1529482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnhx8-0002Zc-2Y; Wed, 04 Feb 2026 18:50:14 +0000
+	id 1vni0a-00036A-Hk; Wed, 04 Feb 2026 18:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1221140.1529473; Wed, 04 Feb 2026 18:50:14 +0000
+Received: by outflank-mailman (output) from mailman id 1221152.1529482; Wed, 04 Feb 2026 18:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnhx7-0002WV-VT; Wed, 04 Feb 2026 18:50:13 +0000
-Received: by outflank-mailman (input) for mailman id 1221140;
- Wed, 04 Feb 2026 18:50:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1vnhx6-0002WP-Ai
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 18:50:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vnhx6-002hOQ-0g;
- Wed, 04 Feb 2026 18:50:11 +0000
-Received: from [2a02:8012:3a1:0:9835:c5b7:50d0:e87]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1vnhx5-00HAwQ-1p;
- Wed, 04 Feb 2026 18:50:11 +0000
+	id 1vni0a-00034F-EH; Wed, 04 Feb 2026 18:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 1221152;
+ Wed, 04 Feb 2026 18:53:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dqRX=AI=intel.com=sohil.mehta@srs-se1.protection.inumbo.net>)
+ id 1vni0Y-00033O-78
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 18:53:46 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d2c6bd9f-01fa-11f1-b161-2bf370ae4941;
+ Wed, 04 Feb 2026 19:53:43 +0100 (CET)
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2026 10:53:38 -0800
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2026 10:53:38 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Wed, 4 Feb 2026 10:53:37 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Wed, 4 Feb 2026 10:53:37 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.59) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Wed, 4 Feb 2026 10:53:36 -0800
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
+ by DS0PR11MB8163.namprd11.prod.outlook.com (2603:10b6:8:165::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Wed, 4 Feb
+ 2026 18:53:33 +0000
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246]) by DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246%4]) with mapi id 15.20.9587.010; Wed, 4 Feb 2026
+ 18:53:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +68,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Om5hu8pJnwuikPmpUAJ7cH++Vp8OmWEdLEekTPPVWPE=; b=n3o53PCTJI7hcCydC2bbiap057
-	x5Mj1o1uuL1DQSAjorAUufn8SRtJV7ezOaA7LzMJYB+d74P0ZTQ8wnKgxT3PjCJdwRRqIg/+VpfIO
-	LfyEuNgzTdqwo+Tz9thqPjw6Pw6sx5OVNqjq/s1Ayp4BG2jzgfi/BZVeGWOL/LtFJK8U=;
-Message-ID: <6b7bc15c-e3de-44a1-bbce-92397ee438fc@xen.org>
-Date: Wed, 4 Feb 2026 18:50:08 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: d2c6bd9f-01fa-11f1-b161-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1770231223; x=1801767223;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ri5lCNcx+QbKrB9Viv2DVTpf37a7I3bLgxZQ1M3OW5M=;
+  b=Rm9YIfu2mqSjlgRZwZIR6UyICgT3TqXGyfL+UGi273QXzbHNx3QR59Lh
+   80fHU0rzdW45d1bhls8/xfys/rqfMs7pTprkyrdHRB18eRbAz1cA/0CSO
+   ei4RwV6MOP9sUxs15ifRUgbPSpSqUASoqEFGprToz3FWW5nYOcRh59Qcy
+   We0s6R7i6pfseh85eYy+wZps9N0rygx867BjM9cDGFOhNYeZai+wh2WcV
+   L+/CaZuk6ZI7dViAQzy2tUDQmMFbWVghUKqJHOVGfjBZbXQnsG4YVkecE
+   NqWXcOt8ku8+WugOWe3oTcSQ7HmLCVT5R3I406vLnBgvxvtj0zRBmsfLJ
+   A==;
+X-CSE-ConnectionGUID: DFHSk9cCRhO8yV6NfmbEJQ==
+X-CSE-MsgGUID: 6WTlGEFbQbmik11MA5+8fQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="71461424"
+X-IronPort-AV: E=Sophos;i="6.21,273,1763452800"; 
+   d="scan'208";a="71461424"
+X-CSE-ConnectionGUID: JY0FS9C3R66jS8MFFwyjhQ==
+X-CSE-MsgGUID: rrAF6u6yQbK4MDng1OY+Kg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,273,1763452800"; 
+   d="scan'208";a="215233174"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vt1sSc7/t3m7S1KCqH6GP9snxE1BQ2MW4y87F4LW9nRIw5yXHdQtX2XDOCDrTJbUS2mQAyswDSF4piLhklw0tOjuV7jV6eCb/vpoCKoH7cYRh6TlkvJvzbWYjaM6OzhqLVxobDVq7J0bRhvr5rqYqQBaibic/mT7mylK/YDoQvzxw07fzADGnD1rWhGVdEkTMZs/9v9Zo4UywG4a1HWcRErnkLROG5jIDpfaKEcUg0HDP/oI9ySh0SyJw0EY4/uWPEl6bGFmTsTgadi74hnev3YYZK/sPLtaj06yjBRJy7BEhgX255HXWogbNeQg6xHhedQwocmvckEkapGlVO87PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mcui8+/ic6ABQ/53XHhz/iPU8EcGH00PR/gBFVOIZWs=;
+ b=mUddonVdMCPkRW9XQVL934zjgOm0eNjsJhebPO5gXnjKb7KYWYfLtQ0+4U4Y5ck+Oow6RlptMAtNopdTvI7XkRVVthB+lIHWSNIpa2Eyf+p2A6YPjjMw7FZ+tGSG+37aCHoZii8U6FGxT9Z7yqnSUDGozPqFZKgREb2QaOaRlgLqoupdWWVSqSEuhG7TNVCQkhrLzTtzwgVZVsTAklv3SAx71CE5XGzt7n8AxUc9wb5H4+7GjV9EtsTae58fLlr6TdEU8xsj9Dv850GfWeKGsFya9p0meU/BPo2NwKreNVJXNhLoByLZbpgEiIUgT5c9N3h5VcG3601tUcUnv0Dj0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Message-ID: <722b53a7-7560-4a1b-ab26-73eeed3dffa5@intel.com>
+Date: Wed, 4 Feb 2026 10:53:28 -0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: relax barrier in sync_vcpu_execstate()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <e4296634-1498-4df6-95fe-6b17f50248e5@suse.com>
+Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
+ expects so
 Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e4296634-1498-4df6-95fe-6b17f50248e5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Shashank Balaji <shashank.mahadasyam@sony.com>
+CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Suresh Siddha
+	<suresh.b.siddha@intel.com>, "K. Y. Srinivasan" <kys@microsoft.com>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Long Li <longli@microsoft.com>, Ajay Kaher
+	<ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Ingo Molnar <mingo@elte.hu>,
+	<linux-kernel@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
+	<virtualization@lists.linux.dev>, <jailhouse-dev@googlegroups.com>,
+	<kvm@vger.kernel.org>, <xen-devel@lists.xenproject.org>, Rahul Bukte
+	<rahul.bukte@sony.com>, Daniel Palmer <daniel.palmer@sony.com>, Tim Bird
+	<tim.bird@sony.com>, <stable@vger.kernel.org>
+References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
+ <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
+ <0149c37d-7065-4c72-ab56-4cea1a6c15d0@intel.com>
+ <aYMOqXTYMJ_IlEFA@JPC00244420>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <aYMOqXTYMJ_IlEFA@JPC00244420>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0064.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::9) To DS0PR11MB7997.namprd11.prod.outlook.com
+ (2603:10b6:8:125::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|DS0PR11MB8163:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8057de85-c57d-46e6-3aab-08de641eb22b
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UHJJcld6MkRoZnpwMWsrRitmYi9pQ1VLRVVRaGJrVHhWNzY1dkdkSDNpTmVH?=
+ =?utf-8?B?Z1ZPdzRFOVNobHdkWFd3ZHg1YjRneHdGSWlmMzhwVkh2dUJPMWxJM0NvVlhQ?=
+ =?utf-8?B?UGozOWFyQnhuMmk3dmMvQXpBVXhPNVJQbVRtdnpKcGZVY1VHQnpEYlByckJU?=
+ =?utf-8?B?c3ZFYVVIZFhjcXlJb05iSk8zcEZJWE1tQ0hFWkgrWjJuSndKeVp1Q3dGTCs3?=
+ =?utf-8?B?Y2l4ZmdWZWIrOTE4NnJrYWc0R1VrWWlqR25NbjRnR2xCT0RYeThLdVVxemo4?=
+ =?utf-8?B?M2o2R2RNNXlwK2Q0ajdVQnIxak9yanZVWitUeFl0RWhUZFdXaWNzamlkenVH?=
+ =?utf-8?B?MHptcEJDYnlneXFTaExiTFg0ZXZKMGlEckhGQlJXN3BRUDVmN0VGUFBuVUkw?=
+ =?utf-8?B?QUxDSWZ6bHpDd2grR0NiOUtMcGxWNmY3NWFqb2ZlYW5ZVDdvUWRpLzIzMnl5?=
+ =?utf-8?B?YTZFWDR2cXNsUklRNnA2SytSYnVCbGphMDhjUHhCREllM3RwZUZHMDk5MnFp?=
+ =?utf-8?B?MHZCa0ZSRTFrd2xTTDd6dzFqSW5iMk95YUdYb3pkTG5wdjVud0JwSXUyMTBP?=
+ =?utf-8?B?N1BKTHI0dVVmcjY5ejI3QjZocDdmUk41amcwV1N5YTEweVkzOFVENWhzTzJu?=
+ =?utf-8?B?aGJpdEJwb3MrS1pJYWxYM2I1WDI1YmVyTXhWeW0rd1ZGUHU2N21zUnUyL0I3?=
+ =?utf-8?B?SG9SZHhBQUdUb0ViRUM0aEZUOUdYNUJhaFV4OXRVeGxXaWVpd1BYdU1vOWsw?=
+ =?utf-8?B?cDZHck9nQmNWajU4bnFHRTgvTFYrY2xOVmY4NkNBK0s3a1NRbWw1OGRUMjNi?=
+ =?utf-8?B?VC9hdkl3VHdvTlp5MURYSnJUSTYzU3hDNFE5SEpFTjJ3NUR0U2RBTjErakxM?=
+ =?utf-8?B?a0R0eDlBVENXT3JDVW9RZ0x4M0JmZm1tSVFZb1owQ3c3QkhmRzFLNHBNb01t?=
+ =?utf-8?B?U1kydDN2cEVrMVp1WUJuSXlyZ3N0TmxmYzM4KzFZUDFjV1duMElmZUx2NVlY?=
+ =?utf-8?B?Q2FxTW9pY0RMZ3pMZ1RPMU8vY2RpV3ZTY1VVUzVTRzR0QUd3YzRFOGF4Y3Y3?=
+ =?utf-8?B?dXg5NUFVczVmMmJvSlVocTVvakJSZkxMRkFockNrRHRveW5QSHo4Zkd5WHdY?=
+ =?utf-8?B?RzBoblNNUk50a1NaQjNPck9DeXJEK20ydFZKdmo4RFhmUFRkaVZwS2JZMEVw?=
+ =?utf-8?B?ckk3MThub2l2N1BYZmNxdW9oZ0t4ekQ1WGJZSmlyMkpRNUFXQTV3RWowQ0VV?=
+ =?utf-8?B?akpDcktKRmdwbGIveW4vQWtJSDMyaU1NZW44TTdVUFpLYjJpaCtydndrcGdq?=
+ =?utf-8?B?YitVajM0NXZJR1UzbVUyVDAvOHhKaVFyWHllczNoZkRvbkYrc3htamxXU0sx?=
+ =?utf-8?B?eDVVUGtTNEcvbWVtY29hY2R0MkxJYXhINDM2cG1ETXZObXloZVVTY0xPK1Fv?=
+ =?utf-8?B?WUI1WkswUUxUZXJmelo4RU1sVFlaMWhVbWVuMnl2ckU5dGtPU2xOV0xHazhJ?=
+ =?utf-8?B?SGxORTZPdERZL1dmRGUrL0RUOERrRG5HeGF2bllQWkdEOE1hSU5vd2pBdkJy?=
+ =?utf-8?B?UVJSN21PTzVpaWVGTkZ5S2Fva2FkTURmL2hXSjNTZFNWdW8xS1hlb0FLQ3NK?=
+ =?utf-8?B?Z080YW9YcGRBWFNqaGpxekk2eTB2SGgxR3ZBZWlLZkNKK2xEYXFjSzdhMGpI?=
+ =?utf-8?B?c0xQc2U3TWxxMC9ITmJPelU5bUVFVG1zNWhTcnNOOXFqS1A0R3pYQTVOMkZK?=
+ =?utf-8?B?dXlCTUV1YVlaeDZsdWlzTHkrUlBOVFBKZHZmbVRjS0FQSy9iUTNzTUN2ek5a?=
+ =?utf-8?B?N2dUbmFFTG5ZQ0EwTzgwTDc2cXFXeUd5endRcUxyMzB4ZVZ1Z0M2M3pFdVVK?=
+ =?utf-8?B?NXBkcGNiVkRDZjBpT0RNQlcvUUxaR2xGN2hCWnk3b1RIV3N4dWZ1SEpzT1ZK?=
+ =?utf-8?B?cC93TFpsalpoQTR1MWQwV1d0UHNSa2R6M0NoTjdpMFNCekhVbFVlZzMvQWxB?=
+ =?utf-8?B?VHVpWWQ5Z0N6b0lxa0VjSDJabEcrVTV2c1hSYWsydmh1L0NjSXpHNDE1Vi9L?=
+ =?utf-8?B?dmNBNVJFT2RneHBJVUplSXFlWnNsVkdzZHFCbFZaUFEyY3Btd0Q3QUx3VGVO?=
+ =?utf-8?Q?c0QE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVdERVBpWFlabWZ0dzB5Mmt2TzVhNkQwN0Y0Ym01SHdFOC93WTlIeEJuK2Z0?=
+ =?utf-8?B?SnFPWnlINjNMTzhoRUN4SVNML3ROSS9LUG54WlNGb2dBcWdpRTlDemZuT0dM?=
+ =?utf-8?B?bEQrV2NMYWEzQXgxSHh2NmFDczFYOHJmVzdXVGR6c1o4TkhMbUZmZzd1VWs4?=
+ =?utf-8?B?VlNzTWpobFZOTHdDS0xlYjNSeUk1U3F5dXFWNk93RnA1TTZrcmN4ZkoxY0x5?=
+ =?utf-8?B?RVYydzIvUmI3Z1dDSFJwTjJwVUJlL0NRV3BqTE5ubyt1YkZrL0gyVGcwSlE5?=
+ =?utf-8?B?ZUFmbWRqbUV0M3NUdHNMWGtwSFBHWFM2eDM1Tnl0NmIyMEZKRXdRUit3MjN6?=
+ =?utf-8?B?NForbTRjNlRmUmdYRyszUFRVR3o4bTNHWmxqRVM3QzlRdmt5T21GbmpiaVF3?=
+ =?utf-8?B?cnI4TlYzdDVCN3V4c3ZldVhNZ0c5eXZkQVNwTGNRNG5HYVk0NWE3R1RFZGFO?=
+ =?utf-8?B?b2RxT1lyZkRjY0FtNFNLcHpQQXNsTmxqM3ByWDY2ZDllZzZnWkllWlJoNzR6?=
+ =?utf-8?B?K2pyeFpUK25hbVVBZEJ5ZzFIVlZBK2VGVCtLVHhjMFI4Uyt1MlpBS29XN3pB?=
+ =?utf-8?B?N1FEckpmbko1TVFCNk41aHRWVTFIWFV5UVBTNWtLTDRvUUNMQnpNamQxTkhs?=
+ =?utf-8?B?QWE5RkFscDkyQWVqSjRwV0UrcHpzRDg3aUN1L09DZGdvWEw3UjhQVnhxVDhh?=
+ =?utf-8?B?WDNTUVAzdGptNGJRRWNadGorczAxWUZxeFhiaWZaOFZGN1Q2NGlFMk5WMVBF?=
+ =?utf-8?B?REJEcGw4TXJUcTgwbG5VdUlJZk1YNThzN1Z2MlVVWCt0cmpoMjRhVVJMTE5u?=
+ =?utf-8?B?Z2xPOHJ6cENYK1pEL0tzekU1bnhlRVBvMjAwT1Y4NzhYN2JJazg5YytPVURN?=
+ =?utf-8?B?TWNDeCsrUnRabjM0V0JVSjV6Y3I2Zlg3Yzl2cEdlQlNEZS9MRkVVQkdVbUxC?=
+ =?utf-8?B?eDFrWGlWcmY3WHdIeXV1SmJuYVA3RC9XSExMQlVuVkNVQUpldngyR3pvV3Rt?=
+ =?utf-8?B?NHUwWU5GNWc5ZFZCdGwrWTlwa3VlMW8wK3Z2alhKc3lpRUVSSWoxZVg1bWRW?=
+ =?utf-8?B?TFJHN0JLWGg2VFAySFRIMnhiU01FSi84eDVTY05qWnY2cGxybzlXTEVOeFlz?=
+ =?utf-8?B?SDFDNGNDSHdPTktuZGZYVG9tSDVZa2NyU1pCRU94Q2tIY0c3MVQ5MEJLTGI0?=
+ =?utf-8?B?K1I3RDlXVnhwTEhoU1lJZTlIVTR2YUJBbnRqMEt0NGU5eFZDbWRlcFJsWXN1?=
+ =?utf-8?B?Y2t3MEM1TmVPdnYwbnZBQXVUSHUwYnZFS1ZRYVdnemYvT1VYM3diMXYzU053?=
+ =?utf-8?B?N3VnQVFDQmxETFh5ZUxkVlhoVkFTQ2F6cjM1VVd4YWdVZmFLSFdCdUg2R1R4?=
+ =?utf-8?B?TWJyT1YwOEttZEtDdUZYOXhYRTNKVjFLbU5OYUN3ZnRaUWFTKzZVajNrTFJy?=
+ =?utf-8?B?czlpOERyRG9TcWc3dnVtVUJwOGNSLzREMkNZQXhyY0xIQTZhVTFka3NYMDg0?=
+ =?utf-8?B?dnNmQmZHeGJkWUZHNk51dXJRRldzMTkwWCtMQWNRYWloV3hjZ3lXbHk4UWo4?=
+ =?utf-8?B?cHVlVnlEcitRc2VSVE1Ha0lRR0diK0llZSsyb1NzdzFHOFA0ZVh4emJEckFJ?=
+ =?utf-8?B?dGMzVkQ5c0toOWNlRzBrcWV4a0RGUjZ0eFhYdW1mK3M4cFhVazJSUWlUVHZD?=
+ =?utf-8?B?b3JJaGlNeXNNcit6cHlZaTVRQ0F4eWJUWTdXYlFWbjU4UGU4Rmp5S2FkalJj?=
+ =?utf-8?B?b2VKWFkxZjNSRDdkSTNEME1IV3lGZnRISjlNTUpsV2tmZmVLWUtDZklHajgw?=
+ =?utf-8?B?dCtUYWFsdVgvT2s5L2hUaFZyUGVwTjJoOEFLaHNzWmFleC9kWVM2Ri9HdHIy?=
+ =?utf-8?B?QW82UTMzVmZFRzhoZzZBL0laZFM2bzRlZzBZWjQwSzV0ZUx3S3ZoMmUwY3R5?=
+ =?utf-8?B?dDF4bjBkRXZ5d0lqM3paWTBmbXp3dy9oMGo4Ujk3NEl0WlFwNW9CRGdzT09H?=
+ =?utf-8?B?SVBMYnFEbTdacUF4dVNFcmtENUJuNUhZRFZobkJ4UWw2dWMvRXMxN3dURzhZ?=
+ =?utf-8?B?R3Z3TkRpN0s4enNSRDlaM3d2STBjQVNWRTZSekhOa3NCZmVYMzZrSDJ1RFRZ?=
+ =?utf-8?B?T01nd1ZSN2lrZE42dk9zaUUwQnBCNlN4UnVmNG5Wa1BGbHNSZjVxRi9zZklL?=
+ =?utf-8?B?QndIRkV3TkZTOWNibEF3QjZWTTZwVFlzbHlMVHY2UWxPd1FXVlpiSW1lVWVt?=
+ =?utf-8?B?eTlncFhOejVOc3lYTEV5Z1RuN3ZQQmc3cmZLeVk4emlrbTJWczBJRHU2Lzdm?=
+ =?utf-8?B?eUdJRjZqYVZEaGVxRUMxREhQUDBGeUNBQzJFOGNaa0ZqbHFCRHZyZz09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8057de85-c57d-46e6-3aab-08de641eb22b
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 18:53:33.5711
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bn8zWyXjfURZZWpZ8USJ9E9fy+x9qqoK6hkqYi0fqroGsjUFnlJdA2VuDyDV2paTFNxcyZJZDYggHvdx+jLsrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8163
+X-OriginatorOrg: intel.com
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
+	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email,xen.org:dkim,xen.org:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,epam.com,arm.com,amd.com,gmail.com];
-	TO_DN_SOME(0.00)[];
-	DMARC_NA(0.00)[xen.org];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:shashank.mahadasyam@sony.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[xen.org:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[intel.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 1C8D9EBC32
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,intel.com:mid,intel.com:dkim]
+X-Rspamd-Queue-Id: D2E5FEBC60
 X-Rspamd-Action: no action
 
-Hi Jan,
+On 2/4/2026 1:17 AM, Shashank Balaji wrote:
 
-On 04/02/2026 13:15, Jan Beulich wrote:
-> The counterpart in vcpu_context_saved() is smp_wmb(), and here we don't
-> really need any more than a read barrier: The concern expressed in the
-> comment is void, as updates to the context are necessarily observed ahead
-> of ->is_running going false, by virtue of said barrier in
-> vcpu_context_saved().
-> 
-> Fixes: f6790389613c ("xen/arm: sched: Ensure the vCPU context is seen before vcpu_pause() returns")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> __x2apic_disable disables x2apic only if boot_cpu_has(X86_FEATURE_APIC)
+> and x2apic is already enabled. 
 
-Acked-by: Julien Grall <julien@xen.org>
+I meant the X86_FEATURE_X2APIC and not X86_FEATURE_APIC. But, thinking
+about it more, checking that the CPU is really in X2APIC mode by reading
+the MSR is good enough.
 
-> ---
-> As to the tag, this is one of the cases where I'm on the edge between
-> Amends: and Fixes:.
+> x2apic_enabled also does the same checks,
+> the only difference being, it uses rdmsrq_safe instead of just rdmsrq,
+> which is what __x2apic_disable uses. The safe version is because of
+> Boris' suggestion [1]. If that's applicable here as well, then rdmsrq in
+> __x2apic_disable should be changed to rdmsrq_safe.
 
-Good question. I would not consider the patch as backport and it is 
-border line a bug fix (the barrier is just too strong) so Amends may be 
-better. I will leave it up to you when you commit.
+I don't know if there is a strong justification for changing to
+rdmsrq_safe() over here. Also, that would be beyond the scope of this
+patch. In general, it's better to avoid such changes unless an actual
+issue pops up.
 
 > 
-> Subsequently we may want to move the barrier into the sole common code
-> caller, seeing that the other barrier also is in common code. Furthermore,
-> seeing that for all but x86 the function is then entirely empty, we may
-> want to allow it to be inline to avoid the unnecessary (tail) call.
+>> I considered if an error message should be printed along with this. But,
+>> I am not sure if it can really be called a firmware issue. It's probably
+>> just that newer CPUs might have started defaulting to x2apic on.
+>>
+>> Can you specify what platform you are encountering this?
+> 
+> 
+> I'm not sure it's the CPU defaulting to x2apic on. As per Section
+> 12.12.5.1 of the Intel SDM:
+> 
+> 	On coming out of reset, the local APIC unit is enabled and is in
+> 	the xAPIC mode: IA32_APIC_BASE[EN]=1 and IA32_APIC_BASE[EXTD]=0.
+> 
+> So, the CPU should be turning on in xapic mode. In fact, when x2apic is
+> disabled in the firmware, this problem doesn't happen.
+> 
 
-+1 for both proposal.
+It's a bit odd then that the firmware chooses to enable x2apic without
+the OS requesting it.
 
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -342,11 +342,8 @@ void sync_vcpu_execstate(struct vcpu *v)
->        * Per vcpu_context_saved(), the context can be observed when
->        * v->is_running is false (the caller should check it before calling
->        * this function).
-> -     *
-> -     * Note this is a full barrier to also prevent update of the context
-> -     * to happen before it was observed.
->        */
-> -    smp_mb();
-> +    smp_rmb();
->   }
->   
->   #define NEXT_ARG(fmt, args)                                                 \
+Linux maintains a concept of X2APIC_ON_LOCKED in x2apic_state which is
+based on the hardware preference to keep the apic in X2APIC mode.
 
-Cheers,
+When you have x2apic enabled in firmware, but the system is in XAPIC
+mode, can you read the values in MSR_IA32_ARCH_CAPABILITIES and
+MSR_IA32_XAPIC_DISABLE_STATUS?
 
--- 
-Julien Grall
+XAPIC shouldn't be disabled because you are running in that mode. But,
+it would be good to confirm.
+
+
+> Either way, a pr_warn maybe helpful. How about "x2apic re-enabled by the
+> firmware during resume. Disabling\n"?
+
+I mainly want to make sure the firmware is really at fault before we add
+such a print. But it seems likely now that the firmware messed up.
+
 
 
