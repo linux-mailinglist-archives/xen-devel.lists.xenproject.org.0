@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SJycC7sZg2n+hgMAu9opvQ
+	id MCYJGV8bg2l/hwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 11:04:43 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 11:11:43 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83629E43CA
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 11:04:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1220338.1529049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C86E44D8
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 11:11:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1220348.1529059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnZkN-0003lm-PA; Wed, 04 Feb 2026 10:04:31 +0000
+	id 1vnZr8-0005g0-Hg; Wed, 04 Feb 2026 10:11:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1220338.1529049; Wed, 04 Feb 2026 10:04:31 +0000
+Received: by outflank-mailman (output) from mailman id 1220348.1529059; Wed, 04 Feb 2026 10:11:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnZkN-0003jc-MV; Wed, 04 Feb 2026 10:04:31 +0000
-Received: by outflank-mailman (input) for mailman id 1220338;
- Wed, 04 Feb 2026 10:04:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vnZr8-0005df-Er; Wed, 04 Feb 2026 10:11:30 +0000
+Received: by outflank-mailman (input) for mailman id 1220348;
+ Wed, 04 Feb 2026 10:11:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnZkM-0003jS-I5
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 10:04:30 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e4698653-01b0-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Feb 2026 11:04:28 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-47ee2715254so36506975e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 02:04:28 -0800 (PST)
+ id 1vnZr7-0005dZ-1h
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 10:11:29 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de215bec-01b1-11f1-b161-2bf370ae4941;
+ Wed, 04 Feb 2026 11:11:27 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-43591b55727so5783682f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 02:11:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48310859101sm29707595e9.8.2026.02.04.02.04.26
+ ffacd0b85a97d-43617e250bdsm5088737f8f.2.2026.02.04.02.11.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Feb 2026 02:04:27 -0800 (PST)
+ Wed, 04 Feb 2026 02:11:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,61 +50,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4698653-01b0-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: de215bec-01b1-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770199468; x=1770804268; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770199887; x=1770804687; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0vnMgFPiR27N7LC/2Rkn5sZ63vXYoaf1jGzEaxR6C9E=;
-        b=Xx8BRLtPDxPTiVaV0mbiqSZ8V2NvoAzvX3T+4YmpjJ9nZ4kbzG991MzRzJoncrpI2C
-         Zfw/A1mZXrnv5xD4vjCn4oMwBNYFppfnlyXq2oXmo20HW3Zzl/5U6gxYuxLBStFrWWod
-         uvoPc+vbmQrJLEA1hCoSN/0sqrXonc/I6/EtXAgOTP+ICMIyR7l4XyhIcz6orjv6/azr
-         cvgCBSBPyuHm38P7E1vwzyTvY1MniH6V1hjMkxgdiOEsk5pTpWXOBNuFVAqaFSDIGC+y
-         7jgo3afzudHFnlHo7AfiR07pfCAq6mk54iiN1jTMwRA+vnc18qz7+FXIw7qy2BCBX4g7
-         Pixg==
+        bh=D8fdo/jC0fVXmZul/wndVT07+KnjQo1bkiPNOYU8vrM=;
+        b=CHG/ar85DTE8wwK+/fZetE99rO/1NCbzABafPXc4RYHE2+VEgVbOLNDi14wW8RBOuJ
+         KcDW2ZE2B/KAZNT/IMiQr/aKCfv/P6N3mFyhH+k/+PVheKEAshdiJ8sUGHhH7VmzwL+j
+         4yq/qFO6IUxWCZig+I+tTJf6W9hcS6iwswRKn6P+iwXYNdP5X6HUf3ecSOknJnmxycMw
+         YURwil6ZfmDqWcXKNs8w28eCxEblz2KJMN9GUEam+Z1R5OTHAxVGsV0jNzATZ/8FD/ns
+         z1CRjKRtxyhOupmc1f91zmTNp7/rN0buRSykuBgLXd3nsMBB409n904XXPB04nRRv58c
+         gXSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770199468; x=1770804268;
+        d=1e100.net; s=20230601; t=1770199887; x=1770804687;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0vnMgFPiR27N7LC/2Rkn5sZ63vXYoaf1jGzEaxR6C9E=;
-        b=PLfK5jlnh2aHb6XClwNlVR917RMB/wxna6Bf/x7tqUO908Mc8i8gz41CUBopfXJ9Gs
-         WpnDjj3fW6wDb+lPbuZa95D4jOeRHRlH6r8z+etnTZdbi0036kKE3ozPehtE53aDBVEu
-         hoIjEba7OfElY9kVvyfUgkB+HzVeps67G1zt8vliP2LN7gWzWIvXaqB9n+ZdggpLpyD3
-         xMpuIS2UXaWWE3baZqkQDuYjZwgH73Nvt9Fb2PDNfKarwKtzQW57j8sgpDAPLAan7dTL
-         GV0YsV3R8QDFRz+PwieFe5zgesbL+119yXWvbdPxBHypwp1kmNOR0EIl1NIRGkORRS/O
-         ytfw==
-X-Forwarded-Encrypted: i=1; AJvYcCWISvk2Vt0S4A0DblyYqqi/NvFBvPN07f174Ls/QI7L6cPFCfRqsIxbuVzE1Au/jH78B5Z58CSYeZw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZ4lXG24EfLj8tpKTQ6+U9z1emjieffeRBAr0y3LRckt1PvRgS
-	yViTr2rpNGwYslHjFDGiPPJPF1+uTUdJB0n+cWfmsv+zCdC76Fgu+D5R/X/q/uMdQw==
-X-Gm-Gg: AZuq6aLkYP6DJB+Ti042t6UDrX6l+HGfVKIORiV+drrdIaywORMRzu8uPs6NJOYARz6
-	W++nls++thGoGNpEN6Lfkx+3TBIBBvi15y0ML/wXriI30aO9r54Mo9KzZLkvbH8n0985cKXL4Wr
-	qtvNWRmgfd5dX0LccUqNlCmz7+IyIotSczGls0d0l/fTUnjcpAiAOEwsCQKsu498PCNAD+R1WUC
-	YJ6sfpZolPGHalJQb6Vh+FKiaC0n6hbCjetxlBn6z+Xn65fAABWSLiQkb4pAyq8aII7qStmt0ji
-	J20zJw/Ff41cqbvEv7nuQFo8QjjtXKjYNmCUiJIUZFtYX2KuQRSLWBYexlkHCWIFeEyPrTCd52f
-	Q3xnb3Y6TGVVlMWWv3He+LV9sFhf8XpDUngT5XEdHy2O2DkENZltdYWt29HTng5Tn9gxUFGjeXi
-	KAkN/s8tmxDslK9tHuoMS3iuks6JnBpBWn8wJNhVVqZ23wKw55qAzB2HRWauVTvFou5aG3Pusjn
-	5B+HS8rtFaM3g==
-X-Received: by 2002:a05:600c:8183:b0:480:3230:6c9b with SMTP id 5b1f17b1804b1-4830e93ea30mr37154805e9.7.1770199467802;
-        Wed, 04 Feb 2026 02:04:27 -0800 (PST)
-Message-ID: <59fa62df-0fd6-4dba-ada9-ab89570ff624@suse.com>
-Date: Wed, 4 Feb 2026 11:04:25 +0100
+        bh=D8fdo/jC0fVXmZul/wndVT07+KnjQo1bkiPNOYU8vrM=;
+        b=tGsKkY2DoWMxHVYaBhphHgGSqq//WY0plNNU7KUsuSGnUNKcvboT59f26LlDPMEHDH
+         mngkpxoxAWC3kGEyZsdCd6S6GZ7PU/aG/5oIsEn4GyG4PxWVaNuKcuJoHmlG2069ZO25
+         V29Fe1ZIaiqfJ+l1o8OK1QbPAUHfuFN82aaSoEmk5m+DRKLSIwOR12EgtDZ1lR1jrwZZ
+         rUZxsOoLf7xqVNQ0os6/5jOzpiIc+bfd0ifZTXLd2pQtjq9MvxVtF9ZJ0xMgFnlafhUC
+         Groh+NrP5f5+ujRbJBB8/ZIZbNk31FtSw5aUqH9Qc9dLaCyEeuBHpUQGoGhB/lEW33WC
+         tRtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUl5ugsBZmGnIFA+Z74PfSkDR1QrDjGd6RQnJw/HVdQTHKKSd+37h4xMPed9gGv+Kp/dzvoTu5UL6w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzs3qFyJBxGjF2eP15j1JfTLXpbVh7+Pa4lGZDXuiW6QlyXAF/V
+	UIZBDevkVCQb264CjIxn1jD4zQDimojkJWmVMqOXGm7SiENSxteBgCYiTOC3eP2peQ==
+X-Gm-Gg: AZuq6aLTFKZaoM7GR7PcZk8zYT+0fuNQkrjn19x9/Xft38gN5pidA6GAWMSiZcukxe1
+	HT3Zg+7XDFSvPP6nTjnQmejVNMyrNDyeSr75vcGCAmZFL9/BW98jnok1XQgEOwr0Q2gl9xg4jY/
+	6tmK4vkiED/3UPsXYMGlXqAafgFOwleccPCknQf9ExPyLKjWnN7PAoDpiRFykRZUgaaNDT6cJHf
+	U5rUTeBpvItmbcRfh87xyQKnlDwKE9clbF27FoGFIY/COpuJWRy4ZD0wTFLNZSBBWU4XiHESgJn
+	K7FwWXTI5S/S7xnG21pAKuTLtn8b25g6jM9dIZYtt2QAAln9kMuaK2qKJz6iBXBRnWTQBlmBIwi
+	xChxuy/XaEKbSMadCTSvQtDGxTX0NGy6IcjsQsURrK1NnyYl4Y97eAK0hnpRjIfbunsfHvzQ8mX
+	7srl239h2AEnaTkZvXb98QDzU81Uhd1HK6Fw4Mv2qXgTGu1Pq/aqze3UwbBqYjZp/Q3EZW7t3/a
+	7I=
+X-Received: by 2002:a05:6000:2210:b0:434:32cc:6c86 with SMTP id ffacd0b85a97d-43617e41bbfmr2990075f8f.14.1770199886739;
+        Wed, 04 Feb 2026 02:11:26 -0800 (PST)
+Message-ID: <51e6e0d6-4d94-4035-9e32-37dacf612da3@suse.com>
+Date: Wed, 4 Feb 2026 11:11:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen/domain: introduce DOMID_ANY
-To: Juergen Gross <jgross@suse.com>
-Cc: dmukhin@xen.org, xen-devel@lists.xenproject.org,
- andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20260109140747.195460-2-dmukhin@ford.com>
- <aYL6Bt3Cs3HgeMPm@Mac.lan> <0e3a1af4-d87c-405c-a0a7-598929df3f4b@suse.com>
- <aYMKk9YtrR7NOKyt@Mac.lan> <cef81f1b-4348-43a1-a146-dfc57437a97a@suse.com>
- <e31a8309-a963-4084-913b-39af9222eb2e@suse.com>
- <36537370-1fe3-45e8-9790-852d73f93e07@suse.com>
- <f52c72ee-0579-4ec9-95d1-57c26eb21b6c@suse.com>
+Subject: Re: [PATCH v2 12/16] xen/riscv: introduce sbi_set_timer()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
+ <2fd4da2ad7c4af2241368edba739b24d0e976552.1769099885.git.oleksii.kurochko@gmail.com>
+ <9f2b3559-0658-4343-abec-1a35e7d6da44@suse.com>
+ <061f894b-fbe0-4565-a9e2-502c97b1dada@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,86 +132,112 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f52c72ee-0579-4ec9-95d1-57c26eb21b6c@suse.com>
+In-Reply-To: <061f894b-fbe0-4565-a9e2-502c97b1dada@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:dmukhin@xen.org,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:dmukhin@ford.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 83629E43CA
+X-Rspamd-Queue-Id: C3C86E44D8
 X-Rspamd-Action: no action
 
-On 04.02.2026 11:01, Juergen Gross wrote:
-> On 04.02.26 10:51, Jan Beulich wrote:
->> On 04.02.2026 10:25, Juergen Gross wrote:
->>> On 04.02.26 10:15, Jan Beulich wrote:
->>>> On 04.02.2026 10:00, Roger Pau Monné wrote:
->>>>> On Wed, Feb 04, 2026 at 08:56:10AM +0100, Jan Beulich wrote:
->>>>>> On 04.02.2026 08:49, Roger Pau Monné wrote:
->>>>>>> Also, I would remove the tools guards, I think once a DOMID_ constant
->>>>>>> is allocated it becomes part of the public ABI, and it cannot be
->>>>>>> withdrawn.  See for example DOMID_IDLE: it's only used internally in
->>>>>>> the hypervisor AFAICT, yet the define is fully visible in the
->>>>>>> headers.
->>>>>>
->>>>>> It was me to ask for it to be guarded like this. DOMID_IDLE (and perhaps
->>>>>> others) not being guarded (at least for IDLE: by just __XEN__) imo was a
->>>>>> mistake. That mistake may in fact be correctable, if we could prove that
->>>>>> the ID cannot usefully be passed into anywhere.
->>>>>
->>>>> Even if it's not passed into anything, does it make sense to guard
->>>>> them?  The reserved domid values are already consumed, ie: cannot be
->>>>> reused in any way.  It just seem to me like more ifdefery churn for no
->>>>> specific benefit.
->>>>
->>>> Well. From an abstract perspective, purely hypothetical at this point, I
->>>> could see a potential need to re-number them, e.g. to simplify checking
->>>> against groups of these special IDs.
->>>>
->>>> Yes, excess #ifdef-ary is an issue. Excess exposure of things also is,
->>>> though. Finding the right balance between both can be interesting.
->>>
->>> I have a patch in work which would want DOMID_ANY not be guarded. I think
->>> especially DOMID_ANY could be useful for other cases, too.
+On 04.02.2026 10:29, Oleksii Kurochko wrote:
+> On 2/3/26 6:02 PM, Jan Beulich wrote:
+>> On 22.01.2026 17:47, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/sbi.c
+>>> +++ b/xen/arch/riscv/sbi.c
+>>> @@ -249,6 +249,38 @@ static int (* __ro_after_init sbi_rfence)(unsigned long fid,
+>>>                                             unsigned long arg4,
+>>>                                             unsigned long arg5);
+>>>   
+>>> +static int cf_check sbi_set_timer_v02(uint64_t stime_value)
+>>> +{
+>>> +    struct sbiret ret;
+>>> +
+>>> +    ret = sbi_ecall(SBI_EXT_TIME, SBI_EXT_TIME_SET_TIMER, stime_value,
+>>> +#ifdef CONFIG_RISCV_32
+>>> +                    stime_value >> 32,
+>>> +#else
+>>> +                    0,
+>>> +#endif
+>>> +                    0, 0, 0, 0);
+>>> +
+>>> +    return sbi_err_map_xen_errno(ret.error);
+>>> +}
+>>> +
+>>> +static int cf_check sbi_set_timer_v01(uint64_t stime_value)
+>>> +{
+>>> +    struct sbiret ret;
+>>> +
+>>> +    ret = sbi_ecall(SBI_EXT_0_1_SET_TIMER, 0, stime_value,
+>>  From this name I'm judging version 0.1 is meant. How does this fit with ...
 >>
->> Mind me asking where, outside of the toolstack, you intend to use it?
+>>> @@ -326,6 +358,14 @@ int __init sbi_init(void)
+>>>               sbi_rfence = sbi_rfence_v02;
+>>>               printk("SBI v0.2 RFENCE extension detected\n");
+>>>           }
+>>> +
+>>> +        if ( sbi_probe_extension(SBI_EXT_TIME) > 0 )
+>>> +        {
+>>> +            sbi_set_timer = sbi_set_timer_v02;
+>>> +            printk("SBI v0.2 TIME extension detected\n");
+>>> +        }
+>>> +        else
+>>> +            sbi_set_timer = sbi_set_timer_v01;
+>>>       }
+>>>       else
+>>>           panic("Ooops. SBI spec version 0.1 detected. Need to add support");
+>> ... the panic() here?
 > 
-> I'd like to be able to use it for Xenstore permissions.
+> panic() is still here as then we will want to add support for rfence v01 SBI call
+> too what hasn't been done yet.
 > 
-> Primary use case would be to allow the special watches for domain creation
-> and removal to be usable for all guests, but there might be use cases where
-> a domU wants to give node read access for everyone.
+> Could it be an option to change panic to:
+>     sbi_set_timer = sbi_set_timer_v01;
+>     dprintk("SBI v0.1 isn't fully supported\n");
+> and then add sbi_rfence = sbi_rfence_v01 when i will be first used?
 
-Would that require exposing beyond the toolstack's boundaries?
+I don't mind keeping the panic(), but what you add here wants to be structured
+such that things won't need moving around once the panic() goes away. I.e. you
+want to avoid dealing with v0.1 in both the if() and the else. To accommodate
+that, perhaps sbi_set_timer_v01 could simply be the initializer of the new
+function pointer variable?
+
+Beyond that, once again you want to clarify things in the commit message.
+Adding support for a case which elsewhere you panic() on is, well, confusing
+without some explanation.
 
 Jan
 
