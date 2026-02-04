@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kNcsNCxgg2mfmAMAu9opvQ
+	id kMi8EhVhg2nAmAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 16:05:16 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 16:09:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 434CCE7DE2
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 16:05:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1220878.1529291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3B3E801E
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 16:09:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1220887.1529302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vneRD-0007I8-Su; Wed, 04 Feb 2026 15:05:03 +0000
+	id 1vneUW-00083w-9Y; Wed, 04 Feb 2026 15:08:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1220878.1529291; Wed, 04 Feb 2026 15:05:03 +0000
+Received: by outflank-mailman (output) from mailman id 1220887.1529302; Wed, 04 Feb 2026 15:08:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vneRD-0007GC-Pu; Wed, 04 Feb 2026 15:05:03 +0000
-Received: by outflank-mailman (input) for mailman id 1220878;
- Wed, 04 Feb 2026 15:05:01 +0000
+	id 1vneUW-00081k-6p; Wed, 04 Feb 2026 15:08:28 +0000
+Received: by outflank-mailman (input) for mailman id 1220887;
+ Wed, 04 Feb 2026 15:08:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vneRB-0007G6-PW
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 15:05:01 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1vneUU-00081e-Hh
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 15:08:26 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dfb854c8-01da-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Feb 2026 16:04:59 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-48039fdc8aeso42334545e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 07:04:59 -0800 (PST)
+ id 59861940-01db-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Feb 2026 16:08:23 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-42fbc305882so4299176f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 07:08:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4830fc1744dsm42301315e9.2.2026.02.04.07.04.57
+ ffacd0b85a97d-43617e37e78sm7539071f8f.10.2026.02.04.07.08.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Feb 2026 07:04:58 -0800 (PST)
+ Wed, 04 Feb 2026 07:08:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfb854c8-01da-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 59861940-01db-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770217499; x=1770822299; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770217703; x=1770822503; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DnITYY/mzTHqwD9uGr4WYDZ6ONzyoTjVRZ+55ops4eg=;
-        b=NziBa2wNAlrqasdAl7418+R2Rk7aPGqZ3wVvooedJ9l56SjJlXGo07nyOBWwAHbTxq
-         LH9Xs/qTaFunne1wexb74AOGVPAOJeKLHGkK5N0xj9CKwj94js7ngJZgi2g9eFkDTFzh
-         sZk1UhVH4PR0H35DNBuFjbpux7oJWU96YXCSj72WFk/hydRr/U0rWQ8U4E6U6VwQXFDf
-         9rgydKtPNPIiu4DPAmhV74cntVgn8ouFMj6Ex/wA3dQjZ0cKiVKKgRP20lmtIV5owtTL
-         horrM8034IaykI4Vs6zNDyVGSFTemHfaoUeaPEDFe5B2LgsvmbXnolr41ueU9vA1np6p
-         wBuA==
+        bh=5Swr1gu7g8IwH+hQRLhGbq1xJnMD+8mL67FG1ybo2U4=;
+        b=H5NmjbMI6fIb/VQkcnXlc93rwpMjeooRezKvAyYkZMP3xgTsFI2MrmDfLebAL8Pj35
+         ef3LFnR3j+GCT4Ge2R3HHWhHxbaGlgLBGxuEXLCgr+GLyBZ0pdIga6JFXJgnpIRjPPy6
+         mKwT2fb1kW8/dLCELTh4j5Oi8xL8mTA92fiaKfykEWSQhEAemOu/Bpgpm0KFHRg7/e59
+         jqdkhp+SQDJK6eMTfYb5+zC/5Ph5H8uUUQXOznNDwhYRixtuPAvG5UahRPM9roZ34lkY
+         Z9o/zcCnX8Km8JGu/6ExP5MOq+Dzo0sO4eJmsyI+agGLzdN9Ox8HEJY/Pdz63K6VZWem
+         W5eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770217499; x=1770822299;
+        d=1e100.net; s=20230601; t=1770217703; x=1770822503;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DnITYY/mzTHqwD9uGr4WYDZ6ONzyoTjVRZ+55ops4eg=;
-        b=rn0d1w4tqt2cMdlgU9l0VB0X1VxDSiKNdJWiC5r/H8BmpMlvoBK1Wl7UBRVBRm2WTF
-         S6vDDiwu2NYT9tN13pnMjzlLt2g/P1w0mcy5Ms7sSfHThz9riYQEk0qwSWbLkaudO7er
-         QJZ++iRxUH7/J3D3MXmgx9VWSNq+W0j7oSjcPqyvLsLADbVESs+GRyWmMdRFRdHd0m6m
-         jMa4KHudDgA9jjMDQzEvgC9nhF0jH3Obqu+2fALQEpkbYnyvK+gYQUji2qQP8KIfe8+z
-         k3KN3jIJmQiqoCsQhqIJJPz4A4g671rKGR40J0sDt0FaYaoCNiRSedAgb/38iasUfCL1
-         gHUQ==
-X-Gm-Message-State: AOJu0YyixIPXZ7cTLPzn0sTP4BgVOPOU83ezcyUKLcI/AmminT9GHYvn
-	zGzkvmkxlLZy/nCsggq4JwjaKGh8wE+rQI2oB8SOixL8MrYSnzeP95+FaAzpSz8nIAB6O69MfH3
-	b4So=
-X-Gm-Gg: AZuq6aJYZMPBoo9n9MDP4chMxFic8oBvtFn21AIuNt1w3/tftTKLmciaiCaT+fTpKY6
-	2pDSPLbeQTY/ZxY+7x1AfQEL6usul7GawbHfmGQFuDsZnXRubJb+slmBQvcy4Fu5tt4/+vGL7e9
-	F8mpl5koTbqMEFDNnXqlXmMe5BhTslfGxdn6i8h2nUZyPlooiEHLybxlxCC8Yz6cNmEIG1Dd+ls
-	IKk736LCaDangXCU5iQFrDswoj5KZ/DP3vD+U6TJnBtUnY5rt42aqfXH1UTYX5W7Jux+efmW3g+
-	AGCDkd6BCunV2Qh2X7EvBZUCCroCXLjermpqi/Jz6lJyGWrFyr72OuoIUcnqAVHuPWQ9Y3OvkBx
-	FP4TCHWPYFbAcleCLKNXxiKMMQIz4Xe4FfhoH+hC78OH1fNAESInl7jh0BTsPyG9DVfKvB159dm
-	Q4jro/cGHSwzEYuxYjcbjghsSsi7xDgPRmlbyJD0ZNfYEGeIX7bQK+x+zKAVb4Voa9i3oUQFhH7
-	mU=
-X-Received: by 2002:a05:600c:5491:b0:480:46c6:bf4b with SMTP id 5b1f17b1804b1-4830e92a73bmr40055215e9.5.1770217498831;
-        Wed, 04 Feb 2026 07:04:58 -0800 (PST)
-Message-ID: <87e824c4-0f24-4d3b-a261-7fe19d554f0c@suse.com>
-Date: Wed, 4 Feb 2026 16:04:56 +0100
+        bh=5Swr1gu7g8IwH+hQRLhGbq1xJnMD+8mL67FG1ybo2U4=;
+        b=L86eZOnEyy3qOwFLUm7s7MYHg/hMv6ftpGciu5IiK8H2TYCijlSSx/mTfNbZjKKIb9
+         yVFK1/+ZxF56mT857ry+iHBBW1j55Mq9q2t4z1vxQhgzDr5t6FOYu8Ytzd45LF0vfA+O
+         f3Chzp8WHW+z+1ogcOGxOOQE/l/aKZ8RZl8yZ7v60ZnxkNxuGimmwiYnqWcN7GpaneO0
+         cknSEMB8hvrsWtiKh1liu63KFrPOpAq46F2pJQtkGdziMu5nn/M5uzwLpYxj5vIFdCn6
+         VtMoxmSLUZlh2nl8qvgf6RJDPGwTMR4bQQc8J91mg+H332S2De2FvfMvM4Ni4OHAte48
+         2Z1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXxniDPhEYBWeTy/jS/4FsjXW3HgXDw6AZ8N6Zu2XIL/ryqxrFaWxjxDwwBU79UmFa3eVMuw9MYa3Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxj/fgyfdG8Q+oXPQkP/FsQj3B+OhKxSwKXkH+h6fJshT4a2cRV
+	NTSBmv5Vy4Seaxf72V3iBg/m2airYbab3y40icfUJRHN0QZSieCjfZHM+DRC2Xwe7Q==
+X-Gm-Gg: AZuq6aLJdoSRO4/ftVII/V+LKx2ATTB1HCgEANwZF7GNuToLMkwd7EsPlNPy7dJc7fv
+	gZtU1EZJ/Pgn1aA4lFOz4gYCZsuc4i7/b1mweV3m+0yb2pia284KnVklMJROHJlc5/SG7cD/CQD
+	vw2uXf9IWxtYwYDNlp2KA40vqG/ZziIZz035/NxS+GaFS3N1PPDTe9MROngBaIn1r3KZqb+Gtvj
+	2Tr3Ya2SiYlYD/XJAcaAxPMpMy9pSAvjzMaSiu3HBvjxTdpYABalkyAAYd1Cwg6BpxOkGE1XyBm
+	RR5DAmzB0H0vkYf3rYqaQCUh3K5GSBRHM/8nd7GLrTH2AVMjS0vEQL4FaGq59o0F9D5AN0tbYxP
+	6d9rYZrJvI8/X1nPOtLPtRvjejfzTBEjY+1XXicqAnOQwaCnHEE0hKY4BUv3v4w7cgn+6uGu0qW
+	AGFytEnUKLT9i43uyBjzFPJE000p/oRw4ZWq7Fg7iDmQYx9btmwMM2hp0bwHXr69j2tLT7x5w+2
+	7c=
+X-Received: by 2002:a05:6000:2c08:b0:435:9f1b:8d19 with SMTP id ffacd0b85a97d-43618052916mr4846663f8f.38.1770217703182;
+        Wed, 04 Feb 2026 07:08:23 -0800 (PST)
+Message-ID: <3f9b4337-3e0a-4693-b97f-46505bc1349a@suse.com>
+Date: Wed, 4 Feb 2026 16:08:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] x86/domain: adjust limitation on shared_info
  allocation below 4G
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20260204122553.75711-1-roger.pau@citrix.com>
- <cc8f0f84-fd5e-401c-ad71-ab5a10f21fa8@citrix.com> <aYNfVDgSgKCYd929@Mac.lan>
+ <82540f88-ffcd-46a9-9813-ebe42ef0b0ec@suse.com> <aYNdJ6sb4GPaSEyY@Mac.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,23 +127,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aYNfVDgSgKCYd929@Mac.lan>
+In-Reply-To: <aYNdJ6sb4GPaSEyY@Mac.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
@@ -162,26 +162,33 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 434CCE7DE2
+X-Rspamd-Queue-Id: AC3B3E801E
 X-Rspamd-Action: no action
 
-On 04.02.2026 16:01, Roger Pau Monné wrote:
-> On Wed, Feb 04, 2026 at 03:20:09PM +0100, Andrew Cooper wrote:
->> On 04/02/2026 12:25 pm, Roger Pau Monne wrote:
->>> --- a/xen/arch/x86/pv/domain.c
->>> +++ b/xen/arch/x86/pv/domain.c
->>> @@ -247,6 +247,26 @@ int switch_compat(struct domain *d)
->>>      d->arch.has_32bit_shinfo = 1;
->>>      d->arch.pv.is_32bit = true;
->>>  
->>> +    /* Check whether the shared_info page needs to be moved below 4G. */
+On 04.02.2026 15:52, Roger Pau Monné wrote:
+> On Wed, Feb 04, 2026 at 03:06:52PM +0100, Jan Beulich wrote:
+>> On 04.02.2026 13:25, Roger Pau Monne wrote:
+>>> The limitation of shared_info being allocated below 4G to fit in the
+>>> start_info field only applies to 32bit PV guests.  On 64bit PV guests the
+>>> start_info field is 64bits wide.  HVM guests don't use start_info at all.
+>>>
+>>> Drop the restriction in arch_domain_create() and instead free and
+>>> re-allocate the page from memory below 4G if needed in switch_compat(),
+>>> when the guest is set to run in 32bit PV mode.
+>>>
+>>> Fixes: 3cadc0469d5c ("x86_64: shared_info must be allocated below 4GB as it is advertised to 32-bit guests via a 32-bit machine address field in start_info.")
 >>
->> ... extending this one talking about the 32bit field.
+>> The tag is here because there is the (largely theoretical?) possibility for
+>> a system to have no memory at all left below 4Gb, in which case creation of
+>> a PV64 or non-shadow HVM guest would needlessly fail?
 > 
-> Hm, yes, I've considered doing that.  Unless Jan objects I will move
-> the comment then, seeing as you also think it's best.
+> It's kid of an issue we discovered when using strict domain NUMA node
+> placement.  At that point the toolstack would exhaust all memory on
+> node 0 and by doing that inadvertently consume all memory below 4G.
 
-Definitely no objection from me. My R-b stands with that movement.
+Right, and hence also my "memory: arrange to conserve on DMA reservation",
+where I'm still fighting with myself as to what to do with the comments you
+gave there.
 
 Jan
 
