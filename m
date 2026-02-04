@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SBykKf/xgmmWfQMAu9opvQ
+	id qOBRKgH1gmn6fgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:15:11 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:28:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1773AE2920
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:15:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1220058.1528780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD75E2B24
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Feb 2026 08:28:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1220067.1528789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnX63-0006hs-Ok; Wed, 04 Feb 2026 07:14:43 +0000
+	id 1vnXIY-0000Lu-QV; Wed, 04 Feb 2026 07:27:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1220058.1528780; Wed, 04 Feb 2026 07:14:43 +0000
+Received: by outflank-mailman (output) from mailman id 1220067.1528789; Wed, 04 Feb 2026 07:27:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnX63-0006em-LS; Wed, 04 Feb 2026 07:14:43 +0000
-Received: by outflank-mailman (input) for mailman id 1220058;
- Wed, 04 Feb 2026 07:14:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vnXIY-0000Jx-Mi; Wed, 04 Feb 2026 07:27:38 +0000
+Received: by outflank-mailman (input) for mailman id 1220067;
+ Wed, 04 Feb 2026 07:27:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnX62-0006eg-T9
- for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 07:14:42 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c3f8bf9-0199-11f1-b161-2bf370ae4941;
- Wed, 04 Feb 2026 08:14:41 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso5249485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 23:14:41 -0800 (PST)
+ id 1vnXIX-0000Jr-PO
+ for xen-devel@lists.xenproject.org; Wed, 04 Feb 2026 07:27:37 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8800ea5-019a-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Feb 2026 08:27:33 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-432d2c96215so6049510f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Feb 2026 23:27:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43618058473sm4525135f8f.22.2026.02.03.23.14.39
+ ffacd0b85a97d-436180659b8sm3908468f8f.43.2026.02.03.23.27.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Feb 2026 23:14:40 -0800 (PST)
+ Tue, 03 Feb 2026 23:27:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,63 +50,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c3f8bf9-0199-11f1-b161-2bf370ae4941
+X-Inumbo-ID: f8800ea5-019a-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770189280; x=1770794080; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dL1+4WVFhRC/gocRsASuVZkJUVAVujnW+FddS0cyUbQ=;
-        b=Lf+hobJ7gQKt46LKkI/ILjwvB+Vl1RS4GVuYoZO+MhT/qX3EFyfjPMqv5TEZz3diXX
-         ra3W0dW4nIJH/Bx1BxV+kW+fcIoVcl5Uf+AooDhakWI7NtucwoFh7yi8rLYvwQGUNQVP
-         gnNmnO8O9KpqbKNdrAhihUJtxmhaM0tDCxQbriEZFXVSSpa/xHwP1WWjv9Y5jX9Lt44d
-         dfcFhFVB+EaD9ZS//rDwilYbrk/NV5FmZlKBbYwzwuGcImI0IujVPmuf7R3b6X8PHrSq
-         Wh0D8QXeRBnYE2/5zFOoDmo7+Mty6nLhPDzvIS21c7qFQIVScEb1S/oz6gk551vov9b2
-         n7kw==
+        d=suse.com; s=google; t=1770190053; x=1770794853; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dkHK1xR5LyDogbbBR9kB4+iKJzwueKzkK3V+QZTM/+A=;
+        b=T3G4XnicaaP+nlx032o2A3g4dwFTdT73TpUh1a1WO8iVGW11LDuZAdF2u3vE3RyeE+
+         0mH/iyj2AmjZ8loD4qZJjEcwVyYS3x19HgYgd6/y+qPerf1lTZeVb61NUTr4V21iu2QD
+         CpZ8q0wEdtwvKikyUKojH/Sryk/9wzXofeZ5BvmEVhGiDG++hdStaUfZAgTNXZmjNCRh
+         JUFW3XfxkKWNY/L6+/WQBl1cKdwcCbyFlHr/DV9rDJA47zMKWSkxnEUVl3zM76B+KXNR
+         duBJg7oZJ9bPDL5PcLDH+60WBOBHaNcUX9xc9pMwxnwDsgi0dWX3McnUOid7mzzLMxNj
+         PRDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770189280; x=1770794080;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1770190053; x=1770794853;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dL1+4WVFhRC/gocRsASuVZkJUVAVujnW+FddS0cyUbQ=;
-        b=As7Ck5SnyIynYk/BuuxJgUkii5+66K/tbTalDrEkRzf22/safL9XvRDM8bcuJy6F8s
-         pWExiiaF4MMzxeYlk85hcOxrVDeGfSo93ZeX62KGFABWT2tJyaRsXDLXf4uIg3AsuuuM
-         1O+MG8rwPh/gwP4YFtOsOoI5IsHcPVkQaXbt0jA3I1AYCXJmi576b72eNsQ8JPRn+jym
-         /ZtUH2SaDiRtwkjJrjOT7GnopseMzExuDmFHrf7CZ5ceJWPDRxdou8DzMCdMUs/xoPKA
-         5sNxg0jkpYhRHAoRGx3O0BGr448zLkRddwdvvBj7L1aFMguAzIMXgSlCIZYCH6aOaDTS
-         jO9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUEZSVA7UZHfbOhmqmVhLNc33FXC8mpEUCDZfAqHytNgEUCmeDNdQ3Du0uqmKzTO3hoL1rXDeCXVMM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwqjovZ0VDv9gtVtWWUo40oxP+IJ1v7q/wRR5UGzKm0mk/0QJkq
-	xBOh+F0gu/B3gm5B8LoWrggljjhQ+oJlubM+vmOujvvesrMx9V0zpoA4vYwKFynhSA==
-X-Gm-Gg: AZuq6aJ0lE/r89UB4JYCO/Z1gVL+UYR1sszYcC++lllP+UJZjsJewpYN59AofuJ4cF5
-	HJa7CTUZng5W6DYqt4CvyF4IvDIupaLWZg3XYxs7fPo3/NabUn/33nrxB15MgyuEAmPCpofNq0L
-	4qr0J/zJBh6ZqE5bvh3S0LB9yViP//HECDmFcbRT7wk85ZwblgTDFdKxC2bvPM3yoayUQmz2IVy
-	B1rNi5I4gP48CvC5bXD5Va9+XV1YXXSpBWhmkYYfe8vRCxXALeDNnYfSE0B/NBb1rA/nQXaVn1I
-	6oep4ztu3UiV5FMADoy78gHaRrcGPuu0N3MwravVigGtLPRjbDsi14cfU6k9j5kvKewnVG3rRyl
-	trEWuGIna14z9jnmtyrxfZ+Uyzs8+wXmTcq+S8YnhK9j9E+LC8IAvh9DjpuzGVM50WAMP//HE5m
-	9Fx4SnATQCRO7L91qEitS5Toqvua3URbsK7K+JIzoHpGmX7xjRALs2QVzs3pRBZn3eSp1Jtn6bN
-	EM=
-X-Received: by 2002:a05:600c:5493:b0:480:1c1c:47d6 with SMTP id 5b1f17b1804b1-4830eb286f1mr24399425e9.6.1770189280467;
-        Tue, 03 Feb 2026 23:14:40 -0800 (PST)
-Message-ID: <0a437580-a373-4aeb-a153-b3dca0cf2bb7@suse.com>
-Date: Wed, 4 Feb 2026 08:14:38 +0100
+        bh=dkHK1xR5LyDogbbBR9kB4+iKJzwueKzkK3V+QZTM/+A=;
+        b=ZSdBcucUUvxz+cUuRoXvLPKqOPAQtPupYGNqKP9hE7ZfY/d+4sgXkzGxRs3eiEA1tO
+         5zkILSYwZ4sqaKuwV3IWTDGiRD2NuXdv6TvLQ6ooi9tEaaFKwvjsdtoNnCaIjBmQ9drS
+         xtxgo3kBlu+Vyo9pirTNGT3KNy+cNquvFXz8zA5NWWaKC5G64CPj8PkEbweVmmKXFpzT
+         8vsxFvIPpn5IZUY0NqGBz/Wc53LdJOCqVyZm+qeZtHfLTYoSdQCCqOw3i4E9vt/VnDZ7
+         9gFm6jNOvxPQ6YNb3ZsAiN065P0Qy5/6ldaGrBahhPbDCsMkgRiII7P9LtKFPIt65f7C
+         S4MA==
+X-Forwarded-Encrypted: i=1; AJvYcCXE4zWA8OcxgWGWzr0PaV9Hjjogi5EQSuZ/+RwTaR3jlDtCJf3ghQP0Sn0mZbPbXEdeooq1Rqh8ibY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyw4FNLab7ICTHbBUxSuhIERe5t3ky0kCGBvZaIEjZvrF6LebfK
+	aNbsC1vS7OPX0q1SWxCHkRLq2agYIMbwmWHri5edc6Lqe1BUtICc1lZ6rpa/DFiA+zjcNw+Zu+I
+	dQMY=
+X-Gm-Gg: AZuq6aJ8Gn0KbYNaeSjiujOpk3KTZG4gq2BwQcWsKRsqxUXlQwpsuWLlfjS1sqan/BO
+	gxn5tVk22D4Bahg5FV7Tj+RPo4mi0zTWxBhGUWZnqaIMYmk6qZFDb237qTH3N/mY5M97wt1pdi5
+	vlBKX77DLHW2+rc8dyGQAlFEgEe0zm3DNvQmsY7Q2TCwviYrhEsYNbnX/1jpB8izamFfZPUMhBR
+	roL632psQMRcgPFpJG+FZuMQw0788uSaiLUjLV5FXdaYUONrXdJH4WuLwyd5pD3AuCgfZsEq6+n
+	EB66Lf3wO51hiZPyXN7FD30dxPgViconUNgZaBvhOgdd8mjJsl3kqaB+7r7slN8WtV+8S6BqNG3
+	7LqYtVGr/QdJ+BXK4OY4GjaDI8ShZrLH+VCGxlSuWiVFYfGbeRihaEwC12ybJWe2Jl3nFQDMFfp
+	GNJJ0L9dygWKi8ic1j98/W21JHRHf9bBluemyuxjheyHha9Ju+EL5FK+HLdZ+/dUQOp9e5Wm/mv
+	/Y=
+X-Received: by 2002:a05:6000:2310:b0:431:32f:314d with SMTP id ffacd0b85a97d-43617e405eemr2736279f8f.25.1770190052664;
+        Tue, 03 Feb 2026 23:27:32 -0800 (PST)
+Message-ID: <9396b300-2698-4bb1-a856-0a4b3bcc6e6a@suse.com>
+Date: Wed, 4 Feb 2026 08:27:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] xen/console: handle multiple domains using
- console_io hypercalls
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
- julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
- victorm.lira@amd.com, andrew.cooper3@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2601291404410.2238666@ubuntu-linux-20-04-desktop>
- <20260129220858.2371938-1-stefano.stabellini@amd.com>
- <0fc9a80a-8621-4ce4-b2f9-c102e975b05b@suse.com>
- <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
+Subject: Re: Ping: [XEN][PATCH v4] xen: make VMTRACE support optional
 From: Jan Beulich <jbeulich@suse.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20251119193120.1011448-1-grygorii_strashko@epam.com>
+ <90ac9206-10ce-4c46-83e3-82ac8ef0d152@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,7 +133,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
+In-Reply-To: <90ac9206-10ce-4c46-83e3-82ac8ef0d152@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -141,57 +144,88 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:tamas@tklengyel.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:aisaila@bitdefender.com,m:ppircalabu@bitdefender.com,m:teddy.astie@vates.tech,m:Penny.Zheng@amd.com,m:xen-devel@lists.xenproject.org,m:grygorii_strashko@epam.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1773AE2920
+X-Rspamd-Queue-Id: 0BD75E2B24
 X-Rspamd-Action: no action
 
-On 04.02.2026 00:02, Stefano Stabellini wrote:
-> On Tue, 3 Feb 2026, Jan Beulich wrote:
->> On 29.01.2026 23:08, Stefano Stabellini wrote:
->>> @@ -555,7 +566,10 @@ static void console_switch_input(void)
->>>  
->>>          if ( next_rx++ >= max_console_rx )
->>>          {
->>> +            nrspin_lock_irq(&console_lock);
+On 02.12.2025 11:57, Jan Beulich wrote:
+> On 19.11.2025 20:31, Grygorii Strashko wrote:
+>> From: Grygorii Strashko <grygorii_strashko@epam.com>
 >>
->> As indicated earlier, you can't know IRQ state in anything down the call
->> tree from serial_rx().
+>> The VMTRACE feature is depends on Platform/Arch HW and code support and now
+>> can be used only on x86 HVM with Intel VT-x (INTEL_VMX) enabled.
+>> This makes VMTRACE support optional by introducing HVM Kconfig option:
+>> - CONFIG_VMTRACE to enable/disable the feature.
+>>
+>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> ---
+>> changes in v4:
+>> - format changes
+>>
+>> changes in v3:
+>> - drop vmtrace stubs for HVM=n case from hvm.h (VMTRACE depnds on HVM)
+>> - hvm_vmtrace_reset() fix return err code
+>> - add comment about using func declaration without definition
+>>
+>> changes in v2:
+>>  - fix comments from Jan Beulich
+>>  - move CONFIG_VMTRACE in HVM
+>>  - drop HAS_VMTRACE
+>>
+>> v3:
+>>  https://patchwork.kernel.org/project/xen-devel/patch/20251114142207.279834-1-grygorii_strashko@epam.com/
+>> v2:
+>>  https://patchwork.kernel.org/project/xen-devel/patch/20251112202442.3879997-1-grygorii_strashko@epam.com/ 
+>> v1:
+>>  https://patchwork.kernel.org/project/xen-devel/patch/20251031212005.1338212-1-grygorii_strashko@epam.com/
+>>
+>>  xen/arch/x86/domctl.c                   |  4 +++
+>>  xen/arch/x86/hvm/Kconfig                | 12 +++++++++
+>>  xen/arch/x86/hvm/vmx/vmcs.c             |  2 ++
+>>  xen/arch/x86/hvm/vmx/vmx.c              | 11 ++++++++
+>>  xen/arch/x86/include/asm/guest-msr.h    |  2 ++
+>>  xen/arch/x86/include/asm/hvm/hvm.h      | 36 ++++++++++---------------
+>>  xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 ++
+>>  xen/arch/x86/mm/mem_sharing.c           |  2 ++
+>>  xen/arch/x86/vm_event.c                 |  8 +++---
+>>  xen/common/domain.c                     | 10 +++++++
+>>  xen/common/memory.c                     |  6 +++++
+>>  xen/common/vm_event.c                   |  3 ++-
+>>  xen/include/xen/domain.h                |  4 +++
+>>  xen/include/xen/sched.h                 |  4 +++
+>>  14 files changed, 80 insertions(+), 26 deletions(-)
 > 
-> I'll switch to the irqsave/restore versions in console_switch_input
+> Tamas - any chance of an ack here?
 
-I've seen that you already sent v9, but seeing how getting the locking right
-has proven to be difficult, I have two more remarks towards this.
-
-1) Can the locking additions to existing code please be split out into a
-   separate patch?
-
-2) As all of this is for dom0less only (for now at least), did you consider
-   to make all of these changes dependent upon a new Kconfig option, so to
-   avoid impacting other environments in case issues remain when this has
-   gone in?
+I guess I will time out on this early next week.
 
 Jan
+
+> Grygorii - chasing missing acks is generally the submitter's responsibility.
+> 
+> Jan
 
