@@ -2,61 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kFg6D1/rhGkj6gMAu9opvQ
+	id ULsfAlQVhWkh8QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 20:11:27 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 23:10:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F97FF6BBA
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 20:11:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222448.1530356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C15F7FAD
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 23:10:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222540.1530367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo4kT-0006a1-Tf; Thu, 05 Feb 2026 19:10:41 +0000
+	id 1vo7XP-0001E4-09; Thu, 05 Feb 2026 22:09:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222448.1530356; Thu, 05 Feb 2026 19:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 1222540.1530367; Thu, 05 Feb 2026 22:09:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo4kT-0006XT-Qb; Thu, 05 Feb 2026 19:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 1222448;
- Thu, 05 Feb 2026 19:10:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vo7XO-0001BD-S7; Thu, 05 Feb 2026 22:09:22 +0000
+Received: by outflank-mailman (input) for mailman id 1222540;
+ Thu, 05 Feb 2026 22:09:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kBVW=AJ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vo4kS-0006XN-3L
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 19:10:40 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58641c7a-02c6-11f1-b161-2bf370ae4941;
- Thu, 05 Feb 2026 20:10:34 +0100 (CET)
-Received: from BLAPR03CA0125.namprd03.prod.outlook.com (2603:10b6:208:32e::10)
- by IA1PR12MB8587.namprd12.prod.outlook.com (2603:10b6:208:450::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Thu, 5 Feb
- 2026 19:10:29 +0000
-Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:208:32e:cafe::b0) by BLAPR03CA0125.outlook.office365.com
- (2603:10b6:208:32e::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.15 via Frontend Transport; Thu,
- 5 Feb 2026 19:10:16 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.0 via Frontend Transport; Thu, 5 Feb 2026 19:10:29 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Feb
- 2026 13:10:27 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Feb
- 2026 13:01:31 -0600
-Received: from ubuntu (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
- with Microsoft SMTP Server id 15.2.2562.17 via Frontend Transport; Thu, 5 Feb
- 2026 13:01:29 -0600
+ <SRS0=l0Ed=AJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vo7XN-0001B6-F8
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 22:09:21 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e7341f9-02df-11f1-9ccf-f158ae23cfc8;
+ Thu, 05 Feb 2026 23:09:15 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AFC6D60010;
+ Thu,  5 Feb 2026 22:09:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0486EC4CEF7;
+ Thu,  5 Feb 2026 22:09:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,181 +47,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58641c7a-02c6-11f1-b161-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dgE30Q9Q9fX/hHkzdUdjpssxu13J+1dvlooZo37aRdexNqlmR6M5g84RGoWreHwqaj3S2297tNXnJyA/QVpQ71lFKF5E0L0wa9SBcU8Cd1MKjXIFZOVxvF2QFJkwawrL4heYmDocX6U1baLVINafWCJQgtqoSr4C++sVO6JjFQWB5sk2tb3aytQR02S3HPH6ub2beMlMkvKsTzHIZNhG5D6u0qng2t6RRNc6vlcTm4C+kV6XZUHF6P1wQsiP6LgJlIPusF7BqRnUERYiegqUg4czimdmaI0LSz51XlAvYfDD02w3gzbKsHeyNNMoBzMHWxk1x2x+8saih/mz6Ow4Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6pkHT7YoWrdILM2KZRf860iYhK0mFrQlm9u5hTlgGD0=;
- b=PhSAR8YREbhU3iCLZ23AadrxwLOtDp1ZT/4OjUWG+kxIdFN9bsH7Ekvi6+gQW1wwTqe8ilMueld1UjoF8eKkyINsU+78No5dPPo22MlLHaD320h3lR0/nDefFSZW+U8YGitUv357/R9gAx18Iz38bolTnvbCQi14y0G+HIB+U6x7DvyAv7RhsExf8gZ7UVtmW3MgQfjx5eIpKPIT4r7SphT7g4sxv/GqZqlee8rbmfFAobNEvUbW9KewCGch5QrrXd7UKBGhXcc0UxNuwxJJ4M4c50mpXq3K8m7VUXfIS8JZFSIaZ7oCpId/MQsutpcRSk0pCz7boPJNe1EblPMfTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6pkHT7YoWrdILM2KZRf860iYhK0mFrQlm9u5hTlgGD0=;
- b=Qr35koLQ7CXLVmoKfJdsZHNaqQg8nFtZZijgCf+aQV0ZRLxCWf3eXqTxY164LLou/7Pw/8M728sknPAEIp8BiUiFoTjO3Lwuu0AU1JOkArJUMfS66ZuTXhRkRgsZGIhIXftgszQX0MiHRTsgds5tVJX+axrj4t6V6lW4UBr/vAI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: fix unmapped access trapping on GICv2 hardware
-Date: Thu, 5 Feb 2026 14:01:27 -0500
-Message-ID: <20260205190128.38716-1-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.52.0
+X-Inumbo-ID: 4e7341f9-02df-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770329353;
+	bh=V9dFLTZQkqWpJ3YszT3cuHPxhfkzSeZqTHI4J6BzA/w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=chKqnAXC1YmgMSWLq9I7uASagoeYHlcrQaEuqMn7uPD5Xj4AX6WFiG3JBiwa34Hq+
+	 91xHgt5vjyYTDD0DCoDOA5a9dnZbQ96dteNWLq6XJUKWHc0BJr2BMFK90/MZVSpd2B
+	 PyJkkgfEQPkVk9npJKlw/SitrNGb9ao9ZEtyHOOxvWfXtMhQ1w95JD9Cp0nmTr1lfp
+	 RD6RycqR2CJCY1TF0+2dvsBMt3k0SmLM0Xj29HdFw5k4/emyPqsRzRczmm7u5XoPny
+	 SCWo5hE5NMGWEYF6dy2O0ugbRiBg9dKggTFKI0tcq3nh00U4/bjyyE4cOLLO1yUUqE
+	 9Z93+3V6f8E1A==
+Date: Thu, 5 Feb 2026 14:09:07 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: dmukhin@xen.org
+cc: Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org, grygorii_strashko@epam.com, 
+    anthony.perard@vates.tech, michal.orzel@amd.com, julien@xen.org, 
+    roger.pau@citrix.com, jason.andryuk@amd.com, victorm.lira@amd.com, 
+    andrew.cooper3@citrix.com, jbeulich@suse.com, sstabellini@kernel.org
+Subject: Re: [PATCH v10 5/5] xen: enable dom0less guests to use console_io
+ hypercalls
+In-Reply-To: <aYP76EsG3bf3Yp4I@kraken>
+Message-ID: <alpine.DEB.2.22.394.2602051403060.3397030@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2602041533440.3175371@ubuntu-linux-20-04-desktop> <20260204233712.3396752-5-stefano.stabellini@amd.com> <aYP76EsG3bf3Yp4I@kraken>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|IA1PR12MB8587:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb3923c0-f86b-4019-62d1-08de64ea39f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?pBalMKYHX5a4Z1gkHiTkzuZsJuBxNUcqrISTEn3zW1nOeTOyacwLEAsrToQk?=
- =?us-ascii?Q?E6wmpNa/vWdQeCjG0QvwEpY6KeO0Xvtt6dKWCCOry0aY4HPyeVRaN+7r2LJg?=
- =?us-ascii?Q?X1DmPoNSISQeFPzqjNKeg9Mc3bRKkkxTYVEYlcFC8vlj0wJaqxZtBr94HhwB?=
- =?us-ascii?Q?vnpJzanR02KnscPkvvlCO5SC+bqZxr31hinXAKR8PYEDGxvZavd/ED1ot7QO?=
- =?us-ascii?Q?vMxqZ6IrjpHlZvYQj4vaDZfe2u+hxA7d+ixIa8AYuIxaV30ge5lCOpV7Ikjr?=
- =?us-ascii?Q?RnV35wKKU+wicpu3ulTcRt9OernLZcOV1cxYtBxIUCC/nEfFo17u7MHurJYF?=
- =?us-ascii?Q?Z+oLCPF731HamdiL5vR/8W290p3O4sStpP6usrLSwXcYeg4IQjVtUro9iaJd?=
- =?us-ascii?Q?NoYCXJbLNX2wIDwTuu+vc6TNojpSgj1Ov2mLcp00uSMSVh7G80ASuUtQtiSR?=
- =?us-ascii?Q?qTd+B6TQcZ25WVpZqDFFH/i74KYLq9mjqZabNdE+W7diggWRmSR9PPPLXcBP?=
- =?us-ascii?Q?Ckh+5FNBg/ptg3/UY6NHYDlxJRzameMbcr5Ua0QLJUvr6W5rBcjUfm1jsvML?=
- =?us-ascii?Q?2oJORH3PxDbtCpWa5TkNZLBRV80hKrOt0t1zM9Wd4ZLRr3xp+5zsZyh7kZaH?=
- =?us-ascii?Q?iVkF9IsjAch3s79M6oMjukA3f3TB+QErY1b1w9qT+7JG8I8osDVOFYTwg4hl?=
- =?us-ascii?Q?hWEqWekL4lYhrfJGiiLMYqGgpRrw3eMYoWnZ+6BI0RhqHguKQ0KbnQ2LhGza?=
- =?us-ascii?Q?63eu+/xlYWpUpu65eEPDztJmfU67+VlCVGUyvGxPCiXQ3SANacsd6aTVrwq2?=
- =?us-ascii?Q?3jftte8H45orvFM1KW3VI8GHxPk+nLeBWRajJVLW8UYlXsfjnpZg0ZDeIxON?=
- =?us-ascii?Q?d8IO67DQ9BsHJeGaz4kqJPr0qyqOjabSZNfxW6USWx+/nUyYfVEYJYxg6Nle?=
- =?us-ascii?Q?ppaZWoCpUZ3wQgRRwfauNtH/Vog6Ui6jHZ7eogzYGC3Oti73zw4v4xR1+ocK?=
- =?us-ascii?Q?pbjZiYWgRXhX0Iz0MfJnvvenHD6kHf+HMPhp02IPJpRDRfs8R0v0H4kfos/X?=
- =?us-ascii?Q?lZFW1cAVlNGGkafgnRacGao2Cjdn8p5MNCPWToKaritXChdgd75PLSTEo/36?=
- =?us-ascii?Q?iVdU/1FZ2+xTZisDd6k27i8P4ZsHyGSQblZaaawr/HzAMrDUgrw4MunCwf5M?=
- =?us-ascii?Q?6XvYvQk8E23FFca+32B43CXPqNwuxYIg6nyFiOHIDWvyhgvJbAss1oekS3Ds?=
- =?us-ascii?Q?NiqZdMXfBaWivXl8/i89vfSMz/H6e/tWPjVVB/URaW6DbZkvmH2nCcI+YU2G?=
- =?us-ascii?Q?PaafD7WNwlEPtauLCe0I8ecl58H8t59QgwwSbiwcOMfAKHqJ8wlNuDcc3OGT?=
- =?us-ascii?Q?UL7Ryl+FYItAi2fDaDfL+SG7HOhN/atkq9SS8Nr/xtl7fl/YPRChK1S7ofvk?=
- =?us-ascii?Q?QpSXi60g68fvy8lhdXaolQqhKZGFW8lGTcV9u7V1H/iktOMDbb2GNd6Y7lVG?=
- =?us-ascii?Q?kRqFeje6GKScq2tcQwBDvCP8KAg2cz9L9N2rbtE4otjcEiRwoDYzvIpBmy3p?=
- =?us-ascii?Q?a8L0RisjpeJPESOYdbhTalVLk7sl7Z8d7G2jiPpXyd1OybC+VeNRFD3PlE3x?=
- =?us-ascii?Q?lQk3kPXQs1hwSw87kVI1hr+W1zkIr505KBM8cNvQdfnK?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oZZpie3V3KMD0f0CVryaanGX7cHG58JPTYYYVb56to3KzcHp35Z0UILNlAUCkaxXaKYQWiwsUpVU25EQAU8rWlzTMvz+fKaGatQB4eG37GTn7ItBZZszpQlWbZolxtWPTExtXmfdrefY6no4Cw/XIHZdPIsDtmXE04Acz2gcDq2xyQTi2fIcr6GBgZWN/0DbC3G0D0eFOOIFIoxz2t0xCZ/LF4o7h6KWjGu4qM/yXXqv4G4AJqQkZDWLFQoE6LXQeRpPTcxVxJpG9txLMEGqJCZHhDrWdXyBRH21OTtFLt8/GoUSJfEL3TS5cFzv6zXNVRzBeVR0rpVYPIaCd+U1LpCN+tlzPeqEkeBZusl5cd/8S0eFU4tnFj9XwBJVw6dYaqsL31DM3aIA9aSjiT25ZK1/iTiSIEvimdDngHhsZxxwOsB257mXpOaZtBX+Z75q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 19:10:29.0285
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb3923c0-f86b-4019-62d1-08de64ea39f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DB.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8587
+Content-Type: text/plain; charset=US-ASCII
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@xen.org,m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FROM_HAS_DN(0.00)[]
-X-Rspamd-Queue-Id: 8F97FF6BBA
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 85C15F7FAD
 X-Rspamd-Action: no action
 
-Since 4dbcb0653621, the vGICv2 CPU interface is mapped in a deferred
-manner. On domains with XEN_DOMCTL_CDF_trap_unmapped_accesses unset on
-GICv2 hardware, the vGICv2 CPU interface fails to be mapped. A visible
-symptom is that a domU gets stuck at:
+On Wed, 4 Feb 2026, dmukhin@xen.org wrote:
+> On Wed, Feb 04, 2026 at 03:37:12PM -0800, Stefano Stabellini wrote:
+> > Enable dom0less guests on ARM to use console_io hypercalls:
+> > - set input_allow = true for dom0less domains
+> > - update the in-code comment in console.c
+> > - prioritize the VUART check to retain the same behavior as today
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> The code looks good, just one remark wrt prioritizing VUART check.
+> 
+> > ---
+> >  xen/common/device-tree/dom0less-build.c |  2 ++
+> >  xen/drivers/char/console.c              | 16 ++++++++++------
+> >  2 files changed, 12 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> > index 840d14419d..cb7026fa7e 100644
+> > --- a/xen/common/device-tree/dom0less-build.c
+> > +++ b/xen/common/device-tree/dom0less-build.c
+> > @@ -829,6 +829,8 @@ static int __init construct_domU(struct kernel_info *kinfo,
+> >  
+> >      rangeset_destroy(kinfo->xen_reg_assigned);
+> >  
+> > +    d->console->input_allowed = true;
+> > +
+> >      return rc;
+> >  }
+> >  
+> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> > index d3ce925131..7f0c3d8376 100644
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -610,11 +610,20 @@ static void __serial_rx(char c)
+> >      if ( ACCESS_ONCE(console_rx) == 0 )
+> >          return handle_keypress(c, false);
+> >  
+> > +    /* Includes an is_focus_domain() check. */
+> >      d = console_get_domain();
+> >      if ( !d )
+> >          return;
+> >  
+> > -    if ( is_hardware_domain(d) )
+> 
+> Hardware domain on x86 may have an emulated UART (not in upstream, through,
+> I need to send v8 for NS16550 series...). The patch which illustrates the
+> idea:
+>    https://lore.kernel.org/xen-devel/20250908211149.279143-2-dmukhin@ford.com/
+> 
+> So this code (hopefully soon) will need adjustment again.
+>
+> I would update the code to something like:
+> 
+> 
+> 
+>     if ( is_hardware_domain(d) && !domain_has_vuart(d) )
+>     {
+>         // handle hardware domain
+>     }
+> #ifdef CONFIG_SBSA_VUART_CONSOLE
+>     else if ( domain_has_vuart(d) )
+>         /* Deliver input to the emulated UART. */
+>         rc = vpl011_rx_char_xen(d, c);
+> #endif
+> 
+> 
+> 
+> But domain_has_vuart() needs to be defined for all architectures
+> (currently it is hidden in arch/arm/vuart.c).
+> 
+> Or perhaps it is possible to postpone the change?
 
-  [    0.177983] smp: Bringing up secondary CPUs ...
+This change is needed to avoid regressions on ARM.
 
-Move the 2nd check_p2m earlier so it's prioritized over try_handle_mmio.
+However, while I wouldn't be surprised if we need a change here for your
+upcoming patch series, at the same time at the moment I don't see why
+this check wouldn't work as it is for you as well.
 
-Fixes: 980aff4e8fcd ("xen/arm: Add way to disable traps on accesses to unmapped addresses")
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
-This should be backported to 4.21.
+On x86, CONFIG_SBSA_VUART_CONSOLE will never be set. It is OK to do this
+first:
 
-Pipeline: https://gitlab.com/xen-project/people/stewarthildebrand/xen/-/pipelines/2010469665
----
- xen/arch/arm/traps.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+#ifdef CONFIG_SBSA_VUART_CONSOLE
+    /* Prioritize vpl011 if enabled for this domain */
+    if ( d->arch.vpl011.base_addr )
+    {
+        /* Deliver input to the emulated UART. */
+        rc = vpl011_rx_char_xen(d, c);
+    }
+    else
+#endif
 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 040c0f2e0db1..0c01f37ad6b4 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -1915,6 +1915,14 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-         if ( info.dabt_instr.state == INSTR_ERROR )
-             goto inject_abt;
- 
-+        /*
-+         * If the instruction syndrome was invalid, then we already checked if
-+         * this was due to a P2M fault. So no point to check again as the result
-+         * will be the same.
-+         */
-+        if ( (info.dabt_instr.state == INSTR_VALID) && check_p2m(is_data, gpa) )
-+            return;
-+
-         state = try_handle_mmio(regs, &info);
- 
-         switch ( state )
-@@ -1939,14 +1947,6 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-                 break;
-         }
- 
--        /*
--         * If the instruction syndrome was invalid, then we already checked if
--         * this was due to a P2M fault. So no point to check again as the result
--         * will be the same.
--         */
--        if ( (info.dabt_instr.state == INSTR_VALID) && check_p2m(is_data, gpa) )
--            return;
--
-         break;
-     }
-     default:
--- 
-2.52.0
+It shouldn't hurt. The is_hardware_domain() check is also not necessary
+anymore because any necessary check would be part of this check above: 
 
+      d = console_get_domain();
+      if ( !d )
+          return;
+
+So I am guessing that your series might actually leave this code
+unchanged and instead might modify console_get_domain() or
+max_console_rx.
+
+
+
+> > +#ifdef CONFIG_SBSA_VUART_CONSOLE
+> > +    /* Prioritize vpl011 if enabled for this domain */
+> > +    if ( d->arch.vpl011.base_addr )
+> > +    {
+> > +        /* Deliver input to the emulated UART. */
+> > +        rc = vpl011_rx_char_xen(d, c);
+> > +    }
+> > +    else
+> > +#endif
+> >      {
+> >          unsigned long flags;
+> >  
+> > @@ -633,11 +642,6 @@ static void __serial_rx(char c)
+> >           */
+> >          send_guest_domain_virq(d, VIRQ_CONSOLE);
+> >      }
+> > -#ifdef CONFIG_SBSA_VUART_CONSOLE
+> > -    else
+> > -        /* Deliver input to the emulated UART. */
+> > -        rc = vpl011_rx_char_xen(d, c);
+> > -#endif
+> >  
+> >      if ( consoled_is_enabled() )
+> >          /* Deliver input to the PV shim console. */
+> > -- 
+> > 2.25.1
+> > 
+> > 
+> 
 
