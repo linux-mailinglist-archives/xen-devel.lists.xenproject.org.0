@@ -2,40 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ULsfAlQVhWkh8QMAu9opvQ
+	id mClSGbYlhWlV9AMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 23:10:28 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 00:20:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85C15F7FAD
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 23:10:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222540.1530367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A63F852C
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 00:20:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222567.1530376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo7XP-0001E4-09; Thu, 05 Feb 2026 22:09:23 +0000
+	id 1vo8dA-00013W-0x; Thu, 05 Feb 2026 23:19:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222540.1530367; Thu, 05 Feb 2026 22:09:22 +0000
+Received: by outflank-mailman (output) from mailman id 1222567.1530376; Thu, 05 Feb 2026 23:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo7XO-0001BD-S7; Thu, 05 Feb 2026 22:09:22 +0000
-Received: by outflank-mailman (input) for mailman id 1222540;
- Thu, 05 Feb 2026 22:09:21 +0000
+	id 1vo8d9-000114-U2; Thu, 05 Feb 2026 23:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 1222567;
+ Thu, 05 Feb 2026 23:19:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l0Ed=AJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vo7XN-0001B6-F8
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 22:09:21 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ <SRS0=0nnC=AJ=intel.com=sohil.mehta@srs-se1.protection.inumbo.net>)
+ id 1vo8d7-00010y-UI
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 23:19:22 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e7341f9-02df-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Feb 2026 23:09:15 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AFC6D60010;
- Thu,  5 Feb 2026 22:09:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0486EC4CEF7;
- Thu,  5 Feb 2026 22:09:10 +0000 (UTC)
+ id 1567f03b-02e9-11f1-9ccf-f158ae23cfc8;
+ Fri, 06 Feb 2026 00:19:15 +0100 (CET)
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 15:19:13 -0800
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 15:19:12 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Thu, 5 Feb 2026 15:19:11 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Thu, 5 Feb 2026 15:19:11 -0800
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.43) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Thu, 5 Feb 2026 15:19:11 -0800
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
+ by DM3PPFFCD58DF03.namprd11.prod.outlook.com (2603:10b6:f:fc00::f63) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Thu, 5 Feb
+ 2026 23:19:01 +0000
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246]) by DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246%4]) with mapi id 15.20.9587.010; Thu, 5 Feb 2026
+ 23:19:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,199 +68,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e7341f9-02df-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770329353;
-	bh=V9dFLTZQkqWpJ3YszT3cuHPxhfkzSeZqTHI4J6BzA/w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=chKqnAXC1YmgMSWLq9I7uASagoeYHlcrQaEuqMn7uPD5Xj4AX6WFiG3JBiwa34Hq+
-	 91xHgt5vjyYTDD0DCoDOA5a9dnZbQ96dteNWLq6XJUKWHc0BJr2BMFK90/MZVSpd2B
-	 PyJkkgfEQPkVk9npJKlw/SitrNGb9ao9ZEtyHOOxvWfXtMhQ1w95JD9Cp0nmTr1lfp
-	 RD6RycqR2CJCY1TF0+2dvsBMt3k0SmLM0Xj29HdFw5k4/emyPqsRzRczmm7u5XoPny
-	 SCWo5hE5NMGWEYF6dy2O0ugbRiBg9dKggTFKI0tcq3nh00U4/bjyyE4cOLLO1yUUqE
-	 9Z93+3V6f8E1A==
-Date: Thu, 5 Feb 2026 14:09:07 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmukhin@xen.org
-cc: Stefano Stabellini <stefano.stabellini@amd.com>, 
-    xen-devel@lists.xenproject.org, grygorii_strashko@epam.com, 
-    anthony.perard@vates.tech, michal.orzel@amd.com, julien@xen.org, 
-    roger.pau@citrix.com, jason.andryuk@amd.com, victorm.lira@amd.com, 
-    andrew.cooper3@citrix.com, jbeulich@suse.com, sstabellini@kernel.org
-Subject: Re: [PATCH v10 5/5] xen: enable dom0less guests to use console_io
- hypercalls
-In-Reply-To: <aYP76EsG3bf3Yp4I@kraken>
-Message-ID: <alpine.DEB.2.22.394.2602051403060.3397030@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2602041533440.3175371@ubuntu-linux-20-04-desktop> <20260204233712.3396752-5-stefano.stabellini@amd.com> <aYP76EsG3bf3Yp4I@kraken>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 1567f03b-02e9-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1770333556; x=1801869556;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=MkXPYVSbwwCL8U4F4DhKWK/BELaYFx9XW3TfLne07fw=;
+  b=VBKOoDBZLMZa4V7/CgM59zjRo6Arrp4vJLi1qEHcwnhHwcSyl9XMLkY/
+   j2i5+W0j6vADzxdWWTNPxBkzueBRiDCAsRYUmGXoS9ANefEunwkOvSnHr
+   DW73KOypsBmEaA9ldRWSXa2XZNr3xVY2S+epQTO8A6lmtnTpugnA1Nkit
+   JKRIucWYZ97i4owj6DBPQNyXtmo/crciiQxInySKgEA1CZvNRKGmtZg5i
+   gH7pyUoE6A4qb0RgcPuymxbZIOxindXVsK3l/94/2XZtVfBRPqVVJZtpy
+   IsLI7j9RvOuv40ulsi/ig6R0ThbZKC01i0+AxmGZ3iXei09bwQnEpz7S8
+   Q==;
+X-CSE-ConnectionGUID: SVGQvZJJQMGOWLBdmSwDlA==
+X-CSE-MsgGUID: SE4n8dD8S8iucdeW5zWYUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11692"; a="81859624"
+X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; 
+   d="scan'208";a="81859624"
+X-CSE-ConnectionGUID: 4B3CXN0nSWOu0HJ21Cd1cA==
+X-CSE-MsgGUID: SPTKkRioRp2ZtP7ueO3/Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; 
+   d="scan'208";a="214865519"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iQG+ot4HA3wruWJI9B2wcbKcJHZDyeO9YeWGUgUUeDWxJDJIfxkmaSyRn5wMwYWAmn8X+H4cseTdiQNd01DQ76VnXJdi3maCwaKqETu0sJ930RnOw+IVFbdUSV1jzWg/g0BgBjp565x8B8knL2NCgOTXIkAGHbg/XoEQA6nZ32LwuxM3o//ZfjiB72n66JdUYKSUmnrYNP6ZoTLu/iWwJl3P9dxw2/D+FSWUaVLpZQBgv29ETxkJ1JE9nFQe4qm9Ak+VvcK6V01cQFxpME/arTGLKB+A1B4xfdshNr0Rk4HTXyY/YFFIBLQyG+EdYj7+B62mez34JTrwvi8burI/9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yQXzAbtpax9zPpXJ4r1zmO2CANMeD936wVXls9EZKA0=;
+ b=rS3dTsr2J3ZGc9ZWQjHYGETceZACn12QrFdop1YC0HRbmxvA12xuVaCSR3H/fWsblPRZn0EIQWOP+aiOQn8nm8ime7h83mq0MlGOc75xEDoGDWROVZcAeEEdY6v0kNPOG4f9MHpZoLyHvrI1rEkreD/whZUudkwB8LTtyUXr3FlIbDvlWtqLHcOseoE0FDMzmBYvx7CkVg6nk16fAvXUDsbP2TeSmXVuSUUarp735zJxlIDvsHmoHmCWXjN2HA0eeDDO+pTAwiYI/XyqCImLi8ldUE+n94uU/WVGz3ErArle2TC67raNQrvQleBEqYDzUASaYoqwg99aVM4y9tj9RA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Message-ID: <e5ac3272-795b-488c-b767-290fd50f2105@intel.com>
+Date: Thu, 5 Feb 2026 15:18:58 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
+ expects so
+Content-Language: en-US
+To: Shashank Balaji <shashank.mahadasyam@sony.com>
+CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Suresh Siddha
+	<suresh.b.siddha@intel.com>, "K. Y. Srinivasan" <kys@microsoft.com>, "Haiyang
+ Zhang" <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Long Li <longli@microsoft.com>, Ajay Kaher
+	<ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Ingo Molnar <mingo@elte.hu>,
+	<linux-kernel@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
+	<virtualization@lists.linux.dev>, <jailhouse-dev@googlegroups.com>,
+	<kvm@vger.kernel.org>, <xen-devel@lists.xenproject.org>, Rahul Bukte
+	<rahul.bukte@sony.com>, Daniel Palmer <daniel.palmer@sony.com>, Tim Bird
+	<tim.bird@sony.com>, <stable@vger.kernel.org>
+References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
+ <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
+ <0149c37d-7065-4c72-ab56-4cea1a6c15d0@intel.com>
+ <aYMOqXTYMJ_IlEFA@JPC00244420>
+ <722b53a7-7560-4a1b-ab26-73eeed3dffa5@intel.com>
+ <aYQzhRN83rJx6DSb@JPC00244420>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <aYQzhRN83rJx6DSb@JPC00244420>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0355.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::30) To DS0PR11MB7997.namprd11.prod.outlook.com
+ (2603:10b6:8:125::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|DM3PPFFCD58DF03:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7f12305-7a9c-4a40-c694-08de650cf272
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eW1CdzBVcXJJdzJuZXVEOEUxRlMyYVNPNXdHWlAyN3BTOXZsZFdnMTNmeHB6?=
+ =?utf-8?B?dlJDNmE5TmQrR3VXRkYzalMzU0d6eTBtQWxScFptVXU1NVZGeWVNMUJseXFy?=
+ =?utf-8?B?UThobnJycFhaNFhGSFJHUHZHY25UTDltd3ZNSGRnYVRpZDNCcUR3aHdPTVBQ?=
+ =?utf-8?B?YzliRmdGWXNGV0Q4Z211bWxSL1FDUWloVGVRNXM0cFQzTTJSUUFGYyt6c1p5?=
+ =?utf-8?B?RGdFSnNpdVpBbGhaK1RYbWRjUXE3Vlk3Yk94VjdOc2h2NkxHRzlvckFZc1ha?=
+ =?utf-8?B?cW9jajk0Z1ZkK0Vud2pDYmEwOXNQT1VGT3FMdk9TbzRPc0JRTjJwT1Q0aEFF?=
+ =?utf-8?B?WnFVM2hsOXJZMUZEck9vRVJsUHNHY1VpQWpraVYxeEVPS3RzNXFoV3FsYVdV?=
+ =?utf-8?B?K0NkaUl2R0ZwTy92VFhVQlo0UGF1RVZ0WVY5aHhDU3dvTytVM2tXT2NDWHNt?=
+ =?utf-8?B?VnBUWmJrN1ZkZ2lFQ2NwbVd5WlQwU0sway9GZ2F4MnRiWlF1eFRqa0pseGky?=
+ =?utf-8?B?VzBwOHpPMXc0Q0tkOWdiRko3VG5keVNyRG1HWFE4VXZrUGlFN29rYXA3SDhG?=
+ =?utf-8?B?M0J5TjNucE5KQ1Z0anZIWHkwY29rLyttcVl2Ny9jMkZpN1ZHZ0lsTy9nUVhV?=
+ =?utf-8?B?OXkyOXNKRzFhQjJqSHpVWmNPbktLWmx6OFN6ZjIwUzNuZnZyUjdpUG5UbDNV?=
+ =?utf-8?B?T0pZUXFXbVVvemVNWEZ4UkFjVmp1V3dPc3FudTFNcWVNbXVMYm91THozd1JK?=
+ =?utf-8?B?MDRJNi9yRFBkenEvUStKaEVHMCt5anNkNkhpU1Zwckd3YTdUK2lRcElocWV2?=
+ =?utf-8?B?NHI1MkhuNC9DWVc1L3h5VWRsZC9KaUViWXJtTU5XOGh4akIzekhya0p5Uk9E?=
+ =?utf-8?B?SzNEVWlBM3FnRDFrdDI0ZWpMMWN6SFBmSUZ0bldxZExhVUNJZFpFeTdNbnZF?=
+ =?utf-8?B?RFZJUE1zQWJxdmxmNVYxRkV2S3pVOHFWMFUvd2tNVHpWS3hCWDJZYVBHclZr?=
+ =?utf-8?B?UEU4OUtQaEpLWUFiODdzK1l0akhtS0dyeEptL0NlWlk5cFRHdHJvQnNqVHlZ?=
+ =?utf-8?B?ME02eWxTT1AvY1I3cGFndGdwVjFBMHc0Ty9BRFNoM25taW1uWWRwSTI3b3Bq?=
+ =?utf-8?B?cEVnczRzYmJ6c0YwaXozRlFIUjBuR01GbmRCS21xUHpSdkErdENZeHNEQkFQ?=
+ =?utf-8?B?TnRydWQ2S1Y4VDBaYzVKUlBIcElDbjh3SWhidHBrZkR2RzdITldlbWVEdGph?=
+ =?utf-8?B?K2E3aUx3WGpjVDB1TjBZdWRPMmhrU25JSDR4NFpseWc4QnUzVEMxY3M4U2Z2?=
+ =?utf-8?B?ZzlacExnaGNHUGVRbEdValp0K1dUNzJsWGtXcGxpK1pzd3ZmN0Y1ZDk3QWNB?=
+ =?utf-8?B?VlI3ZHc0QVdlSHByUXBpR05PTkRRNmIvZUdDSHAvYVBCSStJQ3J4ZGxrQTZT?=
+ =?utf-8?B?dHVLb1NjQ1lkSWVSa3VDeHlsVnc0bEk3UVltZlJJV2dPRll4Q01uSjJrdkpS?=
+ =?utf-8?B?RVB6SXIydU1vdEQ5NEU4RCtWNENLTEJja3VvZk5GK01pdjEvVzdUMm9hZnJS?=
+ =?utf-8?B?dWw1dWVlOVV4MkhEWTdoZXJmeUJSNGxDRy8rcDJabzdob3JLWWFjVEl6dzB6?=
+ =?utf-8?B?NWhMbCtrbUFVWFVTRVNQeEd6dktwUUFsN1FaK0JtcC9Kd2x5NnJzN3V1ZnE5?=
+ =?utf-8?B?aUI2M1lmeWNiTUNqVGNaa25OTWxNT2xBMzF6a0p2alJKNmFHYjA3VWtLaFFm?=
+ =?utf-8?B?cUdmZDJrQVZzWEtJNUNLTjRrZlk2b3ZrRmZ5WmxXSHgvOS8wTWRBcnlpSUlo?=
+ =?utf-8?B?K2kwcGxBQktXaG5QZWNPQ08rdjZaVHZWNEVHNkVNRW9uVWpVcmU1ZE5SZkZP?=
+ =?utf-8?B?ZEFOcTBuMktOcnFKTXRMN3JxYW11MlduRTBWZXJWcW90VlhvRzhoVVIrRStL?=
+ =?utf-8?B?WTlLeFdmSklCSWh4ZUlEOFJWY0N3WCtoUGpTeDNZcVpWREs5WXZvZ2Q5SWF4?=
+ =?utf-8?B?K21iWkt6RHdMdThXTGJhSFhMSTVEcFRZSXVWcXVOeGVOR2tIS1REZ2pmWkZI?=
+ =?utf-8?B?bE1zdHRPeWsxbENLbGhOSUdMakhJQlBpWEczMFNzUHYvNGdOM0REandhRWhF?=
+ =?utf-8?Q?w88pHEZmkZqbO9e5hh+xzrzlz?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1VRZ1hMdmdiYkRSLzFMenIxTEdpdGNLSnZScEZTNHRLNGZVSm5tcFBqNkU3?=
+ =?utf-8?B?N08zemZWaW4zWVJKQVNZUEVEVEplTGl6cktQeU1ISUhPS2dZQzRpUWViTkha?=
+ =?utf-8?B?VHM1M3lkUVBzaDhMbWdjR01CUng2WlRNSXlLU3lxc0NUWlBvMlpTTHFIS283?=
+ =?utf-8?B?aWVMMVRQSzVKY3BwbWpsUzhTMXdqd3FiTjgyNFArdm0yajRKYm5UakF2d2NF?=
+ =?utf-8?B?b2FOOTNZenp4bjZYaTJ4cUIzRU11Y1QwRmRYREVjQlBXeE9YcjZGQU9UOWVY?=
+ =?utf-8?B?N1hMUmZ2a2dpVjRmV2ZqcG9yRnZUSlpsVHErb3lMZkpvT1NscW9Md3NwU1Az?=
+ =?utf-8?B?TkNoWmFOU3Baalp4S1N1b3BWdGU4MjJSVEpCRnRPaFZMZ3ZPRGtFUzJsS0g1?=
+ =?utf-8?B?UXRFK0hwVmdFK1Mxb29FU1p4K3FWRWw2dmhqNVVGSmo2NnlRMm93T3NSRVNL?=
+ =?utf-8?B?MEFwOTI3eFJqaU0wcGdnUyszQ3VtZDNCZUpLSHkrZWZudmF3S3ZxbFUvZmdl?=
+ =?utf-8?B?aUtoNU5xUC81bEZYNHZMeHdaY2Iwdi9uZ0VTcUpNVUpTU0ExU3Q4OGZtcVJt?=
+ =?utf-8?B?STFkZzRBWlZza0gvU2RneWl3YVl1TjdIcVVHTGhsSHUwQ25tVFo2emd6TWQy?=
+ =?utf-8?B?OFNDbENyZHRUTUpqcW9icm5KQmVFY0VXT01jOVdYSEdhandXVURPcGpBd3Vv?=
+ =?utf-8?B?L25MUHVDY3FORFFkeG1FQ1N0V2ZGVzFKSUdiYklKTG0zMXNXVWZ4MU5xZ2RI?=
+ =?utf-8?B?ZnIvR0M3NGVnVm5oN1QxQ1kxYjEwejIxYi9XMU5nZGxPSElqTGh2SU8wKzVO?=
+ =?utf-8?B?aHcrcU9JZlhIa3ZINmdvUGNtTko3N2c3RWFReWJNYml5cXlRbkozRjg1ZzF0?=
+ =?utf-8?B?MHNpdWFkSUtPdXUySkdITkJKK2RzWFRxSUtPUHBKTk0xcDBxVnBjUnFQL3Ew?=
+ =?utf-8?B?UldkblhqTUhxa29Ed2dGRERJQjFOalZGR3dJaUk0Z2RzOVJGNkV0SDhmcGxY?=
+ =?utf-8?B?VGR3NjB6RllobDlEUFgzdWdyRloxQWNOMllEUitQd0xuc1dqWi8xMkllNUp2?=
+ =?utf-8?B?bWI5ZnM0V21yMkJIRDBUcUxiVnlqUzBkWkxoRVF6RVB2eWdDVXZ4Y2FHNkZt?=
+ =?utf-8?B?V1o1VHBwT25LcXphakhNMDQ2WGgvM2FRV3hna0ZXSmtlcmZuNy9BbW42ckZB?=
+ =?utf-8?B?NEQxL1FWem80NE95aWlUNWtjZGhlSlF5OHpOT2tUMXVIK1hiZU53QkUrRVh4?=
+ =?utf-8?B?bnYzVGpKQWN5aGVpY1dSbVljYTlOV3A0eGczeXI4aEZSNUdxVnRXZUVpOXVq?=
+ =?utf-8?B?ZFVjWThuSEFRbmRDTFRmK0EvQnA3QXBXcXhhQXJ5aHJma1dZdjdXUDk3M0Zw?=
+ =?utf-8?B?UnBRcEwvc3VsRktvcDZENkNFYVhxdDFodWUxOHdOV2plNlNXWWp1cUsrYTlx?=
+ =?utf-8?B?WUd0TXZhM3I3Z1NoZFVSaUZEelpmTnYrL0VONjdzc3Vna3R2NnFqZ3hMenE0?=
+ =?utf-8?B?aWFlbE1LWUp2aUlmbnZ4UzB5ZnlidS90anhEQjhVK3B6SGdVSWJQUkNKVnd5?=
+ =?utf-8?B?Y1JhTGNaZVVqOEdnYW5Ha3NPZkFaanpOVkkwOFdsQlhxVVRGVWVxSlVyOGIv?=
+ =?utf-8?B?NndvLzhCNjJCZHM1UUNiWDFvaXJYRDdFcFpVR1k3TkRNRWZsdkdvVytIQ3hv?=
+ =?utf-8?B?RVdpd1dxVEx3SVk2T2llRDB2OUJ5UTV1Y25JckorQXhEcWJ5dWZDd1lPTEx2?=
+ =?utf-8?B?YURCUzV5Ukd5K2ZKRThTY3JkbEJwV1VCdHJjeHdiTDN0YWNScnBRWkJNZXlH?=
+ =?utf-8?B?dFZ1L0p1RGlqZXRMcllpdnpubkNvOFpJVUh5eVU4UEJERlNVRHdOeEFraTRX?=
+ =?utf-8?B?dmtSYzZaNVVXazlmTmFoME81dkZFY0l3M0dPU1hpTS9Yb3FzeVZ6NEZ2NkVq?=
+ =?utf-8?B?K01jUHJUUjc0dFNycllvTURwVFFqc0VvcUxJSjJJRUphNFRteEE2aVl4bDlH?=
+ =?utf-8?B?UWVzc1BhUzhNc2xjQ3JLb1B3ci9nd1paTDdwRWxVT3NVbXdncGpaQTVTcWpP?=
+ =?utf-8?B?UloyVmx6V1JzL09IRVREQTJ4QXhMdmdjaFNMQ1FoSC9mRTFYOTdaZ3FKek03?=
+ =?utf-8?B?OW53cnd2VHY4dHlyNWYrSElOazI5VGJHTDVHWnBtamtyR0NRUVQyZk4zTVQ5?=
+ =?utf-8?B?Nmc0QkJ3SGN6MXd1QnRySkUvSkhDOEs4eW1tVkxBR0FhbUIwZGZTM3hqWWt0?=
+ =?utf-8?B?ZnhIcUNHN2dNcENiMXdPemNiSTl1ZWNDd2dZbkJKZUZsZjdQVkRBTEFSZElu?=
+ =?utf-8?B?UGdOaHcvOVVhdHpsQ21zamNwUEs3VUxXVXk1TDNFOVZNSWU0R3lFUT09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7f12305-7a9c-4a40-c694-08de650cf272
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 23:19:01.6520
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dTFCq32cpV+ZjSdGIL/mbp6eMvFEZEVUuO2LFRexjDbt1z7YxIY7ti2eKKNAnK/cdeGLAN2BHKS74lJ7xZivlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFFCD58DF03
+X-OriginatorOrg: intel.com
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [-0.18 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@xen.org,m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:shashank.mahadasyam@sony.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sohil.mehta@intel.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[intel.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 85C15F7FAD
+	TAGGED_RCPT(0.00)[xen-devel];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: A5A63F852C
 X-Rspamd-Action: no action
 
-On Wed, 4 Feb 2026, dmukhin@xen.org wrote:
-> On Wed, Feb 04, 2026 at 03:37:12PM -0800, Stefano Stabellini wrote:
-> > Enable dom0less guests on ARM to use console_io hypercalls:
-> > - set input_allow = true for dom0less domains
-> > - update the in-code comment in console.c
-> > - prioritize the VUART check to retain the same behavior as today
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> The code looks good, just one remark wrt prioritizing VUART check.
-> 
-> > ---
-> >  xen/common/device-tree/dom0less-build.c |  2 ++
-> >  xen/drivers/char/console.c              | 16 ++++++++++------
-> >  2 files changed, 12 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-> > index 840d14419d..cb7026fa7e 100644
-> > --- a/xen/common/device-tree/dom0less-build.c
-> > +++ b/xen/common/device-tree/dom0less-build.c
-> > @@ -829,6 +829,8 @@ static int __init construct_domU(struct kernel_info *kinfo,
-> >  
-> >      rangeset_destroy(kinfo->xen_reg_assigned);
-> >  
-> > +    d->console->input_allowed = true;
-> > +
-> >      return rc;
-> >  }
-> >  
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index d3ce925131..7f0c3d8376 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -610,11 +610,20 @@ static void __serial_rx(char c)
-> >      if ( ACCESS_ONCE(console_rx) == 0 )
-> >          return handle_keypress(c, false);
-> >  
-> > +    /* Includes an is_focus_domain() check. */
-> >      d = console_get_domain();
-> >      if ( !d )
-> >          return;
-> >  
-> > -    if ( is_hardware_domain(d) )
-> 
-> Hardware domain on x86 may have an emulated UART (not in upstream, through,
-> I need to send v8 for NS16550 series...). The patch which illustrates the
-> idea:
->    https://lore.kernel.org/xen-devel/20250908211149.279143-2-dmukhin@ford.com/
-> 
-> So this code (hopefully soon) will need adjustment again.
->
-> I would update the code to something like:
-> 
-> 
-> 
->     if ( is_hardware_domain(d) && !domain_has_vuart(d) )
->     {
->         // handle hardware domain
->     }
-> #ifdef CONFIG_SBSA_VUART_CONSOLE
->     else if ( domain_has_vuart(d) )
->         /* Deliver input to the emulated UART. */
->         rc = vpl011_rx_char_xen(d, c);
-> #endif
-> 
-> 
-> 
-> But domain_has_vuart() needs to be defined for all architectures
-> (currently it is hidden in arch/arm/vuart.c).
-> 
-> Or perhaps it is possible to postpone the change?
+On 2/4/2026 10:07 PM, Shashank Balaji wrote:
+> On Wed, Feb 04, 2026 at 10:53:28AM -0800, Sohil Mehta wrote:
 
-This change is needed to avoid regressions on ARM.
+>> It's a bit odd then that the firmware chooses to enable x2apic without
+>> the OS requesting it.
+> 
+> Well, the firmware has a setting saying "Enable x2apic", which was
+> enabled. So it did what the setting says
+> 
 
-However, while I wouldn't be surprised if we need a change here for your
-upcoming patch series, at the same time at the moment I don't see why
-this check wouldn't work as it is for you as well.
+The expectation would be that firmware would restore to the same state
+before lapic_suspend().
 
-On x86, CONFIG_SBSA_VUART_CONSOLE will never be set. It is OK to do this
-first:
+>  
+>>> Either way, a pr_warn maybe helpful. How about "x2apic re-enabled by the
+>>> firmware during resume. Disabling\n"?
+>>
+>> I mainly want to make sure the firmware is really at fault before we add
+>> such a print. But it seems likely now that the firmware messed up.
 
-#ifdef CONFIG_SBSA_VUART_CONSOLE
-    /* Prioritize vpl011 if enabled for this domain */
-    if ( d->arch.vpl011.base_addr )
-    {
-        /* Deliver input to the emulated UART. */
-        rc = vpl011_rx_char_xen(d, c);
-    }
-    else
-#endif
+Maybe a warning would be useful to encourage firmware to fix this going
+forward. I don't have a strong preference on the wording, but how about?
 
-It shouldn't hurt. The is_hardware_domain() check is also not necessary
-anymore because any necessary check would be part of this check above: 
+pr_warn_once("x2apic unexpectedly re-enabled by the firmware during
+resume.\n");
 
-      d = console_get_domain();
-      if ( !d )
-          return;
+A few nits:
 
-So I am guessing that your series might actually leave this code
-unchanged and instead might modify console_get_domain() or
-max_console_rx.
+For the code comments, you can use more of the line width. Generally, 72
+(perhaps even 80) chars is okay for comments dependent on the code in
+the vicinity.
+
+The tip tree has slightly unique preferences, such as capitalizing the
+first word of the patch title.
+
+Please refer:
+https://www.kernel.org/doc/html/latest/process/maintainer-tip.html#patch-submission-notes
 
 
-
-> > +#ifdef CONFIG_SBSA_VUART_CONSOLE
-> > +    /* Prioritize vpl011 if enabled for this domain */
-> > +    if ( d->arch.vpl011.base_addr )
-> > +    {
-> > +        /* Deliver input to the emulated UART. */
-> > +        rc = vpl011_rx_char_xen(d, c);
-> > +    }
-> > +    else
-> > +#endif
-> >      {
-> >          unsigned long flags;
-> >  
-> > @@ -633,11 +642,6 @@ static void __serial_rx(char c)
-> >           */
-> >          send_guest_domain_virq(d, VIRQ_CONSOLE);
-> >      }
-> > -#ifdef CONFIG_SBSA_VUART_CONSOLE
-> > -    else
-> > -        /* Deliver input to the emulated UART. */
-> > -        rc = vpl011_rx_char_xen(d, c);
-> > -#endif
-> >  
-> >      if ( consoled_is_enabled() )
-> >          /* Deliver input to the PV shim console. */
-> > -- 
-> > 2.25.1
-> > 
-> > 
-> 
 
