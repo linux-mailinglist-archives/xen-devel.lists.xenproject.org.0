@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oFQrK6dWhGlb2gMAu9opvQ
+	id QNIBKFNYhGl02gMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:36:55 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:44:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC9AEFF6A
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:36:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1221607.1529789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F30C2EFFF7
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:44:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1221620.1529799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnuqm-0002ii-SE; Thu, 05 Feb 2026 08:36:32 +0000
+	id 1vnuxk-0004Xw-LU; Thu, 05 Feb 2026 08:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1221607.1529789; Thu, 05 Feb 2026 08:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 1221620.1529799; Thu, 05 Feb 2026 08:43:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnuqm-0002h1-PE; Thu, 05 Feb 2026 08:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 1221607;
- Thu, 05 Feb 2026 08:36:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vnuxk-0004Vd-Id; Thu, 05 Feb 2026 08:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 1221620;
+ Thu, 05 Feb 2026 08:43:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DyEx=AJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnuqm-0002gu-3E
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 08:36:32 +0000
+ id 1vnuxj-0004VX-DH
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 08:43:43 +0000
 Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
  [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4350f89-026d-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Feb 2026 09:36:29 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c208fbd9-026e-11f1-b161-2bf370ae4941;
+ Thu, 05 Feb 2026 09:43:35 +0100 (CET)
 Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-47ff94b46afso6666675e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 00:36:29 -0800 (PST)
+ 5b1f17b1804b1-4806fbc6bf3so7195985e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 00:43:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483179d7346sm54145265e9.0.2026.02.05.00.36.27
+ ffacd0b85a97d-43617e3a546sm14652046f8f.17.2026.02.05.00.43.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Feb 2026 00:36:28 -0800 (PST)
+ Thu, 05 Feb 2026 00:43:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4350f89-026d-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: c208fbd9-026e-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770280589; x=1770885389; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770281014; x=1770885814; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NWu9I34hkUQGwz+y0rftURk8xs5tDjpX+OFqhQ2TI6o=;
-        b=NuSFwDLLliCo7E+4xWhkuqNdn8XK6ky1H/qafKtUj4OnFmKZ4OQf/RzdU4VJxiDkDL
-         GOA4OqBYWL6nmPHau8YQWOXVcTEbrKkwRbox6NTsSF8dfG3psB7/8OWfk96Ok8TnFC8o
-         1GZMsYTUmyRw4CAlBEo0eDYHjz7lO5dHZaG3Zi7YBy4gZbBl6HjMMCK7xyMbLOg2gJjk
-         ALC4Xd72ZYUPseZKEYwaM7oStefxGf5HvjtNZl76bjnW+13fJBpu5dwAwnZW14mLtt6d
-         zNObzd5is3Yo5wyrwLWwsYYB0TpQUbDn/1AazhPwjloHEeaXGqWoTtxqIEqKQsDuS+px
-         mEBA==
+        bh=A7SMHrACdNvAF0q6JSHeQpWtZxCZJrzjTAi9oW+znQs=;
+        b=fdlXRmVJ0CUjbC/df4mgsUZdMI6UbT1Kf0rw8fYUPgS0DUxuPgfwc/s+75ryEtqb9l
+         cXUOdt+lAe3S5A/1rJ8CR/StvjM+5c/VgGkO6MTWEtpkh6jThsvs4/7eR2AZ1X1QnCZ1
+         ZpKrM3pHT3g3f2AJFw7ID4i4+hXKTN8r1Zjc5SihhI3ncS4ibzFNCTzbg2jVdetZRsmY
+         vJFHKOL93iCfp+3jHBeS2q4nNPQkQrXz/J8b33kenJg9tn6lUv9oJwv5GyPZl0GG8reO
+         8SYmqCfxJDxk5vAbD3KdSiuas0FenoabbyB4vh035OSS7RoFQgYtjKO5XVdkR4f778YY
+         IgAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770280589; x=1770885389;
+        d=1e100.net; s=20230601; t=1770281015; x=1770885815;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NWu9I34hkUQGwz+y0rftURk8xs5tDjpX+OFqhQ2TI6o=;
-        b=Hpil+bpKew+I5NGSpe97PJ3bbAI8a6heFBNghqJZIcHJBaaw/vex8Xhb+ZNa/Vz60m
-         yfg4MNCEphC5R/FVNSm5ATKNu4bTuzgXq8oEEphAbNrH7PXYwK9rYg02t4ytm9LOqAzU
-         IFdqbKKsOuOnVy0b5ihv5FHn1ppMtBqapZ3S5spFo9sfebp9k05DiGCT3sbuOCgA5Nn+
-         7JCRbp0rRZ5FF/WZkTx+pq1rFWb27CqIqEyO4tQYD5+ZwfrWvfx0qDh63ckT+bmqgllf
-         mNsKbtCyN1ZDwmNGWYnBTfzLOm+jWZ+gbieUN1YJIhBXUtAJCawz7YvQWg4v5JV2hZIG
-         7/lw==
-X-Forwarded-Encrypted: i=1; AJvYcCVvcE14j+NDd2iM+AVkvPBXkv3QtIen44GYX9WVyo3jowHcAyeyybqZuLz3+WZx4z0S6jjr6tPWYdI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwLGGub/RZE+/BvS0FKc9/wyuGoCY9gqneTgykrUD4WwtI4jAo7
-	WulvYVbQeTcqz0cLVJiDG5OhaqrKsblDDWDoYEqtdoVrxoOgSNabCym4bWy3OdFDFQ==
-X-Gm-Gg: AZuq6aIDIoHfkyryvnE6s3fBnK+hUR5aEeagKyt/WTyvkJtCe2aljPN+1lUo68Z2fNG
-	BhPk45D1PdvhPHW7pRju/nOpexJ91Jx8WJwS3vhylFLeN158Vr2wvGTrIzVOOteqLqvmP6KIyAk
-	eduHzQAU6LbmFjP+mN48WdKZ48bpOeBjBW5nDiyzUktL3Vu2Szw36d3b4v16XXoJTU8iCJ4lKnU
-	pziteY3Ps0ia38n5ARt16Xs55Y6Gb2kpwa21r52XDf4RcN9p8YCHKvN4FcO6FAdnwF1FCAPjHHh
-	X7uTX1aWO35Zc2lVAhkymcJmW61g+lzJL/sP+iITWrKcG2WY87tQLU7wc7741zrxh0k5liUZq3y
-	n+JOIJaFqTZmrsITuQRjIW/KUxjAvALcM3x296mV8ET1k49GTuJW1VsasYJsAVn92LYvEqwKoWq
-	s6l2KPOaXjtNXfDwPpLwdbGMT3b/XuECCIBUXz6ZWHALr5WWMefd/+HWWsdejcwlKOReW+XBJpE
-	A8=
-X-Received: by 2002:a05:600c:19cc:b0:47d:6c36:a125 with SMTP id 5b1f17b1804b1-483179dbd52mr28509115e9.17.1770280588734;
-        Thu, 05 Feb 2026 00:36:28 -0800 (PST)
-Message-ID: <5aaee345-5ace-42b7-a436-ae6ce57cb9fc@suse.com>
-Date: Thu, 5 Feb 2026 09:36:26 +0100
+        bh=A7SMHrACdNvAF0q6JSHeQpWtZxCZJrzjTAi9oW+znQs=;
+        b=gvRCUXesOj/Z3lnt9oTGA3Fymrb3z1UA+nDunfIMsfeuhGgD7x4+rau0sO/WyXY4kj
+         49G43fE534kM6QB2jf+liKImeYXNTnKi6b42fxxiGvjSUgcahwl6YdXy6CINbspjXHqT
+         oeVwgiTKFfl4NqvvFnWlftXODdk1qLPXXEtJIzjQGG14AiA6TEO/7wYbIkCsBCcanzed
+         q9aqDH9ii6Vc0LoLRXG3Rzl+xJ5cz0w968nWusl4sWC8J/y+bVh7X0WLOa5p4Py2nJ8a
+         1KkNb5KqHjJZpFeJ8BesMe3oW5rNtHcv9db4F/oMqoGqWn/d3CZYPrQquKtarsY8nJIz
+         wlQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVsBV+/3rpNHRO+mwJJOzxNxcqvkyvyKe9bGWiIi34MSEng930KlbAKNcTh5f7HWvYylMzvF5QZZ/A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+D2oHvY/E1mlHxN7Cx91KkUzz3IyZE15onKk8dkcyK7l2Pwlm
+	ab/pXasyd2NodN/GPeVWbCnavN7SmgB2ol2scQyRoeYWfRJ8Un5x20zP5ZO4n3EsBg==
+X-Gm-Gg: AZuq6aInczaZN54irbD8DJAGMG8xSM6/gfRnJhlod6pLKdzLd4jJ+O+LxUDp59gTpBv
+	DTHrCJR56bDj7nx3Z2X+LEqfHwdjnMhS9j7Jv7xvpZob63/1XelfwEyCGTOG3knIw4G+Xi67408
+	/7uNyoLe8h0kGnDHwK0ArHWRRLbRv9ci331K+3OQkYRWVbdULYARziP7XhhkY1qmsr7cq+02UNY
+	19p9JpXzyWCb6jmGRUFaz/U9DIxuhZGdcn2beibmSP8S/JwzZBlRK3U4vOD3Fn2EQhqdkEs0IJY
+	CTSgts0bTHBoG8kv54dvo9he31qYJ0qfnB/NGZiF8jpWb+Kq3MfDfUDhupU8ka9zUKHuBp7RlVS
+	AOWMVekod+xxuKjdxXZW1k2GFnsQPKQ+5PXmNS9vtlV5O3dUyP0pNYZB0easruma67x98UjqGZ5
+	wx51WqQ7YfKtXaTioHJ+UEtHQn/xt1svI1WXFUbnkN+NRf1XPDaXkydu3d0mH1CXcpHyjgPWE3x
+	e8=
+X-Received: by 2002:a05:600c:1f16:b0:46e:4b79:551 with SMTP id 5b1f17b1804b1-4830e9897dcmr92329255e9.31.1770281014552;
+        Thu, 05 Feb 2026 00:43:34 -0800 (PST)
+Message-ID: <09462166-a3c5-4527-840a-cd77499dc588@suse.com>
+Date: Thu, 5 Feb 2026 09:43:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/domain: adjust limitation on shared_info
- allocation below 4G
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260205080308.91057-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v5 2/6] xen/console: make console buffer size configurable
+To: dmukhin@xen.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, Jason Andryuk <jason.andryuk@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20260205013606.3384798-1-dmukhin@ford.com>
+ <20260205013606.3384798-3-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,7 +126,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260205080308.91057-1-roger.pau@citrix.com>
+In-Reply-To: <20260205013606.3384798-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -140,7 +140,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@xen.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dmukhin@ford.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -156,55 +156,54 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1CC9AEFF6A
+X-Rspamd-Queue-Id: F30C2EFFF7
 X-Rspamd-Action: no action
 
-On 05.02.2026 09:03, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/pv/domain.c
-> +++ b/xen/arch/x86/pv/domain.c
-> @@ -247,6 +247,34 @@ int switch_compat(struct domain *d)
->      d->arch.has_32bit_shinfo = 1;
->      d->arch.pv.is_32bit = true;
+On 05.02.2026 02:36, dmukhin@xen.org wrote:
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -95,6 +95,30 @@ config SERIAL_TX_BUFSIZE
 >  
-> +    /*
-> +     * For 32bit PV guests the shared_info machine address must fit in a 32-bit
-> +     * field within the guest's start_info structure.  We might need to free
-> +     * the current page and allocate a new one that fulfills this requirement.
-> +     */
-> +    if ( virt_to_maddr(d->shared_info) >> 32 )
-> +    {
-> +        shared_info_t *prev = d->shared_info;
+>  	  Default value is 32768 (32KiB).
+>  
+> +config CONRING_SHIFT
+> +	int "Console ring buffer size (power of 2)"
+> +	range 14 27
+> +	default 15
+> +	help
+> +	  Select the boot console ring buffer size as a power of 2.
+> +	  Run-time console ring buffer size is the same as the boot console ring
+> +	  buffer size, unless overridden via 'conring_size=' boot parameter.
 > +
-> +        d->shared_info = alloc_xenheap_pages(0, MEMF_bits(32));
-> +        if ( !d->shared_info )
-> +        {
-> +            d->shared_info = prev;
-> +            rc = -ENOMEM;
-> +            goto undo_and_fail;
-> +        }
-> +        put_page(virt_to_page(prev));
-> +        clear_page(d->shared_info);
-> +        share_xen_page_with_guest(virt_to_page(d->shared_info), d, SHARE_rw);
-> +        /*
-> +         * Ensure all pointers to the old shared_info page are replaced.  vCPUs
-> +         * below XEN_LEGACY_MAX_VCPUS will stash a pointer to
-> +         * shared_info->vcpu_info[id].
-> +         */
+> +	    27 => 128 MiB
+> +	    26 =>  64 MiB
+> +	    25 =>  32 MiB
+> +	    24 =>  16 MiB
+> +	    23 =>   8 MiB
+> +	    22 =>   4 MiB
+> +	    21 =>   2 MiB
+> +	    20 =>   1 MiB
+> +	    19 => 512 KiB
+> +	    18 => 256 KiB
+> +	    17 => 128 KiB
+> +	    16 =>  64 KiB
+> +	    15 =>  32 KiB (default)
+> +	    14 =>  16 KiB
 
-To cope with the toolstack-dependent ordering of actions, may I suggest "... may
-have stashed ..." instead?
+As I think I had indicated before - imo an exhaustive table goes too far here.
+E.g.
+
+	    27 => 128 MiB
+	    26 =>  64 MiB
+	    ...
+	    15 =>  32 KiB (default)
+	    14 =>  16 KiB
+
+would do (if such is needed / wanted at all).
 
 Jan
-
-> +        for_each_vcpu ( d, v )
-> +            vcpu_info_reset(v);
-> +    }
-> +
->      for_each_vcpu( d, v )
->      {
->          if ( (rc = setup_compat_arg_xlat(v)) ||
 
