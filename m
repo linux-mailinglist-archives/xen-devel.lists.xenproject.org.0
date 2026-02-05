@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MgX1E9szhGnH0wMAu9opvQ
+	id VRmxHjxEhGkI2QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 07:08:27 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 08:18:20 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3ED9EEEBE
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 07:08:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1221490.1529701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2D3DEF5E6
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 08:18:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1221502.1529711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnsWO-0005XA-Qz; Thu, 05 Feb 2026 06:07:20 +0000
+	id 1vntc4-0005m0-LR; Thu, 05 Feb 2026 07:17:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1221490.1529701; Thu, 05 Feb 2026 06:07:20 +0000
+Received: by outflank-mailman (output) from mailman id 1221502.1529711; Thu, 05 Feb 2026 07:17:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnsWO-0005UV-KG; Thu, 05 Feb 2026 06:07:20 +0000
-Received: by outflank-mailman (input) for mailman id 1221490;
- Thu, 05 Feb 2026 06:07:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2jf7=AJ=sony.com=shashank.mahadasyam@srs-se1.protection.inumbo.net>)
- id 1vnsWN-0005UN-K7
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 06:07:19 +0000
-Received: from jpms-ob02.noc.sony.co.jp (jpms-ob02.noc.sony.co.jp
- [2001:cf8:ace:41::5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5aa1841-0258-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Feb 2026 07:07:11 +0100 (CET)
-Received: from unknown (HELO jpmta-ob1.noc.sony.co.jp)
- ([IPv6:2001:cf8:0:6e7::6])
- by jpms-ob02.noc.sony.co.jp with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 15:07:04 +0900
-Received: from unknown (HELO JPC00244420)
- ([IPv6:2001:cf8:1:573:0:dddd:6b3e:119e])
- by jpmta-ob1.noc.sony.co.jp with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 15:07:03 +0900
+	id 1vntc4-0005j1-Ig; Thu, 05 Feb 2026 07:17:16 +0000
+Received: by outflank-mailman (input) for mailman id 1221502;
+ Thu, 05 Feb 2026 07:17:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DyEx=AJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vntc3-0005iq-2R
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 07:17:15 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1438502-0262-11f1-b161-2bf370ae4941;
+ Thu, 05 Feb 2026 08:17:13 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-47fedb7c68dso5048565e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Feb 2026 23:17:13 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4830fe53c23sm56909425e9.3.2026.02.04.23.17.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Feb 2026 23:17:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,163 +50,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5aa1841-0258-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: b1438502-0262-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=sony.com; s=s1jp; t=1770271632; x=1801807632;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UBawYbMlXUOKgrz6LV1oJhX/gsrHRCKMioT7xEbWP+c=;
-  b=VFWUOk52jOWcGi8pj9k9yr/ikYHOdIKZqb2K1uWGipADY1SE3PQwOTAd
-   L1fLtNarakqJrl3BQYWs+6W4oyyUdZ+0FIs0dyOj6CQ+MfqzHxh2KAdIH
-   KGWt31+gP6+/qFc0RaScONa/Iscq8V+bJRGQChyS1VjkFs/6uNL0Klj4V
-   F3dZo4x3hIQEWk2FM2k9w1/kJjQDxg9fIL1jKGEn8vhCi5zUeIAZOAEps
-   yaLH9WYQl9P3XdFxUeL/srUNydMF/rc/fmyYMC55dStmlEPivS0aHwUhs
-   mv9q4sb+M1E35Nwfj+vY5pbcasXXbcmYpXwcqGxmNsm8oUL3mj/HMM43P
-   A==;
-X-IronPort-AV: E=Sophos;i="6.21,274,1763391600"; 
-   d="scan'208";a="608419792"
-Date: Thu, 5 Feb 2026 15:07:01 +0900
-From: Shashank Balaji <shashank.mahadasyam@sony.com>
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Suresh Siddha <suresh.b.siddha@intel.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Ingo Molnar <mingo@elte.hu>, linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
-	jailhouse-dev@googlegroups.com, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org, Rahul Bukte <rahul.bukte@sony.com>,
-	Daniel Palmer <daniel.palmer@sony.com>,
-	Tim Bird <tim.bird@sony.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] x86/x2apic: disable x2apic on resume if the kernel
- expects so
-Message-ID: <aYQzhRN83rJx6DSb@JPC00244420>
-References: <20260202-x2apic-fix-v1-0-71c8f488a88b@sony.com>
- <20260202-x2apic-fix-v1-1-71c8f488a88b@sony.com>
- <0149c37d-7065-4c72-ab56-4cea1a6c15d0@intel.com>
- <aYMOqXTYMJ_IlEFA@JPC00244420>
- <722b53a7-7560-4a1b-ab26-73eeed3dffa5@intel.com>
+        d=suse.com; s=google; t=1770275832; x=1770880632; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tFn0979k4UELp91ZT2YrW/dcYK0iU/fgMpjIjnylqTw=;
+        b=EUySlwqmnRLL+ifPfUEUmA7p+ZHR/UogpbI/TlY68YM/rSDv7ygyF3csKGA8YGxk4E
+         0bu86qFuHdGL6TusFN9nx40lAnvLN/xdMBBhPFGU8zjLR04AS5VuUE97pcxuXhe7X9Dk
+         eqE7jwKrjbku2I5PaiN7rNQ1qzGZDWmfb+mmCmYfq8+GXs1I/837YpF4Ry0e+xAd3LAI
+         w2/AtStAq+N9pOgbnh/eNdgIL5WgYTnm2r33OHvPQJxn/pjukZcWMW++zPeG0V4CgyOx
+         dh2W+R3w/7AZL56iBcH54zSIIFMmz2t5p5Z9RLpbsFiulHUeqfcTgilq45DfDr1PYd7q
+         go+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770275832; x=1770880632;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tFn0979k4UELp91ZT2YrW/dcYK0iU/fgMpjIjnylqTw=;
+        b=jE1jAzmH4PfigfcTwIbaiDLTw9f33ZfV8G277JyhJrIb7Y1wlN3bqYfEtfMlMEbDA4
+         1Cy60WXgLKlbWM2X/PJIfyjDZNvId1no6j338cUVkWSn+K2lexlDq4xeZPX5fUFJm4qn
+         raJhjMGidT/fRZbtIJXWtKAuHgrQigC2vq8J8hDHcvlYeal/Ev8Q3of3BG+0leJ6tmAL
+         7z4a/sLH13in8LBaT3u/tl4zK6d5cPdVrWEk/09lJIaDfFe0U6g8CqqP5c33mvCWbqG4
+         IViCeAo4RL2mQ68JcRptWuMRrYdJ4B9HN7wYDwjkjL6sZLwqiBzcDooGufVdR0SSriO7
+         8FXw==
+X-Forwarded-Encrypted: i=1; AJvYcCVEa1dQtEx/3IEA/EQEcpQb4TLCcDuE0itFITPj+dwBby0MRzOD61qmLntZgszskEXcZdQIneNokt0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw34vBZk5+iw7h2AI27Vf+4cqD09GD0+itF4mRdxW311rY+iKJX
+	SCQKqomLS4Oj+I8uMPPWw1EeQOJ24CvMmPnG/WgdWmjfuY1F5KX8HYIqrFjd/XuIjA==
+X-Gm-Gg: AZuq6aJ0SROiuaXZUojmRbPeiLTN8wvMftuXNg0UkOHqGYDbH8l/hFQBCtqG6u+/4gM
+	PUShCuGpiuyyGpJQ5J+8GKq7EfZqgKvEvM4lyuEW6BS3tn2NULURaOtDJn+wKDqCmo864OuHiAd
+	Oy9GP6kWfj47ajEBexd7KsbuCmpMQTIRemO1DJWGQIpdvTkUbpcqam8JkV538IzaGgx48YfuPc4
+	KtD5UsCrNsXdcKj/H/CK5XAc7A4TKa/zmwFsUCfzFzHI85BJg538dlV0qefXf0xsdpykTbxnW/j
+	7TJKsHLaPuLHHlHb52jUC4zTgZqrPKh6OXmHeqnwNKk4uXYIyFJHONyN7ndxSPDQgY/YIAov8YX
+	WEt33xJ/bWQ5ePBgRGFdgccK2Gkf6uz7tdttWMxKqYbQEsufQ473+fB+M8RgnhPRtROnCp5ZSKJ
+	iffzItLP7s0ntN9TsWeFBXCZavUNnQll2UNxy4r3BWAWYEgfmiiFWnNt5FdmmWlH2ou+GQu0z4n
+	hpY+rg9k2s43A==
+X-Received: by 2002:a05:600c:628b:b0:479:2f95:5179 with SMTP id 5b1f17b1804b1-4830e931e2amr74097195e9.15.1770275832545;
+        Wed, 04 Feb 2026 23:17:12 -0800 (PST)
+Message-ID: <0a6d9ae8-ac1b-4287-9a42-1d91ad5d35a0@suse.com>
+Date: Thu, 5 Feb 2026 08:17:09 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <722b53a7-7560-4a1b-ab26-73eeed3dffa5@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] xen/console: handle multiple domains using
+ console_io hypercalls
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
+ victorm.lira@amd.com, andrew.cooper3@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2601291404410.2238666@ubuntu-linux-20-04-desktop>
+ <20260129220858.2371938-1-stefano.stabellini@amd.com>
+ <0fc9a80a-8621-4ce4-b2f9-c102e975b05b@suse.com>
+ <alpine.DEB.2.22.394.2602031502000.3175371@ubuntu-linux-20-04-desktop>
+ <0a437580-a373-4aeb-a153-b3dca0cf2bb7@suse.com>
+ <alpine.DEB.2.22.394.2602041524120.3175371@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2602041524120.3175371@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[sony.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[sony.com:s=s1jp];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[shashank.mahadasyam@sony.com,xen-devel-bounces@lists.xenproject.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sohil.mehta@intel.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:suresh.b.siddha@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jan.kiszka@siemens.com,m:pbonzini@redhat.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:mingo@elte.hu,m:linux-kernel@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:jailhouse-dev@googlegroups.com,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:rahul.bukte@sony.com,m:daniel.palmer@sony.com,m:tim.bird@sony.com,m:stable@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sony.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[shashank.mahadasyam@sony.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[sony.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E3ED9EEEBE
+X-Rspamd-Queue-Id: C2D3DEF5E6
 X-Rspamd-Action: no action
 
-On Wed, Feb 04, 2026 at 10:53:28AM -0800, Sohil Mehta wrote:
-> On 2/4/2026 1:17 AM, Shashank Balaji wrote:
+On 05.02.2026 00:30, Stefano Stabellini wrote:
+> On Wed, 4 Feb 2026, Jan Beulich wrote:
+>> 2) As all of this is for dom0less only (for now at least), did you consider
+>>    to make all of these changes dependent upon a new Kconfig option, so to
+>>    avoid impacting other environments in case issues remain when this has
+>>    gone in?
 > 
-> > __x2apic_disable disables x2apic only if boot_cpu_has(X86_FEATURE_APIC)
-> > and x2apic is already enabled. 
+> Effectively it is already the case because:
 > 
-> I meant the X86_FEATURE_X2APIC and not X86_FEATURE_APIC.
-
-My bad, I got that wrong. __x2apic_disable checks for X86_FEATURE_APIC,
-while x2apic_enabled checks for X86_FEATURE_X2APIC.
-
-> But, thinking about it more, checking that the CPU is really in X2APIC mode
-> by reading the MSR is good enough.
-
-But yes, I agree.
-
-> > x2apic_enabled also does the same checks,
-> > the only difference being, it uses rdmsrq_safe instead of just rdmsrq,
-> > which is what __x2apic_disable uses. The safe version is because of
-> > Boris' suggestion [1]. If that's applicable here as well, then rdmsrq in
-> > __x2apic_disable should be changed to rdmsrq_safe.
+> #define max_console_rx (max_init_domid + 1)
 > 
-> I don't know if there is a strong justification for changing to
-> rdmsrq_safe() over here. Also, that would be beyond the scope of this
-> patch. In general, it's better to avoid such changes unless an actual
-> issue pops up.
-
-Makes sense.
-
-> >> I considered if an error message should be printed along with this. But,
-> >> I am not sure if it can really be called a firmware issue. It's probably
-> >> just that newer CPUs might have started defaulting to x2apic on.
-> >>
-> >> Can you specify what platform you are encountering this?
-> > 
-> > 
-> > I'm not sure it's the CPU defaulting to x2apic on. As per Section
-> > 12.12.5.1 of the Intel SDM:
-> > 
-> > 	On coming out of reset, the local APIC unit is enabled and is in
-> > 	the xAPIC mode: IA32_APIC_BASE[EN]=1 and IA32_APIC_BASE[EXTD]=0.
-> > 
-> > So, the CPU should be turning on in xapic mode. In fact, when x2apic is
-> > disabled in the firmware, this problem doesn't happen.
-> > 
+> I could easily add an #ifdef around is_focus_domain() so that in case
+> CONFIG_DOM0LESS_BOOT is disabled it defaults to is_hardware_domain() but
+> that wouldn't really help because thanks to the definition of
+> max_console_rx, effectively it works the same way when
+> CONFIG_DOM0LESS_BOOT is disabled.
 > 
-> It's a bit odd then that the firmware chooses to enable x2apic without
-> the OS requesting it.
+> I think what you are asking would be more about the locking changes in
+> guest_console_write, but for those I cannot really use #ifdef to retain
+> the current position of the locks. The resulting code would not be good.
 
-Well, the firmware has a setting saying "Enable x2apic", which was
-enabled. So it did what the setting says
+Yes, the request was (primarily) about the locking changes (additions!),
+as these can affect non-dom0less as well. I may try to make suggestions
+when looking at the next version.
 
-> Linux maintains a concept of X2APIC_ON_LOCKED in x2apic_state which is
-> based on the hardware preference to keep the apic in X2APIC mode.
-> 
-> When you have x2apic enabled in firmware, but the system is in XAPIC
-> mode, can you read the values in MSR_IA32_ARCH_CAPABILITIES and
-> MSR_IA32_XAPIC_DISABLE_STATUS?
-> 
-> XAPIC shouldn't be disabled because you are running in that mode. But,
-> it would be good to confirm.
-
-With x2apic enabled by the firmware, and after kernel switches to xapic
-(because no interrupt remapping support), bit 21 (XAPIC_DISABLE_STATUS)
-of MSR_IA32_ARCH_CAPABILITIES is 0, and MSR_IA32_XAPIC_DISABLE_STATUS
-MSR is not available.
- 
-> > Either way, a pr_warn maybe helpful. How about "x2apic re-enabled by the
-> > firmware during resume. Disabling\n"?
-> 
-> I mainly want to make sure the firmware is really at fault before we add
-> such a print. But it seems likely now that the firmware messed up.
+Jan
 
