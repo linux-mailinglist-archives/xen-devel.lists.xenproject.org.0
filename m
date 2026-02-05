@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aO8sIca6hGnG4wMAu9opvQ
+	id +CASIHq7hGnG4wMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 16:44:06 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 16:47:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC144F4B57
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 16:44:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222143.1530178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D301FF4BB8
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 16:47:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222153.1530186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo1WA-0004iq-UW; Thu, 05 Feb 2026 15:43:42 +0000
+	id 1vo1ZI-0005I2-BI; Thu, 05 Feb 2026 15:46:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222143.1530178; Thu, 05 Feb 2026 15:43:42 +0000
+Received: by outflank-mailman (output) from mailman id 1222153.1530186; Thu, 05 Feb 2026 15:46:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo1WA-0004fj-R3; Thu, 05 Feb 2026 15:43:42 +0000
-Received: by outflank-mailman (input) for mailman id 1222143;
- Thu, 05 Feb 2026 15:43:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vo1ZI-0005FO-8R; Thu, 05 Feb 2026 15:46:56 +0000
+Received: by outflank-mailman (input) for mailman id 1222153;
+ Thu, 05 Feb 2026 15:46:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DyEx=AJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vo1W9-0004fN-GV
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 15:43:41 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ec58ae9-02a9-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Feb 2026 16:43:35 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47ee2715254so7205485e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 07:43:35 -0800 (PST)
+ id 1vo1ZH-0005FI-JR
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 15:46:55 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e52fac70-02a9-11f1-b161-2bf370ae4941;
+ Thu, 05 Feb 2026 16:46:54 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-482f2599980so12831375e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 07:46:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48317d835f0sm62008315e9.14.2026.02.05.07.43.33
+ 5b1f17b1804b1-48317d345c2sm85009595e9.6.2026.02.05.07.46.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Feb 2026 07:43:34 -0800 (PST)
+ Thu, 05 Feb 2026 07:46:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,60 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ec58ae9-02a9-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: e52fac70-02a9-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770306215; x=1770911015; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770306414; x=1770911214; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3C/iFSnp5yxLxXwQDUUWuS22jpZjTY9Pa/0JcSquaNU=;
-        b=AMNOIzfP9FqN9IkY3t/OkbnwM7yvl4j/45/Dm5MCiI2uliQeEVOsnAM8CwPQqh6BdZ
-         VmNSH7fETgIl7gAndIb4hSgt58VFdSqqXWNk4IAj2MA9DO+SHdVSrksvGFAaDcpQXkdi
-         3wq7+XhBrtzewbZpi9ZywxfijPTPHBdgHhngKq4DvtjvfpxsF1Sq3FA1xj4ICz6VeUI+
-         GVkQuel5inqjq+3a6s99WmLRcwkQr036OXZ5PfmtS98pFTVplcuaynW+PriYG9QoQBLD
-         bRI8mzNImFcuBcwH+GpSqTFchVDxUXvlFBTuZaRnPKfbbPe2uWGRCO3Bpq1qfZmoK6Hd
-         ihdw==
+        bh=YJWEVKFZlapcnC6PGSpp+kal8z98AGg5h2rGPcrpzPA=;
+        b=UKTcyxTS9wPMNZ1UTEJuAliBXtZ4mNqiOgIe8ODjycl7MaD/jq9SfdmwXamJUF7kaU
+         HGyTUGK73DkJNoA0EEKyIKkAycSe8TYC0vYuF0QzEeeDcNBpyiw/bPFFWi5LbtxJFrr1
+         sdNtpQNQY6PE6TW4fwaysV7bLxgy34Dh6lvkAIbBSSXGsNUBLXmrywxIjOQAOYRLc6J0
+         deW1Cc8CAQ16nP4RKoHJQhaWT1R/CRPhsFFhWUT7Lo+dyWo6Sv4fmHFnneaKE+g3ZccT
+         byInLO/aHfJiUUCt34AX1LpRjZVUWj+2dYC/HzXW/tAkc7eK+9fzPu6CAkyhAq7iz5s/
+         +cgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770306215; x=1770911015;
+        d=1e100.net; s=20230601; t=1770306414; x=1770911214;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3C/iFSnp5yxLxXwQDUUWuS22jpZjTY9Pa/0JcSquaNU=;
-        b=oRmi/SEyHsfAdQX4AqHqjikuyUGdb5nb7zEbC3reY0HR7ib0aBVj2oEg/C7jAWqIz0
-         RpEkLod1oZaoD/onbHhO4drojChObcS053qdJV1m1Fkm/JTqePf9umvDLOrHcINtI41C
-         Q3Tdr/FY5/WS5PgOtk3OrI1hziMEK37/uvLgQJOP3iZbrMNe+jncOD+KKJI447gbFqZ6
-         cWdGMUZ3o0XrK/zGbZjJiRW7kXjWm17ZSxG6W7UfrKITGS/NOd1+BMH69cMfsQmssEoE
-         pGjxNJxRmZmhQfNqBgsUgMniP/kX1R4ONIxCYKZQlBvvQ/pW+vI9KR3LDmKfn7oKrIsX
-         gkhw==
-X-Forwarded-Encrypted: i=1; AJvYcCXVNR1LvfSENS8Pa9BAr97t7nt1izvz+ra41X6kRSclsTWo+e38LzUfIhUWCtt8U33PZrgz36v+BhE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz57im1r+Gg62v28y5K918TujHYfjBFMgYRjRiRL6OG3mRjrrQv
-	GIW5kPfj036MdahtjDbt2ycXsTdbEIgraDldfNUoa2TUC6muvhxq0X/7g5OHXs7JTA==
-X-Gm-Gg: AZuq6aKLbm3egc4Zb7MdOpfPtXJg58uxZzP2mb+4go/jRN0AGecpGBjInpFPpGu403Z
-	K7sQRKCQ6x/D6rprWNrHSp7N7mG1QviWi+JyxJpCi+s2f8+27REklX9PR/8d52MCnyi8ZpwxpZA
-	eyuoeB4wBE95aE9NlMTlS3K9/J/s7/k70fRUc/Ci1hTAFcVi/wUNyXNWFxePI0tCoOADNG8NrM4
-	sZ5T9gZJKPBomuExFEk2fveUFC9AwZ03EwMBK3lf2JxNIID3Ou+Usj5ZLvVhjzA/EZYBa4Uz8h+
-	BljHU6ItCBZmnXnG4Hha5sLIfqyWB+xX3MUWq7CASSyU9DgWxGSo2VoAtwCHdCXIZkKvGSxy+RB
-	cWUTsGsF7L0Y3wl7clHaqy4HpxAf1CVZ/COzN3lTj8EhlXJtzfrvhOvnuKlT/hytcDcXjwq9gwy
-	VjDKmVo+3MggtBc4hH3J0qbAI6Zip9JpDrC5ulge5emiBOMJq3pQm4+BIer1QXlUnx6/jFJc03d
-	+c=
-X-Received: by 2002:a05:600c:190a:b0:480:4a90:1b06 with SMTP id 5b1f17b1804b1-4830e9b7a3cmr87473075e9.34.1770306215055;
-        Thu, 05 Feb 2026 07:43:35 -0800 (PST)
-Message-ID: <a3cfd04a-c32d-412c-b352-b4a1e65cac52@suse.com>
-Date: Thu, 5 Feb 2026 16:43:31 +0100
+        bh=YJWEVKFZlapcnC6PGSpp+kal8z98AGg5h2rGPcrpzPA=;
+        b=ln7Om1EUY5RCrLv+TO2eoLG8gZUVstDnmVpo1oDSeCEVYbPcVuZydF2ZnDMfvYndM/
+         PtLPguxS3QsQUvwhTdUnDT/RyNYqM/y292WRp11q5bAaWgrYQfIlFf43bpgUaJGZmbNq
+         XibvT8q2bH16bBYv7o4+JOGloAWWJDzsjd7fPhmVpp5RYBmGN5ZonYjQ2teP0cFIZjuX
+         Rzed7BUZaIyMznVaIt81Teq6F4AkjGPMqZiyyF8SBalRM+jEsAfjuKs+sQadhjwixSaY
+         fXeyFnpv4DUZebNJQdFSpCA8qIPxqYIzFxw0u7epnmudYObKg4YhbJqN16ASL3PCxyJu
+         Wnmg==
+X-Forwarded-Encrypted: i=1; AJvYcCXZotIc4rVgCAHW8APE61zlxicWUlzIZaKx9hQStsoB13usT2l3N/9hIuZ8UncyROiHn9MISAF8fmo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzlgZZCeKGsNwmWGx84/j4Nq+3eHU0doAY1lXAUvEeefUrf560s
+	rUksI2z4c5X9ySIL56SM8iw46EfUNUkPmGNBNh4wvEbiwbXSdhxTXKbOYiiwa6jE3A==
+X-Gm-Gg: AZuq6aKmoICL4EPAyoboL1RmbnnalVl3IrSXu2/nrY2L1eGQ8vXCtskgBsSBKWDTypr
+	vHXer8kgZhSqWhgMFmZUIM3G99cuzH9Z9KD3odFijbfXibJcrr6hzql3fy/zCKj7K22oHctY0Fv
+	8D0n1XcClWk3XE9lH8CkVK+uas74h4fa0uq5oEZDsGjBp1KozNWiHBy9V7xKXRdGUxNgbXzEihV
+	kHpMvOjjVuqu2PRU3Gd3hgbZEhWc/TmXMOcpUohW4fR3FAcnJikLxF9ua4hqyldD2juho7ibipX
+	tHwCZcwUXDTJbnF2fzUzVF4SdWF5khdft4SHGsZAoIYTN0NbNLdAIeDJTgHRpeFd8nJniJFxVp8
+	NyPpcov5YKWOd6jICrjHVAt+JjIbN8CgrOY9hXwz/eNPrbPj9lap097KUjn8KGXdepRrFz2j8v/
+	h/FvIK2YXfg1ZDmWqDa1Eaj36UOMgGbAPxd5SmCMrJSf0GpkZEFxBWn28uwYEQaCB5Reb8NEsYk
+	pM=
+X-Received: by 2002:a05:600c:19cf:b0:477:8985:4036 with SMTP id 5b1f17b1804b1-4830e93e9f6mr100577885e9.1.1770306413684;
+        Thu, 05 Feb 2026 07:46:53 -0800 (PST)
+Message-ID: <15d344fc-4c12-4782-87a2-650ad0fc8650@suse.com>
+Date: Thu, 5 Feb 2026 16:46:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Add macOS hypervisor build configuration
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
- <7bf2ee2a-177f-4d7b-9dde-ee43bc4311b8@suse.com>
- <2B5080FA-A0F3-491C-954C-A458C6CA2E93@arm.com>
+Subject: Re: [PATCH] xen/arm: Fix memory leak in xenmem_add_to_physmap_one
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <20260205125820.116555-1-michal.orzel@amd.com>
+ <828feb7a-2a5b-4306-8da9-162df9ecfee3@suse.com>
+ <0d91746d-2a58-4770-ac64-f974aa3563b1@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,101 +127,146 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2B5080FA-A0F3-491C-954C-A458C6CA2E93@arm.com>
+In-Reply-To: <0d91746d-2a58-4770-ac64-f974aa3563b1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,amd.com:email];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,darwin.mk:url,suse.com:email,suse.com:dkim,suse.com:mid];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:Xenia.Ragiadakou@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: DC144F4B57
+X-Rspamd-Queue-Id: D301FF4BB8
 X-Rspamd-Action: no action
 
-On 05.02.2026 16:30, Bertrand Marquis wrote:
->> On 5 Feb 2026, at 13:29, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 05.02.2026 12:33, Bertrand Marquis wrote:
->>> Xen does not currently document how to build the hypervisor on macOS, and
->>> there is no Darwin configuration for selecting a Homebrew-based GNU
->>> toolchain. Native builds are not supported; the hypervisor must be
->>> cross-built with a GNU toolchain and GNU make/sed.
+On 05.02.2026 16:08, Orzel, Michal wrote:
+> 
+> 
+> On 05/02/2026 14:49, Jan Beulich wrote:
+>> On 05.02.2026 13:58, Michal Orzel wrote:
+>>> When a guest maps pages via XENMEM_add_to_physmap to a GFN that already
+>>> has an existing mapping, the old page at that GFN was not being removed,
+>>> causing a memory leak. This affects all mapping spaces including
+>>> XENMAPSPACE_shared_info, XENMAPSPACE_grant_table, and
+>>> XENMAPSPACE_gmfn_foreign. The memory would be reclaimed on domain
+>>> destruction.
 >>>
->>> Add a minimal Darwin.mk which selects the GNU tool definitions used by
->>> the macOS workflow and point to the build guide for required tools and
->>> setup. Document the Homebrew cross toolchain and GNU tools needed to
->>> build the hypervisor on macOS.
+>>> Add logic to remove the previously mapped page before creating the new
+>>> mapping, matching the x86 implementation approach.
 >>>
->>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>> Additionally, skip removal if the same MFN is being remapped.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 >>> ---
->>> config/Darwin.mk            |  6 ++++
->>> docs/misc/build-on-macos.md | 66 +++++++++++++++++++++++++++++++++++++
->>> 2 files changed, 72 insertions(+)
->>> create mode 100644 config/Darwin.mk
->>> create mode 100644 docs/misc/build-on-macos.md
+>>> I'm not sure where to point the Fixes tag to.
+>>> ---
+>>>  xen/arch/arm/mm.c | 32 +++++++++++++++++++++++++++++---
+>>>  1 file changed, 29 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>>> index 6df8b616e464..b9f1a493dcd7 100644
+>>> --- a/xen/arch/arm/mm.c
+>>> +++ b/xen/arch/arm/mm.c
+>>> @@ -166,10 +166,11 @@ int xenmem_add_to_physmap_one(
+>>>      unsigned long idx,
+>>>      gfn_t gfn)
+>>>  {
+>>> -    mfn_t mfn = INVALID_MFN;
+>>> +    mfn_t mfn = INVALID_MFN, mfn_old;
+>>>      int rc;
+>>>      p2m_type_t t;
+>>>      struct page_info *page = NULL;
+>>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>>>  
+>>>      switch ( space )
+>>>      {
+>>> @@ -244,6 +245,33 @@ int xenmem_add_to_physmap_one(
+>>>          return -ENOSYS;
+>>>      }
+>>>  
+>>> +    /*
+>>> +     * Remove previously mapped page if it was present, to avoid leaking
+>>> +     * memory.
+>>> +     */
+>>> +    mfn_old = gfn_to_mfn(d, gfn);
+>>> +
+>>> +    if ( mfn_valid(mfn_old) )
+>>> +    {
+>>> +        if ( is_special_page(mfn_to_page(mfn_old)) )
+>>> +        {
+>>> +            /* Just unmap, don't free */
+>>> +            p2m_write_lock(p2m);
+>>> +            rc = p2m_set_entry(p2m, gfn, 1, INVALID_MFN,
+>>> +                               p2m_invalid, p2m->default_access);
+>>> +            p2m_write_unlock(p2m);
+>>> +            if ( rc )
+>>> +                return rc;
+>>> +        }
+>>> +        else if ( !mfn_eq(mfn, mfn_old) )
+>>> +        {
+>>> +            /* Normal domain memory is freed, to avoid leaking memory */
+>>> +            rc = guest_remove_page(d, gfn_x(gfn));
+>>> +            if ( rc )
+>>> +                return rc;
+>>> +        }
+>>> +    }
 >>
->> I'm sorry, I should have paid attention already on the RFC, but: With all
->> other Pandoc files in this directory being named *.pandoc, do we really want
->> to have an outlier named *.md there?
-> 
-> Right but this might not be needed anymore as the only thing needed after Roger's
-> patch is only a toolchain so brew is one solution but there are a lot of others.
+>> This new code and what follows below it are not inside a single locked region,
+>> hence the cleanup done above may well have been "undone" again by the time the
+>> P2M lock is acquired below. That locking may not be apparent in the x86
+>> variant when merely looking at functions used. There's a large comment,
+>> though, explaining how we actually (ab)use the simplified locking model
+>> (compared to what was once intended, but never carried out).
+> Do you suggest to put the new code and old code in a single locked region?
 
-Even better.
+Yes. Which may be difficult on Arm, where the P2M lock isn't recursive.
 
->>> --- /dev/null
->>> +++ b/config/Darwin.mk
->>> @@ -0,0 +1,6 @@
->>> +# Use GNU tool definitions; the macOS workflow relies on Homebrew GNU tools.
->>> +# See docs/misc/build-on-macos.md for required tools and setup.
->>> +include $(XEN_ROOT)/config/StdGNU.mk
->>
->> Given Roger's consideration towards possibly using a more MacOS-native
->> build arrangement as an alternative, I'm actually not quite sure this should
->> then be the default mode here. Roger, what are your thoughts?
-> 
-> Even with Mac OS sed and make working, something is still needed here to 
-> compile on Mac OS.
-> 
-> What would you suggest the default mode should be here ? Mac OS is not GNU
-> but everything used correspond to what is defined by StdGNU.mk.
-> 
-> I am only forcing cross compilation here to prevent using the host toolchain.
+>> Further, doesn't P2M entry type influence what needs doing here, including
+>> possibly rejecting the request? x86 refuses to replace p2m_mmio_direct entries
+>> by this means, but seeing that Arm has XENMAPSPACE_dev_mmio, this case may
+>> need handling, but the handling may need to be different from what you do
+>> above. (Just to mention: Presumably on Arm it's no different from x86: An MMIO
+>> page may or may not pass an mfn_valid() check.)
+> I actually had the following in my initial implementation:
+> p2m_write_lock(p2m);
+> mfn_old = p2m_get_entry(p2m, gfn, &p2mt_old, NULL, NULL, NULL);
+> if ( p2mt_old == p2m_mmio_direct )
+> {
+>     p2m_write_unlock(p2m);
+>     return -EPERM;
+> }
+> but realized this is actually a different issue than the one I want to solve and
+> I don't want to fix two in one go.
 
-That part is okay with me.
-
-> What do you think i should put there instead ?
-
-Using StdGNU.mk may still be okay, as long as the comment properly represents
-the overall situation.
+Hmm. If you indeed want to separate both (and also not have both in a
+series), I'd then suggest to at least mention that this aspect (and
+whatever else there may be) is deliberately left out.
 
 Jan
 
