@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gFigMcjKhGk45QMAu9opvQ
+	id qMhXAC7LhGk45QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 17:52:24 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 17:54:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A883F582D
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 17:52:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222242.1530246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660AAF586F
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 17:54:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222258.1530257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo2aV-0000Gi-SV; Thu, 05 Feb 2026 16:52:15 +0000
+	id 1vo2c8-000116-AS; Thu, 05 Feb 2026 16:53:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222242.1530246; Thu, 05 Feb 2026 16:52:15 +0000
+Received: by outflank-mailman (output) from mailman id 1222258.1530257; Thu, 05 Feb 2026 16:53:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vo2aV-0000Ek-OW; Thu, 05 Feb 2026 16:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 1222242;
- Thu, 05 Feb 2026 16:52:14 +0000
+	id 1vo2c8-0000y1-7J; Thu, 05 Feb 2026 16:53:56 +0000
+Received: by outflank-mailman (input) for mailman id 1222258;
+ Thu, 05 Feb 2026 16:53:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DyEx=AJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vo2aU-0008J5-B3
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 16:52:14 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1vo2c6-0000xr-D3
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 16:53:54 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04f6c617-02b3-11f1-b161-2bf370ae4941;
- Thu, 05 Feb 2026 17:52:13 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-42fb4eeb482so796796f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 08:52:13 -0800 (PST)
+ id 40abb575-02b3-11f1-b161-2bf370ae4941;
+ Thu, 05 Feb 2026 17:53:53 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-658034ce0e3so1953277a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 08:53:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4361805f25dsm16286467f8f.29.2026.02.05.08.52.11
+ 4fb4d7f45d1cf-65949ed6b7esm2282020a12.11.2026.02.05.08.53.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Feb 2026 08:52:11 -0800 (PST)
+ Thu, 05 Feb 2026 08:53:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,62 +50,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04f6c617-02b3-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 40abb575-02b3-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770310333; x=1770915133; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770310433; x=1770915233; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+a24y37v2jrnQg8n8+OtM4vlSQ0hwPalNlu13MWmNiw=;
-        b=FZi9IgLKfP1EWQhQCdq0whMS111tfVCITYzHgmmANVD5f3333hoIB8nGAaxef7xjo1
-         WHhecnGc1xEEAcB+BGth6Ol8/4oGuuQMEPOKswotU9+ZTo0AhU49cWf+un29Dg+7HyHQ
-         1CsSPNAfkYsbyGJpHPWfIVnpMTTgIdrDFhA5MA8giE9lDGmm97yUQjMSjOGsbLLd0yL6
-         EDBwPZTquCuMUzeeMQvhXvThjjOj5Am/4D1Tpa/ptonBL57I4KO2LZab8LbCl9omeClH
-         RIEmaaqPpmmH1nbQOPhcVoU+UogHTUhmUr5k9t5QivZhR9+zNPA/aHYjEL9qS0QPTzoY
-         wxHQ==
+        bh=aDW2its2ag7sQlrKqMebqKmR/ovlHMxA0hy54j4hfaI=;
+        b=BixUkDskfq2ovToKnlreKqoXcGEyOEebLPOcQ17DjZvKcLXeDG9uyL7tmuCHdG4fbO
+         5Zs9nMktybjHGK/gynq8It+kV35/Mv/3R/4lTv1bdw4IYKSzwnm8LSEt/azaaZJ4gYKC
+         xcBoE0TNo+xnAsendFYg7JQsXAtBBnFWh63Aid5ha3fGsUovdrSL5CUY+qICInjkV67s
+         8wnOJmn32ExvW9XibC5RPq5nGKu6kAPxDeYsYIF3xgYtMv278fS8Ck/7ivRgHYbl8021
+         30aKXqSzfjRmVbzfPpn4GGVpAidww3Mb8EZEoEy4BPkuwxw+gGKzc3J3kC/NWEOONjsh
+         H2UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770310333; x=1770915133;
+        d=1e100.net; s=20230601; t=1770310433; x=1770915233;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+a24y37v2jrnQg8n8+OtM4vlSQ0hwPalNlu13MWmNiw=;
-        b=kPa28WwwCigOMEQzLSTtWWzhcowgyPwnj2z+zjLl93+rcGAzXQTviCTSulZmhfip/x
-         FKZOHUI2QhU9NxQp6gT1Dou/azrM/+4EJzVZEkVUZh38Hf3CVV06AQCld6GAg5jc31Hs
-         uUX0v37uP9mrrnwmMq25QsfKJ91QYMaTfmefELI6br3E7/w6RxDRdjcQne0HKz178ohQ
-         FTbqviDcGGVD/qrfrYkz4nqYucvkSSeqxuix70gfnJapeOnBgT+DnKD3aDGbySXCPv78
-         bKBxrqX4sGjXGoaFiiDAZ+ElNOZXpoVid9FwvnxZOG0VHsOxVo51WKkuKI2xJFxdF+KC
-         Ek9A==
-X-Forwarded-Encrypted: i=1; AJvYcCUDHLEiH0+u5qilLKUsi1+N5IjjeaTc7NM6TOPSlB9SBYVJUSgi8yPHEPlI61lf/DXXutpuujVVFp0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8uDG4U/rF6o1dGgcgtQDjeDKVgi+kiTRapEc/58POvtK1MYxl
-	6VfMz52iolaSLNSKu630hGegMfMAm4KZhoDcxNA+CZ/1tueqdEM2UFYbVwcKXaBF9A==
-X-Gm-Gg: AZuq6aJq4aeRjqKNTtNitwG5UFUcDa7h9KDGzKOxpIulHj7NWss8rHPqnYtgBbQO7ZL
-	6FuDbJys/iPpRExkoKprBIPO3eHy0nDWOHjd6lYdxewsGIIf18aRZHjoLAqNVXHx6qlvlmZgHgI
-	KS86tvR4t0en965kttHmkVkWOE31qjHFjM7s1e6ooGoVR55sctCbx++XW3DYkJkE8xOP0Om2/IW
-	QPxCtBSRVtSa+iljisQmvm+U3/MNQ8pO9H/0UYaCNNMHMCDOzkCrtTCNEZqoUjj9UCNESbgAuRU
-	j+yNZflNEovwGL56zuddJTAZuxot5aUeHm4kyLy8ep9KoD68b7Pw5nUdPYvaGHfDNHDYHFnq1iy
-	nyKowTTX2ZFgWTnov2tNmbsAZAWUdr0hSr5cZtlFQUcRHRYHfIi7AvkPK/kU+03JhF4DnGsbpyp
-	NNVM9aMAWXF2CDf6EBkSKLmjQ0k9zGD9ZuD+FPGutd5og08Jdlp3fVgP/20c7aHPfSSaxVXEstK
-	HU=
-X-Received: by 2002:a5d:5f45:0:b0:435:b0e7:ea1 with SMTP id ffacd0b85a97d-43617e400f6mr11751317f8f.19.1770310332620;
-        Thu, 05 Feb 2026 08:52:12 -0800 (PST)
-Message-ID: <4632759d-562a-4038-a78c-85e9ad0d2d6c@suse.com>
-Date: Thu, 5 Feb 2026 17:52:09 +0100
+        bh=aDW2its2ag7sQlrKqMebqKmR/ovlHMxA0hy54j4hfaI=;
+        b=oo9bKZQkck4xjlsOM2Vfte3EzPp4owWwFu8jDP0bDeLUYa9xGwcwojcHFKtmTEefMC
+         yP1uiY0NsGXq1qUB119rXoVyoHHxpTRPFU8/Otbv65owaDfNaYLhXtmYc+juESXdjial
+         AiRsI9shP6loIq3tga7REeZnec8csK9kpiMClggr86F9qBerk+Kfr+TX05u3wTDiW8Ik
+         gIRReAmU63fMhg6ZD3lPShkAZkuhxGmcq1s2WSTsvyWwKl3SbYjMEcPSU9p6cJsa6l9U
+         JMNVwd/FZosbibj21SEvUas8KRocgFTUbaitJkjr96zLEKz/zl9StunO4n+kYKfY+BZ7
+         VO0A==
+X-Forwarded-Encrypted: i=1; AJvYcCW1ZRljZ46lVUnQ/ecd8o7TLCiglvAK5L1ojyZpzE6T220EhU4KgdCvSw1W2MQ7aknACsnpdQNF1MU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz8yiSsvpbSPvEbts0422Yu/PVt9hakwDoS/CABIxbp+em6U1XX
+	REeVHg/kWtzvFM/zbsiBU0uVteLWbFtoFYTmQq7WHuVZTK0c8kKEdXcBGUhLuHg6pw==
+X-Gm-Gg: AZuq6aKIumUCJpvrzx4A6k3Y3Ml6LM/4+gHxGppJToDw2Yt1CWFDTdqM0oaiCIU0K1u
+	zNOGdpmpRBtFCbxn81ZEWSNTgs7hLUcM+JtnFQ0h+THS6loGF2UHADIU0ipxlQleSVOW1ZDJVJQ
+	+F6hTmDgv1h82T/pmnXj2f03RpyOUFCwzDBJ8nq1FBqWAx8eLrMZB7Q2BtqubhiSisHCPL2IVwo
+	REmHQpX8d1prnagucAFAin4dszZKJKv7ulo+f6IWLuKg8/AO5WKlbNyOHhl9l10Fv5F4sSpdeex
+	YTBbii30hKr6vCQZnO6vrVv09KzvYFU4hhqMDswBUPKMenGSgj4QQ1F1gTo+BJgGx1WlBgv+eAZ
+	zjhJr2QAyaaeGxSpfPVwW9BGnttN42rLCOMUlCn1IPL0MdAWMGwqtuXRcwZ/HLr6vA0pI2blTwe
+	Bz2BulDI1kXSb87XxPj04C6GpCxCAnPFQfLsgrqyP1NU7vqMpIHAOX98GHvYdA/+3aeZ4QRkvEh
+	sA=
+X-Received: by 2002:a05:6402:50cf:b0:659:3671:137 with SMTP id 4fb4d7f45d1cf-659499b5160mr3925262a12.1.1770310432761;
+        Thu, 05 Feb 2026 08:53:52 -0800 (PST)
+Message-ID: <dc87ce96-a54f-4b2e-93df-21240d6372b4@suse.com>
+Date: Thu, 5 Feb 2026 17:53:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Add macOS hypervisor build configuration
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 16/16] xen/riscv: implement sync_vcpu_execstate()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
- <7bf2ee2a-177f-4d7b-9dde-ee43bc4311b8@suse.com>
- <2B5080FA-A0F3-491C-954C-A458C6CA2E93@arm.com>
- <a3cfd04a-c32d-412c-b352-b4a1e65cac52@suse.com>
- <6AED68E8-CCBE-46AB-AFF0-9C87AAB770C3@arm.com>
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
+ <eb254f5a49d01712f9b3745e420dd37a4a9ba0bc.1769099885.git.oleksii.kurochko@gmail.com>
+ <316accc5-2e6b-4571-98a7-5776a47a4ad7@suse.com>
+ <135afbb9-8863-4a9c-b012-832575f04edb@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,11 +132,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6AED68E8-CCBE-46AB-AFF0-9C87AAB770C3@arm.com>
+In-Reply-To: <135afbb9-8863-4a9c-b012-832575f04edb@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -144,71 +146,67 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,stdgnu.mk:url];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3A883F582D
+X-Rspamd-Queue-Id: 660AAF586F
 X-Rspamd-Action: no action
 
-On 05.02.2026 16:58, Bertrand Marquis wrote:
->> On 5 Feb 2026, at 16:43, Jan Beulich <jbeulich@suse.com> wrote:
->> On 05.02.2026 16:30, Bertrand Marquis wrote:
->>>> On 5 Feb 2026, at 13:29, Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 05.02.2026 12:33, Bertrand Marquis wrote:
->>>>> --- /dev/null
->>>>> +++ b/config/Darwin.mk
->>>>> @@ -0,0 +1,6 @@
->>>>> +# Use GNU tool definitions; the macOS workflow relies on Homebrew GNU tools.
->>>>> +# See docs/misc/build-on-macos.md for required tools and setup.
->>>>> +include $(XEN_ROOT)/config/StdGNU.mk
->>>>
->>>> Given Roger's consideration towards possibly using a more MacOS-native
->>>> build arrangement as an alternative, I'm actually not quite sure this should
->>>> then be the default mode here. Roger, what are your thoughts?
->>>
->>> Even with Mac OS sed and make working, something is still needed here to 
->>> compile on Mac OS.
->>>
->>> What would you suggest the default mode should be here ? Mac OS is not GNU
->>> but everything used correspond to what is defined by StdGNU.mk.
->>>
->>> I am only forcing cross compilation here to prevent using the host toolchain.
->>
->> That part is okay with me.
->>
->>> What do you think i should put there instead ?
->>
->> Using StdGNU.mk may still be okay, as long as the comment properly represents
->> the overall situation.
+On 05.02.2026 17:51, Oleksii Kurochko wrote:
 > 
-> Agree.
+> On 2/4/26 11:49 AM, Jan Beulich wrote:
+>> On 22.01.2026 17:47, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/domain.c
+>>> +++ b/xen/arch/riscv/domain.c
+>>> @@ -259,3 +259,21 @@ void sync_local_execstate(void)
+>>>   {
+>>>       /* Nothing to do -- no lazy switching */
+>>>   }
+>>> +
+>>> +void sync_vcpu_execstate(struct vcpu *v)
+>>> +{
+>>> +    /*
+>>> +     * We don't support lazy switching.
+>>> +     *
+>>> +     * However the context may have been saved from a remote pCPU so we
+>>> +     * need a barrier to ensure it is observed before continuing.
+>>> +     *
+>>> +     * Per vcpu_context_saved(), the context can be observed when
+>>> +     * v->is_running is false (the caller should check it before calling
+>>> +     * this function).
+>>> +     *
+>>> +     * Note this is a full barrier to also prevent update of the context
+>>> +     * to happen before it was observed.
+>>> +     */
+>>> +    smp_mb();
+>>> +}
+>> Where's the counterpart of this barrier (going to be)?
 > 
-> What do you think of the following:
-> 
-> Use GNU tool definitions as the tools we are using are either GNU compatible
-> or we only use features which are supported on Mac OS.
+> As it is mentioned in the comment it is invcpu_context_saved(). ~ Oleksii
 
-Sounds good.
+You may have seen the Arm side changes to this, as I did Cc you. From that
+I think you should understand the background of the question.
 
 Jan
 
