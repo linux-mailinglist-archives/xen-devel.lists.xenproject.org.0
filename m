@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLAsJixPhGkE2gMAu9opvQ
+	id ALNtFthThGkx2gMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:05:00 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:24:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0719AEFB63
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:04:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1221562.1529758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0347EFDD5
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Feb 2026 09:24:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1221588.1529768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnuM5-0005uU-51; Thu, 05 Feb 2026 08:04:49 +0000
+	id 1vnuei-0000SP-LD; Thu, 05 Feb 2026 08:24:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1221562.1529758; Thu, 05 Feb 2026 08:04:49 +0000
+Received: by outflank-mailman (output) from mailman id 1221588.1529768; Thu, 05 Feb 2026 08:24:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vnuM5-0005sZ-2T; Thu, 05 Feb 2026 08:04:49 +0000
-Received: by outflank-mailman (input) for mailman id 1221562;
- Thu, 05 Feb 2026 08:04:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vnuei-0000Ql-Ic; Thu, 05 Feb 2026 08:24:04 +0000
+Received: by outflank-mailman (input) for mailman id 1221588;
+ Thu, 05 Feb 2026 08:24:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DyEx=AJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vnuM3-0005sO-4y
- for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 08:04:47 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54fb87c3-0269-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Feb 2026 09:04:44 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-43626796202so41522f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 00:04:44 -0800 (PST)
+ id 1vnueg-0000Qe-UF
+ for xen-devel@lists.xenproject.org; Thu, 05 Feb 2026 08:24:02 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01af84f8-026c-11f1-b161-2bf370ae4941;
+ Thu, 05 Feb 2026 09:23:53 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-42fbc544b09so675484f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 00:23:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43617e3a3a9sm11746332f8f.18.2026.02.05.00.04.42
+ ffacd0b85a97d-4361805faddsm12073754f8f.33.2026.02.05.00.23.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Feb 2026 00:04:43 -0800 (PST)
+ Thu, 05 Feb 2026 00:23:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,47 +50,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54fb87c3-0269-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 01af84f8-026c-11f1-b161-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770278684; x=1770883484; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770279833; x=1770884633; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uWf/SWAsQrEcqXBCdyJQO3DGlSCpL1Xj54p2jYcZXb0=;
-        b=MUwvGUJW9bX2IKyklJZXJIKs+vYG7AI1sH6QZeBqwffXcyXr1iShkvYsBSK6iWmAT+
-         hYxhH7txG+8jhdiTAbeIhUWjx0bxIPOjf2Gx767RI8dpswy0rVdmqhj3yYkC6OJ8+2Ez
-         TsqNfZB9Xt1bSsk7iRkcOnbQiK5Vk0yu/46V/YwZ4mDKbtH+gpRgBL7KUL+m1gO5r1um
-         9VzsN4fv544LEl/P1+gt05HggSPohoynW56mBbeAcmPaqbLU0J0WtePuD0VshtauApU/
-         byfRrlhmCYeiHJUp1sgiK0vgYZW8QbJRR7aZOwhb9rxxvdYwWpg571pUC5kpRyIzKnbP
-         JwKg==
+        bh=iSs5qsGCzxCT3MdfmtcnrUblKn9TOmm3mSQZl3vyvMQ=;
+        b=MTYdf9MaQaqCd1juYkScoNWh8VPj/HjFu9nTNC0JpmJ/RufkEuD7KoI6w6J+4xnaD5
+         KP544Jex5/tja4jh3TOWwxJdH+fWxr1b5WBjA/W++vngmApx70mCdemTTeub45mGhjb/
+         d5qEHcovrQ3U9miBRMIatIXqNV98oTc8CWzFT1ecAdLNSeMxy7Sdur25+JLl1OsdtcPB
+         Yb2Df835dRDitasodaDmtdr3aIDixLkEikq4T0DGC0jxcrG42MznMoXl8qUzxe5ExyHI
+         Sx6sAPQtULs1kyeQD49oa28Hzsz5LoQ876jlOgxw4M1lDFVvTu6X60MytJIW5vo3k8yy
+         JT9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770278684; x=1770883484;
+        d=1e100.net; s=20230601; t=1770279833; x=1770884633;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uWf/SWAsQrEcqXBCdyJQO3DGlSCpL1Xj54p2jYcZXb0=;
-        b=jJMfixc23ZJX+A1PqzO5Tm9lpMK9vbuOV+nNdVYnLvWBFZhoK4SRU/RlJLDuUHL/dZ
-         IlmIsuSe+/K+s99mB0D83kKTQg7aIc1XzFCtdJDcn0C7mstxKx7tQEwFl1IX9rxlK3Cl
-         d/3zU/mLJBFqNhnqiQqWIxGCeLpFL4f0nlG5lAS9Q65bOSNHcFxHTT4kkBjNkgAUpYwG
-         wSUchtMAtsf4YDa9aVDUN1L52blgTOIF6+08MTV6YkMeFkMSf56vBesqAOx8JVyPoL7Y
-         sxctdp02kRiETfpk/ugfktC+WfEkY3sKCvYcrEyo3JBCnKcRWY608/6JzCsiH7rawZjc
-         hP7w==
-X-Forwarded-Encrypted: i=1; AJvYcCUYxmvKSqpSB5YYvUTcVZfgp+Wyo8pjzyk3KE3XsQ/ZpiOPosqGDKbwxpVsf0bLQ8vGK/SGDpVz1AY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8CgJ4dy/OuxbJSRVErWgcJiBPWiAMTms/9+ciXxLuSWAbwJj8
-	IDR0ahOcI8bm8iCNRLZokBUOMPO6x4yVhE/b43RSxy4X0ogh2kTpO5LQ+kJsDtKGOA==
-X-Gm-Gg: AZuq6aIMrrGDKsBEg9QpCvGntD1H9cBzlP3U1f7M7yXbjiYmuAJrHrSHNf3PAGoWM1l
-	k2CjfO+fi7YeBEV1KFrwOqqt6VT4DimdAsxCgtXviKkurtiO58Ha47+QFHOnedmdt9HlndXk3oi
-	7/6tIGomXVVrwLIHu2AFbAxddhCZJEbLFVVl2WPywKRJi8124BTo5Au0ggk2sxC6rFOSwIvryr/
-	i7jjGiKeBh756FzJvyhbqPjZucaVMLNs6ZLm/ZYY+W3Ipk9j4HGudvJt4J8mY/F7gc4w3Z2UhYp
-	986DFoy2tv//6RaXiWT82fGwvyBHzRlXC657PdR3+g7gH5M/CEAPR08P/zUaDABYreMcjRiCEwj
-	zi0c7FqV8PuKvT5pPNiumVL6OD4xYxV8cNxFM7TpDRNyfAqJKg6U2yD0XhV4VFTx9bi8FhFiy0f
-	U0CU/rp/7Wi3L9S9oKX9gP/ofxhD//wr2rWJfMWBTfuCsV0tVnkAwu9tR9Ss3JynXmRT4rcphkR
-	1q4uQOSw7kbIw==
-X-Received: by 2002:a5d:5f51:0:b0:435:db6e:e3b2 with SMTP id ffacd0b85a97d-4361802ffe9mr8357061f8f.27.1770278683936;
-        Thu, 05 Feb 2026 00:04:43 -0800 (PST)
-Message-ID: <d7cf4b5c-ffb4-4168-b0e5-3a035e4929de@suse.com>
-Date: Thu, 5 Feb 2026 09:04:40 +0100
+        bh=iSs5qsGCzxCT3MdfmtcnrUblKn9TOmm3mSQZl3vyvMQ=;
+        b=JICTerNRBO9jJO4xmDX81LWOL59e8AQ5xaJGaDsOjR/cY2btNtTcjoxmuseNGDatQQ
+         1K22dZ3l4aQ9FtXEqicFctd5APtZItyn8yOK0SWf4+DOkadTLYVg9iQkTFayqHuFNfKI
+         H/DSKZkQMnDc5ELsEKxNVFVdu67kweNHcHn/6TylU+WUKQ76B1ldv3JWDw/qAl4/AzfJ
+         Nh7I/ch04lkA/jF6MLTICgbIcqmhFrdFPVjvQwyfVEBePh10gK9B8QFtG2HekRfio+kk
+         59MF//WuJFuyp0gsKAiNRSbBmQcSDHlW2QB53xezWqR8U8N97Nb7wJX3ZiJv07JmUUQJ
+         E6fQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXFaG0Xu1Vf0W1UiNaAuLcDoLphIIWe6UqrpJjBCH42oXABF9o1FMUw4HFvRzsOJNLv67vs0V5G2WQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxrcAxq7d3JOI9f9DeMv7/68Whs58KvjdCAOCDm1taOOlcxfhjU
+	3WcZff1zXxA8i7gQpUovv4sWslsmvBBEtiKSCcLXQuN2nATabN30HBDRg5yNACCJig==
+X-Gm-Gg: AZuq6aK7dd6EJFF04ow1b44Ur4DhYMrpMagUk8d4S2HZMqwKCNGy5QiFMgqM1dLXNmj
+	uwNUoeZSbRIitnZ4x9B3GsPCRfhVD1Tv241m6ozFDjpWDJRqxlGq2g9eqMuJANAT0/8H0NAlcpm
+	uE49od+h92MPr7qsveUTGixuN5DWh9j1PQeuslErZczFpdNGVDm6JaFrZ0mQ3O7x0BxxN/fvPwM
+	OZahYvOmLOqnl6ss56Uq2VeRqJQZg+IWglRCNqWMwYvzEEpQwKK5Xw3gU0a2q4lMICDLO7ELad1
+	H2tR/UtP9RVSlJKzRr4Ix8V9/YypFG7I2sJ9lvSCmggEaYWplw29yYj8IFzL0+k8jWfqioaObFl
+	Lpkg4S8tBMMpefJs7G/J32IIfjOAmOipsH1o9pNrOUjrw0WzW9TOHmcqP5Kx73k4zqocMUgXgfd
+	v2rsfMLYIG2Hdw8qlFw2Svd9H/PLmINVr85oRTPAoElmPGY1c8p4n3hDoJEzuIJov4WlbHgtPFc
+	3IO3upbLoB6MQ==
+X-Received: by 2002:a05:6000:2310:b0:435:9f41:d43 with SMTP id ffacd0b85a97d-43617e40ba0mr8673859f8f.15.1770279832824;
+        Thu, 05 Feb 2026 00:23:52 -0800 (PST)
+Message-ID: <eed4bb7b-5836-4345-984d-c542b9f1da34@suse.com>
+Date: Thu, 5 Feb 2026 09:23:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH] xen: Add macOS hypervisor build support
@@ -104,6 +104,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 References: <d923a50ff7870087347ef783516f3c2d2764dc6e.1770210872.git.bertrand.marquis@arm.com>
  <a3637eb3-ff0d-4a69-aa7e-e86be92b062b@suse.com>
  <5062E1F2-D023-4BF9-A829-BB996686B04C@arm.com>
+ <eca1e783-b147-4230-a340-41b8cb694c5e@suse.com>
+ <65D4FEA7-DECD-4DDD-B119-4625F72ED585@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,13 +131,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5062E1F2-D023-4BF9-A829-BB996686B04C@arm.com>
+In-Reply-To: <65D4FEA7-DECD-4DDD-B119-4625F72ED585@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -144,15 +146,15 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -165,62 +167,89 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0719AEFB63
+X-Rspamd-Queue-Id: C0347EFDD5
 X-Rspamd-Action: no action
 
-On 04.02.2026 16:45, Bertrand Marquis wrote:
->> On 4 Feb 2026, at 16:31, Jan Beulich <jbeulich@suse.com> wrote:
->> On 04.02.2026 14:16, Bertrand Marquis wrote:
->>> --- a/xen/Makefile
->>> +++ b/xen/Makefile
->>> @@ -116,7 +116,7 @@ endif
->>> # If the user is running make -s (silent mode), suppress echoing of
->>> # commands
+On 05.02.2026 08:44, Bertrand Marquis wrote:
+>> On 4 Feb 2026, at 17:15, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 04.02.2026 16:45, Bertrand Marquis wrote:
+>>>> On 4 Feb 2026, at 16:31, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 04.02.2026 14:16, Bertrand Marquis wrote:
+>>>>> Xen does not currently document how to build the hypervisor on macOS, and
+>>>>> there is no Darwin configuration for a Homebrew-based toolchain. In
+>>>>> addition, the Makefile silent-mode detection can be tripped by -I paths
+>>>>> that contain an "s", which hides build commands unexpectedly.
+>>>>
+>>>> This wants submitting as a standalone fix, so it can be backported. But see
+>>>> also below. I don't, however, understand how -I could be useful here - our
+>>>> build system is self-contained, so any include directives used should be
+>>>> satisfiable without any -I.
 >>>
->>> -ifneq ($(findstring s,$(filter-out --%,$(MAKEFLAGS))),)
->>> +ifneq ($(findstring s,$(firstword $(MAKEFLAGS))),)
+>>> This is added automatically inside our Makefile if you build out of tree:
+>>>
+>>> MAKEFLAGS += --include-dir=$(abs_srctree)
+>>>
+>>> which ends up being -Ixxx when tested.
 >>
->> While probably this would do, assuming make isn't going to make drastic
->> changes to how $(MAKEFLAGS) is set up, how about
->>
->> -ifneq ($(findstring s,$(filter-out -%,$(MAKEFLAGS))),)
->>
->> instead?
+>> Hmm, but I do have an 's' in my source path, yet I need to explicitly pass
+>> -s for the build to be silent.
 > 
-> Yes this is a solution that should work to, making the assumption that short
-> arguments are kept at the beginning like they are now is possibly to strong.
+> I did further investigations and my previous assumptions where actually
+> wrong because i looked tat MAKEFLAGS value once the whole Makefile
+> was parsed and the include-dir flag is added after so it was not the reason
+> of the issue.
+> 
+> In fact the issue is coming from variables set on the command line (and
+> in my case O= with a path containing a s).
+> So you can easily reproduce the issue by just passing XX=s to the make
+> command line to do a test.
+> 
+> As a consequence, your proposed solution filtering -% is not working and
+> the only reliable solution is to actually use firstword to actually get the
+> short options list. This is making an assumption on MAKEFLAGS having
+> them first but my tests are showing that it is always the case.
+> I would propose to put a comment to explain the assumptions on which
+> the filtering is based on top:
+> 
+> Something like this:
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 13e336ba5484..a7924fcb7af5 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -113,10 +113,10 @@ else
+>      Q := @
+>  endif
+> 
+> -# If the user is running make -s (silent mode), suppress echoing of
+> -# commands
+> -
+> -ifneq ($(findstring s,$(filter-out --%,$(MAKEFLAGS))),)
+> +# If the user is running make -s (silent mode), suppress echoing of commands.
+> +# This relies on GNU make encoding short options in the first MAKEFLAGS word;
+> +# if this changes in the future, this check may need revisiting.
+> +ifneq ($(findstring s,$(firstword $(MAKEFLAGS))),)
+>      quiet := silent_
+>  endif
+> 
+> Also i can put a fixes tag if you think that is useful:
+> Fixes: 4fdb4b71b152 ("xen/build: introduce if_changed and if_changed_rule")
+> 
+> Please tell me if that sounds ok for you and I will resubmit this as 2 different patches
+> instead of a single one.
 
-As you indicated on Matrix, this wouldn't cover variable definitions, e.g. O=.
-Sticking to just $(firstword ...) also doesn't work, though: If there are no
-options needing handing on and having a short form representation, the "first
-word" may be empty, with $(MAKEFLAGS) then starting with a blank. Perhaps
+Sadly no, see my other reply sent earlier today. Furthermore, as said there, even
+with O= I can't repro what you say. In fact with a Makefile containing just
 
-ifneq ($(findstring s,$(firstword .$(MAKEFLAGS))),)
+$(warning MAKEFLAGS="$(MAKEFLAGS)" ABC="$(ABC)" XYZ="$(XYZ)")
 
-would be a way to overcome this.
+all:
+	@echo 'MFLAGS=$(MFLAGS)'
+	@echo 'MAKEFLAGS=$(MAKEFLAGS)'
 
-However, wording in the documentation [1], [2] is ambiguous as to whether we
-may rely on there being that leading blank (it seems likely that [1] is more
-reliable than [2], but still). However, [2] effectively suggests another
-alternative:
-
-ifneq ($(findstring s,$(filter-out --%,$(MFLAGS))),)
-
-While you meanwhile clarified (again on Matrix) that use of -I isn't the
-culprit, even with O= I still cannot observe the behavior you're describing.
-I.e. I still need to pass -s in order to silence the build, even if I use
-O=.../staging (i.e. an 's' clearly being present in the path).
+I can observe (with both make 4.0 and make 4.2.1) $(MAKEFLAGS) expanding
+differently depending on where it's used (I'm passing ABC= and/or XYZ= to
+experiment): Only the use in the rule has the variables. What version of make are
+you using?
 
 Jan
-
-[1] "If there are no single-letter options on the command line, then the value
-     of MAKEFLAGS starts with a space."
-
-[2] "A similar variable MFLAGS exists also, for historical compatibility. It
-     has the same value as MAKEFLAGS except that it does not contain the
-     command line variable definitions, and it always begins with a hyphen
-     unless it is empty (MAKEFLAGS begins with a hyphen only when it begins
-     with an option that has no single-letter version, such as
-     ‘--warn-undefined-variables’)."
-
 
