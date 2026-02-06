@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MBASJlO0hWmbFQQAu9opvQ
+	id mCq6GcjEhWnAGAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 10:28:51 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 11:39:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ABEFFC081
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 10:28:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1223057.1530711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABCB1FCB68
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 11:39:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1223101.1530742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voI8g-0004TK-9P; Fri, 06 Feb 2026 09:28:34 +0000
+	id 1voJE0-0005Cj-4d; Fri, 06 Feb 2026 10:38:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1223057.1530711; Fri, 06 Feb 2026 09:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 1223101.1530742; Fri, 06 Feb 2026 10:38:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voI8g-0004Qr-4L; Fri, 06 Feb 2026 09:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 1223057;
- Fri, 06 Feb 2026 09:28:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O5P7=AK=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1voI8e-0004Qk-JW
- for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 09:28:32 +0000
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [2001:4860:4864:20::2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 331a53da-033e-11f1-b161-2bf370ae4941;
- Fri, 06 Feb 2026 10:28:31 +0100 (CET)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-40423dbe98bso242030fac.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Feb 2026 01:28:31 -0800 (PST)
+	id 1voJE0-00059e-1A; Fri, 06 Feb 2026 10:38:08 +0000
+Received: by outflank-mailman (input) for mailman id 1223101;
+ Fri, 06 Feb 2026 10:38:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8hvW=AK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1voJDz-00059Y-4w
+ for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 10:38:07 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eadc725a-0347-11f1-9ccf-f158ae23cfc8;
+ Fri, 06 Feb 2026 11:38:04 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4801eb2c0a5so18398135e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Feb 2026 02:38:04 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-436296b25casm5004834f8f.4.2026.02.06.02.38.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Feb 2026 02:38:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +50,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 331a53da-033e-11f1-b161-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1770370110; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ch2pY/72oBmRxDpABZHLm7w/H4Tz9rf/XPOOHe/p6QR9PeCI90OTDHzYaXI2PP/As+
-         cYfJxHAbL7C2WipIJH0x6c9GCaxZQvYlIzHiQhLBDauO6B/MArApIoBaZb8U+/ag51Gz
-         1KA7umAQ46bj7AYqHm5riNRagCiH1/DhoqfOhqIAgDeER4OpgUnNlXWbmyUbMoPEE6No
-         E8ekFOrAvDrOPWPixt9tDl2gTDFWcwesvXEOlZHt2YaqBeAlIes13ft7b05FrCyvx7zy
-         vMOUteUsuvS8jRb+Si1pE2JJXwTHpyzFhptHZ5UIUyjfHNLe4/9cMcTTsKkswMD0t+F3
-         2NeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PfsQd9prHj4PEJxEoECC3VAkgFIlM0CLps+3qg6UKmA=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=fggTYgYyGfqReSVHSHXR6SZ/sfeq3GvsMkPvVmyrBm5LWHAcXaCeAnopTvU1QxTtCd
-         VFBS4Z5aLq0YgO2Zec9rO1BusUSCWtWNkfDIUsrgbB7ohzqdGHoUxCNGc58GvOtUp5zB
-         bPLGNdkATmL45zIG2G/YjHeiRd3UDumUpcO28t4lUQUt7KZTpYFmmKnt/0d+McKcyp03
-         JVVhNKjpbELs4s0eXHTiJFOYrqGhsOZsyYO6V9Mb+krN5zD2SpUd3P/QYcEkgKP9LQvz
-         z1iC8cYKJKbwfbov15VbPRg6yEf7jw+IVKix7q+l0PPHOnUSfBDy44cpOwQQn5GzhVIV
-         c/UA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Inumbo-ID: eadc725a-0347-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770370110; x=1770974910; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PfsQd9prHj4PEJxEoECC3VAkgFIlM0CLps+3qg6UKmA=;
-        b=WGHUpmz9pnBUMDU1VrtECLn8LJFq4Cjk5T7wuo5ZuLN1vgaKjiFFq8F8qTzOuqq0sp
-         6BfuRyehVqUSYsCaqkszXzXhO479lGhB6EwIRyG8O3uVHDCUqvzq1ZvOUfqsxAqAVXdN
-         NId6GyGMnfJU8Ss6CosTHgMf2JtgQg7euAOnU3NlQOlQAr4S9r2WzN3AAXpKkhjl1b2o
-         rBzMAE7WUTqVX7Eg93sBDfRNTT4dp2PgHhvOklmTD0qp5cbMW3bVYxKAG/mdm/YebsWy
-         eRttgLTOoJ8mUgWHnS5N0YGv1VJgMLL4ItEL2cULRiiZIsimIZBWBVPqMBRa1VtKN6bl
-         /zTg==
+        d=suse.com; s=google; t=1770374284; x=1770979084; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BA8sS6pxbBVzsljXH59ZUxiuS6H0sInZOhvaXRU7Nbo=;
+        b=RWqrXAvAMlaiCI//S3qh+J1FjeaR7pVB9uRw+yq2pjX6Wsvt97vUggU+sDJkKbO4mN
+         kgYeaeLyOxLCiWBCY4F9enbnAlhV/xJLpYBFXJ3zlwq6YUitAEhg0GTaN8HVSR2G5NeT
+         9M+FCzytnngtq0Jv3tk3VkBiSqThYOQfB19tGARK8Pb20gkBRjSvJcKuV3pVKEoMmr5k
+         ll5h/T9FfV4QlWbFLxio5xcCH3/sOv5nwvpMRl3yO2NDhSBAhNhxiuxhg1+vLaCssYzs
+         JdnWK+Ha94R77BnfMwnsXPyGXwNy+9ywGrKnXqnMpIkqlXzIDz5GmZhYkQxlq6d1vyZy
+         58mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770370110; x=1770974910;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=PfsQd9prHj4PEJxEoECC3VAkgFIlM0CLps+3qg6UKmA=;
-        b=ekL0FSKxUc417tfKeRrQYA7uQn/lDsSBInTPXU35poxsjNAvkOl5WhIjLMSw4D6euv
-         oyJcsgPcZrjEIUiSxJQAVftwlhdoNaLH3fyv9bG2yatUTSfrM/F6aMQt11h/HedvtQ+q
-         TKsgbJGvI3PBGQr7Q0ARQm/u+2hHAUxar10EBHgtesCtFSsJjIGy6u7hTSh6/eJ6a368
-         rsJ9AjGbEgn1H4a8FuI/JlaVUGb7toO42scHCprgodq+e2aOuGsnNXjNcMLqLMuhvC5E
-         OVj/TOJpHRsuPJT8g4W/PZNbIEX0fmK4w8fPMKJODmytxFpWIj1Gi0NIKTFO1RzQZuFD
-         e1kg==
-X-Gm-Message-State: AOJu0YxCtNTpoZVc+WMUawqls2SRifSnOuL/50eDhHpIFVRiALpk9U8w
-	PU+HGyhA5X7KH/Hj7oQog6AdQ/MMSl+46ixdDMydgcz/iMS9kc4cuk9pzvwoENc4x/nfxCh/f4y
-	vANesMEAlAgC5tXOL/TXnjvxClREEdKZv3zH5y2+nvQ==
-X-Gm-Gg: AZuq6aLKcXm/lUUV93S5JykspTBprX0AGG5OWXY5ITIHAJXiOn9VPxMEY5yKHdklJA0
-	oUUKlTZtNM3geGa1aHzcF+P0zEqroz1IEuxjK4LX/7LzAm4nIfZdJnwA2tzIKxr6QJYbuifW9kL
-	pv3rIulOi/+j291Ddky5C+FvQxF1Rc8281yqKykq8cU5UfKPfDS4EctLdx8kiJywtqo6YL+8OHh
-	AOkUCYw5AKcePwHAkWxJBaJ/mTen6Qa/dXHxk/IV0Xj2a4Nv9cacc2oBS0GilMUA7oYgL6mXbaK
-	/zpRNZgAwHMgQlfOMcPvODTkmw==
-X-Received: by 2002:a05:6820:80c5:b0:661:1d0c:a5b5 with SMTP id
- 006d021491bc7-66d0bea3ff5mr856255eaf.48.1770370109901; Fri, 06 Feb 2026
- 01:28:29 -0800 (PST)
+        d=1e100.net; s=20230601; t=1770374284; x=1770979084;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BA8sS6pxbBVzsljXH59ZUxiuS6H0sInZOhvaXRU7Nbo=;
+        b=J+A3qWrOD7D5ufg5c7VWpoh1iX8VHqtzyWVEzm35FJDPzNOYyGd8HIiAPVPF+pcfLX
+         ENhuIneLjScZ71WTwl+3pDWDslKebQmU6loIgQJ53jdFgxyUVV59zudgxxpWc2mp1PCA
+         Vng7AC3w6ElJTbW4+6s7L+yRSreSdrn9degaw3ba7AHpSTLeQuSxmeP8efesA3aAvU82
+         gtZexCNV8MJDFwD1MwZd4GKRTuXOzoqu71lQ/8xFWupgYUTS0arqhZ3r2JSJoM2gNTIa
+         ApcjsKT6OLgsVxEggDR7YnPnPLJWOvviZyVVtAdl5PMSXKt9imkfjX+ou6CgFQ46gK5C
+         yLWg==
+X-Forwarded-Encrypted: i=1; AJvYcCVV1Z0coL3Cpkx9dZAS5nM+LrdheySPlOHFSvj/t9x4WJV6VLuqgnqSnpXx8kJZwC3O1YnQNiageJc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMj7nR9bQM6X8DKUlKQUzqYjhMSEU5AlGUIZw7g9NnGBu2kHdF
+	CoaG4SmvsltJUuu5JaFqEA9DsKTFsGugqDjdsdkkARa5+Byzlrf5Vr7yGcyL+abnrw==
+X-Gm-Gg: AZuq6aJydYlZJs2QtVUUtiFCAOEpF8lf3+rSTSFC0xGX2PW3GTURIJLEIqJ0DgRDNoG
+	tCZ4gr/IWdGt4keSpPgK4Ap+QxMiCma2eK/E5Kjhz1GKQf0Spl8Y9CU611TDTxnDtQwlPNxPaof
+	D4pcl0dVpQz0OzzSarbUlQGbZA9in0RqZc6nyEFYsn0wwpDy6PuMUAi7ZSB6hrX47UU1XKDdbrc
+	WsByef1s3AqpnU8HyAcGIEYMsoAvXoQUf8FwtpfiKl15E78Kw0wzBupFOxsR5/5j196q304T34Q
+	g1BCWcjHWULkhJ02p+FHm7r90dDIigCJoihkE5q0DqVuEQS22nLpkCEbNSjw6Sm3TRJUgUBt3bS
+	9JqCNTtCxhK2VUUMhbOzwujqa4xpnMBqhmMzFew4KKw9BqIRoGwRs/iQrsAFhL4vLiyiDYX6qzt
+	9vOPkKcY13hYc3QjGB7xFh+69qaWeOOVS6HnqMPFZptLqrxls1HOAubPmX1qn0IMZR8bKiPIZrf
+	iA=
+X-Received: by 2002:a05:600c:a15:b0:46e:35a0:3587 with SMTP id 5b1f17b1804b1-4832021fe42mr33879635e9.27.1770374283740;
+        Fri, 06 Feb 2026 02:38:03 -0800 (PST)
+Message-ID: <4bdcd7e0-ff9d-4bbd-8337-aa80d7d66ce9@suse.com>
+Date: Fri, 6 Feb 2026 11:38:02 +0100
 MIME-Version: 1.0
-References: <cover.1770115301.git.bertrand.marquis@arm.com> <9886df295f4c4365668576cc956299ee36f36c8b.1770115301.git.bertrand.marquis@arm.com>
-In-Reply-To: <9886df295f4c4365668576cc956299ee36f36c8b.1770115301.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 6 Feb 2026 10:28:18 +0100
-X-Gm-Features: AZwV_Qj9QyssabLDHCzs3J98Sgr51l9lPVztXoTTsnmXQ_CWV0Vhp6RomyItEBE
-Message-ID: <CAHUa44G9sGWp18EX=Zb-C-jDJn_V6BmEVvnza7t6gcx3rjsRww@mail.gmail.com>
-Subject: Re: [PATCH 02/12] xen/arm: ffa: Fix MEM_SHARE NS attribute handling
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen: Add Darwin.mk for GNU toolchains
 To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <a3837d27d473763a667596841754398e7d67df46.1770365754.git.bertrand.marquis@arm.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a3837d27d473763a667596841754398e7d67df46.1770365754.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stdgnu.mk:url,darwin.mk:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,linaro.org:dkim,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 0ABEFFC081
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: ABCB1FCB68
 X-Rspamd-Action: no action
 
-Hi Bertrand,
-
-On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> The FF-A memory attribute encoding is currently a literal value (0x2f),
-> which makes reviews and validation harder. In addition, MEM_SHARE
-> accepts the NS (non-secure) attribute bit even though the normal world
-> must not set it according to FF-A specification.
->
-> Introduce named attribute bit masks and express FFA_NORMAL_MEM_REG_ATTR
-> in terms of them for clarity.
->
-> Reject MEM_SHARE descriptors with the NS bit set, returning
-> INVALID_PARAMETERS to match FF-A v1.1 rules that prohibit normal world
-> from setting this bit.
->
-> Functional impact: MEM_SHARE now rejects descriptors with NS bit set,
-> which were previously accepted but violate FF-A specification.
-
-To be fair, it was also rejected earlier, but with a different error code.
-
->
+On 06.02.2026 09:17, Bertrand Marquis wrote:
+> Xen does not provide a Darwin build configuration for selecting
+> GNU tool definitions. On macOS, the tools we use are either GNU
+> compatible or we only rely on features supported by Mac OS, so
+> using the GNU tool definitions is appropriate.
+> 
+> Add config/Darwin.mk to include StdGNU.mk and force
+> XEN_COMPILE_ARCH=Darwin, ensuring Darwin builds always follow
+> the cross-compile path as we depend on the Linux ABI so compiling
+> on Mac OS is always a cross compilation case.
+> 
+> An example of how to build the hypervisor for arm64 on Mac OS
+> (tools cannot be build for now) using a compiler from brew:
+> - brew install aarch64-elf-gcc
+> - cd xen
+> - make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-elf- HOSTCC=gcc
+> 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
->  xen/arch/arm/tee/ffa_private.h | 17 ++++++++++++++++-
->  xen/arch/arm/tee/ffa_shm.c     |  6 ++++++
->  2 files changed, 22 insertions(+), 1 deletion(-)
->
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index cd7ecabc7eff..b625f1c72914 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -129,11 +129,26 @@
->  #define FFA_HANDLE_HYP_FLAG             BIT(63, ULL)
->  #define FFA_HANDLE_INVALID              0xffffffffffffffffULL
->
-> +/* NS attribute was introduced in v1.1 */
-> +#define FFA_MEM_ATTR_NS                 BIT(6, U)
-> +
-> +#define FFA_MEM_ATTR_TYPE_DEV           (1U << 3)
-> +#define FFA_MEM_ATTR_TYPE_MEM           (2U << 4)
-> +
-> +#define FFA_MEM_ATTR_NC                 (1U << 2)
-> +#define FFA_MEM_ATTR_WB                 (3U << 2)
-> +
-> +#define FFA_MEM_ATTR_NON_SHARE          (0U)
-> +#define FFA_MEM_ATTR_OUT_SHARE          (2U)
-> +#define FFA_MEM_ATTR_INN_SHARE          (3U)
-> +
->  /*
->   * Memory attributes: Normal memory, Write-Back cacheable, Inner shareab=
-le
->   * Defined in FF-A-1.1-REL0 Table 10.18 at page 175.
->   */
-> -#define FFA_NORMAL_MEM_REG_ATTR         0x2fU
-> +#define FFA_NORMAL_MEM_REG_ATTR         (FFA_MEM_ATTR_TYPE_MEM | \
-> +                                         FFA_MEM_ATTR_WB | \
-> +                                         FFA_MEM_ATTR_INN_SHARE)
->  /*
->   * Memory access permissions: Read-write
->   * Defined in FF-A-1.1-REL0 Table 10.15 at page 168.
-> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-> index 8282bacf85d3..90800e44a86a 100644
-> --- a/xen/arch/arm/tee/ffa_shm.c
-> +++ b/xen/arch/arm/tee/ffa_shm.c
-> @@ -512,6 +512,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs=
-)
->      if ( ret )
->          goto out_unlock;
->
-> +    if ( trans.mem_reg_attr & FFA_MEM_ATTR_NS )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_unlock;
-> +    }
-> +
->      if ( trans.mem_reg_attr !=3D FFA_NORMAL_MEM_REG_ATTR )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> --
-> 2.50.1 (Apple Git-155)
->
+> Changes since v2:
+> - Subject was "xen: Add macOS hypervisor build configuration"
+> - Update Darwin.mk comments to more accurate versions (Jan)
+> - Remove the build-on-macos help as we have no dependency on anything
+>   coming from brew anymore and the toolchain can be retrieved by lots of
+>   other solutions than brew on mac os. Switch to a simple doc in the
+>   commit message instead
 
-Looks good, but I think the commit message needs a small update or
-clarification.
+Did you see Roger's notice on Matrix about objcopy?
 
-Cheers,
-Jens
+> --- /dev/null
+> +++ b/config/Darwin.mk
+> @@ -0,0 +1,7 @@
+> +# Use GNU tool definitions as the tools we are using are either GNU compatible
+> +# or we only use features which are supported on Mac OS.
+> +include $(XEN_ROOT)/config/StdGNU.mk
+> +
+> +# Xen uses Linux'es ABI so we are cross compiling on Mac OS.
+> +# Force COMPILE_ARCH to a fake value to make sure it is always the case.
+> +XEN_COMPILE_ARCH = Darwin
+
+I first wondered why you say "fake", seeing the file is named Darwin.mk. But
+in Config.mk's cross-compile check the build host OS doesn't even matter. So
+yes, it needs faking here for the time being.
+
+Jan
 
