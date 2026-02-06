@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2Aj+DPmIhWn3DAQAu9opvQ
+	id aBZHJnCKhWkWDQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 07:23:53 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 07:30:08 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D143FA9CB
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 07:23:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222805.1530496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0881DFAAE2
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 07:30:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222813.1530508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voFEu-0006uw-0M; Fri, 06 Feb 2026 06:22:48 +0000
+	id 1voFLo-0007fE-MZ; Fri, 06 Feb 2026 06:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222805.1530496; Fri, 06 Feb 2026 06:22:47 +0000
+Received: by outflank-mailman (output) from mailman id 1222813.1530508; Fri, 06 Feb 2026 06:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voFEt-0006sx-Tk; Fri, 06 Feb 2026 06:22:47 +0000
-Received: by outflank-mailman (input) for mailman id 1222805;
- Fri, 06 Feb 2026 06:22:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1voFLo-0007c7-Jo; Fri, 06 Feb 2026 06:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 1222813;
+ Fri, 06 Feb 2026 06:29:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8hvW=AK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1voFEs-0006sp-N3
- for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 06:22:46 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fa768d0-0324-11f1-b161-2bf370ae4941;
- Fri, 06 Feb 2026 07:22:44 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-43622089851so1271374f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 22:22:44 -0800 (PST)
+ id 1voFLm-0007bz-Te
+ for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 06:29:54 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3e1a9713-0325-11f1-9ccf-f158ae23cfc8;
+ Fri, 06 Feb 2026 07:29:52 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4801ea9bafdso10201045e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 22:29:51 -0800 (PST)
 Received: from ?IPV6:2003:ca:b70c:6a68:95b1:80b8:e2ec:fafe?
  (p200300cab70c6a6895b180b8e2ecfafe.dip0.t-ipconnect.de.
  [2003:ca:b70c:6a68:95b1:80b8:e2ec:fafe])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-436296bd4desm3710626f8f.18.2026.02.05.22.22.43
+ 5b1f17b1804b1-48317d835f0sm104113245e9.14.2026.02.05.22.29.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Feb 2026 22:22:43 -0800 (PST)
+ Thu, 05 Feb 2026 22:29:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,57 +52,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fa768d0-0324-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 3e1a9713-0325-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770358964; x=1770963764; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770359391; x=1770964191; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OL70kP6yGavXgSQW1KtWli/IeEhjXcq7DRjMjwt40Hk=;
-        b=Qf1d6A/qiCBL72QijOQECgJnCWSeXEGQttv7cHtJXHsaZyg7yNgdiOPutdHAWWjwV/
-         veZ4ouW61MUaaN5+uiEJlqr6YK7Bt5YFiVwT5LP4hPqyJfViL+WF/wqelN82pZigPGla
-         Z02hyCeEBZzCnNNyElvIiZco0xNi2ME3DdtHcOEBEzIWjgc608pstHaxO9bYCIz9CL8j
-         P9tENKQFupSfyTCLVWA6vfJntjXf3kgn5kOS+We943bE5pzVjh6DlP+8V/1hICbW16NI
-         mH0dtXG6XTuLpGE7kC1O4ZtSjsinu8A7YVer493pYslKGTEbklqba3hQ+NdW739GGKTg
-         JxuQ==
+        bh=l7I3grGE0i9bClpF/I10K1YRr3J6btGMAkpgptDyg/o=;
+        b=FSRpkeEs1GoBZ6j0abLeYzJ76QTzmVCRV58hrc+rITwJPztbnc6xDX1W6OwowCYBSw
+         AMfBgw3kX1bak8uGeZSFeMw6ef2JSu39RKW1dGQzjE9BcfaS2SqKg8Ef8Pynl8VD/cfW
+         JtTYm6DXbIhREqoCyFxzfJEi5oNU1CvF9U823b8T7hPf902W5oPmVw0puCATgN9NEK/r
+         V0Jm1YwN0fbTIfSydcfICMnibryg6eUAZxUNcoiyFbevX1p6YLCGIUAO7obmEnFUcnkr
+         2MzQ8GpBZZ/T3bXRloUOfFxZNpbS1PxcsgHYG1KCudaJq6M5pqvE1EMcCLtGESYQExlo
+         h1mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770358964; x=1770963764;
+        d=1e100.net; s=20230601; t=1770359391; x=1770964191;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OL70kP6yGavXgSQW1KtWli/IeEhjXcq7DRjMjwt40Hk=;
-        b=Ghp+K0yNWUUUN6swsJH/1+U59D4jI6MI2Yo+zWRYnPNRhnmWHQg9khcC4CLccTblS2
-         KZas1dOaPXe+O+Af1yB464S1ZGv9R10x5TtRa+2UytccJsCD1YfJNykwYCVAaxy34fOH
-         7mAYKF+Bj4rhpPQRTr2v6qNefPxUIysDZftvuu9drBw8bPBMZZIRV/BXjMpChRiuP3Vf
-         5Owb7Rgnqei6+AOy4qwoUXFxdycTLtrhZx/X3QgLGLq9MRCcJaSJP+IxQ5REakBLVhLj
-         dOxo8FiAIDLwu9v6kf6YNtnNjFN39gNpnVfPQqr5FLNYnwOIWd4YlarOYkdGt4DwUZdA
-         GotQ==
-X-Gm-Message-State: AOJu0Yz+yF8HAkmmuFb+DrDKuAqHBFG6l0a9Rf/7VGsquyG9BdYeJAVo
-	LOTt9Xdswq5Fyfo332r0k2Hl1plIbPN1o0iiQfNKsnHqgcMTpa688uURqZQVqKK8Pg==
-X-Gm-Gg: AZuq6aK591jgs72OyL2Bkg+OSY5rOoHRDT6UQ+Mmr/RrWuKcWwoo6BDl97EpAeI9aDr
-	57jSJ4D2VZ8QttkennF1YxLXgbzAx6UBfWtHw6m05IBZz/sC57ilaOhWfWglNspVal+tm9UZenI
-	u54Y6u3YbBxQ31qOcTM15+EEnjKA/OsknjR/P8KEqeGfSC0le0mYMtTvUApM08EfS4ZridmCJtk
-	UAP4qImhi8FbgabVBQj6GH0gk2DDBZnt2FwRcJDF7bUQ2GdTfH7X4JFqSDGX8JMYVD4V9e8K4LJ
-	HsUzEBzIWuYsCZfKq9B2KIT2jh2utQTdx52xVPgGGbfBLtzD3AKeL7w9jnthVsFP9OV95xdusCL
-	46PTibujHctyQM2xWFnwVJNAzktulF3s6M6VCtpZuSAZC4rGr1IzJSUzvO6mHYUYBGGgWghDq3a
-	crG/HcTqnTPcEieTe9m4LL8QDK0t2u7S+RpdYH4yKJ2SGjw74vZ3EGkDmMMTvyZPgtK1oQhKcRr
-	AWrQV+HkasgoZwzOrYodyAnO/CeS1raVoeKRC366TpFYU81
-X-Received: by 2002:a05:6000:184f:b0:435:e57a:9082 with SMTP id ffacd0b85a97d-4362938b122mr2753129f8f.46.1770358964233;
-        Thu, 05 Feb 2026 22:22:44 -0800 (PST)
-Message-ID: <eeccafa8-8474-485d-afd5-85d9eecdb241@suse.com>
-Date: Fri, 6 Feb 2026 07:22:42 +0100
+        bh=l7I3grGE0i9bClpF/I10K1YRr3J6btGMAkpgptDyg/o=;
+        b=O+AvC0mWUzmKcaUO6HiTnN3rC5I2G48A2X/8aF35u3GEyzQGC7vESXNx1rEf46qMx3
+         e7XNIC0G6ACWT2VDsyS4WYSXXxTB24cnwxZk4kTdYEeDDc54ARhH0UEMDJTgYGUEyJJk
+         u6Z50dqgCryKEBpYeNA22G23xY7p4c+P0gOYkMDgqBFE5v+4Wb+nnwHhw6uNn/DeyObF
+         gQ+WZ4kkbPVD9UVAcC5XIRtwF+KSOeZOm9pCqtCijLtUesWfMriS9toTgYidTiAysY9D
+         ldG2sLYuY5cP6zaFtyQ8o5qRA0M6XmCIZvIxJE2zN+ddKz8jOBrrEj3U85jA50pObGb2
+         K4HQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWptZ+Eg103aAghMxvBTFIbwje1yOqrkkay3bi5a1+FG+5eE/uF7zqQdXOlHxau3/E/fev/HLwh8DQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8M5QCbT/eybkIBHKgu0yMayCkb384mGQL52c7jLzGMC865YoR
+	nG4s+s6Yg2dFqCElfHIaPp2AjsjouzC5UcQrZ6s9Qm5KTUOQgHO+1RDwX1wY4upimg==
+X-Gm-Gg: AZuq6aLwRr6dJLT2KNMuOn2llA/YpdngEfH0sZXmlirz+5fPp5MxVB20/ANCo2IJLZA
+	8YJMOf6KRu2GcVqe5JNv5HQnimrsmHZNVZpe9MCOjsNtQHUtxCdcMO9aarA1T8AYi8sH3dn3ew4
+	qgsDOrWI1OXLOfQql9lFhTBID/18LOE5j2W7Y3MdVhbOKeIkjo8iHEZWJoAMeY57R3ImOsi+xa1
+	vkgmRaEeITrhyV9jZLKoxocna23zXV00p6Od0CVild7dRfoFXFEMNK5s34fsHTxdxY4rcK86V+m
+	qROdpOXcOWafOA6DRbD7gCwG3j8Bz6h13RzrcEQAj9Ue18u6gOwuBUY2QekNk3s7OgzXnCNOoES
+	MHQy23KV1pmA11N9G6GGRrLzp9TwBkV3AXzXlME3oVMURNP4/Vs1bQkeNi186tlTIlAD8tgHHcZ
+	UrfPHMgZmeaFCx5ys2wLogple+8qEnrHWaMxFvSzu2r7A81C7JhraHFz7B3xGl4mqiaYGMOIVfz
+	BJyUrGSiB2kvOlA8LweQ3kS6WIVR0b17bp1VmRMbAiga+Fu
+X-Received: by 2002:a05:600c:8215:b0:480:4c20:6a06 with SMTP id 5b1f17b1804b1-48320966792mr20244075e9.17.1770359391131;
+        Thu, 05 Feb 2026 22:29:51 -0800 (PST)
+Message-ID: <be09e51c-5201-4837-9921-5ac0d8cae582@suse.com>
+Date: Fri, 6 Feb 2026 07:29:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Add macOS hypervisor build configuration
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH] efi: Enable EFI_SET_VIRTUAL_ADDRESS_MAP by default
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
- <aYTONBslOYwyrFqM@Mac.lan>
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <82dfede43d81c2072f90b01d12fe5ef18c80fc24.1770312308.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,9 +131,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aYTONBslOYwyrFqM@Mac.lan>
+In-Reply-To: <82dfede43d81c2072f90b01d12fe5ef18c80fc24.1770312308.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -139,10 +142,10 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -158,32 +161,48 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 8D143FA9CB
+X-Rspamd-Queue-Id: 0881DFAAE2
 X-Rspamd-Action: no action
 
-On 05.02.2026 18:07, Roger Pau Monné wrote:
-> On Thu, Feb 05, 2026 at 12:33:54PM +0100, Bertrand Marquis wrote:
->> +## Limitations
->> +
->> +- **Hypervisor only**: This only builds the Xen hypervisor, not the tools
->> +- **Cross-compilation only**: Native builds are not supported
-> 
-> Probably a more philosophical question, but is it really a cross
-> compilation if I'm building an arm64 Xen on Apple arm64 silicon?
-> 
-> Sure, it might use a different toolchain from native, but it's still a
-> "native" build from an architectural perspective?
+On 05.02.2026 18:27, Teddy Astie wrote:
+> Many machines fail to boot if this option is disabled, as
+> there are no known drawback toggling this option, enable it
+> by default.
 
-"Cross" aiui covers both OS (i.e. ABI) and hardware. Building x86 Linux
-binaries on e.g. Windows is "cross", too. (Strictly speaking it's the
-target triplet that is commonly used in at least GNU - if any part
-differs, it's "cross". It just so happens that Xen uses Linux'es ABI,
-and hence its building is native on identical-arch Linux.)
+"no known drawback" ignores why it wasn't enabled originally. Imo this
+wants at least mentioning, if not discussing.
+
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -363,13 +363,14 @@ config KEXEC
+>  
+>  config EFI_SET_VIRTUAL_ADDRESS_MAP
+>      bool "EFI: call SetVirtualAddressMap()" if EXPERT
+> +    default y
+>      help
+>        Call EFI SetVirtualAddressMap() runtime service to setup memory map for
+>        further runtime services. According to UEFI spec, it isn't strictly
+>        necessary, but many UEFI implementations misbehave when this call is
+>        missing.
+>  
+> -      If unsure, say N.
+> +      If unsure, say Y.
+
+When this was added, it was actually hacked in with the aim of minimal
+intrusiveness. When we now default it to on, I wonder if other changes
+shouldn't be made (maybe not right in this patch, but perhaps in a
+single series). For example, identity mapping (with its implied
+restrictions) ought to be possible to do away with when the option is
+enabled. Whether the separate EFI page tables would still be needed
+also is questionable.
+
+I further wonder whether the EXPERT dependency of the prompt wouldn't
+better be dropped when flipping the default.
 
 Jan
 
