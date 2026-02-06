@@ -2,67 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aAG0CjVIhWkN/QMAu9opvQ
+	id gDqfMidJhWkN/QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 02:47:33 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 02:51:35 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A461F9048
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 02:47:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1222679.1530447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23CD9F9147
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Feb 2026 02:51:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1222692.1530457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voAwI-00052j-Go; Fri, 06 Feb 2026 01:47:18 +0000
+	id 1voAzk-0006iq-0I; Fri, 06 Feb 2026 01:50:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1222679.1530447; Fri, 06 Feb 2026 01:47:18 +0000
+Received: by outflank-mailman (output) from mailman id 1222692.1530457; Fri, 06 Feb 2026 01:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voAwI-00050K-DP; Fri, 06 Feb 2026 01:47:18 +0000
-Received: by outflank-mailman (input) for mailman id 1222679;
- Fri, 06 Feb 2026 01:47:17 +0000
+	id 1voAzj-0006gp-Tr; Fri, 06 Feb 2026 01:50:51 +0000
+Received: by outflank-mailman (input) for mailman id 1222692;
+ Fri, 06 Feb 2026 01:50:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FjYH=AK=ford.com=dmukhin@srs-se1.protection.inumbo.net>)
- id 1voAwH-00050E-Fw
- for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 01:47:17 +0000
-Received: from mx0b-00498f03.pphosted.com (mx0b-00498f03.pphosted.com
- [148.163.143.241]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3526ef1-02fd-11f1-b161-2bf370ae4941;
- Fri, 06 Feb 2026 02:47:16 +0100 (CET)
-Received: from pps.filterd (m0367128.ppops.net [127.0.0.1])
- by mx0b-00498f03.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 6161ONER003688
- for <xen-devel@lists.xenproject.org>; Fri, 6 Feb 2026 01:47:14 GMT
-Received: from dm5pr21cu001.outbound.protection.outlook.com
- (mail-centralusazon11011004.outbound.protection.outlook.com [52.101.62.4])
- by mx0b-00498f03.pphosted.com (PPS) with ESMTPS id 4c1vf7k4f0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Fri, 06 Feb 2026 01:47:14 +0000 (GMT)
-Received: from BL1PR13CA0093.namprd13.prod.outlook.com (2603:10b6:208:2b9::8)
- by BN0PR16MB4382.namprd16.prod.outlook.com (2603:10b6:408:162::19)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3tkN=AK=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1voAzi-0006gj-6v
+ for xen-devel@lists.xenproject.org; Fri, 06 Feb 2026 01:50:50 +0000
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c111::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4104abbe-02fe-11f1-b161-2bf370ae4941;
+ Fri, 06 Feb 2026 02:50:47 +0100 (CET)
+Received: from MW4PR04CA0345.namprd04.prod.outlook.com (2603:10b6:303:8a::20)
+ by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Fri, 6 Feb
- 2026 01:47:09 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:208:2b9:cafe::65) by BL1PR13CA0093.outlook.office365.com
- (2603:10b6:208:2b9::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.15 via Frontend Transport; Fri,
- 6 Feb 2026 01:47:10 +0000
-Received: from mx0b-00498f04.pphosted.com (148.163.138.245) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.10
- via Frontend Transport; Fri, 6 Feb 2026 01:47:08 +0000
-Received: from pps.filterd (m0426316.ppops.net [127.0.0.1])
- by mx0b-00498f04.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 615Nnige1197779
- for <xen-devel@lists.xenproject.org>; Thu, 5 Feb 2026 20:47:07 -0500
-Received: from smtp-us.ser.proofpoint.com (pmta-usw.ser.proofpoint.com
- [50.112.124.217])
- by mx0b-00498f04.pphosted.com (PPS) with ESMTPS id 4c21ngwhf9-46
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Thu, 05 Feb 2026 20:47:06 -0500 (EST)
-Received: from localhost ([19.12.92.221]) by cmsmtp with ESMTPSA
- id oAw3vhYKmkQ6qoAw4vHfU9; Fri, 06 Feb 2026 01:47:06 +0000
+ 2026 01:50:36 +0000
+Received: from MWH0EPF000C6184.namprd02.prod.outlook.com
+ (2603:10b6:303:8a:cafe::d4) by MW4PR04CA0345.outlook.office365.com
+ (2603:10b6:303:8a::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.12 via Frontend Transport; Fri,
+ 6 Feb 2026 01:50:31 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C6184.mail.protection.outlook.com (10.167.249.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Fri, 6 Feb 2026 01:50:36 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Feb
+ 2026 19:50:35 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Feb
+ 2026 17:50:35 -0800
+Received: from SATLEXMB03.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 5 Feb 2026 19:50:34 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,571 +68,515 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3526ef1-02fd-11f1-b161-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=ppford; bh=4xse/WhVvbHwCu4OtjXNed2d6MA
-	IynAObHok+8iB7pk=; b=vbmVj9lbKcRF7Pf19ATGrcEuWw4oIiCMIb5T8xA3WIS
-	w4N0eLCn2/nff59I8srJHd0m35oEELgY7zoDho7IbaFEhaaeWVk/zhRDfsoMFIuG
-	pxRYsm7r2lRePwWvJ0NPkyFNk2lflmtnsRKaxuUxYQbRXpmUkGT3ERzaDRTmogB3
-	7wY9A8bAf4PawC+5jpSiERnuvWgsSLSPtkxXnS4bhdlTkY7ZOoPBix/wR8gaFCYc
-	thLWcozBGkRaHvpMo9E3hjymIyUaxHbUMV9l0tXWTxkvR/g47tonZF+Jr8WEyuZk
-	nQH5FFkCfS1xo741gbLj/G4JoJKQIwhCMnfaikDjLJA==
+X-Inumbo-ID: 4104abbe-02fe-11f1-b161-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SPo894kfcd9ChbaqfeTI1KCJcsGankIBgJRdsvtzsbwtqwKIelN0GYEbQj0fmn26FCzmk7JpAaipPNA/bwtRZprqhy9/XzhqKfUlgHa5wYNmPBxHvOhK1GDiF/RMVLkTcuEIbeU3FnfVIYjiJqJLeP7cDrakhIOmQTUrj5B2op7haHWZDQovJEwiQo5uLxFoMJOTOIWyO+vFOR2087V/enHnp6X96hHo/+DdU5DwpNtnwOt4ec1nwajVU8TSAd5vUdUxIC06j8nw0dYYP6iN9TeAuiLuuLSfCYHf9KbnAW94GGa3jrjUPhHt0I7sG4GdWcvNvCC6eKY4nZEHE94I0A==
+ b=iD5pw1+mxd7adUdDgr4rFavYuJIPKPWeb1vFABabnc1l18T06D+liMz/YrrZh9oyDxZBxuU4yBBXIWW3uRmgDh8xOlWx8uwtzT46rTW2wUqpCoM5lzQCveGTACmo5eoJFhmccbC5RVhJwDyStDgzw9guQ3YKbFxxfWsmtqJVOXMgdMTLb57Ka/+5qowsMZyZg3KRtZMHbzID+Oe7xE06YnuOh7c7YFlGk9dGLuZbSUUlnNr9Ao6yKvfV4xtxIjptczn5Z5sBoaTSkViKJ4Z5+L6V+7+Dpp5dbdmhZg0gRcabOjyj4eqWIrftqadOR/pwI2BqelQDPuPZ/TDFgjpJwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4xse/WhVvbHwCu4OtjXNed2d6MAIynAObHok+8iB7pk=;
- b=C73qhxksH8RuVD+D36dY4REpxxJuUuMmKGqekPM6OSmKNeLT1/+WkdrIj3BKq+Xnwkm4/Kp1ZrkQHGeW+9FmrZbtM+G7YGvokzFCT0E4UiRLBYsWCkRTryUlqcXtZQ5y9oDwdfOuzdGSYMREJaZY1ox0DVuZO6ycm5yjoEJe/hBsFRQ8jrXrOe9DLbe0QxzRqB8qacj4fULqOMVu5ryS7qpZS4V6hyyb3P9IWopy5gCafT7+ylVpOfIorhaG8LYLOI1twVna/4ViHIBSO/oIiN+FgX1WSPl+zbFbGwdEkbtyOCoemE4i6KiM0A4N88oJOtRSGF2B7a76cWgpB3V1hw==
+ bh=LRe9l5/IqMVz6Ul6sKy+ceH0KLiOj3WX5G6evYctrQo=;
+ b=ptRfNm1n5qP43RNS91gImSpjK8paulrxdY9YRy7nwM+bX1rpDVeerfOEJV66tjqPcYFQzdDLcwrUFRFoLTMkKBq1TzktHC3VHcVBGkf3oS6SdSWTo8D4wSIgKLw4N/Hn03deljWZlhSYw5bnyFVNP+itdvpAB8Nf2Jsx8TR18QrrLvJtQUOxlGmrOF+OqECqFMUi+GW4500k81MqlY22Ygzn60XXsGMoXswgjmKtFKS6APqWaoajqLRanc6V6GViI82WEXpzbnxId/onDhaF7fNiAaqp6GdFx3FZ3IektIUN/G4kTmzCR1d+pY9mIYKbY8wxrXnHTqq9FPkXnN6YvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 148.163.138.245) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=ford.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=ford.com; dkim=pass (signature was verified)
- header.d=saarlouis.ford.com; dkim=pass (signature was verified)
- header.d=ford.com; arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=azureford.onmicrosoft.com; s=selector2-azureford-onmicrosoft-com;
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4xse/WhVvbHwCu4OtjXNed2d6MAIynAObHok+8iB7pk=;
- b=RzxvkFHdYPwSRkVHu1OHZUPt0T8ESBTE0FVwI96xUDHrONg29Rhn9kegFPa3LBD7M0vqTbUlQatgcHc2eVnAXFE+L1AjcS0VxfRTA/Nn23bqm3HED32x/SWqHNNZTUimrd7yuXfs2Ht1pnMFgfemHGnp9aHOt9zlap7GMUxrBq4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 148.163.138.245)
- smtp.mailfrom=ford.com; dkim=pass (signature was verified)
- header.d=saarlouis.ford.com;dkim=pass (signature was verified)
- header.d=ford.com;dmarc=pass action=none header.from=ford.com;
-Received-SPF: Pass (protection.outlook.com: domain of ford.com designates
- 148.163.138.245 as permitted sender) receiver=protection.outlook.com;
- client-ip=148.163.138.245; helo=mx0b-00498f04.pphosted.com; pr=C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	saarlouis.ford.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=ppserprodsaar;
-	 bh=4xse/WhVvbHwCu4OtjXNed2d6MAIynAObHok+8iB7pk=; b=fa5NgOvQiXCR
-	ynIamat+WCb6hqgVFNlqHkSLMjYBeD8b1KNHy8vluaygO7U0rqga4hu+wHSiyiau
-	7lX4F2jeROqIx2QGm6RpiT9UQeNbuGxT6MJyxkkFm1gUhTQPXYabDRnIiRT2eBAM
-	h/pX8xOztfR658a05kq+oUNJdVMIoBqunta7Q2/bfYon5oHw3BhBrZv+hurDoYax
-	sB/US1QKW76eUduvRDYqSVXfqmd3b/EC/HbQ6ESNdyI8o4/WgXeBT3z1AxiVGuQm
-	YRZibk0/Zg1EO1cgqgP2TvnCvV/+jykhGkpRpuCUNjr10x0lReLVny5SzQd/HdDj
-	sw1tjCrCqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=ppfserpocford; bh=4xse/WhVvbHwCu4OtjXN
-	ed2d6MAIynAObHok+8iB7pk=; b=TJHNLWMWu0zmcAAbDrzC6a4cmMJnaY/Q8cuW
-	mQEBiyn0kYGyRK4eVayp9IEyRg5sj40nrnFpvGydWCDd/A7A0GStxjFENaK6z8J3
-	1vsRh11P8ZFy6/eP81j6HJDCm38d7R8JTe2760ssc+9UnwrIvU4yrTZpZBRy6gr+
-	XY/OB7UztzvUqbW6z1Q78nGRPgtjyLG2b/LqZpun/gpQNOFWRIAJT1p0Q2johHhq
-	VLVKp99dTeiYzqfCvmGMJ2eaRtTVQIoP24sjfBfvPdd6Zrf5FVgjIs3cixezlG0T
-	/s/DkV1FG9kEKDl+4KO43y+ThcEtCkhYjYWmrnTfdpm85genDQ==
-X-Mailer: SER-76bead168636dc6ed1c9e51ce4dea80dbdd4163750742b614a4d871e565792b7
-X-Cloudmark-MID: oAw3vhYKmkQ6qoAw4vHfU9
-X-Proofpoint-CID: eb09f7eb-2dc2-34ab-a188-7b293c1db1fe
-From: dmukhin@ford.com
-Date: Thu, 5 Feb 2026 17:47:03 -0800
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-        anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-        michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
-Subject: Re: [PATCH v2 4/4] tests: use unit test fragment in vPCI test
-Message-ID: <aYVIF1mcNgElm0E3@kraken>
-References: <20260111041145.553673-1-dmukhin@ford.com>
- <20260111041145.553673-5-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2601231718380.7192@ubuntu-linux-20-04-desktop>
+ bh=LRe9l5/IqMVz6Ul6sKy+ceH0KLiOj3WX5G6evYctrQo=;
+ b=DxpgkBpZKvXntcf5xzfT65U96R90QE2KMe6jsD7bROJalCtiuKJC7bNOuo/E9YvZSK3u/gHwn8SIWgRaD/CbGrYZajvSbFAVW12MXETPFtVJJl2HO5TqQfBZw/Ct1SquU3KEywNVlTHwo1AANDvg7pJn56UCif0Kijq1eKkDg7U=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
+	<jason.andryuk@amd.com>, <alejandro.garciavallejo@amd.com>, "Stefano
+ Stabellini" <stefano.stabellini@amd.com>
+Subject: [PATCH] x86/hvm: Add Kconfig option to disable nested virtualization
+Date: Thu, 5 Feb 2026 17:50:32 -0800
+Message-ID: <20260206015032.4159672-1-stefano.stabellini@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2601231718380.7192@ubuntu-linux-20-04-desktop>
-PSER-M365-App: SER-APP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-05_06,2026-02-05_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- spamscore=0 adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
- definitions=main-2602060012
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|BN0PR16MB4382:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6614809-af2f-44bd-4dda-08de6521a38f
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6184:EE_|IA0PR12MB8693:EE_
+X-MS-Office365-Filtering-Correlation-Id: 476fe122-bd96-4192-92b9-08de65221f4a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?vknYQuRoN+4XZEgf8bhfWDWYtJYWwr9YeN+jCfVgawZypChmluFDFLvPS77o?=
- =?us-ascii?Q?A+2BAz/tXWx3r+t0I3c+BzcTOglKPM1vioUP5Bmx8gLhGKmRYOTOjGR28h91?=
- =?us-ascii?Q?RI0pQe+g0ZLYWzggCoGSZzAGRe3wrrpTzm8ewnb2IFbjWLV+02bdwZNHPbyH?=
- =?us-ascii?Q?eHkWqvGQgY2l7uUoefioQ/RPEJzkxw2b8RdOKX9zGIbIiDOeJlBmh1m/4jPo?=
- =?us-ascii?Q?025/b2UL66sEMIVSmPqhafZNAKLNyhx9QPQ1nt2mY0+H9B7aiVJqepd3WbIF?=
- =?us-ascii?Q?eCdOnZcdt14tZA64jikjUPDNxuW0XmjtS9368WyEdYh5gnjx2HKG5qpntAig?=
- =?us-ascii?Q?/iDquHyHvWDQkOSrI14ZFarB39cd7iR4U9kCKOOIXIwEMmdQKpocuPVNS2yr?=
- =?us-ascii?Q?p3UDK/0Yi86XxIkB204OQvwr8PwNVr7Al1AE2Ttey1yB576HP/QCYB5WnXJD?=
- =?us-ascii?Q?m0Drf/I8u5rMdam9/dDXYeOekRWbrHSZ7x2TOzVFzCceSpa1lmy7HxGjtIFn?=
- =?us-ascii?Q?OKOlFgo8ix7a1AYR4BIN7VeJW06FQ963RH93i0z9qmloEBBVKp8vfi/RpsF0?=
- =?us-ascii?Q?7vAKT0shCMkDE/cT8W62m0GVd9joqdJrtSO/m1lLroau4v3aGrUy4ANJW1BW?=
- =?us-ascii?Q?Z/zRt2hYugC/ihCFPGxGiFZwuwkzUmaxbf341mmua7oTcgXNuadD/Kykx/be?=
- =?us-ascii?Q?rE2pY1lu4SCt6rQWHeSBww66nJ96AAFMevLNMmL8mMz7znU3djQpJtHwyLPv?=
- =?us-ascii?Q?S1uH87kSZVi/VF7Go5/7dWatt2rLrMYhaNVsrg99ipjhAxuJ3gG6+fhAeInf?=
- =?us-ascii?Q?7GZsMvlKf7caoZGxc/0mi6y7H+ToArQG1cF7Rimu2VifW7sItOj98KmEtZi5?=
- =?us-ascii?Q?ITPeukH9rZWrYASHyd+n1QJxh8OZl9nwUmbUPyP/M5uz6dvsnyG+gkZe8BMR?=
- =?us-ascii?Q?rL8U22FYwAK2slPwsz9NEW+ZqLl6+JaTff/aNXSMOma0xE6P4VhQbwOXKOxE?=
- =?us-ascii?Q?TxBr/+cLBJTml32eWf+KBNM1RTTgvgWFFxaydOK1aZEDMlWm2gG5A0YtgpBr?=
- =?us-ascii?Q?541emZDlG7CfkKqFLozj3E8SGKYHMOiuejm6OBAPW33N3Zav0qIXjkwesmpU?=
- =?us-ascii?Q?dEASBqEK1xzQHGbWxTt/vKZmLHuLDnWdyfnH3KUd1UX3EAFMOYfqFSk/a+Tg?=
- =?us-ascii?Q?us0brUW+48vvUZ+nGV4yvmubPC5Iap85o4qPe7IU7SJNZVcC6HxKN2jWzXa2?=
- =?us-ascii?Q?egBUoG1isCQuRsxmtUGgWwjQItz9nNQ8rcCiLthl7YqkAXk/pcjFgxpLSc4b?=
- =?us-ascii?Q?ldyH+zZ7D7enGfiWlAHGYJ06tfQZH4YK51JySVusEx6I70ckswttWlatzG/u?=
- =?us-ascii?Q?tnudCWRwDtmBG6kAIigLy/2pt8yF9iu0V5FOcx/yZaQRJHM8alkkF7m597ie?=
- =?us-ascii?Q?ZZRIC25f8WjsjBQfKCEGqQ0S2dr11UCoV7Nes+ada9TbP0LOnJ9yjsain8EY?=
- =?us-ascii?Q?DyphjhMru2Lo1ArWUxj3tVggkqzWkseGGMein525qx6UZUbzebIqYuNI6GTB?=
- =?us-ascii?Q?lgb3y7pLEBWj1NjAWeIXxJLYpCymRzhnJA3exD0GOiY9spJcPLmMG/tfIAs0?=
- =?us-ascii?Q?EqC93UDowcOhVCQ3OaS4XHRIUPWVqLg1BtLm++1/ITnydJie1nMukvmXEi6g?=
- =?us-ascii?Q?oxUdiA=3D=3D?=
+	=?us-ascii?Q?jxtcmPK/4ITR/hSMAlnkDpmgNg50m9fhWXPN8SSAS0NuI1ctSWAQgwLdElnT?=
+ =?us-ascii?Q?1FnBxAonNGrQS/q2XuqthF5/QPKsctd256yUtUiiu+IHqsUOIgfBvgeyQv70?=
+ =?us-ascii?Q?O8u0mdgmy5QZWvsFJl061SEE93+95tT3Rq4LzsyRPvbiYos9R2l0rXSrwQpo?=
+ =?us-ascii?Q?7vBI3d1T8TEgFo0KsrY7rj6Yi7hylWLU9xhJ22Q6O6An1RFX9kR5ePJGOUfq?=
+ =?us-ascii?Q?cfywzum7FJCksIySanKYxDloJBhQUgfqgZ2zCS2FU2060ncCk00iuJSOXnpi?=
+ =?us-ascii?Q?sIb/3QZEHHiNw+czm76drsXbVkhOV3KN79rI6Zc9AlyC0G5yVZpFAGkcygGn?=
+ =?us-ascii?Q?nIgjIiTZoEsBfuNxWubpLMMwk0EL7u4kx6Fp64MTz2vGaWBqL+R7TSZOOcT0?=
+ =?us-ascii?Q?ozR3LgUk4rDjCYVQbtaKSH48RssvUXCw6NAZsvPuBwq+kWzLBXoVSEhWvQED?=
+ =?us-ascii?Q?fImB54MiyuNhuysprTCj+QtDQZr3VJGPiQ7Uxd3gf1BQiI085qzRw2LQUMmv?=
+ =?us-ascii?Q?EAWS6SxZKhPj7vwNn2y8xwyzlYhQ+HjOcVqeKqDGtAqZZcxZuhI/p1ynstS4?=
+ =?us-ascii?Q?SrsG5cTDxZtty/qyz+q9EDHHiOoEQ4Rni90NUQoiUeE5xLszhmaD2W+JNTTE?=
+ =?us-ascii?Q?fBbGcJz+AdnsAYB5fCYCCXm35bxT8KkZA6FA3La4Wn6VPknzgVKp31OFbvae?=
+ =?us-ascii?Q?owGNSbwcVU2EEJLFOEvXjWuMLjgw97sJ8ZusZDbU4wbaaopKRSqVdsLbsn+2?=
+ =?us-ascii?Q?Ir9LA94JBW7azqDTHnyj6DOfKwC0bwNPBktEMifYj/wTpa7ZjZimOa8gy5GT?=
+ =?us-ascii?Q?2xmhGOtlVdu74Uw1QNsqUVUXdgoj9udU+h271ri7flbzf4GbP1+9QXX4/1Qd?=
+ =?us-ascii?Q?wZfJlhBLTab2Q7BD+MVE5gnJhX0B+xufcYEy8dLM6UJtxBmU0kNLoDnDaIo9?=
+ =?us-ascii?Q?armsvVdel1J/1MxliYmDSjqEt9DyPFqe4F4itn1K9eku4RYkH+M4Hu4omy0P?=
+ =?us-ascii?Q?nVpL1BOxFp/zARonjSyqXzzSyXIhsmym5ZtkHGKdJlEK90YdKrHEcs4Lrdgd?=
+ =?us-ascii?Q?wVYHKwamOn0iCyoZUTNpl6eOah9epjYjKFDXmzSLSpm+lJRu163gZhJJAwG7?=
+ =?us-ascii?Q?/y3TUhoWsjrfMkggazRqEUgaOfT/WpJod6KB+GzwyxcEpCptwLpLp9eaCgPx?=
+ =?us-ascii?Q?WsXtmkWpBHJxHe8dbYuKXhlJAZ1aSOyvrlpD4gbD8ebplO/k1GL4kjasTvJQ?=
+ =?us-ascii?Q?VBCm+Fip4CcRSSCiWEAo/cD2snH94aAcxGmP4i9dvyLK2DHDJt+TUGPovBon?=
+ =?us-ascii?Q?ZsqD6d4ke6RnN81yeT0s4SyadJ1nk7udnREE0mLXMLJD3wgqRr3tUDXd3I+h?=
+ =?us-ascii?Q?GPWzSogea1nhFQgRG+DK2Klfw9cqW3O/4eHGrQSvUAvMEU4pa2wX3bR8BmNX?=
+ =?us-ascii?Q?qXMBkPHXWnMiv2ocxLDoyDZSP3iYTnhifRwUld9sINu7OnWbOAvAlBMMpC9g?=
+ =?us-ascii?Q?YTAfpcANQbqYXQYuvjDQdqjls1YkRKOdoiKURI4IsH+PLF/CzHHvrZsLt9Uz?=
+ =?us-ascii?Q?ulboY0rrL0oC79rukX9QovCMOD8TtK3Y7FTcyr2hcg5p51BXI4AyrDqdr38i?=
+ =?us-ascii?Q?6urZo5dd/TMKuVjmpojEt8fgbgUT7sbw66vNDnUI800xs3tfzV8yh7tN5VgW?=
+ =?us-ascii?Q?xBR9hQ=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:148.163.138.245;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx0b-00498f04.pphosted.com;PTR:mx0b-00498f04.pphosted.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Gq398ag/304EYaFfdqsThP5/HS81H2uP7ou+FYOt+mIQpN12yaS5xZrdCmXhOFNbY9H/Yn9qZoi20wQkXPNFwmAcvmRX6LvXNJfCm3QbzL//ZyoWx8FVbdHy+37mp06XA6XRKMtqq6PBzEzrhGbH1JLxoGuSvZVVV9GZnGBWau2opWd050GAlZ08odadCyDThZRoYvVneuWMRy1L8zdkIEER6N4KBhLtGkEwOmLWts6/CLLm4DZpv/JN0ZtmrbazqD61h+A0hJKxjP6olDfAEd5VxT4Y/wfRo/PW094jRr0+4tmvIPuiwXp/ykOtYsC9Yd1Dg/38Jp1fJgxj1s1O4IcYJxANEKzJgGXMuM4eijJGArOzLarMp6VddaHyz6+/AjZhYk0g3w6xTtdIuwXBeHzD8Xkg3tZK26gBcLzAmK7qAXF5kA9pKFWXZRvvz9Hn
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	6qcR5LVRnXKuN+WtfnCpSQAbhvXfGHxs2taXuNcHt934Iex3Ts0pHW2azFIqBbOwFHUFaKaktJnvpM4bdPxqsoe7sSSxf0RA3DjjOliWHH25vm9z3CJaG8q7IsEMuwGuK58elCR3Nd1Eq0E2YHU6+e+LYbKDpXHBDST0owzg3bTwlw39IUMnMT6h4winCSMmJKE9aDZNeIXbmUqW3e3lbsI/9Dqbs4cvcHUNbzClBnZXCOCXxipT+QJSUCqIPKBXRyT31gTFsZZISSE2bm0+uuGRkzG28Qdi6gJ9xVg8Wj8vLCqJPJyU3lL63yEmGH8mtH9pX4rG+pzvmSIy9Ozn5RqfMA+8k/8AnaatMSXZUCHv9KJnL//LR7bgunj/wgVqkycjDCvG+AKaFC4rAeYPHWSZNG6AB93MPysQbSZkwPc8CqNG3kyZnnJCbd677rWJh4OP2vjhtSbJLS0ws2eMZJ9r4AL1b8HbTpM7Yvcle0OqNvZg21DgI2UxoK4h1b2CRj2FThID8C731DHyIrsW8CeuSpwcBP2/EJvc5JY0G2I2S8hP16RuWh96UgsKgTMSsKbfJLKL8NWlnQPHry7h6aWImx7Gtx5Sw0FXe61V1JjMZESp1sOwujW2lp2uAT8r
-X-OriginatorOrg: ford.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 01:47:08.4591
+	f7Pc5not10eH5ZOI9J/sZtogRJGDp0cjZ294s/d33LYd8YOMYrPoP6dwYj/2KZ3iJ6F9byQKrxGE5rjznPe9RPHAF8UJ0oY+OnyPWGc2nEzGNNxuC97bx+ZIK409ArRBgnR6oMAJCVyaydv/j1OfISvisZlFrLUZFa6ytuOGgjnPDDfQht9BRVzlJQyFQPuTwZk/FihT6pvLQMufgLQtnEdcPx+MkxHk+a9fRD9mdD4FxnOUibZatyAHMZ5ducefAjKi2APdSgMOAvu0pVvE7rG5NYBjXwF4KiP6umb2HsfxiMRQ6yymjkOMcq+NplZDffoHdTxVgfuyRiwn03rUVHWu30QpKi9pOotgOJBxr3AXBm2Y7UUgi+60zsD1+VOvAG+5zE/leYcg8BN9EkN3tCHDNjDJVUp7hOietAt0zy+Vk7lWcnpUyqLWjfT1YNP1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 01:50:36.0126
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6614809-af2f-44bd-4dda-08de6521a38f
-X-MS-Exchange-CrossTenant-Id: c990bb7a-51f4-439b-bd36-9c07fb1041c0
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c990bb7a-51f4-439b-bd36-9c07fb1041c0;Ip=[148.163.138.245];Helo=[mx0b-00498f04.pphosted.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 476fe122-bd96-4192-92b9-08de65221f4a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A104.namprd05.prod.outlook.com
+	MWH0EPF000C6184.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR16MB4382
-X-Proofpoint-GUID: wq4EQBbEVO_uNOTRCAJIITM8VWjQe39A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjA2MDAxMSBTYWx0ZWRfX7VSgKJGWOftm iU2PVe/Wv2FqdePto+vP1fWSLtYjYO4I1SnYcLGyUKAjPGUjqL3aZ3Ajwo7165hh8eq+gTYMGd6 bxxVIIOT4wlGvue5e2N7aH9tcLUReEDKL7iJAY6I3fBdtfv6kMyLU5DK5yD58fk9+G3UbFxJ9F0
- ZoFWtk+qS1ewPtbYSP9yTK9OlNFjNmns1EoUtJrjMMZtZU1jr4Y62UBbz7ZDJg6gY5WrjRULFDj 0f4+zWfOCNFU7o7uDLPT1AhgHI3kz9TQnSd2K6dzv6Gkk+ryiIfUTQS3M78VlSL5FNLiHY5IwiY W74jrcEdflIuR4oQsEvTfOGLhQUdrmOVyfhkAyk2m4mCClRP3Ja3h3glRoIh3OPOivYt6smp7Az
- eZoLgUuvKvXQYcrXVCS34+QnMH3AW046uvwVHfa8ai6U9qrv0a2cuvC6KcNE8YHGr7IRDr0KUVQ UhhiRqDfV0rbqJvqTEw==
-X-Proofpoint-ORIG-GUID: wq4EQBbEVO_uNOTRCAJIITM8VWjQe39A
-X-Authority-Analysis: v=2.4 cv=Ffk6BZ+6 c=1 sm=1 tr=0 ts=69854822 cx=c_pps a=7APEvFnVlBjFtWv3F9ubqA==:117 a=b7IhknPlfT0FN1EembXvig==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=HzLeVaNsDn8A:10 a=3PXLN80vpJUA:10 a=6NUGLSImWEsA:10
- a=w9pew1qAHqMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=mLnsDVdbAAAA:8 a=cbNQJ9GKAAAA:8 a=kDw80TMy2X5veftrcYMA:9 a=CjuIK1q_8ugA:10 a=DqJYxgmhk6moR-_7_KoZ:22 a=xnp1pY6zelCj5OLna2To:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-05_06,2026-02-05_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 lowpriorityscore=0 phishscore=0
- adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2601150000
- definitions=main-2602060011
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.69 / 15.00];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[ford.com,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[ford.com:s=ppford,azureford.onmicrosoft.com:s=selector2-azureford-onmicrosoft-com,saarlouis.ford.com:s=ppserprodsaar,ford.com:s=ppfserpocford];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:dmukhin@ford.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,m:stefano.stabellini@amd.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[stefano.stabellini@amd.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[ford.com:+,azureford.onmicrosoft.com:+,saarlouis.ford.com:+];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FROM_NO_DN(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,ford.com:dkim,saarlouis.ford.com:dkim,xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 2A461F9048
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stefano.stabellini@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 23CD9F9147
 X-Rspamd-Action: no action
 
-On Fri, Jan 23, 2026 at 05:25:18PM -0800, Stefano Stabellini wrote:
-> On Sat, 10 Jan 2026, dmukhin@xen.org wrote:
-> > From: Denis Mukhin <dmukhin@ford.com> 
-> > 
-> > Use the new make fragment to generate test harness code for
-> > the vPCI unit test.
-> > 
-> > Add new prepare-harness target to tests/Rules.mk as an optional step for
-> > setting up mocked environment for building a test.
-> > 
-> > Fix hypervisor headers used to compile vpci.c against host environment
-> > where necessary.
-> > 
-> > Fixup emul.h by adding missing mocks to account for new unit test infra.
-> > 
-> > Update .gitignore to exclude generated test build-time dependencies.
-> > 
-> > Not a functional change.
-> > 
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v1:
-> > - new patch
-> > ---
-> >  tools/tests/Rules.mk        |  5 +++-
-> >  tools/tests/vpci/.gitignore |  2 ++
-> >  tools/tests/vpci/Makefile   | 52 ++++++++++++-------------------------
-> >  tools/tests/vpci/emul.h     | 50 +++++++++++++----------------------
-> >  tools/tests/vpci/main.c     |  2 --
-> >  xen/include/xen/irq.h       |  2 ++
-> >  xen/include/xen/list.h      |  2 ++
-> >  xen/include/xen/numa.h      |  2 ++
-> >  xen/include/xen/pci.h       |  2 ++
-> >  xen/include/xen/pfn.h       |  2 ++
-> >  xen/include/xen/spinlock.h  |  2 ++
-> >  xen/include/xen/types.h     |  4 +++
-> >  12 files changed, 56 insertions(+), 71 deletions(-)
-> >  create mode 100644 tools/tests/vpci/.gitignore
-> > 
-> > diff --git a/tools/tests/Rules.mk b/tools/tests/Rules.mk
-> > index daa9e69301e4..26f3d00b5fb9 100644
-> > --- a/tools/tests/Rules.mk
-> > +++ b/tools/tests/Rules.mk
-> > @@ -11,13 +11,16 @@ $(shell sed -n \
-> >      's/^[ \t]*# *include[ \t]*[<"]\([^">]*\)[">].*/\1/p' $(1) 2>/dev/null)
-> >  endef
-> >  
-> > +.PHONY: prepare-harness
-> > +prepare-harness:
-> > +
-> >  # Generate mock environment by replicating header file hierarchy;
-> >  # each header file will point to a harness header.
-> >  #
-> >  # $1 target
-> >  # $2 list of test harnesses
-> >  define emit-harness-nested-rule
-> > -$(1): $(2)
-> > +$(1): prepare-harness $(2)
-> >  	set -e; \
-> >  	mkdir -p $$(@D); \
-> >  	for i in $(2); do [ -e $$@ ] || ln -s $$$$i $$@; done
-> > diff --git a/tools/tests/vpci/.gitignore b/tools/tests/vpci/.gitignore
-> > new file mode 100644
-> > index 000000000000..d66c2cd56be6
-> > --- /dev/null
-> > +++ b/tools/tests/vpci/.gitignore
-> > @@ -0,0 +1,2 @@
-> > +/generated
-> > +test-vpci
-> > diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
-> > index 97359ff67f86..695a275675f8 100644
-> > --- a/tools/tests/vpci/Makefile
-> > +++ b/tools/tests/vpci/Makefile
-> > @@ -1,43 +1,23 @@
-> > -XEN_ROOT=$(CURDIR)/../../..
-> > -include $(XEN_ROOT)/tools/Rules.mk
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +#
-> > +# Unit tests for vPCI.
-> > +#
-> >  
-> > -TARGET := test_vpci
-> > +TESTS := test-vpci
-> >  
-> > -.PHONY: all
-> > -all: $(TARGET)
-> > +XEN_ROOT = $(CURDIR)/../../..
-> > +CFLAGS += -DCONFIG_HAS_VPCI
-> >  
-> > -.PHONY: run
-> > -run: $(TARGET)
-> > -ifeq ($(CC),$(HOSTCC))
-> > -	./$(TARGET)
-> > -else
-> > -	$(warning HOSTCC != CC, will not run test)
-> > -endif
-> > +include $(XEN_ROOT)/tools/tests/Rules.mk
-> >  
-> > -$(TARGET): vpci.c vpci.h list.h main.c emul.h
-> > -	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> > +# Do not mock xen/vpci.h header for the test
-> > +prepare-harness:
-> > +	set -e; mkdir -p $(CURDIR)/generated/xen; \
-> > +	ln -sf $(XEN_ROOT)/xen/include/xen/vpci.h $(CURDIR)/generated/xen
-> >  
-> > -.PHONY: clean
-> > -clean:
-> > -	rm -rf $(TARGET) *.o *~ vpci.h vpci.c list.h
-> > +CFLAGS += -I $(XEN_ROOT)/xen/include/
-> >  
-> > -.PHONY: distclean
-> > -distclean: clean
-> > +$(eval $(call vpath-with-harness-deps,vpci.c,$(XEN_ROOT)/xen/drivers/vpci/,emul.h))
-> >  
-> > -.PHONY: install
-> > -install: all
-> > -	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
-> > -	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC)/tests
-> > -
-> > -.PHONY: uninstall
-> > -uninstall:
-> > -	$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/$(TARGET)
-> > -
-> > -vpci.c: $(XEN_ROOT)/xen/drivers/vpci/vpci.c
-> > -	# Remove includes and add the test harness header
-> > -	sed -e '/#include/d' -e '1s/^/#include "emul.h"/' <$< >$@
-> > -
-> > -list.h: $(XEN_ROOT)/xen/include/xen/list.h
-> > -vpci.h: $(XEN_ROOT)/xen/include/xen/vpci.h
-> > -list.h vpci.h:
-> > -	sed -e '/#include/d' <$< >$@
-> > +test-vpci: vpci.o main.o
-> > +	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-> > diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-> > index dd048cffbf9d..979e86e2692e 100644
-> > --- a/tools/tests/vpci/emul.h
-> > +++ b/tools/tests/vpci/emul.h
-> > @@ -34,8 +34,16 @@
-> >  #define ASSERT(x) assert(x)
-> >  #define __must_check __attribute__((__warn_unused_result__))
-> >  #define cf_check
-> > +#define always_inline inline
-> >  
-> > -#include "list.h"
-> > +typedef int64_t s_time_t;
-> > +typedef uint8_t nodeid_t;
-> > +typedef uint8_t u8;
-> > +typedef uint16_t u16;
-> > +typedef uint32_t u32;
-> > +typedef uint64_t u64;
-> > +
-> > +#include <xen/list.h>
-> >  
-> >  typedef bool rwlock_t;
-> >  
-> > @@ -43,10 +51,6 @@ struct domain {
-> >      rwlock_t pci_lock;
-> >  };
-> >  
-> > -struct pci_dev {
-> > -    struct vpci *vpci;
-> > -};
-> > -
-> >  struct vcpu
-> >  {
-> >      struct domain *domain;
-> > @@ -57,35 +61,17 @@ extern const struct pci_dev test_pdev;
-> >  
-> >  typedef bool spinlock_t;
-> >  #define spin_lock_init(l) (*(l) = false)
-> > -#define spin_lock(l) (*(l) = true)
-> > -#define spin_unlock(l) (*(l) = false)
-> > -#define read_lock(l) (*(l) = true)
-> > -#define read_unlock(l) (*(l) = false)
-> > -#define write_lock(l) (*(l) = true)
-> > -#define write_unlock(l) (*(l) = false)
-> > +#define spin_lock(l) (assert(!*(l)), *(l) = true)
-> > +#define spin_unlock(l) (assert(*(l)), *(l) = false)
-> > +#define read_lock(l) (assert(!*(l)), *(l) = true)
-> > +#define read_unlock(l) (assert(*(l)), *(l) = false)
-> > +#define write_lock(l) (assert(!*(l)), *(l) = true)
-> > +#define write_unlock(l) (assert(*(l)), *(l) = false)
-> >  
-> > -typedef union {
-> > -    uint32_t sbdf;
-> > -    struct {
-> > -        union {
-> > -            uint16_t bdf;
-> > -            struct {
-> > -                union {
-> > -                    struct {
-> > -                        uint8_t func : 3,
-> > -                                dev  : 5;
-> > -                    };
-> > -                    uint8_t     extfunc;
-> > -                };
-> > -                uint8_t         bus;
-> > -            };
-> > -        };
-> > -        uint16_t                seg;
-> > -    };
-> > -} pci_sbdf_t;
-> > +#define lock_evaluate_nospec(l) (l)
-> > +#define block_lock_speculation()
-> >  
-> > -#define CONFIG_HAS_VPCI
-> > -#include "vpci.h"
-> > +#include <xen/vpci.h>
-> >  
-> >  #define __hwdom_init
-> >  
-> > diff --git a/tools/tests/vpci/main.c b/tools/tests/vpci/main.c
-> > index 2ef8d4e03f1d..3753417e866d 100644
-> > --- a/tools/tests/vpci/main.c
-> > +++ b/tools/tests/vpci/main.c
-> > @@ -189,8 +189,6 @@ main(int argc, char **argv)
-> >      uint32_t r24 = 0;
-> >      uint8_t r28, r30;
-> >      struct mask_data r32;
-> > -    unsigned int i;
-> > -    int rc;
-> >  
-> >      INIT_LIST_HEAD(&vpci.handlers);
-> >      spin_lock_init(&vpci.lock);
-> 
-> The patch looks OK but I recommend to split the xen headers changes into
-> a separate patch
+Introduce CONFIG_NESTED_VIRT (default y, requires EXPERT to disable)
+to allow nested virtualization support to be disabled at build time.
+This is useful for embedded or safety-focused deployments where
+nested virtualization is not needed, reducing code size and attack
+surface.
 
-Will do.
+When CONFIG_NESTED_VIRT=n, the following source files are excluded:
+- arch/x86/hvm/nestedhvm.c
+- arch/x86/hvm/svm/nestedsvm.c
+- arch/x86/hvm/vmx/vvmx.c
+- arch/x86/mm/nested.c
+- arch/x86/mm/hap/nested_hap.c
+- arch/x86/mm/hap/nested_ept.c
 
-> 
-> 
-> > diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
-> > index 6071b00f621e..f7fa1d0fa29b 100644
-> > --- a/xen/include/xen/irq.h
-> > +++ b/xen/include/xen/irq.h
-> > @@ -1,5 +1,6 @@
-> >  #ifndef __XEN_IRQ_H__
-> >  #define __XEN_IRQ_H__
-> > +#ifdef __XEN__
-> >  
-> >  #include <xen/cpumask.h>
-> >  #include <xen/rcupdate.h>
-> > @@ -208,4 +209,5 @@ unsigned int arch_hwdom_irqs(const struct domain *d);
-> >  void arch_evtchn_bind_pirq(struct domain *d, int pirq);
-> >  #endif
-> >  
-> > +#endif /* __XEN__ */
-> >  #endif /* __XEN_IRQ_H__ */
-> > diff --git a/xen/include/xen/list.h b/xen/include/xen/list.h
-> > index 98d8482daba1..06d2fa3aed15 100644
-> > --- a/xen/include/xen/list.h
-> > +++ b/xen/include/xen/list.h
-> > @@ -7,8 +7,10 @@
-> >  #ifndef __XEN_LIST_H__
-> >  #define __XEN_LIST_H__
-> >  
-> > +#ifdef __XEN__
-> >  #include <xen/bug.h>
-> >  #include <asm/system.h>
-> > +#endif
-> >  
-> >  /*
-> >   * These are non-NULL pointers that will result in faults under normal
-> > diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-> > index f6c1f27ca105..80d60fd49178 100644
-> > --- a/xen/include/xen/numa.h
-> > +++ b/xen/include/xen/numa.h
-> > @@ -1,5 +1,6 @@
-> >  #ifndef _XEN_NUMA_H
-> >  #define _XEN_NUMA_H
-> > +#ifdef __XEN__
-> >  
-> >  #include <xen/mm-frame.h>
-> >  
-> > @@ -152,4 +153,5 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
-> >  
-> >  #define page_to_nid(pg) mfn_to_nid(page_to_mfn(pg))
-> >  
-> > +#endif /* __XEN__ */
-> >  #endif /* _XEN_NUMA_H */
-> > diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
-> > index 130c2a8c1a65..f5965a68ae33 100644
-> > --- a/xen/include/xen/pci.h
-> > +++ b/xen/include/xen/pci.h
-> > @@ -14,7 +14,9 @@
-> >  #include <xen/numa.h>
-> >  #include <xen/pci_regs.h>
-> >  #include <xen/pfn.h>
-> > +#ifdef __XEN__
-> >  #include <asm/device.h>
-> > +#endif
-> 
-> There seem to be other Xen internal declarations in this header. I am
-> not sure what the best policy should be: try to cover them all within
-> the #ifdef __XEN__ even thought we don't really have a specific build
-> test that needs it, or only fix the specific build issue in this patch.
-> 
-> I am OK either way but I wanted to mention the possible choice in case
-> others have an opinion.
+Add inline stubs where needed in headers.
 
-I decided to modify the headers, because I hope is there will be more unit
-tests using these headers.
+No functional change when CONFIG_NESTED_VIRT=y.
 
-> 
->   
-> >  /*
-> >   * The PCI interface treats multi-function devices as independent
-> > diff --git a/xen/include/xen/pfn.h b/xen/include/xen/pfn.h
-> > index 1ca9b095e0df..98ff669d7def 100644
-> > --- a/xen/include/xen/pfn.h
-> > +++ b/xen/include/xen/pfn.h
-> > @@ -1,7 +1,9 @@
-> >  #ifndef __XEN_PFN_H__
-> >  #define __XEN_PFN_H__
-> >  
-> > +#ifdef __XEN__
-> >  #include <xen/page-size.h>
-> > +#endif
-> >  
-> >  #define PFN_DOWN(x)   ((x) >> PAGE_SHIFT)
-> >  #define PFN_UP(x)     (((x) + PAGE_SIZE-1) >> PAGE_SHIFT)
-> > diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
-> > index ca9d8c7ec0a1..ad5094c4eb92 100644
-> > --- a/xen/include/xen/spinlock.h
-> > +++ b/xen/include/xen/spinlock.h
-> > @@ -1,5 +1,6 @@
-> >  #ifndef __SPINLOCK_H__
-> >  #define __SPINLOCK_H__
-> > +#ifdef __XEN__
-> >  
-> >  #include <xen/nospec.h>
-> >  #include <xen/time.h>
-> > @@ -360,4 +361,5 @@ static always_inline void nrspin_lock_irq(rspinlock_t *l)
-> >  #define nrspin_unlock_irqrestore(l, f) _nrspin_unlock_irqrestore(l, f)
-> >  #define nrspin_unlock_irq(l)           _nrspin_unlock_irq(l)
-> >  
-> > +#endif /* __XEN__ */
-> >  #endif /* __SPINLOCK_H__ */
-> > diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
-> > index 73ddccbbd5dc..e5d702b48ac0 100644
-> > --- a/xen/include/xen/types.h
-> > +++ b/xen/include/xen/types.h
-> > @@ -4,6 +4,7 @@
-> >  #include <xen/stdbool.h>
-> >  #include <xen/stdint.h>
-> >  
-> > +#ifdef __XEN__
-> >  /* Linux inherited types which are being phased out */
-> >  typedef uint8_t u8;
-> >  typedef uint16_t u16;
-> > @@ -15,6 +16,7 @@ typedef uint64_t u64;
-> >  typedef __SIZE_TYPE__ size_t;
-> >  
-> >  typedef signed long ssize_t;
-> > +#endif /* __XEN__ */
-> >  
-> >  typedef __PTRDIFF_TYPE__ ptrdiff_t;
-> >  typedef __UINTPTR_TYPE__ uintptr_t;
-> > @@ -33,6 +35,7 @@ typedef __UINTPTR_TYPE__ uintptr_t;
-> >  #define NULL ((void*)0)
-> >  #endif
-> >  
-> > +#ifdef __XEN__
-> >  #define INT8_MIN        (-127-1)
-> >  #define INT16_MIN       (-32767-1)
-> >  #define INT32_MIN       (-2147483647-1)
-> > @@ -52,6 +55,7 @@ typedef __UINTPTR_TYPE__ uintptr_t;
-> >  #define LONG_MAX        ((long)(~0UL>>1))
-> >  #define LONG_MIN        (-LONG_MAX - 1)
-> >  #define ULONG_MAX       (~0UL)
-> > +#endif /* __XEN__ */
-> >  
-> >  typedef uint16_t __le16;
-> >  typedef uint16_t __be16;
-> > -- 
-> > 2.52.0
-> > 
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+ xen/arch/x86/hvm/Kconfig                 | 10 ++++++
+ xen/arch/x86/hvm/Makefile                |  2 +-
+ xen/arch/x86/hvm/svm/Makefile            |  2 +-
+ xen/arch/x86/hvm/svm/nestedhvm.h         | 44 +++++++++++++++++++++---
+ xen/arch/x86/hvm/svm/svm.c               |  6 ++++
+ xen/arch/x86/hvm/vmx/Makefile            |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c               | 10 ++++--
+ xen/arch/x86/include/asm/hvm/nestedhvm.h | 41 +++++++++++++++++-----
+ xen/arch/x86/include/asm/hvm/vmx/vvmx.h  | 30 ++++++++++++++++
+ xen/arch/x86/mm/Makefile                 |  2 +-
+ xen/arch/x86/mm/hap/Makefile             |  4 +--
+ xen/arch/x86/mm/p2m.h                    |  6 ++++
+ 12 files changed, 137 insertions(+), 22 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+index f32bf5cbb7..12b5df4710 100644
+--- a/xen/arch/x86/hvm/Kconfig
++++ b/xen/arch/x86/hvm/Kconfig
+@@ -92,4 +92,14 @@ config MEM_SHARING
+ 	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on INTEL_VMX
+ 
++config NESTED_VIRT
++	bool "Nested virtualization support" if EXPERT
++	depends on AMD_SVM || INTEL_VMX
++	default y
++	help
++	  Enable nested virtualization, allowing guests to run their own
++	  hypervisors. This requires hardware support.
++
++	  If unsure, say Y.
++
+ endif
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index f34fb03934..b8a0a68624 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -18,7 +18,7 @@ obj-y += irq.o
+ obj-y += mmio.o
+ obj-$(CONFIG_VM_EVENT) += monitor.o
+ obj-y += mtrr.o
+-obj-y += nestedhvm.o
++obj-$(CONFIG_NESTED_VIRT) += nestedhvm.o
+ obj-y += pmtimer.o
+ obj-y += quirks.o
+ obj-y += rtc.o
+diff --git a/xen/arch/x86/hvm/svm/Makefile b/xen/arch/x86/hvm/svm/Makefile
+index 8a072cafd5..92418e3444 100644
+--- a/xen/arch/x86/hvm/svm/Makefile
++++ b/xen/arch/x86/hvm/svm/Makefile
+@@ -2,6 +2,6 @@ obj-y += asid.o
+ obj-y += emulate.o
+ obj-bin-y += entry.o
+ obj-y += intr.o
+-obj-y += nestedsvm.o
++obj-$(CONFIG_NESTED_VIRT) += nestedsvm.o
+ obj-y += svm.o
+ obj-y += vmcb.o
+diff --git a/xen/arch/x86/hvm/svm/nestedhvm.h b/xen/arch/x86/hvm/svm/nestedhvm.h
+index 9bfed5ffd7..a102c076ea 100644
+--- a/xen/arch/x86/hvm/svm/nestedhvm.h
++++ b/xen/arch/x86/hvm/svm/nestedhvm.h
+@@ -26,6 +26,13 @@
+ #define nsvm_efer_svm_enabled(v) \
+     (!!((v)->arch.hvm.guest_efer & EFER_SVME))
+ 
++#define NSVM_INTR_NOTHANDLED     3
++#define NSVM_INTR_NOTINTERCEPTED 2
++#define NSVM_INTR_FORCEVMEXIT    1
++#define NSVM_INTR_MASKED         0
++
++#ifdef CONFIG_NESTED_VIRT
++
+ int nestedsvm_vmcb_map(struct vcpu *v, uint64_t vmcbaddr);
+ void nestedsvm_vmexit_defer(struct vcpu *v,
+     uint64_t exitcode, uint64_t exitinfo1, uint64_t exitinfo2);
+@@ -57,13 +64,40 @@ int cf_check nsvm_hap_walk_L1_p2m(
+     struct vcpu *v, paddr_t L2_gpa, paddr_t *L1_gpa, unsigned int *page_order,
+     uint8_t *p2m_acc, struct npfec npfec);
+ 
+-#define NSVM_INTR_NOTHANDLED     3
+-#define NSVM_INTR_NOTINTERCEPTED 2
+-#define NSVM_INTR_FORCEVMEXIT    1
+-#define NSVM_INTR_MASKED         0
+-
+ int nestedsvm_vcpu_interrupt(struct vcpu *v, const struct hvm_intack intack);
+ 
++#else /* !CONFIG_NESTED_VIRT */
++
++static inline int nestedsvm_vmcb_map(struct vcpu *v, uint64_t vmcbaddr)
++{
++    return 0;
++}
++static inline void nestedsvm_vmexit_defer(struct vcpu *v,
++    uint64_t exitcode, uint64_t exitinfo1, uint64_t exitinfo2) { }
++static inline enum nestedhvm_vmexits nestedsvm_vmexit_n2n1(struct vcpu *v,
++    struct cpu_user_regs *regs)
++{
++    return NESTEDHVM_VMEXIT_ERROR;
++}
++static inline enum nestedhvm_vmexits nestedsvm_check_intercepts(struct vcpu *v,
++    struct cpu_user_regs *regs, uint64_t exitcode)
++{
++    return NESTEDHVM_VMEXIT_ERROR;
++}
++static inline void svm_nested_features_on_efer_update(struct vcpu *v) { }
++static inline void svm_vmexit_do_clgi(struct cpu_user_regs *regs,
++                                      struct vcpu *v) { }
++static inline void svm_vmexit_do_stgi(struct cpu_user_regs *regs,
++                                       struct vcpu *v) { }
++static inline bool nestedsvm_gif_isset(struct vcpu *v) { return true; }
++static inline int nestedsvm_vcpu_interrupt(struct vcpu *v,
++                                           const struct hvm_intack intack)
++{
++    return NSVM_INTR_NOTINTERCEPTED;
++}
++
++#endif /* CONFIG_NESTED_VIRT */
++
+ #endif /* __X86_HVM_SVM_NESTEDHVM_PRIV_H__ */
+ 
+ /*
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 18ba837738..0234b57afb 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -46,6 +46,10 @@
+ 
+ void noreturn svm_asm_do_resume(void);
+ 
++#ifndef CONFIG_NESTED_VIRT
++void asmlinkage nsvm_vcpu_switch(void) { }
++#endif
++
+ u32 svm_feature_flags;
+ 
+ /*
+@@ -2465,6 +2469,7 @@ static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+     .set_rdtsc_exiting    = svm_set_rdtsc_exiting,
+     .get_insn_bytes       = svm_get_insn_bytes,
+ 
++#ifdef CONFIG_NESTED_VIRT
+     .nhvm_vcpu_initialise = nsvm_vcpu_initialise,
+     .nhvm_vcpu_destroy = nsvm_vcpu_destroy,
+     .nhvm_vcpu_reset = nsvm_vcpu_reset,
+@@ -2474,6 +2479,7 @@ static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+     .nhvm_vmcx_hap_enabled = nsvm_vmcb_hap_enabled,
+     .nhvm_intr_blocked = nsvm_intr_blocked,
+     .nhvm_hap_walk_L1_p2m = nsvm_hap_walk_L1_p2m,
++#endif
+ 
+     .get_reg = svm_get_reg,
+     .set_reg = svm_set_reg,
+diff --git a/xen/arch/x86/hvm/vmx/Makefile b/xen/arch/x86/hvm/vmx/Makefile
+index 04a29ce59d..902564b3e2 100644
+--- a/xen/arch/x86/hvm/vmx/Makefile
++++ b/xen/arch/x86/hvm/vmx/Makefile
+@@ -3,4 +3,4 @@ obj-y += intr.o
+ obj-y += realmode.o
+ obj-y += vmcs.o
+ obj-y += vmx.o
+-obj-y += vvmx.o
++obj-$(CONFIG_NESTED_VIRT) += vvmx.o
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 82c55f49ae..252f27322b 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -55,6 +55,10 @@
+ #include <public/hvm/save.h>
+ #include <public/sched.h>
+ 
++#ifndef CONFIG_NESTED_VIRT
++void asmlinkage nvmx_switch_guest(void) { }
++#endif
++
+ static bool __initdata opt_force_ept;
+ boolean_param("force-ept", opt_force_ept);
+ 
+@@ -2033,7 +2037,7 @@ static void nvmx_enqueue_n2_exceptions(struct vcpu *v,
+                  nvmx->intr.intr_info, nvmx->intr.error_code);
+ }
+ 
+-static int cf_check nvmx_vmexit_event(
++static int cf_check __maybe_unused nvmx_vmexit_event(
+     struct vcpu *v, const struct x86_event *event)
+ {
+     nvmx_enqueue_n2_exceptions(v, event->vector, event->error_code,
+@@ -2933,6 +2937,7 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .handle_cd            = vmx_handle_cd,
+     .set_info_guest       = vmx_set_info_guest,
+     .set_rdtsc_exiting    = vmx_set_rdtsc_exiting,
++#ifdef CONFIG_NESTED_VIRT
+     .nhvm_vcpu_initialise = nvmx_vcpu_initialise,
+     .nhvm_vcpu_destroy    = nvmx_vcpu_destroy,
+     .nhvm_vcpu_reset      = nvmx_vcpu_reset,
+@@ -2942,8 +2947,9 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .nhvm_vcpu_vmexit_event = nvmx_vmexit_event,
+     .nhvm_intr_blocked    = nvmx_intr_blocked,
+     .nhvm_domain_relinquish_resources = nvmx_domain_relinquish_resources,
+-    .update_vlapic_mode = vmx_vlapic_msr_changed,
+     .nhvm_hap_walk_L1_p2m = nvmx_hap_walk_L1_p2m,
++#endif
++    .update_vlapic_mode = vmx_vlapic_msr_changed,
+ #ifdef CONFIG_VM_EVENT
+     .enable_msr_interception = vmx_enable_msr_interception,
+ #endif
+diff --git a/xen/arch/x86/include/asm/hvm/nestedhvm.h b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+index ea2c1bc328..0372974b24 100644
+--- a/xen/arch/x86/include/asm/hvm/nestedhvm.h
++++ b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+@@ -25,9 +25,21 @@ enum nestedhvm_vmexits {
+ /* Nested HVM on/off per domain */
+ static inline bool nestedhvm_enabled(const struct domain *d)
+ {
+-    return IS_ENABLED(CONFIG_HVM) && (d->options & XEN_DOMCTL_CDF_nested_virt);
++    return IS_ENABLED(CONFIG_NESTED_VIRT) &&
++           (d->options & XEN_DOMCTL_CDF_nested_virt);
+ }
+ 
++/* Nested paging */
++#define NESTEDHVM_PAGEFAULT_DONE       0
++#define NESTEDHVM_PAGEFAULT_INJECT     1
++#define NESTEDHVM_PAGEFAULT_L1_ERROR   2
++#define NESTEDHVM_PAGEFAULT_L0_ERROR   3
++#define NESTEDHVM_PAGEFAULT_MMIO       4
++#define NESTEDHVM_PAGEFAULT_RETRY      5
++#define NESTEDHVM_PAGEFAULT_DIRECT_MMIO 6
++
++#ifdef CONFIG_NESTED_VIRT
++
+ /* Nested VCPU */
+ int nestedhvm_vcpu_initialise(struct vcpu *v);
+ void nestedhvm_vcpu_destroy(struct vcpu *v);
+@@ -38,14 +50,6 @@ bool nestedhvm_vcpu_in_guestmode(struct vcpu *v);
+ #define nestedhvm_vcpu_exit_guestmode(v)  \
+     vcpu_nestedhvm(v).nv_guestmode = 0
+ 
+-/* Nested paging */
+-#define NESTEDHVM_PAGEFAULT_DONE       0
+-#define NESTEDHVM_PAGEFAULT_INJECT     1
+-#define NESTEDHVM_PAGEFAULT_L1_ERROR   2
+-#define NESTEDHVM_PAGEFAULT_L0_ERROR   3
+-#define NESTEDHVM_PAGEFAULT_MMIO       4
+-#define NESTEDHVM_PAGEFAULT_RETRY      5
+-#define NESTEDHVM_PAGEFAULT_DIRECT_MMIO 6
+ int nestedhvm_hap_nested_page_fault(struct vcpu *v, paddr_t *L2_gpa,
+                                     struct npfec npfec);
+ 
+@@ -59,6 +63,25 @@ unsigned long *nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed);
+ 
+ void nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m);
+ 
++#else /* !CONFIG_NESTED_VIRT */
++
++static inline int nestedhvm_vcpu_initialise(struct vcpu *v) { return 0; }
++static inline void nestedhvm_vcpu_destroy(struct vcpu *v) { }
++static inline void nestedhvm_vcpu_reset(struct vcpu *v) { }
++static inline bool nestedhvm_vcpu_in_guestmode(struct vcpu *v) { return false; }
++static inline int nestedhvm_hap_nested_page_fault(struct vcpu *v, paddr_t *L2_gpa,
++                                                  struct npfec npfec)
++{
++    return NESTEDHVM_PAGEFAULT_L0_ERROR;
++}
++#define nestedhvm_vcpu_enter_guestmode(v) do { } while (0)
++#define nestedhvm_vcpu_exit_guestmode(v)  do { } while (0)
++#define nestedhvm_paging_mode_hap(v) false
++#define nestedhvm_vmswitch_in_progress(v) false
++static inline void nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m) { }
++
++#endif /* CONFIG_NESTED_VIRT */
++
+ static inline bool nestedhvm_is_n2(struct vcpu *v)
+ {
+     if ( !nestedhvm_enabled(v->domain) ||
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
+index da10d3fa96..8dc876a4c2 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vvmx.h
+@@ -73,6 +73,8 @@ union vmx_inst_info {
+     u32 word;
+ };
+ 
++#ifdef CONFIG_NESTED_VIRT
++
+ int cf_check nvmx_vcpu_initialise(struct vcpu *v);
+ void cf_check nvmx_vcpu_destroy(struct vcpu *v);
+ int cf_check nvmx_vcpu_reset(struct vcpu *v);
+@@ -199,5 +201,33 @@ int nept_translate_l2ga(struct vcpu *v, paddr_t l2ga,
+                         uint64_t *exit_qual, uint32_t *exit_reason);
+ int nvmx_cpu_up_prepare(unsigned int cpu);
+ void nvmx_cpu_dead(unsigned int cpu);
++
++#else /* !CONFIG_NESTED_VIRT */
++
++static inline void nvmx_update_exec_control(struct vcpu *v, u32 value) { }
++static inline void nvmx_update_secondary_exec_control(struct vcpu *v,
++                                                      unsigned long value) { }
++static inline void nvmx_update_exception_bitmap(struct vcpu *v,
++                                                unsigned long value) { }
++static inline u64 nvmx_get_tsc_offset(struct vcpu *v) { return 0; }
++static inline void nvmx_set_cr_read_shadow(struct vcpu *v, unsigned int cr) { }
++static inline bool nvmx_intercepts_exception(struct vcpu *v, unsigned int vector,
++                                             int error_code) { return false; }
++static inline int nvmx_n2_vmexit_handler(struct cpu_user_regs *regs,
++                                         unsigned int exit_reason) { return 0; }
++static inline void nvmx_idtv_handling(void) { }
++static inline int nvmx_msr_read_intercept(unsigned int msr, u64 *msr_content)
++{
++    return 0;
++}
++static inline int nvmx_handle_vmx_insn(struct cpu_user_regs *regs,
++                                       unsigned int exit_reason) { return 0; }
++static inline int nvmx_cpu_up_prepare(unsigned int cpu) { return 0; }
++static inline void nvmx_cpu_dead(unsigned int cpu) { }
++
++#define get_vvmcs(vcpu, encoding) 0
++
++#endif /* CONFIG_NESTED_VIRT */
++
+ #endif /* __ASM_X86_HVM_VVMX_H__ */
+ 
+diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+index 960f6e8409..aa15811c2e 100644
+--- a/xen/arch/x86/mm/Makefile
++++ b/xen/arch/x86/mm/Makefile
+@@ -7,7 +7,7 @@ obj-$(CONFIG_SHADOW_PAGING) += guest_walk_4.o
+ obj-$(CONFIG_VM_EVENT) += mem_access.o
+ obj-$(CONFIG_MEM_PAGING) += mem_paging.o
+ obj-$(CONFIG_MEM_SHARING) += mem_sharing.o
+-obj-$(CONFIG_HVM) += nested.o
++obj-$(CONFIG_NESTED_VIRT) += nested.o
+ obj-$(CONFIG_HVM) += p2m.o
+ obj-y += p2m-basic.o
+ obj-$(CONFIG_INTEL_VMX) += p2m-ept.o
+diff --git a/xen/arch/x86/mm/hap/Makefile b/xen/arch/x86/mm/hap/Makefile
+index 67c29b2162..de1bb3abde 100644
+--- a/xen/arch/x86/mm/hap/Makefile
++++ b/xen/arch/x86/mm/hap/Makefile
+@@ -2,5 +2,5 @@ obj-y += hap.o
+ obj-y += guest_walk_2.o
+ obj-y += guest_walk_3.o
+ obj-y += guest_walk_4.o
+-obj-y += nested_hap.o
+-obj-$(CONFIG_INTEL_VMX) += nested_ept.o
++obj-$(CONFIG_NESTED_VIRT) += nested_hap.o
++obj-$(CONFIG_NESTED_VIRT) += nested_ept.o
+diff --git a/xen/arch/x86/mm/p2m.h b/xen/arch/x86/mm/p2m.h
+index 635f5a7f45..fa14e69fff 100644
+--- a/xen/arch/x86/mm/p2m.h
++++ b/xen/arch/x86/mm/p2m.h
+@@ -25,9 +25,15 @@ void p2m_teardown_altp2m(struct domain *d);
+ void p2m_flush_table_locked(struct p2m_domain *p2m);
+ int __must_check p2m_remove_entry(struct p2m_domain *p2m, gfn_t gfn, mfn_t mfn,
+                                   unsigned int page_order);
++#ifdef CONFIG_NESTED_VIRT
+ void p2m_nestedp2m_init(struct p2m_domain *p2m);
+ int p2m_init_nestedp2m(struct domain *d);
+ void p2m_teardown_nestedp2m(struct domain *d);
++#else
++static inline void p2m_nestedp2m_init(struct p2m_domain *p2m) {}
++static inline int p2m_init_nestedp2m(struct domain *d) { return 0; }
++static inline void p2m_teardown_nestedp2m(struct domain *d) {}
++#endif
+ 
+ int ept_p2m_init(struct p2m_domain *p2m);
+ void ept_p2m_uninit(struct p2m_domain *p2m);
+-- 
+2.25.1
+
 
