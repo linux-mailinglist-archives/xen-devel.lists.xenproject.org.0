@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id S/lQDM71h2mCgQQAu9opvQ
+	id vfLHLcr2h2nGgQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 08 Feb 2026 03:32:46 +0100
+	for <lists+xen-devel@lfdr.de>; Sun, 08 Feb 2026 03:36:58 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DEE9107A70
-	for <lists+xen-devel@lfdr.de>; Sun, 08 Feb 2026 03:32:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1224585.1531360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BEC107A83
+	for <lists+xen-devel@lfdr.de>; Sun, 08 Feb 2026 03:36:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1224592.1531370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voua9-0007DM-7n; Sun, 08 Feb 2026 02:31:29 +0000
+	id 1voufF-0007mV-LV; Sun, 08 Feb 2026 02:36:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1224585.1531360; Sun, 08 Feb 2026 02:31:29 +0000
+Received: by outflank-mailman (output) from mailman id 1224592.1531370; Sun, 08 Feb 2026 02:36:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1voua9-0007Ag-15; Sun, 08 Feb 2026 02:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 1224585;
- Sun, 08 Feb 2026 02:31:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1voufF-0007kT-IE; Sun, 08 Feb 2026 02:36:45 +0000
+Received: by outflank-mailman (input) for mailman id 1224592;
+ Sun, 08 Feb 2026 02:36:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=y0cN=AM=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1voua7-0007Aa-Mj
- for xen-devel@lists.xenproject.org; Sun, 08 Feb 2026 02:31:27 +0000
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [2607:f8b0:4864:20::1129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43a8e176-0496-11f1-b161-2bf370ae4941;
- Sun, 08 Feb 2026 03:31:25 +0100 (CET)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-790884840baso31315957b3.0
- for <xen-devel@lists.xenproject.org>; Sat, 07 Feb 2026 18:31:26 -0800 (PST)
+ id 1voufE-0007kM-FM
+ for xen-devel@lists.xenproject.org; Sun, 08 Feb 2026 02:36:44 +0000
+Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
+ [2607:f8b0:4864:20::112b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 000bc4cc-0497-11f1-9ccf-f158ae23cfc8;
+ Sun, 08 Feb 2026 03:36:41 +0100 (CET)
+Received: by mail-yw1-x112b.google.com with SMTP id
+ 00721157ae682-79640a34aecso391157b3.3
+ for <xen-devel@lists.xenproject.org>; Sat, 07 Feb 2026 18:36:41 -0800 (PST)
 Received: from [10.138.34.110]
  (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7952a074c2bsm60413827b3.21.2026.02.07.18.31.22
+ 00721157ae682-79529e45621sm60559777b3.0.2026.02.07.18.36.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 07 Feb 2026 18:31:23 -0800 (PST)
+ Sat, 07 Feb 2026 18:36:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,55 +51,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43a8e176-0496-11f1-b161-2bf370ae4941
+X-Inumbo-ID: 000bc4cc-0497-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770517885; x=1771122685; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770518201; x=1771123001; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=PovCF2twN9QaANsWWfpMCOlO2V3/jbCVFjasb/NZtjY=;
-        b=Jy7wi7oCYdOork/F3ftDBAXHZPFtkz1/XLl/QonVqklUsPppO3TOv35/qvqqN6PBb9
-         uNYiJNnAu7VmQbpOii3gVb7iO+jC0IqpZVnBuhgdh1wdhqUaMU3NqW8lZgIbsvIrebv9
-         GR9sHSrML92RNAbMzKhL91FzcxeOZ02hFitIvVDIyvLpYAkMk2rAjYQo/dgeCSakROir
-         cVqYtg3A9LAJapq5y4ZXrMFBIkKZ3UMhX0sPVevf9hKq/QYJnpxkFX6GdXNfLTNcZKha
-         Utcy1RTr/ktr/lBmrecC85idBBpyYhMm0eFBWESn5RAwIWBgnk76LQjsZX0uocIFh9X7
-         Ig8A==
+        bh=Fws+4d6K+XO5o8Jr3h/3cZynn1bQjQ1dR6k9ePNUr3c=;
+        b=DGFTS0B6WGyK7qrw/tXDqaE/Ebml30alTfsd2LXxhKJeuUEZF9LXPnh/0ALO1VLzds
+         AX0DZsMl46M77RYRj44GtfkfljM6ER+0xmRsFyDojkQ1Qsy8CP5pK5i2ulPkuTUzyUKQ
+         PvOrz+1k5a4N5RWGsNHLFZGpe+GseC8auPVlD56ZDDOU7hqm5kB4+AC5mCzRDpn6cZSw
+         3xXACEfN+Ho/nI0b0E+c5Bmhwt/xVwWTcdNEpu1RrZp196h99lyriP7/31/EA290xNsN
+         qtvTzeuvSDlmiHGXgKt7eyv3fppFBpb1gi+8VbIkOBIMPtN4IL//8oVSiuNcOHr1lfIt
+         lGDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770517885; x=1771122685;
+        d=1e100.net; s=20230601; t=1770518201; x=1771123001;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PovCF2twN9QaANsWWfpMCOlO2V3/jbCVFjasb/NZtjY=;
-        b=eSo3Fk1do3DAYY2SooTWsjdVmotvA6ggpVthM0vpMR2EKFhZBhbCoGXKaXFMnIsLIB
-         E03O59CZUQknNzr3zvFwtmtqQJp0dRZMF7GhdLjwuKtFalxN7VqH4cCZ62r8u/i32Y07
-         wvWegAraeM9qlABYTEiDXUV7vG0xmz9nD3QYoBQQhpUZ8QfxrUtoK0/X8INYZVkY78Yt
-         ah0TThTS8dfrYLApaEoF5s5mXECqS+6r4+KWNMNAtXFBLhd89U9CtUrNot5d/Z9soxb7
-         aicXe72/9qaiUuT/6T5Wu8LS/okppjHqYEQXew/FuUQT+sSM/vigiu+rI+vt1Yu5q+sO
-         Ol+A==
-X-Forwarded-Encrypted: i=1; AJvYcCWHvMR9pU/8TIWqpYyXR9NWWVKzzCeE27cUklQa3HL4WtUv8cuaMwojckBM6ifXFgkJGe5+6UFHxXU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxu9xlZXAcIeUObdqWOvJFO2rjx3FNbf9mO5pspWXEGto6dPC2R
-	4CbJZz6RkgU0puLm656mkeJ+93aEM6WPJardXmgqgIId7iTKggpW2uh/
-X-Gm-Gg: AZuq6aI9ifDj3TsSIsVFNd55UKO40K0C3pk5pLTsITYysxPZxqJ2STw7YzJIvkA/rRf
-	uld48/II6+F2JFOgzar6Tp2lCJ+4+tmP+AvwX0XBKcMjadhfOEV5iiluH6UCbQitr/2ZuIML4C6
-	LgZBs7eujfB8lxzzBGjqqGs7pwyPSNNavCrOYKXpH/ipOIW3+WEpzCbCVf8lhsUrCD+OWKKg4XT
-	4ulGn5GXFqSBmSbl1oZ3XZKaPDN5sAq7RS5s8/7i+KVotqjxWI5EWgtlOzxoc44+ou2+Sm0Rwtd
-	4Tdrxq+JpHxzwdDdWNxNMVpQPK0vstRJlkhBPac3xv+IZ0RMc1tglWhWekiAbLaNCCQ6YSYNPHZ
-	9daahKlFJ/Jd+Ga31tVAV99gSxEg3byqf4cXslqv7YHVzUljHUemTw623z8/PFUHcRZHN7mkKxP
-	Ruf1wsKKvJK4T4Qg8iE7gR8GnzE6bVfyTmFMLVcWUtlAysHnOR2iKQlieygflkKsaisrWHfTmXw
-	38uoifI+WpRRbTiLQd3qwm8hXtEFXDcHbWAZRKs
-X-Received: by 2002:a05:690c:b87:b0:794:8f0f:e8b4 with SMTP id 00721157ae682-7952ab5a4admr70887737b3.55.1770517884726;
-        Sat, 07 Feb 2026 18:31:24 -0800 (PST)
-Message-ID: <fbed640d-6a0a-40a6-a443-5a9947b7eda8@gmail.com>
-Date: Sat, 7 Feb 2026 21:31:18 -0500
+        bh=Fws+4d6K+XO5o8Jr3h/3cZynn1bQjQ1dR6k9ePNUr3c=;
+        b=w3yRQMNcPVHM8Ezu4z3lZDRd2XR15CGpTn41iyGK1PBnpcZIcytzzuL5szCLONbI47
+         vbdPoRS6fAsLHjKmgK9EkFTtIcU30HcLPw1zjtsYrnpUH/jAe98eNe8GrSF+wRHCHahi
+         ukfW4xdxVRN+CyfhuMO+eB5TUQqVSA03JM7k4wfEVDPYgSWF5rn5zaGA20ENdXZQcAUo
+         hK6pdY8qxA+FR+I740H0x2kQnS3lipstJmfn9lnPY2/CF+Py76C2j8zDp3l8F1K3/aL3
+         LLvOhjnT35ieCUNoPQMm+U2Lne+7DWkmp+FKhBNJxFevPvOHMbf89AIZd90LZQu+1Io+
+         qknw==
+X-Forwarded-Encrypted: i=1; AJvYcCWPcsz9gS3vN65jc3jT9tbRWShjWwduW8iwOve/EMygMHbUTLUYVXPfWXz1R773QqW8cVo310CdYWo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzPhlNs/aWUvEN2jXvcwGaasnh45jQBBfP/krFfWVoJG0Yopezh
+	0VOf8nFCAYHFG9Nira8G3dfISiH36hiWYUOmMQ77biKYfFmkfG2bPSN2
+X-Gm-Gg: AZuq6aI/HLvzGVj7puormA9WbzvCYSrW6mDct9XaVqurXiPnXLuKXBbhcEWF9GdcC5+
+	9BHC2CE1ZiAaYSHtO4nbpOQ4LT66xeDTK1HNl7AmKsnnWQ/MN0OsAHv8R7Ul7HpyjiBp0zwIPp/
+	WDn1ZDtQxwog11KGzwxghP/x4W6wzAHgArigeIwW0ZfTumr3d95HBN2vIpGJ+nma/q9AHsRwrHd
+	brcBLDw4ZwNOevgN8Fn3HbCEmXyJdYp7o2jxabrMH8vV18DI97iVfckelvGvmj6P3a05px4i2uG
+	auqc11eArisL5h73bP16k2W1Le1KTX9ipKtNgsK2gaY43tWoAi63Sj5hk9Ov+gs2jLZSLneQacU
+	dfWzJmPt1eu6H/7JmYKm/c6K1m+6l6wPLdgG6kXB+J4v9MFspp8RC4xbZ3Yi3rozXlNpo0DuPA2
+	w9V1W6tdMMGj10MCz63r6eLIhVgVGXL6OhDAmTBIwIAfRL64HLqmd8Wzrp1O/yqdsl9d0F6RkmC
+	Wr/9O1TRJbVnk0nlzkw3LgRgjXMoA==
+X-Received: by 2002:a05:690c:9b01:b0:794:b8c0:5a7c with SMTP id 00721157ae682-7952ab4407cmr73537387b3.48.1770518200558;
+        Sat, 07 Feb 2026 18:36:40 -0800 (PST)
+Message-ID: <13bee33c-43f7-490a-b1be-85e8cc5e0fdd@gmail.com>
+Date: Sat, 7 Feb 2026 21:36:36 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/hvm: Add Kconfig option to disable nested
- virtualization
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
+Subject: Re: [PATCH v2] xen: Add macOS hypervisor build configuration
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
  xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- jason.andryuk@amd.com, alejandro.garciavallejo@amd.com
-References: <20260206210554.126443-1-stefano.stabellini@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -145,15 +147,15 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260206210554.126443-1-stefano.stabellini@amd.com>
+In-Reply-To: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------ff2IswLqbcPfzIXGl0xJh30R"
+ boundary="------------dR2BCafI04aJLLaFXzM9KCdg"
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-3.18 / 15.00];
 	SIGNED_PGP(-2.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	MAILLIST(-0.18)[generic];
@@ -162,11 +164,11 @@ X-Spamd-Result: default: False [-3.18 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
 	DKIM_TRACE(0.00)[gmail.com:+];
@@ -180,28 +182,30 @@ X-Spamd-Result: default: False [-3.18 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5DEE9107A70
+X-Rspamd-Queue-Id: F2BEC107A83
 X-Rspamd-Action: no action
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ff2IswLqbcPfzIXGl0xJh30R
-Content-Type: multipart/mixed; boundary="------------wqWINVx790Rm0KUkoXtv0Ghb";
+--------------dR2BCafI04aJLLaFXzM9KCdg
+Content-Type: multipart/mixed; boundary="------------0cHNH2D3q4dpkolbvC5sZr5c";
  protected-headers="v1"
-Message-ID: <fbed640d-6a0a-40a6-a443-5a9947b7eda8@gmail.com>
-Date: Sat, 7 Feb 2026 21:31:18 -0500
+Message-ID: <13bee33c-43f7-490a-b1be-85e8cc5e0fdd@gmail.com>
+Date: Sat, 7 Feb 2026 21:36:36 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/hvm: Add Kconfig option to disable nested
- virtualization
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
+Subject: Re: [PATCH v2] xen: Add macOS hypervisor build configuration
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
  xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- jason.andryuk@amd.com, alejandro.garciavallejo@amd.com
-References: <20260206210554.126443-1-stefano.stabellini@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -247,45 +251,31 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260206210554.126443-1-stefano.stabellini@amd.com>
+In-Reply-To: <d30deb8fa22291beb64eb179e8e2d55d13ef27dd.1770291000.git.bertrand.marquis@arm.com>
 
---------------wqWINVx790Rm0KUkoXtv0Ghb
-Content-Type: multipart/mixed; boundary="------------ri2vDAwU4hWXBxbozr8xIOrE"
+--------------0cHNH2D3q4dpkolbvC5sZr5c
+Content-Type: multipart/mixed; boundary="------------65NyWMNLE3h0WBhRmHfseTsz"
 
---------------ri2vDAwU4hWXBxbozr8xIOrE
+--------------65NyWMNLE3h0WBhRmHfseTsz
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2/6/26 16:05, Stefano Stabellini wrote:
-> Introduce CONFIG_NESTED_VIRT (default y, requires EXPERT to disable)
-> to allow nested virtualization support to be disabled at build time.
-> This is useful for embedded or safety-focused deployments where
-> nested virtualization is not needed, reducing code size and attack
-> surface.
+On 2/5/26 06:33, Bertrand Marquis wrote:
+> Xen does not currently document how to build the hypervisor on macOS, a=
+nd
+> there is no Darwin configuration for selecting a Homebrew-based GNU
+> toolchain. Native builds are not supported; the hypervisor must be
+> cross-built with a GNU toolchain and GNU make/sed.
 >=20
-> When CONFIG_NESTED_VIRT=3Dn, the following source files are excluded:
-> - arch/x86/hvm/nestedhvm.c
-> - arch/x86/hvm/svm/nestedsvm.c
-> - arch/x86/hvm/vmx/vvmx.c
-> - arch/x86/mm/nested.c
-> - arch/x86/mm/hap/nested_hap.c
-> - arch/x86/mm/hap/nested_ept.c
->=20
-> Add inline stubs where needed in headers.
->=20
-> No functional change when CONFIG_NESTED_VIRT=3Dy.
->=20
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-
-Commit message is stale: the default is now N and the dependency on
-EXPERT was removed.
-
-Personally, I would add a dependency on UNSUPPORTED, since it is
-known to not work well and should not be used.
+> Add a minimal Darwin.mk which selects the GNU tool definitions used by
+> the macOS workflow and point to the build guide for required tools and
+> setup. Document the Homebrew cross toolchain and GNU tools needed to
+> build the hypervisor on macOS.
+What is the use-case?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------ri2vDAwU4hWXBxbozr8xIOrE
+--------------65NyWMNLE3h0WBhRmHfseTsz
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -405,31 +395,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------ri2vDAwU4hWXBxbozr8xIOrE--
+--------------65NyWMNLE3h0WBhRmHfseTsz--
 
---------------wqWINVx790Rm0KUkoXtv0Ghb--
+--------------0cHNH2D3q4dpkolbvC5sZr5c--
 
---------------ff2IswLqbcPfzIXGl0xJh30R
+--------------dR2BCafI04aJLLaFXzM9KCdg
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmH9XYACgkQszaHOrMp
-8lP4EQ/+MdruKz/dPrBzXe8Yi7JhPGEU1KGuPuT8rD3g5Hu9EGbn6m1Zl2AfGSd6
-WMxrIdNbuYuBgm0R5Zk4uoEi1Q17UbBiIeK8hF33Ipe4OKGoAZzHTMm+vVI+3uzR
-vfpMWTi9O9alTCpOXz8b2MQgKCj9VLAvJaYbe6qXNBfaa/Tz8o5u1dhwZZPhXbEG
-wFDjpqHCXWz0x+b9Mu79LmwNt2ckpF/Zpve2obv2bICPkVzUsIFK3PJ/CRPxzzLc
-uK/W8xQClLOxohdYEbEUEOIylLEwwe2oIaZmn1L9beYYUY6VkSyT7HGMGwSeVJ8o
-+uvGOhBujXqGk9z3u6kprVC4Etk7+RqczkF4hnsML5IKPOxFdbvyX4DUHTvYVlle
-V9j1mknnseZ4SrxVR2mMqChy8Vi6whL8JNnt2UovPcVMuxQfqhBLbw4q5xcMn7QQ
-xrVNKxcI/+EJ9DcpYSe6y0pTPBzG4qUuJ0PkINeVysdAZEIZZU+DwqBAzwxnWv9J
-SlADyxCH3mqMJ3eWEw/qZIedkrnTeeMZ9wWw0uLs8fZLpTu/3a+oFO4fW/4sb5n8
-K/WChWp7hwyeCTpcw1fuHFqj/4zpYMSgY1Htd1kLfdOWjUfqnUcg5mPLTSmWVnl+
-jm8tWDe6fXJqesbCo2C6YWV1G4hH18nGcmbP1CERFgET03rI1lk=
-=yM3o
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmH9rQACgkQszaHOrMp
+8lM3wxAAnUhJpUjsEsMY6Q1sv3HPqKTki6ljTgaLKGbK7xFcRwstP9GDTgfcG/YF
+wJKAQ8f5uqhJIOIbMcQLA5DnYfr4VDTGjhYNumBWBDb+XN2tOV+E0j2pi2wJLIdA
+vUHpkMZ2h94xkZuInZuwK8tqMhfvOhgjEmfAl+GiiKXpUyMMZPIZl+OBNyV5jcos
+fM+0Y0ZlyHtq0mbsCGkhyBz4jeMCe6br05UiIH/Y2KtYPfm8419Eq4I5ftctDLkc
+mE7p7PyoOMT58DzbnVk05P5AiLO/lXAynb0IG535AmXTwMWM6rU4099EqSimPLWO
+V0+fiZtfrjYONUIg5bMMMcGN+XxQWboJidTXZGXDEntXORIHHdpIZLIg8+8iygcZ
+xM3Wrf75gJ6Tel4GkCE0HHqs17rQjqsnJI2LGhf/SFa4HOhupKSH4KJ+qwf60H2F
+Kg8wqgeSGxD3KoEN0QWSBm0bngbIgeqq28ckkHxZsg8ZkGhpAEH8qpFJFQIyFCim
+pbmE1v2EYd2s5NwCALClQNYnSNwoG8c/bOHArokjooPWa4yMtwI7GVATgjId/w3d
+6SC0aPWQpaVFK5U8Y96uy2QFNJxSYdTIFSWqicIgy9OoZEagG0dQgVdFUxxP9155
+jazI2sQKyvTjBy23JJ110YAEKLfi9kn6upNYCV3dOB9+hQauiOc=
+=Ggy+
 -----END PGP SIGNATURE-----
 
---------------ff2IswLqbcPfzIXGl0xJh30R--
+--------------dR2BCafI04aJLLaFXzM9KCdg--
 
