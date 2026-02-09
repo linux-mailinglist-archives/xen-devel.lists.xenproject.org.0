@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wAbyIwnuiWnDEQAAu9opvQ
+	id KKpzMknuiWn4EQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:24:09 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:25:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1B3110329
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:24:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225454.1531959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C115110374
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:25:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225462.1531968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpSB8-00075N-P6; Mon, 09 Feb 2026 14:23:54 +0000
+	id 1vpSCC-0007bE-1N; Mon, 09 Feb 2026 14:25:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225454.1531959; Mon, 09 Feb 2026 14:23:54 +0000
+Received: by outflank-mailman (output) from mailman id 1225462.1531968; Mon, 09 Feb 2026 14:25:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpSB8-00072q-Lz; Mon, 09 Feb 2026 14:23:54 +0000
-Received: by outflank-mailman (input) for mailman id 1225454;
- Mon, 09 Feb 2026 14:23:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vpSCB-0007Yl-Uf; Mon, 09 Feb 2026 14:24:59 +0000
+Received: by outflank-mailman (input) for mailman id 1225462;
+ Mon, 09 Feb 2026 14:24:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gJZC=AN=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vpSB6-00072k-MV
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 14:23:52 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f45e898a-05c2-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 15:23:51 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by DS2PR03MB8160.namprd03.prod.outlook.com (2603:10b6:8:27d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Mon, 9 Feb
- 2026 14:23:48 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 14:23:48 +0000
+ <SRS0=8Y/H=AN=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vpSCA-0007Yd-HA
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 14:24:58 +0000
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [2607:f8b0:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18f78b53-05c3-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Feb 2026 15:24:52 +0100 (CET)
+Received: by mail-oi1-x229.google.com with SMTP id
+ 5614622812f47-45f126d47b8so1985101b6e.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 06:24:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,221 +45,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f45e898a-05c2-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D5XUzoYEd0Ngu0pirpdHJJizLUzpvX0FmZM5Q+9zexS/jeU2e2wug/f8kM32zXKKSw/dAiNZ8YKCaKnW9414YBHE+N6HqXl5yGzAoUANprPASAQy0I+misf1BlUHFqnt4BP9Z0yhvHVz5pf1bXVwXxFH2z44veyEZsxYH4llbfIwQ/PmuPxUWQAr2ReNPJy8yLH7S5tC7D3BR9tUwEEnb2thbkHjEoqVKJBRkNC9B48DqejMU2oQuOfxAijNssPrejP2RqW/sA0zPugbhC+pOaEORpAdQvhMI7/2sHlq90xe8kSPCJ5OeDmgbmtmqSzstM3R1VIPEwsnzrixoiLVzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xDLOQZu1BZE5A+JIJb3+whYaBA/ZW/ig7mAIpIGC4Pw=;
- b=rJA3YpBdrXQgS7uK5ddnsyE4OBr+jjjdEcmWubeF/WXXs0pFYbeC+WmCadhQXLBUVsxj+w74uUp7HZK5AITE728VtSrdhhSD6wBL815in/Q8fXeqauoVGWWqhJZRuuTJIVejdqK5VMh9L8+VgH0gYs7jrpjnMuauQjysGmklkVRSX0pN4KORYL2D/A08DXGPtyFn+yUHho9m5XyZ2Qv2pHUi5YeDR/RA2YsYPgBrEmuwyAItnUAHgkF51h+/xsNlKAy9Skq/KCxCAyzSxNnio423ZomUwJ0ZKv5NP8VP2A95GG+QpUPQrUo4MY5bn2zOwMAynLKuXz/weNFoveOikw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xDLOQZu1BZE5A+JIJb3+whYaBA/ZW/ig7mAIpIGC4Pw=;
- b=BZyNp62ZFhZjP+8XAcAeMiYiDW7FrM/ag7MHsmxBb3Z6Ky+HRmDWdqW6x90UU9lq5n9DkcaDZKJMLknqSyXtIAlxfY9ymVhxmr0RM1KceoSJvAigA1uUDLBNkdu1KFJzWR/sqKHR0eYj6yATjHZuRay5sBJHx4Fh+MH/ksBLq+s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 9 Feb 2026 15:23:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v5] xen: Add Darwin.mk
-Message-ID: <aYnt8WtmjkBn-t-l@Mac.lan>
-References: <49c0bd388d45b6936bd852d99fbbc262fb078253.1770633598.git.bertrand.marquis@arm.com>
- <aYngg_ym18d0G-fX@Mac.lan>
- <28A169D0-4454-4D60-B811-72FE377A4318@arm.com>
- <aYnjjHlbaYjr2VqV@Mac.lan>
- <6B8E025C-3235-4289-948A-B26992D0C4C2@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6B8E025C-3235-4289-948A-B26992D0C4C2@arm.com>
-X-ClientProxiedBy: MA4P292CA0001.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::20) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 18f78b53-05c3-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1770647091; cv=none;
+        d=google.com; s=arc-20240605;
+        b=SNlOEs9l884q8jDn6zvMkEVdKxkSn/QKqbyCHxtd/4jlvlpHJV9YzkeSHvHpuLzED4
+         kYlQqojVPOGdS6ACxlCk8SZvYHv8FOyEocc4KddeXfke8WFrAS3vqEAUOrlAV2kZtIe4
+         2aPwiRa12ZOsLM0YZ3u+NONsol+WgnWPyzP8lMTM81ueWJNlxiA+VPuqckNAkGByYzrg
+         j8y5PCOsFvjvOVQet1+3v1dk8E0ITgEn80+DzT4KjO98tLIWfGZ2pYcEwP07drXyO/1L
+         ++1/TX9OM9XHwmvKcndvj9P6t9SaeBysXpMmIEt8FfL8StaIEGc5thxmwKwOsVFi7Qzn
+         GjQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OR3MJ1p16CrcUYxK9iWZWDF0oa/huSemMt4e/B8BbsY=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=c0jqvRyDKUiAqlCf6T6pVTaTdndC21oTrMQ1MtOABhOVG5zDjdMvIGtHMhYFB+V8W7
+         63XjuXhpclw+vXg2+A/tS6PaiyYFi3Ya7SyKyD/ZZlupQpZACusHEQUWw538Xtx/AIwK
+         WhkN8TqL+HqfmgnViAm02H1VBuP+VNymRfBoPTq+GMPzcfUndHMt1j14JXF8j7jRZdhE
+         LwkGlEi4a1Ep7hNpECg6bLHEwB+S305cslp8cW3FCduOoWbns43/TAAQc7BY/2Adkva/
+         GbD0rWlZNgvjJ8OuCKZLI1G2PK9vME3QrBGtkTAHaWzuH98GC9mtcyUk4wnlNVIPAtUU
+         4k4g==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1770647091; x=1771251891; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OR3MJ1p16CrcUYxK9iWZWDF0oa/huSemMt4e/B8BbsY=;
+        b=TNO1IpnX2oSL/JQhUOiB60PeYvE0PC+4lzJptZbV9RojykDq9UUYdbuV47nhAaeGwd
+         XTBa3WU1zhIlicO04e6h1fEPQMke7x8sMu/WI1i/SCaNKWpVKZnAR4+j3Cj8iv9cCD82
+         S5yvd0ijnBDfVi0cQLIRoFYckBBJkFGDt9eK5wPy8vcCpzbpEvcp/eB3xPC/ZJcu5FXd
+         gJZMEGEIwrkrNqrHbKeVrjWGCmg1KfyrWXMEwe4huv8wuq/i+M0M5srWwhY7vjSXqKYX
+         Lynev+iXJEgpJ2y6oqFWbSWQS0x0OmpupwK8+EVL7rLqi7Bufv2oW0u60zqEL2C61kc9
+         KO4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770647091; x=1771251891;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OR3MJ1p16CrcUYxK9iWZWDF0oa/huSemMt4e/B8BbsY=;
+        b=IAhIj5/Lrib/5SEB4NNoE30lcVnJMbd85pNcj+DEffNBZJshiRh4Z1SeLNlPFbXbJe
+         vslKkXs/ppeLSGxHGTooiozwt1xXFiBLcLROzw4aM67Ow7Do3e5KM5Bbqk23VWuwvHae
+         +vx+Xq8BSEHtsjFvun8jRWl+1UbvhyniKTL58Z9EYBnTyb//FdnMbNkIZcj5XGEOhX8D
+         27va8KyKwEa6pXVGJZzhUpCbEszb2LdI3DyJJdRiSteOznLs6zgrWZyfJMAQJoNuTaRj
+         uUW+Vyk/s9EMxZrv/cifCfrL/GO8ZQKu2XCMBljYrQKUwiRsmOFR82WVV6lu9nUmBvLN
+         22cQ==
+X-Gm-Message-State: AOJu0YwvyWnAiksviakn8SX3JOrUYU/MbqMMIh8nmFdauZmUAfdjd1EU
+	0ecTyvkI0K4wpxbgBNlyC/IaEJhe7xDTq7n5rw3I+CjsVzYcm4DrIt2RwQfqu7rEf2aY6OOAbH3
+	Bnj7b2mp09XGgz+fHCo+CF018hGaA+q5uJqCkHrGw3Q==
+X-Gm-Gg: AZuq6aLn+UsKsvgT4Ma6VkzcPjw1RJ9bSgG4MbO6vFHrhZbS+19zH0auBOtZlwTa2pp
+	ppcunsULKext2oPsPZBJIva/qe/v/hstqtelA2IWeLbLirZkUiqzIiwfbfNlLtimN7llBaQ7ocu
+	YJXwEr8o2GW9aShM/sWZPRDfnYbsk05FVc1tgGzUHPirPBbgOcoDpZ7mRu63dIIDXM3LJhNjUwA
+	gRRThUtOUrvUJngH+HXTs4Ugg28uGSi5AcGtBW+81ZPF4mluV84WfG0fULxA3gYXV50HfcjMKxo
+	oB+PcFSXrhAzdeI9LsRxNjWpPU7eDdVFfjV2
+X-Received: by 2002:a05:6808:c181:b0:45f:4498:35d with SMTP id
+ 5614622812f47-462fca55091mr5958422b6e.7.1770647091383; Mon, 09 Feb 2026
+ 06:24:51 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS2PR03MB8160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0911f657-0be0-4f03-331d-08de67e6d715
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UVdjN1EyVnd6OHRyZWJYckxHUFVnYzIxRnlpMjJlNk8rK0MrQkYwZVk2czQr?=
- =?utf-8?B?bUtXY3czdXBnMC83RkJXOEZHSlFQT3pNSVpoU2M3VE5BczE0Sks4VG5uRFZK?=
- =?utf-8?B?RnI0ZUpQS2RKbTBoNVFMY3VnVWlVL0F5NGNTd0JXQ1ZHSE1xNjhRbm1ldXlr?=
- =?utf-8?B?bURWMTdEdzZ2SkkyU2xtaDYvU2NYMEgzM2o0d2I2b2FIQkdXMmhxSlpQYWpa?=
- =?utf-8?B?VmZPS0hJM1pHWUhydFpuajcrOEpMdkRtdlo1YnQ3NVAvVFBwWFVPbHlLVktz?=
- =?utf-8?B?QkdkODBJMkxFLzI5bHZPNjZXTmFBWU8ySmVxMGpXZHRVU2o4OGJNY2dLOVlL?=
- =?utf-8?B?Y1dnNi9LSlo2VEFDTGd4WjVLbS9wdWRUd0FFNFdmeHU0SHU5eXpEZFBPZVIx?=
- =?utf-8?B?YXlVSXhiVWtReUUrcVQ1UDJ6UUtJaVJ2clFaZ3hJdmlwWSs5b2NJSjVvV3ly?=
- =?utf-8?B?cU01RGlsWk9leFRZeng0T2s3NjR0bzdXcnE4Q3V6TllDWUxxR29lRmNXUUVB?=
- =?utf-8?B?QkZCZ1RoVjNyK2U5OG9PTFRFUjRBL3Vha1R5eVhkWXFmczRpUWpZcWE2YlF3?=
- =?utf-8?B?dnR0TXV5aU9CSVdQREFkbkZQRy9TYkVFQXhzcUhoZTdHbTlEU0FNY1dycjZL?=
- =?utf-8?B?ZkM1OXhRdnZDV0tEazY0WWQ2d0xHZHAxV2hoell3VituYjlZRFloeDlCRWpx?=
- =?utf-8?B?Z2xiZFRsRFdoOUlvUjExdWw2Nk4yQ3JZL2JOREpNZ2VINUozaWd1cktnN0pz?=
- =?utf-8?B?UFBOallYdDJEZ0JPa3Iyd0tZSzRqM3pEL1UxaUJrbVJUclBoL2VIcld2T1o1?=
- =?utf-8?B?RXNCRGlOdzloZGttNWlPOTUrNXJTRG1lcjNkYUlzMVlYN1FLTVpqUWx1YXNl?=
- =?utf-8?B?ZjVvWTdNcU10bHlBMFQ2QmRDZGp0QUJGeFRvenpPQ2RYaFAxYTZhZDJsVUg0?=
- =?utf-8?B?TVMrMWlHSHFkUFZwbkF0RUI1QkpPTUQ5TUcva0FRYnIzRmJWN0R4NU5xbFNY?=
- =?utf-8?B?eXJpV0hpQlgwN1M1eW1UeTg3d1RMWXBwTWlBSjdzTjJEdmpQMUtrQTNYZHdy?=
- =?utf-8?B?U1BSdFB5UXdvRXhZZ1Z4TWFldzBRUnZFQXc3T3E2bGpySXFmdTJzWlg1cnht?=
- =?utf-8?B?V0pDSXU2NWQvOFIyMjJ5eXpnOWRxU01sVWtYbUI1b29iS3BRekhHb3ZITDQx?=
- =?utf-8?B?TzRzS0hycDBTeUgwcVBHR1VaRFVSa0pPUys0TDI5U3dQWmZpUkNhSkFsM0R4?=
- =?utf-8?B?SHVpalB0T0U5Vi9qY2xtNTU4bGRXMHh6OGd0ckQ2Q1pHMnRwUE1NaTRqRlgx?=
- =?utf-8?B?a3FGT1RDUFpJQWhBeGhjeTAzMkxuVCtxZ2FDa2s1Rklqd3R5cHFuNk1SbVEr?=
- =?utf-8?B?bjhhUTZRdXpsM1Z0MGJwK0dFVFlhNWVSQXpSUklVSGFQRXVHd3o4VTRHQWU1?=
- =?utf-8?B?elp6UHVIank5UVhkVWVjdEg3bEhBYldzaWlJRkFIYkpQNUVQQkVRTkRScDBX?=
- =?utf-8?B?eUZmbU53RkpqQjJmZnhkTnovNTFzSzJXTUNtbHU5QkdTeFlLTnVnUTNoa0tS?=
- =?utf-8?B?YnNXQXVvYVVkdU5oQmtlYmRDVzh2UFhyM0hKbjBFcGZ6amdTRnR2OFA5eHp2?=
- =?utf-8?B?YzVmUHZhcE44UDdUYlIrb2VDdy9ibWFLelV5Q0ZOb2JHME9oaGlYcmNZY05H?=
- =?utf-8?B?UThoNVhlSGU5ejRnVTJ1ZTM3MTFteVlkOER2MDhsamU5MDRZME9EMnh3UUtl?=
- =?utf-8?B?RUtGWHJoWlY2KzFnQlNvOXNtRmZFMTlMUzZMVS9oVldWeWJRM3hwbEc3Qzl2?=
- =?utf-8?B?OHcyeHNPRmZ3alFYSTF0TG5JM01TejBhakxiOVgxR1ZXdHZJcE0yR081VHpT?=
- =?utf-8?B?ZlM3Mlk2dVZtSUx0UG1PL2JlSUxLNmJYYVpCRXdjM0Rqckw0ZGFsOVlVYUdG?=
- =?utf-8?B?eW9lNU1odHh5cUx1TzRwZGN5cEFBR3Eya3BGQlpjcE81WUl6M0Q4VmVtUWsr?=
- =?utf-8?B?Y2luN3M2T1QxUTRBVjA0cWp3dExYMzU2OHlMRDJzTTRRU1A0MWZEb3ZraTky?=
- =?utf-8?B?ZGFQaDRkRWFieU9JNUFpc3NjN0pyb29vNzladUpaV0NFRUlzYy85cURiTmVB?=
- =?utf-8?Q?gkAw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVQ5emNPdG9NWWxuMU16Q2VYK2hVOW0rTGlMM3M0THgrZXRIREFVOFczajRr?=
- =?utf-8?B?OTcxR2xyaEd5dmZvRStoVzVSQ0J1SUFiaVVITk9CUkNWUzM4TTNTYXNjSE1w?=
- =?utf-8?B?cWFnaHo1NW9BT1YvaGZMcVdZL2JSNkVUWXNZQUg1V2xEb0lYM3lJVDczSzhi?=
- =?utf-8?B?UjQ2RGFJWUhxUTB3TDhqYnU2MzdxcHFVQTNWa3pZeVJnWjEreXdFTFRFNmlG?=
- =?utf-8?B?TVg2YWd5NGo2bXV3U3JoOWFDeGxSTDNZZEx4SkFmZlhhODUvMmM4UE8zazM1?=
- =?utf-8?B?Z1M2dG1Uem1jY0kvVVFLRkNxOXRJTFUxZnNUanl0SWF4UzVpN2VxeEJ1U1VQ?=
- =?utf-8?B?U1JFUmxQRjZwdXhPVjJSZFRkMFIycFZxN1ZnN0RjNWNDL0orMmoyQTFZdXlS?=
- =?utf-8?B?YzNkYm14OWRDNWtjcUpVTXZVbVNpTEl6eDZzSlAwbkd1UFFJTEYrMXZqK1E5?=
- =?utf-8?B?aldUWDhQQzIzTGdMeGx2V1dXSW12bmRiemFuVyt4ekptU2svUUdEREVoQTNj?=
- =?utf-8?B?Q1ZzV3hGUjVGOVhIQnpaMFpHTnQxWTZQbGMrRDFpeTVDZ0t6WStGVjh6bUtB?=
- =?utf-8?B?K2VTc3owcUMrd2ExbXVmTjFERTRuOEtvRUE5NWdBQW9GKytPYW90QjZPT0p1?=
- =?utf-8?B?QkFVaVQyTXdlbjdqRHBMdWlyUUNYeWZIbjNpbWNDeDlxWVBURlVRdHY4N2J2?=
- =?utf-8?B?a3Nkb2lqNUplTUxIZEZNV0lIZ1V6SzdrcHpxaCttRGFHRkNnV1FOanBnZmZI?=
- =?utf-8?B?cU9FSjJpYm1RcnVIaEs5MkIvYXA3N3VJdm9qWW9xNGlQbVJOMDZ6bE1KWTJi?=
- =?utf-8?B?KzhJTTFJOGxoOTdYK2Q1ejVKQUxvSk1uVVBzS1pJcXNtSTdEcUFTdjdaeEc4?=
- =?utf-8?B?bG1DdnlZemNxa0w0ZlN1QTdHdDliOTR3VS8xc2lnVlM2aERnazhGaDllVjFV?=
- =?utf-8?B?S3ExOTZqc2ZhcC9wUUNJQmJ5dnlhUmx4ZWJTTWR2NllyUkdKYzdFdzRSYkpn?=
- =?utf-8?B?dk9wSVo2Smg1dUlLQ0ZQSWRyVTRRU1h2dDVnS0FkajhITWEyWnQreUgwQnlZ?=
- =?utf-8?B?UDFaUVN3RVg4VTNjalRRSW1aL2xSbmdRSlRVbWpJRXNWQkc0UFB3Z2xTcDI1?=
- =?utf-8?B?UWt3MTZJdlJwQmVCZEt2WkFaK0xlWHFTamJUZ0h3QURBWmZ6bEdzcE9CQ01l?=
- =?utf-8?B?bG5ucTF2L2FBdk5EMkZISmthLzg0UmoyRCt1cm0zM2dpTmNma284WFZQRjBV?=
- =?utf-8?B?allBS1cyUHlKcHB1QjFTam4wUzc5SS85dUdsU1l0QzA0NDNjWlBsWEtaNjRJ?=
- =?utf-8?B?SEIvRFA3YSt0L3NvUlFaR1hLbXpxeFRTQWRveisraEtzbWhjVnVjQ2Z0Uld3?=
- =?utf-8?B?dSt1MVdSc01raUF0NS9LZFYxek5PUWxLMUgxbThQSUVlZjZuME1sdGRVR1ZY?=
- =?utf-8?B?UWhzS3QrOXJpVFNvVGZzZ0F4UnNQdStEWHJBbDlndXVveEhzQjBDTVN2d2Ro?=
- =?utf-8?B?cUNsSHkxOHhmMWV1OTVzWkF6dS9DSzRpWEwzWWVuRkVDUlhQQXdSOXVOVWJD?=
- =?utf-8?B?cFcvRStWblRFMXgreWhNOXBSSzJUbUFlVmZWeXcxSHVlYWJmekpaTTMrVkV2?=
- =?utf-8?B?UlVnc1V5cGgxaFhMWndRSEdoVFRkOVBsWUlxUkkxL0NPRVJYS0pLeFRsS2Fh?=
- =?utf-8?B?cE1BQ1Qwaldmcml2NmdoRTM1MGJtMEFCeFdtSjIvNTZKUVRtRTY1TVFzcGRJ?=
- =?utf-8?B?eFhwS015b0ZLalE3dGZIRUplcjhkUWs5MFZWZnhJUW81dzE5S3FRbEJ2YXEr?=
- =?utf-8?B?c3FqdmNiNzJ2M29la0M3MzZ2SHNoNitQbkNBcUxGelExOVV6VUJ3SjZJWmdD?=
- =?utf-8?B?TjludVVLdDRGMlFJaEtSTC9uY0Q0azBDbTJ0VTl2UVBKRk1JWDF3d0F6TVRr?=
- =?utf-8?B?NjJzRlZ2cFh1MlR5amNQMWEwUlBRYVZ4cklQTDg5SHNJRGNaU0pYek1NNGJs?=
- =?utf-8?B?ZitaZDRnQzdqSWY0WTNFazRSK3hUY05PdUlnL2JLVWsvOWdVMzNFUlhicGNW?=
- =?utf-8?B?eGJQTUg3S05EdkZZOE5YTEJTREU0UFVpRHdjMTFyWERvb0RmWDVzeE84a2h4?=
- =?utf-8?B?Y0RobmVYbmRBcVNTazVzaTgwemJhdGhyUHpwRmxFbUVnOUJtdEE3T01pS1N3?=
- =?utf-8?B?YlhvUDZNWTFndVBxMFUzZFc3TCtJMmZ1WkJvaUFYV2JvNW83UG42UGpOQytl?=
- =?utf-8?B?aTdBSTQrZDhyZGlIK0NHN0txeDc4eWwvUzBwUnVEODFOUXJRMHAvM0xVYy92?=
- =?utf-8?B?S0NXMENFK3FlQW9ieFlkUEQyNDdHRi9KdnR5TG1CTmVpVUdIaCtOZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0911f657-0be0-4f03-331d-08de67e6d715
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 14:23:48.5254
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gl5wwBmj8DrzWQiGmUYI1FMLijPyzXZHu8LUeE0JQkqOClxdb/BX6AQtPJSwNukkUqgU876Dzz7Otb7UidIFbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR03MB8160
+References: <cover.1770115301.git.bertrand.marquis@arm.com> <2cb24d49d7c72bf15a101cc3be62b3cccbfce3d5.1770115302.git.bertrand.marquis@arm.com>
+In-Reply-To: <2cb24d49d7c72bf15a101cc3be62b3cccbfce3d5.1770115302.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 9 Feb 2026 15:24:39 +0100
+X-Gm-Features: AZwV_Qiyots_TwQKHnPPMI96XR5-4WDBnP74SYNudQ9AyNmV8hCzP66RP8dg1fM
+Message-ID: <CAHUa44G7ThfytBBQ=1DRju1z6DY_s+gbndNZOHLCUwf66V+Umg@mail.gmail.com>
+Subject: Re: [PATCH 05/12] xen/arm: ffa: Fix PARTINFO RX release errors
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,stdgnu.mk:url,citrix.com:email,citrix.com:dkim];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,linaro.org:email,linaro.org:dkim,mail.gmail.com:mid];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EB1B3110329
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 3C115110374
 X-Rspamd-Action: no action
 
-On Mon, Feb 09, 2026 at 01:42:05PM +0000, Bertrand Marquis wrote:
-> 
-> 
-> > On 9 Feb 2026, at 14:39, Roger Pau Monné <roger.pau@citrix.com> wrote:
-> > 
-> > On Mon, Feb 09, 2026 at 01:33:13PM +0000, Bertrand Marquis wrote:
-> >> Hi Roger
-> >> 
-> >>> On 9 Feb 2026, at 14:26, Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >>> 
-> >>> On Mon, Feb 09, 2026 at 11:46:44AM +0100, Bertrand Marquis wrote:
-> >>>> Xen does not provide a Darwin build configuration useable on Mac OS.
-> >>>> It is possible to build Xen Hypervisor (tools are not supported) with a
-> >>>> toolchain able to produce ELF binaries (GCC or others).
-> >>>> 
-> >>>> Add config/Darwin.mk to include StdGNU.mk and force
-> >>>> XEN_COMPILE_ARCH=unknown, ensuring Darwin builds always follow
-> >>>> the cross-compile path so compiling on Mac OS is always handled as a
-> >>>> cross compilation case.
-> >>>> 
-> >>>> Only compiling the hypervisor has been tested !
-> >>>> 
-> >>>> An example of how to build the hypervisor for arm64 on Mac OS
-> >>>> (tools cannot be build for now) using a compiler from brew:
-> >>>> - brew install aarch64-elf-gcc aarch64-elf-binutils
-> >>>> - make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-elf- HOSTCC=clang
-> >>> 
-> >>> This needs 'xen' target passed.
-> >> 
-> >> Without any target, xen is built by default so i kept the simplest possible command
-> >> But I am ok with adding xen
-> > 
-> > With the `cd xen` omitted, won't that also attempt to build the tools
-> > then?
-> 
-> This is supposed to be called in the xen sub-directory not in the main directory.
-> 
-> Now i get why you wanted the xen (and hence why there was the cd xen before)
-> 
-> Maybe having -C xen would be a better idea, building from main Makefile could
-> bring other side effects i guess.
+Hi Bertrand,
 
-I don't have a strong opinion, both -C xen or xen seem to work for me.
+On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> On PARTITION_INFO_GET error paths, Xen unconditionally called
+> FFA_RX_RELEASE for the SPMC RX buffer. If the SPMC didn't grant RX
+> ownership (i.e., the call failed early), this issues a spurious release
+> that returns DENIED and produces warnings.
+>
+> Modify ffa_rxtx_spmc_rx_release() to return the release status and let
+> callers choose whether to log it. Only issue FFA_RX_RELEASE after a
+> successful PARTINFO SMC, while always releasing the local RX lock to
+> avoid deadlocks.
+>
+> Update handle_partition_info_get() to only release the SPMC RX buffer
+> after successful fw_ret checks, and ignore release errors during the
+> error path.
+>
+> Functional impact: eliminates spurious FFA_RX_RELEASE calls and
+> associated DENIED warnings when PARTITION_INFO_GET fails before
+> obtaining SPMC RX buffer ownership.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/tee/ffa_partinfo.c | 14 ++++++++++++--
+>  xen/arch/arm/tee/ffa_private.h  |  2 +-
+>  xen/arch/arm/tee/ffa_rxtx.c     | 14 +++++++++-----
+>  3 files changed, 22 insertions(+), 8 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index bf906ed0c88f..6b01c4abe915 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -92,9 +92,11 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uui=
+d, uint32_t *sp_count,
+>                                     uint32_t dst_size)
+>  {
+>      int32_t ret;
+> +    int32_t release_ret;
+>      uint32_t src_size, real_sp_count;
+>      void *src_buf;
+>      uint32_t count =3D 0;
+> +    bool spmc_ok =3D false;
 
-Thanks, Roger.
+Wouldn't notify_fw be clearer, and the same in ffa_partinfo_init()?
+
+Either way, please add:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+Cheers,
+Jens
+
+>
+>      /* We need to use the RX buffer to receive the list */
+>      src_buf =3D ffa_rxtx_spmc_rx_acquire();
+> @@ -104,6 +106,7 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uu=
+id, uint32_t *sp_count,
+>      ret =3D ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
+>      if ( ret )
+>          goto out;
+> +    spmc_ok =3D true;
+>
+>      /* Validate the src_size we got */
+>      if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
+> @@ -157,7 +160,10 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid u=
+uid, uint32_t *sp_count,
+>      *sp_count =3D count;
+>
+>  out:
+> -    ffa_rxtx_spmc_rx_release();
+> +    release_ret =3D ffa_rxtx_spmc_rx_release(spmc_ok);
+> +    if ( release_ret )
+> +        gprintk(XENLOG_WARNING,
+> +                "ffa: Error releasing SPMC RX buffer: %d\n", release_ret=
+);
+>      return ret;
+>  }
+>
+> @@ -507,6 +513,7 @@ bool ffa_partinfo_init(void)
+>      int32_t e;
+>      void *spmc_rx;
+>      struct ffa_uuid nil_uuid =3D { .val =3D { 0ULL, 0ULL } };
+> +    bool spmc_ok =3D false;
+>
+>      if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
+>           !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
+> @@ -522,6 +529,7 @@ bool ffa_partinfo_init(void)
+>          printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
+>          goto out;
+>      }
+> +    spmc_ok =3D true;
+>
+>      if ( count >=3D FFA_MAX_NUM_SP )
+>      {
+> @@ -533,7 +541,9 @@ bool ffa_partinfo_init(void)
+>      ret =3D init_subscribers(spmc_rx, count, fpi_size);
+>
+>  out:
+> -    ffa_rxtx_spmc_rx_release();
+> +    e =3D ffa_rxtx_spmc_rx_release(spmc_ok);
+> +    if ( e )
+> +        printk(XENLOG_WARNING "ffa: Error releasing SPMC RX buffer: %d\n=
+", e);
+>      return ret;
+>  }
+>
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 58562d8e733c..461e87f6f9c4 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -458,7 +458,7 @@ int32_t ffa_endpoint_domain_lookup(uint16_t endpoint_=
+id, struct domain **d_out,
+>  bool ffa_rxtx_spmc_init(void);
+>  void ffa_rxtx_spmc_destroy(void);
+>  void *ffa_rxtx_spmc_rx_acquire(void);
+> -void ffa_rxtx_spmc_rx_release(void);
+> +int32_t ffa_rxtx_spmc_rx_release(bool notify_fw);
+>  void *ffa_rxtx_spmc_tx_acquire(void);
+>  void ffa_rxtx_spmc_tx_release(void);
+>
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index 7d8bb4f4d031..50758fb57cdf 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -375,18 +375,22 @@ void *ffa_rxtx_spmc_rx_acquire(void)
+>      return NULL;
+>  }
+>
+> -void ffa_rxtx_spmc_rx_release(void)
+> +int32_t ffa_rxtx_spmc_rx_release(bool notify_fw)
+>  {
+>      int32_t ret;
+>
+>      ASSERT(spin_is_locked(&ffa_spmc_rx_lock));
+>
+> -    /* Inform the SPMC that we are done with our RX buffer */
+> -    ret =3D ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+> -    if ( ret !=3D FFA_RET_OK )
+> -        printk(XENLOG_DEBUG "Error releasing SPMC RX buffer: %d\n", ret)=
+;
+> +    if ( notify_fw )
+> +    {
+> +        /* Inform the SPMC that we are done with our RX buffer */
+> +        ret =3D ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+> +    }
+> +    else
+> +        ret =3D FFA_RET_OK;
+>
+>      spin_unlock(&ffa_spmc_rx_lock);
+> +    return ret;
+>  }
+>
+>  void *ffa_rxtx_spmc_tx_acquire(void)
+> --
+> 2.50.1 (Apple Git-155)
+>
 
