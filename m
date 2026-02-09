@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OG+JON6jiWlU/wQAu9opvQ
+	id 4HC3M56kiWlU/wQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:07:42 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:10:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55FBF10D5AF
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:07:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225008.1531451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4431C10D619
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:10:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225016.1531461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpNEz-0007Rp-Dv; Mon, 09 Feb 2026 09:07:33 +0000
+	id 1vpNI1-0000Wj-Sr; Mon, 09 Feb 2026 09:10:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225008.1531451; Mon, 09 Feb 2026 09:07:33 +0000
+Received: by outflank-mailman (output) from mailman id 1225016.1531461; Mon, 09 Feb 2026 09:10:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpNEz-0007Q6-Ak; Mon, 09 Feb 2026 09:07:33 +0000
-Received: by outflank-mailman (input) for mailman id 1225008;
- Mon, 09 Feb 2026 09:07:32 +0000
+	id 1vpNI1-0000V1-Oy; Mon, 09 Feb 2026 09:10:41 +0000
+Received: by outflank-mailman (input) for mailman id 1225016;
+ Mon, 09 Feb 2026 09:10:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vpNEy-0007Q0-5X
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 09:07:32 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8Y/H=AN=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vpNI0-0000Uf-2h
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 09:10:40 +0000
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [2607:f8b0:4864:20::c35])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2b1d286-0596-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Feb 2026 10:07:29 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-43638a3330dso1162453f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 01:07:29 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-436296bd1c9sm24901859f8f.15.2026.02.09.01.07.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 01:07:28 -0800 (PST)
+ id 30a5de59-0597-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Feb 2026 10:10:34 +0100 (CET)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-66e35b48d11so840265eaf.1
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 01:10:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,186 +45,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2b1d286-0596-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 30a5de59-0597-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1770628233; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XvbTQe8xte4t9n5cgVH/kjq5aojoL4TlAwj39EDZXBQCyaS3ceOhutM6tTzJE5OeUs
+         yXBPvOP/K+uv2+8L2NF9J4X79bkEhzvwp9nf7mXC+OR7P4N2VXKpSxhWGSg7cmygnOVd
+         8+aggDVEYSCsHq0pLEqNt5IEY34cCZII5lVDQVFXTacKmFm4+Th9PT8Se5VUVA8CVMHU
+         J+CGSsviEvivJwCOk1TnX1CRLu+nJfMkytMYO+XdxNsx2RYPfLxUWS4zvmP+DYF1tEAL
+         aKyES8ZwogXWuTZwl7hEisxbH3evi2++VLxNGuSjgc55N3R9VkWKLAkypErvDdbdxVHV
+         N/qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/WgflB2kW5OpebDqrVi1GbSDPN8vcPQ8RjJSmZ7qYTI=;
+        fh=wB0f5JGUSpWYejuxtnrl8SDqvqyWrEsEaWvC32LbdiU=;
+        b=cLNByov8ie2NkgE1qW+o6YZqI3FaGlO6Z2hzseFIfhQTmqxMip4QgiQCdq9qNsn7S5
+         C/IjOXUkkPEZFryeW2rfD/amTUveJhNbmFcf5emKNvGe0TxrvXFV87mSPKgCQdQLLTTV
+         AC77a33xQAGtjxUFDwVMs7E6YR9b6S/LHUpyGhhtqru3yzSYApdWv0uTchuEAjUO8PkY
+         I6C/SmFgk5mwaqfcbZRyZGv+EYiYC6M7/jeMj3fq6yiiT3H7RPuffFNIYSgYgi3NNb/U
+         x7YVdVXNB9xqFZe2WIIAZEE/Ey4I1S3kY4U4bDM+o9o0epJePugyvGQruUi0AZHPV3uh
+         qgEQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770628049; x=1771232849; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JsQ2GXmQfO89ijeuq5/YBvvUKb75EA9IxDV5fq3XWB0=;
-        b=cFMMOYf2Qf3pUvqCgbUOdM8UzEiTv9vKcbh7wcBZfrXXxOl3lruacG8P8Jvx2lcTfS
-         nqIqopb7q1Ntwi35jnTVDKfhHnwFXOqh7aeIH+Oq0HruyDX+OBO0lZ5BPX+xwWVYtpSJ
-         zELb1k+1tvIh4S4pKcEs9leI/CEpu10y5cwZU1OV75wRQ6JsI8b1jclHZsvjJ/eBEhf2
-         SjLFuNnn023+2NK23vuccndkoSniKaI2DMepZeOkISRhUT+LNzAMGBcFPMB1f74qyGhd
-         KLIocEiTlBsv2tJIpERiKSf0ut4pO0A1hJ/VVoEgSQVqKa14FKN6Ca9O0Xq0IHVj+e2/
-         urFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770628049; x=1771232849;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1770628233; x=1771233033; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JsQ2GXmQfO89ijeuq5/YBvvUKb75EA9IxDV5fq3XWB0=;
-        b=PFqa071P4eQG46qJMV8EuVn7oKpG2O+1CHoKJzinWUILmzNNs9M8/1y0xYy4Ul8Xi9
-         Q/vkddM7zCkihra1gEh0ANO8k4Ro2+neBYG7tgSU/WCVgOhNpUumawfeq2H1dOhT9Vnu
-         W4bQOJPhzuOXvviay2nPtEIY4Sj+LsIAuh5zIVyGoY5gaTGtlCvvDWmcyiU7MmLHSHG+
-         HWyXmBUtxdpb2VIUxGZqZbkUk69eb9EzDG4ijksm2vypxnXkNNvxMP9Z+Nj6UvQ+CIJ4
-         ocPrFT08Ja4b7KdIMl3CUpQnnjWZq72MBqC3pCk2czBmB7Z0MWBHP7A4t+6ySv7tRH1u
-         Upyw==
-X-Forwarded-Encrypted: i=1; AJvYcCU37vBdX6RtU6ejwngqiZ13dXkYcwghNaLcFwIFMBI/4feU924wrSrltHJJWKUuBrWAAKY0qycMgzQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxibZmlg2WkpnJdy6ty5y7usIXBg+hzS5S1ixHm6u3ApQEGpDQl
-	VEIm8nfwZw6Lqfyzq10hxiiwCj7MxBykGCYGR4pZuRINS//KIwMWuIfXxD3IXclDxw==
-X-Gm-Gg: AZuq6aLpGzyxOoKQCNToHrufWHSnUTGV8yC8EdYMAgTWdEehFcP/DFiLAtbwCuo6J0G
-	lJcRAPyYiiFDpbtjWz7nGMzDsmawz4IcVRbujNrqyc7v1ssz4VMJvSMnU9uZW3eDIPTtORFTQXv
-	Q/MiOEb4XkIuAWJNb1sJtdSwVWw5ubSVWQWIxcJz/CTtPjQpQXZNw7eWjErds2KOYRnKju+8T4w
-	sgNDr5chxEuwiDN4oTwb7cNwwsouFwtt8Sx7jEr205gGqvjp38TAW0HjN/iciMrr/T5YgsjGVsR
-	N066i/Iqo0LUi+pqD4m8HrWnR0dkta5cfgbxr9bBqQ7L/grfikrxi/S7BLZtJREkR5MiGh0Hmsn
-	Zki9ZSZy3dt7iWl6ygyXsXplrX0PVmZoPba4fXle6j3CV+wFbPMlzABIij5bsN5vsMgkyeuapQJ
-	j7sHYOTm8MqxLWo++hnmAcR+awAydiqp+IOjXuSWg9iv7zlIV6hWEMRODf8QDUGtg/0Ht10bkmI
-	Bs=
-X-Received: by 2002:a05:6000:4211:b0:436:1e6:e1d6 with SMTP id ffacd0b85a97d-4362938c3c2mr17031638f8f.46.1770628048937;
-        Mon, 09 Feb 2026 01:07:28 -0800 (PST)
-Message-ID: <4a12e652-5b53-40d0-b701-d1f5b749dfa7@suse.com>
-Date: Mon, 9 Feb 2026 10:07:30 +0100
+        bh=/WgflB2kW5OpebDqrVi1GbSDPN8vcPQ8RjJSmZ7qYTI=;
+        b=Z40F6PbFsL90mFUPVP1y8sG89DVVvOJVSA6KxV+wzAhfHttQy4prcFBAdLL85vIyAc
+         U1d+b2K035wvSWomN2oORCudzvebPY1QVD9HHEdu3fp1ivKLR+IeXXhHc8druclRZA98
+         216fIObHP3gmGRAsuVz9/p2+olLztXmiCGIlh+hkln0CeO25Rm93NS2UJq3Pf1jP8uUm
+         yYQ/bnv2VOkYraJ/yz2oV0X7pw9OuBWNV8hh+xkHb8VNRYEj2cpFS76BgxUYQBWWc962
+         HHcUgSsWJx8mGu5pWskpjvJ1EgETtl4VxpdL4l1BDsCONGDozzIPl3afoQIxQFAdYaWL
+         BNiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770628233; x=1771233033;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/WgflB2kW5OpebDqrVi1GbSDPN8vcPQ8RjJSmZ7qYTI=;
+        b=F9qdM+LJuN/uVf7lAF9irO3gP6OtJZPCi6NNFbdSIXBUjfPUfTvSzPwQ/oD9Q3WOlV
+         MoAN64mUcX3CWex0iPveyjkbyFKT4j78TgLOEHHAvudm5DU73cnSqejlGEBqvMuXHCjI
+         R7T375etuz63nWnN7Ta+NM1pZ7LTW696fv/PnWCc+IrOwPvRGfV+fZ/vT/Awuhkz0yB9
+         cDw22Dl+/6B3lqxvfjZ1ztyZpXC2C9/K1fTzgDX6r58ed2MfRyOY9bVmbAMwgbbyf4a8
+         9ATaI3GfaCeoUEasW+o8dwNPLblwWSOA8NqKP7brBA8y38ku5jkFJPEbqgjjxaiaoxjL
+         1+xQ==
+X-Gm-Message-State: AOJu0YwMhxY48iLkc8Ko4mT95pcXonNTg1yZv23n7z47PKm/qCBuTdfw
+	N8pFFr0tfF0qsa/gYXXnnI0G8BgCCoH2QkzIPMZ5vHfMh/ux2MVEBziQ5/AoNE5gVaXkniWcs6h
+	npxT4wS9M9n5kKJ5WOqNuaEOglp5AJMfGHcn6AWMptg==
+X-Gm-Gg: AZuq6aKjO6nMfGtfLfGiAP+NTutZN+ZPK31p302c3QP3edqfbTBmeJXWE1oVxaZl43f
+	U/Ns6/ViDOjjooCfVaFysGp1g0DxRN151ufMjuVc3K1VkHwxXf3qzQc8g6ijJIaePNE1V1ORRwU
+	J3SdfUYjyTuqiwHvqV60o721XV/AYfwTaT56A/+jD+to7SR5rUHxJlIvxTl4ZoPcUK6J28H/OfW
+	sQ5wfsOjK5XKN8eF3+uDFDadrYR3ikBmyCoObTAXQXG6SOlVCWhKY/s8+Gkj+k/PNGBlqV3cX7J
+	uraPtylHl8XISIOurNte37Fw/g==
+X-Received: by 2002:a4a:c90a:0:b0:66e:d9c5:ad47 with SMTP id
+ 006d021491bc7-66ed9c5b0d0mr2307035eaf.55.1770628233302; Mon, 09 Feb 2026
+ 01:10:33 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] xen/riscv: introduce vcpu_kick() implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
- <0335a7db0343d81ce4256482a464e7ba5df1c204.1769099885.git.oleksii.kurochko@gmail.com>
- <14d19350-0de8-4496-99e5-0ba76e421684@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <14d19350-0de8-4496-99e5-0ba76e421684@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1770115301.git.bertrand.marquis@arm.com>
+ <9886df295f4c4365668576cc956299ee36f36c8b.1770115301.git.bertrand.marquis@arm.com>
+ <CAHUa44G9sGWp18EX=Zb-C-jDJn_V6BmEVvnza7t6gcx3rjsRww@mail.gmail.com> <24BD5FEB-06D2-40C0-A928-376A104B9E55@arm.com>
+In-Reply-To: <24BD5FEB-06D2-40C0-A928-376A104B9E55@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 9 Feb 2026 10:10:21 +0100
+X-Gm-Features: AZwV_QjTAhuTcnRM2PUZAl1grLFxtY5I1I4fFXNDa5F0J_pp5X_NMDZi6zzHWNM
+Message-ID: <CAHUa44Fr5KVNdmah-_DPyv-0dq3Lc+wcHo72zjMH72sPjJHD1w@mail.gmail.com>
+Subject: Re: [PATCH 02/12] xen/arm: ffa: Fix MEM_SHARE NS attribute handling
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.989];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	NEURAL_HAM(-0.00)[-0.975];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 55FBF10D5AF
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 4431C10D619
 X-Rspamd-Action: no action
 
-On 06.02.2026 17:36, Oleksii Kurochko wrote:
-> 
-> On 1/22/26 5:47 PM, Oleksii Kurochko wrote:
->> Add a RISC-V implementation of vcpu_kick(), which unblocks the target
->> vCPU and sends an event check IPI if the vCPU was running on another
->> processor. This mirrors the behavior of Arm and enables proper vCPU
->> wakeup handling on RISC-V.
->>
->> Remove the stub implementation from stubs.c, as it is now provided by
->> arch/riscv/domain.c.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> Acked-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Changes in v2:
->>   - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
->> ---
->>   xen/arch/riscv/domain.c | 14 ++++++++++++++
->>   xen/arch/riscv/stubs.c  |  5 -----
->>   2 files changed, 14 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
->> index e38c0db62cac..13ac384c4b76 100644
->> --- a/xen/arch/riscv/domain.c
->> +++ b/xen/arch/riscv/domain.c
->> @@ -1,8 +1,10 @@
->>   /* SPDX-License-Identifier: GPL-2.0-only */
->>   
->> +#include <xen/cpumask.h>
->>   #include <xen/init.h>
->>   #include <xen/mm.h>
->>   #include <xen/sched.h>
->> +#include <xen/smp.h>
->>   #include <xen/vmap.h>
->>   
->>   #include <asm/bitops.h>
->> @@ -240,3 +242,15 @@ void vcpu_sync_interrupts(struct vcpu *v)
->>   #   error "Update vsieh"
->>   #endif
->>   }
->> +
->> +void vcpu_kick(struct vcpu *v)
->> +{
->> +    bool running = v->is_running;
->> +
->> +    vcpu_unblock(v);
->> +    if ( running && v != current )
->> +    {
->> +        perfc_incr(vcpu_kick);
-> 
-> Because of this it is needed to introduce:
->    PERFCOUNTER(vcpu_kick, "vcpu: notify other vcpu")
-> Otherwise randconfig build will fail when CONFIG_PERF_COUNTERS=y.
-> 
-> I would like to ask if it would be okay to add it xen/include/xen/perfc_defn.h
-> just after PERFCOUNTER(need_flush_tlb_flush,...) or would it be better to have
-> it in arch specific perfc_defn.h?
+On Fri, Feb 6, 2026 at 5:18=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+>
+>
+> > On 6 Feb 2026, at 10:28, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
+> >
+> > Hi Bertrand,
+> >
+> > On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> The FF-A memory attribute encoding is currently a literal value (0x2f)=
+,
+> >> which makes reviews and validation harder. In addition, MEM_SHARE
+> >> accepts the NS (non-secure) attribute bit even though the normal world
+> >> must not set it according to FF-A specification.
+> >>
+> >> Introduce named attribute bit masks and express FFA_NORMAL_MEM_REG_ATT=
+R
+> >> in terms of them for clarity.
+> >>
+> >> Reject MEM_SHARE descriptors with the NS bit set, returning
+> >> INVALID_PARAMETERS to match FF-A v1.1 rules that prohibit normal world
+> >> from setting this bit.
+> >>
+> >> Functional impact: MEM_SHARE now rejects descriptors with NS bit set,
+> >> which were previously accepted but violate FF-A specification.
+> >
+> > To be fair, it was also rejected earlier, but with a different error co=
+de.
+>
+> True, will adapt the impact comment to say:
+>
+> Functional impact: MEM_SHARE now rejects descriptors with NS bit set
+> with the right error code, INVALID_PARAMETER.
+>
+> Tell me if that would be ok for you and if it could be fixed on commit wi=
+th
+> your R-b if it is the case.
 
-Arch-specific please - it's not used by x86 nor ppc.
+Sounds good. With that, please add:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-Jan
+Cheers,
+Jens
+
+>
+> >
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> xen/arch/arm/tee/ffa_private.h | 17 ++++++++++++++++-
+> >> xen/arch/arm/tee/ffa_shm.c     |  6 ++++++
+> >> 2 files changed, 22 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
+vate.h
+> >> index cd7ecabc7eff..b625f1c72914 100644
+> >> --- a/xen/arch/arm/tee/ffa_private.h
+> >> +++ b/xen/arch/arm/tee/ffa_private.h
+> >> @@ -129,11 +129,26 @@
+> >> #define FFA_HANDLE_HYP_FLAG             BIT(63, ULL)
+> >> #define FFA_HANDLE_INVALID              0xffffffffffffffffULL
+> >>
+> >> +/* NS attribute was introduced in v1.1 */
+> >> +#define FFA_MEM_ATTR_NS                 BIT(6, U)
+> >> +
+> >> +#define FFA_MEM_ATTR_TYPE_DEV           (1U << 3)
+> >> +#define FFA_MEM_ATTR_TYPE_MEM           (2U << 4)
+> >> +
+> >> +#define FFA_MEM_ATTR_NC                 (1U << 2)
+> >> +#define FFA_MEM_ATTR_WB                 (3U << 2)
+> >> +
+> >> +#define FFA_MEM_ATTR_NON_SHARE          (0U)
+> >> +#define FFA_MEM_ATTR_OUT_SHARE          (2U)
+> >> +#define FFA_MEM_ATTR_INN_SHARE          (3U)
+> >> +
+> >> /*
+> >>  * Memory attributes: Normal memory, Write-Back cacheable, Inner share=
+able
+> >>  * Defined in FF-A-1.1-REL0 Table 10.18 at page 175.
+> >>  */
+> >> -#define FFA_NORMAL_MEM_REG_ATTR         0x2fU
+> >> +#define FFA_NORMAL_MEM_REG_ATTR         (FFA_MEM_ATTR_TYPE_MEM | \
+> >> +                                         FFA_MEM_ATTR_WB | \
+> >> +                                         FFA_MEM_ATTR_INN_SHARE)
+> >> /*
+> >>  * Memory access permissions: Read-write
+> >>  * Defined in FF-A-1.1-REL0 Table 10.15 at page 168.
+> >> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> >> index 8282bacf85d3..90800e44a86a 100644
+> >> --- a/xen/arch/arm/tee/ffa_shm.c
+> >> +++ b/xen/arch/arm/tee/ffa_shm.c
+> >> @@ -512,6 +512,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *r=
+egs)
+> >>     if ( ret )
+> >>         goto out_unlock;
+> >>
+> >> +    if ( trans.mem_reg_attr & FFA_MEM_ATTR_NS )
+> >> +    {
+> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >> +        goto out_unlock;
+> >> +    }
+> >> +
+> >>     if ( trans.mem_reg_attr !=3D FFA_NORMAL_MEM_REG_ATTR )
+> >>     {
+> >>         ret =3D FFA_RET_NOT_SUPPORTED;
+> >> --
+> >> 2.50.1 (Apple Git-155)
+> >>
+> >
+> > Looks good, but I think the commit message needs a small update or
+> > clarification.
+>
+> Thanks.
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Cheers,
+> > Jens
+>
+>
 
