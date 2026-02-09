@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GLhjDfoQimnXGQAAu9opvQ
+	id MCc6N/YQimlrGAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:14 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1B9112B61
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225793.1532441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78035112B1D
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225795.1532458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVG-000151-SO; Mon, 09 Feb 2026 16:52:50 +0000
+	id 1vpUVJ-0001g9-HH; Mon, 09 Feb 2026 16:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225793.1532441; Mon, 09 Feb 2026 16:52:50 +0000
+Received: by outflank-mailman (output) from mailman id 1225795.1532458; Mon, 09 Feb 2026 16:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVG-00011Z-LD; Mon, 09 Feb 2026 16:52:50 +0000
-Received: by outflank-mailman (input) for mailman id 1225793;
- Mon, 09 Feb 2026 16:52:49 +0000
+	id 1vpUVJ-0001bj-5s; Mon, 09 Feb 2026 16:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 1225795;
+ Mon, 09 Feb 2026 16:52:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zC3u=AN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vpUVF-0007Zo-1S
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:52:49 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1vpUVH-0007Zo-0t
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:52:51 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3a33c6d-05d7-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 17:52:48 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-b8838339fc6so424017066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:48 -0800 (PST)
+ id c457e3b0-05d7-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 17:52:49 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b8710c9cddbso366417966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:49 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.46
+ a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 08:52:47 -0800 (PST)
+ Mon, 09 Feb 2026 08:52:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3a33c6d-05d7-11f1-b162-2bf370ae4941
+X-Inumbo-ID: c457e3b0-05d7-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770655967; x=1771260767; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770655969; x=1771260769; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=im3bd0BlqxTSOv1iNEV5B1CvJvcf5KKLgXBheRE/42Y=;
-        b=PJHtPXX6qJ0eRTAIywvaJmnSR1WAmdxWgRkeZAidTE2UVxnqNU3YWxn+qoO7gjTBIG
-         xUwpcix/UqYkCnW1SmViUQK4L6Zf6gvcfuK3xgd+Kh9r97hjVPD24wOVLc/7SxXTqyhV
-         /brfbiSUd/gjt7JVEif9JoTpulJ7fpjrccvoCpauMsNue4eDb3sb5BlHBzP1FHw4w4zn
-         ZkM7cQ+pZZldcU9h446reJlKsjeGw68lMpadQfwVdQvvFpKW7tOQ467rfC5rXpEQIWyV
-         /uM1+M2Y6rL7vNqTyeuQNJnl4Lxl/52jo01QD4sBMuq+/PbyAvt8dKQ8In1h0fIkGsjm
-         U/rw==
+        bh=NpYDvQ6BAB6GpfLP621I0RKvGO5xaivkih7Lty/queI=;
+        b=C7bkHyb1IODOZWStUacFDH5SOhQZOA75zj0sO9c3b8Ql6ZaAMfU1M9LeEQTF/facLE
+         4N9Ym5tGJxFwA9v+xYGZMjfSebiHIEsOv4dzjC71mIRTivQcgSW1dSrFLJ2gy2X/w6tA
+         ZteF+Lg9CRnlT40vzVwI7Ombp9vg5Ci3xMO+pX51ZVHrScZmtVo/4U42A26aaI+LaRlP
+         ZiTEyuHyb1ht3HsvjC/L11WbMlinyhAVre9A5nRVpoj57Rp39xxCtIQcFWRABIidUnzf
+         4uVaJhSpEZUjAOTdGMWRVM3aKk0uK6yzloe+hOewSZEDGb8QlWn3UJUokN/o9NbEyK1J
+         W9Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770655967; x=1771260767;
+        d=1e100.net; s=20230601; t=1770655969; x=1771260769;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=im3bd0BlqxTSOv1iNEV5B1CvJvcf5KKLgXBheRE/42Y=;
-        b=tvykNYZ05s1R4+Jegw9mOyed7jH+QmUYAnxo2ifrKsOJBapOvv5nC7lcm9cvbj7/ja
-         cXIrReifSraYoGXt1P3M25YU/rj9HUxOP5yJSevk4XJsb6R7JNtqYxyQvSRw4H1tOfDV
-         Cc8afVFctW+2Xt2QFrL7FzmoeGF6HX3bHCzt4CK/Xh7M/W7LD3MIW6KyhdYt92+/3Lb6
-         gpqVpxXIkRP/ky/Y9q0wZleoY4sOLeE6sJXlDF42AR1LfL7MdX+Zfw2sdWRK96IflG57
-         db6hevWIWUJb7gAMVY/EnFTLTtCq+o7a35HLuolzceSr0YZ0o1PAE7wVQJ8fth39sore
-         //oQ==
-X-Gm-Message-State: AOJu0YxbLSo5mQraKakH+am87n2eBtf9JeAy3KbCT0pWpUXrnEh+VORM
-	4AL/HwTkoZHd7YPqGr5rG2DsfJn1a0H3uVZrh0G7+50ZxlnxXFlDsrCJpypi94Q2
-X-Gm-Gg: AZuq6aIhDjNe+hO17dhYVdQ6oievestFi/dXgKFZpCdxcA8SrIcDuEioC88OeDXX6wQ
-	IyDfdtUpGHLzHItOJXmp9NAQwV2KX+mZ0liy4+H/k1Dl91t19ed3bf43Cg2cXylXXBNSNx8brav
-	zcFVGFIg72Whnzc/UItxpmCBMJUahcjsdiPCXiVrAg0id4cW8ojhC2DVaQV6kCiVwSo7DjDVmwb
-	WKriYlNfa5ql30VnS2Kgd0t3t1ZSJ3YlIbKNtVjrMpOfHKfep1356/uSB7w0My/pMWmXMG4KgUv
-	s7jlXjIIUpaS6VZcmMoHPBwIVtm9k3byjxT9r9VtcKfBr8ofHgEahvjrzeRJDd8AvaiOxPpBWU1
-	wKWToFz7hmqoemu5U2mDTq6bKFqAlV7DyeX7g6cTbjMfjHDFKgqXuF1TWcoFMastW7XmoJtj8Cb
-	rsEDP/GGU67AXHDqE5Z02XjhQ5/yg2o2icCbxfrx74LwgV8KVMbLoDcxcOkqlu0jOp
-X-Received: by 2002:a17:907:94d3:b0:b88:4224:8168 with SMTP id a640c23a62f3a-b8f4d57e4aemr4055766b.22.1770655967365;
-        Mon, 09 Feb 2026 08:52:47 -0800 (PST)
+        bh=NpYDvQ6BAB6GpfLP621I0RKvGO5xaivkih7Lty/queI=;
+        b=siJQYfeFpCPtV/60zdBFvyoHmjap9AjAzI/Kp+WwnuVcbrqgO56XgO17hII1CKKCUK
+         AhuSpRatV5iTKhbAkLOwfp0eHU4qpKRuZGTYYyLLi6eh5IsbAx8xtlQNK191iSJ7bcGj
+         cLH5UkO3TqBwrlz2CHamXdx1Jwu4Mu69JikYPgr2m88Be1LAQsg9vnU9AQQ6ldfWicY9
+         /QU6fPR6BijhgZ09zohvaP2AJD09vq2tvASGl+bdhhN9S4t+BBSd+9RNIDyNyTxFv6e4
+         W1633lE4oRKsQXdPVSsPxobXp2gyfjk+iafFaFkTvHqFuK7GcttpANkIv7/kR5vOSWB0
+         jxsQ==
+X-Gm-Message-State: AOJu0YxvVfT0pDEAIK5px4uooFAhZYxNLOEaQa8AumuZdAg4aQF/jWF4
+	9PljHou+ls+hKkPCQersUBKX9R+wrcm/ttsEFBKPEvxpeNQxJupm4J+o3hOXPRlo
+X-Gm-Gg: AZuq6aIym2gcC0RoaKw+Hzz1IhvhX1/wKUw45uZNYm7EVrQEeGFjUcI+YgtKQPbqE4t
+	CmWgwCCh9vwrKwkXSm6Dhg4Lyt1VyWOwn0rcM8/H/cQDR5lpVp/VEr6dPZO8TZY6ROWHi0JyWia
+	Yli3779BQl1nnYMrN2w5tYuGY2IlCQL6wmVKHONBsi4wH22TzKJxgwKSKexmUta9STW2yCOWu0C
+	IwyCy/w7MfIDCpBTmIAS4SuPJv97wRL+VW2JNUMSsTkYnzvze4A7msyfX9X2KG+PxeGPXJxAnYw
+	+k8a5rSoG2obhQGYDwfwGFSWp7+c9myuvg0RvRVF7DsM2x/S3MFEPjbPXRPaHN8hOeA5XPQP5Z9
+	bkDiTODWiDoe1JH8VPm8uueAqzkxqIOALyK231Culy+uDk1xtiAHSClkEn2UfEnKsG3Kr7JLEZO
+	e/Kamycws/J8vnH0w9aF9Pb+Sec3V1fRhip1sdIP44l8kuPeWGvSBUrA==
+X-Received: by 2002:a17:907:9717:b0:b87:892:f440 with SMTP id a640c23a62f3a-b8edf2fa568mr606769466b.38.1770655968372;
+        Mon, 09 Feb 2026 08:52:48 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,9 +99,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 09/16] xen/riscv: introduce vcpu_kick() implementation
-Date: Mon,  9 Feb 2026 17:52:22 +0100
-Message-ID: <f59a082c4ab600358db23e9f4cd12e89b5b2cef7.1770650552.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 10/16] xen/riscv: add vtimer context switch helpers
+Date: Mon,  9 Feb 2026 17:52:23 +0100
+Message-ID: <a865da0ecfe02c68ed807682521108cb9e7d7a35.1770650552.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770650552.git.oleksii.kurochko@gmail.com>
 References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
@@ -143,107 +143,81 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: DD1B9112B61
+X-Rspamd-Queue-Id: 78035112B1D
 X-Rspamd-Action: no action
 
-Add a RISC-V implementation of vcpu_kick(), which unblocks the target
-vCPU and sends an event check IPI if the vCPU was running on another
-processor. This mirrors the behavior of Arm and enables proper vCPU
-wakeup handling on RISC-V.
+Introduce vtimer_ctxt_switch_from() and vtimer_ctxt_switch_to() to handle
+virtual timer state across vCPU context switches.
 
-Remove the stub implementation from stubs.c, as it is now provided by
-arch/riscv/domain.c.
+At present, vtimer_ctxt_switch_from() is a no-op because the RISC-V SSTC
+extension, which provides a virtualization-aware timer, is not yet
+supported. Xen therefore relies the virtual (SBI-based) timer.
 
-Since vcpu_kick() calls perfc_incr(vcpu_kick), add perfcounter for
-vcpu_kick to handle the case when CONFIG_PERF_COUNTERS=y. Although
-CONFIG_PERF_COUNTERS is not enabled by default, it can be enabled,
-for example, by randconfig what will lead to CI build issues.
+The virtual timer uses Xen's internal timer infrastructure and must be
+associated with the pCPU on which the vCPU is currently running so that
+timer events can be delivered efficiently. As a result, vtimer_ctxt_switch_to()
+migrates the timer to the target pCPU when a vCPU is scheduled in.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v3:
- - Add asm/perfc_defn.h to provide vcpu_kick perfcoounter to cover
-   the case when CONFIG_PERF_COUNTERS=y.
----
-Changes in v2:
+ - s/vtimer_ctx_switch_to/vtimer_ctxt_switch_to
+ - s/vtimer_ctx_switch_from/vtimer_ctxt_switch_from
  - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
- xen/arch/riscv/domain.c                 | 14 ++++++++++++++
- xen/arch/riscv/include/asm/Makefile     |  1 -
- xen/arch/riscv/include/asm/perfc_defn.h |  3 +++
- xen/arch/riscv/stubs.c                  |  5 -----
- 4 files changed, 17 insertions(+), 6 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/perfc_defn.h
+Changes in v2:
+ - Align the parameters names for  vtimer_ctx_switch_from() and vtimer_ctx_switch_to() in
+   declarations to match the ones in the defintions to make Misra happy.
+ - s/vtimer_save/vtimer_ctx_switch_from.
+ - s/vtimer_restore/vtimer_ctx_switch_to.
+ - Update the commit message.
+---
+ xen/arch/riscv/include/asm/vtimer.h |  3 +++
+ xen/arch/riscv/vtimer.c             | 15 +++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 3f4b062b6ce8..30a966f53c1d 100644
---- a/xen/arch/riscv/domain.c
-+++ b/xen/arch/riscv/domain.c
-@@ -1,8 +1,10 @@
+diff --git a/xen/arch/riscv/include/asm/vtimer.h b/xen/arch/riscv/include/asm/vtimer.h
+index 0d1555511755..c70b0226515e 100644
+--- a/xen/arch/riscv/include/asm/vtimer.h
++++ b/xen/arch/riscv/include/asm/vtimer.h
+@@ -17,4 +17,7 @@ void vcpu_timer_destroy(struct vcpu *v);
+ 
+ void vtimer_set_timer(struct vtimer *t, uint64_t ticks);
+ 
++void vtimer_ctxt_switch_from(struct vcpu *p);
++void vtimer_ctxt_switch_to(struct vcpu *n);
++
+ #endif /* ASM__RISCV__VTIMER_H */
+diff --git a/xen/arch/riscv/vtimer.c b/xen/arch/riscv/vtimer.c
+index 32d142bcdfcd..afd8a53a7387 100644
+--- a/xen/arch/riscv/vtimer.c
++++ b/xen/arch/riscv/vtimer.c
+@@ -1,5 +1,6 @@
  /* SPDX-License-Identifier: GPL-2.0-only */
  
-+#include <xen/cpumask.h>
- #include <xen/init.h>
- #include <xen/mm.h>
++#include <xen/bug.h>
  #include <xen/sched.h>
-+#include <xen/smp.h>
- #include <xen/vmap.h>
+ #include <xen/timer.h>
  
- #include <asm/bitops.h>
-@@ -231,3 +233,15 @@ void vcpu_flush_interrupts(struct vcpu *v)
-         vcpu_update_hvip(v);
-     }
+@@ -69,3 +70,17 @@ void vtimer_set_timer(struct vtimer *t, const uint64_t ticks)
+     migrate_timer(&t->timer, smp_processor_id());
+     set_timer(&t->timer, expires);
  }
 +
-+void vcpu_kick(struct vcpu *v)
++void vtimer_ctxt_switch_from(struct vcpu *p)
 +{
-+    bool running = v->is_running;
++    ASSERT(!is_idle_vcpu(p));
 +
-+    vcpu_unblock(v);
-+    if ( running && v != current )
-+    {
-+        perfc_incr(vcpu_kick);
-+        smp_send_event_check_mask(cpumask_of(v->processor));
-+    }
++    /* Nothing to do at the moment as SSTC isn't supported now. */
 +}
-diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
-index 3824f31c395c..86c56251d5d7 100644
---- a/xen/arch/riscv/include/asm/Makefile
-+++ b/xen/arch/riscv/include/asm/Makefile
-@@ -7,7 +7,6 @@ generic-y += hypercall.h
- generic-y += iocap.h
- generic-y += irq-dt.h
- generic-y += percpu.h
--generic-y += perfc_defn.h
- generic-y += random.h
- generic-y += softirq.h
- generic-y += vm_event.h
-diff --git a/xen/arch/riscv/include/asm/perfc_defn.h b/xen/arch/riscv/include/asm/perfc_defn.h
-new file mode 100644
-index 000000000000..8a4b945df662
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/perfc_defn.h
-@@ -0,0 +1,3 @@
-+/* This file is intended to be included multiple times. */
 +
-+PERFCOUNTER(vcpu_kick, "vcpu: notify other vcpu")
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index c5784a436574..1f0add97b361 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -208,11 +208,6 @@ void vcpu_block_unless_event_pending(struct vcpu *v)
-     BUG_ON("unimplemented");
- }
- 
--void vcpu_kick(struct vcpu *v)
--{
--    BUG_ON("unimplemented");
--}
--
- unsigned long
- hypercall_create_continuation(unsigned int op, const char *format, ...)
- {
++void vtimer_ctxt_switch_to(struct vcpu *n)
++{
++    ASSERT(!is_idle_vcpu(n));
++
++    migrate_timer(&n->arch.vtimer.timer, n->processor);
++}
 -- 
 2.52.0
 
