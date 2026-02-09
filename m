@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wNF1DP37iWluFQAAu9opvQ
+	id gLxgK0b8iWluFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:23:41 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:24:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B92B111DB5
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:23:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225608.1532149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1241E111DE1
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:24:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225613.1532159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpT6X-0000OE-Iq; Mon, 09 Feb 2026 15:23:13 +0000
+	id 1vpT7z-0000vp-SQ; Mon, 09 Feb 2026 15:24:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225608.1532149; Mon, 09 Feb 2026 15:23:13 +0000
+Received: by outflank-mailman (output) from mailman id 1225613.1532159; Mon, 09 Feb 2026 15:24:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpT6X-0000MW-FS; Mon, 09 Feb 2026 15:23:13 +0000
-Received: by outflank-mailman (input) for mailman id 1225608;
- Mon, 09 Feb 2026 15:23:11 +0000
+	id 1vpT7z-0000uM-OX; Mon, 09 Feb 2026 15:24:43 +0000
+Received: by outflank-mailman (input) for mailman id 1225613;
+ Mon, 09 Feb 2026 15:24:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Y/H=AN=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vpT6V-0000MN-Ou
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:23:11 +0000
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [2607:f8b0:4864:20::331])
+ <SRS0=EeIc=AN=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vpT7x-0000uE-L6
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:24:41 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38b99d21-05cb-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 16:23:02 +0100 (CET)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-7d18dd2adf7so2720554a34.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 07:23:02 -0800 (PST)
+ id 72fe64a3-05cb-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 16:24:40 +0100 (CET)
+Received: from SA0PR13CA0001.namprd13.prod.outlook.com (2603:10b6:806:130::6)
+ by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
+ 2026 15:24:29 +0000
+Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
+ (2603:10b6:806:130:cafe::70) by SA0PR13CA0001.outlook.office365.com
+ (2603:10b6:806:130::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.16 via Frontend Transport; Mon,
+ 9 Feb 2026 15:24:22 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 15:24:29 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
+ 2026 09:24:26 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,241 +61,307 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38b99d21-05cb-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1770650581; cv=none;
-        d=google.com; s=arc-20240605;
-        b=UIFU+BB/fLBt6SqBeIDA5BtCfbI0rJ2wBG2k7P2uMldqPVxr+Qn0Tp+vAHsG3rz/iE
-         WL6M+BaHb5LMjsnCOMiFuUx+l/SzRAeHqElhtx292SXFvxT3rJFDRlOUymZ1/Xu1ToLm
-         8O4X6BfQj2g96UC9lU5LjnhMrnfeEhYzhDDiVObLeTXGIYa9I5LH5VvPnoqsu0k3kt9e
-         0LNb67ECUQT+eglhNLoCgdRC7H6Csv3gwTVlJHS0v2kizjAkCxGnqoKKc77cT8PtjGNw
-         DBZPqPZcA9KzLIdmAIM8vWh2sZnUGNzv5xqEfDsWDDwWJ/5l0AlGBkHfrgNjY8qXs+g4
-         QRgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mfdDFWL+0l2twDO+TgLnRaPXlODpXnZ3nrJFy445z+c=;
-        fh=wB0f5JGUSpWYejuxtnrl8SDqvqyWrEsEaWvC32LbdiU=;
-        b=hVZcFItlIbZneOBgpVSFB+WR2/+bh1opGM05ni7+WKg+esVLE7QgDNssi3214emoi6
-         et3CcALrVLABJVmqaEKqrpkd/Wgve/HbvYKXb+vTn/Li9EbCP8qyUa62l1+kbQ2UEMpQ
-         BPkOMroQ6ymQSMBMUTvdjE6FV/NwDSNr/+nPCr4GSIcArHMwNASAt6jnxIGonXuWccao
-         SbbF9jSuXd7iQYcCaEF6pnrQN6lWcsgqW76Ter7EuvcDrYTpebvzn70ppU1qhQJtviOS
-         j2iuNHPNvG+hIp1WoR3Ygqvo3ycJQY5B1AQHHDYMhKTnrXCbvdSinETWUX12vmhHzcbc
-         3jsQ==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770650581; x=1771255381; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mfdDFWL+0l2twDO+TgLnRaPXlODpXnZ3nrJFy445z+c=;
-        b=d9vj/iKUr3PwHwUB17EAZrgjCN4xtNs1vOAUddy+Ahy/VCQfI1u+jwWdPfSMwxGfwF
-         YlxfqmU7/3Ct9POimQYMVgpz9Zx+66Zj4VxnN8xDuHT7dOC6rDmvXdrRHhis8ujPyCMA
-         LyzVyflql9auWEM7jhfYel+E+6sBsIo1QQ4547GZEuHahBVnP5mhS9TugmtHd5WMrKCN
-         wU0XEpS7ehaxj2M5t1ngeuFdNHKyesrE4gCC5Wd7wmraeyqxgAdvIuIV6EZwkTlVdU0C
-         mOif4TLAV5SZkfrXgXCk3a4Nmv3qxh4YdjsMYYMegILX30Ok4CgOuhrqEJdstWMEaiM+
-         ykHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770650581; x=1771255381;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mfdDFWL+0l2twDO+TgLnRaPXlODpXnZ3nrJFy445z+c=;
-        b=RfN+EBpP9M27luhNDf2NKetD5Pm1BpLYJpUdsQXgIJaOHbotjaA2Pr9bB/GHvG67Av
-         X4HADYqZZa3kLkMTMQwkI9mmf8O24+CEevaVgZnMkFnUqQlW+tef9HDQ01K864esYgcm
-         LYM7HDo1kvjWGxB7FOGoN5030/lf8hB/kNKUbcfKaMnEFEmSTHV3atAjAryOscrWSyND
-         n+Qh1wMb+t9fgBEyWoVYMt7jVvBz8CGLUHp++mmX2a6W0qIyqhsmynE4AT09veTXubZ0
-         FBblXJLRukrzOacg4fvBczaxH3uXEYeJY8JiBBoN3G8PerhJEvStPbXTkoB7fla5yxnE
-         xcBA==
-X-Gm-Message-State: AOJu0Yw3sQTgfllVh8HNJA86yDAh8qnQAGMUpkd15vAks3/lqSQGk7Px
-	1yr5BHt8+n9LCmHLG3AbybDrVSD4DVZc6bWxXCn7Dqv6fDH8WmtUVSHW+4rWASb5MNzmMHtLkaw
-	8xw342DK+6HPL82mZULimqv/Gg3mMUpjwQkDPXVcMjg==
-X-Gm-Gg: AZuq6aIYerDhtpg6YN6aX+MqOSQ/Db3JVWkIu+2SFM4ukTIiM/A9C3Dpon6N32sRO0f
-	oGVLsGKAkLk+nY0TtUl8CkvUdn3k7Vlwn4SoqrBDzNSYZSKHAwUtS+YWjDy21SyuWCPzR9Rw46b
-	k7bXVl90tZxap5yxWvTVSo4J9XZhkLJcRHFkhs4uhuYc0oD+xZdMJGjT4CUIWDwh89F6lHOHzxt
-	ILc+npvNKY3Jzq559UloA1Ki/GI2s8lvzXkztuA0imqHWe/j7n8KbvaJCMlLKxn2YI47fR2/jMt
-	8mANnhl00aHx9hiVU2jSPZ92Qw==
-X-Received: by 2002:a05:6820:80d:b0:668:d715:109c with SMTP id
- 006d021491bc7-66d0c94e466mr5625709eaf.65.1770650580542; Mon, 09 Feb 2026
- 07:23:00 -0800 (PST)
+X-Inumbo-ID: 72fe64a3-05cb-11f1-b162-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S/O6DFAOWGIhrYqF1tALyHQ+cZBAA+5ALyMv8ROqUU9I1YTBAGOAgtsxjoMWy1U0DGwIMuVC5IO9vdyjbbkcWp3iuuMT/d+mRLbURl5XtyRiIEEWzaw7hwjkumE2/axsRItsqXKO8I9AowRo/liODDZBCtDmzzR5bAo8EuGyzwvF+tpxGRpBNBYgaL9+rev3JRmuIwwfmeRtYz9IlD+TmPyUFtDY1Ad3Z1IIoEioaivotOc1m3kTy+g4ypF6O4VXaklZOSyV4RTmVw8+C02I6l4eEM69MY7bfasUt/gP3URK1ybELbw5AOFWfucxNwSEDDLUp9aLOZXZKvkAE9OHzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+fMWWQUBccgWkfSBLwgf2XCzwOW6dseuCIZp8QsjhLE=;
+ b=b1EMDGci29mB5P7CV+m0vFEe/B6riM7zHcmSwNkv35opetH7QUOoqzHO5LqkK1R5rh+vXiD/ennhelzpunLHRovorrWKWVPT1/yKi/B2np8nOuk9XciEIN5G7ZEtieDSeNocXQeGQq+V0J2fpvwvPxenUE9aKL0KTLfXbUUwhXQIvzyxwqkVfqILJ1qhQVAspS8dU/yhFn5XqmAQ/5ZGTonnwJeeSlqGtMIbJPakx1DAGZELfYU3BuChqUGjLgDDmxmyOXi6krJ392sH4C0d0YrSY2zD0qjQRgR6z8stl16RWRq/QyflwpTL8sBY3YT9XQESo6Ldic7vlFmPaAxeeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+fMWWQUBccgWkfSBLwgf2XCzwOW6dseuCIZp8QsjhLE=;
+ b=XoyiyOAecDDzJjbaBDGyVKnBwA71+uDx9SGd3HbHCFFBUeVFyOlnzo+n/m1JElEIl3sIhh9BB76sXoTTA2Boq//X3CdqgEXRE38Vgf3yZlZqxgmwJpoxn84uAuWimS2nNByxxs53Klicclyp1zdePy9ePlILnvYcPuJFjQmlBWw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-References: <cover.1770115301.git.bertrand.marquis@arm.com>
- <97a064c81ee5ea26774c189538f9f1e37dd3eebc.1770115302.git.bertrand.marquis@arm.com>
- <CAHUa44Ey=Ph_m8r933K5enqPJgFuyVgY+2Qhtj3pi+V_Fw4=6A@mail.gmail.com>
- <19C7C710-4447-42AC-AFF3-F3122606BC0C@arm.com> <0680A28E-E2A6-4A75-9C82-1348ACD17E2F@arm.com>
-In-Reply-To: <0680A28E-E2A6-4A75-9C82-1348ACD17E2F@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 9 Feb 2026 16:22:48 +0100
-X-Gm-Features: AZwV_Qj6c6GxPDju0TvmjeWC8_BhN37-lHrOcYZ2w9bO9OIg8h6DUOPfBTHNqII
-Message-ID: <CAHUa44H0Z9YWqKP_Dy8Va2L2GxhVJvOFrG+51+JhG+NukmV2yg@mail.gmail.com>
-Subject: Re: [PATCH 03/12] xen/arm: ffa: Harden shm page parsing
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 9 Feb 2026 16:24:24 +0100
+Message-ID: <DGAJ9XN03HPS.TC0OLO5PJN6H@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86: Add Kconfig option for log-dirty tracking
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
+ <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
+In-Reply-To: <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|SA1PR12MB6728:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98931d58-d674-4b54-c127-08de67ef5181
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QVAyZTd6UmpZamQvVGpBVUFmZTIvbTNCMFhaaEtHdkZHaTA1bnNvK2ViL3Ey?=
+ =?utf-8?B?UzdXUFVhNFJKZUlxdnZXa2dvS05Qd3RXZnkzL3dDQndBbHF3WkM4U2FFSjhl?=
+ =?utf-8?B?S2pyV21TUEJ2N0VDNkJrVDUrR0hSYWM0UzNWVmF5YWw5NHBlaEgrTXVEUXly?=
+ =?utf-8?B?cmRHdmhsSjdVcDlLSmdTdE5BSnJqYkxNTnkwc3N6QmdsUjZDcm05ejVISGNV?=
+ =?utf-8?B?YTI0UzkxVmRWemtnVHIzWXNxcS9RUUZOZk5FL3dZU2hxU0puVEJqSVlhQUZq?=
+ =?utf-8?B?NTBOSlVzRGNkZC8wWis2R0dIUmZocmh4V3VnUjM5amxJVkw0MjFSYUdnUFFR?=
+ =?utf-8?B?NkVOTWZOVGF5VHJ5YUJvQkZ4Z3JvWko3SHRlOVFEd0U0dUgrTi9vRWZwTENN?=
+ =?utf-8?B?UGM1emVtZjhyZERSbVk4TlMrWmpkYUdGSDBqUHB6SEhuQk0wUStJcW1lenA0?=
+ =?utf-8?B?dXcrdlNaOTAyRHFaN0hVNzZtZ0lzWWxEZkJ0bXMrZ1ZCd1ZQeFFIdlQwNVA3?=
+ =?utf-8?B?cW0vT01LVlduQmRxYzlFVUFvVHg5WFJVb0lCN3lwTjZlbi9qV1dOTittQUZO?=
+ =?utf-8?B?T3hJNWhIckRLOHlCNDJoejFQZGh5cjB3TzJUemc3NE85UkhzMXlRZkVmeEs0?=
+ =?utf-8?B?VkRmUGJiSHVxbkt0ci9uUzFoVUx0ZEpCeHFESVNWYXdFeDgrQlNJbGlXdWhQ?=
+ =?utf-8?B?U3M1RWhPR3JnczZHK2ZYbE9MKzQvWVBtR21lMTRaOGNEbDN1cHNXUlNZUHRl?=
+ =?utf-8?B?V1F5UHR6ZTBBdjh3aVViMDRHSloyVzZqZUxpRTUxLzVSVXh2U1FqUzJwQTdG?=
+ =?utf-8?B?M05XRkc4dUhZUmNrL3JNcjRISkRJWUw0NEUrSVRjWU9aSEpoYmJvczhMTFY4?=
+ =?utf-8?B?TzlweHphNDFNOGpLVWR1M25tMjBYWGRFcmxuM3RINmx0UWNQZWxod1JEeE51?=
+ =?utf-8?B?TnU5ZG5NNXduN1E2MGEwcGpESk5ZMCtDUUtqVGZsQ01PdGttemJwWGhMeCtY?=
+ =?utf-8?B?Sll2ejdWRmdybnNPMWVOKzRIckVORklxdFB0dXJkbXdUQVoxR1ArVHdBTlpp?=
+ =?utf-8?B?UWpwS2lTNGc0K0FkNVFtNEJqaWdabzE1NTFrU1lIM3FYUXJRKzhCNFRqa2xv?=
+ =?utf-8?B?T2dITk9ubmxIaDlXRVR0S1ZyOGZ1MjFzQXdZODNSS2J5cFdOblYweUNjNUxQ?=
+ =?utf-8?B?V2RmNEx4NllteFJzYy9lL1d4QkdReEVVczBKbUJWdEpjeGN3QXJmS2NKcHgy?=
+ =?utf-8?B?TzE2YjRyMDhERDIzcHR6dUdTRzdXUnY4T2F2MUtHc2FNQXdqV1RwT3FpM1d3?=
+ =?utf-8?B?aWh2QkpyUlFWTHhKeG1rSko2bWJ6SnhEOFpKS1Bha0xyQTA3eUZBbERkd0hY?=
+ =?utf-8?B?YVBVcGJwQzZrd1hkSkxBVldyOUZvOVNhcGJ4eTBNbkI2ajZMVWxKYWIra29Q?=
+ =?utf-8?B?Z1JQRTlRQjRaeDZXbnMzVE1uV2owVUJ0WWhzYzBZemFjcW9XR3VEL1F1OWd0?=
+ =?utf-8?B?ZzEvU2NiZTVZK2hGS0Q3d2tYZTFKOFdqQ2xHeWY3WTBHUGdpQWtQeU5YNEpn?=
+ =?utf-8?B?enVCUE51dGxDejFoZEtFQWwrTHpSRVVOVDJ0VlpNQkc0YkpnM1JZcDN1TE5G?=
+ =?utf-8?B?OEx0RzQvVnBBWXQwTG9DOElpMVU3UitvWFJHeFo3N01rZHJ3ZjViYkxaMUxp?=
+ =?utf-8?B?YVRyWHd5QmZvUDBIQk5jVGc1NnZqNXVYZnVOMnZEbmpkSGhnSzlLTGlZNWRz?=
+ =?utf-8?B?RVJweUE3OVI5UTFBeC95eHJKMFpGOFlDb1hRR2wxdlB1d3plZURndHNyYjhC?=
+ =?utf-8?B?L3c0MzU0aWdWWHVXbEQ3NVdrbnkvY1lBT2RPR3dxKzVYVXRZdjhNS3paRHJT?=
+ =?utf-8?B?YlVwTUVYVFNlK25pVEowYmVkelFiWExCYnlpN1FnVXI5TmtJWDAwNXRqczgz?=
+ =?utf-8?B?QWdvMTJ2a2c2azJtRHFmSlIyUVF0R2cvTVVuR05BZzdPbmtYZjFIWkd1cHZx?=
+ =?utf-8?B?MGlyK2FTaWdML0trZG85dVVBbVJGVzlBN1RvWndMZU9RY2NsMHNtZ0dWcG5o?=
+ =?utf-8?B?b2U1aDVReVB5TGtiZDB1My8xZG5QSzI0TUVWa1FaWC83ZVc4b2gxNWFoK3F0?=
+ =?utf-8?B?ajNYSjZOdCt2c1ltVEc5amZEUFp1aWg5QW8vRXJ6WDdIOHNxQlFiSUhsUllW?=
+ =?utf-8?B?Rk9tdHVFd1hGRmdPdWFUejRYWlZCb3BYb3ViMjJCTW14cllCK3hhVjE3WkJF?=
+ =?utf-8?B?QTVhbHh1aEJyNFI0RHhwcitvR0FnPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MhZX64HhAePVtQiqy67OywHncaHYpTnE74WKLy8gSJvJIqfqwpQFeOEe9VDnSYzYOoLIkPK49HCQ2pjrax10RMTj9sTD1O3Dh3NAxoanhuIn5htT34fNAZQvViJquuWyIGNR5uAuSKPqB6Hafp/75ZZ5bDgYIVzxsT0FJqnteveqgf/zQScJNRCgTK+wB4f3o954/DJx1Nq9w/6uA7UKfmqRkGBhRj677wEC07N4hmP1D5JKlQiGKjSzaHQxDkn7eWljkZ6sokdDtHyRYhcjL2ShjwPAhd0kYz3M+UuJIjTLChulKQ6ZlqlLOgOSnGUwDOAuFPlPx4vhI+lVKKemZpK4DkbIQrKl5HMtdgQhLy16Lu622oag1NDRDFoGNzUzeD1z424xmjgMyaWXwOfVobWgl45wS0dTrhqYBwtIfZ+9ndNnHV26w694wEy1AUfq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 15:24:29.4892
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98931d58-d674-4b54-c127-08de67ef5181
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,mail.gmail.com:mid,linaro.org:email,linaro.org:dkim];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_MULTI_FAIL(0.00)[arm.com:server fail,lists.xenproject.org:server fail,linaro.org:server fail];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_XOIP(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 6B92B111DB5
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 1241E111DE1
 X-Rspamd-Action: no action
 
-Hi Bertrand,
+On Mon Feb 9, 2026 at 3:48 PM CET, Jan Beulich wrote:
+> On 09.02.2026 11:31, Alejandro Vallejo wrote:
+>> --- a/xen/arch/x86/Kconfig
+>> +++ b/xen/arch/x86/Kconfig
+>> @@ -146,6 +146,7 @@ config XEN_IBT
+>>  config SHADOW_PAGING
+>>  	bool "Shadow Paging"
+>>  	default !PV_SHIM_EXCLUSIVE
+>> +	select LOG_DIRTY
+>>  	depends on PV || HVM
+>>  	help
+>
+> Why would this be? IOW why would shadow imply log-dirty, but HAP wouldn't=
+?
 
-On Mon, Feb 9, 2026 at 4:11=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 9 Feb 2026, at 15:26, Bertrand Marquis <Bertrand.Marquis@arm.com> wr=
-ote:
-> >
-> > Hi Jens,
-> >
-> >> On 9 Feb 2026, at 10:31, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >>
-> >> Hi Bertrand,
-> >>
-> >> On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
-> >> <bertrand.marquis@arm.com> wrote:
-> >>>
-> >>> get_shm_pages() uses unchecked address arithmetic and does not enforc=
-e
-> >>> alignment, so malformed descriptors can cause overflow or slip throug=
+The logic is rather opaque. I admit I'm a bit fuzzy on the uses of logdirty=
+.
+
+I know what it's for and I could navigate the code if a problem arose, but =
+I'm
+less clear about which other elements of the hypervisor rely on it (pod? ns=
+vm?
+vvmx? shadow? hap?).
+
+If it's strictly toolstack/DM-driven maybe it'd be more apt to have a separ=
+ate
+LIVE_MIGRATION and SAVE_RESTORE configs where LM selects SAVE_RESTORE, whic=
 h
-> >>> validation. The reclaim path also repeats handle-to-shm-mem conversio=
-n
-> >>> in multiple places, duplicating error handling.
-> >>>
-> >>> Harden page parsing and reclaim handling:
-> >>> - add ffa_safe_addr_add() and use it to detect address overflows
-> >>> - enforce alignment checks in get_shm_pages() and return FF-A errors
-> >>> - introduce ffa_secure_reclaim() and use it for MEM_RECLAIM and teard=
-own
-> >>> - simplify ffa_mem_share() argument handling and allow max page count
-> >>>
-> >>> Functional impact: invalid or misaligned memory ranges now fail earli=
-er
-> >>> with proper error codes; behavior for valid descriptors is unchanged.
-> >>>
-> >>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >>> ---
-> >>> xen/arch/arm/tee/ffa_private.h | 11 +++++++
-> >>> xen/arch/arm/tee/ffa_shm.c     | 57 +++++++++++++++++----------------=
+selects LOG_DIRTY. That's also improve some defaults auto-downgraded from t=
+he
+max policy just in case a VM is migrated.
+
+>
+>> @@ -166,6 +167,14 @@ config SHADOW_PAGING
+>>  config PAGING
+>>  	def_bool HVM || SHADOW_PAGING
+>> =20
+>> +config LOG_DIRTY
+>
+> PAGING_LOG_DIRTY?
+
+sure.
+
+>
+>> --- a/xen/arch/x86/domctl.c
+>> +++ b/xen/arch/x86/domctl.c
+>> @@ -220,15 +220,15 @@ long arch_do_domctl(
+>>      {
+>> =20
+>>      case XEN_DOMCTL_shadow_op:
+>> -#ifdef CONFIG_PAGING
+>> +        ret =3D -EOPNOTSUPP;
+>> +        if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
+>> +            break;
+>> +
+>>          ret =3D paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
+>>          if ( ret =3D=3D -ERESTART )
+>>              return hypercall_create_continuation(
+>>                         __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
+>>          copyback =3D true;
+>> -#else
+>> -        ret =3D -EOPNOTSUPP;
+>> -#endif
+>>          break;
+>
+> Can a HVM-only hypervisor create any guests with this? I simply fail to
+> see how XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION would then make it through to
+> hap_domctl().
+
+xl doesn't seem to call it at all. hap_set_allocation() is implicitly calle=
+d
+through paging_enable() -> hap_enable() -> hap_set_allocation()
+
+>
+>> --- a/xen/arch/x86/include/asm/domain.h
+>> +++ b/xen/arch/x86/include/asm/domain.h
+>> @@ -226,7 +226,9 @@ struct paging_domain {
+>>      unsigned int            p2m_pages;    /* number of pages allocated =
+to p2m */
+>> =20
+>>      /* log dirty support */
+>> +#ifdef CONFIG_LOG_DIRTY
+>>      struct log_dirty_domain log_dirty;
+>> +#endif /* CONFIG_LOG_DIRTY */
+>
+> Such an #ifdef can likely replace the comment? Or else the comment would
+> better also live inside the #ifdef?
+
+true.
+
+>
+>> --- a/xen/arch/x86/include/asm/paging.h
+>> +++ b/xen/arch/x86/include/asm/paging.h
+>> @@ -55,12 +55,9 @@
+>>  #define PG_translate   0
+>>  #define PG_external    0
+>>  #endif
+>> -#if defined(CONFIG_PAGING) && !defined(CONFIG_PV_SHIM_EXCLUSIVE)
+>>  /* Enable log dirty mode */
+>> -#define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_s=
+hift)
+>> -#else
+>> -#define PG_log_dirty   0
+>> -#endif
+>> +#define PG_log_dirty   IS_ENABLED(CONFIG_LOG_DIRTY) * \
+>> +                       (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_s=
+hift)
+>
+> Need wrapping in parentheses then.
+
+true.
+
+>
+>> --- a/xen/arch/x86/mm/hap/hap.c
+>> +++ b/xen/arch/x86/mm/hap/hap.c
+>> @@ -50,7 +50,7 @@ struct hap_dirty_vram {
+>>   * calling p2m_log_dirty_range(), which interrogates each vram
+>>   * page's p2m type looking for pages that have been made writable.
+>>   */
+>> -
+>> +#ifdef CONFIG_LOG_DIRTY
+>
+> This wants to move further up.
+
+sure
+
+>
+>> --- a/xen/include/hypercall-defs.c
+>> +++ b/xen/include/hypercall-defs.c
+>> @@ -194,7 +194,7 @@ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op=
+_buf_t *bufs)
+>>  #ifdef CONFIG_SYSCTL
+>>  sysctl(xen_sysctl_t *u_sysctl)
+>>  #endif
+>> -#if defined(CONFIG_X86) && defined(CONFIG_PAGING) && !defined(CONFIG_PV=
+_SHIM_EXCLUSIVE)
+>> +#if defined(CONFIG_LOG_DIRTY)
+>>  paging_domctl_cont(xen_domctl_t *u_domctl)
+>>  #endif
+>>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+>> @@ -292,7 +292,7 @@ dm_op                              compat   do      =
+ compat   do       do
+>>  hypfs_op                           do       do       do       do       =
+do
+>>  #endif
+>>  mca                                do       do       -        -        =
 -
-> >>> 2 files changed, 40 insertions(+), 28 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pr=
-ivate.h
-> >>> index b625f1c72914..58562d8e733c 100644
-> >>> --- a/xen/arch/arm/tee/ffa_private.h
-> >>> +++ b/xen/arch/arm/tee/ffa_private.h
-> >>> @@ -632,4 +632,15 @@ static inline void ffa_uuid_set(struct ffa_uuid =
-*id, uint32_t val0,
-> >>>    id->val[1] =3D ((uint64_t)val3 << 32U) | val2;
-> >>> }
-> >>>
-> >>> +/*
-> >>> + * Common overflow-safe helper to verify that adding a number of pag=
-es to an
-> >>> + * address will not wrap around.
-> >>> + */
-> >>> +static inline bool ffa_safe_addr_add(uint64_t addr, uint64_t pages)
-> >>> +{
-> >>> +    uint64_t off =3D pages * FFA_PAGE_SIZE;
-> >>> +
-> >>> +    return (off / FFA_PAGE_SIZE) =3D=3D pages && addr <=3D UINT64_MA=
-X - off;
-> >>> +}
-> >>> +
-> >>> #endif /*__FFA_PRIVATE_H__*/
-> >>> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-> >>> index 90800e44a86a..4c0b45cde6ee 100644
-> >>> --- a/xen/arch/arm/tee/ffa_shm.c
-> >>> +++ b/xen/arch/arm/tee/ffa_shm.c
-> >>> @@ -96,16 +96,14 @@ struct ffa_shm_mem {
-> >>>    struct page_info *pages[];
-> >>> };
-> >>>
-> >>> -static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
-> >>> -                             register_t addr, uint32_t pg_count,
-> >>> -                             uint64_t *handle)
-> >>> +static int32_t ffa_mem_share(uint32_t tot_len, uint64_t *handle)
-> >>> {
-> >>>    struct arm_smccc_1_2_regs arg =3D {
-> >>>        .a0 =3D FFA_MEM_SHARE_64,
-> >>>        .a1 =3D tot_len,
-> >>> -        .a2 =3D frag_len,
-> >>> -        .a3 =3D addr,
-> >>> -        .a4 =3D pg_count,
-> >>> +        .a2 =3D tot_len,
-> >>> +        .a3 =3D 0,
-> >>> +        .a4 =3D 0,
-> >>>    };
-> >>>    struct arm_smccc_1_2_regs resp;
-> >>>
-> >>> @@ -131,12 +129,16 @@ static int32_t ffa_mem_share(uint32_t tot_len, =
-uint32_t frag_len,
-> >>>    }
-> >>> }
-> >>>
-> >>> -static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_h=
-i,
-> >>> -                               uint32_t flags)
-> >>> +static int32_t ffa_secure_reclaim(struct ffa_shm_mem *shm, uint32_t =
-flags)
-> >>
-> >> I agree with moving the uint64_to_regpair() call into this function,
-> >> but I'm puzzled by the new name. What's secure?
-> >
-> > This is to distinguish with reclaim for VM to VM sharing in the future =
-as here
-> > reclaim is asked to the secure world.
-> >
-> > But in fact to be coherent I should also have renamed ffa_mem_share to =
-ffa_secure_share.
-> >
-> > Would you be ok with that ?
+>> -#if defined(CONFIG_X86) && defined(CONFIG_PAGING) && !defined(CONFIG_PV=
+_SHIM_EXCLUSIVE)
+>> +#if defined(CONFIG_LOG_DIRTY)
+>>  paging_domctl_cont                 do       do       do       do       =
+-
+>>  #endif
 >
-> Looking at this a bit more, we are usually using spmc and not secure.
+> The CONFIG_X86 part of the checking wants to remain: Another port may als=
+o gain
+> a setting of this name, without necessarily having this auxiliary hyperca=
+ll.
+
+Hmmm. Makes sense.
+
 >
-> Would you be ok if I rename both those to:
-> ffa_spmc_share
-> ffa_spmc_reclaim
+> Jan
 
-Yes, that sounds good.
-
-Cheers,
-Jens
 
