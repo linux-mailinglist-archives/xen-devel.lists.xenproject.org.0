@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QE+vIESliWlU/wQAu9opvQ
+	id QMbaGSeniWk0AQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:13:40 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:21:43 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13DF10D679
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:13:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225036.1531490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD5F110D7E9
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 10:21:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225049.1531500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpNKe-00027V-Q9; Mon, 09 Feb 2026 09:13:24 +0000
+	id 1vpNSP-0003tC-I2; Mon, 09 Feb 2026 09:21:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225036.1531490; Mon, 09 Feb 2026 09:13:24 +0000
+Received: by outflank-mailman (output) from mailman id 1225049.1531500; Mon, 09 Feb 2026 09:21:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpNKe-00025z-NH; Mon, 09 Feb 2026 09:13:24 +0000
-Received: by outflank-mailman (input) for mailman id 1225036;
- Mon, 09 Feb 2026 09:13:24 +0000
+	id 1vpNSP-0003rU-FI; Mon, 09 Feb 2026 09:21:25 +0000
+Received: by outflank-mailman (input) for mailman id 1225049;
+ Mon, 09 Feb 2026 09:21:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vpNKe-00025s-0X
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 09:13:24 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1vpNSO-0003rM-2a
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 09:21:24 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 952c6cab-0597-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 10:13:22 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-43591b55727so2348447f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 01:13:22 -0800 (PST)
+ id b3452d4d-0598-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 10:21:22 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4834826e5a0so624985e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 01:21:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43629754c62sm23517408f8f.38.2026.02.09.01.13.21
+ 5b1f17b1804b1-48320736953sm260747655e9.15.2026.02.09.01.21.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 01:13:21 -0800 (PST)
+ Mon, 09 Feb 2026 01:21:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 952c6cab-0597-11f1-b162-2bf370ae4941
+X-Inumbo-ID: b3452d4d-0598-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770628402; x=1771233202; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770628882; x=1771233682; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vxcxOb4ZYN3LxUIRHDGKbNbm08O3LiJuVEv3H4iXmeA=;
-        b=EOvaOJGpaj+xE67F3V/srzllcTwWEgzZqrw7O4UavTzAuEloBDPAuzQjCKBbEhVMqU
-         GAuHEJis1LbRukn0/k8hLo3MWJY2VF6I8vf7pkRI9GvHEVE6NP4eflGFdITPXZOLFqms
-         M7AWwXLOaIPss65/7Ur1Z8o/9LZ08X/oCpdx2l8paj195NsPebE+EuSLwU6wnlTe9mEt
-         EUIzPjnDJ+SEXMi8m6OPtGNopgCz/1QFEhPC5eurHjP6ISl2p6ivgrxoESJ7ds2BDMVT
-         T2GFtImVLxndM9QJxtmoZGnjmYR6BivZskVvQRUqIxqkpj7ok7xMm57YMebjGEK2lMBY
-         7RuA==
+        bh=F/Y9jpBxvzXfVRY7kJLj76I5Zd+1EiTWos4eVX9KGIs=;
+        b=PlmCFI4Q0lvjcOdphjCWjpofr5w7LDO9fc1LQVTk2IU3ViW58pNJrU0reXRchdSIUG
+         8UE1E3x9m68z5k4QQ997tdIN+yUpiaPUKpsC3bn3Teucbc6H0lMQwWY/KHZOux8at2kL
+         e+r3Z/u43+1KMznwnArPpU8MukAEAjmR+ocNyypNacza9qNeVl45CA7CyJ7b8G9K2WnT
+         u/KCHS2bbpZG8N9ltKl45xmwkRLLjJpxuVaenYLE0B6b8eUXlRk+qLw5c8QN1EFmClAl
+         5xShsB/P329hA1zOn6x8nVxFU69M4MVvUR6MF47uuAibTmsVKPSNZnFZDs7MpS/Ag5Mq
+         mE0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770628402; x=1771233202;
+        d=1e100.net; s=20230601; t=1770628882; x=1771233682;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vxcxOb4ZYN3LxUIRHDGKbNbm08O3LiJuVEv3H4iXmeA=;
-        b=QIYFhzVlCmkvHiLs7KuERmZ0le3m23dmwdCjQQST284YZ04FMWzrctq/3rlWvLlGag
-         JbQDD63M/p1GFpFn6eN7iHy/wPS2XO6Gj6oaH2mXuu1+av/UmhXnP1ZWQ0lJOCZEitVg
-         BBF2qjKmmlpPPj8d3WL1bBYklUeEynqGKTYkC88Z6kZ4jXKQ0SZPZZISwJ5kzVo0vK9C
-         xeS8lvJJFDAh9LTw7x1X0HYHDcb9jDrLEBoECWwr3Sp3VyOAGRe4XYPcBtNjZpqHHVk+
-         C6jc7VGtcyQpNop8MFEUgFdCk/nIzZL/OOl8Dx8AGEnUpnTb3X/KnYsu1lK/KjKJmgR4
-         Ok8g==
-X-Forwarded-Encrypted: i=1; AJvYcCXTazjT4U6bwqVNCv/OADh2w9d7hdDSK1VbsE4Xgca5Yq1cyo5xJauM7LSniE7ibezaQCRd4ca0lIc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUvOTFqNqcSmuYdiIoFpImRqTb2ysjpvkSzLYXL0aKSQZdHwgP
-	XFwBgdzOoDvq8rQBcHNBZJjQ0L/Je2HsXP0itstsvz6okrwPThWaDUX1dXShnkFZNQ==
-X-Gm-Gg: AZuq6aKL3b5/YIq4z0eCrjUqg0hSss+x92TU3eWkKPCldhqGbusaiA9wd/eUaP13CD+
-	r/mSyujGS4k0K55DYWeYRVyJBk6Y4ABUCekp/cYq78GPgFl2hdAhCP2XwVbhSGseHEpwKGcphTk
-	td8dm2syrPyEQuIxGVLXtao1f8OiHgH/FtCPTuzUT1VXHeEfcWnBWsJxpegsmfts4MPmNAykEUR
-	b5sBZe/tPGL/jmtRXPG7oOC3q1PIvYFRtgndc1VEDUZ8z75pq17iokReA3DnzEKEWbMbtTBOhuq
-	EHfaNLfQhOpAJrZsbwbKWppaGP/VZ9jzAGn1WpbI6vL2lY76ZmJiIVrrVBeQsfmQ7bR/7r/nx3N
-	ROYJLTxm0FNrJ/xfASI0Mpyl/nzUW0Eqs6COfBjkLtf3gZm6o7j0NiHoGiesDTOJrLOvcLWdLDX
-	ce2lnjnTiqLne+GOqg93CdaPNa3/CezEAtuqDj5uUjJL06JrpZ+1mBIkMPeZp7NeRmt7pePtoXu
-	yU=
-X-Received: by 2002:a05:6000:402b:b0:435:a815:dd93 with SMTP id ffacd0b85a97d-4362938617bmr15056339f8f.35.1770628402114;
-        Mon, 09 Feb 2026 01:13:22 -0800 (PST)
-Message-ID: <82c06e52-1db0-46e5-be9f-7ca0360ffc70@suse.com>
-Date: Mon, 9 Feb 2026 10:13:23 +0100
+        bh=F/Y9jpBxvzXfVRY7kJLj76I5Zd+1EiTWos4eVX9KGIs=;
+        b=UF9UIbHQgSz8ujEaK6g+X9tHshq7+MH0ELzJ5g4ytQESXSJX9rZlxwC0muKxwRnRWx
+         HzcA5xq8Na2EO77RY5WaCpev/0lKKebn3qO5Cn9n3z6r0HorgkxWX6+5G6x3biLa1mj1
+         B56POH14+4ONkXQdO2T7qNBgpffgnfIVkY2O3qomAyq3OS0r4Mvve4zRoxk/t+sG+CYP
+         /VB2RprTYTubqaOAr1ShSdfF0sxLqeJwRgYuzQEim4maXY2p/QEHuo5auK2qyFrVdfCU
+         TCFhlQis1j9t4z8zRRYOqZBr/gbEY88kkvJbQ+pGAJHNdKMY2od2+2/Vz2z2rMF579oQ
+         LUuw==
+X-Forwarded-Encrypted: i=1; AJvYcCWXPReOZjabi+1Xh2w+0iVpWA6VJO+chyPi4nsX6uixifCA5WaWRhkQc6vCdsC6FpmNhE0Z2ZgYTPg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxaE1FvCn2g08j+OzRkAwtM90XlS+Oej77GHHwHMgElIAbCdXKB
+	YJ+UIHsRLQgWmMpDv2GfZV0yCJnzaJTfDzt9zYpMEHD7bdsGNzl3YO54k/at12UBSh5/p7DFeg3
+	YI4g=
+X-Gm-Gg: AZuq6aKsnFR+2KewKPQl6+zBOmzFb1NHQu4RM4HBFg/LOdQgowxzq7jWPs2iw4z3ms8
+	7w8bEd5DDbYU+wgtKzBTHObKAtMkCh65O18uN2LnMxqaECv1mdKp/u0u6847bDmYNJDkeKJ8dKc
+	5LI7a0Ms6DYGo+o3u9tR4COpsHvtX0Wf3vlVqcqVAeok5ygOcoTOI/lapVs7k3FhGnIAyPE8MJf
+	MP3yv+zlyqqS8YvB1RVDK1y8drLgdf6Mhxt4o3xaRKsq9lhFuniNfsg8HW2te9i487DPY3AJ9Xl
+	3l7HSGDLQppXrSc1f9+6NfuGxJd+34cLza1Ea9SHRsN3CFxqryJ3iGVDQ83YrcxRxfEnrW6dVW4
+	Z6ci+u0LoXQpjJG7wjxl4/UtYzwFWrnvRIcBgJiF/0ygFgOiwUi8svLRozS+nR/w/1tz4rxTJvZ
+	wpT+hhLhkvYV8UfHKLmnS7bwndEUoE7f+qAvhMKQjpj+75KxAv4fbK6DwszxqjqJ+OQO4yggGpm
+	jA=
+X-Received: by 2002:a05:600c:3145:b0:476:4efc:8ed4 with SMTP id 5b1f17b1804b1-483201e7793mr127986865e9.11.1770628882019;
+        Mon, 09 Feb 2026 01:21:22 -0800 (PST)
+Message-ID: <608472d0-517c-4bc5-b5c1-c278c4f6620b@suse.com>
+Date: Mon, 9 Feb 2026 10:21:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/5] xen: change VIRQ_CONSOLE to VIRQ_DOMAIN to allow
- non-hwdom binding
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: grygorii_strashko@epam.com, anthony.perard@vates.tech,
- michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com,
- jason.andryuk@amd.com, victorm.lira@amd.com, andrew.cooper3@citrix.com,
- sstabellini@kernel.org, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2602041533440.3175371@ubuntu-linux-20-04-desktop>
- <20260204233712.3396752-2-stefano.stabellini@amd.com>
+Subject: Re: [PATCH 00/12] const-ify vendor checks
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,56 +125,99 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260204233712.3396752-2-stefano.stabellini@amd.com>
+In-Reply-To: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.993];
+	NEURAL_HAM(-0.00)[-0.996];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E13DF10D679
+X-Rspamd-Queue-Id: CD5F110D7E9
 X-Rspamd-Action: no action
 
-On 05.02.2026 00:37, Stefano Stabellini wrote:
-> Today only hwdom can bind VIRQ_CONSOLE. This patch changes the virq from
-> global to VIRQ_DOMAIN to allow other domains to bind to it.
+On 06.02.2026 17:15, Alejandro Vallejo wrote:
+> Hi,
 > 
-> Note that Linux silently falls back to polling when binding fails, which
-> masks the issue.
+> This series is a big revamp of vendor-checking to enable it to perform DCE.
+> It improves all configurations useful in practice at minimal cost in the full
+> build, and at a massive advantage for the single-vendor case. Many ifdefs can
+> go away as a side effect of the series.
 > 
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> This series depends on cross-vendor removal:
+>   https://lore.kernel.org/xen-devel/20260205170923.38425-1-alejandro.garciavallejo@amd.com/T/#m4c3d318f37e4f24d0f8c62b104221aa5d428cebc
+> 
+> Patch 1 in this series matches that of cross-vendor removal. It's logically
+> required, but that's the single requirement.
+> 
+> High level description
+> ======================
+> 
+> When compared to the RFC this makes a different approach The series introduces
+> cpu_vendor() which maps to a constant in the single vendor case and to
+> (boot_cpu_data.vendor & X86_ENABLED_VENDORS), where X86_ENABLED_VENDORS is a
+> mask of the compile-time chosen vendors. This enables the compiler to detect
+> dead-code at the uses and remove all unreachable branches, including in
+> switches.
+> 
+> When compared to the x86_vendor_is() macro introduced in the RFC, this is
+> simpler. It achieves MOST of what the older macro did without touching the
+> switches, with a few caveats:
+> 
+>   1. Compiled-out vendors cause a panic, they don't fallback onto the unknown
+>      vendor case. In retrospect, this is a much saner thing to do.
 
-Technically this is an ABI change, and hence I'm uncertain it can go without
-that aspect being at least mentioned, perhaps even its implications properly
-discussed.
+I'm unconvinced here. Especially our Centaur and Shanghai support is at best
+rudimentary. Treating those worse when configured-out than when configured-in
+feels questionable.
+
+>   2. equalities and inequalities have been replaced by equivalent (cpu_vendor() & ...)
+>      forms. This isn't stylistic preference. This form allows the compiler
+>      to merge the compared-against constant with X86_ENABLED_VENDORS, yielding
+>      much better codegen throughout the tree.
+> 
+> The effect of (2) triples the delta in the full build below.
+> 
+> Some differences might be attributable to the change from policy vendor checks
+> to boot_cpu_data. In the case of the emulator it caused a 400 bytes increase
+> due to the way it checks using LOTS of macro invocations, so I left that one
+> piece using the policy vendor except for the single vendor case.
+
+For the emulator I'd like to point out this question that I raised in the
+AVX10 series:
+
+"Since it'll be reducing code size, we may want to further convert
+ host_and_vcpu_must_have() to just vcpu_must_have() where appropriate
+ (should be [almost?] everywhere)."
+
+Sadly there was no feedback an that (or really on almost all of that work) at
+all so far.
 
 Jan
 
