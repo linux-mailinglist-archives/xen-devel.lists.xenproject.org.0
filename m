@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qIKQMNzqiWn1EAAAu9opvQ
+	id CFIpDorriWmdDwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:10:36 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:13:30 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DC1F1101A9
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:10:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225413.1531908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924E71101E7
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 15:13:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225419.1531919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpRxm-00036A-Dc; Mon, 09 Feb 2026 14:10:06 +0000
+	id 1vpS0t-0003hL-Rq; Mon, 09 Feb 2026 14:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225413.1531908; Mon, 09 Feb 2026 14:10:06 +0000
+Received: by outflank-mailman (output) from mailman id 1225419.1531919; Mon, 09 Feb 2026 14:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpRxm-00033q-Ao; Mon, 09 Feb 2026 14:10:06 +0000
-Received: by outflank-mailman (input) for mailman id 1225413;
- Mon, 09 Feb 2026 14:10:04 +0000
+	id 1vpS0t-0003fK-Oc; Mon, 09 Feb 2026 14:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 1225419;
+ Mon, 09 Feb 2026 14:13:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vpRxk-0002kv-PO
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 14:10:04 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1vpS0s-0003fE-3O
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 14:13:18 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 075e87d0-05c1-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 15:10:03 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4805ef35864so38378145e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 06:10:03 -0800 (PST)
+ id 7a74b412-05c1-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 15:13:16 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-4375d4fb4d4so1194282f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 06:13:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48317d7a963sm296692555e9.9.2026.02.09.06.10.02
+ ffacd0b85a97d-436296b25d5sm28112721f8f.2.2026.02.09.06.13.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 06:10:02 -0800 (PST)
+ Mon, 09 Feb 2026 06:13:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 075e87d0-05c1-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 7a74b412-05c1-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770646203; x=1771251003; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770646396; x=1771251196; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wFvOG2PHs/YhAlG0EftJED06hEKrvzFmCzK8Elb+jWc=;
-        b=gZBq+tAHcaCTsun8uEgA/qijJy1ZBm4R6NVscxDsplKj0lra5nIUE5mNnESimdGGll
-         Aa+Z5Mtl/3wCB2ceQHyktcngNctn43QaJBrEhKHsCu/NR0FHQBSv6lRjW2EHpsfy7hWs
-         Ra2YMo0RC/vaP544U76syOGMjc3ndSjgghqn/G/fUXFRefyg52uCHYNYhHp35V8dI0Pk
-         tUjZ8+vP0FkLQhi7RyVAIpuxXJRu46Ox1wx8j/X2HRXLPMVdwOMtJRVZFMl/3687NW1P
-         20h/AMo0RAmcU5za+lVQ8zutqIDDg/Vyii81ghAszA4Mg3V0EccKVW+MmMPm96eC1e6m
-         WC1A==
+        bh=9FtapWJxCB15CLdJ4G0c1wUZIGnxFkevlFycQMCLLj0=;
+        b=MsvGNz25D3sM8P0bmzELT+/JijYyGShVe1WUFVLWGccyMKbG9kWv2we0zcTZW2Nfoy
+         0NcpASkF1vbxh+w4cYQtCaJSRiS41PUST1PU/M/Tz6qjB1a4c9ryRy2Wx4aVdK5byyoh
+         IoEGLP1gzW2sp8gUjzLnUAaxX702BcfE2VYVKG25YO8fgUvN0//gnQV4kXcK+Cyst/Tc
+         T8jip7WOB7yGtri4EDH5BoUkoBBDNIPwSn9GIrE9luVXUNJMUDa89io6Mg2KSGdSO6qr
+         uhkoVWrfxNQyoRbuZgvOJ9Ic8lqMTVsuT2snJOw6PsDfXiTGLIbiRWKkKg2tUqDPyX5j
+         PVCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770646203; x=1771251003;
+        d=1e100.net; s=20230601; t=1770646396; x=1771251196;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wFvOG2PHs/YhAlG0EftJED06hEKrvzFmCzK8Elb+jWc=;
-        b=vtJM98o8cvOdpHSg7O6DpnzTLdvavipjHX8Hn6SfE2Sw56vlB2m1BRPDE61bJST6+/
-         lH/MxFXuSedPZ0Flggq9o3HWbUah44pP/ykxWZ6rfnS2/0iyyBcpC/3KtqX2H4aMnrsM
-         omaw/5ZQde0WId/A/IS9089TYDj0gTGNcEUqrgSwcMyh5TLwRaTPd8NQBwYR4K0oV+GQ
-         IrllhfbsliGgmE/KDiLvpsglb4joLLmLHlP7QqW7tGfOmJfrXXTdz+qx+69aU0Hu5jFC
-         kNnO87bjQIHDrIfz15RzxMehv8//DyPDA3vp3l1tMs7U9WtfRukYHoDKSY58RJEOdyyz
-         x7mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWvzz1guJgr4k7bpMcIUXtNmWNH5e9njiQXBwC+nduH8AFrtkLuzigwpx71VF6nqXQX/e7aXkvHorI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1f53pH5BhQGo+5sUoqVlQZlnvzwhA2FAmsdhZpffNCiJpzNPE
-	BrI299fsBcuQvq0ZU6IktlD8LJFTKzOLbT4D7CVFXGlTIaZ9WKggu56k6xjKr2322Q==
-X-Gm-Gg: AZuq6aLyHWg62qHSgJksBlv/6TKPyotrPTB9vPAy2x99I8z/b9xzbDhccpjlhhVYWpn
-	t72W8n0EA/VvoWBUHYKDruSftgl1J6Fo2M7PMT1lp8ps/iA45fv2PnS1PhacKKeXw8MOIRlv+qt
-	jf7PnLgHLmXgMDN/FmuzM4BRuUzDYrMP1rRrfgw1ZIhsew7qEMAsAd1GT8/AMRhOrXSSAev3w+P
-	XYRc2+2AqG7ByLqddbPwZMx4L96rqrpYMJJ6zBu9hFTz+I3IREMLT8viGaouSYxTkUr4kXrG4/J
-	ruX80wcRhchsPXmRqIlXyiSffyfzTK26KJZsVCzsQf+ywPOxtepJuZos/pErEPJF2xkWVV2P/kz
-	21zkiHJmnAEONJyt50q3MPf6g2oPjlvoVhYUDgqCGwxgi5m3SG5oPC37rE1JHAFPMDqRdLMWX0i
-	X018GQfPa/jNeJXU5AH0OZF7Fy9OzMyjXYzacfM3yt5pQQ0T65/U5i6ptvQ8a4C8nSkzfo1zfkr
-	Es=
-X-Received: by 2002:a05:600c:528b:b0:477:9cdb:e337 with SMTP id 5b1f17b1804b1-483201d61c7mr166417715e9.7.1770646203011;
-        Mon, 09 Feb 2026 06:10:03 -0800 (PST)
-Message-ID: <491d4d54-243d-48bd-ae9c-10567d0de1a6@suse.com>
-Date: Mon, 9 Feb 2026 15:10:04 +0100
+        bh=9FtapWJxCB15CLdJ4G0c1wUZIGnxFkevlFycQMCLLj0=;
+        b=cRvK0U1TNFzIbef5Gc6B8fMPPZMulPiM0i6NDGd3sFLj3aBjlXVbGKUTPfWD69VZP9
+         DsP4wD+XOVPCneR3a7nwxjzU/horl2NFNsuqo1UKqHVhN++BnuRxzlwEG/a4T3lE/QGp
+         c8DZavS85ZkuXg8Xls/b9QlWQ81F3fYtcF86TeL06ejTYIszo1fu5yl5SPBhl9Ipl62I
+         wqFKUxmwF+Y+HE3yQEmmbL2ZAqtSJYoTkKQ9dEogYgBgfb3w+EKF2jHwDONExu7aVGiH
+         yZfgkdrzxHbMEqJEuI74UA9oihNMznCg4saZw71zVxOAEZHlTDNC97k1wAHg3I1gF2/z
+         4/6A==
+X-Gm-Message-State: AOJu0Yw4Sukq3LNB+ksADeLQqrsuNN/Q83x1OPaZRsZkfWGYuQdQcy9t
+	WEaxXaOz6v9Grztkb1n6nPj1NNPQ3bhbYDwAqJOREGzZ1UmgS+6XKrhbHlew3mDUZA==
+X-Gm-Gg: AZuq6aLtPGK/C3StTvXCKljkE0rY01UMGP3MyITdU64lROA6x1JoKK5PeNWKUWC4k42
+	KiWcUtaH0N276NFdXGmj3iuJtaLAhUErtwH1PsowJLUhq/cd7dQbMYRuwkCzP3LAYKqovgaJ+c3
+	Nbec30NsWP49qlFddxTG+tnqVDkgt7EiPMD1pX3RCh4pFpw6jQM6CwVkfJ0BIkPm979YStdPJ2S
+	ywVio6QIc9y2F0PhLGAFATKu4PaVIdu3dBGndxdrxLtuD91JHdPxM+1s/8BIwoQZQruUBE7gqff
+	OBKqfsJNQrxJLuRGSeUOX0BRchJ/ypH+JHWex1QOmegGuBJavALwOGFmqWiRSwxdWwO3tCP7xIu
+	yhuESmUrB35IsQMeDc3Pt1aHvZ73NmvgM0xNdFy5S4Rrwc/LDXo5mQYEnkHeMiYrNGA14wu7eHi
+	nWl/Kfe6w1LrBeKSgoDxhYqMw0CYKzKDG6jJRDFSz/I0x0xihpoVowoTde8BB/RkeYDm8E2DZiB
+	+F7AwKuT1jqjQ==
+X-Received: by 2002:a05:6000:1889:b0:436:d10:a6b0 with SMTP id ffacd0b85a97d-4362923f296mr18524646f8f.20.1770646396133;
+        Mon, 09 Feb 2026 06:13:16 -0800 (PST)
+Message-ID: <daa99e9b-068f-4e77-872d-69e93067447f@suse.com>
+Date: Mon, 9 Feb 2026 15:13:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: Advertise and support extended destination IDs
- for MSI/IO-APIC
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20260209113412.2603088-1-julian.vetter@vates.tech>
+Subject: Re: [PATCH v5] xen: Add Darwin.mk
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <49c0bd388d45b6936bd852d99fbbc262fb078253.1770633598.git.bertrand.marquis@arm.com>
+ <aYngg_ym18d0G-fX@Mac.lan> <28A169D0-4454-4D60-B811-72FE377A4318@arm.com>
+ <aYnjjHlbaYjr2VqV@Mac.lan> <6B8E025C-3235-4289-948A-B26992D0C4C2@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,75 +128,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260209113412.2603088-1-julian.vetter@vates.tech>
+In-Reply-To: <6B8E025C-3235-4289-948A-B26992D0C4C2@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,stdgnu.mk:url];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1DC1F1101A9
+X-Rspamd-Queue-Id: 924E71101E7
 X-Rspamd-Action: no action
 
-On 09.02.2026 12:34, Julian Vetter wrote:
-> --- a/xen/arch/x86/include/asm/hvm/vioapic.h
-> +++ b/xen/arch/x86/include/asm/hvm/vioapic.h
-> @@ -32,6 +32,19 @@
->  #define VIOAPIC_EDGE_TRIG  0
->  #define VIOAPIC_LEVEL_TRIG 1
->  
-> +/*
-> + * Extract the destination ID from a 64-bit IO-APIC RTE, including the
-> + * extended bits (55:49) used when XEN_HVM_CPUID_EXT_DEST_ID is advertised.
-> + */
-> +#define IO_APIC_REDIR_DEST_SHIFT        56
-> +#define IO_APIC_REDIR_DEST_MASK         0xffULL
-> +#define IO_APIC_REDIR_EXT_DEST_SHIFT    49
-> +#define IO_APIC_REDIR_EXT_DEST_MASK     0x7fULL
+On 09.02.2026 14:42, Bertrand Marquis wrote:
+>> On 9 Feb 2026, at 14:39, Roger Pau Monné <roger.pau@citrix.com> wrote:
+>> On Mon, Feb 09, 2026 at 01:33:13PM +0000, Bertrand Marquis wrote:
+>>>> On 9 Feb 2026, at 14:26, Roger Pau Monné <roger.pau@citrix.com> wrote:
+>>>> On Mon, Feb 09, 2026 at 11:46:44AM +0100, Bertrand Marquis wrote:
+>>>>> Xen does not provide a Darwin build configuration useable on Mac OS.
+>>>>> It is possible to build Xen Hypervisor (tools are not supported) with a
+>>>>> toolchain able to produce ELF binaries (GCC or others).
+>>>>>
+>>>>> Add config/Darwin.mk to include StdGNU.mk and force
+>>>>> XEN_COMPILE_ARCH=unknown, ensuring Darwin builds always follow
+>>>>> the cross-compile path so compiling on Mac OS is always handled as a
+>>>>> cross compilation case.
+>>>>>
+>>>>> Only compiling the hypervisor has been tested !
+>>>>>
+>>>>> An example of how to build the hypervisor for arm64 on Mac OS
+>>>>> (tools cannot be build for now) using a compiler from brew:
+>>>>> - brew install aarch64-elf-gcc aarch64-elf-binutils
+>>>>> - make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-elf- HOSTCC=clang
+>>>>
+>>>> This needs 'xen' target passed.
+>>>
+>>> Without any target, xen is built by default so i kept the simplest possible command
+>>> But I am ok with adding xen
+>>
+>> With the `cd xen` omitted, won't that also attempt to build the tools
+>> then?
+> 
+> This is supposed to be called in the xen sub-directory not in the main directory.
+> 
+> Now i get why you wanted the xen (and hence why there was the cd xen before)
+> 
+> Maybe having -C xen would be a better idea, building from main Makefile could
+> bring other side effects i guess.
 
-Can we please stop introducing pairs of mask and shift values? Already these
-versus ...
-
-> --- a/xen/arch/x86/include/asm/msi.h
-> +++ b/xen/arch/x86/include/asm/msi.h
-> @@ -54,6 +54,9 @@
->  #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
->  #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
->  
-> +#define MSI_ADDR_EXT_DEST_ID_SHIFT	5
-> +#define MSI_ADDR_EXT_DEST_ID_MASK	0x0000fe0
-
-... this shows one of the problems: It's never clear whether the mask is
-intended to be applied to the shifted or un-shifted value. Like you have it
-down here, the mask constant alone is enough. You use it with MASK_EXTR()
-and MASK_INSR().
+Happy to add "-C xen" while committing, if that's what we now have settled
+upon?
 
 Jan
 
