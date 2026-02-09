@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6EX0FG+yiWndAgUAu9opvQ
+	id QNfyGM+ziWkUBAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 11:09:51 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 11:15:43 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0551A10DFF2
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 11:09:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225121.1531591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B1210E0C5
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 11:15:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225130.1531601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpOD6-0005qc-27; Mon, 09 Feb 2026 10:09:40 +0000
+	id 1vpOIe-0007PF-LG; Mon, 09 Feb 2026 10:15:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225121.1531591; Mon, 09 Feb 2026 10:09:40 +0000
+Received: by outflank-mailman (output) from mailman id 1225130.1531601; Mon, 09 Feb 2026 10:15:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpOD5-0005ny-VS; Mon, 09 Feb 2026 10:09:39 +0000
-Received: by outflank-mailman (input) for mailman id 1225121;
- Mon, 09 Feb 2026 10:09:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vpOIe-0007Mq-HZ; Mon, 09 Feb 2026 10:15:24 +0000
+Received: by outflank-mailman (input) for mailman id 1225130;
+ Mon, 09 Feb 2026 10:15:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vpOD4-0005nM-Ji
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 10:09:38 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7089330b-059f-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 11:09:37 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-48068127f00so39147295e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 02:09:37 -0800 (PST)
+ id 1vpOId-0007Mk-QV
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 10:15:23 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d98be0e-05a0-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Feb 2026 11:15:21 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4805ef35864so35927785e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 02:15:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483209c1a64sm88195135e9.12.2026.02.09.02.09.36
+ 5b1f17b1804b1-48320396ccbsm122726605e9.0.2026.02.09.02.15.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 02:09:36 -0800 (PST)
+ Mon, 09 Feb 2026 02:15:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7089330b-059f-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 3d98be0e-05a0-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770631777; x=1771236577; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770632121; x=1771236921; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EibnnF/NRdJa+aXezoTgnR3v2Eikbj51oP8GQxmVnpU=;
-        b=IHohuq9lYujN/gHRG1c/0nwGeA4Y/UxJCebKu78EeN+daigbgdcr6i+aPP88yTaXIa
-         ZC8SsYjWxVDRz97FOSjiOQY4/Y//D0vEtPtvWnp5LAQfPTGTCDM+V/k0QyNtcqPndiUz
-         3VQUj4Fyw9qxxHQIrWeHDsQ7iL679mBdqkI8JSlbQcZMp5DWMjwNexUO4ZBseVCSFsT4
-         1TnELSJ0SFzmTUky/7bCcETrq17Wmk1J/fDs2YLEuDtCstfY7c7m147cq8B13pkqXX83
-         bOdNSzJF2snk7zENs9foaApJWnTvGdY7j50LdP6OXVpo50BqqffUfk3Hvu18djv8ifLr
-         jJ0A==
+        bh=rKEYjfwGSlDXYIcWOdqL22W8ABlXSix8asFwzwPE4lc=;
+        b=TeddAdJ1FSzUmWbNbTwKkzDJSdHzNwF/aKPnbgOQLM+ZJaDFPR5AWJpDc89/AvFGvL
+         g3MmdiPt7mCA3+4s6VyqIZ9WoKGLOrv22uDwsLntDBmRcTrOPM0UU6Pn8VsOIHpGkZpQ
+         VMU1bgjHaKYp+IZIgBtM+WMQxV+b7LcPjUmRCo0XbnKT/adJzN5yedQBYafsLlNB6Jhe
+         6JPhcV3zreJAjm/MKJPEXTC71PWyR7fF65xSNjSwducbg2bvht5fmdCkL1W+hf7roNXD
+         gcXuVPRYp+Rfg+7rg+fN3Wxs/jBvMX00YpYiLEv2IwVzf52L55U5Te81/MMQaZKKsC/C
+         /Kgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770631777; x=1771236577;
+        d=1e100.net; s=20230601; t=1770632121; x=1771236921;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EibnnF/NRdJa+aXezoTgnR3v2Eikbj51oP8GQxmVnpU=;
-        b=OWbPc0sLL+DDIunKLhjTC0uQXp0/k4vsDX+WKkm8PPAc7J5Tg+W4ynfa6Q/VAKDakp
-         FewJklrd8yEjzNmqxLRuUOHZ+vkncS1IoQFXsXd+BeoH8ZaZW3wJSTG1b5YvSzuFd80A
-         /iM4l0WHeid4gkiIK4/FCxuzwWK0KtlSo8oXeyP2QO/FlMujazjT6vRzJPrUXFRxkKUt
-         1WANYGEYWM6wLXxdl9YIC4v1qr//34kxGughd9rNup633yFSTPWLlm5Zpb+zUISa9qsH
-         6C2EXUkSPxc1ysZYyTkZRfbjj7vefg3ukOUyxWDGI8Ry9xyQfRSfyGJc2QKGQ2vuuJc9
-         UVGA==
-X-Forwarded-Encrypted: i=1; AJvYcCVgKZCkiQpyAGwrm5hykfD8HXzeoWxdoK+10PsV9UJUfCXuXavNGwqob9vHaQIp66YJZrr+qrOUxZ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyv8Tt9zCMtKzas4aP2Iu6na2OcCYFisVESQyyHsov62IAS7EEC
-	FGtbYkDhSgOOjuWNsNHJ6No/iGVuWsyIbh8edEoiECBaujrNgS6ZBtTbFawhGmU81w==
-X-Gm-Gg: AZuq6aJ54teb7aKuiPVZJuF//kdgke1n6a5S9KG7KlTHHK1x+gn+q2/DtPK3wTs8XVw
-	Lx4KI1psGJQcRUBLSyXV7FrmUwTafbl400p9+oksXbz9DozwX07kiJnBDodp9byRO3E9TtdyzX5
-	eZQIEf2GFLvR5X4U3E6Aj9ut2BQruxryNjqbKVrjM7BWzSBwxPwzWVpxMdG9tD4KkIaAE/rKKXf
-	RA1f78JUdJAgtnUsXhTnPkahmjpDqDCTeXqvBFyJnDQ9B0Tw0rOUOXQivui7/3tOuSpKa5RuCUi
-	bQATMG7HL55je7GpQ47X1YMFfTk2wLhYrS6rZYocY8mZuJPP7v2dWCraBqzXNpcc7IARk3inGI8
-	cYRTvaPBMQ3jnP/nJuzQa65zV8P2ahLsGRBjT+bb4n1PpSw4MMcTEjGttsqicZPr/I195+6Bhx2
-	/QgmKc3SM4H94kCEhzf+wwlbJEZKknfL5CqWtFSBIN4d5bo05Iqm0D826bzwzOlgDDXWexGGNZd
-	TaLoGsPpBiAuA==
-X-Received: by 2002:a05:600c:c4a7:b0:480:f27c:6335 with SMTP id 5b1f17b1804b1-48320236645mr152633405e9.25.1770631776517;
-        Mon, 09 Feb 2026 02:09:36 -0800 (PST)
-Message-ID: <210d133e-fa60-4116-b65f-039e46e31738@suse.com>
-Date: Mon, 9 Feb 2026 11:09:38 +0100
+        bh=rKEYjfwGSlDXYIcWOdqL22W8ABlXSix8asFwzwPE4lc=;
+        b=eu0zKu9aqhe1DncRMhqmqhihcvraYJqLgqZ1McXJSEEHg8Xa4NKswsuJZ87HTwvrEu
+         TUsKAFRKSM/AOWtc6wNIG8eSAROrAgIkt7NMVFvmQVxhCpeESdRP+2cHskcudMAc+/Te
+         yahfqsOpD+ovyeYuDv9Okj+h7e5pq9gu5mmrR6cBnTHFfcQ64mY7cioaqyQ1HBdYZcec
+         4dOxszYI0+fqIGLO0eiIqInCksreHj6Ud7jcTp6wqZkWF70fSk4zwqnJzn4eV596urMn
+         afYDPeO++CyNjNyTSS+vKjkQmN10/bVz7E2MkVe5z+ziFD4iBGQNrk892ItXHy7KtMcg
+         w4tg==
+X-Forwarded-Encrypted: i=1; AJvYcCVNXP0wVdCX7+X91xxqa3AchwzT5OwyXjD1VcjNjiNo33WXzW/U+voUs2ZLWgNZDcPR/6fdi6vNlDE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVWPXbQeZoOSnH8rBkyLEgdjuvvm/2DNomdjSUB0s/m/G6w7WY
+	Gv5VDzekR1YTSIQ3Z/YCD/yBVu7OQyT5tw8zGwqCNEbpMxT01k2IG2tlaS1PM3G/7UDrvKd876F
+	4WM8=
+X-Gm-Gg: AZuq6aKlpJz4CtZ6s/QSvrzi9ENGXDRA11eJrfu7n+XIHI3/Mx17IekA2koSa4p9VKP
+	Gj2MMr0/+BTu72OJGXY5GSeNF76PYdy8Bexqh814jnnWAykJE9uMTtahWUBuvr11oBYj4ngBiUr
+	+75jolWu0nrM5aHUESSuKgTgfozJLIxUGue5AaekBmdqYKA9SqvkvBnAWVxxVxBubJM6vnNr1S4
+	m0aVGxd2b2ybMtPLlclJmBuk+D7RWLrjH8AuCOIK65LG8a0zczJRMEkBtrhFjOZR34dasjq0Grq
+	abTtl0H4PNafoszq1QjedsEyUjN+vrV1R+U9wfHnzboU7cRk7VjP59sFpe1lYBZ1pQd+w4CPFpS
+	KVALbKkEmJhXZz8cyA+NvurJ/t0dYsaNtETV1AMgyLwMYCeeivqYSJOmJZWUoqctMMK88iIrdNS
+	iUeEaBd57wBxj2Fi8wMYgMPPPoohu/SEERGQm3MV3axVg5H7190rc+uwjizXNGnawetHQbQj71z
+	zUw/CwPRMneLFA=
+X-Received: by 2002:a05:600c:a101:b0:483:456a:5146 with SMTP id 5b1f17b1804b1-483456a51ebmr12005765e9.25.1770632120620;
+        Mon, 09 Feb 2026 02:15:20 -0800 (PST)
+Message-ID: <836c1ef7-4ec3-4c4a-b527-17066327ff19@suse.com>
+Date: Mon, 9 Feb 2026 11:15:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/memtype: Deduplicate rendering of X86_MT_*
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20260206131305.2675905-1-andrew.cooper3@citrix.com>
- <20260206131305.2675905-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 00/12] const-ify vendor checks
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
+ <608472d0-517c-4bc5-b5c1-c278c4f6620b@suse.com>
+ <DGACI1R7MGDO.1SB7OMQQZ1NC3@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,84 +127,133 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206131305.2675905-3-andrew.cooper3@citrix.com>
+In-Reply-To: <DGACI1R7MGDO.1SB7OMQQZ1NC3@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid,citrix.com:email];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	NEURAL_HAM(-0.00)[-0.986];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.989];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0551A10DFF2
+X-Rspamd-Queue-Id: C6B1210E0C5
 X-Rspamd-Action: no action
 
-On 06.02.2026 14:13, Andrew Cooper wrote:
-> The MTRR infrastructure has two different copies of mtrr_attrib_to_str(), one
-> in .init and one in regular .text.  EPT has another variation.
+On 09.02.2026 11:05, Alejandro Vallejo wrote:
+> On Mon Feb 9, 2026 at 10:21 AM CET, Jan Beulich wrote:
+>> On 06.02.2026 17:15, Alejandro Vallejo wrote:
+>>> High level description
+>>> ======================
+>>>
+>>> When compared to the RFC this makes a different approach The series introduces
+>>> cpu_vendor() which maps to a constant in the single vendor case and to
+>>> (boot_cpu_data.vendor & X86_ENABLED_VENDORS), where X86_ENABLED_VENDORS is a
+>>> mask of the compile-time chosen vendors. This enables the compiler to detect
+>>> dead-code at the uses and remove all unreachable branches, including in
+>>> switches.
+>>>
+>>> When compared to the x86_vendor_is() macro introduced in the RFC, this is
+>>> simpler. It achieves MOST of what the older macro did without touching the
+>>> switches, with a few caveats:
+>>>
+>>>   1. Compiled-out vendors cause a panic, they don't fallback onto the unknown
+>>>      vendor case. In retrospect, this is a much saner thing to do.
+>>
+>> I'm unconvinced here. Especially our Centaur and Shanghai support is at best
+>> rudimentary. Treating those worse when configured-out than when configured-in
+>> feels questionable.
 > 
-> All 3 are incomplete; they encode only the non-reserved values for the task,
-> but hiding reserved values with ?'s is detrimental to the diagnostic purpose
-> of these existing in the first place.
+> Isn't that the point of configuring out?
+
+That's what I'm unsure about.
+
+> Besides the philosophical matter of whether or not a compiled-out vendor
+> should be allowed to run there's the more practical matter of what to do
+> with the x86_vendor field of boot_cpu_data. Because at that point our take
+> that cross-vendor support is forbidden is a lot weaker. If I can run an
+> AMD-hypervisor on an Intel host, what then? What policies would be allowed? If I
+> wipe x86_vendor then policies with some unknown vendor would be fine. Should the
+> leaves match too? If I do not wipe the field, should I do black magic to ensure
+> the behaviour is different depending on whether the vendor is compiled in or
+> not? What if I want to migrate a VM currently running in this hypothetical
+> hypervisor? The rules becomes seriously complex.
 > 
-> Implement a single function which covers all the architectural values.
+> It's just a lot cleaner to take the stance that compiled out vendors can't run.
+> Then everything else is crystal clear and we avoid a universe's worth of corner
+> cases. I expect upstream Xen to support all cases (I'm skeptical about the
+> utility of the unknown vendor path, but oh well), but many downstreams might
+> benefit from killing off support for vendors they really will never touch.
+
+To them, will panic()ing (or not) make a difference?
+
+>>>   2. equalities and inequalities have been replaced by equivalent (cpu_vendor() & ...)
+>>>      forms. This isn't stylistic preference. This form allows the compiler
+>>>      to merge the compared-against constant with X86_ENABLED_VENDORS, yielding
+>>>      much better codegen throughout the tree.
+>>>
+>>> The effect of (2) triples the delta in the full build below.
+>>>
+>>> Some differences might be attributable to the change from policy vendor checks
+>>> to boot_cpu_data. In the case of the emulator it caused a 400 bytes increase
+>>> due to the way it checks using LOTS of macro invocations, so I left that one
+>>> piece using the policy vendor except for the single vendor case.
+>>
+>> For the emulator I'd like to point out this question that I raised in the
+>> AVX10 series:
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
+> There's no optimisation shortage for the emulator. For that patch I just
+> ensure I didn't make a tricky situation worse. It is much better in the single-vendor case.
 > 
-> Yes I know EPT tries to render the reserved reserved encodings numerically.
-> It's a cute trick, but does get foiled by the '[MTRR_NUM_TYPES] = "??";' row
-> which breaks things.
+>> "Since it'll be reducing code size, we may want to further convert
+>>  host_and_vcpu_must_have() to just vcpu_must_have() where appropriate
+>>  (should be [almost?] everywhere)."
+>>
+>> Sadly there was no feedback an that (or really on almost all of that work) at
+>> all so far.
+> 
+> It sounds fairly orthogonal to this, unless I'm missing the point.
 
-Does it? 7 isn't UC- there, but is instead reserved, which we leverage to get
-EPT-misconfig exits. 7 also isn't UC- when used in MTRRs; that's a PAT-only
-type. I think we better wouldn't mix those. Therefore I'm also not really
-happy with x86_mt_name() as a name - it should be clear from the name whether
-this is about MTRR (and EPT memory type) or PAT.
+It's largely orthogonal, except that if we had gone that route already, your
+codegen diff might look somewhat different.
 
-> Putting this in traps.c isn't great, but there isn't an obviously better place
-> either.
+> In principle that would be fine. the vCPU features whose emulation requires
+> special instructions are most definitely a subset of those of the host anyway.
+> 
+> I agree many cases could be simplified as you describe.
+> 
+> I do see a worrying danger of XSA should the max policy ever exceed the
+> capabilities of the host on a feature required for emulating some instruction
+> for that very feature. Then the guest could abuse the emulator to trigger #UD
+> inside the hypervisor's emulation path.
 
-Any reason not to put them in one of the two mtrr/*.c files? Are we entertaining
-the idea of allowing to compile out mtrr/?
-
-> @@ -214,7 +201,7 @@ static void __init print_mtrr_state(const char *level)
->  			       level, i,
->  			       width, mtrr_state.var_ranges[i].base >> 12,
->  			       width, mtrr_state.var_ranges[i].mask >> 12,
-> -			       mtrr_attrib_to_str(mtrr_state.var_ranges[i].base &
-> +			       x86_mt_name(mtrr_state.var_ranges[i].base &
->  			                          MTRR_PHYSBASE_TYPE_MASK));
-
-Nit: Indentation of this line then wants changing, too.
+Well, that max-policy related question is why I've raised the point, rather
+than making (more) patches right away.
 
 Jan
 
