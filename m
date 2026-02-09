@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4J3wCfkQimnXGQAAu9opvQ
+	id kHCOKgkSimlrGAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:13 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:57:45 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8206112B52
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225798.1532476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7554B112C40
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:57:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225878.1532520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVL-00027G-L7; Mon, 09 Feb 2026 16:52:55 +0000
+	id 1vpUZs-0007W9-R3; Mon, 09 Feb 2026 16:57:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225798.1532476; Mon, 09 Feb 2026 16:52:55 +0000
+Received: by outflank-mailman (output) from mailman id 1225878.1532520; Mon, 09 Feb 2026 16:57:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVL-00020U-8Z; Mon, 09 Feb 2026 16:52:55 +0000
-Received: by outflank-mailman (input) for mailman id 1225798;
- Mon, 09 Feb 2026 16:52:53 +0000
+	id 1vpUZs-0007T5-O0; Mon, 09 Feb 2026 16:57:36 +0000
+Received: by outflank-mailman (input) for mailman id 1225878;
+ Mon, 09 Feb 2026 16:57:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zC3u=AN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vpUVJ-0007Zo-3U
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:52:53 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1vpUVL-0007Zo-3Y
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:52:55 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c62d15db-05d7-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 17:52:52 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-b88593aa4dcso633232466b.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:52 -0800 (PST)
+ id c6c7ab38-05d7-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 17:52:53 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-65815ec51d3so4896157a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:53 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.50
+ a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 08:52:51 -0800 (PST)
+ Mon, 09 Feb 2026 08:52:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c62d15db-05d7-11f1-b162-2bf370ae4941
+X-Inumbo-ID: c6c7ab38-05d7-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770655972; x=1771260772; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770655973; x=1771260773; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cNbrlMqhuICu7ctpXyh9WGmkD3dnZmEYO+L7YJ0WFAc=;
-        b=aI9cpupSblT1Z7mEaeSENuWULiI15LEQ/F89QTrUYS6Ws9zT6L3X+nkVmsaXhAsuL0
-         LNAbnDQ63Khm74bSBSTpF5F34H3uOFvpj/L95iwXsXgv9jxu+xyUuNGBbAZFCqK8y/An
-         mDJ+YODacm66iTu4gtyoCpaYfgMOGKJIewENLFz5fKT+c0yt7O7H2dSQr+gbGJgwx/Gm
-         QkxmGbLYAPCmka51V25jDrd5gL7TYCX71CRNNxFUnoxsCeeI1uVu9VBqRaCLA0koAUdn
-         JfjVXMrsri/9SQYGatkiSkdWR9AC2LU6x04udL6KBkH2OCQs68pF9qEylPgeRrHeHm64
-         f2WA==
+        bh=imBk95+i3lrNZl16Fz7LHP6T5cVPwdF19P0a+Yv8HIE=;
+        b=BiCJhWGliJdA44LISFmZOUGXwVeR5m2VhAPwWpOYct+tygrQbhJ40YsW3VQ5ShbhBE
+         3P8SznbEmhCOIQcQKHHyntnT3DbXG9j5PLi53sG/tEZFp8MrgQpaaHco3ZWPgYvyWrGZ
+         zLqlHygHR88oMjOQYWyfe0qD8O2KDQ7jGV564BwxOzhAH7rqUt0Wo3VGBpupMoyhTVws
+         aVzPztwTlJuP82mzKUGWlrSRNwkmdRrHtzthdo8sSuCcKSZLEIrrO6IQ9zu5Jou4P0ZC
+         JwWXayWhI+TMGfRWDbjFXFGilF7KdEm2HZk1BXDldJOtupsSmJOdKltpG8d35IYd4Xdk
+         V+Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770655972; x=1771260772;
+        d=1e100.net; s=20230601; t=1770655973; x=1771260773;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=cNbrlMqhuICu7ctpXyh9WGmkD3dnZmEYO+L7YJ0WFAc=;
-        b=jLmvIrzqZeWpjNOSO2amS1wFw2XTTkkCUoZMaAhtX8+bDVVdRf+uneNaC/dQWhLwnL
-         o32GYq0hmJASxGWw5D9HCCy1BKSnN/EL/HTJAaMrGi/mgx/9zpFIfflKKcLuMNEPFJtM
-         +m+yeow5oPT/k7iPYbnluUqevJiTshnuqwqK3A6kZjxSLa8ijriZUuJcpasZi/gHDKZK
-         1BQKBfsgEIevk/RPFd2XehvAZtcZeWxKFnvvqlOfc73uBW9mYao0v0uBhkIgcOkbY/2W
-         arIWG0+4WubkhOKFYnsnAhzBYA8cYMYzCw8zSIIFrlGsFS7nslPMZIyFdathj6wA8dhq
-         I85A==
-X-Gm-Message-State: AOJu0Yzz3gFglC0tDkqk1vZayJUCmzgHTcvI5XKEjwQe6qConLlpLX4d
-	t+1dyjuin0svHa1ygQ8rJZ9UeQKQQWvJ7nGgoDrW1xxe5q9vorj91isO8F1JFNlD
-X-Gm-Gg: AZuq6aJO7v5HCW64ZSq1skfnAjzjcIU3KQPGxgys/fOwm3y0HKbsHo6AkeqbZSYyDx9
-	r7BJ0cyT2ggMFCbVJRKAJRYgJVpRgWhnmqmUt/LLuwzMazOtnl5Bi2Dc71k2Mzr3Jap5jjYKplC
-	dK336cby7BOIkJsCCyQTYPmtM05yJWzXsPFXevqFJxVDl3XWY6KUkjR/a51imhBXIsqgKgaHx3v
-	IU+fx4V3DQFR8YIzp8D0Fghng3fV8YBEjIYiIftj1sXg0ukpOIPovP+2lwkLlBag30OxPMH3m1J
-	dUtWEuDpTX4o9F5t5mnYLhWPDyqbSl7y3ZieTBhfW8siA4WL0F7jbUNehZpHNHtMz2f/aoW/s/S
-	0NTHaLYIonEB2Olt1n7FAkLzY3PzpP0U20pjHszXGvn0o/SwoufdXtfJccfySDsMXgYliIN5T2/
-	FMxTex/y5w05Vd1wLSCNc8vAMlDDB0ZbN0Us56/iq4axM6PDqgSDK7+w==
-X-Received: by 2002:a17:906:4785:b0:b8e:9d66:f5fb with SMTP id a640c23a62f3a-b8eded5bf07mr685244766b.0.1770655971561;
-        Mon, 09 Feb 2026 08:52:51 -0800 (PST)
+        bh=imBk95+i3lrNZl16Fz7LHP6T5cVPwdF19P0a+Yv8HIE=;
+        b=XQPV4nkgkCmUHlvl5imlSELlKgzNiqqxqcRNl5zMcyyEs/Bs8f3gRjkTgu/TemsDAI
+         JpubQYQSe0uUaRZqqrJ0mG3NIGZMilYDHFOGcxVOrGY4rjJg53YpsR7G2JIZp/sRfsn9
+         MLfv1RxGRdO8+lV7rqYtEOjxx+AJREUW4JlULTPah3LLBparsXgBnUATKLUDiNzUd30E
+         azvgc7nzfn5BEeifIchSi9kyFqgBNSQnciw4RlQlcThxcJzyoW33q5yF6Fj1on8qJ/3H
+         oOJDCUWG7w2qsdyA3ITj0u2KWvWRV/Bgq1g7fQC+tKVwssJFFF97k5t2K7VaRQDkBrx9
+         UXGQ==
+X-Gm-Message-State: AOJu0YwvlAfIWOfmf/UfzXeUyDQSnqCb5UY4qKAGeW4KY8g8zpsFeZ2Z
+	u++9tNY6mYIeODNyeyx8ZD+mYsiJCfPA3IhDSMTJ/1XFD4byO5LOrsEkGIHf06DN
+X-Gm-Gg: AZuq6aLVFPz2lsPPDbTQdk6eZDiKcrlPfqdk3HPUivL5tnAWNMEXmIJzbAIn44SgqVO
+	c1dJdZxXACtX23R/OIG2DbY405EecEEyBAwH5+qwaSU3PfwRkcHXQxcDVG6H6h58+wFeKogUzYi
+	IWNoRE7Olflf3MWjzI1xjlgOGjRZP0Mko5Fk9wpuZ2uvRofXQOCGyP7OG8KWnu2m3fc5D1/dlzL
+	xFCNoDj5hNGALYTYwqMWQfaU/yga4TwuE4xz0WxnAXZW0UKTepE0dRMSYUatm61ITDWrXSkG1uz
+	3bAI530CToG7ko2sINPf7Lynj5tXRCNRWn5GkKIOubrkm8UsXLkUtSuxyM0tHlJwsa65qib+NsP
+	Bv48I+AWE2bKbzNq4mMpEXcEouUCblicoSWb3I5QJNKjXgeDBuaDJWWwNAm5Z6dEGkepKWiP64S
+	EFWCEGSBEcRQBbpaH8TyD52P/iR5v0ukO2bZT8qVG/xrfEwd1Pa3rc+Y5hprKUnF0u
+X-Received: by 2002:a17:907:9449:b0:b88:5ef6:17f9 with SMTP id a640c23a62f3a-b8edf15f695mr675946466b.7.1770655972552;
+        Mon, 09 Feb 2026 08:52:52 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,9 +99,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 13/16] xen/riscv: implement reprogram_timer() via SBI
-Date: Mon,  9 Feb 2026 17:52:26 +0100
-Message-ID: <b1e39e0187fc44fd926f774e68a580077a278495.1770650552.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 14/16] xen/riscv: handle hypervisor timer interrupts
+Date: Mon,  9 Feb 2026 17:52:27 +0100
+Message-ID: <4658719da8639b382b122bd79124381235d27aaf.1770650552.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770650552.git.oleksii.kurochko@gmail.com>
 References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
@@ -130,7 +130,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -143,123 +143,69 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C8206112B52
+X-Rspamd-Queue-Id: 7554B112C40
 X-Rspamd-Action: no action
 
-Implement reprogram_timer() on RISC-V using the standard SBI timer call.
+Introduce timer_interrupt() to process IRQ_S_TIMER interrupts.
+The handler disables further timer interrupts by clearing
+SIE.STIE and raises TIMER_SOFTIRQ so the generic timer subsystem
+can perform its processing.
 
-The privileged architecture only defines machine-mode timer interrupts
-(using mtime/mtimecmp). Therefore, timer services for S/HS/VS mode must
-be provided by M-mode via SBI calls. SSTC (Supervisor-mode Timer Control)
-is optional and is not supported on the boards available to me, so the
-only viable approach today is to program the timer through SBI.
-
-reprogram_timer() enables/disables the supervisor timer interrupt and
-programs the next timer deadline using sbi_set_timer(). If the SBI call
-fails, the code panics, because sbi_set_timer() is expected to return
-either 0 or -ENOSUPP (this has been stable from early OpenSBI versions to
-the latest ones). The SBI spec does not define a standard negative error
-code for this call, and without SSTC there is no alternative method to
-program the timer, so the SBI timer call must be available.
-
-reprogram_timer() currently returns int for compatibility with the
-existing prototype. While it might be cleaner to return bool, keeping the
-existing signature avoids premature changes in case sbi_set_timer() ever
-needs to return other values (based on which we could try to avoid
-panic-ing) in the future.
+Update do_trap() to dispatch IRQ_S_TIMER to this new handler.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v3:
- - Correct the comments in reprogram_timer().
- - Move enablement of timer interrupt after sbi_set_timer() to avoid
-   potentially receiving a timer interrupt between these 2 operations.
+ - add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
 Changes in v2:
- - Add TODO comment above sbi_set_timer() call.
- - Update the commit message.
+ - Drop cause argument of timer_interrupt() as it isn't used inside
+   the function and anyway it is pretty clear what is the cause inside
+   timer_interrupt().
 ---
- xen/arch/riscv/stubs.c |  5 -----
- xen/arch/riscv/time.c  | 43 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+), 5 deletions(-)
+ xen/arch/riscv/traps.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 1f0add97b361..cb7546558b8e 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -21,11 +21,6 @@ nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
+diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
+index 676a2da55811..e8d9ca902d9c 100644
+--- a/xen/arch/riscv/traps.c
++++ b/xen/arch/riscv/traps.c
+@@ -10,6 +10,7 @@
+ #include <xen/lib.h>
+ #include <xen/nospec.h>
+ #include <xen/sched.h>
++#include <xen/softirq.h>
  
- /* time.c */
- 
--int reprogram_timer(s_time_t timeout)
--{
--    BUG_ON("unimplemented");
--}
--
- void send_timer_event(struct vcpu *v)
- {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/riscv/time.c b/xen/arch/riscv/time.c
-index 2c7af0a5d63b..7efa76fdbcb1 100644
---- a/xen/arch/riscv/time.c
-+++ b/xen/arch/riscv/time.c
-@@ -7,6 +7,9 @@
- #include <xen/time.h>
- #include <xen/types.h>
- 
-+#include <asm/csr.h>
-+#include <asm/sbi.h>
-+
- unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
- uint64_t __ro_after_init boot_clock_cycles;
- 
-@@ -40,6 +43,46 @@ static void __init preinit_dt_xen_time(void)
-     cpu_khz = rate / 1000;
+ #include <asm/cpufeature.h>
+ #include <asm/intc.h>
+@@ -176,6 +177,15 @@ static void check_for_pcpu_work(void)
+     vcpu_flush_interrupts(current);
  }
  
-+int reprogram_timer(s_time_t timeout)
++static void timer_interrupt(void)
 +{
-+    uint64_t deadline, now;
-+    int rc;
++    /* Disable the timer to avoid more interrupts */
++    csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
 +
-+    if ( timeout == 0 )
-+    {
-+        /* Disable timer interrupt */
-+        csr_clear(CSR_SIE, BIT(IRQ_S_TIMER, UL));
-+
-+        return 1;
-+    }
-+
-+    deadline = ns_to_ticks(timeout) + boot_clock_cycles;
-+    now = get_cycles();
-+    if ( deadline <= now )
-+        return 0;
-+
-+    /*
-+     * TODO: When the SSTC extension is supported, it would be preferable to
-+     *       use the supervisor timer registers directly here for better
-+     *       performance, since an SBI call and mode switch would no longer
-+     *       be required.
-+     *
-+     *       This would also reduce reliance on a specific SBI implementation.
-+     *       For example, it is not ideal to panic() if sbi_set_timer() returns
-+     *       a non-zero value. Currently it can return 0 or -ENOSUPP, and
-+     *       without SSTC we still need an implementation because only the
-+     *       M-mode timer is available, and it can only be programmed in
-+     *       M-mode.
-+     */
-+    if ( (rc = sbi_set_timer(deadline)) )
-+        panic("%s: timer wasn't set because: %d\n", __func__, rc);
-+
-+    /* Enable timer interrupt */
-+    csr_set(CSR_SIE, BIT(IRQ_S_TIMER, UL));
-+
-+    return 1;
++    /* Signal the generic timer code to do its work */
++    raise_softirq(TIMER_SOFTIRQ);
 +}
 +
- void __init preinit_xen_time(void)
+ void do_trap(struct cpu_user_regs *cpu_regs)
  {
-     if ( acpi_disabled )
+     register_t pc = cpu_regs->sepc;
+@@ -217,6 +227,10 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+                 intc_handle_external_irqs(cpu_regs);
+                 break;
+ 
++            case IRQ_S_TIMER:
++                timer_interrupt();
++                break;
++
+             default:
+                 intr_handled = false;
+                 break;
 -- 
 2.52.0
 
