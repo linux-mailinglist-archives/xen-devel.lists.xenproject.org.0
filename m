@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YAi0C3MJimluFQAAu9opvQ
+	id eEJDKhIKimnKFwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:21:07 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:23:46 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C831112755
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:21:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225717.1532279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18278112782
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:23:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225723.1532289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpU0M-0007Zo-Fs; Mon, 09 Feb 2026 16:20:54 +0000
+	id 1vpU2t-00083w-Rz; Mon, 09 Feb 2026 16:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225717.1532279; Mon, 09 Feb 2026 16:20:54 +0000
+Received: by outflank-mailman (output) from mailman id 1225723.1532289; Mon, 09 Feb 2026 16:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpU0M-0007X0-Cu; Mon, 09 Feb 2026 16:20:54 +0000
-Received: by outflank-mailman (input) for mailman id 1225717;
- Mon, 09 Feb 2026 16:20:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EeIc=AN=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vpU0K-0007Wu-VL
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:20:52 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c503942-05d3-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 17:20:51 +0100 (CET)
-Received: from SA9PR03CA0003.namprd03.prod.outlook.com (2603:10b6:806:20::8)
- by DS0PR12MB7654.namprd12.prod.outlook.com (2603:10b6:8:11d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
- 2026 16:20:45 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:20:cafe::e2) by SA9PR03CA0003.outlook.office365.com
- (2603:10b6:806:20::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.19 via Frontend Transport; Mon,
- 9 Feb 2026 16:20:45 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 16:20:45 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
- 2026 10:20:42 -0600
+	id 1vpU2t-00082V-Op; Mon, 09 Feb 2026 16:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 1225723;
+ Mon, 09 Feb 2026 16:23:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vpU2s-00082M-7x
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:23:30 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa2ac9d4-05d3-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Feb 2026 17:23:27 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4801d7c72a5so27099085e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:23:27 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4834d5d77b3sm176865e9.2.2026.02.09.08.23.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Feb 2026 08:23:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,273 +50,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c503942-05d3-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FEmzFPmU0J0J+7PSiQi7aW/5NPtEGaHEc7iaYoKvdBsHPsBYLKa2yJ/0KLa+cSGst9AKx717gADjjS57BZnylXSrsZsGopWxQr5ZvJyjZfT2IUHIVViL7/xrwzC451RDtWNglQYG1PR6IGmw1HKmt9g3kj5kVn9+HesBbzwXhPcFlP79BGy4Z69yIuEMIwrYWz6sQVq3zlKOFmdjUm9Zk5FdvasTynTBCCAGTw0PLRRrUe7Kxu276a2aFnbty0//Z4+IUC07qS1ydNCnTGRXjQouZB49FJLJcyS1QShWRY7xvtWV49sm8FluEi5PeXsUvtPXjnc6Zd+T+tHwIdBIbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=odYkBrHhgmLyIEpIb0icSeEh36oiH3OQZicvnz2jtoA=;
- b=qGV/XmNeysoYaWn1rgWSghO+r+z384ziyifIy/Z+LDYCg/jKv2kZIEtn3ekIkKs++WOAGAn8OKn9i+NQ+S7qBj7Z21DWFx4oQI4Wr4RDQRcqlA6mFkq8z9ofjzkP9itzIBoRLIgSHc6Vb6lk3Xo7dfzG3heLZCZToOVCi2B67FEeLACowcKbkOFU7eFgamiRkLkEV6TTaRyePaVyQmGojJVK7gxxsrg84yFOgYnecoF8FlcoWUs/qiwj1l9lcmN/rxCJCYMpfuLDKlCwYIPcGSTOhGptWr8XkukmZomX7DFtSbhDKhgaQEql19NsOiMOm33MgAfUtVVcPIxKx/nf7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=odYkBrHhgmLyIEpIb0icSeEh36oiH3OQZicvnz2jtoA=;
- b=X9qy7veBBJL6zWeLcq8isG310W6h/QHnCQl8rMZwZdJ34V8CLF7VQhEJEV1Q4xAhmR7JSa9VFaM3lqn15MIkylVnbKzzz4sSR3ydEMkecC0hPA5Jo1kH2zjw89jfyzofYORyH47jjavKv/48f/x/tZkmjYFGmfU8j+VZxkgewIE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: aa2ac9d4-05d3-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1770654207; x=1771259007; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WLZBlF7qRqVbL5N08knlrO7uAkOzZVVxD6CZc/XwX90=;
+        b=VFOy4Z8QBxh+tTyu6U8vxLDeAxmMokK8XQ+450vRuGGWJj6wpHjceIlYZ3gPPjyU/M
+         if77AUgc3YWADAAC4FV5ZYYyl4S4ZuEahPr7n+cftTUyNSTP1951klQ/ijmBo+E3hWx9
+         Lz/SSeayk7vIhexZUD6OIKAUDfBbXv+I8yitHD79Tz2pfBQUel1UNai69u9KerHKjcw6
+         sT5Ypdjg5Ao+1Jw1I4IeSB9giMPMRcQ6Czkc8VjhkT3IVg+YbynoHU1+BKVLlq0pec58
+         WQ/VgeOSU0demQWOq8gberCdOUl0+Stgn+6LkFSuXnRoJBYg6OVfELtT2nFoz6uPKAdj
+         wRXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770654207; x=1771259007;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WLZBlF7qRqVbL5N08knlrO7uAkOzZVVxD6CZc/XwX90=;
+        b=i+VKc9rzKc1oFIeMensl8t6QTL88I+ExUqwP7tBFD+lgQaWw8375BsfAXUghSSnwq4
+         WO53FzPddCu+rsOM/uRHLpQLOZbO08mILsOlb4T9rnQ4qtaEH4SdD0VSM/+vI9T9bJR7
+         jiuAAAugGKtcD04wLj4Rg6KxU83k0Qx9lld8lCIqh5Q393R+rXpBDapctYn4JIIPld+w
+         EVo71x7YN4w0ybnYJJQKVcbS6X3DBvBBPbyN5KFeE8s4TpKf/mcWkXyoKFxxQGi5zNJ4
+         mHFLHkryWeReU8+bsrBnbkZ2sBFMCenFO6xTjsh8VFkFJhErvHnc15xk+KNoGkSJBlW9
+         5yyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWfBPXfsycga1GT1B7mpi3VnhSts/ZEQqbMn1wHzdN4uYWuKVEfU/TihOfVgNzwLF154mOgJcRi54g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwSJkzGHip2/KfpzN65/ZYDWcGe2cp07Xhdd7iXkj4LfquVBpjo
+	DCFKB1CUzsYqta3u3gj9FfLbDuvjc8nj7bAIi/dTnIMmz5kpP9DzBPmMi4igkTZxaw==
+X-Gm-Gg: AZuq6aKVZi3W+eyhNS3vPbsNqfA7ZToqx7rsW1NRPFlFqhEoc/G94tPVYNlAcqvCJIm
+	P7G1kaFWJNOSKeNaUz4HFtoLqekpF47dOIfznoN0ii4UYA7zKM1C6kH0BaLYhv19dociRfPxFQ/
+	AA0791nCUVLQRsm1/Duu7ZW1MXO+Iu5mtN6gYOPTPrZ9OhzknEFmgES7waSrJ5bk2eMjyD41+WV
+	efZzQXZvLiQ1mQMw0KhBdy2PgTXwjbq2saeIb8wc+AQ5pxWs/5jbYeRLJXNEPu67zJSmGSxPww6
+	T7Ljdo+bEYhdNCGEJrWKBFJiDzzDmBHdHza2yneHnmx8ZLGwPBNUAejNTbv5npF/pLn/co3TFu3
+	ajlXvtf80mmQjY7DkUP8QpB3WRaoq1e8mkFQ8me/w90CVcCLMbMXa3Egq+PpN3mKxEfe2cnm17e
+	BU3r0JRjWCaWEc0Lz7uqgXo9Pae2N2/2YTZih8hSq0DWFm9dX3o0j8rl6FLvqLSfaohWjADoRS3
+	chGWSber6VThg==
+X-Received: by 2002:a05:600c:1d01:b0:480:1a9a:e571 with SMTP id 5b1f17b1804b1-48320213a37mr177302595e9.22.1770654207090;
+        Mon, 09 Feb 2026 08:23:27 -0800 (PST)
+Message-ID: <42c248e7-9747-4281-9fca-1b9950a06bf8@suse.com>
+Date: Mon, 9 Feb 2026 17:23:28 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 9 Feb 2026 17:20:40 +0100
-Message-ID: <DGAKH0QH3EG8.8GOWCPNH2Z79@amd.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH] x86/shadow: Delete the none.c dummy file
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-X-Mailer: aerc 0.20.1
-References: <20260209104104.7840-1-alejandro.garciavallejo@amd.com>
- <aYnyY2MArv4vTXsY@Mac.lan> <DGAJI3UYR98J.FU94VABOFZ5N@amd.com>
- <aYoDiDiJ4rRLxhmw@Mac.lan>
-In-Reply-To: <aYoDiDiJ4rRLxhmw@Mac.lan>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|DS0PR12MB7654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 688b8573-1564-4b72-f56d-08de67f72dbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VTdyS2JRaXZ5aHhGQnl2UWN0K2J3RG1DTFF1RG9XNnEwU2pwT2s3K3JCSzAw?=
- =?utf-8?B?Zi9sbDRxRmNjcUdrVTAxTG1pNmpRa0lDbkxqeVVPUmRGK2tCZlJzdE1JMjFG?=
- =?utf-8?B?c0ZpVUVLcGg0WjJPUVdRaVhLL2IzSHRURE1WWXJ0VngrNDFNSWt6YXhnQ3FK?=
- =?utf-8?B?TEtwQWRON0ZPZ3VCd2hZdDZrNFBlTmlMVW05a1VzUm9XZkhldkl5am1QZnpI?=
- =?utf-8?B?WXRML3V2ZlJsYk0wYmRrYjhBN21hTTNqRWRFdlU5L2I0b0d6bWw4U1JTeDBX?=
- =?utf-8?B?WU4vUFBlTFBsblFqblZ2VlZVVThENEJ6ZnJYaWY4aTMyYnJkOHYrSzdmc0tQ?=
- =?utf-8?B?em13bGt1T1FJWlBHV21QNUYrVWtxWElueHBWYXMvMCt1TkJZdnoxbGV5eXQ4?=
- =?utf-8?B?eVM3c1Ewei9LUXNtWnh0OHhyQzRONHlnWWJCSllEVzJYR3J2UDY3OWVOcTJi?=
- =?utf-8?B?R2J6WkNJSmtXNzFYWGRBWG9OL3YxYU9SSFV0bWtleDRGYTV1Z1Q5NmszRzYw?=
- =?utf-8?B?OWZYemV6MkRhcm82Z1gvQlFkT1F2K1BBU3lmNHhSbzM4VkliRUc5TzdYWHRH?=
- =?utf-8?B?cnJUMHBhekFTREQxeGp4ZCtnelVNUi9YbU5meElJc0tLVDlRM2pMeFRPYnB2?=
- =?utf-8?B?Ym53eUdtWCsySlFkeW8vVTNoYlJzYWdTRUJWbjY2TXZMbnZpLzZZd2pxaFJ3?=
- =?utf-8?B?Mk1RYUpQN2JHdVpPN1p6Tzd4QTNzeitRN1ZTNG80ekhkOGs1ZkNrdFoxVEhv?=
- =?utf-8?B?S2dRUWNKMkpUbmRPSU41aWxxZHduZjZhMmNNZGZnZVdjeVVvTlMrd09Zblpl?=
- =?utf-8?B?NTUxVlpVK1Zoem1zVzdZZHdBWjNnRzVNOWZiK0p2eFdyQS8xYms5SjVDdkta?=
- =?utf-8?B?TEQ5THd0M2RBaWNLWmcwamVrV0tZU1VsZE5qdUFOVzAwTlBJdEx1M2xLMWRX?=
- =?utf-8?B?b0lqdUtOL1dkdTd6bFdjcDUydkQvWmpzMlMxTG4wYWtVWWFuaWpaZFNCdWRK?=
- =?utf-8?B?WCtOSHBjTjN4Ti90c2s4Y3p1eGhFcmN2V3FoaGpuZXJmZzVTcXkrd0dpaFRO?=
- =?utf-8?B?aXZ2V0UxQjlzdHZtU000RXZ4b3hvNEsvZTgzdXBLTnZyeXN0b3BEbnB0VHhv?=
- =?utf-8?B?M0tLZHZNK0dmejQ2NG9wMXNOeTgweDJYbjVvTi9hekIweHVwbVhlZnh1b3U2?=
- =?utf-8?B?V1Ewd01uQWRvVXNJMWNZS2RiVkNzZWRZUkUvYTJ1K2paM1pYRWw1Sndmb0Ux?=
- =?utf-8?B?MVNyUGNWVjVMT0JDR2lIdjVBNUcrQ0ZFbm95NVV6Y3lsQXF3cWlnWXVuRGt6?=
- =?utf-8?B?c0t6SkUzaXNVZ1k1anA4N0pHMFdBT2dSMTVOa2xWQ0U5dzZqY0g1Q2l0WE82?=
- =?utf-8?B?b0FzREUxc0RPb0NSenFSVWhnL3B5d0h3dFNNYWRnWXNCUmd0RmVIWWtYa3Ru?=
- =?utf-8?B?RlZJNEw1SzZoWk1NVzhyL0h2Y0svU0dTMzhqY09YYndXaXRycS93QnNocCtX?=
- =?utf-8?B?MWpGRGFqWkdpeVFudmFKQ2NJZHhSb0c3WGYwYmdheStLS2dVVksrUDA4eUNt?=
- =?utf-8?B?d09PZHpRa2NDSzd0WU80TzBJdjBCYnJSQitpbDVSNjUzRWVsMFFzdXMxNm8y?=
- =?utf-8?B?dDhGWml4aUEzdE9GUmExWEdJemNKdE1KWmYrbUg0dzFabnN6TFQxN2VTWHEr?=
- =?utf-8?B?NWY5czNsaGQ0UlNSV3BqVW1qSzRMUXY2em5FWkUraFdwTGpKM2NhS1VFeHIr?=
- =?utf-8?B?RE1pWHBlNWE0dkd2NVNFUTdsWFpzK2ZPRWs3UGYxMEgxQzFqNHBoQnJnL2dE?=
- =?utf-8?B?ZTRzenRiT1luMTRwQTUwc2FuQkZiMk9oZW5mdllMS3RjL0ZOeTNua1pEVDNY?=
- =?utf-8?B?dTB5Qk1Ya1VNcWdNMEVkZkExNFErK3lxOVVxRjQwR3BmWVVvVFdRcUJvTFRQ?=
- =?utf-8?B?WXlOSWRONDZETDhZN3o5RXlsUmpCb0FWOC9CQ25OOWxUSlIzL1crb0NKRzJh?=
- =?utf-8?B?VnU0RkNINXVZeGUzbEwxTEV2bE56aUI5Z2MzQ09sMlhiNU5NTE9ONnU1blJD?=
- =?utf-8?B?aVBHMmpwM2RhVTlYcERydityaWx5RXFXa1BFSTlQVHhBUmQzeU5vUGd4R3Rl?=
- =?utf-8?B?TkpNMUVvRUxMa3VUWGJ3aHV1Q2luYkZoVnhKMzRoRUNqWmV6QUJ6U1ZIRm9l?=
- =?utf-8?B?VzVrRDFNYUNTNUxWaCsraXoyTUhiWG5mOFIxRThrYmNpNFB0OTBJM3B3QmNX?=
- =?utf-8?B?ck1EekhZdm40MkhWbWNmSVV0VDZnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pYOj5QY/FMhctV1WCLN14OPzqT7Qz8RovluPIT4g9nk8a8ml6LidzKg2ZA2nqBoU2rRTPKFuthkKXYYo+393Z9pKg2aeyDgw+XisH9mYzWDUynouid2Svez6Yk9KTom0tKN5Fa1F/yAXQbMwsNRL974LHcWcvI6PT9ljIJbBQE8VKvseyOAuuzwCRzeIbMbSOwqLPgXy4nQpyvbPr3JBm4Ci8y2KrJRf1V7NfWFuBKN034PSsc4oL1nYuJb6OAngp7PV3hKN38eeZRNJnIARJYAazQOjyx/L9rLZ6napXmd+vYnmM4/DeKkwJIligdmz7p4etYu210eSmYrIw2m2BxiEu3J7m3eVnWNL7McwGIaNVHiFCYVbB8XDWTovuo11ULXHtgf+hxODVUmfbtiZX9bXftdOqNVoh3CAEf48v334nErg6hleJi+0kljbcZBX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 16:20:45.4589
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 688b8573-1564-4b72-f56d-08de67f72dbf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F63.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7654
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/cpufreq: Add Kconfig option for CPU frequency
+ scaling
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, jason.andryuk@amd.com,
+ alejandro.garciavallejo@amd.com, xen-devel@lists.xenproject.org
+References: <20260206233005.417233-1-stefano.stabellini@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260206233005.417233-1-stefano.stabellini@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:tim@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:mid,amd.com:dkim,amd.com:email];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 8C831112755
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 18278112782
 X-Rspamd-Action: no action
 
-On Mon Feb 9, 2026 at 4:55 PM CET, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Feb 09, 2026 at 04:35:04PM +0100, Alejandro Vallejo wrote:
->> On Mon Feb 9, 2026 at 3:42 PM CET, Roger Pau Monn=C3=A9 wrote:
->> > On Mon, Feb 09, 2026 at 11:41:02AM +0100, Alejandro Vallejo wrote:
->> >> It only has 2 callers, both of which can be conditionally removed.
->> >>=20
->> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> >> ---
->> >> I'd be ok conditionalising the else branch on...
->> >>=20
->> >>     IS_ENABLED(CONFIG_SHADOW_PAGING )|| IS_ENABLED(CONFIG_LOG_DIRTY)
->> >>=20
->> >> logdirty patch: https://lore.kernel.org/xen-devel/20260209103118.5885=
--1-alejandro.garciavallejo@amd.com
->> >>=20
->> >> ... to avoid the danger of stale pointers, with required changes else=
-where so
->> >> none.c is only compiled out in that case.
->> >>=20
->> >> I'm not sure how much it matters seeing how they are all unreachable.
->> >> ---
->> >>  xen/arch/x86/mm/Makefile        |  2 +-
->> >>  xen/arch/x86/mm/paging.c        |  4 +-
->> >>  xen/arch/x86/mm/shadow/Makefile |  4 --
->> >>  xen/arch/x86/mm/shadow/none.c   | 77 -------------------------------=
---
->> >>  4 files changed, 3 insertions(+), 84 deletions(-)
->> >>  delete mode 100644 xen/arch/x86/mm/shadow/none.c
->> >>=20
->> >> diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
->> >> index 960f6e8409..066c4caff3 100644
->> >> --- a/xen/arch/x86/mm/Makefile
->> >> +++ b/xen/arch/x86/mm/Makefile
->> >> @@ -1,4 +1,4 @@
->> >> -obj-y +=3D shadow/
->> >> +obj-$(CONFIG_SHADOW_PAGING) +=3D shadow/
->> >>  obj-$(CONFIG_HVM) +=3D hap/
->> >> =20
->> >>  obj-$(CONFIG_ALTP2M) +=3D altp2m.o
->> >> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
->> >> index 2396f81ad5..5f70254cec 100644
->> >> --- a/xen/arch/x86/mm/paging.c
->> >> +++ b/xen/arch/x86/mm/paging.c
->> >> @@ -634,7 +634,7 @@ int paging_domain_init(struct domain *d)
->> >>       */
->> >>      if ( hap_enabled(d) )
->> >>          hap_domain_init(d);
->> >> -    else
->> >> +    else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
->> >>          rc =3D shadow_domain_init(d);
->> >
->> > If you want to go this route you will need to set rc =3D -EOPNOTSUPP;
->> > prior to the `if ... else if` on the HVM case.
->>=20
->> Maybe this instead
->>=20
->>     else
->>         rc =3D IS_ENABLED(PV) ? shadow_domain_init(d) : -EOPNOTSUPP;
->
-> But even for the PV case we cannot call shadow_domain_init() if shadow
-> is compiled out?  I think you want:
->
->     if ( hap_enabled(d) )
->         hap_domain_init(d);
->     else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
->         rc =3D shadow_domain_init(d);
->     else
->         rc =3D is_hvm_domain(d) ? -EOPNOTSUPP : 0;
->
+On 07.02.2026 00:30, Stefano Stabellini wrote:> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -652,7 +652,7 @@ endmenu
+>  
+>  config PM_OP
+>  	bool "Enable Performance Management Operation"
+> -	depends on ACPI && HAS_CPUFREQ && SYSCTL
+> +	depends on ACPI && CPUFREQ && SYSCTL
+>  	default y
+>  	help
+>  	  This option shall enable userspace performance management control
+> @@ -660,7 +660,7 @@ config PM_OP
+>  
+>  config PM_STATS
+>  	bool "Enable Performance Management Statistics"
+> -	depends on ACPI && HAS_CPUFREQ && SYSCTL
+> +	depends on ACPI && CPUFREQ && SYSCTL
+>  	default y
+>  	help
+>  	  Enable collection of performance management statistics to aid in
 
-none.c would need to stay in PV for what I proposed. For what you proposed =
-PV
-would return 0, but all the hooks would be gone. And I really don't know if
-they would be triggered or not.
+Is the original HAS_CPUFREQ misleading here? do_pm_op() (in pm-op.c) is also
+doing some C-state related work. You may not compile that out just because of
+CPUFREQ=n. Same for pmstat.c.
 
->> And gate none.c on PV && !SHADOW_PAGING, which seems to be the only use.
->>=20
->> It's a lot easier to see the safety on the HVM-only case, particularly w=
-ith...
->>=20
->> > is compiled out, and the toolstack has not specified the HAP flag at
->> > domain creation you will end up with a domain that doesn't have the
->> > paging operations initialized as paging_domain_init() would return 0
->> > with neither HAP nor shadow having been setup.  That's likely to
->> > trigger NULL pointer dereferences inside of Xen.
->> >
->> > Also, seeing the code in arch_sanitise_domain_config() we possibly
->> > want to return an error at that point if toolstack attempts to create
->> > an HVM guest without HAP enabled, and shadow is build time disabled.
->> > I've sent a patch to that end.
->>=20
->> ... this patch you meantion. Thanks.
->>=20
->> I'm guessing it's still a hot potato in for non-shadow PV, which strongl=
-y hints
->> at our being better off leaving it in that case. On HVM-only configurati=
-ons it
->> seems rather silly.
->
-> I'm not sure I follow exactly what you mean.
+> --- a/xen/drivers/cpufreq/Kconfig
+> +++ b/xen/drivers/cpufreq/Kconfig
+> @@ -1,3 +1,17 @@
+> -
+>  config HAS_CPUFREQ
+>  	bool
+> +
+> +config CPUFREQ
+> +	bool "CPU Frequency scaling"
+> +	default y
+> +	depends on HAS_CPUFREQ
+> +	help
+> +	  Enable CPU frequency scaling and power management governors.
+> +	  This allows Xen to dynamically adjust CPU P-states (performance
+> +	  states) based on system load.
+> +
+> +	  Disabling this option removes all cpufreq governors and power
+> +	  management interfaces. This is useful for real-time systems or
+> +	  minimal hypervisor builds.
+> +
+> +	  If unsure, say Y.
 
-I'm not sure _I_ follow exactly what I mean. Part of the confusion is the
-overloaded use of "shadow" to mean "shadow paging" and "fault-and-track"
-of logdirty behaviour.
+Looks like we're trying to get rid of such re-stating of what the default
+is.
 
-> Some rants below which
-> might or might not be along the lines of what you suggest.
+> --- a/xen/include/acpi/cpufreq/cpufreq.h
+> +++ b/xen/include/acpi/cpufreq/cpufreq.h
+> @@ -381,8 +381,19 @@ int write_ondemand_up_threshold(unsigned int up_threshold);
+>  
+>  int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq);
+>  
+> +#ifdef CONFIG_CPUFREQ
+> +int  cpufreq_add_cpu(unsigned int cpu);
+> +int  cpufreq_del_cpu(unsigned int cpu);
 
-Thanks.
+If already you move these, please also get rid of the double blanks.
 
->
-> PV needs shadow for migration.
+>  void cpufreq_dbs_timer_suspend(void);
+>  void cpufreq_dbs_timer_resume(void);
+> +#else
+> +static inline int  cpufreq_add_cpu(unsigned int cpu) { return -ENOSYS; }
+> +static inline int  cpufreq_del_cpu(unsigned int cpu) { return -ENOSYS; }
 
-shadow in the sense of shadow paging? So PV-only + !SHADOW means migrations=
- are
-impossible? Why can't Xen operate on the PV pagetables rather than using sh=
-adow?
+Here and below - no use of ENOSYS, please. EOPNOTSUPP it is everywhere else
+(unless dating back very far).
 
-> HVM can use shadow or HAP, and our default is HAP.
+> --- a/xen/include/xen/acpi.h
+> +++ b/xen/include/xen/acpi.h
+> @@ -185,8 +185,14 @@ static inline unsigned int acpi_get_csubstate_limit(void) { return 0; }
+>  static inline void acpi_set_csubstate_limit(unsigned int new_limit) { return; }
+>  #endif
+>  
+> -#ifdef XEN_GUEST_HANDLE
 
-For regular use or migrations?
+If you leave this as-is, ...
 
-> For HVM only builds it could be possible to not
-> recommend enabling shadow.  Even for deployments where only dom0 is
-> using PV mode, it does still make sense to possible recommend not
-> enabling shadow for attack surface reduction.
+> +#if defined(XEN_GUEST_HANDLE) && defined(CONFIG_CPUFREQ)
+>  int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32));
+> +#elif defined(XEN_GUEST_HANDLE)
+> +static inline int acpi_set_pdc_bits(unsigned int acpi_id,
+> +                                    XEN_GUEST_HANDLE(uint32) pdc)
+> +{
+> +    return -ENOSYS;
+> +}
+>  #endif
 
-What do you mean by "enabling shadow"? compiling it in? Running HVM without=
- HAP?
+... the overall result may be a tiny bit tidier.
 
-Cheers,
-Alejandro
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -1255,9 +1255,14 @@ static always_inline bool is_iommu_enabled(const struct domain *d)
+>  extern bool sched_smt_power_savings;
+>  extern bool sched_disable_smt_switching;
+>  
+> -extern enum cpufreq_controller {
+> +enum cpufreq_controller {
+>      FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
+> -} cpufreq_controller;
+
+This enum would better ...
+
+> +};
+> +#ifdef CONFIG_CPUFREQ
+> +extern enum cpufreq_controller cpufreq_controller;
+
+... stay inside here, then also making the split of type and var decl unnecessary.
+The two affected platform-ops likely want compiling out, too.
+
+Jan
 
