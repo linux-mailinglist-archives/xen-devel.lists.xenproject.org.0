@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4GOBK6cDimluFQAAu9opvQ
+	id AKtQIlkEimluFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:56:23 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:59:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479A71123AD
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:56:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225642.1532198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0D491123FF
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:59:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225652.1532209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpTcM-0006yc-UZ; Mon, 09 Feb 2026 15:56:06 +0000
+	id 1vpTfM-0007yS-Ck; Mon, 09 Feb 2026 15:59:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225642.1532198; Mon, 09 Feb 2026 15:56:06 +0000
+Received: by outflank-mailman (output) from mailman id 1225652.1532209; Mon, 09 Feb 2026 15:59:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpTcM-0006w1-Rn; Mon, 09 Feb 2026 15:56:06 +0000
-Received: by outflank-mailman (input) for mailman id 1225642;
- Mon, 09 Feb 2026 15:56:05 +0000
+	id 1vpTfM-0007vZ-9b; Mon, 09 Feb 2026 15:59:12 +0000
+Received: by outflank-mailman (input) for mailman id 1225652;
+ Mon, 09 Feb 2026 15:59:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vpTcL-0006pv-BF
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:56:05 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8Y/H=AN=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vpTfK-0007vT-M9
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:59:10 +0000
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [2001:4860:4864:20::33])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2414cf1-05cf-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 16:55:57 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-43767807da6so1130155f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 07:55:56 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4376686130csm15300743f8f.1.2026.02.09.07.55.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 07:55:55 -0800 (PST)
+ id 3fb9b7fd-05d0-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 16:59:01 +0100 (CET)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-409470ad5bbso1090178fac.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 07:59:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,185 +45,470 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2414cf1-05cf-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 3fb9b7fd-05d0-11f1-b162-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1770652740; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cyVKPXdEdRmzombBCoPJcwFJrnpWkUru4dciuEkuYJHeG2ZSBORCu5gX4ithBTwppS
+         FOf/yPBRe7JuZp9TIB7DE8uRw1zfAkM5Dq/YftAeEDMOHC5XRWpdfeB/YJXNZTAZDhFg
+         gF2BAOKZIzvEbhm5zRNg+niM9wokohktMmNs3JG4rhAQNIoNY2ANdzcFuUdh41uQ7uko
+         0hEsDsSoy1nXKJPYzzi+vpeJtUjuKqvAM4XAYQs9FjN4JFSJhtjH8POlgEAHcGXqKKXq
+         /tOPE43CW5e3dIz5bdFA8qKC7I/kWyCfeILwxxOgxf5UD6jaOI4D6w/wJ+WTyl5gcQc2
+         eTwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cSa/Wv7wZ4Hlv0Oe1UZ8HrxPfw35imhD2B4tJvjAK6U=;
+        fh=wB0f5JGUSpWYejuxtnrl8SDqvqyWrEsEaWvC32LbdiU=;
+        b=KrhpBrIay2DDr7uU8c5JXJmTu/4lqKgtH6+e92F0GdxTaYzT3+Cbf8mCX0nFOE827p
+         0OUV1Btl3nEgE0q9LuJL8Qjp0etmkG5RXoXix+M/2FA4HhkYTXN6vKTTMoXf2Yim94o7
+         lex19Ozq0E1NhJIT2aFpR3AHgvZjXLyn0gf4JIP0NC3KCFlh8Y9pcH1R4HiUGiyAOxf0
+         ik0t3vXdXN3Gmx3iHgFVnhF1Jyd+RxtVGzhCmDJsvsxNNcL8Cw+Wh0nWROflz1tTAn2i
+         Y+MNp0190iClJAofALXam3zGAwTI3XeEOyQnfkNaIbLqikhoEsXs6fzmd0Nvgl5mP7BV
+         olZA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770652556; x=1771257356; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ugHtA7YKc9LJ7RGzKYW0Zgvr6ImA0BoAmJxsXtSlv2s=;
-        b=B6v4dk5NW6mmvMUhcnzIGSfuNozO5QD7gubr5XIoaSQ96/DJjiJVmDLLf5Nc6NC8M4
-         1lfpGX/gAGJ1tlnWbSsONDuOuk88Fq0FBtem5pBm8h6XehjWdlxniYKbdko15V1m39OW
-         ukO6+9834VJnp2AtrdvanzeLpGSwN+elfuO5tTGjSso/xUu1hPNKernllL4V6qi+IwyE
-         hYtYk/Zce+5XBQPN4k2NoACJzL5N9rlgz5Pa5+8jf+cRScUix2Is1RDabpr8sLSXZwbk
-         YIbrlNEuuqYAJ7NJRBErq4OUB8v1PwqgdsnJfnHUROAGGxTfHEaHZmMwdqQuhW0F3ICg
-         6PCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770652556; x=1771257356;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1770652740; x=1771257540; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ugHtA7YKc9LJ7RGzKYW0Zgvr6ImA0BoAmJxsXtSlv2s=;
-        b=eFd4VmWsaMzj5RVJXUUz/gCmU8+Zd+psYj8wqqOHAp+nxSXJ9y+tPnJqbZtglhBRhe
-         0ZYyKstYD6UCydXM/rHaCeVBejT7LKBL8B2pOra+x2TPKLSqmtzrQIHUUYKrna5OTV0N
-         tWGDb1VeSYSHlMyHYfPqGhPf6O5PX1ZzQKWYkDluCIQB/TSfBf2TMl8ymS90Rg3J7RK1
-         YGaZDq+W89hL5Y3MZI7Qf5ulw31os+GbkQZFefIYCCybQr2+i1zPwqCKqb8C0Tjsal//
-         +/bcN4KT4Vn231KMcqWeyFMhPLYnUmhjUkNc0aspek5YISWK0VCOH5L2ZSWzaExRQJH2
-         z2kQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU0sfdkGzWy10Anl8Q86jJe48jBXvjsCV40OHlR918nEIf5T1i8NVeksdjihDmmHZbch8m8R8FT3IA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzECykaaK6xcdQGrRlIBqeLSbNG2nwWRlBylL6amIpQ9OCX0v+Q
-	HlOLxJaC112eP86kOvsJJF6Rx7s+MrmkaYIFo4nQDJ2yGwxGz0AcDtDIIb3YCYgs4A==
-X-Gm-Gg: AZuq6aLKT4DSP5XcfxQi9uxsspyNR8TTyKGkqfx93gdoy/CNGVRV3eF9r51cKck8O7t
-	PnKcO+sNo9BLZ5pF/Nm5GCjbbIX7qkHystPTqbot7oJbCRTwGCvy4ItNEC7XxhkKGS18qQ9t5en
-	b8Vmtq0f/yL6G7WAt/z3yPf5390TcJmgo7VtZKudWbO7fw218n6BNiZUPVbOPfegSURn3ll5tEZ
-	duIvI0lIbUJiyU1NvYXhYaI+g5bMtDw8UIdDLlZMimDESkdbjJ67PmDKeKwQCawHkxpEgudmmRJ
-	4BS+PKGWDorJMTELXidqJ1pjXxpYkRMLSunyEo1sX5kL50f0m5mhXX6mszXYEnkATcyGX7h9OmJ
-	m5GTy9eXKU+hFHA+CjYV+ltf6ZpDXiuXu8v79/U8jJeGQxcGbafEQkKjqwZ25n1Yv7dWaw39kOk
-	hd6BKM0gU17LiT/waBUbcts1iaZJ0PL9dUYNgU/iIgzQUNajzUOOswdOKLW9Vy+VyxM/Tu7IUNQ
-	tolGyyrV7/iIQ==
-X-Received: by 2002:a05:6000:2503:b0:437:6b73:ffb1 with SMTP id ffacd0b85a97d-4376b7404dcmr7022383f8f.30.1770652556328;
-        Mon, 09 Feb 2026 07:55:56 -0800 (PST)
-Message-ID: <1c33beef-f638-4e62-b38a-8b79575adf18@suse.com>
-Date: Mon, 9 Feb 2026 16:55:57 +0100
+        bh=cSa/Wv7wZ4Hlv0Oe1UZ8HrxPfw35imhD2B4tJvjAK6U=;
+        b=eXIIqx1gNADwmoComEbjP1gGZgWLIDsMV8uXnfyc0KFvQYO4BEGZ+sFt5Crq6By3r9
+         wAwfQ3c7rE6EBCedQe/xuLpJJwxyUZKE1LzG/NFwOw25PNO/UWNCPBDWPmgN0j089oEI
+         Hb244mxlFYYp3l+VQj7G8KffjLzwqQFFHT5Z8NgFYh5C7jSZ9xiyPFcClUPhymTNcYIn
+         Yb8feJxmWBmRa29H8K2l5rC/BYRpLkq/Kfaa7bs8wqlK+sNB7Kqwf6zoagXjfn6qYCJ3
+         iHzKeQdh+fegjWKFd1VfVAyyUtjTf284XncgYhew5I3/15xBqbYLW6uzKLlZYdvBzL2n
+         BvXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770652740; x=1771257540;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cSa/Wv7wZ4Hlv0Oe1UZ8HrxPfw35imhD2B4tJvjAK6U=;
+        b=uKWgerMRb1dAERQI45D9OQMIQtXAPOXTHqfie6IXhS/lAO7L+eWE9TcXf5itkrOYa/
+         eiuVcgUVnS/hzRSw9f99ec5SF+SY68x9Fpe8wYrJuXBoZDYKdgZd8WxyIm4K5hKQUp1w
+         GQDu7cPNSEtVI1te6ct8pmbLacLjKP66QY3Gf/8OwDeRqeJp5MnQKYEx9jSRrmEiBYNn
+         bHH3v0Qv7LuUioRDOfN3Xpk8TcJxHqt3iHjRcGX3uh2JSWqNGaoLGJz2i2q5j9KzR9gx
+         jA2g5IvNgk4hJYFyNxqGMSL2tirVclm75vXbHtV2Ipp4uA11WXvzutVNCXQwGHyiKVop
+         /5Dg==
+X-Gm-Message-State: AOJu0YyMQ+lKayIIFyQNLsNzpQwOpsk21Pv0UmDK/X9d4fYCzRZz3YAk
+	dkJJ4GtAkB109UHUz0+XAMnhRCFPJ3RqmMIS2i6a0rL2KdF3CZh4pYsaK0XfHHCnw9GT6rtR24u
+	8xDmJWyQiH+n6oPnwrrnGYZY5ruYK8mLhahtjQ0zBfw==
+X-Gm-Gg: AZuq6aIkIj6jf4D/9mg/8piv53YM+vNSAXiTezQQJE4C2qqCZdwTcCYYTOrwtusRVwx
+	P+6MJe2LMi4mtlVGOTOeKOMWsPzlgshQfTCArBaG5K4frY5FOal+S3HtZlAIQSSt4sM2OgeGlkv
+	LPGfY4LygsvGo6XMGJ9HFgR/xkrh3g+z9MP9OLlcYLSJ2GhunMBW8diFlq7N/xgrQj+DqLhGPjm
+	zXxh6nLqXI4ZLWvmDwxJGdddgzd/X4h+twJU9mjLl643eYd0P6SaO2JPvqGsAabE+QRuNaj6mn0
+	m7vuxWOCGdhD1tK3bjevpQX47A==
+X-Received: by 2002:a05:6870:fb8f:b0:3ec:9c0c:283a with SMTP id
+ 586e51a60fabf-40a96cddaacmr6056897fac.24.1770652739582; Mon, 09 Feb 2026
+ 07:58:59 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Add Kconfig option for log-dirty tracking
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
- <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
- <DGAJ9XN03HPS.TC0OLO5PJN6H@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DGAJ9XN03HPS.TC0OLO5PJN6H@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1770115301.git.bertrand.marquis@arm.com>
+ <a8d316dbdbd00a7980c6d527038f9046bb895c69.1770115302.git.bertrand.marquis@arm.com>
+ <CAHUa44HZ59JC2X1p0GWGN1TVAoGo9K1emVPrBQon4V0VT960YA@mail.gmail.com> <1A922065-D0DC-4930-806C-6C202B5A6957@arm.com>
+In-Reply-To: <1A922065-D0DC-4930-806C-6C202B5A6957@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 9 Feb 2026 16:58:48 +0100
+X-Gm-Features: AZwV_Qhc75scEaEIUlr-5KEopBKl8tD2-FV-XKlqVTAhyFrwLnljNOG3GWxGjn4
+Message-ID: <CAHUa44E3zv0rNSv68vSkzzV7LQRfgHLq41YdOD5ZZXf+bhJoZQ@mail.gmail.com>
+Subject: Re: [PATCH 04/12] xen/arm: ffa: Add FF-A 1.2 endpoint memory access descriptors
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,linaro.org:email,linaro.org:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 479A71123AD
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: F0D491123FF
 X-Rspamd-Action: no action
 
-On 09.02.2026 16:24, Alejandro Vallejo wrote:
-> On Mon Feb 9, 2026 at 3:48 PM CET, Jan Beulich wrote:
->> On 09.02.2026 11:31, Alejandro Vallejo wrote:
->>> --- a/xen/arch/x86/Kconfig
->>> +++ b/xen/arch/x86/Kconfig
->>> @@ -146,6 +146,7 @@ config XEN_IBT
->>>  config SHADOW_PAGING
->>>  	bool "Shadow Paging"
->>>  	default !PV_SHIM_EXCLUSIVE
->>> +	select LOG_DIRTY
->>>  	depends on PV || HVM
->>>  	help
->>
->> Why would this be? IOW why would shadow imply log-dirty, but HAP wouldn't?
-> 
-> The logic is rather opaque. I admit I'm a bit fuzzy on the uses of logdirty.
-> 
-> I know what it's for and I could navigate the code if a problem arose, but I'm
-> less clear about which other elements of the hypervisor rely on it (pod? nsvm?
-> vvmx? shadow? hap?).
-> 
-> If it's strictly toolstack/DM-driven maybe it'd be more apt to have a separate
-> LIVE_MIGRATION and SAVE_RESTORE configs where LM selects SAVE_RESTORE, which
-> selects LOG_DIRTY. That's also improve some defaults auto-downgraded from the
-> max policy just in case a VM is migrated.
+Hi Bertrand,
 
-It's save (not restore) for both PV and HVM, and VRAM dirty tracking for HVM
-only. Ordinary HVM guests will want VRAM tracking, so compiling out support
-for it will imo want mentioning in the Kconfig help text.
+On Mon, Feb 9, 2026 at 3:50=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 9 Feb 2026, at 11:57, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
+> >
+> > Hi Bertrand,
+> >
+> > On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> FF-A 1.2 extends the endpoint memory access descriptor (EMAD) from
+> >> 16 to 32 bytes, adding implementation-defined (IMPDEF) fields and
+> >> reserved space. The MEM_SHARE path currently assumes the 1.1 EMAD
+> >> size and rejects the 1.2 layout.
+> >>
+> >> Add FF-A 1.2 EMAD support to MEM_SHARE:
+> >> - define ffa_mem_access_1_2 and store IMPDEF payload in ffa_shm_mem
+> >> - emit 1.2 EMADs to the SPMC for FF-A 1.2 guests, forwarding IMPDEF
+> >> - refactor header parsing into read_mem_transaction() for 1.0/1.1+
+> >> - detect EMAD format by mem_access_size to allow 1.1 on 1.2 guests
+> >>
+> >> Functional impact: MEM_SHARE supports FF-A 1.2 EMADs.
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> xen/arch/arm/tee/ffa_shm.c | 108 +++++++++++++++++++++++++++++--------
+> >> 1 file changed, 86 insertions(+), 22 deletions(-)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> >> index 4c0b45cde6ee..905a64e3db01 100644
+> >> --- a/xen/arch/arm/tee/ffa_shm.c
+> >> +++ b/xen/arch/arm/tee/ffa_shm.c
+> >> @@ -30,6 +30,14 @@ struct ffa_mem_access {
+> >>     uint64_t reserved;
+> >> };
+> >>
+> >> +/* Endpoint memory access descriptor (FF-A 1.2) */
+> >> +struct ffa_mem_access_1_2 {
+> >> +    struct ffa_mem_access_perm access_perm;
+> >> +    uint32_t region_offs;
+> >> +    uint8_t impdef[16];
+> >> +    uint8_t reserved[8];
+> >> +};
+> >> +
+> >> /* Lend, donate or share memory transaction descriptor */
+> >> struct ffa_mem_transaction_1_0 {
+> >>     uint16_t sender_id;
+> >> @@ -73,7 +81,7 @@ struct ffa_mem_transaction_1_1 {
+> >> /*
+> >>  * The parts needed from struct ffa_mem_transaction_1_0 or struct
+> >>  * ffa_mem_transaction_1_1, used to provide an abstraction of differen=
+ce in
+> >> - * data structures between version 1.0 and 1.1. This is just an inter=
+nal
+> >> + * data structures between version 1.0 and 1.2. This is just an inter=
+nal
+> >>  * interface and can be changed without changing any ABI.
+> >>  */
+> >> struct ffa_mem_transaction_int {
+> >> @@ -92,6 +100,8 @@ struct ffa_shm_mem {
+> >>     uint16_t sender_id;
+> >>     uint16_t ep_id;     /* endpoint, the one lending */
+> >>     uint64_t handle;    /* FFA_HANDLE_INVALID if not set yet */
+> >> +    /* Endpoint memory access descriptor IMPDEF value (FF-A 1.2). */
+> >> +    uint64_t impdef[2];
+> >>     unsigned int page_count;
+> >>     struct page_info *pages[];
+> >> };
+> >> @@ -297,17 +307,21 @@ static void init_range(struct ffa_address_range =
+*addr_range,
+> >>  * This function uses the ffa_spmc tx buffer to transmit the memory tr=
+ansaction
+> >>  * descriptor.
+> >>  */
+> >> -static int share_shm(struct ffa_shm_mem *shm)
+> >> +static int share_shm(struct ffa_shm_mem *shm, uint32_t ffa_vers)
+> >> {
+> >>     const uint32_t max_frag_len =3D FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZ=
+E;
+> >>     struct ffa_mem_access *mem_access_array;
+> >> +    struct ffa_mem_access_1_2 *mem_access_array_1_2;
+> >>     struct ffa_mem_transaction_1_1 *descr;
+> >>     struct ffa_address_range *addr_range;
+> >>     struct ffa_mem_region *region_descr;
+> >> -    const unsigned int region_count =3D 1;
+> >>     uint32_t frag_len;
+> >>     uint32_t tot_len;
+> >> +    uint32_t mem_access_size;
+> >> +    uint32_t mem_access_offs;
+> >> +    uint32_t region_offs;
+> >>     paddr_t last_pa;
+> >> +    uint32_t range_count;
+> >>     unsigned int n;
+> >>     paddr_t pa;
+> >>     int32_t ret;
+> >> @@ -326,16 +340,35 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>     descr->handle =3D shm->handle;
+> >>     descr->mem_reg_attr =3D FFA_NORMAL_MEM_REG_ATTR;
+> >>     descr->mem_access_count =3D 1;
+> >> -    descr->mem_access_size =3D sizeof(*mem_access_array);
+> >> -    descr->mem_access_offs =3D MEM_ACCESS_OFFSET(0);
+> >> +    if ( ffa_vers >=3D FFA_VERSION_1_2 )
+> >> +        mem_access_size =3D sizeof(struct ffa_mem_access_1_2);
+> >> +    else
+> >> +        mem_access_size =3D sizeof(struct ffa_mem_access);
+> >> +    mem_access_offs =3D sizeof(struct ffa_mem_transaction_1_1);
+> >> +    region_offs =3D mem_access_offs + mem_access_size;
+> >> +    descr->mem_access_size =3D mem_access_size;
+> >> +    descr->mem_access_offs =3D mem_access_offs;
+> >>
+> >> -    mem_access_array =3D buf + descr->mem_access_offs;
+> >> -    memset(mem_access_array, 0, sizeof(*mem_access_array));
+> >> -    mem_access_array[0].access_perm.endpoint_id =3D shm->ep_id;
+> >> -    mem_access_array[0].access_perm.perm =3D FFA_MEM_ACC_RW;
+> >> -    mem_access_array[0].region_offs =3D REGION_OFFSET(descr->mem_acce=
+ss_count, 0);
+> >> +    if ( ffa_vers >=3D FFA_VERSION_1_2 )
+> >> +    {
+> >> +        mem_access_array_1_2 =3D buf + mem_access_offs;
+> >> +        memset(mem_access_array_1_2, 0, sizeof(*mem_access_array_1_2)=
+);
+> >> +        mem_access_array_1_2[0].access_perm.endpoint_id =3D shm->ep_i=
+d;
+> >> +        mem_access_array_1_2[0].access_perm.perm =3D FFA_MEM_ACC_RW;
+> >> +        mem_access_array_1_2[0].region_offs =3D region_offs;
+> >> +        memcpy(mem_access_array_1_2[0].impdef, shm->impdef,
+> >> +               sizeof(mem_access_array_1_2[0].impdef));
+> >> +    }
+> >> +    else
+> >> +    {
+> >> +        mem_access_array =3D buf + mem_access_offs;
+> >> +        memset(mem_access_array, 0, sizeof(*mem_access_array));
+> >> +        mem_access_array[0].access_perm.endpoint_id =3D shm->ep_id;
+> >> +        mem_access_array[0].access_perm.perm =3D FFA_MEM_ACC_RW;
+> >> +        mem_access_array[0].region_offs =3D region_offs;
+> >> +    }
+> >>
+> >> -    region_descr =3D buf + mem_access_array[0].region_offs;
+> >> +    region_descr =3D buf + region_offs;
+> >>     memset(region_descr, 0, sizeof(*region_descr));
+> >>     region_descr->total_page_count =3D shm->page_count;
+> >>
+> >> @@ -349,8 +382,9 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>         region_descr->address_range_count++;
+> >>     }
+> >>
+> >> -    tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_cou=
+nt,
+> >> -                                region_descr->address_range_count);
+> >
+> > Please remove the unused ADDR_RANGE_OFFSET() macro and friends, as
+> > they're no longer accurate.
+>
+> Very true, will remove them in v2.
+>
+> >
+> >> +    range_count =3D region_descr->address_range_count;
+> >> +    tot_len =3D region_offs + sizeof(*region_descr) +
+> >> +              range_count * sizeof(struct ffa_address_range);
+> >>     if ( tot_len > max_frag_len )
+> >>     {
+> >>         ret =3D FFA_RET_NOT_SUPPORTED;
+> >> @@ -358,7 +392,7 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>     }
+> >>
+> >>     addr_range =3D region_descr->address_range_array;
+> >> -    frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_co=
+unt, 1);
+> >> +    frag_len =3D region_offs + sizeof(*region_descr) + sizeof(*addr_r=
+ange);
+> >>     last_pa =3D page_to_maddr(shm->pages[0]);
+> >>     init_range(addr_range, last_pa);
+> >>     for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
+> >> @@ -448,6 +482,12 @@ static int read_mem_transaction(uint32_t ffa_vers=
+, const void *buf, size_t blen,
+> >>     if ( size * count + offs > blen )
+> >>         return FFA_RET_INVALID_PARAMETERS;
+> >>
+> >> +    if ( size < sizeof(struct ffa_mem_access) )
+> >> +        return FFA_RET_INVALID_PARAMETERS;
+> >
+> > Implicitly, size should also be a multiple of 16. Don't you agree?
+>
+> The spec is giving some constraints on the offset but there is nothing ex=
+plicit for the
+> per mem access size. As we have no 64bit fields in it, I am not really se=
+eing any
+> implicit multiple of 16.
 
->>> --- a/xen/arch/x86/domctl.c
->>> +++ b/xen/arch/x86/domctl.c
->>> @@ -220,15 +220,15 @@ long arch_do_domctl(
->>>      {
->>>  
->>>      case XEN_DOMCTL_shadow_op:
->>> -#ifdef CONFIG_PAGING
->>> +        ret = -EOPNOTSUPP;
->>> +        if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
->>> +            break;
->>> +
->>>          ret = paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
->>>          if ( ret == -ERESTART )
->>>              return hypercall_create_continuation(
->>>                         __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
->>>          copyback = true;
->>> -#else
->>> -        ret = -EOPNOTSUPP;
->>> -#endif
->>>          break;
->>
->> Can a HVM-only hypervisor create any guests with this? I simply fail to
->> see how XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION would then make it through to
->> hap_domctl().
-> 
-> xl doesn't seem to call it at all. hap_set_allocation() is implicitly called
-> through paging_enable() -> hap_enable() -> hap_set_allocation()
+I was perhaps assuming too much. The offset is required to be a
+multiple of 16, so it would make sense for all elements in the array
+to be at a 16-byte aligned offset.
 
-xl must be calling it, at least in the case where the paging pool size is
-explicitly set in the guest config. The important point is - not all of
-XEN_DOMCTL_shadow_op's sub-ops are log-dirty related.
+>
+> I am checking the offset because it is enforced by the spec but for the s=
+ize i would
+> rather not put something as who knows what might be added in the future.
 
-It's also odd that you did make changes at the call site here, but then
-left the called function (and its sibling paging_domctl_cont()) in place.
+It's not important right now, since we only accept a single EMAD. But
+once we accept more than one, the second EMAD might be accessed from
+an unaligned address if we're not careful.
 
-Jan
+>
+> >
+> >> +
+> >> +    if ( offs & 0xF )
+> >> +        return FFA_RET_INVALID_PARAMETERS;
+> >> +
+> >>     trans->mem_reg_attr =3D mem_reg_attr;
+> >>     trans->flags =3D flags;
+> >>     trans->mem_access_size =3D size;
+> >> @@ -464,7 +504,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *re=
+gs)
+> >>     uint64_t addr =3D get_user_reg(regs, 3);
+> >>     uint32_t page_count =3D get_user_reg(regs, 4);
+> >>     const struct ffa_mem_region *region_descr;
+> >> -    const struct ffa_mem_access *mem_access;
+> >> +    const struct ffa_mem_access_1_2 *mem_access;
+> >>     struct ffa_mem_transaction_int trans;
+> >>     struct domain *d =3D current->domain;
+> >>     struct ffa_ctx *ctx =3D d->arch.tee;
+> >> @@ -474,9 +514,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *r=
+egs)
+> >>     register_t handle_hi =3D 0;
+> >>     register_t handle_lo =3D 0;
+> >>     int ret =3D FFA_RET_DENIED;
+> >> +    uint32_t ffa_vers;
+> >>     uint32_t range_count;
+> >>     uint32_t region_offs;
+> >>     uint16_t dst_id;
+> >> +    uint8_t perm;
+> >> +    uint64_t impdef[2];
+> >>
+> >>     if ( !ffa_fw_supports_fid(FFA_MEM_SHARE_64) )
+> >>     {
+> >> @@ -515,8 +558,8 @@ void ffa_handle_mem_share(struct cpu_user_regs *re=
+gs)
+> >>     if ( frag_len > tx_size )
+> >>         goto out_unlock;
+> >>
+> >> -    ret =3D read_mem_transaction(ACCESS_ONCE(ctx->guest_vers), tx_buf=
+,
+> >> -                               frag_len, &trans);
+> >> +    ffa_vers =3D ACCESS_ONCE(ctx->guest_vers);
+> >> +    ret =3D read_mem_transaction(ffa_vers, tx_buf, frag_len, &trans);
+> >>     if ( ret )
+> >>         goto out_unlock;
+> >>
+> >> @@ -545,13 +588,35 @@ void ffa_handle_mem_share(struct cpu_user_regs *=
+regs)
+> >>         goto out_unlock;
+> >>     }
+> >>
+> >> +    if ( trans.mem_access_size < sizeof(struct ffa_mem_access) )
+> >> +    {
+> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >> +        goto out_unlock;
+> >> +    }
+> >> +
+> >>     /* Check that it fits in the supplied data */
+> >>     if ( trans.mem_access_offs + trans.mem_access_size > frag_len )
+> >>         goto out_unlock;
+> >>
+> >>     mem_access =3D tx_buf + trans.mem_access_offs;
+> >> -
+> >>     dst_id =3D ACCESS_ONCE(mem_access->access_perm.endpoint_id);
+> >> +    perm =3D ACCESS_ONCE(mem_access->access_perm.perm);
+> >> +    region_offs =3D ACCESS_ONCE(mem_access->region_offs);
+> >> +
+> >> +    /*
+> >> +     * FF-A 1.2 introduced an extended mem_access descriptor with imp=
+def
+> >> +     * fields, but guests can still use the 1.1 format if they don't =
+need
+> >> +     * implementation-defined data. Detect which format is used based=
+ on
+> >> +     * the mem_access_size field rather than the negotiated FF-A vers=
+ion.
+> >> +     */
+> >> +    if ( trans.mem_access_size >=3D sizeof(struct ffa_mem_access_1_2)=
+ )
+> >> +        memcpy(impdef, mem_access->impdef, sizeof(impdef));
+> >> +    else
+> >> +    {
+> >> +        impdef[0] =3D 0;
+> >> +        impdef[1] =3D 0;
+> >> +    }
+> >> +
+> >>     if ( !FFA_ID_IS_SECURE(dst_id) )
+> >>     {
+> >>         /* we do not support sharing with VMs */
+> >> @@ -559,13 +624,11 @@ void ffa_handle_mem_share(struct cpu_user_regs *=
+regs)
+> >>         goto out_unlock;
+> >>     }
+> >>
+> >> -    if ( ACCESS_ONCE(mem_access->access_perm.perm) !=3D FFA_MEM_ACC_R=
+W )
+> >> +    if ( perm !=3D FFA_MEM_ACC_RW )
+> >>     {
+> >>         ret =3D FFA_RET_NOT_SUPPORTED;
+> >>         goto out_unlock;
+> >>     }
+> >> -
+> >> -    region_offs =3D ACCESS_ONCE(mem_access->region_offs);
+> >>     if ( sizeof(*region_descr) + region_offs > frag_len )
+> >>     {
+> >>         ret =3D FFA_RET_NOT_SUPPORTED;
+> >> @@ -590,6 +653,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *re=
+gs)
+> >>     }
+> >>     shm->sender_id =3D trans.sender_id;
+> >>     shm->ep_id =3D dst_id;
+> >> +    memcpy(shm->impdef, impdef, sizeof(shm->impdef));
+> >>
+> >>     /*
+> >>      * Check that the Composite memory region descriptor fits.
+> >> @@ -605,7 +669,7 @@ void ffa_handle_mem_share(struct cpu_user_regs *re=
+gs)
+> >>     if ( ret )
+> >>         goto out;
+> >>
+> >> -    ret =3D share_shm(shm);
+> >> +    ret =3D share_shm(shm, ffa_vers);
+> >
+> > Shouldn't we rather use ffa_fw_version?
+>
+> Definitely yes.
+>
+> In fact i have done this in a follow up patch and i need to export the fw=
+ version to be able to
+> do that but I will bring that forward and do it here, that makes a lot mo=
+re sense.
+
+Sounds good.
+
+Cheers,
+Jens
+
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Cheers,
+> > Jens
+> >
+> >>     if ( ret )
+> >>         goto out;
+> >>
+> >> --
+> >> 2.50.1 (Apple Git-155)
+>
+>
 
