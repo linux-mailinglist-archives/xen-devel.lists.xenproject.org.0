@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8P6pLwfViWmBCAAAu9opvQ
+	id CNu2CwnViWklCAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:37:27 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:37:29 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D6BB10ECE1
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:37:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225264.1531730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D52EF10ECE8
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:37:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225271.1531740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpPX9-0007px-Mu; Mon, 09 Feb 2026 11:34:27 +0000
+	id 1vpPa9-0008Rc-4S; Mon, 09 Feb 2026 11:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225264.1531730; Mon, 09 Feb 2026 11:34:27 +0000
+Received: by outflank-mailman (output) from mailman id 1225271.1531740; Mon, 09 Feb 2026 11:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpPX9-0007nj-K4; Mon, 09 Feb 2026 11:34:27 +0000
-Received: by outflank-mailman (input) for mailman id 1225264;
- Mon, 09 Feb 2026 11:34:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vpPa9-0008PS-1l; Mon, 09 Feb 2026 11:37:33 +0000
+Received: by outflank-mailman (input) for mailman id 1225271;
+ Mon, 09 Feb 2026 11:37:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aPXx=AN=bounce.vates.tech=bounce-md_30504962.6989c63a.v1-bdcf0703707f407d99f9ec1d35fae8ed@srs-se1.protection.inumbo.net>)
- id 1vpPX7-0007nc-P7
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 11:34:25 +0000
+ <SRS0=tm/7=AN=bounce.vates.tech=bounce-md_30504962.6989c6f7.v1-6799114329fc46f48f27ec1887b0cf2b@srs-se1.protection.inumbo.net>)
+ id 1vpPa7-0008PM-70
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 11:37:31 +0000
 Received: from mail177-22.suw61.mandrillapp.com
  (mail177-22.suw61.mandrillapp.com [198.2.177.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4592c962-05ab-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Feb 2026 12:34:19 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b66e5807-05ab-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 12:37:29 +0100 (CET)
 Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail177-22.suw61.mandrillapp.com (Mailchimp) with ESMTP id
- 4f8jJp3Y8czGlspFT
- for <xen-devel@lists.xenproject.org>; Mon,  9 Feb 2026 11:34:18 +0000 (GMT)
+ 4f8jNS0H8PzGlspFm
+ for <xen-devel@lists.xenproject.org>; Mon,  9 Feb 2026 11:37:28 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- bdcf0703707f407d99f9ec1d35fae8ed; Mon, 09 Feb 2026 11:34:18 +0000
+ 6799114329fc46f48f27ec1887b0cf2b; Mon, 09 Feb 2026 11:37:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,43 +48,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4592c962-05ab-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: b66e5807-05ab-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1770636858; x=1770906858;
-	bh=z+5bID8B4TwdHcS855x2tQYEC5yCWNBE+4Tk0xW2DB0=;
+	s=mte1; t=1770637048; x=1770907048;
+	bh=9FCMY3mXWbB9oHBO/NmmXAPXVQaSYKElKez8x1qxfjc=;
 	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=GsUGkxNoEbItShzNz3FNY3wdo3I3QGhdDrVe7uIxiPkydzK/5cQIMWYR3UJMYYnQN
-	 dJtd2GN1SQaN0h2HuMZNqYKvqUTHgjwRLGrLduznCJruqgCzfkcRQCxbA2HPMY/h3w
-	 +5mcoA7cCxaIa9zJvbB4tww/r05lLFNFP6AN4Av3sdL+1bCWrgDRZplmW2CvBqQaXH
-	 dyBm49VCBBNJlrJs+/Aa96chqZoczbVlz2NSwsxj5ZJEhl3LQdQCt+iIh5QsWBeGPZ
-	 IwajwqP+7KIaXlZkVfs6Nbyj4BoLmZUF2Fn4ykgxJ6YfxxF5cTshFsUp6d/uTabG9j
-	 dYzhwhtjpKK+g==
+	b=Fa1F22hzxMIkjK6N1Ju5WjQ+Z6AGHhcOrOOyVOfDuHeVGCjKvSDoDDKTWuhWfDP9u
+	 ZMp4jwxFAZ1nRJw6obgoIzlE47sNpIa/OIys4oVftVRy7UJ1lQ3NmiF0r/xwWr41ws
+	 LNMJZsb6Gq+/qHbxXRa3LDcUNLTTAg0vS2q5hU80Q5DCOocEJGn4g/eoF4i2K4ziLi
+	 80R3qsMlx+XepH2IDn8PcO99NjL//AhTbS+LudH89RTTsALP8iSLbpcQfsCPbhvgKY
+	 XJs/qSgnn3Umj6lIESfWWYwUgt9yTUl/KF34CCBEBdrMawGvYKCyaRa9zP+4YzdD1Y
+	 MvaGh0OSaKtEA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1770636858; x=1770897358; i=julian.vetter@vates.tech;
-	bh=z+5bID8B4TwdHcS855x2tQYEC5yCWNBE+4Tk0xW2DB0=;
+	t=1770637048; x=1770897548; i=julian.vetter@vates.tech;
+	bh=9FCMY3mXWbB9oHBO/NmmXAPXVQaSYKElKez8x1qxfjc=;
 	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=tckZcawuk7VX8DLCwfV0lS8GkXe5JThP7mb5BI9tWb3r8L2KuZhcxRB9gfF5ywbmz
-	 41q2vCmg+qznch+DGOIGa1qChf6ncvbJCJjq5KHRW07egICynDOUdfsvcQQHzYSqoz
-	 vmULI/QAoydiw5gMMW9aU32R+K1LIEajaZ8TUMZg9B7vcR1RCCGio96mSL2IzmSJw8
-	 Lq7UADMWzIEw0L7jFB2kAJsixe731KkwudU4iCIga6AEy4UrwI3ywVkGdzOGecV3qP
-	 ssTNgfEozCmv9niAYtlFJq2AsUNlG1IWl4qMMMJ0kjxhdEJEhU+A75kDcCdhB8dWJx
-	 qTct4eWf17zfg==
+	b=15XNw88vA7zZuXdMA3QqNK/Av9hW0zol3+pcreLCBCTG0+YokYPjyfxpRkyPpHq1w
+	 KEM9ejrjx6e1qBWHIVbI6cudoCGlc/JkG66uzOAH4r83WvpuvVZbctkioBfmp733wo
+	 bUCeXxL3E71RHesW/HlDqttJ+REYFmCqL0pNab29r28kwRpmI9CLKy7+cIMvzqoroB
+	 VWbnogEdP+XutFmecZuaXO/EZWfxjR6RUEJrQp+qhN/NGuJyX9R4ybA+P3rxMSeq10
+	 TfkPwnpiVsiwJx+fhW0pPMbfUd83nZPtwR2CH34H+QI6TS8Yb7AGS1p5olzBg9bN3Y
+	 NVz+3+I7BWEcQ==
 From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?[PATCH]=20x86/hvm:=20Advertise=20and=20support=20extended=20destination=20IDs=20for=20MSI/IO-APIC?=
+Subject: =?utf-8?Q?[PATCH]=20x86/hvm:=20Add=20x2APIC=20topology?=
 X-Mailer: git-send-email 2.51.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1770636857446
+X-Bm-Transport-Timestamp: 1770637047143
 To: xen-devel@lists.xenproject.org
 Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Julian Vetter" <julian.vetter@vates.tech>
-Message-Id: <20260209113412.2603088-1-julian.vetter@vates.tech>
+Message-Id: <20260209113721.2604894-1-julian.vetter@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.bdcf0703707f407d99f9ec1d35fae8ed?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6799114329fc46f48f27ec1887b0cf2b?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260209:md
-Date: Mon, 09 Feb 2026 11:34:18 +0000
+Date: Mon, 09 Feb 2026 11:37:28 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
@@ -97,12 +97,12 @@ X-Spamd-Result: default: False [4.51 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:julian.vetter@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	TO_DN_SOME(0.00)[];
@@ -122,162 +122,103 @@ X-Spamd-Result: default: False [4.51 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4D6BB10ECE1
+X-Rspamd-Queue-Id: D52EF10ECE8
 X-Rspamd-Action: no action
 
-x2APIC guests with more than 128 vCPUs have APIC IDs above 255, but MSI
-addresses and IO-APIC RTEs only provide an 8-bit destination field.
-Without extended destination ID support, Linux limits the maximum usable
-APIC ID to 255, refusing to bring up vCPUs beyond that limit. So,
-advertise XEN_HVM_CPUID_EXT_DEST_ID in the HVM hypervisor CPUID leaf,
-signalling that guests may use MSI address bits 11:5 and IO-APIC RTE
-bits 55:49 as additional high destination ID bits. This expands the
-destination ID from 8 to 15 bits.
+HVM guests with more than 128 vCPUs require APIC IDs above 255 (since
+APIC ID = vcpu_id * 2), which exceeds the 8-bit xAPIC limit. Currently,
+CPUID leaf 0xB returns EBX=0, making firmware (OVMF/EDK2) fall back to
+CPUID leaf 1 for APIC ID discovery, which is limited to 8 bits and
+cannot distinguish vCPUs with APIC IDs greater than 256.
+To address this, implement proper CPUID leaf 0xB x2APIC topology
+enumeration. Present all vCPUs as cores in a single package with correct
+shift values based on the maximum APIC ID, and non-zero EBX so that
+firmware uses the 32-bit x2APIC ID from EDX. Moreover, set CPUID leaf 1
+EBX[23:16] (max addressable logical processor IDs) to the appropriate
+power-of-2 value, but capped at 255.
 
 Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
 ---
- xen/arch/x86/cpuid.c                   |  9 +++++++++
- xen/arch/x86/hvm/irq.c                 | 11 ++++++++++-
- xen/arch/x86/hvm/vioapic.c             |  2 +-
- xen/arch/x86/hvm/vmsi.c                |  4 ++--
- xen/arch/x86/include/asm/hvm/hvm.h     |  4 ++--
- xen/arch/x86/include/asm/hvm/vioapic.h | 13 +++++++++++++
- xen/arch/x86/include/asm/msi.h         |  3 +++
- 7 files changed, 40 insertions(+), 6 deletions(-)
+ xen/arch/x86/cpuid.c | 54 ++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 50 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index d85be20d86..fb17c71d74 100644
+index ceac37b3ae..fb17c71d74 100644
 --- a/xen/arch/x86/cpuid.c
 +++ b/xen/arch/x86/cpuid.c
-@@ -148,6 +148,15 @@ static void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-         res->a |= XEN_HVM_CPUID_DOMID_PRESENT;
-         res->c = d->domain_id;
+@@ -284,10 +284,26 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         const struct cpu_user_regs *regs;
  
-+        /*
-+         * Advertise extended destination ID support. This allows guests to use
-+         * bits 11:5 of the MSI address and bits 55:49 of the IO-APIC RTE for
-+         * additional destination ID bits, expanding the addressable APIC ID
-+         * range from 8 to 15 bits. This is required for x2APIC guests with
-+         * APIC IDs > 255.
-+         */
-+        res->a |= XEN_HVM_CPUID_EXT_DEST_ID;
+     case 0x1:
+-        /* TODO: Rework topology logic. */
+         res->b &= 0x00ffffffu;
+         if ( is_hvm_domain(d) )
+-            res->b |= (v->vcpu_id * 2) << 24;
++        {
++            unsigned int max_apic_id, max_lp;
 +
-         /*
-          * Per-vCPU event channel upcalls are implemented and work
-          * correctly with PIRQs routed over event channels.
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 5f64361113..2cc14d37d4 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -374,7 +374,16 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u8 isa_irq)
- int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
- {
-     uint32_t tmp = (uint32_t) addr;
--    uint8_t  dest = (tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT;
-+    /*
-+     * Standard MSI destination: address bits 19:12 (8 bits).
-+     * Extended MSI destination: address bits 11:5 (7 more bits).
-+     * When XEN_HVM_CPUID_EXT_DEST_ID is advertised, the guest may use
-+     * bits 11:5 for high destination ID bits, expanding to 15 bits total.
-+     * For legacy guests these bits are 0, so this is backwards-compatible.
-+     */
-+    uint32_t dest =
-+        (((tmp & MSI_ADDR_EXT_DEST_ID_MASK) >> MSI_ADDR_EXT_DEST_ID_SHIFT) << 8) |
-+        ((tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT);
-     uint8_t  dest_mode = !!(tmp & MSI_ADDR_DESTMODE_MASK);
-     uint8_t  delivery_mode = (data & MSI_DATA_DELIVERY_MODE_MASK)
-         >> MSI_DATA_DELIVERY_MODE_SHIFT;
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 7c725f9e47..263b1bd5cb 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -411,7 +411,7 @@ static void ioapic_inj_irq(
- 
- static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
- {
--    uint16_t dest = vioapic->redirtbl[pin].fields.dest_id;
-+    uint32_t dest = VIOAPIC_RTE_DEST(vioapic->redirtbl[pin].bits);
-     uint8_t dest_mode = vioapic->redirtbl[pin].fields.dest_mode;
-     uint8_t delivery_mode = vioapic->redirtbl[pin].fields.delivery_mode;
-     uint8_t vector = vioapic->redirtbl[pin].fields.vector;
-diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index 27b1f089e2..dca191b4f1 100644
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -66,7 +66,7 @@ static void vmsi_inj_irq(
- 
- int vmsi_deliver(
-     struct domain *d, int vector,
--    uint8_t dest, uint8_t dest_mode,
-+    uint32_t dest, uint8_t dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode)
- {
-     struct vlapic *target;
-@@ -125,7 +125,7 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
- }
- 
- /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id */
--int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode)
-+int hvm_girq_dest_2_vcpu_id(struct domain *d, uint32_t dest, uint8_t dest_mode)
- {
-     int dest_vcpu_id = -1, w = 0;
-     struct vcpu *v;
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 7d9774df59..11256d5e67 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -295,11 +295,11 @@ uint64_t hvm_get_guest_time_fixed(const struct vcpu *v, uint64_t at_tsc);
- 
- int vmsi_deliver(
-     struct domain *d, int vector,
--    uint8_t dest, uint8_t dest_mode,
-+    uint32_t dest, uint8_t dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode);
- struct hvm_pirq_dpci;
- void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci);
--int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
-+int hvm_girq_dest_2_vcpu_id(struct domain *d, uint32_t dest, uint8_t dest_mode);
- 
- enum hvm_intblk
- hvm_interrupt_blocked(struct vcpu *v, struct hvm_intack intack);
-diff --git a/xen/arch/x86/include/asm/hvm/vioapic.h b/xen/arch/x86/include/asm/hvm/vioapic.h
-index 68af6dce79..b49eb348d5 100644
---- a/xen/arch/x86/include/asm/hvm/vioapic.h
-+++ b/xen/arch/x86/include/asm/hvm/vioapic.h
-@@ -32,6 +32,19 @@
- #define VIOAPIC_EDGE_TRIG  0
- #define VIOAPIC_LEVEL_TRIG 1
- 
-+/*
-+ * Extract the destination ID from a 64-bit IO-APIC RTE, including the
-+ * extended bits (55:49) used when XEN_HVM_CPUID_EXT_DEST_ID is advertised.
-+ */
-+#define IO_APIC_REDIR_DEST_SHIFT        56
-+#define IO_APIC_REDIR_DEST_MASK         0xffULL
-+#define IO_APIC_REDIR_EXT_DEST_SHIFT    49
-+#define IO_APIC_REDIR_EXT_DEST_MASK     0x7fULL
++            /*
++             * EBX[23:16] = Maximum number of addressable IDs for logical
++             * processors in a physical package. Must be large enough to
++             * accommodate all vCPU APIC IDs. Round up to next power of 2.
++             *
++             * With APIC ID = vcpu_id * 2, max APIC ID = (max_vcpus - 1) * 2.
++             * We need max_lp to be greater than max_apic_id for proper
++             * enumeration.
++             */
++            max_apic_id = (d->max_vcpus - 1) * 2;
++            max_lp = min(1u << fls(max_apic_id), 255u);
 +
-+#define VIOAPIC_RTE_DEST(rte) \
-+    ((((rte) >> IO_APIC_REDIR_DEST_SHIFT) & IO_APIC_REDIR_DEST_MASK) | \
-+     (((rte) >> IO_APIC_REDIR_EXT_DEST_SHIFT) & IO_APIC_REDIR_EXT_DEST_MASK) << 8)
++            res->b = (res->b & 0xff00ffffu) | (max_lp << 16);
++            res->b |= (uint8_t)(v->vcpu_id * 2) << 24;
++        }
+ 
+         /* TODO: Rework vPMU control in terms of toolstack choices. */
+         if ( vpmu_available(v) &&
+@@ -463,11 +479,41 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+          * coupled with x2apic, and we offer an x2apic-capable APIC emulation
+          * to guests on AMD hardware as well.
+          *
+-         * TODO: Rework topology logic.
++         * Provide a simple topology where all vCPUs are cores in a single
++         * package (no SMT). This ensures EBX is non-zero so that software
++         * (like EDK2/OVMF) uses the 32-bit x2APIC ID from EDX.
+          */
+         if ( p->basic.x2apic )
+         {
+-            *(uint8_t *)&res->c = subleaf;
++            unsigned int max_vcpus = d->max_vcpus;
++            unsigned int max_apic_id = (max_vcpus - 1) * 2;
++            unsigned int shift;
 +
- #define VIOAPIC_DEFAULT_BASE_ADDRESS  0xfec00000U
- #define VIOAPIC_MEM_LENGTH            0x100
- 
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index 00059d4a3a..b7a132e5b5 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -54,6 +54,9 @@
- #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
- #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
- 
-+#define MSI_ADDR_EXT_DEST_ID_SHIFT	5
-+#define MSI_ADDR_EXT_DEST_ID_MASK	0x0000fe0
++            /* Calculate shift value for Core level topology. */
++            shift = fls(max_apic_id);
 +
- /* MAX fixed pages reserved for mapping MSIX tables. */
- #define FIX_MSIX_MAX_PAGES              512
++            switch ( subleaf )
++            {
++            /* SMT level - no hyperthreading, 1 thread per core */
++            case 0x0:
++                res->a = 0;         /* No shift (1 thread per core) */
++                res->b = 1;         /* 1 logical processor at this level */
++                res->c = 0x100 | 0; /* Level type 1 (SMT), level number 0 */
++                break;
++
++            /* Core level - all vCPUs are cores in one package */
++            case 0x1:
++                res->a = shift;     /* Bits to shift to get package ID */
++                res->b = max_vcpus; /* Number of logical processors */
++                res->c = 0x200 | 1; /* Level type 2 (Core), level number 1 */
++                break;
++
++            default: /* Invalid level */
++                res->a = 0;
++                res->b = 0;
++                res->c = subleaf;   /* Level number only, type 0 (invalid) */
++                break;
++            }
  
+             /* Fix the x2APIC identifier. */
+             res->d = v->vcpu_id * 2;
 -- 
 2.51.0
 
