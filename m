@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EOZrFtYXimmsGwAAu9opvQ
+	id uFi0DcMjimnqHgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 18:22:30 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 19:13:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A46B0113015
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 18:22:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225944.1532560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F0361136D0
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 19:13:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225963.1532570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUxd-0006uS-HH; Mon, 09 Feb 2026 17:22:09 +0000
+	id 1vpVk3-0006Mx-7D; Mon, 09 Feb 2026 18:12:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225944.1532560; Mon, 09 Feb 2026 17:22:09 +0000
+Received: by outflank-mailman (output) from mailman id 1225963.1532570; Mon, 09 Feb 2026 18:12:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUxd-0006rK-DV; Mon, 09 Feb 2026 17:22:09 +0000
-Received: by outflank-mailman (input) for mailman id 1225944;
- Mon, 09 Feb 2026 17:22:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vpVk3-0006L7-3i; Mon, 09 Feb 2026 18:12:11 +0000
+Received: by outflank-mailman (input) for mailman id 1225963;
+ Mon, 09 Feb 2026 18:12:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/dId=AN=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vpUxb-0006rE-K7
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 17:22:07 +0000
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c112::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d840ece7-05db-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Feb 2026 18:22:02 +0100 (CET)
+ id 1vpVk1-0006L0-7Q
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 18:12:09 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c112::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d77f6b7f-05e2-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 19:12:07 +0100 (CET)
 Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by BN8PR03MB4962.namprd03.prod.outlook.com (2603:10b6:408:7b::17)
+ by SJ0PR03MB5405.namprd03.prod.outlook.com (2603:10b6:a03:286::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Mon, 9 Feb
- 2026 17:21:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
+ 2026 18:12:03 +0000
 Received: from CH8PR03MB8275.namprd03.prod.outlook.com
  ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
  ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 17:21:59 +0000
+ 18:12:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,348 +52,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d840ece7-05db-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: d77f6b7f-05e2-11f1-b162-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i/tu++OCsJpAoT9ktrFqMcVYrpmTPjvbLae/G+/r05mhfvBOerMnYPJAqxgOLDg9x17MiTBrQFiMba7Hfp4EC44SNiZlgHPD7eOykKt/xEoD1zt6fIhdrOREWxaWKjXGJvKXOshgV/mXRTssKYzmzTtWzfvKFAMD6NI7PB2wdFyND7j+I7E/zkaDzEc1KVpeUrVodr8wMCvmwVo5il60lNFlbjTBxmh3btIR5cYIE+oJCxEmZuOLzcnFOVACQeG0O6xjXzKSZL6Suo9oEbT5Kq2nETH2FX6/PDJiz2LB7VJhq1oPCzX3+HT8uBnL4m3yqb/xk9sx+G9JyaJbwWklsA==
+ b=OQg5vbAIWy9Ta1SoU+xCT8onvT5JV4Wkujpw2FrHkAlVwRLvZFY+dHkEP02iZHoa9FbBFMfOJUHWOoWEoXdPXoc9PD+aONELk2rlU84semjdb1/2/7Y7u+O5GDCmjv+ZAdhz6UG0cmecNULuR3XYN6iCuoP5XluGK82ZUCcYG3Gy56RrenQ+biBZbPB4F+Lh9qXcFN0ngey4EcGHp4lbQrFGQaF8InBBi6YPg0GrTO3uqF2QaD8HXGUMdvfS0EdJ76uI5CYxRIno5oxi5z4wh0EuQAZdBcbuYy7gNuoFd0Y3DwMJD0Dtdb23Ihu4bbcubEISPLqPIiLsD1RzVNsKhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HApS45dSd9cfOXWF5pJL07A/YdVE7EWdCUhex1T1wwU=;
- b=h0drqIPZFGjkcbVzgttDl3vFCa4my2jjxOmsvtEWu/FZMbSM9TmrmTZ4r6nvkDinfx3uRBosyoEJgOyU1Ngf/XpCBf7w5ybhXlgtiu26uOpIB1a7XjcbYkKVE91CVf/nxlX+HBkyUnZ2hm/ytcnqE2ZntoviCY5QS9OLi+PTB9fenBTLb0PXBQnxXpwtxONk9rT/Fx9nLBlr0NHCuD5VHqkpSiCL54iJbGtdKtRJdaBuBYwwEhsKsNlsLhsMl2TQUU1TMdTkpX0bUfdnG+SQvKGuNdsOYp1UKVTqsLoWEelVtGkUlFihtZLet8kKVn1Zwm0WrwcLUV1unUmVO2B//Q==
+ bh=29IhPBoDLG9pzMm2IF5Xg1IaTWeDQSx/ANhxSFXIjX4=;
+ b=fiQwA1zY6fUqafl5hAngk0JPSY7uRLjIpUGkQjxroV32MFwl1BJwVQ4CDwPIh9aWvUp4ScagcFxI592ekEc/LevHMNdl6eP1TY2Ahv9JTdlAuCyhFW148O5xzJ4abv8ooL60/rPjaoUnxkKttLZ+kB6Y+tFqye82QEUHFZcDjZPOC/6K3KOwwFKsZSnRDZHWdA3VHRQApQgL7NZm5T+PgW+tcMWLWJs3n0IKbf+2dFYjVwwiitijDHhMIdzuOUyxuP8xq+Wr1XYTQe69uUnTHUMJr4Vb9Pqw7OEzx2WQEEl7FyzL2gITDAlB94MbuCsTMkiWqDtxUyXDe8XfoKwgkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HApS45dSd9cfOXWF5pJL07A/YdVE7EWdCUhex1T1wwU=;
- b=s7rNDbzfIvgflVhWmXb6qrnDwugv5tpJ0B2jy8lJO4FyZZ5l20Tsd+n86Iq3yt7Hcgws0miM5DUBrs9UnIpN4N6MLYUZ5qQn6Ie0C+qTiyocf456+Qqjys3Hp0V97Xk7yHZdkL/cqsulnT/nRe0RsNlV/ZZwgobe6rEN6GLj2cc=
+ bh=29IhPBoDLG9pzMm2IF5Xg1IaTWeDQSx/ANhxSFXIjX4=;
+ b=foCFUIABm7u17bOtAo1yIht7Mrdv3uFnDyAkTXlyprrGo6ML86Iad/+lO+L772rJ9R6HF+x8t334mBTFOD8WGhV88sAISwCcHg3dyQ29fabYsb1YBSbRHL9uhWCmaBSkQTcE4ZzPs8uB+QoV+HETvQqjtbTyEHRk4LE987KNyl8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <650406ae-37a2-4752-b539-cc66535c77af@citrix.com>
-Date: Mon, 9 Feb 2026 17:21:55 +0000
+Message-ID: <e492809b-214e-43b4-953c-ff21b3780429@citrix.com>
+Date: Mon, 9 Feb 2026 18:11:59 +0000
 User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] x86/ioreq: Extend ioreq server to support multiple ioreq
- pages
-To: Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260209123025.2628513-1-julian.vetter@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, roger.pau@citrix.com,
+ Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH 0/3] Virtual NMI
+To: abdelkareem.abdelsaamad@citrix.com, xen-devel@lists.xenproject.org
+References: <cover.1770389605.git.abdelkareem.abdelsaamad@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260209123025.2628513-1-julian.vetter@vates.tech>
+In-Reply-To: <cover.1770389605.git.abdelkareem.abdelsaamad@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0074.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:190::7) To CH8PR03MB8275.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO6P123CA0022.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:313::15) To CH8PR03MB8275.namprd03.prod.outlook.com
  (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|BN8PR03MB4962:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2fcc7d1-6cb0-4b42-fdeb-08de67ffbb42
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB5405:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ae9e7cf-d6c6-41c6-2abd-08de6806b9a8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eDNEaXhBT0xDNzV4WXBHNlovazZ4RWg0clF5NiszN2ZCVm1qcFgyb2ZZMFdK?=
- =?utf-8?B?RUFhUWg5Y2wxc1lzelpaaGZ1Rm4rMjZld09TOWdZVFhwWHR0anc3cGNPUHlT?=
- =?utf-8?B?dnZVb2lpUTRzdUt0aWpuOENaQ1V6MTZlZStFR1NKY0xIOVBDYlFaTWIrUGV0?=
- =?utf-8?B?OU9IT0ptUmZYS2sxVFRxcEFxUmdoRG1uSDRsRmhxUWl4UkhuS2VONHZBQkZx?=
- =?utf-8?B?NmJoeTBMWFM3cnl2cTFVN0t3RUszODJtdmk4K0xCdFkzNUN1MFN3QVNIdTRq?=
- =?utf-8?B?SHRjeVBMTTVYRUZpN2FMazh6WWpmWkpTMEhVZWF6L002eGNQSXdHWVRVelFa?=
- =?utf-8?B?Rk0vSURPUGw3Kys5R01yeE5QRmVmK2tDQ05HZFFjUEVWd1ZRYlYwWHVPb2ZR?=
- =?utf-8?B?NWU0aXZzK0F2ckh4MjJMakc4M0xwaXVpVGdNQkNPOFBMUW1YTjFvQVQ1cDJX?=
- =?utf-8?B?ZGJZemJ6ZUtRZGFNd0hnVTFaelhRL0VkZFFYSmFxQjFQN3hFS3djaG1GdlZX?=
- =?utf-8?B?VkVnMTIzcG1sWVR0ZThBSVVVVjZUTGdOWDBkUnRjQjBZUnJyZnpINFJVa3BQ?=
- =?utf-8?B?U2p1Z21YK2VqMk00b0pQUWx4MHV5dEtWc1MrSC9FVTYvL3hEaHczQUJGbCtm?=
- =?utf-8?B?dTdUMFVzRitFVjZBeFUwTUhtMGZEM1ZpWWhsa0IyQnp6OXMvTm1jNDJrOE1B?=
- =?utf-8?B?QW9SZmc5eUFrYkYxNHNiMUZYWU9wcG1IWktnd2k1cGl2Vm5oakNqZmRWZ3Fx?=
- =?utf-8?B?bW1WV2QzL2tNdWlnZUpUaENZU280d2MxY1Z3MCsyU0krT2R2eTBPQkFZcWkx?=
- =?utf-8?B?YXg1TzV5ZUVEVmFTRmFnYStyam1MY1ArOUgwM1JtWlBQUDZaa01lR2VjcVlR?=
- =?utf-8?B?anZLL1VIaXFxMlFraTFzUDNCNzdXczRJSHFRajRQOU5pMGg1dm9CMHB2UUps?=
- =?utf-8?B?Snk0NEJzZEN1SHFDcnRpNXJBTW9PdU12eERsWXJhMzVIV1lyYWFydEh0Skl0?=
- =?utf-8?B?RlZ0NlduUDYwVUtkYUduQUVDQUVmd25yWkJsdnVnZG1qZ2FUeFdnMVNjNmpv?=
- =?utf-8?B?NUx0MTdmcWZjVkx4ZGFtQjZWQ0FZL3RUcnlhc1BXN2Y1UWY2dDhjMXJDOHhZ?=
- =?utf-8?B?U2REWDBhdlZzTHA1MFJxb0ZHQkdHMU4xdUdGb1NPb2hqeFVybGZPSmx1aTJw?=
- =?utf-8?B?Mm9GeUFPbXJzLy9JdUI1cVNJcUVGeEErU05rTU95bUF2T0lQa2dBUXkyb25r?=
- =?utf-8?B?NC9nK2FMMHEwaUp6cS9YL25VNjVvQktwaTFCRkNQbzRNRlo0Y1F4alcreDhZ?=
- =?utf-8?B?UUVibkVaK1F1cnpmOTdKSG0xMllkazVEenJNMEhXSWthZHY2T1YvcXQ1Z1Uy?=
- =?utf-8?B?UVY0amRNSjNlZHY0blZNMG1zVkM5bTBJQlpBS1drQUVqNmhiUlFRUFR2Q2RT?=
- =?utf-8?B?VWlJUTJtWkNmUHV3V3ZPejNHdzFBRm1IUUhsWVUwckUrNFNka3FiaW9yb0k5?=
- =?utf-8?B?K1QwbmxOVVJZVTBiUkFaRXhVNERZWXlaaEljQU9xMVB6b0h6ZnhWZEVBekZQ?=
- =?utf-8?B?ZFhLUm5XejBPVFBvc1lHTkVQZlB2ZWY1UmdLWWRHNXFDWTgyc0F6OGVLK2Jw?=
- =?utf-8?B?TDZQVlgzanNuNGRsUTk5RnNSRGdhaDlXZWtCOGN3SmF1ckdCMGUxRDBRdHcx?=
- =?utf-8?B?NjREc3oxQjBaVUdTcHhRMFQ2d2lzUzRKVW53b2ZsYVJIUncrMnpOS2dUeXJq?=
- =?utf-8?B?ZVFqUkpaT1BpWDl1eVdsei9sZHlGQmZnb1FiZHc2K2ErZUd1cW91VTdXZXFx?=
- =?utf-8?B?bFJMREJGUElvb0JCQlBvYStnZjdjNFBqaHRIVUpUTGRqYkE0d0VpSC92Zkkr?=
- =?utf-8?B?N1VIeTdNZUJadCtpVlNTVDlWblV3SXRFM1lpQnBGWHNoeHVYampuNEpYc21L?=
- =?utf-8?B?dlBvRklzQnZyRlcvdkI5OTd6cGp2U0JHZ01xd0ZST25Fa2NVbm5NYXRkSkQr?=
- =?utf-8?B?NXZBLy9KenhOQjFpNjdoR1hhTFJqUzN3dzA3YlhxL3FZZU56YmZYVHRlcW9Q?=
- =?utf-8?B?cFQwK0piSktwUEdTMVVIZEhaZ09NRkUyejFLRlJoWHdLMUhaQ3hLc2ZOYjNn?=
- =?utf-8?Q?VKSA=3D?=
+	=?utf-8?B?cFE2RnJ2UHE0U1NBMzhudkhETE5PS1JYWTVmRGQvMEQwRDBMUXBFRVZlYkpj?=
+ =?utf-8?B?TkJOS3Irc01RYnlkdnJ5bSs3ZnhKSXc2MmdDYUJIQjFGNkt1MkxYejBWcFdu?=
+ =?utf-8?B?c3hKeFNFeDZ5UGRoZmdMVkJ0dGlUWitsVWJoZmh5ODdKMUU2VmUxSnlRNytj?=
+ =?utf-8?B?MHJseWlhdXlyMFJ1eFRRemdsOHhrVzU1WTM4cEJpYkpDMVlaQkI0b0h6TVA2?=
+ =?utf-8?B?blpUaE9WcTV1U2JYZXZVS3I2MEJkWDhZMlAxY25uTnZJUVlzZGgyVVpySytV?=
+ =?utf-8?B?TksvbThZa0E3N0xvdXRrb0ZwckZtUkp4aFBqMjJkSnF1U0hqUUpxV3A2cDE2?=
+ =?utf-8?B?bHdhWHVaTFJqaGRPZGp6REphSFRpK21Fa1dZdUx1UXhJczZNVTYwMlNMZmZa?=
+ =?utf-8?B?dzNITEJnQW9lNGRFV2U5c2o3elF2V09BeExFR1Y1b0VwRXFNWjBtckh6ZXAz?=
+ =?utf-8?B?R3VrT2FtdStoOEZxZDYvbVRYTkRIVkMrbXJmcTRaWkJpUHdPN2twY1FsQkRa?=
+ =?utf-8?B?VWVLbFdpOEQrY3dGdWo1TTJyYXV3RzFhR1ZCbFdOM3RiTGx4NGRLeDJlMTQy?=
+ =?utf-8?B?VXpVWEtoSXpqZStvRFdYTXZsUi82ayt2VHBwUHFmOGFiaWpqMmw0UGNEMmtm?=
+ =?utf-8?B?MlN0cTYwL3V5V0I0R2tFL0xtZC83UHFqcEQyT1hreEZyZWR2cU1HSjJBY2t0?=
+ =?utf-8?B?R1p1Tmg5UnR2ZFE2Q2UxcEpEc0VMQW55K1lid3dGUURLN28rS1kxUmtpWVZJ?=
+ =?utf-8?B?aW40VXBsSHk3dXFGdGc1K3pWeXRSdWxlTDcvRy9VU2JINkRVcVRtRTJkcnRT?=
+ =?utf-8?B?clFLenlBZ1ZoL2hZdXRGT0NYYnN0Nm9Ud09GVTc2YnRrY3cyVEFPVS95dHM2?=
+ =?utf-8?B?dzJSaWhhU0QvRkp4Ny94SENWcVZTaERxdTNxbXJXSXY5cXA3Skx3VkpZRVll?=
+ =?utf-8?B?dXRxbmM2TEo2VHVWcGFHSUo5MSs2T1NDb2poOGtlRURsMkxnTG1IV3BiS3Iz?=
+ =?utf-8?B?K1VyNmZZT1RTMndDM0JEWUFrcmlRclVCcktSY2NwUUJDSjhFVWxTMVJ5bkxH?=
+ =?utf-8?B?aUZoeEpMc1NNRVViNU5aalVEdFMzd2p3RW9nOVJkMnZmT203ZEVjclBiZFgv?=
+ =?utf-8?B?WDdsMEN2SXN4T1JxZ2NIYzdSTzFQbGM5bzI0UFVuMUJ6Uk4ySnlCcUJYSTVs?=
+ =?utf-8?B?OVVqbVBCV3VybDV0NXR6WGxlakRKK2dUMFl2RjZoRVhrSTNmKzFVR3FYSVlI?=
+ =?utf-8?B?ZEx4Z2QwWEdXTUhvRm12eVhqNG16SllsN0JRWEprQmw0Z0w0ZEZBKzI1djZQ?=
+ =?utf-8?B?SHdLT3ZHek80WEdGd3BjRXkzUC9oalRQVTJEQnRWaTNoUWZURVhBaWdDcWlX?=
+ =?utf-8?B?QkhXYjh5eDJSdFFvV1F6cVJiUDZXL3U3UkgzUC9tcmxsK3pBTWFRbGg0elVq?=
+ =?utf-8?B?Rk5sVDdaWjJnVGlpeFZ4a0pzK1pMaFJncHQ1ZDY1ZDJDbVJaUW0yeTlJWVFC?=
+ =?utf-8?B?dnJOQ2JjUjRVUGYwckRZTSt4aXZleDRCWmZ5MW5vQ1lRTHRJb2xPNjRlM3NF?=
+ =?utf-8?B?Z2EyMGhsS0ZkaUJVMHpvU2NFanc2RHlnYUl1akdYby9Lc0o4SHd4TytPWWhK?=
+ =?utf-8?B?QWJPT2RPMjlNWWhFSElLSFNJeEhVS0dRYmNVRmhtUEtoZkRlUVdDUFFSUStR?=
+ =?utf-8?B?Ty9CMWlKNVllNm1HMkt0a1p6cm9EU2lFeFpWWnB0MlM0ejkzZXZBNXNlcXV4?=
+ =?utf-8?B?Z21YelJNb21DaFNyV0txbWdQY2wvcEx5ZU1weHJlQm9FelR2S0MvM1BuRm5T?=
+ =?utf-8?B?WlpsUVY4OXRzaWZGRyt4UFFTRE9LMWxGc3F6R0ZHNEVqTU80eTNtaUZzZDYx?=
+ =?utf-8?B?cUFtRUlKc2ZlNXVUWUhEV2Rhc3UwcXVtNVVleUdFZDhtUWZ4UDZORXRFT0dQ?=
+ =?utf-8?B?YVRpSmxqbm54dDBlMjdNR0ZzbWtTelhIaEVQaUxVdDdrU3dDR3FCSDVqck9i?=
+ =?utf-8?B?UjFISFBPNmt1YzE3em5keTgyMjNPOHVlcndwOEtiTU1UQTRzWmF5TjE1VnRk?=
+ =?utf-8?B?ZjdVNXErWTAwOVNwQWQwRDEreTU0MzFJTDg2WURrcTIrWGhxZnQxOHllbnZJ?=
+ =?utf-8?Q?wvoE=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UXdTUGJTbEZndHBWNDVTZjRVOWVKOENhSTU4dEF0clpWWEtOMUxJR2NRWkZn?=
- =?utf-8?B?NURvSzhJZHkwbWdObm9KM0hyRC9BdFRXM0M2NWk1YURFbVcvRys1cVNZZjBn?=
- =?utf-8?B?RWZWZ205aVFyd2hudVVaWHREUXBCaWd6Y2hYaXMzM0FTWWlBajBTS3YwSjBx?=
- =?utf-8?B?Y3h1THJ0d0hzNHFmYXVISDZWVmtTanBXby9qSDF1MzBvYjhJcjVEbVB6dVB5?=
- =?utf-8?B?bHNpakpVVTA5cGcvVE1OT0dmbXdYUDMwUnhta0Y2UmRSRzN5R0hMajVxQzE4?=
- =?utf-8?B?TUNZS0svU1d2ZlVDOS8xcGdsQk1PUVRkdmxhb2xreEpVNFRrQWZQTGpPOEk4?=
- =?utf-8?B?MmRSb1E1ZWVNTFF2enlEbTZnZk90bGgzS1UyQitKUjkzRUtRaHNOZEVRVXdO?=
- =?utf-8?B?aTFKdHd5T0xaTGp5Qm9JWFJOb2JGRlhyTkVtSWlsRXVCOVFmVWNCc3pLUlYz?=
- =?utf-8?B?MUg3aEt1ZjA2eHI2OGFnbnQ0N1BrSjUzWXZxMkZNRDd2ZTdnNXA2ZllxOWIy?=
- =?utf-8?B?YzBEdnBZd3FWZGZWek5RSG9zbG14SXR3LzdsUVgrSktmVWc5dFpoSjJTM2FN?=
- =?utf-8?B?QVhUYzR5MlF3ZHk3dE1qR1RVSXlxNVlyYWN1TUZtY3V4NzZwWmZjVVRMSU5C?=
- =?utf-8?B?cUNhL2Z4b2l0L3pyMGNoZGVqSDc4QldLbzAzZDJPWm1Nb004Y2xIL1RvRnNo?=
- =?utf-8?B?QVdrVnh1d2RlSzBxYXpVL3MwMmo2b081eWY1MGRxSWlzdk5KZ2JLZEhaYVFx?=
- =?utf-8?B?OVdSU3FnUlFCYmFoWm5RdFV6ZzViaXFUUm1KZTJYdmdVSEJoSExkVFlZSzhO?=
- =?utf-8?B?RnFMcHdpQkxxL3J5VTlibUF4ZUVCVFloemtucjlHTTU0NFJvZm9FaTFMWStl?=
- =?utf-8?B?TlV4dFNHci8xYmJaQWtpTWhVY2hvbm5MOFZnaUg5NTRoL2EwUk1sWmpXTktO?=
- =?utf-8?B?MktqajY2a25kTk8zbTF5R0RxVU9BMFVRWC8veCs0OERIbXhFZjkyRnV0bm1T?=
- =?utf-8?B?YWpkRUhKNUhaYlRhVnc5V1Zxei95Y1dPbGE2OS9MQTJBaDZUSlB2SnNCZnZG?=
- =?utf-8?B?aFFFd2lQQTRaZGNGaEs2Y29BbndseHAxck9hdTBoNitqLzFYbEw0NEtxM3g1?=
- =?utf-8?B?Wm5KQjcwcjIxYVZCMjJsVmYzcTRWRnhuWkI4RGFmOGpTVU5WaFkvRzFmREdQ?=
- =?utf-8?B?QzREQXhYZXFobi85Z05ZSGxMeWdTSGlybVNlUEFKSGQ0WUFOK3dHZlNCS0dx?=
- =?utf-8?B?MlVackxweU4ra1RjWnVWRWtaNGlFUHRLK0dvZTFneWZkdW42SEJZdGdMUDc4?=
- =?utf-8?B?REdGRzByU2craHNkbVFSTExGWU9TaFpUWEZMQXRITU1iUVUyaktDMmlIVExi?=
- =?utf-8?B?SWN0TEEzejZjNzFvNDltd1VyYXNTd1piVk5XeE85a1h2VGxzYWNScmZOTHVM?=
- =?utf-8?B?djZVSFFRbzcyOEZFRDFuUTdhT3RwOWY2Z1ZxVmhwYjI1NXd5S2ZuVE5rNXd2?=
- =?utf-8?B?YjVCVGYxY2c1ZkV0MVc4QU1WaHcya0NRU2JXNVJkZzhKU0plMXRaR0M1ZWt3?=
- =?utf-8?B?QlVYTnUyeEpvQ3FLSWVFOFByZXU1YnZlYkZVZUhCZW5tQU1jQWhTTU5DNDVk?=
- =?utf-8?B?eGlPTHFoWGtINDVSSVpBU2FaQmpHaHN6Zm5ZS3U2RkkrY2tFQVhRWjhvd3BJ?=
- =?utf-8?B?N2VWRWdwcStrbzF1Y0RpSDdackdzeHBGUjhHR2NoRi95S0ZyZXh1c3lDWmxO?=
- =?utf-8?B?SlJXNHFIelFHUkJkbEZSd3JqcmdpandZUFRKNDhEZGpwdDBPbkFGbXlpODFq?=
- =?utf-8?B?Ky94eWR1dGRoYVVNdmRJMm9aUWdHV1g3ZUxuM3pIenhEVTJmamsyd3lGZU5K?=
- =?utf-8?B?aFFybmlESGJvZWlPS20rVzJRM1REUVBwZFJaS0MyNjlpanlMa0hsazZjb25w?=
- =?utf-8?B?K280VGdUWTBVOHlrT29Qblo4cEdkT3l1UW5NOUx0ZVBCZnhONVBBYlJrSncz?=
- =?utf-8?B?dXdKRTd3Qldrd2xVUXN4ZnNNdDAzcVNuT2diRzJPdHN4NERnTlZQcEM2eXhS?=
- =?utf-8?B?ZWNCdVVnY1FZa0pJUmNEUnBxWDIzK3ZUK1ZnRnBIS0NFMVVMVkR3ZkRYWUhp?=
- =?utf-8?B?ZXlid0piR1NjNUNSRmxNaHFGQW9RRjlSVGhmR1dYUVcvV1lJVlZCYmI4THRN?=
- =?utf-8?B?anI2VTU0ejVDSEdFMVN4c3ZyaWFudmlid0VKak00aU9KWlduQXRLMDFJSlFE?=
- =?utf-8?B?WmtucmFVMlo5Q0p0M0g5RVZDM21oT1lSWDFvR0gxRVJVS2Qvekt1bUU3TFJn?=
- =?utf-8?B?ZGtqWDczTjM1cFdOMGpVMTlKTWJ0VGlIY2tsZEVsSTlVcE44b3hsdz09?=
+	=?utf-8?B?ZlkrYTBvQ3dFbjRYQ0Y5aXQvUVNOaTM0MnY4NnJ2MjNOMUEyekNML0hKZDZk?=
+ =?utf-8?B?dm5pKzlJcHVLNE1MYkpaWWhrT0J3amYwTmtXc3NyRDEwWHV3VDA2RjI3V2Ry?=
+ =?utf-8?B?Skxpd0dmOUsyemVRQy9ua3BuZ3lqR0JXQUtYTFlXRTVjbEcvOG5QOFVCYlZw?=
+ =?utf-8?B?Q3JBd2o3NmZtK2pKMW9SMWZpSUtFQWlJSURTbmQ2RzdtOTJjWHRsWU9TUFRV?=
+ =?utf-8?B?OXk0VEZITENreG5sbGUwUXR1MXVYZ2JrYmc5Ym1XUU9pN3IzYzFWR1NaRzlC?=
+ =?utf-8?B?WnlReXAzZ052azRDb1pVWDVmT3JsZWJVRTFZeDBqbDFNUDZMbUhUcEc2Q0lJ?=
+ =?utf-8?B?L2RSUktzQWN6MEo5TGIyREJ5VnlTNHlUTm5zZEhSMDF5VGd0RkFNR2N4cmd5?=
+ =?utf-8?B?cUp2dWdwN0dsblZ6cWlUOGZjQ29qczdTcndBVnc0VmovYWtJNmkwaTZEbXpa?=
+ =?utf-8?B?S2psNlNJeWtuUks1MW1qVmxibXdBYkhZTHEzR0Q3TjZsbkVCMnVKM051U0NG?=
+ =?utf-8?B?eWIyQllZZEY0alJRZkxFeGNzQ243NjlFZFhNZ2ZUYVFhVm5HWlE1OVBhQnJO?=
+ =?utf-8?B?NFB4QXRBczVFOUcvWG5jNnFmV29jbG16UTdVUFZUWnZDUzg0VGRHS0VJT3BL?=
+ =?utf-8?B?ZmtpaUhRK2ovTmE2OEVPNCtkQWlDWjZqbkFoem9mNWRaMUU4R244MzZtVmFk?=
+ =?utf-8?B?aW5ocjRvTElXTDlwMUJFMWdHYkZJN1RRZzVhTmNwR1hPeHRWVmJ3Nm9WbC9Z?=
+ =?utf-8?B?YmU0ZzRhWHFpK1ViRVdienFNQjRpS0FEZlRVK0xGdldJcFR0VU1yeGNuWmh6?=
+ =?utf-8?B?clV2bW5LSlUzSTRQVnRPNU5OaUxGTDJoWDZjSUpnYTEzQ0lUYXp4RlZ1U3Zy?=
+ =?utf-8?B?ZmFkNmJXczViRTFtUHVuWktEWk5JWW1ucVN0d3NaR25Ld2ZFdFJTc0hiNU5s?=
+ =?utf-8?B?eUJLRm9MY1RPNHArcHNHZ1dlZlpRUGpzOG9lNThiRzdJQ1lIVFhQNUp1OVRq?=
+ =?utf-8?B?K3JRRXM3dExKMzhkTmdVQ0RRLzdIM0FuOGZ3TVF4eTlRZU5HYnpvYmhGditX?=
+ =?utf-8?B?M3pzQlBJaFpRRFcrNTdFdzc2VHlHVkE3REFWOWhVd25ZN2o5VmpIM1FTV3g3?=
+ =?utf-8?B?Uzhxa2J0RnBqQmh2WDRzdzJIZVdXYW16Q0hJWmJoRllncGVuVnFKSUIzZHZt?=
+ =?utf-8?B?NzU2UUc2dHd0R2xiSUFvS000c3NHaHR4dXFwYi9SNVN0S2dtMzNNb1RRUTRn?=
+ =?utf-8?B?aUZMWEI1OW5kVXR6alVVbit4ejc0Y2FNWmtDTWNkNnRSY0oxcUZFUlpaNFRG?=
+ =?utf-8?B?Mis3Q0dmamk5WEU0MjhwNmZGUzdTUmtJOWo5ejkzUTA0Z1dzQmFWcUJ3SlpV?=
+ =?utf-8?B?RTcyakVXM3dJbnJtbndBYkRvdHBqVkl6QXphRlFqUWdVK3V0MVFxUVJlNGt5?=
+ =?utf-8?B?Z1FINVJJb1pGMktROW92UEhDQ292dEdXUS81RDZhWjZleHdmaWEydS9LSXlB?=
+ =?utf-8?B?QVpNREhnTk5Ba2NGVWNvcEVUTkJqSHM0VGRmZWtOUk1lV0VzSU1KQnRodzdX?=
+ =?utf-8?B?WUlxM04rekFoVFYxYnMyRTN5L1BQV1liUi9OeUgrYUxpVTVlem9zcG1uRmVM?=
+ =?utf-8?B?RUtWTlR4bUs2ZHd0eW9MbTBHY2oxOVNWdTV3eURiRlFXMjdYSG1uS2h3aGhE?=
+ =?utf-8?B?M1NGeEdJci9tOTRCNWZ4ek9qYnYzMmVJL2NMQlBXaW9Lck81N3pxTlJCVDFa?=
+ =?utf-8?B?aTRENElTblR5dnE3M2xpVENwb0FoalN0R2Y0RUVzMkdzRGdIOWdTZXBIOWJo?=
+ =?utf-8?B?Z3ByQUVtK2hCKzhsa1lFUnRPT0loZ3U1TnA0MXZJZ2J1MCttblFOa3pPa01y?=
+ =?utf-8?B?OVhjWU51OGNSNVFNcjg0WldrTldMRWlvOXNKS1F6WE16RWtleHl0UXBtdEsw?=
+ =?utf-8?B?RTh2TDBNaXhaYzEyQndydElPakVRQjdCTEM1ZkhUSWZ3TFBaTDdHZUFadTN3?=
+ =?utf-8?B?ODJRdFkyRkpkazFFWXFJRFBOYnl6T2RMVXRwTzc1eVJlK0NNTm92ZDFnNjRa?=
+ =?utf-8?B?TWJBM2U2aW81enB4dXhrNEs3Y2VjaHpueTgwYXoxbUwxSGVZMUdWVythQ2Fw?=
+ =?utf-8?B?MWpVaGxvc2lqM0g0MEU0Kzg3K202QmVobG95d1B6M2lWbXBsUmJNcitFTjE0?=
+ =?utf-8?B?WWhIa3FLNkRIRGNES0p0SkEweUZ6UjduVndNVmtvQmRuVklBMkZZU1RDMDJz?=
+ =?utf-8?B?UU5IUk5POXBQanlMRmwxTE00UkRGSVRVNlNacm9mTXBCMSs0amFNeEo3Mmla?=
+ =?utf-8?B?Yk04NTg0SlZjd1UwZEQvblNnMVM0T0I4UHRicE5rZU1VWjNwRjMydz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2fcc7d1-6cb0-4b42-fdeb-08de67ffbb42
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ae9e7cf-d6c6-41c6-2abd-08de6806b9a8
 X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 17:21:59.0200
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 18:12:02.8695
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DXDGIUEzDm8W2MWaUp9YjMN9AERjB5J3GIADbxPOX3yhEl46s80+p14e3s+HeYlGRdtvKlEnrENFSFCnUvpqOti57Hs265MDjiBsEp39s2I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4962
+X-MS-Exchange-CrossTenant-UserPrincipalName: uea398+L3Rp4o6wSyupVVZCaHCt4OSf/gH6bhxy8sBUXQL0sLuP8/hszIkSjUNA/yZktb/v7T8OzQMeuo9XRTawSDR4X9k9BI3o+yxNEJ68=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5405
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jbeulich@suse.com,m:jason.andryuk@amd.com,m:abdelkareem.abdelsaamad@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:julian.vetter@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A46B0113015
+X-Rspamd-Queue-Id: 8F0361136D0
 X-Rspamd-Action: no action
 
-On 09/02/2026 12:30 pm, Julian Vetter wrote:
-> A single shared ioreq page provides PAGE_SIZE/sizeof(struct ioreq) = 128
-> slots, limiting HVM guests to 128 vCPUs. To support more vCPUs, extend
-> the ioreq server to allocate multiple contiguous ioreq pages based on
-> the max number of vCPUs.
+On 06/02/2026 3:53 pm, Abdelkareem@tibco.com wrote:
+> Abdelkareem Abdelsaamad (3):
+>   svm/vnmi: introduce the vnmi bit support in the cpuid feature set
+>   svm/vnmi: add the definitions for the svm vnmi management bits in the
+>     VMCB
+>   svm/vnmi: Add support for the SVM Virtual NMI
+>
+>  xen/arch/x86/hvm/hvm.c             | 29 +++++++++++++++++++++--------
+>  xen/arch/x86/hvm/svm/intr.c        | 16 ++++++++++++++--
+>  xen/arch/x86/hvm/svm/svm.c         | 25 ++++++++++++++++++++++++-
+>  xen/arch/x86/hvm/svm/vmcb.c        |  3 +++
+>  xen/arch/x86/hvm/svm/vmcb.h        | 12 ++++++++----
+>  xen/arch/x86/include/asm/hvm/hvm.h | 12 +++++++++++-
+>  xen/arch/x86/include/asm/hvm/svm.h |  2 ++
+>  7 files changed, 83 insertions(+), 16 deletions(-)
 
-This statement about the upper bound is correct, but it doesn't appear
-to be what you implement.
+Patches 1 and 2 want merging.  They're both enumerations and
+configuration bits, although the very first hunk of patch 1 (the P())
+wants delaying until the final patch; we shouldn't print out the
+capability until it's being used.
 
-> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-> index f5fd30ce12..13c638db53 100644
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -95,12 +95,15 @@ static struct ioreq_server *get_ioreq_server(const struct domain *d,
->  
->  static ioreq_t *get_ioreq(struct ioreq_server *s, struct vcpu *v)
->  {
-> -    shared_iopage_t *p = s->ioreq.va;
-> +    unsigned int vcpu_id = v->vcpu_id;
-> +    unsigned int page_idx = vcpu_id / IOREQS_PER_PAGE;
-> +    unsigned int slot_idx = vcpu_id % IOREQS_PER_PAGE;
-> +    shared_iopage_t *p = s->ioreqs.page[page_idx].va;
->  
->      ASSERT((v == current) || !vcpu_runnable(v));
->      ASSERT(p != NULL);
->  
-> -    return &p->vcpu_ioreq[v->vcpu_id];
-> +    return &p->vcpu_ioreq[slot_idx];
+The patch subjects want to be:
 
-Use xvmalloc_array().  It gives you contiguous VAs in Xen even if the
-underlying memory is non-contiguous.
+    x86/svm: Enumerations for virtual NMI
+and
+    x86/svm: Use virtual NMI when available
 
-Notably it means you don't need to store the intermediate VAs, and this
-final line stays the same.
 
->  }
->  
->  /*
-> @@ -260,84 +263,120 @@ bool vcpu_ioreq_handle_completion(struct vcpu *v)
->  
->  static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
->  {
-> -    struct ioreq_page *iorp = buf ? &s->bufioreq : &s->ioreq;
->      struct page_info *page;
-> +    unsigned int i, j, nr_pages = buf ? 1 : NR_IOREQ_PAGES;
+Everything here is local to SVM.  Notably there should be no edits to
+hvm.c or hvm.h.  By introducing hvm_intblk_vnmi, you break NMI injection
+in other cases.  vNMI is just a hardware-optimised way of handling the
+hvm_intblk_nmi_iret case.
 
-This NR_IOREQ_PAGES needs to not be a constant.  From below, it's:
 
-    DIV_ROUND_UP(HVM_MAX_VCPUS, IOREQS_PER_PAGE)
 
-but wants to be:
+svm_inject_nmi() wants to gain a check to see whether vNMI is enabled,
+and in the case that it is, simply set vnmi_pending.  You have this
+partially, but it needs to be dependent on the VMCB vNMI setting, not
+some global idea of enablement.
 
-    DIV_ROUND_UP(d->max_vcpus, IOREQS_PER_PAGE)
+svm_get_interrupt_shadow() needs a similar adjustment to read
+vnmi_blocked rather than unconditionally depending on INTERCEPT_IRET.
 
-This way, small VMs only allocate one page, and only larger VMs allocate
-more.
+In construct_vmcb(), you need to check cpu_has_svm_vnmi.  I think this
+change is simple enough to be enabled unconditionally.  (We'll need to
+change this in due course, but that's going to take other infrastructure
+which we don't have yet.)
 
-You probably want a predicate taking d as a parameter, to avoid
-opencoding it everywhere.
+I think that's everything that needs altering.
 
->  
-> -    if ( iorp->page )
-> +    for ( i = 0; i < nr_pages; i++ )
->      {
-> -        /*
-> -         * If a guest frame has already been mapped (which may happen
-> -         * on demand if ioreq_server_get_info() is called), then
-> -         * allocating a page is not permitted.
-> -         */
-> -        if ( !gfn_eq(iorp->gfn, INVALID_GFN) )
-> -            return -EPERM;
-> +        struct ioreq_page *iorp = buf ? &s->bufioreq : &s->ioreqs.page[i];
->  
-> -        return 0;
-> -    }
-> +        if ( iorp->page )
-> +        {
-> +            /*
-> +             * If a guest frame has already been mapped (which may happen
-> +             * on demand if ioreq_server_get_info() is called), then
-> +             * allocating a page is not permitted.
-> +             */
-> +            if ( !gfn_eq(iorp->gfn, INVALID_GFN) )
-> +                return -EPERM;
-> +            continue;  /* Already allocated */
 
-Allocation should be done in one location only, and should allocate
-everything needed.
+A couple of other minor notes:
 
-I suspect that most of this complexity will disappear when switching to
-xvmalloc_array().
+In the vintr_t union, use an anonymous 3 bit field (literally "u64 :3;",
+which is valid syntax) instead of renumbering the rsvd$N fields.  That
+will shrink the diff.
 
-> +        }
->  
-> -    page = alloc_domheap_page(s->target, MEMF_no_refcount);
-> +        page = alloc_domheap_page(s->target, MEMF_no_refcount);
-> +        if ( !page )
-> +            goto fail;
->  
-> -    if ( !page )
-> -        return -ENOMEM;
-> +        if ( !get_page_and_type(page, s->target, PGT_writable_page) )
-> +        {
-> +            /*
-> +             * The domain can't possibly know about this page yet, so failure
-> +             * here is a clear indication of something fishy going on.
-> +             */
-> +            put_page_alloc_ref(page);
-> +            domain_crash(s->emulator);
-> +            return -ENODATA;
-> +        }
->  
-> -    if ( !get_page_and_type(page, s->target, PGT_writable_page) )
-> -    {
-> -        /*
-> -         * The domain can't possibly know about this page yet, so failure
-> -         * here is a clear indication of something fishy going on.
-> -         */
-> -        domain_crash(s->emulator);
-> -        return -ENODATA;
-> -    }
-> +        /* Assign early so cleanup can find it */
-> +        iorp->page = page;
->  
-> -    iorp->va = __map_domain_page_global(page);
-> -    if ( !iorp->va )
-> -        goto fail;
-> +        iorp->va = __map_domain_page_global(page);
-> +        if ( !iorp->va )
-> +            goto fail;
-> +
-> +        clear_page(iorp->va);
-> +    }
-
-As a note for the future, if you are doing a bulk indent/deindent, it's
-generally better to do that in a prep patch.  Such patches are trivial
-to review (git diff --ignore-all-space returns empty), and it makes the
-subsequent change in logic legible.
-
-> - fail:
-> -    put_page_alloc_ref(page);
-> -    put_page_and_type(page);
-> +fail:
-
-For reasons of differing tooling, labels have a minimum of one space
-before them.
-
-> diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
-> index e86f0869fa..8604311cb4 100644
-> --- a/xen/include/xen/ioreq.h
-> +++ b/xen/include/xen/ioreq.h
-> @@ -19,9 +19,16 @@
->  #ifndef __XEN_IOREQ_H__
->  #define __XEN_IOREQ_H__
->  
-> +#include <xen/lib.h>
-
-xen/macros.h please.  We're trying to remove lib.h
-
->  #include <xen/sched.h>
->  
->  #include <public/hvm/dm_op.h>
-> +#include <public/hvm/hvm_info_table.h>
-> +#include <public/hvm/ioreq.h>
-
-Why all 3?
-
-> +
-> +/* 4096 / 32 = 128 ioreq slots per page */
-> +#define IOREQS_PER_PAGE  (PAGE_SIZE / sizeof(struct ioreq))
-> +#define NR_IOREQ_PAGES   DIV_ROUND_UP(HVM_MAX_VCPUS, IOREQS_PER_PAGE)
-
-IOERQS_PER_PAGE is fine to stay, but as indicated, NR_IOREQ_PAGES needs
-adjusting.
+Xen's style has spaces inside the outermost brackets for control
+structures, and {'s on new lines.  For the functions you're modifying,
+just copy the surrounding style.
 
 ~Andrew
 
