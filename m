@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gLxgK0b8iWluFQAAu9opvQ
+	id 0C6hLdD+iWluFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:24:54 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:35:44 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1241E111DE1
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:24:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225613.1532159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2445D111F2A
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:35:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225625.1532168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpT7z-0000vp-SQ; Mon, 09 Feb 2026 15:24:43 +0000
+	id 1vpTIM-0002tB-S0; Mon, 09 Feb 2026 15:35:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225613.1532159; Mon, 09 Feb 2026 15:24:43 +0000
+Received: by outflank-mailman (output) from mailman id 1225625.1532168; Mon, 09 Feb 2026 15:35:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpT7z-0000uM-OX; Mon, 09 Feb 2026 15:24:43 +0000
-Received: by outflank-mailman (input) for mailman id 1225613;
- Mon, 09 Feb 2026 15:24:41 +0000
+	id 1vpTIM-0002qv-PG; Mon, 09 Feb 2026 15:35:26 +0000
+Received: by outflank-mailman (input) for mailman id 1225625;
+ Mon, 09 Feb 2026 15:35:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EeIc=AN=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vpT7x-0000uE-L6
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:24:41 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
+ id 1vpTIM-0002qp-8H
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:35:26 +0000
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c007::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72fe64a3-05cb-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 16:24:40 +0100 (CET)
-Received: from SA0PR13CA0001.namprd13.prod.outlook.com (2603:10b6:806:130::6)
- by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13)
+ id f02a1dc2-05cc-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 16:35:20 +0100 (CET)
+Received: from BN9PR03CA0387.namprd03.prod.outlook.com (2603:10b6:408:f7::32)
+ by PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
- 2026 15:24:29 +0000
-Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
- (2603:10b6:806:130:cafe::70) by SA0PR13CA0001.outlook.office365.com
- (2603:10b6:806:130::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.16 via Frontend Transport; Mon,
- 9 Feb 2026 15:24:22 +0000
+ 2026 15:35:13 +0000
+Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::7d) by BN9PR03CA0387.outlook.office365.com
+ (2603:10b6:408:f7::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.18 via Frontend Transport; Mon,
+ 9 Feb 2026 15:34:43 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 15:24:29 +0000
+ 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 15:35:12 +0000
 Received: from localhost (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
- 2026 09:24:26 -0600
+ 2026 09:35:11 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,22 +61,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72fe64a3-05cb-11f1-b162-2bf370ae4941
+X-Inumbo-ID: f02a1dc2-05cc-11f1-b162-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S/O6DFAOWGIhrYqF1tALyHQ+cZBAA+5ALyMv8ROqUU9I1YTBAGOAgtsxjoMWy1U0DGwIMuVC5IO9vdyjbbkcWp3iuuMT/d+mRLbURl5XtyRiIEEWzaw7hwjkumE2/axsRItsqXKO8I9AowRo/liODDZBCtDmzzR5bAo8EuGyzwvF+tpxGRpBNBYgaL9+rev3JRmuIwwfmeRtYz9IlD+TmPyUFtDY1Ad3Z1IIoEioaivotOc1m3kTy+g4ypF6O4VXaklZOSyV4RTmVw8+C02I6l4eEM69MY7bfasUt/gP3URK1ybELbw5AOFWfucxNwSEDDLUp9aLOZXZKvkAE9OHzw==
+ b=f/Q14n78t+YsiK4DcB85dSUvRYoqSQgyZ6CYQs5PdLcSe1Ia+grMp+2iaxegQXoiLuanE1H+nAf0QI6YtaJ6r8SD42mT1aM0sAPo18HgEUcUU1Rg5eZz9XCLswoQ37Ou4R3a1YT9D8aqWSobJAC77Ql7Xz+bruyWGiztrnt4reyQyM0eve6nzMQyQXvhov9UuYulAgnXsTCEFA2N0xC5siO4uPLpeUXIsq6/2bqLTQcd4E8uUdumPENr8ibKm9nzLyUUlxqyhM7FYpB9q+cxY5ikrAdpndxsjuKlDNUJuz2hG2F18lXK1Pbdc7Z1+57241u9EQAgFihbG3Vk8eQDKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+fMWWQUBccgWkfSBLwgf2XCzwOW6dseuCIZp8QsjhLE=;
- b=b1EMDGci29mB5P7CV+m0vFEe/B6riM7zHcmSwNkv35opetH7QUOoqzHO5LqkK1R5rh+vXiD/ennhelzpunLHRovorrWKWVPT1/yKi/B2np8nOuk9XciEIN5G7ZEtieDSeNocXQeGQq+V0J2fpvwvPxenUE9aKL0KTLfXbUUwhXQIvzyxwqkVfqILJ1qhQVAspS8dU/yhFn5XqmAQ/5ZGTonnwJeeSlqGtMIbJPakx1DAGZELfYU3BuChqUGjLgDDmxmyOXi6krJ392sH4C0d0YrSY2zD0qjQRgR6z8stl16RWRq/QyflwpTL8sBY3YT9XQESo6Ldic7vlFmPaAxeeg==
+ bh=98474JdQkV6HVWnwOuDmjpttYAaOW/uXN/Vxd1s/O5g=;
+ b=vFg91qXN+KCbXjOp/DEeLRPf+KjhzoKPB6PXefGMU61QnfwqggUZpYAElVJWorRSbzZraDhp1yxqicBpQUuo5ZENGtbBC86hUh+EB8dpdJpt1Kq2xLBaOfRV+XF0PFAjyk7O+HSZj46AVbRm7BMZBo+E7kEFBVKIporIaB0I7NhgzlVa0giERJVrWSGAKotGElF0BvN/fV8HFY8DJaaNUA+KIkvjy8lgw2pAqgUTQ9ACU1gqwopyGFD2mPA7S1dt7wreohqQOVyAmYhfKzkfCqPdE5iHdUlHNCE8z6J6E4gmfuX+5AyizaeUcBndYUvunqrx6vr9xkR6Okoxi/ssAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fMWWQUBccgWkfSBLwgf2XCzwOW6dseuCIZp8QsjhLE=;
- b=XoyiyOAecDDzJjbaBDGyVKnBwA71+uDx9SGd3HbHCFFBUeVFyOlnzo+n/m1JElEIl3sIhh9BB76sXoTTA2Boq//X3CdqgEXRE38Vgf3yZlZqxgmwJpoxn84uAuWimS2nNByxxs53Klicclyp1zdePy9ePlILnvYcPuJFjQmlBWw=
+ bh=98474JdQkV6HVWnwOuDmjpttYAaOW/uXN/Vxd1s/O5g=;
+ b=PbH/W663rUMZArcZwbt1zp2FFfUcsKikc/pYnLW7miVNqJdSnlU0hsamOoaUhSbpXbP4844Pr5UfLYeuKcjnhoR7d7n3RiUUcbFAmnYMN4DFMlNEUnkjCWWn8Z/H3i5kRITe7e71uiSvs+46ENL9BIFP1XGu5kCJaR2MKOZtSvY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,282 +86,197 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 9 Feb 2026 16:24:24 +0100
-Message-ID: <DGAJ9XN03HPS.TC0OLO5PJN6H@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86: Add Kconfig option for log-dirty tracking
+Date: Mon, 9 Feb 2026 16:35:04 +0100
+Message-ID: <DGAJI3UYR98J.FU94VABOFZ5N@amd.com>
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>
+Subject: Re: [PATCH] x86/shadow: Delete the none.c dummy file
 X-Mailer: aerc 0.20.1
-References: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
- <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
-In-Reply-To: <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
+References: <20260209104104.7840-1-alejandro.garciavallejo@amd.com>
+ <aYnyY2MArv4vTXsY@Mac.lan>
+In-Reply-To: <aYnyY2MArv4vTXsY@Mac.lan>
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|SA1PR12MB6728:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98931d58-d674-4b54-c127-08de67ef5181
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|PH7PR12MB7987:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbadc5fe-5907-46c3-ff53-08de67f0d0c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QVAyZTd6UmpZamQvVGpBVUFmZTIvbTNCMFhaaEtHdkZHaTA1bnNvK2ViL3Ey?=
- =?utf-8?B?UzdXUFVhNFJKZUlxdnZXa2dvS05Qd3RXZnkzL3dDQndBbHF3WkM4U2FFSjhl?=
- =?utf-8?B?S2pyV21TUEJ2N0VDNkJrVDUrR0hSYWM0UzNWVmF5YWw5NHBlaEgrTXVEUXly?=
- =?utf-8?B?cmRHdmhsSjdVcDlLSmdTdE5BSnJqYkxNTnkwc3N6QmdsUjZDcm05ejVISGNV?=
- =?utf-8?B?YTI0UzkxVmRWemtnVHIzWXNxcS9RUUZOZk5FL3dZU2hxU0puVEJqSVlhQUZq?=
- =?utf-8?B?NTBOSlVzRGNkZC8wWis2R0dIUmZocmh4V3VnUjM5amxJVkw0MjFSYUdnUFFR?=
- =?utf-8?B?NkVOTWZOVGF5VHJ5YUJvQkZ4Z3JvWko3SHRlOVFEd0U0dUgrTi9vRWZwTENN?=
- =?utf-8?B?UGM1emVtZjhyZERSbVk4TlMrWmpkYUdGSDBqUHB6SEhuQk0wUStJcW1lenA0?=
- =?utf-8?B?dXcrdlNaOTAyRHFaN0hVNzZtZ0lzWWxEZkJ0bXMrZ1ZCd1ZQeFFIdlQwNVA3?=
- =?utf-8?B?cW0vT01LVlduQmRxYzlFVUFvVHg5WFJVb0lCN3lwTjZlbi9qV1dOTittQUZO?=
- =?utf-8?B?T3hJNWhIckRLOHlCNDJoejFQZGh5cjB3TzJUemc3NE85UkhzMXlRZkVmeEs0?=
- =?utf-8?B?VkRmUGJiSHVxbkt0ci9uUzFoVUx0ZEpCeHFESVNWYXdFeDgrQlNJbGlXdWhQ?=
- =?utf-8?B?U3M1RWhPR3JnczZHK2ZYbE9MKzQvWVBtR21lMTRaOGNEbDN1cHNXUlNZUHRl?=
- =?utf-8?B?V1F5UHR6ZTBBdjh3aVViMDRHSloyVzZqZUxpRTUxLzVSVXh2U1FqUzJwQTdG?=
- =?utf-8?B?M05XRkc4dUhZUmNrL3JNcjRISkRJWUw0NEUrSVRjWU9aSEpoYmJvczhMTFY4?=
- =?utf-8?B?TzlweHphNDFNOGpLVWR1M25tMjBYWGRFcmxuM3RINmx0UWNQZWxod1JEeE51?=
- =?utf-8?B?TnU5ZG5NNXduN1E2MGEwcGpESk5ZMCtDUUtqVGZsQ01PdGttemJwWGhMeCtY?=
- =?utf-8?B?Sll2ejdWRmdybnNPMWVOKzRIckVORklxdFB0dXJkbXdUQVoxR1ArVHdBTlpp?=
- =?utf-8?B?UWpwS2lTNGc0K0FkNVFtNEJqaWdabzE1NTFrU1lIM3FYUXJRKzhCNFRqa2xv?=
- =?utf-8?B?T2dITk9ubmxIaDlXRVR0S1ZyOGZ1MjFzQXdZODNSS2J5cFdOblYweUNjNUxQ?=
- =?utf-8?B?V2RmNEx4NllteFJzYy9lL1d4QkdReEVVczBKbUJWdEpjeGN3QXJmS2NKcHgy?=
- =?utf-8?B?TzE2YjRyMDhERDIzcHR6dUdTRzdXUnY4T2F2MUtHc2FNQXdqV1RwT3FpM1d3?=
- =?utf-8?B?aWh2QkpyUlFWTHhKeG1rSko2bWJ6SnhEOFpKS1Bha0xyQTA3eUZBbERkd0hY?=
- =?utf-8?B?YVBVcGJwQzZrd1hkSkxBVldyOUZvOVNhcGJ4eTBNbkI2ajZMVWxKYWIra29Q?=
- =?utf-8?B?Z1JQRTlRQjRaeDZXbnMzVE1uV2owVUJ0WWhzYzBZemFjcW9XR3VEL1F1OWd0?=
- =?utf-8?B?ZzEvU2NiZTVZK2hGS0Q3d2tYZTFKOFdqQ2xHeWY3WTBHUGdpQWtQeU5YNEpn?=
- =?utf-8?B?enVCUE51dGxDejFoZEtFQWwrTHpSRVVOVDJ0VlpNQkc0YkpnM1JZcDN1TE5G?=
- =?utf-8?B?OEx0RzQvVnBBWXQwTG9DOElpMVU3UitvWFJHeFo3N01rZHJ3ZjViYkxaMUxp?=
- =?utf-8?B?YVRyWHd5QmZvUDBIQk5jVGc1NnZqNXVYZnVOMnZEbmpkSGhnSzlLTGlZNWRz?=
- =?utf-8?B?RVJweUE3OVI5UTFBeC95eHJKMFpGOFlDb1hRR2wxdlB1d3plZURndHNyYjhC?=
- =?utf-8?B?L3c0MzU0aWdWWHVXbEQ3NVdrbnkvY1lBT2RPR3dxKzVYVXRZdjhNS3paRHJT?=
- =?utf-8?B?YlVwTUVYVFNlK25pVEowYmVkelFiWExCYnlpN1FnVXI5TmtJWDAwNXRqczgz?=
- =?utf-8?B?QWdvMTJ2a2c2azJtRHFmSlIyUVF0R2cvTVVuR05BZzdPbmtYZjFIWkd1cHZx?=
- =?utf-8?B?MGlyK2FTaWdML0trZG85dVVBbVJGVzlBN1RvWndMZU9RY2NsMHNtZ0dWcG5o?=
- =?utf-8?B?b2U1aDVReVB5TGtiZDB1My8xZG5QSzI0TUVWa1FaWC83ZVc4b2gxNWFoK3F0?=
- =?utf-8?B?ajNYSjZOdCt2c1ltVEc5amZEUFp1aWg5QW8vRXJ6WDdIOHNxQlFiSUhsUllW?=
- =?utf-8?B?Rk9tdHVFd1hGRmdPdWFUejRYWlZCb3BYb3ViMjJCTW14cllCK3hhVjE3WkJF?=
- =?utf-8?B?QTVhbHh1aEJyNFI0RHhwcitvR0FnPT0=?=
+	=?utf-8?B?S255aWh2S1F5cDdKa1E3Y25USXJpVHlGN1AxT25xMHdnQ2J6ckQ1R1R0ckda?=
+ =?utf-8?B?SVlPQmV5RVl0YkV2cXM2SUs2aTZVNFRmRGxEMkgwOEVxcnEvbURzTDBudlJQ?=
+ =?utf-8?B?Nk9BTk5ram5RZDZOUmhMbTBpRG5yNkFJVDJCazd6bmhkNWV3cjRCUU1MQ3F4?=
+ =?utf-8?B?VEYwenlvTzZKRnVHUjZabWMrNFNxc2RLaUpjQWwrVEhWdjkrYndzMzhuL0ln?=
+ =?utf-8?B?M241MHVmS1R6TW5hWHI3U21QMVRQQ0wrMFd1cExwMXpHNmdDcVJWTDB3d1Zv?=
+ =?utf-8?B?T21zOThoVEFmRDBEWWpSeGh6N0hKZWdvaWNaQmsrWmhROVlDdG1EaEswV3dh?=
+ =?utf-8?B?b2xHUDNnQ29KWEV1bVh6TUsxZHlFTzYwOEhvczFhQ3F4UmJpRUZrY2lEK2hO?=
+ =?utf-8?B?ZmJrUnhzRFNuakZDc1hBOEp5ajEyaW85aERlaGkrRjV3NmJweS9CUzBab0Yv?=
+ =?utf-8?B?KzVYMWovaVczMmtjOXZ2dzFKZXc5bmpsdGhITDMyMzVCK25vWjlWMzBKaURT?=
+ =?utf-8?B?WGVYUzdYN2ZsZkVFeWNGVG56WCtvaDVZNU9PTFY0czFJOTIwazkxRi9pbnBz?=
+ =?utf-8?B?Y09yR2ZjcjA1YkdjWW5kVmNxcjgyWGZLd1JnNlpRQkcyS2dzQWgzSzFaanJh?=
+ =?utf-8?B?dE5HeExjR0xyNmZPZFdNTSs4b2Y4K3Q5akRlby9PaEo0bjU2UTZ2U3M0dGRS?=
+ =?utf-8?B?aWdRM2xLclBqOG44dWxadGE3UStQZjhMejl2enF4ZVNUSFVHMXdBeDhRUFoz?=
+ =?utf-8?B?UUxxRmh5dXljcFFTTWxRQUtrcUFocFJvQmhsbHYvSWFqRjlIbjkrdmZQM1Rs?=
+ =?utf-8?B?YUlZMjU5SVdBMlQxQzBFNGpkeUw3aFBjWVg5S2UwWkRxRlNPM2diR1dTRk9F?=
+ =?utf-8?B?YXJ6bmJiZm1lelM2ZG05blpTaDJLWjY1QTRxZ1BKR3BJYTdGUlk0UmI4Zy82?=
+ =?utf-8?B?UmJqYTA2M2hKcVFYN2tLd1FGbkJZRitCd2dLZUpXaGZJTWFZOVRMTDRkb0I5?=
+ =?utf-8?B?dUVnbnN3T0dPUjFHL2Ira2xyalYvVE1sWll4amc2amtBeEpyRTFjVlkwcEJl?=
+ =?utf-8?B?QkZGR0c2dFppVlRXcnVld2oyR2hpcWZac1pQb1BGbkhqUytHTHlDQkROVGVW?=
+ =?utf-8?B?QXduYmxiQUhMRWxTZllMZHByR0xHa2owdmsvQkk2VEk4enpydnlnNHB0d2Fp?=
+ =?utf-8?B?T0MrL3E3dFZMZjIrbjFvc2ljM1QzU1lUbzBWaWV4NEQzQ2pMc2V4QzhZTGs4?=
+ =?utf-8?B?L0hRMkdPZTVMZWQvMmZMdlRhTFBhYS9IbDU5LzgxMEdZRVNOdTc2emtNYUFB?=
+ =?utf-8?B?cHlEOWVMSDJRaHVhVFUvT0JDNnBWeUJhRjdtTGZSdEVFYVk0N0xLM2h0YVhP?=
+ =?utf-8?B?RVFKOHhuZVl1NDZ5SjdXZHlWdDV4NTZiUHRSQjgvV3NMZXVIeHJqckorZ3BV?=
+ =?utf-8?B?VkRxQVNzNVpRdC9sSm5INU1tblBiQi9melRZeHF2UmYwbHhic3FiQk1BMG1N?=
+ =?utf-8?B?S0RHWFFKWVRGalBtWFJieS9GeE5vaUVoWWFtSWU2ZXlkZm5oa0RDNTdMUllt?=
+ =?utf-8?B?TlVjS1MycXBDaTkyb0R2NzExLzFHaDdIMnY5ZmRVUUVlbUJ0WGp2NFR3S082?=
+ =?utf-8?B?enJtQ0dtVnRKcnFMVlR2RjZ4QktKQU8zbklyOHNoZzQ0ZFFLRG5XM3dWRWVq?=
+ =?utf-8?B?UURTK09ZNjJmZkNzaDNBaE5laDM5Wmk0SEhaeTBYZGg5c04wSVUvTkpQTTlF?=
+ =?utf-8?B?OUxxbjJmeFdsUWV4VXp2OG02bEdWZTFlWlZnSTV6dEpwNWQydkV0bVZDazBm?=
+ =?utf-8?B?aGRKV3FIQzBzVDZhRllvcDBIV1N2TFVMbFUvUEZyY1VWMGVnS2VTVnlIQ003?=
+ =?utf-8?B?a3A2RGVRUVJBQ2p5Z2RkaWx1Wlc0NGxwNkVXY0VVV2RFZmZlbWp6dFM0OWRx?=
+ =?utf-8?B?UThudGc4cEdnUlJhR2U3SVgzNzBNd3VDSUQzbHRHRWhKQnRKQ2xzd09QakYx?=
+ =?utf-8?B?bWx2QXJveFQzSVUvMXFXeUVLZkFJVnpNcU02V1V2NXcwaTFRQis0ci9kSENa?=
+ =?utf-8?B?eWhkY05wUVFnWG5Dc2txdTJrNmJxKzUzeWZnaUJMM21aVlgyTUtqdmJ6cU5m?=
+ =?utf-8?B?S29ramxxK3ZSZ05oNWNxbmRDRXZWQ3FvbWdkeTBOQzNGVE40Rm0wakZobmZF?=
+ =?utf-8?B?K0JOTGFFLzV2NDMweWVnc2gwZFZZTUNhWlRFUmdsSTYwRVJvaHpNUEIwdm5P?=
+ =?utf-8?Q?gnQuyCtDrdznvRwWrRExy2ULGFRaO1xdEZrGEsE89M=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	MhZX64HhAePVtQiqy67OywHncaHYpTnE74WKLy8gSJvJIqfqwpQFeOEe9VDnSYzYOoLIkPK49HCQ2pjrax10RMTj9sTD1O3Dh3NAxoanhuIn5htT34fNAZQvViJquuWyIGNR5uAuSKPqB6Hafp/75ZZ5bDgYIVzxsT0FJqnteveqgf/zQScJNRCgTK+wB4f3o954/DJx1Nq9w/6uA7UKfmqRkGBhRj677wEC07N4hmP1D5JKlQiGKjSzaHQxDkn7eWljkZ6sokdDtHyRYhcjL2ShjwPAhd0kYz3M+UuJIjTLChulKQ6ZlqlLOgOSnGUwDOAuFPlPx4vhI+lVKKemZpK4DkbIQrKl5HMtdgQhLy16Lu622oag1NDRDFoGNzUzeD1z424xmjgMyaWXwOfVobWgl45wS0dTrhqYBwtIfZ+9ndNnHV26w694wEy1AUfq
+	2c3msWI7kbslzs8l2VTZfvv++dKmxL2WsykYg0YleI3P5IyZnJpf5IaYToB8i/R8yHB7m8knaW6e+4CySPfdcqtZ2ppsAkfbtPms8ZBxSZKn+zm7+Go7vPacrc0B9Wt2eJe6RaM9YQ5BIP0t5STUZ+V3pu01y58HrDLG6eVggOrP91/CO32K3BxvcCALP6ZLm3PlNOvNSQmwBNiQTTkq7+Gd2XUVVC+Faw0cTLy49kW2L9KqnwKHAd7aNCIaoybl5t48GfG+pQ/At8In8eCXroSLxxXFAsrNDHkfqMEzs/gl+zmXR4UwkYeKqrw6OVwCuHCHlEXPvOsArtyWnefs/2DtLTamBGUE7r0J902m25xUf0SbF+WHSHDvSnZfn34fHg2Ocum5pWSzb5S3offxzxPBDlAhPznK/aFOEMRtpJ1nr9NgyvTPd4Jc3wkwvZfo
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 15:24:29.4892
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 15:35:12.5196
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98931d58-d674-4b54-c127-08de67ef5181
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbadc5fe-5907-46c3-ff53-08de67f0d0c5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B2.namprd05.prod.outlook.com
+	BN2PEPF000044A4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:tim@xen.org,s:lists@lfdr.de];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:mid,amd.com:dkim,amd.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
 	HAS_XOIP(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1241E111DE1
+X-Rspamd-Queue-Id: 2445D111F2A
 X-Rspamd-Action: no action
 
-On Mon Feb 9, 2026 at 3:48 PM CET, Jan Beulich wrote:
-> On 09.02.2026 11:31, Alejandro Vallejo wrote:
->> --- a/xen/arch/x86/Kconfig
->> +++ b/xen/arch/x86/Kconfig
->> @@ -146,6 +146,7 @@ config XEN_IBT
->>  config SHADOW_PAGING
->>  	bool "Shadow Paging"
->>  	default !PV_SHIM_EXCLUSIVE
->> +	select LOG_DIRTY
->>  	depends on PV || HVM
->>  	help
->
-> Why would this be? IOW why would shadow imply log-dirty, but HAP wouldn't=
-?
-
-The logic is rather opaque. I admit I'm a bit fuzzy on the uses of logdirty=
-.
-
-I know what it's for and I could navigate the code if a problem arose, but =
-I'm
-less clear about which other elements of the hypervisor rely on it (pod? ns=
-vm?
-vvmx? shadow? hap?).
-
-If it's strictly toolstack/DM-driven maybe it'd be more apt to have a separ=
-ate
-LIVE_MIGRATION and SAVE_RESTORE configs where LM selects SAVE_RESTORE, whic=
-h
-selects LOG_DIRTY. That's also improve some defaults auto-downgraded from t=
-he
-max policy just in case a VM is migrated.
-
->
->> @@ -166,6 +167,14 @@ config SHADOW_PAGING
->>  config PAGING
->>  	def_bool HVM || SHADOW_PAGING
+On Mon Feb 9, 2026 at 3:42 PM CET, Roger Pau Monn=C3=A9 wrote:
+> On Mon, Feb 09, 2026 at 11:41:02AM +0100, Alejandro Vallejo wrote:
+>> It only has 2 callers, both of which can be conditionally removed.
+>>=20
+>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+>> ---
+>> I'd be ok conditionalising the else branch on...
+>>=20
+>>     IS_ENABLED(CONFIG_SHADOW_PAGING )|| IS_ENABLED(CONFIG_LOG_DIRTY)
+>>=20
+>> logdirty patch: https://lore.kernel.org/xen-devel/20260209103118.5885-1-=
+alejandro.garciavallejo@amd.com
+>>=20
+>> ... to avoid the danger of stale pointers, with required changes elsewhe=
+re so
+>> none.c is only compiled out in that case.
+>>=20
+>> I'm not sure how much it matters seeing how they are all unreachable.
+>> ---
+>>  xen/arch/x86/mm/Makefile        |  2 +-
+>>  xen/arch/x86/mm/paging.c        |  4 +-
+>>  xen/arch/x86/mm/shadow/Makefile |  4 --
+>>  xen/arch/x86/mm/shadow/none.c   | 77 ---------------------------------
+>>  4 files changed, 3 insertions(+), 84 deletions(-)
+>>  delete mode 100644 xen/arch/x86/mm/shadow/none.c
+>>=20
+>> diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+>> index 960f6e8409..066c4caff3 100644
+>> --- a/xen/arch/x86/mm/Makefile
+>> +++ b/xen/arch/x86/mm/Makefile
+>> @@ -1,4 +1,4 @@
+>> -obj-y +=3D shadow/
+>> +obj-$(CONFIG_SHADOW_PAGING) +=3D shadow/
+>>  obj-$(CONFIG_HVM) +=3D hap/
 >> =20
->> +config LOG_DIRTY
+>>  obj-$(CONFIG_ALTP2M) +=3D altp2m.o
+>> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
+>> index 2396f81ad5..5f70254cec 100644
+>> --- a/xen/arch/x86/mm/paging.c
+>> +++ b/xen/arch/x86/mm/paging.c
+>> @@ -634,7 +634,7 @@ int paging_domain_init(struct domain *d)
+>>       */
+>>      if ( hap_enabled(d) )
+>>          hap_domain_init(d);
+>> -    else
+>> +    else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+>>          rc =3D shadow_domain_init(d);
 >
-> PAGING_LOG_DIRTY?
+> If you want to go this route you will need to set rc =3D -EOPNOTSUPP;
+> prior to the `if ... else if` on the HVM case.
 
-sure.
+Maybe this instead
 
+    else
+        rc =3D IS_ENABLED(PV) ? shadow_domain_init(d) : -EOPNOTSUPP;
+
+And gate none.c on PV && !SHADOW_PAGING, which seems to be the only use.
+
+It's a lot easier to see the safety on the HVM-only case, particularly with=
+...
+
+> is compiled out, and the toolstack has not specified the HAP flag at
+> domain creation you will end up with a domain that doesn't have the
+> paging operations initialized as paging_domain_init() would return 0
+> with neither HAP nor shadow having been setup.  That's likely to
+> trigger NULL pointer dereferences inside of Xen.
 >
->> --- a/xen/arch/x86/domctl.c
->> +++ b/xen/arch/x86/domctl.c
->> @@ -220,15 +220,15 @@ long arch_do_domctl(
->>      {
->> =20
->>      case XEN_DOMCTL_shadow_op:
->> -#ifdef CONFIG_PAGING
->> +        ret =3D -EOPNOTSUPP;
->> +        if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
->> +            break;
->> +
->>          ret =3D paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
->>          if ( ret =3D=3D -ERESTART )
->>              return hypercall_create_continuation(
->>                         __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
->>          copyback =3D true;
->> -#else
->> -        ret =3D -EOPNOTSUPP;
->> -#endif
->>          break;
->
-> Can a HVM-only hypervisor create any guests with this? I simply fail to
-> see how XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION would then make it through to
-> hap_domctl().
+> Also, seeing the code in arch_sanitise_domain_config() we possibly
+> want to return an error at that point if toolstack attempts to create
+> an HVM guest without HAP enabled, and shadow is build time disabled.
+> I've sent a patch to that end.
 
-xl doesn't seem to call it at all. hap_set_allocation() is implicitly calle=
-d
-through paging_enable() -> hap_enable() -> hap_set_allocation()
+... this patch you meantion. Thanks.
 
->
->> --- a/xen/arch/x86/include/asm/domain.h
->> +++ b/xen/arch/x86/include/asm/domain.h
->> @@ -226,7 +226,9 @@ struct paging_domain {
->>      unsigned int            p2m_pages;    /* number of pages allocated =
-to p2m */
->> =20
->>      /* log dirty support */
->> +#ifdef CONFIG_LOG_DIRTY
->>      struct log_dirty_domain log_dirty;
->> +#endif /* CONFIG_LOG_DIRTY */
->
-> Such an #ifdef can likely replace the comment? Or else the comment would
-> better also live inside the #ifdef?
+I'm guessing it's still a hot potato in for non-shadow PV, which strongly h=
+ints
+at our being better off leaving it in that case. On HVM-only configurations=
+ it
+seems rather silly.
 
-true.
-
->
->> --- a/xen/arch/x86/include/asm/paging.h
->> +++ b/xen/arch/x86/include/asm/paging.h
->> @@ -55,12 +55,9 @@
->>  #define PG_translate   0
->>  #define PG_external    0
->>  #endif
->> -#if defined(CONFIG_PAGING) && !defined(CONFIG_PV_SHIM_EXCLUSIVE)
->>  /* Enable log dirty mode */
->> -#define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_s=
-hift)
->> -#else
->> -#define PG_log_dirty   0
->> -#endif
->> +#define PG_log_dirty   IS_ENABLED(CONFIG_LOG_DIRTY) * \
->> +                       (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_s=
-hift)
->
-> Need wrapping in parentheses then.
-
-true.
-
->
->> --- a/xen/arch/x86/mm/hap/hap.c
->> +++ b/xen/arch/x86/mm/hap/hap.c
->> @@ -50,7 +50,7 @@ struct hap_dirty_vram {
->>   * calling p2m_log_dirty_range(), which interrogates each vram
->>   * page's p2m type looking for pages that have been made writable.
->>   */
->> -
->> +#ifdef CONFIG_LOG_DIRTY
->
-> This wants to move further up.
-
-sure
-
->
->> --- a/xen/include/hypercall-defs.c
->> +++ b/xen/include/hypercall-defs.c
->> @@ -194,7 +194,7 @@ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op=
-_buf_t *bufs)
->>  #ifdef CONFIG_SYSCTL
->>  sysctl(xen_sysctl_t *u_sysctl)
->>  #endif
->> -#if defined(CONFIG_X86) && defined(CONFIG_PAGING) && !defined(CONFIG_PV=
-_SHIM_EXCLUSIVE)
->> +#if defined(CONFIG_LOG_DIRTY)
->>  paging_domctl_cont(xen_domctl_t *u_domctl)
->>  #endif
->>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
->> @@ -292,7 +292,7 @@ dm_op                              compat   do      =
- compat   do       do
->>  hypfs_op                           do       do       do       do       =
-do
->>  #endif
->>  mca                                do       do       -        -        =
--
->> -#if defined(CONFIG_X86) && defined(CONFIG_PAGING) && !defined(CONFIG_PV=
-_SHIM_EXCLUSIVE)
->> +#if defined(CONFIG_LOG_DIRTY)
->>  paging_domctl_cont                 do       do       do       do       =
--
->>  #endif
->
-> The CONFIG_X86 part of the checking wants to remain: Another port may als=
-o gain
-> a setting of this name, without necessarily having this auxiliary hyperca=
-ll.
-
-Hmmm. Makes sense.
-
->
-> Jan
-
+Cheers,
+Alejandro
 
