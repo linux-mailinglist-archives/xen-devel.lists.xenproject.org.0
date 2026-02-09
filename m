@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WEISMBcBimluFQAAu9opvQ
+	id oO2lCKYDimluFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:45:27 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:56:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17295112146
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:45:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225632.1532179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 859C11123A6
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 16:56:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225641.1532189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpTRB-0004nf-Kw; Mon, 09 Feb 2026 15:44:33 +0000
+	id 1vpTcK-0006lZ-OI; Mon, 09 Feb 2026 15:56:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225632.1532179; Mon, 09 Feb 2026 15:44:33 +0000
+Received: by outflank-mailman (output) from mailman id 1225641.1532189; Mon, 09 Feb 2026 15:56:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpTRB-0004lV-HT; Mon, 09 Feb 2026 15:44:33 +0000
-Received: by outflank-mailman (input) for mailman id 1225632;
- Mon, 09 Feb 2026 15:44:32 +0000
+	id 1vpTcK-0006iS-LA; Mon, 09 Feb 2026 15:56:04 +0000
+Received: by outflank-mailman (input) for mailman id 1225641;
+ Mon, 09 Feb 2026 15:56:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gJZC=AN=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vpTRA-0004lP-LY
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:44:32 +0000
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azlp170120002.outbound.protection.outlook.com
- [2a01:111:f403:c007::2])
+ id 1vpTcJ-0006iM-Gl
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 15:56:03 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35a1d7c6-05ce-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Feb 2026 16:44:25 +0100 (CET)
+ id d26b1d8e-05cf-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Feb 2026 16:55:58 +0100 (CET)
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BY5PR03MB5235.namprd03.prod.outlook.com (2603:10b6:a03:21b::8)
+ by CH8PR03MB8299.namprd03.prod.outlook.com (2603:10b6:610:2b9::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.17; Mon, 9 Feb
- 2026 15:44:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Mon, 9 Feb
+ 2026 15:55:55 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 15:44:21 +0000
+ 15:55:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,138 +52,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35a1d7c6-05ce-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: d26b1d8e-05cf-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SXgA+PlsfihrCzbM5UjO+GY6DMu5qrITLopKbILD5PDg62EmZin58MzAPV5wm5eIw8CRWOTwDDDHLXEU29GObZiKkjsQfIW+FXNwyk3v0mrUJpZjBk39NW4zwh+xM97ZdvjLWulXETJXwQl6s74R1nQBYR59Jc/Z2CFYNYeLv1clKrANyGNblEd+1Tz+Z9ESQfUhLTE03+QJFa0ZQTdEOXDV322kxE98dnUgDvv7fegZXkKEv1zQN6VVYoul4C/hZ3cDzKKnBB3ZXSznLKmQMNugJO6QGYre7S4WDzLFd4S2YSIYMEgoGP9I9IrCHvwKHBBPqbbQ6CsWDK7Lw40c6w==
+ b=UBznJWuB3bZr3MC8jsZtGvwAmvXIsFcyYYYEIIqlLxgiHoXdN79Tf0BV8nJPh4TvPGLk0KD8MHB9SZcePfTpu9sFV3qCfoaFE36LysLCygwPICzrhnEFenEN5e2FC/vrGL/TDp2BL1Q6VQDEYS/cWZls9vJlvYDi94q+VBH5Kd8L77bQ+bzaeVuKLh5K2KwPaiBZyT5XKntNCOfgZVbUglVrhXcYvrQvMRg3XnCy6crAuL5o2mKIrHnynVtSRkQ4/wO2BX6uv34G93y+h318kUQ06hG7h4A+9WFzmuEYfRKtSNM4cFrItPWLV5ibCNZQBNnANJBTEM/CR0zDJVegOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O59oFjuvaC9HBFP5ZpnnvoDpQgALaY4CbzGBT9sQFNU=;
- b=EPZXuOFsVFc1ofCiC5+4YbWvySVkj8bHu5emgdklr/io94Pq2dEvMJTknKEnh59q9H3kJnCPmnHsPrNAwL+LbyaVGV4IrDP64fzgW/svwqopYYP6g8WHAHC/g/JdswV+Vea2GtXSrtbtXrQTy9c7git7VQxdPkMlwQW/LzznY0preNfLkWUmvETeMpOGxqME1BxsqS298rN+jlpc2CZhEG4cpgaQtaZH19klaWOIgVJDncaC9kkoWIm0fG2fa8M0rUrhb0qJzQJanYBjF5EWICWwrawpDvJ84iAo6FKFV9xM2hLZpVis80bfo+G/fob79XKGsZjjdncw4GuKTwysyQ==
+ bh=DUmUtqrFJl+6Lblsrb1Y7o/JDSK7vz8OWMK0YmbnBGo=;
+ b=DXR1Rk3loJPjsqvBHUbBdeX/w+iKtnzLzAkmZpdTSR56hYS1Nbpr1YZEegr2dW5THAX5iu+IQYwdi82tY8LMI5qP6cocUFvYUe7QMOGbwFHdNFDp4VdYg6H781jj9PjbegCQbiezBtnVhGZDZdLzQRNTIEGduAasPBUDovX/KFxbq/nuuPDrGxeE6xmwY3b2GrYZmMGsk2AXtcAhYuDsTm5LIzNx45S/LejgjJXa1jRpwxGSh913wHG9W33qg1oqly1cR4wbYIRN2cl9/Qpx2nf+UEKc1U5EwLIISF7zRUULgZxIz0FY+ZfS4ZdWUJw8lu7B3BfmbC44ZQHALOf2Bw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O59oFjuvaC9HBFP5ZpnnvoDpQgALaY4CbzGBT9sQFNU=;
- b=HYqmPYE7Xnt/Y71fGeM5v+umAiYao3ihvqFCtMSqWSJK98x9OHX9XwimDvsjGWTKezfYXECt/HXcwCcUkLHPy9C+w3DmLw11Le1JnEt2CzPhFLO9KWtOWkjEE20pxz8Ji5k/4C/d2Cybc3oDGlLLO14y4E1VW2VJSOtSS5EBlNI=
+ bh=DUmUtqrFJl+6Lblsrb1Y7o/JDSK7vz8OWMK0YmbnBGo=;
+ b=pVmPFg5JynuJkHyZNp8FWo7DNjEI8OhLJglfo5uSU0rhUZI4RnYpeMnNymyhepyOseeHMBt6mI5AXg9tLm/ujmKWAAtk70kXeU+1Y0FfjaAS7vCAxgYdlhQeJCUcp2OCzSGq/30K1wpYIPRfDYY3RBgT0HSPFaTG1QNanvRoJSM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 9 Feb 2026 16:44:18 +0100
+Date: Mon, 9 Feb 2026 16:55:52 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] x86: Add Kconfig option for log-dirty tracking
-Message-ID: <aYoA0jgj99Ani0mF@Mac.lan>
-References: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>
+Subject: Re: [PATCH] x86/shadow: Delete the none.c dummy file
+Message-ID: <aYoDiDiJ4rRLxhmw@Mac.lan>
+References: <20260209104104.7840-1-alejandro.garciavallejo@amd.com>
+ <aYnyY2MArv4vTXsY@Mac.lan>
+ <DGAJI3UYR98J.FU94VABOFZ5N@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
-X-ClientProxiedBy: MA2P292CA0019.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::17)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DGAJI3UYR98J.FU94VABOFZ5N@amd.com>
+X-ClientProxiedBy: MA2P292CA0016.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::14)
  To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY5PR03MB5235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d92cea6-3190-407f-e1f5-08de67f217bd
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH8PR03MB8299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c644381-f4e0-41d2-7205-08de67f3b548
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MVZmdzlOVkdnNzBuZWcrcG9VVmZ0dWhnMTVaNWZuWE53TFBtWDV4aEZOMk5Z?=
- =?utf-8?B?dDd0ODVrdWdVZjV4VWdkZFAxcWhtVmtDdmlsM1pzcVVQTU1ldjQxWFJmUEFJ?=
- =?utf-8?B?YzhIS2pOdHppeDRyQkwxMzdWTHNqaGV2aW8xR2FMQ3U2SWxwTXdiZTRqeEVy?=
- =?utf-8?B?RTZFNDRVMnFTc0daQkx2dzZDejA0Vk8wcUFLaWg4SFBkcHZLbDY2WWN4dmQ5?=
- =?utf-8?B?aURVWFppWUZCdnA1MEtiZTJYQzZXUDdlTllIVmlTOUQ3TGF4azRjWkM0VXEy?=
- =?utf-8?B?ak50dFB4RGlsS0NSNmpsYThNMWovME0wdzBCMi9vWERBTGVWQS9nUU1mMHBG?=
- =?utf-8?B?ZnI1cTJseHJKcDhBQmkyLzlIUzcxU1JOVG00dmpGTVE3R2JNM0VlbU51Rkxl?=
- =?utf-8?B?RnJhQzBDb1dqR20zb1oySDN1QnVHZ2VpUnBkTnA0ajUyQk1NZXhWUFpLQmtU?=
- =?utf-8?B?WWZBWXVDbjNoZlFiT3hRbTcvWkVEdStuUFNJdm9QWGVGaDRIOG96SXNoemtK?=
- =?utf-8?B?UHEwZlNrZTEyZ1RHUEJNdmFicEtxNmlqcXdyZ1pWOXFmblFBdlZ2djR2SU1Y?=
- =?utf-8?B?bG55T3RTd1lGUVk3TjVFYmxPZ3FHaStRKzlxeGxUZ1BnWlRnS3FPdmZDdUNV?=
- =?utf-8?B?d3pMcDJDMkpDRlpLeVNVWmVDNGQvb3AwcDlOYXozL3U4YkUrcnNGT1Z5U0RU?=
- =?utf-8?B?MTk5MUdOdjlhN0JWeXJ3Z1FBblFpN0JCVG4xQ1paZExRMysxcm16K05KQTQx?=
- =?utf-8?B?c3d4Ym56MEpONkZyOTB0T3ZTeEVrTlVaRlgxVWFRNlpRZ0lXV1hoQUxqNU01?=
- =?utf-8?B?TUhxTE9QQWtraEQzcjcyRGdFeUxPcW9KdnNYVW55bmJMSDhFZWIzclNvdTF6?=
- =?utf-8?B?YVQyakpMWjNQOUhobFVLbUdBbk5FZHgydld3MUI4bnhXNWU0Tm9aTStxL2sy?=
- =?utf-8?B?ZHFyd3h5b3cyS2tkWEw2Q09PTDlLRXBhcUFvRGpaVzU4Yy9BdEdSY2IwbFk0?=
- =?utf-8?B?TnhJb0Q4OFpteC9mUlEvcG1PZDd4anlmOS9vS0NyMlhhVitxcjFqSXpWRndV?=
- =?utf-8?B?WlFRUTdONW9Oc2FFUS84bzc2dzBoeGhBWGNOMWRZcEt3Y0dieTlDblhFaExK?=
- =?utf-8?B?UVdxWW9td3pQWE9QbFFTOUNlVzBDcjNhVDN5RWNXdmhPL2lpSFMxL2lvZDBx?=
- =?utf-8?B?TTlGSVZRelkyTmlQN1ExSjJ4K2F1V0hwcDVGSUhySkNydHhPRURQMCswTW5M?=
- =?utf-8?B?TTlSS25VdmlVeW9pNUJmVUZmbU1POHdwRk1TN0pnbVFKYSt4ZEJKUVhMQ2x4?=
- =?utf-8?B?dVlzRE1xSTlLVjJPaThmTmI1NjQ1WGtTS0twVWVndTBJU3NaQ0tmMGNodjRQ?=
- =?utf-8?B?TGhGQWNvaGhJMjd4NFZEZnBEMlg2OEl4ajlVaXlIUHFnNGdYWjdDUEJOQk4x?=
- =?utf-8?B?QkxPOEV3SDhHaU1KNVQ4N2JkUWtrdFUrRDBUQVVnLzBUR01wSVduL291a0pa?=
- =?utf-8?B?ZEJaOU5BaW03SHlTRFBsb0ZNKzBILzQzeFpiOUQ2RFJrcVhQbjBITG5iS0tE?=
- =?utf-8?B?dmpjR1RCSmtwMlljK2dFdnk2TUxNTCtKclliTWtSK2JaYVJ1K1VLR25iTVNv?=
- =?utf-8?B?V1l5cWllcFJ6S29KcnRjOXdhNjgxYzFmeDVJVzVEM1R5c0VlbkhZMmYvQ0tE?=
- =?utf-8?B?QnM1QTc1d21OaDduR2R4bk81dDRsT2QzNzBQYUxWVmZYK1NZUWU1MDdqTTVJ?=
- =?utf-8?B?TXBBSzJTRVhIbTMvSGFmZG50RjExNURkWkpPdTJqNkFPWjNzaTZtdHdTazFu?=
- =?utf-8?B?NUI4N1pVeE5QVVpzOVpzYkp4VVZ1LzI2RTkrZExDKzBRV2RsYmpBY21uMkJK?=
- =?utf-8?B?M3ZFS0lsMVRSazBqMHRzQlhkckE0ZU1qNUlKakI1cEh6bERpbitzcE9nWGZ6?=
- =?utf-8?B?dlBBbXlzNEs5SC9PQWNRcXRTbUdCVWRJN3kvU0MvaEZxekhDUGtMRUVWYW91?=
- =?utf-8?B?U3REWXpENkRCejkyczRpNU45Lzd3NGFjVzNoZC9RREt2ZzBYeXZSVkMvUGto?=
- =?utf-8?B?SnRnbFZiWUZLcDlpbTRjUVN2d2c1SE1YTzV6TitpaUx5dEhuMGQvVngwdWN1?=
- =?utf-8?Q?AfX4=3D?=
+	=?utf-8?B?clAzdTNqLy9QN2dvNEY5ZEc5ZlFTZFZmSmJGZFhOQmo2OCtwM3pkMXkrdUw5?=
+ =?utf-8?B?NnRGQzBvbTlkaXQ4anVCQStDTm1yejVPZEZXdHpjdnpzSGt6UWxPS3ptY0Rz?=
+ =?utf-8?B?UTR5MGd1MkdQQVh2SUVVeE1ibXNTVjR0ck1yUFVObzBVS2RvbUJsb1gxZVRp?=
+ =?utf-8?B?UHVCbWg5bmxIT01UQnA4dGY0dmwzVVdkZ2RsRk9sMFNNRHBEOTUrU0xqODdn?=
+ =?utf-8?B?TEdGeWRjQjkrRUpUdGlpci9zS3VJS0xKSkg0cjJEOXVqNTZLalF2cXZUWEEz?=
+ =?utf-8?B?Y3U4NmZzdC9pbEtJWnBNMmhYMnhxdzZxM053OU0yUEtoVmxsMERSTXd6eWhh?=
+ =?utf-8?B?a25veDh2ekZpejlQMnBnYzBXSFlMTVVZcyt2NCtTUjI3Q3ZRcGZnTmJXUjEz?=
+ =?utf-8?B?bDRqQzJtclpkTHkvbnV5WnU0dEVCajRXejkzdHBMOEY3d0pmeTRPKy9oaFNw?=
+ =?utf-8?B?RmVjUmJjRDhjaDJJcTFtR3F3Z2ZQSVIwOTJkYUkvdSsxTml2NTVIUHZmOFNB?=
+ =?utf-8?B?dzZtSVYxNmFKUGQ4RnlZaG9xTDNmTWo0NFhuUFI4S1hhcVUzRjBGaXNTZnFZ?=
+ =?utf-8?B?bFVkWHRRK1ZmYkQrOURUaFdQTGc1UHc1SmVwQVpnUE5MOUE5TDZOR2xzMStv?=
+ =?utf-8?B?SXNYamxKODZmOExrRVU4SWJhQWNmdmRtRlNRZFY2TGVNdmxXbTVUS0dTTTNB?=
+ =?utf-8?B?ekRZOCt6aDJtWnhNRkpWUzNyaXJwUDdQNjIrOEdQcVJPdTdrb1NUbXNaVFNH?=
+ =?utf-8?B?d2dLeEJVZC9BeWNYNTlGZCsxZXF6RVViU1ZLbytyNWJBbVJtTE9WKyt6Zk0w?=
+ =?utf-8?B?MlV3SnpUMHJ4OUtaZDlZMnZndjRycHBuelZrcHdZcmswNGRaMVNxelNGSmQ1?=
+ =?utf-8?B?c25ZNHU3NFliOXVjcTc2anBvcXNLVDdUd3E2NkN6SUFvQ3lOUnM3QmZhQXUv?=
+ =?utf-8?B?SW1jaWRNWlZxZVZBK3k5K2pPWnd2YmJYL1N5azdhVzg0aGw5cjEzd2loN05Y?=
+ =?utf-8?B?ejJ1ajM1ajZCejNESW8wTmZ3VGRpTFJzdUVUOVc1Rmhxek5BeDg1ckttRFVE?=
+ =?utf-8?B?amtuRnJaOHNWR2dtVVZoR2tHTWhCanBsMWVya1BvQzlMZUN0dTVyT3NhbTd6?=
+ =?utf-8?B?S28zZXhzUEtxaG5rdFJ2b0tMMUhWM2FmSzZrckE1SDVkb2cxTFVlQ3A2bStj?=
+ =?utf-8?B?bDY5UFFCWTBneUZLbE04S09YQVYzRmRCNE43ZGdib0lNTHAvdWY2VGRyMDBB?=
+ =?utf-8?B?cS8yWWZaQzdBU0grRFRYVUJSK3h4Nkx4ajZUbDNHR1AzbEY0NGlKOEs1cHJD?=
+ =?utf-8?B?RGx2Uk5kWGdNT3NEOTVkcnhMNWNqRnUwYXNPRURBdnZoZVBrRFFOWmhBV3po?=
+ =?utf-8?B?bjVIellUNms3eDBvM0VycWd1UDZIOWxvWkxkcm5oaFN2VFhLd2p6RkZyOTNm?=
+ =?utf-8?B?aUlEeVhxOVIrWmoveWs0ZHlJTTVOcm1tNkRhVVh3akcwWUxRckxKTEk5azRp?=
+ =?utf-8?B?c2pSRXlUc1ZaYnJIeE9USnNDR05sYzRoRCswRHF5bUdvQ0JRMUhGMnVEeDVK?=
+ =?utf-8?B?ajZEZDRIdlkzaW1ENklPRGZxVjBzc0JRd0tFWEdza0tqWjZLcGNyaUxPN3pF?=
+ =?utf-8?B?NEdtU0NUK3NxL3g2VDEwYWxwY1ZRR0tXUXhYUjZWMmt0R3VjNFFzRnJhTmpY?=
+ =?utf-8?B?WGJRcW5GdWlCUVhYZ2FMMmFHU3JDMHNVWGdZL3hyNk14ZVFqMGpIcHRNMDBN?=
+ =?utf-8?B?OGFaRzJFdWJNWE5yTHRmYlBUZTNHY3RReU5PVTB1RllPZVdvTnd3WkJ0Znpk?=
+ =?utf-8?B?MjVoYVN2c1Y0NzhVcUloRldTRmlQKzA1a2JOVDFPYTduVEk5bHlCLzlTMDFL?=
+ =?utf-8?B?Qk9kRGoyVzhBR2FiNnRTV3QrdWlvYVc0OUNqL0ROOEk0czJoN0VZUSs4c2Zs?=
+ =?utf-8?B?UFRzTU5RclBWNXMwY2pkNlJ4dy9VZURSa0JIWlkrcVVrcXFXakRvak9CRnBa?=
+ =?utf-8?B?TGJhY3d0ckN3MDZRbHZNaEdkNDZjVmFoODZtTzJsUFJTc0hUcVNvQnpuNHhq?=
+ =?utf-8?B?U1ltZTJpMjY2V1lqcGVrNlR4YVY1dWlrNHJEb2tDWmlwT3hzNEk0STBIN0FM?=
+ =?utf-8?Q?DlGs=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QkJQQkU0TElpc3FmZkZEUEd3M1YzUStwYW1zNCtIN3Ywc1pMNnQ0WGpBREpC?=
- =?utf-8?B?TytkVWp2d0swVFZyUlBLanY4WE1CVTV6NUZFTndEQThBaHJGanMxWVJVeUR5?=
- =?utf-8?B?SVlKVStUT3JQakxNdmtvTWJ5ZEQyTm90eWVmNUhqM001M3B5WVZhdDNjdTRi?=
- =?utf-8?B?a2FhRk5XVmlNaHNuRitkUzlBNDJPajNMKzg4bjdlNFQxZWlBOHRzOThoN2ov?=
- =?utf-8?B?TUpGdnlxYTlpR1o2ei9WdUZoSWlWOCtVRTVkUjZoalQ1Yk1zUUpadjkrN1Mw?=
- =?utf-8?B?VUtEemZEcmIyaHF3akVNOFY5c0VRVGZRM2YzYW9rOVZPN29JaUhYbDNDYlE5?=
- =?utf-8?B?YUE0djM4VCs2QzFKUC9mdWtqSDNnK1dRM3BpbUg4UHJTR3RnSFZlcjY3V1Q5?=
- =?utf-8?B?alU3Y0pIOEw4KzRmZmJNOHZUN3B1eVgrVnE2QlZPRmZvWUdnVk5EL3Z3eVYy?=
- =?utf-8?B?cTg4S2xPbE02Nk81amdGSkdhMmZuVHAxbXZiZldZYklxaUoyMXpnRGI2d2Y2?=
- =?utf-8?B?eVlIREl4SFE2K3FEajk1NFBiWGxZeWRlTVg0R3Y5a2w3NEV2Z0FkN3ZrdCtN?=
- =?utf-8?B?VENOUi9uVzB2MFFvbmY3cFFaTFgxSlJKakRjdTdFQzFvMXJxN0ZTU2NvZzBa?=
- =?utf-8?B?eFRmK2x0WFJEQ3VVeldWeEo1M3daa05YTmdqeS93WEtOa3h6anJLeEZYeThE?=
- =?utf-8?B?ZTcrTkxHTUprV01pRS9VamltdWpnQUMveVdISUs3RzBuQ1FTRk5HNVB2cjBS?=
- =?utf-8?B?ckJpRnJxZzNLdkltZldZQkJtN3MrbTZyelNucEJVYVcvdzVWWDVHTStHQU82?=
- =?utf-8?B?UTlhdUphSVJQUyt0d1N4dnovblZtb3FJOEt0czVOTDhVQ3RsK3EzUlBuNVY0?=
- =?utf-8?B?cGd4UkViSXBWaC9YOEN4YVBVRXVSSE43WGI5Ykx3KzlUSHd5T1hVaE91aXpG?=
- =?utf-8?B?WUtGZFFMdEE3ZzJzTkNWbmdBVzFPdDdEMGNibXVFZzJibEQwTW5kNGJqYkNo?=
- =?utf-8?B?aWU1SWJFRWpBU1o1Wm5xaGh1Q3daMW1abmZod0d3NUwrVzk1K2M1dktLRHNL?=
- =?utf-8?B?RzVrc1BUaDdicXhGQ2diMUJ1cmlmWTZMdEpGZ2RqYzZRUkxlVjY1YmdJaUNN?=
- =?utf-8?B?RTNwYXo5eWFjZlRLWmc2WTQxSmV6eUU0MEM2L0JjZ1l5NVVBVWYyVjlLQzRy?=
- =?utf-8?B?SkRmaTBNK0swem9DOForQ25kWVdtWFh6V0hjNTFLWXB6bTREUi9oTlpwOXZk?=
- =?utf-8?B?ZEgwN3FCNngyWC9XbWNzRFRvRitZUUVRRDZ6Z3c5a2cybXNxa1ZYYUdvSUUr?=
- =?utf-8?B?YS9LL2orNGFhUU5oSXozbjJUbFN2TEVBc2VTQkxDMFZyREZFY2hMakllUzlo?=
- =?utf-8?B?by92SmVaQWFqQlNRVFdCVDl6YVQrWHUyMHdVa2xVb3hySDNaRllVTkVWTytw?=
- =?utf-8?B?eGhSWFJYeUM5ZW5VRkpGaGZvZTV1amxHSVlWdkFwek8xQTlJeGF1cVc1eTlj?=
- =?utf-8?B?RFpTUW8yTTBneHFJTUVtSkhsM2pNdUtPejhOVjVsWjgzTjlTaWsreUtZWHB6?=
- =?utf-8?B?emRCQWZCNWdoR1lBblI2SzBqaVlHWng5bC9RT3ZQWE16MFFwR0JiYzNRU1F6?=
- =?utf-8?B?ZGpIV3Z6YzlIWjNFbDZ0SUNXOEMrUkVuMkUzSVBlN0FRWFpBU29JR0hMMVkz?=
- =?utf-8?B?bWJzR1YyNTdURHFUeVdCZWV0WWorekpPMngzb2NXekYrNzlobDhCbHNWSVpy?=
- =?utf-8?B?bmw5d1Nocjg0TDFGb0dqWStna0ZUUTRWcXNEU2p6Z3Z5SU5xMHBSQm1tS1Zq?=
- =?utf-8?B?NHBQbFhjbkxwblg4Qk41Y0IwVnp6VnoybFFhRFQxc2RSR0s1bDgrbEJBcW5S?=
- =?utf-8?B?V1A5WlRHdm11Q2VPT0JML0NXQzZCRC9aUUQySDN0TTRTWDR1enlGT0dXTnlw?=
- =?utf-8?B?MW5YUU5sZjd4QlZMTTNTcU5vdHRmZDBNeHk2QTlUTXhpZzZhUTN3R2oyakJR?=
- =?utf-8?B?bk4vMWFtbExtUWZ1QnQwemJVUlkvTGQxRFk3cEZ2Zm53R2tGWFVQUU5mMnRL?=
- =?utf-8?B?OW5SOU94aW9vWnN5NDE5SDFHMXdpUUs1UWg3eHQ5NzZTcnJ4QmlYVC83R01m?=
- =?utf-8?B?bWs5Y2tQb3ZWS1ZxSmJNQTlpYXRxNFA2QWpqSkpiRGQ5Z3oxcjFjQks3bGVC?=
- =?utf-8?B?T0hKcWRUb2wxWGRlRkJXbWZxU2hIay8yeVM1RmlOQUtpaDFqZE9qcTY3VG5r?=
- =?utf-8?B?b3V3NmlMNEtkRU8wcnYwNEc4MFZDdE9xclVGbGh3djFjME5wclZHajh0NzBW?=
- =?utf-8?B?LzBmcm9lbWN5Yk41Zmhqdmp1ZzJ2Vks0MGpIMHlBd080Vmh1OGtaQT09?=
+	=?utf-8?B?UTVmNmtEQjh2b1BiQXJFc1BxUk1ySHoxeHZuTHFZN1pEeFh6Q2ZBK2lLL0pN?=
+ =?utf-8?B?YUR2R3BPRXpvNjYxbGZBVFhjditHQTMvbDdWQmpoNTVxbGh5aWV2U00zK3BK?=
+ =?utf-8?B?cTJZL3RjdVBBT0orRjBNSFJ6dkNidnhJaDBleDg1OWkxMXlRZXhQNzM3REZD?=
+ =?utf-8?B?aXd2TC9XRFI2SGwrQUx6czB6ekx2SG1BT3QxaEdHcFJsbXlmdGFOblFBWGxG?=
+ =?utf-8?B?dVc5aFpQK1ovMUhtUWRaaUMralJ5ZmpIR1JVZm9hQVFVaHZkTWxhaDE0VEpL?=
+ =?utf-8?B?bHRyaENwOUdrRkpDV1RSZVRVaVZSaWJVOTlNUllVUXdoZjV0WXN3OEtwNGFw?=
+ =?utf-8?B?WFF3VGZEcm5mSG9iOTNzM3JackplK0NSazlBbXVJNGhpWXB0ZmdEcDlJTEpM?=
+ =?utf-8?B?bnltaS82YXJETytDa2xQOVNmemp2VFVSdnlQbG83NkJoQ3VrT3hqY29jcWo4?=
+ =?utf-8?B?aktMajFjY3VKaCthemlteHNQYU1YdkxsRjFocFNzM01XQUFXd2t3VjQ3RWpF?=
+ =?utf-8?B?UTNrangyb1VqendrRkJNOVlKVGpGNWZBNWJ0M2lLOWI2bjhoMTE3VGczRk1i?=
+ =?utf-8?B?TW5pZy93d2FlL3NncU9zMkUxcHdubVRzT1RJMWw5WTZIR1BxTVVWYUpRRGdj?=
+ =?utf-8?B?NWhaYVJheEZvZFFrTTZ1cnlaOVJsVFhzMzB1UHRLY2VPandhVXJmbHFqQTky?=
+ =?utf-8?B?Ukp4K2VuR1FEOW1VRllKRnA4Qm5BMHBnUnFYbFplTzRKUHRQcFZWeHNRZGVs?=
+ =?utf-8?B?RkxPRWw5Z2ZxS3VOR3piSFRzdDBoZk9KRWNFMHhhYzJ0a1JYUlRjTUlMZitH?=
+ =?utf-8?B?ZHdXUEtmcHd5NnJWc1dmeDdYMjdMTUVWN0RpTm8zREVONjZyM1ZOcVgyQjQ1?=
+ =?utf-8?B?ZWh2VW1BUnZISXdycnVNKzVndlREYk9MeHdNZ1pVTzdocnlDODN5TnNwSC9U?=
+ =?utf-8?B?a0FZMmlydXNjcTlzTDVLalViZDQrN21DNzJndGgzZCs0R2lRTDVDMzZYR0hZ?=
+ =?utf-8?B?NzFXKzZ3S3ZJTnhrMjVSRUxWUXgxZlpiaS83T0Y3TDFKVzkxV0Q0ZHovUG1l?=
+ =?utf-8?B?YmtjWXpXVCtyRElhdThmWnNBWTg5a0Zzb21iMXFjL1ZiOTlGUHlta25uaEw4?=
+ =?utf-8?B?cnYrMHM4ajUvUTYrRHBQMWVlb2hqUVBhVkYweTJ1UCtKajgrelhVcVJtVC8z?=
+ =?utf-8?B?U3ZGd0t1VFpyZTdVb2hzRGt6Q3B4OWxQOVg4U2VGSjJGSm9JWFNFT3Z6N0l2?=
+ =?utf-8?B?em1Za1JxZmdzZkJ1U1hxb09KZ1FMNkNCL1ZvTHRGZTJrL0pEaldGSkhURXVT?=
+ =?utf-8?B?YjN1MGZjeE1lcWZMdmhIUS90WHhFQTdXUGo0U25NTm9zZzJYV0RMQmhBVXVu?=
+ =?utf-8?B?eFF1cWZENlpTTklWa091aiswRXhkd291UXVqdDBjU2dSbEllNEpPaHBEV0tC?=
+ =?utf-8?B?VDJacVdNRHNYRFNETGFkNEpxRnllMWYvS1JFWUxjQ0svTURvamc4TFJYOFlz?=
+ =?utf-8?B?ait3TkFjWVZScXZvSmd3ZWMrZks0V25zbzVrMHRURGNET2dxeUIvdnMvS3pE?=
+ =?utf-8?B?b3pCTFE2RDJ4TUVRQjZXQ2pJL0hPTlJqYlRGb1FodHpIYVMxT0c1Nm9OeUtV?=
+ =?utf-8?B?azNHOWxwbmNjTnlDTHlrS0FmcmwxUDRSTGE0NUp2eHQ3U2RWOWN3ZUQ5V2tM?=
+ =?utf-8?B?Tm9Nb0V4WXBzQTkrZG9HMWdxaW5yNEFhN1RtUlN2QXVidmE3RHQ2d3I3VTNS?=
+ =?utf-8?B?b0t1bGVxZWVIVDkxZ3lJbEhpZ1lYVWt4RS9KUlF1K1UwbXlrUW9WWTRCUGVF?=
+ =?utf-8?B?ZTRubVJKcGdTRTAxcUdlayswTVd4d2EweXhtNW5YRVZMWEsraUtCcjQ5VzFt?=
+ =?utf-8?B?VkRJUTdBTXMzYzhkRkZldFhrMWZXSEF0SHZwQUxMZDNYbTBFWjlwTlB3K3pa?=
+ =?utf-8?B?eEF6YmJSK0xjK1Zhbkk4QUt3UkJhVjVldTVsTlRPdzc5SzRDOVhKc2RSZlVV?=
+ =?utf-8?B?eXdNejh0a3NzbzM4S2JZS29BSFJzM3Z1NURqaEkwTE0wNjlBblhqQU5hWmM0?=
+ =?utf-8?B?amU3SXljRk43RDRlTnJ2RE85VFJYcFBLY05pRmlJSDhZTE9QM0Jha09NSG5v?=
+ =?utf-8?B?ZzNCUnJwRmlYekdaTGVFWGJvTC9yV3FCMDZDWnZWTzNkSUZxWW9Fb0ZOOGxP?=
+ =?utf-8?B?NkhlTlJIeWpjM0dndi91Mm16U2VkZlUweElsZGNOQ0ZkbDNXK1FsQ29KR3hv?=
+ =?utf-8?B?ZjI4THVpUUlaWnpPN09PV2JNTU5GY3pYWTlTY2VubEZqTzRVaHFldDBDM2dP?=
+ =?utf-8?B?aDBtUG81UXdzS1FGWWhlOGFNUVR3YnkxNW1IOUYxcmxSYWlvVVhvZz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d92cea6-3190-407f-e1f5-08de67f217bd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c644381-f4e0-41d2-7205-08de67f3b548
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 15:44:21.3628
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 15:55:55.2850
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vFIqT65/kv/z4ghKKDYzzZ4JX5QWEU1iZOhdkMBlizStuJ1B/uzRht2cKSNxGnvELDzZw3tU5dBzFSR8AMG+Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5235
+X-MS-Exchange-CrossTenant-UserPrincipalName: iX12jkt2lcL90StL+iLRgjHcGjRQKGelXaE1b7YWJlDDBtGswurO3+g7ywO+FCF6w3FtErgnW7ONL4aEHNH1wA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR03MB8299
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -193,290 +193,123 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,Mac.lan:mid];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:tim@xen.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,Mac.lan:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 17295112146
+X-Rspamd-Queue-Id: 859C11123A6
 X-Rspamd-Action: no action
 
-On Mon, Feb 09, 2026 at 11:31:15AM +0100, Alejandro Vallejo wrote:
-> Creates a CONFIG_LOG_DIRTY Kconfig option with the following effects
-> when disabled:
+On Mon, Feb 09, 2026 at 04:35:04PM +0100, Alejandro Vallejo wrote:
+> On Mon Feb 9, 2026 at 3:42 PM CET, Roger Pau Monné wrote:
+> > On Mon, Feb 09, 2026 at 11:41:02AM +0100, Alejandro Vallejo wrote:
+> >> It only has 2 callers, both of which can be conditionally removed.
+> >> 
+> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> >> ---
+> >> I'd be ok conditionalising the else branch on...
+> >> 
+> >>     IS_ENABLED(CONFIG_SHADOW_PAGING )|| IS_ENABLED(CONFIG_LOG_DIRTY)
+> >> 
+> >> logdirty patch: https://lore.kernel.org/xen-devel/20260209103118.5885-1-alejandro.garciavallejo@amd.com
+> >> 
+> >> ... to avoid the danger of stale pointers, with required changes elsewhere so
+> >> none.c is only compiled out in that case.
+> >> 
+> >> I'm not sure how much it matters seeing how they are all unreachable.
+> >> ---
+> >>  xen/arch/x86/mm/Makefile        |  2 +-
+> >>  xen/arch/x86/mm/paging.c        |  4 +-
+> >>  xen/arch/x86/mm/shadow/Makefile |  4 --
+> >>  xen/arch/x86/mm/shadow/none.c   | 77 ---------------------------------
+> >>  4 files changed, 3 insertions(+), 84 deletions(-)
+> >>  delete mode 100644 xen/arch/x86/mm/shadow/none.c
+> >> 
+> >> diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+> >> index 960f6e8409..066c4caff3 100644
+> >> --- a/xen/arch/x86/mm/Makefile
+> >> +++ b/xen/arch/x86/mm/Makefile
+> >> @@ -1,4 +1,4 @@
+> >> -obj-y += shadow/
+> >> +obj-$(CONFIG_SHADOW_PAGING) += shadow/
+> >>  obj-$(CONFIG_HVM) += hap/
+> >>  
+> >>  obj-$(CONFIG_ALTP2M) += altp2m.o
+> >> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
+> >> index 2396f81ad5..5f70254cec 100644
+> >> --- a/xen/arch/x86/mm/paging.c
+> >> +++ b/xen/arch/x86/mm/paging.c
+> >> @@ -634,7 +634,7 @@ int paging_domain_init(struct domain *d)
+> >>       */
+> >>      if ( hap_enabled(d) )
+> >>          hap_domain_init(d);
+> >> -    else
+> >> +    else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+> >>          rc = shadow_domain_init(d);
+> >
+> > If you want to go this route you will need to set rc = -EOPNOTSUPP;
+> > prior to the `if ... else if` on the HVM case.
 > 
->   * paging_domctl{,_cont} return -EOPNOTSUPP (XEN_DOMCTL_shadow_op).
->   * VRAM tracking via DMOP returns EOPNOTSUPP.
+> Maybe this instead
 > 
-> And compiles out all log-dirty tracking infra.
+>     else
+>         rc = IS_ENABLED(PV) ? shadow_domain_init(d) : -EOPNOTSUPP;
+
+But even for the PV case we cannot call shadow_domain_init() if shadow
+is compiled out?  I think you want:
+
+    if ( hap_enabled(d) )
+        hap_domain_init(d);
+    else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+        rc = shadow_domain_init(d);
+    else
+        rc = is_hvm_domain(d) ? -EOPNOTSUPP : 0;
+
+> And gate none.c on PV && !SHADOW_PAGING, which seems to be the only use.
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> ---
-> RFC for the Kconfig help message.
-> ---
->  xen/arch/x86/Kconfig              |  9 +++++++++
->  xen/arch/x86/domctl.c             |  8 ++++----
->  xen/arch/x86/hvm/dm.c             |  3 +++
->  xen/arch/x86/include/asm/domain.h |  2 ++
->  xen/arch/x86/include/asm/p2m.h    |  2 ++
->  xen/arch/x86/include/asm/paging.h |  8 +++-----
->  xen/arch/x86/mm/hap/hap.c         | 22 +++++++++++++---------
->  xen/arch/x86/mm/p2m.c             |  2 ++
->  xen/arch/x86/mm/paging.c          |  2 ++
->  xen/include/hypercall-defs.c      |  4 ++--
->  10 files changed, 42 insertions(+), 20 deletions(-)
+> It's a lot easier to see the safety on the HVM-only case, particularly with...
 > 
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 61f58aa829..fbf044aa4d 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -146,6 +146,7 @@ config XEN_IBT
->  config SHADOW_PAGING
->  	bool "Shadow Paging"
->  	default !PV_SHIM_EXCLUSIVE
-> +	select LOG_DIRTY
+> > is compiled out, and the toolstack has not specified the HAP flag at
+> > domain creation you will end up with a domain that doesn't have the
+> > paging operations initialized as paging_domain_init() would return 0
+> > with neither HAP nor shadow having been setup.  That's likely to
+> > trigger NULL pointer dereferences inside of Xen.
+> >
+> > Also, seeing the code in arch_sanitise_domain_config() we possibly
+> > want to return an error at that point if toolstack attempts to create
+> > an HVM guest without HAP enabled, and shadow is build time disabled.
+> > I've sent a patch to that end.
+> 
+> ... this patch you meantion. Thanks.
+> 
+> I'm guessing it's still a hot potato in for non-shadow PV, which strongly hints
+> at our being better off leaving it in that case. On HVM-only configurations it
+> seems rather silly.
 
-I think I'm missing something, why this dependency of shadow on log
-dirty?  Isn't HAP equally dependent on it?
+I'm not sure I follow exactly what you mean.  Some rants below which
+might or might not be along the lines of what you suggest.
 
-Oh, I see, You adjust HAP code to deal with the !CONFIG_LOG_DIRTY
-scenario, but not the SHADOW counterpart, that still has a hard
-dependency on LOG_DIRTY being enabled.
-
->  	depends on PV || HVM
->  	help
->  
-> @@ -166,6 +167,14 @@ config SHADOW_PAGING
->  config PAGING
->  	def_bool HVM || SHADOW_PAGING
->  
-> +config LOG_DIRTY
-> +	bool "Log-dirty page tracking" if EXPERT
-> +	depends on PAGING
-> +	default !PV_SHIM_EXCLUSIVE
-> +	help
-> +	  Enable log-dirty infrastructure so Xen can track domain memory writes and
-> +	  the dirty state of VRAM for device models and live migrations.
-> +
->  config BIGMEM
->  	bool "big memory support"
->  	default n
-> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-> index d9521808dc..61d43a21d0 100644
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -220,15 +220,15 @@ long arch_do_domctl(
->      {
->  
->      case XEN_DOMCTL_shadow_op:
-> -#ifdef CONFIG_PAGING
-> +        ret = -EOPNOTSUPP;
-> +        if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
-> +            break;
-> +
->          ret = paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
->          if ( ret == -ERESTART )
->              return hypercall_create_continuation(
->                         __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
->          copyback = true;
-> -#else
-> -        ret = -EOPNOTSUPP;
-> -#endif
->          break;
->  
->      case XEN_DOMCTL_ioport_permission:
-> diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
-> index 3b53471af0..94216aecc2 100644
-> --- a/xen/arch/x86/hvm/dm.c
-> +++ b/xen/arch/x86/hvm/dm.c
-> @@ -48,6 +48,9 @@ static int track_dirty_vram(struct domain *d, xen_pfn_t first_pfn,
->                              unsigned int nr_frames,
->                              const struct xen_dm_op_buf *buf)
->  {
-> +    if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
-> +        return -EOPNOTSUPP;
-> +
->      if ( nr_frames > (GB(1) >> PAGE_SHIFT) )
->          return -EINVAL;
->  
-> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-> index 94b0cf7f1d..f09c13909f 100644
-> --- a/xen/arch/x86/include/asm/domain.h
-> +++ b/xen/arch/x86/include/asm/domain.h
-> @@ -226,7 +226,9 @@ struct paging_domain {
->      unsigned int            p2m_pages;    /* number of pages allocated to p2m */
->  
->      /* log dirty support */
-> +#ifdef CONFIG_LOG_DIRTY
->      struct log_dirty_domain log_dirty;
-> +#endif /* CONFIG_LOG_DIRTY */
-
-Can also ifdef out the declaration of the log_dirty_domain struct, and
-just provide a forward pointer declaration for it?  Would that satisfy
-the paging_log_dirty_init() prototype?  Hm, I guess that won't work
-with the usage in hap_domain_init().
-
->      /* preemption handling */
->      struct {
-> diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
-> index 9016e88411..3c2dcacfa5 100644
-> --- a/xen/arch/x86/include/asm/p2m.h
-> +++ b/xen/arch/x86/include/asm/p2m.h
-> @@ -253,9 +253,11 @@ struct p2m_domain {
->                                      bool *sve);
->      int                (*recalc)(struct p2m_domain *p2m,
->                                   unsigned long gfn);
-> +#ifdef CONFIG_LOG_DIRTY
->      void               (*enable_hardware_log_dirty)(struct p2m_domain *p2m);
->      void               (*disable_hardware_log_dirty)(struct p2m_domain *p2m);
->      void               (*flush_hardware_cached_dirty)(struct p2m_domain *p2m);
-> +#endif /* CONFIG_LOG_DIRTY */
-
-Will this build when VMX is enabled?  I think it's missing an
-adjustment to ept_p2m_init() to not initialize those fields if
-!CONFIG_LOG_DIRTY.
-
->      void               (*change_entry_type_global)(struct p2m_domain *p2m,
->                                                     p2m_type_t ot,
->                                                     p2m_type_t nt);
-> diff --git a/xen/arch/x86/include/asm/paging.h b/xen/arch/x86/include/asm/paging.h
-> index 291ab386e8..980cdfa455 100644
-> --- a/xen/arch/x86/include/asm/paging.h
-> +++ b/xen/arch/x86/include/asm/paging.h
-> @@ -55,12 +55,9 @@
->  #define PG_translate   0
->  #define PG_external    0
->  #endif
-> -#if defined(CONFIG_PAGING) && !defined(CONFIG_PV_SHIM_EXCLUSIVE)
->  /* Enable log dirty mode */
-> -#define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
-> -#else
-> -#define PG_log_dirty   0
-> -#endif
-> +#define PG_log_dirty   IS_ENABLED(CONFIG_LOG_DIRTY) * \
-> +                       (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
-
-You want an extra set of parentheses around this define I think, just
-in case.
-
-Quite a lot of the code is also protected using #if PG_log_dirty.  I
-think if you introduce a CONFIG_LOG_DIRTY it would best to also guard
-the logdirty code using that new define, so it's consistent (iow:
-replace `#if PG_log_dirty` and similar usages).
-
->  
->  /* All paging modes. */
->  #define PG_MASK (PG_refcounts | PG_log_dirty | PG_translate | PG_external)
-> @@ -174,6 +171,7 @@ static inline void paging_log_dirty_init(struct domain *d,
->                                           const struct log_dirty_ops *ops) {}
->  static inline void paging_mark_dirty(struct domain *d, mfn_t gmfn) {}
->  static inline void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn) {}
-> +static inline void paging_mark_pfn_clean(struct domain *d, pfn_t pfn) {}
->  static inline bool paging_mfn_is_dirty(struct domain *d, mfn_t gmfn) { return false; }
->  
->  #endif /* PG_log_dirty */
-> diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-> index a337752bf4..21672db011 100644
-> --- a/xen/arch/x86/mm/hap/hap.c
-> +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -50,7 +50,7 @@ struct hap_dirty_vram {
->   * calling p2m_log_dirty_range(), which interrogates each vram
->   * page's p2m type looking for pages that have been made writable.
->   */
-> -
-> +#ifdef CONFIG_LOG_DIRTY
-
-Nit: I would leave the newline as-is.
-
->  int hap_track_dirty_vram(struct domain *d,
->                           unsigned long begin_pfn,
->                           unsigned int nr_frames,
-> @@ -161,6 +161,7 @@ out:
->  
->      return rc;
->  }
-> +#endif /* CONFIG_LOG_DIRTY */
->  
->  /************************************************/
->  /*            HAP LOG DIRTY SUPPORT             */
-> @@ -440,14 +441,17 @@ static bool cf_check flush_tlb(const unsigned long *vcpu_bitmap);
->  
->  void hap_domain_init(struct domain *d)
->  {
-> -    static const struct log_dirty_ops hap_ops = {
-> -        .enable  = hap_enable_log_dirty,
-> -        .disable = hap_disable_log_dirty,
-> -        .clean   = hap_clean_dirty_bitmap,
-> -    };
-> -
-> -    /* Use HAP logdirty mechanism. */
-> -    paging_log_dirty_init(d, &hap_ops);
-> +    if ( IS_ENABLED(CONFIG_LOG_DIRTY) )
-> +    {
-> +        static const struct log_dirty_ops hap_ops = {
-> +            .enable  = hap_enable_log_dirty,
-> +            .disable = hap_disable_log_dirty,
-> +            .clean   = hap_clean_dirty_bitmap,
-> +        };
-> +
-> +        /* Use HAP logdirty mechanism. */
-> +        paging_log_dirty_init(d, &hap_ops);
-> +    }
->  
->      d->arch.paging.update_paging_modes = hap_update_paging_modes;
->      d->arch.paging.flush_tlb           = flush_tlb;
-> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> index e915da26a8..373382c28c 100644
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -236,6 +236,7 @@ struct ioreq_server *p2m_get_ioreq_server(struct domain *d,
->      return s;
->  }
->  
-> +#ifdef CONFIG_LOG_DIRTY
->  void p2m_enable_hardware_log_dirty(struct domain *d)
->  {
->      struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> @@ -263,6 +264,7 @@ void p2m_flush_hardware_cached_dirty(struct domain *d)
->          p2m_unlock(p2m);
->      }
->  }
-> +#endif /* CONFIG_LOG_DIRTY */
->  
->  /*
->   * Force a synchronous P2M TLB flush if a deferred flush is pending.
-> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
-> index 2396f81ad5..13ee137db9 100644
-> --- a/xen/arch/x86/mm/paging.c
-> +++ b/xen/arch/x86/mm/paging.c
-> @@ -623,10 +623,12 @@ int paging_domain_init(struct domain *d)
->      INIT_PAGE_LIST_HEAD(&d->arch.paging.freelist);
->      mm_lock_init(&d->arch.paging.lock);
->  
-> +#ifdef CONFIG_LOG_DIRTY
->      /* This must be initialized separately from the rest of the
->       * log-dirty init code as that can be called more than once and we
->       * don't want to leak any active log-dirty bitmaps */
->      d->arch.paging.log_dirty.top = INVALID_MFN;
-> +#endif /* CONFIG_LOG_DIRTY */
-
-Could you possibly init this field from paging_log_dirty_init()?  As
-to avoid having more ifdef churn in paging_domain_init().
+PV needs shadow for migration.  HVM can use shadow or HAP, and our
+default is HAP.  For HVM only builds it could be possible to not
+recommend enabling shadow.  Even for deployments where only dom0 is
+using PV mode, it does still make sense to possible recommend not
+enabling shadow for attack surface reduction.
 
 Thanks, Roger.
 
