@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QHOqC5jUiWmFCAAAu9opvQ
+	id oPV/HJzYiWlUCQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:35:36 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:52:44 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815BB10EB47
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:35:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225307.1531781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE30510F1E1
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 13:52:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225317.1531791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpQU8-0000rH-0G; Mon, 09 Feb 2026 12:35:24 +0000
+	id 1vpQkT-0003kN-9Y; Mon, 09 Feb 2026 12:52:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225307.1531781; Mon, 09 Feb 2026 12:35:23 +0000
+Received: by outflank-mailman (output) from mailman id 1225317.1531791; Mon, 09 Feb 2026 12:52:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpQU7-0000os-Tf; Mon, 09 Feb 2026 12:35:23 +0000
-Received: by outflank-mailman (input) for mailman id 1225307;
- Mon, 09 Feb 2026 12:35:22 +0000
+	id 1vpQkT-0003hI-6D; Mon, 09 Feb 2026 12:52:17 +0000
+Received: by outflank-mailman (input) for mailman id 1225317;
+ Mon, 09 Feb 2026 12:52:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zC3u=AN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vpQU6-0000om-JS
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 12:35:22 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vpQkR-0003hC-9D
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 12:52:15 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc221e0a-05b3-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 13:35:21 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-47f5c2283b6so41803335e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 04:35:21 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48320719bf4sm235392125e9.10.2026.02.09.04.35.19
+ id 27d989ff-05b6-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 13:52:13 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-43284ed32a0so2958031f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 04:52:13 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-436297455eesm26933995f8f.29.2026.02.09.04.52.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Feb 2026 04:35:19 -0800 (PST)
+ Mon, 09 Feb 2026 04:52:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,212 +50,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc221e0a-05b3-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 27d989ff-05b6-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770640520; x=1771245320; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=N+hp/aSkHJOSFk6DnUkbT9zdwF2I8VnnRCpfMv/e/Tg=;
-        b=m3e4WLvoBpGYdgpWvlqKJ/wHYk8fst/pQZdwBt3NDFMAxOf2ZKwAWP76LXlaZSpubP
-         62zsy4yNKcTlDHpB0DY1KJpMBi4Wwiq05rLJy5Uylj/8htfVmcm1bxcqEN9Uatt2YsY2
-         rTQ//iCwIKq+lEOityBhzqXlVpi8nELrG8UyTI79bK8T6P1fe4ZICFX9rPpgOtdeNb+v
-         a0b6hTpR+urr1aC6sEczd4aCwOIPdDPxBa3h869hrl4JQMQ/rxlZA1iPNctIXQItBx/M
-         H+xUM3WFFoe3QQiUvU1td3rN1VwdgNMr1GuPcBfbI8Nw6Yb2AAbaYtNVucg8h66Q2Qht
-         3lcg==
+        d=suse.com; s=google; t=1770641533; x=1771246333; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vhYC04O8gKnRQo3Pv4jv/kK6x8je3ndyIe2MaJiJ3eY=;
+        b=FsQyxy/iPFRhdkr99pJE09oIDsDMbf0FEcPdT8Bp+v5ohG6sLf+PQlwE7exARoauER
+         WYkHmdmf3ZShViOr2h4G4AYRH5un4uYAG52JGxEyuXkDz4YVKeZrDTaRREBlvxASnX6d
+         whWZ34ozi0KDVpgN808U8erolkBP3FyRMHkyppdZeo96zthGl/75XAc23hShoVBuq+sl
+         Gey15Biwof0q2WfNugChl367dNGXfL/TUNCBaXc0qjbuRxEMXHTbNO61ALIrjoZXV2fK
+         /ITM922zPN4+8R3ls9ojKpcVS1bYxbBh4Qh2DRDVI1zyj5ZV/0a9+wY7TxuBzK7yRPqQ
+         f1lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770640520; x=1771245320;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=N+hp/aSkHJOSFk6DnUkbT9zdwF2I8VnnRCpfMv/e/Tg=;
-        b=U1NnriSAar9X9ifh1uuD+k58F1yAXWdvLyEPNL/os9fLjfiRm/6UZKXlLnjQQC/JnO
-         +AuTWFKZkqSFEeZ+T4S7BMyWJ6LFZ94vna9m/gPextoUkjXdWYCaq8WPXcEDpZE4VmYG
-         lfhSJcJQzC1Q8bZ+AIWwvUil+lAbI3IGhjku/bID0WOKIsJkFtJh0q1NztHIOMkVORnz
-         M0y/yfdhV/KiNBAzfrrFWjeKzIkWBIUb7fdE0CIO4VygJUNRKR5OhR0H5nIM3JUhu8ue
-         hSNpM1i+SjC+XfcEjMA+5sLJBvcHcC5bRRNiI8fu3Y3p/PfW7iOJJv/0REKGh2J88kyp
-         ECfw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDQD70PtIi5Za2lb8fTCOZpN+mUyWeici/xJqd9HBgg0wWAV8uQ+Ip7tkkHs8rc6xFYdLqL2cOaJU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGANBGPaK2b3WL+KlXOTpKlJyc/wxX38xCcbBrTbK5yGusZXeb
-	KGD8Bbha5bxrN6L8rPQNnBfTnxJUi983zMw/seB5kYWBnX9nA/xsXD/5
-X-Gm-Gg: AZuq6aJzrbWtm+hWdAXsN5FiNBrVvjmYI3chuY+0oi62zQO/fHb235X3L1ePi1DQm+t
-	yVqXV8HPECfvtGiViQWbrUMej2fPMj22VOMcwnrj+TvoBQwpKoS/ro9jVJP5STrSO2/OiOIO2y2
-	pldPdMKzl+94rl4yLL3LthNHPHcBhAbDSpkqyx3o/mk4R2V3KVh18zV7az8lkAxZ90NMQT3mpXu
-	py1ETnEATcogiTFevNQWAxBZw6au4k+SvHqhJuOUf9PBkenIm+Pe1HXWpPEO8pAgyUnyGrNskB7
-	gRKDBWViv0ijatsN5M6NQNd2FJRwEfsNqwjTF5j8W0/oOs+IXBqiQc0aq7nWm7NWaNdKpFtxRFV
-	KscUERQpmQ2AGcUuFS9Kqo5VXtFlHywhmjhHqpjMqDOGCGbrYBeaRK0FTAEggCvi6tbhdfG/p/q
-	HYecNhyjcjAmA6xhvVkkZfhe6yYKzHRjR2eDleRMlMoOzKmZp8oMSoLWStPyuBVME=
-X-Received: by 2002:a05:600c:4fc8:b0:480:19ed:7efa with SMTP id 5b1f17b1804b1-483203397fcmr190181915e9.36.1770640520038;
-        Mon, 09 Feb 2026 04:35:20 -0800 (PST)
-Message-ID: <d82c9acd-9a51-4a1a-af0f-ef3aba515bb0@gmail.com>
-Date: Mon, 9 Feb 2026 13:35:14 +0100
+        d=1e100.net; s=20230601; t=1770641533; x=1771246333;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vhYC04O8gKnRQo3Pv4jv/kK6x8je3ndyIe2MaJiJ3eY=;
+        b=VFli2yYnqkEjX0lzwz2IPr4MgJehwwP9JJ2Ik8RxCvh1tYZjBh2WpWU/SXBcZn6hxu
+         3fEu5FyVI2n1zg1bLQ1CGmXTcH/x5qkUNDgFxdxTxmkN1nWEIkIAfpZIvcIIF7lgl9kj
+         KsFpeCQ3Zg7CO5kteskqXWT4rQ/6CB73rt3anMZ0l3UjB/52E0+HfAoLCzF8xSwK9ufm
+         uRKxBX1N05TxrtwPtgakcYuY312OgfKaDwudSRM4qKMHFN2cMMxVyG1d94cIwfVrfw+E
+         6RAZBY3EYYUr/ITAZvBA3Stq9qI578AutSDnGBaB8TLCB3e/DJxDdaHZ8MoYs3NEWgqt
+         SUIA==
+X-Forwarded-Encrypted: i=1; AJvYcCWNqyiDuIMgpmaVtyg/w8PimfBwpP2RroDNu6GEAER9qnxK/IEFmvADplCuUQbEBFC5vL7E3LnP6nI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yznlr3x7JEUlTXs9w5GfWNnJV9XrIgkwyYQS9lxAI2vv/+eWlUD
+	HVd7J7iAFRCNyftSnef1j3hdkQ5ZT45A9sqnYg1Ckxsu6FCZ+Wzvf/gx+3UDBEK33w==
+X-Gm-Gg: AZuq6aI3pLQQz6WdN7KtCeweepd9uaTpGwdCSpZRStwUf55kXX1QsQfJCL8VuA+lLIK
+	GJWf0hpmY27wBdD35uyYGq8rjllzSNqNfPL/Sw0BBUgQm3EKNsm9lbLAzKF+m4hxYqpzdafnlAv
+	+roidSOw/QPmqmtCH8PxYGANRrKy+sKmMh0ZPXBaEOb0/rtNoX08A1KpkoDM9RYqBsN1nR6xld0
+	a26KtJKWnFfI34gnqh7mhJ4KtKZRRUlwGbl0iJTQrn39rUE44/XO42Kv1H+zAiiFd00nFR1Gtci
+	o1+7QQOLN31imI9GhEGVpwj0fy3I4yTlEHWENR5nl3yd2GkeenScwMBrWF+VswRmJk8cyxZNN6/
+	yWjvjoEVLFnPr/kvki9OGroIS4b7Zqdj0gMAIUqr7YxMMmgNQF6vmbbkn6qLmutcOx44zcqYDaz
+	tQoBGKxqyxII+wj1KW60H1ZlPQ2cjcSK9doULUFf2ZnSEIvk9voFauO2OJ7JxW3bobHE1rc8XXV
+	zw=
+X-Received: by 2002:a05:6000:4301:b0:435:a7fa:249a with SMTP id ffacd0b85a97d-436293b326bmr17072170f8f.61.1770641533160;
+        Mon, 09 Feb 2026 04:52:13 -0800 (PST)
+Message-ID: <57c4d4d5-5588-40cf-919c-1e337328858f@suse.com>
+Date: Mon, 9 Feb 2026 13:52:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] xen/riscv: introduce vcpu_kick() implementation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 00/12] const-ify vendor checks
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1769099883.git.oleksii.kurochko@gmail.com>
- <0335a7db0343d81ce4256482a464e7ba5df1c204.1769099885.git.oleksii.kurochko@gmail.com>
- <14d19350-0de8-4496-99e5-0ba76e421684@gmail.com>
- <4a12e652-5b53-40d0-b701-d1f5b749dfa7@suse.com>
- <29006d8a-e003-4451-99af-0eef8f7d1c08@gmail.com>
- <87533cdf-c8cc-4a86-9946-a999e8d31b82@suse.com>
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
+ <608472d0-517c-4bc5-b5c1-c278c4f6620b@suse.com>
+ <DGACI1R7MGDO.1SB7OMQQZ1NC3@amd.com>
+ <836c1ef7-4ec3-4c4a-b527-17066327ff19@suse.com>
+ <DGAEV1NFZF2A.2ATDMEFZAIZ5S@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <87533cdf-c8cc-4a86-9946-a999e8d31b82@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DGAEV1NFZF2A.2ATDMEFZAIZ5S@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,microchip.com,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 815BB10EB47
+X-Rspamd-Queue-Id: BE30510F1E1
 X-Rspamd-Action: no action
 
-
-On 2/9/26 10:51 AM, Jan Beulich wrote:
-> On 09.02.2026 10:40, Oleksii Kurochko wrote:
->> On 2/9/26 10:07 AM, Jan Beulich wrote:
->>> On 06.02.2026 17:36, Oleksii Kurochko wrote:
->>>> On 1/22/26 5:47 PM, Oleksii Kurochko wrote:
->>>>> Add a RISC-V implementation of vcpu_kick(), which unblocks the target
->>>>> vCPU and sends an event check IPI if the vCPU was running on another
->>>>> processor. This mirrors the behavior of Arm and enables proper vCPU
->>>>> wakeup handling on RISC-V.
+On 09.02.2026 12:56, Alejandro Vallejo wrote:
+> On Mon Feb 9, 2026 at 11:15 AM CET, Jan Beulich wrote:
+>> On 09.02.2026 11:05, Alejandro Vallejo wrote:
+>>> On Mon Feb 9, 2026 at 10:21 AM CET, Jan Beulich wrote:
+>>>> On 06.02.2026 17:15, Alejandro Vallejo wrote:
+>>>>> High level description
+>>>>> ======================
 >>>>>
->>>>> Remove the stub implementation from stubs.c, as it is now provided by
->>>>> arch/riscv/domain.c.
+>>>>> When compared to the RFC this makes a different approach The series introduces
+>>>>> cpu_vendor() which maps to a constant in the single vendor case and to
+>>>>> (boot_cpu_data.vendor & X86_ENABLED_VENDORS), where X86_ENABLED_VENDORS is a
+>>>>> mask of the compile-time chosen vendors. This enables the compiler to detect
+>>>>> dead-code at the uses and remove all unreachable branches, including in
+>>>>> switches.
 >>>>>
->>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>>> ---
->>>>> Changes in v2:
->>>>>     - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
->>>>> ---
->>>>>     xen/arch/riscv/domain.c | 14 ++++++++++++++
->>>>>     xen/arch/riscv/stubs.c  |  5 -----
->>>>>     2 files changed, 14 insertions(+), 5 deletions(-)
+>>>>> When compared to the x86_vendor_is() macro introduced in the RFC, this is
+>>>>> simpler. It achieves MOST of what the older macro did without touching the
+>>>>> switches, with a few caveats:
 >>>>>
->>>>> diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
->>>>> index e38c0db62cac..13ac384c4b76 100644
->>>>> --- a/xen/arch/riscv/domain.c
->>>>> +++ b/xen/arch/riscv/domain.c
->>>>> @@ -1,8 +1,10 @@
->>>>>     /* SPDX-License-Identifier: GPL-2.0-only */
->>>>>     
->>>>> +#include <xen/cpumask.h>
->>>>>     #include <xen/init.h>
->>>>>     #include <xen/mm.h>
->>>>>     #include <xen/sched.h>
->>>>> +#include <xen/smp.h>
->>>>>     #include <xen/vmap.h>
->>>>>     
->>>>>     #include <asm/bitops.h>
->>>>> @@ -240,3 +242,15 @@ void vcpu_sync_interrupts(struct vcpu *v)
->>>>>     #   error "Update vsieh"
->>>>>     #endif
->>>>>     }
->>>>> +
->>>>> +void vcpu_kick(struct vcpu *v)
->>>>> +{
->>>>> +    bool running = v->is_running;
->>>>> +
->>>>> +    vcpu_unblock(v);
->>>>> +    if ( running && v != current )
->>>>> +    {
->>>>> +        perfc_incr(vcpu_kick);
->>>> Because of this it is needed to introduce:
->>>>      PERFCOUNTER(vcpu_kick, "vcpu: notify other vcpu")
->>>> Otherwise randconfig build will fail when CONFIG_PERF_COUNTERS=y.
+>>>>>   1. Compiled-out vendors cause a panic, they don't fallback onto the unknown
+>>>>>      vendor case. In retrospect, this is a much saner thing to do.
 >>>>
->>>> I would like to ask if it would be okay to add it xen/include/xen/perfc_defn.h
->>>> just after PERFCOUNTER(need_flush_tlb_flush,...) or would it be better to have
->>>> it in arch specific perfc_defn.h?
->>> Arch-specific please - it's not used by x86 nor ppc.
->> Then I will do the following changes:
+>>>> I'm unconvinced here. Especially our Centaur and Shanghai support is at best
+>>>> rudimentary. Treating those worse when configured-out than when configured-in
+>>>> feels questionable.
+>>>
+>>> Isn't that the point of configuring out?
 >>
->> diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
->> index 3824f31c395c..86c56251d5d7 100644
->> --- a/xen/arch/riscv/include/asm/Makefile
->> +++ b/xen/arch/riscv/include/asm/Makefile
->> @@ -7,7 +7,6 @@ generic-y += hypercall.h
->>    generic-y += iocap.h
->>    generic-y += irq-dt.h
->>    generic-y += percpu.h
->> -generic-y += perfc_defn.h
->>    generic-y += random.h
->>    generic-y += softirq.h
->>    generic-y += vm_event.h
->> diff --git a/xen/arch/riscv/include/asm/perfc_defn.h b/xen/arch/riscv/include/asm/perfc_defn.h
->> new file mode 100644
->> index 000000000000..4fc161f1abad
->> --- /dev/null
->> +++ b/xen/arch/riscv/include/asm/perfc_defn.h
->> @@ -0,0 +1,7 @@
->> +/* This file is intended to be included multiple times. */
->> +/*#ifndef __XEN_PERFC_DEFN_H__*/
->> +/*#define __XEN_PERFC_DEFN_H__*/
->> +
->> +PERFCOUNTER(vcpu_kick, "vcpu: notify other vcpu")
->> +
->> +/*#endif*/ /* __XEN_PERFC_DEFN_H__ */
+>> That's what I'm unsure about.
+> 
+> I'm really missing what you're trying to make, sorry. How, if at all, is it
+> helpful for a hypervisor with a compiled out vendor to be bootable on a machine
+> of that vendor?
+
+No more and no less than for a system with CPUs from a vendor we don't have
+support for at all. Let's assume someone wants to start adding support for
+a new vendor. They may first try Xen as-is. This wouldn't panic. Depending
+on how exactly they would start adding stuff, Xen might suddenly panic,
+despite functionally nothing having changed.
+
+>>> Besides the philosophical matter of whether or not a compiled-out vendor
+>>> should be allowed to run there's the more practical matter of what to do
+>>> with the x86_vendor field of boot_cpu_data. Because at that point our take
+>>> that cross-vendor support is forbidden is a lot weaker. If I can run an
+>>> AMD-hypervisor on an Intel host, what then? What policies would be allowed? If I
+>>> wipe x86_vendor then policies with some unknown vendor would be fine. Should the
+>>> leaves match too? If I do not wipe the field, should I do black magic to ensure
+>>> the behaviour is different depending on whether the vendor is compiled in or
+>>> not? What if I want to migrate a VM currently running in this hypothetical
+>>> hypervisor? The rules becomes seriously complex.
+>>>
+>>> It's just a lot cleaner to take the stance that compiled out vendors can't run.
+>>> Then everything else is crystal clear and we avoid a universe's worth of corner
+>>> cases. I expect upstream Xen to support all cases (I'm skeptical about the
+>>> utility of the unknown vendor path, but oh well), but many downstreams might
+>>> benefit from killing off support for vendors they really will never touch.
 >>
->> and add the following to commit message:
->>       Since vcpu_kick() calls perfc_incr(vcpu_kick), add perfcounter for
->>       vcpu_kick to handle the case when CONFIG_PERF_COUNTERS=y. Although
->>       CONFIG_PERF_COUNTERS is not enabled by default, it can be enabled,
->>       for example, by randconfig what will lead to CI build issues.
->>
->> Note that I keep __XEN_PERFC_DEFN_H__ as other archictectures use the same,
->> not something like ASM__<arch>__PERFC_DEFN_H.
-> Please don't copy this mistake. I actually question the commented-out pre-
-> processor directives altogether: Misra also has a rule against commented-
-> out code (directive 4.4, which we didn't accept [yet], but which exists
-> nevertheless). Yet at the very least what's commented out should not be
-> obviously wrong.
+>> To them, will panic()ing (or not) make a difference?
+> 
+> One would hope not because the're compiling them out for a reason.
+> But for upstream, not panicking brings a sea of corner cases. The ones I
+> mentioned above is not the whole list.
+> 
+> Turning the question around. Who benefits from not panicking?
 
-Do I understand correctly that it would be acceptable to simply drop the
-commented-out preprocessor directives and keep only /* This file is intended
-to be included multiple times. */ ?
+Certain things may work. But more generally - see above. Turning this
+question around also isn't quite appropriate imo: You want to introduce
+the panic(), so it's on you to justify doing so (which includes making
+clear why omitting that small piece of code would be a bad idea).
 
-~ Oleksii
-
+Jan
 
