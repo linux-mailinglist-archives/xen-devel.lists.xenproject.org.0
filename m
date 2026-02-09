@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6ElYIKnjiWnGCwAAu9opvQ
+	id oANsGNnjiWnGCwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 14:39:53 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 14:40:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CC110FCE9
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 14:39:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225382.1531870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB73E10FD21
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 14:40:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225389.1531881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpRUE-00050O-Ea; Mon, 09 Feb 2026 13:39:34 +0000
+	id 1vpRV7-0006Rv-Ns; Mon, 09 Feb 2026 13:40:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225382.1531870; Mon, 09 Feb 2026 13:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 1225389.1531881; Mon, 09 Feb 2026 13:40:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpRUE-0004yE-Bz; Mon, 09 Feb 2026 13:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 1225382;
- Mon, 09 Feb 2026 13:39:33 +0000
+	id 1vpRV7-0006PI-Kv; Mon, 09 Feb 2026 13:40:29 +0000
+Received: by outflank-mailman (input) for mailman id 1225389;
+ Mon, 09 Feb 2026 13:40:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gJZC=AN=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vpRUD-0004y8-BM
- for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 13:39:33 +0000
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170100009.outbound.protection.outlook.com
- [2a01:111:f403:c107::9])
+ <SRS0=5cm8=AN=bounce.vates.tech=bounce-md_30504962.6989e3c8.v1-67754961e148408b9a870d67effcb503@srs-se1.protection.inumbo.net>)
+ id 1vpRV5-0006P2-T9
+ for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 13:40:27 +0000
+Received: from mail177-22.suw61.mandrillapp.com
+ (mail177-22.suw61.mandrillapp.com [198.2.177.22])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3221905-05bc-11f1-b162-2bf370ae4941;
- Mon, 09 Feb 2026 14:39:32 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by MN2PR03MB5166.namprd03.prod.outlook.com (2603:10b6:208:1ed::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
- 2026 13:39:28 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 13:39:28 +0000
+ id e3998e7a-05bc-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 14:40:26 +0100 (CET)
+Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail177-22.suw61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4f8m6J5wcZzGlsp2q
+ for <xen-devel@lists.xenproject.org>; Mon,  9 Feb 2026 13:40:24 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 67754961e148408b9a870d67effcb503; Mon, 09 Feb 2026 13:40:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,205 +48,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3221905-05bc-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n+aG9xM1tO5e+AQr8bRj60wKmCsOUTdki25la4sVSyVXQWF2vKxl3RcMVFy/IfDOKuGGu8kmubidRH1rTwq/pLriSFqyRokTi37lSUDxS2rx8bTH9FFje7GOnPjpz+IDZk0DEePLL25B0ShXugQr7xD+lCIZziv8QPctSHYfsY14CDmUoYTAa8WmmX4AgQ8byxk1aWn0X6mxCGrRhxuTuWbN7McDKk/Xu+Sub4Z6EV9ZFbvtL0xaZvNe/YkDG1j08b4hfQ81vudbiWPVbxGXg0IXNa5iYsWNk81zJdv3Zx6Zp+k8oGpXJu7tUa67Kr114A6VYy6eJ+IlLmfd87Oviw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A5AMvFr1EqwhGFO2Q3L3XMLGUp4ZVOd78Cp91Mo5skc=;
- b=s1ixJOjpYdEsGg9+fzuKdcnpVaoCiFp3k75VuKXeJR+33IiRh+zshrjR8eMKwvTlBUpu2UoOL1CqWr+pRry9Njy84kbIGqDRPrYqD0ZM6j9aq/h7Ab96I92ufzxjZjqgN6rxmUkgMth7AqDfG3gkbPifViw6lCR5gNEZ8QVU63raV377s55TyBFm8raiFoQ0sTWjsX0Hw8OJeldi0bl5J45CU7u2JVALPj+hiN9b3R5VXzXbsTDKcpA6mJ3MlktOkWBHGMLDICbhpocCkOJwIBCwTHxU+BZVkHEQhyDZSnrQnFZdVFt8Vm3l3Ld6t/0rlfUuDO9Bh8PN0711acd+yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A5AMvFr1EqwhGFO2Q3L3XMLGUp4ZVOd78Cp91Mo5skc=;
- b=s+9v9PRVrRn//OAX9/lwQKCkMjX27WnchjK/NGq7WTdg3atpir1jzEwSsRe/QIyhlYHkS61cSH3EijhV3tTPGaigm9HNDBQHiCywze9RPmy2TKQYmx35uciEKnOffex4ALQMAdcGmYwtIXNKC+w5B5GMc4n5O6c6Gxdwh5RDWb0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 9 Feb 2026 14:39:24 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v5] xen: Add Darwin.mk
-Message-ID: <aYnjjHlbaYjr2VqV@Mac.lan>
-References: <49c0bd388d45b6936bd852d99fbbc262fb078253.1770633598.git.bertrand.marquis@arm.com>
- <aYngg_ym18d0G-fX@Mac.lan>
- <28A169D0-4454-4D60-B811-72FE377A4318@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <28A169D0-4454-4D60-B811-72FE377A4318@arm.com>
-X-ClientProxiedBy: MR1P264CA0035.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2f::22) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: e3998e7a-05bc-11f1-b162-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1770644424; x=1770914424;
+	bh=E+Nh1SkPaXDN/5wTRsrC5L53Z2u3HS0QQ13Rh8scEGI=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=i8iZpYn5RezKnFDM5OwNvgrNkWOjclQs/DHDv0t7TJFSLoRsDebMWwgwVvX4QkxW0
+	 jKGs3j8Py8Js3+7sNRAzbPYpskWnpPYhEEerI1u+wjmB+xNGkuBk4R9+aQR1eJU7Sq
+	 jG616jc2UiWolF2XWw3tZQmab3mq2v2wCiDYA2re7r8UsJ5C0hCMsrjuHOtAGErTQf
+	 +5Uds1I0J4Ptp2i5cTcOZtCCkfSGB/2YaWGTznnywlDLUnqsP30tecNtGL7LDXcR6B
+	 NYXt6qwzLlZKXVR9pwu1lxOh8YCxjlhKJd6JVZfaD3xQa5g1e1YWIepUqMNbelzxAp
+	 gXqdDExjvzNrA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1770644424; x=1770904924; i=teddy.astie@vates.tech;
+	bh=E+Nh1SkPaXDN/5wTRsrC5L53Z2u3HS0QQ13Rh8scEGI=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=cFP/Iy9IvgmE97nyxeS64QbdUGGo0DEq9qbVN1rdNnO5uctzp7wHlRerYEV+YS7NN
+	 F6XOE0TQKxcO+vA2VGK7R7iPZTajfqvbrjmhpCgWbE9aW1/OEtpI5ZCYtlVIPNZN8X
+	 XzBdK01eswIuhQmdkUAuHIXdeYJXbkm6XFqXf6dFvs7Y+kOWw72q4Lm43Y9DbgpHrK
+	 dxUi7zrxWbnzPm6QCwtvHsILscvWnzavuCO7J6U2h+uig5MoL5wbJEfLUsyYj3lB+I
+	 1Q9LLAhEdAcqCx5J8/hUMkV8HfdXhRlWFxUaKmloy6EuR2brchaqb48eAqOBhLm0tD
+	 yZhC3u09djklA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20x86/hvm:=20Advertise=20and=20support=20extended=20destination=20IDs=20for=20MSI/IO-APIC?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1770644423667
+Message-Id: <87be26c1-52fe-438f-8aad-1d5ea0f0a325@vates.tech>
+To: "Julian Vetter" <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+References: <20260209113412.2603088-1-julian.vetter@vates.tech>
+In-Reply-To: <20260209113412.2603088-1-julian.vetter@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.67754961e148408b9a870d67effcb503?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260209:md
+Date: Mon, 09 Feb 2026 13:40:24 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MN2PR03MB5166:EE_
-X-MS-Office365-Filtering-Correlation-Id: 877a4437-3b5a-484e-db81-08de67e0a586
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OEh5N2Z4VEVHYWVORkhLOGNBOTFRVjR2b1Z1T0p6ZmIzVTNFSjJzWGtIcU9k?=
- =?utf-8?B?U3pwWkZFUEE0SFAyMkppenB5VEhGTndrejZOUE1hRktJenUrdi8zUXFuYUhq?=
- =?utf-8?B?MllUcjNGSjBRUlVobExUdlZDUVFnZU44QkVuZDkvQWVIMk40c2pHRTExVDBp?=
- =?utf-8?B?cDFHQWtqN0lXUHlHUTJwVHZoY2w4ckYvWSs5ZzFveWhXWWlwT0NVM1NVQTdv?=
- =?utf-8?B?TlREd3BjcCsrSURZMHZyUUpMWTdhOXZFb2N6QU9SNGY4Y1R3RVYyQkFPUWJX?=
- =?utf-8?B?ZEJycGpvQnRuVHVlZFQ3NnBrYlhNbkRzSXIzWFAyQ2hjQ2JlZ2djclpoWVVF?=
- =?utf-8?B?L01IcGpwd0R5enQ0S201NU1NQTVLanBnYTVQby9WeFlKYlBMdlBvckdESHRi?=
- =?utf-8?B?bFpJRUpyclVNNVA2c0RZc3hkMUZEazFSQyswZ0ZRMUdUNFY5NDBSNFViQldO?=
- =?utf-8?B?c1FOQkc3SlIyUy9tNEoyQjNaTGJNcjAwZjJSYy8yTFB4Vm1vZHBDSEpOT0VW?=
- =?utf-8?B?KzgwcU1EOE5md1dLb2crbjJnSVpPdzR1ZkxjN0w1WkpVNmM3cis2M3pzNmNy?=
- =?utf-8?B?K0lza29DamdrNE1nd0NXaW4yenRnVFdSUGJPMm1YVUZiaE5rQzNHbjRLWkdj?=
- =?utf-8?B?b1dkT2Q0Y3JjdnFpcnIyaE15bVFVK3RsYU5VeFQvVGNGL1lORjVsbEc5bGdk?=
- =?utf-8?B?czlQczNSa3RXSEd1WFJWaGhlNW1OdytJZTRsRFl1SzVoV08xTExVbkhmSW8r?=
- =?utf-8?B?ZXY4Ukd3UEo2UHZzUk1Ham1KbUlhUGRiMHlETDg3VW9QZUdJSG81a1ZDWUFn?=
- =?utf-8?B?QXFVcXBJRXl5UVlvMjU0YmlYQVZhU0VCR0VFbmcvTEZqbDlLd1FUZ0N3aWlL?=
- =?utf-8?B?ZzIwSXVaZHJES3A1bzNpdUxkRFFZQWJ6L3grdGpJbmNGenRYbWhjaHZiSUNk?=
- =?utf-8?B?cTdtYUtZNjJJL05IQkxTUGNpZ1J5bkR2VndJWTJDdEc1UWVjak85SkxFV2dj?=
- =?utf-8?B?c3JWbVp2YWY0NnZ3R09Od1NrUHhmekg0akx3NCtFSDNKS2hVWHdYTlNnMGVq?=
- =?utf-8?B?SWV2L1FCMDJ4VmJBUzJ2SWpkTjV2Z0g1SzkxQ2grOXRTb1p5dDRLbEpLQS9j?=
- =?utf-8?B?Z2FEUUY0UXV0Q2FpakJHUlZaaVRPaHRVM1VCMHpBd2sxemxSaENqWEtRbHgr?=
- =?utf-8?B?Yko5M0thazB6SnpsRkZxQ1BvejYvMStWaHZMN2dPeXAzdytFU2Y5VWcwRWlQ?=
- =?utf-8?B?ell4Z1RGcjNWNzlaRC9pMk5qWm5qdzVRZGN3UmFYQ0MxT1pZSmlaUWExc0xZ?=
- =?utf-8?B?bUp0NWhtOEo0bXRDYVl0anV5UVdzTUhKWUxKbzNBdHMrZWVkQjd1cjZrRWRF?=
- =?utf-8?B?Rm1MeHF5YTNER0s5Qi90OUdNclZZc0hJOTlNcUhpekpXQytWUDcyYmsrcTFa?=
- =?utf-8?B?RTZORmszL0pGN2ZUeHdXS0QyQnVqZFZKSzlFaXNoMUZTU3NOa1dic1BJL3dT?=
- =?utf-8?B?TERUcUhLQnRpNlhPandyVHlYZVpjTDJPdjVyVzFrMUlySVpsZzJWYXZOTCtB?=
- =?utf-8?B?QVJQc0tpc01jUzRmUFZkZWIvTUNrdWlLN1A3alYxaHpubnB6RWlaakpOTmY4?=
- =?utf-8?B?WkxjT2V6TC9HaVR5dm5QaDFYVWFGMENWazJnbmFpVXpPSnowQVlOdFJaR25E?=
- =?utf-8?B?QnNWaEhCMVRCem11cXhzTHFrVGlHRkxqcjRjcGR1citGKzZQeFYwVWFnTVpD?=
- =?utf-8?B?T21pck5HTTgyS2dhdGJmTnR3RXhSSTJmL3NSV3R2OEgyOXlxdCtBYXJRQXI0?=
- =?utf-8?B?UzQyZzV6ZWVOd3QzMDhZRjNGQmdwMS9IZ2E5cUp1RHcyWmtZaHRQYUFKZmtM?=
- =?utf-8?B?VnN0SlA3eHNNRTN1bG1mTVA5aEpMbWFweUdIV0tzcW8zMU1DNzZQQjZCUUxD?=
- =?utf-8?B?UnlqSUJwcm0rVldVeFMvMDNta0dUNWtkbmg0cnRlbC82V3FTMHVyMXNHQXRF?=
- =?utf-8?B?aW1zNDdWWjY2STF0UXNTSStuTVlhZ1lNU2NFYklxMGJ5M0U5YWlKWUtqNTFP?=
- =?utf-8?B?QjBkbXpoMDJGQUxGMjFYcDY2MGxoUDhxSDJpNElQWmgzR2FOUEx5Q3NleUN1?=
- =?utf-8?Q?5Zl8=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VFhQMmlkU0FYZS9mRWd0WjNGSFpqMXlMb1lQbFN6ODRZeUd0YzgyZnQxb0dY?=
- =?utf-8?B?NkhKUmRpdWRtN2F2d0w2Ly8xZFF4UVVNVzc2SWNRK3ZsV0dqQ055TFZPOElL?=
- =?utf-8?B?YlJCbnpSQWxsSVYxbW05anUxS3o1TmtpdzNUUkhNR3dpU01MT1NQVVFVZ2pn?=
- =?utf-8?B?Yk1pd3l5VlNiNlBTc3Fwa0EvMXJIY3V6Zkk3UFlkNWhkaUpKVzRiRTVhK2lY?=
- =?utf-8?B?aDBzMHVHUE9xdGxMVWU0aHlqdE8wL0xvT3A1Ky9IVjM5eS93RldtSUxVVEZS?=
- =?utf-8?B?V3FMRnJ3RXE2MTRMSXBjZGJIM2llK1FucEdEd1VHSEVYK0RVMEl1NXVoL1hq?=
- =?utf-8?B?U2xxemhwVGhlV3dEeFZxc3JDUUE1dTY0WEwvcFhyMzJCSGprQXJJV2ZkQTRK?=
- =?utf-8?B?OHZrVVhUZnNyNXd6Qk9CNmpic2RUaWF1bVY5Mlg2TGdKQ0ZIVUFDZGJtclJG?=
- =?utf-8?B?enl5V1pCc3pnSjFlaGJ4N0s1akduT1JtK1VhSmxSdkQyZTlBVmJkK1E2S1By?=
- =?utf-8?B?OS9DV3FtZkNaaUZzYVJhb0FUUkNTd0lEd0M4WGUyR201U05LTG5zVzZ2VDhS?=
- =?utf-8?B?cE00eHhCYzJEU084US9OR2RvSG9sbkE1S1dPVEdpZFZSQlFTaGZlQXhHMlkz?=
- =?utf-8?B?T01qekRiVVZ4QVBhQUJMRS9saVkwR2JxSkU2SGsvejY2bGs0alhnK3BaS0Jh?=
- =?utf-8?B?cm5XbE82TCswT2hNS3hTeTlnMlNMUGpPSXBvWUxYSS9COUpwZDZuSkpWTGs5?=
- =?utf-8?B?QnVKUjYybnR1RTc3ZG9jQkhTQW5oNmt2cHdwd3VmT0Y2VkcvOXlKRHFRd3Ex?=
- =?utf-8?B?emg2VFEzWlFxVlFDTnBTK25QVE5iSDloaGhGekxSbEtkcFM3aGlhOFlFL0Ra?=
- =?utf-8?B?dHZOdnlTWkNqQm9SRUQyVGZkWitMK2sydHlLWGg4L0FZREcweEcySVRFM3gx?=
- =?utf-8?B?VHJGRFRpYjEwZEtJL0xKTUluVm1IV2dKNWJDVnNkVHdWUGo5TXc2cE8xSmVG?=
- =?utf-8?B?Z0llbWNJNG52KzNEQnZLZG5INmtiYzVqZmhkWVZacTNYQ2xCQVhVRjRzWHBP?=
- =?utf-8?B?QTZJRUFBUEhDSDZ1cGxId05PMzdCYTg0ZzF4T09NLzFDSGRWTnMxN0dWODlN?=
- =?utf-8?B?VURPSFdGRmZLU0s0ZE9pUWpzNkNick5DdWRFOXREMVpQYmRqOUFUeUo5azY4?=
- =?utf-8?B?d3FuUDZiOWJoS1lvUlplN29TZVJFbDFsZUp1NExNcTRud05uUTR6THR0V0pk?=
- =?utf-8?B?S1IvSit2ajdKMEZsL1NzZGhzU2NkTjZpNVV6ak95cmdGUDMxOUNGb2VnSlA1?=
- =?utf-8?B?enRlS210YmdaZHpsS0xXRFZDcTdCY0U0SVA0bGpQL3k5R3h3dVRuK2hyREtS?=
- =?utf-8?B?bXlrZGwweGxzTVJRNXZSWGx0Y3lDbFMwSHlrQ1k4TWRZanpVazB2WVVHck9k?=
- =?utf-8?B?RE1vdTd2dDM5Y2lCWFNCZmE3c0xhYVA0c3RXVTBZeW1rMW9SdzRnMnVxblpm?=
- =?utf-8?B?S3NwTnBHOWFWSndISW9wd2dpMU1GbHloUE5sWm0xZUtvZmY5RU90dHp1aWt0?=
- =?utf-8?B?Tk91WWo0RGxNdzFHL1NRNWZuV2FYZjc3ZFhOTTFDb3Arc3ZoUjFEOXBMVUlv?=
- =?utf-8?B?bTB2SG5uV2xEMUd2d3owQjhYdkUrZnR6aC9VWUxobFQwWDU3TTg4UldKeStD?=
- =?utf-8?B?aXZpbUlOUEZoRjY1VnB3dzNxMXNIMDNmQnhWdWV2Y0ZKb2xqZUdlOFJRWmgw?=
- =?utf-8?B?QVZUU3lGT3h5dHp1RFUwZnV2bXhEWUhSWm9ZMDBUdGdBUVlOOEhFVWtjdDdP?=
- =?utf-8?B?U2UrcW1tVjJXcThYSEd6M1loS1N2azVoSnlxSkVJRHlaaU9OMW1QbTNTNVhE?=
- =?utf-8?B?ZEtzQi9oWmZHeGVjWlFrWkVWZWhTZDcvU2hsRkJVMXJ4Mi91K05Ld1FlS3Q2?=
- =?utf-8?B?OWU2bXJHQXR3eE8yRnJzaDFCdkNlSVBISTRyYS9DTkR2QzZKakM4c0JwK0hh?=
- =?utf-8?B?Mm9MTEllTVFiR1ZhZklFNEwwemVVaUt6UkV5MUdDQUVXWlpDVDJ1TUM0eHlP?=
- =?utf-8?B?VW1ZL3RSZ2dXSHdJY3FJTlZ2QVFldmxYYitiQWZZSFpBSmZIbXJjMlVlTXVj?=
- =?utf-8?B?d0V5ekU2VUpEVXJSeXI4V1B6TUJMUVFDQ2xQQmc3RlUwMkhlZVFLaHpVODN2?=
- =?utf-8?B?Q1ExMjU4TEtpSHgzUUo1bWk5VnBuQThEdHJpT1FYS3pHYVpzZXFGWE5LNXRj?=
- =?utf-8?B?NUx4YlpNMXIwSHFQRHdsTzE2RDVKbllGcTdRK01ZaWs0VFk0bjA2bDJ2OEVu?=
- =?utf-8?B?bG5xQ1ZyREZTa0lUcSttc1VENnYveWQwVjVYWkJQeHBhem9ISmNoQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 877a4437-3b5a-484e-db81-08de67e0a586
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 13:39:28.3678
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mu4E5j1Z4DFAa2QLquD1UKK+dP4XE9uDYfoqKzSs9QW/giLGiXiS237Izko74Und3as9vcC/cxKqabP23jK3Dw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5166
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[Mac.lan:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,citrix.com:dkim,stdgnu.mk:url];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,vates.tech:mid,vates.tech:dkim,vates.tech:url,vates.tech:email];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: D5CC110FCE9
+X-Rspamd-Queue-Id: AB73E10FD21
 X-Rspamd-Action: no action
 
-On Mon, Feb 09, 2026 at 01:33:13PM +0000, Bertrand Marquis wrote:
-> Hi Roger
-> 
-> > On 9 Feb 2026, at 14:26, Roger Pau Monné <roger.pau@citrix.com> wrote:
-> > 
-> > On Mon, Feb 09, 2026 at 11:46:44AM +0100, Bertrand Marquis wrote:
-> >> Xen does not provide a Darwin build configuration useable on Mac OS.
-> >> It is possible to build Xen Hypervisor (tools are not supported) with a
-> >> toolchain able to produce ELF binaries (GCC or others).
-> >> 
-> >> Add config/Darwin.mk to include StdGNU.mk and force
-> >> XEN_COMPILE_ARCH=unknown, ensuring Darwin builds always follow
-> >> the cross-compile path so compiling on Mac OS is always handled as a
-> >> cross compilation case.
-> >> 
-> >> Only compiling the hypervisor has been tested !
-> >> 
-> >> An example of how to build the hypervisor for arm64 on Mac OS
-> >> (tools cannot be build for now) using a compiler from brew:
-> >> - brew install aarch64-elf-gcc aarch64-elf-binutils
-> >> - make XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-elf- HOSTCC=clang
-> > 
-> > This needs 'xen' target passed.
-> 
-> Without any target, xen is built by default so i kept the simplest possible command
-> But I am ok with adding xen
+Hello,
 
-With the `cd xen` omitted, won't that also attempt to build the tools
-then?
+Some comments, mostly code style, nothing functionnal.
 
-Thanks, Roger.
+Le 09/02/2026 =C3=A0 12:36, Julian Vetter a =C3=A9crit=C2=A0:
+> x2APIC guests with more than 128 vCPUs have APIC IDs above 255, but MSI
+> addresses and IO-APIC RTEs only provide an 8-bit destination field.
+> Without extended destination ID support, Linux limits the maximum usable
+> APIC ID to 255, refusing to bring up vCPUs beyond that limit. So,
+> advertise XEN_HVM_CPUID_EXT_DEST_ID in the HVM hypervisor CPUID leaf,
+> signalling that guests may use MSI address bits 11:5 and IO-APIC RTE
+> bits 55:49 as additional high destination ID bits. This expands the
+> destination ID from 8 to 15 bits.
+> 
+> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
+> ---
+>   xen/arch/x86/cpuid.c                   |  9 +++++++++
+>   xen/arch/x86/hvm/irq.c                 | 11 ++++++++++-
+>   xen/arch/x86/hvm/vioapic.c             |  2 +-
+>   xen/arch/x86/hvm/vmsi.c                |  4 ++--
+>   xen/arch/x86/include/asm/hvm/hvm.h     |  4 ++--
+>   xen/arch/x86/include/asm/hvm/vioapic.h | 13 +++++++++++++
+>   xen/arch/x86/include/asm/msi.h         |  3 +++
+>   7 files changed, 40 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+> index d85be20d86..fb17c71d74 100644
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -148,6 +148,15 @@ static void cpuid_hypervisor_leaves(const struct vcp=
+u *v, uint32_t leaf,
+>           res->a |=3D XEN_HVM_CPUID_DOMID_PRESENT;
+>           res->c =3D d->domain_id;
+>   
+> +        /*
+> +         * Advertise extended destination ID support. This allows guests=
+ to use
+> +         * bits 11:5 of the MSI address and bits 55:49 of the IO-APIC RT=
+E for
+> +         * additional destination ID bits, expanding the addressable API=
+C ID
+> +         * range from 8 to 15 bits. This is required for x2APIC guests w=
+ith
+> +         * APIC IDs > 255.
+> +         */
+> +        res->a |=3D XEN_HVM_CPUID_EXT_DEST_ID;
+> +
+>           /*
+>            * Per-vCPU event channel upcalls are implemented and work
+>            * correctly with PIRQs routed over event channels.
+> diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+> index 5f64361113..2cc14d37d4 100644
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -374,7 +374,16 @@ int hvm_set_pci_link_route(struct domain *d, u8 link=
+, u8 isa_irq)
+>   int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
+>   {
+>       uint32_t tmp =3D (uint32_t) addr;
+> -    uint8_t  dest =3D (tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_=
+SHIFT;
+> +    /*
+> +     * Standard MSI destination: address bits 19:12 (8 bits).
+> +     * Extended MSI destination: address bits 11:5 (7 more bits).
+> +     * When XEN_HVM_CPUID_EXT_DEST_ID is advertised, the guest may use
+> +     * bits 11:5 for high destination ID bits, expanding to 15 bits tota=
+l.
+
+As we always advertise XEN_HVM_CPUID_EXT_DEST_ID, I would rather say
+
+ > As XEN_HVM_CPUID_EXT_DEST_ID is advertised, ...
+
+> +     * For legacy guests these bits are 0, so this is backwards-compatib=
+le.
+
+"Guests unaware of this feature set these bits to 0, ..."
+
+> +     */
+> +    uint32_t dest =3D
+> +        (((tmp & MSI_ADDR_EXT_DEST_ID_MASK) >> MSI_ADDR_EXT_DEST_ID_SHIF=
+T) << 8) |
+> +        ((tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT);
+
+I wonder if we should introduce a macro like you did for IO-APIC 
+(VIOAPIC_RTE_DEST).
+
+>       uint8_t  dest_mode =3D !!(tmp & MSI_ADDR_DESTMODE_MASK);
+>       uint8_t  delivery_mode =3D (data & MSI_DATA_DELIVERY_MODE_MASK)
+>           >> MSI_DATA_DELIVERY_MODE_SHIFT;
+> diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+> index 7c725f9e47..263b1bd5cb 100644
+> --- a/xen/arch/x86/hvm/vioapic.c
+> +++ b/xen/arch/x86/hvm/vioapic.c
+> @@ -411,7 +411,7 @@ static void ioapic_inj_irq(
+>   
+>   static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int p=
+in)
+>   {
+> -    uint16_t dest =3D vioapic->redirtbl[pin].fields.dest_id;
+> +    uint32_t dest =3D VIOAPIC_RTE_DEST(vioapic->redirtbl[pin].bits);
+
+I would rather introduce a new field in vioapic_redir_entry for the 
+extended dest part; and compute dest from that and dest_id.
+
+>       uint8_t dest_mode =3D vioapic->redirtbl[pin].fields.dest_mode;
+>       uint8_t delivery_mode =3D vioapic->redirtbl[pin].fields.delivery_mo=
+de;
+>       uint8_t vector =3D vioapic->redirtbl[pin].fields.vector;
+> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+> index 27b1f089e2..dca191b4f1 100644
+> --- a/xen/arch/x86/hvm/vmsi.c
+> +++ b/xen/arch/x86/hvm/vmsi.c
+> @@ -66,7 +66,7 @@ static void vmsi_inj_irq(
+>   
+>   int vmsi_deliver(
+>       struct domain *d, int vector,
+> -    uint8_t dest, uint8_t dest_mode,
+> +    uint32_t dest, uint8_t dest_mode,
+>       uint8_t delivery_mode, uint8_t trig_mode)
+>   {
+>       struct vlapic *target;
+> @@ -125,7 +125,7 @@ void vmsi_deliver_pirq(struct domain *d, const struct=
+ hvm_pirq_dpci *pirq_dpci)
+>   }
+>   
+>   /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id */
+> -int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest=
+_mode)
+> +int hvm_girq_dest_2_vcpu_id(struct domain *d, uint32_t dest, uint8_t des=
+t_mode)
+>   {
+>       int dest_vcpu_id =3D -1, w =3D 0;
+>       struct vcpu *v;
+> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/as=
+m/hvm/hvm.h
+> index 7d9774df59..11256d5e67 100644
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -295,11 +295,11 @@ uint64_t hvm_get_guest_time_fixed(const struct vcpu=
+ *v, uint64_t at_tsc);
+>   
+>   int vmsi_deliver(
+>       struct domain *d, int vector,
+> -    uint8_t dest, uint8_t dest_mode,
+> +    uint32_t dest, uint8_t dest_mode,
+>       uint8_t delivery_mode, uint8_t trig_mode);
+>   struct hvm_pirq_dpci;
+>   void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pi=
+rq_dpci);
+> -int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest=
+_mode);
+> +int hvm_girq_dest_2_vcpu_id(struct domain *d, uint32_t dest, uint8_t des=
+t_mode);
+>   
+>   enum hvm_intblk
+>   hvm_interrupt_blocked(struct vcpu *v, struct hvm_intack intack);
+> diff --git a/xen/arch/x86/include/asm/hvm/vioapic.h b/xen/arch/x86/includ=
+e/asm/hvm/vioapic.h
+> index 68af6dce79..b49eb348d5 100644
+> --- a/xen/arch/x86/include/asm/hvm/vioapic.h
+> +++ b/xen/arch/x86/include/asm/hvm/vioapic.h
+> @@ -32,6 +32,19 @@
+>   #define VIOAPIC_EDGE_TRIG  0
+>   #define VIOAPIC_LEVEL_TRIG 1
+>   
+> +/*
+> + * Extract the destination ID from a 64-bit IO-APIC RTE, including the
+> + * extended bits (55:49) used when XEN_HVM_CPUID_EXT_DEST_ID is advertis=
+ed.
+> + */
+> +#define IO_APIC_REDIR_DEST_SHIFT        56
+> +#define IO_APIC_REDIR_DEST_MASK         0xffULL
+> +#define IO_APIC_REDIR_EXT_DEST_SHIFT    49
+> +#define IO_APIC_REDIR_EXT_DEST_MASK     0x7fULL
+> +
+> +#define VIOAPIC_RTE_DEST(rte) \
+> +    ((((rte) >> IO_APIC_REDIR_DEST_SHIFT) & IO_APIC_REDIR_DEST_MASK) | \
+> +     (((rte) >> IO_APIC_REDIR_EXT_DEST_SHIFT) & IO_APIC_REDIR_EXT_DEST_M=
+ASK) << 8)
+> +
+>   #define VIOAPIC_DEFAULT_BASE_ADDRESS  0xfec00000U
+>   #define VIOAPIC_MEM_LENGTH            0x100
+>   
+> diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/ms=
+i.h
+> index 00059d4a3a..b7a132e5b5 100644
+> --- a/xen/arch/x86/include/asm/msi.h
+> +++ b/xen/arch/x86/include/asm/msi.h
+> @@ -54,6 +54,9 @@
+>   #define=09 MSI_ADDR_DEST_ID_MASK=09=090x00ff000
+>   #define  MSI_ADDR_DEST_ID(dest)=09=09(((dest) << MSI_ADDR_DEST_ID_SHIFT=
+) & MSI_ADDR_DEST_ID_MASK)
+>   
+> +#define MSI_ADDR_EXT_DEST_ID_SHIFT=095
+> +#define MSI_ADDR_EXT_DEST_ID_MASK=090x0000fe0
+> +
+>   /* MAX fixed pages reserved for mapping MSIX tables. */
+>   #define FIX_MSIX_MAX_PAGES              512
+>   
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
