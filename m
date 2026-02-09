@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UFJ7APcQimlrGAAAu9opvQ
+	id 2E6eIV0SimlrGAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:11 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:59:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833F1112B20
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:53:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1225802.1532499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 369AF112CAD
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Feb 2026 17:59:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1225910.1532529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVP-00031V-80; Mon, 09 Feb 2026 16:52:59 +0000
+	id 1vpUbB-0000DW-85; Mon, 09 Feb 2026 16:58:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1225802.1532499; Mon, 09 Feb 2026 16:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 1225910.1532529; Mon, 09 Feb 2026 16:58:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpUVO-0002tp-Vn; Mon, 09 Feb 2026 16:52:58 +0000
-Received: by outflank-mailman (input) for mailman id 1225802;
- Mon, 09 Feb 2026 16:52:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vpUbB-0000Ac-53; Mon, 09 Feb 2026 16:58:57 +0000
+Received: by outflank-mailman (input) for mailman id 1225910;
+ Mon, 09 Feb 2026 16:58:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zC3u=AN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vpUVM-0007Zd-7g
+ id 1vpUVM-0007Zo-Bh
  for xen-devel@lists.xenproject.org; Mon, 09 Feb 2026 16:52:56 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c74ddf33-05d7-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Feb 2026 17:52:54 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-b86ed375d37so551166166b.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:54 -0800 (PST)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c801b671-05d7-11f1-b162-2bf370ae4941;
+ Mon, 09 Feb 2026 17:52:55 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-65808bb859cso6855045a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Feb 2026 08:52:55 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.52
+ a640c23a62f3a-b8edacf1564sm415776866b.52.2026.02.09.08.52.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 08:52:53 -0800 (PST)
+ Mon, 09 Feb 2026 08:52:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c74ddf33-05d7-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: c801b671-05d7-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770655974; x=1771260774; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770655975; x=1771260775; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=twQjmhb1zGscONCfiElutibwq+HGssUs2R5xhfNZcQQ=;
-        b=I/x/SQUjwZA25OzPp9tKGqPIoJ4xmFqjuPQUs0VasVYIT/gSY4GWjKIuUsgDbFmkNg
-         y9Wu7ybY0br0wJDljdus3PfUrFYJ8zNbMo0P6r5b7QtbaCIef4gOPq8hZ4WNSkyiROiQ
-         +sh4hnriKmSjUWUKM1XY2e7/b69YND1JFYKRDqhNWd94xf7ljwcm5LDoAM7naO5GZzYa
-         YOYYl9k2FV4HfhulqqYv/lqyyCBIaFXb40L78l1EJRAjDFKxfnO73c2RegeVfr47Bt9l
-         lyloHKpKaBZCSk+4IGL/NjnHsYxwZAWNzAB7+TyX+fZI80zPtJtR0axNmpjxzSqVWEVf
-         Tnsw==
+        bh=HyJML4Sv6DfhXqyacLnIQ1gC+Bl4EUOQWOcTO9rdOdc=;
+        b=f+EzXHzvTB6FHiyAY4+Jl2ixgu0bvHz0eloTerMjrqkHoybxObTysCkpnvCBsXTfSx
+         hUxJQ8neBo2lHw3TrkpmMkvwY8NtGQbJ5qAV7AC/hplIA9KHRMzRCblskooj7rjHa9Ae
+         uhei3rDtVw8WGYIetkknlnBbqtxc8EnFJhLQ7tUfLqYjm/PjXyZh0i2Xf3qYVhZYA0PH
+         7pbNL0968h5C8n85H5bwAKwmFVPm29HTGLJbl2GtyY9JH4JBYV1RJxpEpsG0Y5x9+8MR
+         B00Ph04BR/dKSSKtb+mzI06anrH0ZGqf93krNMFt66IzM1afNvSFrLTv3KW6svvZ5L9e
+         CIkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770655974; x=1771260774;
+        d=1e100.net; s=20230601; t=1770655975; x=1771260775;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=twQjmhb1zGscONCfiElutibwq+HGssUs2R5xhfNZcQQ=;
-        b=uHpqvtZa5xNKdC7lCRNDkHDDn2rhHM80byCbKO3RU8KwHYpzEUkEhCWKSn9AR9HraW
-         R1SZEUH7Ocj8IY4KjjkA/DH9xPidDkUK6krlvf0SENZMIAhGdKeX3VaTKANo2s7cQ0QJ
-         Rip8A7k3RVxyBrq0LCSq2gON7PMrmQEDzxKGBuxyFJ659liqNgWvUG5Gnxew1LyqjADe
-         NlAG9FmHzXFr5TCj+P/XHfC7Fm9gGC3ll3vgTu+7NGzFulwWfIy89s5pwnsVY7+UgwPS
-         MByFX0iGQC5/CALSk6DMgCA6nh2glAWvuBfBHtl4LypHOjDifVwF/eWR7rV/ubcs0ISC
-         RGhg==
-X-Gm-Message-State: AOJu0YzE8cEn7kzy2clyYveELdwC835+D5Pod+mv/zMW2jC2/NdDrerg
-	GdzqSXvY67biDbR+Et1xj8zQEgqRIiLl5l/AGvoHTvhVn5GaKN9kAv1poes984Ex
-X-Gm-Gg: AZuq6aLMhIOrvEvzXmm8UejQALI/X0Xy6Pm214+sh91mfCQxqjeAEMKQSwYccn652yx
-	MeY8LU0yQwUj1+tiejRNTRzjsm+unIMU7WFI2TtQngJHAAoW0t20PJLcbbV5XMpdlpndisSzzeF
-	d0WSZPwNoE3PxW6AEfVXGOAKMqMrwzAEBpwECKwXadaRfJ/iVXmZjXN6EwIhTR1+90JtZylsMZS
-	VnaRHpDmBsgiefWOFCJShCErmJr5TdeHvNG43HkcQ2PhODIC6v+FhwYNLA7luaR0yqZ15JoosDJ
-	LAQtYFN5oL4rL7vWZH+J8UWKrVi2AsGahOZkk9yO82e/2L70r/Q1lIA+nIZqQGC7IRCAEahhe6H
-	SS0pH8d74pDmUkhZRgW4gP2Go+o/WILotkpIoc3easgUJxS80+TQXojn7azwmYchxBe7oTYnpfQ
-	x0glGDoD5nECwh3rDRd9604nmBqnePH+lNkg6U1IL9+mVKBudZZ9w0NA/eokCbsLJx
-X-Received: by 2002:a17:906:c10a:b0:b87:1839:2601 with SMTP id a640c23a62f3a-b8edf344219mr692780266b.40.1770655973617;
-        Mon, 09 Feb 2026 08:52:53 -0800 (PST)
+        bh=HyJML4Sv6DfhXqyacLnIQ1gC+Bl4EUOQWOcTO9rdOdc=;
+        b=TbffzPfQN/4vrRWBNPtzqCpQxaVn8JitH/+lvuR2a1B7Lyr2PvkZofsNOnJ3N57s8p
+         41CVb4vZUo6AuowcOLg/BUHBHkf4AG//W8R+ba3/fJiF8J7Nw/2ZpcYiRfd7krU2SoO8
+         5qK9Ee4ZKCqUggXULBr949l5sz9xc6S+3Y8o0Yr9w/BRPfTqdeTu3D1wmX898gUTj84J
+         +08o09lrTd5+FxXHZHwAEaEzdTmMTth5CAYrxubhTl39iRJ+OBLLZkPufUfhfxeg1bbE
+         RKyhAuEGeu4f0hwderr0hZSDiT4ZUzEWRk7SxYiushDhWqPwqJeFwdZPIZnhywsUkede
+         TU+g==
+X-Gm-Message-State: AOJu0YzrGb3wvDfNQm5lrnLaOoJ0LYWwXP9sVggqoWCf+zA36HR7m4OX
+	X+2dHfz3zEjQ4LgAsBpT5PEYHzG6fYHdJA4E44MHbKQGB7i1vfVwWicweTQDKdBD
+X-Gm-Gg: AZuq6aJ9Y62KokdIu1dXVkLc3JzHI0s/Eg5XHfABmHbYy8ekM7+3HwkuSckZ9TaCaOO
+	l0qW0Yk8bT9nLGm6J86WDTB7BoHzU99oybR0ZY9QwOqH+1l/FeDBvgSVlipeWpzwZj464Ac5L7l
+	iq3RYHXdNuqRCkC67GlrPrrVzmDCE3zXc5ToI6JhM0XAuSjCZQCmVNc6wCYVebyNHczlxC6ceW/
+	buGmYYkmpp9evLFfNV69NJ36T8rE35oUbdBSjAg80AtTmdhXrPyVfQehJqb6KQBIkxIu+AKw96Y
+	zLRj6VlOzZMWocOVGslliETcYqUnSWkE2VVE7FOgk+fUUQVxRzl1oTApkKBBiQ8PJS8Ec0rURzu
+	4G7JFhwTXDHijxGc27CUe72IDu7ZESYQz8221T9ibVdUcfmenEsSg9KQWrnu2q7Dyuqp0rwKtZy
+	syC+QpPXCfG8QwAVeOYyFYAPB6lU+roF+0DC88Vq6pcprWmDX6VWexcFc+vw==
+X-Received: by 2002:a17:906:6a18:b0:b8d:f859:d228 with SMTP id a640c23a62f3a-b8edf1a942amr632341966b.17.1770655974628;
+        Mon, 09 Feb 2026 08:52:54 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,9 +99,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 15/16] xen/riscv: init tasklet subsystem
-Date: Mon,  9 Feb 2026 17:52:28 +0100
-Message-ID: <8a433116ed15cb52bd1e241960741963d287f592.1770650552.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 16/16] xen/riscv: implement sync_vcpu_execstate()
+Date: Mon,  9 Feb 2026 17:52:29 +0100
+Message-ID: <b6df040691dcec56cd2f91699f0fa444cc0ef7ea.1770650552.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770650552.git.oleksii.kurochko@gmail.com>
 References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
@@ -130,7 +130,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -143,70 +143,46 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 833F1112B20
+X-Rspamd-Queue-Id: 369AF112CAD
 X-Rspamd-Action: no action
 
-As the tasklet subsystem is now initialized, it is necessary to implement
-sync_local_execstate(), since it is invoked when something calls
-tasklet_softirq_action(), which is registered in tasklet_subsys_init().
+The scheduler may call this function to force synchronization of given
+vCPU's state. RISC-V does not support lazy context switching, so nothing
+is done in sync_vcpu_execstate() and sync_local_execstate().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+This patch is dependent on patch from ML:
+  [PATCH] sched: move vCPU exec state barriers
 ---
 Changes in v3:
- - add Acked-by: Jan Beulich <jbeulich@suse.com>.
+ - Align sync_vcpu_execstate() with patch:
+     [PATCH] sched: move vCPU exec state barriers
 ---
 Changes in v2:
- - Update the commit message.
- - Move implementation of sync_vcpu_execstate() to separate commit
-   as it doesn't connect to tasklet subsystem.
+ - New patch.
 ---
- xen/arch/riscv/setup.c |  3 +++
- xen/arch/riscv/stubs.c | 10 ----------
- 2 files changed, 3 insertions(+), 10 deletions(-)
+ xen/arch/riscv/domain.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 010489f0b713..0cea1435ff32 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -12,6 +12,7 @@
- #include <xen/serial.h>
- #include <xen/shutdown.h>
- #include <xen/smp.h>
-+#include <xen/tasklet.h>
- #include <xen/timer.h>
- #include <xen/vmap.h>
- #include <xen/xvmalloc.h>
-@@ -157,6 +158,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-         panic("Booting using ACPI isn't supported\n");
+diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+index 30a966f53c1d..ecb4ef8d0c89 100644
+--- a/xen/arch/riscv/domain.c
++++ b/xen/arch/riscv/domain.c
+@@ -245,3 +245,13 @@ void vcpu_kick(struct vcpu *v)
+         smp_send_event_check_mask(cpumask_of(v->processor));
      }
- 
-+    tasklet_subsys_init();
-+
-     init_IRQ();
- 
-     riscv_fill_hwcap();
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index cb7546558b8e..26434166acc6 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -91,16 +91,6 @@ void continue_running(struct vcpu *same)
-     BUG_ON("unimplemented");
  }
- 
--void sync_local_execstate(void)
--{
--    BUG_ON("unimplemented");
--}
--
--void sync_vcpu_execstate(struct vcpu *v)
--{
--    BUG_ON("unimplemented");
--}
--
- void startup_cpu_idle_loop(void)
- {
-     BUG_ON("unimplemented");
++
++void sync_local_execstate(void)
++{
++    /* Nothing to do -- no lazy switching */
++}
++
++void sync_vcpu_execstate(struct vcpu *v)
++{
++    /* Nothing to do -- no lazy switching */
++}
 -- 
 2.52.0
 
