@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KNIgHAgxi2kFRgAAu9opvQ
+	id 4Ig8Mt02i2neRgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 14:22:16 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 14:47:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A508C11B2EB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 14:22:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226403.1532929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AD3911B624
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 14:47:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1226415.1532938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpngl-0005J2-JL; Tue, 10 Feb 2026 13:21:59 +0000
+	id 1vpo43-0008Lp-Bm; Tue, 10 Feb 2026 13:46:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226403.1532929; Tue, 10 Feb 2026 13:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 1226415.1532938; Tue, 10 Feb 2026 13:46:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpngl-0005HJ-GH; Tue, 10 Feb 2026 13:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 1226403;
- Tue, 10 Feb 2026 13:21:58 +0000
+	id 1vpo43-0008Jh-92; Tue, 10 Feb 2026 13:46:03 +0000
+Received: by outflank-mailman (input) for mailman id 1226415;
+ Tue, 10 Feb 2026 13:46:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tYRw=AO=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vpngk-0005Gu-5e
- for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 13:21:58 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Z/2=AO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vpo42-0008Ja-I0
+ for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 13:46:02 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78106fad-0683-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Feb 2026 14:21:56 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DM6PR03MB4937.namprd03.prod.outlook.com (2603:10b6:5:1f1::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.8; Tue, 10 Feb
- 2026 13:21:51 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
- 13:21:51 +0000
+ id d55640d3-0686-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Feb 2026 14:46:00 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-47edd9024b1so52355515e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 05:46:00 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48320961701sm224348085e9.5.2026.02.10.05.45.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Feb 2026 05:45:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,249 +50,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78106fad-0683-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MUAj5nFAF4wlmaWhBMFp/AxwMouhB4ScJFNLwxQ9jXvT9+0dr/TC4r4snNCuNt+4oIfBR+VElAsPyX+lazxd9WrhSUw9oatpxuMfFZsx3OvXBy+eQJVwADmK77vE3EeoMK8uUhEtjma6NSP9IHPxnVbRxK4AV9BE43C+kT2ewr5JzJX7paE4R5LNzQJG3dx3gohuV33o4wtHOFuT0Wqi6XpM8R/WkIUMQhrN4+Ui22TK39Vezhus/t0F7vSwP77e3Dp793boBo17SIhjj0HnIbaETBWPeTB2wn+y4+g3fMt1qdLFKOUOpu8IPRbl6XMlcT60KBBQ2s7YgfkalI2B2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nMmK2gPcK1bTqKukorZZ6WFimKCpnQxihGzN3sKnAKg=;
- b=XXFyLzIUkIRtR1buO4MiDLyshJy7+scT5+Ab7zmJJNAusOO3LOpzifjpCBReBdnEE5sGOfNwHiW25hsGeqLFe15Bw8Iy3C3K7n64GQbWhFvGrf/wfz6yjZm19jb83w9Unlnwmdno9/lP2xrdD5Rw35Bxj09lZHfIestYZHAs9xg3pezeSpUJ30JpV8tb1lipeQRClCi4kHukhooCM9entDl50AursFxccs6oofhZdUroODTi8BEhl8AwMqTodYDZyCbKlT7en00jqdVZDCzAbsyuIa4QiJYS1B21VMrXOPCFPdVAuqrXBYoOJ4MjXdUrmC0v4p7kP2bSIAb719G4ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nMmK2gPcK1bTqKukorZZ6WFimKCpnQxihGzN3sKnAKg=;
- b=hF7e1b4PC1X76QZL9CeACrjqVqj7Faw7RPZVQ65DV38wi8eWq40J8OBvug4YWgXE/fGbenGv20HNF4n4IubLlXNtZLa+NAvOf4MU3JYT8qJsJ/kGOP/H3rmPp3Ju4ClwzzfdpXTDTyRHVLJPZfawYUhc7hSjig3kekS+jeAxTSU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <71b236bc-beb9-4fec-ac33-6d877ce91dd2@citrix.com>
-Date: Tue, 10 Feb 2026 13:21:47 +0000
+X-Inumbo-ID: d55640d3-0686-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1770731159; x=1771335959; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cgHfPTC4z5bFFFA0fzSzUfKRnSub+sZaEkb14srSsMI=;
+        b=AqiLePhhKVjj77JoetJgZd9qPfEyCWkBSYE3y2thef5RPGYn3uwIghj6b9x8L/qcKf
+         UlEcJ3BeZnCfUMplOlFMtAu4hJGu/xXElV25uJutcC8/E8x/sGzAedV19UGKCp5ZWg57
+         rpEVU9fTCX+cJKjy9mUgKIurKDsJznuzEX/rSYGHUJIBrd9Ky+l0KV2IRiBx3G4TJI4o
+         gNmYgHSa9X/3+Cqb4E7h2ji3LGe0KzthZmzG9cUt3P9nj6DoWw/qQVLQID5nsRc7gwE4
+         1H/7LJLj3v9d/abSXR56AG/N0WQGI6bes8vE3yKfOAXmhH03sFyXGNaCiyCafjVSadx7
+         Y79Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770731159; x=1771335959;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cgHfPTC4z5bFFFA0fzSzUfKRnSub+sZaEkb14srSsMI=;
+        b=bumVUTxFoUspKujB9EAGFpa0x9ESvyJW+zZeyYaPFT+YQcngPqDZ9Tf06G+ctFqzrM
+         +4ZZwW930jO6OVuIVs5BNiNOnFeeVoeI6FFMI8XVqmZddO5a1sQP8MK3jX8zqNOE9hI5
+         3pgb+eAzkKKkts3OHapD5iSOBU3CWZV5yeJ6wyMGgrqlGfGtVlEajIQllC5DrwMdc7Hc
+         VpoRwQ9+m/Z+wF6QeM3YV9ns1eLGjcru/8rzd2Cyxa2MWbhnHt4PvN9eK3TFm2VjDT9g
+         zSb7pSIH7SWrD+F3w+EeA82zIzE83E+vkenLvdJfTRVjsTMMJExRHZu7Ntc/HLYM7Ktm
+         UYNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWPWHvnoG176jVmSrwixK0WhrnnErHYw5Vd++LHFumwO0hfLmD2wF86EurtYSdAAYMbQb0wTgRqxYo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZEEfJx0P6R2OTns0oPdNScAirubOnHxS/MQeua/CdvOZAKAmC
+	dwOjzKQAwnlMkFFJ59jd5UJGmfN3q/a4OsILncl8vMNGX0w0rfOdMMgx5CVn5+NAYQ==
+X-Gm-Gg: AZuq6aJdvSDP9ahgAJDLYwNOiPC1UdOuCeQUvC+H/ENOT/X/kGpcZcnyuEOtVpKHchN
+	TcgxJZ45ycj9jqOYdRbV4qTWRgbPpcWH7Ui/f9nZM05rCRq5n+UVgdmNCcKQ0mkHAtbmMJ6LRW/
+	J7nJgpKCJokxfJ7Kgnk09L2GH540l6LCuAaObj5w2L2QDakSHRJwa9sRto9pGtFJmlWZ88f/Mm6
+	25LKUH5Ev5JywYjabQV8wjA+Y3c8Q1SYrtqy9D0tP6zB6+OufMCxB0NWE6IhZ5sz7PaEvTRytdX
+	udDcYJ0F1thq3bMPjWZeUNfMSTl+RoGf8bGKv5SMzw+I7dBQnSSVc+i42KPWPEbj77SBxHiloyn
+	gTXjeN0Yli4a1YUsoCNl81zRwoiNzoPvf8d1ql/kkv++NOAbXahtakKfUZTeuk9u4wdjgtq3O8Z
+	YH8NjwZ1wvKXeyJ5UXAKzlyHDTZC8z/IPQRHqrHJjgcsZHlqhmGjLliqQ2+a2wrzQr0cC/9TbHO
+	fQrqmruLPlNRrQ=
+X-Received: by 2002:a05:600c:4f8a:b0:477:63db:c718 with SMTP id 5b1f17b1804b1-483201eabf8mr247508225e9.16.1770731159462;
+        Tue, 10 Feb 2026 05:45:59 -0800 (PST)
+Message-ID: <4dbe4d2f-1f91-4c80-994e-86d42a9ad896@suse.com>
+Date: Tue, 10 Feb 2026 14:45:58 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] xen: Add Darwin.mk
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86: Add Kconfig option for log-dirty tracking
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Jan Beulich <jbeulich@suse.com>
-References: <20260209103118.5885-1-alejandro.garciavallejo@amd.com>
- <c5a9075b-6ed0-4778-b3ad-fe6647dad8b7@suse.com>
- <DGAJ9XN03HPS.TC0OLO5PJN6H@amd.com>
- <1c33beef-f638-4e62-b38a-8b79575adf18@suse.com>
- <DGBB4JCFAPUT.GTAWF68EZP9Q@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <DGBB4JCFAPUT.GTAWF68EZP9Q@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <49c0bd388d45b6936bd852d99fbbc262fb078253.1770633598.git.bertrand.marquis@arm.com>
+ <d1baa448-962c-4c2a-9a79-cf334b860450@suse.com> <aYsZb529xJvYSSRo@Mac.lan>
+ <02BCBE82-C7F1-4631-AC9E-4A4B2E6065A3@arm.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <02BCBE82-C7F1-4631-AC9E-4A4B2E6065A3@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO3P123CA0015.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:ba::20) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB4937:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49a71ee3-5eb0-46cd-81b3-08de68a759dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?c0dFRm1JVWZCZjE2NG05VnVUNDk4TFA3UmFrSFZ1SHZkVXlqQTlDSWVyRURt?=
- =?utf-8?B?eHFTZ3RTS1FCWVE1Uks2bGV5M3k2cHZId0Q0V1JsYU12dllVUjdxbHAvOTlF?=
- =?utf-8?B?ZTRGMG9Ga0tlK01panpHbHJINXZXVXp0NzR5Sy9GZUtFc1FsWlFwbmtRWUZs?=
- =?utf-8?B?ZnVZaHBKVE1rSk9iNzhNZTMyeWZuVlFLbjdmUGhrelBObm1RZktRK2FjVUlw?=
- =?utf-8?B?OVU5eHphZnpqTFpRVkhRQllUYW4wRkpac2pjcWtZZHd1cnUzbnZWbDRyWHo5?=
- =?utf-8?B?dk0vdUx1ZUQzRG1UUDVDMXRTZnYvdWxEVHQ1b1plNDJaZGFvUjM5Mng2Rld5?=
- =?utf-8?B?NXZ4STJWME1VUklhZFpFcGNKYjU3S2pUY2NoNlFtaVg2TUdHTEF1UmQ4a0or?=
- =?utf-8?B?anZuNWFsS1BNRHduNURXR3JGVFRVQmxGQjNPdDdFU2RJaUgwVTNZdUt3QWxl?=
- =?utf-8?B?TFJtYmNWOWFSeVZLYkNpVlZtNXVTcWRNbkVIeWlPcTFnMUljQ09qeGpRQVQz?=
- =?utf-8?B?OW83QXE2MFUxN2w3c0dlbTdxa3RJL1pVd2xvaGpzU1R3RzhwWC9GUVh6RTV2?=
- =?utf-8?B?UmE5Zm1Tckd6RUo1VlRzMGJqNHNxZzloR3ZvSXJZMVJ0eUdjbWlzVDdHQ2lm?=
- =?utf-8?B?bUJUNWZqWU1WWUR2dllEYlptdlkzS1NRRm8wTlBqOXJuekcvQmhkQU81d1Ex?=
- =?utf-8?B?RDdodUlXS1grM2xTMFZIdmZnZGhKN2p1cDJuckczandOVjRab0p0ZXRIKzZR?=
- =?utf-8?B?TWNFRHNIaTJabDhPc2cwMFJRTG52ZVZqc010TFBQVUxIRDB4dlpRR0I4UVlu?=
- =?utf-8?B?OXJSL3NrR3IzK2dTbHBNOVMxL1lVVTdnK0NqcVBSUUFCSnRKZVRCM04yZWRy?=
- =?utf-8?B?Q3JJd3ZlRGVYL25FN2luQ2hWY0c5NG16cVhvSVg5Z0xqWXBGZG9peVZuYXhH?=
- =?utf-8?B?TEp4cHViRXMzMlZGR3R1YjMyVi83M1VtVkc0VnRqQWg2T0JxcU5hYjVpUDRR?=
- =?utf-8?B?Tjh6cENhaEpIby96cWlWMnRxS3I5ZHVhMjR1TmRkYXd2YnlyRlZwUUR0eFVB?=
- =?utf-8?B?QnphbHRQMmJMbVZDRWlPNnFpbnRoWnBOS1ByOVMya29ZRXNWcm4rSVU4NFlX?=
- =?utf-8?B?QXd1Mlc3UHlYUEQxNUlUaHc2M3VPZUpGZys0b2YxN2N4NWhTUkdOdEl5Si9L?=
- =?utf-8?B?STFweXNIMktNTjdxTWVnS2FDUmVMUUxlb0lXMFpiMFErVVMrdVpLdXRkaVBm?=
- =?utf-8?B?ZVR6QmJUdGtpYUJKdzdyQXB5RWdEcVVLVDk0U0t0bUY3YVJKRFh0WVc1bTRs?=
- =?utf-8?B?OFhQdFhHZG1RZmVobFFmWkVPcW00NW9lWnU4WWdLQ0JHUzUwc2tsc3dGNE9U?=
- =?utf-8?B?amgvQ3dxYzRTTkwvYS9CWjZuNWRuVUI5dHZPYmRaR1FZV1VhUG9RU2RkMTAv?=
- =?utf-8?B?b3VaWkN6U0NYRVFza1BNUUROcC93S3AvYk1uT3loWUJXWGxiN2wxQmliLzRm?=
- =?utf-8?B?RnlwWVB0MUpKZjBqOUs1VUtzZEVaU0Nxd094Ymc0NTBSa3RoTy9ZR1ZQcStC?=
- =?utf-8?B?U0ZwUjF2SlJBQUJSZzhBSkQ4dnR5bUhId0dlcXNxWUZMeTRxSnZJRVRhSUNM?=
- =?utf-8?B?dmNnbmZIN2VLM05zMENlYUlER3l5aXBqZ2h1VEs1YlNQRHJzdnA4bnZFVXRZ?=
- =?utf-8?B?NGxBWEtybS9UTGRyMllRcjZ2NFQzUmZuZ3YxcC9qOTE0bkliUDFvWjJxMGJN?=
- =?utf-8?B?NWZ4ZVpZVEhSNWNEVXJMczhUUmZPYkxYV3YxbHFiOGRVRTM1UXFLci8zenNo?=
- =?utf-8?B?OGU5S3RHZDkvNnpqV0xGbVoyQllYOXZvc1Z4bFVQZnV6VGVlMzJQcmFId2ww?=
- =?utf-8?B?RFdLUUZ0MDZkb0xrY25vRVBsengxanp0UzJ2VVRFa285YjZDeS9Za0FndGpG?=
- =?utf-8?B?emduZlVRTjZTdE9QOTVVRHZJbGlaNFFlTFZ6RmlLZE1oNEJkeU5BTXJCckpp?=
- =?utf-8?B?N3M4eHFibGtQT2NYTC8yNEF4VVVPSEVTbzRWODVZS1FmNFQ3NEI2Q3RCNFhP?=
- =?utf-8?B?bDMraWp2UzQxcEE4d2hBVm5qa1k4K0g3UmIvWWk2VXM3b05hUmE4S2pkUEZQ?=
- =?utf-8?Q?f7AE=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2VnN2RsOHFDS08xTU9SR1IyWmFJZy9DQzBGQTFnaDZYVkdpMXRCbG5lY1ZG?=
- =?utf-8?B?eXZOUE85V1pDOTR4a1RubmNIZExkbkw5UW5hL1h3YlZFODBEZndONXhSUVJG?=
- =?utf-8?B?amt0VmVHVTU2U0pTdS9oenhSdk8wYXZEUlAzZmhUeGt4SDZBWi82Mjl6NzlT?=
- =?utf-8?B?ZFQ1ZUxXZGNKWWY3ZThkYjF5cWRHdTFqNXdVN2xUZ3ZhakJBUHgwWHFyclVH?=
- =?utf-8?B?dTYyNlZLcnEwZFpmRGdJUFJGZDlpZEpWOW9FVjhycEdYVjVYRjZXYUpVUkpF?=
- =?utf-8?B?TlZuY2NHb09MM3RpYXVSbzBydnd6aUFTY0VGRXZraFdNb0thWUtuUGNMb3N4?=
- =?utf-8?B?YTZHbGJPL2RZQnlKMTZqWUMvaGw3L3l3T0h6czEvTldEejA1VzVYN3NqKzVa?=
- =?utf-8?B?RTByL295YW9IS0JNWDNQMGJDeDE0MFAwNm9tUkVyMnBmbGxGamZKRVVIekt0?=
- =?utf-8?B?dnpxSnNsTFJQNVRDOEk3RmNjL0dDb3E4NDZrcU9NVXBDNVZtelR0T0lyUmlY?=
- =?utf-8?B?aGdySGx3ZG5FSG54ZXQydmNvMHc1aERNclhVT0lqcnFIaXBLcG9iVlQ2eHV5?=
- =?utf-8?B?WUVhZHhhQ0QyeGhsRmZ3bEM3bjZwSGpZTmV6dnlQdGJxMWt3Z2Jic0VVUzgz?=
- =?utf-8?B?LzBJaWllUC9EWkZ6QmVvTTU0d1IrWGpiUWNRYWZOaFdtWjdTOTFmdUVDUTg4?=
- =?utf-8?B?RlRRdmFpKytmeHVNNnpnbmZ3dldhNnlTbk9QT2c4dDVYdFdPZk93eHFJVnBa?=
- =?utf-8?B?enFSdEZyc0h6b1c0S083LzJFdnp2dS94bWZ3ZXNEcHZPY25qanVlMFd3U1h4?=
- =?utf-8?B?aFZIc0RkNVVyK2ZqQjM0bys5bUppcjZjZFdiRkpGeTF4Qi9PZjMzR1VqbjJh?=
- =?utf-8?B?L2dEREZZY3daM0dGQmIyQzczM2YzaDVqNW82dk9LbURiR2puSHBzTk5CN2N1?=
- =?utf-8?B?ZVlpNEcycTNnOU1HenFCS3orU2NrdW1LWXRyN2wzSEUvK3lIRFF3OTVYcmND?=
- =?utf-8?B?bjJ6dmxSYUI3ZDhBL29QbE8xMm4rWGJ0WDlhT2N3QXRPRHVpbUJ2SWhRdlg0?=
- =?utf-8?B?UlZWWGlsRVBmMnBTK3paSTg0OXFHOUdFVEJQaUQ4UXhuOTVjdlpTeGZSc1Yv?=
- =?utf-8?B?bys1djIvVGpTSTl5U2ZUdi9yblFDL2ZYZUI4MTk2bGlDQWRYbjdGYjJQOTZ2?=
- =?utf-8?B?c04yUXBBaEJJdVFxbDdwVXRzQVhTY29NSlE2RjAxaE14TzNOcnB0L3RMQTB1?=
- =?utf-8?B?VUFxNHVXbDNQYS8xT29xU3M1Yk5ZSE1RaFc0OUdJTFJSMXBOcnVFSnV2bUNh?=
- =?utf-8?B?d0hucmVrMG1zZnFZdlFkSHZRR1U5RE9zdm5jelE5VUR6aG9mZnlUL01tUUY3?=
- =?utf-8?B?SkNiV0VUOU1RdEhFOWN0ODd6WDBGM3NkQlVPT2hSYTBQMTRhN095VlVzbENv?=
- =?utf-8?B?dFdtK2NJamV2Wm4yZm9Ybi8zQ2NEb291WHQxODZNem1nNHFweEd6dDhIUTRo?=
- =?utf-8?B?bnFVbnpsTUk2OWoyL0xrM3VSeE1aUGhEeFhoSWViK1NPdUczNFVMTFhsRnc0?=
- =?utf-8?B?ak1PZ29OYzN5SWJjdjdvdUVHS0VhMVFzZkcveDZrMU94bFQxZGk1K1pXTDlE?=
- =?utf-8?B?RVJvUEtuSUJuei9aanNMWWdYengzVm95NTh1TU94UmJUVkxlNWMzSWZOaUJI?=
- =?utf-8?B?Y2tRSzFZb3BJWE1vK1dXSXRmOWVIVk5EUlRDK01WODhvdENZdzZ3SnBkb1ov?=
- =?utf-8?B?cko4ek1RT1VvNjgzUUd2QWhad3NNZGFlRkpFZHR3ZWgzUWQvUTc4Y3lrcU9z?=
- =?utf-8?B?RkhwVk1sbW1Rc2RyV3IvNkY3NUtkT0dRK0hpaks5SkJ1SEJBSTdxMkN3VmV1?=
- =?utf-8?B?cDVpQ3lyYWhNMkZRZDFxNEJvMXRwYUgrVExqZTZINVdZODhGV1FqbE4vQmRm?=
- =?utf-8?B?TzFtQWVJUnZQUElINkJYeUs2bW5PYnBmenpBdDIvSU9RcHozRnhVYTZZOCtK?=
- =?utf-8?B?Ri9YMUEyVFZRTFdOTXR6ZmhwWUZGY2NvR3pBSzRqWDFKVnNEdUllSk5RaDU3?=
- =?utf-8?B?TzdWQjNsNlhOblNadGpZVXdjWTUzbENudCs5V2s3OVFBZEtqWXlyQ2VyVG9R?=
- =?utf-8?B?cUNmNE1BWnJyOEkyREc3NmVJUm8rYzJtMjdwM2xOaW51NWRFTkxCK0lMV0NF?=
- =?utf-8?B?RDI0R1ljRTRWblNycGVaY0g3SGRlR29pT1Y2ZGY1RldZNTBGb1RQR1NkOUU0?=
- =?utf-8?B?ODV6ZFd4d3VBUFB6Z3VYVUFoUzhsUTUwaTEzdTQ2eU1wNVFxQ1VaaWc5a0Nn?=
- =?utf-8?B?NG5nVXdkN05WZEQ3dGFZUjh1TUVVWDNIWlJ4bnQ2bXN6SHRzNWt6dz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49a71ee3-5eb0-46cd-81b3-08de68a759dc
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 13:21:51.0477
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cZdJYLTFMP8Kl3UguCUtyjxF/MBYnt1rPgqAlj2Klf9A/S6I8aSlULN/w0JN/IISWZLqUoaV/qbhbVin/l7AmNbsxh+sqgObnScCpHxhhvs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4937
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:alejandro.garciavallejo@amd.com,m:jbeulich@suse.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A508C11B2EB
+X-Rspamd-Queue-Id: 2AD3911B624
 X-Rspamd-Action: no action
 
-On 10/02/2026 1:13 pm, Alejandro Vallejo wrote:
-> On Mon Feb 9, 2026 at 4:55 PM CET, Jan Beulich wrote:
->> On 09.02.2026 16:24, Alejandro Vallejo wrote:
->>> On Mon Feb 9, 2026 at 3:48 PM CET, Jan Beulich wrote:
->>>> On 09.02.2026 11:31, Alejandro Vallejo wrote:
->>>>> --- a/xen/arch/x86/Kconfig
->>>>> +++ b/xen/arch/x86/Kconfig
->>>>> @@ -146,6 +146,7 @@ config XEN_IBT
->>>>>  config SHADOW_PAGING
->>>>>  	bool "Shadow Paging"
->>>>>  	default !PV_SHIM_EXCLUSIVE
->>>>> +	select LOG_DIRTY
->>>>>  	depends on PV || HVM
->>>>>  	help
->>>> Why would this be? IOW why would shadow imply log-dirty, but HAP wouldn't?
->>> The logic is rather opaque. I admit I'm a bit fuzzy on the uses of logdirty.
->>>
->>> I know what it's for and I could navigate the code if a problem arose, but I'm
->>> less clear about which other elements of the hypervisor rely on it (pod? nsvm?
->>> vvmx? shadow? hap?).
->>>
->>> If it's strictly toolstack/DM-driven maybe it'd be more apt to have a separate
->>> LIVE_MIGRATION and SAVE_RESTORE configs where LM selects SAVE_RESTORE, which
->>> selects LOG_DIRTY. That's also improve some defaults auto-downgraded from the
->>> max policy just in case a VM is migrated.
->> It's save (not restore) for both PV and HVM, and VRAM dirty tracking for HVM
->> only. Ordinary HVM guests will want VRAM tracking, so compiling out support
->> for it will imo want mentioning in the Kconfig help text.
-> ack.
->
->>>>> --- a/xen/arch/x86/domctl.c
->>>>> +++ b/xen/arch/x86/domctl.c
->>>>> @@ -220,15 +220,15 @@ long arch_do_domctl(
->>>>>      {
->>>>>  
->>>>>      case XEN_DOMCTL_shadow_op:
->>>>> -#ifdef CONFIG_PAGING
->>>>> +        ret = -EOPNOTSUPP;
->>>>> +        if ( !IS_ENABLED(CONFIG_LOG_DIRTY) )
->>>>> +            break;
->>>>> +
->>>>>          ret = paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
->>>>>          if ( ret == -ERESTART )
->>>>>              return hypercall_create_continuation(
->>>>>                         __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
->>>>>          copyback = true;
->>>>> -#else
->>>>> -        ret = -EOPNOTSUPP;
->>>>> -#endif
->>>>>          break;
->>>> Can a HVM-only hypervisor create any guests with this? I simply fail to
->>>> see how XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION would then make it through to
->>>> hap_domctl().
->>> xl doesn't seem to call it at all. hap_set_allocation() is implicitly called
->>> through paging_enable() -> hap_enable() -> hap_set_allocation()
->> xl must be calling it, at least in the case where the paging pool size is
->> explicitly set in the guest config. The important point is - not all of
->> XEN_DOMCTL_shadow_op's sub-ops are log-dirty related.
+On 10.02.2026 13:56, Bertrand Marquis wrote:
+> Hi Roger,
+>=20
+>> On 10 Feb 2026, at 12:41, Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
+wrote:
 >>
->> It's also odd that you did make changes at the call site here, but then
->> left the called function (and its sibling paging_domctl_cont()) in place.
+>> On Tue, Feb 10, 2026 at 11:46:44AM +0100, Jan Beulich wrote:
+>>> On 09.02.2026 11:46, Bertrand Marquis wrote:
+>>>> --- /dev/null
+>>>> +++ b/config/Darwin.mk
+>>>> @@ -0,0 +1,6 @@
+>>>> +# Use GNU tool definitions as the tools we are using are either GNU=
+ compatible
+>>>> +# or we only use features which are supported on Mac OS.
+>>>> +include $(XEN_ROOT)/config/StdGNU.mk
+>>>> +
+>>>> +# Cross compile on Mac OS, only hypervisor build has been tested, n=
+o tools
+>>>> +XEN_COMPILE_ARCH =3D unknow
+>>>
+>>> While editing in the ABI aspect, it occurred to me to check what Appl=
+e has
+>>> to say regarding their ABI. For both aarch64 and x86-64 they say they=
+ use
+>>> the standard ABI with some modifications. We may want to evaluate whe=
+ther
+>>> those modifications are actually compatible with what we need.
+>>>
+>>> Talking of x86-64: Has building on an x86 Mac been tested as well?
+>>> Especially if that doesn't work, it may want mentioning.
 >>
->> Jan
-> That goes through DOMCTL_set_paging_mempool_size.
+>> I no longer have access to an x86 Mac, those are about to disappear.
+>>
+>> FWIW, I build x86 on Mac using the Docker containers, just as the CI
+>> does.  OSX Docker allows running x86 containers on arm64 using the
+>> "Rosetta 2" binary translation layer.
+>>
+>> I've attempted doing a cross-build from an arm64 Mac using the x86-elf=
 
-This DOMCTL was added in an XSA because ARM needed the functionality,
-hence no cleanup.
+>> toolchain, but got the following error:
 
-I didn't get around to cleaning up
-XEN_DOMCTL_SHADOW_OP_{GET,SET}_ALLOCATION, but please do.  We should not
-have multiple ways of configuring this, and it simplifies the your patch.
+If it's really x86-elf (not x86-linux), then likely ...
 
-~Andrew
+>> % make XEN_TARGET_ARCH=3Dx86_64 CROSS_COMPILE=3Dx86_64-elf- HOSTCC=3Dg=
+cc -C xen V=3D1
+>> [...]
+>> /Library/Developer/CommandLineTools/usr/bin/make -f ./Rules.mk obj=3Dc=
+ommon need-builtin=3D1
+>>  x86_64-elf-gcc -MMD -MP -MF common/.bitmap.o.d -m64 -DBUILD_ID -fno-s=
+trict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes -Wno-unused-but-set=
+-variable -Wno-unused-local-typedefs   -O1 -fno-omit-frame-pointer -nostd=
+inc -fno-builtin -fno-common -fzero-init-padding-bits=3Dall -Werror -Wred=
+undant-decls -Wwrite-strings -Wno-pointer-arith -Wdeclaration-after-state=
+ment -Wuninitialized -Wvla -Wflex-array-member-not-at-end -Winit-self -pi=
+pe -D__XEN__ -include ./include/xen/config.h -Wa,--strip-local-absolute -=
+ffunction-sections -fdata-sections -g -malign-data=3Dabi -mindirect-branc=
+h=3Dthunk-extern -mindirect-branch-register -fno-jump-tables -mfunction-r=
+eturn=3Dthunk-extern -Wa,-mx86-used-note=3Dno  -fno-stack-protector -I./i=
+nclude -I./arch/x86/include -I./arch/x86/include/generated -DXEN_IMG_OFFS=
+ET=3D0x200000 -msoft-float -fno-pie -fno-exceptions -fno-asynchronous-unw=
+ind-tables -Wnested-externs -DHAVE_AS_QUOTED_SYM -DHAVE_AS_MOVDIR -DHAVE_=
+AS_ENQCMD -DHAVE_AS_NOPS_DIRECTIVE -mno-red-zone -fpic -mno-mmx -mno-sse =
+-mskip-rax-setup -fcf-protection=3Dbranch -mmanual-endbr -fno-jump-tables=
+ -mmemcpy-strategy=3Dunrolled_loop:16:noalign,libcall:-1:noalign -mmemset=
+-strategy=3Dunrolled_loop:16:noalign,libcall:-1:noalign -Wa,-I./include -=
+Wa,-I./include '-D__OBJECT_LABEL__=3Dcommon/bitmap.o' -mpreferred-stack-b=
+oundary=3D3   -c common/bitmap.c -o common/.bitmap.o.tmp -MQ common/bitma=
+p.o
+>> ./arch/x86/include/asm/bitops.h: Assembler messages:
+>> ./arch/x86/include/asm/bitops.h:511: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/bitops.h:511: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/bitops.h:511: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/bitops.h:511: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:21: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:21: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:29: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:29: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:29: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:21: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:20: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:21: Error: alternative feature outside=
+ of featureset range
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:28: Error: found '
+>> ', expected: ')'
+>> ./arch/x86/include/asm/nospec.h:29: Error: alternative feature outside=
+ of featureset range
+>>
+>> I haven't investigated further.  Seems like some issue with
+>> alternative and the uses of CPUID defines.  We probably want to
+>> mention in the commit message that only arm64 builds have been tested
+>> so far.
+>=20
+> I just tried the same and could reproduce that.
+>=20
+> This is apparently not related to mac os but to binutils (2.45.1 on my =
+side)
+>=20
+> After some digging i found out that this can be triggered with a simple=
+ assembler test where
+> .if (2/32)=20
+> triggers the same error, while
+> .if 2/32
+> is fine (ie parenthesis are the source of the issue).
+
+=2E.. the wrong conclusion is being drawn here. It's not the parenthesis =
+then,
+but the fact that '/' is a comment character there. Requires adding --div=
+ide
+to the command line options to have the character re-obtain its meaning a=
+s
+division operator. (GNU, Linux, FreeBSD, NetBSD, Haiku, and Dragonfly are=
+
+the targets where '/' isn't a comment character by default, at present. Y=
+es,
+this is pretty confusing.)
+
+Jan
 
