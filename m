@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wPy9JbJKi2mjTwAAu9opvQ
+	id MDJVDINOi2mWTwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 16:11:46 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 16:28:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0649E11C52E
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 16:11:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226495.1533012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 905AF11C76E
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 16:28:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1226512.1533022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vppOo-0005aB-ML; Tue, 10 Feb 2026 15:11:34 +0000
+	id 1vppeL-0007c7-U3; Tue, 10 Feb 2026 15:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226495.1533012; Tue, 10 Feb 2026 15:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 1226512.1533022; Tue, 10 Feb 2026 15:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vppOo-0005XW-Il; Tue, 10 Feb 2026 15:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 1226495;
- Tue, 10 Feb 2026 15:11:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gjf6=AO=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vppOm-0004ns-WF
- for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 15:11:33 +0000
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c111::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c555da55-0692-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Feb 2026 16:11:28 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH7PR03MB7955.namprd03.prod.outlook.com (2603:10b6:610:24e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Tue, 10 Feb
- 2026 15:11:23 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
- 15:11:23 +0000
+	id 1vppeL-0007Zd-Qa; Tue, 10 Feb 2026 15:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 1226512;
+ Tue, 10 Feb 2026 15:27:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Z/2=AO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vppeK-0007TH-0g
+ for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 15:27:36 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0614ff16-0695-11f1-b162-2bf370ae4941;
+ Tue, 10 Feb 2026 16:27:34 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-47ee0291921so41624295e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 07:27:34 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4834d7f09e7sm71233705e9.14.2026.02.10.07.27.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Feb 2026 07:27:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,204 +50,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c555da55-0692-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CmQLan/T42OyynObYDzX/IL55HyKfEnHGU1OAij7CDjaESjTJQ6WWl0AbJdpAlFNFk4EfkbKwo4iTGJjbDVTViGxnurwLhzzbpFGPSfEPJ7wEotrNQh6yb8UFAF0VCBMXNjoj3rWrYDWGdfNyOH50cEBLZVLGAkB8gezYPCNU68qfcwHSSIRLJURZpFkCPp531kzq6EcpQn+E50XfGQo0lQuv4hIPt+c52TTHdqjCQc6Cpr95uvkfK4zjiDsrkuNleC7H5pMFWyU7WfOVNADtJHcX2zxe5qKQCHwYZfvo+YGzCsNO9bfBYyvt0aaSDNNkMRVEmhKs6nY9MhVLAtbOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wsE9FTz/cjt2Wqol+CkTbLxLLvXw0H9d+61lnykmx0Y=;
- b=RRXGVmdiQeK5VVKltNHJuF/dX1igbEbIPgHrJWk8rZhqFAITzMwZ8O6ynGa4Z/1uviuUm0WvG9q4uenDWKElN2nLNDvTiDVLW5HwxUs9vaj+izKFoyFVDXOASZ5425bO94cr4nvEnDoJrsiVJrTYDGDGQ74x0GZohMCqFXRR7imrBbPVPt2C4gERLnst+El/zW4Xk+sWu3wJEWe0ee4V2bbtijrikWoxKSj+4LKXydI17AWPPbfHaSeWqU311/hGCxo3pxJ0ZpUw5ZjUs4W50v36tv9kTaebdkFnMDHXThRilovCt1cUBpM+bY7tSD3DpehsPvyj4TUBcsRznXosrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wsE9FTz/cjt2Wqol+CkTbLxLLvXw0H9d+61lnykmx0Y=;
- b=jKnS4jqrePaerH9At5mY2RyC+RlA9xPeGfkiRM2x4qrO5e9i2b10XycgOU7vzi+JqXmDKelIKAiqAf3ezkHIYhXTc5/v92VZRk+y4O/nQipJONr+Dig1Is+CpFuL4jdDg6YSHWRC288l6AjV/j5cealXboRY60BG0Y/v9rFSspQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] xen: always consider '/' as a division in assembly
-Date: Tue, 10 Feb 2026 16:11:10 +0100
-Message-ID: <20260210151110.26770-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.51.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0108.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:50::7) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 0614ff16-0695-11f1-b162-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1770737254; x=1771342054; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kw8PP5+zcNgh17HMGxYbPU+TEVxxfZufWgkan98Rhpc=;
+        b=b7q22dlpmRB/nLRGORnb7lP/lluz03RtZEUO+3adYuGPlIqxm4/jkfWWw2V4tLxkVt
+         OayiNJsl/jvEv1FH/8K+6KTRJJyx5LxgHZFf7L5x0QFKf6IzzSUP0WaZQUaWXM0N7hbX
+         8wATAkpc9spYGVopLZxXm823oy5aqK5Nhe4isUF5UMYxSHWT2cVXlDPu73sGcSp6xVd+
+         cTisqo3uoseSefttb4IqOvRt3P0uCNMwKyDeXw98qERuwCyLv4D4L122Bu9LvWf7n4sw
+         qlf7LHDjpNCp9ih6NuEiJPyOP9zlhpLnBvKhik+zK8US6AUicx6qdSb5pxxCJfIbG/B4
+         RwnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770737254; x=1771342054;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Kw8PP5+zcNgh17HMGxYbPU+TEVxxfZufWgkan98Rhpc=;
+        b=savGsD9H9WoNVnDpBHDNHRTdDBv/gnoVurf63DEE4ghd0wTKLBfZAJGOivHdu6WnTd
+         Y66dFQs9tYn31dG50lmYGR6K5WCYTGrw6hmvldd7Pbzd8fea56vdTKj3iWVHcJcCkIKY
+         kU5lS6GuSUx5pI/DQ7fpImMBA9p7k8J34hokYR5vaNn0M6exZjOXoX+7ZCi8/ls3JiJn
+         Q5QllAmzNckNMDxdp+MJrDOyY7vRnQse6F4VcI9o4saxP5Q6wkUWD2Tq/6j7/7AJdFW5
+         J+98r8Hc4cPBWpyiGqTTpFhacPQ759hUZnUZj7zzSgpoR7a6SRO82PpZAJsF2wWWgA/n
+         Z/Qw==
+X-Forwarded-Encrypted: i=1; AJvYcCWEG4fkSTDymGztStgUriPQjen9fjUvH/1vE7Lvlh/uZXL3/20uKcDrsPEo3q7cJx9hUwKg7vtC0oA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YysYe3n7Mgegx9ahl9DDMX2v1FsCl27jez0RFSDUB7B+Bzu+4MU
+	bRIMmgRXtJlh2dF4o2xqE0Jp9ZaEpbzbUWr54XWu3PY819JSChouGe9bRsca15xlwA==
+X-Gm-Gg: AZuq6aKl1GEGNScNBomjVZzfh54bcC/AZs9RhIGMcZQPkdGHuasNviyYfk696wPZI73
+	q7TWIsgvY401Yu/1G514Ptf6Vj2mQz0DdDwiXeqU73n1S6Y2IEESJTN+rKH/eQql9ljgeKIe0M9
+	1QxApk9NR6D0hzZZz9cfgn5c4tV/gZdQla1KWB5JRLGntVNduWy8bRKyckOVGSyEna57SbN2nQF
+	vM/dWQDnc6rUdhWNqBv9rzWSpFvutEKbf1zAVsfNYg697IMMyQx9QDSCO7z7edK034LIZvB962b
+	FE5vU8LkdsPg5MglO8dsFYLK3FLarSkT/VWLTv3gzvfkeuSdLAJAuc7IJr5Sek9Lj0ZEyo6eUdG
+	PxYt6J6pi9ZZNwgUOOdjnYCmONuaoKhtwwXbkaiwquj8Zeao3wvz5HcOzyNRi8G0R/IVFuf6G0F
+	dECKQ5ThFtd2lXxllbUcHnwPmfYhJSl37QDrl+a0phEtatvkhricEInOWtXGVhZ1g/o2fkaFIoU
+	a4lxAMdMSm3Wd75CNSU9+e0+g==
+X-Received: by 2002:a05:600c:3553:b0:477:7b16:5f77 with SMTP id 5b1f17b1804b1-483201da2d6mr199025625e9.3.1770737254226;
+        Tue, 10 Feb 2026 07:27:34 -0800 (PST)
+Message-ID: <8bef9911-2f37-4cd1-bf18-29cca646fb09@suse.com>
+Date: Tue, 10 Feb 2026 16:27:33 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH7PR03MB7955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 693dee01-a3f2-400c-1640-08de68b6a730
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d3FXQkVTMy9wRUs2MkVvazkxcUtKUEtuT2ZPNDBqRW1IellRaWFseWtHbU9T?=
- =?utf-8?B?WFRFS2NwWW9mbWh1eWxrZzlZWVNnVERKSCtXVUpWK1JEYUhqS0hMNGtkUTlO?=
- =?utf-8?B?anFEWklHeFRxc01oT1F6TVBiMXVRM0hoU2FVSWRoNWpLYUJOSFVnM0M0bEpq?=
- =?utf-8?B?dVcwczVhMGFxQTNSbEk1NGs1eUlPZjk0V1dsbEpETHU4MEhjakZJUFd3RHVI?=
- =?utf-8?B?eklFWjVBNjZvdmQzcEg0cUJLaHQza0RmQW5zWTh4bG94czhaZkFRS3FrODhN?=
- =?utf-8?B?RlFSeStrRE5DbU9wZmVKZFZMOUZsZmh1L25BS0xXTkpBamhWcWhQMzdBMnhV?=
- =?utf-8?B?bkFSYUYxLzRuK1kwcG1EQ0grMUVYU0orZGsvN1hHRmEranlWbzJoUlRab3hK?=
- =?utf-8?B?Q3pyUzZBUlJoQ3ZFVTFyZ1dScWNjRlh0TktIOTlvV2R6bjU3VnlNOGRodkJC?=
- =?utf-8?B?bkVGQ3JFWCt5U090ME1XWjNJdlRTMW5NU250RTJtb3B2YXkzYWdZOGRpRnBw?=
- =?utf-8?B?d1N3TUoyeWpzak1NdjR4U1E5NEpmVW53amk0bkVXNGJDZ1NSYXJlbkxxNzhK?=
- =?utf-8?B?bm9wUHFxandqbGJJSHp0OHB2L0lDSHE5dVArbjlpMkVlWTdYUW45aUlBQ1B3?=
- =?utf-8?B?R1c1UEJBL1Q0NE11Y2RBWDAyOTdocytlcWM3ajNwYnNmQkRpNElDay8vWWIv?=
- =?utf-8?B?bTBBVll4U0NMMnNVVWVUVWtSRHBjME1ZVTJOY2JJWDhhUzNVa3ZidHNsc2Js?=
- =?utf-8?B?UEo3a1NjRUVwb1M1L2VOQ09GaVYzWTZkNDI3cWJOYVJxWHJqQXJQRW1EaEtS?=
- =?utf-8?B?RXhxNGhkMkkramVSdkJRSGxPamtHenVHdUx4TXNFeCsxU2hjbnljLzg3V3Er?=
- =?utf-8?B?a1UyZTRKOEJkZUVNaHpLcmtuREgxTVltK2QyYzlTWStpSlpLN0NJeC8rOTBP?=
- =?utf-8?B?WEpmVSthaHBnMnRhQUtRa3RYdWs5ckJPaklISklMZ0xrLzBOZlEyVVY5c0p5?=
- =?utf-8?B?NFBsTVFZQUtFVVVDT2ZIQ0NMOC9UdWtpMDJsQy9SbTBZY0RlampiTzJ3VGd6?=
- =?utf-8?B?WWhqUW1mdUk4ZWxOdCswZVhkV1BxTW9jSWJLQ0JxWVFPUmdEeU9yZXdjRVow?=
- =?utf-8?B?UStqR1lBeFNmd2ZkRHJnUjlrK2xDc3A1YVBLV05zZHBzWU0xY3F6NE0zYkZT?=
- =?utf-8?B?QlhWdERjVDFvVlRRbHQ4bDdLdyt4TndDb3p6WjBIQ29CdVVsc1J1eE1LZE1m?=
- =?utf-8?B?NEJ0cXNWYXdJKzdXbG9EZGl5dWg5em5ocmRFK1k0OEhoTFFJVGp2ci9xbzJR?=
- =?utf-8?B?d0V3OHNhV2xHUkkrVGJiV3p1RmhOdjZodHJSVjA2RnVlSFg4TXZ1Y3RaWmVE?=
- =?utf-8?B?TTBjdVB1YWVBcTJLS2djdmtrYUhYMFd1bUM3d3lISnVGd1JOeFBjV1FPQURx?=
- =?utf-8?B?dkRpM1FoVWRVMHNJUkhnTGZwRmNCNzNqdHFoWTJSQVk2ZU51S2ZFU1Z4Tk4r?=
- =?utf-8?B?SnFKSTJEcHA5blIyQ0FFR2Naa0dSSlBrL2tWSnQ0YWJwSGp1bHRYMnVYTEQw?=
- =?utf-8?B?VU4yOWM2M1ZxbjZPc24ybmFYUjE4d2cwVGUrUUtuUyttbEgrM0VvRDR2MXNZ?=
- =?utf-8?B?N3Nhb3BHZTU0bi9mRS90YTQzWUwrdE8wVDdtYUY1NmZwZEU3QTdnZGhtcng1?=
- =?utf-8?B?MGgwWVlXZ1JEM0VvWlFYcWFNaC96ZW9DSndFVmxESlVRMlJvRmRBTmtZbHc0?=
- =?utf-8?B?S3IvZnpFQXZDZ3JPeFBiOG1sdW1DZHRhcDVGMThnMzVxMlBzQk16MW1YWG83?=
- =?utf-8?B?aW1HdGIvUXNSazFYN2pKbjB3SW1US2YyTlBtbXVhUTVnTzhCaHoxU1ZhQldU?=
- =?utf-8?B?ZkJxaldmTHR6TTVCUEp5TWcrWTRWYmdXeEpIdUdvK3hRTXZUQmlRaHBmeTV4?=
- =?utf-8?B?aFpNd3J2SHlmUDJHR1RONUZsK0VSUkRiVnNJNVdHcTY5SEtJemVRMkd5bHdR?=
- =?utf-8?B?TG1Db0s0SXpMRUZJNFRwS21Cdk5nYys2K2ZJRTdxUEE5VzdJcFhSVnMvcVJC?=
- =?utf-8?B?a3UxWEFVejlmYmx6VlRrWEhsdStDSm1xRnlGcFBUSW1QZW5XbVpWSEVxNnF5?=
- =?utf-8?Q?kjRQ=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVN1cU1yZmwySHVBOGJ2QzBZWFVDOVppM0hXV1hQNUVoMEd0OHllWlRET1lt?=
- =?utf-8?B?angzbHBySTMvUWFKSlFKVnJkQ0dUNTg5ZjVWK0gybU9DTkRqdCs2K1VFaFhI?=
- =?utf-8?B?RDJ6K3RLN0ExYlUyTGswVTU1VTRzczArempHekxoQ2xGTGZ4eVl3bEgzaUFW?=
- =?utf-8?B?K2NLOHNDNTZSSUw4VmxZakVrM3JNK1BJQW5FRlBQZ0pKNkI3M1dTeUZwRVRS?=
- =?utf-8?B?VGRqcUhaTmdFZ1hVUnRjUHBmU3BBRG9FbWZsa3JTYU1OQjNZNHdwR0VvMkxK?=
- =?utf-8?B?YkNEUm9vRHZxRFZKL2pOYkhjY25IL0VTcFUvdGZnandXYVhMeUkyZm9GSWZl?=
- =?utf-8?B?bFBMc0NoWS82L0NQTnU0NDcrdG44VFR3cjZLNnhMY3NyWkZmK3E0amNGbTZT?=
- =?utf-8?B?RzR5K1ZyUVVjcWRXZzVLVWkrMmFtVmFKbGRqSVlwbklXRmFXM2FrL083R2pa?=
- =?utf-8?B?a2Vwd2lqRDhKNis2L0FYTi9IRkFlR3JOZDhHOG5uODdBbzZjVHV5cDgwNFBa?=
- =?utf-8?B?b3BwZ0gyOGRIVUdNWW9XZyt6OWpTSWpCcGh0R3VJNElURjJ0aVY1RlYxeGd5?=
- =?utf-8?B?SUMwUVpkQk03dy9DOVcvTzI4S0hXSnFWV0tHbHZMYmVNSFpYMjNmcGFScW9Y?=
- =?utf-8?B?bkc0OURnWDJMbkYzbVNlSFA1Tjh0R1M4RjRyazNFbjYzQ2lvUEhpa3Z5RXZj?=
- =?utf-8?B?UnBZbXhpNEJXMDAzL0JRdyt6Yi9rU0pVMlNuRW9KWDBJRDR4dkUwWTFJV2JI?=
- =?utf-8?B?Q2twL3FRTGtOV1AvQWZwNFl0Vi95cWMrOGVsQ3lkR2JQcU8vMXV1b2g5Szc1?=
- =?utf-8?B?eDQrRFhPMnlZdkN2SEhaK0FBS0o4Z1lqOXVXemVvdE9oZDN4VlliUG5TVDJj?=
- =?utf-8?B?MkdnNnovclhTQ0tHWjREOVcvOGh2TjNMN0xTWXpWOSt6MDNJMjFmYmVrNDRQ?=
- =?utf-8?B?UlZCRVJPR2lXNE5jY0puT1V0eXBuQXlFVlg4Wlh3WTErYXhNNms3L3puWGRJ?=
- =?utf-8?B?M0lHaHovSFB0dCtrcm9UR3cwaGk0RmlxcmJNQjh6bm9ZYjZtQklvT3Z1WUo4?=
- =?utf-8?B?YzdDZ0JrNll3cDVYUG9qYlRQUGVYTFJyeTVEdWJiNUV2cmdiTUpjcTA2MURB?=
- =?utf-8?B?ZTRMbE5jRTRsK3ZTMUNvUnhWVzNkQ2liY1pUYUhwakNKTmhLN3M2NStIL1lM?=
- =?utf-8?B?ZGpNUi81SzRUMnh3eVBjbFBpUU10Ry9Qd015N0h6U1hwVUFtRWF5cnhWUXh1?=
- =?utf-8?B?VVZYTXp6K2VzQUF4ZzFjNVRVSXd4MEs1NVV3RGorVlhPc2lKQWl1WlE2YjhE?=
- =?utf-8?B?aytxcFE2blh3ZWRTc05wOHA4UlpsdzJZSEFya3A4M2l3Z29XYUJweXBDSVpq?=
- =?utf-8?B?SG54UC8zOFRka09PUm0ra29DQmc3THlFQk1oUW43b2JidVEweVByMHZGOFJU?=
- =?utf-8?B?WHJ0V2FreVBoTnQ3SCtLVnY5cXZ5TGpRL2x5TVZYZlhjNGplTXIrYzY1SFZx?=
- =?utf-8?B?WGpKQjVTejFMcW1IeXdOODVkSjhPMmVBWU5GaEZRcHB3WnF1SjFqck0rQkNV?=
- =?utf-8?B?WFRaWDhaRWttc0U1TEV0blZ1V3Nqd2llUWVEZHVCR2ZsUmU4aEdLY2lKQzZT?=
- =?utf-8?B?QTVwS0p3R2hlZG56aW1HZ280UXY2a2xQeTNTNHJvTXJqOXdJWXFyeEh1dWhl?=
- =?utf-8?B?Wkp5RnN6dmhpbnNiNG5uSmQxRmFvTEVxcDBaY0VZSEtFRjBud2JBNm9mVGtj?=
- =?utf-8?B?VEpzYk4wNysxZ3A4L011NmU1UmROWXRUNnUvSzAyWjdpNHpXdTJ0dXZBMFBQ?=
- =?utf-8?B?K2ZlMitLSlAyUnlRMTJGT0x6RGtXakdHZjI1cXZZbHNQaitkVDBxTHpGWkl2?=
- =?utf-8?B?WlUwcUR1SEhmdVFDZkN2UC9IMGpYOTVEK2U4R0JrWFN4ZkttbXVLSDJuRDAz?=
- =?utf-8?B?NTVVV1F0aVkxU293RzF5THQzYUorcDdVTGNZRVIvbDNUWUo0ZVM5V2hxN0xp?=
- =?utf-8?B?L2Z2V3lRY2FPZ2RucG8zRHFtQzc2MzA3bzk4S2VVZEhHb3liT2FvazZXNldx?=
- =?utf-8?B?V3p0c3ZJRzVuTmErL2RHRGszWUZTaVVyZWZpYnp2akE1ditNRkhBelVuNXhT?=
- =?utf-8?B?V1BmbVVrdHdaUUQ4VFQ3YTZRS2VvUVlXblFUZFpJN1I2WExhVTBGNFNZRi9i?=
- =?utf-8?B?UkRtLy9iMVhoZkI3UzZwYVJKa1ZqMnYxTTBObTdmMTJMYVV4Q1VkdkZ3di9j?=
- =?utf-8?B?dGVua1pQb2Q0MHZRRVdQWStIQkVZOS9PTGJlT1ZCUnhQV3d0QmJPczZKWEZZ?=
- =?utf-8?B?NUdLUHAySVdoN1Via2ZxNGVaMkhSN1NWT1FhWUkzMXdZUkM0cVhvZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 693dee01-a3f2-400c-1640-08de68b6a730
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 15:11:23.3934
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 42AxuKpvNXNJPMc96JFGVtLifNySImIWQVyp0L/PElslkbhBJllSYo0avbazhuGeDTuORVfVcPgTRfjo2ojSvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH7PR03MB7955
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: always consider '/' as a division in assembly
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260210151110.26770-1-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260210151110.26770-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Bertrand.Marquis@arm.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:Bertrand.Marquis@arm.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,citrix.com:mid,citrix.com:dkim,citrix.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0649E11C52E
+X-Rspamd-Queue-Id: 905AF11C76E
 X-Rspamd-Action: no action
 
-GNU assembler will consider '/' as the start of comment marker on some
-platforms.  This is incorrect with Xen's usage, which does use '/' in
-assembly files as a mathematical operator.
+On 10.02.2026 16:11, Roger Pau Monne wrote:
+> GNU assembler will consider '/' as the start of comment marker on some
+> platforms.  This is incorrect with Xen's usage, which does use '/' in
+> assembly files as a mathematical operator.
+> 
+> The behavior of the assembler can be altered by passing the --divide
+> option; unconditionally pass this option when available to force the
+> expected behavior.
 
-The behavior of the assembler can be altered by passing the --divide
-option; unconditionally pass this option when available to force the
-expected behavior.
+I'm fine with this in principle, but I wonder: What about Clang? If it's
+properly compatible, it ought to also take '/' as a comment char for
+those same targets (in particular for the plain "x86_64-elf" one).
+According to godbolt it can't deal with -Wa,--divide, yet there I also
+can't control what exact target the toolchain supports (i.e. this may be
+only a weak indication of lack of support / compatibility).
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/Makefile | 5 +++++
- 1 file changed, 5 insertions(+)
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -405,6 +405,11 @@ $(call cc-option-add,CFLAGS,CC,-Winit-self)
+>  CFLAGS += -pipe -D__XEN__ -include $(srctree)/include/xen/config.h
+>  CFLAGS-$(CONFIG_DEBUG_INFO) += -g
+>  
+> +# The GNU assembler will interpret '/' as a comment start marker instead of a
+> +# divide on some platforms.
 
-diff --git a/xen/Makefile b/xen/Makefile
-index 31352d4cd260..eee0262933a7 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -405,6 +405,11 @@ $(call cc-option-add,CFLAGS,CC,-Winit-self)
- CFLAGS += -pipe -D__XEN__ -include $(srctree)/include/xen/config.h
- CFLAGS-$(CONFIG_DEBUG_INFO) += -g
- 
-+# The GNU assembler will interpret '/' as a comment start marker instead of a
-+# divide on some platforms.  Pass --divide when when available to signal '/' is
-+# always used as an operator in assembly.
-+$(call cc-option-add,CFLAGS,CC,-Wa$$(comma)--divide)
-+
- ifneq ($(CONFIG_CC_IS_CLANG),y)
- # Clang doesn't understand this command line argument, and doesn't appear to
- # have a suitable alternative.  The resulting compiled binary does function,
--- 
-2.51.0
+Could I talk you into s/on some platforms/for some ELF targets/ ?
 
+A more fundamental question is: Do we really mean to support (allow)
+building with arbitrary-target toolchains? There are other subtle
+differences, which may be hard to evaluate as to them possibly affecting
+the Xen build.
+
+>  Pass --divide when when available to signal '/' is
+> +# always used as an operator in assembly.
+> +$(call cc-option-add,CFLAGS,CC,-Wa$$(comma)--divide)
+
+I don't think this should be done here: --divide is an x86-specific
+option.
+
+Jan
 
