@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oFTMJcwCi2kOPQAAu9opvQ
+	id 2MztOtYCi2kMPQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 11:05:00 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 11:05:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6ED11195DF
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 11:04:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226166.1532693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 722D51195EE
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 11:05:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1226172.1532702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpkbW-0004AM-O7; Tue, 10 Feb 2026 10:04:22 +0000
+	id 1vpkcB-0004aT-03; Tue, 10 Feb 2026 10:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226166.1532693; Tue, 10 Feb 2026 10:04:22 +0000
+Received: by outflank-mailman (output) from mailman id 1226172.1532702; Tue, 10 Feb 2026 10:05:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpkbW-00047I-Kw; Tue, 10 Feb 2026 10:04:22 +0000
-Received: by outflank-mailman (input) for mailman id 1226166;
- Tue, 10 Feb 2026 10:04:21 +0000
+	id 1vpkcA-0004Y4-TQ; Tue, 10 Feb 2026 10:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 1226172;
+ Tue, 10 Feb 2026 10:05:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iBUt=AO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vpkbV-00047C-NX
- for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 10:04:21 +0000
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170130001.outbound.protection.outlook.com
- [2a01:111:f403:c10c::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Z/2=AO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vpkc9-00047C-Ha
+ for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 10:05:01 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd46a32b-0667-11f1-b162-2bf370ae4941;
- Tue, 10 Feb 2026 11:04:19 +0100 (CET)
-Received: from SN7PR04CA0110.namprd04.prod.outlook.com (2603:10b6:806:122::25)
- by CH3PR12MB9077.namprd12.prod.outlook.com (2603:10b6:610:1a2::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Tue, 10 Feb
- 2026 10:04:11 +0000
-Received: from SA2PEPF000015CC.namprd03.prod.outlook.com
- (2603:10b6:806:122:cafe::a1) by SN7PR04CA0110.outlook.office365.com
- (2603:10b6:806:122::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.8 via Frontend Transport; Tue,
- 10 Feb 2026 10:04:10 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF000015CC.mail.protection.outlook.com (10.167.241.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.8 via Frontend Transport; Tue, 10 Feb 2026 10:04:11 +0000
-Received: from localhost (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 10 Feb
- 2026 04:04:09 -0600
+ id f61e39b8-0667-11f1-b162-2bf370ae4941;
+ Tue, 10 Feb 2026 11:05:00 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-43638a3330dso2145354f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 02:05:00 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4376b62b835sm20189058f8f.12.2026.02.10.02.04.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Feb 2026 02:04:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,249 +50,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd46a32b-0667-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xtulc5X808Xq4tXnJx7wUDwMVOlzRPZNxynd0abYno4hAYTtjr3ZC8UZzYZqfcZG0EPlYxeEoApdSw3OO0d7/jjJ7ZehQ1YEA43J6yeTAiURUo6vSr+dSBhyuQfjR8dG9O6SA31SapKZxpBvVDMj4lt0/6b/Xge/tePSiBOUtZWjuB/9JA+ZDXnmty3dOR+Y7NB341rkrIVg2Se/8LlAgQK5Q7PT9qO4mq7jaErU9zJaoKyr9aEi7DuOtFXSLKQuVOIYe8SunM9hb9rz8Mk9kwoAqJLve3u3RYNDW6txUzRD5Ra4LCHPU/PIEZvDJzZhWTG1nDGmjJPUoNXN+42MTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WvhYazLK+71/kv/S3vQzET4ZVI5R2dafFeM/uDoiKnA=;
- b=bYBN+HGOeMvH7jEKEGwCfkTMCj/0sGdnGm5JgUU+8Lhz+PhVKyMPy18gHlLcBVtcTAbchfoYGK/D2sXxraqhiwe0qD3YLlepyi6FQBmRseqAsWIH4KsPhs9kpZAr1tflEBx4R/gJcX2i7QolQSss+JCKKY+JJ9Chc64iZTdra4+DoOi7lp8EV2n7MYhnL8ep+p4wTT3DTDUmFos+PxXUvp81tb8ZAMo1STnq+a6BrrJ1UNHs6vglUFsSd5rsy9TAdRxO+HvXuyz27ZrPBL64ATC43Pi1tZG3/78ODJjS4benVtsdSgTVrJVhlBe1tc9cY92O66L2hGRVrqWiIzp9/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WvhYazLK+71/kv/S3vQzET4ZVI5R2dafFeM/uDoiKnA=;
- b=bXaOL50OH2CCH5wvMp9DYanZ0IyuXkDgrMqo+BDWIZ/4zD9b5ST3k96FVcTVCGT2gjmm5Eesd7XUbokcDS2Svsq1ie7aOFkbcOw6NPZ6mb/zEjzfJpimlajGCvLECgGxq6tCGEH/lRd2f2zyflW1etV/YaSBCRROHDvcEuS0EMY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+X-Inumbo-ID: f61e39b8-0667-11f1-b162-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1770717900; x=1771322700; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CeKEnQDPhdS5yYdYpv6E3pVYAeCRb63E7iwSFcUYya0=;
+        b=FmTWnH4qMO0s90e68r7Nmylvgo9MzVDMlFaHr9ty56/LMnMKriPNVL6u55Z4R8VLQo
+         4pT5YP4GIL8hVE1A60N7XFJI6gXbAwrEl7VdJARsnXVMmDCr02PMEJV5kMLsEH7Q8eNO
+         qe0a3dtBRFHh6h4al0OjEGeuUtenrSaaRTavBfEnzV+v8NePzVfWtrNf2NB1kYHmRvic
+         mxj9q3hZb4m7hYi+AE/R7s8NQE1+ii445S1bfIK7Sxf8pb0WD946+6xKTglwgIj9/DLM
+         4hU650F+uUqr17OGTlDHRLSmiYwSja2pn43cqTgemmKM3UzVPyiJebfE3fHk8DCCIFUr
+         ZQFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770717900; x=1771322700;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CeKEnQDPhdS5yYdYpv6E3pVYAeCRb63E7iwSFcUYya0=;
+        b=XIAP+qeWZx6rdKQ6dYclh5wQLN8WkcMBFmI8lFMgTW1kmacba7eiVgvWw1MxylCQ9n
+         f7bEC0xn2+hru6CJf45RgjxfC7taoslu31gynubjiYWOPO3MJHVyaJpkNCdQ1nuD9cej
+         kE+t7OJrAa3+UX4SuBQPFCJ55CQJoQ4EVthEqJZMhD2MIM+5OQjZoQRNRifyVehvFjf1
+         AGV0v/YKtxeAKhxcdYdhkYcLAWSam3Y+uVGBVPuhiHS8sGo2qsUkY3ft6bfpcOVq062+
+         e47fj0Tjzgrz5d9/hnBo0h0F/g1a+0UJoUeQOfU9ZUSJScS1yBkcOz+1KU3xET/ACFP3
+         X6aA==
+X-Gm-Message-State: AOJu0Yz5M4+9wmVeEsve1z+lrLY4yFZdR7UMVfRJ9uJqQ/x7qDcYQRxv
+	N7i4r9K138jUQde2SWmGZu8oKIdga84+keWd8OKsq7kagpAvxuW8aIKSSjilQfBbjxylfwAQV1d
+	Fxis=
+X-Gm-Gg: AZuq6aJXGYpWcybhSaRsYYp8gaU+YpYBHly0ngOW3Ny0yIanM1Z/esZeiUBzlrxvIGW
+	x4qfT6oVgqJK8IYLAN+ampRdoqOKDrlzRolDlhFiDQ895cDPxXmFjAXSofTwuWwDZlpV9o9huij
+	Y345qThkO2KKbMBhFiFONRo8nOXexZOCD1NuqpFXUvY8ipQ++Yqiw9ePgqohVd3k8VEIw/i6Kv6
+	6MtDYod+Gq8YTTV+P9fgelldNVxIK7MgkbkvQUrJ7Lykuf/9dVuf+uGEpDLCaTAB0w1euHTyjY8
+	/00hQHGcVTOfCrI+8llRMJb9fDIqZcUNuCYd+VxavDk0GyuSijmzjUiy9iKj8KjzSA/8RhEozAa
+	77jg82gwQhJ19ES6M6c0/NVbRdFgWWCpo3chqSHpxX3QZIA3I2AjQIhuDnMq1C2oA0s1NSIdAsQ
+	J6w+ZCtqS7DhnTXArWhuhYFOpeTKGoE15RaHArpVwJpaAgzWPEZJoiFmxqBjVgdXrzgMU3r2uZW
+	K3Do3qIPpogczs=
+X-Received: by 2002:a05:6000:2411:b0:435:a4a9:6f79 with SMTP id ffacd0b85a97d-4362933bef4mr19281630f8f.8.1770717900039;
+        Tue, 10 Feb 2026 02:05:00 -0800 (PST)
+Message-ID: <f97bbfb5-389c-4845-84fb-e6f07ba0ade8@suse.com>
+Date: Tue, 10 Feb 2026 11:04:59 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 10 Feb 2026 11:04:03 +0100
-Message-ID: <DGB737H1X57K.W7JIW1QG8RX3@amd.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH 02/12] x86: Add more granularity to the vendors in
- Kconfig
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-X-Mailer: aerc 0.20.1
-References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-3-alejandro.garciavallejo@amd.com>
- <aYrrrLuDXuOffsgx@Mac.lan>
-In-Reply-To: <aYrrrLuDXuOffsgx@Mac.lan>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CC:EE_|CH3PR12MB9077:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ddeb9b5-1f8a-4db0-91ea-08de688bbd20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Rkc5d2p5amlFdVFDeFRwZEhlRVBWdjR3dllMVVp4VkxuL2ZlSVRuQ0pKV2pC?=
- =?utf-8?B?QThONVpMMVpVbjE0aiswbjk2d3ByTzRRTUF3ZjVyLzlHRW9qSGdaVmtMOC83?=
- =?utf-8?B?SHo4R0NuVkQxcEp4MWx4bHZicmtwNmNDcENHYm94c3ZFRkw3Y1hCNDErRGhk?=
- =?utf-8?B?RXVRN3VPdDN5dTZGN3RSc3VvUEFNM3BPTHZjc1J1WGl0ZWs2N1Q5OC90SU51?=
- =?utf-8?B?eTdNV2p1VENVOXhuUHdjZ2pkdFRwN21QN1hhc29LV1BqdHNZUEVlMEFmMjUz?=
- =?utf-8?B?WEJWaThUQ3ZFVDhhRW1xaU9EVGdmL1JkbUJobE1rQ1pCTjVObXdMWGFWNjRl?=
- =?utf-8?B?d1RLZUdpdHV4bVNmU29HandqVGI4S2VxYlVEOE96b1VoTVNXRmxRN2ZWb3hU?=
- =?utf-8?B?MndKbE9DNGEzdy9XZWZTbzlrMFZPWStWRis4K0V0UE1rK0R6Q1ZjaTRIS1Nr?=
- =?utf-8?B?TmhZTWpaZStrU3VlSzdBaU9CRXJidkQySm5jNWdjRlo3a2hlbCtic0RVM1lT?=
- =?utf-8?B?bU01Zyt5Y0phWlR0UFVUdGRRNDJpZWZUMlZROEphaFJaeGkwREtnRlhiNXlr?=
- =?utf-8?B?Z1BIWkpWWmFDMnlvd3NVN2J6VVFkYmkxeGdqdXFseVBsaG81bkpNMlZIdmx6?=
- =?utf-8?B?ZlNiQW80c2Zqam9sb3E3d2ZOcmhlNnd0RTcyOGphVHhrZXpzVmZEOU1kd1hK?=
- =?utf-8?B?NUlmZkp0V2dqZTJVTnBIU1hXVnNibnBnOEd1dGpHZUVHN25aWVQxVjZ5SUJw?=
- =?utf-8?B?azA2YnJXcmhKTHU3ZXJBZm5IK2drMnVRRkNPKzFwUUZodWl6VENsUVF1K2JN?=
- =?utf-8?B?WGVKQVFOajdVVU1iRDVEdmc0NzNpVUFXN2piNFNOUXZWNFlzM0VOekEvMDgv?=
- =?utf-8?B?NEYrNjJLdGVIdGJkckVUamZhblhaOEtyaEJNYTRQRi9nSXg0bEs1U3RVK1Bq?=
- =?utf-8?B?RzkzSFJ5SlNzS1NmMWRhZlN6dHFUSytkK1VRSVVpNjdiT01DQXdvU25KOFdi?=
- =?utf-8?B?UGw5eTRkMS9tUWkzS3BPbzkwQ3FvV0ZxdkJEWlFibTBHTXRMdWFtenlURGh2?=
- =?utf-8?B?KzFCZWlqa2dVbkxkRnE2cm5wd2FQTmhqd2ZVUG1nRk5jb2U4S2N5RFNxcFp5?=
- =?utf-8?B?WFdyS2pXcHJhTitSdGp0ZmRxRm1KemdXTThRU0xLVEkyOUR4bjRYREVhZXB6?=
- =?utf-8?B?NTcyQzI1cE02ZHg4UXVmdGxsYitkbThsU3ZCRERXR2lJbk02NkpoVjBPOFNo?=
- =?utf-8?B?elhXMUJKL3NYWkErZTUwSWRNS0pjZ004QnBJcGVnb3FabEJyWFZacG1CdVdW?=
- =?utf-8?B?L3VQSG9IOHB2TGhuQ000RU5WdnpSUTJ2TUhCSTNZUlVUbDYybUtRcXhLUE5t?=
- =?utf-8?B?UHJNK0FGTW8yMk8wZThUYzk1bjBMU2pKc3NET1BZVjEvZUovSFV5WTYrci9j?=
- =?utf-8?B?ZW9SSW04Zm16RXA2b2RGMW80UzRnYzZPcnZ3elVvb0x5eUx5TjluL2xRV3Vo?=
- =?utf-8?B?TlJhR2FwdllGMGdZajVBM2dCM3QvM3Z1Z1ZnME1rakxteXJEUFJ0OTFlWUFT?=
- =?utf-8?B?UDh0WDcwZGhVaUpsMjBOUXNkeWNubE9CM3FCczdleEJrUzFxZldMYXZkVFRi?=
- =?utf-8?B?N1doYnFOOE1Pc21jSXB6SG9mYlUrQlo5QVFVOGdCdndYdjRFYXBqd2lGdXgz?=
- =?utf-8?B?azlMTmk3enlTZ2diVXNicENGNjJRSG0vOTAxS25qOFZPdEE5Y2drNENTQllB?=
- =?utf-8?B?M2N1V2VZMjg3UTAzWm9KVEVSdkM2dVJrMDd0c0dFSlozUEJ3T0xjZTExYkFL?=
- =?utf-8?B?RFUzaE0wV3NiSUVQMWt4ZlR2QXE0cFRoKy9Qd3UwdFkvem8vLzZML3dIVysz?=
- =?utf-8?B?OC9JWDZ0TjNzVDVoL2FCTUlHV2ptZlZweHJsUXBONzM5RklQYjdtZnNWeDdS?=
- =?utf-8?B?b0JiTXcyaDNYOXhiTGh1VjFYaWJ0ZlpVcE1MU3VaOEtNSHBBWGV2RGZON1NN?=
- =?utf-8?B?M1NhdXUvcFlGQ0dYaFVuQ2ZhNGRyYkJzUHE2REhxQjd0OTdpZzNsTklnMFE2?=
- =?utf-8?B?cFh2YXQ4aEZITWlLOExwVk1vKzFFMnNQNGNtdUg5TzRhM045U0sxS09Ob01G?=
- =?utf-8?B?aUlnL3JKcXo4bkRsVDhIa0NrQ2wvVXlveTNtZ2l1a2wyaDdvUElxWkNuTDFP?=
- =?utf-8?B?R3FUN0RhTzZ1UHVpaDNIVkFjNVZpLzNjeHFMS2QzeVBIYUN4UGhaUVFvSTdn?=
- =?utf-8?B?RWJ4RTN6WGJMemhXSDdLYmY0NkRBPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2/98/WrDAG4bZCv3YHuQrWlL4InmEPEGjI+9TwG/4nlUcGGERcxo53Q6Hcu3v3bfyDQ/ljFTSHJ9AGMxC72axnOvkNYUf+WF0J8gr4Ek+pXMwbseC+pUr2shPJDB9xoGVXEuVsPOrqeDsnK3ilr5Lt9B5xQ0t9i/3tZpc247ZiDw4D/rEy659glD0pdchzcvWoM0zFp3dsyKwvISjqi2gL2Dx35TTOPDB30y2FJOGngxUgrHLb1kItnttPnrirNIy/CzhFQ8jfDtotSwAD6l2Nu9m0BH4o2G9av5b1Kr0Z2PJsVks4oqVBLOCyzIcqjN2oWqg8/+IYjSdkzzm1DF4euLTLhRfWMzG9CjJipoEeVTMvN8/eTSxStGcNfBx+TzzGXSf0oZMTexNFLV5olyrUhbNXsZXuEzjJerYAPXdDdkCPmk32gcbbjY9am9HrN3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 10:04:11.5347
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ddeb9b5-1f8a-4db0-91ea-08de688bbd20
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015CC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9077
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/time: adjust handling of negative delta in stime2tsc()
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	HAS_XOIP(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E6ED11195DF
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 722D51195EE
 X-Rspamd-Action: no action
 
-On Tue Feb 10, 2026 at 9:26 AM CET, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Feb 06, 2026 at 05:15:24PM +0100, Alejandro Vallejo wrote:
->> This enables very aggressive DCE passes on single-vendor builds in later
->> patches, as it will allow most vendor checks to become statically chosen
->> branches. A lot of statics go away and a lot more inlining will be allow=
-ed.
->>=20
->> A prerequisite for such optimisation is to expand Kconfig to have the
->> full set of vendors. Adds Hygon, Centaur, Shanghai and the unknown-vendo=
-r
->> path. Have Hygon select AMD, and Centaur|Shanghai select Intel.
->>=20
->> Not a functional change.
->>=20
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> ---
->> rfc -> v1:
->>   * s/depends on/select/
->>   * s/UNKNOWN_CPU/UNKNOWN_CPU_VENDOR/
->>   * Removed "if unsure, say Y"
->> ---
->>  xen/arch/x86/Kconfig.cpu  | 43 +++++++++++++++++++++++++++++++++++++++
->>  xen/arch/x86/cpu/Makefile |  6 +++---
->>  2 files changed, 46 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/xen/arch/x86/Kconfig.cpu b/xen/arch/x86/Kconfig.cpu
->> index 5fb18db1aa..f895cfe97a 100644
->> --- a/xen/arch/x86/Kconfig.cpu
->> +++ b/xen/arch/x86/Kconfig.cpu
->> @@ -19,4 +19,47 @@ config INTEL
->>  	  May be turned off in builds targetting other vendors.  Otherwise,
->>  	  must be enabled for Xen to work suitably on Intel platforms.
->> =20
->> +config HYGON
->> +	bool "Support Hygon CPUs"
->> +	select AMD
->> +	default y
->> +	help
->> +	  Detection, tunings and quirks for Hygon platforms.
->> +
->> +	  May be turned off in builds targetting other vendors.  Otherwise,
->> +	  must be enabled for Xen to work suitably on Hygon platforms.
->> +
->> +
->> +config CENTAUR
->> +	bool "Support Centaur CPUs"
->> +	select INTEL
->> +	default y
->> +	help
->> +	  Detection, tunings and quirks for Centaur platforms.
->> +
->> +	  May be turned off in builds targetting other vendors.  Otherwise,
->> +	  must be enabled for Xen to work suitably on Centaur platforms.
->> +
->> +config SHANGHAI
->> +	bool "Support Shanghai CPUs"
->> +	select INTEL
->> +	default y
->> +	help
->> +	  Detection, tunings and quirks for Shanghai platforms.
->> +
->> +	  May be turned off in builds targetting other vendors.  Otherwise,
->> +	  must be enabled for Xen to work suitably on Shanghai platforms.
->> +
->> +config UNKNOWN_CPU_VENDOR
->> +	bool "Support unknown CPU vendors"
->> +	default y
->> +	help
->> +	  This option prevents a panic on boot when the host CPU vendor isn't
->> +	  supported by going into a legacy compatibility mode and not applying
->> +	  any relevant tunings or quirks.
->> +
->> +	  Not selecting this options while selecting multiple vendors doesn't =
-have
->> +	  any major effect on code size, but selecting a single vendor with th=
-is
->> +	  option cleared produces a much smaller build.
->> +
->>  endmenu
->> diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
->> index 7cfe28b7ec..84b060aa41 100644
->> --- a/xen/arch/x86/cpu/Makefile
->> +++ b/xen/arch/x86/cpu/Makefile
->> @@ -3,13 +3,13 @@ obj-y +=3D microcode/
->>  obj-y +=3D mtrr/
->> =20
->>  obj-y +=3D amd.o
->> -obj-y +=3D centaur.o
->> +obj-$(CONFIG_CENTAUR) +=3D centaur.o
->
-> Maybe I'm missing some context here, but I think this would break the
-> build?
->
-> cpu/centaur.c exports centaur_cpu_dev which is referenced from
-> cpu/common.c, and I don't see you making that reference in
-> cpu/common.c conditional to CONFIG_CENTAUR being defined?
->
-> I think the same applies to Hygon and Shanghai.
->
-> Thanks, Roger.
+When we cap negative values to 0 (see code comment as to why), going
+through scale_delta() is pointless - it'll return 0 anyway. Therefore make
+the call conditional (and then also the one to scale_reciprocal()), adding
+a comment as to why there is this capping.
 
-Hmm. Yes, these hunks go on the following patch for bisectability. They wor=
-k due
-to the AND operation at the switch condition.
+Modernize types used while there, and switch to usiong initializers for
+the local variables.
 
-Cheers,
-Alejandro
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Adding likely() to the conditional here does make a difference. Question
+is whether to do so, seeing that there looks to be a possibility (of
+unknown frequency) for the delta to be non-positive.
+
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1176,20 +1176,26 @@ uint64_t __init calibrate_apic_timer(voi
+     return elapsed * CALIBRATE_FRAC;
+ }
+ 
+-u64 stime2tsc(s_time_t stime)
++uint64_t stime2tsc(s_time_t stime)
+ {
+-    struct cpu_time *t;
+-    struct time_scale sys_to_tsc;
+-    s_time_t stime_delta;
++    const struct cpu_time *t = &this_cpu(cpu_time);
++    s_time_t stime_delta = stime - t->stamp.local_stime;
++    int64_t delta = 0;
+ 
+-    t = &this_cpu(cpu_time);
+-    sys_to_tsc = scale_reciprocal(t->tsc_scale);
++    /*
++     * While for reprogram_timer() the capping at 0 isn't relevant (the returned
++     * value is likely in the past anyway then, by the time it is used), for
++     * cstate_restore_tsc() this is relevant: We need to avoid moving the TSC
++     * backwards (relative to when it may last have been read).
++     */
++    if ( stime_delta > 0 )
++    {
++        struct time_scale sys_to_tsc = scale_reciprocal(t->tsc_scale);
+ 
+-    stime_delta = stime - t->stamp.local_stime;
+-    if ( stime_delta < 0 )
+-        stime_delta = 0;
++        delta = scale_delta(stime_delta, &sys_to_tsc);
++    }
+ 
+-    return t->stamp.local_tsc + scale_delta(stime_delta, &sys_to_tsc);
++    return t->stamp.local_tsc + delta;
+ }
+ 
+ void cstate_restore_tsc(void)
 
