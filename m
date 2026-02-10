@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oMEnOnAfi2lBQQAAu9opvQ
+	id 8Nt4C6cni2m6QQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 13:07:12 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 13:42:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFEA911A8B5
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 13:07:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226347.1532888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C8511AEDA
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Feb 2026 13:42:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1226367.1532899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpmVy-0002MV-GD; Tue, 10 Feb 2026 12:06:46 +0000
+	id 1vpn3N-0007Rh-1V; Tue, 10 Feb 2026 12:41:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226347.1532888; Tue, 10 Feb 2026 12:06:46 +0000
+Received: by outflank-mailman (output) from mailman id 1226367.1532899; Tue, 10 Feb 2026 12:41:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpmVy-0002L4-DH; Tue, 10 Feb 2026 12:06:46 +0000
-Received: by outflank-mailman (input) for mailman id 1226347;
- Tue, 10 Feb 2026 12:06:45 +0000
+	id 1vpn3M-0007Od-UX; Tue, 10 Feb 2026 12:41:16 +0000
+Received: by outflank-mailman (input) for mailman id 1226367;
+ Tue, 10 Feb 2026 12:41:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gjf6=AO=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vpmVw-0002Ky-RT
- for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 12:06:44 +0000
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazlp170110009.outbound.protection.outlook.com
- [2a01:111:f403:c111::9])
+ <SRS0=tYRw=AO=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vpn3L-0007OX-EU
+ for xen-devel@lists.xenproject.org; Tue, 10 Feb 2026 12:41:15 +0000
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c10d::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6879f5b-0678-11f1-b162-2bf370ae4941;
- Tue, 10 Feb 2026 13:06:43 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by LV3PR03MB7610.namprd03.prod.outlook.com (2603:10b6:408:284::10)
+ id c8c25483-067d-11f1-b162-2bf370ae4941;
+ Tue, 10 Feb 2026 13:41:14 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by CH5PR03MB7911.namprd03.prod.outlook.com (2603:10b6:610:216::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Tue, 10 Feb
- 2026 12:06:40 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
- 12:06:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.17; Tue, 10 Feb
+ 2026 12:41:10 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
+ 12:41:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,334 +52,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6879f5b-0678-11f1-b162-2bf370ae4941
+X-Inumbo-ID: c8c25483-067d-11f1-b162-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TCxAQMUitVa3XgOiDK3DmsRUmrqmUtabtjzpgwIzIdGVczPqZGVqUCs3wm4YYiSciaVVN1fYR0QM8dz3IZDuitHqDEqCw8M6chRnILsGCePKBl204wiJQokmDw+eGc1kw5thyZwCz17VVygekqTwWs5L2R8MTTFwG5LlfiGwHxXnh2fyx8W2rVF8r46+0HL45iEhDOv+qQbZf9dSaq8aPrntvsNsqms3NRq3ujnaflhlVF3PXLBVN3ygvfB7wwYGJzYlDCTFCcQOVVPlDrSLYNsvPznQQvs1KowYN0yRQ+2DcCZJgg7FNwvW6qCSn+98a/YGPQa6+0R/LOWn5x7DWw==
+ b=vBA3dAod8fysZ2ycGj6uAr3DSCW2N+wc2fMtHFf05mnBnSivb/ynSO7z7kn6q9Xs84gvieI170u3sdESr8M09wiBPtxjJESDV1zX46bWTDJlW053IwrjAXT2ACkKSsL4KEBHmZ9EwUA7uKcq5BXQjGr7rdYrBFEtNPbJL5YrS5tXEYIPXr61X4UDTiMukBJHHal6fBhBWyVX0Kmo92lu9e6NhGlJ4xWGLaGbIQHRdAO0fUFI57JHjZvCCxzr6zBzulN6VgbaZzzeAQSV+0AFRFsR+PS6HjuqlDsbtIS4vDZJNbMkfQjGdAqKTK5QGYSvbKZAVkfwW3QZcxrIIDcJsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=audc2GUtnsvMNydrjwYSDXe78K+2d8mcLp7KKS2jBEI=;
- b=KsJkkKP+o3Ayc/PxVU+19IQFp11o71ki5/F3PlNBxo3VHfRPd2i3sz+jsCFTk2EAquxEG3JuxfUfUr7TeKNSJ2usqD11/t6VhdMCuG+STW6juhz9mEqdXWJVPDV/MIzA9TJUFxHsZiH3sXv4sWzzHdpTYm94CX1+fwTAbekGCvB5SXoKBljPT8qQR06myEXn8x1+mFrT/eOCVRYZvq452GwwoQEXBEt4GIhYsgKQCVhIgREILs/ab6Ejk3vot21DmEiuB9kRJHBd+92imxgZcYrZObhWSzmvjEt8Nah0JuhttVSX7MgSGeio3Rk+ywlbqg49dHarCpKuX8ocEH92Bg==
+ bh=+c3Vo6K1nplnoVPLQhq8r6K31zwiP+dmss/NZ0iDDfc=;
+ b=zO7rvjHFUJFnwiLNCQcql6YIHKLOl389Xo78tLOx5kQ3WVL8QNWPeOgPIs0GILsGpzBSMU14xMxZEVMghwK/PkuKGIgB6OtDU6EwzSUPRwK7E4ix+FVmDZRg7F9ClaHLxip2roEVJS1ZAIGnHN2WjaK3LZTmgjcKRXPcX1I57V/2IFhvMMwjecrVo5eIY2r+OVN0dX1mbTsVSbQ2upLjUYMw9hBqZoyFS2UPZefYPyj3/r6gp+Ulgy6sc0kMRQSdF4fDraGXmU9WXWLJt+GhCcMZMqIj69qXdXEaPj4BhyGRiAl1yEeJ4WFaI1eA6c/o9inWMHeYqT7Ewvt8pnarAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=audc2GUtnsvMNydrjwYSDXe78K+2d8mcLp7KKS2jBEI=;
- b=Zz7pp0Z61QMQyotcRmoajI3MhaTb3GLnJnwFwuw6k02hB7VAUSMj98vQ+uyszLd1HhLNRyZX81RuNk9Kn8scArrLjE9bEqDB65RUxfCROVgTGiX86hGoiKOcnNk3on5O5ALR3eo1tOGORXla7yVQ17DPqvyvgMwv0YOKRevC6Bk=
+ bh=+c3Vo6K1nplnoVPLQhq8r6K31zwiP+dmss/NZ0iDDfc=;
+ b=Q9w6XCRY3Od5cs/PGAa9h6wIW3sSxcOgngSUuJ1AY/NIVuePFp+9nklMAsBu3jlbMTvmQ70W25uQE354d7HgdWsx7dCOfMlOBcBmjQ5+t95svHEoTa/RvyL/IPGmVjVvQpWNC1SdHgCOAm6N65AZq07xb00WePS1Mv2712b3BUE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 10 Feb 2026 13:06:36 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH 03/12] x86: Add cpu_vendor() as a wrapper for the host's
- CPU vendor
-Message-ID: <aYsfTHM_kV8t5Vqp@Mac.lan>
-References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-4-alejandro.garciavallejo@amd.com>
- <aYrwUj1uaEgGL9hl@Mac.lan>
- <DGB7R5PAW92W.390IRWRSC3QE9@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DGB7R5PAW92W.390IRWRSC3QE9@amd.com>
-X-ClientProxiedBy: MR2P264CA0151.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:1::14) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Message-ID: <e1080ebd-8e8a-4914-8979-95445e22e5c2@citrix.com>
+Date: Tue, 10 Feb 2026 12:41:07 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 19/22] x86/pv: Guest exception handling in FRED mode
+To: Jan Beulich <jbeulich@suse.com>
+References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
+ <20251003225334.2123667-20-andrew.cooper3@citrix.com>
+ <008cb741-26e2-4f28-9dd9-c88f9fbba743@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <008cb741-26e2-4f28-9dd9-c88f9fbba743@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0142.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9f::34) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|LV3PR03MB7610:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5ad4003-fd60-4afc-f856-08de689cd946
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|CH5PR03MB7911:EE_
+X-MS-Office365-Filtering-Correlation-Id: c790bdb3-0ca4-4835-a112-08de68a1ab64
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aE1EN2RRM29MVFNMT20wdUlnK1dLQTV3bFhGVEFFek1WUFRBckU2NVZRdUlx?=
- =?utf-8?B?Rk01cmxVSXNlaFZVdjlyOFo0WkNtdEpFWEFlVTdKYTFmdlJDVGtReVI3SXl5?=
- =?utf-8?B?VkFRbW9nM3BIK0RBSUEvYW5FT3liQ0x5NnVtVGJkQkszMGRFeGNYKzcxUmI0?=
- =?utf-8?B?YVZPUVJ5Y21WTXY3RzRTcVFoRlFrQ2ZHOU10N2w5OGR5QnorRWMwQzZRT1pZ?=
- =?utf-8?B?RDdsRFJ3Z0JtWTR2WGJ4NmJQSWxFTXZmQ3hIWnFOREU2RW45UUVPUFVBRWVv?=
- =?utf-8?B?R3RuZDREYmlUY1ZtNUxMMXZIajRXTGkvZFYzMkJidWRBYTVFN1B1RFV1YnZV?=
- =?utf-8?B?Q1hQVFV2Wks1L3NJa2szc1cvaVAwenBJNHNDeTlZUVVsZmtDV3FsMVVJb2RD?=
- =?utf-8?B?VDBqdHBNcVhDc2JSNEdBdDJGNkRMSDIvNDMyZzMybnZMMUxHL0gxU0dWeVd0?=
- =?utf-8?B?ZXRPTW1Bd2lWOHEyRERxZVBXNy8wQXg5eXpjWFM5TVVqKy91N3dqWkFHRzEr?=
- =?utf-8?B?OUJTV2cwZUpiWmJxZExZMU5XMHBHZlZ2WW5YMnRpVHVrZ2ErTjA5bXZ2c1Bn?=
- =?utf-8?B?K0FNdkpGamFuNThNWmhQSmwrWG53WUhySDNiR0RKbzNYMit1MGp2dVVCcmV5?=
- =?utf-8?B?N0FNZGxIdWN6YmxuV1dMZVBFenZ6L3pnSEZJRWZITmRqYW5wRFY0UGZoOC9z?=
- =?utf-8?B?ZHZSRVM3YUNMZHZpVDdLRy9wTVhvdTZwT3hzck5rTWFIam5uQUtyenEwTUcx?=
- =?utf-8?B?VWxwa3V0Wm5YUUVTRG5DMUNxR1h4SXEzcEhEb2wrRnBJOTJhcnhvV1g4WUlF?=
- =?utf-8?B?bnZwR0tBT3QzRVJsR1JtRWVDSUpGVFZxWTY0ZEtvVVJ0d04wMFpLUy95RlNX?=
- =?utf-8?B?M0NkNW05Y0NGYm9hcFBEbHFzQll5ZVBSdFQ2L3IySDBTNXAyaG9SdlJZRjRu?=
- =?utf-8?B?elhjUnNRZCtIOUNzRW1uYUZKUFJwWFhjWWxBekwxVkxZWUEyM0RFL1ZNS1Ev?=
- =?utf-8?B?S3ZzMXdXN3VNYy9nUHErVHN3andLTzlZOWd1ekdwNk8rbEE3V3ZaUG5vUXVu?=
- =?utf-8?B?SWFXQnRYdHJJNVRDeWhkWE5Vb09UNmtDMVhDN3ZlSXdjR0hhVmViZWV0VjlB?=
- =?utf-8?B?cEpycjhzR1lLSWZhd3F2MGk2VEF4OVJYdTFNWG80WldWT0JyMjU1ZTNJeHlE?=
- =?utf-8?B?bUFiRE1UNnk0Z01HT2VzR3FFeEU4YzFORjNSTExMT1RXTzhwSVBSN3d5Zllx?=
- =?utf-8?B?b0YxMUY3aGt4SXdsb3FvT3Y5cmxsZlgvNDNRcERaUTZDVlo1eFVna2tWZ2ZM?=
- =?utf-8?B?VS9ZcEcrMS9IYmh1cjh5UGt1eVZZSzRBVkNwLzFybjFyZ2VUcXVsd0dOS3Fo?=
- =?utf-8?B?T3VOS2ZweE9vZittbzZVTGxmcUdudGpmVlFuaDNjT1F4NjFKdWljV1J1TDUy?=
- =?utf-8?B?ejFJUmV6UTZVVUFJMnZ0QlM1VHBYR2hzOVh6YmYzQjMwNldERjdHdHE1TkJm?=
- =?utf-8?B?ZnQ4NExaTFhCZFkyMEtBTjA0dzk3L0VXMWFmLyt5T0RqZVZwZ285Ykd5cFpv?=
- =?utf-8?B?d1hjTGRlZExiemRJRGlYMU81Mkl5UTRqREpXMXFmcHQrSUR0UG5rTVJ0LzYy?=
- =?utf-8?B?YUszM3NIdStCMXhpNWpyNmp4Z1JaOFRrSlcxQnNUbjRyOXE0UnZuYVRCb1Zx?=
- =?utf-8?B?SnUzNEFnTHpTcjJTSlNkeG5uZ0xUQ3lVbzZzL0JVb0o5QTg0UFgwbUFjYWhO?=
- =?utf-8?B?SVQ5aFhONUdmOXd4RHB5NGE0R2lsUnZwbHgyWm5XYmRsTmZxd2FoS2FjT2VB?=
- =?utf-8?B?NWVpakkzR2xqcHlRWStWak9jdjRVVTN2NHJTQUxYdG1kNTQ4L1dPTzNpVkVG?=
- =?utf-8?B?RTRwc0xpRVNvdWI4bkxrVXAyYUVya0twM3UxSkJBODJMbVpxenJwMkIvN2VY?=
- =?utf-8?B?S3Zad0sxZlFxSnFudjJ6NEFxc2tucUxEWGNoUThhSUtrVFpnMjV0Qkw0NDRy?=
- =?utf-8?B?TEppaG40aERDaDZXTjRnNm1WQWxBZStyNjNEU2hwYm1QNy9CMHJ6TWVLRWtF?=
- =?utf-8?B?cHNocXVYMW9ZZ1REZU5IaTBCR1lWZ1FqT1F6d0RpZDNMbTl0S1o5dnhIOHhZ?=
- =?utf-8?Q?Z7/I=3D?=
+	=?utf-8?B?b3lyQk9uYy9JTmtoeHRHdXdHclVPSHBhUDFZeWNJR25CbHAwajc0QWpQb2tD?=
+ =?utf-8?B?TkpoWHdFKzBlWU5oZHRkbHorM2hza1c0ODYyaW5GZXB3dnRTdFZUYjlmU1V2?=
+ =?utf-8?B?SmFtUTE4YS8yU3YxVm5WT00zSkxML201dEo3b2ZXTFl1SEFEdVcwOVI4RVNT?=
+ =?utf-8?B?cGZDZUQ0RFdqMWh1SjFlcXVoQjdFUGFXQzhrY2lsSm5WWnJETWM0emU5YUN0?=
+ =?utf-8?B?N1YyemhPMDdNcmt2L21hYllueThTYUh6dWhvclc2WmsvbjlYQjZUMDMxTXJP?=
+ =?utf-8?B?elJZSDdjWVBBRStnMDhOTEwySDdnOTlMcmNxbWEzZXc4dHRmeDhRNkk0SnU1?=
+ =?utf-8?B?RW1TYjJWZjRoUEw5RkZKMDZZV1JwVHg3S0lsOGdJd3dPc3k4QUpvZ2FrSW5B?=
+ =?utf-8?B?OFQwd3BBNy9zTW9FVG9tTTVhdFdqSGJ3SU02UWdOcmtuK0xhTmRYVnlGTmIy?=
+ =?utf-8?B?ampDTUtrSUVodzNMR3owNWdoVkh2bDNMbEJjbXRwYU1kc1B3VGg5VHZuYVls?=
+ =?utf-8?B?a2dDWWxFYlJBc2ZCRnowbDM5TnQ3UVpxYzk4ajkrWjR5d2tMYkdtaWgzMTRM?=
+ =?utf-8?B?dSswcDNFWFhhVTFGVHR4ZDlSUVZ5UTYwMXZYNEFCUlduVThCQnpsZWg4M25G?=
+ =?utf-8?B?UUZDTjdoKzNXQjdqL0lOMm80R2JsTm9LbG5Bd01nTWttVEtibmd4S2VoNUFz?=
+ =?utf-8?B?M3pFMSs4SVk2WTVFZE04K0dqbld6SDFaWXhid0ZFc3EwbXJ6bGdKZU1XNC9V?=
+ =?utf-8?B?d01kZlNONi9kaDE2TWRXRU9BNUtESW92d1EwbXBSMjVoUHpVRDVEd00vUEp2?=
+ =?utf-8?B?WGRMZDVNdmM3YWdLZ1YrSHRKMnJmRWhCZUo5N2syMWZLak5MRG1qNWEyVVhQ?=
+ =?utf-8?B?Zkw1STNYSU9IbW4rTEczZUJkU2hiMWVoOU1XSEQ4TGRqQm94NG1pM2I4ZzRQ?=
+ =?utf-8?B?ckxtaHVuN29PUmsvdFhOZC9hcW9hd096aG9FL0xub1BPeEhGOWF3UTdqTTlT?=
+ =?utf-8?B?T21meXBFeFEySjlLYWhNSmsxNTZtNmVubmpvSC9UUnVzTkpmTCtTVlJrdFMr?=
+ =?utf-8?B?ZldUWGZsNGNHRXJ3L1JFTlVpblVRcVk2d2d1aVYyL1pjOEtaOFBtY09mY3Fi?=
+ =?utf-8?B?NGJUL01Yd1IwVWVHYnRwWDdKYTVhdm5mNnRqdEJQVUxiM2NmNnEvRnVwMXFO?=
+ =?utf-8?B?STVmbTh0cW1wbTJIWUtnUnRKdTdkTGN4UGVhSlFLQ1ZSdUFOTXgyNDFzb3gx?=
+ =?utf-8?B?OEhXNnJ4b0pyM3ZvQ3hBL01VaWt5LzFMS0lvT2lwekxOaDl2R1pHZjRSR0dE?=
+ =?utf-8?B?R3ZJbHEwRGxGa2V6T2Y4VEI1NTNWRnZYbVliWCtuU1BCa1dBbXh6ME51dmxk?=
+ =?utf-8?B?bnY3YXR3c1A0TjRNLytmUGNTT2Y3cDQ0czI1VDVnaXFiMFpsZlNDVnAwbEhs?=
+ =?utf-8?B?U1M2SzF2N0lRdG8yem1tRTNzUCthZS9WaGxtZ3hRUUd3VXhQNDRaWVRORzdE?=
+ =?utf-8?B?eUtuZEJvMHVjYXY1QXFyT0RuWXdBN21kbktVUC8vS3MwUiszNFpNMVczdDdl?=
+ =?utf-8?B?czFmVVBmVDJaZCtiSHlmWVMwWmZuc1VEejhkYXpGdGxjcGx2WlRlQ3NzZjlP?=
+ =?utf-8?B?V0FGTERWNlZpQTVqbVB6cUVuRHhXckZJMGpubFFiLzhrTGJvcVBNQXNKYmty?=
+ =?utf-8?B?M3E1cUFTZ0tEWE9oNlJoVFMvSWxBMVdmU2VlMUxOOVdxeTNBc1lydW9LR2Q0?=
+ =?utf-8?B?TWVnVmFqaUFGWmJ3RXRibTN0QXNoYTIrU25NWlk4a0VoZGp3R3JRNmUrNlFW?=
+ =?utf-8?B?MTArVDR3TXZxSk1WREp0VkRoQjVVMWw0SEJReFRydHNEdHJOVTh6alNSd3M2?=
+ =?utf-8?B?UVlCK1pJL2h6WEJ2Z2w3VHhIYVFxKzltVTZ0cDVtWm96cW9SWWFOdEJoOE42?=
+ =?utf-8?B?Zm4xUnp2dHpxMFZJNnpKMlVvNGlVdUdIWUtrdHBLWEJtdUNmMmducGcwMlpS?=
+ =?utf-8?B?bytrU0dIb2M0c1Rvb3Qvc3IvRDNoNjZ2TDFPRmZDQkpkaWpjR09nUFk0dGFJ?=
+ =?utf-8?B?MUNFNFVYUDRTRisrM2JPTmQ5TmFQSmNCY3lUM2NESWx5cmxabUFTNFJvVGtn?=
+ =?utf-8?Q?pTMU=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UDR5R3R5T1VxaFgvR3I2OEM1U01KVHZRbWVIZHlFdHRrTWdSbFZUYTFBd051?=
- =?utf-8?B?SEp0NVNvOVJieUgxa3N5MzRFSzFFZlpjN1I5QkIzZzZ2N1psb0U1RllXZ1dI?=
- =?utf-8?B?QWtBZmNRelpmVGxldU1CZUQreE9TVU5wNlJtbi9vZ29hamhhUzhxeFZjanJL?=
- =?utf-8?B?WnZ3cmVLSTdmbldHT1RhRFZtRDErMzBxTUsyVjJTUEtZOXN6Szg3ak8zbGhL?=
- =?utf-8?B?QkVrN0dmRmlES2ZMUG9qZ2FMNy9SazNwcG1HWmF4Z04yeUtxcTRnRUxJSlll?=
- =?utf-8?B?d0lKUUF1OWZSNTNWNCtMSWVqM1NJUldaVitQcTQwZUFHSDJncDBrNE5hY2Fj?=
- =?utf-8?B?ZU9pYVc5bVR2bXIyd1BWV2R6cUVoaW5tRGEzTEZnTE5UZFpuTkp6b2xZWmNr?=
- =?utf-8?B?dzVtSjVzSmlhbThSeCtVY1FZTjNPS2JhT3F0bTMwRjdLMzBlT05xRE5ydW0z?=
- =?utf-8?B?SWdHVnhyZmo3Z0MxSFpqYms4bGdRNGFmRmxZR0NWNTRPaHZkSFh5OGVEdFFa?=
- =?utf-8?B?N3VVd2dUT2E3enlINVZyYlpEcUZQUUhBdW0wSWxMNUN0MDBrNStLWnlEM012?=
- =?utf-8?B?bEhReWlTRUlScVZjemU0cjdHcnloNlprbGtKS0xoak1HV3pDZGlzUmhDUHQy?=
- =?utf-8?B?Y0VEUWJsOENRZzlVWHZ1eG4vQitIWG9ocE1uT2JkVFllZnd5ZXhwNXFXT3RG?=
- =?utf-8?B?T3cvYUxRK0tEVGZkT3l1YWlLRy9rYWF0d2VpK2RCUCtHNHdVL1pYNklhME5P?=
- =?utf-8?B?bE4veWVWTHBXYXZzSzQ5UmJiYlJrdDZHajZFQy8yTXFFRjN2SFhibjFsa2JD?=
- =?utf-8?B?ZTYvQ0ZlQThjY1BReTd6am95K1hXa3VIQm42eVEwUGI0d3k5VDlDYSt5TzFB?=
- =?utf-8?B?c3U3NlVJazZKRWFBTkE0OGdXZnhTaVZQZnJscUhkWHoyeUdnc3JqMkFQWFM1?=
- =?utf-8?B?eWxabW5Pc0JEQ3dwSVVZVS92cTZYZTVoT1MzcVJiYVNtUUR2c3l0T3NBMUxl?=
- =?utf-8?B?SHBqWTFJRFZ5Z0dUVlNFbVI2cEkxK3JGam81WDQ1OHV1d0EycmFUNm1QeExZ?=
- =?utf-8?B?Z2hKMXJIZ3pBSm1nZm1jWnVOVkdBRjFtR1duTkd4OUxWZm1rcnlyaWVncXBs?=
- =?utf-8?B?Rm81d1BJZitGTjZBaTlxM1kvMFgxa0NncjJ2OXBFZVNHVnNTd3dIckhnaTF0?=
- =?utf-8?B?cEhjTG5ldmFLZUljNGQ0cWZnNDRXMmVzS1dPUlo3cEhVaVNSNUxkVFlNeXd0?=
- =?utf-8?B?cy81anFLN3JrWDNlWWRHa0NWK1JoZk5TMER1VHZMWDdGOEZwd1RSOTAwdnZl?=
- =?utf-8?B?ejFnclRqT0RLSWNQRzNUOGxZY1JJbjVndUk4OTZKbWVvNXplMldWK2grS2R4?=
- =?utf-8?B?V1gzMWdhS3JqK3lqM0l4ZUI4T1k2a1M4dzRYOU1mK0NXUXpKOXFIUjdFQXAw?=
- =?utf-8?B?K3FXMHpLTnpEWCtRZi9yRE94aW84ejhzNjlOMEtvbEpaQ2wrSEs4UnlJby9j?=
- =?utf-8?B?Mk9JVWdGTjQyVFhYNWhqRHJ4WEMxaUlyb1dkTGZ2SmxqK3VJR3ROSmhOSis3?=
- =?utf-8?B?Zm1ybHF1YUpxYjdFWUZ0eVRPdGdoWWRYS3lTT2JCK05XWjBCMU4yQWt4M25F?=
- =?utf-8?B?V0FhMk1xZjRNN2pKRmpaYXNJOUZDRTBpRlNyZmxKM1FMeWpNV2w0SjlEaEJ1?=
- =?utf-8?B?L1ZsaVVpMXhZcEZUaldEbCtnV0ZOOFZhYk5rL2N1UUxvYkpyQlB6Z2c2SmMr?=
- =?utf-8?B?U2c2LzA3ZExkQlMrczhaWlczdk5CWTdmOUk0RlVkMGorYktISERDMHlGYVg2?=
- =?utf-8?B?R2tpclpSdStnMEthcE52eTdyaUJ2cE9vekxJZWo1Q2RkTnkzbHl6K3FVZ0Va?=
- =?utf-8?B?QWRSTG81QTlCNVVDSkNsZk1PT2I3cmVuUkRBM011UXNkQisva0piUndQK2Vk?=
- =?utf-8?B?Q3NJdGVoOWJlSXRZUW5zRzNpUXJ5ekFRZUdOZzRENHQxVk5WNVp2SEpTTGtL?=
- =?utf-8?B?ZGVqYk9lKzRjN0VkL3NxeVVCQU9TYkRhMWZZK3AzNXlTbjUvbWo2ekdyclkv?=
- =?utf-8?B?cG9oclYvSWIrcjVFTTlFYktYemVzRmNXdmlDZ3dhWWpSTlVKcjdVdUhIL2Nw?=
- =?utf-8?B?TEdYOEt6STRiMDIybm5MZEZwQXdyMk1OZldnTmVidW1vNHBqTmVBWFhhUXk1?=
- =?utf-8?B?Y3NpbUV3SkxDUkdCNXd1MENGeThKNUt3MlNHL0Z2NzBBRHQ5WHBZakJUOSs4?=
- =?utf-8?B?cE9ZclFwMjJlVnFZbURuWEE4cmFaWklBa0pBSGkzdm8rYzVnKzhkZ3dmOW5H?=
- =?utf-8?B?emhlQ0pBQ1ZFYWlpMnN0VW9yNjR6ajY1UFRtajJaVG96VHlHVTVnUT09?=
+	=?utf-8?B?WVFkTkZ4aXFla2FSeUtOWnQrTWQ3S1BIMkE1SGcrcUM3a0Q5Tm9tWVZJSVM2?=
+ =?utf-8?B?RURjSUhVS1JLTUxSY1p4N0Vra1R1eEpsRTFlbUZIQVRwd1I5bllqVGt6L0tx?=
+ =?utf-8?B?eUxXMi96OWEwUlhGQURkNkhsS2JwYzJjaDd4azl4UHJPaWhTK3JRNFl1TStG?=
+ =?utf-8?B?WWNpY1NEVXppWWkzYUJGK1gyU1ZYQkpTVWJ2NkRuUzB4NE40Z3Y5aGQ2U0Qx?=
+ =?utf-8?B?a3UwVTlpd2lmRWRpTm02RTJwcnAreDJISlRLZWVTQXo5SHRNNkV3cTltQzNi?=
+ =?utf-8?B?bVZNUkxyMzhDbXI1RHEyZDArNTV1VDBwNHR3STFLZG55WUpYcEYrbkIxbEg0?=
+ =?utf-8?B?V1YzbFdidXNJOUFnTVQ2NktUSTcvV0lwbEc5YUlUNzVEdGIxUkZPL2NKd3Qv?=
+ =?utf-8?B?NzVtZWxhN0lPZWFERTcwNTREajlpcXRjcGNzVi9DNXdKeDB4UTkzMGtDUVN3?=
+ =?utf-8?B?MjAvbXAwMFJITGcyNXNFNk1kN0svOURMOFd1Ymg3c3Nram5QVWpQbW5LTVdG?=
+ =?utf-8?B?amVISUc3UnBmQ283aW1BK2lZb0ZURUl4YXVwQmI3TUhrbmJBemcwdWtkT1ZR?=
+ =?utf-8?B?YUMzRmh1UlVxbFRBbEZiUWZuSm9WQkRCdDk3U1BxUUN6NFhYTlg5OFF1Zzd0?=
+ =?utf-8?B?dXB6ektmK2l0dDBKS3dIQndrdk1TdW5tZHFSWC9WdEM2ZGJHaVlZMXd3QVpM?=
+ =?utf-8?B?WmUzMWRsK3lkSGdIcktiTkpFeXBuOFpVWm1BanVTOVkxMkVWZjJZMXJaQytR?=
+ =?utf-8?B?YkdVSlZ6ZlJackhucjZVYkxINHFtQ2RYOUlmSG5tRkJUSlN6cURRTjIrQmNm?=
+ =?utf-8?B?KzBBMUMyd1B6VEdHOWdiYVBuRUd3THFySWhjRUd4Tm0xY0JzZkVldUpaVDNQ?=
+ =?utf-8?B?dHZFbW9XWWczSGxia3htL3YrRDFpRXc2d1NLUVdKbm8yU2xwVDc3RkxJMTk3?=
+ =?utf-8?B?VTVtL2VLUG9YK00vTE1QZnVtTGVjNHNUV0lvVStYMWFtT05CTXBEN3FrVG5s?=
+ =?utf-8?B?VG1KcnJlcTl5S2NnYlJ6eTRFdG5sV01rc1BCWU9mVDFLMGhlbi81WkJhK2hu?=
+ =?utf-8?B?UDIvc0lWbXhQejZOQmNNNUJxTmtkUVY0ZHRITE9oKytEalROZEhoSGN0dE1w?=
+ =?utf-8?B?UHBKTWwyVlBwTTk4d1RVdWtEQ09BcDg4SEdsVFVWY0JGbng3RDNZblZJTHdB?=
+ =?utf-8?B?N29XT3h4b2N4T2tKSW9SY3grMldRR1VRb085OHBWNzJkUDNmWVJnV1k3MG5t?=
+ =?utf-8?B?bHM2WkYxTElobk95Zkg2TnJNVk5Kc1FOZ3VPQjVXUHRpdVdpckVSSFA5cjgx?=
+ =?utf-8?B?Z0ltUkdzbUlaSHNSeHVUeEJxRUh3ZkU5bWhKbFNjcGk2Sm13VWJsTzlERmZs?=
+ =?utf-8?B?dHBoZXNMUFRjNFFtZUloWWxsQ3RSNU9iMW9rQ2NWTk9Nb1NaMWw5VllzWGlm?=
+ =?utf-8?B?UEtRdTlhNHV3N2I5T3FjT21JaHE4ai90UFRqWnFxd1dsa29UTUxrT24wdjlq?=
+ =?utf-8?B?ZXZzbVVxYjYrTXlNWkJxTk1JZmNPM2pScVZHelJpOHh0RERNUk9kMlhrMXQ0?=
+ =?utf-8?B?WXczY0wwcGZtNHZHbGpNckM4TnoyM2tNR3FJRlNqOUJBUU14WVVQY1FBMFA2?=
+ =?utf-8?B?eGNpZEtrNkIrb1lhOXlCNmtnbUdqYVJzM1RnNmtRd0NWNzIxS3dqUUxtclpt?=
+ =?utf-8?B?ZkxpMS8wOWc2MVZ6RUhCNEpjWnBKQ3BYbnNqODNsMS9SdzRpcWVoR3hnS1JX?=
+ =?utf-8?B?eThLblJLMUtGTzZkd044SlpZZXdka1pxMElYVCtSWTdMSGI3eWhDQkJpZDBr?=
+ =?utf-8?B?MVc0NWlyR3p5OXNtSWg1K0VGZVVJaWRoZys3cHg1eEgzYTIwVmtSdk9MWXVK?=
+ =?utf-8?B?SWxLY1hhUUNYK3gya3VKajRWeGVXYW8yem83WmU2eFB4clkyQnp1ckxCaENL?=
+ =?utf-8?B?aHdvZmZ3UC96WG5jOVBQdTNvUEtWT1lneGhDVDVlVEZMS3hCZGdvYUgwMjlV?=
+ =?utf-8?B?cE5DNERsNVlYUGEvZVdyZ1ZQZzlNUnVYOGJTbW54V3pzYnkyd29hR0RMSW5L?=
+ =?utf-8?B?RDRqcFdaQ0VlaUZBU1NqalZFclo1cXhidk8xNG5Ub1NYR29tMmFyYkpxU21H?=
+ =?utf-8?B?dW41ajVzQnpjZjlYQnJBMlNneDI1NzdHVElPbTlFaXlqRGFOekZ1SFBxZHE0?=
+ =?utf-8?B?OTBmZ1FPSktYN3dha2h6L1k3ejJqeVJoZDlLRU9BWnNNRzN5cUxLNFJoYjlu?=
+ =?utf-8?B?QVYxOTlNelczcmduWVhHcUgwUUZZa09UTDArRHh6OXFycXBzN3QweHZpdWx1?=
+ =?utf-8?B?K3pBZ21nSExvbGY1aVRDS09OWUUzYy9JNUpCMW1BeUh5WDNneDZBUT09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5ad4003-fd60-4afc-f856-08de689cd946
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c790bdb3-0ca4-4835-a112-08de68a1ab64
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 12:06:40.4961
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 12:41:10.8589
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7tXRzSTNh1mtwYi3djOjtmKqFk9h3zZValte+Pq5tdMki9zrj+oJzT9aKMZ3asf+1QMUBVNKSShJJsy18H96lQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7610
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1M+RE36fIr4fQvoOi6zIcn7xnnlWQZDagIxiasjAPOMTp06qUa/17GWhm2vA3K6MkB2r4SR9fVO9NSJxENBOou3CuOuHJtLPx6DDPXlxkP4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR03MB7911
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,Mac.lan:mid,citrix.com:dkim];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:mid,citrix.com:dkim,citrix.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[citrix.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EFEA911A8B5
+X-Rspamd-Queue-Id: 69C8511AEDA
 X-Rspamd-Action: no action
 
-On Tue, Feb 10, 2026 at 11:35:20AM +0100, Alejandro Vallejo wrote:
-> On Tue Feb 10, 2026 at 9:46 AM CET, Roger Pau Monné wrote:
-> > On Fri, Feb 06, 2026 at 05:15:25PM +0100, Alejandro Vallejo wrote:
-> >> Introduces various optimisations that rely on constant folding, Value
-> >> Range Propagation (VRP), and Dead Code Elimination (DCE) to aggressively
-> >> eliminate code surrounding the uses of the function.
-> >> 
-> >>   * For single-vendor+no-unknown-vendor builds returns a compile-time
-> >>     constant.
-> >
-> > This is kind of misleading IMO. It will possibly allow such
-> > optimization for Intel or AMD, but not for Hygon/Centaur/Shanghai, as
-> > for those CPUs you will always end up selecting either Intel or AMD as
-> > a requisite (so X86_ENABLED_VENDORS will never have only a single bit
-> > set).
-> >
-> > Not saying it's bad, but I think the comment above should be adjusted
-> > a bit to notice that such compile time optimizations for single vendor
-> > builds will only be applicable to Intel or AMD builds.
-> 
-> You can't build a Hygon-only hypervisor with these changes. I can rewrite the
-> commit message to clearly state which vendors are subject to the optimisation,
-> though I'd fully expect users to notice they just can't deselect AMD when
-> building for Hygon.
+On 08/10/2025 1:28 pm, Jan Beulich wrote:
+> On 04.10.2025 00:53, Andrew Cooper wrote:
+>> Under FRED, entry_from_pv() handles everything.  To start with, implement
+>> exception handling in the same manner as entry_from_xen(), although we can
+>> unconditionally enable interrupts after the async/fatal events.
+>>
+>> After entry_from_pv() returns, test_all_events() needs to run to perform
+>> exception and interrupt injection.  Split entry_FRED_R3() into two and
+>> introduce eretu_exit_to_guest() as the latter half, coming unilaterally from
+>> restore_all_guest().
+>>
+>> For all of this, there is a slightly complicated relationship with CONFIG_PV.
+>> entry_FRED_R3() must exist irrespective of CONFIG_PV, because it's the
+>> entrypoint registered with hardware.  For simplicity, entry_from_pv() is
+>> always called, but it collapses into fatal_trap() in the !PV case.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Yes, right, I guess someone would notice that right now it's not
-possible to select just Hygon for example, and that it always pulls
-AMD.
+Thanks.
 
-In theory it should be possible to decouple the set of supported CPUs
-in X86_ENABLED_VENDORS from the set of support code that you build the
-hypervisor with.  IOW: it should be possible to build an hypervisor
-with CONFIG_AMD & CONFIG_HYGON that only has CONFIG_HYGON in
-X86_ENABLED_VENDORS.  For the purpose of enabling secondary vendors
-(like Hygon) to also take advantage of such build time
-optimizations.
+>
+> Nevertheless ...
+>
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -2266,9 +2266,82 @@ void asmlinkage check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
+>>  
+>>  void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
+>>  {
+>> +    struct fred_info *fi = cpu_regs_fred_info(regs);
+>> +    uint8_t type = regs->fred_ss.type;
+>> +    uint8_t vec = regs->fred_ss.vector;
+>> +
+>>      /* Copy fred_ss.vector into entry_vector as IDT delivery would have done. */
+>> -    regs->entry_vector = regs->fred_ss.vector;
+>> +    regs->entry_vector = vec;
+>> +
+>> +    if ( !IS_ENABLED(CONFIG_PV) )
+>> +        goto fatal;
+>> +
+>> +    /*
+>> +     * First, handle the asynchronous or fatal events.  These are either
+>> +     * unrelated to the interrupted context, or may not have valid context
+>> +     * recorded, and all have special rules on how/whether to re-enable IRQs.
+>> +     */
+>> +    switch ( type )
+>> +    {
+>> +    case X86_ET_EXT_INTR:
+>> +        return do_IRQ(regs);
+>> +
+>> +    case X86_ET_NMI:
+>> +        return do_nmi(regs);
+>> +
+>> +    case X86_ET_HW_EXC:
+>> +        switch ( vec )
+>> +        {
+>> +        case X86_EXC_DF: return do_double_fault(regs);
+>> +        case X86_EXC_MC: return do_machine_check(regs);
+>> +        }
+>> +        break;
+>> +    }
+>> +
+>> +    /*
+>> +     * With the asynchronous events handled, what remains are the synchronous
+>> +     * ones.  PV guest context always had interrupts enabled.
+>> +     */
+>> +    local_irq_enable();
+>> +
+>> +    switch ( type )
+>> +    {
+>> +    case X86_ET_HW_EXC:
+>> +    case X86_ET_PRIV_SW_EXC:
+>> +    case X86_ET_SW_EXC:
+>> +        switch ( vec )
+>> +        {
+>> +        case X86_EXC_PF:  handle_PF(regs, fi->edata); break;
+>> +        case X86_EXC_GP:  do_general_protection(regs); break;
+>> +        case X86_EXC_UD:  do_invalid_op(regs); break;
+>> +        case X86_EXC_NM:  do_device_not_available(regs); break;
+>> +        case X86_EXC_BP:  do_int3(regs); break;
+>> +        case X86_EXC_DB:  handle_DB(regs, fi->edata); break;
+>> +        case X86_EXC_CP:  do_entry_CP(regs); break;
+>> +
+>> +        case X86_EXC_DE:
+>> +        case X86_EXC_OF:
+>> +        case X86_EXC_BR:
+>> +        case X86_EXC_NP:
+>> +        case X86_EXC_SS:
+>> +        case X86_EXC_MF:
+>> +        case X86_EXC_AC:
+>> +        case X86_EXC_XM:
+>> +            do_trap(regs);
+>> +            break;
+>>  
+>> +        default:
+>> +            goto fatal;
+>> +        }
+>> +        break;
+>> +
+>> +    default:
+>> +        goto fatal;
+>> +    }
+>> +
+>> +    return;
+>> +
+>> + fatal:
+>>      fatal_trap(regs, false);
+>>  }
+> ... I'm still somewhat bothered by this almost entirely duplicating the
+> other entry function, i.e. I continue to wonder if we wouldn't be better
+> off by eliminating that duplication (say by way of an always_inline
+> helper with a suitable extra parameter).
 
-> >
-> >>   * For all other cases it ANDs the result with the mask of compiled
-> >>     vendors, with the effect of performing DCE in switch cases, removing
-> >>     dead conditionals, etc.
-> >> 
-> >> It's difficult to reason about codegen in general in a project this big,
-> >> but in this case the ANDed constant combines with the values typically
-> >> checked against, folding into a comparison against zero. Thus, it's better
-> >> for codegen to AND its result with the desired compared-against vendor,
-> >> rather than using (in)equality operators. That way the comparison is
-> >> always against zero.
-> >> 
-> >>   "cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON)"
-> >> 
-> >> turns into (cpu_vendor() & X86_VENDOR_AMD) in AMD-only builds (AND +
-> >> cmp with zero). Whereas this...
-> >> 
-> >>   "cpu_vendor() == X86_VENDOR_AMD"
-> >> 
-> >> forces cpu_vendor() to be ANDed and then compared to a non-zero value.
-> >> 
-> >> Later patches take the opportunity and make this refactor as cpu_vendor()
-> >> is introduced throughout the tree.
-> >> 
-> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> >> ---
-> >>  xen/arch/x86/cpu/common.c             |  6 +++++-
-> >>  xen/arch/x86/guest/xen/xen.c          |  4 ++++
-> >>  xen/arch/x86/include/asm/cpufeature.h | 27 +++++++++++++++++++++++++++
-> >>  3 files changed, 36 insertions(+), 1 deletion(-)
-> >> 
-> >> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-> >> index ebe2baf8b9..6f4e723172 100644
-> >> --- a/xen/arch/x86/cpu/common.c
-> >> +++ b/xen/arch/x86/cpu/common.c
-> >> @@ -328,7 +328,11 @@ void __init early_cpu_init(bool verbose)
-> >>  	*(u32 *)&c->x86_vendor_id[4] = edx;
-> >>  
-> >>  	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
-> >> -	switch (c->x86_vendor) {
-> >> +	if ( c->x86_vendor != cpu_vendor() )
-> >> +		panic("CPU vendor not compiled-in: %s",
-> >> +		      x86_cpuid_vendor_to_str(c->x86_vendor));
-> >
-> > I think you want to print both the current compiled in support plus
-> > the host vendor as part of the panic message.
-> 
-> The mask of supported vendors, you mean? That could be helpful.
+They are not sufficiently similar.
 
-Yes, print both c->x86_vendor and cpu_vendor() as part of the error
-message.
+By the end of this series alone, they differ by IS_ENABLED(CONFIG_PV),
+the condition for enabling local interrupts, the ERETU fixup, and the
+SYSCALL/SYSENTER handling.
 
-> >
-> >> +
-> >> +	switch (cpu_vendor()) {
-> >>  	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
-> >>  				  actual_cpu = intel_cpu_dev;    break;
-> >>  	case X86_VENDOR_AMD:      actual_cpu = amd_cpu_dev;      break;
-> >> diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
-> >> index 77a3a8742a..ec558bcbdb 100644
-> >> --- a/xen/arch/x86/guest/xen/xen.c
-> >> +++ b/xen/arch/x86/guest/xen/xen.c
-> >> @@ -57,6 +57,10 @@ void asmlinkage __init early_hypercall_setup(void)
-> >>          cpuid(0, &eax, &ebx, &ecx, &edx);
-> >>  
-> >>          boot_cpu_data.x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
-> >> +
-> >> +        if ( cpu_vendor() != boot_cpu_data.x86_vendor )
-> >> +            panic("CPU vendor not compiled-in: %s",
-> >> +                  x86_cpuid_vendor_to_str(boot_cpu_data.x86_vendor));
-> >
-> > Is this going to be useful?  I fear the panic here might happen even
-> > before the console is setup, so a user won't get any output from Xen
-> > at all.
-> 
-> It is true that early_cpu_init() is invoked immediately after serial is
-> set up, so any other vendor check ends up being fairly useless.
-> 
-> OTOH, thinking about it may stand to reason to have:
-> 
->   1. A very early panic in assembly, like that of missing nx.
->   2. Have this early hypercall setup nonsense present ONLY when INTEL && AMD
->      are both enabled. It really makes no sense to probe when you have
->      explilcitly compiled for a single vendor.
+NMI handling is still an open question (deferred for now, because it
+functions, albeit inefficiently) and adds a further difference.
 
-If you don't probe at all, then yes, you would need an assembly-like
-message.  However given the hypercall page initialization is likely to
-be used mostly in pv-shim mode, not even the assembly message would
-get out I'm afraid, as the code to print such message only outputs to
-the VGA and the serial, but not to the Xen PV console provided in shim
-mode.  pv-shim runs inside of a PVH container, that doesn't have
-emulated serial or VGA.
 
-You could implement early PV console support to print such message,
-but it seems simpler to me to defer the panic until early_cpu_init()
-for the sake of simplicity.
+>
+>> --- a/xen/arch/x86/x86_64/entry.S
+>> +++ b/xen/arch/x86/x86_64/entry.S
+>> @@ -63,7 +63,7 @@ UNLIKELY_END(syscall_no_callback)
+>>          /* Conditionally clear DF */
+>>          and   %esi, UREGS_eflags(%rsp)
+>>  /* %rbx: struct vcpu */
+>> -test_all_events:
+>> +LABEL(test_all_events, 0)
+>>          ASSERT_NOT_IN_ATOMIC
+>>          cli                             # tests must not race interrupts
+>>  /*test_softirqs:*/
+>> @@ -152,6 +152,8 @@ END(switch_to_kernel)
+>>  FUNC_LOCAL(restore_all_guest)
+>>          ASSERT_INTERRUPTS_DISABLED
+>>  
+>> +        ALTERNATIVE "", "jmp eretu_exit_to_guest", X86_FEATURE_XEN_FRED
+>> +
+>>          /* Stash guest SPEC_CTRL value while we can read struct vcpu. */
+>>          mov VCPU_arch_msrs(%rbx), %rdx
+> I also continue to wonder if we wouldn't do a tiny bit better by using
+>
+>         ALTERNATIVE "mov VCPU_arch_msrs(%rbx), %rdx", \
+>                     "jmp eretu_exit_to_guest", \
+>                     X86_FEATURE_XEN_FRED
+>
+> Or by converting the few jumps to restore_all_guest to alternatives
+> (duplicating the ASSERT_INTERRUPTS_DISABLED there).
 
-> 
-> >
-> > Would it be fine to allow such mismatch in the hypercall setup, just
-> > for the sake of getting the console page setup so that
-> > early_cpu_init() can print a proper error message?
-> >
-> > Allowing the vendor mismatch here won't require any extra code, it's
-> > just the selection of the instruction to use to call into Xen when
-> > running in guest/shim mode.
-> 
-> It'd be fine, yes. Maybe with a comment noting we can use vm{m,}call whether
-> or not cpu_vendor() == 0 because the instruction itself is supported by HW.
-> 
-> OTOH, I could also fully drop the dynamic detection logic on AMDLIKE-only or
-> INTELLIKE-only builds like I mentioned above.
+I'm quite firmly against this.
 
-That would still leave us in a difficult situation w.r.t printing
-anything to warn the user in case of mismatch.
+Sure, we could save a 5 byte nop, but the cost of doing that is merging
+two unrelated pieces of logic in a construct explicitly to signal two
+related things.
 
-> I sort of like that second option, as it allows removing hypercall.S and
-> hook it to the real hypercall machinery, that at that point can have the
-> alternatives removed.
+The added complexity to follow the logic is not worth the 5 byte nop saving.
 
-I think you possible need a way to cope with vendor mismatch in the
-early hypercall setup, just enough so that you can get into
-early_cpu_init() to panic and print an error message.
-
-Thanks, Roger.
+~Andrew
 
