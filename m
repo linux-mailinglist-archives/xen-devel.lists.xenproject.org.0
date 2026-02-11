@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SGJ6NR6hjGmPrgAAu9opvQ
+	id QDBxBVuijGlhrwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 16:32:46 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 16:38:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 337EF125B42
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 16:32:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227838.1534248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79EF3125BE7
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 16:38:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227855.1534259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqCBr-00052a-Pl; Wed, 11 Feb 2026 15:31:43 +0000
+	id 1vqCHm-0005kC-DA; Wed, 11 Feb 2026 15:37:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227838.1534248; Wed, 11 Feb 2026 15:31:43 +0000
+Received: by outflank-mailman (output) from mailman id 1227855.1534259; Wed, 11 Feb 2026 15:37:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqCBr-000508-MY; Wed, 11 Feb 2026 15:31:43 +0000
-Received: by outflank-mailman (input) for mailman id 1227838;
- Wed, 11 Feb 2026 15:31:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vqCHm-0005il-96; Wed, 11 Feb 2026 15:37:50 +0000
+Received: by outflank-mailman (input) for mailman id 1227855;
+ Wed, 11 Feb 2026 15:37:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wIvg=AP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vqCBq-000502-IR
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 15:31:42 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3390796-075e-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 16:31:41 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-6594382a264so9872096a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 07:31:41 -0800 (PST)
+ id 1vqCHl-0005if-64
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 15:37:49 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9cfdb26b-075f-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 16:37:46 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b8f86167d39so34139966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 07:37:46 -0800 (PST)
 Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
  [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65a3cf38c5dsm847122a12.22.2026.02.11.07.31.39
+ a640c23a62f3a-b8f6e9e98ecsm72435266b.30.2026.02.11.07.37.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 07:31:39 -0800 (PST)
+ Wed, 11 Feb 2026 07:37:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3390796-075e-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 9cfdb26b-075f-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770823900; x=1771428700; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770824266; x=1771429066; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ioJjHzn+HTwu1HXk51oAA5u0CTuRCJ3J0Rgf3exiUYQ=;
-        b=RQCFZUIYiftZNEdgBMrJthiemMOxSmskOgCGh7m2Tl3Bab+vhRZ7FJ02byeKhLDXKE
-         Mx/1XAVI3XxJ5CaUzdQd25oXlyMJg8eRH1IJAeWj0koM8l2dqMdSANCnhVCPwpSdpcNk
-         avy3tY6UPTr2zPMZj3ezXyRTOLkyVhz3VbUD/jBHlIqivPvJvnSRyhxnMCaT2fh2y8qD
-         OCnnJtgo7Ik5orW5qDQURm4DAC3D0rNhXCSDRGDOi71edGkPqlHoLb/uMBwD+oAdepAn
-         48EcqLZAf+ihy0cFh7kuZ2FloYfUTHeVaJQIYrDKooX1ouZBvc+TAhQQYzG1Ky4DXKks
-         PtLQ==
+        bh=UsWZxXDSoP0HHGKwmgpCs7TKIsCvDM/g8wB8y6XNHsk=;
+        b=hny4bBgsIZII8I1gNUpZ87nnIbuEC3yWqE/2kuqWqqyS/2dIIGD6nooxcjxUYKe3ba
+         pHQC2yy2j/LCDj2+Cz0jgSPykxwjk4LV0PpQr40vCVy2lqGqT+to+XC0l+f89mYbqjzK
+         NGv5icSF3YK9rEQh3gEZsXLlgfP1NxNjyPThUE09jwt4IWXQtgfZo/t185ic6nwCcSgJ
+         1ve4UVbkdSbF3n5txuOXKmwfrXMpX200M7MSkAFYTl97mf6lrwNTh1lYpoqUtOgXc5MA
+         Ra6DDno4SUI771zFyZ7GQ9ZI3i9rXKTpZYlSBRBg7BX+12BrlkDTp5PIHxnQVClJyoSO
+         Iw+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770823900; x=1771428700;
+        d=1e100.net; s=20230601; t=1770824266; x=1771429066;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ioJjHzn+HTwu1HXk51oAA5u0CTuRCJ3J0Rgf3exiUYQ=;
-        b=qBbmdAVjeqoOEINWxpcF6EIfttwGI655zJDbd7PahMEnt9V8Kli6SP8FQKO1+dh5Rk
-         LF0doC85jgKnxE6e02j0qIQFonkMlhtFOgFgjQmYuSv+d7vznCyPxjC4V9rdNEd/4dQD
-         yBw3F9aFiQJR9llZweR3PJnou+dgT1EuL9DlCpR5oAMKdPyRi9JqDTGLDmsEMHFLt9k6
-         ZgRHknJHNQd/YN6GFpsjwFFPLgRb3w97u8rbukeV0XyNA8zJEcAQsEmH7KtVDcJSab6s
-         8RyTQH37JWTvqg+d3OPpczngtl+4ZtH+TSyTlVFXdfhM79uMcnXllIRnLb4q8Jz3oJmK
-         pJ5g==
-X-Forwarded-Encrypted: i=1; AJvYcCVJB+pfzUN9OiX5chFLW11XA8EbwM5tpNfe8ii/VMHLqsUG6RKdpTFp1vhDo85AYcTUVFugngHaz1E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx+AqaoXh6szHCabW+w0ECj7EBe+wc/mBKJWPVOo/CXu+zgpAlQ
-	ZU4OdO5+ytG1+/J6S8v8JTALCYhfLJ+MXVEHcAVLOlP3bKgfjyVoWWLF
-X-Gm-Gg: AZuq6aKoLwZVxctRoCQv32e5rZqMbquF74170i+dA8s3gpw40RZgnwCY+pnwlHyZKcG
-	50do2Pl1QWGjnD+l7P4wX9z0OxHfuE/Niv9D7EbVwlctAyIyPhS2M7XTJeeiKQibl4G8lB6BPHu
-	TAz/sEH4d4GXQeHxtAFR8UmlYev+Emx+quUlEHkIgGgPim8vPOjuL+HtSBAUXqUR6pPR2Ns7uTL
-	rgDGoROuNi6qe3WE0u4/bVaGbHMhY7/vrsV5LDY4gp5KcIHx+cABJfKoeutQuaP6a9WuI12BFvL
-	p4jUb/WnazVUh0jQ06tA2Sp8kkzu5XAj0hQ2t4VtGSVxWi5S3ru7yECjtfUxCl8m1f9PklC8Ur4
-	BRHUtyHy2ptlxXHj+cZiVeUHD6QSPxkO9cdgqbE9f+wMehWOSJEJU9WD/6DFO5HyNH54hkUdEJk
-	U6vh8RPPhtpQc5xMqRP86IT63hgI+GYUeREFyRlwNzfd7UNBNtCcYmlVJZBPVSLL5e3JHXJRTvn
-	o8IMU4=
-X-Received: by 2002:a05:6402:50d0:b0:640:e75a:f95d with SMTP id 4fb4d7f45d1cf-65a39b0377emr1640044a12.15.1770823900192;
-        Wed, 11 Feb 2026 07:31:40 -0800 (PST)
-Message-ID: <433e6170-e00e-4a69-9837-7d28f7e8ac44@gmail.com>
-Date: Wed, 11 Feb 2026 16:31:38 +0100
+        bh=UsWZxXDSoP0HHGKwmgpCs7TKIsCvDM/g8wB8y6XNHsk=;
+        b=FVq/f7MP512F4T3O+0h/1Paz9zHuJJnwRQml8dvqbSpjtK3Y7l9EHDf0tFM6TJBSyX
+         VLWKrxlihHHtzFY+Lett7wi+txHbfi9w1zXjKTKaCVrPxXtoigkUftLfqZIfEvYdJ4wM
+         ecuqNdc4AqDKLLvtFDzVZav8fhxiqQqGe4ZWsTY/6viThRWnhsFbEseIthA8RHDYUenY
+         315mKP0Zvbxj2rySBEPNKZmOjihRA8Ao/bHssp/4HMsYnWhUMiCAnYgeDoFkLllfRCz1
+         EulI5orgUlFz3Zv2QJVItxZPsO4FnrQLhK/KC92fiDyfQfzcQxvA3Qy66qyNL4HYkMP7
+         TipA==
+X-Forwarded-Encrypted: i=1; AJvYcCUW9pznzle91Iegq/nK0kTIUkw0gvIsP7dO32HzsTIpxb1cxTmzoIDyEM+ub7teD2E9izlPRw49Uy0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw2v5SYoeS5qlL3ykWPvb6QM87e82LoVTq4b2JkuAQsElDdFblr
+	/F5NMvbzYOytdlZF3n7oHXHUPYexEqLOzooeq5liPGUNqFaPDpPXhBmD
+X-Gm-Gg: AZuq6aLrpQDyikeXyaIwa+dWtj9E0PCJe8Pe0qS7Kwl1np95tP2gZHDZwAB0L0Y8CEQ
+	9v8pHjYE+8mUe5uqE3Tau/FtfidxzAT9mADi4NMkHzvGh1FTZZCSy6LSMWT1fiolfzWEdOyB7xG
+	UKvaKi5oYBPQDBeDm0mc+33YJDThumJDjKjc3OOBm7z2OtsEF5/a0+0V8i6JbcNk8jPyUDsXBIc
+	CYCgiH7EBLmjbwgNGu0gLAh1Bms2PUhyyIdYycPCo0O1b3V3od1cDkzJspDkPUJk9L5KaX9uDsk
+	0Wn6V3T7Wq2ZkCgCxevBSbLLjTkhRov2AZtkdl8fF9Ueb+sETOBtr3CkjPBCXcmbv5ntNHnX8+L
+	vzyRlsEubfAUAsVBkdDW1y6L0s1spPVA3Iz9J1ylkQWxMGG2tXHkH7BVaqACic/cACCyW6hAf/7
+	Tt3WaSmBKhMXr9geppzXAFk5uxLp1RXv6+s4VlM9ZbTWv0zR7GIN2yQl698I92IxUrKOBN8RBer
+	BRKVUGUjCW72w==
+X-Received: by 2002:a17:907:1b17:b0:b87:d722:f824 with SMTP id a640c23a62f3a-b8edf460ee7mr1182437866b.63.1770824265457;
+        Wed, 11 Feb 2026 07:37:45 -0800 (PST)
+Message-ID: <c60a3908-660c-4fa2-af7b-2a24b6dc3e1a@gmail.com>
+Date: Wed, 11 Feb 2026 16:37:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/16] xen/riscv: introduce basic vtimer infrastructure
- for guests
+Subject: Re: [PATCH v3 12/16] xen/riscv: introduce sbi_set_timer()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -105,13 +104,13 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
- <792ea928d748e9ff7bd331b8e8b0262695a062e9.1770650552.git.oleksii.kurochko@gmail.com>
- <75d70edc-b0f7-4d61-8da6-e783c57b4490@suse.com>
+ <3b102fd2267c629e8505631277efc2eeae5a1a6a.1770650552.git.oleksii.kurochko@gmail.com>
+ <4304e4a5-c820-4673-8ff7-bbfdea54edf6@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <75d70edc-b0f7-4d61-8da6-e783c57b4490@suse.com>
+In-Reply-To: <4304e4a5-c820-4673-8ff7-bbfdea54edf6@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -131,7 +130,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -146,32 +145,56 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 337EF125B42
+X-Rspamd-Queue-Id: 79EF3125BE7
 X-Rspamd-Action: no action
 
 
-On 2/11/26 3:51 PM, Jan Beulich wrote:
+On 2/11/26 4:03 PM, Jan Beulich wrote:
 > On 09.02.2026 17:52, Oleksii Kurochko wrote:
->> @@ -105,11 +106,14 @@ int arch_vcpu_create(struct vcpu *v)
->>       if ( is_idle_vcpu(v) )
->>           return rc;
+>> Introduce a function pointer for sbi_set_timer(), since different OpenSBI
+>> versions may implement the TIME extension with different extension IDs
+>> and/or function IDs.
+>>
+>> If the TIME extension is not available, fall back to the legacy timer
+>> mechanism. This is useful when Xen runs as a guest under another Xen,
+>> because the TIME extension is not currently virtualised and therefore
+>> will not appear as available.
+>> Despite of the fact that sbi_set_timer_v01 is introduced and used as
+>> fall back, SBI v0.1 still isn't fully supported (with the current SBI
+>> calls usage, sbi_rfence_v01 should be introduced too), so panic()
+>> in sbi_init() isn't removed.
+>>
+>> The sbi_set_timer() pointer will be used by reprogram_timer() to program
+>> Xen’s physical timer as without SSTC extension there is no any other
+>> option except SBI call to do that as only M-timer is available for us.
+>>
+>> Use dprintk() for all the cases to print that a speicifc SBI extension
+>> is available as it isn't really necessary in case of release builds.
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> with one further request:
+>
+>> @@ -134,6 +138,20 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+>>   int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+>>                                   size_t size, unsigned long vmid);
 >>   
->> +    if ( (rc = vcpu_vtimer_init(v)) )
->> +        goto fail;
->> +
->>       /*
->> -     * As the vtimer and interrupt controller (IC) are not yet implemented,
->> +     * As interrupt controller (IC) is not yet implemented,
->>        * return an error.
->>        *
->> -     * TODO: Drop this once the vtimer and IC are implemented.
->> +     * TODO: Drop this once IC is implemented.
->>        */
->>       rc = -EOPNOTSUPP;
->>       goto fail;
-> Shouldn't you then also call vcpu_vtimer_destroy() from arch_vcpu_destroy()?
+>> +/*
+>> + * Programs the clock for next event after stime_value time. This function also
+>> + * clears the pending timer interrupt bit.
+> "after stime_value time" reads as if this was a relative input, stime_value units
+> of time need to pass until the event. Iirc values passed are absolute, though.
+> Furthermore it was my understanding that the interrupt being raised is dependent
+> upon clock >= value, not clock > value (where the latter is what "after" means
+> when taken to apply to an absolute value).
 
-Yes, it should be.
+Interesting that sbi_set_timer() has different description for OpenSBI v0.1 and v0.2.
+What you see in the comment it is what v0.1 tells, but v0.2 tells that:
+   
+   "Programs the clock for next event after stime_value time.*stime_value is in absolute time.* This function must clear the pending timer interrupt bit as well."
+
+"stime_value is in absolute time" has been added in v0.2. I'll update the comment for
+a clarity.
 
 Thanks.
 
