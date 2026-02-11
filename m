@@ -2,50 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCitLmV4jGktpAAAu9opvQ
+	id sHEsOX54jGktpAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:01 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367A0124658
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227533.1533956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D5212467F
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227555.1533975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9Uc-0007t8-1w; Wed, 11 Feb 2026 12:38:54 +0000
+	id 1vq9Uy-0000m9-NJ; Wed, 11 Feb 2026 12:39:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227533.1533956; Wed, 11 Feb 2026 12:38:53 +0000
+Received: by outflank-mailman (output) from mailman id 1227555.1533975; Wed, 11 Feb 2026 12:39:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9Ub-0007pm-TM; Wed, 11 Feb 2026 12:38:53 +0000
-Received: by outflank-mailman (input) for mailman id 1227533;
- Wed, 11 Feb 2026 12:38:52 +0000
+	id 1vq9Uy-0000kt-JA; Wed, 11 Feb 2026 12:39:16 +0000
+Received: by outflank-mailman (input) for mailman id 1227555;
+ Wed, 11 Feb 2026 12:39:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UZeC=AP=redhat.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1vq9Nd-0001nh-NG
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:41 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DopK=AP=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1vq9No-0001nh-6p
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:52 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d4dced9-0745-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 13:31:41 +0100 (CET)
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-68-WIujemrANsyyw5L1QkdvYg-1; Wed,
- 11 Feb 2026 07:31:36 -0500
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C10951955F27; Wed, 11 Feb 2026 12:31:34 +0000 (UTC)
-Received: from localhost (unknown [10.45.242.6])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 7D7B130001BF; Wed, 11 Feb 2026 12:31:33 +0000 (UTC)
+ id a3036b3f-0745-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 13:31:50 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 99D1D40299;
+ Wed, 11 Feb 2026 12:31:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97BBC19421;
+ Wed, 11 Feb 2026 12:31:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,243 +46,285 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d4dced9-0745-11f1-b162-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1770813099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oafPsMhhX2LYktt1mZytvPrd7reHuMI6cpisN3UVjHk=;
-	b=aj445UeDgTtmkriiBG7dMmAJdELD6NkG3uNoUrYCkXLQeRhs/lu2oggiW//LVwmuDYX8yX
-	s2uVXbaRM27ZmXdwLVlJWoxOBC+YZ2h2GJ3mTqXfwoQg/+fncAq2fneyq1de2EX0h0EVMQ
-	B0L70j63ZFcaaIbKdoIWj0aQfzmc5iE=
-X-MC-Unique: WIujemrANsyyw5L1QkdvYg-1
-X-Mimecast-MFC-AGG-ID: WIujemrANsyyw5L1QkdvYg_1770813094
-From: marcandre.lureau@redhat.com
-To: qemu-devel@nongnu.org
-Cc: Eduardo Habkost <eduardo@habkost.net>,
-	xen-devel@lists.xenproject.org,
-	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Eric Blake <eblake@redhat.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Subject: [PULL 14/14] chardev: add logtimestamp option
-Date: Wed, 11 Feb 2026 16:30:01 +0400
-Message-ID: <20260211123007.3569932-15-marcandre.lureau@redhat.com>
-In-Reply-To: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
-References: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
+X-Inumbo-ID: a3036b3f-0745-11f1-b162-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770813108;
+	bh=W8TRYpIoLHSafIBZHOcM/I2GuwyMlNQIh5ra5DvldiQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Cb7kHJkpaJ+oF+1f0CI3Mnyrqme7h5dxui+DjsIxmnEZW7mTlF/jmxrWKSvqSB8bk
+	 lm+UbBPnB/JSpWjVMpSA2B0R+LDMFuttB3WUSlm01BXlrJgo2otYjbK4Qrr068GnE/
+	 bfyZybUW5fYfuhOS2tuKFjIW7ZwvE6/D8ExH+b55IJPMyILuCWwJNYa8ZRIRx+gB7t
+	 7edcfcwwlWRh/ykHE2Hnm1NXwNxIozHhx8W5ulpXzaTs+8sOfoh7T1V2o4iUVqOh4i
+	 arUg5WZuG2eChvLuYEf+kb7lXO8sz//PyK8vgEuWcHyP51ejBWQgJC62hNGZTIBusb
+	 8C0+5IHM0A1IA==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 6.19-5.10] x86/xen/pvh: Enable PAE mode for 32-bit guest only when CONFIG_X86_PAE is set
+Date: Wed, 11 Feb 2026 07:30:28 -0500
+Message-ID: <20260211123112.1330287-18-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260211123112.1330287-1-sashal@kernel.org>
+References: <20260211123112.1330287-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: dZjaz2DoEH78eRcqwCgXQ2BHDfDWB1jtulChYzIupms_1770813094
-X-Mimecast-Originator: redhat.com
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.19
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.32 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[yandex-team.ru:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:patches@lists.linux.dev,m:stable@vger.kernel.org,m:houwenlong.hwl@antgroup.com,m:jgross@suse.com,m:sashal@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,antgroup.com:email,suse.com:email];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[marcandre.lureau@redhat.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:eduardo@habkost.net,m:xen-devel@lists.xenproject.org,m:berrange@redhat.com,m:edgar.iglesias@gmail.com,m:armbru@redhat.com,m:pbonzini@redhat.com,m:marcandre.lureau@redhat.com,m:anthony@xenproject.org,m:eblake@redhat.com,m:samuel.thibault@ens-lyon.org,m:alex.bennee@linaro.org,m:philmd@linaro.org,m:sstabellini@kernel.org,m:paul@xen.org,m:vsementsov@yandex-team.ru,m:edgariglesias@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[sashal@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[habkost.net,lists.xenproject.org,redhat.com,gmail.com,xenproject.org,ens-lyon.org,linaro.org,kernel.org,xen.org,yandex-team.ru];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marcandre.lureau@redhat.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sashal@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
-	FROM_NO_DN(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 367A0124658
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 86D5212467F
 X-Rspamd-Action: no action
 
-From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
 
-Add an option to inject timestamps into serial log file.
-That simplifies debugging a lot, when you can simply compare
-QEMU logs with guest console logs.
+[ Upstream commit db9aded979b491a24871e1621cd4e8822dbca859 ]
 
-Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Acked-by: Markus Armbruster <armbru@redhat.com>
-Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Message-ID: <20260201173633.413934-4-vsementsov@yandex-team.ru>
+The PVH entry is available for 32-bit KVM guests, and 32-bit KVM guests
+do not depend on CONFIG_X86_PAE. However, mk_early_pgtbl_32() builds
+different pagetables depending on whether CONFIG_X86_PAE is set.
+Therefore, enabling PAE mode for 32-bit KVM guests without
+CONFIG_X86_PAE being set would result in a boot failure during CR3
+loading.
+
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <d09ce9a134eb9cbc16928a5b316969f8ba606b81.1768017442.git.houwenlong.hwl@antgroup.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- qapi/char.json         |  6 +++-
- include/chardev/char.h |  2 ++
- chardev/char.c         | 63 ++++++++++++++++++++++++++++++++++++++----
- 3 files changed, 65 insertions(+), 6 deletions(-)
 
-diff --git a/qapi/char.json b/qapi/char.json
-index 140614f82c3..a4abafa6803 100644
---- a/qapi/char.json
-+++ b/qapi/char.json
-@@ -197,11 +197,15 @@
- # @logappend: true to append instead of truncate (default to false to
- #     truncate)
- #
-+# @logtimestamp: true to insert timestamps into logfile
-+#     (default false) (since 11.0)
-+#
- # Since: 2.6
- ##
- { 'struct': 'ChardevCommon',
-   'data': { '*logfile': 'str',
--            '*logappend': 'bool' } }
-+            '*logappend': 'bool',
-+            '*logtimestamp': 'bool' } }
+LLM Generated explanations, may be completely bogus:
+
+Now I have all the information needed for a complete analysis.
+
+---
+
+## Detailed Analysis
+
+### 1. Commit Message Analysis
+
+The subject clearly states the problem: PAE mode is being
+unconditionally enabled for all PVH guests, but for 32-bit guests it
+should only be enabled when `CONFIG_X86_PAE` is set. The commit message
+explicitly describes a **boot failure** scenario: loading CR3 fails when
+the page table format doesn't match the CPU's paging mode expectation.
+
+The commit is:
+- Reviewed by Juergen Gross (Xen subsystem maintainer)
+- Signed off by Juergen Gross (subsystem maintainer sign-off)
+
+### 2. Code Change Analysis
+
+**The Bug Mechanism:**
+
+The PVH entry path in `arch/x86/platform/pvh/head.S` is the boot entry
+point for PVH (Para-Virtualized Hardware) guests, used by Xen and KVM.
+The flow is:
+
+1. **Line 94-97** (before fix): PAE mode is unconditionally enabled in
+   CR4:
+
+```94:97:arch/x86/platform/pvh/head.S
+        /* Enable PAE mode. */
+        mov %cr4, %eax
+        orl $X86_CR4_PAE, %eax
+        mov %eax, %cr4
+```
+
+2. For **64-bit** guests (`CONFIG_X86_64`), this is correct — PAE is
+   always needed as a prerequisite for long mode (line 99-104).
+
+3. For **32-bit** guests (the `#else` path starting at line 196), the
+   code calls `mk_early_pgtbl_32()` to build early page tables:
+
+```196:205:arch/x86/platform/pvh/head.S
+#else /* CONFIG_X86_64 */
+
+        call mk_early_pgtbl_32
+
+        mov $_pa(initial_page_table), %eax
+        mov %eax, %cr3
+
+        mov %cr0, %eax
+        or $(X86_CR0_PG | X86_CR0_PE), %eax
+        mov %eax, %cr0
+```
+
+4. `mk_early_pgtbl_32()` in `arch/x86/kernel/head32.c` builds
+   **fundamentally different** page table structures depending on
+   `CONFIG_X86_PAE`:
+
+```95:103:arch/x86/kernel/head32.c
+#ifdef CONFIG_X86_PAE
+typedef pmd_t                   pl2_t;
+#define pl2_base                initial_pg_pmd
+#define SET_PL2(val)            { .pmd = (val), }
+#else
+typedef pgd_t                   pl2_t;
+#define pl2_base                initial_page_table
+#define SET_PL2(val)            { .pgd = (val), }
+#endif
+```
+
+   - With `CONFIG_X86_PAE`: Builds **3-level PAE page tables**
+     (PGDIR_SHIFT=30, uses PMDs + PDPTEs)
+   - Without `CONFIG_X86_PAE`: Builds **2-level non-PAE page tables**
+     (PGDIR_SHIFT=22, uses PGDs directly)
+
+**The crash**: When PAE is enabled in CR4 but non-PAE page tables are
+loaded into CR3, the CPU interprets the 2-level page directory as a PAE
+PDPT (Page Directory Pointer Table). When paging is activated
+(CR0.PG=1), the processor tries to load the PDPTE entries from the
+address in CR3. The non-PAE page directory entries are completely
+incompatible with PAE PDPTE format, causing a **#GP fault or triple
+fault**, resulting in an immediate boot failure.
+
+**The Fix:** Simply wrapping the PAE enablement with proper `#ifdef`
+guards:
+
+```asm
+#if defined(CONFIG_X86_64) || defined(CONFIG_X86_PAE)
+        /* Enable PAE mode. */
+        mov %cr4, %eax
+        orl $X86_CR4_PAE, %eax
+        mov %eax, %cr4
+#endif
+```
+
+This ensures PAE is only enabled when:
+- `CONFIG_X86_64` is set (64-bit always needs PAE for long mode), or
+- `CONFIG_X86_PAE` is set (32-bit with PAE — page tables match)
+
+Note that the 32-bit path at lines 212-220 already has code to disable
+PAE before jumping to `startup_32`, which confirms the original author
+was aware that PAE and non-PAE modes exist, but the initial enablement
+was not properly guarded.
+
+### 3. Classification
+
+This is a **boot failure fix**. It's not a feature, cleanup, or
+optimization. It fixes a configuration where a 32-bit PVH guest without
+`CONFIG_X86_PAE` completely fails to boot.
+
+### 4. Scope and Risk Assessment
+
+- **Lines changed**: 2 lines added (`#if defined(...)` and `#endif`), 0
+  lines removed
+- **Files touched**: 1 (`arch/x86/platform/pvh/head.S`)
+- **Complexity**: Minimal — conditional compilation guard
+- **Risk**: Extremely low
+  - For `CONFIG_X86_64`: No change (the `#if` is always true)
+  - For `CONFIG_X86_32` with `CONFIG_X86_PAE`: No change (the `#if` is
+    true)
+  - For `CONFIG_X86_32` without `CONFIG_X86_PAE`: PAE is no longer
+    enabled, matching the page table format — this is the bug fix
+- **Regression potential**: Near zero. The only behavioral change is for
+  the broken configuration that currently crashes.
+
+### 5. User Impact
+
+- **Who is affected**: Anyone running a 32-bit kernel without PAE as a
+  PVH/KVM guest. This is a legitimate configuration since `config PVH`
+  has no dependency on `CONFIG_X86_PAE` or `CONFIG_X86_64`.
+- **Severity**: Complete boot failure — the system cannot boot at all
+- **Workaround**: Users must enable `CONFIG_X86_PAE` for 32-bit PVH
+  guests, which may not be obvious and adds unnecessary configuration
+  constraints
+
+### 6. Stability Indicators
+
+- **Reviewed-by**: Juergen Gross (Xen subsystem maintainer) — very
+  strong indicator
+- **Signed-off-by**: Juergen Gross (accepted through the Xen tree)
+- The fix is trivially correct by inspection — when `CONFIG_X86_PAE` is
+  not set, enabling PAE in CR4 is wrong because the page tables aren't
+  in PAE format
+
+### 7. Dependency Check
+
+- **No dependencies** on other patches — this is a completely self-
+  contained fix
+- The affected code (`pvh_start_xen` with the unconditional PAE
+  enablement) exists in **all current stable trees** (confirmed present
+  from v5.4 through v6.12)
+- The fix context is slightly different in older stable trees (e.g.,
+  `rep\n       movsl` vs `rep movsl`, PIC vs absolute addressing), so
+  minor backport adjustments may be needed for older trees, but the fix
+  itself (adding `#if`/`#endif` around the PAE lines) is trivial to
+  adapt
+
+### 8. Conclusion
+
+This is a textbook stable kernel fix:
+- **Fixes a real, severe bug**: Complete boot failure for a valid kernel
+  configuration
+- **Obviously correct**: The fix is a 2-line conditional compilation
+  guard that makes PAE enablement match page table format
+- **Small and contained**: 2 lines added to 1 file
+- **No new features**: Just correctness fix
+- **No risk of regression**: Only changes behavior for the currently-
+  broken configuration
+- **Present in all stable trees**: The bug has existed since the
+  original PVH commit (v4.11, 2017)
+- **Reviewed by subsystem maintainer**: Juergen Gross
+
+**YES**
+
+ arch/x86/platform/pvh/head.S | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index 344030c1a81d4..53ee2d53fcf8e 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -91,10 +91,12 @@ SYM_CODE_START(pvh_start_xen)
  
- ##
- # @ChardevFile:
-diff --git a/include/chardev/char.h b/include/chardev/char.h
-index 81bc0cbdf2a..c2c42e4b7a3 100644
---- a/include/chardev/char.h
-+++ b/include/chardev/char.h
-@@ -63,6 +63,8 @@ struct Chardev {
-     CharFrontend *fe;
-     char *label;
-     int logfd;
-+    bool logtimestamp;
-+    bool log_line_start;
-     int be_open;
-     /* used to coordinate the chardev-change special-case: */
-     bool handover_yank_instance;
-diff --git a/chardev/char.c b/chardev/char.c
-index 4b285baf029..48b326d57b9 100644
---- a/chardev/char.c
-+++ b/chardev/char.c
-@@ -82,12 +82,8 @@ void qemu_chr_be_event(Chardev *s, QEMUChrEvent event)
-     CHARDEV_GET_CLASS(s)->chr_be_event(s, event);
- }
+ 	leal rva(early_stack_end)(%ebp), %esp
  
--static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
-+static void do_write_log(Chardev *s, const uint8_t *buf, size_t len)
- {
--    if (s->logfd < 0) {
--        return;
--    }
--
-     if (qemu_write_full(s->logfd, buf, len) < len) {
-         /*
-          * qemu_write_full() is defined with G_GNUC_WARN_UNUSED_RESULT,
-@@ -96,6 +92,55 @@ static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
-     }
- }
++#if defined(CONFIG_X86_64) || defined(CONFIG_X86_PAE)
+ 	/* Enable PAE mode. */
+ 	mov %cr4, %eax
+ 	orl $X86_CR4_PAE, %eax
+ 	mov %eax, %cr4
++#endif
  
-+static void do_write_log_timestamps(Chardev *s, const uint8_t *buf, size_t len)
-+{
-+    g_autofree char *timestr = NULL;
-+
-+    while (len) {
-+        size_t i;
-+
-+        if (s->log_line_start) {
-+            if (!timestr) {
-+                timestr = real_time_iso8601();
-+            }
-+            do_write_log(s, (const uint8_t *)timestr, strlen(timestr));
-+            do_write_log(s, (const uint8_t *)" ", 1);
-+            s->log_line_start = false;
-+        }
-+
-+        for (i = 0; i < len; i++) {
-+            if (buf[i] == '\n') {
-+                break;
-+            }
-+        }
-+
-+        if (i == len) {
-+            /* not found \n */
-+            do_write_log(s, buf, len);
-+            return;
-+        }
-+
-+        i += 1;
-+        do_write_log(s, buf, i);
-+        buf += i;
-+        len -= i;
-+        s->log_line_start = true;
-+    }
-+}
-+
-+static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
-+{
-+    if (s->logfd < 0) {
-+        return;
-+    }
-+
-+    if (s->logtimestamp) {
-+        do_write_log_timestamps(s, buf, len);
-+    } else {
-+        do_write_log(s, buf, len);
-+    }
-+}
-+
- static int qemu_chr_write_buffer(Chardev *s,
-                                  const uint8_t *buf, int len,
-                                  int *offset, bool write_all)
-@@ -248,6 +293,7 @@ static bool qemu_char_open(Chardev *chr, ChardevBackend *backend, Error **errp)
-         } else {
-             flags |= O_TRUNC;
-         }
-+        chr->logtimestamp = common->has_logtimestamp && common->logtimestamp;
-         chr->logfd = qemu_create(common->logfile, flags, 0666, errp);
-         if (chr->logfd < 0) {
-             return false;
-@@ -267,6 +313,7 @@ static void char_init(Object *obj)
- 
-     chr->handover_yank_instance = false;
-     chr->logfd = -1;
-+    chr->log_line_start = true;
-     qemu_mutex_init(&chr->chr_write_lock);
- 
-     /*
-@@ -505,6 +552,9 @@ void qemu_chr_parse_common(QemuOpts *opts, ChardevCommon *backend)
-     backend->logfile = g_strdup(logfile);
-     backend->has_logappend = true;
-     backend->logappend = qemu_opt_get_bool(opts, "logappend", false);
-+
-+    backend->has_logtimestamp = true;
-+    backend->logtimestamp = qemu_opt_get_bool(opts, "logtimestamp", false);
- }
- 
- static const ChardevClass *char_get_class(const char *driver, Error **errp)
-@@ -956,6 +1006,9 @@ QemuOptsList qemu_chardev_opts = {
-         },{
-             .name = "logappend",
-             .type = QEMU_OPT_BOOL,
-+        },{
-+            .name = "logtimestamp",
-+            .type = QEMU_OPT_BOOL,
-         },{
-             .name = "mouse",
-             .type = QEMU_OPT_BOOL,
+ #ifdef CONFIG_X86_64
+ 	/* Enable Long mode. */
 -- 
-2.52.0
+2.51.0
 
 
