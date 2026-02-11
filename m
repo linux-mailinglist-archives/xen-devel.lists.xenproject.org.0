@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gNWiB414jGktpAAAu9opvQ
+	id YCitLmV4jGktpAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:41 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55D412469C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227568.1533984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 367A0124658
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227533.1533956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9VD-0001Xx-UA; Wed, 11 Feb 2026 12:39:31 +0000
+	id 1vq9Uc-0007t8-1w; Wed, 11 Feb 2026 12:38:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227568.1533984; Wed, 11 Feb 2026 12:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 1227533.1533956; Wed, 11 Feb 2026 12:38:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9VD-0001VY-Qu; Wed, 11 Feb 2026 12:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 1227568;
- Wed, 11 Feb 2026 12:39:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vq9Ub-0007pm-TM; Wed, 11 Feb 2026 12:38:53 +0000
+Received: by outflank-mailman (input) for mailman id 1227533;
+ Wed, 11 Feb 2026 12:38:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UZeC=AP=redhat.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1vq9Nc-00016c-Eb
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:40 +0000
+ id 1vq9Nd-0001nh-NG
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:41 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a39f093-0745-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 13:31:35 +0100 (CET)
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9d4dced9-0745-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 13:31:41 +0100 (CET)
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-FYZ-7oebMfKy2oSzbnuHug-1; Wed,
- 11 Feb 2026 07:31:31 -0500
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-68-WIujemrANsyyw5L1QkdvYg-1; Wed,
+ 11 Feb 2026 07:31:36 -0500
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 69E491800282; Wed, 11 Feb 2026 12:31:29 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id C10951955F27; Wed, 11 Feb 2026 12:31:34 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.6])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 6BED718003F6; Wed, 11 Feb 2026 12:31:27 +0000 (UTC)
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 7D7B130001BF; Wed, 11 Feb 2026 12:31:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,19 +57,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a39f093-0745-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 9d4dced9-0745-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1770813094;
+	s=mimecast20190719; t=1770813099;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jM55cKZhaLYd8jeB1eDli6p7CvLSuDmkHDqz2KhxR1g=;
-	b=Z7IMSXpWHfPCAklRvbAXDGpqlE3WPHcKlTdLoAdhMGVjXTC5vuf0Skqeco+9BFVteyDHIj
-	l3MRUVOWEcF+q7274Wwckr5uWAizJl0dliCbrCWYfLSh0xyGZUsXWYWxd7xUiEVVkppFUn
-	FXPqVzBDCWDe/es0zo3diq3X5X+awb4=
-X-MC-Unique: FYZ-7oebMfKy2oSzbnuHug-1
-X-Mimecast-MFC-AGG-ID: FYZ-7oebMfKy2oSzbnuHug_1770813089
+	bh=oafPsMhhX2LYktt1mZytvPrd7reHuMI6cpisN3UVjHk=;
+	b=aj445UeDgTtmkriiBG7dMmAJdELD6NkG3uNoUrYCkXLQeRhs/lu2oggiW//LVwmuDYX8yX
+	s2uVXbaRM27ZmXdwLVlJWoxOBC+YZ2h2GJ3mTqXfwoQg/+fncAq2fneyq1de2EX0h0EVMQ
+	B0L70j63ZFcaaIbKdoIWj0aQfzmc5iE=
+X-MC-Unique: WIujemrANsyyw5L1QkdvYg-1
+X-Mimecast-MFC-AGG-ID: WIujemrANsyyw5L1QkdvYg_1770813094
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Eduardo Habkost <eduardo@habkost.net>,
@@ -87,14 +87,14 @@ Cc: Eduardo Habkost <eduardo@habkost.net>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Paul Durrant <paul@xen.org>,
 	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Subject: [PULL 13/14] error-report: make real_time_iso8601() public
-Date: Wed, 11 Feb 2026 16:30:00 +0400
-Message-ID: <20260211123007.3569932-14-marcandre.lureau@redhat.com>
+Subject: [PULL 14/14] chardev: add logtimestamp option
+Date: Wed, 11 Feb 2026 16:30:01 +0400
+Message-ID: <20260211123007.3569932-15-marcandre.lureau@redhat.com>
 In-Reply-To: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
 References: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: A5TDt3lip-DGrywrDOD_YuOtJw35bjfLameypk1uEFI_1770813089
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: dZjaz2DoEH78eRcqwCgXQ2BHDfDWB1jtulChYzIupms_1770813094
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -130,51 +130,169 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	FROM_NO_DN(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: C55D412469C
+X-Rspamd-Queue-Id: 367A0124658
 X-Rspamd-Action: no action
 
 From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
 
-To be reused in the following commit.
+Add an option to inject timestamps into serial log file.
+That simplifies debugging a lot, when you can simply compare
+QEMU logs with guest console logs.
 
 Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Acked-by: Markus Armbruster <armbru@redhat.com>
 Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Message-ID: <20260201173633.413934-3-vsementsov@yandex-team.ru>
+Message-ID: <20260201173633.413934-4-vsementsov@yandex-team.ru>
 ---
- include/qemu/error-report.h | 6 ++++++
- util/error-report.c         | 3 +--
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ qapi/char.json         |  6 +++-
+ include/chardev/char.h |  2 ++
+ chardev/char.c         | 63 ++++++++++++++++++++++++++++++++++++++----
+ 3 files changed, 65 insertions(+), 6 deletions(-)
 
-diff --git a/include/qemu/error-report.h b/include/qemu/error-report.h
-index 3ae2357fda5..dc423d36071 100644
---- a/include/qemu/error-report.h
-+++ b/include/qemu/error-report.h
-@@ -74,4 +74,10 @@ extern bool message_with_timestamp;
- extern bool error_with_guestname;
- extern const char *error_guest_name;
+diff --git a/qapi/char.json b/qapi/char.json
+index 140614f82c3..a4abafa6803 100644
+--- a/qapi/char.json
++++ b/qapi/char.json
+@@ -197,11 +197,15 @@
+ # @logappend: true to append instead of truncate (default to false to
+ #     truncate)
+ #
++# @logtimestamp: true to insert timestamps into logfile
++#     (default false) (since 11.0)
++#
+ # Since: 2.6
+ ##
+ { 'struct': 'ChardevCommon',
+   'data': { '*logfile': 'str',
+-            '*logappend': 'bool' } }
++            '*logappend': 'bool',
++            '*logtimestamp': 'bool' } }
  
-+/*
-+ * Return current datetime in ISO 8601 format.
-+ * Caller is responsible to g_free() the returned string.
-+ */
-+char *real_time_iso8601(void);
-+
- #endif
-diff --git a/util/error-report.c b/util/error-report.c
-index 1b17c11de19..d6b7448183a 100644
---- a/util/error-report.c
-+++ b/util/error-report.c
-@@ -169,8 +169,7 @@ static void print_loc(void)
+ ##
+ # @ChardevFile:
+diff --git a/include/chardev/char.h b/include/chardev/char.h
+index 81bc0cbdf2a..c2c42e4b7a3 100644
+--- a/include/chardev/char.h
++++ b/include/chardev/char.h
+@@ -63,6 +63,8 @@ struct Chardev {
+     CharFrontend *fe;
+     char *label;
+     int logfd;
++    bool logtimestamp;
++    bool log_line_start;
+     int be_open;
+     /* used to coordinate the chardev-change special-case: */
+     bool handover_yank_instance;
+diff --git a/chardev/char.c b/chardev/char.c
+index 4b285baf029..48b326d57b9 100644
+--- a/chardev/char.c
++++ b/chardev/char.c
+@@ -82,12 +82,8 @@ void qemu_chr_be_event(Chardev *s, QEMUChrEvent event)
+     CHARDEV_GET_CLASS(s)->chr_be_event(s, event);
+ }
+ 
+-static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
++static void do_write_log(Chardev *s, const uint8_t *buf, size_t len)
+ {
+-    if (s->logfd < 0) {
+-        return;
+-    }
+-
+     if (qemu_write_full(s->logfd, buf, len) < len) {
+         /*
+          * qemu_write_full() is defined with G_GNUC_WARN_UNUSED_RESULT,
+@@ -96,6 +92,55 @@ static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
      }
  }
  
--static char *
--real_time_iso8601(void)
-+char *real_time_iso8601(void)
- {
-     g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
-     return g_date_time_format_iso8601(dt);
++static void do_write_log_timestamps(Chardev *s, const uint8_t *buf, size_t len)
++{
++    g_autofree char *timestr = NULL;
++
++    while (len) {
++        size_t i;
++
++        if (s->log_line_start) {
++            if (!timestr) {
++                timestr = real_time_iso8601();
++            }
++            do_write_log(s, (const uint8_t *)timestr, strlen(timestr));
++            do_write_log(s, (const uint8_t *)" ", 1);
++            s->log_line_start = false;
++        }
++
++        for (i = 0; i < len; i++) {
++            if (buf[i] == '\n') {
++                break;
++            }
++        }
++
++        if (i == len) {
++            /* not found \n */
++            do_write_log(s, buf, len);
++            return;
++        }
++
++        i += 1;
++        do_write_log(s, buf, i);
++        buf += i;
++        len -= i;
++        s->log_line_start = true;
++    }
++}
++
++static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
++{
++    if (s->logfd < 0) {
++        return;
++    }
++
++    if (s->logtimestamp) {
++        do_write_log_timestamps(s, buf, len);
++    } else {
++        do_write_log(s, buf, len);
++    }
++}
++
+ static int qemu_chr_write_buffer(Chardev *s,
+                                  const uint8_t *buf, int len,
+                                  int *offset, bool write_all)
+@@ -248,6 +293,7 @@ static bool qemu_char_open(Chardev *chr, ChardevBackend *backend, Error **errp)
+         } else {
+             flags |= O_TRUNC;
+         }
++        chr->logtimestamp = common->has_logtimestamp && common->logtimestamp;
+         chr->logfd = qemu_create(common->logfile, flags, 0666, errp);
+         if (chr->logfd < 0) {
+             return false;
+@@ -267,6 +313,7 @@ static void char_init(Object *obj)
+ 
+     chr->handover_yank_instance = false;
+     chr->logfd = -1;
++    chr->log_line_start = true;
+     qemu_mutex_init(&chr->chr_write_lock);
+ 
+     /*
+@@ -505,6 +552,9 @@ void qemu_chr_parse_common(QemuOpts *opts, ChardevCommon *backend)
+     backend->logfile = g_strdup(logfile);
+     backend->has_logappend = true;
+     backend->logappend = qemu_opt_get_bool(opts, "logappend", false);
++
++    backend->has_logtimestamp = true;
++    backend->logtimestamp = qemu_opt_get_bool(opts, "logtimestamp", false);
+ }
+ 
+ static const ChardevClass *char_get_class(const char *driver, Error **errp)
+@@ -956,6 +1006,9 @@ QemuOptsList qemu_chardev_opts = {
+         },{
+             .name = "logappend",
+             .type = QEMU_OPT_BOOL,
++        },{
++            .name = "logtimestamp",
++            .type = QEMU_OPT_BOOL,
+         },{
+             .name = "mouse",
+             .type = QEMU_OPT_BOOL,
 -- 
 2.52.0
 
