@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QHRZFZKHjGmHqgAAu9opvQ
+	id oEq9DJiPjGlQrAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:43:46 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:18:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB752124E0B
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:43:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227677.1534101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89926125215
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:17:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227702.1534138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqAUw-0005KJ-9l; Wed, 11 Feb 2026 13:43:18 +0000
+	id 1vqB1Y-0005VL-09; Wed, 11 Feb 2026 14:17:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227677.1534101; Wed, 11 Feb 2026 13:43:18 +0000
+Received: by outflank-mailman (output) from mailman id 1227702.1534138; Wed, 11 Feb 2026 14:16:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqAUw-0005HY-73; Wed, 11 Feb 2026 13:43:18 +0000
-Received: by outflank-mailman (input) for mailman id 1227677;
- Wed, 11 Feb 2026 13:43:16 +0000
+	id 1vqB1X-0005Ub-SV; Wed, 11 Feb 2026 14:16:59 +0000
+Received: by outflank-mailman (input) for mailman id 1227702;
+ Wed, 11 Feb 2026 14:16:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqAUu-0005HS-Ly
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 13:43:16 +0000
+ id 1vqB1V-0005UV-Sw
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 14:16:58 +0000
 Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
  [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d9a41ad-074f-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 14:43:15 +0100 (CET)
+ id 5227a5ec-0754-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 15:16:56 +0100 (CET)
 Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-4359249bbacso635052f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 05:43:15 -0800 (PST)
+ ffacd0b85a97d-43622089851so1931108f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 06:16:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43783e54d48sm4472000f8f.33.2026.02.11.05.43.14
+ ffacd0b85a97d-43783d325f7sm4955120f8f.8.2026.02.11.06.16.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 05:43:14 -0800 (PST)
+ Wed, 11 Feb 2026 06:16:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,61 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d9a41ad-074f-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 5227a5ec-0754-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770817395; x=1771422195; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770819416; x=1771424216; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PhtV26UQt/YzS/mJqsXNV6LpEVa5g2rjGL/eEqK64QA=;
-        b=B6cPY7OKsZw440JDAjzCgUVPZmS0yk2e0bsqjwW1PJf+j79soX126KZ//0grGHxaiw
-         LUZtCAlnSY2ai009AuErJTGYzPo6IgWKBiRtSl4QLljZetE3ZWW8Nr4EhYIF10u6aPHJ
-         8XmNYxGisHGmMIc18sI6uMYM7V8lDda2Pk8mncDPL4tw8R93OLozs3b/Ln4iWjg+3niF
-         V3BDxUTSvcVHl3+aa9/lrhYdrl8rAadq5JCV35OhzMXZjjKtaA2JQJTQAgJOTatxsAjX
-         Zoar+VZK8kzKqPj48PwWGH7F4G9L5HiRn3Lo9MEUCpWAVoLKaLJ2Oa6+UXlipijWDLzD
-         jNsA==
+        bh=C4vFL5KCpONqE19NIo9Oy16WwOLn2UXK02zwP2V/YCI=;
+        b=GtPd923Gf8w4Sdd1nrxI+tW5b9aNfD96Fkw6/DPIChJ0irhTpTExFP18IbF4p4hyTp
+         5YnDASjdl8AjtfyilfBEM/THuYemSRhKln/BqTWIn6qjUltjFS/zj4uNWwVN3c7PDBAx
+         bSnUDJJTJj/darMxawk0x0kqNP+6ZvOjwrAyLcQPuL6ncgBpD1/zRnCYfvxkvyCezGhN
+         bnulE3eE1cbCzEsnsIvmrQMMFFa0PMqiPKCToh4tJul9TC89KnF+KdVBRRiDt7EWRvaP
+         qtoVeNNlx/Bv4LXNjceQptoWIO+LRlQloodqph9B3M5xCiEnjgu7Y868qmPP/Wxph4HB
+         OFYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770817395; x=1771422195;
+        d=1e100.net; s=20230601; t=1770819416; x=1771424216;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PhtV26UQt/YzS/mJqsXNV6LpEVa5g2rjGL/eEqK64QA=;
-        b=qTIqki09mM51WLn7CcHqj3s/yoUDTwuPkr+dSjbxYPiGsP2m3w1DDwQTP/pog/rWG/
-         dRJUctSF6XQv4CuIiffzWfBo2//yCOTOfSWU0yqhztP62qiKr81kr0tiidFo+gY+5eL9
-         SdWOOvLFg8Kx7nXbyHXQX76Q9plHyi2jm6wON7rX4nvKGKycdMJFf6iNBo6bazJ3uYHg
-         z2Eo1ni05+ZzOUPSultvyfgUxfmYmdmyEnpZ5DqxqBMmx4K/g/CxA2TYBdOXtfcDNVPP
-         SjaEj5mq+06V/e2G6NRyHL6sXiHmmNTKh4q9KKexNMfDmsd5fFIwwTT3E3Iea4wLDRYK
-         9RZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUYV89Z7Fw7cqqaRsTCvGExbHsKgexrQ8n3NKe6eCxGYpZ10X1OH9uTrRE4Pij2SikDtowqMJ8Afko=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8TNNsDXPM7QMFxRDGSz6x4fxQhNbhdaij8+yhTJ1AOv/OfgU2
-	JE1HHsbNwVhcxfVb1CuJIy0gM6BiTew2KiLVpirEcZOa8jfpvwg9YTZr3F1pEDUIjA==
-X-Gm-Gg: AZuq6aKb15kmSmEa/yO4H+BY3WBA9BbewuU2YetoD/aG8vKdFThIQzeUa5RdLO2yb/8
-	xzd3yoQghNneYWyxxpEOq9KA+KW5xukI+nKu3IE1yOXhU8rjazeVnXdxQedp18P4jqOSOw5F6nR
-	wdHsCPW9zDcgyDpQRM4ky++LknbeANVE/t4k+6ck6ZNnzmaOMcjT+lTUtUPFE1lWQV6EmZP5g86
-	WSTqsqt78fNtLnDmcC+gXc8kKy3Pl5urHhclf01DChbhTp7smqDGjy+qQxK+7g9CS01WjUg/cO8
-	lraQ1HGelJaBNOo4dRKERw41TJXils4ldV7S7m58Mhb3jaMLhrOT6LTvOh37L6Sne2TGF2NF9Z/
-	F6iNU2pYzCdQLrOK/jowPeeuwr/YFd45rCeO00WBCZXrzd2EdDyY/Psu+FwV6fur2w1MN3Fufte
-	wqQf5jXz3Tn5w6z/9/7O+rMvnVtwTmAOsvzeKrFqWPI7zXa7TVrmTb9/kHTDXEnJNruyDQD5gMV
-	ZxRHu1FZJLYhbw=
-X-Received: by 2002:a5d:64e3:0:b0:431:c06:bc82 with SMTP id ffacd0b85a97d-43779e4e6bdmr11781480f8f.12.1770817394847;
-        Wed, 11 Feb 2026 05:43:14 -0800 (PST)
-Message-ID: <ab881c05-ffe1-499e-af3b-ba8c77c3c599@suse.com>
-Date: Wed, 11 Feb 2026 14:43:13 +0100
+        bh=C4vFL5KCpONqE19NIo9Oy16WwOLn2UXK02zwP2V/YCI=;
+        b=FXGU0nwr4AFYAKFdDxkUAcGUWiUoO2AxT/idT9mWj1eF+H4Y/tGYpKkuJPBcMcO3g6
+         NbBv6UJx0f1/BmBodZ6kPXeUS+ytM+BFFIECqgdiWekEHAQbn1ph56VK7j7XZ8zvfMDF
+         lavhHNAWKb5B89ysgtWC5ajF2pplTmkn8Nrc1S9B1Vlmkes20kxAeImkeEHHsTN2XQlg
+         yiTAMogXgMw9YT9sU9e688jZyyYt2IwrOwZKr/rv9TZZVAH0PKNfyUkXJU2QylmeM4vn
+         krgXavXtK7IaInTrZQRV4GydmErOOdMjnd33nR2qaTU9lkFDVVV0E0hpuFumvDrTNMCB
+         0GwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU0p78VDnOC+zN1gDDhSt+V0AnUC4E81pS0YA74i0fCvnOEamY+Zo5NkO1R2uMxozfE625DFPZdjbQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYpqJPw1Aq0RJB9K1GGYCwaZwLWxFJDBJmG26QYVcVkx/839CJ
+	JFGXt4EYP2Zw65xPtQbM+M8s7mTAQ2DEe8OIZ6SPsSaHfm/Y4BE41qktxgioel6Pfw==
+X-Gm-Gg: AZuq6aLcvIiW3MxHPp27dwfcOqOihqY+2z2UTL7SGEN92XHIhVjpLF1r0dKN/DIIzJW
+	OMLjfrgks53bZp3o/d4zY2M8rDFEj/JpDZjT9TRzHWWQgaF23hsVOUnONn67psNDN8RYdGHWRKg
+	a5OLSiyZbASjTnozj8MCh8bnPle3iWd94VGlazWGx6bkJnhaYWefJBqAfSSyfZ+hfTTWkIobNop
+	XrsvAGCsV5oM3Tn9M093IlB3YOZ+QRj2gCazdtGiVZpiSOoPPYNdf6L+YqvKT0GQKFPwxIuq69W
+	LK9KjIqaBdejQwq2D4bVFu56C7mKtQDbSqcB9w5RlubfGU8tPtnjpd05s8Qz7iZBNXHzt5zb0Zt
+	hg4WP3l8n0oFGmE4phRPMSxHGckZWI8FybREfkyf85HvJdvSkCdAc4t+so2PHxsQuO/tuvjA/SS
+	Xqyum/3jt38E1giMAH58mFva8nvbZk4jkvjJfnSe5Si/g3LsPlM0dMvxY2KrBWrRiD7T4eq/D7W
+	KRHENIBaWykCkY=
+X-Received: by 2002:a05:6000:2902:b0:435:a600:2601 with SMTP id ffacd0b85a97d-436293410dbmr28315894f8f.16.1770819415424;
+        Wed, 11 Feb 2026 06:16:55 -0800 (PST)
+Message-ID: <d73424e2-84f4-497b-a1f4-f3eea5cdeeb3@suse.com>
+Date: Wed, 11 Feb 2026 15:16:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/tools: remove usages of `stat -s` in
- check-endbr.sh
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 05/16] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20260211104638.7938-1-roger.pau@citrix.com>
- <20260211104638.7938-3-roger.pau@citrix.com>
- <35bdb10b-d39d-4e67-9ed8-c0b85ca5bd54@suse.com> <aYx064WIMMNmLAza@Mac.lan>
- <3f1e043f-2cd1-43a3-9ec9-9323c133d8d1@suse.com> <aYyFV9sIw_cAvruJ@Mac.lan>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
+ <ced640968434a67c150eff90437f83d3b460a36c.1770650552.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,80 +131,272 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aYyFV9sIw_cAvruJ@Mac.lan>
+In-Reply-To: <ced640968434a67c150eff90437f83d3b460a36c.1770650552.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: AB752124E0B
+X-Rspamd-Queue-Id: 89926125215
 X-Rspamd-Action: no action
 
-On 11.02.2026 14:34, Roger Pau Monné wrote:
-> On Wed, Feb 11, 2026 at 02:07:13PM +0100, Jan Beulich wrote:
->> On 11.02.2026 13:24, Roger Pau Monné wrote:
->>> On Wed, Feb 11, 2026 at 12:40:58PM +0100, Jan Beulich wrote:
->>>> On 11.02.2026 11:46, Roger Pau Monne wrote:
->>>>> --- a/xen/tools/check-endbr.sh
->>>>> +++ b/xen/tools/check-endbr.sh
->>>>> @@ -92,14 +92,15 @@ ${OBJDUMP} -j .text $1 -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
->>>>>  #    check nevertheless.
->>>>>  #
->>>>>  eval $(${OBJDUMP} -j .text $1 -h |
->>>>> -    $AWK '$2 == ".text" {printf "vma_hi=%s\nvma_lo=%s\n", substr($4, 1, 9), substr($4, 10, 16)}')
->>>>> +    $AWK '$2 == ".text" {printf "bin_sz=%s\nvma_hi=%s\nvma_lo=%s\n", "0x" $3, substr($4, 1, 9), substr($4, 10, 16)}')
->>>>>  
->>>>> -${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
->>>>> -
->>>>> -bin_sz=$(stat -c '%s' $TEXT_BIN)
->>>>> +# Convert objdump hex reported .text size to decimal
->>>>> +bin_sz=$(printf %u $bin_sz)
->>>>
->>>> (Alternatively without this line, but ...
->>>>
->>>>>  [ "$bin_sz" -ge $(((1 << 28) - $vma_lo)) ] &&
->>>>
->>>> [ "$(($bin_sz))" -ge $(((1 << 28) - $vma_lo)) ] &&
->>>>
->>>> ?)
->>>
->>> Isn't that bash-specific functionality?  The script interpreter is set
->>> as /bin/sh.
->>
->> I, too, would have thought so, but then the rhs of the -ge already used $((...)).
-> 
-> OK, yes, I didn't realize those existing usages.  Now that I look at
-> it it does seem to have a bunch of other bashisms, for example
-> parameter expansion.
+On 09.02.2026 17:52, Oleksii Kurochko wrote:
+> Based on Linux kernel v6.16.0.
+> Note that smp_wmb() is used instead of smp_mb__before_atomic() as what
+> we want to guarantee that if a bit in irqs_pending_mask is obversable
+> that the correspondent bit in irqs_pending is observable too.
 
-Then perhaps in another patch we want to properly mark it as a bash script.
+And the counterpart of this barrier is the one encoded implicitly in
+xchg()? Could do with making more explicit, e.g. by way of adding a
+code comment there.
+
+> Add lockless tracking of pending vCPU interrupts using atomic bitops.
+> Two bitmaps are introduced:
+>  - irqs_pending — interrupts currently pending for the vCPU
+>  - irqs_pending_mask — bits that have changed in irqs_pending
+> 
+> The design follows a multi-producer, single-consumer model, where the
+> consumer is the vCPU itself. Producers may set bits in
+> irqs_pending_mask without a lock. Clearing bits in irqs_pending_mask is
+> performed only by the consumer via xchg_acquire().
+
+What is xchg_acquire() in Xen? I can't spot anything like this.
+
+> The consumer must not
+> write to irqs_pending and must not act on bits that are not set in the
+> mask. Otherwise, extra synchronization should be provided.
+> 
+> On RISC-V interrupts are not injected via guest registers, so pending
+> interrupts must be recorded in irqs_pending (using the new
+> vcpu_{un}set_interrupt() helpers) and flushed to the guest by updating
+> HVIP before returning control to the guest. The consumer side is
+> implemented in a follow-up patch.
+> 
+> A barrier between updating irqs_pending and setting the corresponding
+> mask bit in vcpu_set_interrupt()/vcpu_unset_interrupt() guarantees
+> that if the consumer observes a mask bit set, the corresponding pending
+> bit is also visible. This prevents missed interrupts during the flush.
+> 
+> It is possible a guest could have pending bit not result in the hardware
+> register without to be marked pending in irq_pending bitmap as:
+
+Are there some words missing in this sentence? I find it hard to follow
+the way it is.
+
+>   According to the RISC-V ISA specification:
+>     Bits hip.VSSIP and hie.VSSIE are the interrupt-pending and
+>     interrupt-enable  bits for VS-level software interrupts. VSSIP in hip
+>     is an alias (writable) of the same bit in hvip.
+>   Additionally:
+>     When bit 2 of hideleg is zero, vsip.SSIP and vsie.SSIE are read-only
+>     zeros. Else, vsip.SSIP and vsie.SSIE are aliases of hip.VSSIP and
+>     hie.VSSIE.
+> This means the guest may modify vsip.SSIP, which implicitly updates
+> hip.VSSIP and the bit being writable with 1 would also trigger an interrupt
+
+s/writable/written/ ?
+
+> as according to the RISC-V spec:
+>   These conditions for an interrupt trap to occur must be evaluated in a
+>   bounded   amount of time from when an interrupt becomes, or ceases to be,
+>   pending in sip,  and must also be evaluated immediately following the
+>   execution of an SRET  instruction or an explicit write to a CSR on which
+>   these interrupt trap conditions expressly depend (including sip, sie and
+>   sstatus).
+> What means that IRQ_VS_SOFT must be synchronized separately, what is done
+> in vcpu_sync_interrupts(). Note, also, that IRQ_PMU_OVF would want to be
+> synced for the similar reason as IRQ_VS_SOFT, but isn't sync-ed now as
+> PMU isn't supported now.
+> 
+> For the remaining VS-level interrupt types (IRQ_VS_TIMER and
+> IRQ_VS_EXT), the specification states they cannot be modified by the guest
+> and are read-only:
+>   Bits hip.VSEIP and hie.VSEIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level external interrupts. VSEIP is read-only in hip, and is
+>   the logical-OR of these interrupt sources:
+>     • bit VSEIP of hvip;
+>     • the bit of hgeip selected by hstatus.VGEIN; and
+>     • any other platform-specific external interrupt signal directed to
+>       VS-level.
+>   Bits hip.VSTIP and hie.VSTIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level timer interrupts. VSTIP is read-only in hip, and is the
+>   logical-OR of hvip.VSTIP and any other platform-specific timer interrupt
+>   signal directed to VS-level.
+
+In what you quote there is something being said about bits being r/o in hip,
+but I can't conclude the "cannot be modified by the guest" that is being said
+ahead of the quotation.
+
+> Thus, for these interrupt types, it is sufficient to use vcpu_set_interrupt()
+> and vcpu_unset_interrupt(), and flush them during the call of
+> vcpu_flush_interrupts() (which is introduced in follow up patch).
+> 
+> vcpu_sync_interrupts(), which is called just before entering the VM,
+> slightly bends the rule that the irqs_pending bit must be written
+> first, followed by updating the corresponding bit in irqs_pending_mask.
+> However, it still respects the core guarantee that the producer never
+> clears the mask and only writes to irqs_pending if it is the one that
+> flipped the corresponding mask bit from 0 to 1.
+> Moreover, since the consumer won't run concurrently because
+> vcpu_sync_interrupts() and the consumer path are going to be invoked
+> equentially immediately before VM entry, it is safe to slightly relax
+> this ordering rule in vcpu_sync_interrupts().
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in v3:
+>  - Use smp_wb() instead of smp_mb__before_atomic().
+>  - Add explanation of the change above in the commit message.
+>  - Move vcpu_sync_interrupts() here to producers side.
+>  - Introduce check_for_pcpu_work() to be clear from where vcpu_sync_interrupts()
+>    is called.
+> ---
+> Changes in V2:
+>  - Move the patch before an introduction of vtimer.
+>  - Drop bitmap_zero() of irqs_pending and irqs_pending_mask bitmaps as
+>    vcpu structure starts out all zeros.
+>  - Drop const for irq argument of vcpu_{un}set_interrupt().
+>  - Drop check "irq < IRQ_LOCAL_MAX" in vcpu_{un}set_interrupt() as it
+>    could lead to overrun of irqs_pending and irqs_pending_mask bitmaps.
+>  - Drop IRQ_LOCAL_MAX as there is no usage for it now.
+> ---
+>  xen/arch/riscv/domain.c             | 70 +++++++++++++++++++++++++++++
+>  xen/arch/riscv/include/asm/domain.h | 24 ++++++++++
+>  xen/arch/riscv/traps.c              |  8 ++++
+>  3 files changed, 102 insertions(+)
+> 
+> diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+> index af9586a4eb0d..4513f778cdc4 100644
+> --- a/xen/arch/riscv/domain.c
+> +++ b/xen/arch/riscv/domain.c
+> @@ -5,6 +5,7 @@
+>  #include <xen/sched.h>
+>  #include <xen/vmap.h>
+>  
+> +#include <asm/bitops.h>
+>  #include <asm/cpufeature.h>
+>  #include <asm/csr.h>
+>  #include <asm/riscv_encoding.h>
+> @@ -124,3 +125,72 @@ void arch_vcpu_destroy(struct vcpu *v)
+>  {
+>      vfree((char *)v->arch.cpu_info + sizeof(struct cpu_info) - STACK_SIZE);
+>  }
+> +
+> +int vcpu_set_interrupt(struct vcpu *v, unsigned int irq)
+> +{
+> +    /*
+> +     * We only allow VS-mode software, timer, and external
+> +     * interrupts when irq is one of the local interrupts
+> +     * defined by RISC-V privilege specification.
+> +     */
+
+What is "when irq is one ..." intended to be telling me? There's no ...
+
+> +    if ( irq != IRQ_VS_SOFT &&
+> +         irq != IRQ_VS_TIMER &&
+> +         irq != IRQ_VS_EXT )
+> +        return -EINVAL;
+
+... corresponding code (anymore), afaict.
+
+Further, who are the prospected callers of this function and its sibling
+below? If they're all internal (i.e. not reachable via hypercalls or
+emulation on behalf of the guest), this may want to be assertions.
+
+> +    set_bit(irq, v->arch.irqs_pending);
+> +    smp_wmb();
+> +    set_bit(irq, v->arch.irqs_pending_mask);
+> +
+> +    vcpu_kick(v);
+
+Shouldn't this be conditional upon the pending_mask bit going from 0 to
+1?
+
+> +void vcpu_sync_interrupts(struct vcpu *v)
+> +{
+> +    unsigned long hvip;
+> +
+> +    /* Read current HVIP and VSIE CSRs */
+> +    v->arch.vsie = csr_read(CSR_VSIE);
+> +
+> +    /* Sync-up HVIP.VSSIP bit changes done by Guest */
+> +    hvip = csr_read(CSR_HVIP);
+> +    if ( (v->arch.hvip ^ hvip) & BIT(IRQ_VS_SOFT, UL) &&
+
+Nit: Parentheses please around an & expression when used in an &&
+one.
+
+> --- a/xen/arch/riscv/include/asm/domain.h
+> +++ b/xen/arch/riscv/include/asm/domain.h
+> @@ -54,6 +54,25 @@ struct arch_vcpu {
+>      register_t henvcfg;
+>      register_t hideleg;
+>      register_t hstateen0;
+> +    register_t hvip;
+> +
+> +    register_t vsie;
+> +
+> +    /*
+> +     * VCPU interrupts
+> +     *
+> +     * We have a lockless approach for tracking pending VCPU interrupts
+> +     * implemented using atomic bitops. The irqs_pending bitmap represent
+> +     * pending interrupts whereas irqs_pending_mask represent bits changed
+> +     * in irqs_pending. Our approach is modeled around multiple producer
+> +     * and single consumer problem where the consumer is the VCPU itself.
+> +     *
+> +     * DECLARE_BITMAP() is needed here to support 64 vCPU local interrupts
+> +     * on RV32 host.
+> +     */
+> +#define RISCV_VCPU_NR_IRQS 64
+
+What is this 64 deriving from? IOW - can it be some kind of expression,
+helping the reader?
+
+> --- a/xen/arch/riscv/traps.c
+> +++ b/xen/arch/riscv/traps.c
+> @@ -169,6 +169,11 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>      die();
+>  }
+>  
+> +static void check_for_pcpu_work(void)
+> +{
+> +    vcpu_sync_interrupts(current);
+> +}
+
+Is this really a helpful wrapper? Or is there going to be more stuff in here
+later on?
 
 Jan
 
