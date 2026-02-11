@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AD3fKT9/jGl9pwAAu9opvQ
+	id mLPRAHuFjGmfqAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:08:15 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:34:51 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068F2124A6B
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:08:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227604.1533994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 855D2124CE5
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 14:34:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227642.1534071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9w8-0000ML-Vn; Wed, 11 Feb 2026 13:07:20 +0000
+	id 1vqAMY-0000kt-U6; Wed, 11 Feb 2026 13:34:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227604.1533994; Wed, 11 Feb 2026 13:07:20 +0000
+Received: by outflank-mailman (output) from mailman id 1227642.1534071; Wed, 11 Feb 2026 13:34:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9w8-0000KQ-SC; Wed, 11 Feb 2026 13:07:20 +0000
-Received: by outflank-mailman (input) for mailman id 1227604;
- Wed, 11 Feb 2026 13:07:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vq9w6-0000KK-Uu
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 13:07:18 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96af9854-074a-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 14:07:16 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso19113015e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 05:07:16 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835d99e194sm35334155e9.8.2026.02.11.05.07.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 05:07:15 -0800 (PST)
+	id 1vqAMY-0000ir-QC; Wed, 11 Feb 2026 13:34:38 +0000
+Received: by outflank-mailman (input) for mailman id 1227642;
+ Wed, 11 Feb 2026 13:34:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wgMA=AP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vqAMX-0000iM-Dv
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 13:34:37 +0000
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [2001:4860:4864:20::30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62ab86c9-074e-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 14:34:28 +0100 (CET)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-40438a46d7cso3736076fac.2
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 05:34:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,152 +45,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96af9854-074a-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 62ab86c9-074e-11f1-b162-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1770816866; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Yighlu7npQni3HJx2ETBbsHQ+S2S/tUDLtKWutXvwcvRIDrUCaFvGDkHjwEhk5uY9g
+         UGMPVMeT7rr4koFQ+YJR/NkTgrIIjDCczhBTH7/YX5bRTxL07WG/5I065rDYARLSvU/T
+         RqPD2oqptFaWPsJMfixY+IzpM8MgGCMYcj4UI74wCUE9yaTNOuKY5Mg4wEY+IeUtIKTp
+         KMddQYh0b12m1pzorzXqDkCrvYuqZiTjJRXYJbmV0Avw5+ACBaEl+8PGzfG5d8SQVp8f
+         lQqTC9pUI53GOmERzZSQpXDUmiJZuA2Jw4eSsan0qZjZdKqJtB6kQawxCyEYXWTErEYu
+         yKgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Hgfd289/zgx6Zl5oglKYDFkbsqT/nQ39bBDEtorQe1s=;
+        fh=wB0f5JGUSpWYejuxtnrl8SDqvqyWrEsEaWvC32LbdiU=;
+        b=hUv0OqVLuKeum+Y9rCojBA8StnXHhMt1r9drv9m3VYLnTzfFh2QLBx/E5I5Rxn14ZV
+         6QtwD24ZX/hGu3tmo/SPS58USMkGl98S3ShnYbwEcBy7jR0TXibu72CmQ89qmAVJdFJp
+         a1gmUEja08wydcnHwJHbGvfzobJViAVmElmMN20dBBKqVXbGQOwH/EIf1SrSuWof9w2I
+         mawaHPNg0LaR1xi6VZ4fO6UKMgH85QxxkxD8A1y/s044Z5inRHo5i9tJT/ZKDhpx6pVJ
+         Or49TfunPg8aj3WPXoQRGZ81UDBWWMKQG4f401wHEx/TT12rfDWUf4L3YX4QcmovR1Qj
+         QbZA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770815236; x=1771420036; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eSHBXr8GkYYfTsEYs/TG8FluGNQdUJqEV4XOmrLk/ws=;
-        b=g6Y5QgqSwmvb6gLGS8Zg9VPUnVSo2KaTR+qVdkdYm47/qc1Ixz4xpHkBxtg9iHaLIJ
-         nY52BToFDXiN0GmBXGJMR2whp8YcBK9dMr/FKizPibx8fVeh52uUVDg0wXbBEBZYTb5M
-         xtrWa1TVdVlY9SdeUSsqD4GQa2S1znNTALCym8hrRw22v8j0WiWqTVZAeQ5uEKTPOLpK
-         jj6wVSdu6hBbnM7HRf9uPxrMcHHceOBMOTLXPg5CXPeR2mPfI4FWQU16dklfjUAizNr/
-         a4kYpQhluS/TybN8t9iHItk0vLfowILWRW2Rsl60ETPeQ/LuusqACLpSanfmz9ni53Dl
-         yiiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770815236; x=1771420036;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1770816866; x=1771421666; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eSHBXr8GkYYfTsEYs/TG8FluGNQdUJqEV4XOmrLk/ws=;
-        b=kp5i3KTDnjLK28qxfTU8wwZOXl+TYeU31x5l+lqKJPBcoNc4OhzSXGCAdP4obBtAJZ
-         6QombjvKCOzpgm8fzlo5/us1c0EzsZNGP9ufLZqSI67Qfgd959JEGFL8zDI0fAz2uEmZ
-         O5cdbnlIqtvGVmXzvZCob1QdxsFA7YA72xfsHbvynYC4q9gYNjx6Dd6oG6vYRj0yttXj
-         koNfs9Y1Ux1T8/UQ0knnpSqzo26Xm90JjSUkiEDJ5S1f/hLX/saw2rbnhxK4AiyJ0WA0
-         58PHuyZNmkLiytV+RSYQZLQzApfl7n5K6+rKrEDKQWG9cErPKJX6vITugkLXNDslrnOe
-         M+mA==
-X-Forwarded-Encrypted: i=1; AJvYcCXqK9yqJETNCpiUlJ+Ofi8AyCDtC05C0CSx+HjjfXDaDIPK+Hgnnb5yFqf4ClH0ZQEAt4k8aPlJJJM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyGYDpfzZjvduzhlUeuSsyIq/nMuMGAjkHgf0s5z/u2op3Z7rz
-	mwccPD6PBKRqW+PbkykOfTrOcQsbYcoOjKXVQmTWjXCM+APX4yNiTza0fcCkNSbfXQ==
-X-Gm-Gg: AZuq6aJKcVRDN8c74Fb3d2NIt3FDoy4IxoaeVAuWjFUlSChr4l0t7p/DvP967iFokmN
-	H9pQoTQMJq+3voQ6ThPrTcUy2/ZkBbo60+ec0wephLRWmMYxfKjWgU/CMY20+0ofupPRfn69epR
-	Mfshg7Xw2vb/qXsd+JBD2Xe9aR1cXQqmv9LoI4QHDc84MvVI4QuMzx5v3lPrDE7+n5phaiWlQNX
-	lEs5Nwh2H+kbYk4W+Ok499fQmid7KVrCKt3kfO2YmiaDzz/nqCB4E5groKVjyttgTfMafcyzhO8
-	gI1zFBlE2sVpwxovEMdvbF7SK8Hum4j/E7qSgf6WKmUifw3FcKgB+Gyz8YN/PLvBO+72vtvoHE4
-	bH2IDD+UuDLvspYHZd7T0EqZsl8Gaah5fq2T8a20lpyQ2+3GTzXOQNc+cabQnmFPddnmsW2csHL
-	Mh2ooJf1FDbX7fmXQKXMrFse6isHzTD5YXkss1L6Ud1/ZHbIUOUVejjl0Xoo4ORXhdP2wG+aF9X
-	PqncWWKLnKBweY=
-X-Received: by 2002:a05:600c:3b23:b0:47f:8c05:786b with SMTP id 5b1f17b1804b1-4832021eae9mr256478535e9.28.1770815235550;
-        Wed, 11 Feb 2026 05:07:15 -0800 (PST)
-Message-ID: <3f1e043f-2cd1-43a3-9ec9-9323c133d8d1@suse.com>
-Date: Wed, 11 Feb 2026 14:07:13 +0100
+        bh=Hgfd289/zgx6Zl5oglKYDFkbsqT/nQ39bBDEtorQe1s=;
+        b=dnqSSkMWndIXZ2XdQHeaCwpAwDMOrvr019W0ea5/E8+4sgVOE7zC32eEdBdKrhTNP1
+         ix1ayNDfhsHMHDSxkZFaOKYWrIVlk8Uxefamqhf2qomiXn93Z7NVKqlF2uUDSFwpnPOm
+         7tWYBPGgWZKAf0qOky0EAYWkDO9PAxrKCKKPQSuaRB7kGLQReAwR8Sq1Jmlh9eBJl9YL
+         jsIbozEjyvjBB0Qbie9y0eswizYHXka8YaxfwIusfMAX4nABaR2/+HXSEYV9jZ6TI7+n
+         LbycJ5LkddtalLvDY5EsmbtnB4r3pZ/3Ec4VRrGCQKdcFHPWYdKDSCJh8QsmHHfBFbFn
+         /56A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770816866; x=1771421666;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Hgfd289/zgx6Zl5oglKYDFkbsqT/nQ39bBDEtorQe1s=;
+        b=OeKCG7UlwKTFckyHwJ9Ni6hV7Ry3lfq3Xtn3ap87wUsjgYfFQtI1QegGSkc0e7/tLK
+         EGZlUiLDFU4h617GOtkkfFjBVEk3ggNXRXnsfGGFjxRJqNK6P6igBYbg70sWdqN5nYOs
+         HtszedNhxQlUndRLZXTZyo+3ZBsZm+dAh9RCeogda3A84zjdh+YX20XjjGoXSmfm2Rpy
+         LusIppDzhu84/BQ0XhsBXotpUimXoKn5T+UgFltXJtwk11qeCvhWHT5H1/HnTUjdevFi
+         lv2GWo6LDarmSGxjs87neXVbFPjQn4BprEkc53eMR/Bp5J6jtr8tKbND4y63m23FHMEg
+         9ZQQ==
+X-Gm-Message-State: AOJu0Yy4Q5wKAFPhJjX+gqOvyUJ/ykxZb3jNPajWH8MC0jwGmLdVtotv
+	DCGOg8fGZbd/5bhfr1aZ1oTOHfyUnyd+NiKmgInYXpPO9CqN1fB8AiPj6Kf28OFyoh7Mr5r6Ogn
+	lPqCZC0lw4jLCgndkF/8Oq5coNI3XkcgGrCmhTzQbNg==
+X-Gm-Gg: AZuq6aLMSIoAasj/oy184uBVfNqBF7/56NLucKUbwXlc2mpDMWII7yVvPOsChLsECu5
+	A2Sl+r5ErB/c4FBKrNV/KxiUGkZbygmsSd9h2hxXnEeWMocqrZikyLHpRi6JDJPstcKvtG6OShP
+	GWaQI+Op+141LXaugQwFMdu55QpvFleS4ARIVFwLXueN6eiV9yJp/D6g80hJuCUEzP83IUa4gSG
+	YuOJqLDe1W++5gWOPJAhAsCVceFe3LUM5PKlkko6z1fmqsYpILTRJgdGWtpOlk20YoitnTNA0b3
+	3HPZ3ORfzFyYPs8PD30kknbMNHSF5vI368WyTg==
+X-Received: by 2002:a05:6871:1d6:b0:3e8:9747:f8f8 with SMTP id
+ 586e51a60fabf-40ea96535c0mr1675351fac.51.1770816866237; Wed, 11 Feb 2026
+ 05:34:26 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/tools: remove usages of `stat -s` in
- check-endbr.sh
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20260211104638.7938-1-roger.pau@citrix.com>
- <20260211104638.7938-3-roger.pau@citrix.com>
- <35bdb10b-d39d-4e67-9ed8-c0b85ca5bd54@suse.com> <aYx064WIMMNmLAza@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aYx064WIMMNmLAza@Mac.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1770115301.git.bertrand.marquis@arm.com>
+ <5331b33343441028d10c290b21b82acce295fff0.1770115302.git.bertrand.marquis@arm.com>
+ <CAHUa44FWRepyAakwXLjObbA=8O_LMBR5jk0-WEAXZdgsQCsHOw@mail.gmail.com> <26A3747F-0313-437F-B461-F5C70CE1A4F1@arm.com>
+In-Reply-To: <26A3747F-0313-437F-B461-F5C70CE1A4F1@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 11 Feb 2026 14:34:14 +0100
+X-Gm-Features: AZwV_Qh6FQSYvVJe-MQ-Zkout2bZDAegCvLXVbX6lQe7lBf9TNxTcIBHsJ7pfv8
+Message-ID: <CAHUa44E9OUhmyGw-897RzgJmrxXMtg5RXrWKXHQueqY7zJ-dkA@mail.gmail.com>
+Subject: Re: [PATCH 08/12] xen/arm: ffa: Fix FFA_FEATURES validation
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,linaro.org:email,linaro.org:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 068F2124A6B
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 855D2124CE5
 X-Rspamd-Action: no action
 
-On 11.02.2026 13:24, Roger Pau Monné wrote:
-> On Wed, Feb 11, 2026 at 12:40:58PM +0100, Jan Beulich wrote:
->> On 11.02.2026 11:46, Roger Pau Monne wrote:
->>> --- a/xen/tools/check-endbr.sh
->>> +++ b/xen/tools/check-endbr.sh
->>> @@ -92,14 +92,15 @@ ${OBJDUMP} -j .text $1 -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
->>>  #    check nevertheless.
->>>  #
->>>  eval $(${OBJDUMP} -j .text $1 -h |
->>> -    $AWK '$2 == ".text" {printf "vma_hi=%s\nvma_lo=%s\n", substr($4, 1, 9), substr($4, 10, 16)}')
->>> +    $AWK '$2 == ".text" {printf "bin_sz=%s\nvma_hi=%s\nvma_lo=%s\n", "0x" $3, substr($4, 1, 9), substr($4, 10, 16)}')
->>>  
->>> -${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
->>> -
->>> -bin_sz=$(stat -c '%s' $TEXT_BIN)
->>> +# Convert objdump hex reported .text size to decimal
->>> +bin_sz=$(printf %u $bin_sz)
->>
->> (Alternatively without this line, but ...
->>
->>>  [ "$bin_sz" -ge $(((1 << 28) - $vma_lo)) ] &&
->>
->> [ "$(($bin_sz))" -ge $(((1 << 28) - $vma_lo)) ] &&
->>
->> ?)
-> 
-> Isn't that bash-specific functionality?  The script interpreter is set
-> as /bin/sh.
+Hi Bertrand,
 
-I, too, would have thought so, but then the rhs of the -ge already used $((...)).
+On Wed, Feb 11, 2026 at 12:27=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 11 Feb 2026, at 09:17, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi Bertrand,
+> >
+> > On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> FFA_FEATURES currently accepts non-zero input properties (w2-w7) from
+> >> guests and advertises several ABIs unconditionally, even when firmware
+> >> support is missing or when the ABI is physical-instance-only. This can
+> >> mislead guests about what Xen can actually provide and violates FF-A
+> >> calling conventions. Some SPMCs (Hafnium v2.14 or earlier) also fail t=
+o
+> >> report FFA_RX_ACQUIRE despite supporting it.
+> >>
+> >> Update FFA_FEATURES validation to match spec and firmware support:
+> >> - reject non-zero w2-w7 input properties with INVALID_PARAMETERS
+> >> - reject 64-bit calling conventions from 32-bit guests with NOT_SUPPOR=
+TED
+> >> - return NOT_SUPPORTED for physical-instance-only ABIs
+> >> (FFA_NOTIFICATION_BITMAP_{CREATE,DESTROY}, FFA_RX_ACQUIRE)
+> >> - advertise FFA_INTERRUPT as supported
+> >> - gate message ABIs on firmware support:
+> >> - FFA_MSG_SEND_DIRECT_REQ_{32,64}
+> >> - FFA_MSG_SEND_DIRECT_REQ2 (also requires FF-A 1.2 negotiation)
+> >> - FFA_MSG_SEND2 (or VM-to-VM enabled)
+> >> - report MEM_SHARE_{32,64} only when FFA_MEM_SHARE_64 is supported
+> >> - stop advertising FFA_MSG_YIELD (not implemented)
+> >>
+> >> Update firmware probing: drop FFA_MEM_SHARE_32 checks (deprecated) and
+> >> add FFA_RX_ACQUIRE to the probed set. If FFA_MSG_SEND2 is reported but
+> >> FFA_RX_ACQUIRE is not, assume RX_ACQUIRE support and warn to work
+> >> around the Hafnium bug.
+> >>
+> >> Functional impact: guests now see ABI support that reflects firmware
+> >> capabilities and Xen implementation status. When SEND2 is present but
+> >> RX_ACQUIRE is not reported, Xen assumes RX_ACQUIRE support.
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> xen/arch/arm/tee/ffa.c | 62 +++++++++++++++++++++++++++++++++++++-----
+> >> 1 file changed, 55 insertions(+), 7 deletions(-)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index 6de2b9f8ac8e..e9e020bb0cb3 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -91,10 +91,10 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[]=
+ =3D {
+> >>     FW_ABI(FFA_PARTITION_INFO_GET),
+> >>     FW_ABI(FFA_NOTIFICATION_INFO_GET_64),
+> >>     FW_ABI(FFA_NOTIFICATION_GET),
+> >> +    FW_ABI(FFA_RX_ACQUIRE),
+> >>     FW_ABI(FFA_RX_RELEASE),
+> >>     FW_ABI(FFA_RXTX_MAP_64),
+> >>     FW_ABI(FFA_RXTX_UNMAP),
+> >> -    FW_ABI(FFA_MEM_SHARE_32),
+> >>     FW_ABI(FFA_MEM_SHARE_64),
+> >>     FW_ABI(FFA_MEM_RECLAIM),
+> >>     FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+> >> @@ -240,19 +240,39 @@ static void handle_features(struct cpu_user_regs=
+ *regs)
+> >>     struct ffa_ctx *ctx =3D d->arch.tee;
+> >>     unsigned int n;
+> >>
+> >> +    /*
+> >> +     * Xen does not accept any non-zero FFA_FEATURES input properties=
+ from
+> >> +     * VMs. The spec only defines w2 input properties for FFA_MEM_RET=
+RIEVE_REQ
+> >> +     * (NS-bit negotiation for SP/SPMC) and FFA_RXTX_MAP (buffer size=
+ and
+> >> +     * alignment), so w2 must be MBZ for our callers.
+> >> +     */
+> >
+> > The spec (version 1.2) lists them as SBZ, except for w2, which is MBZ,
+> > for Feature IDs.
+>
+> Very true, this should only check w2 which is anyway defined as MBZ when
+> not used.
+> w3-w7 were MBZ in previous versions of FF-A but are in fact SBZ in 1.2 so
+> we should ignore them
+>
+> > However, if we're to return an error, invalid parameters is a better ch=
+oice.
+>
+> In fact the spec is actually saying the following:
+> If the FF-A interface or feature that was queried is not implemented or i=
+nvalid,
+> the callee completes this call with an invocation of the FFA_ERROR interf=
+ace
+> with the NOT_SUPPORTED error code.
+>
+> So there is no case for INVALID_PARAMETER.
 
-Jan
+You're right.
+
+>
+> So in fact i should:
+> - return NOT_SUPPORTED if w2 is not 0
+> - ignore w3-w7
+>
+> Can you confirm that you have the same reading of the spec than me ?
+
+The 1.2 spec only says this w2 is MBZ for Feature IDs, and that w2 is
+SBZ for FFA_RXTX_MAP. The 1.3 spec says the same, except that in Table
+13.14: Feature IDs and properties table, it lists w2 as SBZ.
+
+Note that FFA_MEM_RETRIEVE_REQ has bits defined in w2, and the unknown
+bits are SBZ.
+
+Based on that, I'm inclined to keep it simple and ignore w2-w7.
+
+Cheers,
+Jens
 
