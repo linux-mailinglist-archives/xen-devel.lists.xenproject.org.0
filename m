@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QOywGMo0jGmNjAAAu9opvQ
+	id cBRuDa06jGnbjgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:50:34 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:15:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D9D121F1C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:50:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227016.1533351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5A0122229
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:15:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227039.1533361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq4yw-0005ah-Mf; Wed, 11 Feb 2026 07:49:54 +0000
+	id 1vq5NT-0001ex-7s; Wed, 11 Feb 2026 08:15:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227016.1533351; Wed, 11 Feb 2026 07:49:54 +0000
+Received: by outflank-mailman (output) from mailman id 1227039.1533361; Wed, 11 Feb 2026 08:15:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq4yw-0005Ye-Js; Wed, 11 Feb 2026 07:49:54 +0000
-Received: by outflank-mailman (input) for mailman id 1227016;
- Wed, 11 Feb 2026 07:49:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vq5NT-0001dV-4o; Wed, 11 Feb 2026 08:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 1227039;
+ Wed, 11 Feb 2026 08:15:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vq4yv-0005YY-Gr
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 07:49:53 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f62d9f9-071e-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 08:49:52 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-47edd9024b1so62770105e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 23:49:52 -0800 (PST)
+ id 1vq5NQ-0001dP-QI
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:15:12 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c849ac4a-0721-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 09:15:10 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-47ff94b46afso5956545e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:15:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d482480sm127769205e9.0.2026.02.10.23.49.50
+ 5b1f17b1804b1-4835dd0deeasm23714275e9.12.2026.02.11.00.15.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Feb 2026 23:49:50 -0800 (PST)
+ Wed, 11 Feb 2026 00:15:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,62 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f62d9f9-071e-11f1-b162-2bf370ae4941
+X-Inumbo-ID: c849ac4a-0721-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770796191; x=1771400991; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770797709; x=1771402509; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lJvCSMhHMkgd1TQ3KoQiUVH//7ztu4XOKSFT1sB6xJg=;
-        b=NgpDpC83Z3llIIj6RJlJjpmIO0z5sgAsgE5Z0Ul7TvZGEELxSW5nX6+7ajymByGz95
-         WRGhIAmuojc3DdV95lTydXnJ684WeAluv1laB8I44tcrILpdr7WiRGgP6r4QBgRf9EAy
-         QT1BsuUc3UkoZTKtG1MNs+kMhrpYyWfuNZfBxLZJNaLg23xcO33qsfa6VxPpfFDljGmP
-         965UolRYVVaUisikmp7G1d5A88mLozIGcHEdKhSd9ek67tYu/lmTwctRHkc5RiLjWdYu
-         9lyU3kWJtMrDRWdA5fUQCMi5P7uIFEyAeEuXG5Q1E+L8sJd4rNUQxFpjQyTUNSpqBish
-         nSqA==
+        bh=BGJkZBnjHSznE6/u2MV2J/YHyTp7Lw1oq9mek2iejl4=;
+        b=gmlTRkXU9z2AqHTzl7flGg6pYUK16Ib5BsvcRYmRZZHgTzBRp2LTg01ny6BNEW9vMI
+         /oUqWAFMxAlbJX48gimkx39RoUeB8mILMYT/QPsq0cua7VoBAHtBMVvvdoh4f4EVi8no
+         TWcME8lfLuldYDaX/kn6lq+NQg86uW+uzt5a9UCeT0ofAe5diFsaQmpr3TQxk7w0/miL
+         luITb9JCjuMQeMVfigyGgHclwapXVQYSRS6Ht58niasd+0b25pAZk/QyBQsePZayMTh6
+         MRG7oYn6+ORTWJ8MZdwGydXpbXJ606vWj/eLItTHyJEwiicPYsDlDQpAEBtlRX3PblQo
+         URIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770796191; x=1771400991;
+        d=1e100.net; s=20230601; t=1770797710; x=1771402510;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lJvCSMhHMkgd1TQ3KoQiUVH//7ztu4XOKSFT1sB6xJg=;
-        b=nagcMuw75yZh+iTV22NODXCQ8FEEr5b2vVtO8XZLccFA5djXpsXCs8/myBCt9jJblY
-         znPfeBB+/u8V1bxkt8Xpi9PneybBeb8Nc7anxu8++UTh8P0LSpDp4Z87/PyGxTuauUjS
-         ZX4QL9MEPfLRpF3oyrssCd86oMOIXcftJEJOlbEKuX30VDTWhBYsHlftT5eEvkW8rIzy
-         5Ig6L8Nw4kiyMU4d3QeHckzFYIT+AWMJBcYKSyZoJYw3Fd1x0NIlh6CxU+zgJQmM+2x9
-         pS8KmTAm2jTSMq5gUnf37CEjkcxm8mm5W+LNJKneWG317RGDrGvK5//5ogSJT27WWbCQ
-         Vehw==
-X-Forwarded-Encrypted: i=1; AJvYcCVSWOAmPvmXh4SwSX0fMX9uMZgfYX6BrK83DdUtjKyzymGdohV0kG2u+xNuYV6P3tFd701AslRlgnc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1k+mWL4EBS5uSFDB/dy0BxHTmc2Bdwft4a8FqPI72QszJKhPy
-	pFZQLK7BOIcbMCyPUsbxS9SQwYSccQsSGT+B1XS1iJxdwK90lEDXzkfS0YiGzkYTYQ==
-X-Gm-Gg: AZuq6aIUet/tNibyxlE0wEpAZ06f6N/uqY9UyB4tpJFZr8fvXJQOjK5dW8zCq5EIs7/
-	Pc6UHPlAupnKVrPZok4/+8bOzzpJVLyvJU/Q68FiQ/Xw394VpaY7Zf5NZDQapy9Pztpm0FU1yai
-	REqpVTZYp9AOnjCYQAoO9BisEvU7mcKcqV1mmV0Na9uPz4HDocK6+VhYiHCdQHuWJXyD4tEW1ws
-	65BaSEvI1OzyoHKlsn244OTcOFgfJbTyyAmRCraxqXSJmKsvZmGuLAfa1yrL70yx5IiXmxSs+gr
-	doXI+ivaXjYx72QrgZUvgLO/A5fyhUxj47wcoSjmt7toUm2H0g1Hk48ag/8ZVlQJCe8jts10V5Z
-	yoH2BYfdsz9xADdlB+kt5be38xS4TtShGQ4Z9aAhm8qXJLbLKGt+eKvGL2fkd6sI/pzFyF4I81+
-	eprLGhNDP5yEq4psgFOQNoLzhqf8Pa67AzIDbaDqLhk06a8bX3qOZpt3rb9T6PzWydtNJ23R+7z
-	p7IYWhu3zmzSlE=
-X-Received: by 2002:a05:600c:34c5:b0:47d:885d:d2ff with SMTP id 5b1f17b1804b1-4835b96ecf7mr20333155e9.29.1770796191414;
-        Tue, 10 Feb 2026 23:49:51 -0800 (PST)
-Message-ID: <a660d245-0c63-409c-8609-ba767fff9e65@suse.com>
-Date: Wed, 11 Feb 2026 08:49:49 +0100
+        bh=BGJkZBnjHSznE6/u2MV2J/YHyTp7Lw1oq9mek2iejl4=;
+        b=KHxt8o0FXO+Ki7RW0kFAjYeWqewS95uF6M+HbLw6KwOKdIkRrEWbPOMr9+437GZmS5
+         7gU0/DzV/ZHBu+HWEkajW7hljP8lGXeCPI9cnBLoFhQBpq7I4Mncq9dtWaNzsum20fKx
+         OvhIh4KUtaDmXeZgEmGEBkMiAOyIkYkztOZ9VoM2rMKJ7ALifOt+Yjzh9KSwBLCg9M7K
+         an5zo7R0j+Gc82ghD8ck1I23W1zPLQauIcueQxQ75r3qJvOVhzZ2LenmCr3+Gc2mQVBy
+         SqzlQHuixkqbJ8l8CtvAio7Bn/A9zxuOa1TqxLM7Xs2h3bqXvdLCuC4XeeBzwWWLkFNs
+         UdGw==
+X-Forwarded-Encrypted: i=1; AJvYcCXAATv82eOcLugd79jS0zlkW+y5PiM9Nk4ZaUvgbcDLFNiGx2a77nP9rtwDsr4GhIGg2oQnPdr97wc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQZFAWg+d+40dhlO4MgBAP/UGgfdgJ9nMEA+XtqYlYa01VcMd4
+	tQIs+TM5wJElRGnB0bBg2ULBHGaa+eJQjsuxFxzIVwuHFa70Y/L3oUnifplt6iOj8A==
+X-Gm-Gg: AZuq6aL/U1+xSn15LbC5xKvRFZ3RcPTwVIFdyFXs+7K8hdC7H4KcAa89r1T/3gZacX8
+	amgef9QcjtX0/gcvBGMpj5cDMA1taOM6+L+zxttCGH8+5sIgTveUAeRxuVfyELJa0RdGzL8vUbM
+	lVspZ5HRrrMYpmOOTcxqksC5MpIfNKrllfFMoOyakZmUaGu7qELL0RlYMJiyYJWE7mXXQRq8vmu
+	sOMUvGodSWXBQCJLfP16SyeF+HQEybZUUTw6wcV6YhQLQwBKD47ZGn+qOs829WlTW79wtZm5Fkb
+	k5jd8/VsqjPZLrYxlEIrnc1V92VKYzaIdS3K0dfkvS23OMNFzcFKJeftaV5kjzBrGPvZOrHTPTQ
+	QTFKoQd2I0oz7f4F12ospOYe5YWN6wdhO+i8M+tX8ReDCSb5/GhRK0JGh7r1nFLcfK2O4G+AEhm
+	EcClGvynkw6UJ67NuzgYrlYn2xTPzTbZ9BkLwfELBzs3BRgzzeIL8hTB9N5YSFkWIXX2YTfo00i
+	ZAq3E6OV+TEAfQ=
+X-Received: by 2002:a05:600c:8b42:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-4835053c2a7mr71203175e9.11.1770797709569;
+        Wed, 11 Feb 2026 00:15:09 -0800 (PST)
+Message-ID: <e3329e87-76a5-474c-9415-7ab78c3a7ba6@suse.com>
+Date: Wed, 11 Feb 2026 09:15:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/16] xen/riscv: detect and store supported hypervisor
- CSR bits at boot
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
- <cfb2bd81ca9c43f29f5d77a918e1da7a8c55318e.1770650552.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 07/22] x86/traps: Alter switch_stack_and_jump() for
+ FRED mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20251003225334.2123667-1-andrew.cooper3@citrix.com>
+ <20251003225334.2123667-8-andrew.cooper3@citrix.com>
+ <e314d193-79f2-4d77-a2ed-1590375b4b96@suse.com>
+ <6786174e-e00e-46fd-8b82-7eb823ad96a8@citrix.com>
+ <82adaa8a-b7d9-40fa-b59b-0851776fb59b@suse.com>
+ <6a675aa8-ad41-4b09-b38e-562c5866149f@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,30 +129,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cfb2bd81ca9c43f29f5d77a918e1da7a8c55318e.1770650552.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6a675aa8-ad41-4b09-b38e-562c5866149f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	TO_DN_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -162,112 +158,85 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C7D9D121F1C
+X-Rspamd-Queue-Id: 8A5A0122229
 X-Rspamd-Action: no action
 
-On 09.02.2026 17:52, Oleksii Kurochko wrote:
-> Some hypervisor CSRs expose optional functionality and may not implement
-> all architectural bits. Writing unsupported bits can either be ignored
-> or raise an exception depending on the platform.
+On 10.02.2026 17:21, Andrew Cooper wrote:
+> On 10/02/2026 11:55 am, Jan Beulich wrote:
+>> On 10.02.2026 12:15, Andrew Cooper wrote:
+>>> On 07/10/2025 4:58 pm, Jan Beulich wrote:
+>>>> On 04.10.2025 00:53, Andrew Cooper wrote:
+>>>>> FRED and IDT differ by a Supervisor Token on the base of the shstk.  This
+>>>>> means that switch_stack_and_jump() needs to discard one extra word when FRED
+>>>>> is active.
+>>>>>
+>>>>> Fix a typo in the parameter name, which should be shstk_base.
+>>>>>
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>
+>>>>> Leave as $%c.  Otherwise it doesn't assemble correctly presented with $$24568
+>>>>> to parse as an instruction immediate.
+>>>> I don't follow. Where would the 2nd $ come from if you write ...
+>>>>
+>>>>> --- a/xen/arch/x86/include/asm/current.h
+>>>>> +++ b/xen/arch/x86/include/asm/current.h
+>>>>> @@ -154,7 +154,9 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+>>>>>      "rdsspd %[ssp];"                                            \
+>>>>>      "cmp $1, %[ssp];"                                           \
+>>>>>      "je .L_shstk_done.%=;" /* CET not active?  Skip. */         \
+>>>>> -    "mov $%c[skstk_base], %[val];"                              \
+>>>>> +    ALTERNATIVE("mov $%c[shstk_base], %[val];",                 \
+>>>>> +                "mov $%c[shstk_base] + 8, %[val];",             \
+>>>>> +                X86_FEATURE_XEN_FRED)                           \
+>>>>     ALTERNATIVE("mov %[shstk_base], %[val];",                   \
+>>>>                 "mov %[shstk_base] + 8, %[val];",               \
+>>>>                 X86_FEATURE_XEN_FRED)                           \
+>>> I find this feedback completely uncharacteristic.  You always goes out
+>>> of your way to hide % inside macros to prohibit non-register operands.
+>>>
+>>> This is exactly the same, except to force an immediate operand, so the
+>>> length of the two instructions is the same.
+>> Thinking about it more, are you perhaps referring to assembler macros?
+>> There indeed I prefer to have the % inside the macros; the same may go
+>> for $ there, but I don't think we had the need so far. For inline
+>> assembly the situation is different: The compiler emits the % (and also
+>> the $), unless special modifiers are used. It wouldn't even occur to me
+>> to ask that we use %%%V[val] for a register operand. That really is the
+>> register equivalent of the $%c[val] that you use above.
 > 
-> Detect the set of writable bits for selected hypervisor CSRs at boot and
-> store the resulting masks for later use. This allows safely programming
-> these CSRs during vCPU context switching and avoids relying on hardcoded
-> architectural assumptions.
-> 
-> Note that csr_set() is used instead of csr_write() to write all ones to
-> the mask, as the CSRRS instruction, according to the RISC-V specification,
-> sets only those bits that are writable:
->     Any bit that is high in rs1 will cause the corresponding bit to be set
->     in the CSR, if that CSR bit is writable.
-> In contrast, the CSRRW instruction does not take CSR bit writability into
-> account, which could lead to unintended side effects when writing all ones
-> to a CSR.
+> We can't use %V anyway because it's not available in our toolchain baseline.
 
-Hmm, I wonder in how far the wording there is precise. In a subsequent
-paragraph there is:
+Sure, I used this to get my point across. Technically we could macro-ize
+this to use plain % on older gcc and %%%V on ones recognizing the
+modifier.
 
-"For both CSRRS and CSRRC, if rs1=x0, then the instruction will not write
- to the CSR at all, and so shall not cause any of the side effects that
- might otherwise occur on a CSR write, nor raise illegal-instruction
- exceptions on accesses to read-only CSRs."
+> But, bottom line.  How insistent are you going to be here, because this
+> is the only thing holding up committing 6 patches.
 
-To me, a read-only CSR is a CSR with all bits read-only. With this
-interpretation, the two statements conflict with one another. Is this
-interpretation ruled out somewhere?
-
-> Masks are calculated at the moment only for hdeleg, henvcfg, hideleg,
-
-Nit: First one is hedeleg.
-
-> hstateen0 registers as only them are going to be used in the follow up
-> patch.
-> 
-> If the Smstateen extension is not implemented, hstateen0 cannot be read
-> because the register is considered non-existent. Instructions that attempt
-> to access a CSR that is not implemented or not visible in the current mode
-> are reserved and will raise an illegal-instruction exception.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V3:
->  - New patch.
-> 
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -32,6 +32,8 @@
->  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
->      __aligned(STACK_SIZE);
->  
-> +struct csr_masks __ro_after_init csr_masks;
-
-setup.c would be nice to only have __init functions and __initdata data.
-Really up to now that's the case, and I wonder why the makefile doesn't
-leverage this by using setup.init.o in place of setup.o. This variable
-would likely better live elsewhere anyway, imo: Somewhere it's actually
-(going to be) used.
-
-> @@ -70,6 +72,28 @@ static void * __init relocate_fdt(paddr_t dtb_paddr, size_t dtb_size)
->      return fdt;
->  }
->  
-> +void __init init_csr_masks(void)
-> +{
-> +    register_t old;
-> +
-> +#define X(csr, field) \
-> +        old = csr_read(CSR_##csr); \
-> +        csr_set(CSR_##csr, ULONG_MAX); \
-> +        csr_masks.field = csr_read(CSR_##csr); \
-> +        csr_write(CSR_##csr, old)
-
-See my remark on the earlier patch regarding locally used macros. You
-shouldn't ...
-
-> +    X(HEDELEG, hedeleg);
-> +    X(HENVCFG, henvcfg);
-> +    X(HIDELEG, hideleg);
-> +
-> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
-> +    {
-> +        X(HSTATEEN0, hstateen0);
-> +    }
-
-... be required to put braces here. (Then I'd further recommend to make "old"
-local to the macro's scope.)
-
-I'm also inclined to recommend to avoid an inflation of X() macros. Give
-each such macro a somewhat sensible (yet still short) name. This way you'll
-avoid Misra rule 5.4 ("Macro identifiers shall be distinct") concerns, in
-combination with rule 20.5 ("#undef should not be used"). Note that we
-didn't accept the latter rule, hence why I'm only saying "concerns", not
-"violations".
+The construct you use is technically correct, so it feels odd for me to
+block this (hence the R-b I gave). Otoh I have to return the question: How
+insistent are you on using a more complicated construct when a simpler one
+will do (and will be correct as long as we get the constraint right)?
 
 Jan
+
+PS: As to the constraint, I wonder if it wouldn't better be "e". The
+value used is small enough right now, but if whatever change led to it
+becoming huge (e.g. an address instead of a size, as "shstk_base" may be
+taken to imply), this would still assemble (to what - oddly - AT&T syntax
+calls MOVABS). Yet we may want to be aware of such an encoding change.
+Having said this, while things ought to assemble okay in that case, I'm
+not as certain as to this also compiling successfully, due to our request
+for PIC code. Yet that then ought to be the case regardless of "i" or "e",
+and might then only work correctly with the new %cc modifier (which
+obviously we can't use unconditionally anyway).
 
