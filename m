@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IBmyChmpjGkusAAAu9opvQ
+	id SYYXMzarjGl/sAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:06:49 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:15:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88934125F24
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:06:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227903.1534299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22425126053
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:15:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227917.1534309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqCjd-0006YN-7k; Wed, 11 Feb 2026 16:06:37 +0000
+	id 1vqCsE-0000nK-1h; Wed, 11 Feb 2026 16:15:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227903.1534299; Wed, 11 Feb 2026 16:06:37 +0000
+Received: by outflank-mailman (output) from mailman id 1227917.1534309; Wed, 11 Feb 2026 16:15:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqCjd-0006VK-4s; Wed, 11 Feb 2026 16:06:37 +0000
-Received: by outflank-mailman (input) for mailman id 1227903;
- Wed, 11 Feb 2026 16:06:35 +0000
+	id 1vqCsD-0000kb-UW; Wed, 11 Feb 2026 16:15:29 +0000
+Received: by outflank-mailman (input) for mailman id 1227917;
+ Wed, 11 Feb 2026 16:15:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqCjb-0006VB-Iq
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 16:06:35 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vqCsC-0000kV-Qy
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 16:15:28 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a26bc90b-0763-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 17:06:33 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-48039fdc8aeso14221875e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 08:06:33 -0800 (PST)
+ id e03468a7-0764-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 17:15:26 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4806e0f6b69so54306535e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 08:15:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43783d30db4sm4993729f8f.4.2026.02.11.08.06.32
+ 5b1f17b1804b1-4835ba1670fsm35919105e9.4.2026.02.11.08.15.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 08:06:32 -0800 (PST)
+ Wed, 11 Feb 2026 08:15:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a26bc90b-0763-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: e03468a7-0764-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770825993; x=1771430793; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770826526; x=1771431326; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EzMd84pXabHt4f5/MHN6T1tOM//izFtZ6iLR8lHidKs=;
-        b=SkNZ5WUJzSvG5DadeIzS4waIRyyJLiIRNcpnthz8RlTJOAhTogZrzshV9HHvuGFdGZ
-         DziY4pq2FOkZKxZMGCfZQ9Aivx6vgJU2KVFEImKnlL3+5whqZzrABrkvtdK7te/Hm85A
-         oPx7dinPJUJulptsYBTaWaUoTOKZzeaYm+Tt6DGlCfnDloH8ODHMwm7AjUHpG8tPKMoh
-         tOSSt4mrElBVe0k6/DbY6LNoE0HmvKHjiLlitQG/EeT1D1fSGUC4GpvymcXWePEwlFjk
-         QgfNKotNmPZyujZoZf7FZxf/JXXnnMLdSTitfk1fqPiK1MqQ4v96gJFe1PTIBSSwrwXc
-         0Ltw==
+        bh=mmb6FomwfN6gR6OPWswkwtS0FRF5fuWcj/337qYmjlc=;
+        b=eq13CGGh5NxHNpo9ktOEh/xjaOovBduiflCI2J138KjmsfEucTk7YhqdMDtSpVMYva
+         XaMf2+HQ8qZn2QKdOc1sA5NhfH0vZAh5WNio2gsuTb0dkp1ikGHGnwKNeQRAidJd56WO
+         P1IZLLjpBIYQT3z6a+/Rr7PlzorjovR8pMEJKiIeJRjCAO3w1ATl+Mb5qZ9PYh4QzxTW
+         EsEEUBvYuP3I1JWyxSMxGBP4of8vXhc5Y9+4X9X8K2AxXbNP6lrvRPq7LmDUjSk93oXt
+         /6N9B7aJBYvS+lJmi1ISRW4Kmq5db3UFm+M5MGMc25dlg9HvSd1bIIgdyMw5hyeq5Fk4
+         bojg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770825993; x=1771430793;
+        d=1e100.net; s=20230601; t=1770826526; x=1771431326;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EzMd84pXabHt4f5/MHN6T1tOM//izFtZ6iLR8lHidKs=;
-        b=lYfOiICJ5qGHz4X6g1qoKVYVV7qzOnOHCRWLiThFH9K2IpGQndeBT67IrSWDJgW24s
-         DX5fOZw+3ald0mBn/CN6UxRCSBMCEXk5BcKgNHpNEfLJqgs8zK2dEyIKJatuUJPlmPCW
-         OjnpKvwN5eOOOL9mqNX2oHc796Hwu8Rrmt/IPXyf4VIgWObHyFlkDXFKT97+8TzV5WM0
-         TOvX/bcdg5T3prhpbNYXpx8QvdfYqgNWzQIgLVaovitrkTrsKVpufcmzLD5h3twuCM3Z
-         O+ZvfZvGMWYs2yFSU0rIEl4GwhRkNDCzjR3q9VfeQPY/0I08qBOOQIlt9kdeNb8YxguQ
-         xWDw==
-X-Forwarded-Encrypted: i=1; AJvYcCWM4ogsIFDcsDu76yk1c7oL53S87E0GvWbcWbgUdo+n+4zFW2b0FRu+N5VTu1r5e4ba8IFpukAI+Ms=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwshR98XqASqSIPGcxXdVcnNNCyPyDdhi+CZAdEMC6eDxBHUCxX
-	8A4fksNYbrl+GqvAUH61LBCJwAgLGF+l65uC6cCqm2xXU3Jejgr421Vdw8vamaP3Gg==
-X-Gm-Gg: AZuq6aIDs/4HTmNEZXP/DEcbVfDu1ZGWFF9+hD7hASJE/5Ug7s8IVXhqRs51SOxbDiD
-	jQjdE5BnUs6IR70uNgs8uc/AM36aUk9RLuWGYV9Iwc2bxDtXe8TkFUahZBGnfy8wLQzN/oBApjK
-	siSkThGyfC7kcvGQy06D1M9RanhnIJcutBvE24HUCr9bzjFkrHlfBiLELCt6S5JDhuQee+k4lL1
-	hpb1DS2veSLjy1hRaxcOD0+xNXHpgvmZ2lsL3qOgmH4QQakEm1kr01HxxhIOSUiinCaZ6l07+ky
-	cqVXGUGamrxOY8F/Xv0SuE91j4gDJVZ8bNSBStoyB1CvqtRJmpw/bSqRFtb8Wf13NHeVqcubWO0
-	SkYwz1+evEc4iPiLAXIYKizB9O6NCNP43+wMZPNdA9eePcrw9mgA0MCP8PjVm5sCSSA9/MJXGy1
-	lw3ndQKC5lNrIdmDmi5/T+aJeqLcXuFLHook4hCSkJzsvwYBGAfCjNSN1XiEeDt7QfER1xGlD4+
-	cfhh4b5gkAcdyo=
-X-Received: by 2002:a05:600c:6209:b0:45d:d97c:236c with SMTP id 5b1f17b1804b1-483202160cemr266311075e9.21.1770825992862;
-        Wed, 11 Feb 2026 08:06:32 -0800 (PST)
-Message-ID: <b284e16c-cd99-4595-8fcf-264c378fc57d@suse.com>
-Date: Wed, 11 Feb 2026 17:06:31 +0100
+        bh=mmb6FomwfN6gR6OPWswkwtS0FRF5fuWcj/337qYmjlc=;
+        b=xG5QClxeVbqPy3fXjHiqeO3tEi3eLLl1DeuTqUd/rI2tNnnttE6ipdMWaJbuW8tV6D
+         Be68g4G77LJs2le3K/ygIwpGjENJ6yE4fjcAUv2L7LvHZQI+rxxTK4McNXg1Pn1ryX38
+         e/xd56ciJvXpTGcKOETk29ThiWbxRoqTpRk/RTq2Ohkiot3TcNY/XBF9t0DpfzHZYKcc
+         p6LZtutVtUq4I5drcIDum4loUr2g0md2iOvdCQoeqcZRVgmmICp1vMNa7wxUGMWpi7b9
+         gWmH9Pg8YYAMo2+KM10XrWKo8TzJINE7BQ/xIRYf61mw/3wx9LEGb+IMRosX53x5F6XR
+         5O8w==
+X-Forwarded-Encrypted: i=1; AJvYcCUUlTt30I9jSW2krjVGZp0dA90jPdgYx4Tyh7JeElnCdIx7v+SA/zewk99L7dbQ0rZvbIFwZ3i7Ggs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNznMByLQ9VMGf5Axkp9SPY6X5Z+Bcj5eMmjzicCB7XJCyZHEd
+	0jLVbcb/djNxWuIP82kjnDFaHU6DuvLWWHQ+dPf0N7LdybRrNVEzBiPBg0l1rtkfSQ==
+X-Gm-Gg: AZuq6aIfsLAoi4Q3URsWYgwanbMHpmPhoJun/Vwe+ue67r5qE1GPdggpMQo3UX2oJKz
+	RpYN7ncamUinP9keQ6BAjuBXvh5QkRCwkZD4lir5FdxBiFiOkw+J/0oflT5d6ROL8URkTw2+xXv
+	FsfJwQsi7RgaEZtFMrLo1ye9u2d88w6i/FtDWvoXf4curpo7OK6mXjEhgbzqcSFYmdKV4KI/VkE
+	qFvUn/VZNYWsm6zXCPBOwz4d6wyy5/+SRTyg8gaHtxn/qh2F0giX9hPriSU4RugiRYPwjh2zCEv
+	qrCHVJTTIJLbqoM/6xGGwY2qHakNoS5EZzuJTYW24mZoBw5CLPlULLOEVsCnI832KRdzaPhzIJW
+	F9bBGI7NqLCdho1MjZTX4eE68QQ+B9l4lqrbfjDO21avDno2hKlkeShD77nyGbYbiz60wBacj30
+	frrdRrrhuT/0w6SZVkL5IikT23Mr5gRyr6dJNOvdCQWytoqzprb33x4IWxoQxcAgcHzHV3u9XRv
+	dH5v3sPGOKmRBuxfmrnASqPaw==
+X-Received: by 2002:a05:600c:4fc2:b0:479:3a86:dc1f with SMTP id 5b1f17b1804b1-4835e2cf364mr34705115e9.37.1770826525943;
+        Wed, 11 Feb 2026 08:15:25 -0800 (PST)
+Message-ID: <0a77d849-37b6-4015-815c-a572527313d0@suse.com>
+Date: Wed, 11 Feb 2026 17:15:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] x86: Add more granularity to the vendors in Kconfig
+Subject: Re: [PATCH 04/12] x86: Migrate MSR handler vendor checks to
+ cpu_vendor()
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-3-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-5-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,7 +126,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206161539.209922-3-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260206161539.209922-5-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -159,62 +160,43 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 88934125F24
+X-Rspamd-Queue-Id: 22425126053
 X-Rspamd-Action: no action
 
 On 06.02.2026 17:15, Alejandro Vallejo wrote:
-> --- a/xen/arch/x86/Kconfig.cpu
-> +++ b/xen/arch/x86/Kconfig.cpu
-> @@ -19,4 +19,47 @@ config INTEL
->  	  May be turned off in builds targetting other vendors.  Otherwise,
->  	  must be enabled for Xen to work suitably on Intel platforms.
->  
-> +config HYGON
-> +	bool "Support Hygon CPUs"
-> +	select AMD
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Hygon platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Hygon platforms.
-> +
-> +
-> +config CENTAUR
-> +	bool "Support Centaur CPUs"
-> +	select INTEL
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Centaur platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Centaur platforms.
-> +
-> +config SHANGHAI
-> +	bool "Support Shanghai CPUs"
-> +	select INTEL
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Shanghai platforms.
-> +
-> +	  May be turned off in builds targetting other vendors.  Otherwise,
-> +	  must be enabled for Xen to work suitably on Shanghai platforms.
-> +
-> +config UNKNOWN_CPU_VENDOR
-> +	bool "Support unknown CPU vendors"
-> +	default y
-> +	help
-> +	  This option prevents a panic on boot when the host CPU vendor isn't
-> +	  supported by going into a legacy compatibility mode and not applying
-> +	  any relevant tunings or quirks.
-> +
-> +	  Not selecting this options while selecting multiple vendors doesn't have
-> +	  any major effect on code size, but selecting a single vendor with this
-> +	  option cleared produces a much smaller build.
+> Many handlers are vendor-specific and are currently gated on runtime
+> checks. If we migrate those to cpu_vendor() they will effectively
+> cause the ellision of handling code for CPU vendors not compiled in.
 
-Shouldn't this option's prompt be suppressed when all other vendors were
-selected off? Else the degenerate case can result that I mentioned in
-reply to patch 03.
+This builds upon the still very new "cp->x86_vendor can't be different
+from boot_cpu_data.vendor". This imo wants mentioning, not only for ...
+
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -157,8 +157,8 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>           * The MSR has existed on all Intel parts since before the 64bit days,
+>           * and is implemented by other vendors.
+>           */
+> -        if ( !(cp->x86_vendor & (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR |
+> -                                 X86_VENDOR_SHANGHAI)) )
+> +        if ( !(cpu_vendor() & (X86_VENDOR_INTEL | X86_VENDOR_CENTAUR |
+> +                               X86_VENDOR_SHANGHAI)) )
+
+... this kind of transformation, but even more so ...
+
+> @@ -169,8 +169,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>          break;
+>  
+>      case MSR_IA32_PLATFORM_ID:
+> -        if ( !(cp->x86_vendor & X86_VENDOR_INTEL) ||
+> -             !(boot_cpu_data.x86_vendor & X86_VENDOR_INTEL) )
+> +        if ( !(cpu_vendor() & X86_VENDOR_INTEL) )
+
+... when two checks are folded into a single one.
+
+Yet as mentioned earlier - the UNKNOWN case still will want settling on
+from an abstract perspective. (This isn't because there would be an issue
+here, but to have a clear understanding where we're heading.)
 
 Jan
 
