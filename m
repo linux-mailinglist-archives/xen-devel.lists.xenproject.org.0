@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id NwORE8JBjGm/kAAAu9opvQ
+	id iBwfBYlDjGnYkAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:45:54 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:53:29 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB08A1225C3
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:45:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227088.1533421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 670A01226EB
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:53:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227098.1533432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5qt-0008Gj-P6; Wed, 11 Feb 2026 08:45:39 +0000
+	id 1vq5y5-0001af-F9; Wed, 11 Feb 2026 08:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227088.1533421; Wed, 11 Feb 2026 08:45:39 +0000
+Received: by outflank-mailman (output) from mailman id 1227098.1533432; Wed, 11 Feb 2026 08:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5qt-0008FI-MQ; Wed, 11 Feb 2026 08:45:39 +0000
-Received: by outflank-mailman (input) for mailman id 1227088;
- Wed, 11 Feb 2026 08:45:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vq5y5-0001XZ-C3; Wed, 11 Feb 2026 08:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 1227098;
+ Wed, 11 Feb 2026 08:53:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wIvg=AP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vq5qs-0008FC-QQ
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:45:38 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 08f20b59-0726-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 09:45:36 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-480706554beso53413865e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:45:36 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d482480sm131629455e9.0.2026.02.11.00.45.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 00:45:35 -0800 (PST)
+ <SRS0=wgMA=AP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vq5y4-0001XT-8i
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:53:04 +0000
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [2607:f8b0:4864:20::c2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f5f0630-0727-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 09:52:57 +0100 (CET)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-66e35b48d11so1897479eaf.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:52:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,155 +45,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08f20b59-0726-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0f5f0630-0727-11f1-b162-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1770799976; cv=none;
+        d=google.com; s=arc-20240605;
+        b=U5H+S/0YCDM+FGc/JRiENDVbFQY440jNdaLozF3TcLfrUZnLa2nGzDAMeszVBB1/vb
+         ZkO9T7cEriaz8BCnbovZheDY3GFGjJcOg3mviWbpnnuxtFDYAItJHYRW3ks5uZr67emI
+         CuNNFFsBW7iVQMwyJpq2jecJi7HoUp5d9ihyuoHFjWj0TgtWYwvzRuXbSCgp0EqTebnp
+         mkdhRTGjU8LtVoYhxNVUqguuMcFcCEHsKWzopk0psgac1aDR9XeSnwnGvcHHeVTWfowu
+         egM9Qxz7Ie6S9T4G0+OEZeAkzzi4H8+oLvSluvDZPWLNrSJ6wV4Yae8cCJDIBQJL8hXn
+         g6jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=CT30lNxITqvUMSDWDNTNNL4+SdWqUcwtS4v2dr0K9Gda7X1j+GJ2KXZevaT/GvGmcJ
+         7P9FH8lQn/ZAlcQa8EgfuIhWR4nEQn4UBjoZcrIB9yRwMkrNESDysXdwColC8WbfFM+a
+         kptPZaCStA/NnuJBHr4XlByX16A8450JIoijCjlDf9eMbz4VTSRgnEie2EB0G0Tp4lyy
+         MdhepYex0xDjTqUQRl180XLmg8KvsP4NMmvWCwo6MhwCrA7KaDT5w3OgfSyZrgs4Mo+B
+         gBqK4js2RMATmb6pL0uzrT32Jdsdb+xnRebGkOxthUhBq1+2j/xZR8rW9Q8/2yclpxAK
+         E50g==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770799536; x=1771404336; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jRZ3bJGCiGlj1zLoCw8NzW/TaLoGKdE8ol+Ywwjo9iE=;
-        b=FyzxnGjSmrbn7ch+GT+q0kVbrvLK0ee4Z20cHPMH/n0WaVPu3xAq0UqWlbhlO0UbGo
-         yVLW8VsJUi0ruI4vRnHDUBtY22iGhof0ZR95bVvflxjb6BmYIHzfvst4db/eyr2S4I7k
-         8RGMHxt01DutvofMOzOaLws08EEQNfVYWGQ4HjE8mUVy0gTbu6vPJYvbgHz+INT/EeJp
-         BPDf8JYRIrG1YFMqtFDaeZUCdwa3xdEpRmi8CQwISwsbmt3I/PEgwWZSQZ3p6D5jedDW
-         TNVC7M0SJWYcUTSXJSjhYMM/ULgPxVltdQVw4ouJhAaX/fD4VB29cQb6Uvx2/MDdiMbQ
-         yMSg==
+        d=linaro.org; s=google; t=1770799976; x=1771404776; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
+        b=S1+tEJJGg7pEkTuuia2FoheuLueWoFuzJ0KA93zXyiSKCb5aLa6fsWIeEqq0HatHqB
+         PnFYdn9eLGzNga88EeYzLICzzW4OeQC5uxsto/1Rzl94UwowLZzbTgO0XGgYqhFPP/ze
+         gXRoASFppJA3o1a7cEq/dQuAOLsg+Frjmjot3fLJFkwZu3Bt1BSCA8urfoDRXv5s4BpC
+         xaYo5Pmy1Si9vcSMKf1K64Emrx34yF8kkN8SQXwXH84qXxQPExelkt81ZtMaKeN8HvOz
+         f+q3YNVktt/MQKBi27SMrOMfyXz0nZUiS2NOMVRASmg8xWgcb869XiQZTUeEBMZS4oNr
+         axNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770799536; x=1771404336;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jRZ3bJGCiGlj1zLoCw8NzW/TaLoGKdE8ol+Ywwjo9iE=;
-        b=c5eHiCm6T2G3ZW4KgGuw8gx8M7vyX9X/Mg+S37h3/oxaJEUoz8OCrlrvRPZen8zuhj
-         0pnRkGR3FLeJRYrIUDhKH3i84FR1EMUpQ+M7zC8iVBoQeWzrUuXDJOzUHJG1IjDrU4WI
-         N7CmuUnm5m95BN0nsHB4eIHYzPZlwFJS+D8GcDtOcyawZwqEl4ATgSqMs/ZoFaalRkWi
-         riyEWUPXLY2byXf7wHVMiuv4inBIwp9dlCaVl0stfzDkMvRbm3K9u6euSsoC5owYBk9e
-         b24CZ+xlrHFvEb4afGSHYNx9UVsnYPnEnQxNcV5V7znMM5qD/63mlqc6oslBn2JYlVC0
-         MYIA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxsGK8DYMoyOupitbIiUYSduy2LklXXetXLtzlwuz1T7Lqse0nJTAq/aWUJj+I5VTcIR58+Bvk90s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+SAz72lT2bfgvVMHA/Sye6j8oNbFHLCAl0sGaTlDXIo6m2AmC
-	jgJvGVnEcSAFKPUONXvJC1njTkp8FaX4GKuWkzUHJFZcIchhRM6nMVG9
-X-Gm-Gg: AZuq6aIQ4S6ZszR9oob4eQCayRiG2kiGR0l9RWpSatPZSOETmJbXqJwLmbgeVrADgvO
-	zaVCyRDbbDR6y2yw+kLToYBhkNvM7x/U1xSqgfNJxGEZg0bRBQih/GtmdQBlJ12Q7rTu5FrArFK
-	BnUaB1u6pxHl59dU2HXd+P8qZN8EGgA4xRPf9YqMVzGMg0YiPEfXXwnB2Oc+f2GS9+5ymHxaUAu
-	8n/g/u91zQxUXA+mgLRlOZssif9yCRLj/Mzz7uNrtC8SIG1V4Pt6iK2wc38S3rgECf6d3/AKXFt
-	50QCn2d5RxelEF/EMJijq3ZhnV1nw92en3fW2/SIhXv47PiYsF5mGlmnjK6TVL/dapqAE0+WI1F
-	O0kJiN3BOEuZCWsL2Ib3CvMwhw9BVjs4iQ4OvRcAH9kiNplOPrKbvD1lSW7Z2gts7SMpkLKJhYp
-	haBosNVZkCTwapImGcvs9uF223KIQk3QHx5QLT+26SLUERXQFz9TY7vbtMxWCS/ZGDz+TpQ1lAq
-	naSPogsKzx/RQ==
-X-Received: by 2002:a05:600c:83c4:b0:483:a21:7744 with SMTP id 5b1f17b1804b1-4835b965805mr24659425e9.26.1770799535901;
-        Wed, 11 Feb 2026 00:45:35 -0800 (PST)
-Message-ID: <69653793-d8b4-4ddc-bd7b-4f3c41449789@gmail.com>
-Date: Wed, 11 Feb 2026 09:45:34 +0100
+        d=1e100.net; s=20230601; t=1770799976; x=1771404776;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
+        b=R7JULJ5qB8rftodQHXuAG2tLJ5BS6PAMXsh5F3oI+lG6UELtXqujSRDe1Q4S8p1+Jk
+         IFksv5FCaunl8VKIx6J/C5JTDIUWudyoOoz5bBeawe+HDZFVHTVC2iIkw+MrT8yp0tHo
+         xhgKw0L897u/BLrc4y/SlYK97Ci3DyhxWPBFeqkW00NZ+CfHZGORHwIwHNSq3DP3XpZo
+         a06Alz/siurKRvtL3rKwT9AXNrzcXrN5x4MQmeKGW5AHi6YDrskIqTJEtq4HFhOvPrB+
+         EW6s26en4mZ6razqEzSh1y5ZGULJcpbhLvSLYgYr8sUDczYEnC/w1/PSxKg7a/RCllkL
+         ISpA==
+X-Gm-Message-State: AOJu0YxzpquAi+lMf09AhJwmHQEuJ8zkbwE9U7MX+BeBuO8+VFmP5gqF
+	VZ7287N6UiNb3643cNnoOXGiVH3NScxp4kvMZBn9GIRQkVyvdG1QmF1MHOt+mXhErwQ5DSHBEmC
+	QDkpDcdZTU6GCI30z/ZjJKb6DPwug7G+zyerCuOviYRg6cVFhgicsyr8=
+X-Gm-Gg: AZuq6aKbdElQe7aAKufc3kX+3MxzcbZBx7AMrphxa44Es5uBDWmINcyTRaDxHxKGJg+
+	vdNfZvztbC/rsxFilwYpeMX7J/BYAFXrbI5w5S5ckuLI2r7YLqgPr1O4EvIIbpn/zGXut0uALJB
+	2risbtqxwPRSn7vXOCTzbUsQBd1Y5xzlRSTgLrepUZst93eKLyJvBBOWi/Hxg7durp6vPLQD5dA
+	7k62oFvYUW2l5LVfRcreaIJ7iDec3RsezEJIzxLahZrjxAaSKJv919klsZCdjkaSfcwKceGbv7s
+	jIEsuPoYX2eituEM/CiK7+cBmGph2qq7O7GHwg==
+X-Received: by 2002:a05:6820:4a0c:b0:662:fb70:bcbf with SMTP id
+ 006d021491bc7-6743aa09771mr658547eaf.15.1770799975961; Wed, 11 Feb 2026
+ 00:52:55 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/16] xen/riscv: avoid reading hstateen0 when
- Smstateen is not implemented
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
- <d26b9103def3ff86524e1306c63cd84e217c8f11.1770650552.git.oleksii.kurochko@gmail.com>
- <e115459b-8f4b-4211-8259-7807765d8fec@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <e115459b-8f4b-4211-8259-7807765d8fec@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1770115301.git.bertrand.marquis@arm.com> <38d71ac53abeeb4598d6ffb6bdab3717b3531334.1770115302.git.bertrand.marquis@arm.com>
+In-Reply-To: <38d71ac53abeeb4598d6ffb6bdab3717b3531334.1770115302.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 11 Feb 2026 09:52:43 +0100
+X-Gm-Features: AZwV_QiV4UmolsCRVma8gWNLgXZVjFGpG9XEnApvRoRtziub7bzhTn62EHVYBJo
+Message-ID: <CAHUa44FR9FGnDd31d6wK_PiV=+JHKTsOWf=EgG2WOkH-x6ZVMw@mail.gmail.com>
+Subject: Re: [PATCH 10/12] xen/arm: ffa: Reduce logging noise
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid,linaro.org:email,linaro.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EB08A1225C3
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 670A01226EB
 X-Rspamd-Action: no action
 
+Hi Bertrand,
 
-On 2/11/26 8:22 AM, Jan Beulich wrote:
-> On 09.02.2026 17:52, Oleksii Kurochko wrote:
->> If the Smstateen extension is not implemented, the hstateen0 CSR is
->> considered non-existent. Any attempt to access it will raise an
->> illegal-instruction exception.
->>
->> Guard the hstateen0 dump with a runtime check for Smstateen support to
->> avoid triggering traps when dumping CSRs on systems that do not
->> implement this extension.
->>
->> Fixes: 3babc8d2e546 ("xen/riscv: dump GPRs and CSRs on unexpected traps")
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Several FF-A paths log warnings for expected or recoverable conditions,
+> leading to noisy logs during normal operation.
+>
+> Reduce log noise by:
+> - demoting unhandled FID warnings to debug
+> - ratelimiting notification and VM teardown failures
+> - printing the bit-15 convention warning once per boot
+> - adjusting log prefixes for hypervisor-only events
+> - adding debug diagnostics for RX/TX acquire failures, with busy cases
+>   ratelimited
+>
+> No functional changes.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/tee/ffa.c          | 11 ++++++-----
+>  xen/arch/arm/tee/ffa_notif.c    | 11 ++++++-----
+>  xen/arch/arm/tee/ffa_partinfo.c | 15 ++++++++-------
+>  xen/arch/arm/tee/ffa_rxtx.c     | 21 +++++++++++++++++++--
+>  4 files changed, 39 insertions(+), 19 deletions(-)
 
-Thanks.
+Looks good:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+Cheers,
+Jens
 
 >
-> It is, aiui, independent of patch 1 and hence can go in right away.
-
-Yes, it is independent.
-
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index a46c6e5e67f1..d0b9c9f1ab2e 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -461,7 +461,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>          break;
 >
->> @@ -144,7 +145,12 @@ static void dump_csrs(const char *ctx)
->>         (v & HSTATUS_SPV)  ? " SPV"  : "",
->>         (v & HSTATUS_GVA)  ? " GVA"  : "");
->>       X(hgatp, CSR_HGATP, "\n");
->> -    X(hstateen0, CSR_HSTATEEN0, "\n");
->> +
->> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
->> +    {
->> +        X(hstateen0, CSR_HSTATEEN0, "\n");
->> +    }
-> I was going to ask for the braces to be dropped, but I notice they are
-> required as long as X() isn't properly adjusted. This is why even for
-> local use macros we should take a little more care when introducing
-> them, so they can be used without having to pay too close attention to
-> their actual implementation.
-
-It would be better to have do {...} while(0) in the definition of X macros.
-
-I will add do {...} while(0) to one of the next patches where I have the same
-case.
-
-I don't mind to update X() in dump_csrs() in the next patch version to:
-#define X(name, csr, fmt, ...) do { \
-     v = csr_read(csr); \
-     printk("%-10s: %016lx" fmt, #name, v, ##__VA_ARGS__); \
-while(0)
-
-~ Oleksii
-
+>      default:
+> -        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> +        gdprintk(XENLOG_DEBUG, "ffa: unhandled fid 0x%x\n", fid);
+>          e =3D FFA_RET_NOT_SUPPORTED;
+>          break;
+>      }
+> @@ -581,7 +581,8 @@ static void ffa_domain_teardown_continue(struct ffa_c=
+tx *ctx, bool first_time)
+>
+>      if ( retry )
+>      {
+> -        printk(XENLOG_G_INFO "%pd: ffa: Remaining cleanup, retrying\n", =
+ctx->teardown_d);
+> +        printk(XENLOG_G_DEBUG "%pd: ffa: Remaining cleanup, retrying\n",
+> +               ctx->teardown_d);
+>
+>          ctx->teardown_expire =3D NOW() + FFA_CTX_TEARDOWN_DELAY;
+>
+> @@ -622,7 +623,7 @@ static void ffa_teardown_timer_callback(void *arg)
+>      if ( ctx )
+>          ffa_domain_teardown_continue(ctx, false /* !first_time */);
+>      else
+> -        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
+> +        printk(XENLOG_ERR "%s: teardown list is empty\n", __func__);
+>  }
+>
+>  /* This function is supposed to undo what ffa_domain_init() has done */
+> @@ -684,7 +685,7 @@ static bool ffa_probe_fw(void)
+>
+>      if ( !ffa_get_version(&vers) )
+>      {
+> -        gprintk(XENLOG_ERR, "Cannot retrieve the FFA version\n");
+> +        printk(XENLOG_ERR "ffa: Cannot retrieve the FFA version\n");
+>          goto err_no_fw;
+>      }
+>
+> @@ -724,7 +725,7 @@ static bool ffa_probe_fw(void)
+>              set_bit(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id),
+>                      ffa_fw_abi_supported);
+>          else
+> -            printk(XENLOG_INFO "ARM FF-A Firmware does not support %s\n"=
+,
+> +            printk(XENLOG_WARNING "ARM FF-A Firmware does not support %s=
+\n",
+>                     ffa_fw_abi_needed[i].name);
+>      }
+>
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index 37b05747cd21..186e72641237 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -292,8 +292,9 @@ static void notif_vm_pend_intr(uint16_t vm_id)
+>              break;
+>          }
+>      }
+> -    if ( !v )
+> -        printk(XENLOG_ERR "ffa: can't inject NPI, all vCPUs offline\n");
+> +    if ( !v && printk_ratelimit() )
+> +        printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs off=
+line\n",
+> +               d);
+>
+>  out_unlock:
+>      rcu_unlock_domain(d);
+> @@ -316,9 +317,9 @@ static void notif_sri_action(void *unused)
+>          res =3D ffa_get_ret_code(&resp);
+>          if ( res )
+>          {
+> -            if ( res !=3D FFA_RET_NO_DATA )
+> -                printk(XENLOG_ERR "ffa: notification info get failed: er=
+ror %d\n",
+> -                       res);
+> +            if ( res !=3D FFA_RET_NO_DATA && printk_ratelimit() )
+> +                printk(XENLOG_WARNING
+> +                       "ffa: notification info get failed: error %d\n", =
+res);
+>              return;
+>          }
+>
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index 6b01c4abe915..c9f186b3720c 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -461,9 +461,11 @@ static bool init_subscribers(void *buf, uint16_t cou=
+nt, uint32_t fpi_size)
+>           */
+>          if ( !FFA_ID_IS_SECURE(fpi->id) )
+>          {
+> -            printk(XENLOG_ERR "ffa: Firmware is not using bit 15 convent=
+ion for IDs !!\n"
+> -                              "ffa: Secure partition with id 0x%04x cann=
+ot be used\n",
+> -                              fpi->id);
+> +            printk_once(XENLOG_ERR
+> +                        "ffa: Firmware is not using bit 15 convention fo=
+r IDs !!\n");
+> +            printk(XENLOG_ERR
+> +                   "ffa: Secure partition with id 0x%04x cannot be used\=
+n",
+> +                   fpi->id);
+>          }
+>          else
+>          {
+> @@ -632,11 +634,10 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
+>          res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], ffa_get_v=
+m_id(d),
+>                                       FFA_MSG_SEND_VM_DESTROYED);
+>
+> -        if ( res )
+> -        {
+> -            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction of=
+ vm_id %u to %u: res %d\n",
+> +        if ( res && printk_ratelimit() )
+> +            printk(XENLOG_WARNING
+> +                   "%pd: ffa: Failed to report destruction of vm_id %u t=
+o %u: res %d\n",
+>                     d, ffa_get_vm_id(d), subscr_vm_destroyed[n], res);
+> -        }
+>
+>          /*
+>           * For these two error codes the hypervisor is expected to resen=
+d
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index 450ce102cbdc..3147aba21ddf 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -4,6 +4,7 @@
+>   */
+>
+>  #include <xen/const.h>
+> +#include <xen/lib.h>
+>  #include <xen/domain_page.h>
+>  #include <xen/mm.h>
+>  #include <xen/sizes.h>
+> @@ -82,8 +83,9 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx=
+_addr,
+>
+>      if ( page_count > FFA_MAX_RXTX_PAGE_COUNT || !page_count )
+>      {
+> -        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (lim=
+it %u)\n",
+> -               page_count, FFA_MAX_RXTX_PAGE_COUNT);
+> +        gdprintk(XENLOG_DEBUG,
+> +                 "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n"=
+,
+> +                 page_count, FFA_MAX_RXTX_PAGE_COUNT);
+>          return FFA_RET_INVALID_PARAMETERS;
+>      }
+>
+> @@ -303,12 +305,15 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **=
+buf, size_t *buf_size)
+>      if ( !ctx->page_count )
+>      {
+>          ret =3D FFA_RET_DENIED;
+> +        gdprintk(XENLOG_DEBUG, "ffa: RX acquire denied, no RX/TX mapped\=
+n");
+>          goto out;
+>      }
+>
+>      if ( !ctx->rx_is_free )
+>      {
+>          ret =3D FFA_RET_BUSY;
+> +        if ( printk_ratelimit() )
+> +            gdprintk(XENLOG_DEBUG, "ffa: RX acquire busy\n");
+>          goto out;
+>      }
+>
+> @@ -316,7 +321,10 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **b=
+uf, size_t *buf_size)
+>      {
+>          ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ctx->ffa_id, 0, 0, 0);
+>          if ( ret !=3D FFA_RET_OK )
+> +        {
+> +            gdprintk(XENLOG_DEBUG, "ffa: RX acquire failed: %d\n", ret);
+>              goto out;
+> +        }
+>      }
+>      ctx->rx_is_free =3D false;
+>      *buf =3D ctx->rx;
+> @@ -355,13 +363,22 @@ int32_t ffa_tx_acquire(struct ffa_ctx *ctx, const v=
+oid **buf, size_t *buf_size)
+>      int32_t ret =3D FFA_RET_DENIED;
+>
+>      if ( !spin_trylock(&ctx->tx_lock) )
+> +    {
+> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire busy\n");
+>          return FFA_RET_BUSY;
+> +    }
+>
+>      if ( !ctx->page_count )
+> +    {
+> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, no RX/TX mapped\=
+n");
+>          goto err_unlock;
+> +    }
+>
+>      if ( !ctx->tx )
+> +    {
+> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, TX buffer missin=
+g\n");
+>          goto err_unlock;
+> +    }
+>
+>      *buf =3D ctx->tx;
+>      *buf_size =3D ctx->page_count * FFA_PAGE_SIZE;
+> --
+> 2.50.1 (Apple Git-155)
+>
 
