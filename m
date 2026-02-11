@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gDhICWUujGl8iwAAu9opvQ
+	id SMFEKk0yjGkAjAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:23:17 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:39:57 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9A3121D9D
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:23:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226993.1533331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E16F121EAB
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:39:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227003.1533342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq4Yy-00022K-Bz; Wed, 11 Feb 2026 07:23:04 +0000
+	id 1vq4ou-0003qv-Lz; Wed, 11 Feb 2026 07:39:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226993.1533331; Wed, 11 Feb 2026 07:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 1227003.1533342; Wed, 11 Feb 2026 07:39:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq4Yy-0001zd-9G; Wed, 11 Feb 2026 07:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 1226993;
- Wed, 11 Feb 2026 07:23:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vq4Yw-0001zX-Ft
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 07:23:02 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f26a9f7-071a-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 08:23:01 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4834826e555so26235435e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 23:23:01 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d82a4c4sm201525115e9.10.2026.02.10.23.22.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Feb 2026 23:23:00 -0800 (PST)
+	id 1vq4ou-0003pB-J5; Wed, 11 Feb 2026 07:39:32 +0000
+Received: by outflank-mailman (input) for mailman id 1227003;
+ Wed, 11 Feb 2026 07:39:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wgMA=AP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vq4ot-0003p5-I4
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 07:39:31 +0000
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [2001:4860:4864:20::34])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca078ed7-071c-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 08:39:26 +0100 (CET)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-409470ad5bbso1905260fac.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 23:39:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,159 +45,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f26a9f7-071a-11f1-b162-2bf370ae4941
+X-Inumbo-ID: ca078ed7-071c-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1770795565; cv=none;
+        d=google.com; s=arc-20240605;
+        b=k9oFJOJoMBPglYv+4KoKVActD2cegbVonONPDbdz6vibdWxNG6b1lLoZ92bIT1T7D+
+         pAdNaxSYvcFLZccOT46L+F8VWEBn0MNI0REaFuRzT1S3yo7Vy24NwCVTdxL+BZb1IlDS
+         rYwzYDNZ1qK/6G/TfUYqMOXSLT5y+kDYH8/IGMbxL7vv2Uf4WxpCxi707GN3NSGNvnnp
+         LiWnz6y+xuiCUOdeWldHrlH8KJ/mIR7AwOyZe6SpKnFsNiCmGdBdzj/BZIrG9VEoYzCD
+         a0GqhbWdRg5Noxo0/DkoWP2QLYLj2w3epYmRO7Ofh+4Z+W19dNJ+ROK4UWadVoQrTMjM
+         ftNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hAOqMCJadlogczB7gZP3FZlkdp68ySmqKKAKzRWZ3Cc=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=YBbgRt7eBuHNstkVihPyQVPQKiexGSUyxbH09fqcJ7vcroOown3TOVTqo45YCGc63i
+         0QfBls2xqCopOWPOlJp35DfB8rWrday2gYUKZQdrtpVoRjcPK+VMw8QXvlEvmZpccrK1
+         y9Nqgd9Q+HPEW/c9g1MTi1mtstsZSTX8sp3iE3D4YBPfKRu8WJhMuF0BZDvxhDYi9Y/V
+         g0GAh1QwQtxT5k+d5OxT7jMmutifkScLIm+Xv6+ry97h+YEbiIFgC14tHm81octGzu4M
+         tinYWPZ0krM0PnOEsGXwVqSztw1TDycm3odBanp6hCL2n57HzindrvwSlls+BJxYOMmr
+         I4vA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770794580; x=1771399380; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SZpozOWmJ8KfTot1zodG+tnuaQ9zL8nqZQp1QUhuLg8=;
-        b=VR8TOqnuA90RREk+vgFDubABX3C2XnMsayWQmgrug0XdWxJpBkxS7ebmrSIModY32a
-         aKtuYZzbwNtIfnWLaNJf04sRSrIzZC+fpCtO8RznZH5SMMyHL2KIan5KNJcNZnF2qW4u
-         Zz/y5F+s3JCVhmJRXe0AkaIfTC9qo7dFfHl1R4fqSX/xYDA6340s/Ly34LDOTXmFsO9M
-         /G+Ud8hNPqv1RgRhCybmafULrTQjNAWOhYGAasybg22eNOE0EcKhOHFIU5NXrTV7Evh3
-         kxg3vJ6jyZ09J8qgQ7nX+dZRq+ssLrGuKyF6ErsDOO+R0EI95ZFwXh1lhW6BzjRwzyUf
-         j8TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770794580; x=1771399380;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1770795565; x=1771400365; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SZpozOWmJ8KfTot1zodG+tnuaQ9zL8nqZQp1QUhuLg8=;
-        b=GB6Ymsw5MCF+Wm5iyBimg76WIYkaQWV7N7k2h2niy6JSqjPes4fflT3HiatEHUtxNu
-         nDJBQ2ovFZu10HCC9z33ZOfVes2IDRlF4x+4/VEyCTib0lRxa7tvhSkoDvJTbRVO4VNZ
-         s6aLmFR/k3Y0jBywKk9lTM6+fzI0zjCypiAozP+Nn07mgG+/KWsfAxBMPTkuX/wvG27g
-         rVOc4gs8esVvMRo4spIA28wW7y3g9KfLbVtMk4jJlVNxjIIcVeRSQDV3neQEYt0aN1aI
-         Cm6R/9rolfDeXCtaHGR1uPFGuJgbvIPUOXDSoM1bTFTvdfCsR0l5dvnwbQPy06lIrA2A
-         BOkA==
-X-Forwarded-Encrypted: i=1; AJvYcCWMQfvK9aZH7IEyNjcaiCPt4UwD+X3RdbrqNt5jTnbkHC0+VJc7mhpdkBTMoR7VHX8ewIjEXm5kceo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQW6qZnTQiPXH5T8Xj+aaYUJnohCR6nCo1stLaVAKs6Mw+pYHO
-	d3fyaMp8CIeatJFIjI/DmU9mBSxQgZp3fHVzaH4CnmTRfKtw8G3BdYtXKOOcBBrPqA==
-X-Gm-Gg: AZuq6aL+nwoWF8PNIDVl6zDuqEUcUHtCG1VeJO/6xArPmN3iuH7CY2YTaYLfCbWtuZ2
-	H9DV9QlUleGNquyiTf5rYAr2GCtiUOIgZtbmwzRdq5ZoAbmg9zAoTPfQkzYWOcN/FNWAxegLdXd
-	cV9SFdDcBE99Hp+ajTtDtVdCH7aYA3BhC5U08tIn8phA9gEbdiRJ4vTZKUWSVNGZk49qp3dLKoj
-	CfOUF8op0QMysj7rJtVMp9gulcm53ufxkG4J3uxk4lC4GCsY2TQuQf92UANFJgns9NVhXs6/No+
-	kaAR6PLpxwz7e+wke5ELGdOltu5kI9BReZv+AmKTphAcT/Bk719oP0Z2+bkibFfB87kYYObiqp1
-	0bJ0odHFEtDOph4f23Y3NzyWXOG0YY8sr6jbLkVSV51e9QByW4KnD/eTJN32zTZL29FQoLfK/UK
-	6YqTa+o19lte47LMz6LxsFA/giZs3tAMZ4mFdmRBJaOFdBoFDwkP89oY/VedlYDv1D535eDtyQG
-	TbPo76AjgPQCJtqUpjyaSbc9g==
-X-Received: by 2002:a05:600c:1d0b:b0:47e:e20e:bbb2 with SMTP id 5b1f17b1804b1-4835b8f7e6amr21375485e9.7.1770794580421;
-        Tue, 10 Feb 2026 23:23:00 -0800 (PST)
-Message-ID: <e115459b-8f4b-4211-8259-7807765d8fec@suse.com>
-Date: Wed, 11 Feb 2026 08:22:58 +0100
+        bh=hAOqMCJadlogczB7gZP3FZlkdp68ySmqKKAKzRWZ3Cc=;
+        b=DlbqmdKIhdhAAM5/tgsVP264+9YQI3BcpNt3Y0I59yTyyNwcVBGy0t8/mVZwa5oRbA
+         yeArjcmAbX+Y09UAdhuts7P+xg7AxHE+AZbJd/Ik8krfbAxbh++OI8GI5hEeJZfnbJT0
+         3gLt84fQ2I4uNvvaC6h6QOQ/n7D4dNo4Qp8kDARdZ7oiKpCVzaHzwZONN4DOMNb1D3/J
+         NhL312d9v8unI0ptBJagBQZGOgN/H1mW55MmvX3iHeuvX4guv2bfEJsKy1yfCV2eqCnt
+         aKAZYeo/f1zl5OxeOCC9WO2EKbGhUJPOWTg6/WXw7AwN1+M+euZdkHcKIkUjf7ng5G0G
+         LwYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770795565; x=1771400365;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=hAOqMCJadlogczB7gZP3FZlkdp68ySmqKKAKzRWZ3Cc=;
+        b=jiJVrTczYlPrNy5MCmETZt2ZGV4isx4EwmvMjgn9a7vQYS2Md+hPV6MuUJpnsP0hBK
+         2lIYJlKbKJ4YZiuvBtYFVqyEZmw7/C65QM6zZmvTYTm6i5JwSteXsXNREOy4j28nJlon
+         KDTKNgv8LzeCpPsH0/5TaXuPnQQ/+I+xkGDKAVcr7aMILgBc/ILqL4I/l8Nb6hOaeQCm
+         AGj1Otq+RdXzmQUKBS1WGkEsgKm90PDJYRWvMSmicRaRTEnGWu7+eW6gAqGLmBi4WYo5
+         u5P6oKMMQY3kBdMHfcZM6BXtqVLHkMWszEPjmKQWH+YO58k8C+2cgOH2Fufn/ytlbH6j
+         OK+w==
+X-Gm-Message-State: AOJu0YzLhRj0aYzoDOI8AiOkKPkZVMxA8HbUv8D7T/NwkIvo1S0KqCXH
+	KT5HMdeeoG2Y2AOT411hjlY01N4sCLKAknJ36S1J5c/jJUn7BmowWvYSk7V0jfJsAvvKuezUQzY
+	ePti/TBlA0pegBuqXJyjxhIJPViBj5tD0mmSwgxaEf3J8huLZ7MmJ3MI=
+X-Gm-Gg: AZuq6aIDS+gzEDrD8AgnU9NHpDDF925Di0yAJRuqFcf1I68XblpLJ09kwkyKfKht6kB
+	i3CM28RzYk3ZwXkhaCFTs3RdacuxYQCigpSwPegDpKQ6jFRqskPSx9vz3sdFC1oh847wOlb8IlA
+	G8LCACgxnsfQ1zuEvDM+Vw/oyFpnUFs/YE8B6Wu9Hk/nZnrUsMylsURF+bz5PwmGShreNHcULMy
+	sLxnW1hpTBbTzEjoDLHwY0Gl20QbrplWxhxZ8UeJ5d3Qt4DlWEevzsOZjlUas4GqVB0oKkMF1XS
+	OGbgclgcYUtKiWArlEGkn6drWwAmL6Lz/wrjHg==
+X-Received: by 2002:a05:6870:e391:b0:3d9:5ec5:9168 with SMTP id
+ 586e51a60fabf-40ea937d68dmr1017618fac.1.1770795564849; Tue, 10 Feb 2026
+ 23:39:24 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/16] xen/riscv: avoid reading hstateen0 when
- Smstateen is not implemented
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
- <d26b9103def3ff86524e1306c63cd84e217c8f11.1770650552.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d26b9103def3ff86524e1306c63cd84e217c8f11.1770650552.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1770115301.git.bertrand.marquis@arm.com> <971bf27b9a2cafa0ed405a638a532b6fbbf51142.1770115302.git.bertrand.marquis@arm.com>
+In-Reply-To: <971bf27b9a2cafa0ed405a638a532b6fbbf51142.1770115302.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 11 Feb 2026 08:39:13 +0100
+X-Gm-Features: AZwV_QgDQKCi4OiQx0XmIgx2lycCVB8uWIjtbZ7LzBFjf_W0JhSSJjhf9apn2f4
+Message-ID: <CAHUa44F9sSzTV-X9tKDffk9vWfT9=KZGmqp3EiR0rEo1nwd7Pg@mail.gmail.com>
+Subject: Re: [PATCH 07/12] xen/arm: ffa: Fix RXTX_UNMAP ownership race
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6F9A3121D9D
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 1E16F121EAB
 X-Rspamd-Action: no action
 
-On 09.02.2026 17:52, Oleksii Kurochko wrote:
-> If the Smstateen extension is not implemented, the hstateen0 CSR is
-> considered non-existent. Any attempt to access it will raise an
-> illegal-instruction exception.
-> 
-> Guard the hstateen0 dump with a runtime check for Smstateen support to
-> avoid triggering traps when dumping CSRs on systems that do not
-> implement this extension.
-> 
-> Fixes: 3babc8d2e546 ("xen/riscv: dump GPRs and CSRs on unexpected traps")
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Hi Bertrand,
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-It is, aiui, independent of patch 1 and hence can go in right away.
-
-> @@ -144,7 +145,12 @@ static void dump_csrs(const char *ctx)
->        (v & HSTATUS_SPV)  ? " SPV"  : "",
->        (v & HSTATUS_GVA)  ? " GVA"  : "");
->      X(hgatp, CSR_HGATP, "\n");
-> -    X(hstateen0, CSR_HSTATEEN0, "\n");
-> +
-> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
+On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> rxtx_unmap() checks RX ownership without holding the RX/TX locks and
+> only enforces the ownership rule when FFA_RX_ACQUIRE is supported. This
+> allows a vCPU to acquire RX between the check and unmap, and it lets
+> RXTX_UNMAP proceed while RX is owned when buffers are not forwarded to
+> firmware.
+>
+> Hold rx_lock/tx_lock across the ownership check and unmap, and deny
+> RXTX_UNMAP whenever RX is owned, independent of RX_ACQUIRE support. For
+> teardown, release RX ownership under the same lock window; use
+> FFA_RX_RELEASE directly because rx_lock is held, and clear the local
+> flag when the firmware path is unavailable.
+>
+> Functional impact: RXTX_UNMAP now reliably returns DENIED while RX is
+> owned, and teardown releases/clears ownership without a race.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/tee/ffa_rxtx.c | 36 +++++++++++++++++++++++++++++++++---
+>  1 file changed, 33 insertions(+), 3 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index eff95a7955d7..450ce102cbdc 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -220,7 +220,7 @@ err_unlock_rxtx:
+>      return ret;
+>  }
+>
+> -static int32_t rxtx_unmap(struct domain *d)
+> +static int32_t rxtx_unmap(struct domain *d, bool teardown)
+>  {
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>      int32_t ret =3D FFA_RET_OK;
+> @@ -234,6 +234,36 @@ static int32_t rxtx_unmap(struct domain *d)
+>          goto err_unlock_rxtx;
+>      }
+>
+> +    if ( !ctx->rx_is_free )
 > +    {
-> +        X(hstateen0, CSR_HSTATEEN0, "\n");
+> +        if ( teardown )
+> +        {
+> +            if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> +            {
+> +                int32_t rel_ret;
+> +
+> +                /* Can't use ffa_rx_release() while holding rx_lock. */
+> +                rel_ret =3D ffa_simple_call(FFA_RX_RELEASE, ctx->ffa_id,
+> +                                          0, 0, 0);
+> +                if ( rel_ret )
+> +                    gdprintk(XENLOG_DEBUG,
+> +                             "ffa: RX release during teardown failed: %d=
+\n",
+> +                             rel_ret);
+> +                else
+> +                    ctx->rx_is_free =3D true;
+
+I don't see why this assignment is needed, or the one just below.
+
+> +            }
+> +            else
+> +                ctx->rx_is_free =3D true;
+> +        }
+> +        else
+> +        {
+> +            gdprintk(XENLOG_DEBUG,
+> +                     "ffa: RXTX_UNMAP denied, RX buffer owned by VM\n");
+> +            ret =3D FFA_RET_DENIED;
+> +            goto err_unlock_rxtx;
+> +        }
 > +    }
+> +
+>      if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+>      {
+>          ret =3D ffa_rxtx_unmap(ffa_get_vm_id(d));
+> @@ -261,7 +291,7 @@ err_unlock_rxtx:
+>
+>  int32_t ffa_handle_rxtx_unmap(void)
+>  {
+> -    return rxtx_unmap(current->domain);
+> +    return rxtx_unmap(current->domain, false);
+>  }
+>
+>  int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **buf, size_t *buf_size=
+)
+> @@ -369,7 +399,7 @@ int32_t ffa_rxtx_domain_init(struct domain *d)
+>
+>  void ffa_rxtx_domain_destroy(struct domain *d)
+>  {
+> -    rxtx_unmap(d);
+> +    rxtx_unmap(d, true);
 
-I was going to ask for the braces to be dropped, but I notice they are
-required as long as X() isn't properly adjusted. This is why even for
-local use macros we should take a little more care when introducing
-them, so they can be used without having to pay too close attention to
-their actual implementation.
+How about adding a /* teardown */ just after true as a reminder of
+what true is supposed to represent.
 
-Jan
+Adding such comments isn't very common, but we're doing it at a few
+places in the source tree, and I think it helps when reading the code.
+
+Cheers,
+Jens
+
+>  }
+>
+>  void *ffa_rxtx_spmc_rx_acquire(void)
+> --
+> 2.50.1 (Apple Git-155)
+>
 
