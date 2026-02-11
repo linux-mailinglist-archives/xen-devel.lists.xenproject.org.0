@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qKDeN6+ojGkusAAAu9opvQ
+	id IBmyChmpjGkusAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:05:03 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:06:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE96125EE9
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:05:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227895.1534288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88934125F24
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 17:06:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227903.1534299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqChm-00061f-St; Wed, 11 Feb 2026 16:04:42 +0000
+	id 1vqCjd-0006YN-7k; Wed, 11 Feb 2026 16:06:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227895.1534288; Wed, 11 Feb 2026 16:04:42 +0000
+Received: by outflank-mailman (output) from mailman id 1227903.1534299; Wed, 11 Feb 2026 16:06:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqChm-0005z8-Pg; Wed, 11 Feb 2026 16:04:42 +0000
-Received: by outflank-mailman (input) for mailman id 1227895;
- Wed, 11 Feb 2026 16:04:41 +0000
+	id 1vqCjd-0006VK-4s; Wed, 11 Feb 2026 16:06:37 +0000
+Received: by outflank-mailman (input) for mailman id 1227903;
+ Wed, 11 Feb 2026 16:06:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqChl-0005z2-UB
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 16:04:41 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1vqCjb-0006VB-Iq
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 16:06:35 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e7eea73-0763-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 17:04:39 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-43284ed32a0so4792045f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 08:04:39 -0800 (PST)
+ id a26bc90b-0763-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 17:06:33 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-48039fdc8aeso14221875e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 08:06:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43783e3a9acsm5278501f8f.30.2026.02.11.08.04.38
+ ffacd0b85a97d-43783d30db4sm4993729f8f.4.2026.02.11.08.06.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 08:04:38 -0800 (PST)
+ Wed, 11 Feb 2026 08:06:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e7eea73-0763-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: a26bc90b-0763-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770825879; x=1771430679; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770825993; x=1771430793; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=z1rSqZoB/cFftPttMYP3X84zlgx8fMHsh0AbjHx39Fo=;
-        b=cMLyrch0c3wY2g0Xht1mi08WfbXOgSYsqOiFXyfxYJqoIL2KZvqHWvxdIjIARA58nW
-         T9o0X/ZQNhVP1iiAqpXx2ri7lHaCb8iTWtkCpSgmoaU9IVGh7W8WFztSwztMuWVSehfV
-         z8Hn2tZxqQSYMs9hTO8DjYWg+bWJ8xcLVLYdbT2YDcFn+8VMdok7H3UWVfsI39xQEUWZ
-         Ldt82KrBZN+H95vgs0UNexGMBhJ5pKaBBaT6k7AtM8e72mB7pi/2LWrYj9ZExzByEQTQ
-         yzyMmG1wMtvjiVryy1bDfVeNcm0KX2IcZYYzsM7JuPYdCVG8M7RSlsaMQNOMu9jqGheI
-         ko0Q==
+        bh=EzMd84pXabHt4f5/MHN6T1tOM//izFtZ6iLR8lHidKs=;
+        b=SkNZ5WUJzSvG5DadeIzS4waIRyyJLiIRNcpnthz8RlTJOAhTogZrzshV9HHvuGFdGZ
+         DziY4pq2FOkZKxZMGCfZQ9Aivx6vgJU2KVFEImKnlL3+5whqZzrABrkvtdK7te/Hm85A
+         oPx7dinPJUJulptsYBTaWaUoTOKZzeaYm+Tt6DGlCfnDloH8ODHMwm7AjUHpG8tPKMoh
+         tOSSt4mrElBVe0k6/DbY6LNoE0HmvKHjiLlitQG/EeT1D1fSGUC4GpvymcXWePEwlFjk
+         QgfNKotNmPZyujZoZf7FZxf/JXXnnMLdSTitfk1fqPiK1MqQ4v96gJFe1PTIBSSwrwXc
+         0Ltw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770825879; x=1771430679;
+        d=1e100.net; s=20230601; t=1770825993; x=1771430793;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=z1rSqZoB/cFftPttMYP3X84zlgx8fMHsh0AbjHx39Fo=;
-        b=calj7zwbj7MSecyY2Fk2xH+NrWhUVVyirO42Ek6+3JylOU63Rppmtzl+/kDUs1x8ya
-         U+iONrFivDmoGBymI6KrlVj/4qCKCm43s4BX74zuUi5BIiQA1Z7tMh8t7dD/vw2qOYII
-         /X6JAMRgPMo4Q2m5oluzvn+SzHu/hJ4xqEKJ8wjK3ntRQNXdZ2Zu7TaCld92dihtXnlv
-         wndBe/yYzzTzGVG5A7om4VPeGe7brgPnBUCqTSx7DmbZAHPZqSze1F0x3aL5Jp/lV56y
-         gIKaxHCPSfiFv8/HB9q6tWO0fhoXCl6bd73ORPHavAp0+4FzxYiAU3TiljmgoEp1gdwI
-         oLKg==
-X-Forwarded-Encrypted: i=1; AJvYcCU8KSggD8qwYththA8q/IoBvhq0Rvy8t+TQRU5Dyj+uY+72ny/Rb+aEwt+27kUTHOzEqcIWs1wTmco=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHNffwcHFdsN+AmC8POzdQCTP4ZdSRk5lZBlevx4siPJN0IiiO
-	QBQ1FXJr4ahvHPVkl1ugf4BygyeDu+m9ykAHaib73Y2vvLRCzcKoB9GjlRf9mB3KtA==
-X-Gm-Gg: AZuq6aKBzZZa+M+UgeymzL0liRPsZM1MVdqEEYn0BO2ZFBgOiZcQ0AUeSt0xeeGy/dy
-	HskPwy/wu7YQNy0NGZjbFDRY/AfSW+R5p8u3ho4kTqt0su4QVWGd6zSZpXZnXX0XT48lwdTiNbK
-	S+vbLxThy1jds5qNO4BDdNOVRbpdKsREYZ4bS9eDMKlNeRxrAxikRBT6UrACQ1MloAr4t8VJiGf
-	rk4rb9/x6djPf+NuyG1pvqfuzmyeOm17L4wzmIaAlkUBMBiCGb+66399y2KQxXumAYYnQJLl0n1
-	SY/wsh+xrDNogs8q/SuKHt5U04sNmPG3Jf8+TRFH79ZgCf5ib8GmYlQQaFDwZ1VzGkjWZbnbzb8
-	JuKvcdz7bbiTsJeq1Blh4G2zJsLDC3qO5dlZKBAtwt1NzBttijlAdyhTwqQx4ZdDY+g1U7HFWlt
-	yPm55hYQkKeg2zatc8m9AQHPhw5qktMwmO+j0vyi5x12Uzm66Gbxh6qaJ1ECroYgxAY8oVRMysr
-	l3tKThGnSy/JwQ=
-X-Received: by 2002:a05:6000:2885:b0:435:9d70:f299 with SMTP id ffacd0b85a97d-43784548b6amr3717848f8f.22.1770825878866;
-        Wed, 11 Feb 2026 08:04:38 -0800 (PST)
-Message-ID: <7eeb369d-04a9-4c17-983c-078e45b4679d@suse.com>
-Date: Wed, 11 Feb 2026 17:04:37 +0100
+        bh=EzMd84pXabHt4f5/MHN6T1tOM//izFtZ6iLR8lHidKs=;
+        b=lYfOiICJ5qGHz4X6g1qoKVYVV7qzOnOHCRWLiThFH9K2IpGQndeBT67IrSWDJgW24s
+         DX5fOZw+3ald0mBn/CN6UxRCSBMCEXk5BcKgNHpNEfLJqgs8zK2dEyIKJatuUJPlmPCW
+         OjnpKvwN5eOOOL9mqNX2oHc796Hwu8Rrmt/IPXyf4VIgWObHyFlkDXFKT97+8TzV5WM0
+         TOvX/bcdg5T3prhpbNYXpx8QvdfYqgNWzQIgLVaovitrkTrsKVpufcmzLD5h3twuCM3Z
+         O+ZvfZvGMWYs2yFSU0rIEl4GwhRkNDCzjR3q9VfeQPY/0I08qBOOQIlt9kdeNb8YxguQ
+         xWDw==
+X-Forwarded-Encrypted: i=1; AJvYcCWM4ogsIFDcsDu76yk1c7oL53S87E0GvWbcWbgUdo+n+4zFW2b0FRu+N5VTu1r5e4ba8IFpukAI+Ms=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwshR98XqASqSIPGcxXdVcnNNCyPyDdhi+CZAdEMC6eDxBHUCxX
+	8A4fksNYbrl+GqvAUH61LBCJwAgLGF+l65uC6cCqm2xXU3Jejgr421Vdw8vamaP3Gg==
+X-Gm-Gg: AZuq6aIDs/4HTmNEZXP/DEcbVfDu1ZGWFF9+hD7hASJE/5Ug7s8IVXhqRs51SOxbDiD
+	jQjdE5BnUs6IR70uNgs8uc/AM36aUk9RLuWGYV9Iwc2bxDtXe8TkFUahZBGnfy8wLQzN/oBApjK
+	siSkThGyfC7kcvGQy06D1M9RanhnIJcutBvE24HUCr9bzjFkrHlfBiLELCt6S5JDhuQee+k4lL1
+	hpb1DS2veSLjy1hRaxcOD0+xNXHpgvmZ2lsL3qOgmH4QQakEm1kr01HxxhIOSUiinCaZ6l07+ky
+	cqVXGUGamrxOY8F/Xv0SuE91j4gDJVZ8bNSBStoyB1CvqtRJmpw/bSqRFtb8Wf13NHeVqcubWO0
+	SkYwz1+evEc4iPiLAXIYKizB9O6NCNP43+wMZPNdA9eePcrw9mgA0MCP8PjVm5sCSSA9/MJXGy1
+	lw3ndQKC5lNrIdmDmi5/T+aJeqLcXuFLHook4hCSkJzsvwYBGAfCjNSN1XiEeDt7QfER1xGlD4+
+	cfhh4b5gkAcdyo=
+X-Received: by 2002:a05:600c:6209:b0:45d:d97c:236c with SMTP id 5b1f17b1804b1-483202160cemr266311075e9.21.1770825992862;
+        Wed, 11 Feb 2026 08:06:32 -0800 (PST)
+Message-ID: <b284e16c-cd99-4595-8fcf-264c378fc57d@suse.com>
+Date: Wed, 11 Feb 2026 17:06:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/12] x86: Add cpu_vendor() as a wrapper for the host's
- CPU vendor
+Subject: Re: [PATCH 02/12] x86: Add more granularity to the vendors in Kconfig
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-4-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-3-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,14 +125,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206161539.209922-4-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260206161539.209922-3-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -141,12 +140,12 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -160,40 +159,62 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0CE96125EE9
+X-Rspamd-Queue-Id: 88934125F24
 X-Rspamd-Action: no action
 
 On 06.02.2026 17:15, Alejandro Vallejo wrote:
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -328,7 +328,11 @@ void __init early_cpu_init(bool verbose)
->  	*(u32 *)&c->x86_vendor_id[4] = edx;
+> --- a/xen/arch/x86/Kconfig.cpu
+> +++ b/xen/arch/x86/Kconfig.cpu
+> @@ -19,4 +19,47 @@ config INTEL
+>  	  May be turned off in builds targetting other vendors.  Otherwise,
+>  	  must be enabled for Xen to work suitably on Intel platforms.
 >  
->  	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
-> -	switch (c->x86_vendor) {
-> +	if ( c->x86_vendor != cpu_vendor() )
+> +config HYGON
+> +	bool "Support Hygon CPUs"
+> +	select AMD
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Hygon platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Hygon platforms.
+> +
+> +
+> +config CENTAUR
+> +	bool "Support Centaur CPUs"
+> +	select INTEL
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Centaur platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Centaur platforms.
+> +
+> +config SHANGHAI
+> +	bool "Support Shanghai CPUs"
+> +	select INTEL
+> +	default y
+> +	help
+> +	  Detection, tunings and quirks for Shanghai platforms.
+> +
+> +	  May be turned off in builds targetting other vendors.  Otherwise,
+> +	  must be enabled for Xen to work suitably on Shanghai platforms.
+> +
+> +config UNKNOWN_CPU_VENDOR
+> +	bool "Support unknown CPU vendors"
+> +	default y
+> +	help
+> +	  This option prevents a panic on boot when the host CPU vendor isn't
+> +	  supported by going into a legacy compatibility mode and not applying
+> +	  any relevant tunings or quirks.
+> +
+> +	  Not selecting this options while selecting multiple vendors doesn't have
+> +	  any major effect on code size, but selecting a single vendor with this
+> +	  option cleared produces a much smaller build.
 
-When we introduce new functions to Linux-style files, nowadays we take
-the liberty and make them Xen-style right away. In entirely Linux-
-style functions the style should remain consistently Linux'es, though.
-
-> +		panic("CPU vendor not compiled-in: %s",
-> +		      x86_cpuid_vendor_to_str(c->x86_vendor));
-
-This will be somewhat awkward when c->x86_vendor is UNKNOWN.
-
-There'll also be a degenerate case, but I'll comment on that on the
-earlier patch causing that.
-
-> --- a/xen/arch/x86/include/asm/cpufeature.h
-> +++ b/xen/arch/x86/include/asm/cpufeature.h
-> @@ -14,6 +14,7 @@
->  #include <asm/cpu-policy.h>
->  #include <asm/cpuid.h>
->  #include <xen/lib/x86/cpu-policy.h>
-> +#include <asm/x86-vendors.h>
-
-Nit: Can the asm/-s please all stay together?
+Shouldn't this option's prompt be suppressed when all other vendors were
+selected off? Else the degenerate case can result that I mentioned in
+reply to patch 03.
 
 Jan
 
