@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iBwfBYlDjGnYkAAAu9opvQ
+	id eCJIMT5NjGmukgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:53:29 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 10:34:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670A01226EB
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:53:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227098.1533432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C3CA122C76
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 10:34:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227113.1533445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5y5-0001af-F9; Wed, 11 Feb 2026 08:53:05 +0000
+	id 1vq6bb-0006yv-Fs; Wed, 11 Feb 2026 09:33:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227098.1533432; Wed, 11 Feb 2026 08:53:05 +0000
+Received: by outflank-mailman (output) from mailman id 1227113.1533445; Wed, 11 Feb 2026 09:33:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5y5-0001XZ-C3; Wed, 11 Feb 2026 08:53:05 +0000
-Received: by outflank-mailman (input) for mailman id 1227098;
- Wed, 11 Feb 2026 08:53:04 +0000
+	id 1vq6bb-0006wT-CR; Wed, 11 Feb 2026 09:33:55 +0000
+Received: by outflank-mailman (input) for mailman id 1227113;
+ Wed, 11 Feb 2026 09:33:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wgMA=AP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vq5y4-0001XT-8i
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:53:04 +0000
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [2607:f8b0:4864:20::c2a])
+ <SRS0=gWxp=AP=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1vq6ba-0006wA-2r
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 09:33:54 +0000
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c111::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f5f0630-0727-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 09:52:57 +0100 (CET)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- 006d021491bc7-66e35b48d11so1897479eaf.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:52:57 -0800 (PST)
+ id c686c9df-072c-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 10:33:52 +0100 (CET)
+Received: from BL0PR02CA0040.namprd02.prod.outlook.com (2603:10b6:207:3d::17)
+ by BL1PR12MB5899.namprd12.prod.outlook.com (2603:10b6:208:397::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Wed, 11 Feb
+ 2026 09:33:48 +0000
+Received: from MN1PEPF0000F0E1.namprd04.prod.outlook.com
+ (2603:10b6:207:3d:cafe::df) by BL0PR02CA0040.outlook.office365.com
+ (2603:10b6:207:3d::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.8 via Frontend Transport; Wed,
+ 11 Feb 2026 09:33:47 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E1.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9611.8 via Frontend Transport; Wed, 11 Feb 2026 09:33:48 +0000
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 11 Feb
+ 2026 03:33:47 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,358 +61,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f5f0630-0727-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1770799976; cv=none;
-        d=google.com; s=arc-20240605;
-        b=U5H+S/0YCDM+FGc/JRiENDVbFQY440jNdaLozF3TcLfrUZnLa2nGzDAMeszVBB1/vb
-         ZkO9T7cEriaz8BCnbovZheDY3GFGjJcOg3mviWbpnnuxtFDYAItJHYRW3ks5uZr67emI
-         CuNNFFsBW7iVQMwyJpq2jecJi7HoUp5d9ihyuoHFjWj0TgtWYwvzRuXbSCgp0EqTebnp
-         mkdhRTGjU8LtVoYhxNVUqguuMcFcCEHsKWzopk0psgac1aDR9XeSnwnGvcHHeVTWfowu
-         egM9Qxz7Ie6S9T4G0+OEZeAkzzi4H8+oLvSluvDZPWLNrSJ6wV4Yae8cCJDIBQJL8hXn
-         g6jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=CT30lNxITqvUMSDWDNTNNL4+SdWqUcwtS4v2dr0K9Gda7X1j+GJ2KXZevaT/GvGmcJ
-         7P9FH8lQn/ZAlcQa8EgfuIhWR4nEQn4UBjoZcrIB9yRwMkrNESDysXdwColC8WbfFM+a
-         kptPZaCStA/NnuJBHr4XlByX16A8450JIoijCjlDf9eMbz4VTSRgnEie2EB0G0Tp4lyy
-         MdhepYex0xDjTqUQRl180XLmg8KvsP4NMmvWCwo6MhwCrA7KaDT5w3OgfSyZrgs4Mo+B
-         gBqK4js2RMATmb6pL0uzrT32Jdsdb+xnRebGkOxthUhBq1+2j/xZR8rW9Q8/2yclpxAK
-         E50g==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770799976; x=1771404776; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
-        b=S1+tEJJGg7pEkTuuia2FoheuLueWoFuzJ0KA93zXyiSKCb5aLa6fsWIeEqq0HatHqB
-         PnFYdn9eLGzNga88EeYzLICzzW4OeQC5uxsto/1Rzl94UwowLZzbTgO0XGgYqhFPP/ze
-         gXRoASFppJA3o1a7cEq/dQuAOLsg+Frjmjot3fLJFkwZu3Bt1BSCA8urfoDRXv5s4BpC
-         xaYo5Pmy1Si9vcSMKf1K64Emrx34yF8kkN8SQXwXH84qXxQPExelkt81ZtMaKeN8HvOz
-         f+q3YNVktt/MQKBi27SMrOMfyXz0nZUiS2NOMVRASmg8xWgcb869XiQZTUeEBMZS4oNr
-         axNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770799976; x=1771404776;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9HIsXnI/DSGjRGPwKbwR9ku+eq4Z+ilVAJsxrveI3og=;
-        b=R7JULJ5qB8rftodQHXuAG2tLJ5BS6PAMXsh5F3oI+lG6UELtXqujSRDe1Q4S8p1+Jk
-         IFksv5FCaunl8VKIx6J/C5JTDIUWudyoOoz5bBeawe+HDZFVHTVC2iIkw+MrT8yp0tHo
-         xhgKw0L897u/BLrc4y/SlYK97Ci3DyhxWPBFeqkW00NZ+CfHZGORHwIwHNSq3DP3XpZo
-         a06Alz/siurKRvtL3rKwT9AXNrzcXrN5x4MQmeKGW5AHi6YDrskIqTJEtq4HFhOvPrB+
-         EW6s26en4mZ6razqEzSh1y5ZGULJcpbhLvSLYgYr8sUDczYEnC/w1/PSxKg7a/RCllkL
-         ISpA==
-X-Gm-Message-State: AOJu0YxzpquAi+lMf09AhJwmHQEuJ8zkbwE9U7MX+BeBuO8+VFmP5gqF
-	VZ7287N6UiNb3643cNnoOXGiVH3NScxp4kvMZBn9GIRQkVyvdG1QmF1MHOt+mXhErwQ5DSHBEmC
-	QDkpDcdZTU6GCI30z/ZjJKb6DPwug7G+zyerCuOviYRg6cVFhgicsyr8=
-X-Gm-Gg: AZuq6aKbdElQe7aAKufc3kX+3MxzcbZBx7AMrphxa44Es5uBDWmINcyTRaDxHxKGJg+
-	vdNfZvztbC/rsxFilwYpeMX7J/BYAFXrbI5w5S5ckuLI2r7YLqgPr1O4EvIIbpn/zGXut0uALJB
-	2risbtqxwPRSn7vXOCTzbUsQBd1Y5xzlRSTgLrepUZst93eKLyJvBBOWi/Hxg7durp6vPLQD5dA
-	7k62oFvYUW2l5LVfRcreaIJ7iDec3RsezEJIzxLahZrjxAaSKJv919klsZCdjkaSfcwKceGbv7s
-	jIEsuPoYX2eituEM/CiK7+cBmGph2qq7O7GHwg==
-X-Received: by 2002:a05:6820:4a0c:b0:662:fb70:bcbf with SMTP id
- 006d021491bc7-6743aa09771mr658547eaf.15.1770799975961; Wed, 11 Feb 2026
- 00:52:55 -0800 (PST)
+X-Inumbo-ID: c686c9df-072c-11f1-b162-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Us6N8lX8HJMcZzTB6SqQZyWhFA/vqecnBvJ+ip27D0lMFxnVWRdzXX5shRTma2DGBQTEJcb0YdD8mMGrH2JFcjA0DWGd9e4UqejRDHM68EJFI7xXR8Bx2HexOEqJNvQ95Kfavb8tWJV/IWBBmQmYgxso9bMqp8Mi5pQlDIpXsaGf7Un46oJzo+pY9YwzPuNjyjCB+iZ8iGsoi8wzbHUq+zO/PIvsbZMmjA9RicNrNN5sEuXW/1didXAUj99b39KER3sbCxuDRqF4fzF1Zb0cEls8bw6PZMbCmBGFwJzym50o1x+yh9IokOQ+xPweUxlGXO2/L/iCXwoRLz7fqNpKuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rUCLTSsLiTD19y3HdUTJnVOqun1ElPoSVVgAqf/qA3s=;
+ b=lDCGfB/4vedVOBpFgQYSqUGDRnmaXmVUKQl2G8gkHgnJA5R5Inxa3wwE+USlKxd7lmq9AZbRFG+b44X81SlNDnkFANsKucwpWw0HJoFbnehE5fKFM23po87rNihuQvJAXBj+hOwU9z97aX8z8VsOY8tJU7ur1suwxl1USeHjJPxVOeQE413HkrhtoIyE27yFQx9pgfK8LYcfycxg6H4b8M2WE6cJ2oub8bcNOqgo/PC7pJ/DCZwO9GKCpit8Hj46lM3kO6WSJJyL9I7LvJKOku995y5XTN7ygvWrCuZLemv+GC4NcmZaMpqQYM2p3HEsdW9Ujj5RauGiVK8H41OCpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rUCLTSsLiTD19y3HdUTJnVOqun1ElPoSVVgAqf/qA3s=;
+ b=vTHWebvqX/GBKYsxEOCHEn7ITRC50eruyXUrSla8J/P0m0uhnWN3L6fRRhYZWmAgJf+MRp7Weo0aXB1C8UOThyG99bkCfSwyt7WHwoXD0QSvUBAnDIeG8IVTLmRppBlR41ywBhc1MHlARXq8jCgAyZyfTzuvCS5NbijcCHQfk20=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 MIME-Version: 1.0
-References: <cover.1770115301.git.bertrand.marquis@arm.com> <38d71ac53abeeb4598d6ffb6bdab3717b3531334.1770115302.git.bertrand.marquis@arm.com>
-In-Reply-To: <38d71ac53abeeb4598d6ffb6bdab3717b3531334.1770115302.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 11 Feb 2026 09:52:43 +0100
-X-Gm-Features: AZwV_QiV4UmolsCRVma8gWNLgXZVjFGpG9XEnApvRoRtziub7bzhTn62EHVYBJo
-Message-ID: <CAHUa44FR9FGnDd31d6wK_PiV=+JHKTsOWf=EgG2WOkH-x6ZVMw@mail.gmail.com>
-Subject: Re: [PATCH 10/12] xen/arm: ffa: Reduce logging noise
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 11 Feb 2026 10:33:45 +0100
+Message-ID: <DGC12JYGSNYU.3IPSDEA7ONWLY@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>, Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v2] x86/domctl: Conditionalise x86 domctl using DCE
+ rather than ifdef
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20260210173022.257030-1-alejandro.garciavallejo@amd.com>
+ <b210e7c0-ae2b-4d41-8690-b5af4261de3c@suse.com>
+In-Reply-To: <b210e7c0-ae2b-4d41-8690-b5af4261de3c@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E1:EE_|BL1PR12MB5899:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b4253ea-6bf9-412d-cbee-08de6950a8ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WW5yMGlmcHpBeG9aVTRkekhFWHI1VXVrV00xN2RrVW5JSVpkZVlpZWVya2tr?=
+ =?utf-8?B?TlFDZzZlTjJ4b2pCN0haRkVkOEN1OFhwR3dxY2hBTDFEL2ZSQk81bmxJTWRJ?=
+ =?utf-8?B?N0RKelZlTGdIV3Y2bWZLMEtqb3J3VUVZd2hhTlJYdE9ScHhMNFJZMWRPSU45?=
+ =?utf-8?B?R3QvdUZaSzlyc3pib016V09JMFl0OGNhS3JXYzRZaWRDZk1ZZTdxV2JzdWZC?=
+ =?utf-8?B?U2xrOU83aGZ6cHRmNzFRckFpYTBhVlZ1ZVFsUEYwWk9iTlE1VDJkU052Tml6?=
+ =?utf-8?B?aFRySTlNdHRuZFcrd1pIOTkyOW5ZWGExdDZyeVpia25nRmI0UjU1OHJSbStl?=
+ =?utf-8?B?VmVSdnRpb2E3QW01THNkVWx1RlhQYmtvUW95UjFMMTNzTmYwZGJnTXJ1cGY4?=
+ =?utf-8?B?WjVtQ0xncWI3eFJQM042R2hMbVA3VzZ5Z1JQblNhYW9nMzBmRVExMndwbkRK?=
+ =?utf-8?B?Q1F6ZVlCRFYrbEZmZjRQZ01xUlZiUFN6djlhL1UvK041UGVtN2FEc0UzeDZJ?=
+ =?utf-8?B?NmMyZGhBUnM3RkxyNjNxNXZyK1lJbHFvbFZEcjFGOVpOSm5peHg5T2wwM05U?=
+ =?utf-8?B?SHJZTWpURVZpTmdpVnpkeGRYczRud1djMXprUjFRcEdRRkFuYXNxYTJjTzFk?=
+ =?utf-8?B?VTFRTG1iYXJtWWpranJqVmxGZWNoQjdaY043Qnhqak9aNVFLcG5ha1p0Y1o2?=
+ =?utf-8?B?Z1JkWkRkR0IrMEcydmQxMnRHc2JWcFVYQnFHTFYwV3V5UTd0di9pTlBTa29i?=
+ =?utf-8?B?VU56M0ZrYzNndHFLNzZUbTZNOEFYdnNDMGttK0dEOHVsUWEwWmdNbmpSMHo3?=
+ =?utf-8?B?ZkVEcVoxVzk5blBlK1AwZkhSb3RxaWh0blg5dlpaVkVBODBISHZPck1SMXQy?=
+ =?utf-8?B?U0hBRjVzb2hRam9tQWVZajVyaFJ4R2xvZDBiZGh2dVdseEsyc1VnTldvR291?=
+ =?utf-8?B?TG8yRHpUUURPK1Qzd3FnWHlUV0tRanZwbDBhNlZvSldMMlA0OVVpK0VmNjBQ?=
+ =?utf-8?B?YzN1cUlSSWQzaTR6VExON1FIQ0JlL09XbmtaMkN4enFxUDQ5V2lDcFNERVdR?=
+ =?utf-8?B?VVhLaE9UeFNUWi9hOFFhbVlnQ2lIZnYyODRzQjVpZEVqREE2Y2FhYmxhVVdv?=
+ =?utf-8?B?L0daUHg2ck8yT0lHM256emdFbXNlaWdLYmhIMmNJeEdTUUVNYkkycjNhRmxH?=
+ =?utf-8?B?NENOZFV2VXJpYkNLdHlxQ0hLY3lZR0YxMkpMWW52clEzRzJjWG1XYksvR2p3?=
+ =?utf-8?B?aU1BTXNNaGlrTkRETWkvd2dqQWQ1dFhMSWVqV1lROFYvdDJXNEtOMmpUWnRt?=
+ =?utf-8?B?MmExTTNWOVVMZ0hTTTNvSFRlcDZjU2FUd2N0T3VLbXdmelpOek56N3lJaTdY?=
+ =?utf-8?B?ekRGaXhVMXErT0JsYUNXOUFmVXI3Z3JpVmovUFVqMWZ2WFQyYitNYW9HSjAy?=
+ =?utf-8?B?dytIMDVOQkhOTWdQTWQ5MHNvRGNmSmllWklhN1FLWGduTnJGTlZRdUVNcmRq?=
+ =?utf-8?B?MXYzbTg2MjRCdFhDRmdpYng4aDNKS2FNbUdnbDIxbkpmaEJyUDhsWmxpVERs?=
+ =?utf-8?B?Y2FtemNUd1lhZFlNRXN2bDRhZW9LRW1mZHhNbndYbXV2L1lqUUQwQ05PcnhM?=
+ =?utf-8?B?VkVVTndkNnltc1djSFlDUmxUaTdwMk0xbEpzc2pHSUdzU3FmazZqQ0g4L2FV?=
+ =?utf-8?B?RUpSMnlBaFY4VmRLQVZJcUcyKzA5ZndYTUd3dFpDN2xPS3dLSEZEbHNZcW83?=
+ =?utf-8?B?NysvN3ZYN3dqenVnVlMwTzZUbTZzQXhOb1lkeFJIYTFTU1J1M1lta3JWWDRX?=
+ =?utf-8?B?ZUluaDNMTU1OZExMNDhCQVV3ZUNFMzFQVHBKY1hHS1Rtc29kd2orTVpINkk4?=
+ =?utf-8?B?bDhockJvQU8zcGZJTnBrTStmWW4zakQxTmtuRVkrc0xxQXdHK2p0OTI5WmR6?=
+ =?utf-8?B?Z3FaTjM1emVzOXkxRHM0N3Y3ZVB4MTlCOHAyM1lNRk9WUE50bUxXRkpVd1Bq?=
+ =?utf-8?B?RU0xQjJadUdxbUZ5QXNmbFRWbHpzUm8wekc2TytaKzBqdE5FaUFsUFI2QndO?=
+ =?utf-8?B?dTRFWUZ6dHlUN1ZFRXdIbFZvcmRDdTlJZDRHM0MzMEMzSFFzRkgvZXhqOXp0?=
+ =?utf-8?B?elNyVlFMNkxBV1EyS1Q2TTRVZ3NmNGUyQTRtaE04cnhQVThKVGNWdzRrY1Fs?=
+ =?utf-8?B?M1V5aHdhN0lVQ01COWdCV0puOTN5TktTNUJzSkdPRm5Tck04aE45NUYwVkN1?=
+ =?utf-8?B?ZDN1aWEwbkhRbUhiaXQ1OUVhOXV3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3b5RZ/KHtF0RIAYoOF/qEDOrtZxikmxKaF/Q/QHYoLbNOnvhpZO6fdl6WldLAjmdPFouoFdmUfYEA47Yzl/90ESRcmC3hEVr84ZGhw9Lidr3LJhnYmUZ3QQDX7OujByS3wgbJQAoOwwHIcySh77Z82v1hf39YMNPvAfLOkaJigJyEplwIRqvC3n8E/TrH/17lDaWCGoW4bHiu+62YhnczFwtBa3+JwODQuEMVKAAl+gPyoydLJaVqUpcktJLq2Cvg9wQzQEh7Io2aQmloO/IM9ZF0wEBU4W38V82ceSDr9PSKyBxrJ1Isn416vpacEW76uOPLmq5BWbidVGWoKyo2sWH+8nMbl0ERMqB4P3N3CyrSzQP0OMOceLhPtA2aw06qzK1GWmGDhJpqjXrUj/CvAgaRG5Ik6W3xEYBcGVXz/HXxDJiOL0vh9eWh0Fsve4K
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2026 09:33:48.0948
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b4253ea-6bf9-412d-cbee-08de6950a8ac
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5899
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:tamas@tklengyel.com,m:jbeulich@suse.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid,linaro.org:email,linaro.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alejandro.garciavallejo@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 670A01226EB
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 2C3CA122C76
 X-Rspamd-Action: no action
 
-Hi Bertrand,
+On Wed Feb 11, 2026 at 8:17 AM CET, Jan Beulich wrote:
+> On 10.02.2026 18:30, Alejandro Vallejo wrote:
+>> --- a/xen/arch/x86/include/asm/mem_sharing.h
+>> +++ b/xen/arch/x86/include/asm/mem_sharing.h
+>> @@ -9,10 +9,12 @@
+>>  #ifndef __MEM_SHARING_H__
+>>  #define __MEM_SHARING_H__
+>> =20
+>> -#include <public/domctl.h>
+>> -#include <public/memory.h>
+>> +struct xen_domctl_mem_sharing_op;
+>> =20
+>>  #ifdef CONFIG_MEM_SHARING
+>> +#include <xen/sched.h>
+>> +
+>> +struct xen_mem_sharing_op;
+>> =20
+>>  #define mem_sharing_enabled(d) ((d)->arch.hvm.mem_sharing.enabled)
+>> =20
+>> @@ -92,8 +94,6 @@ int mem_sharing_fork_reset(struct domain *d, bool rese=
+t_state,
+>>  int mem_sharing_notify_enomem(struct domain *d, unsigned long gfn,
+>>                                bool allow_sleep);
+>>  int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)=
+;
+>> -int mem_sharing_domctl(struct domain *d,
+>> -                       struct xen_domctl_mem_sharing_op *mec);
+>> =20
+>>  /*
+>>   * Scans the p2m and relinquishes any shared pages, destroying
+>> @@ -103,6 +103,7 @@ int mem_sharing_domctl(struct domain *d,
+>>  int relinquish_shared_pages(struct domain *d);
+>> =20
+>>  #else
+>> +struct domctl;
+>
+> DYM struct domain? If so (can adjust while committing):
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Several FF-A paths log warnings for expected or recoverable conditions,
-> leading to noisy logs during normal operation.
->
-> Reduce log noise by:
-> - demoting unhandled FID warnings to debug
-> - ratelimiting notification and VM teardown failures
-> - printing the bit-15 convention warning once per boot
-> - adjusting log prefixes for hypervisor-only events
-> - adding debug diagnostics for RX/TX acquire failures, with busy cases
->   ratelimited
->
-> No functional changes.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa.c          | 11 ++++++-----
->  xen/arch/arm/tee/ffa_notif.c    | 11 ++++++-----
->  xen/arch/arm/tee/ffa_partinfo.c | 15 ++++++++-------
->  xen/arch/arm/tee/ffa_rxtx.c     | 21 +++++++++++++++++++--
->  4 files changed, 39 insertions(+), 19 deletions(-)
-
-Looks good:
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-Cheers,
-Jens
+I did. Annoyingly I only recompiled on with mem_sharing enabled.
 
 >
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index a46c6e5e67f1..d0b9c9f1ab2e 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -461,7 +461,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->          break;
+> Cc-ing Tamas at least for awareness; I think ./MAINTAINERS should enumera=
+te
+> this file in the X86 MEMORY SHARING section.
 >
->      default:
-> -        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> +        gdprintk(XENLOG_DEBUG, "ffa: unhandled fid 0x%x\n", fid);
->          e =3D FFA_RET_NOT_SUPPORTED;
->          break;
->      }
-> @@ -581,7 +581,8 @@ static void ffa_domain_teardown_continue(struct ffa_c=
-tx *ctx, bool first_time)
+>> --- a/xen/arch/x86/include/asm/p2m.h
+>> +++ b/xen/arch/x86/include/asm/p2m.h
+>> @@ -806,12 +806,10 @@ static inline void p2m_pt_init(struct p2m_domain *=
+p2m) {}
+>>  void *map_domain_gfn(struct p2m_domain *p2m, gfn_t gfn, mfn_t *mfn,
+>>                       p2m_query_t q, uint32_t *pfec);
+>> =20
+>> -#if P2M_AUDIT
+>> -extern void audit_p2m(struct domain *d,
+>> -                      uint64_t *orphans,
+>> -                      uint64_t *m2p_bad,
+>> -                      uint64_t *p2m_bad);
+>> -#endif /* P2M_AUDIT */
+>> +void audit_p2m(struct domain *d,
+>> +               uint64_t *orphans,
+>> +               uint64_t *m2p_bad,
+>> +               uint64_t *p2m_bad);
 >
->      if ( retry )
->      {
-> -        printk(XENLOG_G_INFO "%pd: ffa: Remaining cleanup, retrying\n", =
-ctx->teardown_d);
-> +        printk(XENLOG_G_DEBUG "%pd: ffa: Remaining cleanup, retrying\n",
-> +               ctx->teardown_d);
+> If already you adjust this beyond dropping the #ifdef, I think we also wa=
+nt to
+> make use of line length, to better match e.g. the other prototype in patc=
+h
+> context above. I'm likely to take the liberty of doing so while committin=
+g.
 >
->          ctx->teardown_expire =3D NOW() + FFA_CTX_TEARDOWN_DELAY;
->
-> @@ -622,7 +623,7 @@ static void ffa_teardown_timer_callback(void *arg)
->      if ( ctx )
->          ffa_domain_teardown_continue(ctx, false /* !first_time */);
->      else
-> -        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
-> +        printk(XENLOG_ERR "%s: teardown list is empty\n", __func__);
->  }
->
->  /* This function is supposed to undo what ffa_domain_init() has done */
-> @@ -684,7 +685,7 @@ static bool ffa_probe_fw(void)
->
->      if ( !ffa_get_version(&vers) )
->      {
-> -        gprintk(XENLOG_ERR, "Cannot retrieve the FFA version\n");
-> +        printk(XENLOG_ERR "ffa: Cannot retrieve the FFA version\n");
->          goto err_no_fw;
->      }
->
-> @@ -724,7 +725,7 @@ static bool ffa_probe_fw(void)
->              set_bit(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id),
->                      ffa_fw_abi_supported);
->          else
-> -            printk(XENLOG_INFO "ARM FF-A Firmware does not support %s\n"=
-,
-> +            printk(XENLOG_WARNING "ARM FF-A Firmware does not support %s=
-\n",
->                     ffa_fw_abi_needed[i].name);
->      }
->
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index 37b05747cd21..186e72641237 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -292,8 +292,9 @@ static void notif_vm_pend_intr(uint16_t vm_id)
->              break;
->          }
->      }
-> -    if ( !v )
-> -        printk(XENLOG_ERR "ffa: can't inject NPI, all vCPUs offline\n");
-> +    if ( !v && printk_ratelimit() )
-> +        printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs off=
-line\n",
-> +               d);
->
->  out_unlock:
->      rcu_unlock_domain(d);
-> @@ -316,9 +317,9 @@ static void notif_sri_action(void *unused)
->          res =3D ffa_get_ret_code(&resp);
->          if ( res )
->          {
-> -            if ( res !=3D FFA_RET_NO_DATA )
-> -                printk(XENLOG_ERR "ffa: notification info get failed: er=
-ror %d\n",
-> -                       res);
-> +            if ( res !=3D FFA_RET_NO_DATA && printk_ratelimit() )
-> +                printk(XENLOG_WARNING
-> +                       "ffa: notification info get failed: error %d\n", =
-res);
->              return;
->          }
->
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index 6b01c4abe915..c9f186b3720c 100644
-> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -461,9 +461,11 @@ static bool init_subscribers(void *buf, uint16_t cou=
-nt, uint32_t fpi_size)
->           */
->          if ( !FFA_ID_IS_SECURE(fpi->id) )
->          {
-> -            printk(XENLOG_ERR "ffa: Firmware is not using bit 15 convent=
-ion for IDs !!\n"
-> -                              "ffa: Secure partition with id 0x%04x cann=
-ot be used\n",
-> -                              fpi->id);
-> +            printk_once(XENLOG_ERR
-> +                        "ffa: Firmware is not using bit 15 convention fo=
-r IDs !!\n");
-> +            printk(XENLOG_ERR
-> +                   "ffa: Secure partition with id 0x%04x cannot be used\=
-n",
-> +                   fpi->id);
->          }
->          else
->          {
-> @@ -632,11 +634,10 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
->          res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], ffa_get_v=
-m_id(d),
->                                       FFA_MSG_SEND_VM_DESTROYED);
->
-> -        if ( res )
-> -        {
-> -            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction of=
- vm_id %u to %u: res %d\n",
-> +        if ( res && printk_ratelimit() )
-> +            printk(XENLOG_WARNING
-> +                   "%pd: ffa: Failed to report destruction of vm_id %u t=
-o %u: res %d\n",
->                     d, ffa_get_vm_id(d), subscr_vm_destroyed[n], res);
-> -        }
->
->          /*
->           * For these two error codes the hypervisor is expected to resen=
-d
-> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-> index 450ce102cbdc..3147aba21ddf 100644
-> --- a/xen/arch/arm/tee/ffa_rxtx.c
-> +++ b/xen/arch/arm/tee/ffa_rxtx.c
-> @@ -4,6 +4,7 @@
->   */
->
->  #include <xen/const.h>
-> +#include <xen/lib.h>
->  #include <xen/domain_page.h>
->  #include <xen/mm.h>
->  #include <xen/sizes.h>
-> @@ -82,8 +83,9 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx=
-_addr,
->
->      if ( page_count > FFA_MAX_RXTX_PAGE_COUNT || !page_count )
->      {
-> -        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (lim=
-it %u)\n",
-> -               page_count, FFA_MAX_RXTX_PAGE_COUNT);
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n"=
-,
-> +                 page_count, FFA_MAX_RXTX_PAGE_COUNT);
->          return FFA_RET_INVALID_PARAMETERS;
->      }
->
-> @@ -303,12 +305,15 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **=
-buf, size_t *buf_size)
->      if ( !ctx->page_count )
->      {
->          ret =3D FFA_RET_DENIED;
-> +        gdprintk(XENLOG_DEBUG, "ffa: RX acquire denied, no RX/TX mapped\=
-n");
->          goto out;
->      }
->
->      if ( !ctx->rx_is_free )
->      {
->          ret =3D FFA_RET_BUSY;
-> +        if ( printk_ratelimit() )
-> +            gdprintk(XENLOG_DEBUG, "ffa: RX acquire busy\n");
->          goto out;
->      }
->
-> @@ -316,7 +321,10 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **b=
-uf, size_t *buf_size)
->      {
->          ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ctx->ffa_id, 0, 0, 0);
->          if ( ret !=3D FFA_RET_OK )
-> +        {
-> +            gdprintk(XENLOG_DEBUG, "ffa: RX acquire failed: %d\n", ret);
->              goto out;
-> +        }
->      }
->      ctx->rx_is_free =3D false;
->      *buf =3D ctx->rx;
-> @@ -355,13 +363,22 @@ int32_t ffa_tx_acquire(struct ffa_ctx *ctx, const v=
-oid **buf, size_t *buf_size)
->      int32_t ret =3D FFA_RET_DENIED;
->
->      if ( !spin_trylock(&ctx->tx_lock) )
-> +    {
-> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire busy\n");
->          return FFA_RET_BUSY;
-> +    }
->
->      if ( !ctx->page_count )
-> +    {
-> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, no RX/TX mapped\=
-n");
->          goto err_unlock;
-> +    }
->
->      if ( !ctx->tx )
-> +    {
-> +        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, TX buffer missin=
-g\n");
->          goto err_unlock;
-> +    }
->
->      *buf =3D ctx->tx;
->      *buf_size =3D ctx->page_count * FFA_PAGE_SIZE;
-> --
-> 2.50.1 (Apple Git-155)
->
+> Jan
+
+Thanks, Jan.
+
+Alejandro
 
