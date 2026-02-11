@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6wmiBtM9jGm7jwAAu9opvQ
+	id 6GuzAtM9jGlyjwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:29:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90BB71223CD
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D1A41223CC
 	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:29:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227057.1533382 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1227059.1533391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5aI-0003vc-Kf; Wed, 11 Feb 2026 08:28:30 +0000
+	id 1vq5aU-0004Dh-Sv; Wed, 11 Feb 2026 08:28:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227057.1533382; Wed, 11 Feb 2026 08:28:30 +0000
+Received: by outflank-mailman (output) from mailman id 1227059.1533391; Wed, 11 Feb 2026 08:28:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5aI-0003uB-Hd; Wed, 11 Feb 2026 08:28:30 +0000
-Received: by outflank-mailman (input) for mailman id 1227057;
- Wed, 11 Feb 2026 08:28:28 +0000
+	id 1vq5aU-0004Ar-Pz; Wed, 11 Feb 2026 08:28:42 +0000
+Received: by outflank-mailman (input) for mailman id 1227059;
+ Wed, 11 Feb 2026 08:28:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Uigq=AP=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1vq5aG-0003u2-MR
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:28:28 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1vq5aS-0003u2-Sm
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:28:40 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2fb0ea1-0723-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 09:28:26 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-59e4993e00aso1689064e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:28:26 -0800 (PST)
+ id aa8b7ab3-0723-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 09:28:39 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-382fb275271so49974221fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:28:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2fb0ea1-0723-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1770798506; cv=none;
+X-Inumbo-ID: aa8b7ab3-0723-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1770798519; cv=none;
         d=google.com; s=arc-20240605;
-        b=AF2k+Bf+gIUR4wKc7/EFRRYrmKIR/zAyMJwzAMVfzPabYQIC/aEx0fSBw1WmeMsKO1
-         NA2EWaJAMLWeKVVBcCmS53DXoBheNJNaJBSDyCFeOrJ4Dimfmthtw/UvmfC5ADx9VNVr
-         QkHcO9VaV4mqVdd/WhVQBoiivjgMndCroVB5/rPThRxPaBLakJEbIiUpnZqx4c3DbEuA
-         XWve6fs8BmsqPou2Gm8oGSfF/iZL87U/I2xi19QZ9E1MO6GTtkBmdnxQ0srfIn4qCu+k
-         tn3iUbgeaYpm9NuDfVGN8MpzF41fWelHRmt9E9mxWK9qgUM0ZOFIHcuQr66+fi3Thf+U
-         e9Ng==
+        b=TWs30vC+irwc/h5ktAMjtaUWmcnvpltlT5FMGKCs15pWvZZ7qQf6iZn7J1tm/Syn0O
+         WsA964epO3kKHPexhx4GgPh1ZKAZHsbA7M2wgJVuXXneate4pSXqN6qWKzlvGag7lsg4
+         wp2DWMr+VZMt2faLJVfjvWSTt7cYAfdf8GuxxaKhMuJOYHZqFe30GgPig21Fkj/gbPrO
+         4vYVzW0H9LYknz5++MciLLVsYym6RkZTXkXEhA8rBHOipEGsixi0ax5R7foma8RiPjRq
+         BZ1xHY2eE+LQLHXD2O4gCuTLCJdliyHZ2BYjs5vR0r7k8/kj2bafqnD/NCuIrWi3c8VX
+         8gAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
+        bh=Y5P0pA5ww1oZkDFmE53oeDu5lMmJYN+rkyRE56YrgrU=;
         fh=S1TgsMYO/ju21WOcmYTQxMlAU8ImCjuw50drwKkfBt8=;
-        b=OlQMf+d01fl8Zramr3kxc5cSxDbNpuQ2vhM4/t20Y9J5blONBzwhvTi1Fksr6tvxj8
-         nXV3Irfnbtum2sXMSgqWL7OMpZRmic2/p42XXqQEOmZvd2oz94LRsObsP7OlkTy34da5
-         xeEc3w6Osgck0PM/Wy3FnXqLkFQRsnPRL18t6bq8UduDnYt+PfK2ZfaD3E52/JpmkOXR
-         5xiqj2LvMAJ7TN7YRJfuqZWDXsyjmo6KTTe48WazqVYdui18akltb+/D1Jvv25EaglMM
-         o9BYalCp4RdLK9/QhsEq0X7JIusWWHEbKTRSD1fItxeJro2ZBFvZhZDazNEFTMLrTvwT
-         Q1TA==;
+        b=anHjhAAnguwcP/ro60uY0YvCWFEnh1ggmBXpxumQlxPWrpF7hDmp4PRc3b9BVAa20a
+         +eZVB9sZH0Wy0UcuPcM0CVVao9L3NBpwKkjrwslfTTW+lYu/by6rsxEVSVREj8K98EEo
+         iW8jLSjGuvJQ3rQMLaop94AA51GCa1a46axuZTsW25kSSoebvacEzSyzXUODZw4tgX4T
+         +fQWPx7+KwkGlHjcG4hzYbGD/0yEo9/YFwKKHMrTISR4RVUnOSKew5FhD1WVbh+rh9DX
+         9AowRuIgZmV1m2R66gwyQ8Wmkd96SDtONAITI6xXFNmVNneIXJLHbyUwAGmPVyPvl0hU
+         JAdQ==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770798506; x=1771403306; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770798519; x=1771403319; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
-        b=a7FCUGGOBHnbMfUS9CbiVF3JdGrJWGcYdUtyKxLPTKffK9ZSZCgy0UZGPgksgv6r5H
-         KL/V2GUU9R8vpTzJXKgpAW6SDovLqbZ1brBFYBr4gNDnXm4HO296xh0S578xq+P20SNZ
-         CDiSU15F/QG8nWBdL8dWkd3MQMbxbKKfdKRiSjZBcILBFvB9pqGWSZNVYtAGk2X9fAKR
-         9vJXAO9oZANordZe3Nk6FgYOrxWKdwoT8wNzPdY4QKFngV9n3i0jaG4KA5pK2kCInnRQ
-         5b4zfZTA8QxL+VcbtlNvhNzaCuiKIqeQeOuTddvxHrTXlOerVO8H4+SVC0YTyEQw+2Uy
-         CNYw==
+        bh=Y5P0pA5ww1oZkDFmE53oeDu5lMmJYN+rkyRE56YrgrU=;
+        b=ZAbE7DiE1884uRwsrKiRtvqnoKy6YGJKrCj6AwbojoLFQPDoE5c9J3be6/mViwdBP+
+         YHYNkEPoIuYAldBl/SItWkE3xukf/C7L0oDTdhlcy30uQazHBdBPU0tfoMixjVShB4zH
+         jptXFx0HyFf2hEY1GaVrJqJk+robi7Mc6GzX5wicOCHXhi6qMNC9UuNv1ePAUPUygp/9
+         fNyYxDzy2gRugLDe6lUTHsVr7pMnJj1OzoZTFaRhmP5rhIlXfHAnuxQI4AOsmknFeels
+         ZRK1vn7K5Px4pmqGoXhvlxfl5SOwqPLxH/0wE8HOxgxrtd263kAGlr5OT1epYiHmdZUL
+         R7PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770798506; x=1771403306;
+        d=1e100.net; s=20230601; t=1770798519; x=1771403319;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
-        b=bQe8kfngG9HsTzh+IN25fYUnMJkWWNNnkDjSJZvQjbPJA32zWrY/R59Lht2kTkYMPM
-         8yh2GBPPzYulBeqjm0VL3jOqu2765qz5/HrBwCAliOKOYgdlJnnA/ZgDJ7OK8Dnk8nhD
-         +daAVL3mHrI1PVuBnZyZ5WlYj+fMrxSjJpsIREhj+xNusXZ7/Ml3p2JIGztiH6zQ8nwS
-         mrrhlkTTBWUnEiSy+XPY1kOE1SDV3ND77jdcV9H2+QaE1QQ5SY9JylIdgx+d7c2sSC8H
-         l+oUlkh4mYzEfgn7izjRA+JVzt1VpyPKr4FvswPL81TIde0A0D+GfFKPW6kjgS4/2iUB
-         c5tw==
-X-Gm-Message-State: AOJu0Yx0bODncE5wk2MMLiPSdL3YMx3lgkYXYtnpmqlhTFOS+hFnTpeM
-	MUdKFgYRpiFeYUQljyU7M6LBvJMy3ZLuKgF1IXLHMMhy0is5DEuNj6fb5/jwkWpzSoSHchDcfJt
-	SprMrOuVsFzc9iIDmSZOJgmeWv6EjNYM=
-X-Gm-Gg: AZuq6aLqbLHCR4rP7mnx0ipZ9CVIdDK7G1kWNtOp8LO5a14eI1lplTss3r5BBc0HUIK
-	7kRTioE1VBopyr0x+BNJat5Y+Eran3OvvIyORV8uqvWOzz6ErJb51HlEDqThxyRdCdankVZspPp
-	b684ARbysOpyZvj3l4VoPFfkQtfSZVsYbdQTqflr4l5jcgkRU7+6mmUxVPEYT5Zv8JbfVTi2U6B
-	tQ9zLR5d77sU/TLziHwEUQa74J680IhFstA2EAZ3kSCcVm1TewGb1vFvgIaM6v4yg/rxZ8VlpeX
-	G/l+
-X-Received: by 2002:a05:6512:618b:b0:59e:407a:c8f7 with SMTP id
- 2adb3069b0e04-59e45152d3fmr4858710e87.29.1770798505657; Wed, 11 Feb 2026
- 00:28:25 -0800 (PST)
+        bh=Y5P0pA5ww1oZkDFmE53oeDu5lMmJYN+rkyRE56YrgrU=;
+        b=QN9kxDkwTCrVs28fmI692uJ5Tm5R3OzzPYm755EOk835vIPjcYqckAKwdgW/j9NeCn
+         7dXemSv/qVymgmSBFhwKMucmuiJxChVKBlOdYUcUqEe1ROVaKFP1gCfAIP86GoptRlwa
+         is+4Mmbs4oDSX7tnAO9h1ySSNEOv5w66qrsEuoJMci7a9yuFslLaNSIPRfGJZL+dpABV
+         GB77gsIiDcVt4fqUgw5T+6siffHQyYXbNqlcjNxdxHG59FB19IEnCiV9itChf0oPBxDj
+         CcI5jshfSD4ZBhxUf+fBWQrB6MJur+NeF6gu5f3wFKN1QIjcwIfecluaFq/ZGV0iXCGU
+         7V6Q==
+X-Gm-Message-State: AOJu0YzzxSXOHj1aSJ6XYENkebvrF4EEvGAcWOHr9qVgsA2oXQopufpc
+	rcL6Gf6FYrn8midO4Xtq+eiO4/xEpDvsxXgpl88cGJ4laHm+eoWpROd4Ue/zrrzqnAgR09DzdgM
+	xTdWGlGVJCuoaoFoHxHyHC5swahSk0NE=
+X-Gm-Gg: AZuq6aKGa5xk3RB3kCtxpOENWzp0X8RSL7KmMkAUUrPZkpzO02uafg5dbIU15DiByIt
+	Z9ZVz7ZSAGFJrw4hNNfe6ZUHNLiMZirKBvOZB7UQin42oWK9yCgOGnN+FBTzt0rfU50A9c090Hh
+	QXkJL5l9GbP+4DW+gUme0S9kCzbDUCHeJyB90RpYKXOJKaz2oBfORArHz1050AIH57oXxQaZ3Ip
+	vr5PBRZML5PucnOoptFpzN9ltQr+bNAZn/w0x7W17i6gqNQ7pGugCG3mZT4H5ICB0MWJRlJRIVz
+	R1Bl
+X-Received: by 2002:a05:651c:1545:b0:372:628b:5cb4 with SMTP id
+ 38308e7fff4ca-38703270c01mr5333651fa.45.1770798518314; Wed, 11 Feb 2026
+ 00:28:38 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1770046465.git.mykyta_poturai@epam.com> <21505d8f47bdabbf0f8e534eed937c5bf0a4ce02.1770046465.git.mykyta_poturai@epam.com>
-In-Reply-To: <21505d8f47bdabbf0f8e534eed937c5bf0a4ce02.1770046465.git.mykyta_poturai@epam.com>
+References: <cover.1770046465.git.mykyta_poturai@epam.com> <3eb1cea5fb870e01b86e964caef5ceb9b2a8ed75.1770046465.git.mykyta_poturai@epam.com>
+In-Reply-To: <3eb1cea5fb870e01b86e964caef5ceb9b2a8ed75.1770046465.git.mykyta_poturai@epam.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Wed, 11 Feb 2026 10:28:13 +0200
-X-Gm-Features: AZwV_Qhf7Sk-3veq8pb7JP-KVFkxMtvofOqfn2KXzQJMJwrtBJMhdzS7avXhXbY
-Message-ID: <CAGeoDV84Ys0Tqe8DGv7zC3-ExLZYqcBDkdVxEjNBUmQfDE+hYQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 01/19] arm/gicv4 add management structure definitions
+Date: Wed, 11 Feb 2026 10:28:25 +0200
+X-Gm-Features: AZwV_QjfORdiQXQuveEv0skT_N_toFlsGm-8olRbDuLsRhGAxkr25F6n81Gezvg
+Message-ID: <CAGeoDV-330_HnGCUH-qgVEM-3_=LL_iwnMgOvzRTgJisoi78vw@mail.gmail.com>
+Subject: Re: [RFC PATCH 02/19] arm/gicv4-its: Add GICv4 ITS command definitions
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
@@ -122,7 +122,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -136,7 +136,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,gnu.org:url];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -151,102 +151,76 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 90BB71223CD
+X-Rspamd-Queue-Id: 6D1A41223CC
 X-Rspamd-Action: no action
-
-Hi Mykyta
-
-Thank you for the contribution.
 
 On Mon, Feb 2, 2026 at 6:14=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epam.=
 com> wrote:
 >
-> Add GICv4 specific structures to be used in later patches.
+> Add definitions for GICv4 specific ITS commands.
 >
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > ---
->  xen/arch/arm/include/asm/vgic.h | 43 +++++++++++++++++++++++++++++++++
->  1 file changed, 43 insertions(+)
+>  xen/arch/arm/include/asm/gic_v4_its.h | 41 +++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 xen/arch/arm/include/asm/gic_v4_its.h
 >
-> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/v=
-gic.h
-> index 6f9ab1c98c..a874a02d70 100644
-> --- a/xen/arch/arm/include/asm/vgic.h
-> +++ b/xen/arch/arm/include/asm/vgic.h
-> @@ -127,6 +127,42 @@ struct vgic_irq_rank {
->      uint8_t vcpu[32];
->  };
->
-> +#ifdef CONFIG_GICV4
-> +struct its_vm {
-> +    struct its_vpe **vpes;
-> +    /* Number of VPE. */
-> +    unsigned int nr_vpes;
-> +    uint32_t *db_lpi_bases;
-> +    unsigned int nr_db_lpis;
-> +    /* Property table per VM. */
-> +    void *vproptable;
-> +};
+> diff --git a/xen/arch/arm/include/asm/gic_v4_its.h b/xen/arch/arm/include=
+/asm/gic_v4_its.h
+> new file mode 100644
+> index 0000000000..f48eae60ad
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/gic_v4_its.h
+> @@ -0,0 +1,41 @@
+> +/*
+> + * ARM GICv4 ITS support
+> + *
+> + * Penny Zheng <penny.zheng@arm.com>
+> + * Copyright (c) 2023 ARM Ltd.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; under version 2 of the License.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
 > +
-> +struct its_vpe {
-> +    rwlock_t lock;
-> +    uint32_t vpe_id;
-> +    /* Pending table per VCPU. */
-> +    void *vpendtable;
-> +    uint32_t vpe_db_lpi;
-> +    struct its_vm *its_vm;
-> +    unsigned int col_idx;
-> +    bool resident;
-> +    /* Pending VLPIs on schedule out? */
-> +    bool            pending_last;
-> +    struct {
-> +        /* Implementation Defined Area Invalid */
-> +        bool idai;
-> +        /* VPE proxy mapping */
-> +        int vpe_proxy_event;
-> +    };
-> +    /*
-> +     * Ensure mutual exclusion between affinity setting of the vPE
-> +     * and vLPI operations using vpe->col_idx.
-> +     */
-> +    spinlock_t vpe_lock;
-> +};
-> +#endif
+> +#ifndef __ASM_ARM_GICV4_ITS_H__
+> +#define __ASM_ARM_GICV4_ITS_H__
 > +
->  struct vgic_dist {
->      /* Version of the vGIC */
->      enum gic_version version;
-> @@ -193,6 +229,10 @@ struct vgic_dist {
->       */
->      bool rdists_enabled;                /* Is any redistributor enabled?=
- */
->      bool has_its;
-> +#ifdef CONFIG_GICV4
-> +    struct its_vm *its_vm;
-> +#endif
-> +    bool nassgireq;
+> +#define GITS_CMD_VMOVI                   0x21
+> +#define GITS_CMD_VMOVP                   0x22
+> +#define GITS_CMD_VSGI                    0x23
 
-nit: unused in this series
-
+nit: This looks unrelated to the changes in this series
+      no vSGI handling in this series
 
 Best regards,
 Mykola
 
 
->  #endif
->  };
->
-> @@ -227,6 +267,9 @@ struct vgic_cpu {
->  #define VGIC_V3_RDIST_LAST      (1 << 0)        /* last vCPU of the rdis=
-t */
->  #define VGIC_V3_LPIS_ENABLED    (1 << 1)
->      uint8_t flags;
-> +#ifdef CONFIG_GICV4
-> +    struct its_vpe *its_vpe;
+> +#define GITS_CMD_VSYNC                   0x25
+> +#define GITS_CMD_VMAPP                   0x29
+> +#define GITS_CMD_VMAPTI                  0x2a
+> +#define GITS_CMD_VINVALL                 0x2d
+> +#define GITS_CMD_INVDB                   0x2e
+> +
 > +#endif
->  };
->
->  struct sgi_target {
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 > --
 > 2.51.2
 
