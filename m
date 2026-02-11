@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OBFGKl14jGktpAAAu9opvQ
+	id gNWiB414jGktpAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:38:53 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5655E124649
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:38:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227527.1533941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55D412469C
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 13:39:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227568.1533984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9UT-0007Hl-PK; Wed, 11 Feb 2026 12:38:45 +0000
+	id 1vq9VD-0001Xx-UA; Wed, 11 Feb 2026 12:39:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227527.1533941; Wed, 11 Feb 2026 12:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 1227568.1533984; Wed, 11 Feb 2026 12:39:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq9UT-0007Ew-Jj; Wed, 11 Feb 2026 12:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 1227527;
- Wed, 11 Feb 2026 12:38:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vq9VD-0001VY-Qu; Wed, 11 Feb 2026 12:39:31 +0000
+Received: by outflank-mailman (input) for mailman id 1227568;
+ Wed, 11 Feb 2026 12:39:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UZeC=AP=redhat.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1vq9NT-0001nh-7V
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:31 +0000
+ id 1vq9Nc-00016c-Eb
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 12:31:40 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9726d49c-0745-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 13:31:30 +0100 (CET)
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9a39f093-0745-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 13:31:35 +0100 (CET)
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-O6N5zASFObGpSC7yEto7wA-1; Wed,
- 11 Feb 2026 07:31:26 -0500
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-FYZ-7oebMfKy2oSzbnuHug-1; Wed,
+ 11 Feb 2026 07:31:31 -0500
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 65CB419560A3; Wed, 11 Feb 2026 12:31:24 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 69E491800282; Wed, 11 Feb 2026 12:31:29 +0000 (UTC)
 Received: from localhost (unknown [10.45.242.6])
  by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 235A318003F6; Wed, 11 Feb 2026 12:31:22 +0000 (UTC)
+ id 6BED718003F6; Wed, 11 Feb 2026 12:31:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,19 +57,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9726d49c-0745-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 9a39f093-0745-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1770813089;
+	s=mimecast20190719; t=1770813094;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tpYjeot8p53E9hbudpSJPO+xYO8RwO13MoSHQweyb84=;
-	b=JCG7WAJNXG042yyBVm5YVFFN/Z+jbzpOgc7zl+JEHtffvq0atvsh1G4ZDvXUCmReR0d11+
-	sA5BsHCy2bqExEb3tXtISy/2gZCyEupkIa65AWpBIYQ7Y1XhbKfu4Lqh/wJFbTMYpoSskN
-	NFE1OU75Ne+ii/MCHlW23UBkiIJYn00=
-X-MC-Unique: O6N5zASFObGpSC7yEto7wA-1
-X-Mimecast-MFC-AGG-ID: O6N5zASFObGpSC7yEto7wA_1770813084
+	bh=jM55cKZhaLYd8jeB1eDli6p7CvLSuDmkHDqz2KhxR1g=;
+	b=Z7IMSXpWHfPCAklRvbAXDGpqlE3WPHcKlTdLoAdhMGVjXTC5vuf0Skqeco+9BFVteyDHIj
+	l3MRUVOWEcF+q7274Wwckr5uWAizJl0dliCbrCWYfLSh0xyGZUsXWYWxd7xUiEVVkppFUn
+	FXPqVzBDCWDe/es0zo3diq3X5X+awb4=
+X-MC-Unique: FYZ-7oebMfKy2oSzbnuHug-1
+X-Mimecast-MFC-AGG-ID: FYZ-7oebMfKy2oSzbnuHug_1770813089
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: Eduardo Habkost <eduardo@habkost.net>,
@@ -87,14 +87,14 @@ Cc: Eduardo Habkost <eduardo@habkost.net>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Paul Durrant <paul@xen.org>,
 	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Subject: [PULL 12/14] char: qemu_chr_write_log() use qemu_write_full()
-Date: Wed, 11 Feb 2026 16:29:59 +0400
-Message-ID: <20260211123007.3569932-13-marcandre.lureau@redhat.com>
+Subject: [PULL 13/14] error-report: make real_time_iso8601() public
+Date: Wed, 11 Feb 2026 16:30:00 +0400
+Message-ID: <20260211123007.3569932-14-marcandre.lureau@redhat.com>
 In-Reply-To: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
 References: <20260211123007.3569932-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
-X-Mimecast-MFC-PROC-ID: v9CM-dJxE4MCY49_nCw6IidR9wKR_S89aum6RIxiPi4_1770813084
+X-Mimecast-MFC-PROC-ID: A5TDt3lip-DGrywrDOD_YuOtJw35bjfLameypk1uEFI_1770813089
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -130,60 +130,51 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	FROM_NO_DN(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 5655E124649
+X-Rspamd-Queue-Id: C55D412469C
 X-Rspamd-Action: no action
 
 From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
 
-logfd is blocking, so we don't need to care about EAGAIN.
-Let's simply use qemu_write_full().
+To be reused in the following commit.
 
 Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
 Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Message-ID: <20260201173633.413934-2-vsementsov@yandex-team.ru>
+Message-ID: <20260201173633.413934-3-vsementsov@yandex-team.ru>
 ---
- chardev/char.c | 22 +++++-----------------
- 1 file changed, 5 insertions(+), 17 deletions(-)
+ include/qemu/error-report.h | 6 ++++++
+ util/error-report.c         | 3 +--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/chardev/char.c b/chardev/char.c
-index 5d00cac2f31..4b285baf029 100644
---- a/chardev/char.c
-+++ b/chardev/char.c
-@@ -82,29 +82,17 @@ void qemu_chr_be_event(Chardev *s, QEMUChrEvent event)
-     CHARDEV_GET_CLASS(s)->chr_be_event(s, event);
+diff --git a/include/qemu/error-report.h b/include/qemu/error-report.h
+index 3ae2357fda5..dc423d36071 100644
+--- a/include/qemu/error-report.h
++++ b/include/qemu/error-report.h
+@@ -74,4 +74,10 @@ extern bool message_with_timestamp;
+ extern bool error_with_guestname;
+ extern const char *error_guest_name;
+ 
++/*
++ * Return current datetime in ISO 8601 format.
++ * Caller is responsible to g_free() the returned string.
++ */
++char *real_time_iso8601(void);
++
+ #endif
+diff --git a/util/error-report.c b/util/error-report.c
+index 1b17c11de19..d6b7448183a 100644
+--- a/util/error-report.c
++++ b/util/error-report.c
+@@ -169,8 +169,7 @@ static void print_loc(void)
+     }
  }
  
--/* Not reporting errors from writing to logfile, as logs are
-- * defined to be "best effort" only */
- static void qemu_chr_write_log(Chardev *s, const uint8_t *buf, size_t len)
+-static char *
+-real_time_iso8601(void)
++char *real_time_iso8601(void)
  {
--    size_t done = 0;
--    ssize_t ret;
--
-     if (s->logfd < 0) {
-         return;
-     }
- 
--    while (done < len) {
--    retry:
--        ret = write(s->logfd, buf + done, len - done);
--        if (ret == -1 && errno == EAGAIN) {
--            g_usleep(100);
--            goto retry;
--        }
--
--        if (ret <= 0) {
--            return;
--        }
--        done += ret;
-+    if (qemu_write_full(s->logfd, buf, len) < len) {
-+        /*
-+         * qemu_write_full() is defined with G_GNUC_WARN_UNUSED_RESULT,
-+         * but logging is best‑effort, we do ignore errors.
-+         */
-     }
- }
- 
+     g_autoptr(GDateTime) dt = g_date_time_new_now_utc();
+     return g_date_time_format_iso8601(dt);
 -- 
 2.52.0
 
