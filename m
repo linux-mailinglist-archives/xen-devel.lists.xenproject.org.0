@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Nb5AEJTYi2nebwAAu9opvQ
+	id gF2FJF8tjGl8iwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 02:17:08 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:18:55 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9561206F6
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 02:17:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1226940.1533312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81E85121D3E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 08:18:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1226987.1533322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpyqS-0000SE-5z; Wed, 11 Feb 2026 01:16:44 +0000
+	id 1vq4Tt-0000Vj-S5; Wed, 11 Feb 2026 07:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1226940.1533312; Wed, 11 Feb 2026 01:16:44 +0000
+Received: by outflank-mailman (output) from mailman id 1226987.1533322; Wed, 11 Feb 2026 07:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vpyqS-0000QW-2X; Wed, 11 Feb 2026 01:16:44 +0000
-Received: by outflank-mailman (input) for mailman id 1226940;
- Wed, 11 Feb 2026 01:16:43 +0000
+	id 1vq4Tt-0000Th-OG; Wed, 11 Feb 2026 07:17:49 +0000
+Received: by outflank-mailman (input) for mailman id 1226987;
+ Wed, 11 Feb 2026 07:17:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HiTc=AP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vpyqQ-0000QQ-QZ
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 01:16:42 +0000
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vq4Ts-0000Tb-IX
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 07:17:48 +0000
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [2a00:1450:4864:20::342])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ef35cea-06e7-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 02:16:36 +0100 (CET)
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 1A4917A0194;
- Tue, 10 Feb 2026 20:16:35 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-08.internal (MEProxy); Tue, 10 Feb 2026 20:16:35 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Feb 2026 20:16:33 -0500 (EST)
+ id c1351032-0719-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 08:17:42 +0100 (CET)
+Received: by mail-wm1-x342.google.com with SMTP id
+ 5b1f17b1804b1-4807068eacbso14438845e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Feb 2026 23:17:42 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43783dfc54csm2605958f8f.25.2026.02.10.23.17.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Feb 2026 23:17:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,176 +50,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ef35cea-06e7-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1770772594;
-	 x=1770858994; bh=AnsFbD6A484dObcHy45DMWIYSo5yDnNHM1GpEvTgH5o=; b=
-	KS15qKOufKbrMfFckdGORUHltcEmwCFGeMBdcnvmRAElmUEaqUF1cCYEcDhQcKYp
-	oCyDCHjLXnj/YHblNbmFqnuKPMD0asmpXmyD/ug+8bj5ANn2vZmdLvUYQ45C9ht7
-	+4bO45lGwOGmseGvl6wwAvkv0lVQCzUeDq4CfqTuP6a08tXKNzfOFziFHtHtcJ8J
-	B6x8one/b7PNeVTkzdN56xc/EpCWk8Ujk6+HLijAEcFmYhysRpWqBgxbo/KqBVhm
-	fVq7xu9pydB0XidSYd0iN9FtZ7tzbIlQ5ProSdl9Ij2qW0cJW6zQ0k+piKjHbmZz
-	YLG+xK0UkS8lI30ahOgRAQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1770772594; x=1770858994; bh=AnsFbD6A484dObcHy45DMWIYSo5yDnNHM1G
-	pEvTgH5o=; b=b3GgnLz1q1unOpn7qnE9EXrM6ZKdeLVckkvLPjgL1BoDIgdDf6K
-	GYn2KvKibrhUX2UuQgAqt4/X1+/gyOj3fR5Q8j4gVPbJB7/S8kwlg4Nh/6yV235L
-	TLoXxktvipFG3gsFJSZJNG0XllbMYhYX4ZykkBh3grsoyPbbspa1DEHCD0uM21nX
-	IKD6KLNir/JXoFQhc/ptfD0Upe0W9cIIv9BXdnPMQGdgFYmy72xE2ex+yuGC90f8
-	zU442sKo0ZcWP1ZQL3FMgQtP28lw7/cwvh0PRohcIUCBOYrosI4wmF/t9pf4HHHK
-	ElgjW9F8wryhxqfRupsBItgAKxhEd/SRkJw==
-X-ME-Sender: <xms:ctiLaTGzXofDv5PvJVhK-a4ES7mExZDX3Urv_cZfUFuYy8WHK2rhig>
-    <xme:ctiLaXUSq8rAYMRNOvgvkuOHPK85keaT0vu_FeW4H8p8YAlnEXb3BNhoONG_m7oNL
-    bGVjTgFn7bxd50LJblt0b3fjpxD1ZvBAIaM9BN6FxihJW1O2XY>
-X-ME-Received: <xmr:ctiLaaIHMuW_sVdlf9IOORZS7xZzm0FuB4XaNM5ZAKPDj2ACMPLrmyWjQER9xm2yc2YtPfIY3-pi2r_nDbc0donhWC48LVQsqf4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvtdduvddtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegt
-    ihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvg
-    hnphhrohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhs
-    shholhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrd
-    gtohhm
-X-ME-Proxy: <xmx:ctiLaf_ZoOftoWulth-rzWSAcqbfHqjYumpeborpqr9Zhn5Qf4rPbg>
-    <xmx:ctiLaVIhrekL85DnWLIsd9kME2adEvfHAXVQFwyGMU7JQxxPcwd4fw>
-    <xmx:ctiLackp1SxUPaZEq9kEIZ_mjtvmzpkkPh5wtuEwPxDcRnoixE2P2w>
-    <xmx:ctiLaRN0hPU0DPfJRbKZwpvk9uJeAsSqCfkkK13YBEianqyUktEo3w>
-    <xmx:ctiLaTcstnUKf9bp_mLBdqLWdqai7hnKllQnc-lbGpzZEnZ--Dpl6Kpj>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 11 Feb 2026 02:16:31 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] EFI: Fix relocating ESRT for dom0
-Message-ID: <aYvYb4KbMkVG12tD@mail-itl>
-References: <20260211001650.1592239-1-marmarek@invisiblethingslab.com>
- <33667892-789a-4e94-ae0d-d240f7062b81@citrix.com>
+X-Inumbo-ID: c1351032-0719-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1770794262; x=1771399062; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kvqal51klsUTBxjgyP6fqRaFPMmTg1kO9Zzg0fsxOzg=;
+        b=bVglWuhmxdyhR0DZJi0fadmFKmuRJrpbv1WLHJvQQSbimI3eHQg7RSvPK8cfZ/dO+K
+         mOnGcMdBl80dYJNrvJqWGcNKa/mNtOt/lQU9jgZEHrMsXHfeQ9NXTP/a4jl1OGorMnjk
+         xYx/4voppiplLueAEKibVEWobrDI6EEJwvgFhKyiTmmVOafEjP9oK3/eEEHC9t6VOjhh
+         5Ra7dYEMQ7SYR/sODkdChlVAWGrLc+3cjiQRdSHgspueo4XyHaC8A3ZAfs3T3RLRbHKA
+         oJcAti05NZBeniLhr7jQny9pAoAriCzRjqb67q7GKghiEj4OTUZsyEqN/teLfrSejuRw
+         5QZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770794262; x=1771399062;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Kvqal51klsUTBxjgyP6fqRaFPMmTg1kO9Zzg0fsxOzg=;
+        b=uGbifAffDmi+y1pD7aJfOwPuwncFTyI92z4c2IYjDeYR/iJeddw8M62bbptQmUGmyC
+         ia0eHMss6J0bUIzFzy805pU2DktAgbdnU4dS62ezNAOPjKwh1NFegvPSS1bSYLzdjSLW
+         hHV/EyDQ0DVFg7NXQB/LSSb9fJUxavbVGLoDp9sxWSiBIJYL/ll26bKD0z4KIpMVeTUQ
+         0jOEfUpWXgCZGONnWUY+cXG495ccLlf6TNAti/YwbR0tmVe3xAH93SiYpqXfBYuzFVQ7
+         6zalRWgeS5BEFzIggRwiJLknrvfX6PKbjvgG00/I1X4BrSqda8NVE1ZjevtE2mCGPioD
+         9I0w==
+X-Forwarded-Encrypted: i=1; AJvYcCVvey1JMnoTxsaMhLhJt4BmopFZUIVS8hACxz9xh4sdosIAjEku71vRrKqYHfBUVJU0cbbvELoxAsE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyfNkX7eeymNMsaym+f7TEg07Nnrni0z79TAnM1WjU3q3MJm++4
+	v0eWJLP1Q0aYWT+x3K42oiLRC39muqO8hPMo4W4XoF5cOqjawfPJnDUmfWXkYHruFg==
+X-Gm-Gg: AZuq6aJoUQExYuo4eJgtzbOvj5Kih5d5/gQ5KxPZKIH0Mf4XNVUSgZ3L/s7aGBaA11T
+	v1OjK6y+A/sKeafKjs/Qim3JPWjGog4ntz0e6jVBFhkvjqdTj8otyNGlOrlsg3CmA7dwLEdj84f
+	iOqQ+8QJnez51djwxqaHeCj6oHQegQhjpkAy0TnGGQV/y4v4i8aKv+6aKRv492xoojedvBEKk+R
+	oNxDUaEQlQ9mAalIST3s36/JrlX/N09BFELgmSb1znmBMo5+kg2nNRxAwuLMtO3Y8aaoU5oxqSz
+	2i7+y2vcNt/uv/Aqm4wVTPGM01LuuXeUCEyKHFrtF9o5p7X6w9mpmq0wRMhtxuE48CKaqTZIQTi
+	okUnHfLgNO5DfmYklvCNf3hiAWXEM2UzHBI3szwqpP9WXbsL1ryTqw2BPNQrhh0/qC3cQE1L3O/
+	r5GlCWCYrdQKgq3251i9VGLtan0tVI5favfkNI4kjdLKgR2t13+M/n+CLX1KMS4xLAG+T7ikiGo
+	1AvJJ/2zKKdcT0=
+X-Received: by 2002:a05:600d:6405:10b0:480:3ad0:93c0 with SMTP id 5b1f17b1804b1-48320216155mr181204695e9.23.1770794261646;
+        Tue, 10 Feb 2026 23:17:41 -0800 (PST)
+Message-ID: <b210e7c0-ae2b-4d41-8690-b5af4261de3c@suse.com>
+Date: Wed, 11 Feb 2026 08:17:39 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8c6GOirE1GocLifO"
-Content-Disposition: inline
-In-Reply-To: <33667892-789a-4e94-ae0d-d240f7062b81@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/domctl: Conditionalise x86 domctl using DCE rather
+ than ifdef
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Tamas K Lengyel <tamas@tklengyel.com>
+References: <20260210173022.257030-1-alejandro.garciavallejo@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260210173022.257030-1-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm3];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,m:jbeulich@suse.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[invisiblethingslab.com:email,invisiblethingslab.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:tamas@tklengyel.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 8B9561206F6
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 81E85121D3E
 X-Rspamd-Action: no action
 
+On 10.02.2026 18:30, Alejandro Vallejo wrote:
+> --- a/xen/arch/x86/include/asm/mem_sharing.h
+> +++ b/xen/arch/x86/include/asm/mem_sharing.h
+> @@ -9,10 +9,12 @@
+>  #ifndef __MEM_SHARING_H__
+>  #define __MEM_SHARING_H__
+>  
+> -#include <public/domctl.h>
+> -#include <public/memory.h>
+> +struct xen_domctl_mem_sharing_op;
+>  
+>  #ifdef CONFIG_MEM_SHARING
+> +#include <xen/sched.h>
+> +
+> +struct xen_mem_sharing_op;
+>  
+>  #define mem_sharing_enabled(d) ((d)->arch.hvm.mem_sharing.enabled)
+>  
+> @@ -92,8 +94,6 @@ int mem_sharing_fork_reset(struct domain *d, bool reset_state,
+>  int mem_sharing_notify_enomem(struct domain *d, unsigned long gfn,
+>                                bool allow_sleep);
+>  int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg);
+> -int mem_sharing_domctl(struct domain *d,
+> -                       struct xen_domctl_mem_sharing_op *mec);
+>  
+>  /*
+>   * Scans the p2m and relinquishes any shared pages, destroying
+> @@ -103,6 +103,7 @@ int mem_sharing_domctl(struct domain *d,
+>  int relinquish_shared_pages(struct domain *d);
+>  
+>  #else
+> +struct domctl;
 
---8c6GOirE1GocLifO
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Feb 2026 02:16:31 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] EFI: Fix relocating ESRT for dom0
+DYM struct domain? If so (can adjust while committing):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Wed, Feb 11, 2026 at 12:58:25AM +0000, Andrew Cooper wrote:
-> On 11/02/2026 12:16 am, Marek Marczykowski-G=C3=B3recki wrote:
-> > Fix calculating the table size - it consists of a header + entries, not
-> > just entries.
-> > This bug caused the last entry to have garbage in its final fields,
-> > including LowestSupportedFwVersion and CapsuleFlags, which (usually)
-> > made fwupd to detect firmware update availability, but refuse actually
->=20
-> "made fwupd able to"
->=20
-> > installing it.
-> >
-> > Fixes: dc7da0874ba4 ("EFI: preserve the System Resource Table for dom0")
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> >  xen/common/efi/boot.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> > index 5b84dbf26e5e..45015a0dd583 100644
-> > --- a/xen/common/efi/boot.c
-> > +++ b/xen/common/efi/boot.c
-> > @@ -675,7 +675,8 @@ static size_t __init get_esrt_size(const EFI_MEMORY=
-_DESCRIPTOR *desc)
-> >      if ( esrt_ptr->FwResourceCount > available_len / sizeof(esrt_ptr->=
-Entries[0]) )
-> >          return 0;
-> > =20
-> > -    return esrt_ptr->FwResourceCount * sizeof(esrt_ptr->Entries[0]);
-> > +    return offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries) +
-> > +        esrt_ptr->FwResourceCount * sizeof(esrt_ptr->Entries[0]);
->=20
-> offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries[esrt_ptr->FwResourceCount])
->=20
-> is a shorter expression with the same answer, and a pattern we use
-> elsewhere.=C2=A0 I can fix on commit if you're happy.
+Cc-ing Tamas at least for awareness; I think ./MAINTAINERS should enumerate
+this file in the X86 MEMORY SHARING section.
 
-Fine with me, thanks.
+> --- a/xen/arch/x86/include/asm/p2m.h
+> +++ b/xen/arch/x86/include/asm/p2m.h
+> @@ -806,12 +806,10 @@ static inline void p2m_pt_init(struct p2m_domain *p2m) {}
+>  void *map_domain_gfn(struct p2m_domain *p2m, gfn_t gfn, mfn_t *mfn,
+>                       p2m_query_t q, uint32_t *pfec);
+>  
+> -#if P2M_AUDIT
+> -extern void audit_p2m(struct domain *d,
+> -                      uint64_t *orphans,
+> -                      uint64_t *m2p_bad,
+> -                      uint64_t *p2m_bad);
+> -#endif /* P2M_AUDIT */
+> +void audit_p2m(struct domain *d,
+> +               uint64_t *orphans,
+> +               uint64_t *m2p_bad,
+> +               uint64_t *p2m_bad);
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+If already you adjust this beyond dropping the #ifdef, I think we also want to
+make use of line length, to better match e.g. the other prototype in patch
+context above. I'm likely to take the liberty of doing so while committing.
 
---8c6GOirE1GocLifO
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmL2G8ACgkQ24/THMrX
-1yz3qAf/RznelSPuVWAxlgyrC9YbfLl6G7CHr5AHFo/Tb2Vyv4bOQp4ewFJ6a4ve
-nMek2vI3jozBwAc01LEd3zhT7ipXyRs4SH/91iuwMJ+LavS4DIJdoeUd0D0fQ1If
-m+nJESKy+P+fDSU2ii1r6t5SE7l/WqFcR7d03y5hsgX08UweuBTiDFHgg65Fi9To
-rdAYJ9MLpz7ACOtv78psUt9KME+DGEbIfitJZAMAANl2iTEnz7V5fmDR17QA1+5S
-W9FEvFXtVvJZikhxnuQdX94bBVCAV0TQU9dilDzD+Vd+xN1aAd9eRCQANVp9Nv6V
-GIGJJHJTvuz4xqE8pL24kxsZbrWdcw==
-=aEe/
------END PGP SIGNATURE-----
-
---8c6GOirE1GocLifO--
+Jan
 
