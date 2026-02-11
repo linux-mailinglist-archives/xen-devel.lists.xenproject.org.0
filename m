@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yGjBCJCXjGnhrQAAu9opvQ
+	id GFfsJgKYjGnhrQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:52:00 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:53:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87ADE12555E
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:51:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227748.1534178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01B8B12557E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 15:53:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227761.1534189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqBYr-0000Im-E6; Wed, 11 Feb 2026 14:51:25 +0000
+	id 1vqBb7-0000tX-Tc; Wed, 11 Feb 2026 14:53:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227748.1534178; Wed, 11 Feb 2026 14:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 1227761.1534189; Wed, 11 Feb 2026 14:53:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqBYr-0000HK-Ah; Wed, 11 Feb 2026 14:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 1227748;
- Wed, 11 Feb 2026 14:51:23 +0000
+	id 1vqBb7-0000qn-Qh; Wed, 11 Feb 2026 14:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 1227761;
+ Wed, 11 Feb 2026 14:53:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Hh8=AP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqBYp-0000HE-LU
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 14:51:23 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1vqBb6-0000qh-NT
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 14:53:44 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2165c84f-0759-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 15:51:22 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-436e87589e8so3145649f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 06:51:22 -0800 (PST)
+ id 75c885d8-0759-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 15:53:43 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-4359a316d89so1799705f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 06:53:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43783d310c6sm5653952f8f.2.2026.02.11.06.51.20
+ ffacd0b85a97d-43783dfc54csm5114630f8f.25.2026.02.11.06.53.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 06:51:21 -0800 (PST)
+ Wed, 11 Feb 2026 06:53:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2165c84f-0759-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 75c885d8-0759-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770821481; x=1771426281; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rs1jFyCrmM241sPXkD/9ur1pKEAxpEw+pZsqx62VxIk=;
-        b=aTSKDAWzLLWtcs0H0/cVelCDhVpW9x2f+mTMXHaPUdh7trYFKBeyY8jVaiL+1odkK3
-         zg21IZwrfoA/DJm28QxwNISeEDCeN64WNAUbw+a96RGH5hVkPWozs17XYBlZQWq8ye0l
-         Z2vxQZWqi6vXKe2OMh1JLn0w84sHSE8ZCvUMCcIugyRHeuFoxkfvEqVJDGnymbt/UwdB
-         JamDFWu2V0mjM4vRiNhSKX8PySJzIEH73DBeeDjzXzi+LApqughK72UoH0pHG5eb7diO
-         /zMc0HGdFlUs2D2FtHQUYNxGpKbNgnVOlAH429BWEcpKrcG0MLLrpOAwgPTPyVMbhPHH
-         G0zA==
+        d=suse.com; s=google; t=1770821623; x=1771426423; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PVLB1q7EISviKkx7eVoIwrYqQArt16a7JSdeDujZ43I=;
+        b=cXdfrWH7LXF1ROgNAaWFvpe7HN0nfxhL2wlZCy6xg0dLpMCi0WY3jfR9cuLirgh7KA
+         BDkZ5DZodBo9r1+ejA+z9t6bafpASUb2r5HXxA2b6LTFl/uaESYsIx+Qz1LZIglT4ojf
+         IWtDU/fOtsnffk4jxjScLPQKbiIBzCYVsBVY6iL+YBOw+cZLIF5Y4ZnZz9AnQRAMCb9l
+         QwJKfP45u88WXzghfDejxQJpmGFxwKy8D1gVzQDGkCAVI7brIdYWhqmPzY2SLTVPQ7Gb
+         0/Q3PKNB3MQuhTLO3MdkUu1+WXJ6Ry4RkT0IBVfQ6k5/2eF2EePwb0DSMMHXMuQQ3wJb
+         ZK+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770821481; x=1771426281;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1770821623; x=1771426423;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rs1jFyCrmM241sPXkD/9ur1pKEAxpEw+pZsqx62VxIk=;
-        b=SCFHwvorzeiIDa86Hyj3aXZBCmHEd3m1Tw686fic1bA60431NW29ZL4hlavOHT5cFP
-         wcWol9XJBIYIAGnDVsq8p/30k9+s+LQJBvk8yOkbby9loUVdcG3vKyIkLr0x1x5c1GyH
-         aLFKW/HlRj+KYW91EgASJhAgUM31/sB1u9JygIDcRGG3QpMJCMvhgY3UkXVypa7HCUDo
-         s6tbg6YGbJO8DMokWxyL2d/wTe1QcO5CnuyNbX3QN85L+FSi5d2GROPQ9rfC1rI/BgeO
-         y8REhjdd0AiX9mw6IYkSxvmpiA3+VI84ggQgmGm6CGO0fUM9NZvqcv80Giyqo6IMijSr
-         VwfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWTPvTAbVf0iM+7UtuESAq7xnJGU+Xy0/ms2ELfHZ0+TQ2Kacaqb5Js0K2re5FZhYTiFa7N34bRWuA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywph2ZKLA6QhK45UBY4CQxaHjD1AAExekiu9r/Hw4pN/FJlOyBR
-	PCj+/rFjT4iNKSRgmTQhPMf/G23daW1X53ILOWCV4TPPbAT7NeCJIARbcMDGonCu6A==
-X-Gm-Gg: AZuq6aIEBb/rCAYOwL8IIfSvAHRltfnP65cdTSkJlGSqGHGCW510lz+baKDXMaLDbf4
-	eRHNmFcpNQlTnxKlG9ASKvQ0Nt3+4cs1EX0+1QPrutAvi8bG7G9xKg5zbGJ18IoG9ad+P5kzlXX
-	YWC13NjhKK9l9u84ZUd2b0It5OpeNWXY6BlJ+5S+hvHea9nAnhCyfsAZRvQZ/fK8MSNTryhq4m3
-	B7N3TvqEGABZmPioeHnC0rnDRsFUyqeIKE8i0xBaT1ecsBtfxTe+s+qm7nXqu4GSRSRBB4R6yHo
-	isLIU8Fkgp1kEQsYR75m9BxaJvltnUDYHRWhJEFytQCti4g5pVdADMJ47GHHe4BfU9KP84o0Pj/
-	80slbDr2iKa3B09ZpjLaHGsSTbvluwllgkMoA7xtOTTGUVjk0XV0/0Fs+ejJSYtjrj5qaO/p0T0
-	HFbt9h5+9GSjNdZwmiKYnONgIcjXkecV9LogXO0m+S0anD7xPG6MGZJqCu300f7Rmsgmp/VUady
-	LyroFHDn8LEoJs=
-X-Received: by 2002:a05:6000:144c:b0:435:a0ca:bdce with SMTP id ffacd0b85a97d-4377a5bcd4cmr8685022f8f.63.1770821481320;
-        Wed, 11 Feb 2026 06:51:21 -0800 (PST)
-Message-ID: <75d70edc-b0f7-4d61-8da6-e783c57b4490@suse.com>
-Date: Wed, 11 Feb 2026 15:51:19 +0100
+        bh=PVLB1q7EISviKkx7eVoIwrYqQArt16a7JSdeDujZ43I=;
+        b=jmM32TiXt6Sn+k6CxAqOdGWCtd+gHu4ljOx+HgmUF0arEvLTjU6cxWYooc8CriNuyO
+         aTSzSJ8/O2wWThSKniq4uci3Jotue+jBIamk6aYp/N/BphEwiMxU8JZ9tdrtgxYSMPKv
+         KmcR5bLaqzhQ2RaSg7wngnL559ZxrgCHC2MhIB3Ze0CI5bLOOy0Z/CfOUg3J1rFJ6mOj
+         8mYXP07RNt8zblTHxZHQ93DWXkJ8UvYBQgWY4UtwD25ycE54c4cMTDn8pBHPUfdO7w+X
+         2asJjHIk5Sj2UE1Q0C+Qw5zY7dRIj2trP0z+btwYlaS1DlU4z7eQy4eAtzHN8iJwekCy
+         iGVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXfdzc4DzaNZWTsGKofU7HGEMpuOqZ0c0Hb6l+UQeOj2gX7+bNMmu+pVoKnX04IT5MNHxN6usseWnw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzmoxsSFY4HG9hXWsu66VepNO/o0eqZMmQPsy3IxgpoyBqaXw2j
+	dqTltFaLvuPKFlVu2sXY1Ky+6yB8jgP3z6f9t58OGkBOHxGAaTJQs+OfxY4O2Ua5Yg==
+X-Gm-Gg: AZuq6aJM+KUkypfpdYsK69ZLLXr7cEDsWm80UN0EdPFgbWexLMCMy6PFQDWJwF3OpjC
+	pHfPj6iz00Z4+5Lnm8h66W5EJrToOndu1K/TrLn7J+MrdnqfVcfawr6afQjJ480QSNZGRUzlrq8
+	+tNV9++s3ABqjkrhtM2NWQ2FvuKxAp+bQ1f+pwbFng/fhrKNCPQKrwAg5v2S+a5AaLoqaPa/fvL
+	L7NaHiNSxlrqBj/HKcttSCDaRn1xY5sKg6r48EoqyJTKdyuuNWQzsjEyXcICM1xh7jOxdQrLOEr
+	AOduWRRHeHTrveqKJM3/u0MvD5x4YFGXOOjZG/o8W+W3Aw7oxiULUOETEXiy/jdeIhpN1dThqfG
+	NgBwjA+vQ+rplThvzL89ggLidftxcCsVThmeHm2ML41PMTbhsWZueeDWv1XBJUEyLQs4AjCNMU2
+	1EBAvYPEASVnNK7lumwX90wLM9obsKoe/eCZf6LA5C/gRiwR02Ja20APsw/N28+F5LuXsCuVbfK
+	au+igfW7WnEXaI=
+X-Received: by 2002:a05:6000:24ca:b0:437:6806:994f with SMTP id ffacd0b85a97d-43768069f85mr20510678f8f.12.1770821623054;
+        Wed, 11 Feb 2026 06:53:43 -0800 (PST)
+Message-ID: <5d108b61-f46e-404d-ad03-18a0405fe44d@suse.com>
+Date: Wed, 11 Feb 2026 15:53:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/16] xen/riscv: introduce basic vtimer infrastructure
- for guests
+Subject: Re: [PATCH v3 05/16] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+From: Jan Beulich <jbeulich@suse.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -105,9 +106,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1770650552.git.oleksii.kurochko@gmail.com>
- <792ea928d748e9ff7bd331b8e8b0262695a062e9.1770650552.git.oleksii.kurochko@gmail.com>
+ <ced640968434a67c150eff90437f83d3b460a36c.1770650552.git.oleksii.kurochko@gmail.com>
+ <d73424e2-84f4-497b-a1f4-f3eea5cdeeb3@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -131,7 +132,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <792ea928d748e9ff7bd331b8e8b0262695a062e9.1770650552.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <d73424e2-84f4-497b-a1f4-f3eea5cdeeb3@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -139,19 +140,19 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -168,85 +169,40 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 87ADE12555E
+X-Rspamd-Queue-Id: 01B8B12557E
 X-Rspamd-Action: no action
 
-On 09.02.2026 17:52, Oleksii Kurochko wrote:
-> @@ -105,11 +106,14 @@ int arch_vcpu_create(struct vcpu *v)
->      if ( is_idle_vcpu(v) )
->          return rc;
->  
-> +    if ( (rc = vcpu_vtimer_init(v)) )
-> +        goto fail;
-> +
->      /*
-> -     * As the vtimer and interrupt controller (IC) are not yet implemented,
-> +     * As interrupt controller (IC) is not yet implemented,
->       * return an error.
->       *
-> -     * TODO: Drop this once the vtimer and IC are implemented.
-> +     * TODO: Drop this once IC is implemented.
->       */
->      rc = -EOPNOTSUPP;
->      goto fail;
+On 11.02.2026 15:16, Jan Beulich wrote:
+> On 09.02.2026 17:52, Oleksii Kurochko wrote:
+>> @@ -124,3 +125,72 @@ void arch_vcpu_destroy(struct vcpu *v)
+>>  {
+>>      vfree((char *)v->arch.cpu_info + sizeof(struct cpu_info) - STACK_SIZE);
+>>  }
+>> +
+>> +int vcpu_set_interrupt(struct vcpu *v, unsigned int irq)
+>> +{
+>> +    /*
+>> +     * We only allow VS-mode software, timer, and external
+>> +     * interrupts when irq is one of the local interrupts
+>> +     * defined by RISC-V privilege specification.
+>> +     */
+> 
+> What is "when irq is one ..." intended to be telling me? There's no ...
+> 
+>> +    if ( irq != IRQ_VS_SOFT &&
+>> +         irq != IRQ_VS_TIMER &&
+>> +         irq != IRQ_VS_EXT )
+>> +        return -EINVAL;
+> 
+> ... corresponding code (anymore), afaict.
+> 
+> Further, who are the prospected callers of this function and its sibling
+> below? If they're all internal (i.e. not reachable via hypercalls or
+> emulation on behalf of the guest), this may want to be assertions.
 
-Shouldn't you then also call vcpu_vtimer_destroy() from arch_vcpu_destroy()?
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/vtimer.c
-> @@ -0,0 +1,71 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/sched.h>
-> +#include <xen/timer.h>
-> +
-> +#include <asm/vtimer.h>
-> +
-> +static void vtimer_expired(void *data)
-> +{
-> +    struct vtimer *t = data;
-> +    struct vcpu *v = container_of(t, struct vcpu, arch.vtimer);
-> +
-> +    vcpu_set_interrupt(v, IRQ_VS_TIMER);
-> +}
-> +
-> +int vcpu_vtimer_init(struct vcpu *v)
-> +{
-> +    struct vtimer *t = &v->arch.vtimer;
-> +
-> +    init_timer(&t->timer, vtimer_expired, t, v->processor);
-> +
-> +    return 0;
-> +}
-> +
-> +void vcpu_timer_destroy(struct vcpu *v)
-> +{
-> +    struct vtimer *t = &v->arch.vtimer;
-> +
-> +    if ( t->timer.status == TIMER_STATUS_invalid )
-> +        return;
-> +
-> +    kill_timer(&v->arch.vtimer.timer);
-> +}
-> +
-> +void vtimer_set_timer(struct vtimer *t, const uint64_t ticks)
-> +{
-> +    struct vcpu *v = container_of(t, struct vcpu, arch.vtimer);
-> +    s_time_t expires = ticks_to_ns(ticks - boot_clock_cycles);
-> +
-> +    vcpu_unset_interrupt(v, IRQ_VS_TIMER);
-> +
-> +    /*
-> +     * According to the RISC-V sbi spec:
-> +     *   If the supervisor wishes to clear the timer interrupt without
-> +     *   scheduling the next timer event, it can either request a timer
-> +     *   interrupt infinitely far into the future (i.e., (uint64_t)-1),
-> +     *   or it can instead mask the timer interrupt by clearing sie.STIE CSR
-> +     *   bit.
-> +     */
-> +    if ( ticks == ((uint64_t)~0) )
-
-Btw, such a cast doesn't further need parenthesizing.
+Having seen a use in patch 08, I should clarify the "reachable" part here:
+It's not the "reachable" alone, but whether the guest has control over the
+"irq" value passed. For the example in patch 08 this isn't the case.
 
 Jan
 
