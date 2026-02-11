@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mKDPLk87jGlZjgAAu9opvQ
+	id 6wmiBtM9jGm7jwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:18:23 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:29:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D48E122297
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:18:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227044.1533372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90BB71223CD
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 09:29:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227057.1533382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5QA-0002DN-Jz; Wed, 11 Feb 2026 08:18:02 +0000
+	id 1vq5aI-0003vc-Kf; Wed, 11 Feb 2026 08:28:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227044.1533372; Wed, 11 Feb 2026 08:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 1227057.1533382; Wed, 11 Feb 2026 08:28:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vq5QA-0002Bc-H9; Wed, 11 Feb 2026 08:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 1227044;
- Wed, 11 Feb 2026 08:18:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vq5aI-0003uB-Hd; Wed, 11 Feb 2026 08:28:30 +0000
+Received: by outflank-mailman (input) for mailman id 1227057;
+ Wed, 11 Feb 2026 08:28:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wgMA=AP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vq5Q9-0002BW-M0
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:18:01 +0000
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [2607:f8b0:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2cec58b8-0722-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 09:17:59 +0100 (CET)
-Received: by mail-oi1-x229.google.com with SMTP id
- 5614622812f47-45c715116dbso1030790b6e.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:17:59 -0800 (PST)
+ <SRS0=Uigq=AP=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vq5aG-0003u2-MR
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 08:28:28 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a2fb0ea1-0723-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 09:28:26 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-59e4993e00aso1689064e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 00:28:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,290 +45,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cec58b8-0722-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1770797878; cv=none;
+X-Inumbo-ID: a2fb0ea1-0723-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1770798506; cv=none;
         d=google.com; s=arc-20240605;
-        b=M3phq9/+dfUxcuXoXwSKQzUIY/hRc7st9K62fZcLz/xoyH1eusRk4VSeNX3pmsYX4q
-         kwEDqv4FIDdQcxu7Ou6sVL/I/wq0MkXsChD3vTVQtej+Ij5hGp1/Hkz1vF/QGY8pZvW+
-         ybeiC3e4Y4jsFS9h13VX5CJIe8lUTWsdtVKYY7adwGMexATbjy2+OasaaJ0+a752UliT
-         ziKNUX40YTA9YNn/7lcZbvPkTx6WFyIwUKbH38gyswx1oWkEcXD4kUbdC/zAM2W7D0pr
-         9LIRH/hesCaX/z/WqaVEVX2zno0JBsHuZR2U+5m2O8B4YL23JE3npY1OurBnheqq2z3R
-         1/cQ==
+        b=AF2k+Bf+gIUR4wKc7/EFRRYrmKIR/zAyMJwzAMVfzPabYQIC/aEx0fSBw1WmeMsKO1
+         NA2EWaJAMLWeKVVBcCmS53DXoBheNJNaJBSDyCFeOrJ4Dimfmthtw/UvmfC5ADx9VNVr
+         QkHcO9VaV4mqVdd/WhVQBoiivjgMndCroVB5/rPThRxPaBLakJEbIiUpnZqx4c3DbEuA
+         XWve6fs8BmsqPou2Gm8oGSfF/iZL87U/I2xi19QZ9E1MO6GTtkBmdnxQ0srfIn4qCu+k
+         tn3iUbgeaYpm9NuDfVGN8MpzF41fWelHRmt9E9mxWK9qgUM0ZOFIHcuQr66+fi3Thf+U
+         e9Ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZvwsY8t0d7Xd+Mem21a0yyFMKg8oqPUl/yzfR3i0ZWc=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=Kwi1aB8YZq9WSO+mS+gqFBDJk5AvA9tpzCTzOoounBubvfATm5OjAGps9P/t1v+jSQ
-         WxAp66OqAqeV5r6n3gpWuM1VVsTExo8hAPlZbjpHH+z1OVpPO8VviQpTPOUYQF+PkyG7
-         xADZzyPX2N8Nj6DbfTNUrm1Dm91uAUR03Gv/RdydsI06hJWSLP6kSxUMO7WXddXLAfnh
-         1VtSL8x91LTciMPf0gj5AyI82SOqPfLS22heipumDFQblsXBWfzjWZKr/MUNVykeay3m
-         x9oc8bnhnnyamafadS6sc0IO6aFEugmiIVETZdJIEym4+yUCfZCKTHoVSJ7k28oKvkd3
-         b6fg==;
+        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
+        fh=S1TgsMYO/ju21WOcmYTQxMlAU8ImCjuw50drwKkfBt8=;
+        b=OlQMf+d01fl8Zramr3kxc5cSxDbNpuQ2vhM4/t20Y9J5blONBzwhvTi1Fksr6tvxj8
+         nXV3Irfnbtum2sXMSgqWL7OMpZRmic2/p42XXqQEOmZvd2oz94LRsObsP7OlkTy34da5
+         xeEc3w6Osgck0PM/Wy3FnXqLkFQRsnPRL18t6bq8UduDnYt+PfK2ZfaD3E52/JpmkOXR
+         5xiqj2LvMAJ7TN7YRJfuqZWDXsyjmo6KTTe48WazqVYdui18akltb+/D1Jvv25EaglMM
+         o9BYalCp4RdLK9/QhsEq0X7JIusWWHEbKTRSD1fItxeJro2ZBFvZhZDazNEFTMLrTvwT
+         Q1TA==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770797878; x=1771402678; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770798506; x=1771403306; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZvwsY8t0d7Xd+Mem21a0yyFMKg8oqPUl/yzfR3i0ZWc=;
-        b=GxOzyixVFtLRaIazy60bN8XsF8i+bCJ71U54o/5rUrXpKbjotboDsTDBizA3ssgQsX
-         bOKtZksYqVdNW/YGTZQGC09E2jL0ZTF2GH0Orz/ZO+jMZlIkV8UmANWXdR88he05tFCJ
-         MYuiCvONx5v5+lsD03FOZwpZgUjDj1rKy6xvL6NkQCehEsinzjK4y2qxFflDv7WdrM4k
-         lwS5GOr3X5aMhRNi8psl3fgIjEN+si22MXgA7XlCnfS8GaqTzvUK92LGG+BX1tjPEHBu
-         qC5YzjLRiodIFk3mR5KMqdcKCkS33JG7sCA6wNrR+RC3ECmTvZF9za08VbdEte32d34s
-         8zdA==
+        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
+        b=a7FCUGGOBHnbMfUS9CbiVF3JdGrJWGcYdUtyKxLPTKffK9ZSZCgy0UZGPgksgv6r5H
+         KL/V2GUU9R8vpTzJXKgpAW6SDovLqbZ1brBFYBr4gNDnXm4HO296xh0S578xq+P20SNZ
+         CDiSU15F/QG8nWBdL8dWkd3MQMbxbKKfdKRiSjZBcILBFvB9pqGWSZNVYtAGk2X9fAKR
+         9vJXAO9oZANordZe3Nk6FgYOrxWKdwoT8wNzPdY4QKFngV9n3i0jaG4KA5pK2kCInnRQ
+         5b4zfZTA8QxL+VcbtlNvhNzaCuiKIqeQeOuTddvxHrTXlOerVO8H4+SVC0YTyEQw+2Uy
+         CNYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770797878; x=1771402678;
+        d=1e100.net; s=20230601; t=1770798506; x=1771403306;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ZvwsY8t0d7Xd+Mem21a0yyFMKg8oqPUl/yzfR3i0ZWc=;
-        b=MyBzjvuN0OqdezwNPjeM+wYjbOJUZjg04Ok414LKDta+GApWjAg016p/sGlHJmt2C1
-         7Qp7I0Rfu7uCrDO2trBxsls4ehi9zco+H1sIKqtKKi7ZaKBECrN595tywxCERtHVy4PL
-         zZ3fO8krO/WNUR/VFXru0c2+5A7W4MyJO39116yxShvVaARp1TFSak/QY2IMIMSsMpG/
-         gUb0cB0n/f9oBUzpRtp1GYe2nbyMssASXAuQOXdBHrCgb1uxoEWfzUaaBIJ7dtOHCu3O
-         Nf1V7Uh5Yt/GvM3NsMczHj2SSsC0BO+cu3UzTrMCj2NVNCiJLSo2ZNu/N08meI9OTvMA
-         621Q==
-X-Gm-Message-State: AOJu0Yy9LURN+7HgGLUyRLtY8Vx3A0xRnFjEi3NUQa9VMhvwHQoHdL1M
-	1qYYmhmKJxMvvvNWhE9hD/I1mG8CjKJweJYxyZIOZ7rZfPfuw6vAK3G9N5eE7LoMGaj/nptoKZZ
-	2OUQXf+CMK6fXkX0URcBrpY4pADLBrdQT27xAEsM3Vw==
-X-Gm-Gg: AZuq6aJp7l+nycPUJhTkH3IjMEhYH0mOu0o8Vp+IPwZCIjIpSXwFhlqwQBz8UmNqKWY
-	VD4Iigpk2CGjOUOjeZNEOase1gMqfn+B6QHVtyPiKVrVbLkRtzuK1Hy5xRhGbuW1nLNVYtPU1HI
-	IdfjpF0A3xvemurc950fHBrTcgQqLonqA/KSbvE8TbReTTBmtQ2VQnG7jg62UMmyVXw9OZI72HF
-	a83ouhMptKqZGzulOZu1JrIcM9TcX2IR4R2wv0oy1VRbITXfm+K1AU1622qiJ+GbcR9a3CWR9Yh
-	GkE92+rH/6hdixRPVyX4xpdp5cC/2JdjKARE4Q==
-X-Received: by 2002:a05:6808:238f:b0:450:a9d0:b790 with SMTP id
- 5614622812f47-462fcb66cc5mr8365484b6e.46.1770797878205; Wed, 11 Feb 2026
- 00:17:58 -0800 (PST)
+        bh=G0mCF6gCW7FxARpUXdySi7kBsVPBEEF/j/OX0R90cB4=;
+        b=bQe8kfngG9HsTzh+IN25fYUnMJkWWNNnkDjSJZvQjbPJA32zWrY/R59Lht2kTkYMPM
+         8yh2GBPPzYulBeqjm0VL3jOqu2765qz5/HrBwCAliOKOYgdlJnnA/ZgDJ7OK8Dnk8nhD
+         +daAVL3mHrI1PVuBnZyZ5WlYj+fMrxSjJpsIREhj+xNusXZ7/Ml3p2JIGztiH6zQ8nwS
+         mrrhlkTTBWUnEiSy+XPY1kOE1SDV3ND77jdcV9H2+QaE1QQ5SY9JylIdgx+d7c2sSC8H
+         l+oUlkh4mYzEfgn7izjRA+JVzt1VpyPKr4FvswPL81TIde0A0D+GfFKPW6kjgS4/2iUB
+         c5tw==
+X-Gm-Message-State: AOJu0Yx0bODncE5wk2MMLiPSdL3YMx3lgkYXYtnpmqlhTFOS+hFnTpeM
+	MUdKFgYRpiFeYUQljyU7M6LBvJMy3ZLuKgF1IXLHMMhy0is5DEuNj6fb5/jwkWpzSoSHchDcfJt
+	SprMrOuVsFzc9iIDmSZOJgmeWv6EjNYM=
+X-Gm-Gg: AZuq6aLqbLHCR4rP7mnx0ipZ9CVIdDK7G1kWNtOp8LO5a14eI1lplTss3r5BBc0HUIK
+	7kRTioE1VBopyr0x+BNJat5Y+Eran3OvvIyORV8uqvWOzz6ErJb51HlEDqThxyRdCdankVZspPp
+	b684ARbysOpyZvj3l4VoPFfkQtfSZVsYbdQTqflr4l5jcgkRU7+6mmUxVPEYT5Zv8JbfVTi2U6B
+	tQ9zLR5d77sU/TLziHwEUQa74J680IhFstA2EAZ3kSCcVm1TewGb1vFvgIaM6v4yg/rxZ8VlpeX
+	G/l+
+X-Received: by 2002:a05:6512:618b:b0:59e:407a:c8f7 with SMTP id
+ 2adb3069b0e04-59e45152d3fmr4858710e87.29.1770798505657; Wed, 11 Feb 2026
+ 00:28:25 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1770115301.git.bertrand.marquis@arm.com> <5331b33343441028d10c290b21b82acce295fff0.1770115302.git.bertrand.marquis@arm.com>
-In-Reply-To: <5331b33343441028d10c290b21b82acce295fff0.1770115302.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 11 Feb 2026 09:17:46 +0100
-X-Gm-Features: AZwV_QhE0gcct39M8TIW1-bQXxJYBmkPBkcr8-Z4pFs7iATDwX9jHErhRwWV-kg
-Message-ID: <CAHUa44FWRepyAakwXLjObbA=8O_LMBR5jk0-WEAXZdgsQCsHOw@mail.gmail.com>
-Subject: Re: [PATCH 08/12] xen/arm: ffa: Fix FFA_FEATURES validation
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+References: <cover.1770046465.git.mykyta_poturai@epam.com> <21505d8f47bdabbf0f8e534eed937c5bf0a4ce02.1770046465.git.mykyta_poturai@epam.com>
+In-Reply-To: <21505d8f47bdabbf0f8e534eed937c5bf0a4ce02.1770046465.git.mykyta_poturai@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Wed, 11 Feb 2026 10:28:13 +0200
+X-Gm-Features: AZwV_Qhf7Sk-3veq8pb7JP-KVFkxMtvofOqfn2KXzQJMJwrtBJMhdzS7avXhXbY
+Message-ID: <CAGeoDV84Ys0Tqe8DGv7zC3-ExLZYqcBDkdVxEjNBUmQfDE+hYQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 01/19] arm/gicv4 add management structure definitions
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,linaro.org:dkim,mail.gmail.com:mid];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 0D48E122297
+X-Rspamd-Queue-Id: 90BB71223CD
 X-Rspamd-Action: no action
 
-Hi Bertrand,
+Hi Mykyta
 
-On Tue, Feb 3, 2026 at 6:38=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
+Thank you for the contribution.
+
+On Mon, Feb 2, 2026 at 6:14=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epam.=
+com> wrote:
 >
-> FFA_FEATURES currently accepts non-zero input properties (w2-w7) from
-> guests and advertises several ABIs unconditionally, even when firmware
-> support is missing or when the ABI is physical-instance-only. This can
-> mislead guests about what Xen can actually provide and violates FF-A
-> calling conventions. Some SPMCs (Hafnium v2.14 or earlier) also fail to
-> report FFA_RX_ACQUIRE despite supporting it.
+> Add GICv4 specific structures to be used in later patches.
 >
-> Update FFA_FEATURES validation to match spec and firmware support:
-> - reject non-zero w2-w7 input properties with INVALID_PARAMETERS
-> - reject 64-bit calling conventions from 32-bit guests with NOT_SUPPORTED
-> - return NOT_SUPPORTED for physical-instance-only ABIs
-> (FFA_NOTIFICATION_BITMAP_{CREATE,DESTROY}, FFA_RX_ACQUIRE)
-> - advertise FFA_INTERRUPT as supported
-> - gate message ABIs on firmware support:
-> - FFA_MSG_SEND_DIRECT_REQ_{32,64}
-> - FFA_MSG_SEND_DIRECT_REQ2 (also requires FF-A 1.2 negotiation)
-> - FFA_MSG_SEND2 (or VM-to-VM enabled)
-> - report MEM_SHARE_{32,64} only when FFA_MEM_SHARE_64 is supported
-> - stop advertising FFA_MSG_YIELD (not implemented)
->
-> Update firmware probing: drop FFA_MEM_SHARE_32 checks (deprecated) and
-> add FFA_RX_ACQUIRE to the probed set. If FFA_MSG_SEND2 is reported but
-> FFA_RX_ACQUIRE is not, assume RX_ACQUIRE support and warn to work
-> around the Hafnium bug.
->
-> Functional impact: guests now see ABI support that reflects firmware
-> capabilities and Xen implementation status. When SEND2 is present but
-> RX_ACQUIRE is not reported, Xen assumes RX_ACQUIRE support.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > ---
->  xen/arch/arm/tee/ffa.c | 62 +++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 55 insertions(+), 7 deletions(-)
+>  xen/arch/arm/include/asm/vgic.h | 43 +++++++++++++++++++++++++++++++++
+>  1 file changed, 43 insertions(+)
 >
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 6de2b9f8ac8e..e9e020bb0cb3 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -91,10 +91,10 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] =
-=3D {
->      FW_ABI(FFA_PARTITION_INFO_GET),
->      FW_ABI(FFA_NOTIFICATION_INFO_GET_64),
->      FW_ABI(FFA_NOTIFICATION_GET),
-> +    FW_ABI(FFA_RX_ACQUIRE),
->      FW_ABI(FFA_RX_RELEASE),
->      FW_ABI(FFA_RXTX_MAP_64),
->      FW_ABI(FFA_RXTX_UNMAP),
-> -    FW_ABI(FFA_MEM_SHARE_32),
->      FW_ABI(FFA_MEM_SHARE_64),
->      FW_ABI(FFA_MEM_RECLAIM),
->      FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
-> @@ -240,19 +240,39 @@ static void handle_features(struct cpu_user_regs *r=
-egs)
->      struct ffa_ctx *ctx =3D d->arch.tee;
->      unsigned int n;
+> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/v=
+gic.h
+> index 6f9ab1c98c..a874a02d70 100644
+> --- a/xen/arch/arm/include/asm/vgic.h
+> +++ b/xen/arch/arm/include/asm/vgic.h
+> @@ -127,6 +127,42 @@ struct vgic_irq_rank {
+>      uint8_t vcpu[32];
+>  };
 >
-> +    /*
-> +     * Xen does not accept any non-zero FFA_FEATURES input properties fr=
-om
-> +     * VMs. The spec only defines w2 input properties for FFA_MEM_RETRIE=
-VE_REQ
-> +     * (NS-bit negotiation for SP/SPMC) and FFA_RXTX_MAP (buffer size an=
-d
-> +     * alignment), so w2 must be MBZ for our callers.
-> +     */
-
-The spec (version 1.2) lists them as SBZ, except for w2, which is MBZ,
-for Feature IDs.
-However, if we're to return an error, invalid parameters is a better choice=
-.
-
-Cheers,
-Jens
-
->      for ( n =3D 2; n <=3D 7; n++ )
->      {
->          if ( get_user_reg(regs, n) )
->          {
-> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +            ffa_set_regs_error(regs, FFA_RET_INVALID_PARAMETERS);
->              return;
->          }
->      }
->
-> +    if ( !is_64bit_domain(d) && smccc_is_conv_64(a1) )
-> +    {
-> +        /* 32bit guests should only use 32bit convention calls */
-> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        return;
-> +    }
+> +#ifdef CONFIG_GICV4
+> +struct its_vm {
+> +    struct its_vpe **vpes;
+> +    /* Number of VPE. */
+> +    unsigned int nr_vpes;
+> +    uint32_t *db_lpi_bases;
+> +    unsigned int nr_db_lpis;
+> +    /* Property table per VM. */
+> +    void *vproptable;
+> +};
 > +
->      switch ( a1 )
->      {
-> +    case FFA_NOTIFICATION_BITMAP_CREATE:
-> +    case FFA_NOTIFICATION_BITMAP_DESTROY:
-> +    case FFA_RX_ACQUIRE:
-> +        /* Physical-instance-only ABIs are not exposed to VMs. */
-> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        break;
->      case FFA_ERROR:
->      case FFA_VERSION:
-> +    case FFA_INTERRUPT:
->      case FFA_SUCCESS_32:
->      case FFA_SUCCESS_64:
->      case FFA_FEATURES:
-> @@ -261,16 +281,25 @@ static void handle_features(struct cpu_user_regs *r=
-egs)
->      case FFA_RXTX_UNMAP:
->      case FFA_MEM_RECLAIM:
->      case FFA_PARTITION_INFO_GET:
-> +        ffa_set_regs_success(regs, 0, 0);
-> +        break;
->      case FFA_MSG_SEND_DIRECT_REQ_32:
->      case FFA_MSG_SEND_DIRECT_REQ_64:
-> -    case FFA_MSG_SEND2:
->      case FFA_RUN:
-> -    case FFA_INTERRUPT:
-> -    case FFA_MSG_YIELD:
-> -        ffa_set_regs_success(regs, 0, 0);
-> +        if ( ffa_fw_supports_fid(a1) )
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        break;
-> +    case FFA_MSG_SEND2:
-> +        if ( ffa_fw_supports_fid(a1) || IS_ENABLED(CONFIG_FFA_VM_TO_VM) =
-)
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          break;
->      case FFA_MSG_SEND_DIRECT_REQ2:
-> -        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> +        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 &&
-> +             ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ2) )
->          {
->              ffa_set_regs_success(regs, 0, 0);
->          }
-> @@ -281,6 +310,11 @@ static void handle_features(struct cpu_user_regs *re=
-gs)
->          break;
->      case FFA_MEM_SHARE_64:
->      case FFA_MEM_SHARE_32:
-> +        if ( !ffa_fw_supports_fid(FFA_MEM_SHARE_64) )
-> +        {
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +            break;
-> +        }
->          /*
->           * We currently don't support dynamically allocated buffers. Rep=
-ort
->           * that with 0 in bit[0] of w2.
-> @@ -688,6 +722,20 @@ static bool ffa_probe_fw(void)
->                     ffa_fw_abi_needed[i].name);
->      }
->
+> +struct its_vpe {
+> +    rwlock_t lock;
+> +    uint32_t vpe_id;
+> +    /* Pending table per VCPU. */
+> +    void *vpendtable;
+> +    uint32_t vpe_db_lpi;
+> +    struct its_vm *its_vm;
+> +    unsigned int col_idx;
+> +    bool resident;
+> +    /* Pending VLPIs on schedule out? */
+> +    bool            pending_last;
+> +    struct {
+> +        /* Implementation Defined Area Invalid */
+> +        bool idai;
+> +        /* VPE proxy mapping */
+> +        int vpe_proxy_event;
+> +    };
 > +    /*
-> +     * Hafnium v2.14 or earlier does not report FFA_RX_ACQUIRE in
-> +     * FFA_FEATURES even though it supports it.
+> +     * Ensure mutual exclusion between affinity setting of the vPE
+> +     * and vLPI operations using vpe->col_idx.
 > +     */
-> +    if ( !ffa_fw_supports_fid(FFA_RX_ACQUIRE) &&
-> +         ffa_fw_supports_fid(FFA_MSG_SEND2) )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "ARM FF-A Firmware reports FFA_MSG_SEND2 without FFA_RX_A=
-CQUIRE\n");
-> +        printk(XENLOG_WARNING
-> +               "ffa: assuming RX_ACQUIRE support (workaround)\n");
-> +        set_bit(FFA_ABI_BITNUM(FFA_RX_ACQUIRE), ffa_fw_abi_supported);
-> +    }
+> +    spinlock_t vpe_lock;
+> +};
+> +#endif
 > +
->      if ( !ffa_rxtx_spmc_init() )
->      {
->          printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+>  struct vgic_dist {
+>      /* Version of the vGIC */
+>      enum gic_version version;
+> @@ -193,6 +229,10 @@ struct vgic_dist {
+>       */
+>      bool rdists_enabled;                /* Is any redistributor enabled?=
+ */
+>      bool has_its;
+> +#ifdef CONFIG_GICV4
+> +    struct its_vm *its_vm;
+> +#endif
+> +    bool nassgireq;
+
+nit: unused in this series
+
+
+Best regards,
+Mykola
+
+
+>  #endif
+>  };
+>
+> @@ -227,6 +267,9 @@ struct vgic_cpu {
+>  #define VGIC_V3_RDIST_LAST      (1 << 0)        /* last vCPU of the rdis=
+t */
+>  #define VGIC_V3_LPIS_ENABLED    (1 << 1)
+>      uint8_t flags;
+> +#ifdef CONFIG_GICV4
+> +    struct its_vpe *its_vpe;
+> +#endif
+>  };
+>
+>  struct sgi_target {
 > --
-> 2.50.1 (Apple Git-155)
->
+> 2.51.2
 
