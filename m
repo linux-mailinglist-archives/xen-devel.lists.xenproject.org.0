@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KK//HmW5jGlJsgAAu9opvQ
+	id SFlWHLa5jGlJsgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:21 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:17:42 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8981268A0
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228006.1534448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2406B1268B7
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:17:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228066.1534460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqDp0-0007L8-SV; Wed, 11 Feb 2026 17:16:14 +0000
+	id 1vqDqD-0001ke-6q; Wed, 11 Feb 2026 17:17:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228006.1534448; Wed, 11 Feb 2026 17:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 1228066.1534460; Wed, 11 Feb 2026 17:17:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqDp0-0007J7-Nz; Wed, 11 Feb 2026 17:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 1228006;
- Wed, 11 Feb 2026 17:16:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vqDqD-0001hS-1x; Wed, 11 Feb 2026 17:17:29 +0000
+Received: by outflank-mailman (input) for mailman id 1228066;
+ Wed, 11 Feb 2026 17:17:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cvfN=AP=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vqDoz-0004U4-Au
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 17:16:13 +0000
+ id 1vqDp1-0004tt-Lr
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 17:16:15 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 5c99d597-076d-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Feb 2026 18:16:11 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 5d6d71a8-076d-11f1-b162-2bf370ae4941;
+ Wed, 11 Feb 2026 18:16:12 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 65924497;
- Wed, 11 Feb 2026 09:16:04 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA4F0339;
+ Wed, 11 Feb 2026 09:16:05 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.53.46])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B11743F63F;
- Wed, 11 Feb 2026 09:16:09 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 12D563F63F;
+ Wed, 11 Feb 2026 09:16:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,7 +47,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c99d597-076d-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 5d6d71a8-076d-11f1-b162-2bf370ae4941
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
@@ -55,9 +55,9 @@ Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2 10/12] xen/arm: ffa: Reduce logging noise
-Date: Wed, 11 Feb 2026 18:15:34 +0100
-Message-ID: <95e4051cbf4f3e1ba1a23273521407da5733a174.1770826406.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 11/12] xen/arm: ffa: Add MEM_SHARE page diagnostics
+Date: Wed, 11 Feb 2026 18:15:35 +0100
+Message-ID: <4fa6736cbe35b060cf34b2978bbf9b3481d9266a.1770826406.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770826406.git.bertrand.marquis@arm.com>
 References: <cover.1770826406.git.bertrand.marquis@arm.com>
@@ -92,222 +92,122 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	R_DKIM_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,arm.com:mid,arm.com:email]
-X-Rspamd-Queue-Id: 4C8981268A0
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:mid,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 2406B1268B7
 X-Rspamd-Action: no action
 
-Several FF-A paths log warnings for expected or recoverable conditions,
-leading to noisy logs during normal operation.
+MEM_SHARE failures in get_shm_pages() are silent, which makes malformed
+ranges and page mapping failures hard to diagnose.
 
-Reduce log noise by:
-- demoting unhandled FID warnings to debug
-- ratelimiting notification and VM teardown failures
-- printing the bit-15 convention warning once per boot
-- adjusting log prefixes for hypervisor-only events
-- adding debug diagnostics for RX/TX acquire failures, with busy cases
-  ratelimited
+Add debug logging for page validation failures:
+- descriptor validation failures (unaligned, range short/overflow)
+- per-page mapping failures (unmapped GFN, wrong p2m type)
+- address overflow detection in range walks
+
+Ratelimit temporary reclaim failures and log permanent reclaim failures
+as errors.
 
 No functional changes.
 
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
 Changes since v1:
-- Add Jens R-b
+- use one print per error case instead of the previous system using
+  variables to classify and a single print site.
 ---
- xen/arch/arm/tee/ffa.c          | 11 ++++++-----
- xen/arch/arm/tee/ffa_notif.c    | 11 ++++++-----
- xen/arch/arm/tee/ffa_partinfo.c | 15 ++++++++-------
- xen/arch/arm/tee/ffa_rxtx.c     | 21 +++++++++++++++++++--
- 4 files changed, 39 insertions(+), 19 deletions(-)
+ xen/arch/arm/tee/ffa_shm.c | 39 +++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index ab02eafdb376..aa43ae2595d7 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -450,7 +450,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-         break;
+diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+index 070babce9627..3d61caaeba78 100644
+--- a/xen/arch/arm/tee/ffa_shm.c
++++ b/xen/arch/arm/tee/ffa_shm.c
+@@ -161,32 +161,62 @@ static int32_t get_shm_pages(struct domain *d, struct ffa_shm_mem *shm,
+         addr = ACCESS_ONCE(range[n].address);
  
-     default:
--        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-+        gdprintk(XENLOG_DEBUG, "ffa: unhandled fid 0x%x\n", fid);
-         e = FFA_RET_NOT_SUPPORTED;
-         break;
-     }
-@@ -570,7 +570,8 @@ static void ffa_domain_teardown_continue(struct ffa_ctx *ctx, bool first_time)
- 
-     if ( retry )
-     {
--        printk(XENLOG_G_INFO "%pd: ffa: Remaining cleanup, retrying\n", ctx->teardown_d);
-+        printk(XENLOG_G_DEBUG "%pd: ffa: Remaining cleanup, retrying\n",
-+               ctx->teardown_d);
- 
-         ctx->teardown_expire = NOW() + FFA_CTX_TEARDOWN_DELAY;
- 
-@@ -611,7 +612,7 @@ static void ffa_teardown_timer_callback(void *arg)
-     if ( ctx )
-         ffa_domain_teardown_continue(ctx, false /* !first_time */);
-     else
--        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
-+        printk(XENLOG_ERR "%s: teardown list is empty\n", __func__);
- }
- 
- /* This function is supposed to undo what ffa_domain_init() has done */
-@@ -673,7 +674,7 @@ static bool ffa_probe_fw(void)
- 
-     if ( !ffa_get_version(&vers) )
-     {
--        gprintk(XENLOG_ERR, "Cannot retrieve the FFA version\n");
-+        printk(XENLOG_ERR "ffa: Cannot retrieve the FFA version\n");
-         goto err_no_fw;
-     }
- 
-@@ -713,7 +714,7 @@ static bool ffa_probe_fw(void)
-             set_bit(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id),
-                     ffa_fw_abi_supported);
-         else
--            printk(XENLOG_INFO "ARM FF-A Firmware does not support %s\n",
-+            printk(XENLOG_WARNING "ARM FF-A Firmware does not support %s\n",
-                    ffa_fw_abi_needed[i].name);
-     }
- 
-diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-index 37b05747cd21..186e72641237 100644
---- a/xen/arch/arm/tee/ffa_notif.c
-+++ b/xen/arch/arm/tee/ffa_notif.c
-@@ -292,8 +292,9 @@ static void notif_vm_pend_intr(uint16_t vm_id)
-             break;
-         }
-     }
--    if ( !v )
--        printk(XENLOG_ERR "ffa: can't inject NPI, all vCPUs offline\n");
-+    if ( !v && printk_ratelimit() )
-+        printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs offline\n",
-+               d);
- 
- out_unlock:
-     rcu_unlock_domain(d);
-@@ -316,9 +317,9 @@ static void notif_sri_action(void *unused)
-         res = ffa_get_ret_code(&resp);
-         if ( res )
-         {
--            if ( res != FFA_RET_NO_DATA )
--                printk(XENLOG_ERR "ffa: notification info get failed: error %d\n",
--                       res);
-+            if ( res != FFA_RET_NO_DATA && printk_ratelimit() )
-+                printk(XENLOG_WARNING
-+                       "ffa: notification info get failed: error %d\n", res);
-             return;
-         }
- 
-diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index 015097bd4d2a..fdb03dae9a0c 100644
---- a/xen/arch/arm/tee/ffa_partinfo.c
-+++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -461,9 +461,11 @@ static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_size)
-          */
-         if ( !FFA_ID_IS_SECURE(fpi->id) )
-         {
--            printk(XENLOG_ERR "ffa: Firmware is not using bit 15 convention for IDs !!\n"
--                              "ffa: Secure partition with id 0x%04x cannot be used\n",
--                              fpi->id);
-+            printk_once(XENLOG_ERR
-+                        "ffa: Firmware is not using bit 15 convention for IDs !!\n");
-+            printk(XENLOG_ERR
-+                   "ffa: Secure partition with id 0x%04x cannot be used\n",
-+                   fpi->id);
-         }
-         else
-         {
-@@ -632,11 +634,10 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
-         res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], ffa_get_vm_id(d),
-                                      FFA_MSG_SEND_VM_DESTROYED);
- 
--        if ( res )
--        {
--            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction of vm_id %u to %u: res %d\n",
-+        if ( res && printk_ratelimit() )
-+            printk(XENLOG_WARNING
-+                   "%pd: ffa: Failed to report destruction of vm_id %u to %u: res %d\n",
-                    d, ffa_get_vm_id(d), subscr_vm_destroyed[n], res);
--        }
- 
-         /*
-          * For these two error codes the hypervisor is expected to resend
-diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-index c4fc4c4934af..26a04f056f7b 100644
---- a/xen/arch/arm/tee/ffa_rxtx.c
-+++ b/xen/arch/arm/tee/ffa_rxtx.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <xen/const.h>
-+#include <xen/lib.h>
- #include <xen/domain_page.h>
- #include <xen/mm.h>
- #include <xen/sizes.h>
-@@ -82,8 +83,9 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
- 
-     if ( page_count > FFA_MAX_RXTX_PAGE_COUNT || !page_count )
-     {
--        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
--               page_count, FFA_MAX_RXTX_PAGE_COUNT);
-+        gdprintk(XENLOG_DEBUG,
-+                 "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
-+                 page_count, FFA_MAX_RXTX_PAGE_COUNT);
-         return FFA_RET_INVALID_PARAMETERS;
-     }
- 
-@@ -299,12 +301,15 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **buf, size_t *buf_size)
-     if ( !ctx->page_count )
-     {
-         ret = FFA_RET_DENIED;
-+        gdprintk(XENLOG_DEBUG, "ffa: RX acquire denied, no RX/TX mapped\n");
-         goto out;
-     }
- 
-     if ( !ctx->rx_is_free )
-     {
-         ret = FFA_RET_BUSY;
-+        if ( printk_ratelimit() )
-+            gdprintk(XENLOG_DEBUG, "ffa: RX acquire busy\n");
-         goto out;
-     }
- 
-@@ -312,7 +317,10 @@ int32_t ffa_rx_acquire(struct ffa_ctx *ctx, void **buf, size_t *buf_size)
-     {
-         ret = ffa_simple_call(FFA_RX_ACQUIRE, ctx->ffa_id, 0, 0, 0);
-         if ( ret != FFA_RET_OK )
+         if ( !IS_ALIGNED(addr, FFA_PAGE_SIZE) )
 +        {
-+            gdprintk(XENLOG_DEBUG, "ffa: RX acquire failed: %d\n", ret);
-             goto out;
++            gdprintk(XENLOG_DEBUG,
++                     "ffa: mem share pages invalid: unaligned range %u address %#lx\n",
++                     n, (unsigned long)addr);
+             return FFA_RET_INVALID_PARAMETERS;
 +        }
+ 
+         for ( m = 0; m < page_count; m++ )
+         {
+             if ( pg_idx >= shm->page_count )
++            {
++                gdprintk(XENLOG_DEBUG,
++                         "ffa: mem share pages invalid: range overflow rg %u pg %u\n",
++                         n, m);
+                 return FFA_RET_INVALID_PARAMETERS;
++            }
+ 
+             if ( !ffa_safe_addr_add(addr, m) )
++            {
++                gdprintk(XENLOG_DEBUG,
++                         "ffa: mem share pages invalid: addr overflow rg %u pg %u base %#lx\n",
++                         n, m, (unsigned long)addr);
+                 return FFA_RET_INVALID_PARAMETERS;
++            }
+ 
+             gaddr = addr + m * FFA_PAGE_SIZE;
+             gfn = gaddr_to_gfn(gaddr);
+             shm->pages[pg_idx] = get_page_from_gfn(d, gfn_x(gfn), &t,
+ 						   P2M_ALLOC);
+             if ( !shm->pages[pg_idx] )
++            {
++                gdprintk(XENLOG_DEBUG,
++                         "ffa: mem share pages invalid: gfn unmapped rg %u pg %u addr %#lx\n",
++                         n, m, (unsigned long)gaddr);
+                 return FFA_RET_DENIED;
++            }
+             /* Only normal RW RAM for now */
+             if ( t != p2m_ram_rw )
++            {
++                gdprintk(XENLOG_DEBUG,
++                         "ffa: mem share pages invalid: p2m type %u rg %u pg %u addr %#lx\n",
++                         t, n, m, (unsigned long)gaddr);
+                 return FFA_RET_DENIED;
++            }
+             pg_idx++;
+         }
      }
-     ctx->rx_is_free = false;
-     *buf = ctx->rx;
-@@ -351,13 +359,22 @@ int32_t ffa_tx_acquire(struct ffa_ctx *ctx, const void **buf, size_t *buf_size)
-     int32_t ret = FFA_RET_DENIED;
  
-     if ( !spin_trylock(&ctx->tx_lock) )
+     /* The ranges must add up */
+     if ( pg_idx < shm->page_count )
 +    {
-+        gdprintk(XENLOG_DEBUG, "ffa: TX acquire busy\n");
-         return FFA_RET_BUSY;
++        gdprintk(XENLOG_DEBUG,
++                 "ffa: mem share pages invalid: range short pg %u\n",
++                 pg_idx);
+         return FFA_RET_INVALID_PARAMETERS;
 +    }
  
-     if ( !ctx->page_count )
-+    {
-+        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, no RX/TX mapped\n");
-         goto err_unlock;
-+    }
+     return FFA_RET_OK;
+ }
+@@ -741,8 +771,10 @@ bool ffa_shm_domain_destroy(struct domain *d)
+              * A temporary error that may get resolved a bit later, it's
+              * worth retrying.
+              */
+-            printk(XENLOG_G_INFO "%pd: ffa: Failed to reclaim handle %#lx : %d\n",
+-                   d, shm->handle, res);
++            if ( printk_ratelimit() )
++                printk(XENLOG_G_WARNING
++                       "%pd: ffa: Failed to reclaim handle %#lx : %d\n",
++                       d, shm->handle, res);
+             break; /* We will retry later */
+         default:
+             /*
+@@ -754,7 +786,8 @@ bool ffa_shm_domain_destroy(struct domain *d)
+              * FFA_RET_NO_MEMORY might be a temporary error as it it could
+              * succeed if retried later, but treat it as permanent for now.
+              */
+-            printk(XENLOG_G_INFO "%pd: ffa: Permanent failure to reclaim handle %#lx : %d\n",
++            printk(XENLOG_G_ERR
++                   "%pd: ffa: Permanent failure to reclaim handle %#lx : %d\n",
+                    d, shm->handle, res);
  
-     if ( !ctx->tx )
-+    {
-+        gdprintk(XENLOG_DEBUG, "ffa: TX acquire denied, TX buffer missing\n");
-         goto err_unlock;
-+    }
- 
-     *buf = ctx->tx;
-     *buf_size = ctx->page_count * FFA_PAGE_SIZE;
+             /*
 -- 
 2.52.0
 
