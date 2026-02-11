@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id j3H4I1+5jGlJsgAAu9opvQ
+	id UIvBEmC5jGlHsgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:15 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:16 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D40E126867
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1227997.1534399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 434DA12688B
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Feb 2026 18:16:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1227998.1534410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqDot-0005nh-Ox; Wed, 11 Feb 2026 17:16:07 +0000
+	id 1vqDov-00063p-5U; Wed, 11 Feb 2026 17:16:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1227997.1534399; Wed, 11 Feb 2026 17:16:07 +0000
+Received: by outflank-mailman (output) from mailman id 1227998.1534410; Wed, 11 Feb 2026 17:16:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqDot-0005kL-Jx; Wed, 11 Feb 2026 17:16:07 +0000
-Received: by outflank-mailman (input) for mailman id 1227997;
- Wed, 11 Feb 2026 17:16:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vqDou-0005zv-SD; Wed, 11 Feb 2026 17:16:08 +0000
+Received: by outflank-mailman (input) for mailman id 1227998;
+ Wed, 11 Feb 2026 17:16:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cvfN=AP=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vqDoq-0004tt-My
- for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 17:16:04 +0000
+ id 1vqDot-0004U4-1Z
+ for xen-devel@lists.xenproject.org; Wed, 11 Feb 2026 17:16:07 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 583ec24c-076d-11f1-b162-2bf370ae4941;
- Wed, 11 Feb 2026 18:16:04 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 590bddd8-076d-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Feb 2026 18:16:05 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F660339;
- Wed, 11 Feb 2026 09:15:57 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7DD33143D;
+ Wed, 11 Feb 2026 09:15:58 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.53.46])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 63DC63F63F;
- Wed, 11 Feb 2026 09:16:02 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC05D3F63F;
+ Wed, 11 Feb 2026 09:16:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,7 +47,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 583ec24c-076d-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 590bddd8-076d-11f1-9ccf-f158ae23cfc8
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
@@ -55,9 +55,9 @@ Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2 05/12] xen/arm: ffa: Fix PARTINFO RX release errors
-Date: Wed, 11 Feb 2026 18:15:29 +0100
-Message-ID: <bbeacc8812adc7ebffe58d7d7a3b0434b13da7c4.1770826406.git.bertrand.marquis@arm.com>
+Subject: [PATCH v2 06/12] xen/arm: ffa: Fix RX/TX map layout and errors
+Date: Wed, 11 Feb 2026 18:15:30 +0100
+Message-ID: <c4a807f6de112e25f71ef6230079d5061f82a627.1770826406.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770826406.git.bertrand.marquis@arm.com>
 References: <cover.1770826406.git.bertrand.marquis@arm.com>
@@ -93,147 +93,75 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,arm.com:mid,arm.com:email]
-X-Rspamd-Queue-Id: 2D40E126867
+X-Rspamd-Queue-Id: 434DA12688B
 X-Rspamd-Action: no action
 
-On PARTITION_INFO_GET error paths, Xen unconditionally called
-FFA_RX_RELEASE for the SPMC RX buffer. If the SPMC didn't grant RX
-ownership (i.e., the call failed early), this issues a spurious release
-that returns DENIED and produces warnings.
+FFA_RXTX_MAP builds a descriptor for the SPMC and the composite region
+offsets must be 8-byte aligned. Xen currently uses a 12-byte header
+size, which produces misaligned RX/TX offsets. Mapping failures also
+return INVALID_PARAMETERS even when the failure is due to resource
+exhaustion, which misreports the error condition.
 
-Modify ffa_rxtx_spmc_rx_release() to return the release status and let
-callers choose whether to log it. Only issue FFA_RX_RELEASE after a
-successful PARTINFO SMC, while always releasing the local RX lock to
-avoid deadlocks.
+Round the descriptor header size up to 8 bytes before placing the RX
+region and derive the TX offset from the aligned RX offset. Return
+FFA_RET_NO_MEMORY when the TX or RX buffer mapping fails before the
+error paths unwind.
 
-Update handle_partition_info_get() to only release the SPMC RX buffer
-after successful fw_ret checks, and ignore release errors during the
-error path.
-
-Functional impact: eliminates spurious FFA_RX_RELEASE calls and
-associated DENIED warnings when PARTITION_INFO_GET fails before
-obtaining SPMC RX buffer ownership.
+Functional impact: RXTX_MAP now returns NO_MEMORY on mapping failures
+and the SPMC receives an aligned RX/TX descriptor layout.
 
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
 Changes since v1:
-- Rename spmc_ok to notify_fw
-- Add Jens R-b
+- add Jens R-b
 ---
- xen/arch/arm/tee/ffa_partinfo.c | 14 ++++++++++++--
- xen/arch/arm/tee/ffa_private.h  |  2 +-
- xen/arch/arm/tee/ffa_rxtx.c     | 14 +++++++++-----
- 3 files changed, 22 insertions(+), 8 deletions(-)
+ xen/arch/arm/tee/ffa_rxtx.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index bf906ed0c88f..015097bd4d2a 100644
---- a/xen/arch/arm/tee/ffa_partinfo.c
-+++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -92,9 +92,11 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
-                                    uint32_t dst_size)
- {
-     int32_t ret;
-+    int32_t release_ret;
-     uint32_t src_size, real_sp_count;
-     void *src_buf;
-     uint32_t count = 0;
-+    bool notify_fw = false;
- 
-     /* We need to use the RX buffer to receive the list */
-     src_buf = ffa_rxtx_spmc_rx_acquire();
-@@ -104,6 +106,7 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
-     ret = ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
-     if ( ret )
-         goto out;
-+    notify_fw = true;
- 
-     /* Validate the src_size we got */
-     if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
-@@ -157,7 +160,10 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
-     *sp_count = count;
- 
- out:
--    ffa_rxtx_spmc_rx_release();
-+    release_ret = ffa_rxtx_spmc_rx_release(notify_fw);
-+    if ( release_ret )
-+        gprintk(XENLOG_WARNING,
-+                "ffa: Error releasing SPMC RX buffer: %d\n", release_ret);
-     return ret;
- }
- 
-@@ -507,6 +513,7 @@ bool ffa_partinfo_init(void)
-     int32_t e;
-     void *spmc_rx;
-     struct ffa_uuid nil_uuid = { .val = { 0ULL, 0ULL } };
-+    bool notify_fw = false;
- 
-     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
-          !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32))
-@@ -522,6 +529,7 @@ bool ffa_partinfo_init(void)
-         printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
-         goto out;
-     }
-+    notify_fw = true;
- 
-     if ( count >= FFA_MAX_NUM_SP )
-     {
-@@ -533,7 +541,9 @@ bool ffa_partinfo_init(void)
-     ret = init_subscribers(spmc_rx, count, fpi_size);
- 
- out:
--    ffa_rxtx_spmc_rx_release();
-+    e = ffa_rxtx_spmc_rx_release(notify_fw);
-+    if ( e )
-+        printk(XENLOG_WARNING "ffa: Error releasing SPMC RX buffer: %d\n", e);
-     return ret;
- }
- 
-diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index ccef2f7631f6..1a632983c860 100644
---- a/xen/arch/arm/tee/ffa_private.h
-+++ b/xen/arch/arm/tee/ffa_private.h
-@@ -459,7 +459,7 @@ int32_t ffa_endpoint_domain_lookup(uint16_t endpoint_id, struct domain **d_out,
- bool ffa_rxtx_spmc_init(void);
- void ffa_rxtx_spmc_destroy(void);
- void *ffa_rxtx_spmc_rx_acquire(void);
--void ffa_rxtx_spmc_rx_release(void);
-+int32_t ffa_rxtx_spmc_rx_release(bool notify_fw);
- void *ffa_rxtx_spmc_tx_acquire(void);
- void ffa_rxtx_spmc_tx_release(void);
- 
 diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-index 7d8bb4f4d031..50758fb57cdf 100644
+index 50758fb57cdf..eff95a7955d7 100644
 --- a/xen/arch/arm/tee/ffa_rxtx.c
 +++ b/xen/arch/arm/tee/ffa_rxtx.c
-@@ -375,18 +375,22 @@ void *ffa_rxtx_spmc_rx_acquire(void)
-     return NULL;
- }
+@@ -119,11 +119,17 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
  
--void ffa_rxtx_spmc_rx_release(void)
-+int32_t ffa_rxtx_spmc_rx_release(bool notify_fw)
- {
-     int32_t ret;
- 
-     ASSERT(spin_is_locked(&ffa_spmc_rx_lock));
- 
--    /* Inform the SPMC that we are done with our RX buffer */
--    ret = ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
--    if ( ret != FFA_RET_OK )
--        printk(XENLOG_DEBUG "Error releasing SPMC RX buffer: %d\n", ret);
-+    if ( notify_fw )
+     tx = __map_domain_page_global(tx_pg);
+     if ( !tx )
 +    {
-+        /* Inform the SPMC that we are done with our RX buffer */
-+        ret = ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
++        ret = FFA_RET_NO_MEMORY;
+         goto err_put_rx_pg;
 +    }
-+    else
-+        ret = FFA_RET_OK;
  
-     spin_unlock(&ffa_spmc_rx_lock);
-+    return ret;
- }
+     rx = __map_domain_page_global(rx_pg);
+     if ( !rx )
++    {
++        ret = FFA_RET_NO_MEMORY;
+         goto err_unmap_tx;
++    }
  
- void *ffa_rxtx_spmc_tx_acquire(void)
+     /*
+      * Transmit the RX/TX buffer information to the SPM if acquire is supported
+@@ -136,7 +142,8 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+         struct ffa_mem_region *mem_reg;
+ 
+         /* All must fit in our TX buffer */
+-        BUILD_BUG_ON(sizeof(*rxtx_desc) + sizeof(*mem_reg) * 2 +
++        BUILD_BUG_ON(ROUNDUP(sizeof(*rxtx_desc), 8) +
++                     sizeof(*mem_reg) * 2 +
+                      sizeof(struct ffa_address_range) * 2 >
+                      FFA_MAX_RXTX_PAGE_COUNT * FFA_PAGE_SIZE);
+ 
+@@ -153,8 +160,8 @@ int32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+          */
+         rxtx_desc->sender_id = ffa_get_vm_id(d);
+         rxtx_desc->reserved = 0;
+-        rxtx_desc->rx_region_offs = sizeof(*rxtx_desc);
+-        rxtx_desc->tx_region_offs = sizeof(*rxtx_desc) +
++        rxtx_desc->rx_region_offs = ROUNDUP(sizeof(*rxtx_desc), 8);
++        rxtx_desc->tx_region_offs = rxtx_desc->rx_region_offs +
+                                     offsetof(struct ffa_mem_region,
+                                              address_range_array[1]);
+ 
 -- 
 2.52.0
 
