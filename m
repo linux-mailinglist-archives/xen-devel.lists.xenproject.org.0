@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +DURKiDqjWnG8gAAu9opvQ
+	id 4INTFr7sjWnG8gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:56:32 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:07:42 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0993712EAB3
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:56:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229227.1535223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E07C912EC48
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:07:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229260.1535243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqY70-00009L-3y; Thu, 12 Feb 2026 14:56:10 +0000
+	id 1vqYHG-0002ml-Du; Thu, 12 Feb 2026 15:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229227.1535223; Thu, 12 Feb 2026 14:56:10 +0000
+Received: by outflank-mailman (output) from mailman id 1229260.1535243; Thu, 12 Feb 2026 15:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqY70-00006V-0n; Thu, 12 Feb 2026 14:56:10 +0000
-Received: by outflank-mailman (input) for mailman id 1229227;
- Thu, 12 Feb 2026 14:56:08 +0000
+	id 1vqYHG-0002kO-AW; Thu, 12 Feb 2026 15:06:46 +0000
+Received: by outflank-mailman (input) for mailman id 1229260;
+ Thu, 12 Feb 2026 15:06:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zRx/=AQ=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1vqY6y-00006I-6s
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 14:56:08 +0000
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazlp170110009.outbound.protection.outlook.com
- [2a01:111:f403:c111::9])
+ id 1vqYHF-0002jg-MY
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 15:06:45 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f433b533-0822-11f1-b162-2bf370ae4941;
- Thu, 12 Feb 2026 15:56:05 +0100 (CET)
-Received: from PH7PR10CA0023.namprd10.prod.outlook.com (2603:10b6:510:23d::21)
- by MN2PR12MB4079.namprd12.prod.outlook.com (2603:10b6:208:1d5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.13; Thu, 12 Feb
- 2026 14:56:01 +0000
-Received: from CY4PEPF0000EE3E.namprd03.prod.outlook.com
- (2603:10b6:510:23d:cafe::28) by PH7PR10CA0023.outlook.office365.com
- (2603:10b6:510:23d::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.12 via Frontend Transport; Thu,
- 12 Feb 2026 14:55:57 +0000
+ id 70c7262a-0824-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 16:06:44 +0100 (CET)
+Received: from CH0PR03CA0310.namprd03.prod.outlook.com (2603:10b6:610:118::33)
+ by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.10; Thu, 12 Feb
+ 2026 15:06:39 +0000
+Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
+ (2603:10b6:610:118:cafe::64) by CH0PR03CA0310.outlook.office365.com
+ (2603:10b6:610:118::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.11 via Frontend Transport; Thu,
+ 12 Feb 2026 15:06:26 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE3E.mail.protection.outlook.com (10.167.242.16) with Microsoft
+ CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.8 via Frontend Transport; Thu, 12 Feb 2026 14:56:00 +0000
+ 15.20.9611.8 via Frontend Transport; Thu, 12 Feb 2026 15:06:39 +0000
 Received: from localhost (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 12 Feb
- 2026 08:55:59 -0600
+ 2026 09:06:38 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,22 +61,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f433b533-0822-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 70c7262a-0824-11f1-b162-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TxaBUmsUjy8eBAu5zQH4FfeaHyyBTGHkwjqWAAqOo9mbMbwnRMJCK/VIBhe+wvoqsb+zhgTeIouyiixDprgTh1gG+Fv22CH0gMYAZ0wmqvZ1kmkS1/0a0lLhaYQ3D9ma/fS/gAdOvW8+7AQfqYRX0AiMobhnWDBPIDXI276hcrdMuqAjN5PyG0bbPINPKD1fc9LhS61+RYY76zWV4CR867/qCmxRKacZyZK/jMh7MBUFibPfzixJdYYWlWvAG3KdgOwU9sixDpjSXU3bUtg1CROY7+7LwQ6oO0Idv1wbk94TFOr4hzU4Zsw+scib7418SW4vtgWGFqKWUpvqdp6Dow==
+ b=XEqcSYiqUrnc5bLthVvi4riYJY9bfvshFx6YUTUoPkuM/RmoFbSuT7BTN/iht7P8ygVQ3+mrgAexXkO5nbdO3PP8SKlUTZuNeCqFtvlyV2hXSSiTwtrUHMUAG/nTFPHVck9RxWkMk+dAhhUZEn+vbDwijkNBe2B9omKMmOoFF4VOfCh9CB8DfCSNaWpGxP9Q7/gaGbwS7KjU8kSYFd2HgB8NPSSMy8SVgvpngol9NrxGW2QF7qDltOaR7nR+gGlO2/cmS22QwcAc0etIJT09AZ+mmLp8IdlpgkRpBAqWpmW66FY9n2pnzbwUIwsLhktRQP2aDYN8L8PZCTUW4P6J+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=upTvwB/xKG0YJKqZ73mCz/e9Bc+WguMxroxZZwUkvk4=;
- b=pSYccwNqDsxdA6LABsXfUGhBJpMDN+FlhoaXh6EhkB2ltRjXFZwhIhLpTMfSl6yoQLYFdArbcVtyP11ss0zfueELLjQKd8WpE+yoGnNBTVtjRPFSsmJtLTgTlr0Pqpga+KFiNAhftyVG52xJbWb5A4APLWcwERDo8uuyZ0ZYnllq+vsGO+vP6sGlXYG1IylifjhJKv2TjPy/RAVv3UakNzyQOxEl5jEPlDNXEowqB2vNqYdB2+wjkV94nG8o9piEmFmhvXmTfLrLtf9PPF8eO8NDUxU8yaHrwNYgf2iECcMJG5EoN2tUEU7pQ9Tpre/+sGtaUAWjFWIYG6bEXnzQOw==
+ bh=CViXR9wDyIBVwA1N+AzkjLIJmHoN8bTgbQtlPLtNqOk=;
+ b=yhsyXUfXETo9N2XtKnhcOfv+lfKCS8WaINZYRAMRyNr0NESOdKNcN9rsukedySbuw3sPqe794u3hyZPWjErnNLFC9ofx28xoggdGFDt0A/tPtrB/FI76MOO7ylfAouGb0D7TZF5LAACHOkIpsXsyoB9Y/EF3tc1+pIa9YH4mZEuw/HdWaWurO/pAMAP6tCvcL8Ixk/RgEq2eOTJNCm6WNYDyJMMn74iYb3u0lKX+BnN4uwggDkvoVlvjKnyuRzSThAbZEQX/ZgKcVInCRYnCaC6vdtAEdys+Ysnkexj59cjHsZ7i7Dn0i55us/Vz5C1MsiltAACdHLE9UJhZd0ZicA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=upTvwB/xKG0YJKqZ73mCz/e9Bc+WguMxroxZZwUkvk4=;
- b=ShhRNZ9/A4ZL9T5Q+bErEbpnx/yaIS5LvtQNPqx3DBGAAIIOUu1ghmJdiSP4y09vXIgOxcxx5cwM7o8iqsoIKoC9YuONYGzAtEkFdjw4onE3UHvb7tR8husNZV/btHukpe0ULuLk0fX4fbTJb4cuBctSDw45T1SwHRPZWJZRmO0=
+ bh=CViXR9wDyIBVwA1N+AzkjLIJmHoN8bTgbQtlPLtNqOk=;
+ b=dFBYTdhlqvszvHLqdiF3Tl/p1CafZu6gNe2us5jKua7apgPMILAdPqxbYIJtj7QYiKwOAmuG1Bej1xUpmINwp/mghmAEktgfl33d2e2iFA/NH6Zk8uOM3UA/Kuyu8cAqkXS3hFqrpRphlEb3/k2u7H7dz/j+bRG7A0B6TgxWYA4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,86 +86,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 12 Feb 2026 15:55:58 +0100
-Message-ID: <DGD2JSOV312K.1NZML3WGZBQ58@amd.com>
+Date: Thu, 12 Feb 2026 16:06:37 +0100
+Message-ID: <DGD2RYDMNWSJ.2JIIPRX6WYWJE@amd.com>
+Subject: Re: [PATCH 06/12] x86: Migrate switch vendor checks to cpu_vendor()
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jason Andryuk
 	<jason.andryuk@amd.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 05/12] x86: Migrate spec_ctrl vendor checks to
- cpu_vendor()
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
 X-Mailer: aerc 0.20.1
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-6-alejandro.garciavallejo@amd.com>
- <109c3379-7066-4ad9-93aa-57e87deba81f@suse.com>
-In-Reply-To: <109c3379-7066-4ad9-93aa-57e87deba81f@suse.com>
+ <20260206161539.209922-7-alejandro.garciavallejo@amd.com>
+ <dea3752f-1926-4fb4-b0df-305ebbea4aa2@suse.com>
+In-Reply-To: <dea3752f-1926-4fb4-b0df-305ebbea4aa2@suse.com>
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3E:EE_|MN2PR12MB4079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66037592-3c73-4911-98c2-08de6a46d61c
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|DS0PR12MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: d683e7dc-97de-4c3c-6844-08de6a48531a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Y1NyeE9IRDkxZ3lwVUl6c1c1Q3BIR3NIVTgvYy9hUW5nQXBMNTE2dlRuM1VV?=
- =?utf-8?B?Rmx0N3hrL3JlNmd2cVBDSkNaTzZ5ejJIQmw4ZTgwcEs4ZjBGb2hPTEd3d3Vy?=
- =?utf-8?B?US9ka2ovVzk1WWtLbjVST1FXSkhZOUhTRmE5SFFKL0MxclhhRFpVZzdTSlM4?=
- =?utf-8?B?NVM5ZlhtbkE2dlplRUtSZytwaHlQOUJjUDIrcDI5QUZpSUliNGRvYXptaHhx?=
- =?utf-8?B?Zk9NZWFYK2tPelN2UzNZdEM0QmQ5WHBoUWZOaUhqVUJSdEpJWWNuNkhmQ01n?=
- =?utf-8?B?YUhCU2lXRGc3MzB1OGhKZHczOEpLYXdndy9DN0hPMUFJeURTQ25TaHJhSDhK?=
- =?utf-8?B?Q29xc0FRc0VIbHVCVGt0NnFtSXJXa3VlRHR4OEFDTndKVmM0cUl2WHduMWN1?=
- =?utf-8?B?TXpyU1V5S2JVamlDd2FiREZhVHFtTFFTeXZ3eEYrSEd3ZW53TVg3VmhZRWFz?=
- =?utf-8?B?dFhRWDFWOFNscHE3MmdFeTlBWkVPbFpEUHQ5N2FYRTZ2U0w0eWhOVkkyenU1?=
- =?utf-8?B?dFV4alRDRmtpaFNNUkZhYlptTG1YUDlrdEJ4dDltYXVONFlwQnErZDhjZlA1?=
- =?utf-8?B?bTFjYjl1NVBZTnpJQjAxbFhCb202Q2RXZUhpYmlsbmtjT3UyYVlHQWZiRW1Y?=
- =?utf-8?B?TCtGZnVaWW9QM0JxTmxtbnJPdFdJTXFpKzJ2K2ovOXdsdXdkU3QwbjNSVzJ5?=
- =?utf-8?B?OWk1a0tXdzNhcW1ra3dHRllRZm9rcnp0UEpiSkt6Sk9qR2lKeWMzeEl5YlFK?=
- =?utf-8?B?UUlpZnVjQmpVdUxZWCtRUkpXanNxT1Urc3hTb1RUTmRqcWNJdTJIdE5TdGZq?=
- =?utf-8?B?bDBBRGxnVnNNSVFkL0pzWlhXZHBocWUzOGhrcmt4d0tiVW9NTkplQ1AwVHJL?=
- =?utf-8?B?RnNaY1RUcVlRRHRxSU9PZTEyei8wYTRwekR0aStoOVRkNW1YTVlmRyt1MzJW?=
- =?utf-8?B?NTZJaE5QNUxwSys3NUU2Y1Z1UWxnNHlySGNST3BKaElZYzBHeUthZEZLMlpw?=
- =?utf-8?B?NitZbC9xVWJ5emtSUkl0TnNpQzdxMmZIV3pQeTcwWDRobTJ2R0QzdTE3TU81?=
- =?utf-8?B?WDNFR3NCYklaK05GY0pZWnJ5Skc4VmFTejc5K0NmRUxLc3VxOVA5SUZlU2do?=
- =?utf-8?B?T3dyYk9pWm1tVXM0akE2czZsZFpPYW8xMkZVMkRQWU5uNjZnQ2JYWEQ5bkMy?=
- =?utf-8?B?WjlUYm5pWnRnMzJhRHJNUkw3NkFFdDhrdnZFSmhpUHlGYlFuS3VnakJVUll2?=
- =?utf-8?B?YUl0UEhpeXovcGdlU1pRdGFFbEorWU1SSG1EZFU5dFFiTVJsb0t5bTE2ckVQ?=
- =?utf-8?B?eEFaL3J0NWdFT2hqWkJ1dTEzZVVpbU9ybTFKLzZMdVJROEkwV3pLVFlxazcz?=
- =?utf-8?B?a0hnSVVhTXlrWDVxcW5hZ0FFOU5qVmNaalZYaEk0dHplOU9oTXVLeDh1VzZZ?=
- =?utf-8?B?bW9Wb2M0YTdQc1VpQWhXWEdLaWZvNjVkRDNOdEpYUnQyZVkrZldROTBCM0x6?=
- =?utf-8?B?OTY4aUkwcEY0bXMraTVNc1ZBMEpHS0lGSmZINkVKSEJGbVJzb3JxV3RXUEpm?=
- =?utf-8?B?SWl6U3pOcUsrenIyK2IxQ0owMkwyOENTVkl5b3pWNmdsUlFuQURtTmE5enZ2?=
- =?utf-8?B?Q2x0aHhFdTAvajZJSGJjQXVaazJQYmdhb3NDY1E3dmo1cVRyWGtlcGZaU0Z0?=
- =?utf-8?B?N3RMOUVsZnJCMXl2U1dqcmlheHhSdGlRNTBXWmttVFRSSU9UZmhXUDdWNlhV?=
- =?utf-8?B?d1lyNjR1a1RHSkw2a3V2QldQZEtMeE1MZjlVQ2V4Sk8ranVyemphb3Vjc2Rn?=
- =?utf-8?B?TXplY3lZK1REQVJCaVJPc3p4eGRwRE1EVVhYZUtSNmR6cUF3SHpLaTZ2M1hl?=
- =?utf-8?B?THBGbUVtSFpDYXNUemNBVlUxZ1QrK0Q0c0YxaENHbEhmbDZZMzBrcElQNGpC?=
- =?utf-8?B?R09QaXRUcGMvL21uQ3NBeWZJdjczT0VTR0NVYyswZW1FaG5HbGowa3JEa09F?=
- =?utf-8?B?Wm8wYmlySzY0SDJRcmo5RG1iR0djbFV1T0dqRmh0MUtZSVNoclJSOXJCcUVh?=
- =?utf-8?B?K1lJOGZlcEZ6c0hTWjB5WWdQbmdxeUl2WVdPaDZZYXhkSEdmYjFCdEJuS2Qv?=
- =?utf-8?B?bnZOT042OHQ5eWlBMk5qQWt5cTNHMjdpVkk5ZUdrN1E4aXNLN0NFczlzWG0w?=
- =?utf-8?B?eEErNjRFZTMxY3RET1VlZHlnZEFZd3NJQUdaSEdhcUFmNEFPMjRmRGRNazVn?=
- =?utf-8?B?aGc5SVY3c3RkcVQ4WGpQMU5VNEtnPT0=?=
+	=?utf-8?B?M2dZbTE0NGZZWUs4MjUvRjJ5b3hsRDZBb0w4dTBCb3JZVTdFaGJ4cDJiWVAy?=
+ =?utf-8?B?ejBXeVpYM29aajNQTmkrb2RzcmNQS29ub2ZrejcwUlhlS3BDQkllZVZ0VC9J?=
+ =?utf-8?B?anZHQXNEdE1iem9kaGpTUC9UT3RDZDhjSDdnNkZCTmlYOEZpZFRoVERqbm5j?=
+ =?utf-8?B?Z2k0ZEh3b3MvLzl4OWcvbXpDbnNyTkFWR3cybE5GR1lyWWpUenBydVo5S24y?=
+ =?utf-8?B?OGdWTDVYaFVKTzBFVDkzL2dtVzdtS3QzOUg2OGUyNzk0SWNYbzdvNUFOYVdr?=
+ =?utf-8?B?cHBVcnI4U1JpVFpFR1JRTmpOQkNmMlpOc1pyeTdzbDM1ZEF1MVV0MzZ4Q0hh?=
+ =?utf-8?B?d3dhOFlYRGozMmJmd0U3bHhHYkFFOW42RENjUUFYcDJrSEU1ZXJJM0xYWmp0?=
+ =?utf-8?B?LzVoN0tESnA3aUdQSG5XZFZydEdvb3FMQkJFSGdPalRYMGZ3RUNIQXRqMXpL?=
+ =?utf-8?B?a0FRbms4alowUGpEN1QwVTQ1citFM044RGtjSHdLMjhSZWIvcFAxekhNRW5q?=
+ =?utf-8?B?anlRSEdrSU5CbG01NlVzRWE2cE9KM2FIRnNqUk5vZTFUdXEybzZ4QlBFV29v?=
+ =?utf-8?B?eDNqeEhCUjJuMjRKZTZXY1pad2Q2NStVWFdTckZ4MGc1YVloZnV5TG9uUFZs?=
+ =?utf-8?B?YzdQblhUOWJGSVExSE04NUtzdExGeTFOOVJwbzRVYXlISDlpc3RmcktPa2xF?=
+ =?utf-8?B?TnE4OEpuZ0VkUnk0Zjc2d1hMOWIwVW4zeGVNTktUSVRaOERSWEN0TnVkYUVP?=
+ =?utf-8?B?aFRzdWVaRUN6ano1S0xmVEF3OWNMY3hwTE1XNHd6alJrR3FTSzNTZXU5TG5y?=
+ =?utf-8?B?djJRMzNGeGNscitZdkVPY0ZqT1p5NDJVZ0Z3VFMzVjRoNDZLRllMZk42WjN1?=
+ =?utf-8?B?anhsZmpLbFlRUStCb0RBOHk0Y2RTQVBqa3pXWEQwM0psQmhxQ2QrRENuVnVU?=
+ =?utf-8?B?TU9KaGQ1NHBSWVdaZGxycTNOZjZiTjAvd2dhaEJRdEc4azl4aytsakZ2dlk5?=
+ =?utf-8?B?dGVXUCtzWk9qZEZ0Y0ZtLzlBN3FBTEQzRkxkaW9vUVE5ZVlQNnZiYTBhdVBG?=
+ =?utf-8?B?WlkxOXdjVVoxTVh3STFsNmRiNkZvVHRFMnVXczNBRVg4K1JibmhHdHFFdWVV?=
+ =?utf-8?B?MGxscTFyNjR5djhQNEhoRWpFazBobDJlWWhmbFNkOHNYMkJlcnBMb2ExOWFY?=
+ =?utf-8?B?Q29BTUc5Tnd5OHRGZGU4d0oyNFJSbVhzUzBjYVZ0cDBBcHAwYm9qbDdEck45?=
+ =?utf-8?B?QnBTK3lkWWdwbmVIMFhWMHZwbjhPcHFyTW9JUytUeThxOUxubFBVMUVlNVdK?=
+ =?utf-8?B?bHNBcDQ1TU95YTV4cHNTeUFpRi9VU0dUd0llaC9EZ1JXZHhtMkE2dGFJU3cx?=
+ =?utf-8?B?Q1B5V3UrMUVQYjRoWCtDSjZsMlR3d0ErdTVWNUdPOVZ3OHNLQStOSmNQYXZj?=
+ =?utf-8?B?SWtXSDBEcHJMMzh5b29WaWlncjlyVjFJQnlibExXakJiUWxFOW5FSzFHNTNB?=
+ =?utf-8?B?Q1FRZGJoVXU3MDZMNWZiUlQ1WmRaV0VjU0x2MDlHd2hMcUZ5aS80di90TUhw?=
+ =?utf-8?B?d3VRNjdaUVl0VVdCWkdNR29EREJ0WFMrZVdsb01rMHE1UThzLzhSZWF2YTFv?=
+ =?utf-8?B?T00zaEJ0N3V1dEVYdG1tSTJvenQraHU0MEFWaDZ5N3VoNWZaYzhuQ2g4YnAz?=
+ =?utf-8?B?WUw4TnRrd3FlMTkxQmpoT00wZjlocjU0L09GK2gydldIU0NPMlVwRHVnTy9s?=
+ =?utf-8?B?aTVDOTRwdUIrc1o2cWhtOEtmN1J5MUJTazVFVEx3b241RGVZMkhaZGtqanBy?=
+ =?utf-8?B?bGxObGo0R2dQY1VnelVBaWdjajVFa0xhOGpYQ0l6bDRBQUhISFVOSUtHVzR5?=
+ =?utf-8?B?ZHhWLzdnWm1wWFNVT2NDMkNOM1FWQlVWQkc3Q0x4N2E2clMybTk0c3lnZUxF?=
+ =?utf-8?B?WkVoZjNwUGp2alk4TlRYbUJXbkpRZHFuV2JwNXBuaWRZWXZhbEE2REFSNlpv?=
+ =?utf-8?B?a2dNdTZDbi85alZrSmxLb1VXaDI0dWY1VEZZMk1UdFdhU1ROVDJJOW9jQ1Zr?=
+ =?utf-8?B?cVlFTlJSN1l4MVc3eHRaWWlueWdrY1ljNGJEYzFrSzNYanhDWWlSWlg3cnlX?=
+ =?utf-8?B?SG9UeW5STSsrekc5d2szSDNXMzhiRGQybDN1azljN0ZmTGZFUXZvM3VDYWsw?=
+ =?utf-8?B?ZFpJTUhFOUxmSWpRUEE3NXVHZmRBUWNnVWc5cmorYnIwUXorRmtNVHZLUnJh?=
+ =?utf-8?B?VkcrTzRBM3BrVTByczBxS3A2ejR3PT0=?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	rDiotymAFtt/W5dC/iqt+paUAHGjcz/j4Bg5UTnAsXcNZPgeKrvWUjL1g3D09UeeUuOErWo96VT0vf/9aBe9roS2t2/w7Ub/+TZmZPYu3JQYe+OH1XHzEd8/KA3xcaAdWrC/ko6iz6KW0zwfAvi/LZQxsduMNTeJYKLF9axoRb+q6Lx1JrCrepvyccQKKy7nsCE5d+IADn9BdXF+jeRLkkjSA/F9/hMGkmyq5EoAPjf0hyaQT1DN6rX8FgNgJ3/ndy5/R+2ufaH6LSF785Pgmdq8N9kWw4uyTwaGPoo4OQf+5WZelcED5y7Z6rhVQ7Q/ud3UerOUod4QeZBzU2+yL86Dpcg6VsSjkWnE1WnPx4n0M/H7eB8XECZwkye3dU2kVxSC+36+RrEWS+131Mfz+EVhcy2AF8gARIyZT0JTbxy7DqTnj3aYutG5TjZY78qE
+	jnz87LzrstBU9XnBUXhZuAOJnDJbh6XY8si3Bqu/1hjyyLeT3H3gfBdmMOgrao+h5LhXmeBtfNGrXp9N0r+jyvBYnq3ayIJMkdan30hwtPJb1zjArThxvsJsvudAm5b6EEvbtx9PX+o1fMvgUKZ25Ppj0hMizynMQKmAI1Qd/qBxXtnVw38Ip96Bfl73n/O9ceS17rZHzIefZ6Kr3fs81b2ZDnHEhsRPB0H38d6Tmc+wBAsEyDgL+Hjwv6W3Mk3EF27AVxhlwEM78QFfJMMwNd5IJCm31Xctdfxk9y9JzYujkonON37Nl15lsdQ4Bzy6uvq8K4UxwVJeqd1gyxpYHTa+OrLsoAFXFK+OP41UsMN5ucMssLuBi7N28y6+uKJ3rVq5+kZzEAgVgvRzDjnQDw0dwK0GiPhgxHiNFI7L5h6rT+A1sjBp+wDW3jwqOzhW
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 14:56:00.5006
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 15:06:39.7079
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66037592-3c73-4911-98c2-08de6a46d61c
+X-MS-Exchange-CrossTenant-Network-Message-Id: d683e7dc-97de-4c3c-6844-08de6a48531a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3E.namprd03.prod.outlook.com
+	CH3PEPF0000000D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4079
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -175,7 +174,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -196,94 +195,154 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 0993712EAB3
+X-Rspamd-Queue-Id: E07C912EC48
 X-Rspamd-Action: no action
 
-On Thu Feb 12, 2026 at 11:49 AM CET, Jan Beulich wrote:
+On Thu Feb 12, 2026 at 12:06 PM CET, Jan Beulich wrote:
 > On 06.02.2026 17:15, Alejandro Vallejo wrote:
->> @@ -738,11 +738,10 @@ static bool __init retpoline_calculations(void)
->>      unsigned int ucode_rev =3D this_cpu(cpu_sig).rev;
->>      bool safe =3D false;
+>> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+>> @@ -133,7 +133,7 @@ static int __init cf_check cpufreq_driver_init(void)
 >> =20
->> -    if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
->> +    if ( cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
->>          return true;
+>>          ret =3D -ENOENT;
 >> =20
->> -    if ( boot_cpu_data.vendor !=3D X86_VENDOR_INTEL ||
->> -         boot_cpu_data.family !=3D 6 )
->> +    if ( !(cpu_vendor() & X86_VENDOR_INTEL) || boot_cpu_data.family !=
-=3D 6 )
->>          return false;
+>> -        switch ( boot_cpu_data.x86_vendor )
+>> +        switch( cpu_vendor() )
 >
-> At the example of this (applies throughout this patch): With the panic() =
-in
-> patch 03 the transformation looks correct. Without that panic(), or witho=
-ut
-> being explicitly aware of it, this gives the impression of explicitly doi=
-ng
-> an unsafe thing:
+> Nit: Please avoid screwing up style.
 
-These patches wouldn't be functional changes without the X86_ENABLED_VENDOR=
-S
-mask at cpu_vendor() or the single-vendor optimisation. I could split it th=
-at
-way. Introduce the cpu_vendor() macro early. Transform the entire tree, and=
- then
-apply the optimisations.
-
-> being explicitly aware of it, this gives the impression of explicitly doi=
-ng
-> an unsafe thing:
-
-Without the panic, it'd indeed be (intentionally) doing an unsafe thing.
-Removing the panic can't be safe, it's not just a matter of features missin=
-g.
-It'd imply printing a banner saying the current configuration is unsupporte=
-d.
-
-> Even though by way of boot_cpu_data.vendor we know what
-> vendor's CPU we're on, we're acting as if we didn't know.
-
-Not with the panic in place, which is partially why I put it there.
-
-> I'm really
-> uncertain whether such changes are worth it with the mere goal of reducin=
-g
-> code size.
-
-It is unreachable code, and in a safety context every line of unreachable c=
-ode
-must be either removed or justified. And justifications cost time, effort a=
-nd
-are difficult to maintain.
-
-> Even beyond the concern raised, this feels like it might be
-> increasing the risk of introducing subtle bugs.
-
-I would've agreed with you with x86_vendor_is(), which is why for v1 I took=
- a
-step back to make cpu_vendor(). That macro was complex. Too complex and it =
-took
-many trial and errors to fine tune it. cpu_vendor() is comparatively trivia=
-l and
-relies on the compiler doing the heavy lifting. In the single-vendor case i=
-t's
-a constant and it's hopefully uncontroversially fine to remove unreachable =
-code
-then.
-
-In the multivendor case, the complexity amounts to a mask of available vend=
-ors.
-
-I don't think there's an inherent danger in removing unreachable code, so l=
-ong
-as we can prove at boot time the reachability preconditions can't be met.
+bah, yes.
 
 >
-> I wonder what Andrew and Roger think in this regard.
+>> @@ -141,12 +141,10 @@ static int __init cf_check cpufreq_driver_init(voi=
+d)
+>>                  switch ( cpufreq_xen_opts[i] )
+>>                  {
+>>                  case CPUFREQ_xen:
+>> -                    ret =3D IS_ENABLED(CONFIG_INTEL) ?
+>> -                          acpi_cpufreq_register() : -ENODEV;
+>> +                    ret =3D acpi_cpufreq_register();
+>>                      break;
+>>                  case CPUFREQ_hwp:
+>> -                    ret =3D IS_ENABLED(CONFIG_INTEL) ?
+>> -                          hwp_register_driver() : -ENODEV;
+>> +                    ret =3D hwp_register_driver();
+>>                      break;
+>>                  case CPUFREQ_none:
+>>                      ret =3D 0;
+>
+> This of course is a neat (side) effect.
+>
+>> @@ -165,7 +163,6 @@ static int __init cf_check cpufreq_driver_init(void)
+>> =20
+>>          case X86_VENDOR_AMD:
+>>          case X86_VENDOR_HYGON:
+>> -#ifdef CONFIG_AMD
+>>              for ( i =3D 0; i < cpufreq_xen_cnt; i++ )
+>>              {
+>>                  switch ( cpufreq_xen_opts[i] )
+>> @@ -191,9 +188,6 @@ static int __init cf_check cpufreq_driver_init(void)
+>>                  if ( !ret || ret =3D=3D -EBUSY )
+>>                      break;
+>>              }
+>> -#else
+>> -            ret =3D -ENODEV;
+>> -#endif /* CONFIG_AMD */
+>>              break;
+>> =20
+>>          default:
+>
+> There's a change to the function's return value, though: When reaching de=
+fault:,
+> -ENOENT will result, when previously -ENODEV would have been returned for
+> compiled-out cases. It may well be that there is a dependency somewhere o=
+n the
+> particular return value - did you thoroughly check that?
 
-+1
+It's a presmp_initcall. The specific ret value is inconsequential.
 
-Cheers,
+>
+> Of course this may well apply elsewhere as well; I did not go through and=
+ check
+> every of the switch()es you alter.
+
+It may. I did check, but that doesn't mean I didn't miss any.
+
+>
+>> --- a/xen/arch/x86/cpu/mcheck/mce.h
+>> +++ b/xen/arch/x86/cpu/mcheck/mce.h
+>> @@ -137,7 +137,7 @@ void x86_mcinfo_dump(struct mc_info *mi);
+>> =20
+>>  static inline int mce_vendor_bank_msr(const struct vcpu *v, uint32_t ms=
+r)
+>>  {
+>> -    switch (boot_cpu_data.x86_vendor) {
+>> +    switch (cpu_vendor()) {
+>
+> Would be nice if style was updated while touching such.
+
+sure.
+
+>
+>> --- a/xen/arch/x86/cpu/vpmu.c
+>> +++ b/xen/arch/x86/cpu/vpmu.c
+>> @@ -815,7 +815,7 @@ static struct notifier_block cpu_nfb =3D {
+>> =20
+>>  static int __init cf_check vpmu_init(void)
+>>  {
+>> -    int vendor =3D current_cpu_data.x86_vendor;
+>> +    int vendor =3D cpu_vendor();
+>
+> It is only seeing the plain int here that I notice that cpu_vendor() retu=
+rns
+> uint8_t. I don't think that's necessary, and hence as per ./CODING_STYLE =
+it
+> should rather be unsigned int. Which is then waht would want using here a=
+s
+> well.
+
+Hmm, I need to check whether it affects codegen. Probably not seeing how it=
+s
+all inline. Will do unless it has terrible side effects.
+
+>
+>> --- a/xen/arch/x86/domain.c
+>> +++ b/xen/arch/x86/domain.c
+>> @@ -319,7 +319,7 @@ void domain_cpu_policy_changed(struct domain *d)
+>>              if ( cpu_has_htt )
+>>                  edx |=3D cpufeat_mask(X86_FEATURE_HTT);
+>> =20
+>> -            switch ( boot_cpu_data.x86_vendor )
+>> +            switch( cpu_vendor() )
+>>              {
+>>              case X86_VENDOR_INTEL:
+>>                  /*
+>> @@ -427,7 +427,7 @@ void domain_cpu_policy_changed(struct domain *d)
+>>              if ( !(p->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))=
+ )
+>>                  edx &=3D ~CPUID_COMMON_1D_FEATURES;
+>> =20
+>> -            switch ( boot_cpu_data.x86_vendor )
+>> +            switch( cpu_vendor() )
+> As they recur, I wonder where these bogus style adjustments are coming fr=
+om.
+> It's not like ...
+>
+>> --- a/xen/arch/x86/guest/xen/xen.c
+>> +++ b/xen/arch/x86/guest/xen/xen.c
+>> @@ -63,7 +63,7 @@ void asmlinkage __init early_hypercall_setup(void)
+>>                    x86_cpuid_vendor_to_str(boot_cpu_data.x86_vendor));
+>>      }
+>> =20
+>> -    switch ( boot_cpu_data.x86_vendor )
+>> +    switch ( cpu_vendor() )
+>
+> ... you would have used a bad sed pattern globally, as here style remains
+> intact. Further down it breaks again.
+
+This patch used to be several. One of the primordial commits seems to suffe=
+r
+from this. Will fix globally. Thanks.
+
 Alejandro
 
