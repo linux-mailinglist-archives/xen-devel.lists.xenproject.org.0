@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ANQWLvTSjWmJ7gAAu9opvQ
+	id Tmy/M+rVjWme7wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 14:17:40 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 14:30:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A6012DC05
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 14:17:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228947.1535033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3258512DD17
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 14:30:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228977.1535043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqWZL-0003zw-GV; Thu, 12 Feb 2026 13:17:19 +0000
+	id 1vqWlL-0005zu-NE; Thu, 12 Feb 2026 13:29:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228947.1535033; Thu, 12 Feb 2026 13:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 1228977.1535043; Thu, 12 Feb 2026 13:29:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqWZL-0003yV-DA; Thu, 12 Feb 2026 13:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 1228947;
- Thu, 12 Feb 2026 13:17:18 +0000
+	id 1vqWlL-0005xK-JM; Thu, 12 Feb 2026 13:29:43 +0000
+Received: by outflank-mailman (input) for mailman id 1228977;
+ Thu, 12 Feb 2026 13:29:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqWZK-0003yP-Qo
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 13:17:18 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vqWlK-0005xE-3Y
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 13:29:42 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26afc2d1-0815-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 14:17:16 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4836e3288cdso1958295e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 05:17:16 -0800 (PST)
+ id e1bd2900-0816-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Feb 2026 14:29:39 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-4359108fd24so5167934f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 05:29:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835d92267bsm160534295e9.0.2026.02.12.05.17.15
+ ffacd0b85a97d-43783e59c19sm11645137f8f.34.2026.02.12.05.29.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 05:17:15 -0800 (PST)
+ Thu, 12 Feb 2026 05:29:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26afc2d1-0815-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: e1bd2900-0816-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770902236; x=1771507036; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770902979; x=1771507779; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4OEoz62PZzisdY26JBIeslB/E2Uqz1a3eDC/xKQQ4t4=;
-        b=EnWv9NdGDR67kbn/CI6/ILeXbGlQE079n8QQgHHiZGCSmqy4fZcdut05uOXzvwDmsh
-         0k+jbtjvVOlwzJRfuKIhMxA/2TS8wLvcb7TAaH0zzpKSdo4GXr2SlkQ6AlUx6VZ7CivV
-         QskXPqTkAA3Uq9UxgcKL8tf433he6A3evDuoYrPV38B4mNkbkjvw9eV6mlGpMiSPZbs9
-         BlK+jCVH9NTZYdQluWznOR9aTZeGJ15Cqd0P715tjIPilQAaTmyeNpniT6eJaCl2UWdY
-         78Yrz2wC5MwNVo560kz9kdQzNMNNYnu5WvFig3EYQLDHGPcuHAGMRL64+mKlo747RmQ2
-         BGTg==
+        bh=9Fz93Y3WSiu8unf0rKniKSu90JpiEdagtnmKOkaOfPo=;
+        b=Hzjdm0JmOM4xCUmiTWrN3iBkYGMz/hUm5MLCN8GikPVYIE6Qv6O0ncK3p0stgkMgd5
+         NCQXWH0wwR6ZMSvSPQC5Iwlwioo42iySNFqmSXPgwdFhY96tBfLBYIgV2pFppX7sw12P
+         Yk/wPRT36HFy0jDqsSZqT9kMPmTbCzn2+zD1l3DR8Qj9gnEKg0ZDzmW4Nlfe1jdfE3lZ
+         vGONVWUKJFVet7eA05ZIkCLlgnq/URj/H2V39PAWwi0gB6VBaqP7jql58DI7SH5yDvkF
+         J//qkfTwI7dnBYOpwRUzwsW1buEnYYR4TnhEHU7wauV0iMjPy8yYRCdPNI1rybWsLqpu
+         GAqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770902236; x=1771507036;
+        d=1e100.net; s=20230601; t=1770902979; x=1771507779;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4OEoz62PZzisdY26JBIeslB/E2Uqz1a3eDC/xKQQ4t4=;
-        b=SilCsjre1TtZxK5Mimb5qtxo5sN7/tYYGALK/tJxpFR2NJzb0WmKo8tBmpxyrwKiMl
-         FIE+udjJS4w3skZXKAG/pgPvY+Mh1EyHk7A+7znCvweIQFh8/+KV//30MazZcQ5mXxCW
-         4XztO9FDs+N91qBoFUJAR8Av0uU0tyB9HHvrmGr+LnYufpYAIeldVoNwTcIFjr061Lx7
-         WLMyzC6DSBvwBCGOE8N5D1CkDGEAUwx7YcgqogTrwTGXiyJ3m9ieePbKcNJrV3FmZppU
-         Z5oKfIM9UVBmXVoEVip2SzoBwA3Xxe1YYU/jMxQ0ez80Z59KGqb5oyyN/y88QHJ4sj5e
-         F/ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVoOpz40AZjN8LUBZKSLU+aK2LLNdvtxgfg76XcIlr/rS526ObI00Jhxyb4oRcv76AvPCU3ZHF4Rno=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyjWo/X/y5p9yLpTp+UBEiwdnW0D616x6G5bfpMi6azve3a2W+0
-	+zxADDhx/96FZaeh8xxgxKhYdkH3n1xgsLxNJQYWfM5S8fKwo0YUWhwnsWoLJvJODA==
-X-Gm-Gg: AZuq6aIolMg03YkeL4bQ3d7oLawfoZRYCePSJpvFSF1Js5njPeCwTV1PQaSb2QN6LBQ
-	wDyNTBcnLrLya1evhKlM88MlVdKCJmXE/LgzKZEqkeKyOntViriGLq1lI7qPg8u7JlHAvqzlKGm
-	8VJoRDUUHrcPB3bmeHRhV1UqpAzNkeLbvRrVWyD/qKpZ9tujVc4wX4COwb5I9Ea57FGG+oPbYSi
-	pAy0bh7A7pKaHHeRNF02BaRlhJxI8JkrxBUzfAS9VhD9qzeo3zw+XWEq35jsDuiLK07zy2stw4Y
-	QRKThFJCouFRMeRI/nikucUTNkX4tWo3/XCjudMdfLqauabEVH6ihKuAtUdALZ097JEOIqdocJ0
-	lrxKWl8PbsKiGqEtZGIHYeFuKyxdZ0FfKPo8z/EWSmxH8M1jn41nI7nqoiZpXlz4ANSPw8DVan5
-	aYr0vmlU9eoOZoD2K3Hesl/Cxyb5a5PquVuwSHjtbEzDrhKNufrfqtWnNay6RC2JcrQsIVZzYCR
-	SvUDkhtBPun/KI=
-X-Received: by 2002:a05:600c:2e4a:b0:483:fbe:23dd with SMTP id 5b1f17b1804b1-48366021eb9mr26796265e9.12.1770902235551;
-        Thu, 12 Feb 2026 05:17:15 -0800 (PST)
-Message-ID: <2401ecf5-132b-41ac-b288-68c31db8c906@suse.com>
-Date: Thu, 12 Feb 2026 14:17:13 +0100
+        bh=9Fz93Y3WSiu8unf0rKniKSu90JpiEdagtnmKOkaOfPo=;
+        b=Odn9LVFcUDaTRPnUIeKnjLNh4OESlxC3mWIycyN+klTrxkIPyLRn/tTFqjA0tuW5qr
+         g7/ToB7+HIMXTrU2c62+zfp/UOy0Ru4ff+0nX9ub3vegkPUAdMsBaZt4xxVTgAFe4Euu
+         8UPZhout7hnXRk5CmQDAOAdjiMRrzSjtOOaTkkjeOpu+fNDw2gN35P5eyaBpQNJpYAEU
+         wMxa85VHlZyA0J0Nev/KhXha3xOP8ypjKljPXYViL6i/dfB6SGXzwp+w9BkZiYl6d5sD
+         2IU9JjPU6jeJVw1b3SvcqR1Tkb+1Mrd6gVJ+PQUPWkHxKb3zKnipUxAjupOd253yqrXl
+         fCHw==
+X-Forwarded-Encrypted: i=1; AJvYcCWClnKVwEdzuP3oR7bsLNDcvk9XAnuFiJRB5Q3m2DYixaQzjjd8Kg1bJ/k90BLWX8bmqSedlq9TBrY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+msPr2yKHA7yx1SI//7qO4pX/DbbeuzpD7xQPW1lplyfsqv4E
+	MZEqF6zDDaCrvm/ec0fvWknmmPaCTGSCIHbuH4zE7XVRW5fE+Elxx50CtTTO+fmx8A==
+X-Gm-Gg: AZuq6aJiVROXIqi5hq+CinY/B8jFk5eGUSr6ste15o25gxQJQ/lVePZPaGr6TR/arSO
+	+QZglStEoapoSBPM2z2yAv9o5Lc6FWoVZEUqYXRDVl8KQbWtj0wnA1AB2lOzA8ZKuQANyhsH2U4
+	73SBp3e6SrYGELm3tuBzc5WTnPacW5WktWZBX1DGR8+euz0nEwWHdO/mjQeQPZsI7vgjmLmDwBf
+	UQ3yiyh+J6KN0FdKhDzUqeNtFlz39x9qEwKDKDzeJrRFlgyqf6NkpgSFMqqGqF11cYoWdhedo5d
+	kv701h2pFlrJ0eYBz6i56gPExlP65xOw10nHwYM6swqq/TzvD+BteX2fOZNcSqSmK+AutNYbP36
+	lXrCxUTYlGZC8M9DbV1C8+BzOMhST4DEYAKLjvs8sngGlOuHMooqL2C8HSHgkI4qMc3hcU0iCUK
+	N0I5tk7EcK2dXfu+DuzfjOEiKqsFUNjqnCoO4luoXBXs3SBFbCfnGygnu6eT09BCtBKSPd5D84y
+	/eIE04b9zkSZ8kgsNBUnT2A+Q==
+X-Received: by 2002:a05:6000:1acb:b0:437:6fcc:f648 with SMTP id ffacd0b85a97d-4378ac891f6mr5867271f8f.53.1770902978993;
+        Thu, 12 Feb 2026 05:29:38 -0800 (PST)
+Message-ID: <c723c1d7-264b-4fcc-ab38-922f8ede3c4f@suse.com>
+Date: Thu, 12 Feb 2026 14:29:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] x86/cpu: Migrate vendor checks to use cpu_vendor()
+Subject: Re: [PATCH 12/12] x86: Migrate every remaining raw vendor check to
+ cpu_vendor()
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-13-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-14-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,7 +126,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206161539.209922-13-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260206161539.209922-14-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -145,7 +146,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -159,62 +160,79 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 28A6012DC05
+X-Rspamd-Queue-Id: 3258512DD17
 X-Rspamd-Action: no action
 
 On 06.02.2026 17:15, Alejandro Vallejo wrote:
-> --- a/xen/arch/x86/cpu/intel_cacheinfo.c
-> +++ b/xen/arch/x86/cpu/intel_cacheinfo.c
-> @@ -168,9 +168,8 @@ void init_intel_cacheinfo(struct cpuinfo_x86 *c)
->  	 * Don't use cpuid2 if cpuid4 is supported. For P4, we use cpuid2 for
->  	 * trace cache
->  	 */
-> -	if ((num_cache_leaves == 0 || c->x86 == 15) && c->cpuid_level > 1 &&
-> -	    c->x86_vendor != X86_VENDOR_SHANGHAI)
-> -	{
-> +	if (((num_cache_leaves == 0 || c->x86 == 15) && c->cpuid_level > 1) &&
-> +	    (!(cpu_vendor() & X86_VENDOR_SHANGHAI))) {
+> @@ -424,7 +423,7 @@ void domain_cpu_policy_changed(struct domain *d)
+>               * If not emulating AMD or Hygon, clear the duplicated features
+>               * in e1d.
+>               */
+> -            if ( !(p->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+> +            if ( cpu_vendor() & ~(X86_VENDOR_AMD | X86_VENDOR_HYGON) )
+>                  edx &= ~CPUID_COMMON_1D_FEATURES;
 
-Nit: Again, no need for the extra parentheses (here: around the !()). Nor do
-I see a need to alter the first line at all.
+The usual transformation here would have been to simply replace p->x86_vendor
+by cpu_vendor(). Such an unusual pattern, if indeed necessary, imo wants
+explaining in the description.
 
-> --- a/xen/arch/x86/cpu/mtrr/generic.c
-> +++ b/xen/arch/x86/cpu/mtrr/generic.c
-> @@ -218,9 +218,8 @@ static void __init print_mtrr_state(const char *level)
->  			printk("%s  %u disabled\n", level, i);
->  	}
+As this is entirely unexpected, I now wonder whether I overlooked any other
+unmentioned unusual transformations.
+
+> --- a/xen/arch/x86/e820.c
+> +++ b/xen/arch/x86/e820.c
+> @@ -426,7 +426,7 @@ static uint64_t __init mtrr_top_of_ram(void)
 >  
-> -	if ((boot_cpu_data.x86_vendor == X86_VENDOR_AMD &&
-> -	     boot_cpu_data.x86 >= 0xf) ||
-> -	     boot_cpu_data.x86_vendor == X86_VENDOR_HYGON) {
-> +	if (((cpu_vendor() & X86_VENDOR_AMD) && boot_cpu_data.x86 >= 0xf) ||
-> +	    (cpu_vendor() & X86_VENDOR_HYGON)) {
+>      /* By default we check only Intel systems. */
+>      if ( e820_mtrr_clip == -1 )
+> -        e820_mtrr_clip = boot_cpu_data.x86_vendor == X86_VENDOR_INTEL;
+> +        e820_mtrr_clip = cpu_vendor() == X86_VENDOR_INTEL;
 
-Perhaps easier as
+Unexpectedly retaining == here?
 
-	if ((cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) &&
-	    boot_cpu_data.x86 >= 0xf) {
+> --- a/xen/arch/x86/i8259.c
+> +++ b/xen/arch/x86/i8259.c
+> @@ -419,9 +419,8 @@ void __init init_IRQ(void)
+>           * the interrupt.
+>           */
+>          cpumask_copy(desc->arch.cpu_mask,
+> -                     (boot_cpu_data.x86_vendor &
+> -                      (X86_VENDOR_AMD | X86_VENDOR_HYGON) ? &cpumask_all
+> -                                                          : cpumask_of(cpu)));
+> +                     ((cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON))
+> +                          ? &cpumask_all : cpumask_of(cpu)));
 
-, seeing that there's no Hygon hardware lower than Fam18?
+Nit: Indentation again, and apparently also excess parentheses.
 
-> --- a/xen/arch/x86/cpu/vpmu.c
-> +++ b/xen/arch/x86/cpu/vpmu.c
-> @@ -398,7 +398,6 @@ int vpmu_load(struct vcpu *v, bool from_guest)
->  static int vpmu_arch_initialise(struct vcpu *v)
->  {
->      struct vpmu_struct *vpmu = vcpu_vpmu(v);
-> -    uint8_t vendor = current_cpu_data.x86_vendor;
->      int ret;
->  
->      BUILD_BUG_ON(sizeof(struct xen_pmu_intel_ctxt) > XENPMU_CTXT_PAD_SZ);
-> @@ -418,7 +417,7 @@ static int vpmu_arch_initialise(struct vcpu *v)
->          if ( vpmu_mode != XENPMU_MODE_OFF )
->          {
->              printk(XENLOG_G_WARNING "VPMU: Unknown CPU vendor %d. "
-> -                   "Disabling VPMU\n", vendor);
-> +                   "Disabling VPMU\n", cpu_vendor());
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -2011,8 +2011,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+>                       * interrupts have been delivered to CPUs
+>                       * different than the BSP.
+>                       */
+> -                    (boot_cpu_data.x86_vendor & (X86_VENDOR_AMD |
+> -                                                 X86_VENDOR_HYGON))) &&
+> +                    cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) &&
 
-Why would you want to make the log message less useful?
+Whereas here parentheses look to be missing (to isolate from the || not visible
+in context).
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1406,8 +1406,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>           * CPUs with this addressed enumerate CET-SSS to indicate that
+>           * supervisor shadow stacks are now safe to use.
+>           */
+> -        bool cpu_has_bug_shstk_fracture =
+> -            boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
+> +        bool cpu_has_bug_shstk_fracture = (cpu_vendor() & X86_VENDOR_INTEL) &&
+>              !boot_cpu_has(X86_FEATURE_CET_SSS);
+
+I think retaining the prior wrapping would be better here. When done like you
+do, really it should become
+
+        bool cpu_has_bug_shstk_fracture = (cpu_vendor() & X86_VENDOR_INTEL) &&
+                                          !boot_cpu_has(X86_FEATURE_CET_SSS);
 
 Jan
 
