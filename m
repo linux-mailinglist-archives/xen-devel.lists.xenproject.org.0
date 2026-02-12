@@ -2,45 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yPXiCdgUjmmZ/AAAu9opvQ
+	id mFAmAGUVjmmZ/AAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 18:58:48 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 19:01:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8997E1301AE
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 18:58:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229710.1535554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E2AF1301F1
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 19:01:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229720.1535565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqaxO-00089t-Df; Thu, 12 Feb 2026 17:58:26 +0000
+	id 1vqazl-0001Lt-TJ; Thu, 12 Feb 2026 18:00:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229710.1535554; Thu, 12 Feb 2026 17:58:26 +0000
+Received: by outflank-mailman (output) from mailman id 1229720.1535565; Thu, 12 Feb 2026 18:00:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqaxO-00087M-B0; Thu, 12 Feb 2026 17:58:26 +0000
-Received: by outflank-mailman (input) for mailman id 1229710;
- Thu, 12 Feb 2026 17:58:25 +0000
+	id 1vqazl-0001KS-QB; Thu, 12 Feb 2026 18:00:53 +0000
+Received: by outflank-mailman (input) for mailman id 1229720;
+ Thu, 12 Feb 2026 18:00:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z4gJ=AQ=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vqaxN-00087G-Nt
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 17:58:25 +0000
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
+ <SRS0=jZje=AQ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1vqazk-0001KM-Mv
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 18:00:52 +0000
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c005::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69f272ca-083c-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 18:58:20 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by PH7PR03MB7002.namprd03.prod.outlook.com (2603:10b6:510:12d::17)
+ id c129ac7c-083c-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Feb 2026 19:00:47 +0100 (CET)
+Received: from BN1PR14CA0014.namprd14.prod.outlook.com (2603:10b6:408:e3::19)
+ by BY5PR12MB4257.namprd12.prod.outlook.com (2603:10b6:a03:20f::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.10; Thu, 12 Feb
- 2026 17:58:16 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9611.012; Thu, 12 Feb 2026
- 17:58:16 +0000
+ 2026 18:00:38 +0000
+Received: from BN3PEPF0000B06E.namprd21.prod.outlook.com
+ (2603:10b6:408:e3:cafe::36) by BN1PR14CA0014.outlook.office365.com
+ (2603:10b6:408:e3::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.12 via Frontend Transport; Thu,
+ 12 Feb 2026 18:00:36 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B06E.mail.protection.outlook.com (10.167.243.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9632.0 via Frontend Transport; Thu, 12 Feb 2026 18:00:37 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 12 Feb
+ 2026 12:00:36 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 12 Feb
+ 2026 12:00:36 -0600
+Received: from [10.71.192.120] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 12 Feb 2026 12:00:35 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,240 +68,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69f272ca-083c-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: c129ac7c-083c-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D0LW2MjlVG0vJCttgm9hThXnWno6zv1N0AuJU9cti+n8Ai61EDiMP8OykuBT+qS+7BeW5bwfGc33bjCip4fMuFZoyE9pLtXqQTVh2zhonRFxINYTVOP4yT5AdJdQaS/aRmDm+b/LipwlkOnYdC5GMFvPQYpVRQYTgwDnrAKnlZL0Hp5TkjD0Klk5mXNPBhTph7VjRpXb1vaHb/CHeuPQ9HcPFaHROvfET5oE71IthkzIXCUZj5Pc+LtDZLyVTlZYkxLLx5hUA7tYpWvlUN+LGEZXKcD5LvQegfFsET8gwFoaTlyB/+wuOP2mihiO+k5fhluYnPLFG0SItjbYA0fqmg==
+ b=aKoCr/DnsFUmBGy1dJA45l8MGpmcs7yxnTvaRmiKdOQdo0PV2lVB5WbgIs1hUWZsiwh/UoSU1IakZXE0zrrBocpB1OwldnjEZJbZZh3YGxyAHi3MnslRmtgT4hiZlG+TOTpgEeturuIbbrYndBeP5sWT5/PHLWFVd/3IwLXI21g7oCO2o95Vqxc2u7Yr8EYcBV7co0Yeul+asNBsweknPIDDoddsZd6pD/kEiG40xBcLX0gCyc4QlqX4y+YAMiHoYUdZ1e7WdC0ZSbZneyTVrSeoCzXQK5WokYUAyOKZk2YxKaD42k1C6LAAbnQ9LRQ9EZh26pFS9sVc9ZKCwbbT4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WvBd3QlpmlG1B8gHvEVeTSxvG7fazAu1yCJxhWhLSoM=;
- b=gtkTRsbXyLQ8j2f5o9QxvBcsufrzjJnrTlQpzbCAHywz5pNoWUXg7/+48aWxrR0Ex2n8jGcXV2Ja/JIPcvw4hXocbIYgUmSmRCZsYRI2+oLG0yau1hC6dv7NlTrrUMcCoT3U2WltftOeSSzNLZyjnxFpcIFjayrJQcJH+xczm0kLWQkPtRa4iq39hkg3+SCmMQFcRPml1xVr5cQb5s0ck1vE03Mn9/zp6l9i0TS6Cr4SVs9X6o0nVRhUVfLx2T7gYrN0VDi92PZWsvqgaeKg2b2MdlA6cc07VgQyxjgLMvkE1JgLzRnTm7Qr8i/JHZBVvuhJpAvkuQLwLF8zpMUAtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=DCQGq7fHnJ0PSyP4nuF7erMJjxZuAxfPNw4GKvaiNT0=;
+ b=liuVQ2O9ylcO91FbRs4JKJdqkSPF1m+VezcNL9rZLR2ydRyMuXXt+X5O3/tvzcDd0SVXY0aR1qacxx6WgkHVXqYwYygrQKnrXFKGJ2DUl/lGSUUnmP4c2LmVnK2r2j87P8bxvfypkkng7u+946enCxU8KMhGjQAOnwghEGcxGa+JF0hyacpTMJ02nmabkWTZUSOd+tkJOZX0+gjdySt/Weknaz2v87OLVeh+FRT5HhEFTyNndesNMxRYyFOb7EHQ3L2rcX5bLNde2HEP+WD41e/laBGgr5QRFSjqL8qJKJFLOLA6BdXie2SmecqKvqdQM4k6INk0f9VJET2TotxKVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WvBd3QlpmlG1B8gHvEVeTSxvG7fazAu1yCJxhWhLSoM=;
- b=HTg8aPTo3pefQ7WBzJzW+QiheFQFO5nFPrC1ShJNaUIAPvCOacPUQz4AITfayhOW9ED7qAniTPtQwXBjh3wPlIHgdVD2PKXc6fMDedHmiVTfHKahhadY6Qokq1j68jYcakloNAEDos1zygRX4mu4doF2fme7za/M9C7L7F7+ly0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <61a3f852-915c-4d9f-8dde-01d000aa4fe7@citrix.com>
-Date: Thu, 12 Feb 2026 17:58:13 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 0/5] darwin: expand cross-builds to also support x86
- and testing
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20260212144618.43200-1-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260212144618.43200-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO3P265CA0008.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::13) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ bh=DCQGq7fHnJ0PSyP4nuF7erMJjxZuAxfPNw4GKvaiNT0=;
+ b=M/w0Ra54kvwJhx8rKfv+BebVLNvO/WXzKvlVdN34PMjVib0k8V/MH/z79DL6kkkc1UB/zY+gAmXml+BKn8iOaL8mCj2Fibv7bjUYd94x0dXeOKMzJ9Gm0F0NRkQ913Bg2RFknhlZnt9Duq8NQW2dbNrmJ1FLboO8A+4sLfHMwNE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <a5318e5e-3082-4cd4-96cb-98d8dc27ae65@amd.com>
+Date: Thu, 12 Feb 2026 18:00:34 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm/mpu: Introduce `v8r_el1_msa` device tree property
+ for domains
+To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20260206090155.68466-1-harry.ramsey@arm.com>
+ <20260206090155.68466-3-harry.ramsey@arm.com>
+Content-Language: en-US
+From: "Halder, Ayan Kumar" <ayankuma@amd.com>
+In-Reply-To: <20260206090155.68466-3-harry.ramsey@arm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB7002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25e24695-4e8f-40c4-8ce9-08de6a604c83
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06E:EE_|BY5PR12MB4257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e3ccb43-7b96-489b-51fb-08de6a60a061
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bjBncGxCRWprU3RwUkpYT2FrdnhzV2pEaWErdXI3S3d3Tng5TGZxSmZmaXFZ?=
- =?utf-8?B?Y01Rc3BvYk1WUnVtdUZEY1RSVkNQYjd1VlNkemdSVkhTVDhxZ3p0N2tYeGRS?=
- =?utf-8?B?d0doVHIxQ1kxU2w2VVNzRXU4akMyc1dqMTNlRkFmMjRlWjdtS0YxeVdrbUpn?=
- =?utf-8?B?RjZaUzRJd2orNFVHUE9WUVc5V0UyemVFUXR3ZlptOEQ1UFFmbUVobGNFUjFZ?=
- =?utf-8?B?MXhZMnlYNjRPVjlrSEM1QlpLSitXaTZWVFJrYTMzTmRxZWFhY2ZyK01wTXVP?=
- =?utf-8?B?L0tvSXFmT3k2MkdESlY4RmFaTWtZTmx2c09EUTVqckZWcGRja3BZb3ROSE9I?=
- =?utf-8?B?UjVIMG16ZGpMM1BrZC85K01LQmQ0VmNJVnFwb1RjanhWSUVyeGhDWkY1ZUpY?=
- =?utf-8?B?ZFU5UEpQRHIxTSswM0s2SVdaQXEweGFacEpaa2FVb3lDaEJlM1hnV3JneU45?=
- =?utf-8?B?MmxtUHhUSXNScll6NFlBVkZ6d1lldWl6eEdtZWx3ckdBbmloNVpWVHl1blJj?=
- =?utf-8?B?OUpBb3lHV2pzelgwTnhPRFQ4dkRIc0hVbFUzMVZzcmFNV21rd2dkaU14VjJB?=
- =?utf-8?B?TmI5eWx3bGRVWUhPNzNFYm42YmhtT0RCYXdHTjNWaE9Pa3c5bm5NU01UaktT?=
- =?utf-8?B?cVFNbmJlU210dFA0M3lEbDV5NzNuMkJlWTIraEc3NXZrUUh4VkRpTFBqcWUr?=
- =?utf-8?B?SWRoQVRqOWtSalBMR0lkL1RiWnJDSFJxTTJjKytaclZhVW84WW5sd1Y4MzRZ?=
- =?utf-8?B?eXFKYmZta1JCTk9WV1ArSXFRZVRHWE51NHBFYW9QUlYvZC9mK2QxV0p2VkNC?=
- =?utf-8?B?Q2I2VU95L045YkR0Q2ZFcXZmTHF5bGpMczV2SWI0SGZ5cEZvNk5USnJFNG9Q?=
- =?utf-8?B?dzJUU0Q1UUVjTnZPL3lkQmVOV0ZjMEdpT3k2bCt3R3c1cHVjdENBNHJuWlBy?=
- =?utf-8?B?aTJoY09yQWdJU244bUo3VnZOOThKTDdXQis5RmQ0djFabUN6Y1Y3cllmVjFB?=
- =?utf-8?B?dGR2d2NLaHhYenhzUllWampHZUo3L0doN3VhV3ZHSklhSklEMktBLzRRczA5?=
- =?utf-8?B?aWV1MjlER3o4djFUdXBoOWF1NmZjekplbTF5aTFrZVU3SEFFK2JBNUVWanRR?=
- =?utf-8?B?Rno1dVBOSUJtWkhtNjY4a0FYdlJZUW1ORC9SS0o1aGJNUHVMN1ZQdlY0Qk9E?=
- =?utf-8?B?VDFtZzNjVG8ySTF2STZtejdaZGI1MzJGM3I5cDNrYnBIVnlnM3FaNGpBamNH?=
- =?utf-8?B?dzVoRnZBVDQvRjNQRkNFZyt4bFJzY2hoWGw2ZFVXM1lxamZISmY4c1lMWkUx?=
- =?utf-8?B?N21DRkwxVUMwRDVVa1dxQzE5SFRHVFJ3WnQ4d2ovR1dmb05SUEgxQjRmZzJU?=
- =?utf-8?B?ditZZTBiS1VHREVpcHJyR3NEZTNqeFRlWFg4bmhaZTA2WUg4TUhOd2NtNk11?=
- =?utf-8?B?SVVTMWVoNHFrU2R2U1gxbC9FajFpV0hWNktJelJBV2w0bzI2QUtaRjlUSUc3?=
- =?utf-8?B?L3M2MlMzanZMQTIyUVFFU1ZqZFFDQ0Jxamw4Q3MwcmJHMUN0ZXhrTVU3dlBs?=
- =?utf-8?B?ZFlscjhJOTIvUXpmRllGSlhQRU01WXdlQzZGcUlFRXVpeWF3NGthYS83bU9S?=
- =?utf-8?B?VnhCdUtldVlLYTNrUXg0M3lqbkNvY3VyUmZSWUIwM1FOL2w5TnhDZ3RlZ0lj?=
- =?utf-8?B?bERHTXZrUXBaeXJhRWh6SnRkZHlFKzBSaFovQVFPRFJvOTQyQ3RQN1V0b1M4?=
- =?utf-8?B?a2pML3RHcnh0emVxWW1RUWpvWEFMQlNjSGc4amRhYVVmVFNLMWNGT3I3Y213?=
- =?utf-8?B?NlJCcElUL0R3ZFRwMld0dTVRbkxUNzRSeVFibUJuckt3bHZCY3dTVmRnL0lN?=
- =?utf-8?B?VllzNVJZK0xrLzZTQjN4RUlzdHhEVm9Qa2NCdUNjQ2t1aytHRlY1Q3E0V2lN?=
- =?utf-8?B?QktTQjRWcTBPVlR5TEpLRytNVE9sTTZXZ0s0VnVKRm43ZlpOa3A1SGxYbUFH?=
- =?utf-8?B?MUt3bStLOGlnVlUrWGc0L0VKd1p4aTNvR3BiSjAzUElPcVRYZ0tKZ29Dbzli?=
- =?utf-8?Q?hT4K1J?=
+	=?utf-8?B?OXdBRXZpbXF4dk0vK1NFSVFFd3dOL1dIeUF0QzRic05CUU1OYit0clNUQW9a?=
+ =?utf-8?B?Y0JFMDAzRW1DRkhPM3hlNU8vOXdMRmRON0RmUE1obnNCSjFzQ1RrSHR5amR4?=
+ =?utf-8?B?YkpSRU44cFRkMXRFT1c4NWc5TnZTdlFqM1VXNlk4YXZXMjVOdzBWeS83cnY4?=
+ =?utf-8?B?MWkrSnQxajFONnVSRzlyMi81WHJHZDRvQXhGTG5xZmUydy9UcWdVRTVJTEVY?=
+ =?utf-8?B?RVhrUjY1RzJxdFdIK0M5WEUveGFqd1MxUHBKWHBZaVgzY1Y3dzZaVndBMG80?=
+ =?utf-8?B?alVyRmR5ZWZINEk5MGFnK28zTjJRRkdvT0pnc1FRV0dheUJKcXVVc0FvWHhj?=
+ =?utf-8?B?MXF6YnJuZktkOUVlcTVnaldnY0F4NVV0dis3WjdpZ2V3blNYR1BYNmF3SG91?=
+ =?utf-8?B?azh4NFA5T3NVcHQ2M1dYaWRLeEhaZW9xZHE0b1RUMmtjL2k0L3Vib1hNT09E?=
+ =?utf-8?B?MFNvWmk0dUlMLzJzZ1lVSlc4eTI2MERNa2JENUFGeExqMjdLMVVtcllCRVFU?=
+ =?utf-8?B?UFFsaG5QMEJRR0F2VmowN0prSzRuNndLaFZXR1Z5WWE0azdYelVvSTBpSGlw?=
+ =?utf-8?B?elJXMGhSbkR3MnpUbWdYU1pXWjhDWndzMEE0aFNtcVFFMmtNWEozMk84N0g2?=
+ =?utf-8?B?azVnZUdwaVU4aG5LNEhvWndub1gySVhoNUVoU1JjMTM0VTAwUjR5VytZZkll?=
+ =?utf-8?B?U2xYOGEreElZMzc4dmRDQVZBK1haUGdZM0tFcTZFUkM3Nzl6bzYyY1BXMkRJ?=
+ =?utf-8?B?NDRlQUtFM2JyVEFFck5qbVZ2aG1qR3d0NDJiWFpGR1dlSXZ6bWw3dXBpQW9o?=
+ =?utf-8?B?TVRQSVZ3VGQvTnZaQ1lSM09ZMXhML2h3VGF6TVhPMG9ORUpIamprVHlTYk9W?=
+ =?utf-8?B?Z000YmpvazZzZXp6bXBkanZwdWxFSVBKMExENFExK3F4VlVaUHRDRTIrNCtx?=
+ =?utf-8?B?L2RhZE1FSmV1K2dVbmdLQng1TWZaa1lzSWI3SU4rbWVrS3lMN3IvbW5lNGRU?=
+ =?utf-8?B?RUJzUXZ1Qi9CTExWekJqQ1BBVG1tU1ArZTNnU1pKSlNrWXk3ci9oV2xuSWZK?=
+ =?utf-8?B?dllwZ1g0ZzNnSXFnTlNvU3BERFAwSDBQZzBXRDBQWVFaTkhBRHRPNmd4djVI?=
+ =?utf-8?B?emNYQlF1K2FscVdsNUNuSlluekd1YWs1a2p5NEllVkJxZjNzQk9xNTM4b2lY?=
+ =?utf-8?B?QUw4aHBESnZ5eDRZeEFaSVVSd0JQaDNhbEFrd0NKNWU0VnAxbG1OaGZDNUZG?=
+ =?utf-8?B?TjlGcmozQUJSSmFpQ0hFT2xOMTllTHp2dm1MY3ZxWms4ZmF2YjltN3JVOXZG?=
+ =?utf-8?B?dVVwcnoxaW5mdjlPQ3VkRDQ0dkpzRmJteC83WVlKa01waWNhN2hmQ2NlVjRJ?=
+ =?utf-8?B?akRTbHJ3TmJsTDlrL3VhZmU4ekhXWEsrcmlyS2J1TWRjSXd3R3BkMDNiY1h0?=
+ =?utf-8?B?OUxMZDl5VGJ4SWY3Tk8xM09VZGFRaWpUTDJWSGx2Z2E4bnM3OWVicmhISXp2?=
+ =?utf-8?B?azhGcGlEWTM1amt6R280MEdqbm50bWRiSnVoenViUmNBSDhTR1MwcDR3NVRG?=
+ =?utf-8?B?dDZBSnhJZkIyVFpxdENDV2puTDI4L1ExK0g2VHh6dmxoM3VYZmR4eUJmMnhz?=
+ =?utf-8?B?QmpseUZSSVRyRkplak5MYlo0ZU9kVzNiZldlZkpMR3VZSHlvRnpkZmxiTHlU?=
+ =?utf-8?B?ZEU3VHpIQ3prMXJ1eXpyUTJCMkhGR3VZVGUwQUU0ZnVqMnNqZnI4MnRhNVZV?=
+ =?utf-8?B?YkxBT25xN2pWNVNmVFNkdXFDemNkVlNtU1pXTjdXV0VQeUtabkZqOHJaUkQv?=
+ =?utf-8?B?TE8zSFNRRHFMMFdNZDlrVHhMVGRmbUVuVHhQYk0vMUtHZ1llS25VNEFmQmpJ?=
+ =?utf-8?B?VElRc1ZSbmxtK040N3BxSm9yZDlIV1psL2RNdno4clU5NGV3b1hENWdoK3NH?=
+ =?utf-8?B?MDUwVitpUk50M2x0bzBXMVpGU3hlL1NzeVdqWnhGMG5uWUxVMExpNlhiWlB0?=
+ =?utf-8?B?ZWp6MHlSOFp6SkczNG1zd1JQVnZDT3ZXb0oxM2FOOEtMdlNLSDNTL005Y2pX?=
+ =?utf-8?B?bWdydkNqTlgrY0xSUjIxR1EydGRZL1FuRzh2REMzcDJFUTlOSUx5bHptZ2Qr?=
+ =?utf-8?B?WEJsbnhYR3Nhc0VtTHdTWjNodTJPaHF6V0dmVGxhWGlsUmJyWTZaUUw2QnNp?=
+ =?utf-8?B?SWUzajEvMWREU3FBSlBjaGQ0eFRDUWlSL0R5cHl4VW43SFJHM2pOUnc1S2dR?=
+ =?utf-8?B?alBvMGZKdVR1QlFkOXFaaVd5YXF3PT0=?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eVhSVmI4aHhoMENuUDBqaktva052MEx6ZWt2WUdMMlF3dElZZzVZd0lRRGJM?=
- =?utf-8?B?eWlpVjdXTXU2QXZ6VWxGOWZBSyt4MVRWVDM1bVNrRk9iU2VEQXdEbWlXaGc4?=
- =?utf-8?B?aFJlYmNRMitmS0xuMDA1VENhTW9GQUNSMWlxRHkrdWNKdnJRVmpMZVdBc2Nk?=
- =?utf-8?B?ZER6TzQwRDhseVRNNytTNlpHTStINFVEcitOSGllTXZBQUdjRTdUTFRsdmlo?=
- =?utf-8?B?V3NPTGU5cFR2NzZTV3FZRU5YNDZ1M1N5bXdyVEVDZ0NSaGE1RE05c1JLTHBk?=
- =?utf-8?B?MFVKRDVBRjduSittNFVFbVozTW00UHRIbmVHcm9Wd3dscWZSUnVTUEs4Ukdn?=
- =?utf-8?B?NFFNUmdEcjlGTHVKd2RQKzR0YVNESUo2amxpWjFKUEViREdRcTg5b3FSRk5S?=
- =?utf-8?B?cnlYOFlwOCs5YitLbjVOWlhOUEpWOXZkaFo0K3g1MjU2RUdyNDhxY2RkWGhq?=
- =?utf-8?B?UUVFaGRWQ0NRb2lPeEs2VzNIN1RySFpLK3ZoelpWQU13QkxGRGJ5WDdySmRC?=
- =?utf-8?B?MVI5TGdONFVUbElIT2VMSzA3dFBLbGkvTW01Yi9LcmF0REZrOFhyZ01NWWJ0?=
- =?utf-8?B?MFQyZnY3VHlUdWtHSmJ1bTlEa0lSbmpRelRZcUpDUHNFdFpxMkRQZWxNbUNl?=
- =?utf-8?B?UEx3ZjNhS0FicUxvenVIb01nN1NzY244NmZjNnZpYUl0M1dObnpBaVpOd3dt?=
- =?utf-8?B?d0I2VFlQN21lRjN2R005d0ZiVGtFU1A2Q1ZMNkQrKzBFM1dza0ZkNFdFUUtY?=
- =?utf-8?B?ZWM1SUdiRE9ZNlhCYlpEQVVKdVhra1dGYWZUVSt3QVo0Y1BoYVdLU0ozNEd4?=
- =?utf-8?B?U2h6RlRQZE1EMyt5QlZzNHdDb1gwc0F4UHoxYzdIWnBFSzNibVBQc2ROK2po?=
- =?utf-8?B?MjZuWmNYY3p1NlNVNFRyOEdqRDFWTVNJYTBrZG5IMThYbGtlaDZncnpKZ3hY?=
- =?utf-8?B?WkZvaFgwbkxDcVdpdVo2U0l5UCtwaUk4ejhhem1XTFJrSUMyZWhiZEJDdFA0?=
- =?utf-8?B?b0F1dXhDd09qcFFRRUtYVWY0TmxLSmRiTkpoSmVkK2NhQ3RxT2NPOGVicW4r?=
- =?utf-8?B?N2NlUEtvVEQ3aDgxSmJrQWJuOEhnMjlLWUk1RDAvOEVNOHJqdmg3SWhsV01o?=
- =?utf-8?B?ZE14TXNvckFRM3phbE9TUG9JWmV6ak5id0tQbCt4andlRll4dnpMVjlnZU5Z?=
- =?utf-8?B?Vkl3VU4yaXhraGZvVWFvN3pDWVZkcVl2a3lDZlhCcmRrQ0JSbmdhbkJKbjRX?=
- =?utf-8?B?U1I0QTcvclg2WkpZWnFqY2xsdGhaZXE5SmJPVGNSSTlYRStpeGZ5L0txc3Fh?=
- =?utf-8?B?bFpPR0lGVjIrQzJDeE5JYk1INEI3S1JqSjc2QnZwc1FLZERvb2RLY29oTXRy?=
- =?utf-8?B?YjQ3Y3pFbm85dUJMRnZZRm9oU2tIb1d6eXlBSTlHbkNwaGRSaDFlS0tkVk1s?=
- =?utf-8?B?cHl5MW80V25xY2RKU2Vnc3ljTzI1MnR0K2wrcGV6UzIvNGJjOXErZ3lZTlhj?=
- =?utf-8?B?ejNkL2xtbVZibURRQnlLNnM2YWRFcTY4eVIrNmdXSWhpKzF3VXA4Y2h0aVNP?=
- =?utf-8?B?c2tNOFYrWElhSG1JZDdaMzM5cmkwOUNuMjJQcm9Ra2VVaDdabVhZU3ZCcFN0?=
- =?utf-8?B?SHRjS3RsR2VYT0psMzd6YjU0WXF6akFvWTZHS2paTXV4dGtmMTB6UlM3VDhI?=
- =?utf-8?B?TmtiWUczZU04R0U2RFZTdmZLc3hIR3RVcmxhUURieWhlQjFqOW56REpEaklh?=
- =?utf-8?B?NUY5VjkvbC9IMTNKMVJlUzZxZ1R3YlZuSUY4UG1xN3lCL3JZOVNIZkVycWQ0?=
- =?utf-8?B?VVhnalBlZzZ3dEQwb2d5NkE1UENXZ0FpeUtuaVRnQWtXTmlITkhWZEVLczZG?=
- =?utf-8?B?STBxMkJiSFZXRHZxRUZDd2FSYld5NEhNcnZicjI1bXYwSlZDL3lieUZBVHls?=
- =?utf-8?B?S3FzRmxSM0RQb2hYbFFCb2FhZVRtajg4RTdRa2Z2VUc1cEhHS0Z4a1NmNEs2?=
- =?utf-8?B?ZndVOWhjTU5tYThINXVXTWU5WmtOcEtNa09PcEFMcjk0OVRHK2RvVUhuSDds?=
- =?utf-8?B?WWxYNlZMQk1RN3QrNFNQMHg5VEFHVGZCNlZjRnJTQTVINTM1NHlvcE0yelBY?=
- =?utf-8?B?Z2FqUG42cDE0ckZxZVMxajYvMXQycWR3Tm9RL3Jhb0EraXhCV0JtNm1ad0FZ?=
- =?utf-8?B?ZFE5ZVpRUENacUtwbW12cWJQL1pGbkNvbHdwdXJOVGlNdWFwOWJPVjdWY3Fi?=
- =?utf-8?B?ZHl2TUFmbWtacnlmS2VxbEpQYkhHOERvNGtSdmxhZXNqOW9wYk4wRjRsWFZs?=
- =?utf-8?B?OVY5ejlzRi9DUUxEeDZOMEM0U2drU1p5MHJ3L1g3Rnd3UTQ4OU5yUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25e24695-4e8f-40c4-8ce9-08de6a604c83
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 17:58:16.7059
+	QuS2B44L4oQFQZbkTryBnQIE15l99Of9mtOwfdO93GPo1tGCJfkVEpGgxnHfi7aPCXO8KbCB772fbiHoKOAqZb+1iTpmMZ6gY79GACA6AWapfcrEJT7edr260xMfL8J3w5gk5Sol0bvbCOROFLcDBL4OG160FJdX/WOuAsZVXV3F/j4PUeqrsKsIyLkCp38uHWhoO2yMXivEA5OnfHdCN5pK7a/YpCwEVugLXKi5KyVLlWX9cli7cyJqkGldGiVUQMkYTMsmqomiCWGq8t/0xpNCdlcuLajfIZepoYlksYZ27R+dEVREWtaI18IHhsrjzcyzI3nej5DaSeGssRK4JZeJOGdf6R4pRwHDE+TukqeecibWWNNJafcYDUWam4hibiblYICbslmyAFq8WF3bYRAAVjflHzu81EAyuUYltJG9TjZ6eUwgz9Y7G+/7Bo44
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 18:00:37.2913
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S3sAztED5wt+fJ8yRGL8LtltXM1mcwmrT4em2XYQPCQgiCQeoZGVAMQhZEgrOHbblbsrfnroZVJDqfTlqNYlvnl24c93vGgXNC5UMV9eQyQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7002
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e3ccb43-7b96-489b-51fb-08de6a60a061
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B06E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4257
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[check-endbr.sh:url];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[ayankuma@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:harry.ramsey@arm.com,m:xen-devel@lists.xenproject.org,m:Luca.Fancellu@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ayankuma@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 8997E1301AE
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email]
+X-Rspamd-Queue-Id: 2E2AF1301F1
 X-Rspamd-Action: no action
 
-On 12/02/2026 2:46 pm, Roger Pau Monne wrote:
-> Hello,
+Hi Harry,
+
+Just a suggestion. Please feel free to disagree.
+
+On 06/02/2026 09:01, Harry Ramsey wrote:
+> Add a new device tree property `v8r_el1_msa` to enable/disable the
+> PMSAv8-64 translation regime at EL1.
 >
-> This series expands the recently introduced Darwin hypervisor build
-> support to also allow cross-building an x86 hypervisor, that's done in
-> patches 1 to 3.  Patches 4 and 5 introduce some Cirrus-CI testing to do
-> cross-builds from macOS, plus it also introduces some basic smoke
-> testing of the x86 builds using the XTF selftest, just like it's
-> currently done for the FreeBSD builds.
+> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> ---
+>   docs/misc/arm/device-tree/booting.txt | 11 +++++++++++
+>   xen/arch/arm/dom0less-build.c         | 25 +++++++++++++++++++++++++
+>   xen/arch/arm/domain.c                 | 16 ++++++++++++++++
+>   xen/arch/arm/include/asm/domain.h     |  9 +++++++++
+>   xen/include/public/arch-arm.h         |  4 ++++
+>   5 files changed, 65 insertions(+)
 >
-> A result of the updated Cirrus-CI pipeline can be seen at:
->
-> https://cirrus-ci.com/build/6723050642604032
->
-> Thanks, Roger.
->
-> Roger Pau Monne (5):
->   xen/x86: always consider '/' as a division in assembly
->   xen/tools: remove usages of `stat -c` in check-endbr.sh
->   xen/tools: fix grep reporting 'illegal byte sequence' in
->     check-endbr.sh
->   cirrus-ci: add x86 and arm64 macOS hypervisor builds
->   cirrus-ci: add x86 XTF self-tests for macOS build
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 977b428608..431d285b6e 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -322,6 +322,17 @@ with the following properties:
+>       Should be used together with scmi-smc-passthrough Xen command line
+>       option.
+>   
+> +- v8r_el1_msa
+> +
+> +    A string property specifying whether, on Armv8-R aarch64 systems, a domain
+> +    should use PMSAv8-64 (MPU) at EL1 or VMSAv8-64 (MMU) at EL1.
+> +
+> +    - "mmu"
+> +    Enables VMSAv8-64 at EL1.
+> +
+> +    - "mpu"
+> +    Enables PMSAv8-64 at EL1.
+We can reuse this property for arm32 although there is no mmu. This may 
+help to keep the code common between arm64 and arm32 for v8-R. So, the 
+changes I suggest are
+> +
+>   Under the "xen,domain" compatible node, one or more sub-nodes are present
+>   for the DomU kernel and ramdisk.
+>   
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 4181c10538..41f538fb50 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -315,6 +315,7 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
+>       struct xen_domctl_createdomain *d_cfg = &bd->create_cfg;
+>       unsigned int flags = bd->create_flags;
+>       uint32_t val;
+> +    const char *v8r_el1_msa;
+>   
+>       d_cfg->arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
+>       d_cfg->flags |= XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap;
+> @@ -322,6 +323,30 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
+>       if ( domu_dt_sci_parse(node, d_cfg) )
+>           panic("Error getting SCI configuration\n");
+>   
+> +    if (!dt_property_read_string(node, "v8r_el1_msa", &v8r_el1_msa))
+> +    {
+> +#if defined(CONFIG_MPU)
+#if
+> defined(CONFIG_ARM_64)
+> +        if ( !strcmp(v8r_el1_msa, "mmu") )
+> +        {
+> +            if ( system_cpuinfo.mm64.msa_frac != MM64_MSA_FRAC_VMSA_SUPPORT )
+> +                panic("Platform does not support VMSA at EL1 (v8r_el1_msa)\n");
+> +            d_cfg->arch.v8r_el1_msa = MPU_EL1_VMSA;
+> +        }
+#endif
+> +        else if ( !strcmp(v8r_el1_msa, "mpu") )
+if ( !strcmp( ....
+> +        {
+> +            d_cfg->arch.v8r_el1_msa = MPU_EL1_PMSA;
+> +            if ( !(flags & CDF_staticmem) || !(flags & CDF_directmap) )
+> +                panic("PMSA is not valid for domain without static allocation"
+> +                      " and direct map (v8r_el1_msa)\n");
+> +        }
+> +        else
+> +            panic("Invalid device tree option for v8r_el1_msa\n");
+> +#else
+> +        panic("'v8r_el1_msa' property requires CONFIG_MPU and CONFIG_ARM_64 to "
+> +              "be selected\n");
+> +#endif
+> +    }
+> +
+>       if ( !dt_property_read_u32(node, "nr_spis", &d_cfg->arch.nr_spis) )
+>       {
+>           int vpl011_virq = GUEST_VPL011_SPI;
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 2eca2b913d..fc4c7ae734 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -35,6 +35,18 @@
+>   
+>   DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
+>   
+> +/* If this domain should use PMSAv8-64 translation regime (MPU) at EL1. */
+> +static inline bool is_mpu_domain(struct domain *d)
+> +{
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+#if defined(CONFIG_MPU)
+> +    return d->arch.v8r_el1_msa == MPU_EL1_PMSA;
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+#else
 
-The CI tests passing makes this a fairly obvious one to take.
+             return false;
 
-But, some further observations from
-https://cirrus-ci.com/task/4903778798796800
+#endif
 
-[10:09:34.952]   INIT_O  arch/x86/acpi/boot.init.o
-[10:09:34.971]   LD      arch/x86/acpi/built_in.o
-[10:09:34.975] x86_64-elf-ld: warning: arch/x86/acpi/boot.init.o: missing .note.GNU-stack section implies executable stack
-[10:09:34.975] x86_64-elf-ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
-...
-[10:09:35.720]   LD      arch/x86/boot/built_in.o
-[10:09:35.724]   CC      common/hypfs.o
-[10:09:35.727] x86_64-elf-ld: warning: arch/x86/boot/reloc-trampoline.o: missing .note.GNU-stack section implies executable stack
-[10:09:35.727] x86_64-elf-ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
-...
-[10:09:40.836]   LD      arch/x86/hvm/svm/built_in.o
-[10:09:40.840] x86_64-elf-ld: warning: arch/x86/hvm/svm/vmcb.o: missing .note.GNU-stack section implies executable stack
-[10:09:40.840] x86_64-elf-ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+Further if we can set `v8r_el1_msa = mmu` by default for everyone 
+(Armv8-A, Armv8-R) , then we can reduce further if-def.
 
+> +#elif defined(CONFIG_MPU)
+> +    return true;
+> +#else
+> +    return false;
+> +#endif
+> +}
+> +
+>   static void do_idle(void)
+>   {
+>       unsigned int cpu = smp_processor_id();
+> @@ -731,6 +743,10 @@ int arch_domain_create(struct domain *d,
+>       if ( (rc = sci_domain_init(d, config)) != 0 )
+>           goto fail;
+>   
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> +    d->arch.v8r_el1_msa = config->arch.v8r_el1_msa;
+> +#endif
+> +
+>       return 0;
+>   
+>   fail:
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index 758ad807e4..1387adc0e9 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -29,6 +29,11 @@ enum domain_type {
+>   #define is_64bit_domain(d) (0)
+>   #endif
+>   
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> +#define MPU_EL1_PMSA 0
+> +#define MPU_EL1_VMSA 1
+> +#endif
+> +
+>   /*
+>    * Is the domain using the host memory layout?
+>    *
+> @@ -126,6 +131,10 @@ struct arch_domain
+>       void *sci_data;
+>   #endif
+>   
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> +    uint8_t v8r_el1_msa;
+> +#endif
+> +
+>   }  __cacheline_aligned;
+>   
+>   struct arch_vcpu
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index cd563cf706..0ef445a273 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -355,6 +355,10 @@ struct xen_arch_domainconfig {
+>       uint32_t clock_frequency;
+>       /* IN */
+>       uint8_t arm_sci_type;
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> +    /* IN */
+> +    uint8_t v8r_el1_msa;
+> +#endif
+>   };
+>   #endif /* __XEN__ || __XEN_TOOLS__ */
+>   
 
-and various other examples too.  The warning comes when linking
-built_in.o's, and while I could believe there's something weird about
-*.init.o and/or reloc-trampoline.o, the complaint about vmcb.o is weird
-because that's just a plain C file.
+LGTM.
 
-The other impacted (non built_in.o) objects look to be:
+- Ayan
 
-arch/x86/hvm/vmx/vvmx.o
-arch/x86/pv/dom0_build.init.o
-arch/x86/x86_64/cpufreq.o
-common/unzstd.init.o
-
-and it's not obvious what these have in common to be the (only) objects
-lacking .note.GNU-stack.
-
-
-Also, during the final link steps for xen.efi, we twice get:
-
-[10:09:57.995] Warning: relocation to r/o section .text:00000048
-[10:09:57.995] Warning: relocation to r/o section .text:00000090
-
-which smells like the multiboot header.
-
-~Andrew
 
