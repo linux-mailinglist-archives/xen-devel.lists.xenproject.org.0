@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +D9iOLnzjWlw8wAAu9opvQ
+	id II3mDBb1jWlw8wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:37:29 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:43:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5045812F05F
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:37:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229345.1535313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD1712F12F
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 16:43:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229360.1535323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqYkk-0001qh-7P; Thu, 12 Feb 2026 15:37:14 +0000
+	id 1vqYqE-0003fU-RD; Thu, 12 Feb 2026 15:42:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229345.1535313; Thu, 12 Feb 2026 15:37:14 +0000
+Received: by outflank-mailman (output) from mailman id 1229360.1535323; Thu, 12 Feb 2026 15:42:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqYkk-0001oI-3W; Thu, 12 Feb 2026 15:37:14 +0000
-Received: by outflank-mailman (input) for mailman id 1229345;
- Thu, 12 Feb 2026 15:37:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vqYqE-0003dW-NM; Thu, 12 Feb 2026 15:42:54 +0000
+Received: by outflank-mailman (input) for mailman id 1229360;
+ Thu, 12 Feb 2026 15:42:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqYki-0001oA-QW
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 15:37:12 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b281e31e-0828-11f1-b162-2bf370ae4941;
- Thu, 12 Feb 2026 16:37:11 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4836f363d0dso3314835e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 07:37:11 -0800 (PST)
+ id 1vqYqD-0003dQ-Jv
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 15:42:53 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b4bdcb3-0829-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Feb 2026 16:42:48 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-43638a3330dso13311f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 07:42:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d5ebd34sm213405025e9.7.2026.02.12.07.37.10
+ ffacd0b85a97d-43783e3b829sm12841976f8f.27.2026.02.12.07.42.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 07:37:10 -0800 (PST)
+ Thu, 12 Feb 2026 07:42:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,59 +50,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b281e31e-0828-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 7b4bdcb3-0829-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770910631; x=1771515431; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770910967; x=1771515767; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lWYbQ/yqgZFytVfQ7qtrWV2fwXV/DRrCkwiuNx0fBaM=;
-        b=Gj0hne20+RH3Hd9YNQin457hfqY8Ku1JuZTJMfJh0lBuC1BfASpkrtvyIRq5RvoaOc
-         hDPr9jVGavtI8UWsDosTAV6mshlgCkIeFzWGJ2Ebjusqt3qQhvx3NM99WRbVbSK89tXa
-         KTONyfgw9USffGuTsZKYgIXdUG+wa8JPCYkaXPwTW1MbbbHxHvPZlL4RbBz/lUDg4ZEc
-         VBG2y0jIjb5l+XzL3tIWGhaiw7gDfSty5nEQ1wij1tQaOyJhO91FDYj5oEfU/9VbM/6G
-         qwAhwK1L9tiBULQX0szZSARnoW3DayDQxSUbNnyxBc7h6pn33qK1/kJc5TphzBhRS11J
-         nEnA==
+        bh=atGR2jKSqkvBxetSUxHWF94yjyiTNXxj/CcgYuQJmL0=;
+        b=M0NQORXLxAF7xKulbJp6NO1SB2cw6ijetxjD83P94HwOk0qpZqlPaE2fM2IVRuQ9Af
+         9yM0UN4BDkIPDOReTkMeYsSfrREfFXXXaipINgOyvH5l2q9MXlIQdo8j9kQK/reNaT0a
+         s/qVbGLdSaEA6HIROrLV1KusDR0iylVWYAPYTH6DDCf4ZpnQuSiSS+L6KiwHU+78SYTL
+         FMMM2D5oJdslXQBj7m+p7pKnP7MoeiH41DYvjgoJKSo6I4x92SwiGMSgygUjfnPl+0QB
+         7dcZtnlEB0YSWHxUyajU0aAhbtb6zVreaiiwg2tfRyMHyrOO3qtWuI5oE2o/PkmedWQj
+         f28Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770910631; x=1771515431;
+        d=1e100.net; s=20230601; t=1770910967; x=1771515767;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lWYbQ/yqgZFytVfQ7qtrWV2fwXV/DRrCkwiuNx0fBaM=;
-        b=A2/MPk91s0PgUsxKvrKKyO9sP3rRuzBo7g8xAdSwfof9cw8yIlpEivQo+iz7b93i3o
-         +Igmqhw3Bii562gtAMRfDLNg1q/7CZn6uHdfdLaPPgkIw8WU482joVkJeyUt3zS5UUwg
-         vpKFmALTMQpw/vLeMdNAYQqINVie/xu2A/BT4zwrx7Ixt6FBxy//edn5fLMMRg+fEAzm
-         07HNcGHFJT+gKDt74Kr3uwSXJCdpYC60IdZHODdTGrMkqHRhvoeqBmjpzAmWcWH2Whbe
-         WCk34Bj/C2y0U1g3Zx6VDRwdWZ5ZFSHf8nPCZvD1CBjUvxKOEbDoeFEw4H0Txk4hFUxY
-         ahiw==
-X-Forwarded-Encrypted: i=1; AJvYcCUmaV58dTgfJ/CYXupkrzNmnp3mmuKD0F/Od62ZTtfJEkTdMnSiaYzB6Fsjtnsa2RlsiACDMZqf/gA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoRjxaRraNWeqRmTsXxBVIjiFsKKEG40v8LBWCqLvAaAwVjyo4
-	Zm1nJPmFpbQ8p2yrQ+Dwawn4qeuO3o+vvfPEeGKAfMMot6lhVjwpRyyhegPnY27Jww==
-X-Gm-Gg: AZuq6aLbAvXDURXEQmoZghRm/pgJtmNTDH5Tl++6a2HEgxh9ZbmOdU9vGATrW0EVyHH
-	co/AuExQMIyn1kQrMFixBk9RC1jFkJk5CWeWyxqPX+7szcXWAu1KVwdFj9WgwgecicUApOpUahh
-	5cX+BN+xvkhJ9Bgah03keTfKDqdB5xUVTbvOVOcJ4ltZ0f+udh6jCohNNB+KHpOBjQS93yLbPfE
-	xFsqUa18QJ7M3Z9JgwUNw1Er0gznSvhbbuw4xQYSTrCm0g4NZIt7S+/CsB+4/uQnKKQpeOGmtxR
-	JMqN1PhSFJj9uhykFWMxmLoHBPpJxPzXmo36EhQ0KlkJpH76QEJHfa5I7B+k1wh/TsXjQWfjWy4
-	FV7WmMjJb3oiqY317IBPbNuiMMy6irCR3EHbvhghNbR6/das7upwQ4ViPGrXQOaDpxFxwHpsw73
-	Kx63Qe4fUScgaXYc7MqVMJ+Tt4gw16/mk8AW5QOMVdPN9PsZkdd/f7f934u/FZLIky9YtQHs+pB
-	o6Yp8wIMYwfddVHQc8rpdLZoA==
-X-Received: by 2002:a05:600c:8b2f:b0:46e:4586:57e4 with SMTP id 5b1f17b1804b1-4836570e519mr47787435e9.24.1770910630703;
-        Thu, 12 Feb 2026 07:37:10 -0800 (PST)
-Message-ID: <534c2e55-e5ec-4045-b08e-26916a18366e@suse.com>
-Date: Thu, 12 Feb 2026 16:37:08 +0100
+        bh=atGR2jKSqkvBxetSUxHWF94yjyiTNXxj/CcgYuQJmL0=;
+        b=vxxDRZYCuw/NrZhAofEBFXlqZWlf72tK5VMnLjJqeIFSgZBCV1U+yD3mDpZ4lyUpSX
+         ladabuiIRX0woGYFs97KzxoK8R4kFYefkJfGqwyy/V/vYd/18HcW08cM/HyMh8rNxi2S
+         bKh+SnSnehakHOZ74Ckvqvx7AL5x7xYqD4rkdyruEa+p2bDcQSJMBmEhPyyOqv3gCZ8q
+         1CKYvJt2NirJbfYxB3/pNfB5rjDJZjECRdWSxR1/0eZJZNYVgWbQq+ijG9OkgczpCEyz
+         Gt/q47seKswdyeC7s6XS49KCvx/Y3nI+FOTYYEru94HegiKekOgpHsIWk8zkcgGE9bX7
+         nOpg==
+X-Forwarded-Encrypted: i=1; AJvYcCVrg8z0bHgmoQVja8gm0f/qaOctIUmp13NDsQlOZnJY6kTAerluAuPBzhe3Tt0n8PkAEt2dF8rc4UQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvF0t959UHxirJAWONknNUNxNMFQw+s+SI7Xdjtr8hOe3Agwd3
+	cG9qPMPl+Z9yFenADXtvGFuTEyE7Ni6v3ozaV57wMMhni0NMtTCYAoCMmqLhjx3JsA==
+X-Gm-Gg: AZuq6aJPZ2/+QgKf5aa6VaUncivqSmOBotJeSdofruefMYZNNsziYD5jfHrhtz4Wv3+
+	/KMm0S1OnoJ7dHL9LR3FD0IwOdeYva4r3kpCNC24ZDhZchqRkU1vl5akRODvrDwo/SuyKWY8KH7
+	GwC3+Eh3xOiFI7bodoMHIFLaOS51aW5NQcd/ZC/sEUVZnE/SO08imGs9Nq2f3S4jt64zsc44unr
+	XS+8RbALqm68/uWfkaySxmefoCUTNCPXG33NCns70P40Viz2+X6nhASHVJQT6YE081NSYMagvF8
+	0Y2hPDkYRHgrueVSUB/rBsyG6zqovMH336XZypedClRnd9rSZQlGN0ziS21ONmQ3mNjyj26kHUi
+	cEiDIAOagrwoSaWSLoxRhUmuNnpEALXRCAIpkBIxUhdhiAA3DCmh34PFcsWFlJudy2xYw1niepD
+	7++RkTBa41Fi3sRUK8zhFHvXa3Rg7SAzz2761v6ir0rVc0qm2ysfdvr5dvn1a7XV7/iDG11iSb+
+	K5+3dMZ8uVleSU=
+X-Received: by 2002:a5d:5f93:0:b0:435:729a:eb6f with SMTP id ffacd0b85a97d-4378aa0973bmr5644591f8f.19.1770910967443;
+        Thu, 12 Feb 2026 07:42:47 -0800 (PST)
+Message-ID: <45e8aa5a-842b-49d0-8744-71295cf0a0b6@suse.com>
+Date: Thu, 12 Feb 2026 16:42:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] xen/tools: remove usages of `stat -c` in
- check-endbr.sh
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 2/2] xen/riscv: add p2m context switch handling for
+ VSATP and HGATP
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20260212144618.43200-1-roger.pau@citrix.com>
- <20260212144618.43200-3-roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770739000.git.oleksii.kurochko@gmail.com>
+ <0e6f450d64ce17f504d73c3429c8e8a9ced0cf06.1770739000.git.oleksii.kurochko@gmail.com>
+ <7cec918c-bd58-4013-9ec2-d43ff7afcd7c@suse.com>
+ <099768df-ec44-454f-8a9e-4897d81309f9@gmail.com>
+ <ba48bef0-551e-4ea7-8d9a-fb54b9b85da6@suse.com>
+ <4f9953ae-8722-4971-a214-6c40f7f5859a@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,58 +135,118 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260212144618.43200-3-roger.pau@citrix.com>
+In-Reply-To: <4f9953ae-8722-4971-a214-6c40f7f5859a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5045812F05F
+X-Rspamd-Queue-Id: 9AD1712F12F
 X-Rspamd-Action: no action
 
-On 12.02.2026 15:46, Roger Pau Monne wrote:
-> The `-c` option to stat is not POSIX compatible, and hence prevents the
-> check-endbr.sh script from running reliably.
+On 12.02.2026 15:47, Oleksii Kurochko wrote:
 > 
-> The first instance of `stat -c` can be removed by fetching the section size
-> from the output of objdump itself, which the script already parses to get
-> the VMA values.
+> On 2/12/26 1:56 PM, Jan Beulich wrote:
+>> On 12.02.2026 12:57, Oleksii Kurochko wrote:
+>>> On 2/12/26 11:16 AM, Jan Beulich wrote:
+>>>> On 10.02.2026 17:36, Oleksii Kurochko wrote:
+>>>>> --- a/xen/arch/riscv/p2m.c
+>>>>> +++ b/xen/arch/riscv/p2m.c
+>>>>> @@ -1434,3 +1434,126 @@ struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
+>>>>>    
+>>>>>        return get_page(page, p2m->domain) ? page : NULL;
+>>>>>    }
+>>>>> +
+>>>>> +void p2m_ctxt_switch_from(struct vcpu *p)
+>>>>> +{
+>>>>> +    if ( is_idle_vcpu(p) )
+>>>>> +        return;
+>>>>> +
+>>>>> +    /*
+>>>>> +     * No mechanism is provided to atomically change vsatp and hgatp
+>>>>> +     * together. Hence, to prevent speculative execution causing one
+>>>>> +     * guest’s VS-stage translations to be cached under another guest’s
+>>>>> +     * VMID, world-switch code should zero vsatp, then swap hgatp, then
+>>>>> +     * finally write the new vsatp value what will be done in
+>>>>> +     * p2m_handle_vmenter().
+>>>>> +     */
+>>>>> +    p->arch.vsatp = csr_swap(CSR_VSATP, 0);
+>>>>> +
+>>>>> +    /*
+>>>>> +     * Nothing to do with HGATP as it is constructed each time when
+>>>>> +     * p2m_handle_vmenter() is called.
+>>>>> +     */
+>>>>> +}
+>>>>> +
+>>>>> +void p2m_ctxt_switch_to(struct vcpu *n)
+>>>>> +{
+>>>>> +    if ( is_idle_vcpu(n) )
+>>>>> +        return;
+>>>>> +
+>>>>> +    n->domain->arch.p2m.is_ctxt_switch_finished = false;
+>>>> How can the context switch of a vCPU affect domain-wide state?
+>>> It is wrong to have is_ctxt_switch_finished per domain, it should be
+>>> vCPU field.
+>>>
+>>>>> +    /*
+>>>>> +     * Nothing to do with HGATP or VSATP, they will be set in
+>>>>> +     * p2_handle_vmenter()
+>>>>> +     */
+>>>> Why can this not be done here?
+>>> As VMID should be calculated on VM enter.
+>> And I didn't suggest to calculate a new one here.
+>>
+>>> We can update HGATP and VSATP here with VMID stored before in p2m_ctxt_switch_from(),
+>>> but then it is possible when vmid_handle_vmenter() will be called before VM entry
+>>> VMID could be changed and it will be needed again to update HGATP and VSATP what
+>>> will lead to flushing of VS TLB twice (one in p2m_ctxt_switch_to() and another one
+>>> in p2m_handle_vmenter()).
+>> Is this a concern resulting from particular logic you expect to appear
+>> in the window between context switch and entering the guest, or is this
+>> merely an abstract concern?
 > 
-> The other two instances can be replaced by counting the lines in the
-> respective files.  Those files contain list of addresses, so the size in
-> bytes is not strictly needed, we can count the number of lines instead.
-> 
-> Suggested-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> If we will have VS TLB flush unconditionally in VM entry then it is merely an
+> abstract concern.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Why would we want to flush unconditionally?
 
+> Otherwise, considering that speculation could happen between
+> context switch and VM entry what could lead to that some entries were added to
+> VS TLB flush with old VMID in the case if then in VM entry vCPU might receive new
+> VMID.
+
+I don't understand: Context switch leaves vsatp.MODE at zero. Nothing can end
+up in the VS TLB in that case, aiui.
+
+Jan
 
