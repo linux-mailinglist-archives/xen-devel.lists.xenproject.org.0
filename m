@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oPMyG1urjWkK5wAAu9opvQ
+	id QFaNIoawjWmz5wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:28:43 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:50:46 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36B012C7CE
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:28:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228667.1534799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE54512CB41
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:50:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228685.1534808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqTvx-0007NA-Lj; Thu, 12 Feb 2026 10:28:29 +0000
+	id 1vqUGa-0001w7-9W; Thu, 12 Feb 2026 10:49:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228667.1534799; Thu, 12 Feb 2026 10:28:29 +0000
+Received: by outflank-mailman (output) from mailman id 1228685.1534808; Thu, 12 Feb 2026 10:49:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqTvx-0007K5-Iv; Thu, 12 Feb 2026 10:28:29 +0000
-Received: by outflank-mailman (input) for mailman id 1228667;
- Thu, 12 Feb 2026 10:28:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vqUGa-0001tu-6R; Thu, 12 Feb 2026 10:49:48 +0000
+Received: by outflank-mailman (input) for mailman id 1228685;
+ Thu, 12 Feb 2026 10:49:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqTvw-0007Jw-L0
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 10:28:28 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ef45edb-07fd-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 11:28:23 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4801c2fae63so63824465e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 02:28:23 -0800 (PST)
+ id 1vqUGY-0001to-KX
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 10:49:46 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b1f4ff4-0800-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 11:49:45 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-4358fb60802so1323388f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 02:49:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835a62baa9sm41657895e9.4.2026.02.12.02.28.21
+ ffacd0b85a97d-4378e72c203sm4608456f8f.2.2026.02.12.02.49.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 02:28:22 -0800 (PST)
+ Thu, 12 Feb 2026 02:49:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ef45edb-07fd-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 8b1f4ff4-0800-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770892103; x=1771496903; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770893385; x=1771498185; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3FxlkjXuUjHfcIQiUMXxWlveiC5EBc+kN39xSwxCdVo=;
-        b=V/bQ8MsMv/Zu0wNAtMLM5947KLT6yI+EqqZ0cTR3alQjvWdUWjz0NFtvOP72z2HChc
-         ygGDHIwHUOGqJWcDvTtp8GvVoCdq3goV4qe3o2LVIr3R6WrYKOjWhWc+MibJ4Qg+tC+y
-         D2ajDC0+8kfOFjp4ookymjiTaHUT/Ltt0WWIuRAHl030M32JsLRP53ZFizZ1E26sQtpL
-         Nl7YrSbHjxfqWuMOwwpOmoB4S5j6+AIXfajTNiPFTSMxvh5R/3mn7r1DvZwIK+AlSZIU
-         fL8n0SVprGjoXviZbefaFK2Cx62O1vlGbQlXMB3Up9jLHa+Itkm0XtvA54RiK7VDnGjM
-         mcaA==
+        bh=aTCFlvMSW0aAhCcRWoGU8lmHxXHbSnVMK6eqpmXtma0=;
+        b=YHNQITdzh563KBdCPqRPHJgmlMKOh1d/J8d7UvvWJk/0xDTfA3H/qg2+axwygD3KyN
+         p7eAKIL/b1xmVpVUTp8zm6OIEmWkhZFrwE5KDeBy+nlJNsIWpavVTpiDtMmB21pDRDFM
+         ugMA+0FRL82uX0dBdvvC3z7H3E2K7IisZQT/cYAd0mzEBDTaTwlibJjJJcIXGe6L4Wug
+         cc+/JAr+/EIYZ+l7K8XtuTRlPb9PKyLqv1NSntj98z5lGHafeyX0dkkXhK4+m/pxu6TY
+         lQEuCU51p0zxZCcDF8y0hibdCcB0A2OjbNxDcDPC7wJ8TxqkIQ1fB1nJdSC13od6y/KN
+         k0qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770892103; x=1771496903;
+        d=1e100.net; s=20230601; t=1770893385; x=1771498185;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3FxlkjXuUjHfcIQiUMXxWlveiC5EBc+kN39xSwxCdVo=;
-        b=b/sIjzTPCjKi3zXsYf+Ge5yK2kPYzKu9nIkMnh6WlBhD4q6vsLNsdnORqNZ4UlnI1N
-         D15HLNxk4ZcAVCkMnnJpFpEa+RmuHwX9crg+rdlJ8vDuajYz5AvCOO6KN1HPj8FGz/0q
-         VOIH3TiRo6Qc1OnY8/ULTU/Rz+d0xjqKtIMOP9B9JUgTbpVWfaV6rYJVi9w5GQT+PNcA
-         x3KJOA4FWWl4VCH0AUuWWeo9zXicbHKTxvxSlecoPOyLx1EBEEvpO8enhp3osO7bUFAG
-         1nMqT5c60PXUawiXxoIuBlrSRqwBmyO1Olcq4Ita32+y4sjBTTolGH2RgRmwyTAQMKfJ
-         djSg==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ1BKLGUv0qa1yYO4GVCBN5pSOKZFeAIrGPWQk2044gx4ejfeTk/lLmstMFYSKnGtu0/XRY/0jQNo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzBJuJ1oDDVII5bvodOAN9p6CJ8OAaNN4TwilGcfu7G/5lT2gmH
-	W3SYyBp/EHAoJ31L8a4jZ5i/PqJ7Iz+t88nfhbNosnbAJVHg2hLO7m7MDpN2FH0YNw==
-X-Gm-Gg: AZuq6aKVVMaeycOlpxmF5NibuGixQDE9+BxGg4Uut/kwm4eZznI/jLvcsnMlULg+Eb6
-	V4DbE5JgsFQItp+/XO64ynWKPPplXQfFyXA8Ny6EbXi7bkoNJsgx/04KvWjUXSm6DuIfj0QtF26
-	4+2aMFGCopoauSevMTHiJTD2MRHZN79yp6afOKZTPFs0pqt++dUyRo8EraykOzs/7ZLt2Jje8Qf
-	RQz//Y9YBn8pbyhZ6EqERc66zsXwOljAg7GFGCr4WMbdzz+dFbKrvRRUhwNyV+LbXb3woJS1KNW
-	TH9qDvLtGftFMDa/xycJi6HcNPuNazTkTk8q8hM0K0yIWn1zK9Gqe+G2mCtPgOoXCGkYpxZsp4R
-	JpcOaFzazICbqAqaVZSg9+KBphkmunIJ2NITc6U0RaxzckgNatJeJlC9LyxB+1SERAqI5ciBbkO
-	NLmOsMgB6jcyeyCEeSTo6uVNd25HiTjeslfYrTRmwSwHHWZvmabjBB0nBu/7L19t1lKwhi4/EpA
-	CMwi4dYV+reTCA=
-X-Received: by 2002:a05:600c:5294:b0:477:6d96:b3c8 with SMTP id 5b1f17b1804b1-4836570e316mr27255695e9.23.1770892102696;
-        Thu, 12 Feb 2026 02:28:22 -0800 (PST)
-Message-ID: <4553d4f8-89a9-4ef0-9b56-f3a04d8d7d67@suse.com>
-Date: Thu, 12 Feb 2026 11:28:20 +0100
+        bh=aTCFlvMSW0aAhCcRWoGU8lmHxXHbSnVMK6eqpmXtma0=;
+        b=RyXH4g2b7PldKR4eL9XiN9NPMWJHDVhvNwGQWKK6Iyl6rpR+fqYFgHDTMWJ27zm4rl
+         uORLRXIj0WfzgBk4V4Rd9kQNvpIDlsCHcIHkZYKPBeh9DfPmSv5I7l6e6gu+YAjdpIs0
+         onJ/ql1pwu+84iaHZUvRwgMY+uxSam0VOz+QZf8oNTWMECGta84WoInfbekNlpwMOe5/
+         UYAgxtt9E4XadCHwIK+kRkQkAoG0IYfYlPCsw8IqvZa5hNaHeTsWlZ0K2ycFJO70y1l1
+         MU1EqJ1orfaMWslwXwOGShsqD/kSxWoBAy47Uu4IDHQHqxzybWNpjgnJnc1TE03Zo57u
+         4FwA==
+X-Forwarded-Encrypted: i=1; AJvYcCWdiYpOq742+srA1kfe2SU0qL0Pl9hZkWLSBXpN1U+L5PHnkcAFCUVKVYvkprokQTtQpDCNvQV/0VQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzuJweVWYN6JezDZju1wHPNLEJcUeH4VHHH27/4vhu3FiHr2xVl
+	9e9SQfZc/xMM5P0aoHboEpypz30ksYJYv6n8aBH0KJp6fzmxDY2p9XwCyZO0jKL7PQ==
+X-Gm-Gg: AZuq6aLqZ24vmjhTR4bFggOuHUC1+0O8bysUAI44yFqCXnVQ6r4N8TaafINfb0fAq5b
+	rybF+9uE60Qp3zDX2zVGrdsWaEwJdnsi8kKQRBOIrgzK8LmV4P9eDGNjofB85tOYRtc9Qk4DF2f
+	YMOgJqaquMamt15jNsNIZuXbXmnSYWFGA/KZfye7sHa+AXfXZqj1/FIewZ+2cS2Ziu+CVuBTDQx
+	EndcudHD0yWbd8L//aVKT4PE41uRpKNLVB1L+KvciSOIvyhQti/4L5yPKwLOnlOwV/NGY/PpyzW
+	pWMGd/XbEUUlqV1dSzBc4xcJRik1ZSPBH4YjpQKGeuCkC8BPUodzojKR4l+A8cZLCQ4kneTE7W3
+	HUv6+iOnpB/m9NCyAW/JfmEYSSq3GBJ9OpoaKg7BW/lb9v9kfys9nH7P0pOaDMBRS+4h22iKlFV
+	fnY2iEE3W1UzCMb95gsRayN8wkehjwimTqBsBOg8FkIrgG6HsyJ09BC8Uj5Rj0wql0quREIRZNi
+	cWxsorZaNnGkOU=
+X-Received: by 2002:a05:6000:2c08:b0:435:924e:3d6d with SMTP id ffacd0b85a97d-4378e72a239mr2748911f8f.26.1770893384638;
+        Thu, 12 Feb 2026 02:49:44 -0800 (PST)
+Message-ID: <109c3379-7066-4ad9-93aa-57e87deba81f@suse.com>
+Date: Thu, 12 Feb 2026 11:49:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] xenpm: Add get-intel-temp subcommand
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <489a4decf4367a9983a63fb4987d8c5f6267ed9f.1770632848.git.teddy.astie@vates.tech>
- <7064136b-38f1-4bbe-9ff4-14774c88f016@suse.com>
- <f2a9028f-6bc6-40f8-a9ef-26800c9e4c59@vates.tech>
+Subject: Re: [PATCH 05/12] x86: Migrate spec_ctrl vendor checks to
+ cpu_vendor()
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-6-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,144 +126,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2a9028f-6bc6-40f8-a9ef-26800c9e4c59@vates.tech>
+In-Reply-To: <20260206161539.209922-6-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,vates.tech,lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: D36B012C7CE
+X-Rspamd-Queue-Id: EE54512CB41
 X-Rspamd-Action: no action
 
-On 12.02.2026 11:19, Teddy Astie wrote:
-> Le 09/02/2026 à 15:21, Jan Beulich a écrit :
->> On 09.02.2026 11:31, Teddy Astie wrote:
->>> @@ -93,6 +96,7 @@ void show_help(void)
->>>               "                                           units default to \"us\" if unspecified.\n"
->>>               "                                           truncates un-representable values.\n"
->>>               "                                           0 lets the hardware decide.\n"
->>> +            " get-intel-temp        [cpuid]       get Intel CPU temperature of <cpuid> or all\n"
->>
->> Sorry, thinking about it only now: Do we really want to build in the vendor
->> name to a command? "get-temp" would allow for adding an AMD implementation
->> later on?
-> 
-> AMD CPUs expose a PCI device that can be interacted with to get 
-> temperatures; which is then exposed in hwmon interface of Linux. That 
-> wouldn't be practical to implement hwmon interfaces in xenpm.
+On 06.02.2026 17:15, Alejandro Vallejo wrote:
+> @@ -738,11 +738,10 @@ static bool __init retpoline_calculations(void)
+>      unsigned int ucode_rev = this_cpu(cpu_sig).rev;
+>      bool safe = false;
+>  
+> -    if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
+> +    if ( cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
+>          return true;
+>  
+> -    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
+> -         boot_cpu_data.family != 6 )
+> +    if ( !(cpu_vendor() & X86_VENDOR_INTEL) || boot_cpu_data.family != 6 )
+>          return false;
 
-You understand though that AMD only was an example (the most natural one)?
+At the example of this (applies throughout this patch): With the panic() in
+patch 03 the transformation looks correct. Without that panic(), or without
+being explicitly aware of it, this gives the impression of explicitly doing
+an unsafe thing: Even though by way of boot_cpu_data.vendor we know what
+vendor's CPU we're on, we're acting as if we didn't know. I'm really
+uncertain whether such changes are worth it with the mere goal of reducing
+code size. Even beyond the concern raised, this feels like it might be
+increasing the risk of introducing subtle bugs.
 
->>> @@ -1354,6 +1358,131 @@ void enable_turbo_mode(int argc, char *argv[])
->>>                   errno, strerror(errno));
->>>   }
->>>   
->>> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *temp)
->>> +{
->>> +    xc_resource_entry_t entries[] = {
->>> +        { .idx = package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STATUS },
->>> +        { .idx = MSR_TEMPERATURE_TARGET },
->>> +    };
->>> +    struct xc_resource_op ops = {
->>> +        .cpu = cpu,
->>> +        .entries = entries,
->>> +        .nr_entries = ARRAY_SIZE(entries),
->>> +    };
->>> +    int tjmax;
->>> +
->>> +    int ret = xc_resource_op(xch, 1, &ops);
->>> +
->>> +    switch ( ret )
->>> +    {
->>> +    case -1:
->>> +        /* xc_resource_op returns -1 in out of memory scenarios */
->>> +        errno = -ENOMEM;
->>
->> And xc_resource_op() doesn't itself set / inherit a properly set errno?
->> We don't want to override what the C library may have set.
-> 
-> I'm not sure what to do then. I guess we want to reset errno before 
-> entering xc_resource_op (so we won't report stale errno), but we would 
-> still need to consider cases where xc_resource_op returns failure 
-> without errno having being set ?
-
-Should xc_resource_op() perhaps better be corrected to behave consistently
-wrt the setting of errno?
-
->>> +    case 1:
->>> +    {
->>> +        /*
->>> +         * The CPU doesn't support MSR_TEMPERATURE_TARGET, we assume it's 100
->>> +         * which is correct aside a few selected Atom CPUs. Check Linux
->>> +         * kernel's coretemp.c for more information.
->>> +         */
->>> +        static bool has_reported_once = false;
->>> +
->>> +        if ( !has_reported_once )
->>> +        {
->>> +            fprintf(stderr, "MSR_TEMPERATURE_TARGET is not supported, assume "
->>> +                            "tjmax = 100, readings may be incorrect.\n");
->>> +            has_reported_once = true;
->>> +        }
->>> +
->>> +        tjmax = 100;
->>> +        break;
->>> +    }
->>> +
->>> +    case 2:
->>> +        tjmax = (entries[1].val >> 16) & 0xff;
->>> +        break;
->>> +
->>> +    default:
->>> +        if ( ret > 0 )
->>> +        {
->>> +            fprintf(stderr, "Got unexpected xc_resource_op return value: %d", ret);
->>> +            errno = -EINVAL;
->>> +        }
->>> +        else
->>> +            errno = ret;
->>
->> Why would this be? How do you know "ret" holds a value suitable for putting
->> in errno?
-> 
-> Aside -1 in out of memory situations when xc_resource_op returns -1, in 
-> other failure cases, it returns a hypercall (e.g multicall_op) return 
-> code, which is supposed to match a errno.
-
-As above - generally all layers want to deal with errno in a consistent
-manner. If bugs in lower layers are too intrusive to fix right away, such
-workarounds will at least want commenting upon (so it is easy to determine
-at what point they can be removed again).
+I wonder what Andrew and Roger think in this regard.
 
 Jan
 
