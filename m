@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sMuhI/38jWm0+AAAu9opvQ
+	id AK0DExP9jWm0+AAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:17:01 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:17:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F049912F429
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:17:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229436.1535394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACD0612F433
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:17:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229443.1535404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqZN8-0003CV-1K; Thu, 12 Feb 2026 16:16:54 +0000
+	id 1vqZNS-0003gS-7t; Thu, 12 Feb 2026 16:17:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229436.1535394; Thu, 12 Feb 2026 16:16:54 +0000
+Received: by outflank-mailman (output) from mailman id 1229443.1535404; Thu, 12 Feb 2026 16:17:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqZN7-0003AM-U1; Thu, 12 Feb 2026 16:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 1229436;
- Thu, 12 Feb 2026 16:16:52 +0000
+	id 1vqZNS-0003dj-4x; Thu, 12 Feb 2026 16:17:14 +0000
+Received: by outflank-mailman (input) for mailman id 1229443;
+ Thu, 12 Feb 2026 16:17:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hp9h=AQ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vqZN6-0002rO-Cb
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 16:16:52 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ <SRS0=Wwql=AQ=bounce.vates.tech=bounce-md_30504962.698dfd05.v1-61d738ca8a0c4527adf5a44c6489444c@srs-se1.protection.inumbo.net>)
+ id 1vqZNQ-0002rO-Lq
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 16:17:12 +0000
+Received: from mail145-20.atl61.mandrillapp.com
+ (mail145-20.atl61.mandrillapp.com [198.2.145.20])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cc5f240-082e-11f1-b162-2bf370ae4941;
- Thu, 12 Feb 2026 17:16:51 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BL4PR03MB8051.namprd03.prod.outlook.com (2603:10b6:208:58d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11; Thu, 12 Feb
- 2026 16:16:48 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Thu, 12 Feb 2026
- 16:16:48 +0000
+ id 48b1ac74-082e-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 17:17:11 +0100 (CET)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-20.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fBgRn51QqzCf9RlL
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 16:17:09 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 61d738ca8a0c4527adf5a44c6489444c; Thu, 12 Feb 2026 16:17:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,193 +48,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cc5f240-082e-11f1-b162-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PMdq7FXsLkb3z2t+xvfVTCwmxBrmidoVwZzry81W/3x8AN9Yb+2kHPQ6QHaYOP3RpYk2hR39bWKguW7Zc20aQn0KJF8mJS8hWvQQ8EM6773TRH8pgvWJXTTLB5sJ9NRwn1ipq1p0Wz1eQ2sUPZxQOHzAB8hoJVeVEYSqUDz8Pvu/tRH8ave85MCMoOf0gdoFsVNbRRsmD54AZsIDZKIGHM8P89/eCjS+THobYvHwzhQT58jRm5I47Zdfch0FuKfnQMpcGHt2MVttjv17BmVljmJRzgWhu+mymCGmHCu6Ipjz75eF02RYwo5y92B+e1kA6pyPUdqMe055EkmEWEPQEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R0jguUPo+nKp4awdLbsHjz2jc9ep9thbAfAS2GeKoK0=;
- b=tJR9gq6LFGi+9qlLgpvwhjA1OoPJprf5tIV251RYxa8tZ9NShReGwNIfDRNIhKQGfVdpb4lcleaLSKSx6yrtHTlf/Bh07Sf2SEtOAB6aza1bgneBzjQS/NXp8Ykn8iVmjLO00dpgZPBXRlUijg2LFqqhgJr/RLEiYvtpaH0uSp/aBjzwiqNSMSzfE9ljCXa8Lkivf9/K8TjJYARJoSumDagRCGEOJxeT+PH1Ac6qRZ7XRz41DNwbzl9qv58ur8WOnkB0VSR6QCyOKYLXSGyZY8xNicj6X9YSKL3PXslILXe8HtxGMCbZJnB3Q/HUjmv5hoth28Y6ZL3OQOucOuSzZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R0jguUPo+nKp4awdLbsHjz2jc9ep9thbAfAS2GeKoK0=;
- b=G09El7T214hqoADq3+ggURzHd+15T8g9OrVapgQhFIaQWIiGNoNVjsM+tQKn5J9KuglOnvzSBsJbU112wROcD+kIQWOl/4Sfsx2XHj1UmP1LOr+M3wUXNXKlWl7+Lil/MPZ0sFKPM7RCeq35b7zmBYUVq5ZLKQva1nUDhCZx3CY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 12 Feb 2026 17:16:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	intel-xe@lists.freedesktop.org
-Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
- Xen 4.19
-Message-ID: <aY387XuhCEZ0JNTN@Mac.lan>
-References: <aYtznP_tT6xNPwf-@mail-itl>
- <aY3ttvtxGCPTNgsj@Mac.lan>
- <aY3yqOTn9EQfO4rF@mail-itl>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aY3yqOTn9EQfO4rF@mail-itl>
-X-ClientProxiedBy: MR1P264CA0195.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:57::7) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 48b1ac74-082e-11f1-b162-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1770913029; x=1771183029;
+	bh=RvnTYXu3DgG7UhKJGem5f0CYTeaphpS9JGOHjURlsz0=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=j40j2jQjy8tvKdEuQeYFU5qDZOTdAIw/8vz9GvP3OZv7iUPg8IioLAOgPLccuHT+V
+	 wP0P8hppBX5oyR8b+l6caAaazZuAkhN428Uvts247/yheZu02nP7k4tan5wSw61nNp
+	 ISlJSPiC7EUjw5YWtmJHPAdKq0CVytwmssJ8vU2RhczSUHLymOtlWSJ2OgTDMpUa9W
+	 Uco9XVAkj4EhQIK56pP5RIzYO+IyHo8WZ4yHRJ69nOJpFzciFnYlHVpduqFr1odg2Q
+	 qWD09ajLYBC8U7G+w1J8zuXgUpKXEdpaxuC2mmXUWWmpNC8f2VX/EGZqDnH1haQ0Rs
+	 JXWKtn/hveE2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1770913029; x=1771173529; i=anthony.perard@vates.tech;
+	bh=RvnTYXu3DgG7UhKJGem5f0CYTeaphpS9JGOHjURlsz0=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=wzEbBRR596oEjsVnW0ldvf8Khol7NmEjd0x/aasDqOkN3ytcfmOHuH6EH0FIsqBJE
+	 K64kMxLEYEtiQBpeUr151NirPHhNyEVz9t6pxdt3OOfHdIjkcpGiefVaz+JfazquBR
+	 gDtvwq9/j0BbQz7UoAfd4bHOsL0Oh+qvDYSFBxPbyZ5wSNOscydPSVdzOz1IRb3yV7
+	 gnBL/pzarF9MGM0bIzZIuxtLYexZp3ZgxDxPkE2DV8B69qDtLaQFMA/vE3wtGvgD+a
+	 ua6aI6S3rwTI5XWx3Z+M/+VXokKK+yZbCZw3dWRFhC40255iraKGt5tMr6MEg2xlzl
+	 jYpyuNnd94i/Q==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?[XEN=20PATCH]=20libxl:=20Use=20fdset=20to=20provide=20migration=20saved=20state=20file?=
+X-Mailer: git-send-email 2.47.3
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1770913029109
+To: xen-devel@lists.xenproject.org
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
+Message-Id: <20260212161700.35472-1-anthony.perard@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.61d738ca8a0c4527adf5a44c6489444c?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260212:md
+Date: Thu, 12 Feb 2026 16:17:09 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BL4PR03MB8051:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7826a4e9-7ce3-4ce9-c1ac-08de6a521fbd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Wk9kZWloZVc1RnAxQS9mcERrbnk0WGU4ZmZsa0h0c29oenFBRnBuNktXRmJ3?=
- =?utf-8?B?cGJ4QTVENzRhUjBDLy9YVzl0KzJOeVFJRDcrOFdNVFd1d2VjUFJtNUZBZk4y?=
- =?utf-8?B?UHAzdnVJQ01hQnJvWVd2bTdtT050bExLVE9MTzMwNVhjSk5aNmpFZjVBNnIw?=
- =?utf-8?B?QytRTWxTT255V3BlOWpJQ3JpM0tqTStBM2ozNXlMbEJjbENIbnBVTnFGWXBa?=
- =?utf-8?B?dGJBZDRnTmIxbDdCWko5SmNDNTNPekYvaVZ4S3JBWDljcG9GVjRVdlo3Sldp?=
- =?utf-8?B?dWVSYk5NdjcvWkFJK0JkZi90NENybU04enQ1RUUreitsdktuc1VQaGhBT1Fw?=
- =?utf-8?B?TXFVS0VYZEh0dmhSbTBXNE0xMUQxaWhxVkZTOFE1eWpYS0NBbU1pQ0VQR0xH?=
- =?utf-8?B?NXAvSVJIdW80K2VxMVFzVlZZMktXV1dvTVRBLzlYWXZRcE1IL2QwMmlGZWp1?=
- =?utf-8?B?TW4rZ2lFMlhySUFuQVNuZUZpQ01NUzZ2N0J1L3RLVkt2Y0pjRnJnZkZrSWhi?=
- =?utf-8?B?TjlMMWNPa05hT083b2c3RkR3OVhlV3NGcFkrYjV6MjlGNnFiOHMzd1c5bXFY?=
- =?utf-8?B?ODVzTGNZSTZqSE5UejFjbUVSOWpjRjQ4bnZMQUhVQ2g1bXFCOXd1dWZ5Q0RY?=
- =?utf-8?B?dXRNUzh6Q1ZIeGozYW5Hd0pIdXQyVHNrNnJOZUplRGdrcm1DaGtpU3A4WVBH?=
- =?utf-8?B?dVFMUnl6NWVjNUR5Nkh4RmM3bG5HYnl4YXU0eXpmMzF5cHIvRWFHZFVjWXMx?=
- =?utf-8?B?TzI2eHNzeFhZV1lkRzhXL2ZOeGJvUCtBaTdEYUNlMUQ2aXIzeXdRN0JtVXpB?=
- =?utf-8?B?Y3RjaC9OOGU0UkJTQUplYVFOUWdDZzJVeGRsQ0I2N3hxdzJPZXZnRmpvRTN3?=
- =?utf-8?B?UEFEemdiWm5BZ3hOQjNjTk51dHhNSDFqc1JZeTJsQUpNZjArUFFtT2xNeUlN?=
- =?utf-8?B?a3VJS1lWcExJbTN5OG5XZEhMdFJMNm5tWWZPS1hYK3M4S2t5K0I4VjlsUFpF?=
- =?utf-8?B?MzBRUUViRjM3b0ROUlhOUEVqbVBGaDlYOEZ4NWM2YUpVK0xxQVlHajkvZWxu?=
- =?utf-8?B?a1hLVllQYnMwQVlrUkhndDBodXI3Yi9oUHE5ZC8zaFVrbkw5NUJpdWQyNS95?=
- =?utf-8?B?VWNUaU9uS29DY0h6MDE5K2E3QVZocElHRG1YYXRFRU0vOGpXVWJCZHJZQzVL?=
- =?utf-8?B?OXV2YTZnV2o1Wk1ma1ZRelM0YnVPWDBwcDZicHV4RUF3TWhyVlR1dXI3NldS?=
- =?utf-8?B?UjFxeFh0NEZsK2ZaaE85VVRER29uM2FVNmJLZGZZM0N3eXRlOWtFSlZmaGlW?=
- =?utf-8?B?bVExemxqeEVKOU05QjIzalFRbXNnMmVaNDJYeVlFU3N1TGUySFVET2J3MDM0?=
- =?utf-8?B?Rno2Wk03ckkvNlNkem9hNUwyWGpIS0M4SlJnQUFzQ3h3OWhQay80b3dqME4w?=
- =?utf-8?B?WEtBcGlWNUR2NjdxZVR5WVZoRTBlaEE2dkVkSUhPT2lyMFJmdGZCSmQ2eVZr?=
- =?utf-8?B?WEFtdGpyNVg4dFFLd3VMR3p6RUd3MENKekdCaDNUYWRRMGhzZUdTaU1ZRzhx?=
- =?utf-8?B?dkFmNE1kQTlXcjgvUjBvUzl0dmRMc2NjU0taNkJtT3RKdEpvcWZ3Sk5nNkl2?=
- =?utf-8?B?cVl5UnVreDJnQ21GS0JWRVBPWVJYcjhhK2ZTcGE0M3hmNFJ0TzNpcUdlSDlw?=
- =?utf-8?B?UXpFTE05T3FxYzlvTzJBMk4yM0VLaUE5Z0NIR0tQN3lGaVRaaG82SC96SUMx?=
- =?utf-8?B?dHYyWXNZRytwckw0UjhyYWVWL0RqVHJMbTdHTG13QnVGcU1LOS9wVlp0SUpD?=
- =?utf-8?B?Ulk5NmNGa3VNVW1YOG9mY2FGNDdBVkZOQyt4dElxLzRVd21MdTZhSWxnb0tM?=
- =?utf-8?B?d2pRcmZ3aE5hVXUvYzV3eUJFcWl6MzJUVU1uNlgzVkZkdStRVXkza24rcW4y?=
- =?utf-8?B?cDd0SXkvOVhlazIvazl1Wm1sUkJ2T2FDSzVGTGVJZTduY1RRM1JZUHBmUG13?=
- =?utf-8?B?YU9KNFB0QVliZ050OTlzeGhsR21tclRQQzFkTTE0L2YweUdSRVNsSk1OODR6?=
- =?utf-8?B?M0NWaGhLcDZObmRIUVY5TWZCNlRjVWFzbnhGTFEyYTU2R1g3R083aGZza3NC?=
- =?utf-8?Q?ApEE=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b1djRkZjWnRqZit6MWpzVFRrM2JIQlZCcmJITzVtZHVxWW9ud1laK1gyZ2FQ?=
- =?utf-8?B?UkRmZWxrTk5IdGdReHorNVdaY1lUblcweTUvQWpFaytXOGhpbjNwbU1nZHQ5?=
- =?utf-8?B?cjdIMVdPRWxWUHhjMzhuQVhxVG4wclhNK3UrNXVyRmxMQ0NJdFFNWWJPWTJh?=
- =?utf-8?B?VFZLN1NvVFlIUVNJZTI5Ukt5WXJDdHRzYmpsMEtuek43WExmVEljK0NObmVh?=
- =?utf-8?B?V212YjJqUkM3bFlCaTVILzMrRTk0TE9tWWhmSlFKYlZQWUhIeHlTeGNQaThW?=
- =?utf-8?B?bS9DRzVpdDBqWjMvUzRIMUtVQ3Jmb2t1Q0NmNGFQdzNBdFo4NHVvSGMybndT?=
- =?utf-8?B?UWhEMzQxd2JWa0ZONEFBZjRuclRVODcvd2pnTVJjUFlEL20xR0pEQ2VkYlVR?=
- =?utf-8?B?UWJ4V203M3N5VkNZdURPWE5QMEJiQzVOYUQ2c3hRQVovSXJyZkpXRGZlek5U?=
- =?utf-8?B?SkFNMUhWYmZuYUtBT2xlZzZubG9zcEljOVJjREpPUlF2bU45Q09GUTVsb1NS?=
- =?utf-8?B?N3RrYSt3QXc1WWltZi9SK0tiUGd4Z1ZxbDErKzlKYW1zUit3S29tdFJmU2I3?=
- =?utf-8?B?OStJL0VaRkZvdFBhYUJSSUxDK1dlMXZKSERueUJTY2YvSStLR2oxTlJuSXhS?=
- =?utf-8?B?OGg3emN2a3UyQzE3aDN3bFdyMVFrd3FUb2MzaUx2bzB6NnlyWVpzOWpPR2dM?=
- =?utf-8?B?YUdhVmlORE11NStLY1pVMUZrdXdZeEtaZitkNWE0S2NiT1orS3EzRHEvbmp4?=
- =?utf-8?B?YWZKbVNEREtNMWNBOEtTakRJQVdRcTdZSHpvMEd1UFJFeW16MnZsaUt3TEhp?=
- =?utf-8?B?V21nOFVSZlYrQXNNYTlGZEtSMXdaNWRwck14T3dLOVJrUTNKWEpDa1ZpdmN2?=
- =?utf-8?B?dkRGd2NUOW9jdytpOVRSbUtxekdYOHBRRkNsN25JREd2aUJsWDJYSi9lQ25s?=
- =?utf-8?B?d0lWcjIzelAvTnRyMnJVN1AzdjVzdFFpUWFWQ2pmaTdxdmt6MlZEQjZ2ckM1?=
- =?utf-8?B?UTBpdS9sZVRIUEsxUDlFdGJOUjJvVFNRS1pxZHZ5SGFuRkx5N25jKzVhYWlM?=
- =?utf-8?B?SEVTOFlQUVhBWnR3M2RyOWhnL3FUMXVWVWRjRUQ5OVNGT3haN0t6eHYyVEll?=
- =?utf-8?B?OHd5TmhVN1hPWUc2OWsrVzFKZnAxaFYrdnJ2QUFvaE52OW81dFJpSWlZMGtv?=
- =?utf-8?B?WSttbEFJc0FkeFl0d09xSHV6WXpodWVVUTJkd0lYVUh2WkpqZHdxa3gvRlpV?=
- =?utf-8?B?TEJKdVY4YlFRWjlETk5zS053WEEzYjJwSVFGZWQza2UvaGJ4UzBOVVA0bU5V?=
- =?utf-8?B?MEdNb3lSWHFGL01IRXptV1NUQWJwQkYrcUFHeEJYQXdyZGF3VkFxMzVLSnQx?=
- =?utf-8?B?N2dBUVhSQnFIQmxsUWc0aU5zMkp0WXNhNXRjak1jbllsOHhieHVCNktNTmFH?=
- =?utf-8?B?cXV3cGhnTGpodXhZWW80QXdvdmt3TDdaZ1dvT29EbzZGRkNjK3NvN3JFbzBi?=
- =?utf-8?B?TWYrdzFKVkd3N1NjdUYvN3g0dStka0VWZFVyWmdtUFlqbXVJZ2FmVUZocTRP?=
- =?utf-8?B?NHozcDFtTFlhNGNqZlFIRnNMaHJBWFNwU3ZzWXgrQWFNQnJrcDU2L0F4RVNR?=
- =?utf-8?B?SGNMUHdFV0E0TVpuTGFsK09xYTNaZ2tCUGkyS2FWNmxISW9oQjFFbytCVXV3?=
- =?utf-8?B?MjVhamdhSS9oejZSdTl2dFFtdFgrb05NbVR4ZSttaXEvcVo0NWgyMCtNbU15?=
- =?utf-8?B?Ui9GakZEaDNITUsxWVZlY3JSYlQyb1VHWFJqN2hRdFNldG5yajRSNExYVDJB?=
- =?utf-8?B?UTNmUjR0TlhISXRzMTdzd0Q3bXFNL3JGVHcwb2ZtdmJTQnp0UC9qZFdOZktj?=
- =?utf-8?B?eVUrcldQUk1ZVzBTTE91OEt5QVd1enRLK1RvUmpEUnkvd1FNQVRxNmFNeHh2?=
- =?utf-8?B?dk5CNjJjc3VKa2hBcHJueUZwZGtqbTlMbEhuZHNHN3p6MHhPb2JjQTdMVko5?=
- =?utf-8?B?R0t3bGxEWjlOemJpN2xHZDBaS1U0Mjc0UGxJSnlCWnllYTFwZW42U2d1M3BQ?=
- =?utf-8?B?aFRkUzdBNHVKazZ0OStMK213YmRSaXdqVFREOVUyVm0weWpnbEZSemZaZVU2?=
- =?utf-8?B?dFpEZVFROThFMnZ4Yy9HTmFVOFdRNHEvc1JaNnV4YUNYMUY2bTFsQXMzVmFZ?=
- =?utf-8?B?VGhMVFdhQk43M1Z5M2QvS2U1Zk9KcTE3alFNRm9JWXgybkQxZTd4OHFnM2NM?=
- =?utf-8?B?VEtVRWluRkhUWHdNVmFEbFFYMysyZUV1T0lwb29FdWlyWEhVakFsQko1TFg3?=
- =?utf-8?B?UE9ockFERG9Pb1hndUVFeHg1anN0SmlOZlFhZjUvQUZUeUYvYWhSdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7826a4e9-7ce3-4ce9-c1ac-08de6a521fbd
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 16:16:48.8815
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7+67td1amFfgRNCrj6jHYheX6doCSXLhF7mXbRTkJ1bHbb/9jPC235eZyu+wAZ7jXOCyYbhOKs2364EBt8Z8Mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR03MB8051
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [4.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
+	MID_CONTAINS_FROM(1.00)[];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,vates.tech:mid,vates.tech:dkim,vates.tech:url,vates.tech:email];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,m:intel-xe@lists.freedesktop.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	RCVD_COUNT_SEVEN(0.00)[8];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,Mac.lan:mid];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_THREE(0.00)[3];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	SUBJECT_HAS_QUESTION(0.00)[]
-X-Rspamd-Queue-Id: F049912F429
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: ACD0612F433
 X-Rspamd-Action: no action
 
-On Thu, Feb 12, 2026 at 04:32:56PM +0100, Marek Marczykowski-Górecki wrote:
-> On Thu, Feb 12, 2026 at 04:11:50PM +0100, Roger Pau Monné wrote:
-> > On Tue, Feb 10, 2026 at 07:06:20PM +0100, Marek Marczykowski-Górecki wrote:
-> > > Hi,
-> > > 
-> > > Recently I started testing compatibility with Intel Lunar Lake. This is
-> > > the first one that uses "xe" instead of "i915" Linux driver for iGPU.
-> > > I test it with Qubes OS 4.3, which uses Xen 4.19.4 and PV dom0 running
-> > > Linux 6.17.9 in this test.
-> > 
-> > Not sure it's going to help a lot, but does using a PVH dom0 make any
-> > difference?
-> 
-> Yes, it makes a difference. I end up with black screen as soon as dom0
-> starts... And due to unrelated bug (in xhci console code?), I don't have
-> kernel messages :/
+Since QEMU 11.0, `-incoming fd:` doesn't accept file descriptors of
+plain file, only sockets and pipe are accepted. This has been
+deprecated since QEMU 9.1
 
-Hm, that's ... very helpful.  We should fix the xhci stuff so we know
-what's going on there.  Is the xhci bug also PVH only, or PV is
-equally affected?
+Instead, switch to use `-incoming file:` with an fdset.
 
-Thanks, Roger.
+`incoming file:` schema seems to have been only introduced in QEMU
+8.2. And `-incoming` isn't present in `query-command-line-options` QMP
+command output, so we'll use a check based on QEMU version instead.
+
+QEMU keep the FD open when added as a fdset, so close it in
+postconfig. And now we have two optional set QMP command to run after
+starting QEMU, for VNC and for migration.
+
+Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+ tools/libs/light/libxl_dm.c       | 98 ++++++++++++++++++++++++++++---
+ tools/libs/light/libxl_internal.h |  1 +
+ 2 files changed, 90 insertions(+), 9 deletions(-)
+
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index 511ec76a65..0fdeded92b 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -24,6 +24,8 @@
+ #include <pwd.h>
+ #include <grp.h>
+ 
++#define QEMU_FDSET_SAVED_STATE 1
++
+ static const char *libxl_tapif_script(libxl__gc *gc)
+ {
+ #if defined(__linux__) || defined(__FreeBSD__)
+@@ -1546,8 +1548,21 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+         } else {
+             /* This file descriptor is meant to be used by QEMU */
+             *dm_state_fd = open(state->saved_state, O_RDONLY);
+-            flexarray_append(dm_args, "-incoming");
+-            flexarray_append(dm_args, GCSPRINTF("fd:%d",*dm_state_fd));
++            if (qemu_opts->use_incoming_file) {
++                flexarray_append_pair(dm_args, "-add-fd",
++                     GCSPRINTF("fd=%d,set="STR(QEMU_FDSET_SAVED_STATE)
++                               ",opaque=\"saved_state\"",
++                               *dm_state_fd));
++                flexarray_append_pair(dm_args, "-incoming",
++                                      "file:/dev/fdset/1");
++            } else {
++                /*
++                 * Passing a file descriptor of a plain file to `fd:` has
++                 * been deprecated in QEMU 9.1.
++                 */
++                flexarray_append(dm_args, "-incoming");
++                flexarray_append(dm_args, GCSPRINTF("fd:%d", *dm_state_fd));
++            }
+         }
+     }
+     for (i = 0; b_info->extra && b_info->extra[i] != NULL; i++)
+@@ -2631,6 +2646,12 @@ static void device_model_launch(libxl__egc *egc,
+     libxl__dm_spawn_state *dmss, int rc);
+ static void device_model_postconfig_chardev(libxl__egc *egc,
+     libxl__ev_qmp *qmp, const libxl__json_object *response, int rc);
++static void device_model_postconfig_do_remove_fdset(libxl__egc *egc,
++    libxl__ev_qmp *qmp, int rc);
++static void device_model_postconfig_removed_fdset(libxl__egc *egc,
++    libxl__ev_qmp *qmp, const libxl__json_object *response, int rc);
++static void device_model_postconfig_do_vnc(libxl__egc *egc,
++    libxl__ev_qmp *qmp, int rc);
+ static void device_model_postconfig_vnc(libxl__egc *egc,
+     libxl__ev_qmp *qmp, const libxl__json_object *response, int rc);
+ static void device_model_postconfig_vnc_passwd(libxl__egc *egc,
+@@ -2832,6 +2853,13 @@ static void device_model_probe_cmdline(libxl__egc *egc,
+         }
+     }
+ 
++    /*
++     * Other checks based on QEMU's version
++     */
++    if (libxl__qmp_ev_qemu_compare_version(qmp, 9, 1, 0) >= 0) {
++        dmss->qemu_opts.use_incoming_file = true;
++    }
++
+     qmp->callback = device_model_probe_quit;
+     rc = libxl__ev_qmp_send(egc, qmp, "quit", NULL);
+     if (rc) goto out;
+@@ -3152,7 +3180,6 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+ {
+     EGC_GC;
+     libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
+-    const libxl_vnc_info *vnc = libxl__dm_vnc(dmss->guest_config);
+     const libxl__json_object *item = NULL;
+     const libxl__json_object *o = NULL;
+     int i = 0;
+@@ -3210,12 +3237,7 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+         if (rc) goto out;
+     }
+ 
+-    if (!vnc)
+-        goto out;
+-
+-    qmp->callback = device_model_postconfig_vnc;
+-    rc = libxl__ev_qmp_send(egc, qmp, "query-vnc", NULL);
+-    if (rc) goto out;
++    device_model_postconfig_do_remove_fdset(egc, qmp, rc); /* must be last */
+     return;
+ 
+ protocol_error:
+@@ -3227,6 +3249,64 @@ static void device_model_postconfig_chardev(libxl__egc *egc,
+     device_model_postconfig_done(egc, dmss, rc); /* must be last */
+ }
+ 
++static void device_model_postconfig_do_remove_fdset(libxl__egc *egc,
++    libxl__ev_qmp *qmp, int rc)
++{
++    EGC_GC;
++    libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
++
++    /*
++     * If we used -add-fd for the `saved_state`, ask QEMU to close it.
++     */
++    if (dmss->qemu_opts.use_incoming_file && dmss->build_state->saved_state) {
++        libxl__json_object *args = NULL;
++        qmp->callback = device_model_postconfig_removed_fdset;
++        libxl__qmp_param_add_integer(gc, &args, "fdset-id",
++                                     QEMU_FDSET_SAVED_STATE);
++        rc = libxl__ev_qmp_send(egc, qmp, "remove-fd", args);
++        if (rc) goto out;
++        return;
++    }
++
++    device_model_postconfig_do_vnc(egc, qmp, rc); /* must be last */
++    return;
++
++out:
++    device_model_postconfig_done(egc, dmss, rc); /* must be last */
++}
++
++static void device_model_postconfig_removed_fdset(libxl__egc *egc,
++    libxl__ev_qmp *qmp, const libxl__json_object *response, int rc)
++{
++    libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
++
++    if (rc) goto out;
++
++    device_model_postconfig_do_vnc(egc, qmp, rc); /* must be last */
++    return;
++
++out:
++    device_model_postconfig_done(egc, dmss, rc); /* must be last */
++}
++
++static void device_model_postconfig_do_vnc(libxl__egc *egc,
++    libxl__ev_qmp *qmp, int rc)
++{
++    EGC_GC;
++    libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
++    const libxl_vnc_info *vnc = libxl__dm_vnc(dmss->guest_config);
++
++    if (vnc) {
++        qmp->callback = device_model_postconfig_vnc;
++        rc = libxl__ev_qmp_send(egc, qmp, "query-vnc", NULL);
++        if (rc) goto out;
++        return;
++    }
++
++out:
++    device_model_postconfig_done(egc, dmss, rc); /* must be last */
++}
++
+ static void device_model_postconfig_vnc(libxl__egc *egc,
+     libxl__ev_qmp *qmp, const libxl__json_object *response, int rc)
+ {
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index b65e0064b9..7d916ee64a 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -4094,6 +4094,7 @@ typedef struct libxl__qemu_available_opts libxl__qemu_available_opts;
+ struct libxl__qemu_available_opts {
+     bool have_runwith_chroot;
+     bool have_runwith_user;
++    bool use_incoming_file;
+ };
+ 
+ typedef void libxl__dm_spawn_cb(libxl__egc *egc, libxl__dm_spawn_state*,
+-- 
+Anthony PERARD
+
+
+
+--
+ | Vates
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
