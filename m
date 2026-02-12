@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ULO5LhG6jWl96AAAu9opvQ
+	id ILX7OC+/jWlF6gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 12:31:29 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 12:53:19 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D33F12D075
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 12:31:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228802.1534910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ADDB12D314
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 12:53:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228829.1534919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqUug-0004xI-G7; Thu, 12 Feb 2026 11:31:14 +0000
+	id 1vqVFF-0007uM-3v; Thu, 12 Feb 2026 11:52:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228802.1534910; Thu, 12 Feb 2026 11:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 1228829.1534919; Thu, 12 Feb 2026 11:52:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqUug-0004uB-D1; Thu, 12 Feb 2026 11:31:14 +0000
-Received: by outflank-mailman (input) for mailman id 1228802;
- Thu, 12 Feb 2026 11:31:13 +0000
+	id 1vqVFF-0007sY-0L; Thu, 12 Feb 2026 11:52:29 +0000
+Received: by outflank-mailman (input) for mailman id 1228829;
+ Thu, 12 Feb 2026 11:52:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqUuf-0004u5-6o
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 11:31:13 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vqVFE-0007sS-24
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 11:52:28 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 553abd5b-0806-11f1-b162-2bf370ae4941;
- Thu, 12 Feb 2026 12:31:11 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-480142406b3so62590125e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 03:31:11 -0800 (PST)
+ id 4cf5b5a0-0809-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 12:52:26 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-480706554beso69248085e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 03:52:26 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d82a1c2sm278835535e9.9.2026.02.12.03.31.10
+ 5b1f17b1804b1-4835a5c7c4csm145257255e9.0.2026.02.12.03.52.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 03:31:10 -0800 (PST)
+ Thu, 12 Feb 2026 03:52:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 553abd5b-0806-11f1-b162-2bf370ae4941
+X-Inumbo-ID: 4cf5b5a0-0809-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770895871; x=1771500671; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770897146; x=1771501946; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=J8HmZNx9218iZkLjU9tX+tOBAqyhFCsnxlPaW64ulcc=;
-        b=ZSR7X6CEBk+nsbAMfzV7rDPh9mMgo4lHSK/eTUUgMpKGMU94PvkGtPKKX3EnVOQ5QA
-         EcYr8ZckelMt8fQN51vMDYuFrb9MZ2KKffF3Y5DPvAmpCd3OL68AvIC8x00GVfSFRrYG
-         3w+frGieI2VDC0bldlhUExD7rt3yQxRIIAX5it4spyFLuGN34ASuX9oN9Okvu0hwZ17x
-         pielTLuRlzXa6qPcTPvN9w0X+xQ/AM6p8/FNDC8aIBMfcGaMh925Ve60HA9y/BFXD7l5
-         58TsVwwBDB0g/+K2JcAHilx9/fcE/Gk4aEN7hl/EuC8KhKDmoH5000TRQCOZfO5tbbYw
-         A5cA==
+        bh=I8axo7fTHnUIbKoSLf+JOuNTZoT3vuiGKJ61JVxoPqM=;
+        b=dK2y8VcQxAzvkjJqr/39A+Ebr3R0s75N3iQWsZtvBJMFcYrEVRWGMHXjYhVaWA0x4u
+         M8YxXvewEZPDYxpKUfL3XySapTAw2kFheJd3dczRvQ74RwRYR+rKmoaIq7v4RYaEpgKG
+         lMxztUyc1iAJ1UNlNDEPn4YTvLCH8OAjbCOudvOn7Y6QJRAm8ilo5djtIM1zadbC+hbi
+         0SvPj9juik+z7f9q8Q6qkE9wyTX8PxW12J3sJQ3vGiL3zBGmq8U8TS1RJbD9EbskN0Dj
+         XlIDlTDgyD2Ma4fAESkZRvlN7X0Xpt2rZ2ahtpF20oB3X+wR+YX5sjNGMdWSD+if5WZq
+         WmMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770895871; x=1771500671;
+        d=1e100.net; s=20230601; t=1770897146; x=1771501946;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J8HmZNx9218iZkLjU9tX+tOBAqyhFCsnxlPaW64ulcc=;
-        b=vFkBm9oCe+0K/OdtqAmfje1aRfhLBz279cx5TcZOv68IbY9ygQSJWRAfL/an86yXQ3
-         qY2/RzM81Efm1xeIyxwspW8Fu8Yfwvw1JPFkhm2BuSo75fwOEu/b2RZv889kCu/LeXpH
-         40qZY1XvwswXr4HxI+Nb/AhyTZSsSqaksJMUXE4lo7WAToqeKKUO/YPu+Ec39l1Vnev7
-         WNQD1zn3PXrDltCxecjVNAtUVDI/AMn78wAQSin8/+ftbTMxXQbgLjfr8wCkF+j973UP
-         Dbss1wFjFsr18noDn0S8fPEJ2V7H5yzauarZn/O5DKXRm0tBy3SPsoYniZYiVly7as5u
-         LDpg==
-X-Forwarded-Encrypted: i=1; AJvYcCUAPaj+PWzpkcABeRUfTt72ZKM6Fqq30wfxoUm8PB4nX41OLzlyC+KBE8SDeaUrP2A7KrV1A06A1dk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwzNIhIwt1X2nb7N7Xh8MjPozaUWt3eQHGzP26UmhPNqLptoHmS
-	sYRiQqnHGWozg3pm3q1RH9jYGiE92Ux1E0h4QmyF2E4l82NNlApwfwVeHbypMSDVaA==
-X-Gm-Gg: AZuq6aJolZhN0t9M3oD/PESUOpohX/ZcMIX1elOnRpitkqXP6sgpdeMpVWROlHcvHys
-	HPV3Jf2WCQrrAcaQb1rMjNDAqByilOsa1N1KNsv0KR0+e0tpNBIMAf5AeUb3ZfU7UhhEDoPGQzD
-	pF6LfSBvDVpQ7lhiZDnSX+TIdF4uKIhYvv/nZb7/yZobVORmGyvLYFsjtfK6qf69QjpoMBebxLE
-	HxIxEnyMSvO8WRfAsIxecxL0pgU0sItgJI1SXAlQTSXkDp030FzKThlNQYiHY537KIUXK/Pt7ga
-	2O/a1au+GQdEBGF9RruExCe0x5236/M4dgpQ8wvVpKOyc0uU+WHLl4OapPGG0EdWRajeega+Njw
-	gAprW9q81+y1R/82U62L/pv8Z+4SrF0QGCF4YgsVRqEm+APdKNqJVnzpHkKFppFeFeqXJ67jaYl
-	g3Gq7OagLaly5E0qOMSyfH4Fra222ZNby3KUK920Z+Liv/L1xLT1nzGGxyU8pCzNLO8VSGSMGho
-	WrH/h0q+xKzqMg=
-X-Received: by 2002:a05:600c:4749:b0:47e:e20e:bb9c with SMTP id 5b1f17b1804b1-483656ae4b0mr34168865e9.8.1770895871238;
-        Thu, 12 Feb 2026 03:31:11 -0800 (PST)
-Message-ID: <f2abd192-27c7-4011-95a3-848e1c4e1427@suse.com>
-Date: Thu, 12 Feb 2026 12:31:09 +0100
+        bh=I8axo7fTHnUIbKoSLf+JOuNTZoT3vuiGKJ61JVxoPqM=;
+        b=HRNewdMjSDHKNdl+TkiXjyhY10DQ77SEENcPpyQKcqHA9Pnql++sOd6sQGqkO3gbbC
+         NWvz0rTj7SBvrbxiEcIoufMZhGiUIGbRyl907/UZ+vBNw5eXnacUEKZfqL1OckQ3K+1l
+         9TBOpkCFTGzBHI7HOEdhj0scnigGJsg39pTg0Frpc1hLFWNwkowV7pDs0K6xNGq4Tp/u
+         WLwiRy9w2dlXQ25vkX0NjBZXo718iivvcU22nql0nHJ2wO6L/DrycfiXT3tdMoXCjugn
+         6aKZQqz9ujHOwvqRCwLv4SBp7MRHYe72Pj2Rvw/tpchs+GzxSupyYrAp35ROsDx4Tqdk
+         H4Kw==
+X-Forwarded-Encrypted: i=1; AJvYcCVYu48CSGXR6O0sIvY8/YahmctYA1l3C2Ys25F/rQIa/+diseahvWa6jdgD3Ilundje1SKJwhPnRAQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywkst46aVM+2bwEl7MwwgmD0Lht2itB9c2lge/oACSIs1BcKtC3
+	lXj6Ipve2qUcX68EH4Ir8v79LF4b+pf2RolKfKSlqMIeO8OTcUEsI/K1RhShrIDkDQ==
+X-Gm-Gg: AZuq6aIbG4y8LAHnFm/MuwSjdUkhLRsagOa81WsAyX+CuWnB/l2qSyszwToQCLmPOPb
+	2ybl3L4meLb+dZJkI183vxo0XThyH5Sfy6ryWytgbFXnvBC3lXAW1WFJ0ZpNoKtAoY0dadCpDbn
+	8JWFn8pVs7iQK59ybRo7sCIa3VN/26LssJ8lapWYOg5sJUCv9rSrX1DWicB1YnJLpmwCWXO962L
+	GJM3LWJPFbyKZ3jlVXfRLAQftQnhikk7LUdpv+kG9E/bih0zx0usj3tpa9GDuehZd0bg3jSJgG4
+	mgkepo+U+4YZvwDbG0kNwes6uqUfE+8mcHZ0NXBHen76gCwHSza36QidMVenvXH7LkF2PIReKds
+	PZF+0oisK/RcWi+j7cm/U50akQ4qDyiho7phyWSmiX8w/ZdnQ4Q7e+LzEyTYtOGlUijFddzFiKQ
+	4Kp31MuleHlEz9RmxBBlvNFLZK2GBJyuVZek6SpyxB1vOkob8FT0QeG+yEhPjn05qx0i1hlniW1
+	l2xSYBj197wj98=
+X-Received: by 2002:a05:600c:6095:b0:47d:3ffa:5f03 with SMTP id 5b1f17b1804b1-4836570e7ddmr35302695e9.21.1770897145878;
+        Thu, 12 Feb 2026 03:52:25 -0800 (PST)
+Message-ID: <3504e0eb-973c-427f-98ac-27801819e175@suse.com>
+Date: Thu, 12 Feb 2026 12:52:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/12] x86: Migrate x86_emulate/ to use cpu_vendor()
+Subject: Re: [PATCH 08/12] x86/acpi: Migrate vendor checks to cpu_vendor()
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-9-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-10-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,7 +125,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206161539.209922-9-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260206161539.209922-10-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -145,7 +145,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -159,43 +159,33 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2D33F12D075
+X-Rspamd-Queue-Id: 4ADDB12D314
 X-Rspamd-Action: no action
 
 On 06.02.2026 17:15, Alejandro Vallejo wrote:
-> ... but keep the current behaviour of using the policy vendor when
-> compiled for userspace, where cross-vendor configurations are expected.
-> 
-> Not a functional change.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-
-Hmm, ...
-
-> --- a/xen/arch/x86/x86_emulate/private.h
-> +++ b/xen/arch/x86/x86_emulate/private.h
-> @@ -15,6 +15,7 @@
->  # include <xen/kernel.h>
+> --- a/xen/arch/x86/acpi/cpu_idle.c
+> +++ b/xen/arch/x86/acpi/cpu_idle.c
+> @@ -178,7 +178,7 @@ static void cf_check do_get_hw_residencies(void *arg)
+>      struct cpuinfo_x86 *c = &current_cpu_data;
+>      struct hw_residencies *hw_res = arg;
 >  
->  # include <asm/cpu-user-regs.h>
-> +# include <asm/cpufeature.h>
->  # include <asm/endbr.h>
->  # include <asm/msr-index.h>
->  # include <asm/stubs.h>
-> @@ -30,8 +31,11 @@ void BUG(void);
->  #  define X86EMUL_NO_SIMD
->  # endif
+> -    if ( c->x86_vendor != X86_VENDOR_INTEL || c->x86 != 6 )
+> +    if ( !(cpu_vendor() & X86_VENDOR_INTEL) || c->x86 != 6 )
+>          return;
 >  
-> +# define x86emul_cpu(cp) ({ (void)(cp); cpu_vendor(); })
-> +
->  #else /* !__XEN__ */
->  # include "x86-emulate.h"
-> +# define x86emul_cpu(cp) ((cp)->x86_vendor)
->  #endif
+>      switch ( c->x86_model )
+> @@ -915,8 +915,7 @@ void cf_check acpi_dead_idle(void)
+>              mwait(cx->address, 0);
+>          }
+>      }
+> -    else if ( (current_cpu_data.x86_vendor &
+> -               (X86_VENDOR_AMD | X86_VENDOR_HYGON)) &&
+> +    else if ( cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON) &&
 
-... this looked familiar, yet different at the same time. It was only after
-some eyebrow raising that I noticed that patch 07/12 appears twice in the
-series, with different titles.
+While we certainly make that assumption, shouldn't you add explicit checks
+that APs' vendors match the BSP's, in order to be able to also replace
+current_cpu_data uses? Or do we have such a check, and I'm merely overlooking
+it?
 
 Jan
 
