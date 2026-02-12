@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IJLhJdfnjWkm8gAAu9opvQ
+	id 0M9bDn7qjWnG8gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:46:47 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:58:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 376FB12E7B2
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:46:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229155.1535193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903DB12EAF1
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 15:58:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229239.1535232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqXxn-0004Qb-Iy; Thu, 12 Feb 2026 14:46:39 +0000
+	id 1vqY8h-0000qR-FX; Thu, 12 Feb 2026 14:57:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229155.1535193; Thu, 12 Feb 2026 14:46:39 +0000
+Received: by outflank-mailman (output) from mailman id 1229239.1535232; Thu, 12 Feb 2026 14:57:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqXxn-0004OF-EY; Thu, 12 Feb 2026 14:46:39 +0000
-Received: by outflank-mailman (input) for mailman id 1229155;
- Thu, 12 Feb 2026 14:46:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vqY8h-0000n6-C0; Thu, 12 Feb 2026 14:57:55 +0000
+Received: by outflank-mailman (input) for mailman id 1229239;
+ Thu, 12 Feb 2026 14:57:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yal/=AQ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vqXxl-0002nh-IF
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 14:46:37 +0000
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [2607:f8b0:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0b02eb6-0821-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 15:46:35 +0100 (CET)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 46e09a7af769-7d44b2df00aso3284567a34.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 06:46:35 -0800 (PST)
+ <SRS0=XV9D=AQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vqXyc-0003LH-IS
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 14:47:30 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c16f0aff-0821-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 15:47:29 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-b885e8c6700so1295979866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 06:47:29 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8f9561f722sm61485966b.10.2026.02.12.06.47.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Feb 2026 06:47:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,332 +50,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0b02eb6-0821-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1770907594; cv=none;
-        d=google.com; s=arc-20240605;
-        b=a5w+epA7rWy4VBQNuzfm34M+2iVslC7X7Sx3Jjw/OC8CY0TCOPNN/xZOBYzAK6BA3x
-         ZbSSw04XRAw5KEUYW2zTin+8igwuOx7EzIOEf8XL+MrDu6sNVnfMODJFwQKR9t2CeDkf
-         h0HM6y0IuVh79AQ4BcFLmy+LLCZhsyXEScZuo+CZoRL5Gh9e9o7E/uJPfglYFPeMDvXH
-         BD7FIv3ufn7eQju9IepK7ao334j9fJ7qfA+rjMKtYV/cn9xFKej7CRBmxGTyUKYnZ5Jm
-         jbhf6BlkpNEXWOI/8K1X7235EciEXvZp/6eRCPs7h3TgVedKwOzAHAPjeFhpCxQ6NPBY
-         c7mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zrDF7xqizXAwJ8veOYffIQY4VqbAAu4CVWWB5hv0DxI=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=LzBSGUd83wYmLKaMRl0rSCnFjZNkly6+a8MF6Y4SGtaANW0DYKhK0822VE5QflxOaC
-         J2POG3A2KvfCD5hsPLwmrshytgwJBA2sHVUr3CQOGUg3fmXr385zHZ2n3Riap+8VfDQq
-         R4Wclz+vrJ8GjcEiFp2dnmulJeR/HpuMKq2jE7fQp3UYTGckRrkRKU46gne8KfTgU/be
-         VPOrxkI2v+9dvuNdnmalpuqmb09QAVqj2kqTqojFaI74nyecuCVYDb3nkMA+3Zj60ikN
-         e6qDUTtouhaDAWDx2/b03JnYYvFx1sCxbG1N3ZW+KinbqNCjWPwpoDl2j8O6BnshFmN4
-         7m6Q==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Inumbo-ID: c16f0aff-0821-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770907594; x=1771512394; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zrDF7xqizXAwJ8veOYffIQY4VqbAAu4CVWWB5hv0DxI=;
-        b=RMSObuzXuDcNLNN1w6OejAXZOFf1LLbycXAf4gAtO7c4WfJdKRLssPC4P6JQTd9gZa
-         0qsWh/fCqxRXCLK/fA49Z3xofujpGGbMhK1WP61kw1ShmDbvTSBwk6JpPQ48lAp3wNzf
-         f0qtp7A9lb1k117S/dwsNZX0SO8MIfuVrd4jPCWbFxKgxLgIu+XM2ZdsGbQM1JAE4P+2
-         N3+Fw8aH0bXuTBDQo7S+V5PMjCr/xHe7mlcW+AicfeMF/8YwnpBqAFH2SiDpJ46RrjCB
-         xco2Z8I7mDMAvWEUMgnpEM6eTthjgUPOrcW5hUOnWmq9w6lYIlOIqMFc7GNCVGnmXtXe
-         mZmA==
+        d=gmail.com; s=20230601; t=1770907649; x=1771512449; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KhmKvOCFr03n94/Oog9YHNmUDMvOXW/QHi6iRkXV/To=;
+        b=Dev1MkKFsa6LihJd4guLaQwNzPtYbqSGjJCZ5qGs6z0JV+JsCzD6b+X/QgfA0AgVlV
+         D5NBdFSS04KMQMvH2LcH0YgEDsTrj5asEH2Fl6mChv9+hjV3bTwChhur3F+sjS47b0Lh
+         sIFUyt8PPptAs9ErYgfJCtqTaDhZYqoDUToPaPa91JAdh9dGT3gKkBZSB4A48mz+g+Yx
+         l+Suko/CW/7IKb+lYfrcWoqQbua3oCYrMr3QPwbQ8mOSfwt/ahs+PS5ePQO3PLS88j9l
+         EQ3H1pumdxwmlvpwZlXZ57XM0CRf19PVeH05AukWYk5WMwBx65o3TKyx5w5jEjyaF2Iv
+         APGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770907594; x=1771512394;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zrDF7xqizXAwJ8veOYffIQY4VqbAAu4CVWWB5hv0DxI=;
-        b=V28XsRipNWHErQ3noAN/x8OEX2CUkzf4aTTqs2154JAZVqiVibd8BjbvxYoULdwmM0
-         swz7ZOey1eY7AbUsBMemAPOM1qKaK2GYzbfJl40e3Op686Jwr37lZGuSvRX8DSXIPMgY
-         uxmxaiSlCH5d5seh+jvBpMdyOXKxs5u5RkXQfTccn8HPSjILr6l+jQIdwttnoYtUYqub
-         Nz9RLYZP/hrAQxYPwCbXv83zgNoVIqJMexHmujnCew/JC33EMYL+dOWV/yjyhaw6A4py
-         Bh9zhahw5Com5AF7xXKnkkVNR8MQj2IaytT2lJtOYCP1oLOu/c2EQgyIDB3seH5G/NdE
-         6awg==
-X-Gm-Message-State: AOJu0YzEHGQ1s9dULmvZ/HqXNnHt2Em9HeFG1SUEJgfd7/E/uSznPWpm
-	y3VixL9piazfZtlBYynxksAcv5tnZQD8+lHeqlEfI1fUbEwh7OYDAZSrD9PET5IqAt0S0h/VPBD
-	w/K77BstQWjKR5ZbwOYJp4BfQpAHTsKXTGe+SYbvgnA==
-X-Gm-Gg: AZuq6aIz6yAFRWyvWvrE2TcQ1DogViTXI6iGAZdtQHFx3GbyMXPlfmREw/KSx3pKrwW
-	1I+2PL7bSewUaG62Mq61qEV481hbRz/l391pM1LK7k6mEEx3k0hp1Qw2gbQdB0gW7Npjyd3rfSY
-	oplyQ1NfBSAb/bf9VxMdy8N7k1nqsXVslkZYFbayrXVXFVouaZD0Uq+CERBphrntCDB1VRAwoVf
-	QWOyxOpKRA5DNWsZ1K6yINLfnrAjaq7cVmpMJz00CxnQtFiXPgtPhYpGy0yIOk7zYiNbv6vKOXN
-	nE3Q9GIy4nfFPcotmAU3+HuOSMweZrCWtp4LtQ==
-X-Received: by 2002:a05:6820:1ca5:b0:66e:7aaa:be64 with SMTP id
- 006d021491bc7-6759b9b445amr1400449eaf.55.1770907593967; Thu, 12 Feb 2026
- 06:46:33 -0800 (PST)
+        d=1e100.net; s=20230601; t=1770907649; x=1771512449;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KhmKvOCFr03n94/Oog9YHNmUDMvOXW/QHi6iRkXV/To=;
+        b=OT0M0mrS3t6oZ8MtLzEN4WMs99yUbXxxUcYIwwMt83+LAdmoxQ2cbaJ94zInJYEos5
+         TBbSnfKsc3N3ud8F/cLllOrdvDHGaa1EFKwWGYBs3NCRTgkv8yAb1Hf8UlLJCiTX6AtT
+         rplh+V4PtopMWQv1hapnWk8f0Za2SEgJGcNhlhGZJkWNUqrsJwwRDkyMFDYgHErWlrj3
+         cbqttBnCBMZhpbMeZqRa48TBYIU2ln1ffsmEAGy1fwXlKfK9eGqZ5/ycF/BUmThXwT02
+         Y5rdSXE4PXkkM1krxFJTOZYjqRjIqm0Lc+uDPT/gg27H03ISp+JZw4MI14FfOzAIgmtf
+         I0KA==
+X-Forwarded-Encrypted: i=1; AJvYcCXHOebqoXjUwpm7Y48nKLnE+9xuYpOWBy0VywzquqYBp/o0+T/cZG+i9QsIy+tmsSN5dsuLwqZw94k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyI9tnkRJskQxLssWVKC0xtyjiVDAebn2mqRj0ykGDLvLQCjk2z
+	LD2NS6RKkO3MOPwIvIzfyRadc2wixfaWNk0kmONA3R0gTNVxfd3r5nxc
+X-Gm-Gg: AZuq6aJuyNd6AHrdEu2AQpoxrZBFAZ7rG3DV6GIJoI4Y3o3MvroX1Zd6QyG5TqD6K2/
+	X+mKeq0MR7GHec4xnOq737MYZ4Q8I1YQeo8iWbD9iFDV1JeqQIAjxgW/rMa95wVA2XYJv5mh+Bb
+	NHNbrDU2n9g+H4xfogfR8G2vL5NaMzrd9DCIpHJhw/aYJjas9/n85kvh+PjB5692hpthbA78/LP
+	aCEun3WdFSyTl1Xt/YKqikfpHgKZadCfGsMZw9HweysRiKvKb695wPRxS2a5xlHVvCgl1FGYFf5
+	sr0Jt2q21JgsI0Zvnh1Pjkd8arRCjCoXWpAfZilbdL77UoKwnOYt1247vTL3nt6WnaPXepJe3TS
+	h0xZ5XBAeWmaMTQB7DpPyWpSDl2r2eAuKGaplqLXm2XZTbm33tUqbHf8A417w4LGxxaI+Q9MlN0
+	1qTYxQ3r2Xsw53BqGNBT9B+rdF6lUxD1DfOG0PW0HMrhyeMBpgY0mRJ2jQ8d2aaRG+yGKoYxJAN
+	NM=
+X-Received: by 2002:a17:907:a07:b0:b87:173f:630 with SMTP id a640c23a62f3a-b8f8f60eb4dmr186348266b.40.1770907648995;
+        Thu, 12 Feb 2026 06:47:28 -0800 (PST)
+Message-ID: <4f9953ae-8722-4971-a214-6c40f7f5859a@gmail.com>
+Date: Thu, 12 Feb 2026 15:47:26 +0100
 MIME-Version: 1.0
-References: <cover.1770826406.git.bertrand.marquis@arm.com> <ee4ae1ba137aca30b9e6e53e6a2a07f84fac9c56.1770826406.git.bertrand.marquis@arm.com>
-In-Reply-To: <ee4ae1ba137aca30b9e6e53e6a2a07f84fac9c56.1770826406.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 12 Feb 2026 15:46:21 +0100
-X-Gm-Features: AZwV_QjEdI2-za8UIiLcMsNddFXfzchzJxx4MlgMROAMdBQ_0PUzMzl7tXN62_8
-Message-ID: <CAHUa44F2fAwg+bUUTaYNjBMtvnT1z3xAeDAN9wjcYLdb9dUpYQ@mail.gmail.com>
-Subject: Re: [PATCH v2 12/12] xen/arm: ffa: Add message parameter diagnostics
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] xen/riscv: add p2m context switch handling for
+ VSATP and HGATP
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770739000.git.oleksii.kurochko@gmail.com>
+ <0e6f450d64ce17f504d73c3429c8e8a9ced0cf06.1770739000.git.oleksii.kurochko@gmail.com>
+ <7cec918c-bd58-4013-9ec2-d43ff7afcd7c@suse.com>
+ <099768df-ec44-454f-8a9e-4897d81309f9@gmail.com>
+ <ba48bef0-551e-4ea7-8d9a-fb54b9b85da6@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <ba48bef0-551e-4ea7-8d9a-fb54b9b85da6@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
+	TAGGED_FROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[linaro.org:+];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 376FB12E7B2
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 903DB12EAF1
 X-Rspamd-Action: no action
 
-Hi Bertrand,
 
-On Wed, Feb 11, 2026 at 6:16=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
+On 2/12/26 1:56 PM, Jan Beulich wrote:
+> On 12.02.2026 12:57, Oleksii Kurochko wrote:
+>> On 2/12/26 11:16 AM, Jan Beulich wrote:
+>>> On 10.02.2026 17:36, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/p2m.c
+>>>> +++ b/xen/arch/riscv/p2m.c
+>>>> @@ -1434,3 +1434,126 @@ struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
+>>>>    
+>>>>        return get_page(page, p2m->domain) ? page : NULL;
+>>>>    }
+>>>> +
+>>>> +void p2m_ctxt_switch_from(struct vcpu *p)
+>>>> +{
+>>>> +    if ( is_idle_vcpu(p) )
+>>>> +        return;
+>>>> +
+>>>> +    /*
+>>>> +     * No mechanism is provided to atomically change vsatp and hgatp
+>>>> +     * together. Hence, to prevent speculative execution causing one
+>>>> +     * guest’s VS-stage translations to be cached under another guest’s
+>>>> +     * VMID, world-switch code should zero vsatp, then swap hgatp, then
+>>>> +     * finally write the new vsatp value what will be done in
+>>>> +     * p2m_handle_vmenter().
+>>>> +     */
+>>>> +    p->arch.vsatp = csr_swap(CSR_VSATP, 0);
+>>>> +
+>>>> +    /*
+>>>> +     * Nothing to do with HGATP as it is constructed each time when
+>>>> +     * p2m_handle_vmenter() is called.
+>>>> +     */
+>>>> +}
+>>>> +
+>>>> +void p2m_ctxt_switch_to(struct vcpu *n)
+>>>> +{
+>>>> +    if ( is_idle_vcpu(n) )
+>>>> +        return;
+>>>> +
+>>>> +    n->domain->arch.p2m.is_ctxt_switch_finished = false;
+>>> How can the context switch of a vCPU affect domain-wide state?
+>> It is wrong to have is_ctxt_switch_finished per domain, it should be
+>> vCPU field.
+>>
+>>>> +    /*
+>>>> +     * Nothing to do with HGATP or VSATP, they will be set in
+>>>> +     * p2_handle_vmenter()
+>>>> +     */
+>>> Why can this not be done here?
+>> As VMID should be calculated on VM enter.
+> And I didn't suggest to calculate a new one here.
 >
-> MSG_SEND2 and direct request validation failures are silent, making it
-> hard to diagnose invalid IDs, oversized messages, or unsupported
-> destination types.
->
-> Add debug logs for parameter validation failures:
-> - invalid endpoint IDs
-> - oversized messages
-> - unsupported destination types
-> - invalid sender/receiver combinations
-> - ratelimit MSG_SEND2 busy failures to avoid log flooding
->
-> No functional changes.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes since v1:
-> - add a comment to explain ratelimit for BUSY in send2
-> ---
->  xen/arch/arm/tee/ffa_msg.c | 49 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 49 insertions(+)
+>> We can update HGATP and VSATP here with VMID stored before in p2m_ctxt_switch_from(),
+>> but then it is possible when vmid_handle_vmenter() will be called before VM entry
+>> VMID could be changed and it will be needed again to update HGATP and VSATP what
+>> will lead to flushing of VS TLB twice (one in p2m_ctxt_switch_to() and another one
+>> in p2m_handle_vmenter()).
+> Is this a concern resulting from particular logic you expect to appear
+> in the window between context switch and entering the guest, or is this
+> merely an abstract concern?
 
-Looks good:
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+If we will have VS TLB flush unconditionally in VM entry then it is merely an
+abstract concern. Otherwise, considering that speculation could happen between
+context switch and VM entry what could lead to that some entries were added to
+VS TLB flush with old VMID in the case if then in VM entry vCPU might receive new
+VMID.
 
-Cheers,
-Jens
+>
+>> This is also an answer to ...
+>>
+>>>> +}
+>>>> +
+>>>> +void p2m_handle_vmenter(void)
+>>>> +{
+>>>> +    struct p2m_domain *p2m = &current->domain->arch.p2m;
+>>> To save yourself (or others) future work, please never open-code p2m_get_hostp2m()
+>>> (applies further up as well, as I notice only now).
+>>>
+>>>> +    struct vcpu_vmid *p_vmid = &current->arch.vmid;
+>>>> +    uint16_t old_vmid, new_vmid;
+>>>> +    bool need_flush;
+>>>> +    register_t vsatp_old = 0;
+>>>> +
+>>>> +    BUG_ON(is_idle_vcpu(current));
+>>> This is the 3rd use of current - latch into a local variable?
+>>>
+>>>> +    /*
+>>>> +     * No mechanism is provided to atomically change vsatp and hgatp
+>>>> +     * together. Hence, to prevent speculative execution causing one
+>>>> +     * guest’s VS-stage translations to be cached under another guest’s
+>>>> +     * VMID, world-switch code should zero vsatp, then swap hgatp, then
+>>>> +     * finally write the new vsatp value
+>>>> +     *
+>>>> +     * CSR_VSATP is already set to 0 in p2m_ctxt_switch_from() in the
+>>>> +     * case when n->arch.is_p2m_switch_finished = false. Also, there is
+>>>> +     * BUG_ON() below to verify that.
+>>>> +     */
+>>>> +    if ( p2m->is_ctxt_switch_finished )
+>>>> +        vsatp_old = csr_swap(CSR_VSATP, 0);
+>>> This shouldn't be needed when ...
+>>>
+>>>> +    old_vmid = p_vmid->vmid;
+>>>> +    need_flush = vmid_handle_vmenter(p_vmid);
+>>>> +    new_vmid = p_vmid->vmid;
+>>> ... the VMID doesn't change. Imo you want to drop is_ctxt_switch_finished
+>>> again, handle things normally in p2m_ctxt_switch_to(), and deal with merely
+>>> a changing VMID here.
+>> ... (check the answer above)
+>>
+>> If it is okay to have potential double VS TLB flush and double update of
+>> HGATP and VSATP when old_vmid != new_vmid then we can do in this way.
+> I think the simpler, straightforward approach should be used initially,
+> with improvements made once a performance issue was actually determined, or
+> once a less ugly (sorry) approach was found. For example, assuming CSR
+> reads aren't overly expensive, it looks to me as if during VM entry
+> - vsatp only needs writing when vsatp.MODE is zero,
+> - hgatp only needs writing when vsatp.MODE is zero or when the VMID needs
+>    updating.
 
->
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index 928f269f6c3a..1eadc62870f2 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -4,6 +4,7 @@
->   */
->
->  #include <xen/const.h>
-> +#include <xen/lib.h>
->  #include <xen/sizes.h>
->  #include <xen/types.h>
->
-> @@ -100,6 +101,7 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_r=
-egs *regs, uint32_t fid)
->      if ( !ffa_fw_supports_fid(fid) )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> +        gdprintk(XENLOG_DEBUG, "ffa: direct req fid %#x not supported\n"=
-, fid);
->          goto out;
->      }
->
-> @@ -108,6 +110,9 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_r=
-egs *regs, uint32_t fid)
->           (src_dst & GENMASK(15,0)) =3D=3D ffa_get_vm_id(d) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: direct req invalid src/dst %#x\n",
-> +                 (uint32_t)src_dst);
->          goto out;
->      }
->
-> @@ -115,6 +120,9 @@ void ffa_handle_msg_send_direct_req(struct cpu_user_r=
-egs *regs, uint32_t fid)
->      if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: direct req to non-secure dst %#x\n",
-> +                 (uint32_t)(src_dst & GENMASK(15, 0)));
->          goto out;
->      }
->
-> @@ -166,7 +174,12 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, con=
-st void *src_buf,
->      /* This is also checking that dest is not src */
->      ret =3D ffa_endpoint_domain_lookup(dst_id, &dst_d, &dst_ctx);
->      if ( ret )
-> +    {
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 lookup failed: dst %#x ret %d\n",
-> +                 dst_id, ret);
->          return ret;
-> +    }
->
->      /* This also checks that destination has set a Rx buffer */
->      ret =3D ffa_rx_acquire(dst_ctx , &rx_buf, &rx_size);
-> @@ -199,6 +212,16 @@ static int32_t ffa_msg_send2_vm(uint16_t dst_id, con=
-st void *src_buf,
->      /* receiver rx buffer will be released by the receiver*/
->
->  out_unlock:
-> +    if ( ret )
-> +    {
-> +        /**
-> +         * Always print other errors than BUSY but ratelimit BUSY prints
-> +         * to prevent large number of prints when sender retries on BUSY=
-.
-> +         */
-> +        if ( ret !=3D FFA_RET_BUSY || printk_ratelimit() )
-> +            gdprintk(XENLOG_DEBUG, "ffa: msg_send2 to %#x failed: %d\n",
-> +                     dst_id, ret);
-> +    }
->      rcu_unlock_domain(dst_d);
->      if ( !ret )
->          ffa_raise_rx_buffer_full(dst_d);
-> @@ -226,7 +249,11 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *r=
-egs)
->
->      ret =3D ffa_tx_acquire(src_ctx, &tx_buf, &tx_size);
->      if ( ret !=3D FFA_RET_OK )
-> +    {
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 TX acquire failed: %d\n", ret);
->          return ret;
-> +    }
->
->      /* create a copy of the message header */
->      memcpy(&src_msg, tx_buf, sizeof(src_msg));
-> @@ -238,6 +265,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->           dst_id =3D=3D ffa_get_vm_id(src_d) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 invalid src/dst src %#x dst %#x\n",
-> +                 src_id, dst_id);
->          goto out;
->      }
->
-> @@ -246,6 +276,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->          if (src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_1))
->          {
->              ret =3D FFA_RET_INVALID_PARAMETERS;
-> +            gdprintk(XENLOG_DEBUG,
-> +                     "ffa: msg_send2 invalid msg_offset %u (v1.1)\n",
-> +                     src_msg.msg_offset);
->              goto out;
->          }
->          /* Set uuid to Nil UUID for v1.1 guests */
-> @@ -255,6 +288,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->      else if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx_1_2) =
-)
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 invalid msg_offset %u (v1.2)\n",
-> +                 src_msg.msg_offset);
->          goto out;
->      }
->
-> @@ -263,6 +299,9 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->              src_msg.msg_size > (tx_size - src_msg.msg_offset) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 invalid msg_size %u offset %u tx %zu\n"=
-,
-> +                 src_msg.msg_size, src_msg.msg_offset, tx_size);
->          goto out;
->      }
->
-> @@ -272,6 +311,8 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->          if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
->          {
->              ret =3D FFA_RET_NOT_SUPPORTED;
-> +            gdprintk(XENLOG_DEBUG,
-> +                     "ffa: msg_send2 to SP not supported\n");
->              goto out;
->          }
->          /*
-> @@ -288,6 +329,8 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *re=
-gs)
->
->          ret =3D ffa_simple_call(FFA_MSG_SEND2,
->                                ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0,=
- 0, 0);
-> +        if ( ret )
-> +            gdprintk(XENLOG_DEBUG, "ffa: msg_send2 to SP failed: %d\n", =
-ret);
->      }
->      else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
->      {
-> @@ -295,7 +338,11 @@ int32_t ffa_handle_msg_send2(struct cpu_user_regs *r=
-egs)
->          ret =3D ffa_msg_send2_vm(dst_id, tx_buf, &src_msg);
->      }
->      else
-> +    {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        gdprintk(XENLOG_DEBUG,
-> +                 "ffa: msg_send2 to VM disabled (dst %#x)\n", dst_id);
-> +    }
->
->  out:
->      ffa_tx_release(src_ctx);
-> @@ -311,6 +358,7 @@ void ffa_handle_run(struct cpu_user_regs *regs, uint3=
-2_t fid)
->      if ( !ffa_fw_supports_fid(fid) )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> +        gdprintk(XENLOG_DEBUG, "ffa: run fid %#x not supported\n", fid);
->          goto out;
->      }
->
-> @@ -322,6 +370,7 @@ void ffa_handle_run(struct cpu_user_regs *regs, uint3=
-2_t fid)
->      if ( !FFA_ID_IS_SECURE(dst >> 16) )
->      {
->          ret =3D FFA_RET_NOT_SUPPORTED;
-> +        gdprintk(XENLOG_DEBUG, "ffa: run to non-secure dst %#x\n", dst);
->          goto out;
->      }
->
-> --
-> 2.52.0
->
+Do you mean to do that only in p2m_handle_vmenter() and having
+p2m_ctxt_switch_to() does nothing (or just dropped)?
+If yes then it could be an option.
+
+I thought about such approach but decided to go with an introduction
+of is_ctxt_switch_finished as it looked to me that it is better for
+potential TLB flushing optimization.
+But I am okay to start with suggested way and re-work it once a
+performance issue will be actually determined.
+
+~ Oleksii
+
 
