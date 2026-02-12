@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yL5NEgj+jWm0+AAAu9opvQ
+	id 4NsDEwv+jWm0+AAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:21:28 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:21:31 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F116B12F4E6
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:21:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1229474.1535430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DD412F4FA
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 17:21:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1229475.1535436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqZRR-0006Kw-Bn; Thu, 12 Feb 2026 16:21:21 +0000
+	id 1vqZRR-0006PZ-Io; Thu, 12 Feb 2026 16:21:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1229474.1535430; Thu, 12 Feb 2026 16:21:21 +0000
+Received: by outflank-mailman (output) from mailman id 1229475.1535436; Thu, 12 Feb 2026 16:21:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqZRR-0006Gx-4R; Thu, 12 Feb 2026 16:21:21 +0000
-Received: by outflank-mailman (input) for mailman id 1229474;
- Thu, 12 Feb 2026 16:21:19 +0000
+	id 1vqZRR-0006Ku-CE; Thu, 12 Feb 2026 16:21:21 +0000
+Received: by outflank-mailman (input) for mailman id 1229475;
+ Thu, 12 Feb 2026 16:21:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XV9D=AQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vqZRP-0006Fi-Dy
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 16:21:19 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1vqZRQ-0006Fi-Kf
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 16:21:20 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dbe61651-082e-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 17:21:17 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-4359108fd24so27355f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 08:21:17 -0800 (PST)
+ id dc8a1bbe-082e-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Feb 2026 17:21:18 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4834826e5a0so32425e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 08:21:18 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43783e5c635sm13938426f8f.37.2026.02.12.08.21.15
+ ffacd0b85a97d-43783e5c635sm13938426f8f.37.2026.02.12.08.21.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Feb 2026 08:21:16 -0800 (PST)
+ Thu, 12 Feb 2026 08:21:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,43 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dbe61651-082e-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: dc8a1bbe-082e-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770913277; x=1771518077; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1770913278; x=1771518078; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=756p0sgqElUf/O7m5v8k7wVt+/PfhKAVifuQ4bDjN4Q=;
-        b=kyw34+E7slAVZfUbtJhcKV+vlYckGky3hgXGk2+r+fa15vnfFxxoUl6VdeUNGqrii7
-         XVmVl/nWvrjEkObDUjimkpaawuEBtrMSyEVuln09OGMH8ENlBMsny/DRIr4UOejFmC8U
-         +Mnn6GAppPExM4RAZXZbE3/6kiGvPGIQ9DaeJcuzslRarpvqFUY25MeCd1qPc6s9dmva
-         L6nGXctZqNZxTLyxfqfU+/3GL8VTcaTIjbnyJgeIB8QNz+292PfW2rWeqwHceY/zj9Iq
-         OYsMORPKiD4+vTBqjf+qWkEJE17D+tpj62AB2FE/M+1COnIIY9T4dKsOICDOefyHmu7J
-         +bOg==
+        bh=PELzgBrkYoFU28QGxSaV7T34+uk+b3op31q7VDuVJfM=;
+        b=N4TqEt1QE/B8pYIP+hQ+7eFD2X+6KEctSsdPp4P8HWs9uKANviylSh3QnWZDkBUFfm
+         afd2WRuCFtrCcqsvvB2n6tE7PbKWuTjxWnk6EnfKWQIMlY/5OpAUIAnU+FydfGCZWGII
+         hmN3fHWqWey4cvex2Wubsea/fog+ol6bNGaIk/PfgEYfhbiFrbONdMOZ1D4PJ8ICv14Y
+         lOyK1a8ifrEZu3ZDqwmlDZAgP5a9ewIptJSKBaroFAvji2j4Kv5YdwPcHpePJxYRXlWT
+         wUtK7r3JQfHw/30+9WdeT7E9adgXS+UZrAoa6GtaAWs6M6/5aHM7E9XIOQe2klKfe8/d
+         PSnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770913277; x=1771518077;
+        d=1e100.net; s=20230601; t=1770913278; x=1771518078;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=756p0sgqElUf/O7m5v8k7wVt+/PfhKAVifuQ4bDjN4Q=;
-        b=cJPcuKFBnEqtZnKLmr8R2v2G8d/4AG6De4twy7uL29w3Clg9Xefl/ZWMSULJ6IyVZc
-         VXEDSQoiEZ4dSN5Ot6WVVwRCofwSNTnY92R4DVgLdmApSyEkCBXLAv4zhz7bghpXeFY3
-         6J0bnvGrkkV63M2FO7HblZqMmvqU4YCJF5Mq8fWA7OUa7xjKbANn6Xdzm4MZ3UjWxwtW
-         zF/rsVmJDGELOjW445w4aH6/R1yDrx4pU0HYC/m7NEMMc/oSM7fcURq+j8B4n13J/JB8
-         TixyqUzqsgmTrs6a1Y6jJB5TH/P/kXvrJT8WFYp1cKRFQr0A/frZadPvehT/vd96uR0Q
-         AwMQ==
-X-Gm-Message-State: AOJu0YyWUsIZTcroBztzcIrbuXABGp8+gWMZwWt9ISd9W6U1C2uCvnj+
-	oeb5V1kQtQAnsogVx5OmHkd07TcW4aa1YtnagkZe/wOZT+mFwh64P9E9P6nACDWW
-X-Gm-Gg: AZuq6aKMkIlVn1fLdHrq9ZLmUXZC2u1lCktekrkchfrXd0ddE+s3YHE6KSIZDIBoq14
-	g8KavzYmEuGGGk3uLpg9vg0wblmsLLkel3E/JcW0UUMSxXLy4N9jmZhhFeJw2f4CF93c8BHnUyV
-	a4ZHV6nNtY7fIGB9pG3aYJfgXxPSJnF3Li5cHgJrl2CHVzaDMKzbpAyS7SF3L/RumAb2V0VzqdM
-	tHwIZSWZFoOJl78HQJNFTZX0sRicyuAVxiUzMfDwx5aMz7zMW4Z5rkqGJccocjgiAudJQFzF42p
-	uXFdmb4AGhGAPDHhbBP471lsFAK/3HbvIPVBC2FgKrk9aerYlWM9bs4HxfM0OYg0/RSS/w39Ndi
-	oqFyIhTBs+lb8bx06QZKg6a6FYV1f+f2L5WpbRuulsQS+RZlhDtjFrMcNnSbRxbJdw+aMScgFgI
-	zgPuA/mKhVWpBoB3lt5lSEWvaS+i5d9krfpMm6d5bKYvM7CsOTDppUofhqYsO1xvYnAiBHfTWrH
-	J6hKE3b
-X-Received: by 2002:a5d:5f55:0:b0:437:712a:fac9 with SMTP id ffacd0b85a97d-4378aa04146mr6020186f8f.23.1770913276791;
-        Thu, 12 Feb 2026 08:21:16 -0800 (PST)
+        bh=PELzgBrkYoFU28QGxSaV7T34+uk+b3op31q7VDuVJfM=;
+        b=CIGbO3TRJmSlurtGHefyM8a5rdM2TGgbN3taVDDm/LQjfq59k/fDJmVzljtikWfXRu
+         8CuChyWVZudA+MJ7ETjWKndhnHkIHWtGxEoF2p+AJrShLrm/uF2Z2uzNHe6nH87Hp2xV
+         0oJo14A4t6WreIIFBghGa9W1SclSeDeLD0MWetY/eHQ0KLlditiskUzAItOeB7eIv0lL
+         HK2V9cPYl5awAWcjSpMa02NMTbMrt4wTQJm7H1NEGqGz//Y+NNiA3CJftj7zG3I16GyD
+         GV1f93GvMLB+bZl7V+8w65Zv7Z0ED0TDhzwAWXE7cSIvZfDuT29q2gnSGsiqmYuzRvx0
+         IUVQ==
+X-Gm-Message-State: AOJu0Yya6P0ZF14serfLv2+UOZlz56avLDldAV4mKd7ipseQynNmo6qt
+	k2LJrj6G/0tQsYvcb5pHZLhAfeoykiXw130GjZ7wr6FrWkVsFlsqovODcH/oOfqZ
+X-Gm-Gg: AZuq6aJ7ueKKyTx+ng3EdeawZgbtqANs6uC3sw0z9+QMNe+q3Hlacau/GKpwjPEbrBz
+	1kgKHtThonjWnftSNy2gVsh/ISvJgpAmIX0PMyoskjj7/QgJYNtTki/E2Dn251nNcAfJ+gZN8tb
+	mGjk69m2KTLw/dXWeu/qTgtvtaSuBgmcPEhPRRl1k+xQE901loBl+ZflMcVTQsZLLbfJUoGA0X0
+	8I+BzskUO40f4QbFzYQ59RDUn55cGLFpjqqljSCLuBygAiUJOKVio6uxJhX2059c8J81t5JW9Vu
+	GIXC/+ZtPMTOd+sSZGQyCPzHY/kNDeDmA9X3kgfLN/iBCLYiDNqiV2lwxAnB990OHIxeRUbZt0d
+	8Qq3aq0ntPduqNc3jMmPBZbIlGXdnucIBAjmGbi9xQvlC5gdDct2s7dJEHnJ6YurM9+e+0xkJtc
+	g5cOyPrKkeWBQ93K8+c+94NGtRq+umuMJRYjY7gTqE3qG1boYD5plPCG1fAWE057bDtA==
+X-Received: by 2002:a05:600c:6285:b0:482:eec4:76d with SMTP id 5b1f17b1804b1-4836715979emr46166525e9.17.1770913277874;
+        Thu, 12 Feb 2026 08:21:17 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -100,9 +99,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 1/6] xen/riscv: implement get_page_from_gfn()
-Date: Thu, 12 Feb 2026 17:21:02 +0100
-Message-ID: <04eee3ae5e8aadf8c7f0b873ba24ce38220e8fa2.1770821989.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 2/6] xen/riscv: implement copy_to_guest_phys()
+Date: Thu, 12 Feb 2026 17:21:03 +0100
+Message-ID: <cb50d76c627cb666317b23ae136ca43bfbfd04c5.1770821989.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770821989.git.oleksii.kurochko@gmail.com>
 References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
@@ -144,119 +143,184 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: F116B12F4E6
+X-Rspamd-Queue-Id: 01DD412F4FA
 X-Rspamd-Action: no action
 
-Provide a RISC-V implementation of get_page_from_gfn(), matching the
-semantics used by other architectures.
+Introduce copy_to_guest_phys() for RISC-V, based on the Arm implementation.
 
-For translated guests, this is implemented as a wrapper around
-p2m_get_page_from_gfn(). For DOMID_XEN, which is not auto-translated,
-provide a 1:1 RAM/MMIO mapping and perform the required validation and
-reference counting.
+Add a generic copy_guest() helper for copying to and from guest physical
+(and potentially virtual addresses in the future), and implement
+translate_get_page() to translate a guest physical address into a struct
+page_info via the domain p2m.
 
-The function is implemented out-of-line rather than as a static inline,
-to avoid header ordering issues where struct domain is incomplete when
-asm/p2m.h is included, leading to build failures:
-  In file included from ./arch/riscv/include/asm/domain.h:10,
-                   from ./include/xen/domain.h:16,
-                   from ./include/xen/sched.h:11,
-                   from ./include/xen/event.h:12,
-                   from common/cpu.c:3:
-  ./arch/riscv/include/asm/p2m.h: In function 'get_page_from_gfn':
-  ./arch/riscv/include/asm/p2m.h:50:33: error: invalid use of undefined type 'struct domain'
-     50 | #define p2m_get_hostp2m(d) (&(d)->arch.p2m)
-        |                                 ^~
-  ./arch/riscv/include/asm/p2m.h:180:38: note: in expansion of macro 'p2m_get_hostp2m'
-    180 |         return p2m_get_page_from_gfn(p2m_get_hostp2m(d), _gfn(gfn), t);
-        |                                      ^~~~~~~~~~~~~~~
-  make[2]: *** [Rules.mk:253: common/cpu.o] Error 1
-  make[1]: *** [build.mk:72: common] Error 2
-  make: *** [Makefile:623: xen] Error 2
+Compared to the Arm code:
+- Drop COPY_flush_dcache(), as no such use cases exist on RISC-V.
+- Do not implement the linear mapping case, which is currently unused.
+- Use PAGE_OFFSET() to initialize the local offset variable in copy_guest().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Does it make sense to make this function almost fully generic?
+ xen/arch/riscv/Makefile                   |   1 +
+ xen/arch/riscv/guestcopy.c                | 112 ++++++++++++++++++++++
+ xen/arch/riscv/include/asm/guest_access.h |   7 ++
+ 3 files changed, 120 insertions(+)
+ create mode 100644 xen/arch/riscv/guestcopy.c
 
-It looks like most of the logic here is architecture-independent and identical
-across architectures, except for the following points:
-
-1. ```
-   if ( likely(d != dom_xen) )
-   ```
-
-   This could be made generic by introducing paging_mode_translate() for ARM
-   and defining it as `(d != dom_xen)` there.
-
-2. ```
-   if ( t )
-       *t = likely(d != dom_io) ? p2m_ram_rw : p2m_mmio_direct_io;
-   ```
-
-   Here, only `p2m_mmio_direct_io` appears to be architecture-specific. This
-   could be abstracted via a helper such as `dom_io_p2m_type()` and used here
-   instead.
----
----
- xen/arch/riscv/include/asm/p2m.h |  8 ++------
- xen/arch/riscv/p2m.c             | 28 ++++++++++++++++++++++++++++
- 2 files changed, 30 insertions(+), 6 deletions(-)
-
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index 0cdd3dc44683..c68494593fd9 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -171,12 +171,8 @@ typedef unsigned int p2m_query_t;
- #define P2M_ALLOC    (1u<<0)   /* Populate PoD and paged-out entries */
- #define P2M_UNSHARE  (1u<<1)   /* Break CoW sharing */
- 
--static inline struct page_info *get_page_from_gfn(
--    struct domain *d, unsigned long gfn, p2m_type_t *t, p2m_query_t q)
--{
--    BUG_ON("unimplemented");
--    return NULL;
--}
-+struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
-+                                    p2m_type_t *t, p2m_query_t q);
- 
- static inline void memory_type_changed(struct domain *d)
- {
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index 275c38020ae2..f5b03e1e3264 100644
---- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -1557,3 +1557,31 @@ void p2m_handle_vmenter(void)
-         flush_tlb_guest_local();
-     }
- }
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 7439d029cc45..90210799e038 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -3,6 +3,7 @@ obj-y += cpufeature.o
+ obj-y += domain.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += entry.o
++obj-y += guestcopy.o
+ obj-y += imsic.o
+ obj-y += intc.o
+ obj-y += irq.o
+diff --git a/xen/arch/riscv/guestcopy.c b/xen/arch/riscv/guestcopy.c
+new file mode 100644
+index 000000000000..19b681c30b1b
+--- /dev/null
++++ b/xen/arch/riscv/guestcopy.c
+@@ -0,0 +1,112 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
-+                                    p2m_type_t *t, p2m_query_t q)
++#include <xen/domain_page.h>
++#include <xen/page-size.h>
++#include <xen/sched.h>
++#include <xen/string.h>
++
++#include <asm/guest_access.h>
++
++#define COPY_from_guest     (0U << 0)
++#define COPY_to_guest       (1U << 0)
++#define COPY_ipa            (0U << 1)
++#define COPY_linear         (1U << 1)
++
++typedef union
 +{
++    struct
++    {
++        struct vcpu *v;
++    } gva;
++
++    struct
++    {
++        struct domain *d;
++    } gpa;
++} copy_info_t;
++
++#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
++#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
++
++static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
++                                            bool linear, bool write)
++{
++    p2m_type_t p2mt;
 +    struct page_info *page;
 +
-+    /*
-+     * Special case for DOMID_XEN as it is the only domain so far that is
-+     * not auto-translated.
-+     */
-+    if ( likely(d != dom_xen) )
-+        return p2m_get_page_from_gfn(p2m_get_hostp2m(d), _gfn(gfn), t);
++    if ( linear )
++        BUG_ON("unimplemeted\n");
 +
-+    /* Non-translated guests see 1-1 RAM / MMIO mappings everywhere */
++    page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
 +
-+    if ( t )
-+        *t = p2m_invalid;
-+
-+    page = mfn_to_page(_mfn(gfn));
-+
-+    if ( !mfn_valid(_mfn(gfn)) || !get_page(page, d) )
++    if ( !page )
 +        return NULL;
 +
-+    if ( t )
-+        *t = likely(d != dom_io) ? p2m_ram_rw : p2m_mmio_direct_io;
++    if ( !p2m_is_ram(p2mt) )
++    {
++        put_page(page);
++        return NULL;
++    }
 +
 +    return page;
 +}
++
++static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
++                                copy_info_t info, unsigned int flags)
++{
++    unsigned int offset = PAGE_OFFSET(addr);
++
++    BUILD_BUG_ON((sizeof(addr)) < sizeof(vaddr_t));
++    BUILD_BUG_ON((sizeof(addr)) < sizeof(paddr_t));
++
++    while ( len )
++    {
++        void *p;
++        unsigned int size = min(len, (unsigned int)PAGE_SIZE - offset);
++        struct page_info *page;
++
++        page = translate_get_page(info, addr, flags & COPY_linear,
++                                  flags & COPY_to_guest);
++        if ( page == NULL )
++            return len;
++
++        p = __map_domain_page(page);
++        p += offset;
++        if ( flags & COPY_to_guest )
++        {
++            /*
++             * buf will be NULL when the caller request to zero the
++             * guest memory.
++             */
++            if ( buf )
++                memcpy(p, buf, size);
++            else
++                memset(p, 0, size);
++        }
++        else
++            memcpy(buf, p, size);
++
++        unmap_domain_page(p - offset);
++        put_page(page);
++        len -= size;
++        buf += size;
++        addr += size;
++
++        /*
++         * After the first iteration, guest virtual address is correctly
++         * aligned to PAGE_SIZE.
++         */
++        offset = 0;
++    }
++
++    return 0;
++}
++
++unsigned long copy_to_guest_phys(struct domain *d,
++                                 paddr_t gpa,
++                                 void *buf,
++                                 unsigned int len)
++{
++    return copy_guest(buf, gpa, len, GPA_INFO(d),
++                      COPY_to_guest | COPY_ipa);
++}
+diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
+index 7cd51fbbdead..024e29b4c9f9 100644
+--- a/xen/arch/riscv/include/asm/guest_access.h
++++ b/xen/arch/riscv/include/asm/guest_access.h
+@@ -2,6 +2,10 @@
+ #ifndef ASM__RISCV__GUEST_ACCESS_H
+ #define ASM__RISCV__GUEST_ACCESS_H
+ 
++#include <xen/types.h>
++
++struct domain;
++
+ unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
+ unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
+ unsigned long raw_clear_guest(void *to, unsigned int len);
+@@ -18,6 +22,9 @@ unsigned long raw_clear_guest(void *to, unsigned int len);
+ #define guest_handle_okay(hnd, nr) (1)
+ #define guest_handle_subrange_okay(hnd, first, last) (1)
+ 
++unsigned long copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
++                                 unsigned int len);
++
+ #endif /* ASM__RISCV__GUEST_ACCESS_H */
+ /*
+  * Local variables:
 -- 
 2.52.0
 
