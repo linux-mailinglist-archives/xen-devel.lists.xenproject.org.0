@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KP+XO5WDjWlb3gAAu9opvQ
+	id gErsAoGFjWmx3gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 08:39:02 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 08:47:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3851412AFBB
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 08:39:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228428.1534608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9C312B01C
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 08:47:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228438.1534618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqRHO-0000r7-8s; Thu, 12 Feb 2026 07:38:26 +0000
+	id 1vqRPf-0002Ri-0k; Thu, 12 Feb 2026 07:46:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228428.1534608; Thu, 12 Feb 2026 07:38:26 +0000
+Received: by outflank-mailman (output) from mailman id 1228438.1534618; Thu, 12 Feb 2026 07:46:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqRHO-0000oI-5w; Thu, 12 Feb 2026 07:38:26 +0000
-Received: by outflank-mailman (input) for mailman id 1228428;
- Thu, 12 Feb 2026 07:38:25 +0000
+	id 1vqRPe-0002Pt-UG; Thu, 12 Feb 2026 07:46:58 +0000
+Received: by outflank-mailman (input) for mailman id 1228438;
+ Thu, 12 Feb 2026 07:46:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqRHM-0000oB-Vv
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 07:38:24 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1vqRPd-0002Pm-Jt
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 07:46:57 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ceb64f83-07e5-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Feb 2026 08:38:22 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-43770c94dfaso3036511f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 23:38:22 -0800 (PST)
+ id 009bea05-07e7-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Feb 2026 08:46:55 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-48039fdc8aeso17936995e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Feb 2026 23:46:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835ba69160sm36310695e9.8.2026.02.11.23.38.20
+ 5b1f17b1804b1-4834d482480sm208790145e9.0.2026.02.11.23.46.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Feb 2026 23:38:20 -0800 (PST)
+ Wed, 11 Feb 2026 23:46:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceb64f83-07e5-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 009bea05-07e7-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770881902; x=1771486702; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770882415; x=1771487215; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EcldGGRbfTtZTWazZegixBdoikoRC7VdgToN8CwQU8A=;
-        b=flDIvAi4iIIvadOTDe6kBYeyo4VW8JRFJpsrVJYNC+5kW96W50zKVMrm3gmn9co9IO
-         sUvTIH8qmXrKjkntqgHnkD8baKIK0Z2Mu6at2fE1yBOyCoNF+R6Ge0uKncr64KOhd8w6
-         d0fQOQKLUoU/cjNALSiWP+XzVj7kxcIaTyJMRkfnzTHJWibmkcwMjU7QUmcXRZJvhKIy
-         WWBjMmq2ta62mvAlzTPXkINwOu849tFnF0MHR3dXt1075KHrzQWKulL5Q7C27QXTJWs9
-         lmnnADIm5PMf/OGoTOhs+vmDuE0ZqoDGNNTV7kV9wiztz5odXvBmm4JfWPyPAYzsgBes
-         KpMQ==
+        bh=1N1gylRJjoEAV9Cpm/NewIJkcvqgPrpavRbUsM4il4A=;
+        b=ZhUEXAIzAjKdGJ0I+mQdJsEPJbvJNdSjiIdfrle47fb7xNdFJf0owgOXBIvSCwaovg
+         Fv1p7KDbnMSzMMkFaQ7r2mMmGiO4Ecx+nhxhQhD41whkgmhZjItIJnAp2x4fecBR5NFJ
+         5Z7Iutq83xPnyQAmeF/6H9ZXHgu1dx7c5O5vQ74Qb6mjju+JthxMSAPfOoNmf0PyCNZQ
+         BIGZ5UqffqXB1CrIr1/PVl/UitQ3nyzJQwvSci0uQfDwWNq/VC8MoEko9O9oARKZn1C2
+         /6HIM5ztpgPZLXInA5P2ToY8n968HetdcGwmgcZeXxp0W16duKHbL0wgJeB84X0gDZ6/
+         cujA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770881902; x=1771486702;
+        d=1e100.net; s=20230601; t=1770882415; x=1771487215;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EcldGGRbfTtZTWazZegixBdoikoRC7VdgToN8CwQU8A=;
-        b=oX5XLuoxlBzRtSaBhf6pv8NVgAOhT6GFG9gbcVHLZd03yY8n/uGwCQb50wmq6yLS8k
-         Im5gOtLJg5+GR50VeonWreGOHxwf+2MwQqdyMUWPLRo6ZCVUSw7un6U/L9u14CwLlVu8
-         s4zbs54bX7KOPVUDcqaT5GP1jyIcMd14+j6iCY9oBuNEmVoSozdy4Pw+f1Xp9lkx/1MP
-         WHXHowZFYXK/Z8Tl8dBEh0coDBnTxwK82bp4YJ2cvXIA3R36y/BFubyWAnvnshFFTzw4
-         vh2osPDFnDPQ8o38hTU15/U2MyYxc2Re4DeOc/6Xo7CVGyfWQ5MPA11x7ZkTP3fTe0Zy
-         pqVw==
-X-Forwarded-Encrypted: i=1; AJvYcCXkUDjMLONk+QMl2V3X9w9GHepPGH4tyse0bRJhoodkuFiIiQ9eEZ1XLVLU59Q0rJ65wFK1PRRU7iw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPqxh8esujylEr4gsNsCrXPbPYy/92tsYhD3epV6SoIres8oPK
-	Z+CbNf2SkhF9pKDMZOlKZb8EcFf7GSiv7j8kyukXjcChzEFOzCzQRnEhDHump6ekTA==
-X-Gm-Gg: AZuq6aKFFalGeuiS3QAeNjWjjG9tyYkOUS2oAt5cqiHrSDIiAoi2FXZbfhifU1FAlpg
-	VfhfTrS9j/8FQdVYmrAJH7axHu+KAiXKArkpKSUCoMQ1ZGMiXk3peCncSI2ZsUh0FVH4zapJvnJ
-	CFoJpnE8kwlCLKjKJBAw67MM/Gpb5aaRhUrWMOBad8RD+X5BcFke/EWkJsu71DQ7F1nU27xvBOT
-	ogK8B3KDCvHJHyinzSEUqKX0WRp9Vcibjm9Vxmuvs9r9Klo3QRCZ5SoqNTADTVQnUNv4cDIiowj
-	WDKPn0LYqYp6DrEY17YRzAwnLwmJBh/GyEW+keWO6vP2aZzjh4EdySuA/vs2mbt5mOxzyQVaD9a
-	7q3VKnoxcjNRRUdpGg4S37K4bSTF3tOOQlDdKc28xU6GGq0321zPRnCLBeHzimQF9MVCfJqnm18
-	iBaqEpJ0BJb8odp2MSyNUhtp88JrJ7pUjnY1fpncPRFux6KGEVwgI5g1NzvmfA0bfUL2CUc4hNM
-	82aGDBn0pAMLjA=
-X-Received: by 2002:a05:600c:5252:b0:480:20f1:7aa6 with SMTP id 5b1f17b1804b1-4836715a470mr16831405e9.21.1770881901661;
-        Wed, 11 Feb 2026 23:38:21 -0800 (PST)
-Message-ID: <cb5da09b-66c2-4dee-8cc1-f67f596a3c18@suse.com>
-Date: Thu, 12 Feb 2026 08:38:18 +0100
+        bh=1N1gylRJjoEAV9Cpm/NewIJkcvqgPrpavRbUsM4il4A=;
+        b=CPzVEluLNC5QfKGGgG2KtJSjkmp0c6jXcedHfVodGkX6gdXhhBSxb1U9tWI7u9HDaY
+         D9trUgRHhMNL4e4clfeiSzuB62XFz1/yduKm3dsdfDrS9fwJ907W8YdoVPqjM3zbkP7j
+         s8Vuz0rLfBjuCU1FaumAEZz2UXNdMwp5PAsLEghuDEq+eZad7L8yC/1MlsTU/PPqrhky
+         9fGMLjgK6hRBv3S/Qu8t3d29wgKWa94eIq05+ytqbfE8UTBUcSgxZIZBiYoMyRdk31u3
+         cOzVCu2OVY17seyEJCadJVlbGZI0xZ2qJ3Ttqp0O08TFbsmRl4QV6IUH3znoZKiLtEpA
+         a3qQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVYkH8kYSA6ubH9Q12cuYlIjHTaps7uRHWPBPxuGxYnkw96voJ7aYb3EerHitkpyH1Y5kwFgSt2KTc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxefdBMgzOyaKEehw04Np/dOW56TeBaebXdrH5nrn1eIrHJ4A/Y
+	Ied3Kr6oDq2zAjifGt+kl91F4MNGYThKiDva0oRTi6XMMELOTgcKAx9MjCfhcyfkfp0hzgmVIVN
+	CdNs=
+X-Gm-Gg: AZuq6aJYSmPX5CXf/kAD2xR1ZaJh93F8LIHY7koTpj9HtoGAJpjfBIm7To0rUQ31mKr
+	9ehKF+gvN9e6t06BFhUwSZ+Lg6QrZn1+aIKajlx5aD8tKeeYwO6zqbATo6+7ruK6TtQUbkqeUHn
+	1ju80mal/duF4uIg6q4nCnn0TIaXhGkFLCmaOKkrn0w4KDPLOSeMfR3DiwIl6sonoFq8aHvEK9/
+	h3FbC4Kvt0l4AqNBOcofk2xW3yKYqD8D04ONuWglAUxfVdc/woIgAKHrotZ9s5fLrHrNgsV6VHd
+	gAvR7DuFSBgqNIlSgS7PapBG4q4u0rnftzEAYHRNV/mD2NDXSouLKcS8gVVEBDHek2os94ql81f
+	xZubNHkba3If4rhwBRbg4JJRvjjcmJ4KUO0a2N8U/unyTImCepSDNzOArTCkn8aMMlVgNg4AlV1
+	wz7YnPb1IJi/S0ubtBU/RPXedGYdJY2HmVaCYBZoJPtEh8bv2lb8Ihl8cA31rnbAgT+SXNNOV3l
+	pSyuWQillwIcIA=
+X-Received: by 2002:a05:600c:8216:b0:480:690e:f14a with SMTP id 5b1f17b1804b1-48367128f99mr14367915e9.14.1770882414861;
+        Wed, 11 Feb 2026 23:46:54 -0800 (PST)
+Message-ID: <308aa058-73aa-42fb-a68d-ff03ee979820@suse.com>
+Date: Thu, 12 Feb 2026 08:46:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Put wait.c behind CONFIG_WAIT
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <20260211170118.109946-1-jason.andryuk@amd.com>
- <73bf621d-0795-4fbe-b926-71be3525b4c7@citrix.com>
+Subject: Re: [PATCH] libxl: constify some local variables to appease gcc
+ 15.2.1
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Anthony PERARD <anthony.perard@vates.tech>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20260212032334.1696248-1-marmarek@invisiblethingslab.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,7 +125,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <73bf621d-0795-4fbe-b926-71be3525b4c7@citrix.com>
+In-Reply-To: <20260212032334.1696248-1-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
@@ -138,65 +136,121 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:jason.andryuk@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3851412AFBB
+X-Rspamd-Queue-Id: 6C9C312B01C
 X-Rspamd-Action: no action
 
-On 11.02.2026 18:30, Andrew Cooper wrote:
-> On 11/02/2026 5:01 pm, Jason Andryuk wrote:
->> wait.c is only used by vm_event.c.  Make CONFIG_VM_EVENT select
->> CONFIG_WAIT, and use CONFIG_WAIT to control building it.
->>
->> Provide stubs of functions called from common code.  entry.S needs an
->> ifdef to hide the symbol from the assembly.
->>
->> Also conditionalize .waitqueue_vcpu in struct vcpu to save space.
->>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+On 12.02.2026 04:23, Marek Marczykowski-Górecki wrote:
+> Archlinux just updated gcc to 15.2.1+r604+g0b99615a8aef-1 and that
+> complains about libxl:
 > 
-> I'd really rather see the API/ABI changes required to purge wait.c
-> entirely, but I guess this will do in the short term.
+>     libxl_cpuid.c: In function ‘libxl_cpuid_parse_config_xend’:
+>     libxl_cpuid.c:447:16: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       447 |         endptr = strchr(str, '=');
+>           |                ^
+>     libxl_cpuid.c:452:16: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       452 |         endptr = strchr(str, ',');
+>           |                ^
+>     libxl_cpuid.c:454:20: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       454 |             endptr = strchr(str, 0);
+>           |                    ^
+>     libxl_cpuid.c: In function ‘libxl_cpuid_parse_config_xend’:
+>     libxl_cpuid.c:447:16: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       447 |         endptr = strchr(str, '=');
+>           |                ^
+>     libxl_cpuid.c:452:16: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       452 |         endptr = strchr(str, ',');
+>           |                ^
+>     libxl_cpuid.c:454:20: error: assignment discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+>       454 |             endptr = strchr(str, 0);
+>           |                    ^
+>     cc1: all warnings being treated as errors
+
+That's supposed to be happening in C23 mode only, isn't it? Looks like under
+tools/ we don't set the mode we want to compile in.
+
+> Add missing consts. Note in libxl_cpuid_parse_config_xend() non-const
+> endptr still is needed, to be compatible with the second argument to
+> strtoul(). Add second variable for this reason.
 > 
-> Two things want further thought.
-> 
-> First, because ARM uses per-vCPU stacks not per-pCPU stacks, it doesn't
-> need this infrastructure in the first place, but it looks like it's
-> still compiled in and half wired up.  I suppose you don't notice because
-> you compile out VM_EVENT on ARM too?
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> When I say "just updated" I really mean it. The update hit me between my
+> CI saying "ok" and release build few hours later. I guess Xen's CI will
+> see that only after next refresh of the Arch container (next week?).
 
-But if we want it compiled out altogether on Arm, ...
+Hmm, and that would then affect not only stable trees, but also security-
+only ones. In particular there I'd wonder whether enforcing mode (to be e.g.
+C99) wouldn't be more appropriate. Anthony?
 
-> Second CONFIG_WAIT isn't great name because there are many things it
-> could be.  I'd be tempted to just reuse CONFIG_VM_EVENT and go without
-> CONFIG_WAIT.  I do not want to see any new users of wait.c, and it will
-> disappear at some point.
+> --- a/tools/libs/light/libxl_cpuid.c
+> +++ b/tools/libs/light/libxl_cpuid.c
+> @@ -415,6 +415,7 @@ int libxl_cpuid_parse_config_xend(libxl_cpuid_policy_list *policy,
+>                                    const char* str)
+>  {
+>      char *endptr;
+> +    const char *endptrc;
 
-... don't we need a separate kconfig control, for it to be selected only
-on x86 (or for it to be dependent on x86, and then imply-ed)? Imo
-CONFIG_WAITQUEUE would be okay, as long as it won't have a prompt. We'd
-then simply want to prevent further select-s / imply-s to appear.
+Don't know what the (perhaps unwritten) policy in libxl is, but in the
+hypervisor I'd ask for the variable to be declared in the more narrow scope
+it's solely used in.
+
+> @@ -444,25 +445,25 @@ int libxl_cpuid_parse_config_xend(libxl_cpuid_policy_list *policy,
+>              return 4;
+>          }
+>          value = str[1] - 'a';
+> -        endptr = strchr(str, '=');
+> -        if (value > 3 || endptr == NULL) {
+> +        endptrc = strchr(str, '=');
+> +        if (value > 3 || endptrc == NULL) {
+>              return 4;
+>          }
+> -        str = endptr + 1;
+> -        endptr = strchr(str, ',');
+> -        if (endptr == NULL) {
+> -            endptr = strchr(str, 0);
+> +        str = endptrc + 1;
+> +        endptrc = strchr(str, ',');
+> +        if (endptrc == NULL) {
+> +            endptrc = strchr(str, 0);
+>          }
+> -        if (endptr - str != 32) {
+> +        if (endptrc - str != 32) {
+>              return 5;
+>          }
+>          entry->policy[value] = calloc(32 + 1, 1);
+>          strncpy(entry->policy[value], str, 32);
+>          entry->policy[value][32] = 0;
+> -        if (*endptr == 0) {
+> +        if (*endptrc == 0) {
+>              break;
+>          }
+> -        for (str = endptr + 1; *str == ' ' || *str == '\n'; str++);
+> +        for (str = endptrc + 1; *str == ' ' || *str == '\n'; str++);
+
+I'd further ask for the semicolon to be moved to its own line.
 
 Jan
 
