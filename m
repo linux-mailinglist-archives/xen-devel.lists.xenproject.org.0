@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QFaNIoawjWmz5wAAu9opvQ
+	id sCRECgGxjWmz5wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:50:46 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:52:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE54512CB41
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:50:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1228685.1534808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DCF12CB71
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Feb 2026 11:52:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1228693.1534819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqUGa-0001w7-9W; Thu, 12 Feb 2026 10:49:48 +0000
+	id 1vqUJL-0003P4-M8; Thu, 12 Feb 2026 10:52:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1228685.1534808; Thu, 12 Feb 2026 10:49:48 +0000
+Received: by outflank-mailman (output) from mailman id 1228693.1534819; Thu, 12 Feb 2026 10:52:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqUGa-0001tu-6R; Thu, 12 Feb 2026 10:49:48 +0000
-Received: by outflank-mailman (input) for mailman id 1228685;
- Thu, 12 Feb 2026 10:49:46 +0000
+	id 1vqUJL-0003Mp-Ix; Thu, 12 Feb 2026 10:52:39 +0000
+Received: by outflank-mailman (input) for mailman id 1228693;
+ Thu, 12 Feb 2026 10:52:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vqUGY-0001to-KX
- for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 10:49:46 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1vqUJK-0003Me-4J
+ for xen-devel@lists.xenproject.org; Thu, 12 Feb 2026 10:52:38 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b1f4ff4-0800-11f1-b162-2bf370ae4941;
- Thu, 12 Feb 2026 11:49:45 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-4358fb60802so1323388f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 02:49:45 -0800 (PST)
+ id f10fab12-0800-11f1-b162-2bf370ae4941;
+ Thu, 12 Feb 2026 11:52:36 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-43767807cf3so3365094f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 02:52:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4378e72c203sm4608456f8f.2.2026.02.12.02.49.43
+ ffacd0b85a97d-43783dfda71sm11800619f8f.18.2026.02.12.02.52.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Feb 2026 02:49:44 -0800 (PST)
+ Thu, 12 Feb 2026 02:52:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b1f4ff4-0800-11f1-b162-2bf370ae4941
+X-Inumbo-ID: f10fab12-0800-11f1-b162-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1770893385; x=1771498185; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1770893556; x=1771498356; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aTCFlvMSW0aAhCcRWoGU8lmHxXHbSnVMK6eqpmXtma0=;
-        b=YHNQITdzh563KBdCPqRPHJgmlMKOh1d/J8d7UvvWJk/0xDTfA3H/qg2+axwygD3KyN
-         p7eAKIL/b1xmVpVUTp8zm6OIEmWkhZFrwE5KDeBy+nlJNsIWpavVTpiDtMmB21pDRDFM
-         ugMA+0FRL82uX0dBdvvC3z7H3E2K7IisZQT/cYAd0mzEBDTaTwlibJjJJcIXGe6L4Wug
-         cc+/JAr+/EIYZ+l7K8XtuTRlPb9PKyLqv1NSntj98z5lGHafeyX0dkkXhK4+m/pxu6TY
-         lQEuCU51p0zxZCcDF8y0hibdCcB0A2OjbNxDcDPC7wJ8TxqkIQ1fB1nJdSC13od6y/KN
-         k0qA==
+        bh=FDhD9KucPe7IZ7detfcPqHrcIF02/rztaSW6Y9t6xIM=;
+        b=T3yXQ3YQMaqVr+NXTJRifdZxuCnAgaiEjGKaAlKiYhekr53rC3mlI0gYBAn0geW5Gw
+         cqfJSI2V8BEZoqBC0EvCUbtbH3kDAyOyurD0vXnj07qJnpuE/ARdspzZFi313FAXTPQ7
+         giOtamp8TCYW9cLLlwAYHIY/7xrvie1noYpPt74Od+oHwYoObN2DeSx/wXH5r2LyyMpK
+         v/umljwXpkmw6d72lJ/03CLVFEdwi15zn0+E27DoLMUekzgxq0NmBtpEzTIW5mIMFutq
+         zX/2vFydr4RSP7P0e499cgGWwdXpr2y3bvMN2NP76orC4MSEu8AdeAPQnKL0cCiHfrrP
+         ubTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770893385; x=1771498185;
+        d=1e100.net; s=20230601; t=1770893556; x=1771498356;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aTCFlvMSW0aAhCcRWoGU8lmHxXHbSnVMK6eqpmXtma0=;
-        b=RyXH4g2b7PldKR4eL9XiN9NPMWJHDVhvNwGQWKK6Iyl6rpR+fqYFgHDTMWJ27zm4rl
-         uORLRXIj0WfzgBk4V4Rd9kQNvpIDlsCHcIHkZYKPBeh9DfPmSv5I7l6e6gu+YAjdpIs0
-         onJ/ql1pwu+84iaHZUvRwgMY+uxSam0VOz+QZf8oNTWMECGta84WoInfbekNlpwMOe5/
-         UYAgxtt9E4XadCHwIK+kRkQkAoG0IYfYlPCsw8IqvZa5hNaHeTsWlZ0K2ycFJO70y1l1
-         MU1EqJ1orfaMWslwXwOGShsqD/kSxWoBAy47Uu4IDHQHqxzybWNpjgnJnc1TE03Zo57u
-         4FwA==
-X-Forwarded-Encrypted: i=1; AJvYcCWdiYpOq742+srA1kfe2SU0qL0Pl9hZkWLSBXpN1U+L5PHnkcAFCUVKVYvkprokQTtQpDCNvQV/0VQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzuJweVWYN6JezDZju1wHPNLEJcUeH4VHHH27/4vhu3FiHr2xVl
-	9e9SQfZc/xMM5P0aoHboEpypz30ksYJYv6n8aBH0KJp6fzmxDY2p9XwCyZO0jKL7PQ==
-X-Gm-Gg: AZuq6aLqZ24vmjhTR4bFggOuHUC1+0O8bysUAI44yFqCXnVQ6r4N8TaafINfb0fAq5b
-	rybF+9uE60Qp3zDX2zVGrdsWaEwJdnsi8kKQRBOIrgzK8LmV4P9eDGNjofB85tOYRtc9Qk4DF2f
-	YMOgJqaquMamt15jNsNIZuXbXmnSYWFGA/KZfye7sHa+AXfXZqj1/FIewZ+2cS2Ziu+CVuBTDQx
-	EndcudHD0yWbd8L//aVKT4PE41uRpKNLVB1L+KvciSOIvyhQti/4L5yPKwLOnlOwV/NGY/PpyzW
-	pWMGd/XbEUUlqV1dSzBc4xcJRik1ZSPBH4YjpQKGeuCkC8BPUodzojKR4l+A8cZLCQ4kneTE7W3
-	HUv6+iOnpB/m9NCyAW/JfmEYSSq3GBJ9OpoaKg7BW/lb9v9kfys9nH7P0pOaDMBRS+4h22iKlFV
-	fnY2iEE3W1UzCMb95gsRayN8wkehjwimTqBsBOg8FkIrgG6HsyJ09BC8Uj5Rj0wql0quREIRZNi
-	cWxsorZaNnGkOU=
-X-Received: by 2002:a05:6000:2c08:b0:435:924e:3d6d with SMTP id ffacd0b85a97d-4378e72a239mr2748911f8f.26.1770893384638;
-        Thu, 12 Feb 2026 02:49:44 -0800 (PST)
-Message-ID: <109c3379-7066-4ad9-93aa-57e87deba81f@suse.com>
-Date: Thu, 12 Feb 2026 11:49:42 +0100
+        bh=FDhD9KucPe7IZ7detfcPqHrcIF02/rztaSW6Y9t6xIM=;
+        b=ZIzXoonM4r8ImiWLKUYu8DUslxltAt76wHJXTEbDkbdD7QknJoVgg7okWhqvoyshJU
+         YtLUu7OdQRWuKTdL/xY+m95UfXoes51z9mHBYOikTtgvuiazjxIIl9dhTrxKp2hh4MKS
+         e7TMxVz3oIQ67G5jgvrCGYP5doHhf0eTr3be8wNGFVVWLvhthkVercL/GFQ9H4oMx/7Q
+         bCqXy1B5t7LfBUVpqAIC7Fw3+V79EKFNarXYIx4Kjc5gGKBrXyxRW1R4k2F2CowWhgKD
+         SKSnMK+/EDSZo/iL8U/BiA9XzeyJ9uU1IIGtEYgvvgS5yGx3AaNyuzfeqyyL1WuDGP48
+         XSog==
+X-Forwarded-Encrypted: i=1; AJvYcCWOw1fOoF45dtFpx/IrDLtiNQxptIvsi3IbT2rcu3J+BW7Wz17O17GRk1PrEjefNVDChp+029E1drE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwIgqYYmoRd+DyOQihcO5HDZSKfpFhbdvEdGF9q9hk9wAevfWMv
+	FVbrwg7SlcwOZ7Nll8XwVl7MQRGXlXgX9byetn5ZmXcMxOxjf1TO7mulLNRa8lIB6w==
+X-Gm-Gg: AZuq6aLg8Q0RxaAlQG8iyU7Z6odOwpTAsDhXlFkQli+vsPHwldupHCIhm1H/Ll0hOqX
+	JHiTX7uNp1ZJrnODIbeyJxVL6VEKK0YfctlzujSL+GSHBuZqRqzS1sT5OZ79D6RrZOcgdQdJG5F
+	D2fxmvF9f54WHNuPKv85n5ozBcuh3Q0FeVMDGK6S/2a3BxWsjfv6PMh7zXwp77KW/fMUAtxIG+1
+	8CzycxsV65fsbSbx8UQhw7hYv/ztYOrZJRkAoFJ6W0zsEH+5du1cW0NY21aEgy92uLvMxkDLht2
+	6UoqV1t9VxH6QmeubXPhVlDrjReKEfE70YB7bPqAAWy33D4gBlopJmF4OQORrcyasp99qu7Ywpz
+	2t18DlxeOxhcN/LX4EMwfICfkEXr5QNP8u4FnDHJr1ZXiiedA9V7WatGQKgrz1DZXv3TufrmIMs
+	X4XjyI+0aLP5/WGdS2i/RVahz22yU5jaf7UeD4Mgwj50qQk0EETNcQFEdk0KSSg/KZG1legwcBU
+	B1RnNm+CxgbGKw=
+X-Received: by 2002:a05:6000:2486:b0:435:b068:d3be with SMTP id ffacd0b85a97d-4378ac82bafmr3984164f8f.41.1770893555720;
+        Thu, 12 Feb 2026 02:52:35 -0800 (PST)
+Message-ID: <b861972e-1f31-4685-b83c-27670e561332@suse.com>
+Date: Thu, 12 Feb 2026 11:52:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/12] x86: Migrate spec_ctrl vendor checks to
- cpu_vendor()
+Subject: Re: [PATCH 03/12] x86: Add cpu_vendor() as a wrapper for the host's
+ CPU vendor
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 References: <20260206161539.209922-1-alejandro.garciavallejo@amd.com>
- <20260206161539.209922-6-alejandro.garciavallejo@amd.com>
+ <20260206161539.209922-4-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,14 +126,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206161539.209922-6-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260206161539.209922-4-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -141,12 +141,12 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -160,33 +160,42 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EE54512CB41
+X-Rspamd-Queue-Id: 93DCF12CB71
 X-Rspamd-Action: no action
 
 On 06.02.2026 17:15, Alejandro Vallejo wrote:
-> @@ -738,11 +738,10 @@ static bool __init retpoline_calculations(void)
->      unsigned int ucode_rev = this_cpu(cpu_sig).rev;
->      bool safe = false;
->  
-> -    if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
-> +    if ( cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
->          return true;
->  
-> -    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
-> -         boot_cpu_data.family != 6 )
-> +    if ( !(cpu_vendor() & X86_VENDOR_INTEL) || boot_cpu_data.family != 6 )
->          return false;
+> Introduces various optimisations that rely on constant folding, Value
+> Range Propagation (VRP), and Dead Code Elimination (DCE) to aggressively
+> eliminate code surrounding the uses of the function.
+> 
+>   * For single-vendor+no-unknown-vendor builds returns a compile-time
+>     constant.
+>   * For all other cases it ANDs the result with the mask of compiled
+>     vendors, with the effect of performing DCE in switch cases, removing
+>     dead conditionals, etc.
+> 
+> It's difficult to reason about codegen in general in a project this big,
+> but in this case the ANDed constant combines with the values typically
+> checked against, folding into a comparison against zero. Thus, it's better
+> for codegen to AND its result with the desired compared-against vendor,
+> rather than using (in)equality operators. That way the comparison is
+> always against zero.
+> 
+>   "cpu_vendor() & (X86_VENDOR_AMD | X86_VENDOR_HYGON)"
+> 
+> turns into (cpu_vendor() & X86_VENDOR_AMD) in AMD-only builds (AND +
+> cmp with zero). Whereas this...
+> 
+>   "cpu_vendor() == X86_VENDOR_AMD"
+> 
+> forces cpu_vendor() to be ANDed and then compared to a non-zero value.
 
-At the example of this (applies throughout this patch): With the panic() in
-patch 03 the transformation looks correct. Without that panic(), or without
-being explicitly aware of it, this gives the impression of explicitly doing
-an unsafe thing: Even though by way of boot_cpu_data.vendor we know what
-vendor's CPU we're on, we're acting as if we didn't know. I'm really
-uncertain whether such changes are worth it with the mere goal of reducing
-code size. Even beyond the concern raised, this feels like it might be
-increasing the risk of introducing subtle bugs.
-
-I wonder what Andrew and Roger think in this regard.
+Coming back to this: How does the value compared against being zero or
+non-zero matter here? As long as cpu_vendor() yields a compile-time
+constant, the compiler should be able to leverage that for DCE? And
+even if it's not a compile time constant, bits masked off in principle
+allow the compiler to leverage that, too. It may of course be that
+even up-to-date compilers fall short of doing so.
 
 Jan
 
