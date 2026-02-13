@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SNCfEEoxj2nQMAEAu9opvQ
+	id gBPfHtQ0j2lGMgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 15:12:26 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 15:27:32 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D1D136FA9
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 15:12:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1231086.1536398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C88131370EF
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 15:27:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1231097.1536409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqttg-0001sK-Lo; Fri, 13 Feb 2026 14:11:52 +0000
+	id 1vqu8O-0003hZ-TL; Fri, 13 Feb 2026 14:27:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1231086.1536398; Fri, 13 Feb 2026 14:11:52 +0000
+Received: by outflank-mailman (output) from mailman id 1231097.1536409; Fri, 13 Feb 2026 14:27:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqttg-0001pd-J6; Fri, 13 Feb 2026 14:11:52 +0000
-Received: by outflank-mailman (input) for mailman id 1231086;
- Fri, 13 Feb 2026 14:11:51 +0000
+	id 1vqu8O-0003ff-Pa; Fri, 13 Feb 2026 14:27:04 +0000
+Received: by outflank-mailman (input) for mailman id 1231097;
+ Fri, 13 Feb 2026 14:27:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=226k=AR=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
- id 1vqttf-0001pC-CF
- for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 14:11:51 +0000
-Received: from mail-yx1-xb136.google.com (mail-yx1-xb136.google.com
- [2607:f8b0:4864:20::b136])
+ <SRS0=Z/W2=AR=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vqu8N-0003fZ-8Y
+ for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 14:27:03 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f02d74c8-08e5-11f1-b163-2bf370ae4941;
- Fri, 13 Feb 2026 15:11:50 +0100 (CET)
-Received: by mail-yx1-xb136.google.com with SMTP id
- 956f58d0204a3-64ae222d87dso1101546d50.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Feb 2026 06:11:50 -0800 (PST)
+ id 0f79f183-08e8-11f1-b163-2bf370ae4941;
+ Fri, 13 Feb 2026 15:27:02 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by SA6PR03MB7639.namprd03.prod.outlook.com (2603:10b6:806:43b::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.12; Fri, 13 Feb
+ 2026 14:26:57 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Fri, 13 Feb 2026
+ 14:26:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +52,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f02d74c8-08e5-11f1-b163-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1770991909; cv=none;
-        d=google.com; s=arc-20240605;
-        b=A7zBloeuNbvW4T2qQ4w/5MEnwM+BlGvRTz5GlLCw4ZYtnsi+5TYPwdrRIFNJKZ16P6
-         BxQxG15izrm4Km/ihub6H9S5pXiXrIVymItJbZlUdOhHP/xeVD4o7mzTeAy1efrBxZ3C
-         0WaTGceTstXzP8RPUSrTOf/ROJbDyrR2yftJ9n2D0ob1FalubrQkt7krka+N1FV8DIN7
-         QAJDeGxLASNavnb5XSsRxSjDJNSorEWlUxUNBMgTNyFXavnEnHQ8jRcxF2i55//ZnbVT
-         EUuGms3H9ccrroTOP34zfCzlXDNDbDzPletO/fyE/G+fHTK4vpMTiVAQgN3mOUmP/Lvn
-         7BLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=E+Hcp7SIum9H3zzUJZsKPurFW4IHGWWeOhHlNm8iPEE=;
-        fh=PduvIRqI5AtPoAZbc8IE2LtG1FEpyBzo+vWGkDrV7s0=;
-        b=c98y+r6seFyvfkXNiXc5yCl4rWXLe8AXXz/n9zOGs/CbV0diXR3MgmmZYXtlpsFujZ
-         QrY/Hi1Qp5ZFBDvO2PMR/qdQ54fAe/1699CcxuQ7342m70EzJsqV+jIgfVHUfzVCOuc9
-         3Dr2T8KceHHFAh8/iI4aNkdG+sMYvf4W8dAjInZwOYmiQn3BYS8AB1W7U6HnTApF97ZE
-         sH6xCpsTP6td3R0piArb/UrsYaKtXGSn6+KitEH1GBTD6wQ6HGxkWk3AmmxAAPA6Einl
-         InpdjaEjLiKc1zN/+GRkfaNPzsldJePqmjIl/zkFUBlIZqgcs06W0CpesOEa+Gv7qN1Q
-         qHdw==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1770991909; x=1771596709; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E+Hcp7SIum9H3zzUJZsKPurFW4IHGWWeOhHlNm8iPEE=;
-        b=BbFLBPEb7kdLjaqxxopOrZuN4poaNZVaeNjLDf4uFg5vHJ1oqKkrtnkFKw9lyA5mQE
-         VMsQixjfQwhMQP1nCVy1yMjF+6eoLj1HAm8TNQtog7XWh1LP33zUflxmpYBDWNUhXd/m
-         4aZY5Xpcmt/IMv/4ZIXUcZ/rM993+GS05Z3BhnvLpIJ0fJiCCeq/o7wtyNh3Uxh6k6rZ
-         XYYu51yIEIYuV5PwV0XYmZElc7jMbqDOd6ldUu7gBAv51zCYoQhWYOP7HUiZ2iVD1N5O
-         9dAGICOfkEAqLZYJmjVvuHFoiaP8HMcdmnTjUovVCGwNQSKP+qDw8GUj4rOe+HPE9iry
-         6Yag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770991909; x=1771596709;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=E+Hcp7SIum9H3zzUJZsKPurFW4IHGWWeOhHlNm8iPEE=;
-        b=UpG31A4nvZjdkcfFoLaKCTaRtGODSJVjd1GeybBPxyupNbrz32lBk4g3PkSPSDOLw3
-         pAhI5z6866Om6pgpfqBCzx6oUiMbs/NuCqFPCFm/SkMv8xi3N6ORePuT+N1qtHGoYWBK
-         fBMzrCRsN0NdvuaGukUnCYixIKZNrfD335Fkv2YzXb2Blb9S9xN+BE8AhMl5jMR6Nz38
-         Fn4j3UrkBYaWHxdq6AT6FInJDArTZvbBl+j/5C3y6jQB2XNid/ViqBhuARzsfANhtZ2c
-         rRwuj92S1XMRv4TapGThex5Aq31fo3AnQcUdH51atC4x0Luu++4TiI/1DqFkZ/K/3xC1
-         8Cdw==
-X-Forwarded-Encrypted: i=1; AJvYcCU/Si34mXJvAL33lGr8HBSadLwCXixZPuYHf1zXruUVT2LQunnNs3davuBcSfvezorScEQ6D1KEAj0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoL5Kz4Dg1PBimRRowignJhJ2I352NJJf61mONPVMAo9B0Dzmr
-	X0OPoEAmQ/x0gG5Kt46p9IEN/xeUF/eqQ9bzIBID6deKl4fgw3HAdgch8/XPJH6LZLSogLw3HoK
-	nXhtYN801fdMy7c4mU33ofJ2X11/G8vldxePhyIrdh5Hjs/G0IeEJ
-X-Gm-Gg: AZuq6aJf3WV2CZgiUx7DMuQ4wkmL4GWxYg0uJmaHRqot4RI8F2S0huSMlzt+sj9NbNr
-	p1Lt0MDW5O61TTRSMCP08LnQwl9StE2aFZD0ArHe7ePobJ+nu0ABN/EHkIpq0r/0Nr2hPZYJb4Q
-	TJYqY1lGL+Gfn2KHMrzImyWhN7LaxeZVpi9ZQqamOkxtnYqJU8rAiqyDvWL7u8MGaUwHXtpCbhS
-	Z9FTuhh5qobJN2jyTepzQXR9vj06x8GrF2doeiwiYB0wZqT36+1+6oR5x74ClZmbXe6P9I0d4vO
-	1D4B7Hw/eApewzWLGIbNj8Yfn2VaglfnfvIe67TPut0iw0zHExfUeIkamn61XjwKIec=
-X-Received: by 2002:a05:690e:bca:b0:649:b535:46ab with SMTP id
- 956f58d0204a3-64c19b196fcmr1343989d50.49.1770991908901; Fri, 13 Feb 2026
- 06:11:48 -0800 (PST)
+X-Inumbo-ID: 0f79f183-08e8-11f1-b163-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O+UC2+f1sGPON8dWwOgQvXuYRPipQpVKU/9FPMUVMUU+XWZQ8lXaJ/cFR2XEQcYQKYlMypXJG51jLbG/LLE2+eS+3OPhXWxNgdzU48iuubAslcHjRwp3qrjtrSO4SJ3dviKEi73RigHHOLd4p8cMV8Zq06apxxPwQRWRHzr+jGEayUmc20GugL6+6lZyuCyE6Ln12J1vdQeXrRt1iyMyt89XanB1jCqcHOLMp/hqPEmh/SVlFoM0aC2++dU/aAs6bi9lXr46j2nOv606exV8S+k5+GZlp9FwzztQr6HxMx74IjfK3YxfZK42wtHylOnbocF2VKVbB7rgCA5cP5SU9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rh5T2m86dtQrlWO11Ty4sdS+EaVag2KHwB9XaTaTNyU=;
+ b=rmjFHwj6qdNE6LOOF6U5PuHT4oBCNsuZikRLtMucOVK17pGBHgxtLt94yuAesW/sV5SAHMPmH3k+yKo9EJFF/ySWKuzk0IJvbjt0SSAMaXCG1V5ac+FycbC1XknJD0cMChwXyyj6mS/owAFOSvf2W9S5SGDJz6wp/GqmDejKDMpsnn74d1zeQIGnYTA6MYdDBF6fKG8fdPEEpkbiFjpvbq8K8WNZ/H22qlvPZmSWj856ZViCDkgpRl9h+CWNvKURapqSkTTSVtJxJ2zJHiZiXGCiAUuLzOkdeB2hNA5i4iSjns85Cj3IuzS2He+OqEPaL2+TvU2KfMjyvAcfX3IA3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rh5T2m86dtQrlWO11Ty4sdS+EaVag2KHwB9XaTaTNyU=;
+ b=ChdSUiJ9BIytHFTTnJXZwbFIZTfKlCdxLwpx9dK1u48pfhs2Po+Bq74aNJhMoj/rdPOsJPM/1sxX10Xv3PVIFf6tiprbSFZYxk1NmcRtv8beLxDW6RqEg2QQOdmiCA3+nBEB0YKxu++JjUlOUdODCxzCMUZ2/z/dz/HRrI571uE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 13 Feb 2026 15:26:48 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/2] x86: Make hvm_enabled a constant unless both PV and
+ HVM are both compiled
+Message-ID: <aY80qJVIZOjjqBOS@Mac.lan>
+References: <20260213133732.132326-1-alejandro.garciavallejo@amd.com>
+ <20260213133732.132326-2-alejandro.garciavallejo@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260213133732.132326-2-alejandro.garciavallejo@amd.com>
+X-ClientProxiedBy: MA2P292CA0014.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:1::10) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-References: <20260213094938.4074478-1-marcandre.lureau@redhat.com>
-In-Reply-To: <20260213094938.4074478-1-marcandre.lureau@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Fri, 13 Feb 2026 14:11:37 +0000
-X-Gm-Features: AZwV_QhTszuPHuF69gBdjMmghGZj0GECDjqjodvkLk8R7I407V4-YWO9HB7GAYo
-Message-ID: <CAFEAcA9M4OvfOEnAaATuUQwFk3YthTUjPNFLo4izgd+vORHbFw@mail.gmail.com>
-Subject: Re: [PULL v2 00/15] Char patches
-To: marcandre.lureau@redhat.com
-Cc: qemu-devel@nongnu.org, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Eric Blake <eblake@redhat.com>, Markus Armbruster <armbru@redhat.com>, Paul Durrant <paul@xen.org>, 
-	Anthony PERARD <anthony@xenproject.org>, =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Eduardo Habkost <eduardo@habkost.net>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA6PR03MB7639:EE_
+X-MS-Office365-Filtering-Correlation-Id: f37833cd-29cd-4aad-ff0c-08de6b0bedc3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aVg5cEhJb2FxamMrc0xibFo2OWZUVi9wbjVtbGMyenl3OEd2cGRqemVwUlcv?=
+ =?utf-8?B?dWw3cmxzdXFncy9iZVdwNTQxUXdVaEVaRUM1UjJMWThFaFY1RVFMaGhZdlUx?=
+ =?utf-8?B?NGFOZndOUEdoWkJIT0E4cHZzK2s4SGNueWVsdGRlZ3FDc0FIRmZ0ZkR0czVG?=
+ =?utf-8?B?SW9UdnVSVlo5S25BcDI4UkFlTGpySmhTamxXYjJFNFlWRUxOZFBrNTJ5eGRL?=
+ =?utf-8?B?MmFkVDNKdlFCblFIK21hSmkweGgzRld5d2poSGkrTFFaRzhzYXZpRm5DUTRs?=
+ =?utf-8?B?SXFCRTlZSWZ0L1dXMjl5UHY2WmNhNVdtd2tTTWxOZFk4U0ZpNlhuK3lFVDk5?=
+ =?utf-8?B?VlNuZlpoeThmRDd0K3ZIK3htQmR5MzFUb2c1YnZqd1hpaW9BdXltQlBHSjE0?=
+ =?utf-8?B?Q0I4b2I5bU5iZEpzcTNGblY1UU12TzU3YVR6ekNndVpIWk5vQVNoNHBLcktI?=
+ =?utf-8?B?V3FZR2I4UWtJbEJRZ0tjOTVNbDB0ZDBySjBoY0RmalF2NFVkaXpqZnpMQktM?=
+ =?utf-8?B?UThyUnpyQUY5UlN1M3g5ZUkxNkpUMndZbHJNanUzTGZqVmJRSFVwOHduWDQ0?=
+ =?utf-8?B?LzJIbkV5VHVHMjd1MWJmWlhoVS9IdCtXTDZPSjJOVzVFb28xT2N5bzkybVhR?=
+ =?utf-8?B?QTh2ZHRYQUU3TW0yS29MOGRXU3VFb3pKZ1U4c2hhZWtoVGMzNnNKckVpRzNz?=
+ =?utf-8?B?WjZnUjgvR1I0UStxemNVMDV0Wkd6S25Sb2wza0NQQ0tvSjI5elpPQTRTQnhZ?=
+ =?utf-8?B?cXNqWG9HVGdnR2xvTmRqUEoyRjVacTk2d25JME85OXgzZTZRa0owdENUZWds?=
+ =?utf-8?B?SWdoZ09hcUsyWjNpOGpqWFpQSHlWcHJ3a3FLc3VzbE16bnZxaGx2azh1TTda?=
+ =?utf-8?B?MDZ3emNrdEVqMmhVV2pUZUtDYWlKNHVhTURwUzN1MFBrVFQvWnpBWThvTmMr?=
+ =?utf-8?B?WThlNWcyaUFwMWpUZEY3Y0ZnNm1kRjNZOFF2SnROT3BDV1dNazZJUzB3aUMy?=
+ =?utf-8?B?c2NLVml6OVBIZDlRY3AzZG5Zc0NyV1BrM2ovNmNTclYyNGt0TlcxWFhIWVZo?=
+ =?utf-8?B?RDdoYU5qVUVsNFprb1N6VUYwZ0VLb1RsdHMwdUdsQ0tJbXYvUmRJRWFBaTFj?=
+ =?utf-8?B?Rk5PWjZBU0JPanZDQXZreldLREx3SEs1Nlp6QzU4dHpBV2hEL2xyRE05VEZI?=
+ =?utf-8?B?b0pqTHhSMzFGRUw5SElvODF5QVo5dVEwU2c1bmZsRll1aTAxSk9YQ2U4VFVX?=
+ =?utf-8?B?YzExVzhidXBWaXZKYWVyd0d4ZXVPTzNJK2svekpXMHNrSkdIbG1GLzE3YWZF?=
+ =?utf-8?B?bEFycmJLSVZNRnZ2QWd6TDZSU1lXS0MyQXVGNnRwWHNFaVNSNC83U0NidUpQ?=
+ =?utf-8?B?bngwWUwvMFJlTDdDWUpaVWFtSitIWS9NREdOTXluWE44LzZlblIrUjEzVWl6?=
+ =?utf-8?B?UnRWU001dUlaWTA0UHFYU0xmSXdUbkhoakpGWUpkdi9TTWIyUjFtV2gzY1Y4?=
+ =?utf-8?B?SzRGdG1vV21oZ29PWmlsZzFoMjVuT3VFeXVjbndMbG1JT2NIQkRjbWV3YXQ0?=
+ =?utf-8?B?bTlzNVB4RjQ2QjJvSTU5N1UwVFpnNVB6SWlrSTVFM3haanlsYTFhVkduMTR2?=
+ =?utf-8?B?MHJIUHo4bmRNZmFVcWtjamkxTVZOWFNGZ1ZJV1JraHBacTNYRTJETlk4SzY0?=
+ =?utf-8?B?bWpWUk5sVnh4VzBUa1FaYmZ3WVlsc2xsVDlCbWZDWW5QTjlTVEF4NWYrNllD?=
+ =?utf-8?B?bVlJeDNKNm1RaW4vdXZqdXpraGRxSzFSVjB2WVRWL1FPd0FJT0VKQkNNMzJw?=
+ =?utf-8?B?Yll1bEZqWTlGQlB5eWJMU1EwVE5zUlFyeGhxZm40VnhreWpKWXJxMGJMcTlm?=
+ =?utf-8?B?Sk4weEM2SXhwZ1A3a3FMWk5JTStwVkMrNFhQVFR0eThHTk9vZHNPWncrN0Ja?=
+ =?utf-8?B?cmlqZFdkRW5lb3F2WTVPczFaOUliazVTRzNMbmpUYVpUT2VKU1JpNThGVWFF?=
+ =?utf-8?B?VFpObjdxcUxMTG1tc214enAwVXZnZXRxN29CSDNwT0tuVFdkVGVSRHdRUjJE?=
+ =?utf-8?B?Y1FNS1Y3UmE0dE5WZzJvOGtadFFFR0lUT3pPdDhzV0pjb25XVERwL0ZMRUJW?=
+ =?utf-8?Q?Gf+s=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dkRTM3UrTXFyT2s1K0FNQ3F3MWlNelFnMmpoTTFxTjNsSjdDdXc2ZWxZWkFw?=
+ =?utf-8?B?UnRzZERieGJib1VTVFNXcG1QUGhpTWU4OXNFcm8rUTdFeUcxMlJGNjBYSExK?=
+ =?utf-8?B?V3hlK05wb0VYOGVZT09sZDZOT0dKcTF4ZmkyRkhKT2ZQaGJQeVNaUjFOOXVO?=
+ =?utf-8?B?dUZIQWs2cUZRdGVWZ0p0Qll1T1BrMEw0RTg5YWJHcm9aRVhiQmRCVUdWaUtV?=
+ =?utf-8?B?bGRiZHNMbEpDSVVRV0VVdU0zMzF4Q2RYZmYrc056MndlUVl0cFZtSVRlaUFD?=
+ =?utf-8?B?TnE3VDVCWUJISlZENDlDTkNIVE9FMTFoUkEyanFhOXFSRURaUXZ2eVpBVEwx?=
+ =?utf-8?B?MVVWdXpYZVdMdjFwcWZrYmFrSUlzcm91U0xTMkxUdlExOGxEUWRNNWhjSDVC?=
+ =?utf-8?B?bnhhUXBNOU9IS0syREdoZXZreFdqaUVjTDNwZnhMOU5MSXJzdjAvYzlwMHdG?=
+ =?utf-8?B?VGw5Um83VWkwNXpSb3IzNkRQbkppcVlsMjlacUFlaGJUTjJiZ1VqdXlKVzlQ?=
+ =?utf-8?B?cUxpOFNlRnBvVHpGaUVVVG8velo1YUE5MmFScVRVQm5vSDg3YkY4VnJxNS9G?=
+ =?utf-8?B?dWlyVkFrTVgvMXdScnJaMExrajRHZEUwREdick5adHc4M3lPdWlseFhmek1k?=
+ =?utf-8?B?NUNpOHgrWFJSdlZBTFJHS0dRODJONnk0ektad2ZvZmhKdVZMc2ZrWERrRkVP?=
+ =?utf-8?B?d2xtYks0bTlhLzdzUHNRTzNOQ3ZOUzdpcnZVbS9EdVFOZ3g5ZHR6eG4rblBt?=
+ =?utf-8?B?M1dmdmtQMmQ4R0VvN0dSbUF2TlcvcUkvSElVbzgvdjl3eWJNV2tqMlpYT2lQ?=
+ =?utf-8?B?M1lhSFpSUnU2eXBXTXBhaXNNQUFuRXA2K0F2Qi80S0RGYVFualVLN29PVlkz?=
+ =?utf-8?B?K21SWWRiNmlndXkxQlNRc3BndUpTTGlLamtEZEw4bytkazNLYVJSZDRZMFhJ?=
+ =?utf-8?B?ZmhaZE5YNm9WOEw5bGFjRVQ4QVBZNGZDUFArUGdrcHJhM3psSnhKUlhWRmE5?=
+ =?utf-8?B?QkM0cnoySkJBNDZKTFIrT09TenU2V1Z4SkpSYjlWOUhVR2w3NDBEcHArcEdD?=
+ =?utf-8?B?c3AyajRKZStPdG85ZDVYam9taVFhNmp4NEwzYThPUWQ0NFI4Sk5ZL2NSanRx?=
+ =?utf-8?B?N0c1Zm5LUHF5bUx2WTIrUjhQZElmbjBLR3NTR2lDRmRQaE00a01vSWxkcnNk?=
+ =?utf-8?B?bld6SHVPTW9GQ1Y4NE16WjJlbmNjWUxuVklocCtaVjFodldtMzB6MFY2ZnVp?=
+ =?utf-8?B?UXpWT3FlTWM5c29nTjgrd080eWs3cXFPVng2Y1RRblQ2OHpwbWdIQ1lXNzRK?=
+ =?utf-8?B?VFBFVkVHVVJLN0d6L1ZWajFTNjBzTU5KZjB3U256YXNIRU1vQ3I4bnBLYVdp?=
+ =?utf-8?B?TW15TytPT1RrMlRyR3VoR29TSnhxVnp3TEhRL2oxcFpzMVd4WDdSdm8zRkZK?=
+ =?utf-8?B?bzZPaHBZb2lGeXdPTk1uaDlKK0xUMWpBaTNCb2RtTDIrNEluNXh5cFQxN0RU?=
+ =?utf-8?B?OWI0Y2doZ0YvaFpMd2grOXFQNkVxQXlaZGRsMkZTSzlKK0JCZngxakR5ck1M?=
+ =?utf-8?B?TE9TazN4RmZPN01YNi9Da0RQb3B2c1NEbnViVzlZbDlhMXVjNWVwc0JtWVZE?=
+ =?utf-8?B?Nm5idWhtT2ltVzNDck0wajRVVzFDT3ZtTmtjR1dRMGVkVUlHaGU3eHlEeVda?=
+ =?utf-8?B?TytGTkFSTlhpTURBSjVTZFZFeHpRaEFjdHJEdjBTSkVpU1RNdGNBdFBKYW9k?=
+ =?utf-8?B?NjhCR3FXZk8yZVdjSDF5N1Y0V2E3MEZuVDNWc01CV2dyYitKUS9aR0dsa3hM?=
+ =?utf-8?B?U3pITkMyNitEeUhBc05pOFFYa0Q0bnFRWG5BamhvVUQwL2VkcmRTWXJrK1Uy?=
+ =?utf-8?B?UHduQVhEdFNUY3kwZ2ZZcklCQkt2Vk1qNVBueldHamg3dXFOTVB5a0t6SExp?=
+ =?utf-8?B?amtQWFRRd1lzTm1URWFUTGZOQi9odnNrem95RlNIZmJKTTBSc0NQc1lnMGE1?=
+ =?utf-8?B?dnNRY1VUbVF0ZmRaTm16aThvZitEbFNkcllVOXFaenA2VUVzbk9QdTJmTjd6?=
+ =?utf-8?B?NW56cXBGMTNZZkdETTB2dUhkT1d5QUY4U0M4V3gwbEU2NXlLeWRqRjYrVmNK?=
+ =?utf-8?B?SzFYdXhLT1A3UVN1N3paaHhZOGZnaVRnVVNYbG1ZZFovOTlsZDJaNXFvelcx?=
+ =?utf-8?B?YUJTQlJMaW9xN3RDeGhhbG00ZzVOdmFmQ0JpdVpjMEpuNnNXYld2ajdOMGM1?=
+ =?utf-8?B?UEkyc0NDVHRDQy9POGRRMURZUkIxMGhDTUh4R0hqRTZhb1RQV1JuOGI4UGdy?=
+ =?utf-8?B?MFN6MTRncmVyeDR4VDltNlpiMGpmU2x1NHJMRVk0OXA5QkhaczVRQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f37833cd-29cd-4aad-ff0c-08de6b0bedc3
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2026 14:26:51.3231
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lQipviM1le/oOZdpALes4MPQngxZb+X8040eKZxeo48q0nDUREIi1K3ewjgsE90ReYdmlUaL0T7idKT/rmkv/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7639
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,linaro.org:dkim,mail.gmail.com:mid];
-	FORGED_SENDER(0.00)[peter.maydell@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:marcandre.lureau@redhat.com,m:qemu-devel@nongnu.org,m:alex.bennee@linaro.org,m:edgar.iglesias@gmail.com,m:berrange@redhat.com,m:eblake@redhat.com,m:armbru@redhat.com,m:paul@xen.org,m:anthony@xenproject.org,m:philmd@linaro.org,m:eduardo@habkost.net,m:pbonzini@redhat.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:samuel.thibault@ens-lyon.org,m:edgariglesias@gmail.com,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[nongnu.org,linaro.org,gmail.com,redhat.com,xen.org,xenproject.org,habkost.net,kernel.org,lists.xenproject.org,ens-lyon.org];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,Mac.lan:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[peter.maydell@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: D8D1D136FA9
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: C88131370EF
 X-Rspamd-Action: no action
 
-On Fri, 13 Feb 2026 at 09:50, <marcandre.lureau@redhat.com> wrote:
->
-> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
->
-> The following changes since commit 4ed6a7f2fdc09d9fc3411e83e278da00851220=
-16:
->
->   Merge tag 'pull-block-jobs-2026-02-12' of https://gitlab.com/vsementsov=
-/qemu into staging (2026-02-12 14:35:18 +0000)
->
-> are available in the Git repository at:
->
->   https://gitlab.com/marcandre.lureau/qemu.git tags/char-pull-request
->
-> for you to fetch changes up to 98ba0e479771a391137119264156e9661508bbc7:
->
->   baum: Add copy/paste bindings (2026-02-13 10:45:07 +0100)
->
-> ----------------------------------------------------------------
-> chardev patches
+On Fri, Feb 13, 2026 at 02:37:29PM +0100, Alejandro Vallejo wrote:
+> PV-shim already has hvm_enabled optimised to false, but there's no
+> reason HVM-only builds can't benefit from the same optimisation as long
+> as we add a boot-time panic in case HVM support is missed. Many branches
+> go away, some in the potentially hot switch_cr3_cr4.
+> 
+> HVM-only:
+>   add/remove: 0/1 grow/shrink: 1/9 up/down: 1/-162 (-161)
+>   Function                                     old     new   delta
+>   arch_do_physinfo                              79      80      +1
+>   hvm_enabled                                    1       -      -1
+>   symbols_offsets                            30732   30728      -4
+>   symbols_names                             108029  108022      -7
+>   symbols_sorted_offsets                     60656   60648      -8
+>   flush_area_local                             571     562      -9
+>   switch_cr3_cr4                               311     300     -11
+>   init_xen_cap_info                             62      43     -19
+>   arch_sanitise_domain_config                  885     863     -22
+>   init_guest_cpu_policies                     1270    1247     -23
+>   hvm_domain_initialise                       1127    1069     -58
+>   Total: Before=3797004, After=3796843, chg -0.00%
+> 
+> With hvm_enabled const-ified, it's fine to take hvm_flush_guest_tlbs()
+> outside the CONFIG_HVM ifdef and remove the stub. They compile to the
+> same code after DCE.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c             |  9 +++++++++
+>  xen/arch/x86/include/asm/hvm/hvm.h | 30 +++++++++++++++---------------
+>  2 files changed, 24 insertions(+), 15 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 4d37a93c57..da56944e74 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -72,7 +72,9 @@
+>  
+>  #include <compat/hvm/hvm_op.h>
+>  
+> +#ifdef CONFIG_PV
+>  bool __read_mostly hvm_enabled;
 
+__ro_after_init?
 
+> +#endif /* CONFIG_PV */
+>  
+>  #ifdef DBG_LEVEL_0
+>  unsigned int opt_hvm_debug_level __read_mostly;
+> @@ -173,9 +175,16 @@ static int __init cf_check hvm_enable(void)
+>          svm_fill_funcs();
+>  
+>      if ( fns == NULL )
+> +    {
+> +        if ( !IS_ENABLED(CONFIG_PV) )
+> +            panic("HVM support not detected and PV compiled-out\n");
+> +
+>          return 0;
+> +    }
+>  
+> +#ifdef CONFIG_PV
 
-Applied, thanks.
+CONFIG_HVM I think?
 
-Please update the changelog at https://wiki.qemu.org/ChangeLog/11.0
-for any user-visible changes.
+>      hvm_enabled = 1;
 
--- PMM
+= true;
+
+> +#endif /* CONFIG_PV */
+>  
+>      printk("HVM: %s enabled\n", fns->name);
+>      if ( !hap_supported(&hvm_funcs) )
+> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+> index 7d9774df59..dc609bf4cb 100644
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -261,7 +261,11 @@ struct hvm_function_table {
+>  };
+>  
+>  extern struct hvm_function_table hvm_funcs;
+> +#if defined(CONFIG_PV) && defined(CONFIG_HVM)
+>  extern bool hvm_enabled;
+> +#else
+> +#define hvm_enabled IS_ENABLED(CONFIG_HVM)
+> +#endif
+>  extern int8_t hvm_port80_allowed;
+>  
+>  extern const struct hvm_function_table *start_svm(void);
+> @@ -399,6 +403,17 @@ static inline bool using_svm(void)
+>  #define hvm_is_in_uc_mode(d) \
+>      (using_vmx() && (d)->arch.hvm.vmx.in_uc_mode)
+>  
+> +/*
+> + * Called to ensure than all guest-specific mappings in a tagged TLB are
+> + * flushed; does *not* flush Xen's TLB entries, and on processors without a
+> + * tagged TLB it will be a noop.
+> + */
+> +static inline void hvm_flush_guest_tlbs(void)
+> +{
+> +    if ( hvm_enabled )
+> +        hvm_asid_flush_core();
+> +}
+> +
+>  #ifdef CONFIG_HVM
+>  
+>  #define hvm_get_guest_tsc(v) hvm_get_guest_tsc_fixed(v, 0)
+> @@ -498,17 +513,6 @@ static inline void hvm_set_tsc_offset(struct vcpu *v, uint64_t offset)
+>      alternative_vcall(hvm_funcs.set_tsc_offset, v, offset);
+>  }
+>  
+> -/*
+> - * Called to ensure than all guest-specific mappings in a tagged TLB are 
+> - * flushed; does *not* flush Xen's TLB entries, and on processors without a 
+> - * tagged TLB it will be a noop.
+> - */
+> -static inline void hvm_flush_guest_tlbs(void)
+> -{
+> -    if ( hvm_enabled )
+> -        hvm_asid_flush_core();
+> -}
+
+Is there any specific reason you only pick hvm_flush_guest_tlbs().
+Given what you do with hvm_enabled you could probably generalize all
+the dummy helpers in the !CONFIG_HVM section now?
+
+Thanks, Roger.
 
