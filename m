@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IDwNKHVRj2nnPgEAu9opvQ
+	id eEYCEnNRj2kNQQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:29:41 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:29:39 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B20F138080
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:29:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1231312.1536507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7C1138052
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:29:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1231313.1536523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqw2e-0005wX-Uh; Fri, 13 Feb 2026 16:29:16 +0000
+	id 1vqw2g-0006OJ-5d; Fri, 13 Feb 2026 16:29:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1231312.1536507; Fri, 13 Feb 2026 16:29:16 +0000
+Received: by outflank-mailman (output) from mailman id 1231313.1536523; Fri, 13 Feb 2026 16:29:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqw2e-0005oF-OL; Fri, 13 Feb 2026 16:29:16 +0000
-Received: by outflank-mailman (input) for mailman id 1231312;
- Fri, 13 Feb 2026 16:29:15 +0000
+	id 1vqw2g-0006KU-0y; Fri, 13 Feb 2026 16:29:18 +0000
+Received: by outflank-mailman (input) for mailman id 1231313;
+ Fri, 13 Feb 2026 16:29:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HtAj=AR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vqw2d-0005Ws-8z
- for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 16:29:15 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1vqw2e-0005Ws-Dp
+ for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 16:29:16 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 226660c8-08f9-11f1-b163-2bf370ae4941;
- Fri, 13 Feb 2026 17:29:14 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4836f363d0dso9262185e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 13 Feb 2026 08:29:14 -0800 (PST)
+ id 23096eea-08f9-11f1-b163-2bf370ae4941;
+ Fri, 13 Feb 2026 17:29:15 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-482f2599980so12670085e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Feb 2026 08:29:15 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d5ebd1bsm303288185e9.6.2026.02.13.08.29.12
+ 5b1f17b1804b1-4834d5ebd1bsm303288185e9.6.2026.02.13.08.29.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Feb 2026 08:29:13 -0800 (PST)
+ Fri, 13 Feb 2026 08:29:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 226660c8-08f9-11f1-b163-2bf370ae4941
+X-Inumbo-ID: 23096eea-08f9-11f1-b163-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771000154; x=1771604954; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1771000155; x=1771604955; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xayJDkaSPO2aBUbsoQhFpwQ2/yxRUvX1GYhVq8xOEcM=;
-        b=cM7JmWEYRKysxi+TTaAIuaCeaMegx1gxAcfk9gFIF3bzAHeEqjS/6fCKfkyc3vlw6N
-         3eLfw3rjQ73uOwmq6aB2ogh4r3AjZ1t0DaAAzswOgVBfF/+FVvOyzKpohvww+wWLRpDr
-         jJiyP6vYaEMPhfhYlv5bJPk5mqfCLHZWQs1pPXlC0ydodeIhmk6dbjUvNqrCAa0TwWRN
-         sQ3pnUh5GUwBiJ4I6DA6EEwKRRyuUQbvDjLw1mx0NH0797kH9IeNmi+x2MqGtDgqvbys
-         n3gKsDwUee/3hHKvszn3ePHnRR7EzQf1frnmkWANbzVkNZc2hIqnbbOJho5fC5ZU2WsA
-         MSFQ==
+        bh=sFTZR6VEK+iEcNLXUgansIu4xb+JbI0KY9wblj0cuZ4=;
+        b=CvbgeaSEAskkQJVXJ3FKdQgvdAbIZMtcK5SpxxMAW6SE5XO/vffLqCzrcMFM/bHC9M
+         7XGGCqSJsDRp8/jtXfg1QHk8gqUI8ubP7KZhE7AExm+2rFZqmDDb1MFeua8owHO893zS
+         SdAjcEhSmqhe8G77cxuUzh7n3Wb/RYA6mnjXE5yJbT7c90g2Kpe+rgqe6+3YLNAYX2E5
+         QtJwWjahpfapMDlp+Zbho7YqqGzW0skaqbUvXf75AelloFD7unKdWZZ+z10HAvAPV1w8
+         jAuRIA0zZihf0QqDS2KRXXYeluzp6UHzngCUEomJ+RcfL+HpC3TVp7r/+40z9erHidtY
+         j2wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771000154; x=1771604954;
+        d=1e100.net; s=20230601; t=1771000155; x=1771604955;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=xayJDkaSPO2aBUbsoQhFpwQ2/yxRUvX1GYhVq8xOEcM=;
-        b=YpGE4tBdd65/zA+/d4T1W2eRbqc7yagzZxKX66/O72FDSjd7/KiRZUfb2NsA7uczw1
-         5LWUhP6Vv+v0RWMPbyEsWjT5xHhqctAf/3MS3tWMiSl4z3UuTuNriZow66ekDmtJvHzT
-         mqZ1+knbj1ru4zBA5L4rC/goGa9I0og1UONsPTBwBxsB1AjtLHWrFnWXIwJPpCE7JSwc
-         yOw9EYCo/dJ0BwReavpZiwfkQaGr2bLXWT6YLFTdfdU9GW2/fWISkkRQ+B3ja2INo8i8
-         vewOMiQO9Z7WD0+Oj2Tr0v7M9bI8N2+i+oy2Qs8Jhy16d/k1cjOOL/cil14xjYEx0xXV
-         tEmQ==
-X-Gm-Message-State: AOJu0Yz4nrOTvCMXb7s82nUKieRNrZtFLSokcbdH2yY+m/HgWNKAg/Lf
-	33W+81gDuC0A1ufUhCPBriwQI9l46o28crq5M3FGhe9T5aLni5/AsDoKzvXNPzxi
-X-Gm-Gg: AZuq6aLtKHC3e+GF8fOSKP6U88/UR+aXm5psnKVCAH3K15Cz6hrouJj5wYN3ww9lnop
-	xioTpFvrpThe+OaMEbdI9xxPoz4nJxnLiCY3zuNljJ2O/0I8NMdVXd0izOo2RNss1/+i7rAINkn
-	6qdbiX3nZIFPAzjOd8ItySZ5DrCtagtdD0qjpSsCAacVMVSnMyae3oSg5X/G3saak7caJx9OdrX
-	iPvlKQzLWGmvpH3h+85w3xdNj80ZEfJ+raseytE8jblnHnLqpXVhJDcM36YRSxtY8MucpwBEBuu
-	2WMmQm+Am9PK9Ajctp5iguck9uGPF86UBnreFCNRpVtPmB11SW5on6lnogapgiaUdNrmECArwiV
-	7xaRA/KwV+3XHrmCiKKGveiz3C5z5jFoEfczJ+m8wGsLyLFIzB4CRzfMniWFcIFE4+Z54J0Yiyw
-	vqbb+Q/6HweovyYzha+FQAAnc6fyOnLShEA37so5H09mgfL+dsjlx02EURGk4ziPtbgw==
-X-Received: by 2002:a05:600c:1909:b0:480:1c85:88bf with SMTP id 5b1f17b1804b1-48373a7438bmr36959985e9.27.1771000153375;
-        Fri, 13 Feb 2026 08:29:13 -0800 (PST)
+        bh=sFTZR6VEK+iEcNLXUgansIu4xb+JbI0KY9wblj0cuZ4=;
+        b=d8OLzJleWUrJBp28ZD1cyBdytMQsWnAe5DlKBeQZVUE2gCGel4XohXkHTW7xIddUga
+         fbwLhqWiyw8YwMl+JzFo2A5xQo8MbFJxtXpDxYSkwNxFutbk14cS1RHe75l4E6wYbQos
+         prAHKRzR1vWrgHyjmzqPKmPkPcaScLORNSFyZZGw56DWP0y4RaEIdv+nFEy/0LhGLfIx
+         HOFx5xkvcuQNeyqs/uk1Mt+l9wgkv2nTIc99xwxH7kHyry2UarOcVIQXBI1Y7wHJhwKj
+         NrLkwzlw1YN9yGPDVI5iEjkSdxSu/BxcyYDnmvkcI3+7DW0ZtONmPp3i4tasOkn4k9bn
+         DUAg==
+X-Gm-Message-State: AOJu0YwTkhbasxl0lyesiJpXgpTGwYCx1hcKrcaB/jAF8/yM4QiAYV+c
+	91BlnpELlf8PvPhAImAl5stdhaSwwpFawA8vWUghWZRscJB7gh0hfI8ruoWvn2nT
+X-Gm-Gg: AZuq6aL8J+5PPnxbe6ZOJqNSN0f0WcJOBhlHxVCNBCdwE9p1+KcSOrDcd+f0X9AM7NS
+	MBywZcAbJqfWaMFVmcicpvvNyIpRGuZlQGNfiOSmgceqcwRtHYrBijCn/4cUnQT5NK7orLpDRya
+	SQF8cGc6vsvW3JKEpWgdBSbGN+c4rVKizDKxr/J8eVrF8l8Q2+TN4sCoHw4y4dT+6qieI+4Dl08
+	e8LY3cP6pBRkxKEPjhQtZziUpowPL/+HugR0DerYFIQngTuKJV4BVNdVkwCysdNUbjDtNs2/LZ5
+	GkHg3teNdKut5oRwo2X54BSabdg7Li4uqzACnnK3DzSJNaYV0AMp/Y4Sl8muQ4HDmbYPoQboN61
+	j7wq5i0UepkYp5/bhRQYLy0e9oU+Kt0aP5DyfmUI77+u/mEJ4YHKHR3sFxELH1vJMGCKbMTN9qp
+	nFze5mtsSli9eIiY5v7LduL4vQdP9CW6f0WFA7LhwWgw25KJ3aLogsMTpW2z1bnjvJDg==
+X-Received: by 2002:a05:600c:34d4:b0:465:a51d:d4 with SMTP id 5b1f17b1804b1-48373a1611fmr43468945e9.6.1771000154460;
+        Fri, 13 Feb 2026 08:29:14 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,9 +99,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 03/16] xen/riscv: build setup code as .init
-Date: Fri, 13 Feb 2026 17:28:49 +0100
-Message-ID: <d2fcbb9248ea1659aa953e9c8a8bde1c4a2282c0.1770999383.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 04/16] xen/riscv: implement vcpu_csr_init()
+Date: Fri, 13 Feb 2026 17:28:50 +0100
+Message-ID: <7c58dfbac99694811e4276858b48baa211331229.1770999383.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1770999383.git.oleksii.kurochko@gmail.com>
 References: <cover.1770999383.git.oleksii.kurochko@gmail.com>
@@ -130,7 +130,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -143,35 +143,208 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 9B20F138080
+X-Rspamd-Queue-Id: EF7C1138052
 X-Rspamd-Action: no action
 
-At the moment, all code and data in setup.c are marked with
-__init or __init_data, so leverage this by using setup.init.o
-instead of setup.o in Makefile.
+Introduce vcpu_csr_init() to initialise hypervisor CSRs that control
+vCPU execution and virtualization behaviour before the vCPU is first
+scheduled.
+The function configures trap and interrupt delegation to VS-mode by
+setting the appropriate bits in the hedeleg and hideleg registers,
+initializes hstatus so that execution enters VS-mode when control is
+passed to the guest, and restricts guest access to hardware performance
+counters by initializing hcounteren, as unrestricted access would
+require additional handling in Xen.
+When the Smstateen and SSAIA extensions are available, access to AIA
+CSRs and IMSIC guest interrupt files is enabled by setting the
+corresponding bits in hstateen0, avoiding unnecessary traps into Xen
+(note that SVSLCT(Supervisor Virtual Select) name is used intead of
+CSRIND as OpenSBI uses such name and riscv_encoding.h is mostly based
+on it).
+If the Svpbmt extension is supported, the PBMTE bit is set in
+henvcfg to allow its use for VS-stage address translation. Guest
+access to the ENVCFG CSR is also enabled by setting ENVCFG bit in
+hstateen0, as a guest may need to control certain characteristics of
+the U-mode (VU-mode when V=1) execution environment.
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
+For CSRs that may contain read-only bits (e.g. hedeleg, hideleg,
+hstateen0), to the written value a correspondent mask is applied to
+avoid divergence between the software state and the actual CSR
+contents.
+
+As hstatus is not part of struct arch_vcpu (it already resides in
+struct cpu_user_regs), introduce vcpu_guest_cpu_user_regs() to provide
+a uniform way to access hstatus and other guest CPU user registers.
+
+This establishes a consistent and well-defined initial CSR state for
+vCPUs prior to their first context switch.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V4:
- - New patch.
+Changes in v4:
+ - Move local variable hstateen0 into narrower scope.
+ - Code style fixes.
+ - Move the call of vcpu_csr_init(v) after if ( is_idle_vcpu() ) check in
+   arcg_vcpu_create().
 ---
- xen/arch/riscv/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+ - Add hypervisor register used to initalize vCPU state.
+ - Apply masks introduced before instead of csr_write()/csr_read() pattern.
+---
+Changes in v2:
+ - As hstatus isn't a part of arch_vcpu structure (as it is already a part of
+   cpu_user_regs) introduce vcpu_guest_cpu_user_regs() to be able to access
+   hstatus and other CPU user regs.
+ - Sort hideleg bit setting by value. Drop a stray blank.
+ - Drop | when the first initialization of hcounteren and hennvcfg happen.
+ - Introduce HEDELEG_DEFAULT. Sort set bits by value and use BIT() macros
+   instead of open-coding it.
+ - Apply pattern csr_write() -> csr_read() for hedeleg and hideleg instead
+   of direct bit setting in v->arch.h{i,e}deleg as it could be that for some
+   reason some bits of hedeleg and hideleg are r/o.
+   The similar patter is used for hstateen0 as some of the bits could be r/o.
+ - Add check that SSAIA is avaialable before setting of SMSTATEEN0_AIA |
+   SMSTATEEN0_IMSIC | SMSTATEEN0_SVSLCT bits.
+ - Drop local variables hstatus, hideleg and hedeleg as they aren't used
+   anymore.
+---
+ xen/arch/riscv/domain.c                     | 66 +++++++++++++++++++++
+ xen/arch/riscv/include/asm/current.h        |  2 +
+ xen/arch/riscv/include/asm/domain.h         |  6 ++
+ xen/arch/riscv/include/asm/riscv_encoding.h |  2 +
+ 4 files changed, 76 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index caa1aac5b2f6..bc47e83b26d7 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -12,7 +12,7 @@ obj-y += paging.o
- obj-y += pt.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
--obj-y += setup.o
-+obj-y += setup.init.o
- obj-y += shutdown.o
- obj-y += smp.o
- obj-y += smpboot.o
+diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+index 5572e10bfaa9..6c8a6269d791 100644
+--- a/xen/arch/riscv/domain.c
++++ b/xen/arch/riscv/domain.c
+@@ -6,10 +6,74 @@
+ #include <xen/sched.h>
+ #include <xen/vmap.h>
+ 
++#include <asm/cpufeature.h>
++#include <asm/csr.h>
++#include <asm/riscv_encoding.h>
+ #include <asm/setup.h>
+ 
+ struct csr_masks __ro_after_init csr_masks;
+ 
++#define HEDELEG_DEFAULT (BIT(CAUSE_MISALIGNED_FETCH, U) | \
++                         BIT(CAUSE_FETCH_ACCESS, U) | \
++                         BIT(CAUSE_ILLEGAL_INSTRUCTION, U) | \
++                         BIT(CAUSE_BREAKPOINT, U) | \
++                         BIT(CAUSE_MISALIGNED_LOAD, U) | \
++                         BIT(CAUSE_LOAD_ACCESS, U) | \
++                         BIT(CAUSE_MISALIGNED_STORE, U) | \
++                         BIT(CAUSE_STORE_ACCESS, U) | \
++                         BIT(CAUSE_USER_ECALL, U) | \
++                         BIT(CAUSE_FETCH_PAGE_FAULT, U) | \
++                         BIT(CAUSE_LOAD_PAGE_FAULT, U) | \
++                         BIT(CAUSE_STORE_PAGE_FAULT, U))
++
++#define HIDELEG_DEFAULT (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
++
++static void vcpu_csr_init(struct vcpu *v)
++{
++    v->arch.hedeleg = HEDELEG_DEFAULT & csr_masks.hedeleg;
++
++    vcpu_guest_cpu_user_regs(v)->hstatus = HSTATUS_SPV | HSTATUS_SPVP;
++
++    v->arch.hideleg = HIDELEG_DEFAULT & csr_masks.hideleg;
++
++    /*
++     * VS should access only the time counter directly.
++     * Everything else should trap.
++     */
++    v->arch.hcounteren = HCOUNTEREN_TM;
++
++    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_svpbmt) )
++        v->arch.henvcfg = ENVCFG_PBMTE & csr_masks.henvcfg;
++
++    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
++    {
++        register_t hstateen0 = 0;
++
++        if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
++            /*
++             * If the hypervisor extension is implemented, the same three
++             * bits are defined also in hypervisor CSR hstateen0 but concern
++             * only the state potentially accessible to a virtual machine
++             * executing in privilege modes VS and VU:
++             *      bit 60 CSRs siselect and sireg (really vsiselect and
++             *             vsireg)
++             *      bit 59 CSRs siph and sieh (RV32 only) and stopi (really
++             *             vsiph, vsieh, and vstopi)
++             *      bit 58 all state of IMSIC guest interrupt files, including
++             *             CSR stopei (really vstopei)
++             * If one of these bits is zero in hstateen0, and the same bit is
++             * one in mstateen0, then an attempt to access the corresponding
++             * state from VS or VU-mode raises a virtual instruction exception.
++             */
++            hstateen0 = SMSTATEEN0_AIA | SMSTATEEN0_IMSIC | SMSTATEEN0_SVSLCT;
++
++        /* Allow guest to access CSR_ENVCFG */
++        hstateen0 |= SMSTATEEN0_HSENVCFG;
++
++        v->arch.hstateen0 = hstateen0 & csr_masks.hstateen0;
++    }
++}
++
+ static void continue_new_vcpu(struct vcpu *prev)
+ {
+     BUG_ON("unimplemented\n");
+@@ -41,6 +105,8 @@ int arch_vcpu_create(struct vcpu *v)
+     if ( is_idle_vcpu(v) )
+         return rc;
+ 
++    vcpu_csr_init(v);
++
+     /*
+      * As the vtimer and interrupt controller (IC) are not yet implemented,
+      * return an error.
+diff --git a/xen/arch/riscv/include/asm/current.h b/xen/arch/riscv/include/asm/current.h
+index 58c9f1506b7c..5fbee8182caa 100644
+--- a/xen/arch/riscv/include/asm/current.h
++++ b/xen/arch/riscv/include/asm/current.h
+@@ -48,6 +48,8 @@ DECLARE_PER_CPU(struct vcpu *, curr_vcpu);
+ #define get_cpu_current(cpu)  per_cpu(curr_vcpu, cpu)
+ 
+ #define guest_cpu_user_regs() ({ BUG_ON("unimplemented"); NULL; })
++#define vcpu_guest_cpu_user_regs(vcpu) \
++    (&(vcpu)->arch.cpu_info->guest_cpu_user_regs)
+ 
+ #define switch_stack_and_jump(stack, fn) do {               \
+     asm volatile (                                          \
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index f78f145258d6..6bb06a50c6ab 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -48,6 +48,12 @@ struct arch_vcpu {
+     } xen_saved_context;
+ 
+     struct cpu_info *cpu_info;
++
++    register_t hcounteren;
++    register_t hedeleg;
++    register_t henvcfg;
++    register_t hideleg;
++    register_t hstateen0;
+ };
+ 
+ struct paging_domain {
+diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
+index 1f7e612366f8..dd15731a86fa 100644
+--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -228,6 +228,8 @@
+ #define ENVCFG_CBIE_INV			_UL(0x3)
+ #define ENVCFG_FIOM			_UL(0x1)
+ 
++#define HCOUNTEREN_TM BIT(1, U)
++
+ /* ===== User-level CSRs ===== */
+ 
+ /* User Trap Setup (N-extension) */
 -- 
 2.52.0
 
