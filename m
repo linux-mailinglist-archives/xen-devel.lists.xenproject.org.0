@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id T0PeMZ6ijmm2DQEAu9opvQ
+	id aGfFLoa3jmkwEAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 05:03:42 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 06:32:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE0F132C9C
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 05:03:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1230184.1535746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7CCF133045
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 06:32:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1230211.1535755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqkO6-0003rI-9b; Fri, 13 Feb 2026 04:02:38 +0000
+	id 1vqlmY-0006N3-I8; Fri, 13 Feb 2026 05:31:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1230184.1535746; Fri, 13 Feb 2026 04:02:38 +0000
+Received: by outflank-mailman (output) from mailman id 1230211.1535755; Fri, 13 Feb 2026 05:31:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqkO6-0003nk-6Y; Fri, 13 Feb 2026 04:02:38 +0000
-Received: by outflank-mailman (input) for mailman id 1230184;
- Fri, 13 Feb 2026 04:02:36 +0000
+	id 1vqlmY-0006Jv-Cq; Fri, 13 Feb 2026 05:31:58 +0000
+Received: by outflank-mailman (input) for mailman id 1230211;
+ Fri, 13 Feb 2026 05:31:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y0jx=AR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vqkO4-0003nb-Fu
- for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 04:02:36 +0000
-Received: from fhigh-a1-smtp.messagingengine.com
- (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+ <SRS0=Ps4n=AR=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
+ id 1vqlmW-0006Jp-Sb
+ for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 05:31:57 +0000
+Received: from mail-yx1-xb133.google.com (mail-yx1-xb133.google.com
+ [2607:f8b0:4864:20::b133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2ca8490-0890-11f1-b163-2bf370ae4941;
- Fri, 13 Feb 2026 05:02:34 +0100 (CET)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 7044914001BF
- for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 23:02:32 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Thu, 12 Feb 2026 23:02:32 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 23:02:31 -0500 (EST)
+ id 4e066a7d-089d-11f1-b163-2bf370ae4941;
+ Fri, 13 Feb 2026 06:31:54 +0100 (CET)
+Received: by mail-yx1-xb133.google.com with SMTP id
+ 956f58d0204a3-64acd19e1dfso530995d50.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Feb 2026 21:31:54 -0800 (PST)
+Received: from [10.138.34.110]
+ (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-64afc83faf6sm6519460d50.5.2026.02.12.21.31.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Feb 2026 21:31:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,249 +51,423 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2ca8490-0890-11f1-b163-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:content-type:date:date
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1770955352; x=1771041752; bh=LqrcbKpEE6
-	zHzzKRIki+3SO+v23akbpECGlbHWTncSE=; b=Zt7zEccvyORKA5Ene7AUUEw9EM
-	SHRmUp5ZAwdv31WEUbauWpLL6GhQPq8VCdkQUNXoXxDOPnknM694LMPoorIKgqXw
-	U7bngfx7Hjt9gQIvNYkqcPs1vUhuOh0kFTZp/QQ5k37XKq9wI84itXiasxOuNiab
-	sxqUpScthYoBjRzatlxyqWSvrxIxoXIyeZL/62ZEI3L5g9+awBMntRclofAsk79X
-	1q2GNT6czidxyu+UpckXmwbBuhqbYz7pC7siwrLHMrZhSpF1gnZ5C2atRu6zCEKK
-	bs+Hx0DfX+XjLO7RMjmBcGO2iryiyc8gGdhxd4ukM2KFds2FHkSlr2CBUr5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1770955352; x=
-	1771041752; bh=LqrcbKpEE6zHzzKRIki+3SO+v23akbpECGlbHWTncSE=; b=o
-	yMG81pSfNlINJFaeQrZ2rpZ7zv2nJYbU6eoMaRgWEPf1yQvZHTIkCoDZBx4O7Sbp
-	QLES6BVlvMl90CHVk/k1CRTRhz88emru9oJpsE1HmdN1+ZCz1PochOMQ7T5AUsTJ
-	oo3rf37MQzTDZmPEFEbABYJiY4KZ7jJ/WpsyCcFZsEryR1HfauhptZgarnmcBOkI
-	vmb2pXku3nrbyZej1MuHZg7EaEC+lIfRZAJQrpmv9ze3xCWCJE4rSrQsvvEky5Fj
-	+p8C0x8hSY9GUvPXjMrctjRBoUbxW+G57S6PKk3b6b+gVhm9WZ2Xixj5UCYtvHmu
-	jkh+yMj9VfOmEE7iP+x8A==
-X-ME-Sender: <xms:WKKOaYA5D7iihkvr5BkzDa1iZjGugIF-UVsHfoh0rxBKCmqPRdrwZw>
-    <xme:WKKOaReQxLRqdjxz6fdlaIkb6-LrBZFUfUCkvQUQggldtD6blGCFbDnJ45iG_HQaN
-    gm6yH6JHDCw69wvyP7K8H4nwYr2hZB8gv_Lw-fXwOE_foi0Vg>
-X-ME-Received: <xmr:WKKOaRNvfNS7etPT1mz2mN6DED9Ce_8OgHp0f4dn8DLqoFppM38Dfri-euN-LKMzhQkRR-2I7NeZ79PG196ilQiazv1yGJl91cQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvtdejvdegucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertddtje
-    enucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceo
-    mhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecugg
-    ftrfgrthhtvghrnhepteduteeiudevkeegvefhtdekhfelgffhhedukedvvdeuuddvjeeh
-    vddtieehudfgnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghruf
-    hiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhi
-    shhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedupdhmohguvg
-    epshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghn
-    phhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:WKKOaT7ev4y00zy2VSaqiOCXPqYUif_aVBeEUTShStzAaHMNKFt1Wg>
-    <xmx:WKKOadJJqpW0159k_nZ88xTDPSd0JXH6bVnQAaYDAeMzW6Qre6c1jg>
-    <xmx:WKKOaVcHF6PHuKE-smiz_8Rm1lYODyStkSkngPTXZklrJj4XwBO7YA>
-    <xmx:WKKOaYdTmWacaFycbQeDQB8_rX_0ZkheNMXbEJ2w6-8a2he_ucoeXA>
-    <xmx:WKKOaSyzGI_LbFXrYOJeGSOOOaovF196MFOAsNKYR3Wr5PX8qgjAq91F>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 13 Feb 2026 05:02:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Cannot boot PVH dom0 with big initrd
-Message-ID: <aY6iVr990vWeO2p5@mail-itl>
+X-Inumbo-ID: 4e066a7d-089d-11f1-b163-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1770960713; x=1771565513; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=uArfyqzhc/KKRV25csCccUu8HzI84nr1vn7qLSRTzuU=;
+        b=Zm3GPBL0w9aimqV/x1gzhGL855TDH3j0TdgjtqgDUtzX7t2lDsr57BBIbX5rGUdKCR
+         hOyKy9l8Pyj7/7F+JVEAolJRGCqW+j+Go/b13JHaFqE1tjbPdo1VaXsqgKMN7PtfyCp4
+         JdWIaEYXzWLu1FEjgf2N4rh5JX4oqH4MFTFLGRP+D78Kz2FF7WzOEMtG4BSOvQlQWcry
+         sx3e6YauHf3hhbwyU34SEkbaXh9rVvTbqTuMFyWhCNHX+yBVBuKPPDOhQummAq/unTtP
+         LwD+CvM62cz89+bjF5WWZKPCBZfnOoVBbZie+qMHtaZodZyEto42RfzBBEdI91k+CO6F
+         iUfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770960713; x=1771565513;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uArfyqzhc/KKRV25csCccUu8HzI84nr1vn7qLSRTzuU=;
+        b=wtZzmhG18n5PnOTk6wL287tTuiDRFTOoHrGnNKHoWVbVdfIRJ+Rj+RQVMA4oG3wJh9
+         FGiq8qFdvxCkqef9jsCgbYkNzSN8qL2r5CqRygVqy8DDEv52jezOfTSvLawHinaaO3l8
+         KvXUqfS8dvrs8Eoypfoyh44oclzngH9rBw0dcH3ygxaQU+nmpxKZVgBVKZ+bkJ4SJAoj
+         cDYG8QfgaIf3wTZDC13agFv4OeYcmDDaJMHa+ULEq3rxtr1lVeNK7u1zVRz8KsIQ55Fv
+         dHo81Fzam/TFECetmcOq++FMpeCfh65RmjL/yfbaxM4+yVNcL5kyN3BZC5rGATm9haHx
+         aHqw==
+X-Gm-Message-State: AOJu0YwxXrUVa6B792GA/xiOttrWNveKZqtFESZO+R24qupBojhgOJ4e
+	LVVHGPPYoz9YsW82aUGH+08uHalXd1sDAE23hp1zno4eliBOv1i9IP9F
+X-Gm-Gg: AZuq6aKElji+/+gvOgQwxSwDrfeAfaul+FkRS9cYEJKWZU3eaHXBcbBGaHQc52GAXyl
+	U0Dsimqh0mTuuD7CM7brOUMxgTgYWmKCz+qWsbpqN4KZIEDiNm5Z0Hvu3NvWL43PNHvgR8Fgvsa
+	XsEOxiHMpvXVK4vjUUgqC/feW6iyEpKwVH6bUF2fTKF5s1gpWJ8JMw9uNVVK9Sbqn1dCDck/d6v
+	me/QGIX9dbwYTr1uBqyu13CyhxBxAb6kr8kfONcGSeyk59b6K3tx5WwIPhsxff8vU7NSN+vKdID
+	dybg+hH/K2focxLDsj5ZNue2XFfRhmKdoL2i6a6NBnGhTv5wvTD0N57CVzhDX3Dhpgpgv85jZrL
+	wMR5SMYbthCeMy4VdSfzZmZ9wLWk158UCpUYMTSeA8Q6FXPezq+zPhAlTeInNt89PzVk5hpdK4x
+	25JVwnq1+pTrOFoKkIeHd8x7h6jtzT4VpuvG2HBQkioHJr9P8dvfs/dBIo/ynYzyZ1CI1Zpth9l
+	jYWcO8OPtB8tF8pwa9fKR6qdAks9AB2KcHk66QiGw==
+X-Received: by 2002:a05:690e:24d1:b0:64a:efa9:8e35 with SMTP id 956f58d0204a3-64c19b2effdmr350507d50.45.1770960712986;
+        Thu, 12 Feb 2026 21:31:52 -0800 (PST)
+Message-ID: <a41a15ca-b26e-482a-9084-fc61645fb24e@gmail.com>
+Date: Fri, 13 Feb 2026 00:31:47 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver + Xen
+ 4.19
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, intel-xe@lists.freedesktop.org
+References: <aYtznP_tT6xNPwf-@mail-itl> <aY3ttvtxGCPTNgsj@Mac.lan>
+ <aY58-gyarcVoBS2a@mail-itl>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <aY58-gyarcVoBS2a@mail-itl>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="rAuO+Q0Dl2rqoauD"
-Content-Disposition: inline
+ protocol="application/pgp-signature";
+ boundary="------------jOg7GeT3X3YVR5VOQBiQ2OhK"
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.78 / 15.00];
+X-Spamd-Result: default: False [-3.18 / 15.00];
 	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm3];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,messagingengine.com:dkim,invisiblethingslab.com:dkim];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_ONE(0.00)[1];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:intel-xe@lists.freedesktop.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	SUBJECT_HAS_QUESTION(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	HAS_ATTACHMENT(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 1FE0F132C9C
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: D7CCF133045
 X-Rspamd-Action: no action
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------jOg7GeT3X3YVR5VOQBiQ2OhK
+Content-Type: multipart/mixed; boundary="------------Y0BYarGPpLAyvgRCH0CQV6AR";
+ protected-headers="v1"
+Message-ID: <a41a15ca-b26e-482a-9084-fc61645fb24e@gmail.com>
+Date: Fri, 13 Feb 2026 00:31:47 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver + Xen
+ 4.19
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, intel-xe@lists.freedesktop.org
+References: <aYtznP_tT6xNPwf-@mail-itl> <aY3ttvtxGCPTNgsj@Mac.lan>
+ <aY58-gyarcVoBS2a@mail-itl>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <aY58-gyarcVoBS2a@mail-itl>
+Autocrypt-Gossip: addr=marmarek@invisiblethingslab.com; keydata=
+ xsBNBE5j9EwBCACbYHjxDrxFAY3n1x9KBFvjzkG1qFSTVBnH4vpD/5Na4sZq4uDDMUCjivrm
+ MzbWYaivYj96BygdOiw7PWxYrhuW0b2WYOeGudZyApgFz42g458s78EciuhgfuWBlxr8dOEN
+ /9ueVFHcvtZmDbHhMVPcQ0O7gwh0JmwkOsf7P7WAfYXsQlhO/EBRrNXR0Je+GEpYADhRktxX
+ h1d3Iz+oKYuwHioLX8ovoAT4+peOuecWUSpUWebpDbTR5i7NRP3PIblB4KzWJa2kh/f3mx4v
+ SRGnHn+BfX42xSe0X7Ktl4Xf+KNq9Wkcjk2CZP57hV2v4pO0ZUOXD7IhlZtnfNj67WjdABEB
+ AAHNPU1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSA8bWFybWFyZWtAaW52aXNpYmxldGhp
+ bmdzbGFiLmNvbT7CwHoEEwEIACQCGwMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4AFAll+l7cC
+ GQEACgkQ24/THMrX1yw6kAgAiKiUhzAPXZj5ndqiQDl8u8PUK34SupLzYNMJOCBw5Wh+CPHe
+ XYlQUwfULWxmzjiWCzzWDx2X/ONsYdRGKDKMqG5srOSWe1IYXv00MEutGsK+m/hmC5mqi/97
+ DVNZ1VtKj5WW79IsI0/7ueHsQYNNrXyOfZvKsRE8VIUJ0tNfLFDFlNpq9jONuF+GviMWxrA5
+ FoVaGmjh63xC0fOQYqhP2v8dbYS4B6bO5NZKI2cTHb9Li2iY0e7wIoNgvqgtR3Iv2U2Ry0yL
+ D3mNQhwyxcWChexlymjfqLEZwKqaIOo57HOpt7OA+bMg6MvkdUTjNWf2GE6fqCcALjcToJ3L
+ NDc1KM7ATQROY/RMAQgAtRWgUZ5mOy+c/qzmiVnxqDkiOJjmnIh3Pn+OqCtjcrTyPI9eVc06
+ uH30Jkco0soLiG/UgwVw4XwBlm95j9n6TSUms4mPBh1YiR1hBjsjYwn8zp/Ue9xWk1N6E14H
+ aj55GxmS2H3YIlOXfQLr0X3RHsmKixTOKyisrYlJu71FmettDFV7CgMXy1Bc1LbAE08asvAS
+ ShHFdRiRRtkuVHvY/Ebq9L54kOxtlI6ahrflMcT0YCMON5oe4GgQRh3p2uy+d/LS2bgRcQST
+ IebErj8x0lM271f97GvxV/ypHo7XVIDI5FX1u31Agzx3HQr035GHt4HV4/GVCz+V4xt4BonB
+ tQARAQABwsBfBBgBAgAJBQJOY/RMAhsMAAoJENuP0xzK19cs5MgH/jWLXil2Ud4TdtWnBxc+
+ 2/QZZk2JCssc1PgWNzvH5wH7U+8lGSlUK8ZMOqrrF8C5rX0+xEn7deSrsZChIOnUFo8rhCZK
+ y/mBV+FhkMj24FZZ0n8w3eF4KF2t68Pt+AvMjxQHwxAMdf3QftgQhD0qYkt/28eedUQ+jwz6
+ kipc4qUQmqTEViQRPa3WAnKgNDQUDUwNruzthfGvHUjllf7zbPI8gkbARM0KlTkLikc9u+Ni
+ VMbJTiGPB7YHyw2MIPq1n+mhSPAyXE6CVBnYkonQ7P3SLZssxC3PIarV+DTU68umQB3pfrfF
+ 7hMcAY5csWrK9/x/Zz4RUfgN6Q3HLrSp9UQ=
 
---rAuO+Q0Dl2rqoauD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--------------Y0BYarGPpLAyvgRCH0CQV6AR
+Content-Type: multipart/mixed; boundary="------------EdX0l0OYn0TsjuKSh4OjZtQf"
+
+--------------EdX0l0OYn0TsjuKSh4OjZtQf
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Feb 2026 05:02:30 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Cannot boot PVH dom0 with big initrd
 
-Hi,
+On 2/12/26 20:23, Marek Marczykowski-G=C3=B3recki wrote:
+> On Thu, Feb 12, 2026 at 04:11:50PM +0100, Roger Pau Monn=C3=A9 wrote:
+>> On Tue, Feb 10, 2026 at 07:06:20PM +0100, Marek Marczykowski-G=C3=B3re=
+cki wrote:
+>>> Hi,
+>>>
+>>> Recently I started testing compatibility with Intel Lunar Lake. This =
+is
+>>> the first one that uses "xe" instead of "i915" Linux driver for iGPU.=
 
-After fixing the xhci crash, I hit another issue - booting with 236MB
-initrd doesn't work, I get:
+>>> I test it with Qubes OS 4.3, which uses Xen 4.19.4 and PV dom0 runnin=
+g
+>>> Linux 6.17.9 in this test.
+>>
+>> Not sure it's going to help a lot, but does using a PVH dom0 make any
+>> difference?
+>=20
+> Ok, now with the correct Xen version, it's better with PVH dom0. At
+> least on the login screen and few applications (from both dom0 and domU=
+)
+> I don't see the glitches anymore. I can't do a full test, because PCI
+> passthrough doesn't seem to work with PVH dom0 on Xen 4.19 - and I need=
 
-    (XEN) [    3.151856] *** Building a PVH Dom0 ***
-    ...
-    (XEN) [    3.593940] Unable to allocate memory with order 0!
-    (XEN) [    3.597110] Failed to setup Dom0 physical memory map
-    (XEN) [    3.599884]=20
-    (XEN) [    3.602482] ****************************************
-    (XEN) [    3.605272] Panic on CPU 0:
-    (XEN) [    3.607928] Could not construct d0
-    (XEN) [    3.610692] ****************************************
-    (XEN) [    3.613463]=20
-    (XEN) [    3.616035] Reboot in five seconds...
-    (XEN) [    8.626565] Resetting with ACPI MEMORY or I/O RESET_REG.
+> it to start most VMs.
+>=20
+> So, if the above test is representative, it's only about PV dom0.
 
-Full console log: https://gist.github.com/marmarek/c9dbc87bf07b76f289978175=
-5762f565
+This reminds me of a problem that I helped debug a while back,
+and which also affected Qubes OS.  That one was due to some part
+of Linux core MM clobbering the high bit of the PAT part of PTEs.
+As a result, a PTE that should have referenced entry X in the PAT
+wound up referencing entry (X & 3).
 
-If I skip initrd, then it boots just fine (but dom0 is not happy about
-that). 164MB initrd failed too, but 13MB started ok.
-Just in case, I tried skipping XHCI console, but it didn't change
-anything.
+On native Linux, the bug was mostly harmless, which is why nobody
+found it earlier.  However, on Xen PV, the different PAT caused memory
+to be cached that should not be.  The resulting symptoms were very
+similar to what Marek described, though a bit less dramatic.
 
-Host has 16GB of memory, and there is no dom0_mem=3D parameter. Xen is
-started from GRUB, using MB2+EFI.
-
-When it works (12MB initrd), I get the following info:
-
-    (XEN) [    4.123843] Dom0 memory allocation stats:
-    (XEN) [    4.126636] order  0 allocations: 4
-    (XEN) [    4.129278] order  1 allocations: 3
-    (XEN) [    4.132027] order  2 allocations: 4
-    (XEN) [    4.134776] order  3 allocations: 3
-    (XEN) [    4.137527] order  4 allocations: 3
-    (XEN) [    4.140252] order  5 allocations: 3
-    (XEN) [    4.142966] order  7 allocations: 2
-    (XEN) [    4.145663] order  8 allocations: 3
-    (XEN) [    4.148358] order  9 allocations: 3
-    (XEN) [    4.151035] order 10 allocations: 4
-    (XEN) [    4.153709] order 11 allocations: 7
-    (XEN) [    4.156277] order 12 allocations: 9
-    (XEN) [    4.158940] order 13 allocations: 6
-    (XEN) [    4.161604] order 14 allocations: 6
-    (XEN) [    4.164251] order 15 allocations: 7
-    (XEN) [    4.166892] order 16 allocations: 6
-    (XEN) [    4.169521] order 17 allocations: 4
-    (XEN) [    4.172048] order 18 allocations: 10
-    (XEN) [    4.994309] ELF: phdr: paddr=3D0x200000 memsz=3D0x1ff3928
-    (XEN) [    4.997011] ELF: phdr: paddr=3D0x2200000 memsz=3D0x1c00000
-    (XEN) [    4.999686] ELF: memory: 0x200000 -> 0x3e00000
-    (XEN) [    5.002404] ELF: note: PHYS32_RELOC align: 0x200000 min: 0x200=
-000 max: 0x3fffffff
-    (XEN) [    5.005451] ELF: note: PHYS32_ENTRY =3D 0x16a2ca0
-    (XEN) [    5.008519] ELF: note: GUEST_OS =3D "linux"
-    (XEN) [    5.011562] ELF: note: GUEST_VERSION =3D "2.6"
-    (XEN) [    5.014634] ELF: note: XEN_VERSION =3D "xen-3.0"
-    (XEN) [    5.017712] ELF: note: VIRT_BASE =3D 0xffffffff80000000
-    (XEN) [    5.020795] ELF: note: INIT_P2M =3D 0x8000000000
-    (XEN) [    5.023856] ELF: note: ENTRY =3D 0xffffffff82d3c160
-    (XEN) [    5.026924] ELF: note: FEATURES =3D "!writable_page_tables"
-    (XEN) [    5.029976] ELF: note: PAE_MODE =3D "yes"
-    (XEN) [    5.032882] ELF: note: L1_MFN_VALID
-    (XEN) [    5.035516] ELF: note: MOD_START_PFN =3D 0x1
-    (XEN) [    5.038442] ELF: note: PADDR_OFFSET =3D 0
-    (XEN) [    5.041250] ELF: note: SUPPORTED_FEATURES =3D 0x8801
-    (XEN) [    5.044169] ELF: note: LOADER =3D "generic"
-    (XEN) [    5.047048] ELF: note: SUSPEND_CANCEL =3D 0x1
-    (XEN) [    5.049931] ELF: Found PVH image
-    (XEN) [    5.052712] ELF: addresses:
-    (XEN) [    5.055090]     virt_base        =3D 0x0
-    (XEN) [    5.057552]     elf_paddr_offset =3D 0x0
-    (XEN) [    5.060007]     virt_offset      =3D 0x0
-    (XEN) [    5.062476]     virt_kstart      =3D 0x200000
-    (XEN) [    5.064924]     virt_kend        =3D 0x3e00000
-    (XEN) [    5.067380]     virt_entry       =3D 0x16a2ca0
-    (XEN) [    5.069841]     p2m_base         =3D 0x8000000000
-    (XEN) [    5.072319] ELF: phdr 0 at 0x200000 -> 0x21f3928
-    (XEN) [    5.080076] ELF: phdr 1 at 0x2200000 -> 0x3e00000
-    (XEN) [    5.090182] Dom0 memory map:
-    (XEN) [    5.092531]  [0000000000000000, 000000000009efff] (usable)
-    (XEN) [    5.095086]  [000000000009f000, 00000000000fffff] (reserved)
-    (XEN) [    5.097625]  [0000000000100000, 000000005471afff] (usable)
-    (XEN) [    5.100156]  [000000005471b000, 000000005475bfff] (reserved)
-    (XEN) [    5.102704]  [000000005475c000, 0000000063c2dfff] (usable)
-    (XEN) [    5.105259]  [0000000063c2e000, 000000006d17afff] (reserved)
-    (XEN) [    5.107853]  [000000006d17b000, 000000006d22bfff] (ACPI data)
-    (XEN) [    5.110459]  [000000006d22c000, 000000006d2ebfff] (ACPI NVS)
-    (XEN) [    5.113082]  [000000006d2ec000, 000000006fffefff] (reserved)
-    (XEN) [    5.115726]  [000000006ffff000, 000000006ffffdcb] (usable)
-    (XEN) [    5.118388]  [000000006ffffdcc, 000000006ffffe97] (ACPI data)
-    (XEN) [    5.121080]  [0000000070000000, 00000000807fffff] (reserved)
-    (XEN) [    5.123776]  [00000000c0000000, 00000000cfffffff] (reserved)
-    (XEN) [    5.126498]  [00000000fe000000, 00000000fe010fff] (reserved)
-    (XEN) [    5.129244]  [00000000fec00000, 00000000fec00fff] (reserved)
-    (XEN) [    5.132001]  [00000000fed00000, 00000000fed00fff] (reserved)
-    (XEN) [    5.134797]  [00000000fed20000, 00000000fed7ffff] (reserved)
-    (XEN) [    5.137619]  [00000000fee00000, 00000000fee00fff] (reserved)
-    (XEN) [    5.140436]  [00000000ff000000, 00000001023fffff] (reserved)
-    (XEN) [    5.143271]  [0000000102400000, 0000000468b34fff] (usable)
-    (XEN) [    5.146131]  [0000000468b35000, 000000047f7fffff] (unusable)
-    (XEN) [    5.149015] Initial low memory virq threshold set at 0x4000 pa=
-ges.
-    (XEN) [    5.151852] Scrubbing Free RAM in background
-    (XEN) [    5.154667] Std. Loglevel: All
-    (XEN) [    5.157465] Guest Loglevel: All
-    (XEN) [    5.160250] Xen is relinquishing VGA console.
-    (XEN) [    5.166762] *** Serial input to DOM0 (type 'CTRL-a' three time=
-s to switch input)
-    (XEN) [    5.167550] Re-running stub recovery selftests...
-    (XEN) [    5.167692] Fixup #UD[0000]: ffff82d07fffe044 [ffff82d07fffe04=
-4] -> ffff82d0403b8753
-    (XEN) [    5.167914] Fixup #GP[0000]: ffff82d07fffe045 [ffff82d07fffe04=
-5] -> ffff82d0403b8753
-    (XEN) [    5.168139] Fixup #SS[0000]: ffff82d07fffe044 [ffff82d07fffe04=
-4] -> ffff82d0403b8753
-    (XEN) [    5.168359] Fixup #BP[0000]: ffff82d07fffe045 [ffff82d07fffe04=
-5] -> ffff82d0403b8753
-    (XEN) [    5.168662] Freed 720kB init memory
-    (XEN) [    6.884758] d0v0: upcall vector f3
-
-Interestingly, this appear to have worked on Xen 4.19.3.
-
+Can you try removing the Qubes downstream patch that changes the PAT?
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------EdX0l0OYn0TsjuKSh4OjZtQf
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
---rAuO+Q0Dl2rqoauD
-Content-Type: application/pgp-signature; name=signature.asc
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------EdX0l0OYn0TsjuKSh4OjZtQf--
+
+--------------Y0BYarGPpLAyvgRCH0CQV6AR--
+
+--------------jOg7GeT3X3YVR5VOQBiQ2OhK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmOolYACgkQ24/THMrX
-1yxVqwf9GfdG0bARTV/AM84KSWr2FdWr+RIUpTDW5FUr3OgWnwPokbO+StETmk+6
-8rreqys8ODYbXaS+IWsJWosin7mA5B1tJcU4I7lvT4pAmbuT7nR/wPYmsBl0PTCB
-dYSeI7b0OmXl/1XR0gTW5MPBLHSRmlLWHPdOR+KCPbxb20BWldSPlOqoIwfBT0aL
-+3VwojIi1WBNNgiSKJ3x1REW/JAOuCwvtsC7rHmlHc4QaeuWhIv6/CN63q6fl+3o
-I0dUfiR8w8F//6iyGFh1e9kT2kGrG53Pti0AGu9PTWJu1KKEiSoT40W2Ph7NOcqY
-ImKublw9WKg/B4XfjxDjYpbZzZGN1A==
-=+ykz
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmOt0MACgkQszaHOrMp
+8lPpfQ/8CT72Z1uy8MKzDSpt61iI0D6+dw/rIjqXDCz3DrTI8QGxfbB5b3QLNGW1
+o4wZiJXOrYB85zZrLmS+bjzBfCrXpinyIJLlK7HH3ppWeJtyhD02raRSQlVfH/Tf
+OeVXFpKRSvKMpQht9vHTjvv1mMOcoP4tA5fzKKVWMiHtfczXJkmQhfZ6lPZ6lff3
+cc+wokbMOwM7Bntsx5t4t7zIeLCB+9gleqgncAOy08tcK8LTVKuW1i/vx6M6KypA
++rGhSbaI+jocmqXXCBkNAeOOur5ryMDCqdrLhkxV3A4NDA7GNz7SjqzER8e+g9yr
+R9Evxcb3JVpDUoKi1U/gIjvrLRXZ17AXj0cHroEOaFRAvGtDrU9umstBjqWXjoaV
+irW8feGYTr72/XxQwuLToMiu4dpXG/SDFrYQYS/LbIO3X2OwcBVLintj5o0sX1Ry
+rRlNpunRiWGger/zFQyMpfja8HLYvQuaAk6/hD/tHZqZFlM1avdOl/JbOmtzwXci
+Fh9fuG4Yk2wf2U787JjS890b1T+PzIl+NnOMUZ1MXueoxnOWblcO+ws9twesIL0F
+BC5o72FAHWQrlOieYWydK/Ec1kmDMJHFjN1BxPs6w1nbzSmUqh/lxNT/hyuKTTY6
+UVE60RBFhfftpL/dZsq5QMjMOx/wp7dFQ5FOx4zpJSBkwzpcXks=
+=lSgB
 -----END PGP SIGNATURE-----
 
---rAuO+Q0Dl2rqoauD--
+--------------jOg7GeT3X3YVR5VOQBiQ2OhK--
 
