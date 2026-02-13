@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gK0UBGtTj2lUQQEAu9opvQ
+	id IAirHWxSj2kMQQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:38:03 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:33:48 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C761383A5
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:38:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1231444.1536645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC97F138270
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Feb 2026 17:33:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1231412.1536634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqwAx-0006dB-EU; Fri, 13 Feb 2026 16:37:51 +0000
+	id 1vqw6s-0005lk-U4; Fri, 13 Feb 2026 16:33:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1231444.1536645; Fri, 13 Feb 2026 16:37:51 +0000
+Received: by outflank-mailman (output) from mailman id 1231412.1536634; Fri, 13 Feb 2026 16:33:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vqwAx-0006a7-B3; Fri, 13 Feb 2026 16:37:51 +0000
-Received: by outflank-mailman (input) for mailman id 1231444;
- Fri, 13 Feb 2026 16:37:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vqw6s-0005jF-RP; Fri, 13 Feb 2026 16:33:38 +0000
+Received: by outflank-mailman (input) for mailman id 1231412;
+ Fri, 13 Feb 2026 16:33:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HtAj=AR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vqw3M-0005Wn-8K
- for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 16:30:00 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ccbb68f-08f9-11f1-9ccf-f158ae23cfc8;
- Fri, 13 Feb 2026 17:29:58 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4836e3288cdso6978215e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Feb 2026 08:29:58 -0800 (PST)
-Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835dd0deeasm189438325e9.12.2026.02.13.08.29.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Feb 2026 08:29:57 -0800 (PST)
+ <SRS0=Z/W2=AR=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vqw6r-0005j8-Ai
+ for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 16:33:37 +0000
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azlp170100005.outbound.protection.outlook.com
+ [2a01:111:f403:c005::5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bd93bfcd-08f9-11f1-b163-2bf370ae4941;
+ Fri, 13 Feb 2026 17:33:35 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by SA3PR03MB7396.namprd03.prod.outlook.com (2603:10b6:806:39a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11; Fri, 13 Feb
+ 2026 16:33:31 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9587.017; Fri, 13 Feb 2026
+ 16:33:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,271 +52,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ccbb68f-08f9-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771000198; x=1771604998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BLmM/PlB9z/B4eiJQnmz92BO4QQBKRzX8FQ6b7JAWPA=;
-        b=Xrkn4xyLvNsIQUXyAWxYn6dNTJEDMZRecE94YrQ6VZTIaViCcsoA36HD0q6tjz/zWh
-         9+BaIUOd1PghNoZzNq2JZsp+/Mnc9vC3aMohslBZxZwPqhPEY5AUlCxVwPvEmCWHhtAh
-         DCTHbC5+5N6itV6aoau3SzqR3z9LPaKIePkSKs1jJ5Cj/PBWM8WJ29l2f0oY+k6+jLvn
-         dUrsUvTAEH5NP+qULOX+2sYEBUkobCh11lsIloUg7e+noz174mQGNVF5PieRle1Fd0px
-         Db7LuDNEZddCGUtpLdQHZzfmMzsSa6vh2+EpAE6vM7uYK5F38ePWJADaDon8jWM3dJW7
-         VcbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771000198; x=1771604998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BLmM/PlB9z/B4eiJQnmz92BO4QQBKRzX8FQ6b7JAWPA=;
-        b=PW5xqTZ7VE8Xrenmp45VurPvXVxuykWiK0U3LXqEC91R1hoAvo33b3sgYU21x/kJzZ
-         +7G4C+0tZpaSHNCP//D/iSn+iPFCqMHJHzNimL8xQLoKMyXcGwk7UQ7dGU8mreSAcab6
-         bnidy4I1HezMnMXCch/BktPWSibifDwg9zA2B5g4Kd332QwJB6hpUo23z5gLsK/md1S1
-         Fz8fnuYpk0TEVKOUpIP0jWpnUIPeE5Ht5QFNrG8JKu6Yb4z/ch6kqT/hBfo/ZUZ6FFoG
-         VZmTAQEA7hPh8wvu2CEFLjhk5T7427E1GS9cRbKOffkEEn+ByK4m6wjJTRAX16z/S6xg
-         5ahw==
-X-Gm-Message-State: AOJu0Yx/2hQA3A6GsIPV2+gyAIKt8Hv/cZTHA26tkdYxE9lGVoFsb0e2
-	fxQD5R+im5rpc0gjvOYp6FSSVHccryh753bDrv703jWFcJqyZ+8JFaHzp0jccei9
-X-Gm-Gg: AZuq6aI8t2GneaaOElB2oR95JAI518wKyp7qX5TGusY0lpNHq0OvumTaegugRpL9bHE
-	kM65LoRf8qvaOQ26mx1rwrFDsa45got1hIeWPM4831OvI109eZ9Fyi5X7f51vzsM3rAn07qputi
-	GaYn6d+rF31PUUG4Y1rP+o2Z96uINaJxhLEwzmxrgZTq9AEQQuGBtmiEmfG7tTgNHK/EetE3jLx
-	pZXZsldktYFxY1wV1i9HsbwXIK+L9x26Q2CGz3nSNTx2UKhA5ktGCPcOubnl6HndK5tBx9KuVZS
-	u4LZQDVJkGSSloQZWL/95WHJZvTO3cYwP13AEBAjXBEQVCusniOfRsnj/bPk68MzHHVBs6/kAgl
-	uLIYvqEqt7IghP+8nXyA0WEtYsg1sgqiIzaB0Onp6tyRGmLCgyTuroZ7ktMGVQWcWNJDin0MIM3
-	/BHBZ/84qdm3141FuxdDcUSCjdPwQfW02c2ON3uBTkCZC/o4zIIu81hYMI+5PfVSm0tLOM5JkiP
-	faU
-X-Received: by 2002:a05:600c:8285:b0:46f:a2ba:581f with SMTP id 5b1f17b1804b1-48378daa075mr11488265e9.16.1771000197631;
-        Fri, 13 Feb 2026 08:29:57 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3] xen/riscv: add p2m context switch handling for VSATP and HGATP
-Date: Fri, 13 Feb 2026 17:29:45 +0100
-Message-ID: <be3d3793e78b8cfebfdd02361064bf7321b5f2ef.1770999879.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.52.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Inumbo-ID: bd93bfcd-08f9-11f1-b163-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lF3gymsVmJWTV2bbRY1xLxLksCckMSng+lKEuN7DGQZw//QKnvCLrGqJbfes9v4acyhyk7uNrkTrEWgeB8b6rww9+3UT9nGXuIwrllT8uSZEPzJHCuHK12obSB5uXTp6Vt54t4bgDchq5Yu04zlnPcqLPPL/T5lz7qUcIlU1k/3JvxUBxNV1R/5P7s5FqDwPQMryAvyrbYURTXn7KTy2PYgkY46YaVyktK3X+PZb19QCjzYwUSThX0cdEvQpHsfJjsqP2zFcl+XX+N5miDwkxt5K0X9d5iAu59belCAzkiPf+n+VqfWdQ+/xlEWE9w/QYkXmmb0t4+LZ3Lzapwoxlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yqm1//Ni5dovdXJ2JqxsMrEse5eljym6mkA8zl2x1tU=;
+ b=MZDXB3+Ggh+/WPPb3yFr12ZGCsQWTCPKBbNyrouuD9j0PtSR1Vy2BHCaUK0QQxHeHcEmgwjdsNwioNtPlrXJ25f3J2/MLx4ETsgLyGpHMYNe1emhCj2sCjxRARHt1K2DmMA8Mmn6JnTIAMEGjaOXD8FTF12CdcdT1D/N/oXyjf+VDfTIcQnvSguBFlL7LK5JlE8hjeObIJCHrwu94blptyUhO8NRkmCUIeeDN7dhMjq3dE8yMMXVRF4ACPUUSVZUOjLhr/M5LOCSv8Yke+HB6uBbd343U6r7347N/O8oGIoX8LZyGy3bvmSwgFKypzaze9vxV2K49pM5V3h+AZRFxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yqm1//Ni5dovdXJ2JqxsMrEse5eljym6mkA8zl2x1tU=;
+ b=mipOmtlmrnegsnGnvAtnbbcfu4iYD6SCGDBdavz2ytxFLH8vRiQyF7J8FcLkQ/6KUVrTfLQpFPsQj8gOL6w10lrWs0NWE/HMOBrZZs/Wu5Bmpjzjz2WCSNPURVUUaQZXDwcITkQG/OSV/v9QbvoI/yFr7ZHmvg2QIWZV0IHkG2Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 13 Feb 2026 17:33:27 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 1/2] x86: Make hvm_enabled a constant unless both PV and
+ HVM are both compiled
+Message-ID: <aY9SV1PeqNqiPWlx@Mac.lan>
+References: <20260213133732.132326-1-alejandro.garciavallejo@amd.com>
+ <20260213133732.132326-2-alejandro.garciavallejo@amd.com>
+ <aY80qJVIZOjjqBOS@Mac.lan>
+ <1e4e20cb-71fd-4ed3-888b-7ca8b17175a5@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1e4e20cb-71fd-4ed3-888b-7ca8b17175a5@citrix.com>
+X-ClientProxiedBy: MR1P264CA0118.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:50::25) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA3PR03MB7396:EE_
+X-MS-Office365-Filtering-Correlation-Id: 767288b2-73c5-4468-1f88-08de6b1d9f8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?V2d2Y0hhWHZ1ZUwxU01WWW9SWEdISVZVRXB6R0djLzA2NGdYMEdIQTFGd3Bk?=
+ =?utf-8?B?ckNyOGJqNWx6eDV5NUZDVnNtWGx6SG9BR3dNM3BjQjVBVUhCem93d3RTZjNP?=
+ =?utf-8?B?VVR0TTN4TFB3cXVOVnBIbDdqMVBlTGlmTStzVXpCUlRrMjJwbklnUFdKMWl4?=
+ =?utf-8?B?T25RUlVJcUZaT05ZSW83R2JRWXFVYWZsdHl2MmJjY2s0R0hGR3QyUDg5R1lN?=
+ =?utf-8?B?dDZwQWR2NE5Lc1RMNlNnaGFvZ2lhYUlWQU9xU3NwQ3JWbHBKaVFGT1hKZ2dI?=
+ =?utf-8?B?YktnazF3TjJRdk14V3RiTGUrTGVETmpIU3kvaFdZZVYwbm9JODdKQnB4a0ZP?=
+ =?utf-8?B?WXpSTTlDM28xYzZMdGk0VGdaNk5NbjBoeG0vNnBTWmcyTTVlaXh2OE1KeUlD?=
+ =?utf-8?B?Y21PV3pXSXRKYlFhQ01yYzFiUWU1L0Q5MjNTb2N0amZnMGNxMnNnd3Zxbisw?=
+ =?utf-8?B?VTNhVmdjQlUzUkswSWdJcHRDd0JYUVNSUWlrTTRrRFdkWVpLT2dwM0JGRzVJ?=
+ =?utf-8?B?MHUwekptNFZLQkZ0aGlrWkNjaXMzZ3ZSa2xZaVZyTC9yTTlaU2JuUUlCcHQ3?=
+ =?utf-8?B?TXg2Z0JHRmlacnZmcXlyNkRpcDRxay9rdi9ZR2pDWitRU2dRdlZOZ09zZ09W?=
+ =?utf-8?B?SlVrNnRwTSs2ZmxWVDgydENRS1hpRDdBUEF4bXFwS2R3cGtzWDR6UDBmWUth?=
+ =?utf-8?B?TWdiU0IycnoySUFKT0M5SGFsQ0VkcWFGazNVejJrRGJVRlArTXlxaDRFSVo4?=
+ =?utf-8?B?bTlzZ1lkUmIrdXVWbkxxak5nbmdvdmJSNVNQc2JQU1grSnkxWlNmUHZiU1pF?=
+ =?utf-8?B?VDdUL2VYdm5EaUxxWFlMQ28yNGcwWmE5MFVFRE84ejc1NC8vWWphRS8zcC9M?=
+ =?utf-8?B?b0I3bHVUOU0rYlZoWDhRZTJXWDF1Lzk2SFYzYXhIb1luc2VMSmsyYWdZdlFF?=
+ =?utf-8?B?MjJZSUltSGlJNGVKd1p4cUl1MkhGQkpHMVlWRE5SNGVwL1UxTmJUWkREaVV2?=
+ =?utf-8?B?YUlhdFU0TU4rZ29pekdPcC9wZU9uY1NKekFPL29SOUlaZzRXaFBuRld3SXVw?=
+ =?utf-8?B?c1V6VmNnMXkvRW9tOUFlV2x6RlFaQThFSTZQci9pc2F0K0VDVlRxczBsbi9m?=
+ =?utf-8?B?QTUrVDI3NTNJZFc1NmlMakpQY3FCbVBRakd3TjRUQVU3ZWVSZmRsdTNnT2lL?=
+ =?utf-8?B?U252bk5kSzFrWXlFZHNaVTFTbmxudCtMeURIUGlGNHEvNDN4MFVZVVVLTVZa?=
+ =?utf-8?B?UVlyR0tUU0JKSWpCRGZnNktkblA2RUNpTWZvQjZNYkoxTm1xWTdXWUlCZUpV?=
+ =?utf-8?B?dzYxVkJqYWtEVXVaMmNoSWVVUnBxaFFMZDVtcGRmMWpaUzVTRzBwWENacnBn?=
+ =?utf-8?B?UytzcjArMVJOUVRnYTVIWGgrbjNMcStSSHdtZHVWbFQvejFrQ1BwVU53Smx4?=
+ =?utf-8?B?R2lYVHRuQkkzWmRGcFVBQ0l6OGJ4aWNFY0tJNkFJVXg4QTZ0RmN4NlBoMXVp?=
+ =?utf-8?B?NTFQRjcvY29LZU1JODVReFNLbGQxRm55ZlBOSTc1Zy92TDVZL0xQZkFuVzlN?=
+ =?utf-8?B?a0hqU05uZjJ1YjZyZUtDZkdha0hXYTRaTjEyVjhuK0UxU1czR2YvN0g2UXli?=
+ =?utf-8?B?Y21Eb3JyYnJRdndESmZjY2JxUHdJWTRuUHJ1bVNGSDZTaXFITDVLd3k2Vm5F?=
+ =?utf-8?B?TTl5TTlhMmU3Y0dJRlB4ZFNyOWd6SjhUcm1BRklNNi9sN0JQcGFMaTBPVVFU?=
+ =?utf-8?B?WnlxZUdlNTF1cHpQcEwwVHhDYmozY1p4L3BqNWRQR05OeUZLYlpJTGdZWlcy?=
+ =?utf-8?B?OGh4NUN6aldsV1JveUtqcCt2dmQ2YnYwc2tGOFk5TjJRdzNRbkt0c3RYSHV1?=
+ =?utf-8?B?aUROV2JLYUpNSWc3YUtoRVhRZVBZV284aUkvYjUwbkhKVURwRkVjNysxUU5L?=
+ =?utf-8?B?N2dlWENwTFFCdG1ZLzBsbUdsbG5WejcyR3NrWG0rb3dodHFoTGMxRmpmeHMr?=
+ =?utf-8?B?cTNNU1c3VkM0bTFkTzJ6MHlQeVlMY2EzSHM2RHllUFdNdGx1RGMxNjdSQndO?=
+ =?utf-8?B?TEpOVFdxYTk3b1psNi9vQnIySHNMUjlSTkE2T2NMUlp2TzVEelZjcVFaZTNF?=
+ =?utf-8?Q?HVKQ=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXFqN2lmMzJSemdDWlhHaFl1NGRsK0t0bG9mS2hoancvUEV6dkNUNVJIeHdP?=
+ =?utf-8?B?clhmNERVQ3loYlNBcVp6WTNyY2s4U3k2YUtCZ0s1RGdVSFhjQStGNVBLRENr?=
+ =?utf-8?B?OEpMS25GS3ZaanR1R2NMTk9LeFBmRlkxbXp1MXY1TkgyOWJpVTVkcm5jK3kx?=
+ =?utf-8?B?MXZJU3dBSnF4d05IazlpUUtBVEZvbk9LV3k5RG1VN1AwY3BlVnR4NzNuT3ho?=
+ =?utf-8?B?dWx2S3FRWmNzenpyMlMzRlRPUnI0MEpFenBKZ3ZUazQwNDVJYldlVTE1cURw?=
+ =?utf-8?B?WDVwMmRBUmJubEYxUmxxMXRnWE9WTEthSHo1R2dnaHVaQ1VnUTBlbThrckE3?=
+ =?utf-8?B?S2djWllxdlcveVpQWFBJdXVuNGdCWU5WcFl4R0l3Z2k0cWp1bEJsU3hpcXJ4?=
+ =?utf-8?B?Z211OEVBTkNUK2QxaWhVV1lteC9ORzBybURKZUY4ZnF4ZTI0VTI0U2twRmRm?=
+ =?utf-8?B?R0d2ZzlxV2l0UlQ5Z0c0bFF5TDdGNDlmdWI4NHlHOWRMTzBDK2dnMkdEelAr?=
+ =?utf-8?B?d1BIY3FYQkd1V2sxK1BQYjdpU0FSRDV1WVVOWG9QTWhQbWVkQ3pOWlEzVXUr?=
+ =?utf-8?B?V1laMkpCWDZHbFpleEdSNHl5U20rMmhlWGFvZjl5MW0wUGlPdDh6L2VOOE5Y?=
+ =?utf-8?B?dGR4K1NudDRDcXpDNHNVN1FzWWh0ak9WdDRzZnh2QVZ1VUszK3VVbVIzbUQ3?=
+ =?utf-8?B?YTRjOXB4RFZpVTR4OGgwS0dSSCtROTVCRVk5VDlxUDNqWDBzMUpHd2RJYWkv?=
+ =?utf-8?B?cFYyYWJ6Z1N0ckJOUWtQQUxhOHQra1dyKytIV05UaDlOUENiekdCTDRzZDV4?=
+ =?utf-8?B?MWROWkFicFFGMFREVzJXaVZpUmlESlJtdTVXUjdpYmRkOXBDdEpCdGlvVEpR?=
+ =?utf-8?B?b2VqcnV5UW9NTUE4NHBqb0RGZm5iVmYrOUJIaVZMdlFRZkdmR3FFU0prNExn?=
+ =?utf-8?B?YVh2MHgzckVXcVRSL000NWY1eUNXclVmQkJGejJPR0hSQWlUa2pSTXl4OXFj?=
+ =?utf-8?B?Q3JGSTc1TjBrajJHc0lVSU52b0NiSmEvTlFLRDVGZjBpWXlmTWpZY2E4WHBr?=
+ =?utf-8?B?T1EyMFE5eXJSMUhnNTB3L3BZR0F6dElNTDg0ck1XMzZoT3J6dmtZY3FXbWti?=
+ =?utf-8?B?a2IzTmdlejZnd01HaUpuMEF6N1VoVkgwcEs1Qzk3cmtLbWNRRENpSlVIRnJ2?=
+ =?utf-8?B?WHIyTUYyZ2syVWRZdTBDRHNKVlM0Z1VkUk9wRHhuSTFvZUV2UUVGakpiUTZJ?=
+ =?utf-8?B?Z0FQU3o4aS9idkJoMHhOMWNYTkJxNjB3QVh3cGRlR242TjNDSWFjNlVTOEpX?=
+ =?utf-8?B?NjFWS09udGt0UFBkMXFIbm40alVEODVjWnhUNmlwcUlDYUxhdmlzdWRiMlpy?=
+ =?utf-8?B?QmJBdzkrdVhuR0l2OCtiL0NYdXpocnZUcm42dDlxa0xoeDdQMVg0eUprQlZB?=
+ =?utf-8?B?dlFrYUs5NFRvL0lDNFhWQ2lKdTFieGc5YjM3MmV6c1ZBMHR4V2FLWVBvaDJt?=
+ =?utf-8?B?RHdmQzNHbU1WaFpDTHZsZkV3V1Z4dVl2ZXJIWGtIR29GU2lWTlV5eXZjamdq?=
+ =?utf-8?B?U0lmU1VsYkUySElUcUIvZy9lTmZXWW5scEk0OUVOR0I4YTk1elMxNEhRQ21a?=
+ =?utf-8?B?UEg4SnpFVkM1RnQrZE9HdnEvdFhBcUtCZ2Zpc0ZkNGg0WmJkck5LNmhHVzZO?=
+ =?utf-8?B?RUVtYXNlM09TaDBwVkd2a003em41WHVEeEtya3dCVElwaFhsSXhKc2RPMXh3?=
+ =?utf-8?B?dFRGQ09mWjkyZGVRVVNpbGcyU3VkTGkvUlhRamhZRFNkZkErbFFHMStsTWNZ?=
+ =?utf-8?B?Vk96Y2V1MjZpZ3NheFc1Zk9rUTFZTWxnelA1aEhpYW9GYWJ2ZFppdXA2OURz?=
+ =?utf-8?B?V0pVMkgyRzI0NGs1TCs4cXBscjlZNWt0NVM5VkN6K2RqS1dZR3lVRWF0U2Yv?=
+ =?utf-8?B?aktHcnJmeEhxUlRNcEpTVGl1Q1diaDRqQkQ4L1Q1eFBoak01dVM0TFp2TUV3?=
+ =?utf-8?B?SXY3U0pWenVSbElrb1BzeHB5amFqWWw1b2ZDb2RXU1p6YUNqYjAzRWxHRTN0?=
+ =?utf-8?B?RUJQUHN0cTdVWnlZSEd0SzErYVFEeUdoUXVSS3o2RXNzUWlUT0JXbGkvbFBu?=
+ =?utf-8?B?RE95UzEveHpMSDNIc3paMFN5ZVU2Tmo5d1hsRFNtNmJOU2l6Q0pLK1RMUUhY?=
+ =?utf-8?B?NFk2OWE3NnNLcDc3Qk9uTnNlVEZXTnJ3Rjc4OUpLSEVhV3ZhZzFGWEVDc0Q0?=
+ =?utf-8?B?R2Z6VFRlSStDK0hSTy9Cb3UwS1FrQlJaNEtLM3lKcktlQmh1YzYwWTVhS1o3?=
+ =?utf-8?B?Zm5HZU9CNzlxOXdwSXI1R1VhZkdRdFI0VHpudGR4VFF1eUZaRGEydz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 767288b2-73c5-4468-1f88-08de6b1d9f8a
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2026 16:33:31.0711
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CinqHIh/01UAOAMeYO1A+LdKHkhz/o4pJS2121Ayr70+gNZ1HXcsShVgPU8Vn3gzi4RyPDLX54PrZdta/Hd6Iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7396
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 82C761383A5
+X-Rspamd-Queue-Id: DC97F138270
 X-Rspamd-Action: no action
 
-Introduce helpers to manage VS-stage and G-stage translation state during
-vCPU context switches.
+On Fri, Feb 13, 2026 at 04:01:25PM +0000, Andrew Cooper wrote:
+> On 13/02/2026 2:26 pm, Roger Pau Monné wrote:
+> > On Fri, Feb 13, 2026 at 02:37:29PM +0100, Alejandro Vallejo wrote:
+> >> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> >> index 4d37a93c57..da56944e74 100644
+> >> --- a/xen/arch/x86/hvm/hvm.c
+> >> +++ b/xen/arch/x86/hvm/hvm.c
+> >> @@ -173,9 +175,16 @@ static int __init cf_check hvm_enable(void)
+> >>          svm_fill_funcs();
+> >>  
+> >>      if ( fns == NULL )
+> >> +    {
+> >> +        if ( !IS_ENABLED(CONFIG_PV) )
+> >> +            panic("HVM support not detected and PV compiled-out\n");
+> 
+> As with Rogers feedback on the next patch, this wording isn't ideal. 
+> How about:
+> 
+> "HVM support required but not available\n".
+> 
+> This is reachable for people who use cpuid=no-vmx,no-svm but they get to
+> keep all the pieces and the documentation already has a general warning
+> about this kind of stuff.
 
-As VSATP and HGATP cannot be updated atomically, clear VSATP on context
-switch-out to prevent speculative VS-stage translations from being associated
-with an incorrect VMID. On context switch-in, restore HGATP and VSATP in the
-required order.
+Hm, yes, I forgot to comment on this one.
 
-Add p2m_handle_vmenter() to perform VMID management and issue TLB flushes
-only when required (e.g. on VMID reuse or generation change).
+> 
+> >> +
+> >>          return 0;
+> >> +    }
+> >>  
+> >> +#ifdef CONFIG_PV
+> > CONFIG_HVM I think?
+> 
+> No - CONFIG_PV is correct here, because we're inside an HVM-only file. 
+> It's the only case where this variable exists for real.
 
-This provides the necessary infrastructure for correct p2m context switching
-on RISC-V.
+Oh, I see.  Yes, those are the right guards, otherwise the variable is
+hardcoded to IS_ENABLED(CONFIG_HVM).  Sorry, my bad.  It's a bit ugly
+to have to do it with such ifdefs, but right now I don't see a better
+way.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in v3:
- - Add comment above p2m_ctxt_switch_{to, from}().
- - Code style fixes.
- - Refactor p2m_ctxt_switch_to().
- - Update the comment at the end of p2m_ctxt_switch_from().
- - Refactor the code of p2m_handle_vmenter().
----
-Changes in v2:
- - Add vsatp field declaration to arch_vcpu.
- - s/p2m_ctx_switch_{from,to}/p2m_ctxt_switch_{from,to}.
- - Introduce p2m_handle_vmenter() for proper handling of VMID,
-   hgatp and vsatp updates.
- - Introduce is_p2m_switch_finished and init it inisde
-   p2m_ctx_switch_to() for furhter handling in p2m_handle_vmenter().
- - Code style fixes.
- - Add is_idle_vcpu() check in p2m_ctxt_switch_from().
- - use csr_swap() in p2m_ctxt_switch_from().
- - move flush_tlb_guest_local() to the end if p2m_handle_vmenter() and
-   drop unnessary anymore comments.
- - Correct printk()'s arguments in p2m_handle_vmenter().
----
- xen/arch/riscv/include/asm/domain.h |  1 +
- xen/arch/riscv/include/asm/p2m.h    |  4 ++
- xen/arch/riscv/p2m.c                | 79 +++++++++++++++++++++++++++++
- xen/arch/riscv/traps.c              |  2 +
- 4 files changed, 86 insertions(+)
-
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index 3da2387cb197..42bb678fcbf9 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -59,6 +59,7 @@ struct arch_vcpu {
-     register_t hstateen0;
-     register_t hvip;
- 
-+    register_t vsatp;
-     register_t vsie;
- 
-     /*
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index f63b5dec99b1..60f27f9b347e 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -255,6 +255,10 @@ static inline bool p2m_is_locked(const struct p2m_domain *p2m)
- struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
-                                         p2m_type_t *t);
- 
-+void p2m_ctxt_switch_from(struct vcpu *p);
-+void p2m_ctxt_switch_to(struct vcpu *n);
-+void p2m_handle_vmenter(void);
-+
- #endif /* ASM__RISCV__P2M_H */
- 
- /*
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index 0abeb374c110..7ae854707174 100644
---- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -1434,3 +1434,82 @@ struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
- 
-     return get_page(page, p2m->domain) ? page : NULL;
- }
-+
-+/* Should be called before other CSRs are stored to avoid speculation */
-+void p2m_ctxt_switch_from(struct vcpu *p)
-+{
-+    if ( is_idle_vcpu(p) )
-+        return;
-+
-+    /*
-+     * No mechanism is provided to atomically change vsatp and hgatp
-+     * together. Hence, to prevent speculative execution causing one
-+     * guest’s VS-stage translations to be cached under another guest’s
-+     * VMID, world-switch code should zero vsatp, then swap hgatp, then
-+     * finally write the new vsatp value what will be done in
-+     * p2m_handle_vmenter().
-+     */
-+    p->arch.vsatp = csr_swap(CSR_VSATP, 0);
-+
-+    /*
-+     * Nothing to do with HGATP as it will be update in p2m_ctxt_switch_to()
-+     * or/and in p2m_handle_vmenter().
-+     */
-+}
-+
-+/* Should be called after other CSRs are restored to avoid speculation */
-+void p2m_ctxt_switch_to(struct vcpu *n)
-+{
-+    struct p2m_domain *p2m = p2m_get_hostp2m(n->domain);
-+
-+    if ( is_idle_vcpu(n) )
-+        return;
-+
-+    csr_write(CSR_HGATP, construct_hgatp(p2m, n->arch.vmid.vmid));
-+    /*
-+     * As VMID is unique per vCPU and just re-used here thereby there is no
-+     * need for G-stage TLB flush here.
-+     */
-+
-+    csr_write(CSR_VSATP, n->arch.vsatp);
-+    /*
-+     * As at the start of context switch VSATP were set to 0, so no speculation
-+     * could happen thereby there is no need for VS TLB flush here.
-+     */
-+}
-+
-+void p2m_handle_vmenter(void)
-+{
-+    struct vcpu *c = current;
-+    struct p2m_domain *p2m = p2m_get_hostp2m(c->domain);
-+    struct vcpu_vmid *p_vmid = &c->arch.vmid;
-+    uint16_t old_vmid, new_vmid;
-+    bool need_flush;
-+
-+    BUG_ON(is_idle_vcpu(current));
-+
-+    old_vmid = p_vmid->vmid;
-+    need_flush = vmid_handle_vmenter(p_vmid);
-+    new_vmid = p_vmid->vmid;
-+
-+#ifdef P2M_DEBUG
-+    printk("%pv: oldvmid(%d) new_vmid(%d), need_flush(%d)\n",
-+           c, old_vmid, new_vmid, need_flush);
-+#endif
-+
-+    if ( old_vmid != new_vmid )
-+        csr_write(CSR_HGATP, construct_hgatp(p2m, p_vmid->vmid));
-+
-+    if ( unlikely(need_flush) )
-+    {
-+        local_hfence_gvma_all();
-+        flush_tlb_guest_local();
-+    }
-+
-+    /*
-+     * There is no need to set VSATP to 0 to stop speculation before updating
-+     * HGATP, as VSATP is not modified here. There is also no need to flush
-+     * the VS-stage TLB: even if speculation occurs, it will use the old VMID,
-+     * which will not be reused until need_flush is set to true.
-+     */
-+}
-diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index ce8d346a14d2..7ef089809734 100644
---- a/xen/arch/riscv/traps.c
-+++ b/xen/arch/riscv/traps.c
-@@ -177,6 +177,8 @@ static void check_for_pcpu_work(void)
-     vcpu_sync_interrupts(c);
- 
-     vcpu_flush_interrupts(c);
-+
-+    p2m_handle_vmenter();
- }
- 
- static void timer_interrupt(void)
--- 
-2.52.0
-
+Thanks, Roger.
 
