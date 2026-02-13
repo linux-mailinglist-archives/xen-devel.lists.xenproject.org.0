@@ -2,44 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id pN+lCWa4j2kYTAEAu9opvQ
+	id ODj7KhC5j2kYTAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Feb 2026 00:48:54 +0100
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Feb 2026 00:51:44 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4048413A0B8
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Feb 2026 00:48:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1232139.1536981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F259013A10F
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Feb 2026 00:51:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1232148.1536991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vr2tm-00020h-FI; Fri, 13 Feb 2026 23:48:34 +0000
+	id 1vr2wO-0003Z6-Tg; Fri, 13 Feb 2026 23:51:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1232139.1536981; Fri, 13 Feb 2026 23:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 1232148.1536991; Fri, 13 Feb 2026 23:51:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vr2tm-0001z9-9z; Fri, 13 Feb 2026 23:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 1232139;
- Fri, 13 Feb 2026 23:48:32 +0000
+	id 1vr2wO-0003Ws-Qi; Fri, 13 Feb 2026 23:51:16 +0000
+Received: by outflank-mailman (input) for mailman id 1232148;
+ Fri, 13 Feb 2026 23:51:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ps4n=AR=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1vr2tj-0001z3-RM
- for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 23:48:32 +0000
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [2607:f8b0:4864:20::112a])
+ <SRS0=S4o5=AR=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1vr2wN-0003Wm-Du
+ for xen-devel@lists.xenproject.org; Fri, 13 Feb 2026 23:51:15 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f375700-0936-11f1-b163-2bf370ae4941;
- Sat, 14 Feb 2026 00:48:30 +0100 (CET)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-79427f739b0so15730667b3.3
- for <xen-devel@lists.xenproject.org>; Fri, 13 Feb 2026 15:48:30 -0800 (PST)
-Received: from [10.138.34.110]
- (h69-131-216-128.cncrtn.broadband.dynamic.tds.net. [69.131.216.128])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7966c16e7c6sm79214517b3.1.2026.02.13.15.48.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Feb 2026 15:48:27 -0800 (PST)
+ id e0140c52-0936-11f1-b163-2bf370ae4941;
+ Sat, 14 Feb 2026 00:51:12 +0100 (CET)
+Received: from BN0PR04CA0038.namprd04.prod.outlook.com (2603:10b6:408:e8::13)
+ by LV9PR12MB9783.namprd12.prod.outlook.com (2603:10b6:408:2e8::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.13; Fri, 13 Feb
+ 2026 23:51:05 +0000
+Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
+ (2603:10b6:408:e8:cafe::6e) by BN0PR04CA0038.outlook.office365.com
+ (2603:10b6:408:e8::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.14 via Frontend Transport; Fri,
+ 13 Feb 2026 23:50:42 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9632.0 via Frontend Transport; Fri, 13 Feb 2026 23:51:04 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 13 Feb
+ 2026 17:51:04 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 13 Feb
+ 2026 15:51:04 -0800
+Received: from SATLEXMB04.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 13 Feb 2026 17:51:03 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,456 +68,392 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f375700-0936-11f1-b163-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771026509; x=1771631309; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=dpKH90dSEGXI2GdF07WukSivFiF5skGZiYk3LzdwP/s=;
-        b=Nx1uhnalOAE8cuaVfDUJ8WeoR4/LhtglUCBqizyy+MomLSsbD8cAce1smjv78T7a3T
-         dQwKYPhPGStzEWjUSXTWb6xCrkahyFm6BfmDfXzYnrx8MiYAAkW/G4Hvc2gJouGa/OEH
-         Diar+mGbfzRiwgpL50iN2D+6x+scXh5+c+e4QbbWvqRX14lXTRVq3+rorSFbHt/t7l50
-         tRbyEGrvuMfAPF8AeDXWsDWjEbiAYDo7gZaZWGCWaOpwpmh30HG7pgvpsxji0B/5WiNn
-         lI1rdHUZpJKkWG5y1PQoQj/P/8zO65dT6TdmnrfdIPHoLztD1Pnjq6eykuckvbHvEmvF
-         QSzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771026509; x=1771631309;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dpKH90dSEGXI2GdF07WukSivFiF5skGZiYk3LzdwP/s=;
-        b=ti3uivBbsynjgA59INxwIs6sw4eEk6Crrp7KrTMIvi/fK+vU/BPWnEWWnDYOJD0Shq
-         FGgTnI8i8mAGWNQ6N9D1+rMOtYrO6V69tMCnE0uk91ZZUmL9VUWJzk/8fs3+IIYBfLkn
-         gtMgLHGQgQKP1ub0MRAob18ncrVwVZxHKM8ObBqwxvcEws0GDleWvECHOp+rrxGiO7Oo
-         RNSFDgONYN8oqQdKSKV1WEElGjMT8bZvV+orBCQ5QCuU9+pyX6tGoSCBGIkhdjf0uqMf
-         FgF853f65Yh873sCTyICpk3bx6f0mCI9gL+xlWgFXpmgPyDjgVpX8pTZuGSIp6z0Wsj3
-         SSHA==
-X-Forwarded-Encrypted: i=1; AJvYcCWGKttCkAgSuGSUOSORh4f2RcCQxU1nOFjoexZHOdkywVuExDIbUJrUfV+rGaEAgiaDsxNcGpQyZ0E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxynArKngkHuh40pm2U/YVAiQ6Vfk8KKV3Bu9rhviTsLiY2IN/2
-	MY4C1iVu3Mu3YJ8Rb2jDm2uVczfS5ISmUj0yfa9n9Ii+ERIl8QsJqj6f
-X-Gm-Gg: AZuq6aK83DSThFAJjiPT4iJPzkpLQaCYAfYCKc6g5MrtPCc9RviNMmuUDbtCcmMnIjD
-	bvX5PiZhiTon//oA+9xzMsQhoBS9odHBZQNhJvf2CnBUMw3/UKaAe8Br6FZsll6P/Yv6ZDOVTr/
-	A1hqA4iXT76rANl4mlrtgcsi0EHveIsFSh7R8I1IvDE8SI8+XesDdcLEZI/bI7AwS0VAyf3/fsD
-	LBjAyA+kpOoLWGzQdBV+5SBo9kfnEArXoCkUGXGn3X7EhVU9BNuBEmocG+KhrpIbTgtK0aK+sBl
-	SD+PxB0cB3cahYyvFRO7fjj1+FM4GClyC/8fkk54I8k+RWNq+9OaSXeDCr1rvSn4ktvXYhxUqLP
-	sL53GX0Nxs8tzriMQSrML5C7aOCY2jj+BX8q5mPZo/l8pxto1x7Ghrh80jEdPoNL0z1mAW+Losn
-	UzoXcdAy6hIhhCr4qSxpo9NkJhjycwW7VCUQ3HLP7j/xlKmpSOIuq4bcsPpHe5XDatJ9doZt5ZZ
-	IL5NQ1cFL73cH+i4OV2oG6xLSyikRQG0yiqRLLUKEpuMkd+w51I
-X-Received: by 2002:a05:690c:c4fa:b0:795:20f4:cb91 with SMTP id 00721157ae682-797a0bd4d73mr30119897b3.8.1771026508466;
-        Fri, 13 Feb 2026 15:48:28 -0800 (PST)
-Message-ID: <e21946b5-256b-4743-93e1-e9f7b8dc7dcd@gmail.com>
-Date: Fri, 13 Feb 2026 18:48:10 -0500
+X-Inumbo-ID: e0140c52-0936-11f1-b163-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hzj5scfRTe7EVXQLxCgzEocsw140yLyg0uv9fi5jNVeS4vPg9k2s46V9KduOhoefLeNUx6fwO5PDkr6/PvW+rSiY59LFehKn7fShYuoVsxryHJZZqj7AhU9sNz9edZZFXsjXgoqFSfUSi9BE0Z666E2ZANKwoT/T1SEZGOcKTVz7a1bmNEvMjzli5+yM8aJ3LSUAgSMXts+aPTNL4J8DouEA+cMoqkwmg8iY5u9XGUZ5tShOvQkIA8cyYlGbTfUd2jioq5G63lMD6nbq3Ceex9vONAQAVX18sDnOEDi6F11ofzua2h6kPXyAtZ/MS1AoIELvMDGqj4D1V6nWIZPsGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ugPPHSkZ0mLLD5nZZGb2BUPrQBP72gpFa1fq4j5Ssr8=;
+ b=dDEKSYnXasrig69pGGv0XsSg99iAvvg84YXOTzXHqSyjYvOlpObuZtbz8nsEKda8AMR96tDU8peDL4t673AYUq723c0WC/oMOHitIaB/03l7bnL9X+BV6XzzG9/afx08oZ6/CgvXXX/5NBqzG2lcoDP5ccRI/Jo2rC7Y5Bp+BZQVIKxaIjNEhwadxhHnb2cuRQFwR1q/yfChyfM59lnU+NqVAPOZiyWGhvyk+SkajfmNL41RI7QrU6HACpeXBMeNYxkq95wXFXgpop17WK2i/b3d0/5s0NP59UaWHkb33ewKMrCjCZzRlyCAM96Psz9jF2KhvS6Oox4kMQ+a9eyfRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ugPPHSkZ0mLLD5nZZGb2BUPrQBP72gpFa1fq4j5Ssr8=;
+ b=yfjYWb77APHceWu4563dCFKWpWD73guKcMdv/+x9d39oQAn7/QPQK+Dt1QqzDfXv0iaoRTWih4ZaX3/Fyj/Y8xnyilEdVY40dmfSLWQ7RwiEu4Sum7XA5kNp63Z66VYrUWukTY/PjzFPSEaJ6xPP5s/aXYelXGXqJpzXF5FEnro=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
+	<jason.andryuk@amd.com>, <stefano.stabellini@amd.com>,
+	<alejandro.garciavallejo@amd.com>
+Subject: [PATCH v4] x86/cpufreq: Add Kconfig option for CPU frequency scaling
+Date: Fri, 13 Feb 2026 15:51:02 -0800
+Message-ID: <20260213235102.359472-1-stefano.stabellini@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: Add Kconfig option to disable nested
- virtualization
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- jason.andryuk@amd.com, alejandro.garciavallejo@amd.com
-References: <20260213220205.196179-1-stefano.stabellini@amd.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260213220205.196179-1-stefano.stabellini@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kBZehJiIQE5D5CHFBdwQDy18"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|LV9PR12MB9783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09e4ee0f-d8b6-4ee0-8df2-08de6b5ac00c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Xpff5FWJEiNqRBykh3t+pIfecbTEd8S6I3PLvxc1EAJFODPU8vyk+djt17pl?=
+ =?us-ascii?Q?9X6dutAXZPB5h3+zwUzyLNZeNxL4k2dNHQ6XW4xU8XvahXpweUOsStGVVjgL?=
+ =?us-ascii?Q?KdxRsjEMUk1D7/pf6lP3Rwhn7jQ3ZTWyx/gMdwYtKlOa0kNdMy9iceboNRji?=
+ =?us-ascii?Q?wFS/Bj3fQtFfmlio1uhL6Q+kitOgz1r/N5elc80lIiLeoQEqNaA1Cc1K4myY?=
+ =?us-ascii?Q?9ut8iIq/56SIE/pDRBQWjV1ZZPWxSP6eD4JGM5FYO0tXGjxB76OQhtU/oAMu?=
+ =?us-ascii?Q?euBc23ooFFZU3fD/V0XeGFiZcbydTed38fzpMeARhJZBUSf8poj4np9sNMAv?=
+ =?us-ascii?Q?8LdDqHpd2UNsgPnSLCg9+iczKfB4xTjam3FB0TtGHmhYtijQnSFwgyDLUqrn?=
+ =?us-ascii?Q?eZKW1l4l5EkT99r+YtrEFW5GS6CEXjkFC+QRxPvSgAXS6ZvwX2Yg+cF5zMUI?=
+ =?us-ascii?Q?Z9J469MTt5ju9Q2KSXw+GCJj38VROSWbJnk3ZmVR4sNXthDfKEs+33ACFslf?=
+ =?us-ascii?Q?LIOIMfxF3j19nzxs0fXaLGXQt904ljtgKWvCSpGVgyma/19R8+kHz2Et6iSn?=
+ =?us-ascii?Q?QfaxEROh6zhA9okn1n0bwqRRBVrWI3uVW9lrVjP40oDoJpxesT4AeGqmQD3a?=
+ =?us-ascii?Q?XTXM8XM5XE68Hu/Cs0d2DXjoW8Zns/cbE00J19oUdgBNtLV+B8LeOPbWmEch?=
+ =?us-ascii?Q?w9kftZEdM6apTs6HgAC4SqEhkiYA9wj0IIvsOe0s1SNVQa/YxXceu06YNaH0?=
+ =?us-ascii?Q?4fapehNae6Lh0R7MOJY7ukq/YvRMCyuPHQ20ux03F56cnHu6SMgjIs3qtFQC?=
+ =?us-ascii?Q?GQ74gMWRRpkx5GzpkYTib9Z1kcHGsf/MDUwcFFMdkz6oFXSN/4MQSVhOBkgS?=
+ =?us-ascii?Q?JguDCqWuQUbEQ5JoAkPMPrJO9DuC9tkoza8VnDYXFmIgJpbALmjiK7uJb2Tp?=
+ =?us-ascii?Q?YAs8ndj3G/xm7LzZQvkKrRsoHdCRAsSrXB9yw2PgvJ8T4paxUOmSjQj6K+2y?=
+ =?us-ascii?Q?CdVjxVVvqOqs9k1NHsAOmsegIAENriWhPk0ZNvSr1DOuhwVExPtZFhkxaCb8?=
+ =?us-ascii?Q?TtnNmd7STwurnA9zPkujscsQLhJbjaHfr18XeYVuUJCxVn6q7X6D6c1HL2NJ?=
+ =?us-ascii?Q?+3i5H/xGxa9tsIHlzsWLJI1nw56yEY73vbC2NcIJVUW/Rz+NoG8B6zVHB/A2?=
+ =?us-ascii?Q?p7oAGMpaMGzwve4a4z/3XjxjqEanLHfTOR6utp376NcgRLmj79ZAYh0cLbxn?=
+ =?us-ascii?Q?6jvOWrhICgxEjvhLYKIBm2G6QC6X/utIA1YAbSDlIsV8MZ9QGyEnD97S4T7o?=
+ =?us-ascii?Q?nyWbaQbYCdWIOWK7GkTuTVeKEtFRr3qixYu8AQB83ORFV1TTpapVzVVOeacL?=
+ =?us-ascii?Q?t7xF7cki8YxC70NckXVH8ytuUSPjhqQEtRBH7i8/iU3Vxatt0GRdiy6ETnqS?=
+ =?us-ascii?Q?QVw2j+y8qxs3vS09ZM+jVjwRAoIE8vy0vgL8u7shN+rLIX1grOyX7QD5oPO1?=
+ =?us-ascii?Q?RXwuR5ZmpfmSzWC0QYt3lsqUQpBvLs7GE6CePglZ+dWihvmg6VUAl2aO6y6J?=
+ =?us-ascii?Q?oHEagBE5IXt+lhhcDu00WrM62te/m2Y57NowC65wjWsIcE2DAA8wmNuOgv0U?=
+ =?us-ascii?Q?9OHvAbUFzYQOyDl8+LdL0mhaJSMOESV6jM/bcS3aLxReX8kqNp1CNnSfjpnS?=
+ =?us-ascii?Q?pmwbMA=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mG9L4ngzLzr2lR6PjLSkUS1ZTkvBCXGCab2Msn4hVJAtoGQ49CVgPJ25RgDrvpWvq+KdUvtpiVUJQBpBmI+UtxsDvSSdGJKNLwKITt7fSOvSYGyxPeDj2sDPAo01j3hfyErh6/cm2IpgXJvKfdayLlidUxsnD+uAWqQWoooP5dLdXOaaqF2arldOx07oAn/kigRnUcrDqvLdgBUZzTAKBrSD0bjpsVnI51r01mtq36/c4gtISlsO7YhBs5Pq8f1ZX5UwVfLH3CwcYUHwCA7C/c9UurgLTkGOMRku+yKAy3488E+HIT5m5U1eqCm6ZF2IVq8vApFWOAfOTPCLtv0f7HTVA9zyD3ShpEBp/j5vsp1bBbjmHFFPBZCXlx9TlYW0tXzJLDJaNkewWqe6HyJGD3BPiTVsoyGilSAxEZMpbNG52p2RedsGhZEFsbHeTVdR
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2026 23:51:04.6068
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09e4ee0f-d8b6-4ee0-8df2-08de6b5ac00c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DD.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9783
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-3.18 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_NONE(0.00)[];
+	FORGED_SENDER(0.00)[stefano.stabellini@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:stefano.stabellini@amd.com,m:alejandro.garciavallejo@amd.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stefano.stabellini@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	DKIM_TRACE(0.00)[amd.com:+];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4048413A0B8
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: F259013A10F
 X-Rspamd-Action: no action
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kBZehJiIQE5D5CHFBdwQDy18
-Content-Type: multipart/mixed; boundary="------------MSnewZVePIwqILT5rg3YCp4l";
- protected-headers="v1"
-Message-ID: <e21946b5-256b-4743-93e1-e9f7b8dc7dcd@gmail.com>
-Date: Fri, 13 Feb 2026 18:48:10 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: Add Kconfig option to disable nested
- virtualization
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- jason.andryuk@amd.com, alejandro.garciavallejo@amd.com
-References: <20260213220205.196179-1-stefano.stabellini@amd.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20260213220205.196179-1-stefano.stabellini@amd.com>
+Add CONFIG_CPUFREQ to allow CPU frequency scaling support to be
+disabled at build time. When disabled, this removes cpufreq code
+from the build.
 
---------------MSnewZVePIwqILT5rg3YCp4l
-Content-Type: multipart/mixed; boundary="------------wzxg10yIG5yWWmMtSrQW06BO"
+Introduce IS_ENABLED(CONFIG_CPUFREQ) checks for relevant do_pm_op and
+do_platform_op subops and other functions that require CONFIG_CPUFREQ to
+work.
 
---------------wzxg10yIG5yWWmMtSrQW06BO
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Add stubs where necessary.
 
-On 2/13/26 17:02, Stefano Stabellini wrote:
-> Introduce CONFIG_NESTED_VIRT (default n) to allow nested virtualization=
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+Changes in v4:
+- fix IS_ENABLED(CPUFREQ)
+- remove #ifdef in platform_hypercall.c and use DCE
+- move cpufreq_controller enum out of #ifdef
+---
+ xen/arch/x86/acpi/Makefile                |  2 +-
+ xen/arch/x86/platform_hypercall.c         |  6 ++++--
+ xen/drivers/Makefile                      |  2 +-
+ xen/drivers/acpi/pm-op.c                  |  3 ++-
+ xen/drivers/acpi/pmstat.c                 |  8 ++++++--
+ xen/drivers/cpufreq/Kconfig               | 14 +++++++++++++-
+ xen/include/acpi/cpufreq/cpufreq.h        | 13 ++++++++++++-
+ xen/include/acpi/cpufreq/processor_perf.h |  3 ---
+ xen/include/xen/acpi.h                    |  8 ++++++++
+ xen/include/xen/pmstat.h                  | 15 ++++++++++++++-
+ xen/include/xen/sched.h                   |  7 +++++++
+ 11 files changed, 68 insertions(+), 13 deletions(-)
 
-> support to be disabled at build time. This is useful for embedded or
-> safety-focused deployments where nested virtualization is not needed,
-> reducing code size and attack surface.
->=20
-> When CONFIG_NESTED_VIRT=3Dn, the following source files are excluded:
-> - arch/x86/hvm/nestedhvm.c
-> - arch/x86/hvm/svm/nestedsvm.c
-> - arch/x86/hvm/vmx/vvmx.c
-> - arch/x86/mm/nested.c
-> - arch/x86/mm/hap/nested_hap.c
-> - arch/x86/mm/hap/nested_ept.c
->=20
-> Add inline stubs where needed in headers. Guard assembly code paths
-> for nested virt with #ifdef CONFIG_NESTED_VIRT. Move exception
-> injection for VMX/SVM instructions to the callers in vmx.c/svm.c to
-> avoid header dependency issues in the stubs.
->=20
-> No functional change when CONFIG_NESTED_VIRT=3Dy.
->=20
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->=20
-> ---
-> Changes in v3:
-> - Kconfig: Change "depends on AMD_SVM || INTEL_VMX" to "depends on HVM"=
+diff --git a/xen/arch/x86/acpi/Makefile b/xen/arch/x86/acpi/Makefile
+index 041377e2bb..aa476f65d5 100644
+--- a/xen/arch/x86/acpi/Makefile
++++ b/xen/arch/x86/acpi/Makefile
+@@ -1,4 +1,4 @@
+-obj-y += cpufreq/
++obj-$(CONFIG_CPUFREQ) += cpufreq/
+ 
+ obj-y += lib.o power.o cpu_idle.o cpuidle_menu.o
+ obj-bin-y += boot.init.o wakeup_prot.o
+diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
+index c6c5135806..1dc7dae919 100644
+--- a/xen/arch/x86/platform_hypercall.c
++++ b/xen/arch/x86/platform_hypercall.c
+@@ -487,7 +487,8 @@ ret_t do_platform_op(
+ 
+     case XENPF_change_freq:
+         ret = -ENOSYS;
+-        if ( cpufreq_controller != FREQCTL_dom0_kernel )
++        if ( !IS_ENABLED(CONFIG_CPUFREQ) ||
++             cpufreq_controller != FREQCTL_dom0_kernel )
+             break;
+         ret = -EINVAL;
+         if ( op->u.change_freq.flags || !cpu_online(op->u.change_freq.cpu) )
+@@ -507,7 +508,8 @@ ret_t do_platform_op(
+         XEN_GUEST_HANDLE(uint64) idletimes;
+ 
+         ret = -ENOSYS;
+-        if ( cpufreq_controller != FREQCTL_dom0_kernel )
++        if ( !IS_ENABLED(CONFIG_CPUFREQ) ||
++             cpufreq_controller != FREQCTL_dom0_kernel )
+             break;
+ 
+         ctlmap.nr_bits  = op->u.getidletime.cpumap_nr_cpus;
+diff --git a/xen/drivers/Makefile b/xen/drivers/Makefile
+index 2a1ae8ad13..3d81b8dde4 100644
+--- a/xen/drivers/Makefile
++++ b/xen/drivers/Makefile
+@@ -1,5 +1,5 @@
+ obj-y += char/
+-obj-$(CONFIG_HAS_CPUFREQ) += cpufreq/
++obj-$(CONFIG_CPUFREQ) += cpufreq/
+ obj-$(CONFIG_HAS_PCI) += pci/
+ obj-$(CONFIG_HAS_VPCI) += vpci/
+ obj-$(CONFIG_HAS_PASSTHROUGH) += passthrough/
+diff --git a/xen/drivers/acpi/pm-op.c b/xen/drivers/acpi/pm-op.c
+index 07bddc58d9..72f1eea62f 100644
+--- a/xen/drivers/acpi/pm-op.c
++++ b/xen/drivers/acpi/pm-op.c
+@@ -367,7 +367,8 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
+         return ret;
+     }
+ 
+-    if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) )
++    if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) ||
++         !IS_ENABLED(CONFIG_CPUFREQ) )
+         return -EINVAL;
+     pmpt = processor_pminfo[op->cpuid];
+ 
+diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
+index 0f31736df2..d640d3a92c 100644
+--- a/xen/drivers/acpi/pmstat.c
++++ b/xen/drivers/acpi/pmstat.c
+@@ -76,6 +76,9 @@ void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to)
+     spinlock_t *cpufreq_statistic_lock =
+                &per_cpu(cpufreq_statistic_lock, cpu);
+ 
++    if ( !IS_ENABLED(CONFIG_CPUFREQ) )
++        return;
++
+     spin_lock(cpufreq_statistic_lock);
+ 
+     pxpt = per_cpu(cpufreq_statistic_data, cpu);
+@@ -105,7 +108,7 @@ int cpufreq_statistic_init(unsigned int cpu)
+ 
+     spin_lock_init(cpufreq_statistic_lock);
+ 
+-    if ( !pmpt )
++    if ( !pmpt || !IS_ENABLED(CONFIG_CPUFREQ) )
+         return -EINVAL;
+ 
+     /* Only need to initialize in Px mode */
+@@ -225,7 +228,8 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *op)
+     int ret = 0;
+     const struct processor_pminfo *pmpt;
+ 
+-    if ( !op || (op->cpuid >= nr_cpu_ids) || !cpu_online(op->cpuid) )
++    if ( !IS_ENABLED(CONFIG_CPUFREQ) || !op || (op->cpuid >= nr_cpu_ids) ||
++         !cpu_online(op->cpuid) )
+         return -EINVAL;
+     pmpt = processor_pminfo[op->cpuid];
+ 
+diff --git a/xen/drivers/cpufreq/Kconfig b/xen/drivers/cpufreq/Kconfig
+index cce80f4aec..b9b93c1a26 100644
+--- a/xen/drivers/cpufreq/Kconfig
++++ b/xen/drivers/cpufreq/Kconfig
+@@ -1,3 +1,15 @@
+-
+ config HAS_CPUFREQ
+ 	bool
++
++config CPUFREQ
++	bool "CPU Frequency scaling"
++	default y
++	depends on HAS_CPUFREQ
++	help
++	  Enable CPU frequency scaling and power management governors.
++	  This allows Xen to dynamically adjust CPU P-states (performance
++	  states) based on system load.
++
++	  Disabling this option removes all cpufreq governors and power
++	  management interfaces. This is useful for real-time systems or
++	  minimal hypervisor builds.
+diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
+index 0171ccf0ba..828d23961c 100644
+--- a/xen/include/acpi/cpufreq/cpufreq.h
++++ b/xen/include/acpi/cpufreq/cpufreq.h
+@@ -381,8 +381,19 @@ int write_ondemand_up_threshold(unsigned int up_threshold);
+ 
+ int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq);
+ 
++#ifdef CONFIG_CPUFREQ
++int cpufreq_add_cpu(unsigned int cpu);
++int cpufreq_del_cpu(unsigned int cpu);
++
+ void cpufreq_dbs_timer_suspend(void);
+ void cpufreq_dbs_timer_resume(void);
++#else
++static inline int cpufreq_add_cpu(unsigned int cpu) { return -EOPNOTSUPP; }
++static inline int cpufreq_del_cpu(unsigned int cpu) { return -EOPNOTSUPP; }
++
++static inline void cpufreq_dbs_timer_suspend(void) {}
++static inline void cpufreq_dbs_timer_resume(void) {}
++#endif
+ 
+ void intel_feature_detect(struct cpufreq_policy *policy);
+ 
+@@ -398,7 +409,7 @@ void intel_feature_detect(struct cpufreq_policy *policy);
+ 
+ int hwp_cmdline_parse(const char *s, const char *e);
+ int hwp_register_driver(void);
+-#ifdef CONFIG_INTEL
++#if defined(CONFIG_INTEL) && defined(CONFIG_CPUFREQ)
+ bool hwp_active(void);
+ #else
+ static inline bool hwp_active(void) { return false; }
+diff --git a/xen/include/acpi/cpufreq/processor_perf.h b/xen/include/acpi/cpufreq/processor_perf.h
+index 0a87bc0384..bad9d94865 100644
+--- a/xen/include/acpi/cpufreq/processor_perf.h
++++ b/xen/include/acpi/cpufreq/processor_perf.h
+@@ -36,9 +36,6 @@ static inline void cpufreq_statistic_exit(unsigned int cpu) {}
+ 
+ int  cpufreq_limit_change(unsigned int cpu);
+ 
+-int  cpufreq_add_cpu(unsigned int cpu);
+-int  cpufreq_del_cpu(unsigned int cpu);
+-
+ struct processor_performance {
+     uint32_t state;
+     uint32_t platform_limit;
+diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
+index 90635ba0f3..ae6dba481c 100644
+--- a/xen/include/xen/acpi.h
++++ b/xen/include/xen/acpi.h
+@@ -186,7 +186,15 @@ static inline void acpi_set_csubstate_limit(unsigned int new_limit) { return; }
+ #endif
+ 
+ #ifdef XEN_GUEST_HANDLE
++#ifdef CONFIG_CPUFREQ
+ int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32));
++#else
++static inline int acpi_set_pdc_bits(unsigned int acpi_id,
++                                    XEN_GUEST_HANDLE(uint32) pdc)
++{
++    return -EOPNOTSUPP;
++}
++#endif
+ #endif
+ int arch_acpi_set_pdc_bits(u32 acpi_id, u32 *, u32 mask);
+ 
+diff --git a/xen/include/xen/pmstat.h b/xen/include/xen/pmstat.h
+index 6096560d3c..51d3ee404f 100644
+--- a/xen/include/xen/pmstat.h
++++ b/xen/include/xen/pmstat.h
+@@ -5,10 +5,23 @@
+ #include <public/platform.h> /* for struct xen_processor_power */
+ #include <public/sysctl.h>   /* for struct pm_cx_stat */
+ 
++#ifdef CONFIG_CPUFREQ
+ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf);
+-long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power);
+ int set_cppc_pminfo(unsigned int acpi_id,
+                     const struct xen_processor_cppc *cppc_data);
++#else
++static inline int set_px_pminfo(uint32_t acpi_id,
++                                struct xen_processor_performance *perf)
++{
++    return -EOPNOTSUPP;
++}
++static inline int set_cppc_pminfo(unsigned int acpi_id,
++                                  const struct xen_processor_cppc *cppc_data)
++{
++    return -EOPNOTSUPP;
++}
++#endif
++long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power);
+ 
+ #ifdef CONFIG_COMPAT
+ struct compat_processor_performance;
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 1268632344..084f3835dc 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -1259,6 +1259,7 @@ extern enum cpufreq_controller {
+     FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
+ } cpufreq_controller;
+ 
++#ifdef CONFIG_CPUFREQ
+ static always_inline bool is_cpufreq_controller(const struct domain *d)
+ {
+     /*
+@@ -1274,6 +1275,12 @@ static always_inline bool is_cpufreq_controller(const struct domain *d)
+     return (is_pv_domain(d) && is_hardware_domain(d) &&
+             cpufreq_controller == FREQCTL_dom0_kernel);
+ }
++#else
++static always_inline bool is_cpufreq_controller(const struct domain *d)
++{
++    return false;
++}
++#endif
+ 
+ int cpupool_move_domain(struct domain *d, struct cpupool *c);
+ int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op);
+-- 
+2.25.1
 
-> - Kconfig: Remove redundant "default n" line
-> - Kconfig: Remove "If unsure, say N." from help text
-> - mm/hap/Makefile: Simplify using intermediate nested-y variable:
->     nested-y :=3D nested_hap.o
->     nested-$(CONFIG_INTEL_VMX) +=3D nested_ept.o
->     obj-$(CONFIG_NESTED_VIRT) +=3D $(nested-y)
-> - svm/nestedhvm.h: Remove #ifdef CONFIG_NESTED_VIRT stubs, keep only
->   function declarations (the functions are only called from code that
->   is already compiled out when nested virt is disabled)
-> - svm/nestedhvm.h: Add CONFIG_NESTED_VIRT guard to nsvm_efer_svm_enable=
-d
->   macro to return false when nested virt is disabled
-> - svm/svm.c: Move #UD injection for STGI/CLGI to the caller instead of
->   stub functions, checking nestedhvm_enabled()/nsvm_efer_svm_enabled()
-> - svm/svm.c: Mark svm_vmexit_do_vmrun/vmload/vmsave as __maybe_unused
-> - svm/svm.c: Remove empty nsvm_vcpu_switch stub (now guarded in asm)
-> - svm/entry.S: Add #ifdef CONFIG_NESTED_VIRT guards around nested virt
->   specific code paths
-> - vmx/vmx.c: Remove empty nvmx_switch_guest stub (now guarded in asm)
-> - vmx/vmx.c: Move nvmx_enqueue_n2_exceptions and nvmx_vmexit_event to
->   vvmx.c where they belong
-> - vmx/vvmx.h: Add declarations for nvmx_vmexit_event and
->   nvmx_enqueue_n2_exceptions
-> - vmx/vvmx.h: Fix nvmx_msr_read_intercept stub comment
-> - vmx/vvmx.h: nvmx_handle_vmx_insn stub returns X86EMUL_EXCEPTION with
->   ASSERT_UNREACHABLE (caller handles injection)
-> - vmx/vvmx.h: Convert get_vvmcs macro to inline function in stubs
-> - vmx/entry.S: Add #ifdef CONFIG_NESTED_VIRT guard around nvmx_switch_g=
-uest
-> - nestedhvm.h: Convert macro stubs to proper inline functions
-> ---
->  xen/arch/x86/hvm/Kconfig                 |  7 +++
->  xen/arch/x86/hvm/Makefile                |  2 +-
->  xen/arch/x86/hvm/svm/Makefile            |  2 +-
->  xen/arch/x86/hvm/svm/entry.S             |  4 ++
->  xen/arch/x86/hvm/svm/nestedhvm.h         |  2 +-
->  xen/arch/x86/hvm/svm/svm.c               | 18 ++++--
->  xen/arch/x86/hvm/vmx/Makefile            |  2 +-
->  xen/arch/x86/hvm/vmx/entry.S             |  2 +
->  xen/arch/x86/hvm/vmx/vmx.c               | 31 +---------
->  xen/arch/x86/hvm/vmx/vvmx.c              | 26 +++++++++
->  xen/arch/x86/include/asm/hvm/hvm.h       |  2 +-
->  xen/arch/x86/include/asm/hvm/nestedhvm.h | 64 +++++++++++++++++---
->  xen/arch/x86/include/asm/hvm/vmx/vvmx.h  | 74 ++++++++++++++++++++++++=
-
->  xen/arch/x86/mm/Makefile                 |  2 +-
->  xen/arch/x86/mm/hap/Makefile             |  5 +-
->  xen/arch/x86/mm/p2m.h                    |  6 ++
->  xen/arch/x86/sysctl.c                    |  2 +
->  xen/include/public/sysctl.h              |  4 +-
->  18 files changed, 204 insertions(+), 51 deletions(-)
->=20
-> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-> index f32bf5cbb7..af661385b5 100644
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -92,4 +92,11 @@ config MEM_SHARING
->  	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
->  	depends on INTEL_VMX
-> =20
-> +config NESTED_VIRT
-> +	bool "Nested virtualization support> +	depends on HVM
-> +	help
-> +	  Enable nested virtualization, allowing guests to run their own
-> +	  hypervisors. This requires hardware support.
-
-Should this also come with a warning that allowing guests to use
-nested virtualization is insecure unless both L1 and L2 guests are
-trusted?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------wzxg10yIG5yWWmMtSrQW06BO
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------wzxg10yIG5yWWmMtSrQW06BO--
-
---------------MSnewZVePIwqILT5rg3YCp4l--
-
---------------kBZehJiIQE5D5CHFBdwQDy18
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmmPuEYACgkQszaHOrMp
-8lOM1xAAklc678ggPvzL/qQCnweF+GFsAbtehhqooDjMun8BQkWwfsGyBKXzSxfU
-OkYNruCB5P3kadub4gWoQJ5ang5xX3WjXGwvZJ8a6sb4PpIp45sKZHq5Z4a+2c0s
-sLLDKiBFb5YO8eQPo8mNQoj+RB9EYX5cd5CL662GI+YLByq7qWKnmkcWSydc0Hx/
-KAWAs+F0Ac/+xsG9MOMxnxrDaAbHJRIFvexZbhvsNZMbkkvn7BUQBaFFk3b6fnzD
-ZxvFSO6vV/pgKYs1kDRjj7g5qPbi03UHFh8ELJj9fNbfu6Kz95A9WxbxgvqWrz7x
-hh2P3YG22zAocMhvLtnKSLtV1D8N3Jtw5HP8piOMiTk6r3xB3BSN+Js+/lVxnc/t
-oYQ+D18zrkMt2AYSzxkz7Ytu/PSMIJX3pGhGzuh2m72BPn/23tgKoFAzOtB5EvGS
-pnBDEk6fMeE3FpPrXuMUmK+lPQ+r5AXYJM0t53+KOjyMmuewfaAEGHMwX12K3Z61
-bP2tZNBz+2zi+UNhAW0oEAVOMLD57VnHL5PPZbBHDZMnX556QtxfNZj0lU/RGG8+
-Vaci2Cu366q8Uwku7X9CunyxYGdSpO5SrI4HfhMQoCcj9fi4BuKiPGtx5IpJSFqm
-SJ/zQR1fYX+Lm7yJy1hOZgJeSOQcxAF0nDLfmdTiWud2qu4yYAk=
-=uJrX
------END PGP SIGNATURE-----
-
---------------kBZehJiIQE5D5CHFBdwQDy18--
 
