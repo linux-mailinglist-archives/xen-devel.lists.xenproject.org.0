@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 33OTHX2OkWmbjwEAu9opvQ
+	id 0DoLHHUOkmlLqAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 10:14:37 +0100
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 19:20:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135D813E614
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 10:14:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233227.1537034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B6F213F5A1
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 19:20:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233475.1537044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrYC2-0005za-K4; Sun, 15 Feb 2026 09:13:30 +0000
+	id 1vrgie-0000WO-2j; Sun, 15 Feb 2026 18:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233227.1537034; Sun, 15 Feb 2026 09:13:30 +0000
+Received: by outflank-mailman (output) from mailman id 1233475.1537044; Sun, 15 Feb 2026 18:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrYC2-0005wx-Ep; Sun, 15 Feb 2026 09:13:30 +0000
-Received: by outflank-mailman (input) for mailman id 1233227;
- Sun, 15 Feb 2026 09:13:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vrgid-0000TK-ST; Sun, 15 Feb 2026 18:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 1233475;
+ Sun, 15 Feb 2026 18:19:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vrrr=AT=codewreck.org=asmadeus@srs-se1.protection.inumbo.net>)
- id 1vrYBz-0005wo-Rs
- for xen-devel@lists.xenproject.org; Sun, 15 Feb 2026 09:13:28 +0000
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92792561-0a4e-11f1-9ccf-f158ae23cfc8;
- Sun, 15 Feb 2026 10:13:22 +0100 (CET)
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
- by submarine.notk.org (Postfix) with ESMTPS id 4AEBF14C2DE;
- Sun, 15 Feb 2026 10:13:17 +0100 (CET)
-Received: from localhost (gaia.codewreck.org [local])
- by gaia.codewreck.org (OpenSMTPD) with ESMTPA id acf4b99f;
- Sun, 15 Feb 2026 09:13:15 +0000 (UTC)
+ <SRS0=+38R=AT=citrix.com=abdelkareem.abdelsaamad@srs-se1.protection.inumbo.net>)
+ id 1vrgid-0000TE-92
+ for xen-devel@lists.xenproject.org; Sun, 15 Feb 2026 18:19:43 +0000
+Received: from na1pdmzitismtp02.tibco.com (unknown [160.101.131.9])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e48077a5-0a9a-11f1-b163-2bf370ae4941;
+ Sun, 15 Feb 2026 19:19:42 +0100 (CET)
+Received: from fedora.eng.citrite.net (unknown [10.113.40.46])
+ by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id E9338813CB7D;
+ Sun, 15 Feb 2026 13:19:13 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,74 +44,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92792561-0a4e-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1771146799;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=X6PMMPGz+jLe5ualpnm5Aab0p5EjTgChnMRnoKKA/Fs=;
-	b=ohM1tTgfFBEmPiR3IPGDXoOqOAcf/5fyLo5GMbtawe3lv4QXeHSR6Tfjg3CTsEKJa/0r1a
-	ECI8dgKfua712El69ShX/WNWoB2KFNbkwlbSG627Xwz1xs43TzGJpLVdxDalz0jjV3cL7/
-	cVBlZExsUsBaLyjBuBnjzWsFsV792UAtl5pYusQwv29XiJyxfB+chicskwqc1j+oR/cQDi
-	/XM5hKkxeFBul4d8OX/BEite+SJTT4Vdwe0wYD4Bu5ahgPhkPi9iMS0rzVGa3NJimBYveZ
-	ej9pC0glbNQ/PetAYqOaWK+pt1KaVQIq7WvLmpH4n95kLPt5Tr/MyHUKcm3bnw==
-Date: Sun, 15 Feb 2026 18:13:00 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: xen-devel@lists.xenproject.org, jgross@suse.com, v9fs@lists.linux.dev,
-	ericvh@kernel.org, lucho@ionkov.net, linux_oss@crudebyte.com,
-	sstabellini@kernel.org
-Subject: Re: [PATCH v2] 9p/xen: protect xen_9pfs_front_free against
- concurrent calls
-Message-ID: <aZGOHNhDe1PPJCRO@codewreck.org>
-References: <20260129230348.2390470-1-stefano.stabellini@amd.com>
+X-Inumbo-ID: e48077a5-0a9a-11f1-b163-2bf370ae4941
+From: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v3 0/2] Virtual NMI
+Date: Sun, 15 Feb 2026 18:16:00 +0000
+Message-ID: <cover.1771177081.git.abdelkareem.abdelsaamad@citrix.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260129230348.2390470-1-stefano.stabellini@amd.com>
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[codewreck.org,none];
-	R_DKIM_ALLOW(-0.20)[codewreck.org:s=2];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [3.01 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:v9fs@lists.linux.dev,m:ericvh@kernel.org,m:lucho@ionkov.net,m:linux_oss@crudebyte.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[asmadeus@codewreck.org,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[codewreck.org:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[asmadeus@codewreck.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:abdelkareem.abdelsaamad@citrix.com,m:jbeulich@suse.com,m:jason.andryuk@amd.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_NEQ_ENVFROM(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,amd.com:url];
+	FROM_HAS_DN(0.00)[];
+	R_DKIM_NA(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 135D813E614
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US]
+X-Rspamd-Queue-Id: 3B6F213F5A1
 X-Rspamd-Action: no action
 
-Stefano Stabellini wrote on Thu, Jan 29, 2026 at 03:03:48PM -0800:
-> Changes in v2:
-> - move priv->rings check above the loop
-> - replace list_del_init with list_del
+Currently, the Xen hypervisor delivers NMIs to the guests using the Event
+Injection mechanism. The Event Injection mechanism does not block the delivery
+of subsequent NMIs. So, the Xen Hypervisor tracks the NMI delivery and its
+completion (by intercepting the IRET instruction) before sending a new NMI.
 
-It looks like I didn't reply a couple of weeks ago but I did
-pick it up and just sent to Linus now.
-Thanks!
+With the 4th generation AMD EPYC, a hardware NMI virtualization support,
+Virtual NMI (VNMI), is introduced.  The vNMI allows the hypervisor to inject
+the NMI into the guest w/o using Event Injection mechanism. No need to track
+the guest NMI and intercepting the IRET instruction.
+
+NMI Virtualization support is indicated by CPUID Fn8000_000A_EDX[VNMI] = 1.[1]
+
+NMI Virtualization is enabled by setting V_NMI_ENABLE (bit 26 in offset 60h
+of the VMCB). Enabling NMI Virtualization requires the NMI intercept bit to
+be set. An attempt to run a guest with V_NMI_ENABLE without the NMI intercept
+bit set results in #VMEXIT(INVALID) [1]
+
+Three new bits are added to the VMCB field at offset 60h to provide NMI
+virtualization hardware support:
+
+V_NMI(11): Indicates whether a virtual NMI is pending in the guest. The
+processor will clear V_NMI once it takes the virtual NMI.
+V_NMI_MASK(12): Indicates whether virtual NMIs are masked. The processor will
+set V_NMI_MASK once it takes the virtual NMI. V_NMI_MASK is cleared when the
+guest successfully completes an IRET instruction or #VMEXIT occurs while
+delivering the virtual NMI.
+V_NMI_ENABLE(26): Enables NMI virtualization. [1]
+
+[1] https://docs.amd.com/v/u/en-US/24593_3.43
+
+---
+Changes in v3:
+ - Delete the introduced hvm_function_table::vNMI boolean and all the 3 vNMI
+   hooks, hvm_function_table::is_vnmi_enabled,
+   hvm_function_table::is_vnmi_masked and hvm_function_table::set_vnmi_pending.
+ - Use the HVM_INTR_SHADOW_NMI to indicate that the NMI is blocked rather than
+   the usage of HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI.
+ - CI tests:
+https://gitlab.com/xen-project/people/aabdelsa/xen/-/pipelines/2327265341
+---
+Changes in v2:
+ - Merge the patches for
+   "svm/vnmi: introduce the vnmi bit support in the cpuid feature set"
+   and
+   "svm/vnmi: add the definitions for the svm vnmi management bits in the VMCB"
+   into the one patch
+   "x86/svm: Add Enumerations for the SVM virtual NMI".
+ - Change the patch subject "svm/vnmi: Add support for the SVM Virtual NMI" to
+   "x86/svm: Use virtual NMI when available"
+ - Move the print out of the VNMI capability to the patch
+   "x86/svm: Use virtual NMI when available" when it is being used.
+ - Remove the hvm_intblk_vnmi enumeration that was introduced for the separate
+   masked vNMI handling.
+ - Introduce the hvm_function_table's is_vnmi_enabled callback to allow for the
+   SVM implementation to verify that the VNMI is enabled by checking the VMCB
+   bits in addition to the CPUID reported support.
+ - Change the the name of the hvm_function_table's callback is_vnmi_pending to
+   is_vnmi_masked.
+ - The svm_inject_nmi function gains a check for the distinct NMI injection
+   handling when the VNMI is enabled.
+ - Simplify the check of AMD SVM Hardware support for the VNMI. The check
+   cpu_has_svm_vnmi is performed unconditionally.
+ - Simplify the introduced changes diff for the vintr_t union for the VNMI bits
+   support.
+ - Adopt the Xen formatting guidelines for the control structures.
+ - CI tests:
+https://gitlab.com/xen-project/people/aabdelsa/xen/-/pipelines/2325298577
+---
+
+Abdelkareem Abdelsaamad (2):
+  x86/svm: Add Enumerations for the SVM virtual NMI
+  x86/svm: Use the virtual NMI when available
+
+ xen/arch/x86/hvm/svm/intr.c        | 9 +++++++++
+ xen/arch/x86/hvm/svm/svm.c         | 5 ++++-
+ xen/arch/x86/hvm/svm/vmcb.c        | 2 ++
+ xen/arch/x86/hvm/svm/vmcb.h        | 8 ++++++--
+ xen/arch/x86/include/asm/hvm/svm.h | 2 ++
+ 5 files changed, 23 insertions(+), 3 deletions(-)
 
 -- 
-Dominique Martinet | Asmadeus
+2.52.0
+
 
