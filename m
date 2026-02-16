@@ -2,61 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KMOdEvvgkmknzgEAu9opvQ
+	id ILvRKq7hkmknzgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:18:51 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:21:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68404141E88
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:18:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233818.1537175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198CC141EC6
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:21:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233828.1537184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrukK-0001CR-7V; Mon, 16 Feb 2026 09:18:24 +0000
+	id 1vrunP-0002ky-MY; Mon, 16 Feb 2026 09:21:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233818.1537175; Mon, 16 Feb 2026 09:18:24 +0000
+Received: by outflank-mailman (output) from mailman id 1233828.1537184; Mon, 16 Feb 2026 09:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrukK-00019z-3W; Mon, 16 Feb 2026 09:18:24 +0000
-Received: by outflank-mailman (input) for mailman id 1233818;
- Mon, 16 Feb 2026 09:18:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nRIP=AU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vrukI-00019p-5y
- for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 09:18:22 +0000
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c107::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6de547cd-0b18-11f1-9ccf-f158ae23cfc8;
- Mon, 16 Feb 2026 10:18:19 +0100 (CET)
-Received: from CH2PR19CA0025.namprd19.prod.outlook.com (2603:10b6:610:4d::35)
- by CH3PR12MB9343.namprd12.prod.outlook.com (2603:10b6:610:1c0::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Mon, 16 Feb
- 2026 09:18:12 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:4d:cafe::6d) by CH2PR19CA0025.outlook.office365.com
- (2603:10b6:610:4d::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16 via Frontend
- Transport; Mon, 16 Feb 2026 09:18:12 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Mon, 16 Feb 2026 09:18:11 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
- 2026 03:18:11 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
- 2026 03:18:11 -0600
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 16 Feb 2026 03:18:10 -0600
+	id 1vrunP-0002j0-JQ; Mon, 16 Feb 2026 09:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 1233828;
+ Mon, 16 Feb 2026 09:21:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qFbs=AU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vrunO-0002iu-UU
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 09:21:34 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0b18583-0b18-11f1-b163-2bf370ae4941;
+ Mon, 16 Feb 2026 10:21:30 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-43622089851so2708747f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 01:21:30 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43796ac8d46sm26459061f8f.32.2026.02.16.01.21.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Feb 2026 01:21:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,314 +50,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6de547cd-0b18-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W7qQMH6jiV7Tg+GLNqglBSNZf1EKKP2XPBXcQNCLUpCxD2ZXc+36pv/S33d4P7XP+78lE+9dpJzKvd6PqUe4vf7p4VHr3zlkT9xOx9pGms5h/5gUAKOvMwXCetbRhycML9ZhsV6pYsbhbbyfoNTz44MwFDZJriVUno+JmrHH6jmU5LutcPCS4MtMRO6f53H3ZvhLsoTy3t73so6gBuzZK4SgP5jCz+N428H8F4MYdq5cGviu52bUDyjTKVbn/UR41U5NshshuGHKMXEY1dIHr5iaQ6SuZNVIq2K8BuPeUF4IRI51t9koTplOJlay4GKN0DztC7EBlDTW5Bzuxi7aRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6jS5i2wyR9/SctT6OdQMTPs7K1fHgdsborWbgEHeCYY=;
- b=DPyEJ25+LySOZ9DANSb/kazeEwmv1FhoQ9YEmLWH1x/BO/JqWjc9FYxEyqXGB/bbz2vr3uvq0YZsbXIkbv4WnJRS9FxUNo25wQk3001HVIdtT4gMM14ow49r1qLhIcRJr0bcIEZsbWwGP0zz87XiEajXrOPaj+mJaYV1aby67TCxna60McpL+XTMjHz3nUSNfrMmp2RpY3JKg5A+MhTQ0A2TTK5+LymPhJRni1vFuWse/JpC3py/0xes1/Tn44hC8B8c7dXvaCZ9c1KUam1D1s4Dlv3FCMJ9lkJbDqvh2Zsj8kNo+wk7wS1TqjEwBljAGZctq9NGwbrvXZXcZ1G/LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6jS5i2wyR9/SctT6OdQMTPs7K1fHgdsborWbgEHeCYY=;
- b=X8ICFeu6CYjbIU/d0Eb6Ux3gyxU+QUbuO0C/AfNPyhiMS6h7P5nhzg5iaELElb39GUaThQKVc/AjcQoxme3QTexH7WEGLZBM2pKJqbP69ttynKIXWhSwFZBXZq9lbHgq8tCn5rrigJyACLdHMnevkwqx2ZfAkKTW6PDdU+EOgD4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <4ef64eca-3928-49c6-adc8-4d88319e01cd@amd.com>
-Date: Mon, 16 Feb 2026 10:18:09 +0100
+X-Inumbo-ID: e0b18583-0b18-11f1-b163-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1771233690; x=1771838490; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=W81xnfpHRwoMBRiamvuCCJFZJB55LQeDPaRc8bvII1U=;
+        b=ENc6pQ//TlTR1hvN/36Z+JNCgieWZPcKQ35RYF7+EVq0voOTuXFJbtuitM7eV0f8NM
+         IiTAb8JoeMF32GRRvmySXWgZahWf5m/jy6TJUt4RnudduJ55PfpBx9Cgmur7x86Dfxr8
+         4DIzO4VK18/ZMsuGdPSbBZeeT03FGnhCHQtydD/gfeYbmLl+GbPOMwLuDy4GMyOcx/7K
+         T10NTtd7RXD9JZR/Iytn7E0S+uJNuHL8hVW8EePrmJXVdb37aPXnUiLeEjgnG/KOsC1G
+         M0GqbKkPLx2vOJN+7yOMrm+HpVC8DKhdjWxaJq6UF3hAz0Lp6zU6NMjG2e0qQ5sjXSq0
+         5R5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771233690; x=1771838490;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W81xnfpHRwoMBRiamvuCCJFZJB55LQeDPaRc8bvII1U=;
+        b=thiIm2r6tn34VjuXmBXf5M0ePSZJRngC3T6t7U2p/UR4h3Dv3QOdPa6Huiagh4lBah
+         f8fWvqKVndXDgGgrvsQnQiVOgKAAiJGk+BBGx8bSfAaOmiH9P6GlWzOQqvrLG+chIptv
+         Xim4+X7GLnghGii0Ln4p5cUpNh080sF1kycq6avSH+TE7+EL2E5xu4nYKJr62+DNPEYq
+         +GgBCG1z8fxSAfgJen069NcaZfml62Fb9CW2l4kNiRxM02rvChltvbGlqfvXpXQDCvjf
+         9rAp/zr9gmgfW+SOR83cNBq23onwNtCQvzIBuzH7aLOF9ShTEnRYd6iWh206qKO6vxmU
+         yGkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWQuSyghC5m6DoMaLRCvI0Qa1HwLuXSlMidVbEZdULTsD73uqNNbeBuLzrtc88LveA0WaxcQhU2RS4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUW2lQHG6mrHvlOHxpBff4L6/WKOikWhqxms2ZgNftCmZRvlNE
+	7o1CH8gu8rOkJBHIM0DDBqTT/TtQMel6wU1P0ZT7FYnijDpjsjfcvLzm07+rUcQlOw==
+X-Gm-Gg: AZuq6aKmRJDrJ80j5fWvNVjA4ArZq+qmG+ard4pq+jL0qbTOFSpG8G7c8Oo1zFw3E23
+	2S0SnZFykmhbPEtWSatwPSbRy/8GDrS3HYdTDTtDRixb5Imk2L9ecgfMk/cxyZlt/SmgYXRGO2H
+	+lcxGp6Uu9YSgMaz7j1ZIIoFp4m8Sgwb481ne7IhSRocZtdVme/wqlM2FjzveQExkKbq3uqAkWp
+	BmimkGaQ6kWL1PxD9QOr5DkJj6xgFvb16dx7agVU11BqNXNdio2oz1YVRC5nYQGpfH1gzIEOptn
+	9UcUj7MED2cOR+NPWZOV7HSu/gfFlV4I+U1Qzo3YWlWXLnlYaSCmojvpak2CEe8+pngRozNCXmE
+	p1tLfrURI8PwQ+hI0u10PAUiQyqoTEVFivjeTyPFCsPmVs/GhsZoq3FUlTw1H7psat7CFwvs9Yz
+	QOsqt/SIN9usbk20boi4rC7ziP9LAYepir1ILKXMnYYBfBpWxuPJAsYmQ8NKp6fooweDBFuhi9n
+	m9poOI54kdy9C4=
+X-Received: by 2002:a05:6000:22c5:b0:437:69c0:9612 with SMTP id ffacd0b85a97d-437978c194cmr18068693f8f.13.1771233689712;
+        Mon, 16 Feb 2026 01:21:29 -0800 (PST)
+Message-ID: <3bbc408d-d16d-473e-81bf-6ea1f78290af@suse.com>
+Date: Mon, 16 Feb 2026 10:21:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm/mpu: Introduce `v8r_el1_msa` device tree property
- for domains
-To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20260206090155.68466-1-harry.ramsey@arm.com>
- <20260206090155.68466-3-harry.ramsey@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH] xen/arm: smccc: Preserve argument types in v1.1 SMC
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <0e2ba0af683fa5e53a3d2b4b625703751cf7ce54.1771228001.git.bertrand.marquis@arm.com>
 Content-Language: en-US
-In-Reply-To: <20260206090155.68466-3-harry.ramsey@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0e2ba0af683fa5e53a3d2b4b625703751cf7ce54.1771228001.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|CH3PR12MB9343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20c6039c-2150-4ca9-4abf-08de6d3c4ec2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SitJaHBNbGZyZFpsZVE2UnJ2TVdEZjAwQUFxaUlDUm1CMjZzSU1WbEgxbTYx?=
- =?utf-8?B?UXo5YnBwa21mVXFGR3FsRDA4YUxQcFYxV2haSUtNbE1kbWlJR2U3WHl5dHN1?=
- =?utf-8?B?Tm56eWFOYXAzUHAyN0w1b1lrQlJUbWtUZWZ3VVVVcEgwWFlZelJZeThRQURo?=
- =?utf-8?B?MllkTlRIbW1Bd1dsMDhDS0YxL0xlaFBJSkxEcjZFNTN5Uk1TUU1PRGFBK2Ny?=
- =?utf-8?B?WVJsQUJxL0FWMnhsUjAxMnYwK0o3SlYvQTBXRnVMdjRIanVtZWFXSWY0cDlE?=
- =?utf-8?B?MjgvQnRTMml6bHVzTzlKeCtKWDZrTGtVTlpoVjJ6T3pqNWZZd2hTa09UWitO?=
- =?utf-8?B?QUcrOTJEYWxHVjgwT0EyOWY2SVNOZ1Zrdzg1QzN5dkw3dWtSWmhneHdVY3VZ?=
- =?utf-8?B?SWd5QTd0V0N2MXlVRVNNZC9zNTAvMVplTEhIdzBvWVd1NURBWjNmNXlWV0I0?=
- =?utf-8?B?cmlYRmZ6TDBkekdZQjVtNFFvZ1pDWnhCNXZ4SDlPNWYvQ3d4MWFxRFFTTHJK?=
- =?utf-8?B?K1kwcjN1ZFVCc3BLWTRlN2JpQTZlK2J0UlFFbWFEc2hLckNZcWlHcFlmRWdT?=
- =?utf-8?B?ZzlpRHE2TlNLcm1aZ0xkNXArdzRMQ2MrWlc5U2FVTDNETVVlNUJjdFl4WlFx?=
- =?utf-8?B?MGFISkdlakJzNnA0TzJ0bnBrOUdudm11aHFvc0FwR1phOHd4UjErMm4yTFVQ?=
- =?utf-8?B?eWFjeVh4c3E4TUVmV1p4TUVUbkRmOGdDdXBnNDhKNmNNcTBhWXA1NmJJY1Bo?=
- =?utf-8?B?VUxrUW5kT2ZKd0ZIUjlkaHBUSnRjSG5hWnlsYzIzZXQ5VWtxNkpJVkNUZDB6?=
- =?utf-8?B?ZklYbWNOVTA5TmdwRTc5L3gyZDdmcW9hZDM3Nm1BTzc3dkpqbkxGbmZkWGFk?=
- =?utf-8?B?MGV3VmZiK0gvNnF0TmxBOGUzdG1uYkdHVzVaYTRQZStrSlF3WFRLMVI3UzhZ?=
- =?utf-8?B?cXU1YzVoOUpuMjFCZkN4aldqQ3A0cmlGdUVjUUxuM0tlUlZTdXA0Y2xRdnM5?=
- =?utf-8?B?ZlMzSXdFdlUzOGtwWk80K29YQU5xTnpaRGIrQkxwSW56MDFjQ0s2ME0rOWRi?=
- =?utf-8?B?eDYxNWlZZWx2L0VrTk0rcU8va0ZYVzdYeHkySkE5REtlb1czZVdUU0ZlRUxU?=
- =?utf-8?B?Yk1KVEtBczFNcW81WkdtUjB1dXkwS3NHK3lKek43REdWWFlOMk5KUHkyR0tS?=
- =?utf-8?B?TFpMVm9PZ2ZVMXV4dDBCazczeFJvd1A2T3FrMFZDbDAxOFU3aGpjU0hiUGRB?=
- =?utf-8?B?Z0pPRytCc1FTTGc5TGtiQnNBc0N1czc2VkhTYlBudlpBbFFCc2lWMG9aK2o1?=
- =?utf-8?B?VzdOdnllYjBIa2JsRXJsVkZpQ0hoQytHVktrZ2wwTGxPVmx0dzYxZ0lOMzNN?=
- =?utf-8?B?b1JFcW4vMG9mMHgyM0o1bHZySjZicmwvQTA2Q3NRdjBkRGgxdDdpZThxRkxw?=
- =?utf-8?B?c1ViSjU1TVNydU54S3JWS3g4UTZKRkszcXJTUzNob1RaRVA3STJuMEFVTkJa?=
- =?utf-8?B?UzNxRERZV2UwMmQ4b3BJdDFxVGF3bWpuR2xWMU9qQzlHcEY5Z2M4NldnTGhk?=
- =?utf-8?B?c1dENnVVTWx2b1RGYmErR0owM252c245L2dGOG1hTnZGQ0VJMFRua2grRlBo?=
- =?utf-8?B?QTNEN0hSWThMb0lxZmo0SmdIZUMrUi9ZK3E4ekhxL0dxdzVTUkp2MGNuNG1P?=
- =?utf-8?B?dXY0ZUNXTks0VFdtU3UrT1craWIva2FwajlUdHplNlorcHF4UW1WN0YvVDFW?=
- =?utf-8?B?NDVFWUt1QmxIQTJwRHJFVy9RbGljSDd3R0wwaHJVNDhOTW9DNGhyV3gzdnhr?=
- =?utf-8?B?R2lNNkFNMVdIWktLcEp1SGUxeFZ0aWNjQVk1VUh2Mitpb1psQTA3ZW9aR20r?=
- =?utf-8?B?Q2krUy9KWFpkTlowQnp3eDFQS2RFeU1hcmJHSExOdnlZa1o3L1Q3RDdNSGVT?=
- =?utf-8?B?eUsrRkdWa2EyV3ZTZUN0MWhWbzVCRVFoSGRud1FBZE5xcHF3TzExMENXRHZO?=
- =?utf-8?B?N1BjaFhPc0FYMDN2bjVIaFhxSk1TUlhMQnVuTFpGSUxqYW9Pd1ZJTkNXWlA0?=
- =?utf-8?B?bitnOTJSUDdpYlhYdzlmSG14REVleHpzeThsOWNFS1labFJKTGl1NFk3Ylo2?=
- =?utf-8?B?eUorakNXdEMwWEJEeThXbmYweXFtVmZnZVl6ajBkOXhwalVzOU5FKzB5NWpI?=
- =?utf-8?B?R3lIRThxTG5wTWt4Q3lrYmhUVWNuUmJGQjhwcXRMNmlSaVFDVzVTUGV2VXFX?=
- =?utf-8?B?YmJ6RlArTDFRMkxFZFdkd0JZNWxnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	78Q1WjxTpNeaOQvNnZxFFRBgdgP7OMDCV6rTCyGKlgLaJLB0lOI6KO7sPVbAZW99k1NaoUL6HthZJSw5gzU8sKKTHe1KLaGVhYZo1iqP1bLXxnehvkzcUc3ngy7SMGtNQVvo7DrsCurpn47nAh8CuambE0VzF7u9yWsxHx+8c7CaUJEmHuxWBNC6FTERpIZkuAPMPEUpCXuDrLTgUG1oqiOoMDpXmL0jhFYasovx7i7ReAH0LtqD7mlOBxR7p/8UmjU82Wqw7jk0SGb6XRk/J4NeMVQ5vayEU/rYDRwP7fNlVnMg5xUUd8S6/5Mng7Smk5/pqfw8BX3EQyuSw/5CdcvOp9Va8QaRCD7iqQkWblDp3Xc/CCnJzCyNoFQqpSaQ7KO2L3RZHnzN2QN3ZG89ExdgmwJA1aS4UuHOWiOAV1g4I0YlR36cqoH+pw9IiZWN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 09:18:11.9731
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20c6039c-2150-4ca9-4abf-08de6d3c4ec2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9343
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:harry.ramsey@arm.com,m:xen-devel@lists.xenproject.org,m:Luca.Fancellu@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,arm.com:email];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim]
-X-Rspamd-Queue-Id: 68404141E88
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 198CC141EC6
 X-Rspamd-Action: no action
 
-
-
-On 06/02/2026 10:01, Harry Ramsey wrote:
-> Add a new device tree property `v8r_el1_msa` to enable/disable the
-This reads as if it was on/off option. I think it's better to say "to select the
-MSA (memory system architecture) at EL1 i.e. MPU(default) or MMU.
-
-> PMSAv8-64 translation regime at EL1.
+On 16.02.2026 08:47, Bertrand Marquis wrote:
+> The SMCCC v1.1 inline helper currently forces a1-a4 into
+> unsigned long and uses in/out constraints for r0-r3. In
+> contrast, a5-a7 are passed with their original types via
+> read-only constraints. On arm64 this means a 32-bit signed
+> value in a1-a4 is converted to a 64-bit unsigned value, while
+> the same value in a5-a7 keeps its signed 32-bit form. For
+> example, a negative int in a2 is widened to unsigned long, but
+> a negative int in a5 is passed as a 32-bit signed value, so the
+> SMC sees different encodings depending on argument position.
 > 
-> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> Switch the helper to use typed input registers arg0-arg7
+> derived from the call arguments (keeping a0 cast to u32) and
+> separate output registers r0-r3. This preserves argument types
+> consistently across all positions. Argument evaluation order
+> is unchanged, so we do not reintroduce the issue fixed in
+> "e00dc325bd9e" ("xen/arm: smccc-1.1: Handle function result as
+> parameters").
+> 
+> This also aligns Xen's SMCCC parameter handling with Linux's type-
+> preserving behavior (same externally visible argument handling,
+> independent implementation) to avoid surprising differences
+> between a1-a4 and a5-a7.
+> 
+> Current callers (PSCI, SCMI, platform SMC pass-through, OP-TEE,
+> and exynos5) pass unsigned values; exynos5 passes an int CPU id
+> which should always be > 0.
+
+Reported-by: Andrew ?
+
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
->  docs/misc/arm/device-tree/booting.txt | 11 +++++++++++
->  xen/arch/arm/dom0less-build.c         | 25 +++++++++++++++++++++++++
->  xen/arch/arm/domain.c                 | 16 ++++++++++++++++
->  xen/arch/arm/include/asm/domain.h     |  9 +++++++++
->  xen/include/public/arch-arm.h         |  4 ++++
->  5 files changed, 65 insertions(+)
+>  xen/arch/arm/include/asm/smccc.h | 69 +++++++++++++-------------------
+>  1 file changed, 27 insertions(+), 42 deletions(-)
 > 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 977b428608..431d285b6e 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -322,6 +322,17 @@ with the following properties:
->      Should be used together with scmi-smc-passthrough Xen command line
->      option.
+> diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
+> index 441b3ab65dee..5b30dd57b69d 100644
+> --- a/xen/arch/arm/include/asm/smccc.h
+> +++ b/xen/arch/arm/include/asm/smccc.h
+> @@ -99,87 +99,68 @@ struct arm_smccc_res {
+>  #define __count_args(...)                               \
+>      ___count_args(__VA_ARGS__, 7, 6, 5, 4, 3, 2, 1, 0)
 >  
-> +- v8r_el1_msa
-> +
-> +    A string property specifying whether, on Armv8-R aarch64 systems, a domain
-> +    should use PMSAv8-64 (MPU) at EL1 or VMSAv8-64 (MMU) at EL1.
-> +
-> +    - "mmu"
-> +    Enables VMSAv8-64 at EL1.
-You should mention that it might not be supported by hardware though.
+> -#define __constraint_write_0                        \
+> -    "+r" (r0), "=&r" (r1), "=&r" (r2), "=&r" (r3)
+> -#define __constraint_write_1                        \
+> -    "+r" (r0), "+r" (r1), "=&r" (r2), "=&r" (r3)
+> -#define __constraint_write_2                        \
+> -    "+r" (r0), "+r" (r1), "+r" (r2), "=&r" (r3)
+> -#define __constraint_write_3                        \
+> -    "+r" (r0), "+r" (r1), "+r" (r2), "+r" (r3)
+> -#define __constraint_write_4    __constraint_write_3
+> -#define __constraint_write_5    __constraint_write_4
+> -#define __constraint_write_6    __constraint_write_5
+> -#define __constraint_write_7    __constraint_write_6
+> -
+> -#define __constraint_read_0
+> -#define __constraint_read_1
+> -#define __constraint_read_2
+> -#define __constraint_read_3
+> -#define __constraint_read_4 "r" (r4)
+> -#define __constraint_read_5 __constraint_read_4, "r" (r5)
+> -#define __constraint_read_6 __constraint_read_5, "r" (r6)
+> -#define __constraint_read_7 __constraint_read_6, "r" (r7)
+> +#define __constraint_read_0 "r" (arg0)
+> +#define __constraint_read_1 __constraint_read_0, "r" (arg1)
+> +#define __constraint_read_2 __constraint_read_1, "r" (arg2)
+> +#define __constraint_read_3 __constraint_read_2, "r" (arg3)
+> +#define __constraint_read_4 __constraint_read_3, "r" (arg4)
+> +#define __constraint_read_5 __constraint_read_4, "r" (arg5)
+> +#define __constraint_read_6 __constraint_read_5, "r" (arg6)
+> +#define __constraint_read_7 __constraint_read_6, "r" (arg7)
+>  
+>  #define __declare_arg_0(a0, res)                            \
+>      struct arm_smccc_res    *___res = (res);                \
+> -    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+> -    register unsigned long  r1 ASM_REG(1);                  \
+> -    register unsigned long  r2 ASM_REG(2);                  \
+> -    register unsigned long  r3 ASM_REG(3)
+> +    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0)
+>  
+>  #define __declare_arg_1(a0, a1, res)                        \
+>      typeof(a1) __a1 = (a1);                                 \
+>      struct arm_smccc_res    *___res = (res);                \
+> -    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+> -    register unsigned long  r1 ASM_REG(1) = __a1;           \
+> -    register unsigned long  r2 ASM_REG(2);                  \
+> -    register unsigned long  r3 ASM_REG(3)
+> +    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0);\
+> +    register typeof(a1)     arg1 ASM_REG(1) = __a1
 
-> +
-> +    - "mpu"
-> +    Enables PMSAv8-64 at EL1.
-You should mention that mpu is a default.
+Is it intentional that you switch to typeof() rather than directly going
+to auto? This was it'll be more churn, aiui. And if deliberately going
+only half a step, perhaps worth saying so in the description?
 
-> +
->  Under the "xen,domain" compatible node, one or more sub-nodes are present
->  for the DomU kernel and ramdisk.
->  
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index 4181c10538..41f538fb50 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -315,6 +315,7 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
->      struct xen_domctl_createdomain *d_cfg = &bd->create_cfg;
->      unsigned int flags = bd->create_flags;
->      uint32_t val;
-> +    const char *v8r_el1_msa;
->  
->      d_cfg->arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
->      d_cfg->flags |= XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap;
-> @@ -322,6 +323,30 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
->      if ( domu_dt_sci_parse(node, d_cfg) )
->          panic("Error getting SCI configuration\n");
->  
-> +    if (!dt_property_read_string(node, "v8r_el1_msa", &v8r_el1_msa))
-> +    {
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-> +        if ( !strcmp(v8r_el1_msa, "mmu") )
-> +        {
-> +            if ( system_cpuinfo.mm64.msa_frac != MM64_MSA_FRAC_VMSA_SUPPORT )
-> +                panic("Platform does not support VMSA at EL1 (v8r_el1_msa)\n");
-> +            d_cfg->arch.v8r_el1_msa = MPU_EL1_VMSA;
-> +        }
-> +        else if ( !strcmp(v8r_el1_msa, "mpu") )
-> +        {
-> +            d_cfg->arch.v8r_el1_msa = MPU_EL1_PMSA;
-> +            if ( !(flags & CDF_staticmem) || !(flags & CDF_directmap) )
-> +                panic("PMSA is not valid for domain without static allocation"
-> +                      " and direct map (v8r_el1_msa)\n");
-> +        }
-> +        else
-> +            panic("Invalid device tree option for v8r_el1_msa\n");
-> +#else
-> +        panic("'v8r_el1_msa' property requires CONFIG_MPU and CONFIG_ARM_64 to "
-> +              "be selected\n");
-Please don't split printk messages
-
-> +#endif
-> +    }
-> +
->      if ( !dt_property_read_u32(node, "nr_spis", &d_cfg->arch.nr_spis) )
->      {
->          int vpl011_virq = GUEST_VPL011_SPI;
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 2eca2b913d..fc4c7ae734 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -35,6 +35,18 @@
->  
->  DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
->  
-> +/* If this domain should use PMSAv8-64 translation regime (MPU) at EL1. */
-> +static inline bool is_mpu_domain(struct domain *d)
-> +{
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-I think Ayan's request to make this property generic to avoid ifdefery makes
-sense. There is a lot of #if/#else blocks. This property/variables would simply
-have a single field for Arm32. Also, you could perhaps make it enum and then
-protect VMSA option with Arm64.
-
-> +    return d->arch.v8r_el1_msa == MPU_EL1_PMSA;
-> +#elif defined(CONFIG_MPU)
-> +    return true;
-> +#else
-> +    return false;
-> +#endif
-> +}
-> +
->  static void do_idle(void)
->  {
->      unsigned int cpu = smp_processor_id();
-> @@ -731,6 +743,10 @@ int arch_domain_create(struct domain *d,
->      if ( (rc = sci_domain_init(d, config)) != 0 )
->          goto fail;
->  
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-> +    d->arch.v8r_el1_msa = config->arch.v8r_el1_msa;
-> +#endif
-> +
->      return 0;
->  
->  fail:
-> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-> index 758ad807e4..1387adc0e9 100644
-> --- a/xen/arch/arm/include/asm/domain.h
-> +++ b/xen/arch/arm/include/asm/domain.h
-> @@ -29,6 +29,11 @@ enum domain_type {
->  #define is_64bit_domain(d) (0)
->  #endif
->  
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-I don't think it makes sense to protect macros. For me, it just results in
-additional churn.
-
-> +#define MPU_EL1_PMSA 0
-> +#define MPU_EL1_VMSA 1
-> +#endif
-> +
->  /*
->   * Is the domain using the host memory layout?
->   *
-> @@ -126,6 +131,10 @@ struct arch_domain
->      void *sci_data;
->  #endif
->  
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-> +    uint8_t v8r_el1_msa;
-> +#endif
-> +
->  }  __cacheline_aligned;
->  
->  struct arch_vcpu
-> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-> index cd563cf706..0ef445a273 100644
-> --- a/xen/include/public/arch-arm.h
-> +++ b/xen/include/public/arch-arm.h
-> @@ -355,6 +355,10 @@ struct xen_arch_domainconfig {
->      uint32_t clock_frequency;
->      /* IN */
->      uint8_t arm_sci_type;
-> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
-> +    /* IN */
-> +    uint8_t v8r_el1_msa;
-> +#endif
->  };
->  #endif /* __XEN__ || __XEN_TOOLS__ */
->  
-
-~Michal
-
+Jan
 
