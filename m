@@ -2,57 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OBiKG57pkmlSzwEAu9opvQ
+	id cIhhBbzqkmlSzwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:55:42 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 11:00:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F6A142240
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:55:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233859.1537214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574DB1422C4
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 11:00:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233867.1537226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrvJQ-00089l-LI; Mon, 16 Feb 2026 09:54:40 +0000
+	id 1vrvOq-0001WP-A3; Mon, 16 Feb 2026 10:00:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233859.1537214; Mon, 16 Feb 2026 09:54:40 +0000
+Received: by outflank-mailman (output) from mailman id 1233867.1537226; Mon, 16 Feb 2026 10:00:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrvJQ-00087d-I9; Mon, 16 Feb 2026 09:54:40 +0000
-Received: by outflank-mailman (input) for mailman id 1233859;
- Mon, 16 Feb 2026 09:54:39 +0000
+	id 1vrvOq-0001Tb-5p; Mon, 16 Feb 2026 10:00:16 +0000
+Received: by outflank-mailman (input) for mailman id 1233867;
+ Mon, 16 Feb 2026 10:00:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nRIP=AU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vrvJO-00087X-Vv
- for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 09:54:38 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qFbs=AU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vrvOp-0001TT-Ei
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 10:00:15 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7fc1373b-0b1d-11f1-9ccf-f158ae23cfc8;
- Mon, 16 Feb 2026 10:54:36 +0100 (CET)
-Received: from BN9PR03CA0341.namprd03.prod.outlook.com (2603:10b6:408:f6::16)
- by SA3PR12MB7808.namprd12.prod.outlook.com (2603:10b6:806:31b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Mon, 16 Feb
- 2026 09:54:31 +0000
-Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::3a) by BN9PR03CA0341.outlook.office365.com
- (2603:10b6:408:f6::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.16 via Frontend Transport; Mon,
- 16 Feb 2026 09:54:31 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Mon, 16 Feb 2026 09:54:31 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
- 2026 03:54:30 -0600
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 16 Feb 2026 03:54:29 -0600
+ id 484bba0a-0b1e-11f1-9ccf-f158ae23cfc8;
+ Mon, 16 Feb 2026 11:00:11 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4806f3fc50bso35664175e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 02:00:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4835dd0deeasm382771015e9.12.2026.02.16.02.00.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Feb 2026 02:00:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,309 +50,350 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fc1373b-0b1d-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QhrVsrbzPN6VzzY00gbKSM51GzSxy7JTHm3fxbCN4SxsVUmCGRg64dLsmel0UWU4dEKreNQWz0Fe6g0LuCYmDpz8M1y/GXrEK92/NnKjuknUYHkb3VXBl4vXH6/Si/CSCWp7Bk5U0+lNYouT7B2Lk/e6uFUwSt7ETpNi7PfMKlTig9HXdTYRe3tqFbyOO+g3pg1TFZznQtb+P1umUn3o8f3tUj1dIoaa6S7NXS5k5gsLnSvD8gzItvO8sFREfmWq/YovnbH0KsqjjdlvsPpPOgMEFe2MKGN/AGibNnZA0KZKrqdbr1KMJOQqDUqxq4UZRfQzAlbF87JLPyvXPDxPkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MOEkKY7O4kDty90WtlMhZOeCTuXBczRlaaEvEXF0fcs=;
- b=keWrcTBqXRu4nMORemDAXaIBJMoOiiVjRNkAPEywCZxufwg2iX/8b9vMu5H6vBwtZkAup62MXKTRoP/QTVNIeiMPTvIuIrVc39W65GNtnhBDh/dKRjkjA6Rfka+1sNVX7N5gy4aiID/UAFlUp3rKaApoSi+C0ufmgKs787fZlGsp220BxDQAA1t+dvTrwOiAmRIpP2tYIkQEZwAFLE9wkvo8OFiJbCpklLA3BTyHJL2coTlePKIgXJirJRY7RB9gsyWCC4IMCUyf+6Up8B5h1QfG6zCuA3tnR346fMQzjMP09nW3TVCsa8Ll11wgOVrp5lken5TqJrT4Q8xH24QgBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MOEkKY7O4kDty90WtlMhZOeCTuXBczRlaaEvEXF0fcs=;
- b=RAOYxX7KeBNPvghe2EaJCSC2WhBN+ol0QuKxQpHcdjEdbWNQgSSyXNIoVA+BKxMD8ij3PFFO81sQPVwHbsfvVvwSFHByn1V7xBzl7GyznQxJVH349MlrSwUttgee1FefRMozURcWcrxdwBjz7sL/QuI5VPxltyYtihPvsbpjet8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <25d4cf76-a71a-481c-8278-db400e4ae5d0@amd.com>
-Date: Mon, 16 Feb 2026 10:54:29 +0100
+X-Inumbo-ID: 484bba0a-0b1e-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1771236011; x=1771840811; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ddyKCkBTU+alnVbXpRWzYOsHi3pLnWpdRGDAtJHQjBE=;
+        b=X7doxU5QlnFlROLBXBHpypMlUbHel4srwHKLFEHFla6MaJ8qlnLeYanh18iA5XsCZ+
+         HHKuG/DiURP2F7q0rppgCiobIivaTWYK4KBJ5aWUjD2fDWTh7nP3PKKbvh/xRcI+y6vT
+         r87Z9CQR9zXWon5A0mYd5t4gT8kOSC0pve7mxysiOkm8InBHxFF9EISK4isNysqLxqYC
+         SnsyY0dIE9iMZ87N2VL83cA6hn7pJ86RRRVsON069uf7bU9qP0ktuI5IUTtBVPwMrmSn
+         DAyaIdZN+0LpCFlim7RmH5E6CPNwYLiHHS9B1jN7JGSSgXkVRy1P/NKKiqO905/+lIo/
+         +RQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771236011; x=1771840811;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ddyKCkBTU+alnVbXpRWzYOsHi3pLnWpdRGDAtJHQjBE=;
+        b=BhwcWXye6Vpp+5Dm2ANVmY4E3iMLIcjyMshmiYQRPxJt9yh7NRVRNuwoGHfQNduZvC
+         QTxlep1pNWosbT+Ewjm94uVLl4ytT3nDrWBWm1xMtoF0IQuYQachbcPdblW2T5/d0PKA
+         ltDtBgPGq+JTkpGKLpUyBSMRaJxyuYCAdO99Up5sPqfrFJ1uluyfj5rclim+KCI7ou9A
+         t6/o7FrJA9cAoyaUYt6e53Jq412TtBxUD/33cpocaw14YAFc+bUZXR8Gwj2Uoj7iicc8
+         Dq49fR+DzZnIMCzsD4oS9lEP228+kQL9+yyFLwYJkPspvNwRF/z6fFOG/Bum/XAqbXM5
+         Jd9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXUoEMIFZOfwHXbmu6e329R14hlUgKofnryi1Ly5F+N3oGgBtOvFOd93R0eRB48I5wN8jjBGm9HNME=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxrtduivwl3Sd9h0qPNb2O6T00jLKvCsxO4H2KIc69PspiDuQ3a
+	RL14ELuYctJegjEqEQv92rvR5pltlZYilqENa/aYjHfexg8W+ZR+IvkhEEO73fb/Og==
+X-Gm-Gg: AZuq6aJvZOBwNsYdqmSNdWbfPUWb2SNy2jFP+vdoKUTNA4mLCF2cdrlcoro6pS6AC9c
+	NpQlVRFSY0/9/ulTLyRhZPXaFbz6MaTbB00A/H7gMwRmF6sirDWY8+0yR4DydKZTH7Wqt8EbzOL
+	5L1q2GhIZV5rjKsKJ5gkAYaw0tCRZ/IVdF7q5+/TZPp8fe9ce909MQ6Qyvyv5WEYP5BX27sVda2
+	0Zv0Gmh8pIaoT5sFbmLztOcA3gNSvsUwMn4wxkB+6QHRcQ+EKmAe5JanQSEZpAUZ8zdhPJ7uqGx
+	sY9keXmfsdxE7r2TttLLSNQlf0+S2LI0zSW6a/0lCewV5WIGN+5mBsFnVPmHvHhEWMYMQjVJH1n
+	yYSWzHFx+y4QRVbFqKQhQRIp0uNHdDfGyfmhL5GS0B6NQdHdMBk9kowcaGILhqEzT0FkXfvY76l
+	g5GALzhliy/+5mZs0z6e7IXHu3yTPA6FyyMWFjRVt4nJ6CgjBfUo3we6MOtWWY79L36EQ2suPnl
+	F2cMhycGjWtVQs=
+X-Received: by 2002:a05:600c:1c19:b0:483:5310:dc67 with SMTP id 5b1f17b1804b1-48379be817cmr136545715e9.20.1771236010887;
+        Mon, 16 Feb 2026 02:00:10 -0800 (PST)
+Message-ID: <1c8b9400-ff2f-4ffc-bad7-9d44fa44fd81@suse.com>
+Date: Mon, 16 Feb 2026 11:00:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm/mpu: Implement p2m tables
-To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20260206090155.68466-1-harry.ramsey@arm.com>
- <20260206090155.68466-4-harry.ramsey@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH] x86/hvm: Add Kconfig option to disable nested
+ virtualization
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: roger.pau@citrix.com, andrew.cooper3@citrix.com, jason.andryuk@amd.com,
+ alejandro.garciavallejo@amd.com, xen-devel@lists.xenproject.org
+References: <20260213220205.196179-1-stefano.stabellini@amd.com>
 Content-Language: en-US
-In-Reply-To: <20260206090155.68466-4-harry.ramsey@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260213220205.196179-1-stefano.stabellini@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|SA3PR12MB7808:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8349255f-e68c-4ffb-6a65-08de6d4161bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VGluWUtTZk0vWDVscWdKSFVLYm92ampQcnYwU2ZVVm8xTGlpWkh6K1VkdWtm?=
- =?utf-8?B?WVlwNU9SL2hXWjVMSHpIOUJIQzZuT3ROazRGRWxwQ3lYQjFRM2JZY3grVnZy?=
- =?utf-8?B?cEhDd1ZQekFUb1lsVDNIWUpORWptaTF2NXB1d3lQSjJ5SWw5V3Jlc3ovMUFZ?=
- =?utf-8?B?Wk9QMFlFbzFZb1dYRjRjZXZ4TUYyU1pOblVLMFM4eWZGYy9qeDJtcWtvWCtW?=
- =?utf-8?B?R0h6L0V1QkVjVnl6bEFMWVdvckN4cmNCTUNyMk9lU0xsalhNWThEeEl1cHZ3?=
- =?utf-8?B?TW5SaE40SFlDMmJHVUJzWHowOVZOQ3h3MlJ6cTQvODUzREFTSWJ1QnRFbjJj?=
- =?utf-8?B?WFRBT3R3bjh6STI0c0lWOWNKZGQ3NnJuTXlaWjVFdU5HZFh1YVlPMVNTcmVj?=
- =?utf-8?B?cVdYdkg3a3FteEJKb2RSSHh2d2xvOWI5ZGZxak1aU2tFajJWcXc1OXBJenVx?=
- =?utf-8?B?VnBUTEZGdzR1dUIvTjM5eUNCS1F5dlpWZGdmTEJ4TmVSSkErWStJNnV4ME5B?=
- =?utf-8?B?V3NUcjJla1ZmUnhRK0Vtblhhc1JwRjNmVWo5a0dJYmx2RURLem15dmtid05j?=
- =?utf-8?B?MGk4b3NFUENlcTZyMDZwN2x3KytBUXJ3WGJEN0dvRldNMUtNSG1UdTEraXdP?=
- =?utf-8?B?NlZQTTk0NmxtNGR0eGtiYjZpNENJUWhHZ2l1VTQyb2k2Ykhmc0c0WGQrRFpv?=
- =?utf-8?B?UDNoT1BWRnp1NWxhZzZjMFprRkpPTmM4RnBIVjViQm5vODFacFlmVTc5YkdQ?=
- =?utf-8?B?Y0pGRTVoNG5oMWlCZC9XYlhRTlNkV3RFUndzSGJnZHBaY1JKa3ZrSkhpem9T?=
- =?utf-8?B?ZDlGUHJNRDcwZEZxK1g5UDhBekcxQ3dPc2lQcHVwN2hSZTA1d0Y3dDlQV2xK?=
- =?utf-8?B?aEZoV0RGN1hIN2hmSGhOZ3JKc1FyK29mTWtsdCszMm0wZUF1bjY0MnZwSFp6?=
- =?utf-8?B?TTB0M2VFSHNJdE81Y3NUajM4dEhnaDFkVnRCV0VISm51Z25Wc0pWNkNPd3oz?=
- =?utf-8?B?MjVERU5DRWRXZUZqQ2Q2c3ViOEFIOTFWMVczQmNtSW5SdEdGbWFHSDZOTExz?=
- =?utf-8?B?UkJpZ2srK3c5TXI5S2wzQVRXN2NnSEtoWHRhV3VNSVFIaVBMdGJaRGJUNjlJ?=
- =?utf-8?B?dFlmaE9xMlFPUXVDQUZxWUZYMVluV0ZiRDJWRUNWR0hScEhEUDZyZHJDWEt6?=
- =?utf-8?B?WXdoWWE3bVVKanpZTE05U09qSjg0M2FSczRwR0ZWYkdoL0FtRnFhbDVQMDNu?=
- =?utf-8?B?d1V4dlN3VHBxUWtEaHIzZ1ZpUlZGSStPWGRkUStkNXErc05NR0VOcHdGa25Z?=
- =?utf-8?B?U1h5VHZaOWRrQ3pjWUVTZUdIL0JqbHRUdzJPVWxKc211UTBUSHMrbmVXa1RX?=
- =?utf-8?B?NVRBN3lwSkhxb0VTTDB2L2RZTmJDWXJKN3VaZ1E0M2FES2VFU0hpekxqcXZj?=
- =?utf-8?B?eTcwbmRhMUtuK0NoMkVBK2F3NHE5WENENW9jbHF6VjM5MmptQnlRM1NmK0Y5?=
- =?utf-8?B?T2cvczF3S1FwdFlSNm9sVXVMc3VsQ0FzVTY4WUpNMkxQSjMwUFU4d0c2elFL?=
- =?utf-8?B?WjNFUkg3NHNSNkpPQ21vTWlsUzNUb1ZqVVUwditNbmVwQkVoeDFDVFJ5K2k4?=
- =?utf-8?B?U014YnVaR1U1czl6TkRhTEcrNXdyVElrMWErSUFta2pCM2VkOU0yYmhjUFNP?=
- =?utf-8?B?eWR4dHdsYnp1dUdPekpVUW1idi8wblBmWkRDK1ZJNFNQcWhMQmNUVUh3YXZD?=
- =?utf-8?B?R1M2NnhodlpMK1FmbTFESEVsS2NoZS8yeXBrSnYxSzZ1NTdWc1pSVkUvTmV3?=
- =?utf-8?B?cythQ2N1R1NiSzE1c2dNakRoSGtiblhwSWRJNm5zQmU1STFqRnBaanVXSFNW?=
- =?utf-8?B?NmJtOEFwRzA1Wk9vd0h0RVJ2RVJwRXFzRGZGMkVKbElsdm9jT1hxUjlrVXBN?=
- =?utf-8?B?ek50dzhOQjJzNXN6aFlvaE5FQWlMSmdwTy94K3RyTHIxeU5LMWdDWWJZNGdK?=
- =?utf-8?B?ckVsTS8vOFNxRkZsOWNISjE5YzE0eFRFbjFKUXBOdFBUK2dVMVRLSVR1M0VO?=
- =?utf-8?B?UTk3bW5aYzcycnFJVHRBYXRmbVRPb2xmckVoSTYyNElCOWlZT0thR2FXcW5B?=
- =?utf-8?B?SzJZL01qbms0Y1Btd0FscFJGTnBRc0srRlhEYmNVSFBoMjhJYlEvRHQ3Qm9j?=
- =?utf-8?B?ZmNaaHRZTHBLc2ZselpIUnlRa1kyMUpodnVUYk1RMXNiejlwbDVsN3pJWWtU?=
- =?utf-8?B?elozNFR3TnRQcldkd1ZoRmd0VHlBPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vFJfX9kkr2vmHgYuNjrqY9avieSjuWzLZEsXXm3FNd9KuUsSCu5axOzCKmK8jG+FonxGArtAcDa0tZ8YoAJWLiD0/zfcDtQElFoq9v97Trve2m857sW7ZpcAL5meaF06EFoHSAlZEwhGfRLTYOV4I1iTzuQLOq0uKLLHDLScBVhpJT6cfBlvy8nk7hrJiCL4oONRvJZpOjem+WXta6eMC7aK54Jg36r0vJlG730o6wkDy9K/v3SMmNfXTgZgHw9oHaAdng0VbKg6J7Lza76SXVyE7cX9FA/2ebvmvzWafxEeD8I4cYdV9DJsVuVsM2VGMRZwOdxB1QrWQ132Z6PHv9eDAC0EJN3nnpl+cADSwPlWSEmBib8gOUlcasTPldNA4j1Pp9RUG/rLgeCjys9JX7ugF+ZkknU9FDThI6JJUKfEOKnn6vpw9PelxOS9dEo9
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 09:54:31.2740
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8349255f-e68c-4ffb-6a65-08de6d4161bb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B078.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7808
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,amd.com:mid,amd.com:dkim];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:harry.ramsey@arm.com,m:xen-devel@lists.xenproject.org,m:Luca.Fancellu@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:stefano.stabellini@amd.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: C5F6A142240
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 574DB1422C4
 X-Rspamd-Action: no action
 
-
-
-On 06/02/2026 10:01, Harry Ramsey wrote:
-> Implement `p2m_alloc_table`, `p2m_init` and `p2m_final_teardown` for MPU
-> systems. Additionally implement a helper function `generate_vsctlr` for
-> p2m initalization.
-This means you know you will call it more than once in the future?
-
+On 13.02.2026 23:02, Stefano Stabellini wrote:
+> Introduce CONFIG_NESTED_VIRT (default n) to allow nested virtualization
+> support to be disabled at build time. This is useful for embedded or
+> safety-focused deployments where nested virtualization is not needed,
+> reducing code size and attack surface.
 > 
-> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> When CONFIG_NESTED_VIRT=n, the following source files are excluded:
+> - arch/x86/hvm/nestedhvm.c
+> - arch/x86/hvm/svm/nestedsvm.c
+> - arch/x86/hvm/vmx/vvmx.c
+> - arch/x86/mm/nested.c
+> - arch/x86/mm/hap/nested_hap.c
+> - arch/x86/mm/hap/nested_ept.c
+> 
+> Add inline stubs where needed in headers. Guard assembly code paths
+> for nested virt with #ifdef CONFIG_NESTED_VIRT. Move exception
+> injection for VMX/SVM instructions to the callers in vmx.c/svm.c to
+> avoid header dependency issues in the stubs.
+> 
+> No functional change when CONFIG_NESTED_VIRT=y.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
 > ---
->  xen/arch/arm/include/asm/arm32/mpu.h |  2 +
->  xen/arch/arm/include/asm/arm64/mpu.h |  2 +
->  xen/arch/arm/include/asm/mpu.h       |  5 ++
->  xen/arch/arm/mpu/p2m.c               | 71 ++++++++++++++++++++++++++--
->  4 files changed, 77 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
-> index 2cf0f8cbac..d565230f84 100644
-> --- a/xen/arch/arm/include/asm/arm32/mpu.h
-> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
-> @@ -11,6 +11,8 @@
->   */
->  #define MPU_REGION_RES0       0x0
+> Changes in v3:
+> - Kconfig: Change "depends on AMD_SVM || INTEL_VMX" to "depends on HVM"
+> - Kconfig: Remove redundant "default n" line
+> - Kconfig: Remove "If unsure, say N." from help text
+> - mm/hap/Makefile: Simplify using intermediate nested-y variable:
+>     nested-y := nested_hap.o
+>     nested-$(CONFIG_INTEL_VMX) += nested_ept.o
+>     obj-$(CONFIG_NESTED_VIRT) += $(nested-y)
+> - svm/nestedhvm.h: Remove #ifdef CONFIG_NESTED_VIRT stubs, keep only
+>   function declarations (the functions are only called from code that
+>   is already compiled out when nested virt is disabled)
+> - svm/nestedhvm.h: Add CONFIG_NESTED_VIRT guard to nsvm_efer_svm_enabled
+>   macro to return false when nested virt is disabled
+> - svm/svm.c: Move #UD injection for STGI/CLGI to the caller instead of
+>   stub functions, checking nestedhvm_enabled()/nsvm_efer_svm_enabled()
+> - svm/svm.c: Mark svm_vmexit_do_vmrun/vmload/vmsave as __maybe_unused
+> - svm/svm.c: Remove empty nsvm_vcpu_switch stub (now guarded in asm)
+> - svm/entry.S: Add #ifdef CONFIG_NESTED_VIRT guards around nested virt
+>   specific code paths
+> - vmx/vmx.c: Remove empty nvmx_switch_guest stub (now guarded in asm)
+> - vmx/vmx.c: Move nvmx_enqueue_n2_exceptions and nvmx_vmexit_event to
+>   vvmx.c where they belong
+> - vmx/vvmx.h: Add declarations for nvmx_vmexit_event and
+>   nvmx_enqueue_n2_exceptions
+> - vmx/vvmx.h: Fix nvmx_msr_read_intercept stub comment
+> - vmx/vvmx.h: nvmx_handle_vmx_insn stub returns X86EMUL_EXCEPTION with
+>   ASSERT_UNREACHABLE (caller handles injection)
+> - vmx/vvmx.h: Convert get_vvmcs macro to inline function in stubs
+> - vmx/entry.S: Add #ifdef CONFIG_NESTED_VIRT guard around nvmx_switch_guest
+> - nestedhvm.h: Convert macro stubs to proper inline functions
+
+Oh, wow, that's an almost complete re-write?
+
+> --- a/xen/arch/x86/hvm/Kconfig
+> +++ b/xen/arch/x86/hvm/Kconfig
+> @@ -92,4 +92,11 @@ config MEM_SHARING
+>  	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+>  	depends on INTEL_VMX
 >  
-> +#define VSCTLR_VMID_SHIFT     16
-> +
->  /* Hypervisor Protection Region Base Address Register */
->  typedef union {
->      struct {
-> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-> index 4f694190a8..8b86a03fee 100644
-> --- a/xen/arch/arm/include/asm/arm64/mpu.h
-> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
-> @@ -7,6 +7,8 @@
+> +config NESTED_VIRT
+> +	bool "Nested virtualization support"
+> +	depends on HVM
+> +	help
+> +	  Enable nested virtualization, allowing guests to run their own
+> +	  hypervisors. This requires hardware support.
+
+What's the last sentence about? HVM itself already requires hardware
+support, yet that's about it especially for VMX (where only HAP is the
+other requirement), isn't it? If this is about those advanced features,
+perhaps this would then want to be more specific?
+
+> --- a/xen/arch/x86/hvm/svm/nestedhvm.h
+> +++ b/xen/arch/x86/hvm/svm/nestedhvm.h
+> @@ -24,7 +24,7 @@
 >  
->  #define MPU_REGION_RES0        (0xFFFFULL << 48)
->  
-> +#define VSCTLR_VMID_SHIFT      48
-> +
->  /* Protection Region Base Address Register */
->  typedef union {
->      struct __packed {
-> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-> index 72fa5b00b8..4ae583a7e9 100644
-> --- a/xen/arch/arm/include/asm/mpu.h
-> +++ b/xen/arch/arm/include/asm/mpu.h
-> @@ -87,6 +87,11 @@ static inline bool region_is_valid(const pr_t *pr)
->      return pr->prlar.reg.en;
+>  /* True when l1 guest enabled SVM in EFER */
+>  #define nsvm_efer_svm_enabled(v) \
+> -    (!!((v)->arch.hvm.guest_efer & EFER_SVME))
+> +    (IS_ENABLED(CONFIG_NESTED_VIRT) && ((v)->arch.hvm.guest_efer & EFER_SVME))
+
+Constructs like these are on the edge: Yes, passing in an expression with a side
+effect isn't very likely here. Yet still, this being a widely visible macro, I
+wonder if it wouldn't better guarantee v to be evaluated exactly once.
+
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -2165,7 +2165,7 @@ static void svm_vmexit_do_pause(struct cpu_user_regs *regs)
+>      vcpu_yield();
 >  }
 >  
-> +static inline register_t generate_vsctlr(uint16_t vmid)
-> +{
-> +    return ((register_t)vmid << VSCTLR_VMID_SHIFT);
-> +}
-> +
->  #endif /* __ASSEMBLER__ */
->  
->  #endif /* __ARM_MPU_H__ */
-> diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
-> index f7fb58ab6a..1598f9ab64 100644
-> --- a/xen/arch/arm/mpu/p2m.c
-> +++ b/xen/arch/arm/mpu/p2m.c
-> @@ -28,10 +28,62 @@ void p2m_dump_info(struct domain *d)
->      BUG_ON("unimplemented");
->  }
->  
-> +static int __init p2m_alloc_table(struct domain *d)
-Why __init?
-
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    pr_t* p2m_map;
-> +
-> +    p2m_map = alloc_xenheap_pages(P2M_ROOT_ORDER, 0);
-Why not assigning to p2m->root right away?
-
-> +    if ( !p2m_map )
-> +    {
-> +        printk(XENLOG_G_ERR "DOM%pd: p2m: unable to allocate P2M MPU mapping table\n", d);
-No need for DOM. %pd already gives d prefix like d0
-
-> +        return -ENOMEM;
-> +    }
-> +    clear_page(p2m_map);
-P2M_ROOT_ORDER can be 1, meaning 2 pages. Here you only clear one.
-
-> +
-> +    p2m->root = virt_to_page((const void *)p2m_map);
-> +
-> +    return 0;
-> +}
-> +
->  int p2m_init(struct domain *d)
+> -static void
+> +static void __maybe_unused
+>  svm_vmexit_do_vmrun(struct cpu_user_regs *regs,
+>                      struct vcpu *v, uint64_t vmcbaddr)
 >  {
-> -    BUG_ON("unimplemented");
-> -    return -EINVAL;
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    int rc = 0;
-> +    unsigned int cpu;
-> +
-> +    rwlock_init(&p2m->lock);
-> +
-> +    p2m->vmid = INVALID_VMID;
-> +    p2m->max_mapped_gfn = _gfn(0);
-> +    p2m->lowest_mapped_gfn = _gfn(ULONG_MAX);
-> +
-> +    p2m->default_access = p2m_access_rwx;
-> +    /* mem_access is NOT supported in MPU system. */
-> +    p2m->mem_access_enabled = false;
-> +
-> +    /* Ensure that the type chosen is large enough for MAX_VIRT_CPUS. */
-> +    BUILD_BUG_ON((1 << (sizeof(p2m->last_vcpu_ran[0]) * 8)) < MAX_VIRT_CPUS);
-Why there is no check for INVALID_VCPU_ID?
-
-> +
-> +    for_each_possible_cpu(cpu)
-> +       p2m->last_vcpu_ran[cpu] = INVALID_VCPU_ID;
-Fix indentation - 4 spaces, not 3
-
-> +
-> +    /*
-> +     * "Trivial" initialization is now complete. Set the backpointer so that
-> +     * p2m_teardown() and related functions know to do something.
-> +     */
-> +    p2m->domain = d;
-> +
-> +    rc = p2m_alloc_vmid(d);
-> +    if ( rc )
-> +        return rc;
-Please add empty line here
-
-> +    p2m->vsctlr = generate_vsctlr(p2m->vmid);
-> +
-> +    rc = p2m_alloc_table(d);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    return rc;
-Please, simplify return:
-return p2m_alloc_table(d);
-
+> @@ -2211,7 +2211,7 @@ nsvm_get_nvmcb_page(struct vcpu *v, uint64_t vmcbaddr)
+>      return  page;
 >  }
 >  
->  void p2m_save_state(struct vcpu *p)
-> @@ -46,7 +98,20 @@ void p2m_restore_state(struct vcpu *n)
+> -static void
+> +static void __maybe_unused
+>  svm_vmexit_do_vmload(struct vmcb_struct *vmcb,
+>                       struct cpu_user_regs *regs,
+>                       struct vcpu *v, uint64_t vmcbaddr)
+> @@ -2246,7 +2246,7 @@ svm_vmexit_do_vmload(struct vmcb_struct *vmcb,
+>      __update_guest_eip(regs, inst_len);
+>  }
 >  
->  void p2m_final_teardown(struct domain *d)
+> -static void
+> +static void __maybe_unused
+>  svm_vmexit_do_vmsave(struct vmcb_struct *vmcb,
+>                       struct cpu_user_regs *regs,
+>                       struct vcpu *v, uint64_t vmcbaddr)
+
+Why are these needed? The call sites don't go away afaics.
+
+If these are nevertheless needed, question is whether a suitable single #ifdef
+might not be tidier.
+
+> @@ -3011,10 +3013,16 @@ void asmlinkage svm_vmexit_handler(void)
+>          svm_vmexit_do_vmsave(vmcb, regs, v, regs->rax);
+>          break;
+>      case VMEXIT_STGI:
+> -        svm_vmexit_do_stgi(regs, v);
+> +        if ( !nestedhvm_enabled(v->domain) )
+> +            hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
+> +        else
+> +            svm_vmexit_do_stgi(regs, v);
+>          break;
+>      case VMEXIT_CLGI:
+> -        svm_vmexit_do_clgi(regs, v);
+> +        if ( !nsvm_efer_svm_enabled(v) )
+> +            hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
+> +        else
+> +            svm_vmexit_do_clgi(regs, v);
+>          break;
+
+These render respective checks in the functions themselves dead, which in
+particular means the bodies of those if()s there are then unreachable (a
+Misra violation of a rule we did accept).
+
+> @@ -2942,8 +2916,9 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+>      .nhvm_vcpu_vmexit_event = nvmx_vmexit_event,
+>      .nhvm_intr_blocked    = nvmx_intr_blocked,
+>      .nhvm_domain_relinquish_resources = nvmx_domain_relinquish_resources,
+> -    .update_vlapic_mode = vmx_vlapic_msr_changed,
+
+I realize the = wasn't properly padded here, but ...
+
+>      .nhvm_hap_walk_L1_p2m = nvmx_hap_walk_L1_p2m,
+> +#endif
+> +    .update_vlapic_mode = vmx_vlapic_msr_changed,
+
+... can you please to so while moving the line?
+
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -2821,6 +2821,32 @@ void nvmx_set_cr_read_shadow(struct vcpu *v, unsigned int cr)
+>      __vmwrite(read_shadow_field, v->arch.hvm.nvcpu.guest_cr[cr]);
+>  }
+>  
+> +void nvmx_enqueue_n2_exceptions(struct vcpu *v,
+> +            unsigned long intr_fields, int error_code, uint8_t source)
+
+While moving, can obvious style issues please be addressed? Bad indentation
+here, ...
+
+> +{
+> +    struct nestedvmx *nvmx = &vcpu_2_nvmx(v);
+> +
+> +    if ( !(nvmx->intr.intr_info & INTR_INFO_VALID_MASK) ) {
+
+... misplaced brace here, and ...
+
+> +        /* enqueue the exception till the VMCS switch back to L1 */
+
+... malformed comment here.
+
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -711,7 +711,7 @@ static inline bool hvm_altp2m_supported(void)
+>  /* Returns true if we have the minimum hardware requirements for nested virt */
+>  static inline bool hvm_nested_virt_supported(void)
 >  {
-> -    BUG_ON("unimplemented");
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +
-> +    /* p2m not actually initialized */
-> +    if ( !p2m->domain )
-> +        return;
-> +
-> +    if ( p2m->root )
-> +        free_xenheap_pages(p2m->root, P2M_ROOT_ORDER);
-free_xenheap_pages as oppose to free_domheap_pages expects vaddr, not page pointer.
+> -    return hvm_funcs.caps.nested_virt;
+> +    return IS_ENABLED(CONFIG_NESTED_VIRT) && hvm_funcs.caps.nested_virt;
+>  }
 
-> +
-> +    p2m->root = NULL;
-> +
-> +    p2m_free_vmid(d);
-> +
-> +    p2m->domain = NULL;
+Should the field itself perhaps become conditional?
+
+> --- a/xen/arch/x86/include/asm/hvm/nestedhvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+> @@ -25,9 +25,21 @@ enum nestedhvm_vmexits {
+>  /* Nested HVM on/off per domain */
+>  static inline bool nestedhvm_enabled(const struct domain *d)
+>  {
+> -    return IS_ENABLED(CONFIG_HVM) && (d->options & XEN_DOMCTL_CDF_nested_virt);
+> +    return IS_ENABLED(CONFIG_NESTED_VIRT) &&
+> +           (d->options & XEN_DOMCTL_CDF_nested_virt);
 >  }
 >  
->  bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
+> +/* Nested paging */
+> +#define NESTEDHVM_PAGEFAULT_DONE       0
+> +#define NESTEDHVM_PAGEFAULT_INJECT     1
+> +#define NESTEDHVM_PAGEFAULT_L1_ERROR   2
+> +#define NESTEDHVM_PAGEFAULT_L0_ERROR   3
+> +#define NESTEDHVM_PAGEFAULT_MMIO       4
+> +#define NESTEDHVM_PAGEFAULT_RETRY      5
+> +#define NESTEDHVM_PAGEFAULT_DIRECT_MMIO 6
+> +
+> +#ifdef CONFIG_NESTED_VIRT
 
-~Michal
+In a reply to my comment on v1 (Or was it v2? This submission isn't tagged.),
+you referred me to the stub nestedhvm_hap_nested_page_fault() using the
+constant. However, why would that stub be needed when the sole call site of
+the function lives in a conditional using nestedhvm_enabled() (which is
+compile-time fales when NESTED_VIRT=n)? All you need to make sure is that
+the decl remains available. I then wonder for how many of the other stubs
+which might be the case as well.
 
+> @@ -199,5 +201,77 @@ int nept_translate_l2ga(struct vcpu *v, paddr_t l2ga,
+>                          uint64_t *exit_qual, uint32_t *exit_reason);
+>  int nvmx_cpu_up_prepare(unsigned int cpu);
+>  void nvmx_cpu_dead(unsigned int cpu);
+> +int cf_check nvmx_vmexit_event(struct vcpu *v, const struct x86_event *event);
+> +void nvmx_enqueue_n2_exceptions(struct vcpu *v,
+> +            unsigned long intr_fields, int error_code, uint8_t source);
+
+Nit: Bad indentation even copied here.
+
+Jan
 
