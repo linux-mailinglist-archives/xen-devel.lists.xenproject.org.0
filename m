@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CDVbA6HdkmlvzQEAu9opvQ
+	id MDIGLrPekmlvzQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:04:33 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:09:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF63141D26
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:04:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233800.1537155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E5F141DB7
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 10:09:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233809.1537164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vruWf-00073M-Rg; Mon, 16 Feb 2026 09:04:17 +0000
+	id 1vrub7-0007oN-BF; Mon, 16 Feb 2026 09:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233800.1537155; Mon, 16 Feb 2026 09:04:17 +0000
+Received: by outflank-mailman (output) from mailman id 1233809.1537164; Mon, 16 Feb 2026 09:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vruWf-000703-ON; Mon, 16 Feb 2026 09:04:17 +0000
-Received: by outflank-mailman (input) for mailman id 1233800;
- Mon, 16 Feb 2026 09:04:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qFbs=AU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vruWe-0006yQ-9B
- for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 09:04:16 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 775eb687-0b16-11f1-b163-2bf370ae4941;
- Mon, 16 Feb 2026 10:04:14 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4834826e555so30163485e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 01:04:14 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d5ebd1bsm489577495e9.6.2026.02.16.01.04.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Feb 2026 01:04:13 -0800 (PST)
+	id 1vrub7-0007mc-82; Mon, 16 Feb 2026 09:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 1233809;
+ Mon, 16 Feb 2026 09:08:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sAgz=AU=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vrub6-0007mT-2s
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 09:08:52 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18deaf06-0b17-11f1-9ccf-f158ae23cfc8;
+ Mon, 16 Feb 2026 10:08:46 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by BN8PR03MB4996.namprd03.prod.outlook.com (2603:10b6:408:7e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.15; Mon, 16 Feb
+ 2026 09:08:43 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9611.013; Mon, 16 Feb 2026
+ 09:08:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,222 +52,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 775eb687-0b16-11f1-b163-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771232654; x=1771837454; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bs2PYfMa0cbiKKGf3Y4JKk2emM7T4Zm6jQmkZ4O+yHc=;
-        b=Uh1FkSl2wprzxfkyYg47rD8jjmpTjA8jTNucBGlW/38HOgAYWVYJtNAEo+aigE0/Pt
-         fxOAKci92JCV44GiUevNucPzgTmrNuiWJUX+qgPibGr9IlImi013Prd/l5EruGOMogRj
-         1TLMgO7iLoEbMQjKbpN4A1MX6X785mcwuzSZLrw8IaSlLqjxoGukXjtdpyTtCOOmkzJv
-         KYxJuHM7UqObn+3GbagNvNxmsyjrHh4A7yP/+l5cWaagxMEtFcrzDermaWZVvBcVytqu
-         484EYmWVYzJMmNIvbHbdhFxTEGB7T9t0xyya6Ewv1MDZwQ/y4mqzYMyD72bj9TLSuaDs
-         u8ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771232654; x=1771837454;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bs2PYfMa0cbiKKGf3Y4JKk2emM7T4Zm6jQmkZ4O+yHc=;
-        b=PD0WU+VaJ8Nwvnpe6rwo0CM7oDEAm222wxoR40kLexrdjpt+VySWZA5zFyPfQfgWM3
-         ryNw1HBMe5/KCAn2R253m5bVn25/n3/gToIOZIXqLBjPN+/OmqjtuMjooNMZwVuckt7A
-         dQolH8tg8krUev1pSshYe/rjw1yXqk54NXbB1F7lLJfcww6WAUZylczuHhTpY7dLosK6
-         DkLaAjpa6QZGlT5c61R0SAoXbxzKOxjrIjeeV5ZAO3niVYaOz7BkBftQv1n/sN+SIhaL
-         BTv6GRhZGvho8xM0szWOIT5i/XPyS5UBkGl7RBoYyNFqjQnapTxyIl1b5mFyZQZDoaIi
-         RF2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXShZ74ogwQZxVZC+4Skh+0w/pVIiDh6ErO9y8mtPAXuxToDsMFMTBxFhbdn3yv179M50Q20xJ+7IE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJO5i/OD7xsTxxS5J/UpxpA0EA+ZFOZ50+2atvS6YrQVUN40W4
-	jOVVkAPpij8+OMPfAE9+MljsXj/0dpAJxzaY3N54e/K2ud8YyAu7IkFBTKjiNwBv4A==
-X-Gm-Gg: AZuq6aJkmQh4JSlRhEcin0Y2ygRd+xdx0f1EJhvb+aO6rvVn1ZIdolSYNgY2DoxcAVs
-	YOj+HghKBFfj0gEpfofr4W6qQjf5TwaOXu7QQoAgpFCGCXeSDA4OqYjClQGICJL87531ECycDpf
-	owt3HXO7mjimYHr50Eryg+RORPgtz9YT/piZ2PbVmr4rSqVl1vtuUS/CpccVLYcgrS7NWjTKl0Z
-	ur0tEmTGULeYSA626s1EBKjzPhBi26QdYZDevFtjE9iS0WNRYTIBnhu3dgT1OkSkIqdR/wwTG/6
-	29MZTVEwkvNEa/J6hLOmrU/SWZg+bP6PXKI4v7QigWH3q73ZkuKkRb5ZbtryWp8Gyljn1XTC2pg
-	HKqLb3QA3IvnPC3RnVQpqXfq9/f4Mn55SQmNeWe8M5D9IhllKgORcyKiXoq+UPeaC5HcFeMWn6n
-	pobcR3b2nO2CtTL7m1nN4hoGecoF9FVcziWfytaxS43DeDvLO9KLYP6TqCRmVAiM7+vbeOZZLou
-	7ADjGV2uEBZiJs=
-X-Received: by 2002:a05:600c:5308:b0:47e:e946:3a72 with SMTP id 5b1f17b1804b1-48379bf78f1mr113746515e9.27.1771232654050;
-        Mon, 16 Feb 2026 01:04:14 -0800 (PST)
-Message-ID: <a1d3507c-6e24-42ae-93ed-271ef2d584da@suse.com>
-Date: Mon, 16 Feb 2026 10:04:16 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/5] xen: change VIRQ_CONSOLE to VIRQ_DOMAIN to allow
- non-hwdom binding
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Daniel Smith <dpsmith@apertussolutions.com>
+X-Inumbo-ID: 18deaf06-0b17-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DBB2rVK8YIjdTtJotLGZiKK/4Q9aDvrhRtZdPsLAzILkfa6ASbrGBNIr8oKnBpBRsplKjEG0SP0b+AxtZRxgWSHhHzD1jgpafUXiEDIZsGJc/rwa5PlEDjGKgOzV62nZYuJLG/YjYvOeuGCnvCfeh1JqeOvHxv3dRGh13xQsZYGqoXXRJGxNV96y0SecmnrEsGC+s3Ped3HssI5ObCrp8dJmKbRek8gPqr6jOg0ms45B4HysLlPrM0lG2IT0jOOB6FR9dFI1ps+DXQJ/eUlEynSdCcewFZ1tzzmaBqCA/8WafacOEMYlKy/nz3yOZA+yN+M09LkQGzNd5XgorUE+Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KBFkYU5zO4LtipAAYY0sZcm+knroMLSl+ac7aDpY/3U=;
+ b=ZQ1xZMQy84Zu3mvPshJuGe6GYg0NKPRW/7Wl1rYe0GqlEVZwCLqZm55e9TJm0NOwYCu4cRCr11tQZJyvCjNHYGqH2JYbei+F6K9galnKwzkQ44SfWpuIStaUe+Ya0WkvmIXItwA1kcTVHGHfGXXsThbhmZhAKqoaR5U/pxVtPsdUr50zmsfSBDxrUSKHYAWLWozI9UiPBjM9GEZqolfX/TY6SDt2sKLD3FEhNFuEJE7XjAyJ9j+FIxeP+hmW65+7T/JdCkleZ6JEAJNAzScJX9QjPlwg2ZWoPJcn8HLkp9PWjXk4IW1T6wzZmXrt/gvnDmEr4h4B1aptnaA0EhoP3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KBFkYU5zO4LtipAAYY0sZcm+knroMLSl+ac7aDpY/3U=;
+ b=r7K9pxvYX8D3r6gISARlOqefYfdfwXn6Ms95Xb4td+qri9+Kt3DQwv+yYT8utfBISxYwYiRmavCULUpNOTGLXOQwG4/qlPHcL6giwrH3ZSPSHcBtUhyObwyazd2hPWIzk77HZKJxd0DMWgV2H6LAsCMc5u02jC6m8G3kjYwVtz0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 16 Feb 2026 10:08:39 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
- julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
- victorm.lira@amd.com, andrew.cooper3@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2602041533440.3175371@ubuntu-linux-20-04-desktop>
- <20260204233712.3396752-2-stefano.stabellini@amd.com>
- <82c06e52-1db0-46e5-be9f-7ca0360ffc70@suse.com>
- <alpine.DEB.2.22.394.2602091520460.1134401@ubuntu-linux-20-04-desktop>
- <43e80ad6-7b42-42de-b36f-1a9079589912@suse.com>
- <alpine.DEB.2.22.394.2602131206040.6031@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2602131206040.6031@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	xen-devel@lists.xenproject.org, jbeulich@suse.com,
+	andrew.cooper3@citrix.com, jason.andryuk@amd.com,
+	alejandro.garciavallejo@amd.com
+Subject: Re: [PATCH v2] x86/hvm: Add Kconfig option to disable nested
+ virtualization
+Message-ID: <aZLel_W_1B6684zC@Mac.lan>
+References: <20260206210554.126443-1-stefano.stabellini@amd.com>
+ <aYnAGQa56yvDoN0M@Mac.lan>
+ <alpine.DEB.2.22.394.2602131350040.6031@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.22.394.2602131350040.6031@ubuntu-linux-20-04-desktop>
+X-ClientProxiedBy: MR1P264CA0001.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2e::6) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BN8PR03MB4996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 177df77c-0a17-4f94-b6fb-08de6d3afba1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?d2hYd0M5OVhPTUwraFI5M2YyZGVwN3NsVHNSNXQ1cXZjYXJVYThsY1lvcWVt?=
+ =?utf-8?B?NWYvTnVPNmd1L3lQZXNva2hoR0ViTi9wTU55L1NJMzJOQ0wzcjM5cnk5ZGVP?=
+ =?utf-8?B?WE9jS2svb0lIaGhGdGNocnRIanZMRi85S2JpdXNDdVh2dWpSeDY2SHptTnha?=
+ =?utf-8?B?U3lMb09Rck9VMVVvcXE2VkJCWExaZEhDQmdkak1KY1d3ejlaYkVFVThNWHNn?=
+ =?utf-8?B?QUtlVnVGWEpKb2ZIMzU0TVhMT2pBODhjNXNVL09KV01zNlpLdXpnVnZpbUZ2?=
+ =?utf-8?B?ZzVITXdwRzA5QXk2M1hGMXl0RzlHd2J2Umd0MkhWY2RrcmZFU3Z4ZFJ6dGxF?=
+ =?utf-8?B?ZkFCYURJT0dDS1dQTUt3ZXlQV2RsbC9yZGpkTjNxV1dtb1ZuQW12S01kWmF1?=
+ =?utf-8?B?T0VmWTJwQ1c3dEMzeUltZFVvd05YdzR3R2ZBY1JRYU1aMVp2QmJoZmpnek0z?=
+ =?utf-8?B?VVRTTk9aZnUyNWY5WjdsYkxUcTFRMXNHVEkzRCtOeEw5WTYvZEJhR2F2UG9Z?=
+ =?utf-8?B?R25mZnE2M21EdjFTVHhSdzA3cCt1eWs1V1Z4SXR1VVdocDRQNXNsaHkvbXlE?=
+ =?utf-8?B?dVdvTU5ZdGhrY0VYVVJybm05WjZBZ3FTSHUvZHJ6c0tEeTloRElHQU13a1ZW?=
+ =?utf-8?B?ejRtYTlVdzBmNExkc0FsT0VwOVZxQ3lsYkJZZ1JDYUJNcFBzQ3A2VFY0bzRj?=
+ =?utf-8?B?RXdXMlRGVFljNCtJaHhOU3lQRE43ZjlSRjB3VG5qWEUyczhhdzlVdTFBTHIw?=
+ =?utf-8?B?TXFyMGdORUtwMkxBRERWbW56OFpTSmdudStwd1NGeFRIUlI0dDNtUzV1UWhp?=
+ =?utf-8?B?MEVMUDY2OHFJMzM4ZTFJa3Q0QzR5ZFltNUdFdnJyRmd2T0RMcWd3Z1RaTi9B?=
+ =?utf-8?B?bFJIZnZlYUMvUWFkZk8xRXFQdnhubHRQbGc3TFRKeUY3TUZXekhjQkVUdTFt?=
+ =?utf-8?B?bmVMSDF3Z01zMk1NN1BqVkg1U05BQllMN3pkLzY3RlNDdFZPRDZYZEtGK0lS?=
+ =?utf-8?B?U05nd2V1TDN5d3VqaEtnOUhVSEpqYTZOUU5kQ0VsVDRFSnU3VFozTkl1MTFS?=
+ =?utf-8?B?SmxWQlpoeS9ONzg3MnBPMSt5WHdhWjBZYjYwR2NqNmVDU29YZFFkazJTb2NU?=
+ =?utf-8?B?anRsRHhaOUVpWTFpRmJhaGJFSm5MQzVJdmhvNHJMMVZhaFROenlVaFEvNkRq?=
+ =?utf-8?B?U2xoSHoyeEZhMTI3QmV5YW5kTG5RYzlhV0xtYncxc0M0ak5WVEltTElZcGhI?=
+ =?utf-8?B?UHNhTXo4WGRzV2lZNDV1SittQUdYY0hpQk5MSHhnZVZmM0p1ZUprMnhGZEI4?=
+ =?utf-8?B?YnBuY2tmenFTWmFhS2Jod1EvejhzVTcwOEZMVUVXY0lERTQvaXZGMjR3eTlo?=
+ =?utf-8?B?dWc2OGNqa0hyYzBUTmdvZGJvVEpFOS9xQld0UnpiQWtLajRFQ25iTU45RGxt?=
+ =?utf-8?B?TVhwWjdybmNvcnZ1aEVvUDNQQXV0S0ttTUp5R1d1Z1NNU0ZzSDcxNHkzZVlT?=
+ =?utf-8?B?V2RCbHViYjRjdGd2c25vNHpjK2UvVWRyaTBVQzlwSFpwRkZOaHFoTVd4dEVp?=
+ =?utf-8?B?Q0pqbTBlekg5MU5tVS8rbTdFWG9LNHZodXh3azZtWVllajI5UXNpdzBDZmsr?=
+ =?utf-8?B?OUtSS0I2c1hIeHdyV09YajFmd3ZNRDV5NzZ1bVY4MFFGaGRJanNkSTN0eFg4?=
+ =?utf-8?B?UnpSNEFZTVkvTzZiWENoQ0FsVlVudUlMcitHSEdpaTdieEIxOVlaYkNxdU5Q?=
+ =?utf-8?B?R05BbElYVCthSG8xWkQvMTB5NHErZENlUTA5OEVYejJVNW00WGJ4dVVDMmxh?=
+ =?utf-8?B?QU8zcG5zbUY4a1VNd1MyTzdKbGpkNkthU3ZMeFFTTytVNzEvY081eVc0UlFH?=
+ =?utf-8?B?TGxERVUxNGgwcjlDcWc5MW5MQkdNQWJ3dGdManpZZTJ3ejBNVVRmck81cUxR?=
+ =?utf-8?B?Vjl6SWU3SzRXNWtCSjBMV1VtTjZnd25yQ0tPS2d2NXlWRVVuOFA2a2RHWVRy?=
+ =?utf-8?B?OVR4dytVc1p0QmJ2R0xobzRuYk53M3E3dzFRNTU0R21YZWRSZUpqTEc3UkFC?=
+ =?utf-8?B?aURRUW52TWxPVzhCNVRGRGlhbkdHb29HNjUrT1QreGNqYVgrN3c1SHUxT080?=
+ =?utf-8?Q?/JzU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UE0veTN5V3RLakVESy80bnZ3Vk9RZ0lzZkZNa09ZZVZhV2o3b083c2Y3RmpZ?=
+ =?utf-8?B?ZENOaE53a0REZnF4ckszYncvU1l6NEZnZEw4Ti9saFlpNTdyZ0JpaUY1dFRu?=
+ =?utf-8?B?VmZ4RnJHZUdNdEZsMDJKU01MVllhamN1T29OcW9HNUY4YlZpMnhzdzlYMUhH?=
+ =?utf-8?B?ZGg1WmpKcXBETGQvcHRHUFRWMUJGK1NNWlNOdzBMVjJ6djd0aWorQzBsNllQ?=
+ =?utf-8?B?WGg2TTRJVk8wMHlBSWducG11NmJlQ2RjV1hWZzRiODliSzV6SjlkWWE0QmdE?=
+ =?utf-8?B?VmlwdnM0QjQ1U1M1eVZxdTdzTERQY0diZkNGaUc2cXJJN0NMVmsrNHd5c0pN?=
+ =?utf-8?B?VWc2MWFEOGY4aGZoV1FTNTJZVy9TWlVSaGpYSWt6RGNmc3ZtQVFmOEZLRnR0?=
+ =?utf-8?B?ZXlDcUtJQlJPVEFBR3JyMno4ME82VlRreFdyUWo5aHRCa3p1Y1NNUTlleXU5?=
+ =?utf-8?B?SlVoUTBjQVR0UHN4aElobWZseG1ReDhkWWQ5ZXgzTVo4YW0wSFBHRkVRb1Ir?=
+ =?utf-8?B?Yk0reDFrVWY5NGVQOEJMaklYR3l4WnZYOWJKd2tmdU9oajMvRmR5Q0xFbFlN?=
+ =?utf-8?B?b3RjLzN1NkhXMTFVUmxqYTM1RjBMTG1RN1RWV2gvUmJ5dXdkRURLcndSWjVU?=
+ =?utf-8?B?bHJvVllpVkpVdFdOVForZjRDWUJyUUZCeSszMStDcGFBVmIwZDVMWjJZSnNE?=
+ =?utf-8?B?UFU5dlFkSldDMHFuM1Y0TFYzZWhoR2k4T1RTbS82YnBtWkhXODdBWnY3b0dh?=
+ =?utf-8?B?WnNjZGcvWENIQ09RRE5KWng0cjJuMDBQUWQ2R1hXc0hsN0JFWi9rMVU0dmdq?=
+ =?utf-8?B?cHpvcmwvb0pEUGlTd3dRUW5TL3RGd1dFaWFnZTZ2M2Q0MmdYa045THo1bUg2?=
+ =?utf-8?B?dXRuYTIxT3oyLzdMNVhMY1gwd1Q2RXVvcDdIbHZIcDkrR2ppUnhPK0pCbjRI?=
+ =?utf-8?B?bGs3MFpBYWYvb056MGdUWDBlaWFEcjNPM2Y4R0Q5ZytpT0prUG0vN2FlSUh6?=
+ =?utf-8?B?R2o5am4vVS9YcjFpNkRKdklna2g3TVJFaWdGN1pXZEZwbThVandnZXZUeG80?=
+ =?utf-8?B?U3FUaFhsbFBRQWJwdUZZY2RtMUNCUE84WE9WaWFMSXEzOGgvWXVaMnk0YjZV?=
+ =?utf-8?B?MlBVY0NzdFl3Y3VmNWpGK285SFZ2WHZHV0xQZlBFQ2xRUURtck5QTVE3ZXJi?=
+ =?utf-8?B?SGd1Z3UwWTRxRitCTXFUbHBQUStJNGx1RzZYRXg1ODN2NG5oVjRtdlg4NXBS?=
+ =?utf-8?B?V2JkY01SYzRVeWl2eFZOOXFSVUZOcnNnR3ZacVpMNHFvQjMyRzlucUpXL0Vw?=
+ =?utf-8?B?cjJMU1R4cHAxdEdPQVAwenR6TmdhcHRobGJjNVJvZWNaRFhMNSt0a3ZlT28r?=
+ =?utf-8?B?T3VmaWZzK0JHb3UwdDN2NmdlK2lvRllLRjZVUTZyeUl6byt6aUZadjVYSU05?=
+ =?utf-8?B?dmxUSnppSHFWY2c4aGV2STBpNThVSGJ3OWllb28yRzBmaTA3S1kyeU5URGlV?=
+ =?utf-8?B?Rk9yc2xNNTBOTlpXOHBUck5kRlNDaDdhSWhjMHZNMmhwMWR2VXBjYkJBTGRW?=
+ =?utf-8?B?Vi9FblFPTkdJdEJyMGhnU0ZsbGQ3eVRYYzA0ZVFCTTNPUkhadFRCREZnV2la?=
+ =?utf-8?B?RkxuRy9tWDY4T3VNNmZNakQrT1NzdUlxSEpSRkg0KzNtNVJhZ2g1YllQZ1p4?=
+ =?utf-8?B?S2ZmQW9pQWVoaFRPaHlmVlFVQnZnVG1HaXA1UU8rNW9xSWt4SG9WVWlOMkxq?=
+ =?utf-8?B?TXoxdEtQSTFMOENBenZuVThhNnN0R1RJUzc2YjZyeDZpcExCRnFYVU54S3E0?=
+ =?utf-8?B?dzJkeWxtN3NQdEVyMkFCQzNObEpuc0lLYk9IY1U1cjU2b01EYkVJU2NJT0NF?=
+ =?utf-8?B?bUwzajNqVlpnZnlITkRVa3Zrblg0dUtjZjV6aWllUmI3dUt1QWhVUnc3bVZ1?=
+ =?utf-8?B?QU5mNTJqWmhPT2t5ODR5QzJ5OGxCUlFpY1V0eHREckRrS1RVMW44cmdyc0Rt?=
+ =?utf-8?B?eUlUR1NzcGFyYkpqR0MyWDcycjA4aVZVdGZOVktUQ0VQRzU2YmJtM0lVempt?=
+ =?utf-8?B?WGtRTDV2VklRbmhKZEh3N1oyWjAxeUJXRXFKdG1MQllMcklpdWltSHFtcUV2?=
+ =?utf-8?B?TzB2bkZHdklobFJJTzVpckJGZnIwejJXLzJ0Z2V5SFJMc1M4aHNkNytxc2lV?=
+ =?utf-8?B?eG1jWDZuK25yZFBsNjRKcmpGYTFiczEzdVdtMFZKUUlwdTBjRjFyeTkrUlRQ?=
+ =?utf-8?B?UGdrYTRCSkUwdm41M0UrUmdTOCtvL25aWXB1QWkzbEhoa0kwV211eDBsNzA0?=
+ =?utf-8?B?NTNCekdYWjMwZEhCOERvcVAyanBNL3N2MllXUGhEbU8zNDlYMkRHQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 177df77c-0a17-4f94-b6fb-08de6d3afba1
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 09:08:43.3106
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TujBf9Go9TFvKJ8a0SWYNBhPRyxET2uWxgmVCcaoE3qxc8yr17TS1dEwzZJwwjpBr0LvdpZH/Pw7V0gnanenDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4996
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,suse.com:mid,suse.com:dkim];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:stefano.stabellini@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:alejandro.garciavallejo@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6EF63141D26
+X-Rspamd-Queue-Id: 25E5F141DB7
 X-Rspamd-Action: no action
 
-On 13.02.2026 21:09, Stefano Stabellini wrote:
-> On Tue, 10 Feb 2026, Jan Beulich wrote:
->> On 10.02.2026 00:23, Stefano Stabellini wrote:
->>> On Mon, 9 Feb 2026, Jan Beulich wrote:
->>>> On 05.02.2026 00:37, Stefano Stabellini wrote:
->>>>> Today only hwdom can bind VIRQ_CONSOLE. This patch changes the virq from
->>>>> global to VIRQ_DOMAIN to allow other domains to bind to it.
->>>>>
->>>>> Note that Linux silently falls back to polling when binding fails, which
->>>>> masks the issue.
->>>>>
->>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>>>
->>>> Technically this is an ABI change, and hence I'm uncertain it can go without
->>>> that aspect being at least mentioned, perhaps even its implications properly
->>>> discussed.
->>>
->>> I am not sure if it qualifies as an ABI change or not but I am happy to
->>> expand the commit message in any way you might suggest.
->>>
->>> The jist of it is already in the commit message, really the key element
->>> is that VIRQ_CONSOLE can be bound by multiple domains.
->>>
->>> Aside from spelling out "this is an ABI change" what do you have in
->>> mind?
->>
->> What I mean is discussion of the implications for domains using the vIRQ.
->> Previously most domains would have attempts to bind this vIRQ rejected.
->> Technically it is possible that kernels had code paths blindly doing the
->> binding, relying on it to work only when running as Dom0. And really, you
->> appear to break XEN_DOMCTL_set_virq_handler when used with VIRQ_CONSOLE,
->> without which its binding wasn't possible at all before (except for the
->> hardware domain, which get_global_virq_handler() falls back to when no
->> other domain is set). Or am I mis-reading things, as I can't spot any use
->> of VIRQ_CONSOLE under tools/, whereas I would have expected provisions
->> for (host) console handling to be delegated to a separate control or
->> console domain? Of course other toolstacks (the XAPI-based one for
->> example) might actually have such provisions.
->>
->> And then there's the XSM question: XEN_DOMCTL_set_virq_handler obviously
->> is subject to XSM checking. The same isn't true for VIRQ_DOMAIN-type
->> vIRQ-s. Yet this vIRQ isn't supposed to be universally available to
->> every DomU. Instead the ->console->input_allowed checking is kind of
->> substituting such a check, which iirc Daniel said (in more general
->> context) shouldn't ever be done. IOW in patch 5 you're actually effecting
->> policy, which should be XSM's job aiui.
->>
->> Bottom line: The patch may need to be more involved, but at the very
->> least the description would need updating to justify it being as simple
->> as it is right now.
+On Fri, Feb 13, 2026 at 01:56:34PM -0800, Stefano Stabellini wrote:
+> I address all other comments
 > 
-> What do you think of this:
+> 
+> On Mon, 9 Feb 2026, Roger Pau Monné wrote:
+> > > +static inline int nvmx_msr_read_intercept(unsigned int msr, u64
+> > > *msr_content)
+> > > +{
+> > > +    ASSERT_UNREACHABLE();
+> > > +    return 0;
+> > > +}
+> > >
+> > I think this function is reachable even when nested virt is not
+> > enabled:
+> > 
+> > vmx_msr_read_intercept() -> case MSR_IA32_VMX_BASIC...MSR_IA32_VMX_VMFUNC -> nvmx_msr_read_intercept()
+> > 
+> > I'm also confused about why the function returns 0 instead of an error
+> > when !nestedhvm_enabled().  We should probably make it return -ENODEV
+> > when nested virt is not available or enabled.
 
-Quite a bit better, yet for me at least not something I would feel happy
-to take as a basis for an ack.
+Oh, I see.  The return type of that function is weird.  It should be
+adjusted to bool (not that you need to do it here).
 
-> ---
-> 
-> xen/console: change VIRQ_CONSOLE from global to per-domain
-> 
-> Previously VIRQ_CONSOLE was a global VIRQ (VIRQ_GLOBAL type), meaning
-> only the hardware domain (or a domain explicitly set via
-> XEN_DOMCTL_set_virq_handler) could bind it. Any other domain attempting
-> to bind would fail with -EBUSY because get_global_virq_handler() would
-> return hwdom by default.
-> 
-> This patch changes VIRQ_CONSOLE to VIRQ_DOMAIN type, allowing any domain
-> to bind it independently, similar to VIRQ_ARGO. The console notification
-> is now sent via send_guest_domain_virq() directly to the focus domain
-> rather than through send_global_virq().
-> 
-> Implications:
-> 
-> 1. Guest kernels that previously called bind on VIRQ_CONSOLE blindly
->    will now succeed. Linux handles binding failure gracefully by falling
->    back to polling, so this should not cause regressions.
-> 
-> 2. XEN_DOMCTL_set_virq_handler can no longer be used with VIRQ_CONSOLE.
->    The domctl explicitly rejects non-VIRQ_GLOBAL types. This means
->    toolstacks that relied on set_virq_handler to delegate console handling
->    to a separate console domain will need to use a different mechanism.
->    Note: No known in-tree toolstack uses set_virq_handler with VIRQ_CONSOLE.
+> I agree on the way of thinking but if we return zero it will goto gp_fault.
+> So I'll just remove ASSERT_UNREACHABLE.
 
-XAPI at the very least would want checking here, imo.
+Ack.
 
-> 3. VIRQ_DOMAIN bindings are not subject to XSM checks beyond the
->    standard event channel allocation policy. Access control for console
->    input is enforced via the per-domain console->input_allowed flag,
->    which is set for:
->    - The hardware domain (by default in domain_create())
->    - dom0less domains on ARM (in construct_domU())
->    - The PV shim domain on x86 (in pv_shim_setup_dom())
->    - Domains with vpl011 using the Xen backend (in domain_vpl011_init())
+> 
+> > > +static inline int nvmx_handle_vmx_insn(struct cpu_user_regs *regs,
+> > > +                                       unsigned int exit_reason)
+> > > +{
+> > > +    ASSERT_UNREACHABLE();
+> > > +    return 0;
+> > > +}
+> > 
+> > Same here, I think this is likely reachable from vmx_vmexit_handler(),
+> > and shouldn't assert?
+> > 
+> > It should also do something like:
+> > 
+> >     hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
+> >     return X86EMUL_EXCEPTION;
+> > 
+> > So it mimics what the function itself does when !nestedhvm_enabled().
+> 
+> hvm_inject_hw_exception cannot be easily called here because it is not
+> available at this point in the header. But actually this function should
+> be unreachable because when !CONFIG_NESTED_VIRT, CR4.VMXE is not
+> a valid guest CR4 bit, so nested VMX instructions should cause #UD?
 
-Daniel, can you please take a look from (conceptual) XSM/Flask perspective?
+I'm not sure about nvmx_handle_vmx_insn() being unreachable when
+CR4.VMXE is not set, the Intel SDM states:
 
-Jan
+"26.1.2 Instructions That Cause VM Exits Unconditionally
+
+The following instructions cause VM exits when they are executed in
+VMX non-root operation: CPUID, GETSEC,1 INVD, and XSETBV. This is also
+true of instructions introduced with VMX, which include: INVEPT,
+INVVPID, VMCALL,2 VMCLEAR, VMLAUNCH, VMPTRLD, VMPTRST, VMRESUME,
+VMXOFF, and VMXON."
+
+My reading is that regardless of the value of CR4.VMXE the execution
+of VMX instructions will cause a VMEXIT, and it's the hypervisor task
+to figure out what to do.
+
+> 
+> I changed it to:
+> 
+> ASSERT_UNREACHABLE();
+> return X86EMUL_EXCEPTION;
+
+If the above is correct, the ASSERT_UNREACHABLE() is reachable.
+
+Returning X86EMUL_EXCEPTION without actually having injected the
+exception will result in a loop I think, as vmx_vmexit_handler() will
+resume guest execution without having advanced the instruction
+pointer, and without having injected an exception, and hence another
+VMEXIT will trigger.
+
+IMO the best way to solve this is to make vmx_vmexit_handler() inject
+#UD when nvmx_handle_vmx_insn() returns X86EMUL_EXCEPTION. You will
+need to then also adjust the non-stub version of
+nvmx_handle_vmx_insn(), so it doesn't inject #UD itself.
+
+Thanks, Roger.
 
