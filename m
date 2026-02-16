@@ -2,43 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QDYiEn3bkmn3zAEAu9opvQ
+	id KCs5GaXbkmn3zAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 09:55:25 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 09:56:05 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD192141B8E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 09:55:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233773.1537125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A38D9141B9C
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 09:56:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233780.1537135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vruNo-0004EB-Ga; Mon, 16 Feb 2026 08:55:08 +0000
+	id 1vruOW-0004ft-P1; Mon, 16 Feb 2026 08:55:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233773.1537125; Mon, 16 Feb 2026 08:55:08 +0000
+Received: by outflank-mailman (output) from mailman id 1233780.1537135; Mon, 16 Feb 2026 08:55:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vruNo-0004Be-DY; Mon, 16 Feb 2026 08:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 1233773;
- Mon, 16 Feb 2026 08:55:06 +0000
+	id 1vruOW-0004eG-Ly; Mon, 16 Feb 2026 08:55:52 +0000
+Received: by outflank-mailman (input) for mailman id 1233780;
+ Mon, 16 Feb 2026 08:55:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qFbs=AU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vruNm-0004BY-RT
- for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 08:55:06 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nRIP=AU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vruOU-0004e6-WA
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 08:55:51 +0000
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c105::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ff5f1da-0b15-11f1-b163-2bf370ae4941;
- Mon, 16 Feb 2026 09:55:05 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso45516595e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 00:55:05 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4837f4c46b3sm74913275e9.4.2026.02.16.00.55.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Feb 2026 00:55:04 -0800 (PST)
+ id 498efb82-0b15-11f1-b163-2bf370ae4941;
+ Mon, 16 Feb 2026 09:55:48 +0100 (CET)
+Received: from MN2PR03CA0024.namprd03.prod.outlook.com (2603:10b6:208:23a::29)
+ by EAYPR12MB999156.namprd12.prod.outlook.com (2603:10b6:303:2c2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Mon, 16 Feb
+ 2026 08:55:43 +0000
+Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
+ (2603:10b6:208:23a:cafe::c9) by MN2PR03CA0024.outlook.office365.com
+ (2603:10b6:208:23a::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.16 via Frontend Transport; Mon,
+ 16 Feb 2026 08:55:42 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9654.0 via Frontend Transport; Mon, 16 Feb 2026 08:55:42 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
+ 2026 02:55:41 -0600
+Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 16 Feb 2026 02:55:40 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,195 +64,402 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ff5f1da-0b15-11f1-b163-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771232105; x=1771836905; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JUV1kn70x+tFSRvqsn/WF+CnPXJjpZikV7jL0GkLVDg=;
-        b=fCkNc6V6Gpt9QRVAgMS+sTcrDV25AYFUsLbmdm1ZF/yAED0Xhok7umRQ9Yl16qwmAn
-         RhTtb5yy/gprL5OD7y9Nfol+7X89xFyFjoZRb2lT+9VUhoRc5s2C+Vou45bE6PwzkHwt
-         s8sPIzSB6eCA8CFg58arxaJslKk0OJo7k62H1JExFYjpjcdGDIe0XiUPeUY2PgH27VXZ
-         8pdrcdbJ6hCU2VXpQLlcwNDi6QQbe4oWHNIaZXw7CNfGwxpfdBNmn6+5ApcfEtf0FRWQ
-         V0zpL9qA6TVY2+4IVP9TeCXR6cAvvINR1Uhf5cKiffrJ7iNueNaLLuK7ti64qmUya4sj
-         jQ5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771232105; x=1771836905;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JUV1kn70x+tFSRvqsn/WF+CnPXJjpZikV7jL0GkLVDg=;
-        b=iTqkGjfHMifyLzid6WZnJ7H9Z9XcYClH9k9JYKG5B9P61D12fXudezT+kJNZ5PdX2U
-         +gtY4DVVxenDn+BUDT19RSlJM/L5IPedCriK5fAuhRWcAdksQZ4uXFP3Sx2j3+BxXYzk
-         Bi5yyoiY3HyGfvc5Z3gdYLXA1XdVkyZVFo5iGuRbs+l2PpGQQSXN1bVReo8od5iH/kCM
-         TtaJpMNxXxVkDZNU/ijL4FCGXHGEckPRw0+6MDw1DxbMn4j95zBUti00nTv6wyKGNYqN
-         XfK2tdGOuXh9+tsnXJVsEFbOhyNVJpe/kCT5lo8QRH4Sk4aoJqLqt75e7GC8+JOS57Jc
-         BLfw==
-X-Gm-Message-State: AOJu0YwVc9ZceFvQ0KmwlK6lrRK0eld1FRPM04Ow+dCtoxlcarOpJiz3
-	jMrPM9/G+X1xHAz5KR9C3XJrLcMgPiOAGsbH74ixOepQA0yWvWSsiW/rpJsbvLUSkx3L0JaJCWV
-	x5hk=
-X-Gm-Gg: AZuq6aI4r4VhHPJkDPkI6WWkhFv5me0CKwCJ8Y9bS8mD+mp4iWYbnjmhRffML5/9hFV
-	cv4mbbv+QOO8Cfip5XPWy4k9sFLhcULdMzloteiV+azzFtJmzn8AqWxwqVUXmogimXbvce6oCuU
-	d02mPUSKU5V2rKEduqV8r9IWL3S8WSIAC52bGcWec7ENAdQViLJIJhzAUX7+gq6vovOF4NG8Cff
-	zjvI6b6hN/FbBZXVPsgFV6BrfhsOIUYX7L9tRhI5pmm12cSu+Qa7penI8TGOW8LoyXRxBPC+2HB
-	aH9qod67tz5KGlJJeBZL1x2rWrGEEcXklO/LvolRhyywok/tt6oLmqLxa4l2d+LBAdjZH7Bk118
-	TkKwdrNpUwRheh9R/JveJGtn4sS1zmcMeQxZhYFTwV2IJK4E5NvnlalKXKUHcBBZzrAByZDk7FS
-	IPYPa9yxrnD0sy4jsHP+2K/AAK4AiY9tPqNu0yxckaKu9g7S90iX/fYoeHulxg4gfwnTgy3q+eZ
-	fWEZezJIS8yyD0=
-X-Received: by 2002:a05:600c:8711:b0:483:4b37:8620 with SMTP id 5b1f17b1804b1-48378d9d17cmr130752195e9.10.1771232104735;
-        Mon, 16 Feb 2026 00:55:04 -0800 (PST)
-Message-ID: <00493037-e77e-4631-8594-64ad4e46fa40@suse.com>
-Date: Mon, 16 Feb 2026 09:55:07 +0100
+X-Inumbo-ID: 498efb82-0b15-11f1-b163-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yBh9sI2fmtgUmibeOK8PSrquTUCutg2zukY60nLuksecXh8imhIQuitpDnaVqRDAXik1tgN6+kObOjLqJV9SFVynIfeYBqcDldFdd3YBljcwX59At/YpUmuRuv5A494tDZXfCp0BgIwbSkRFz8B/VY/skYxFzBrcZqtGW8ru2MMMdw69WJuQGb05OJt9V/cd4x4OoMqJwgZhLpQ1T7F1BM/oY3h2Vh6+r+6HIADjqIR0TvcIT2t5E7eoWbOaiQVsAFkAeUNP0gWqNWhtENXVEnGbPhTSV6l7k5YMZQi8QQ2KUyTgba+m9DHy09KtHmHw+bqoPzMPJRZCKnCqpTWkJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MEBhuw3Tfe8hW+O7V9arjEU1FikK2bIIB7UGfDGp2xY=;
+ b=m27JtPb4JRoKgQ1W9u7PbUX+CkPDYZ0c0sUf7GQuty6ZLc5P52j8nC6diOB8pGM6fxuC1Ek3YWhqROMOS2jRn8zFK9S73HwAN5BmAakIGdd6M7tdSSwNfiWeIr8zY8xlfO2bf74Xd6KF5OTVO//vzO9qB9YTotaqlU7l+l1gP02v+sECPITuB4tOSlHVqCvy7Z3SZgI6HjjVG1BP3cg+FZw26dUgXJx9xnBcme0bOoMH4x8kAml5OZdx73styYBvXLFA721jZCg2lBNpiDVscZH3aCR+eKDWhg/wd+mXWuCviKmyS0wPl9skrmKH/qkROvaC9/nXjvS1gGh0bvK4pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MEBhuw3Tfe8hW+O7V9arjEU1FikK2bIIB7UGfDGp2xY=;
+ b=xhFYHAOMjyPla4Js0/b2AU54wijED6EZi0WMXwQQOXZDim75MWC9R/NcbA3qssX1mOrCn4GuhGULhXhmVWcvakZfcXgREeGnsOogYmHUiCqyUkxqwj4aBfeL8NIH7Go5zc7sxcY08pAkyhnt8AJL1QIGX4tzHQ4vRpsiZ0zOupI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <87e02fff-1891-42f1-9317-786906425171@amd.com>
+Date: Mon, 16 Feb 2026 09:55:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] arm/mpu: implement setup_virt_paging for MPU system
+To: Harry Ramsey <harry.ramsey@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, Penny Zheng <Penny.Zheng@arm.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>, Hari Limaye
+	<hari.limaye@arm.com>
+References: <20260206090155.68466-1-harry.ramsey@arm.com>
+ <20260206090155.68466-2-harry.ramsey@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Xen/gnttab: improve error handling in
- gnttab_dma_{alloc,free}_pages()
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260206090155.68466-2-harry.ramsey@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|EAYPR12MB999156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3538d096-4b61-4590-e459-08de6d392a51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700013|82310400026|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZXJycGRnS096Um0rOWVQMTZWNnB3Q0hPd3llWS9CU0FBaDJWYWQwM2EwVFFt?=
+ =?utf-8?B?b2RmZmRXMDNxMjZhdUlzekxUR1pneC9USzBqQ0I2cVdnUzRiQlBnaVBXODdm?=
+ =?utf-8?B?VzhKQmMxd3U2NmIwQU9UWlhMT3gxK09WcVRyQ05vcGVhVFFqc0Fwazlwazdh?=
+ =?utf-8?B?QnR5MXRuMGpqaWVvM0JYRGw4YmExcEovUXdWL3M5alVBakE4TzkxeVBtSm5T?=
+ =?utf-8?B?TlV5YVd6dTk0UVJlOUh1NlBNNWs1VTNIamVRSEJVNW9kK2tteTJ3aE1CTWdM?=
+ =?utf-8?B?aDhxUG1JR05xNm9vMFdaWVNSbmdZQWt3VzlHcGQxelNqQzNKTnR5VVNRb1c2?=
+ =?utf-8?B?YWFqVFp4eXdjbkJUUnlweVI4eUZNQ0R2TmZXcll6d2l1Z3JkR3dKWHVVeFU3?=
+ =?utf-8?B?MUw4Q2VHZ3FsQ2F2Qy92b2RjQU91eWFwRnplYjNlVjdwRmdvSE9zK2Z3RDM3?=
+ =?utf-8?B?WC91RDI2U1AyK0N5VG5PWVNtejZ4cytDQW1tbmFDblFKQzJVaEd4MG5vRWdD?=
+ =?utf-8?B?eTZHWUNRWmxOeU1pb29wRWNXTy84VXpVckYwOGlCSXhsbFZEZ3lBVDIvRW03?=
+ =?utf-8?B?WUJYSVZwcUlrTTJDQk9aZEFEbW1FTmFmWU9Ja2xyZmZvb25YTklBTVBCckNZ?=
+ =?utf-8?B?T085cVBWSkRtUEZuQkYyTmt2TTNhV0NhVHpDR3F3NzZkck4vMjhrWXVhMkZ0?=
+ =?utf-8?B?VEdMd1Y1encwVFArSnoxNDNTMnpNUWdIYzh2ZE4zTERHQmxzYldjY3JnNTRB?=
+ =?utf-8?B?NTVVdjdtcTEzTkxOdk5xTmlmNHdEWnZnMjZUUlJSZHJTdjE2UzYzc0MvU2Vr?=
+ =?utf-8?B?ZTllQWZWUnFzRG94TVRiNjQ3YTd6UENIR2xCQ2Y3WFA2YnpsT1RmVVphdjVH?=
+ =?utf-8?B?RGt1V0RjYlhBalhXV1FnY3lCcGRmc21JbUxBZVZuM3lLMkxlUXdBUVFuMEtB?=
+ =?utf-8?B?eGJVWFE4UmNKSlc5NzcwVnRta0R5dk4vYVV5OGhsUEE1YVN3SFA3SEpXckhG?=
+ =?utf-8?B?ZGVhZHdOK0pSejlBaDBUUXcwcVdQUGNIRkg5SFVINmJSTCtWTGVCTml3U0lQ?=
+ =?utf-8?B?a0hqZTYxaC80Vk1pdWw5UnZoNXJ6TWpkZzVMREQ3VXJQYnJhVExpVlpLd25y?=
+ =?utf-8?B?R1c3b1RxTGhOSUR5dStHYldFaFlVS1FQUFpVMnlpcEluTlc3SlJEcUt2c3hp?=
+ =?utf-8?B?THhCQUY0UkdEYm8rU3o0U1V0czBpUllHOHBxYVoxdGRVck5zSi91dXdkRWU2?=
+ =?utf-8?B?ZlZxNHFibUNCdXI2TDFTRzlQZGFRODg1VURMbjA4NGMxTXgxM2RuUDc1VS9J?=
+ =?utf-8?B?RHBuakZDTXYvTHphV20wc1Z4WWViZ2ptdEtyaU9MVUV0eXVIWlpaekphM2E1?=
+ =?utf-8?B?WW02d2x1OW9PRnp2Z28ydUJKL1hnQWpvenBJRHhlOHY0RnZVclp1bDNHR0Mx?=
+ =?utf-8?B?MW9aRUcrUXB5eEFWQy9UZzh2MkZHVUwxTG0ycW5PV1RVK2VRTXIxNkIxT1JC?=
+ =?utf-8?B?Z08wdHk4dzAySnYzZFlLSS9TeHVkcGhMWXJmQUF3VjFzZFp5U3cxVC9OVW9r?=
+ =?utf-8?B?LzI1NnNBV0dmL3JDcTB2YzhmSE5MbmdoaUN1dlNlQWIrb3hrN1dBUDNJd2tY?=
+ =?utf-8?B?TVU2WHJGUG81UXJ2N0E5Rm04dVIvWHpINVJISEpJSkhKd1ErUi9HeUhkMU40?=
+ =?utf-8?B?RFhMT2pERS96ZGdqcUk4dExjTnlrc1kvUC9ydHBGWDBBbnV3S1BEVEJtNFpT?=
+ =?utf-8?B?N1k1ODFXbkZEdWV4YnNmbFU4SmFVVUlWa1ZBWk9pREZOUk82c2xNTnEyckFB?=
+ =?utf-8?B?TDl1VHB1ck1LbjUxK2lyekxOUlpsVXhma0VTNGg3bVY0Y2M5blJPcFBTVFBj?=
+ =?utf-8?B?VTBYK09nTXhmdzArSjlkcENPeWNUSVVvVnJhRGxsVmVESE9hditqSXhiY1dI?=
+ =?utf-8?B?SklReXUyU1dQaGRvWFFBMXdmbGpMejdBdHB4Z1VwVzlvbUxYNUlXR0JmM0lu?=
+ =?utf-8?B?N3UvSWx1Y3ZIQk1rdGx4clRuTTdLNkNPcGpZS00wbk1IR2hHcTYwQUg2aEJh?=
+ =?utf-8?B?ays1WjZzWjl0YXVIUnJ1RHdLaU9YR0g2R0pKdlRETVhIOXRlT2lHY05ML3pk?=
+ =?utf-8?B?ZCt6aGJScjZTZ3pKbTdoK2JyTEZaZVNGN3lOWWFab2hZcmhDTm9ZVUp6aWtN?=
+ =?utf-8?B?TUM3K2VjMFFuY2QzU1ZxdnJCRkdsczZ5SllkOHpnUzFLK0NoWmdPTHh4ejVV?=
+ =?utf-8?B?WTUyL1llMHlZVC9KcStNQStkY0x3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700013)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	x5g/MQM24tDuSdjHiwV4bYAOX6knH+O1v7xV3YdTuUDkfPhf1t2PQvKV9Ggj2HLKJFBp7tj8rS8wAKCAYLinNiJdw0WL7lkC5acb0G0ezuTj6FVexXhBsW1KpFfiAYzLYi/SqUq2M1LLa/ZQuGya/JVRx1u7OvCd7OqZWfO8zM/WeGfZfVU6PftH40ZSU+CTraCxPoCPEU9VMV881HewF7Uv21w+ybPnie84lUUaPRx1nPdIe3B4XQfN1jU+1+8IHXbxBYQ36SlscBrB0J6Pb5FHp3Bgf9ThWdR1jkBr5AreaUQESzIT1IQDjFpcCtQueq4EoozMzl3z3TukNgccXFzisZqM5JKJ8l52kaBwypHKW/5Nkdra/QrmyAqUCEjMhXgLfWkAQqJSY5VBL5mMCWrb9+NluSF3+rOQsNdlR7IOZVA9nAp8ntHoL29QqNCM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 08:55:42.3352
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3538d096-4b61-4590-e459-08de6d392a51
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999156
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:oleksandr_andrushchenko@epam.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:harry.ramsey@arm.com,m:xen-devel@lists.xenproject.org,m:Luca.Fancellu@arm.com,m:Penny.Zheng@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:wei.chen@arm.com,m:hari.limaye@arm.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: AD192141B8E
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: A38D9141B9C
 X-Rspamd-Action: no action
 
-Both decrease-reservation and populate-physmap can succeed partially. For
-the former this may be pretty unlikely, but clearly the latter can hit
-both out-of-memory conditions in the hypervisor or denial because of the
-allocation exceeding the domain's allowance (there's no interaction with
-the balloon driver here either).
+I guess this should be send as a v2 with listed changes between v2 and v1.
 
-In gnttab_dma_free_pages() we simply can't give back to the system what
-hasn't been re-filled with backing memory. For gnttab_dma_alloc_pages()
-both parts of the overall region need dealing with differently.
+On 06/02/2026 10:01, Harry Ramsey wrote:
+> From: Penny Zheng <Penny.Zheng@arm.com>
+> 
+> For MMU system, setup_virt_paging is used to configure stage 2 address
+> translation regime, like IPA bits, VMID allocator set up, etc.
+> Some could be inherited in MPU system, like VMID allocator set up, etc.
+> 
+> For MPU system, we could have the following memory translation regime:
+> - PMSAv8-64 at both EL1/EL0 and EL2 (default)
+> - VMSAv8-64 at EL1/EL0 and PMSAv8-64 at EL2 (enabled with device tree
+>   proprty v8r_el1_msa)
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> ---
+>  xen/arch/arm/arm64/mpu/p2m.c             | 67 +++++++++++++++++++++++-
+>  xen/arch/arm/include/asm/arm64/sysregs.h |  4 ++
+>  xen/arch/arm/include/asm/cpufeature.h    | 13 +++--
+>  xen/arch/arm/include/asm/mpu/p2m.h       | 12 +++++
+>  xen/arch/arm/include/asm/p2m.h           |  5 ++
+>  xen/arch/arm/include/asm/processor.h     | 11 ++++
+>  6 files changed, 108 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
+> index b6d8b2777b..da8f0553c1 100644
+> --- a/xen/arch/arm/arm64/mpu/p2m.c
+> +++ b/xen/arch/arm/arm64/mpu/p2m.c
+> @@ -2,11 +2,76 @@
+>  
+>  #include <xen/bug.h>
+>  #include <xen/init.h>
+> +#include <xen/warning.h>
+>  #include <asm/p2m.h>
+>  
+>  void __init setup_virt_paging(void)
+>  {
+> -    BUG_ON("unimplemented");
+> +    uint64_t vtcr_el2 = READ_SYSREG(VTCR_EL2), vstcr_el2 = READ_SYSREG(VSTCR_EL2);
+> +
+> +    /* PA size */
+> +    const unsigned int pa_range_info[] = {32, 36, 40, 42, 44, 48, 52, 0,
+> +                                          /* Invalid */};
+> +
+> +    /*
+> +     * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
+> +     * with IPA bits == PA bits, compare against "pabits".
+> +     */
+> +    if ( pa_range_info[system_cpuinfo.mm64.pa_range] < p2m_ipa_bits )
+> +        p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range];
+> +
+> +    /*
+> +     * Clear VTCR_EL2.NSA bit to configure non-secure stage 2 translation output
+> +     * address space to access the Secure PA space as Armv8r only implements
+> +     * secure state.
+> +     */
+> +    vtcr_el2 &= ~VTCR_NSA;
+> +
+> +    /*
+> +     * The MSA and MSA_frac fields in the ID_AA64MMFR0_EL1 register identify the
+> +     * memory system configurations supported. In Armv8-R AArch64, the
+> +     * only permitted value for ID_AA64MMFR0_EL1.MSA is 0b1111.
+> +     */
+> +    if ( system_cpuinfo.mm64.msa != MM64_MSA_PMSA_SUPPORT )
+> +        goto fault;
+> +
+> +    /* Permitted values for ID_AA64MMFR0_EL1.MSA_frac are 0b0001 and 0b0010. */
+> +    if ( system_cpuinfo.mm64.msa_frac == MM64_MSA_FRAC_NONE_SUPPORT )
+> +        goto fault;
+> +
+> +    /*
+> +     * cpuinfo sanitization makes sure we support 16bits VMID only if all cores
+> +     * are supporting it.
+> +     */
+> +    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
+> +        max_vmid = MAX_VMID_16_BIT;
+> +
+> +    /* Set the VS bit only if 16 bit VMID is supported. */
+> +    if ( max_vmid == MAX_VMID_16_BIT )
+> +        vtcr_el2 |= VTCR_VS;
+No need for max_vmid assignment. You can directory do:
+if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
+    vtcr_el2 |= VTCR_VS;
+to make things clearer.
 
-While no present caller of gnttab_dma_free_pages() checks its return
-value, also don't use -EFAULT there: It really is an out-of-memory
-condition. (In gnttab_dma_alloc_pages() -EFAULT doesn't look quite right
-either, but I couldn't think of a clearly better error code there.)
+> +
+> +    p2m_vmid_allocator_init();
+> +
+> +    WRITE_SYSREG(vtcr_el2, VTCR_EL2);
+> +
+> +    /*
+> +     * VSTCR_EL2.SA defines secure stage 2 translation output address space.
+> +     * To make sure that all stage 2 translations for the Secure PA space access
+> +     * the Secure PA space, we keep SA bit as 0.
+> +     *
+> +     * VSTCR_EL2.SC is NS check enable bit. To make sure that Stage 2 NS
+> +     * configuration is checked against stage 1 NS configuration in EL1&0
+> +     * translation regime for the given address, and generates a fault if they
+> +     * are different, we set SC bit 1.
+> +     */
+> +    vstcr_el2 &= ~VSTCR_EL2_SA;
+> +    vstcr_el2 |= VSTCR_EL2_SC;
+> +    WRITE_SYSREG(vstcr_el2, VSTCR_EL2);
+> +
+> +    return;
+Shouldn't we have a printk message similar to what MMU has?
+printk("P2M: %d-bit IPA with %d-bit PA and %d-bit VMID\n"...)
 
-Fixes: 9bdc7304f536 ("xen/grant-table: Allow allocating buffers suitable for DMA")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I'm likely screwing things up, as I can't understand how this is intended
-to work: args->dev_bus_addr shouldn't really be in pseudo-physical address
-space, or else the address isn't suitable for handing to a device in order
-to DMA to/from it. Hence using __phys_to_pfn() on it to then hand the
-result to pfn_to_page() feels bogus. Was all of this perhaps only ever
-intended for (tested with) translated domains? With the uses of
-xenmem_reservation_va_mapping_*() only being masquerade?
+> +
+> + fault:
+> +    panic("Hardware with no PMSAv8-64 support in any translation regime\n");
+>  }
+>  
+>  /*
+> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+> index 19d409d3eb..a4b6eef181 100644
+> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> @@ -462,6 +462,10 @@
+>  #define ZCR_ELx_LEN_SIZE             9
+>  #define ZCR_ELx_LEN_MASK             0x1ff
+>  
+> +/* Virtualization Secure Translation Control Register */
+> +#define VSTCR_EL2_SA                 (_AC(0x1,UL)<<30)
+Why UL and not U?
+Also, please add spaces around <<
 
-Furthermore the allocated buffer ought to have been contiguous in
-machine / DMA space. Yet the way it's re-populated upon freeing of the
-area doesn't guarantee that at all.
+> +#define VSTCR_EL2_SC                 (_AC(0x1,UL)<<20)
+> +
+>  #ifdef CONFIG_MPU
+>  /*
+>   * The Armv8-R AArch64 architecture always executes code in Secure
+> diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+> index 13353c8e1a..bf902a3970 100644
+> --- a/xen/arch/arm/include/asm/cpufeature.h
+> +++ b/xen/arch/arm/include/asm/cpufeature.h
+> @@ -248,6 +248,12 @@ struct cpuinfo_arm {
+>              unsigned long tgranule_16K:4;
+>              unsigned long tgranule_64K:4;
+>              unsigned long tgranule_4K:4;
+> +#ifdef CONFIG_MPU
+> +            unsigned long __res0:16;
+> +            unsigned long msa:4;
+> +            unsigned long msa_frac:4;
+> +            unsigned long __res1:8;
+> +#else
+>              unsigned long tgranule_16k_2:4;
+>              unsigned long tgranule_64k_2:4;
+>              unsigned long tgranule_4k_2:4;
+> @@ -255,6 +261,7 @@ struct cpuinfo_arm {
+>              unsigned long __res0:8;
+>              unsigned long fgt:4;
+>              unsigned long ecv:4;
+> +#endif
+>  
+>              /* MMFR1 */
+>              unsigned long hafdbs:4;
+> @@ -267,13 +274,13 @@ struct cpuinfo_arm {
+>              unsigned long xnx:4;
+>              unsigned long twed:4;
+>              unsigned long ets:4;
+> -            unsigned long __res1:4;
+> +            unsigned long __res2:4;
+>              unsigned long afp:4;
+> -            unsigned long __res2:12;
+> +            unsigned long __res3:12;
+>              unsigned long ecbhb:4;
+>  
+>              /* MMFR2 */
+> -            unsigned long __res3:64;
+> +            unsigned long __res4:64;
+>          };
+>      } mm64;
+>  
+> diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
+> index e46d9e757a..d165585d4e 100644
+> --- a/xen/arch/arm/include/asm/mpu/p2m.h
+> +++ b/xen/arch/arm/include/asm/mpu/p2m.h
+> @@ -5,6 +5,18 @@
+>  
+>  struct p2m_domain;
+>  
+> +/*
+> + * The architecture allows at most 255 EL2 MPU memory regions. The size of the
+> + * MPU structure entry (pr_t) is 32 Bytes on AArch64 (requiring two 4KB pages)
+> + * and 16 bytes on AArch32 (requiring one 4KB page).
+It would be good to have a BUILD_BUG_ON to validate these calculations.
+Conversely, we could define root order with these calculations but it might not
+be well readable.
 
-All of what is done assumes dma_free_{coherent,wc,attr}() is capable of
-freeing piecemeal. I only checked dma_release_from_dev_coherent() to
-fulfill this requirement. If this can't be relied upon, please consider
-this submission as merely a bug report (for someone else to fix).
+> + */
+> +#ifdef CONFIG_ARM_64
+> +#define P2M_ROOT_ORDER 1
+> +#else
+> +#define P2M_ROOT_ORDER 0
+They don't seem to be used by this patch.
 
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -1095,6 +1095,28 @@ int gnttab_dma_alloc_pages(struct gnttab
- 	ret = xenmem_reservation_decrease(args->nr_pages, args->frames);
- 	if (ret != args->nr_pages) {
- 		pr_debug("Failed to decrease reservation for DMA buffer\n");
-+		if (ret >= 0) {
-+			/* Free the part where decrease didn't work. */
-+			size_t done = ret << PAGE_SHIFT;
-+
-+			xenmem_reservation_va_mapping_update(args->nr_pages - ret,
-+							     &args->pages[ret],
-+							     &args->frames[ret]);
-+
-+			if (args->coherent)
-+				dma_free_coherent(args->dev, size - done,
-+						  args->vaddr + done,
-+						  args->dev_bus_addr + done);
-+			else
-+				dma_free_wc(args->dev, size - done,
-+					    args->vaddr + done,
-+					    args->dev_bus_addr + done);
-+
-+			if (!ret) /* Nothing else to do? */
-+				return -EFAULT;
-+
-+			args->nr_pages = ret;
-+		}
- 		ret = -EFAULT;
- 		goto fail;
- 	}
-@@ -1128,7 +1150,12 @@ int gnttab_dma_free_pages(struct gnttab_
- 	ret = xenmem_reservation_increase(args->nr_pages, args->frames);
- 	if (ret != args->nr_pages) {
- 		pr_debug("Failed to increase reservation for DMA buffer\n");
--		ret = -EFAULT;
-+		/* Can only free what has been re-filled. */
-+		if (!ret)
-+			return -ENOMEM;
-+		if (ret > 0)
-+			args->nr_pages = ret;
-+		ret = -ENOMEM;
- 	} else {
- 		ret = 0;
- 	}
+> +#endif
+> +
+> +/* Not used on MPU system */
+>  static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
+>  
+>  static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
+> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+> index 010ce8c9eb..ed1b6dd40f 100644
+> --- a/xen/arch/arm/include/asm/p2m.h
+> +++ b/xen/arch/arm/include/asm/p2m.h
+> @@ -48,8 +48,13 @@ struct p2m_domain {
+>      /* Current VMID in use */
+>      uint16_t vmid;
+>  
+> +#ifdef CONFIG_MMU
+>      /* Current Translation Table Base Register for the p2m */
+>      uint64_t vttbr;
+> +#else
+> +    /* Current Virtualization System Control Register for the p2m */
+> +    register_t vsctlr;
+Why vsctlr and not vsctr?
+This does not seem to be used in this patch, so maybe move it to another patch.
+
+> +#endif
+>  
+>      /* Highest guest frame that's ever been mapped in the p2m */
+>      gfn_t max_mapped_gfn;
+> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+> index 1a48c9ff3b..7344aa094b 100644
+> --- a/xen/arch/arm/include/asm/processor.h
+> +++ b/xen/arch/arm/include/asm/processor.h
+> @@ -403,6 +403,10 @@
+>  
+>  #define VTCR_RES1       (_AC(1,UL)<<31)
+>  
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+Would it make sense to have CONFIG_ARM_64_MPU to avoid specifying these two all
+the time?
+
+> +#define VTCR_NSA        (_AC(0x1,UL)<<30)
+> +#endif
+> +
+>  /* HCPTR Hyp. Coprocessor Trap Register */
+>  #define HCPTR_TAM       ((_AC(1,U)<<30))
+>  #define HCPTR_TTA       ((_AC(1,U)<<20))        /* Trap trace registers */
+> @@ -464,6 +468,13 @@
+>  #define MM64_VMID_16_BITS_SUPPORT   0x2
+>  #endif
+>  
+> +#if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> +#define MM64_MSA_PMSA_SUPPORT       0xf
+> +#define MM64_MSA_FRAC_NONE_SUPPORT  0x0
+> +#define MM64_MSA_FRAC_PMSA_SUPPORT  0x1
+> +#define MM64_MSA_FRAC_VMSA_SUPPORT  0x2
+> +#endif
+> +
+>  #ifndef __ASSEMBLER__
+>  
+>  extern register_t __cpu_logical_map[];
+
+~Michal
+
 
