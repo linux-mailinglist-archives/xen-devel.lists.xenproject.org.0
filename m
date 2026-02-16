@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aHR4N8hHk2mi3AEAu9opvQ
+	id kFyYG0tIk2mi3AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 17:37:28 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 17:39:39 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DFA146408
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 17:37:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234413.1537692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D841314646D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 17:39:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234420.1537701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vs1aZ-0006T8-GG; Mon, 16 Feb 2026 16:36:47 +0000
+	id 1vs1d8-0007DY-Tf; Mon, 16 Feb 2026 16:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234413.1537692; Mon, 16 Feb 2026 16:36:47 +0000
+Received: by outflank-mailman (output) from mailman id 1234420.1537701; Mon, 16 Feb 2026 16:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vs1aZ-0006Q1-D7; Mon, 16 Feb 2026 16:36:47 +0000
-Received: by outflank-mailman (input) for mailman id 1234413;
- Mon, 16 Feb 2026 16:36:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vs1d8-0007AY-Qb; Mon, 16 Feb 2026 16:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 1234420;
+ Mon, 16 Feb 2026 16:39:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qFbs=AU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vs1aX-0006Pv-Ui
- for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 16:36:45 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad812fa8-0b55-11f1-9ccf-f158ae23cfc8;
- Mon, 16 Feb 2026 17:36:43 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-48373a4bca3so17022095e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 08:36:43 -0800 (PST)
+ id 1vs1d7-0007AS-KS
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 16:39:25 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0d418b76-0b56-11f1-b163-2bf370ae4941;
+ Mon, 16 Feb 2026 17:39:24 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4836f363ad2so38074425e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 08:39:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796ac800esm29806641f8f.27.2026.02.16.08.36.42
+ 5b1f17b1804b1-48370a3eb7asm134713045e9.1.2026.02.16.08.39.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Feb 2026 08:36:42 -0800 (PST)
+ Mon, 16 Feb 2026 08:39:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,63 +50,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad812fa8-0b55-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0d418b76-0b56-11f1-b163-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771259803; x=1771864603; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771259964; x=1771864764; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=u2woNWGSnnr0a2eOMR8D01U6viHPWQ0vb43LrsJDIWw=;
-        b=QycB0JWjSHO5LBdGuUPfScSBhMgX6TyX7ASKo8qEJSMvPClNESv2P8EhaBIxG1mAGM
-         NwY6YLfiAgLlZqoFIHNqDTxisvidnBh522VEB36o4L9wYEkT/clUAmkU1p3WpdI9C8+e
-         4VTQyvoXFjp9zHOG296YJEC/QD0Unqkz7vKoe2dPTGpT5YALdmARiNXpMbdk7JVKa2z9
-         TKmlxe24afX9cpeJ8qtJhuK96kxJmJnY40hIC8fi+qjDuUsb3lcTWWXk9RleszJ3HJx2
-         U2wCfh5z1NZUAAD+LYz+zryBUy15KpqLE1TB7cFFavMDc6t60TaR2wTPDKsfBtcy/Tc6
-         WCYw==
+        bh=rxQJHljzl7Xjpy0a9qrPUpNX/ls+n4E18//+eYOdcZE=;
+        b=fbOq/OWEBRtSQjsMRLnIc1YFYHlH5f5EqeMdObRuVaWp91MzoEH2m/fTroI4Gr7m2O
+         6iKGXOjE9VWZQigigY3rrOKtvHwYnVgmZug54N0I98JXzlZzMixvwhS8bdf2HT6qdK8v
+         A9xanaAjOTgTLxb1xjwq5qysutbnTt9rSZa8iA9O+ybLLEAXGoaXtIZME+yboVMixZiR
+         igNu4yQGhw4aTL7XQZ352JL57exDvs00WEWrM/RhgR+zt4FKXqZhxoovpEFnVovFqc+b
+         EimuYKKA8FAEYo4ezoxIvc/F+eTs8c50klXELpwl3No5FUSGsxHN98uMHL+H73OGw660
+         1Z6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771259803; x=1771864603;
+        d=1e100.net; s=20230601; t=1771259964; x=1771864764;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u2woNWGSnnr0a2eOMR8D01U6viHPWQ0vb43LrsJDIWw=;
-        b=H+7XN14L+NUhyJvVs3+Rspm+k4UOiqFBatFirqABtQLjNACPeZ8nWSc37YoUVvw3Zc
-         rSwA3jGk00e5myFfh/+jFFXh0O6+MMfZt84sYkIPmwMoatBMM+mwVGnIL0AwBVjoptcb
-         IC0waLIjSgCcgqiVPDf+1b+4Mek5hYC/zmkTK7QihsNl+upOJwolLcC7TLHgEX9DIE+f
-         bZh8jZp4QJ8uku+CAkKtwssRibapWWqiL1hSQ4moeCRuE472tXvOJKiqZw9JVK5TOCnF
-         BqKbgDznZvF06cKfPLWBFxy8vi610VY93E+YYKEsRPePRqxI/buJYFCIwMvHiZSt+vYy
-         phhw==
-X-Forwarded-Encrypted: i=1; AJvYcCWBmyBLhqLJJGrfKx0E6gospLX5aKTSX4MLcBvbrYOEGhLEkXUIHPo994neUujUhfaHCVp2ZTWtQao=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVWr0O4QLcrs4YLshecO9wOfCrWu9tnlR81czgtrFWdy8ioyVq
-	hbfFBQ8SjSp3/9DeEotR4g3rV2LrrVOj23fDG9IIykWz26vng79e5IX/N1TSgpaEoQ==
-X-Gm-Gg: AZuq6aIm1oARFCeZ6nkm6bOLrMHzG+iobVYFwYVjK2EBw0+ooiIhbyE5eEQoC7clXDU
-	eFDaXfq6ayBHJjsqjX/nrWzf+pzqaNBB0yu3znNOLLrV3hQxePKmVFzkKlkhvl7GmulTSYbisQq
-	n4Wngq9NhqDUyrNpuc1lZZZ1K1VQiSfzT1R3TA7LWUb15LzhsLUmhXMJpzFSR84vMQjVet3pWgO
-	G/fa2rZYv6q1pqAGFEnewztAoRhYtwEsFHj6DMGFUF/0dcRbVOp0KHYVqiayjDx3szkU5dyiMx4
-	2m2X76l+fdBAGlfoQB8GLEkIriJjQibem9we3edr+6JLw+zxeTtHNpLnmAp1gndqrs2rGFV1pJW
-	cPls/abo2HLr9Is8KCJEoOsjDHNVdQAO8SqaYjuutnwHDzsWkz2Cc+UoqMOzAiw/H5QcMKs7qV8
-	H5mUH3TL2iNkXPqk95QribbJKZGAiCWVFJ9INr65TI3j65/uvxnW2AKkXcqEyUWL6qsdo5aBjuV
-	2puxpPu5Xke9qw=
-X-Received: by 2002:a05:600c:8708:b0:480:1a9a:e571 with SMTP id 5b1f17b1804b1-48379bd7313mr143247015e9.22.1771259803136;
-        Mon, 16 Feb 2026 08:36:43 -0800 (PST)
-Message-ID: <522a71ce-05da-4a66-956e-5581f0c49e0e@suse.com>
-Date: Mon, 16 Feb 2026 17:36:44 +0100
+        bh=rxQJHljzl7Xjpy0a9qrPUpNX/ls+n4E18//+eYOdcZE=;
+        b=YNpioEb6v3qOLCy7Ns+85CNJaulkmxohC9c5G6LYcYJrKrMGEif/oG20eScINYzTi8
+         bvs3G8/Oytl/jhob/dYDgjf3jut9wjDP67guRpNTwuwf0lUo9uzF3EoHE2e4OpvhLojo
+         oZZTMAAb3iYxJoO19bayyAPHZvzP2qLqjd1eOxFYLBYTUdsCe8Pu/kRXu4ZjrYLtgYAI
+         RWqr1l6lUIsAsz1nn/WpuGZFNNysA34O4wAGTof5RKcfGYF/Yl8t5AAc2Utr/00ZjCey
+         +eDza9s8vPKwFCuQVCv4zpdAA/ciCZx/FE+Qr4LSVku3QqihyPo1vzNOd3HBJWAHT9Lr
+         GfMA==
+X-Forwarded-Encrypted: i=1; AJvYcCXW2pSGdRLgWtuh8Lkeg1kgc/vqXWkfOGL9U5N+J9DjGaDEsWNlNrMbB590lsfBOIwHHhYUebxy6rc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXrKHhgKMRVxQGg207W9PY8xOAU5oGd9ENItjakbEx6OLHLed0
+	3hWEToZDXvqBCwDfuRtoJVeoFf1QFPyEA1w5fM9Mk0AiPoj8SBnxH3W/Cxc83LcITw==
+X-Gm-Gg: AZuq6aLAqx41XQ/i44RsSEN2hVovy27DblVR4+sa6Pvrzy0i/vBHr5TOM0W/d9nIHVb
+	s56XxjUlGJAZrU9FxndjbEEf4wtLvBQ6w5M8vZOrX2daEQGjEqj2EbxetqkmF2D1SxAFRH5NG+I
+	RO3nS7gMteiLXbc+Ays2CX5/5msbYCTS79zWXUjfN9tVATFMzTOkSaGJm9B+EgO61hrdK9b9mXC
+	WKq8XaQ3feXOPeL8nOWfe3/YV7ze/htqUuEvVWe4zBEbUWKcrbnEoTbfxwmzuFqHFSY/YP9lAWU
+	q6ny/a3dSsr6zOdvCnjPjE5l3rPTOr+1jr1uePTsmaazMTEOf7Og9oXKg5OIrA/ltpIDvVT8V8a
+	ZzRlAl4fJ+VeAdv+l1RZLyAs53z/Y5Jpr27S8iT7uxHOUcUvySjWbfy6Cd4HOwepZtv5UoWYI0j
+	QdcnpvkZqKNWcpcHPn3UAZE+fiO6OBakYCn0dC9vnvqr0wDLTTUvptxl8RFfNOkY1aOvQ5BTYiJ
+	63BV4kzmcF3CEc=
+X-Received: by 2002:a05:600c:148f:b0:483:7f7c:ad89 with SMTP id 5b1f17b1804b1-4837f7cb108mr85963485e9.37.1771259963780;
+        Mon, 16 Feb 2026 08:39:23 -0800 (PST)
+Message-ID: <871a5922-9d7d-455b-8257-d583e3e47bc2@suse.com>
+Date: Mon, 16 Feb 2026 17:39:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/6] xen: move domain_use_host_layout() to common
- header
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <678eb53c56bc4f6147feb0bbb6c1319197d0f0df.1770821989.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] domain: move vmtrace_alloc_buffer() invocation in
+ vcpu_create()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <528578e1-6374-4fd0-9f67-0769afd2e1c6@suse.com>
+ <50c79874-d07e-479d-80c2-7c0694a0828e@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,74 +128,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <678eb53c56bc4f6147feb0bbb6c1319197d0f0df.1770821989.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <50c79874-d07e-479d-80c2-7c0694a0828e@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 54DFA146408
+X-Rspamd-Queue-Id: D841314646D
 X-Rspamd-Action: no action
 
-On 12.02.2026 17:21, Oleksii Kurochko wrote:
-> domain_use_host_layout() is generic enough to be moved to the
-> common header xen/domain.h.
+On 16.02.2026 17:29, Andrew Cooper wrote:
+> On 16/02/2026 3:51 pm, Jan Beulich wrote:
+>> The label used upon the function failing is wrong.
+> 
+> Is it?  Which label do you think it ought to be?
 
-Maybe, but then something DT-specific, not xen/domain.h. Specifically, ...
+fail_sched, as Roger did point out in reply to the original other patch.
+After all ...
 
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
->  #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
->  #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
->  
-> +/*
-> + * Is the domain using the host memory layout?
-> + *
-> + * Direct-mapped domain will always have the RAM mapped with GFN == MFN.
-> + * To avoid any trouble finding space, it is easier to force using the
-> + * host memory layout.
-> + *
-> + * The hardware domain will use the host layout regardless of
-> + * direct-mapped because some OS may rely on a specific address ranges
-> + * for the devices.
-> + */
-> +#ifndef domain_use_host_layout
-> +# define domain_use_host_layout(d) (is_domain_direct_mapped(d) || \
-> +                                    is_hardware_domain(d))
+>>  Instead of correcting
+>> the label, move the invocation up a little, to also avoid it altogether
+>> for the idle domain (where ->vmtrace_size would be zero, and hence the
+>> function would bail right away anyway).
+>>
+>> Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
+>> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -493,14 +493,14 @@ struct vcpu *vcpu_create(struct domain *
+>>          set_bit(_VPF_down, &v->pause_flags);
+>>          vcpu_info_reset(v);
+>>          init_waitqueue_vcpu(v);
+>> +
+>> +        if ( vmtrace_alloc_buffer(v) != 0 )
+>> +            goto fail_wq;
+>>      }
+>>  
+>>      if ( sched_init_vcpu(v) != 0 )
+>>          goto fail_wq;
 
-... is_domain_direct_mapped() isn't something that I'd like to see further
-proliferate in common (non-DT) code.
+... this comes first, and ...
+
+>> -    if ( vmtrace_alloc_buffer(v) != 0 )
+>> -        goto fail_wq;
+>> -
+>>      if ( arch_vcpu_create(v) != 0 )
+>>          goto fail_sched;
+
+... here the correct label is used.
 
 Jan
+
+> The positioning was intentional.  I just didn't get to wiring up Intel
+> PT for Xen context yet, and tying the buffer to the idle vCPU would be
+> the obvious choice there.
+> 
+> The chances of getting around to that are admittedly low, so I don't
+> mind moving the call in principle (noting that this is a wish that
+> likely won't materialise), but the claim over the label needs resolving.
+> 
+> ~Andrew
+
 
