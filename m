@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6AlKFXUOkmlJqAEAu9opvQ
+	id YJDvLsjLkmlfyAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 19:20:37 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 08:48:24 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5DFB13F59F
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Feb 2026 19:20:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1233478.1537065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478A21415EC
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Feb 2026 08:48:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1233713.1537074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrgik-0000wX-C9; Sun, 15 Feb 2026 18:19:50 +0000
+	id 1vrtKC-0001U9-92; Mon, 16 Feb 2026 07:47:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1233478.1537065; Sun, 15 Feb 2026 18:19:50 +0000
+Received: by outflank-mailman (output) from mailman id 1233713.1537074; Mon, 16 Feb 2026 07:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vrgik-0000v1-9I; Sun, 15 Feb 2026 18:19:50 +0000
-Received: by outflank-mailman (input) for mailman id 1233478;
- Sun, 15 Feb 2026 18:19:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vrtKC-0001SS-67; Mon, 16 Feb 2026 07:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 1233713;
+ Mon, 16 Feb 2026 07:47:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+38R=AT=citrix.com=abdelkareem.abdelsaamad@srs-se1.protection.inumbo.net>)
- id 1vrgij-0000h9-1T
- for xen-devel@lists.xenproject.org; Sun, 15 Feb 2026 18:19:49 +0000
-Received: from na1pdmzitismtp02.tibco.com (na1pdmzitismtp02.tibco.com
- [160.101.131.9]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7499ad3-0a9a-11f1-9ccf-f158ae23cfc8;
- Sun, 15 Feb 2026 19:19:45 +0100 (CET)
-Received: from fedora.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id BCBCF810BDF8;
- Sun, 15 Feb 2026 13:19:18 -0500 (EST)
+ <SRS0=z2lT=AU=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1vrtKB-0001SM-AZ
+ for xen-devel@lists.xenproject.org; Mon, 16 Feb 2026 07:47:19 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id b6824cde-0b0b-11f1-b163-2bf370ae4941;
+ Mon, 16 Feb 2026 08:47:16 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32D9F150C;
+ Sun, 15 Feb 2026 23:47:09 -0800 (PST)
+Received: from C3HXLD123V.arm.com (unknown [10.57.56.129])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2849A3F632;
+ Sun, 15 Feb 2026 23:47:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,127 +47,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7499ad3-0a9a-11f1-9ccf-f158ae23cfc8
-From: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+X-Inumbo-ID: b6824cde-0b0b-11f1-b163-2bf370ae4941
+From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: [PATCH v3 2/2] x86/svm: Use the virtual NMI when available
-Date: Sun, 15 Feb 2026 18:16:02 +0000
-Message-ID: <ccd7d351fcf47e6a74bd6bdfe3fe8bc9f5023e7e.1771177081.git.abdelkareem.abdelsaamad@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: smccc: Preserve argument types in v1.1 SMC
+Date: Mon, 16 Feb 2026 08:47:08 +0100
+Message-ID: <0e2ba0af683fa5e53a3d2b4b625703751cf7ce54.1771228001.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1771177081.git.abdelkareem.abdelsaamad@citrix.com>
-References: <cover.1771177081.git.abdelkareem.abdelsaamad@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.01 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
+X-Spamd-Result: default: False [1.11 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	DMARC_POLICY_SOFTFAIL(0.10)[arm.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:abdelkareem.abdelsaamad@citrix.com,m:jbeulich@suse.com,m:jason.andryuk@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[bertrand.marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[7];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[bertrand.marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	R_DKIM_NA(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US]
-X-Rspamd-Queue-Id: D5DFB13F59F
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 478A21415EC
 X-Rspamd-Action: no action
 
-With the Virtual NMI (vNMI), the pending NMI is simply stuffed into the VMCB
-and handed off to the hardware. There is no need for the artificial tracking
-of the NMI handling completion with the IRET instruction interception.
+The SMCCC v1.1 inline helper currently forces a1-a4 into
+unsigned long and uses in/out constraints for r0-r3. In
+contrast, a5-a7 are passed with their original types via
+read-only constraints. On arm64 this means a 32-bit signed
+value in a1-a4 is converted to a 64-bit unsigned value, while
+the same value in a5-a7 keeps its signed 32-bit form. For
+example, a negative int in a2 is widened to unsigned long, but
+a negative int in a5 is passed as a 32-bit signed value, so the
+SMC sees different encodings depending on argument position.
 
-Adjust the svm_inject_nmi to rather inject the NMIs using the vNMI Hardware
-accelerated feature when the AMD platform support the vNMI.
+Switch the helper to use typed input registers arg0-arg7
+derived from the call arguments (keeping a0 cast to u32) and
+separate output registers r0-r3. This preserves argument types
+consistently across all positions. Argument evaluation order
+is unchanged, so we do not reintroduce the issue fixed in
+"e00dc325bd9e" ("xen/arm: smccc-1.1: Handle function result as
+parameters").
 
-Adjust the svm_get_interrupt_shadow to check if the vNMI is currently blocked
-by servicing another in-progress NMI.
+This also aligns Xen's SMCCC parameter handling with Linux's type-
+preserving behavior (same externally visible argument handling,
+independent implementation) to avoid surprising differences
+between a1-a4 and a5-a7.
 
-Signed-off-by: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+Current callers (PSCI, SCMI, platform SMC pass-through, OP-TEE,
+and exynos5) pass unsigned values; exynos5 passes an int CPU id
+which should always be > 0.
+
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/arch/x86/hvm/svm/intr.c | 9 +++++++++
- xen/arch/x86/hvm/svm/svm.c  | 5 ++++-
- xen/arch/x86/hvm/svm/vmcb.c | 2 ++
- 3 files changed, 15 insertions(+), 1 deletion(-)
+ xen/arch/arm/include/asm/smccc.h | 69 +++++++++++++-------------------
+ 1 file changed, 27 insertions(+), 42 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
-index 6453a46b85..3e8959f155 100644
---- a/xen/arch/x86/hvm/svm/intr.c
-+++ b/xen/arch/x86/hvm/svm/intr.c
-@@ -33,6 +33,15 @@ static void svm_inject_nmi(struct vcpu *v)
-     u32 general1_intercepts = vmcb_get_general1_intercepts(vmcb);
-     intinfo_t event;
+diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
+index 441b3ab65dee..5b30dd57b69d 100644
+--- a/xen/arch/arm/include/asm/smccc.h
++++ b/xen/arch/arm/include/asm/smccc.h
+@@ -99,87 +99,68 @@ struct arm_smccc_res {
+ #define __count_args(...)                               \
+     ___count_args(__VA_ARGS__, 7, 6, 5, 4, 3, 2, 1, 0)
  
-+    if ( vmcb->_vintr.fields.vnmi_enable )
-+    {
-+       if ( !vmcb->_vintr.fields.vnmi_pending &&
-+            !vmcb->_vintr.fields.vnmi_blocking )
-+           vmcb->_vintr.fields.vnmi_pending = 1;
-+
-+        return;
-+    }
-+
-     event.raw = 0;
-     event.v = true;
-     event.type = X86_ET_NMI;
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 18ba837738..3dfdc18133 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -548,7 +548,9 @@ static unsigned cf_check int svm_get_interrupt_shadow(struct vcpu *v)
-     if ( vmcb->int_stat.intr_shadow )
-         intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
+-#define __constraint_write_0                        \
+-    "+r" (r0), "=&r" (r1), "=&r" (r2), "=&r" (r3)
+-#define __constraint_write_1                        \
+-    "+r" (r0), "+r" (r1), "=&r" (r2), "=&r" (r3)
+-#define __constraint_write_2                        \
+-    "+r" (r0), "+r" (r1), "+r" (r2), "=&r" (r3)
+-#define __constraint_write_3                        \
+-    "+r" (r0), "+r" (r1), "+r" (r2), "+r" (r3)
+-#define __constraint_write_4    __constraint_write_3
+-#define __constraint_write_5    __constraint_write_4
+-#define __constraint_write_6    __constraint_write_5
+-#define __constraint_write_7    __constraint_write_6
+-
+-#define __constraint_read_0
+-#define __constraint_read_1
+-#define __constraint_read_2
+-#define __constraint_read_3
+-#define __constraint_read_4 "r" (r4)
+-#define __constraint_read_5 __constraint_read_4, "r" (r5)
+-#define __constraint_read_6 __constraint_read_5, "r" (r6)
+-#define __constraint_read_7 __constraint_read_6, "r" (r7)
++#define __constraint_read_0 "r" (arg0)
++#define __constraint_read_1 __constraint_read_0, "r" (arg1)
++#define __constraint_read_2 __constraint_read_1, "r" (arg2)
++#define __constraint_read_3 __constraint_read_2, "r" (arg3)
++#define __constraint_read_4 __constraint_read_3, "r" (arg4)
++#define __constraint_read_5 __constraint_read_4, "r" (arg5)
++#define __constraint_read_6 __constraint_read_5, "r" (arg6)
++#define __constraint_read_7 __constraint_read_6, "r" (arg7)
  
--    if ( vmcb_get_general1_intercepts(vmcb) & GENERAL1_INTERCEPT_IRET )
-+    if ( vmcb->_vintr.fields.vnmi_enable
-+         ? vmcb->_vintr.fields.vnmi_blocking
-+         : (vmcb_get_general1_intercepts(vmcb) & GENERAL1_INTERCEPT_IRET) )
-         intr_shadow |= HVM_INTR_SHADOW_NMI;
+ #define __declare_arg_0(a0, res)                            \
+     struct arm_smccc_res    *___res = (res);                \
+-    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+-    register unsigned long  r1 ASM_REG(1);                  \
+-    register unsigned long  r2 ASM_REG(2);                  \
+-    register unsigned long  r3 ASM_REG(3)
++    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0)
  
-     return intr_shadow;
-@@ -2524,6 +2526,7 @@ const struct hvm_function_table * __init start_svm(void)
-     P(cpu_has_tsc_ratio, "TSC Rate MSR");
-     P(cpu_has_svm_sss, "NPT Supervisor Shadow Stack");
-     P(cpu_has_svm_spec_ctrl, "MSR_SPEC_CTRL virtualisation");
-+    P(cpu_has_svm_vnmi, "Virtual NMI");
-     P(cpu_has_svm_bus_lock, "Bus Lock Filter");
- #undef P
+ #define __declare_arg_1(a0, a1, res)                        \
+     typeof(a1) __a1 = (a1);                                 \
+     struct arm_smccc_res    *___res = (res);                \
+-    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+-    register unsigned long  r1 ASM_REG(1) = __a1;           \
+-    register unsigned long  r2 ASM_REG(2);                  \
+-    register unsigned long  r3 ASM_REG(3)
++    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0);\
++    register typeof(a1)     arg1 ASM_REG(1) = __a1
  
-diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-index e583ef8548..e90bbac332 100644
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -184,6 +184,8 @@ static int construct_vmcb(struct vcpu *v)
-     if ( default_xen_spec_ctrl == SPEC_CTRL_STIBP )
-         v->arch.msrs->spec_ctrl.raw = SPEC_CTRL_STIBP;
+ #define __declare_arg_2(a0, a1, a2, res)                    \
+     typeof(a1) __a1 = (a1);                                 \
+     typeof(a2) __a2 = (a2);                                 \
+     struct arm_smccc_res    *___res = (res);                \
+-    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+-    register unsigned long  r1 ASM_REG(1) = __a1;           \
+-    register unsigned long  r2 ASM_REG(2) = __a2;           \
+-    register unsigned long  r3 ASM_REG(3)
++    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0);\
++    register typeof(a1)     arg1 ASM_REG(1) = __a1;         \
++    register typeof(a2)     arg2 ASM_REG(2) = __a2
  
-+    vmcb->_vintr.fields.vnmi_enable = cpu_has_svm_vnmi;
-+
-     return 0;
- }
+ #define __declare_arg_3(a0, a1, a2, a3, res)                \
+     typeof(a1) __a1 = (a1);                                 \
+     typeof(a2) __a2 = (a2);                                 \
+     typeof(a3) __a3 = (a3);                                 \
+     struct arm_smccc_res    *___res = (res);                \
+-    register unsigned long  r0 ASM_REG(0) = (uint32_t)(a0); \
+-    register unsigned long  r1 ASM_REG(1) = __a1;           \
+-    register unsigned long  r2 ASM_REG(2) = __a2;           \
+-    register unsigned long  r3 ASM_REG(3) = __a3
++    register unsigned long  arg0 ASM_REG(0) = (uint32_t)(a0);\
++    register typeof(a1)     arg1 ASM_REG(1) = __a1;         \
++    register typeof(a2)     arg2 ASM_REG(2) = __a2;         \
++    register typeof(a3)     arg3 ASM_REG(3) = __a3
  
+ #define __declare_arg_4(a0, a1, a2, a3, a4, res)        \
+     typeof(a4) __a4 = (a4);                             \
+     __declare_arg_3(a0, a1, a2, a3, res);               \
+-    register unsigned long r4 ASM_REG(4) = __a4
++    register typeof(a4)     arg4 ASM_REG(4) = __a4
+ 
+ #define __declare_arg_5(a0, a1, a2, a3, a4, a5, res)    \
+     typeof(a5) __a5 = (a5);                             \
+     __declare_arg_4(a0, a1, a2, a3, a4, res);           \
+-    register typeof(a5) r5 ASM_REG(5) = __a5
++    register typeof(a5)     arg5 ASM_REG(5) = __a5
+ 
+ #define __declare_arg_6(a0, a1, a2, a3, a4, a5, a6, res)    \
+     typeof(a6) __a6 = (a6);                                 \
+     __declare_arg_5(a0, a1, a2, a3, a4, a5, res);           \
+-    register typeof(a6) r6 ASM_REG(6) = __a6
++    register typeof(a6)     arg6 ASM_REG(6) = __a6
+ 
+ #define __declare_arg_7(a0, a1, a2, a3, a4, a5, a6, a7, res)    \
+     typeof(a7) __a7 = (a7);                                     \
+     __declare_arg_6(a0, a1, a2, a3, a4, a5, a6, res);           \
+-    register typeof(a7) r7 ASM_REG(7) = __a7
++    register typeof(a7)     arg7 ASM_REG(7) = __a7
+ 
+ #define ___declare_args(count, ...) __declare_arg_ ## count(__VA_ARGS__)
+ #define __declare_args(count, ...)  ___declare_args(count, __VA_ARGS__)
+ 
+ #define ___constraints(count)                       \
+-    : __constraint_write_ ## count                  \
++    : "=r" (r0), "=r" (r1), "=r" (r2), "=r" (r3)     \
+     : __constraint_read_ ## count                   \
+     : "memory"
+ #define __constraints(count)    ___constraints(count)
+@@ -204,6 +185,10 @@ struct arm_smccc_res {
+  */
+ #define arm_smccc_1_1_smc(...)                                  \
+     do {                                                        \
++        register unsigned long r0 ASM_REG(0);                   \
++        register unsigned long r1 ASM_REG(1);                   \
++        register unsigned long r2 ASM_REG(2);                   \
++        register unsigned long r3 ASM_REG(3);                   \
+         __declare_args(__count_args(__VA_ARGS__), __VA_ARGS__); \
+         asm volatile("smc #0\n"                                 \
+                      __constraints(__count_args(__VA_ARGS__))); \
 -- 
 2.52.0
 
