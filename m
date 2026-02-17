@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WB+TGKVFlGmcBwIAu9opvQ
+	id qJLnKCpGlGmcBwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 11:40:37 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 11:42:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D9914AF19
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 11:40:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234786.1537905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E9B14AF71
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 11:42:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234795.1537914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsIV6-0007sH-76; Tue, 17 Feb 2026 10:40:16 +0000
+	id 1vsIXO-0008Nh-H8; Tue, 17 Feb 2026 10:42:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234786.1537905; Tue, 17 Feb 2026 10:40:16 +0000
+Received: by outflank-mailman (output) from mailman id 1234795.1537914; Tue, 17 Feb 2026 10:42:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsIV6-0007pw-3E; Tue, 17 Feb 2026 10:40:16 +0000
-Received: by outflank-mailman (input) for mailman id 1234786;
- Tue, 17 Feb 2026 10:40:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vsIXO-0008LM-EP; Tue, 17 Feb 2026 10:42:38 +0000
+Received: by outflank-mailman (input) for mailman id 1234795;
+ Tue, 17 Feb 2026 10:42:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsIV4-0006sb-RW
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 10:40:14 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a84cf2a-0bed-11f1-b164-2bf370ae4941;
- Tue, 17 Feb 2026 11:40:13 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-4359a302794so2879091f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 02:40:13 -0800 (PST)
+ id 1vsIXM-0008LB-7w
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 10:42:36 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e04a8a1-0bed-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Feb 2026 11:42:33 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4837634de51so13427935e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 02:42:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48370a78c89sm326708785e9.5.2026.02.17.02.40.11
+ 5b1f17b1804b1-4835d99497asm689740955e9.6.2026.02.17.02.42.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Feb 2026 02:40:12 -0800 (PST)
+ Tue, 17 Feb 2026 02:42:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a84cf2a-0bed-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 5e04a8a1-0bed-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771324813; x=1771929613; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771324953; x=1771929753; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jhRM5XYO45exmyR3bTfVssls7DqrhYBlqXmOgp9F1Iw=;
-        b=VWlrIDaaez3w0ddOdEXOqAh6EbVaUNjoGGz8f7PqiK2lbO3bzN/xpvsyS4UvsEzutx
-         L0zsMriegCMaab7F3BBLO0Kz2aYUfniS/LSFVN/SdYK6i+11Nrrk/AWkbxXXUnVKy/iP
-         BY46jYWBQ0SSiI0mpxrMGUh+KVqpPR5QznqBufKNI+jh60juiD+IO+2eJYSQvLG+3Uz6
-         kCE+OpSut1dXTTv9iq2SnMp+NX2h3ugQIdbwDhkFYaUFKuDsDVOU2GE3DPZWzQVZJP5D
-         ss55ufjpNDLZEqGtAxpmwSmqvU9aKGUTRObyFGFziURdQ5WJpXtoNlzOpAVLXCGhqnW9
-         I4lQ==
+        bh=EM2wYwcEcOK12C+VSaBqk9oND2UOqpGWaO8Rkrxm9n0=;
+        b=SHBguVv+R14c+vZNqX0ZaigobFVPbv4f1JmAsKVDthuttGLjJ01e4wu1A4nj6umWvX
+         5LDf3yxgkv+z8zdGYBLB6uWmp2xFLoJF88+zu24JkwgIuFa27edc7tobGU9j+rAlyzXv
+         6FY8McWfI87DfZts+mci8+ddrLaO7A6ibiM3YbSzNjMZv/T7iB4mOHXMHfgJJET0fAIx
+         aSiPHsyluSNykpd3Q3jBEceqPLsGIeWO5F56YG4UXRr5pfhIvonMpxbvHsxYMiJh0GS+
+         JUmUWL4j/V+iee8CcXrXejsyIFVT6TsKN7Jh/rw0c9XKzYIuP1AGN/ER+v8pwUQ54g4r
+         eRiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771324813; x=1771929613;
+        d=1e100.net; s=20230601; t=1771324953; x=1771929753;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jhRM5XYO45exmyR3bTfVssls7DqrhYBlqXmOgp9F1Iw=;
-        b=LTpyvixP4SMroKfcHMmfdAqIE/htdyBb5dKQHE7SfYGcKKko2JTKPGX9kpIIIdHQbw
-         eA4lMHwCWCjk1g+TYWrwYFwTwNZJWnq/vF3LaZmyIUBm+3GhW0zG6+6MH6dvV8dzUYd8
-         aeeQhpgC3KrRKObf5JgvrsB349W3N9EViwKAQxs0e6ctUb2yI5cTX2wz8+//EEx5BW0Z
-         SFxQbUz0B1d54ZmwX7Ev+Zr0iH0vspJtBhJwMHpMgG+TLALtmfmn4Eq5/iepW/uxc8EY
-         LTfp0BvISG1AO7tOdSEmms+YGU4h1emlq9xXZCfjENcdFX9mJdKdwetujuC9quwjVdg9
-         BGlw==
-X-Forwarded-Encrypted: i=1; AJvYcCVGubf/v6IP2pKaOL+sHn0qfo3EQbUcxxTtxGNUnNFkkTX0rp1oFwTR7/zZWNWQ3DVLK2eXgk1E4tE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyEsyGzA6UG0U9mSnBVUxmHJ0vMflYtd3D+5UewT085UEbndPgd
-	spYeGj8EzR3szuZ4uEyawz7sx2xF9qzkYzkWL4CeM5MLgynsu2+gmnfNz5nEy5b/2w==
-X-Gm-Gg: AZuq6aIRnn2JnGfugTDucGJukeSBqDbjZlwqwakxtW3aNrmJY+ERgFMDHOUxlj05tOJ
-	0Ug4fLbG9sw58x5PLYXux1irl8TuSIl7M6eH3g+/zBqIzmbtmrTQ+nheeYLiwBffG4q8iG7fggI
-	zpUJTLl/SxLXdbTFQbvRMzgrjqPS+9s/7YgVOj4gDT3oq2w8Rfw8eLXucYnJrKnzdlyNDW0rehC
-	HTb9OmnGDWwb5c1leuaBZqQD3SQC+Gp015v/FIdSXw++2CuhcR0Jz1yjyF77ZC1EwY2Ggu6d7ZP
-	NHs6sDhHHQ4u4l7wrGVWWUo+FsUYj1OJrFuEka4IKBnct/HFB1nUAuHvTxETzTeS3ljjetB7nEU
-	Qg7STVOv+q9vcff61vVtNaI5IDMVCdk/ndu+SYFtMgdnrsjHaf86LsSegZhxD+RgFCUsgv34w4v
-	MYz7zyhD40g3ciW1AcPanoaHQoFjwX5+R+Wrod36DNqJBJieJDxW17AJXg8P3qplQtYB5bd+RWJ
-	FvDs7DgJqmwrjtH+PqnG796BQ==
-X-Received: by 2002:a05:600c:8b30:b0:480:1c69:9d36 with SMTP id 5b1f17b1804b1-48379bd7462mr189936365e9.17.1771324813089;
-        Tue, 17 Feb 2026 02:40:13 -0800 (PST)
-Message-ID: <bdd12139-7007-4b36-8d1e-14d722fc668c@suse.com>
-Date: Tue, 17 Feb 2026 11:40:10 +0100
+        bh=EM2wYwcEcOK12C+VSaBqk9oND2UOqpGWaO8Rkrxm9n0=;
+        b=WjpcZz/p37UVnGGDkzQh7ALOd2PFJRI3FRb1TK/Q63+wSUdMn3Q1Z3kSl9QEeAAC6D
+         Xcfld8juszF591u6eIhKxFLXcYjwa/tI5lho3/CMRhZ1ZcMlPki3DQ0disC7m8sGkN2d
+         mAvKb/ofsRXrMyDwQx0lwjDGrOajWilXjV3fjFNuHNlku5TjrP/ajvxbbeNJ2jdcf64+
+         bWeZGsIELBuYeyqk/r4PUK3kupkGMJq2U5PMywSarh/5CEHWq94kTmzbOgFIWobmZ8BI
+         mAeaknAJgvHxQHDUQUTEyvNVQFahRyciOYuwYWQQfJJ7AgEXfU6hJI8tjj4bmhDb5Qsv
+         yDXg==
+X-Forwarded-Encrypted: i=1; AJvYcCXmfEVHKRTKOAZUOHh69tJ6CXAssxtD85Cry/sM3dzho9nGmQ7shqCs80KBCmX8tb/aCBxyQc0rr3Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyol4JV/OCqVuEUktvKocXtLRBdrdbo8vfd1PqcLJnh02JLtME0
+	kaQkYmqF/4cyMy9sYK/eUimNkhUQFduNvgl1jLnw9T1QkVT4CUJsmdMJ82y36kXv/g==
+X-Gm-Gg: AZuq6aLjqYak8uKjGvnHWeTYuATP8kbFYqR3Asu1P+PnJmrV7Cd07hLWfvmN1A8xean
+	tJHJyPqyKAhCDSDfACm9jNcuaDzYw0dMHzLT0rg6UiWQIHySeauBFHexmDM6j5xUysGNTo1HlaD
+	guOijtRy8iT5EVg/+Lz+hUai5stqU7bhoWAZzD+kMokrJfLtF5CdJcdOjTpl7nT+C4w1m0MQBs8
+	78YiVRaGV3NVl+2B15Ne48+sKQTbqHUEtUHyv7MFxh8lMmhscj9Y0aeiI8U9PDWluwoVcywFqgB
+	KxNrLk/e/+/NSc1jZA0fSrmnQCRaYAId0t73DfG9MRkKxwOD6BbVpUeRotp6MSV9QwNGM2TCtkg
+	zRjtTUQbU4FNMMWO6FqB1LSPTZitssOiSssZ2tMqMBR0vdHy0F53S2Dq5TTv/xGpFuF7hMCJoV/
+	Beyovg14PNMTDKX994c6Kz5ZU8pCRW0+tTyQ+JEojuiBAGlStdpx+gdtgkk8x0lqiOexKGAxmrK
+	5kpokVSl7ZjqjY=
+X-Received: by 2002:a05:600c:1991:b0:480:2521:4d92 with SMTP id 5b1f17b1804b1-483710858bcmr258742935e9.24.1771324953181;
+        Tue, 17 Feb 2026 02:42:33 -0800 (PST)
+Message-ID: <a729085b-6a2f-49fc-8784-a0fe88cd90a2@suse.com>
+Date: Tue, 17 Feb 2026 11:42:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/6] xen/riscv: implement get_page_from_gfn()
+Subject: Re: [PATCH v1 2/6] xen/riscv: implement copy_to_guest_phys()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -104,11 +104,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <04eee3ae5e8aadf8c7f0b873ba24ce38220e8fa2.1770821989.git.oleksii.kurochko@gmail.com>
- <c053f6bd-eedc-4dbf-a404-802781dee722@suse.com>
- <d12d8cb7-bc1f-47a4-bc1f-004817394467@gmail.com>
- <349ad398-8a18-46cc-a34b-576edfb544c0@suse.com>
- <5146fc56-9fa7-49c9-8184-954ca84eb439@gmail.com>
+ <cb50d76c627cb666317b23ae136ca43bfbfd04c5.1770821989.git.oleksii.kurochko@gmail.com>
+ <1edea973-4ca1-491f-a9bf-9c2b09bbe615@suse.com>
+ <69cef6db-cd39-457f-a5f1-b2f0078b57e7@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,7 +132,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5146fc56-9fa7-49c9-8184-954ca84eb439@gmail.com>
+In-Reply-To: <69cef6db-cd39-457f-a5f1-b2f0078b57e7@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -142,21 +140,21 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -171,90 +169,75 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C8D9914AF19
+X-Rspamd-Queue-Id: 13E9B14AF71
 X-Rspamd-Action: no action
 
-On 17.02.2026 10:58, Oleksii Kurochko wrote:
+On 17.02.2026 11:25, Oleksii Kurochko wrote:
+> On 2/16/26 3:57 PM, Jan Beulich wrote:
+>> On 12.02.2026 17:21, Oleksii Kurochko wrote:
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/guestcopy.c
+>>> @@ -0,0 +1,112 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +
+>>> +#include <xen/domain_page.h>
+>>> +#include <xen/page-size.h>
+>>> +#include <xen/sched.h>
+>>> +#include <xen/string.h>
+>>> +
+>>> +#include <asm/guest_access.h>
+>>> +
+>>> +#define COPY_from_guest     (0U << 0)
+>>> +#define COPY_to_guest       (1U << 0)
+>>> +#define COPY_ipa            (0U << 1)
+>> Like already asked elsewhere - is "ipa" a term commonly in use on RISC-V?
+>> To me it's Arm terminology, which you don't want to copy as is.
 > 
-> On 2/17/26 10:10 AM, Jan Beulich wrote:
->> On 17.02.2026 10:01, Oleksii Kurochko wrote:
->>> On 2/16/26 1:38 PM, Jan Beulich wrote:
->>>> On 12.02.2026 17:21, Oleksii Kurochko wrote:
->>>>> --- a/xen/arch/riscv/p2m.c
->>>>> +++ b/xen/arch/riscv/p2m.c
->>>>> @@ -1557,3 +1557,31 @@ void p2m_handle_vmenter(void)
->>>>>            flush_tlb_guest_local();
->>>>>        }
->>>>>    }
->>>>> +
->>>>> +struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
->>>>> +                                    p2m_type_t *t, p2m_query_t q)
->>>>> +{
->>>>> +    struct page_info *page;
->>>>> +
->>>>> +    /*
->>>>> +     * Special case for DOMID_XEN as it is the only domain so far that is
->>>>> +     * not auto-translated.
->>>>> +     */
->>>> Once again something taken verbatim from Arm. Yes, dom_xen can in fact appear
->>>> here, but it's not a real domain, has no memory truly assigned to it, has no
->>>> GFN space, and hence calling it translated (or not) is simply wrong (at best:
->>>> misleading). IOW ...
->>>>
->>>>> +    if ( likely(d != dom_xen) )
->>>>> +        return p2m_get_page_from_gfn(p2m_get_hostp2m(d), _gfn(gfn), t);
->>>>> +
->>>>> +    /* Non-translated guests see 1-1 RAM / MMIO mappings everywhere */
->>>> ... this comment would also want re-wording.
->>> As you mentioned in the another reply to this patch, I messed up x86 and Arm
->>> implementation in a bad way, so here should be DOMID_XEN used instead of
->>> "Non-translated".
->>>
->>> Based on your reply it seems like the first comment should be also rephrased
->>> as you mentioned that DOMID_XEN can't be called also "not auto-translated".
->>> I think it would be better to write the following:
->>>    /*
->>>     * Special case for DOMID_XEN as it is the only domain so far that has
->>>     * no GFN space.
->>>     */
->> Simply say that dom_xen isn't a "normal" domain?
+> As we discussed in another patch thread, IPA isn't really used for RISC-V
+> and I will rename it to GPA.
+> 
+>> Also, don't you prefer to use BIT() everywhere else?
+> 
+> Yes, BIT() would be better for consistency.
+> 
+>>> +#define COPY_linear         (1U << 1)
+>>> +
+>>> +typedef union
+>>> +{
+>>> +    struct
+>>> +    {
+>>> +        struct vcpu *v;
+>>> +    } gva;
+>>> +
+>>> +    struct
+>>> +    {
+>>> +        struct domain *d;
+>>> +    } gpa;
+>>> +} copy_info_t;
+>>> +
+>>> +#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
+>>> +#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
+>>> +
+>>> +static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
+>> The caller has to pass in a domain here. I therefore recommend against
+>> use of copy_info_t for this function. Or wait, this is misleading, as
+>> the consuming part ...
 >>
->>>>> +    if ( t )
->>>>> +        *t = p2m_invalid;
->>>>> +
->>>>> +    page = mfn_to_page(_mfn(gfn));
->>>>> +
->>>>> +    if ( !mfn_valid(_mfn(gfn)) || !get_page(page, d) )
->>>>> +        return NULL;
->>>>> +
->>>>> +    if ( t )
->>>>> +        *t = likely(d != dom_io) ? p2m_ram_rw : p2m_mmio_direct_io;
->>>> If only dom_xen can make it here, why the check for dom_io?
->>> Incorrectly copied from x86. It should be just:
->>>    *t = p2m_ram_rw
->>> here as in RISC-V for MMIO pages owner isn't set to dom_io (and the same is
->>> true for Arm I think).
->> May I suggest that right away you use the construct that I suggested Arm to
->> switch to (you were Cc-ed on that patch, I think)? Despite the absence of
->> p2m_ram_ro on RISC-V, that'll be usable, and it will allow keeping the code
->> untouched when p2m_ram_ro is introduced (sooner or later you will need it,
->> I expect).
+>>> +                                            bool linear, bool write)
+>>> +{
+>>> +    p2m_type_t p2mt;
+>>> +    struct page_info *page;
+>>> +
+>>> +    if ( linear )
+>>> +        BUG_ON("unimplemeted\n");
+>> ... of "linear" is missing here.
 > 
-> Sure, but doesn't that patch is connected to another function (translate_get_page())
-> and just fixing the handling of what get_page_from_gfn() in *t?
+> Yes, for this once cases it will be used vcpu as an argument passed by "copy_info_t info".
+> I will add the comment above suggested below BUG_ON(linear).
+> 
+> Btw, I think it makes sense to change linear to GVA to be more close to RISC-V spec?
 
-Oh, sorry, I should have made explicit that the request was for patch 2.
-Here indeed ...
-
-> For get_page_from_gfn() to not miss the case when new type is introduced it make
-> sense to do the following:
->      if ( page->u.inuse.type_info & PGT_writable_page )
->          *t = p2m_ram_rw;
->      else
-> 	BUG_ON("unimplemented");
-
-... this may be the best you can do right now (unless you want to introduce
-p2m_ram_ro).
+And to better match the rename to GPA that you talk about above.
 
 Jan
 
