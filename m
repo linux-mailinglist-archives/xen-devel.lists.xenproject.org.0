@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IDC1Ng5RlGktCQIAu9opvQ
+	id +NCQFDVTlGl3CgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:29:18 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:38:29 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD2314B5A3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:29:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234868.1537979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE0F14B7BA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:38:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234883.1537989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsJGE-0008Mf-0x; Tue, 17 Feb 2026 11:28:58 +0000
+	id 1vsJOz-0001d5-VV; Tue, 17 Feb 2026 11:38:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234868.1537979; Tue, 17 Feb 2026 11:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 1234883.1537989; Tue, 17 Feb 2026 11:38:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsJGD-0008K4-Ty; Tue, 17 Feb 2026 11:28:57 +0000
-Received: by outflank-mailman (input) for mailman id 1234868;
- Tue, 17 Feb 2026 11:28:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vsJOz-0001ax-RX; Tue, 17 Feb 2026 11:38:01 +0000
+Received: by outflank-mailman (input) for mailman id 1234883;
+ Tue, 17 Feb 2026 11:38:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsJGD-0008Jy-CI
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 11:28:57 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d84d4777-0bf3-11f1-b164-2bf370ae4941;
- Tue, 17 Feb 2026 12:28:56 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-43767807da6so2909325f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 03:28:56 -0800 (PST)
+ id 1vsJOy-0001ar-8W
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 11:38:00 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b262cd6-0bf5-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Feb 2026 12:37:57 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-43770c94dfaso4864237f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 03:37:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48371a10cacsm176333415e9.4.2026.02.17.03.28.54
+ ffacd0b85a97d-43796ac8d46sm34879477f8f.32.2026.02.17.03.37.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Feb 2026 03:28:54 -0800 (PST)
+ Tue, 17 Feb 2026 03:37:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d84d4777-0bf3-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 1b262cd6-0bf5-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771327735; x=1771932535; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771328277; x=1771933077; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AZwUkpipSK3w4UtqHK19BjXJ6/3zF0qpUaX3liVbzlk=;
-        b=Oi8HSOP2NcTqtX8b4YBRyZVTAWQaOPoSvk1A/leZ9tJnB/GH4CxMmIsX0Dm8KpjUBR
-         hdWuTtSm/anuoShh8PwkKgvZRpjVkv521nl8vhow/9FgHqVhvjHDm9P/qWBrkcDw9IxL
-         SuuWq9lOuSpI+44CGRBDNMDFZWQabZskqcfEwGwf8hn/Af0brfrFCELwS2Mij6+qiDbd
-         XZZBzQ9i6YAdNeoax9VQ09W5xLRWmvP6LwjmHZo0cMfFFiTtn4365CrWDHPwhwoLpbq4
-         3A+m9VHWMy/i045JTFmFydDzcoiBUP9jYhYYoTzsIkL5g0xG0NWlB45io+E2WJ86tyCp
-         Eesg==
+        bh=WsO1/V8R3c9W1n0vXsS94k5xMKTxELyxFyxyU320pro=;
+        b=FqgxvkihjUo/X6J76ZcdgpRbpSWhE/X/zbw0dWACRHyqbTsasdEglOKUFYgrSlvvbb
+         tnTZjSGfTFAggVYCDBloq2B8saQlYpSlfg2i3czsMoIz8Dd8lc1EtDpjzU6Ib7nj/4yP
+         uTB10XrZxkWz+007qLA4qtde8opGJvW/IwZdCq4SW+IpXQNXYq+wQmEgOdUCyHsfMoCC
+         4nmMn1N5SDPX2fulqBAL2hlY/b5g8meL7tpSvZnt3FqpUYzWOaT634ic8MKg1BS4R2ZH
+         pPKlaiTHRrbo6vCnou9ArR2VHhvtmYK2OWY5mW2rcFR+FwkNA3G63W18wyuZAtW2Opuv
+         HwRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771327735; x=1771932535;
+        d=1e100.net; s=20230601; t=1771328277; x=1771933077;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AZwUkpipSK3w4UtqHK19BjXJ6/3zF0qpUaX3liVbzlk=;
-        b=N/HbqLf1ppoQvnDGNry7aPqJByqgME7qwe9t+k/bDDNEGarDGEQPHTV6bzvbTT+XZg
-         2l9uLHtK7xWpoD/p/V5aBQQY08DjbGZ1C4lYSdsjBu330eovn6dvEmTt2MrGVX285ZsL
-         fTi6w/EI1FDyCbMOKt4j9Anjy6NEB0qmkyeA0KDFoSdN8rIVLyGS992KwB+G0E/kJ8Z+
-         pxKm55jtEPtJnjWo2hRt6nAdY7raOBzGUbFTRlGgcR+/UfZtF0zXPn0ToPbVVDHgnBkP
-         YrICLySN5RolJNvYB9o6MG9yX8C4J/vAeeEGN3zueh/n5a4xm5GPAbONe4SHiFfy4CgH
-         Gqrg==
-X-Forwarded-Encrypted: i=1; AJvYcCUoycEf2Q0kWDinrUR97+gT/AtYWjJOMgEfstl2Ts/2fAjt0ydrfJHtw/j6w5wP3K+37oMfubaJPdg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzgLvIO/RGGlhffel+0yVT7ycQ9VSsI+IAZUAGfhserTgVtaROz
-	3PrsJp+JfMVE6nV2T4MqJNHg0LQ3f1cu1dEOk+mvzMRiyNdwFx9XNBkW6zs4l/ODMQ==
-X-Gm-Gg: AZuq6aIyrITuz0neVlLfxBaqMfHDwDq+QOn2VhK0Nataszrnfn+2bNP/iQNqOdHQPYK
-	UB0zOzBl/bpgc+Lik5Zax8bUwZfjpRc6PeNCH/JF+TMiBKhTKxAXRTyzQmogHV+vceRXKQZX8d0
-	BPSKK7ui7LCPMAb3765snflGlnWehqZ/ADxv/8LjogfnqcgF3+BwhnsXRaUjvcCcItN6ZVUcgQ9
-	XtQmNReZ7KAd5yOjB36sWJV+Qkb+krDWK3XEdv9+eQQ0+AlbIARS7vrndftJ2iLMqsM1qUiflNe
-	aFmeIOfDSxThyaYtqttb9ZT+rg5sM0LGjIAxEzzv5YEnoKJ2GKHhIiV7FgX37jakFRH39Q62dHt
-	++y6qSQ2xOrIoWIXHtol8utZiAlRC7PmL6Lu01ROBEJLLb2cgHHn9B+OSDM85/NcD5U9BdgA2vW
-	d/efmtUnmTNynHFksxPWjYfbndrtxWzibL8YkVFRN6luuwt3WHWUHO4xCCTPgjqWtKDWSwliLMT
-	BFK7KQRVFP8B3k=
-X-Received: by 2002:a05:600c:1907:b0:477:73e9:dc17 with SMTP id 5b1f17b1804b1-48373a79afbmr244401975e9.35.1771327735226;
-        Tue, 17 Feb 2026 03:28:55 -0800 (PST)
-Message-ID: <06208b1b-9107-4ae6-acbf-c69659354da4@suse.com>
-Date: Tue, 17 Feb 2026 12:28:53 +0100
+        bh=WsO1/V8R3c9W1n0vXsS94k5xMKTxELyxFyxyU320pro=;
+        b=cHTzk/KxKYuVbpXh8/OSC2g+1tiyggiXWwJgiOZTjVnBHo2hrEikHVUWds2J/razrb
+         syy3DzxobNAG6ISRUVvGerY1i8FC9zfDScBOErWBUAKAzAP9BogJIKwzxyWs8//u01FD
+         obKvXuFuKlasZGRX4Jddzc89ba6vONwWd0abUfKAyrwr+ORvSRjdv2a77LBVS+jQwS1O
+         YYug+dPJmPL5+mFpB0da6r8UB575rG1IJlrKmKLO0Xuq1MbPt/+REAbA4QXBelapxe1Q
+         h/8UX7aVkKe+nJTMrxg4rY5ET+4y7MjY7iSeRLylh1Z8p4mwrAD+OFXBSOsiq3CN1f6t
+         A6Fw==
+X-Forwarded-Encrypted: i=1; AJvYcCWjDnoGaiFfLGwxlKrtAZ/2+27QZbYSq8aixVnunvH9x7AEbwNow0OKkXPWVhnoC6d7rc9FRRRW23s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YylAXOtJmqBwzyvD5fc8pkznbpG+XqkWFu6Osjn9YE6n9CuU0Mh
+	b7vwW2T57HOvXhCcY3ePbxGxs2/ATRBBHPZLPvOG+H7G0eEnHFJIfvnhfeHejbqwIw==
+X-Gm-Gg: AZuq6aICNsz598EwW5A9GBU8XwU7AVkiIaUDP/4SBTBWZ6y4V+nvTD3aKm2iwxfpnAo
+	ToQo8lhBLtbNNf5f0NF2dQpVKE28F13F+7iDoFEmSCwhg/YGAConpNnAfN91+xHpZjXP5XBsNnh
+	Dw/h2YHENytYMUXMyHlO6C3EzOY+QAFIyWi6++bLgp7qAUZpQ9c300TAIBMc4ebemKSA1YDSgIv
+	Gn50x5wVnr0WelhJ9UswfN60yNOWDg4mRPQHosKVbz/S4ff8M9QBBvS6Dv/oRcARM+COgj1P+e5
+	hocjG9WKGDrOPOIoEmqu0k+GVMNiR0OO9msD5UmqZ0YybXG89sOnTWluLTNdPh6fz21JD4Sh/Nd
+	IaIwhFxTauSjlacJ66jUL8x80lJY6Ui6qlh0mSBYHSs7ApX2rQuubeTVj+PnBAcNR9gj9KmABbr
+	ZT0+mKF7x/WRXEyNFPA7afHoHlKcPzKd5c5kqj1K93Pue3tuWR9wLadDuGDqnhtHU0f0x0AXWN8
+	VrdwiPsV01W9Zg=
+X-Received: by 2002:a05:6000:1a8f:b0:435:a9c9:159 with SMTP id ffacd0b85a97d-437978d11d0mr21645095f8f.18.1771328276930;
+        Tue, 17 Feb 2026 03:37:56 -0800 (PST)
+Message-ID: <fd7c8adf-d8cf-482e-8c8b-55187ea6dabf@suse.com>
+Date: Tue, 17 Feb 2026 12:37:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/16] xen/riscv: implement
- arch_vcpu_{create,destroy}()
+Subject: Re: [PATCH v4 02/16] xen/riscv: detect and store supported hypervisor
+ CSR bits at boot
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -105,7 +105,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1770999383.git.oleksii.kurochko@gmail.com>
- <42534cb6aabf25cf551a13ae1288045e1ac08f9e.1770999383.git.oleksii.kurochko@gmail.com>
+ <06c3b8f88803039a3d900c8cb2f1fd9d05f44e3e.1770999383.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,9 +131,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <42534cb6aabf25cf551a13ae1288045e1ac08f9e.1770999383.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <06c3b8f88803039a3d900c8cb2f1fd9d05f44e3e.1770999383.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -167,103 +167,106 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4CD2314B5A3
+X-Rspamd-Queue-Id: 9FE0F14B7BA
 X-Rspamd-Action: no action
 
 On 13.02.2026 17:28, Oleksii Kurochko wrote:
-> Introduce architecture-specific functions to create and destroy VCPUs.
-> Note that arch_vcpu_create() currently returns -EOPNOTSUPP, as the virtual
-> timer and interrupt controller are not yet implemented.
+> Some hypervisor CSRs expose optional functionality and may not implement
+> all architectural bits. Writing unsupported bits can either be ignored
+> or raise an exception depending on the platform.
 > 
-> Add calle-saved registers to struct arch_vcpu which are  used to preserve
-> Xen’s own execution context when switching between vCPU stacks.
-> It is going to be used in the following way (pseudocode):
->   context_switch(prev_vcpu, next_vcpu):
->     ...
+> Detect the set of writable bits for selected hypervisor CSRs at boot and
+> store the resulting masks for later use. This allows safely programming
+> these CSRs during vCPU context switching and avoids relying on hardcoded
+> architectural assumptions.
 > 
->     /* Switch from previous stack to the next stack. */
->     __context_switch(prev_vcpu, next_vcpu);
+> Note that csr_set() is used instead of csr_write() to write all ones to
+> the mask, as the CSRRS instruction, according to the RISC-V specification,
+> sets only those bits that are writable (note that the quote consider only
+> non-read-only CSRs as writing to read-only CSRs according to the spec.
+> will raise an exception):
+>     Any bit that is high in rs1 will cause the corresponding bit to be set
+>     in the CSR, if that CSR bit is writable.
+> In contrast, the CSRRW instruction does not take CSR bit writability into
+> account, which could lead to unintended side effects when writing all ones
+> to a CSR.
 > 
->     ...
->     schedule_tail(prev_vcpu):
->         Save and restore vCPU's CSRs.
-> The Xen-saved context allows __context_switch() to switch execution
-> from the previous vCPU’s stack to the next vCPU’s stack and later resume
-> execution on the original stack when switching back.
+> Masks are calculated at the moment only for hedeleg, henvcfg, hideleg,
+> hstateen0 registers as only them are going to be used in the follow up
+> patch.
 > 
-> During vCPU creation, the Xen-saved context is going to be initialized
-> with:
->   - SP pointing to the newly allocated vCPU stack.
->   - RA pointing to a helper that performs final vCPU setup before
->     transferring control to the guest.
+> If the Smstateen extension is not implemented, hstateen0 cannot be read
+> because the register is considered non-existent. Instructions that attempt
+> to access a CSR that is not implemented or not visible in the current mode
+> are reserved and will raise an illegal-instruction exception.
 > 
-> As part of this change, add continue_new_vcpu(), which will be used after
-> the first context_switch() of a new vCPU. Since this functionality is not
-> yet implemented, continue_new_vcpu() is currently provided as a stub.
-> The prev argument is going to be set by RISC-V ABI (prev will be stored in
-> a0) when __context_swtich() will be introduced and called from
-> context_switch().
-> 
-> Update the STACK_SIZE definition and introduce STACK_ORDER (to align with
-> other architectures) for allocating the vCPU stack.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V4:
+>  - Move csr_masks defintion to domain.c. Make it static as at the moment
+>    it is going to be used only in domain.c.
 
-Yet you don't really need STACK_ORDER, as you use vzalloc() (unlike in
-particular Arm, but also x86). If there's no expected other use of the
-constant, I'd suggest to omit it, to avoid the false impression that
-RISC-V is like (again in particular) Arm in regards to how the stack is
-being allocated.
+Except that ...
 
-> --- /dev/null
+> --- a/xen/arch/riscv/domain.c
 > +++ b/xen/arch/riscv/domain.c
-> @@ -0,0 +1,58 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+> @@ -2,9 +2,14 @@
+>  
+>  #include <xen/init.h>
+>  #include <xen/mm.h>
+> +#include <xen/sections.h>
+>  #include <xen/sched.h>
+>  #include <xen/vmap.h>
+>  
+> +#include <asm/setup.h>
 > +
-> +#include <xen/init.h>
-> +#include <xen/mm.h>
-> +#include <xen/sched.h>
-> +#include <xen/vmap.h>
+> +struct csr_masks __ro_after_init csr_masks;
+
+... it's not static here and even has ...
+
+> --- a/xen/arch/riscv/include/asm/setup.h
+> +++ b/xen/arch/riscv/include/asm/setup.h
+> @@ -5,6 +5,15 @@
+>  
+>  #include <xen/types.h>
+>  
+> +struct csr_masks {
+> +    register_t hedeleg;
+> +    register_t henvcfg;
+> +    register_t hideleg;
+> +    register_t hstateen0;
+> +};
 > +
-> +static void continue_new_vcpu(struct vcpu *prev)
+> +extern struct csr_masks csr_masks;
+
+... a declaration here. If you want to keep it non-static, it (and the struct
+decl) likely wants moving elsewhere. Whereas if you truly want it to be static,
+the struct decl would want moving to domain.c as well.
+
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -70,6 +70,25 @@ static void * __init relocate_fdt(paddr_t dtb_paddr, size_t dtb_size)
+>      return fdt;
+>  }
+>  
+> +void __init init_csr_masks(void)
 > +{
-> +    BUG_ON("unimplemented\n");
-> +}
-> +
-> +static void __init __maybe_unused build_assertions(void)
-> +{
-> +    /*
-> +     * Enforce the requirement documented in struct cpu_info that
-> +     * guest_cpu_user_regs must be the first field.
-> +     */
-> +    BUILD_BUG_ON(offsetof(struct cpu_info, guest_cpu_user_regs) != 0);
-> +}
+> +    register_t old;
 
-Nit: Generally we have this kind of function at the bottom of source files.
+As indicated before, this would better be ...
 
-> +int arch_vcpu_create(struct vcpu *v)
-> +{
-> +    int rc = 0;
-> +    void *stack = vzalloc(STACK_SIZE);
-> +
-> +    if ( !stack )
-> +        return -ENOMEM;
-> +
-> +    v->arch.cpu_info = stack + STACK_SIZE - sizeof(struct cpu_info);
+> +#define INIT_CSR_MASK(csr, field) do { \
+> +        old = csr_read(CSR_##csr); \
+> +        csr_set(CSR_##csr, ULONG_MAX); \
+> +        csr_masks.field = csr_read(CSR_##csr); \
+> +        csr_write(CSR_##csr, old); \
+> +} while (0)
 
-Perhaps better sizeof(*v->arch.cpu_info), to connect lhs and rhs?
+... local to the scope the macro introduces. IOW with both this and the
+earlier remark, let's try to strive to have scope and exposure of variables
+as narrow as possible (unless of course there are clear reasons not to).
 
-> +    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
-> +    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
-> +
-> +    /* Idle VCPUs don't need the rest of this setup */
-> +    if ( is_idle_vcpu(v) )
-> +        return rc;
-
-I'd suggest "return 0" here to make clear it's a success path. Then
-possible uses of "rc" earlier in the function also won't affect this.
-
-With all of the adjustments (happy to carry out while committing, as long
-as you agree)
-Acked-by: Jan Beulich <jbeulich@suse.com>
+And btw, wouldn't you again better use csr_swap() here?
 
 Jan
 
