@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OIYjN2ZOlGktCQIAu9opvQ
+	id IDC1Ng5RlGktCQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:17:58 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:29:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5F214B3F0
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:17:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234853.1537964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD2314B5A3
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 12:29:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234868.1537979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsJ5I-0006Th-0i; Tue, 17 Feb 2026 11:17:40 +0000
+	id 1vsJGE-0008Mf-0x; Tue, 17 Feb 2026 11:28:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234853.1537964; Tue, 17 Feb 2026 11:17:39 +0000
+Received: by outflank-mailman (output) from mailman id 1234868.1537979; Tue, 17 Feb 2026 11:28:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsJ5H-0006Qs-UK; Tue, 17 Feb 2026 11:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 1234853;
- Tue, 17 Feb 2026 11:17:38 +0000
+	id 1vsJGD-0008K4-Ty; Tue, 17 Feb 2026 11:28:57 +0000
+Received: by outflank-mailman (input) for mailman id 1234868;
+ Tue, 17 Feb 2026 11:28:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsJ5G-0006PU-2a
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 11:17:38 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1vsJGD-0008Jy-CI
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 11:28:57 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 439677e4-0bf2-11f1-b164-2bf370ae4941;
- Tue, 17 Feb 2026 12:17:37 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-435f177a8f7so4447679f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 03:17:37 -0800 (PST)
+ id d84d4777-0bf3-11f1-b164-2bf370ae4941;
+ Tue, 17 Feb 2026 12:28:56 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-43767807da6so2909325f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 03:28:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796abe3b3sm39378376f8f.18.2026.02.17.03.17.35
+ 5b1f17b1804b1-48371a10cacsm176333415e9.4.2026.02.17.03.28.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Feb 2026 03:17:35 -0800 (PST)
+ Tue, 17 Feb 2026 03:28:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 439677e4-0bf2-11f1-b164-2bf370ae4941
+X-Inumbo-ID: d84d4777-0bf3-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771327056; x=1771931856; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771327735; x=1771932535; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S5sWE+t6yeYVcfOn1brq0Z01Ev8xd7cPajO+F4B0yfw=;
-        b=O8GLBuNrH6rueLff20N4cLU+RcWdmZk7uXx8r+LZTrQpI120CS6SJeRdPZraKCiKRK
-         CQsK+3sMUkxD1oHPdwg8eIW1A2nE4ozFl2awk6JH3bKEVNDRggyx/7KQg7RcJULN1JSW
-         B8t3z4os6t1239mjqRGdnQE/bvvi7SrmGwACrcQNTkO/1Hvo6PMvncJ5mhpJh/9ZzSNJ
-         XKFRdd/LYMCdVvIcXC9cTCS7eXIYqoLrGTg/H/12RaGOa3HsTxz/VoVbRVbmn2JSHCuO
-         OaZPzmQmyv9wVh6E33crFwyoBz/GgswdhjV/rtiY1DILre88362wjYJPo0IJbweIMrfu
-         /0Hw==
+        bh=AZwUkpipSK3w4UtqHK19BjXJ6/3zF0qpUaX3liVbzlk=;
+        b=Oi8HSOP2NcTqtX8b4YBRyZVTAWQaOPoSvk1A/leZ9tJnB/GH4CxMmIsX0Dm8KpjUBR
+         hdWuTtSm/anuoShh8PwkKgvZRpjVkv521nl8vhow/9FgHqVhvjHDm9P/qWBrkcDw9IxL
+         SuuWq9lOuSpI+44CGRBDNMDFZWQabZskqcfEwGwf8hn/Af0brfrFCELwS2Mij6+qiDbd
+         XZZBzQ9i6YAdNeoax9VQ09W5xLRWmvP6LwjmHZo0cMfFFiTtn4365CrWDHPwhwoLpbq4
+         3A+m9VHWMy/i045JTFmFydDzcoiBUP9jYhYYoTzsIkL5g0xG0NWlB45io+E2WJ86tyCp
+         Eesg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771327056; x=1771931856;
+        d=1e100.net; s=20230601; t=1771327735; x=1771932535;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S5sWE+t6yeYVcfOn1brq0Z01Ev8xd7cPajO+F4B0yfw=;
-        b=i+KGgT+8fvCNV9YhTVu8Oz9YpGYWsF+Mqc50lY+/maxdSkKUpa1dJPHsFkFmhW/iiM
-         b24z01JwQuE7JaPjGj8p7DEq7ZaCAOtlnvU+qWqypVkKa+dNE0a5Vi6fKLbATo329drO
-         KRA5yi6bV0geL3c2LV52Ds1TXHKCI4c5z8ITeR2GJZwf1ct4lBw8uFBoanaTqko4he7e
-         8YyZ1i/6/lCAVmgvMYxLRo4ydyzTqVfoqzzKVKa7WU7eWGzSVzr6XIpK0YBFOKy/RyDQ
-         5g+C25G83SsR2Tg1P1ND7LkOVIZd28cXvuEyoSNJe6tHKYZaCnVJ5qTw6tZ3Ka0RDYy9
-         tLUw==
-X-Gm-Message-State: AOJu0YyWQpATZ2Xm8Ya24zawQiWBf+a2GaV2tncDnH1L4WrSMDREaZgT
-	0t2dLmqEYbVLUmAkf9yNQTDgusYPhIq7WxjwRI9C57oCnu/7qUOKEDqAz7c9U5/QhQ==
-X-Gm-Gg: AZuq6aJYRXraqNpaBMQ1mgn++SHuHuvR2heXijh3av8bXHbKeAX8gei9on2AtiFTS+c
-	o1M2AHY9aB2wt/ZKsnWlGmeZli0rma23insqB976hHx+skLBdQukF0UQ7blxgtRNmRWLVfEQkUA
-	LXe/TY4JAcGwG80l3kq2UQSGWKEcKb3vBr6I6HcoywFa8xah+sdYoqJZqnF3Yd2OpgDUkpxUShh
-	EGkkVJ2WfGBKokvNT7EVrzETOSeVJgs103ZRhBv2FEDgYJ3XMJPBQrVGsJYtL1SSJjncYwJY5bp
-	zVMhuOm0Pie7B05rsAozxWWZ4U9FruLmzL3yio5vBa5Eq54V1zGyrvAv1193eLd3m7UGrnfIWuW
-	Xfi6wtIm393Y6OvR/XzRky3LiRZUtOfY3fvHLteWaglYCRMWLLRhB30l2oo7uKmAcljC6PwMNpy
-	ctfMi2FYvVldzDnEEp/Km4miP0coNjsLXHB/rRCyYxo1Epto9pDZXa7knGXd937ZjN76cNKtii8
-	ar+p3wyZuM5xjmHSEribepK9w==
-X-Received: by 2002:a05:6000:2203:b0:437:677d:42d with SMTP id ffacd0b85a97d-4379dbaf326mr21058095f8f.63.1771327056323;
-        Tue, 17 Feb 2026 03:17:36 -0800 (PST)
-Message-ID: <a0e47cf7-91f0-471e-b6b8-6554f496190f@suse.com>
-Date: Tue, 17 Feb 2026 12:17:35 +0100
+        bh=AZwUkpipSK3w4UtqHK19BjXJ6/3zF0qpUaX3liVbzlk=;
+        b=N/HbqLf1ppoQvnDGNry7aPqJByqgME7qwe9t+k/bDDNEGarDGEQPHTV6bzvbTT+XZg
+         2l9uLHtK7xWpoD/p/V5aBQQY08DjbGZ1C4lYSdsjBu330eovn6dvEmTt2MrGVX285ZsL
+         fTi6w/EI1FDyCbMOKt4j9Anjy6NEB0qmkyeA0KDFoSdN8rIVLyGS992KwB+G0E/kJ8Z+
+         pxKm55jtEPtJnjWo2hRt6nAdY7raOBzGUbFTRlGgcR+/UfZtF0zXPn0ToPbVVDHgnBkP
+         YrICLySN5RolJNvYB9o6MG9yX8C4J/vAeeEGN3zueh/n5a4xm5GPAbONe4SHiFfy4CgH
+         Gqrg==
+X-Forwarded-Encrypted: i=1; AJvYcCUoycEf2Q0kWDinrUR97+gT/AtYWjJOMgEfstl2Ts/2fAjt0ydrfJHtw/j6w5wP3K+37oMfubaJPdg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgLvIO/RGGlhffel+0yVT7ycQ9VSsI+IAZUAGfhserTgVtaROz
+	3PrsJp+JfMVE6nV2T4MqJNHg0LQ3f1cu1dEOk+mvzMRiyNdwFx9XNBkW6zs4l/ODMQ==
+X-Gm-Gg: AZuq6aIyrITuz0neVlLfxBaqMfHDwDq+QOn2VhK0Nataszrnfn+2bNP/iQNqOdHQPYK
+	UB0zOzBl/bpgc+Lik5Zax8bUwZfjpRc6PeNCH/JF+TMiBKhTKxAXRTyzQmogHV+vceRXKQZX8d0
+	BPSKK7ui7LCPMAb3765snflGlnWehqZ/ADxv/8LjogfnqcgF3+BwhnsXRaUjvcCcItN6ZVUcgQ9
+	XtQmNReZ7KAd5yOjB36sWJV+Qkb+krDWK3XEdv9+eQQ0+AlbIARS7vrndftJ2iLMqsM1qUiflNe
+	aFmeIOfDSxThyaYtqttb9ZT+rg5sM0LGjIAxEzzv5YEnoKJ2GKHhIiV7FgX37jakFRH39Q62dHt
+	++y6qSQ2xOrIoWIXHtol8utZiAlRC7PmL6Lu01ROBEJLLb2cgHHn9B+OSDM85/NcD5U9BdgA2vW
+	d/efmtUnmTNynHFksxPWjYfbndrtxWzibL8YkVFRN6luuwt3WHWUHO4xCCTPgjqWtKDWSwliLMT
+	BFK7KQRVFP8B3k=
+X-Received: by 2002:a05:600c:1907:b0:477:73e9:dc17 with SMTP id 5b1f17b1804b1-48373a79afbmr244401975e9.35.1771327735226;
+        Tue, 17 Feb 2026 03:28:55 -0800 (PST)
+Message-ID: <06208b1b-9107-4ae6-acbf-c69659354da4@suse.com>
+Date: Tue, 17 Feb 2026 12:28:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] domain: skip more stuff for idle's vCPU-s in
- vcpu_create()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v4 01/16] xen/riscv: implement
+ arch_vcpu_{create,destroy}()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>
-References: <c0aef909-b294-40af-8d24-033b28450338@suse.com>
- <aZRLMePmm8ehD94H@Mac.lan>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770999383.git.oleksii.kurochko@gmail.com>
+ <42534cb6aabf25cf551a13ae1288045e1ac08f9e.1770999383.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,76 +131,139 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aZRLMePmm8ehD94H@Mac.lan>
+In-Reply-To: <42534cb6aabf25cf551a13ae1288045e1ac08f9e.1770999383.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4F5F214B3F0
+X-Rspamd-Queue-Id: 4CD2314B5A3
 X-Rspamd-Action: no action
 
-On 17.02.2026 12:04, Roger Pau Monné wrote:
-> On Mon, Feb 16, 2026 at 04:54:30PM +0100, Jan Beulich wrote:
->> Nothing hypercall-related needs setting up there. Nor do we need to
->> check whether the idle domain is shutting down - it never will.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 13.02.2026 17:28, Oleksii Kurochko wrote:
+> Introduce architecture-specific functions to create and destroy VCPUs.
+> Note that arch_vcpu_create() currently returns -EOPNOTSUPP, as the virtual
+> timer and interrupt controller are not yet implemented.
 > 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
->> @@ -516,7 +516,8 @@ struct vcpu *vcpu_create(struct domain *
->>      }
->>  
->>      /* Must be called after making new vcpu visible to for_each_vcpu(). */
->> -    vcpu_check_shutdown(v);
->> +    if ( !is_idle_domain(d) )
->> +        vcpu_check_shutdown(v);
+> Add calle-saved registers to struct arch_vcpu which are  used to preserve
+> Xen’s own execution context when switching between vCPU stacks.
+> It is going to be used in the following way (pseudocode):
+>   context_switch(prev_vcpu, next_vcpu):
+>     ...
 > 
-> I would possibly leave this as-is.  I agree that the idle domain will
-> never shut down, but it's possibly best to needlessly call into
-> vcpu_check_shutdown() for the idle domain rather than adding the extra
-> conditional for the common case?
+>     /* Switch from previous stack to the next stack. */
+>     __context_switch(prev_vcpu, next_vcpu);
+> 
+>     ...
+>     schedule_tail(prev_vcpu):
+>         Save and restore vCPU's CSRs.
+> The Xen-saved context allows __context_switch() to switch execution
+> from the previous vCPU’s stack to the next vCPU’s stack and later resume
+> execution on the original stack when switching back.
+> 
+> During vCPU creation, the Xen-saved context is going to be initialized
+> with:
+>   - SP pointing to the newly allocated vCPU stack.
+>   - RA pointing to a helper that performs final vCPU setup before
+>     transferring control to the guest.
+> 
+> As part of this change, add continue_new_vcpu(), which will be used after
+> the first context_switch() of a new vCPU. Since this functionality is not
+> yet implemented, continue_new_vcpu() is currently provided as a stub.
+> The prev argument is going to be set by RISC-V ABI (prev will be stored in
+> a0) when __context_swtich() will be introduced and called from
+> context_switch().
+> 
+> Update the STACK_SIZE definition and introduce STACK_ORDER (to align with
+> other architectures) for allocating the vCPU stack.
 
-I'd prefer to keep it conditional: Calling the function for the idle
-domain gives a wrong impression, plus it may be the only one where the
-shutdown lock is used for that domain. We may want to make lock init
-conditional in domain_create() as well (possibly with other things we
-needlessly do for idle or more generally system domains).
+Yet you don't really need STACK_ORDER, as you use vzalloc() (unlike in
+particular Arm, but also x86). If there's no expected other use of the
+constant, I'd suggest to omit it, to avoid the false impression that
+RISC-V is like (again in particular) Arm in regards to how the stack is
+being allocated.
 
-> My Ack stands regardless.
+> --- /dev/null
+> +++ b/xen/arch/riscv/domain.c
+> @@ -0,0 +1,58 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/init.h>
+> +#include <xen/mm.h>
+> +#include <xen/sched.h>
+> +#include <xen/vmap.h>
+> +
+> +static void continue_new_vcpu(struct vcpu *prev)
+> +{
+> +    BUG_ON("unimplemented\n");
+> +}
+> +
+> +static void __init __maybe_unused build_assertions(void)
+> +{
+> +    /*
+> +     * Enforce the requirement documented in struct cpu_info that
+> +     * guest_cpu_user_regs must be the first field.
+> +     */
+> +    BUILD_BUG_ON(offsetof(struct cpu_info, guest_cpu_user_regs) != 0);
+> +}
 
-Thank you.
+Nit: Generally we have this kind of function at the bottom of source files.
+
+> +int arch_vcpu_create(struct vcpu *v)
+> +{
+> +    int rc = 0;
+> +    void *stack = vzalloc(STACK_SIZE);
+> +
+> +    if ( !stack )
+> +        return -ENOMEM;
+> +
+> +    v->arch.cpu_info = stack + STACK_SIZE - sizeof(struct cpu_info);
+
+Perhaps better sizeof(*v->arch.cpu_info), to connect lhs and rhs?
+
+> +    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
+> +    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
+> +
+> +    /* Idle VCPUs don't need the rest of this setup */
+> +    if ( is_idle_vcpu(v) )
+> +        return rc;
+
+I'd suggest "return 0" here to make clear it's a success path. Then
+possible uses of "rc" earlier in the function also won't affect this.
+
+With all of the adjustments (happy to carry out while committing, as long
+as you agree)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
