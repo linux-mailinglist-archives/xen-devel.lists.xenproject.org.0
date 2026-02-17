@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mMANCIhllGkFDgIAu9opvQ
+	id +PLWOK5llGkFDgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 13:56:40 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 13:57:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F0A14C2E3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 13:56:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234963.1538030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5560D14C2FC
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 13:57:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234973.1538039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsKch-00050f-62; Tue, 17 Feb 2026 12:56:15 +0000
+	id 1vsKda-0005WV-Gt; Tue, 17 Feb 2026 12:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234963.1538030; Tue, 17 Feb 2026 12:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 1234973.1538039; Tue, 17 Feb 2026 12:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsKch-0004xx-24; Tue, 17 Feb 2026 12:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 1234963;
- Tue, 17 Feb 2026 12:56:14 +0000
+	id 1vsKda-0005Ts-DU; Tue, 17 Feb 2026 12:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 1234973;
+ Tue, 17 Feb 2026 12:57:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mba9=AV=samsung.com=m.szyprowski@srs-se1.protection.inumbo.net>)
- id 1vsKcf-0004xm-AS
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 12:56:14 +0000
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 02e53af7-0c00-11f1-b164-2bf370ae4941;
- Tue, 17 Feb 2026 13:56:03 +0100 (CET)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260217125600euoutp01e702ba17a82df7a26cb54abe09518e80~VCfFtKJNi2750327503euoutp01K;
- Tue, 17 Feb 2026 12:56:00 +0000 (GMT)
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260217125600eucas1p2f5a7aaf272ec1e8419eb4f30114ae4c0~VCfFifkBN0465704657eucas1p2k;
- Tue, 17 Feb 2026 12:56:00 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260217125557eusmtip157747204999f9293afbbfbea0aadd349~VCfCuB9mO1169311693eusmtip1R;
- Tue, 17 Feb 2026 12:55:57 +0000 (GMT)
+ <SRS0=FTcl=AV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vsKdY-0005Tk-Qg
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 12:57:08 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a456d3f-0c00-11f1-b164-2bf370ae4941;
+ Tue, 17 Feb 2026 13:57:07 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-b8fb6ad3243so568832166b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 04:57:07 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8fc76c6b8bsm337379166b.65.2026.02.17.04.57.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Feb 2026 04:57:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,189 +50,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02e53af7-0c00-11f1-b164-2bf370ae4941
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260217125600euoutp01e702ba17a82df7a26cb54abe09518e80~VCfFtKJNi2750327503euoutp01K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1771332961;
-	bh=kPHvBI1Pan3M4iaidTIFZnbtqSz3AZ7jPYAHqyBo5u8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=qE2Na2wFoGobnNwByWm49yVZUxp6ZyqvGOKUcTxQmO/J9J6nwYoOSde40k3tzupbf
-	 5drCH58ib86rmTAuEFK3Dh2gBz0w2T0sLKmgAdsu5bu3cX1d1C762Ho+VBd2ZtAcrr
-	 Rpa2eUVwXatWI/hNEoqzx/baF+s1uCvrB4JykOMY=
-Message-ID: <7131d609-b083-4264-818a-21de38c1c3ed@samsung.com>
-Date: Tue, 17 Feb 2026 13:55:56 +0100
+X-Inumbo-ID: 2a456d3f-0c00-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771333027; x=1771937827; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=l9Td0RwiqH7W+OFADA59hO79Au5U3pUL9PHcyzfrzqE=;
+        b=WRJZ/dUNGD5iFcGkz3dUzrIB8jbkl+wMyg+RTCaz84sDjb27M6YvxiV0MHEubtDxu/
+         RLN5jhtKSIC1ZMleLJCA07AfOmgd+XpClQsQhrMQuyq/FNrQuw8corQ4cvdpLKhVROMV
+         ckYJuQgLrSEYwF2ZuHTTF86kfzJZ+7km3IURQqslOdUED6Wfqf2UaJK9AHRdoIviJLyq
+         XyrZhm9B4VF0YO8EL0/4pyl2zuCe4/8XyDscdb6gPeZl9PfQOhUt9MwX2hvvKJoVkhvV
+         H/051oGwm7YZlJnkA0aluQYccYMciyPwquTMGl91fIMqrUNX0S4paQkoVNtyMhRGg72+
+         V9Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771333027; x=1771937827;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=l9Td0RwiqH7W+OFADA59hO79Au5U3pUL9PHcyzfrzqE=;
+        b=EKP5/5h8yM/57LYLArGXz4T5MaUireHdCGBSkgObSYZP1Ws7qKkQJnEbmEVbceDBoj
+         Y8tVyq4bQgZ52kktQzTIy4RwKPYwEMDYXZ+w637euJ4R4Izvgw2V+FoN9hFL8qisz6gK
+         CBAZY2gZHhzYXtw2cZgidPIDGgBB0bJQu0TxiZwpzU+t0f9KfuF0Tsa4znlxx/lrGWuS
+         +JYSGJPM3Twyxj01S0Fa7D4KMEkK+FyIdW5eHBdys3mknLBuuRagzBhjisg7xKRVxAGe
+         0NvgcWkPuE7GtDnC9h+GirWSqT0XTGFB3PoRFh7Mdi/x1vPmrh3VoBiUSsIxpJNGVXXh
+         eMcA==
+X-Forwarded-Encrypted: i=1; AJvYcCUL3RVIjhdI9nCnY0T69emT/GHfzfEbeLiw6SU3LZfw/zRnYoLqOgcRb/7FM9jsU8E33UT93vpd5lc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYXJU01PgJnl2D1obph9sCiYQWbn1zFWaTGTgl3iK0eY9vLHa/
+	QiA1aSSDHqbLfMVNQfLeJHFfoq6aHnZnIVZrSU7hXYrigmKlVLzRVzPl
+X-Gm-Gg: AZuq6aJdux84yz25N+We1IxX/ix0daaKt9TsePVmi0qJk9P1j/TZvi2hzCxtthrotv+
+	46XMqeM6/FuZAYEtPc7S27r5dno0wmYc0nwdOm7efhk7v3QAxkS75pvKGx4Z3jMMbIEfOJIRb2E
+	T7TuH6mN8YAH5NwG+fOkTO8g1akoKG1h2q6EGvZsirRK6E/O1e3cNP5HtivnzJ8hFE2AUekSu2x
+	KoZkI7tS/kvruMXk9ru8Dg9NC33NEoiRbFKFE4jnLBDqJh961HCJh9O9BNF1+B9vKRogLlwaROE
+	B3sEC0ib8klP6egW9zr9NfBd/gdYdNUAyEruNujZG4Y+pdRgtG0eq8JWydq9BalnLuQd7ilkW4V
+	yPeSALHNMenknDy9lkZZZo5+gPoAFNvkpIhsRXqkgmocwDkTcgwuZW80Njt2wkL9g8a1mbHCKWI
+	9WnIf+U9V77tw6S3iJnhoRuCy6ZHEPmnd3JdZZR2oIpJv53FrpTNIjOr/E6atbUWi4cAlOEsgie
+	Xs=
+X-Received: by 2002:a17:907:7253:b0:b8e:a143:3ae1 with SMTP id a640c23a62f3a-b8fb450a4e5mr778868366b.54.1771333026470;
+        Tue, 17 Feb 2026 04:57:06 -0800 (PST)
+Message-ID: <030dbe54-a2c8-4f54-ae3f-6a09762c25ef@gmail.com>
+Date: Tue, 17 Feb 2026 13:57:05 +0100
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v5 11/14] sparc: Use physical address DMA mapping
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Leon
-	Romanovsky <leon@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Russell
-	King <linux@armlinux.org.uk>, Juergen Gross <jgross@suse.com>, Stefano
-	Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Richard Henderson
-	<richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, Thomas
-	Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley"
-	<James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
-	<mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
-	<christophe.leroy@csgroup.eu>, Geoff Levand <geoff@infradead.org>, "David S.
- Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Thomas
-	Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav
-	Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-alpha@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, sparclinux
-	<sparclinux@vger.kernel.org>
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v4 01/16] xen/riscv: implement
+ arch_vcpu_{create,destroy}()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770999383.git.oleksii.kurochko@gmail.com>
+ <42534cb6aabf25cf551a13ae1288045e1ac08f9e.1770999383.git.oleksii.kurochko@gmail.com>
+ <06208b1b-9107-4ae6-acbf-c69659354da4@suse.com>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <e294484787a5032c531dcd40071b22362bddcad4.camel@physik.fu-berlin.de>
+In-Reply-To: <06208b1b-9107-4ae6-acbf-c69659354da4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260217125600eucas1p2f5a7aaf272ec1e8419eb4f30114ae4c0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260217123216eucas1p2d74189a3cdf08e9301bebf1840491364
-X-EPHeader: CA
-X-CMS-RootMailID: 20260217123216eucas1p2d74189a3cdf08e9301bebf1840491364
-References: <20251015-remove-map-page-v5-0-3bbfe3a25cdf@kernel.org>
-	<20251015-remove-map-page-v5-11-3bbfe3a25cdf@kernel.org>
-	<CGME20260217123216eucas1p2d74189a3cdf08e9301bebf1840491364@eucas1p2.samsung.com>
-	<e294484787a5032c531dcd40071b22362bddcad4.camel@physik.fu-berlin.de>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.18 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[samsung.com,none];
-	R_DKIM_ALLOW(-0.20)[samsung.com:s=mail20170921];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:glaubitz@physik.fu-berlin.de,m:leon@kernel.org,m:robin.murphy@arm.com,m:linux@armlinux.org.uk,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:richard.henderson@linaro.org,m:mattst88@gmail.com,m:tsbogend@alpha.franken.de,m:James.Bottomley@HansenPartnership.com,m:deller@gmx.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:christophe.leroy@csgroup.eu,m:geoff@infradead.org,m:davem@davemloft.net,m:andreas@gaisler.com,m:tglx@linutronix.de,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:iommu@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-alpha@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-parisc@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:sparclinux@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[physik.fu-berlin.de,kernel.org,arm.com,armlinux.org.uk,suse.com,epam.com,linaro.org,gmail.com,alpha.franken.de,HansenPartnership.com,gmx.de,linux.ibm.com,ellerman.id.au,csgroup.eu,infradead.org,davemloft.net,gaisler.com,linutronix.de,redhat.com,alien8.de,linux.intel.com,zytor.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[m.szyprowski@samsung.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[34];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,nvidia.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[m.szyprowski@samsung.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[samsung.com:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 80F0A14C2E3
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 5560D14C2FC
 X-Rspamd-Action: no action
 
-On 17.02.2026 13:27, John Paul Adrian Glaubitz wrote:
-> On Wed, 2025-10-15 at 12:12 +0300, Leon Romanovsky wrote:
->> From: Leon Romanovsky <leonro@nvidia.com>
+
+On 2/17/26 12:28 PM, Jan Beulich wrote:
+> On 13.02.2026 17:28, Oleksii Kurochko wrote:
+>> Introduce architecture-specific functions to create and destroy VCPUs.
+>> Note that arch_vcpu_create() currently returns -EOPNOTSUPP, as the virtual
+>> timer and interrupt controller are not yet implemented.
 >>
->> Convert sparc architecture DMA code to use .map_phys callback.
+>> Add calle-saved registers to struct arch_vcpu which are  used to preserve
+>> Xen’s own execution context when switching between vCPU stacks.
+>> It is going to be used in the following way (pseudocode):
+>>    context_switch(prev_vcpu, next_vcpu):
+>>      ...
 >>
->> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->> ---
->>   arch/sparc/kernel/iommu.c     | 30 +++++++++++++++++-----------
->>   arch/sparc/kernel/pci_sun4v.c | 31 ++++++++++++++++++-----------
->>   arch/sparc/mm/io-unit.c       | 38 ++++++++++++++++++-----------------
->>   arch/sparc/mm/iommu.c         | 46 ++++++++++++++++++++++---------------------
->>   4 files changed, 82 insertions(+), 63 deletions(-)
+>>      /* Switch from previous stack to the next stack. */
+>>      __context_switch(prev_vcpu, next_vcpu);
 >>
->> diff --git a/arch/sparc/kernel/iommu.c b/arch/sparc/kernel/iommu.c
->> index da0363692528..46ef88bc9c26 100644
->> --- a/arch/sparc/kernel/iommu.c
->> +++ b/arch/sparc/kernel/iommu.c
->> @@ -260,26 +260,35 @@ static void dma_4u_free_coherent(struct device *dev, size_t size,
->>   		free_pages((unsigned long)cpu, order);
->>   }
->>   
->> -static dma_addr_t dma_4u_map_page(struct device *dev, struct page *page,
->> -				  unsigned long offset, size_t sz,
->> -				  enum dma_data_direction direction,
->> +static dma_addr_t dma_4u_map_phys(struct device *dev, phys_addr_t phys,
->> +				  size_t sz, enum dma_data_direction direction,
->>   				  unsigned long attrs)
->>   {
->>   	struct iommu *iommu;
->>   	struct strbuf *strbuf;
->>   	iopte_t *base;
->>   	unsigned long flags, npages, oaddr;
->> -	unsigned long i, base_paddr, ctx;
->> +	unsigned long i, ctx;
->>   	u32 bus_addr, ret;
->>   	unsigned long iopte_protection;
->>   
->> +	if (unlikely(attrs & DMA_ATTR_MMIO))
->> +		/*
->> +		 * This check is included because older versions of the code
->> +		 * lacked MMIO path support, and my ability to test this path
->> +		 * is limited. However, from a software technical standpoint,
->> +		 * there is no restriction, as the following code operates
->> +		 * solely on physical addresses.
->> +		 */
->> +		goto bad_no_ctx;
+>>      ...
+>>      schedule_tail(prev_vcpu):
+>>          Save and restore vCPU's CSRs.
+>> The Xen-saved context allows __context_switch() to switch execution
+>> from the previous vCPU’s stack to the next vCPU’s stack and later resume
+>> execution on the original stack when switching back.
+>>
+>> During vCPU creation, the Xen-saved context is going to be initialized
+>> with:
+>>    - SP pointing to the newly allocated vCPU stack.
+>>    - RA pointing to a helper that performs final vCPU setup before
+>>      transferring control to the guest.
+>>
+>> As part of this change, add continue_new_vcpu(), which will be used after
+>> the first context_switch() of a new vCPU. Since this functionality is not
+>> yet implemented, continue_new_vcpu() is currently provided as a stub.
+>> The prev argument is going to be set by RISC-V ABI (prev will be stored in
+>> a0) when __context_swtich() will be introduced and called from
+>> context_switch().
+>>
+>> Update the STACK_SIZE definition and introduce STACK_ORDER (to align with
+>> other architectures) for allocating the vCPU stack.
+> Yet you don't really need STACK_ORDER, as you use vzalloc() (unlike in
+> particular Arm, but also x86). If there's no expected other use of the
+> constant, I'd suggest to omit it, to avoid the false impression that
+> RISC-V is like (again in particular) Arm in regards to how the stack is
+> being allocated.
+
+Yes, this is the only one usage of STACK_ORDER constant so it could be 
+omitted.
+
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/domain.c
+>> @@ -0,0 +1,58 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
 >> +
->>   	iommu = dev->archdata.iommu;
->>   	strbuf = dev->archdata.stc;
->>   
->>   	if (unlikely(direction == DMA_NONE))
->>   		goto bad_no_ctx;
->>   
->> -	oaddr = (unsigned long)(page_address(page) + offset);
->> +	oaddr = (unsigned long)(phys_to_virt(phys));
->>   	npages = IO_PAGE_ALIGN(oaddr + sz) - (oaddr & IO_PAGE_MASK);
->>   	npages >>= IO_PAGE_SHIFT;
->>   
->> @@ -296,7 +305,6 @@ static dma_addr_t dma_4u_map_page(struct device *dev, struct page *page,
->>   	bus_addr = (iommu->tbl.table_map_base +
->>   		    ((base - iommu->page_table) << IO_PAGE_SHIFT));
->>   	ret = bus_addr | (oaddr & ~IO_PAGE_MASK);
->> -	base_paddr = __pa(oaddr & IO_PAGE_MASK);
->>   	if (strbuf->strbuf_enabled)
->>   		iopte_protection = IOPTE_STREAMING(ctx);
->>   	else
->> @@ -304,8 +312,8 @@ static dma_addr_t dma_4u_map_page(struct device *dev, struct page *page,
->>   	if (direction != DMA_TO_DEVICE)
->>   		iopte_protection |= IOPTE_WRITE;
->>   
->> -	for (i = 0; i < npages; i++, base++, base_paddr += IO_PAGE_SIZE)
->> -		iopte_val(*base) = iopte_protection | base_paddr;
->> +	for (i = 0; i < npages; i++, base++, phys += IO_PAGE_SIZE)
->> +		iopte_val(*base) = iopte_protection | phys;
+>> +#include <xen/init.h>
+>> +#include <xen/mm.h>
+>> +#include <xen/sched.h>
+>> +#include <xen/vmap.h>
+>> +
+>> +static void continue_new_vcpu(struct vcpu *prev)
+>> +{
+>> +    BUG_ON("unimplemented\n");
+>> +}
+>> +
+>> +static void __init __maybe_unused build_assertions(void)
+>> +{
+>> +    /*
+>> +     * Enforce the requirement documented in struct cpu_info that
+>> +     * guest_cpu_user_regs must be the first field.
+>> +     */
+>> +    BUILD_BUG_ON(offsetof(struct cpu_info, guest_cpu_user_regs) != 0);
+>> +}
+> Nit: Generally we have this kind of function at the bottom of source files.
+>
+>> +int arch_vcpu_create(struct vcpu *v)
+>> +{
+>> +    int rc = 0;
+>> +    void *stack = vzalloc(STACK_SIZE);
+>> +
+>> +    if ( !stack )
+>> +        return -ENOMEM;
+>> +
+>> +    v->arch.cpu_info = stack + STACK_SIZE - sizeof(struct cpu_info);
+> Perhaps better sizeof(*v->arch.cpu_info), to connect lhs and rhs?
+>
+>> +    v->arch.xen_saved_context.sp = (register_t)v->arch.cpu_info;
+>> +    v->arch.xen_saved_context.ra = (register_t)continue_new_vcpu;
+>> +
+>> +    /* Idle VCPUs don't need the rest of this setup */
+>> +    if ( is_idle_vcpu(v) )
+>> +        return rc;
+> I'd suggest "return 0" here to make clear it's a success path. Then
+> possible uses of "rc" earlier in the function also won't affect this.
+>
+> With all of the adjustments (happy to carry out while committing, as long
+> as you agree)
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-'base_paddr' was aligned to start of a page before this patch, while 
-'phys' includes the offset within a page.
+I am okay with suggested adjustments.
 
+Thanks a lot!
 
-Could You check if the following change fixes the issue?
-
-diff --git a/arch/sparc/kernel/iommu.c b/arch/sparc/kernel/iommu.c
-index 46ef88bc9c26..edb0ffb21e2f 100644
---- a/arch/sparc/kernel/iommu.c
-+++ b/arch/sparc/kernel/iommu.c
-@@ -312,6 +312,7 @@ static dma_addr_t dma_4u_map_phys(struct device 
-*dev, phys_addr_t phys,
-         if (direction != DMA_TO_DEVICE)
-                 iopte_protection |= IOPTE_WRITE;
-
-+       phys -= offset_in_page(phys);
-         for (i = 0; i < npages; i++, base++, phys += IO_PAGE_SIZE)
-                 iopte_val(*base) = iopte_protection | phys;
-
- >> ...
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+~ Oleksii
 
 
