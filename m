@@ -2,43 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id als7FwFnlGlFDgIAu9opvQ
+	id wB3lKAtqlGmNDgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 14:02:57 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 14:15:55 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A416D14C4A6
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 14:02:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234994.1538059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF2614C794
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 14:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235010.1538077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsKit-0007iI-7c; Tue, 17 Feb 2026 13:02:39 +0000
+	id 1vsKvP-0001D7-DV; Tue, 17 Feb 2026 13:15:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234994.1538059; Tue, 17 Feb 2026 13:02:39 +0000
+Received: by outflank-mailman (output) from mailman id 1235010.1538077; Tue, 17 Feb 2026 13:15:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsKit-0007fm-4r; Tue, 17 Feb 2026 13:02:39 +0000
-Received: by outflank-mailman (input) for mailman id 1234994;
- Tue, 17 Feb 2026 13:02:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vsKvP-0001Az-9d; Tue, 17 Feb 2026 13:15:35 +0000
+Received: by outflank-mailman (input) for mailman id 1235010;
+ Tue, 17 Feb 2026 13:15:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsKis-0007fd-24
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 13:02:38 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee9c9eb5-0c00-11f1-b164-2bf370ae4941;
- Tue, 17 Feb 2026 14:02:36 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-48069a48629so39370335e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 05:02:36 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483709f6935sm157418265e9.0.2026.02.17.05.02.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Feb 2026 05:02:35 -0800 (PST)
+ (envelope-from <SRS0=4p7M=AV=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1vsKvO-0001Ap-0Y
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 13:15:34 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb7aebfa-0c02-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Feb 2026 14:15:31 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 43946406EF;
+ Tue, 17 Feb 2026 13:15:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCD7C4CEF7;
+ Tue, 17 Feb 2026 13:15:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,149 +46,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee9c9eb5-0c00-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771333356; x=1771938156; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/h526UBwW9faw93Hj1eca+q0/GZZ1lDUFEIvKb3Ew6U=;
-        b=Mg3MbYymF2Dx8zP9BBF/3wvQ6rMUY9/4EJa85qzjOoJc7fsUoTKKrus7IUNTzIEZiW
-         sIf09DrJi1zcL0RebXwp3lJBAwk1nxc0w6hrD93oVtkDBFsDUyYtE6rQ08x00RB4vgkT
-         bPNoS/EKtu1oCS1m27xXNtuMYPLQFQxJU85CYR1cxWg52bt6Qw4VNg6pGuo8XTy0xDLi
-         n2MDD7yrwWBuOY2aDVsMQ4s402F56caBSkHvAkgCLYvcgPnYEGhcf3HmIaVRHSA2gXHb
-         h6z64lPT0WomE59aKgSx6njQ/niA7ivngM0HD1ygeHd0y7JTj4LKVMk3cIGubBO9eiiv
-         BqNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771333356; x=1771938156;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/h526UBwW9faw93Hj1eca+q0/GZZ1lDUFEIvKb3Ew6U=;
-        b=W8NRLuSOhkG6RWc37qDqcbkuICLvmesatugsOUszqW5KzhOI+VjqFGoDEgxDivcCbS
-         wBAfFpIuuzXNbsFG1mg4DfeVe51EAefz3z0wMOZHmFa9+gbVa9JkVgWRcWTw0tfVsXFH
-         QRe+AhmD6/Lw0AKfg5gWozcP6GFAKw8vRTRwF/LnVaHSV15uVhhp7wka6yK6e/dQZoyj
-         PGdxbO44rK3AX5jiHXh0VVANouM2mJ3MTyLhBiX7mRmjR2TNlJsnMgQCuAfUJSOWLyI8
-         ejiTri3fcN1vhq80mk0OjpA7jaCHbLV4BZJeLxmIF7xTbD+gmdyvbx9d+mPOtspHifTP
-         47WA==
-X-Forwarded-Encrypted: i=1; AJvYcCUnyrlUT6x87wj6StIzYO4FBwL20C80W7pQ1qVeGJ5oWaPLayvZBDJYy+HQyS/17UGum+7I0/EOg00=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznFkQoXbGidmIYnND/57qaoUoJEfWkjPHfLjbpc7C0tfmg03cY
-	3rqa+mQ0IIwO2mTCjMlD9grchQc0vNHzeiIt5Obd9s6Y7HUt4aBYle2Kd0KW5mgf6A==
-X-Gm-Gg: AZuq6aJOb4EKaLRQ/HlifEZNzXZspfcObqSHdljOwys/AaU2vVLn44LWLA6WvuEHzTA
-	uQt7/frOPCxq9wlPLDHuPrjQhsgASqZPe+RNHMoJaK5JcszSe7JSQDElLWKre1/BKDN6pEYju29
-	KaJTOrsFh1SKUyK633IbG0KlNZfxYG31piLnmV9dcpDsKcL8dZllMBmqiWMfbopLEfNWii5MMlX
-	ccff0oNYf70ci12Okl//Wa7ckMS7zcwh3uii9FTkhn53t+DwFsNUwU90WxgMm2uLLqAhsNH7+wP
-	LPz4POQaRW45jjNaKRlItUgLD19GaSB3AOZvkuKWfWvlnJmcUTcNm+xqnwcWZa0A8c8u7Ty8uGp
-	iaKXGzzwyJQsv771LsDXUvvFbQXjO2vuKuxkrEFD1MxdfVw0RcL9QTa2tHhBm67oql61OTfKA/P
-	QKAZ/a1yj9Z5i5qxOIt7cgdMzx2tZ85b7HCS2tXjW4egv+jFj8m5c4DeNoAnaHdv8k6etm66oNS
-	2e8i3S+0lI9q7n3oogmejHkRQ==
-X-Received: by 2002:a05:600c:1986:b0:483:71f9:37ef with SMTP id 5b1f17b1804b1-483739ff8f5mr254827375e9.8.1771333356220;
-        Tue, 17 Feb 2026 05:02:36 -0800 (PST)
-Message-ID: <4253dd88-b408-43dc-90d3-f2d1d3c892b0@suse.com>
-Date: Tue, 17 Feb 2026 14:02:34 +0100
+X-Inumbo-ID: bb7aebfa-0c02-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1771334129;
+	bh=IFqWRnMOe90PHPZ6ogIhD60Li5AyK3EFhOC6WZ8V4S8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=F44Ix8zfCzwWI4AQs9GQP2t1ynVHWLNSCY3twBxZFDsxlSu/RfSxZcW9hg0L7WEMK
+	 DVLz5necSLs8Vd9sUbcqNxHiXhSe1wgYUNVz9W3t3HjIlpnMvOSIidbsZRLiskWn68
+	 xItdSgwjZ64haQEHc9AA+Car4oFuKE6jJy6K1oZ9qp0NfO17s8m5QhB5G3se54yqng
+	 +Woyi/px6vIOOUpaq+Jzvi7e5oKdunoebhikfsFPd3HTxF9VWSvih4dM6ug2R8hcj/
+	 MvelNqZrwI6p0ECzsvxqAg+vPD6IuKSVLKEs3YzKCjc2YZAO5l2Mn9P1+IofP43CvT
+	 66YAmYLUGAOHw==
+Date: Tue, 17 Feb 2026 15:15:25 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Geoff Levand <geoff@infradead.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org, linux-alpha@vger.kernel.org,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	sparclinux <sparclinux@vger.kernel.org>
+Subject: Re: [PATCH v5 11/14] sparc: Use physical address DMA mapping
+Message-ID: <20260217131525.GK12989@unreal>
+References: <20251015-remove-map-page-v5-0-3bbfe3a25cdf@kernel.org>
+ <20251015-remove-map-page-v5-11-3bbfe3a25cdf@kernel.org>
+ <CGME20260217123216eucas1p2d74189a3cdf08e9301bebf1840491364@eucas1p2.samsung.com>
+ <e294484787a5032c531dcd40071b22362bddcad4.camel@physik.fu-berlin.de>
+ <7131d609-b083-4264-818a-21de38c1c3ed@samsung.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/6] xen/riscv: add zImage kernel loading support
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <308c5bc1de15b23c643d48f975799739f44dde8d.1770821989.git.oleksii.kurochko@gmail.com>
- <0bca8843-9c52-4544-88a6-87ddb110095e@suse.com>
- <f95c9cae-0d57-42bc-b435-3f29c54b67b9@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f95c9cae-0d57-42bc-b435-3f29c54b67b9@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7131d609-b083-4264-818a-21de38c1c3ed@samsung.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:m.szyprowski@samsung.com,m:glaubitz@physik.fu-berlin.de,m:robin.murphy@arm.com,m:linux@armlinux.org.uk,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:richard.henderson@linaro.org,m:mattst88@gmail.com,m:tsbogend@alpha.franken.de,m:James.Bottomley@hansenpartnership.com,m:deller@gmx.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:christophe.leroy@csgroup.eu,m:geoff@infradead.org,m:davem@davemloft.net,m:andreas@gaisler.com,m:tglx@linutronix.de,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:iommu@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-alpha@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-parisc@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:sparclinux@vger.kernel.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[leon@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[34];
+	FREEMAIL_CC(0.00)[physik.fu-berlin.de,arm.com,armlinux.org.uk,suse.com,kernel.org,epam.com,linaro.org,gmail.com,alpha.franken.de,hansenpartnership.com,gmx.de,linux.ibm.com,ellerman.id.au,csgroup.eu,infradead.org,davemloft.net,gaisler.com,linutronix.de,redhat.com,alien8.de,linux.intel.com,zytor.com,lists.linux.dev,vger.kernel.org,lists.infradead.org,lists.xenproject.org,lists.ozlabs.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
-	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:query timed out];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[8];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nvidia.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[leon@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim]
-X-Rspamd-Queue-Id: A416D14C4A6
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 4DF2614C794
 X-Rspamd-Action: no action
 
-On 17.02.2026 12:58, Oleksii Kurochko wrote:
-> On 2/16/26 5:31 PM, Jan Beulich wrote:
->> On 12.02.2026 17:21, Oleksii Kurochko wrote:
->>> Introduce support for loading a Linux zImage kernel on RISC-V.
->> Before I look here in any detail - where would a zImage come from? I can't
->> spot any support for it in Linux'es arch/riscv/Makefile (whereas
->> arch/arm/Makefile has such).
-> 
-> Good point.
-> 
-> It is something that should be renamed as not Arm64 (Arm32 really has such
-> target), not RISC-V doesn't really work with zImage. They are using Image plus
-> Image.gz as compressed image.
-> 
-> Maybe it would be better to rename kernel_zimage_probe() to something more
-> generic kernel_image_probe().
+On Tue, Feb 17, 2026 at 01:55:56PM +0100, Marek Szyprowski wrote:
+> On 17.02.2026 13:27, John Paul Adrian Glaubitz wrote:
+> > On Wed, 2025-10-15 at 12:12 +0300, Leon Romanovsky wrote:
+> >> From: Leon Romanovsky <leonro@nvidia.com>
+> >>
+> >> Convert sparc architecture DMA code to use .map_phys callback.
+> >>
+> >> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> >> ---
+> >>   arch/sparc/kernel/iommu.c     | 30 +++++++++++++++++-----------
+> >>   arch/sparc/kernel/pci_sun4v.c | 31 ++++++++++++++++++-----------
+> >>   arch/sparc/mm/io-unit.c       | 38 ++++++++++++++++++-----------------
+> >>   arch/sparc/mm/iommu.c         | 46 ++++++++++++++++++++++---------------------
+> >>   4 files changed, 82 insertions(+), 63 deletions(-)
 
-Well, it's two things. In the description you explicitly say zImage. That's
-simply misleading. Renaming the function (if indeed it copes with more than
-just zImage) would likely be a good thing too, but needs sorting with its
-maintainers.
+<...>
 
-Jan
+> >> @@ -296,7 +305,6 @@ static dma_addr_t dma_4u_map_page(struct device *dev, struct page *page,
+> >>   	bus_addr = (iommu->tbl.table_map_base +
+> >>   		    ((base - iommu->page_table) << IO_PAGE_SHIFT));
+> >>   	ret = bus_addr | (oaddr & ~IO_PAGE_MASK);
+> >> -	base_paddr = __pa(oaddr & IO_PAGE_MASK);
+> >>   	if (strbuf->strbuf_enabled)
+> >>   		iopte_protection = IOPTE_STREAMING(ctx);
+> >>   	else
+> >> @@ -304,8 +312,8 @@ static dma_addr_t dma_4u_map_page(struct device *dev, struct page *page,
+> >>   	if (direction != DMA_TO_DEVICE)
+> >>   		iopte_protection |= IOPTE_WRITE;
+> >>   
+> >> -	for (i = 0; i < npages; i++, base++, base_paddr += IO_PAGE_SIZE)
+> >> -		iopte_val(*base) = iopte_protection | base_paddr;
+> >> +	for (i = 0; i < npages; i++, base++, phys += IO_PAGE_SIZE)
+> >> +		iopte_val(*base) = iopte_protection | phys;
+> 
+> 'base_paddr' was aligned to start of a page before this patch, while 
+> 'phys' includes the offset within a page.
+
+Thanks for the fix. I had assumed we needed to revert all changes in
+iounit_get_area().
+
+Thanks
+
+> 
+> 
+> Could You check if the following change fixes the issue?
+> 
+> diff --git a/arch/sparc/kernel/iommu.c b/arch/sparc/kernel/iommu.c
+> index 46ef88bc9c26..edb0ffb21e2f 100644
+> --- a/arch/sparc/kernel/iommu.c
+> +++ b/arch/sparc/kernel/iommu.c
+> @@ -312,6 +312,7 @@ static dma_addr_t dma_4u_map_phys(struct device 
+> *dev, phys_addr_t phys,
+>          if (direction != DMA_TO_DEVICE)
+>                  iopte_protection |= IOPTE_WRITE;
+> 
+> +       phys -= offset_in_page(phys);
+>          for (i = 0; i < npages; i++, base++, phys += IO_PAGE_SIZE)
+>                  iopte_val(*base) = iopte_protection | phys;
+> 
+>  >> ...
+> 
+> Best regards
+> -- 
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
+> 
 
