@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mGqcOEIflGk1AAIAu9opvQ
+	id OCD0F6UolGk9AQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 08:56:50 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 09:36:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A39A14974B
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 08:56:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1234619.1537800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B517214A059
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 09:36:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1234647.1537811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsFwc-0007LE-Dt; Tue, 17 Feb 2026 07:56:30 +0000
+	id 1vsGYt-0004Z9-Lu; Tue, 17 Feb 2026 08:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1234619.1537800; Tue, 17 Feb 2026 07:56:30 +0000
+Received: by outflank-mailman (output) from mailman id 1234647.1537811; Tue, 17 Feb 2026 08:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsFwc-0007J4-BF; Tue, 17 Feb 2026 07:56:30 +0000
-Received: by outflank-mailman (input) for mailman id 1234619;
- Tue, 17 Feb 2026 07:56:28 +0000
+	id 1vsGYt-0004W6-In; Tue, 17 Feb 2026 08:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 1234647;
+ Tue, 17 Feb 2026 08:36:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsFwa-0007Iw-LW
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 07:56:28 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vsGYr-0004W0-CV
+ for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 08:36:01 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28a241af-0bd6-11f1-9ccf-f158ae23cfc8;
- Tue, 17 Feb 2026 08:56:26 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-48336a6e932so23225175e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Feb 2026 23:56:26 -0800 (PST)
+ id adca50b2-0bdb-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Feb 2026 09:35:56 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-48371119eacso36649945e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Feb 2026 00:35:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796ac800esm34612079f8f.27.2026.02.16.23.56.24
+ 5b1f17b1804b1-4835dcfafcdsm763099535e9.9.2026.02.17.00.35.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Feb 2026 23:56:24 -0800 (PST)
+ Tue, 17 Feb 2026 00:35:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,64 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28a241af-0bd6-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: adca50b2-0bdb-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771314985; x=1771919785; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f7lTYsFkhYZTmN/EA29x8fF4ioIArRgweTYYp2UPiqE=;
-        b=NGtmaTTjZ+gfLrXsVjvNSmOQ5G7LzlLAAXhUul5cjKIYuWnFMK/mDfP99fDBeT7V64
-         vmLXwnrrNjjW5iaExpLY7OCQ7EI/yhVZA5qZdYYUwNk4KxRVxD3KN2Ng1i42pcEfZaW7
-         XeCOjJ4JzlSrieCLryXrEMCshSYJe0aM6lYGOQzYwD9kC1rYkNM3IaVdNyjQTOhnp1KU
-         9cE2FySZPTKZTbrAvYDqzO/vT5PMAYMievOA3aTzU+hWBkgrj5PZfihYzAdRvUbtadxH
-         6seZPCHkmIZB/kllE19/wtjvg0IXmgxVyFo93KDIWK6G6WiG4mi2dXdGo6//i8eyYt3h
-         f4hQ==
+        d=suse.com; s=google; t=1771317356; x=1771922156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4xKobcVtpVZTNFXX6JxRuUg+rlKVsovkwcEHAt6TEKk=;
+        b=FOTXJDepIUTs47Ql5nphL50n+1FsfVQMEOiCEZPpBAz5Js14xU+kFiytaix59rpjnA
+         iZYwMAezpAjrVc6snJbOtVty5bvA4EARUqKc8Kp2nQTowcpDQjVR2dDGth9dXnwALqS/
+         29I9Ngq00aKBhy0ayfqJsEWfQTUy+2eYfxuUpgtOv3Ugtm89TCW5mUDvtt1N87jvLTca
+         lZr0nIvYkNJp+8Y0wsXN9DGtOhBTY0lmSNgJNg4U8WKHDRq2jH7bejpIzOMZnKiC+f+J
+         X1Y4rvDs6RMACEyHMwzeE+SGf4wgG45yjQlSAyvsctS4BlQ5bkMpFPvrhuPj2TNbnekh
+         bI4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771314985; x=1771919785;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f7lTYsFkhYZTmN/EA29x8fF4ioIArRgweTYYp2UPiqE=;
-        b=lUic9XACR4iEc92+RYJviYykrw0SNLiznTSLpsKcDmxH2jWYkCkYVzWMZWtLMWjl9t
-         h+H0Rhkz/c2QcIoq/Xw8gXSNNnU/JROsRyep0tMjmB4Sde0wpJ4BSi90gI7+0HnM+ECw
-         3ZTJaI34PxskHFQn7ujcqX/wfx2WIQTbDsxePjZw9o7//5KIXVCIO4q/lv6ZoSOA6KSX
-         isoq7rUHnwacXjwLhyN89HlxxcJQiZNuHi09rH/V5K55mP32jlmv0lO83mPNUPLbkRBD
-         P+xd7Whnp3wZY86Y8KjLwQzWM9IA3fANbKQF8/y45Td7ZqAf3KosuvRU0m8a+t37fZjX
-         4oDA==
-X-Forwarded-Encrypted: i=1; AJvYcCWf1B12wpr71iQ6rIUrqiK7PnIMCXMSkK2fEy5OalShK5eJ0gj+89h9VEHFzVtBRttoWez7MkS86bY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIW0JrkUCKg/UI4eGnNpuFGP6HXKH8Zlbpp2PPmnlVebnN582P
-	dcwsbLz6SZXP1kqmZg4HljvxVEx6SSg/263MoKf+vT7Sop5PsWI0iEO3Mu2PFUhiTg==
-X-Gm-Gg: AZuq6aJ7o4tK7okmIlRDzM2He5wExBwh1sIWItFbsE6p88ol1g9ekrpW2SEQfTKF6vT
-	+yci+mxxpFzRpqB+ikFzuaHXvW5JEIqWumXj/Qy+EHiKsWQHJM+6G5h4hN6Fizz/oQFMw9D78Dm
-	WSy2+g9RCE1DT18nE9TatbOoa0yJG4ANb+upNPb1iR+KreUR+9KoCxIyNgkGZ+7BH1wjL2rEAZJ
-	3Or5KbC8H6uRG22QvFFO87dL4Z/AbR99XhhqiSrkXqmgHti6ebNxRtfRGAtYzuVcKaUHwBoIXFD
-	lSRXiWUOJ7plZMq69a2oWxK2+aflYUXPMN3D5QIYMo/TSsEj34YP+OgvJmVY7UFGVpYy2/LPSLZ
-	91LqmnRUfHNFnVI4ff3dS/Jc0+3uYXTiFl7fPtO4ux/mtTZZjhXCtgSX1R1IKwkeA5oi5kBJQ+Q
-	ZybzyACErAb/y0ppq16btrspe5swO62d5LSZq7a3hbWRHDqyoKtDJ21RugF9TPc9Khzr70xTyyI
-	WI3zCVah/2pdog=
-X-Received: by 2002:a05:600c:6098:b0:477:5cc6:7e44 with SMTP id 5b1f17b1804b1-48379b9f286mr136756445e9.11.1771314985197;
-        Mon, 16 Feb 2026 23:56:25 -0800 (PST)
-Message-ID: <0f7e127d-9d53-4b32-8aad-bbf741a0e3ec@suse.com>
-Date: Tue, 17 Feb 2026 08:56:23 +0100
+        d=1e100.net; s=20230601; t=1771317356; x=1771922156;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4xKobcVtpVZTNFXX6JxRuUg+rlKVsovkwcEHAt6TEKk=;
+        b=ezkLybjhBnlYQ8v893/1mFqho5m8JNo+/FvbcAUSRc3uWrOw/aEV5VWJbkjGhRvRd9
+         +AFg6FO1QkIhdL+5wWJZunBiFYgIC59dhlta9BSz3/lDzANY4OS85JDZBKPYLKPFIJMk
+         F8VXlG+xHo4TrSLR7NkJI8trJ9YpAFrai9Y9vCskpFvmTmNuDugctv7Bpkm8y54MD1SI
+         MjOW7HHoyiVsJ44b/xqQKd1RdP0IvHEGPdIJikIAr0qiO9Okl25TjGGLDGgX7Iont9IB
+         JDT/ouSEAVQ5Xax/OEgQGDLC9an5Zor8sg5w2FHnBiOwhxjeXKQtf2y6vJUAzh8POVAQ
+         xMKw==
+X-Gm-Message-State: AOJu0YxcVT+fQ2knXZH22okKzTCGA4tFaGAI+tBV123U+u37BgPak6/5
+	0tyECleNBX3lLGjIcccB0Z5of+YUjWxchMiuegMK9Y2F7ZMdGO3pv3cLsDDSPX3a2L0OXtbUvq+
+	NoQA=
+X-Gm-Gg: AZuq6aIjkYUuZQ04oOvqIBDn9WZUYRqaorSXHCU8FnokcWGTuc6lr/+fvCs20eGMEVG
+	AVxivLl2LbbXrOiwsWHaRwBNJcaXU4Shp4PC6ymosTtzoBJmnIIF8jm6AL/NMGvP5sL9kbh5n3K
+	G38oqii4DghCt6pDEOMFjTSzrD02w9TVnJ2kwT8SzwEhYoufe37+nT7lefKECg2HIqQtf6MvVT6
+	yN4r3OEvWr/KgDzkp+CKNorZcdsLVA7edCVpE/lED8Az/eot66a13otAMyFXeBi+Nba9NzsA5xT
+	+oFKeVJqukYfRWeWUDN8HLm+MLhCC2AKHqv33xubVmFpRUD7Yzd3eWW+3FPPmpu8GYzt11Vbwp/
+	GWPkELfTje9pZUnFdl7viLAMr8z8FW7MzfKmFbnXU5ipY8GlclH5Z8f/z/CRSH8OZfp1OyszJBt
+	K5CaoLt15g7/5PzybktLYwa55Q/X+iYX/tKnvzBHMgqIfYXynB3EhRcN7iqgIqSFVk8uku0GzMa
+	jDiSZLtKqOmufjl4JUNCSKnEA==
+X-Received: by 2002:a05:600c:a09:b0:477:6d96:b3e5 with SMTP id 5b1f17b1804b1-48373a0809fmr220599515e9.7.1771317356109;
+        Tue, 17 Feb 2026 00:35:56 -0800 (PST)
+Message-ID: <3f1fb7a3-0abd-4df0-92b6-2bb6d78c6422@suse.com>
+Date: Tue, 17 Feb 2026 09:35:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] domain: move vmtrace_alloc_buffer() invocation in
- vcpu_create()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <528578e1-6374-4fd0-9f67-0769afd2e1c6@suse.com>
- <50c79874-d07e-479d-80c2-7c0694a0828e@citrix.com>
- <871a5922-9d7d-455b-8257-d583e3e47bc2@suse.com>
- <33498e90-dc3c-4763-a953-3ff9eccd2594@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] wait: drop wake_up_{all,one}()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -131,9 +124,8 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <33498e90-dc3c-4763-a953-3ff9eccd2594@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -144,8 +136,8 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:tamas@tklengyel.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
@@ -161,77 +153,57 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5A39A14974B
+X-Rspamd-Queue-Id: B517214A059
 X-Rspamd-Action: no action
 
-On 16.02.2026 18:17, Andrew Cooper wrote:
-> On 16/02/2026 4:39 pm, Jan Beulich wrote:
->> On 16.02.2026 17:29, Andrew Cooper wrote:
->>> On 16/02/2026 3:51 pm, Jan Beulich wrote:
->>>> The label used upon the function failing is wrong.
->>> Is it?  Which label do you think it ought to be?
->> fail_sched, as Roger did point out in reply to the original other patch.
->> After all ...
->>
->>>>  Instead of correcting
->>>> the label, move the invocation up a little, to also avoid it altogether
->>>> for the idle domain (where ->vmtrace_size would be zero, and hence the
->>>> function would bail right away anyway).
->>>>
->>>> Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
->>>> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> --- a/xen/common/domain.c
->>>> +++ b/xen/common/domain.c
->>>> @@ -493,14 +493,14 @@ struct vcpu *vcpu_create(struct domain *
->>>>          set_bit(_VPF_down, &v->pause_flags);
->>>>          vcpu_info_reset(v);
->>>>          init_waitqueue_vcpu(v);
->>>> +
->>>> +        if ( vmtrace_alloc_buffer(v) != 0 )
->>>> +            goto fail_wq;
->>>>      }
->>>>  
->>>>      if ( sched_init_vcpu(v) != 0 )
->>>>          goto fail_wq;
->> ... this comes first, and ...
->>
->>>> -    if ( vmtrace_alloc_buffer(v) != 0 )
->>>> -        goto fail_wq;
->>>> -
->>>>      if ( arch_vcpu_create(v) != 0 )
->>>>          goto fail_sched;
->> ... here the correct label is used.
-> 
-> Eww, yes.  So multiple observations.
-> 
-> 1) This only functions in the first place because
-> destroy_waitqueue_vcpu() is idempotent to v->waitqueue_vcpu being NULL
-> which covers the idle case where init_waitqueue_vcpu() was never called.
-> 
-> 2) sched_destroy_vcpu() can be made idempotent against v->sched_unit.
-> 
-> Then we don't need multiple labels and this all gets a lot easier to
-> untangle.
+wake_up_one() isn't used at all, so violates Misra rule 2.1 (unreachable
+code). wake_up_all() is only used locally, yet rather than making it
+static its sole user can invoke wake_up_nr() in the intended way directly.
 
-Yes, but as a backportable fix what I have here is the most suitable
-first step, I'd say.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-With what you suggest, I'd then want to check whether either or both of
-the function invocations could move into vcpu_teardown(). At least for
-destroy_waitqueue_vcpu() I can't really figure why it's called only in
-complete_domain_destroy(); for sched_destroy_vcpu() it may well be that
-it can't be done earlier. Or wait, looks like vm_event_cleanup() would
-need moving up in domain_kill(). The comment there right now explains
-why it can't be done later; it's not quite clear to me whether moving
-it ahead of (or into) domain_teardown() would introduce any problems.
-Tamas?
-
-Jan
+--- a/xen/common/wait.c
++++ b/xen/common/wait.c
+@@ -85,11 +85,6 @@ void init_waitqueue_head(struct waitqueu
+     INIT_LIST_HEAD(&wq->list);
+ }
+ 
+-void destroy_waitqueue_head(struct waitqueue_head *wq)
+-{
+-    wake_up_all(wq);
+-}
+-
+ void wake_up_nr(struct waitqueue_head *wq, unsigned int nr)
+ {
+     struct waitqueue_vcpu *wqv;
+@@ -107,12 +102,7 @@ void wake_up_nr(struct waitqueue_head *w
+     spin_unlock(&wq->lock);
+ }
+ 
+-void wake_up_one(struct waitqueue_head *wq)
+-{
+-    wake_up_nr(wq, 1);
+-}
+-
+-void wake_up_all(struct waitqueue_head *wq)
++void destroy_waitqueue_head(struct waitqueue_head *wq)
+ {
+     wake_up_nr(wq, UINT_MAX);
+ }
+--- a/xen/include/xen/wait.h
++++ b/xen/include/xen/wait.h
+@@ -31,8 +31,6 @@ void destroy_waitqueue_head(struct waitq
+ 
+ /* Wake VCPU(s) waiting on specified waitqueue. */
+ void wake_up_nr(struct waitqueue_head *wq, unsigned int nr);
+-void wake_up_one(struct waitqueue_head *wq);
+-void wake_up_all(struct waitqueue_head *wq);
+ 
+ /* Wait on specified waitqueue until @condition is true. */
+ #define wait_event(wq, condition)               \
 
