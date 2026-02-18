@@ -2,61 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wO+4AMDflWneVgIAu9opvQ
+	id mEP1CxzklWneVwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 16:50:24 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 17:09:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57D941577D2
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 16:50:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235812.1538666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 894E01579CE
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 17:08:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235841.1538686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsjoY-0003CO-4T; Wed, 18 Feb 2026 15:50:10 +0000
+	id 1vsk6K-0006Lp-1Z; Wed, 18 Feb 2026 16:08:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235812.1538666; Wed, 18 Feb 2026 15:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 1235841.1538686; Wed, 18 Feb 2026 16:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsjoY-00039t-1N; Wed, 18 Feb 2026 15:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 1235812;
- Wed, 18 Feb 2026 15:50:09 +0000
+	id 1vsk6J-0006K0-UK; Wed, 18 Feb 2026 16:08:31 +0000
+Received: by outflank-mailman (input) for mailman id 1235841;
+ Wed, 18 Feb 2026 16:08:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nwpa=AW=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vsjoX-00039n-An
- for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 15:50:09 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7df48003-0ce1-11f1-9ccf-f158ae23cfc8;
- Wed, 18 Feb 2026 16:50:06 +0100 (CET)
-Received: from CH2PR07CA0065.namprd07.prod.outlook.com (2603:10b6:610:5b::39)
- by SA1PR12MB9469.namprd12.prod.outlook.com (2603:10b6:806:45a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Wed, 18 Feb
- 2026 15:50:00 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:5b:cafe::1f) by CH2PR07CA0065.outlook.office365.com
- (2603:10b6:610:5b::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.14 via Frontend Transport; Wed,
- 18 Feb 2026 15:50:00 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Wed, 18 Feb 2026 15:50:00 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
- 2026 09:49:59 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
- 2026 07:49:59 -0800
-Received: from [172.17.121.74] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 18 Feb 2026 09:49:58 -0600
+ <SRS0=LfGN=AW=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1vsk6I-0006Js-Hu
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 16:08:30 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ea1d3f1-0ce4-11f1-9ccf-f158ae23cfc8;
+ Wed, 18 Feb 2026 17:08:27 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1771430890171379.7664783297532;
+ Wed, 18 Feb 2026 08:08:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,153 +43,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7df48003-0ce1-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HA4+Q9NHKYGncshG83j3/NYPK5U/UmUCnWXPTcCm52yhsED6cWyz7gJWYSl5GPc8SZXEX/CiWd73PhiEkKsaWiXqziryBoQV74+R2pnszRb9z+aR3I0A5KiQsYJo6oYOP3G52ImYIXPCFKSu4JT6xP4OMsFzAd7/ZYW/4fQIqMhaiu58MYu+xtCiZRFHE7DQUB5okm34XJ1/bWyXMmdmAclQh+PyRLCh5Nfqa58IBYBWH/C0P46H7YE/pzIb24LI6nbX+f5zdl6l+kWgcxEJKSlMbfBz+ccBBtz2ygtSYRDKPcSqsUf56zZp9jCS0QyZETf4I1Pyho3mjpmmpGQxuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eiDC6gGtcvi+Z1M7pdgqZLR9NEQKhSwZ1067MLtFS5I=;
- b=esjr/cXrHZ79Q5Mw0Mo1ifEPcaocboeMO2nsh1kcfWVv4HM2/7kCi5nT8wMqDMe31MS0FQKUox2eDDZvB0L9nDQI8xNONXwtP2AZg/ukqQIDhhhGgaOOlyX9/Pp4OOirzyTVo5OQb4W4NsBYOeGXCDKIrajT0nsum9UEPM5RzpseaySpXiVe7eAwfcGjLjYWkgbqFa67ABuBPGK4fmTct3yWCszEZEBma3znJB0H0iSN95rHA01HdQtNaeSg2DSrHZIRS03uFsba9hYpDPrCFADisRBbF6yYWh0AxsshuO+srUMktTxZaa1TgltKlr9FKxnLEoDkaCyJlwc6Hq5tZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eiDC6gGtcvi+Z1M7pdgqZLR9NEQKhSwZ1067MLtFS5I=;
- b=tSS0J3q8CVAjFEdmyHs5Yq+v4RJKqeF5Vr07xAUzLkzeFl2dlneXfReMXMB/KCsUsQZj0jLN62NcKJGl90lpP+N3o+lx06ej0UjrXJMT/IuhxgoUIGOgI3O6lzAEdC4zv+4kcKpHXc8KZYl2UbMZ4XpEHM5cwtRfpyGhRtgFpfY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <259b799d-33bb-4180-9816-f9bc316b8d9f@amd.com>
-Date: Wed, 18 Feb 2026 10:50:01 -0500
+X-Inumbo-ID: 0ea1d3f1-0ce4-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1771430893; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Q0LId52bKp0/GTS2A6wkt1dd3cezWqk7zH2usy5ZtPzdfyUq3kJF3bm3oOZlSvkzhwG/EL8CEN2Hj5zMYNyslNgNLl18lZl4yiOLp4N0FLGQVMUcjf+oM0FwQ6t5STqJ0Tuo+VUnZ87OzycsBlJ3J0LUrH82bq2DrQ8BYh1Ny/s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1771430893; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fWRXMj7PK6kMHx6AVdRzCrEyKuz94e5VKxOetrzHKTQ=; 
+	b=KhcK/2kbD92aW0JwBswzAi6nG6LNDTFyTJLfFsN++hRYElxR3moDuXfBf4wC+PIUMKOLDqQSmUpzU0tTbS00kBfAI94ChdUA+rKsd1XrEE6izHbu2urzOriwXD+BM2xOFtQNn2jmhmVRkYY7+MPqkbPktQ0acffjn7C3MI3Mx10=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771430893;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=fWRXMj7PK6kMHx6AVdRzCrEyKuz94e5VKxOetrzHKTQ=;
+	b=JSH1WcTpJG2IAQ2NEhj+qb1ldiJzCMfmMrbPcfY2BHDs7rFX2pY4Q9TqQBalBTk6
+	mX2j7mGAUwvjQk1ZIxvDnmGXauw2DPlsxj1cMsSDE2MPVANv4iHJu4bQRLNxenkrnDu
+	bEWgEGO92Vb97NCxAVrH8rB8hsb7rCwZ3PTvRXcs=
+Message-ID: <89173609-0089-4c89-a924-2feb88e77308@apertussolutions.com>
+Date: Wed, 18 Feb 2026 11:08:08 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/5] vPCI: move vpci_init_capabilities() to a separate
- file
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <25c65557-c97c-499c-a698-571e40cde563@suse.com>
- <c90890f0-2e6a-43d9-84f9-b0ea19a11d3d@suse.com>
+Subject: Re: [PATCH v10 2/5] xen: change VIRQ_CONSOLE to VIRQ_DOMAIN to allow
+ non-hwdom binding
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <c90890f0-2e6a-43d9-84f9-b0ea19a11d3d@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ grygorii_strashko@epam.com, anthony.perard@vates.tech, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, jason.andryuk@amd.com,
+ victorm.lira@amd.com, andrew.cooper3@citrix.com,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.22.394.2602041533440.3175371@ubuntu-linux-20-04-desktop>
+ <20260204233712.3396752-2-stefano.stabellini@amd.com>
+ <82c06e52-1db0-46e5-be9f-7ca0360ffc70@suse.com>
+ <alpine.DEB.2.22.394.2602091520460.1134401@ubuntu-linux-20-04-desktop>
+ <43e80ad6-7b42-42de-b36f-1a9079589912@suse.com>
+ <alpine.DEB.2.22.394.2602131206040.6031@ubuntu-linux-20-04-desktop>
+ <053d2624-2891-4534-83f0-b05e190afe3b@apertussolutions.com>
+ <e08b65e3-8908-4882-9481-d4aa7dbfcfa1@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <e08b65e3-8908-4882-9481-d4aa7dbfcfa1@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|SA1PR12MB9469:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5e801c2-8075-4995-9811-08de6f055f85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dWI2ZzRrYW1XajNSSzI2N091bHR5dEZUVTAvWG43M1QzT1lCY2g1cUpxMC9O?=
- =?utf-8?B?RXl6dWVCYk5GbGZaaEhEbWtJWmpQL3licHByNE5kL2FqYWs5a0M1MVZoQld0?=
- =?utf-8?B?RjUwVytJWkhDZ1NHV3JGWXFZZWhuM25FSXRTSDR5dGJUN0UzODBjVE91NkZO?=
- =?utf-8?B?T3lGNlNiOWdGc3hnMEc1SG1VSGViVGtNRFMybVlOeDFOeGRieUszN2s5QVE0?=
- =?utf-8?B?ekJ5Lyt6aXU4TGFiVHA0eERZWWdqVVVLclZGT1Z2RkhJZGhsVHpyNyt2QVlr?=
- =?utf-8?B?QW9QVEJwdXhiQkN6MTZUVno5VHBvaERPRTVub3ZrVU50RTV5SnNjZnJRVUVa?=
- =?utf-8?B?S3pWYTZOd0Vpa2daRFBNbld3MHdNYTNpWDFHSXhQTzRLSjVqUUQydkZ3VDFJ?=
- =?utf-8?B?cDh5SEYrK3Fqc0VnUEMwd2RDRTN3V05wU2k2MVhwcUNBU3dMNDgzOGtLTUdK?=
- =?utf-8?B?TEZDNDIwL1BtODZ4OVhOZUxGZUtJdXhHZUxsK1N0M2Q2SUNrWHlnejc4dzht?=
- =?utf-8?B?OXE0dXZHNTd4SlRSSmN0ZHVmRnpraGZOUVRONGVGMTNWd2dxb1RqN1lvR1hz?=
- =?utf-8?B?Umo4RmU5WVREbFg2ZGhIMjF0eHpNT1lQZm1JYXd5S3oxZzNEanN0U3BtaVll?=
- =?utf-8?B?N01LTTMwVitxUWJBYldpRFA4YmRZVnU1czEzRDU4V1NqdGM5VzZPYTdDZXVy?=
- =?utf-8?B?MUY4dzE4eHptY095dG9FS2psRk5TQTkrcTZtRFhuWEp4anFGM2NqUkxUWWI1?=
- =?utf-8?B?elJVcExJdTJWdW5YV1Z3TkhDb0t3STVLd2doYVphaFVtYWhTZVhGSElJL0dY?=
- =?utf-8?B?TTF3ekpUVnQxYmRuU2ViMDQ4WFlCemFkbHZkT0NlNXdzSnN1djkzLzU4aDZu?=
- =?utf-8?B?OUZDTFVEZHRMN3IwakJHMzdZZmhGc0JlMElRb3hJeHRzb1pMVmdHQ2VOYWFF?=
- =?utf-8?B?RnpzTmRENWsrNUFOSXdBUW5BMDJ4VXlTQmRBaWRXQllkK281Rlp4VnRvN1Vs?=
- =?utf-8?B?ejY5eTRXZEVxN0I2Q25ES3l5QXBKMDRXOFBWeG9ZVkw5M1BidzJST090ak84?=
- =?utf-8?B?UjJxaFhQNm1SRXVRWXFLSUFOa092UjlCQVBTdXRLMExhS0ZGS05Wd0NvM2tC?=
- =?utf-8?B?c1VqRjIra0o3dElOLzZIV3dLeTVxMmJ3ODM0bERHQWh2R01zWnY3a1EwZDJP?=
- =?utf-8?B?QTZ0cTRUdm5FL1QzYUZITzQrbnV4enh5Nlh2UTVaYU5oME5XeTgxZWMxbDBz?=
- =?utf-8?B?UngyS0dtbnpsSEU2aVB0Z29sTG1ENUd1SFo1dDJBakxFTTZJWUQxR3JBdFpG?=
- =?utf-8?B?d3pIU2doR09sR2dSSEQvZkhqRnk0bjQ5NVFVYWRoemludkllV2pqdzJ2Q2hi?=
- =?utf-8?B?MXo5bmhZMlZXaFBlZGNvMkFGN2JMUkd6dUVXRmQrdUZtRXpldEhVQzhoRXdN?=
- =?utf-8?B?Z0k4MnBlY3RtOEZEeUxIc3ZHc1NZVFNtUy94c2Q0WXVGemR2NVBVU0JmbVlI?=
- =?utf-8?B?RmV4R05hT2kyeHowZTY4ZGpvbG9oNVNZdWpDZ1N5QjJ3WisvZk50RWlVWER0?=
- =?utf-8?B?K1diWDJsZCtNZ3NrY2V1ZWJqaHJ3RnpwMTMvQkFLWERCdjFmQ0kxNG9CQUJ6?=
- =?utf-8?B?dC83VmErb1RreFlySzkwbzJRUmUvVlFOM0lnOVAvTmc5N2U5SmJvR2d4UzRN?=
- =?utf-8?B?UHdmMWtOQ053TEVuMis2OG9UeHZQRzQyTlJhUVd1N1FQcUdvUzFndFU5WXh6?=
- =?utf-8?B?ZlJXTGdZQm1Ycm91ZFk1N3B5ZmlFMTFscXE2aFdEMU80TENLZGR6SXdJMWR0?=
- =?utf-8?B?dFFXWmRuU3oyRER0eURJRElETE4vNktPZTNyWWVWakZBNWE1NHdHOVBhZ1c1?=
- =?utf-8?B?cmljMkZrNWJtMkdMR3BPMCtldjBwanN4Z2ZFTERqMnVJdithR3FpYll4SmVU?=
- =?utf-8?B?NmlHaTV1ODZrZDh4czQySGlLanFKck40ZnRJNmN5d21GQzAyclhMV1JjR2Yz?=
- =?utf-8?B?V2ZzVnp2dWkyY0RHVkNLb3lFaTVnTEVEU21BUGpBYklKNktvRnUvcEtXL2Rr?=
- =?utf-8?B?Q1hydlQ2L0Z2cnJWYnNQNnJ2aW1ySCtJQjlDaTE0cGkwcGpjQnFCc3dLazNk?=
- =?utf-8?B?SU1OTk1OU1NJQnVkOFczd3MvVEJFbXExNSthUmJoTENvaUtLWlNUaEVyVTFY?=
- =?utf-8?B?YnVaS3ByQmFIbUYyZlZkYVJHRUEwd25jNU0raHRwYTJEY2FGSHdwUXJ4aUNW?=
- =?utf-8?B?azdpNTFsMXd0WHlQRi9MS2d3dlVBPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0g6y1M5VhnkZ1WjYa5NmelttlMXnUN0HE4EkYoItzSLBOO12mZ1dKMYZ9GwjQwDnch1Tfq5zSy5B9zArP2eSCID9NJBYxqgkzmwzLgD1a3yxNdTLNNL7bakfr/c/USyvu2fGYOjlPF73FOaTFq+r1waDcQ0bdzGJOBBxrdqXXEZ4IVbSxOPGF92zwnCw6Td/00GCXKgfxHcvYYIg90ookUGgI1VegreEIurGpY3auNNACVLeqBSOnWPcUOcLxjjRJdcwqw7RLdA5Dl/Zo+J+eRxUruPqIcUGJve47XW1XZp+qqjLhTizOndP5lZpJchyuTMa8SfAMGVG+nq2sh5zlGhI+5wRGG7C9bpZOJ2+rOeSB8ScS2ToRyiYlW+aC1KPaSkvI9mLfhtO583eM2k7D7HQt9vRD9NXkaUvvGYwpFT7iAWj9ZuYP4VguXGgp0F7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 15:50:00.0766
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5e801c2-8075-4995-9811-08de6f055f85
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9469
+X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.69 / 15.00];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:stefano.stabellini@amd.com,m:grygorii_strashko@epam.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:victorm.lira@amd.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	DMARC_NA(0.00)[apertussolutions.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_THREE(0.00)[3];
+	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[apertussolutions.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:email,suse.com:email]
-X-Rspamd-Queue-Id: 57D941577D2
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 894E01579CE
 X-Rspamd-Action: no action
 
-On 2/10/26 05:54, Jan Beulich wrote:
-> Let's keep capability handling together. Start with moving
-> vpci_init_capabilities() and its helpers, plus splitting out of its
-> cleanup counterpart.
+On 2/18/26 10:14, Jan Beulich wrote:
+> On 18.02.2026 16:07, Daniel P. Smith wrote:
+>> On 2/13/26 15:09, Stefano Stabellini wrote:
+>>> On Tue, 10 Feb 2026, Jan Beulich wrote:
+>>>> On 10.02.2026 00:23, Stefano Stabellini wrote:
+>>>>> On Mon, 9 Feb 2026, Jan Beulich wrote:
+>>>>>> On 05.02.2026 00:37, Stefano Stabellini wrote:
+>>>>>>> Today only hwdom can bind VIRQ_CONSOLE. This patch changes the virq from
+>>>>>>> global to VIRQ_DOMAIN to allow other domains to bind to it.
+>>>>>>>
+>>>>>>> Note that Linux silently falls back to polling when binding fails, which
+>>>>>>> masks the issue.
+>>>>>>>
+>>>>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>>>>
+>>>>>> Technically this is an ABI change, and hence I'm uncertain it can go without
+>>>>>> that aspect being at least mentioned, perhaps even its implications properly
+>>>>>> discussed.
+>>>>>
+>>>>> I am not sure if it qualifies as an ABI change or not but I am happy to
+>>>>> expand the commit message in any way you might suggest.
+>>>>>
+>>>>> The jist of it is already in the commit message, really the key element
+>>>>> is that VIRQ_CONSOLE can be bound by multiple domains.
+>>>>>
+>>>>> Aside from spelling out "this is an ABI change" what do you have in
+>>>>> mind?
+>>>>
+>>>> What I mean is discussion of the implications for domains using the vIRQ.
+>>>> Previously most domains would have attempts to bind this vIRQ rejected.
+>>>> Technically it is possible that kernels had code paths blindly doing the
+>>>> binding, relying on it to work only when running as Dom0. And really, you
+>>>> appear to break XEN_DOMCTL_set_virq_handler when used with VIRQ_CONSOLE,
+>>>> without which its binding wasn't possible at all before (except for the
+>>>> hardware domain, which get_global_virq_handler() falls back to when no
+>>>> other domain is set). Or am I mis-reading things, as I can't spot any use
+>>>> of VIRQ_CONSOLE under tools/, whereas I would have expected provisions
+>>>> for (host) console handling to be delegated to a separate control or
+>>>> console domain? Of course other toolstacks (the XAPI-based one for
+>>>> example) might actually have such provisions.
+>>>>
+>>>> And then there's the XSM question: XEN_DOMCTL_set_virq_handler obviously
+>>>> is subject to XSM checking. The same isn't true for VIRQ_DOMAIN-type
+>>>> vIRQ-s. Yet this vIRQ isn't supposed to be universally available to
+>>>> every DomU. Instead the ->console->input_allowed checking is kind of
+>>>> substituting such a check, which iirc Daniel said (in more general
+>>>> context) shouldn't ever be done. IOW in patch 5 you're actually effecting
+>>>> policy, which should be XSM's job aiui.
+>>>>
+>>>> Bottom line: The patch may need to be more involved, but at the very
+>>>> least the description would need updating to justify it being as simple
+>>>> as it is right now.
+>>>
+>>> What do you think of this:
+>>>
+>>> ---
+>>>
+>>> xen/console: change VIRQ_CONSOLE from global to per-domain
+>>>
+>>> Previously VIRQ_CONSOLE was a global VIRQ (VIRQ_GLOBAL type), meaning
+>>> only the hardware domain (or a domain explicitly set via
+>>> XEN_DOMCTL_set_virq_handler) could bind it. Any other domain attempting
+>>> to bind would fail with -EBUSY because get_global_virq_handler() would
+>>> return hwdom by default.
+>>>
+>>> This patch changes VIRQ_CONSOLE to VIRQ_DOMAIN type, allowing any domain
+>>> to bind it independently, similar to VIRQ_ARGO. The console notification
+>>> is now sent via send_guest_domain_virq() directly to the focus domain
+>>> rather than through send_global_virq().
+>>>
+>>> Implications:
+>>>
+>>> 1. Guest kernels that previously called bind on VIRQ_CONSOLE blindly
+>>>      will now succeed. Linux handles binding failure gracefully by falling
+>>>      back to polling, so this should not cause regressions.
+>>>
+>>> 2. XEN_DOMCTL_set_virq_handler can no longer be used with VIRQ_CONSOLE.
+>>>      The domctl explicitly rejects non-VIRQ_GLOBAL types. This means
+>>>      toolstacks that relied on set_virq_handler to delegate console handling
+>>>      to a separate console domain will need to use a different mechanism.
+>>>      Note: No known in-tree toolstack uses set_virq_handler with VIRQ_CONSOLE.
+>>>
+>>> 3. VIRQ_DOMAIN bindings are not subject to XSM checks beyond the
+>>>      standard event channel allocation policy. Access control for console
+>>>      input is enforced via the per-domain console->input_allowed flag,
+>>>      which is set for:
+>>>      - The hardware domain (by default in domain_create())
+>>>      - dom0less domains on ARM (in construct_domU())
+>>>      - The PV shim domain on x86 (in pv_shim_setup_dom())
+>>>      - Domains with vpl011 using the Xen backend (in domain_vpl011_init())
+>>
+>> Actually this goes back to the concern I have raised many times,
+>> is_hardware_domain() always serves a double purpose. The explicit check
+>> that the domain is where the hardware is, but also the implicit access
+>> control check that it is allowed to do the hardware access. The implicit
+>> access control check is a subversion of XSM and the reality is that the
+>> input_allowed flag is just unmasking this subversion for an explicit
+>> access control check outside the purview of xsm.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> I don't think I can deduce from this what your view is on the change proposed.
+> There is, as per what you say, an existing issue with is_hardware_domain().
+> (Likely at some point you'll propose patches to address this.) What I can't
+> conclude is whether you deem this new issue "okay(ish)" on the basis that some
+> vaguely related issue already exists, or whether you object to this new way
+> of "subversion".
 
-Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Digging deeper, the underlying issue is that when struct domain_console 
+was introduced and now this series is building upon it. The struct 
+domain_console_patch added a resource access control check point for all 
+domains through input_allowed that went around XSM. Now we are here with 
+this series that is exposing what was done. To your question, am I 
+okay(ish) with this. Not really, but it's also not the fault of Stefano 
+or his series that the earlier commit laid this landmine for him.
 
-> ---
-> vpci_get_register(), while now only used by cap.c, didn't look like it
-> would want moving there.
+With all that said, thinking about it in totality, the fine-grained 
+access control does needs to be there for tightly controlled 
+environments, but is not necessary for a general security posture. Plus, 
+I am going to have to think about how to correctly inlay the XSM check, 
+which is outside the scope of this series. All of that is to say, I am 
+not okay but don't feel it's right to block this series over it.
 
-OK. It seems potential opportunities for compiler optimizations would be small
-anyway, and this is not a hot path.
+v/r,
+dps
 
