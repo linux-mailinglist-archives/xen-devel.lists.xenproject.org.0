@@ -2,61 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gPpEJ0MnlmnxbQIAu9opvQ
+	id 4J94FnMolmnxbQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 21:55:31 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 22:00:35 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F25F115999B
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 21:55:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235967.1538774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E43159B5B
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 22:00:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235978.1538783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsoZW-0001ph-MY; Wed, 18 Feb 2026 20:54:58 +0000
+	id 1vsoeh-0003fE-7A; Wed, 18 Feb 2026 21:00:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235967.1538774; Wed, 18 Feb 2026 20:54:58 +0000
+Received: by outflank-mailman (output) from mailman id 1235978.1538783; Wed, 18 Feb 2026 21:00:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsoZW-0001nk-Ih; Wed, 18 Feb 2026 20:54:58 +0000
-Received: by outflank-mailman (input) for mailman id 1235967;
- Wed, 18 Feb 2026 20:54:57 +0000
+	id 1vsoeh-0003dY-4I; Wed, 18 Feb 2026 21:00:19 +0000
+Received: by outflank-mailman (input) for mailman id 1235978;
+ Wed, 18 Feb 2026 21:00:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nwpa=AW=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vsoZV-0001nV-Fu
- for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 20:54:57 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
+ <SRS0=CABg=AW=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1vsoef-0003dS-Mx
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 21:00:17 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11a9b2cd-0d0c-11f1-9ccf-f158ae23cfc8;
- Wed, 18 Feb 2026 21:54:51 +0100 (CET)
-Received: from BY5PR16CA0033.namprd16.prod.outlook.com (2603:10b6:a03:1a0::46)
- by DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.13; Wed, 18 Feb
- 2026 20:54:45 +0000
-Received: from MWH0EPF000C6191.namprd02.prod.outlook.com
- (2603:10b6:a03:1a0:cafe::e9) by BY5PR16CA0033.outlook.office365.com
- (2603:10b6:a03:1a0::46) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.13 via Frontend Transport; Wed,
- 18 Feb 2026 20:54:45 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6191.mail.protection.outlook.com (10.167.249.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Wed, 18 Feb 2026 20:54:44 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
- 2026 14:54:44 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
- 2026 12:54:44 -0800
-Received: from [172.17.121.74] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 18 Feb 2026 14:54:43 -0600
+ id d26f4ee0-0d0c-11f1-9ccf-f158ae23cfc8;
+ Wed, 18 Feb 2026 22:00:14 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-38707d4c8b9so4046021fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 13:00:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,147 +45,451 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11a9b2cd-0d0c-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yTVBTTI3/fFzNIc8hy+4R58eRIOGBZMZr1sbVKJqnPHy4+GUboyx7Ywj3JFVD7JdFAAfVSwgbvlTFDqznjdFLRvbJ+F1KCebK+T0M4rJJ8XvNOE4ookoJWmw17me3KDCCRrNQtjwrOyvEEwcrsvpdhtsKwQOaia/ag6ZRMwVJtr121TVWbVrLlFodTGoDeFEoEGw4kVXLOxbF4GHVhNcxA3D24Pd/4CDyD4M/9ku2FxlPwKVWBQk0kPobZW6tGgTkqkPdLBKQ7GsoqiOicZeK5wIMsE8s8T+B3hrt+7XUCv2UraIg0uoo5VKrGt17RNXAc89EPIDF8jb9y6uMkVTdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S8u7rtXsPu949CZVdiy09ETqGzy/1bo+tI1pKBXJTYM=;
- b=eHTmbbOFua7EeuoRwAVe0PeWBVnVHr8dMy+UqLJrjDRGuCqtVXf//Caz410lywu9ZPN7ZpabnyXoPhcry1JZSZygarARGPMdHzTUEBSECLIiYqjO4Gd8txzKLau7A6kJMro+0iUO756vRkyy5hEklcePMyRueXlkRjpY26Aq+Sj+KI1cdrF0cWWaRXa+qWI/7bxTsEv6Ts7mmb3vRSXt3FQ2t7Srst2nX60t6rhihs8QyZrXcf8unORjmzWf/qyp5AGjBiAUfTstvp/Ai97aV+7JnK3k3K8bf75wg/qBdOmxynJFsYhMJnZCpbvclDDaDVUegVCotWFjE5Ssgym72g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S8u7rtXsPu949CZVdiy09ETqGzy/1bo+tI1pKBXJTYM=;
- b=MRUqEhvh3PF0uTJSx2rJiu36StQ69Oc2hIsBi4FZKYD0J3JbvexkDfosuYh9K3dVsOl63/NRuKKexoOG1EbYG8Hig+3Y4CvpO6yX0+rssu0HhkcxHYoZ6dvpNiPwWwAxQo5gKHGqOc/ETmLmy8cp2gO3ZcZI6iP2VtzvLAkDe6U=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <77add3a8-20ea-4313-ba9c-4be110fc80c3@amd.com>
-Date: Wed, 18 Feb 2026 15:54:47 -0500
+X-Inumbo-ID: d26f4ee0-0d0c-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1771448414; cv=none;
+        d=google.com; s=arc-20240605;
+        b=YHh1Z0kZW26nRlsten2H4Hq+fQeaPT4BIXYh97TZVXk7BNaDc9trZq4CEohTeXO8NC
+         VJ968YNMmhHmJdlX1kDZKKet0bUFnLNfRqU0PWVVUXOYYxSe7KKundUVy5uxu2LpgCgj
+         MfC+7zRla+KXTYFK77pV0nsz95dwsArO2iC/OeTZnEqUB+yT0Uc6bVWp8ZdSApex7jgK
+         fd+vpfbFbr8vXP/Tv5rbJKJydoXb5uE4T8QMrzxuVW755Kz0KLlk+8ucjGgljkcz6Ofh
+         xiC1IoZayQ1wSuI9drgNyhfpnTNP8pZqIp+wBo9zQx/pv77aFCXDys4Cd2yLL/9cPL5T
+         mNVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZdJvyiUk21te25MO0c9KuUepU2kfYCsREjkuROz7/FM=;
+        fh=S1TgsMYO/ju21WOcmYTQxMlAU8ImCjuw50drwKkfBt8=;
+        b=HZuel1ZR8xdMQ0LcKP4be1BnAwGX7dnv/fKYR58vONONpLo2ZXwxXDDCZD0vCmbETE
+         WHcdPEXweCgrGyzKt4nxZFSMKaLLJcL+VQ4NTKdjQHpEHKhM/77J4sJlBkZz3mShO2s+
+         M3m4Bu8rvd1gdZoRGuQGNTTmnCw8FYQKh/xQOFH9JTPXdBvmpg1qXMZzTgavTLJXhW+8
+         1UkCniXThBu1y1S2JQt1ZwwYsXc5agRCHyJDtKIztIwLiHT2vTKUiI9N/J8HxBw+eSu/
+         S9S9ZdYcjr8HVZ99D3AA8z74aeGr+8pPbtN4RoV1J1FyLncrKL+j0acoFx+4ISC363nv
+         hJBA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771448414; x=1772053214; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZdJvyiUk21te25MO0c9KuUepU2kfYCsREjkuROz7/FM=;
+        b=NE8C0ZbHl1Y5+j8PYom1LWp+HefOftXOdnStzWXkZ3iXT/Q347M5+tcwVcsz6BIThn
+         +NwDqV2GzUNNRcTIwOqOUH8QhtO4F7YeLQrMDvSzYXVEWCKPm+I9ch4nKGQWQ+QhrI+Y
+         2uV6oGQwQj11XEgtIThZq9ZjqniWk/PuNJh2/UCLlEe9yDRD1DZdgfO1Wbi3d1+PEEAH
+         WaA1PWKTAP6Lavhg9UWEyauCLJUTTvF+5HzarXpkaHSbCsPisI4fGDUzulfUR0TwQgv2
+         W+WAWRspaj0+KduXM3kH8pD1uIao35AAG7hH+Dh3Cylge5mDM2NVdWO62Wh14/y0gT3G
+         9BhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771448414; x=1772053214;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZdJvyiUk21te25MO0c9KuUepU2kfYCsREjkuROz7/FM=;
+        b=agypCAdM1YsIXp/Na+tLGBYBSPpaf5ZRckbigp520tIBob19WXwdk72oCRoVGmYT62
+         RJo7DDfiWKyvieionh9rVh7kETi7A8/Q2NohObVAqbnGWpZJFU1ZVo1iPyWCVso8NpKV
+         C2dYHPHrRFZuo9dQUZjShLZQPtM+QU5JCIU8Wpiv7Cn2ZP7sv+xMlMhd3RE+Sk3z14nr
+         vy+YGqDa9aOL4bbBpV8apBcasTixNKQpF2q3GYBWT37xunVHj+g3SxYIAZ17CW5qa8z7
+         5jN2yNCNvh9aLMh98SdoEk0/22MzfrDtLse0e5IW15st9GDQzTMKbtXIT03Srr4kdTzd
+         QYGg==
+X-Gm-Message-State: AOJu0YyEnKNUxIrZZTmIbF8nnqeeYsqCn8U0E041hgS/xyLB6l37UB2B
+	3/MGaamzdpwPCXUQ6D0C6A1/RU+LBxeveTm58ZFM5mnhnvJkobDjoGyteknk86HRc6t6Rlq7sej
+	ru++DGFcka60G0qCpH+kWV27aY15gJMw=
+X-Gm-Gg: AZuq6aLpfYOrBu//i9iYP7cM8MmFdLtFtuBYzVD7l3P065fghCsRRcELQAvIdPiVcL2
+	r+UE9VSjDhQPX8fi250Ne8kA06q1+MMIuSPvuqEjdtCJltlyNr84LhnDV/TpeaeG3L6/X2kgPW0
+	Crub6jZGA+PEORESotuu217yID0PHNh80Ha7GxeYpb3CWzPBHR6e3ZGTduR1X+lP9JhZz67Vn8o
+	HRfFM/vvp/4XCLU904RCbcVoQ311SWdbwuqWlYiISlM2B8u1Vjf5KctN1FcW8uvQ9zzJ+r4uZTW
+	Eb/jFA==
+X-Received: by 2002:a05:651c:f02:b0:386:1ce2:1194 with SMTP id
+ 38308e7fff4ca-3881b950eecmr47850331fa.31.1771448413772; Wed, 18 Feb 2026
+ 13:00:13 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] vPCI: move capability-list init
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <25c65557-c97c-499c-a698-571e40cde563@suse.com>
- <b5030a1c-bb01-499c-b75d-27651a09490d@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <b5030a1c-bb01-499c-b75d-27651a09490d@suse.com>
+References: <cover.1770046465.git.mykyta_poturai@epam.com> <7cddaf16eb840dbd1480d7a1d6ddb0cbf0357113.1770046465.git.mykyta_poturai@epam.com>
+In-Reply-To: <7cddaf16eb840dbd1480d7a1d6ddb0cbf0357113.1770046465.git.mykyta_poturai@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Wed, 18 Feb 2026 23:00:00 +0200
+X-Gm-Features: AaiRm50MYv7_n41CHSJKAdiZG8efxiYNMXq7H1DjszAKXsvqy98sSsZC_EjfK_4
+Message-ID: <CAGeoDV8HBfmNpEjdP80=YFM+th0Y0d+OM=GQAxnDt0OYDNQ71g@mail.gmail.com>
+Subject: Re: [RFC PATCH 14/19] arm/its: VPE affinity changes
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6191:EE_|DS0PR12MB7747:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b412dde-e375-43b2-6429-08de6f2ff238
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TW1BWGFMMEFOSDNMWTNEWk84RzdseExTOExuM21BZWdaSW1xN2dEbjVubXhz?=
- =?utf-8?B?NnpqUDFQemd4RVQ0QWNaWUVUUmdDdXZXeGFkdktuaWtYL28xYzllc0RBNmtS?=
- =?utf-8?B?UG81dFo3bVEwT3hGOHZWc2hPVU0xQ1pzODlmbmRSZTBoVFRUaUd1VU5GOGFJ?=
- =?utf-8?B?MGx5TnRpbEtwa1BYTTBmWFJNb2FJWnJFVFlGZjNIbkFSenpmYm5WSkFmWFRa?=
- =?utf-8?B?bVFha0RJVkNZdUdHNVhEdVovc3JSUGEvNDIyN2c0ZXZJTGhiZS9lRjFCc0FB?=
- =?utf-8?B?d2ZIVDFkQ3huTW1SV1dzblUrOUtzVjdRODNBa0QxMjZ6am8wYVpCS0JsaENh?=
- =?utf-8?B?ajdwSThWbmVKclFtU0x4Z1g5Uk9QY1Qzei80NEptQVNtMDNlSm8wYXdFOUlY?=
- =?utf-8?B?VnFZaklXa1VSdk5LODA4NHRwS2Z3MzY2QUZuclVjbUJha2lzSDhTeDhkOGFG?=
- =?utf-8?B?bW1TbTdkSHpEZk85V0RGaWhGR0VqVkcxU2pDRmhwR3pDaWtRczFBbnVXQWNL?=
- =?utf-8?B?ZjZZZ0N1V3VCaXY2WlU5S3ZLczJjcDEzSHplZkVvWjVSSjhnZmJoMEQreXF5?=
- =?utf-8?B?NWpGSkxxQ21YNHMybGpoVWlVYldrZVZwSzdEaUhGVlY3US9Kd3loeExUV0ly?=
- =?utf-8?B?cjdMWWlDSkJqbUhLdjBLQUdwckF4MU9HcVFnMlFzbnhoeG01aU9tRno3MzlL?=
- =?utf-8?B?cFF2ZVF6ZTBqaGp2blVObXJOZFdIRHRydFovd0hLc0Q4WGhiQTZITkY5KzdB?=
- =?utf-8?B?RlFFcVBJeG9rWnl4M1RQSW4wT3hIT1VKZm11WTNld0Q2dTZHYjVUNVNwUHZV?=
- =?utf-8?B?UW8wNTFIRm9LRGxFejJWazhFVFFOQmRKRmgvMUtLYnVEWStaSWhaZmpESmU4?=
- =?utf-8?B?RFFYWm1jdjlnYkpwTFMvWjI4UnMxVkRVWjI5MDNra0dWclJkcmIzQ0dPT3NO?=
- =?utf-8?B?dEpYL1BHQTlKNlBNSGpFMnhENFlvcjJsdG0ybUhsVjY2SjVKMXExenJPekhY?=
- =?utf-8?B?RVRGTTJyQ1lnZ2FUMHNCWjBSM09QNlZBb3BzWjlOL0tnVzR4Zll3QlIwcHFV?=
- =?utf-8?B?S1VTcHdVL2JsV0N1d2VWUzZHMWYvbnpTSkR1T0w2bFYxM1Q4cHdhUUU2Q1Za?=
- =?utf-8?B?S1hoVW1sVUJCc1Zpd01NaEpwQnB5ajJqMTh2T3RtRmJCUEVvenpZMzJidFB4?=
- =?utf-8?B?UW1SRGIyVW9vYThBVnE0QUQyV3Mvd3ZtUHhNZjR6S3NDRXRJdlJTVStYZTdw?=
- =?utf-8?B?N0tlcElNVzZ2OWZ6M0ZXQmVuUUd6UHVxVW5FRmRQTzB3NnhKQVZhMGdTbjl4?=
- =?utf-8?B?NjNzN3c2aVlEc2Q0T0pSZHN2eTlsd09rc29TQW1LWHowRjFNdk4wOWkxd1Qv?=
- =?utf-8?B?dXdHT0VKbC9Fd1FMaG9BdWNKYmJpRit3NTRxNEI3NW9kVWpibzlWa09SV2pv?=
- =?utf-8?B?VHpZU3Nuek0yWjF4RGtuM2MrQitHQlZyaVo3QVZiNjhKaTJvQ0ZQVlNoMFVv?=
- =?utf-8?B?cFdxLzhLUWNLL3E3VkpvaXFRUkZnYnc3TkQ1eDFPZzhIckV5WUszOHk3MFFR?=
- =?utf-8?B?Ui85VVhxS0dPRVNyNUEzQWVJOGcrR3hmb251b1FmWlMrREMvL1NaRTh0NlNH?=
- =?utf-8?B?VjhxZ0dBT0F0M0U4RkUycVl4MWptTlFVbmZyeit6NGx6WVJyak40WlFXSith?=
- =?utf-8?B?Qk1wd0xDbDVxdWJsT3Jtb0J4RStwOEFMZnY2SWxtQThYV1BoTTU3K25mczJP?=
- =?utf-8?B?d1NzNXVVWE8vMXlYcWNud0VuWXZsTHJnVmxKc1JwWXlia1V3TXY1OEF6MWgx?=
- =?utf-8?B?MEFmWUF3SmYvcG5JdzZMTkV3M0FDSU9jQ2FhQXVzNUx6T0k3QnhpWFh5Rmpl?=
- =?utf-8?B?WVhqUnJsejhlNjJKQVNPWjUxbXpmb1lpam1JbVlSWnFnbXdkN1Q2VW8vOUtT?=
- =?utf-8?B?WisxRE9ncTdZTXl6Q1hBVXNUNUpiaG96VWFxQUJmQklFTkRTTjZvZ1BqZlND?=
- =?utf-8?B?d0VFOEJWNWVoSGxEdU1yZGdUazBBd1gyTS9BUHJqa01ZL0wwdXVLUXkzY2Na?=
- =?utf-8?B?aFNNcjhabFdJTlM1a3pLS0FJcy9Uc3FMZVo5Z2xuY1c1L1VWSXFEZVdQRFVx?=
- =?utf-8?B?eUFyYUdtRVZHa2FoN0RxSWp2OWdkS01kY2FaVThaWG5JVVBqc2RKK1o3eWMz?=
- =?utf-8?B?QStJOG5mRzlObE1EMFNPVHlKNjNvS3dRMFRkOHZKcVlMalJmNE9IVmUvQ0FM?=
- =?utf-8?B?ZGF2WkpkcTMvQjJ5Z0Jtd3FvVFFnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	j+1/VnwnT4dZ5ZesgDCAav69Ya6GLWf89XjEqTirhT70eB7kNRAM7GIDmjOIhBBHGcUrQk2f4VVZMZORLzC4fbZfl4vcEiZ1a2XJsui8t+XtBaq2JUh4PsNazzvMMao/tb8dJJq9c3CPpRpqDxJcdZBGVuJ12qPUVR5/VNScl/vfIqykcGxBeH3RD0FQ9s21NdGoJNscNDxdTEfMxQAvbO+VEErboQUSsjRL3xkJVE9Tc+yOBSh0hcwQ/k5+AE5aTHSZXKyRxz6DoNKxCbilZE0J8MSaLexGTaA+8jEB1CMtRAhDe/db6or1rjZVisKAZVdvxpUl12jhMOAkWHFuwc3CsAwqp+p2vY4/M3AELBqdi+IKYb/6Ou/LQzEqy09zuG4Dz/8722SFuWeFrR5MaFlj2WuSdUzQ+qmWDUP/ATM0DnAzRmCT9j3TpesDKJeF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 20:54:44.9787
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b412dde-e375-43b2-6429-08de6f2ff238
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6191.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,epam.com:email];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,amd.com:mid,amd.com:dkim,amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email]
-X-Rspamd-Queue-Id: F25F115999B
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: A1E43159B5B
 X-Rspamd-Action: no action
 
-On 2/10/26 05:54, Jan Beulich wrote:
-> ... both for when the functions are invoked and where they live in source.
-> Don't invoke them directly in vpci_init_header(), but instead first thing
-> in vpci_init_capabilities().
-> 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Feb 2, 2026 at 6:14=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epam.=
+com> wrote:
+>
+> When a VCPU is migrated to another PCPU, its VPE affinity must be
+> updated. Hook into VPE scheduling to ensure that the VPE to be scheduled
+> is located on the correct PCPU, if not, move it with VMOVP command.
+>
+> VMOVP needs to be issued on all ITSes in the system, and in the same
+> order, unlsess single VMOVP capable ITS is used.
+>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+>  xen/arch/arm/gic-v3-its.c             |  55 ++++++++++++++
+>  xen/arch/arm/gic-v4-its.c             | 105 ++++++++++++++++++++++++++
+>  xen/arch/arm/include/asm/gic_v3_its.h |  12 +++
+>  3 files changed, 172 insertions(+)
+>
+> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+> index fb1d2709be..be840fbc8f 100644
+> --- a/xen/arch/arm/gic-v3-its.c
+> +++ b/xen/arch/arm/gic-v3-its.c
+> @@ -31,6 +31,8 @@
+>  LIST_HEAD(host_its_list);
+>
+>
+> +unsigned long its_list_map;
+> +
+>  unsigned int nvpeid =3D 16;
+>
+>  /*
+> @@ -612,10 +614,47 @@ static int gicv3_disable_its(struct host_its *hw_it=
+s)
+>      return -ETIMEDOUT;
+>  }
+>
+> +static int __init its_compute_its_list_map(struct host_its *hw_its)
+> +{
+> +    int its_number;
+> +    uint32_t ctlr;
+> +
+> +    its_number =3D find_first_zero_bit(&its_list_map, GICv4_ITS_LIST_MAX=
+);
+> +    if ( its_number >=3D GICv4_ITS_LIST_MAX )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "ITS@%lx: No ITSList entry available!\n", hw_its->addr);
+> +        return -EINVAL;
+> +    }
+> +
+> +    ctlr =3D readl_relaxed(hw_its->its_base + GITS_CTLR);
+> +    ctlr &=3D ~GITS_CTLR_ITS_NUMBER;
+> +    ctlr |=3D its_number << GITS_CTLR_ITS_NUMBER_SHIFT;
+> +    writel_relaxed(ctlr, hw_its->its_base + GITS_CTLR);
+> +    ctlr =3D readl_relaxed(hw_its->its_base + GITS_CTLR);
+> +    if ( (ctlr & GITS_CTLR_ITS_NUMBER) !=3D
+> +         (its_number << GITS_CTLR_ITS_NUMBER_SHIFT) )
+> +    {
+> +        its_number =3D ctlr & GITS_CTLR_ITS_NUMBER;
+> +        its_number >>=3D GITS_CTLR_ITS_NUMBER_SHIFT;
+> +    }
+> +
+> +    if ( test_and_set_bit(its_number, &its_list_map) )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "ITS@%lx: Duplicate ITSList entry %d\n",
+> +               hw_its->addr, its_number);
+> +        return -EINVAL;
+> +    }
+> +
+> +    return its_number;
+> +}
+> +
+>  static int gicv3_its_init_single_its(struct host_its *hw_its)
+>  {
+>      uint64_t reg;
+>      int i, ret;
+> +    int its_number;
+>
+>      hw_its->its_base =3D ioremap_nocache(hw_its->addr, hw_its->size);
+>      if ( !hw_its->its_base )
+> @@ -633,6 +672,22 @@ static int gicv3_its_init_single_its(struct host_its=
+ *hw_its)
+>      hw_its->itte_size =3D GITS_TYPER_ITT_SIZE(reg);
+>      if ( reg & GITS_TYPER_PTA )
+>          hw_its->flags |=3D HOST_ITS_USES_PTA;
+> +    hw_its->is_v4 =3D reg & GITS_TYPER_VLPIS;
 
-Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+hw_its->is_v4 =3D reg & GITS_TYPER_VLPIS only tells us that VLPI
+is supported, not the GIC architecture revision. The name is_v4
+is misleading. Consider renaming to has_vlpis (or similar) and
+use GITS_PIDR2 when you need the GIC arch revision.
+
+> +    if ( hw_its->is_v4 )
+> +    {
+> +        if ( !(reg & GITS_TYPER_VMOVP) )
+> +        {
+> +            its_number =3D its_compute_its_list_map(hw_its);
+> +            if ( its_number < 0 )
+> +                return its_number;
+> +            dprintk(XENLOG_INFO,
+> +                    "ITS@%lx: Using ITS number %d\n",
+> +                    hw_its->addr, its_number);
+> +        }
+> +        else
+> +            dprintk(XENLOG_INFO,
+> +                    "ITS@%lx: Single VMOVP capable\n", hw_its->addr);
+> +    }
+>      spin_lock_init(&hw_its->cmd_lock);
+>
+>      for ( i =3D 0; i < GITS_BASER_NR_REGS; i++ )
+> diff --git a/xen/arch/arm/gic-v4-its.c b/xen/arch/arm/gic-v4-its.c
+> index 6a550a65b2..175fda7acb 100644
+> --- a/xen/arch/arm/gic-v4-its.c
+> +++ b/xen/arch/arm/gic-v4-its.c
+> @@ -36,6 +36,9 @@ static unsigned long *vpeid_mask;
+>
+>  static spinlock_t vpeid_alloc_lock =3D SPIN_LOCK_UNLOCKED;
+>
+> +static uint16_t vmovp_seq_num;
+> +static spinlock_t vmovp_lock =3D SPIN_LOCK_UNLOCKED;
+> +
+>  void __init gicv4_its_vpeid_allocator_init(void)
+>  {
+>      /* Allocate space for vpeid_mask based on MAX_VPEID */
+> @@ -242,6 +245,57 @@ static int __init its_vpe_init(struct its_vpe *vpe)
+>      return rc;
+>  }
+>
+> +static int its_send_cmd_vmovp(struct its_vpe *vpe)
+> +{
+> +    uint16_t vpeid =3D vpe->vpe_id;
+> +    int ret;
+> +    struct host_its *hw_its;
+> +
+> +    if ( !its_list_map )
+> +    {
+> +        uint64_t cmd[4];
+> +
+> +        hw_its =3D list_first_entry(&host_its_list, struct host_its, ent=
+ry);
+> +        cmd[0] =3D GITS_CMD_VMOVP;
+> +        cmd[1] =3D (uint64_t)vpeid << 32;
+> +        cmd[2] =3D encode_rdbase(hw_its, vpe->col_idx, 0x0);
+> +        cmd[3] =3D 0x00;
+> +
+> +        return its_send_command(hw_its, cmd);
+
+Docs says VMOVP should be followed by VSYNC to synchronize the
+context when moving a vPE across CommonLPIAff groups. Here we
+issue VMOVP and return without VSYNC. Should we add a VSYNC (for
+both the single=E2=80=91ITS and ITSList paths)?
+
+> +    }
+> +
+> +    /*
+> +     * If using the its_list "feature", we need to make sure that all IT=
+Ss
+> +     * receive all VMOVP commands in the same order. The only way
+> +     * to guarantee this is to make vmovp a serialization point.
+> +     */
+> +    spin_lock(&vmovp_lock);
+> +
+> +    vmovp_seq_num++;
+> +
+> +    /* Emit VMOVPs */
+> +    list_for_each_entry(hw_its, &host_its_list, entry)
+> +    {
+> +        uint64_t cmd[4];
+> +
+> +        cmd[0] =3D GITS_CMD_VMOVP | ((uint64_t)vmovp_seq_num << 32);
+> +        cmd[1] =3D its_list_map | ((uint64_t)vpeid << 32);
+> +        cmd[2] =3D encode_rdbase(hw_its, vpe->col_idx, 0x0);
+> +        cmd[3] =3D 0x00;
+> +
+> +        ret =3D its_send_command(hw_its, cmd);
+
+We iterate over all ITSes and send VMOVP to each. Should this be
+limited to ITSes participating in the ITSList (and/or only v4 ITSes
+that can have the vPE mapping)? Sending to unrelated ITSes
+looks unnecessary and may be incorrect.
+---
+
+If its_send_command() fails for one ITS in the loop, the VPE
+affinity update becomes inconsistent across ITSes. Do we need a
+rollback or a recovery path (e.g. retry, VSYNC, or mark vPE unusable)?
+
+> +        if ( ret )
+> +        {
+> +            spin_unlock(&vmovp_lock);
+> +            return ret;
+> +        }
+> +    }
+> +
+> +    spin_unlock(&vmovp_lock);
+> +
+> +    return 0;
+> +}
+> +
+>  static void __init its_vpe_teardown(struct its_vpe *vpe)
+>  {
+>      unsigned int order;
+> @@ -687,6 +741,52 @@ static void its_make_vpe_non_resident(struct its_vpe=
+ *vpe, unsigned int cpu)
+>      vpe->pending_last =3D val & GICR_VPENDBASER_PendingLast;
+>  }
+>
+> +static int vpe_to_cpuid_lock(struct its_vpe *vpe, unsigned long *flags)
+> +{
+> +    spin_lock_irqsave(&vpe->vpe_lock, *flags);
+
+vpe_lock is used but never initialized.
+
+> +    return vpe->col_idx;
+> +}
+> +
+> +static void vpe_to_cpuid_unlock(struct its_vpe *vpe, unsigned long *flag=
+s)
+> +{
+> +    spin_unlock_irqrestore(&vpe->vpe_lock, *flags);
+> +}
+> +
+> +static int gicv4_vpe_set_affinity(struct vcpu *vcpu)
+> +{
+> +    struct its_vpe *vpe =3D vcpu->arch.vgic.its_vpe;
+> +    unsigned int from, to =3D vcpu->processor;
+> +    unsigned long flags;
+> +    int ret =3D 0;
+> +
+> +    /*
+> +     * Changing affinity is mega expensive, so let's be as lazy as
+> +     * we can and only do it if we really have to. Also, if mapped
+> +     * into the proxy device, we need to move the doorbell interrupt
+> +     * to its new location.
+> +     *
+> +     * Another thing is that changing the affinity of a vPE affects
+> +     * *other interrupts* such as all the vLPIs that are routed to
+> +     * this vPE. This means that we must ensure nobody samples
+> +     * vpe->col_idx during the update, hence the lock below which
+> +     * must also be taken on any vLPI handling path that evaluates
+> +     * vpe->col_idx, such as reg-based vLPI invalidation.
+> +     */
+> +    from =3D vpe_to_cpuid_lock(vpe, &flags);
+> +    if ( from =3D=3D to )
+> +        goto out;
+> +
+> +    vpe->col_idx =3D to;
+
+updates col_idx before VMOVP; on error it is not
+restored.
+
+> +
+> +    ret =3D its_send_cmd_vmovp(vpe);
+> +    if ( ret )
+> +        goto out;
+> +
+> + out:
+> +    vpe_to_cpuid_unlock(vpe, &flags);
+> +    return ret;
+> +}
+> +
+>  void vgic_v4_load(struct vcpu *vcpu)
+>  {
+>      struct its_vpe *vpe =3D vcpu->arch.vgic.its_vpe;
+> @@ -695,6 +795,11 @@ void vgic_v4_load(struct vcpu *vcpu)
+>      if ( vpe->resident )
+>          return;
+>
+> +    /*
+> +     * Before making the VPE resident, make sure the redistributor
+> +     * corresponding to our current CPU expects us here
+> +     */
+> +    WARN_ON(gicv4_vpe_set_affinity(vcpu));
+
+If gicv4_vpe_set_affinity() fails, continuing to make the vPE resident
+on the new CPU is very likely wrong: vLPI routing / doorbells can now
+target the wrong redistributor.
+
+
+Best regards,
+Mykola
+
+
+
+>      its_make_vpe_resident(vpe, vcpu->processor);
+>      vpe->resident =3D true;
+>  }
+> diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include=
+/asm/gic_v3_its.h
+> index 411beb81c8..f03a8fad47 100644
+> --- a/xen/arch/arm/include/asm/gic_v3_its.h
+> +++ b/xen/arch/arm/include/asm/gic_v3_its.h
+> @@ -43,6 +43,9 @@
+>  #define GITS_CTLR_QUIESCENT             BIT(31, UL)
+>  #define GITS_CTLR_ENABLE                BIT(0, UL)
+>
+> +#define GITS_CTLR_ITS_NUMBER_SHIFT      4
+> +#define GITS_CTLR_ITS_NUMBER            (0xfUL << GITS_CTLR_ITS_NUMBER_S=
+HIFT)
+> +
+>  #define GITS_TYPER_PTA                  BIT(19, UL)
+>  #define GITS_TYPER_DEVIDS_SHIFT         13
+>  #define GITS_TYPER_DEVIDS_MASK          (0x1fUL << GITS_TYPER_DEVIDS_SHI=
+FT)
+> @@ -60,6 +63,8 @@
+>                                                   GITS_TYPER_ITT_SIZE_SHI=
+FT) + 1)
+>  #define GITS_TYPER_PHYSICAL             (1U << 0)
+>
+> +#define GITS_TYPER_VLPIS                (1UL << 1)
+> +#define GITS_TYPER_VMOVP                (1UL << 37)
+>  #define GITS_BASER_INDIRECT             BIT(62, UL)
+>  #define GITS_BASER_INNER_CACHEABILITY_SHIFT        59
+>  #define GITS_BASER_TYPE_SHIFT           56
+> @@ -118,6 +123,12 @@
+>  /* We allocate LPIs on the hosts in chunks of 32 to reduce handling over=
+head. */
+>  #define LPI_BLOCK                       32U
+>
+> +/*
+> + * Maximum number of ITSs when GITS_TYPER.VMOVP =3D=3D 0, using the
+> + * ITSList mechanism to perform inter-ITS synchronization.
+> + */
+> +#define GICv4_ITS_LIST_MAX      16
+> +
+>  extern unsigned int nvpeid;
+>  /* The maximum number of VPEID bits supported by VLPI commands */
+>  #define ITS_MAX_VPEID_BITS      nvpeid
+> @@ -214,6 +225,7 @@ struct __lpi_data {
+>  extern struct __lpi_data lpi_data;
+>
+>  extern struct list_head host_its_list;
+> +extern unsigned long its_list_map;
+>
+>  int its_send_cmd_discard(struct host_its *its, struct its_device *dev,
+>                           uint32_t eventid);
+> --
+> 2.51.2
 
