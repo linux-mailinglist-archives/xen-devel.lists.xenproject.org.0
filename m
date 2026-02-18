@@ -2,49 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sGcLI/mLlWlhSQIAu9opvQ
+	id qEekFveWlWk1SgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 10:52:57 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 11:39:51 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42706154E9C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 10:52:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235390.1538388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B22331558D1
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 11:39:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235426.1538414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vseEG-00074t-U0; Wed, 18 Feb 2026 09:52:20 +0000
+	id 1vsexc-0004aL-Ii; Wed, 18 Feb 2026 10:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235390.1538388; Wed, 18 Feb 2026 09:52:20 +0000
+Received: by outflank-mailman (output) from mailman id 1235426.1538414; Wed, 18 Feb 2026 10:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vseEG-000731-Ps; Wed, 18 Feb 2026 09:52:20 +0000
-Received: by outflank-mailman (input) for mailman id 1235390;
- Wed, 18 Feb 2026 09:52:19 +0000
+	id 1vsexc-0004YH-FX; Wed, 18 Feb 2026 10:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 1235426;
+ Wed, 18 Feb 2026 10:39:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RtAK=AW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vseEF-0006Zz-PB
- for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 09:52:19 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LUrD=AW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vsexa-0004YB-TO
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 10:39:10 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8393c050-0caf-11f1-b164-2bf370ae4941;
- Wed, 18 Feb 2026 10:52:19 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BDB405BCC8;
- Wed, 18 Feb 2026 09:52:18 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 886533EA65;
- Wed, 18 Feb 2026 09:52:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id eMwnINKLlWn0fQAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 18 Feb 2026 09:52:18 +0000
+ id 0ecf01c5-0cb6-11f1-b164-2bf370ae4941;
+ Wed, 18 Feb 2026 11:39:09 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-435a11957f6so4323464f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 02:39:09 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43796abc9b2sm38027741f8f.21.2026.02.18.02.39.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Feb 2026 02:39:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,235 +50,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8393c050-0caf-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1771408338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Us/u84SsxFMO0tl1d+eBym7mS0CVvhetUanmuDsPoqE=;
-	b=C65Oht9X6FM1TbuBFE3CaVYZlsnmaR9Nss+awa/RYN8fsCAsnGCLQVIy/KV9SrI5PFePYa
-	jRWpttC0vb0wu4IoTttLhb8Wxcy5Zjz7vc/rlEzvuXlqjeX3cRICn1+EL3XjiOS7X0Btnl
-	NYaJKyFJOO1XXlz08F2XDfJfAgaVPUE=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1771408338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Us/u84SsxFMO0tl1d+eBym7mS0CVvhetUanmuDsPoqE=;
-	b=C65Oht9X6FM1TbuBFE3CaVYZlsnmaR9Nss+awa/RYN8fsCAsnGCLQVIy/KV9SrI5PFePYa
-	jRWpttC0vb0wu4IoTttLhb8Wxcy5Zjz7vc/rlEzvuXlqjeX3cRICn1+EL3XjiOS7X0Btnl
-	NYaJKyFJOO1XXlz08F2XDfJfAgaVPUE=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 2/2] xen/xenbus: better handle backend crash
-Date: Wed, 18 Feb 2026 10:52:05 +0100
-Message-ID: <20260218095205.453657-3-jgross@suse.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260218095205.453657-1-jgross@suse.com>
-References: <20260218095205.453657-1-jgross@suse.com>
+X-Inumbo-ID: 0ecf01c5-0cb6-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771411149; x=1772015949; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vencrR2JmyyQ4hs7UisWeiRVl7NoQiOERDUJ2NlUUTA=;
+        b=lqcNIgY1tgiazp2e6ENW8WA+7vhXuhbsK9PsREFDAz9rh75vE37Ht9HgGmMF0I/4Cp
+         KhvBWdvFd2w/720U3pokgLM+yAkNY1tF0Y/52/jBQbXXySlZuYT4j9T4r0noV4B56NYo
+         xzk0yyKPiA5QihDOKQ87G43At4Hwg4rNSkQ+SGq0NpCMY44NUF8NhcImV41ezgd/GYbo
+         bW9wjqRgcBMBuDQovAvtoTK3DIfOL+us5bytnZ5I1Ik3NpUDS3YukuzUqjDUgvPS/6yf
+         UmoID/4+Jw+Q3Akxd3YJTOs2cbcN8UfcqBS0JlfcoIHa8jG5zZOISdmWg+PLHL5we11L
+         Y8dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771411149; x=1772015949;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vencrR2JmyyQ4hs7UisWeiRVl7NoQiOERDUJ2NlUUTA=;
+        b=tvL1f6fQLtEp+SzatduYT+26K10NvmU1tgJErtnxlL+6RyUDhf/NKmbmQyQQleiApf
+         xpQh/XJHjEzS3B5JqfZZtfXYHtzbM235Fw8QHulwU0taLrF7mve7/XoZ5F3Mhth8I//U
+         mjGGTxiuf3ArbpiB+qAYDb/wX2aFkH/dmGXJlij3CGB79DpMUdLv3U8evqWAkUJjBrLm
+         GvQ5KguT6LtS1ql1gP45w0WJlvXYieOA3bPBrSseZNLucHkPWhULf+Dw/8aatppugu95
+         KmjlTIsjDR9aVxS1PHvLJkH6ZX1M2obpuLe/pIluHxon4Nk8KTvdMdAB6eMdNcvjxNM3
+         qoXw==
+X-Forwarded-Encrypted: i=1; AJvYcCWhc+rCPHNPNPjOSz6rRg7DvuyQTPsPWfuNHr7ce+xWLYRSaZyU8OMC12B/dlf66QdCAopaSGRAiOs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqpR7jJYDzJXupssdIHOqE5LP8yZE294dI8LEovwLv4B9MKq+f
+	g5lvhkSZ0LKDFwVuQ+8S+xYxWnozGztBZpN8aDOqYuNhc/vgawzFEaF+
+X-Gm-Gg: AZuq6aJE4qvbnffnMhlYEl2930gMVJd+ir3UuKsrBCO1Dv/abFWTFHRhMINiXqiqJBz
+	svvn0PUmGDSD+La14VsHSQuj2dnqMCgUJShgcEq3kkxx7w5qut6KLYN/DFNJ60jHfeWnDCBUyhw
+	l8PpeHjhRvEhsMVxzh9Cme1XnW8WfkWxsaYh+uoVX6yPcMhlVA9cMsd518KYsfMIWEprSKoFl4+
+	B/qJ5Dfm4zvkisPNann4jgpnS5vRXSpakUSvKUDtASPRjAAOI7iExXQQHc7fvHNYnXchd5pO3Su
+	uPccRPoJzYEA5b8TM9+8kDaMqYDNmots+OuQ50pf8ulM8pAXAD+pcR23E83oxe/Dd8zTcBQpdnZ
+	pqv81TGrttt8IEcRgUpvUXHABz0y6DLF6qAqo4aGqvEVY/VMs5l5eXhjAkFrp1Jp2+7jjHQLV2L
+	iN5xOYoQfeClIEGZYLUjnvzsS9HEoIW1TCXtA29Y84bkS2CwMPNgqA6Sv+pGpD/yfjZSiQw2RLc
+	ro=
+X-Received: by 2002:a5d:5f88:0:b0:436:23a2:5e25 with SMTP id ffacd0b85a97d-4379791b776mr31153185f8f.44.1771411148954;
+        Wed, 18 Feb 2026 02:39:08 -0800 (PST)
+Message-ID: <760d7b95-2e76-453c-8d13-ca4432eb22e5@gmail.com>
+Date: Wed, 18 Feb 2026 11:39:07 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -7.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 6/6] xen/riscv: enable DOMAIN_BUILD_HELPERS
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
+ <6ab04f3584e45795dc82c25f62a6c950913f5c7d.1770821989.git.oleksii.kurochko@gmail.com>
+ <aac9b5ac-6660-4ec0-b88e-605903217588@suse.com>
+ <b4ac883d-ce90-40b0-93fc-95c925c7ac61@gmail.com>
+ <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[info.dev:url,suse.com:mid,suse.com:dkim,suse.com:email,invisiblethingslab.com:email];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 42706154E9C
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: B22331558D1
 X-Rspamd-Action: no action
 
-When the backend domain crashes, coordinated device cleanup is not
-possible (as it involves waiting for the backend state change). In that
-case, toolstack forcefully removes frontend xenstore entries.
-xenbus_dev_changed() handles this case, and triggers device cleanup.
-It's possible that toolstack manages to connect new device in that
-place, before xenbus_dev_changed() notices the old one is missing. If
-that happens, new one won't be probed and will forever remain in
-XenbusStateInitialising.
 
-Fix this by checking the frontend's state in Xenstore. In case it has
-been reset to XenbusStateInitialising by Xen tools, consider this
-being the result of an unplug+plug operation.
+On 2/13/26 2:11 PM, Jan Beulich wrote:
+> On 13.02.2026 13:54, Oleksii Kurochko wrote:
+>> On 2/12/26 5:39 PM, Jan Beulich wrote:
+>>> On 12.02.2026 17:21, Oleksii Kurochko wrote:
+>>>> --- a/xen/include/public/arch-riscv.h
+>>>> +++ b/xen/include/public/arch-riscv.h
+>>>> @@ -50,6 +50,14 @@ typedef uint64_t xen_ulong_t;
+>>>>    
+>>>>    #if defined(__XEN__) || defined(__XEN_TOOLS__)
+>>>>    
+>>>> +#define GUEST_RAM_BANKS   1
+>>>> +
+>>>> +#define GUEST_RAM0_BASE   xen_mk_ullong(0x80000000) /* 2GB of low RAM @ 2GB */
+>>>> +#define GUEST_RAM0_SIZE   xen_mk_ullong(0x80000000)
+>>>> +
+>>>> +#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE }
+>>>> +#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE }
+>>> Hmm, does RISC-V really want to go with compile-time constants here?
+>> It is needed for allocate_memory() for guest domains, so it is expected
+>> to be compile-time constant with the current code of common dom0less
+>> approach.
+>>
+>> It represents the start of RAM address for DomU and the maximum RAM size
+>> (the actual size will be calculated based on what is mentioned in DomU node
+>> in dts) and then will be used to generate memory node for DomU (GUEST_RAM0_BASE
+>> as RAM start address and min(GUEST_RAM0_SIZE, dts->domU->memory->size) as a
+>> RAM size).
+>>
+>>>    And
+>>> if so, why would guests be limited to just 2 Gb?
+>> It is enough for guest domain I am using in dom0less mode.
+> And what others may want to use RISC-V for once it actually becomes usable
+> isn't relevant? As you start adding things to the public headers, you will
+> need to understand that you can't change easily what once was put there.
+> Everything there is part of the ABI, and the ABI needs to remain stable
+> (within certain limits).
 
-It's important that cleanup on such unplug doesn't modify Xenstore
-entries (especially the "state" key) as it belong to the new device
-to be probed - changing it would derail establishing connection to the
-new backend (most likely, closing the device before it was even
-connected). Handle this case by setting new xenbus_device->vanished
-flag to true, and check it before changing state entry.
+Considering this ...
 
-And even if xenbus_dev_changed() correctly detects the device was
-forcefully removed, the cleanup handling is still racy. Since this whole
-handling doesn't happened in a single Xenstore transaction, it's possible
-that toolstack might put a new device there already. Avoid re-creating
-the state key (which in the case of loosing the race would actually
-close newly attached device).
+>
+>>> That may more efficiently
+>>> be RV32 guests then, with perhaps just an RV32 hypervisor.
+>> I  didn't get this point. Could you please explain differently what do you
+>> mean?
+> If all you want are 2Gb guests, why would such guests be 64-bit? And with
+> (iirc) RV32 permitting more than 4Gb (via PPN being 22 bits wide), perhaps
+> even a 32-bit hypervisor would suffice?
 
-The problem does not apply to frontend domain crash, as this case
-involves coordinated cleanup.
+... now I can agree that Xen should permit bigger amount of RAM. At least,
+(2^34-1) should be allowed for RV32 and so for RV64 so it could be used
+like a base for both of them. As RV64 allows (2^56 - 1) it makes sense
+to add another bank to cover range from 2^34 to (2^56 -1) for RV64 (and ifdef
+this second bank for  RV64).
 
-Problem originally reported at
-https://lore.kernel.org/xen-devel/aOZvivyZ9YhVWDLN@mail-itl/T/#t,
-including reproduction steps.
+Would it be better?
 
-Based-on-patch-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
- drivers/xen/xenbus/xenbus_client.c | 13 +++++++++--
- drivers/xen/xenbus/xenbus_probe.c  | 36 ++++++++++++++++++++++++++++++
- include/xen/xenbus.h               |  1 +
- 3 files changed, 48 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index e502435145ae..19672b08a680 100644
---- a/drivers/xen/xenbus/xenbus_client.c
-+++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -226,8 +226,9 @@ __xenbus_switch_state(struct xenbus_device *dev,
- 	struct xenbus_transaction xbt;
- 	int current_state;
- 	int err, abort;
-+	bool vanished = false;
- 
--	if (state == dev->state)
-+	if (state == dev->state || dev->vanished)
- 		return 0;
- 
- again:
-@@ -242,6 +243,10 @@ __xenbus_switch_state(struct xenbus_device *dev,
- 	err = xenbus_scanf(xbt, dev->nodename, "state", "%d", &current_state);
- 	if (err != 1)
- 		goto abort;
-+	if (current_state != dev->state && current_state == XenbusStateInitialising) {
-+		vanished = true;
-+		goto abort;
-+	}
- 
- 	err = xenbus_printf(xbt, dev->nodename, "state", "%d", state);
- 	if (err) {
-@@ -256,7 +261,7 @@ __xenbus_switch_state(struct xenbus_device *dev,
- 		if (err == -EAGAIN && !abort)
- 			goto again;
- 		xenbus_switch_fatal(dev, depth, err, "ending transaction");
--	} else
-+	} else if (!vanished)
- 		dev->state = state;
- 
- 	return 0;
-@@ -941,6 +946,10 @@ enum xenbus_state xenbus_read_driver_state(const struct xenbus_device *dev,
- 					   const char *path)
- {
- 	enum xenbus_state result;
-+
-+	if (dev && dev->vanished)
-+		return XenbusStateUnknown;
-+
- 	int err = xenbus_gather(XBT_NIL, path, "state", "%d", &result, NULL);
- 	if (err)
- 		result = XenbusStateUnknown;
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 2eed06ba5d38..eb260eceb4d2 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -444,6 +444,9 @@ static void xenbus_cleanup_devices(const char *path, struct bus_type *bus)
- 		info.dev = NULL;
- 		bus_for_each_dev(bus, NULL, &info, cleanup_dev);
- 		if (info.dev) {
-+			dev_warn(&info.dev->dev,
-+				 "device forcefully removed from xenstore\n");
-+			info.dev->vanished = true;
- 			device_unregister(&info.dev->dev);
- 			put_device(&info.dev->dev);
- 		}
-@@ -659,6 +662,39 @@ void xenbus_dev_changed(const char *node, struct xen_bus_type *bus)
- 		return;
- 
- 	dev = xenbus_device_find(root, &bus->bus);
-+	/*
-+	 * Backend domain crash results in not coordinated frontend removal,
-+	 * without going through XenbusStateClosing. If this is a new instance
-+	 * of the same device Xen tools will have reset the state to
-+	 * XenbusStateInitializing.
-+	 * It might be that the backend crashed early during the init phase of
-+	 * device setup, in which case the known state would have been
-+	 * XenbusStateInitializing. So test the backend domid to match the
-+	 * saved one. In case the new backend happens to have the same domid as
-+	 * the old one, we can just carry on, as there is no inconsistency
-+	 * resulting in this case.
-+	 */
-+	if (dev && !strcmp(bus->root, "device")) {
-+		enum xenbus_state state = xenbus_read_driver_state(dev, dev->nodename);
-+		unsigned int backend = xenbus_read_unsigned(root, "backend-id",
-+							    dev->otherend_id);
-+
-+		if (state == XenbusStateInitialising &&
-+		    (state != dev->state || backend != dev->otherend_id)) {
-+			/*
-+			 * State has been reset, assume the old one vanished
-+			 * and new one needs to be probed.
-+			 */
-+			dev_warn(&dev->dev,
-+				 "state reset occurred, reconnecting\n");
-+			dev->vanished = true;
-+		}
-+		if (dev->vanished) {
-+			device_unregister(&dev->dev);
-+			put_device(&dev->dev);
-+			dev = NULL;
-+		}
-+	}
- 	if (!dev)
- 		xenbus_probe_node(bus, type, root);
- 	else
-diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-index 15319da65b7f..8ca15743af7f 100644
---- a/include/xen/xenbus.h
-+++ b/include/xen/xenbus.h
-@@ -80,6 +80,7 @@ struct xenbus_device {
- 	const char *devicetype;
- 	const char *nodename;
- 	const char *otherend;
-+	bool vanished;
- 	int otherend_id;
- 	struct xenbus_watch otherend_watch;
- 	struct device dev;
--- 
-2.53.0
+~ Oleksii
 
 
