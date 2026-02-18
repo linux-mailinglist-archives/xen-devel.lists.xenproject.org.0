@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +A7wOvd9lWl8RwIAu9opvQ
+	id UP2WFouAlWlESAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 09:53:11 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 10:04:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2C2154534
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 09:53:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235364.1538348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 976BB154655
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 10:04:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235373.1538358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsdIV-0006ip-SH; Wed, 18 Feb 2026 08:52:39 +0000
+	id 1vsdTO-0008US-RZ; Wed, 18 Feb 2026 09:03:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235364.1538348; Wed, 18 Feb 2026 08:52:39 +0000
+Received: by outflank-mailman (output) from mailman id 1235373.1538358; Wed, 18 Feb 2026 09:03:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsdIV-0006gm-Pb; Wed, 18 Feb 2026 08:52:39 +0000
-Received: by outflank-mailman (input) for mailman id 1235364;
- Wed, 18 Feb 2026 08:52:38 +0000
+	id 1vsdTO-0008T1-OV; Wed, 18 Feb 2026 09:03:54 +0000
+Received: by outflank-mailman (input) for mailman id 1235373;
+ Wed, 18 Feb 2026 09:03:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cF4C=AW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsdIU-0006gg-Rv
- for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 08:52:38 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1vsdTN-0008Su-Fr
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 09:03:53 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2cc4f526-0ca7-11f1-b164-2bf370ae4941;
- Wed, 18 Feb 2026 09:52:37 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-43638a3330dso3933183f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 00:52:37 -0800 (PST)
+ id beae05c6-0ca8-11f1-b164-2bf370ae4941;
+ Wed, 18 Feb 2026 10:03:52 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4837584120eso33703675e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 01:03:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a74918sm40343660f8f.17.2026.02.18.00.52.35
+ 5b1f17b1804b1-4835d99e194sm440739835e9.8.2026.02.18.01.03.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Feb 2026 00:52:36 -0800 (PST)
+ Wed, 18 Feb 2026 01:03:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,63 +50,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cc4f526-0ca7-11f1-b164-2bf370ae4941
+X-Inumbo-ID: beae05c6-0ca8-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771404757; x=1772009557; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LefX0n61n1KVAFxb03ZPorKU4FbTRVy6uFlcWjZSidc=;
-        b=WbTd2EyDGnUFqllMbuxyDUmfWOffuhaRLjJ3Feq0OcYCPqPceeD/p3+h79ecwvRKiq
-         TXyx+RiYjUX/E/WcRVwBOxkdLqzPZec+zG3VNVZD4nsCKQKmscaUtHdZWs0v4JI99sBW
-         jIDHJhCeP8IwS+4ckAhHAf8ez1MlZzEGZwWNKI/Tz72j9pNlpEp8L5khEYNJFkFSz1gA
-         70UBtBda/sf2QKx5tNV3isoPEs3ny8oO9tc1m+UopDUiEFHnYLu5Ys4cGKcHGfrMtX8V
-         dsha6Yl54JozPkY0oFUYe8Lmp6fYnwLtUwlR718RAQyLl0Kj8DjIWa0U9ii9i0lXG99x
-         MmQQ==
+        d=suse.com; s=google; t=1771405431; x=1772010231; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SvKa91gva/wogVd3fgZzjcHBMHjxFlRjMx/wNJQFRf4=;
+        b=YqkcrYwP/wVZ+D5ahCE5fCeI/ZbEOprUoTsRQ+1pHakQryCzq6NjSN7s4eHJcuCZR8
+         3KfXFZ+LW4MNf+kyV9lQAqA5fZH8eRkdEBWG76KIlGzF/YOgLlKBPfcOkubglAOf/vzM
+         u83THwfOIcOyPTqAktGZjxTYzRgVpMLIHmS6U38dcULfnuXJjt0YaAScztWXTUEMedkG
+         I0xpxHUtIusM/G3CaaHLk51QRaJfjH1vnkKtLvL/Yqe5vtuYn8XiuYiz++thXRvt3XLF
+         JGs4EoyqxvwCkl07wVoh0BkguCF7PimbRCh1YC2K7pd5jvYGkk6TWQvf4ORPDTLtUEo8
+         vNWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771404757; x=1772009557;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LefX0n61n1KVAFxb03ZPorKU4FbTRVy6uFlcWjZSidc=;
-        b=m88M2L7CG3iNlttSalGBSrgQg9jutLwnLOq12dSUaibXA+kU2rzCj/to5X9dU52Era
-         qJpC4Lz+DRNpSu6tkZBOmXHtr+CF2usRLjRNg+dQ9ss/1hIUAvhNPUFZyYAeluh8cSv4
-         3l7jadnpcvku2mCKhVHlrQ4KlDrNVTgZjQfDr2v6cy1nhUMkBfXj0sAoJScTa67/xW6O
-         IZSzgpT1/BhiXbko6EGF5xvvCRRz3v5+gfN4oeedxFgAK+TuEOjTAdmfL+2UaLVjQsn/
-         qmR0rOPf7sePsQSUwLXH6B2GXGbersGyPBG78R2VR/pky2whDnveuPN4fRJQi0pSNsgd
-         slqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXxBYdnlQi8QRePOGMcBjRvukVHsr6gXynbSdGPerW4+orm/ESH0O6QmaOjVxQgOQjXh1qdDhhor4A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzubijTyTACiZiPTOrYsFedLhvAIbRTOA5qH4MNcUl/84if7vW0
-	wjvyyyA28BP9j4JYRX8BM0Vvggij/vsNmTmrCoQ2tvbMBqa5TdvVjwdlHSGdvqwgLQ==
-X-Gm-Gg: AZuq6aKbqqfdf5xyBK0EzRW7F7c8FKUok4w7eOXanc5ZRm3c5P9XE99JaOQtmPL8etk
-	bUrmMBPn2DtPUDEeM8Px58Op2/9uPnsGDiNAQdCa7diQTr6PVbdtx7ZevnSpFD4hokMpqzIFR2+
-	eChkIxMy+4iCrAeeYUr1tuICiNZNPD/t4BmjCfaL3hmc3yuKuC64cQyCW7SjQfz0uFSU4k4+Pya
-	5QR7Z0O49//Fa8S/giWG74NDSOjy8MUFZNIZlf1jPSvfUcvnToen9wou1G3P3osowipj0JERcF6
-	9Vz+kZKdh/nJE9m+Kz0TH/aMs/8mNtMyhlx/av9KrztigpBkbzPidnXtn1hjailrqp9HbNCuA9r
-	dp+qt6HIVL2n0cHaUeiAo/UuUitAMJa6/kCuVrAZxYlEtLLppchKJbv0pSYZXQdBDvzLu+yvTVl
-	kgy70ikdssB/pKFH8+IFJwRBv40PtoQ0xJDY2pFzg7+i1qqL6IZbzNaIA73uNE7acTM0gVKcxwo
-	CNBkBSKDMek33Y=
-X-Received: by 2002:a05:6000:2001:b0:435:96ec:679e with SMTP id ffacd0b85a97d-4379db61cccmr25836875f8f.23.1771404756802;
-        Wed, 18 Feb 2026 00:52:36 -0800 (PST)
-Message-ID: <00aa15b0-b1bf-47cb-ab67-bc32d68f56e4@suse.com>
-Date: Wed, 18 Feb 2026 09:52:35 +0100
+        d=1e100.net; s=20230601; t=1771405431; x=1772010231;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SvKa91gva/wogVd3fgZzjcHBMHjxFlRjMx/wNJQFRf4=;
+        b=YEA9chCOnSvrGSGA3oBED3mwjr+OeSAgBUtg3XnOQtSJQj7BCGZ9ItusXr9kCDQzBx
+         ipQIEu0uZXVrwgYnZPRX8ziMVirbFbsmJ3niPXpWXTsr61WmFU+qSsCzeLQT57M46S+n
+         CNK/EMUzerYaBJjVAD+SZFGLQ/fq/YOe6krk1OV1obC1lATQgnJKF5H57gLXb37UD452
+         +GW4zsvNZjv/Ml9xvPk9xcl9PncNO9h5BTIuFVjy8YrjrbXTvcAZI8F5R/E90+HxYSrm
+         rf1vOnkJF/iQ6FikLnxyR7sWx9qhPO/CmaNsly6+XbqcobtiZtlIkZCf8kf1AR/u2a/5
+         vrWQ==
+X-Gm-Message-State: AOJu0YydRiPGlo1XulXrhBVi/rX0oj6jpnxD5CoL+iX7RzmIrl21T1wl
+	SF6zeHX/4yaivwWLnt3imPnxFr0XCZpIVcUgm/JrjfRJvv7HSIlE1Kx2wkvHii9QKGDdTOJhzAk
+	sRFo=
+X-Gm-Gg: AZuq6aI+dOE+PIYpXekX+BYT0gFpgacFLesFKEoAwOaxmzyee3KvtEOQaPx50Re2W9J
+	hWKT3nGYBcc1UbKgp392k8uQh5apFcpWzgODtBmbYIqJTC7A1EQLb6+spO+w+c9szjvqvh0J3AK
+	Ok5EKG6RCUIw89lwSbEzcXHWUbIw+57Et3UKq5aec96MeHpNEs4P2829kMDl+iruVLv9HALFaBD
+	kGUD1+2/Zk/AR1CczUOnXGI88n1C7fn7ELjLJMvwfsV0N0eRoZkmq1Qxe5e3w++nwC9kr4D4sJX
+	7mEYDEe7lBIWUAbeSluTOMEVME5rRud8PiLiKIfAepxtoF4pf1RAv04uvKJbJgfhlgdftnzGs3M
+	b8N3BbZGmazKorr/YfLBT6M7eaZZa12D+Xhyc9TZ62XGJLUZJEs86nsgftDKv+mcc+vkLBRTeJ+
+	HXG9bpt43TeHHrLWzeMotLbAVXVBHDXS1suVpGhJwmtHtKIMP4nWrAO0uV0frhlI4a/wlS2FQm6
+	pVuuTHbi6BtNDPICk5ah1UYeg==
+X-Received: by 2002:a05:600c:444f:b0:475:de14:db1e with SMTP id 5b1f17b1804b1-48379bd742amr219365065e9.24.1771405431184;
+        Wed, 18 Feb 2026 01:03:51 -0800 (PST)
+Message-ID: <23951625-939c-4658-8146-84c1f12381d0@suse.com>
+Date: Wed, 18 Feb 2026 10:03:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] vPCI: introduce private header
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <25c65557-c97c-499c-a698-571e40cde563@suse.com>
- <4fda7acb-e1a4-4a24-982e-4cae90048018@suse.com>
- <3bbe1fc7-ed6e-43ee-bcee-17502ba56539@amd.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/shadow: don't use #if in macro invocations
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,7 +121,6 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3bbe1fc7-ed6e-43ee-bcee-17502ba56539@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
@@ -141,10 +131,11 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stewart.hildebrand@amd.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
@@ -154,81 +145,223 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5E2C2154534
+X-Rspamd-Queue-Id: 976BB154655
 X-Rspamd-Action: no action
 
-On 17.02.2026 23:04, Stewart Hildebrand wrote:
-> On 2/10/26 05:53, Jan Beulich wrote:
->> Before adding more private stuff to xen/vpci.h, split it up. In order to
->> be able to include the private header first in a CU, the per-arch struct
->> decls also need to move (to new asm/vpci.h files).
->>
->> While adjusting the test harness'es Makefile, also switch the pre-existing
->> header symlink-ing rule to a pattern one.
->>
->> Apart from in the test harness code, things only move; no functional
->> change intended.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Subsequently, at least on x86 more stuff may want moving into asm/vpci.h.
->> ---
->> v4: New.
->>
->> --- a/tools/tests/vpci/Makefile
->> +++ b/tools/tests/vpci/Makefile
->> @@ -14,8 +14,8 @@ else
->>  	$(warning HOSTCC != CC, will not run test)
->>  endif
->>  
->> -$(TARGET): vpci.c vpci.h list.h main.c emul.h
->> -	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
->> +$(TARGET): vpci.c vpci.h list.h private.h main.c emul.h
->> +	$(CC) $(CFLAGS_xeninclude) -include emul.h -g -o $@ vpci.c main.c
->>  
->>  .PHONY: clean
->>  clean:
-> 
-> Can you please add the generated private.h to be removed upon "make clean"?
-> 
-> Also, can you please add tools/tests/vpci/private.h to .gitignore?
+As per the standard this is UB, i.e. we're building on a defacto extension
+in the compilers we use. Misra C:2012 rule 20.6 disallows this altogether,
+though. Use helper always-inline functions instead.
 
-Oops, yes, of course.
+In sh_audit_l1_table(), along with reducing the scope of "gfn", which now
+isn't used anymore by the if() side of the conditional, also reduce the
+scope of two other adjacent variables.
 
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/vpci.h
->> @@ -0,0 +1,13 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +#ifndef ARM_VPCI_H
->> +#define ARM_VPCI_H
->> +
->> +/* Arch-specific MSI data for vPCI. */
->> +struct vpci_arch_msi {
->> +};
->> +
->> +/* Arch-specific MSI-X entry data for vPCI. */
->> +struct vpci_arch_msix_entry {
->> +};
->> +
->> +#endif /* ARM_VPCI_H */
-> 
-> Out of curiosity (not asking for any changes), why did you include an emacs
-> footer on the x86 header but not here?
-> 
-> Otherwise, the rest of the patch looks good to me.
+For audit_magic() note that both which parameters are needed and what
+their types are is attributed to AUDIT_FAIL() accessing variables which
+aren't passed as arguments to it.
 
-Well - I copied the original files and then reduced them to just what I
-wanted to move here.
+No functional change intended. Of course codegen does change with this,
+first and foremost in register allocation.
 
-Jan
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Leaving even the fetching of current to the helper in
+sh_rm_write_access_from_l1() looks tidier to me overall, albeit this means
+the fetch will now occur once per present L1E.
+
+Converting the #if to if() and #ifdef to if(IS_ENABLED()) wouldn't work
+here, as identifiers are used which aren't available when the respective
+conditions are false.
+
+Note that I tested this only on top of
+https://lists.xen.org/archives/html/xen-devel/2023-05/msg01140.html, but I
+have no reason to assume that there is a problematic interaction. Of
+course it would be really nice if the rest of that series finally could go
+in.
+
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -395,7 +395,7 @@ static inline mfn_t cf_check sh_next_pag
+     shadow_set_l2e(d, sl2e, new_sl2e, sl2mfn, SH_type_fl1_shadow, sh_next_page)
+ 
+ static inline u32
+-guest_index(void *ptr)
++guest_index(const void *ptr)
+ {
+     return (u32)((unsigned long)ptr & ~PAGE_MASK) / sizeof(guest_l1e_t);
+ }
+@@ -3549,16 +3549,25 @@ static int cf_check sh_guess_wrmap(
+ }
+ #endif
+ 
++/* Remember the last shadow that we shot a writeable mapping in */
++static always_inline void store_last_writeable_pte_smfn(
++    const struct domain *d, mfn_t sl1mfn)
++{
++#if SHADOW_OPTIMIZATIONS & SHOPT_WRITABLE_HEURISTIC
++    struct vcpu *curr = current;
++
++    if ( curr->domain == d )
++        curr->arch.paging.shadow.last_writeable_pte_smfn = mfn_x(sl1mfn);
++#endif
++}
++
+ int cf_check sh_rm_write_access_from_l1(
+     struct domain *d, mfn_t sl1mfn, mfn_t readonly_mfn)
+ /* Excises all writeable mappings to readonly_mfn from this l1 shadow table */
+ {
+     shadow_l1e_t *sl1e;
+     int done = 0;
+-#if SHADOW_OPTIMIZATIONS & SHOPT_WRITABLE_HEURISTIC
+-    struct vcpu *curr = current;
+     mfn_t base_sl1mfn = sl1mfn; /* Because sl1mfn changes in the foreach */
+-#endif
+ 
+     FOREACH_PRESENT_L1E(sl1mfn, sl1e, NULL, done,
+     {
+@@ -3568,11 +3577,9 @@ int cf_check sh_rm_write_access_from_l1(
+             shadow_l1e_t ro_sl1e = shadow_l1e_remove_flags(*sl1e, _PAGE_RW);
+ 
+             shadow_set_l1e(d, sl1e, ro_sl1e, p2m_ram_rw, sl1mfn);
+-#if SHADOW_OPTIMIZATIONS & SHOPT_WRITABLE_HEURISTIC
+-            /* Remember the last shadow that we shot a writeable mapping in */
+-            if ( curr->domain == d )
+-                curr->arch.paging.shadow.last_writeable_pte_smfn = mfn_x(base_sl1mfn);
+-#endif
++
++            store_last_writeable_pte_smfn(d, base_sl1mfn);
++
+             if ( (mfn_to_page(readonly_mfn)->u.inuse.type_info
+                   & PGT_count_mask) == 0 )
+                 /* This breaks us cleanly out of the FOREACH macro */
+@@ -3882,12 +3889,36 @@ static const char *sh_audit_flags(const
+     return NULL;
+ }
+ 
++static always_inline bool audit_magic(
++    const guest_l1e_t *gl1e, mfn_t gl1mfn,
++    const shadow_l1e_t *sl1e, mfn_t sl1mfn)
++{
++    bool done = false;
++
++#if SHADOW_OPTIMIZATIONS & SHOPT_FAST_FAULT_PATH
++    if ( !sh_l1e_is_gnp(*sl1e) )
++    {
++        gfn_t gfn = sh_l1e_mmio_get_gfn(*sl1e);
++
++        ASSERT(sh_l1e_is_mmio(*sl1e));
++
++        if ( !gfn_eq(gfn, guest_l1e_get_gfn(*gl1e)) )
++            AUDIT_FAIL(1,
++                       "shadow MMIO gfn is %" SH_PRI_gfn " but guest gfn is %" SH_PRI_gfn,
++                       gfn_x(gfn), gfn_x(guest_l1e_get_gfn(*gl1e)));
++    }
++    else if ( guest_l1e_get_flags(*gl1e) & _PAGE_PRESENT )
++        AUDIT_FAIL(1, "shadow is GNP magic but guest is present");
++#endif
++
++    return done;
++}
++
+ int cf_check sh_audit_l1_table(struct domain *d, mfn_t sl1mfn, mfn_t x)
+ {
+     guest_l1e_t *gl1e, *gp;
+     shadow_l1e_t *sl1e;
+-    mfn_t mfn, gmfn, gl1mfn;
+-    gfn_t gfn;
++    mfn_t gl1mfn;
+     p2m_type_t p2mt;
+     const char *s;
+     int done = 0;
+@@ -3906,28 +3937,10 @@ int cf_check sh_audit_l1_table(struct do
+ #endif
+ 
+     gl1e = gp = map_domain_page(gl1mfn);
+-    FOREACH_PRESENT_L1E(sl1mfn, sl1e, &gl1e, done, {
+-
++    FOREACH_PRESENT_L1E(sl1mfn, sl1e, &gl1e, done,
++    {
+         if ( sh_l1e_is_magic(*sl1e) )
+-        {
+-#if (SHADOW_OPTIMIZATIONS & SHOPT_FAST_FAULT_PATH)
+-            if ( sh_l1e_is_gnp(*sl1e) )
+-            {
+-                if ( guest_l1e_get_flags(*gl1e) & _PAGE_PRESENT )
+-                    AUDIT_FAIL(1, "shadow is GNP magic but guest is present");
+-            }
+-            else
+-            {
+-                ASSERT(sh_l1e_is_mmio(*sl1e));
+-                gfn = sh_l1e_mmio_get_gfn(*sl1e);
+-                if ( gfn_x(gfn) != gfn_x(guest_l1e_get_gfn(*gl1e)) )
+-                    AUDIT_FAIL(1, "shadow MMIO gfn is %" SH_PRI_gfn
+-                               " but guest gfn is %" SH_PRI_gfn,
+-                               gfn_x(gfn),
+-                               gfn_x(guest_l1e_get_gfn(*gl1e)));
+-            }
+-#endif
+-        }
++            done = audit_magic(gl1e, gl1mfn, sl1e, sl1mfn);
+         else
+         {
+             s = sh_audit_flags(d, 1, guest_l1e_get_flags(*gl1e),
+@@ -3936,9 +3949,10 @@ int cf_check sh_audit_l1_table(struct do
+ 
+             if ( SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES_MFNS )
+             {
+-                gfn = guest_l1e_get_gfn(*gl1e);
+-                mfn = shadow_l1e_get_mfn(*sl1e);
+-                gmfn = get_gfn_query_unlocked(d, gfn_x(gfn), &p2mt);
++                gfn_t gfn = guest_l1e_get_gfn(*gl1e);
++                mfn_t mfn = shadow_l1e_get_mfn(*sl1e);
++                mfn_t gmfn = get_gfn_query_unlocked(d, gfn_x(gfn), &p2mt);
++
+                 if ( !p2m_is_grant(p2mt) && !mfn_eq(gmfn, mfn) )
+                     AUDIT_FAIL(1, "bad translation: gfn %" SH_PRI_gfn
+                                " --> %" PRI_mfn " != mfn %" PRI_mfn,
+@@ -4027,6 +4041,17 @@ int cf_check sh_audit_l2_table(struct do
+ }
+ 
+ #if GUEST_PAGING_LEVELS >= 4
++static always_inline unsigned int type_from_gl3e(
++    const struct domain *d, const guest_l3e_t *gl3e)
++{
++#ifdef CONFIG_PV32
++    if ( guest_index(gl3e) == 3 && is_pv_32bit_domain(d) )
++        return SH_type_l2h_shadow;
++#endif
++
++    return SH_type_l2_shadow;
++}
++
+ int cf_check sh_audit_l3_table(struct domain *d, mfn_t sl3mfn, mfn_t x)
+ {
+     guest_l3e_t *gl3e, *gp;
+@@ -4056,14 +4081,10 @@ int cf_check sh_audit_l3_table(struct do
+ 
+         if ( SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES_MFNS )
+         {
+-            unsigned int t = SH_type_l2_shadow;
++            unsigned int t = type_from_gl3e(d, gl3e);
+ 
+             gfn = guest_l3e_get_gfn(*gl3e);
+             mfn = shadow_l3e_get_mfn(*sl3e);
+-#ifdef CONFIG_PV32
+-            if ( guest_index(gl3e) == 3 && is_pv_32bit_domain(d) )
+-                t = SH_type_l2h_shadow;
+-#endif
+             gmfn = get_shadow_status(
+                        d, get_gfn_query_unlocked(d, gfn_x(gfn), &p2mt), t);
+             if ( !mfn_eq(gmfn, mfn) )
 
