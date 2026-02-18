@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gHO9IebNlWnPUwIAu9opvQ
+	id CAFEK+jOlWnjUwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 15:34:14 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 15:38:32 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F068415713C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 15:34:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235630.1538556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA4E157198
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 15:38:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235639.1538566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsicg-0004eV-KO; Wed, 18 Feb 2026 14:33:50 +0000
+	id 1vsih5-0005FC-43; Wed, 18 Feb 2026 14:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235630.1538556; Wed, 18 Feb 2026 14:33:50 +0000
+Received: by outflank-mailman (output) from mailman id 1235639.1538566; Wed, 18 Feb 2026 14:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsicg-0004bq-HS; Wed, 18 Feb 2026 14:33:50 +0000
-Received: by outflank-mailman (input) for mailman id 1235630;
- Wed, 18 Feb 2026 14:33:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vsih5-0005Dj-1A; Wed, 18 Feb 2026 14:38:23 +0000
+Received: by outflank-mailman (input) for mailman id 1235639;
+ Wed, 18 Feb 2026 14:38:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LfGN=AW=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1vsicf-0004bk-Qk
- for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 14:33:49 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d28bc651-0cd6-11f1-9ccf-f158ae23cfc8;
- Wed, 18 Feb 2026 15:33:43 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1771425207254478.0252896232721;
- Wed, 18 Feb 2026 06:33:27 -0800 (PST)
+ <SRS0=LUrD=AW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vsih4-0005Dd-BF
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 14:38:22 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78935b69-0cd7-11f1-b164-2bf370ae4941;
+ Wed, 18 Feb 2026 15:38:20 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-48336a6e932so33093645e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 06:38:20 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483970d447fsm38675575e9.0.2026.02.18.06.38.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Feb 2026 06:38:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,239 +50,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d28bc651-0cd6-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1771425210; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Mt8NjpYdVvVbqSowi6i8dG+8QRvhPPCbTvilU5Ww+VM/luTMeDypAJH+Lvs6xcPe5M75IZKQ5yVwCe9pm1NbpX2RuQhmLJ+5k3gnkuk7yk7bI6EfKwjcQ7lNUA41XZzKKI0m6hE8MVzYtEMC9js9Uv6/jx4N+gNhqsJdRMTqfxA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1771425210; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZJveh3Bcm2/0NjwL5by88BzuPoySivzwVr45jGAQkOQ=; 
-	b=dk3XXqYEHyg2Thxi7fTqt1tveMYbBsT9wUdpQogmBp+LmcL0f0F1jrV2EB3IpH/H1rkHiPlyhN46TnPjgOn53l1TujI9N59T1Pnk4rKQ8+FEXKGw2fHKJ3AHbJyWCM69ZwA1CzBwPjTVg1psBWJWflbJler0O/nXAi1lmbFZ6aE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771425210;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=ZJveh3Bcm2/0NjwL5by88BzuPoySivzwVr45jGAQkOQ=;
-	b=IAc+x+jP8ATYP9SqWc1QHrVAc2+HPILy9o7nNHXGhaKU3nX+JlRgkDUEImmOM7Qs
-	1uEJCcwZGipvMXWbxTYOTBnfo1UWN/3zdVEAVRTVU/OEiCk7DtilAhgmeqPWhOxFlLJ
-	g9xfMWOTyEBRhp8QiuDvMI2lgZC9tmA/Rwau0nzw=
-Message-ID: <ff62ece8-a7f3-4490-967c-e9e8283dcd9d@apertussolutions.com>
-Date: Wed, 18 Feb 2026 09:33:25 -0500
+X-Inumbo-ID: 78935b69-0cd7-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771425500; x=1772030300; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=VFEph0G2gYZCHP73LMQnpBs2z3gvoeoNFlALiuQUeeo=;
+        b=QQmeZKOa0lfR2LywVSLG/Xxr4ap+aawYUUM35yr8UW0+A76Wq+KfK5ps61vvLd+Q3q
+         N0Xxy1rYMekOVj4BkB5qlVoyfVasiV0W+63R++j3MdUo1pCq631LAgT2RA4zAVSKH7OU
+         6jHx8l+nyreLETSShVDTCwmY62xoAZuWCPXMDq6Oz5wcjhbgqyRnw4HTaQyO2EhLKlrL
+         /qxf9GS3WS6Vq2+QWkGYL7DdWdGInnDpyJr5IQ7ml4WbNDZwhT9dvLdsaUoTt/aygp1a
+         4gkziFRTqDAOqXhBCSnXCMJfLykmlg0LY+OfGZKSJVpmQ14o2IcEhWCooEH555AiNX0P
+         9fOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771425500; x=1772030300;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VFEph0G2gYZCHP73LMQnpBs2z3gvoeoNFlALiuQUeeo=;
+        b=r9EIGOuMmhYMVjR931VZCZ00aAiMWMhgfeJcM8ct2VdmePtQPYn/SycTNLelWcp9kf
+         P0x/Px84tgB9joJx/l6bQNKLMMOiX9MziOn5THexdpVw7bpEGyb3HKiIeVOIWGlW+XVA
+         fU9GedFh+zGtjXhLWIgkL0+mPN/tA2E92CYFpljiuOlUa3+RNorDEOjx9cCZONWaZKKS
+         TSd78Wk/Vd35ai1nNtLRqUAPQ4wYia12mRFMO+58AUy6RQ3cyiaydGHfwiP1voYKMe7+
+         DZ4+EPQDi1g25aGY2qq48YMdkq7DtYAj1Xx70obDxqJ77ooi5o19h7J6TZopgzl2aZ+4
+         79og==
+X-Forwarded-Encrypted: i=1; AJvYcCVdXRJAcccyb3eQLK50MZfYJG+dzDoEClc2+vm8uy2mOU5wmE99JQyWgYx1JjSxlryhsGbo+/XCgm0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpX/KRZcegL9oI9PpF2pWE3ActGR25L6QA7TsetLDpPtbSzkmZ
+	ltrp37wW1y43z8SImid8UrPCEDjPt7xdORxN3Ut5i+r7ZcEddbtZ5IA3
+X-Gm-Gg: AZuq6aK0Bmub7S9dBl0QnBnOmX1tfveOlFU2VnXopsJ9vbfRT3TMVi5KhoXMV8WHyLw
+	uU8Wyg7XqLrEDGwc8ibhfS2ZBv52Qz1OwQlqnoxr0TikuoPDSNHL6K7DMkiIzMOkEn82joNIFpV
+	R5nD+lGgqxvAvA0sltjOYvO/vXkfpPj0jx7HYB/2iQ50kKz4jjKbKtgpIwmF10xXRRCniQk38wT
+	kpNmy514XiZFW7VM658JPIAbVyymrYVo76xdQcq1VOjSnWZlUIK4RgRWA2jjkiLAmLVPcKlF8VE
+	2yk6C/V9R6gHdwyw2Sw09WnOn/RT0qYKSU21nORGt2ZR96k7+B5Anf9Ub562P72/yZzEJFZcdg/
+	IcaEXfQnQ7c+rJB1vAoQAikYrh4FbwtL54LG8XygVctAEq01K1D0Yj8Sk1v5VAmzsCfp7fov63W
+	FK16oqdmQhuysbITJe0sF1siJO0yMxHZb0sJkbJxuGjepvx+mwKSBgLLbqErli/PzHbJy7Dwd+4
+	xg=
+X-Received: by 2002:a05:600c:698c:b0:477:5ad9:6df1 with SMTP id 5b1f17b1804b1-48379b932b7mr271436095e9.3.1771425499982;
+        Wed, 18 Feb 2026 06:38:19 -0800 (PST)
+Message-ID: <ab0b7dcf-c607-43d3-bb1c-f782c3a71332@gmail.com>
+Date: Wed, 18 Feb 2026 15:38:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] common/domctl: xsm update for get_domain_state access
-Content-Language: en-US
+Subject: Re: [PATCH v1 5/6] xen: move domain_use_host_layout() to common
+ header
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Chris Rogers <rogersc@ainfosec.com>,
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260216215748.20398-1-dpsmith@apertussolutions.com>
- <1a1d8db1-d553-470a-8678-b879385b2fec@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <1a1d8db1-d553-470a-8678-b879385b2fec@suse.com>
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
+ <678eb53c56bc4f6147feb0bbb6c1319197d0f0df.1770821989.git.oleksii.kurochko@gmail.com>
+ <522a71ce-05da-4a66-956e-5581f0c49e0e@suse.com>
+ <alpine.DEB.2.22.394.2602161038120.359097@ubuntu-linux-20-04-desktop>
+ <d9feffe4-c45e-4bed-bc5e-776e4547578a@suse.com>
+ <5eb4ba3b-f7b6-4cfb-ab67-60198c3f8572@gmail.com>
+ <0c0061ab-acdb-4ceb-92e2-ca4e591ee741@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <0c0061ab-acdb-4ceb-92e2-ca4e591ee741@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.69 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,apertussolutions.com:mid,apertussolutions.com:dkim,apertussolutions.com:email,ainfosec.com:email];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:rogersc@ainfosec.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DMARC_NA(0.00)[apertussolutions.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,bootlin.com:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: F068415713C
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 1CA4E157198
 X-Rspamd-Action: no action
 
-On 2/17/26 04:34, Jan Beulich wrote:
-> On 16.02.2026 22:57, Daniel P. Smith wrote:
->> When using XSM Flask, passing DOMIND_INVALID will result in a NULL pointer
-> 
-> Nit: DOMID_INVALID
+
+On 2/18/26 2:12 PM, Jan Beulich wrote:
+> On 18.02.2026 13:58, Oleksii Kurochko wrote:
+>> On 2/17/26 8:34 AM, Jan Beulich wrote:
+>>> On 16.02.2026 19:42, Stefano Stabellini wrote:
+>>>> On Mon, 16 Feb 2026, Jan Beulich wrote:
+>>>>> On 12.02.2026 17:21, Oleksii Kurochko wrote:
+>>>>>> domain_use_host_layout() is generic enough to be moved to the
+>>>>>> common header xen/domain.h.
+>>>>> Maybe, but then something DT-specific, not xen/domain.h. Specifically, ...
+>>>>>
+>>>>>> --- a/xen/include/xen/domain.h
+>>>>>> +++ b/xen/include/xen/domain.h
+>>>>>> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
+>>>>>>    #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+>>>>>>    #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+>>>>>>    
+>>>>>> +/*
+>>>>>> + * Is the domain using the host memory layout?
+>>>>>> + *
+>>>>>> + * Direct-mapped domain will always have the RAM mapped with GFN == MFN.
+>>>>>> + * To avoid any trouble finding space, it is easier to force using the
+>>>>>> + * host memory layout.
+>>>>>> + *
+>>>>>> + * The hardware domain will use the host layout regardless of
+>>>>>> + * direct-mapped because some OS may rely on a specific address ranges
+>>>>>> + * for the devices.
+>>>>>> + */
+>>>>>> +#ifndef domain_use_host_layout
+>>>>>> +# define domain_use_host_layout(d) (is_domain_direct_mapped(d) || \
+>>>>>> +                                    is_hardware_domain(d))
+>>>>> ... is_domain_direct_mapped() isn't something that I'd like to see further
+>>>>> proliferate in common (non-DT) code.
+>>>> Hi Jan, we have a requirement for 1:1 mapped Dom0 (I should say hardware
+>>>> domain) on x86 as well. In fact, we already have a working prototype,
+>>>> although it is not suitable for upstream yet.
+>>>>
+>>>> In addition to the PSP use case that we discussed a few months ago,
+>>>> where the PSP is not behind an IOMMU and therefore exchanged addresses
+>>>> must be 1:1 mapped, we also have a new use case. We are running the full
+>>>> Xen-based automotive stack on an Azure instance where SVM (vmentry and
+>>>> vmexit) is available, but an IOMMU is not present. All virtual machines
+>>>> are configured as PVH.
+>>> Hmm. Then adjustments need making, for commentary and macro to be correct
+>>> on x86. First and foremost none of what is there is true for PV.
+>> As is_domain_direct_mapped() returns always false for x86, so
+>> domain_use_host_layout macro will return incorrect value for non-hardware
+>> domains (dom0?). And as PV domains are not auto_translated domains so are
+>> always direct-mapped, so technically is_domain_direct_mapped() (or
+>> domain_use_host_layout()) should return true in such case.
+> Hmm? PV domains aren't direct-mapped. Direct-map was introduced by Arm for
+> some special purpose (absence of IOMMU iirc).
+
+I made such conclusion because of the comments in the code mentioned below:
+  - https://elixir.bootlin.com/xen/v4.21.0/source/tools/libs/guest/xg_dom_x86.c#L1880
+  - https://elixir.bootlin.com/xen/v4.21.0/source/xen/include/public/features.h#L107
+
+Also, in the comment where it is introduced (d66bf122c0a "xen: introduce XENFEAT_direct_mapped and XENFEAT_not_direct_mapped")
+is mentioned that:
+   XENFEAT_direct_mapped is always set for not auto-translated guests.
+
 >
-
-ack.
-
-
->> reference from the passing of NULL as the target domain to
->> xsm_get_domain_state(). Simply not invoking xsm_get_domain_state() when the
->> target domain is NULL opens the opportunity to circumvent the XSM
->> get_domain_state access check. This is due to the fact that the call to
->> xsm_domctl() for get_domain_state op is a no-op check, deferring to
->> xsm_get_domain_state().
+>> (I assume it is also true for every domain except HVM according to the comment
+>> /* HVM guests are translated.  PV guests are not. */ in xc_dom_translated and
+>> the comment above definition of XENFEAT_direct_mapped: /* ...not auto_translated
+>> domains (x86 only) are always direct-mapped*/).
 >>
->> Modify the helper get_domain_state() to ensure the requesting domain has
->> get_domain_state access for the target domain, whether the target domain is
->> explicitly set or implicitly determined with a domain state search. In the case
->> of access not being allowed for a domain found during an implicit search, the
->> search will continue to the next domain whose state has changed.
+>> Is my understanding correct?
 >>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Reported-by: Chris Rogers <rogersc@ainfosec.com>
->> Fixes: 3ad3df1bd0aa ("xen: add new domctl get_domain_state")
-> 
-> Nit: Fixes: first (or at least ahead of S-o-b) and other tags chronologically
-> ordered, please.
-> 
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -210,7 +210,7 @@ static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
->>   int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>                        domid_t *domid)
->>   {
->> -    unsigned int dom;
->> +    unsigned int dom = 0;
->>       int rc = -ENOENT;
->>       struct domain *hdl;
->>   
->> @@ -219,6 +219,10 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>   
->>       if ( d )
->>       {
->> +        rc = xsm_get_domain_state(XSM_XS_PRIV, d);
->> +        if ( rc )
->> +            return rc;
->> +
->>           set_domain_state_info(info, d);
->>   
->>           return 0;
->> @@ -238,10 +242,10 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>   
->>       while ( dom_state_changed )
->>       {
->> -        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
->> +        dom = find_next_bit(dom_state_changed, DOMID_MASK + 1, dom);
->>           if ( dom >= DOMID_FIRST_RESERVED )
->>               break;
->> -        if ( test_and_clear_bit(dom, dom_state_changed) )
->> +        if ( test_bit(dom, dom_state_changed) )
->>           {
->>               *domid = dom;
-> 
-> This is problematic wrt other work (already talked about in the distant past,
-> but sadly only making little progress) towards trying to pull some of the
-> sub-ops out of the domctl-locked region. This subop is one of the prime
-> candidates, yet only if the test_and_clear_bit() remains here.
-> 
+>> Then isn't that a problem of how is_domain_direct_mapped() is defined
+>> for x86? Shouldn't it be defined like:
+>>     #define is_domain_direct_mapped(d) (!paging_mode_translate(d) || ((d)->cdf & CDF_directmap))
+>>
+>> Would it be better to move "!paging_mode_translate(d) || " to the definition
+>> of domain_use_host_layout()?
+>>
+>> Could you please explain what is wrong with the comment? Probably, except:
+>>     * To avoid any trouble finding space, it is easier to force using the
+>>     * host memory layout.
+>> everything else should be true for x86.
+> "The hardware domain will use ..." isn't true for PV Dom0.
 
-Okay, but we can't be clearing the bit if the src domain doesn't have 
-access. When considering that xsm_domctl() does a no-op check for 
-XEN_DOMCTL_get_domain_state, deferring to xsm_get_domain_state(), then 
-any domain could invoke the OP with DOMID_INVALID and clear the bit 
-before access is checked.
+And then just pure is_hardware_domain(d) inside macros isn't correct too, right?
+So it should be (... || (!is_pv_domain(d) && is_hardware_domain(d)))
 
-If you want to ensure atomic operations on the bit field, while I am not 
-a fan of this, a combination with set_bit() could be done. Let the 
-test_and_clear_bit() remain and then if access check fails, use 
-set_bit() to put it back. Would that be sufficient for your objective?
+~ Oleksii
 
->> @@ -249,6 +253,15 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>   
->>               if ( d )
->>               {
->> +                rc = xsm_get_domain_state(XSM_XS_PRIV, d);
->> +                if ( rc )
->> +                {
->> +                    rcu_unlock_domain(d);
->> +                    rc = -ENOENT;
-> 
-> As you don't otherwise use xsm_get_domain_state()'s return value, the need
-> for this assignment can be eliminated by putting the function call straight
-> in the if(). Then again, to address the remark above, overall code structure
-> will need to change quite a bit anyway (so the remark here may be moot).
-> 
-
-I can drop the use of rc here and inline it.
-
->> +                    dom++;
-> 
-> It may be nice to eliminate the need to have this in two places (here and ...
-> 
->> +                    continue;
->> +                }
->> +
->>                   set_domain_state_info(info, d);
->>   
->>                   rcu_unlock_domain(d);
->> @@ -256,10 +269,13 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>               else
->>                   memset(info, 0, sizeof(*info));
->>   
->> +            clear_bit(dom, dom_state_changed);
->>               rc = 0;
->>   
->>               break;
->>           }
->> +
->> +        dom++;
->>       }
-> 
-> ... here), by having the variable's initializer be -1 and then using dom + 1
-> in the find_next_bit() invocation.
-
-If you want this way, then there are two options, make dom no longer 
-unsigned or be willing to allow unsigned int overflow. If we go with the 
-former, If you agree, I would leave it as an int as that should cover 
-the range of valid domids.
-
-v/r,
-dps
 
