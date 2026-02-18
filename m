@@ -2,61 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kLgcO0rmlGmjIgIAu9opvQ
+	id FlvrB9R2lWl8RwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 23:06:02 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 09:22:44 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7FA15146F
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Feb 2026 23:06:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1235279.1538278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD496153F78
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Feb 2026 09:22:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1235313.1538287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsTBP-0005ot-1o; Tue, 17 Feb 2026 22:04:39 +0000
+	id 1vscob-0008VL-F9; Wed, 18 Feb 2026 08:21:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1235279.1538278; Tue, 17 Feb 2026 22:04:39 +0000
+Received: by outflank-mailman (output) from mailman id 1235313.1538287; Wed, 18 Feb 2026 08:21:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsTBO-0005mh-Uu; Tue, 17 Feb 2026 22:04:38 +0000
-Received: by outflank-mailman (input) for mailman id 1235279;
- Tue, 17 Feb 2026 22:04:37 +0000
+	id 1vscob-0008TF-BN; Wed, 18 Feb 2026 08:21:45 +0000
+Received: by outflank-mailman (input) for mailman id 1235313;
+ Wed, 18 Feb 2026 08:21:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kmbl=AV=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1vsTBN-0005mb-Mq
- for xen-devel@lists.xenproject.org; Tue, 17 Feb 2026 22:04:37 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RtAK=AW=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vscoZ-0008T9-96
+ for xen-devel@lists.xenproject.org; Wed, 18 Feb 2026 08:21:43 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1fc8d0b-0c4c-11f1-9ccf-f158ae23cfc8;
- Tue, 17 Feb 2026 23:04:31 +0100 (CET)
-Received: from BN9PR03CA0905.namprd03.prod.outlook.com (2603:10b6:408:107::10)
- by DS0PR12MB8454.namprd12.prod.outlook.com (2603:10b6:8:15e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Tue, 17 Feb
- 2026 22:04:26 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:408:107:cafe::6b) by BN9PR03CA0905.outlook.office365.com
- (2603:10b6:408:107::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.13 via Frontend Transport; Tue,
- 17 Feb 2026 22:04:22 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Tue, 17 Feb 2026 22:04:26 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 17 Feb
- 2026 16:04:26 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Feb
- 2026 16:04:25 -0600
-Received: from [172.17.121.74] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 17 Feb 2026 16:04:24 -0600
+ id d7de64d8-0ca2-11f1-9ccf-f158ae23cfc8;
+ Wed, 18 Feb 2026 09:21:37 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5925B3E6D0;
+ Wed, 18 Feb 2026 08:21:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 893403EA65;
+ Wed, 18 Feb 2026 08:21:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HcFZII92lWkvHQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 18 Feb 2026 08:21:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,199 +56,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1fc8d0b-0c4c-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=foGmZlnF/DRw/H06qWoHjdHoZQL5FeJQP4OTbdE5fcDs4I5Rrziey+qmZm9zyrgA5olMT49giqmcYbOtTHkDIBaHN7bNEgBspeEDoYm2ptyxUCLl8Z/q2DhwynlQTx4O4gXIcwSJV49bvaQ2PvzdHN5Cwx0knEi5EQ6asIXk5zaJBLysOxauPPnis1aBJyDtwNYE8BMrt9+LwCyS42oC8Y8PKteKjutk81mFSupuBV39s9MEVVc7L3MlNozKUiHhvS7q1bDi9F/OMAPOTrOFU8igbEmeZ8ZsA7v7tkmhg0pVkolZ+cWvstNizsdFRJKsO4RlOV87zvKjR+cDY1VW5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8VaKNqPDCt7toW4VRa5qYDeCjE1Jgqa6JeUNYNIlx9M=;
- b=UO6zZBNQDQ21JJ4sVCa4Mgifzc2t5l4PXgT4dhqwaH+acXrg+OVUqtxp/+5aAhOX1VbJ9zL+a0qT/6JomGCEehNC6gHc07tT/8vrPoJo1Lrp6oWrjZoOJWHdJYMbZRm5ju3dS+Fys4htKdLLkURBTOcxTccIUCuAnlY3U1qSfUTJ2y5NXRUy4qe+ONzP54IFhYGSXmwvG4U/DGED75QWT9UhgEMjpSryOZ0ngihkK7i/8uFFvMxXJB8cnG0ha+CX+QRyKLAtFmK2F7KJCoEx7FZEQZIHwEH9UwteDXlQf2pNkfyhM+1b5rbwhR8rBCPSX3earW2/oRhSFfRCTsvSvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8VaKNqPDCt7toW4VRa5qYDeCjE1Jgqa6JeUNYNIlx9M=;
- b=EDlGisjIebAAjFtdSRSNRnXkhWurBGHydI/LX3LZ2PWBrw+HbGfejrEaUDi65DQKumYBc4Hr8XZcPpA/dg7TAy4GPSxRq2J6cITVGA0po7FpXigQR702v0Ep+XOBHOrWshura9wuUzUsP50FlInbjGeeHOa1CoVjTo+Op3Xf4MA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <3bbe1fc7-ed6e-43ee-bcee-17502ba56539@amd.com>
-Date: Tue, 17 Feb 2026 17:04:25 -0500
+X-Inumbo-ID: d7de64d8-0ca2-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1771402896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=OYoDmUH9lbkTBURMFRYZYYI6iouhuBtpfCapQgEqDZ8=;
+	b=mumQ2dSroxqx6zt+Ap8HTM0DwIHDjYg5G2rkTfGqr0XF50J9oS7P1iax3mkDWYDGIX05mq
+	VX/pMUcA0pFYr7ZTj5XfgBOOOEBabHE1Wg4S0+rOQYd/osFxFh8Tnl1dVhywbfaL5k3mSq
+	YTambJKAYcAGVGpkGonRfwPP/SogtlM=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1771402896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=OYoDmUH9lbkTBURMFRYZYYI6iouhuBtpfCapQgEqDZ8=;
+	b=mumQ2dSroxqx6zt+Ap8HTM0DwIHDjYg5G2rkTfGqr0XF50J9oS7P1iax3mkDWYDGIX05mq
+	VX/pMUcA0pFYr7ZTj5XfgBOOOEBabHE1Wg4S0+rOQYd/osFxFh8Tnl1dVhywbfaL5k3mSq
+	YTambJKAYcAGVGpkGonRfwPP/SogtlM=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	llvm@lists.linux.dev
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Xin Li <xin@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>
+Subject: [PATCH v3 00/16] x86/msr: Inline rdmsr/wrmsr instructions
+Date: Wed, 18 Feb 2026 09:21:17 +0100
+Message-ID: <20260218082133.400602-1-jgross@suse.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] vPCI: introduce private header
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <25c65557-c97c-499c-a698-571e40cde563@suse.com>
- <4fda7acb-e1a4-4a24-982e-4cae90048018@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <4fda7acb-e1a4-4a24-982e-4cae90048018@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|DS0PR12MB8454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6aa54668-d19a-4e03-939c-08de6e708414
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VTVjNGoyYm91d3FQU21HSXJ0a0dnNW96NXV4eURqbk9PYkVXVGFzNWppbU0v?=
- =?utf-8?B?d3hYRGR1S1BNUVhZLytMckdvY2FDeS84T3Q5djVxVUx5QUN2VGJ6Z2NoTERt?=
- =?utf-8?B?ekJ5Q1ZyMVFNeEdVMHdUY2VLRktudUlqcUpNVGYrTzdJNHVBQkg0enBDQVVm?=
- =?utf-8?B?aG1BSk9KQzBQVk13YWJoSFJjSGtuWUlZYlhOMDZ5cWF5MW8reUhQa3c0VlRK?=
- =?utf-8?B?eGlEdDdVZGFaL2V0UnVpMzRxZnk2SlBHNGxwdkZvYjdpa0UxNzJWZU9UNy9z?=
- =?utf-8?B?NXozNS9tYTdGMkZXVEtMY3UrSUU2YlQ2cFJBVjdkVGFWM1hrb1FsQndLMnpM?=
- =?utf-8?B?VTlQSjBvZ3JaNkhialZFaXZhRURxL1BLV0RlREhXdlVzbWFTNHJsNDl2UUVL?=
- =?utf-8?B?R0lkWTZwVm5GdjlFQWlLNy83WDRnMjYwblkvZDllUmlyQjE3UlA1SVEyZ3FU?=
- =?utf-8?B?bE13T2h3OXNYd1oveHNadVFoSjU4azBCa1h5dW04ZGJtb1IzTmFKSS9IUlRV?=
- =?utf-8?B?Z1VrcnFHQmhzalRyWldJSVRKNTVRQ1hSWmk0VWlNWXFhTyttUVEzTjFvYXZ5?=
- =?utf-8?B?Mjd3MERTOWdqMFlHYmw5cFRYSHYvZ3RSS1ZBZ2tlTFQ2d0FlMENTSVorbTJo?=
- =?utf-8?B?VVNBTWhsNXdsYWFKUWhzb2kyK1RlUk1VekFod1IvNC94TERIelQ4RHp1aDNC?=
- =?utf-8?B?NmtBZmpnakVpQTNsdkJuS0FUamVkVjdTOG5YUGtiSXU1eEF1NUtLZy93MFBk?=
- =?utf-8?B?TFkvTzhYZW1adllsSnVjL3Nya2hiN0FWWEo1dmZpWGZ0eS9CaGlMSWsvYnRj?=
- =?utf-8?B?VUkwdEdWMk9xczNqVlNyTlNBNE5kRW1zYi9zeFIyRURTV1ZSaUlLRDAxTlph?=
- =?utf-8?B?emtXR3RBeEg0WjBTVEZkOVJ3M1pPYmlEYlZVdy84d3d0S1RCMFhFRFkyZEUv?=
- =?utf-8?B?b0hlVExxUTZzUU85bHhKWThhTHI5Z0lrZzVlREFkM0dKNjRYckt5cktNQnRO?=
- =?utf-8?B?dHNXd3ZVSlVhS3BCV1pPYzBFejRhRmZlM3BpOE0wWXd1U3Y5dzN5MkpTNDcv?=
- =?utf-8?B?VEdnczEva1IzTkd5dXI0UG1xVWVVTG9aYzdneU8rWUtjYXFxTDU1M0hYMjlk?=
- =?utf-8?B?TmRBRmZxUjE0Q3ZNY3B2VXZlT0FYbGFJZVowUEEwbUs4OFl5STVDNmJSeVZt?=
- =?utf-8?B?Yk9rVkxCYUZEYnYxMVZaWXAyRE85SDRxT3FVQmRibkc5VlNyRW5QV21wN0Zm?=
- =?utf-8?B?eDdYMlBIRWlWclA1QUUwYmw4V2ppR1o0cUNYbUdmM2Jsanp0ZU1BVGJ4R0Jr?=
- =?utf-8?B?bXlpVXNGV0NxeHdtWkNWVVVQdmhudlJxbmloWi9LcTFUcXFueUNjM2l2Wjgv?=
- =?utf-8?B?M2RGT2VGZWZiaSszZkFtazhyWlQ2N1ZDSlp3YmxSaG9aQ2JYdUw1Vyt2SDhl?=
- =?utf-8?B?R2h6RnNBSkFHUXVKUlJUVXc4UzNQZk1Wb0tTZUZrZTRKeFdwRHdQd2xtSWZ6?=
- =?utf-8?B?TDdlczQ2SDF4UW8xZXFyUTNvdlNHTUwzNzVhRGxibUJ5MU5NbkIrbFY0dFVU?=
- =?utf-8?B?VU9XTURobytpaFZlQkJ2bWY2Uk5PSXFURTVhWVQrSDFTWlkzREg2UTd0cWNK?=
- =?utf-8?B?c0hDWkxGMG4rUVRIZDV2WTJaRTZXMngzU3VtSXZkOGQwcDBzRjZCMXlVSW9E?=
- =?utf-8?B?Znk4RWlFeFJHWi9hdWFuUGRhVU5qRUdZNDl0anl5RFlqN3FvMDBwNzJsZ0k1?=
- =?utf-8?B?STBrTWtVQnNBcUIyU2hRU3VjdTZ5M21tREZGa2xVMlMvVVNCYVllRGk0TzU5?=
- =?utf-8?B?d0Y5WnEzZ2h2S1JDSkx2d2ZyT0ltbVVJSUhkcnR3N3ZxMEZ5V3p0QXdleElG?=
- =?utf-8?B?MlByUGhBMHdjMGVQL1FwTzlOYmJNMFZMbWdQN2FmbW41UkU4Y0FXaEJ4NFI1?=
- =?utf-8?B?THRzeFBJaHEwaFBhVHNCMjJERWhURkt5QkVOdVNkYzEvY1dGSFU1ZG9jQ2Ev?=
- =?utf-8?B?ZlFBejlxaUtYUGxyU1A2KzlKNXFJR0Z1ZVFHQ3pWUHBkR0puZGMyRGoveCtw?=
- =?utf-8?B?dDJYMTlGa3pjMjNFOFZvT1hIdURJRSs4VnAwVTVkakFGcTN0b1FSVVB1SE1U?=
- =?utf-8?B?SGFuMDRKa2dtVk5xR0VuaXhIQVJCSVJnWkVKVGk3amYwZk43S0kreHIySUxz?=
- =?utf-8?B?L3pqeER2S2xMQW9malE0aVRxMGc5ZUVOMFJYV3Ava3duRzFNR3I3YzUvV25w?=
- =?utf-8?B?N0lzaE5XNllIWWs5YS9NMXR1czh3PT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	goH/hzFLQS2em/ACxGvsyCrG+3jfJA1SukxfM6e3BeH/kwR9736b8RkvFMtLvi4ACbAHtQckisidntU2utxcKzyOoDz2Ujh+6OPAB1s1bh4XbpnN7ptCd5BOkJvgW4jKjFxfZ6mKmhp41dA8zucipTZ6GFU9soY2rOGl6/NHsO4DCW2yXgeWNeFyz9b1dcbsUulDgzDy2RvsDPasgyAJueRYS9mCyvrH7shWzcwVXVPlChVPvz2bzc+8IVQ+bjF9/IPPVTsC8gsu4X3ROUW5u+HxXSbYAuEOY02sImvhqnL9s2t6BlVrih3G8X4XSDD2AMf8k824v0UNNf6S28bmyLivPjJ6NsF1lKolbXGLhKj9QTqUzsGfDga5tfa8Kvs3XjKdSvcFTnzFuu7shUthksEYDGvN1if20FEV+7DNHuric4FHqtq3rw9GHwBu0bj2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2026 22:04:26.4114
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6aa54668-d19a-4e03-939c-08de6e708414
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004684.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8454
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -1.30
+X-Spam-Level: 
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [1.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[36];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:llvm@lists.linux.dev,m:jgross@suse.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:kas@kernel.org,m:rick.p.edgecombe@intel.com,m:seanjc@google.com,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:vkuznets@redhat.com,m:boris.ostrovsky@oracle.com,m:xen-devel@lists.xenproject.org,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:luto@kernel.org,m:peterz@infradead.org,m:xin@zytor.com,m:nathan@kernel.org,m:nick.desaulniers+lkml@gmail.com,m:morbo@google.com,m:justinstitt@google.com,m:jpoimboe@kernel.org,m:nickdesaulniers@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_CC(0.00)[suse.com,kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,intel.com,google.com,microsoft.com,oracle.com,lists.xenproject.org,broadcom.com,infradead.org,gmail.com];
+	DKIM_TRACE(0.00)[suse.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 4C7FA15146F
+	TAGGED_RCPT(0.00)[xen-devel,lkml];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: AD496153F78
 X-Rspamd-Action: no action
 
-On 2/10/26 05:53, Jan Beulich wrote:
-> Before adding more private stuff to xen/vpci.h, split it up. In order to
-> be able to include the private header first in a CU, the per-arch struct
-> decls also need to move (to new asm/vpci.h files).
-> 
-> While adjusting the test harness'es Makefile, also switch the pre-existing
-> header symlink-ing rule to a pattern one.
-> 
-> Apart from in the test harness code, things only move; no functional
-> change intended.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Subsequently, at least on x86 more stuff may want moving into asm/vpci.h.
-> ---
-> v4: New.
-> 
-> --- a/tools/tests/vpci/Makefile
-> +++ b/tools/tests/vpci/Makefile
-> @@ -14,8 +14,8 @@ else
->  	$(warning HOSTCC != CC, will not run test)
->  endif
->  
-> -$(TARGET): vpci.c vpci.h list.h main.c emul.h
-> -	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> +$(TARGET): vpci.c vpci.h list.h private.h main.c emul.h
-> +	$(CC) $(CFLAGS_xeninclude) -include emul.h -g -o $@ vpci.c main.c
->  
->  .PHONY: clean
->  clean:
+When building a kernel with CONFIG_PARAVIRT_XXL the paravirt
+infrastructure will always use functions for reading or writing MSRs,
+even when running on bare metal.
 
-Can you please add the generated private.h to be removed upon "make clean"?
+Switch to inline RDMSR/WRMSR instructions in this case, reducing the
+paravirt overhead.
 
-Also, can you please add tools/tests/vpci/private.h to .gitignore?
+The first patch is a prerequisite fix for alternative patching. Its
+is needed due to the initial indirect call needs to be padded with
+NOPs in some cases with the following patches.
 
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/vpci.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef ARM_VPCI_H
-> +#define ARM_VPCI_H
-> +
-> +/* Arch-specific MSI data for vPCI. */
-> +struct vpci_arch_msi {
-> +};
-> +
-> +/* Arch-specific MSI-X entry data for vPCI. */
-> +struct vpci_arch_msix_entry {
-> +};
-> +
-> +#endif /* ARM_VPCI_H */
+In order to make this less intrusive, some further reorganization of
+the MSR access helpers is done in the patches 1-6.
 
-Out of curiosity (not asking for any changes), why did you include an emacs
-footer on the x86 header but not here?
+The next 4 patches are converting the non-paravirt case to use direct
+inlining of the MSR access instructions, including the WRMSRNS
+instruction and the immediate variants of RDMSR and WRMSR if possible.
 
-Otherwise, the rest of the patch looks good to me.
+Patches 11-13 are some further preparations for making the real switch
+to directly patch in the native MSR instructions easier.
+
+Patch 14 is switching the paravirt MSR function interface from normal
+call ABI to one more similar to the native MSR instructions.
+
+Patch 15 is a little cleanup patch.
+
+Patch 16 is the final step for patching in the native MSR instructions
+when not running as a Xen PV guest.
+
+This series has been tested to work with Xen PV and on bare metal.
+
+Note that there is more room for improvement. This series is sent out
+to get a first impression how the code will basically look like.
+
+Right now the same problem is solved differently for the paravirt and
+the non-paravirt cases. In case this is not desired, there are two
+possibilities to merge the two implementations. Both solutions have
+the common idea to have rather similar code for paravirt and
+non-paravirt variants, but just use a different main macro for
+generating the respective code. For making the code of both possible
+scenarios more similar, the following variants are possible:
+
+1. Remove the micro-optimizations of the non-paravirt case, making
+   it similar to the paravirt code in my series. This has the
+   advantage of being more simple, but might have a very small
+   negative performance impact (probably not really detectable).
+
+2. Add the same micro-optimizations to the paravirt case, requiring
+   to enhance paravirt patching to support a to be patched indirect
+   call in the middle of the initial code snipplet.
+
+In both cases the native MSR function variants would no longer be
+usable in the paravirt case, but this would mostly affect Xen, as it
+would need to open code the WRMSR/RDMSR instructions to be used
+instead the native_*msr*() functions.
+
+Changes since V2:
+- switch back to the paravirt approach
+
+Changes since V1:
+- Use Xin Li's approach for inlining
+- Several new patches
+
+Juergen Gross (16):
+  x86/alternative: Support alt_replace_call() with instructions after
+    call
+  coco/tdx: Rename MSR access helpers
+  x86/sev: Replace call of native_wrmsr() with native_wrmsrq()
+  KVM: x86: Remove the KVM private read_msr() function
+  x86/msr: Minimize usage of native_*() msr access functions
+  x86/msr: Move MSR trace calls one function level up
+  x86/opcode: Add immediate form MSR instructions
+  x86/extable: Add support for immediate form MSR instructions
+  x86/msr: Use the alternatives mechanism for WRMSR
+  x86/msr: Use the alternatives mechanism for RDMSR
+  x86/alternatives: Add ALTERNATIVE_4()
+  x86/paravirt: Split off MSR related hooks into new header
+  x86/paravirt: Prepare support of MSR instruction interfaces
+  x86/paravirt: Switch MSR access pv_ops functions to instruction
+    interfaces
+  x86/msr: Reduce number of low level MSR access helpers
+  x86/paravirt: Use alternatives for MSR access with paravirt
+
+ arch/x86/coco/sev/internal.h              |   7 +-
+ arch/x86/coco/tdx/tdx.c                   |   8 +-
+ arch/x86/hyperv/ivm.c                     |   2 +-
+ arch/x86/include/asm/alternative.h        |   6 +
+ arch/x86/include/asm/fred.h               |   2 +-
+ arch/x86/include/asm/kvm_host.h           |  10 -
+ arch/x86/include/asm/msr.h                | 345 ++++++++++++++++------
+ arch/x86/include/asm/paravirt-msr.h       | 148 ++++++++++
+ arch/x86/include/asm/paravirt.h           |  67 -----
+ arch/x86/include/asm/paravirt_types.h     |  57 ++--
+ arch/x86/include/asm/qspinlock_paravirt.h |   4 +-
+ arch/x86/kernel/alternative.c             |   5 +-
+ arch/x86/kernel/cpu/mshyperv.c            |   7 +-
+ arch/x86/kernel/kvmclock.c                |   2 +-
+ arch/x86/kernel/paravirt.c                |  42 ++-
+ arch/x86/kvm/svm/svm.c                    |  16 +-
+ arch/x86/kvm/vmx/tdx.c                    |   2 +-
+ arch/x86/kvm/vmx/vmx.c                    |   8 +-
+ arch/x86/lib/x86-opcode-map.txt           |   5 +-
+ arch/x86/mm/extable.c                     |  35 ++-
+ arch/x86/xen/enlighten_pv.c               |  52 +++-
+ arch/x86/xen/pmu.c                        |   4 +-
+ tools/arch/x86/lib/x86-opcode-map.txt     |   5 +-
+ tools/objtool/check.c                     |   1 +
+ 24 files changed, 576 insertions(+), 264 deletions(-)
+ create mode 100644 arch/x86/include/asm/paravirt-msr.h
+
+-- 
+2.53.0
+
 
