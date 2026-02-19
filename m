@@ -2,43 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OA3cH98bl2k/uwIAu9opvQ
+	id sCtAB94el2m9uwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:19:11 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:31:58 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04BD15F67D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:19:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236360.1539094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839C815F81D
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:31:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236371.1539104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt4rl-0000qL-39; Thu, 19 Feb 2026 14:18:53 +0000
+	id 1vt53g-0003fU-7R; Thu, 19 Feb 2026 14:31:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236360.1539094; Thu, 19 Feb 2026 14:18:53 +0000
+Received: by outflank-mailman (output) from mailman id 1236371.1539104; Thu, 19 Feb 2026 14:31:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt4rl-0000nw-0L; Thu, 19 Feb 2026 14:18:53 +0000
-Received: by outflank-mailman (input) for mailman id 1236360;
- Thu, 19 Feb 2026 14:18:52 +0000
+	id 1vt53g-0003e3-4M; Thu, 19 Feb 2026 14:31:12 +0000
+Received: by outflank-mailman (input) for mailman id 1236371;
+ Thu, 19 Feb 2026 14:31:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fQfQ=AX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vt4rk-0000nn-2b
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 14:18:52 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e90ac25e-0d9d-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Feb 2026 15:18:49 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-43767807cf3so784274f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 06:18:49 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a74918sm49173914f8f.17.2026.02.19.06.18.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Feb 2026 06:18:48 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=l/wp=AX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1vt53e-0003dx-KN
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 14:31:10 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a079d9fb-0d9f-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Feb 2026 15:31:08 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1771511447969897.897029111787;
+ Thu, 19 Feb 2026 06:30:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,162 +43,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e90ac25e-0d9d-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771510729; x=1772115529; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WNj+rtvXEIZCBJOhwzQMp8jg2RLlS4pMGg2U17DNiMY=;
-        b=Qbsu0XmJ1ZypC6Z/9k+4p87Z7j9JzUtmQLaeKzLjj8D0zwh+79/o0fo4UPzkh/m/1L
-         yJtNp2h/jSs2Kmeblas1/ozbU9sSOiHupyBwQiUwwiF3/cvH1F+NgaO08KF7EsDz0clC
-         sZ5OEIK5xDzlvZKdd/WBwpjsRRCFa0S8H20bAMJKQw0u7/RkaS1eeEZXk51kWrdovlvX
-         q0besmnp1zH9kDNPD72Ta1SG/6s+OA0M/L+pfVulT8kW46Kxf9sOxMInCEOo2k4O7S3w
-         HbUoVu40iRP/6zQ4BJXLPt+ZtVgo/s6lz+E8m5KumYcrAIMger/w5aeOyDX+84pVFosm
-         6/WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771510729; x=1772115529;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WNj+rtvXEIZCBJOhwzQMp8jg2RLlS4pMGg2U17DNiMY=;
-        b=SmY+sZCTwCCi3kIXF5HBAlK3b/aEc749XaF8RzsId5cmNY2Tw90nSlzsCyKUwAaU8y
-         BOlecWw+S79XcjuCxbNe2AoeMuI6T3Kb4ZBDsrrfKQxVQ4a844QlZ5JZlNZb2uJj5TEz
-         L7omv5BrZINLOu1CCrw52AkXGGkhVEzYzOOOry5L2DZg6KiIGWpP9YDF1xsKTv47eMo2
-         YFpDsVqaiIM4PgMgd1yz8qonHQRjuXWJv8ZTDdG/P4cYAKIbrB/LYKyrwK7ThSmqTiA6
-         ocD/uEjavBQGNJ5zSc8YBbzjLoNc+ByuozlR6iZfKAonREfj2DVHYMrHKDYvMIkNXxuy
-         Bj2g==
-X-Forwarded-Encrypted: i=1; AJvYcCUBdz6iEYA7MJ5arItYBXwvCc8feqfw29a2tQNN7yyw/OSGgIqRC+nSpExige+Q604jG03bUGpqjYY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz7eXiH4yv46184YfZCHB2IIvndcg+AV4M4YO8Vz42DD3rY5h8L
-	V53kDB+4I7aJVs4MCRhFoyuTQUeu5PPeqpORYiRF9HBNrXpCE1PKAALPCqyfplUYPA==
-X-Gm-Gg: AZuq6aJRBFzduzxs/JjQuhBOp453wG4p8smN9clC6gm5PgO39QR9i5199cXBNLtOMMX
-	IuM8svyjV5R5VLTW3QJWj3dwPrCN10YvKp2bML8Wpm/tVmfuzjEytAlnxdN3XIY4Qsc0Etwz/sK
-	r3yDD0WGOKjbUy2U27LtosR2MaF2SzlOOkdSSy8no/jDGxu2HuzWF0n7+lt3elqy128dAwMjjZL
-	ZF4n6CjYLscX0+25RZHwwrvV1KudZOds/XI7ahK8xNPwc2W+JzYouf0wk4UYzbwc/vboaXz1q9c
-	zRl3Uc2MV0PHXJy8mfmvmVREz6n6tF0G7yEUJzftm6k92SaljF1aS9PK98U9OxtbbiZOfgnQWzT
-	fXYYZ+yrUAzIXF7byR1k7Jbhfh2uspPVncUXZgDnv57yqKtC+RGV8ulHZm1SrxTQpH+88bSVkek
-	v6J4KHmmhCefvP8JscI9Xs+izakQM/8vlBP0wmg4KxUVOpoOs0b75fzmE13lHKUT+R2fGS5B3QG
-	PKM8/AXoz7JYmQ=
-X-Received: by 2002:a05:6000:4010:b0:436:1b1:6cbd with SMTP id ffacd0b85a97d-4379db25b60mr27670269f8f.6.1771510729053;
-        Thu, 19 Feb 2026 06:18:49 -0800 (PST)
-Message-ID: <e5a16a40-ed00-435a-a096-2264e2e2f8dc@suse.com>
-Date: Thu, 19 Feb 2026 15:18:46 +0100
+X-Inumbo-ID: a079d9fb-0d9f-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1771511451; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Ld8iQeYgCRzeSf+KTh+NG/ziwDFZnCHoUjv0arW86dzXFKLSdwulzJTmVkz1Ee3QksRbJDp0hpAfW7WB9YQnJO/7PEjffgNFfeI0TgVpCwlI0zShyHTgU+GxTv0qXYufLCZCFgbslhYd2SGx2l5MpIoCgUUBPjMRhVty+A04C7Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1771511451; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NuQEVgW+Cs/2UnJ66xPuD9vx/rd7t25ZlXFCPYDmSXM=; 
+	b=nkJvI7eGo8/dsrb5RDZB8fs2M/iVj8Z/koYQBSleBmPD6S80tzA9dcJklNrXaM5qhkC+G+/VyHqIuh98UZ4b+0MVAq8ejmH4dOSN08K+27lDBvgWyCY4jMtzOwjNYo17Ip3Z4xaHR5Gef17NfZvmAot0SCoEoIVqV1+If11f/6E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771511451;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=NuQEVgW+Cs/2UnJ66xPuD9vx/rd7t25ZlXFCPYDmSXM=;
+	b=KJcrmaI5FLGJPl7nFMoNKnDvz7upOZgkiuzH4lYbgFdSx7xaO0IGX3NZ63oGELbT
+	MmBY+XPucafzStXPrkhyFWX1PrCtgVjP3L03CPLN7PwE65A+Ie7cMGKTcWWQSSIWqut
+	x4IruAE0bItXRkRF6uMp+EFHIr1aw+w7ANF5Gg2Q=
+Message-ID: <56362a0e-7110-445a-b297-0fab8901a077@apertussolutions.com>
+Date: Thu, 19 Feb 2026 09:30:46 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] xen/console: simplify printouts in
- do_printk_ratelimit()
-To: dmukhin@ford.com
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-References: <20260206202424.2054758-1-dmukhin@ford.com>
- <20260206202424.2054758-8-dmukhin@ford.com>
+Subject: Re: [BUG v2] common/domctl: xsm update for get_domain_state access
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206202424.2054758-8-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Chris Rogers <rogersc@ainfosec.com>,
+ Dmytro Firsov <dmytro_firsov@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260218190855.7272-1-dpsmith@apertussolutions.com>
+ <afc94229-16d9-442b-974c-9f038f2300a1@suse.com>
+ <e176fc10-bc1a-40fe-a129-dc862e964761@apertussolutions.com>
+ <efb0196d-7b2c-457b-816b-8e7be66429eb@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <efb0196d-7b2c-457b-816b-8e7be66429eb@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-1.69 / 15.00];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:rogersc@ainfosec.com,m:dmytro_firsov@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[apertussolutions.com:+];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_NA(0.00)[apertussolutions.com];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,apertussolutions.com:mid,apertussolutions.com:dkim];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-0.998];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E04BD15F67D
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 839C815F81D
 X-Rspamd-Action: no action
 
-On 06.02.2026 21:24, dmukhin@ford.com wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+On 2/19/26 08:23, Jan Beulich wrote:
+> On 19.02.2026 13:34, Daniel P. Smith wrote:
+>> On 2/19/26 06:11, Jan Beulich wrote:
+>>> On 18.02.2026 20:08, Daniel P. Smith wrote:
+>>>> @@ -238,28 +242,39 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>>>>    
+>>>>        while ( dom_state_changed )
+>>>>        {
+>>>> -        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
+>>>> +        dom = find_next_bit(dom_state_changed, DOMID_MASK + 1, dom + 1);
+>>>>            if ( dom >= DOMID_FIRST_RESERVED )
+>>>>                break;
+>>>> +
+>>>> +        d = rcu_lock_domain_by_id(dom);
+>>>> +        if ( d && xsm_get_domain_state(XSM_XS_PRIV, d) )
+>>>> +        {
+>>>> +            rcu_unlock_domain(d);
+>>>> +            d = NULL;
+>>>
+>>> This looks unnecessary; the next loop iteration will set d unconditionally,
+>>> and d isn't (and wasn't) used past the loop. Plus there is also no such
+>>> clearing after the other rcu_unlock_domain().
+>>>
+>>
+>> If the src domain didn't have the permission on any of the target
+>> domains, then *d will leak the last domain checked back to the caller.
+>> While I didn't see it being used after the call site, it's a good
+>> principle not to leak from a function an object for which access was denied.
 > 
-> Simplify the code around notification of how many messages have been
-> rate-limited.
+> I don't follow: What do you mean by "*d will leak"? d is local to this function;
+> no domain pointer is being returned.
+> 
 
-"Simplify" in what dimension?
+My bad, you are correct, will drop.
 
-> ---
->  xen/drivers/char/console.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>>>> +            continue;
+>>>> +        }
+>>>
+>>> This cleanup here also is redundant with the one done further down. Imo where
+>>> possible we should prefer to have only a single such instance, which looks to
+>>> be easily possible by using ...
+>>>
+>>>>            if ( test_and_clear_bit(dom, dom_state_changed) )
+>>>
+>>>
+>>>           if ( (!d || !xsm_get_domain_state(XSM_XS_PRIV, d)) &&
+>>>                test_and_clear_bit(dom, dom_state_changed) )
+>>>
+>>> or
+>>>
+>>>           if ( (d && xsm_get_domain_state(XSM_XS_PRIV, d)) ||
+>>>                !test_and_clear_bit(dom, dom_state_changed) )
+>>>           {
+>>>                ...
+>>>                continue;
+>>>           }
+>>>
+>>> albeit then the reduction of indentation of the subsequent code would cause
+>>> quite a bit more code churn.
+>>
+>> I would prefer the latter to keep the clearing of d to NULL only when
+>> access was denied.
+> 
+> I again don't understand, as ...
+> 
+>>>>            {
+>>>>                *domid = dom;
+>>>>    
+>>>> -            d = rcu_lock_domain_by_id(dom);
+>>>> -
+>>>>                if ( d )
+>>>>                {
+>>>>                    set_domain_state_info(info, d);
+>>>> -
+>>>>                    rcu_unlock_domain(d);
+>>>>                }
+>>>>                else
+>>>>                    memset(info, 0, sizeof(*info));
+>>>>    
+>>>>                rc = 0;
+>>>> -
+>>>>                break;
+> 
+> ... this code would remain unchanged apart from the reduced indentation.
+> 
+>>> I don't think the blank lines need dropping for the purpose of the patch?
+>>> Yes, they may seem excessive, but nevertheless some prefer to have rather
+>>> too many of them than too few. (Personally I don't mind their removal,
+>>> but that really doesn't look to belong here.)
+>>
+>> Okay, but as you state above, with the compounding of the if statement,
+>> the indentation will go away and the whole section will a remove/add
+>> section to the diff. Would you still want the line spacing maintained?
+> 
+> As said, I don't mind those particular blank lines being dropped (if that's
+> because adjacent lines are touched anyway).
+> 
 
-Diffstat says there's no difference.
+ack.
 
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -1318,15 +1318,15 @@ static bool do_printk_ratelimit(unsigned int ratelimit_ms,
->          spin_unlock(&ratelimit_lock);
->          if ( lost )
->          {
-> -            char lost_str[10];
-> +            char msg[40];
-> +
-> +            snprintf(msg, sizeof(msg),
-> +                     "printk: %u messages suppressed\n", lost);
+>>>> --- a/xen/common/domctl.c
+>>>> +++ b/xen/common/domctl.c
+>>>> @@ -860,12 +860,9 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>>>            break;
+>>>>    
+>>>>        case XEN_DOMCTL_get_domain_state:
+>>>> -        ret = xsm_get_domain_state(XSM_XS_PRIV, d);
+>>>> -        if ( ret )
+>>>> -            break;
+>>>> -
+>>>> -        copyback = 1;
+>>>>            ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
+>>>> +        if ( !ret )
+>>>> +            copyback = 1;
+>>>
+>>> Nit: As you need to touch this, please switch to using "true".
+>>
+>> Just to be clear, you mean switching to a conditional statement vs
+>> testing for not zero?
+> 
+> No. I mean using "true" in place of "1", since copyback is of type "bool".
+> 
 
-Having snprintf() process a longer string means there's more runtime overhead.
-
-> -            snprintf(lost_str, sizeof(lost_str), "%u", lost);
->              /* console_lock may already be acquired by printk(). */
->              rspin_lock(&console_lock);
->              printk_start_of_line(CONSOLE_PREFIX);
-> -            __putstr("printk: ");
-> -            __putstr(lost_str);
-> -            __putstr(" messages suppressed.\n");
-> +            __putstr(msg);
->              rspin_unlock(&console_lock);
->          }
->          local_irq_restore(flags);
-
-The net win therefore looks to be one __putstr() where previously we had three.
-While it's less obvious then that the array size is actually large enough.
-
-Jan
+ack.
 
