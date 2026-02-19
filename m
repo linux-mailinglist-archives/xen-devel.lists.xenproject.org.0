@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QHrbFA8Rl2n7uAIAu9opvQ
+	id gOO8Jc8Rl2n7uAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:33:03 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:36:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0396315F1A1
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:33:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236283.1539023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0665715F20B
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:36:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236292.1539033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt49F-0008JP-GV; Thu, 19 Feb 2026 13:32:53 +0000
+	id 1vt4CF-0000SO-Sr; Thu, 19 Feb 2026 13:35:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236283.1539023; Thu, 19 Feb 2026 13:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 1236292.1539033; Thu, 19 Feb 2026 13:35:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt49F-0008Gn-DY; Thu, 19 Feb 2026 13:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 1236283;
- Thu, 19 Feb 2026 13:32:52 +0000
+	id 1vt4CF-0000Pq-Q7; Thu, 19 Feb 2026 13:35:59 +0000
+Received: by outflank-mailman (input) for mailman id 1236292;
+ Thu, 19 Feb 2026 13:35:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fQfQ=AX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vt49E-0008Gf-Ig
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 13:32:52 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1vt4CE-0000Ph-Gt
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 13:35:58 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76f64597-0d97-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Feb 2026 14:32:41 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-4359a316d89so897851f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 05:32:41 -0800 (PST)
+ id eb32ea59-0d97-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Feb 2026 14:35:56 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-480706554beso10908065e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 05:35:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a6a5f0sm47607919f8f.11.2026.02.19.05.32.39
+ 5b1f17b1804b1-483a31d82a8sm4958685e9.15.2026.02.19.05.35.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Feb 2026 05:32:39 -0800 (PST)
+ Thu, 19 Feb 2026 05:35:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76f64597-0d97-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: eb32ea59-0d97-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771507961; x=1772112761; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771508156; x=1772112956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D2BHd7Sv4IM4c8Ibb0YVId0A315k/0mVhPcFAEmtr7o=;
-        b=QZ4faIAGMcheelegDjh6m+8JA7Zpg4LzHjVmIModLI1YI/6LC/jkDeCJ/f+oCFcU3s
-         tLewpd4SPfCvdbRtWeRxDk6LqNirtbeAk+1ahUIdn1kErQiW7cEn7bFdi/hvre06GZHc
-         E0odNo0PjL1hBJQ0wgzD9VuCWhUGEinfc3IHlgLrNzVxqVzJkVy1ziArAvtG29f5I3dG
-         IHHWqfrbDQw7UbJMvAF4XysUTJeBhzWtFR8wQZQIjChUoYYcHWDSqhgomj0bj4zbUNob
-         ij/pGOIssvfDcsJfwg4CVcpTKbkdWjMRBToTDJwfraNi3Yzguu5SYHtcbc+r7l3XrOlA
-         +Fdg==
+        bh=gFzgYxvag7MDRMRK3Z1V5Twe11RKfvKZUqtM8sK6bf8=;
+        b=eevVJY/aJBHF7PNRlxT+5MKUipc5FGsI6bnR6XZZnnQ+WJcWIvC/2u7VHX09I1jZyN
+         aycFLwabbUyyjUcbABC8J3Mn91+ocnlhumKucyDCVsAatQpsTd4+42D3Q38+w4JRFfic
+         Cl4z5ulANwyj5sQWSN8ezFV1Brw4lpl9wtLKcctFCxZuyQcWLpUQAqIjiB7N2aHNfUY8
+         2s7ajak5rkTC7Mf5rM7AkdcVVQasA19WYr4gkZyhdNgcEnqim8Yyhoc4hFrOcYaQyjNj
+         V4fK3kCf2KXD1PdsclO0STcyCJhpzGbD8AihnV97OvOHMiTTNvLigM45TAMuowWbwhci
+         AgpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771507961; x=1772112761;
+        d=1e100.net; s=20230601; t=1771508156; x=1772112956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D2BHd7Sv4IM4c8Ibb0YVId0A315k/0mVhPcFAEmtr7o=;
-        b=YtVSPIhO8sZ4Dno6Uw+hx1FNo3isVFLW9Su4EBQfiMDZD3BMm59bD+9vWPH+mH/VeK
-         CkZfeYC0bBdsibdcT/EJGe6dk9stJt6Z2fXRXeafMWrkaXa5MXeN3hwMtI/6wnYPkoBF
-         ovQNfVIauufhNWwiP9fYnoR2UtItH2zN2ci9OZnUePZjedwkIa8YDjJrE3e4f9gyxdrM
-         1CAypPZLgm9V0w0c1iOkQkqaThX7Z5uMVRuNNpF0c4t/96jsoGrTvo2UxP5fL38MmxXw
-         Uz8iNt5Kh0sqxVOf5quDp53osqYGTdVv7mNDARZQF0aSv16vC6DGOyEcCdw2zoaMUnYe
-         UgyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWFykFMHrCEkNnrcJ8NZmo340B4kQ3DyWtckqyqwOxwn+w9sGDE9Q1I2SvuJeRbjWmnEBWB/u9Aa90=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywu6lsli95jhT74hrpdRItuawJthw1VszOCSGEUy8QJt3PT2Xao
-	0bNO80bnxlGpWkdBIaVfX8Yyp7FTejurixhZiURGx4t+vEbPmDQY8/b812rjse+0/g==
-X-Gm-Gg: AZuq6aLAPW5Xz7iGnMQjrxlEIKvzBS51QSyXj9ayk2c0ia8DIuFfcx0MU/Fh3zqDNsn
-	q9U2YicvihAtpV+oZza13sDhnBtbatXR0fAWr4dlzu+HdSekhWNfQeNb7y5aqThXEagSPd5dc9b
-	+93CCf3ToylsFEcUhIYAwon2qUhiUa2o5J2wvELyB5vPsnIdRVBJDnOf+dIYvHZzmSVBgwxl3Qn
-	J5EOUSc+Sx3HKh7Qbysgyqh7dZxyvUoS6cKwZ5yMKELJV3NvvIyFnVBsczcWpx9KIy3VHTId0xZ
-	k7eGYvT0qrSaG7HNhsU3he+GHQOaQQVSnpyfmU555TV2Swe+LigZJMbvgKTWXfdJHXgP6S1kJ3E
-	lL0AxDGrcpHBMaB2dhZaxxu7X/I1y2HA//DnrWzn7eXrP5d5UzOriWtnjvsk1y/+pqv4rhUJwNW
-	qcl5YuvqwS3HGVYrVK7WAkKi2cbNs7oBXLhywjLrIsSl+7RBemsHqYoqnhAPOtQFCJBiBgE2KNQ
-	96uA2mxqXbdeyI=
-X-Received: by 2002:a05:6000:402a:b0:437:6b73:ffa9 with SMTP id ffacd0b85a97d-43958df2189mr10647635f8f.5.1771507960686;
-        Thu, 19 Feb 2026 05:32:40 -0800 (PST)
-Message-ID: <8f7bafe8-c27e-45c3-8811-f079c4fb6e61@suse.com>
-Date: Thu, 19 Feb 2026 14:32:38 +0100
+        bh=gFzgYxvag7MDRMRK3Z1V5Twe11RKfvKZUqtM8sK6bf8=;
+        b=wc+rRwEZPWTkMLJnbPW5NQ0eADZHW0Sc2poPIt3o3ycbqTY5V0fNsy1RHioqRP7rsf
+         kaCBmPV4YrKvQBh6RVtrqLJMMAgTZUU4dx/NL8b+CV/4+HWYQfTKgKmRblOsz3IpXd6i
+         JShyT7aMuuvAGdZR1VXedtEdMPRbefVnPYNm1WppN3jNFq421mz/KEGFiZBAQI1HdeOC
+         O3FQ8F5cIQL3EN+Ui/ztRwrzQ9VdeWESbVrrPxZmXKKUtfePskqfGrYGwbJyfXcE5/1T
+         RThwS+MvFTwvn9KMXpCRv4zTT7J5dNPCKUFfx/cnSfAtcauWyeFNZiXm4C/RRlm0nqKV
+         U/dA==
+X-Forwarded-Encrypted: i=1; AJvYcCVRNWY967K0s6S9wJ+hFEwbkW9cNnnYbfX2iL8iFInv4oNMV983+CzvmfMwGSY61pOd5iy0ZFP7XSQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyV7snDdtPIXL9/0/rtGFd+7lZwTGCGvfpAu4xRZzjUTsQ7Gf3s
+	wBDZ1fj9/VpU9m4LivmE6XMhVyBQ/apI2WxvFwYKyyxwNgFEP+SpU8PnPxPU412ymA==
+X-Gm-Gg: AZuq6aJ39WlF4/55IMnAXO+GgCBNVTNXVjxtnU1n2q6V7FojW3CtlvjbLzmcHD5Vzdv
+	1evM4jScYlEi/y+BU25OKSUvXXZCtMp5P+gD7J8Sdamj/Lo2RTQ9GP+HtRuGIoFoKg/WkQk4hbc
+	ORWjQvtudIvLVtdFn+3nUI9vYR2fLW4Fq57eFZutB3+olZ7OJ2dSGSSTRfBda0sKNCk1wagKPnx
+	fnEEM9+ZM3Q4o54h9ii7yse387dRsVXcC3BtXmscO5jg8fYerLuoiW1X65mJIGKo0qGjuPcA6ih
+	a8puf7R7kJ1Gm0BaWgmLrHRa4caxLRvI++wVCBytHllBCE6iw9zj2D1Jonbw9Y1QFJy/qqzsMl+
+	CL1qgQkhVweX/SwvAR4FVI8sgizw5Stschzodemdlw/YlXe7S8/x2eiOkxwzqM4gY2aB8oGlnF+
+	5ayFvKJeFG9AHtwneiGBXby77GBLOTk6+honoBmM5BhEj1V+IBT8WGRSkQQrcUZVvezs3wmqhYQ
+	fX0qhWmjEuaE80=
+X-Received: by 2002:a05:600c:37cc:b0:477:58af:a91d with SMTP id 5b1f17b1804b1-48379b93370mr299706525e9.5.1771508155692;
+        Thu, 19 Feb 2026 05:35:55 -0800 (PST)
+Message-ID: <2eba7de1-a8e2-4c45-affb-8ecb91278707@suse.com>
+Date: Thu, 19 Feb 2026 14:35:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] xen/console: use bool as return value from
- printk_ratelimit()
+Subject: Re: [PATCH v2 3/7] xen/console: add build-time rate-limiting controls
 To: dmukhin@ford.com
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  xen-devel@lists.xenproject.org
 References: <20260206202424.2054758-1-dmukhin@ford.com>
- <20260206202424.2054758-3-dmukhin@ford.com>
+ <20260206202424.2054758-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,28 +125,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260206202424.2054758-3-dmukhin@ford.com>
+In-Reply-To: <20260206202424.2054758-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,ford.com:email];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_NONE(0.00)[];
@@ -161,22 +160,56 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 0396315F1A1
+X-Rspamd-Queue-Id: 0665715F20B
 X-Rspamd-Action: no action
 
 On 06.02.2026 21:24, dmukhin@ford.com wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> {do_,}printk_ratelimit() are predicates. Make that pronounced by updating the
-> return value to boolean.
+> Introduce CONFIG_PRINTK_RATELIMIT_MS and CONFIG_PRINTK_RATELIMIT_BURST
+> for configuring rate-limiting policy at the compile time.
 > 
-> Not a functional change.
+> Use symbols for global rate-limiting initialization in the console driver.
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I'm not sure this is a direction we want to move into, so just one formal
+remark below.
 
-Yet to make it explicit: I'm not quite sure I want to ack patch 1.
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -103,3 +103,28 @@ config XHCI
+>  	  Enabling this option makes Xen use extra ~230KiB memory, even if XHCI UART
+>  	  is not selected.
+>  	  If you have an x86 based system with USB3, say Y.
+> +
+> +config PRINTK_RATELIMIT_MS
+> +	int "printk rate-limiting time window (milliseconds)"
+> +	default 5000
+> +	help
+> +	  Specifies the time window, in milliseconds, for rate-limited printk
+> +	  messages. No more than `CONFIG_PRINTK_RATELIMIT_BURST` messages will be
+> +	  printed within this window.
+> +
+> +	  Setting this value to 0 disables rate-limiting entirely.
+> +
+> +	  Rate-limited messages are those controlled by the `loglvl` and
+> +	  `guest_loglvl` command-line parameters.
+> +
+> +config PRINTK_RATELIMIT_BURST
+> +	int "printk rate-limited message burst size"
+> +	default 10
+> +	help
+> +	  Defines the maximum number of rate-limited printk messages that may be
+> +	  printed within each `CONFIG_PRINTK_RATELIMIT_MS` time window.
+> +
+> +	  Setting this value to 0 disables rate-limiting entirely.
+> +
+> +	  Rate-limited messages are those controlled by the `loglvl` and
+> +	  `guest_loglvl` command-line parameters.
+
+printk() is implemented under drivers/char/, but I'm unconvinced of placing such
+pretty much global controls here (rather than in common/Kconfig).
 
 Jan
 
