@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OO+gADoQl2n7uAIAu9opvQ
+	id QHrbFA8Rl2n7uAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:29:30 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:33:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA0815F131
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:29:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236273.1539013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0396315F1A1
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 14:33:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236283.1539023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt45l-0006Ta-2h; Thu, 19 Feb 2026 13:29:17 +0000
+	id 1vt49F-0008JP-GV; Thu, 19 Feb 2026 13:32:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236273.1539013; Thu, 19 Feb 2026 13:29:17 +0000
+Received: by outflank-mailman (output) from mailman id 1236283.1539023; Thu, 19 Feb 2026 13:32:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt45k-0006Rn-VL; Thu, 19 Feb 2026 13:29:16 +0000
-Received: by outflank-mailman (input) for mailman id 1236273;
- Thu, 19 Feb 2026 13:29:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f3cq=AX=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
- id 1vt45i-00064f-Bm
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 13:29:14 +0000
-Received: from mx1.somlen.de (typhoon.somlen.de [89.238.64.140])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9cb4172-0d96-11f1-b164-2bf370ae4941;
- Thu, 19 Feb 2026 14:29:11 +0100 (CET)
-Received: by mx1.somlen.de with ESMTPSA id 6F6F95030D0;
- Thu, 19 Feb 2026 14:29:10 +0100 (CET)
+	id 1vt49F-0008Gn-DY; Thu, 19 Feb 2026 13:32:53 +0000
+Received: by outflank-mailman (input) for mailman id 1236283;
+ Thu, 19 Feb 2026 13:32:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fQfQ=AX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vt49E-0008Gf-Ig
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 13:32:52 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76f64597-0d97-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Feb 2026 14:32:41 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-4359a316d89so897851f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 05:32:41 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43796a6a5f0sm47607919f8f.11.2026.02.19.05.32.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Feb 2026 05:32:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,94 +50,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9cb4172-0d96-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
-	s=202303; t=1771507750;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UYCYLf3Qbb8Q/36IvP2edHC4iIn3vZFJTLRG5oXBiDc=;
-	b=pqcQKLJ5mDxPHH5cRkdxCDCkFUghGgX/jSuTidg0OHOB594p5JcDQTU5n306VtUXYytS4K
-	OzSl+fnfkaU/ZUnD1J4kEb6xyBKYKCbolcQj6mNWm1gaudbpE+5MLGjWJPsJOS/oW+jjhy
-	2ahcWdH0BuipYfPG8HuFB/rKG/dIYC7oJWvaBDAeT4+MJnjj/BYpGdxCKIQjk8cZ1vG7Jt
-	XHoYes87ESAfOOXGvhP9pdl4TkAA951cF//4WZ4qlEoWDVpRjIuNDnMDZay/1+6D7HuOo+
-	T3pfz+0fFflAyUar2gbY63havN6F0QWuykcF1MU+xFtIN1ZzvEpEgsYZYigKHA==
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: xen-devel@lists.xenproject.org, Anthony PERARD <anthony@xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Subject:
- Re: [XEN PATCH] libxl: Fix device_add QMP calls with QEMU 9.2 and newer
-Date: Thu, 19 Feb 2026 14:29:07 +0100
-Message-ID: <2692705.Lt9SDvczpP@localhost>
-In-Reply-To: <aUAd_r3VN0kTVriG@l14>
-References:
- <20251215135124.11410-1-anthony@xenproject.org>
- <92e6ecac-7a5f-4831-8116-0c34856f1175@suse.com> <aUAd_r3VN0kTVriG@l14>
+X-Inumbo-ID: 76f64597-0d97-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1771507961; x=1772112761; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=D2BHd7Sv4IM4c8Ibb0YVId0A315k/0mVhPcFAEmtr7o=;
+        b=QZ4faIAGMcheelegDjh6m+8JA7Zpg4LzHjVmIModLI1YI/6LC/jkDeCJ/f+oCFcU3s
+         tLewpd4SPfCvdbRtWeRxDk6LqNirtbeAk+1ahUIdn1kErQiW7cEn7bFdi/hvre06GZHc
+         E0odNo0PjL1hBJQ0wgzD9VuCWhUGEinfc3IHlgLrNzVxqVzJkVy1ziArAvtG29f5I3dG
+         IHHWqfrbDQw7UbJMvAF4XysUTJeBhzWtFR8wQZQIjChUoYYcHWDSqhgomj0bj4zbUNob
+         ij/pGOIssvfDcsJfwg4CVcpTKbkdWjMRBToTDJwfraNi3Yzguu5SYHtcbc+r7l3XrOlA
+         +Fdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771507961; x=1772112761;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=D2BHd7Sv4IM4c8Ibb0YVId0A315k/0mVhPcFAEmtr7o=;
+        b=YtVSPIhO8sZ4Dno6Uw+hx1FNo3isVFLW9Su4EBQfiMDZD3BMm59bD+9vWPH+mH/VeK
+         CkZfeYC0bBdsibdcT/EJGe6dk9stJt6Z2fXRXeafMWrkaXa5MXeN3hwMtI/6wnYPkoBF
+         ovQNfVIauufhNWwiP9fYnoR2UtItH2zN2ci9OZnUePZjedwkIa8YDjJrE3e4f9gyxdrM
+         1CAypPZLgm9V0w0c1iOkQkqaThX7Z5uMVRuNNpF0c4t/96jsoGrTvo2UxP5fL38MmxXw
+         Uz8iNt5Kh0sqxVOf5quDp53osqYGTdVv7mNDARZQF0aSv16vC6DGOyEcCdw2zoaMUnYe
+         UgyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWFykFMHrCEkNnrcJ8NZmo340B4kQ3DyWtckqyqwOxwn+w9sGDE9Q1I2SvuJeRbjWmnEBWB/u9Aa90=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywu6lsli95jhT74hrpdRItuawJthw1VszOCSGEUy8QJt3PT2Xao
+	0bNO80bnxlGpWkdBIaVfX8Yyp7FTejurixhZiURGx4t+vEbPmDQY8/b812rjse+0/g==
+X-Gm-Gg: AZuq6aLAPW5Xz7iGnMQjrxlEIKvzBS51QSyXj9ayk2c0ia8DIuFfcx0MU/Fh3zqDNsn
+	q9U2YicvihAtpV+oZza13sDhnBtbatXR0fAWr4dlzu+HdSekhWNfQeNb7y5aqThXEagSPd5dc9b
+	+93CCf3ToylsFEcUhIYAwon2qUhiUa2o5J2wvELyB5vPsnIdRVBJDnOf+dIYvHZzmSVBgwxl3Qn
+	J5EOUSc+Sx3HKh7Qbysgyqh7dZxyvUoS6cKwZ5yMKELJV3NvvIyFnVBsczcWpx9KIy3VHTId0xZ
+	k7eGYvT0qrSaG7HNhsU3he+GHQOaQQVSnpyfmU555TV2Swe+LigZJMbvgKTWXfdJHXgP6S1kJ3E
+	lL0AxDGrcpHBMaB2dhZaxxu7X/I1y2HA//DnrWzn7eXrP5d5UzOriWtnjvsk1y/+pqv4rhUJwNW
+	qcl5YuvqwS3HGVYrVK7WAkKi2cbNs7oBXLhywjLrIsSl+7RBemsHqYoqnhAPOtQFCJBiBgE2KNQ
+	96uA2mxqXbdeyI=
+X-Received: by 2002:a05:6000:402a:b0:437:6b73:ffa9 with SMTP id ffacd0b85a97d-43958df2189mr10647635f8f.5.1771507960686;
+        Thu, 19 Feb 2026 05:32:40 -0800 (PST)
+Message-ID: <8f7bafe8-c27e-45c3-8811-f079c4fb6e61@suse.com>
+Date: Thu, 19 Feb 2026 14:32:38 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] xen/console: use bool as return value from
+ printk_ratelimit()
+To: dmukhin@ford.com
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20260206202424.2054758-1-dmukhin@ford.com>
+ <20260206202424.2054758-3-dmukhin@ford.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260206202424.2054758-3-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[daemonizer.de,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	CTE_CASE(0.50)[];
-	R_DKIM_ALLOW(-0.20)[daemonizer.de:s=202303];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony@xenproject.org,m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[maxi@daemonizer.de,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[maxi@daemonizer.de,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[daemonizer.de:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 8BA0815F131
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-0.997];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 0396315F1A1
 X-Rspamd-Action: no action
 
-On Monday, 15 December 2025 15:41:02 CET Anthony PERARD wrote:
-> On Mon, Dec 15, 2025 at 03:11:53PM +0100, Jan Beulich wrote:
-> > On 15.12.2025 14:51, Anthony PERARD wrote:
-> > > From: Anthony PERARD <anthony.perard@vates.tech>
-> > > 
-> > > QEMU used to ignore JSON types and do conversion string <-> integer
-> > > automatically for the command "device_add", but that was removed in
-> > > QEMU 9.2 (428d1789df91 ("docs/about: Belatedly document tightening of
-> > > QMP device_add checking")).
-> > 
-> > And older qemu accepts integers as well?
+On 06.02.2026 21:24, dmukhin@ford.com wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> As the QEMU document explains about the removed feature is that they
-> should. We already have two users of `device_add` which use integers for
-> some arguments. And just to be sure, I've just tested with QEMU 8.0, the
-> patch works fine.
+> {do_,}printk_ratelimit() are predicates. Make that pronounced by updating the
+> return value to boolean.
 > 
-> Cheers,
+> Not a functional change.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Can this patch be picked for the stable branches? I'm in particular interested 
-in 4.20 which is in Debian stable.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks,
-Maxi
+Yet to make it explicit: I'm not quite sure I want to ack patch 1.
 
-
+Jan
 
