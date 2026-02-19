@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IMZnKt2tlmlkjQIAu9opvQ
+	id WP0JFMjrlmkzrAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 07:29:49 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 11:54:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E4815C638
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 07:29:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236071.1538863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E9315E025
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 11:53:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236111.1538873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsxXh-0007Hg-3O; Thu, 19 Feb 2026 06:29:41 +0000
+	id 1vt1eO-0005su-7v; Thu, 19 Feb 2026 10:52:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236071.1538863; Thu, 19 Feb 2026 06:29:41 +0000
+Received: by outflank-mailman (output) from mailman id 1236111.1538873; Thu, 19 Feb 2026 10:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vsxXh-0007Ej-0b; Thu, 19 Feb 2026 06:29:41 +0000
-Received: by outflank-mailman (input) for mailman id 1236071;
- Thu, 19 Feb 2026 06:29:39 +0000
+	id 1vt1eO-0005qA-1e; Thu, 19 Feb 2026 10:52:52 +0000
+Received: by outflank-mailman (input) for mailman id 1236111;
+ Thu, 19 Feb 2026 10:52:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fQfQ=AX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vsxXf-0007EX-Dq
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 06:29:39 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1vt1eL-0005q4-Oo
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 10:52:49 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5cdd272d-0d5c-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Feb 2026 07:29:37 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so5709725e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 18 Feb 2026 22:29:37 -0800 (PST)
-Received: from ?IPV6:2003:ca:b70c:6a43:c9a6:464e:db69:c159?
- (p200300cab70c6a43c9a6464edb69c159.dip0.t-ipconnect.de.
- [2003:ca:b70c:6a43:c9a6:464e:db69:c159])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483801ff9b3sm351597585e9.13.2026.02.18.22.29.35
+ id 1fde8954-0d81-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Feb 2026 11:52:47 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-4359108fd24so484985f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 02:52:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43796ad015bsm49347844f8f.38.2026.02.19.02.52.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Feb 2026 22:29:36 -0800 (PST)
+ Thu, 19 Feb 2026 02:52:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,62 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5cdd272d-0d5c-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 1fde8954-0d81-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771482577; x=1772087377; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771498366; x=1772103166; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3sKEaljeyo+hvAceiNgNRSLN9kJbwnsbovIFAa78zsk=;
-        b=ORo3d6O9IAUQj45vt2jHyjLo4M4ZwVVp3erzp+dMbVDOb9CI7aFDGXje09Z3T6pc4g
-         yQRyDKv4bSN8Tp8i72H3g6y7OynScbd9GqL3brRi9DF8RBeOmVgBVCLwbZME4wxhvCRq
-         OlC9J8EerpJPD+6R8ULvLlWUFM8DoPkInglk05Jey9URVGA2qbPH2+vOgJmpjMn3vWdc
-         aR+bV2Xq3dkCwbYFVsvx/aLdNOZn/8LWISQ8A2iyIismpIqK2cryAOZAxaYXxtdY7RdE
-         g5kx1DQ0BtISLfCxR5QjujUwfKnCrUO2t16r/zUcSd8kPknLu4nA5BvWt4vHIuicmzL8
-         BRNQ==
+        bh=i9e6pUsOj1TWzM4YsrWtMY3o71wx4EcnQVp9hKtLOXk=;
+        b=F+f3i9z9PxGXl4H3/jopOw2bqXMUe9B2ab9O5Prq54ASTG8GaPVh3XsygNwoRdHJ57
+         1c3Ff2DOIvsPYK0NEIXC/lx+hkydyTR7fNYM/xoRSGSS5cCJvG1/eeYissiLWHO0g4XA
+         5CW0a9IlffmLlywdiIYHtJZ+so5J39Z98BryXCnwPAlwxcvNwyymRmYzIdW14fwVzwgy
+         9iUbuw8zl3EaE/TRiYeH70c59Y7NGkmGf6b3Za9cz+l2yuwJW5n2p05aDS4bkkx+qJPA
+         B9irTLGQkbakYarleLxCh1BMsfwYdayRcVrDLA8C0BVhgAOrQAYelm7BhUdHRQX9/OTA
+         gwDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771482577; x=1772087377;
+        d=1e100.net; s=20230601; t=1771498366; x=1772103166;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3sKEaljeyo+hvAceiNgNRSLN9kJbwnsbovIFAa78zsk=;
-        b=vtHx/5NKaikZkFiJQnPO2A9p4Le0yrQw7sHMvOSO4xjvNBdBgiCHgaiHof3mk+8i6u
-         0B9k+1DswmIbDKln6udgtVRVRIhObPadaB1Xnky57OOc9d6CzjqwR5ni08akL/0qWQ0/
-         LPAVjGrST1ISZuIKbIkWT7WPq94Wg7wPBZ5M+wwC8StEqBDpxIdPjFsSbVyyRiM4UdSC
-         GnGr0QE6Gd0aFI7HTiDIF0A54idIo99P1lNfZDUXmQ8+BmwOJxFsFNOzztlI3T+wV3I8
-         tkHz2Bwz2k+M19GCYL9KNxkOsYb/3Aun80Q4JM6zkA72ebZHaIT15ezkEMajEE8rxb61
-         QjGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWK8K8m2A6O33zz+YEsh9bkxkHODYmjyD/JtgHrKWQsOn/bhPtB9muyEn0iBQ+5QFt1PpDI0tazzS0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxe3UtFx0DYAw8yI7EziVIXbC4O1IsAPIn8H+cJmVHSvxfvkCB9
-	xahqSnB4VMxcF0ln7b8pLCvyPxmgPU2mk4PWlVNXCWCS1DZCHBFK4aOFki0PBZa/7A==
-X-Gm-Gg: AZuq6aJkk2kOHMT9u4Sc6EpZQK4+B58UNPezY+F4qfrcQgTGAReqrqGE7pxt1rekgao
-	P5SaSSNuuNuUNEjY309yLK082sfosUtrW8NFGlKoqKXuAWy67C97gCe0iSxhUqMIIJpT+tgMyNK
-	s78tCNBiEwJ6pm98sTN3dpRbxBkK9bQn4NKU//d54V8S+Bh2uaN0UgIgMCWqsxoekR2bVNcASr7
-	5cqKpFbJo3gdILHnKQ4UiaYf7N44droWLljCQYmVJi0zmvvqHDK/BLoIPJiU1yutvxjt0Pl/vzH
-	xaopoEvEFXw1krt2pS8w+HRL7YrjmS50KL7vOPYh2K/dT7wLBwl3MLgVcZ5bmvTEMZ+f8F5tIbT
-	xbu2Ld88TfpCeUmW9gLKiTh1wl4OGE7brRnofA4fILbQRueJdCHiLrtM1zbb1JAmfAwCgDbjWvS
-	8ktNnzEmdh6qyX2lDQgqnV4qSjzHPzkmwfVBm/Ocu5Pa34QtAC6njxr5lI/bWx08n7txEdK4GRn
-	fkrIlsB1QnwC1wJieYmIwlTgl7f0Ruv9M0M/1avYjPFbUITKpYPHWXLJD4c
-X-Received: by 2002:a05:600c:3552:b0:483:3380:ca0c with SMTP id 5b1f17b1804b1-48373a636d6mr356567435e9.35.1771482576600;
-        Wed, 18 Feb 2026 22:29:36 -0800 (PST)
-Message-ID: <3a6ad6f9-76d0-4f50-b741-4960a77d2f5c@suse.com>
-Date: Thu, 19 Feb 2026 07:29:34 +0100
+        bh=i9e6pUsOj1TWzM4YsrWtMY3o71wx4EcnQVp9hKtLOXk=;
+        b=igH6pLFe/1akoFJ6pr2gDEqVLGf7SyR6yr0OjxLLgmXMWNjUumRHi+HZtu+CddFmIV
+         0lKWEJMR3yowiGDb/ruH/ZMZU8ZWnvhYS3vFxrv8nLrocCdrp5sbEbSLL4s0s7WgBwXA
+         KiEZMg6nDHEm7i94EXp5Kwy/jfqJpczbbVJacQbkBVSWEMcBoq43sttj69eXEishP7ec
+         GsKTWaqZd+UMbbIZq8uIgEGh1SCWcLeyDm0UaoPIRMuDy01G02CzAHk6YyR/Uyd4uZGa
+         TXXRdd2rHnfVFJ/OAGNWxz6nqO6u/hjaoH6L+sn55+3hVD500XkNEk/wAhn0jzJUq504
+         LDCg==
+X-Forwarded-Encrypted: i=1; AJvYcCWyQhTXHQPkAvMdefkSWo8W9QTflCLuD/Y7FAN6dUQQMb1mhIlXGYHYDJINsRjYqttkfVjl4vJv9bU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZX7vLm4vteT7KqEOJXAF1Fnt6B23Z6X8Qw5gKjkQ3iLJFuiW5
+	8z8SpqdzswAZiCGrqmEXZKUzkXVvExnFIW3qPjPgHduSxLP4cDc3A7Hor553kZPmbQ==
+X-Gm-Gg: AZuq6aIYm49ufDL19WVdek6D3eyL0rqSN6lDIwbBZ6HDe3AA0zy92yHWh6P6RQcuRki
+	/Ar+AJKYO3oT6hBp5Qwd/v2s4/+I4yXOPxwGgnm3Ia4AwSyKXIQS23tP2LL6baIqtj3Qx0CLAlb
+	MqxXnad2tCn3qZYn6xtmYXk41RdvZ5ZvQYxWh/KLxVBBhFVxsxYDML5xmk5Iz5fAHu3RZR/lGQ/
+	BwQQf40GjgkAplgCQT3dBSLms2ZDvZMkPw4QMVEnBIoj5cPxVFYadK5B1cHURVYhInrQMeuo6VX
+	ZRWF2aOxtqV0UG0i287hnal4W3GtoXHJow8bfF0hjxb6APWDVcIWkCTrnsIhjs0mZXlbwutIWlf
+	DmE0tfnVIjTx3B3L494CZO+TSvIBkEYyN3lWVfhXgp7sAMxEUP7eo03fAuMAaxIl17P5mmY0k7f
+	2cOZiRGafAbEScuXuOu4kMAsxgVhf6MBoFN3bJGnV2+pieiZDH3EbirUlQbqsQC+4tnUSIN5vBs
+	VqzHNazC5+zflo=
+X-Received: by 2002:a05:6000:26cc:b0:435:97b4:b699 with SMTP id ffacd0b85a97d-4395fd5c362mr3813338f8f.51.1771498365640;
+        Thu, 19 Feb 2026 02:52:45 -0800 (PST)
+Message-ID: <fd69b278-6e7d-46b0-95ac-fff3926b1c4f@suse.com>
+Date: Thu, 19 Feb 2026 11:52:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/riscv: add p2m context switch handling for VSATP
- and HGATP
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
+Subject: Re: [BUG v2] common/domctl: xsm update for get_domain_state access
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Chris Rogers <rogersc@ainfosec.com>,
+ Dmytro Firsov <dmytro_firsov@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <be3d3793e78b8cfebfdd02361064bf7321b5f2ef.1770999879.git.oleksii.kurochko@gmail.com>
- <a71b3cc7-9ac1-4cec-8898-bda5e8ee644e@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20260218190855.7272-1-dpsmith@apertussolutions.com>
+ <1b0a2f66-e03d-4428-a9c0-f26f84e7f348@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,182 +131,117 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a71b3cc7-9ac1-4cec-8898-bda5e8ee644e@gmail.com>
+In-Reply-To: <1b0a2f66-e03d-4428-a9c0-f26f84e7f348@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,lists.xenproject.org,kernel.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:rogersc@ainfosec.com,m:dmytro_firsov@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.994];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.998];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 20E4815C638
+X-Rspamd-Queue-Id: A7E9315E025
 X-Rspamd-Action: no action
 
-On 18.02.2026 17:58, Oleksii Kurochko wrote:
+On 19.02.2026 00:04, Jason Andryuk wrote:
+> On 2026-02-18 14:08, Daniel P. Smith wrote:
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -210,7 +210,7 @@ static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+>>   int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>>                        domid_t *domid)
+>>   {
+>> -    unsigned int dom;
+>> +    unsigned int dom = -1;
+>>       int rc = -ENOENT;
+>>       struct domain *hdl;
+>>   
+>> @@ -219,6 +219,10 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>>   
+>>       if ( d )
+>>       {
+>> +        rc = xsm_get_domain_state(XSM_XS_PRIV, d);
+>> +        if ( rc )
+>> +            return rc;
+>> +
+>>           set_domain_state_info(info, d);
+>>   
+>>           return 0;
+>> @@ -238,28 +242,39 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
 > 
-> On 2/13/26 5:29 PM, Oleksii Kurochko wrote:
->> Introduce helpers to manage VS-stage and G-stage translation state during
->> vCPU context switches.
->>
->> As VSATP and HGATP cannot be updated atomically, clear VSATP on context
->> switch-out to prevent speculative VS-stage translations from being associated
->> with an incorrect VMID. On context switch-in, restore HGATP and VSATP in the
->> required order.
->>
->> Add p2m_handle_vmenter() to perform VMID management and issue TLB flushes
->> only when required (e.g. on VMID reuse or generation change).
->>
->> This provides the necessary infrastructure for correct p2m context switching
->> on RISC-V.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Changes in v3:
->>   - Add comment above p2m_ctxt_switch_{to, from}().
->>   - Code style fixes.
->>   - Refactor p2m_ctxt_switch_to().
->>   - Update the comment at the end of p2m_ctxt_switch_from().
->>   - Refactor the code of p2m_handle_vmenter().
->> ---
->> Changes in v2:
->>   - Add vsatp field declaration to arch_vcpu.
->>   - s/p2m_ctx_switch_{from,to}/p2m_ctxt_switch_{from,to}.
->>   - Introduce p2m_handle_vmenter() for proper handling of VMID,
->>     hgatp and vsatp updates.
->>   - Introduce is_p2m_switch_finished and init it inisde
->>     p2m_ctx_switch_to() for furhter handling in p2m_handle_vmenter().
->>   - Code style fixes.
->>   - Add is_idle_vcpu() check in p2m_ctxt_switch_from().
->>   - use csr_swap() in p2m_ctxt_switch_from().
->>   - move flush_tlb_guest_local() to the end if p2m_handle_vmenter() and
->>     drop unnessary anymore comments.
->>   - Correct printk()'s arguments in p2m_handle_vmenter().
->> ---
->>   xen/arch/riscv/include/asm/domain.h |  1 +
->>   xen/arch/riscv/include/asm/p2m.h    |  4 ++
->>   xen/arch/riscv/p2m.c                | 79 +++++++++++++++++++++++++++++
->>   xen/arch/riscv/traps.c              |  2 +
->>   4 files changed, 86 insertions(+)
->>
->> diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
->> index 3da2387cb197..42bb678fcbf9 100644
->> --- a/xen/arch/riscv/include/asm/domain.h
->> +++ b/xen/arch/riscv/include/asm/domain.h
->> @@ -59,6 +59,7 @@ struct arch_vcpu {
->>       register_t hstateen0;
->>       register_t hvip;
->>   +    register_t vsatp;
->>       register_t vsie;
->>         /*
->> diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
->> index f63b5dec99b1..60f27f9b347e 100644
->> --- a/xen/arch/riscv/include/asm/p2m.h
->> +++ b/xen/arch/riscv/include/asm/p2m.h
->> @@ -255,6 +255,10 @@ static inline bool p2m_is_locked(const struct p2m_domain *p2m)
->>   struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
->>                                           p2m_type_t *t);
->>   +void p2m_ctxt_switch_from(struct vcpu *p);
->> +void p2m_ctxt_switch_to(struct vcpu *n);
->> +void p2m_handle_vmenter(void);
->> +
->>   #endif /* ASM__RISCV__P2M_H */
->>     /*
->> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
->> index 0abeb374c110..7ae854707174 100644
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -1434,3 +1434,82 @@ struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
->>         return get_page(page, p2m->domain) ? page : NULL;
->>   }
->> +
->> +/* Should be called before other CSRs are stored to avoid speculation */
->> +void p2m_ctxt_switch_from(struct vcpu *p)
->> +{
->> +    if ( is_idle_vcpu(p) )
->> +        return;
->> +
->> +    /*
->> +     * No mechanism is provided to atomically change vsatp and hgatp
->> +     * together. Hence, to prevent speculative execution causing one
->> +     * guest’s VS-stage translations to be cached under another guest’s
->> +     * VMID, world-switch code should zero vsatp, then swap hgatp, then
->> +     * finally write the new vsatp value what will be done in
->> +     * p2m_handle_vmenter().
->> +     */
->> +    p->arch.vsatp = csr_swap(CSR_VSATP, 0);
->> +
->> +    /*
->> +     * Nothing to do with HGATP as it will be update in p2m_ctxt_switch_to()
->> +     * or/and in p2m_handle_vmenter().
->> +     */
->> +}
->> +
->> +/* Should be called after other CSRs are restored to avoid speculation */
->> +void p2m_ctxt_switch_to(struct vcpu *n)
->> +{
->> +    struct p2m_domain *p2m = p2m_get_hostp2m(n->domain);
->> +
->> +    if ( is_idle_vcpu(n) )
->> +        return;
->> +
->> +    csr_write(CSR_HGATP, construct_hgatp(p2m, n->arch.vmid.vmid));
->> +    /*
->> +     * As VMID is unique per vCPU and just re-used here thereby there is no
->> +     * need for G-stage TLB flush here.
->> +     */
->> +
->> +    csr_write(CSR_VSATP, n->arch.vsatp);
->> +    /*
->> +     * As at the start of context switch VSATP were set to 0, so no speculation
->> +     * could happen thereby there is no need for VS TLB flush here.
->> +     */
->> +}
+> Between the two hunks is this:
 > 
-> I think we need to flush the VS-stage TLB unconditionally here. It is possible
-> that `p->arch.vsatp.ASID == n->arch.vsatp.ASID`, in which case the new vCPU
-> could reuse stale VS-stage TLB entries that do not belong to it.
+>      hdl = lock_dom_exc_handler();
 > 
-> I considered performing the flush conditionally, but that would require checking
-> not only the ASID, but also whether the PPN differs. In addition, we would need
-> to verify that the old and new vCPUs do not belong to different domains, since
-> the same VSATP PPN value could appear in different domains.
+>      /*
+>       * Only domain registered for VIRQ_DOM_EXC event is allowed to query
+>       * domains having changed state.
+>       */
+>      if ( current->domain != hdl )
+>      {
+>          rc = -EACCES;
+>          goto out;
+>      }
 > 
-> This starts to look like overcomplication for a marginal optimization, so an
-> unconditional VS-stage TLB flush seems simpler and safer.
+> So it is only the domain with VIRQ_DOM_EXC that can enter the while loop:
 > 
-> Do you think this optimization is worth pursuing at this stage?
+>>   
+>>       while ( dom_state_changed )
+>>       {
+>> -        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
+>> +        dom = find_next_bit(dom_state_changed, DOMID_MASK + 1, dom + 1);
+>>           if ( dom >= DOMID_FIRST_RESERVED )
+>>               break;
+>> +
+>> +        d = rcu_lock_domain_by_id(dom);
+>> +        if ( d && xsm_get_domain_state(XSM_XS_PRIV, d) )
+> 
+> ... if the VIRQ_DOM_EXC owner is denied for domain d ...
+> 
+>> +        {
+>> +            rcu_unlock_domain(d);
+>> +            d = NULL;
+>> +            continue;
+> 
+> ... the caller would continue ...
+> 
+>> +        }
+>> +
+>>           if ( test_and_clear_bit(dom, dom_state_changed) )
+> 
+> ... and this bit would never be cleared.  Should the VIRQ_DOM_EXC owner 
+> always get to clear the bit even if it cannot see the result?
 
-Let's start simple and optimize later.
+I don't think so, no. Whenever a legitimate consumer occurs (the owner of
+VIRQ_DOM_EXC can change, after all), it'll then consume the bits as needed.
+More generally, I think we're better off not making the code here depend
+too much on that special VIRQ_DOM_EXC property.
 
 Jan
 
