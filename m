@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6IirBpMvl2kcvgIAu9opvQ
+	id MM9iApMvl2kcvgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 16:43:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 565321604B3
+	by mail.lfdr.de (Postfix) with ESMTPS id 95BB01604B4
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 16:43:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236488.1539175 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1236495.1539186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt6AT-0006zg-ER; Thu, 19 Feb 2026 15:42:17 +0000
+	id 1vt6BH-0007S2-Nn; Thu, 19 Feb 2026 15:43:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236488.1539175; Thu, 19 Feb 2026 15:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 1236495.1539186; Thu, 19 Feb 2026 15:43:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt6AT-0006xb-Bv; Thu, 19 Feb 2026 15:42:17 +0000
-Received: by outflank-mailman (input) for mailman id 1236488;
- Thu, 19 Feb 2026 15:42:16 +0000
+	id 1vt6BH-0007PD-Kf; Thu, 19 Feb 2026 15:43:07 +0000
+Received: by outflank-mailman (input) for mailman id 1236495;
+ Thu, 19 Feb 2026 15:43:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fQfQ=AX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vt6AS-0006xV-8Q
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 15:42:16 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1vt6BG-0006xV-T3
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 15:43:06 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ffecd98-0da9-11f1-b164-2bf370ae4941;
- Thu, 19 Feb 2026 16:42:14 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4806f3fc50bso12629405e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 07:42:14 -0800 (PST)
+ id aed94d37-0da9-11f1-b164-2bf370ae4941;
+ Thu, 19 Feb 2026 16:43:06 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-4377174e1ebso825546f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Feb 2026 07:43:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a5b07fsm50352724f8f.2.2026.02.19.07.42.13
+ ffacd0b85a97d-43796abd259sm52351967f8f.24.2026.02.19.07.43.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Feb 2026 07:42:13 -0800 (PST)
+ Thu, 19 Feb 2026 07:43:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,46 +50,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ffecd98-0da9-11f1-b164-2bf370ae4941
+X-Inumbo-ID: aed94d37-0da9-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771515734; x=1772120534; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771515785; x=1772120585; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=koQriyu5aOhXaj2tn/t6WG7EQMIWEKvKvMz55XZwejw=;
-        b=RXaQpsXxzIWZFmd9js8B+2EMGofXZynnpogvPnXjz1jOOowu4DydSJ8iG/TDwD0z5r
-         VuYnQCPT4I6iVReWBOeKLb0XBzA/L1p+nTIfpgW/Na027hekPEg2NVO7gld1r83qe0OM
-         0yiHNXJJpIQTeBR7Vuffk4Znh6Z8WyHTZeKmF5Q1pXLxiYPIrgnYWZiZ+wexyqAwx8fv
-         nPcV0XAUWab8sF8eqA/T5vLBNQRhpuF+FUpa0LwzSZ+dclXgZIsr7NwmFbTguVTy/pjT
-         x9vwchvUf9N9X49txSEjFe3tgBRLzOB6VXlJ4RiWRuf5lrnyjYXta8/0ezHRkZS2nyJf
-         +x5A==
+        bh=hCb38Ea1hOfNAfpEej2H+6DfKSlVXHCk1RdTslLQz1Q=;
+        b=Gfa20Tge2m0+mkhNGOytvaS66UmmrxcIdKCRIq2twT1od2Qff85duqpEeqVB//NeZv
+         Is/yAcJeq3XTPVDcMFuPadWy64H7E3wtup5fSOfoCmjXANyuQBDBuGnf2xRXpDUlPhRr
+         MTRGIULr8AARRBYow10CfSwJLS31Zzla9u95TYPREBYfbMeDX5OYYhO/7GqjgoA/lWib
+         AZlbGfxsJU5OxRzU6bPO0a6ULRwrz3WKtdHywX8VLDmA6rlfyuHKBWQzpq4ZjGpTZbCW
+         PCopedB7uNlaHogsc4WbJjeJN77bK80EEvP48vwiOVXCMtfisbqntAahIElIlMUg76pX
+         eNAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771515734; x=1772120534;
+        d=1e100.net; s=20230601; t=1771515785; x=1772120585;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=koQriyu5aOhXaj2tn/t6WG7EQMIWEKvKvMz55XZwejw=;
-        b=KvSOQNVtpE6ePLh15Th2sibLZd9jBuwzzCciXh2+xrXnQ8hQgoCIpUwMeNEu4tInLw
-         htd950380YV5aq6Xl8tcTwOqWKsb20sbFzrqMTgV8bjKdxbr2uprIQwYk6JFmJT4KH5O
-         oaINpEimqjp1u00EXlJnwyXaaHFhXLm91ilUN5Xld9iF07/u3lXzQKSUjxdXl9DU+FBU
-         Y5OmIgYLuexgX/QTNQHBilsOeHLVNfEBcZaeya4MQD/4vHy2HvNKD35x2IJ0wM7er4pd
-         8zlFZUvOlS9Duf3bWrBQaBNl7VHfyWZxMy0FaPCxt8ZidotDRrVJ9XQrlNOsx3cPsHux
-         LwxQ==
-X-Gm-Message-State: AOJu0YzDUxnh+n7k9AAW2amzjUGWN+6XdWvu6RUumAZ5y5hFMFEfUJUI
-	43EA+sqhZOKm/GbkGbMqZbf/hZAvLYNL8qqapcPf/IVGS/O29r0UZvl06h0/EPZUMsbuWvcgQhG
-	xsQo=
-X-Gm-Gg: AZuq6aJ/tjBo8sfyj4dyI9JiOZ1NKApU2SGfI1jNQS25SsxVKsgt8Lk53sxoaeI1sYZ
-	IQYJbrOL/5IfkMJzbIz5WgNKPxfpI/1jmeriBs5ZIfkh069ySMR41hwQv0Xf7Ek8OiHT4Lwd6uf
-	dFbZXzJzUKobB6KGziF4AWqRoHMCHZl5CrO2U1RlEUZJTdk1jkk2DaOpXnWAT18t4X7OhaqBYPP
-	isFaTgiBrc6z7unZLS4y03FGFLjkKFPaK6BvEV1XtoG1umVpM2SAP/L7XKeWYSyYex3duyC25Z2
-	K1A0C3TLK4o/jtjGT21VbI2VWTBXLpN0sYwVIHxhHaRbsEKabHz92PMo+DlM6vMvJggJAW4cBMV
-	1q8fB8K4xffpe5trinO9/+l9h3MFI37/iWiLxjuVvgn1lG+SSgRVm5znRP51b17KoGVMDSOceth
-	b/OGbX4UDgXWKOx4XK12NMyo5nh5ZPj2H6bjW7ngRCefVnnM4xV0xVNRrEjmRgTdO9l/1FiqQZH
-	GuL55CtHHk/e+Q=
-X-Received: by 2002:a05:600c:6098:b0:477:b734:8c53 with SMTP id 5b1f17b1804b1-48379ba08a6mr296036725e9.12.1771515733671;
-        Thu, 19 Feb 2026 07:42:13 -0800 (PST)
-Message-ID: <b2aa7f0b-147b-439f-8e25-2f7a5a2f75a8@suse.com>
-Date: Thu, 19 Feb 2026 16:42:11 +0100
+        bh=hCb38Ea1hOfNAfpEej2H+6DfKSlVXHCk1RdTslLQz1Q=;
+        b=aeVPiriIwb/F4nBqzg5q3I6yEdB1tsN4SeYvhwbPNhcg/FgLmJZiO6PRUVBvwCGAGh
+         ZIWim2OZDy7Orn73EY29/1fr0wsnU7hoLPpqHf9U0lggsT8eY1XHzQUAEXhJZCptHw32
+         hL0x+9Ed64g8pKMAuaRI1nj4BrHAGE1hpYdoVh7R5GMezJcladdVYlvvZnwv7MjyeNPr
+         xwG+1qNTcoqdh46YPkr2kNe/i3GWeKN1LKKKS23jAlaDyqLyQVA749ziRsZDTNTD2Lk5
+         gkYlg7V67Q0HuaJU5dO88zQzNGf8EWu0rWfNj1wnaNYfnx44smBBJzKflrUe3wkVp/sl
+         XF2w==
+X-Gm-Message-State: AOJu0YyPjWRM9dkkyuiyGbRlII/IHV0AAQFrKNXsB7zWmazCZBPw5I3x
+	uozLHZ3WfUwM3m1Huy7IZWAXdRTmJOzPxd+S4Gxl0QMttRLBi3OzoVePdCKzIK9umZBGTabtLJ7
+	XKBI=
+X-Gm-Gg: AZuq6aIeG0wEF52qps1jCIFnhf+wIM7cNFmv5cuOLNJZd5m9MmswSXRtFZVx5cf+c/4
+	R3twdASX2TzqUDawukyxRQcCkY9FSGmBPtx7DPHwiCr/chdKaiiBuknvi8q9TeJj+1tAN4lMIqF
+	LPbW59Cfw7h9VVWPnUFrJsNQeDN9j1qCP8+0g+m1CMBAzhQ7eRhD77FTkmd4rgmbYrPj9uUxnrA
+	ZyC0heaFqEqXpsl2ySLko5ufJB2/WEMKYI+fj3+/zJCnhJP8hhA8K9PDaeLeGuNuG9cMEPvgJ7+
+	wABch1Qmio0tEcvLEbobXwmH9xmA4DuxCVhUeXCUB3ju34uXVbDM21w2TAotJM6H38yKJMw3UP0
+	MuirDDsRMx4AJs+3UzX/53wuX/D9j5riH1itSDK8pcJkKaee48WxnExwmh+4D/73CKEOq9SNtss
+	BOqfOulD+4GL7/vAR1/La2Ztlwb6mr8XhXKfKEgL/ooqqxdYTTZPi9+jMZTy6AykSa6i2jrXZsX
+	PgaEOGY/kZ3Bhk=
+X-Received: by 2002:a05:6000:3101:b0:437:694d:fb6c with SMTP id ffacd0b85a97d-4395fd2ab83mr4521207f8f.9.1771515785516;
+        Thu, 19 Feb 2026 07:43:05 -0800 (PST)
+Message-ID: <0cd3f675-e310-4434-aa95-cb0cc86e3569@suse.com>
+Date: Thu, 19 Feb 2026 16:43:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -97,8 +97,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/bitops: adjust partial first word handling in
- __find_next{,_zero}_bit()
+Subject: [PATCH] x86/bitops: drop redundant casts from find_next{,_zero}_bit()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -128,7 +127,7 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -136,15 +135,15 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -153,50 +152,38 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-0.999];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 565321604B3
+X-Rspamd-Queue-Id: 95BB01604B4
 X-Rspamd-Action: no action
 
-There's no need to subtract "bit" in what is passed to __scanbit(), as the
-other bits are zero anyway after the shift (in __find_next_bit()) or can
-be made so (in __find_next_zero_bit()) by flipping negation and shift. (We
-actually leverage the same facts in find_next{,_zero}_bit() as well.) This
-way in __scanbit() the TZCNT alternative can be engaged.
+It's not clear why they were put in place - a__ is of the very type
+already.
+
+No change in generated code.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Register allocation (and hence effects on code size of the change here)
-is pretty "interesting". The compiler doesn't look to realize that while
-for 64-bit insns it doesn't matter which GPR is used (a REX prefix is
-needed anyway), 32-bit insns can be helped by preferring the low 8 GPRs.
-(Granted the inline assembly in __scanbit() may also be a little difficult
-to deal with.)
 
---- a/xen/arch/x86/bitops.c
-+++ b/xen/arch/x86/bitops.c
-@@ -35,8 +35,8 @@ unsigned int __find_next_bit(
-     if ( bit != 0 )
-     {
-         /* Look for a bit in the first word. */
--        set = __scanbit(*p >> bit, BITS_PER_LONG - bit);
--        if ( set < (BITS_PER_LONG - bit) )
-+        set = __scanbit(*p >> bit, BITS_PER_LONG);
-+        if ( set < BITS_PER_LONG )
-             return (offset + set);
-         offset += BITS_PER_LONG - bit;
-         p++;
-@@ -85,8 +85,8 @@ unsigned int __find_next_zero_bit(
-     if ( bit != 0 )
-     {
-         /* Look for zero in the first word. */
--        set = __scanbit(~(*p >> bit), BITS_PER_LONG - bit);
--        if ( set < (BITS_PER_LONG - bit) )
-+        set = __scanbit(~*p >> bit, BITS_PER_LONG);
-+        if ( set < BITS_PER_LONG )
-             return (offset + set);
-         offset += BITS_PER_LONG - bit;
-         p++;
+--- a/xen/arch/x86/include/asm/bitops.h
++++ b/xen/arch/x86/include/asm/bitops.h
+@@ -343,7 +343,7 @@ static always_inline unsigned int __scan
+     if ( o__ >= s__ )                                                       \
+         r__ = s__;                                                          \
+     else if ( __builtin_constant_p(size) && s__ <= BITS_PER_LONG )          \
+-        r__ = o__ + __scanbit(*(const unsigned long *)(a__) >> o__, s__);   \
++        r__ = o__ + __scanbit(*a__ >> o__, s__);                            \
+     else if ( __builtin_constant_p(off) && !o__ )                           \
+         r__ = __find_first_bit(a__, s__);                                   \
+     else                                                                    \
+@@ -375,7 +375,7 @@ static always_inline unsigned int __scan
+     if ( o__ >= s__ )                                                       \
+         r__ = s__;                                                          \
+     else if ( __builtin_constant_p(size) && s__ <= BITS_PER_LONG )          \
+-        r__ = o__ + __scanbit(~*(const unsigned long *)(a__) >> o__, s__);  \
++        r__ = o__ + __scanbit(~*a__ >> o__, s__);                           \
+     else if ( __builtin_constant_p(off) && !o__ )                           \
+         r__ = __find_first_zero_bit(a__, s__);                              \
+     else                                                                    \
 
