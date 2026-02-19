@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sCtAB94el2m9uwIAu9opvQ
+	id SKs7OkUhl2kJvAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:31:58 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:42:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839C815F81D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:31:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236371.1539104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5788C15FAFB
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Feb 2026 15:42:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236414.1539137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt53g-0003fU-7R; Thu, 19 Feb 2026 14:31:12 +0000
+	id 1vt5E8-00067r-Eq; Thu, 19 Feb 2026 14:42:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236371.1539104; Thu, 19 Feb 2026 14:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 1236414.1539137; Thu, 19 Feb 2026 14:42:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vt53g-0003e3-4M; Thu, 19 Feb 2026 14:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 1236371;
- Thu, 19 Feb 2026 14:31:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vt5E8-00064k-Bv; Thu, 19 Feb 2026 14:42:00 +0000
+Received: by outflank-mailman (input) for mailman id 1236414;
+ Thu, 19 Feb 2026 14:41:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=l/wp=AX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1vt53e-0003dx-KN
- for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 14:31:10 +0000
+ id 1vt5E6-00064e-Nn
+ for xen-devel@lists.xenproject.org; Thu, 19 Feb 2026 14:41:58 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a079d9fb-0d9f-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Feb 2026 15:31:08 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1771511447969897.897029111787;
- Thu, 19 Feb 2026 06:30:47 -0800 (PST)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2318b972-0da1-11f1-b164-2bf370ae4941;
+ Thu, 19 Feb 2026 15:41:56 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1771512105172179.85618630309523;
+ Thu, 19 Feb 2026 06:41:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,234 +43,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a079d9fb-0d9f-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1771511451; cv=none; 
+X-Inumbo-ID: 2318b972-0da1-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1771512109; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Ld8iQeYgCRzeSf+KTh+NG/ziwDFZnCHoUjv0arW86dzXFKLSdwulzJTmVkz1Ee3QksRbJDp0hpAfW7WB9YQnJO/7PEjffgNFfeI0TgVpCwlI0zShyHTgU+GxTv0qXYufLCZCFgbslhYd2SGx2l5MpIoCgUUBPjMRhVty+A04C7Y=
+	b=GmPpSgtzR0jw990HLRwR+n9r9u4wy9qoV+v5rZpJrOPcPBXLgXQzLnTWcib+f0SNDxExEIr8mND2FKQ8swEOxBWHocVjR+SRkYNG+XzGCAtkDwOpgSjcyoR/hHl2uFwoHOdf5FcVDSKc4k1Zf/8VdnQdS+EOn4RwYMGsIoHYECQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1771511451; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NuQEVgW+Cs/2UnJ66xPuD9vx/rd7t25ZlXFCPYDmSXM=; 
-	b=nkJvI7eGo8/dsrb5RDZB8fs2M/iVj8Z/koYQBSleBmPD6S80tzA9dcJklNrXaM5qhkC+G+/VyHqIuh98UZ4b+0MVAq8ejmH4dOSN08K+27lDBvgWyCY4jMtzOwjNYo17Ip3Z4xaHR5Gef17NfZvmAot0SCoEoIVqV1+If11f/6E=
+	t=1771512109; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=kEm1nq/NUwA6BJvciL7qaSBoCWLjHLldQ4dQbjG98JM=; 
+	b=D6RmEA12LVy/ekj8BI+n30etJR4AsRd526cQ4ohkSl+t0MQd7xTLfte9X+lo6b6ITKJQSq9bmL0/JrQbhkNtPLo6qs6zLC2u+jFlgYLik+1xHytS/nJwZKAy2t1aQBQBoJe/dESBosQywqiwEYY5WxomtTibD8ciC8UuCr3CFHM=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771511451;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771512109;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=NuQEVgW+Cs/2UnJ66xPuD9vx/rd7t25ZlXFCPYDmSXM=;
-	b=KJcrmaI5FLGJPl7nFMoNKnDvz7upOZgkiuzH4lYbgFdSx7xaO0IGX3NZ63oGELbT
-	MmBY+XPucafzStXPrkhyFWX1PrCtgVjP3L03CPLN7PwE65A+Ie7cMGKTcWWQSSIWqut
-	x4IruAE0bItXRkRF6uMp+EFHIr1aw+w7ANF5Gg2Q=
-Message-ID: <56362a0e-7110-445a-b297-0fab8901a077@apertussolutions.com>
-Date: Thu, 19 Feb 2026 09:30:46 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG v2] common/domctl: xsm update for get_domain_state access
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Chris Rogers <rogersc@ainfosec.com>,
- Dmytro Firsov <dmytro_firsov@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260218190855.7272-1-dpsmith@apertussolutions.com>
- <afc94229-16d9-442b-974c-9f038f2300a1@suse.com>
- <e176fc10-bc1a-40fe-a129-dc862e964761@apertussolutions.com>
- <efb0196d-7b2c-457b-816b-8e7be66429eb@suse.com>
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=kEm1nq/NUwA6BJvciL7qaSBoCWLjHLldQ4dQbjG98JM=;
+	b=Pxfyp7ab3aTY+emXhJgAC8CO/NzZvEZR/n7vYXGhi3Qk3u2S0TYEXAM/TeQQPSKK
+	w9Ke/LsyWWpa52td4Svey23ilpsZbz5f4OjlSa2ee3Pd16arCb90l20EltIBdLYprD+
+	gAez8u92bh2uuVRFX7y0xGdbg+O0/AMFX80X/ynQ=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <efb0196d-7b2c-457b-816b-8e7be66429eb@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Chris Rogers <rogersc@ainfosec.com>,
+	Dmytro Firsov <dmytro_firsov@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [BUG v3] common/domctl: xsm update for get_domain_state access
+Date: Thu, 19 Feb 2026 09:37:07 -0500
+Message-Id: <20260219143707.1588-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.69 / 15.00];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:rogersc@ainfosec.com,m:dmytro_firsov@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DMARC_NA(0.00)[apertussolutions.com];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,m:rogersc@ainfosec.com,m:dmytro_firsov@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	MIME_TRACE(0.00)[0:+];
-	DMARC_NA(0.00)[apertussolutions.com];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,apertussolutions.com:mid,apertussolutions.com:dkim];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,apertussolutions.com:mid,apertussolutions.com:dkim,apertussolutions.com:email,ainfosec.com:email];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 839C815F81D
+X-Rspamd-Queue-Id: 5788C15FAFB
 X-Rspamd-Action: no action
 
-On 2/19/26 08:23, Jan Beulich wrote:
-> On 19.02.2026 13:34, Daniel P. Smith wrote:
->> On 2/19/26 06:11, Jan Beulich wrote:
->>> On 18.02.2026 20:08, Daniel P. Smith wrote:
->>>> @@ -238,28 +242,39 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
->>>>    
->>>>        while ( dom_state_changed )
->>>>        {
->>>> -        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
->>>> +        dom = find_next_bit(dom_state_changed, DOMID_MASK + 1, dom + 1);
->>>>            if ( dom >= DOMID_FIRST_RESERVED )
->>>>                break;
->>>> +
->>>> +        d = rcu_lock_domain_by_id(dom);
->>>> +        if ( d && xsm_get_domain_state(XSM_XS_PRIV, d) )
->>>> +        {
->>>> +            rcu_unlock_domain(d);
->>>> +            d = NULL;
->>>
->>> This looks unnecessary; the next loop iteration will set d unconditionally,
->>> and d isn't (and wasn't) used past the loop. Plus there is also no such
->>> clearing after the other rcu_unlock_domain().
->>>
->>
->> If the src domain didn't have the permission on any of the target
->> domains, then *d will leak the last domain checked back to the caller.
->> While I didn't see it being used after the call site, it's a good
->> principle not to leak from a function an object for which access was denied.
-> 
-> I don't follow: What do you mean by "*d will leak"? d is local to this function;
-> no domain pointer is being returned.
-> 
+When using XSM Flask, passing DOMID_INVALID will result in a NULL pointer
+reference from the passing of NULL as the target domain to
+xsm_get_domain_state(). Simply not invoking xsm_get_domain_state() when the
+target domain is NULL opens the opportunity to circumvent the XSM
+get_domain_state access check. This is due to the fact that the call to
+xsm_domctl() for get_domain_state op is a no-op check, deferring to
+xsm_get_domain_state().
 
-My bad, you are correct, will drop.
+Modify the helper get_domain_state() to ensure the requesting domain has
+get_domain_state access for the target domain, whether the target domain is
+explicitly set or implicitly determined with a domain state search. In the case
+of access not being allowed for a domain found during an implicit search, the
+search will continue to the next domain whose state has changed.
 
->>>> +            continue;
->>>> +        }
->>>
->>> This cleanup here also is redundant with the one done further down. Imo where
->>> possible we should prefer to have only a single such instance, which looks to
->>> be easily possible by using ...
->>>
->>>>            if ( test_and_clear_bit(dom, dom_state_changed) )
->>>
->>>
->>>           if ( (!d || !xsm_get_domain_state(XSM_XS_PRIV, d)) &&
->>>                test_and_clear_bit(dom, dom_state_changed) )
->>>
->>> or
->>>
->>>           if ( (d && xsm_get_domain_state(XSM_XS_PRIV, d)) ||
->>>                !test_and_clear_bit(dom, dom_state_changed) )
->>>           {
->>>                ...
->>>                continue;
->>>           }
->>>
->>> albeit then the reduction of indentation of the subsequent code would cause
->>> quite a bit more code churn.
->>
->> I would prefer the latter to keep the clearing of d to NULL only when
->> access was denied.
-> 
-> I again don't understand, as ...
-> 
->>>>            {
->>>>                *domid = dom;
->>>>    
->>>> -            d = rcu_lock_domain_by_id(dom);
->>>> -
->>>>                if ( d )
->>>>                {
->>>>                    set_domain_state_info(info, d);
->>>> -
->>>>                    rcu_unlock_domain(d);
->>>>                }
->>>>                else
->>>>                    memset(info, 0, sizeof(*info));
->>>>    
->>>>                rc = 0;
->>>> -
->>>>                break;
-> 
-> ... this code would remain unchanged apart from the reduced indentation.
-> 
->>> I don't think the blank lines need dropping for the purpose of the patch?
->>> Yes, they may seem excessive, but nevertheless some prefer to have rather
->>> too many of them than too few. (Personally I don't mind their removal,
->>> but that really doesn't look to belong here.)
->>
->> Okay, but as you state above, with the compounding of the if statement,
->> the indentation will go away and the whole section will a remove/add
->> section to the diff. Would you still want the line spacing maintained?
-> 
-> As said, I don't mind those particular blank lines being dropped (if that's
-> because adjacent lines are touched anyway).
-> 
+Fixes: 3ad3df1bd0aa ("xen: add new domctl get_domain_state")
+Reported-by: Chris Rogers <rogersc@ainfosec.com>
+Reported-by: Dmytro Firsov <dmytro_firsov@epam.com>
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+Changes in v3:
+- collapse if statements
+- dropped unnecessary NULL
+- use true for copyback
 
-ack.
+Changes in v2:
+- fix commit message
+- init dom as -1
+- rework loop logic to use test_and_clear_bit()
+---
+ xen/common/domain.c | 37 ++++++++++++++++++++++---------------
+ xen/common/domctl.c |  7 ++-----
+ 2 files changed, 24 insertions(+), 20 deletions(-)
 
->>>> --- a/xen/common/domctl.c
->>>> +++ b/xen/common/domctl.c
->>>> @@ -860,12 +860,9 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->>>>            break;
->>>>    
->>>>        case XEN_DOMCTL_get_domain_state:
->>>> -        ret = xsm_get_domain_state(XSM_XS_PRIV, d);
->>>> -        if ( ret )
->>>> -            break;
->>>> -
->>>> -        copyback = 1;
->>>>            ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
->>>> +        if ( !ret )
->>>> +            copyback = 1;
->>>
->>> Nit: As you need to touch this, please switch to using "true".
->>
->> Just to be clear, you mean switching to a conditional statement vs
->> testing for not zero?
-> 
-> No. I mean using "true" in place of "1", since copyback is of type "bool".
-> 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index de6fdf59236e..73d6c72d9709 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -210,7 +210,7 @@ static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+                      domid_t *domid)
+ {
+-    unsigned int dom;
++    unsigned int dom = -1;
+     int rc = -ENOENT;
+     struct domain *hdl;
+ 
+@@ -219,6 +219,10 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+ 
+     if ( d )
+     {
++        rc = xsm_get_domain_state(XSM_XS_PRIV, d);
++        if ( rc )
++            return rc;
++
+         set_domain_state_info(info, d);
+ 
+         return 0;
+@@ -238,28 +242,31 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+ 
+     while ( dom_state_changed )
+     {
+-        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
++        dom = find_next_bit(dom_state_changed, DOMID_MASK + 1, dom + 1);
+         if ( dom >= DOMID_FIRST_RESERVED )
+             break;
+-        if ( test_and_clear_bit(dom, dom_state_changed) )
+-        {
+-            *domid = dom;
+-
+-            d = rcu_lock_domain_by_id(dom);
+ 
++        d = rcu_lock_domain_by_id(dom);
++        if ( (d && xsm_get_domain_state(XSM_XS_PRIV, d)) ||
++             !test_and_clear_bit(dom, dom_state_changed) )
++        {
+             if ( d )
+-            {
+-                set_domain_state_info(info, d);
+-
+                 rcu_unlock_domain(d);
+-            }
+-            else
+-                memset(info, 0, sizeof(*info));
++            continue;
++        }
+ 
+-            rc = 0;
++        *domid = dom;
+ 
+-            break;
++        if ( d )
++        {
++            set_domain_state_info(info, d);
++            rcu_unlock_domain(d);
+         }
++        else
++            memset(info, 0, sizeof(*info));
++
++        rc = 0;
++        break;
+     }
+ 
+  out:
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 29a7726d32d0..93738931c575 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -860,12 +860,9 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+         break;
+ 
+     case XEN_DOMCTL_get_domain_state:
+-        ret = xsm_get_domain_state(XSM_XS_PRIV, d);
+-        if ( ret )
+-            break;
+-
+-        copyback = 1;
+         ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
++        if ( !ret )
++            copyback = true;
+         break;
+ 
+     default:
+-- 
+2.39.5
 
-ack.
 
