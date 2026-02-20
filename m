@@ -2,45 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id zXeDHyIymGleCgMAu9opvQ
+	id UM9EHjozmGleCgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:06:26 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:11:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2228166A1B
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:06:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236971.1539447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E491C166B3A
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:11:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1236981.1539458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtNOD-0006Gv-DS; Fri, 20 Feb 2026 10:05:37 +0000
+	id 1vtNTK-0007z0-2R; Fri, 20 Feb 2026 10:10:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236971.1539447; Fri, 20 Feb 2026 10:05:37 +0000
+Received: by outflank-mailman (output) from mailman id 1236981.1539458; Fri, 20 Feb 2026 10:10:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtNOD-0006Ei-9S; Fri, 20 Feb 2026 10:05:37 +0000
-Received: by outflank-mailman (input) for mailman id 1236971;
- Fri, 20 Feb 2026 10:05:36 +0000
+	id 1vtNTJ-0007wj-VI; Fri, 20 Feb 2026 10:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 1236981;
+ Fri, 20 Feb 2026 10:10:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uNHm=AY=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vtNOC-0006Ec-0s
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 10:05:36 +0000
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c112::7])
+ <SRS0=8OLq=AY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vtNTI-0007wd-V8
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 10:10:53 +0000
+Received: from fhigh-a8-smtp.messagingengine.com
+ (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2b16d52-0e43-11f1-b164-2bf370ae4941;
- Fri, 20 Feb 2026 11:05:35 +0100 (CET)
-Received: from BY1PR03MB7875.namprd03.prod.outlook.com (2603:10b6:a03:5b1::10)
- by DS7PR03MB5607.namprd03.prod.outlook.com (2603:10b6:5:2ce::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.15; Fri, 20 Feb
- 2026 10:05:31 +0000
-Received: from BY1PR03MB7875.namprd03.prod.outlook.com
- ([fe80::20d8:6571:d4aa:166c]) by BY1PR03MB7875.namprd03.prod.outlook.com
- ([fe80::20d8:6571:d4aa:166c%4]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
- 10:05:31 +0000
+ id 6e7c9d63-0e44-11f1-b164-2bf370ae4941;
+ Fri, 20 Feb 2026 11:10:50 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id E328A14001B5;
+ Fri, 20 Feb 2026 05:10:48 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Fri, 20 Feb 2026 05:10:48 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 20 Feb 2026 05:10:47 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,229 +49,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2b16d52-0e43-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNJWQ3Np4K/cgpJQuOrW4wuKGGzELItkOx05Yr81Upm9CPrfZ0NNf2T5TCAPT44As0r5KP5VP7MHUXHW3L+gaMJic7iIhlmhw9DmYwY8X5xH8z/4FFA1Erto5ctmJhp79s0mpSFBRmiZNS2Um8pjQGj34gqaugj66uZKJ5Sh3NVdCMpLm+mNTeX+7GJfSWGPn784oKEfDOMw6sFE1wltghfF6chjX8YDsQAqvVgYiptxtiIFh/147xMK00sI3q0hero9rUqTD9KuTfnN39AiiAv5ctGpUToMS5oRQfdPjWR/lhlp7oJX8+x0BjcfPLUVmN1cnLvC2IwGEuKGJbu4iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WyAS27eQNRwQ8J599vmW4Ox6jx0UwNKLDJ6E1izmSqo=;
- b=MDAJVTDyYFy55KZ1Sqkmup4kf2Ye7gD73SIsAtHQxQaUi0iG0p3dYvPTgVn41nm2Xi30fUhH+gkUrxrEyGUFmvPwplJcwP9K1ObbScoRd9GISQIVD2AEylQMJRoSROpCTUH21rM1kzfBvTTWKQ32jxSmScLNQmjWSfBPbprUf/+x/wa2mRqgETN4hD00MoBS8G4uDibDrOjY/Hgj1vtc8p3vzb+7WlJGRWVW/CcKRa/XyKM2FPOiOhpewQCHJ7U3FFOTw8QNqkBFwX6/Y+Izbfsaezuw1iI2+mTpi1Avnt5HnkCVwKBAoxYk9BrDXjmm7BUZ89ScH6uN3vewa/RQFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WyAS27eQNRwQ8J599vmW4Ox6jx0UwNKLDJ6E1izmSqo=;
- b=HX+mXWNfMBEijVZGRDk3L52/uCDtmpezH8jDNLorOH6FBPx+qGLd4vY7KbrzSTYvYh+BuI9od1mjavHQavlgPFG9XtSNyNdFVlXd+CS2zv33yqNz5Ipnh3tVQSOZ4bbW9rqraaC7Aw/ottxVo143cXtgcNuC3K4LcWX3mCmzhks=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH] x86/p2m: clarify foreign map handling in p2m_entry_modify()
-Date: Fri, 20 Feb 2026 11:05:09 +0100
-Message-ID: <20260220100509.49700-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.51.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA3P292CA0038.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:46::7) To BY1PR03MB7875.namprd03.prod.outlook.com
- (2603:10b6:a03:5b1::10)
+X-Inumbo-ID: 6e7c9d63-0e44-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1771582248;
+	 x=1771668648; bh=mBa/rxqyGOz8z4KUxwUkeM95z2yAE/9O9KfIU3FMucg=; b=
+	bXdOSH/ITOMiaI8jjgj+Mkwa/D+hnZo6qroPQbTUgJC2sAgDLhRG3sEaNQE7Oh5Q
+	1pajw29Zv4twGcqwySBakeA5dEPcEhngd8WYy+WQzPmEfr6i58VjoVipda1OIdyh
+	0nOSpNXxmMXRwNKScep0t1ljYAeriNE9py41kd46h2InDBTNgeI+3NYOH5uWc1nt
+	fHuuxkA8FXN+rKotfSQ3BmaXrytVMHFaj2D2qUSJaaI3B42ikenUCAJholZnmlYC
+	Btp88z9BKu53sDlfxcXWwhLhAKqvLXT88cUbmGiLnpaYzA8du/vYCGQuHphZ33N/
+	L1go6ttJDfLbhUlav45fJw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1771582248; x=1771668648; bh=mBa/rxqyGOz8z4KUxwUkeM95z2yAE/9O9Kf
+	IU3FMucg=; b=s26cuJ/bW5Zj1PEdGxbFzRVAqYoYKhpO1ugO3C4Bi+GsQUmUndW
+	UKKC5Vqz2OIH0uV1v+6Abvns0v1pCP8ItxPyJngUbaJLZ8dFWcZ8/iSDdNWTAuxY
+	WoYnk5v53Ul1GYpWZye44PhY7D5E5g9R3nZJkYp6kNe1P5xd5HSlxcP2ySLCd1lK
+	yi2CPJe2ZmjjcbDdGKhp04H9JhiOa1CSXxCM1GKzSpThLD6chmAVxOi6v13STHvn
+	g4ekeKWf1JQj4ES02HVFWAttV6+7AicZ2OwaMDbtevfGiDRXX4HRZ5zNozvz3Sml
+	e1YpUOZRg4H/jPJsUx2vMot/qclCcHiBv8A==
+X-ME-Sender: <xms:KDOYaZnAuzvvDMLB4WnVGJfr_B6yf6TPW6dctqJAtAle3upQ7DOWNw>
+    <xme:KDOYacRu2Aqwq2dW83zTK9x0hYfSPnWuizgyslNiaM03nfPs257Jk_hBR2KAHO2Qe
+    HuBduzZ0aJtcELlPuzJqXcT1d42UGT1s4TTJ19OAc3i4TpoOA>
+X-ME-Received: <xmr:KDOYadBJ2VpRgZsQagGT-WFFTZ4fN8OH4YOWhnsKJTU9B2pT-2_PxFMBCUHG4IBrNZBewYpO9sXu8vCsItnXuu3L55Vet4r0PrQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvvdekudehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdetvdfh
+    kedutedvleffgeeutdektefhtefhfffhfeetgefhieegledvtddtkedtnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepfedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
+    mhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpd
+    hrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdho
+    rhhg
+X-ME-Proxy: <xmx:KDOYaTTRXzueHeudwtaRT5062kF78C27lp-m8BrEVwDQQV04MnU95g>
+    <xmx:KDOYabpGEry-v-BhUrpDfvhcT5C0TIKZzXTclVR52UAmQicvOI2Odw>
+    <xmx:KDOYaVy6XAlfQIErs1W-kxq1YxCX_6w0WIQiUdN7dEMxoppmWwM2Og>
+    <xmx:KDOYaQILjU4CbZFb_-l3KHZdnmQzNBhOL5VKNL3EGFBjOCmvS_FBxw>
+    <xmx:KDOYaZieFgVXyG8WFH3yjOLLZl7UU521W2UI3OB76Z77uV5wos1syl3q>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 20 Feb 2026 11:10:46 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] tools: specify C standard explicitly
+Message-ID: <aZgzJkTdGtHdKwHd@mail-itl>
+References: <20260220004344.1980775-1-marmarek@invisiblethingslab.com>
+ <aZexPYiQ5UF6t5uz@mail-itl>
+ <1415f4df-8191-4e94-a60a-9b7f0f2599be@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7875:EE_|DS7PR03MB5607:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e2d8e54-e516-4715-79c8-08de706794ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UVc1TTVWRSs2WVJhOU5QaTk3NnhKWmtLRmdlMDdTa1N0VlhJVElqbFNlRkgw?=
- =?utf-8?B?aXVES2JUcGJCbXVOa0dGSUc0cXNiZHFPdHRTSWFudkkxakFGcU5udUZZTEhD?=
- =?utf-8?B?cGNDWXdMbzIwVmNuTEZzZlpNVmhZWnhZamtUU3VyTktjaXk3eWVDN2JVWU5S?=
- =?utf-8?B?aTVMbTQ4UE5QQWdybkdHL2JLeHREdGxoRHUyREFZQWNySTgvVDFoR0ZiUHlN?=
- =?utf-8?B?U3FJYWZvR3ZrWkJSYzh5T3JSZENGenFWTE9tSkdRdHlSQTByamtTRjlxMVlx?=
- =?utf-8?B?R1VxL0pCamxlUENDU3Y0YU1KaGVmOXZsSHIvOXNzMm9HbVFEV21qdis2SnRq?=
- =?utf-8?B?NEgxVk9zaHQyN1ZZRUNoeFB0Tk8weno2RVJGdmROU3M5bGM4UVg4SnVSbEw4?=
- =?utf-8?B?K0NJSzNYdlJwNGUrU1NPR05oOW1FR2NLL2x3amNCTGtXUEpSNWhrMFlhaWFD?=
- =?utf-8?B?eXNHWFhnanZ2Zk80dGUvbjNFaVB6c2xBelpaSkd5dk9NM2NjVWxqaVkveVFF?=
- =?utf-8?B?aWxCcnU5b01Vd0NudjdlTDhWQXIvSGQwRXRrRTc3MElaNmVaOTZ2WWdRY1Ra?=
- =?utf-8?B?emExWHJ3WlpKcy91UEZ6cUIxb3JpdU5BZXB4OVJnb0tCY2FVQXEvcHNtQ1Bi?=
- =?utf-8?B?NXo4RnA3QmNFbS84cU9ITWZlSUcwUXZjT0lrVUc4YjkzT1kyaGZzQUp6dGhk?=
- =?utf-8?B?MlVaUTZDaGFmZzRuTXhldFlOY3VselBTODA5NlZUVVlENEpEcDJOOEpabEdJ?=
- =?utf-8?B?VU9CdWYrcUZUVkhCd2ZKZjZrcnZKUHRZV2xwZlc4QVNBMWFtSTRJVjZJaTZC?=
- =?utf-8?B?VEVja1RBYWNRdC9MblRtM1JrZ1ZuWFg3U1FpaU1WRGUreFdLQWJqeW0zNDRn?=
- =?utf-8?B?aENvcFByZzdyNXkxWHpnWUxMNDFPUSsveHVoWWtEMWhrWlMyNzZZWHpIcWRM?=
- =?utf-8?B?UFZLajdGQ3NnNDh3Z3F0VzdoSlJOMmFnRFlRZVZlSEVCN3JnN0xHYTJHcWZq?=
- =?utf-8?B?Z3kyVVA2ZEJPTDFOYm1teXBzUU5lQkRsRmtsRERvdVNEZVN0dnBNSzFQY21Q?=
- =?utf-8?B?dDdTL2dyYVNndjZJYXlaUmlhQm4rK2pUNXhxM1I5VThJZlRsNHZGMzJkOXFo?=
- =?utf-8?B?SmhIZlZRMXZtQjhnV1F6OEQxKzZweUNSYlE4dm5kM004NzYrVEt6NEpnb2JR?=
- =?utf-8?B?U0dwdEtzc0JoOEtOU2xxUjlWcW9nVUtjWk5tOExYejJqb0FHdVpjOEQzK1Az?=
- =?utf-8?B?YVVYV0JKZzBIMW9qNTBSQjdNWVIrcjhTa3ZTd2hsVHo3MDFnMGJ3QzlRNTRV?=
- =?utf-8?B?VjhPbEtZTmFLVDN0RUFTVXJjc25QU2loV2FDNnVmTTRpeVkwc3M5RGo1RTNP?=
- =?utf-8?B?OVNwK1hQbGtsQXFPNDBhVTNsMFNnOS9qSWZKYTZ6Z1VISXUvdkNMR3lleGdM?=
- =?utf-8?B?cW1nQ2xUUitkVk5EdlN5YXJpMis2NlpYb0RMQ3FPTWswYlh5ZmpHdnRYTlFu?=
- =?utf-8?B?Mm5DdmtidEJvL1g1Y1U4Y1YvQ1FCZjRxcEc3bmRhSmJBNDJsenFhZHlIY2xU?=
- =?utf-8?B?S0lkaEQvOHZkMkIyUWpUcU5SeldQOS81OE9yUzFGYkd5dWFlRWU4OW5QRUxW?=
- =?utf-8?B?aXQrMVQzZ0ZRS0J2UXdCOVdwaHJYaFQxaU5TTlliZGs0UEtTbXNJd2JWVHNy?=
- =?utf-8?B?QVdVKzJ6eVUzRjJ6K0dWM3FrNnpPNjYxbHU0c1dXYllGLzI0aHg2aCtIVEtt?=
- =?utf-8?B?Mm1renMzeG1hZFQrZzQvMkR2QmxLNnY3ZzBTcGdpTCtEYjFialJpWVNPQ1F1?=
- =?utf-8?B?dXFTOVEzc3NKa3ZLSGJCdStwVENoZ2QzcVJyU2dDZUYwczUwM000dzVwbGRu?=
- =?utf-8?B?VGVZN2tDbWg1TVZVMWtuNHNUSnl0bEY0elpxNXhtYlpZeERhWXB5K1h3QjRH?=
- =?utf-8?B?T1NYa0pEWkpwUzgrdU8xbnhORW1STzRQdFl6UXdlWTNzVkVSMkplNWkxOHNH?=
- =?utf-8?B?QzFXaFliYzRaeUx6YThjL0FTZWdhdlFpUllydGltcXZ2ZVFOQWNhOStOd0Zt?=
- =?utf-8?B?RC9kMkg4UDJwMVRrdS9NYWNKMGRrb0tMcHd1ZHFNMnVDeFRQT2JFeEQ2UHE1?=
- =?utf-8?Q?Qaks=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7875.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U0JWekpYZ1VRcHNQbkJ1TVRWRjN1czQ5MlppNXI5YkJ0Q3VTUE55cHdzeGRJ?=
- =?utf-8?B?Z2xZYi9PaUtSZklwWHRLY3RyeEd6bGJ1RUVIVTNYQ0VibzZuUFF6TkJIdms4?=
- =?utf-8?B?dWtQRWZmcU5CZnVSdWtEK1cxbGxpUDNwU0NXNENYaGxxc0pzaGNld3ZhQ3Rp?=
- =?utf-8?B?SGQzYTNzUzVlVmlXK201MFdtVmI2YUkvanAyZVN2RXAvc0RTbE1ESzgza2lN?=
- =?utf-8?B?RkxLSzRSQUZyMmFmR2hQM0MzZThZb1NkL3JJUDJSTTFJc2tBQ29uZGNRZWhZ?=
- =?utf-8?B?bXBDL0hNM3RDclZJWGc4Sk5YUCsreVBWanZKNzQxZDlUczRGTXlPZHNqWU5B?=
- =?utf-8?B?NkNzVXVBazJoYXJkR1hGd1pHVGp4TXhxQTc0Ty9zeUJzOE5oUU1kSkhxQWpV?=
- =?utf-8?B?bm5Mb2llZ1BPdUpEN2wrZlQ4anVsam1WOEViSkNKVVRnczd1VWV4eW1nOVl1?=
- =?utf-8?B?WGJ3VENHWDZzUDFQdlplR2xHSXdlWkUwdHpwMlcrbk9TMmJqU1lzZzFGSzF4?=
- =?utf-8?B?WS9XOVhkTnczNHlTWDVXNFh1bFZESG9oVHBpemVLajBkWDJ0cnA4NmlEcXg4?=
- =?utf-8?B?eU5BbUt1RUxyQWZRc0RUNnZHay9kbFhySXBVeEhUQ3h1bC9jVVBaMkcyOUpp?=
- =?utf-8?B?VW8wdTIzR0lOYjBNVlZPVnlGZEFEZHNESUQ5Y2VTRy9FMHcyZmJzbTV5bnVI?=
- =?utf-8?B?bDhzbmFoQ25UeE9GUWZBYUhrdHhFRnZEOGNXWEx0N0FpNDduQmdmYW42YlBy?=
- =?utf-8?B?SHFDVE9YWGF6MytmaXNybXRaWUY4SE9vK3ZEazhDMTRWYXYrK0xiV2tKb2Uv?=
- =?utf-8?B?MnpXU2VLazNuejZVdXR4RGgvZ0loWkdUdi9KTk5VdkFoVmQ2UE9jd2tiM1Zi?=
- =?utf-8?B?aWJHSVhUQ2pma0VDb0pKUlBxaEozSEFmbVd5ZzcyTisyVjBEbWJYWElFaCtT?=
- =?utf-8?B?Z0xmUjF5MHhxNFJzcTdzMFd3OU1ZOU1ydFErVFFMZ083cm5EZUh2STZvU09G?=
- =?utf-8?B?S0NYcW04alNxVVowOFN5VU84ZiszamdQMDl0SDZIVGVYbW1XYnZIWUtEakZT?=
- =?utf-8?B?YmdQNkZBZ2FuNE51WHN4T1dwblpxYmZiNC9vRHExaWhrYU9FMlFSdnhheGpj?=
- =?utf-8?B?MlJrb3BQTDNLV0xUZnU0NzZ5SXA0dFdRa0dZYnNXTmZtanJTbVVNajRyam1s?=
- =?utf-8?B?RkNvbFV3UmdPNkxCN1lHdGdZK05pRUswWk5uL2FVT2tKVW1wbDQ0aldGMmYy?=
- =?utf-8?B?RmxJL003QkdzZkNWUzRXcEJzZjBCUktzVWZ1OUxseFlmYU8zeS95QVBwVG1n?=
- =?utf-8?B?Mnpsa0J4UVd6dHRNNXpkYlprQjY2SDYvMTh0UDI1RFNsUU1ia24rWjIrK0NW?=
- =?utf-8?B?VXF3OThnaUo0Witnd21EbkxqZDVXcU1oa0ZYMGFkandNNks5bnM0TkxUYjkv?=
- =?utf-8?B?N0w0cVErQnB1SzdtUmk3b3B6NURYYjJNTlowQTNuTWlHVzYrNDNOc1czdkM3?=
- =?utf-8?B?c0lmUXIrU3pqdzh1eW5ianVnbjIwVy9uRy9jQXZYeldpK0JwNElvOUlVVm1w?=
- =?utf-8?B?VHlkc0RKdHkyZUVYU05mRHppNmpRYzJSbmhqblY1M1JBUnp3M2lrdm5RZ3da?=
- =?utf-8?B?UkpsUmt2ZVlCQ001MzF6YXd3Z1lSUS9aaXFVckFyQmFpckJaV2hJWHBZNTlN?=
- =?utf-8?B?QWk3RzVCRHl1WitSbThVM2VpQVZ5VUVvbm11MkxGM2tiZHYzMlhIbzhIYnhi?=
- =?utf-8?B?QUgzSkdRL2ZHem9LbUZvanh1cGYyWHhtZ1VKVEV2SmxSQ2w0K21VMExMS1ZL?=
- =?utf-8?B?SkxvbWlDZW9GQXMyQThTaXhtZ0J3MHNSN3U4eUU5cHNjZHAzVVllRTB6cCts?=
- =?utf-8?B?dE5DK0RxVGFqdFdJOXl1MnE0VVZXU3BTQlAwamZ4ZjBQaFNINFhjdGhkRmQ2?=
- =?utf-8?B?c3FWWkVLRlJJRjQ2ME0xVmtEczZJRjJDWFRYRzFQK3pDUEo2cFhPd0ViRVZq?=
- =?utf-8?B?aDlOUXhlMjVoNG1QQmJ0TDJXY1ZHTzVZWWkvdUZSRG9vbk9uZ21ORThwc0Na?=
- =?utf-8?B?elhUckhRaVNGa1ljZUJLUnphY0tVNFo3Sk9pS0plZmFoYWV0VXEzVFBLUDVF?=
- =?utf-8?B?Yis2RnR0L2UyY08xT2NJcUVjamtlL2pFS29UU3pQcjNrbTFCV21IZFhEc0V1?=
- =?utf-8?B?cXllSFZIQ2NrMEpLeWJLZUdUVnZISW91eVl4Vy9udGk3a05kVitESXA4NEpJ?=
- =?utf-8?B?T01WdnFMd3FvdWtmQ3JFbGEwZ0JmVW1wTkdXMVVuWGZjVkd4QmlXZW1JcU41?=
- =?utf-8?B?VFJ1czNGdEpweGhTek1JdVk1R3dTb3o0RHRvQmlQWVRMTVVEaXpMQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e2d8e54-e516-4715-79c8-08de706794ae
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7875.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 10:05:31.3647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R7p7ULqo8cLWaIrcFbUm+xNEF41pBQnFgAJjKD4DboY84WtaOUaUWaoBgEJn7p1HPRDzkjXbyvYhLuT2zzYe5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5607
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HKXlsan698c3NGvQ"
+Content-Disposition: inline
+In-Reply-To: <1415f4df-8191-4e94-a60a-9b7f0f2599be@suse.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm3];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,messagingengine.com:dkim,invisiblethingslab.com:dkim];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C2228166A1B
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: E491C166B3A
 X-Rspamd-Action: no action
 
-Introduce an extra check and comment to ensure the outer caller has
-possibly taken an extra reference on the foreign page that's about to be
-removed from the p2m.  Otherwise the put_page() in p2m_entry_modify() won't
-be safe to do ahead of the entry being removed form the p2m and any cached
-states purged.
 
-While there also replace the error codes for unreachable paths to use
-EILSEQ.
+--HKXlsan698c3NGvQ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Feb 2026 11:10:46 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] tools: specify C standard explicitly
 
-No functional change intended.
+On Fri, Feb 20, 2026 at 08:34:08AM +0100, Jan Beulich wrote:
+> Is it possible that it's not so much the compiler, but glibc, which is the
+> problem here?
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/p2m.h | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+Indeed, that's glibc. I tested it starting with CI container and updated
+packages one by one - it's about glic 2.42 -> 2.43.
 
-diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
-index ef6b02ff0bb6..1ceb248b9da6 100644
---- a/xen/arch/x86/include/asm/p2m.h
-+++ b/xen/arch/x86/include/asm/p2m.h
-@@ -1066,7 +1066,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
-         if ( !mfn_valid(nfn) || p2m != p2m_get_hostp2m(p2m->domain) )
-         {
-             ASSERT_UNREACHABLE();
--            return -EINVAL;
-+            return -EILSEQ;
-         }
- 
-         if ( !page_get_owner_and_reference(mfn_to_page(nfn)) )
-@@ -1088,14 +1088,26 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
-         break;
- 
-     case p2m_map_foreign:
--        if ( !mfn_valid(ofn) || p2m != p2m_get_hostp2m(p2m->domain) )
-+    {
-+        struct page_info *pg = mfn_valid(ofn) ? mfn_to_page(ofn) : NULL;
-+        unsigned long ci = pg ? ACCESS_ONCE(pg->count_info) : 0;
-+
-+        if ( !pg || p2m != p2m_get_hostp2m(p2m->domain) ||
-+             /*
-+              * Rely on the caller also holding a reference to the page, so
-+              * that the put_page() below doesn't cause the page to be
-+              * freed, as it still has to be removed from the p2m.
-+              */
-+             (ci & PGC_count_mask) <= (ci & PGC_allocated ? 2 : 1) ||
-+             !p2m->nr_foreign )
-         {
-             ASSERT_UNREACHABLE();
--            return -EINVAL;
-+            return -EILSEQ;
-         }
--        put_page(mfn_to_page(ofn));
-+        put_page(pg);
-         p2m->nr_foreign--;
-         break;
-+    }
- 
-     default:
-         break;
--- 
-2.51.0
+> > So, I guess iterate on v1?
+>=20
+> Perhaps. As per above it first needs to become clear where the issue is
+> actually coming from. Otoh making the code suitably C23-const-correct will
+> want to happen at some point anyway, I suppose.
 
+I'll sent v3 with remarks from your review on v1 applied.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--HKXlsan698c3NGvQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmYMyYACgkQ24/THMrX
+1yzdWgf8Cpg67921Ysro8oub0wobDe5cTBa0vWOWo9hBZlahhRbvyO5O9jtH/Ftj
+Syhl/Y2XwiIp20Qn3Qxd5v0xmr0nG2bSDmK9jKhbNI8NGO2nxk3TT5bPaCfhGC6v
+BgUChZR2xrdbmh/arTk65jMBxl5CrHvslEdyZl39b7hV0+LwxLMbG/MZfQC4Uoqf
+3KNNRuVlsU/dPNz/NXfekw4TFWSFmCWIc1bXT8Iv7XZ1lEMmiuheqb2bM4ohDuRr
+8cMHkxN457QyG7BVyOArOEKP4/+IEYdYAY5XWDDWZtUETG5b3t+zjZYAFTjBHo5v
+9C/DBOB6FBlt0MFh1xjnzi2B59WT3A==
+=iqBY
+-----END PGP SIGNATURE-----
+
+--HKXlsan698c3NGvQ--
 
