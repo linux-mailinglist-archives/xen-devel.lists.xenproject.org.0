@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gFaiDm7WmGl7NQMAu9opvQ
+	id +H8KN27WmGl7NQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E217816B0A1
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237618.1539933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90BC216B0B5
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237619.1539955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYLD-0001vP-2X; Fri, 20 Feb 2026 21:47:15 +0000
+	id 1vtYLF-0002UW-IF; Fri, 20 Feb 2026 21:47:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237618.1539933; Fri, 20 Feb 2026 21:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 1237619.1539955; Fri, 20 Feb 2026 21:47:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYLC-0001jf-PB; Fri, 20 Feb 2026 21:47:14 +0000
-Received: by outflank-mailman (input) for mailman id 1237618;
- Fri, 20 Feb 2026 21:47:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vtYLE-0002KG-SQ; Fri, 20 Feb 2026 21:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 1237619;
+ Fri, 20 Feb 2026 21:47:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2tad=AY=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vtYLA-0008IG-If
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:12 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b5bfbbb9-0ea5-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 22:47:10 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-480706554beso28511075e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:10 -0800 (PST)
+ id 1vtYLB-0008Ew-Cs
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:13 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b61d39a9-0ea5-11f1-b164-2bf370ae4941;
+ Fri, 20 Feb 2026 22:47:11 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-436356740e6so2654077f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:11 -0800 (PST)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
  5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 13:47:09 -0800 (PST)
+ Fri, 20 Feb 2026 13:47:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,40 +50,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5bfbbb9-0ea5-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: b61d39a9-0ea5-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1771624030; x=1772228830; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1771624031; x=1772228831; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZTqLwQAs0U3ktqAPOv0GkFeeIfrNLrDf4DIWmemjfFQ=;
-        b=MzIwYoLRbmbdwpCrrCbztLj/pWlkZ9t4vfFHzj0ck/GsHrQ+fkwerOXzK3dKGYHcdU
-         /UbtN7WFb5sOtM/u2FSQDG27a5w9E4bvakUueUVK2pL1outtQPgQ7UaPL2+Cd/dg1/Il
-         rKpXhk8uVJwvlmOKB8W8I57Pr/+mFdGoOkCqU=
+        bh=QL0YluuNljQpopZEfgU7W97F1VvgWXQ8YTIYrdrO7hc=;
+        b=Q2M2FZisofsQDWxzuJLABo41tKT3ptdHqJDDaU5HpZVCoGqDc0Bm32JHdghcTbVbzE
+         zFUGHHOxTNaAQLXZiB13yVBzhP6KhSRhxJ4B8Vte/RhZrdHRQYZhFM+nuOWj2mpEf+uK
+         WPP6A4B43Ed1Wf48s67ZDHMHWEUcU0B3ZQT4g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771624030; x=1772228830;
+        d=1e100.net; s=20230601; t=1771624031; x=1772228831;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ZTqLwQAs0U3ktqAPOv0GkFeeIfrNLrDf4DIWmemjfFQ=;
-        b=d5Ru0EOGlSSUdHXeoasujpwK2U/7JC8Dz7MYLieEzN6wSkytWjGZZTmmFMe2DxIxDj
-         jIvWcPDf3Nln8FyxK8rCyN0/bvIix2lK69EreEHX5b6mMJxbB1dJnwqzkv66CoV4RNQJ
-         fnPRXUiL5Is0CrqlucD+X1AJ8bRa+UlyoLTUFj2Y+dK6nHCvaEKjEYj5AkjTPRR+DdVQ
-         5/8CshpFw8zFxXVBzJtkwCHeykMhG4ZfY62Ex+e18l7+eqpymz21Dku3za4OKN7Wc6fw
-         CGdmMWMqkmRmo3mM1a9l67GMV7iaEa7aDic0JgX88xCM1Zc7bx+P+dK5emh0PkWGHcy/
-         jfhA==
-X-Gm-Message-State: AOJu0YwEp0DxA8NvlPRox6g8ZPoiEwTfjNKLPs9Su049oXvGIXBFTSDw
-	78upR2XSqvbzcLDu51Lr5WsDAw1uW1kKBmKMlit9oJGJP78Bbf8EyE6XtNwOW8whq+C+n5PaNel
-	RQw8OSnbGlw==
-X-Gm-Gg: AZuq6aI4WT1609B3Kf/CKsizJgAismUXO4nr6tN3+vPhIDusvX/z0JUKqEE/pJLRLvv
-	+Rp3/Li4uEpkP1c498ZtimSwtAotVtkLOIGILfmu2x/nXlV7MtSeDYb9mVi9vGaW9m4uK3JZ9Ee
-	GFLBAfnl85Q9c04UDKgyIYRTDomEZZhRZpKNdJGIXYQ6mJjEeIpThf2ygh5bg5KUJahuEfrI+aq
-	aN0aUEMaI8LD9pe4JzGsQRqww6fWT6Bp1/kK3dWU509x3kiD/S3uE9U56Y6VVRvU/WtDc+ualkz
-	QNvXjTv6fVOSrrOc+rGSJ55pPIX/6b/4iJtwuy/64rcDff5hGpwRf1Argcl8rXkTVF6Cy+aHBsC
-	CFVwhhNNc4DrEptTwBHuHo1+Qmb8AJ8zoM5rtkqIwNO1mNKi3nEbsnzc99JE/kbo11aBDmApXdU
-	qelvh9/148pGV6FXdTEno5hpP+XApymwkFc35iPLAXnXrqAcyWoZZ6bNA1tU9jsQ4i3PVNV2E=
-X-Received: by 2002:a05:600c:64ce:b0:483:7432:a761 with SMTP id 5b1f17b1804b1-483a9637502mr16333205e9.24.1771624029745;
-        Fri, 20 Feb 2026 13:47:09 -0800 (PST)
+        bh=QL0YluuNljQpopZEfgU7W97F1VvgWXQ8YTIYrdrO7hc=;
+        b=WcWZXIK1XI5IpTFiP+/cgyz7VSdaaoiUjTtY9dm0lTb1SN2bDsSWY4oN4H5jwnouYY
+         SiGF3K/twIYDAPO/Qu6eMQcxQ66FjpFKmdlVcAHIEb2N5uKPsYg3K7oFGpEYKeXBnYkA
+         Jl+JxlxM+zfxcTm7ZnYL6qtLVjcC93TbKCIFkoUY0NK+3JnpR38HRM/ShoxyxxlNbtVZ
+         yvsdnXhPCEBqhYxWC56eyinwHBVVvyi7HVpZqAKVzM5z3Vw0Nz3ytqBUFLc25dGwN8yi
+         uO7yycp3hgG++CcjmBmegTmzCverV3FGsIs1kY0Fotj6I3/yF+UDk+cvmUG6KIz6JgsA
+         DgpA==
+X-Gm-Message-State: AOJu0Yx/fs0RPfQrmkzYwEsQV64oth7aGScxVBmup8YQYpAPNuaOFjjb
+	qVhylPCbp62mAQkggJC38WLMiS3LGHf0vNc7XzKA37lquEmu6EceXiZRNGo6xIOwrkkZQZWWTrK
+	H+I7pDaATNA==
+X-Gm-Gg: AZuq6aLlIHR4MJwhmMdYzJMLeUpnvc3AxqR5MfYo6TWLjyzzJrNj6OY2pkIIo4os9rQ
+	QrujDU56iGtmWn/CCrJkaWpTHKaJh+/lLFhI6cYQmYmXSeEDFgApJZsGGGGrmM2I3DgKJgmHPE9
+	MLC1yFcumgmGKX64KfY3KkPMT/paimpLvcAoRPRPSPCViEMNyhmJFjFBZYgW1hf4tDQIVbSmfE+
+	evnPgqo5B2ly2fSe3Nguduyqkf1hP96AkMlycQUk4tTEN2GI3poEQZ9EhHuEItFgPs+5+p+ZAoU
+	iyxwFnfUVLQzMEgwl6bwNoPOk4G2bXezPCas5NfU+fivsa0mK15Z4aJzx3TmGanI8NPGCwAJ7SR
+	bmffEHuQw/6g57XsmlvQRjYtqS6p544baKwoDV5ntAxoLm9WZto8aBY+8ozAucVTDYSDozaTM6B
+	00S+HZ6sZYeF25fghn5qV+ZXodwbr2KI2zWuYE1GR74duDlrWInpK02SpuEBgtC+aybqb1ZEQ=
+X-Received: by 2002:a05:600c:3b10:b0:483:43da:6c87 with SMTP id 5b1f17b1804b1-483a963d603mr13512275e9.33.1771624030450;
+        Fri, 20 Feb 2026 13:47:10 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -96,9 +96,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	"consulting @ bugseng . com" <consulting@bugseng.com>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 10/12] xen: Adjust break/fallthrough statements
-Date: Fri, 20 Feb 2026 21:46:51 +0000
-Message-Id: <20260220214653.3497384-11-andrew.cooper3@citrix.com>
+Subject: [PATCH 11/12] xen: Bracket uses of macro parameters
+Date: Fri, 20 Feb 2026 21:46:52 +0000
+Message-Id: <20260220214653.3497384-12-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
 References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
@@ -131,19 +131,16 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.999];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E217816B0A1
+X-Rspamd-Queue-Id: 90BC216B0B5
 X-Rspamd-Action: no action
 
-sh_destroy_shadow() has a spelling of fallthrough which doesn't match the
-permitted pattern.  Convert it to a real fallthrough (psedo)keyword.
-
-Elsewhere, insert breaks at the end of the default statements.
+Fixing Rule 20.7 violations.
 
 No functional change.
 
@@ -159,77 +156,181 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: consulting@bugseng.com <consulting@bugseng.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/arm/pci/pci-access.c     | 2 ++
- xen/arch/arm/pci/pci-designware.c | 2 ++
- xen/arch/arm/tee/optee.c          | 1 +
- xen/arch/x86/mm/shadow/common.c   | 2 +-
- 4 files changed, 6 insertions(+), 1 deletion(-)
+ xen/arch/arm/pci/pci-access.c       |  6 +++---
+ xen/arch/x86/include/asm/bootinfo.h |  2 +-
+ xen/arch/x86/mm/shadow/multi.c      |  2 +-
+ xen/common/kimage.c                 | 11 ++++++-----
+ xen/common/livepatch.c              | 11 ++++++-----
+ xen/crypto/vmac.c                   |  8 ++++----
+ xen/include/xen/libfdt/libfdt.h     |  6 +++---
+ 7 files changed, 24 insertions(+), 22 deletions(-)
 
 diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
-index c0533c00c9a5..2b23d552bbfb 100644
+index 2b23d552bbfb..7bd6877596d4 100644
 --- a/xen/arch/arm/pci/pci-access.c
 +++ b/xen/arch/arm/pci/pci-access.c
-@@ -63,6 +63,7 @@ int pci_generic_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
-         break;
-     default:
-         ASSERT_UNREACHABLE();
-+        break;
-     }
+@@ -16,7 +16,7 @@
+ #include <asm/io.h>
  
-     return 0;
-@@ -89,6 +90,7 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
-         break;
-     default:
-         ASSERT_UNREACHABLE();
-+        break;
-     }
+ #define INVALID_VALUE (~0U)
+-#define PCI_ERR_VALUE(len) GENMASK(0, len * 8)
++#define PCI_ERR_VALUE(len) GENMASK(0, (len) * 8)
  
-     return 0;
-diff --git a/xen/arch/arm/pci/pci-designware.c b/xen/arch/arm/pci/pci-designware.c
-index 6b85213f637b..902da19e8c98 100644
---- a/xen/arch/arm/pci/pci-designware.c
-+++ b/xen/arch/arm/pci/pci-designware.c
-@@ -48,6 +48,7 @@ static int dw_pcie_read(void __iomem *addr, unsigned int len, uint32_t *val)
-         break;
-     default:
-         ASSERT_UNREACHABLE();
-+        break;
-     }
+ static const struct pci_ops *get_ops(struct pci_host_bridge *bridge,
+                                      pci_sbdf_t sbdf)
+@@ -139,14 +139,14 @@ static void pci_config_write(pci_sbdf_t sbdf, unsigned int reg,
+     void pci_conf_write##size(pci_sbdf_t sbdf,              \
+                               unsigned int reg, type data)  \
+ {                                                           \
+-    pci_config_write(sbdf, reg, size / 8, data);            \
++    pci_config_write(sbdf, reg, (size) / 8, data);          \
+ }
  
-     return 0;
-@@ -71,6 +72,7 @@ static int dw_pcie_write(void __iomem *addr, unsigned int len, uint32_t val)
-         break;
-     default:
-         ASSERT_UNREACHABLE();
-+        break;
-     }
+ #define PCI_OP_READ(size, type)                             \
+     type pci_conf_read##size(pci_sbdf_t sbdf,               \
+                               unsigned int reg)             \
+ {                                                           \
+-    return pci_config_read(sbdf, reg, size / 8);            \
++    return pci_config_read(sbdf, reg, (size) / 8);          \
+ }
  
-     return 0;
-diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-index 699e8d536862..f719d9d767ab 100644
---- a/xen/arch/arm/tee/optee.c
-+++ b/xen/arch/arm/tee/optee.c
-@@ -1206,6 +1206,7 @@ static void do_call_with_arg(struct optee_domain *ctx,
-     default:
-         /* Free any temporary shared buffers */
-         free_shm_buffers(ctx, call->xen_arg);
-+        break;
-     }
+ PCI_OP_READ(8, uint8_t)
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index 4f2cc5906e59..b3a6b2acf3ac 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -75,7 +75,7 @@ static inline unsigned int __init next_boot_module_index(
+ #define for_each_boot_module_by_type(i, b, t)           \
+     for ( (i) = first_boot_module_index(b, t);          \
+           (i) <= (b)->nr_modules;                       \
+-          (i) = next_boot_module_index(b, t, i + 1) )
++          (i) = next_boot_module_index(b, t, (i) + 1) )
  
-     put_std_call(ctx, call);
-diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-index 96986ee2553d..5834c265f76d 100644
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -1213,7 +1213,7 @@ void sh_destroy_shadow(struct domain *d, mfn_t smfn)
- #ifdef CONFIG_PV32
-     case SH_type_l2h_64_shadow:
-         ASSERT(is_pv_32bit_domain(d));
--        /* Fall through... */
-+        fallthrough;
- #endif
-     case SH_type_l2_64_shadow:
-         SHADOW_INTERNAL_NAME(sh_destroy_l2_shadow, 4)(d, smfn);
+ #endif /* X86_BOOTINFO_H */
+ 
+diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
+index 3bbaceec1287..9de60720db20 100644
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -793,7 +793,7 @@ do {                                                                    \
+ do {                                                                    \
+     int __done = 0;                                                     \
+     _FOREACH_PRESENT_L1E(_sl1mfn, _sl1e, _gl1p,                         \
+-                         ({ (__done = _done); }), _code);               \
++                         ({ (__done = (_done)); }), _code);             \
+     _sl1mfn = sh_next_page(_sl1mfn);                                    \
+     if ( !__done )                                                      \
+         _FOREACH_PRESENT_L1E(_sl1mfn, _sl1e, _gl1p, _done, _code);      \
+diff --git a/xen/common/kimage.c b/xen/common/kimage.c
+index e1aec5a18a54..972301368443 100644
+--- a/xen/common/kimage.c
++++ b/xen/common/kimage.c
+@@ -491,11 +491,12 @@ static void kimage_terminate(struct kexec_image *image)
+  * Call unmap_domain_page(ptr) after the loop exits.
+  */
+ #define for_each_kimage_entry(image, ptr, entry)                        \
+-    for ( ptr = map_domain_page(_mfn(paddr_to_pfn(image->head)));       \
+-          (entry = *ptr) && !(entry & IND_DONE);                        \
+-          ptr = (entry & IND_INDIRECTION) ?                             \
+-              (unmap_domain_page(ptr), map_domain_page(_mfn(paddr_to_pfn(entry)))) \
+-              : ptr + 1 )
++    for ( (ptr) = map_domain_page(_mfn(paddr_to_pfn((image)->head)));   \
++          ((entry) = *(ptr)) && !((entry) & IND_DONE);                  \
++          (ptr) = (((entry) & IND_INDIRECTION)                          \
++                   ? (unmap_domain_page(ptr),                           \
++                      map_domain_page(_mfn(paddr_to_pfn(entry))))       \
++                   : (ptr) + 1) )
+ 
+ static void kimage_free_entry(kimage_entry_t entry)
+ {
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index 7446533c8cfb..63473925cafb 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -664,9 +664,10 @@ static inline int livepatch_check_expectations(const struct payload *payload)
+     const struct livepatch_elf_sec *__sec = livepatch_elf_sec_by_name(elf, section_name); \
+     if ( !__sec )                                                                         \
+         break;                                                                            \
+-    if ( !section_ok(elf, __sec, sizeof(*hook)) || __sec->sec->sh_size != sizeof(*hook) ) \
++    if ( !section_ok(elf, __sec, sizeof(*(hook))) ||                                      \
++         __sec->sec->sh_size != sizeof(*(hook)) )                                         \
+         return -EINVAL;                                                                   \
+-    hook = __sec->addr;                                                                   \
++    (hook) = __sec->addr;                                                                 \
+ } while (0)
+ 
+ /*
+@@ -678,10 +679,10 @@ static inline int livepatch_check_expectations(const struct payload *payload)
+     const struct livepatch_elf_sec *__sec = livepatch_elf_sec_by_name(elf, section_name); \
+     if ( !__sec )                                                                         \
+         break;                                                                            \
+-    if ( !section_ok(elf, __sec, sizeof(*hook)) )                                         \
++    if ( !section_ok(elf, __sec, sizeof(*(hook))) )                                       \
+         return -EINVAL;                                                                   \
+-    hook = __sec->addr;                                                                   \
+-    nhooks = __sec->sec->sh_size / sizeof(*hook);                                         \
++    (hook) = __sec->addr;                                                                 \
++    (nhooks) = __sec->sec->sh_size / sizeof(*(hook));                                     \
+ } while (0)
+ 
+ static int prepare_payload(struct payload *payload,
+diff --git a/xen/crypto/vmac.c b/xen/crypto/vmac.c
+index c9914d2c7c1d..c7aa1e9be3b9 100644
+--- a/xen/crypto/vmac.c
++++ b/xen/crypto/vmac.c
+@@ -203,7 +203,7 @@ const uint64_t mpoly = UINT64_C(0x1fffffff1fffffff);  /* Poly key mask     */
+ #define nh_16(mp, kp, nw, rh, rl)                                            \
+ {   int i; uint64_t th, tl;                                                  \
+     rh = rl = 0;                                                             \
+-    for (i = 0; i < nw; i+= 2) {                                             \
++    for (i = 0; i < (nw); i+= 2) {                                           \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i  ],get64PE((mp)+i+1)+(kp)[i+1]);\
+         ADD128(rh,rl,th,tl);                                                 \
+     }                                                                        \
+@@ -211,7 +211,7 @@ const uint64_t mpoly = UINT64_C(0x1fffffff1fffffff);  /* Poly key mask     */
+ #define nh_16_2(mp, kp, nw, rh, rl, rh1, rl1)                                \
+ {   int i; uint64_t th, tl;                                                  \
+     rh1 = rl1 = rh = rl = 0;                                                 \
+-    for (i = 0; i < nw; i+= 2) {                                             \
++    for (i = 0; i < (nw); i+= 2) {                                           \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i  ],get64PE((mp)+i+1)+(kp)[i+1]);\
+         ADD128(rh,rl,th,tl);                                                 \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i+2],get64PE((mp)+i+1)+(kp)[i+3]);\
+@@ -223,7 +223,7 @@ const uint64_t mpoly = UINT64_C(0x1fffffff1fffffff);  /* Poly key mask     */
+ #define nh_vmac_nhbytes(mp, kp, nw, rh, rl)                                  \
+ {   int i; uint64_t th, tl;                                                  \
+     rh = rl = 0;                                                             \
+-    for (i = 0; i < nw; i+= 8) {                                             \
++    for (i = 0; i < (nw); i+= 8) {                                           \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i  ],get64PE((mp)+i+1)+(kp)[i+1]);\
+         ADD128(rh,rl,th,tl);                                                 \
+         MUL64(th,tl,get64PE((mp)+i+2)+(kp)[i+2],get64PE((mp)+i+3)+(kp)[i+3]);\
+@@ -237,7 +237,7 @@ const uint64_t mpoly = UINT64_C(0x1fffffff1fffffff);  /* Poly key mask     */
+ #define nh_vmac_nhbytes_2(mp, kp, nw, rh, rl, rh1, rl1)                      \
+ {   int i; uint64_t th, tl;                                                  \
+     rh1 = rl1 = rh = rl = 0;                                                 \
+-    for (i = 0; i < nw; i+= 8) {                                             \
++    for (i = 0; i < (nw); i+= 8) {                                           \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i  ],get64PE((mp)+i+1)+(kp)[i+1]);\
+         ADD128(rh,rl,th,tl);                                                 \
+         MUL64(th,tl,get64PE((mp)+i  )+(kp)[i+2],get64PE((mp)+i+1)+(kp)[i+3]);\
+diff --git a/xen/include/xen/libfdt/libfdt.h b/xen/include/xen/libfdt/libfdt.h
+index fabddbee8cec..1b09bba28eea 100644
+--- a/xen/include/xen/libfdt/libfdt.h
++++ b/xen/include/xen/libfdt/libfdt.h
+@@ -230,9 +230,9 @@ int fdt_next_subnode(const void *fdt, int offset);
+  * literal.
+  */
+ #define fdt_for_each_subnode(node, fdt, parent)		\
+-	for (node = fdt_first_subnode(fdt, parent);	\
+-	     node >= 0;					\
+-	     node = fdt_next_subnode(fdt, node))
++	for ((node) = fdt_first_subnode(fdt, parent);	\
++	     (node) >= 0;				\
++	     (node) = fdt_next_subnode(fdt, node))
+ 
+ /**********************************************************************/
+ /* General functions                                                  */
 -- 
 2.39.5
 
