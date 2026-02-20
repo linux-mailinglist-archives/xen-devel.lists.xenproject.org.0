@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GIuuB23WmGl+NQMAu9opvQ
+	id iJi9A2/WmGl+NQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:25 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:27 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6316516B08B
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237614.1539892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B544616B0B6
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237617.1539922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYL9-0000vc-Jy; Fri, 20 Feb 2026 21:47:11 +0000
+	id 1vtYLC-0001fB-5w; Fri, 20 Feb 2026 21:47:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237614.1539892; Fri, 20 Feb 2026 21:47:11 +0000
+Received: by outflank-mailman (output) from mailman id 1237617.1539922; Fri, 20 Feb 2026 21:47:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYL9-0000mO-Ae; Fri, 20 Feb 2026 21:47:11 +0000
-Received: by outflank-mailman (input) for mailman id 1237614;
- Fri, 20 Feb 2026 21:47:10 +0000
+	id 1vtYLB-0001W8-S5; Fri, 20 Feb 2026 21:47:13 +0000
+Received: by outflank-mailman (input) for mailman id 1237617;
+ Fri, 20 Feb 2026 21:47:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2tad=AY=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vtYL8-0008IG-4a
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:10 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1vtYL9-0008IG-15
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:11 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b433f758-0ea5-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 22:47:08 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso33419435e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:08 -0800 (PST)
+ id b4f27749-0ea5-11f1-9ccf-f158ae23cfc8;
+ Fri, 20 Feb 2026 22:47:09 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-48334ee0aeaso18920445e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:09 -0800 (PST)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.06
+ 5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 13:47:06 -0800 (PST)
+ Fri, 20 Feb 2026 13:47:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,39 +50,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b433f758-0ea5-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: b4f27749-0ea5-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1771624027; x=1772228827; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1771624029; x=1772228829; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=38Q6mGCwbKjhhK8kwdPI5HfU9QB1AsZ0yVRPxRPU2XA=;
-        b=I5uwAh+6sicY4jOD/nMZRlwFvDLFYB3wwyJodfcP4iGUWiFCQODI1Z/6jNVjS7Cp6a
-         TfoSIIcNQgn8tVWRU4b2Ov+UaiulA2J5DLjiZbE6u2cs0IBkgG/2q9L+u97FZ9BVXgjR
-         +GtSz+hLhE6DbJqIyqcmYp8TtG02CsJmrp93M=
+        bh=XZOtH6QKJjtO5cu9aMfNJQCmxs/qiZNDuJ7ZYGgpThE=;
+        b=FFmhL3IY2RNqLuaArvzpOVYyM94aSfmt7tTF+3HtrUkfRX8TxaBD0Q4NYkqgLfIUGb
+         A2ujHHiktbOiffpXlqMmbUS9ZeOfWN8qdhUVucpZaHo1p/JJQOPbRv/nLCqfKV0XWGbr
+         jLAtpjJBTk8fZIvdIhsBBlBOOkl3Ww8uGDMYY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771624027; x=1772228827;
+        d=1e100.net; s=20230601; t=1771624029; x=1772228829;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=38Q6mGCwbKjhhK8kwdPI5HfU9QB1AsZ0yVRPxRPU2XA=;
-        b=Oh8QheO174nVZ3g+Z54X0Pw+SMbejOe6xQTSkr7jgHFlE3IpDul+ifZH3LPHUlrDMY
-         i3judnK3yepxQEe1AFpRFchgpNOKMGY59DLjR/y5mxyQ7OBt/1MlP3iSpI3NQJ1G0vbb
-         QfixbGP/CnQUF8cZiyEcrFvFbMd288IS7IzNl2ptW581OTT0sGYOLa0yhpVSID9Djl9F
-         Tv1KKqG7lYu1R9wNYABZMYMQm3aQQL2m8n65jOiphlaYJM0FaEAFVeGGWhiLMgnx6tsg
-         qbUoCucersE+3cTjM0ziEhQefO5GrCZjgt4AIAj1Luq7zh8QkVrLCuP3YIydlZxtl833
-         KMbw==
-X-Gm-Message-State: AOJu0YzEn8xWv7hH0yytfIEtLOEub0id7PQgkQ5MFuNDhjqVwyxDDj0h
-	un9O2XWlQVpNbgLxSNMcpgJAdtUX3uBThOv0iXCsFYBBLprpu2jX4h1JAk/e5e24PfZac2QSU62
-	O9d7gQNI3hA==
-X-Gm-Gg: AZuq6aK/PcnT4dHqJKcMop8WMVR9YekwNIpMYuu7wrFtuv6LD9/IeIWQnJD7U94z2+G
-	hfHZbeCWMKQqdtCoIDjMgnBU+XMC+I0i6GmpP+lW2vfBSMDTPSZ29GFRewtapEQchCxBqiNUKRa
-	9rqNRStA4rBmafCOdloFpOXVjaoY9H4caWr4Ft3Rek/VR+/cJznSOPNSIBi/mcB2RXydfk0rsFo
-	SqCb7ynYCkGHNqs9Lk4s7aivVEu0FAXO1OQqTqcSwGIhO6rnbpZtxmnGiyGTT8XuZ4AJcDyS25z
-	DDewoHqFW86qGua9sEzzyyRSHqy0m1zNA3tMIWViX2xIhzBBUWKTOxyQr/ZJz1Ey9iwzzzzMRut
-	02j/KGriRB7A4dzXKcS6nEDQoZL3Mq2QDV5k+84GhhO9ynz/LEZUVRjAKD5nakkHUhKB8A3mnWB
-	8WcYJf93C9PYtx+h0+Pmj4ngso+FnHJFjED4vdSdtRxj+qxA75wT+IQzVibW+TaOCzkLAhbBc=
-X-Received: by 2002:a05:600c:1989:b0:479:1348:c63e with SMTP id 5b1f17b1804b1-483a94c99admr21112605e9.9.1771624027207;
+        bh=XZOtH6QKJjtO5cu9aMfNJQCmxs/qiZNDuJ7ZYGgpThE=;
+        b=gbBUN78nq3rxf8SzyMjhqa2nHwfhqwyW7Fj2w+aOw/Vm82WSsOSUy+6VP/1LFYQoVT
+         U5EPjsqMSIICdn/QJET5XS+m9h9A89YtT9MQREWGSZSGLnPOV3Fq6KxQSe0e0hyDwkWu
+         6jBHz4u722NQ2TZ/Z6omEHJoUUaNgFJbG3gn+MS9rCsTx6/XCLtbE1fTNoBB3v42SM1u
+         Kwgs71XM+F6qJjQlcYABUNxSogMc605J+YonrDOZmJvGVBMT88f5APCQEZ7epcQWTAtO
+         6OSZ8oNT6nsR9k8+aU5ECYEdIYt1cI8s8HvxjsTawRkjdpuC8nQtAu4kBS+UMEz69a16
+         w5wQ==
+X-Gm-Message-State: AOJu0YzRINYD++V159sEYQMRwiSCfoXnmOTx3QOL1D/hViG1uEyzYI7y
+	Dupd0gT9ADkwomDac/dV6sRX2TZzfLSl6KSYioXSYS3bGIWXovDy0vhFYOMMHmpE5f7nGSzFbPV
+	I3siI
+X-Gm-Gg: AZuq6aJOVCtaXM3gEEH2TZ35noajENnfyLW7ddKnByOy6L0jKIDvWD6/vDQMy787zJ8
+	JI6hXGn9cEtlwpdOLklDNKCFqYLZg1lNV/1j3DM5pd2Q/aLb9Ycwl1eQ9Is0WtH1AUpu9tQpjoU
+	c586RZUwaQPc1YR4IhzB3yVwfPV18E9UywzImHeF7rENlc7YceFUuauiw86684eVXn41azMK0TM
+	dlY6TOWIXbiKC8ZrTAcrBodnAI5ph8QoKB2izMjc/x5p+f5OgfdJ/eYbM/Ea2uDEm1sYpPhng8z
+	kq7POWK3gZJZHkiapAPT35V6JVkehdRgSaNWMD3RCq5aW7dq4Ijc7mgT3DEbfXdHCMovTSUp9Re
+	Su5cBo8pJCneL7ckui2KBtryDv92C/t2Fmp64Bg7d1P1q+H3q4+CYVt+WwXrWllyhw8Ax5TroOF
+	THY8jllhXVBRK//gzZO7ByZOQnyv3IqCJXUaUZubkII6WfqSTFLflUxqlSRKzXweG1qalldIo=
+X-Received: by 2002:a05:600c:8b71:b0:483:7980:4687 with SMTP id 5b1f17b1804b1-483a95dd932mr16357815e9.17.1771624027841;
         Fri, 20 Feb 2026 13:47:07 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -96,9 +96,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	"consulting @ bugseng . com" <consulting@bugseng.com>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 06/12] xen: Include suitable headers to make declarations visible
-Date: Fri, 20 Feb 2026 21:46:47 +0000
-Message-Id: <20260220214653.3497384-7-andrew.cooper3@citrix.com>
+Subject: [PATCH 07/12] xen/vmac: Const the key parameter of vmac_set_key()
+Date: Fri, 20 Feb 2026 21:46:48 +0000
+Message-Id: <20260220214653.3497384-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
 References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
@@ -109,48 +109,42 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	TO_DN_ALL(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:consulting@bugseng.com,m:nicola.vetrini@bugseng.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-0.997];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[11];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6316516B08B
+X-Rspamd-Queue-Id: B544616B0B6
 X-Rspamd-Action: no action
 
-A range of functions can't see their declarations, requiring the inclusion of
-appropriate headers.
+Eclair complains that tboot_gen_domain_integrity() is casting away
+constness (Rule 11.8 violation).
 
-For pv/mm.h and pv/traps.h, this requires adjustements to become standalone.
-
-In pv/mm.h, swap xen/lib.h for xen/bug.h now that ASSERT_UNREACHABLE() has
-moved.  For pv/traps.h, pv_trap_callback_registered() needs to see a complete
-struct vcpu, and xen/sched.h is not something appropriate to pull in
-conditionally.
-
-stack-protector.c can't see the declaration of __stack_chk_guard, and fixing
-that reveals that stack-protector.h needs get_cycles() too.
+vmac_set_key() doesn't modify the user_key parameter, so it can become const,
+removing the need to cast.
 
 No functional change.
 
@@ -166,229 +160,68 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: consulting@bugseng.com <consulting@bugseng.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/x86/include/asm/pv/mm.h    | 8 +++++++-
- xen/arch/x86/include/asm/pv/traps.h | 6 ++----
- xen/arch/x86/mm/mem_paging.c        | 6 ++++--
- xen/arch/x86/pv/emul-gate-op.c      | 2 ++
- xen/arch/x86/pv/emul-inv-op.c       | 1 +
- xen/arch/x86/pv/emul-priv-op.c      | 1 +
- xen/arch/x86/pv/emulate.c           | 1 +
- xen/arch/x86/pv/grant_table.c       | 1 +
- xen/arch/x86/pv/mm.c                | 1 +
- xen/arch/x86/pv/ro-page-fault.c     | 1 +
- xen/arch/x86/pv/traps.c             | 1 +
- xen/arch/x86/x86_64/machine_kexec.c | 3 ++-
- xen/common/stack-protector.c        | 1 +
- xen/include/xen/stack-protector.h   | 2 ++
- 14 files changed, 27 insertions(+), 8 deletions(-)
+ xen/arch/x86/tboot.c      | 6 +++---
+ xen/crypto/vmac.c         | 2 +-
+ xen/include/crypto/vmac.h | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/pv/mm.h b/xen/arch/x86/include/asm/pv/mm.h
-index a5745908206a..11a43f15e222 100644
---- a/xen/arch/x86/include/asm/pv/mm.h
-+++ b/xen/arch/x86/include/asm/pv/mm.h
-@@ -10,6 +10,12 @@
- #ifndef __X86_PV_MM_H__
- #define __X86_PV_MM_H__
+diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+index 0b3d596690cc..5ae27f481f94 100644
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -202,7 +202,7 @@ static void tboot_gen_domain_integrity(const uint8_t key[TB_KEY_SIZE],
+     uint8_t nonce[16] = {};
+     vmac_ctx_t ctx;
  
-+#include <xen/stdbool.h>
-+
-+struct cpu_user_regs;
-+struct page_info;
-+struct vcpu;
-+
- #ifdef CONFIG_PV
+-    vmac_set_key((uint8_t *)key, &ctx);
++    vmac_set_key(key, &ctx);
+     for_each_domain( d )
+     {
+         if ( !(d->options & XEN_DOMCTL_CDF_s3_integrity) )
+@@ -241,7 +241,7 @@ static void tboot_gen_xenheap_integrity(const uint8_t key[TB_KEY_SIZE],
+     uint8_t nonce[16] = {};
+     vmac_ctx_t ctx;
  
- int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs);
-@@ -26,7 +32,7 @@ int validate_segdesc_page(struct page_info *page);
- #else
+-    vmac_set_key((uint8_t *)key, &ctx);
++    vmac_set_key(key, &ctx);
+     for ( mfn = 0; mfn < max_page; mfn++ )
+     {
+         struct page_info *page = mfn_to_page(_mfn(mfn));
+@@ -272,7 +272,7 @@ static void tboot_gen_frametable_integrity(const uint8_t key[TB_KEY_SIZE],
+     uint8_t nonce[16] = {};
+     vmac_ctx_t ctx;
  
- #include <xen/errno.h>
--#include <xen/lib.h>
-+#include <xen/bug.h>
+-    vmac_set_key((uint8_t *)key, &ctx);
++    vmac_set_key(key, &ctx);
+     for ( sidx = 0; ; sidx = nidx )
+     {
+         eidx = find_next_zero_bit(pdx_group_valid, max_idx, sidx);
+diff --git a/xen/crypto/vmac.c b/xen/crypto/vmac.c
+index f1f6d75f8eeb..c9914d2c7c1d 100644
+--- a/xen/crypto/vmac.c
++++ b/xen/crypto/vmac.c
+@@ -924,7 +924,7 @@ uint64_t vmac(unsigned char m[],
  
- static inline int pv_ro_page_fault(unsigned long addr,
-                                    struct cpu_user_regs *regs)
-diff --git a/xen/arch/x86/include/asm/pv/traps.h b/xen/arch/x86/include/asm/pv/traps.h
-index 8c31d5a793c5..8c201190923d 100644
---- a/xen/arch/x86/include/asm/pv/traps.h
-+++ b/xen/arch/x86/include/asm/pv/traps.h
-@@ -10,9 +10,9 @@
- #ifndef __X86_PV_TRAPS_H__
- #define __X86_PV_TRAPS_H__
+ /* ----------------------------------------------------------------------- */
  
--#ifdef CONFIG_PV
-+#include <xen/sched.h>
+-void vmac_set_key(unsigned char user_key[], vmac_ctx_t *ctx)
++void vmac_set_key(const unsigned char user_key[], vmac_ctx_t *ctx)
+ {
+     uint64_t in[2] = {0}, out[2];
+     unsigned i;
+diff --git a/xen/include/crypto/vmac.h b/xen/include/crypto/vmac.h
+index 457f3f5dd6da..7574c4a3f328 100644
+--- a/xen/include/crypto/vmac.h
++++ b/xen/include/crypto/vmac.h
+@@ -161,7 +161,7 @@ uint64_t vhash(unsigned char m[],
+  * When passed a VMAC_KEY_LEN bit user_key, this function initialazies ctx.
+  * ----------------------------------------------------------------------- */
  
--#include <public/xen.h>
-+#ifdef CONFIG_PV
+-void vmac_set_key(unsigned char user_key[], vmac_ctx_t *ctx);
++void vmac_set_key(const unsigned char user_key[], vmac_ctx_t *ctx);
  
- int pv_raise_nmi(struct vcpu *v);
+ /* --------------------------------------------------------------------- */
  
-@@ -28,8 +28,6 @@ static inline bool pv_trap_callback_registered(const struct vcpu *v,
- 
- #else  /* !CONFIG_PV */
- 
--#include <xen/errno.h>
--
- static inline int pv_raise_nmi(struct vcpu *v) { return -EOPNOTSUPP; }
- 
- static inline int pv_emulate_privileged_op(struct cpu_user_regs *regs) { return 0; }
-diff --git a/xen/arch/x86/mm/mem_paging.c b/xen/arch/x86/mm/mem_paging.c
-index d4b3cb990c54..33929b526ab9 100644
---- a/xen/arch/x86/mm/mem_paging.c
-+++ b/xen/arch/x86/mm/mem_paging.c
-@@ -7,10 +7,12 @@
-  * Copyright (c) 2009 Citrix Systems, Inc. (Patrick Colp)
-  */
- 
--
--#include <asm/p2m.h>
- #include <xen/guest_access.h>
- #include <xen/vm_event.h>
-+
-+#include <asm/mem_paging.h>
-+#include <asm/p2m.h>
-+
- #include <xsm/xsm.h>
- 
- #include "mm-locks.h"
-diff --git a/xen/arch/x86/pv/emul-gate-op.c b/xen/arch/x86/pv/emul-gate-op.c
-index 1faf13b962b1..c2c699fbff40 100644
---- a/xen/arch/x86/pv/emul-gate-op.c
-+++ b/xen/arch/x86/pv/emul-gate-op.c
-@@ -9,6 +9,8 @@
- 
- #include <xen/err.h>
- 
-+#include <asm/pv/traps.h>
-+
- #include "emulate.h"
- 
- static int read_gate_descriptor(unsigned int gate_sel,
-diff --git a/xen/arch/x86/pv/emul-inv-op.c b/xen/arch/x86/pv/emul-inv-op.c
-index 346ac1124d7b..23d2928b00cd 100644
---- a/xen/arch/x86/pv/emul-inv-op.c
-+++ b/xen/arch/x86/pv/emul-inv-op.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <asm/pv/trace.h>
-+#include <asm/pv/traps.h>
- 
- #include "emulate.h"
- 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 1d9e57ad2763..a3c1fd12621d 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -21,6 +21,7 @@
- #include <asm/mc146818rtc.h>
- #include <asm/pv/domain.h>
- #include <asm/pv/trace.h>
-+#include <asm/pv/traps.h>
- #include <asm/shared.h>
- #include <asm/stubs.h>
- 
-diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
-index 0022e0f55e30..a00d1c6c82eb 100644
---- a/xen/arch/x86/pv/emulate.c
-+++ b/xen/arch/x86/pv/emulate.c
-@@ -10,6 +10,7 @@
- #include <xen/guest_access.h>
- 
- #include <asm/debugreg.h>
-+#include <asm/pv/domain.h>
- 
- #include "emulate.h"
- 
-diff --git a/xen/arch/x86/pv/grant_table.c b/xen/arch/x86/pv/grant_table.c
-index 247436a0156a..1df68440a24a 100644
---- a/xen/arch/x86/pv/grant_table.c
-+++ b/xen/arch/x86/pv/grant_table.c
-@@ -12,6 +12,7 @@
- #include <public/grant_table.h>
- 
- #include <asm/p2m.h>
-+#include <asm/pv/grant_table.h>
- #include <asm/pv/mm.h>
- 
- #include "mm.h"
-diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
-index 187f5f6a3e8c..3f2e9dedcde3 100644
---- a/xen/arch/x86/pv/mm.c
-+++ b/xen/arch/x86/pv/mm.c
-@@ -12,6 +12,7 @@
- 
- #include <asm/current.h>
- #include <asm/p2m.h>
-+#include <asm/pv/mm.h>
- 
- #include "mm.h"
- 
-diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
-index 9c6f66884675..d89306d34fc6 100644
---- a/xen/arch/x86/pv/ro-page-fault.c
-+++ b/xen/arch/x86/pv/ro-page-fault.c
-@@ -8,6 +8,7 @@
-  * Copyright (c) 2004 Christian Limpach
-  */
- 
-+#include <asm/pv/mm.h>
- #include <asm/pv/trace.h>
- #include <asm/shadow.h>
- 
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 26a468108a77..b0395b99145a 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -16,6 +16,7 @@
- #include <asm/idt.h>
- #include <asm/irq-vectors.h>
- #include <asm/pv/trace.h>
-+#include <asm/pv/traps.h>
- #include <asm/shared.h>
- #include <asm/traps.h>
- 
-diff --git a/xen/arch/x86/x86_64/machine_kexec.c b/xen/arch/x86/x86_64/machine_kexec.c
-index f4a005cd0c2f..f9e54d86fb53 100644
---- a/xen/arch/x86/x86_64/machine_kexec.c
-+++ b/xen/arch/x86/x86_64/machine_kexec.c
-@@ -6,8 +6,9 @@
-  * - Magnus Damm <magnus@valinux.co.jp>
-  */
- 
--#include <xen/types.h>
- #include <xen/kernel.h>
-+#include <xen/kexec.h>
-+
- #include <asm/page.h>
- #include <public/kexec.h>
- 
-diff --git a/xen/common/stack-protector.c b/xen/common/stack-protector.c
-index 2115912c3bd0..05e57d4509e2 100644
---- a/xen/common/stack-protector.c
-+++ b/xen/common/stack-protector.c
-@@ -2,6 +2,7 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/random.h>
-+#include <xen/stack-protector.h>
- #include <xen/time.h>
- 
- /*
-diff --git a/xen/include/xen/stack-protector.h b/xen/include/xen/stack-protector.h
-index 931affd919be..65488bdabced 100644
---- a/xen/include/xen/stack-protector.h
-+++ b/xen/include/xen/stack-protector.h
-@@ -1,6 +1,8 @@
- #ifndef __XEN_STACK_PROTECTOR_H__
- #define __XEN_STACK_PROTECTOR_H__
- 
-+#include <xen/time.h>
-+
- extern unsigned long __stack_chk_guard;
- 
- /*
 -- 
 2.39.5
 
