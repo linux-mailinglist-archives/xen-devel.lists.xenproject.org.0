@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OFc2CKM1mGn/CgMAu9opvQ
+	id 4FzSNoE2mGkkDAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:21:23 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:25:05 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D83166CA8
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:21:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1236993.1539467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C7A166CE0
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 11:25:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237001.1539478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtNd3-0001Ld-UN; Fri, 20 Feb 2026 10:20:57 +0000
+	id 1vtNgs-0001va-D5; Fri, 20 Feb 2026 10:24:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1236993.1539467; Fri, 20 Feb 2026 10:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 1237001.1539478; Fri, 20 Feb 2026 10:24:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtNd3-0001Je-Rm; Fri, 20 Feb 2026 10:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 1236993;
- Fri, 20 Feb 2026 10:20:56 +0000
+	id 1vtNgs-0001sw-AM; Fri, 20 Feb 2026 10:24:54 +0000
+Received: by outflank-mailman (input) for mailman id 1237001;
+ Fri, 20 Feb 2026 10:24:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S1uT=AY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vtNd2-0001JW-KC
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 10:20:56 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1vtNgr-0001sq-3Y
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 10:24:53 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d68e6bed-0e45-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 11:20:54 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-4359108fd24so1164870f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 02:20:54 -0800 (PST)
+ id 638872a0-0e46-11f1-9ccf-f158ae23cfc8;
+ Fri, 20 Feb 2026 11:24:50 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4836d4c26d3so17602645e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 02:24:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a74704sm58880944f8f.16.2026.02.20.02.20.52
+ 5b1f17b1804b1-483a3deb73bsm14851535e9.3.2026.02.20.02.24.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Feb 2026 02:20:53 -0800 (PST)
+ Fri, 20 Feb 2026 02:24:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d68e6bed-0e45-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 638872a0-0e46-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771582853; x=1772187653; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771583090; x=1772187890; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=McoxHz2HBEyEzNFLtGp4vY7tQE4z4XUs6CTdw6m7ejo=;
-        b=F0l+QgBZEXKRyiPpejyBVUD6PEF4XnHh2qLIrNg6EXKKcVpdi6ng73zeTDIbh0XeqQ
-         YCmegUYgyxZwAMphaC50bUN1TvydpO6JeR/6cvNKPco6wmHVCY93RXVX3PNOLo74vTvI
-         Mq+2rvl5QTNdTzLdFM6VW4NGw2qVhGSuZHLc/6Zf6C8ykXoscxK6B6nr1MsruRV/bv4m
-         HC/0+BjaP7UQF08uv2hSoH1phazg22CttzuFhhtlLk7jGhUrZHuNEPFPCHuSNSpcar/z
-         sMZBSBN5pEEq4fnk+h4H6vQ9JkLbKaAAKmSbwpo/VmQ/PQidCncUUKAo3PLv84MFoZ9q
-         9tgQ==
+        bh=G8yuAOpKv5gJV7/hWT9Eym5FISxKjmQHGU5CBjznLIk=;
+        b=GGMxKULluOwOO/EWEAIgu7V1EKsVWf1AktIRVr4I3ImumyfZhJqTwu5TB2i0wGTdzK
+         b7Y0+iULLzV0+rRAD1eDSKg5PkJFluKyGXrnd1BhS5Cbc+DpirxXlUdXIoyvX1s1tH0j
+         k2qtlgeSEnzmWBzooI1hPzSBDGqvC49VCs8yR2s+Szwofp8u2KFOtrwfN35ajLEkrTVr
+         FKiJlh5OX6E7/ZvWysUqBLJyO3SwyPWqVirbBNZrffjQ79dCsjLXKhD9cjSGI66dyh6k
+         F75T/AnldjNnlB1YhPhyghXFyIHC36NVWnlvYz/wpfyTxIJ2pbEfNYldhpTUxLDdPqRb
+         iR4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771582853; x=1772187653;
+        d=1e100.net; s=20230601; t=1771583090; x=1772187890;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=McoxHz2HBEyEzNFLtGp4vY7tQE4z4XUs6CTdw6m7ejo=;
-        b=Bz2i2kV9sb80KXiQRqAX37CTnxiufXdtnT+ZFIhDui9nxO3qIrQCcvUaVYYhmTInuF
-         vELV32Yqk6UBSzSF5W1rpXPMAhAOBb9y4q62NXML4U4bP18yPQTGjXDkxdSc79FezzZn
-         rIQKzZAjZZBAOVckmzPpJkswzP4KhhkBaWtUIPjLDPUjdfyHtQkM2VqI/dydjNagFlfz
-         hLfECCQApTA6hijjG8fhMLq+M0EAXUilJS4AsER+V8hH8qcQncBqvU0SQTGJy+Dioboh
-         tsJGsB3h12+R0+mOjdBh1ynVnKUnlwDCjWMvre/+EHUu9Wz/GZaHDl1YubVN7Q33KPZk
-         OPyA==
-X-Gm-Message-State: AOJu0YxYraacFOWv6nUUwwuB3QjETowEohYZTd5YHZnIoOyb1KRc2dys
-	BfWsBfJrcEw7tp4LWoKu6fcujc+InoxhWo2s0xXeZ0v0gtRz7sARdE0K+fRUW8kVDQ==
-X-Gm-Gg: AZuq6aJNRAvcHBjoQsFjBZ/7zHbXZ+byeXDtF8POfq4n6OeZqSx6KLRNMNayEsU/OR3
-	YefT46YiBT/L04ghO+MSQGERvGRSomNTh4UEtlEag+sSZvPikDnRV6GzTTNp5lPSsNzLPmithCQ
-	5TAEGNLuOjl7WA/7M4f7Sf8xQ/WWDl+PYzbwPpzcXmk6tap5eOaHkv0Ki+M9fbQDimMf0LYtRIj
-	ZwlCA7HPFftDyTOaT2/7TVB+ExYT9EPimrgzTzbUrWvrgavpERyG9UQl68cl/5pphZvvmyJs04L
-	2kjfQ+R8q6rxf3D5WIXddZp9aaKTTkkYL2pVFe4SK3wEPDWYrErlI1IVHh7a48rVbtBTtWHYWCN
-	uDjdlZVmPtrBkvxKcXFgtEpQa1S9Y3dxLjt3DBVKBjCFdWoKh47qiukGrzZ90xqa7ASGaCpTuhR
-	WTztyJ7KaiK2+5nwVd4txe9+f8cFGwkGl2kztj7h50lyyUWAEJeJr44cZramw5I8a8QO0iW3ShN
-	3O/nllx92LFSCDROyMUUv252w==
-X-Received: by 2002:a05:6000:24c9:b0:3ec:db87:e5f4 with SMTP id ffacd0b85a97d-4395fd2afebmr8225349f8f.7.1771582853464;
-        Fri, 20 Feb 2026 02:20:53 -0800 (PST)
-Message-ID: <b82a2dee-aa37-4b05-b368-60af8c54edf2@suse.com>
-Date: Fri, 20 Feb 2026 11:20:52 +0100
+        bh=G8yuAOpKv5gJV7/hWT9Eym5FISxKjmQHGU5CBjznLIk=;
+        b=NXGdSYK3TqJb2++571kcSl6gon7LML3JHxTgfhWZ8KREGkIpL9phW406qtP1LC0G4L
+         ps6UAG+S1+HrN7+AQEyAPun7IC0rSOOaGx6jnjNExFOynlt96h8VD4xoUElu22bfWlPC
+         3Nk49KH5lmyvaQfxOCGFNPxxcAbBm2xZ4/g5clrHeEKffILcl6o6y2yajFWsEEXvQVZ/
+         y19O6kRTunCCFOIsQCEKoJplFGSc51HJcfaZs0Fat+pZLMwKW5yL1OCiOwJSBX25MAYS
+         ZLG+ZBS9cpsG99P9Dg6qEkCZwU1Qs805e1yH+m2VF/7mQM/iLfu3cM6WKmlq1Mea2sxA
+         Ym1g==
+X-Forwarded-Encrypted: i=1; AJvYcCUpHUwkdn2SMJd6E1LX7/U4htZCZT1R1MLKwX65+hHnx+0xdXRofdlLjtQEqWV8exPLdH9cOcoNSZE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxU1dVgT7+RdSrtY8G2SkGGNwtp/JbFyi2mNUxzSzy9KSfNfO/H
+	rE2namqGcDYoZX9Cntp6MmP5VQg6xWw9diAvNl+o/bkDTYjK6Z4ujp6j8c51HCMtmQ==
+X-Gm-Gg: AZuq6aIkadFKlMLb/440pWCDvHC9Tx/ZdCD8Au5+ZWYl2f+9b3c3XJwBo0Hmg8VUYrH
+	9b6yI6XvRJrFzxcF+ZnPM9VCwHT8ENFyVMI2ILLvpLRZb31x1kppmZTl/RSek5GjNpDTRMEounP
+	BDPbWIhcIPu58Uz3ECWZotVs34gjhcuZFjsV0UroVooLrV6FvxvYd1F7XsKu/GYn5uZZ8WG6IPo
+	amiksUfskXZrOtiRYxubWn0ilGzhdmgHrVC1WbXb/8+T+KKhJwn8FjpfPjQQHnW7CtxctyA5jTD
+	/Sxl64Pd0JLDgEGnBmKMD/lf1A1Q5oAMMlDWe+PGpfHQnCHPOITWRDUIQN8pPHMAkzrnwLFKghS
+	Nkxy747r6238Dmk4H7a+79gkABIQ/98A/5k7Trhaeb8u1gUWWKIW+C1yIfV3eUl5hFeD58hy1S8
+	tRsrvyVlQ5JgUhwPEtE8N3e+O5iB/v5NnP5t7iDDssdDRdPltclR3mNDKEqCdnaLwiTt0c67ESh
+	tPfF+sB5dnPCoo=
+X-Received: by 2002:a05:600c:198c:b0:480:4b59:932e with SMTP id 5b1f17b1804b1-483a531d64emr21428345e9.11.1771583090113;
+        Fri, 20 Feb 2026 02:24:50 -0800 (PST)
+Message-ID: <edbfa0a5-466d-4748-93a1-a250156142e0@suse.com>
+Date: Fri, 20 Feb 2026 11:24:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-References: <25c65557-c97c-499c-a698-571e40cde563@suse.com>
- <67b1f190-a7a8-4cf2-89ca-7186204f0b56@suse.com>
- <aZgpRAXefanISluT@macbook.local>
+Subject: Re: [PATCH] x86/p2m: clarify foreign map handling in
+ p2m_entry_modify()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260220100509.49700-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,133 +123,104 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aZgpRAXefanISluT@macbook.local>
+In-Reply-To: <20260220100509.49700-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email,citrix.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-0.998];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 80D83166CA8
+X-Rspamd-Queue-Id: 47C7A166CE0
 X-Rspamd-Action: no action
 
-On 20.02.2026 10:28, Roger Pau Monné wrote:
-> On Tue, Feb 10, 2026 at 11:55:34AM +0100, Jan Beulich wrote:
->> When Dom0 informs us about MMCFG usability, this may change whether
->> extended capabilities are available (accessible) for devices. Zap what
->> might be on record, and re-initialize things.
->>
->> No synchronization is added for the case where devices may already be in
->> use. That'll need sorting when (a) DomU support was added and (b) DomU-s
->> may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> vpci_reinit_ext_capabilities()'es return value isn't checked, as it
->> doesn't feel quite right to fail the hypercall because of this. At the
->> same time it also doesn't feel quite right to have the function return
->> "void". Thoughts?
+On 20.02.2026 11:05, Roger Pau Monne wrote:
+> Introduce an extra check and comment to ensure the outer caller has
+> possibly taken an extra reference on the foreign page that's about to be
+> removed from the p2m.  Otherwise the put_page() in p2m_entry_modify() won't
+> be safe to do ahead of the entry being removed form the p2m and any cached
+> states purged.
 > 
-> For the non hardwware domain case we could deassign the device from
-> the domain?
-
-Will need to check. De-assigning is generally done only from domctl context,
-I think. I'm also uncertain what other things may break (in Xen or the
-toolstacks) if we take away a device in such a pretty much uncontrolled way.
-
-> And print a warning message for both cases.
-
-Can do, albeit I'm unsure what "both" refers to - I see only ...
-
->> --- a/xen/arch/x86/physdev.c
->> +++ b/xen/arch/x86/physdev.c
->> @@ -8,6 +8,8 @@
->>  #include <xen/guest_access.h>
->>  #include <xen/iocap.h>
->>  #include <xen/serial.h>
->> +#include <xen/vpci.h>
->> +
->>  #include <asm/current.h>
->>  #include <asm/io_apic.h>
->>  #include <asm/msi.h>
->> @@ -169,7 +171,10 @@ int cf_check physdev_check_pci_extcfg(st
->>  
->>      ASSERT(pdev->seg == info->segment);
->>      if ( pdev->bus >= info->start_bus && pdev->bus <= info->end_bus )
->> +    {
->>          pci_check_extcfg(pdev);
->> +        vpci_reinit_ext_capabilities(pdev);
->> +    }
-
-... this.
-
->> @@ -376,6 +379,20 @@ void vpci_cleanup_capabilities(struct pc
->>      }
->>  }
->>  
->> +int vpci_reinit_ext_capabilities(struct pci_dev *pdev)
->> +{
->> +    if ( !pdev->vpci )
->> +        return 0;
->> +
->> +    vpci_cleanup_capabilities(pdev, true);
->> +
->> +    if ( vpci_remove_registers(pdev->vpci, PCI_CFG_SPACE_SIZE,
->> +                               PCI_CFG_SPACE_EXP_SIZE - PCI_CFG_SPACE_SIZE) )
->> +        ASSERT_UNREACHABLE();
->> +
->> +    return vpci_init_capabilities(pdev, true);
+> While there also replace the error codes for unreachable paths to use
+> EILSEQ.
 > 
-> I wonder here, in the context here, where the device is already
-> assigned to a domain you likely need to take the vPCI lock to safely
-> perform (parts of?) the cleanup and reinit.  Otherwise you could free
-> capability data while it's being accessed by the handlers.
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-The lock isn't recursive, so I fear we'd deadlock if it was taken here.
-Furthermore this falls into "DomU support needs dealing with"; right
-now we assume Dom0 tells us about its final MCFG verdict ahead of
-putting devices in use. Once we need to consider devices already in
-use, I think we would further need to pause the owning domain. Also ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> The only current extended capability (reBAR) doesn't have any internal
-> state to free on cleanup, so it's all safe.  But a cleanup like the
-> MSI(-X) ones would be racy, as they free the structure without holding
-> the vPCI lock.  I think we need to be careful, and possibly adjust the
-> cleanup functions so they can tolerate cleanup with possible
-> concurrent accesses.
+> --- a/xen/arch/x86/include/asm/p2m.h
+> +++ b/xen/arch/x86/include/asm/p2m.h
+> @@ -1066,7 +1066,7 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
+>          if ( !mfn_valid(nfn) || p2m != p2m_get_hostp2m(p2m->domain) )
+>          {
+>              ASSERT_UNREACHABLE();
+> -            return -EINVAL;
+> +            return -EILSEQ;
+>          }
+>  
+>          if ( !page_get_owner_and_reference(mfn_to_page(nfn)) )
+> @@ -1088,14 +1088,26 @@ static inline int p2m_entry_modify(struct p2m_domain *p2m, p2m_type_t nt,
+>          break;
+>  
+>      case p2m_map_foreign:
+> -        if ( !mfn_valid(ofn) || p2m != p2m_get_hostp2m(p2m->domain) )
+> +    {
+> +        struct page_info *pg = mfn_valid(ofn) ? mfn_to_page(ofn) : NULL;
+> +        unsigned long ci = pg ? ACCESS_ONCE(pg->count_info) : 0;
+> +
+> +        if ( !pg || p2m != p2m_get_hostp2m(p2m->domain) ||
+> +             /*
+> +              * Rely on the caller also holding a reference to the page, so
+> +              * that the put_page() below doesn't cause the page to be
+> +              * freed, as it still has to be removed from the p2m.
+> +              */
+> +             (ci & PGC_count_mask) <= (ci & PGC_allocated ? 2 : 1) ||
+> +             !p2m->nr_foreign )
+>          {
+>              ASSERT_UNREACHABLE();
+> -            return -EINVAL;
+> +            return -EILSEQ;
+>          }
+> -        put_page(mfn_to_page(ofn));
+> +        put_page(pg);
+>          p2m->nr_foreign--;
+>          break;
+> +    }
+>  
+>      default:
+>          break;
 
-... to cover such. (For something like MSI(-X) it might then further be
-necessary to mask/disable interrupts, but hopefully we'll never have to
-deal with extended capabilities that would require this.)
+Unrelated to the particular change here, I wonder whether it's about time to
+out-of-line this ever-growing function.
 
 Jan
 
