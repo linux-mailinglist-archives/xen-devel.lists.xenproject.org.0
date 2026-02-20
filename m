@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6GUFNHDWmGl+NQMAu9opvQ
+	id QB1FOhPZmGnlNQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:28 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:58:43 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB40A16B0DA
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237620.1539947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3915516B161
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:58:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237706.1539972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYLE-0002Ke-Ku; Fri, 20 Feb 2026 21:47:16 +0000
+	id 1vtYVj-0007y7-EX; Fri, 20 Feb 2026 21:58:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237620.1539947; Fri, 20 Feb 2026 21:47:16 +0000
+Received: by outflank-mailman (output) from mailman id 1237706.1539972; Fri, 20 Feb 2026 21:58:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYLE-0002DJ-9P; Fri, 20 Feb 2026 21:47:16 +0000
-Received: by outflank-mailman (input) for mailman id 1237620;
- Fri, 20 Feb 2026 21:47:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vtYVj-0007vb-Bh; Fri, 20 Feb 2026 21:58:07 +0000
+Received: by outflank-mailman (input) for mailman id 1237706;
+ Fri, 20 Feb 2026 21:58:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2tad=AY=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vtYLB-0008IG-LP
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:13 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6834de7-0ea5-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 22:47:12 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso33419825e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:12 -0800 (PST)
-Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
- [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 13:47:10 -0800 (PST)
+ <SRS0=CjHa=AY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1vtYVi-0007vV-LB
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:58:06 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b6cffe8-0ea7-11f1-b164-2bf370ae4941;
+ Fri, 20 Feb 2026 22:58:04 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 93C724EE7813;
+ Fri, 20 Feb 2026 22:58:03 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,156 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6834de7-0ea5-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1771624031; x=1772228831; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wazStv22+sAAkXhUXk9SZLE13GE7UuEeUTF8Qgk68Bw=;
-        b=sRmJDvz7AA8KjQEgnW8scWIUHxFwE1hulQAg37MKray+hg2erxodWMFHLuF/ZShj1u
-         WaVRCrzpQdDjMxLCBAGp3eZrI6Iq5/sEVFbc6zZbqnvLRlCbxnQ08fwv75m75ITtuFvx
-         j8KYZkbC8UqeXdb6mbVKaYTrOCjrCoFYdxb34=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771624031; x=1772228831;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wazStv22+sAAkXhUXk9SZLE13GE7UuEeUTF8Qgk68Bw=;
-        b=mCWhEbyq1JmmYgVe5Zkw3COkR5h/u07AtjBkdb+fhkWX+xeqpTBAZqUN6U5Vybx2fG
-         HqevFpvtbqhcONko4ixOttxiMXLFjXh/cwIH7pc9gfW7Xn11RTzAEpt7OdcFmFesCJrD
-         b7uWdwnOTU7lw5J2PwjVSNefGSnS7Xk/IznTIF2jePKnhLgYoTlrmkRBvYzNNXXZLEtu
-         RFEXZ0uNAPOxDXSUgpMNNmO5O12/IoREAhr9hILVnMnRddAxTzAdRP/Fi+MJoJsAhg4S
-         1hHTbCYRT9MH8lz0SH9+DhUIW0T+LK9ImtsA0qql60HBMkMyywH5aiGZ5/4UR/Kp91R2
-         yOQg==
-X-Gm-Message-State: AOJu0YzGiC18ynmA17YwOIjN+NAPLwrn45/jf/MVdJxEogiy5OGtyFls
-	ubX06YSYkBpvY+8SRQ5s14aZukAeB0FuuAXGWhbwHrcRwv54L/AT9HVJBxmr5OOBqRlnMTqTiue
-	lnUrs5gO/5Q==
-X-Gm-Gg: AZuq6aIxtFHHoliPmnnNbF6QT02HQcyzOQFw3u49bGAw0ZZbSSdgNPcCr7kIR8rgkGY
-	OvcHxm8bh26Zg0DodwP2BT3YVS6o/U5cg8I8TlNgAIDmNApplVME8aFAgFbP7h7Vt/sE9nG7WQd
-	N7XYNtAhCXJNirj3PJzjOy+wiEMdvGDfJMNhb5pTn5dzNkCJu69T6JvIBNgkZp/wYYgc2pm0E/A
-	5axwb8yNLBt//txlN+mfyO71lhH2+/XqTVXDxv1mryGYDfrDBtdhmQVLambtB3CIi4fxteo1uaT
-	EKdwAaWpij3BKf/HDyBMrsJdvCEKRa4wIZR1xXUyCWCZ3MQGjt4En8gc7vZqFqUKdLPVHfvyR1r
-	21aJMkOMltXql01KFUzSubedYF0MyR6S+brNmTdd5SlbIegskTVWHNmqcy81LUnSHXvdg1JT0oD
-	DXuKpPJKVYN/YvwyqxQMpdTJ4qSDZEfyW9k/DyQwRhNSyJOZRL7UAvumbBrJ+uj9eehqDjaJ0=
-X-Received: by 2002:a05:600c:1f08:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-483a94c996fmr16228945e9.11.1771624031099;
-        Fri, 20 Feb 2026 13:47:11 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	"consulting @ bugseng . com" <consulting@bugseng.com>,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 12/12] xen/vmac: Delete STDINT block in vmac.h
-Date: Fri, 20 Feb 2026 21:46:53 +0000
-Message-Id: <20260220214653.3497384-13-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
-References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 3b6cffe8-0ea7-11f1-b164-2bf370ae4941
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1771624683;
+	b=od/wvcOw5vbDQpvmAEMfDB20D5XZoOGEbxlfGQJVjawtDSksmyzYGi/olyuPPi/EDuZF
+	 pXaGkLhv3dCKptrqFd6qP7AyQ4Q2/gL+f4HPr7/i3EVg87AWkDlrtMN8TgRX7YeO1dhbt
+	 rdAf5i7iUsk8bDszyQIP2cKIRWJTZrOezywvmsHNOUC3H8bRhiX9P+0INN68DVBBGJ9og
+	 14KCiG5Wppg50cpFnbKSTe4bdFRwhJvqsbZubA/VZljezFr0pYXY49m3V4H5fviiBKQ05
+	 sDq0UhsNusr8zBukC/eV8pqCaVwwfapXJQaO/evI2dw+EifLBIWXP9lLssew8WPzEdoDQ
+	 3NoEbpvKm5TwZnPrOdyRCD6Lfur+sKJIOwqKLqttrWJsTOTNaGXZ/zrxIFI8zvhCYG2g4
+	 KUTwQQLtEQe8Fz22epXode/C3Aao46gT6TBafijnrBdEshsdcYZpT6wUqRtgwTejyU64L
+	 w1FfJAwfDhKj0xU42hJg+4+eHy6U4w6qTn8EEVoUYeGdKlOZ5F3EI3epbD6FjMrGO/VUD
+	 TzV03Ne8JtuQ3WD7LNZG2kZUs/6nzPmphnS9pl+aCa2IiREdlelfT/BpenVbL7LJmwtcR
+	 e0Rl46A40B1I4bBCZbl5EPiX1F+ZC/riH4sW90KXy2PYwV68NG1YFFRPsHAATvc=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1771624683;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SQUL1z7BRzL3A60Mgp+F9p0fDu9xJ4j1gn+DCTcytBU=;
+	b=mlFpqNtKw55Ev+PZoM0AIgXFmzcAdp0og1MIyH34KTCe1gTyr79FyGilNHyzo42y/ds5
+	 Jxknc9qTZ/p2pSLnEYFydeggecJFplDLKLD8hIU59ClteX5zKgJsDrCV8/S97Vy5QcWO/
+	 W9mfh/Jlv3sFiKXRkRNUJIr/azzUtvO3jNCR8MQkjEDY5GOfyIaB4pTHKBu3vLEiXt/Sv
+	 A+BEkZvgxniTUQsa6almXBsv6+W/I1M8TpuOTrOQqSre9Pt02QlH82GprX+gG6WCgBEvY
+	 wLddFwDBpLLzHl7cCNUngBOCbLBPafZ45Su1hEWt3plG68Rek71DXH23eIM5cmOc+LpUZ
+	 LJodPaYm8uu1gbO4OD9xjalnDd5QqoJ7aYDLeTMTTh+IfChMRS98EGhjfEkufir8WIbSv
+	 3rlSFAuIuHeCMJZfHLtJHLYgdH0pRqRi2F1Zb1mb6a8rrtqMm+gCCcSAqeqTea2CqpWDQ
+	 HkaUl9qeizEJ2cS0NPhUe0mhFYrr215Ro2V8V13uQKNICRYbauFEU2PQRv9Lr/a0iRine
+	 ewytvHhxHOkWw+1dun1m/oUPSDY82VbbvHaxx9ObKMoHg/9pnApbDdSM5ZT1ejb680wfS
+	 VgQcjrvfz3NLUHzr7boT2DFqEWsueHi8/t6G1+r8mSFtdAVEfSBO5tB+JjF3S1o=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Feb 2026 22:58:03 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+ <michal.orzel@amd.com>, "consulting @ bugseng . com"
+ <consulting@bugseng.com>
+Subject: Re: [PATCH 01/12] arm: Use __func__ in acpi_boot_table_init()
+In-Reply-To: <20260220214653.3497384-2-andrew.cooper3@citrix.com>
+References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
+ <20260220214653.3497384-2-andrew.cooper3@citrix.com>
+Message-ID: <26db9f5f17b162c0b183cff90cb452da@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.39 / 15.00];
+	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	DMARC_POLICY_SOFTFAIL(0.10)[bugseng.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:consulting@bugseng.com,m:nicola.vetrini@bugseng.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:consulting@bugseng.com,s:lists@lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	HAS_ORG_HEADER(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
+	MISSING_XM_UA(0.00)[];
+	R_DKIM_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: CB40A16B0DA
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 3915516B161
 X-Rspamd-Action: no action
 
-Eclair complains that _MSC_VER is undefined (a Rule 20.9 violation).
+On 2026-02-20 22:46, Andrew Cooper wrote:
+> Elcair rejects __FUNCTION__ as nonstandard syntax and a R1.1 violation.
+> 
 
-This could be fixed by inserting an "&& defined(_MSC_VER)" clause, but the
-whole block is entirely useless (it comments out the include of stdint) and
-the top of vmac.c pulls in xen/types.h specifically.
+s/Elcair/ECLAIR/
 
-Simply delete the block.
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
 
-No functional change.
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: consulting@bugseng.com <consulting@bugseng.com>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- xen/include/crypto/vmac.h | 23 -----------------------
- 1 file changed, 23 deletions(-)
+>  xen/arch/arm/acpi/boot.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/acpi/boot.c b/xen/arch/arm/acpi/boot.c
+> index db5085e15d84..4ac0fd8f51e8 100644
+> --- a/xen/arch/arm/acpi/boot.c
+> +++ b/xen/arch/arm/acpi/boot.c
+> @@ -264,14 +264,14 @@ int __init acpi_boot_table_init(void)
+>      if ( error )
+>      {
+>          printk("%s: Unable to initialize table parser (%d)\n",
+> -               __FUNCTION__, error);
+> +               __func__, error);
+>          goto disable;
+>      }
+> 
+>      error = acpi_table_parse(ACPI_SIG_FADT, acpi_parse_fadt);
+>      if ( error )
+>      {
+> -        printk("%s: FADT not found (%d)\n", __FUNCTION__, error);
+> +        printk("%s: FADT not found (%d)\n", __func__, error);
+>          goto disable;
+>      }
 
-diff --git a/xen/include/crypto/vmac.h b/xen/include/crypto/vmac.h
-index 7574c4a3f328..43fd288ae3bd 100644
---- a/xen/include/crypto/vmac.h
-+++ b/xen/include/crypto/vmac.h
-@@ -35,29 +35,6 @@
- #define hz (400e6)   mips
- */
- 
--/* --------------------------------------------------------------------------
-- * This implementation uses uint32_t and uint64_t as names for unsigned 32-
-- * and 64-bit integer types. These are defined in C99 stdint.h. The
-- * following may need adaptation if you are not running a C99 or
-- * Microsoft C environment.
-- * ----------------------------------------------------------------------- */
--#define VMAC_USE_STDINT 1  /* Set to zero if system has no stdint.h        */
-- 
--#if VMAC_USE_STDINT && !_MSC_VER /* Try stdint.h if non-Microsoft          */
--#ifdef  __cplusplus
--#define __STDC_CONSTANT_MACROS
--#endif
--//#include <stdint.h>
--#elif (_MSC_VER)                  /* Microsoft C does not have stdint.h    */
--typedef unsigned __int32 uint32_t;
--typedef unsigned __int64 uint64_t;
--#define UINT64_C(v) v ## UI64
--#else                             /* Guess sensibly - may need adaptation  */
--typedef unsigned int uint32_t;
--typedef unsigned long long uint64_t;
--#define UINT64_C(v) v ## ULL
--#endif
--
- /* --------------------------------------------------------------------------
-  * This implementation supports two free AES implementations: OpenSSL's and
-  * Paulo Barreto's. To use OpenSSL's, you will need to include the OpenSSL
 -- 
-2.39.5
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
