@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0EPdGCbdmGnYNgMAu9opvQ
+	id wMd9BCngmGlkNwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 23:16:06 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 23:28:57 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12ACC16B233
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 23:16:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237726.1539982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93D6416B35E
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 23:28:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237741.1539992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYmj-0002qg-TH; Fri, 20 Feb 2026 22:15:41 +0000
+	id 1vtYz3-0004to-UE; Fri, 20 Feb 2026 22:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237726.1539982; Fri, 20 Feb 2026 22:15:41 +0000
+Received: by outflank-mailman (output) from mailman id 1237741.1539992; Fri, 20 Feb 2026 22:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYmj-0002nk-Pd; Fri, 20 Feb 2026 22:15:41 +0000
-Received: by outflank-mailman (input) for mailman id 1237726;
- Fri, 20 Feb 2026 22:15:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vtYz3-0004rq-RF; Fri, 20 Feb 2026 22:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 1237741;
+ Fri, 20 Feb 2026 22:28:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CjHa=AY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1vtYmi-0002ne-Ec
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 22:15:40 +0000
+ id 1vtYz2-0004rk-Qc
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 22:28:24 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af73a640-0ea9-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 23:15:38 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 775d93db-0eab-11f1-b164-2bf370ae4941;
+ Fri, 20 Feb 2026 23:28:23 +0100 (CET)
 Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
  (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 2913C4EE7806;
- Fri, 20 Feb 2026 23:15:37 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPA id 0624C4EE7806;
+ Fri, 20 Feb 2026 23:28:22 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af73a640-0ea9-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 775d93db-0eab-11f1-b164-2bf370ae4941
 Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1771625737;
-	b=Jy9PZvmv0XHVgphT6huxJqKJHg7OZZSYtrJ58L/2jzFt/YqsTne+vYgfWGGLKM22i5Mq
-	 IvdC/6tvJL1ex018at1UAQqRvIqHeSEPaFqTYL8piBixFDtBag0UOvWKggrtmDRC9R8ZZ
-	 jHc8hHztDy51mzS+kU66iPb/69Ri4hQ8PuyIoWAjrVqhHZsm0i0XlCS1vJSQfwI1goJtT
-	 tEgYsoAt+yej02GG57Cct4qIiH3m/r1dwRIiIdBAaO3s751DV2NnEMF4ridlJ82M5qF5K
-	 IcIpSVIIOLvgrM/o7BiJlZdd1BQ3HdHnkb3fz+tNOoqp/iPFz0Px4Tv9oWrEA8/AdQ4ka
-	 QOz+FApBNkSO78dspDVmm8Y/EV026u1hDTlJ2m2/Rnk5Aotd67kNTiiKPZ5bEj9iGYWia
-	 tqRxOR18T17afA9WK6JUtemRfOPjVdLlOTreGu3DcY06AQqKjl8uLMtLDQmzKZjqSphbE
-	 /1XRxDL/1JB4yqabdc4jBKAHWJKeMnKBzktuDlXiVipl0DOq8G4pevV5UUalLF4MaVyW5
-	 4HvZwcIifLvTKrOrtooGSCAGKfS0z2lYr/wkwfIlgoENTrCpuFMamHnXnrp24CKMhZi7K
-	 gsRysVeUR+iaGUvJ7zFoxxvw1vJiEQH3dqltSTJeQlZSU4xsucp29n/2hAF3Jkc=
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1771626502;
+	b=k2drEl+33ibwTdFLxCHf8ZfXf5FLxkevHpKPReJQAyfxttFSx11n4iRZTMzqirYwfHb0
+	 wMo0Mv7iPG1Nd09Cryag94v1JyOztQ+By61oH5GW/68A/u3Zrm8jPefPUDw2d1NZCBEax
+	 a/z1Dpo5K4xT3gYoqbXt/XamkaS3i389QIBIRcmEOeAx0KxYGfNwAVdRSwD0CST1oz21V
+	 7An2S5HZJL5sFiuhoLR/lZ/rrlCptklDtgVwfEK6o5tJCraBct1qwLNYHRWBPS4rl5qMz
+	 7J66Rr4vbebANbchqz+aiObp3Hie1mLlG7rCuJbXaXDhjiBqO1fUXX5CesJYWxINVLjxY
+	 JLr8nNpWHEgR3RVaHu6qygzi/fja2g1gDKMpD2rD3GZdeVm1Q58+VO6rV4rrtgTPRH0Ck
+	 5oRXiJ7KJqMHJ10afbYEQt71tKN+EY40jgrrV/e3+0ONHRoiYQN0Xstybz6OZcFFKbXgb
+	 IQX6196lOXi8sh9c/NNw1cIZEAF2tVuoikFjaIQs2Gx1K0CKaLL72cTYEuFORFekX/cLt
+	 wJCYMWL0YEzB/Dt5hPKUyktOKdRToWT+DKt3rFprbfPdcZON62AysLi84DFUdMA2BJTCJ
+	 j5YqqtkCI6z6+K1ZFKSw0r5JX4/LY0Y4V4OEK1Qb8aY4jN3E4gtG2KxuFftDc9o=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1771625737;
+	c=relaxed/relaxed; t=1771626502;
 	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
 	 Message-ID:X-Sender:Organization:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EN/3HH/VIPh5HXiOGshM4hir4fjZy/kgf/ECL5VqcoU=;
-	b=stgJLXcEFrVbzWQkS6S+idXdJWZlb04/xrXTq516cPxVW5WRHYsuP1GfMhamv+qHm5Ix
-	 k3BguW5Sn0uvNQbGE6pSrTRFuiHjgr/WHaiv93gAzViCFxM6EMZaHnbxxv8qI5BnQC0yT
-	 dDg21o2ee1F0+ht6+ovXi7SLXt3BBUsNF9wDmkY5NEH1m3JT6gbwwyQ3RVax7ZRIQTbsM
-	 6QWDmxFJ+ISU/N5Fj+Pw2YfXU/HLDImF+MdQqk2DWw4QOK/TrLqNTxHvRTZM2Ghpx1r2A
-	 dXp46bjKIEUIon0zdGJRXgVPW6K+zr7Bbhn9Xt2Pt9vX/6hZd/S/RWdOg7SFAaXB6YrP/
-	 LEkGTH0H1l3+V0jd+N7oDlkCpVuVDmVm9GgSBZVF8pPeF6vgIy3o9Io/Tc+ywzZv66a8m
-	 Qm5h9a55pN7UEEZwJ9YHPzIgGSbEwx98t1ygyW7dTzh9MYYy6UGwmqNcVfef59l+LzGtE
-	 DMS45oINW7zuEVv4PmwmGhw0cayuDTzhkZoLO4aHc2xfqONDn6MQ43BGC7G+zU0F5ZzoE
-	 RkeRiKmler66ef6wREhPOSO/HFgvsaZAIjBnJiqHb8+tAjEH5IBrmh8cvlUA6FPV36+s7
-	 N7eKezKMkJBVLryc73R7WW9NfspE/0hOO86hr0ETeeqhRBZ6DR7ub1CQ8w0/3U4=
+	bh=zZn5QYlNeJIrV89Vh+0VBlA03d/Zh8ZaSlffBESY800=;
+	b=LSsOboDPP69AEAsZ39HPOcBKbR+qfhFELXJlf+coHChJR2OJYj14ERDXfHFqh9f8BB5k
+	 TllRMJrLRUvoj3jxpFA0M9/EtlkPsD5xtuZwOKcNWVahRrsqKRqYoPsR8ZurC5+Xlvji3
+	 KovcsF1fxi0302erofuskgIWiSq3gjb8H3F4tWIT1y14JSlg7wfaCt/SiatLMLf9gUy0G
+	 9adrJdg9HmeokrLrns/YjO1QTBfX5vbOz30tIsj/rlnkWcA1KmchsoLoqT1Lv9OwSqZsm
+	 LWZTBC1Z8Kamy0mjVJNpefBAm+bNqaLHFfH/DazRvIlunqHQ2uL3jvUXgrloen9C6rTzD
+	 N3rokAZ9t3X9rMfbhdRY96q1jgYkM3iLrNM/Iq2+D7czOT1sFS0kDhXAFOMVDXtGmLwO9
+	 ODzIxbHFC1jw4UPVQ/lzAxDZTeZK/1oF/adqZahyMNk+kFkEn9cPQu8szHlsD+TZkDqtB
+	 xwjP/nWjgr1GTQXQoPi8Iv2DwZWuQ/IRxperV6opyGOg9D6wE9cR/B1KnVNnlqT5o8/Gg
+	 Kpyr5gj2lqvJzAdZm1pfvxPrHHpO7nnqVME1Jq/zidZsMiQUISkww0N0rYpTz5ojoyNTz
+	 iK6Rd5n11XWoigWRMOlz3yaIjbBHOiRlNcxPZbTEfPPmy2bgokY+c1xPwbPOy90=
 ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 MIME-Version: 1.0
-Date: Fri, 20 Feb 2026 23:15:37 +0100
+Date: Fri, 20 Feb 2026 23:28:22 +0100
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
@@ -86,11 +86,12 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
  Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
  <michal.orzel@amd.com>, "consulting @ bugseng . com"
  <consulting@bugseng.com>
-Subject: Re: [PATCH 08/12] arm/pci-designware: Fix MISRA violations
-In-Reply-To: <20260220214653.3497384-9-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 09/12] x86/shadow: Rework write_atomic() call in
+ shadow_write_entries()
+In-Reply-To: <20260220214653.3497384-10-andrew.cooper3@citrix.com>
 References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
- <20260220214653.3497384-9-andrew.cooper3@citrix.com>
-Message-ID: <0261cb56885d241d010467e8ff24e169@bugseng.com>
+ <20260220214653.3497384-10-andrew.cooper3@citrix.com>
+Message-ID: <a25b0b1e59431224d47d7303755900e1@bugseng.com>
 X-Sender: nicola.vetrini@bugseng.com
 Organization: BUGSENG s.r.l.
 Content-Type: text/plain; charset=UTF-8;
@@ -127,13 +128,16 @@ X-Spamd-Result: default: False [-1.39 / 15.00];
 	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,linkedin.com:url,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 12ACC16B233
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 93D6416B35E
 X-Rspamd-Action: no action
 
 On 2026-02-20 22:46, Andrew Cooper wrote:
-> * Move includes inside the header guards (D4.10)
->  * Use NULL in preference to 0 (R11.9)
+> Eclair complains of a side effect in a sizeof() expression (R13.6).
+> 
+> write_atomic() only evaluates each parameter once, but rewrite the 
+> expression
+> to less resemble entries in an obfuscation contest.
 > 
 > No functional change.
 > 
@@ -152,46 +156,26 @@ Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > CC: consulting@bugseng.com <consulting@bugseng.com>
 > CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > ---
->  xen/arch/arm/pci/pci-designware.c | 2 +-
->  xen/arch/arm/pci/pci-designware.h | 5 ++---
->  2 files changed, 3 insertions(+), 4 deletions(-)
+>  xen/arch/x86/mm/shadow/set.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/arch/arm/pci/pci-designware.c 
-> b/xen/arch/arm/pci/pci-designware.c
-> index 0bd67524ac8b..6b85213f637b 100644
-> --- a/xen/arch/arm/pci/pci-designware.c
-> +++ b/xen/arch/arm/pci/pci-designware.c
-> @@ -285,7 +285,7 @@ void __iomem *dw_pcie_child_map_bus(struct 
-> pci_host_bridge *bridge,
->                                      bridge->child_cfg->phys_addr, 
-> busdev,
->                                      bridge->child_cfg->size);
->      if ( ret )
-> -        return 0;
-> +        return NULL;
+> diff --git a/xen/arch/x86/mm/shadow/set.c 
+> b/xen/arch/x86/mm/shadow/set.c
+> index 8b670b6bb555..96ba2811077e 100644
+> --- a/xen/arch/x86/mm/shadow/set.c
+> +++ b/xen/arch/x86/mm/shadow/set.c
+> @@ -62,8 +62,8 @@ shadow_write_entries(void *d, const void *s, unsigned 
+> int entries, mfn_t mfn)
 > 
->      return bridge->child_cfg->win + where;
+>      ASSERT(IS_ALIGNED((unsigned long)dst, sizeof(*dst)));
+> 
+> -    for ( ; i < entries; i++ )
+> -        write_atomic(&dst++->l1, src++->l1);
+> +    for ( ; i < entries; i++, dst++, src++ )
+> +        write_atomic(&dst->l1, src->l1);
+> 
+>      unmap_domain_page(map);
 >  }
-> diff --git a/xen/arch/arm/pci/pci-designware.h 
-> b/xen/arch/arm/pci/pci-designware.h
-> index b9deb3b138ae..bd93dab6f2f1 100644
-> --- a/xen/arch/arm/pci/pci-designware.h
-> +++ b/xen/arch/arm/pci/pci-designware.h
-> @@ -6,12 +6,11 @@
->   * Based on xen/arch/arm/pci/pci-host-generic.c
->   */
-> 
-> -#include <xen/pci.h>
-> -#include <xen/init.h>
-> -
->  #ifndef __PCI_DESIGNWARE_H__
->  #define __PCI_DESIGNWARE_H__
-> 
-> +#include <xen/pci.h>
-> +#include <xen/init.h>
-> 
->  #define PCIE_ATU_VIEWPORT               0x900
->  #define PCIE_ATU_REGION_OUTBOUND        0
 
 -- 
 Nicola Vetrini, B.Sc.
