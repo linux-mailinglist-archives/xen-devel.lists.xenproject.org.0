@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4I4HEXDWmGl+NQMAu9opvQ
+	id uDWNEW7WmGl7NQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:28 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC36916B0D2
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237613.1539886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB2716B0A8
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 22:47:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237612.1539882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYL9-0000ma-6L; Fri, 20 Feb 2026 21:47:11 +0000
+	id 1vtYL8-0000kM-OF; Fri, 20 Feb 2026 21:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237613.1539886; Fri, 20 Feb 2026 21:47:11 +0000
+Received: by outflank-mailman (output) from mailman id 1237612.1539882; Fri, 20 Feb 2026 21:47:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtYL8-0000kN-QX; Fri, 20 Feb 2026 21:47:10 +0000
-Received: by outflank-mailman (input) for mailman id 1237613;
- Fri, 20 Feb 2026 21:47:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vtYL8-0000hl-GY; Fri, 20 Feb 2026 21:47:10 +0000
+Received: by outflank-mailman (input) for mailman id 1237612;
+ Fri, 20 Feb 2026 21:47:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2tad=AY=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vtYL7-0008IG-8g
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:09 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b3d11e93-0ea5-11f1-9ccf-f158ae23cfc8;
+ id 1vtYL6-0008Ew-MR
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 21:47:08 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b3e4ef94-0ea5-11f1-b164-2bf370ae4941;
  Fri, 20 Feb 2026 22:47:07 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso33419175e9.0
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-481188b7760so21122925e9.0
  for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 13:47:07 -0800 (PST)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.05
+ 5b1f17b1804b1-483a8df83bcsm28940205e9.13.2026.02.20.13.47.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 13:47:05 -0800 (PST)
+ Fri, 20 Feb 2026 13:47:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,40 +50,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3d11e93-0ea5-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: b3e4ef94-0ea5-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1771624027; x=1772228827; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=beuTbfe9kV1Ouyfxy/gjE8egNOMK+gVzuCqzx8daylA=;
-        b=BMiR/T+WEvvW5iGsKAdgfi+cPActfn8vFvDu97HWE0xiqgu3PSNY7LK2RjwCHIGzDl
-         mmO5MGekILMGQOVadEMiwyzuSymZgpES00rTNtDjcGOvq+sP9S4JrVgxkoR8tjIuFFg6
-         y2ygy7gCQ/aQb9W0TAqByris1EsG8MDxDK4GE=
+        bh=++I7y0Fz5SNLOYdyOKbflTxyKYPA97MXE/g2maqbcaQ=;
+        b=vk25ojic1m2Jr1Uc8xYH10oJ60/hXch9uMSBQg3XYs+ArESqN1Jobwlh+i9WbcMkJC
+         1BWuzTsCn8SRnZw8+lv+KGFpLgQLIeEFB7BDhk1xZ47Q5EY2VneDqLVS/OwGlT5EBg0/
+         H+i7AaNAvsUpWWDD3kZYsFpz7bDG8v1eBNCv4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1771624027; x=1772228827;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=beuTbfe9kV1Ouyfxy/gjE8egNOMK+gVzuCqzx8daylA=;
-        b=ef7zwv9kOpaDwizhAtPxmwwQIbkuW8TJR4LaD2yGYkhNU5HmQonLPJLKlnoffICbE3
-         WPXUYygXOjMcKiMyrRO+OPISyzgIC9Uv992lnsXyUlZmdY8UB1UcxoCQMTK5hO5I6xr2
-         DJO5K8asFrk1npquct2kyCNA4pAOSIDzhfgDVvQKE1bVPeEB531XuWRkOWgRwKdo80VG
-         UVh77IfE/BCvelJgDa34p41RWpdxCxMvmtvcw2qhR0oeOSUiy1A9YHB88ePs2gLegU2P
-         wII8af5oVmnCoaX3zNDFoYg0T9njVfXxol1pvNwfVW6E7xc2f/jpEdjIFxyscglpnSHv
-         IDxA==
-X-Gm-Message-State: AOJu0Yx+ph2GtDPum6vR6IYgN/LhR9+DCXS1fzWFgoT4BoQkK1Bh1R7M
-	BClaXq/nqbPU66r28q36nCPP1ItN0x8Qs/4VTbbawG5TDSQkNi7zIrJGbhpE7ckvp3ChMqkIMoG
-	FWcug
-X-Gm-Gg: AZuq6aJ4get2Cv4QPIfRMmil837pY/iZiHLZsERPVCmMPIlMCSkOmOpOHLnPvTXidLz
-	gKFst0iC8osqgJqOdRZrneymSHG5uL0dQBgPrRUeSzrFpWI4LCkly2HAem50ohcbam8En6lRTBW
-	RaZI2a86HR2EICn/1SaKEKfz9r8sL8rYRI2Ybnkp/xOsaeAx5sUU11VL28QsiaLHZbofH7KHzSR
-	JE6oRTNDFNql54fy1qrm/J/Q8UyJgX8bD/oHGerFtg86sbRJjmRGDGS0cFcxWpVdlJY4q14gs6e
-	V4GJo0s6AmbRgRT1D9zTxdrxts/R87oreLgtcaJGJYx4Vnou1FA2rFZsfrsSlo0Fc5qCXC3WPtb
-	SvyamgZ6PjQTJNQ+/zl3Zw5EDBIaLDmTuhCDfQtQjnf+hNLtoFhvTyoy05U7iGxqcp4kxFQ8Joc
-	TIKLa+iZxryOjg/12dvP3LKFZGD4SQ153TCuD52K6jYhVk+5vxFZfox9JK20Z3aPP5ILjHH3w=
-X-Received: by 2002:a05:600c:1c29:b0:483:6d9e:e4f5 with SMTP id 5b1f17b1804b1-483a949e5edmr17807355e9.5.1771624025939;
-        Fri, 20 Feb 2026 13:47:05 -0800 (PST)
+        bh=++I7y0Fz5SNLOYdyOKbflTxyKYPA97MXE/g2maqbcaQ=;
+        b=r5LEQHMP2sG3j3KAtIno4R85Q1vmMaqLlA2AnpWHljv8HBmS2ZAtx/AkYAO1cetK/g
+         7ushFvrZli0yccEd1HbezUJ78Di/OiBHxhoKhyaI/RN3FceIGYOyU1bDo9kmqf6IwgMJ
+         NBE9k4Ib70wcQB6ylSAXTDpiRCaJdZ9lS4bGJJyLONv70yWaAQW2EJRZ5nPnBqiLAQxu
+         3GlQacUVoPCdm+RPNbMl+j23PzDzl4NhPIXnTgRohyH/TvzFi4DaHA0mHXaZmJ2S9kGd
+         89L8bDMSHcr/OLrIzUh1tf4I2zjyShaApaPnE3MRqpXMIPT6NF0GzX1h5jLSST+HVML+
+         0bQQ==
+X-Gm-Message-State: AOJu0Yw9S7Auah2bvufiBVkJaPFLm8wu02NbU92xM8pmerphK7V8gCR/
+	WaDdKRvLwfByp4rpSHxV5RNPLP8Tb8zmfCsF5Sh+2tjht1FK/9jqrFyOIgBMwva/watqost0r26
+	FiZix2KTO4w==
+X-Gm-Gg: AZuq6aJK9wGs05svOVMGYz15WGlSaU84M3aHLBhSr3Ju5/iFFpAIUo7Dt5iApcXEi1b
+	NjNWhsd0L+yQAA8OoiKx1HY4iWlvUDyFAPhJiDHs7h1o1/p1xnR1mma32TFJrtjchluoORIEgDc
+	JRbicZ8tPdQUqIhVKtLrrJAebGNyzPVnDc8Yqob3tDJSgZFVSkxVVn+Jqgur8HVzU09ygrcgtDv
+	85tL56JNb5PlAUz665KSPY6iVzgT3ZysfQ7hHOhfs3aARnnYDrcTXOmySkkdEvWqNbaaPMAVM9U
+	BjEnjAcojRxgfDIXBlKZYfeRuH8PqEZwPJSwND5c0JDjyq6TaCP+xS9+U/6GBR9l/6hlrjQ/dbX
+	M0h9jgKu/g0/N3GbdHtSnjIv7U2l5gtVOzw09T4lrnnFYXi6D23dvYuwLpaU463rXx5qAD9aECM
+	Ihx8FDVZ4/CHKwUKkJTsh0//ZixZBbyFl3a4avMkeAkYxZ96QCgxKz/nWisqFDHPAhZjsI5aw=
+X-Received: by 2002:a05:600c:8b2c:b0:480:1b1a:5526 with SMTP id 5b1f17b1804b1-483a95e24ebmr19094485e9.16.1771624026566;
+        Fri, 20 Feb 2026 13:47:06 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -96,9 +96,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	"consulting @ bugseng . com" <consulting@bugseng.com>,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH 04/12] xen/treewide: Adjust parameter names and types
-Date: Fri, 20 Feb 2026 21:46:45 +0000
-Message-Id: <20260220214653.3497384-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 05/12] x86: Adjust annotations of asm-used identifiers
+Date: Fri, 20 Feb 2026 21:46:46 +0000
+Message-Id: <20260220214653.3497384-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
 References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
@@ -131,17 +131,22 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.997];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EC36916B0D2
+X-Rspamd-Queue-Id: EDB2716B0A8
 X-Rspamd-Action: no action
 
-MISRA Rule 8.2 says that parameters must all have names.  Rule 8.3 says that
-the names and types must match between declaration and definition.
+do_entry_int82() is only called by assembly so gains asmlinkage.
+
+pvh_start_info_pa and early_hypercall_insn are data used by assembly, and need
+a SAF-1 annotation.
+
+For the remaining SAF-1 anntations on functions, convert them to asmlinkage
+for consistency.
 
 No functional change.
 
@@ -157,137 +162,95 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: consulting@bugseng.com <consulting@bugseng.com>
 CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/arm/include/asm/pci.h    |  2 +-
- xen/arch/arm/pci/pci-access.c     |  4 ++--
- xen/arch/x86/include/asm/compat.h |  2 +-
- xen/arch/x86/include/asm/p2m.h    |  2 +-
- xen/arch/x86/mm/mem_paging.c      |  2 +-
- xen/crypto/vmac.c                 |  2 +-
- xen/include/crypto/rijndael.h     | 16 ++++++++--------
- xen/include/xen/acpi.h            |  2 +-
- 8 files changed, 16 insertions(+), 16 deletions(-)
+ xen/arch/x86/boot/cmdline.c       | 3 +--
+ xen/arch/x86/boot/reloc.c         | 3 +--
+ xen/arch/x86/guest/xen/pvh-boot.c | 2 +-
+ xen/arch/x86/guest/xen/xen.c      | 2 +-
+ xen/arch/x86/pv/hypercall.c       | 2 +-
+ xen/arch/x86/traps.c              | 3 +--
+ 6 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-index 08ffcd443862..73c3be74aef1 100644
---- a/xen/arch/arm/include/asm/pci.h
-+++ b/xen/arch/arm/include/asm/pci.h
-@@ -98,7 +98,7 @@ struct pci_ecam_ops {
-     unsigned int            bus_shift;
-     struct pci_ops          pci_ops;
-     int (*cfg_reg_index)(struct dt_device_node *dev);
--    int (*init)(struct pci_config_window *);
-+    int (*init)(struct pci_config_window *cfg);
- };
+diff --git a/xen/arch/x86/boot/cmdline.c b/xen/arch/x86/boot/cmdline.c
+index 196c580e9151..5db5c7b20bf6 100644
+--- a/xen/arch/x86/boot/cmdline.c
++++ b/xen/arch/x86/boot/cmdline.c
+@@ -334,8 +334,7 @@ static void vga_parse(const char *cmdline, early_boot_opts_t *ebo)
+ }
+ #endif
  
- /* Default ECAM ops */
-diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
-index 4a9486750199..c0533c00c9a5 100644
---- a/xen/arch/arm/pci/pci-access.c
-+++ b/xen/arch/arm/pci/pci-access.c
-@@ -135,9 +135,9 @@ static void pci_config_write(pci_sbdf_t sbdf, unsigned int reg,
- 
- #define PCI_OP_WRITE(size, type)                            \
-     void pci_conf_write##size(pci_sbdf_t sbdf,              \
--                              unsigned int reg, type val)   \
-+                              unsigned int reg, type data)  \
- {                                                           \
--    pci_config_write(sbdf, reg, size / 8, val);             \
-+    pci_config_write(sbdf, reg, size / 8, data);            \
+-/* SAF-1-safe */
+-void cmdline_parse_early(const char *cmdline, early_boot_opts_t *ebo)
++void asmlinkage cmdline_parse_early(const char *cmdline, early_boot_opts_t *ebo)
+ {
+     if ( !cmdline )
+         return;
+diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
+index 7a375ad41c1c..82c2d237aab6 100644
+--- a/xen/arch/x86/boot/reloc.c
++++ b/xen/arch/x86/boot/reloc.c
+@@ -346,8 +346,7 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, memctx *ctx)
+     return mbi_out;
  }
  
- #define PCI_OP_READ(size, type)                             \
-diff --git a/xen/arch/x86/include/asm/compat.h b/xen/arch/x86/include/asm/compat.h
-index 30ed8f2fd0dc..f12f4f24d802 100644
---- a/xen/arch/x86/include/asm/compat.h
-+++ b/xen/arch/x86/include/asm/compat.h
-@@ -16,7 +16,7 @@ typedef unsigned long full_ptr_t;
- 
- struct domain;
- #ifdef CONFIG_PV32
--int switch_compat(struct domain *);
-+int switch_compat(struct domain *d);
- #else
- #include <xen/errno.h>
- static inline int switch_compat(struct domain *d) { return -EOPNOTSUPP; }
-diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
-index ef6b02ff0bb6..92be64e134e8 100644
---- a/xen/arch/x86/include/asm/p2m.h
-+++ b/xen/arch/x86/include/asm/p2m.h
-@@ -773,7 +773,7 @@ static inline int relinquish_p2m_mapping(struct domain *d)
-  */
- 
- /* Modify p2m table for shared gfn */
--int set_shared_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn);
-+int set_shared_p2m_entry(struct domain *d, unsigned long gfn_l, mfn_t mfn);
- 
- /* Tell xenpaging to drop a paged out frame */
- void p2m_mem_paging_drop_page(struct domain *d, gfn_t gfn, p2m_type_t p2mt);
-diff --git a/xen/arch/x86/mm/mem_paging.c b/xen/arch/x86/mm/mem_paging.c
-index ac8d34ffa074..d4b3cb990c54 100644
---- a/xen/arch/x86/mm/mem_paging.c
-+++ b/xen/arch/x86/mm/mem_paging.c
-@@ -156,7 +156,7 @@ void p2m_mem_paging_populate(struct domain *d, gfn_t gfn)
-  *
-  * If the gfn was dropped the vcpu needs to be unpaused.
-  */
--void p2m_mem_paging_resume(struct domain *d, vm_event_response_t *rsp)
-+void p2m_mem_paging_resume(struct domain *d, struct vm_event_st *rsp)
+-/* SAF-1-safe */
+-void *reloc(uint32_t magic, uint32_t in)
++void *asmlinkage reloc(uint32_t magic, uint32_t in)
  {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     p2m_type_t p2mt;
-diff --git a/xen/crypto/vmac.c b/xen/crypto/vmac.c
-index acb4e015f511..f1f6d75f8eeb 100644
---- a/xen/crypto/vmac.c
-+++ b/xen/crypto/vmac.c
-@@ -702,7 +702,7 @@ static uint64_t l3hash(uint64_t p1, uint64_t p2,
+     memctx ctx = { trampoline_phys + TRAMPOLINE_HEAP_END };
  
- /* ----------------------------------------------------------------------- */
+diff --git a/xen/arch/x86/guest/xen/pvh-boot.c b/xen/arch/x86/guest/xen/pvh-boot.c
+index e14d7e20e942..8d8f4a34e445 100644
+--- a/xen/arch/x86/guest/xen/pvh-boot.c
++++ b/xen/arch/x86/guest/xen/pvh-boot.c
+@@ -22,7 +22,7 @@
  
--void vhash_update(unsigned char *m,
-+void vhash_update(unsigned char  m[],
-                   unsigned int   mbytes, /* Pos multiple of VMAC_NHBYTES */
-                   vmac_ctx_t    *ctx)
+ /* Initialised in head.S, before .bss is zeroed. */
+ bool __initdata pvh_boot;
+-uint32_t __initdata pvh_start_info_pa;
++uint32_t __initdata pvh_start_info_pa; /* SAF-1-safe */
+ 
+ static multiboot_info_t __initdata pvh_mbi;
+ static module_t __initdata pvh_mbi_mods[8];
+diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
+index 315e5ded05ab..8e13c2fbf307 100644
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -40,7 +40,7 @@ DEFINE_PER_CPU(struct vcpu_info *, vcpu_info);
+  *     0 vmcall
+  *   > 0 vmmcall
+  */
+-int8_t __initdata early_hypercall_insn = -1;
++int8_t __initdata early_hypercall_insn = -1; /* SAF-1-safe */
+ 
+ /*
+  * Called once during the first hypercall to figure out which instruction to
+diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
+index 17581d232e19..b3b9a3255531 100644
+--- a/xen/arch/x86/pv/hypercall.c
++++ b/xen/arch/x86/pv/hypercall.c
+@@ -180,7 +180,7 @@ void pv_ring1_init_hypercall_page(void *p)
+     }
+ }
+ 
+-void do_entry_int82(struct cpu_user_regs *regs)
++void asmlinkage do_entry_int82(struct cpu_user_regs *regs)
  {
-diff --git a/xen/include/crypto/rijndael.h b/xen/include/crypto/rijndael.h
-index 4386be587851..80c612749f9e 100644
---- a/xen/include/crypto/rijndael.h
-+++ b/xen/include/crypto/rijndael.h
-@@ -45,14 +45,14 @@ typedef struct {
- 	u32	dk[4*(AES_MAXROUNDS + 1)];	/* decrypt key schedule */
- } rijndael_ctx;
+     if ( unlikely(untrusted_msi) )
+         check_for_unexpected_msi((uint8_t)regs->entry_vector);
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 3c01c5eb53b5..29ea6054abab 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1336,8 +1336,7 @@ void asmlinkage do_int3(struct cpu_user_regs *regs)
+     pv_inject_hw_exception(X86_EXC_BP, X86_EVENT_NO_EC);
+ }
  
--int	 rijndael_set_key(rijndael_ctx *, const unsigned char *, int);
--int	 rijndael_set_key_enc_only(rijndael_ctx *, const unsigned char *, int);
--void	 rijndael_decrypt(rijndael_ctx *, const unsigned char *, unsigned char *);
--void	 rijndael_encrypt(rijndael_ctx *, const unsigned char *, unsigned char *);
-+int	 rijndael_set_key(rijndael_ctx *ctx, const unsigned char *key, int bits);
-+int	 rijndael_set_key_enc_only(rijndael_ctx *ctx, const unsigned char *key, int bits);
-+void	 rijndael_decrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
-+void	 rijndael_encrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
- 
--int	rijndaelKeySetupEnc(unsigned int [], const unsigned char [], int);
--int	rijndaelKeySetupDec(unsigned int [], const unsigned char [], int);
--void	rijndaelEncrypt(const unsigned int [], int, const unsigned char [16],
--	    unsigned char [16]);
-+int	rijndaelKeySetupEnc(unsigned int rk[], const unsigned char cipherKey[], int keyBits);
-+int	rijndaelKeySetupDec(unsigned int rk[], const unsigned char cipkerKey[], int keyBits);
-+void	rijndaelEncrypt(const unsigned int rk[], int Nr, const unsigned char pt[16],
-+			unsigned char ct[16]);
- 
- #endif /* __RIJNDAEL_H */
-diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
-index 90635ba0f322..ca87cd15a824 100644
---- a/xen/include/xen/acpi.h
-+++ b/xen/include/xen/acpi.h
-@@ -75,7 +75,7 @@ typedef int (*acpi_table_handler) (struct acpi_table_header *table);
- typedef int (*acpi_table_entry_handler) (struct acpi_subtable_header *header, const unsigned long end);
- 
- unsigned int acpi_get_processor_id (unsigned int cpu);
--char * __acpi_map_table (paddr_t phys_addr, unsigned long size);
-+char * __acpi_map_table (paddr_t phys, unsigned long size);
- bool __acpi_unmap_table(const void *ptr, unsigned long size);
- int acpi_boot_init (void);
- int acpi_boot_table_init (void);
+-/* SAF-1-safe */
+-void do_general_protection(struct cpu_user_regs *regs)
++void asmlinkage do_general_protection(struct cpu_user_regs *regs)
+ {
+ #ifdef CONFIG_PV
+     struct vcpu *v = current;
 -- 
 2.39.5
 
