@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id G/7MLZqJmGlsJgMAu9opvQ
+	id wDjZCp2JmGlwJgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 17:19:38 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 17:19:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBCB216940E
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 17:19:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1237336.1539722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1AB0169438
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Feb 2026 17:19:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1237337.1539727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtTDy-0001M0-Vd; Fri, 20 Feb 2026 16:19:26 +0000
+	id 1vtTDz-0001QS-BG; Fri, 20 Feb 2026 16:19:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1237336.1539722; Fri, 20 Feb 2026 16:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 1237337.1539727; Fri, 20 Feb 2026 16:19:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vtTDy-0001Jq-QM; Fri, 20 Feb 2026 16:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 1237336;
- Fri, 20 Feb 2026 16:19:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vtTDz-0001M4-4b; Fri, 20 Feb 2026 16:19:27 +0000
+Received: by outflank-mailman (input) for mailman id 1237337;
+ Fri, 20 Feb 2026 16:19:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O9tK=AY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vtTDw-0000Q4-SQ
- for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 16:19:24 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eaea89bd-0e77-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Feb 2026 17:19:23 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-48370174e18so13579565e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 08:19:23 -0800 (PST)
+ id 1vtTDx-0000QF-C1
+ for xen-devel@lists.xenproject.org; Fri, 20 Feb 2026 16:19:25 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb99eeb8-0e77-11f1-b164-2bf370ae4941;
+ Fri, 20 Feb 2026 17:19:24 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-43626796202so2065397f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Feb 2026 08:19:24 -0800 (PST)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43796a6c1bfsm56991068f8f.13.2026.02.20.08.19.21
+ ffacd0b85a97d-43796a6c1bfsm56991068f8f.13.2026.02.20.08.19.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 08:19:21 -0800 (PST)
+ Fri, 20 Feb 2026 08:19:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eaea89bd-0e77-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: eb99eeb8-0e77-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771604362; x=1772209162; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1771604363; x=1772209163; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9kLRmTM6oplx9Q9iY0GyvVxh5tBWM0eKNh9+e6RhQFU=;
-        b=X9lulydD7EabLKOHfTb70CevckIMbgjL3X4pAEZGc0M8MfBXpTCnN7o78WHSE7NqrE
-         vEyPtIEc4FdxZjYLVj+rHe3EIMz5+WC7km0qaifH10AvAM6IAVhzzdQaQmgshzscylom
-         mrHJkIly/w+xf4mvVynt0ASm0+ICE6JHWEX0m71pkRGU9rie6wypobKPFqeHTyTAjvHa
-         Yka8MHlW/7TuopLY5eV26rJ5jbDUvOfYsMvSNxyZ+ZwKFc0B7veAtEGOmLUDvd+bVhvf
-         7lL8jec44eRqlPkL1Uas3wrHd6GlThncXANA/qfj1V1YqebFZkTySZ1rzerHiwEAogPr
-         VMKQ==
+        bh=h8rDhEwL+Si1TVzLRrIFs43T5seQJmCokC0zj36jVKw=;
+        b=Mltsu189idcgA+MU02SEnGj3vyjtiWKRvclUcij6eoSzIwMucd0oORU1UHNGSjCFnV
+         V6x/O0eNZ59jw4GOIz3Es3tXsJejF+78WzwGZ7qaSw468uVeFeYrEerCaLtWsAy127pA
+         B1WGFGQECanCs01n5luu+HpbHzpKHwAyi079P6BzWH9GDpPMY8r3AdNoAsdWpNTBEYaF
+         ppaje8orhrOvgGWl+ZCbL38g/8OJzzPMHGsFJvORjfWYiP3NNa3l+cOJxCdO4OzkI7DK
+         qMz8Mjh8OAUubUObV2rVmrtYcF9vCyxTUy38c930o5zLCbRGYxpg+Ti0B0dohyey3MnT
+         z9Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771604362; x=1772209162;
+        d=1e100.net; s=20230601; t=1771604363; x=1772209163;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=9kLRmTM6oplx9Q9iY0GyvVxh5tBWM0eKNh9+e6RhQFU=;
-        b=LgYZX7hXYdz3UjvhJo8xW/K5kQaSpwLBWzw6/sPcKgz1sXN+igi3fkajRX1WwJPgMZ
-         qK6ZaTeIvYcFmVm+7Vbzlur28RDGJ0SwaJsdlI+pZfwpRnwP4P0No9lTEqP/3gkgu5Ku
-         OeWBjuVz8DblozgX9b00xVtcvdy62FYHWM59pqQgDy7IJaWwWFcsM1eCebiIcWSjLAL6
-         0dDBF/sx8MqY0X2KmXM4mExFT0W5EPYuPmoBmom6eUlpgR7paiCeHO4+M5AcUmOR5600
-         LCEnAfxeynLq/2ydiRcZQrhdXe6ZpCBi5TTYD52sIvQnUihYtRI/fWGoN5+d52V9giiO
-         Rd+g==
-X-Gm-Message-State: AOJu0YzfI4iJQzO8RmAXWDyWFinjRNJ9wnsot0HAE3FdrwVbuOqrz3sY
-	ZpEB7+BVu46G2GsCMfPM8aR/KjM4BoTwCdAf4TKKIb8VnaEERfW4jQAubjIKgQ==
-X-Gm-Gg: AZuq6aIoU+Ok082Nwo5s0qtcTMugg1BdiTJyuAxv2lhVw8adXGY6D3lIlwAjxYwxEdq
-	R7DHp+rhujVed2qscszZfdFT0Zry+zoqIsyvS0C8l9fMSzcN/NPGAAEY1HEZPHKF+OhgjhlW2R8
-	BzlhLlpWBKES9FyokUEVAAQgPoZeQRov3JPqwuvPfoCBmi3TGp52d2fADMShAfGyZN5G3uCZiiI
-	ZMdynb6tTWZvW+c0pLTS3jrKVjN7EY0pkNKlcT7hB2TqWRFVcCUWjQ/fm9lmovxAGkr4Crm/UfM
-	KcJDhXeNtfr3IEGXMWS1Dv222iJKxdblNcdzTTuViBGr1D+UHNZmrNjcaj8frdgvIIsa9AJ5DWZ
-	KFI/6hOlD+Gu5XGYikrgGboO8roSFRm5/+9zbzYu8PzqXy/iEzheUoYZsvjM1glxxlXiq1IonSj
-	xvIxfnCPxIlsCUpLbJDEw/JjtX8AgJCA3UNj24Jc9F7/KxMppiRlzDeWeS3qALdBc9BA==
-X-Received: by 2002:a05:600c:6296:b0:47a:81b7:9a20 with SMTP id 5b1f17b1804b1-483a95c6774mr1480155e9.9.1771604362296;
-        Fri, 20 Feb 2026 08:19:22 -0800 (PST)
+        bh=h8rDhEwL+Si1TVzLRrIFs43T5seQJmCokC0zj36jVKw=;
+        b=b7fcRwNRR+pxGhaVqPlax3e+rzavO9yD4oq970JrwTnnhzHo0YuNJVklxy8RvYt68t
+         yS3UepytCWF8uyVnz9Qrg1mi7XJl5NuuyZBzm0gj7Piv0RzuFO/rSLhCMlXUEiH8TSeN
+         rqLZK0Jp0RulrwAzONA62A3CE92VzFO5hUO+1rmDeu2QMTCYlXHCvmOpHbFWTy0Lus5B
+         DkAfl0gmmkactOx8p9oAGn5oLJFBG034LjA8iXG4jPSBq7ndewAB2P4v2VWNaNoGFzgy
+         /5ipYKIpqc0k6lx4L0tK613TC93UPSOuNX0EM+q0MkYHmljmmHQdoctjyDv4MSCaGKA4
+         Bd9Q==
+X-Gm-Message-State: AOJu0YwigyabrzhwfbLnOdwSSQ4i0xcXmGZbWqPyNB5Enw9ejkovXUOs
+	2UmTA/aIu7ZBahRcvKplUQY44YzWag7bN5uQdbzKUULpeP2E6g3Rzi6XcMf96w==
+X-Gm-Gg: AZuq6aLUefhGKddeaHsjadW6KuJYdrfasjaIywX6HH79VfIghI50T1E+KE4ibNCS3Ch
+	a1MA9aN1FCZ6bkYw6BToGwk2CnA8wRWJI1WbYgPHf++ytM6tq26gHd2BEF93el1ReEVnBMx6v+s
+	xDI+irNvMksIA/ua0tOt3DenK88HuovPzbpTKMIjwhjS/j4Emx/bCL4+mnO1sAJnIVXvdWHFwZ3
+	1f3kd1zidyg/atoT/eHgIuVLjZRrHkIeXP2ZnmwbiLlk6Atzw63zu11zIK0VDGXUyaXJ94Wks/v
+	QxzNWrAlGl5+q4dJ7RuJD/Tyi46ARS0AA84/Rn6JOzzo7CSJ2rd+UyDDKti6ZaBkLAHMJqfd/zm
+	GCrejBBRlGf0euoZ14GSEI1hoL4h8NC41QcBUAwSrKj4pM94uDFB+S0axNJzupjufJkSDPp6oY6
+	Vz03z7YlZ5OKLOgTttLmkSuEDkEumDsElrHtn/UXEc91wjk1OKkulPj3rNf8eP4y3hwGninw==
+X-Received: by 2002:a05:6000:40dc:b0:437:7268:8e1e with SMTP id ffacd0b85a97d-4396f181294mr829953f8f.51.1771604363451;
+        Fri, 20 Feb 2026 08:19:23 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 04/14] xen/riscv: introduce tracking of pending vCPU interrupts, part 2
-Date: Fri, 20 Feb 2026 17:18:59 +0100
-Message-ID: <0d8d0f2240806a4bfaee4c5f395d6220ded00c18.1771590794.git.oleksii.kurochko@gmail.com>
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v5 05/14] xen/time: move ticks<->ns helpers to common code
+Date: Fri, 20 Feb 2026 17:19:00 +0100
+Message-ID: <83299215f631fced495d25d0b11ea5449cf9d6d1.1771590794.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1771590794.git.oleksii.kurochko@gmail.com>
 References: <cover.1771590794.git.oleksii.kurochko@gmail.com>
@@ -121,12 +123,12 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_FROM(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com,wdc.com];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -144,130 +146,173 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EBCB216940E
+X-Rspamd-Queue-Id: D1AB0169438
 X-Rspamd-Action: no action
 
-This patch is based on Linux kernel 6.16.0.
+ticks_to_ns() and ns_to_ticks() are not architecture-specific, so provide a
+common implementation that is more resilient to overflow than the historical
+Arm version. This is not a practical issue for Arm, as the latest ARM ARM
+that timer frequency should be fixed at 1 GHz and older platforms used much
+lower rates, which is shy of 32-bit overflow. As the helpers are declared
+as static inline, they should not affect x86, which does not use them.
 
-Add the consumer side (vcpu_flush_interrupts()) of the lockless pending
-interrupt tracking introduced in part 1 (for producers). According, to the
-design only one consumer is possible, and it is vCPU itself.
-vcpu_flush_interrupts() is expected to be ran (as guests aren't ran now due
-to the lack of functionality) before the hypervisor returns control to the
-guest.
+On Arm, these helpers were historically implemented as out-of-line functions
+because the counter frequency was originally defined as static and unavailable
+to headers [1]. Later changes [2] removed this restriction, but the helpers
+remained unchanged. Now they can be implemented as static inline without any
+issues.
 
-Producers may set bits in irqs_pending_mask without a lock. Clearing bits in
-irqs_pending_mask is performed only by the consumer via xchg() (with aquire
-semantics). The consumer must not write to irqs_pending and must not act on
-bits that are not set in the mask. Otherwise, extra synchronization should
-be provided.
-The worst thing which could happen with such approach is that a new pending
-bit will be set to irqs_pending bitmap during update of hvip variable in
-vcpu_flush_interrupt() but it isn't problem as the new pending bit won't
-be lost and just be proceded during the next flush.
+Centralising the helpers avoids duplication and removes subtle differences
+between architectures while keeping the implementation simple.
 
-As AIA specs introduced hviph register which would want to be updated when
-guest related AIA code vcpu_update_hvip() is introduced instead of just
-open-code it in vcpu_flush_interrupts().
+Drop redundant <asm/time.h> includes where <xen/time.h> already pulls it in.
 
+No functional change is intended.
+
+[1] ddee56dc2994 arm: driver for the generic timer for ARMv7
+[2] 096578b4e489 xen: move XEN_SYSCTL_physinfo, XEN_SYSCTL_numainfo and
+                      XEN_SYSCTL_topologyinfo to common code
+
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in v5:
- - Reorder the defintions of local variables (mask, val, hvip) in
-   vcpu_flush_interrupts(). Also, drop a blank line between them.
- - Move #ifdef CONFIG_RISCV_32 above the comment in vcpu_flush_interrupts()
-   and align the comment properly.
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in v4:
- - Move defintion of hvip local variable to narrower space in
-   vcpu_flush_interrupts().
- - Use initializers for mask and val variables.
- - Use local variable c as an argument of vcpu_flush_interrupts() in
-   check_for_pcpu_work().
+Changes in v4-v5:
+ - Nothing changed. Only rebase.
 ---
 Changes in v3:
- - Update the error message in case of RV32 from "hviph" to v->arch.hviph.
- - Make const argument of vcpu_update_hvip.
- - Move local variables mask and val inside if() in vcpu_flush_interrupts().
- - Call vcpu_flush_interrupts() in check_pcpu_work().
- - Move vcpu_update_hvip() inside if() in vcpu_flush_interrupts().
+ - Add Reviewed-by: Jan Beulich <jbeulich@suse.com>.
 ---
 Changes in v2:
- - New patch.
+ - Move ns_to_ticks() and ticks_to_ns() to common code.
 ---
- xen/arch/riscv/domain.c             | 30 +++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/domain.h |  1 +
- xen/arch/riscv/traps.c              |  2 ++
- 3 files changed, 33 insertions(+)
+ xen/arch/arm/include/asm/time.h   |  3 ---
+ xen/arch/arm/time.c               | 11 -----------
+ xen/arch/arm/vtimer.c             |  2 +-
+ xen/arch/riscv/include/asm/time.h |  5 -----
+ xen/arch/riscv/time.c             |  1 +
+ xen/include/xen/time.h            | 11 +++++++++++
+ 6 files changed, 13 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 335c41f3e5a1..636349c8c7e8 100644
---- a/xen/arch/riscv/domain.c
-+++ b/xen/arch/riscv/domain.c
-@@ -215,6 +215,36 @@ void vcpu_sync_interrupts(struct vcpu *v)
- #endif
+diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
+index 49ad8c1a6d47..c194dbb9f52d 100644
+--- a/xen/arch/arm/include/asm/time.h
++++ b/xen/arch/arm/include/asm/time.h
+@@ -101,9 +101,6 @@ extern void init_timer_interrupt(void);
+ /* Counter value at boot time */
+ extern uint64_t boot_count;
+ 
+-extern s_time_t ticks_to_ns(uint64_t ticks);
+-extern uint64_t ns_to_ticks(s_time_t ns);
+-
+ void preinit_xen_time(void);
+ 
+ void force_update_vcpu_system_time(struct vcpu *v);
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index cc3fcf47b66a..a12912a106a0 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -27,7 +27,6 @@
+ #include <asm/cpufeature.h>
+ #include <asm/platform.h>
+ #include <asm/system.h>
+-#include <asm/time.h>
+ #include <asm/vgic.h>
+ 
+ uint64_t __read_mostly boot_count;
+@@ -47,16 +46,6 @@ unsigned int timer_get_irq(enum timer_ppi ppi)
+     return timer_irq[ppi];
  }
  
-+static void vcpu_update_hvip(const struct vcpu *v)
-+{
-+    csr_write(CSR_HVIP, v->arch.hvip);
-+}
-+
-+void vcpu_flush_interrupts(struct vcpu *v)
-+{
-+    if ( ACCESS_ONCE(v->arch.irqs_pending_mask[0]) )
-+    {
-+        unsigned long mask = xchg(&v->arch.irqs_pending_mask[0], 0UL);
-+        unsigned long val = ACCESS_ONCE(v->arch.irqs_pending[0]) & mask;
-+        register_t *hvip = &v->arch.hvip;
-+
-+        *hvip &= ~mask;
-+        *hvip |= val;
-+
-+        vcpu_update_hvip(v);
-+    }
-+
-+#ifdef CONFIG_RISCV_32
-+    /*
-+     * Flush AIA high interrupts.
-+     *
-+     * It is necessary to do only for CONFIG_RISCV_32 which isn't
-+     * supported now.
-+     */
-+#   error "Update v->arch.hviph"
-+#endif
-+}
-+
- static void __init __maybe_unused build_assertions(void)
- {
-     /*
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index b7241f2a79b1..2a454bfc083c 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -116,6 +116,7 @@ int vcpu_set_interrupt(struct vcpu *v, unsigned int irq);
- int vcpu_unset_interrupt(struct vcpu *v, unsigned int irq);
+-/*static inline*/ s_time_t ticks_to_ns(uint64_t ticks)
+-{
+-    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
+-}
+-
+-/*static inline*/ uint64_t ns_to_ticks(s_time_t ns)
+-{
+-    return muldiv64(ns, 1000 * cpu_khz, SECONDS(1));
+-}
+-
+ static __initdata struct dt_device_node *timer;
  
- void vcpu_sync_interrupts(struct vcpu *v);
-+void vcpu_flush_interrupts(struct vcpu *v);
+ #ifdef CONFIG_ACPI
+diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
+index d2124b175521..2e85ff2b6e62 100644
+--- a/xen/arch/arm/vtimer.c
++++ b/xen/arch/arm/vtimer.c
+@@ -12,13 +12,13 @@
+ #include <xen/lib.h>
+ #include <xen/perfc.h>
+ #include <xen/sched.h>
++#include <xen/time.h>
+ #include <xen/timer.h>
  
- #endif /* ASM__RISCV__DOMAIN_H */
- 
-diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index 551f886e3a69..244264c92a79 100644
---- a/xen/arch/riscv/traps.c
-+++ b/xen/arch/riscv/traps.c
-@@ -175,6 +175,8 @@ static void check_for_pcpu_work(void)
- 
-     vcpu_sync_interrupts(curr);
- 
-+    vcpu_flush_interrupts(curr);
-+
-     p2m_handle_vmenter();
+ #include <asm/cpregs.h>
+ #include <asm/div64.h>
+ #include <asm/irq.h>
+ #include <asm/regs.h>
+-#include <asm/time.h>
+ #include <asm/vgic.h>
+ #include <asm/vreg.h>
+ #include <asm/vtimer.h>
+diff --git a/xen/arch/riscv/include/asm/time.h b/xen/arch/riscv/include/asm/time.h
+index 1e7801e2ea0e..be3875b9984e 100644
+--- a/xen/arch/riscv/include/asm/time.h
++++ b/xen/arch/riscv/include/asm/time.h
+@@ -24,11 +24,6 @@ static inline cycles_t get_cycles(void)
+     return csr_read(CSR_TIME);
  }
  
+-static inline s_time_t ticks_to_ns(uint64_t ticks)
+-{
+-    return muldiv64(ticks, MILLISECS(1), cpu_khz);
+-}
+-
+ void preinit_xen_time(void);
+ 
+ #endif /* ASM__RISCV__TIME_H */
+diff --git a/xen/arch/riscv/time.c b/xen/arch/riscv/time.c
+index e962f8518d78..2c7af0a5d63b 100644
+--- a/xen/arch/riscv/time.c
++++ b/xen/arch/riscv/time.c
+@@ -4,6 +4,7 @@
+ #include <xen/init.h>
+ #include <xen/lib.h>
+ #include <xen/sections.h>
++#include <xen/time.h>
+ #include <xen/types.h>
+ 
+ unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+diff --git a/xen/include/xen/time.h b/xen/include/xen/time.h
+index fe0d7a578a99..2185dd26a439 100644
+--- a/xen/include/xen/time.h
++++ b/xen/include/xen/time.h
+@@ -8,6 +8,7 @@
+ #ifndef __XEN_TIME_H__
+ #define __XEN_TIME_H__
+ 
++#include <xen/muldiv64.h>
+ #include <xen/types.h>
+ #include <public/xen.h>
+ 
+@@ -75,6 +76,16 @@ extern void send_timer_event(struct vcpu *v);
+ 
+ void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds);
+ 
++static inline s_time_t ticks_to_ns(uint64_t ticks)
++{
++    return muldiv64(ticks, MILLISECS(1), cpu_khz);
++}
++
++static inline uint64_t ns_to_ticks(s_time_t ns)
++{
++    return muldiv64(ns, cpu_khz, MILLISECS(1));
++}
++
+ #include <asm/time.h>
+ 
+ #endif /* __XEN_TIME_H__ */
 -- 
 2.53.0
 
