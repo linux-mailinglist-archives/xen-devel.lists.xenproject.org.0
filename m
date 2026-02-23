@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oEAKOFlynGmcGAQAu9opvQ
+	id 0Cz2EXd1nGmwHwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:29:29 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:42:47 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FA07178BC8
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:29:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1239138.1540575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99ECC178EC2
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:42:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1239149.1540585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuXs3-0001PB-4l; Mon, 23 Feb 2026 15:29:15 +0000
+	id 1vuY4r-00046j-7k; Mon, 23 Feb 2026 15:42:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1239138.1540575; Mon, 23 Feb 2026 15:29:15 +0000
+Received: by outflank-mailman (output) from mailman id 1239149.1540585; Mon, 23 Feb 2026 15:42:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuXs3-0001Mn-1t; Mon, 23 Feb 2026 15:29:15 +0000
-Received: by outflank-mailman (input) for mailman id 1239138;
- Mon, 23 Feb 2026 15:29:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vuY4r-00045F-4r; Mon, 23 Feb 2026 15:42:29 +0000
+Received: by outflank-mailman (input) for mailman id 1239149;
+ Mon, 23 Feb 2026 15:42:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vuXs1-0001Mc-5Q
- for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 15:29:13 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66fbfd03-10cc-11f1-b164-2bf370ae4941;
- Mon, 23 Feb 2026 16:29:11 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4836f363d0dso39294285e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 07:29:11 -0800 (PST)
+ id 1vuY4p-000459-8I
+ for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 15:42:27 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fd0822a-10ce-11f1-9ccf-f158ae23cfc8;
+ Mon, 23 Feb 2026 16:42:24 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-483770e0b25so41369325e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 07:42:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43970d401aasm19564315f8f.23.2026.02.23.07.29.09
+ 5b1f17b1804b1-483a9b75e63sm340781755e9.6.2026.02.23.07.42.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 07:29:10 -0800 (PST)
+ Mon, 23 Feb 2026 07:42:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66fbfd03-10cc-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 3fd0822a-10ce-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771860551; x=1772465351; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771861344; x=1772466144; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gFlJ93/U6MaTgj11pa6beJp1TBJaxcQo28pmKK0kFcI=;
-        b=ZwkTZkB34hYrKpPZTo/EnRk9u4PaWbSbtkXiAu+7penUQHuG5i2relQqEMEBSymEPz
-         9V0xP5cW5pGRg4MS3/fF+95Q1yo66HbGKDMMo0wh0YgVcGou5Y3RvcTXOxRk9q2DDy/9
-         88CRU4/oKW9Bkh+tlmMS/ugclSUjFflsX9ZFxGyal8JgDddIY2A4IAplW/l2uQdqQLYA
-         mYXN8CgTATepTCq/AtZzQOM+U1F5p4nzIXS9J9r5MiNREieuQ3Z/ndYVM2P9n0atDNvM
-         z2xD7Ge2zZWMI/j3PLdRfJRq3NOwSNFRYpJAYGqK5ndfylgmiTFcUDGXtPYdxFq/CSgk
-         CB4g==
+        bh=tD9eJ5RAeRrQ/dt4hNkudm5i+aFsE603xWVin7DgFGU=;
+        b=FPMghS2/Tr92W7qVj1aGlJAt2YFBXg3t4en6nEF7ZNSO89FDTWvWGTlPxRt+XXoRJh
+         AZs6cpZQAc0MRCxczuGl/mMlm2GZYCHO5d6jHQUket+oK8e7uEQWUCMLZMa43nAwwiY9
+         RPA7nszQMhAxxn4YTb90xWDiP7Tl5uV2tmG2wTH3rEIXb+kr/ezj7F/GkdUs7QBwL7+k
+         ILrztBjkK0JJGnXb9IRqPW03EVMoh7ZyKGHRjuLEa1kk5LC326sw3Be7khV57wVu/zjV
+         jT4l7+ufa9AKoBCC7+OyP4mffKyA3pqbK+9GrXP3UBZlTl+n63u9mnSq8plOE/UDtMEJ
+         JwZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771860551; x=1772465351;
+        d=1e100.net; s=20230601; t=1771861344; x=1772466144;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gFlJ93/U6MaTgj11pa6beJp1TBJaxcQo28pmKK0kFcI=;
-        b=g2PfcdG7xjz97TN+uctJHI09s/foNKW8mn9KJ7CLV5OawrJdPVTypfmQW1oUt/iAjg
-         /WDUBO3JFUQ7pVheQhrdMunkqn41atWubvlItIDyCDhCt7E2wyp/MMhQF0TPzRamJAj6
-         DzDuLDmRa6EAIMWwAYm6aijHagpHBLdQ7vauSCM+PS8lTXqfcj8hlQ0fVwKMEty1PSpL
-         1wqmpk+s7c4WB79x746W2qGEyEEAT/Sfs/fNzS8U1abG+iloZPjdLu4wEQ2Z/kzp1MJE
-         AXZcrB9fZuJoqKW+2naLQsGp5UUn0lGh/P8ntKYdmw4T14P++B7XmajCB1GWBu7D0R85
-         O/Bg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyJa403Jes0h4v5PKnDcjgg1L78rnJvvwVnyIy4qTvhBbbEu37FC7nzI4bJr8cYIR+81zJw3tZmCg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1bjKrqLcPsMl3gd0O4+BB6c4x1HOsqlv5R3kH/iaksVl2Y2Oq
-	WCVYoZHvG09XDGWguGDkYVM4FPdUhF5jYvH1nsX3XiY4C2DBlZO+gwADe10NpYlphA==
-X-Gm-Gg: AZuq6aIvSHhX6JU9nipPYgTY6HJBxNuiJIYgvZ1A+JvvAhuZI/JsEApOxjqeZKoK4ow
-	LxdaTPYmhsk4K82gzZ6mhutytIk6u28frJjqr5fiaq26PdFSsZv9IbUNUWWBE7zL157ccZ3/JI+
-	PLg7+mm/fNskjiiXVcLlrPT6NWaGqzH1FDSEMWOcZ8Lt0yilRok7FjZ0fyHoQ75cZdQCge39BPo
-	1/3pvaf43hTE/3wUesddrpLy5QcrxLsTCu92VPdeEx4h+1Vh5uCXdxjs65rnFrUPfOXf7JwG4CG
-	xfnnvcPcwIpQwhbJs8AJndCgoW/PSuYc0TMLg4nYnJ92lV29GOUgtg8+KTmW+sNPoAQcPgd38x7
-	2sJF2jC+cy+E2uxPGITx7z/UdsibJkOd4T/pdvArB/uUH8wijs0KH+TNjiWMzxQHPhBX8tx7JeO
-	/n4UOhPZA6Do0n930BhF9LmZEMy3/pvGife5chjtvRnvip2/pzWpxgL8nkKjwy5upwoVd849TNI
-	7VB90l4jRarPcoE6igWG72ekw==
-X-Received: by 2002:a05:600c:450c:b0:483:7783:537b with SMTP id 5b1f17b1804b1-483a96365camr147724835e9.24.1771860550704;
-        Mon, 23 Feb 2026 07:29:10 -0800 (PST)
-Message-ID: <75f05c4d-5c1d-4fc2-953f-2beb11467116@suse.com>
-Date: Mon, 23 Feb 2026 16:29:10 +0100
+        bh=tD9eJ5RAeRrQ/dt4hNkudm5i+aFsE603xWVin7DgFGU=;
+        b=aTlY5OvL3qHmcdbJqFtT7IvIA0ZDxn7d+PAR96cMB8w2tPw4OL6XhcuUnhCvxV5naR
+         YGmjFMwh9E0hJqbfceKNbqRywIchE0yR86YevKlNW3lw8SnLZ4vpf8a2ItryeoAkEA8Z
+         Bgoqd8pHT0JvIpOgEsmranfxwcHQ2+3/6JUNX9WAEslyTE8EkYIwJOcXJ0774H3ww7+u
+         JxWlEBQtfJOtDzvUSOnYz+hdv4xWs25H9AOl7IYQkxfiUafNYPj+8U7MZYtSzT4ATHbN
+         m5Z9BA9YKn6xZ9PZxhSTNWbP1MDqS7bP4G4rCWuc4Iv+6ydZ1gRpmZY4B+n7TetZ+uET
+         mvMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU2GuEpjb/LDkL6h8ipAfbFqYKXpbsxQAVin83H8+ROLzLl7mPk/JRwn4IkCDWLZKE/AxrZYAVVF5k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwiKZvknzXaZbGWttEz4Uh52rbPZ0YNGMSLhVfYXAoLXhNXUMhK
+	Lmt0mEhB0PIwBUdq/EDQig/PHbqFFVuFsvxSBhG/gB0KZobpQFtbWOQpmAm+j7TPyQ==
+X-Gm-Gg: AZuq6aJex9t5/EGrW4EpirGRwd0HbENYG7D6JRGi4QSTM1sowJrEflz4otlck0C7eEP
+	L3EDmfNcIys5ouB+Yosg4qxbiR6Os3JyQHn/u85NtC2bfDZzDnyjnt4fEJN25BUriPHJgAkHHsM
+	xqBJJoVbJ3gxk9BuYAcomLWH5+VoH8es+7PXouLcF2D9uofTYWpCf+R6WMuxv8b/NmvR0UC+9kk
+	a9FNhQdxXjWZXPRBkcbfIjQKqn3+FTt+7x9nNkMFC1OIR7NqXBgmSVxTsba0YEz5NRwa5dxcMuc
+	xnhZdmn7K2cgkzfJKjs5Sx9H1W+cB83vLfzMDeUtsWEUr/rZX+tcN+qI2/SIGoy+wADWeWqYyM7
+	xY4GfvsfiglQPZCv+KIYb4OZqU788LApeOGBgQXYPItCA1LSbNF2GQXrHzEKJu0NJOCj22j9k4y
+	jsVZ3ngFssatoV/VR0MD/eyElswg8juJFxocRI0BXXwHFXO32v4IOaCcpNzoqgX9Q3QGaqH1OQv
+	tzri6lJvpT3DEc=
+X-Received: by 2002:a05:600c:1396:b0:477:6d96:b3c8 with SMTP id 5b1f17b1804b1-483adc6aaebmr103396715e9.23.1771861343990;
+        Mon, 23 Feb 2026 07:42:23 -0800 (PST)
+Message-ID: <c2363613-23d5-484d-a244-bf2f53aa3099@suse.com>
+Date: Mon, 23 Feb 2026 16:42:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/platform: Adjust temperature sensors MSRs
-To: Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [PATCH 1/4] tools/tests/x86_emulator: fix 'shifting a negative
+ signed value is undefined'
+To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tu Dinh <ngoc-tu.dinh@vates.tech>, xen-devel@lists.xenproject.org
-References: <08370f3b8b224493b8e66e8503a2fe0d07b73c33.1771600155.git.teddy.astie@vates.tech>
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1771840208.git.edwin.torok@citrix.com>
+ <c908071f1c5293e6f87c67a982adb377b0912ccb.1771840208.git.edwin.torok@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,87 +126,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <08370f3b8b224493b8e66e8503a2fe0d07b73c33.1771600155.git.teddy.astie@vates.tech>
+In-Reply-To: <c908071f1c5293e6f87c67a982adb377b0912ccb.1771840208.git.edwin.torok@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:ngoc-tu.dinh@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1FA07178BC8
+X-Rspamd-Queue-Id: 99ECC178EC2
 X-Rspamd-Action: no action
 
-On 20.02.2026 16:53, Teddy Astie wrote:
-> Temperature sensors MSR were previously assumed to be available when "DTS"
-> CPUID bit is set. This is not really the case :
->  * MSR_IA32_THERM_STATUS is gated behind ACPI CPUID bit, only DTS-related bits
-> of this MSR are gated behind the DTS CPUID
->  * MSR_PACKAGE_THERM_STATUS is gated behind "PTM" CPUID
-> 
-> Also adjust the MSR_TEMPERATURE_TARGET which is not architectural, but stable
-> in practice, and required to be exposed for reliably querying CPU temperature.
-> 
-> Fixes: 615c9f3f820 ("x86/platform: Expose DTS sensors MSR")
-> Reported-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+On 23.02.2026 11:04, Edwin Török wrote:
+> --- a/tools/tests/x86_emulator/test_x86_emulator.c
+> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
+> @@ -1161,7 +1161,7 @@ int main(int argc, char **argv)
+>      instr[0] = 0x4d; instr[1] = 0x0f; instr[2] = 0xbb; instr[3] = 0x03;
+>      regs.eflags = EFLAGS_ALWAYS_SET;
+>      regs.rip    = (unsigned long)&instr[0];
+> -    regs.r8     = (-1L << 40) + 1;
+> +    regs.r8     = (~0ULL << 40) + 1;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> --- a/xen/arch/x86/platform_hypercall.c
-> +++ b/xen/arch/x86/platform_hypercall.c
-> @@ -89,9 +89,26 @@ static bool msr_read_allowed(unsigned int msr)
->          return cpu_has_srbds_ctrl;
->  
->      case MSR_IA32_THERM_STATUS:
-> +        return host_cpu_policy.basic.acpi;
-> +
-> +    /*
-> +     * This MSR is present on most Intel Core-family CPUs since Nehalem but is not an
-> +     * architectural MSR. No CPUID bit enumerates this MSR.
-> +     *
-> +     * This MSR exposes "temperature target" that is needed to compute the CPU
-> +     * temperature. The "temperature target" is a model specific value, and this MSR is
-> +     * the only known method of getting the one used for the CPU. On some CPU models with
-> +     * Intel SST-PP, the "temperature target" can vary over time.
-> +     *
-> +     * We assume all Intel CPUs with DTS may support this MSR; but reads can fail in case
-> +     * the platform doesn't actually support this MSR.
-> +     */
->      case MSR_TEMPERATURE_TARGET:
-> +        return boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-> +            host_cpu_policy.basic.digital_temp_sensor;
-
-Personally I think indentation wants to be three deeper here, but this is one
-of the grey areas of our style. I may take the liberty to adjust it while
-committing.
+While -1 vs ~0 doesn't make a big difference, I think we want to stick to
+"register size" here, and hence have only UL as the suffix. Then (happy to
+adjust while committing):
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
