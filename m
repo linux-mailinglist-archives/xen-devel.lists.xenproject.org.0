@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SJG4GD8vnGkKAgQAu9opvQ
+	id uMwLH64vnGkKAgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 11:43:11 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 11:45:02 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C273D1750CE
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 11:43:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1238971.1540357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0487175122
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 11:45:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1238980.1540366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuTOi-0002GY-T6; Mon, 23 Feb 2026 10:42:40 +0000
+	id 1vuTQp-0002qt-CX; Mon, 23 Feb 2026 10:44:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1238971.1540357; Mon, 23 Feb 2026 10:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 1238980.1540366; Mon, 23 Feb 2026 10:44:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuTOi-0002DR-QA; Mon, 23 Feb 2026 10:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 1238971;
- Mon, 23 Feb 2026 10:42:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vuTQp-0002o7-9I; Mon, 23 Feb 2026 10:44:51 +0000
+Received: by outflank-mailman (input) for mailman id 1238980;
+ Mon, 23 Feb 2026 10:44:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vuTOg-0002DJ-Qy
- for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 10:42:38 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e7fcc92-10a4-11f1-b164-2bf370ae4941;
- Mon, 23 Feb 2026 11:42:37 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4836d4c26d3so36766695e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 02:42:37 -0800 (PST)
+ id 1vuTQo-0002o1-Ku
+ for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 10:44:50 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ac281a9d-10a4-11f1-9ccf-f158ae23cfc8;
+ Mon, 23 Feb 2026 11:44:47 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-43770c94dfaso4164466f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 02:44:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a42eb86bsm84804325e9.15.2026.02.23.02.42.36
+ ffacd0b85a97d-43970c00768sm18491437f8f.10.2026.02.23.02.44.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 02:42:36 -0800 (PST)
+ Mon, 23 Feb 2026 02:44:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e7fcc92-10a4-11f1-b164-2bf370ae4941
+X-Inumbo-ID: ac281a9d-10a4-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771843357; x=1772448157; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771843487; x=1772448287; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6pgzws46isvFUEBd9jQMx5x4y1kwIq7uBsNdnmg/sgI=;
-        b=Ee4LFSZ/NGdJRXndnn173GhEp1nqWNyMc+AMau+S1c7kf8LSjbmp3zuEKZUpsyEzbY
-         2lDBHZBncZBMalFaUjNqCjC0YG7gP6VVn8VR3obzW8Zxor5IKoqRC1Tig6yFNEKIvL4g
-         WY2IkVtUJ8pPmxaZyGx0rkL2glfJxKwbbAM5IxxyGAzXKEpZob7W9XvcDu4AhSABVdRX
-         mEkoIZyWNdQ4glyPQsbz4nSsbTzlt+RaO5We2rn+HvpIbPpdz012hM35T/GqZP/gtMer
-         BfywIVI79nNHUCopR6EAjQwxfdlkfAIjWZTtZyRHmdPEA3G/CNhTIL6zjhdulo94nIRO
-         lBcA==
+        bh=0TlhNjOCRZ75zuXEhNR5Mm6Xt/RDefNpKdfSx0XnpKg=;
+        b=es3s+RZqAwW/3+1iU0EVtmIECzTr+0xpQ5fYghGryQ0lDvMjoFWYymh1jmym4bahqK
+         /ueyqu5HrvS8BHdeN2QPuHhE9NfKm4dE5RCbfc8XIWjUF/pj7kRJEFqLrgFJD+/dNfO2
+         nZrdfZTR+ApV/Gp8azc1OiVVPbRMQXZQF/brPd7ihMaVr5X04pmR/dHlagwSRrq5XvKY
+         GX7SQZbAjrmeTay3k5WfkQOkTiXOLwUH/XU0nJ7PX4pkKdDu+nD/pjsq70xTXKJawi81
+         RbcvpAPv4izjz0ChodayRxFeKMUpk7bIP3Q/xukiJzXAsR3s1AMXf2scUQe2ScfLtemX
+         h7sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771843357; x=1772448157;
+        d=1e100.net; s=20230601; t=1771843487; x=1772448287;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6pgzws46isvFUEBd9jQMx5x4y1kwIq7uBsNdnmg/sgI=;
-        b=uj7MSxdDH5OS/GVaUxBLoJN0fHCZSzoJsa8T1ccdqRP0sbG5FZTAllenIq8CxlHVsH
-         i3U34DTmbS7UEiBa6333/i8U6iTkUm60qEYmbxjFdGsz6xk2x6d6hIxQg3FbWuR622oR
-         c5xkruNeWw/aW2MVwmjsjaHZLY1+I282kdycTryy/Iz4fRsdGIlrLdxPUGtcHCod0tSj
-         WmncD3X40UBbvOPuOn+g7Y+sp/HSQKX6LOq/EDktpRhDeMnPxtFOGRj2iP0O9kTxy8yN
-         KW7nErb70M+NIMt5HqgpLkqkiYz8/lXYquC1dkh3ykBaFU4mkysvg09w460KAHl1JCYJ
-         i0lw==
-X-Forwarded-Encrypted: i=1; AJvYcCXhoL81qSoqAPT48NbBM4Visv1sGNfG53+/fB6AIo7YR/CULDI0PyEtXtQD/kpG9YO+Rj2uzzCeJmk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwHzove8Z6lu3SY1GdZt8E9gd+NvEIYDEsHDqyLfd8Xnpbjwxk
-	LDPzvnfinBxewRYCGkJp11lnI0EWFJHXyGTFy3+2BAvxddyssXda9jJve0z7PB+E5w==
-X-Gm-Gg: AZuq6aJffZftdUDIcMQ5KgvHffLDVfb1v85WlaVKieW1kyZ9iugTs1aJ67ZoBb0jOyL
-	q2zERtlnySQ43o/ORKJMrEpBAHDzU3qRoYUDcQQGKNk+lXfP8ko0RranR8s+Zg0HCBgiTX3kCdz
-	CY/2nhS+GqpCFbxkL6jMtFKBDIbEw9F1MN/mbi/Di2m4KfF0HvIeH0UIaspj5BUCpG6H6Z2lfK6
-	ssslp/4Rgmu/muvRgeZJTLH/3C7cuaKysdgX7VdjbglR1TG3ElDSFm5VzzngUtoJg+8cFWM2ddT
-	GZVHx3njFPeS7zCmXBnkkhVsitsV0LONPlQQaUywCPz3wO/nAMnt+eJb4VBJyvsKVcWR6PW9UEu
-	39tDTPYWXU86U1bt9AqkBT7jghMNH0VrYmrRo/bB4YtxPDP4MwrfLjAnHZFUU+LYEYXw1ASxJC4
-	/R65RkLxqs0Ti+Y0oNCDmPGRjULwciFpVKjictCBDhg7tcfDmyvgWOPTzZ98nQNOiS85VtHgBkT
-	qtKsRFyfqKAr7I=
-X-Received: by 2002:a05:600c:8716:b0:471:1717:411 with SMTP id 5b1f17b1804b1-483a95e9a7fmr139623095e9.24.1771843356714;
-        Mon, 23 Feb 2026 02:42:36 -0800 (PST)
-Message-ID: <dba3fb3f-b5c9-460c-85fc-761f58e140fc@suse.com>
-Date: Mon, 23 Feb 2026 11:42:37 +0100
+        bh=0TlhNjOCRZ75zuXEhNR5Mm6Xt/RDefNpKdfSx0XnpKg=;
+        b=ng3xXDqFrHSB/vfRzsT/iVGB6GF5VFMUE2a7VtPsgp/n/TgMrREHKTQoy6XfWaP0oC
+         6IBhYaAFMNbSImQs61p8FqKxqB4hvg3uq89HwiFe4o8awP8RgWy+yLMvbOBrcaBYVjbf
+         Ff7a/XdP+OLZodibVuJKZD7+kgIgiQKv/uuzx5bKb7AGw8bSh2CsyS7JEZxcsopE3jqp
+         YquK0vX8Nbk07AvRVunu9IsW1JLdnRsCndUeTDCkW0/R7tTq5rgx68PDNuivN9PTpnBa
+         euqe+FSI8YObitWvGFFF9HI2tcAE6yVulYBrbHCUumz4UJypvJkrRbgH9Fa6mdX9gzJY
+         96ig==
+X-Forwarded-Encrypted: i=1; AJvYcCWTQMHtZBpMGZajsufuWe64vaAy7qph0teXlWxKOshEFSNnTSbLiJvAlMC6Ug+a4AgmVDgJsPNCCtQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMHsT8BGMURIHc4U8kG+8o67RTvd3M56q0tCtZw9T6Qek2QENj
+	4/aZaUnTyIkmZOA/TSqCVZtzTldPkplv8TgrEvCot4DSxIl7WWw8ntFoBvd28YffgQ==
+X-Gm-Gg: ATEYQzwhilj6XS/TaibYiDPEcXU1QKTqih0SqwMT0l2r3Ju/0aBL+JEY68xJtGymnM5
+	PPve83UqFyrj/f9XqSEhCwreu1JxP7xTQBNpCDuKQENNfhfbUghJHmfCE2loQIKXFHysq2t6nZe
+	s7p8OGboccIYZ5X3ZnZTPOMBTjerI9URWAJo00qQynRQSoRqOqNBRD4DPqFR4KMxQhaD37k46Lz
+	vN5OdYx1KRNgggd3xd3T/Tf2mtETfuJVsxwVs3Zv4/4rAvmuXBCAA9CkQPYwd2F34g0VwjBr/Lo
+	jV7ak8rv/NL2FczSGG54bXonimkuzwR7QoAjt57JJ3nEP1BEID/DD1qddTYWKZliB9shiSUQeL2
+	Ea8nKBk23zcmCS2l/aI5Yzq5t/z5p/cwsibHY2F3HtFmapp2JcKSG6BY9iCyNOVAvj7NhimA1AH
+	GH6pbHEBaH6+uiYG/ndQp/GeM6PhY1MhjyXhX07SVrOhGsaTq9N6u7oB8N/hGJXYe7WcjcaqGku
+	MBq/c96KAdtrmc=
+X-Received: by 2002:a05:6000:601:b0:432:c0e8:4a33 with SMTP id ffacd0b85a97d-4396f15b30amr13550355f8f.22.1771843487501;
+        Mon, 23 Feb 2026 02:44:47 -0800 (PST)
+Message-ID: <828c24ce-fb40-4469-80cc-0c8d8f40159a@suse.com>
+Date: Mon, 23 Feb 2026 11:44:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] Factor out common build rules and helpers in
- tools/tests
-To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
-References: <cover.1771840831.git.edwin.torok@citrix.com>
+Subject: Re: [PATCH 06/12] xen: Include suitable headers to make declarations
+ visible
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260220214653.3497384-1-andrew.cooper3@citrix.com>
+ <20260220214653.3497384-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,27 +131,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1771840831.git.edwin.torok@citrix.com>
+In-Reply-To: <20260220214653.3497384-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,gitlab.com:url,rules.mk:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:mid,suse.com:dkim,suse.com:email];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:consulting@bugseng.com,m:nicola.vetrini@bugseng.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,m:dmukhin@ford.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -156,88 +160,33 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.998];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	NEURAL_HAM(-0.00)[-0.997];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C273D1750CE
+X-Rspamd-Queue-Id: E0487175122
 X-Rspamd-Action: no action
 
-On 23.02.2026 11:14, Edwin Török wrote:
-> There are a lot of duplicate rules and code in tools/tests.
-> To simplify writing new tests move common build rules into a
-> `tools/tests/Rules.mk`, and helper macros/functions into `common/{tests,guests}.{c,h}`.
+On 20.02.2026 22:46, Andrew Cooper wrote:
+> A range of functions can't see their declarations, requiring the inclusion of
+> appropriate headers.
 > 
-> This also ensures that CFLAGS are applied consistently across all tests (e.g. one test failed
-> to build now due to an unused variable error).
+> For pv/mm.h and pv/traps.h, this requires adjustements to become standalone.
 > 
-> Guest creation also needs to test for the presence of PV, HVM HAP or HVM shadow support
-> in Xen and create a guest accordingly. This can be shared.
+> In pv/mm.h, swap xen/lib.h for xen/bug.h now that ASSERT_UNREACHABLE() has
+> moved.  For pv/traps.h, pv_trap_callback_registered() needs to see a complete
+> struct vcpu, and xen/sched.h is not something appropriate to pull in
+> conditionally.
 > 
-> After these changes the per-test Makefile only contains entries specific
-> to the test (its name, dependencies, etc.) and avoids having to
-> copy&paste boilerplate code.
+> stack-protector.c can't see the declaration of __stack_chk_guard, and fixing
+> that reveals that stack-protector.h needs get_cycles() too.
 > 
-> `tools/tests/x86_emulator` remains unchanged, because the Makefile
-> contains a lot of conditional build logic specific to that test.
+> No functional change.
 > 
-> An upcoming patch series will introduce new tests using the simplified
-> Makefile and shared helpers.
-> 
-> For convenience this is also available at:
-> https://gitlab.com/xen-project/people/edwintorok/xen/-/compare/staging...private%2Fedvint%2Fmigration-tests2?from_project_id=2336572
-> https://gitlab.com/xen-project/people/edwintorok/xen/-/pipelines/2342318716
-> 
-> Edwin Török (7):
->   tools/tests/*/Makefile: factor out common PHONY rules into Rules.mk
->   tools/tests/vpci/main.c: drop unused variables
->   tools/tests/*/Makefile: factor out build rules
->   tools/tests: factor out common helpers
->   tools/tests/common: ensure error messages have a newline
->   tools/tests/tsx: move guest creation to common area
->   tools/tests: print more debug info
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Just fyi that there is also
-https://lists.xen.org/archives/html/xen-devel/2026-02/msg00751.html.
-Can the two of you maybe work together to have a single resulting approach?
-
-Jan
-
->  tools/tests/Rules.mk                          | 60 +++++++++++++
->  tools/tests/common/guests.c                   | 89 +++++++++++++++++++
->  tools/tests/common/guests.h                   | 11 +++
->  tools/tests/common/tests.c                    | 15 ++++
->  tools/tests/common/tests.h                    | 18 ++++
->  tools/tests/cpu-policy/Makefile               | 41 ++-------
->  tools/tests/cpu-policy/test-cpu-policy.c      |  7 +-
->  tools/tests/domid/Makefile                    | 37 ++------
->  tools/tests/domid/test-domid.c                | 11 +--
->  tools/tests/mem-claim/Makefile                | 31 +------
->  tools/tests/mem-claim/test-mem-claim.c        |  9 +-
->  tools/tests/paging-mempool/Makefile           | 31 +------
->  .../paging-mempool/test-paging-mempool.c      |  9 +-
->  tools/tests/pdx/Makefile                      | 37 +-------
->  tools/tests/pdx/test-pdx.c                    |  3 +-
->  tools/tests/rangeset/Makefile                 | 36 +-------
->  tools/tests/rangeset/test-rangeset.c          |  3 +-
->  tools/tests/resource/Makefile                 | 35 +-------
->  tools/tests/resource/test-resource.c          |  9 +-
->  tools/tests/tsx/Makefile                      | 35 +-------
->  tools/tests/tsx/test-tsx.c                    | 88 +++---------------
->  tools/tests/vpci/.gitignore                   |  1 +
->  tools/tests/vpci/Makefile                     | 36 ++------
->  tools/tests/vpci/main.c                       |  6 +-
->  tools/tests/xenstore/Makefile                 | 37 +-------
->  tools/tests/xenstore/test-xenstore.c          |  4 +-
->  26 files changed, 261 insertions(+), 438 deletions(-)
->  create mode 100644 tools/tests/Rules.mk
->  create mode 100644 tools/tests/common/guests.c
->  create mode 100644 tools/tests/common/guests.h
->  create mode 100644 tools/tests/common/tests.c
->  create mode 100644 tools/tests/common/tests.h
->  create mode 100644 tools/tests/vpci/.gitignore
-> 
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
