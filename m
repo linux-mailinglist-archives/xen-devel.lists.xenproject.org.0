@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YHRyE2UKnGkj/QMAu9opvQ
+	id OBNXNa0LnGlL/QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 09:05:57 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 09:11:25 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 710D0172EE7
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 09:05:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1238462.1540066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA9C172F51
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 09:11:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1238471.1540075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuQwT-0000xQ-QR; Mon, 23 Feb 2026 08:05:21 +0000
+	id 1vuR26-0002Uf-Do; Mon, 23 Feb 2026 08:11:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1238462.1540066; Mon, 23 Feb 2026 08:05:21 +0000
+Received: by outflank-mailman (output) from mailman id 1238471.1540075; Mon, 23 Feb 2026 08:11:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuQwT-0000uN-Nk; Mon, 23 Feb 2026 08:05:21 +0000
-Received: by outflank-mailman (input) for mailman id 1238462;
- Mon, 23 Feb 2026 08:05:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vuR26-0002Rf-B8; Mon, 23 Feb 2026 08:11:10 +0000
+Received: by outflank-mailman (input) for mailman id 1238471;
+ Mon, 23 Feb 2026 08:11:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vuQwS-0000uH-8M
- for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 08:05:20 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 620c3d5f-108e-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Feb 2026 09:05:14 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-48375f10628so24590355e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 00:05:14 -0800 (PST)
+ id 1vuR24-0002RZ-IJ
+ for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 08:11:08 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 31fa3800-108f-11f1-b164-2bf370ae4941;
+ Mon, 23 Feb 2026 09:11:03 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4836f4cbe0bso29828235e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 00:11:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a31c56d8sm375008745e9.8.2026.02.23.00.05.12
+ 5b1f17b1804b1-483a31c56d8sm375492715e9.8.2026.02.23.00.11.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 00:05:13 -0800 (PST)
+ Mon, 23 Feb 2026 00:11:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 620c3d5f-108e-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 31fa3800-108f-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771833914; x=1772438714; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771834263; x=1772439063; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aqnHhoDWy61G6LWkBcsQk2zH3mQGxjYNnQGF48GkKOw=;
-        b=EJmut0Q9bESOkcIDQ+WZF0AWhiPh2NAi13m8jJq4yeTWYchVS8uwbuhbgsvJZr5aHl
-         IbkXyKYDSHdQK6/D2vFgriR/cJLVE9zbX4SITSBnd6QiO8pFo280ns4aEEGw0IQzFwys
-         v9eOwGcbeN2DLajQtsOurkNqU1r4xUmuNDYY41hC8VloqQB6BqomjJKXLZYzHBShILpK
-         4kR5o+bMqmy3tT5egsJJHsZfbrG/+QMFL92ck+EblLlhfsJwvxjLUs2Miei68ViOTOoT
-         Pa3/K+dMwZT4Fq2TOVh3ZwcwdLz/kGLvnsawkh5Nnugd1hpm1qBYqYp8Xcw//6sUBbOm
-         TxaQ==
+        bh=8E5HzoZBVpPI2+aoUugeFGPv82LINfvhA/AkDAmYRjM=;
+        b=HDDEL0o46YmTNTvdEssRJ0/ulFy78Ci0X5G+N2JmI9sUb+myGHmhhBlhxi6D4XWGry
+         58hHiP71lgVm40eJP6OoPpBt+uaLVpCEs6jnCa1q8dapqR8lG20W+0kLlOi0TxzfvzF2
+         Md5payXNMpnkgzD60lQM6wyOZNSjvvpbEmEi/iozGED1vHhaefcbotne2RdiTVAbIyY/
+         Jadk2oyfkeknNz45FpWH/fk2CWvJbgg1dOfq7H6Pz+61DxL+QCJd+RoBb0BuS3clmwrc
+         Ln/kVwjNRa9KXoSPDinBs1x7sBvMiGnjxWolj+dLFzBsdxZ3Jlp4hDihP8WNzNj05Oev
+         wv2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771833914; x=1772438714;
+        d=1e100.net; s=20230601; t=1771834263; x=1772439063;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aqnHhoDWy61G6LWkBcsQk2zH3mQGxjYNnQGF48GkKOw=;
-        b=LqUOuf57MOclF9YP2S3ktJU5g30nfxhLpyZHhVWb+jOX7CbFGkdDw2AAp9HmyShbCq
-         t1lYHL2dKcYO1hN7iUBT36lPVDNXfBcajD13d7d+8udqt9m0WYvy2pT8/ct/If4X3A4J
-         PUbkqdhi5KmRMJL5Gxg4qWcUwjNPeba2mCMieMPBm+kft6eBihLuKNu7sLBuF6U4+9Se
-         fl0tsuvK9qk8EuHFGFkxEE3lSorEKQ7JCdxDV+iTRRuZvGksSWxLJGNoYPsCPqxTLPXP
-         3pg6WyExE45ty8ICd30NgFEzZooJHyr2Q9xGPXAKbuIjkkHl19v+7YmZMJ2eWIcxauyw
-         k0Kg==
-X-Forwarded-Encrypted: i=1; AJvYcCUBJ4lFQougzGWbLA1gFRLNuSqSBhW6AngIGaRrNOIHZ3KJKWmvKp+d1mx7IUnQNK8vbnTLpN+4c6g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw17mn5vjvDG2Jent7gmFqEcrIcKFeni30OOwPEv0NDhByX+vpR
-	iO1tx+HYkwF71tLwO3Y9zlfrXEp7awm+Ma/GCMTOHBOU2AwBWM44nDVf6sU2zxuKEw==
-X-Gm-Gg: AZuq6aJte7mUQ6B1L2gI52zFTAHIA8qdJbMekiJ9ynVEmT99Ga/J734JOHEOWK7IsuA
-	fyLaH9Q4a5CdCWHnmkGi1qFlAEbEJPenLs51LtUbsMnbpKa6BafUOLwxZl1puRhlytP3YZodemj
-	fXjtHqDBLBapxKOrsaA5HwcYyF66QTDdIasX0wPYiJf/vAQEX+Mx673D+Ko5J1d9yIIJgnCCBlW
-	ZtqLU0W0KCztj2MD3ubufKUYXkhGRWFz0Ibx6g+0fTPOqay9gC2QADgApmWv+AgdNSwmFNC2eA0
-	NsDAfSICgqfGqfWkcnPk9c9VOJQXX15ohaVHJoG1/wePCWzP7QFGsc16JiLwaQ7WNrWrJcSiYMx
-	o+zofPy1/HUOQ3S0YVh7OEcuD5UA/b5gsRdg/tTiYt0CzCw+8Zlv3Zjo2upjarjL+iTC8ig1xt8
-	ss7z/f2cAFS5BgbMUc20+C9viGlYQIJOHu+hI25tnFtC801dHQP3hdty8zCVg3y7NBa1S3Iw6ho
-	Ay+oMkdMTlcCTcJUZqM0z0luA==
-X-Received: by 2002:a05:600c:8b2c:b0:480:1b1a:5526 with SMTP id 5b1f17b1804b1-483a95e24ebmr150343315e9.16.1771833913526;
-        Mon, 23 Feb 2026 00:05:13 -0800 (PST)
-Message-ID: <340104fc-7c31-42e6-aec3-4fda0f527aa6@suse.com>
-Date: Mon, 23 Feb 2026 09:05:13 +0100
+        bh=8E5HzoZBVpPI2+aoUugeFGPv82LINfvhA/AkDAmYRjM=;
+        b=LNVE23wfFZiqYJx4185Xr7cGhfd2mMrmPGgSqQw3AkkjMH2i+DckItX1D38s1dlRN/
+         dAeCU+IyVLue/F+2YPC0gllhJ3N+9YTgjmgv3ZqEAr5/NNJPKh75DhQvT4MzabDC3va2
+         6Zqby1w50qPZlriROAlcO2DQ2iPdoLLl3quvDHzWtiF/H028x2mgbOgiuzgnJOAhhdQu
+         S5h4HuUEjbvo0z4cI4drn0bQR+Al6H+dnM+QXAQBlr5F7QGKEw7BdKs80WQizeNtuGpZ
+         0ZMA8y7LxZyVv7nmP0X0yaoHRgNp6Kco/bveMQWPo/JSThdx0DRfxNw4F9IBYoi6c0Gm
+         qg0g==
+X-Forwarded-Encrypted: i=1; AJvYcCWhcz08XmImtlTCBvcfaiEVb4AcsUtXR5r9nRAPqxwv024EbsWhgkJ6AS1KP3gxCUlgF/Vd7RgWT5s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygaG/0vA1Ss+7jXpKjH3mX7q9YPXcBQKUC0PxCNjNplcDAAzCD
+	YWcnBLtSrWIIrYR7Eo2HLHkOiyAO8Qtao3yNsockfr/h35QRqIUHbffzEmDPMLL2FQ==
+X-Gm-Gg: AZuq6aLNXVGmcEEAYJxHozFwKReocnnCahz65TqVLDEIxRniNraJqV+bHhhTOKAwmRs
+	5kxndHmuGWrJqle5T4kFF+Ab+B7aEUYvKmO2pnZzq4JOHiVRqknIKhEPr/JYk721gUpklvM6f/x
+	Hd8DGlCnP0kE7QJfYTmv4Xsnu7V5DiJTwhyvV7uZTN0zF+IOq01NtdEckYXqD6NmC5BEJl5/kFv
+	w2lFuiuppxxwer7DZULs+FduIeiwlBztZuLtou1K89TPwhGER6V+3ebKnlkCM51iJZHIALmLupx
+	f0D1PXD30SUO4FjN+8TIu5+b9KZGqwed+BTZzqo/7mL6stDOgoOOdrIS0DS6rw4jwJdoofGMkZx
+	bSwPsRO+GVe87kOenvPM6/vVoZmFy6oka/jbZCEavjdmEieF9ofuZ0zmmnPSW+5m1Y2m4b3tQ+8
+	e0qxUtIjar4MNaK9utUaJk3GyO8Epp717MrcmnKCWfonceaGBAUnNDi092OPM9BhlwDGnvb9Hgt
+	+Xq+CWJc46dhCo=
+X-Received: by 2002:a05:600c:6990:b0:47e:e952:86ca with SMTP id 5b1f17b1804b1-483a95aae7amr118192095e9.2.1771834262715;
+        Mon, 23 Feb 2026 00:11:02 -0800 (PST)
+Message-ID: <101686ff-36d6-4a96-803b-57a6ddd03559@suse.com>
+Date: Mon, 23 Feb 2026 09:11:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/shadow: don't use #if in macro invocations
+Subject: Re: [PATCH v3 06/12] x86/shadow: restrict OOS allocation to when it's
+ really needed
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Tim Deegan <tim@xen.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <23951625-939c-4658-8146-84c1f12381d0@suse.com>
- <24e8dd35-114d-4ba8-aa92-dad7cbcbd37b@citrix.com>
+References: <184df995-e668-1cea-6f9f-8e79a1ffcbbd@suse.com>
+ <3c05fb6c-f71e-1b86-6146-96f2b3f3c9ae@suse.com>
+ <abae3741-d866-4816-8744-6721183f35e6@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,7 +127,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <24e8dd35-114d-4ba8-aa92-dad7cbcbd37b@citrix.com>
+In-Reply-To: <abae3741-d866-4816-8744-6721183f35e6@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
@@ -135,24 +138,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:wl@xen.org,m:roger.pau@citrix.com,m:tim@xen.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -160,100 +163,54 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 710D0172EE7
+X-Rspamd-Queue-Id: 4DA9C172F51
 X-Rspamd-Action: no action
 
-On 20.02.2026 16:29, Andrew Cooper wrote:
-> On 18/02/2026 9:03 am, Jan Beulich wrote:
->> As per the standard this is UB, i.e. we're building on a defacto extension
->> in the compilers we use. Misra C:2012 rule 20.6 disallows this altogether,
->> though. Use helper always-inline functions instead.
+On 20.02.2026 16:06, Andrew Cooper wrote:
+> On 16/05/2023 8:40 am, Jan Beulich wrote:
+>> PV domains won't use it, and even HVM ones won't when OOS is turned off
+>> for them. There's therefore no point in putting extra pressure on the
+>> (limited) pool of memory.
 >>
->> In sh_audit_l1_table(), along with reducing the scope of "gfn", which now
->> isn't used anymore by the if() side of the conditional, also reduce the
->> scope of two other adjacent variables.
+>> While there also zap the sh_type_to_size[] entry when OOS is disabled
+>> altogether.
 >>
->> For audit_magic() note that both which parameters are needed and what
->> their types are is attributed to AUDIT_FAIL() accessing variables which
->> aren't passed as arguments to it.
->>
->> No functional change intended. Of course codegen does change with this,
->> first and foremost in register allocation.
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> v3: New.
+>>
+>> --- a/xen/arch/x86/mm/shadow/common.c
+>> +++ b/xen/arch/x86/mm/shadow/common.c
+>> @@ -61,7 +61,9 @@ const uint8_t sh_type_to_size[] = {
+>>      [SH_type_l4_64_shadow]   = 1,
+>>      [SH_type_p2m_table]      = 1,
+>>      [SH_type_monitor_table]  = 1,
+>> +#if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
+>>      [SH_type_oos_snapshot]   = 1,
+>> +#endif
+>>  };
+>>  #endif /* CONFIG_HVM */
+>>  
+>> @@ -1771,7 +1773,8 @@ static void sh_update_paging_modes(struc
+>>  #endif /* (SHADOW_OPTIMIZATIONS & SHOPT_VIRTUAL_TLB) */
+>>  
+>>  #if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
+>> -    if ( mfn_eq(v->arch.paging.shadow.oos_snapshot[0], INVALID_MFN) )
+>> +    if ( !(d->options & XEN_DOMCTL_CDF_oos_off) &&
+>> +         mfn_eq(v->arch.paging.shadow.oos_snapshot[0], INVALID_MFN) )
+>>      {
+>>          int i;
 > 
-> I included this patch on an interim branch of other MISRA fixes of mine
-> to get a run.
+> I've never seen XEN_DOMCTL_CDF_oos_off used.  Xapi has no plumbing for
+> this, and xl only inherited it from xend.
 > 
-> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/13198988953
-> 
-> There's one more violation still to fix:
-> 
->     if ( unlikely((level == 1)
->                   && sh_mfn_is_a_page_table(target_mfn)
-> #if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC )
->                   /* Unless the page is out of sync and the guest is
->                      writing to it. */
->                   && !(mfn_oos_may_write(target_mfn)
->                        && (ft == ft_demand_write))
-> #endif /* OOS */
->                   ) )
->         sflags &= ~_PAGE_RW;
-> 
-> 
-> 
-> I also looked at this one previously.  Making mfn_oos_may_write()
-> visible outside of SHOPT_OUT_OF_SYNC is quite invasive.
+> At this point, OOS is the tested path and OOS_OFF is the untested path. 
+> I think we should remove the flag and let OOS be unconditional like all
+> the other shadow optimisations.
 
-We could simply add a stub returning constant true for the !OOS case.
-
-> Here, I suggest dropping the unlikely() as the easiest fix.  It's almost
-> certainly useless anyway.
-
-Especially when used around an && expression.
-
-I may want to go a little further there, if already we need to touch this,
-combining the two adjacent "level == 1" checks:
-
-    if ( level == 1 )
-    {
-        /* Protect guest page tables. */
-        if ( unlikely(sh_mfn_is_a_page_table(target_mfn))
-#if SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC
-             /*
-              * Unless the page is out of sync and the guest is writing to it.
-              */
-             && (ft != ft_demand_write || !mfn_oos_may_write(target_mfn))
-#endif /* OOS */
-           )
-            sflags &= ~_PAGE_RW;
-
-        /*
-         * paging_mode_log_dirty support
-         *
-         * Only allow the guest write access to a page a) on a demand fault,
-         * or b) if the page is already marked as dirty.
-         *
-         * (We handle log-dirty entirely inside the shadow code, without using
-         * the p2m_ram_logdirty p2m type: only HAP uses that.)
-         */
-        if ( unlikely(paging_mode_log_dirty(d)) && !mmio_mfn )
-        {
-            if ( ft & FETCH_TYPE_WRITE )
-                paging_mark_dirty(d, target_mfn);
-            else if ( (sflags & _PAGE_RW) &&
-                      !paging_mfn_is_dirty(d, target_mfn) )
-                sflags &= ~_PAGE_RW;
-        }
-    }
-
-Thoughts?
-
-The two different ways of checking for "guest is writing" also look somewhat
-unhelpful. But there's yet another "ft & FETCH_TYPE_WRITE" elsewhere, so it
-may want to be a separate patch to switch to uniformly comparing against
-ft_demand_write.
+It being a guest config setting, I'm hesitant. Maybe we should actually make
+sure it's tested, so that in the case it's needed it could be named as a
+mitigation for an XSA?
 
 Jan
 
