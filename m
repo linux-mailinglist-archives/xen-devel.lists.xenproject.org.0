@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aLtxEDR5nGlfIAQAu9opvQ
+	id 4PJnGhx6nGlfIAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:58:44 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 17:02:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54F3179347
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 16:58:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1239157.1540595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15BD1179464
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Feb 2026 17:02:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1239167.1540606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuYJg-0006ER-Fz; Mon, 23 Feb 2026 15:57:48 +0000
+	id 1vuYO3-0008LD-4C; Mon, 23 Feb 2026 16:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1239157.1540595; Mon, 23 Feb 2026 15:57:48 +0000
+Received: by outflank-mailman (output) from mailman id 1239167.1540606; Mon, 23 Feb 2026 16:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vuYJg-0006CL-D1; Mon, 23 Feb 2026 15:57:48 +0000
-Received: by outflank-mailman (input) for mailman id 1239157;
- Mon, 23 Feb 2026 15:57:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vuYO3-0008JL-0p; Mon, 23 Feb 2026 16:02:19 +0000
+Received: by outflank-mailman (input) for mailman id 1239167;
+ Mon, 23 Feb 2026 16:02:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vuYJf-0006CF-4f
- for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 15:57:47 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64152514-10d0-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Feb 2026 16:57:44 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso33230925e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 07:57:44 -0800 (PST)
+ id 1vuYO1-0008JF-K4
+ for xen-devel@lists.xenproject.org; Mon, 23 Feb 2026 16:02:17 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05fbfaec-10d1-11f1-b164-2bf370ae4941;
+ Mon, 23 Feb 2026 17:02:16 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4834826e555so43762525e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Feb 2026 08:02:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a31bc068sm262920025e9.4.2026.02.23.07.57.42
+ 5b1f17b1804b1-483a31b3d88sm296260235e9.3.2026.02.23.08.02.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 07:57:43 -0800 (PST)
+ Mon, 23 Feb 2026 08:02:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64152514-10d0-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 05fbfaec-10d1-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771862264; x=1772467064; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771862535; x=1772467335; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ds/RoTQe03K5D71BFLV3I6HxMYBKXTEWzKepx1kqI+E=;
-        b=Q9zO7Eretz2mVJl2K/LCf+bq18tmg2PsFofeVdwAK0B+ZgI9UrvfKIcqIN9FrYbCgI
-         FM11juKLamQC/lymWo7keqyzDpJeNm5SeqjVbc7z3bRGGS1MNOHVR+Xy1KVCvD6ONizU
-         geXZG/FnE7Ah6LcPRcXGMfM+30DgeNL5XK4xDZxSHpl44ea9P2sft5GEcHHbEYvOKKre
-         IvCi0fgRtD1e73pD06RcawaOlc8izzLIcOILwG+jY7u0dAKiiTM+O2IX3SNmkIy9HGuP
-         B6/EwvG6CpEcfqmJVXZfomPClFaY10/pUfqRUK7cKOsk2jgTcjn+ymHvyabZkVXcOQf8
-         zHHA==
+        bh=Y0h9ayHreNAAoqsa2WPENgR/1b+P1J/Ynq3ni503hRk=;
+        b=GvhrQ56NEaEfmriJwJKPn+BXDEaGAMBmODVaVe+Pi6GeYLcyj/LE01SRbqiuOvwbAq
+         upH1xgxy/FljHjUbcfUdFc+bwkUUjA1FaY5ssJL21g3rCPyfe7JcNlGuRLBz4rdpTD3H
+         crSUwXzijIXvl3AwYIyxb9/ZNPCx75gJdHZzFnPvz9a2wKCfmmPKPtn+MtiI2oXJX+dI
+         ExSn7GK5Q7vwAw2kLMB9yR3TSEm9DGnMfS0ejzQTawP2QtSvlP9UmHzK0Hx4NnOoW1ZP
+         zQqb/YOXfv1iRYNUKxW1Aa682y3lG/N8mXsTLDCS/0otcDKiqz4lVG0eH1vYaGKcjQRA
+         7YLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771862264; x=1772467064;
+        d=1e100.net; s=20230601; t=1771862535; x=1772467335;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ds/RoTQe03K5D71BFLV3I6HxMYBKXTEWzKepx1kqI+E=;
-        b=ULy9586DTFuPzrZHPcsmqirPwfCraNnksBmaBqr39RD7R5o+m7JAaQypvslo/PCXfE
-         dh7C1N6/YTeTT9oqi2NJEFFZo0xjqpIuNAn1zW8ebCwZSQkD2P8zUshHvefZtmzEhIHC
-         tJoDeb1VL/UYNI8lzJVyOGbD8pyd9IIjaDSHElcgZ9VyDyup+UVWnFKRlXuWLF/e/vap
-         IKwI3rdHoMBxGN7XJT4e+ORzBWgzZd4EiFGbKwiTrTrX93AjoeqxzVoONTX58YfOJqlt
-         7gM4Vr+im+kIfm/afL3EHjhaMKvy+CXVGQeW6oLHzCRoW4GMbNfmk/qpOieo0iYtXT7n
-         4WKA==
-X-Forwarded-Encrypted: i=1; AJvYcCWc7bLqqJkpa2+S+iLWkHtLMTzzdJ3NU7Q4HQxDW5BdI9kaLSaOsM6C2gAZVA3D6Cx7lCG+BcKcWAA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxgK8ZBAsCseli2oQdK6D1TXKoXHcPtNDmeyacNgt4absfJVQJ4
-	eirRRjNP0sh/3Hy6h6OEckqj05hg1+iqrJcEb1IIX6JFlRXJPhDLb71BMjNzG6yNBA==
-X-Gm-Gg: AZuq6aKiuU9jWWyrZDiW210dByFoTYfSE0cOcDQK9MxA2pf4t4xmozVRt5x0eXiaFie
-	x5sEd0jA6Vpu0a8iDv2rUejDWSKq258Bre3LiHIZV2XQWwsdgEuKQmEkoSSDWjFpBwdb+yu+415
-	WJO2IefveLFREDEI+9NUZS3SBevQMulY4nVFuj0I7O0hTCHkvNIw8jVpvxbUGfKcl/c7PnavwLa
-	Chz0F3sGwmtzbvxSsmjMcJjthERiTm9MKoR9ISFZZM71CcQU3xTUXLp0nPXtbzPVJLq0giCUU94
-	rNc4pazPPUZQMnwRjc6b6ug7IsGRRZgwebk1Yg1TOnjK4+ERCzztsaCAXisw/u+ZUlPJHL/9yEF
-	OohTN/Ru2839mERnrfOwWrg6k2XN1cRDMa6FbBLtb95HIXTTDZM+cV6pKhy92fUJtNRJ3LqOty+
-	fimEIDcr10ZI7CwG0PeCxjH85EGRyBOAwm8BzN3wcT/cgoaU/GXZq6hfS1DwYJaXaSuiyRauDP/
-	pEhAsVkVREq8aaJbiHWYnEdpw==
-X-Received: by 2002:a05:600c:8b31:b0:483:2c98:435e with SMTP id 5b1f17b1804b1-483a95ee684mr152402285e9.34.1771862263853;
-        Mon, 23 Feb 2026 07:57:43 -0800 (PST)
-Message-ID: <4711b676-82f8-48ec-a7dd-5c33bc7cd967@suse.com>
-Date: Mon, 23 Feb 2026 16:57:44 +0100
+        bh=Y0h9ayHreNAAoqsa2WPENgR/1b+P1J/Ynq3ni503hRk=;
+        b=v2iQvebpsJ1X+wgOT9OhYiG50p939T7VKzoFYx5NGXmvAHaFCnRLwmnHzPB+D+Cvj8
+         8QaMkkxslk3DDhV2vJDDBDvVxf5rcnTLXM9H2+EWwQtxHje8U8t9qur81otCutEZSVtR
+         Hf/2dWcYlal5hOPp5yeXQ5gxdZG00wsYLtYCefojx6BVnytdkPwyJa8RdG6HzVrlpdpI
+         fRsJUafViR1+3zYEG5aswIaLwQtzxFThppzzQo8Vw/NwfQFr15j5LcQ4VmVyJ9jlM9U9
+         te94NVS6MBsl+YEZGS2SNt6hOyAkHUnQUuEf3pYQQCqBLAuzLLK+Ugc7HpI7M2E8MDpl
+         GvKA==
+X-Forwarded-Encrypted: i=1; AJvYcCXoWiHigpb8jadA/TPMbagyyp8/ETpKKK5NoxyJzPFVsUFxz/2pBvOJgFZPFEChvWiAKThzPyqfKM0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBveOtDQuDGvzEZqwJ2qQ3rKCbiFftJMfPlZbj05a5Ua62SWsK
+	sDevT/AGjt04br8zC58YtZVuNC1VyxmBT/RdsacU+S4+3z6j/RYC/2SUwfsj8KOB1w==
+X-Gm-Gg: AZuq6aIiJGNGDQ3lUim8i1c3fjTWo0qYxsjV6nzLEqRdepvIttTrYhf7RFRr0MmfguJ
+	zbMSCW/8DJC7w1hNglMbs3S2Cpq9o/0SQSS0qa0mIn85lC64RLTYiURHC0uaQJ8RYYf2e8w5k0S
+	TFh0GK0uW4UTiA+kV59yGfjpoxKV0FNX335tuj6tfEn3oWubEOsNzUiBb1zAeK9KAscBKeZYWmP
+	BMonEfreY0yAaHNfm7MJn36SSIeGKTTImObx2g+zS2tPCGmFCHK0ElHNhvyRa6icLpcA91Xplxz
+	bFPICGpqnRT7IwSH5xLyzHrcuA8C7Fv3mXsVBg+mA2RsUM0wtNP0KMZaxc/uIhk/mP7yY5szz+t
+	MiBaz84bp/Fyk0yFaIvpPDsWMuqITDWfpZY4wC8imfHVwGP2GX6CGFcHXN2vFZhI1c6MM8Fr+6R
+	XzEDe0FvTVwH6SFtQVJddeO80Tra9HYhu8ZUmnM22ogXrq1BuZcuwuEpIJumm63bH0WCqCjtLf+
+	LF2zd0cAJbvoec=
+X-Received: by 2002:a05:600c:3516:b0:477:9b4a:a82 with SMTP id 5b1f17b1804b1-483a963df3cmr189603125e9.35.1771862535496;
+        Mon, 23 Feb 2026 08:02:15 -0800 (PST)
+Message-ID: <6d564a09-b1bb-414f-ba8a-61bf9d9c7e5e@suse.com>
+Date: Mon, 23 Feb 2026 17:02:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] tools/tests/x86_emulator: avoid duplicating loop body
+Subject: Re: [PATCH 3/4] tools/tests/x86_emulator: fix build on clang-21
 To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1771840208.git.edwin.torok@citrix.com>
- <c0dc7da75ee36d10863a8b28fa2f19b3b4c8a316.1771840208.git.edwin.torok@citrix.com>
+ <7147fc3ef5d5bdf5a811e896925d9aa641ed0753.1771840208.git.edwin.torok@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,93 +125,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c0dc7da75ee36d10863a8b28fa2f19b3b4c8a316.1771840208.git.edwin.torok@citrix.com>
+In-Reply-To: <7147fc3ef5d5bdf5a811e896925d9aa641ed0753.1771840208.git.edwin.torok@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,gnu.org:url];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RSPAMD_URIBL_FAIL(0.00)[suse.com:query timed out];
 	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	DKIM_TRACE(0.00)[suse.com:+];
+	NEURAL_HAM(-0.00)[-0.998];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A54F3179347
+X-Rspamd-Queue-Id: 15BD1179464
 X-Rspamd-Action: no action
 
 On 23.02.2026 11:04, Edwin Török wrote:
-> clang would duplicate the loop body and end up with a double definition
-> of the symbol:
+> clang-21's built-in assembler is enabled by default, but it doesn't
+> support some mnemonics:
 > ```
-> /tmp/test_x86_emulator-0f3576.s:27823: Error: symbol `vmovsh_to_mem' is already defined
-> /tmp/test_x86_emulator-0f3576.s:27825: Error: symbol `.Lvmovsh_to_mem_end' is already defined
+> test_x86_emulator.c:2636:36: error: invalid instruction mnemonic 'fsaves'
+>  2636 |                        "fidivs %1\n\t"
+> test_x86_emulator.c:2640:24: error: invalid instruction mnemonic 'frstors'
+>  2640 |         asm volatile ( "frstors %0" :: "m" (res[25]) : "memory" );
+>       |                        ^
+> test_x86_emulator.c:4251:24: error: invalid instruction mnemonic 'vpcmpestriq'
+>  4251 |                        put_insn(vpcmpestri,
+>       |                        ^
 > ```
-> 
-> This is a valid transformation, that even GCC might do, see
-> https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Volatile-1 which
-> says that `%=` should be used instead. However the C code here also
-> needs to know the name of the label, so I don't immediately see how to
-> solve that.
-> 
-> For now mark the loop variable `volatile` to prevent the optimization as a
-> workaround.
-> (another way to fix this could be to move the loop body into a function,
-> but a compiler might inline it, or specialize it, leading to the same problem)
 
-Hmm, moving decl and asm() out of the loop wouldn't really work. One option
-would be to extend the long-pending [1] to also cover test_x86_emulator.c.
-Another might be to make the upper loop bound not a literal 2, but one
-loaded from memory, suitably arranged for the compiler to not be able to
-const-propagate the value.
+Was this reported to them as a bug (or perhaps even two)? That would be nice
+to add ...
 
-But I wonder how many other transformations the compiler could do, causing
-the same issue elsewhere. Maybe we need to overhaul how this instruction
-instantiation works. (I further wonder how many such issues are lurking in
-the many patches I have out for review, plus the yet further ones I didn't
-post yet to not pointlessly increase the pile.)
-
-> --- a/tools/tests/x86_emulator/test_x86_emulator.c
-> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-> @@ -5248,7 +5248,7 @@ int main(int argc, char **argv)
->          memset(res + 3, ~0, 8);
->          regs.eax = (unsigned long)res;
->          regs.ecx = ~0;
-> -        for ( i = 0; i < 2; ++i )
-> +        for (volatile int i = 0; i < 2; ++i )
-
-Even if we went with this as a workaround, style should please not be screwed
-up.
-
-Also, whichever the workaround, I think a comment wants leaving.
-
-And then I don't think it is a good idea to introduce a shadowing induction
-variable.
+> --- a/tools/tests/x86_emulator/Makefile
+> +++ b/tools/tests/x86_emulator/Makefile
+> @@ -297,6 +297,7 @@ x86_emulate:
+>  
+>  HOSTCFLAGS-x86_64 := -fno-PIE
+>  $(call cc-option-add,HOSTCFLAGS-x86_64,HOSTCC,-no-pie)
+> +$(call cc-option-add,HOSTCFLAGS-x86_64,HOSTCC,-no-integrated-as)
+... as reference in a comment here.
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2023-04/msg00283.html
 
