@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qM1ZA4F6nWmAQAQAu9opvQ
+	id oNDyN9B8nWmAQAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Feb 2026 11:16:33 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Feb 2026 11:26:24 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7309F185311
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Feb 2026 11:16:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1239738.1541156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BB51854E2
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Feb 2026 11:26:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1239751.1541167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vupSn-0005IF-4q; Tue, 24 Feb 2026 10:16:21 +0000
+	id 1vupcA-0007BT-0w; Tue, 24 Feb 2026 10:26:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1239738.1541156; Tue, 24 Feb 2026 10:16:21 +0000
+Received: by outflank-mailman (output) from mailman id 1239751.1541167; Tue, 24 Feb 2026 10:26:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vupSn-0005GM-2E; Tue, 24 Feb 2026 10:16:21 +0000
-Received: by outflank-mailman (input) for mailman id 1239738;
- Tue, 24 Feb 2026 10:16:19 +0000
+	id 1vupc9-00078m-Tp; Tue, 24 Feb 2026 10:26:01 +0000
+Received: by outflank-mailman (input) for mailman id 1239751;
+ Tue, 24 Feb 2026 10:26:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1N/p=A4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vupSl-0005GG-Rh
- for xen-devel@lists.xenproject.org; Tue, 24 Feb 2026 10:16:19 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vupc8-00078g-6C
+ for xen-devel@lists.xenproject.org; Tue, 24 Feb 2026 10:26:00 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db4945d1-1169-11f1-9ccf-f158ae23cfc8;
- Tue, 24 Feb 2026 11:16:17 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4837634de51so23513925e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Feb 2026 02:16:17 -0800 (PST)
+ id 3532935d-116b-11f1-9ccf-f158ae23cfc8;
+ Tue, 24 Feb 2026 11:25:57 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-483487335c2so48689675e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Feb 2026 02:25:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a31efe02sm355976905e9.10.2026.02.24.02.16.15
+ 5b1f17b1804b1-483a9b7fc8fsm227993895e9.7.2026.02.24.02.25.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Feb 2026 02:16:16 -0800 (PST)
+ Tue, 24 Feb 2026 02:25:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,64 +50,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db4945d1-1169-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 3532935d-116b-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1771928177; x=1772532977; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1771928757; x=1772533557; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+sOE4OdP+TTHpj4/9xI/G8cJpS26XtzaF17LlmGSj3g=;
-        b=azTQpmHS4PsCCt/4LiCLnDlCxR4WZvZiarPVTh1okWdOXosHUrHDW+WVdXuEjWzEB2
-         jSHhmUX/xdBdQ2a6fjyQWS2R0Xp6Zq2RY/RX9/6VSQFVXYfl9Pe5jAinui3qqXJ0NUt0
-         J2ag/2onN7oXLWkHOXE8qqWxBjSug0yNT6ClLrpEv3o2ISM4wf+kJNUMWA9pFet9OCvU
-         ZaR73voRpUpztS7ahPYo1sOvqETDeo4lJUhJT5IQm370m9unR6tekqGzQi5FQDx8zCDy
-         XREJFbfTOQ0hb9BQ1I61isQiyzLGnL5VGzgoj20uiTrmieBv+iPh63/uSYo4zcrn8xmD
-         1sGg==
+        bh=iJjv673tEQxBZbdVymcgQOhFGqwEYC4jtFglOlAcBUU=;
+        b=EdPgBWrLEZ1f+1OZuNhylZVqfgbPg8trk63SICa/yL/inGmtfyCUv5fKDSzFxfiX0J
+         N88/kKxC8SjjEko+ODsA0WP1Cv3H3lRBN0Aq9PC+szZ5wQAbjDYUIJs9a2mHRfRwBfqF
+         gSEZTRhT1vKAeWL4ekPJwvV8lY1soe9OJo2SHIsLn49VSeLJCEHjJg0io04eE/g/peC+
+         SQ1rhg2kINvYk0jJZhAEZuEANMFNicpyOu4kui7RxXUZxWaY00sZKXGuz4s1ZylKq24x
+         Bmxyav21uUaALO7IXQ1ck35Skeuame7KXbbnHt3pr51JIME1FY7Q+GDxUPtzWy7DMpet
+         pg7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771928177; x=1772532977;
+        d=1e100.net; s=20230601; t=1771928757; x=1772533557;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+sOE4OdP+TTHpj4/9xI/G8cJpS26XtzaF17LlmGSj3g=;
-        b=dPG19SCTeOJUAA7Mrxc8WIAq0LCCozRHQxmqCey82Ku8Xgxj+PY/bqFAZMX3v+9uac
-         Lj80p2gyeRhw3aFO81bjwecIT77QNdBpQNsr07gHVbfrlPBvSBty1FupzZqq4Q8ZnR1Y
-         E4akQ7N3MvEBgdlDlxJ9CvCqpmrVwHg5u99ljaUuKwVzVslA9+oJQM1UG0KBSodIIMnT
-         0rPBbG9pL5It2p/12I0VoS2W3p3PXyDG0N9Gj2hGQXK7z9sQuk2COn6u/37AgFvsuUSJ
-         yFEZoue8SIGJR7CFYu/tsnFqmML9LqqlzrfeILgb9p1P10vyQFZBJjVQkKwL6obJXy02
-         1gYw==
-X-Forwarded-Encrypted: i=1; AJvYcCUiF7E+l/vdgBZKPeNHe3wRKJxOhw6zri8X/pNQEkSaMAXORp80XMGFWNoTEzrqdYbEV+rOhGOAbKE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyyIxpf9x/ZnNOi+hjMEOLJcfe+7yR1AS+h9qufL2D6zpSzjGew
-	6bbmw0HwuNXXPGUpP/81nJoO4Qs4PN3ZEMUTdkNTqYP8yJ9OdOXj52c/he1CGRNObg==
-X-Gm-Gg: AZuq6aLvmBil5RlXSeqP5Tp5PPA8QQ+oCxt/LUhP59yyt4ZAKWU0lP1afYVDP2Q4ukb
-	UutCe4qOBFjF+ZTYDtiuk35ZpF1Wd00yOvkL/ESdtSU1DPRh7UZLYGVRcJjGbo2y7PpTNFfQP/7
-	tmYN6dDgzG7agsm4jH3gm7Pr+bTQZk0nb5RGG7RszK7Zfo3+26Ao4dbalFfCRds9PSRAHWHBV6M
-	aN06DauZKCj9oJy5Q1mEysx0+OvM1GnZwsfrcfu1Ue/EWOI83EgTEzoXbPFHEGX5hqBVFN9OvLe
-	7PHujSjGpaPiJwXsrexADTd+uswO83T3DRZuUufin6dSIi3k3YHJH6M+C2bKnaQJj3dBjmu+c/o
-	NxgaPD97LE5OiQakRxil34X5KpewpXAGwENFPsIRVAzv9g6SnLbiDZjGT5mwSO/BDD9gFF3K1R9
-	uEXWcrIdMZbcw1Z+orUy9JgZ7DFzwHjyaVweaEvok32WLk0O7n0msVdcGx1RFMoG5/FBwzstjcV
-	fVnvG0ZZxaAbE4=
-X-Received: by 2002:a05:600c:154b:b0:483:7ae2:1737 with SMTP id 5b1f17b1804b1-483a962e486mr167957685e9.17.1771928176754;
-        Tue, 24 Feb 2026 02:16:16 -0800 (PST)
-Message-ID: <541a6c57-406c-49e5-8b8b-019e30bf0d89@suse.com>
-Date: Tue, 24 Feb 2026 11:16:14 +0100
+        bh=iJjv673tEQxBZbdVymcgQOhFGqwEYC4jtFglOlAcBUU=;
+        b=tfqm+wlOAW37rPkBmes6fKmVi0ByuuU6kaCg9pprqR4z63Pa5Ouq/wIA+6aC+I+aab
+         zLsbiyn1c5Jjwc1o6njZDUhS+evNPgSvVjgSvWIXUHP84SZ3432Czay5h1P8lIZmZrs4
+         3fNAdE7ueTwIP8Cfs2WqXjxNGl/TxazKXq/NNkSDeDHIxu9sc1hm6DdCn+p9pzUCJO26
+         c+PaVkcigeZAF3dzP06N5oRApWYcx2LD+xJmtN+8NbvRsQr0AHWouO9vg8oJxkKZRIrR
+         nvt19/MCv9APmXE8hCyri5hqCXA0YPJeWcqqkF2XBqFTDTRHEE5SVpLBkNh1XxW1g5sk
+         3EtA==
+X-Forwarded-Encrypted: i=1; AJvYcCUWDKLyqwnbx3anyNqAf62+iPq42h6Noviu+rMj6PXW+3AJ67TeEVwL2ghPX2x1eZdmrqOY5qTLhPI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8ZwbXuFEhIAazN3h4bYRPD7D5QEgtB3mEMHFzn/KKCuwLcguA
+	sVuj215Wzy+X6bqwOz4Ki1hKvqDbUo0h3BJbazawarYJ78MaFhAir0dh1IoY9H6JYw==
+X-Gm-Gg: AZuq6aItDxsLK65dE1XsTdu4S/7zDCC+brHFbIizrp/Es4r4wiZ+oEeVaqEb/V85XIM
+	bW/IDr/IrNvd8zDDfjAdyy5DULyYOuw1APZuyNceb/xSrjuKmvWfr+VVilgqjdqTuazUAwMWubR
+	1gytNo4i6Sf09iEYninkZoTBjGMbXUbCsfWfvXBZ6dIwDKelrBrObskK09JERofiUndKTKsmKA7
+	7b8nlvDlUhBsox5fzf+GDhut4NTIu54BvraWGS9+z4AF6Fabyqd67AmciE/iUOsKMFWi8m3nHpT
+	uVe0kn2XH5mxjRYVbZxRa6N+zxpN6HHXt0xroGAViFDSZ1RTixvN9GxauSTYrfDbddWdmchTcv3
+	1WMj+gynaK63/e9JqnSp8grqL4uKiSNK+6PVaKhYJSQVuuqhcER2Ij8vqa8JkQzsWF6qvtpYmoK
+	7HMqrWT3SDGzONmMa5rUq333hOuZRX52socPHI8tcC06sXUxICdE9VsiIyQqOHnGnaxr1urBI2H
+	fwLaVUmBH4f5yM=
+X-Received: by 2002:a05:600c:810a:b0:480:1e9e:f9c with SMTP id 5b1f17b1804b1-483a95bda25mr189340035e9.10.1771928757151;
+        Tue, 24 Feb 2026 02:25:57 -0800 (PST)
+Message-ID: <8e8904c5-18aa-40a7-9878-56df56760145@suse.com>
+Date: Tue, 24 Feb 2026 11:25:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/14] xen/riscv: detect and store supported hypervisor
- CSR bits at boot
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 1/4] tools/tests/x86_emulator: fix 'shifting a negative
+ signed value is undefined'
+To: Edwin Torok <edwin.torok@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1771590794.git.oleksii.kurochko@gmail.com>
- <4f36d83e58bfba807660ebc1fc48e71ae056805a.1771590794.git.oleksii.kurochko@gmail.com>
- <bf8d5b4f-937a-4d6f-86ba-1ab07f53eb51@suse.com>
- <e084cd6f-e76d-40c1-9e30-97e10acae012@gmail.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1771840208.git.edwin.torok@citrix.com>
+ <c908071f1c5293e6f87c67a982adb377b0912ccb.1771840208.git.edwin.torok@citrix.com>
+ <c2363613-23d5-484d-a244-bf2f53aa3099@suse.com>
+ <6BE49BEE-F813-4586-9F51-3D39106E85CD@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,149 +129,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e084cd6f-e76d-40c1-9e30-97e10acae012@gmail.com>
+In-Reply-To: <6BE49BEE-F813-4586-9F51-3D39106E85CD@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email,regs.rip:url];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.986];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 7309F185311
+X-Rspamd-Queue-Id: 45BB51854E2
 X-Rspamd-Action: no action
 
-On 24.02.2026 10:44, Oleksii Kurochko wrote:
-> 
-> On 2/24/26 9:07 AM, Jan Beulich wrote:
->> On 20.02.2026 17:18, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/domain.c
->>> +++ b/xen/arch/riscv/domain.c
->>> @@ -2,9 +2,39 @@
->>>   
->>>   #include <xen/init.h>
->>>   #include <xen/mm.h>
->>> +#include <xen/sections.h>
->>>   #include <xen/sched.h>
->>>   #include <xen/vmap.h>
->>>   
->>> +#include <asm/cpufeature.h>
->>> +#include <asm/csr.h>
->>> +
->>> +struct csr_masks {
->>> +    register_t hedeleg;
->>> +    register_t henvcfg;
->>> +    register_t hideleg;
->>> +    register_t hstateen0;
->>> +};
->>> +
->>> +static struct csr_masks __ro_after_init csr_masks;
->>> +
->>> +void __init init_csr_masks(void)
->>> +{
->>> +#define INIT_CSR_MASK(csr, field) do { \
->>> +    register_t old; \
->>> +    old = csr_read(CSR_##csr); \
->> Can't this be the initializer of the variable? Can't ...
-> 
-> I agree that this is change is okay to be done but I am not sure about ...
-> 
+On 24.02.2026 11:12, Edwin Torok wrote:
+>> On 23 Feb 2026, at 15:42, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 23.02.2026 11:04, Edwin Török wrote:
+>>> --- a/tools/tests/x86_emulator/test_x86_emulator.c
+>>> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
+>>> @@ -1161,7 +1161,7 @@ int main(int argc, char **argv)
+>>>     instr[0] = 0x4d; instr[1] = 0x0f; instr[2] = 0xbb; instr[3] = 0x03;
+>>>     regs.eflags = EFLAGS_ALWAYS_SET;
+>>>     regs.rip    = (unsigned long)&instr[0];
+>>> -    regs.r8     = (-1L << 40) + 1;
+>>> +    regs.r8     = (~0ULL << 40) + 1;
 >>
->>> +    csr_set(CSR_##csr, ULONG_MAX); \
->> ... csr_swap() be used here, too?
+>> While -1 vs ~0 doesn't make a big difference, I think we want to stick to
+>> "register size" here, and hence have only UL as the suffix. Then (happy to
+>> adjust while committing):
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> ... as after re-reading spec again I am not sure that we can do in this way
-> at all.
-> 
-> Initially I used csr_set() instead of csr_swap() or csr_write() as csr_set() to
-> take into account a writability of the bit, so it won't touch a bit if it
-> is r/o.
+> That is what I tried initially, but I got an error that the shift exceeds the width of the type in (0UL << 40).
+> (I think the failure was with -m32 in the CI, but can’t find it now)
 
-To me the spec isn't quite clear enough in this regard.
-
-> But it seems like this approach won't work with**WLRL or WPRI fields as these
-> fields aren't r/o,
-
-In the CSRs presently dealt with, are there any WLRL fields at all? (I don't
-think WPRI fields represent much of an issue for the purpose here.)
-
-> but they only support specific value and for example:
-> 
-> - Implementations are permitted but not required to raise an
->    illegal-instruction exception if an instruction attempts to write a
->    non-supported value to a WLRL field.
-> - For these reserved fields, software is required to preserve the existing
->    values when writing to other fields in the same register. Overwriting them
->    with 1s could be considered non-compliant behavior.
-> 
-> So it seems like we can't just do csr_swap() with all 1s and it is needed
-> to pass a mask to INIT_CSR_MASK() which will tell which bits should be
-> ignored and don't touched.
-> For example, HENVCFG and HSTATEEN0 has WPRI fields.
-> 
-> reserved_bits_mask = 0x1FFFFFFCFFFFFF00;
-> tmp = csr_read(HENVCFG);
-> tmp=(~reserved_bits_mask) |(tmp&reserved_bits_mask); csr_set(HENVCFG, tmp);
-
-What I find further concerning is that HSTATEEN0 also may have read-only-1
-fields. You don't currently cope with that, I think.
-
->>> +    csr_masks.field = csr_swap(CSR_##csr, old); \
->>> +} while (0)
->> This whole macro body would also better be indented by one level, to not leave
->> in particular this closing brace as a misleading one.
-> 
-> Do you mean that it should be:
-> 
-> +void __init init_csr_masks(void)
-> +{
-> +#define INIT_CSR_MASK(csr, field) \
->      do {
->           ....
->      } while (0)
-> #endif
-> 
-> I will update it.
-
-Yes, with no #endif of course. The "do {" could also stay where you had it.
-
->> Happy to make adjustments while committing, provided you agree. With the
->> adjustments (or clarification why any of them shouldn't be done):
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> If what I wrote above make sense then it seems that I have to send a new
-> version of this patch.
-
-Not sure there, but the hstateen0 aspect needs dealing with, I think.
+But this code has "#ifdef __x86_64__" around it.
 
 Jan
 
