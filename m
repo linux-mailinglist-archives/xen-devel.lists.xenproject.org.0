@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yI34JHTgnmmCXgQAu9opvQ
+	id wOoTLYzgnmmCXgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:43:48 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:12 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0995196C2D
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:43:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1240610.1541936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272F5196C49
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1240623.1541947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvDIm-0002Vc-7y; Wed, 25 Feb 2026 11:43:36 +0000
+	id 1vvDJE-00035b-Ip; Wed, 25 Feb 2026 11:44:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1240610.1541936; Wed, 25 Feb 2026 11:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 1240623.1541947; Wed, 25 Feb 2026 11:44:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvDIm-0002Ti-4n; Wed, 25 Feb 2026 11:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 1240610;
- Wed, 25 Feb 2026 11:43:35 +0000
+	id 1vvDJE-00032Y-FP; Wed, 25 Feb 2026 11:44:04 +0000
+Received: by outflank-mailman (input) for mailman id 1240623;
+ Wed, 25 Feb 2026 11:44:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tnRg=A5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vvDIl-0002SC-BY
- for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 11:43:35 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1vvDJD-0002SC-1Q
+ for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 11:44:03 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36268e7e-123f-11f1-9ccf-f158ae23cfc8;
- Wed, 25 Feb 2026 12:43:32 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-48375f1defeso46010455e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 03:43:32 -0800 (PST)
+ id 470d1f37-123f-11f1-9ccf-f158ae23cfc8;
+ Wed, 25 Feb 2026 12:44:01 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-483487335c2so58992385e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 03:44:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bd6f19d6sm66613375e9.2.2026.02.25.03.43.31
+ 5b1f17b1804b1-483bffc17dasm17462215e9.2.2026.02.25.03.44.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Feb 2026 03:43:31 -0800 (PST)
+ Wed, 25 Feb 2026 03:44:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36268e7e-123f-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 470d1f37-123f-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772019812; x=1772624612; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772019840; x=1772624640; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uAgcdDfpsSw1jsAfrY2aV1rXdVm2j1GaT1wB7ahB0HM=;
-        b=hCtIPvNF0GAePeUiht/dviW63m76RF4YyJF6dsyKcrLD6VNhnS2Op0t2SCsnT7qp4F
-         AkXhg2ou0WCG9lpt+GRp8QhnlFex7V1OZGQfYuE8ORZyht+278l2Lnv4LlBG8lYEb0k6
-         EYlBoTn8W38xp5BGg9FdUylfT0qpuUZgquHBZA/zVbMDhoakiebSP6qo151jFY4IQWl9
-         WUzTTOXd/7umiVH6TZrr00v8TNLXXEJ2DdOkJXmIdvWI7aZyqOEpmqZXbW8QT7a+Z/Fm
-         HYlfWPf/RzWM0awhoPIVgFwdrGiuIi7oj1PY+NZ+EqUbJyb0d2Q+vD5iNdQBfi1eHTPH
-         uJzQ==
+        bh=qvqxSGqotIAOODsHnK2+oa0DmybL0jdHjJLUZwFNknw=;
+        b=cgYfSze+bxQCzruFc3EXdrJMlZmGFyQ62Y+tWUW5Q0Om5PRRpTDKshn/Z4pnXrgbMk
+         jlc95OoWL+G9JvKcfobUZjMsASfHxWMc99eK4TB2MEcf42T5oB9VFWhKVUBm0IAok/zQ
+         ZREXwbTB0NGQLWwo5PuFfTMg6OTWAnlEaCOZ2Efb9/3S4IWkYmVdNNmNgLx+ESe3981B
+         PpqT0/eN+5P5J/r9thcFAOh4kmr6XAcKtJso5JMCpTibD6qDtwfuRUq3pJzX3KZuHyLx
+         UVq7tkgKkdmhDX2+vyAWJH3av1x+VEXMTqRlEkoFjNZxoJECcMCqbVzi7CLl1KOR8ngq
+         y9ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772019812; x=1772624612;
+        d=1e100.net; s=20230601; t=1772019840; x=1772624640;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uAgcdDfpsSw1jsAfrY2aV1rXdVm2j1GaT1wB7ahB0HM=;
-        b=wFlwNvhpJMWhenu1uRkJtJnCu+qy6n/VLPsgNorbBXteTCOZZkMIOS70+Fux0xHO0w
-         mLRlfz9J1cpr6X+48Y/o7Ni/ibP3W5lNeuXAQpHAKPpY3LMUPFqJU6iOPJ+zIesSbiw3
-         R+BC25j8Wa79wZqIlVohzlycISRiWGI3uJUVge5VG9ccSjeCOE+opLIp1c41h6+y+GaZ
-         mmCMFdzlp0mhoUWImD1lO5Za9tOJVfUGSkYQgb3PLb1gsr2salCmJ6ASuY8fm6Q5blwi
-         PulX4bBG+NoUYy6PXB4b5wqYZ+OcXFlMZRb+K622E7nhIdo791/OB5x19RA572U4V4gX
-         X/Yg==
-X-Gm-Message-State: AOJu0YypdJl+x4GV/j0hh8MHLVzvTHANTqtsxV5fxdd8nE10pe97lvxD
-	iYhWpPDpvsjD/cG8NPzoeQUuF3zJX8bceD5/AOmLxADF7cizt73Ir0Hq+aPSt9zSXrMyhiqkgTU
-	V0/Q=
-X-Gm-Gg: ATEYQzww0k1DvocuMsfQhLUDMcVEhrCCveKJhJ1Fq0BySvX7YhxftIUUsxinJmn2ub/
-	NvmjItcDS9yLfxE0zCXA/4CTJJp/lByPAopseM+5pLFKkwZ05ZSBQdVcm1b0lFHz2ssM77h4zfc
-	oZ2bOvnNAqy/KTWQEzBRt1vB6Bn+Jx0VPPUC1zwbfJpuhPuKXKXvtjS590NLjR+bQSDC/4KgawT
-	xsgIXuZ1d4LbM1+YLkzNlZnG4Jsw14XaKGfLC4hMMALP7H6/I5V0A165lNfuLz1rg8dBmQdySjZ
-	oEMRexBzRJ0/xTSanWS3al9ax9wuoGCN9Q3TA0unUsL8+/b8OWXbHIczOD6wnYBDCVHwYZlrD0Z
-	9FunbIhn9xFFU++hH8fraeoA+KrcZXHCtj5h3yfVdbLzfYIkDT05WIL8JD+vTEnNGcYMDY3tTA+
-	yIqhOqR2llbViUhNPEvfuHuGboOEhfoCmFeKIgJer07o+7zKYoLcZ3eZ4hQoKou5tQGmjBttdpu
-	HCBRsl20ZZJiMw=
-X-Received: by 2002:a05:600c:a016:b0:477:fcb:2256 with SMTP id 5b1f17b1804b1-483a962e470mr270138675e9.17.1772019811947;
-        Wed, 25 Feb 2026 03:43:31 -0800 (PST)
-Message-ID: <ccd3c017-9f01-4695-9ec1-fe22fc01b9b4@suse.com>
-Date: Wed, 25 Feb 2026 12:43:30 +0100
+        bh=qvqxSGqotIAOODsHnK2+oa0DmybL0jdHjJLUZwFNknw=;
+        b=Pv7N/xYE2nQWOO45xsMOXqUzYKr4iql0IfgqwzZsoGpzrwiQ/9LNliK+1DINHMKimW
+         SyQT4vpk70UvNOZC+ih6coNJ0LnDkXgkgk5nvllBren7yr7sq8PVY1iAnenXIFHVAEdJ
+         mLYughEY9XNcRzCRUKgiroC/aqGibE2PIx96AkRkIDWuauMrDTW/fAbWJ8mDP5PH9IYK
+         LSXi9DFreW9FkGQwimDW3TZuJ1b0dSv2tTqJ+trGHmdcevHHiV++BFYSHhEY9OdBUX9V
+         IyqHfpYBlyYwBerehZZIbsF02pAGG6aNSo9kEMeAt1Icz+H09Ra59dmRTibIyjEbMwFP
+         yBxw==
+X-Gm-Message-State: AOJu0YxN97PEU9HCQAqd3NBfvCVUDUsPLxPIA6kC/8S5sia4gBi9iLUQ
+	8yvVQkVKzJ/f/Oh7zNiYxCQgWwkBSCFK3xfO1bsOiujI3+kKJc3JwN7juXq6Y9ceaX/ZRGMQk6L
+	my9c=
+X-Gm-Gg: ATEYQzwXbUO5zVoiywV76lFA5YhFB5p+PZ0LK7XUOBPVC5oQ+JyFh10mPXqakqvbYd4
+	i6arE4wqG5chcnkzLXoBLytVQ/qNq7e/AAdBSfS9CbmUwrMGGuvu7q1f8J5wklVjNGKfLeJy9yT
+	qhhO0XU7W4Wt3+TU6Wtef7ddH9CWmLBcgkp30TmDkibLgxvt2qHTPsEFZThKHBmhKI7oQtcznse
+	iyKe8utJvMcShyZ5uJKyCqTr5Sv4ey/zJEFR3+IwrE6Dwpix4d2YNkVwupxS+QkEef42iKalQ4B
+	xkLWG7A4Xv29OC1Srxt0/6nBK+c7L4d7IlO6ptp7icJcWv6sGgcGdNJp0qDvId4bA//mbATDVL3
+	ZvWYXPLU4M+2s9jc4bdVs9Bm4K7Hscv1OvEZ+aNFlffnt4vzZOJr1teSZxds8tuyb8bYHcQipI3
+	guK3LNZz0pZsxGsiaJv5ycyP84t09NKiit5ORM9L6+1noZE4xCdph3FMsOvWiaOxivz28eywfdk
+	EgV48iirKrJbUA=
+X-Received: by 2002:a05:600c:4f93:b0:477:df7:b020 with SMTP id 5b1f17b1804b1-483aaa15e35mr278740115e9.18.1772019840449;
+        Wed, 25 Feb 2026 03:44:00 -0800 (PST)
+Message-ID: <a67efd56-5286-4f1a-829c-ed3c4526268e@suse.com>
+Date: Wed, 25 Feb 2026 12:43:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 2/5] vPCI: move vpci_init_capabilities() to a separate file
+Subject: [PATCH v5 3/5] vPCI: move capability-list init
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -138,7 +138,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email,amd.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -159,607 +159,323 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: F0995196C2D
+X-Rspamd-Queue-Id: 272F5196C49
 X-Rspamd-Action: no action
 
-Let's keep capability handling together. Start with moving
-vpci_init_capabilities() and its helpers, plus splitting out of its
-cleanup counterpart.
+... both for when the functions are invoked and where they live in source.
+Don't invoke them directly in vpci_init_header(), but instead first thing
+in vpci_init_capabilities().
 
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-vpci_get_register(), while now only used by cap.c, didn't look like it
-would want moving there.
----
 v4: New.
 
---- a/xen/drivers/vpci/Makefile
-+++ b/xen/drivers/vpci/Makefile
-@@ -1,2 +1,3 @@
-+obj-y += cap.o
- obj-y += vpci.o header.o rebar.o
- obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
---- /dev/null
+--- a/xen/drivers/vpci/cap.c
 +++ b/xen/drivers/vpci/cap.c
-@@ -0,0 +1,252 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Capability handling for guest PCI configuration space.
-+ */
-+
-+#include "private.h"
-+
-+#include <xen/sched.h>
-+
-+extern const vpci_capability_t __start_vpci_array[];
-+extern const vpci_capability_t __end_vpci_array[];
-+#define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
-+
-+static struct vpci_register *vpci_get_previous_cap_register(
-+    const struct vpci *vpci, unsigned int offset)
-+{
-+    unsigned int next;
-+    struct vpci_register *r;
-+
-+    if ( offset < 0x40 )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return NULL;
-+    }
-+
-+    for ( r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1); r;
-+          r = next >= 0x40 ? vpci_get_register(vpci,
-+                                               next + PCI_CAP_LIST_NEXT, 1)
-+                           : NULL )
-+    {
-+        next = (unsigned int)(uintptr_t)r->private;
-+        ASSERT(next == (uintptr_t)r->private);
-+        if ( next == offset )
-+            break;
-+    }
-+
-+    return r;
-+}
-+
-+static int vpci_capability_hide(const struct pci_dev *pdev, unsigned int cap)
-+{
-+    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
-+    struct vpci_register *prev_r, *next_r;
-+    struct vpci *vpci = pdev->vpci;
-+
-+    if ( !offset )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return 0;
-+    }
-+
-+    spin_lock(&vpci->lock);
-+    prev_r = vpci_get_previous_cap_register(vpci, offset);
-+    next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
-+    if ( !prev_r || !next_r )
-+    {
-+        spin_unlock(&vpci->lock);
-+        return -ENODEV;
-+    }
-+
-+    prev_r->private = next_r->private;
-+    /*
-+     * Not calling vpci_remove_registers() here is to avoid redoing
-+     * the register search.
-+     */
-+    list_del(&next_r->node);
-+    spin_unlock(&vpci->lock);
-+    xfree(next_r);
-+
-+    if ( !is_hardware_domain(pdev->domain) )
-+        return vpci_remove_registers(vpci, offset + PCI_CAP_LIST_ID, 1);
-+
-+    return 0;
-+}
-+
-+static struct vpci_register *vpci_get_previous_ext_cap_register(
-+    const struct vpci *vpci, unsigned int offset)
-+{
-+    unsigned int pos = PCI_CFG_SPACE_SIZE;
-+    struct vpci_register *r;
-+
-+    if ( offset <= PCI_CFG_SPACE_SIZE )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return NULL;
-+    }
-+
-+    for ( r = vpci_get_register(vpci, pos, 4); r;
-+          r = pos > PCI_CFG_SPACE_SIZE ? vpci_get_register(vpci, pos, 4)
-+                                       : NULL )
-+    {
-+        uint32_t header = (uint32_t)(uintptr_t)r->private;
-+
-+        ASSERT(header == (uintptr_t)r->private);
-+
-+        pos = PCI_EXT_CAP_NEXT(header);
-+        if ( pos == offset )
-+            break;
-+    }
-+
-+    return r;
-+}
-+
-+static int vpci_ext_capability_hide(
-+    const struct pci_dev *pdev, unsigned int cap)
-+{
-+    const unsigned int offset = pci_find_ext_capability(pdev, cap);
-+    struct vpci_register *r, *prev_r;
-+    struct vpci *vpci = pdev->vpci;
-+    uint32_t header, pre_header;
-+
-+    if ( offset < PCI_CFG_SPACE_SIZE )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return 0;
-+    }
-+
-+    spin_lock(&vpci->lock);
-+    r = vpci_get_register(vpci, offset, 4);
-+    if ( !r )
-+    {
-+        spin_unlock(&vpci->lock);
-+        return -ENODEV;
-+    }
-+
-+    header = (uint32_t)(uintptr_t)r->private;
-+    if ( offset == PCI_CFG_SPACE_SIZE )
-+    {
-+        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
-+            r->private = (void *)0;
-+        else
-+            /*
-+             * The first extended capability (0x100) can not be removed from
-+             * the linked list, so instead mask its capability ID to return 0
-+             * hopefully forcing OSes to skip it.
-+             */
-+            r->private = (void *)(uintptr_t)(header & ~PCI_EXT_CAP_ID(header));
-+
-+        spin_unlock(&vpci->lock);
-+        return 0;
-+    }
-+
-+    prev_r = vpci_get_previous_ext_cap_register(vpci, offset);
-+    if ( !prev_r )
-+    {
-+        spin_unlock(&vpci->lock);
-+        return -ENODEV;
-+    }
-+
-+    pre_header = (uint32_t)(uintptr_t)prev_r->private;
-+    pre_header &= ~PCI_EXT_CAP_NEXT_MASK;
-+    pre_header |= header & PCI_EXT_CAP_NEXT_MASK;
-+    prev_r->private = (void *)(uintptr_t)pre_header;
-+
-+    list_del(&r->node);
-+    spin_unlock(&vpci->lock);
-+    xfree(r);
-+
-+    return 0;
-+}
-+
-+int vpci_init_capabilities(struct pci_dev *pdev)
-+{
-+    for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-+    {
-+        const vpci_capability_t *capability = &__start_vpci_array[i];
-+        const unsigned int cap = capability->id;
-+        const bool is_ext = capability->is_ext;
-+        unsigned int pos = 0;
-+        int rc;
-+
-+        if ( !is_ext )
-+            pos = pci_find_cap_offset(pdev->sbdf, cap);
-+        else if ( is_hardware_domain(pdev->domain) )
-+            pos = pci_find_ext_capability(pdev, cap);
-+
-+        if ( !pos )
-+            continue;
-+
-+        rc = capability->init(pdev);
-+        if ( rc )
-+        {
-+            const char *type = is_ext ? "extended" : "legacy";
-+
-+            printk(XENLOG_WARNING
-+                   "%pd %pp: init %s cap %u fail rc=%d, mask it\n",
-+                   pdev->domain, &pdev->sbdf, type, cap, rc);
-+
-+            if ( capability->cleanup )
-+            {
-+                rc = capability->cleanup(pdev, true);
-+                if ( rc )
-+                {
-+                    printk(XENLOG_ERR "%pd %pp: clean %s cap %u fail rc=%d\n",
-+                           pdev->domain, &pdev->sbdf, type, cap, rc);
-+                    if ( !is_hardware_domain(pdev->domain) )
-+                        return rc;
-+                }
-+            }
-+
-+            if ( !is_ext )
-+                rc = vpci_capability_hide(pdev, cap);
-+            else
-+                rc = vpci_ext_capability_hide(pdev, cap);
-+            if ( rc )
-+            {
-+                printk(XENLOG_ERR "%pd %pp: hide %s cap %u fail rc=%d\n",
-+                       pdev->domain, &pdev->sbdf, type, cap, rc);
-+                return rc;
-+            }
-+        }
-+    }
-+
-+    return 0;
-+}
-+
-+void vpci_cleanup_capabilities(struct pci_dev *pdev)
-+{
-+    for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-+    {
-+        const vpci_capability_t *capability = &__start_vpci_array[i];
-+        const unsigned int cap = capability->id;
-+        unsigned int pos = 0;
-+
-+        if ( !capability->cleanup )
-+            continue;
-+
-+        if ( !capability->is_ext )
-+            pos = pci_find_cap_offset(pdev->sbdf, cap);
-+        else if ( is_hardware_domain(pdev->domain) )
-+            pos = pci_find_ext_capability(pdev, cap);
-+        if ( pos )
-+        {
-+            int rc = capability->cleanup(pdev, false);
-+
-+            if ( rc )
-+                printk(XENLOG_ERR "%pd %pp: clean %s cap %u fail rc=%d\n",
-+                       pdev->domain, &pdev->sbdf,
-+                       capability->is_ext ? "extended" : "legacy", cap, rc);
-+        }
-+    }
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
---- a/xen/drivers/vpci/private.h
-+++ b/xen/drivers/vpci/private.h
-@@ -9,6 +9,20 @@ typedef uint32_t vpci_read_t(const struc
- typedef void vpci_write_t(const struct pci_dev *pdev, unsigned int reg,
-                           uint32_t val, void *data);
- 
-+/* Internal struct to store the emulated PCI registers. */
-+struct vpci_register {
-+    vpci_read_t *read;
-+    vpci_write_t *write;
-+    unsigned int size;
-+    unsigned int offset;
-+    void *private;
-+    struct list_head node;
-+    uint32_t ro_mask;
-+    uint32_t rw1c_mask;
-+    uint32_t rsvdp_mask;
-+    uint32_t rsvdz_mask;
-+};
-+
- typedef struct {
-     unsigned int id;
-     bool is_ext;
-@@ -32,6 +46,9 @@ typedef struct {
- 
- int __must_check vpci_init_header(struct pci_dev *pdev);
- 
-+int vpci_init_capabilities(struct pci_dev *pdev);
-+void vpci_cleanup_capabilities(struct pci_dev *pdev);
-+
- /* Add/remove a register handler. */
- int __must_check vpci_add_register_mask(struct vpci *vpci,
-                                         vpci_read_t *read_handler,
-@@ -49,6 +66,10 @@ int __must_check vpci_add_register(struc
- int vpci_remove_registers(struct vpci *vpci, unsigned int start,
-                           unsigned int size);
- 
-+struct vpci_register *vpci_get_register(const struct vpci *vpci,
-+                                        unsigned int offset,
-+                                        unsigned int size);
-+
- /* Helper to return the value passed in data. */
- uint32_t cf_check vpci_read_val(
-     const struct pci_dev *pdev, unsigned int reg, void *data);
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -22,24 +22,7 @@
- #include <xen/sched.h>
- #include <xen/vmap.h>
- 
--/* Internal struct to store the emulated PCI registers. */
--struct vpci_register {
--    vpci_read_t *read;
--    vpci_write_t *write;
--    unsigned int size;
--    unsigned int offset;
--    void *private;
--    struct list_head node;
--    uint32_t ro_mask;
--    uint32_t rw1c_mask;
--    uint32_t rsvdp_mask;
--    uint32_t rsvdz_mask;
--};
--
- #ifdef __XEN__
--extern const vpci_capability_t __start_vpci_array[];
--extern const vpci_capability_t __end_vpci_array[];
--#define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
- 
- #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
- static int assign_virtual_sbdf(struct pci_dev *pdev)
-@@ -84,9 +67,9 @@ static int assign_virtual_sbdf(struct pc
- 
- #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
- 
--static struct vpci_register *vpci_get_register(const struct vpci *vpci,
--                                               unsigned int offset,
--                                               unsigned int size)
-+struct vpci_register *vpci_get_register(const struct vpci *vpci,
-+                                        unsigned int offset,
-+                                        unsigned int size)
- {
-     struct vpci_register *r;
- 
-@@ -104,209 +87,6 @@ static struct vpci_register *vpci_get_re
-     return NULL;
+@@ -159,15 +159,150 @@ static int vpci_ext_capability_hide(
+     return 0;
  }
  
--static struct vpci_register *vpci_get_previous_cap_register(
--    const struct vpci *vpci, unsigned int offset)
++static int vpci_init_capability_list(struct pci_dev *pdev)
++{
++    int rc;
++    bool mask_cap_list = false;
++    bool is_hwdom = is_hardware_domain(pdev->domain);
++
++    if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
++    {
++        /* Only expose capabilities to the guest that vPCI can handle. */
++        unsigned int next, ttl = 48;
++        static const unsigned int supported_caps[] = {
++            PCI_CAP_ID_MSI,
++            PCI_CAP_ID_MSIX,
++        };
++        /*
++         * For dom0, we should expose all capabilities instead of a fixed
++         * capabilities array, so setting n to 0 here is to get the next
++         * capability position directly in pci_find_next_cap_ttl.
++         */
++        const unsigned int n = is_hwdom ? 0 : ARRAY_SIZE(supported_caps);
++
++        next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
++                                     supported_caps, n, &ttl);
++
++        rc = vpci_add_register(pdev->vpci, vpci_read_val,
++                               is_hwdom ? vpci_hw_write8 : NULL,
++                               PCI_CAPABILITY_LIST, 1,
++                               (void *)(uintptr_t)next);
++        if ( rc )
++            return rc;
++
++        next &= ~3;
++
++        if ( !next && !is_hwdom )
++            /*
++             * If we don't have any supported capabilities to expose to the
++             * guest, mask the PCI_STATUS_CAP_LIST bit in the status
++             * register.
++             */
++            mask_cap_list = true;
++
++        while ( next && ttl )
++        {
++            unsigned int pos = next;
++
++            next = pci_find_next_cap_ttl(pdev->sbdf,
++                                         pos + PCI_CAP_LIST_NEXT,
++                                         supported_caps, n, &ttl);
++
++            if ( !is_hwdom )
++            {
++                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
++                                       pos + PCI_CAP_LIST_ID, 1, NULL);
++                if ( rc )
++                    return rc;
++            }
++
++            rc = vpci_add_register(pdev->vpci, vpci_read_val,
++                                   is_hwdom ? vpci_hw_write8 : NULL,
++                                   pos + PCI_CAP_LIST_NEXT, 1,
++                                   (void *)(uintptr_t)next);
++            if ( rc )
++                return rc;
++
++            next &= ~3;
++        }
++    }
++
++    /* Return early for the hw domain, no masking of PCI_STATUS. */
++    if ( is_hwdom )
++        return 0;
++
++    /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
++    return vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
++                                  PCI_STATUS, 2, NULL,
++                                  PCI_STATUS_RO_MASK &
++                                    ~(mask_cap_list ? PCI_STATUS_CAP_LIST : 0),
++                                  PCI_STATUS_RW1C_MASK,
++                                  mask_cap_list ? PCI_STATUS_CAP_LIST : 0,
++                                  PCI_STATUS_RSVDZ_MASK);
++}
++
++static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
++{
++    unsigned int pos = PCI_CFG_SPACE_SIZE;
++
++    if ( !pdev->ext_cfg )
++        return 0;
++
++    if ( !is_hardware_domain(pdev->domain) )
++        /* Extended capabilities read as zero, write ignore for DomU */
++        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
++                                 pos, 4, (void *)0);
++
++    do
++    {
++        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
++        int rc;
++
++        if ( header == 0xffffffffU )
++        {
++            printk(XENLOG_WARNING
++                   "%pd %pp: broken extended cap list, offset %#x\n",
++                   pdev->domain, &pdev->sbdf, pos);
++            return 0;
++        }
++
++        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
++                               pos, 4, (void *)(uintptr_t)header);
++        if ( rc == -EEXIST )
++        {
++            printk(XENLOG_WARNING
++                   "%pd %pp: overlap in extended cap list, offset %#x\n",
++                   pdev->domain, &pdev->sbdf, pos);
++            return 0;
++        }
++
++        if ( rc )
++            return rc;
++
++        pos = PCI_EXT_CAP_NEXT(header);
++    } while ( pos >= PCI_CFG_SPACE_SIZE );
++
++    return 0;
++}
++
+ int vpci_init_capabilities(struct pci_dev *pdev)
+ {
++    int rc;
++
++    rc = vpci_init_capability_list(pdev);
++    if ( rc )
++        return rc;
++
++    rc = vpci_init_ext_capability_list(pdev);
++    if ( rc )
++        return rc;
++
+     for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
+     {
+         const vpci_capability_t *capability = &__start_vpci_array[i];
+         const unsigned int cap = capability->id;
+         const bool is_ext = capability->is_ext;
+         unsigned int pos = 0;
+-        int rc;
+ 
+         if ( !is_ext )
+             pos = pci_find_cap_offset(pdev->sbdf, cap);
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -744,132 +744,6 @@ static int bar_add_rangeset(const struct
+     return !bar->mem ? -ENOMEM : 0;
+ }
+ 
+-static int vpci_init_capability_list(struct pci_dev *pdev)
 -{
--    unsigned int next;
--    struct vpci_register *r;
+-    int rc;
+-    bool mask_cap_list = false;
+-    bool is_hwdom = is_hardware_domain(pdev->domain);
 -
--    if ( offset < 0x40 )
+-    if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
 -    {
--        ASSERT_UNREACHABLE();
--        return NULL;
+-        /* Only expose capabilities to the guest that vPCI can handle. */
+-        unsigned int next, ttl = 48;
+-        static const unsigned int supported_caps[] = {
+-            PCI_CAP_ID_MSI,
+-            PCI_CAP_ID_MSIX,
+-        };
+-        /*
+-         * For dom0, we should expose all capabilities instead of a fixed
+-         * capabilities array, so setting n to 0 here is to get the next
+-         * capability position directly in pci_find_next_cap_ttl.
+-         */
+-        const unsigned int n = is_hwdom ? 0 : ARRAY_SIZE(supported_caps);
+-
+-        next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
+-                                     supported_caps, n, &ttl);
+-
+-        rc = vpci_add_register(pdev->vpci, vpci_read_val,
+-                               is_hwdom ? vpci_hw_write8 : NULL,
+-                               PCI_CAPABILITY_LIST, 1,
+-                               (void *)(uintptr_t)next);
+-        if ( rc )
+-            return rc;
+-
+-        next &= ~3;
+-
+-        if ( !next && !is_hwdom )
+-            /*
+-             * If we don't have any supported capabilities to expose to the
+-             * guest, mask the PCI_STATUS_CAP_LIST bit in the status
+-             * register.
+-             */
+-            mask_cap_list = true;
+-
+-        while ( next && ttl )
+-        {
+-            unsigned int pos = next;
+-
+-            next = pci_find_next_cap_ttl(pdev->sbdf,
+-                                         pos + PCI_CAP_LIST_NEXT,
+-                                         supported_caps, n, &ttl);
+-
+-            if ( !is_hwdom )
+-            {
+-                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
+-                                       pos + PCI_CAP_LIST_ID, 1, NULL);
+-                if ( rc )
+-                    return rc;
+-            }
+-
+-            rc = vpci_add_register(pdev->vpci, vpci_read_val,
+-                                   is_hwdom ? vpci_hw_write8 : NULL,
+-                                   pos + PCI_CAP_LIST_NEXT, 1,
+-                                   (void *)(uintptr_t)next);
+-            if ( rc )
+-                return rc;
+-
+-            next &= ~3;
+-        }
 -    }
 -
--    for ( r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1); r;
--          r = next >= 0x40 ? vpci_get_register(vpci,
--                                               next + PCI_CAP_LIST_NEXT, 1)
--                           : NULL )
--    {
--        next = (unsigned int)(uintptr_t)r->private;
--        ASSERT(next == (uintptr_t)r->private);
--        if ( next == offset )
--            break;
--    }
--
--    return r;
--}
--
--static int vpci_capability_hide(const struct pci_dev *pdev, unsigned int cap)
--{
--    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
--    struct vpci_register *prev_r, *next_r;
--    struct vpci *vpci = pdev->vpci;
--
--    if ( !offset )
--    {
--        ASSERT_UNREACHABLE();
+-    /* Return early for the hw domain, no masking of PCI_STATUS. */
+-    if ( is_hwdom )
 -        return 0;
--    }
 -
--    spin_lock(&vpci->lock);
--    prev_r = vpci_get_previous_cap_register(vpci, offset);
--    next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
--    if ( !prev_r || !next_r )
--    {
--        spin_unlock(&vpci->lock);
--        return -ENODEV;
--    }
--
--    prev_r->private = next_r->private;
--    /*
--     * Not calling vpci_remove_registers() here is to avoid redoing
--     * the register search.
--     */
--    list_del(&next_r->node);
--    spin_unlock(&vpci->lock);
--    xfree(next_r);
--
--    if ( !is_hardware_domain(pdev->domain) )
--        return vpci_remove_registers(vpci, offset + PCI_CAP_LIST_ID, 1);
--
--    return 0;
+-    /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
+-    return vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
+-                                  PCI_STATUS, 2, NULL,
+-                                  PCI_STATUS_RO_MASK &
+-                                    ~(mask_cap_list ? PCI_STATUS_CAP_LIST : 0),
+-                                  PCI_STATUS_RW1C_MASK,
+-                                  mask_cap_list ? PCI_STATUS_CAP_LIST : 0,
+-                                  PCI_STATUS_RSVDZ_MASK);
 -}
 -
--static struct vpci_register *vpci_get_previous_ext_cap_register(
--    const struct vpci *vpci, unsigned int offset)
+-static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
 -{
 -    unsigned int pos = PCI_CFG_SPACE_SIZE;
--    struct vpci_register *r;
 -
--    if ( offset <= PCI_CFG_SPACE_SIZE )
--    {
--        ASSERT_UNREACHABLE();
--        return NULL;
--    }
--
--    for ( r = vpci_get_register(vpci, pos, 4); r;
--          r = pos > PCI_CFG_SPACE_SIZE ? vpci_get_register(vpci, pos, 4)
--                                       : NULL )
--    {
--        uint32_t header = (uint32_t)(uintptr_t)r->private;
--
--        ASSERT(header == (uintptr_t)r->private);
--
--        pos = PCI_EXT_CAP_NEXT(header);
--        if ( pos == offset )
--            break;
--    }
--
--    return r;
--}
--
--static int vpci_ext_capability_hide(
--    const struct pci_dev *pdev, unsigned int cap)
--{
--    const unsigned int offset = pci_find_ext_capability(pdev, cap);
--    struct vpci_register *r, *prev_r;
--    struct vpci *vpci = pdev->vpci;
--    uint32_t header, pre_header;
--
--    if ( offset < PCI_CFG_SPACE_SIZE )
--    {
--        ASSERT_UNREACHABLE();
+-    if ( !pdev->ext_cfg )
 -        return 0;
--    }
 -
--    spin_lock(&vpci->lock);
--    r = vpci_get_register(vpci, offset, 4);
--    if ( !r )
+-    if ( !is_hardware_domain(pdev->domain) )
+-        /* Extended capabilities read as zero, write ignore for DomU */
+-        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+-                                 pos, 4, (void *)0);
+-
+-    do
 -    {
--        spin_unlock(&vpci->lock);
--        return -ENODEV;
--    }
--
--    header = (uint32_t)(uintptr_t)r->private;
--    if ( offset == PCI_CFG_SPACE_SIZE )
--    {
--        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
--            r->private = (void *)0;
--        else
--            /*
--             * The first extended capability (0x100) can not be removed from
--             * the linked list, so instead mask its capability ID to return 0
--             * hopefully forcing OSes to skip it.
--             */
--            r->private = (void *)(uintptr_t)(header & ~PCI_EXT_CAP_ID(header));
--
--        spin_unlock(&vpci->lock);
--        return 0;
--    }
--
--    prev_r = vpci_get_previous_ext_cap_register(vpci, offset);
--    if ( !prev_r )
--    {
--        spin_unlock(&vpci->lock);
--        return -ENODEV;
--    }
--
--    pre_header = (uint32_t)(uintptr_t)prev_r->private;
--    pre_header &= ~PCI_EXT_CAP_NEXT_MASK;
--    pre_header |= header & PCI_EXT_CAP_NEXT_MASK;
--    prev_r->private = (void *)(uintptr_t)pre_header;
--
--    list_del(&r->node);
--    spin_unlock(&vpci->lock);
--    xfree(r);
--
--    return 0;
--}
--
--static int vpci_init_capabilities(struct pci_dev *pdev)
--{
--    for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
--    {
--        const vpci_capability_t *capability = &__start_vpci_array[i];
--        const unsigned int cap = capability->id;
--        const bool is_ext = capability->is_ext;
--        unsigned int pos = 0;
+-        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
 -        int rc;
 -
--        if ( !is_ext )
--            pos = pci_find_cap_offset(pdev->sbdf, cap);
--        else if ( is_hardware_domain(pdev->domain) )
--            pos = pci_find_ext_capability(pdev, cap);
--
--        if ( !pos )
--            continue;
--
--        rc = capability->init(pdev);
--        if ( rc )
+-        if ( header == 0xffffffffU )
 -        {
--            const char *type = is_ext ? "extended" : "legacy";
--
 -            printk(XENLOG_WARNING
--                   "%pd %pp: init %s cap %u fail rc=%d, mask it\n",
--                   pdev->domain, &pdev->sbdf, type, cap, rc);
--
--            if ( capability->cleanup )
--            {
--                rc = capability->cleanup(pdev, true);
--                if ( rc )
--                {
--                    printk(XENLOG_ERR "%pd %pp: clean %s cap %u fail rc=%d\n",
--                           pdev->domain, &pdev->sbdf, type, cap, rc);
--                    if ( !is_hardware_domain(pdev->domain) )
--                        return rc;
--                }
--            }
--
--            if ( !is_ext )
--                rc = vpci_capability_hide(pdev, cap);
--            else
--                rc = vpci_ext_capability_hide(pdev, cap);
--            if ( rc )
--            {
--                printk(XENLOG_ERR "%pd %pp: hide %s cap %u fail rc=%d\n",
--                       pdev->domain, &pdev->sbdf, type, cap, rc);
--                return rc;
--            }
+-                   "%pd %pp: broken extended cap list, offset %#x\n",
+-                   pdev->domain, &pdev->sbdf, pos);
+-            return 0;
 -        }
--    }
+-
+-        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+-                               pos, 4, (void *)(uintptr_t)header);
+-        if ( rc == -EEXIST )
+-        {
+-            printk(XENLOG_WARNING
+-                   "%pd %pp: overlap in extended cap list, offset %#x\n",
+-                   pdev->domain, &pdev->sbdf, pos);
+-            return 0;
+-        }
+-
+-        if ( rc )
+-            return rc;
+-
+-        pos = PCI_EXT_CAP_NEXT(header);
+-    } while ( pos >= PCI_CFG_SPACE_SIZE );
 -
 -    return 0;
 -}
 -
- void vpci_deassign_device(struct pci_dev *pdev)
+ int vpci_init_header(struct pci_dev *pdev)
  {
-     unsigned int i;
-@@ -322,29 +102,7 @@ void vpci_deassign_device(struct pci_dev
-                     &pdev->domain->vpci_dev_assigned_map);
- #endif
+     uint16_t cmd;
+@@ -918,14 +792,6 @@ int vpci_init_header(struct pci_dev *pde
+     if ( rc )
+         return rc;
  
--    for ( i = 0; i < NUM_VPCI_INIT; i++ )
--    {
--        const vpci_capability_t *capability = &__start_vpci_array[i];
--        const unsigned int cap = capability->id;
--        unsigned int pos = 0;
+-    rc = vpci_init_capability_list(pdev);
+-    if ( rc )
+-        return rc;
 -
--        if ( !capability->cleanup )
--            continue;
+-    rc = vpci_init_ext_capability_list(pdev);
+-    if ( rc )
+-        return rc;
 -
--        if ( !capability->is_ext )
--            pos = pci_find_cap_offset(pdev->sbdf, cap);
--        else if ( is_hardware_domain(pdev->domain) )
--            pos = pci_find_ext_capability(pdev, cap);
--        if ( pos )
--        {
--            int rc = capability->cleanup(pdev, false);
--
--            if ( rc )
--                printk(XENLOG_ERR "%pd %pp: clean %s cap %u fail rc=%d\n",
--                       pdev->domain, &pdev->sbdf,
--                       capability->is_ext ? "extended" : "legacy", cap, rc);
--        }
--    }
-+    vpci_cleanup_capabilities(pdev);
+     if ( pdev->ignore_bars )
+         return 0;
  
-     spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
 
 
