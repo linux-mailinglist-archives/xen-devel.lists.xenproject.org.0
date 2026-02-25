@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KAG4BcTInmkuXQQAu9opvQ
+	id cC9tAsTInmmnXQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 11:02:44 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F6A1956FF
+	by mail.lfdr.de (Postfix) with ESMTPS id D74591956FE
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 11:02:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1240486.1541857 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1240488.1541878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvBit-0004OT-RC; Wed, 25 Feb 2026 10:02:27 +0000
+	id 1vvBiw-0004py-Aj; Wed, 25 Feb 2026 10:02:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1240486.1541857; Wed, 25 Feb 2026 10:02:27 +0000
+Received: by outflank-mailman (output) from mailman id 1240488.1541878; Wed, 25 Feb 2026 10:02:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvBit-0004Lu-Nk; Wed, 25 Feb 2026 10:02:27 +0000
-Received: by outflank-mailman (input) for mailman id 1240486;
- Wed, 25 Feb 2026 10:02:26 +0000
+	id 1vvBiw-0004na-4Q; Wed, 25 Feb 2026 10:02:30 +0000
+Received: by outflank-mailman (input) for mailman id 1240488;
+ Wed, 25 Feb 2026 10:02:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tMbn=A5=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1vvBis-0004Lo-I7
- for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 10:02:26 +0000
+ id 1vvBiu-0004Lo-7Q
+ for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 10:02:28 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 14c26905-1231-11f1-9ccf-f158ae23cfc8;
- Wed, 25 Feb 2026 11:02:23 +0100 (CET)
+ id 15d48a87-1231-11f1-9ccf-f158ae23cfc8;
+ Wed, 25 Feb 2026 11:02:25 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA74D1691;
- Wed, 25 Feb 2026 02:02:16 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A0229169E;
+ Wed, 25 Feb 2026 02:02:18 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.54.86])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BCE703F62B;
- Wed, 25 Feb 2026 02:02:21 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D3033F62B;
+ Wed, 25 Feb 2026 02:02:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,7 +47,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14c26905-1231-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 15d48a87-1231-11f1-9ccf-f158ae23cfc8
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
@@ -55,9 +55,9 @@ Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH 2/4] xen/arm: ffa: Cache SP partition info at init
-Date: Wed, 25 Feb 2026 10:57:44 +0100
-Message-ID: <0a5f66eaa16f262d4ffad6a8ec4b1b02461f96c1.1772013062.git.bertrand.marquis@arm.com>
+Subject: [PATCH 3/4] xen/arm: ffa: Drop SP subscriber lists
+Date: Wed, 25 Feb 2026 10:57:45 +0100
+Message-ID: <c981d94eb7596a17a4198fcdabcaaf17027aaad3.1772013062.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1772013062.git.bertrand.marquis@arm.com>
 References: <cover.1772013062.git.bertrand.marquis@arm.com>
@@ -95,301 +95,286 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:mid,arm.com:email]
-X-Rspamd-Queue-Id: D9F6A1956FF
+X-Rspamd-Queue-Id: D74591956FE
 X-Rspamd-Action: no action
 
-FFA_PARTITION_INFO_GET currently queries the SPMC on each call and walks the
-RX buffer every time. The SP list is expected to be static, so repeated
-firmware calls and validation are unnecessary.
+The init-time SP cache already contains partition properties, but the
+code still builds separate subscriber arrays for VM created/destroyed
+notifications. That duplicates state and allocation.
 
-Cache the SPMC partition-info list at init time, keeping only secure
-endpoints, and reuse the cached entries for SP count and partition-info
-responses. Initialize the VM create/destroy subscriber lists from the cached
-list and free the cache on init failure.
+Use the cached SP list directly to:
+- decide which SPs receive created/destroyed notifications
+- build the per-domain destroy bitmap
+- skip destroy notifications for SPs not notified on create
 
-SP partition info now reflects the init-time snapshot and will not change.
+No functional changes.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/arch/arm/tee/ffa_partinfo.c | 205 +++++++++++++++++++++-----------
- 1 file changed, 138 insertions(+), 67 deletions(-)
+ xen/arch/arm/tee/ffa_partinfo.c | 155 ++++++++------------------------
+ 1 file changed, 36 insertions(+), 119 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index 6a6f3ffb822e..8a3eac25f99f 100644
+index 8a3eac25f99f..d7f9b9f7153c 100644
 --- a/xen/arch/arm/tee/ffa_partinfo.c
 +++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -6,6 +6,7 @@
- #include <xen/const.h>
- #include <xen/sizes.h>
- #include <xen/types.h>
-+#include <xen/xmalloc.h>
+@@ -28,12 +28,6 @@ struct ffa_partition_info_1_1 {
+     uint8_t uuid[16];
+ };
  
- #include <asm/smccc.h>
- #include <asm/regs.h>
-@@ -33,6 +34,10 @@ static uint16_t subscr_vm_created_count __read_mostly;
- static uint16_t *subscr_vm_destroyed __read_mostly;
- static uint16_t subscr_vm_destroyed_count __read_mostly;
- 
-+/* SP list cache (secure endpoints only); populated at init. */
-+static void *sp_list __read_mostly;
-+static uint32_t sp_list_count __read_mostly;
-+static uint32_t sp_list_entry_size __read_mostly;
- static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t flags,
-                                       uint32_t *count, uint32_t *fpi_size)
- {
-@@ -79,92 +84,78 @@ static int32_t ffa_copy_info(void **dst, void *dst_end, const void *src,
-     return FFA_RET_OK;
+-/* SPs subscribing to VM_CREATE and VM_DESTROYED events */
+-static uint16_t *subscr_vm_created __read_mostly;
+-static uint16_t subscr_vm_created_count __read_mostly;
+-static uint16_t *subscr_vm_destroyed __read_mostly;
+-static uint16_t subscr_vm_destroyed_count __read_mostly;
+-
+ /* SP list cache (secure endpoints only); populated at init. */
+ static void *sp_list __read_mostly;
+ static uint32_t sp_list_count __read_mostly;
+@@ -434,14 +428,6 @@ static void ffa_sp_list_cache_free(void)
+     sp_list_entry_size = 0;
  }
  
--static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count)
-+static bool ffa_sp_entry_matches_uuid(const void *entry, struct ffa_uuid uuid)
+-static void uninit_subscribers(void)
+-{
+-        subscr_vm_created_count = 0;
+-        subscr_vm_destroyed_count = 0;
+-        XFREE(subscr_vm_created);
+-        XFREE(subscr_vm_destroyed);
+-}
+-
+ static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
+                                    uint32_t fpi_size)
  {
--    uint32_t src_size;
-+    const struct ffa_partition_info_1_1 *fpi = entry;
-+    struct ffa_uuid sp_uuid;
-+
-+    if ( ffa_uuid_is_nil(uuid) )
-+        return true;
- 
--    return ffa_partition_info_get(uuid, FFA_PARTITION_INFO_GET_COUNT_FLAG,
--                                  sp_count, &src_size);
-+    if ( sp_list_entry_size < sizeof(*fpi) )
-+        return false;
-+
-+    memcpy(&sp_uuid, fpi->uuid, sizeof(sp_uuid));
-+    return ffa_uuid_equal(uuid, sp_uuid);
+@@ -504,79 +490,6 @@ static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
+     return true;
  }
  
--static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
--                                   void **dst_buf, void *end_buf,
--                                   uint32_t dst_size)
-+static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count)
- {
--    int32_t ret;
--    int32_t release_ret;
--    uint32_t src_size, real_sp_count;
--    void *src_buf;
-     uint32_t count = 0;
--    bool notify_fw = false;
+-static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_size)
+-{
+-    uint16_t n;
+-    uint16_t c_pos;
+-    uint16_t d_pos;
+-    struct ffa_partition_info_1_1 *fpi;
 -
--    /* We need to use the RX buffer to receive the list */
--    src_buf = ffa_rxtx_spmc_rx_acquire();
--    if ( !src_buf )
--        return FFA_RET_DENIED;
--
--    ret = ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
--    if ( ret )
--        goto out;
--    notify_fw = true;
-+    uint32_t n;
- 
--    /* Validate the src_size we got */
--    if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
--         src_size >= FFA_PAGE_SIZE )
-+    for ( n = 0; n < sp_list_count; n++ )
-     {
--        ret = FFA_RET_NOT_SUPPORTED;
--        goto out;
-+        void *entry = sp_list + n * sp_list_entry_size;
-+
-+        if ( ffa_sp_entry_matches_uuid(entry, uuid) )
-+            count++;
-     }
- 
--    /*
--     * Limit the maximum time we hold the CPU by limiting the number of SPs.
--     * We just ignore the extra ones as this is tested during init in
--     * ffa_partinfo_init so the only possible reason is SP have been added
--     * since boot.
--     */
--    if ( real_sp_count > FFA_MAX_NUM_SP )
--        real_sp_count = FFA_MAX_NUM_SP;
-+    *sp_count = count;
- 
--    /* Make sure the data fits in our buffer */
--    if ( real_sp_count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / src_size )
+-    if ( fpi_size < sizeof(struct ffa_partition_info_1_1) )
 -    {
--        ret = FFA_RET_NOT_SUPPORTED;
--        goto out;
+-        printk(XENLOG_ERR "ffa: partition info size invalid: %u\n", fpi_size);
+-        return false;
 -    }
-+    if ( !ffa_uuid_is_nil(uuid) && !count )
-+        return FFA_RET_INVALID_PARAMETERS;
- 
--    for ( uint32_t sp_num = 0; sp_num < real_sp_count; sp_num++ )
+-
+-    subscr_vm_created_count = 0;
+-    subscr_vm_destroyed_count = 0;
+-    for ( n = 0; n < count; n++ )
 -    {
--        struct ffa_partition_info_1_1 *fpi = src_buf;
-+    return FFA_RET_OK;
-+}
- 
--        /* filter out SP not following bit 15 convention if any */
+-        fpi = buf + n * fpi_size;
+-
+-        /*
+-         * We need to have secure partitions using bit 15 set convention for
+-         * secure partition IDs.
+-         * Inform the user with a log and discard giving created or destroy
+-         * event to those IDs.
+-         */
+-        if ( !FFA_ID_IS_SECURE(fpi->id) )
+-        {
+-            printk_once(XENLOG_ERR
+-                        "ffa: Firmware is not using bit 15 convention for IDs !!\n");
+-            printk(XENLOG_ERR
+-                   "ffa: Secure partition with id 0x%04x cannot be used\n",
+-                   fpi->id);
+-        }
+-        else
+-        {
+-            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED )
+-                subscr_vm_created_count++;
+-            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
+-                subscr_vm_destroyed_count++;
+-        }
+-    }
+-
+-    if ( subscr_vm_created_count )
+-        subscr_vm_created = xzalloc_array(uint16_t, subscr_vm_created_count);
+-    if ( subscr_vm_destroyed_count )
+-        subscr_vm_destroyed = xzalloc_array(uint16_t,
+-                                            subscr_vm_destroyed_count);
+-    if ( (subscr_vm_created_count && !subscr_vm_created) ||
+-         (subscr_vm_destroyed_count && !subscr_vm_destroyed) )
+-    {
+-        printk(XENLOG_ERR "ffa: Failed to allocate subscription lists\n");
+-        uninit_subscribers();
+-        return false;
+-    }
+-
+-    for ( c_pos = 0, d_pos = 0, n = 0; n < count; n++ )
+-    {
+-        fpi = buf + n * fpi_size;
+-
 -        if ( FFA_ID_IS_SECURE(fpi->id) )
 -        {
--            /*
--             * If VM is 1.0 but firmware is 1.1 we could have several entries
--             * with the same ID but different UUIDs. In this case the VM will
--             * get a list with several time the same ID.
--             * This is a non-compliance to the specification but 1.0 VMs should
--             * handle that on their own to simplify Xen implementation.
--             */
-+static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_count,
-+                                   void **dst_buf, void *end_buf,
-+                                   uint32_t dst_size)
-+{
-+    int32_t ret;
-+    uint32_t count = 0;
-+    uint32_t n;
- 
--            ret = ffa_copy_info(dst_buf, end_buf, src_buf, dst_size, src_size);
--            if ( ret )
--                goto out;
-+    for ( n = 0; n < sp_list_count; n++ )
-+    {
-+        void *entry = sp_list + n * sp_list_entry_size;
- 
--            count++;
+-            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED )
+-                subscr_vm_created[c_pos++] = fpi->id;
+-            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
+-                subscr_vm_destroyed[d_pos++] = fpi->id;
 -        }
-+        if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
-+            continue;
- 
--        src_buf += src_size;
-+        /*
-+         * If VM is 1.0 but firmware is 1.1 we could have several entries
-+         * with the same ID but different UUIDs. In this case the VM will
-+         * get a list with several time the same ID.
-+         * This is a non-compliance to the specification but 1.0 VMs should
-+         * handle that on their own to simplify Xen implementation.
-+         */
-+        ret = ffa_copy_info(dst_buf, end_buf, entry, dst_size,
-+                            sp_list_entry_size);
-+        if ( ret )
-+            return ret;
-+
-+        count++;
-     }
- 
-     *sp_count = count;
- 
--out:
--    release_ret = ffa_rxtx_spmc_rx_release(notify_fw);
--    if ( release_ret )
--        gprintk(XENLOG_WARNING,
--                "ffa: Error releasing SPMC RX buffer: %d\n", release_ret);
--    return ret;
-+    if ( !ffa_uuid_is_nil(uuid) && !count )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    return FFA_RET_OK;
- }
- 
- static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t start_index,
-@@ -435,6 +426,14 @@ static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-     return res;
- }
- 
-+static void ffa_sp_list_cache_free(void)
-+{
-+    XFREE(sp_list);
-+    sp_list = NULL;
-+    sp_list_count = 0;
-+    sp_list_entry_size = 0;
-+}
-+
- static void uninit_subscribers(void)
+-    }
+-
+-    return true;
+-}
+-
+-
+-
+ bool ffa_partinfo_init(void)
  {
-         subscr_vm_created_count = 0;
-@@ -443,6 +442,68 @@ static void uninit_subscribers(void)
-         XFREE(subscr_vm_destroyed);
- }
- 
-+static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
-+                                   uint32_t fpi_size)
-+{
-+    const uint8_t *src = buf;
-+    uint32_t secure_count = 0;
-+    uint32_t n, idx = 0;
-+    bool warned = false;
-+
-+    if ( fpi_size < sizeof(struct ffa_partition_info_1_0) ||
-+         fpi_size >= FFA_PAGE_SIZE )
-+        return false;
-+
-+    if ( count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / fpi_size )
-+        return false;
-+
-+    for ( n = 0; n < count; n++ )
-+    {
-+        const struct ffa_partition_info_1_0 *fpi =
-+            (const void *)(src + n * fpi_size);
-+
-+        if ( !FFA_ID_IS_SECURE(fpi->id) )
-+        {
-+            if ( !warned )
-+            {
-+                printk_once(XENLOG_ERR
-+                            "ffa: Firmware is not using bit 15 convention for IDs !!\n");
-+                warned = true;
-+            }
-+            printk(XENLOG_ERR
-+                   "ffa: Secure partition with id 0x%04x cannot be used\n",
-+                   fpi->id);
-+            continue;
-+        }
-+
-+        secure_count++;
-+    }
-+
-+    if ( secure_count )
-+    {
-+        sp_list = xzalloc_bytes(secure_count * fpi_size);
-+        if ( !sp_list )
-+            return false;
-+    }
-+
-+    sp_list_count = secure_count;
-+    sp_list_entry_size = fpi_size;
-+
-+    for ( n = 0; n < count; n++ )
-+    {
-+        const struct ffa_partition_info_1_0 *fpi =
-+            (const void *)(src + n * fpi_size);
-+
-+        if ( !FFA_ID_IS_SECURE(fpi->id) )
-+            continue;
-+
-+        memcpy(sp_list + idx * fpi_size, fpi, fpi_size);
-+        idx++;
-+    }
-+
-+    return true;
-+}
-+
- static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_size)
- {
-     uint16_t n;
-@@ -549,12 +610,22 @@ bool ffa_partinfo_init(void)
+     bool ret = false;
+@@ -616,48 +529,43 @@ bool ffa_partinfo_init(void)
          goto out;
      }
  
--    ret = init_subscribers(spmc_rx, count, fpi_size);
-+    if ( !ffa_sp_list_cache_init(spmc_rx, count, fpi_size) )
+-    ret = init_subscribers(sp_list, sp_list_count, sp_list_entry_size);
++    if ( sp_list_entry_size < sizeof(struct ffa_partition_info_1_1) )
 +    {
-+        printk(XENLOG_ERR "ffa: Failed to cache SP list\n");
++        printk(XENLOG_ERR "ffa: partition info size invalid: %u\n",
++               sp_list_entry_size);
 +        goto out;
 +    }
-+
-+    ret = init_subscribers(sp_list, sp_list_count, sp_list_entry_size);
++    ret = true;
  
  out:
      e = ffa_rxtx_spmc_rx_release(notify_fw);
      if ( e )
          printk(XENLOG_WARNING "ffa: Error releasing SPMC RX buffer: %d\n", e);
-+    if ( !ret )
-+        uninit_subscribers();
-+    if ( !ret )
-+        ffa_sp_list_cache_free();
+-    if ( !ret )
+-        uninit_subscribers();
+     if ( !ret )
+         ffa_sp_list_cache_free();
      return ret;
  }
  
+-static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
+-                              uint16_t end, uint16_t sp_id)
++static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
++                                   unsigned int first_unnotified)
+ {
+     unsigned int n;
++    struct ffa_partition_info_1_1 *fpi;
+ 
+-    for ( n = start; n < end; n++ )
++    for ( n = 0; n < sp_list_count; n++ )
+     {
+-        if ( subscr[n] == sp_id )
+-            return true;
+-    }
+-
+-    return false;
+-}
++        fpi = sp_list + n * sp_list_entry_size;
+ 
+-static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
+-                                   unsigned int create_signal_count)
+-{
+-    unsigned int n;
++        if ( !(fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED) )
++            continue;
+ 
+-    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
+-    {
+         /*
+          * Skip SPs subscribed to the VM created event that never was
+          * notified of the VM creation due to an error during
+          * ffa_domain_init().
+          */
+-        if ( is_in_subscr_list(subscr_vm_created, create_signal_count,
+-                               subscr_vm_created_count,
+-                               subscr_vm_destroyed[n]) )
++        if ( (fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED) &&
++             n >= first_unnotified )
+             continue;
+ 
+         set_bit(n, ctx->vm_destroy_bitmap);
+@@ -666,32 +574,39 @@ static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
+ 
+ int32_t ffa_partinfo_domain_init(struct domain *d)
+ {
+-    unsigned int count = BITS_TO_LONGS(subscr_vm_destroyed_count);
++    unsigned int count = BITS_TO_LONGS(sp_list_count);
+     struct ffa_ctx *ctx = d->arch.tee;
+     unsigned int n;
++    unsigned int first_unnotified = sp_list_count;
+     int32_t res;
++    struct ffa_partition_info_1_1 *fpi;
+ 
+-    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) )
++    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) || !sp_list_count )
+         return 0;
+ 
+     ctx->vm_destroy_bitmap = xzalloc_array(unsigned long, count);
+     if ( !ctx->vm_destroy_bitmap )
+         return -ENOMEM;
+ 
+-    for ( n = 0; n < subscr_vm_created_count; n++ )
++    for ( n = 0; n < sp_list_count; n++ )
+     {
+-        res = ffa_direct_req_send_vm(subscr_vm_created[n], ffa_get_vm_id(d),
++        fpi = sp_list + n * sp_list_entry_size;
++        if ( !(fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED) )
++            continue;
++
++        res = ffa_direct_req_send_vm(fpi->id, ffa_get_vm_id(d),
+                                      FFA_MSG_SEND_VM_CREATED);
+         if ( res )
+         {
+             printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %u to  %u: res %d\n",
+-                   ffa_get_vm_id(d), subscr_vm_created[n], res);
++                   ffa_get_vm_id(d), fpi->id, res);
++            first_unnotified = n;
+             break;
+         }
+     }
+-    vm_destroy_bitmap_init(ctx, n);
++    vm_destroy_bitmap_init(ctx, first_unnotified);
+ 
+-    if ( n != subscr_vm_created_count )
++    if ( first_unnotified != sp_list_count )
+         return -EIO;
+ 
+     return 0;
+@@ -702,22 +617,24 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
+     struct ffa_ctx *ctx = d->arch.tee;
+     unsigned int n;
+     int32_t res;
++    struct ffa_partition_info_1_1 *fpi;
+ 
+     if ( !ctx->vm_destroy_bitmap )
+         return true;
+ 
+-    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
++    for ( n = 0; n < sp_list_count; n++ )
+     {
+         if ( !test_bit(n, ctx->vm_destroy_bitmap) )
+             continue;
+ 
+-        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], ffa_get_vm_id(d),
++        fpi = sp_list + n * sp_list_entry_size;
++        res = ffa_direct_req_send_vm(fpi->id, ffa_get_vm_id(d),
+                                      FFA_MSG_SEND_VM_DESTROYED);
+ 
+         if ( res && printk_ratelimit() )
+             printk(XENLOG_WARNING
+                    "%pd: ffa: Failed to report destruction of vm_id %u to %u: res %d\n",
+-                   d, ffa_get_vm_id(d), subscr_vm_destroyed[n], res);
++                   d, ffa_get_vm_id(d), fpi->id, res);
+ 
+         /*
+          * For these two error codes the hypervisor is expected to resend
+@@ -729,7 +646,7 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
+             clear_bit(n, ctx->vm_destroy_bitmap);
+     }
+ 
+-    if ( bitmap_empty(ctx->vm_destroy_bitmap, subscr_vm_destroyed_count) )
++    if ( bitmap_empty(ctx->vm_destroy_bitmap, sp_list_count) )
+         XFREE(ctx->vm_destroy_bitmap);
+ 
+     return !ctx->vm_destroy_bitmap;
 -- 
 2.52.0
 
