@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oAa7Kk9Qn2k7aAQAu9opvQ
+	id YLM5Ok1Qn2n+ZwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 20:41:03 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 20:41:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6546919CCB8
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 20:41:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1241037.1542278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B6219CCB0
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 20:41:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1241043.1542288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvKkF-0004Ur-Ed; Wed, 25 Feb 2026 19:40:27 +0000
+	id 1vvKka-00050D-NN; Wed, 25 Feb 2026 19:40:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1241037.1542278; Wed, 25 Feb 2026 19:40:27 +0000
+Received: by outflank-mailman (output) from mailman id 1241043.1542288; Wed, 25 Feb 2026 19:40:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvKkF-0004SV-Bg; Wed, 25 Feb 2026 19:40:27 +0000
-Received: by outflank-mailman (input) for mailman id 1241037;
- Wed, 25 Feb 2026 19:40:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vvKka-0004yG-Jg; Wed, 25 Feb 2026 19:40:48 +0000
+Received: by outflank-mailman (input) for mailman id 1241043;
+ Wed, 25 Feb 2026 19:40:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2gY1=A5=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1vvKkE-0004C4-25
- for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 19:40:26 +0000
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [2607:f8b0:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d41bfc30-1281-11f1-b164-2bf370ae4941;
- Wed, 25 Feb 2026 20:40:25 +0100 (CET)
-Received: by mail-pf1-x42e.google.com with SMTP id
- d2e1a72fcca58-827270d50d4so108647b3a.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 11:40:25 -0800 (PST)
+ id 1vvKkY-0004ia-JP
+ for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 19:40:46 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dd36e72e-1281-11f1-9ccf-f158ae23cfc8;
+ Wed, 25 Feb 2026 20:40:41 +0100 (CET)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-2adec255754so3023265ad.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 11:40:40 -0800 (PST)
 Received: from [192.168.1.87] (216-71-219-44.dyn.novuscom.net. [216.71.219.44])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82739dabd43sm46995b3a.25.2026.02.25.11.40.23
+ d9443c01a7336-2adfb5c9f79sm338045ad.33.2026.02.25.11.40.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Feb 2026 11:40:23 -0800 (PST)
+ Wed, 25 Feb 2026 11:40:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d41bfc30-1281-11f1-b164-2bf370ae4941
+X-Inumbo-ID: dd36e72e-1281-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772048424; x=1772653224; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1772048439; x=1772653239; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QdPCqf+ZgvZyaMYq7z8u2nsVi2kkVmJgqOcGRdKnmy0=;
-        b=yIJQMQcGcGtk4IhSBGmVEX2MS4rDP8CsAukNtg7zB9W8KLyCEPy8xOFxbtMMBHVQPd
-         zVWQ1oHvvkwSieYTLl/1U5O6POEITh4zXwTNla4ffGBvQBp5y8ShJpumqYOOGfkpEVL6
-         HP2cb0vI1ZmRMaYK1SwCy4afgVVUBtzd2qYPANkiE50ebBTGM0pGRq/ieW7n3Qga/Js+
-         uegOy6oz/GiFaIfgPWfgqJ/IkazQJEq0WpTSspaA5dWapE1SHn4K7bLRVay63e/8hMkt
-         cRkCrcrRnt4dRps3jGWNAMPop7V4vVxR+xROEVoy0tK5UrlicQFHmXQJK3cMl1rqWgNg
-         KUyg==
+        bh=UUj1S673p3detSktifXeGb28LBC3jFbCrEafskFBIyo=;
+        b=CjWUq0vml4BEEtmXjWYofq5yqDm8QqX23tu08rdSmGEhmRTo4hwm5p64ix+MrtKFux
+         +h/0NS+Uf07ivTZ7wtUclds0/8+3ixV9G97ZhGsVRreEzc5WZC2LbCuWKvGEXBcIW2XO
+         DyzAPPxBlXhyjjvSEdq70SREnJHeN/TFJKS/NuqeyG3YiLRcF5TMqr5cFFRe48jJBXzj
+         TvfZD3pdjb9eZkUYOqyvFsiBrboqnbaf430If+i9Bcx65N1ho+FTgd65HhxfuyNMDVo+
+         D1wvIyj5Nh5HZGs0hEzVXfVjuVm2hJ6OrW8JM6lh0xglX/HeANjajsG/fkH5kkUfWYNe
+         ugwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772048424; x=1772653224;
+        d=1e100.net; s=20230601; t=1772048439; x=1772653239;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=QdPCqf+ZgvZyaMYq7z8u2nsVi2kkVmJgqOcGRdKnmy0=;
-        b=i4h6uzu9KMHhTsvqdpl1dWxRv0vkvYzZSfVk6BDyt+PM0n15xoE+ctD9miOqvb+VCQ
-         G9ZKg6RXf0Aig+d4nHHRudvlLuv1MjYJvI6WOHeH9pkTChe7aCePgeFlTEtop3tNN94j
-         AYOoo+Ht3Dgfl1QaMXbv9HgsXBl9T/xlbik0B9V73Eswp9vyaOfR/Pirj2QsV8myzztb
-         7X1kTE/6DDw226gZJBMmU6bEsDnegBFn85/lKTC5iR+uwDLY39L2tV+BlQ+6KYL/AcNt
-         hIuesh0IJw3o+bWeFdEayJ8sZuMoi6rg7ma06maYHKutKQtb0I4z8M5LeILCC/HRXD7h
-         8UZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUdrZ30fgbLXgtEdRhezqjd57mUHMpnkMoAejf97OjFNbdmfAw7esG4IrPn7v16vnYANWmPAEUcdfI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzHPObNuiyrGS+eA/3WP2UOaEu/DZYwyEl5CL2Ola10R/di9iB
-	kZOM6LI1FPTkekaZtZ7jYmsxIeW54/Nemx206JfmISXNvOqY4l0CFBG9xeD2rn4AWvA=
-X-Gm-Gg: ATEYQzz75rVtQ0wZBHoMVNoHwLl/mZ8wOPoe0SjTfIxX4vIVn2zWQct+xgnoCVPwqr3
-	/KzhOYx3JkHf6SOrMpJLmztU6NqiE0tJADQCwxTWRNkmbP/qtcRQwGDr85ur+minr4FfzDfsMAU
-	odRdR4m0EjT20556WCSsND7wzXnUMQZFREYeqvsbE6d73BnJ4tzIi478uRQt18QMFntsnFiAxTY
-	6viI58dtnCHuLf05LcxCx+Rj5uvmKb6kXY21Q/V+neK+lf/EqPp34owN/hsMUG1IAgjXvfjDL/v
-	Qchh4X7PFHZE3PX05yIJi2ngCwkm4ZfA6jfFfEd32ogBF2KIq0NJMMwiqdTlq5N8p38tWOOSAVC
-	YbOUujiST+ErpBotkFW6JMgjB5FCEKpYNSGYB+WQbtl/IJTUlOQlBxtRofD4SgHZz07wArZfBni
-	832qSK0hXC0Hhp1GJ1RPPL8vrGGSP77Zcd97YHcONg0KBjblLj1H9EDhGBWWqF0aufW1aS
-X-Received: by 2002:a05:6a00:2e11:b0:81f:50ea:5da1 with SMTP id d2e1a72fcca58-826da8bd871mr16961315b3a.2.1772048423601;
-        Wed, 25 Feb 2026 11:40:23 -0800 (PST)
-Message-ID: <9dab95ec-f4f0-4e5d-bec7-b773edddb3cd@linaro.org>
-Date: Wed, 25 Feb 2026 11:40:22 -0800
+        bh=UUj1S673p3detSktifXeGb28LBC3jFbCrEafskFBIyo=;
+        b=ccBb3WeO+bg+T8W2rIqqty6mriXi2D2BCKko9i8HK4ivZUEC3csW12gpf1vM3V0+GC
+         a7i96jNhhLvvYlyg+/+RqW/G8AuapA5UeROaMf2VAU7/lSiss9zPEXb04zRmuRuiHy1y
+         J5JOZf1ZGi4FDiZs6rcJ+MXiX75cFLZK983vg1QdZCiRTGBlFb7dRJPrSLuCIxzzuNnx
+         XnplYNY+z6VNK1Uw1jSwkn//MaB5GRjzYXbV7obuHW+6gbU1TYo3ELUKOnnL7JugBXqw
+         3UJOQwR20z05V0THncMTtagduOEAALP/1Qx2Jnkya2dgvHDObxRq1r16KW3/3IBOwM6m
+         6v6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXur2Uj2W3t6mOLcAL0FQyvKrWwRsBC3XQeCTC3Vt3paVe4ZGIaAWiX4zVoeBkv1YdsTtyN6JimD+I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEOJBDHbHpPy0QgBS0qe0imBurCkTLvIcaIX4IZ1R1uwdbM//E
+	EeFWq3aLge8XmQWTxsCF8ZHOl63gY3xBwutdnku86l4WTImQTImsTkt2SVGu7cEwhN8=
+X-Gm-Gg: ATEYQzy9xMgXsPNgLcF8l5Vb2ettVE/CMrl4hSeV2eCjAamYDfpMnbsaxFQtOpXche4
+	s6CGxgNcQbfsmvh7oDapD3E40y4j2xD3Tf6ZfpWRhPNFZQId7HwGarNpLGBCrm96K1COMZme9d9
+	DmXffvj7N3Fe4PrHQLlhOSiNzuZyHgiN/6FYNsrgnzhpP1XED2MROez6xzT41LK/Z5ex0eS7JYc
+	L/uKhRE2urCp9s7Q3KazHbkfiu22v3kF3URnT9srFhyHClYied168WYZR8GwtR3HwRIGVa5G56F
+	VvIqCsSQQXdVT8OTyjUMh9wTrCvFTD/e3TIx1OEmZgKTwWdOrF/dlt2RnWYEHNW2/q1CaJdCoB1
+	ZI2gTUz2SAiVzl2K+aIAR5JvQgheJ/Awm/tjY1KJN4IOup2pladEbq2HXEmt6APU2YgEU82WqUp
+	WAMnw/oMR3nesTCytBIpbD8SRd0RgktEZ9L/ZXb9lVELgB9fTmufdHcRMeff2naCqPMJfK
+X-Received: by 2002:a17:902:db10:b0:2a9:4870:9606 with SMTP id d9443c01a7336-2ad7453b5f2mr164846735ad.42.1772048439231;
+        Wed, 25 Feb 2026 11:40:39 -0800 (PST)
+Message-ID: <2a0b5bb2-f29a-49f5-9840-cc1385e1ada1@linaro.org>
+Date: Wed, 25 Feb 2026 11:40:38 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] accel/mshv: Forward-declare mshv_root_hvcall
- structure
+Subject: Re: [PATCH 3/5] accel/mshv: Build without target-specific knowledge
 Content-Language: en-US
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
@@ -101,7 +100,7 @@ Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
  xen-devel@lists.xenproject.org,
  Magnus Kulke <magnus.kulke@linux.microsoft.com>, Wei Liu <wei.liu@kernel.org>
 References: <20260225051303.91614-1-philmd@linaro.org>
- <20260225051303.91614-3-philmd@linaro.org>
+ <20260225051303.91614-4-philmd@linaro.org>
 From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
 Autocrypt: addr=pierrick.bouvier@linaro.org; keydata=
  xsDNBGK9dgwBDACYuRpR31LD+BnJ0M4b5YnPZKbj+gyu82IDN0MeMf2PGf1sux+1O2ryzmnA
@@ -137,14 +136,14 @@ Autocrypt: addr=pierrick.bouvier@linaro.org; keydata=
  5SYuJaKzCAgNeAy3gUVUUPrUsul1oe2PeWMFUhWKrqko0/Qo4HkwTZY6S16drTMncoUahSAl
  X4Z3BbSPXPq0v1JJBYNBL9qmjULEX+NbtRd3v0OfB5L49sSAC2zIO8S9Cufiibqx3mxZTaJ1
  ZtfdHNZotF092MIH0IQC3poExQpV/WBYFAI=
-In-Reply-To: <20260225051303.91614-3-philmd@linaro.org>
+In-Reply-To: <20260225051303.91614-4-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -152,9 +151,9 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:philmd@linaro.org,m:qemu-devel@nongnu.org,m:kvm@vger.kernel.org,m:pbonzini@redhat.com,m:xen-devel@lists.xenproject.org,m:magnus.kulke@linux.microsoft.com,m:wei.liu@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[pierrick.bouvier@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[pierrick.bouvier@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[linaro.org:+];
@@ -171,18 +170,18 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6546919CCB8
+X-Rspamd-Queue-Id: 56B6219CCB0
 X-Rspamd-Action: no action
 
 On 2/24/26 9:13 PM, Philippe Mathieu-Daudé wrote:
-> Forward-declare the target-specific mshv_root_hvcall structure
-> in order to keep 'system/mshv_int.h' target-agnostic.
+> Code in accel/ aims to be target-agnostic. Enforce that
+> by moving the MSHV file units to system_ss[], which is
+> target-agnostic.
 > 
 > Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
->   include/system/mshv_int.h | 5 ++---
->   accel/mshv/mshv-all.c     | 2 +-
->   2 files changed, 3 insertions(+), 4 deletions(-)
+>   accel/mshv/meson.build | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
 > 
 
 Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
