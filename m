@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wOoTLYzgnmmCXgQAu9opvQ
+	id KJDqEabgnmmCXgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:12 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:38 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 272F5196C49
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1240623.1541947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF851196C6F
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Feb 2026 12:44:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1240633.1541957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvDJE-00035b-Ip; Wed, 25 Feb 2026 11:44:04 +0000
+	id 1vvDJa-0003bA-Pq; Wed, 25 Feb 2026 11:44:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1240623.1541947; Wed, 25 Feb 2026 11:44:04 +0000
+Received: by outflank-mailman (output) from mailman id 1240633.1541957; Wed, 25 Feb 2026 11:44:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvDJE-00032Y-FP; Wed, 25 Feb 2026 11:44:04 +0000
-Received: by outflank-mailman (input) for mailman id 1240623;
- Wed, 25 Feb 2026 11:44:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vvDJa-0003Z5-MQ; Wed, 25 Feb 2026 11:44:26 +0000
+Received: by outflank-mailman (input) for mailman id 1240633;
+ Wed, 25 Feb 2026 11:44:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tnRg=A5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vvDJD-0002SC-1Q
- for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 11:44:03 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 470d1f37-123f-11f1-9ccf-f158ae23cfc8;
- Wed, 25 Feb 2026 12:44:01 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-483487335c2so58992385e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 03:44:01 -0800 (PST)
+ id 1vvDJZ-0002tl-Qn
+ for xen-devel@lists.xenproject.org; Wed, 25 Feb 2026 11:44:25 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5537a146-123f-11f1-b164-2bf370ae4941;
+ Wed, 25 Feb 2026 12:44:24 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-439857ec679so1690940f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Feb 2026 03:44:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bffc17dasm17462215e9.2.2026.02.25.03.44.00
+ 5b1f17b1804b1-483bd6f19f5sm154793855e9.1.2026.02.25.03.44.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Feb 2026 03:44:00 -0800 (PST)
+ Wed, 25 Feb 2026 03:44:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 470d1f37-123f-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 5537a146-123f-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772019840; x=1772624640; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772019864; x=1772624664; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qvqxSGqotIAOODsHnK2+oa0DmybL0jdHjJLUZwFNknw=;
-        b=cgYfSze+bxQCzruFc3EXdrJMlZmGFyQ62Y+tWUW5Q0Om5PRRpTDKshn/Z4pnXrgbMk
-         jlc95OoWL+G9JvKcfobUZjMsASfHxWMc99eK4TB2MEcf42T5oB9VFWhKVUBm0IAok/zQ
-         ZREXwbTB0NGQLWwo5PuFfTMg6OTWAnlEaCOZ2Efb9/3S4IWkYmVdNNmNgLx+ESe3981B
-         PpqT0/eN+5P5J/r9thcFAOh4kmr6XAcKtJso5JMCpTibD6qDtwfuRUq3pJzX3KZuHyLx
-         UVq7tkgKkdmhDX2+vyAWJH3av1x+VEXMTqRlEkoFjNZxoJECcMCqbVzi7CLl1KOR8ngq
-         y9ng==
+        bh=F4vS9yj8ZbkDhyH0h+l80l5O91ePGrjIYaOjnrsaMT4=;
+        b=P1VdV8pG1MEgcpHbPnzYCAY+08dufnw9qQ2P4pwCW/faAYczJnBkO48gWvkThWPCig
+         Z33s5TZEmHGcCKTfEuWTNS3V3FIEl4f4AswUV8iFMPXHwAYRmWN7r8R2/+8eP9r6qdFK
+         c3IsZuQ3W6c0HV80gtVSwLZB6Ef+/h87P5W/Io/7NyqzLwGAZXse4RtvM4BShtgR+kpp
+         jCbNBig2ARF+LrIb+mPgCoecUOlTlHpLDyZ4dxq5o7pKYAStWpApx+7aql5vXfqLUXZO
+         LobCP7I9ywEWB0KLk8bdF4ZacLH8bgWCqlldSeSdpoQ4kID/GxOkWR9n87zYhD1zcG34
+         TGRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772019840; x=1772624640;
+        d=1e100.net; s=20230601; t=1772019864; x=1772624664;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qvqxSGqotIAOODsHnK2+oa0DmybL0jdHjJLUZwFNknw=;
-        b=Pv7N/xYE2nQWOO45xsMOXqUzYKr4iql0IfgqwzZsoGpzrwiQ/9LNliK+1DINHMKimW
-         SyQT4vpk70UvNOZC+ih6coNJ0LnDkXgkgk5nvllBren7yr7sq8PVY1iAnenXIFHVAEdJ
-         mLYughEY9XNcRzCRUKgiroC/aqGibE2PIx96AkRkIDWuauMrDTW/fAbWJ8mDP5PH9IYK
-         LSXi9DFreW9FkGQwimDW3TZuJ1b0dSv2tTqJ+trGHmdcevHHiV++BFYSHhEY9OdBUX9V
-         IyqHfpYBlyYwBerehZZIbsF02pAGG6aNSo9kEMeAt1Icz+H09Ra59dmRTibIyjEbMwFP
-         yBxw==
-X-Gm-Message-State: AOJu0YxN97PEU9HCQAqd3NBfvCVUDUsPLxPIA6kC/8S5sia4gBi9iLUQ
-	8yvVQkVKzJ/f/Oh7zNiYxCQgWwkBSCFK3xfO1bsOiujI3+kKJc3JwN7juXq6Y9ceaX/ZRGMQk6L
-	my9c=
-X-Gm-Gg: ATEYQzwXbUO5zVoiywV76lFA5YhFB5p+PZ0LK7XUOBPVC5oQ+JyFh10mPXqakqvbYd4
-	i6arE4wqG5chcnkzLXoBLytVQ/qNq7e/AAdBSfS9CbmUwrMGGuvu7q1f8J5wklVjNGKfLeJy9yT
-	qhhO0XU7W4Wt3+TU6Wtef7ddH9CWmLBcgkp30TmDkibLgxvt2qHTPsEFZThKHBmhKI7oQtcznse
-	iyKe8utJvMcShyZ5uJKyCqTr5Sv4ey/zJEFR3+IwrE6Dwpix4d2YNkVwupxS+QkEef42iKalQ4B
-	xkLWG7A4Xv29OC1Srxt0/6nBK+c7L4d7IlO6ptp7icJcWv6sGgcGdNJp0qDvId4bA//mbATDVL3
-	ZvWYXPLU4M+2s9jc4bdVs9Bm4K7Hscv1OvEZ+aNFlffnt4vzZOJr1teSZxds8tuyb8bYHcQipI3
-	guK3LNZz0pZsxGsiaJv5ycyP84t09NKiit5ORM9L6+1noZE4xCdph3FMsOvWiaOxivz28eywfdk
-	EgV48iirKrJbUA=
-X-Received: by 2002:a05:600c:4f93:b0:477:df7:b020 with SMTP id 5b1f17b1804b1-483aaa15e35mr278740115e9.18.1772019840449;
-        Wed, 25 Feb 2026 03:44:00 -0800 (PST)
-Message-ID: <a67efd56-5286-4f1a-829c-ed3c4526268e@suse.com>
-Date: Wed, 25 Feb 2026 12:43:59 +0100
+        bh=F4vS9yj8ZbkDhyH0h+l80l5O91ePGrjIYaOjnrsaMT4=;
+        b=g7FvXB8G7aM+X/Wwe8xUOMDv1Kf3t9DUNJjJHklxfh/Uj6Vm82VDHFYwb6nEtffpf0
+         i9W8crBfQEGkuJsXDkjIsp2I/ZYHuBRdM8JEYoZYWK5ao/U/kfCAGtm4XscFMDnq7bNV
+         MEoBEqSSRIv6S9YJWEYVFwUieG2qkoo9kPG+vlMySIAQj6bkeM8iF/Gb1OumtzEV98wF
+         WT+73/QZfJ4vHocbmmV07ILc+y+fB8ZO8zConVqQwZWK7mOA8BnYL5cDF4xPwX7/2dfL
+         gM269VCUXjdsmzFEpsC+1eByy4gTGzTAtZy3enQRwq+nM9YkiW9vBMaYxkDvnMe2h2Wh
+         pJvA==
+X-Gm-Message-State: AOJu0YzgWKfMMJzGBhXkFIy3U8ajK1nHSYNYJLEpWeN1aUP4rCdOVkGa
+	XboETysJspKLOCCJFuHrwGqmJ6uKGs5ZPN1B8Oz99ZQkVgHggOYIu7trNky6zS8aYxSQ798WETm
+	G3e4=
+X-Gm-Gg: ATEYQzxIjblR7V2I5PgPkG8nwSyjzJnmauTto0aLcEbu+M4XliPHRsx2MM9//5Uo7gO
+	RwevQS0rSa/p3rYASZUacKlwGVxgZnnNK1pYN+xAB5bAb+D5fs2/1jI5cJZHvVbrUWPo9cZ2aWG
+	evN7YcSm+M0QsZ6/qJlsN+KyzaJ1xKyu84h93HFvbBPJFAELub0MUfejRUuhSLtD4BfWZvzgxY+
+	JCVnP+6vsaUI936qKoNP3JaKrtERBvztC6RBCrgCFTRwt6hBW1Iq4Oz9eTkWHo4owY+SUOKRiDH
+	B0QJuca+Dt0kvNsYtTkpGWBhy6gA3V8cX5Z2jqChEQJYA20qjl9y/pIfZTJP5JXmtwY5VGFuruK
+	FYetdxlfw7nQU1mk0lI/0brMyanL6K/Idb7kCCB8cGOG5t9YiPkNFQJ+SacpkeB5LhXQzImW+YB
+	WggjxjWyzxWHV113MEr7bKNnbFILDluYK5MLwhjCDChq2INC691Q2jeKyaW7LFW3Sw05LVGLt0e
+	sbl8YSrE9Q2pHc=
+X-Received: by 2002:a05:600c:5397:b0:483:56c4:73ac with SMTP id 5b1f17b1804b1-483c216bf67mr1163205e9.7.1772019864193;
+        Wed, 25 Feb 2026 03:44:24 -0800 (PST)
+Message-ID: <252e527e-dcb2-4710-8a43-070c49512e00@suse.com>
+Date: Wed, 25 Feb 2026 12:44:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 3/5] vPCI: move capability-list init
+Subject: [PATCH v5 4/5] vPCI/ReBAR: improve cleanup
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -125,7 +125,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <6202d2d4-ad80-4e37-b1f6-cd9d19add72f@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -138,7 +138,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -155,327 +155,76 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 272F5196C49
+X-Rspamd-Queue-Id: BF851196C6F
 X-Rspamd-Action: no action
 
-... both for when the functions are invoked and where they live in source.
-Don't invoke them directly in vpci_init_header(), but instead first thing
-in vpci_init_capabilities().
+We cannot assume extended config space to (still) be accessible when
+cleaning up. Necessary value need caching instead. In fact, as the caller
+also cannot look up extended capabilities, the cleanup function needs to
+cope with being called when there's no ReBAR capability at all.
 
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+As kind of a side effect nbars being 0 (which init_rebar() doesn't
+explicitly reject) no longer results in a bogus call to
+vpci_remove_registers().
+
+Fixes: ee459aeac096 ("vpci/rebar: Implement cleanup function for Rebar")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-v4: New.
+v5: New.
 
---- a/xen/drivers/vpci/cap.c
-+++ b/xen/drivers/vpci/cap.c
-@@ -159,15 +159,150 @@ static int vpci_ext_capability_hide(
-     return 0;
- }
- 
-+static int vpci_init_capability_list(struct pci_dev *pdev)
-+{
-+    int rc;
-+    bool mask_cap_list = false;
-+    bool is_hwdom = is_hardware_domain(pdev->domain);
-+
-+    if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
-+    {
-+        /* Only expose capabilities to the guest that vPCI can handle. */
-+        unsigned int next, ttl = 48;
-+        static const unsigned int supported_caps[] = {
-+            PCI_CAP_ID_MSI,
-+            PCI_CAP_ID_MSIX,
-+        };
-+        /*
-+         * For dom0, we should expose all capabilities instead of a fixed
-+         * capabilities array, so setting n to 0 here is to get the next
-+         * capability position directly in pci_find_next_cap_ttl.
-+         */
-+        const unsigned int n = is_hwdom ? 0 : ARRAY_SIZE(supported_caps);
-+
-+        next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
-+                                     supported_caps, n, &ttl);
-+
-+        rc = vpci_add_register(pdev->vpci, vpci_read_val,
-+                               is_hwdom ? vpci_hw_write8 : NULL,
-+                               PCI_CAPABILITY_LIST, 1,
-+                               (void *)(uintptr_t)next);
-+        if ( rc )
-+            return rc;
-+
-+        next &= ~3;
-+
-+        if ( !next && !is_hwdom )
-+            /*
-+             * If we don't have any supported capabilities to expose to the
-+             * guest, mask the PCI_STATUS_CAP_LIST bit in the status
-+             * register.
-+             */
-+            mask_cap_list = true;
-+
-+        while ( next && ttl )
-+        {
-+            unsigned int pos = next;
-+
-+            next = pci_find_next_cap_ttl(pdev->sbdf,
-+                                         pos + PCI_CAP_LIST_NEXT,
-+                                         supported_caps, n, &ttl);
-+
-+            if ( !is_hwdom )
-+            {
-+                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
-+                                       pos + PCI_CAP_LIST_ID, 1, NULL);
-+                if ( rc )
-+                    return rc;
-+            }
-+
-+            rc = vpci_add_register(pdev->vpci, vpci_read_val,
-+                                   is_hwdom ? vpci_hw_write8 : NULL,
-+                                   pos + PCI_CAP_LIST_NEXT, 1,
-+                                   (void *)(uintptr_t)next);
-+            if ( rc )
-+                return rc;
-+
-+            next &= ~3;
-+        }
-+    }
-+
-+    /* Return early for the hw domain, no masking of PCI_STATUS. */
-+    if ( is_hwdom )
-+        return 0;
-+
-+    /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
-+    return vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
-+                                  PCI_STATUS, 2, NULL,
-+                                  PCI_STATUS_RO_MASK &
-+                                    ~(mask_cap_list ? PCI_STATUS_CAP_LIST : 0),
-+                                  PCI_STATUS_RW1C_MASK,
-+                                  mask_cap_list ? PCI_STATUS_CAP_LIST : 0,
-+                                  PCI_STATUS_RSVDZ_MASK);
-+}
-+
-+static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
-+{
-+    unsigned int pos = PCI_CFG_SPACE_SIZE;
-+
-+    if ( !pdev->ext_cfg )
-+        return 0;
-+
-+    if ( !is_hardware_domain(pdev->domain) )
-+        /* Extended capabilities read as zero, write ignore for DomU */
-+        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-+                                 pos, 4, (void *)0);
-+
-+    do
-+    {
-+        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
-+        int rc;
-+
-+        if ( header == 0xffffffffU )
-+        {
-+            printk(XENLOG_WARNING
-+                   "%pd %pp: broken extended cap list, offset %#x\n",
-+                   pdev->domain, &pdev->sbdf, pos);
-+            return 0;
-+        }
-+
-+        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-+                               pos, 4, (void *)(uintptr_t)header);
-+        if ( rc == -EEXIST )
-+        {
-+            printk(XENLOG_WARNING
-+                   "%pd %pp: overlap in extended cap list, offset %#x\n",
-+                   pdev->domain, &pdev->sbdf, pos);
-+            return 0;
-+        }
-+
-+        if ( rc )
-+            return rc;
-+
-+        pos = PCI_EXT_CAP_NEXT(header);
-+    } while ( pos >= PCI_CFG_SPACE_SIZE );
-+
-+    return 0;
-+}
-+
- int vpci_init_capabilities(struct pci_dev *pdev)
+--- a/xen/drivers/vpci/rebar.c
++++ b/xen/drivers/vpci/rebar.c
+@@ -53,17 +53,12 @@ static void cf_check rebar_ctrl_write(co
+ static int cf_check cleanup_rebar(const struct pci_dev *pdev, bool hide)
  {
-+    int rc;
-+
-+    rc = vpci_init_capability_list(pdev);
-+    if ( rc )
-+        return rc;
-+
-+    rc = vpci_init_ext_capability_list(pdev);
-+    if ( rc )
-+        return rc;
-+
-     for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-     {
-         const vpci_capability_t *capability = &__start_vpci_array[i];
-         const unsigned int cap = capability->id;
-         const bool is_ext = capability->is_ext;
-         unsigned int pos = 0;
--        int rc;
+     int rc;
+-    uint32_t ctrl;
+-    unsigned int nbars;
+-    unsigned int rebar_offset = pci_find_ext_capability(pdev,
+-                                                        PCI_EXT_CAP_ID_REBAR);
++    unsigned int nbars = pdev->vpci->rebar.nbars;
++    unsigned int rebar_offset = pdev->vpci->rebar.offset;
  
-         if ( !is_ext )
-             pos = pci_find_cap_offset(pdev->sbdf, cap);
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -744,132 +744,6 @@ static int bar_add_rangeset(const struct
-     return !bar->mem ? -ENOMEM : 0;
- }
- 
--static int vpci_init_capability_list(struct pci_dev *pdev)
--{
--    int rc;
--    bool mask_cap_list = false;
--    bool is_hwdom = is_hardware_domain(pdev->domain);
--
--    if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
--    {
--        /* Only expose capabilities to the guest that vPCI can handle. */
--        unsigned int next, ttl = 48;
--        static const unsigned int supported_caps[] = {
--            PCI_CAP_ID_MSI,
--            PCI_CAP_ID_MSIX,
--        };
--        /*
--         * For dom0, we should expose all capabilities instead of a fixed
--         * capabilities array, so setting n to 0 here is to get the next
--         * capability position directly in pci_find_next_cap_ttl.
--         */
--        const unsigned int n = is_hwdom ? 0 : ARRAY_SIZE(supported_caps);
--
--        next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
--                                     supported_caps, n, &ttl);
--
--        rc = vpci_add_register(pdev->vpci, vpci_read_val,
--                               is_hwdom ? vpci_hw_write8 : NULL,
--                               PCI_CAPABILITY_LIST, 1,
--                               (void *)(uintptr_t)next);
--        if ( rc )
--            return rc;
--
--        next &= ~3;
--
--        if ( !next && !is_hwdom )
--            /*
--             * If we don't have any supported capabilities to expose to the
--             * guest, mask the PCI_STATUS_CAP_LIST bit in the status
--             * register.
--             */
--            mask_cap_list = true;
--
--        while ( next && ttl )
--        {
--            unsigned int pos = next;
--
--            next = pci_find_next_cap_ttl(pdev->sbdf,
--                                         pos + PCI_CAP_LIST_NEXT,
--                                         supported_caps, n, &ttl);
--
--            if ( !is_hwdom )
--            {
--                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
--                                       pos + PCI_CAP_LIST_ID, 1, NULL);
--                if ( rc )
--                    return rc;
--            }
--
--            rc = vpci_add_register(pdev->vpci, vpci_read_val,
--                                   is_hwdom ? vpci_hw_write8 : NULL,
--                                   pos + PCI_CAP_LIST_NEXT, 1,
--                                   (void *)(uintptr_t)next);
--            if ( rc )
--                return rc;
--
--            next &= ~3;
--        }
--    }
--
--    /* Return early for the hw domain, no masking of PCI_STATUS. */
--    if ( is_hwdom )
--        return 0;
--
--    /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
--    return vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
--                                  PCI_STATUS, 2, NULL,
--                                  PCI_STATUS_RO_MASK &
--                                    ~(mask_cap_list ? PCI_STATUS_CAP_LIST : 0),
--                                  PCI_STATUS_RW1C_MASK,
--                                  mask_cap_list ? PCI_STATUS_CAP_LIST : 0,
--                                  PCI_STATUS_RSVDZ_MASK);
--}
--
--static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
--{
--    unsigned int pos = PCI_CFG_SPACE_SIZE;
--
--    if ( !pdev->ext_cfg )
--        return 0;
--
--    if ( !is_hardware_domain(pdev->domain) )
--        /* Extended capabilities read as zero, write ignore for DomU */
--        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
--                                 pos, 4, (void *)0);
--
--    do
--    {
--        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
--        int rc;
--
--        if ( header == 0xffffffffU )
--        {
--            printk(XENLOG_WARNING
--                   "%pd %pp: broken extended cap list, offset %#x\n",
--                   pdev->domain, &pdev->sbdf, pos);
--            return 0;
--        }
--
--        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
--                               pos, 4, (void *)(uintptr_t)header);
--        if ( rc == -EEXIST )
--        {
--            printk(XENLOG_WARNING
--                   "%pd %pp: overlap in extended cap list, offset %#x\n",
--                   pdev->domain, &pdev->sbdf, pos);
--            return 0;
--        }
--
--        if ( rc )
--            return rc;
--
--        pos = PCI_EXT_CAP_NEXT(header);
--    } while ( pos >= PCI_CFG_SPACE_SIZE );
--
--    return 0;
--}
--
- int vpci_init_header(struct pci_dev *pdev)
- {
-     uint16_t cmd;
-@@ -918,14 +792,6 @@ int vpci_init_header(struct pci_dev *pde
-     if ( rc )
-         return rc;
- 
--    rc = vpci_init_capability_list(pdev);
--    if ( rc )
--        return rc;
--
--    rc = vpci_init_ext_capability_list(pdev);
--    if ( rc )
--        return rc;
--
-     if ( pdev->ignore_bars )
+-    if ( !hide )
++    if ( !rebar_offset || !nbars || !hide )
          return 0;
  
+-    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+-    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+-
+     rc = vpci_remove_registers(pdev->vpci, rebar_offset + PCI_REBAR_CAP(0),
+                                PCI_REBAR_CTRL(nbars - 1));
+     if ( rc )
+@@ -121,6 +116,10 @@ static int cf_check init_rebar(struct pc
+ 
+     ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+     nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
++
++    pdev->vpci->rebar.offset = rebar_offset;
++    pdev->vpci->rebar.nbars  = nbars;
++
+     for ( unsigned int i = 0; i < nbars; i++ )
+     {
+         int rc;
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -135,6 +135,13 @@ struct vpci {
+             struct vpci_arch_msix_entry arch;
+         } entries[];
+     } *msix;
++
++    /* Resizable BARs data */
++    struct vpci_rebar {
++        unsigned int offset:12;
++        unsigned int nbars:3;
++    } rebar;
++
+ #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+     /* Guest SBDF of the device. */
+ #define INVALID_GUEST_SBDF ((pci_sbdf_t){ .sbdf = ~0U })
 
 
