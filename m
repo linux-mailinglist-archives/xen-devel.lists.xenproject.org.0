@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yNWCDCNaoGlPigQAu9opvQ
+	id ACjBOWVboGm3igQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:35:15 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:40:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76191A7A72
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:35:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1241848.1542729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 999BF1A7BED
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:40:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1241883.1542739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcSH-0004XK-J6; Thu, 26 Feb 2026 14:35:05 +0000
+	id 1vvcXP-00068z-57; Thu, 26 Feb 2026 14:40:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1241848.1542729; Thu, 26 Feb 2026 14:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 1241883.1542739; Thu, 26 Feb 2026 14:40:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcSH-0004Vt-GL; Thu, 26 Feb 2026 14:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 1241848;
- Thu, 26 Feb 2026 14:35:03 +0000
+	id 1vvcXP-00066k-21; Thu, 26 Feb 2026 14:40:23 +0000
+Received: by outflank-mailman (input) for mailman id 1241883;
+ Thu, 26 Feb 2026 14:40:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Wgwr=A6=citrix.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1vvcSF-0004VT-U5
- for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 14:35:03 +0000
-Received: from na1pdmzitismtp02.tibco.com (unknown [160.101.131.9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55065a17-1320-11f1-9ccf-f158ae23cfc8;
- Thu, 26 Feb 2026 15:35:01 +0100 (CET)
+ id 1vvcXN-00066e-Bc
+ for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 14:40:21 +0000
+Received: from na1pdmzitismtp01.tibco.com (na1pdmzitismtp01.tibco.com
+ [160.101.131.8]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b3f6573-1321-11f1-9ccf-f158ae23cfc8;
+ Thu, 26 Feb 2026 15:40:15 +0100 (CET)
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 84C00814F34A;
- Thu, 26 Feb 2026 09:34:29 -0500 (EST)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id CAC93428FD52;
+ Thu, 26 Feb 2026 09:39:24 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,7 +44,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55065a17-1320-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0b3f6573-1321-11f1-9ccf-f158ae23cfc8
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
@@ -54,10 +54,11 @@ Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 01/10] xen/page_alloc: Extract code for consuming claims into inline function
-Date: Thu, 26 Feb 2026 14:29:15 +0000
-Message-Id: <7dd887bc26830d6c50e5bc2606391963e65285a1.1772098423.git.bernhard.kaindl@citrix.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH v4 02/10] xen/page_alloc: Optimize getting per-NUMA-node free page counts
+Date: Thu, 26 Feb 2026 14:29:16 +0000
+Message-Id: <c56658d1248660543fdba162810b0629c081bd94.1772098423.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1772098423.git.bernhard.kaindl@citrix.com>
 References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
@@ -68,122 +69,149 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:alejandro.vallejo@cloud.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.977];
+	NEURAL_HAM(-0.00)[-0.980];
 	RCVD_COUNT_SEVEN(0.00)[7];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	R_DKIM_NA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ARC_NA(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel]
-X-Rspamd-Queue-Id: D76191A7A72
+X-Rspamd-Queue-Id: 999BF1A7BED
 X-Rspamd-Action: no action
 
-Refactor the claims consumption code in preparation for node-claims.
-Lays the groundwork for adding the consumption of NUMA claims to it.
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
+Add per-node free page counters (node_avail_pages[]), protected by
+heap_lock, updated in real-time in lockstep with total_avail_pages
+as pages are allocated and freed.
+
+This replaces the avail_heap_pages() loop over all online nodes and
+zones in avail_node_heap_pages() with a direct O(1) array lookup,
+making it efficient to get the total free pages for a given NUMA node.
+
+The per-node counts are currently provided using sysctl for NUMA
+placement decisions of domain builders and monitoring, and for
+debugging with the debug-key 'u' to print NUMA info to the printk buffer.
+
+They will also be used for checking if a NUMA node may be able to
+satisfy a NUMA-node-specific allocation by comparing node availability
+against node-specific claims before looking for pages in the zones
+of the node.
+
+Also change total_avail_pages and outstanding_claims to unsigned long:
+
+Those never become negative (we protect that with ASSERT/BUG_ON already),
+and converting them to unsigned long makes that explicit, and also
+fixes signed/unsigned comparison warnings.
+
+This only needs moving the ASSERT to before the subtraction.
+See the previous commit moving the BUG_ON for outstanding_claims.
+
+This lays the groundwork for implementing per-node claims.
+
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- xen/common/page_alloc.c | 56 +++++++++++++++++++++++------------------
- 1 file changed, 31 insertions(+), 25 deletions(-)
+ xen/common/page_alloc.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 588b5b99cbc7..6f7f30c64605 100644
+index 6f7f30c64605..2176cb113fe2 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -518,6 +518,34 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
-     return d->tot_pages;
- }
+@@ -483,11 +483,32 @@ static heap_by_zone_and_order_t *_heap[MAX_NUMNODES];
  
-+/* Release outstanding claims on the domain, host and later also node */
-+static inline
-+void release_outstanding_claims(struct domain *d, unsigned long release)
-+{
-+    ASSERT(spin_is_locked(&heap_lock));
-+    BUG_ON(outstanding_claims < release);
-+    outstanding_claims -= release;
-+    d->outstanding_pages -= release;
-+}
+ static unsigned long node_need_scrub[MAX_NUMNODES];
+ 
++/* avail[node][zone] is the number of free pages on that node and zone. */
+ static unsigned long *avail[MAX_NUMNODES];
+-static long total_avail_pages;
++/* Global available pages, updated in real-time, protected by heap_lock */
++static unsigned long total_avail_pages;
+ 
++/* The global heap lock, protecting access to the heap and related structures */
+ static DEFINE_SPINLOCK(heap_lock);
+-static long outstanding_claims; /* total outstanding claims by all domains */
 +
 +/*
-+ * Consume outstanding claimed pages when allocating pages for a domain.
-+ * NB. The alloc could (in principle) fail in assign_pages() afterwards. In that
-+ * case, the consumption is not reversed, but as claims are used only during
-+ * domain build and d is destroyed if the build fails, this has no significance.
++ * Per-node count of available pages, protected by heap_lock, updated in
++ * lockstep with total_avail_pages as pages are allocated and freed.
++ *
++ * Each entry holds the sum of avail[node][zone] across all zones, used for
++ * efficiently checking node-local availability for allocation requests.
++ * Also provided via sysctl for NUMA placement decisions of domain builders
++ * and monitoring, and logged with debug-key 'u' for NUMA debugging.
++ *
++ * Maintaining this under heap_lock does not reduce scalability, as the
++ * allocator is already serialized on it. The accessor macro abstracts the
++ * storage to ease future changes (e.g. moving to per-node lock granularity).
 + */
-+static inline
-+void consume_outstanding_claims(struct domain *d, unsigned long allocation)
-+{
-+    if ( !d || !d->outstanding_pages )
-+        return;
-+    ASSERT(spin_is_locked(&heap_lock));
++#define node_avail_pages(node) (node_avail_pages[node])
++static unsigned long node_avail_pages[MAX_NUMNODES];
 +
-+    /* Of course, the domain can only release up its outstanding claims */
-+    allocation = min(allocation, d->outstanding_pages + 0UL);
-+    release_outstanding_claims(d, allocation);
-+}
-+
- int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
- {
-     int ret = -ENOMEM;
-@@ -535,8 +563,7 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
-     /* pages==0 means "unset" the claim. */
-     if ( pages == 0 )
-     {
--        outstanding_claims -= d->outstanding_pages;
--        d->outstanding_pages = 0;
-+        release_outstanding_claims(d, d->outstanding_pages);
-         ret = 0;
-         goto out;
-     }
-@@ -1048,29 +1075,8 @@ static struct page_info *alloc_heap_pages(
++/* total outstanding claims by all domains */
++static unsigned long outstanding_claims;
+ 
+ static unsigned long avail_heap_pages(
+     unsigned int zone_lo, unsigned int zone_hi, unsigned int node)
+@@ -1072,8 +1093,10 @@ static struct page_info *alloc_heap_pages(
+ 
+     ASSERT(avail[node][zone] >= request);
+     avail[node][zone] -= request;
++    ASSERT(node_avail_pages(node) >= request);
++    node_avail_pages(node) -= request;
++    ASSERT(total_avail_pages >= request);
      total_avail_pages -= request;
-     ASSERT(total_avail_pages >= 0);
+-    ASSERT(total_avail_pages >= 0);
  
--    if ( d && d->outstanding_pages && !(memflags & MEMF_no_refcount) )
--    {
--        /*
--         * Adjust claims in the same locked region where total_avail_pages is
--         * adjusted, not doing so would lead to a window where the amount of
--         * free memory (avail - claimed) would be incorrect.
--         *
--         * Note that by adjusting the claimed amount here it's possible for
--         * pages to fail to be assigned to the claiming domain while already
--         * having been subtracted from d->outstanding_pages.  Such claimed
--         * amount is then lost, as the pages that fail to be assigned to the
--         * domain are freed without replenishing the claim.  This is fine given
--         * claims are only to be used during physmap population as part of
--         * domain build, and any failure in assign_pages() there will result in
--         * the domain being destroyed before creation is finished.  Losing part
--         * of the claim makes no difference.
--         */
--        unsigned long outstanding = min(d->outstanding_pages + 0UL, request);
--
--        BUG_ON(outstanding > outstanding_claims);
--        outstanding_claims -= outstanding;
--        d->outstanding_pages -= outstanding;
--    }
-+    if ( !(memflags & MEMF_no_refcount) )
-+        consume_outstanding_claims(d, request);
+     if ( !(memflags & MEMF_no_refcount) )
+         consume_outstanding_claims(d, request);
+@@ -1235,8 +1258,10 @@ static int reserve_offlined_page(struct page_info *head)
+             continue;
  
-     check_low_mem_virq();
+         avail[node][zone]--;
++        ASSERT(node_avail_pages(node) > 0);
++        node_avail_pages(node)--;
++        ASSERT(total_avail_pages > 0);
+         total_avail_pages--;
+-        ASSERT(total_avail_pages >= 0);
+ 
+         page_list_add_tail(cur_head,
+                            test_bit(_PGC_broken, &cur_head->count_info) ?
+@@ -1559,6 +1584,7 @@ static void free_heap_pages(
+     }
+ 
+     avail[node][zone] += 1 << order;
++    node_avail_pages(node) += 1 << order;
+     total_avail_pages += 1 << order;
+     if ( need_scrub )
+     {
+@@ -2816,7 +2842,7 @@ unsigned long avail_domheap_pages_region(
+ 
+ unsigned long avail_node_heap_pages(unsigned int nodeid)
+ {
+-    return avail_heap_pages(MEMZONE_XEN, NR_ZONES -1, nodeid);
++    return node_avail_pages(nodeid);
+ }
+ 
  
 -- 
 2.39.5
