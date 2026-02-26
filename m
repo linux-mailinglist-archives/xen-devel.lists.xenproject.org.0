@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uEh6JYZgoGmMiwQAu9opvQ
+	id +GzbLZ1ioGk0jAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:02:30 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:11:25 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857841A82C2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:02:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242052.1542811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AE6F1A84AF
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:11:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242088.1542820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcsT-0003Gq-21; Thu, 26 Feb 2026 15:02:09 +0000
+	id 1vvd0y-0004xu-TZ; Thu, 26 Feb 2026 15:10:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242052.1542811; Thu, 26 Feb 2026 15:02:09 +0000
+Received: by outflank-mailman (output) from mailman id 1242088.1542820; Thu, 26 Feb 2026 15:10:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcsS-0003EG-VA; Thu, 26 Feb 2026 15:02:08 +0000
-Received: by outflank-mailman (input) for mailman id 1242052;
- Thu, 26 Feb 2026 15:02:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vvd0y-0004vT-QO; Thu, 26 Feb 2026 15:10:56 +0000
+Received: by outflank-mailman (input) for mailman id 1242088;
+ Thu, 26 Feb 2026 15:10:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Wgwr=A6=citrix.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1vvcsR-0003E5-Ra
- for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 15:02:07 +0000
-Received: from na1pdmzitismtp01.tibco.com (na1pdmzitismtp01.corp.cloud.com
- [160.101.131.8]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1dccd3c2-1324-11f1-b164-2bf370ae4941;
- Thu, 26 Feb 2026 16:02:07 +0100 (CET)
+ id 1vvd0x-0004vN-BE
+ for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 15:10:55 +0000
+Received: from na1pdmzitismtp01.tibco.com (na1pdmzitismtp01.tibco.com
+ [160.101.131.8]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54d120c2-1325-11f1-9ccf-f158ae23cfc8;
+ Thu, 26 Feb 2026 16:10:49 +0100 (CET)
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 182D34290365;
- Thu, 26 Feb 2026 10:01:46 -0500 (EST)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 14EE8429064D;
+ Thu, 26 Feb 2026 10:10:28 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,16 +44,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dccd3c2-1324-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 54d120c2-1325-11f1-9ccf-f158ae23cfc8
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v4 08/10] tools/ocaml/libs/xc: add OCaml domain_claim_memory binding
-Date: Thu, 26 Feb 2026 14:29:22 +0000
-Message-Id: <538ada6fad9414a102db0096f297f77b90f3ac01.1772098423.git.bernhard.kaindl@citrix.com>
+Subject: [PATCH v4 09/10] tools/tests: Update the claims test to test claim_memory hypercall
+Date: Thu, 26 Feb 2026 14:29:23 +0000
+Message-Id: <bda9076991cc2d3f22d1a971998783125c7bcb80.1772098423.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1772098423.git.bernhard.kaindl@citrix.com>
 References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
@@ -68,149 +66,404 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	RCVD_COUNT_SEVEN(0.00)[7];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RSPAMD_URIBL_FAIL(0.00)[citrix.com:query timed out];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:christian.lindig@citrix.com,m:dave@recoil.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.983];
-	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-0.973];
+	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:mid,citrix.com:email]
-X-Rspamd-Queue-Id: 857841A82C2
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 4AE6F1A84AF
 X-Rspamd-Action: no action
 
-Add OCaml bindings for xc_domain_claim_memory(), for using the
-XEN_DOMCTL_claim_memory hypercall from OCaml. This allows OCaml
-toolstacks to place NUMA-aware memory claims for domains as well
-as host-wide claims.
+Extend the existing mem-claim test to verify both the legacy
+XENMEM_claim_pages and the new XEN_DOMCTL_claim_memory hypercalls.
 
-tools/ocaml/libs/xc/xenctrl.ml/mli:
-- Add claim record type and domain_claim_memory external.
+It tests both host-wide claims (NUMA_NO_NODE) and node-specific
+claims (assuming at least a single NUMA node, node 0 is provided)
+to ensure the new infrastructure works correctly.
 
-tools/ocaml/libs/xc/xenctrl_stubs.c:
-- Validate claim count and arguments.
-- Marshal the OCaml claim array to memory_claim_t[].
-- Map node = -1 to XEN_DOMCTL_CLAIM_MEMORY_NO_NODE.
+It also checks the protection of host- and node-claims against
+allocations without sufficient, specific claims.
 
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- tools/ocaml/libs/xc/xenctrl.ml      | 11 ++++++++
- tools/ocaml/libs/xc/xenctrl.mli     | 11 ++++++++
- tools/ocaml/libs/xc/xenctrl_stubs.c | 43 +++++++++++++++++++++++++++++
- 3 files changed, 65 insertions(+)
+ tools/tests/mem-claim/test-mem-claim.c | 277 +++++++++++++++++++++++--
+ 1 file changed, 254 insertions(+), 23 deletions(-)
 
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 97108b9d861a..a1a05dcaede3 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -370,6 +370,17 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
+diff --git a/tools/tests/mem-claim/test-mem-claim.c b/tools/tests/mem-claim/test-mem-claim.c
+index ad038e45d188..a98d3e43ff54 100644
+--- a/tools/tests/mem-claim/test-mem-claim.c
++++ b/tools/tests/mem-claim/test-mem-claim.c
+@@ -2,6 +2,7 @@
+ #include <err.h>
+ #include <errno.h>
+ #include <inttypes.h>
++#include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <sys/mman.h>
+@@ -20,10 +21,13 @@ static unsigned int nr_failures;
  
-+(* OCaml binding for xc_domain_claim_memory(): claim pages for a domain,
-+   optionally per NUMA node (node = -1 means no specific node). *)
-+
-+type claim =
-+  {
-+    pages: int64;  (* Number of pages to claim *)
-+    node: int32;   (* NUMA node ID, or -1 for no specific node *)
-+  }
-+external domain_claim_memory: handle -> domid -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version: handle -> version = "stub_xc_version_version"
- external version_compile_info: handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 9fccb2c2c287..1781c89258fe 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -297,6 +297,17 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
+ #define MB_PAGES(x) (MB(x) / XC_PAGE_SIZE)
  
-+(* OCaml binding for xc_domain_claim_memory(): claim pages for a domain,
-+   optionally per NUMA node (node = -1 means no specific node). *)
++#define CLAIM_TEST_ORDER 9 /* 2M */
 +
-+type claim =
-+  {
-+    pages: int64;  (* Number of pages to claim *)
-+    node: int32;   (* NUMA node ID, or -1 for no specific node *)
-+  }
-+external domain_claim_memory: handle -> domid -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version : handle -> version = "stub_xc_version_version"
- external version_compile_info : handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index c55f73b265b2..a77d7dac58e8 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -1435,6 +1435,49 @@ CAMLprim value stub_xc_watchdog(value xch_val, value domid, value timeout)
- 	CAMLreturn(Val_int(ret));
- }
+ static xc_interface *xch;
+ static uint32_t domid = DOMID_INVALID;
  
-+CAMLprim value stub_xc_domain_claim_memory(value xch_val, value domid,
-+                                           value claims)
+ static xc_physinfo_t physinfo;
++static unsigned int claim_test_node;
+ 
+ static struct xen_domctl_createdomain create = {
+     .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
+@@ -38,10 +42,138 @@ static struct xen_domctl_createdomain create = {
+     },
+ };
+ 
+-static void run_tests(void)
++typedef int (*claim_fn_t)(xc_interface *xch, uint32_t domid,
++                          unsigned long pages);
++
++/* Wrapper function to test claiming memory using xc_domain_claim_pages. */
++static int wrap_claim_pages(xc_interface *xch,
++                            uint32_t domid,
++                            unsigned long pages)
 +{
-+	CAMLparam3(xch_val, domid, claims);
-+	xc_interface *xch = xch_of_val(xch_val);
-+	mlsize_t nr_claims = Wosize_val(claims);
-+	memory_claim_t *claim;
-+	int retval;
-+
-+	if (nr_claims > XEN_DOMCTL_MAX_CLAIMS)
-+		caml_invalid_argument("domain_claim_memory: too many claims");
-+
-+	claim = calloc(nr_claims, sizeof(*claim));
-+	if (claim == NULL && nr_claims != 0)
-+		caml_raise_out_of_memory();
-+
-+	for (mlsize_t i = 0; i < nr_claims; i++) {
-+		value claim_rec = Field(claims, i);
-+		int64_t pages = Int64_val(Field(claim_rec, 0));
-+		int32_t node = Int32_val(Field(claim_rec, 1));
-+		uint32_t c_node;
-+
-+		if (pages < 0 || node < -1 ) {
-+			free(claim);
-+			caml_invalid_argument("domain_claim_memory: invalid pages or node");
-+		}
-+
-+		if (node == -1)
-+			c_node = XEN_DOMCTL_CLAIM_MEMORY_NO_NODE;
-+		else
-+			c_node = node;
-+
-+		claim[i] = (memory_claim_t)XEN_NODE_CLAIM_INIT((uint64_t)pages, c_node);
-+	}
-+
-+	retval = xc_domain_claim_memory(xch, Int_val(domid), nr_claims, claim);
-+	free(claim);
-+	if (retval < 0)
-+		failwith_xc(xch);
-+
-+	CAMLreturn(Val_unit);
++    return xc_domain_claim_pages(xch, domid, pages);
 +}
 +
- /*
-  * Local variables:
-  *  indent-tabs-mode: t
++/* Wrapper function to test claiming memory using xc_domain_claim_memory. */
++static int wrap_claim_memory(xc_interface *xch,
++                             uint32_t domid,
++                             unsigned long pages)
++{
++    memory_claim_t claim[] = {
++        XEN_NODE_CLAIM_INIT(pages, XEN_DOMCTL_CLAIM_MEMORY_NO_NODE)
++    };
++
++    return xc_domain_claim_memory(xch, domid, 1, claim);
++}
++
++/* Wrapper to test claiming memory using xc_domain_claim_memory on a NUMA node */
++static int wrap_claim_memory_node(xc_interface *xch,
++                                  uint32_t domid,
++                                  unsigned long pages)
+ {
+     int rc;
++    memory_claim_t claims[UINT8_MAX + 1] = {}; /* + 1 to test overflow check */
++
++    /* claim with a node that is not present */
++    claims[0] = (memory_claim_t)XEN_NODE_CLAIM_INIT(pages, physinfo.nr_nodes);
+ 
++    /* Check the return value of claiming memory on an invalid node */
++    rc = xc_domain_claim_memory(xch, domid, 1, claims);
++    if ( rc != -1 || errno != ENOENT )
++    {
++        fail("Expected claim failure on invalid node to fail with ENOENT\n");
++        return rc;
++    }
++    /*
++     * Check the return value of claiming on two nodes (not yet implemented)
++     * and that the valid claim is rejected when nr_claims > 1. We expect that
++     * the API will reject the call due exceeding nr_claims before it checks
++     * the validity of the node(s), so we expect EINVAL rather than ENOENT.
++     */
++    rc = xc_domain_claim_memory(xch, domid, 2, claims);
++    if ( rc != -1 || errno != EINVAL )
++    {
++        fail("Expected nr_claims == 2 to fail with EINVAL (for now)\n");
++        return rc;
++
++    }
++    /* Likewise check with nr_claims > MAX_UINT8 to test overflow */
++    rc = xc_domain_claim_memory(xch, domid, UINT8_MAX + 1, claims);
++    if ( rc != -1 || errno != EINVAL )
++    {
++        fail("Expected nr_claims = UINT8_MAX + 1 to fail with EINVAL\n");
++        return rc;
++    }
++    /* Likewise check with a node of MAX_UINT8 + 1 to test overflow */
++    claims[0].node = UINT8_MAX + 1;
++    rc = xc_domain_claim_memory(xch, domid, 1, claims);
++    if ( rc != -1 || errno != ENOENT )
++    {
++        fail("Expected node == UINT8_MAX + 1 to fail with ENOENT\n");
++        return rc;
++    }
++    /* Test with pages exceeding INT32_MAX to check overflow */
++    claims[0] = (memory_claim_t)XEN_NODE_CLAIM_INIT((unsigned)INT32_MAX + 1, 0);
++    rc = xc_domain_claim_memory(xch, domid, 1, claims);
++    if ( rc != -1 || errno != ENOMEM )
++    {
++        fail("Expected ENOMEM with pages > INT32_MAX\n");
++        return rc;
++    }
++    /* Test with pad not set to zero */
++    claims[0] = (memory_claim_t)XEN_NODE_CLAIM_INIT(pages, claim_test_node);
++    claims[0].pad = 1;
++    rc = xc_domain_claim_memory(xch, domid, 1, claims);
++    if ( rc != -1 || errno != EINVAL )
++    {
++        fail("Expected EINVAL with pad not set to zero\n");
++        return rc;
++    }
++
++    /* Pass a valid claim for the selected node and continue the test */
++    claims[0] = (memory_claim_t)XEN_NODE_CLAIM_INIT(pages, claim_test_node);
++    return xc_domain_claim_memory(xch, domid, 1, claims);
++}
++
++static int get_node_free_pages(unsigned int node, unsigned long *free_pages)
++{
++    int rc;
++    unsigned int num_nodes = 0;
++    xc_meminfo_t *meminfo;
++
++    rc = xc_numainfo(xch, &num_nodes, NULL, NULL);
++    if ( rc )
++        return rc;
++
++    if ( node >= num_nodes )
++    {
++        errno = EINVAL;
++        return -1;
++    }
++
++    meminfo = calloc(num_nodes, sizeof(*meminfo));
++    if ( !meminfo )
++        return -1;
++
++    rc = xc_numainfo(xch, &num_nodes, meminfo, NULL);
++    if ( rc )
++        goto out;
++
++    *free_pages = meminfo[node].memfree / XC_PAGE_SIZE;
++
++ out:
++    free(meminfo);
++    return rc;
++}
++
++static void run_test(claim_fn_t claim_call_wrapper, const char *claim_name,
++                     bool host_wide_claim)
++{
++    int rc;
++    uint64_t free_heap_bytes;
++    unsigned long free_pages, claim_pages;
++    const unsigned long request_pages = 1UL << CLAIM_TEST_ORDER;
++
++    printf("  Testing %s\n", claim_name);
+     /*
+      * Check that the system is quiescent.  Outstanding claims is a global
+      * field.
+@@ -51,7 +183,7 @@ static void run_tests(void)
+         return fail("Failed to obtain physinfo: %d - %s\n",
+                     errno, strerror(errno));
+ 
+-    printf("Free pages: %"PRIu64", Oustanding claims: %"PRIu64"\n",
++    printf("Free pages: %"PRIu64", Outstanding claims: %"PRIu64"\n",
+            physinfo.free_pages, physinfo.outstanding_pages);
+ 
+     if ( physinfo.outstanding_pages )
+@@ -98,13 +230,30 @@ static void run_tests(void)
+         return fail("  Unexpected outstanding claim of %"PRIu64" pages\n",
+                     physinfo.outstanding_pages);
+ 
+-    /*
+-     * Set a claim for 4M.  This should be the only claim in the system, and
+-     * show up globally.
+-     */
+-    rc = xc_domain_claim_pages(xch, domid, MB_PAGES(4));
++    rc = xc_availheap(xch, 0, 0, host_wide_claim ? -1 : (int)claim_test_node,
++                      &free_heap_bytes);
+     if ( rc )
+-        return fail("  Failed to claim 4M of RAM: %d - %s\n",
++        return fail("  Failed to query available heap: %d - %s\n",
++                    errno, strerror(errno));
++
++    free_pages = free_heap_bytes / XC_PAGE_SIZE;
++    if ( !host_wide_claim )
++    {
++        rc = get_node_free_pages(claim_test_node, &free_pages);
++        if ( rc )
++            return fail("  Failed to query free pages on node %u: %d - %s\n",
++                        claim_test_node, errno, strerror(errno));
++    }
++
++    if ( free_pages <= request_pages + 1 )
++        return fail("  Not enough free pages (%lu) to test %s claim enforcement\n",
++                    free_pages, host_wide_claim ? "host-wide" : "node");
++
++    claim_pages = free_pages - request_pages + 1;
++
++    rc = claim_call_wrapper(xch, domid, claim_pages);
++    if ( rc )
++        return fail("  Failed to claim calculated RAM amount: %d - %s\n",
+                     errno, strerror(errno));
+ 
+     rc = xc_physinfo(xch, &physinfo);
+@@ -112,17 +261,51 @@ static void run_tests(void)
+         return fail("  Failed to obtain physinfo: %d - %s\n",
+                     errno, strerror(errno));
+ 
+-    if ( physinfo.outstanding_pages != MB_PAGES(4) )
+-        return fail("  Expected claim to be 4M, got %"PRIu64" pages\n",
+-                    physinfo.outstanding_pages);
++    if ( physinfo.outstanding_pages != claim_pages )
++        return fail("  Expected claim to be %lu pages, got %"PRIu64" pages\n",
++                    claim_pages, physinfo.outstanding_pages);
++
++    {
++        uint32_t other_domid = DOMID_INVALID;
++        xen_pfn_t other_ram[] = { 0 };
++        unsigned int memflags = host_wide_claim ? 0 : XENMEMF_exact_node(claim_test_node);
++
++        rc = xc_domain_create(xch, &other_domid, &create);
++        if ( rc )
++            return fail("  Second domain create failure: %d - %s\n",
++                        errno, strerror(errno));
++
++        rc = xc_domain_setmaxmem(xch, other_domid, -1);
++        if ( rc )
++        {
++            fail("  Failed to set maxmem for second domain: %d - %s\n",
++                 errno, strerror(errno));
++            goto destroy_other;
++        }
++
++        rc = xc_domain_populate_physmap_exact(
++            xch, other_domid, ARRAY_SIZE(other_ram), CLAIM_TEST_ORDER,
++            memflags, other_ram);
++        if ( rc == 0 )
++            fail("  Expected %s claim to block second-domain allocation\n",
++                 host_wide_claim ? "host-wide" : "node");
++
++ destroy_other:
++        rc = xc_domain_destroy(xch, other_domid);
++        if ( rc )
++            return fail("  Failed to destroy second domain: %d - %s\n",
++                        errno, strerror(errno));
++    }
+ 
+     /*
+-     * Allocate 2M of RAM to the domain.  This should be deducted from global
+-     * claim.
++     * Allocate one CLAIM_TEST_ORDER chunk to the domain. This should reduce
++     * the outstanding claim by request_pages. For node claims, request memory
++     * from the claimed node.
+      */
+     xen_pfn_t ram[] = { 0 };
+     rc = xc_domain_populate_physmap_exact(
+-        xch, domid, ARRAY_SIZE(ram), 9 /* Order 2M */, 0, ram);
++        xch, domid, ARRAY_SIZE(ram), CLAIM_TEST_ORDER,
++        host_wide_claim ? 0 : XENMEMF_node(claim_test_node), ram);
+     if ( rc )
+         return fail("  Failed to populate physmap domain: %d - %s\n",
+                     errno, strerror(errno));
+@@ -132,9 +315,9 @@ static void run_tests(void)
+         return fail("  Failed to obtain physinfo: %d - %s\n",
+                     errno, strerror(errno));
+ 
+-    if ( physinfo.outstanding_pages != MB_PAGES(2) )
+-        return fail("  Expected claim to be 2M, got %"PRIu64" pages\n",
+-                    physinfo.outstanding_pages);
++    if ( physinfo.outstanding_pages != claim_pages - request_pages )
++        return fail("  Expected claim to be %lu pages, got %"PRIu64" pages\n",
++                    claim_pages - request_pages, physinfo.outstanding_pages);
+ 
+     /*
+      * Destroying the domain should release the outstanding 2M claim.
+@@ -161,6 +344,8 @@ static void run_tests(void)
+ int main(int argc, char **argv)
+ {
+     int rc;
++    unsigned int num_nodes = 0;
++    xc_meminfo_t *meminfo = NULL;
+ 
+     printf("Memory claims tests\n");
+ 
+@@ -169,14 +354,60 @@ int main(int argc, char **argv)
+     if ( !xch )
+         err(1, "xc_interface_open");
+ 
+-    run_tests();
++    rc = xc_numainfo(xch, &num_nodes, NULL, NULL);
++    if ( rc || !num_nodes )
++        err(1, "xc_numainfo");
++
++    meminfo = calloc(num_nodes, sizeof(*meminfo));
++    if ( !meminfo )
++        err(1, "calloc");
+ 
+-    if ( domid != DOMID_INVALID )
++    rc = xc_numainfo(xch, &num_nodes, meminfo, NULL);
++    if ( rc )
++        err(1, "xc_numainfo");
++
++    claim_test_node = 0;
++    for ( unsigned int i = 1; i < num_nodes; i++ )
+     {
+-        rc = xc_domain_destroy(xch, domid);
+-        if ( rc )
+-            fail("  Failed to destroy domain: %d - %s\n",
+-                 errno, strerror(errno));
++        if ( meminfo[i].memfree > meminfo[claim_test_node].memfree )
++            claim_test_node = i;
++    }
++
++    free(meminfo);
++
++    struct {
++        claim_fn_t fn;
++        const char *name;
++        bool host_wide;
++    } tests[] = {
++        {
++            .fn = wrap_claim_pages,
++            .name = "xc_domain_claim_pages",
++            .host_wide = true,
++        },
++        {
++            .fn = wrap_claim_memory,
++            .name = "xc_domain_claim_memory",
++            .host_wide = true,
++        },
++        {
++            .fn = wrap_claim_memory_node,
++            .name = "xc_domain_claim_memory_node",
++            .host_wide = false,
++        },
++    };
++    size_t num_tests = sizeof(tests) / sizeof(tests[0]);
++    for ( size_t i = 0; i < num_tests; i++ )
++    {
++        run_test(tests[i].fn, tests[i].name, tests[i].host_wide);
++        if ( domid != DOMID_INVALID )
++        {
++            rc = xc_domain_destroy(xch, domid);
++            if ( rc )
++                fail("  Failed to destroy domain: %d - %s\n",
++                     errno, strerror(errno));
++            domid = DOMID_INVALID;
++        }
+     }
+ 
+     return !!nr_failures;
 -- 
 2.39.5
 
