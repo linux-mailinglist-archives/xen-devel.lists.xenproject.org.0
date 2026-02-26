@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KKA5NbZ/oGnWkQQAu9opvQ
+	id EKw0BTS5oGnClwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 18:15:34 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 22:20:52 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AC0B1AC0B4
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 18:15:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242236.1542871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68A301AFA9B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 22:20:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242340.1542881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvewi-0005DR-G3; Thu, 26 Feb 2026 17:14:40 +0000
+	id 1vviln-0007mI-4x; Thu, 26 Feb 2026 21:19:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242236.1542871; Thu, 26 Feb 2026 17:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 1242340.1542881; Thu, 26 Feb 2026 21:19:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvewi-0005Bc-D9; Thu, 26 Feb 2026 17:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 1242236;
- Thu, 26 Feb 2026 17:14:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vviln-0007jK-1g; Thu, 26 Feb 2026 21:19:39 +0000
+Received: by outflank-mailman (input) for mailman id 1242340;
+ Thu, 26 Feb 2026 21:19:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KEVl=A6=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1vvewg-0005BW-Gb
- for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 17:14:38 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9fdc4bae-1336-11f1-b164-2bf370ae4941;
- Thu, 26 Feb 2026 18:14:36 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by MW4PR03MB6572.namprd03.prod.outlook.com (2603:10b6:303:12b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.14; Thu, 26 Feb
- 2026 17:14:32 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9632.017; Thu, 26 Feb 2026
- 17:14:32 +0000
+ <SRS0=xR4/=A6=bounce.vates.tech=bounce-md_30504962.69a0b8e1.v1-72cbbdec2faa4e42b17a16a616dd5811@srs-se1.protection.inumbo.net>)
+ id 1vvill-0007jE-9y
+ for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 21:19:37 +0000
+Received: from mail177-30.suw61.mandrillapp.com
+ (mail177-30.suw61.mandrillapp.com [198.2.177.30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d669a02f-1358-11f1-9ccf-f158ae23cfc8;
+ Thu, 26 Feb 2026 22:19:31 +0100 (CET)
+Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail177-30.suw61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fMPV92qQLzP0JtvM
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Feb 2026 21:19:29 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 72cbbdec2faa4e42b17a16a616dd5811; Thu, 26 Feb 2026 21:19:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,159 +48,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fdc4bae-1336-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CGa4rKmyqgP8tAYIfKA7WqdvcD7zjsx5TLM/9pVgTsM4/khoyPNJzgXOsV6CUuvZ2V8OqYgN41RFMoG01qJLOltkPOP856xASyxVfslyZt0Krmt+g22a5ggKivklFWU9Xl4fIHclLDUo6Ls65PMZTQSGatGPp5AG/eF1tJIBx07A8BWhOyB3TyPzTa1rwHigX16fCgnCnRoe4guIu0iWn2XK+oY0vo27x9iGsuk9CtIpbDLCyrgC0AHTkMWIYrjjo96KNSKlZx2frWFB124E57KMzE9+0/a8tXUh+fdEHGjMoHwo94T3NjtxhFAm3GSLm/veiMuhQnnWbZcRF/ky0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAm/JWVfE9j2pDcPeeWeT9ZTp2Nhqw8kMmRdLCNcRrI=;
- b=cJE7dXgjBOR8ISV10r4+JSIBfxBE6qVkGnFme0Eeu2z4vRromESGb0SjRGR88RHmK6ALGB9A5wEt8mSlcT8M1p1SaQN4L0V2mG0r5npypvSHYWujvgngd1Oz4M09Ep50lzeRGKtoBvSaGuXx9/XKAtSzPoJWMRUnbkfftR4X0t0QvAlsQ4QabtTUBX/pvxSzM9pgwNzeu61n3PnZ1afTjZSMvL44vWGhSTBEoujYhzvhlIQoQcbw8u5BSBDJzxx2n6lJgXeFBUrxW0a1UUVy8FFDflQJQV5Za+PeKeQWVITm++xSDLDy20XiYuV62ma7VXj/2Y5BwHoFrOKOJYU63w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PAm/JWVfE9j2pDcPeeWeT9ZTp2Nhqw8kMmRdLCNcRrI=;
- b=Dfsg5Ugog2UlVzVlLhldd1QbAl7lczkvYRjtGq21XnKwaZ7YcQMNmqGa2f/7v9o3qkhnx69HB+9RGzNmhbx2YUxYXVQ7YexXU58jXF33VPyVhRAa1eqqXn/F61h28PBsyOwRpPVQjVar8iJFYpwXiEz14cDZpuDg04yImN6AeMA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <53b251a1-948d-4c9c-ba0c-6f4fd99b1d6a@citrix.com>
-Date: Thu, 26 Feb 2026 17:14:28 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] Arm: device.c is init-only when OVERLAY_DTB=n
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c50219c1-5a23-46d0-bbe3-ab4a871a935b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <c50219c1-5a23-46d0-bbe3-ab4a871a935b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0309.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a5::33) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+X-Inumbo-ID: d669a02f-1358-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1772140769; x=1772410769;
+	bh=MLNN+TTM7nCCyhQnjEzu9i5uefM5EB6jJQto4+Ymqhw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=FlsusTc2j+wjy6ZHWZwN73t+vOXUqw6d9ypP89lcHpLNppOcajHv/gl4SOWlOk9og
+	 BbVTGudl3SLjv+OtupowKXq8m7yx6x/qOfpoKlCsqu6bSWvxxQkw3C7h4ETFGf04po
+	 UfK+jzpHh9yaDGxuTt+oUcqT5/b7yWPH+8Vf7hq7PdFLYz/Ttwy6ikbHJTSgWhz6bc
+	 fmMkscSaLyTQxUiGYDX3j7j0nGRiEkLWCvaUjniC1dFst3LkN7k6pcuQ153oCmwZ2X
+	 df32V0TX+vQ3TB4Phk9Bp/iTfSyhHbZyaQgKwgLSQp3FAHMP6dCJELcauyaZUXZTSn
+	 mIh4ZIgT39B7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1772140769; x=1772401269; i=teddy.astie@vates.tech;
+	bh=MLNN+TTM7nCCyhQnjEzu9i5uefM5EB6jJQto4+Ymqhw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=mWEwesTNGeG27+5x2QyV2OqT9+jvkpg74d5+JKO26lRKCHnOnLtj8W8Bx8JK2MOp/
+	 /KAr2nbXebrEfv/F4sNta11frSEu5T42yusCR97uDMp+nyDkG7tdD4wyqbSWXNSGNK
+	 VgI+K3+KugWhNKE2yTO0SfFj9UEojRBXoTj6bk6BOf5qBhPe0v7SexhKdnCRhCx2qt
+	 odI/M28Y4jI6bSKW2df9cjtpT0IyUl1T9GHmjH84xCq1cGVvFVbe1R1X+8bvPoX7Jh
+	 1OcPtz9tYiYFYak57N6E9lmK7foC09vAlEWRDaS0ynRydJQShUVeQ3G8b81vSksl0T
+	 hgQJnWo1RQylw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v4=2005/10]=20xen/domain:=20Add=20DOMCTL=20handler=20for=20claiming=20memory=20with=20NUMA=20awareness?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1772140767599
+Message-Id: <656ff614-9165-49ce-8c55-0cfad33d4ed6@vates.tech>
+To: "Bernhard Kaindl" <bernhard.kaindl@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <cover.1772098423.git.bernhard.kaindl@citrix.com> <b2c94f0c3b41976b2691ce15b9f9a2589370e65a.1772098423.git.bernhard.kaindl@citrix.com>
+In-Reply-To: <b2c94f0c3b41976b2691ce15b9f9a2589370e65a.1772098423.git.bernhard.kaindl@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.72cbbdec2faa4e42b17a16a616dd5811?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260226:md
+Date: Thu, 26 Feb 2026 21:19:29 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|MW4PR03MB6572:EE_
-X-MS-Office365-Filtering-Correlation-Id: c964f201-d0d2-4253-e4fd-08de755a820c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	CcEkSig5f8BPcsE1EZwfAWtxcP6Agb7/Aeo30zeThUgSs+JmVBDTqDUgF2MMX1Rcn27Tcwr/TC8DbHnNM1qkTZ8O6/QO/f6v55iIphsnKM5L7Fw9DGKPhe1hWhuZkySfm/n8QthfLkGn7wlTyVoHTRzLPs5H/sYi5DwZPmRuW9mFKeQPOV2AcDxwid/dWuiarKnU10QcmQDbRA4X5K3waQU1TGJJAcKfsknwX3UO1Vx8EAtXhhqO+kJyQh/deQHftnwMRD/vR7laqB3+Bug5kpBMq0GuWLeJqiO/tmS7zkIo5tbtxcw0Kq15feoRZsJPX6Bx53f/qawaWhapDaKpfDXMJGcmwaui+fJk8UAtPZfVKgEJvPy/LGTrloo2WRGaV6CV++yxcrcsx2+Yh5CDGy+N3bOCZcSP8TtHLJ+PZ7I/jZaggqS2Lt0WbGIIukAwF4gFOnUJrsDetTLWAE/u9k4N54yp0GkQnfNETLSs4faX04fVT/eA274tdUCD16A+2xT0FfjbBIZvyFALbIXALsPGtYzSgmZMuoPgiOMKSyTnw0DQthob/YAuHvWtU5kfbmKxhZtT3F6yhIF9tV3SH0FpHiQ0Dw9Gk4YaGWNBfqOYvNNSk6RrYWbvsUN+rex90+M14pmyNJBMU6tEMcZ3jaiBB4mxnzB2Akwu8fqLPJ+QnOaIGBgWHizFuMqHd+V+CTjIj5pAqFiKQdIXnPHmWFnzzJIPpadFdoLfEamFDuI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3hROG82eC9RdHBmQ1REUkdvdjlTditTRm0rRXZXMnFvSjhQcExHRUplZWp3?=
- =?utf-8?B?NzlpS3I1cGhQSEdReExJUG5JSjF4NXBJaGh1RHBaZVFLMDlCeVpDTzdsT1lD?=
- =?utf-8?B?Y01Fb3M0L1VvTEZXWSsvUUUzOEg4OEFsZ1VNbmRxL29hc0Jqd0VTM0psKzRS?=
- =?utf-8?B?d3AzSkxvYTdOd3grVXg4eDQrUTIvUlh5WFcwNHc3MUhLbzBKdVR1L2h3NEpY?=
- =?utf-8?B?REx3OEdacjFyWWRKSEV0cmhiTXVFc1RqSmlFT2NiMzRTd1p4dUtYaEZla2lQ?=
- =?utf-8?B?blViSFhqUEtjOVVKR0w5dFluYTA0T0NhaXVKVnBrQWRvR2dwdHNISFlWbmd5?=
- =?utf-8?B?QlhyY1l5MUNUN2FteG1hVTZuSlFMb0g4ekFIbXJrdkZVSDhyc1YxY2Vzby9Q?=
- =?utf-8?B?Z1BFemVpTWx4WmJSQmZySE13RnlEaTBreGFucEVxSVRyakZFNGdvRXlaU0Nl?=
- =?utf-8?B?N29VK0kvcUMrN3EvMmlSLzlObVZ5aXhCNDhnSlBYWVA5Q2dJa1VDUzFkQXFL?=
- =?utf-8?B?UWdHRi9tRTd0SEs3UHZBeGU4WGJiaDliUEMrK3dGd2FrNHUvWktLeFpmcnhi?=
- =?utf-8?B?aEhmYlE0b092Wjg5Yk5MVUNZd1UzZCt5VUY4LzdobVZQOUdXYTkyVVhNUmh0?=
- =?utf-8?B?bGw1OTFXNU1WK1JTTVozNCs4Wnh6dFhMNjg1WHdEVU9SVENDZkdkdlhZTDdy?=
- =?utf-8?B?MzMvMERHNmxVMk1zT0tmNVpMNkVNZit0OUIxOEVzakMxQ21yN01xZGRQejN3?=
- =?utf-8?B?eVRiNDFvdjZJTzYvaTlTOG5oUFFpWWtzYi9sbGMzNFE1eEczTmFLNkpZQkdM?=
- =?utf-8?B?a3YwK0hsZFRiNDBIdjZZVjlsMWR0a3E2UG5tQm9sQUVDdTZscFhWNmZzSjFF?=
- =?utf-8?B?WGJmcWIvSzkrU2ZPVDFDd1pXRHUxdktydFY3ay82VHVDUVlvQlpnSnZVd2p3?=
- =?utf-8?B?RXVEWGdnSk94YVgza0RmL3Nwdmt4VGloZ0pyei9vNlUrYytIdzVwMVBFSGps?=
- =?utf-8?B?YVdGUlJtL2JGcS83T0pad3plbDZYbS9aVFlWQXpBdDdqVHBGWWxWaENTbnFs?=
- =?utf-8?B?cCt3by9XbG82dkVuUm9jM0FNUlFFREx4cCswakVER1R3UndRSW9FK1FsZ3RH?=
- =?utf-8?B?dTdUVEJBUU9qS3ptSjFxd1pRM285K1l6TTFBWStBMyswdG5tbWowUDRvZndn?=
- =?utf-8?B?ZlB2SVdMWlVVcXYydmdnZGlrenpkMVMyOHFsa1ZBMGtFM1JySy81czdJK1VL?=
- =?utf-8?B?V0xKUHF3cnlsV3pSZzB1ZytqSkpPZnQ5Nk5lWUpGRGhiR0kxNVR2TWR2RVVD?=
- =?utf-8?B?YTlIR3RPT0trQ3VWNUlla3hxL0pnWFhuMCs0b3dDZU1sWlRPcFphcUtYcnVz?=
- =?utf-8?B?djBnM0dsbmlkNnVEZ1UvUkIwOFRDYTl1RS96ZGRsTjd0ZTZKamtPdHk5SkIz?=
- =?utf-8?B?Ylp5dlg4NjdmUzM1SXRuaEhRN291WVRSOXo4eWdWaXlkMnRXekhqdUU3S3lZ?=
- =?utf-8?B?T0hwbEVncCtVYVdGSjIzS1dXeFV3Z1FiSTlUZW9Udk5VeDVKeFVoUDNTenpv?=
- =?utf-8?B?dzVOQVkzTlFLeVhlbEVHc0dqY1p4dVhrNlZMTSt5MnhYcGREVHBzeUhsWUxP?=
- =?utf-8?B?MHdWNkhvTW0zUlQxMWwxTXB2cDVKbUFIZGFQSkZpZWFQR0VUbThNcHAyczBN?=
- =?utf-8?B?SG04WmxwcjlZMHZhYVJaYThDRnVBbktwNkFQQzIxK2NTbVVCQ3lmc2N1Q3Nw?=
- =?utf-8?B?MmN3K2dHWUtTQnhmU3NOMk1SSnVEb01GSmh5WEgxWmpXN1U3d2RGODNwczBz?=
- =?utf-8?B?a2FiVE1ZaDJuKzFEdWt5M2ZhSG5RWllSUndKaWFORi94b0lwSlNLVm5TNzR6?=
- =?utf-8?B?N0pnVDJwcENFT1l1Z2JmbmdqRXFUcVJ1elJKUmsrL1Q0NmN2Mm9JdGVOclRK?=
- =?utf-8?B?UDdjbnpaVHNsTTArQndLYm1RLy9FeEZFb3MvdlprV3MzbG0xbmNCNld0N1dL?=
- =?utf-8?B?dEFwUjYzWHRnaTZOM1IrM2FoVHBEUjA0UElxT0RyWFFQa25JTlc4aTZGUU9q?=
- =?utf-8?B?SEFlY09YN0hjYVF0bjEvWkJaamVPSmlrR0pTbW5HUUE2OGZMczN3R2p2allo?=
- =?utf-8?B?NitFSFRaNnR2OHRNZ1FnakJEc2tsRWpTWElnOS80ZUJyTFZBNDZmMzNPSi9l?=
- =?utf-8?B?T3J4NEFqL1k3RThpa2l6TXFaZFZhUjAwYml4NVFoc2N4RjRCd1NjY21rMXNQ?=
- =?utf-8?B?QTVzdGFlMTlYVXNTZExRSUlUMFJLcWQwTHJrV3ZmWGx2OUdCK0xWdVlabEx0?=
- =?utf-8?B?eHVoR1d4c0ZXQldTNE5Lc0VDWkRjZGo2a2I3SmxzU0dnRWhvMjJ6UT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c964f201-d0d2-4253-e4fd-08de755a820c
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2026 17:14:32.4803
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hsLw4wesndViNvKl3f65vc1L4EZwhIOyOrWqxmzobbuJjNUEl1sclofR2yBdNd+RvPzFz9UazREqOOI7yrStEosIFEhDkek7VcVOYp9d9I0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6572
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_SPAM(0.00)[1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3AC0B1AC0B4
+X-Rspamd-Queue-Id: 68A301AFA9B
 X-Rspamd-Action: no action
 
-On 26/02/2026 4:28 pm, Jan Beulich wrote:
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -15,7 +15,9 @@ obj-$(CONFIG_HAS_ALTERNATIVE) += alterna
->  obj-y += cpuerrata.o
->  obj-y += cpufeature.o
->  obj-y += decode.o
-> -obj-y += device.o
-> +device-y := device.init.o
-> +device-$(CONFIG_OVERLAY_DTB) := device.o
-> +obj-y += $(device-y)
+Le 26/02/2026 =C3=A0 15:54, Bernhard Kaindl a =C3=A9crit=C2=A0:
+> Add a DOMCTL handler for claiming memory with NUMA awareness. It
+> rejects claims when LLC coloring (does not support claims) is enabled
+> and translates the public constant to the internal NUMA_NO_NODE.
+> 
+> The request is forwarded to domain_set_outstanding_pages() for the
+> actual claim processing. The handler uses the same XSM hook as the
+> legacy XENMEM_claim_pages hypercall.
+> 
+> While the underlying infrastructure currently supports only a single
+> claim, the public hypercall interface is designed to be extensible for
+> multiple claims in the future without breaking the API.
+> 
 
-I know we've argued over this before and not come to a conclusion, but I
-still firmly believe this to be an anti-pattern we should expunge.
+I'm not sure about the idea of introducing a new hypercall for this 
+operation. Though I may be missing some context about the reasons of 
+introducing a new hypercall.
 
-obj-y += $(if $(CONFIG_OVERLAY_DTB),device.o,device.init.o)
+XENMEM_claim_pages doesn't have actual support for NUMA, but the 
+hypercall interface seems to define it (e.g you can pass 
+XENMEMF_exact_node(n) to mem_flags). Would it be preferable instead to 
+make XENMEM_claim_pages aware of NUMA-related XENMEMF flags ?
 
-conveys the meaning more clearly and succinctly.
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> ---
+>   xen/common/domain.c         | 29 ++++++++++++++++++++++++++++
+>   xen/common/domctl.c         |  9 +++++++++
+>   xen/include/public/domctl.h | 38 +++++++++++++++++++++++++++++++++++++
+>   xen/include/xen/domain.h    |  2 ++
+>   4 files changed, 78 insertions(+)
+> 
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index e7861259a2b3..ac1b091f5574 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -268,6 +268,35 @@ int get_domain_state(struct xen_domctl_get_domain_st=
+ate *info, struct domain *d,
+>       return rc;
+>   }
+>   
+> +/* Claim memory for a domain or reset the claim */
+> +int claim_memory(struct domain *d, const struct xen_domctl_claim_memory =
+*uinfo)
+> +{
+> +    memory_claim_t claim;
+> +
+> +    /* alloc_color_heap_page() does not handle claims, so reject LLC col=
+oring */
+> +    if ( llc_coloring_enabled )
+> +        return -EOPNOTSUPP;
+> +    /*
+> +     * We only support single claims at the moment, and if the domain is
+> +     * dying (d->is_dying is set), its claims have already been released
+> +     */
+> +    if ( uinfo->pad || uinfo->nr_claims !=3D 1 || d->is_dying )
+> +        return -EINVAL;
+> +
+> +    if ( copy_from_guest(&claim, uinfo->claims, 1) )
+> +        return -EFAULT;
+> +
+> +    if ( claim.pad )
+> +        return -EINVAL;
+> +
+> +    /* Convert the API tag for a host-wide claim to the NUMA_NO_NODE con=
+stant */
+> +    if ( claim.node =3D=3D XEN_DOMCTL_CLAIM_MEMORY_NO_NODE )
+> +        claim.node =3D NUMA_NO_NODE;
+> +
+> +    /* NB. domain_set_outstanding_pages() has the checks to validate its=
+ args */
+> +    return domain_set_outstanding_pages(d, claim.pages, claim.node);
+> +}
+> +
+>   static void __domain_finalise_shutdown(struct domain *d)
+>   {
+>       struct vcpu *v;
+> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+> index 29a7726d32d0..9e858f631aaf 100644
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -868,6 +868,15 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) =
+u_domctl)
+>           ret =3D get_domain_state(&op->u.get_domain_state, d, &op->domai=
+n);
+>           break;
+>   
+> +    case XEN_DOMCTL_claim_memory:
+> +        /* Use the same XSM hook as XENMEM_claim_pages */
+> +        ret =3D xsm_claim_pages(XSM_PRIV, d);
+> +        if ( ret )
+> +            break;
+> +
+> +        ret =3D claim_memory(d, &op->u.claim_memory);
+> +        break;
+> +
+>       default:
+>           ret =3D arch_do_domctl(op, d, u_domctl);
+>           break;
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 8f6708c0a7cd..610806c8b6e0 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -1276,6 +1276,42 @@ struct xen_domctl_get_domain_state {
+>       uint64_t unique_id;      /* Unique domain identifier. */
+>   };
+>   
+> +/*
+> + * XEN_DOMCTL_claim_memory
+> + *
+> + * Claim memory for a guest domain. The claimed memory is converted into=
+ actual
+> + * memory pages by allocating it. Except for the option to pass claims f=
+or
+> + * multiple NUMA nodes, the semantics are based on host-wide claims as
+> + * provided by XENMEM_claim_pages, and are identical for host-wide claim=
+s.
+> + *
+> + * The initial implementation supports a claim for the host or a NUMA no=
+de, but
+> + * using an array, the API is designed to be extensible to support more =
+claims.
+> + */
+> +struct xen_memory_claim {
+> +    uint64_aligned_t pages;   /* Amount of pages to be allotted to the d=
+omain */
+> +    uint32_t node;  /* NUMA node, or XEN_DOMCTL_CLAIM_MEMORY_NO_NODE for=
+ host */
+> +    uint32_t pad;                 /* padding for alignment, set to 0 on =
+input */
+> +};
+> +typedef struct xen_memory_claim memory_claim_t;
+> +#define XEN_DOMCTL_CLAIM_MEMORY_NO_NODE    0xFFFFFFFF  /* No node: host =
+claim */
+> +
+> +/* Use XEN_NODE_CLAIM_INIT to initialize a memory_claim_t structure */
+> +#define XEN_NODE_CLAIM_INIT(_pages, _node) { \
+> +    .pages =3D (_pages),                  \
+> +    .node =3D (_node),                    \
+> +    .pad =3D 0                            \
+> +}
+> +DEFINE_XEN_GUEST_HANDLE(memory_claim_t);
+> +
+> +struct xen_domctl_claim_memory {
+> +    /* IN: array of struct xen_memory_claim */
+> +    XEN_GUEST_HANDLE_64(memory_claim_t) claims;
+> +    /* IN: number of claims in the claims array handle. See the claims f=
+ield. */
+> +    uint32_t nr_claims;
+> +#define XEN_DOMCTL_MAX_CLAIMS UINT8_MAX /* More claims require changes i=
+n Xen */
+> +    uint32_t pad;                       /* padding for alignment, set it=
+ to 0 */
+> +};
+> +
+>   struct xen_domctl {
+>   /* Stable domctl ops: interface_version is required to be 0.  */
+>       uint32_t cmd;
+> @@ -1368,6 +1404,7 @@ struct xen_domctl {
+>   #define XEN_DOMCTL_gsi_permission                88
+>   #define XEN_DOMCTL_set_llc_colors                89
+>   #define XEN_DOMCTL_get_domain_state              90 /* stable interface=
+ */
+> +#define XEN_DOMCTL_claim_memory                  91
+>   #define XEN_DOMCTL_gdbsx_guestmemio            1000
+>   #define XEN_DOMCTL_gdbsx_pausevcpu             1001
+>   #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
+> @@ -1436,6 +1473,7 @@ struct xen_domctl {
+>   #endif
+>           struct xen_domctl_set_llc_colors    set_llc_colors;
+>           struct xen_domctl_get_domain_state  get_domain_state;
+> +        struct xen_domctl_claim_memory      claim_memory;
+>           uint8_t                             pad[128];
+>       } u;
+>   };
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 93c0fd00c1d7..79e8932c4530 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -193,4 +193,6 @@ extern bool vmtrace_available;
+>   
+>   extern bool vpmu_is_available;
+>   
+> +int claim_memory(struct domain *d, const struct xen_domctl_claim_memory =
+*uinfo);
+> +
+>   #endif /* __XEN_DOMAIN_H__ */
 
-~Andrew
+Teddy
+
+
+--
+ | Vates
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
