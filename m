@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gKYiL+pfoGmMiwQAu9opvQ
+	id uEh6JYZgoGmMiwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:59:54 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:02:30 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D81B1A824D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 15:59:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242025.1542801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857841A82C2
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242052.1542811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcq8-0001kf-MJ; Thu, 26 Feb 2026 14:59:44 +0000
+	id 1vvcsT-0003Gq-21; Thu, 26 Feb 2026 15:02:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242025.1542801; Thu, 26 Feb 2026 14:59:44 +0000
+Received: by outflank-mailman (output) from mailman id 1242052.1542811; Thu, 26 Feb 2026 15:02:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvcq8-0001iC-JR; Thu, 26 Feb 2026 14:59:44 +0000
-Received: by outflank-mailman (input) for mailman id 1242025;
- Thu, 26 Feb 2026 14:59:43 +0000
+	id 1vvcsS-0003EG-VA; Thu, 26 Feb 2026 15:02:08 +0000
+Received: by outflank-mailman (input) for mailman id 1242052;
+ Thu, 26 Feb 2026 15:02:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Wgwr=A6=citrix.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1vvcq7-0001i6-6e
- for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 14:59:43 +0000
-Received: from na1pdmzitismtp01.tibco.com (na1pdmzitismtp01.tibco.com
+ id 1vvcsR-0003E5-Ra
+ for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 15:02:07 +0000
+Received: from na1pdmzitismtp01.tibco.com (na1pdmzitismtp01.corp.cloud.com
  [160.101.131.8]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c73c83c2-1323-11f1-b164-2bf370ae4941;
- Thu, 26 Feb 2026 15:59:42 +0100 (CET)
+ id 1dccd3c2-1324-11f1-b164-2bf370ae4941;
+ Thu, 26 Feb 2026 16:02:07 +0100 (CET)
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id E9CDB4290343;
- Thu, 26 Feb 2026 09:59:20 -0500 (EST)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 182D34290365;
+ Thu, 26 Feb 2026 10:01:46 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,15 +44,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c73c83c2-1323-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 1dccd3c2-1324-11f1-b164-2bf370ae4941
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v4 07/10] tools/lib/ctrl/xc: Add xc_domain_claim_memory() to libxenctrl
-Date: Thu, 26 Feb 2026 14:29:21 +0000
-Message-Id: <cff8a067879289c2dac661a513a1b7f4e11caa90.1772098423.git.bernhard.kaindl@citrix.com>
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v4 08/10] tools/ocaml/libs/xc: add OCaml domain_claim_memory binding
+Date: Thu, 26 Feb 2026 14:29:22 +0000
+Message-Id: <538ada6fad9414a102db0096f297f77b90f3ac01.1772098423.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1772098423.git.bernhard.kaindl@citrix.com>
 References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
@@ -63,96 +64,153 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RSPAMD_URIBL_FAIL(0.00)[citrix.com:query timed out];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:christian.lindig@citrix.com,m:dave@recoil.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.980];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7];
 	R_DKIM_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.983];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 6D81B1A824D
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:mid,citrix.com:email]
+X-Rspamd-Queue-Id: 857841A82C2
 X-Rspamd-Action: no action
 
-Add a libxc function for the new XEN_DOMCTL_claim_memory hypercall,
-It supports node-specific claims and host-wide claims.
+Add OCaml bindings for xc_domain_claim_memory(), for using the
+XEN_DOMCTL_claim_memory hypercall from OCaml. This allows OCaml
+toolstacks to place NUMA-aware memory claims for domains as well
+as host-wide claims.
+
+tools/ocaml/libs/xc/xenctrl.ml/mli:
+- Add claim record type and domain_claim_memory external.
+
+tools/ocaml/libs/xc/xenctrl_stubs.c:
+- Validate claim count and arguments.
+- Marshal the OCaml claim array to memory_claim_t[].
+- Map node = -1 to XEN_DOMCTL_CLAIM_MEMORY_NO_NODE.
 
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- tools/include/xenctrl.h     |  4 ++++
- tools/libs/ctrl/xc_domain.c | 27 +++++++++++++++++++++++++++
- 2 files changed, 31 insertions(+)
+ tools/ocaml/libs/xc/xenctrl.ml      | 11 ++++++++
+ tools/ocaml/libs/xc/xenctrl.mli     | 11 ++++++++
+ tools/ocaml/libs/xc/xenctrl_stubs.c | 43 +++++++++++++++++++++++++++++
+ 3 files changed, 65 insertions(+)
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index d5dbf69c8968..a0a9f2143b32 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2659,6 +2659,10 @@ int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-                              const uint32_t *llc_colors,
-                              uint32_t num_llc_colors);
+diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
+index 97108b9d861a..a1a05dcaede3 100644
+--- a/tools/ocaml/libs/xc/xenctrl.ml
++++ b/tools/ocaml/libs/xc/xenctrl.ml
+@@ -370,6 +370,17 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
+ external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
+   = "stub_xc_domain_test_assign_device"
  
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           memory_claim_t *claims);
++(* OCaml binding for xc_domain_claim_memory(): claim pages for a domain,
++   optionally per NUMA node (node = -1 means no specific node). *)
 +
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 01c0669c8863..685efc03d295 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -1070,6 +1070,33 @@ int xc_domain_remove_from_physmap(xc_interface *xch,
-     return xc_memory_op(xch, XENMEM_remove_from_physmap, &xrfp, sizeof(xrfp));
++type claim =
++  {
++    pages: int64;  (* Number of pages to claim *)
++    node: int32;   (* NUMA node ID, or -1 for no specific node *)
++  }
++external domain_claim_memory: handle -> domid -> claim array -> unit
++  = "stub_xc_domain_claim_memory"
++
+ external version: handle -> version = "stub_xc_version_version"
+ external version_compile_info: handle -> compile_info
+   = "stub_xc_version_compile_info"
+diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
+index 9fccb2c2c287..1781c89258fe 100644
+--- a/tools/ocaml/libs/xc/xenctrl.mli
++++ b/tools/ocaml/libs/xc/xenctrl.mli
+@@ -297,6 +297,17 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
+ external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
+   = "stub_xc_domain_test_assign_device"
+ 
++(* OCaml binding for xc_domain_claim_memory(): claim pages for a domain,
++   optionally per NUMA node (node = -1 means no specific node). *)
++
++type claim =
++  {
++    pages: int64;  (* Number of pages to claim *)
++    node: int32;   (* NUMA node ID, or -1 for no specific node *)
++  }
++external domain_claim_memory: handle -> domid -> claim array -> unit
++  = "stub_xc_domain_claim_memory"
++
+ external version : handle -> version = "stub_xc_version_version"
+ external version_compile_info : handle -> compile_info
+   = "stub_xc_version_compile_info"
+diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
+index c55f73b265b2..a77d7dac58e8 100644
+--- a/tools/ocaml/libs/xc/xenctrl_stubs.c
++++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
+@@ -1435,6 +1435,49 @@ CAMLprim value stub_xc_watchdog(value xch_val, value domid, value timeout)
+ 	CAMLreturn(Val_int(ret));
  }
  
-+/* Claim the guest memory for a domain before starting the domain build */
-+int xc_domain_claim_memory(xc_interface *xch,
-+                           uint32_t domid,
-+                           uint32_t nr_claims,
-+                           memory_claim_t *claims)
++CAMLprim value stub_xc_domain_claim_memory(value xch_val, value domid,
++                                           value claims)
 +{
-+    struct xen_domctl domctl = {};
-+    DECLARE_HYPERCALL_BOUNCE(claims, sizeof(*claims) * nr_claims,
-+                             XC_HYPERCALL_BUFFER_BOUNCE_IN);
-+    int ret;
++	CAMLparam3(xch_val, domid, claims);
++	xc_interface *xch = xch_of_val(xch_val);
++	mlsize_t nr_claims = Wosize_val(claims);
++	memory_claim_t *claim;
++	int retval;
 +
-+    if ( xc_hypercall_bounce_pre(xch, claims) )
-+        return -1;
++	if (nr_claims > XEN_DOMCTL_MAX_CLAIMS)
++		caml_invalid_argument("domain_claim_memory: too many claims");
 +
-+    domctl.cmd = XEN_DOMCTL_claim_memory;
-+    domctl.domain = domid;
-+    domctl.u.claim_memory.nr_claims = nr_claims;
-+    set_xen_guest_handle(domctl.u.claim_memory.claims, claims);
++	claim = calloc(nr_claims, sizeof(*claim));
++	if (claim == NULL && nr_claims != 0)
++		caml_raise_out_of_memory();
 +
-+    ret = do_domctl(xch, &domctl);
++	for (mlsize_t i = 0; i < nr_claims; i++) {
++		value claim_rec = Field(claims, i);
++		int64_t pages = Int64_val(Field(claim_rec, 0));
++		int32_t node = Int32_val(Field(claim_rec, 1));
++		uint32_t c_node;
 +
-+    xc_hypercall_bounce_post(xch, claims);
++		if (pages < 0 || node < -1 ) {
++			free(claim);
++			caml_invalid_argument("domain_claim_memory: invalid pages or node");
++		}
 +
-+    return ret;
++		if (node == -1)
++			c_node = XEN_DOMCTL_CLAIM_MEMORY_NO_NODE;
++		else
++			c_node = node;
++
++		claim[i] = (memory_claim_t)XEN_NODE_CLAIM_INIT((uint64_t)pages, c_node);
++	}
++
++	retval = xc_domain_claim_memory(xch, Int_val(domid), nr_claims, claim);
++	free(claim);
++	if (retval < 0)
++		failwith_xc(xch);
++
++	CAMLreturn(Val_unit);
 +}
 +
-+/* Legacy function for claiming pages, replaced by xc_domain_claim_memory() */
- int xc_domain_claim_pages(xc_interface *xch,
-                                uint32_t domid,
-                                unsigned long nr_pages)
+ /*
+  * Local variables:
+  *  indent-tabs-mode: t
 -- 
 2.39.5
 
