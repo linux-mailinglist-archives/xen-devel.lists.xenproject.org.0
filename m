@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KFXNFOFtoGk3jgQAu9opvQ
+	id QPg3F+J0oGmtjwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:59:29 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 17:29:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EA41A9564
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 16:59:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242172.1542851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB8E21AA59B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Feb 2026 17:29:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242197.1542861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvdlm-0002ok-Rw; Thu, 26 Feb 2026 15:59:18 +0000
+	id 1vveEL-0007Nh-2f; Thu, 26 Feb 2026 16:28:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242172.1542851; Thu, 26 Feb 2026 15:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 1242197.1542861; Thu, 26 Feb 2026 16:28:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvdlm-0002m3-Oq; Thu, 26 Feb 2026 15:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 1242172;
- Thu, 26 Feb 2026 15:59:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vveEK-0007L8-VQ; Thu, 26 Feb 2026 16:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 1242197;
+ Thu, 26 Feb 2026 16:28:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S+Ht=A6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vvdll-0002lj-GX
- for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 15:59:17 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19b9b840-132c-11f1-b164-2bf370ae4941;
- Thu, 26 Feb 2026 16:59:15 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-48069a48629so11340385e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Feb 2026 07:59:15 -0800 (PST)
+ id 1vveEJ-0007L2-8I
+ for xen-devel@lists.xenproject.org; Thu, 26 Feb 2026 16:28:47 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3728dd0d-1330-11f1-9ccf-f158ae23cfc8;
+ Thu, 26 Feb 2026 17:28:43 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-48373a4bca3so6432955e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Feb 2026 08:28:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c597578sm476245f8f.0.2026.02.26.07.59.14
+ 5b1f17b1804b1-483bd750701sm166111345e9.11.2026.02.26.08.28.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Feb 2026 07:59:14 -0800 (PST)
+ Thu, 26 Feb 2026 08:28:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,62 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19b9b840-132c-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 3728dd0d-1330-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772121555; x=1772726355; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9h7KiGa2XnrvUD/MkOcQiZBTqMcoMzchN1b+d4P6Dew=;
-        b=KcSeEKXBkojCojJeTevuvVTWSWlYKLDK9imzYpCp307sIeQSfqX3cWf3Br97ZtvKhy
-         mSZ6cmKaAVtLwH8uDxaFVUo2u6M5sPpwuznALQPqur+PEsAe9Ouq8yVB0GoaK1JPb21e
-         amKoPhZUoCE6Yizdi0hQ47xS8Cx7poxEGuwylDdOlwJJfCypEjGF65jF/NOB/lwCLauq
-         yj9XZBtG8rV18es7IkEajm/vATNWHUe4l5eosQrLJFXl4++a1jA+tpk/aIYyiC+N8TGM
-         bxLdqRVtOp1JSI/yPAx6TzINR8d04jZb4rWU7IFJSZLMxwlz8RibTFgbjtdrwAxNTmje
-         81wg==
+        d=suse.com; s=google; t=1772123322; x=1772728122; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vGnb/LzRdTFuissfGZl/GYWSxvj7rryz8FoZ50rNebM=;
+        b=ezKcP9mIvc3cn+JKDDiUlUZVPQCvauJaCoFjcNCjL+snO7N7w0meFf76IsgdAkIOwD
+         BstZO7UAbtWMQPop88wbhVJWqtzRA0WIsTIG1zn0NSTENDVj71ShPLE17/uJxsM5hMF6
+         UEVvJi7o6WCgZsFCi+v8KV68p4y5TdV3wqDV8YHZSmSdMN7+q0+4xtSAffLSTCp6Rjjk
+         gVi1V9sHzzn2cZIydQHmUGbyvkO5tPjnP/wdkqw7RaLfH6dsZGuRmqrSROma5wtSbdn/
+         2ury1ptk2YgyWSDJx7b//O/yGYCaOWfA6P1SXBESPRPMikZ1Te0PN6b4VsFApOGKGDpm
+         G8FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772121555; x=1772726355;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9h7KiGa2XnrvUD/MkOcQiZBTqMcoMzchN1b+d4P6Dew=;
-        b=ZpRggzans6wMBr/xqDOKiKF24OnBBSzN/ZAkhFxnfcIBK3ZmLzCdVgKuWD83uhUgy9
-         AmXbgr54XlRdntFOdn0KH2GN93JKXpHqQgHDQaKzb8Z1twGROti9bsPD3ERBdTJLlqUp
-         PIaFKVuAGLKJn791+Wbnt57OxuOp64aPEmPUUdBt3g28dEXSbrqITBdmoPmwfXQ20VHz
-         wEgVUFCydV2O4i/9bVI222qyVkloK3rJMHg38ZTD5DKgaLqf/3BOJl+fXdcrKs5E/T5N
-         DfcjYMi1Cn+4cKUac90odppI9YnaAG1uTghE0VpSmp6MUYcgGiwMXedGSHix5f2ZGyOU
-         TFeA==
-X-Forwarded-Encrypted: i=1; AJvYcCVGzVjsENy76zDmjTm16nWESCh2aziNQJhtEoo9nriQQIIJlMZQzxY7liL789tyb/7V0BCOmlkxnrE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhjMFcN0djh6fusx0QQbvQI/2fEcolu8bK8xlY93Pq7gcyIOyQ
-	TNZvgNBEnBqXs89vomdAM90V0d2T8xP8vXNYjKmS/RtJxK3IVTV+9OQ/ModkUIV6rA==
-X-Gm-Gg: ATEYQzwfc7Xym/al/B3Ebrxo4hcM6a4r3rfPEnh8ZX+6+9fTV37nuComaoBmtJfw8K6
-	4JvKsufnyUOhAazsbPI6kqhAQYow2aclj2yLS2wJncjMwifKsrlopdseWMTSfoMAQRayjrFfZnD
-	7YMs5NknyIoYZujYgIbjklUe94mS+JjShxedTMDZJHXisTRxgkIvqmui9+ZsEeNZZ0iK0yXWlYj
-	TPojhrbypDMzKObOxbEh5s0pz+LUvEL72hCHSba0XVPtG/UWWw+g+p+ldLMoCEPMT7yRt37q2U0
-	i5zS/idzzi6RPEfRiUn7yXKp4F2oAvDnSsF9Ehnypb0B5W2qinNyh3RBV1t1jsFq6lWNg0d8ZSs
-	uCqPj5ym11QPEfHbe0g1NLp+rM6bTuZWqbnEQj935Vo5qd8xscPu+ciwaBzkYnqS866g/Ee1Ctd
-	zFgBtrbvn3b1AWz9R7eLHIpMuhXqszgmTK83kUkGwFJlKtE7Tsp72PZHNwb3jbtyXgcRlqgSJn8
-	gIrFHrZTVKNK6s=
-X-Received: by 2002:a05:600c:8b02:b0:47d:5e02:14e5 with SMTP id 5b1f17b1804b1-483a95a86eamr356549035e9.5.1772121555053;
-        Thu, 26 Feb 2026 07:59:15 -0800 (PST)
-Message-ID: <7e71e904-3a15-42d8-a1dc-4ad001683ec8@suse.com>
-Date: Thu, 26 Feb 2026 16:59:12 +0100
+        d=1e100.net; s=20230601; t=1772123322; x=1772728122;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vGnb/LzRdTFuissfGZl/GYWSxvj7rryz8FoZ50rNebM=;
+        b=Oja78gZpww9eO9p+wXpYGjcjJn3jvKmyChCBxSBKN2jJV0A8itgCjqnN5FCif7M5dB
+         6IRP+9T2ZzZXg+6FY/LFKfV9ouR4K4/9Pk19hdllB7jOkAMOkalVssaT4iQUZL7sefec
+         khDbihMjwEFwvn1TGcOptGVRzdv87rkMiDjn3XHHEEc/5rgf3Pl60n/sOAnfFG5U8BpX
+         J1wj0QVXFXu9JP5lEpUhNG7PRoNzNyB2efaFb6s0J4ozYQtj42Q/1PBMtu6xC2HAHIXr
+         x2CBbIKmtD+dWJH89JQNgqrWnNhHsn5EyOXQqeQntz45cV0K6//CRf9tNR49fxM1pEll
+         /epQ==
+X-Gm-Message-State: AOJu0YzXtNdjhnylGIRpJPAkv85eLYFGYw9QYctZE8a4KfRH9BHIu2C9
+	695+bmuV5gv36cJhpHTeD8dTVEp01iHcEKnx2cH0sA5YS/+ObKg3GKwquB1EDGR5yAQKXRSpOq8
+	selY=
+X-Gm-Gg: ATEYQzzGO52AhHBGLPENp0OCcu9vcJM9jxHS70e/7yaGHMyU/FJRLwv7A81qKmq3nzu
+	p0rVauei9A42O7+CLMiev+YtJEJbMdDa6n854Z1piRVP7Zb2d0rkS+ht5xaS7XxPGf/tVl2PJF+
+	V8dD0X0kgBSY6ZOQ6H4RpWK8uuClu2vVGNas7ttBmttpSfoT4U7+1sUKrDpYe5QpSQiTJ0SJXm3
+	fIg/bBVwGdTJeNv9+nCFHp4f4LFkSwjFK4zl2u466W4CD83DqQsRdqrZTHDjAORouFJQTZq7j+V
+	gJ9ScIMW5nSHnIsJg1nPXF91m+so1bKXrNu1DT0L4X4vxVZWdTP+pE6zCq3enyp53qIWLwM9FPJ
+	Fv6gPPQQ4BqDUre2QUvKiHM+0AXISGo8o65ChnKwB2wDGH/q6P4W0pwCMVzkYAgaDBdL60bBuKu
+	NOVd7ONF9CY2WVFTMaoG+oyKLK2ZSrOQ/IEti/ya2wgR+/egOOEOcgeAsIeFw2Euoc9ZE6EoG9J
+	hFhvFOslEXc+2olZ6VM9MCvrw==
+X-Received: by 2002:a05:600c:45c7:b0:480:1a9a:e571 with SMTP id 5b1f17b1804b1-483c2197b29mr85494035e9.22.1772123322519;
+        Thu, 26 Feb 2026 08:28:42 -0800 (PST)
+Message-ID: <c50219c1-5a23-46d0-bbe3-ab4a871a935b@suse.com>
+Date: Thu, 26 Feb 2026 17:28:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86/ioreq: Extend ioreq server to support multiple
- ioreq pages
-From: Jan Beulich <jbeulich@suse.com>
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260223093831.475769-1-julian.vetter@vates.tech>
- <20260223093831.475769-2-julian.vetter@vates.tech>
- <c9126823-7c90-40bb-9fd1-c5649ffdb5cd@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] Arm: device.c is init-only when OVERLAY_DTB=n
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -129,94 +123,167 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c9126823-7c90-40bb-9fd1-c5649ffdb5cd@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:julien@xen.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: B7EA41A9564
+X-Rspamd-Queue-Id: AB8E21AA59B
 X-Rspamd-Action: no action
 
-On 26.02.2026 16:53, Jan Beulich wrote:
-> On 23.02.2026 10:38, Julian Vetter wrote:
->> @@ -89,6 +91,39 @@ static gfn_t hvm_alloc_ioreq_gfn(struct ioreq_server *s)
->>      return hvm_alloc_legacy_ioreq_gfn(s);
->>  }
->>  
->> +static gfn_t hvm_alloc_ioreq_gfns(struct ioreq_server *s,
->> +                                  unsigned int nr_pages)
->> +{
->> +    struct domain *d = s->target;
->> +    unsigned long mask;
->> +    unsigned int i, run;
->> +
->> +    if ( nr_pages == 1 )
->> +        return hvm_alloc_ioreq_gfn(s);
->> +
->> +    /* Find nr_pages consecutive set bits */
->> +    mask = d->arch.hvm.ioreq_gfn.mask;
->> +
->> +    for ( i = 0, run = 0; i < BITS_PER_LONG; i++ )
->> +    {
->> +        if ( !test_bit(i, &mask) )
->> +            run = 0;
->> +        else if ( ++run == nr_pages )
->> +        {
->> +            /* Found a run - clear all bits and return base GFN */
->> +            unsigned int start = i - nr_pages + 1;
->> +            unsigned int j;
->> +
->> +            for ( j = start; j <= i; j++ )
->> +                clear_bit(j, &d->arch.hvm.ioreq_gfn.mask);
-> 
-> You using clear_bit() here doesn't make the while operation atomic. There will
-> need to be synchronization (also with hvm_alloc_ioreq_gfn()), and once that's
-> there (or if things are suitably synchronized already) __clear_bit() ought to
-> suffice here.
-> 
->> +            return _gfn(d->arch.hvm.ioreq_gfn.base + start);
->> +        }
->> +    }
->> +
->> +    return INVALID_GFN;
->> +}
-> 
-> Did you consider whether fragmentation could get in the way here, as is usually
-> the case when doing mixed-size allocations from a single pool? In how far is it
-> necessary for the GFNs used to be consecutive?
+Introduce an annotation similar to __hwdom_init and use it througout the
+file. All external callers are either themselves __init or are limited to
+OVERLAY_DTB=y. Adjust the Makefile accordingly to also have string
+literals moved into .init.rodata.
 
-Thinking about it - isn't this GFN based approach the legacy one? Can't we demand
-use of the resource mapping approach to support bigger guests?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -15,7 +15,9 @@ obj-$(CONFIG_HAS_ALTERNATIVE) += alterna
+ obj-y += cpuerrata.o
+ obj-y += cpufeature.o
+ obj-y += decode.o
+-obj-y += device.o
++device-y := device.init.o
++device-$(CONFIG_OVERLAY_DTB) := device.o
++obj-y += $(device-y)
+ obj-$(CONFIG_IOREQ_SERVER) += dm.o
+ obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
+ obj-y += domain.o
+--- a/xen/arch/arm/device.c
++++ b/xen/arch/arm/device.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <xen/device_tree.h>
++#include <xen/dt-overlay.h>
+ #include <xen/errno.h>
+ #include <xen/iocap.h>
+ #include <xen/lib.h>
+@@ -16,8 +17,8 @@
+ #include <asm/firmware/sci.h>
+ #include <asm/setup.h>
+ 
+-int map_irq_to_domain(struct domain *d, unsigned int irq,
+-                      bool need_mapping, const char *devname)
++int __overlay_init map_irq_to_domain(struct domain *d, unsigned int irq,
++                                     bool need_mapping, const char *devname)
+ {
+     int res;
+ 
+@@ -49,8 +50,8 @@ int map_irq_to_domain(struct domain *d,
+     return 0;
+ }
+ 
+-int map_range_to_domain(const struct dt_device_node *dev,
+-                        uint64_t addr, uint64_t len, void *data)
++int __overlay_init map_range_to_domain(const struct dt_device_node *dev,
++                                       uint64_t addr, uint64_t len, void *data)
+ {
+     struct map_range_data *mr_data = data;
+     struct domain *d = mr_data->d;
+@@ -124,10 +125,10 @@ int map_range_to_domain(const struct dt_
+  *   < 0 error
+  *   0   success
+  */
+-int map_device_irqs_to_domain(struct domain *d,
+-                              struct dt_device_node *dev,
+-                              bool need_mapping,
+-                              struct rangeset *irq_ranges)
++int __overlay_init map_device_irqs_to_domain(struct domain *d,
++                                             struct dt_device_node *dev,
++                                             bool need_mapping,
++                                             struct rangeset *irq_ranges)
+ {
+     unsigned int i, nirq;
+     int res, irq;
+@@ -180,9 +181,9 @@ int map_device_irqs_to_domain(struct dom
+     return 0;
+ }
+ 
+-static int map_dt_irq_to_domain(const struct dt_device_node *dev,
+-                                const struct dt_irq *dt_irq,
+-                                void *data)
++static int __overlay_init map_dt_irq_to_domain(const struct dt_device_node *dev,
++                                               const struct dt_irq *dt_irq,
++                                               void *data)
+ {
+     struct map_range_data *mr_data = data;
+     struct domain *d = mr_data->d;
+@@ -219,8 +220,8 @@ static int map_dt_irq_to_domain(const st
+  * then we may need to perform additional mappings in order to make
+  * the child resources available to domain 0.
+  */
+-static int map_device_children(const struct dt_device_node *dev,
+-                               struct map_range_data *mr_data)
++static int __overlay_init map_device_children(const struct dt_device_node *dev,
++                                              struct map_range_data *mr_data)
+ {
+     if ( dt_device_type_is_equal(dev, "pci") )
+     {
+@@ -250,8 +251,10 @@ static int map_device_children(const str
+  *  - Assign the device to the guest if it's protected by an IOMMU
+  *  - Map the IRQs and iomem regions to DOM0
+  */
+-int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+-                  struct rangeset *iomem_ranges, struct rangeset *irq_ranges)
++int __overlay_init handle_device(struct domain *d, struct dt_device_node *dev,
++                                 p2m_type_t p2mt,
++                                 struct rangeset *iomem_ranges,
++                                 struct rangeset *irq_ranges)
+ {
+     unsigned int naddr;
+     unsigned int i;
+--- a/xen/include/xen/dt-overlay.h
++++ b/xen/include/xen/dt-overlay.h
+@@ -42,10 +42,18 @@ struct xen_sysctl_dt_overlay;
+ struct xen_domctl_dt_overlay;
+ 
+ #ifdef CONFIG_OVERLAY_DTB
++
++#define __overlay_init
++
+ long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op);
+ long dt_overlay_domctl(struct domain *d, struct xen_domctl_dt_overlay *op);
++
+ #else
++
+ #include <xen/errno.h>
++
++#define __overlay_init __init
++
+ static inline long dt_overlay_sysctl(struct xen_sysctl_dt_overlay *op)
+ {
+     return -EOPNOTSUPP;
 
