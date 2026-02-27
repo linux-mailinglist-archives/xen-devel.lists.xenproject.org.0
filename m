@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Bu8iAfElommI0QQAu9opvQ
+	id CK9GEfIlomnZ0AQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:05 +0100
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E3DF1BEEF1
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1243142.1543164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B135A1BEF13
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1243146.1543192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw74m-0001Xd-5u; Fri, 27 Feb 2026 23:16:52 +0000
+	id 1vw74o-0002Cn-CP; Fri, 27 Feb 2026 23:16:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1243142.1543164; Fri, 27 Feb 2026 23:16:52 +0000
+Received: by outflank-mailman (output) from mailman id 1243146.1543192; Fri, 27 Feb 2026 23:16:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw74l-0001Vd-V9; Fri, 27 Feb 2026 23:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 1243142;
- Fri, 27 Feb 2026 23:16:50 +0000
+	id 1vw74o-00029E-6J; Fri, 27 Feb 2026 23:16:54 +0000
+Received: by outflank-mailman (input) for mailman id 1243146;
+ Fri, 27 Feb 2026 23:16:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gz2F=A7=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vw74j-0001Do-WE
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 23:16:50 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1vw74m-0001Do-0J
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 23:16:52 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63667f70-1432-11f1-9ccf-f158ae23cfc8;
- Sat, 28 Feb 2026 00:16:47 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-4377174e1ebso1836368f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 15:16:47 -0800 (PST)
+ id 641b136d-1432-11f1-9ccf-f158ae23cfc8;
+ Sat, 28 Feb 2026 00:16:48 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-43994aa265eso1501203f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 15:16:48 -0800 (PST)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c70e8e8sm9680306f8f.10.2026.02.27.15.16.45
+ ffacd0b85a97d-4399c70e8e8sm9680306f8f.10.2026.02.27.15.16.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 15:16:45 -0800 (PST)
+ Fri, 27 Feb 2026 15:16:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,48 +50,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63667f70-1432-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 641b136d-1432-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1772234207; x=1772839007; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1772234208; x=1772839008; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vW+QCUaUYuUq9G8gsk0OzquSefAutMzWyPSfjvJkvyY=;
-        b=vhLha4bonoIIVEtrCYPP1O9oG/HtAdS9glPqoD/EGaAeaM0qrSyp0hb7oBSKNSCxr2
-         KRSY5Z1dC4Xef20vDJo01G75YjPd8nLXjstEHDXml7wO7nRDcdxODY3UgTvjDCuwwFLW
-         iDDmo7htP/Mp+Ob60RpxIlNP54a/Ft1pu3RKM=
+        bh=0CZO8VvFJTkoemSFkzFWEvoCyFq1y2gQ5xOPrI9dn3A=;
+        b=dweHs6CDlyA5ruvLcqqzr5Zu5mYbhtimbFNBp2lpIBiMIXDjKa7DrsopvcWKSNt2lH
+         ODbWCWBzPbLkLnP/+ZcbSxAeP4MR9RN+AUjD9wX8ptpPP47f1agyFG7HI/d3j12dI/05
+         /EyVuvt/EA0G2i+CbYWuJVK1y9kUg3BYlAS7s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772234207; x=1772839007;
+        d=1e100.net; s=20230601; t=1772234208; x=1772839008;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=vW+QCUaUYuUq9G8gsk0OzquSefAutMzWyPSfjvJkvyY=;
-        b=Zzb6OjewaZBPMNFP4yyG4zRagBGyDLHRiZH+kU8H0a1ZZFJT1su8sOEPgGqF3Xkab+
-         xKVcOnURpeL2CRA1IRy49nKQZUbXWynSPRzisfbWZkqNUEXdF+SyaGhIJ9uv2eOwYFSU
-         r+smbv4RG7+89alOMtK807xyaTm+pa6/TOwQjGvehB/54gIuZlOmuT7Jo7+5Xx1sVrzr
-         9QTrzy6z5ebOtFIdkb4Tlayh0+YpeBgP/9Nlp3GIrmsFpW+RpNeAMu1oRqjCZh4EupEV
-         K1dY2E3IX9JmE6IO+DNKdAxirKLaHaf6Htwapa94+HLHbDjZvc+jR33DeAWxJmah6/lN
-         7sqQ==
-X-Gm-Message-State: AOJu0YzF0KyY8nDaaI8mPnMXdz0sjnr/xuOJSXZdvLYhJSe6iMRlsoZg
-	8Hqq466CnoaQPy833cIqJjoTlmkLn5d55a+p3LIjZrvokpp/ZPwYmx7kqSKhf4xbecBPlUpuSlj
-	m56CTSJzVEQ==
-X-Gm-Gg: ATEYQzyOh+nZyZYUl+Oxb5m9gLnnvQ77+8+JLKCIDIOOG75jmX6c3c2Hny4bRsLsSID
-	HTqm78aNhITRpVNnVF68OYTWjb8ttQNc5KFams6hw2dBiHL8hNSx4hVun2BaG361X9vmgX6gWw3
-	pc9oJu7k06bTSUMI7pgGL5drJZ7oEi4BAAcEN+/025FEN+xOs1e40Yx5eDlx4xy6ZseMbwH3MmL
-	I4Qm5hpK/BEpab3zDC7AqBkJkgWYeaDzqTmUW6M11lc8Iv3F5XDciEjoeZh1XzwFTXqQzLDSAt2
-	j/hDv9SCfyvO2dm6J2GqyawyVp6iCPYRfIfIlmxOP4R2TFMCnji9oMinnZz4GbrncF0svUK5Cv3
-	nM2dfT24ZKjJecfOe2TJLHcRQD1TRbOxwHP10SgFf9F/Y6uhgtBW5au+rIZBaB/q8zZBA7nV19l
-	uiUXPAw8wWXt6NpPm8FvK/CauML9WWnS1R1LxyzTUfgW+HtUgzDyKXG/JkJtVFlW2lXS/AI4g=
-X-Received: by 2002:a05:6000:2483:b0:439:5bfe:18ce with SMTP id ffacd0b85a97d-4399dde22d3mr8576771f8f.8.1772234206354;
-        Fri, 27 Feb 2026 15:16:46 -0800 (PST)
+        bh=0CZO8VvFJTkoemSFkzFWEvoCyFq1y2gQ5xOPrI9dn3A=;
+        b=Tj3fXQep3FnfwEvoDFzLMI6BYuBL5xP//0wtoXcS0guckHB6nqZ7v7FM8hahGUDrhK
+         4ajERYCbsDAW8Mq54uwSRBvWVjNDGBN+N+oNXmUI/6ET07Bb1m4Ofy7EfP74p2e7FD3n
+         nVrXmyGWXh/KTtrPgFoqOv82MI9lquSPH/fTHiJ+GkLgH5P5tMso9D59B+cNtJgPtNRf
+         KJ5oV0eq2TqqLzInPi30h4V48G1cviONL8MhwiRs6Mlm0/3uCM5Nf5hXc73h8/5a30fE
+         BijuHCnO7qOP5iSHUC9XydYJFPC9MLyNAZGCL/rZYGqFakLrNwbdch9POW770QHILRRq
+         IYTw==
+X-Gm-Message-State: AOJu0YxKO9McFlP/WRhAsEPQWKY+0J2jfjotLVqJ4LwqgUyXhRIy7Iqw
+	OVULngWr9lUSRMXWSmOx2Ra8ArYMn1vIjy/HPKm8NxK+ZnTge0gK5lgx/M5LGYSujlxjdF5Z+HV
+	MyPfT
+X-Gm-Gg: ATEYQzxij0quOpjKrHY/jT0jQUkNrDLuUECa1kNEY2eNmdUm/dLOtcuDZDt+dL4FO0u
+	2ieoeIKaKY41qfhogoKpvOwDXGIlg9cMonogHQcjqEe3LDwKBgYn/OFiPoBu90OzjuaUJ2uHhm+
+	7BgBeL/nRckCiCmAaGFjgNOnvfOH2y6dg3+P3fNfu3rHJ2RklguTBw+XUihBVbe5salxZ0mNtzH
+	WPvBmfcb1aVyYUBwb7ZYiJS4SXvDbwNkiQorGv1ooQbLZEJd6CHoMiViBPh6kLW02OeuLibldLa
+	ZVNHvwWK/SxEoHRfdpk8IjEyAPBUuUc9unOLeWeGg/6pLUoz1VBJUfNKaMZ2IKiCi48bURgmVXC
+	alurzysNBTq4xdAV5cEMJPF0xcU0CeSQBXJP+M3svVNpqWYd6T2VpCuCuAOCSUHvbD0DEWRoE51
+	g62Yx6UYZrIoSY0GgVBnbiM5L/0yblNtJeReR52pHQDfc/1LkruyxFLKTWXMbEutOQy35HVJo=
+X-Received: by 2002:a05:6000:18a9:b0:439:8e2f:689e with SMTP id ffacd0b85a97d-4399de2c5demr7687079f8f.43.1772234207185;
+        Fri, 27 Feb 2026 15:16:47 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 05/14] x86/traps: Move traps_init() earlier on boot
-Date: Fri, 27 Feb 2026 23:16:27 +0000
-Message-Id: <20260227231636.3955109-6-andrew.cooper3@citrix.com>
+Subject: [PATCH v4 06/14] x86/traps: Don't configure Supervisor Shadow Stack tokens in FRED mode
+Date: Fri, 27 Feb 2026 23:16:28 +0000
+Message-Id: <20260227231636.3955109-7-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
 References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
@@ -130,20 +130,14 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6E3DF1BEEF1
+X-Rspamd-Queue-Id: B135A1BEF13
 X-Rspamd-Action: no action
 
-We wish to make use of opt_fred earlier on boot, which involves moving
-traps_init() earlier, but this comes with several ordering complications.
+FRED doesn't use Supervisor Shadow Stack tokens.  This means that:
 
-The feature word containing FRED needs collecting in early_cpu_init(), and
-legacy_syscall_init() cannot be called that early because it relies on the
-stubs being allocated, yet must be called ahead of cpu_init() so the SYSCALL
-linkage MSRs are set up before being cached.
-
-Delaying legacy_syscall_init() is easy enough based on a system_state check.
-Reuse bsp_traps_reinit() to cause a call to legacy_syscall_init() to occur at
-the same point as previously.
+ 1) memguard_guard_stack() should not write Supervisor Shadow Stack Tokens.
+ 2) cpu_has_bug_shstk_fracture is no longer relevant when deciding whether or
+    not to enable Shadow Stacks in the first place.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -151,84 +145,94 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 
 v4:
- * New
+ * Adjust for cpu_has_bug_shstk_fracture.
+ * Reworked entirely in light of the prior 3 patches.
 
-I don't particualrly like this solution, but the layout of these functions
-change for FRED.  Any adjustments need to consider the logic at the end of the
-series, not at this point.
+The SDM explicitly points out the shstk fracture vs FRED case, yet PTL
+enumerates CET-SSS (immunity to shstk fracture).  I can only assume that there
+are other Intel CPUs with FRED but without CET-SSS.
 ---
- xen/arch/x86/cpu/common.c  |  4 +++-
- xen/arch/x86/setup.c       |  4 +++-
- xen/arch/x86/traps-setup.c | 12 +++++++++++-
- 3 files changed, 17 insertions(+), 3 deletions(-)
+ xen/arch/x86/mm.c    | 14 +++++++++++---
+ xen/arch/x86/setup.c | 16 ++++++++++------
+ 2 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index bfa63fcfb721..5d0523a78b52 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -407,7 +407,9 @@ void __init early_cpu_init(bool verbose)
- 		}
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 0d0d5292953b..4c404b6c134f 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -129,6 +129,7 @@
+ #include <asm/shadow.h>
+ #include <asm/shared.h>
+ #include <asm/trampoline.h>
++#include <asm/traps.h>
+ #include <asm/x86_emulate.h>
  
- 		if (max_subleaf >= 1)
--			cpuid_count(7, 1, &eax, &ebx, &ecx,
-+			cpuid_count(7, 1,
-+                                    &c->x86_capability[FEATURESET_7a1],
-+                                    &ebx, &ecx,
- 				    &c->x86_capability[FEATURESET_7d1]);
- 	}
+ #include <public/memory.h>
+@@ -6441,8 +6442,15 @@ static void write_sss_token(unsigned long *ptr)
  
+ void memguard_guard_stack(void *p)
+ {
+-    /* IST Shadow stacks.  4x 1k in stack page 0. */
+-    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
++    ASSERT(opt_fred >= 0); /* Confirm that FRED-ness has been resolved */
++
++    /*
++     * IST Shadow stacks.  4x 1k in stack page 0.
++     *
++     * With IDT delivery, we need Supervisor Shadow Stack tokens at the base
++     * of each stack.  With FRED delivery, these no longer exist.
++     */
++    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && !opt_fred )
+     {
+         write_sss_token(p + (IST_MCE * IST_SHSTK_SIZE) - 8);
+         write_sss_token(p + (IST_NMI * IST_SHSTK_SIZE) - 8);
+@@ -6453,7 +6461,7 @@ void memguard_guard_stack(void *p)
+ 
+     /* Primary Shadow Stack.  1x 4k in stack page 5. */
+     p += PRIMARY_SHSTK_SLOT * PAGE_SIZE;
+-    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
++    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && !opt_fred )
+         write_sss_token(p + PAGE_SIZE - 8);
+ 
+     map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, PAGE_HYPERVISOR_SHSTK);
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 675de3a649ea..0816a713e1c8 100644
+index 0816a713e1c8..8e59c9801afe 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -1386,6 +1386,8 @@ void asmlinkage __init noreturn __start_xen(void)
-     else
-         panic("Bootloader provided no memory information\n");
+@@ -1412,15 +1412,19 @@ void asmlinkage __init noreturn __start_xen(void)
+             boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
+             !boot_cpu_has(X86_FEATURE_CET_SSS);
  
-+    traps_init();
++        ASSERT(opt_fred >= 0); /* Confirm that FRED-ness has been resolved */
 +
-     /* Choose shadow stack early, to set infrastructure up appropriately. */
-     if ( !boot_cpu_has(X86_FEATURE_CET_SS) )
-         opt_xen_shstk = 0;
-@@ -2078,7 +2080,7 @@ void asmlinkage __init noreturn __start_xen(void)
-                                            &this_cpu(stubs).mfn);
-     BUG_ON(!this_cpu(stubs.addr));
+         /*
+-         * On bare metal, assume that Xen won't be impacted by shstk
+-         * fracturing problems.  Under virt, be more conservative and disable
+-         * shstk by default.
++         * If FRED is in use, Supervisor Shadow Stack tokens are not used and
++         * shstk fracturing is of no consequence.  Otherwise:
++         * - On bare metal, assume that Xen won't be impacted by shstk
++         *   fracturing problems.
++         * - Under virt, be more conservative and disable shstk by default.
+          */
+         if ( opt_xen_shstk == -1 )
+             opt_xen_shstk =
+-                cpu_has_hypervisor ? !cpu_has_bug_shstk_fracture
+-                                   : true;
++                opt_fred || (cpu_has_hypervisor ? !cpu_has_bug_shstk_fracture
++                                                : true);
  
--    traps_init(); /* Needs stubs allocated, must be before presmp_initcalls. */
-+    bsp_traps_reinit(); /* Needs stubs allocated, must be before presmp_initcalls. */
+         if ( opt_xen_shstk )
+         {
+@@ -1925,7 +1929,7 @@ void asmlinkage __init noreturn __start_xen(void)
  
-     cpu_init();
+     system_state = SYS_STATE_boot;
  
-diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
-index c5fc71c75bca..b2c161943d1e 100644
---- a/xen/arch/x86/traps-setup.c
-+++ b/xen/arch/x86/traps-setup.c
-@@ -346,6 +346,10 @@ void __init traps_init(void)
+-    bsp_stack = cpu_alloc_stack(0);
++    bsp_stack = cpu_alloc_stack(0); /* Needs to know IDT vs FRED */
+     if ( !bsp_stack )
+         panic("No memory for BSP stack\n");
  
- /*
-  * Re-initialise all state referencing the early-boot stack.
-+ *
-+ * This is called twice during boot, first to ensure legacy_syscall_init() has
-+ * run (deferred from earlier), and second when the virtual address of the BSP
-+ * stack changes.
-  */
- void __init bsp_traps_reinit(void)
- {
-@@ -359,7 +363,13 @@ void __init bsp_traps_reinit(void)
-  */
- void percpu_traps_init(void)
- {
--    legacy_syscall_init();
-+    /*
-+     * Skip legacy_syscall_init() at early boot.  It requires the stubs being
-+     * allocated, limiting the placement of the traps_init() call, and gets
-+     * re-done anyway by bsp_traps_reinit().
-+     */
-+    if ( system_state > SYS_STATE_early_boot )
-+        legacy_syscall_init();
- 
-     if ( cpu_has_xen_lbr )
-         wrmsrl(MSR_IA32_DEBUGCTLMSR, IA32_DEBUGCTLMSR_LBR);
 -- 
 2.39.5
 
