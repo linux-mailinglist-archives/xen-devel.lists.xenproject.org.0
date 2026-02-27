@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YAeHFuh4oWnJtQQAu9opvQ
+	id QDYcE+d4oWkJtgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 11:58:48 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 11:58:47 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47CF41B64A6
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 11:58:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242576.1542982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E97B1B6495
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 11:58:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242578.1543001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvvYG-0004xs-IP; Fri, 27 Feb 2026 10:58:32 +0000
+	id 1vvvYI-0005QF-1P; Fri, 27 Feb 2026 10:58:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242576.1542982; Fri, 27 Feb 2026 10:58:32 +0000
+Received: by outflank-mailman (output) from mailman id 1242578.1543001; Fri, 27 Feb 2026 10:58:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvvYG-0004vk-CJ; Fri, 27 Feb 2026 10:58:32 +0000
-Received: by outflank-mailman (input) for mailman id 1242576;
- Fri, 27 Feb 2026 10:58:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vvvYH-0005Lz-TH; Fri, 27 Feb 2026 10:58:33 +0000
+Received: by outflank-mailman (input) for mailman id 1242578;
+ Fri, 27 Feb 2026 10:58:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kH+Z=A7=citrix.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1vvvYE-0004Ur-No
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 10:58:30 +0000
+ id 1vvvYG-0004x2-OW
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 10:58:32 +0000
 Received: from na1pdmzitismtp02.tibco.com (unknown [160.101.131.9])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f63a361-13cb-11f1-b164-2bf370ae4941;
- Fri, 27 Feb 2026 11:58:29 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fccfa9a-13cb-11f1-9ccf-f158ae23cfc8;
+ Fri, 27 Feb 2026 11:58:30 +0100 (CET)
 Received: from localhost.localdomain (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTPS id 5464281CEBA0;
- Fri, 27 Feb 2026 05:57:57 -0500 (EST)
+ by na1pdmzitismtp02.tibco.com (Postfix) with ESMTPS id 1CD1B81CEB9E;
+ Fri, 27 Feb 2026 05:57:58 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,7 +44,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f63a361-13cb-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 3fccfa9a-13cb-11f1-9ccf-f158ae23cfc8
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@citrix.com>,
@@ -52,9 +52,9 @@ Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v2 2/4] tools/tests/x86_emulator: fix build on clang-21
-Date: Fri, 27 Feb 2026 10:58:21 +0000
-Message-ID: <e8bd2b2ac25bf3aa25e06a33c01511d040cc8bca.1772189234.git.edwin.torok@citrix.com>
+Subject: [PATCH v2 3/4] tools/tests/x86_emulator: fix undefined behaviour in shift
+Date: Fri, 27 Feb 2026 10:58:22 +0000
+Message-ID: <cdd62288eed6b147e6c3e6d2c402de36cf3ce42a.1772189234.git.edwin.torok@citrix.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1772189234.git.edwin.torok@citrix.com>
 References: <cover.1772189234.git.edwin.torok@citrix.com>
@@ -83,7 +83,7 @@ X-Spamd-Result: default: False [3.18 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[edwin.torok@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.987];
+	NEURAL_HAM(-0.00)[-0.997];
 	RCVD_COUNT_SEVEN(0.00)[7];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -91,48 +91,33 @@ X-Spamd-Result: default: False [3.18 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 47CF41B64A6
+X-Rspamd-Queue-Id: 1E97B1B6495
 X-Rspamd-Action: no action
 
-clang-21's built-in assembler is enabled by default, but it doesn't
-support some mnemonics:
+Fixes this `-fsanitize=undefined` error:
 ```
-test_x86_emulator.c:2636:36: error: invalid instruction mnemonic 'fsaves'
- 2636 |                        "fidivs %1\n\t"
-test_x86_emulator.c:2640:24: error: invalid instruction mnemonic 'frstors'
- 2640 |         asm volatile ( "frstors %0" :: "m" (res[25]) : "memory" );
-      |                        ^
-test_x86_emulator.c:4251:24: error: invalid instruction mnemonic 'vpcmpestriq'
- 4251 |                        put_insn(vpcmpestri,
-      |                        ^
+test_x86_emulator.c:1103:32: runtime error: left shift of 573785183 by 2 places cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior test_x86_emulator.c:1103:32
 ```
-
-Use the external assembler with Clang for consistency with GCC.
 
 Signed-off-by: Edwin Török <edwin.torok@citrix.com>
 ---
-Changed since v1:
- * filed upstream bug and added reference
----
- tools/tests/x86_emulator/Makefile | 5 +++++
- 1 file changed, 5 insertions(+)
+ tools/tests/x86_emulator/test_x86_emulator.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/tests/x86_emulator/Makefile b/tools/tests/x86_emulator/Makefile
-index e18725d0c3..5003c464f3 100644
---- a/tools/tests/x86_emulator/Makefile
-+++ b/tools/tests/x86_emulator/Makefile
-@@ -297,6 +297,11 @@ x86_emulate:
- 
- HOSTCFLAGS-x86_64 := -fno-PIE
- $(call cc-option-add,HOSTCFLAGS-x86_64,HOSTCC,-no-pie)
-+
-+# clang's integrated as does not support some mnemonics:
-+#  https://github.com/llvm/llvm-project/issues/183635
-+$(call cc-option-add,HOSTCFLAGS-x86_64,HOSTCC,-no-integrated-as)
-+
- HOSTCFLAGS += $(CFLAGS_xeninclude) -I. $(HOSTCFLAGS-$(XEN_COMPILE_ARCH))
- 
- x86.h := $(addprefix $(XEN_ROOT)/tools/include/xen/asm/,\
+diff --git a/tools/tests/x86_emulator/test_x86_emulator.c b/tools/tests/x86_emulator/test_x86_emulator.c
+index 8f93a8bbcd..3a03ea0352 100644
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -1100,7 +1100,7 @@ int main(int argc, char **argv)
+     regs.edi    = (unsigned long)res;
+     rc = x86_emulate(&ctxt, &emulops);
+     if ( (rc != X86EMUL_OKAY) ||
+-         (*res != ((0x2233445F << 2) | 2)) ||
++         (*res != ((0x2233445FUL << 2) | 2)) ||
+          ((regs.eflags & (EFLAGS_MASK & ~X86_EFLAGS_OF))
+           != EFLAGS_ALWAYS_SET) ||
+          (regs.eip != (unsigned long)&instr[3]) )
 -- 
 2.47.3
 
