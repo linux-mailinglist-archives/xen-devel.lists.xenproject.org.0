@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MLhdAER6oWkUtgQAu9opvQ
+	id mAtFHAmJoWmVuAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 12:04:36 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 13:07:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6F61B6550
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 12:04:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242649.1543021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE17C1B6ECA
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 13:07:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242757.1543031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvvds-0000Ea-Ph; Fri, 27 Feb 2026 11:04:20 +0000
+	id 1vvwc3-0008W3-BW; Fri, 27 Feb 2026 12:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242649.1543021; Fri, 27 Feb 2026 11:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 1242757.1543031; Fri, 27 Feb 2026 12:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvvds-0000Cj-Mx; Fri, 27 Feb 2026 11:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 1242649;
- Fri, 27 Feb 2026 11:04:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vvwc3-0008Ti-8X; Fri, 27 Feb 2026 12:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 1242757;
+ Fri, 27 Feb 2026 12:06:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mnSo=A7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vvvdr-0000Cc-Kk
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 11:04:19 +0000
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [2607:f8b0:4864:20::c2e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f1305e4-13cc-11f1-b164-2bf370ae4941;
- Fri, 27 Feb 2026 12:04:18 +0100 (CET)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-66307e10d1dso1290252eaf.0
- for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 03:04:18 -0800 (PST)
+ <SRS0=xKR6=A7=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1vvwc1-0008Tb-V6
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 12:06:30 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bd58edb7-13d4-11f1-9ccf-f158ae23cfc8;
+ Fri, 27 Feb 2026 13:06:26 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1772193972513434.9807762528759;
+ Fri, 27 Feb 2026 04:06:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,428 +43,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1305e4-13cc-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1772190256; cv=none;
-        d=google.com; s=arc-20240605;
-        b=CCg3pQej76pktGgJX5b9luTENXXE4cVwHmn3OvFF5wxEuiOgMTMYS2gEJnoED+gavy
-         k23RJ3QHawfynE5RxEPh/V8EUJ22+xzS7Uf3jY9as+qWlD0mi0ZvUCRjFnpjJC2J/xlf
-         hWgMq1VcmiO5oomQm/FNS9mGTTJY4PZ8MFH/WUGau4qz1TgS7uTXtUpzZFcvTqOcvkap
-         E227KMjD6VcUgAIkL1qfKztqGbhqze4MCuo28anrb3M3D6FRzXaIsM+1KgpECdQrUM0G
-         wq7Y9ABY18WceTOxgj1RqMfs+XScO9sMHT70pqM65vYe99JFopaQDTctuFvsox1y7dUx
-         G/tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K6MlY3FtrWxiva9pGXWn6CW4earS45tIfBaAOvGykNY=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=lkjDke2NZAP0CVdUEqJbMn49ffXPx1iUfMtJ8l6xC7TEwh/CJpS9KzT/lXv7LhBIta
-         bHqAi5i4SUNELHsAX/7NtsQJ6+ZbpR7/+Go2THcuOSRBvalaIIh5kL2saGiPV3gBbJcj
-         tcJOjXXZA+Sx6CfOAeIq3V3xOsvflKp8FCIdf/HDufbYvrshg79oxwvd/l720LaMFGOP
-         CNEmpoHUozSHcvpIF1U2W0KMqmjmyh9y6wVhX5DbSbPc82u8YD4Utgdt7M3iTJHBpKAP
-         zUSjYn3gLb65dqb8wt58lp8rdkIVg85PyO6SKitRAZN+Vo+D1XT3uqRNr1Y0453oBZWd
-         eRpQ==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772190256; x=1772795056; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=K6MlY3FtrWxiva9pGXWn6CW4earS45tIfBaAOvGykNY=;
-        b=mkeTBbtkd3C4s15V1n0yPJNlgtYe5lfuPZdQFrEMGUIxu+8TAW10iy36BBybhZsjQD
-         chABHik3TSi1pYF1dF4OwxL05VPwO0tDq+VLwMC1wPcdrw94rNEKPdiX98L0j48cZUIe
-         fFXMMEcBJX/j+jm89yNIh2cJqffJAa+2usA4njOSLqTt1WWBgLDV66Q6EfjLJo2cb33A
-         PvsC51JVvVB4+AnWtpq37vr+4nnoQVYiUDVBytJoGJidnsDrn7B4vAnhCRG9s3L98/P1
-         mD5o7OQziZPDc7z8lYWuILYOXlOY+alF03Ef0bh/adK/j62PhL+/49T38hVFWbbeJklt
-         58tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772190256; x=1772795056;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=K6MlY3FtrWxiva9pGXWn6CW4earS45tIfBaAOvGykNY=;
-        b=NCAi/SSHrZfepwkkg/icDwRa27vybUc5UkPymllei+BX8AqCbAmfKSirb9ojGUdvRt
-         BSK8t6yZ/KYUlXVMaJsai1cjvnN7sKogvcRHMeGRVfymgmp2FhHIXXCe3nAQTZkGfeI+
-         7nVMIUFRnPMEMjbMjvisArRaA8dBDksGLBdnRFr1ixRnC4CYrP0KWVVUZ3VPMYS0Tx+E
-         pM4r+uFiFywUZ9Z0qH6lduq6nGvVzK+H+MI2cuslC+clz+PDvPEe0BNIDfGyYIg0bSCD
-         k8SQ2fZimX3dAOMu6fhKELFZLKJXe6A4jZ1zIcUZDaDY19mMl8DfN8NPLB4G54AeNUjv
-         J0kQ==
-X-Gm-Message-State: AOJu0YwiEsr9fxeWAXvDYIZjQYPjuQcRNoowoIjk3p/TjQe5IMf4IXRo
-	WMHh7s3VwCzAvm7j0KLx5ftE3rUuh25kZ9s332KsBnF+Z8nM5FdonEgIqFifRKKzwXxVDgGhIdC
-	JUF7IsLjrSIVvKmhR9UFaZQ5i2MvUgQ8UC4YQUZRqPg==
-X-Gm-Gg: ATEYQzyprCAYmiyhY8RMWWm6hlnj0Lr50q2Tlbraytsrl2M780xHEZTbmLsZqNZtkzr
-	uifLqw71PjEl332sa6G30kypU+XI/Mb7OP2AteF6YiyJSBBUHCJ0+/wfxfuq/mjYqFNN78qmRI4
-	05Hp1LBkYX6eghhqzbwbNq0XIWK7ZC/Dc9zf1uA8gSS9l5qYYCrn0jEwgY0d71EoKaBuXJnP7v2
-	Tt2+SC/lPxjkhAnjMV3B5xOHvfM73+oyrBPRnlVqItpuMlEDYlL1ETN2uFwSARjxUnFvEB+xmX2
-	7h1cHy2b18Bz9QAMu9SKYfA6N638t7+krsICzQ==
-X-Received: by 2002:a05:6820:808:b0:679:e617:e835 with SMTP id
- 006d021491bc7-679faf1189emr1604672eaf.46.1772190256431; Fri, 27 Feb 2026
- 03:04:16 -0800 (PST)
+X-Inumbo-ID: bd58edb7-13d4-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1772193974; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=j2Yog8XpRVd1CYGVk3wVQankXmlQz+r8MfYOx9hc7CDCk6EmKxdIXR13nnOilsB1w15nKp9hx1wdcqP0o7jAazAv4UhtTXmxOurc0Cu5xun7gSckSFRBYsIvLlztBS8Z9oAiHJn0yq1T0PEAgYqYzuNxBJRiZF3OKQ9SAOTguag=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1772193974; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WjDkBb2DWs7hhAJHZDkHzFVEtNF+EPbI0SHjunZeYhM=; 
+	b=fyZcTqwofzQFgr/wiiIxy2zI21WVTCBWV284zCeFuTw/l4Cc+XsqQDt7j1O2RGsBaArxZVz9f6/0iF2GagbP4+KbbR0Rkmi+uQtlmjzeYQD4UCjgB3Gb423LhI4MOaPS0b3JdgrZKcFivtkApo4/JQHaV7wyT2b8ADysBalY3fk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772193973;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=WjDkBb2DWs7hhAJHZDkHzFVEtNF+EPbI0SHjunZeYhM=;
+	b=u87rbbInfiyv2aKZ7FWbBWHzeNYRWlRGk+gOcT6Gk+3/ww3s+StQa7aPiWKIal7O
+	RmwnB29nCiVI64XknOjNfEsNs6Rig51RvAUXeTF+0qUbNKdkIneOe4mrG/k2852pHAs
+	6rNqgRtfZ2lm4I1UHjrygXaHo1FInM6IpstZMMuA=
+Message-ID: <26a6d53d-f4be-4e17-b308-790bbea6cb4f@apertussolutions.com>
+Date: Fri, 27 Feb 2026 07:06:10 -0500
 MIME-Version: 1.0
-References: <cover.1772013062.git.bertrand.marquis@arm.com> <c981d94eb7596a17a4198fcdabcaaf17027aaad3.1772013062.git.bertrand.marquis@arm.com>
-In-Reply-To: <c981d94eb7596a17a4198fcdabcaaf17027aaad3.1772013062.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 27 Feb 2026 12:04:05 +0100
-X-Gm-Features: AaiRm51Y4_eS1nheyFso7Oz7fzWFW3GCRsplKYVGsL2zpKMX470K9nqLWluSiBI
-Message-ID: <CAHUa44Fy2kp9p7V9QdaOxjw8rTaDdF2unMCiiPv3eEvYyoYZiQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] xen/arm: ffa: Drop SP subscriber lists
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xsm: move the console read properly under xsm
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20260219184503.21918-1-dpsmith@apertussolutions.com>
+ <43a90b6f-683d-48e3-b7cc-4b8c6dae087c@suse.com>
+ <6ec4a310-884e-4004-b56f-1810f028e355@apertussolutions.com>
+ <671d83d0-fe8a-4da1-af06-a09221a8442f@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <671d83d0-fe8a-4da1-af06-a09221a8442f@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+X-Spamd-Result: default: False [-1.69 / 15.00];
+	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,linaro.org:dkim,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[apertussolutions.com:+];
 	MIME_TRACE(0.00)[0:+];
+	DMARC_NA(0.00)[apertussolutions.com];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[apertussolutions.com:mid,apertussolutions.com:dkim];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.998];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 5E6F61B6550
+X-Rspamd-Queue-Id: BE17C1B6ECA
 X-Rspamd-Action: no action
 
-Hi Bertrand,
+On 2/24/26 02:09, Jan Beulich wrote:
+> On 23.02.2026 19:49, Daniel P. Smith wrote:
+>> On 2/23/26 10:22, Jan Beulich wrote:
+>>> On 19.02.2026 19:45, Daniel P. Smith wrote:
+>>>> --- a/xen/drivers/char/console.c
+>>>> +++ b/xen/drivers/char/console.c
+>>>> @@ -554,7 +554,7 @@ struct domain *console_get_domain(void)
+>>>>        if ( !d )
+>>>>            return NULL;
+>>>>    
+>>>> -    if ( d->console->input_allowed )
+>>>> +    if ( !xsm_console_io(XSM_OTHER, d, CONSOLEIO_read) )
+>>>>            return d;
+>>>>    
+>>>>        rcu_unlock_domain(d);
+>>>> @@ -595,7 +595,7 @@ static void console_switch_input(void)
+>>>>            d = rcu_lock_domain_by_id(domid);
+>>>>            if ( d )
+>>>>            {
+>>>> -            if ( !d->console->input_allowed )
+>>>> +            if ( xsm_console_io(XSM_OTHER, d, CONSOLEIO_read) )
+>>>>                {
+>>>>                    rcu_unlock_domain(d);
+>>>>                    continue;
+>>>
+>>> At least the latter of these two can be called from an IRQ handler, and can
+>>> be called with IRQs off. Flask's avc_audit() looks to be using a spinlock,
+>>> which isn't IRQ-safe. (There may be other lock involved; I merely went as far
+>>> as I needed to to find the first one.) IOW I fear you can't call
+>>> xsm_console_io() from here.
+>>
+>> Apologies that I didn't consider the IRQ context. With that said, we
+>> can't be wiring non-XSM access control paths that circumvent FLASK's
+>> ability to control domain access to a resource.
+> 
+> I feel like I can interpret this last sentence in different ways. Are you
+> suggesting that this effort needs to be dropped, and the situation needs
+> leaving as is? If so, aren't there options to move at least a little
+> closer to what is wanted?
 
-On Wed, Feb 25, 2026 at 11:02=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> The init-time SP cache already contains partition properties, but the
-> code still builds separate subscriber arrays for VM created/destroyed
-> notifications. That duplicates state and allocation.
->
-> Use the cached SP list directly to:
-> - decide which SPs receive created/destroyed notifications
-> - build the per-domain destroy bitmap
-> - skip destroy notifications for SPs not notified on create
->
-> No functional changes.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa_partinfo.c | 155 ++++++++------------------------
->  1 file changed, 36 insertions(+), 119 deletions(-)
+What I am saying is it needs to be controlled via XSM, so a means to 
+enable that needs to be determined.
 
-Looks good:
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-Cheers,
-Jens
-
->
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index 8a3eac25f99f..d7f9b9f7153c 100644
-> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -28,12 +28,6 @@ struct ffa_partition_info_1_1 {
->      uint8_t uuid[16];
->  };
->
-> -/* SPs subscribing to VM_CREATE and VM_DESTROYED events */
-> -static uint16_t *subscr_vm_created __read_mostly;
-> -static uint16_t subscr_vm_created_count __read_mostly;
-> -static uint16_t *subscr_vm_destroyed __read_mostly;
-> -static uint16_t subscr_vm_destroyed_count __read_mostly;
-> -
->  /* SP list cache (secure endpoints only); populated at init. */
->  static void *sp_list __read_mostly;
->  static uint32_t sp_list_count __read_mostly;
-> @@ -434,14 +428,6 @@ static void ffa_sp_list_cache_free(void)
->      sp_list_entry_size =3D 0;
->  }
->
-> -static void uninit_subscribers(void)
-> -{
-> -        subscr_vm_created_count =3D 0;
-> -        subscr_vm_destroyed_count =3D 0;
-> -        XFREE(subscr_vm_created);
-> -        XFREE(subscr_vm_destroyed);
-> -}
-> -
->  static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
->                                     uint32_t fpi_size)
->  {
-> @@ -504,79 +490,6 @@ static bool ffa_sp_list_cache_init(const void *buf, =
-uint32_t count,
->      return true;
->  }
->
-> -static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_siz=
-e)
-> -{
-> -    uint16_t n;
-> -    uint16_t c_pos;
-> -    uint16_t d_pos;
-> -    struct ffa_partition_info_1_1 *fpi;
-> -
-> -    if ( fpi_size < sizeof(struct ffa_partition_info_1_1) )
-> -    {
-> -        printk(XENLOG_ERR "ffa: partition info size invalid: %u\n", fpi_=
-size);
-> -        return false;
-> -    }
-> -
-> -    subscr_vm_created_count =3D 0;
-> -    subscr_vm_destroyed_count =3D 0;
-> -    for ( n =3D 0; n < count; n++ )
-> -    {
-> -        fpi =3D buf + n * fpi_size;
-> -
-> -        /*
-> -         * We need to have secure partitions using bit 15 set convention=
- for
-> -         * secure partition IDs.
-> -         * Inform the user with a log and discard giving created or dest=
-roy
-> -         * event to those IDs.
-> -         */
-> -        if ( !FFA_ID_IS_SECURE(fpi->id) )
-> -        {
-> -            printk_once(XENLOG_ERR
-> -                        "ffa: Firmware is not using bit 15 convention fo=
-r IDs !!\n");
-> -            printk(XENLOG_ERR
-> -                   "ffa: Secure partition with id 0x%04x cannot be used\=
-n",
-> -                   fpi->id);
-> -        }
-> -        else
-> -        {
-> -            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED=
- )
-> -                subscr_vm_created_count++;
-> -            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROY=
-ED )
-> -                subscr_vm_destroyed_count++;
-> -        }
-> -    }
-> -
-> -    if ( subscr_vm_created_count )
-> -        subscr_vm_created =3D xzalloc_array(uint16_t, subscr_vm_created_=
-count);
-> -    if ( subscr_vm_destroyed_count )
-> -        subscr_vm_destroyed =3D xzalloc_array(uint16_t,
-> -                                            subscr_vm_destroyed_count);
-> -    if ( (subscr_vm_created_count && !subscr_vm_created) ||
-> -         (subscr_vm_destroyed_count && !subscr_vm_destroyed) )
-> -    {
-> -        printk(XENLOG_ERR "ffa: Failed to allocate subscription lists\n"=
-);
-> -        uninit_subscribers();
-> -        return false;
-> -    }
-> -
-> -    for ( c_pos =3D 0, d_pos =3D 0, n =3D 0; n < count; n++ )
-> -    {
-> -        fpi =3D buf + n * fpi_size;
-> -
-> -        if ( FFA_ID_IS_SECURE(fpi->id) )
-> -        {
-> -            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED=
- )
-> -                subscr_vm_created[c_pos++] =3D fpi->id;
-> -            if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROY=
-ED )
-> -                subscr_vm_destroyed[d_pos++] =3D fpi->id;
-> -        }
-> -    }
-> -
-> -    return true;
-> -}
-> -
-> -
-> -
->  bool ffa_partinfo_init(void)
->  {
->      bool ret =3D false;
-> @@ -616,48 +529,43 @@ bool ffa_partinfo_init(void)
->          goto out;
->      }
->
-> -    ret =3D init_subscribers(sp_list, sp_list_count, sp_list_entry_size)=
-;
-> +    if ( sp_list_entry_size < sizeof(struct ffa_partition_info_1_1) )
-> +    {
-> +        printk(XENLOG_ERR "ffa: partition info size invalid: %u\n",
-> +               sp_list_entry_size);
-> +        goto out;
-> +    }
-> +    ret =3D true;
->
->  out:
->      e =3D ffa_rxtx_spmc_rx_release(notify_fw);
->      if ( e )
->          printk(XENLOG_WARNING "ffa: Error releasing SPMC RX buffer: %d\n=
-", e);
-> -    if ( !ret )
-> -        uninit_subscribers();
->      if ( !ret )
->          ffa_sp_list_cache_free();
->      return ret;
->  }
->
-> -static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
-> -                              uint16_t end, uint16_t sp_id)
-> +static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
-> +                                   unsigned int first_unnotified)
->  {
->      unsigned int n;
-> +    struct ffa_partition_info_1_1 *fpi;
->
-> -    for ( n =3D start; n < end; n++ )
-> +    for ( n =3D 0; n < sp_list_count; n++ )
->      {
-> -        if ( subscr[n] =3D=3D sp_id )
-> -            return true;
-> -    }
-> -
-> -    return false;
-> -}
-> +        fpi =3D sp_list + n * sp_list_entry_size;
->
-> -static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
-> -                                   unsigned int create_signal_count)
-> -{
-> -    unsigned int n;
-> +        if ( !(fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED=
-) )
-> +            continue;
->
-> -    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
-> -    {
->          /*
->           * Skip SPs subscribed to the VM created event that never was
->           * notified of the VM creation due to an error during
->           * ffa_domain_init().
->           */
-> -        if ( is_in_subscr_list(subscr_vm_created, create_signal_count,
-> -                               subscr_vm_created_count,
-> -                               subscr_vm_destroyed[n]) )
-> +        if ( (fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED) &=
-&
-> +             n >=3D first_unnotified )
->              continue;
->
->          set_bit(n, ctx->vm_destroy_bitmap);
-> @@ -666,32 +574,39 @@ static void vm_destroy_bitmap_init(struct ffa_ctx *=
-ctx,
->
->  int32_t ffa_partinfo_domain_init(struct domain *d)
->  {
-> -    unsigned int count =3D BITS_TO_LONGS(subscr_vm_destroyed_count);
-> +    unsigned int count =3D BITS_TO_LONGS(sp_list_count);
->      struct ffa_ctx *ctx =3D d->arch.tee;
->      unsigned int n;
-> +    unsigned int first_unnotified =3D sp_list_count;
->      int32_t res;
-> +    struct ffa_partition_info_1_1 *fpi;
->
-> -    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) )
-> +    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) || !sp_list_co=
-unt )
->          return 0;
->
->      ctx->vm_destroy_bitmap =3D xzalloc_array(unsigned long, count);
->      if ( !ctx->vm_destroy_bitmap )
->          return -ENOMEM;
->
-> -    for ( n =3D 0; n < subscr_vm_created_count; n++ )
-> +    for ( n =3D 0; n < sp_list_count; n++ )
->      {
-> -        res =3D ffa_direct_req_send_vm(subscr_vm_created[n], ffa_get_vm_=
-id(d),
-> +        fpi =3D sp_list + n * sp_list_entry_size;
-> +        if ( !(fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED) =
-)
-> +            continue;
-> +
-> +        res =3D ffa_direct_req_send_vm(fpi->id, ffa_get_vm_id(d),
->                                       FFA_MSG_SEND_VM_CREATED);
->          if ( res )
->          {
->              printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %=
-u to  %u: res %d\n",
-> -                   ffa_get_vm_id(d), subscr_vm_created[n], res);
-> +                   ffa_get_vm_id(d), fpi->id, res);
-> +            first_unnotified =3D n;
->              break;
->          }
->      }
-> -    vm_destroy_bitmap_init(ctx, n);
-> +    vm_destroy_bitmap_init(ctx, first_unnotified);
->
-> -    if ( n !=3D subscr_vm_created_count )
-> +    if ( first_unnotified !=3D sp_list_count )
->          return -EIO;
->
->      return 0;
-> @@ -702,22 +617,24 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
->      struct ffa_ctx *ctx =3D d->arch.tee;
->      unsigned int n;
->      int32_t res;
-> +    struct ffa_partition_info_1_1 *fpi;
->
->      if ( !ctx->vm_destroy_bitmap )
->          return true;
->
-> -    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
-> +    for ( n =3D 0; n < sp_list_count; n++ )
->      {
->          if ( !test_bit(n, ctx->vm_destroy_bitmap) )
->              continue;
->
-> -        res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], ffa_get_v=
-m_id(d),
-> +        fpi =3D sp_list + n * sp_list_entry_size;
-> +        res =3D ffa_direct_req_send_vm(fpi->id, ffa_get_vm_id(d),
->                                       FFA_MSG_SEND_VM_DESTROYED);
->
->          if ( res && printk_ratelimit() )
->              printk(XENLOG_WARNING
->                     "%pd: ffa: Failed to report destruction of vm_id %u t=
-o %u: res %d\n",
-> -                   d, ffa_get_vm_id(d), subscr_vm_destroyed[n], res);
-> +                   d, ffa_get_vm_id(d), fpi->id, res);
->
->          /*
->           * For these two error codes the hypervisor is expected to resen=
-d
-> @@ -729,7 +646,7 @@ bool ffa_partinfo_domain_destroy(struct domain *d)
->              clear_bit(n, ctx->vm_destroy_bitmap);
->      }
->
-> -    if ( bitmap_empty(ctx->vm_destroy_bitmap, subscr_vm_destroyed_count)=
- )
-> +    if ( bitmap_empty(ctx->vm_destroy_bitmap, sp_list_count) )
->          XFREE(ctx->vm_destroy_bitmap);
->
->      return !ctx->vm_destroy_bitmap;
-> --
-> 2.52.0
->
+V/r,
+dps
 
