@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WP2vItNIoWkirwQAu9opvQ
+	id EE0FDKZmoWkJsgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 08:33:39 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 10:40:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3E931B3F27
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 08:33:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242483.1542931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 804321B577B
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 10:40:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1242543.1542941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvsLd-0003rw-TA; Fri, 27 Feb 2026 07:33:17 +0000
+	id 1vvuK2-0002Yj-5w; Fri, 27 Feb 2026 09:39:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242483.1542931; Fri, 27 Feb 2026 07:33:17 +0000
+Received: by outflank-mailman (output) from mailman id 1242543.1542941; Fri, 27 Feb 2026 09:39:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vvsLd-0003po-QA; Fri, 27 Feb 2026 07:33:17 +0000
-Received: by outflank-mailman (input) for mailman id 1242483;
- Fri, 27 Feb 2026 07:33:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vvuK2-0002Vu-2C; Fri, 27 Feb 2026 09:39:46 +0000
+Received: by outflank-mailman (input) for mailman id 1242543;
+ Fri, 27 Feb 2026 09:39:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UosC=A7=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vvsLc-0003P8-8i
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 07:33:16 +0000
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170100009.outbound.protection.outlook.com
- [2a01:111:f403:c107::9])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 939da2a3-13ae-11f1-b164-2bf370ae4941;
- Fri, 27 Feb 2026 08:33:14 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by PH0PR03MB5703.namprd03.prod.outlook.com (2603:10b6:510:30::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.14; Fri, 27 Feb
- 2026 07:33:13 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9654.014; Fri, 27 Feb 2026
- 07:33:13 +0000
+ <SRS0=hdes=A7=bounce.vates.tech=bounce-md_30504962.69a1665c.v1-f157163a010b4c50a07224fe7c27dba4@srs-se1.protection.inumbo.net>)
+ id 1vvuK0-0002Vf-Hg
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 09:39:44 +0000
+Received: from mail178-23.suw51.mandrillapp.com
+ (mail178-23.suw51.mandrillapp.com [198.2.178.23])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d64ccc0-13c0-11f1-9ccf-f158ae23cfc8;
+ Fri, 27 Feb 2026 10:39:41 +0100 (CET)
+Received: from pmta13.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail178-23.suw51.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fMjwD1HT4z35hg4R
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 09:39:40 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ f157163a010b4c50a07224fe7c27dba4; Fri, 27 Feb 2026 09:39:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,169 +48,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 939da2a3-13ae-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rJtoW1Cz720HUTRBe4380NcJfkeNk7MLnBfapSa6fb00CieE+F5jS2m/Ik0842Y8JlKQJutJz1ComPTXzRY9/KzEEHPC8v4NDKgi8UD808yYtK9sssC3qQqO7oQyLFUBclqob01sWnvk7FBdzPb2cqZOXP3GMkSd9aM/+fhTcovKeXMTxAkYmDnL98fJO+D0EyFgiOSCdUWOeHPZal7lqI3YdfjT0DGqjLoU9sbm80HVdk6JEjYRoDQ73L+dKhfLSAv/vwp9enzXGzy6smjF3CPvNMpF8fhRqxea1E9HQvINShSe1HGVvih0+g32sg6xiovZWA8od37CrLGnMA2zOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Urh8wr5J46bIDyHt/VSWqgUO0+Dn2AXVKCUHBxW0PlI=;
- b=N/3gGoM22qw4iRM+01htD4ZWlfXSqflL+6M2cLi8XZouushhXf0A22CvbN13gXy8Ah28qS2CHRpXUyW82kWlX1iNU51JuRfnHN3wZS0ynUyFLxBaMBEd0OVRVLRDGo2voPACdAj3X1LVUTMC905SifKwCKGvZBRGInH4BFvbWkYHi+2M/jxugQysrx+ba0cN3lyxhCAz6cgq7amB0+0msrBu9h/I8lG1g7ummpNhJdUtx/qc10ZBCIJS/WwFkcJ6y0c/lXVaDbFe7TDPEBTvZFF/WeMPX8+u2QifULPdk1GKKhQT9nbdnoOLKKIGawbrS8yWYbmPyFyQqIeALVr0HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Urh8wr5J46bIDyHt/VSWqgUO0+Dn2AXVKCUHBxW0PlI=;
- b=Y/HKGGPAzPpcataWaR20u7oEBgEuAbqTj4Ecqwbdm0OLGwPqigUkGm4L3nIjRw3TVGDmILW0URXh+Awjl5mV6+aRBIgyQ7FPDJcu42/SQl0QmdbRRe0yUkXaTlqFpQVHA0jZW6HirprzE9Yqm48nN2JknHF+gx09f6dkTt7ufSg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 2/2] xen/cpufreq: fix usages of align_timer() in the on-demand governor
-Date: Fri, 27 Feb 2026 08:32:59 +0100
-Message-ID: <20260227073259.1200-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260227073259.1200-1-roger.pau@citrix.com>
-References: <20260227073259.1200-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA2P292CA0002.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:1::18) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 3d64ccc0-13c0-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1772185180; x=1772455180;
+	bh=Y1nYe09ke51CdH/6D0EdVY0J4b99jSrb6M8aLy27Luw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ixcy01PAgLxpT7zq1TLjxcINUb6xHhyryIzEEcdvkHQ7nhnBz5edykZoFT/OXwB0k
+	 L+c30A9jtq6AGqpmLqUYqimYsykXlm7Cmi8KqlBZ9jxoDK5EmIXXUp6vrjYG6Miepc
+	 tUf26rUVSH44ouA1o0iQL2DGth6oYd2FaiqIxeTFkEYqb83qJdP5lT6+lpTT7qR0bz
+	 CNP6VvgJKOdhMwQw/eFvR+rVt5z4nl52Y6bbdRD91ILqLasUBP0ISEmgBx2dMxm1w/
+	 HxUmNmHoSZS23i8/+VUPx4PGWrOLUxxF4+7EELas9cSW4997G6bFs/BA8e+2bmoRSy
+	 2DKW29X9FJBiw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1772185180; x=1772445680; i=teddy.astie@vates.tech;
+	bh=Y1nYe09ke51CdH/6D0EdVY0J4b99jSrb6M8aLy27Luw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=tOz1SgFXNvE1E4F39kU6xCtAo8ZDv9AtxkBsAcGdwIpghj8WDYHibAEZIZOK5Cs7v
+	 +vA0lx7U1BN2V1IydQ2lc/aN/9ceda0BXMI98IJGHyP8S2q+nseObqGPFJCGntZt7b
+	 oiGFd6d0a7WDm+JxWToeeoCKunIibakgd5h9xevPITf5YglP5if321+a/pM/zQyOv3
+	 DN+1mFnbPvkoJSp3poqih2X5Qn3MV83XZXSvYxq1O42U/7bmCgVe5BZyfPj4DXzfKo
+	 CTA3hsl2gHNA3BTVoZM40bGhxuwQDbfANSUgebwfN33Tv5qinWJvlRsZ+a+UTLIOUh
+	 yE74SFH30N5+A==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v4=2005/10]=20xen/domain:=20Add=20DOMCTL=20handler=20for=20claiming=20memory=20with=20NUMA=20awareness?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1772185177224
+Message-Id: <a1b1daa3-a70e-454e-9cdc-42e26b204a0f@vates.tech>
+To: "Bernhard Kaindl" <bernhard.kaindl@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Andrew Cooper" <andrew.cooper@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Roger Pau Monne" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <cover.1772098423.git.bernhard.kaindl@citrix.com> <b2c94f0c3b41976b2691ce15b9f9a2589370e65a.1772098423.git.bernhard.kaindl@citrix.com> <656ff614-9165-49ce-8c55-0cfad33d4ed6@vates.tech> <LV3PR03MB77072E23139DF353E7B8C9D28772A@LV3PR03MB7707.namprd03.prod.outlook.com>
+In-Reply-To: <LV3PR03MB77072E23139DF353E7B8C9D28772A@LV3PR03MB7707.namprd03.prod.outlook.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f157163a010b4c50a07224fe7c27dba4?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260227:md
+Date: Fri, 27 Feb 2026 09:39:40 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH0PR03MB5703:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffe9cd97-6320-4dac-ef6f-08de75d276bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	/gK9hHoonsgV4cbJtvfgqTm8vci9w6XYjlXb5bGtBMUKh1StLxm5DZe3uwZTLtiY5Wwfh4noHQmpE7mowoSNOtJ5d0KdjCJa5JzVCX9+YhQUNDifDZ1Cjm8mVM5wqXX3cx0MiUu9JYt7Y30NIaAfo5xxfrYATN68kd6BKWnDj6kuEQZIyLLER9sL/WCEbKI2YhE8Xpzc9VEeYrwDClsrbLn+z9FJZnh2ITViQmgW3XQbwOPVe3OOkCe7fZkMSHnmQRtsyKzLZasRR8dhJYMJIVI6bu4teSTSqSgdZdu9pSHc9jtuGcTbcLCqo4jphDmQqrUyLtKZAhPNNabsZRr+KT0+zaQuCbjrGXlgVkrfVTtJEkJ3AHDjJ6TPohObOfsHTmzvuohIWZUcG45yBgBbZ8TwtzfvpZbcPLlOmMdcpZpR74wV1rjpKkYKVFv1CkJADu6yKaTUdFwv+j3cPxNk0f6AveoZWo1+mPqB+RdZKdUdtnXnOtVqsJE6+uSvXb/XCPQW4h366wuKHSwq4gmBGuXq24Mb8FcQ53gpNkG287JFYk9xC9jdm7P+mZou4wr1tDbARKvG0FFjsHorMx1Jk8TT710g1BJw98VNeOGDlIXzMsom+8yI5kECAgJQpXjwtvRkvYPu3QMQAp755VKR7YCbg/AL7m5F5b+M7r/SAq7FeiJEG5TJW1Q8iug8ypNl5oavLg65M+OTvxKL3tr2olqzE0tGGSYcOQf4UMy/Q3g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enFoWkhjam5rMEtIWDhuempNZW5EdTRnWWVwa045YmpxcjJZcTlwQmJzcTlZ?=
- =?utf-8?B?MVJYd3RnSVhlWlFoekRIMmx3SWZMVHcwTnNkRVA3bDNEMXRiQlVBazhnQlJY?=
- =?utf-8?B?N1ZQa2M2TWpqQlFaTWw1OWQzSU1FREJWNE4yckNESDBhL0RCY1JtWFlBR0E5?=
- =?utf-8?B?dkp2ODJOd2JycWN0ZDZkQ3ZzVFVZUU40Um1rQWFqNUVON1lKMUJlcnlUc01K?=
- =?utf-8?B?MDQxa3lNMGI0dnExL0l0YjAvSkhORFFLY1I2THhtQlJTSUprSXNGY05EZ0Nw?=
- =?utf-8?B?Y3phckNnMU9aLzdnMmdZcERQRXN6RXdHNXVUKzVrYi9MUTNlWkdWdFByd2Jj?=
- =?utf-8?B?Tm9PZDlMbUxOY1hrT3pBNUErVVJ0czZyZEVWM3gvNkdSNGIwT0lKSGhUeXQz?=
- =?utf-8?B?aUswdVhBNE5LcUo3K3A0WTlYa00vRlVUaHF4SnU2SEJoOXdGRC9Ha1l5MGdW?=
- =?utf-8?B?UVNhbXlUNUgxUTRYR2NMeXZzTVI2YXdEcGt5Wm9xVjBGWnloR3NwcE01WFd0?=
- =?utf-8?B?djNZdlJxSUM5cEhtVGpBT2NDRHVYTnFBaUNkSnI5Zmd0WXNHT2VHRkdXelVq?=
- =?utf-8?B?M2ExRkwrblJnc1lpektXL2FTaElwV21yOWR0b1BwZkQvTEV3aWFqN3lJRUYr?=
- =?utf-8?B?cm5HanFkMkNxS3Q0bkVnazN4TTMxcXAvQWlvU1hZdUFMRXVrNWlBR2dGbVNk?=
- =?utf-8?B?TG9qUUFlS1YrYVkydUdEMG51cDBFTTI4Um1SMER5S0NHRldyVVZNNzBVNUYy?=
- =?utf-8?B?QTg1TGlMTlN0YytwMm1iOTk3eDJRSDIyb2tWcGIrb0lJU0F5aDJQUU9DbW1x?=
- =?utf-8?B?dEtXczVSVHJLMy9QMW5MT0puRG96aGNOcUloK01ucnQ2TCtRN2ZpWkJkTHJo?=
- =?utf-8?B?enc5NS9GNUlDZVdkVVdhd1VqbFZwQkRKdWMra0d5QnJlbG02VStBUy9iR3BZ?=
- =?utf-8?B?bG9ndjlmVHFDVVlsLzdkOU0reEZEOUtMWFhsSkpWZndyWUNoS1ZFWUZJcmxR?=
- =?utf-8?B?Zk4vb3lrc3d2eVdxNldEa2hTdWsyQUJpUmdwUlFYeUF3ZGZkeXFCQnZEaHBj?=
- =?utf-8?B?b0VPUGZhR0gxZ0VkS0lHV1orNHA3REp5OHF1TC93czBXN3dnd255MXZQZnpy?=
- =?utf-8?B?bTcxWUFPQytYMFk2L2VBTVdjcEZKSGQvR0VOSGM3VUZPZzRZRE1taktCZys1?=
- =?utf-8?B?aWUzK1JnY081UE82TTV3L1BRMFdWcmNpVWs1cCtHMjFrWVhVVXBDV1c0QTR3?=
- =?utf-8?B?L203aVRlUStYSkoyNFFtNkYrazA1R3prY3JRSmxrSjl0RGxWcTBrVklLbUlT?=
- =?utf-8?B?YjUySzdMdnh5TVVYakVHRExpczJzWXh2UXZtb3h1T0R3Sis5R1ZyNmRjRTVM?=
- =?utf-8?B?UmphaE5PNndMdjBPUmRwU0ZFZXpzbjhCT3V0bDNGMCszNjNIY3ZLYjhCNUd6?=
- =?utf-8?B?NlpYYjBXcjAzTTRYYWpzNGZZTzEvWTA0MVM3TTlvVWZ5ZUI0cmY1RC9WdHh4?=
- =?utf-8?B?TXV1dUFjS1dMcTRvaGdGSVAwaVc4UEhISFhIS0NNZTI0Y2U5VUdUVGMyQUZu?=
- =?utf-8?B?b0hpRjN6cmRXaUZFMGZxbVZDU3FvRWdZbnpkajhuQjIxVEg3L0dNQnR5bmZo?=
- =?utf-8?B?Y05rUmNsMmxURTV3VFhxYzA2RHdENkJ2ZjNZYjk5MmVHeklwangxTUcxaUd6?=
- =?utf-8?B?YVdhWU9zU2NoV0lYbzdOaGsyczdNQ3F2UzJMdDlKcjVBZE5OcWJWOXZKRGtq?=
- =?utf-8?B?QWZuOVRvSmlkNFlJeWtRVnArQTIyMzNpVGtNVlZ1c2VoSXhUU3hTY0xQNDZY?=
- =?utf-8?B?VXV1MnFacDJLSDUvWXBlaDVZQzV4blpvSDdNeFdXZFRkQTZVQUpRZXFkUW00?=
- =?utf-8?B?b2lXeUhmS0svaW1MQkJLZXkwNGFkOExXWDczTmVCVWdXdDRvZEEzQ005K1Bj?=
- =?utf-8?B?N1Y5c2wzVFV5VnZDMklZa2RXbzV0emRyUWVsVE91cWZ6QWdXcDl4emp5SklM?=
- =?utf-8?B?U1JWUjdMdFlTbFgrWVVlZzZXbDErNGc2bWtOeGtuU1BrcG9GbEh1cTBJSUla?=
- =?utf-8?B?K0E4UXg4QTlLeUpVbHV5MXg5ZzNhM2tPZm10YnphNCtkZWlDYTR6cEVFelNR?=
- =?utf-8?B?VTFQUElpZE9LMCtQR2Q1MkV5Y0hTOXRxVTBZbDdmTndna2YrUkNuVHFycVdK?=
- =?utf-8?B?Z2V4QXREZlg4c2tyVEdqYUdpbkJlQlBYKzJKU3JaNzVUQ3ZmdjRuTGUyS0hv?=
- =?utf-8?B?Z3dRSzNUOGxhdVQ1MzRGcEhqbS96enlMaUQxWFExQVhxL0ZuTHpWTVpNRng5?=
- =?utf-8?B?bXhNc0tPYnlRS0NrN211S051b2k0UEpjU2hIMDVqU0o0RmQvc1FjQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffe9cd97-6320-4dac-ef6f-08de75d276bc
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2026 07:33:13.0607
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ExjLJYqKk5lAEusCu3nxSVssao2mNXqRJTzTiq8XcftxL9jVLFaKTfh4/Qa+Te1mwhnQxcwVr2sBIPa0uAW8rA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5703
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:jbeulich@suse.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,patchew.org:url,xenproject.org:url,xenserver.com:url];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	NEURAL_HAM(-0.00)[-0.999];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_SPAM(0.00)[1.000];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E3E931B3F27
+X-Rspamd-Queue-Id: 804321B577B
 X-Rspamd-Action: no action
 
-The first parameter passed to align_timer() is the timer expiration, not
-the current time.  Adjust the calls to align_timer() in the on-demand
-governor to pass the expected timer expiration as the first parameter.
+Le 27/02/2026 =C3=A0 00:21, Bernhard Kaindl a =C3=A9crit=C2=A0:
+> On 26/02/2026 =C3=A0 22:19, Teddy Astie a =C3=A9crit :
+>> Le 26/02/2026 =C3=A0 15:54, Bernhard Kaindl a =C3=A9crit :
+>>> Add a DOMCTL handler for claiming memory with NUMA awareness. It
+>>> rejects claims when LLC coloring (does not support claims) is enabled
+>>> and translates the public constant to the internal NUMA_NO_NODE.
+>>>
+>>> The request is forwarded to domain_set_outstanding_pages() for the
+>>> actual claim processing. The handler uses the same XSM hook as the
+>>> legacy XENMEM_claim_pages hypercall.
+>>>
+>>> While the underlying infrastructure currently supports only a single
+>>> claim, the public hypercall interface is designed to be extensible for
+>>> multiple claims in the future without breaking the API.
+>> I'm not sure about the idea of introducing a new hypercall for this
+>> operation. Though I may be missing some context about the reasons of
+>> introducing a new hypercall.
+>>
+>> XENMEM_claim_pages doesn't have actual support for NUMA, but the
+>> hypercall interface seems to define it (e.g you can pass
+>> XENMEMF_exact_node(n) to mem_flags). Would it be preferable instead to
+>> make XENMEM_claim_pages aware of NUMA-related XENMEMF flags ?
+> 
+> Hello Teddy,
+> 
+> Thank you for your review =E2=80=94 much appreciated.
+> 
+> Updating the do_memory_op(XENMEM_claim_pages) handler to accept a node
+> parameter, as you suggested, is indeed a practical way to retrofit this
+> feature into existing Xen builds. That=E2=80=99s also the approach we too=
+k in
+> v1 of this series:
+> 
+> * https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg01127.h=
+tml
+> * https://patchew.org/Xen/20250314172502.53498-1-alejandro.vallejo@cloud.=
+com/
+> 
+> We are currently using this approach also in the XS9 Public Preview:
+> 
+> * https://www.xenserver.com/downloads/xs9-preview
+> 
+> That said, during review, Roger Pau Monn=C3=A9 suggested that for upstrea=
+m
+> inclusion, we should introduce a new hypercall API with support for
+> multi-node claims, even if the initial infrastructure only handles
+> a single node. See:
+> 
+> * https://lists.xenproject.org/archives/html/xen-devel/2025-06/msg00484.h=
+tml
+> 
+> He raised the concern that the current interface effectively constrains
+> domains to be allocated from one node at a time, or to sequence claims
+> across nodes, which undermines the purpose of claims.
+> 
+> Instead, he proposed that the hypercall interface would ideally allow
+> making multi-node claims atomically, rather than requiring multiple
+> calls with rollback in case of failure.
+> 
+> I favour Roger=E2=80=99s position as well: I think we should aim for a cl=
+ean
+> and extensible interface that supports claims across multiple nodes
+> in a single call. Otherwise, we risk having to introduce yet another
+> hypercall later when a real-world scenario requires multi-node claims.
+> 
+> On the implementation side, a reliable first-come, first-served mechanism
+> for multi-node claims will require serialisation in the central claim pat=
+h.
+> Currently, the global heap_lock provides that protection, and it would
+> naturally cover the creation of a multi-node claim under a single lock,
+> ensuring atomicity and consistent behaviour.
+> 
 
-Fixes: af74e3a15a83 ("cpufreq: align dbs timer for better package C state residency")
-Fixes: 382b95f627a9 ("Fix cpufreq HW-ALL coordination handle")
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/drivers/cpufreq/cpufreq_ondemand.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Ok thanks.
 
-diff --git a/xen/drivers/cpufreq/cpufreq_ondemand.c b/xen/drivers/cpufreq/cpufreq_ondemand.c
-index 537695eaab19..0d94c0e464a6 100644
---- a/xen/drivers/cpufreq/cpufreq_ondemand.c
-+++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
-@@ -185,7 +185,8 @@ static void cf_check do_dbs_timer(void *dbs)
-     dbs_check_cpu(dbs_info);
- 
-     set_timer(&per_cpu(dbs_timer, dbs_info->cpu),
--            align_timer(NOW() , dbs_tuners_ins.sampling_rate));
-+              align_timer(NOW() + dbs_tuners_ins.sampling_rate,
-+                          dbs_tuners_ins.sampling_rate));
- }
- 
- static void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
-@@ -400,6 +401,6 @@ void cpufreq_dbs_timer_resume(void)
-             (void)cmpxchg(stoppable, -1, 1);
-         }
-         else
--            set_timer(t, align_timer(now, dbs_tuners_ins.sampling_rate));
-+            set_timer(t, align_timer(t->expires, dbs_tuners_ins.sampling_rate));
-     }
- }
--- 
-2.51.0
+Should we state that the old interface is "deprecated" (somehow), and 
+that people should take a look at XEN_DOMCTL_claim_memory instead, 
+especially if they need a NUMA-aware interface ?
+That could be a note on the XENMEM_claim_memory hypercall.
+
+> Thanks again for the review and feedback!
+> > Best regards / Bien cordialement / Saludos / Liebe Gr=C3=BC=C3=9Fe,
+> 
+> With warm greetings from Vienna/Austria,
+> Bernhard
+
+Teddy
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
