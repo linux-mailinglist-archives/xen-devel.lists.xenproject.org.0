@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sEQHNvAlomnZ0AQAu9opvQ
+	id ZfNyOfAlommG0QQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6261BEEEF
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D5A1BEEF0
 	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1243138.1543134 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1243147.1543204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw74f-0000lR-8s; Fri, 27 Feb 2026 23:16:45 +0000
+	id 1vw74p-0002Uv-PQ; Fri, 27 Feb 2026 23:16:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1243138.1543134; Fri, 27 Feb 2026 23:16:45 +0000
+Received: by outflank-mailman (output) from mailman id 1243147.1543204; Fri, 27 Feb 2026 23:16:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw74f-0000jq-50; Fri, 27 Feb 2026 23:16:45 +0000
-Received: by outflank-mailman (input) for mailman id 1243138;
- Fri, 27 Feb 2026 23:16:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vw74p-0002R4-Fu; Fri, 27 Feb 2026 23:16:55 +0000
+Received: by outflank-mailman (input) for mailman id 1243147;
+ Fri, 27 Feb 2026 23:16:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gz2F=A7=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vw74d-0008WD-T1
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 23:16:43 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60dd154e-1432-11f1-b164-2bf370ae4941;
- Sat, 28 Feb 2026 00:16:43 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-436309f1ad7so2114584f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 15:16:43 -0800 (PST)
+ id 1vw74n-0001Do-0Y
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 23:16:53 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 61d57dc2-1432-11f1-9ccf-f158ae23cfc8;
+ Sat, 28 Feb 2026 00:16:44 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-4375d4fb4d4so1676483f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 15:16:44 -0800 (PST)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c70e8e8sm9680306f8f.10.2026.02.27.15.16.39
+ ffacd0b85a97d-4399c70e8e8sm9680306f8f.10.2026.02.27.15.16.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 15:16:40 -0800 (PST)
+ Fri, 27 Feb 2026 15:16:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,48 +50,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60dd154e-1432-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 61d57dc2-1432-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1772234202; x=1772839002; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1772234204; x=1772839004; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qm1+0hl5wg0cTPkZkQcfwjLCPbdvhVekwrZIT03s7DQ=;
-        b=NhvaORhEENEHrYdMpzFOb00mPzdMS8s5p3eibErAyaHS4HN5cZMw0VCwtVsAfoVCUS
-         FezmlqiwMN81ItFbwEasbRZTCpP7QdY5HXGERw0ZvGFlDrA39NOOpy8G0qLUmGn1WCdf
-         vsr6rSX0DSuobDRlofwDyt9M2ufMohsvkWFH8=
+        bh=XgdpzNU2ggPbFTgmu4VQz6T9b6r+7R4jXsnlPDE3Rcg=;
+        b=NHLWGZQfYMaqUS/TGKOv5SxPxfjZXs9FFoH+q1SFnWgC+VSzNCtVY3yYo4DJkdeaEe
+         2snzK35OXTjfKKkGbtlWZmM9oD9MugXYCiYwCbBXTo/U5gCXtli5LHVnADr8UnvNP9n5
+         WfLp1NMIUDoNk/9ZcExzZo57GoZA3SaOsEIUQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772234202; x=1772839002;
+        d=1e100.net; s=20230601; t=1772234204; x=1772839004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=qm1+0hl5wg0cTPkZkQcfwjLCPbdvhVekwrZIT03s7DQ=;
-        b=jtbBe6sK4hUekdOHZSj7/gFRhXMsOehouPHBhHPFf7DYOVCnFV/urAr5LClLPMJdmu
-         c3I6yYQ8N0NonZbel7gmPgTx0BsZIgVfi500ltLJOwig1JcUZBOKX1FHnw4Aj1v0kq7M
-         rsgAUk6e3qR/U1xMiTejgkeIghFYVEmMQMHrT8GiURTpy8bFUI0noz8ShoQLj/3ex8zO
-         66Zs2FxqyVARxEhvMUzkKHb0N65OyfjUIbqnqRZfHNmRUnVL64FCcy9xpOrXFCNQThP1
-         0M+7YyLN0/bZMdJ4QVeY1ieaiM2kNJ69H7lzcwQ+YrAZKMAsQO39SrY87OO1FviCd/F2
-         y30g==
-X-Gm-Message-State: AOJu0YxWfm9Xw5aMV35qa9obqqE3HDHEVJt3OcxxxOuS2v4fIVM3GkQE
-	6t2XNUXH1ME0OLfmrOOOjUldlDtmsoObosKQp/43B7PdKlw4bF58gAsQMjuXRGUAbpbVBv9cjSj
-	q+BMS
-X-Gm-Gg: ATEYQzwOOi0gYW1S98Cu8s0fLFST1in5LE8muKd2HEcSE0ilbhs60OlAjjc4JjQjObp
-	GKx6JPoNKAgJqiX9Syk3x8ZSMK807qwS5tkHn0wie++zk9JNIx5pNedmw1Dgqgr4VvxCzH1eqle
-	odeSkCUQM+wn94ktZUF9JJSeMfPpQ2zT7TYfwL2b9wpkIfWdwZADGNrKncfgjg9PMlnPlaHvvVg
-	VE8iN2ydvjBKl1fgX1a6ck9BKlMzmBwOFaVFDcNEpYZSxkeSlilcX8kT70MjouHu6HKsDud+Grh
-	Qp0Rx3CP3wAfYndQs8aB3t0vCIfUCd8tC2BWNzxQwy6gXhN/3CkxFH4C5ePhCXFKrqf6dR3DxyY
-	PJw8VvXnw++M6RWMMZ+5m+J2Z0pTlv21J7V6okdA/m2CG7hHW2atBFq/QJxfAvO114wkmUHc3VA
-	4Wm56gSxcj574NYLqxR0BPqgT5DNW4siz1zy8+r7SJkcxjYbLkWk9xECn4X6tuf1uuGUcCvdI=
-X-Received: by 2002:a05:6000:2313:b0:439:84cb:288d with SMTP id ffacd0b85a97d-4399de2cb36mr7877033f8f.41.1772234201407;
-        Fri, 27 Feb 2026 15:16:41 -0800 (PST)
+        bh=XgdpzNU2ggPbFTgmu4VQz6T9b6r+7R4jXsnlPDE3Rcg=;
+        b=Ru1sBgrIwWgS0SBT+bzWP0s/rlq3QpigeUxOUNx5Ss6rk8vEABOC/9H7vHqGAEqoeW
+         6vCR/nK+BbEPCak8PmGWqvFhnSOYOn8Pcx3Z2I0qI5kMQ312Vu5xsrb6BKFKQUUCYUGL
+         u6GGXWolKmvaLkTrFr76pqdSbyL+t10gMeSkfxFET53Om7ixD/OIgkkPpl955cG5ZXTd
+         KzkNiwAVYUOB6fkeNz/HHETDCQGdXH14ZNQ6ie8vHwoLIedw2NZ+UHreMYaD2qEX6DPr
+         lYZsxM6m9QOG1iDB+67GxRfp2JYLdQqIatp/SQhj5ugUSL6SFqec25iLaShyQMEIqmAI
+         Fyzw==
+X-Gm-Message-State: AOJu0Yyvw0A8CToqUVAGGeQSlQ9Ief5UBEUKW7LWZLtZi44eOXEDbEX7
+	br8yQMmqN8AwgsBaWKMT4UXI1+dv0zvuSGcNYhaYrbLRGXn5i4GzQ+SuJ2LdAc3w8gRBoE76hkE
+	KVnqB
+X-Gm-Gg: ATEYQzwFJhY2pvvPWauC8sr1+iqhPKbXOp9/LiLG7q6P2bzQdo8g2kjSwV8RWK7zaUG
+	ziuQM5w9FyVTNpKKzkr+Fgffzed3jJ3+MG7/SEiD7cZdxhH5x2wj6tFSgRrnPIzM3rU/AD0rjz3
+	0wgyZzGbfcz+p9xc/h02/4uJ//eqVACbRgDDiBKQmMPOYwRga/OTjyNLd65JPoscsmfcuXqR6mm
+	DnLp4cEMWuY8wH0i8RQuhlfxbrDe40ObarrMDtZl/TYbTcuIbfUe793/Ms4QURbx8UgEvu3O+ET
+	xIyN4Ijd8SqdSOEXBYvrpaVeVloWtj6hROhVpu+YaKNasz2Z5924BpmTTnNiZM1mi3F6E8grVdX
+	x2Fk2DHezKNjiv/VRklyBkpAGbHkIcXZYVi74cpEucftIMboO6V+c4LquWsMw1eiqizmzhMDlU0
+	vZhojuy1rfg2nBD5g60yIFHigapjSLPD022QLLHbi1q5WR4YenbKU6vifv8DkDTgAfshyZ4p0=
+X-Received: by 2002:a05:6000:420d:b0:439:8a4f:5250 with SMTP id ffacd0b85a97d-4399dde503fmr7936970f8f.17.1772234203211;
+        Fri, 27 Feb 2026 15:16:43 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 01/14] x86/pv: Don't assume that INT $imm8 instructions are two bytes long
-Date: Fri, 27 Feb 2026 23:16:23 +0000
-Message-Id: <20260227231636.3955109-2-andrew.cooper3@citrix.com>
+Subject: [PATCH v4 02/14] docs/guest-guide: Describe the PV traps and entrypoints ABI
+Date: Fri, 27 Feb 2026 23:16:24 +0000
+Message-Id: <20260227231636.3955109-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
 References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
@@ -99,24 +99,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.81 / 15.00];
+X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	SUBJECT_HAS_CURRENCY(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:mid,citrix.com:dkim,citrix.com:email];
 	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -131,141 +130,180 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5E6261BEEEF
+X-Rspamd-Queue-Id: 67D5A1BEEF0
 X-Rspamd-Action: no action
 
-For INT $N instructions (besides $0x80 for which there is a dedicated fast
-path), handling is mostly fault-based because of DPL0 gates in the IDT.  This
-means that when the guest kernel allows the instruction too, Xen must
-increment %rip to the end of the instruction before passing a trap to the
-guest kernel.
-
-When an INT $N instruction has a prefix, it's longer than two bytes, and Xen
-will deliver the "trap" with %rip pointing into the middle of the instruction.
-
-Introduce a new pv_emulate_sw_interrupt() which uses x86_insn_length() to
-determine the instruction length, rather than assuming two.
-
-This is a change in behaviour for PV guests, but the prior behaviour cannot
-reasonably be said to be intentional.
-
-This change does not affect the INT $0x80 fastpath.  Prefixed INT $N
-instructions occur almost exclusively in test code or exploits, and INT $0x80
-appears to be the only user-usable interrupt gate in contemporary PV guests.
+... seeing as I've had to thoroughly reverse engineer it for FRED and make
+tweaks in places.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 
+Obviously there's a lot more in need of doing, but this is at least a start.
+
 v4:
  * New
 ---
- xen/arch/x86/include/asm/pv/traps.h |  2 ++
- xen/arch/x86/pv/emul-priv-op.c      | 48 +++++++++++++++++++++++++++++
- xen/arch/x86/traps.c                |  3 +-
- 3 files changed, 51 insertions(+), 2 deletions(-)
+ docs/glossary.rst                 |   3 +
+ docs/guest-guide/x86/index.rst    |   1 +
+ docs/guest-guide/x86/pv-traps.rst | 123 ++++++++++++++++++++++++++++++
+ 3 files changed, 127 insertions(+)
+ create mode 100644 docs/guest-guide/x86/pv-traps.rst
 
-diff --git a/xen/arch/x86/include/asm/pv/traps.h b/xen/arch/x86/include/asm/pv/traps.h
-index 8c201190923d..16e9a8d2aa3f 100644
---- a/xen/arch/x86/include/asm/pv/traps.h
-+++ b/xen/arch/x86/include/asm/pv/traps.h
-@@ -17,6 +17,7 @@
- int pv_raise_nmi(struct vcpu *v);
+diff --git a/docs/glossary.rst b/docs/glossary.rst
+index 6adeec77e14c..c8ab2386bc6e 100644
+--- a/docs/glossary.rst
++++ b/docs/glossary.rst
+@@ -43,6 +43,9 @@ Glossary
+      Sapphire Rapids (Server, 2023) CPUs.  AMD support only CET-SS, starting
+      with Zen3 (Both client and server, 2020) CPUs.
  
- int pv_emulate_privileged_op(struct cpu_user_regs *regs);
-+void pv_emulate_sw_interrupt(struct cpu_user_regs *regs);
- void pv_emulate_gate_op(struct cpu_user_regs *regs);
- bool pv_emulate_invalid_op(struct cpu_user_regs *regs);
++   event channel
++     A paravirtual facility for guests to send and recieve interrupts.
++
+    guest
+      The term 'guest' has two different meanings, depending on context, and
+      should not be confused with :term:`domain`.
+diff --git a/docs/guest-guide/x86/index.rst b/docs/guest-guide/x86/index.rst
+index 502968490d9d..5b38ae397a9f 100644
+--- a/docs/guest-guide/x86/index.rst
++++ b/docs/guest-guide/x86/index.rst
+@@ -7,3 +7,4 @@ x86
+    :maxdepth: 2
  
-@@ -31,6 +32,7 @@ static inline bool pv_trap_callback_registered(const struct vcpu *v,
- static inline int pv_raise_nmi(struct vcpu *v) { return -EOPNOTSUPP; }
- 
- static inline int pv_emulate_privileged_op(struct cpu_user_regs *regs) { return 0; }
-+static inline void pv_emulate_sw_interrupt(struct cpu_user_regs *regs) {}
- static inline void pv_emulate_gate_op(struct cpu_user_regs *regs) {}
- static inline bool pv_emulate_invalid_op(struct cpu_user_regs *regs) { return true; }
- 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index a3c1fd12621d..87d3bbcf901f 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <xen/domain_page.h>
-+#include <xen/err.h>
- #include <xen/event.h>
- #include <xen/guest_access.h>
- #include <xen/hypercall.h>
-@@ -1401,6 +1402,53 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
-     return 0;
- }
- 
-+/*
-+ * Hardware already decoded the INT $N instruction and determinted that there
-+ * was a DPL issue, hence the #GP.  Xen has already determined that the guest
-+ * kernel has permitted this software interrupt.
-+ *
-+ * All that is needed is the instruction length, to turn the fault into a
-+ * trap.  All errors are turned back into the original #GP, as that's the
-+ * action that really happened.
-+ */
-+void pv_emulate_sw_interrupt(struct cpu_user_regs *regs)
-+{
-+    struct vcpu *curr = current;
-+    struct domain *currd = curr->domain;
-+    struct priv_op_ctxt ctxt = {
-+        .ctxt.regs = regs,
-+        .ctxt.lma = !is_pv_32bit_domain(currd),
-+    };
-+    struct x86_emulate_state *state;
-+    uint8_t vector = regs->error_code >> 3;
-+    unsigned int len, ar;
+    hypercall-abi
++   pv-traps
+diff --git a/docs/guest-guide/x86/pv-traps.rst b/docs/guest-guide/x86/pv-traps.rst
+new file mode 100644
+index 000000000000..2ff18e2f9454
+--- /dev/null
++++ b/docs/guest-guide/x86/pv-traps.rst
+@@ -0,0 +1,123 @@
++.. SPDX-License-Identifier: CC-BY-4.0
 +
-+    if ( !pv_emul_read_descriptor(regs->cs, curr, &ctxt.cs.base,
-+                                  &ctxt.cs.limit, &ar, 1) ||
-+         !(ar & _SEGMENT_S) ||
-+         !(ar & _SEGMENT_P) ||
-+         !(ar & _SEGMENT_CODE) )
-+        goto error;
++PV Traps and Entrypoints
++========================
 +
-+    state = x86_decode_insn(&ctxt.ctxt, insn_fetch);
-+    if ( IS_ERR_OR_NULL(state) )
-+        goto error;
++.. note::
 +
-+    len = x86_insn_length(state, &ctxt.ctxt);
-+    x86_emulate_free_state(state);
++   The details here are specific to 64bit builds of Xen.  Details for 32bit
++   builds of Xen, are different and not discussed further.
 +
-+    /* Note: Checked slightly late to simplify 'state' handling. */
-+    if ( ctxt.ctxt.opcode != 0xcd /* INT $imm8 */ )
-+        goto error;
++PV guests are subject to Xen's linkage setup for events (interrupts,
++exceptions and system calls).  x86's IDT architecture and limitations are the
++majority influence on the PV ABI.
 +
-+    regs->rip += len;
-+    pv_inject_sw_interrupt(vector);
-+    return;
++All external interrupts are routed to PV guests via the :term:`Event Channel`
++interface, and not discussed further here.
 +
-+ error:
-+    pv_inject_hw_exception(X86_EXC_GP, regs->entry_vector);
-+}
++What remain are exceptions, and the instructions which cause a control
++transfers.  In the x86 architecture, the instructions relevant for PV guests
++are:
 +
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 5feac88d6c0b..907fb4c186c0 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1379,8 +1379,7 @@ void do_general_protection(struct cpu_user_regs *regs)
- 
-         if ( permit_softint(TI_GET_DPL(ti), v, regs) )
-         {
--            regs->rip += 2;
--            pv_inject_sw_interrupt(vector);
-+            pv_emulate_sw_interrupt(regs);
-             return;
-         }
-     }
++ * ``INT3``, which generates ``#BP``.
++
++ * ``INTO``, which generates ``#OF`` only if the overflow flag is set.  It is
++   only usable in compatibility mode, and will ``#UD`` in 64bit mode.
++
++ * ``CALL (far)`` referencing a gate in the GDT.
++
++ * ``INT $N``, which invokes an arbitrary IDT gate.  These four instructions
++   so far all check the gate DPL and will ``#GP`` otherwise.
++
++ * ``INT1``, also known as ``ICEBP``, which generates ``#DB``.  This
++   instruction does *not* check DPL, and can be used unconditionally by
++   userspace.
++
++ * ``SYSCALL``, which enters CPL0 as configured by the ``{C,L,}STAR`` MSRs.
++   It is usable if enabled by ``MSR_EFER.SCE``, and will ``#UD`` otherwise.
++   On Intel parts, ``SYSCALL`` is unusable outside of 64bit mode.
++
++ * ``SYSENTER``, which enters CPL0 as configured by the ``SEP`` MSRs.  It is
++   usable if enabled by ``MSR_SYSENTER_CS`` having a non-NUL selector, and
++   will ``#GP`` otherwise.  On AMD parts, ``SYSENTER`` is unusable in Long
++   mode.
++
++
++Xen's configuration
++-------------------
++
++Xen maintains a complete IDT, with most gates configured with DPL0.  This
++causes most ``INT $N`` instructions to ``#GP``.  This allows Xen to emulate
++the instruction, referring to the guest kernels vDPL choice.
++
++ * Vectors 3 ``#BP`` and 4 ``#OF`` are DPL3, in order to allow the ``INT3``
++   and ``INTO`` instructions to function in userspace.
++
++ * Vector 0x80 is DPL3 in order to implement the legacy system call fastpath
++   commonly found in UNIXes.
++
++ * Vector 0x82 is DPL1 when PV32 is enabled, allowing the guest kernel to make
++   hypercalls to Xen.  All other cases (PV32 guest userspace, and both PV64
++   modes) operate in CPL3 and this vector behaves like all others to ``INT
++   $N`` instructions.
++
++A range of the GDT is guest-owned, allowing for call gates.  During audit, Xen
++forces all call gates to DPL0, causing their use to ``#GP`` allowing for
++emulation.
++
++Xen enables ``SYSCALL`` in all cases as it is mandatory in 64bit mode, and
++enables ``SYSENTER`` when available in 64bit mode.
++
++When Xen is using FRED delivery the hardware configuration is substantially
++different, but the behaviour for guests remains as unchanged as possible.
++
++
++PV Guest's configuration
++------------------------
++
++The PV ABI contains the "trap table", modelled very closely on the IDT.  It is
++manipulated by ``HYPERCALL_set_trap_table``, has 256 entries, each containing
++a code segment selector, an address, and flags.  A guest is expected to
++configure handlers for all exceptions; failure to do so is terminal similar to
++a Triple Fault.
++
++Part of the GDT is guest owned with descriptors audited by Xen.  This range
++can be manipulated with ``HYPERVISOR_set_gdt`` and
++``HYPERVISOR_update_descriptor``.
++
++Other entrypoints are configured via ``HYPERVISOR_callback_op``.  Of note here
++are the callback types ``syscall``, ``syscall32`` (relevant for AMD parts) and
++``sysenter`` (relevant for Intel parts).
++
++.. warning::
++
++   Prior to Xen 4.15, there was no check that the ``syscall`` or ``syscall32``
++   callbacks had been registered before attempting to deliver via them.
++   Guests are strongly advised to ensure the entrypoints are registered before
++   running userspace.
++
++
++Notes
++-----
++
++``INT3`` vs ``INT $3`` and ``INTO`` vs ``INT $4`` are hard to distinguish
++architecturally as both forms have a DPL check and use the same IDT vectors.
++Because Xen configures both as DPL3, the ``INT $`` forms do not fault for
++emulation, and are treated as if they were exceptions.  This means the guest
++can't block these instruction by trying to configure them with vDPL0.
++
++The instructions which trap into Xen (``INT $0x80``, ``SYSCALL``,
++``SYSENTER``) but can be disabled by guest configuration need turning back
++into faults for the guest kernel to process.
++
++ * When using IDT delivery, instruction lengths are not provided by hardware
++   and Xen does not account for possible prefixes.  ``%rip`` only gets rewound
++   by the length of the unprefixed instruction.  This is observable, but not
++   expected to be an issue in practice.
++
++ * When Xen is using FRED delivery, the full instruction length is provided by
++   hardware, and ``%rip`` is rewound fully.
++
++While both PV32 and PV64 guests are permitted to write Call Gates into the
++GDT, emulation is only wired up for PV32.  At the time of writing, the x86
++maintainers feel no specific need to fix this omission.
 -- 
 2.39.5
 
