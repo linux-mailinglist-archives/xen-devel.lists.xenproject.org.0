@@ -2,41 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oL6dHM7RoWkfwgQAu9opvQ
+	id WExTFxzcoWlcwgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 18:18:06 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 19:02:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB9801BB52F
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 18:18:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1242978.1543070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7BC1BBBC9
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Feb 2026 19:01:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1243026.1543094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw1CE-00055s-Tx; Fri, 27 Feb 2026 17:00:10 +0000
+	id 1vw296-00058A-CG; Fri, 27 Feb 2026 18:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1242978.1543070; Fri, 27 Feb 2026 17:00:10 +0000
+Received: by outflank-mailman (output) from mailman id 1243026.1543094; Fri, 27 Feb 2026 18:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw1CE-00053F-RM; Fri, 27 Feb 2026 17:00:10 +0000
-Received: by outflank-mailman (input) for mailman id 1242978;
- Fri, 27 Feb 2026 17:00:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vw296-00055K-9Y; Fri, 27 Feb 2026 18:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 1243026;
+ Fri, 27 Feb 2026 18:00:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/6pX=A7=bounce.vates.tech=bounce-md_30504962.69a1cd96.v1-f104bc196f53452b83029a520c335318@srs-se1.protection.inumbo.net>)
- id 1vw1CD-00042Z-0q
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 17:00:09 +0000
-Received: from mail178-23.suw51.mandrillapp.com
- (mail178-23.suw51.mandrillapp.com [198.2.178.23])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c48b9449-13fd-11f1-b164-2bf370ae4941;
- Fri, 27 Feb 2026 18:00:07 +0100 (CET)
-Received: from pmta13.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail178-23.suw51.mandrillapp.com (Mailchimp) with ESMTP id
- 4fMvhQ5v1yz35hfJ8
- for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 17:00:06 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- f104bc196f53452b83029a520c335318; Fri, 27 Feb 2026 17:00:06 +0000
+ <SRS0=kH+Z=A7=citrix.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1vw294-00055E-RO
+ for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 18:00:58 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4395c34f-1406-11f1-9ccf-f158ae23cfc8;
+ Fri, 27 Feb 2026 19:00:56 +0100 (CET)
+Received: from SA3PR03MB7419.namprd03.prod.outlook.com (2603:10b6:806:39c::6)
+ by CH0PR03MB6177.namprd03.prod.outlook.com (2603:10b6:610:d0::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.15; Fri, 27 Feb
+ 2026 18:00:50 +0000
+Received: from SA3PR03MB7419.namprd03.prod.outlook.com
+ ([fe80::8254:2aeb:5a33:a6dc]) by SA3PR03MB7419.namprd03.prod.outlook.com
+ ([fe80::8254:2aeb:5a33:a6dc%6]) with mapi id 15.20.9654.014; Fri, 27 Feb 2026
+ 18:00:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,328 +52,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c48b9449-13fd-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1772211606; x=1772481606;
-	bh=ahChLrMLIwGTkk7Ei8nA/Gjew8ewv7h2QyrhOulApCs=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=cfmFE9uKr9MkLo15hr2SFefN2OMEiV1lBEtxzOdbPAVEeGBADnjdZjje+qLyGrNil
-	 EOpYXTXqe3ycTWeBess4aM9f0/+7+T+XvVwDxighHdflt1VsLjPr2oiUqFhM8Wr1FK
-	 9ca+YdlEuT1fqADZl0NqUdzyyIqif3oUs4oJfFlLLd2W14zKPuKaWKQanIT2+avjdd
-	 K7oIbCQsoli+S3KDp14KmxQSl7qPJ1MSZTs5O8H4HnTdzyHtVrhaPNjrS7MT9IQxMv
-	 lamBY5EfeYOdnDRPlxs3fTptlT/AWmp8wndRPj9AWHRA4RAVEMb6C7n46kOeDMJby8
-	 dW6UqCutbi5CA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1772211606; x=1772472106; i=teddy.astie@vates.tech;
-	bh=ahChLrMLIwGTkk7Ei8nA/Gjew8ewv7h2QyrhOulApCs=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ZPLU303VNGy47vc+9aYZSefKjG8z3MxaELMwJFO4vah+M8qcZ9RNG3kq9XuxCq+Yh
-	 cjGxrGV7EqXoAR6iNC5w9k3yr+o4FgGrQWBYZkox0o4V7g8IELx2x1VuxOpjpKCSLJ
-	 dLz7AGE+x2tErET9wQjCPxA3HfUkynqa30ZtYzgdFX/BKZ5RneRJ64+E29uc7RvvcJ
-	 fQnD1QGwvTyNtk3YjAFW/JbwQ7uvgd7zQ1BJwQKS6MAuE+K3VwmUIHuU7sjQl4VMVt
-	 lEpnRQP+lQ+uUEZ7E5wwnCKdR2rFZtVNwFZv4MZX5hqsdi5ZvGqcTHKN9mgR2601K7
-	 EM2b6JPc2SQWQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v8=202/2]=20xenpm:=20Add=20get-core-temp=20subcommand?=
-X-Mailer: git-send-email 2.53.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1772211606094
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Anthony PERARD" <anthony.perard@vates.tech>, "Jan Beulich" <jbeulich@suse.com>
-Message-Id: <aadf2e78f91f442964cc4e93c028b6b31fceb9eb.1772211384.git.teddy.astie@vates.tech>
-In-Reply-To: <ec92e54a493a16f5bc085738e943b3778c3a0231.1772211384.git.teddy.astie@vates.tech>
-References: <ec92e54a493a16f5bc085738e943b3778c3a0231.1772211384.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f104bc196f53452b83029a520c335318?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260227:md
-Date: Fri, 27 Feb 2026 17:00:06 +0000
+X-Inumbo-ID: 4395c34f-1406-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o9ZaPLHvAJXdcTTarA3X7gAgxsYtsiqHq09XWfOj9P/xgDoudGh7R15by9vDbZrMEDQXq5txxA28erFGgQgH87lbETa5ATeUXfBqMYmOG7/1AUeMMc/96D4Qp1lDeMrEblLCjJve9uFyE2wvvNdGn8EPdTHwxs32i/MmIaKnUxcaZdx85PFqW8JxeJi4W5xTtH4F3kM5DclaipSroIKoUHyRksNveOxPLrTFMsBF4F9JKyIqk1LvQXcwSqk0APLJ2AG+9cLLP60KQHo1QxiYK3arQa7fQvtpbBphcI+tNu5oCRBCeXLvtdZVxqznzGg4H9cO+VmOsqb+N3qgt8Lygw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5gWzCdg5gadUerYjYxhYNLwRHOAFmjO1JP/VTpiILQg=;
+ b=Gbz6r6sYZyAjbyLOUAuJll9jJwFOwbi9DREUqKYFNOW29Dlpie9Z2WAwIWgLZv9WqMjJGBYhOqu3Lu7zhUSj8lU9OrSTbTdVXcAsF0u1azHPfvvBY3qw2QK3q091Dp1ghl5S0DPli+Bh7SJuMJMFNw7jUCqeDV+3lq99nvLWdTgN8z7pUGMHCTYs6QM5RH+sHAx3rdIf0MldLjzFicFmZ1ijtd680NKUrPp57oLlK+BNT47ms985p0nKTXYqeoeBO6r8lJ4IaR9QycAo/E3aX3Vtb275ikOME5OXfaP2hSIuNLRirpScwW2o1i+KyBHO7ZUDCrpeM6+5qD9ATMfKAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5gWzCdg5gadUerYjYxhYNLwRHOAFmjO1JP/VTpiILQg=;
+ b=ZWPJwZVUg4TbbtcWibjd4MrLDQE7JjPu4h3S7ov0prrwAUvU1gvMIQchxis15mwAtFkJZre3EFKV9240V7W1tqefPMtdju+Y0TarFJgsWMRNgIOKKCQLHQ3YcjjOhNsNFrfy1jNYrJcyh8r5gZ+FUGXDNfc/eqByQ0VTBOWF9Ck=
+From: Edwin Torok <edwin.torok@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>, Stewart
+ Hildebrand <stewart.hildebrand@amd.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Denis Mukhin <dmukhin@ford.com>
+Subject: Re: [PATCH 0/7] Factor out common build rules and helpers in
+ tools/tests
+Thread-Topic: [PATCH 0/7] Factor out common build rules and helpers in
+ tools/tests
+Thread-Index: AQHcpK0ssUh7hdj8f0mNZT6LyhFCMLWQGOWAgAbDtQA=
+Date: Fri, 27 Feb 2026 18:00:49 +0000
+Message-ID: <EFC38170-BA34-49E2-8628-219EF6EC3301@citrix.com>
+References: <cover.1771840831.git.edwin.torok@citrix.com>
+ <dba3fb3f-b5c9-460c-85fc-761f58e140fc@suse.com>
+In-Reply-To: <dba3fb3f-b5c9-460c-85fc-761f58e140fc@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3864.400.21)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR03MB7419:EE_|CH0PR03MB6177:EE_
+x-ms-office365-filtering-correlation-id: 27c6d438-d8ff-4058-d8b9-08de762a2410
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700021;
+x-microsoft-antispam-message-info:
+ RUPPF419/0pFY8JUaUUyGrFqjABwpdh6NSdIh7/InwtYSFO0d5xa+uwSmUKoFLDwxyBcVDLLm0aOWksa/LKyfU4/gfu6xKs1fFJbt4jDDNyj/AcOWyh/uBmGiDnOBX9oeegBKpw7AzmCpYRroyzf29t+50YEkWIpLu7w5OWpNZ28/qqGVLnEGwUTNcJvc89rKrNwBjxP2S2oTL0xx+5qL103QtXluM1e7grFHpSyveshb7v4R7mH8UM1n8trY0gQQHIhihI3XSVviTxGf2mbyWXq1LAoyq/Ne3BtN89mcv2KStYy7DCxNW8/BXPR6c4+Hf9bbuBB3IIf7IWuy2yxzzg3ohrrQznHaaeWxQYmvHh6z1S42Ja3HJmXiiXl3yC8qYbCddwCOIRmup6U/AAs1y8YB7X8Ig4S0SL5rohc42SoIsKeIliCe0op72Tra5xQ/mJhxTXDmXCxw/s4dsRANoBmcz7KO5Jw3GECNWIFBJibrFaJK/NK8fS4dCsLhLWy/3gWnKixv9joG1Ikb1wBcIRaDTnhkWqdk+oLiNI7CsQRvvI90W2BAvVAzHpOmccIOjRTgZTxZzWlCspDYWCP8ooBgH/tJOdTWh85rImINE/SWhMZFUxfUckkQ0KYCxqXr4WwGczjhoDLEbSaYdhCnHDVknTG73sCA9Ym9KCIiePL+aLGupytRRlwBuPkSH7d4Iskbs3twLIQiwMmMiXf0BTJNP+iW1l0WqpW8SHVBXcw9ZLuf34VdSg6jI4cciES
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR03MB7419.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?OUVhN21nOWdGbE1DNUc5Rmk5RDN2am9TNjlNcWdoKyszYVhEZWduVWh4RzFL?=
+ =?utf-8?B?NjVmSEEvcFdqVTh5cjQwNTlYNWhMUkdPM20vbjhycEdUd3J6ZllrYy9mbEli?=
+ =?utf-8?B?UFdjakJsUnEwcFBLbVcxa3k5L1l5dnZ6NUdYdkJBUWYrK1c2dVZUaCtXSmxz?=
+ =?utf-8?B?VnpBcFZnVStJN3loZ0RaZVhxdFVYL2tjbUtLVG4xNzh1VUZmUmtLK0I3Wjl3?=
+ =?utf-8?B?aHIzM3gxYWN3VFkwWlpOTkZXTFdaSVFQOElEMmpGaXkwU21DZFhrMXJmbWxW?=
+ =?utf-8?B?TFNzRFhhYnBUSzA2aU5KVytveWtiQkRjMSt4Y09mOVlwWXJyRk9DSWxNSXNS?=
+ =?utf-8?B?M2xsejRHTThwT1BjRXh5cWFld1dyZ0hnVmdGTHIvYks2SWNuNEp2YzA5RFVy?=
+ =?utf-8?B?K2FrRG4vcWYreVVlc2h3bzJMaFlEQVBQdVNZbXUvakp0eWpRTnYxR3hBbGlW?=
+ =?utf-8?B?WFVLR3NmbnNWSzNEa0ZkUHRmR0FuSEpMNHdDYSs1MzJqcGUxc25VUDJhWUcr?=
+ =?utf-8?B?c0tWVU5zelZjSlIybHRqV004K0hROWJPSXRFY2ZxQmlUKzNzNFdoOWJhdkZO?=
+ =?utf-8?B?akxuaG5vZm1PV1dsbkFrUnNyeWdvM1lGNFlUVnNKc1l2QzNmdWRVaUJZN3ll?=
+ =?utf-8?B?eWJ2Ti9abW90TExJSkFtOVRuSnVxVW9sZERGVUo1c1NvN2JWT0RtTGF6Kzlr?=
+ =?utf-8?B?YldJQVFzc0NTc1AyL1dpSElOS0hIVW4wTklEWnhwUVF5ZkFXWGZEVFVFNGk4?=
+ =?utf-8?B?S2lVUkFQSW9ZSUpkYWExWGI1SnhCRWN1Y2phOFhlREtGS1Y2TG1HNXc5YnZp?=
+ =?utf-8?B?aHV3TDBmOElsRFJjSGNocUFPNE44ZjBPOFF1cFNRdCtleDRYSUs5SlNiTVFF?=
+ =?utf-8?B?WWtzV2t1NmhwUDY4QUJ3dmFLRURoeERJd0pOeU5xdGFvdDFBZnBwMjRJbE9p?=
+ =?utf-8?B?NDRzd0tZOTBQK01MNUhRR3o2cDNFaWV6bUM0aGhOVlBzbk42d3k5eTFDYzZV?=
+ =?utf-8?B?dlhHbXZBbFcwa2Y2RE0zVWdYanJSVGtYaFpvVzEydU5ydjRZU1czVDNsWkVy?=
+ =?utf-8?B?MVkwT3VTWW41Y0ZDZUVuZ0xVY0hwdGFUcjVWVHRKT2E0clpuaW4wNzlYN1ky?=
+ =?utf-8?B?cm56VlR2MGZwZjdRUlNCMnhmeThKRW1FTzdJSUxrd1hOVjlGNHFVSkhEK0s1?=
+ =?utf-8?B?dDFmNU9wTEorZEhlWTMrcGZEdG1sbTBvdkkxek1HM1c5VXZ1WFMyWDhYYldT?=
+ =?utf-8?B?akhKZFZha0Vrb3hqUW0yYWJ6YXZXYWxXbW9XTWoxU0JNazNRdWYvSWFvWXNW?=
+ =?utf-8?B?ZS8wT0xjNWJFSitZRzNzRFRnRjRlZjBERGp0Q1dUR2Z1a1BuQ2QzSUNMcVhS?=
+ =?utf-8?B?UUtaQzBOYTJXYnlBbFh1K3c4ZzhBcnlFOXptOWVTUWdEa0hTelJBcm85SWJW?=
+ =?utf-8?B?S3RIMWI0UnhOdENldmt4TDNjZEdKWmhFam5Tc3NteStKQ2VYUHQ4WXZhRERF?=
+ =?utf-8?B?a1RrSE1IdWI4dmVUM3F0a3VMMFlJcVp5OTZ1MVNudUp5bHFkeGwvcXJsZThV?=
+ =?utf-8?B?NWxwVlBMMFEzd2p1RWdXN1JocmlVeU43ZVdUcFQvblFVQ0xIVkxHUUMwM1NL?=
+ =?utf-8?B?VjMyQW0vM2ZkM01EcXRQYmtPb1lHdGVNRXpESmxqOHIwZVlxVWs1K1U2TElk?=
+ =?utf-8?B?cjdVVTFKTVRLbTJiWFc3V2R3ZE1BWGZIZTN1TVBnYSt4M3JFMDUxK2NsWUlB?=
+ =?utf-8?B?ME9Uby9VMFhTR2VYeEhDQU9GNlBjL0VxcS92bk0rWi9sTkc5eHdPdU1MMkhZ?=
+ =?utf-8?B?TmdmMlcwank0cVFaTkxYTGVTUWlTK05wZUFlMU5RUzA1M3JKTVdtZDVzVHNn?=
+ =?utf-8?B?cmp2L2d0UHo3SktvRDlsaHRFeFZuVWpITHVOcUpGaEpNbEk2c21aUTIrR01S?=
+ =?utf-8?B?V1pjc1dTK1hHS2Z6dTd3MXV6TFdyQ3VkaXgrWWFSSUxOekpiNFBVa2RiZXpr?=
+ =?utf-8?B?elI5WGtmbHBOUEdiUTM2cHVtbzAyNUw2Zk1sUjVSUENlemdnUWQ3dmtkbEp2?=
+ =?utf-8?B?ZDEzZzV4eCtLVmw2WE85TGZwNWZDWWhsWEh6WkxrYXJyclZDenFjTUFDVW9L?=
+ =?utf-8?B?TGowL2pjT2UyaUdWbWcvaGgzNEovZTNuTjNzVVhPRHRPb09XUGVJTDdKVGsr?=
+ =?utf-8?B?elRLcExlcG9aVzBrWExVOHR3ZlVEeEFxdlhxMkVGdVEvb1cvOFFnOU9WZHNh?=
+ =?utf-8?B?M3hEZGEwb3pVS3QzOEEyeHV2UDA1VXRmaXBXQnMvSnFxZGhYcE9odkVnQ3BJ?=
+ =?utf-8?B?N1N1WGovYzVBaTZqR0ZyR3UyTXJpRm9TZGZVTjIwTVZIejRSRnl0a1JuY3NH?=
+ =?utf-8?Q?VYg8S0yvLGv0lS78=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8498EDCC4FE29D46BF69E33090F81EDB@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR03MB7419.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27c6d438-d8ff-4058-d8b9-08de762a2410
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2026 18:00:49.8743
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Qhd2xh86j2Qi04jLVe1pDU4KlrDzrDkIJkTG2T6TIdsJ1TmZRpfCXIQi5yJHE8/0HdZWvXVOHlLW5LhcphEkBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6177
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [6.01 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUSPICIOUS_RECIPS(1.50)[];
-	SUBJ_EXCESS_QP(1.20)[];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-2.08 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,rules.mk:url];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	GREYLIST(0.00)[pass,body];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,m:dmukhin@ford.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[edwin.torok@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:mid,vates.tech:dkim,vates.tech:url,vates.tech:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,changelog.md:url,keepachangelog.com:url,suse.com:email];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[vates.tech,gmail.com,xenproject.org,suse.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	APPLE_MAILER(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[edwin.torok@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: CB9801BB52F
-X-Rspamd-Action: add header
-X-Spam: Yes
+X-Rspamd-Queue-Id: EA7BC1BBBC9
+X-Rspamd-Action: no action
 
-get-core-temp allows querying the per-core CPU temperature and
-per-package one on processors that supports Digital Temperature Sensors
-(most Intel processors; as usual Dom0 drivers cannot work due to
-misalignment between Dom0 vCPU and pCPUs).
-
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
-CC: Jan Beulich <jbeulich@suse.com>
-
-v4: https://lore.kernel.org/xen-devel/cover.1766158766.git.teddy.astie@vate=
-s.tech/
-v5: Removed trailing whitespace.
-v6: Report errors through errno and use strerror() to display them
-v7:
- - Rename get-intel-temp with get-dts-temp
- - handle properly errno
- - make process return a error code if no data
-v8:
- - update Changelog
- - improve error handling
- - rename core-dts-temp with get-core-temp
-
- CHANGELOG.md       |   2 +
- tools/misc/xenpm.c | 127 ++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 128 insertions(+), 1 deletion(-)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 18f3d10f20..ac2a0412e0 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepach=
-angelog.com/en/1.0.0/)
-    - Support for Bus Lock Threshold on AMD Zen5 and later CPUs, used by Xe=
-n to
-      mitigate (by rate-limiting) the system wide impact of an HVM guest
-      misusing atomic instructions.
-+   - Introduce get-core-temp to xenpm to query CPU temperatures on Intel
-+     platforms.
- 
- ### Removed
-  - On x86:
-diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
-index 682d092479..981d3ec519 100644
---- a/tools/misc/xenpm.c
-+++ b/tools/misc/xenpm.c
-@@ -32,11 +32,14 @@
- 
- #include <xen-tools/common-macros.h>
- 
-+#include <xen/asm/msr-index.h>
-+
- #define MAX_PKG_RESIDENCIES 12
- #define MAX_CORE_RESIDENCIES 8
- 
- static xc_interface *xc_handle;
- static unsigned int max_cpu_nr;
-+static xc_physinfo_t physinfo;
- 
- /* help message */
- void show_help(void)
-@@ -93,6 +96,7 @@ void show_help(void)
-             "                                           units default to \=
-"us\" if unspecified.\n"
-             "                                           truncates un-repre=
-sentable values.\n"
-             "                                           0 lets the hardwar=
-e decide.\n"
-+            " get-core-temp          [cpuid]      get CPU temperature for =
-<cpuid> or all (Intel only)\n"
-             " start [seconds]                     start collect Cx/Px stat=
-istics,\n"
-             "                                     output after CTRL-C or S=
-IGINT or several seconds.\n"
-             " enable-turbo-mode     [cpuid]       enable Turbo Mode for pr=
-ocessors that support it.\n"
-@@ -1354,6 +1358,127 @@ void enable_turbo_mode(int argc, char *argv[])
-                 errno, strerror(errno));
- }
- 
-+static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, i=
-nt *temp)
-+{
-+    xc_resource_entry_t entries[] =3D {
-+        { .idx =3D package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STA=
-TUS },
-+        { .idx =3D MSR_TEMPERATURE_TARGET },
-+    };
-+    struct xc_resource_op ops =3D {
-+        .cpu =3D cpu,
-+        .entries =3D entries,
-+        .nr_entries =3D ARRAY_SIZE(entries),
-+    };
-+    int tjmax;
-+
-+    int ret =3D xc_resource_op(xch, 1, &ops);
-+
-+    switch ( ret )
-+    {
-+    case 0:
-+        /* This CPU isn't online or can't query this MSR */
-+        return -1;
-+
-+    case 1:
-+    {
-+        /*
-+         * The CPU doesn't support MSR_TEMPERATURE_TARGET, we assume it's =
-100
-+         * which is correct aside a few selected Atom CPUs. Check Linux
-+         * kernel's coretemp.c for more information.
-+         */
-+        static bool has_reported_once =3D false;
-+
-+        if ( !has_reported_once )
-+        {
-+            fprintf(stderr, "MSR_TEMPERATURE_TARGET is not supported, assu=
-me "
-+                            "tjmax =3D 100, readings may be incorrect.\n")=
-;
-+            has_reported_once =3D true;
-+        }
-+
-+        tjmax =3D 100;
-+        break;
-+    }
-+
-+    case 2:
-+        tjmax =3D (entries[1].val >> 16) & 0xff;
-+        break;
-+
-+    default:
-+        if ( ret > 0 )
-+        {
-+            fprintf(stderr, "Got unexpected xc_resource_op return value: %=
-d", ret);
-+            errno =3D EINVAL;
-+        }
-+        return -1;
-+    }
-+
-+    *temp =3D tjmax - ((entries[0].val >> 16) & 0xff);
-+    return 0;
-+}
-+
-+static void get_core_temp(int argc, char *argv[])
-+{
-+    int temp =3D -1, cpu =3D -1;
-+    unsigned int socket;
-+    bool has_data =3D false;
-+
-+    if ( argc > 0 )
-+        parse_cpuid(argv[0], &cpu);
-+
-+    if ( cpu !=3D -1 )
-+    {
-+        if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
-+            printf("CPU%d: %d=C2=B0C\n", cpu, temp);
-+        else
-+        {
-+            fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
-+                    errno, strerror(errno));
-+            printf("No data\n");
-+            exit(ENODATA);
-+        }
-+        return;
-+    }
-+
-+    /* Per socket measurement */
-+    for ( socket =3D 0, cpu =3D 0; cpu < max_cpu_nr;
-+          socket++, cpu +=3D physinfo.cores_per_socket * physinfo.threads_=
-per_core )
-+    {
-+        if ( fetch_dts_temp(xc_handle, cpu, true, &temp) )
-+        {
-+            fprintf(stderr,
-+                    "[Package%u] Unable to fetch temperature (%d - %s)\n",
-+                    cpu, errno, strerror(errno));
-+            continue;
-+        }
-+
-+        has_data =3D true;
-+        printf("Package%u: %d=C2=B0C\n", socket, temp);
-+    }
-+
-+    if ( has_data )
-+        /* Avoid inserting a trailing line if we have nothing */
-+        printf("\n");
-+
-+    for ( cpu =3D 0; cpu < max_cpu_nr; cpu +=3D physinfo.threads_per_core =
-)
-+    {
-+        if ( fetch_dts_temp(xc_handle, cpu, false, &temp) )
-+        {
-+            fprintf(stderr, "[CPU%d] Unable to fetch temperature (%d - %s)=
-\n",
-+                    cpu, errno, strerror(errno));
-+            continue;
-+        }
-+
-+        has_data =3D true;
-+        printf("CPU%d: %d=C2=B0C\n", cpu, temp);
-+    }
-+
-+    if ( !has_data )
-+    {
-+        printf("No data\n");
-+        exit(ENODATA);
-+    }
-+}
-+
- void disable_turbo_mode(int argc, char *argv[])
- {
-     int cpuid =3D -1;
-@@ -1618,12 +1743,12 @@ struct {
-     { "set-max-cstate", set_max_cstate_func},
-     { "enable-turbo-mode", enable_turbo_mode },
-     { "disable-turbo-mode", disable_turbo_mode },
-+    { "get-core-temp", get_core_temp },
- };
- 
- int main(int argc, char *argv[])
- {
-     int i, ret =3D 0;
--    xc_physinfo_t physinfo;
-     int nr_matches =3D 0;
-     int matches_main_options[ARRAY_SIZE(main_options)];
- 
--- 
-2.53.0
-
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+DQo+IE9uIDIzIEZlYiAyMDI2LCBhdCAxMDo0MiwgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2Uu
+Y29tPiB3cm90ZToNCj4gDQo+IE9uIDIzLjAyLjIwMjYgMTE6MTQsIEVkd2luIFTDtnLDtmsgd3Jv
+dGU6DQo+PiBUaGVyZSBhcmUgYSBsb3Qgb2YgZHVwbGljYXRlIHJ1bGVzIGFuZCBjb2RlIGluIHRv
+b2xzL3Rlc3RzLg0KPj4gVG8gc2ltcGxpZnkgd3JpdGluZyBuZXcgdGVzdHMgbW92ZSBjb21tb24g
+YnVpbGQgcnVsZXMgaW50byBhDQo+PiBgdG9vbHMvdGVzdHMvUnVsZXMubWtgLCBhbmQgaGVscGVy
+IG1hY3Jvcy9mdW5jdGlvbnMgaW50byBgY29tbW9uL3t0ZXN0cyxndWVzdHN9LntjLGh9YC4NCj4+
+IA0KPj4gVGhpcyBhbHNvIGVuc3VyZXMgdGhhdCBDRkxBR1MgYXJlIGFwcGxpZWQgY29uc2lzdGVu
+dGx5IGFjcm9zcyBhbGwgdGVzdHMgKGUuZy4gb25lIHRlc3QgZmFpbGVkDQo+PiB0byBidWlsZCBu
+b3cgZHVlIHRvIGFuIHVudXNlZCB2YXJpYWJsZSBlcnJvcikuDQo+PiANCj4+IEd1ZXN0IGNyZWF0
+aW9uIGFsc28gbmVlZHMgdG8gdGVzdCBmb3IgdGhlIHByZXNlbmNlIG9mIFBWLCBIVk0gSEFQIG9y
+IEhWTSBzaGFkb3cgc3VwcG9ydA0KPj4gaW4gWGVuIGFuZCBjcmVhdGUgYSBndWVzdCBhY2NvcmRp
+bmdseS4gVGhpcyBjYW4gYmUgc2hhcmVkLg0KPj4gDQo+PiBBZnRlciB0aGVzZSBjaGFuZ2VzIHRo
+ZSBwZXItdGVzdCBNYWtlZmlsZSBvbmx5IGNvbnRhaW5zIGVudHJpZXMgc3BlY2lmaWMNCj4+IHRv
+IHRoZSB0ZXN0IChpdHMgbmFtZSwgZGVwZW5kZW5jaWVzLCBldGMuKSBhbmQgYXZvaWRzIGhhdmlu
+ZyB0bw0KPj4gY29weSZwYXN0ZSBib2lsZXJwbGF0ZSBjb2RlLg0KPj4gDQo+PiBgdG9vbHMvdGVz
+dHMveDg2X2VtdWxhdG9yYCByZW1haW5zIHVuY2hhbmdlZCwgYmVjYXVzZSB0aGUgTWFrZWZpbGUN
+Cj4+IGNvbnRhaW5zIGEgbG90IG9mIGNvbmRpdGlvbmFsIGJ1aWxkIGxvZ2ljIHNwZWNpZmljIHRv
+IHRoYXQgdGVzdC4NCj4+IA0KPj4gQW4gdXBjb21pbmcgcGF0Y2ggc2VyaWVzIHdpbGwgaW50cm9k
+dWNlIG5ldyB0ZXN0cyB1c2luZyB0aGUgc2ltcGxpZmllZA0KPj4gTWFrZWZpbGUgYW5kIHNoYXJl
+ZCBoZWxwZXJzLg0KPj4gDQo+PiBGb3IgY29udmVuaWVuY2UgdGhpcyBpcyBhbHNvIGF2YWlsYWJs
+ZSBhdDoNCj4+IGh0dHBzOi8vZ2l0bGFiLmNvbS94ZW4tcHJvamVjdC9wZW9wbGUvZWR3aW50b3Jv
+ay94ZW4vLS9jb21wYXJlL3N0YWdpbmcuLi5wcml2YXRlJTJGZWR2aW50JTJGbWlncmF0aW9uLXRl
+c3RzMj9mcm9tX3Byb2plY3RfaWQ9MjMzNjU3Mg0KPj4gaHR0cHM6Ly9naXRsYWIuY29tL3hlbi1w
+cm9qZWN0L3Blb3BsZS9lZHdpbnRvcm9rL3hlbi8tL3BpcGVsaW5lcy8yMzQyMzE4NzE2DQo+PiAN
+Cj4+IEVkd2luIFTDtnLDtmsgKDcpOg0KPj4gIHRvb2xzL3Rlc3RzLyovTWFrZWZpbGU6IGZhY3Rv
+ciBvdXQgY29tbW9uIFBIT05ZIHJ1bGVzIGludG8gUnVsZXMubWsNCj4+ICB0b29scy90ZXN0cy92
+cGNpL21haW4uYzogZHJvcCB1bnVzZWQgdmFyaWFibGVzDQo+PiAgdG9vbHMvdGVzdHMvKi9NYWtl
+ZmlsZTogZmFjdG9yIG91dCBidWlsZCBydWxlcw0KPj4gIHRvb2xzL3Rlc3RzOiBmYWN0b3Igb3V0
+IGNvbW1vbiBoZWxwZXJzDQo+PiAgdG9vbHMvdGVzdHMvY29tbW9uOiBlbnN1cmUgZXJyb3IgbWVz
+c2FnZXMgaGF2ZSBhIG5ld2xpbmUNCj4+ICB0b29scy90ZXN0cy90c3g6IG1vdmUgZ3Vlc3QgY3Jl
+YXRpb24gdG8gY29tbW9uIGFyZWENCj4+ICB0b29scy90ZXN0czogcHJpbnQgbW9yZSBkZWJ1ZyBp
+bmZvDQo+IA0KPiBKdXN0IGZ5aSB0aGF0IHRoZXJlIGlzIGFsc28NCj4gaHR0cHM6Ly9saXN0cy54
+ZW4ub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjYtMDIvbXNnMDA3NTEuaHRtbC4NCj4g
+Q2FuIHRoZSB0d28gb2YgeW91IG1heWJlIHdvcmsgdG9nZXRoZXIgdG8gaGF2ZSBhIHNpbmdsZSBy
+ZXN1bHRpbmcgYXBwcm9hY2g/DQo+IA0KPiBKYW4NCg0KVGhlcmUgaXMgZGVmaW5pdGVseSBhIGxv
+dCBpbiBjb21tb24gYmV0d2VlbiB0aGUgdHdvIHNlcmllcywgYW5kIEnigJltIHRhbGtpbmcgd2l0
+aCBEZW5pcy4NClRoZSBNYWtlZmlsZSBjbGVhbnVwcyB0aGF0IGJvdGggb2YgdXMgaGF2ZSBkb25l
+IGNhbiBwcm9iYWJseSBnbyBpbiBmaXJzdCBhcyBwYXJ0IG9mIGEgc2hhcmVkIHNlcmllcywNCkni
+gJlsbCB0cnkgdG8gc2V0dXAgYSBjb21iaW5lZCBicmFuY2ggdG8gc2VlIGhvdyB0aGF04oCZZCBs
+b29rIGxpa2UuDQoNCkJlc3QgcmVnYXJkcywNCuKAlEVkd2lu
 
