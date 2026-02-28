@@ -2,43 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qNTjEhEmommG0QQAu9opvQ
+	id aJCRDGNIomke1gQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:37 +0100
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 02:44:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD2A1BEF4B
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 00:17:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1243232.1543264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7631BFC64
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Feb 2026 02:44:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1243318.1543273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw75O-0007V2-3g; Fri, 27 Feb 2026 23:17:30 +0000
+	id 1vw9MD-0002bt-Rz; Sat, 28 Feb 2026 01:43:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1243232.1543264; Fri, 27 Feb 2026 23:17:30 +0000
+Received: by outflank-mailman (output) from mailman id 1243318.1543273; Sat, 28 Feb 2026 01:43:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vw75O-0007Qw-0W; Fri, 27 Feb 2026 23:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 1243232;
- Fri, 27 Feb 2026 23:17:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vw9MD-0002Za-NX; Sat, 28 Feb 2026 01:43:01 +0000
+Received: by outflank-mailman (input) for mailman id 1243318;
+ Sat, 28 Feb 2026 01:43:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gz2F=A7=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vw74t-0001Do-21
- for xen-devel@lists.xenproject.org; Fri, 27 Feb 2026 23:16:59 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68457e39-1432-11f1-9ccf-f158ae23cfc8;
- Sat, 28 Feb 2026 00:16:55 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-4398f8e2837so2228203f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Feb 2026 15:16:55 -0800 (PST)
-Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
- [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c70e8e8sm9680306f8f.10.2026.02.27.15.16.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 15:16:52 -0800 (PST)
+ <SRS0=Eoy0=BA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1vw9MC-0002ZU-VA
+ for xen-devel@lists.xenproject.org; Sat, 28 Feb 2026 01:43:01 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cc8b8db3-1446-11f1-b164-2bf370ae4941;
+ Sat, 28 Feb 2026 02:42:54 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0D4EE6057A;
+ Sat, 28 Feb 2026 01:42:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBB0C19422;
+ Sat, 28 Feb 2026 01:42:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,129 +46,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68457e39-1432-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1772234215; x=1772839015; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=15zWx1qA8rFF4HWlAuchK/hb06gvUooknaZohCqKUPM=;
-        b=gA5HPosuZY0sgr9RKW7vL/IlCwdrJsKS0i2R5ajdi7HQaaTgB5jVqb1PYgC5P1Rq+T
-         ZAHEHOXzouLrhKkjPhAdWcDJ5CLk8u1QXGKuJJEnGn1f/GAFVdLcd3brameTli/IJ6rW
-         C/oyhcPeLzHWSkrbP+8YcnNuVOm8mYuqg1+mM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772234215; x=1772839015;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=15zWx1qA8rFF4HWlAuchK/hb06gvUooknaZohCqKUPM=;
-        b=gPkz2llYAEJtMs8F3OCQtis6W9CC767+rD0yoxQ1ciLcoYObdsFpCGMx+1IqpEx0O0
-         Luk84Alkoau1rBBxRk0YtRU44JIIm4Nnfj2EyA3U/RAUeRLDKHqU9zjPHYI0jJYslveO
-         uw5pWhuDFY0tAf53q0zrQQKiyWIuxR0MOo+DwVgDHCXn6cxiOYIEE9mXeKm4TyUgHxLJ
-         X8WWdxSOW6BWUA23OYsrUqk/JERcHXK/QBGCMqig2yRhfZvK608g8/1DLhhohRMHxc3j
-         d6Hy2fVf33nnCxtH7Y4ysIxIqDUCs5jugz79L+Bf7+JM0c7Y1Nei3JsSAYpxo4azm61s
-         B8VQ==
-X-Gm-Message-State: AOJu0YzM3uzxaAEnSyJR1Of4Im9hzqd2bkMpaY1UeKe8oT4OSiLyw1DX
-	hCRsH1a2roj5b/jVGFvHOyWmJxL9Y8JLwHfXyACVlFkWK8vKLFC6VUTNtZ/wNO/Y9CNx0H3bPoO
-	e6XYr
-X-Gm-Gg: ATEYQzw+p6xljYYIBunjpviBiMAkoh8JYTGzNyTZ+2hqDn5gIcHEgz9i2cl/bb+gelQ
-	grbgK+KI0s6hJ9CaPEJAlVD7x8bXHtCbX3kOHaiyDVEBBHhW2Pfnw4/9pJDzpvAWPISSM0S3s9U
-	R73vvDhrRXtAVPs9H2pDWKC49nbmbKT2fZQ7FgNXh6JxmthFU/AdJLS73U2aNcwaUprhUGZqSqi
-	paycop1BDkNc+FBEQwo35Z6pXQdUDsmxgs0skAvV5Rf2nJCHOArHM7ARlGo9eKVGnEou8981lXW
-	fBAHHEvQSN2rYS427Sn2xVxIa+P3/9GbiTIc3Jbtmj/Y+d5252cmHXvNohuYuY4wO6KZFZ/TG3E
-	yDJqNxfcQlb8fjwDJG4yxDKaxYIHRWwshD5pbAHHzsqRJrdcI4ItKFUw3Ea48xJYWRyVG2osKtw
-	PjuiRrLqELhDO3ytfSy6IjaKdXM6aDsfhJaK0IdyVmbQEh4igasXYtp/HxmQQmFoRN6rtQezU=
-X-Received: by 2002:a05:6000:603:b0:432:a9db:f9a2 with SMTP id ffacd0b85a97d-4399de2b52amr8236751f8f.41.1772234214125;
-        Fri, 27 Feb 2026 15:16:54 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 14/14] x86/traps: Use fatal_trap() for #UD and #GP
-Date: Fri, 27 Feb 2026 23:16:36 +0000
-Message-Id: <20260227231636.3955109-15-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
-References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: cc8b8db3-1446-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772242972;
+	bh=QWxFQqcImv7PUWhFYJ4t2rsrZuzrFQJtZYWOFWoYlkA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=HzNwHMkKDmvkEKzfVwUOT9nofbGoTNeAvpcERivYdV9Dihn/yLCcBz720zGa7AetO
+	 iwXxy0jxIvC0hfmhaRl7fgF1wJ9UmZZtMEf/Nb3Lcr7v20KDANnC2VcxQ1rkcv1jg9
+	 OK0Iw8IYUk8Y9ntsOL9KUfYM6GaaSOTC095J1IhYGaslwyaKkcEHw3OEoHl9lKnVOE
+	 sYGdPUX+o10NABlIPEYktCLwUAY8+FhLSGEAM0mMmfWCcAS8e2bRJ2IjPykZLM6emB
+	 XW/YpMYrXavR0NbnuQfdhTIJFkeEgvPQkgwsoHBl+cdXA9tm09AxLiIxu5Ab9Rbppy
+	 YQ7O75FQW1t3A==
+Date: Fri, 27 Feb 2026 17:42:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Romain Caritey <Romain.Caritey@microchip.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 5/6] xen: move domain_use_host_layout() to common
+ header
+In-Reply-To: <74060a96-110f-4d6f-bbad-361021315884@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2602271742400.3148344@ubuntu-linux-20-04-desktop>
+References: <cover.1770821989.git.oleksii.kurochko@gmail.com> <678eb53c56bc4f6147feb0bbb6c1319197d0f0df.1770821989.git.oleksii.kurochko@gmail.com> <522a71ce-05da-4a66-956e-5581f0c49e0e@suse.com> <alpine.DEB.2.22.394.2602161038120.359097@ubuntu-linux-20-04-desktop>
+ <d9feffe4-c45e-4bed-bc5e-776e4547578a@suse.com> <5eb4ba3b-f7b6-4cfb-ab67-60198c3f8572@gmail.com> <0c0061ab-acdb-4ceb-92e2-ca4e591ee741@suse.com> <ab0b7dcf-c607-43d3-bb1c-f782c3a71332@gmail.com> <74060a96-110f-4d6f-bbad-361021315884@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:mid,citrix.com:dkim,citrix.com:email,suse.com:email];
-	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,microchip.com,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: EFD2A1BEF4B
+X-Rspamd-Queue-Id: 7D7631BFC64
 X-Rspamd-Action: no action
 
-This renders the diagnostics in a more uniform way.
+On Wed, 18 Feb 2026, Jan Beulich wrote:
+> On 18.02.2026 15:38, Oleksii Kurochko wrote:
+> > On 2/18/26 2:12 PM, Jan Beulich wrote:
+> >> On 18.02.2026 13:58, Oleksii Kurochko wrote:
+> >>> On 2/17/26 8:34 AM, Jan Beulich wrote:
+> >>>> On 16.02.2026 19:42, Stefano Stabellini wrote:
+> >>>>> On Mon, 16 Feb 2026, Jan Beulich wrote:
+> >>>>>> On 12.02.2026 17:21, Oleksii Kurochko wrote:
+> >>>>>>> domain_use_host_layout() is generic enough to be moved to the
+> >>>>>>> common header xen/domain.h.
+> >>>>>> Maybe, but then something DT-specific, not xen/domain.h. Specifically, ...
+> >>>>>>
+> >>>>>>> --- a/xen/include/xen/domain.h
+> >>>>>>> +++ b/xen/include/xen/domain.h
+> >>>>>>> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
+> >>>>>>>    #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+> >>>>>>>    #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+> >>>>>>>    
+> >>>>>>> +/*
+> >>>>>>> + * Is the domain using the host memory layout?
+> >>>>>>> + *
+> >>>>>>> + * Direct-mapped domain will always have the RAM mapped with GFN == MFN.
+> >>>>>>> + * To avoid any trouble finding space, it is easier to force using the
+> >>>>>>> + * host memory layout.
+> >>>>>>> + *
+> >>>>>>> + * The hardware domain will use the host layout regardless of
+> >>>>>>> + * direct-mapped because some OS may rely on a specific address ranges
+> >>>>>>> + * for the devices.
+> >>>>>>> + */
+> >>>>>>> +#ifndef domain_use_host_layout
+> >>>>>>> +# define domain_use_host_layout(d) (is_domain_direct_mapped(d) || \
+> >>>>>>> +                                    is_hardware_domain(d))
+> >>>>>> ... is_domain_direct_mapped() isn't something that I'd like to see further
+> >>>>>> proliferate in common (non-DT) code.
+> >>>>> Hi Jan, we have a requirement for 1:1 mapped Dom0 (I should say hardware
+> >>>>> domain) on x86 as well. In fact, we already have a working prototype,
+> >>>>> although it is not suitable for upstream yet.
+> >>>>>
+> >>>>> In addition to the PSP use case that we discussed a few months ago,
+> >>>>> where the PSP is not behind an IOMMU and therefore exchanged addresses
+> >>>>> must be 1:1 mapped, we also have a new use case. We are running the full
+> >>>>> Xen-based automotive stack on an Azure instance where SVM (vmentry and
+> >>>>> vmexit) is available, but an IOMMU is not present. All virtual machines
+> >>>>> are configured as PVH.
+> >>>> Hmm. Then adjustments need making, for commentary and macro to be correct
+> >>>> on x86. First and foremost none of what is there is true for PV.
+> >>> As is_domain_direct_mapped() returns always false for x86, so
+> >>> domain_use_host_layout macro will return incorrect value for non-hardware
+> >>> domains (dom0?). And as PV domains are not auto_translated domains so are
+> >>> always direct-mapped, so technically is_domain_direct_mapped() (or
+> >>> domain_use_host_layout()) should return true in such case.
+> >> Hmm? PV domains aren't direct-mapped. Direct-map was introduced by Arm for
+> >> some special purpose (absence of IOMMU iirc).
+> > 
+> > I made such conclusion because of the comments in the code mentioned below:
+> >   - https://elixir.bootlin.com/xen/v4.21.0/source/tools/libs/guest/xg_dom_x86.c#L1880
+> >   - https://elixir.bootlin.com/xen/v4.21.0/source/xen/include/public/features.h#L107
+> > 
+> > Also, in the comment where it is introduced (d66bf122c0a "xen: introduce XENFEAT_direct_mapped and XENFEAT_not_direct_mapped")
+> > is mentioned that:
+> >    XENFEAT_direct_mapped is always set for not auto-translated guests.
+> 
+> Hmm, this you're right with, and XENVER_get_features handling indeed has
+> 
+>             if ( !paging_mode_translate(d) || is_domain_direct_mapped(d) )
+>                 fi.submap |= (1U << XENFEAT_direct_mapped);
+> 
+> Which now I have a vague recollection of not having been happy with back at
+> the time. Based solely on the GFN == MFN statement this may be correct, but
+> "GFN" is a questionable term for PV in the first place. See how e.g.
+> common/memory.c resorts to using GPFN and GMFN, in line with commentary in
+> public/memory.h.
+> 
+> What the above demonstrates quite well though is that there's no direct
+> relationship between XENFEAT_direct_mapped and is_domain_direct_mapped().
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Let's start from the easy case: domain_use_host_layout.
 
-v4:
- * New
+domain_use_host_layout is meant to indicate whether the domain memory
+map (e.g. the address of the interrupt controller, the start of RAM,
+etc.) matches the host memory map or not.
 
-PF and CP are more complicated and not converted yet.
----
- xen/arch/x86/traps.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+It is implemented as:
 
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index e2c35a046e6b..c04ab484ad27 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1375,8 +1375,7 @@ void asmlinkage do_invalid_op(struct cpu_user_regs *regs)
-     if ( likely(extable_fixup(regs, true)) )
-         return;
- 
--    show_execution_state(regs);
--    panic("FATAL TRAP: vector = %d (invalid opcode)\n", X86_EXC_UD);
-+    fatal_trap(regs, false);
- }
- 
- void asmlinkage do_int3(struct cpu_user_regs *regs)
-@@ -1475,8 +1474,7 @@ void do_general_protection(struct cpu_user_regs *regs)
-         return;
- 
-  hardware_gp:
--    show_execution_state(regs);
--    panic("GENERAL PROTECTION FAULT\n[error_code=%04x]\n", regs->error_code);
-+    fatal_trap(regs, false);
- }
- 
- #ifdef CONFIG_PV
--- 
-2.39.5
+#define domain_use_host_layout(d) (is_domain_direct_mapped(d) || \
+                                   is_hardware_domain(d))
+
+Because on ARM there are two cases:
+1) hardware domain is always using the host layout
+2) non-hardware domain only use the host layout when directly mapped
+(more on the later)
+
+
+I think this can be generalized and made arch-neutral with the caveat
+that it should return False for PV guests as Jan mentioned. After all
+the virtual interrupt controller in a PV domain doesn't start at the
+same guest physical address of the real interrupt controller. The
+comment can be improved, but let's get to it after we talk about
+is_domain_direct_mapped.
+
+
+is_domain_direct_mapped is meant to indicate that a domain's memory is
+allocated 1:1 such that GFN == MFN. is_domain_direct_mapped is easily
+applicable as-is to PVH and HVM guests where there are two stages of
+translation.
+
+What about PV guests? One could take the stance that given that there
+are no real GFN space, then GFN is always the same as MFN. But this is
+more philosophical than practical.
+
+Practically, is_domain_direct_mapped() triggers a different code path in
+xen/common/memory.c:populate_physmap for contiguous 1:1 memory
+allocations which is probably undesirable for PV guests.
+
+Practically, there is a related flag exposed to Linux
+XENFEAT_direct_mapped. For HVM/PVH guests makes sense to be one and the
+same as is_domain_direct_mapped(). This flag is used by Linux to know
+whether it can use swiotlb-xen or not. Specifically, swiotlb-xen is only
+usable when XENFEAT_direct_mapped is enabled for ARM guests and the
+principle could apply to HVM/PVH guests too. What about PV guests?
+They also make use of swiotlb-xen and XENFEAT_direct_mapped is set to
+True for PV guests today.
+
+
+In conclusion, is_domain_direct_mapped() was born for autotranslated
+guests and is meant to trigger large contigous memory allocations is Xen
+and permit the usage of swiotlb-xen in Linux. For PV guests, while we
+want swiotlb-xen and the XENFEAT_direct_mapped flag is already set to
+True, we don't want to change the memory allocation scheme. 
+
+So I think is_domain_direct_mapped() should be always False on x86:
+- PV guests should be always False
+- PVH/HVM guests could be True but it is currently unimplemented (AMD
+  is working on an implementation)
+
+For compatibility and functionality, XENFEAT_direct_mapped should be
+left as is.
+
+The implementation of domain_use_host_layout() can be moved to common
+code with a change:
+
+
+/*
+ * Is the auto-translated domain using the host memory layout?
+ *
+ * domain_use_host_layout() is always False for PV guests.
+ *
+ * Direct-mapped domains (autotranslated domains with memory allocated
+ * contiguously and mapped 1:1 so that GFN == MFN) are always using the
+ * host memory layout to avoid address clashes.
+ *
+ * The hardware domain will use the host layout (regardless of
+ * direct-mapped) because some OS may rely on a specific address ranges
+ * for the devices. PV Dom0, like any other PV guests, has
+ * domain_use_host_layout() returning False.
+ */
+#define domain_use_host_layout(d) (is_domain_direct_mapped(d) ||
+                                   (paging_mode_translate(d) &&
+                                    is_hardware_domain(d)))
 
 
