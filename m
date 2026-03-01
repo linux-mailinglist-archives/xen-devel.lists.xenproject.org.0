@@ -2,53 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cIBVI9cOpGlbWAUAu9opvQ
+	id mNnaNdgOpGlgWAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 11:03:03 +0100
+	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 11:03:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C43251CF04C
-	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 11:03:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1243774.1543363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8C31CF053
+	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 11:03:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1243776.1543373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwddG-0006bK-DG; Sun, 01 Mar 2026 10:02:38 +0000
+	id 1vwddZ-0006uf-Kk; Sun, 01 Mar 2026 10:02:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1243774.1543363; Sun, 01 Mar 2026 10:02:38 +0000
+Received: by outflank-mailman (output) from mailman id 1243776.1543373; Sun, 01 Mar 2026 10:02:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwddG-0006Zi-AV; Sun, 01 Mar 2026 10:02:38 +0000
-Received: by outflank-mailman (input) for mailman id 1243774;
- Sun, 01 Mar 2026 10:02:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kDVR=BB=oss.qualcomm.com=dmitry.baryshkov@srs-se1.protection.inumbo.net>)
- id 1vwddF-0006ZZ-5p
- for xen-devel@lists.xenproject.org; Sun, 01 Mar 2026 10:02:37 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c23cc130-1555-11f1-9ccf-f158ae23cfc8;
- Sun, 01 Mar 2026 11:02:31 +0100 (CET)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6216kFTu530173
- for <xen-devel@lists.xenproject.org>; Sun, 1 Mar 2026 10:02:29 GMT
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cksgq2j29-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Sun, 01 Mar 2026 10:02:29 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cb37db8b79so2689801985a.3
- for <xen-devel@lists.xenproject.org>; Sun, 01 Mar 2026 02:02:29 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-389f302285fsm22929771fa.44.2026.03.01.02.02.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Mar 2026 02:02:26 -0800 (PST)
+	id 1vwddZ-0006rf-Hu; Sun, 01 Mar 2026 10:02:57 +0000
+Received: by outflank-mailman (input) for mailman id 1243776;
+ Sun, 01 Mar 2026 10:02:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1Kch=BB=kernel.org=maz@srs-se1.protection.inumbo.net>)
+ id 1vwddY-0006q8-Kk
+ for xen-devel@lists.xenproject.org; Sun, 01 Mar 2026 10:02:56 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d0a82a7e-1555-11f1-b164-2bf370ae4941;
+ Sun, 01 Mar 2026 11:02:55 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8051941B57;
+ Sun,  1 Mar 2026 10:02:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B71C116C6;
+ Sun,  1 Mar 2026 10:02:52 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <maz@kernel.org>) id 1vwddS-0000000Ev2N-1H9X;
+ Sun, 01 Mar 2026 10:02:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,158 +52,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c23cc130-1555-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0xpqoMV9nCv7588O/2lb3+Dy
-	gEwHNzZq2QKo2gKrDEI=; b=MFDwcsRMUoLALjslv9VY/VdAydAxc3/eD8jPp+b0
-	3dbJ7aTibd/9b6GV9IF2gWn6gSpe/I3btoHNAVjlHAbEwxC6eHSVdnwqOitswsKK
-	BFmc5ona0teu2h6YmGm5UzCmJDzSNJQeil3gsT4tu2E/DuMyeeU2M4A9oTkvAzIU
-	6Nj7aXpW3vgAMvolk/oLAysN+VfAUn/SXHBScRSfZ3wrgr7md5skbPHMUU+5C7cg
-	PDWi6o6khIMR296Rtf2LMqviKvYVMgehPnRNL1VGGCDd7pD1khwDOQnaVh1y70D6
-	5NTfRB58X2oh3kZa0pAyMmBzeNyGrUi6kb5A/jodMBBWgw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1772359348; x=1772964148; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0xpqoMV9nCv7588O/2lb3+DygEwHNzZq2QKo2gKrDEI=;
-        b=OOMuRFdYKywRNM5hVzYRAOhkRg2Ana2174wer/K75BaWKaztBxjyDQuDm85wqxrVyQ
-         WQx5wA5Z1KKIDSqK/h+5crLr4NtIKUEErpcuSKlGOBYrOwRKkjMV3Bj/JDUGABvPpLVp
-         zF7vcdLGVcFYuXo9R2cGJ3A6+lUG9PFecs+4bknvsXtA2VbfGZzRQbnAthznEPnmtDnQ
-         saiZz36U/YPNPh1GkCLj7FUS+s8qzhuKmzV3WdLf04jOiYzGZxBWXB/3nSeBthQGZR/o
-         kO8BkTAUaFW6gljuZuAUF64pwO5/hr6zb6Ef1qFFplEL/TQwl5wDtnF0tpLnrIP2UfFU
-         XOIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772359348; x=1772964148;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0xpqoMV9nCv7588O/2lb3+DygEwHNzZq2QKo2gKrDEI=;
-        b=GZrHrvrxKA+UtjRIK96u5n1sT0Oj37qQdDj+K1foneb0Mq6LNrZuptH/soqLk6ooOp
-         gZv0s7DftCLi+mOgjj94XiPWhrzEZOEYlb5F63fmZy25RCAxg1NJG1UTsprLZLIms0xZ
-         gXeXpgK5stICYkSXqVdrICvRwwCnu9hzSZKnIpU2QZXNo05vzXRlLNLpgWIZEC/IdyqD
-         sQKNaDZeQjVnTyXOcUyQqETiNLuIlQYBnEWeor80e3/jebtxrMqKIFEfSfXyXRI8dwTB
-         AAjvFOuUvfLL1U0KeA0o/k2CICCIKmrKXJ67KaSl6PySp3VN7B9n/Jjm5d4SM1mWPdsu
-         sYmA==
-X-Forwarded-Encrypted: i=1; AJvYcCVBRX3v574EoCMgxR6Z6XdfzZybrTnGdBurMt/MYtLL1j3TTECOpjccxT6cNtWcdCH7i6jJm66jZv8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCB5iDc6TPJQbX1TOLdMpy+1s/Fv5ZMwcVo+9bWa1podVdavXV
-	Cm+C8DaTuXZuPijQC4JfO/5T85qh3B8g47JY+GvWPxD2FG9Hk91LYXNzPZnBf9ViLdxtiCPZ6RG
-	fkdcCxy7ShjWFGFjzNNkGdnXKGy/28d8dmJS4iahD+3WbtkwH6pMDAiQoHo6mya0B0JqAlg==
-X-Gm-Gg: ATEYQzznfABLmkTTiWRckAqw4xIPOAtx60+OKZhlIoyrYEYqy1NNJWfQeyfmE2LNN64
-	yk8h/F1YDku8pC9Eh5IBq+vh6AqL5Z3ilzzXsbU36iQXgH573NzcdBZ2dptBv/qnMhmymvatzSI
-	e+KVoJhkP9TDPbIH7pqwZW8ubxhLZsixdsYcNBJ8Xwqk0e71uES9WT+hnNWVEAXGgqIOclqcEiQ
-	eZ3gKpmKzIAIF2tk7adAyKhr6SqztVja839m1VcU5HXBw9FBk9wuMWO1ZTjg88yQ1Yw4zuZT76n
-	QzHjOJAX6HkaCqG2BNZZP4idezBXT+2G11c53g798rGM9fpCgDaVjzwEgUScQPB5HmW26kk+/PT
-	/0Vjvv7Sm4O6z83FJ0GluJWWzwI3jpO+FCWkNO8q0FgT8JwKp9Z25XpN7TcELIgpvfFgGFxclY0
-	fyehleNCJ7fNJXeSCHHTh3lwmFJwfdGGkfT8E=
-X-Received: by 2002:a05:620a:2904:b0:8b2:e17a:37 with SMTP id af79cd13be357-8cbc8df0942mr1244110785a.43.1772359348315;
-        Sun, 01 Mar 2026 02:02:28 -0800 (PST)
-X-Received: by 2002:a05:620a:2904:b0:8b2:e17a:37 with SMTP id af79cd13be357-8cbc8df0942mr1244105085a.43.1772359347812;
-        Sun, 01 Mar 2026 02:02:27 -0800 (PST)
-Date: Sun, 1 Mar 2026 12:02:23 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Inumbo-ID: d0a82a7e-1555-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772359373;
+	bh=vtpZN1m1i7JB60bMgpFDRckohYAe2rTfHOUBY7CPkt8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=IiiSrQMxEXvnAmwK9OX3matQowi1OfBQGfa4wsnqZv0VCq9h4hi+Zz6eWNcJvyp/v
+	 NKNEiJfQkOpipGT7qicIxsVx6iBqj9gkjCFVtdAyeuy4KsPdv7YgEPy/0IUfd+Ky6T
+	 FCIvl841AaG7hzOLpmL6YDHKu58OOkeozdhjL/90dmjbHUQMOOhRvblZPdRLY9Ht+m
+	 0UTfWVjWsewWXaC4++PUlDwCrawhx8s8fCQGvLTqMuOFiahVk0+ZI2X+c5Au/hCvwb
+	 EQlrFqjagExB54Zt8V/LeB5iU4ngXho+Wv2XfBowHcX8X6MjHXzRljnh73mzuLFo8+
+	 j55rBYk5pnByQ==
+Date: Sun, 01 Mar 2026 10:02:49 +0000
+Message-ID: <861pi3amuu.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
 To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Cc: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Subject: Re: [PATCH v9 2/3] of: factor arguments passed to of_map_id() into a
- struct
-Message-ID: <grcqbs42seqxmes7lm527kwhqf6osherykg6pc3w5voubd72rn@hncfl3oforza>
-References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
- <20260301-parse_iommu_cells-v9-2-4d1bceecc5e1@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Cc: Nipun Gupta <nipun.gupta@amd.com>,	Nikhil Agarwal
+ <nikhil.agarwal@amd.com>,	Joerg Roedel <joro@8bytes.org>,	Will Deacon
+ <will@kernel.org>,	Robin Murphy <robin.murphy@arm.com>,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Thomas Gleixner <tglx@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Saravana Kannan <saravanak@kernel.org>,	Richard Zhu
+ <hongxing.zhu@nxp.com>,	Lucas Stach <l.stach@pengutronix.de>,	Krzysztof
+ =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,	Manivannan
+ Sadhasivam <mani@kernel.org>,	Bjorn Helgaas <bhelgaas@google.com>,	Frank Li
+ <Frank.Li@nxp.com>,	Sascha Hauer <s.hauer@pengutronix.de>,	Pengutronix
+ Kernel Team <kernel@pengutronix.de>,	Fabio Estevam <festevam@gmail.com>,
+	Juergen Gross <jgross@suse.com>,	Stefano Stabellini
+ <sstabellini@kernel.org>,	Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>,	Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>,	Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>,	Bjorn Andersson
+ <bjorn.andersson@oss.qualcomm.com>,	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Prakash Gupta
+ <prakash.gupta@oss.qualcomm.com>,	Vikash Garodia
+ <vikash.garodia@oss.qualcomm.com>,	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,	linux-pci@vger.kernel.org,	imx@lists.linux.dev,
+	xen-devel@lists.xenproject.org,	linux-arm-msm@vger.kernel.org,	Charan Teja
+ Kalla <charan.kalla@oss.qualcomm.com>
+Subject: Re: [PATCH v9 2/3] of: factor arguments passed to of_map_id() into a struct
 In-Reply-To: <20260301-parse_iommu_cells-v9-2-4d1bceecc5e1@oss.qualcomm.com>
-X-Proofpoint-GUID: 6vKIxRpvDIiK-n-eqLiIHq-LFRBGMIST
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAxMDA4OSBTYWx0ZWRfXyyBsmJawSHj1
- sYSf4u+EOjOK9onJiixHjYgXU9WWo/INWtnmtbSQl5DuGr2014dixxsb5O8c036OdPI3u6XNv4V
- +W41n+eZ2ojejtqzUUghDT6z0o+TAesU6erciSOljaFXflDnyitsX4CJijSYe3NA/e+cv0uN09D
- NZqqoR1BZA0Mz58GtRIxIDAQB12v2E4mrCnMnyOv5vRdSUSZ6hHggE+g98HELA85MBB7R3bcKYA
- 0Y74kwlML0URQgIwvYfDgZ/pUzutYXrJaMc2/0lWqmgW+b8de7HFgqqLeiqc9o6kOnC/suRW7rZ
- vPBqaaE1BVM/jHpjEHGF0/og8oVHyedc3Wvzqom8Dfc9Ois5foGPLPFMCI/Y/X1l5YBbtfyRPdX
- Oz021a8X/BRLYsdZLAtEDXA2QuUrZAr3L5l8RWwPM96GpWHFJ3vq50YesCzSFDUX/Rglgl+kcQz
- fhbcPfmVFbogplVdL8A==
-X-Authority-Analysis: v=2.4 cv=bdRmkePB c=1 sm=1 tr=0 ts=69a40eb5 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=ZF1vm7_Oee5k7ESqZ6kA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: 6vKIxRpvDIiK-n-eqLiIHq-LFRBGMIST
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-01_01,2026-02-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 clxscore=1011
- malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603010089
+References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
+	<20260301-parse_iommu_cells-v9-2-4d1bceecc5e1@oss.qualcomm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: vijayanand.jitta@oss.qualcomm.com, nipun.gupta@amd.com, nikhil.agarwal@amd.com, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, lpieralisi@kernel.org, tglx@kernel.org, robh@kernel.org, saravanak@kernel.org, hongxing.zhu@nxp.com, l.stach@pengutronix.de, kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com, dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org, krzk+dt@kernel.org, prakash.gupta@oss.qualcomm.com, vikash.garodia@oss.qualcomm.com, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev, xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org, charan.kalla@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.81 / 15.00];
+X-Spamd-Result: default: False [1.32 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:charan.kalla@oss.qualcomm.com,m:cono
- r@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[iommu_spec.np:url,qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[maz@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[38];
+	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:charan.kalla@oss.
+ qualcomm.com,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[maz@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	TO_DN_SOME(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel,dt];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C43251CF04C
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 8C8C31CF053
 X-Rspamd-Action: no action
 
-On Sun, Mar 01, 2026 at 02:04:20PM +0530, Vijayanand Jitta wrote:
+On Sun, 01 Mar 2026 08:34:20 +0000,
+Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com> wrote:
+> 
 > From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
 > 
 > Change of_map_id() to take a pointer to struct of_phandle_args
@@ -233,16 +164,103 @@ On Sun, Mar 01, 2026 at 02:04:20PM +0530, Vijayanand Jitta wrote:
 >  include/linux/of.h                    | 21 +++++++++++++-------
 >  6 files changed, 44 insertions(+), 30 deletions(-)
 > 
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index a511ecf21fcd..d255d0f58e8c 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -48,7 +48,7 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
+>  	struct of_phandle_args iommu_spec = { .args_count = 1 };
+>  	int err;
+>  
+> -	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
+> +	err = of_map_iommu_id(master_np, *id, &iommu_spec);
+>  	if (err)
+>  		return err;
+>  
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 57420806c1a2..6c3628255908 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -2102,8 +2102,11 @@ int of_find_last_cache_level(unsigned int cpu)
+>   * @id: device ID to map.
+>   * @map_name: property name of the map to use.
+>   * @map_mask_name: optional property name of the mask to use.
+> - * @target: optional pointer to a target device node.
+> - * @id_out: optional pointer to receive the translated ID.
+> + * @arg: of_phandle_args structure,
+> + *	which includes:
+> + *	np: pointer to the target device node
+> + *	args_count: number of arguments
 
+Number of arguments *to what*? Isn't that the size of args[] instead?
+
+> + *	args[]: array to receive the translated ID(s).
+>   *
+>   * Given a device ID, look up the appropriate implementation-defined
+>   * platform ID and/or the target device which receives transactions on that
+> @@ -2117,21 +2120,21 @@ int of_find_last_cache_level(unsigned int cpu)
+>   */
+>  int of_map_id(const struct device_node *np, u32 id,
+>  	       const char *map_name, const char *map_mask_name,
+> -	       struct device_node **target, u32 *id_out)
+> +	       struct of_phandle_args *arg)
+>  {
+>  	u32 map_mask, masked_id;
+>  	int map_len;
+>  	const __be32 *map = NULL;
+>  
+> -	if (!np || !map_name || (!target && !id_out))
+> +	if (!np || !map_name || !arg)
+>  		return -EINVAL;
+>  
+>  	map = of_get_property(np, map_name, &map_len);
+>  	if (!map) {
+> -		if (target)
+> +		if (arg->np)
+>  			return -ENODEV;
+>  		/* Otherwise, no map implies no translation */
+> -		*id_out = id;
+> +		arg->args[0] = id;
+
+What if args_count is 0? Given that you place no restriction on the
+way this can be called, that'd be entirely legitimate, and you'd
+corrupt something you're not supposed to touch.
+
+>  		return 0;
+>  	}
+>  
+> @@ -2173,18 +2176,15 @@ int of_map_id(const struct device_node *np, u32 id,
+>  		if (!phandle_node)
+>  			return -ENODEV;
+>  
+> -		if (target) {
+> -			if (*target)
+> -				of_node_put(phandle_node);
+> -			else
+> -				*target = phandle_node;
+> +		if (arg->np)
+> +			of_node_put(phandle_node);
+> +		else
+> +			arg->np = phandle_node;
+>  
+> -			if (*target != phandle_node)
+> -				continue;
+> -		}
+> +		if (arg->np != phandle_node)
+> +			continue;
+>  
+> -		if (id_out)
+> -			*id_out = masked_id - id_base + out_base;
+> +		arg->args[0] = masked_id - id_base + out_base;
+>  
+>  		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
+>  			np, map_name, map_mask, id_base, out_base,
 > @@ -2193,11 +2193,10 @@ int of_map_id(const struct device_node *np, u32 id,
 >  	}
 >  
 >  	pr_info("%pOF: no %s translation for id 0x%x on %pOF\n", np, map_name,
 > -		id, target && *target ? *target : NULL);
 > +		id, arg->np ? arg->np : NULL);
-
-Is it just 'args->np' then? If it's NULL, it's NULL anyway.
-
 >  
 >  	/* Bypasses translation */
 > -	if (id_out)
@@ -295,96 +313,18 @@ Is it just 'args->np' then? If it's NULL, it's NULL anyway.
 > +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
 >  	if (err)
 >  		return err;
-
-of_node_put(iommu_spec.np);
-
 >  
 > +	sid = iommu_spec.args[0];
->  	mutex_lock(&port->pcie->lock);
->  
->  	idx = bitmap_find_free_region(port->sid_map, port->sid_map_sz, 0);
-> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-> index 1b7696b2d762..5f1d6540049a 100644
-> --- a/drivers/xen/grant-dma-ops.c
-> +++ b/drivers/xen/grant-dma-ops.c
-> @@ -325,7 +325,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
->  		struct pci_dev *pdev = to_pci_dev(dev);
->  		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
->  
-> -		if (of_map_iommu_id(np, rid, &iommu_spec.np, iommu_spec.args)) {
-> +		if (of_map_iommu_id(np, rid, &iommu_spec)) {
->  			dev_dbg(dev, "Cannot translate ID\n");
->  			return -ESRCH;
->  		}
-> diff --git a/include/linux/of.h b/include/linux/of.h
-> index 824649867810..9d72d76f909d 100644
-> --- a/include/linux/of.h
-> +++ b/include/linux/of.h
-> @@ -463,7 +463,7 @@ bool of_console_check(const struct device_node *dn, char *name, int index);
->  
->  int of_map_id(const struct device_node *np, u32 id,
->  	       const char *map_name, const char *map_mask_name,
-> -	       struct device_node **target, u32 *id_out);
-> +	       struct of_phandle_args *arg);
->  
->  phys_addr_t of_dma_get_max_cpu_address(struct device_node *np);
->  
-> @@ -929,7 +929,7 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
->  
->  static inline int of_map_id(const struct device_node *np, u32 id,
->  			     const char *map_name, const char *map_mask_name,
-> -			     struct device_node **target, u32 *id_out)
-> +			     struct of_phandle_args *arg)
->  {
->  	return -EINVAL;
->  }
-> @@ -1458,17 +1458,24 @@ static inline int of_property_read_s32(const struct device_node *np,
->  }
->  
->  static inline int of_map_iommu_id(const struct device_node *np, u32 id,
-> -				  struct device_node **target, u32 *id_out)
-> +				  struct of_phandle_args *arg)
 
-Document that it's the caller's responsibility to of_node_put() returned
-node. As it can be seen from the previous comment, it's not obvious.
+I find this stuff absolutely unreadable. You're fishing the SID in a
+random position of a random structure, without any documentation of
+how this is supposed to work. This really needs a wrapper that hides
+this implementation detail.
 
->  {
-> -	return of_map_id(np, id, "iommu-map", "iommu-map-mask",
-> -			 target, id_out);
-> +	return of_map_id(np, id, "iommu-map", "iommu-map-mask", arg);
->  }
->  
->  static inline int of_map_msi_id(const struct device_node *np, u32 id,
->  				struct device_node **target, u32 *id_out)
+Thanks,
 
-Is there a reason for chaning the of_map_iommu_id() args but not
-of_map_msi_id() args?
-
->  {
-> -	return of_map_id(np, id, "msi-map", "msi-map-mask",
-> -			 target, id_out);
-> +	struct of_phandle_args msi_spec = { .np = *target, .args_count = 1 };
-
-Which driver passes something being worth of storing in .np?
-
-> +	int ret;
-> +
-> +	ret = of_map_id(np, id, "msi-map", "msi-map-mask", &msi_spec);
-> +	if (!ret) {
-> +		*target = msi_spec.np;
-> +		*id_out = msi_spec.args[0];
-> +	}
-> +
-> +	return ret;
->  }
->  
->  #define of_for_each_phandle(it, err, np, ln, cn, cc)			\
-> 
-> -- 
-> 2.34.1
-> 
+	M.
 
 -- 
-With best wishes
-Dmitry
+Without deviation from the norm, progress is not possible.
 
