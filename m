@@ -2,53 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CCmWOJkqpGkgZgUAu9opvQ
+	id sAq+J8tVpGnreAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 13:01:29 +0100
+	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 16:05:47 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D5E1CF7DB
-	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 13:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1243856.1543433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5601D054C
+	for <lists+xen-devel@lfdr.de>; Sun, 01 Mar 2026 16:05:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1243903.1543444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwfTU-0007ZY-R4; Sun, 01 Mar 2026 12:00:40 +0000
+	id 1vwiLQ-0003Xr-5i; Sun, 01 Mar 2026 15:04:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1243856.1543433; Sun, 01 Mar 2026 12:00:40 +0000
+Received: by outflank-mailman (output) from mailman id 1243903.1543444; Sun, 01 Mar 2026 15:04:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwfTU-0007XM-OK; Sun, 01 Mar 2026 12:00:40 +0000
-Received: by outflank-mailman (input) for mailman id 1243856;
- Sun, 01 Mar 2026 12:00:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vwiLQ-0003VI-2w; Sun, 01 Mar 2026 15:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 1243903;
+ Sun, 01 Mar 2026 15:04:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kDVR=BB=oss.qualcomm.com=dmitry.baryshkov@srs-se1.protection.inumbo.net>)
- id 1vwfTT-0007XG-7j
- for xen-devel@lists.xenproject.org; Sun, 01 Mar 2026 12:00:39 +0000
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 422a1042-1566-11f1-b164-2bf370ae4941;
- Sun, 01 Mar 2026 13:00:37 +0100 (CET)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61SMU8QJ3616510
- for <xen-devel@lists.xenproject.org>; Sun, 1 Mar 2026 12:00:36 GMT
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cksg72jh8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Sun, 01 Mar 2026 12:00:35 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8c70fadd9a3so4001143285a.0
- for <xen-devel@lists.xenproject.org>; Sun, 01 Mar 2026 04:00:35 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a115bd5a66sm1006367e87.34.2026.03.01.04.00.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Mar 2026 04:00:32 -0800 (PST)
+ <SRS0=5Sm6=BB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1vwiLO-0003VC-1t
+ for xen-devel@lists.xenproject.org; Sun, 01 Mar 2026 15:04:30 +0000
+Received: from fhigh-a1-smtp.messagingengine.com
+ (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee1dcc03-157f-11f1-9ccf-f158ae23cfc8;
+ Sun, 01 Mar 2026 16:04:23 +0100 (CET)
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id EF5351400041;
+ Sun,  1 Mar 2026 10:04:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Sun, 01 Mar 2026 10:04:21 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Mar 2026 10:04:20 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,374 +49,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 422a1042-1566-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CHM6ea+T/SQTyKD6VE8gREYx
-	tQS0AV0BBIY+fO3U/+Q=; b=WoP5ZbKpVdVKlkXv2aH+KEPi03kUWMTYBCJXM+o0
-	bueM9nMs/bFFYl420otJKZY2dXshgOWxzxAFKqgZHYZv9Y+wfE00JUx9gc9JCh6y
-	V+d7SqShjxe+e3A4/hPi/TSmO2SHHa3u4E4bpGSwPJrOw7mX9mMBDw/bmCKTBp/I
-	txGW5FF5wCHDF770OacBskjkh+vvedtPD21saeukgigmMIxit4IgxQAnS+fsvhPs
-	F+p68LXBy/X93NlrWUCnmXUMXNp8Iordm9wjkO/Ua6JnTSz5zG0EFCHsrsYlGufg
-	Kw00/KOKaJQnpLM74TWrU6XkLJxwFn1k/m3ivgU4SjGccA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1772366435; x=1772971235; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CHM6ea+T/SQTyKD6VE8gREYxtQS0AV0BBIY+fO3U/+Q=;
-        b=cgSJQYr+k+82bgGdMF4UCkz/hzNtYGcDGaQfve4Sm8O10z8Gjh3uwEoRJeoYv6Mc4h
-         TK5HMYUDhj6ckhnS3JXeHdYt4UZC64ulhogI6vMTOyqJybZGfErNficnd2Nxcx3lefJX
-         xG1JKJXrBGe0X9l0/JfE6wLdOkwXbNqMVgI4bv2ad7e3TtY04iWnpiDj3htwxJw63kc7
-         8ryKYYcbKd64Q4+g0p5yicLwiljE2hA8nO0+YFuP0PnQbiNbmrVTx2ayCVQp5FSu0viJ
-         ub9bKCRdOX9LkHE9oAOFblbSXtc3OjUQ5Zm7PCsPF/bN92tSzh9S3Rrj8G2reYHqviUj
-         0LcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772366435; x=1772971235;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CHM6ea+T/SQTyKD6VE8gREYxtQS0AV0BBIY+fO3U/+Q=;
-        b=c5bATWlC4xWj+0PwUTnR8QrsHO6y+24L1m4F0SRs5fKxytx8cSF/ZM46nTACxReQ9N
-         PmbdskkDWm863T+qVOcsBAsCWNFKGPoAPjNZajdiUV/k3huxN2nA9xoqAsAtIGudbLSc
-         j9Inmad4fB4fAw1bI/Plnb7vuIRL2Ct9VpLjkReTNxBJToER52xxUWT2RwvHOXbDNwX9
-         FPxcCLHOKnn/wev0ukkYrjELetCzz/Xhms3DWpWk2O+NWzOhdoxuBULWNEZdAe9apu8f
-         7pZPY5ACLqDyVJpmXrdkRQQe0Na3YTXXK4wGZXCjYbqedLwB7jItjG5RXpHXr76Qntmq
-         Bt0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVuw786dOZhhGDYTHSouIp/Ux+c+ggqyp+h/Pmz3zMmMlUS60Dvz0XvBTisnef7lly/4Uo7kUr6yFU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDULQQxT+HdvHEiDbuAT1o2lE/LFkZ1jfNhri5Dkr3WKhAijeK
-	wyDMHZWeS+fVAcM1HXyx9LhM1WdTmpHoni3D+gyM9zyYBXUcbn6tvqTqt3de9hgZ49dl/eBZp7R
-	LGxhsWfpKjrm90oEph+m0HjOpiGA27x7iu+btPy76LBKzVs6/C3BdfHg+6PjOAs2vQ8d1ag==
-X-Gm-Gg: ATEYQzy6M7kVN0LtFJBZwQVlIwMuoPQu1dhnwqLYto2EsyTBracF0+TKF2b5GKD0l/W
-	A/aZHOK7CbekMWRDrdLmUouDSzSnRZyyarjvde3gmMoPy4MpGp8crdODLugzmSof4jDcyF0nbbj
-	HEO6yqKuheJjr1rxjBSRfc9o417UHfUVE51btD8FTgcvQ/AdsQ8endiVVv2Oz4lyjZu4y8gRya/
-	/pFJARNuzIj5eRPb+oIoQPLxA0OrtY6Q5jwFR6UH/StcxVtez/NEqRMKc2Xnt6lHVZylEWNN5qi
-	3zlZo5Ena21oIS6ZgIYDoKLobimvSz0n6/tlq8hcXJx2YK/cmmc5kdKWV2WxACBX6PM5U0N6jFb
-	AFmaYiMaFhUuUK2wPcOXgTDAnMfH+F3mgfqNoQiV4bB3bkb+t4NqX0hLPcdIOhhzsxoFEFbu/K0
-	BAdvL2D+fkf6frUH/ngU/p7etB7v+1oTkXv2o=
-X-Received: by 2002:a05:620a:198a:b0:8b2:7435:f5ef with SMTP id af79cd13be357-8cbc8e4f7a8mr1056040185a.41.1772366434884;
-        Sun, 01 Mar 2026 04:00:34 -0800 (PST)
-X-Received: by 2002:a05:620a:198a:b0:8b2:7435:f5ef with SMTP id af79cd13be357-8cbc8e4f7a8mr1056033185a.41.1772366434283;
-        Sun, 01 Mar 2026 04:00:34 -0800 (PST)
-Date: Sun, 1 Mar 2026 14:00:28 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-        Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Subject: Re: [PATCH v9 2/3] of: factor arguments passed to of_map_id() into a
- struct
-Message-ID: <khlwmcip3dacnkdc55w37sxplcshfb3uahgfb3cjm4kpdlfi4y@fletnzhayazf>
-References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
- <20260301-parse_iommu_cells-v9-2-4d1bceecc5e1@oss.qualcomm.com>
- <861pi3amuu.wl-maz@kernel.org>
- <ehhnta6zvfua723llpb52hh3lwqdh4ttomzt7xqrmcjnsslbop@p4w3gjzxp4rn>
- <86zf4r93ns.wl-maz@kernel.org>
+X-Inumbo-ID: ee1dcc03-157f-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1772377461; x=1772463861; bh=WE
+	DyKPtzrdTYeQrs6sXaKHMHgxci7AQYZmlLMmwrR0c=; b=MOZckj4blRe6GpBJ9K
+	mrFLHjWzhvxV6IfWrMeYsZv94I73ac4DisWR9mr4KIfWY6qe9MruhZm5BfVk8DlI
+	qrGswbo6ttGYzCIYr8HJWwjj5a0XfLruQebDPGlt1JmAaLnDpu30jYeaoxzbASyz
+	gpCPiho2r9CAO+QI4recP3De4mNH3V1/fg7Y3w+hORWaohNdrYQW0DfCMwENkaJN
+	lqJXhPmfV7focWMPJ1MMtyw2BPU2CyAg16i+IrlNwHqRo4zB0VEstzZT88MnvUBt
+	Imz8PHxQY8c8SUtSc3EfiNLlhLPeM+QJ8KlvB64JDeJSq62PpUycsdv7s0DdvuQ5
+	tehA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1772377461; x=
+	1772463861; bh=WEDyKPtzrdTYeQrs6sXaKHMHgxci7AQYZmlLMmwrR0c=; b=f
+	kG6+E2VoodApJN/EJ8l7DI2H1dhuidCPTWV00X9B2K4adlBSduICjvJOcD1U54mO
+	JcZ1eZ6VsLEDOJinDsZihX1KIbUYIJbKzHeKbu0j0wUv+LN/gKnKObCzcW7HvXts
+	wKp9SXyJ2Yp8mzUJSvFY4854RXzyJL+0rDc1Mw9szORGOpieneM4KiaZmZNGhvjX
+	WlHn8xHK/IR4Yj9catvZYjrFPRfeF9xxwoHGlhuC0HEWlk5YDBPIr9Ms0osDBdkl
+	z1KGPsEkTd+CvSAhv90h+MG6v9usy8QeSjqXj+tpzWx+HOOzSfnYinH+avlYPz9K
+	/ozYPZPF1qroMkGmflHBw==
+X-ME-Sender: <xms:dVWkaVSavsnQZ_j-wlgrwFiQ_4JmGQpT-CVbec0vx62H85R3UIOHtQ>
+    <xme:dVWkaVoUbF0WOe7kFxHq_NvWe2LsaVj3toSF2DgCvr9dIt1rvcd2J9taUUfb53YsC
+    ACO4bCWygZHVyF0CvNcQJmmXKew-msoJGijJjU90w1zFmxOWQ>
+X-ME-Received: <xmr:dVWkaTIZWFP2IIbZUtYoFYZLZEN21UzFSmN_2VcqQnF9Y1mm77_1acX5_jL-AJ4yAtPxTDe7-4Q4uxRPjTLy1CLNJ0-zN2eTDQ0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvheehuddtucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephfetuefhiefg
+    tddtlefggffggeevhedtvdefffeugfeiieeiheefteefgefggeejnecuffhomhgrihhnpe
+    hgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
+    ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
+    gtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthho
+    peigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtph
+    htthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtohepsghorhhishdrohhs
+    thhrohhvshhkhiesohhrrggtlhgvrdgtohhmpdhrtghpthhtoheprghkphhmsehlihhnuh
+    igqdhfohhunhgurghtihhonhdrohhrghdprhgtphhtthhopegurghvihgusehkvghrnhgv
+    lhdrohhrgh
+X-ME-Proxy: <xmx:dVWkaYrQ3r5TykAOdBhm2g_PTgV9B1X0YM8dfrI0ADXEsG4owEQAnQ>
+    <xmx:dVWkabyDiJTmON6uYuH-nBMykZcn2O2d0zlsU1iFzwhMkHRhwIy7qw>
+    <xmx:dVWkacNYx2Gy-rkIsrojIhtXpAgsrjBuchuJdvwQS7B3pnSIsHrR_w>
+    <xmx:dVWkaQ5Fnf_MKdEwIpntCQqGqiOrreCQSYjpbEmg6R8K1WN78wdOlg>
+    <xmx:dVWkaVJaCnN2eY1Hxv6gpjYUVzieb1-jb0fjsSO0S4KE7CsHS-NJoFf8>
+Feedback-ID: i1568416f:Fastmail
+Date: Sun, 1 Mar 2026 16:04:17 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Subject: Excluding init_on_free for pages for initial balloon down (Xen)
+Message-ID: <aaRVcVmtv2UBD-GF@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TuuO5D0SW37++uJS"
 Content-Disposition: inline
-In-Reply-To: <86zf4r93ns.wl-maz@kernel.org>
-X-Proofpoint-ORIG-GUID: H51xz7HrqNA3PM1J_tRM-p4gZKWcB4fC
-X-Proofpoint-GUID: H51xz7HrqNA3PM1J_tRM-p4gZKWcB4fC
-X-Authority-Analysis: v=2.4 cv=FaA6BZ+6 c=1 sm=1 tr=0 ts=69a42a63 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=YG64nluAAAAA:20
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=BCSTLeMbECCLQgZ0D0gA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAxMDEwOCBTYWx0ZWRfX0pAeYKvU+Pfy
- tj392hXrG0VguXMbtV/3JLBIhJ1VxRWYrbUimoRtnUAWFv4ebQYhJIHZfYiA1X/2WIVlS5Gj+Gp
- SMgHtLaG1If3HT4FUu7K2KP9/EZWhtSQlKV4uGQg714o+FbnQxLVMAY+jkzppH8wBWLSiPurEN2
- kDwWU+i2gZ923ZNoIp4aWWo2qQH9zwsyN4V7e4BTw2d39/SLhkWgPpv5XNguP+rRBVOOrfA+O3u
- 3Cw7kn2RRbvjpaC/tWQcoFi3GaQerQOiwz/JF9p0mMNFbBWArjXT4RuPLOMcQ8BR/LV2WZlgP/I
- HOR0KF0gBr/vaTbFuuzjBaOgJZ9VvO8/DZFOHjxi3l5f51GGG5bAIzTnLmnp4cdJAtWF8Zi1rfE
- 9m9spBa6PX8Jzx6/yDxsgUM7I5yxL0c1I2coQdTWXp9APPj1sghSQeLlW781mjs+LgA4lfzgCFA
- 2618DG6/DoCAH6F7/IA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-01_01,2026-02-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603010108
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dmitry.baryshkov@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:maz@kernel.org,m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:charan.kalla@oss.qualcomm.com,m:cono
- r@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,0.228.225.192:email,1.111.188.160:email,17d90000:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:akpm@linux-foundation.org,m:david@kernel.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_ALL(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmitry.baryshkov@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel,dt];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C5D5E1CF7DB
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: BB5601D054C
 X-Rspamd-Action: no action
 
-On Sun, Mar 01, 2026 at 11:42:47AM +0000, Marc Zyngier wrote:
-> On Sun, 01 Mar 2026 10:46:57 +0000,
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > 
-> > On Sun, Mar 01, 2026 at 10:02:49AM +0000, Marc Zyngier wrote:
-> > > On Sun, 01 Mar 2026 08:34:20 +0000,
-> > > Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com> wrote:
-> > > > 
-> > > > From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-> > > > 
-> > > > Change of_map_id() to take a pointer to struct of_phandle_args
-> > > > instead of passing target device node and translated IDs separately.
-> > > > Update all callers accordingly.
-> > > > 
-> > > > Subsequent patch will make use of the args_count field in
-> > > > struct of_phandle_args.
-> > > > 
-> > > > Suggested-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-> > > > Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-> > > > ---
-> > > >  drivers/iommu/of_iommu.c              |  2 +-
-> > > >  drivers/of/base.c                     | 37 +++++++++++++++++------------------
-> > > >  drivers/pci/controller/dwc/pci-imx6.c |  8 +++++++-
-> > > >  drivers/pci/controller/pcie-apple.c   |  4 +++-
-> > > >  drivers/xen/grant-dma-ops.c           |  2 +-
-> > > >  include/linux/of.h                    | 21 +++++++++++++-------
-> > > >  6 files changed, 44 insertions(+), 30 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> > > > index a511ecf21fcd..d255d0f58e8c 100644
-> > > > --- a/drivers/iommu/of_iommu.c
-> > > > +++ b/drivers/iommu/of_iommu.c
-> > > > @@ -48,7 +48,7 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
-> > > >  	struct of_phandle_args iommu_spec = { .args_count = 1 };
-> > > >  	int err;
-> > > >  
-> > > > -	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
-> > > > +	err = of_map_iommu_id(master_np, *id, &iommu_spec);
-> > > >  	if (err)
-> > > >  		return err;
-> > > >  
-> > > > diff --git a/drivers/of/base.c b/drivers/of/base.c
-> > > > index 57420806c1a2..6c3628255908 100644
-> > > > --- a/drivers/of/base.c
-> > > > +++ b/drivers/of/base.c
-> > > > @@ -2102,8 +2102,11 @@ int of_find_last_cache_level(unsigned int cpu)
-> > > >   * @id: device ID to map.
-> > > >   * @map_name: property name of the map to use.
-> > > >   * @map_mask_name: optional property name of the mask to use.
-> > > > - * @target: optional pointer to a target device node.
-> > > > - * @id_out: optional pointer to receive the translated ID.
-> > > > + * @arg: of_phandle_args structure,
-> > > > + *	which includes:
-> > > > + *	np: pointer to the target device node
-> > > > + *	args_count: number of arguments
-> > > 
-> > > Number of arguments *to what*? Isn't that the size of args[] instead?
-> > 
-> > It is a number of values corresponding to the phandle in the DT
-> > property.
-> 
-> No. It is what the *caller* expects. Not what is is in the DT, which
-> could be (and generally is) a pile of random crap.
 
-Nice
+--TuuO5D0SW37++uJS
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 1 Mar 2026 16:04:17 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Subject: Excluding init_on_free for pages for initial balloon down (Xen)
 
-> If the two don't
-> match, return an error. But don't randomly overwrite data that is not
-> yours.
+Hi,
 
-Mark, no. The caller can't know how many cell arguments the provider
-uses until:
-- the provider handle is parsed
-- provider node is consulted for the #foo-cells
+Some time ago I made a change to disable scrubbing pages that are
+ballooned out during system boot. I'll paste the whole commit message as
+it's relevant here:
 
-It is not a number of arguments for the _caller_. It is how many u32
-values are used by the _provider_.
+    197ecb3802c0 xen/balloon: add runtime control for scrubbing ballooned o=
+ut pages
 
-In case of IOMMUs, enough IOMMU devices have #iommu-cells = <2>, which
-means that it uses two u32 values to identify the SID or set of SIDs.
+    Scrubbing pages on initial balloon down can take some time, especially
+    in nested virtualization case (nested EPT is slow). When HVM/PVH guest =
+is
+    started with memory=3D significantly lower than maxmem=3D, all the extra
+    pages will be scrubbed before returning to Xen. But since most of them
+    weren't used at all at that point, Xen needs to populate them first
+    (from populate-on-demand pool). In nested virt case (Xen inside KVM)
+    this slows down the guest boot by 15-30s with just 1.5GB needed to be
+    returned to Xen.
+   =20
+    Add runtime parameter to enable/disable it, to allow initially disabling
+    scrubbing, then enable it back during boot (for example in initramfs).
+    Such usage relies on assumption that a) most pages ballooned out during
+    initial boot weren't used at all, and b) even if they were, very few
+    secrets are in the guest at that time (before any serious userspace
+    kicks in).
+    Convert CONFIG_XEN_SCRUB_PAGES to CONFIG_XEN_SCRUB_PAGES_DEFAULT (also
+    enabled by default), controlling default value for the new runtime
+    switch.
 
-Following your analogy, if we force 1 cell in the iommu-map property, we
-are trying to force the function which expects to take two arguments to
-accept just one. But it's not the caller, it's the IOMMU's xlate
-function.
+Now, I face the same issue with init_on_free/init_on_alloc (not sure
+which one applies here, probably the latter one), which several
+distributions enable by default. The result is (see timestamps):
 
+    [2026-02-24 01:12:55] [    7.485151] xen:balloon: Waiting for initial b=
+allooning down having finished.
+    [2026-02-24 01:14:14] [   86.581510] xen:balloon: Initial ballooning do=
+wn finished.
 
-> 
-> [...]
-> 
-> > It might be not obvious here for iommu-maps, but the struct is
-> > idiomatic in OF world. Let me quote a (trimmed) example from
-> > qcom/sm8650.dtsi (for a different property, but it explains the meaning
-> > of the values here):
-> > 
-> > gem_noc: interconnect@24100000 {
-> > 	#interconnect-cells = <2>;
-> > };
-> > 
-> > epss_l3: interconnect@17d90000 {
-> > 	#interconnect-cells = <1>;
-> > };
-> > 
-> > interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> > 		 &gem_noc SLAVE_LLCC QCOM_ICC_TAG_ACTIVE_ONLY>,
-> > 		<&epss_l3 MASTER_EPSS_L3_APPS
-> > 		 &epss_l3 SLAVE_EPSS_L3_SHARED>;
-> > /* I skipped the second pair, it adds nothing here */
-> > 
-> > Here the parsing function for this property (of_icc_get_by_index()) will
-> > call of_parse_phandle_with_args() 4 times and it expects to return the
-> > following values in the of_phandle_args:
-> > 
-> > 1. { .np = gem_noc, .args_count = 2, .args = [MASTER_APPSS_PROC,
-> >                                               QCOM_ICC_TAG_ACTIVE_ONLY] }
-> > 2. { .np = gem_noc, .args_count = 2, .args = [SLAVE_LLCC,
-> >                                               QCOM_ICC_TAG_ACTIVE_ONLY] }
-> > 3. { .np = epss_l3, .args_count = 1, .args = [MASTER_EPSS_L3_APPS] }
-> > 4. { .np = epss_l3, .args_count = 1, .args = [SLAVE_EPSS_L3_SHARED] }
-> > 
-> > The whole of_phandle_args is then typically passed to the corresponding
-> > xlate function, specific to the paricular .np ('provider'), which will
-> > use #args_count values from the #args array to return the object from
-> > the provider.
-> > 
-> > Now let's see iommu-maps (again, qcom/sm8650.dtsi):
-> > 
-> > apps_smmu: iommu@15000000 {
-> > 	#iommu-cells = <2>;
-> > };
-> > 
-> > iommu-map = <0     &apps_smmu 0x1400 0x1>,
-> > 	    <0x100 &apps_smmu 0x1401 0x1>;
-> > 
-> > The property matches current definition at [1], however this spec
-> > doesn't match the DT practice. It forces that the property should use 1
-> > cell for identifying the "object" in the IOMMU provider, even if the
-> > provider expects to use 2 cells (two args).
-> > 
-> > The correct property should look like:
-> > 
-> > iommu-map = <0     &apps_smmu 0x1400 0x0 0x1>,
-> > 	    <0x100 &apps_smmu 0x1401 0x0 0x1>;
-> > 
-> > [1] https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-iommu.yaml
-> > 
-> > > 
-> > > > + *	args[]: array to receive the translated ID(s).
-> > > >   *
-> > > >   * Given a device ID, look up the appropriate implementation-defined
-> > > >   * platform ID and/or the target device which receives transactions on that
-> > > > @@ -2117,21 +2120,21 @@ int of_find_last_cache_level(unsigned int cpu)
-> > > >   */
-> > > >  int of_map_id(const struct device_node *np, u32 id,
-> > > >  	       const char *map_name, const char *map_mask_name,
-> > > > -	       struct device_node **target, u32 *id_out)
-> > > > +	       struct of_phandle_args *arg)
-> > > >  {
-> > > >  	u32 map_mask, masked_id;
-> > > >  	int map_len;
-> > > >  	const __be32 *map = NULL;
-> > > >  
-> > > > -	if (!np || !map_name || (!target && !id_out))
-> > > > +	if (!np || !map_name || !arg)
-> > > >  		return -EINVAL;
-> > > >  
-> > > >  	map = of_get_property(np, map_name, &map_len);
-> > > >  	if (!map) {
-> > > > -		if (target)
-> > > > +		if (arg->np)
-> > > >  			return -ENODEV;
-> > > >  		/* Otherwise, no map implies no translation */
-> > > > -		*id_out = id;
-> > > > +		arg->args[0] = id;
-> > > 
-> > > What if args_count is 0? Given that you place no restriction on the
-> > > way this can be called, that'd be entirely legitimate, and you'd
-> > > corrupt something you're not supposed to touch.
-> > 
-> > args is an array (not a pointer) in of_phandle_args. As such we know
-> > that args[0] is legit.
-> 
-> Again, no. The caller is telling you what it expects. This is strictly
-> equivalent to:
-> 
-> 	void func(void *blah[], int sz);
-> 
-> func() is not supposed to look beyond sz. As it stands, this change in
-> not acceptable.
+But here the situation is a bit more complicated:
+init_on_free/init_on_alloc applies to any pages, not just those for
+balloon driver. I see two approaches to solve the issue:
+1. Similar to xen_scrub_pages=3D, add a runtime switch for
+   init_on_free/init_on_alloc, then force them off during boot, and
+   re-enable early in initramfs.
+2. Somehow adjust balloon driver to bypass init_on_alloc when ballooning
+   a page out.
 
-DT parsing functions follow a different approach, because of the "random
-crap". It is:
+The first approach is likely easier to implement, but also has some
+drawbacks: it may result in some kernel structures that are allocated
+early to remain with garbage data in uninitialized places. While it may
+not matter during early boot, such structures may survive for quite some
+time, and maybe attacker can use them later on to exploit some other
+bug. This wasn't really a concern with xen_scrub_pages, as those pages
+were immediately ballooned out.
 
-    int parse(void *phandle, u32 **args, int *sz);
+The second approach sounds architecturally better, and maybe
+init_on_alloc could be always bypassed during balloon out? The balloon
+driver can scrub the page on its own already (which is enabled by
+default). That of course assumes the issue is only about init_on_alloc,
+not init_on_free (or both) - which I haven't really confirmed yet...
+If going this way, I see the balloon driver does basically
+alloc_page(GFP_BALLOON), where GFP_BALLOON is:
 
-So, if the caller insists that it can handle only one argument, it
-should call parse(), then check that (sz == 1) and return -EINVAL
-otherwise (kfreeing *args and of_node_puting phandle while it does so).
+    /* When ballooning out (allocating memory to return to Xen) we don't re=
+ally
+       want the kernel to try too hard since that can trigger the oom kille=
+r. */
+    #define GFP_BALLOON \
+        (GFP_HIGHUSER | __GFP_NOWARN | __GFP_NORETRY | __GFP_NOMEMALLOC)
 
-I will quote of_phandle_args here:
+Would that be about adding some new flag here? Or maybe there is already
+one for this purpose?
 
-struct of_phandle_args {
-        struct device_node *np;
-        int args_count;
-        uint32_t args[MAX_PHANDLE_ARGS];
-};
+Any opinions?
 
+PS issue tracked at https://github.com/QubesOS/qubes-issues/issues/10723
 
-Please take a look at how of_parse_phandle_with_args() works.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
--- 
-With best wishes
-Dmitry
+--TuuO5D0SW37++uJS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmkVXEACgkQ24/THMrX
+1ywhmgf/eZeGTjx6//+hTB2Qy9RqzuXOwOQ6AfyQquM85TNDY4pn/smySDi3d6PL
+fHo5sweOijroW7tFUMeUQPO+7IewuVJo9OlE9wq09nM3J5KwiamrKDrgedaDuqP5
+1Trg1sd4LV+qLNXvlHHZ49EuSoNzbz76ZBcHZQwqnGWF5L8Y9ruqQXPKpoi1MplN
+5A2uOLr9QWYIrpYkMxl+8bMzlGWS+nhASDy4V/0R2ba5z6QzPS/4RMI/p65SalHI
+ZfiER1PFuL+bIo+SWciATW+SJgC5XmmMXPW3NbTrKVyFW8+tcu3u31pvJKivC5qy
+zvseR3nvv808lqmg/ErE6FXP7nRWWg==
+=Uy3v
+-----END PGP SIGNATURE-----
+
+--TuuO5D0SW37++uJS--
 
