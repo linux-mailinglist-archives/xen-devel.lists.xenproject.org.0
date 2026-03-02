@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EHQrDzhypWlsBQYAu9opvQ
+	id CN8HL2BypWlsBQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:19:20 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:20:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F841D758F
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:19:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244163.1543626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5F851D75A6
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:19:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244172.1543636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx1It-0005g4-5d; Mon, 02 Mar 2026 11:19:11 +0000
+	id 1vx1JX-0006Ao-DC; Mon, 02 Mar 2026 11:19:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244163.1543626; Mon, 02 Mar 2026 11:19:11 +0000
+Received: by outflank-mailman (output) from mailman id 1244172.1543636; Mon, 02 Mar 2026 11:19:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx1It-0005da-2n; Mon, 02 Mar 2026 11:19:11 +0000
-Received: by outflank-mailman (input) for mailman id 1244163;
- Mon, 02 Mar 2026 11:19:10 +0000
+	id 1vx1JX-00069Q-AU; Mon, 02 Mar 2026 11:19:51 +0000
+Received: by outflank-mailman (input) for mailman id 1244172;
+ Mon, 02 Mar 2026 11:19:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cp9A=BC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vx1Is-00056V-2K
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:19:10 +0000
-Received: from fout-a3-smtp.messagingengine.com
- (fout-a3-smtp.messagingengine.com [103.168.172.146])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vx1JV-00056V-TD
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:19:49 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a181654d-1629-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 12:19:09 +0100 (CET)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id D07FEEC0572;
- Mon,  2 Mar 2026 06:19:07 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Mon, 02 Mar 2026 06:19:07 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Mar 2026 06:19:06 -0500 (EST)
+ id b9930178-1629-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 12:19:49 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-439b78b638eso830408f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 03:19:49 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439b0549600sm12199623f8f.35.2026.03.02.03.19.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Mar 2026 03:19:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,278 +50,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a181654d-1629-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1772450347;
-	 x=1772536747; bh=bY05i/GjZaw5/I4RKcGeiDPQv4mupjxmU/TsxnBo4pg=; b=
-	FAViYZk7P8cQ5QKQj5oTiJqlHbUBrgabRd2dqSXJWnGT+3G6sm23c8bZBmB4FUoZ
-	5NJaPVUZ4lBZERUFgbS0Qw9/xhEASUEpaR2eUtOtkyrlc9BsaDU9aXN91OoLQFXU
-	0ZUPFM+2gEGHJ6L/YhhhieLTIEFyCw6XYmBZeCj43/D6UlpwhKsq4wDfNL6n1ugT
-	MMWTGVkD6D4pcJRn/lJUdIvHnG83OFkmcMcPS/JtLEmUJfcrXjiU1bjbzmU+bCqE
-	Ql7gRUiSJL/qBSL+offf65xVdDgqtyPN5X8g+AAss9gUhBhkfF4m+ao+XPTBNvYN
-	hy46qXtzdk/EwI41jznchw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1772450347; x=1772536747; bh=bY05i/GjZaw5/I4RKcGeiDPQv4mupjxmU/T
-	sxnBo4pg=; b=zROQEehHXc0vtPL8x5aYaOHzP2+SbHMvp3iLw3IvbcwvMTViksk
-	BqRjwJgp6SXgVVqcRC1LK9LNpK8/GcbalaSXWZQeZi7J/Pg5Ge481kb7HH6k0Otb
-	ee6lwETcmzT8tuFi9EBBr6lKE1+b4CmW0AZYUjQpZ/6ldlrVh6QNdGw5rhlWhzNG
-	MBbmt2fHFSTBLIa7MABh1Xux7nNunTJ6/JdKb62m1IzQYPIxdCLi1bhFhZDpjcwb
-	4Tcf0uCwr9wV49+63wuN2Yz7FafZRl2tUSWYQgIvaFnjDidjDmOq2Z21M1OlHhXd
-	JF296+BxBQmeKn/YVvCoyYZUurKkQFC637Q==
-X-ME-Sender: <xms:K3KlaRND_q9jjg7rxcn822HnhgzVR2BeWb4fLcy_FmWPrQ4DKqnTrw>
-    <xme:K3Klabsk1Jfu5fAg9Z3pMUoqxosmkIUO1BXJfz54YztplX_EbAp2SFCza9tigs_hk
-    I1rCetCtUEc3rJ6WB74u3jCT042NMMRRtwiK8tEMxzwPfrIjw>
-X-ME-Received: <xmr:K3KlaTUhGa-8Vjp4u_Ch5NGQIx3VYJs0U8BKvyrIOQOytxbfXWj0tZ_oXw_6ohBJid3Em1HBk-l_Zit9ztC20__mgmCTc43XfgI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvheejheefucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdehvedt
-    ffeggeffgeetieevfeelvdfhjeekvdfhgfffvedvuedviedugefguedvnecuffhomhgrih
-    hnpehgihhthhhusgdrtghomhdpqhhusggvshdqohhsrdhorhhgnecuvehluhhsthgvrhfu
-    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepfedpmhhouggv
-    pehsmhhtphhouhhtpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtoh
-    hmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtght
-    rdhorhhgpdhrtghpthhtohepihhnthgvlhdqgigvsehlihhsthhsrdhfrhgvvgguvghskh
-    htohhprdhorhhg
-X-ME-Proxy: <xmx:K3KlabtC9r6FGdQFhTcKbTOFE3Ce7o4HgUvWiojRMl9F4QzQ1OhxXg>
-    <xmx:K3KlaXV1Bavo4iOEeUPVy9mj3pe7DkrLBU_1p9DKc4wAp0fmQ5ZbLw>
-    <xmx:K3KlaWnh5NmCo_jhLAS1P2slfTKRkNFz0pxKBpF9aqju2SsV62iq8A>
-    <xmx:K3KlaYZdrrEBGIaYSvM5dXmTjbFLYMj3U2-nZjBV7Mm6AAN2Vs9MdQ>
-    <xmx:K3Klabz6ExESttmkQasThpbzfLp3hC3w0cZUz65ScP6V4LezttAf-y85>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 2 Mar 2026 12:19:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	intel-xe@lists.freedesktop.org
-Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
- Xen 4.19
-Message-ID: <aaVyKFaCSuhJufW2@mail-itl>
-References: <aYtznP_tT6xNPwf-@mail-itl>
- <aY3ttvtxGCPTNgsj@Mac.lan>
- <aY58-gyarcVoBS2a@mail-itl>
- <aZ3KoSlIzru0Uumu@mail-itl>
+X-Inumbo-ID: b9930178-1629-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1772450388; x=1773055188; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=GU9opBkaf7BDbY884PlXLT1seZFwGlMBcHTY2nf6ZP0=;
+        b=ViJ6Ieu48uJDqEfzAagSZW1AJK3GjBK/ivleYWHHSv/G5skdxquc8ZS0tAJW3LVlNK
+         a0hffAz4pGlgGnduU7f/3jVjICeOCb6iqQlryMCcqg3NI3IQrmC645ZrCxNxCqFiZ7Ca
+         MSLUBtfbq36UyfJ9FRdOKLIkDKva2CaRX0hMGrFAoXHWOq7CCLIVlNaLdesdamrrXsm8
+         gOf6Q4ZXrUTqDn4buIKfP0ynHpvx/DtLoD+ubnJMp9ajM+pd3QP0kE+FFikiNdhUc/dN
+         3U8lZjfBDWtZJXgrVhPDGbs+XOmlSTix1JFRr4v4mhxJ4wOQ3G7toQ0n/3xMhn8zwMiX
+         I/HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772450388; x=1773055188;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GU9opBkaf7BDbY884PlXLT1seZFwGlMBcHTY2nf6ZP0=;
+        b=Fhl46YiIbmAJcC7eFzD3T+8V0S9tBFZ6oh+6yuDh5m60oOU9UVb0URultPSuXyXSxu
+         bty8globTDMefi0mGj8sfKkUAg1rLdTxd/aLzkbLgD5ARwENHRPzJ3Jf5+ufxNssmpRA
+         PiaYGgc5mkP2KlYeDKFzz2qwZ4PuM+2Kka/z5LuDSRtlsFhv6QGMq4x//LIvbSzopxz5
+         jIEKqDqI/QEQE5RcVoa726bGpXlEilnsYO6sSsg3vOjMaFaM/cT68JIutllpIBRv/ysN
+         aNAVBKHgCC3hwN55vYNbj4eTGFWUOFlaHG/vfXpbIqLe98nd3CFIFjoJIvkFuieXiZHi
+         3m7w==
+X-Forwarded-Encrypted: i=1; AJvYcCWYMUrMCESVwRXEZCkcrM/tpwij/oHRAcUYXBumUu26n+FgxU6KudjulFT2f+5b7URvODq3rzgWwOg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykayCwSfYBo0j2XBzEP/VXHRymLu+1o1nm+Xa4kCTrppi8tIdL
+	cliqCS+34gzxCMX7D6xq0Q10/JjqmsDLlAZ2of3n/o9OAmAHewTALiGTAZe+JEAcSA==
+X-Gm-Gg: ATEYQzynzCUND3LsAOUxJM4WaAeIQ8PEXNMrC+4RlUd3cwGimsZEvq7xVjaStCGdjCL
+	ALFGGTtK/MUpm5xrSr8SsO6wCvwFF1GbRJWGFOwfLFT9Vqs8U8uGbLeONM9CNkUG3eGRuji54JX
+	25QlW15vYfyjGYTMMV0KZ0zEoq8V5vnWhJpUfzmwEMDrN6sIAIiVLoegkSO0nw31MpTNRxmZ9MC
+	su/NFJoujNkA4qgbu5MLJDZpH0Qq1n6VnXZwwQoce5ZwV3EPhLUv+3+w4C0Yc7DaGZTLAQZX3r0
+	BCvnmLeKqXgfW1gKPTyf/EtFgMoAh0WguWHQR2Il5s8F+ApE8hv3V0ou8m5xPXAuimDUzOOB/IN
+	HL3mFCTXgRzYCojau77qwiJMJSLAer8HL4jrK0A1ZJvTthW3Z+HuPWAbSmrdYQSFF2sLR7PCMW1
+	AIrkGnZWvqqMuiBr7GbX7D30tajT2nK3zAl4URub5IfxkR12VU7jS5GyYEQxyBlwwlFG1lhJTA8
+	m0ICewPCFQ+4k4=
+X-Received: by 2002:a5d:588c:0:b0:439:b60a:b403 with SMTP id ffacd0b85a97d-439b60ab61emr6796477f8f.34.1772450388099;
+        Mon, 02 Mar 2026 03:19:48 -0800 (PST)
+Message-ID: <4052793e-094d-449b-af97-e2d068836366@suse.com>
+Date: Mon, 2 Mar 2026 12:19:50 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zu0C4HM+umfEjDpa"
-Content-Disposition: inline
-In-Reply-To: <aZ3KoSlIzru0Uumu@mail-itl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/14] docs/guest-guide: Describe the PV traps and
+ entrypoints ABI
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
+ <20260227231636.3955109-3-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260227231636.3955109-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.79 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm1];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	TO_DN_SOME(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:intel-xe@lists.freedesktop.org,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	SUBJECT_HAS_QUESTION(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,qubes-os.org:url];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	NEURAL_HAM(-0.00)[-0.989];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: A2F841D758F
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: E5F851D75A6
 X-Rspamd-Action: no action
 
+On 28.02.2026 00:16, Andrew Cooper wrote:
+> ... seeing as I've had to thoroughly reverse engineer it for FRED and make
+> tweaks in places.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
---zu0C4HM+umfEjDpa
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Mar 2026 12:19:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	intel-xe@lists.freedesktop.org
-Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
- Xen 4.19
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Feb 24, 2026 at 04:58:25PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Fri, Feb 13, 2026 at 02:23:06AM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Thu, Feb 12, 2026 at 04:11:50PM +0100, Roger Pau Monn=C3=A9 wrote:
-> > > On Tue, Feb 10, 2026 at 07:06:20PM +0100, Marek Marczykowski-G=C3=B3r=
-ecki wrote:
-> > > > Hi,
-> > > >=20
-> > > > Recently I started testing compatibility with Intel Lunar Lake. Thi=
-s is
-> > > > the first one that uses "xe" instead of "i915" Linux driver for iGP=
-U.
-> > > > I test it with Qubes OS 4.3, which uses Xen 4.19.4 and PV dom0 runn=
-ing
-> > > > Linux 6.17.9 in this test.
-> > >=20
-> > > Not sure it's going to help a lot, but does using a PVH dom0 make any
-> > > difference?
-> >=20
-> > Ok, now with the correct Xen version, it's better with PVH dom0. At
-> > least on the login screen and few applications (from both dom0 and domU)
-> > I don't see the glitches anymore. I can't do a full test, because PCI
-> > passthrough doesn't seem to work with PVH dom0 on Xen 4.19 - and I need
-> > it to start most VMs.
-> >=20
-> > So, if the above test is representative, it's only about PV dom0.
->=20
-> Some further observations:
->=20
-> 1. My initial impression that Xen 4.17.6 is not affected is false.
-> Apparently I got lucky and didn't waited long enough for glitches to
-> appear. Unfortunately this means I have no way to bisect this...
->=20
-> 1a. Updated test procedure - either:
->   - start Qubes OS in full (including default system domUs) and try to
->     open an app in one of them (for example file manager or pdf viewer)
->   - start Linux up to lightdm login page, log in, log out, click on a
->     few lightdm menus (session type selector, poewroff menu etc)
->=20
-> The second version works even if toolstack version in dom0 doesn't match
-> Xen version. If no glitches are observed after doing either of those
-> procedures, assume it's good.
->=20
-> 2. Xen staging is affected too. As well as Xen staging-4.19 without
-> any qubes patches.
->=20
-> 3. After enabling CONFIG_DEBUG in Xen, the xe.ko fails to load firmware:
->=20
->     xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware from xe/lnl_guc=
-_70.bin version 70.53.0
->     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status =3D 0x=
-40000056, time =3D 0ms, freq =3D 1850MHz (req 1850MHz), done =3D -1
->     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status: Reset=
- =3D 0, BootROM =3D 0x2B, UKernel =3D 0x00, MIA =3D 0x00, Auth =3D 0x01
->     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: firmware production part c=
-heck failure
->     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: Failed to initialize uC (-=
-EPROTO)
->     xe 0000:00:02.0: probe with driver xe failed with error -71
->=20
-> CONFIG_DEBUG is the only change between "xe.ko loads fine but there are
-> glitches later on" and "xe.ko fails to load at all". Full console logs:
-> https://gist.github.com/marmarek/47b5e62a2cdbae6678c2aecc5283cd3f, there
-> are 3 files:
->   - CONFIG_DEBUG=3Dn
->   - CONFIG_DEBUG=3Dy
->   - CONFIG_DEBUG=3Dy + iommu=3Ddebug
->=20
-> 4. Updating to Linux 7.0-rc1 doesn't help, for example:
-> https://openqa.qubes-os.org/tests/168119#step/desktop_linux_manager_creat=
-e_qube/11
->=20
-> Generally, it does feel like a bug in xe.ko, but I can't exclude some iss=
-ue
-> on Xen side too (especially given point 3 above).
+> --- /dev/null
+> +++ b/docs/guest-guide/x86/pv-traps.rst
+> @@ -0,0 +1,123 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +PV Traps and Entrypoints
+> +========================
+> +
+> +.. note::
+> +
+> +   The details here are specific to 64bit builds of Xen.  Details for 32bit
+> +   builds of Xen, are different and not discussed further.
 
-After waiting some time (Linux 6.19.5 this time), Xen CONFIG_DEBUG=3Dn, I g=
-et some timeout messages:
+Nit: Stray comma?
 
-    [    8.122120] xe 0000:00:02.0: [drm] [ENCODER:204:DDI A/PHY A] failed =
-to retrieve link info, disabling eDP
-    [    8.148476] xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware fr=
-om xe/lnl_guc_70.bin version 70.53.0
-    [    8.803845] xe 0000:00:02.0: [drm] Tile0: GT0: ccs1 fused off
-    [    8.804208] xe 0000:00:02.0: [drm] Tile0: GT0: ccs2 fused off
-    [    8.804556] xe 0000:00:02.0: [drm] Tile0: GT0: ccs3 fused off
-    [    8.822426] xe 0000:00:02.0: [drm] Tile0: GT1: Using GuC firmware fr=
-om xe/lnl_guc_70.bin version 70.53.0
-    [    8.827140] xe 0000:00:02.0: [drm] Tile0: GT1: Using HuC firmware fr=
-om xe/lnl_huc.bin version 9.4.13
-    [    8.829478] xe 0000:00:02.0: [drm] Tile0: GT1: Using GSC firmware fr=
-om xe/lnl_gsc_1.bin version 104.0.5.1429
-    [    8.852923] xe 0000:00:02.0: [drm] Tile0: GT1: vcs1 fused off
-    [    8.853513] xe 0000:00:02.0: [drm] Tile0: GT1: vcs2 fused off
-    [    8.854090] xe 0000:00:02.0: [drm] Tile0: GT1: vcs3 fused off
-    [    8.854706] xe 0000:00:02.0: [drm] Tile0: GT1: vcs4 fused off
-    [    8.855310] xe 0000:00:02.0: [drm] Tile0: GT1: vcs5 fused off
-    [    8.855904] xe 0000:00:02.0: [drm] Tile0: GT1: vcs6 fused off
-    [    8.856495] xe 0000:00:02.0: [drm] Tile0: GT1: vcs7 fused off
-    [    8.857079] xe 0000:00:02.0: [drm] Tile0: GT1: vecs1 fused off
-    [    8.857675] xe 0000:00:02.0: [drm] Tile0: GT1: vecs2 fused off
-    [    8.858272] xe 0000:00:02.0: [drm] Tile0: GT1: vecs3 fused off
-    [    8.975881] xe 0000:00:02.0: [drm] Registered 3 planes with drm panic
-    [    8.976586] [drm] Initialized xe 1.1.0 for 0000:00:02.0 on minor 0
-    [    8.980882] ACPI: video: Video Device [GFX0] (multi-head: yes  rom: =
-no  post: no)
-    [    9.033754] xe 0000:00:02.0: [drm] Tile0: GT1: found GSC cv104.1.0
-    ...
-    [ 1218.319232] xe 0000:00:02.0: [drm] Tile0: GT0: Engine reset: engine_=
-class=3Drcs, logical_mask: 0x1, guc_id=3D3
-    [ 1218.319890] xe 0000:00:02.0: [drm] Tile0: GT0: Timedout job: seqno=
-=3D9883, lrc_seqno=3D9883, guc_id=3D3, flags=3D0x0 in Xorg [3245]
-    [ 1218.320736] xe 0000:00:02.0: [drm] Xe device coredump has been creat=
-ed
-    [ 1218.321140] xe 0000:00:02.0: [drm] Check your /sys/class/drm/card0/d=
-evice/devcoredump/data
-    [ 1222.285626] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_don=
-e timed out
-    [ 1232.525685] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
-    [ 1232.526280] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] commit w=
-ait timed out
-    [ 1242.765717] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_don=
-e timed out
-    [ 1253.005696] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
-    [ 1253.006248] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] commit w=
-ait timed out
-    [ 1263.245599] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_don=
-e timed out
+> +PV guests are subject to Xen's linkage setup for events (interrupts,
+> +exceptions and system calls).  x86's IDT architecture and limitations are the
+> +majority influence on the PV ABI.
+> +
+> +All external interrupts are routed to PV guests via the :term:`Event Channel`
+> +interface, and not discussed further here.
+> +
+> +What remain are exceptions, and the instructions which cause a control
+> +transfers.  In the x86 architecture, the instructions relevant for PV guests
+> +are:
+> +
+> + * ``INT3``, which generates ``#BP``.
+> +
+> + * ``INTO``, which generates ``#OF`` only if the overflow flag is set.  It is
+> +   only usable in compatibility mode, and will ``#UD`` in 64bit mode.
+> +
+> + * ``CALL (far)`` referencing a gate in the GDT.
+> +
+> + * ``INT $N``, which invokes an arbitrary IDT gate.  These four instructions
+> +   so far all check the gate DPL and will ``#GP`` otherwise.
+> +
+> + * ``INT1``, also known as ``ICEBP``, which generates ``#DB``.  This
+> +   instruction does *not* check DPL, and can be used unconditionally by
+> +   userspace.
+> +
+> + * ``SYSCALL``, which enters CPL0 as configured by the ``{C,L,}STAR`` MSRs.
+> +   It is usable if enabled by ``MSR_EFER.SCE``, and will ``#UD`` otherwise.
+> +   On Intel parts, ``SYSCALL`` is unusable outside of 64bit mode.
+> +
+> + * ``SYSENTER``, which enters CPL0 as configured by the ``SEP`` MSRs.  It is
+> +   usable if enabled by ``MSR_SYSENTER_CS`` having a non-NUL selector, and
+> +   will ``#GP`` otherwise.  On AMD parts, ``SYSENTER`` is unusable in Long
+> +   mode.
 
-The glitches appear much earlier, though.
-Would content of /sys/class/drm/card0/device/devcoredump/data be useful
-for debugging this?
+The UD<n> family of insns is kind of a hybrid: They explicitly generate #UD,
+and hence do a control transfer. Same for at least BOUND. It's not quite clear
+whether they should be enumerated here as well.
 
-Full log at https://openqa.qubes-os.org/tests/168813/file/serial0.txt
-(warning, almost 200MB of those errors...)
+> +Xen's configuration
+> +-------------------
+> +
+> +Xen maintains a complete IDT, with most gates configured with DPL0.  This
+> +causes most ``INT $N`` instructions to ``#GP``.  This allows Xen to emulate
+> +the instruction, referring to the guest kernels vDPL choice.
+> +
+> + * Vectors 3 ``#BP`` and 4 ``#OF`` are DPL3, in order to allow the ``INT3``
+> +   and ``INTO`` instructions to function in userspace.
+> +
+> + * Vector 0x80 is DPL3 in order to implement the legacy system call fastpath
+> +   commonly found in UNIXes.
 
+Much like we make this DPL0 when PV=n, should we perhaps make vectors 3 and 4
+DPL0 as well in that case (just for formality's sake)? Maybe 4, like 9, would
+even want to be an autogen entry point then?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---zu0C4HM+umfEjDpa
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmlcigACgkQ24/THMrX
-1yxbnAf8CLqovdVUHy5Z9g4mb1xXRlYtk5W3BzX2l8m7XATXQU50WCZ70jFB3IVI
-731vgifDlcnRiY1/bHU851bc1fHHKKq1KeqL+jmSYEVlxixO9N7Et/o1VDVJdsql
-wq6sWj2BByyyFvbhOxfUmIfPG/aOqJrBNxMH2QVhTnyUrnWEyX6oUI9jXiA8FX7h
-a836dOQOkY+zTaypRg85iXbHBjxjj7Kyj8qPFGfyFj5TRw/vgtiMfU1yzPxOo7QT
-/t47KCoDCwcz4g99iacx3Ly60/x18oyvebrov4KGvAHW75VVlJSG9Zob2as4GH+X
-wySLcUiG8BkWOu9O57PwH3xGv04dww==
-=pqlU
------END PGP SIGNATURE-----
-
---zu0C4HM+umfEjDpa--
+Jan
 
