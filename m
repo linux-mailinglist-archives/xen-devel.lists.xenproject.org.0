@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IFBwELmypWlMEgAAu9opvQ
+	id SCNZHRO3pWkiFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 16:54:33 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:13:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915221DC383
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 16:54:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244430.1543873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B21381DC7BB
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:13:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244443.1543891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx5b4-0001xP-4u; Mon, 02 Mar 2026 15:54:14 +0000
+	id 1vx5ss-0005Yt-KM; Mon, 02 Mar 2026 16:12:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244430.1543873; Mon, 02 Mar 2026 15:54:14 +0000
+Received: by outflank-mailman (output) from mailman id 1244443.1543891; Mon, 02 Mar 2026 16:12:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx5b4-0001uf-1R; Mon, 02 Mar 2026 15:54:14 +0000
-Received: by outflank-mailman (input) for mailman id 1244430;
- Mon, 02 Mar 2026 15:54:12 +0000
+	id 1vx5ss-0005W1-Gd; Mon, 02 Mar 2026 16:12:38 +0000
+Received: by outflank-mailman (input) for mailman id 1244443;
+ Mon, 02 Mar 2026 16:12:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cp9A=BC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vx5b2-0001uW-R0
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 15:54:12 +0000
-Received: from fhigh-b8-smtp.messagingengine.com
- (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vx5sr-0005Vs-Ft
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 16:12:37 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cbe06f4-1650-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 16:54:10 +0100 (CET)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 506227A013F;
- Mon,  2 Mar 2026 10:54:08 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Mon, 02 Mar 2026 10:54:08 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Mar 2026 10:54:05 -0500 (EST)
+ id a031208f-1652-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 17:12:35 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-439af00d33cso1529361f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 08:12:35 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439b4d06c27sm9976489f8f.17.2026.03.02.08.12.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Mar 2026 08:12:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,165 +50,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cbe06f4-1650-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1772466848;
-	 x=1772553248; bh=o9cpGhld9lKXfSpgy3pgdi3vK+UFWbk2cVYvl3BrPTE=; b=
-	qoujYvowuv0hlW6ILJCddnCZk39UxGyVdesGfyKns062zK89BtQWw13lINoXjF9A
-	oiS5ZgBVGsGxSESKilaajAP2x8WOo9ATJRDKOCe7mtx9mAMrOWY0wTFKoFV3v55e
-	K1tQh5/GyWZ2RaL1TW4oJNmNRao7549DDI2g1RgHAcdZ1M2I7rWLcALLx4ekByhR
-	aoxz3jsBlwvJKgmS9kcnNQlnDb6KX7gyQZPhAJPYN1VflMHvW8S8GvmGWUk5w5G5
-	rq9jn19ipNvwls5dfNn/NflHVpFA+VYSAVu0ZmpGsO1g+0N0fKiK+ZZGGMOzHWMa
-	Mojhceauqp9e2mXvsVlWCQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1772466848; x=1772553248; bh=o9cpGhld9lKXfSpgy3pgdi3vK+UFWbk2cVY
-	vl3BrPTE=; b=f1Ya3sPAczrvg7ue54hXKyb+bNEgut0Gs2BemEz4JipZDHJrES9
-	9fL/afWtsSU0iLQadwUhoaXkHP3CiH1ny4LWzE6+xJHkjC1VarCuusNjBTGOIbTA
-	Klh5gc647k0928ZDAB67BmcS38zCciBY9+RJCEXXKb/lDelco43+wW7u4DXGHEKw
-	O4LbgF4/Ly8ONwWym8NJzPliDYn8XTd0T6hPH3iq/Rx7aSlkixsHsyLGhEZhzTi1
-	U5acSQ/jSYy1NnuSN6OoPynEiISOZgxTbvwFOMNZ1pel9BSd3I7S/ORrXYX+QSHc
-	Z4jKHMtakqUAYf3Kbn9JNbacD+SIEr1F9gA==
-X-ME-Sender: <xms:n7KlaZ3FspZV3KNRW8DCHWN2647vIhXJuPyrXCVqpESrqFuamvn7TA>
-    <xme:n7KlacoYMZL_v4D0PRiOwP9Nw54_dOScRgeFT8sPCPbhFIuwI_q_nirRm-yRtOE-P
-    nbRNJFJ9f2esJQplGfN70pL_paZW4Hp8Do5YrL13Q_K_3qa1g>
-X-ME-Received: <xmr:n7KlaeVCC9UXKSFekSR-S2Un06MQ4vHL1NpIaM6wq8DekM1Zfr4YAhDfZ8OB_VfAcbvrRD5hbRPVgOrWDVi0OmTlgmJ204eSfQE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvheektdekucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddtpd
-    hmohguvgepshhmthhpohhuthdprhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegr
-    mhgurdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpd
-    hrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdho
-    rhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrd
-    gtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthho
-    pegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoheprg
-    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehmihgt
-    hhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjuhhlihgvnhesgigvnh
-    drohhrgh
-X-ME-Proxy: <xmx:n7Klado6dkUdhUjz6yB7cTmRKM2bRB_SpREdJ6r78bzK4CzcNqZkOw>
-    <xmx:n7KladDCTHUb0wFHTfJcEus0z29VMz-3tWrCvTOXB-a9GjbkcQehBA>
-    <xmx:n7KlaRhKeLmpjg7ReTiW7TiNbsd2iJYU5OD6swJhOZfHLVa25xYgXQ>
-    <xmx:n7KlaTaFqbyURNmgGJ8mJa553U2m-j8isg13FRjpqA9lBKUSsORCOA>
-    <xmx:oLKladZDmgsj96m8_IFiNXsDLxA-Jr1CTAzipjwvmC0yY1FcbIrEz2DL>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 2 Mar 2026 16:54:03 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] x86/efi: remove unreachable efi_halt_system() function
-Message-ID: <aaWynPgeN3ffCekp@mail-itl>
-References: <20260224200708.51120-1-roger.pau@citrix.com>
- <c0241f4d-98ba-4b35-94d0-53938b85c6ee@amd.com>
+X-Inumbo-ID: a031208f-1652-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1772467955; x=1773072755; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=h5tijJDKgCHJT9kT5kp84WZqHGBvYnXwSlos1jRzp5w=;
+        b=JVeb7wsawovWd2G+YnQEvHJcEovdhMdkvgGXSfOlzw+kEu/n5qvAaxWJpPUUXHmSdY
+         gHqFhV3MC/HMDnPg3bChXgSKG5yUvU5tIDbq5kOIg1NPDWnpn4xKAIPYeXrWem8Oies6
+         8eIVZMwzI+34HsIteoHI2k7P3Ie7y9+F/Vk2blwmiWpYcWcECgeKMuUcPh7JI3comYGB
+         anAUsuFI9n7BIRlvQSPWyHU8q/qqlcObKnA8eDZO9gp5LTmWHrlZI6dkMuOwtKdkGUFb
+         xWk/X7ua+bWRfz+iuR8RRjA/76atmHj9x+nkujB4Xa2Cn+KyO7wMGlJhSJvNa9MLOTQK
+         9tdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772467955; x=1773072755;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h5tijJDKgCHJT9kT5kp84WZqHGBvYnXwSlos1jRzp5w=;
+        b=AL6Q1YtpZvW+5bnPjakzh8r3jInk7cehQnTmZCIxtfLPFqyBb4C8gx/bffC4tGqC2v
+         /avXwKp+gLvbYCS5N/XE5d7WgGpmwpOBx0p+bWLKHDnQce7jAHPg9vBPCpDFy9fPXjdh
+         f8+T9Z35Pdh+x/S9CwAc3vEcX1JhvB9L7713qdzyzkPhvi8Na7tHuX5xlzO/2XvBkrJW
+         CFmPmI8d5Dih3fGhzcTa6Y3/2B8mEyiGD6s7lBocRmZhJHhdGrbV0cZWGAYEj3KKYJni
+         xQqH0404XTWhkqfNFs1jxQHkR1rhrzowWVL2ok4URktX0DrQzjV/7/7pZTODoNZikZ17
+         Fe9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUh+HkGem2wODlUqmBB4kcmaOplhjGyApjYW8C2Ds/j4y4py/AH1DeWuCn9wgmGuCe4cD2t6Axv+M4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvobG/eXx1pmoRuccSeV0RApDgpsGtPMPaiG8Q4WyNZo64s1m+
+	0dtisMPiNkitrmriT23+CdYNlkFywDqK9Gjow95mDuMmYNmxv5piYzxjHQiK1ZI1lQ==
+X-Gm-Gg: ATEYQzxK6CpgymRLesbw/zV1AFXrY6rGCXt+CWYv2/MXaLztwBF+V8lo5cwGklFbyoX
+	dP69U59MpagOXEf1JUOxy3RR3UP62xnDt+SB/eUKz7UkwWbKvUEfbrrao5wJ95EeqzSwcQgh/9A
+	dYiqy0HnMUPxujcrX0MTeHwhtAE8vUmBqr0eLm+ddaprkb3g2/jTkGmj8p0AfcrnI1fHBX35Nkp
+	29mZSOTtoWD2/H8dI10+7vBB4rdp2e9aN6OzMLkI8xPy9MLCl3hiS865WCGx46plW07hB9yzY6q
+	+b536CHJMdy1MrwQp8sV8ztWChwBDjdfEyNE5hIPGK7dcm3VJ9GnemnVyIFjnFvnpumwQ6Hbwr7
+	zengaWIX/dgIJ3BRE9BYJSwLooyFYe4pINhUUCARrVohL4nQG1W+iyFLdYXCswaGEJ7S7XsQ2pU
+	TUO/CVx9IY/xRDB2tW+XXozSmP7Vb6cF/1qB6mVi1X1y1CO7JEuMB47YDyEGhTF5xdzWYlAB73s
+	4TkPB3LTKgkRlE=
+X-Received: by 2002:a5d:5850:0:b0:439:ba75:7db7 with SMTP id ffacd0b85a97d-439ba758121mr5007110f8f.7.1772467955072;
+        Mon, 02 Mar 2026 08:12:35 -0800 (PST)
+Message-ID: <0dbf14bc-1505-4a33-bbf8-53c1ea41c7da@suse.com>
+Date: Mon, 2 Mar 2026 17:12:37 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="r+mswVBtSV8/6BKu"
-Content-Disposition: inline
-In-Reply-To: <c0241f4d-98ba-4b35-94d0-53938b85c6ee@amd.com>
-X-Rspamd-Queue-Id: 915221DC383
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 08/14] x86/traps: Enable FRED when requested
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
+ <20260227231636.3955109-9-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260227231636.3955109-9-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: B21381DC7BB
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm1];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email,messagingengine.com:dkim];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
+On 28.02.2026 00:16, Andrew Cooper wrote:
+> With the shadow stack and exception handling adjustements in place, we can now
+> activate FRED when appropriate.  Note that opt_fred is still disabled by
+> default until more infrastructure is in place.
+> 
+> Introduce init_fred() to set up all the MSRs relevant for FRED.  FRED uses
+> MSR_STAR (entries from Ring3 only), and MSR_FRED_SSP_SL0 aliases MSR_PL0_SSP
+> when CET-SS is active.  Otherwise, they're all new MSRs.
+> 
+> Also introduce init_fred_tss().  At this juncture we need a TSS set up, even
+> if it is mostly unused.  Reinsert the BUILD_BUG_ON() checking the size of the
+> TSS against 0x67, this time with a more precise comment.
+> 
+> With init_fred() existing, load_system_tables() and legacy_syscall_init()
+> should only be used when setting up IDT delivery.  Insert ASSERT()s to this
+> effect, and adjust the various init functions to make this property true.
+> 
+> The FRED initialisation path still needs to write to all system table
+> registers at least once, even if only to invalidate them.  Per the
+> documentation, percpu_early_traps_init() is responsible for switching off the
+> boot GDT, which also needs doing even in FRED mode.
+> 
+> Finally, set CR4.FRED in traps_init()/percpu_early_traps_init().
+> 
+> Xen can now boot in FRED mode and run a PVH dom0.  PV guests still need more
+> work before they can be run under FRED.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
---r+mswVBtSV8/6BKu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Mar 2026 16:54:03 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] x86/efi: remove unreachable efi_halt_system() function
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Feb 24, 2026 at 02:05:10PM -0500, Jason Andryuk wrote:
-> On 2026-02-24 15:07, Roger Pau Monne wrote:
-> > After e4c3755d4dd7 the function efi_halt_system() is unreachable, remov=
-e it
-> > from the file.
-> >=20
-> > No functional change expected, as the function is not called.
-> >=20
-> > Fixes: e4c3755d4dd7 ("x86-64/EFI: don't call EfiResetSystem() from mach=
-ine_halt()")
-> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->=20
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> [*] PVH Dom0 on an Intel PantherLake CPU.
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+What other part is this remark connected to?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> @@ -353,7 +440,11 @@ void __init traps_init(void)
+>   */
+>  void __init bsp_traps_reinit(void)
+>  {
+> -    load_system_tables();
+> +    if ( opt_fred )
+> +        init_fred();
+> +    else
+> +        load_system_tables();
+> +
+>      percpu_traps_init();
+>  }
 
---r+mswVBtSV8/6BKu
-Content-Type: application/pgp-signature; name=signature.asc
+I see now what you meant in reply to comments on an earlier patch.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmlspsACgkQ24/THMrX
-1yzhgAf/aH/IgRfFV9MYPW+CFSrrBrHtkIu3i4EqN1ph/3vWl8wGAlImUbcl9Z+C
-ZPhTxFiUkhFXqfeuTC7H/cn/RvH7NC0rafeuuKmT8KBVDpSnhNjJxe/9giX/B6VV
-g2mW+eCHnz5UaXfWWrO/wODv+lrCzoIa3Yqr/bezA5wKm8V8P4BPbIsx0mkfybvl
-GcLpwa7zBjgN4P76MxsliCJ/rpIRdJ3QFA7gJ0vYSwxQCx9r81d8jUeWHGqECrY5
-DF4z3nvmNVUnwwVL5ZI/2rwD6HfWmrJb55+y3FTiOsZ7/GZjDM82a1Nal4FnuRk/
-6WSackBOB8xY7C+KB0KH+AEI6kBhbw==
-=7DhU
------END PGP SIGNATURE-----
-
---r+mswVBtSV8/6BKu--
+Jan
 
