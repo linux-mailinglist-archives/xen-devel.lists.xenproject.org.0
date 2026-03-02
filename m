@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UNXXL1VupWlXAgYAu9opvQ
+	id GDDvMatupWlXAgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:02:45 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:04:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BB121D71C0
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:02:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244114.1543576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39E791D723D
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:04:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244123.1543586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx11s-0001WZ-QR; Mon, 02 Mar 2026 11:01:36 +0000
+	id 1vx14C-00021Y-4s; Mon, 02 Mar 2026 11:04:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244114.1543576; Mon, 02 Mar 2026 11:01:36 +0000
+Received: by outflank-mailman (output) from mailman id 1244123.1543586; Mon, 02 Mar 2026 11:04:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx11s-0001Tx-NI; Mon, 02 Mar 2026 11:01:36 +0000
-Received: by outflank-mailman (input) for mailman id 1244114;
- Mon, 02 Mar 2026 11:01:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cp9A=BC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1vx11q-0001Tr-IU
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:01:34 +0000
-Received: from fhigh-a6-smtp.messagingengine.com
- (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b77b212-1627-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 12:01:32 +0100 (CET)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfhigh.phl.internal (Postfix) with ESMTP id C30871400023;
- Mon,  2 Mar 2026 06:01:30 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Mon, 02 Mar 2026 06:01:30 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Mar 2026 06:01:29 -0500 (EST)
+	id 1vx14C-0001zZ-25; Mon, 02 Mar 2026 11:04:00 +0000
+Received: by outflank-mailman (input) for mailman id 1244123;
+ Mon, 02 Mar 2026 11:03:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vx14A-0001yX-J9
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:03:58 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81dd1ba5-1627-11f1-9ccf-f158ae23cfc8;
+ Mon, 02 Mar 2026 12:03:56 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4834826e5a0so49519735e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 03:03:56 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483bfbb465bsm291529605e9.3.2026.03.02.03.03.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Mar 2026 03:03:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,289 +50,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b77b212-1627-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1772449290;
-	 x=1772535690; bh=gAnUHTIVsOphxH3jyKd6jjpZxGBmcBzWVjjSXF5mb/8=; b=
-	D12sCPCo9Jyzk/9pz+hZCOZyyy91Re0fRXsuhdPa2ghP0/IqgoW34U4z574+llbX
-	Yj5hzl0WGL9A6aejGHFlbthF5obxHFB55HFjtCGPWpWP1onKrlDtJrC5ffg9vypP
-	jUI5NFa1TgCgHtCAWGzzNIi5pqe8LIV9gHbLkNApnBVFkVrZ8+5SiXck7+ct1Wrm
-	pScNRqIEy3MdwiTFLKfb6nouCroKL7e9svJPHv4XIE1xR3ZK5OoFeU1uBAlWfWIA
-	my1tlkQT4LvhNRrqfnsYxksfd+NOY41eDiEG7O+YnztYQjpxTrbm072BGESAmV2h
-	hs3C9LvPx/N1gmrmzd+FFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1772449290; x=1772535690; bh=gAnUHTIVsOphxH3jyKd6jjpZxGBmcBzWVjj
-	SXF5mb/8=; b=ILiMlA6p/wrbsSR+73ZIT/kTIAp8djEWaHUKYgWD0+6B2jt0vw1
-	70ejSC6W8UHG4Gw7bmIXYXNxeT782DcdezTRQOvasCYiWboERj4kL1A0xqBV8ODG
-	3mVv9BV00EMRn5LiTMoIEOpiZTmN5ltXQexW0+qevbsqZj48ulSTF+tz+JWFGijU
-	8KIEnQK0p29RR6S+xM8xi2F1ssz9Yhk9/oXH5DTab4K02JYUGx0pE8ep73zH1kqX
-	lQCTjM/xQOnXyGvmrdttukzJYWPFvahTEvoSQepVU5UgD71JP6rjf9btodiAjNwA
-	NemKJbTWN2xqVNE6QWohm7wl9F+Qd4QVB8w==
-X-ME-Sender: <xms:Cm6ladzIH2JVDwbgwGO_iZPv-5akMvI05oBd-Fxq4LVn75xfNQqnRg>
-    <xme:Cm6laUIU-2M5ixi6S60dMj6w19ag24PDrwV_6gJLIrqSF28miw3c2KKcAF0WgQb-z
-    Fpw3N-PNron37e8M20vm8W4DqtVEEllBA0CMmAymcriLXKr>
-X-ME-Received: <xmr:Cm6lafp-BbKhnLyPEnJ3cv0nv5C91im9Y0DcUou2zL2IF8sJf4iAJH2ByUqLAGXmXrx-jSD2BEsE1FFVmI8eMNVC4dMeD4GOd7o>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvheejhedtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtohepuggrvhhiugeskhgvrhhnvghlrdhorhhg
-    pdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqd
-    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegs
-    ohhrihhsrdhoshhtrhhovhhskhihsehorhgrtghlvgdrtghomhdprhgtphhtthhopegrkh
-    hpmheslhhinhhugidqfhhouhhnuggrthhiohhnrdhorhhg
-X-ME-Proxy: <xmx:Cm6labLWhBycmDJTF3c7ZZUdXVSGaFQuwYMPMtvYz9gRHtShtmhaDA>
-    <xmx:Cm6lacQSofoZb_bFr_TcbirR9lpa1BKnhSaeTU0el1Majjzmenb6MQ>
-    <xmx:Cm6laStvHbZRpkecAnon90u0b80LV_xcJ5EUlINbvOxhydi4oosT6w>
-    <xmx:Cm6laVY_RhjiVOXlUUG8FEQqQtTlyUY_hx4qM5R5zlzaot7Z-OsIpA>
-    <xmx:Cm6laXowxVF9k1p7ZvLc79dsSm8K2dy5Rn-GopL6GSMrNcx-1YsNkO4D>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 2 Mar 2026 12:01:27 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: Excluding init_on_free for pages for initial balloon down (Xen)
-Message-ID: <aaVuB3x3y4ROr5XA@mail-itl>
-References: <aaRVcVmtv2UBD-GF@mail-itl>
- <513e624f-35c1-4d43-ba3f-c96af613d400@suse.com>
- <224968e6-7236-4efe-bcc0-ab39ac0c6c45@kernel.org>
+X-Inumbo-ID: 81dd1ba5-1627-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1772449436; x=1773054236; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AsZqZNlgR1am8i9fi1SsyDpNwO6zvCv9IgvoGIR0Bf8=;
+        b=bYkTKKyMOLXMuLVz1HJT8FplfjFAz/KjcSvD8knpS/1s9hAe4RDEvkCkkEHN/ltt0R
+         Dz2WK2PLUpvXV8t/794itLrc0XyX2/cE3oZyQ/XFYD0qwqKgIHPHpiZ6Lp9trthSUFgX
+         +NQp7NUSL+6Y2S+XPl7rA/P2kjrmBEMfchvfRXA9Z0EahGErwNTZiE2y8cTl8cILEezG
+         F/9JA1C1TUWQDmfpoygzHuxHCnj9v7cG50kIKl6ErZHwlzhu20h5Er4r08mlemAQP/1r
+         8QcVf8Szg0nacW8kgnPmFNlnuIT+oeh7um2Hz3Ey16VJnoMXZPwjvRyt+VhFzaCeqOxp
+         sCyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772449436; x=1773054236;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AsZqZNlgR1am8i9fi1SsyDpNwO6zvCv9IgvoGIR0Bf8=;
+        b=KThG4pKC4U5fgzVzBcabK3pYA8t8Lao24vvyWODovCca+Krl35EfJThjVaUKEY+xr1
+         N140U5NtZFP2r5kT/gftDEaogoOw+vctZ7GR320Rb8Sw4/OfO5InMil+1jS4+OAKtQh9
+         jwIO9KSb9MyoGBFEgr+hAmWwEh3FyKx2Yw9LVYf7sNQF7qqjWMsDZtwj4XbcL0UhiBD0
+         huCH3DEU1CPK9yTWXH+3Wrelpy8wcPH4cGel4HHUbJmWiMcrb5M5AHqoxGL2Id1cMPDa
+         qjf4ubXJc9S5nU6vrkPgvvDUE+6Euu1W/Vps74slKYhAJsQWfch9uR8GV83YZ/dHiVKZ
+         /qgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX41d8/9RO6rcWaSCIu2RII11n8bi9X6fWaqWkL+2W4vS9wOlK69g2UMppRZ8uFkXDMzqKQt/fu084=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd10h4Jp4uy35xL5cuw6ok4o21FoHxtWNLdcbcyuI1cLjdqlH1
+	IzUSR9g8/g3PnbRchpzr6ZSGUguSp9ph0FvUZcxSlDN/nOtGR+jzSdeVtdSc1HjRHw==
+X-Gm-Gg: ATEYQzwfW6z5Q3ds+KkW1F11Ys1pXcw/HzDaPZYbme4S2OWGWbrGVS76j6Z/Xm0Xoc7
+	QCBhrU9z7UxXgw4HBtqqHl1rJIB0TPMr0/qBrsvqA9AIPRNjHk3Ah+359FkrSFMnsVCSfZeOl0L
+	+ME80C9SSLkL24nDW9fq1Rw5D1TAZLUC9N2pKXMivCOzuPryBdE45d4Q11Q2dSgp+MqfF/T2ZJ8
+	G5myCIwIayHhsEOKqH2PiG86GoDX943bgV21bvp97YuiRq0Ki4b6+fSGJr4MgBbV5+e2oXus3b+
+	UEMHdx+33y5FUNAfZM+L9YZ9KI9qJBxx4XvdCJjp2EzXlABEBCxxDQJtasXXyrv8efG5jaHlXmf
+	ME6p0VPNoMrdJCKWr7KyWC2ZZxyActFiCRDkV1oILokeKILqkHO6LXyOs01zow9wzMW9eC53WxC
+	dgoY7aacwcUhSKkRpUSHl/Tnk1XpDv1QIIalhaIlyy5SdpGJg0b4dnDSnlO1rfBH5spnxWVLMpA
+	c2mOF2v5WShe9BTOP5Qz/NUVQ==
+X-Received: by 2002:a05:600c:548a:b0:483:6e32:50d4 with SMTP id 5b1f17b1804b1-483c9bed9bbmr210520015e9.18.1772449435801;
+        Mon, 02 Mar 2026 03:03:55 -0800 (PST)
+Message-ID: <bf83838a-8401-4eb7-aea8-25ce59c9d492@suse.com>
+Date: Mon, 2 Mar 2026 12:03:57 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3fNdNAge+ez4rrPi"
-Content-Disposition: inline
-In-Reply-To: <224968e6-7236-4efe-bcc0-ab39ac0c6c45@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/14] x86/pv: Don't assume that INT $imm8 instructions
+ are two bytes long
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
+ <20260227231636.3955109-2-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260227231636.3955109-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	SUBJECT_HAS_CURRENCY(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:david@kernel.org,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:boris.ostrovsky@oracle.com,m:akpm@linux-foundation.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
 	TO_DN_ALL(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[invisiblethingslab.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 0BB121D71C0
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 39E791D723D
 X-Rspamd-Action: no action
 
+On 28.02.2026 00:16, Andrew Cooper wrote:
+> For INT $N instructions (besides $0x80 for which there is a dedicated fast
+> path), handling is mostly fault-based because of DPL0 gates in the IDT.  This
+> means that when the guest kernel allows the instruction too, Xen must
+> increment %rip to the end of the instruction before passing a trap to the
+> guest kernel.
+> 
+> When an INT $N instruction has a prefix, it's longer than two bytes, and Xen
+> will deliver the "trap" with %rip pointing into the middle of the instruction.
+> 
+> Introduce a new pv_emulate_sw_interrupt() which uses x86_insn_length() to
+> determine the instruction length, rather than assuming two.
+> 
+> This is a change in behaviour for PV guests, but the prior behaviour cannot
+> reasonably be said to be intentional.
+> 
+> This change does not affect the INT $0x80 fastpath.  Prefixed INT $N
+> instructions occur almost exclusively in test code or exploits, and INT $0x80
+> appears to be the only user-usable interrupt gate in contemporary PV guests.
 
---3fNdNAge+ez4rrPi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Mar 2026 12:01:27 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: Excluding init_on_free for pages for initial balloon down (Xen)
+Whereas for the slow path, while the subtracting of 2 from %rip there isn't
+quite right either, the insn size determination here would then simply yield
+2 as well, so all is good for that case as well.
 
-On Mon, Mar 02, 2026 at 09:40:29AM +0100, David Hildenbrand (Arm) wrote:
-> On 3/2/26 07:36, J=C3=BCrgen Gro=C3=9F wrote:
-> > On 01.03.26 16:04, Marek Marczykowski-G=C3=B3recki wrote:
-> >> Hi,
-> >>
-> >> Some time ago I made a change to disable scrubbing pages that are
-> >> ballooned out during system boot. I'll paste the whole commit message =
-as
-> >> it's relevant here:
-> >>
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 197ecb3802c0 xen/balloon: add runtime control=
- for scrubbing
-> >> ballooned out pages
-> >>
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 Scrubbing pages on initial balloon down can t=
-ake some time,
-> >> especially
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 in nested virtualization case (nested EPT is =
-slow). When HVM/PVH
-> >> guest is
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 started with memory=3D significantly lower th=
-an maxmem=3D, all the extra
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 pages will be scrubbed before returning to Xe=
-n. But since most of
-> >> them
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 weren't used at all at that point, Xen needs =
-to populate them first
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 (from populate-on-demand pool). In nested vir=
-t case (Xen inside KVM)
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 this slows down the guest boot by 15-30s with=
- just 1.5GB needed
-> >> to be
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 returned to Xen.
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 Add runtime paramete=
-r to enable/disable it, to allow
-> >> initially disabling
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 scrubbing, then enable it back during boot (f=
-or example in
-> >> initramfs).
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 Such usage relies on assumption that a) most =
-pages ballooned out
-> >> during
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 initial boot weren't used at all, and b) even=
- if they were, very few
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 secrets are in the guest at that time (before=
- any serious userspace
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 kicks in).
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 Convert CONFIG_XEN_SCRUB_PAGES to CONFIG_XEN_=
-SCRUB_PAGES_DEFAULT
-> >> (also
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 enabled by default), controlling default valu=
-e for the new runtime
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 switch.
-> >>
-> >> Now, I face the same issue with init_on_free/init_on_alloc (not sure
-> >> which one applies here, probably the latter one), which several
-> >> distributions enable by default. The result is (see timestamps):
-> >>
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 [2026-02-24 01:12:55] [=C2=A0=C2=A0=C2=A0 7.4=
-85151] xen:balloon: Waiting for
-> >> initial ballooning down having finished.
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 [2026-02-24 01:14:14] [=C2=A0=C2=A0 86.581510=
-] xen:balloon: Initial
-> >> ballooning down finished.
-> >>
-> >> But here the situation is a bit more complicated:
-> >> init_on_free/init_on_alloc applies to any pages, not just those for
-> >> balloon driver. I see two approaches to solve the issue:
-> >> 1. Similar to xen_scrub_pages=3D, add a runtime switch for
-> >> =C2=A0=C2=A0=C2=A0 init_on_free/init_on_alloc, then force them off dur=
-ing boot, and
-> >> =C2=A0=C2=A0=C2=A0 re-enable early in initramfs.
-> >> 2. Somehow adjust balloon driver to bypass init_on_alloc when ballooni=
-ng
-> >> =C2=A0=C2=A0=C2=A0 a page out.
-> >>
-> >> The first approach is likely easier to implement, but also has some
-> >> drawbacks: it may result in some kernel structures that are allocated
-> >> early to remain with garbage data in uninitialized places. While it may
-> >> not matter during early boot, such structures may survive for quite so=
-me
-> >> time, and maybe attacker can use them later on to exploit some other
-> >> bug. This wasn't really a concern with xen_scrub_pages, as those pages
-> >> were immediately ballooned out.
-> >>
-> >> The second approach sounds architecturally better, and maybe
-> >> init_on_alloc could be always bypassed during balloon out? The balloon
-> >> driver can scrub the page on its own already (which is enabled by
-> >> default). That of course assumes the issue is only about init_on_alloc,
-> >> not init_on_free (or both) - which I haven't really confirmed yet...
-> >> If going this way, I see the balloon driver does basically
-> >> alloc_page(GFP_BALLOON), where GFP_BALLOON is:
-> >>
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 /* When ballooning out (allocating memory to =
-return to Xen) we
-> >> don't really
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 want the kernel to try too =
-hard since that can trigger the oom
-> >> killer. */
-> >> =C2=A0=C2=A0=C2=A0=C2=A0 #define GFP_BALLOON \
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (GFP_HIGHUSER | __GFP=
-_NOWARN | __GFP_NORETRY | __GFP_NOMEMALLOC)
-> >>
-> >> Would that be about adding some new flag here? Or maybe there is alrea=
-dy
-> >> one for this purpose?
-> >=20
-> > There doesn't seem to be a flag for that.
-> >=20
-> > But I think adding a new flag __GFP_NO_INIT and testing that in
-> > want_init_on_alloc() _before_ checking CONFIG_INIT_ON_ALLOC_DEFAULT_ON
-> > would be a sensible approach.
->=20
-> People argued against such flags in the past, because it will simply get
-> abused by arbitrary drivers that want to be smart.
+> @@ -1401,6 +1402,53 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
+>      return 0;
+>  }
+>  
+> +/*
+> + * Hardware already decoded the INT $N instruction and determinted that there
+> + * was a DPL issue, hence the #GP.  Xen has already determined that the guest
+> + * kernel has permitted this software interrupt.
+> + *
+> + * All that is needed is the instruction length, to turn the fault into a
+> + * trap.  All errors are turned back into the original #GP, as that's the
+> + * action that really happened.
+> + */
+> +void pv_emulate_sw_interrupt(struct cpu_user_regs *regs)
+> +{
+> +    struct vcpu *curr = current;
+> +    struct domain *currd = curr->domain;
+> +    struct priv_op_ctxt ctxt = {
+> +        .ctxt.regs = regs,
+> +        .ctxt.lma = !is_pv_32bit_domain(currd),
 
-Could it be named differently to discourage such usage? Maybe
-__GFP_BALLOON_OUT ?
+The difference may not be overly significant here, but 64-bit guests can run
+32-bit code, so setting .lma seems wrong in that case. As it ought to be
+largely benign, perhaps to code could even be left as is, just with a comment
+to clarify things?
 
-> Whatever leaves the buddy shall be zeroed out. If there is a
-> double-zeroing happen, the latter could get optimized out by checking
-> something like user_alloc_needs_zeroing().
->=20
-> See mm/huge_memory.c:vma_alloc_anon_folio_pmd() as an example where we
-> avoid double-zeroing.
+> +    };
+> +    struct x86_emulate_state *state;
+> +    uint8_t vector = regs->error_code >> 3;
+> +    unsigned int len, ar;
+> +
+> +    if ( !pv_emul_read_descriptor(regs->cs, curr, &ctxt.cs.base,
+> +                                  &ctxt.cs.limit, &ar, 1) ||
+> +         !(ar & _SEGMENT_S) ||
+> +         !(ar & _SEGMENT_P) ||
+> +         !(ar & _SEGMENT_CODE) )
+> +        goto error;
+> +
+> +    state = x86_decode_insn(&ctxt.ctxt, insn_fetch);
+> +    if ( IS_ERR_OR_NULL(state) )
+> +        goto error;
+> +
+> +    len = x86_insn_length(state, &ctxt.ctxt);
+> +    x86_emulate_free_state(state);
+> +
+> +    /* Note: Checked slightly late to simplify 'state' handling. */
+> +    if ( ctxt.ctxt.opcode != 0xcd /* INT $imm8 */ )
+> +        goto error;
+> +
+> +    regs->rip += len;
+> +    pv_inject_sw_interrupt(vector);
+> +    return;
+> +
+> + error:
+> +    pv_inject_hw_exception(X86_EXC_GP, regs->entry_vector);
 
-It isn't just reducing double-zeroing to single zeroing. It's about
-avoiding zeroing such pages at all. If a domU is started with
-populate-on-demand, many (sometimes most) of its pages are populated in
-EPT. The idea of PoD is to start guest with high static memory size, but
-low actual allocation and fake it until balloon driver kicks in and make
-the domU really not use more pages than it has. When balloon driver try
-to return those pages to the hypervisor, normally it would just take
-unallocated page one by one and made Linux not use them. But if _any_
-zeroing is happening, each page first needs to be mapped to the guest by
-the hypervisor (one trip through EPT), just to be removed from them a
-moment later...
+DYM regs->error_code here? Might it alternatively make sense to return a
+boolean here, for ...
 
-> >> Any opinions?
-> >=20
-> > You are aware of the "init_on_alloc" boot parameter? So if this is fine
-> > for you, you could just use approach 1 above without any kernel patches
-> > needed.
->=20
-> I don't think init_on_alloc can be enabled after boot. IIUC, 1) would
-> require a runtime switch.
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -1379,8 +1379,7 @@ void do_general_protection(struct cpu_user_regs *regs)
+>  
+>          if ( permit_softint(TI_GET_DPL(ti), v, regs) )
+>          {
+> -            regs->rip += 2;
+> -            pv_inject_sw_interrupt(vector);
+> +            pv_emulate_sw_interrupt(regs);
+>              return;
 
-Indeed.
+... the return here to become conditional, leveraging the #GP injection at
+the bottom of this function?
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---3fNdNAge+ez4rrPi
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmmlbgcACgkQ24/THMrX
-1yxLgwf+K1N8BeW0SQO59+jFd9tMVnt8D5VFKACsD0lsn6Bzv/iR2EcZ78lOtwoa
-LZupAST9CXhgWxCCBRtZUN9RHmg8ZcAT/sa61SBWhk/zCSabDFvYswhooU4kjJcR
-yWoOpX6VNRMwnVRQCmssKYNV+JDfPCUT/YXZWsSqIkBg+VsQRBnUKJnQn44+dtTV
-1vgNH8FdeMdX9l1/94Fpgj97l5mYEV/qxf+3+T4GbF+oY0KU7rSin+wvlFmLyzWa
-t2AtjsGJRrCdRrvC1IzKds8vYeR0MJxNCBWDvJcKREoNcLsv6gGpuH5QZKEwR1rc
-p+PPymMOfFFucm6OP1ArTYLpNM+hTw==
-=PItR
------END PGP SIGNATURE-----
-
---3fNdNAge+ez4rrPi--
+Jan
 
