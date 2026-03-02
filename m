@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SCNZHRO3pWkiFQAAu9opvQ
+	id kAmjGMi5pWmoFQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:13:07 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:24:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B21381DC7BB
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:13:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244443.1543891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B67BE1DCBDE
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 17:24:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244453.1543901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx5ss-0005Yt-KM; Mon, 02 Mar 2026 16:12:38 +0000
+	id 1vx64D-0007O5-Ia; Mon, 02 Mar 2026 16:24:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244443.1543891; Mon, 02 Mar 2026 16:12:38 +0000
+Received: by outflank-mailman (output) from mailman id 1244453.1543901; Mon, 02 Mar 2026 16:24:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx5ss-0005W1-Gd; Mon, 02 Mar 2026 16:12:38 +0000
-Received: by outflank-mailman (input) for mailman id 1244443;
- Mon, 02 Mar 2026 16:12:37 +0000
+	id 1vx64D-0007L3-Fj; Mon, 02 Mar 2026 16:24:21 +0000
+Received: by outflank-mailman (input) for mailman id 1244453;
+ Mon, 02 Mar 2026 16:24:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vx5sr-0005Vs-Ft
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 16:12:37 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1vx64C-0007Kx-IY
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 16:24:20 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a031208f-1652-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 17:12:35 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-439af00d33cso1529361f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 08:12:35 -0800 (PST)
+ id 433dcbae-1654-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 17:24:18 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-436e87589e8so4492287f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 08:24:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439b4d06c27sm9976489f8f.17.2026.03.02.08.12.34
+ ffacd0b85a97d-439b503424fsm11876479f8f.22.2026.03.02.08.24.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 08:12:34 -0800 (PST)
+ Mon, 02 Mar 2026 08:24:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a031208f-1652-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 433dcbae-1654-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772467955; x=1773072755; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772468658; x=1773073458; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h5tijJDKgCHJT9kT5kp84WZqHGBvYnXwSlos1jRzp5w=;
-        b=JVeb7wsawovWd2G+YnQEvHJcEovdhMdkvgGXSfOlzw+kEu/n5qvAaxWJpPUUXHmSdY
-         gHqFhV3MC/HMDnPg3bChXgSKG5yUvU5tIDbq5kOIg1NPDWnpn4xKAIPYeXrWem8Oies6
-         8eIVZMwzI+34HsIteoHI2k7P3Ie7y9+F/Vk2blwmiWpYcWcECgeKMuUcPh7JI3comYGB
-         anAUsuFI9n7BIRlvQSPWyHU8q/qqlcObKnA8eDZO9gp5LTmWHrlZI6dkMuOwtKdkGUFb
-         xWk/X7ua+bWRfz+iuR8RRjA/76atmHj9x+nkujB4Xa2Cn+KyO7wMGlJhSJvNa9MLOTQK
-         9tdg==
+        bh=4sUZCTH/Q1jwHYCtk/g084ctsIEAOJE2quet31258JI=;
+        b=AnoQFyVSuYcKp1u3IlnDWOGwnSO5rDJXG+t21nwauK+B2PfMgYY3g6qcOS0Ecz+Psz
+         Hjmt/2bNQiTLFWFztlJrxuyc3CNIKJtZLIv2mkI3/GI9Aza8/pXZ2zN4BxB0VX69r4gD
+         aLGhJLt/8NjpGOuBCRl8W2cqmryA3fVXfVxuTnlU7t4d4bDoGDvOGKnUxDQLyMGHt57t
+         FonQCHosItpNRN9IUFFwRO+88FPrj8L94/Nx54haC0d96cCVjjHjCq+H+9aEg2Z2xz+V
+         A6uRAF3jYeMzT5nH7Yk1WNuMsCypdoGoBMTNusDRJL7H+/5NvG4aCK8a91F7OykqL/pr
+         IAlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772467955; x=1773072755;
+        d=1e100.net; s=20230601; t=1772468658; x=1773073458;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h5tijJDKgCHJT9kT5kp84WZqHGBvYnXwSlos1jRzp5w=;
-        b=AL6Q1YtpZvW+5bnPjakzh8r3jInk7cehQnTmZCIxtfLPFqyBb4C8gx/bffC4tGqC2v
-         /avXwKp+gLvbYCS5N/XE5d7WgGpmwpOBx0p+bWLKHDnQce7jAHPg9vBPCpDFy9fPXjdh
-         f8+T9Z35Pdh+x/S9CwAc3vEcX1JhvB9L7713qdzyzkPhvi8Na7tHuX5xlzO/2XvBkrJW
-         CFmPmI8d5Dih3fGhzcTa6Y3/2B8mEyiGD6s7lBocRmZhJHhdGrbV0cZWGAYEj3KKYJni
-         xQqH0404XTWhkqfNFs1jxQHkR1rhrzowWVL2ok4URktX0DrQzjV/7/7pZTODoNZikZ17
-         Fe9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUh+HkGem2wODlUqmBB4kcmaOplhjGyApjYW8C2Ds/j4y4py/AH1DeWuCn9wgmGuCe4cD2t6Axv+M4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvobG/eXx1pmoRuccSeV0RApDgpsGtPMPaiG8Q4WyNZo64s1m+
-	0dtisMPiNkitrmriT23+CdYNlkFywDqK9Gjow95mDuMmYNmxv5piYzxjHQiK1ZI1lQ==
-X-Gm-Gg: ATEYQzxK6CpgymRLesbw/zV1AFXrY6rGCXt+CWYv2/MXaLztwBF+V8lo5cwGklFbyoX
-	dP69U59MpagOXEf1JUOxy3RR3UP62xnDt+SB/eUKz7UkwWbKvUEfbrrao5wJ95EeqzSwcQgh/9A
-	dYiqy0HnMUPxujcrX0MTeHwhtAE8vUmBqr0eLm+ddaprkb3g2/jTkGmj8p0AfcrnI1fHBX35Nkp
-	29mZSOTtoWD2/H8dI10+7vBB4rdp2e9aN6OzMLkI8xPy9MLCl3hiS865WCGx46plW07hB9yzY6q
-	+b536CHJMdy1MrwQp8sV8ztWChwBDjdfEyNE5hIPGK7dcm3VJ9GnemnVyIFjnFvnpumwQ6Hbwr7
-	zengaWIX/dgIJ3BRE9BYJSwLooyFYe4pINhUUCARrVohL4nQG1W+iyFLdYXCswaGEJ7S7XsQ2pU
-	TUO/CVx9IY/xRDB2tW+XXozSmP7Vb6cF/1qB6mVi1X1y1CO7JEuMB47YDyEGhTF5xdzWYlAB73s
-	4TkPB3LTKgkRlE=
-X-Received: by 2002:a5d:5850:0:b0:439:ba75:7db7 with SMTP id ffacd0b85a97d-439ba758121mr5007110f8f.7.1772467955072;
-        Mon, 02 Mar 2026 08:12:35 -0800 (PST)
-Message-ID: <0dbf14bc-1505-4a33-bbf8-53c1ea41c7da@suse.com>
-Date: Mon, 2 Mar 2026 17:12:37 +0100
+        bh=4sUZCTH/Q1jwHYCtk/g084ctsIEAOJE2quet31258JI=;
+        b=l1QV+Weq47Bd8erp0Zhac6vxCcCKqO+3Uad+P/TWrl2UDYYuf3JdCAsva7nSU9VyTC
+         tks/hIOzCU3AZkroExLQYx0r6EfA0r4MUKbJfQLjkvYaffx7zTLK4b8XI2SXSwGJd7HK
+         KeFyOZGJ3K29iXxw/ynBwYRJgtmx1dYnAxVwth47gAIeeDIqkkaTRSLE58nxe9P7rk4d
+         DhSmMT8Qz+oYTgC4SnK+MJ2Elwoqr3RrTCHaOUVszzd5SY5eQy7WvJc7pME2RWB5pNqC
+         SxCOOmChjuIXug+A/8tQeMYQNp0jd2V/rG0nRLdEV5r8/GYYfDaMkYriVY367Cm5yJMj
+         w1TQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ4kAY9egHb6/gD4qIbUOeBMTICziXvQhXy4o9eZck0X7CY6EriSV3quPh70Ha8UIvDSGAzpfhO+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJ//T+itYhua89WHigos60D7y2y61RWAFtFpPFzDec9EicrWEe
+	cPZepwPXRFM+E8+yLg2O2xPSiOvZJLJeZS0kx3NkWwCdDaixeYbBaV4wefniKUNDUQ==
+X-Gm-Gg: ATEYQzwSP4LvqfIH79YiBDLIT4JT3150a7d539802N2fWtop5/Bw3FLdmW22+CbCuDz
+	uyJUAUqH8Yc4lfIL2dGEm2npeCqld2wskX1LrrQoPPhk564UtJ7yvyXlO1uhZP2uTBMDEDOSM5f
+	KSUjSSSujSENDOisnSwsS5tgcdk8rIn6w2YZwGXgYEw7u4djUDQRsNiY6N/ilhYHlElIrQHQUSG
+	wkrf3cfF0tIJRNxFIv/07R3lK1MjJUcqa5JDJUPQbgG9jRhGxWnZGda5H7CerZOvPyMxkmkBfbS
+	Wrfso9hyWojBZcpi5l/qZqea6cjcwQeVOWjCyWh4CzjjnD+qO+RW+LgcYpMvhcjkHdDTqVzp/l+
+	a5GfZjdVG0wZMJ7W1Pl2gqRJ8HxnYX53HTslngQ0Z1gI7bPz+60jqbrg0qgtT964wfYGmhXN7fm
+	H0crGiJr0zEaViW8kOhJO8oiG2ZI1zJquVC2xoWe1EsH9XoHV0Yb4cia8ky1LYkZK4FegPhjEST
+	4OkzBkQO33Nw3c=
+X-Received: by 2002:a05:600c:1d89:b0:483:71f9:37ef with SMTP id 5b1f17b1804b1-483c9bc031cmr206487835e9.8.1772468657824;
+        Mon, 02 Mar 2026 08:24:17 -0800 (PST)
+Message-ID: <8d0a13b7-3387-4766-bdd5-de62c868e365@suse.com>
+Date: Mon, 2 Mar 2026 17:24:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/14] x86/traps: Enable FRED when requested
+Subject: Re: [PATCH v4 09/14] x86/pv: Adjust GS handling for FRED mode
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
- <20260227231636.3955109-9-andrew.cooper3@citrix.com>
+ <20260227231636.3955109-10-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,92 +124,150 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260227231636.3955109-9-andrew.cooper3@citrix.com>
+In-Reply-To: <20260227231636.3955109-10-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: B21381DC7BB
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: B67BE1DCBDE
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:dkim,suse.com:email,suse.com:mid];
 	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_THREE(0.00)[3];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
 On 28.02.2026 00:16, Andrew Cooper wrote:
-> With the shadow stack and exception handling adjustements in place, we can now
-> activate FRED when appropriate.  Note that opt_fred is still disabled by
-> default until more infrastructure is in place.
+> When FRED is active, hardware automatically swaps GS when changing privilege,
+> and the SWAPGS instruction is disallowed.
 > 
-> Introduce init_fred() to set up all the MSRs relevant for FRED.  FRED uses
-> MSR_STAR (entries from Ring3 only), and MSR_FRED_SSP_SL0 aliases MSR_PL0_SSP
-> when CET-SS is active.  Otherwise, they're all new MSRs.
+> For native OSes using GS as the thread local pointer this is a massive
+> improvement on the pre-FRED architecture, but under Xen it makes handling PV
+> guests more complicated.  Specifically, it means that GS_BASE and GS_SHADOW
+> are the opposite way around in FRED mode, as opposed to IDT mode.
 > 
-> Also introduce init_fred_tss().  At this juncture we need a TSS set up, even
-> if it is mostly unused.  Reinsert the BUILD_BUG_ON() checking the size of the
-> TSS against 0x67, this time with a more precise comment.
+> This leads to the following changes:
 > 
-> With init_fred() existing, load_system_tables() and legacy_syscall_init()
-> should only be used when setting up IDT delivery.  Insert ASSERT()s to this
-> effect, and adjust the various init functions to make this property true.
+>   * In load_segments(), we have to load both GSes.  Account for this in the
+>     SWAP() condition and avoid the path with SWAGS.
 > 
-> The FRED initialisation path still needs to write to all system table
-> registers at least once, even if only to invalidate them.  Per the
-> documentation, percpu_early_traps_init() is responsible for switching off the
-> boot GDT, which also needs doing even in FRED mode.
+>   * In save_segments(), we need to read GS_SHADOW rather than GS_BASE.
 > 
-> Finally, set CR4.FRED in traps_init()/percpu_early_traps_init().
+>   * In toggle_guest_mode(), we need to emulate SWAPGS.
 > 
-> Xen can now boot in FRED mode and run a PVH dom0.  PV guests still need more
-> work before they can be run under FRED.
+>   * In {read,write}_msr() which access the live registers, GS_SHADOW and
+>     GS_BASE need swapping.
+> 
+>   * In do_set_segment_base(), merge the SEGBASE_GS_{USER,KERNEL} cases and
+>     take FRED into account when choosing which base to update.
+> 
+>     SEGBASE_GS_USER_SEL was already an LKGS invocation (decades before FRED)
+>     so under FRED needs to be just a MOV %gs.  Simply skip the SWAPGSes.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> v4:
+>  * Adjust GS accesses for emulated {RD,WR}MSR too.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I think this ...
 
-> [*] PVH Dom0 on an Intel PantherLake CPU.
+> @@ -926,7 +927,7 @@ static int cf_check read_msr(
+>      case MSR_GS_BASE:
+>          if ( !cp->extd.lm )
+>              break;
+> -        *val = read_gs_base();
+> +        *val = opt_fred ? rdmsr(MSR_SHADOW_GS_BASE) : read_gs_base();
+>          return X86EMUL_OKAY;
 
-What other part is this remark connected to?
+... calls for a comment both here and ...
 
-> @@ -353,7 +440,11 @@ void __init traps_init(void)
->   */
->  void __init bsp_traps_reinit(void)
->  {
-> -    load_system_tables();
-> +    if ( opt_fred )
-> +        init_fred();
-> +    else
-> +        load_system_tables();
+> @@ -1066,17 +1067,22 @@ static int cf_check write_msr(
+>          if ( !cp->extd.lm || !is_canonical_address(val) )
+>              break;
+>  
+> -        if ( reg == MSR_FS_BASE )
+> -            write_fs_base(val);
+> -        else if ( reg == MSR_GS_BASE )
+> -            write_gs_base(val);
+> -        else if ( reg == MSR_SHADOW_GS_BASE )
+> +        switch ( reg )
+>          {
+> -            write_gs_shadow(val);
+> +        case MSR_FS_BASE:
+> +            write_fs_base(val);
+> +            break;
 > +
->      percpu_traps_init();
->  }
+> +        case MSR_SHADOW_GS_BASE:
+>              curr->arch.pv.gs_base_user = val;
+> +            fallthrough;
+> +        case MSR_GS_BASE:
+> +            if ( (reg == MSR_GS_BASE) ^ opt_fred )
+> +                write_gs_base(val);
+> +            else
+> +                write_gs_shadow(val);
+> +            break;
 
-I see now what you meant in reply to comments on an earlier patch.
+... here, much like you do about everywhere else.
+
+> @@ -192,11 +193,12 @@ long do_set_segment_base(unsigned int which, unsigned long base)
+>  
+>          case SEGBASE_GS_USER:
+>              v->arch.pv.gs_base_user = base;
+> -            write_gs_shadow(base);
+> -            break;
+> -
+> +            fallthrough;
+>          case SEGBASE_GS_KERNEL:
+> -            write_gs_base(base);
+> +            if ( (which == SEGBASE_GS_KERNEL) ^ opt_fred )
+> +                write_gs_base(base);
+> +            else
+> +                write_gs_shadow(base);
+>              break;
+>          }
+>          break;
+
+Same perhaps here, and ...
+
+> @@ -209,7 +211,8 @@ long do_set_segment_base(unsigned int which, unsigned long base)
+>           * We wish to update the user %gs from the GDT/LDT.  Currently, the
+>           * guest kernel's GS_BASE is in context.
+>           */
+> -        asm volatile ( "swapgs" );
+> +        if ( !opt_fred )
+> +            asm volatile ( "swapgs" );
+
+... the comment in context could also do with inserting "unless using FRED"
+or some such.
 
 Jan
 
