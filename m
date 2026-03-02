@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EBDPLqZ1pWkNBgYAu9opvQ
+	id MAiQLQZ2pWkNBgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:33:58 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:35:34 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E6A81D78BB
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:33:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244190.1543649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502611D790F
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 12:35:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244198.1543660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx1Wg-0000qc-Iy; Mon, 02 Mar 2026 11:33:26 +0000
+	id 1vx1Ya-0001OU-Te; Mon, 02 Mar 2026 11:35:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244190.1543649; Mon, 02 Mar 2026 11:33:26 +0000
+Received: by outflank-mailman (output) from mailman id 1244198.1543660; Mon, 02 Mar 2026 11:35:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx1Wg-0000oR-G4; Mon, 02 Mar 2026 11:33:26 +0000
-Received: by outflank-mailman (input) for mailman id 1244190;
- Mon, 02 Mar 2026 11:33:24 +0000
+	id 1vx1Ya-0001LP-QH; Mon, 02 Mar 2026 11:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 1244198;
+ Mon, 02 Mar 2026 11:35:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vx1We-0000oL-Md
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:33:24 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1vx1YZ-0001LH-PT
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 11:35:23 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f0ea1fb-162b-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 12:33:23 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4836e3288cdso29871385e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 03:33:23 -0800 (PST)
+ id e614f806-162b-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 12:35:22 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-439b6d9c981so618980f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 03:35:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483c3b4a121sm274266195e9.8.2026.03.02.03.33.22
+ ffacd0b85a97d-4399c75a523sm26519437f8f.19.2026.03.02.03.35.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 03:33:22 -0800 (PST)
+ Mon, 02 Mar 2026 03:35:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,56 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f0ea1fb-162b-11f1-b164-2bf370ae4941
+X-Inumbo-ID: e614f806-162b-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772451203; x=1773056003; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772451322; x=1773056122; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aqoJzViB893XGgdMEvONv6B6m5eJ+Ze2n/2VeDTpwkc=;
-        b=Ub3P1ExU3YLDRBUzbZOoTKEPER+hntdjEceP22IAydNwwxD49R+KZ+N8XwIX/lg1we
-         bmZT4fjl+5td5+bfLVmf9goz1Mm0NsCANRHbJnApFOpDWbfAejFNeqi+0xxkOpO4U9nR
-         2m4RQicc+00bx8xI/c2Rg93q7tdb0T0Y2/UGRVRGXipfDMylZ7LuzZGVYyuhGo8HVzum
-         koH/pV7OP7lHsy7rQgpj/czkF2bdOYj/9MmCbw2rMP36KKBCQoXXhp7FUtSu0HLXlAdM
-         7yGGO2redKVUJ+mKVN/npuGAT/LF1vitFAeYIC4A8qQYFZVvrSxzpgq7k2VSM9sYTQbB
-         GPdw==
+        bh=WJyBeGqzIMoxG7CgU0XCO3cXTmKg85QI+6wcIlFdMno=;
+        b=MLgvt1pB/4Z6oENcuLNw/dE7XK00txv+LKUj5jmX5bTvoWKKl+qVWQlEinegov32gr
+         l6VCSYKx5v6giV+OFwRdWLlih954vqs659U91XLHkFEbVAO0rp5uD2vzn7nXjVE8O1pJ
+         OBxNm1oz32AA/s8tVMzMVBEesgKkh5Sji81OhtEbMkqo7Ibd5lmJpTsW2+Qw3z/2xIHr
+         2J7KRXwPe73Qgq6wWOIAs7Z0M5TLzNZKqm3M0solLoTpFbjCUfhV3KJg7WVhGEliTqyN
+         Asgi8YemWeFUn9R8geOm4OQmL+J66fXohC7u1JytKsIRdIg1+frNt6JYgyIvQn0Ruish
+         XVYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772451203; x=1773056003;
+        d=1e100.net; s=20230601; t=1772451322; x=1773056122;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aqoJzViB893XGgdMEvONv6B6m5eJ+Ze2n/2VeDTpwkc=;
-        b=QER9yZyNe6QSb8csfJjnVdRao8TKEPSDgXHRtoFzI/zvu6GDhOUZCgEHiKbw1QEfaw
-         UswbjvzORKGHDvPmE7LnX1VZ6RiUwRtxjuM96tGyExPkVO0A3AKsZlxhJxbuf97k3trB
-         j8+2X7tvRVm2XVXgZ1TSOqmq96X0Tdwt5Roz0sRyLlnm6et3dvIbDqVtSxirgKQpuQF3
-         d9uD3t1cf84/BRJnGa7tPqXIUw2wdvCDKpX/FX91yI8jGpOBI1+gU41y2SQmvjbmKmhL
-         /ikhfyFQXupfH452FaV1D1pnYLKfwg7dt7bl1vPjHJsw4anyvIIbtQJrg7lDZetGCLF3
-         Tf5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVqQOE0Dl8aFIgVr4LfdU+kBaGkb8ePueAnWVns2/WkRRzoDkeGPzOCzUIKIOumQn1TsdX8jY+A6qU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzNiiXeg9sSG3FOqfKq+0zmy99Uf3zKZR43Yhkkf9xO0DkCDBqX
-	5rM3WiHU4M5vB4a5BHiOEF6HuKSIBfTTsQZbR9aO+Ie2k2kwG4aUNpw4X9cYONM31w==
-X-Gm-Gg: ATEYQzzW/pDOUzFQvH/ttKbOojSgoJQSkizrmHM8KxyLLZirqwmhEzikcTRLrvzmydI
-	u8BTO1ObJ8mQqp3xjf9nODvR2Tyu261lNiZt3fSIpiw0bMQAnkGSKLEyib1v45DKcRpbdDdMmXG
-	r4Y80hG1IGlwrjrBxdHQwOCiuD2Ksf+UkZ6FvdwlRj5MWM7M19C0GosSIC+6J/+cKTkGoWHa+PM
-	M9CcN2KcWRUEUv+QObvjlMKRcYnpHLukV990wucJjKsDbEsHMObaZ/uKa536P7Rr/bqJT/XZLNE
-	9AMTGJZYGtnxJlNpuaBerfnTGwlNT8aQbwp/u/ZqbtsOnlnQtfYE4DJf+U4l9txFUWgfPkSbPNM
-	xd0DacFdFuagH39fcZBdqmm0sRBovozQEZeAq9rfSCnlkqw5YAxo3ik8AD74uu4lFshe9sZqstM
-	2O6xLMeWrIe9T+YKwL2muN1bPq5f6AkeKEAVy1wg4kxpgbXD3C3nZgTWNOG6GzvGjJ6tvZaqia2
-	nXwoZhiepaV2sM=
-X-Received: by 2002:a05:600c:8509:b0:483:6d9e:e4f5 with SMTP id 5b1f17b1804b1-483c990bddfmr215547965e9.5.1772451202745;
-        Mon, 02 Mar 2026 03:33:22 -0800 (PST)
-Message-ID: <fb3d6869-5d9f-4a9d-a31e-29ef7049de35@suse.com>
-Date: Mon, 2 Mar 2026 12:33:25 +0100
+        bh=WJyBeGqzIMoxG7CgU0XCO3cXTmKg85QI+6wcIlFdMno=;
+        b=rjhsKBG9NiaJZRj4dPnlsjmTmGLGaT6ttNQnV6I+HXFpUoGt8cVE2rCjdgS2k+6bIN
+         ox+xRoOV6ZMgs5hQj3C9ccqzbSF3rka2l3QGUIzXt3MCoFGfPwQmEf2ebNzxlxjDWSli
+         HVXe46lvT3YqK6m3FNWaZWqn6mN1Pc0hcP+5B/w0ntZp4m2PtDKHGO+aymCSseP2s0D5
+         TdWTqfkJNKNFK/k0BKuFMqX/KHyOXncO+CPl9ntK5F1zdMBVrsH0t/n0+62v+Xayo+5e
+         L4Vxx+rqOrWVr8fJseLF7+dG0QXmpsbKYxV9huDxuyIPxbS1nGFP5jqfHAruRFK7ObtG
+         sgMg==
+X-Forwarded-Encrypted: i=1; AJvYcCWHpgmmDK/pgg55HiPAoTga1f32NFBaeHtf0HtJXoQIS3zAvnsSB/RYGDNU1zXjt3wVf0ww2OCPN8k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwRGIPGZJ/NGXKowiwTug4JESjTLUzJtlv3iVWpbWLGu8BQZoVf
+	DaBJU8P2/YDeUlxBbE/QiVnTjmupEdQkPsZ6GRAN0iwtPlOktqHFAOOzPxLh2/A53OB3acW3z2a
+	KVnI=
+X-Gm-Gg: ATEYQzz602DVUf+vkioD7IgLqq9Mm9EiJeQANrd0oJwe2el02aZ6XI7u2GgDGU5NJOf
+	rjUTbIW1fcH0AxFkCGN/wFy5fzokOYVlreHnMDcBH6y1CIPEGccsC2xgmgcQQSReuC7Jp56sY0u
+	L8IUpAWm2zE6/wQBQzDxvk9ajhJgQnAqO7ECtXobAyf7zo6WQMXfSFSJXqJ6bbeplB+Qxx/m6EC
+	Fs6wyCph0R0ym+rIb0gfMiNKm2Hw1upuBe1U2ArbaG2XDfxK4nGkdWVaYxq4mrr04lgFYfTReKz
+	vHkzWraG2kvEDE0QMOFwruMwfdIDgkyDfst3ttN/ouBL+BxJhb6SdrDiQq7Cg7DZH3533mzCd9/
+	Kk++04fPwiDuOTGAQFcK2M6QGi5BVQClF2sfDjzmGl0xYKyVXkBlX/7asncUsjMy8iEHVRu4cCl
+	nI4xHWxwTe9qoxe77OZhb52pCLM1sD9/JZeQUO9Dvrgx0kjoq6yfqC6nNt8DU/0glDr1WRjsN4D
+	hxt1UL1Xa0sE9M=
+X-Received: by 2002:a05:6000:2903:b0:439:b5d4:249b with SMTP id ffacd0b85a97d-439b5d42936mr6785019f8f.21.1772451321845;
+        Mon, 02 Mar 2026 03:35:21 -0800 (PST)
+Message-ID: <75710720-f2f1-4b2a-99e1-b5e3ff0191fe@suse.com>
+Date: Mon, 2 Mar 2026 12:35:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/14] x86/boot: Move gdt_l1e caching out of
- traps_init()
+Subject: Re: [PATCH v4 04/14] x86/boot: Document the ordering dependency of
+ _svm_cpu_up()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20260227231636.3955109-1-andrew.cooper3@citrix.com>
- <20260227231636.3955109-4-andrew.cooper3@citrix.com>
+ <20260227231636.3955109-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,13 +126,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260227231636.3955109-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20260227231636.3955109-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -139,13 +140,13 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim,suse.com:email,citrix.com:email];
 	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -160,31 +161,20 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2E6A81D78BB
+X-Rspamd-Queue-Id: 502611D790F
 X-Rspamd-Action: no action
 
 On 28.02.2026 00:16, Andrew Cooper wrote:
-> Commit 564d261687c0 ("x86/ctxt-switch: Document and improve GDT handling") put
-> the initialisation of {,compat_}gdt_l1e into traps_init() but this wasn't a
-> great choice.  Instead, put it in smp_prepare_cpus() which performs the BSP
-> preparation of variables normally set up by cpu_smpboot_alloc() for APs.
+> Lets just say this took an unreasoanble amount of time and effort to track
+> down, when trying to move traps_init() earlier during boot.
 > 
-> This removes an implicit dependency that prevents traps_init() moving earlier
-> than move_xen() in the boot sequence.
-> 
-> No functional change.
+> When the SYSCALL linkage MSRs are not configured ahead of _svm_cpu_up() on the
+> BSP, the first context switch into PV uses svm_load_segs() and clobbers the
+> later-set-up linkage with the 0's cached here, causing hypercalls issues by
+> the PV guest to enter at 0 in supervisor mode on the user stack.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> I'm on the fence about the ASSERT(), but I'm getting rather tired of unstated
-> dependencies.  For a PV64 guest using SYSEXIT to enter the guest, it's the
-> first interrupt/exception which references the GDT, which could be after the
-> guest is running.
-
-I think that's okay to have there. "Unstated dependencies" is of course a wide
-field, and going too far with assertions is also a risk.
-
-Jan
 
