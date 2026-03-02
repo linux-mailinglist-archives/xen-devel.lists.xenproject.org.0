@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ODW9KlphpWmx+wUAu9opvQ
+	id 4D7XNuNjpWn0/QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 11:07:22 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 11:18:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 040451D60C0
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 11:07:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244078.1543543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 465F21D6499
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 11:18:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244088.1543553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx0B4-00013a-KJ; Mon, 02 Mar 2026 10:07:02 +0000
+	id 1vx0LU-0002yY-Gu; Mon, 02 Mar 2026 10:17:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244078.1543543; Mon, 02 Mar 2026 10:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 1244088.1543553; Mon, 02 Mar 2026 10:17:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx0B4-00010j-HU; Mon, 02 Mar 2026 10:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 1244078;
- Mon, 02 Mar 2026 10:07:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vx0LU-0002wl-EH; Mon, 02 Mar 2026 10:17:48 +0000
+Received: by outflank-mailman (input) for mailman id 1244088;
+ Mon, 02 Mar 2026 10:17:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xkMV=BC=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vx0B3-00010d-AL
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 10:07:01 +0000
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [2607:f8b0:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a59ea01-161f-11f1-9ccf-f158ae23cfc8;
- Mon, 02 Mar 2026 11:06:55 +0100 (CET)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 46e09a7af769-7d1872504cbso1855805a34.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 02:06:55 -0800 (PST)
+ id 1vx0LS-0002wd-B2
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 10:17:46 +0000
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [2607:f8b0:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0d9397df-1621-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 11:17:45 +0100 (CET)
+Received: by mail-ot1-x330.google.com with SMTP id
+ 46e09a7af769-7d4cb7e10efso5239468a34.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 02:17:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,73 +45,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a59ea01-161f-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1772446014; cv=none;
+X-Inumbo-ID: 0d9397df-1621-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1772446663; cv=none;
         d=google.com; s=arc-20240605;
-        b=TpCwPOVjn3owzxUMtGbylauYIrmTtbo9AeBeJwfT0uXdupYL/E06gqI4pfGamhPJ+F
-         RNhehsvRgg9AFdbRerb9BYDvg6yGygQfkM6i0qcqmKjSXUResmrH6dL7pkpD6BniibQf
-         1wbsnF2mjXL2ZEyalataTfYa1PB27dYB/6mfYV+KpF+Aba5aj04/JgP1c28VQJ0vLyA9
-         c6m5/AA798+JozkIdELGRiQR1ZRXuaU+lE6psX3A79KyZekUthhCEMfwkJ0ryKcQt9eB
-         hX417r8URpSTfBAyp7U0hUjmaS3qblLIibq6suKAunqWgvaE7aixvk/v+HImBbyk334I
-         u7Gw==
+        b=W8lZJoN7fumb+K6RhBFj3W1fsrAHBwAJYzbFj/SHjPfn9BOE7Jo3wY+wpd/Hv6G6iS
+         gzKbvMqKT7PxEPQWFP08FbejfWJFUL7czHBjTyGBfbrybE6xZOus/irFTcFC7tGxnwHI
+         GykVDQ7Xmnv+YN5YX6ju+SEeI9WTXIs72IAhjt7QrMULMOgP7pEy5aDZkeR+XfNqCLhg
+         WJblEazbG3RVk2oAkzbcb3zWdCUN/6Cc9V3Kes51yRZSvbUXAdiUqX6Q+9dRtYKV2TyM
+         GMl7wshLUn62bjEk84VoxYdyy/FN/uKvEHGu+AwdH6SF5pD+dZ8aAHmjilHCvcFk+Uqm
+         poBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ne+Ffqddt+jp/TSNBA9XZK1oaixSm2EvzlC0rKoP8EA=;
+        bh=/3ZO1uASJ+Co5Rgal8hutKQ00YGgsluww0BnDoaGtWs=;
         fh=wB0f5JGUSpWYejuxtnrl8SDqvqyWrEsEaWvC32LbdiU=;
-        b=kbIF8In98CP/aTAOJ5M59WujFW3ZL7gn5pb0h737FLWo4EBr30PsfK4s5XYIT9I05N
-         FxgiOnxBcfHhM88/PGd87t9XRVXtnbIbhKmZO5rw3gKiwRX68tzLJzCegBf8p4iMpODe
-         xn3ByHqkXz0RhC09T83lcuZXb4VggsWD/XZVtjMjXhhSezS5W2Z88rt/phYLZNSw8O82
-         oN5gdHDA+zaNTdSHHQx6pfC2UMEYa5bLdI7L+usPp12zc0sMjda2b+cQkNhEiY71ZzYX
-         hnMJfq9vr8GnPnE/iur+zN7RFTMXPBFE730c72OvH8rlCplBY+UHvpI5oTF6uzELRvMN
-         heRA==;
+        b=CL6/LXg0QBeM4zrz9hYsJ6BZlJhQOpC5PWDceVfATUAZ6G6BAhXd/rTha1fcdzMyJT
+         1OcuCiIOOPgCyXpJBFYCdcAttiJQuIKUJeBO1knJTpTfjf7/kM3Pb5wI17QJn10k8LOq
+         x48JBHcDvP9fLOm8z4/81rEc4Oo+aR90jFefYEjmxhQUIQbmdy+SjTLiAGKX3XPf7W/H
+         IdrufOGs+dZ1ucSFMHGiFmN0rtKkgHt24O4K4Bk3dWSzP4FBaNSXVJIQCTpivBXpvnJT
+         aT6F4V4iBuuf6I4wHWsTIjxJ/eP/2DEmglBWGtXHlk5rFlS7ShQqxyeu0bBh1EXRpaK8
+         Va6Q==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772446014; x=1773050814; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1772446663; x=1773051463; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ne+Ffqddt+jp/TSNBA9XZK1oaixSm2EvzlC0rKoP8EA=;
-        b=pOWmrQQu9AeKdr+truA3zbs9zdioliKT/kOFsrJ+/UScRKI/YcpeCT6y8U68m9pxQT
-         sVUb8txa1B90VV8weIDVxF3tp9rj7EXP41BQw93GqN9cUSGqZ+/ZVkXIM5OV/0364Anu
-         tefuPUVTRhRTlaqyOBARokTsiggBLEoBB2TWPFtb1qhSuY3yuKvdfMePzUDhBhcvebtn
-         UuLjJuRbkN78+/1ezTDSygx/5GGW/VYq+yCxxmTdN5zX1Y4VVGoIIOt+0ERatUOtiT7Z
-         PXzka8aeV+RVLSJDGTCsEeYKKrqHiITYuAbXQ7E327qt5YLEqYGHJ82BtmGLKsn+C9gf
-         e72g==
+        bh=/3ZO1uASJ+Co5Rgal8hutKQ00YGgsluww0BnDoaGtWs=;
+        b=SYhaTRd5yYfJ5Ffgh8aUxolekQMRwizWk9Q2ig/GkCEer46yxt4cVRHnJWFAIV8XiY
+         3+nz6/QBbL5ceAFzakfaJ7PoYB9skMHWrzJZhmXCTjuLW2JJg8I0ApZ6Y+fFKsPDj8U7
+         Ln1ZJM1GFruW5gNp2dksoVael+2LcSmSwrhsh2u2i9FqjP4Hvi/ghK+VC+kysguFfJ/S
+         V+toeFxGnNoxBozAX2qUYXY51a9ww9CPWmDzptA2nL7rF+sTtRSq6d+ePIyvYdCB3eF6
+         4Fzhq+87eZbcT+p675O+uRbq6DlygjEDvo6surCN+/JD90UJChs+VvoiEmSEcd3btBqo
+         uJmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772446014; x=1773050814;
+        d=1e100.net; s=20230601; t=1772446663; x=1773051463;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ne+Ffqddt+jp/TSNBA9XZK1oaixSm2EvzlC0rKoP8EA=;
-        b=I0nNbrcvdcB8VJ1f95X6uAyjrUXl7UbPZPJh0PLZcEm/gi0CIYSe+RemB8wIfAnbNN
-         6rxuDWcbANRh9gjchs1G9nQzEv2TALQLrhDiVws6tzQ2lVGMWCaL/deme6ffubwX2k0s
-         RK1hzLN6ulXswDKB9TWxGpILurqMeLPArMCdu04keVGulfOM/GPTPHdgQan+5RAb9oaG
-         u8hQWIEX2zx2Qb7AjWKUUfqrqFFmReGtVRfQEIckLLdq0YrAqE8E+JDtnxGvb2G7AIli
-         EfS+2LVB44ZFxhPjthcZnaVTEHm8e3VJvSv904+1qjtJkC8WvZUMlntksiYOWCbQla2/
-         o8WQ==
-X-Gm-Message-State: AOJu0YyD6mRJGRwSqmsrOzVBM3k9401JrExlJLPa17FduYngGS8D04np
-	8wRwSbNnBla9H5C/fYsh4QtdBBP3y9B5HgsqUIJFE+njJqztn1Hh+5tKUdQRKyZkXgmwwKybvh4
-	Qs79qtFWlbX5rl7nwwStCDpqnWHJMoQI4b14ZrJ1cbA==
-X-Gm-Gg: ATEYQzwrRvcyAev/Uk7+1iDc1smXuDAS9DaiJI4861EwH9ZH5Yw0u9nDSOWHJGmk539
-	k8NUUn0Pu3WEdBoODMGFBRjsmt8A49Iwbgu+0T8gEaSwsFPT7kim3ELSdxVPRNRxpnpDLkUky+x
-	sH350vykt8Q8n5IwEbbN6r7qNhQsAjKx2l3kqcBLleVXwJc1RqUnrcictXBPpTbmLMKigPXpZxi
-	DiWx20uIzOXrrlHHcm+nt/pAiLnklNTJfswiV8MdosBBLPG+Zh6xoOMepClmTYblpFlNtTNwki2
-	tvlnf9O0+5De8hcCCvDDivm0nYW6qUXjL9uNmw==
-X-Received: by 2002:a05:6830:44a1:b0:7d1:9574:db9a with SMTP id
- 46e09a7af769-7d591eb98aamr7466286a34.12.1772446013904; Mon, 02 Mar 2026
- 02:06:53 -0800 (PST)
+        bh=/3ZO1uASJ+Co5Rgal8hutKQ00YGgsluww0BnDoaGtWs=;
+        b=rXH/qo7gtgoqR7YXqU/qTS2dqKlErgK7scrmBovA6dVl8IA7PHMfu9QZYt/PEaqpC7
+         Ua+2xRdcfxXyxYHNjMrqPPH/xyjNLy8KkHKfTf+ZM2usCXlORjUrmLEHwuvT4ae0DKeN
+         LVY38AcFvq083L4MxO26ojVtAqTma9PTy43tLrz4vCNCPUC7Kks/Qw2Ob25J9iIHEKna
+         yoTnvdZ2prwfqQfLxhwFP/gwegw9DvNM0aK/PrMO7zOny2mKJ++Ut3EwSRKxanj3uPkS
+         9kRoFCDCuN4SoME7Sen6joW5YpL+a6LU046njlg9L5i13JXoj2//GIrAa3DtDZPx6ZKA
+         ipTQ==
+X-Gm-Message-State: AOJu0YzTEVE+ywDbTBMI1SrQzOgAmCkdLAIchFjgTiqFChLfai4sZjB/
+	M6rd9hC1m+zDzu0lVwHLyjofnWlY0wwG1jMgW1Vepbuwy86HOpglQBYT12WXpUh+saVxFrMtBCI
+	6jcgBPfKbNdiiFdUjPhupmAWc8+7NeZRzufVZVmfeGg==
+X-Gm-Gg: ATEYQzxs+G/Iph/smhv96b6jzQM85FnXnLbgRkAN0tzFPJlDA7MjoY8S2uZZuHdDqZi
+	OczxMDjxGhloHF734uOOkVDdOaQkiN6as1oDMnoZQcbRdOtXTsEjBjQhKVYChKCwfUdH1Mr35C+
+	uCgwXvGr7xyh4ajKfq/PHVraMR202jvhUTdimVicrXyuPNunhTCU5eY4AH86DLI8aQs3LQsJHUo
+	cjy564yv32nNF3vk4zQXVdnoAyeqA6ETlTPwlt34Ebu4RGGyd4tIGY56/qw070yMSjrnD27KBWz
+	Vsf/1m6lE4WuijIB0xNGeRW/FwYzT5A50HIrpA==
+X-Received: by 2002:a05:6830:3885:b0:7cf:d0f4:125c with SMTP id
+ 46e09a7af769-7d591b39d2emr7633324a34.8.1772446663588; Mon, 02 Mar 2026
+ 02:17:43 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1772013062.git.bertrand.marquis@arm.com>
- <832ba950a53a7139b51053f6570fd9b26ba42df1.1772013062.git.bertrand.marquis@arm.com>
- <CAHUa44EjtezLGx=YNtyK-xCU9gmEvBGVLhmG=0YpRWftFxGY-Q@mail.gmail.com> <C0024849-8ACF-4662-B89F-E327732FA669@arm.com>
-In-Reply-To: <C0024849-8ACF-4662-B89F-E327732FA669@arm.com>
+ <0a5f66eaa16f262d4ffad6a8ec4b1b02461f96c1.1772013062.git.bertrand.marquis@arm.com>
+ <CAHUa44FSq6aHTO=HWNOB1Qa5keuEfmhwpSW4hRjVgQdUX0fjmA@mail.gmail.com>
+ <9B608F0B-E564-42C6-9F85-E1701F707554@arm.com> <CAHUa44Fv9LuYED_jjW3UeEDZLjL==s0Myw2vD7PSHPUgn-OC3Q@mail.gmail.com>
+ <6A629240-E2E4-48E4-A79A-031D7258D676@arm.com>
+In-Reply-To: <6A629240-E2E4-48E4-A79A-031D7258D676@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 2 Mar 2026 11:06:41 +0100
-X-Gm-Features: AaiRm52wVBFJ97Qaqhh96KG9ybloh1x00cBNCQR_oUSruRLIKe7BQMlZOyXHPUA
-Message-ID: <CAHUa44H3p5SMFiK3AXrUYWjsxSfa=AQs4PUTJ552AiRNCi3aQQ@mail.gmail.com>
-Subject: Re: [PATCH 4/4] xen/arm: ffa: Add cached GET_REGS support
+Date: Mon, 2 Mar 2026 11:17:31 +0100
+X-Gm-Features: AaiRm50zOMA5LIWMWegHhrVX_S7JC_m-Q-BKdfJNBhLq6IREC8sVwrB1NYlxYgw
+Message-ID: <CAHUa44GhYCGpWXryo3SEBnB_6iFLAZesbsv8H1xENF3P=+Dn+g@mail.gmail.com>
+Subject: Re: [PATCH 2/4] xen/arm: ffa: Cache SP partition info at init
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -136,7 +138,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid,linaro.org:email,linaro.org:dkim];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -150,485 +152,122 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RCPT_COUNT_FIVE(0.00)[6];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 040451D60C0
+X-Rspamd-Queue-Id: 465F21D6499
 X-Rspamd-Action: no action
 
 Hi Bertrand,
 
-On Mon, Mar 2, 2026 at 9:58=E2=80=AFAM Bertrand Marquis
+On Mon, Mar 2, 2026 at 10:58=E2=80=AFAM Bertrand Marquis
 <Bertrand.Marquis@arm.com> wrote:
 >
 > Hi Jens,
 >
-> > On 27 Feb 2026, at 15:56, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
+> > On 2 Mar 2026, at 10:32, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
 > >
 > > Hi Bertrand,
 > >
-> > On Wed, Feb 25, 2026 at 11:02=E2=80=AFAM Bertrand Marquis
-> > <bertrand.marquis@arm.com> wrote:
+> > On Mon, Mar 2, 2026 at 9:51=E2=80=AFAM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
 > >>
-> >> FF-A v1.2 defines PARTITION_INFO_GET_REGS for register-based partition
-> >> info retrieval, but Xen currently only supports the buffer-based GET
-> >> path for guests.
+> >> Hi Jens,
 > >>
-> >> Implement GET_REGS using the cached SP list and VM entries, including
-> >> the register window layout and input validation. Track VM list changes
-> >> via the partinfo tag and use it to validate GET_REGS tag inputs. Ensur=
-e
-> >> that when a non-Nil UUID is specified, the UUID fields in both GET and
-> >> GET_REGS results are MBZ as required by the specification.
+> >>> On 27 Feb 2026, at 11:39, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> Hi Bertrand,
+> >>>
+> >>> On Wed, Feb 25, 2026 at 11:02=E2=80=AFAM Bertrand Marquis
+> >>> <bertrand.marquis@arm.com> wrote:
+> >>>>
+> >>>> FFA_PARTITION_INFO_GET currently queries the SPMC on each call and w=
+alks the
+> >>>> RX buffer every time. The SP list is expected to be static, so repea=
+ted
+> >>>> firmware calls and validation are unnecessary.
+> >>>>
+> >>>> Cache the SPMC partition-info list at init time, keeping only secure
+> >>>> endpoints, and reuse the cached entries for SP count and partition-i=
+nfo
+> >>>> responses. Initialize the VM create/destroy subscriber lists from th=
+e cached
+> >>>> list and free the cache on init failure.
+> >>>>
+> >>>> SP partition info now reflects the init-time snapshot and will not c=
+hange.
+> >>>>
+> >>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >>>> ---
+> >>>> xen/arch/arm/tee/ffa_partinfo.c | 205 +++++++++++++++++++++---------=
+--
+> >>>> 1 file changed, 138 insertions(+), 67 deletions(-)
+> >>>>
+[snip]
+> >>>> +static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
+> >>>> +                                   uint32_t fpi_size)
+> >>>> +{
+> >>>> +    const uint8_t *src =3D buf;
+> >>>> +    uint32_t secure_count =3D 0;
+> >>>> +    uint32_t n, idx =3D 0;
+> >>>> +    bool warned =3D false;
+> >>>> +
+> >>>> +    if ( fpi_size < sizeof(struct ffa_partition_info_1_0) ||
+> >>>> +         fpi_size >=3D FFA_PAGE_SIZE )
+> >>>> +        return false;
+> >>>
+> >>> Would it make sense to check that fpi_size is well aligned with struc=
+t
+> >>> ffa_partition_info_1_0? If it's an odd size, we'll make unaligned
+> >>> accesses below with memcpy(). But perhaps that's a bit much. The SPMC
+> >>> isn't supposed to provide garbage.
 > >>
-> >> PARTITION_INFO_GET_REGS is available to v1.2 guests, returning cached =
-SP
-> >> entries and VM entries with UUIDs zeroed for non-Nil UUID queries.
-> >>
-> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >> ---
-> >> xen/arch/arm/tee/ffa.c          |  16 +++
-> >> xen/arch/arm/tee/ffa_partinfo.c | 211 ++++++++++++++++++++++++++++++++
-> >> xen/arch/arm/tee/ffa_private.h  |   4 +-
-> >> 3 files changed, 230 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >> index aa43ae2595d7..d56eb20c2239 100644
-> >> --- a/xen/arch/arm/tee/ffa.c
-> >> +++ b/xen/arch/arm/tee/ffa.c
-> >> @@ -44,6 +44,11 @@
-> >>  *   - doesn't support signalling the secondary scheduler of pending
-> >>  *     notification for secure partitions
-> >>  *   - doesn't support notifications for Xen itself
-> >> + * o FFA_PARTITION_INFO_GET/GET_REGS:
-> >> + *   - v1.0 guests may see duplicate SP IDs when firmware provides UU=
-IDs
-> >> + *   - SP list is cached at init; SPMC tag changes are not tracked
-> >> + *     between calls
-> >> + *   - SP list is capped at FFA_MAX_NUM_SP entries
-> >>  *
-> >>  * There are some large locked sections with ffa_spmc_tx_lock and
-> >>  * ffa_spmc_rx_lock. Especially the ffa_spmc_tx_lock spinlock used
-> >> @@ -188,6 +193,7 @@ static bool ffa_negotiate_version(struct cpu_user_=
-regs *regs)
-> >>             write_lock(&ffa_ctx_list_rwlock);
-> >>             list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
-> >>             write_unlock(&ffa_ctx_list_rwlock);
-> >> +            ffa_partinfo_inc_tag();
-> >>         }
-> >>
-> >>         goto out_continue;
-> >> @@ -341,6 +347,12 @@ static void handle_features(struct cpu_user_regs =
-*regs)
-> >>     case FFA_FEATURE_SCHEDULE_RECV_INTR:
-> >>         ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, 0)=
-;
-> >>         break;
-> >> +    case FFA_PARTITION_INFO_GET_REGS:
-> >> +        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> >> +            ffa_set_regs_success(regs, 0, 0);
-> >> +        else
-> >> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >> +        break;
-> >>
-> >>     case FFA_NOTIFICATION_BIND:
-> >>     case FFA_NOTIFICATION_UNBIND:
-> >> @@ -402,6 +414,9 @@ static bool ffa_handle_call(struct cpu_user_regs *=
-regs)
-> >>     case FFA_PARTITION_INFO_GET:
-> >>         ffa_handle_partition_info_get(regs);
-> >>         return true;
-> >> +    case FFA_PARTITION_INFO_GET_REGS:
-> >> +        ffa_handle_partition_info_get_regs(regs);
-> >> +        return true;
-> >>     case FFA_RX_RELEASE:
-> >>         e =3D ffa_rx_release(ctx);
-> >>         break;
-> >> @@ -629,6 +644,7 @@ static int ffa_domain_teardown(struct domain *d)
-> >>         write_lock(&ffa_ctx_list_rwlock);
-> >>         list_del(&ctx->ctx_list);
-> >>         write_unlock(&ffa_ctx_list_rwlock);
-> >> +        ffa_partinfo_inc_tag();
-> >>     }
-> >>
-> >>     ffa_rxtx_domain_destroy(d);
-> >> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
-rtinfo.c
-> >> index d7f9b9f7153c..1c7b3579f798 100644
-> >> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> >> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> >> @@ -28,10 +28,39 @@ struct ffa_partition_info_1_1 {
-> >>     uint8_t uuid[16];
-> >> };
-> >>
-> >> +/* Registers a3..a17 (15 regs) carry partition descriptors, 3 regs ea=
-ch. */
-> >> +#define FFA_PARTINFO_REG_MAX_ENTRIES \
-> >> +    ((15 * sizeof(uint64_t)) / sizeof(struct ffa_partition_info_1_1))
-> >> +
-> >> /* SP list cache (secure endpoints only); populated at init. */
-> >> static void *sp_list __read_mostly;
-> >> static uint32_t sp_list_count __read_mostly;
-> >> static uint32_t sp_list_entry_size __read_mostly;
-> >> +
-> >> +/* SP list is static; tag only moves when VMs are added/removed. */
-> >> +static atomic_t ffa_partinfo_tag =3D ATOMIC_INIT(1);
-> >> +
-> >> +void ffa_partinfo_inc_tag(void)
-> >> +{
-> >> +    atomic_inc(&ffa_partinfo_tag);
+> >> Memcpy should prevent issues even if accesses are not aligned.
+> >> If we had this test, we cannot return an error to the SPMC so we would=
+ have to
+> >> generate one to the caller. It is simpler i think to handle non-aligne=
+d as we do not
+> >> expect the SPMC to generate such a case.
+> >> Tell me if you agree.
 > >
-> > Do we need to worry about this value wrapping? Is wrapping permitted?
+> > We dereference fpi below, and depending on compiler flags and pointer
+> > types, memcpy() might not be safe with unaligned pointers.
+> > From 6.3.2.3 Pointers, paragraph 7, in the C standard:
+> > "A pointer to an object type may be converted to a pointer to a
+> > different object type. If the
+> > resulting pointer is not correctly aligned for the referenced type,
+> > the behavior is
+> > unde=EF=AC=81ned."
+> >
+> > I've seen past examples where the compiler optimized memcpy() in a way
+> > that breaks with unaligned pointers.
+> >
+> > We don't expect the test above to fail, but if it does we will not use
+> > the secure firmware. I think refusing unexpected sizes is even
+> > simpler. It should make finding eventual errors much easier.
 >
-> wrapping is permitted, as the end this value is used to ensure changes in
-> the middle of info_get_regs are detected. Having enough changes in the
-> middle for this to wrap and end up un-detected by the caller is near to i=
-mpossible.
-> In any case, the status we return is a snapshot which have changed as soo=
-n as
-> the result is returned so i would consider this a best effort (even if th=
-e probability
-> for this to happen is very very near to 0).
+> In the ffa spec, the size can grow and this is why there is a size field.
+> FF-A expect that we either ignore or copy without looking the extra
+> content.
+> I think we should not be dependent on any alignment so we need to
+> make sure we do the copy in a way that is robust to non alignments.
+>
+> >
+> > So my question above is whether it's worth checking that fpi_size is
+> > well-aligned, or if it's so unlikely that we don't need to consider
+> > it.
+>
+> I think we need to find a solution where we handle properly things even
+> if the size is not aligned.
 
-I'm sorry for being unclear. atomic_t is implemented as struct { int
-counter; }, wrapping the counter element is undefined behaviour. But
-it will take quite some time before we get there and perhaps the
-assembly implementation of atomic_inc() is expected to mitigate the
-undefined behaviour part.
+I agree, that's the most robust.
 
->
-> >
-> >> +}
-> >> +
-> >> +static inline uint16_t ffa_partinfo_get_tag(void)
-> >> +{
-> >> +    /*
-> >> +     * Tag moves with VM list changes only.
-> >> +     *
-> >> +     * Limitation: we cannot detect an SPMC tag change between calls =
-because we
-> >> +     * do not retain the previous SPMC tag; we only refresh it via th=
-e mandatory
-> >> +     * start_index=3D0 call and assume it stays stable while combined=
-_tag (our
-> >> +     * VM/SP-count tag) is used for guest validation. This means SPMC=
- tag
-> >> +     * changes alone will not trigger RETRY.
-> >> +     */
-> >> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >> +        return atomic_read(&ffa_partinfo_tag) & GENMASK(15, 0);
-> >> +    else
-> >> +        return 1;
-> >> +}
-> >> static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t f=
-lags,
-> >>                                       uint32_t *count, uint32_t *fpi_s=
-ize)
-> >> {
-> >> @@ -125,6 +154,7 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid=
- uuid, uint32_t *sp_count,
-> >>     for ( n =3D 0; n < sp_list_count; n++ )
-> >>     {
-> >>         void *entry =3D sp_list + n * sp_list_entry_size;
-> >> +        void *dst_pos;
-> >>
-> >>         if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
-> >>             continue;
-> >> @@ -136,11 +166,20 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uu=
-id uuid, uint32_t *sp_count,
-> >>          * This is a non-compliance to the specification but 1.0 VMs s=
-hould
-> >>          * handle that on their own to simplify Xen implementation.
-> >>          */
-> >> +        dst_pos =3D *dst_buf;
-> >>         ret =3D ffa_copy_info(dst_buf, end_buf, entry, dst_size,
-> >>                             sp_list_entry_size);
-> >>         if ( ret )
-> >>             return ret;
-> >>
-> >> +        if ( !ffa_uuid_is_nil(uuid) &&
-> >> +             dst_size >=3D sizeof(struct ffa_partition_info_1_1) )
-> >> +        {
-> >> +            struct ffa_partition_info_1_1 *fpi =3D dst_pos;
-> >> +
-> >> +            memset(fpi->uuid, 0, sizeof(fpi->uuid));
-> >> +        }
-> >> +
-> >>         count++;
-> >>     }
-> >>
-> >> @@ -152,6 +191,38 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uui=
-d uuid, uint32_t *sp_count,
-> >>     return FFA_RET_OK;
-> >> }
-> >>
-> >> +static uint16_t ffa_get_sp_partinfo_regs(struct ffa_uuid uuid,
-> >> +                                         uint16_t start_index,
-> >> +                                         uint64_t *out_regs,
-> >> +                                         uint16_t max_entries)
-> >> +{
-> >> +    uint32_t idx =3D 0;
-> >> +    uint16_t filled =3D 0;
-> >> +    uint32_t n;
-> >> +
-> >> +    for ( n =3D 0; n < sp_list_count && filled < max_entries; n++ )
-> >> +    {
-> >> +        void *entry =3D sp_list + n * sp_list_entry_size;
-> >> +
-> >> +        if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
-> >> +            continue;
-> >> +
-> >> +        if ( idx++ < start_index )
-> >> +            continue;
-> >> +
-> >> +        memcpy(&out_regs[filled * 3], entry,
-> >> +               sizeof(struct ffa_partition_info_1_1));
-> >> +        if ( !ffa_uuid_is_nil(uuid) )
-> >> +        {
-> >> +            out_regs[filled * 3 + 1] =3D 0;
-> >> +            out_regs[filled * 3 + 2] =3D 0;
-> >> +        }
-> >> +        filled++;
-> >> +    }
-> >> +
-> >> +    return filled;
-> >> +}
-> >> +
-> >> static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t star=
-t_index,
-> >>                                    uint32_t *vm_count, void **dst_buf,
-> >>                                    void *end_buf, uint32_t dst_size)
-> >> @@ -368,6 +439,146 @@ out:
-> >>     }
-> >> }
-> >>
-> >> +void ffa_handle_partition_info_get_regs(struct cpu_user_regs *regs)
-> >> +{
-> >> +    struct domain *d =3D current->domain;
-> >> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> >> +    struct ffa_uuid uuid;
-> >> +    uint32_t sp_count =3D 0, vm_count =3D 0, total_count;
-> >> +    uint16_t start_index, tag;
-> >> +    uint16_t num_entries =3D 0;
-> >> +    uint64_t x3 =3D get_user_reg(regs, 3);
-> >> +    int32_t ret =3D FFA_RET_OK;
-> >> +    uint64_t out_regs[18] =3D { 0 };
-> >> +    unsigned int n;
-> >> +    uint16_t tag_out;
-> >> +
-> >> +    if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
-> >> +    {
-> >> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    /*
-> >> +     * Registers a3..a17 (15 regs) carry partition descriptors, 3 reg=
-s each.
-> >> +     * For FF-A 1.2, that yields a maximum of 5 entries per GET_REGS =
-call.
-> >> +     * Enforce the assumed layout so window sizing stays correct.
-> >> +     */
-> >> +    BUILD_BUG_ON(FFA_PARTINFO_REG_MAX_ENTRIES !=3D 5);
-> >> +
-> >> +    for ( n =3D 4; n <=3D 17; n++ )
-> >> +    {
-> >> +        if ( get_user_reg(regs, n) )
-> >> +        {
-> >
-> > x4-x17 are SBZ, so I think we should only ignore them.
->
-> Ack, this was added to satisfy the compliance suite but this
-> has been solved since. I will remove.
->
-> >
-> >> +            ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +            goto out;
-> >> +        }
-> >> +    }
-> >> +
-> >> +    if ( x3 >> 32 )
-> >
-> > Same here: Bits[63:32] are SBZ.
->
-> Same here.
->
-> >
-> >> +    {
-> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    start_index =3D x3 & GENMASK(15, 0);
-> >> +    tag =3D (x3 >> 16) & GENMASK(15, 0);
-> >> +
-> >> +    /* Start index must allow room for up to 5 entries without 16-bit=
- overflow. */
-> >> +    if ( start_index > (GENMASK(15, 0) - (FFA_PARTINFO_REG_MAX_ENTRIE=
-S - 1)) )
-> >> +    {
-> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    uuid.val[0] =3D get_user_reg(regs, 1);
-> >> +    uuid.val[1] =3D get_user_reg(regs, 2);
-> >> +
-> >> +    if ( sp_list_count &&
-> >> +         sp_list_entry_size !=3D sizeof(struct ffa_partition_info_1_1=
-) )
-> >> +    {
-> >> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> >
-> > This can't happen. But I guess a sp_list_entry_size > sizeof(struct
-> > ffa_partition_info_1_1) might be supported to be future proof.
->
-> Right now we have FFA_PARTINFO_REG_MAX_ENTRIES enforcing the
-> structure to be 1.1 size. If this is not true in the future we will have =
-to modify
-> this.
->
-> This is not really future proof and i will check if i can rework this.
->
-> >
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    tag_out =3D ffa_partinfo_get_tag();
-> >> +
-> >> +    if ( start_index =3D=3D 0 )
-> >> +    {
-> >> +        if ( tag )
-> >> +        {
-> >> +            ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +            goto out;
-> >> +        }
-> >> +    }
-> >> +    else if ( tag !=3D tag_out )
-> >> +    {
-> >> +        ret =3D FFA_RET_RETRY;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    if ( ffa_uuid_is_nil(uuid) )
-> >> +    {
-> >> +        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >> +            vm_count =3D get_ffa_vm_count();
-> >> +        else
-> >> +            vm_count =3D 1; /* Caller VM only */
-> >> +    }
-> >> +
-> >> +    ret =3D ffa_get_sp_count(uuid, &sp_count);
-> >> +    if ( ret )
-> >> +        goto out;
-> >> +
-> >> +    total_count =3D sp_count + vm_count;
-> >> +
-> >> +    if ( total_count =3D=3D 0 || start_index >=3D total_count )
-> >> +    {
-> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >> +    if ( start_index < sp_count )
-> >> +        num_entries =3D ffa_get_sp_partinfo_regs(uuid, start_index, &=
-out_regs[3],
-> >> +                                               FFA_PARTINFO_REG_MAX_E=
-NTRIES);
-> >> +
-> >> +    if ( num_entries < FFA_PARTINFO_REG_MAX_ENTRIES )
-> >> +    {
-> >> +        uint32_t vm_start =3D start_index > sp_count ?
-> >> +                            start_index - sp_count : 0;
-> >> +        uint32_t filled =3D 0;
-> >> +        void *vm_dst =3D &out_regs[3 + num_entries * 3];
-> >> +        void *vm_end =3D &out_regs[18];
-> >> +
-> >> +        ret =3D ffa_get_vm_partinfo(uuid, vm_start, &filled, &vm_dst,=
- vm_end,
-> >> +                                  sizeof(struct ffa_partition_info_1_=
-1));
-> >> +        if ( ret !=3D FFA_RET_OK && ret !=3D FFA_RET_NO_MEMORY )
-> >> +            goto out;
-> >> +
-> >> +        num_entries +=3D filled;
-> >> +    }
-> >> +
-> >> +    if ( num_entries =3D=3D 0 )
-> >> +    {
-> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >> +        goto out;
-> >> +    }
-> >> +
-> >
-> > What if the tag read with ffa_partinfo_get_tag() has changed?
->
-> As said this is a best effort, we provide a snapshot.
-> Now i could check and compare the tag at the end to handle this case.
->
-> I will check if i can make this a bit stronger by comparing the tag at th=
-e
-> beginning and the end or try to handle it differently (get its value whil=
-e we
-> have the rwlock on the list of VMs maybe).
+> I though using memcpy would protect against
+> that but maybe we need to use a stronger solution to ensure that works
+> even if data is unaligned.
 
-Checking the tag at the end to let the caller retry might be enough.
+memcpy() can be used, but the pointer values must not pass through a struct
+ffa_partition_info_1_0 pointer or such.
 
 Cheers,
 Jens
-
->
-> Cheers
-> Bertrand
->
-> >
-> > Cheers,
-> > Jens
-> >
-> >> +    out_regs[0] =3D FFA_SUCCESS_64;
-> >> +    out_regs[2] =3D ((uint64_t)sizeof(struct ffa_partition_info_1_1) =
-<< 48) |
-> >> +                  ((uint64_t)tag_out << 32) |
-> >> +                  ((uint64_t)(start_index + num_entries - 1) << 16) |
-> >> +                  ((uint64_t)(total_count - 1) & GENMASK(15, 0));
-> >> +
-> >> +    for ( n =3D 0; n < ARRAY_SIZE(out_regs); n++ )
-> >> +        set_user_reg(regs, n, out_regs[n]);
-> >> +
-> >> +    return;
-> >> +
-> >> +out:
-> >> +    if ( ret )
-> >> +        ffa_set_regs_error(regs, ret);
-> >> +}
-> >> +
-> >> static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-> >>                                       uint8_t msg)
-> >> {
-> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
-vate.h
-> >> index 1a632983c860..c291f32b56ff 100644
-> >> --- a/xen/arch/arm/tee/ffa_private.h
-> >> +++ b/xen/arch/arm/tee/ffa_private.h
-> >> @@ -289,7 +289,7 @@
-> >> #define FFA_MSG_SEND2                   0x84000086U
-> >> #define FFA_CONSOLE_LOG_32              0x8400008AU
-> >> #define FFA_CONSOLE_LOG_64              0xC400008AU
-> >> -#define FFA_PARTITION_INFO_GET_REGS     0x8400008BU
-> >> +#define FFA_PARTITION_INFO_GET_REGS     0xC400008BU
-> >> #define FFA_MSG_SEND_DIRECT_REQ2        0xC400008DU
-> >> #define FFA_MSG_SEND_DIRECT_RESP2       0xC400008EU
-> >>
-> >> @@ -452,6 +452,8 @@ bool ffa_partinfo_init(void);
-> >> int32_t ffa_partinfo_domain_init(struct domain *d);
-> >> bool ffa_partinfo_domain_destroy(struct domain *d);
-> >> void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
-> >> +void ffa_handle_partition_info_get_regs(struct cpu_user_regs *regs);
-> >> +void ffa_partinfo_inc_tag(void);
-> >>
-> >> int32_t ffa_endpoint_domain_lookup(uint16_t endpoint_id, struct domain=
- **d_out,
-> >>                                    struct ffa_ctx **ctx_out);
-> >> --
-> >> 2.52.0
->
->
 
