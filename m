@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCoYK6tcpWlc+QUAu9opvQ
+	id gL5nDi5fpWlc+QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 10:47:23 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 10:58:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EB111D5BE1
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 10:47:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244045.1543513 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1881D5D4F
+	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 10:58:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244055.1543524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwzrD-0005LJ-CJ; Mon, 02 Mar 2026 09:46:31 +0000
+	id 1vx024-00079y-CW; Mon, 02 Mar 2026 09:57:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244045.1543513; Mon, 02 Mar 2026 09:46:31 +0000
+Received: by outflank-mailman (output) from mailman id 1244055.1543524; Mon, 02 Mar 2026 09:57:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vwzrD-0005J8-9C; Mon, 02 Mar 2026 09:46:31 +0000
-Received: by outflank-mailman (input) for mailman id 1244045;
- Mon, 02 Mar 2026 09:46:29 +0000
+	id 1vx024-00077U-8V; Mon, 02 Mar 2026 09:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 1244055;
+ Mon, 02 Mar 2026 09:57:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vwzrB-0005J1-Jj
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 09:46:29 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1vx01t-00071G-TK
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 09:57:41 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af1c8e77-161c-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 10:46:27 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-439a89b6fd0so1516515f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 01:46:27 -0800 (PST)
+ id 3510c92a-161e-11f1-b164-2bf370ae4941;
+ Mon, 02 Mar 2026 10:57:22 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4807068eacbso34804125e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2026 01:57:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439ae0e7abasm12693544f8f.23.2026.03.02.01.46.26
+ 5b1f17b1804b1-483bfcb4f8bsm309877465e9.4.2026.03.02.01.57.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Mar 2026 01:46:26 -0800 (PST)
+ Mon, 02 Mar 2026 01:57:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,53 +50,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af1c8e77-161c-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 3510c92a-161e-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772444787; x=1773049587; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772445441; x=1773050241; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A4uQD7zUtyHXk1WG+956ZToLtgs8GZrFVfxV6u16ylE=;
-        b=JMmOVTiJEcNeUPnr0Uvrnxh0ZrZpIBHVpCI+9Q5/jAlcYuCi5QGwT/Tb29+gvMAi0F
-         HjnoAV32SedDpQPeHIt1zgDzsJVSJ/qqis+swGj6woYqo45Wl8fHruzix0DQZ29irRIq
-         vY0Czf4vhZgrrbLy4Fe0wNJ2bImwa4DYu5pqNwJeC2XoqIDQiwLi9sHboFjOtdYbpAkw
-         +q5TdAthiKoMpVuo78lBi9N/4QsTdJhq+uAFWo8T0ZHjMsfMAeV5bxKlbrAbxxzkYtzk
-         5nvyqB8Q8AvHfq4myUTk5ehnPx/hmKlCUJgFw7uYEK303LGYgy+5gi4QkHp4Wb0/8HTG
-         r3XQ==
+        bh=rlfLkU5zFNa46IcsgJeGs4KnjPnmVvVatz5QByV8OIc=;
+        b=DdL/M6RSrkeQRB5UDcFFprbWzaojCzKUlcDNVPz2MUv18rAS5P3w9PFHjHMxSEQcHo
+         MbNP9ERyVCUcKpM3aHB1E+HWnjmgq/fFKMpng6rukG3W8xQYwWJc7lzRkaxlSfaf2zHB
+         29S6bAvPi/bm+d5D00frTsiG5gGjZJ70wxO5UmdpEjGl3vQRs6eBDK4Dz7c4M2e9FJYs
+         RmZq7xEli9R4cTxh0ykWu3uyqvxdCqYJDpUGG+fgE9szl+9F+UfwgdMmk+INik04O3a/
+         MTPt9YgJczvkuaJTVane/lfgS4JQ4L1PkVjOJ+6Ip1MOZe68aHDbZgw4c93ipBpVBoPV
+         2bzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772444787; x=1773049587;
+        d=1e100.net; s=20230601; t=1772445441; x=1773050241;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A4uQD7zUtyHXk1WG+956ZToLtgs8GZrFVfxV6u16ylE=;
-        b=e+f/NXuNZcak5Pxj12FhK3FFIS462XlnGNCfKPjQdJaBWW6gsqbXJM1LQ4fQ6mL1mr
-         3oqsv9klaUBtQ5t4VmCcdhgGJteUCWcSoBs44MSinO08IDDNipHkkuuOzM39Mk6J5+j+
-         43RsrpBcbc332VHFy56/fvIp9JC52YLhWdVp2csyufRK2OdcZdSpvi9VGNJBt1TOdDbQ
-         We4WCLPeJiq7tsBQX/EL+jp3ueyd4QZkcxGPJGpgWr5GA0CB11y88ZnfZUpiAeuj+oPe
-         60fVPy1rwXdHoIkzCr+LSuwIOYRjt4DV57LKSBp9K5ZXqmQXsfXIROdFSxm7FYq3PPtc
-         ZbZg==
-X-Gm-Message-State: AOJu0YwC+dJt16xeBOSYK1UG3YmdzbVOiJQwC2RBBJxyhnw+CpuidbmV
-	6R3Im6QTT4hi76pgo2tZLoXsOf9zxnNgaCCtXEin/iw6DAkAnI9o4WCwn1m81nbtGw==
-X-Gm-Gg: ATEYQzwCXwOPMy/+oWjAypgbZi5KrlIz9GHJymYDtJ1HMkXu36PegqsHbzVYTB7L4n7
-	hOPX0bb+yZz+gDBRr3/j7JOAelRNDI3SunXItcnh1DpocyXAfCk6+qPKVX4oJQk3MXT2xbwScP6
-	58Ohpuok2c6N96V0XkEGkcJnSDYPkWRhJi80KoLgTm52VzpiG1/7eoYbDG4aEek8MR9pS25Yokv
-	s9oGwg/ec3SJcaMwWOeweXn1GL2R4JmatMNwynxc0C05bdRdVhhDW85W0uKch764T41QUt/XP+y
-	isILAWaJxvG+w/bxTyt0QhvxwtlRaLpJscf9tj/uX6qIUy1JCLyTQh6/3Ou7MWihAgIEuxYph+a
-	4f8QmxKV2ZlsIeBHnL9wsQ3LOYQA/2QNwuQ44uV9usCF/D7mu7Q31+WtmbnYzAPc0aHdcoaRaRc
-	D40iMpHnyxn/drRLeUVViLn3uzAqJptDI00kvwQIdhfYcV0f9eQ1nTy1Gg3ttuBJZEgsyE+1+tN
-	0zW9FC2Mgfc/Uk=
-X-Received: by 2002:a5d:584f:0:b0:439:5c75:dc08 with SMTP id ffacd0b85a97d-4399de0b8c0mr21267342f8f.10.1772444787163;
-        Mon, 02 Mar 2026 01:46:27 -0800 (PST)
-Message-ID: <8a8d0a11-2b19-4fb8-bc0f-9397c0db8ed9@suse.com>
-Date: Mon, 2 Mar 2026 10:46:29 +0100
+        bh=rlfLkU5zFNa46IcsgJeGs4KnjPnmVvVatz5QByV8OIc=;
+        b=jpI5ecgr7yoXP7VIavVI9xzIuqxeJOG09xVlt/WjAnK4fRBD3wCmiBg60fdG5V42dN
+         /JMrcWOg9rM6SXG0Eon5YEBguIhUQAhhQcjK9/sYvtpE0hcVKXLB36s8LyhI4MowcD3I
+         +Tmp/tR/g1gdid/o5MjAW+nIONsQK/3Srz0x6tKCNLLer+pbGzeliAgDfzipJJqtEZRz
+         0JEkbChir24uhDFDCJEKKiCIUuRJfyUkpWDWNdQAsONRLfE4+hdw5mReb405bNdqtz4x
+         TPICkjZVj8qHUD88UT6kxz8JbqlLIIslIkdZkYulpK7qQD8/fdBAJvJRGr46txQlYF5I
+         DGoA==
+X-Gm-Message-State: AOJu0Yz3PtZSdxBsiYu+X7+g91cvke/gvpNe2I9z03gju+zNJ7Ddho3d
+	nXATPFDYTv5vnM7r8yXTn23upxbbhFbKBUFw5BnRlO8zc9++P1cAmd9Js6zaQb765A==
+X-Gm-Gg: ATEYQzxLqdtt0SwuETbJRzMSsW9RlC/0dvzTT1zJM41QLJPGXx+SlVfkots6mSry6yF
+	ZV2U6WySX2ZI0iGXiyWlkqphyuzQlw+ObIffdzRyHZYxOSEass7kh1O7iWytGJqDxd/qXwIIeBu
+	8R0OhQBNI8aIXChJ7EzLQLlK4QCk5FBsmZrF8M2r96ihsc/kK86E2N/j0oXfr0wjV15sYCm+Alg
+	VgVjgmCxds2XoDDzFuOqflqeRryx3l/syVYGzZSD7HADWsMWmmV00OUZIqasRYeckqVAZ4o0ext
+	HI/DxywzPIXMULDZ5aWYEfR2R5qwQVLxC4+GSwKdiMHN907N6yjYpnvtyjF46uuz28lYtjMI7iV
+	Q3CoGvAW7YEqNMO3hJzfaSJ1COU4f+Gbboun4yZ5LokVoki4PgBAt2RwuV/9WnQ9WToCTwoyWzp
+	v2dOnkwN1BtUJZydoysykj5oAxNCMgZTkGGVVQTSxmLszNPX+oDNzxFSQFN8IptQPFxBBJTNnXo
+	Y2+574WjhbXqz0=
+X-Received: by 2002:a05:600c:5394:b0:483:8e43:6def with SMTP id 5b1f17b1804b1-483c9bf46b7mr199465045e9.28.1772445441451;
+        Mon, 02 Mar 2026 01:57:21 -0800 (PST)
+Message-ID: <ee815d76-1178-4620-9376-5a0533cbfcc6@suse.com>
+Date: Mon, 2 Mar 2026 10:57:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/cpufreq: fix adjusting of sampling window on
- early exit
+Subject: Re: [PATCH 2/2] xen/cpufreq: fix usages of align_timer() in the
+ on-demand governor
 To: Roger Pau Monne <roger.pau@citrix.com>
 References: <20260227073259.1200-1-roger.pau@citrix.com>
- <20260227073259.1200-2-roger.pau@citrix.com>
+ <20260227073259.1200-3-roger.pau@citrix.com>
 Content-Language: en-US
 Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
@@ -123,7 +123,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260227073259.1200-2-roger.pau@citrix.com>
+In-Reply-To: <20260227073259.1200-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: lfdr
@@ -134,7 +134,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:mid,suse.com:dkim,suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
@@ -158,20 +158,16 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4EB111D5BE1
+X-Rspamd-Queue-Id: DD1881D5D4F
 X-Rspamd-Action: no action
 
 On 27.02.2026 08:32, Roger Pau Monne wrote:
-> The logic in dbs_check_cpu() resets the sampling window even when the
-> sampling period is considered too small.  This leads to further calls
-> finding an imbalance between the total window time and the idle time, as
-> the total window time is possibly shorter than the idle time.
+> The first parameter passed to align_timer() is the timer expiration, not
+> the current time.  Adjust the calls to align_timer() in the on-demand
+> governor to pass the expected timer expiration as the first parameter.
 > 
-> Fix by resetting the sampling window start time in the same block where the
-> current idle time is stored.  While there also prevent a duplicated call to
-> NOW() and instead re-use the previously fetched value.
-> 
-> Fixes: d6f001cb91ac ("x86: Implement cpufreq ondemand policy")
+> Fixes: af74e3a15a83 ("cpufreq: align dbs timer for better package C state residency")
+> Fixes: 382b95f627a9 ("Fix cpufreq HW-ALL coordination handle")
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
