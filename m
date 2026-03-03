@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CN7DKPoSp2mfdQAAu9opvQ
+	id oCUNGQkzp2kjfwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:57:30 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 20:14:17 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19E5B1F4349
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:57:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244981.1544325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB051F5C3A
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 20:14:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245026.1544377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxT3Z-0002Ls-28; Tue, 03 Mar 2026 16:57:13 +0000
+	id 1vxVB5-0002QY-Nf; Tue, 03 Mar 2026 19:13:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244981.1544325; Tue, 03 Mar 2026 16:57:13 +0000
+Received: by outflank-mailman (output) from mailman id 1245026.1544377; Tue, 03 Mar 2026 19:13:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxT3Y-0002Iy-VZ; Tue, 03 Mar 2026 16:57:12 +0000
-Received: by outflank-mailman (input) for mailman id 1244981;
- Tue, 03 Mar 2026 16:57:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxT3W-0002Is-SC
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 16:57:10 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 041fdbe4-1722-11f1-b164-2bf370ae4941;
- Tue, 03 Mar 2026 17:57:09 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-439b790af67so1442721f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 08:57:09 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439c4489279sm2993564f8f.20.2026.03.03.08.57.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 08:57:08 -0800 (PST)
+	id 1vxVB5-0002NR-Kd; Tue, 03 Mar 2026 19:13:07 +0000
+Received: by outflank-mailman (input) for mailman id 1245026;
+ Tue, 03 Mar 2026 19:13:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KsTL=BD=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1vxVB4-0002NL-0u
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 19:13:06 +0000
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c112::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fc11022c-1734-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 20:12:57 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SJ0PR03MB5503.namprd03.prod.outlook.com (2603:10b6:a03:288::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Tue, 3 Mar
+ 2026 19:12:53 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9654.022; Tue, 3 Mar 2026
+ 19:12:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,165 +52,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 041fdbe4-1722-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772557028; x=1773161828; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xS72+haNYWCevDvohxWWznv7pyLrld8FU80bvDuP3UY=;
-        b=cpwbe2R0nbSeH5TFdK0I2TqA/85llbju5UnIQYbhLuVqoMhf7Ml6SU59IA14ImDqyz
-         FhyYA/+zvvGyiIYz66adL4mjr5MqIY/u6M5aXhfQewDuMQO8UwpJJ44xTICMeZ2jM9XC
-         gabmD+PYcRUfCCy79G+Ys1xTQvC1p4eYzUVcoRdXxvWTXkX1/FU4cI5QwgYQQTlaz0ym
-         4dsmkISk1KQjatq73KSYOrrUdXJfyx+pa+V++gPV2ME5s4cFKO2hc5pjl0ZNZtdduaWR
-         qaWJL+oxBuRAtxaNSrHfd5Y6ArlnMpNr66D+bqoX2jNqX86O+jlAbEc89ybx6vNF8YjR
-         ky+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772557028; x=1773161828;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xS72+haNYWCevDvohxWWznv7pyLrld8FU80bvDuP3UY=;
-        b=wfV6RI8GndZ9FctSHgH19XusCVJYh8odIiODqmWLWLPRPPw35Xsti+MTvEV/fSN5I+
-         fUDBz+lvzej9ERaeoBGZRVrMLyTJxgqwMLPcTlRmBamdbbwVmLqysqtMwuBk+ebfdMJA
-         Pb8SrTDTt9lU+2rBQomlTfEGVzldz74XrHwNMuDmwQRkolO4yOVY8MqTchbXKMPHGSkQ
-         zojW0eTz04H3Ym5WuZJNqtM2tXP2UFeOAn4tm+VtKwy1Ki4w1Nz6ZzcQJrAvuUGFSC0l
-         QqPgeChNgjr2hqhtZCibPSdYa9sIfy5cYdIaS/5tUhxgA3lvdeawxchg9wfz5aYrJot7
-         8mWA==
-X-Forwarded-Encrypted: i=1; AJvYcCWQAWhLGXl9R5P5ozifuXRfv58yRXMLtlYMTVgX6ooZM6Z3JM1k747kum0sQmF0ncN1aLBOSB9JcfI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOesPmfLcU1ItzYGLW2IiQIhriMklX/F82V9fQQG89jjpWIcpJ
-	gncLiNdlsxkoU5jG9KY5iM15SJjFbmra1q9DNzguzVyQk6Tn4hZZmkIgLpbZguXYKg==
-X-Gm-Gg: ATEYQzyrU8UZV0GdARh4mSmtIHvF9Ysb1biu8mrWCAFezA/4TaAh/NFJFvmdSUJcTDi
-	LvfhtaSJMXoXn/RtJE5CTKQh6FH5CdtJrLwev2G5L1DuZRSt5v/pFmaSlkN14YRdyAk2ZDd3K3f
-	slQ+pDqLG0MNe19wWFXGMvyim0U/dtmHe7p3R09w6QWtfY0mSpWHu65C8VI9GDWg/D0jghMLUhW
-	9tZUPUKmdYzORi5zR2wNB+03+kTOz555HOueR3V4udiQZYw1sld3XP/B8lBUW1nBd/Fh+pE//oN
-	yWUatslXe2v4gFbL9fziXZzJLioNsIu2vYOFsVsOTgcg+X1oikt9Tlq2xuMCV6GaHxyfVX8BWaH
-	z1VtFX824p8dSqAS/YjZfkmVlq1jW0R4fXTyUOzHz53uEpkGMmgwujbb0V1KokR7xf+QuyB9YA6
-	qJN1aSEsMn6S5yenXT2wwKRdQeScgw6v/Y67QRDDNV9hHGJ1wdvhjeDEIeWaQYPT90cBUaUbuuC
-	rQ58Msq3g+kLSI=
-X-Received: by 2002:adf:e788:0:b0:439:b775:fca2 with SMTP id ffacd0b85a97d-439c10dfa1amr4629127f8f.24.1772557028366;
-        Tue, 03 Mar 2026 08:57:08 -0800 (PST)
-Message-ID: <79729d02-65ae-4eeb-a66b-e05cdcfe9166@suse.com>
-Date: Tue, 3 Mar 2026 17:57:06 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: fc11022c-1734-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ckPV2KqLhvv0gr4XgNi6DxkH6OB3k1a1bMQddtC6JHPwVrjZEnXwJvE6rUCkJCEuo6u83R1upYugu0LITpJiHwN436c2RynaJjyybbUqDJw7jtsThQtNXwUzDJbOVIpPZqKhDtKoLJDFIrNOY8fXPJukp6Kg0kFR87QM/2DOOMCc59/sE4wywPlzHjDDyw3y5x6s1VwSKMvXBq5yHf2OcHTwKO1hfQxKwsey5i9lx0vHevBIk9XzX8hF+AX3J0HCvVvylyn8fW56Lzc9mKtjcQufAu1zDuMecYbNQsE2D0HqAfyE1WJ9Q8Qj/ezpYtoXXWIcwx6gB2Sy0rNSddsDGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gzg/aIEl53JUjWu/8td9aBPGZTL2UamZUBY7hTm/Bio=;
+ b=nRBjflV4iXkbgy8HppncOdzN4XZXuzSl2NJ6eIOu9yFzVq62mjhFixW88zZUfa5S5SMw1J/C37EDndC0bCA+Aqn/BIVGTRQF3NBkoabxrMLsxamAMtJ7MpozqHomg5qnlX/E1ayiJTOZ3L92n70c00aJqP9+v6mJex5cbCPI4XWSQkdZtSKsXvP7kE/C2Pwf/UY9kGy6bWisIr7LSECWQh5FHyf7acRl6tjrYCgPyjBQxLRrIhvo4sJS2VtMeCrXduGygU3wSuA0H/SphLC8XJQVAdblHukIj7mi3zKeAhVAh672ynrv68r0gkTbeK8nPU110oiHuPvEDKdz+uopfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gzg/aIEl53JUjWu/8td9aBPGZTL2UamZUBY7hTm/Bio=;
+ b=sdA+YwiAKtoqLtjxE0arX9atF68UBuiW4fDsqDgV3NQ2XVwhRWWY1ZcNDkYfKInLAJlfSzNZPd4Dej7pWr5TUJ5zJtqeIUD1HKgiOOV7qMvBZMCLOpFBHBXcQZwN/+iS13/MKE9W1sW2DPwmzYKlIWMdA2yidbOYQrFX4CsdSJA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <3db44102-66c2-475b-8588-960ad774ee73@citrix.com>
+Date: Tue, 3 Mar 2026 19:12:49 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86/ioreq: Extend ioreq server to support multiple
- ioreq pages
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260223093831.475769-1-julian.vetter@vates.tech>
- <20260223093831.475769-2-julian.vetter@vates.tech>
- <c9126823-7c90-40bb-9fd1-c5649ffdb5cd@suse.com>
- <151c64e9-a605-410a-b3b0-2c86cdf6fd2c@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <151c64e9-a605-410a-b3b0-2c86cdf6fd2c@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, jbeulich@suse.com,
+ roger.pau@citrix.com
+Subject: Re: [PATCH] x86: Remove x86 prefixed names from mcheck code
+To: Kevin Lampis <kevin.lampis@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260302191900.672460-1-kevin.lampis@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20260302191900.672460-1-kevin.lampis@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 19E5B1F4349
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0412.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:189::21) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB5503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 074ad2d5-2e73-4cfc-3dd7-08de7958de60
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	INDE3bGrAXpbFRk8yEaJN3lxyfJ1PlbYTVkpSxWF8wLRggHLtgwg8eBBrjrDQy1yEeYZgPR5GINYurhiAO/02vhQTkfFAAUzrSH274didbAzDEMIZ1QVluWGtPGNbRCBYBE01WzmgjTGzEAyQyUcpIdSKkF1hAV+2Lw+GWyORcWx1TGt/HgjxIB+0M4IGYvbmqKZrKF7j/8FWpDT/NjKQgWW96cYXOb4DnoxOq90QcFuYynL/RmI4URJyGf3yYrnvGn05N/j18FHkfCvJN0ibxEFaMOeWQzBcUxha1c76rOl7enZgHJ66v3wKJ5FMdQtLAJY2UnRMBI+4jhNmG3yZc+E+INPMdif8MORs3EZUFkz3xu/Tt+e3aQ8xl30NgO2L3M1uXSg/nyJoddZa6yzsu2Uj4wIRx9Lmo3bwkngDbF/eT3uLP3BAwePpYDbfm481C4gQlrMsCnokyBIokwRNYkrUNfHaMNDfdIzURJsNBrrq8mvV4v+P2i4eZDEfQuosQu8nJp/8yzFnPYwQLoWrOLk1XSsQUjVqcSz+29WfGN+TUEWcpHhM7ri3ol4jjORJbycQdpYu2vj9qycLdX6XZFD3RHp7Ac5+2uGpOT5B8KtQ8SiollbZ4UfMnqgvUHgw07Yw68PXxD70c9/vzV6WoSo+3OnPXGHUbDUaFkGO/tqD+HQnbtDrPs07+nOpfePQw51FsncxVfLZc+8M+xqqKeFJ3gCGLj4ONg9elb1cYg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TlRCMG8zNGRjYWd0RXowUUx0dGdwS21yYzdyUi8rK1VaTnI0dDRucVM4aldF?=
+ =?utf-8?B?T1BmaXNvRGt1WjZMTGVDai9JV1RZL2RpN0FidXVySy80NXFDUzk1aXFWVmpk?=
+ =?utf-8?B?SDEyUlo1NVlEMVRxaERsUGRxQzdGN2RnRzNJc3B2SU1DYjhOZ09CSUVqQzNW?=
+ =?utf-8?B?Q3ZvSDgxTFQ4cXRGR2EwNlZiZE5VUHlTK3RqQU1wdG9ISnBnelFmVkYzdU5w?=
+ =?utf-8?B?L3JMSUZNb2JQaldIYjlMVW9zRnVsbmp1VEV3VVZ0SU1JMzlJbDZ2THRjT29n?=
+ =?utf-8?B?aFhMVWwrWEltQk5keWlyUGFzcWlpM3d2OXEvTUdncTBlSkFMUWYvWFNOMHlr?=
+ =?utf-8?B?TWpmODdMVTN1ZldRc2lOdHphZStZT25ZaXZMTDJDd0dvQkhHUFNtQjdLZ1Fp?=
+ =?utf-8?B?c0lOSlBGamhERWlYTHl6dnh3bE9QMzRZVmZ0NVJMQlI4QWxoOHY3dkRmcTJB?=
+ =?utf-8?B?NmJIOXordmVqeHZyZVZQcHpmeWpSS2VqWWdleHFzY2RRZVVLbGFXQVNoQ09O?=
+ =?utf-8?B?UzJ6T01kMUFTV2c1WDgxT2s0WFYyWUp5MjVhSi9iMnErdDUvWjlNNHY3NVZ5?=
+ =?utf-8?B?djFIbStLQ1VhWDgyd1RaM2tBS0h2QXdVd0JQb3N4TXJpWFkwejY0VFJQWU1x?=
+ =?utf-8?B?am0rYU9PNVFRbVpFUEgvTFpWMzltOWFRb2RCVWc0d1ptaUVQSmlVaERKaEJD?=
+ =?utf-8?B?eUZFaVRvbDZTQU1kR3VHVXo5MUd2aXJuNjNneFZtb3dOYWRBZEpxSnNyalRI?=
+ =?utf-8?B?YW9SdWZYM3pESkdoUEV4ZUllVHZyNGliSXFTUldWZEI1MngvVXNWSnpYL2Q5?=
+ =?utf-8?B?VERETGRGbmJkWHZqcVd2ei8reW9XdU9rZHcyM05qU3YyMG9SWE45RXNoaFhh?=
+ =?utf-8?B?THhScENZOExuRE1oMDlGVk1yWGdRam1wR3oxbGJIelo0dnd1SjZhZXkyMHpz?=
+ =?utf-8?B?bWlJdXlnUVBKQWNmdm0yaHhBVnZZclA0N3lwMVI3elIxSzVWZVRveEVvbjlp?=
+ =?utf-8?B?d0ZreWJUYm9DTEMxWndtOThXd1J3UzN3QkpTajFKMnplS1BtbHM4alF1Rkcv?=
+ =?utf-8?B?NXh4ZjExWXU0b04vcTBxRHlaV1pPVS9tYkZwRGIxVjBFcm1ldndoQ20zcUQv?=
+ =?utf-8?B?bnoxb0lETjUvSWFGUnZJeEZKMHZYdUY4Wmk4T2MvOWQ1em5Cd1VQdGJHY0VG?=
+ =?utf-8?B?WVExUU9WbElzV0VYSEVleityQ1lYTGl2UlpsVG5ySUJxU3U1UXBCMXMzUmJu?=
+ =?utf-8?B?M0h5clpnTFZlb3AvNys4aDREemsraXIrMWptWFBpQ1pxUGR3ekFyL1p1LzVu?=
+ =?utf-8?B?ckNLaWRMREFqSFFXUVU5V3lRclBDN2M5SXJyOHVZRk5HQm5MWk1Sdk9aa0pX?=
+ =?utf-8?B?MmdzSm9mYThHblZrcG5FN0pKUThsSEpjRU1MUWh4eHJEcERkV051R1ZGcUxG?=
+ =?utf-8?B?dnlZbCt1SUVLdXcrd3A5TXl0amxuaWZzZ2M1T093OFczOTZUUm9LeXR6bHRO?=
+ =?utf-8?B?QXJDNVhZWnVQUHQ5RGcvVGVSK2R4TzJ4SWdBSlZqaUlXYlVjNDdtSkVsSFNX?=
+ =?utf-8?B?QjV0UDUyQTFwc2orYmdMMnFudEJQb3FFK3RwZ0F2b2tGV1IzVXU2VEZPNldp?=
+ =?utf-8?B?RHpQdThBQm16akFqOVozRGhTNVhIaGY4UEJuNWFQbHkydVlPN1lCbXNXSXZE?=
+ =?utf-8?B?WTkzZy9WMVVjakcrcmNjOXBEWkEvYzV1c0IvZ1owbTc0S1RWSnhCeERheHQ5?=
+ =?utf-8?B?NmpEVFFlRXhXVFM4Zms1UzhHY0ZOSC9RWU1TT1NzTll5WnVQYnNzZUk0emEz?=
+ =?utf-8?B?dFhSZVFteWdMOGYxZFg1MHpxakIvR1FwbEpKeHhMNW9EUS9PN2F0VGJJLzZO?=
+ =?utf-8?B?d2g5cnI0MVJYNFJWMzV1SkNUbjF2clQ3RWc3Sk1IK3ZXK2RUUm9sTGR0Mjlz?=
+ =?utf-8?B?K0Q0blZXZ1NqK2hvc25JZ0RuUEtndmI3dTYycEZaZWMyK0lKVWxkZTRKa3JS?=
+ =?utf-8?B?Q2NFMmdSV2xuTDYrVElsYW9mdkI5cXVhTUVQTVpWa1BBVHIxb3NTdlZBN09L?=
+ =?utf-8?B?SGhHbWhXVTE5YkZySGJTZlpCM24rTXp6Z0VQR3BUbk5iTlNjMlR0MldUYTd1?=
+ =?utf-8?B?Yjd2SW5sNjBqNVRrVkZ0dWhoMExHSEJ6MDRPbGtmV2ZmNnRjZ28rNHpYTFk0?=
+ =?utf-8?B?Q093dkJ4R2dkS0dtekoyWVhINGdQcUhOalROOTdxREhTdEdabThKZTd5Nms2?=
+ =?utf-8?B?bFBJeE5zOEdpbXJpNWZQeWkwVWNMQkZSMDFLU1FDUkdBWlhoUVBkN1hqUkVG?=
+ =?utf-8?B?OC9NSmtkUWl1ZzNzNUtFaHY1QysweW5EWlJya3NOMnVWVVI4Nm5Mdz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 074ad2d5-2e73-4cfc-3dd7-08de7958de60
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2026 19:12:52.8940
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0O1Pxxsx8xdJjkoPDmZb9sREcnWYKeWxyZUiqlyTY+tgYQ2QKGrrnvE+GNGMxahJ+WQ5Or82W+MjwdZ+G670N98eLzmqcnVy6/1sU8Kvfw4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5503
+X-Rspamd-Queue-Id: BEB051F5C3A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 03.03.2026 17:48, Julian Vetter wrote:
-> On 2/26/26 16:54, Jan Beulich wrote:
->> On 23.02.2026 10:38, Julian Vetter wrote:
->>> A single shared ioreq page provides PAGE_SIZE/sizeof(ioreq_t) = 128
->>> slots, limiting HVM guests to 128 vCPUs. To support more vCPUs, extend
->>> the ioreq server to use xvzalloc_array() for allocating a contiguous
->>> virtual array of ioreq_t slots sized to d->max_vcpus, backed by
->>> potentially non-contiguous physical pages.
->>>
->>> For the GFN-mapped path (x86), page and writable type references are
->>> obtained directly via check_get_page_from_gfn() and get_page_type() for
->>> each GFN. The pages are then combined into a single contiguous VA using
->>> vmap(). The number of ioreq pages is computed at runtime via
->>> nr_ioreq_pages(d) = DIV_ROUND_UP(d->max_vcpus, IOREQS_PER_PAGE), so
->>> small VMs only allocate one page. All existing single-page paths
->>> (bufioreq, legacy clients) remain unchanged.
->>>
->>> Mark the now-unused shared_iopage_t in the public header as deprecated.
->>
->> For this I think we need to settle on one of two options: Either it was a
->> mistake that this was used in the hypervisor (and added to the public
->> interface), in which case the removal of the use may want to be separate
->> (without, imo, any need to mark the item deprecated in the public header,
->> as the property remains). Or we deem it legitimate / useful, in which case
->> you would want to continue using it (in struct ioreq_server).
-> 
-> Thank you Jan for you feedback! It's very appreciated! You're right. But 
-> I'm wondering how would dropping the struct work? I looked into QEMU and 
-> varstored, and they both use this struct at the moment. But 
-> modifications to both of them would be minimal if we decide to drop the 
-> struct. And if they want to support multiple ioreq pages we would need 
-> to modify this struct anyway to not contain a single struct ioreq, but a 
-> pointer or [].
+On 02/03/2026 7:19 pm, Kevin Lampis wrote:
+> struct cpuinfo_x86
+>   .x86        => .family
+>   .x86_vendor => .vendor
+>   .x86_model  => .model
+>   .x86_mask   => .stepping
+>
+> No functional change.
+>
+> This work is part of making Xen safe for Intel family 18/19.
+>
+> Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
+> ---
+>
+> In xen/arch/x86/cpu/mcheck/mce.c: mcheck_init(...)
+> Xen only calls `intel_mcheck_init(...)` if family is 6 or 15.
+>
+> Linux only calls `mce_intel_feature_init(...)` if family != 5.
+>
+> Do we need to do something like extend this switch statement in
+> `mcheck_init(...)` to include family 18 and 19?
 
-There may be a misunderstanding here: I said "drop the use" (in the hypervisor,
-that is), not "drop the struct". There's also no strong need for a pointer or
-[], as it looks: It being [1] right now is, aiui, a poor man's flexible array.
-For one, for general use the public headers need to be C89 compatible, i.e. no
-flexibly arrays unconditionally. While we do have some conditional uses (see
-XEN_FLEX_ARRAY_DIM), that may not be usable here, as the array is the sole
-field of the struct.
+Yes, we will want to include 18/19.
 
-Jan
+The Machine Check infrastructure in the Pentium was very primitive, but
+everything 6 and later should be fine.  I think we'll want to switch to
+the Linux form here.
+
+>
+>
+> In xen/arch/x86/cpu/mcheck/mce.c: mce_firstbank(...)
+> The check
+>   c->family == 6 && c->vendor == X86_VENDOR_INTEL && c->model < 0x1a
+>
+> could be re-written as
+>   c->vfm >= INTEL_PENTIUM_PRO && c->vfm < INTEL_NEHALEM_EP
+>
+> I don't know if that would be better.
+
+There's a subtlety.  This suggestion is for ...
+
+> diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
+> index 9a91807cfb..10e826e3a6 100644
+> --- a/xen/arch/x86/cpu/mcheck/mce.c
+> +++ b/xen/arch/x86/cpu/mcheck/mce.c
+> @@ -564,8 +564,8 @@ bool mce_available(const struct cpuinfo_x86 *c)
+>   */
+>  unsigned int mce_firstbank(struct cpuinfo_x86 *c)
+>  {
+> -    return c->x86 == 6 &&
+> -           c->x86_vendor == X86_VENDOR_INTEL && c->x86_model < 0x1a;
+> +    return c->family == 6 &&
+> +           c->vendor == X86_VENDOR_INTEL && c->model < 0x1a;
+
+... here, but you've made a related change ...
+
+> diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
+> index 839a0e5ba9..9100ce0f6c 100644
+> --- a/xen/arch/x86/cpu/mcheck/mce_intel.c
+> +++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+> @@ -711,10 +711,7 @@ static bool mce_is_broadcast(struct cpuinfo_x86 *c)
+>       * DisplayFamily_DisplayModel encoding of 06H_EH and above,
+>       * a MCA signal is broadcast to all logical processors in the system
+>       */
+> -    if ( c->x86_vendor == X86_VENDOR_INTEL && c->x86 == 6 &&
+> -         c->x86_model >= 0xe )
+> -        return true;
+> -    return false;
+> +    return c->vfm >= INTEL_CORE_YONAH;
+
+... here.
+
+It's not safe to have a single inequality like this, unless you're
+absolutely certain you're inside a c->vendor==$ME region.
+
+In both cases here you're replacing a vendor check, suggesting that we
+might not be within a suitably guarded region.  mce_firstbank() does
+seem to be used from common code.  mce_is_broadcast() OTOH does look to
+be fully within an Intel-only region.
+
+
+Otherwise, The vendor encoding in the higher bits will make a false
+positive/negative match on one side of the inequality.
+
+It is safe to use c->vfm >= FOO && v->vfm <= BAR, because constants of
+another vendor will not be captured.
+
+~Andrew
 
