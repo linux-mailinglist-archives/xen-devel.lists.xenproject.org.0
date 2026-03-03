@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QC+SA1XppmnjZgAAu9opvQ
+	id OIccC9HqpmnjZgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:59:49 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:06:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67B881F0E8A
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:59:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244785.1544154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92BBB1F10A4
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:06:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244796.1544166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxQHW-0005RH-91; Tue, 03 Mar 2026 13:59:26 +0000
+	id 1vxQNg-00074j-Um; Tue, 03 Mar 2026 14:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244785.1544154; Tue, 03 Mar 2026 13:59:26 +0000
+Received: by outflank-mailman (output) from mailman id 1244796.1544166; Tue, 03 Mar 2026 14:05:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxQHW-0005Oe-6H; Tue, 03 Mar 2026 13:59:26 +0000
-Received: by outflank-mailman (input) for mailman id 1244785;
- Tue, 03 Mar 2026 13:59:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vxQNg-00071c-RV; Tue, 03 Mar 2026 14:05:48 +0000
+Received: by outflank-mailman (input) for mailman id 1244796;
+ Tue, 03 Mar 2026 14:05:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxQHU-0005OW-OF
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 13:59:24 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e88407a-1709-11f1-b164-2bf370ae4941;
- Tue, 03 Mar 2026 14:59:23 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-48329eb96a7so38341925e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 05:59:23 -0800 (PST)
+ id 1vxQNf-00071S-M1
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 14:05:47 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 128020ed-170a-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 15:05:45 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-482f454be5bso61561095e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 06:05:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48516f74a1dsm4328835e9.2.2026.03.03.05.59.21
+ 5b1f17b1804b1-485133426aesm25494955e9.3.2026.03.03.06.05.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 05:59:22 -0800 (PST)
+ Tue, 03 Mar 2026 06:05:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e88407a-1709-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 128020ed-170a-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772546362; x=1773151162; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772546745; x=1773151545; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eJb6jyNRbVRCqYi3utXU/8acVkjcEF4cLekP0QdSkZs=;
-        b=IAVuEmyS/8HU4Zrb3A4Syn6T605vVjedC3dOnWVejj84mVcLS7cc9iBrATG5zy9T6w
-         unwxmlEQvVCgvtBZvDCmgQGT/gB4uGt64ls6mIW02K5YPEDbsDHjhsc5pN3EMDisHUYM
-         0rf22cJ/eg1uMBlVy9oPA+LVCFxuJo1pBEpF+px5O3ov6rp8s8CWzc/Z8qp4fXaZTJvK
-         dbaCRJ1fAkg7LQbo7K8SV7n0kbkWl1rw78n0SISrh5Hi1cDDH5x9XSYtXwYp83d8rw8D
-         JxHV4G33btIPN8YOwIwIXIUa+NDelWY6fERmXBsa3SkDbL3mFoKzMJqYlXIHQTn93Mr7
-         ripw==
+        bh=8ihoPi48xkGuWHBXmjYqxnC0s+ZR+a0aSNzSbBs2yQQ=;
+        b=a8VAZRkI+40KDXNSDUb3P6AXnefLn2OfQwV6qkyQvtl3ATm1CFDYCRmmkN6teDloHF
+         KvDcMdV5iAvDI1h+Flk0rjbfCZrXOQzw9NUHMgSD3RHyidDqSkegBD4A4O/s94LXpdXF
+         yXdRBc7OB3mPeWh2fybRGm0z55Ylv7+dINUgDAzuFKPLEE4HmcgsXnEpG8dQGik4h8mW
+         x/hJlOcSrmuj87e0gu5hJzk+xe65ymMr3NabPqJFhfy+sGWtyAunsAjyG2/1HAjCsbqA
+         q0E9Vdtu25yrqWNEIEr6ti29oxtzJLLkUbEyqjEt5uMbWAlaXty1+sXxqPyLExCEDMlY
+         T7rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772546362; x=1773151162;
+        d=1e100.net; s=20230601; t=1772546745; x=1773151545;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eJb6jyNRbVRCqYi3utXU/8acVkjcEF4cLekP0QdSkZs=;
-        b=epqO9QabfNHA0DB6owcHxJwtnbanEd5kP/bQKrao31On+Tz+HAzOlG2PtzHPCbv1tW
-         OpHr9ErgCmYvSeRDeTHSCbahIf+iYJofuCaNzYRhhA40LKcDKL+WA0N3DHPplPgcKa0A
-         Gg0kdAr3fBS3MrU9hvWx3RnPaaMF1jPiXTOsyH6YnFuG8qul2vBBkUHbxvSQvZrRl/ph
-         vHhtapCqohPdeZGLGXGFk9T/5yCG2IxCQJ1GHf3AQQ+XL085FpioTmBiTVmOwW6d4HSA
-         hL443FEqP1oCmNk54JcRfVDorvHDcxq+XnanwXEbxaC9WAvuHw2izpvL2HPXWHaCztvy
-         hfRg==
-X-Forwarded-Encrypted: i=1; AJvYcCU49202SRf5auPnZWS9ZzP7E1Tb41wo4GfoR5048s7jrR71dKIbcbUqHDmcA3HgbHiC4Xk+YeyJzls=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxj0v/ZvId6n9w7jxqaW6SNhjtCFpbGhUnFU6hqSrhPXi5fuLqf
-	4RZtYBZJKhl/JlVsL2dS7ZguxMi259fkmIp+UWHDfyxpNFHvLZnoAQT/xtCySx4Fwg==
-X-Gm-Gg: ATEYQzx7SRnchRBlmwt292kwN0oTlTNgkrZc1lXt8arG2gSdIuLXvoOTi/1gdyM9Bdh
-	lXmmsZokBgDG7qdDnF34Cs0xfOyZE/rLQPY7ipTlzoRd3OuV9aNsLg9NzBmkciTOftT8GSci2Iv
-	bmgJxnCRkDTy+ufMWHyl/kGn5F5v1AIu3FkmVqitulbIk+JQoKZu1mUG0wSN5dLF2Ezmy8zDvn2
-	I5iv13bKkwvxEWnNw4G5Wk/9birbEyZCaHdJ1TtjPm/TfOvs2vDywsjAJjXMd0EGOItLskRgiQA
-	W08SCRfiGSjh0SVQ7ogm0m6LmY6lUOM9mHQq+7Y0T7fVUNE9I11Gc4sGjckwK4glCpj/b+3P53o
-	wI2mDDU381QFLt7NqLo5SspKcsmENF9srnepkOR0TiYHrynilbAjUD2NBSiwOoxNQuS2Y7e8kt2
-	WFSss0oea6Ijt7gNimDuGfwJc8AagFQOWaOo/HKBX+1UmoM5lg/mre4r1COQX2RMe/11UwcuiIT
-	ei7cAk8rLwma/2mjWNivaRs3Q==
-X-Received: by 2002:a05:600c:3486:b0:480:1e40:3d2 with SMTP id 5b1f17b1804b1-483c9bedadcmr292926195e9.29.1772546362352;
-        Tue, 03 Mar 2026 05:59:22 -0800 (PST)
-Message-ID: <766824c8-2ec5-45bd-9aed-1e84ad3ff779@suse.com>
-Date: Tue, 3 Mar 2026 14:59:21 +0100
+        bh=8ihoPi48xkGuWHBXmjYqxnC0s+ZR+a0aSNzSbBs2yQQ=;
+        b=QbF4fgp8DSdvJFkZjP248NFsGGDMcp07rGKmusqvPw6URAHTzduBaACufM89zvazUf
+         uXdbEKUKTjBYmMW3fnsYFcG792KkFwhr6soF9QNqg4gc+QimvTBl5AqIAosD/6t91qSa
+         3C3ocSTdQIVT45PB+MzZfLHaj8XYy2847saCWEoBpXlxFEmYvVPolH/UhiiWL25eBlal
+         oh/PoVi6GIuA5gjxa5ZxyWFVtc9GOm/YzL0Hamo8/rz7h7+sHwNlTxQ9yzoep0XtVf9Z
+         sH9JoOcDttBISGnxwUZPAtznqNHP7vNCE7IaisyJT1KdnFmW8aZteQ0aQelxzSrupLSh
+         z3Ng==
+X-Forwarded-Encrypted: i=1; AJvYcCWYty/LgHDabdipRI+NGykxWscROd4AX0M3ZOylmLufFqJckOMIE3k2zTsCcXZ9tcr7fv8lTvjuY0s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwfJnnQTd9TOJS8T/CQcF/wk8Ng1cvCWkgZmQ9oKDX7Iz5ZY8ZQ
+	l+NS7c+geT4qVeYuIK4B9b/O8U6HnLLMex6KuS1CjUadido3Gh9mYv6ex8oYg5aMEg==
+X-Gm-Gg: ATEYQzwLBgETlN/wuXZYLfFIG+DtXYaYJKTpInox3Fm6eA7naIl6w5imbCEoXkNHG58
+	3ekiGx0LlXT3NjUWuglIWVAp2HuFt7NaOuYptIio8a8YJADIa+mTEKvV0pIqKJMyOxoqeKqZ06J
+	DEU9qYNUo/YvNbdrI5R4PiZAc54EM0q+PQwIpas192daOKTF8Yz+wVKDVS6NC7RPXzWUNgnDaFh
+	88Uown8ifwE4MhKUNlUr5O7QwgxlUyGsPEvlxX5/uyeEHYHokx/OSvg1XMTTsHBgU4TQd4nxwxh
+	mTNDIubMrkIiEneDmyeWP2MU5aMvWBu9v6SRuhsHjW9S1fBsJcxSvV+r49Tqy3jokLB9ZZ1HyBC
+	f+kVeeR+1tr9jgxhThaCPcN/pMAWbjSWVzKUD2J/T5FiltuseLVCb77aNC/lovBERQE0vO7J/6h
+	rJDbVCWhH1q8/QWRzvw48MQuJHnPRL1dsQw6U0GqAKe1+LJKhQbhhKejaHWMSunTuc8PrCOVino
+	5Sw/MBmGfpMISA=
+X-Received: by 2002:a05:600c:4f95:b0:483:29f4:26b3 with SMTP id 5b1f17b1804b1-48513a5620amr38725815e9.1.1772546744457;
+        Tue, 03 Mar 2026 06:05:44 -0800 (PST)
+Message-ID: <5116fc4c-c002-44c0-bda8-5af60a075868@suse.com>
+Date: Tue, 3 Mar 2026 15:05:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] tools/tests/x86_emulator: avoid duplicate symbol
- error with clang
+Subject: Re: [PATCH v2 2/4] tools/tests/x86_emulator: fix build on clang-21
 To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1772189234.git.edwin.torok@citrix.com>
- <358a87d89d50475a57f2a5d6ebea01d95a1df6d7.1772189234.git.edwin.torok@citrix.com>
+ <e8bd2b2ac25bf3aa25e06a33c01511d040cc8bca.1772189234.git.edwin.torok@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,10 +125,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <358a87d89d50475a57f2a5d6ebea01d95a1df6d7.1772189234.git.edwin.torok@citrix.com>
+In-Reply-To: <e8bd2b2ac25bf3aa25e06a33c01511d040cc8bca.1772189234.git.edwin.torok@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 67B881F0E8A
+X-Rspamd-Queue-Id: 92BBB1F10A4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -138,7 +137,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
@@ -165,47 +164,47 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 X-Rspamd-Action: no action
 
 On 27.02.2026 11:58, Edwin Török wrote:
-> --- a/tools/tests/x86_emulator/test_x86_emulator.c
-> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-> @@ -1882,8 +1882,13 @@ int main(int argc, char **argv)
->  #define decl_insn(which) extern const unsigned char which[], \
->                           which##_end[] asm ( ".L" #which "_end" )
->  #define put_insn(which, insn) ".pushsection .test\n" \
-> -                              #which ": " insn "\n"  \
-> +                              ".ifndef "#which"\n" \
-> +                              #which ": \n" \
-> +                              ".endif\n" \
-> +                              insn "\n"  \
-> +                              ".ifndef .L"#which"_end\n" \
->                                ".L" #which "_end:\n"  \
-> +                              ".endif\n" \
->                                ".popsection"
+> clang-21's built-in assembler is enabled by default, but it doesn't
+> support some mnemonics:
+> ```
+> test_x86_emulator.c:2636:36: error: invalid instruction mnemonic 'fsaves'
+>  2636 |                        "fidivs %1\n\t"
+> test_x86_emulator.c:2640:24: error: invalid instruction mnemonic 'frstors'
+>  2640 |         asm volatile ( "frstors %0" :: "m" (res[25]) : "memory" );
+>       |                        ^
+> test_x86_emulator.c:4251:24: error: invalid instruction mnemonic 'vpcmpestriq'
+>  4251 |                        put_insn(vpcmpestri,
+>       |                        ^
+> ```
 
-Nice idea, but why multiple .ifndef, and why emitting the insn even if the
-labels are already there (and hence won't be emitted a 2nd time)?
+Btw, for this last one to work with gcc older than 7.x what I have in a
+local "helper" patch is
 
-Further, if the compiler unrolls a loop and instantiates such a put_insn()
-twice, it could pick different inputs (where flexibility is allowed). Most
-present uses (including ones I have pending) meet this requirement (i.e.
-permit only a single register per operand), but vmovdqu{32,16}_to_mem,
-evex_vcvtph2ps, vpcompress{d,q,w},  vpdpwssd_{vex1,vex2,evex}, and
-vmovsh_to_mem don't. {,v}movsd{,_masked}_to_mem, pcmp{e,i}str{i,m} and a
-few more could also end up being problematic if different addressing was
-used for the memory operand(s).
+# if __GNUC__ < 7//temp
+                       put_insn(vpcmpestri,
+                                ".byte 0xC4, 0xE3, 0xF9, 0x61, 0x16, 0x7A")
+# else
+                       put_insn(vpcmpestri,
+                                "vpcmpestriq $0b01111010, (%1), %%xmm2")
+# endif
 
-None of those sit in loops, I think, so we may be safe. But the constraints
-need properly writing down in a comment, I think.
+> Use the external assembler with Clang for consistency with GCC.
+> 
+> Signed-off-by: Edwin Török <edwin.torok@citrix.com>
 
-> @@ -5248,7 +5253,7 @@ int main(int argc, char **argv)
->          memset(res + 3, ~0, 8);
->          regs.eax = (unsigned long)res;
->          regs.ecx = ~0;
-> -        for ( i = 0; i < 2; ++i )
-> +        for (i = 0; i < 2; ++i )
->          {
->              decl_insn(vmovsh_to_mem);
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Excuse me?
+> --- a/tools/tests/x86_emulator/Makefile
+> +++ b/tools/tests/x86_emulator/Makefile
+> @@ -297,6 +297,11 @@ x86_emulate:
+>  
+>  HOSTCFLAGS-x86_64 := -fno-PIE
+>  $(call cc-option-add,HOSTCFLAGS-x86_64,HOSTCC,-no-pie)
+> +
+> +# clang's integrated as does not support some mnemonics:
+> +#  https://github.com/llvm/llvm-project/issues/183635
+
+I see they already confirmed at least the {,v}pcmpestri issue.
 
 Jan
 
